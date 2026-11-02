@@ -1,79 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793587007;
-	b=PRfRi4s4TNNpuuLPT6rWqgVbNZDJajCIlPj+N3nlfTRxf/wYZD4NU+vZZVxkK4mC6KoN
-	 GIAn1yny+BROq9urk5YKaRNOPbqRRUg4QHUhsBo1UJtOEiKgbfQMQFH0tvY/VTwtU20MI
-	 TmN7GtADqrd4p9pqcbPrtpTzpYzRKxtKvEuWs6fea9O2De14L/IbkaVHGJpLilccGDZFy
-	 GIPi6+bAh8HysXey9biJVc4Bu7mjqKM/Oh31RIVbmsTHlU1y/Dd9Eni0rPQz9/RUpz2/b
-	 G2Ds+bQ8JxdlGAH2hLqCxdRqi0dK46BgyiojYj9Ku4ePQyYXGeheSaoOs/osMgEy1Bg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793587007;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DRmE5KHmA5aDoz/5PiXzFOa81nzQkhxyRpJ0L3vIsC4=;
-	b=1dJM9ZpI2eO37RV548h1dZY07jXnpOaa/2vsz0UrsIZ1MN+PnDiR4+A8NFMe9B5XLQqC
-	 aAeSgKSiOwHZDz/Dgw+xWVqxOUKat7O3N29FeV3Nb9XizihEp4J9nnOUYuEYleCYcRLrW
-	 X3gNu8j6ChgucrnMqcUM32w1fheaY+mH+w/N8w/wtpwlalppEHKqAPIurBAGx91ad8K/I
-	 dHyMlm0szKIVenZbebllWp4XFMs82vmO3JHy5ADmQhX8GcTKcmHAk3K6WRhIs4pEcOb8g
-	 8u9hgmQCbvK0X+qqHxbiKttj6+0IAkomNW7P7Zmtx7lihQyOVrjv5DYblvXjE3EKw9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AFk/c7Ai";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FA3606A327;
-	Mon,  2 Nov 2026 02:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFk/c7Ai
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793587006;
-	b=Fy7X+jW6lJXY7g6hLp1KkwuhzJYZJraK0Z9bm1troAKRiVUl2xPhzxElxp5L4j0Nr1W7
-	 NJkQ1OmFwZZrdhCh6Ke4octu83jCJ+YUF2pyv5jR1gZ+toC0VegeafUSGvrwLCfCjU5A/
-	 TEddfMr59oLBMXeWMZdyTUvY6OeESNr7zZKQswdFLk3ijiTuUg0JrHHgtMG1eBLON7n4I
-	 SKL85QHiDJqrASPr+X/dcEypj0pqZ34rWWaTfXskVrhatpd7YR8jnX4dxjTkBsoYdzGjZ
-	 q94R+WJRAwDAZVPVoZhB3QM6LUC0uyczobeGv9w36tiMUSnuNwzGqNfj14PWJ9tl9Wg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793587006;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DRmE5KHmA5aDoz/5PiXzFOa81nzQkhxyRpJ0L3vIsC4=;
-	b=X4Pa+NOuJaSZxTt7+CWvdT6bQzhI50CMlYaQuJ5ImKuPT0hNk+FC3PFTfeq00icKwYJ8
-	 nTH1TcfD/IqmPiBOOJbQUSzJanzbkz2LhTfhcbosu8UVeV18ULjNtU0qyc/THqHI11I8v
-	 rtKPGLqISw5EQMrzS4i32AWRFh3221vcU3RqQ3bvf05bIaxdfI37OqGTgrwqEE/rrShHG
-	 O6kO7G0O6cLN1p0yUvx2kDkqfJleUnMiKxBcJcHIiZhXQLPrMEVI3yhwGlvJxltZUq34m
-	 SyI2aYlr4z4um/NEBUkQ83xypu0MlJEiy+BXrLkW2mpshzSz7zZVQstcEAFx/g6MSeg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793587019;
+	b=SPzP9WeJRG2qdQydvmJa2k2Ut5CrSwe5GAaQLyw4lfSbdjwUCMEiG5BCn4CD1F/sxkFn
+	 AxDQyCh6cQaIBDCt5gFZRtvSxJOIb9LMUVT5pbEZsjlzV7pP2Y63LSRBbwl7/8StHZciD
+	 qbi/PziogwfYCFhyr7LU3UUslHir5gZy2tT8Q9vWTRumHfsxlGJov7ERoYsSoMVs9d3Su
+	 Oml8uUlksvIihuA/snaJnYPTd/CnYZKT+eOnLp857lEPEg4aewDnhyDajvVUJHAYkFr+H
+	 bgHDTGyfsHFoMZfLVZqPc9BFhrV7OiwXEy+cX4Utu/OAczAubbmS1reWo06V+twjSTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793587019;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HEEAk/Q46YxnwTmxNKxdH+qih83wDE1j0UFvCl3PWms=;
+	b=0l7fNVMjAqj6bpRV2x07KtTkMJvESMzN1rTuW+Ln7Skx6fzEsYvoGfYpscI2h9ikNOAO
+	 9ralsaB/D1zS3/SIqL0NUirYKQdMqxVBGDFk+J8DCmh39ZTYC92zDoUvCq1R4WX8wEMu2
+	 APij1ycJC40kMb8mOAR4dd3fT7Fwkf2pGnnOpnv4/RzEVGSfti27w31z1o7lzesKLJ2zK
+	 6vtvbDpSGJC9hLGj7MRhBWLxMnBv3cypNz3zAMFhLIT4F2HwpB3/73YV+CVjGSxA5KcQc
+	 z0uEWhZ2w6n/rVuVaBBN1au/iMllCO6IPMNTyK9dq1fCLveslb90P+5o1NVIZxj9BQA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BVIFoIit;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3FB671F000C1;
-	Mon,  2 Nov 2026 02:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793587006;
-	bh=DRmE5KHmA5aDoz/5PiXzFOa81nzQkhxyRpJ0L3vIsC4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=AFk/c7AinfDvTZT9lGhPD4bSCfmbLgPAXEdiZo/Nc9R4pQtmzJTJvpCMGgc1I+Wm0
-	 hTi1lOA96KQmfExBtXg7Kd4LTpHtx/CHCewFEokEW/7gOE58+6IXooBuvna27DYRES
-	 cjil3BWWJc2bmkdK8kVbQj1szCvmcjUakPRjCcN/gVfyF2J8sSpY1SVu3OTGqguPWf
-	 4p4r6oXHCqxOaigpsBdCanXMJ1olGUqMNsdwBD6L49TglC7RXD6EPqCfynxztAhD3G
-	 /HBfcuHVwBg/MSbkC6Jw5OHuH4gpKr1qiGP62GmWkjFZooAto5WTLKeDn76s/vy+Ec
-	 HAg2DHZhaWPIA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 912344632A;
-	Mon,  2 Nov 2026 02:36:45 +0000 (UTC)
-From: Jonathan Bastari Thamrin via B4 Relay <devnull+thamrinjonathan.gmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 09:36:01 +0700
-Subject: [PATCH bpf-next v2] selftests/bpf: Wait for wq callback before
- checking ok_sleepable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8C7606A336
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:36:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B8C7606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BVIFoIit
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-89f639ba307so820569b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:36:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793587014; x=1794191814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HEEAk/Q46YxnwTmxNKxdH+qih83wDE1j0UFvCl3PWms=;
+        b=BVIFoIitQxf9mhi4w8vrQpbXZKLwAd4TnrCcOEkYIa3lik/Jk4Z5ea2i+TKFO/T12t
+         0utblloiZfXy6iRaVTrldCQ1Nt4/a3PCsmkry2w6kysci6qpii8eMQ0JCN8SnH4/ZDO6
+         gZLx2HY87uwnXbhhr34gqSt1aGLliQj59Z95zE8vReH0Zo0vSqURawMU2P98ISreAGYd
+         Xg9OFbFlbOuhORaY6sw99zjHgH5Yujtp6qwS5pa6Yqz2MjafCR5yGVhT10OEfFo4OHiY
+         TShD3yMTZE1+0LJ+5BdPSqvmB5ezU4187XNnBykOx7NJ/66e7+suY99aVBpOtMabs2Td
+         MGTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793587014; x=1794191814;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HEEAk/Q46YxnwTmxNKxdH+qih83wDE1j0UFvCl3PWms=;
+        b=ydSj7+7QaFkh98lt13F/WhGEpm3+NANTLPTVJu2XlfHXR0VGaJ8qwahT26OWIKYsop
+         r21HoUXZ3hod6clX9dZJCQeDfiq8KLO7DL7GyrYRTg0b+RMUce8pVPS7HAhSYMJ1dBal
+         TyaHdMSn0Et18xtYARPcQpnVGzE8/ipjG/zZT3IZdJ52fm+MmzUa+KQvqQL0VKC2dRCF
+         q8+wN1PhYJvUvENyln3W5K9LZKPOgVjY8vzmh8zJq6gdZoElHWZmtQqUOrRjCFmx/3iC
+         Z8R5pae3IsgNyVqnabdBSFI+4V7+Kg0xl9bGyUbRaHVp8/nTr7k0Zz1j/G0zZQu2RgQl
+         rsow==
+X-Forwarded-Encrypted: i=1; AKwUvBx+MdGYX5w3TeVahBzoUY9O5wLJ5mwRJYZjGNyzFTl706smJULhi/Vfta0GRjDpW3ynVlCAGInuJw2LVBA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8r1nlwC+CUY9G0IzxqADeD8LGJQ+6nVKXai2/Jx6t4mvkeW//t
+	6zoCu0h6zIFoIfnggUB8snSN6bG8YjBM8vDMdtqv05EfNVOQKdX3ZMqe
+X-Gm-Gg: AYBFou3YeE60knHgW+t0ZAFPAPPWJ//aUN3tNcVASICpmd5TeM+lozKzWSOlb3ML+d6
+	rdnFG2xpputLPowjQ8GVATlFObF9R4v1smIl+8V9wXUTLAwHW9tYOfy2AcCLmO2f9pv6IKXEI/N
+	1+hP+WFQ5DYcK25qwyTESKue2NA42UO0uiWsiEaaG4O08Ykux4iWnlTcE293uEKVK3RJCtSwq4a
+	nGqyIbrMpkCMwPVnS82pKZvlsEqvU9KjVmR7ssFpnOHIZxneSYNz7sI1jI1n2MrZ0dC9nSf5bwN
+	UsM+cj5WKuCqvc347P/tm8rgetUCHCMHRPcS0oJCrri7pdBIeLZx/4ulYGso9iiD3TV9BSsQ15w
+	zvc/7BbIit95pQQ5OGxlIGuiFvZ+rFPV+tLIt9T+4wnibBjV2Bjzvjrc0Rj5LhajPRdC3pzqWH3
+	u8Xpt/tRUYMPd48JEQURv0WzH1QRCQoohPRD9m2gKH866Sr6AT4jhz00aH2FnullLXIU8QJ2216
+	EYbW+mKV+6JY2JCj1H+yaoxh0NveSym5K7vZbMS7uUl3qtCL1tw0/isAS+3bgXp1fZTZpeke/3Z
+	55j8MgqxCndNDSCqMU7r5RnF7OJugAkr79wLOGRcSXPjEw==
+X-Received: by 2002:a05:6a00:2389:b0:880:74b9:dcfc with SMTP id d2e1a72fcca58-8a9bddc4237mr7323388b3a.16.1793587013513;
+        Sun, 01 Nov 2026 18:36:53 -0800 (PST)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8addc705868sm167812b3a.35.2026.11.01.18.36.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 18:36:53 -0800 (PST)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: lihongbo22@huawei.com,
+	sandeen@redhat.com,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com,
+	syzbot+e818dd42ada3b583bed1@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] f2fs: fix use-after-free of quota file names on failed remount
+Date: Mon,  2 Nov 2026 10:36:46 +0800
+Message-ID: <20261102023647.1084979-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,120 +100,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-wq-poll-fix-v2-1-48b7d12815b8@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6DIBBEf8XsuduARRt76n80HgAX3UTFgrE2x
- n8v4dzjzMu8OSBSYIrwKA4ItHFkP6dQXgqwg557Qu5ShlKUtRSiws8bFz+O6HhHp2qr7p3RTtw
- gLZZAqc62F5jF4Uz7Cm0iA8fVh2++2WTmf42bRIlNY0kZbavGqWc/aR6v1k/Qnuf5A9N5ZsawA
- AAA
-X-Change-ID: 20261005-wq-poll-fix-f46c47dbaf03
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Mykyta Yatsenko <yatsenko@meta.com>, 
- qikeyu2017@gmail.com, Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793587005; l=2820;
- i=thamrinjonathan@gmail.com; s=20261005; h=from:subject:message-id;
- bh=hj1bolorYbBPrCihpIUsWO5AkHVCWxDBPFRwoFbNmSE=;
- b=2qboYx7ki1e6LqE0lhjhrM98EDBq+eZMEpyS8XxWBLu9Cy712OkJLs6X2eAh+pHcSfsen8tu9
- hnzvV2sXU3eBpNnqYwlHmZ9beozVU9HkH1aam4rdDat+z8buLX+3kiO
-X-Developer-Key: i=thamrinjonathan@gmail.com; a=ed25519;
- pk=QU907bIMYty/tEI/iJF2SrD1lqOf/+2B1MI1zwJ5cBw=
-X-Endpoint-Received: by B4 Relay for thamrinjonathan@gmail.com/20261005
- with auth_id=1114
-X-Original-From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
-Reply-To: thamrinjonathan@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-wq test fails with ok_sleepable reading 0 instead of 2 as workqueue
-callback hasn't executed before check.
+f2fs_show_options() prints the journalled quota file names without any
+lock that excludes remount, and a failed remount frees the current names
+before restoring the old ones.  Reading /proc/mounts at that moment is a
+use-after-free.
 
-This happens as callback runs later on a kworker and 50us isn't always
-enough.
+Read the names under rcu_read_lock() and free them only after a grace
+period.
 
-Change from 50us sleep to waiting for callback by checking wq_cb_run.
-wq_cb_sleepable() now increments wq_cb_run after setting ok_sleepable
-and test loops with sched_yield() until wq_cb_run is set before
-checking.
-
-Before (usleep(50)): 3 fails out of 5000 runs
-Diagnosing issue (usleep(0)): 23 out of 100 runs
-After: 0 out of 2000 runs
-Tested using vmtest on x86_64, test pinned to one CPU with `yes` load
-
-Link: https://github.com/kernel-patches/vmtest/issues/455
-Signed-off-by: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+Fixes: 4b2414d04e99 ("f2fs: support journalled quota")
+Reported-by: syzbot+e818dd42ada3b583bed1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e818dd42ada3b583bed1
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 ---
-Changes in v2:
-- Wait for callback via a wq_cb_run flag instead of polling with a
-  timeout, similar to test_struct_ops_assoc.c (Kumar)
-- Link to v1: https://lore.kernel.org/r/20261005-wq-poll-fix-v1-1-99ce4bac59f4@gmail.com
----
- tools/testing/selftests/bpf/prog_tests/wq.c |  5 +++--
- tools/testing/selftests/bpf/progs/wq.c      | 10 ++++++----
- 2 files changed, 9 insertions(+), 6 deletions(-)
+v2: Added Chao's Reviewed-by.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/wq.c b/tools/testing/selftests/bpf/prog_tests/wq.c
-index 97926e35aaf2..95ed4b69c0f5 100644
---- a/tools/testing/selftests/bpf/prog_tests/wq.c
-+++ b/tools/testing/selftests/bpf/prog_tests/wq.c
-@@ -28,8 +28,9 @@ void serial_test_wq(void)
- 	ASSERT_OK(err, "test_run");
- 	ASSERT_EQ(topts.retval, 0, "test_run");
+ fs/f2fs/super.c | 30 +++++++++++++++++++-----------
+ 1 file changed, 19 insertions(+), 11 deletions(-)
+
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 1071059f2cc2..510df7998c18 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -2325,6 +2325,7 @@ static inline void f2fs_show_quota_options(struct seq_file *seq,
+ {
+ #ifdef CONFIG_QUOTA
+ 	struct f2fs_sb_info *sbi = F2FS_SB(sb);
++	char *qf_name;
  
--	usleep(50); /* 10 usecs should be enough, but give it extra */
--
-+	/* wait for wq callback to finish */
-+	while (!READ_ONCE(wq_skel->bss->wq_cb_run))
-+		sched_yield();
- 	ASSERT_EQ(wq_skel->bss->ok_sleepable, (1 << 1), "ok_sleepable");
- clean_up:
- 	wq__destroy(wq_skel);
-diff --git a/tools/testing/selftests/bpf/progs/wq.c b/tools/testing/selftests/bpf/progs/wq.c
-index 25be2cd9d42c..8148db35effe 100644
---- a/tools/testing/selftests/bpf/progs/wq.c
-+++ b/tools/testing/selftests/bpf/progs/wq.c
-@@ -52,6 +52,7 @@ struct {
+ 	if (F2FS_OPTION(sbi).s_jquota_fmt) {
+ 		char *fmtname = "";
+@@ -2343,17 +2344,20 @@ static inline void f2fs_show_quota_options(struct seq_file *seq,
+ 		seq_printf(seq, ",jqfmt=%s", fmtname);
+ 	}
  
- __u32 ok;
- __u32 ok_sleepable;
-+__u32 wq_cb_run;
+-	if (F2FS_OPTION(sbi).s_qf_names[USRQUOTA])
+-		seq_show_option(seq, "usrjquota",
+-			F2FS_OPTION(sbi).s_qf_names[USRQUOTA]);
++	/* Remount frees replaced names only after a grace period */
++	rcu_read_lock();
++	qf_name = READ_ONCE(F2FS_OPTION(sbi).s_qf_names[USRQUOTA]);
++	if (qf_name)
++		seq_show_option(seq, "usrjquota", qf_name);
  
- static int test_elem_callback(void *map, int *key,
- 		int (callback_fn)(void *map, int *key, void *value))
-@@ -130,11 +131,12 @@ static int wq_cb_sleepable(void *map, int *key, void *value)
- 	struct elem *data = (struct elem *)value;
- 	int offset = data->ok_offset;
+-	if (F2FS_OPTION(sbi).s_qf_names[GRPQUOTA])
+-		seq_show_option(seq, "grpjquota",
+-			F2FS_OPTION(sbi).s_qf_names[GRPQUOTA]);
++	qf_name = READ_ONCE(F2FS_OPTION(sbi).s_qf_names[GRPQUOTA]);
++	if (qf_name)
++		seq_show_option(seq, "grpjquota", qf_name);
  
--	if (*key != offset)
--		return 0;
-+	if (*key == offset) {
-+		bpf_kfunc_call_test_sleepable();
-+		ok_sleepable |= (1 << offset);
-+	}
- 
--	bpf_kfunc_call_test_sleepable();
--	ok_sleepable |= (1 << offset);
-+	wq_cb_run++;
- 	return 0;
+-	if (F2FS_OPTION(sbi).s_qf_names[PRJQUOTA])
+-		seq_show_option(seq, "prjjquota",
+-			F2FS_OPTION(sbi).s_qf_names[PRJQUOTA]);
++	qf_name = READ_ONCE(F2FS_OPTION(sbi).s_qf_names[PRJQUOTA]);
++	if (qf_name)
++		seq_show_option(seq, "prjjquota", qf_name);
++	rcu_read_unlock();
+ #endif
  }
  
+@@ -3151,8 +3155,12 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+ #ifdef CONFIG_QUOTA
+ 	F2FS_OPTION(sbi).s_jquota_fmt = org_mount_opt.s_jquota_fmt;
+ 	for (i = 0; i < MAXQUOTAS; i++) {
+-		kfree(F2FS_OPTION(sbi).s_qf_names[i]);
+-		F2FS_OPTION(sbi).s_qf_names[i] = org_mount_opt.s_qf_names[i];
++		char *qf_name = F2FS_OPTION(sbi).s_qf_names[i];
++
++		/* Pairs with READ_ONCE() in f2fs_show_quota_options() */
++		smp_store_release(&F2FS_OPTION(sbi).s_qf_names[i],
++				  org_mount_opt.s_qf_names[i]);
++		kfree_rcu_mightsleep(qf_name);
+ 	}
+ #endif
+ 	sbi->mount_opt = org_mount_opt;
 
----
-base-commit: a30c772627b2ef4bc715332b1b04938a914556cd
-change-id: 20261005-wq-poll-fix-f46c47dbaf03
-
-Best regards,
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
 -- 
-Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
-
+2.43.0
 
