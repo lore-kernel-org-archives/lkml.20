@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793661118;
-	b=G148ejryJfnBrKFqq2XOVJdC5fo+ItCfEUgLL3TuTSNudH0CQx76ICDLKkG84dNPExoW
-	 paLot1kPTyq9g5pjS5nx8Y6cFA1QtfqFxJ6+DrO5leswr8BbW/z0WiPGSodeolPVnsire
-	 2MKJTkzaUohHcfetcaux3yrjSsOwNNFydtOkpbxpWcEV1ae55ku6YwGL9pqeWTvhDWvBJ
-	 JxTlPIbJ7CnBcSYB98kO2kkmfblJJNetMkcmQN2E8LKXj6pJ8DEmYwEv/ThthvfcPLG/w
-	 YY8YNEgJ+wd83RrKAZ/WRX97CeF6ZKN5mAThS2FPxsYFD3ZKYF6DfKs1nDFUMyqAlJg==
+	t=1793661121;
+	b=GrImVn8RRKcn893jdv7gucLPBrDHq1Wx29qqTzJFp/yHpUa8O7py6PGhiVBKlKMMQiq+
+	 kJWZVfCME1SqMf/WAeP+fp3jtDnCTfUAMcFxbmT9RL2BE/AfZ3d7hVneTumC66PcF0dtS
+	 K4Cpe/sLfmVyEmR7BOAtwoNDXxfF9bM5Jvm5vn1o4c4OrPkPFyqr1yL3VHebYnKYd16NH
+	 oeWzv9bqnLwiDQUdGA+NKJhCxkOOlB7hOdhCzH7+m3hjeEfpPxWQKfCTKGaz9X8Boq/Xx
+	 vbuebE2Fa1roDnwO0A0lZhkxaMXf7w/rwkRsAZpk5i102SQLoeeHvEitJRUBmpDvyww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793661118;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=X+1hRMf6PJJ+U3BKfeC7Q6VI/pjZSymvyopj0O0hLnc=;
-	b=CUMl7Rao3gwGT6ik7vAk3bDSH9uBuRI10aX/FimF6Itq44NSFxOVtHb27Iru8bafSY+z
-	 ivKE0jsKlRCq4hv878DpQfnr/IvIfbh2Wdt0V/F1PHcJm7HUUn+8cjNGGgPMh6adhm1W3
-	 N8Ut4CzdlrTG0mJxwINpX5YgMLu9FuTff05RbJzyxEaC9DPXncQijqbAfbyb+KawvGPEI
-	 0AyTbdKX2uJnfysId7RkeIZCG2OWMVAm5FQXkPIVswqPqrZ88FYCAw7J9guRIanfoRKkO
-	 lsEvI7vDiqEaNRiHlCwmQ4ice5zJXzxJKfD4Kr/rcG2NK4mDf0rm3CdbOyZHiV50gPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793661121;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Subject:Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=EBzcLWZZbm28xGNzws1a2EKWf3kVoVN3oPjNMg6oWJs=;
+	b=MDy9UutEwljI35hUq0sF/tkCDkfVNKLBXSTSJgqX+ew8o9KMY8sWG1w6xiSaaV0kn6Ul
+	 WRR3rnR2lUwG1VXgoYeBuDod9k29Uky7HygBcz/bPuBKCgf2eeghYprpz+aPxYtRJ0rTn
+	 zbcwtUZ4R7dibSrUe6hs1Yjyq71AxMQJL/ZC+FuVb4/b5pf6TMjoGxQEeHba8hUYKZZH1
+	 KkyAEQh0I8QK3GBdGQIRjEwTGPtXhduvkJSWTBGtP1xAxfzyAmbsHy7wovPsaroCZQPkD
+	 hsTnc7Y7HpZoZwkSe1Kv0FBoU4cy0vJkWEYsfcTaBmFYhVvFjsX7nUm2fVyVIyu7Ovg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHh49cJ4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dKx1GMQk;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AFE606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:11:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92AC606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:12:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B92AC606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHh49cJ4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5871F00A16;
-	Mon,  2 Nov 2026 23:11:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793661117;
-	bh=X+1hRMf6PJJ+U3BKfeC7Q6VI/pjZSymvyopj0O0hLnc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XHh49cJ4VpHKgOx81awsd07QxDBtTnW0ZhWZMRnLJSL7Iq7i0rZtg+CiK73xPIdH8
-	 teUuDtuCT2Lm2ifTYZE5u3vtGQ/5vkIvk50fhCLMKic7ZMcrGX9kLCwC3Xcgpyazlb
-	 17qBhZztASSiM8SrWK9b/bvBD3yofgW5kkyVDTuK4NzrZdntxqo9LZP8lGBQRt6Kh5
-	 97aMXHPsLiC5acV3eKKiC1XcdaqtCn6RUnlHSSFYIwm8faLVbgwmT7a0JuB6/GAnST
-	 fdciJEp6SC1bRd9zuDn0qlUEHKPiPdrtRPsONuvD0VcfbA7oplUCgVzkpW4XRbWUCq
-	 mAO/VaTMnxHHg==
-Message-ID: <9c15c580-e62d-4726-9d4c-911eb9378241@kernel.org>
-Date: Mon, 2 Nov 2026 17:11:56 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dKx1GMQk
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-369f33df08eso6957948eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:12:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793661120; x=1794265920; darn=vger.kernel.org;
+        h=content-type:mime-version:user-agent:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EBzcLWZZbm28xGNzws1a2EKWf3kVoVN3oPjNMg6oWJs=;
+        b=dKx1GMQka+i1MOP/Adf6/y+TirUPihCS072qQf18Ny8Lc+CqE6Xgg9lO4A8jk5gBmR
+         m8+vjJ7Ejf1AKzxW5qIKcSkUS1TGAQzmjnviAfdb3l9aiLZUv5dRfFdwAdFWz/U1hrBc
+         edZRdKMxUUoc15bhWBeoEIe2ANX63b6xNPfjEB7KHn1+3VFjH2NU6GYUFaXjBAIETTLz
+         MTI90hPNsvVnG2Lq6HfnGkThwz9UrJhJiFVqjpYIcwXqWurexkVRAYl16NVqunmORmSO
+         99oYf2BnoAU/APoZ2li+pMMH0zGFe3KE6Is1dV++bpyqRdpcbsjkz+8hpRPgwcJshDh3
+         NN6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793661120; x=1794265920;
+        h=content-type:mime-version:user-agent:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EBzcLWZZbm28xGNzws1a2EKWf3kVoVN3oPjNMg6oWJs=;
+        b=rqg4YsXY/HCN7VzYiBvjRawtcnPAB1jITxMpLIi+MOiZmZw0aF79sy9qrhD3w78SwA
+         Gv+azXKX6svSCbJRHuKap/ywoQIuDpTkT+NYOpwGkCjlrePw8uHdj/6hW8hMt7beuPIn
+         /nXtVbJB0mE/eTrlPHArHwbKIIbuPF+z/zYbZiei3h6lQVLy9LNCTM30bTpupMIXxYAD
+         dyIPPzNQnNbg38AAZ/AhioYg9OhRK7dqMDXIFM5ZkYOz/vyBRJJ2A8uW4E3FcQOFsgOL
+         3RHo4V+9/I4aT+vK3IVOEYdfX1vcPG/ADnV1rdHjrd9ljl8PjTlw9XBRl0XvRHpvvoJ9
+         hlfA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7l38Hzxhg6z1LH66AhE/E+hP4NKbo5e8xj4152rjpUO/yvHDJ5a7thlw1Nuaa/2UjHAbux92RGavr9vs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gJrNLN/lYKykS/dOjF317mMfkGVcMliqKfKRaUAKrtgL20Yd9
+	U9IHOxwfVikhmv/TMsGnk3Xr1gaG/289gIDGAiZVSUGB8LguzCI4/Vg2pxeZijVHZyDZAD8XWHk
+	lO8y55GHWioE=
+X-Gm-Gg: AYBFou0AueT8YCkAlN5GUD6uPuncD1hXbJ5r80C1tkOUkpJxsWPwDcP8rvcFk53Zl8b
+	jhSr2981qDyw5trjdRxsnAA6Y5Q173N7ZxWMLbzKEoEXyE6NRemGhAZhXQEiGGauTS7KbVAMXlb
+	DLLCH6dgk83qonB2vLR0OQucVXii3+/Xiv+pEO514+I871IYsRD4C4HHBjdmGThT0gXlTUNwIa8
+	7Cabu24UtSqyzGKt1d/8sbO5aFnwyX9kIUv/z93yP753VyjAjpxj+580W5oEr/HBSvqXrQsMP8a
+	7LUlLLOyumBtIljVXKz9IqdliAE9QVXDNKlmWHnqMCxI/vA0qjd4wqh/8L3ItEzXc5OWlgkA+H3
+	t0kQ4DePe28zTHzN26Sid8RLyma+kJEcj41v/X2plDRGHyq6DdqK3TguU1pnO98WaNXpoTHglAd
+	GvpT1eB4Z8WbOhiIomw41uAWWwBjaGmXdL98CONHUBVJ6jk1ghtaH8vlJDXgj3ARDbXH5pznm0o
+	678Os3g0sgJvlPmRrm6D4HOL4jeB5ocPAjYU+ZM9skP3+x9ZybpvEDfm7YfZ5ft5Cp/oiixLMxb
+	gdV6GYbyL3MLzir4IlOmsPHNLlb0gd+aUZwfRrA/duQwB4q8kTbkNO8JslR1
+X-Received: by 2002:a05:693c:895c:20b0:359:ef9:9be3 with SMTP id 5a478bee46e88-36a4236a466mr16854339eec.11.1793661118925;
+        Mon, 02 Nov 2026 15:11:58 -0800 (PST)
+Received: from bsegall27.localhost ([98.45.141.147])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36b13bd87b2sm594382eec.28.2026.11.02.15.11.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 15:11:58 -0800 (PST)
+From: Benjamin Segall <bsegall@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+ <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
+ <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
+ <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] perf: fix racy update of cpc->hrtimer_interval
+Date: Mon, 02 Nov 2026 15:11:56 -0800
+Message-ID: <xm26se1ihlqb.fsf@google.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,100 +98,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] drm/amd: Enable 2x1 tiled display support on Apple
- 5K iMacs
-Content-Language: en-US
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rodrigo Siqueira <siqueira@igalia.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Richard Lane <richardlanedev@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <9c9310ca-9c2a-4aa3-b03c-83fbaf17710b@gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <9c9310ca-9c2a-4aa3-b03c-83fbaf17710b@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
+Updates to cpc->hrtimer_interval can race with reads either in the
+hrtimer itself, or other calls to perf_mux_hrtimer_restart. This is not
+exactly expected to be a common config change, but it's easy enough to
+fix.
 
+Since there's already an IPI to each cpu to restart the timer, and all
+reads are with irqs disabled, just move the update onto the target cpu.
 
-On 11/1/26 17:22, Richard Lane wrote:
-> Hi folks,
-> 
-> Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
-> drive their internal 5120x2880 panel as a 2x1 tiled display using two
-> 2560x2880 streams over an internal eDP root link and a secondary DP
-> link.
-> 
-> At boot, the Apple EFI firmware initializes only a single 2560x2880 pipe
-> and leaves the secondary DP tile unlatched with HPD deasserted. Because
-> the secondary tile reports HPD low and requires a vendor-specific DPCD
-> handshake before it responds as a DisplayPort sink, amdgpu currently
-> fails to detect the second tile, leaving Linux limited to single-tile
-> resolutions.
-> 
-> This series enables full 5120x2880 dual-tile operation on DCE < 12 Apple
-> 5K iMacs so that the internal 5K panel behaves like a standard DisplayID
-> tiled monitor:
-> 
-> 1. Calculate the pre-OS framebuffer reservation in GMC v7 and v8 using
->     mmGRPH_PITCH and the mmGRPH_PRIMARY_SURFACE_ADDRESS offset from
->     vram_start so the full [3 MiB, 59.25 MiB) Apple EFI scanout surface
->     is preserved during boot handover without vendor-specific quirks.
-> 2. Point the secondary DP link to the root eDP link via an EDID quirk on
->     DCE < 12 (covering iMac15,1, iMac17,1, iMac18,3, and Polaris-based
->     iMac19,1), latch the secondary tile via DPCD 0x4F1 on the root eDP
->     link, write the 3-byte Boot Camp source table (0x310) on the
->     secondary link, keep the secondary tile out of D3 power-down, and
->     unlatch the TCON back to single-pipe mode on suspend/shutdown. Once
->     unlocked, DRM's DisplayID parser populates has_tile, tile_group, and
->     tile_is_single_monitor on both connectors natively. (DCE >= 12
->     support for Vega-equipped iMac19,1, iMacPro1,1, and 2020 iMac20,x is
->     noted as TODO.)
-> 3. Report all_displays_in_sync = true to PowerPlay after
->     dc_commit_streams() whenever all active streams are synchronized into
->     a single timing group by program_timing_sync()
->     (timing_sync_info.group_size == params.stream_count), allowing SMU7
->     to downclock MCLK at idle without modeset underflows.
-> 
-> Changes in v2:
-> - Patch 1: Replaced the hardcoded 64 MiB Apple quirk in amdgpu_gmc.c
->    with a generic calculation in gmc_v7_0_get_vbios_fb_size() and
->    gmc_v8_0_get_vbios_fb_size() using mmGRPH_PITCH and
->    mmGRPH_PRIMARY_SURFACE_ADDRESS.
-> - Patch 2: Dropped the DRM_MODE_CONNECTOR_eDP override in
->    amdgpu_dm_connector.c in favor of DRM's native DisplayID tile
->    properties (has_tile, tile_group, tile_is_single_monitor).
->    Renamed tiled_peer to apple_5k_peer and set it only on the secondary
->    DP link, removing dm_helpers_wire_tiled_peer(),
->    dc_link_is_apple_5k_secondary(), and inline explanatory comments.
-> - Patch 3: Made the PowerPlay sync check generic for any combination of
->    synchronized displays by checking timing_sync_info.group_size ==
->    params.stream_count instead of tiled_peer.
-> 
-> Regards,
-> Richard
-> 
-> Richard Lane (3):
->    drm/amdgpu: use pitch and surface offset for GMC v7/v8 fb size
->    drm/amd/display: unlock secondary tile on Apple 5K iMac panels
->    drm/amd/display: report synced displays to PowerPlay for MCLK switch
-> 
->   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  8 +++--
->   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  8 +++--
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 +++++++++++++++++++
->   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 22 ++++++++++++++
->   drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
->   .../drm/amd/display/dc/link/link_detection.c  |  7 ++++-
->   .../dc/link/protocols/link_dp_capability.c    |  4 +++
->   .../display/dc/link/protocols/link_dp_phy.c   |  3 ++
->   8 files changed, 75 insertions(+), 7 deletions(-)
-> 
+Fixes: 62b856397927 ("perf: Add sysfs entry to adjust multiplexing interval per PMU")
+Signed-off-by: Ben Segall <bsegall@google.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/xm265wykhyrv.fsf%40google.com
+---
+ kernel/events/core.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-I'm happy enough with this approach.  But Harry and Leo should comment 
-on it.
-
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 457d75ea71420..3415e4e3c26db 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -1330,20 +1330,25 @@ static int perf_mux_hrtimer_restart(struct perf_cpu_pmu_context *cpc)
+ 	raw_spin_unlock_irqrestore(&cpc->hrtimer_lock, flags);
+ 
+ 	return 0;
+ }
+ 
+-static int perf_mux_hrtimer_restart_ipi(void *arg)
+-{
+-	return perf_mux_hrtimer_restart(arg);
+-}
+-
+ static __always_inline struct perf_cpu_pmu_context *this_cpc(struct pmu *pmu)
+ {
+ 	return *this_cpu_ptr(pmu->cpu_pmu_context);
+ }
+ 
++static int perf_mux_hrtimer_interval_ipi(void *arg)
++{
++	struct pmu *pmu = arg;
++	struct perf_cpu_pmu_context *cpc = this_cpc(pmu);
++	int ms = pmu->hrtimer_interval_ms;
++
++	cpc->hrtimer_interval = ns_to_ktime(NSEC_PER_MSEC * ms);
++	return perf_mux_hrtimer_restart(cpc);
++}
++
+ void perf_pmu_disable(struct pmu *pmu)
+ {
+ 	int *count = &this_cpc(pmu)->pmu_disable_count;
+ 	if (!(*count)++)
+ 		pmu->pmu_disable(pmu);
+@@ -12763,17 +12768,12 @@ perf_event_mux_interval_ms_store(struct device *dev,
+ 	mutex_lock(&mux_interval_mutex);
+ 	pmu->hrtimer_interval_ms = timer;
+ 
+ 	/* update all cpuctx for this PMU */
+ 	cpus_read_lock();
+-	for_each_online_cpu(cpu) {
+-		struct perf_cpu_pmu_context *cpc;
+-		cpc = *per_cpu_ptr(pmu->cpu_pmu_context, cpu);
+-		cpc->hrtimer_interval = ns_to_ktime(NSEC_PER_MSEC * timer);
+-
+-		cpu_function_call(cpu, perf_mux_hrtimer_restart_ipi, cpc);
+-	}
++	for_each_online_cpu(cpu)
++		cpu_function_call(cpu, perf_mux_hrtimer_interval_ipi, pmu);
+ 	cpus_read_unlock();
+ 	mutex_unlock(&mux_interval_mutex);
+ 
+ 	return count;
+ }
+-- 
+2.56.0.385.gac671c819a-goog
 
