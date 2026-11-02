@@ -1,99 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609202;
-	b=ZTnyUOHV5uccXPFvogdDJp9RgSQd8s3f34cil6hTyFSXv8Kg5XQYs6ZnWJjQ//tbAp1w
-	 MxXCGkaIiYuU50jTfxe5ncjZeRcPnBikaC2mSINxy6S80neTBHC3KUksjeksG0ODGL1qn
-	 GNFk6T375lbtLMJN1JpuoY3BS2oBTVM8wYsE9KyJQlA5AV847pC5CE1FGWtzrL15+KDvC
-	 SyIAfN8buBYk40SvQiHKgMmSU2xDBrNsKrdNtYNPEC9WN5jXUhb6OS5LCsPg90I1TeWVW
-	 RQ9c3aXEzChzw+oNMb45Q79RjFnlh/jNHVxxCXIxafWKya3UrkSqbL3xZyYSxTIaEkQ==
+	t=1793609233;
+	b=bJ/x2JrKVpzdsoGmtcckKv6bKMitXDTlUbVG9l+t9d+jmV7fSiD4Gdw6fOnRkMrbpXK/
+	 ODraWyHF9qtOZiUvMt2giivn4xcobUhBSaWbHo5tTIGNcCrdK2pwXb8vn3rWNYLAEtkHW
+	 IjH/00rMq44c8rOBerg16dL2hqEeDO4HDnCpC3u2cw/p7+Cqt8K8vmHsX0v9p18uiHt2D
+	 o8J63TS9XWwsDNJUXoxr5gZKocsqNwOSDx3hq9HhsX2rfRsvTj0j6h77+UkIKRhT4ndMs
+	 Nwu/j/rI8Eg8tPR0PE8O26KZIPmQYlevRNqUAfi7WV/FXVeEnWX04sINTK1Kb5C4ThA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609202;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=LhbTInRgkBXlbPXlXEHaIHOTP4lL/qI0/4M9rSDHTRQ=;
-	b=mreE48GTH/gENTmIcIMYUAO2vXlAyeHg/PWQV0qcdwaP9y3pYBSm+Bd9pizC3uNAFLW/
-	 5SRgrSTIYgObVfiVaO66AbH5ue9KIk7JrV9pu8xbyjBBGnMLc8MOnIpYmf0kfCYjjd2gR
-	 qnitt0Yumle5/4XAxd8SU+MvNWHpETtjcTBU/GoQlfFjkyXNzT6w9K6LE8qRE0gbfdS4W
-	 /VEG05Uz1nE/Wra2H50TzFNRzu+u1F+5fc5+qRT4Z6A8Kc1oWFgCs6/5isqOKGm3XEBOj
-	 6ZZ/lod9pFanRtruneIUI0KyGgWRR01t6iQotG2qTuf9cAyHEkPBTcdj5YIkd3Dl+TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609233;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=O6XkqYJ4LCtg+uTN40dEnOg33yY3/MM80Et9d1AnyoQ=;
+	b=xZKOE0XHA3zQ7wNd5iKl7A9//yFMQs8hK0D3/V7WWxnjmTrCYuThcIE07jzGPAyN+Qv+
+	 yviaxbp4aHHKilddXiOAvMTgGtk/zZtwScJggcs0HPomg9EG7fSJkGr8z4IsgpKaWdwHC
+	 +gbBrdTZYqmdZAXh+DT+i6mFrODAKEOtrYOi3ZzLeHqt1YGQxAY6Jefsn5/ofutKjNipk
+	 ulSZC6QqLUCHZpV3tyXzZQQRBNqlXlaJAQ9JElwdrUcl8LpP/c3ao06khTSO6VLkAQ2hv
+	 +k7uQXZ9AVQ/bK3vsiJ8eBG5czi/z+2PhflR3YFiPHGev4lwLvCygdqm/S2HGjDjcyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Zc23m8QG;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=J33ugY7P;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EED606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:46:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1EED606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B622606A329;
+	Mon,  2 Nov 2026 08:47:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B622606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Zc23m8QG
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1173619f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:46:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793609200; x=1794214000; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LhbTInRgkBXlbPXlXEHaIHOTP4lL/qI0/4M9rSDHTRQ=;
-        b=Zc23m8QGRQ39gSk+r4Mjk2hQU+Hf6Eih+t6vqtLOlb+DjWqZGdRnen5vZkd1/b3eoY
-         g5H4X0X508kmuvLY1i6aFsDn6gEsTMgH5yYgmWPBMYr7ZABNS5ICm4geEPuWOB2qJRWp
-         6pNobdOkGNR83ltf9UMLcx+wpCqMEnGtuzS7OsK6O8478Mt9AQrFVC/wlLleRhOPxUUS
-         DXfNmprqIdaAZnC95LXXNINJJzJUc0ek2UcFYpz6Ydlu4ZTd4rfAgdvPPV7wzl0GPJJx
-         yoqNrq9sw0l49s1QfJ4V28AmP9GLeC5hy1DrvnWD4MHvis52+9S7yNb0UHPCLrcpZw7u
-         v4fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793609200; x=1794214000;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LhbTInRgkBXlbPXlXEHaIHOTP4lL/qI0/4M9rSDHTRQ=;
-        b=O09A0T88ILf55cIesCOq8WmEq+lRNgjZaQknX7751rLwzT3HyPrwWJ9YK15HUsCrYM
-         htaDetlU9b1/Fn/UwxF8+xcWX4W+2RwmyaNqTz8ddjj4t7Rw8Vl6W6JTd7ZQ160mzhG8
-         3UXGkAm1TQaPWSHbhZ2EcY9baN2kvOL0YbxaxIWrT84ySlPe+icYYrQ0qYPyrySE/92g
-         kHDvnIRj0LXAj93wxUN8pQvOAGTOoBUc1x/hiZFzWpN29omEdOlEu9X+x2OlFK5f95Wb
-         1wvGGdOwfKmMcKJutRlEUxgPPha7IYGIUWXSpa3EIFxp2vm79IUHYEG22THQnsZ7an0K
-         xU2A==
-X-Forwarded-Encrypted: i=1; AKwUvBwrIil28xsaxZo2CQRda+MMy6vjz8LO5o8ysSbnrsYGbWcjaVGw869yMBMZAhJhGEsCg2DvwVm/NeWRLxI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hDbdVOn6RYW9bvxDI85BeZuOd7CaYbcPWR+3MOVXeuJ9k8bCR
-	MidC6vH83F3faiVxdOcL2rhALNBRe4UeqTYIoeybZOTJMaDharnxNPjbnT5en5v+FT0=
-X-Gm-Gg: AYBFou2qfif0gAN/K/ZVS5gCk6v+eTibfK9dTVoN1w/B4SGXxs861OolGB5bhXvgJn1
-	m/Ic63vazw3Cog4P0tc0CCh3rCtWUaWfrmhAi0QTZ/hBlsZWMg9L9iZHU7ZvByNfDzWneuQG1KR
-	KBbGKPq2tMuIyRjXxZ5V030iasLuUcgBx821xCXXFKxN/zENNUkf098Mq2EhN+1M4/G3uxe6nSL
-	7If1Db6w4+yZKxTlppkOgufqIdl7dc2uCaoLhTrnX7rogzQ442JN5m3zvLKdn5kuhviqa6w0yIH
-	U4INn1+Bh42KQ715pMLWwSH0PLKfutYrq6opDTdur8ZmuWa1zAU4VpHlIixLfGv4Ao4v5di8Hvc
-	dNeNwdo42DuKU4yioE3R4AyUH3O3DTnAn4E6UTw/4lk5XVnFHPUdWdwRIiBjlhdiGscO029xatM
-	+vS7ZzI/dEceR4GlthM78vzHsssYPnUPR6TQtOYZYuE9MhpilX1eUImPr4sJjfa6rnUcZpfk7OE
-	AdI3Un966ovlTXTNgatN9AIrUmQa/+6Wj4xbB99VJ0TWuZfqX8/+vheBwPl2/dWG5vnjW7i9UZ/
-	2PRtdaq6zJZKm1RKhCpt6OfOQD7Pachxhgl5u+Q=
-X-Received: by 2002:a5d:64c4:0:b0:488:7787:469d with SMTP id ffacd0b85a97d-48e6e4fca0amr22529624f8f.25.1793609200314;
-        Mon, 02 Nov 2026 00:46:40 -0800 (PST)
-Received: from localhost (109-81-32-81.rct.o2.cz. [109.81.32.81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c0b6sm18086023f8f.41.2026.11.02.00.46.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 00:46:39 -0800 (PST)
-Date: Mon, 2 Nov 2026 09:46:38 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] memcg: force charges from reclaim before trying
- the limits
-Message-ID: <auhN7v127jwy-q-W@tiehlicka>
-References: <20261030205418.341214-1-shakeel.butt@linux.dev>
- <20261030205418.341214-3-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=J33ugY7P
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=O6XkqYJ4LCtg+uTN40dEnOg33yY3/MM80Et9d1AnyoQ=; b=J33ugY7PgrW7DnzIWE9Xn7D5Jh
+	anvIDvyIleo64jYgJrJRfmEXWTJtvut4yTs3nlMiV0T/8WOcATAFr6Jac2ORjQjOY/VQgnFrd5voQ
+	+o/D/yg978HQ/N6QCiq6p1y9ZajKCnteMxYNCn5fRI3OKoT0QyghbeyIv3Z4R1RBJ6eQEkKqB8KRi
+	6Rg4mn51QJmE062vd/ufQhftAxLXW39yWSrOxhFt0kUp3whIxdR6DPw++1iim36iaeTKRhdX6WWGo
+	B8PoJ75tfXQ7Nq793Et3J5UP5gvTJ+UR/Z4CEcqnf8aZixxgvk1zgPSAYECCxl0TCK8ODQbaN2TMG
+	bhjfzeFg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xNnh4-00000001Yrx-0VPY;
+	Mon, 02 Nov 2026 08:47:06 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id E0D62300312; Mon, 02 Nov 2026 09:47:04 +0100 (CET)
+Date: Mon, 2 Nov 2026 09:47:04 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andrea Righi <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mel Gorman <mgorman@suse.de>, Mete Durlu <meted@linux.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-s390@vger.kernel.org
+Subject: Re: [PATCH 0/6] sched: Expose writable interface for preferred CPUs
+ mask
+Message-ID: <20261102084704.GQ1779021@noisy.programming.kicks-ass.net>
+References: <20261101192203.6979-1-ynorov@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,157 +92,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030205418.341214-3-shakeel.butt@linux.dev>
+In-Reply-To: <20261101192203.6979-1-ynorov@nvidia.com>
 
-On Fri 30-10-26 13:54:13, Shakeel Butt wrote:
-> Reclaim can charge memory, for example when zswap stores a page.
-> try_charge_memcg() forces these PF_MEMALLOC charges, but only after
-> they fail at a limit. A charge that fits still has memory.high
-> enforced. That can make a task in direct reclaim do more reclaim and
-> sleep longer later, and kswapd records overage that it never handles.
-> 
-> It is also a problem for the next patches, which make kernel threads
-> queue high_work. The worker charges memory from its own reclaim, so it
-> can queue itself again. With those patches but not this one, the worker
-> queued itself in 118 of 284 runs in a VM test with incompressible zswap
-> data.
-> 
-> Check PF_MEMALLOC before trying the limits. Reclaim charges then skip
-> memory.high, as they can already go over memory.max. Drop the
-> PF_MEMALLOC check in memcg_enforce_high(), which no longer sees them.
-> 
-> Other effects:
-> - As before, the check reads current, so it also catches interrupts on
->   a PF_MEMALLOC task such as kswapd. Softirqs set PF_MEMALLOC
->   themselves for swap over network, so the check can't be limited to
->   task context.
-> - These charges no longer charge a batch or refill the per-cpu stock.
-> - MEMCG_MAX still goes to the first cgroup that the charge puts over
->   its limit. On cgroup v1, memory.failcnt no longer counts them.
-> - high_work can still run again and again when there is nothing left
->   to reclaim. This only stops reclaim from queuing more reclaim.
-> 
-> Suggested-by: Michal Hocko <mhocko@suse.com>
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-> ---
->  mm/memcontrol.c | 29 +++++++++++++++++------------
->  1 file changed, 17 insertions(+), 12 deletions(-)
-> 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 0e484f7f823a..af95a4574a0f 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -2762,7 +2762,6 @@ static void memcg_enforce_high(struct mem_cgroup *memcg, unsigned int nr_pages,
->  	 * when it rechecks the overage and simply bail out.
->  	 */
->  	if (current->memcg_nr_pages_over_high > MEMCG_CHARGE_BATCH &&
-> -	    !(current->flags & PF_MEMALLOC) &&
->  	    gfpflags_allow_blocking(gfp_mask))
->  		__mem_cgroup_handle_over_high(gfp_mask);
->  }
-> @@ -2787,6 +2786,21 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
->  	if (consume_stock(memcg, nr_pages))
->  		return ret;
->  
-> +	/*
-> +	 * Reclaim may need memory to free memory. Let it go over the
-> +	 * limits for a while rather than fail or OOM kill. Doing this
-> +	 * before trying the limits also skips memory.high, so the
-> +	 * high_work worker can't queue itself from its own reclaim.
-> +	 */
-> +	if (unlikely(current->flags & PF_MEMALLOC)) {
-> +		/* Find the cgroup this charge puts over its limit, if any. */
-> +		for (mem_over_limit = memcg; mem_over_limit;
-> +		     mem_over_limit = parent_mem_cgroup(mem_over_limit))
-> +			if (mem_cgroup_margin(mem_over_limit) < nr_pages)
-> +				break;
-> +		goto force;
-> +	}
+On Sun, Nov 01, 2026 at 02:21:56PM -0500, Yury Norov wrote:
+> The preferred CPU mask currently lets the steal governor reduce vCPU
+> demand when physical CPUs are contended. This series adds manual control,
+> opening more use cases.
 
-This is racy. Not a huge deal as we would get a false event in the worst
-case but I think it would make more sense to check the margine after the
-charge is forced. So this would become
---- 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 856a7d07586c..bd202ec05acf 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2653,13 +2653,20 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	bool passed_oom = false;
- 	unsigned int reclaim_options;
- 	bool drained = false;
--	bool raised_max_event = false;
- 	unsigned long pflags;
- 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
- 
- retry:
- 	if (consume_stock(memcg, nr_pages))
- 		return 0;
-+	/*
-+	 * Reclaim may need memory to free memory. Let it go over the
-+	 * limits for a while rather than fail or OOM kill. Doing this
-+	 * before trying the limits also skips memory.high, so the
-+	 * high_work worker can't queue itself from its own reclaim.
-+	 */
-+	if (unlikely(current->flags & PF_MEMALLOC))
-+		goto force;
- 
- 	if (!allow_spinning)
- 		/* Avoid the refill and flush of the older stock */
-@@ -2683,15 +2690,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 		goto retry;
- 	}
- 
--	/*
--	 * Prevent unbounded recursion when reclaim operations need to
--	 * allocate memory. This might exceed the limits temporarily,
--	 * but we prefer facilitating memory reclaim and getting back
--	 * under the limit over triggering OOM kills in these cases.
--	 */
--	if (unlikely(current->flags & PF_MEMALLOC))
--		goto force;
--
- 	if (unlikely(task_in_memcg_oom(current)))
- 		goto nomem;
- 
-@@ -2712,7 +2710,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 		goto nomem;
- 
- 	__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
--	raised_max_event = true;
- 
- 	psi_memstall_enter(&pflags);
- 	nr_reclaimed = try_to_free_mem_cgroup_pages(mem_over_limit, nr_pages,
-@@ -2773,13 +2770,6 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
- 		return -ENOMEM;
- force:
--	/*
--	 * If the allocation has to be enforced, don't forget to raise
--	 * a MEMCG_MAX event.
--	 */
--	if (!raised_max_event)
--		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
--
- 	/*
- 	 * The allocation either can't fail or will lead to more memory
- 	 * being freed very soon.  Allow memory usage go over the limit
-@@ -2789,6 +2779,15 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	if (do_memsw_account())
- 		page_counter_charge(&memcg->memsw, nr_pages);
- 
-+	/*
-+	 * If the allocation has to be enforced, don't forget to raise
-+	 * a MEMCG_MAX event.
-+	 */
-+	for (mem_over_limit = memcg; mem_over_limit;
-+	     mem_over_limit = parent_mem_cgroup(mem_over_limit))
-+		if (!mem_cgroup_margin(mem_over_limit))
-+			__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
-+
- 	return 0;
- 
- done_restock:
--- 
-Michal Hocko
-SUSE Labs
+Sceptical, I am.
+
+> For example, setting CPUs aside for selected fair tasks at runtime while
+> steering other fair tasks toward the remaining CPUs.
+
+That's exactly the kind of nonsense we don't need and makes me want to
+stop reading right here.
+
+We already have cpusets that is more than capable of doing this.
+
+> A user can mark a CPU non-preferred and pin a workload to it. Fair tasks
+> whose affinity includes preferred CPUs are steered away, while tasks
+> whose allowed CPUs contain no preferred CPU can still run there. The CPU
+> stays online, task affinity is preserved, and the selection can be
+> reversed without rebooting:
+> 
+>     # rmmod steal_governor
+>     # echo 0 > /sys/devices/system/cpu/cpu3/preferred
+>     # taskset -c 3 ./my_workload
+>     # echo 1 > /sys/devices/system/cpu/cpu3/preferred
+> 
+> The current preferred list is still readable from:
+> 
+>     /sys/devices/system/cpu/preferred
+> 
+> This provides task-placement isolation similar to a use of
+> isolcpus=domain, with a runtime interface. Scheduling domains remain
+> intact, tick suppression, RCU offloading, and managed-IRQ avoidance
+> can be configured separately when needed.
+> 
+> Different preferred cpumask governors may coexist; all update the
+> same mask under common locking. Manual settings are not privileged,
+> and later governor updates may override them.
+
+That is a recipe for disaster.
+
+Don't bother trying again, this isn't happening.
