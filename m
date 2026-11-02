@@ -1,87 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793600086;
-	b=kQl6zpn/riXplMOoz1iWHlZRZV1YBdShHIOs+FPQI1t64euIYstsWXUgioos2f3MTExG
-	 t7iP9ou3R+jhbKMo1rgbpulAPoS99TWWObaXdWiGBWFiTm6383Hvrp11AwRbWeURz4D3U
-	 td7Kl/6LirlxjfebrOqKqizScaCqTlJofl9XK/K7Fe0uwWi1nZSjg4tQ5YKIudGDRsLIA
-	 puzmp7COE9ZOzqIqdfa5s+Ilor2BZA2mXLmoL09fkVc94I4WKViKH0ObEZlMxcG3pdb0+
-	 45vnE60LNe10nsPMFata3Sf7OK081WRWe3b1LRC7M9coE7ZEEfO2oU70O+/wR0wI4uw==
+	t=1793600114;
+	b=LzMPf1OnuCLddRORzLphDN4D5KJslkeYKsAHjkcGI/ToDr/6v4UgSemzCBISDKs14jhL
+	 qwT+9hIFjAVhfgMMPiAgG6Uw4dUTlVr1EcDE8rBh2txUnzB3Qg6VMvWaCfZ2siul3qISx
+	 J+AHIlu0VdAjpXMjTMGxBp2k50d7gzkvKHMI0bFgxUDiaXEBGT9RqPhhXsrlZyfxt+Kzm
+	 xnXqohFoZQrEZGN/xX9AVQYezRCSuMemrrCp0cCSponmpA22BOZxEmP8Mwvx24VzsPuJe
+	 i1l7gKa1dzQRroTQ8t3D44MIvP1WwD45kq+i7qpXyiX/QtYboqfc4Q1bdBVEg21A10g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793600086;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600114;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=yvkaHxUFeoQ+jmjBqSWlq1SPU8ga5OsgviDcj2uQ4Lk=;
-	b=yyMwMpnopNQn8ubIiK8AlWy4326lp15Ytz05YNV3Zs1pgq3amZGd7tGUlCDKQ+L4m1Rs
-	 u0dtSNRFvA0rlojgLDVZhNzXnzIxXg32xye7KuOnWQ2mncfL4JAamiij05gAdlDrZ8qbg
-	 7hDvD4sC4ymlth9P3NAs6IRkvu2meGpMSDAaJbO/vtbpS+LxZWTwAGTfC3dQI1RrHBV0o
-	 tNAw3r765/XUtVR1yaORCEcfRLKkgByp7ciuiXoqkDKPcmZitJ9likYCrJXJ3qZSVi1Kq
-	 emoDDn2pN5YASiS+08HFWAhJUwr+nhOKA8kEikm9jC07x9kzFmol3Y5K2DA8ZhaFN5w==
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=N9p8p2HdUkdNstArIXEZ6d9TeiYQDnJxf1m9IIs2SIs=;
+	b=5mx5sJqNqyb2ziu2RhTZoBFiKvIPZk+4adDWX/U2M0JbXT05pQ85FSuiXNhOnH5e/ACI
+	 UxQ+YQ5Pd9l1UXSNXVNEbGJ++rqq7XdGenRd+/MlFrkwmIl//zybncDsqnr+AN7CPyHIn
+	 bCTrrS0na6vjNE//rY87IA20TqZGifWfbbApcfZpn4GBK7U9ccunY+usxOuZkE45Gk4gU
+	 gqWbR9jybpJqgzIVtnaIyyvrJI6dnbX2fwb18q+UOxxa51jWKq9h4lxKG0X/E0UAZoeJ6
+	 1L87zXwZVy3AnILBzaO61kKp0CSiVVThTqJlG1J9VZ6eirsL0IGhWEjzXwFSGWQfhpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w7gpgW6a;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f4zjSubf;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6287606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:14:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6287606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D52606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:15:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D52606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w7gpgW6a
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1931ff67a29so4701307c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:14:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f4zjSubf
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso761355a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:15:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793600085; x=1794204885; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yvkaHxUFeoQ+jmjBqSWlq1SPU8ga5OsgviDcj2uQ4Lk=;
-        b=w7gpgW6aDjr0IWm8WsjcOalX038yrk9bud8zBeL6aTBgKEqXgdp6YvGWT5LMUlYWvB
-         5P74Vm/HyhjRD3zhlL/BlaB0hh4jUzBxXPUXuobvGEqomfed2coQ5rZp4a/QfBlASOcA
-         mYL4SY+sz1dUS9vCl6ogkGVwaqlENd+85sc0lgBtVu5FuczK2JoIChurmMQnKaNElOfk
-         iJpKX21UzZ9bwAynctwkTjBEpZeQNthSzciIz6kRQA2wMIN0FBrD5lfqG+uj0+iBI54r
-         egaEc3tsdUbB7gZp6ABysvAh/AaB16wIw1YoUisPHu6sjhDaemjyMAg8C41y/o+gY6Gs
-         3ahQ==
+        d=gmail.com; s=20260707; t=1793600114; x=1794204914; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N9p8p2HdUkdNstArIXEZ6d9TeiYQDnJxf1m9IIs2SIs=;
+        b=f4zjSubff7t65yc9TzSFbWKzjEAU6ddyIxf7Rl1tmnjRJRePp4qnIdD6CFk1rIzsf9
+         RKB8I39qlVFwEAJ2BouHPHj5aImJHb2nRDs/6Z1bqSTKoflIHa/vXKhQIQe4FdUVOMr9
+         dwCaKBwj6Dx8Cm5Q85FpOHauS9FTuxWOs748MtKdp4H7SKrtrV7wPHk6vIOOEhSo+ArD
+         GsmT4WQ8X3l9VGF7paEw2Dz762JpqwtLjzZyPl2/yyP8AhwYX0t6+1Sps3UbQgLEM3Z1
+         C8fN8KrfjH+6Tafp/j/Hy7W4O1OIUVxT92pNORqRWsX+KFeYR1aIiEV445G4AtfYj34P
+         fm1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793600085; x=1794204885;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793600114; x=1794204914;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yvkaHxUFeoQ+jmjBqSWlq1SPU8ga5OsgviDcj2uQ4Lk=;
-        b=TnqiYccWFQ54h/8OrLKo7jZoj0oPXHQPofN7SIDEyF3xT2+SKdk2oBRAThm9VT2iF0
-         QdGqOJHDlxAMMFJCfUfeGeHqQdsEWTPSQia5GxB4JIpkqFtU5LvCoBqEKVeXljO4sEJG
-         ObZddOkdz1+tu0lso6Y6mhmc5dZVxdy9W8N0oFYGDGQJ9V93ZVZO+6FIhp4GOyRKRaU8
-         SlkGsiiuuONef5F/bLMdMSKjsv6bLihOQIuiu/0kQkYxxWAYVqW3j7NOCC9DoANUzYGw
-         2sYm70tVC2E9TM/GKBydodc6B+EBlKoqFyHoyNvjVOI/ES+KTLgkUoGmpdwsw6eNQu3w
-         8eSg==
-X-Forwarded-Encrypted: i=1; AKwUvBxX7LUqMyr7Wkyy5cpUnB/yWeQIwS7O41jQbN6jUgH4Yj5SBiN7KlOinGFxx9IBovVwjJTSv/q/cyLpow0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK42g5dSfoewc78TFSDHxIl7Ujkpa/UnefrD4WByUMqjdAjT+mO
-	7GcY4L2vzuRV+aydPzrVRspO2j5n16fwZhliqGCjx+t3yXm1Hwsn9lBv
-X-Gm-Gg: AYBFou2uqCSc9gfWeZYii9PAoAcmZI2O1F1wZyRIP468kvKIfXd4vZCXt7M14BDwUuX
-	0XWvUgg0kFJpWZ6o31ck371oYIFi6zPFjdPOl/L9slu6ZFq9lkTwNTjZ2aHNZI+e2v9sjNztBTq
-	VxVMPgQxMJCcZm2jUDPuVuHp985cxRQETQVNWVHJHpUx0GrHCRwE9bgtoV+uRw8ixv5aIlFqxqY
-	lMEbmzhJPVzvlGVZHm77hVrNlSj/pLtsSQRk2ET+dPGZCcEoB9rChm2myahjvJZzk7lSRPWN7LZ
-	AK0mc+hazduGYH71NyUiDfl7/jTMHphe8ZwYWaU5TDUxi9pMwIHyhoeyXVgohNSxQ+1gsmXhYYy
-	L1L3+N7jHlJLeFS9US4EBynVlZujpuz+ed3c/6FGvZimgWighNI1a9jFapsKfxjGxzlmSYx9co0
-	g9aFC+2EQgrWG/DPMC8IO4Jh55W6RyctR99wFt0Fs2hMmzTkaN0SKZENLV1sxFwo52svDqegto2
-	XnQHDD/X1Ary0cyTgih3/Bj+qUwCoMf/AohtexWu/QkY30GGsINJlRNbHmb3Q+Bmxw5gTq0eGWR
-	EvuW7eQAtqVPAWJ7JyhatUI01g==
-X-Received: by 2002:a05:701b:260c:b0:1ac:9ecb:acee with SMTP id a92af1059eb24-1ac9ecbb353mr11878942c88.39.1793600084805;
-        Sun, 01 Nov 2026 22:14:44 -0800 (PST)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm30288043c88.14.2026.11.01.22.14.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:14:44 -0800 (PST)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Mon, 02 Nov 2026 01:14:36 -0500
-Subject: [PATCH 1/2] nvme: remove namespaces in parallel
+        bh=N9p8p2HdUkdNstArIXEZ6d9TeiYQDnJxf1m9IIs2SIs=;
+        b=TeBLknsMwise0ZwHedY3btMmdeB6EK8WRj8+1aGLcEMRn9F5mxvSI6GN8zNuY/lSfJ
+         g1/rZ5uvN/Y9Jagmm5WcMygllAerkET7DiuI+v7GMKaZVaJRRL+ycrzshIZd1vPyKhob
+         g/PdxeX6BAlXTxxhCG5m4Q4OU3saJJr7t4sdnZGdCmC5mDDQrzu39GRekl4VLj9TkXlh
+         2MD7q30YzZqkGL/+H2C+/RnMQmSrY5HiVp28228iX2jTPcJ8y7k4HhmKceBn9lrtydUl
+         xQUBZ74V0ML/qCRfqCjh1oslwktPVDA7m7b1u6NxnS4jx/FCSOBSt+SzJLAQiRVPwLqg
+         Gonw==
+X-Forwarded-Encrypted: i=1; AKwUvByMXYrsuhnER1lrWQvWzOs+Qfso/LqT1G2Ms5cEKjLl2QDSD/WPAOG+C/64p3LN9aVBpdCLLnr4u6rdg7s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Yv43M4coIERTkiZchMzXdxmv9wuRi6Bxx1ZejaqPV5FR4H8bR
+	nFNSFBq9ao8SvkGYUBh4xe7iKhAfDSHlwoMVgV0U90GvNNg+Jz5XaOJrvra1qw==
+X-Gm-Gg: AYBFou3RWcSct5W1gmPaaDQ3DMcG/iRsL1hujY0w8NAQ1hH/eEx9vhVmmeT9r+gG6jd
+	1Rvd2pzdHg9COEfkxzKvsdo2YXRWKfzQ6SfnO4j/COjCyrfmarRvRlZedzBZcTLXmF1o9u/Krs4
+	XOa/XdqW0ei5+qXdtyqKISo7Myd2/7fOT/M4N8RimHio6YRH4KrUDaf1qVH9YYxD9kmGdCTt29G
+	aNowgXrJJnkcHEwlVILda6WWruNpQBulIFEIckEz5mkIgnIgfss1NQtz+uOe9x0dHjXf+3mPZba
+	R4/V22w/+MosRwEFGw+czADUJoERYY85z5jJVHneaZ0MSPsbCTdAil8TXs/xU3lXspEPHTx02n6
+	nkSLmdVhtoVzWuzz4cgFeINZv3HxRSp1TvFOm8UQzLIK6RzWPqbaiUBrWKf3HcNZ/KtdmC40k3C
+	ZBZ5xeV7i7c5VO15oujyOZ4LmfuihozS9sMdsDdVOaAdpMGmDZrqlO4bKIK1bercL8C2FqvRbOD
+	NN8DlOdaW1p2Su6w8l4JzbcE8XUVHDHtsqTgt+ehcyRzikZKm2pQ7/g45gqV9ybE18IhPY8FCNu
+	5ZkNdY0mm86mFMATziuo1mg9SSTx9x+ixu2bpq/gYI7Sk/siWgXxTYmIFt9t4NXGtCpg4vYk4kz
+	o8WiAsqcafHN90wFBegKJSD7neStADMSd0g==
+X-Received: by 2002:a17:90b:1b11:b0:3ad:4bfc:1e77 with SMTP id 98e67ed59e1d1-3ae897dd40fmr7444865a91.66.1793600113727;
+        Sun, 01 Nov 2026 22:15:13 -0800 (PST)
+Received: from localhost ([153.61.198.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e98f888sm17118903a91.13.2026.11.01.22.15.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 22:15:12 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 Nov 2026 06:15:11 +0000
+Message-Id: <DMKI6C7FPCCV.2Y4YLRGWNSKW1@gmail.com>
+Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Mykyta Yatsenko" <yatsenko@meta.com>,
+ <qikeyu2017@gmail.com>
+Subject: Re: [PATCH bpf-next v2] selftests/bpf: Wait for wq callback before
+ checking ok_sleepable
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: <thamrinjonathan@gmail.com>, "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
+ Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>
+In-Reply-To: <20261102-wq-poll-fix-v2-1-48b7d12815b8@gmail.com>
+References: <20261102-wq-poll-fix-v2-1-48b7d12815b8@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,89 +108,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-bug-nvme-remove-ns-async-v1-1-61780fee111c@gmail.com>
-References: <20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com>
-In-Reply-To: <20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com>
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-block@vger.kernel.org, Ming Lei <tom.leiming@gmail.com>, 
- Nilay Shroff <nilay@linux.ibm.com>, 
- Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>, 
- Stuart Hayes <stuart.w.hayes@gmail.com>, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
 
-nvme_remove_namespaces() removes the namespaces of a controller one
-after another. Each removal waits for RCU grace periods in
-del_gendisk() for the namespace and for its multipath head, about
-20 ms in all.
+On Sun, Nov 01, 2026 at 06:36 PM Jonathan Bastari Thamrin via B4 Relay <devnull+thamrinjonathan.gmail.com@kernel.org> wrote:
+>  	ASSERT_OK(err, "test_run");
+>  	ASSERT_EQ(topts.retval, 0, "test_run");
+>
+> -	usleep(50); /* 10 usecs should be enough, but give it extra */
+> -
+> +	/* wait for wq callback to finish */
+> +	while (!READ_ONCE(wq_skel->bss->wq_cb_run))
+> +		sched_yield();
 
-Deleting a controller, such as disconnecting from a fabrics target,
-thus takes time proportional to its namespace count, over a second for
-64 namespaces. Scanning had the same problem until commit 4e893ca81170
-("nvme_core: scan namespaces asynchronously") made it add namespaces
-in parallel.
+This loop can spin forever.
+The two ASSERTs above it don't stop the test. When retval != 0 nothing
+starts the wq and wq_cb_run stays 0.
 
-Remove the namespaces through an async domain the same way, and wait
-for all of them before returning.
+  what goes wrong                  today   with the patch
+  -------------------------------  ------  --------------
+  test_run fails or retval != 0    FAIL    hang
+  the callback doesn't run         FAIL    hang
+  the callback gets a wrong key    FAIL    FAIL
 
-Disconnect time from a target on the same host, over tcp to 127.0.0.1
-and over nvme-loop, with 4 I/O queues, median of 3 runs on each of two
-boots per kernel:
+The second row is what this test is for.
+The watchdog doesn't help. watchdog_timer_func() sends one SIGSEGV.
+crash_handler() prints the stack and returns. The loop goes on.
 
-  namespaces  transport  before              after
-           8  tcp         170 /  171 ms        85 /   91 ms
-          32  tcp         628 /  628 ms       294 /  293 ms
-          64  tcp        1201 / 1308 ms       533 /  550 ms
-          64  loop       1988 / 1913 ms      1283 / 1200 ms
+Waiting for the callback is right. Waiting forever is not.
+Keep the loop bounded, like prog_tests/ksock_wq.c.
+Then there is no need for wq_cb_run and for the changes in progs/wq.c.
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
- drivers/nvme/host/core.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Something like this (not even compile tested):
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index a7a4d09644c13..18948c2ba218d 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -4716,6 +4716,11 @@ static void nvme_scan_work(struct work_struct *work)
- #endif
- }
- 
-+static void nvme_ns_remove_async(void *data, async_cookie_t cookie)
-+{
-+	nvme_ns_remove(data);
-+}
-+
- /*
-  * This function iterates the namespace list unlocked to allow recovery from
-  * controller failure. It is up to the caller to ensure the namespace list is
-@@ -4725,6 +4730,7 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
+diff --git a/tools/testing/selftests/bpf/prog_tests/wq.c b/tools/testing/selftests/bpf/prog_tests/wq.c
+index 97926e3..c4de70b 100644
+--- a/tools/testing/selftests/bpf/prog_tests/wq.c
++++ b/tools/testing/selftests/bpf/prog_tests/wq.c
+@@ -7,7 +7,7 @@
+ void serial_test_wq(void)
  {
- 	struct nvme_ns *ns, *next;
- 	LIST_HEAD(ns_list);
-+	ASYNC_DOMAIN(domain);
- 
- 	/*
- 	 * make sure to requeue I/O to all namespaces as these
-@@ -4759,8 +4765,13 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
- 	mutex_unlock(&ctrl->namespaces_lock);
- 	synchronize_srcu(&ctrl->srcu);
- 
-+	/*
-+	 * Remove the namespaces in parallel, as each removal waits for several
-+	 * RCU grace periods.
-+	 */
- 	list_for_each_entry_safe(ns, next, &ns_list, list)
--		nvme_ns_remove(ns);
-+		async_schedule_domain(nvme_ns_remove_async, ns, &domain);
-+	async_synchronize_full_domain(&domain);
- }
- EXPORT_SYMBOL_GPL(nvme_remove_namespaces);
- 
+ 	struct wq *wq_skel = NULL;
+-	int err, prog_fd;
++	int err, prog_fd, i;
 
--- 
-2.43.0
+ 	LIBBPF_OPTS(bpf_test_run_opts, topts);
 
+@@ -25,11 +25,13 @@ void serial_test_wq(void)
+
+ 	prog_fd = bpf_program__fd(wq_skel->progs.test_syscall_array_sleepable);
+ 	err = bpf_prog_test_run_opts(prog_fd, &topts);
+-	ASSERT_OK(err, "test_run");
+-	ASSERT_EQ(topts.retval, 0, "test_run");
+-
+-	usleep(50); /* 10 usecs should be enough, but give it extra */
++	if (!ASSERT_OK(err, "test_run") ||
++	    !ASSERT_EQ(topts.retval, 0, "test_run"))
++		goto clean_up;
+
++	/* The callback runs in a kworker. Fail instead of a hang if it doesn't. */
++	for (i = 0; i < 10000 && !READ_ONCE(wq_skel->bss->ok_sleepable); i++)
++		usleep(1000);
+ 	ASSERT_EQ(wq_skel->bss->ok_sleepable, (1 << 1), "ok_sleepable");
+ clean_up:
+ 	wq__destroy(wq_skel);
+
+pw-bot: cr
