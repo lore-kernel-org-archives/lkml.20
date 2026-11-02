@@ -1,67 +1,166 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793599951;
-	b=fAOwrDA21x6Katqzty3xQ57UOvKkwp04ClWPR7QYl5bS2jUhU/ItKRSRd5Hgv+Lu542c
-	 5n9gwYTBTv84/pRw6jYcebtDrQefvEydVkEKeKii4FlPAg03OQxL8cpDNrX6DtslKXY2v
-	 uXRcpYBFkB9DWnnu1AfssGYZzq7H6QizC6rCgNhwiY7OkyaUxymruEWSbMtT5VbTfJ0al
-	 9xKIezmKC+0Zi1gZULRVD0SmFhop/2cktMfRhSkMg6blemybmja8U8BVkd0IVZHfpzGBS
-	 viJQTHG1Buyr4kDYUeDQ/W7j1yUtxTCwKKxRHp6nfp6wM37X4e5JXV0/MWsMXoqXeLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599951;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=GK1Tv9cGLqLZXdGnoTaOHiPscILRTL0TQ97U2kfZgBU=;
-	b=YpB37n2H72IsrbKmbVVYdwj1zF2fQw8t/iB0rip168CzIrtM9C5B13S1abb2OU9Vhmbp
-	 U7pMhGP+CX5ChAY4xaqsvBVgkHAW3X3p6aCnfvJKnUBMCMQ3BJgNioPsLJ0Q4OkRA3C9M
-	 ZT62ugYEWgWiPU5G6eTEk9cdeD5viiR0wk2qusCJvtOnYmCNtKzRnNbsvTu763JK5OgiL
-	 D81tUYtLaUTyq1pPl9UmVP/Aj+s0oK+lU/fclYfnEZpYUce6Q31DElD8tv/ZzAY8Olt/R
-	 28RbOiH2zPAnGcA1UzazDYSKTe93wjCa1ZxVgS0BrAAfroJiLzItgmhfmLmaHWDO/Gg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.39
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793599941;
+	b=pKSLqlaRdaTDp3+OmqztbzP3xkfNtWkr9bS1oCKMegwCzhtkALTBl4rBdIy2JmPIlz2s
+	 HEbUuk/IES/flZEc4v03Zdn4mojfxPkFNGtjs5GVcNQZFbk8AhwaV0I+nqXL8q/cADUuq
+	 Kljt1InogEP4GLFxvjeDqucvb+tIIT3IGnTy8UD7CGWFCBWAaQXVOfU0fylr7p9f0hZF0
+	 d6tlsKDpcxJWLtY2RINpeCc9yzfCkqKxbwW5betUpfjblMpxKg77hO9LGm4BBOm0luhc5
+	 84X1ouaExgyafcX9SaYXYpneISgFAwaHbaAe9DF1cKMjBRnBvM95E3nFYMW5IArFflA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793599941;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=eHavJIa6EPuRE+lRIJZD2yk8Nhc5kxtQY9U/UbWZuvk=;
+	b=zqcrHCv3feVZn93brSlZ83+aitzBqlnedvgK53bK+4LFoGGdLvuvZlFFpSBSMbMixWp2
+	 EFbbumAAmIU6rNN2CalHPkbyN8FO+sAgTjA+XL/z5bab5FAhNa52fdYIZXMXRr5qil7wB
+	 dxE+NFPBPObmHEScnvgo2ZGzTHc7nR7ROujVGTSZFHOlzfDc3wOSlXGwPdBK6Tto+0Yl/
+	 mfR6PT3XdVbqVQV7jIldokj1fTgUozZqtucH0O3QQ8Nx895JW8hOCMKtiv8+uB6P/D3nx
+	 TpVmGyUad6wOo3txIjeQtXVmbXlh5CDZcFp8+L/CJIxHLzyaNLjP3T9MQUD65+mAb8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=Ek4oQEu1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.39
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19012039.outbound.protection.outlook.com [52.103.23.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22153606A337;
-	Mon,  2 Nov 2026 06:12:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22153606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793599946;
-	bh=GK1Tv9cGLqLZXdGnoTaOHiPscILRTL0TQ97U2kfZgBU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=t3abexSCyXZS3K0nZ1CyG8tvdzY0Z2jSgnTdjkmddea4VOK95mxOsmoy8/Cv6nOJr
-	 JA9OxOntBkzCeNwodgaUdxDnXz0ddIGKZXOnOJcPzRcsnXBnVZzYk5xyF8iOOcsEYY
-	 2ZkNYB3pwU84av2CNZdriKUVOZK+h2/eVJRHq3Cv5c3tvTAd+XdBJxPcLsVIY7ekxE
-	 i5ZQvjTxkW5HLu4be3k5ZQNZA9rG+5IPeVrAlMZIAB5UQvdnmnDOlZ7sLyQLv0ovpS
-	 XzVEJSFrDBphPaqsmCxwJEyA5j+I/UN7O+sO29ESPLSS46/0z6DDMPw6cb/b22gCLc
-	 cFTKXP/vPawxw==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jJ1Zf0Ld3z4wC6; Mon, 02 Nov 2026 17:12:26 +1100 (AEDT)
-Date: Mon, 2 Nov 2026 17:12:15 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 11/74] Add support for FDT_PROPDATA_PHANDLE_REF
- dtb tag
-Message-ID: <augpqjHVMq4nYdlr@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-12-herve.codina@bootlin.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C0C606A324;
+	Mon,  2 Nov 2026 06:12:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85C0C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=Ek4oQEu1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gLOSOqXGb6WRctEu0l4PYF56GljYo/84zl2VDvKtAqWkwfeZFiS1qqQGUcGc7J5HU9GGrdnVBmLF/YjJ4GB4nSDk4hsJu2x9VMksZjEzVdAWv/3gdOzF1v3PSBXxriiXWN6J/vkheZHUPpbWMJsHV9Qj7APs9QrpZaf67vhVbKT/9xV2m+hyP1TeiAgyvD7ltSMaYB+NV87UgkiS8ET5Lsc5Coln+lSdIqk8iwOdljiguOPoHXJ5dGKEZv3LrdVrTfZ3vjWeU9DcoNgqoa5CmAeiSP494wczih82NhVYWSBmy9HaRH3eTFplJMc6a4UINzGwbQ2lrZPT33OnjlHMrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=eHavJIa6EPuRE+lRIJZD2yk8Nhc5kxtQY9U/UbWZuvk=;
+ b=zJlDGZjzxt2FZJnaP/FpyP4eQ9i+g6w4CesYrItt3pKbPKR8OehKwXLPAcDurk4gnpLfo3CfkeIDfiK9SzEaGMsCktyQL5w7Bqc8NypNso2W0zHLZHQAwjHcOKMv19vu2k+jazjo3ZZt5nCqycxzPtzMRT8FV3kk09yOWlmQ41CxKfOGjDvjm04BiyqxUnQpU2GtH0xaq/qSuZc18RM5Yvo88a4oiU8ysuJqi8N/gKcpm7HdNBXAo7wVH0uiUKQLGM0NGXMzqZIqKduR3oNoRINc3mrSlaCNV67QImu/hNhYcwU1v5BRbSkGLBe150ks+qiwH1m57zBNBigagvHD7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eHavJIa6EPuRE+lRIJZD2yk8Nhc5kxtQY9U/UbWZuvk=;
+ b=Ek4oQEu1efCD8Nrf4JZ/UfFOb0gJ2eSVLt6BaSOYpI+Hi+McY12QLJHcMqrb09yCAxNK5BzimjuG+ji4m+nK8AJKDfcPHGkf5RMx0JFQALnYCPli7Ki3rd421v6xvTavN3NFh4rAS18r40q1Mk0xV1RKHz4QET7yt9zU+tj7LFpVfI+P5azO7CeanGfRjZ4iv1Ug7N5uK3gmWGwQhEj51zNg200OLTtx6S5Qo1/iXSsGYclmk1kN1bvg0UUtR796CybhSuzODVfYwd6OmsNesfmo36uR/NMQK4ShAZwDDQ/X95QLXbl/szI43RXIEY2X95kKBkD44nsJSDfFCzVWOw==
+Received: from SA3PR05MB10385.namprd05.prod.outlook.com
+ (2603:10b6:806:39d::17) by SA3PR05MB660978.namprd05.prod.outlook.com
+ (2603:10b6:806:531::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 06:12:18 +0000
+Received: from SA3PR05MB10385.namprd05.prod.outlook.com
+ ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
+ ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 06:12:18 +0000
+From: Yingjie Wang <x-professor@outlook.com>
+To: "netdev@vger.kernel.org" <netdev@vger.kernel.org>
+CC: "edumazet@kernel.org" <edumazet@kernel.org>, "ncardwell@google.com"
+	<ncardwell@google.com>, "kuniyu@google.com" <kuniyu@google.com>,
+	"davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"horms@kernel.org" <horms@kernel.org>, "daniel@iogearbox.net"
+	<daniel@iogearbox.net>, "martin.lau@linux.dev" <martin.lau@linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: [PATCH net] tcp: ipv6: keep request pktopts alive until request
+ destruction
+Thread-Topic: [PATCH net] tcp: ipv6: keep request pktopts alive until request
+ destruction
+Thread-Index: AQHdapEdg9xE6W9q5UeOl25gPUd6/g==
+Date: Mon, 2 Nov 2026 06:12:18 +0000
+Message-ID:
+ <82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor@outlook.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|SA3PR05MB660978:EE_
+x-ms-office365-filtering-correlation-id: 421883bb-5130-418d-cdaa-08df38a83fa2
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|31061999003|22091999003|24121999003|38102599003|15080799012|5062599005|24021099003|41001999006|19110799012|10092599007|8060799015|8062599012|25010399006|4140399003|3412199025|440099028|102099032|12091999003|26121999007|52005399003|40105399003|30101999006;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?dmR2WlBGWkVpUnJLRS9BdVJXVkx2UGo5KzJBb2t2L0VXOXp6T00raXlISERR?=
+ =?utf-8?B?OHZpTHRBRVJRMnlFNG1PdVIxZWFQWUZTTlRXU1FGSnE2SkVPTVkyS2Fpa1kz?=
+ =?utf-8?B?Q3RweHZaRWIrZkN3cy81T0Y5MERPK2s4akM4eXBqUlVhVDEwWE5BbGdlMHZ2?=
+ =?utf-8?B?NWQ0c2NId2ZPMlA0TktxUnJSZmEvQkFteXoyamF1em9qeHlDdjc1Q1lyb1VQ?=
+ =?utf-8?B?RUNkTjVBQURlSGJMcnZtQm9DTnBrdXM5Rm5QTmlwWWJQaWY4TWNTeDdRTFpM?=
+ =?utf-8?B?aittNVR5SVlnaWFHcW1EY0UrT1ZDR0UrVXVJVEloMjRmc05SNmR0clp3ckY1?=
+ =?utf-8?B?TVZSeDRJdi9VT0pIQ0UrK0VRYTBPdkZUMm0vK21QN2hBU2d1ZkF0ZC9laVBN?=
+ =?utf-8?B?YmhTZks4dFYxdkFhWm04dU5VQXhDYjl1cEpYK2dRWkc1UUFidmlyZTA2UFA1?=
+ =?utf-8?B?bkVOd1dZdWxiSzh5aWhkckp6dkZPUjFSdFRhZmN4YTFvZWl0TktaR0lDazNN?=
+ =?utf-8?B?UVAyMVdMTVdJTWRIMjVRWnlpblo2S3lmZEtJRitsRTkrT0xWaW8wTkwvSEhK?=
+ =?utf-8?B?dXBLVXdJcStkd2VVUkxhY01QUFM3alBTTWpNZlRJaEdTMU5vVGdJU2NISity?=
+ =?utf-8?B?S1FzMC9xd2hiaDNSeVQ3TGJMR09FczNsT0RsODl6cHp6MXdaZjdMekdjcVpa?=
+ =?utf-8?B?ejkyZnBoVCtvMVJKdkkzVEZ2bmFQYWJ0SGFsNjlTSjlvVWR2akZ3VUpkVURp?=
+ =?utf-8?B?S0V6NVRyall0RmNlOEM4VXQrSHgzUXNoeDdoMlJyMUFGamF5aDZtSUxQc0Rn?=
+ =?utf-8?B?MmppNUdnTHM5QkY1QVprcXluUll4NHptcmRDbml4RlRyc0R2bjhCYnhjT25x?=
+ =?utf-8?B?bDNkdGR5VDcvUVNMSEtpZC85dDZMYWt2R3NVNGRZVjV5N0FCNy9od0t0Nmsr?=
+ =?utf-8?B?bHF6MTVGcWxpTTAwOENPV2xkYkp4UW9IUlVpZ21yTUlUMEpqOHRkaXU3a2E2?=
+ =?utf-8?B?Sm9nNHFoRkVsVXdIR0VEUDYrckJlQ3gvS2JsOGlqcXV5MWUza1dDYlBicVly?=
+ =?utf-8?B?RGg1WENSWVJrR2ZkdENzME5PNXdkMUNnaUM1eFgvVUpGQVpuc0tjMGd6NHZW?=
+ =?utf-8?B?Rk81a2VmM2VnT3ZzLzkzcklZMmlSNmc1Nzd6QTJLZVZRUmZyMjRpTnNpMG9v?=
+ =?utf-8?B?aUFXVE1XMXNKbFpKNExSck5IRXh0YUZadmh5TDJGNnp2d0x3WmRGM0s1MzhI?=
+ =?utf-8?B?aVIxa0J2VTBITnFWeXJTbVJDTWJ4K2ZUVGQ4dXZHak9weTA0WlNvOWpVVGpj?=
+ =?utf-8?B?KzNuMURRMnlCd3VNUmhvbE84ai9pclBhUWFweDJoQXB0aklKVldidUZQeGZm?=
+ =?utf-8?B?Smw4dWJoaXpZYURDTFF5RFhxdlRtbFM1eVd2azNkVy9FMkNGTTl1RWw0QnIy?=
+ =?utf-8?B?MUFNcHl5eWNYK1BnY1J3RHFONGJZZ2FiWTNSZk9SNEpFamkyUkV2cmtGQjNl?=
+ =?utf-8?B?RGFMZlljUjlLcDJURzhWWEwxdGFlWmtJQUhLTjhiWlQzWklBaEk4TThwaEQ3?=
+ =?utf-8?B?UERkZGltc1VWd2pyOHoza2w3WjNEODlXbHFaRU1sMjNxMWowekhPbUxSTnVi?=
+ =?utf-8?B?b1BFcm1lbW9HRkl0bjRsWHFIcmhSZFE9PQ==?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SHovb3A5VUVJYXJhcGwxVVNSVENxdlg2TTJDaG1iKzFzSWlBTldnN3RiYkg1?=
+ =?utf-8?B?bHVVOTh3K05mZGJCVnAvSkxQbU1yVHNrU2JDdDQwb2s0ODhVWEt1ekdqTTc1?=
+ =?utf-8?B?eFk1azlhNkFrTkpvbEd3SnBEbmNqM2JheC9YUmNOTittcG4rTzExZmRITlFr?=
+ =?utf-8?B?d3R2SkNYRVVqdnczVWlobkp4QWg1TW1CYUtkWVFSN1FiWWVjYUI5VlR1TG9l?=
+ =?utf-8?B?UlpEUXFFYnRsZFpTKzgra2hmdUppY095czBuNGpHU1lYZUQxUk85Vi84aTVz?=
+ =?utf-8?B?c3R1NFByMXpXcEVGbHFuemd4MC9VWGx5a3hyczFWM25ZZGc3M3ZBa3lGaHFy?=
+ =?utf-8?B?TlFoc1U0TmF0cy9odjY4NUJsZVJybVBwZ3JmWGs0Vm44dU9wcFdFcHhzQzdl?=
+ =?utf-8?B?ODdwejI4N1RhL2pORlVuNFVWWHE4WW5jQWt4WC9kQmlFN1VIWEpDMGNGcDk3?=
+ =?utf-8?B?SVVqZEZRTGI5MEZ5ejJWMTVVd00yc2I4QklkNnJFQmV6T2dTK3FVVWt4dlc4?=
+ =?utf-8?B?RE5QVS9tZkE3d29yWHNNRDhkMUlQcXBVTk14dWVrdElPY0g3QmxSL1pkSW8w?=
+ =?utf-8?B?ZFZvcTgwSVZQeTZlaVNxVnJvaGFWVVh3ZW1IS3lnZ1ZCWFZsWFRNQytObDNY?=
+ =?utf-8?B?cHZESHUrUHhBSHVmbGFKczBnbDFoNE42a253Ulc5QktEN3lZODZaa2J4djMy?=
+ =?utf-8?B?Z2J2Uy82RmMwMENrTDBFeXFnTnhsdnVvR0JibitIQ3BrSGNLM0pJclJKN1FG?=
+ =?utf-8?B?WGJBYmFKMStwNUVQWTdhZDZHMW1TaDRlOU12WCtKVFB3Z0pXQ1pZdU01eG53?=
+ =?utf-8?B?cjNBaGo3aXd5eDkwZFpWNkVpcU9KSm1PdkY4UWpEUUNVYXpzMHphd3Y2VGxj?=
+ =?utf-8?B?UDVURHZzVTkvYWFlck11RTZnc3BacEVmNFVBYnRqNjhmOFpUUFFKa2RqdmY3?=
+ =?utf-8?B?b1JqdWFQTmRrZ2FrVnRXTWlsVUZHQ0FGL1E0QlgwWklGaHZ6WmpSbjh1TkRJ?=
+ =?utf-8?B?bUpNSDduTjZxV1gzWnp4VkxmbGNuSEliMTFzbFNoTUppRGRRR0ZxLzdNaXUr?=
+ =?utf-8?B?NFIwTVczZjBnV3Z2eGhxVnhmckFWU1ZzN2NQQWMyanNiT1VOcDlsMmR0M1Nq?=
+ =?utf-8?B?aWhsaDljVi85bVZ3eTZibkxKRnd5aW1ydTRZM3JmZ1BsQzFBTEduMEltMjZP?=
+ =?utf-8?B?c0VKVWJYWm5vZWtOWHdaVmJrRW9kSG1aQkh4YlAxWG5PS1ZHNU1jdDVWVXVn?=
+ =?utf-8?B?MnkwWExpZEJidy96Q3l0TXJtLzBjSTFPK0ZISHhKa0FUZDZOMGwyVndCSnBG?=
+ =?utf-8?B?Ty9uOGVNZXlCSlRmbmpsWmRzK3k0RDZOWHJXMnowSmRXS2JvblgxKzliTS9h?=
+ =?utf-8?B?RUJGV0hDZi84Mm5Ub2ZsUGxlZkNrUFhyUjh5WEc2cUtSTTNuNWtMZ3NuZ25r?=
+ =?utf-8?B?OXB3QlBIZVFJeHgxUTRFMERFckszN0p2WC85N1JTWHJQNWI3TWcyc05sSnpz?=
+ =?utf-8?B?ejErUGdTdlRDaW5Tb1NrTE9GODNpcmtVd3BMNjVobDdxL25XcEFPMXFxYWJE?=
+ =?utf-8?B?OUJmUWdUYWpFY2RudlV3elNwTWRBK210dU1mdkY3a0hLZHBJK211SzRMRXFD?=
+ =?utf-8?B?V0xZWWViS3N4RCtGMWpFUm51NXQzL2Z3VGt5NGdYSEphL3FQdnFGR2ZEem5E?=
+ =?utf-8?B?MkIrZ0ZmZURuRHRZeTdiN0tDSzlESzRnZEZSYXk0LzZyTXg2aU9yMGpnSG01?=
+ =?utf-8?B?Qk1tMGhqb2ZwRTBiZURHVXpGSEV5L1hLYmxpMVcwbWErcitCb01kZ2pyVG4v?=
+ =?utf-8?B?UHJpWXM0VzJkdjREcGhwUkY1VWltNTBqMUkxc3dGNHl2am9tQ3dxRjZDR3Nj?=
+ =?utf-8?Q?04pxVitfBLCLP?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,484 +170,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qsZ77WCgSEzZDLcX"
-Content-Disposition: inline
-In-Reply-To: <20260826094950.1088288-12-herve.codina@bootlin.com>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 421883bb-5130-418d-cdaa-08df38a83fa2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 06:12:18.2565
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR05MB660978
 
---qsZ77WCgSEzZDLcX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Aug 26, 2026 at 11:48:40AM +0200, Herve Codina wrote:
-> The FDT_PROPDATA_PHANDLE_REF dtb tag is similar to the
-> FDT_PROPDATA_PHANDLE tag except that it identifies a reference to an
-> external phandle. The node referenced by the phandle is not present in
-> the device-tree blob.
->=20
-> The FDT_PROPDATA_PHANDLE_REF dtb tag is a meta-data tag attached to a
-> property.
->=20
-> It indicates that the property defined before this tag (FDT_PROP) uses a
-> phandle value and the node related to this phandle value is not local
-> node (i.e. the node is not present in the device-tree blob). This tag
-> can be available only in overlay or addon device-tree blobs. The phandle
-> value used in the property has to be resolved when the device-tree blob
-> is applied on top of a base device-tree.
->=20
-> The tag is followed by the length of the data part (structured tag), two
-> values and a possible alignment padding:
->  - data part length (32bit): 4 + strlen(label) + 1
->  - offset (32bit):
->      Offset in the property data where the phandle is available.
->  - label (string including \0):
->      The label to use to resolve the phandle value.
->  - padding:
->      Padding (0x00) added to have the next tag aligned on 32bit.
->=20
-> Example:
->   FDT_PROP 0x00000008 xxxxxxxx 0x00 0x01 0x02 0x03 0xff 0xff 0xff 0xff
->   FDT_PROPDATA_PHANDLE_REF 9 0x00000004 "foo1" 0x00 0x00 0x00
->=20
->   This means that at the offset 4 of the property data, the value
->   (0xffffffff) is an unresolved phandle value and the related node is
->   the node referenced by "foo1".
->=20
->   This is what is encoded in the dtb when the related dts has a property
->   with the value set to <0x00010203 &foo1> with 'foo1' a reference
->   to an non local node.
->=20
-> If several non local phandles are used in the property data, several
-> FDT_PROPDATA_PHANDLE_REF are present after the FDT_PROP tag. Each of
-> them points with its offset value to the position of one phandle.
->=20
-> For instance, if a first property with 8 bytes of data has a
-> unresolved phandle value at offset 4 referenced by "foo" and a second
-> property with 16 bytes of data has unresolved phandle values at offset 0
-> and 8 referenced by "bar" and "baz", the following tags sequence is
-> present:
->   FDT_PROP 0x00000008 xxxxxxxx <data bytes>
->   FDT_PROPDATA_PHANDLE_REF 8 0x00000004 "foo"
->   FDT_PROP 0x00000010 xxxxxxxx <data bytes>
->   FDT_PROPDATA_PHANDLE_REF 8 0x00000000 "bar"
->   FDT_PROPDATA_PHANDLE_REF 8 0x00000008 "baz"
->=20
-> Add support for this new dtb tag.
->=20
-> Suggested-by: David Gibson <david@gibson.dropbear.id.au>
-> Link: https://lore.kernel.org/all/aL-2fmYsbexEtpNp@zatzit/
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> ---
->  fdtdump.c          | 10 ++++++
->  flattree.c         | 78 +++++++++++++++++++++++++++++++++++++++++++++-
->  libfdt/fdt.c       | 30 ++++++++++++++++++
->  libfdt/fdt.h       | 14 +++++++++
->  libfdt/fdt_check.c | 34 ++++++++++++++++++++
->  5 files changed, 165 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fdtdump.c b/fdtdump.c
-> index 4ee9acc3..2acf3210 100644
-> --- a/fdtdump.c
-> +++ b/fdtdump.c
-> @@ -192,6 +192,16 @@ static void dump_blob(void *blob, bool debug, int du=
-mp_unknown)
->  			continue;
->  		}
-> =20
-> +		if (tag =3D=3D FDT_PROPDATA_PHANDLE_REF) {
-> +			p =3D get_structured_tag_data(tag, p, &d, &sz);
-> +			offset =3D fdt32_to_cpu(GET_CELL(d));
-> +			s =3D d;
-> +
-> +			printf("%*s// [FDT_PROPDATA_PHANDLE_REF] %s[%"PRIu32"], ref =3D %s\n",
-> +				depth * shift, "", last_prop_name, offset, s);
-> +			continue;
-> +		}
-> +
->  		if ((tag & FDT_TAG_STRUCTURED) && (tag & FDT_TAG_SKIP_SAFE)) {
->  			p =3D get_structured_tag_data(tag, p, &d, &sz);
-> =20
-> diff --git a/flattree.c b/flattree.c
-> index 92d191d5..abc50873 100644
-> --- a/flattree.c
-> +++ b/flattree.c
-> @@ -51,6 +51,7 @@ struct emitter {
->  	void (*endnode)(void *, struct label *labels);
->  	void (*property)(void *, struct label *labels);
->  	void (*propdata_phandle)(void *);
-> +	void (*propdata_phandle_ref)(void *);
-
-As for propdata_phandle, a new hook shouldn't be necessary here.
-
->  };
-> =20
->  static void bin_emit_cell(void *e, cell_t val)
-> @@ -105,6 +106,11 @@ static void bin_emit_propdata_phandle(void *e)
->  	bin_emit_cell(e, FDT_PROPDATA_PHANDLE);
->  }
-> =20
-> +static void bin_emit_propdata_phandle_ref(void *e)
-> +{
-> +	bin_emit_cell(e, FDT_PROPDATA_PHANDLE_REF);
-> +}
-> +
->  static struct emitter bin_emitter =3D {
->  	.cell =3D bin_emit_cell,
->  	.string =3D bin_emit_string,
-> @@ -114,6 +120,7 @@ static struct emitter bin_emitter =3D {
->  	.endnode =3D bin_emit_endnode,
->  	.property =3D bin_emit_property,
->  	.propdata_phandle =3D bin_emit_propdata_phandle,
-> +	.propdata_phandle_ref =3D bin_emit_propdata_phandle_ref,
->  };
-> =20
->  static void emit_label(FILE *f, const char *prefix, const char *label)
-> @@ -233,6 +240,14 @@ static void asm_emit_propdata_phandle(void *e)
->  	asm_emit_cell(e, FDT_PROPDATA_PHANDLE);
->  }
-> =20
-> +static void asm_emit_propdata_phandle_ref(void *e)
-> +{
-> +	FILE *f =3D e;
-> +
-> +	fprintf(f, "\t/* FDT_PROPDATA_PHANDLE_REF */\n");
-> +	asm_emit_cell(e, FDT_PROPDATA_PHANDLE_REF);
-> +}
-> +
->  static struct emitter asm_emitter =3D {
->  	.cell =3D asm_emit_cell,
->  	.string =3D asm_emit_string,
-> @@ -242,6 +257,7 @@ static struct emitter asm_emitter =3D {
->  	.endnode =3D asm_emit_endnode,
->  	.property =3D asm_emit_property,
->  	.propdata_phandle =3D asm_emit_propdata_phandle,
-> +	.propdata_phandle_ref =3D asm_emit_propdata_phandle_ref,
->  };
-> =20
->  static int stringtable_insert(struct data *d, const char *str)
-> @@ -306,6 +322,16 @@ static void flatten_tree(struct node *tree, struct e=
-mitter *emit,
->  					emit->cell(etarget, m->offset);
->  					continue;
->  				}
-> +
-> +				if (m->ref[0] =3D=3D '/')
-> +					die("Phandle uses a non local reference by path (%s)\n",
-> +					    m->ref);
-> +
-> +				emit->propdata_phandle_ref(etarget);
-> +				emit->cell(etarget, sizeof(cell_t) + strlen(m->ref) + 1);
-> +				emit->cell(etarget, m->offset);
-> +				emit->string(etarget, m->ref, 0);
-> +				emit->align(etarget, sizeof(cell_t));
->  			}
->  		}
->  	}
-> @@ -626,6 +652,16 @@ static void inbuf_init(struct inbuf *inb, void *base=
-, void *limit)
->  	inb->ptr =3D inb->base;
->  }
-> =20
-> +static void flat_read_subbuf(struct inbuf *inb, struct inbuf *subbuf, in=
-t len)
-> +{
-> +	if ((inb->ptr + len) > inb->limit)
-> +		die("Premature end of data parsing flat device tree\n");
-> +
-> +	inbuf_init(subbuf, inb->ptr, inb->ptr + len);
-> +
-> +	inb->ptr +=3D len;
-> +}
-> +
->  static void flat_read_chunk(struct inbuf *inb, void *p, int len)
->  {
->  	if ((inb->ptr + len) > inb->limit)
-> @@ -704,6 +740,7 @@ static uint32_t flat_read_tag(struct inbuf *inb)
->  		case FDT_NOP:
->  		case FDT_END:
->  		case FDT_PROPDATA_PHANDLE:
-> +		case FDT_PROPDATA_PHANDLE_REF:
->  			return tag;
->  		default:
->  			break;
-> @@ -713,7 +750,7 @@ static uint32_t flat_read_tag(struct inbuf *inb)
->  	die("Cannot skip unknown tag 0x%08x\n", tag);
->  }
-> =20
-> -static const char *flat_read_string(struct inbuf *inb)
-> +static const char *flat_read_string_norealign(struct inbuf *inb)
->  {
->  	int len =3D 0;
->  	const char *p =3D inb->ptr;
-> @@ -729,6 +766,15 @@ static const char *flat_read_string(struct inbuf *in=
-b)
-> =20
->  	inb->ptr +=3D len;
-> =20
-> +	return str;
-> +}
-> +
-> +static const char *flat_read_string(struct inbuf *inb)
-> +{
-> +	const char *str;
-> +
-> +	str =3D flat_read_string_norealign(inb);
-> +
->  	flat_realign(inb, sizeof(uint32_t));
-> =20
->  	return str;
-> @@ -844,8 +890,11 @@ static struct node *unflatten_tree(struct inbuf *dtb=
-uf,
->  	struct property *prop =3D NULL;
->  	struct node *node;
->  	const char *flatname;
-> +	struct inbuf subbuf;
->  	uint32_t val;
->  	uint32_t offset;
-> +	uint32_t len;
-> +	const char *str;
-> =20
->  	node =3D build_node(NULL, NULL, NULL);
-> =20
-> @@ -915,6 +964,33 @@ static struct node *unflatten_tree(struct inbuf *dtb=
-uf,
->  			prop->val =3D data_append_markers(prop->val, m);
->  			break;
-> =20
-> +		case FDT_PROPDATA_PHANDLE_REF:
-> +			if (!(flags & FTF_PROPDATA_PHANDLE))
-> +				die("PROPDATA_PHANDLE_REF tag found in flat tree"
-> +					" version <20\n");
-> +
-> +			if (!prop)
-> +				die("PROPDATA_PHANDLE_REF tag found without a previous PROP tag");
-> +
-> +			len =3D flat_read_word(dtbuf);
-> +			flat_read_subbuf(dtbuf, &subbuf, len);
-> +			flat_realign(dtbuf, sizeof(uint32_t));
-> +
-> +			offset =3D flat_read_word(&subbuf);
-> +			str =3D flat_read_string_norealign(&subbuf);
-> +
-> +			/*
-> +			 * A reference to a phandle is present in the property
-> +			 * Mark the whole property as TYPE_UINT32.
-> +			 */
-> +			property_add_marker(prop, TYPE_UINT32, 0, NULL);
-
-This isn't correct. There are existing bindings which mix phandle and
-string or other data in a single property.
-
-> +			/* Mark the offset as a external phandle reference */
-> +			m =3D alloc_marker(offset, REF_PHANDLE, xstrdup(str));
-> +			m->is_local =3D false;
-> +			prop->val =3D data_append_markers(prop->val, m);
-> +			break;
-> +
->  		default:
->  			die("Invalid opcode word %08x in device tree blob\n",
->  			    val);
-> diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> index 3762fbef..d23b886b 100644
-> --- a/libfdt/fdt.c
-> +++ b/libfdt/fdt.c
-> @@ -281,6 +281,33 @@ static uint32_t fdt_next_tag_all(const void *fdt, in=
-t startoffset, int *nextoffs
->  		offset =3D sum;
->  		break;
-> =20
-> +	case FDT_PROPDATA_PHANDLE_REF:
-> +		tmp_offset =3D fdt_get_structured_tag_data(tag, fdt, offset, &len);
-> +		if (tmp_offset < 0)
-> +			return FDT_END; /* premature end */
-> +
-> +		sum =3D tmp_offset + len;
-> +
-> +		/* Check offset value */
-> +		tmp32p =3D fdt_offset_ptr(fdt, tmp_offset, sizeof(*tmp32p));
-> +		if (!can_assume(VALID_DTB) && !tmp32p)
-> +			return FDT_END; /* premature end */
-> +		tmp_offset +=3D sizeof(fdt32_t);
-> +
-> +		/* Check ref string */
-> +		do {
-> +			p =3D fdt_offset_ptr(fdt, tmp_offset++, 1);
-> +		} while (p && (*p !=3D '\0'));
-
-Since we have the length from the structured tag, we should be able to
-avoid validating the string bytes one by one.
-
-> +		if (!can_assume(VALID_DTB) && !p)
-> +			return FDT_END; /* premature end */
-> +
-> +		if (!can_assume(VALID_INPUT) && (uint32_t)tmp_offset > sum)
-> +			return FDT_END; /* premature end */
-> +
-> +		/* Skip the whole data bloc */
-
-block
-
-> +		offset =3D sum;
-> +		break;
-> +
->  	default:
->  		if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
->  			return FDT_END;
-> @@ -310,6 +337,7 @@ static bool fdt_tag_is_unknown(uint32_t tag)
->  	case FDT_NOP:
->  	case FDT_END:
->  	case FDT_PROPDATA_PHANDLE:
-> +	case FDT_PROPDATA_PHANDLE_REF:
->  		return false;
->  	default:
->  		break;
-> @@ -364,6 +392,7 @@ bool fdt_tag_filter_skip_metadata(void *data, uint32_=
-t tag)
->  {
->  	switch (tag) {
->  	case FDT_PROPDATA_PHANDLE:
-> +	case FDT_PROPDATA_PHANDLE_REF:
->  		return true;
-> =20
->  	default:
-> @@ -377,6 +406,7 @@ bool fdt_tag_is_property_metadata(uint32_t tag)
->  {
->  	switch (tag) {
->  	case FDT_PROPDATA_PHANDLE:
-> +	case FDT_PROPDATA_PHANDLE_REF:
->  		return true;
->  	default:
->  		break;
-> diff --git a/libfdt/fdt.h b/libfdt/fdt.h
-> index 2f681088..c151aa2b 100644
-> --- a/libfdt/fdt.h
-> +++ b/libfdt/fdt.h
-> @@ -95,6 +95,20 @@ struct fdt_property {
->   */
->  #define FDT_PROPDATA_PHANDLE   FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0x10=
-00)
-> =20
-> +/*
-> + * external phandle tag (meta-data). varlen: offset, string label
-> + *
-> + * It indicates that the property defined before this tag (FDT_PROP) use=
-s a
-> + * phandle value and the node related to this phandle value is not local
-> + * node (i.e. the node is not present in the device-tree blob). The phan=
-dle
-> + * value used in the property has to be resolved when the device-tree bl=
-ob
-> + * is applied on top of a base device-tree.
-> + *
-> + * offset: Offset in the property data where the phandle is available
-> + * label: The label to use to resolve the phandle value
-> + */
-> +#define FDT_PROPDATA_PHANDLE_REF  FDT_TAG_CAN_SKIP(FDT_TAG_DATA_VARLEN, =
-0x1001)
-> +
->  #define FDT_V1_SIZE	(7*sizeof(fdt32_t))
->  #define FDT_V2_SIZE	(FDT_V1_SIZE + sizeof(fdt32_t))
->  #define FDT_V3_SIZE	(FDT_V2_SIZE + sizeof(fdt32_t))
-> diff --git a/libfdt/fdt_check.c b/libfdt/fdt_check.c
-> index ac297841..96dd7dc0 100644
-> --- a/libfdt/fdt_check.c
-> +++ b/libfdt/fdt_check.c
-> @@ -22,6 +22,7 @@ int fdt_check_full(const void *fdt, size_t bufsize)
->  	int proplen;
->  	bool expect_end =3D false;
->  	const fdt32_t *pfdt32;
-> +	const char *str;
->  	uint32_t val;
-> =20
->  	if (can_assume(PERFECT))
-> @@ -129,6 +130,39 @@ int fdt_check_full(const void *fdt, size_t bufsize)
->  				return tmp;
->  			break;
-> =20
-> +		case FDT_PROPDATA_PHANDLE_REF:
-> +			/* Be sure that a property is available before this tag */
-> +			if (!prop)
-> +				return -FDT_ERR_BADSTRUCTURE;
-> +
-> +			d =3D fdt_get_structured_tag_data(tag, fdt,
-> +							offset + FDT_TAGSIZE, NULL);
-> +			if (d < 0)
-> +				return d;
-> +
-> +			/* Retrieve the offset of the phandle in the property */
-> +			pfdt32 =3D fdt_offset_ptr(fdt, d, sizeof(*pfdt32));
-> +			if (!pfdt32)
-> +				return -FDT_ERR_BADSTRUCTURE;
-> +			tmp =3D fdt32_to_cpu(*pfdt32);
-> +
-> +			/* Check this offset */
-> +			if (tmp % sizeof(fdt32_t))
-> +				return -FDT_ERR_BADVALUE;
-
-Again, misaligned phandles need to be supported.
-
-> +			if ((uint32_t)proplen < tmp + sizeof(fdt32_t))
-
-Beware overflows.
-
-> +				return -FDT_ERR_BADSTRUCTURE;
-> +
-> +			/* Retrieve the reference */
-> +			d +=3D sizeof(fdt32_t);
-> +			str =3D fdt_offset_ptr(fdt, d, 1);
-> +			if (!str)
-> +				return -FDT_ERR_BADSTRUCTURE;
-> +
-> +			/* Check that the reference is not an empty string */
-> +			if (!strlen(str))
-> +				return -FDT_ERR_BADVALUE;
-
-It might be worth being stricter about the string validation: you
-already know the total length from the structured tag.  So, you can
-require that:
-	1. Every byte of the label except the last is !=3D \0
-	2. The last byte of the label is \0
-	3. Any padding bytes after the tag data are 0
-
-And, come to that we should probably define a valid character set for
-labels and enforce that ('/' needs to be excluded, at least).
-
-
-> +			break;
-> +
->  		default:
->  			return -FDT_ERR_INTERNAL;
->  		}
-> --=20
-> 2.55.0
->=20
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---qsZ77WCgSEzZDLcX
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmroKaoACgkQzQJF27ox
-2GckvxAAhQ323kltwGrAjxhSDbGP/MsocIfNfgfy7GwnL2751zbz7Y6RaQoBIpUp
-h1IgLnfR0Ph8zIp3I3FewwN5fpI6xv+85csx8WiMtiWTzKUgsdL1TUEfb7WepKCZ
-I9uJuhwuckgfIPD1uQ6++JKd9Hi4yXSGjyDuSPE1U/ozHMwTy8vMjnkXw5L0N54t
-tynd8wbv794aGsFkswVTlthNbV1yrpIB1PpSmleIm4oWWbfoCptI5V5Fsar98tku
-lccH0UvDDHZECFPlYolShsapmSLxZMipjnFCCKtf8oY8CYkUc01zTFmAqoGB09cV
-6yfKwpdzE6RtzOKvUXFD4WWKiLBLpTrel5YZeNRWTjLQX2uEVX78wUsZQ2p+YRNc
-Fk6iJ+is8gGK9KaEIBRFuEnR0TWxmBEptiFvHhJsIx0Nk/pSIviX7qpUhXWRk5y4
-6867mwUYxnqHoko/3ywc0WI0680XX7UO32X2V7ibFqsA82N/CNX8G7ErZcxEApUz
-wSC/HmffW3/166IR0iqCbwvAPV8X2LPVssIqLZi4D7YwrllEewswGPn+6eMCISdX
-Iu3sdXiFbwMab/YNuf9d+0M6qcOXo7san6i+ua0Xxk0zi8LQlAP1grur8S7twmZ0
-9+lYjn/vCMZPYDW0IHhsGU8ixlC51Lhq5cdcyfva19599VeE5tU=
-=nDga
------END PGP SIGNATURE-----
-
---qsZ77WCgSEzZDLcX--
+V2hlbiBJUHY2IGZsb3cgbGFiZWwgcmVmbGVjdGlvbiBpcyBlbmFibGVkLCB0Y3BfdjZfc2VuZF9z
+eW5hY2soKSByZWFkcwppcmVxLT5wa3RvcHRzIHRvIGNvcHkgdGhlIGZsb3cgbGFiZWwgZnJvbSB0
+aGUgaW5pdGlhbCBTWU4uCgpSZXF1ZXN0IHNvY2tldHMgY2FuIGJlIHByb2Nlc3NlZCB3aXRob3V0
+IHRoZSBsaXN0ZW5lciBsb2NrLiBBCnJldHJhbnNtaXR0ZWQgU1lOIGNhbiB0aGVyZWZvcmUgcnVu
+IHRjcF92Nl9zZW5kX3N5bmFjaygpIHdoaWxlIGEKY29uY3VycmVudCBmaW5hbCBBQ0sgY3JlYXRl
+cyB0aGUgY2hpbGQgaW4gdGNwX3Y2X3N5bl9yZWN2X3NvY2soKS4gVGhlCmxhdHRlciBjbG9uZXMg
+aXJlcS0+cGt0b3B0cyBmb3IgdGhlIGNoaWxkIGFuZCBpbW1lZGlhdGVseSBjb25zdW1lcyB0aGUK
+cmVxdWVzdCdzIHJlZmVyZW5jZS4gVGhpcyBjYW4gZnJlZSB0aGUgc2tiIHdoaWxlIHRoZSByZXRy
+YW5zbWl0IHBhdGggaXMKc3RpbGwgcmVhZGluZyBpdHMgSVB2NiBoZWFkZXIsIGNhdXNpbmcgYSB1
+c2UtYWZ0ZXItZnJlZS4KClJlcXVlc3QgbWlncmF0aW9uIGhhcyB0aGUgc2FtZSBvd25lcnNoaXAg
+cHJvYmxlbS4gaW5ldF9yZXFza19jbG9uZSgpCmNvcGllcyBwa3RvcHRzIHdpdGhvdXQgdGFraW5n
+IGFuIHNrYiByZWZlcmVuY2UsIGFuZCByZXFza19taWdyYXRlX3Jlc2V0KCkKdGhlbiBjbGVhcnMg
+dGhlIG9sZCByZXF1ZXN0J3MgcG9pbnRlci4gQSBDUFUgaG9sZGluZyB0aGUgb2xkIHJlcXVlc3Qg
+Y2FuCnN0aWxsIGJlIHNlbmRpbmcgYSBTWU5BQ0sgd2hlbiB0aGUgY2xvbmVkIHJlcXVlc3QgcmVs
+ZWFzZXMgdGhlIG9ubHkgc2tiCnJlZmVyZW5jZS4KCkRvIG5vdCBjb25zdW1lIHBrdG9wdHMgd2hp
+bGUgY3JlYXRpbmcgdGhlIGNoaWxkLiBHaXZlIGVhY2ggY2xvbmVkIHJlcXVlc3QKaXRzIG93biBz
+a2IgcmVmZXJlbmNlIGFuZCBsZXQgZXZlcnkgcmVxdWVzdCByZWxlYXNlIGl0cyByZWZlcmVuY2Ug
+ZnJvbQp0Y3BfdjZfcmVxc2tfZGVzdHJ1Y3RvcigpLgoKSSBmb3VuZCB0aGlzIHdoaWxlIHRlc3Rp
+bmcgSVB2NiBUQ1AgcmVxdWVzdC1zb2NrZXQgbGlmZXRpbWUgaGFuZGxpbmcuIFRoZQpyZXByb2R1
+Y2VyIHJlcXVpcmVkIG5vIHNvdXJjZSBjaGFuZ2VzLCBhcnRpZmljaWFsIGRlbGF5LCBvciBmYXVs
+dAppbmplY3Rpb24gYmV5b25kIGVuYWJsaW5nIEtBU0FOLiBJdCB0cmlnZ2VyZWQgdGhlIHVzZS1h
+ZnRlci1mcmVlIGJlZm9yZQp0aGlzIGNoYW5nZS4gV2l0aCB0aGlzIGNoYW5nZSwgYSAyMDAwLXJv
+dW5kIHJ1biBjb21wbGV0ZWQgd2l0aG91dCBhIEtBU0FOCnJlcG9ydC4gQSBzZXBhcmF0ZSAxMC1y
+b3VuZCB0ZXN0IHJlY29yZGVkIGZvdXIgc3VjY2Vzc2Z1bCByZXF1ZXN0Cm1pZ3JhdGlvbnMgYW5k
+IG5vIEtBU0FOIHJlcG9ydC4gTmV0d29ya2luZyBzZWxmdGVzdHMgd2VyZSBub3QgcnVuIGJlY2F1
+c2UKbm9uZSBkaXJlY3RseSBleGVyY2lzZXMgdGhpcyByYWNlLgoKRml4ZXM6IGU5OTRiMmYwZmI5
+MiAoInRjcDogZG8gbm90IGxvY2sgbGlzdGVuZXIgdG8gcHJvY2VzcyBTWU4gcGFja2V0cyIpCkZp
+eGVzOiAwNzkwOTZmMTAzZmEgKCJ0Y3AvZGNjcDogaW5zdGFsbCBzeW5fcmVjdiByZXF1ZXN0cyBp
+bnRvIGVoYXNoIHRhYmxlIikKRml4ZXM6IGM5MDVkZWU2MjIzMiAoInRjcDogTWlncmF0ZSBUQ1Bf
+TkVXX1NZTl9SRUNWIHJlcXVlc3RzIGF0IHJldHJhbnNtaXR0aW5nIFNZTitBQ0tzLiIpCkNjOiBz
+dGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IFlpbmdqaWUgV2FuZyA8eC1wcm9m
+ZXNzb3JAb3V0bG9vay5jb20+Ci0tLQogbmV0L2lwdjQvaW5ldF9jb25uZWN0aW9uX3NvY2suYyB8
+IDYgKysrKystCiBuZXQvaXB2Ni90Y3BfaXB2Ni5jICAgICAgICAgICAgIHwgNyArKysrLS0tCiAy
+IGZpbGVzIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
+aXQgYS9uZXQvaXB2NC9pbmV0X2Nvbm5lY3Rpb25fc29jay5jIGIvbmV0L2lwdjQvaW5ldF9jb25u
+ZWN0aW9uX3NvY2suYwppbmRleCA5M2IzMDZkOTFiNmQuLjY2ZjhjZTI1YWEzOCAxMDA2NDQKLS0t
+IGEvbmV0L2lwdjQvaW5ldF9jb25uZWN0aW9uX3NvY2suYworKysgYi9uZXQvaXB2NC9pbmV0X2Nv
+bm5lY3Rpb25fc29jay5jCkBAIC05MzYsNiArOTM2LDExIEBAIHN0YXRpYyBzdHJ1Y3QgcmVxdWVz
+dF9zb2NrICppbmV0X3JlcXNrX2Nsb25lKHN0cnVjdCByZXF1ZXN0X3NvY2sgKnJlcSwKIAkJICAg
+ICAgcmVxLT5yc2tfb3BzLT5vYmpfc2l6ZSAtIG9mZnNldG9mKHN0cnVjdCBzb2NrLCBza19kb250
+Y29weV9lbmQpLAogCQkgICAgICAvKiBhbGxvYyBpcyBsYXJnZXIgdGhhbiBzdHJ1Y3QsIHNlZSBh
+Ym92ZSAqLyk7CiAKKyNpZiBJU19FTkFCTEVEKENPTkZJR19JUFY2KQorCWlmIChpbmV0X3Jzayhu
+cmVxKS0+cGt0b3B0cykKKwkJc2tiX2dldChpbmV0X3JzayhucmVxKS0+cGt0b3B0cyk7CisjZW5k
+aWYKKwogCXNrX25vZGVfaW5pdCgmbnJlcV9zay0+c2tfbm9kZSk7CiAJbnJlcV9zay0+c2tfdHhf
+cXVldWVfbWFwcGluZyA9IHJlcV9zay0+c2tfdHhfcXVldWVfbWFwcGluZzsKICNpZmRlZiBDT05G
+SUdfU09DS19SWF9RVUVVRV9NQVBQSU5HCkBAIC05ODIsNyArOTg3LDYgQEAgc3RhdGljIHZvaWQg
+cmVxc2tfbWlncmF0ZV9yZXNldChzdHJ1Y3QgcmVxdWVzdF9zb2NrICpyZXEpCiAJcmVxLT5zYXZl
+ZF9zeW4gPSBOVUxMOwogI2lmIElTX0VOQUJMRUQoQ09ORklHX0lQVjYpCiAJaW5ldF9yc2socmVx
+KS0+aXB2Nl9vcHQgPSBOVUxMOwotCWluZXRfcnNrKHJlcSktPnBrdG9wdHMgPSBOVUxMOwogI2Vs
+c2UKIAlpbmV0X3JzayhyZXEpLT5pcmVxX29wdCA9IE5VTEw7CiAjZW5kaWYKZGlmZiAtLWdpdCBh
+L25ldC9pcHY2L3RjcF9pcHY2LmMgYi9uZXQvaXB2Ni90Y3BfaXB2Ni5jCmluZGV4IGUwMDZhMzAz
+NjBlYS4uMGI1MWNiNGFkOTYwIDEwMDY0NAotLS0gYS9uZXQvaXB2Ni90Y3BfaXB2Ni5jCisrKyBi
+L25ldC9pcHY2L3RjcF9pcHY2LmMKQEAgLTE1MjIsMTEgKzE1MjIsMTIgQEAgc3RhdGljIHN0cnVj
+dCBzb2NrICp0Y3BfdjZfc3luX3JlY3Zfc29jayhjb25zdCBzdHJ1Y3Qgc29jayAqc2ssIHN0cnVj
+dCBza19idWZmICoKIAlpZiAoKm93bl9yZXEpIHsKIAkJdGNwX21vdmVfc3luKG5ld3RwLCByZXEp
+OwogCi0JCS8qIENsb25lIHBrdG9wdGlvbnMgcmVjZWl2ZWQgd2l0aCBTWU4sIGlmIHdlIG93biB0
+aGUgcmVxICovCisJCS8qIENsb25lIHBrdG9wdGlvbnMgcmVjZWl2ZWQgd2l0aCBTWU4uIEtlZXAg
+dGhlIHJlcXVlc3QncworCQkgKiByZWZlcmVuY2UgdW50aWwgdGhlIHJlcXVlc3QgaXMgZGVzdHJv
+eWVkLCBhcyBhIGNvbmN1cnJlbnQKKwkJICogU1lOIHJldHJhbnNtaXQgbWF5IHN0aWxsIHJlYWQg
+aXQuCisJCSAqLwogCQlpZiAoaXJlcS0+cGt0b3B0cykgewogCQkJbmV3bnAtPnBrdG9wdGlvbnMg
+PSBza2JfY2xvbmVfYW5kX2NoYXJnZV9yKGlyZXEtPnBrdG9wdHMsIG5ld3NrKTsKLQkJCWNvbnN1
+bWVfc2tiKGlyZXEtPnBrdG9wdHMpOwotCQkJaXJlcS0+cGt0b3B0cyA9IE5VTEw7CiAJCQlpZiAo
+bmV3bnAtPnBrdG9wdGlvbnMpCiAJCQkJdGNwX3Y2X3Jlc3RvcmVfY2IobmV3bnAtPnBrdG9wdGlv
+bnMpOwogCQl9CgpiYXNlLWNvbW1pdDogY2IyODQ5MTRlNzQ5Mzg4ZWVmNDAyOTM4YmRiMzExNWZl
+MWY2ZDMzNwotLSAKMi40My4wCgo=
