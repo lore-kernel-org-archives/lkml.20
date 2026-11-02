@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605148;
-	b=vtSw2Qk0z7eMbv7LrQZXjbWcznrhytcWfNAxtfLFhb79vEhFPkxOCgz3rfU0DEOvQJgG
-	 Lh4O7TImMUVcldKhRf7kqF1J1ANgmSbv7Sb6NFq4WPmpvawSfmyUMD4oYqWIvg8UV/ANB
-	 839t3XoNAVMGfZQ9PrNtJMrRtDjgemGtktYYJ33I2UtRMTuTD70q8OTzE/+N2yfMhaTFF
-	 meuBMgBt+8T6Yc71mGSBqFfL+zZ7FLBTkl6KvhENvnzZXY09Z/mZzUNL194xK4witr5bS
-	 CG4ZcZz34EHBuK8MrrDqSzkPlJwu8xhLwNLDE+/OZCuQt9Z1vBAbllewcXnQ0IsbG2A==
+	t=1793605151;
+	b=hWERZmSv1/1/4UGnIlIlpNcNwh8qKfnXe2LIZv8J57w5/JWG97n8SBZwRlKnO6iqMs8o
+	 VoHdq4mCc/nniim5RjFB9k6uL4YMEv8c14pdB2EdCJ4EtGw3TjkY5lpEgXoCnkn99CacH
+	 FdTxZiP41IVXe6hhfZrN3ajJbE2Eg9n3nfScDsVmU2V4mP7TywYCoepB+u5QKhHHoavPb
+	 UgU8pQC3Yv3SsnKuEehd5PO5KmNykO+rBM4Fpfw2tgg76YsylcYv9VayzBgZd2ld9IrJx
+	 l5yN2pX/PtdyUe+Sq3F3Qo+5mUAD0ORbj8CkhEsNkMlKvPxB2s0OjPkN87+Uud2t4Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605148;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605151;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=3T+X5BXI5pCgitNNmrYk1gYo30O1e3wb5Q82zRUF+Ps=;
-	b=YqN1p1g42sLVF3oQ+JvM8jPIBoB4AwecM3r1skbYhEcJuUiuAO1GK5Cjd9WirjCq5/W4
-	 iNvNvKumHbq5DCf9/4zCgFEoSTiHawXmqIaEdxuu4OwfE6ZBFUE9eX0JL3tXSniHparPF
-	 OoZNG7KwHApum4I01YwLKJzV70opdTwO/8DiuRKsdN9IinIQLQJTbJItAaYxe6n/9Bdvl
-	 pBy5ModpjAOilxuG/ItgtsX+6TdtfuQJ9/V+j7Orx1p8gEJkRWqQYx0B9a0Z+XLzZpwmb
-	 Vc0CSXpL6bYC0ErkTdooWRDJ484F9M6cYhVlC8ElRLv6jFekf4QFTBowsKt4PxDcKFA==
+	bh=pc+t/sBP4msBuO2u5r/6zX21HNjMObf3cA+ETzGNpmk=;
+	b=aRuYSZnzEWUYwk0Ok4UNnEbrKE2QoHTORSerhkm+/aU3zOpdetNQNItXwABbWVr/RsK1
+	 isZ1XSdVOKwtfpIAvxzO1vlpVHkeFb9eLQSZWCOuw1iQFMJtjBx9WQydpT+9aUSWJarFP
+	 RWr54skpYclyUfb4b4NGpb3z8e8KHIQwyS7vTtCL6Clvr33P9gNV4r3bb4s59q5XwcDLF
+	 nUkxdzO7uKGaWNyrbxldICOTa1aScdJqHA8dkY60N03up5dktuDNV51ZOui1XKQz9K0IO
+	 utx5LnuL0kwWhhdlv8hUA6/naX0rTqS3HHFBrcxKmFManby92UIpP4kHmtNjrhNVaAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ol8fTcnm;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nuG48Gt7;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0249E606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:39:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0249E606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AEE606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:39:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9AEE606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ol8fTcnm
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nuG48Gt7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3T
-	+X5BXI5pCgitNNmrYk1gYo30O1e3wb5Q82zRUF+Ps=; b=Ol8fTcnm6V0I9Q/1Sz
-	kcjssG58KCgARUL/U66xgV/eKQNw87TffIBqgLjCkoDdip2JYxsO80NAPX7Kgv1D
-	1NhK1i/WeR7//hgEFe3bCVSQO/75+XMIEe4jdeQbA8m6QYcDBbn30uKpRvy98j1+
-	hbvHQlH0n3UyMbe88CzUTGvQQ=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=pc
+	+t/sBP4msBuO2u5r/6zX21HNjMObf3cA+ETzGNpmk=; b=nuG48Gt7cl6kduCZoj
+	FYg7W6o4zE8rB3SmwQ2J9tWVHYCSp2xl85ysDXl+YgJxpZYYnb6QDLiTo/TOGPcE
+	FXp3zZEd6ZAWUbpfmJJKWNqW6FO4DKuIA8s7hQKYzI20ZA0JDXZ+CFcxXB1rr2uy
+	6bhx9FEPVCQDCusJ4vHQVrNt8=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nygJPuhqucJHEg--.56690S3;
-	Mon, 02 Nov 2026 15:38:50 +0800 (CST)
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nygJPuhqucJHEg--.56690S6;
+	Mon, 02 Nov 2026 15:38:52 +0800 (CST)
 From: Xuewen Wang <wangxuewen_ky@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: wangxuewen_ky@163.com,
 	ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v5 25/31] ntfs: report MFT record validation and lifecycle errors
-Date: Mon,  2 Nov 2026 15:35:26 +0800
-Message-Id: <20261102073532.98873-26-wangxuewen_ky@163.com>
+	Xuewen Wang <wangxuewen@kylinos.cn>
+Subject: [PATCH v5 28/31] ntfs: report EA metadata and restoration errors
+Date: Mon,  2 Nov 2026 15:35:29 +0800
+Message-Id: <20261102073532.98873-29-wangxuewen_ky@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261102073532.98873-1-wangxuewen_ky@163.com>
 References: <20261102073532.98873-1-wangxuewen_ky@163.com>
@@ -66,250 +66,403 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3nygJPuhqucJHEg--.56690S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WFWkCry7XFWxWF4rZw4fXwb_yoWfGFW8pF
-	nxA3srKrs7JrnFvrsrt3WYya4akas2gw4DWr97G3Wfuan5tw1jqa1DtFyv9FyrKrZ5Gwn7
-	J3Wqq3y3Za4UZwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UdfHbUUUUU=
-X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC8ApmT2roPgrqZgAA3p
+X-CM-TRANSID:_____wD3nygJPuhqucJHEg--.56690S6
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Cw4kZw15GFyfJF47Xr4xZwb_yoWkZFWxpF
+	yfC34Dt3yrJr9rWrn2ywnFq3WY9ryIgrWUGryxK3WIk3Z8twn0qa4q9FWa9FZYkrWkGw18
+	KF4Dtws8AF4UXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UzlksUUUUU=
+X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC7wxnUGroPgxc2wAA3j
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-MFT mapping, allocation and freeing can detect invalid records or
-failed cleanup without reporting them. Cover stale extent references,
-malformed reserved records and failures to restore allocation bits or
-record state.
+Report malformed EA chains, orphaned attributes and invalid Linux flag
+sizes. Check HasEA under mrec_lock in listxattr; when it is set, missing
+EA_INFORMATION or EA is corruption. Preserve read errors already reported
+below, ordinary missing keys and buffer-size errors. Report local setter
+validation failures once without repeating lower-level reports.
 
-Use EFSCORRUPTED for corruption while retaining normal reserved-record
-ineligibility. Use ntfs_inode_base() for file attribution and volume
-reports when no usable file reference exists.
+Convert invalid stored ACLs and inconsistent saved-ACL read lengths to
+EFSCORRUPTED. Keep unsupported ACL versions and allocation failures
+distinct. Preserve missing AttrDef errors and non-ENOENT flag lookup
+errors; report mapping-pairs sizing errors only for EFSCORRUPTED.
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+Report EA and EA_INFORMATION restoration failures separately, and failed
+ACL restoration after a WSL mode update. Preserve the initiating error
+and existing shutdown decisions, including on recovery-time ENOMEM.
+
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
- fs/ntfs/mft.c | 70 +++++++++++++++++++++++++++++++--------------------
- 1 file changed, 43 insertions(+), 27 deletions(-)
+Validation:
+- Thirteen cases cover EA setter report ownership, local corruption,
+  lower read/update errors, missing AttrDef, ENOMEM and the attribute-size
+  limit. Lower-level reports are not duplicated.
+- All pass in an extracted-source userspace harness with controlled
+  dependencies under ASan/UBSan; checks cover reporting calls.
 
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index 9b14e69c9c6f..f494f283408b 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -26,7 +26,7 @@
-  * Make sure its general fields are safe, then examine all its
-  * attributes and apply generic checks to them.
-  *
-- * Returns 0 if the checks are successful. If not, return -EIO.
-+ * Returns 0 if the checks are successful. If not, return -EFSCORRUPTED.
-  */
- int ntfs_mft_record_check(const struct ntfs_volume *vol, struct mft_record *m,
- 		u64 mft_no)
-@@ -88,7 +88,7 @@ int ntfs_mft_record_check(const struct ntfs_volume *vol, struct mft_record *m,
- 	return 0;
+ fs/ntfs/ea.c | 161 ++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 103 insertions(+), 58 deletions(-)
+
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index fc8a57e0e7d0..2fec8bfcdd89 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -113,7 +113,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
+ {
+ 	struct ntfs_inode *ni = NTFS_I(inode);
+ 	const struct ea_attr *p_ea;
+-	char *ea_buf;
++	char *ea_buf = NULL;
+ 	s64 ea_off, ea_size, all_ea_size, ea_info_size;
+ 	int err;
+ 	u32 ea_info_qlen;
+@@ -125,25 +125,28 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
  
- err_out:
--	return -EIO;
-+	return -EFSCORRUPTED;
+ 	p_ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
+ 			&ea_info_size);
+-	if (IS_ERR(p_ea_info))
+-		return PTR_ERR(p_ea_info);
++	if (IS_ERR(p_ea_info)) {
++		err = PTR_ERR(p_ea_info);
++		goto read_error;
++	}
+ 	if (ea_info_size != sizeof(struct ea_information)) {
+ 		kvfree(p_ea_info);
+-		return -EUCLEAN;
++		goto corrupt;
+ 	}
+ 
+ 	ea_info_qlen = le32_to_cpu(p_ea_info->ea_query_length);
+ 	kvfree(p_ea_info);
+ 
+ 	ea_buf = ntfs_attr_readall(ni, AT_EA, NULL, 0, &all_ea_size);
+-	if (IS_ERR(ea_buf))
+-		return PTR_ERR(ea_buf);
+-
+-	if (ea_info_qlen > all_ea_size) {
+-		err = -EUCLEAN;
+-		goto free_ea_buf;
++	if (IS_ERR(ea_buf)) {
++		err = PTR_ERR(ea_buf);
++		ea_buf = NULL;
++		goto read_error;
+ 	}
+ 
++	if (ea_info_qlen > all_ea_size)
++		goto corrupt;
++
+ 	err = ntfs_ea_lookup(ea_buf, ea_info_qlen, name, name_len, &ea_off,
+ 			&ea_size);
+ 	if (!err) {
+@@ -165,11 +168,23 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
+ 		return ea_value_len;
+ 	}
+ 
++	if (err == -EUCLEAN)
++		goto corrupt;
+ 	if (err == -ENOENT)
+ 		err = -ENODATA;
+ free_ea_buf:
+ 	kvfree(ea_buf);
+ 	return err;
++
++read_error:
++	/* I/O and decoding errors are already reported by the read path. */
++	if (err != -ENOENT)
++		goto free_ea_buf;
++corrupt:
++	/* With HasEA set, both NTFS EA attributes must exist. */
++	err = -EUCLEAN;
++	ntfs_report_file_metadata_error(inode, err);
++	goto free_ea_buf;
  }
  
- /*
-@@ -112,6 +112,7 @@ int ntfs_mft_record_check(const struct ntfs_volume *vol, struct mft_record *m,
- static inline struct mft_record *map_mft_record_folio(struct ntfs_inode *ni)
- {
- 	loff_t i_size;
-+	struct ntfs_inode *base_ni;
- 	struct ntfs_volume *vol = ni->vol;
- 	struct inode *mft_vi = vol->mft_ino;
- 	struct folio *folio;
-@@ -169,8 +170,9 @@ static inline struct mft_record *map_mft_record_folio(struct ntfs_inode *ni)
- 		folio_put(folio);
- 		kfree(ni->mrec);
- 		ni->mrec = NULL;
--		folio = ERR_PTR(-EIO);
--		NVolSetErrors(vol);
-+		folio = ERR_PTR(-EFSCORRUPTED);
-+		base_ni = ntfs_inode_base(ni);
-+		ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
- 	}
- err_out:
- 	ni->folio = NULL;
-@@ -313,7 +315,9 @@ struct mft_record *map_extent_mft_record(struct ntfs_inode *base_ni, u64 mref,
- 			unmap_mft_record(ni);
- 			ntfs_error(base_ni->vol->sb,
- 					"Found stale extent mft reference! Corrupt filesystem. Run chkdsk.");
--			return ERR_PTR(-EIO);
-+			ntfs_report_file_metadata_error(VFS_I(base_ni),
-+							-EFSCORRUPTED);
-+			return ERR_PTR(-EFSCORRUPTED);
- 		}
- map_err_out:
- 		ntfs_error(base_ni->vol->sb,
-@@ -344,8 +348,9 @@ struct mft_record *map_extent_mft_record(struct ntfs_inode *base_ni, u64 mref,
- 	if (seq_no && (le16_to_cpu(m->sequence_number) != seq_no)) {
- 		ntfs_error(base_ni->vol->sb,
- 				"Found stale extent mft reference! Corrupt filesystem. Run chkdsk.");
-+		ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
- 		destroy_ni = true;
--		m = ERR_PTR(-EIO);
-+		m = ERR_PTR(-EFSCORRUPTED);
- 		goto unm_nolock_err_out;
- 	}
+ static inline int ea_packed_size(const struct ea_attr *p_ea)
+@@ -181,7 +196,7 @@ static inline int ea_packed_size(const struct ea_attr *p_ea)
+ 	return 5 + p_ea->ea_name_length + le16_to_cpu(p_ea->ea_value_length);
+ }
  
-@@ -1034,7 +1039,7 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
- 	folio_unlock(folio);
- 	folio_put(folio);
- 	if (post_read_mst_fixup((struct ntfs_record *)m, vol->mft_record_size))
--		goto free_m;
+-/* Unlike ntfs_attr_exist(), preserve lookup errors. */
++/* Return the lookup errno, including -ENOENT for an absent attribute. */
+ static int ntfs_ea_attr_lookup(struct ntfs_inode *ni, __le32 type)
+ {
+ 	struct ntfs_attr_search_ctx *ctx;
+@@ -254,17 +269,15 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 		return err;
+ 	/* Do not silently discard an orphaned attribute. */
+ 	if (exists != !err)
+-		return -EUCLEAN;
 +		goto corrupt;
  
- 	if (!ntfs_is_mft_record(m->magic) ||
- 	    !(m->flags & MFT_RECORD_IN_USE) || m->base_mft_record ||
-@@ -1045,7 +1050,7 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
- 	bytes_in_use = le32_to_cpu(m->bytes_in_use);
- 	if (attrs_offset > bytes_in_use || bytes_in_use > vol->mft_record_size ||
- 	    bytes_in_use - attrs_offset < sizeof(a->type))
+ 	if (exists) {
+ 		old_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
+ 					     &info_size);
+ 		if (IS_ERR(old_info))
+ 			return PTR_ERR(old_info);
+-		if (info_size != sizeof(*old_info)) {
+-			err = -EUCLEAN;
+-			goto out;
+-		}
++		if (info_size != sizeof(*old_info))
++			goto corrupt;
+ 		old_ea = ntfs_attr_readall(ni, AT_EA, NULL, 0, &old_size);
+ 		if (IS_ERR(old_ea)) {
+ 			err = PTR_ERR(old_ea);
+@@ -272,19 +285,17 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 			goto out;
+ 		}
+ 		size = le32_to_cpu(old_info->ea_query_length);
+-		if (size > old_size) {
+-			err = -EUCLEAN;
+-			goto out;
+-		}
++		if (size > old_size)
++			goto corrupt;
+ 	}
+ 
+ 	/* Validate even the entries following the one being replaced. */
+ 	err = ntfs_ea_lookup(old_ea, size, NULL, 0, &offset, &entry_size);
+ 	if (err != -ENOENT)
 -		goto out;
 +		goto corrupt;
+ 	err = ntfs_ea_lookup(old_ea, size, name, name_len, &offset, &entry_size);
+ 	if (err && err != -ENOENT)
+-		goto out;
++		goto corrupt;
+ 	if (!err) {
+ 		if (flags & XATTR_CREATE) {
+ 			err = -EEXIST;
+@@ -307,9 +318,13 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
  
- 	for (a = (struct attr_record *)((u8 *)m + attrs_offset);
- 	     (u8 *)a + sizeof(a->type) <= (u8 *)m + bytes_in_use;) {
-@@ -1054,36 +1059,40 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
- 		if (a->type == AT_END) {
- 			if ((u8 *)a + sizeof(a->type) + sizeof(a->length) >
- 			    (u8 *)m + bytes_in_use)
--				break;
-+				goto corrupt;
- 			/* Also accept a record emptied by an earlier bootstrap. */
- 			available = have_std ||
- 				    (u8 *)a == (u8 *)m + attrs_offset;
--			break;
+ 	add_size = remove ? 0 : ALIGN(sizeof(*entry) + name_len + 1 + val_size, 4);
+ 	new_size = size - entry_size + add_size;
+-	if (new_size && ntfs_attr_size_bounds_check(ni->vol, AT_EA, new_size)) {
+-		err = -EFBIG;
+-		goto out;
++	if (new_size) {
++		err = ntfs_attr_size_bounds_check(ni->vol, AT_EA, new_size);
++		if (err) {
++			if (err == -ERANGE)
++				err = -EFBIG;
 +			goto out;
- 		}
- 		if (a->type == AT_FILE_NAME)
--			break;
-+			goto out;
- 		len = le32_to_cpu(a->length);
- 		if (len < offsetof(struct attr_record, data) ||
- 		    (u8 *)a + len > (u8 *)m + bytes_in_use)
--			break;
-+			goto corrupt;
- 		if (a->type == AT_STANDARD_INFORMATION) {
- 			u32 value_len, value_ofs;
- 
- 			if (have_std || a->non_resident ||
- 			    len < offsetof(struct attr_record,
- 					   data.resident.reserved) + 1)
--				break;
-+				goto corrupt;
- 			value_len = le32_to_cpu(a->data.resident.value_length);
- 			value_ofs = le16_to_cpu(a->data.resident.value_offset);
- 			if (value_ofs > len || value_len > len - value_ofs)
--				break;
-+				goto corrupt;
- 			have_std = true;
- 		}
- 		a = (struct attr_record *)((u8 *)a + len);
- 	}
-+	/* No attribute terminator within the used part of the record. */
-+	goto corrupt;
- out:
- 	kfree(m);
- 	return available;
-+corrupt:
-+	ntfs_report_metadata_error(vol, -EFSCORRUPTED);
- free_m:
- 	kfree(m);
- 	return false;
-@@ -2317,8 +2326,8 @@ static int ntfs_mft_record_format(const struct ntfs_volume *vol, const s64 mft_n
-  *
-  * On error, the volume will be left in a consistent state and no record will
-  * be allocated.  If rolling back a partial operation fails, we may leave some
-- * inconsistent metadata in which case we set NVolErrors() so the volume is
-- * left dirty when unmounted.
-+ * inconsistent metadata in which case we report the error so the volume is
-+ * left dirty when unmounted and userspace is notified.
-  *
-  * Note, this function cannot make use of most of the normal functions, like
-  * for example for attribute resizing, etc, because when the run list overflows
-@@ -2349,7 +2358,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- 	struct attr_record *a;
- 	pgoff_t index;
- 	unsigned int ofs;
--	int err;
-+	int err, rollback_err;
- 	__le16 seq_no, usn;
- 	bool record_formatted = false, from_reserve = false, tail_alloc = false;
- 	bool reserve_created = false;
-@@ -2678,6 +2687,10 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- 			CASE_SENSITIVE, 0, NULL, 0, ctx);
- 	if (unlikely(err)) {
- 		ntfs_error(vol->sb, "Failed to find first attribute extent of mft data attribute.");
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
 +		}
- 		ntfs_attr_put_search_ctx(ctx);
- 		unmap_mft_record(mft_ni);
- 		goto undo_data_init;
-@@ -2754,7 +2767,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- 			folio_unlock(folio);
- 			kunmap_local(m);
- 			folio_put(folio);
--			NVolSetErrors(vol);
-+			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
- 			goto search_free_rec;
- 		}
- 		/*
-@@ -2910,9 +2923,12 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- 	if (!base_ni || base_ni->mft_no != FILE_MFT)
- 		down_write(&vol->mftbmp_lock);
- undo_mftbmp_alloc_nolock:
--	if (!forced_reserved_record && ntfs_bitmap_clear_bit(vol->mftbmp_ino, bit)) {
-+	rollback_err = 0;
-+	if (!forced_reserved_record)
-+		rollback_err = ntfs_bitmap_clear_bit(vol->mftbmp_ino, bit);
-+	if (rollback_err) {
- 		ntfs_error(vol->sb, "Failed to clear bit in mft bitmap.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_report_metadata_error(vol, rollback_err);
  	}
- 	if ((from_reserve || reserve_created) &&
- 	    vol->mft_record_reserve_pos == bit + 1)
-@@ -2949,7 +2965,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
- {
- 	u64 mft_no;
--	int err;
-+	int err, rollback_err;
- 	u16 seq_no;
- 	__le16 old_seq_no;
- 	__le64 old_base_mft_record;
-@@ -2965,14 +2981,11 @@ int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
- 
- 	ni_mrec = map_mft_record(ni);
- 	if (IS_ERR(ni_mrec))
--		return -EIO;
-+		return PTR_ERR(ni_mrec);
- 
- 	/* Cache the mft reference for later. */
- 	mft_no = ni->mft_no;
--	if (likely(ni->nr_extents >= 0))
--		base_ni = ni;
--	else
--		base_ni = ni->ext.base_ntfs_ino;
-+	base_ni = ntfs_inode_base(ni);
- 	keep_reserved = mft_no >= FILE_reserved12 &&
- 			mft_no <= FILE_reserved15 &&
- 			base_ni->mft_no == FILE_MFT;
-@@ -3043,8 +3056,11 @@ int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
- 	memalloc_flags = memalloc_nofs_save();
- 	if (base_ni->mft_no != FILE_MFT)
- 		down_write(&vol->mftbmp_lock);
--	if (ntfs_bitmap_set_bit(vol->mftbmp_ino, mft_no))
-+	rollback_err = ntfs_bitmap_set_bit(vol->mftbmp_ino, mft_no);
-+	if (rollback_err) {
- 		ntfs_error(vol->sb, "ntfs_bitmap_set_bit failed in bitmap_rollback\n");
-+		ntfs_report_metadata_error(vol, rollback_err);
+ 	if (new_size) {
+ 		ea = kvzalloc(new_size, GFP_NOFS);
+@@ -366,7 +381,10 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 		info_err = ntfs_ea_update_attr(ni, AT_EA_INFORMATION,
+ 					       (char *)old_info, sizeof(info));
+ 		if (ea_err || info_err) {
+-			NVolSetErrors(ni->vol);
++			if (ea_err)
++				ntfs_report_file_metadata_error(inode, ea_err);
++			if (info_err)
++				ntfs_report_file_metadata_error(inode, info_err);
+ 			NVolSetShutdown(ni->vol);
+ 			ntfs_error(inode->i_sb,
+ 				   "Failed to restore EAs of inode 0x%llx (%d, %d); shutting down.",
+@@ -389,6 +407,11 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 	kvfree(old_ea);
+ 	kvfree(old_info);
+ 	return err;
++
++corrupt:
++	err = -EUCLEAN;
++	ntfs_report_file_metadata_error(inode, err);
++	goto out;
+ }
+ /*
+  * Check for the presence of an EA "$LXDEV" (used by WSL)
+@@ -492,10 +515,12 @@ int ntfs_ea_get_linuxflags(struct inode *inode)
+ 			  &value, sizeof(value));
+ 	if (err == -ENODATA)
+ 		return 0;
+-	if (err < 0)
+-		return err == -ERANGE ? -EUCLEAN : err;
+-	if (err != sizeof(value))
++	if (err < 0 && err != -ERANGE)
++		return err;
++	if (err != sizeof(value)) {
++		ntfs_report_file_metadata_error(inode, -EUCLEAN);
+ 		return -EUCLEAN;
 +	}
- 	if (base_ni->mft_no != FILE_MFT)
- 		up_write(&vol->mftbmp_lock);
- 	memalloc_nofs_restore(memalloc_flags);
+ 
+ 	ni->linuxflags = le32_to_cpu(value);
+ 	if (ni->linuxflags & NTFS_LINUXFLAGS_IMMUTABLE)
+@@ -543,23 +568,21 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
+ 	u32 ea_info_qsize;
+ 	char *ea_buf = NULL;
+ 	ssize_t ret = 0;
+-	struct ea_information *ea_info;
++	struct ea_information *ea_info = NULL;
+ 
++	mutex_lock(&ni->mrec_lock);
++	/* Recheck after locking: the last EA may have just been removed. */
+ 	if (!NInoHasEA(ni))
+-		return 0;
+-
+-	mutex_lock(&NTFS_I(inode)->mrec_lock);
++		goto out;
+ 	ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
+ 			&ea_info_size);
+ 	if (IS_ERR(ea_info)) {
+ 		err = PTR_ERR(ea_info);
+ 		ea_info = NULL;
+-		goto out;
+-	}
+-	if (ea_info_size != sizeof(struct ea_information)) {
+-		err = -EUCLEAN;
+-		goto out;
++		goto read_error;
+ 	}
++	if (ea_info_size != sizeof(struct ea_information))
++		goto corrupt;
+ 
+ 	ea_info_qsize = le32_to_cpu(ea_info->ea_query_length);
+ 
+@@ -567,19 +590,17 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
+ 	if (IS_ERR(ea_buf)) {
+ 		err = PTR_ERR(ea_buf);
+ 		ea_buf = NULL;
+-		goto out;
++		goto read_error;
+ 	}
+ 
+-	if (ea_info_qsize > ea_buf_size) {
+-		err = -EUCLEAN;
+-		goto out;
+-	}
++	if (ea_info_qsize > ea_buf_size)
++		goto corrupt;
+ 
+ 	/* Validate the entire chain, including size-only queries. */
+ 	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &offset,
+ 			     &ea_size);
+ 	if (err != -ENOENT)
+-		goto out;
++		goto corrupt;
+ 	err = 0;
+ 	if (!ea_info_qsize)
+ 		goto out;
+@@ -605,11 +626,21 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
+ 	} while (next > 0 && offset < ea_info_qsize);
+ 
+ out:
+-	mutex_unlock(&NTFS_I(inode)->mrec_lock);
++	mutex_unlock(&ni->mrec_lock);
+ 	kvfree(ea_info);
+ 	kvfree(ea_buf);
+ 
+ 	return err ? err : ret;
++
++read_error:
++	/* I/O and decoding errors are already reported by the read path. */
++	if (err != -ENOENT)
++		goto out;
++corrupt:
++	/* HasEA was checked under mrec_lock; this is not an absent xattr. */
++	err = -EUCLEAN;
++	ntfs_report_file_metadata_error(inode, err);
++	goto out;
+ }
+ 
+ // clang-format off
+@@ -673,6 +704,7 @@ static int ntfs_getxattr(const struct xattr_handler *handler,
+ 
+ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
+ {
++	int report_err = 0;
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	struct mft_record *m;
+ 	struct attr_record *a;
+@@ -694,7 +726,8 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
+ 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
+ 			CASE_SENSITIVE, 0, NULL, 0, ctx);
+ 	if (err) {
+-		err = -EINVAL;
++		if (err == -ENOENT)
++			err = -EINVAL;
+ 		goto err_out;
+ 	}
+ 
+@@ -744,7 +777,10 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
+ 				CASE_SENSITIVE,
+ 				0, NULL, 0, ctx);
+ 		if (err) {
+-			err = -EINVAL;
++			if (err == -ENOENT) {
++				err = -EFSCORRUPTED;
++				report_err = -EFSCORRUPTED;
++			}
+ 			goto err_out;
+ 		}
+ 		a = ctx->attr;
+@@ -770,6 +806,8 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
+ 	mp_size = ntfs_get_size_for_mapping_pairs(ni->vol, ni->runlist.rl, 0, -1, -1);
+ 	if (unlikely(mp_size < 0)) {
+ 		err = mp_size;
++		if (err == -EFSCORRUPTED)
++			report_err = err;
+ 		ntfs_debug("Failed to get size for mapping pairs array, error code %i.\n", err);
+ 		goto err_out;
+ 	}
+@@ -878,6 +916,8 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
+ 	if (ctx)
+ 		ntfs_attr_put_search_ctx(ctx);
+ 	unmap_mft_record(ni);
++	if (report_err)
++		ntfs_report_file_metadata_error(VFS_I(ni), report_err);
+ 	return err;
+ }
+ 
+@@ -1036,12 +1076,17 @@ struct posix_acl *ntfs_get_acl(const struct mnt_idmap *idmap, struct dentry *den
+ 	mutex_unlock(&ni->mrec_lock);
+ 
+ 	/* Translate extended attribute to acl. */
+-	if (err >= 0)
++	if (err >= 0) {
+ 		acl = posix_acl_from_xattr(&init_user_ns, buf, err);
+-	else if (err == -ENODATA)
++		if (IS_ERR(acl) && PTR_ERR(acl) == -EINVAL) {
++			acl = ERR_PTR(-EFSCORRUPTED);
++			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
++		}
++	} else if (err == -ENODATA) {
+ 		acl = NULL;
+-	else
++	} else {
+ 		acl = ERR_PTR(err);
++	}
+ 
+ 	if (!IS_ERR(acl))
+ 		set_cached_acl(inode, type, acl);
+@@ -1118,8 +1163,11 @@ static noinline int ntfs_set_acl_ex(const struct mnt_idmap *idmap,
+ 			if (err != old_len) {
+ 				kfree(old_value);
+ 				old_value = NULL;
+-				if (err >= 0)
+-					err = -EIO;
++				if (err >= 0) {
++					err = -EFSCORRUPTED;
++					ntfs_report_file_metadata_error(inode,
++									-EFSCORRUPTED);
++				}
+ 				goto out_unlock;
+ 			}
+ 		} else if (old_len != -ENODATA) {
+@@ -1163,12 +1211,9 @@ static noinline int ntfs_set_acl_ex(const struct mnt_idmap *idmap,
+ 							XATTR_REPLACE, NULL);
+ 				}
+ 				if (undo_err) {
+-					/*
+-					 * Record a failed rollback so the next
+-					 * persistence point marks the volume
+-					 * dirty.  Run chkdsk.
+-					 */
+-					NVolSetErrors(NTFS_I(inode)->vol);
++					/* The ACL and WSL mode may now disagree. */
++					ntfs_report_file_metadata_error(inode,
++									undo_err);
+ 					ntfs_error(inode->i_sb,
+ 						   "Failed to undo the ACL xattr: %d",
+ 						   undo_err);
 
