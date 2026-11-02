@@ -1,82 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.60
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624593;
-	b=hrxn2OaYs170f3eiedFtglswPAHVAAWBTSk1d2PzmCz4w7WUyOc5f3AKK1mjV26dtd5x
-	 9YTknKSbLYX1i7J3NKVqf/QiuXI5lK9K4kxG/xxXihPwRSz7f3Ak+0RlqB7vLcHfbk/hv
-	 12+aEH0n4z0REIX9w00OljbACkpXZfmd6b8F3V5hwXEQpx34r8BcFDwE00xAlpme9kmk5
-	 TP1iGSeFUt3L7KfzU94t43bA9y0zOJBSmVej+NtZNnFsj/OafylhLF/D22tPicnkaKGyS
-	 Kl4xo6vWAbuzTtl8GFN27iT39+1NcFKwAQmEgiIwQvEjR/YGT552UFoUca7FUmrPSUg==
+	t=1793624595;
+	b=j+k+Z4CHE3UleuA59JR07mHjtH5SQ+fCgzSCRub8/ZYPDclD/WfTNY3bR7F+PHC+IKgt
+	 TG1dJPNvDrz0gdCZmMBjiEJdRHPH9sj+fgy4aQEbHa2X60DSEa+7mExvLPtN+g+KkLI4R
+	 5ce3qKV+uZ/mPqhpvfr8FyDYPnRAHqTkHhLeJNk0MYTItih0zws1Xi87fTV0D6MOHdf+I
+	 bdHUK+1LOnMnU8U/vomFffq2e6n3XFIr2oaCt0+xH8rMxBvy7ibusViVQ5GggO48niSwc
+	 0aLal1KuZky7y70usvNedW3fp2Pgsv2YoN5TN40A9xin26XkXGZ1iGz4tR1j27XStwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624593;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624595;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LWyZ1UkaDVoP3VWJmfwDCKmpQUjYhiraBCsKNKTFD9o=;
-	b=36jIha+45NqE+JQc/cdyGCnOi0qZ7MFMSWV+kAtaphzAzghsVFRAFRGvebPipmZmTlNa
-	 CxMOawvLmhn/w0xSwhhnj93FqSZGmomYjsv96T+myE+MNJdEf/LTuAaIdOel6t9t6LR5O
-	 NfWm5EMbWft6vjHzvUvLsdwr2ZJwWCuEbS2iyElo+/pkD8le5lqJ8VPcf2YsbXqklbSDM
-	 b14/PHeD80/jjRBctfymStO4GHjsf6BknPKlu0Ee+kS1ohoOvomPDwXqX8HeTzUMaInlj
-	 oCqom1DPCpSrSyF+6ku2NF4w1xQ1T92NnylAQ4aiQFcDT2/o/MMvRW1wIu8Bfaxtwyw==
+	bh=FXUqkUNHxYE2NGpJQs5al5RvPwIjMfRnSOyTuQqz9ps=;
+	b=YL7aFR0ihlp7R5RwzW13clnr/Ue+MDlTJLYI3HuveY+LETvi5w6g93ZN9m/fproP7Abx
+	 M1QL6ohk9cwtoCwFfcdpwoBwq2EPBluGpPF0ywFvFlpFaH8BY3+ClVbPNzuexHOclcPNw
+	 o+jnbJILBvj/aaRPbdsbyAJV5FoUQ5t680u8pvmCEMrGDGZfl8TTKNQ4vIc46KE03QUXv
+	 3RSAd4tTV7zKD5TK/7WuWlY+O9EaRp5rTYtHY5Zvt4bkgbrNG5GJy6zHD4MWZ3FcaNx22
+	 /6RWDQh7hWwU/pGr/k45fNN/RrIufI538CEsK2lp6JWFhUoyrUjonB1P2AvPIYMCtJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AyNUsiyW;
-	arc=none smtp.remote-ip=91.218.175.60
-Received: from mta0.migadu.com (out-60.mta0.migadu.com [91.218.175.60])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GqIPqxUf;
+	arc=none smtp.remote-ip=95.215.58.9
+Received: from mta1.migadu.com (out-9.mta1.migadu.com [95.215.58.9])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B45F606A339
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:03:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B45F606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA0560A2622
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:03:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA0560A2622
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AyNUsiyW
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GqIPqxUf
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DS9B5U4J+iTHwDTvPcTcDhDaIW+dVQnOIDk5Q84LEB8=;
+DKIM-Signature: a=rsa-sha256; bh=ReST3cWLqWrD/t1sA1J8bJ67KuQOqTddHpAzRisO018=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793624590; v=1; x=1794229390;
- b=AyNUsiyWPHUvVlLm0Ch+hskD0hLC+FTCjlnZY8sp3N9AFrVOsYilvnhDTRAL5FSwum5dJGyC
- aXwJ0D5Gv0OUNQfdN1xo0hajYpoR9LqRXlOf0FwMg0R45SA1PmmYtY/4J2dajfX0I/PFLUVuHhb
- eXnW07vHhxA+dayiKJfaxGT4=
+ t=1793624592; v=1; x=1794229392;
+ b=GqIPqxUfLfW7mSUNjHodoC2JNe5t6hFUMQgYL22fCM2tZQyOnaGgGP3RC6UReR655Qj/SKsD
+ BzAoJI75o5CvVAA+tJBk0Lsb5rKxw5yZXAmUpWosbPLWvracM6vQOrbqjbAh8DiGzvDD6gHZxRS
+ ZS2fMbo2RVsmx5OnsnjK8eNA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 28a34c058c471d7f;
-	Mon, 02 Nov 2026 13:03:10 +0000
-X-Mizu-Trace-ID: 28a34c058c471d7f
+Received: by smtp.migadu.com with ESMTPS id 2247600f0cc60053;
+	Mon, 02 Nov 2026 13:03:12 +0000
+X-Mizu-Trace-ID: 2247600f0cc60053
 X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Will Deacon <will@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Sascha Bischoff <Sascha.Bischoff@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sebastian Ene <sebastianene@google.com>,
-	=?UTF-8?q?Bart=C5=82omiej=20Grzesik?= <bgrzesik@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Zenghui Yu <zenghui.yu@linux.dev>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Radu Rendec <radu@rendec.net>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 13/13] Documentation: KVM: arm64: Describe the ITS hardening
-Date: Mon,  2 Nov 2026 13:01:33 +0000
-Message-ID: <20261102130133.3684226-14-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102130133.3684226-1-fuad.tabba@linux.dev>
-References: <20261102130133.3684226-1-fuad.tabba@linux.dev>
+Message-ID: <32e80536-64e4-4ae3-a7da-4a37ed415f0a@linux.dev>
+Date: Mon, 2 Nov 2026 21:03:05 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,60 +58,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@suse.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ muchun.song@linux.dev, cgroups@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [RFC PATCH 0/3] mm, memcg: isolate deprecated v1 state from
+ struct mem_cgroup
+To: Roman Gushchin <roman.gushchin@linux.dev>
+References: <b36ab4a7-b692-49e8-92b5-1dc4d76dee00@linux.dev>
+ <0BEF7489-16EC-44EE-847B-A6AA380BE11F@linux.dev>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <0BEF7489-16EC-44EE-847B-A6AA380BE11F@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add the ITS hardening to pkvm.rst: why the hypervisor emulates the
-host's ITS, and how protected mode differs from non-protected mode as a
-result.
+Hi Roman,
 
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- Documentation/virt/kvm/arm/pkvm.rst | 32 +++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+在 2026/10/30 14:05, Roman Gushchin 写道:
+> I believe we want to delete this code sooner than later, why would we rewrite it before that?
+> 
 
-diff --git a/Documentation/virt/kvm/arm/pkvm.rst b/Documentation/virt/kvm/arm/pkvm.rst
-index b75bb8ad6f26d..1ebae35f8373e 100644
---- a/Documentation/virt/kvm/arm/pkvm.rst
-+++ b/Documentation/virt/kvm/arm/pkvm.rst
-@@ -89,6 +89,38 @@ DMA isolation using an IOMMU
- 
- Status: **Unimplemented.**
- 
-+GICv3 ITS hardening
-+-------------------
-+
-+Status: Host accesses to the ITS control registers are trapped and
-+emulated by the hypervisor. The LPI configuration and pending tables
-+remain under host control.
-+
-+The ITS reads and writes memory at addresses programmed by the host, so
-+the hypervisor emulates the ITS control registers and command queue to
-+ensure that the host cannot use the ITS as a confused deputy to write
-+to hypervisor or pVM memory. The command queue, the ITS tables and each
-+device's interrupt translation table are owned by the hypervisor while
-+the ITS can access them.
-+
-+This gives rise to some user-visible differences when compared to
-+non-protected mode:
-+
-+* Protected mode requires the hypervisor to take control of every ITS
-+  in the system: KVM does not initialise with more than 8 ITSes, and
-+  if the takeover fails the host is not deprivileged and
-+  ``KVM_CREATE_VM`` returns ``-ENODEV``.
-+* An ITS command or register write that the hypervisor rejects is
-+  delivered to the host as a data abort.
-+* The number of devices that can be mapped through each ITS is limited
-+  by the hypervisor, and MSI allocation fails with ``-ENOMEM`` beyond
-+  that limit.
-+* Interrupt translation tables are page-aligned, so each device
-+  consumes at least one page.
-+* GICv4 is disabled: direct injection of LPIs is not available to
-+  non-protected guests, and a guest saved with ``GICD_TYPER2.nASSGIcap``
-+  set cannot be restored (``-EINVAL``).
-+
- Proxying of Trustzone services
- ------------------------------
- 
--- 
-2.47.3
+My assumption was that v1 would still be maintained for some time
+before its eventual removal, and the goal was to reduce the coupling
+between the remaining v1 code and the shared core structures during
+that period, rather than to rewrite the implementation for its own
+sake.
+
+If the expectation is that the remaining v1 implementation will be
+removed in the near future, then I agree this work becomes much harder
+to justify.
+
+Am I being too optimistic about how long the remaining v1 code is
+expected to stay around?
+
+Thanks,
+Tao
+
+>> On Oct 29, 2026, at 10:40 PM, Tao Cui <cui.tao@linux.dev> wrote:
+>>
+>> ﻿Hi Johannes, Shakeel, Michal,
+>>
+>>> 在 2026/9/19 00:24, Johannes Weiner 写道:
+>>>> On Fri, Sep 18, 2026 at 11:41:09AM +0200, Michal Hocko wrote:
+>>>> On Thu 17-09-26 13:26:40, Shakeel Butt wrote:
+>>>>> On Wed, Sep 16, 2026 at 08:57:34PM +0800, Tao Cui wrote:
+>>>>>> From: Tao Cui <cuitao@kylinos.cn>
+>>>>>>
+>>>>>> The legacy cgroup v1 memory controller has already been moved out of
+>>>>>> the shared implementation at the file level (mm/memcontrol-v1.c) and at
+>>>>>> the Kconfig level (CONFIG_MEMCG_V1, default n since 6.11).  Its
+>>>>>> per-cgroup state, however, still sits as individual members inside
+>>>>>> struct mem_cgroup, guarded by #ifdefs.
+>>>>>>
+>>>>>> This series isolates the deprecated implementation from the shared hot
+>>>>>> structure: all v1-only members are grouped into a dedicated
+>>>>>> struct mem_cgroup_v1, and every access goes through memcg->v1.X.
+>>>>>>
+>>>>>> With this in place the v1 implementation is self-contained: its
+>>>>>> interface in mm/memcontrol-v1.c, its state in struct mem_cgroup_v1, and
+>>>>>> its eventual removal becomes a localized deletion of this struct
+>>>>>> together with mm/memcontrol-v1.c, instead of unwinding
+>>>>>> ifdef-scattered members across the shared header.
+>>>>>
+>>>>> Sorry I don't see any benefit of this code churn. The code is already behind
+>>>>> config. What exactly this code churn is giving us?
+>>>>
+>>>> The only arguable upside is that this would make it ever so slightly
+>>>> easier to track v1 specific stuff (once that s@v1@memcg1@ or similar).
+>>>
+>>> I had the same thought. It's kiiind of nice to see which members are
+>>> completely specific to memcg1.
+>>>
+>>>> I am not convinced this is sufficient to justify the churn either.
+>>>
+>>> IMO it helps that it's mostly in memcontrol-v1.c where the chances of
+>>> interfering with other work are pretty slim.
+>>>
+>>> The patch 1 + patch 2 split is a bit bothersome: indenting everything
+>>> into a union, only to then move it out in the next patch.
+>>>
+>>> Tao, if you folded these two patches to make it one clean extraction
+>>> and changed over the sites at the same time, I would probably lean
+>>> supportive on this.
+>>
+>> Sorry for the late reply.
+>>
+>> Thanks for the feedback.  Looking back, I think Johannes' point about
+>> the patch split is fair.  I split the first two patches to keep the
+>> initial step semantically neutral, but it also made the series look
+>> like churn for the sake of churn.
+>>
+>> I'll fold the first two patches into a single extraction in the next
+>> revision.  That should present the change more directly and hopefully
+>> make it easier to judge whether the resulting boundary is worthwhile.
+>>
+>> Thanks,
+>> Tao
+>>
+>>
 
