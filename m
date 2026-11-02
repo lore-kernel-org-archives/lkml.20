@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641537;
-	b=20nOa5d3TjUOSY1Ox01GKqF/Hx959alR+N7tGixQ4bxZMLECr8v/a8ShTMLUAN0lMen/
-	 5GhVDF19hoZ0Yr0LziFfSzayG1h5mJ4/ug6C2pHyY2nB3Abm/cXDk/DRhqZyXntVFf4dK
-	 pyI+tu28X3iiol/cDUgRamH4MIJDH9m7AOdrg4zbYyMBrnnOdy1T6efW8ioDKbYI9BFLx
-	 gWYu7XHoPIVlesrQynESxw8dLsrgttWlmEf+be7PQP/rlYlxRL5KmPnzgZLM4kbQ2Uk2Y
-	 vi+GLT3muENV4qhBoARkhvRhns0QIouaoKDt97zkswslMjekP1rySfeCPjvHPj+R0yQ==
+	t=1793641533;
+	b=ol3aFWLUr7y/9NxPAd3W4dtODYE70uRR74PfqHxqPld6f9afTd4Kq5EYSrmuegpFN7Uy
+	 sXqtSkSPOqsOUhVsOfqGin8HrU08EdNHwrPgMDb5tgEpNCvM7XRSS70HTeQxI7kZpexJo
+	 8mxssftCl60g0fIepa3WLumAeWzf+zgDXw8GBP57CXNcNTTOISE4HYZujEAx+L5YAz5P+
+	 3FnwBbFFWc0A3nJBqvrxmHEXHi5vaXHT9GZChxGlwHYs742Ns90Su8AzpTuQPspbQmeTW
+	 IM2DHHxYKH6fmxREPZVvh5U+MqfLR6RR967mC1ctE9Iz9VImm5BmXXB4PzeJNovRDnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641533;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=SbwFKY24Cw/sSoe5pUEIOLf92upMycjKyHq3lH5UZac=;
-	b=YBlNI3hZHoRD9niGieGWTCCfB2PJfBYDyW/X4Qlv73ldNzLM2BmkMT3nEH7Urj4LoR/P
-	 C7mo7c+sEPwpzNkOGBH57dSZ/1YTqYfVcUh3eF8kw95FKySDRRS/0YzQTO0yVUxTVqigN
-	 tYT60O/Z7e1cqi6q2fmmgtb5HMNikM4fRiawO4yG2LphvON15dualrpKLiKo0Do+s0nOK
-	 abcvcB2Vog75I+o9MD9/HmRvMBUOKCxdb6JCD40q9A1dlgaE4sEqtVoeyUscp3ABGOZhV
-	 1Mo+LBInhbuLgXkmdkyeA0FDZouYy5QQH+Lz1cSiCPqwSwCb1C4+Sl0B2Gd4ZUzpGGQ==
+	bh=hivwqgp4LiwM4/VjEYMpC9tUrV6b8nagwQwd5M6FXY0=;
+	b=z40JKZq3cs3qIxt0jmP4swNXrB2hPYg6O42+0ZeMOsiOnK7je+kGQM/OzgXJQFSscfkP
+	 WiXHKFpHyfoWPoOASQyltZUvl80MjQuZr4BxlnM0lz6onhgfmAyDpyFZB2F0awXKCGNWf
+	 A+Or+BjFYgU2XceIGIZmL6kZ5ioVTzUEnJvrr53BNSw0vJn5FXrXLMuFw99lSqv/RzdeV
+	 MM4xyOeeF8NN43bUqfkSgEqTgMhMUB/m8EC4il1GgPvw1USWz1hfwk5G/X4qE0ng6RMZg
+	 MbSS0vIgnJoZcbX+Yx8GPJnmQFbkMcu9/BzGKUYWyIxTB7kbpGE3kcO2m1nqEQrfyIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="E6/auYuP";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gnt6CG3P;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0499607DA9B
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0499607DA9B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D2D607C58C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D2D607C58C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=E6/auYuP
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gnt6CG3P
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641536;
+	s=mimecast20190719; t=1793641531;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SbwFKY24Cw/sSoe5pUEIOLf92upMycjKyHq3lH5UZac=;
-	b=E6/auYuPfT7uhYS/0YHSJLJKC/rBnHehmbXP/IsFftPQigI2i2aijqa9/iAuxHxQIYywcy
-	mKESacTCU0poDRHwGPt3LwogAA4xeF5Ozxw9SNQVW9r+ItKzPO3b3Ov2m9xXfSsjx7gQ07
-	I9s0xq/UTlUPUzYDd11MpLqKIDEuVWk=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	bh=hivwqgp4LiwM4/VjEYMpC9tUrV6b8nagwQwd5M6FXY0=;
+	b=gnt6CG3PY6+FXCPk0Ccv5TA8OY94HoKblijwQTwszWnfsP8EDHOcsuhvwHRY4Uucdj+pvX
+	RZASDR6EfffictrBzQiuhRdnB3JQxIdf2ZLu1SCI6KPaLTkzJDRni5ti7qCOaKXfp1DgkQ
+	2MWQX5E38YffT2TM8od1uUVVFlD2a0s=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-499-8cel1qkWM4-OwpwvxOjzbg-1; Mon,
- 02 Nov 2026 12:45:33 -0500
-X-MC-Unique: 8cel1qkWM4-OwpwvxOjzbg-1
-X-Mimecast-MFC-AGG-ID: 8cel1qkWM4-OwpwvxOjzbg_1793641532
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-592-mc2VB7-cNeavdXdt5hy-bA-1; Mon,
+ 02 Nov 2026 12:45:27 -0500
+X-MC-Unique: mc2VB7-cNeavdXdt5hy-bA-1
+X-Mimecast-MFC-AGG-ID: mc2VB7-cNeavdXdt5hy-bA_1793641526
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6816318007ED;
-	Mon,  2 Nov 2026 17:45:32 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 47E40195606A;
+	Mon,  2 Nov 2026 17:45:26 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EB8C1180057F;
-	Mon,  2 Nov 2026 17:45:31 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C8D5F26C;
+	Mon,  2 Nov 2026 17:45:25 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: [PATCH 45/45] KVM: x86: split out parts of load_pdptrs
-Date: Mon,  2 Nov 2026 12:45:12 -0500
-Message-ID: <20261102174512.8903-29-pbonzini@redhat.com>
+Subject: [PATCH 36/45] KVM: x86: Propagate memory faults through load_pdptrs()
+Date: Mon,  2 Nov 2026 12:45:03 -0500
+Message-ID: <20261102174512.8903-20-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,129 +80,202 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Add new functions that can be used to read and validate the PDPTRs
-without placing them in the kvm_vcpu struct.  KVM can use them to
-read all the information that is needed for a nested vmentry or vmexit,
-and fault out to userspace is needed, prior to committing to completing
-the vmentry/vmexit.
+load_pdptrs() returns a 0/1 value, and therefore its callers do not
+distinguish memory attribute errors (including from nested GPA
+translation) from other failures.  Change them to propagate
+negative errno.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/regs.c | 51 ++++++++++++++++++++++++++++++++-------------
- arch/x86/kvm/regs.h |  3 +++
- 2 files changed, 40 insertions(+), 14 deletions(-)
+ arch/x86/kvm/regs.c       | 43 ++++++++++++++++++++++++++++-----------
+ arch/x86/kvm/svm/nested.c | 10 +++++----
+ arch/x86/kvm/svm/svm.c    |  4 ++--
+ arch/x86/kvm/vmx/nested.c |  6 ++++--
+ 4 files changed, 43 insertions(+), 20 deletions(-)
 
 diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index 3a11a6d06889..17e5aeb746ef 100644
+index 3969b769f1c1..b7c25b16ffca 100644
 --- a/arch/x86/kvm/regs.c
 +++ b/arch/x86/kvm/regs.c
-@@ -149,17 +149,29 @@ static inline u64 pdptr_rsvd_bits(struct kvm_vcpu *vcpu)
- 	return vcpu->arch.reserved_gpa_bits | rsvd_bits(5, 8) | rsvd_bits(1, 2);
- }
- 
-+int kvm_validate_pdptrs(struct kvm_vcpu *vcpu, const u64 *pdptrs)
-+{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(vcpu->arch.pdptrs); ++i) {
-+		if ((pdptrs[i] & PT_PRESENT_MASK) &&
-+		    (pdptrs[i] & pdptr_rsvd_bits(vcpu)))
-+			return 0;
-+	}
-+	return 1;
-+}
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_validate_pdptrs);
-+
- /*
-- * Load the pae pdptrs.  Return 1 if they are all valid, 0 otherwise.
-+ * Read the PAE PDPTRs into @pdptrs.  Return 1 if they are valid, 0 if they are
-+ * invalid, and a negative value on error.
-  */
--int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3)
-+int kvm_read_validate_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3, u64 *pdptrs)
- {
- 	struct kvm_pagewalk *w = &vcpu->arch.gva_walk;
- 	gfn_t pdpt_gfn = cr3 >> PAGE_SHIFT;
- 	gpa_t real_gpa;
--	int i;
- 	int ret;
--	u64 pdpte[ARRAY_SIZE(vcpu->arch.pdptrs)];
- 
- 	/*
- 	 * If the MMU is nested, CR3 holds an L2 GPA and needs to be translated
-@@ -174,8 +186,8 @@ int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3)
- 		return 0;
- 
+@@ -176,7 +176,12 @@ int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3)
  	/* Note the offset, PDPTRs are 32 byte aligned when using PAE paging. */
--	ret = kvm_vcpu_read_guest_page(vcpu, gpa_to_gfn(real_gpa), pdpte,
--				       cr3 & GENMASK(11, 5), sizeof(pdpte));
-+	ret = kvm_vcpu_read_guest_page(vcpu, gpa_to_gfn(real_gpa), pdptrs,
-+				       cr3 & GENMASK(11, 5), sizeof(vcpu->arch.pdptrs));
- 	if (ret == -EFAULT) {
- 		kvm_prepare_memory_fault_exit(vcpu, real_gpa & PAGE_MASK, PAGE_SIZE,
- 					      false, false, false);
-@@ -184,26 +196,37 @@ int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3)
- 	if (ret)
+ 	ret = kvm_vcpu_read_guest_page(vcpu, gpa_to_gfn(real_gpa), pdpte,
+ 				       cr3 & GENMASK(11, 5), sizeof(pdpte));
+-	if (ret < 0)
++	if (ret == -EFAULT) {
++		kvm_prepare_memory_fault_exit(vcpu, real_gpa & PAGE_MASK, PAGE_SIZE,
++					      false, false, false);
++		return ret;
++	}
++	if (ret)
  		return 0;
  
--	for (i = 0; i < ARRAY_SIZE(pdpte); ++i) {
--		if ((pdpte[i] & PT_PRESENT_MASK) &&
--		    (pdpte[i] & pdptr_rsvd_bits(vcpu))) {
--			return 0;
--		}
--	}
-+	return kvm_validate_pdptrs(vcpu, pdptrs);
-+}
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_read_validate_pdptrs);
- 
-+void kvm_commit_pdptrs(struct kvm_vcpu *vcpu, const u64 *pdptrs)
-+{
- 	/*
- 	 * Marking VCPU_REG_PDPTR dirty doesn't work for !tdp_enabled.
- 	 * Shadow page roots need to be reconstructed instead.
- 	 */
--	if (!tdp_enabled && memcmp(vcpu->arch.pdptrs, pdpte, sizeof(vcpu->arch.pdptrs)))
-+	if (!tdp_enabled && memcmp(vcpu->arch.pdptrs, pdptrs, sizeof(vcpu->arch.pdptrs)))
- 		kvm_mmu_free_roots(vcpu->kvm, &vcpu->arch.root_mmu,
- 				   KVM_MMU_ROOT_CURRENT);
- 
--	memcpy(vcpu->arch.pdptrs, pdpte, sizeof(vcpu->arch.pdptrs));
-+	memcpy(vcpu->arch.pdptrs, pdptrs, sizeof(vcpu->arch.pdptrs));
- 	kvm_register_mark_dirty(vcpu, VCPU_REG_PDPTR);
- 	kvm_make_request(KVM_REQ_LOAD_MMU_PGD, vcpu);
- 	vcpu->arch.pdptrs_from_userspace = false;
-+}
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_commit_pdptrs);
- 
-+int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3)
-+{
-+	u64 pdptrs[ARRAY_SIZE(vcpu->arch.pdptrs)];
+ 	for (i = 0; i < ARRAY_SIZE(pdpte); ++i) {
+@@ -264,6 +269,7 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_post_set_cr0);
+ int kvm_set_cr0(struct kvm_vcpu *vcpu, unsigned long cr0)
+ {
+ 	unsigned long old_cr0 = kvm_read_cr0(vcpu);
 +	int r;
-+
-+	r = kvm_read_validate_pdptrs(vcpu, cr3, pdptrs);
-+	if (r <= 0)
-+		return r;
-+
-+	kvm_commit_pdptrs(vcpu, pdptrs);
- 	return 1;
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(load_pdptrs);
-diff --git a/arch/x86/kvm/regs.h b/arch/x86/kvm/regs.h
-index 31f4d3f6ea42..86a92a877374 100644
---- a/arch/x86/kvm/regs.h
-+++ b/arch/x86/kvm/regs.h
-@@ -63,6 +63,9 @@ unsigned long kvm_get_dr(struct kvm_vcpu *vcpu, int dr);
- unsigned long kvm_get_dr6_fixed_1(struct kvm_vcpu *vcpu);
- unsigned long kvm_get_cr8(struct kvm_vcpu *vcpu);
- void kvm_lmsw(struct kvm_vcpu *vcpu, unsigned long msw);
-+int kvm_read_validate_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3, u64 *pdptrs);
-+int kvm_validate_pdptrs(struct kvm_vcpu *vcpu, const u64 *pdptrs);
-+void kvm_commit_pdptrs(struct kvm_vcpu *vcpu, const u64 *pdptrs);
- int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3);
  
- static inline bool is_long_mode(struct kvm_vcpu *vcpu)
+ 	if (!kvm_is_valid_cr0(vcpu, cr0))
+ 		return 1;
+@@ -286,9 +292,11 @@ int kvm_set_cr0(struct kvm_vcpu *vcpu, unsigned long cr0)
+ 	}
+ #endif
+ 	if (!(vcpu->arch.efer & EFER_LME) && (cr0 & X86_CR0_PG) &&
+-	    is_pae(vcpu) && ((cr0 ^ old_cr0) & X86_CR0_PDPTR_BITS) &&
+-	    !load_pdptrs(vcpu, kvm_read_cr3(vcpu)))
+-		return 1;
++	    is_pae(vcpu) && ((cr0 ^ old_cr0) & X86_CR0_PDPTR_BITS)) {
++		r = load_pdptrs(vcpu, kvm_read_cr3(vcpu));
++		if (r <= 0)
++			return r ?: 1;
++	}
+ 
+ 	if (!(cr0 & X86_CR0_PG) &&
+ 	    (is_64_bit_mode(vcpu) || kvm_is_cr4_bit_set(vcpu, X86_CR4_PCIDE)))
+@@ -315,6 +323,7 @@ int kvm_set_cr3(struct kvm_vcpu *vcpu, unsigned long cr3)
+ {
+ 	bool skip_tlb_flush = false;
+ 	unsigned long pcid = 0;
++	int r;
+ #ifdef CONFIG_X86_64
+ 	if (kvm_is_cr4_bit_set(vcpu, X86_CR4_PCIDE)) {
+ 		skip_tlb_flush = cr3 & X86_CR3_PCID_NOFLUSH;
+@@ -335,8 +344,11 @@ int kvm_set_cr3(struct kvm_vcpu *vcpu, unsigned long cr3)
+ 	if (!kvm_vcpu_is_legal_cr3(vcpu, cr3))
+ 		return 1;
+ 
+-	if (is_pae_paging(vcpu) && !load_pdptrs(vcpu, cr3))
+-		return 1;
++	if (is_pae_paging(vcpu)) {
++		r = load_pdptrs(vcpu, cr3);
++		if (r <= 0)
++			return r ?: 1;
++	}
+ 
+ 	if (cr3 != kvm_read_cr3(vcpu))
+ 		kvm_mmu_new_pgd(vcpu, cr3);
+@@ -411,6 +423,7 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_post_set_cr4);
+ int kvm_set_cr4(struct kvm_vcpu *vcpu, unsigned long cr4)
+ {
+ 	unsigned long old_cr4 = kvm_read_cr4(vcpu);
++	int r;
+ 
+ 	if (!kvm_is_valid_cr4(vcpu, cr4))
+ 		return 1;
+@@ -420,10 +433,12 @@ int kvm_set_cr4(struct kvm_vcpu *vcpu, unsigned long cr4)
+ 			return 1;
+ 		if ((cr4 ^ old_cr4) & X86_CR4_LA57)
+ 			return 1;
+-	} else if (is_paging(vcpu) && (cr4 & X86_CR4_PAE)
+-		   && ((cr4 ^ old_cr4) & X86_CR4_PDPTR_BITS)
+-		   && !load_pdptrs(vcpu, kvm_read_cr3(vcpu)))
+-		return 1;
++	} else if (is_paging(vcpu) && (cr4 & X86_CR4_PAE) &&
++		   ((cr4 ^ old_cr4) & X86_CR4_PDPTR_BITS)) {
++		r = load_pdptrs(vcpu, kvm_read_cr3(vcpu));
++		if (r <= 0)
++			return r ?: 1;
++	}
+ 
+ 	if ((cr4 & X86_CR4_PCIDE) && !(old_cr4 & X86_CR4_PCIDE)) {
+ 		/* PCID can not be enabled when cr3[11:0]!=000H or EFER.LMA=0 */
+@@ -579,7 +594,7 @@ static bool kvm_is_valid_sregs(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs)
+ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
+ 			      int *mmu_reset_needed, bool update_pdptrs)
+ {
+-	int idx;
++	int idx, r;
+ 	struct desc_ptr dt;
+ 
+ 	if (!kvm_is_valid_sregs(vcpu, sregs))
+@@ -616,7 +631,11 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
+ 	if (update_pdptrs) {
+ 		idx = srcu_read_lock(&vcpu->kvm->srcu);
+ 		if (is_pae_paging(vcpu)) {
+-			load_pdptrs(vcpu, kvm_read_cr3(vcpu));
++			r = load_pdptrs(vcpu, kvm_read_cr3(vcpu));
++			if (r < 0) {
++				srcu_read_unlock(&vcpu->kvm->srcu, idx);
++				return r;
++			}
+ 			*mmu_reset_needed = 1;
+ 		}
+ 		srcu_read_unlock(&vcpu->kvm->srcu, idx);
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 73f1f40aad47..a512e0e8dd93 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -720,7 +720,7 @@ static int nested_svm_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
+ 	if (reload_pdptrs && is_pae_paging(vcpu)) {
+ 		if (nested_npt)
+ 			kvm_register_mark_for_reload(vcpu, VCPU_REG_PDPTR);
+-		else if (CC(!load_pdptrs(vcpu, cr3)))
++		else if (CC(load_pdptrs(vcpu, cr3) <= 0))
+ 			return -EINVAL;
+ 	}
+ 
+@@ -2132,11 +2132,13 @@ static bool svm_get_nested_state_pages(struct kvm_vcpu *vcpu)
+ 		 * nGPA translation. For !nNPT, reload eagerly unless userspace
+ 		 * already supplied authoritative PDPTRs via KVM_SET_SREGS2.
+ 		 */
+-		if (nested_npt_enabled(to_svm(vcpu)))
++		if (nested_npt_enabled(to_svm(vcpu))) {
+ 			kvm_register_mark_for_reload(vcpu, VCPU_REG_PDPTR);
+-		else if (!vcpu->arch.pdptrs_from_userspace &&
+-			 CC(!load_pdptrs(vcpu, vcpu->arch.cr3)))
++		} else if (!vcpu->arch.pdptrs_from_userspace &&
++			 CC(load_pdptrs(vcpu, vcpu->arch.cr3) <= 0)) {
++			kvm_prepare_emulation_failure_exit(vcpu);
+ 			return false;
++		}
+ 	}
+ 
+ 	if (!nested_svm_merge_msrpm(vcpu))
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 2601f8359137..a8b3d57aabef 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -1587,8 +1587,8 @@ static void svm_cache_reg(struct kvm_vcpu *vcpu, enum kvm_reg reg)
+ 		 * When !npt_enabled, vcpu->pdptrs[] is already available since
+ 		 * it is always updated per SDM when moving to CRs.
+ 		 */
+-		if (npt_enabled)
+-			load_pdptrs(vcpu, kvm_read_cr3(vcpu));
++		if (npt_enabled && load_pdptrs(vcpu, kvm_read_cr3(vcpu)) < 0)
++			kvm_vm_dead(vcpu->kvm);
+ 		break;
+ 	default:
+ 		KVM_BUG_ON(1, vcpu->kvm);
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index f6994a95523a..8c110f3d9cc3 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -1240,7 +1240,7 @@ static int nested_vmx_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
+ 	 * must not be dereferenced.
+ 	 */
+ 	if (reload_pdptrs && !nested_ept && is_pae_paging(vcpu) &&
+-	    CC(!load_pdptrs(vcpu, cr3))) {
++	    CC(load_pdptrs(vcpu, cr3) <= 0)) {
+ 		*entry_failure_code = ENTRY_FAIL_PDPTE;
+ 		return -EINVAL;
+ 	}
+@@ -3454,8 +3454,10 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
+ 		 * the guest CR3 might be restored prior to setting the nested
+ 		 * state which can lead to a load of wrong PDPTRs.
+ 		 */
+-		if (CC(!load_pdptrs(vcpu, vcpu->arch.cr3)))
++		if (CC(load_pdptrs(vcpu, vcpu->arch.cr3) <= 0)) {
++			kvm_prepare_emulation_failure_exit(vcpu);
+ 			return false;
++		}
+ 	}
+ 
+ 
 -- 
 2.52.0
+
 
