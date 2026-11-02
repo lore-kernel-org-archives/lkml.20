@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793620728;
-	b=qR/uwZwp3dDnQj3pdqx39ISPURK04rmWVkWqWmmOJgxAsLVYHQFSmzwZ4rUaKhjg4Ir7
-	 lgZf0upNKWrv9+4kH+Tcw7VD7VYEr34lSoG9zO531tBq2uvGn4UdKFVLL1RZUnRg+vjqe
-	 tZQ0XyXbdTSQDF+3W4RqMexeTY6z68T/qm6Av4qJX5Vr4ohKa3XtFlvnNp31NVbA+opQo
-	 Oy3yjzUAHviJ3N0r/AOO8Q3PS/LInETTHuYDSLJ7Ce+QsYbGglwbXBbGJq3jWgMiJC13D
-	 UzgCWPOwDUBYYRnZeVJyiEgSiWvINhf48jNRz3Tq5H3AGOkeUHlnUBi7ogbXg1a4T8g==
+	t=1793620724;
+	b=2QuAs6GPczno6VvCmCH3w95PdOZSAE/U3jcdobuzxZHNbYLwJP7wX+YkPt6F6ChC8ZB9
+	 cn3OkPN9j0y9cmSkQqgkyDx8Re+2Li+4IdEc5iimYEQbrCXPelAHm+bx0cpNZNKwONMGN
+	 YtP3sXKR7fKBT6Yik3sj2U2MDX6Wk0QX08dib9z0cdXFPIJb0kFjxG22+O1Eprpe01AZs
+	 fVyhIb/lctd1af/Agiz/YFe6QBF2RzgJkoZIEomnPStM1DM011coIpUmOkWWWl15a4LD9
+	 HfcTsGdCz7rqdvT2Dxh0FC91EHd3g998xSlmuHR2QocAwHnh7LVDXSmfvyJ0MTEN3+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793620728;
-	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=HMxFwjFZqjOSE+xFNdq2GdyfZs+3kf8RioPk+uA4rn8=;
-	b=E3DRtZlrGEjrMkIDGTWPIJCnVK6T7Usoc7yNHy85YiMhsK9nYUj5LgozssyA1//2qQqO
-	 sAnVguSqU8lNVGD7O3T3J5jm03F4nA8ncw0kxuD2U96HYekFUJHRWJS6ng9/rzzCzdoFF
-	 8GBmyL8hvPe9qh7jubrzkz1VqsHmQrb65r+bgBWMzHwY3DB/FVxEse02RDnGSJeflinV5
-	 aItQaTiNhIK51FJjVCL0DjO7FpFr+L+h2vVAy25GANzU0FOHF5x+Z98599Sy/77IrOxia
-	 p5IMF70ibEVW6G+LkVg9f0cW1yt+mVGh0oXCltv1NBepsium8996VplT6oFeCCh1qfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620724;
+	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=QA8QHK3ZtUn9TzFs8P37lxt4nTIOC/0mWQHKcLfADpA=;
+	b=L9EtcJkMJX4sUQsWPU1ogwkPeN2B5MJ/ufsKqPYnqpEoQ+5axZeTvLnOd1hrvixJI93T
+	 WL4+3hnEh0YcREri11P+HiUmWfRzKtWjIXJfsKKhOwpO5mJcB3wf+ocuWtdfDQVMmMnPJ
+	 6BV3rwuS6ErIhiU3nBt5AL6lPmNz2vLpwKWx3kga6XAWDQHPoik01MPf4tE4lIJ2fvH9k
+	 S4iNeSX05Xu7RPNxtW/kcrA/kmG54XG/Cp1zrWFLDCLgKzwF4PkzMzPeFdTsc+inmREXM
+	 ZuX8ddH8ZWMs+kK8QQV7I/2utvVkXHv/xa2BLrFIC7kaMzgA2Gg0Qh/Bg5K96fhsnGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.pku.edu.cn;
 	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b="BIt+TZ/x";
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=L7Rgw8mC;
 	arc=none smtp.remote-ip=45.254.49.197
 Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC2B60A260E;
-	Mon,  2 Nov 2026 11:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DC2B60A260E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069E5606A327;
+	Mon,  2 Nov 2026 11:58:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 069E5606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=BIt+TZ/x
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=L7Rgw8mC
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [1.202.162.49])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b234f;
-	Mon, 2 Nov 2026 19:58:44 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b2347;
+	Mon, 2 Nov 2026 19:58:38 +0800 (GMT+08:00)
 From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Beau Belgrave <beaub@linux.microsoft.com>, linux-kernel@vger.kernel.org
+To: Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ linux-bluetooth@vger.kernel.org
+Cc: Pauli Virtanen <pav@iki.fi>, linux-kernel@vger.kernel.org
 Date: Mon, 02 Nov 2026 19:58:37 +0800
-Message-ID: <179362071771.29269.8333068920166316746@stu.pku.edu.cn>
-Subject: [PATCH 2/2] tracing/user_events: reject overflowing field offsets
-In-Reply-To: <179362071771.29269.15129360535376085397@stu.pku.edu.cn>
-References: <179362071771.29269.15129360535376085397@stu.pku.edu.cn>
+Message-ID: <179362071770.29269.15160948500453012976@stu.pku.edu.cn>
+Subject: [PATCH 0/2] Bluetooth: validate retained LE ISO command lengths
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,71 +55,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa19c204a4703a2kunmab045f0fe84e7
+X-HM-Tid: 0aa19c2032fe03a2kunmab045f0fe84cf
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQ0lKVh5KSEJMSkMeSUtCSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
-	xVSktLVUtZBg++
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTBpPVktKHh0fQ0hOSUNPT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSEpMTU
+	NVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=BIt+TZ/xY7atvK1uGjPCg10TCYLu3lUd1dn4nDdzHOvfVEW4eiit+q+4jlfQ6G3oAVZIqolWZZdNG7KjED7HwgtO4Tv1CmWgu5FnE6DJyjSiydAkDL8vD7unu0WGTKtbqlKGuc5AOYSLi+iAX6sldSJ9cBGyBFtfN6fzyh9BdtU=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=HMxFwjFZqjOSE+xFNdq2GdyfZs+3kf8RioPk+uA4rn8=;
+	b=L7Rgw8mCoM6vbX7F72lzI/m16not6uVxNwd85cmUTgvpdwc0sK0m+oqR9Dv2IRV77dPDE/PsCoPl2/t9iGhrWWupmsUDPXkgxihjSZiLiEYIdC8YxQ5052NXGaLhecvSkil9FYwFsqpjsEdwj6ziDUaGznI5/xpJ45dC/PRfsKQ=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=QA8QHK3ZtUn9TzFs8P37lxt4nTIOC/0mWQHKcLfADpA=;
 	h=date:mime-version:subject:message-id:from;
 
-user_event_parse_field() accepts large structure sizes but accumulates
-field offsets in a u32 before storing them in signed int fields.  A
-declaration can wrap the recorded minimum event size while a fixed-width
-field retains an offset outside the accepted record.  A short write is
-then accepted and a field filter reads beyond the event buffer.
+Two LE ISO event handlers use flexible-array data from the retained command
+skb without checking how much command data is present.  A malformed command
+can therefore make either handler read beyond the skb when the controller
+returns its status or completion event.
 
-KASAN reports:
+Add a saved-command helper that also returns the parameter length, then
+use it to validate LE Create CIS and LE Set CIG Parameters commands before
+their CIS arrays are accessed.
 
-  BUG: KASAN: slab-use-after-free in filter_match_preds
-  Read of size 8
-  filter_match_preds
-  trace_event_buffer_commit
-  user_event_ftrace
-  user_events_write_core
+Yifan Zhang (2):
+  Bluetooth: validate retained LE Create CIS command length
+  Bluetooth: validate retained LE Set CIG Parameters command length
 
-Use checked addition and reject offsets that cannot be represented by the
-downstream signed fields.
+ include/net/bluetooth/hci_core.h |  2 ++
+ net/bluetooth/hci_core.c         | 18 ++++++++++++++----
+ net/bluetooth/hci_event.c        | 14 +++++++++++---
+ 3 files changed, 27 insertions(+), 7 deletions(-)
 
-The patched kernel rejects the overflowing declaration and accepts a valid
-control event without a KASAN report.
-
-Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into f=
-trace")
-Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
----
- kernel/trace/trace_events_user.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_use=
-r.c
-index 85938b45b7618..88d384c9e101f 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -1207,6 +1207,7 @@ static int user_event_parse_field(char *field, struct u=
-ser_event *user,
- {
- 	char *part, *type, *name;
- 	u32 depth =3D 0, saved_offset =3D *offset;
-+	u32 new_offset;
- 	int len, size =3D -EINVAL;
- 	bool is_struct =3D false;
-=20
-@@ -1287,7 +1288,11 @@ parse:
- 	if (size < 0)
- 		return size;
-=20
--	*offset =3D saved_offset + size;
-+	if (check_add_overflow(saved_offset, (u32)size, &new_offset) ||
-+	    new_offset > INT_MAX)
-+		return -E2BIG;
-+
-+	*offset =3D new_offset;
-=20
- 	return user_event_add_field(user, type, name, saved_offset, size,
- 				    type[0] !=3D 'u', FILTER_OTHER);
---=20
+-- 
 2.39.5 (Apple Git-154)
