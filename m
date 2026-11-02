@@ -1,71 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793651830;
-	b=2/OoU/oiEPRbcW2HGKS6KLk2dgdpOt3yCJkA84zEXUmzdy6d2QCWhWJOxrjo6tYIJmDz
-	 1oB5s5OI9Be3t+oTzH37yYdIQagzNozuk6HvDT5H0n7s7bSvK4tDCUTD51mVWZ7pudDqk
-	 /xgCoOcHOB+QoLaibF6g1p2fUEGRYUnWIadoshD/L/1LpjKlcESD4SE4Y73BuEpwNec8i
-	 BSy4IlfmL0COceYVsfJVt6sJaW3mW4CfDhoGS+scK0TGaImIGErLM4dzW6aigigOgEJfb
-	 ZanZcy91zT3UW45V7OIkmI0gJkdVpQ+ViWKKiddS8VVSSq44s2vcNcdMnVaZS2UuXpw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793651830;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
-	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/wRem9inoL+KURop9OsJrRgfb4AguB18kiI/yBFilMs=;
-	b=Gn7uWswX/ObXPGLw2OakHCuS453QclD1v02OWXGe2V+E/vNBL18z8pPUU7FvijqSanog
-	 BYc1iEhlNXwyA3ZKIz1RMI0P0RYikpVGcQkx5Lk5TjqVqAZZXK3yGTZgd20gVyRoIruOH
-	 l98i5l1MQh8Cn9tvdHX8zGPIiulsiGwEUjN+1EVDMZM2Hw3rMAJ/GPVblK3wxyDmFetHZ
-	 YWxlVooIt65XeAr8mavGj4GGHGMeQyHqj4LPQs/VanyYckcCosNj/eXgLTQv1lUybbwz2
-	 sIyfRvWLuKukUCrX+EayK3KWClX9RsgH8KPsc3hoWy1u/30to1kVANNHIJsVGXy56Tg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zytor.com;
-	spf=pass smtp.mailfrom=zytor.com;
-	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b="dMGHa4c/";
-	arc=none smtp.remote-ip=198.137.202.136
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793651908;
+	b=v13Hg+YIj7uVlWiuYUNChS6ul5IjQGbQo+WT/GzDGoDYqUy6vVxbV7JN4n/PTgy0yUdL
+	 6Qpfqte+8hgDHIR8J5ramZGtEQEnAPOGgLh1Js/fGbOL473nC3KGbtTVht8Lnq16eaO3L
+	 HP3Ai8JkBuD5w5CcfiXz7sbLVfwFSPfqc2ZmUvBpm1bywbphKKMZDQOCV23zJd6/6ldo1
+	 /ND+OvLkmBDs0RrNfCnH0I652wdWREWxtfq86Cu5tZtmImACP8BNuac0zDDflfPZhpjy4
+	 qm/nW9x/mH7jKgJ7kKoZIOA0/CD27j95mDd97+bkSZVrwDNNeORMQjazZE95TBv1UhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651908;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
+	b=y2fe8f5qddsiEgKr4yTrKVOwup8ATd5WCQhOIjTDQlDHh1u8KkINmcQbK9SivM44gtlN
+	 mlvop+IAfvlek4rolrQy4ugvWpEon333it9rggvroy9eRtFZHw64zwNkE8StVq9FuJhfR
+	 Y5k70LWE4XmMNTHfqeHL1udh3NeOLWvLCn9hb++nQK5vBM/Q0lH96dFVm2h2CQSUQh+Lk
+	 rTmzZcoKnImCxExZe/Ntm1LG+x7xMXUaX36sJmGMk7SEoYoMVodB2EuDvx8ch0RS4w88d
+	 OxjMuw0ISTKBqOLvjHNo/1LnHqpmAbKPnFAMdFpYKDcInIS4Nqu5ho9Agd/1D+EnRJA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Orpr6pRh;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=l+l7dAy7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADA9606A324;
-	Mon,  2 Nov 2026 20:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AADA9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9B2606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:38:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC9B2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=dMGHa4c/
-Received: from ehlo.thunderbird.net (ENVISION-AE.edge1.SanJose1.Level3.net [4.79.220.182])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 6A2KaBlw3911017
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Mon, 2 Nov 2026 12:36:12 -0800
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 6A2KaBlw3911017
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026102901; t=1793651772;
-	bh=/wRem9inoL+KURop9OsJrRgfb4AguB18kiI/yBFilMs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=dMGHa4c/ldljzkDZjgiKFxfNwa4+zmPFbemihQ+SmeTyuTR5FuQ4wVakILeMC8M8t
-	 7uowHbn3gZNaHG1SB7HgBNHZ2tFdIBEssib56KwxGSYD/72G4SDHoC4R29vt/qP0Z5
-	 gfh0H8S38++B8mYJr+4Y7pnrVWr7c18GU3hMICyEZjyn3APvkWdkMv98zj3eWtdHXg
-	 EagfHTqdORtQMmBZ7TaJT6US8YDr1mr2z7oODkRG9fU6FRmw2LHkUeVFqxjBnvP7Ox
-	 eG+g//Wik7QPFujujVpXz1520fMjg3h1gjIUXVr+x/vSGxQ/RNsMDJ6/16WlRJ9966
-	 SPL5fqcvvS4yA==
-Date: Mon, 02 Nov 2026 12:36:05 -0800
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
-CC: Nicolas Schier <nsc@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>,
-        Vincenzo Frascino <vincenzo.frascino@arm.com>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Nam Cao <namcao@linutronix.de>,
-        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        =?ISO-8859-1?Q?Andr=E9_Almeida?= <andrealmeid@igalia.com>
-Subject: Re: [PATCH] vDSO, kbuild: Provide vDSO debug variants at runtime
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20261029102949-d209a22d-5f56-4b52-a054-deafff531e7d@linutronix.de>
-References: <20260708-vdso-sysfs-v1-1-fcd93385006d@linutronix.de> <179313256476.2881498.3865128683953782646.b4-reply@b4> <A0A4758F-BCDF-4C76-A51B-3ADBB5CAC8DD@zytor.com> <20261028064715-bd8a4806-e974-40a3-b773-0afa26689d56@linutronix.de> <147D6C9E-264C-4492-9EA7-A4BB8526CB95@zytor.com> <20261029102949-d209a22d-5f56-4b52-a054-deafff531e7d@linutronix.de>
-Message-ID: <AAE231D0-1792-4DF6-842A-2C9B4B3BC8EF@zytor.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Orpr6pRh;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=l+l7dAy7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793651906;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
+	b=Orpr6pRhK7kcku8CgLLWMo81N3po0RwlklhFgckAvLDLoVABTMUka0hfkJmHGfS/DNPgXg
+	mKU98D9+PVq2/RteVQyCnVRrK3Bo2an0F9PcheUoNWs7uxt5le3l3D36nUXo2Xe3+SEoUi
+	qva6xBhQhIu/s3lA5TbGTa76Arrqmpc=
+Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
+ [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-226-pyP7Q6ZbNGG5L19avof4DA-1; Mon, 02 Nov 2026 15:38:25 -0500
+X-MC-Unique: pyP7Q6ZbNGG5L19avof4DA-1
+X-Mimecast-MFC-AGG-ID: pyP7Q6ZbNGG5L19avof4DA_1793651904
+Received: by mail-lj1-f198.google.com with SMTP id 38308e7fff4ca-3ab2f8ce13dso164331fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:38:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793651904; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Mcq2l4E6Dy0Ne5m7+kpEyPuaFPZEZ2kfPTCY/NfEIStuShrS9ts4v05GPW5dXmSkgP
+         GJftJus/nCZ5jmhqs3AkM0Xlw1nDNX8V6Wdk08GoO4ELkkDAwcc/+KWZk/VTFFRwyH61
+         JUiuVBwwFH0ewVJQLw4fruo8A1AS//1bqzuW4/4l/ALm9kFFTlNKZnQIQws2OtbS1q7s
+         cvYaH0ovB6jh4eQNLyLuJSylT1yWejUnGorOq4BY2zll0/oXzHKr4gjByfa7V8P6mXTU
+         TGTU4Wtotz4Ek7oMMEDpg4Kgq+6lwiEjWs9b2d8kiwmPIUeRCtRc6Rg6qglyM2b47ZiU
+         dN0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
+        fh=LieLvDdkwxsIxdU73Vtj04o4vDZ7F2t2T9LtAbuqz+s=;
+        b=BryNTt60Mx9LleupEbGkINlONnpWEBHUBTSid/BfNwkC5RCbkb1u+hF9rNGDdmPBRO
+         LhXfYe23iEw3Ll0cKi9nKHEYPOsD5tijeR1IyYRK6Aq8ioGZUHQPIW0savg9jWX1ppCB
+         Na2LWs/39HCkIQYa0Vj3BBjObwu9R9vAiDiZmqPo+r5rEWe4z6G79hVdt1CPfGIxECwO
+         9mqSIbcngcBf33reJwA6WU6fKL3OzUCbqCTPEK1aMLrisN8wCfqaiVF9bl+px5noCdqe
+         jaBGA/W6bz7uRCLEw9GGJkEAP+BdF78crkTkTQH/AOtK4Byg7d+7xF2fme/EjJYdJdl1
+         X1KA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793651904; x=1794256704; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
+        b=l+l7dAy7uv754pj4BX34aMOCrnvnA0+OA3F7KwfsPkoZFRDlYEvHOYzikikmS+fK3M
+         lmZsyY2ffNeKYxEPEVpTDxR5PXligoRW9Wn3INOWzVTw8ESjZirwpv28ZCYzI9X05xIr
+         2+qD3Oo8TJe05RR5x/0VsyF9pXwyxSRavXN09FFLQ+yzOkw6KhbDM/UksPfi98wfhal3
+         eI2UTcc0wd5RI4FtECyIqi5WDyFeFi2If/h4QVWZgMF5GzFlr2cFHGus87+54vSd0XEs
+         Cuz/9Rs2oyvs0XMQ38RSZRf8GNQ+BSW3x++/HCzsL4MLc96vtGaxk5D73zwBCNiAsxhM
+         4e0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793651904; x=1794256704;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
+        b=K5IgeF8AG4tv7lh2Rqlsd9xrC4YAOBCw+Lubzl6i7zN08I7DnJeSztFxQ9KinD0htj
+         44WmXJMPEpFobsMnyx2u+eR6PIOhKVGMvTrd0HwLNSF5OpSetmFqXkpvboBN5O9nCpQN
+         s7nUr4IR7FPO2chvJGURuuEnXfsnVeMhM8FL6egHTwGeJQ8Cil1hQSmECemWsstE/7Dh
+         mT0m5bQkUE0IwvCIfnweLeF1kdu0d9wwmbnrkZKnOgk8NOb0HyXmlY0k1lK5V6bJguuc
+         0fHbqPR7o2yoHz6ivsTj7vkVHBszd/hIxm9yHOJSdHhqljFAFZlEGdBwBUCaLzO9wexo
+         oL7Q==
+X-Forwarded-Encrypted: i=1; AKwUvByOFHWxInTZesGGSdjjpBWB9X7MVMOUZnHyji/O1JiYdI/xTEwW7x2XJ8zRcjP1yht55I2TuJosFCIDZ5U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8R6nvi6rLQFH6rt9zQiWjDxMlIj6Ndn3oMBYf+G7vZGyrkgrKB
+	4fDVJg0ACyVRD1aGwII8ny5WembOjHv0N5RMFWCdNfZ/VzyDkY1odhyBFXJ0iXTbWqpni9R2C8Z
+	rt4RLj4aex5WtPpzXcVDU0mDpIi8OXUN5OFcFKIkpEmfKOPGcYywmpRjsCFp5ru0EDw2xefz0Vj
+	kiSJR6vdR3RjnFJj9kEI/Np35K2epOzHdGoaPCwmuO
+X-Gm-Gg: AYBFou22TJ7afMqp0ktQH4sh53Sqn0E+toHaaVD7BVLZbsOLu2QDYd8KahddPHHo8+e
+	DtCzrBWWS/RVuF78crUlGdPZKMJ41La5wy85i0Xj+m7r/DSwpV6TaGzX8jVL8F4uWK7xJxUdFXq
+	nIicC8kvYCp/DGjJgX5qb7wDHMmKtCx2ar0N1UisXgZh5mRIMa2rjQI1ZS
+X-Received: by 2002:a05:651c:553:b0:3a6:5c8f:857 with SMTP id 38308e7fff4ca-3aca57a559cmr30300101fa.8.1793651904091;
+        Mon, 02 Nov 2026 12:38:24 -0800 (PST)
+X-Received: by 2002:a05:651c:553:b0:3a6:5c8f:857 with SMTP id
+ 38308e7fff4ca-3aca57a559cmr30300041fa.8.1793651903708; Mon, 02 Nov 2026
+ 12:38:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,121 +124,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+References: <20261019151627.3324886-1-ameer.hamza@truenas.com>
+ <CAK-6q+j64=mSzuufOaSGjsC2aSwhb0hs9MKxxaAhbwugdztHZw@mail.gmail.com> <aujr6x9t2gXbXfFw@hamza-PC>
+In-Reply-To: <aujr6x9t2gXbXfFw@hamza-PC>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Mon, 2 Nov 2026 15:38:12 -0500
+X-Gm-Features: AclHuK8EBIgCcOEpy9zoAe7u3ZQc5iU2X8Ha2AYq5mu6ejtrrJMK1XULaVzy1LI
+Message-ID: <CAK-6q+jBNKN=oSCmm+i011FdhPS+42BZc0iUfbqGiLDBc0Py5A@mail.gmail.com>
+Subject: Re: [PATCH] dlm: don't set RSB_MASTER_UNCERTAIN on rsb with no master
+To: Ameer Hamza <ameer.hamza@truenas.com>
+Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	caleb.stjohn@truenas.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On October 29, 2026 2:40:26 AM PDT, "Thomas Wei=C3=9Fschuh" <thomas=2Eweiss=
-schuh@linutronix=2Ede> wrote:
->On Tue, Oct 27, 2026 at 11:12:26PM -0700, H=2E Peter Anvin wrote:
->> On October 27, 2026 10:55:04 PM PDT, "Thomas Wei=C3=9Fschuh" <thomas=2E=
-weissschuh@linutronix=2Ede> wrote:
->> >On Tue, Oct 27, 2026 at 05:02:52PM -0700, H=2E Peter Anvin wrote:
->> >> On October 27, 2026 1:22:44 PM PDT, Nicolas Schier <nsc@kernel=2Eorg=
+Hi,
+
+On Mon, Nov 2, 2026 at 3:03=E2=80=AFPM Ameer Hamza <ameer.hamza@truenas.com=
 > wrote:
->> >> >On 2026-07-08 15:56 +0200, Thomas Wei=C3=9Fschuh wrote:
->> >> >> Finding the debug version of the vDSO is not trivial as there is =
-no common
->> >> >> scheme where it is placed=2E That's especially problematic for CI=
- testing=2E
->> >> >>=20
->> >> >> The vDSO futex unlock mechanism requires for testing to have acce=
-ss to the
->> >> >> inner labels of the unlock assembly, which are only accessible vi=
-a the
->> >> >> debug so=2E
->> >> >>=20
->> >> >> Also for general debugging purposes it's convenient to have acces=
-s to the
->> >> >> debug vDSO at a well defined place=2E
->> >> >>=20
->> >> >> The files are placed in /sys/kernel/vdso_debug=2Etar=2Exz=2E They=
- use the
->> >> >> regular 'make vdso_install' layout, including build-id symlinks t=
-o find
->> >> >> the correct file for each process=2E
->> >> >>=20
->> >> >> The design is kept close to the ones of the similar IKCONFIG and =
-IKHEADERS=2E
->> >> >>=20
->> >> >> On x86 the x32 vDSO is derived from the x86_64 one, necessitating=
- an
->> >> >> explicit dependency to avoid errors due to concurrent builds=2E
->> >> >>=20
->> >> >> Suggested-by: Thomas Gleixner <tglx@kernel=2Eorg>
->> >> >> Link: https://lore=2Ekernel=2Eorg/lkml/20260602090536=2E045586688=
-@kernel=2Eorg/
->> >> >> Signed-off-by: Thomas Wei=C3=9Fschuh <thomas=2Eweissschuh@linutro=
-nix=2Ede>
->> >> >> ---
->> >> >>  Makefile            | 33 ++++++++++++++++++++++++++++++++-
->> >> >>  arch/x86/Makefile   |  3 +++
->> >> >>  init/Kconfig        | 10 ++++++++++
->> >> >>  kernel/Makefile     |  1 +
->> >> >>  kernel/vdso_debug=2Ec | 43 +++++++++++++++++++++++++++++++++++++=
-++++++
->> >> >>  5 files changed, 89 insertions(+), 1 deletion(-)
->> >> >>=20
->> >> >
->> >> >This seems to have fallen through the cracks; shall it be considere=
-d for
->> >> >kbuild-7=2E5?
->> >
->> >Please don't pick this up just yet=2E I have a prototype which exposes=
- the
->> >directory through sysfs directly without forcing users to unpack the a=
-rchive=2E
->> >If you could take a look at the kbuild bits however, that would be gre=
-at=2E
->> >
->> >> A thought: most tools support compressed separate debug information=
-=2E Would it
->> >> make more sense to have the vdso images with separate, compressed de=
-bug data
->> >> in a subdirectory?
->> >
->> >I want to stick to the 'make vdso_install' layout=2E Maybe that should=
- be
->> >changed to your proposal, too? But what are the specific advantages?
->> >The files are compressed on disk anyways through the module compressio=
-n=2E
 >
->> The nice thing would be that it would let debug tools use them as-is, a=
-nd
->> after all we need to make the vdso itself available anyway=2E
+> On Mon, Nov 02, 2026 at 02:49:04PM -0500, Alexander Aring wrote:
+> > question:
+> >
+> > how do you "pause" anything in DLM?
 >
->To make sure we are on the same page:
->You propose to make the vDSO mapping a file-based one pointing to sysfs?
->
->This would change the userspace ABI and I can imagine some tools breaking=
-=2E
->Also it will require a bunch of additional per-architecture logic=2E
->
->Tools should be able to handle the debug-id symlinks as implemented by my
->current scheme=2E For regular (real) file backed mappings there is no gua=
-rantee
->that the file on disk is still the same version that is mapped by the pro=
-cess=2E
->
->> As a possible side benefit the user would be able to see the post-patch=
- vdso=2E
->
->Nice idea=2E
->
->
->We could go with a combined aproach=2E First we go with my proposal which=
- works
->with minimal per-architecture logic and already works for most of them as=
- is=2E
->That can later be extended with per-architecture logic to provide the
->alternative-patched "live" view, file-backed mappings and detached debug =
-symbols=2E
->
->
->Thomas
+> The nodes are VMs, so I freeze the dir node from the QEMU monitor. It
+> stays a member but never answers the lookup, and after the cancel I
+> evict it through configfs. That is what happens on our HA systems when
+> the peer reboots without leaving the lockspace and a pending request
+> gets cancelled before the peer is evicted.
 
-I'm not necessarily saying the vma has to work that way, but the contents =
-can be exported as a file regardless=2E
+Still, do you just randomly freeze it, or do you busy/poll wait on
+specific struct field changes?
 
-It might be nice to do that in the long run, but that's a separate project=
-=2E
+- Alex
+
