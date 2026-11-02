@@ -1,106 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631940;
-	b=ym3CIrAQI+l9OvUVq9H3H2B573BhOiRE5E5C15m0MpJ2v7LDroO1JZ/8X9AcoOyYIuAi
-	 zOZz8PZ15wJLfceo25vctwhuzYpOOTj8my/klzkXIPHAHEBMYBw8zzvc2fObn2twkACYr
-	 DZL3tVU2wL4/vNxdcVqlwCjuuJhsKdsYnJkqUf+Nt7l7Zf92Ql4otv7pSjyDXTszSafWo
-	 dRa3SCcfaMYarSOdHH5XivldC1irepkAF4PoYtly3XlA+CP5qD5A5gYW84LOj3/xvuy1P
-	 eQeK3c7mA/RlCPBJhQSEAGs9sKBK1qkKwsNyDIZrnk171IHRJrtSUJKv8gWWWX30nXw==
+	t=1793631957;
+	b=3VcaDFd+67V8s7xrXHF0tVJFe26JvhJn1p21dYcwJGcFShvixhfHZJFemid/z+ojFPV4
+	 Iqy32Lfe9NHH/AuLVIOf3GzbpKaCLngJAb0Ki4rllYFBJuJY23Sf9R7/yUFSeZC/l6wh+
+	 JWIvqkkJ7t71ouPrXO/opGTnfoCHSMbuLOsAFAoimgxmD8WNRHKgg81+5VkWSwmWfBUIH
+	 HKpbWdjSDCFhxtPMXZBhbfBJnf1Q+FqVi/dQb45u9uynsogHs6Z7KfTRW75VWaok8jzSE
+	 gVACTCDEFBVCBpMo8ZbZLU2TVVg1kkHu9kYHvesEkl8vv+NXK05dXb8Zzl6LJanL1JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631940;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=16KmY+5SMzN5j7+9R15dmTI05WFHA1t98OiX21uElTA=;
-	b=lHPhH2JS46h/zvZ8F2rwIXQ83W1lZL4KGnRsWhUJmOD8bavYZiY81x+yEY0VvVHnNBZn
-	 tnV3Ch/2rDBlIbrrThiR1VVTHn/2MjZbkCUltB5947xawJU8lUiyhRDQhMLymOPesNer6
-	 CFwoSLCISkpf2GOhrAYIc+P9dKVIk8emYeT+coh44pf2thTnToS/mVGF3NjSqtgu+Oqbh
-	 Fgr9o809GHZ/LaISUEU4/aVlD1JBnjh/6J8bsh1McIOuNY4i2NQkIoD9lm/il8S67oEIR
-	 bhr5QJU/j1ZgA7abNTy9XUm8CDX5IHneBzMP11Iy3BXZSaTrz8F1VLpMjKc65rrf32A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631957;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=08oqN1TE6XF/zda2aaIy/jJ7rzXSJoF5jY3Jq8EQn3I=;
+	b=UPDyFWrv5Id5LjndAa7GPuvjZsp+Zj5DB/ZPaYvD17epArnYVbG/1k0T6qJ31YScQYBN
+	 vzeQ4C4k72StPX7DArOB7HLDsjy8W3TathWynqI7Ll2mbqLgfx619cehU5aGr6uZCBezz
+	 xBLzeuyUINjiKtrlp1gkY/eHF1FS5Yn0GlkY9RsucfLv9q7Me/UTLOUQkSQiZGso2q8Th
+	 2eadHRtT8sp3fnDnS3wz6yhjJTVo8ADlx9bF3q9NYS1LTgYnJI4mbD/cPWTB/pDKZGtql
+	 KSGg8Fxt+9UK0Ic+7wzHXqbH7T4Z5BMZ3xIUjfr6YeY4zQLCDwisJyBFOFH6YsR+KGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UoYunkSY;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=esP1NXiJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114E6606AE97
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:05:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 114E6606AE97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C657F6087A3F;
+	Mon,  2 Nov 2026 15:05:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UoYunkSY
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so32085585e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:05:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793631938; x=1794236738; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=16KmY+5SMzN5j7+9R15dmTI05WFHA1t98OiX21uElTA=;
-        b=UoYunkSYxQznh5bFA75G99i2y2WW9E086osI9oKEp6qIqKaUZRR8w4CxHUrPRkqq5S
-         FfmqCJGlVnKa5ovIyVvTW73QdAbq7tDgFU70uuBcb+R92YkXxYaOc6CL8ZMXYWHPP754
-         wnsrxDcNSQBDr4jBTgmIADLNqhAKGAMdasjK3IrK0W6zgen1NiBV5tV2pWpdcjzjLeNI
-         cBi8+BY4ejD39ai1Abt1TdY+LOIdW/wMxJ/Q8fXMJii7S0kVXjVQQPDvpFRIa95v+eWH
-         QOTM3mH0vfW6dScDz4mjR07lz/jXDaBKe8q4rfMgUMR2OvxIGPW1WvDHBlLe8jXj9orb
-         jxVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793631938; x=1794236738;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=16KmY+5SMzN5j7+9R15dmTI05WFHA1t98OiX21uElTA=;
-        b=K4JeL1aRtDtjnvrC5sU0BGIIFMyJAqIsA5dlloUGBJjyAlaCCYuvck/8Q9C6O2P/f7
-         ksMRIpojUSglEhY7/IwZBMo9VyT8iUESBapfuTk1FFbCfaTnX1LMey6V5tUmzdj1H/Yc
-         iq1a3LbGubv9grcRztPhVLq8eNF2WKu23iNzP4eDSgIGBI026P0/IW6W+Kvl7PQTzxVw
-         YO3RKPqQ2n1nqeneTvV7ZZ/OzWkv5w5vd/noP+YIUhCxGmwl/9fpCi7kK1zNTtc5et0s
-         DyOOXqD5HqEg7NO+RiAhoWhJg1mVxFL9/lNV6IYgtfgW+x9FHzfQfRKbWSKuYQU/hDY6
-         ocxw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqmmaswIDecBD9EXiLK8Eqtvs82HuQYx6qQVJhrEgSUmgsq8FyQ8gTkH7mAZfZgHEmIay4ndnyJhHRs3g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2hvjtft1SuAlOTl6OmNtw1J52Co/n7PfZ/E4FrXr2pwbxMmU3
-	RvAIVomRMySjGt9jHxoW8djh2Tk6rrSrmI840cYNjfJG4PNcSf/WSzu5
-X-Gm-Gg: AYBFou0hgqX5c2S05QTCqumw4Bhtf5oPkTBq8RQHWHOGGl8c8z8S5YYE3blicOBTMQ6
-	tLKMYCu6sXX39u4K/JvWm5ePrtGYvtTes3tGDTrNmIsjCY0drpyzetusXzaBVWi8y0i8t4FIO84
-	H5TrUg03Q4JpZ3u0Vw3yHG9iSeY3lXPwj0VWnJQIPiOOapKwfLLQa05D4WFAUhMXIEcH934QRBe
-	4xXYq5N2gNX0p5uiXuSeH0d6vatpP7bLXJmufPrU9mnPfenV7eLvWmv1XLya997adBWKNvWZz0D
-	0GP9ABtx+kDPueq0Yq9m74KJU/iTMp9tjdIW3BPrEFXj8XnQRXenLuDmWJYjFio60hecE2ACiNk
-	zRzghisnZ7cFCW08ZBZ6GXHTyKqxF9HCAU0eaLNjMADZhOkb0vOQjRpNSBTVO9nm6zs7daXc1GB
-	B9/RwVVZ9XT7Ekk3bmQPpuiEns003NfVHPA93YCckn6+KVumJwCJCx5popT+q4fphMrvxacHfgq
-	SCk0TGB6unfLQ2fZW6rxPNj5G2GcVjRjZpGkyUH9Y1ZqC3i95MXd36RpqJSoQ5+NH7Uz9IbuA8J
-	m+dFfSn+7xUq1Ft0ajpB22rVE1cdBc4s1q1UU5y0S27fU3aAdV5MSTktYBUNvdf3
-X-Received: by 2002:a05:600c:83c5:b0:4a1:f377:5c75 with SMTP id 5b1f17b1804b1-4ac19329ea4mr206305535e9.33.1793631938076;
-        Mon, 02 Nov 2026 07:05:38 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ad414e298bsm128041915e9.2.2026.11.02.07.05.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:05:37 -0800 (PST)
-Date: Mon, 2 Nov 2026 15:05:35 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>, Joe Perches <joe@perches.com>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- linux-kernel@vger.kernel.org, users@kernel.org, Federico Vaga
- <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, Carlos
- Bilbao <carlos.bilbao@kernel.org>, Avadhut Naik <avadhut.naik@amd.com>,
- Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, Dongliang
- Mu <dzm91@hust.edu.cn>, Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan
- <wy@wyuan.org>, workflows@vger.kernel.org, linux-doc@vger.kernel.org, Petr
- Pavlu <petr.pavlu@suse.com>
-Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
-Message-ID: <20261102150535.6c5689f6@pumpkin>
-In-Reply-To: <87a4nrfgjm.fsf@trenco.lwn.net>
-References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
-	<20261102093206.50b6c9ad@pumpkin>
-	<20261102-smiling-binturong-of-gaiety-f64c1f@meerkat>
-	<CAJZ5v0iOJ1r1OvYhV_KJSnHOJL+oVUrbOXizLk0kbGNiep7a6w@mail.gmail.com>
-	<87a4nrfgjm.fsf@trenco.lwn.net>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=esP1NXiJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD921F00A1C;
+	Mon,  2 Nov 2026 15:05:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793631956;
+	bh=08oqN1TE6XF/zda2aaIy/jJ7rzXSJoF5jY3Jq8EQn3I=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=esP1NXiJtkWIwe0zxy+yALxJft8aenVVlvrmNyeWEmPwwMUFoGj4vVXV8t6fYRCCr
+	 PUrWrFhkorqvWNCdJaSQMLf/MWYFqMu/fjhYRkfg/ntu2jTry0OdIErXKyYUuaX9b2
+	 s/YJB0wieY9b+/J0uqo3gTDUZNa/iAbOQ22VE6vCDejVVu2QvhNeen/wYMi1uUBddD
+	 otQ6tttXu5fna5CmPdbWZ3/5LvyLR1HZD3qs4y3l163vI5ZM0FWutUhg0hU7z8iAs6
+	 9fnCJsDMduAv+8gXV1qLG+g/a4WXlmT3vfPCv0fZZv3ZT7nfZmWkFHzOiAfiEsinuc
+	 E814TEauo1aaQ==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:01:40 +0100
+Subject: [PATCH RFC 13/22] x86/mtrr: let procfs copy in writes to
+ /proc/mtrr
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,31 +53,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-arch-v1-13-c9492ab08480@kernel.org>
+References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
 
-On Mon, 02 Nov 2026 07:34:37 -0700
-Jonathan Corbet <corbet@lwn.net> wrote:
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry, and parse the command from that copy. Writes larger
+than PAGE_SIZE - 1 bytes fail with -EINVAL now.
 
-> "Rafael J. Wysocki (Intel)" <rafael@kernel.org> writes:
-> 
-> > So it occurred to me that it might be actually better to stop sending
-> > messages directly to LKML subscribers and only make it available for
-> > download somewhere and as a Lore archive.
-> >
-> > Is there really anyone depending on receiving all of the LKML traffic every day?  
-> 
-> * raises hand
-> 
-> Some of us crazy people really do depend on it, yes.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ arch/x86/kernel/cpu/mtrr/if.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-I certainly scan it.
-It is also useful to have an archived local copy that can be searched.
-I can see a point in not copying all of netdev to lkml, but there is
-little point not copying patches to low-volume lists.
+diff --git a/arch/x86/kernel/cpu/mtrr/if.c b/arch/x86/kernel/cpu/mtrr/if.c
+index 9510e01d5103..038e2dc38797 100644
+--- a/arch/x86/kernel/cpu/mtrr/if.c
++++ b/arch/x86/kernel/cpu/mtrr/if.c
+@@ -91,7 +91,7 @@ mtrr_file_del(unsigned long base, unsigned long size,
+  *    "base=%Lx size=%Lx type=%s" or "disable=%d"
+  */
+ static ssize_t
+-mtrr_write(struct file *file, const char __user *buf, size_t len, loff_t * ppos)
++mtrr_write(struct file *file, char *buf, size_t len, loff_t * ppos)
+ {
+ 	int i, err;
+ 	unsigned long reg;
+@@ -103,9 +103,8 @@ mtrr_write(struct file *file, const char __user *buf, size_t len, loff_t * ppos)
+ 	memset(line, 0, LINE_SIZE);
+ 
+ 	len = min_t(size_t, len, LINE_SIZE - 1);
+-	length = strncpy_from_user(line, buf, len);
+-	if (length < 0)
+-		return length;
++	length = strnlen(buf, len);
++	memcpy(line, buf, length);
+ 
+ 	ptr = line + length - 1;
+ 	if (length && *ptr == '\n')
+@@ -397,7 +396,7 @@ static int mtrr_open(struct inode *inode, struct file *file)
+ static const struct proc_ops mtrr_proc_ops = {
+ 	.proc_show		= mtrr_seq_show,
+ 	.proc_open		= mtrr_open,
+-	.proc_write		= mtrr_write,
++	.proc_write_buf		= mtrr_write,
+ 	.proc_ioctl		= mtrr_ioctl,
+ #ifdef CONFIG_COMPAT
+ 	.proc_compat_ioctl	= mtrr_ioctl,
 
-David
-
-> 
-> jon
+-- 
+2.53.0
 
