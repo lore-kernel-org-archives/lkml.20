@@ -1,68 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793654990;
-	b=R8gbtGgRBVRL/W8Gjr9btknF8r8ulf0szuzbcdaKcrFmLOW7+y9wsT2Sq5+mCr0JV5Y9
-	 yqwgBN9ous5dTFBDl2f9xpZrURs83WrTnVZwOiEc96zDj2R3QvwcO1AwiuYLQxQEs0gHf
-	 zlg2IT17JQbprKqjC8OVSwkbUFqkkcEBiuJuKTKrlHxoxFon9xlshCwddq5IdAns/IAiy
-	 shtCfvzKVhYgtK/EIhJavySBqrufksv1QvfwaXpxxBtKJe/MFT46cpRuv7gkgVOq7fUw4
-	 BV32st0/iL8VesCQu2x1xdceuQg3opKAbYCWTC9e7SQ3hasH3oF/JM8Zj6Z+W1wz31A==
+	t=1793654976;
+	b=NIJ4csUSiVAmoIAkkhZjd5IOceZ/4rFGeN+9y21xoPu7U8n5/2UjDm/s0jWyngemOBja
+	 wppttlbHwUlY7hEeIfMlOhRQdB3nKGw6cwN52GUcbxUGqz0tsb9/jOTtqal5lroaNXR4P
+	 wbciIAUl9WrXCACPzwb5c26IAqnpypldv0pygBGy5MXaGfDT+aroMETIwhNWClGNXqFe/
+	 h8c8Qs+IVN1scDMg77Vg+/jeduKerdjbdQVWMA2+fLdU8wLmg2ol3wA5sNMZZzxI7DBwl
+	 VEt5hrAht/tt7qeVZjUE99i3+518kDXWAryT+PRrYdmeqvRj4PLyg1Qgmlh3jlXuw1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793654990;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=4x/8m1FBYoP1cRclqzCfOrS0dYnbYeqPVhu7UPr9Vg4=;
-	b=x66ksIDFtZ6fnFAKCLYy9mHDDUIqamtBSvavTf7n2bUPq+RmCO+2m6BBS9LvVAhwPtxD
-	 X6yxbQF8n3dEe45gdHx6gJXqcy5z26BXVUdDAx5QnfqIfTQUNqGlsXKZVsX9nxRtOB30o
-	 UEE6DdMJ5xlA9u85s+PUB+CPNs9/3nL15SRFhrKUPxfHRKO1zDpW1oP9EBGJ3Q26Neh39
-	 3Ag93K+v/yzw1kgm+gx4Qv8zcooAXJlbeHssH3E8kChLYcVQz1e/szYzIgC1WFcxvaUNS
-	 5M0Xgw4++hm1rlG5ysoXQKHvFfjp/4jgJbEcXV0yOx/RpVxg3Sr9NWL4bp42UPQuHYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793654976;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Qgxf6cPMRa2fgOZLNkKYBji7ae+uqYeBopsxbR/dI6Y=;
+	b=gWC8tOk5o09OrYIlv9Yyk3Au/F195LVIcp7ATXwCQTkSt+XFXhH9KM4REvCloIa1FkLD
+	 SWCsgTPpaeeaKrpoXt3zVQ+OfzjcpDB036yqqEBjHCR649dUwSSZKQaGhOH1f0GGD0K/T
+	 hpH0yMP85kTiOpAyL9MLe7JG2X6nOiFF2oTlhtaPb5k9HAznmURvgx8MY5+7qsV8ER7p3
+	 tPy94TpZYEyp+3CwN0LFn2Hl9o61kawp8+uz4Aw0PFe3nfEZh0nup9W8QTnkz4wn0LrG5
+	 3Nj+bTvPyoiCS+GT8WqR8Txp/lL6uoMekhuZ40Zyz8kffD9SwzXSjL7/Slxsz3L49jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QveWtzFP;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gw6nyaBf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E290606EE82;
-	Mon,  2 Nov 2026 21:29:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E290606EE82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC2B606A329;
+	Mon,  2 Nov 2026 21:29:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QveWtzFP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793654989; x=1825190989;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=0AAFSmAsu+r5QOHMwFL7eRdGUJum5paaN98p+0Untmo=;
-  b=QveWtzFPcU0bKo7AACZdVHSna2zqOqEiK/doJ0fLg/pN54x3ObU6AJAV
-   KbYjvznxqOFxDGRie4V2CnBzimhsrNTjLwsxLv7s9yDAossgexPyb/7HY
-   k0uwGZ1CLjl8iMVS1luvMjbq8LLadPxGEYVKdKxVKd8/gmbZnwtqy07u3
-   zOlsYGOvVXwhNBIrA0S2NcZMoMl9WArEWxeBhaQtI8543To+L0tBjx1QE
-   gXC/+9Z8gEWy1XnHzRU30PmsfJTvPn7EhDtx/QwT9kUBHOkEgGMDiNLtf
-   apd7qfnDE7Ev4HG9R/GTXmnf7t3qfbC7h9iMQh+vdoWwuWUa8FiVMMilU
-   g==;
-X-CSE-ConnectionGUID: 2mqCq7e7TseLa8vUklzSGg==
-X-CSE-MsgGUID: PZxR0wkxQGeP/JVjgrhj5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2267939"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2267939"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 13:29:49 -0800
-X-CSE-ConnectionGUID: mWTKvRJCQNmJHbv6HnNaYg==
-X-CSE-MsgGUID: ZPuqtrRKRJq4bNnpGs5Xtw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6342739"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 13:29:48 -0800
-Message-ID: <6c9a13c9-e6c1-4540-a8ca-1f0e800f3571@intel.com>
-Date: Mon, 2 Nov 2026 15:29:47 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gw6nyaBf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D501F00A16;
+	Mon,  2 Nov 2026 21:29:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793654975;
+	bh=Qgxf6cPMRa2fgOZLNkKYBji7ae+uqYeBopsxbR/dI6Y=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Gw6nyaBfkvLjKlF9cbp+6df2Lwbw0+pS5533QsbvNM8MFMZ7Ya8MTBYT2iFT/Y1a8
+	 LE4unNtcs7xv3KszNBJ1PgFUhOKH8vI+AfiwbCbuWs/Md4pWVBgl69YoRSg2Z1IBM/
+	 gmteFYQXV81Zc2wc7SleSMdx2uLm9z2u2K0ehAvnOblx+ROmN1+5meitHSyEnwnhZQ
+	 MWfvc0MQ0gEX2Y7F/Y+A2Nu9os5f8Cu/p7tXkW3q3yl4jJuaVZjkC7LHj0Sqsy0VFe
+	 3ylGyoy6t5fBwhzHg5708KSgYacJxaqD3kWL5Ie69Ho5PEJMXNPmXZbMdDNaWPIWGD
+	 aJx8q81bf6yRQ==
+From: Vincent Mailhol <mailhol@kernel.org>
+Date: Mon, 02 Nov 2026 22:29:09 +0100
+Subject: [PATCH v3 2/7] block: add DPS root partition type UUID definitions
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,118 +52,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Jim Mattson <jmattson@google.com>, Sean Christopherson
- <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-12-zide.chen@intel.com>
- <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
- <auUQgRVFASkWtkoK@google.com>
- <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
- <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-discoverable-root_partitions-v3-2-27f04b69b7ab@kernel.org>
+References: <20261102-discoverable-root_partitions-v3-0-27f04b69b7ab@kernel.org>
+In-Reply-To: <20261102-discoverable-root_partitions-v3-0-27f04b69b7ab@kernel.org>
+To: Jens Axboe <axboe@kernel.dk>, Davidlohr Bueso <dave@stgolabs.net>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
+Cc: linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
+ linux-efi@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ Dave Hansen <dave.hansen@intel.com>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Matthew Wilcox <willy@infradead.org>, 
+ Vincent Mailhol <mailhol@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1660; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=AL8uN7/7MSksrsBruApS+z49m8V8+cpTPrJkxJAGLio=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDFkvGTaKrrMKeGDHovigW1E9O7Ds++NfNsdfiry0MJ81c
+ 6OM97pLHRNZGMS4GCzFFFmWlXNyK3QUeocd+msJM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
+ Ahk6RgxcnAIw1fHPGf6XsGi8n3o3hlfW9XJklnvlzT6dOe3+vz/f0EthZnbXt//F8Ffysk3icr5
+ psdOupB2oC5l/aYOGp5JLwK/mDz8n6i2S8uUHAA==
+X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
+DPS [1] assigns a native root partition type UUID to each supported
+architecture. Add a hidden DPS_ROOT_PARTITION_TYPE_UUID string symbol
+and populate it from the architecture selected in Kconfig. Only
+architectures with EFI support in the kernel are added.
 
+Gate the symbol on EFI and EFI_PARTITION because discovery needs block
+devices, EFI runtime services and GPT partition parsing.
 
-On 11/2/2026 12:49 PM, Yosry Ahmed wrote:
->>>> OTOH, what about PerfMon v4 bits 58 (GLOBAL_STATUS_LBRS_FROZEN), 59
->>>> (GLOBAL_STATUS_COUNTERS_FROZEN), and 61 (GLOBAL_STATUS_OVF_UNCORE)?  Per
->>>> Intel SDM Vol. 4, Table 2-2, those bits are valid in
->>>> IA32_PERF_GLOBAL_STATUS, IA32_PERF_GLOBAL_STATUS_RESET, and
->>>> IA32_PERF_GLOBAL_STATUS_SET when CPUID.0AH:EAX[7:0] > 3.
->>>>
->>>> When those MSRs are passed through in mediated mode, the guest can set bits
->>>> 58, 59, or 61 in hardware via IA32_PERF_GLOBAL_STATUS_SET. Leaving those
->>>> bits set in pmu->global_status_rsvd for pmu->version >= 4 will break
->>>> KVM_SET_MSRS(MSR_CORE_PERF_GLOBAL_STATUS) as well as any intercepted guest
->>>> writes to GLOBAL_OVF_CTRL / GLOBAL_STATUS_SET.
->>>>
->>>> As I pointed out in patch 04/16, we can't pass through the PMU global
->>>> controls unless their reserved bits match hardware.
->>>
->>> I think there are two other relevant (but pre-existing) problems here:
->>>
->>> 1. GLOBAL_STATUS_TRACE_TOPAPMI_BIT can leak from the host into the
->>> guest. If a host PT PMI arrives while the guest context is loaded, bit
->>> 55 will be set for the guest, and the guest won't be able to clear it if
->>> OVF_CTRL is intercepted (it will #GP as it is reserved for the guest).
->>> Similarly, the value can't be restored through KVM_SET_MSRS.
->>
->> I think mediated vPMU assumes that no host PMIs can be generated while
->> guest PMU state is loaded.
->>
->> If PT state can leak into the guest via bit 55, similar leakage can also
->> occur for other status bits, e.g. when the guest exposes fewer
->> general-purpose or fixed counters than the host.
->>
->> The scenario where both host and guest can be active simultaneously is
->> handled by the perfmon_mask case, where intel_mediated_pmu_{load,put}()
->> filter guest-owned status bits.
-> 
-> Looking at the code:
-> 
-> kvm_mediated_pmu_load() -> perf_load_guest_context() ->
-> perf_ctx_disable() will iterate PMUs with for_each_epc() and disable
-> them, which skips PMUs without PERF_PMU_CAP_MEDIATED_VPMU.
-> 
-> Same for kvm_mediated_pmu_load() -> perf_load_guest_context()
-> ->ctx_sched_out(), it also uses for_each_epc() to iterate PMUs and
-> schedule them out.
-> 
-> pt_init() does not set PERF_PMU_CAP_MEDIATED_VPMU on pt_pmu.pmu.capabilities
-> 
-> Please correct me if I am wrong.
+Derive the hidden DPS_ROOT_AUTO_DISCOVERY boolean from whether
+DPS_ROOT_PARTITION_TYPE_UUID is nonempty.
 
-My apologies, this bug is indeed real because pt_pmu lacks the
-PERF_PMU_CAP_MEDIATED_VPMU capability.
+[1] The Discoverable Partitions Specification (DPS)
+Link: https://uapi-group.org/specifications/specs/discoverable_partitions_specification/
 
-Adding this capability to pt_pmu seems intuitive, but unlike
+Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+---
+ block/Kconfig | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-                       the core PMU (which merely toggles enable bits),
-Intel PT is an AUX-based PMU. Stopping and restarting it on every VM
-transition is heavier, and I'm not sure whether it could introduce a
-noticeable performance penalty.
+diff --git a/block/Kconfig b/block/Kconfig
+index 70e4a66d941f..3b5d3ad42dde 100644
+--- a/block/Kconfig
++++ b/block/Kconfig
+@@ -211,6 +211,20 @@ config BLK_INLINE_ENCRYPTION_FALLBACK
+ 
+ source "block/partitions/Kconfig"
+ 
++config DPS_ROOT_PARTITION_TYPE_UUID
++	depends on EFI && EFI_PARTITION
++	string
++	default "69dad710-2ce4-4e3c-b16c-21a1d49abed3" if ARM
++	default "b921b045-1df0-41c3-af44-4c6f280d3fae" if ARM64
++	default "77055800-792c-4f94-b39a-98c91b762bb6" if LOONGARCH && 64BIT
++	default "72ec70a6-cf74-40e6-bd49-4bda08e8f224" if RISCV && 64BIT
++	default "60d5a7fe-8e7d-435c-b714-3dd8162144e1" if RISCV
++	default "4f68bce3-e8cd-4db1-96e7-fbcaf984b709" if X86_64
++	default "44479540-f297-41b2-9af7-d131d5f0458a" if X86
++
++config DPS_ROOT_AUTO_DISCOVERY
++	def_bool DPS_ROOT_PARTITION_TYPE_UUID != ""
++
+ config BLK_PM
+ 	def_bool PM
+ 
 
-However, whether the solution is adding PERF_PMU_CAP_MEDIATED_VPMU or
-some other mechanism to enforce mutual exclusion between pt_pmu and
-mediated vPMU, we can address that in a separate patch.
-
-To immediately protect guest state and live migration in this series,
-I'm thinking of adding the following defensive filter in
-intel_mediated_pmu_put():
-
-+ /*
-+  * Scrub bits that are not virtualized for the guest to prevent
-+  * possible host state from leaking into guest state and breaking
-+  * live migration.
-+  */
-+  pmu->global_status &= ~pmu->global_status_rsvd;
-
-> 
->>
->> https://lore.kernel.org/kvm/20260821222002.54907-1-zide.chen@intel.com/T/#m90394fda6d71ed0dd539a579abfb0c1df1e044fe
->>
->>> (I think the PMI may also be lost as LVTPC points at the mediated vPMU
->>> vector)
->>>
->>> 2. On AMD, bit 58 and 59 have a similar problem. HW accepts those bits
->>> but they are reserved for the guest, so the guest can set them if
->>> GLOBAL_STATUS_SET is passed through, but userspace cannot restore them.
->>
->> Right. That seems orthogonal to this series and could be addressed with
->> follow-up fixes.
-> 
-> Maybe AMD folks on the thread will take a look :)
+-- 
+2.56.0
 
