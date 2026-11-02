@@ -1,63 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.82.167
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793584254;
-	b=193LO+Z8bWXG4kdfq5HkknECpSfF0LrdLswAIEy9gWFSnc8uFOFhMSvfJn+Iu0bcS29s
-	 OVAl79JMOv7tglleiKlFL9jJ1krKR/wpRI341LR+HUdR6m4BKJdIUaNXPsRSNU4nD8eZb
-	 ZOOeRyd1N8ApMMqPbKc6/GdXvr7efNUz2pe351za356Qlt65hjKmjwDVCfhlYZ6z4yLVt
-	 JdTGw/puSY7ixsbUvZn0ypHRLGgC5LIL4igfhDgaWTOqKtHNxBACHaHbr6nGX9CTIyaJI
-	 j2bIfz5vt2cQF30Ncx9Vf+drTqJB4hJIf9mxX48EAYvIkBx3Uz9uqaAGsRbL7DtZy3Q==
+	t=1793584369;
+	b=FbxBxDK36CA4l5NDbyUOALi40a5Vhvn/Vz3350hGkvLpKEW4+atflXMsRUCdrAs3Nrhl
+	 mdehLOOhuckXpnoqHsSOFGOoDZB+dCqRkGUc8kAmD9uIz3bKG6anbaWkevmGKqZ/tiV3p
+	 /mVYW/NplHyvpLayOwQRpayd/el2v4aeF5d/yXiFr15csMd+wrqLumupFnp5TCCMUqRRg
+	 LFOdx6VryWbTefq4ef0u5k53Phc7G5MgondEeoAgg9MxzNINjJSuhyAHQtGx/m7VfLB3G
+	 RYcCbWetOmIuXcsMfNqWuJ2m/ZeO+Y7kGoJmOFjogiz/IlW/RAUC8OZL4fiNhKjLbcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793584254;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=uyg0B8ei3Mf4zbb08LWnZuHIxG8bAH3PwXAWr4Dyrgs=;
-	b=Lbw8Jw3RmTYUoW7P8G60vdU4Wjer8xptIwo32ktAeqSM+Wd2TauIqyLKxP+QLqrs7sE9
-	 MkV8dkTazGDeMe5nRQ42RItHSGFjCae7BiDo8TU0M+Yn5ZYEve5glOyS/xPqpcOheM13P
-	 PuhecZd9fzi73zRRibOJoygiSc+VR6eXw9iahFqO7eKz9yt2MWJktB/55YgDbp6oiXEdL
-	 v6/V8IRCk1uSUX9fBWzIlKwIBZSiIGFKvVRKEXUuMokqzFgns0P5ChMQOudXS6OvMA7Cd
-	 PFGzERLLtd+KyY3RbycgN+Bb/Mp9fMPE7P4TO3QTAQDJlI4lMS3nHjdsz/o7rPVVJYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793584369;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=tneePjoeL2yK6qrYSwwF6fPVIhSig+zNFAIr8myvBzw=;
+	b=C9p1tI0L4wkX+X+29BgsIJsZUT8j330DgP6eJaEGSOtDBp0SEUk1kbgAjsZT/+Zltlmr
+	 8NbydZtd35GXsZwFcO3pNsr27yH3PjTY3pGT0Yj7R/iaBbRc30gK3oHSAw2Afh+7VQecg
+	 hpOaN+6tqVwmOLwS3UhpP9QlpmEAGC6994JMyZGsnEOFEa4xSKGc4R7m6RiZqYlXc+Ld1
+	 ewqpAebXcnkoPE5tK4uBYiN1kUOTzd3lZqGl0XWMHyR5515ZWxEpew6wf9r6zl0P4Kh7D
+	 Fh4B0GJBsOfwYc0nfZzdKcZPrJQULFlr5wqV0r84cYvIYhOQUTWXm9Xmp5yZUkiePdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=p+FKN8ot;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=e9003h8k;
+	arc=none smtp.remote-ip=156.224.82.167
+Received: from mail-m82167.xmail.ntesmail.com (mail-m82167.xmail.ntesmail.com [156.224.82.167])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6268606A326;
-	Mon,  2 Nov 2026 01:50:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6268606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CFE606A324;
+	Mon,  2 Nov 2026 01:52:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32CFE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=p+FKN8ot
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793584250; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=uyg0B8ei3Mf4zbb08LWnZuHIxG8bAH3PwXAWr4Dyrgs=;
-	b=p+FKN8otQ7xNVORWIWqYsvdNoNKc9aHVvDhE8BxQigmE7QaEh3zcrvp/Vjy2mcSOriHJ7dmbUuYLRF0Co+lFvEkDBSa8aa0jdTeQE4gkrJp2QktV39UN/Bs4N29/pDccklShLZDv61Wkzm/gYmhakvjUT1wrj8wQ9ePUkpwiLxY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=yaoyuan@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XDrTvp6_1793584248;
-Received: from localhost(mailfrom:yaoyuan@linux.alibaba.com fp:SMTPD_---0XDrTvp6_1793584248 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 02 Nov 2026 09:50:48 +0800
-Date: Mon, 2 Nov 2026 09:50:48 +0800
-From: Yao Yuan <yaoyuan@linux.alibaba.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Yicong Yang <yangyicong@hisilicon.com>, Zhou Wang <wangzhou1@hisilicon.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] KVM: arm64: Enable ST64BV0 for guests with
- FEAT_LS64_ACCDATA
-Message-ID: <qqspcqmrtdx6xj4efvaq6v36pmz7xks27dzev2qqmovq3kw6jp@vn5yptbp7hfs>
-References: <20261025075138.2919734-1-fuad.tabba@linux.dev>
- <20261025075138.2919734-5-fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=e9003h8k
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 531adef43;
+	Mon, 2 Nov 2026 09:52:34 +0800 (GMT+08:00)
+Message-ID: <e0244072-2ace-4971-b237-dfea5806f114@rock-chips.com>
+Date: Mon, 2 Nov 2026 09:52:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,46 +48,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025075138.2919734-5-fuad.tabba@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 11/15] accel/rocket: select the per-core clock and
+ reset counts from match data
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org, zhangqing@rock-chips.com, royalnet026@gmail.com,
+ abel.vesa@oss.qualcomm.com, sebastian.reichel@collabora.com,
+ sidong.yang@furiosa.ai, u.kleine-koenig@baylibre.com,
+ diederik@cknow-tech.com, alchark@flipper.net, leonard@lausen.nl,
+ jeff.hugo@oss.qualcomm.com, rfoss@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
+ <20261101082307.151957-12-gahing@gahingwoo.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261101082307.151957-12-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa199f5564903a7kunm28e33d1690928b
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSRhCVklDSx9IHkhLH0sdTlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=e9003h8knr8hseqDVAmZLDsKePFZJoUfy4L3orybLa4qb80JWSlH6QDDGnueDDOkdRJdQDJA7AR/5PI3bTwMd12iobJIxPDYCV8/N5LCZZBTGRPdrPoqnXuMAcgZq6eTy+ZmUilbvt63z+HCK4Ll2pnWDp2meOLrFBe0F/ElZA8=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=tneePjoeL2yK6qrYSwwF6fPVIhSig+zNFAIr8myvBzw=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sun, Oct 25, 2026 at 07:51:37AM +0800, Fuad Tabba wrote:
-> Since commit 58ce78667a641 ("arm64: Add support for FEAT_{LS64,
-> LS64_V}"), a guest sees the host's ID_AA64ISAR1_EL1.LS64, but KVM only
-> enables the FEAT_LS64 and FEAT_LS64_V instructions in HCRX_EL2. On a
-> host with FEAT_LS64_ACCDATA, a guest's ST64BV0 therefore traps and hits
-> the WARN_ON_ONCE() in handle_other().
->
-> Set HCRX_EL2.EnAS0 when the guest has FEAT_LS64_ACCDATA, now that
-> ACCDATA_EL1 is context-switched.
->
-> Fixes: 58ce78667a641 ("arm64: Add support for FEAT_{LS64, LS64_V}")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Hi Jiaxing,
 
-lgtm.
-
-Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-
+On 11/1/2026 4:23 PM, Jiaxing Hu wrote:
+> The RK3576 has the same RKNN block with a different number of clocks and
+> resets. Take the counts from soc_data in the match data; RK3588 keeps four
+> and two. Check soc before anything is allocated, since a device bound by
+> name has no match data.
+> 
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 > ---
->  arch/arm64/include/asm/kvm_emulate.h | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
-> index a3c1928bdf743..d07f72082531c 100644
-> --- a/arch/arm64/include/asm/kvm_emulate.h
-> +++ b/arch/arm64/include/asm/kvm_emulate.h
-> @@ -712,6 +712,9 @@ static inline void vcpu_set_hcrx(struct kvm_vcpu *vcpu)
->  		if (kvm_has_feat(kvm, ID_AA64ISAR1_EL1, LS64, LS64_V))
->  			vcpu->arch.hcrx_el2 |= HCRX_EL2_EnASR;
->
-> +		if (kvm_has_feat(kvm, ID_AA64ISAR1_EL1, LS64, LS64_ACCDATA))
-> +			vcpu->arch.hcrx_el2 |= HCRX_EL2_EnAS0;
+>  drivers/accel/rocket/rocket_core.c |  8 ++++----
+>  drivers/accel/rocket/rocket_core.h |  7 +++++++
+>  drivers/accel/rocket/rocket_drv.c  | 26 +++++++++++++++++++++++---
+>  3 files changed, 34 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
+> index 5dd260bacbff..b202d15816a3 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -23,7 +23,7 @@ int rocket_core_init(struct rocket_core *core)
+>  
+>  	core->resets[0].id = "srst_a";
+>  	core->resets[1].id = "srst_h";
+> -	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(core->resets),
+> +	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->num_resets,
+>  						    core->resets);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+> @@ -32,7 +32,7 @@ int rocket_core_init(struct rocket_core *core)
+>  	core->clks[1].id = "hclk";
+>  	core->clks[2].id = "npu";
+>  	core->clks[3].id = "pclk";
+> -	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+> +	err = devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
+>  
+> @@ -109,9 +109,9 @@ void rocket_core_fini(struct rocket_core *core)
+>  
+>  void rocket_core_reset(struct rocket_core *core)
+>  {
+> -	reset_control_bulk_assert(ARRAY_SIZE(core->resets), core->resets);
+> +	reset_control_bulk_assert(core->soc->num_resets, core->resets);
+>  
+>  	udelay(10);
+>  
+> -	reset_control_bulk_deassert(ARRAY_SIZE(core->resets), core->resets);
+> +	reset_control_bulk_deassert(core->soc->num_resets, core->resets);
+>  }
+> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
+> index f6d7382854ca..ba74c5339b94 100644
+> --- a/drivers/accel/rocket/rocket_core.h
+> +++ b/drivers/accel/rocket/rocket_core.h
+> @@ -27,9 +27,16 @@
+>  #define rocket_core_writel(core, reg, value) \
+>  	writel(value, (core)->core_iomem + (REG_CORE_##reg) - REG_CORE_S_STATUS)
+>  
+> +/* Per-SoC differences, selected by the of_device_id match data. */
+> +struct rocket_soc_data {
+> +	unsigned int num_clks;		/* clk_bulk count */
+> +	unsigned int num_resets;	/* reset_bulk count */
+> +};
 > +
->  		/*
->  		 * NV3 is a host-specific extension, and we always use
->  		 * it when present and that the guest uses NV. It may
-> --
-> 2.47.3
->
+>  struct rocket_core {
+>  	struct device *dev;
+>  	struct rocket_device *rdev;
+> +	const struct rocket_soc_data *soc;
+>  	unsigned int index;
+>  
+>  	int irq;
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+> index 5d7805c41dc3..284af027f398 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -159,8 +159,22 @@ static const struct drm_driver rocket_drm_driver = {
+>  
+>  static int rocket_probe(struct platform_device *pdev)
+>  {
+> +	const struct rocket_soc_data *soc = of_device_get_match_data(&pdev->dev);
+>  	int ret;
+>  
+> +	/*
+> +	 * soc is dereferenced without a check by every one of its users, and
+> +	 * rocket_core_init() below is the first of them. A device that bound
+> +	 * by name rather than by compatible has no match data, so fail before
+> +	 * anything is allocated rather than at the first dereference: the
+> +	 * number of cores comes from a walk of matching DT nodes, and a device
+> +	 * with no of_node was never counted by it.
+> +	 */
+
+You don't need these comments because everyone already knows that.
+
+> +	if (!soc) {
+> +		dev_err(&pdev->dev, "no match data for this device\n");
+> +		return -ENODEV;
+> +	}
+> +
+>  	if (rdev == NULL) {
+>  		/* First core probing, initialize DRM device. */
+>  		rdev = rocket_device_init(drm_dev, &rocket_drm_driver);
+> @@ -179,6 +193,7 @@ static int rocket_probe(struct platform_device *pdev)
+>  
+>  	rdev->cores[core].rdev = rdev;
+>  	rdev->cores[core].dev = &pdev->dev;
+> +	rdev->cores[core].soc = soc;
+>  	rdev->cores[core].index = core;
+>  
+>  	rdev->num_cores++;
+> @@ -216,8 +231,13 @@ static void rocket_remove(struct platform_device *pdev)
+>  	}
+>  }
+>  
+> +static const struct rocket_soc_data rk3588_soc_data = {
+> +	.num_clks = 4,
+> +	.num_resets = 2,
+> +};
+> +
+>  static const struct of_device_id dt_match[] = {
+> -	{ .compatible = "rockchip,rk3588-rknn-core" },
+> +	{ .compatible = "rockchip,rk3588-rknn-core", .data = &rk3588_soc_data },
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, dt_match);
+> @@ -243,7 +263,7 @@ static int rocket_device_runtime_resume(struct device *dev)
+>  	if (core < 0)
+>  		return -ENODEV;
+>  
+> -	err = clk_bulk_prepare_enable(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
+> +	err = clk_bulk_prepare_enable(rdev->cores[core].soc->num_clks, rdev->cores[core].clks);
+>  	if (err) {
+>  		dev_err(dev, "failed to enable (%d) clocks for core %d\n", err, core);
+>  		return err;
+> @@ -263,7 +283,7 @@ static int rocket_device_runtime_suspend(struct device *dev)
+>  	if (!rocket_job_is_idle(&rdev->cores[core]))
+>  		return -EBUSY;
+>  
+> -	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
+> +	clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks, rdev->cores[core].clks);
+>  
+>  	return 0;
+>  }
+
+-- 
+Best, 
+Chaoyi
+
