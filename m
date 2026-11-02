@@ -1,65 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606463;
-	b=FpcpN2zaAlP29eQ36lfpgf+ZUMh0b8/zYkMEMmEYh9BRsVYVxyVGolylaSzKC0d2mhyA
-	 eQBimc60PSPemUa+I6E7DqrWqLgzFanaFia1sCoqpSIQ6JLOi3Mst46QCciaOAs5PHyJz
-	 aWwA9rtiQJElLHBBFZnEADKx+SY+QiG0bsw0zwdcqxA1Vxnl4sZC1GxWwO65wWc3zdBtT
-	 GxM2Ti0+B1mUWwFMOoD9DziJRwDq/9lw6pFIDn+wmpRGxTqkh1L9Se1nV2d69o78pIO0F
-	 ZtrCqMGBKn+3s2HnEwy1C1keWVpZFKBqOmza8Af59E20uJUABhqlbLfj2+395dDAl7g==
+	t=1793606506;
+	b=cwgjypf3AS9Gr0S8SZ0JWoXLlGNxMh3LSNuCLcYh/pDAPu7X8QoZoeGbOlLf1JLcJ9h6
+	 uVV/FK9Nu5ue74ZjHp+NaQisA8LPhzDlu+5+iVVjq6GBtTlT7h8seDn+3uTNwijN0VXdc
+	 ZpBakSCCFCphnQpKlmnCI3RayYGrfI9Bdu92P8pvxbN24JTfVNNWT0VbCEhCM9GsVw4KM
+	 msJpd3r6PmOzhYYfoV9CR8bdaq5dNa1IVj5T/VjM+HVwpDN1GVauaMZq2B26164gFBXVy
+	 Ffp9/s2h74XNzH2rrtfOsS2oK0FLLQkngjPWiSC6fRGROcDQncu1dQTP8wlUCB/Do7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606463;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RzgtFaOMl3e++/4Mgek1F5K+PxJuljImpzeVlMGCTB4=;
-	b=2hqz/1Upda3fMzmWt6cAWI0UB+BO35Xq8BZ+aPxbBEakHjiIH0QO54JF4b1OKq9LBhOa
-	 mh131wQ1dwapzj6Py1mDn1ei4Bh8i1ZJzM1iF2jfIRlN7NWdBR5lxusux9NS9+CISSMyU
-	 Z/aYk/5up0gfrgJM888XQeYH5JDZqXF/XyibBOymO7stBHtLSmQ1kRyZepZJUK+Xr7bMN
-	 t6VqwyfKY8+p9TFqkOHutc6Nbr0KAOIIOrmFPvcN1afmwhooFrI/Ko9EbVrvYHiS5Rkhr
-	 6pAnLVwkI3kyP6mM+U9dkchqQT9M8CwfZ1VXSuAXjk+BpCMSkocyLGn8cHnv0jLRGLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606506;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=HBnD11gMSZpLVfr+vR9u0GimaEXWjeLtUh8hd5opuf4=;
+	b=gYIpRGpYQZl7XsBIYZsLAqLINvQtYgIP6LB8vvIwxyG3SWl8CmTyctvr9e0TAVGKVdnX
+	 iyAied6ouqHdsBeecVymimt9OWxRmUtNIYQbY4YYwfRqzPeOYcbjkOLvvGv1ODcMcoW/q
+	 zfE4FdQMsBPPFOBdKK2y7/f6g+uiTlgQGdfCJdFiD75fg+KhsVP/z+UaOMkRwNo5Cbp6o
+	 X6pZQEHkSE1wnEYn/XBK6cVGcJsK4DbUPi6OxFSmiXBhICzQaO/Nu4Kzaps+/6n3kYZbo
+	 fL/WP/04dU//N0Dfoi0K7GnBG9CgdGF6HoYTkdBMna941ACMDabColtwURtIAvRnfeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=f0sCH6zL;
-	arc=none smtp.remote-ip=202.108.3.163
-Received: from mail3-163.sinamail.sina.com.cn (mail3-163.sinamail.sina.com.cn [202.108.3.163])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GVi985Fx;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D75606A329
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:01:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56D75606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B709606A324;
+	Mon,  2 Nov 2026 08:01:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B709606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=f0sCH6zL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793606461;
-	bh=RzgtFaOMl3e++/4Mgek1F5K+PxJuljImpzeVlMGCTB4=;
-	h=From:Subject:Date:Message-ID;
-	b=f0sCH6zLgkTk3kWl6411eQkds2pqFAIwR27wqBpi9twJIp5dH/iS2mub6urECBBb7
-	 kl2ma2V11PDrP+jn4C0JUgbRQA0OCzD36LWvUWOu9ao5iAmyGT4ia2ZEUYu1PTX2Dh
-	 0MM12xxoxGBsxqpRL6QCzfShS5cSzKqcNqK3EpCs=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AE843310000458B; Mon, 2 Nov 2026 16:00:52 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 9106766291824
-X-SMAIL-UIID: 5E1A7E7ADA524944B1DE89ACE827168A-20261102-160052-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [dm?] WARNING: zero-size vmalloc in cache_ctr
-Date: Mon,  2 Nov 2026 16:00:49 +0800
-Message-ID: <20261102080049.417712-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ae61f5d.61c4c7f9.11e392.001b.GAE@google.com>
-References: <6ae61f5d.61c4c7f9.11e392.001b.GAE@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GVi985Fx
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A24EBHK1895532;
+	Mon, 2 Nov 2026 08:00:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=HBnD11
+	gMSZpLVfr+vR9u0GimaEXWjeLtUh8hd5opuf4=; b=GVi985Fx81FXaLN/zhVL8E
+	67lr+VFKj8a4CAVz80ht3+ABtWxDiKRSwvbaNznYCs7/8z8HpkHJETPyEPn6uAvK
+	LhTxLukt6QE43gF+ut2DZ+nwW91AiZsfbhvGMQJLsDRZeMS2vawEhCVNdSUIk7kT
+	HvqR5M0SGlrJDEppmB/ShTqq5aoUoJl13ns1YfYzdE2PTIYJS2+WG52/nlncaXFu
+	W4ksiidEKuafaB4afFQ38V3omT1u+96wiRcbDEBDNDGiz9AbJkdYh/tGJfy3PvHc
+	UFGqoD2ADRvb1q+7lGo8u01QTMjZcGqZsP4qeNpTNPS+P6KZ19CugbELrjiEIvNg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7yrqa9w-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 08:00:47 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A280NPN394430;
+	Mon, 2 Nov 2026 08:00:46 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hnwbxvkpk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 08:00:46 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A280ghv49283404
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 2 Nov 2026 08:00:42 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3222420049;
+	Mon,  2 Nov 2026 08:00:42 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1026520040;
+	Mon,  2 Nov 2026 08:00:41 +0000 (GMT)
+Received: from [9.111.42.133] (unknown [9.111.42.133])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  2 Nov 2026 08:00:40 +0000 (GMT)
+Message-ID: <62c7faba-3f9a-4ab8-a3b2-dce4f748cff7@linux.ibm.com>
+Date: Mon, 2 Nov 2026 09:00:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,25 +86,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 04/13] cpumask: Introduce cpu_preferred_mask
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, Yury Norov <ynorov@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+        juri.lelli@redhat.com, vincent.guittot@linaro.org,
+        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+        corbet@lwn.net, tglx@kernel.org, gregkh@linuxfoundation.org,
+        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
+        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
+        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
+        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
+        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
+        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
+        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
+        linux-doc@vger.kernel.org, jgross@suse.com,
+        virtualization@lists.linux.dev, sunlightlinux@gmail.com
+References: <20260928053728.797539-1-sshegde@linux.ibm.com>
+ <20260928053728.797539-5-sshegde@linux.ibm.com>
+ <4605dad5-aab2-49e3-b919-bf9897181834@linux.ibm.com> <auN0GKVMNvXbNdCN@yury>
+ <b83e2d2f-681d-4e19-a680-c076493b3edd@linux.ibm.com>
+ <15083d2e-1c9f-4dad-816a-25cc2f3810b0@linux.ibm.com>
+Content-Language: en-US
+From: Mete Durlu <meted@linux.ibm.com>
+In-Reply-To: <15083d2e-1c9f-4dad-816a-25cc2f3810b0@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Mcr5KJ/f c=1 sm=1 tr=0 ts=6ae84330 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=NEAV23lmAAAA:8
+ a=VnNF1IyMAAAA:8 a=cLjWqlLnyS6TRyV_P9wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzMCBTYWx0ZWRfXxc13DqFV7AON
+ iE1R7zP+9t82qywmbI1AiMPzcm3Mnh/0qfdZ13fEwNU21swUrBAiCap0EQTJGXGh+vj04pXCplE
+ RTZEmvmLcYk2CyeSsfIk3v0pd89V3I4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzMCBTYWx0ZWRfX6r3qhuOgUIiW
+ BrZWH8aCRIEmtFLzolcE3ed8rArIUROlGKFh8344mFHYCNCi6qyLT8S6q9ZikaX0qMo5ikOwfAN
+ E8IlrAj4Yu41zIvVIt177dJexvaF6uNMyPYpIEnuDNYXogENgsSVUbumurdUhqnS5jAa0d/m1Nz
+ guBAsFHVCUtuik3ARxFFlvgmfgo9+XzaBwrlgPSaw4tEeNwJFUw3HgJYXzWVSHfKjYes0Z7ewWL
+ PqFeaJx//byaTWrBg9tl2LTn1W96xF8Opv0MRALUCw9XJL4gF0Bvd1lVq9nB2WhpYFTdnFoLf4c
+ qo3lf2MEwkLeCsFJ0w82kXi/WA2DZGjk0cQs5uxiBHxzxi6GE9BhwTBZLBNqijA9u1Mv2CVYmTF
+ KoY30WRynrv837PdyfR+hGEiDrAHzPfiBV2bzyzNcDfONG9z1bAMbRemiUTuk9xVlPl7GYIwJvj
+ BSM/6ajTWXxUMnGqPiQ==
+X-Proofpoint-GUID: diq5pX26PNT8Bm1BrVRQ0Sx0Cm9WmTwW
+X-Proofpoint-ORIG-GUID: q2xB-e3zYjJaIp0j0NLZWRkX-ciZF6xG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020030
 
-From: Edward Aadm Davis <eadavis@sina.com>
+On 30/10/2026 15:53, Shrikanth Hegde wrote:
+> Hi Mete, Yury,
+> 
+> On 10/29/26 10:06 PM, Mete Durlu wrote:
+>> On 29/10/2026 17:28, Yury Norov wrote:
+>>> On Thu, Oct 29, 2026 at 02:32:08PM +0100, Mete Durlu wrote:
+>>>> On 28/09/2026 07:37, Shrikanth Hegde wrote:
+>>>>> Provide the preferred CPU infrastructure. Define get/set macros
+>>>>> which could be used to get/set CPU state as preferred.
+>>>>>
+>>>>> CONFIG_PREFERRED_CPU will be selected by the driver which handles
+>>>>> steal time values. It is going to set/clear preferred CPU state.
+>>>>> This driver will be called steal_governor and it is introduced in
+>>>>> subsequent patches. It periodically computes the steal ratio and
+>>>>> decides on preferred CPU state.
+>>>>>
+>>>>> A CPU is set to preferred when it becomes active. Later it may be
+>>>>> marked as non-preferred depending on steal ratio by the 
+>>>>> steal_governor.
+>>>>>
+>>>>> Always maintain design construct of preferred is subset of active.
+>>>>> i.e. preferred ⊆ active ⊆ online ⊆ present ⊆ possible
+>>>>>
+>>>>> With CONFIG_PREFERRED_CPU=n, ensure set_cpu_preferred is a nop and get
+>>>>> method returns the active state in that case.
+>>>>>
+>>>>> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+>>>>> ---
+>>>>>    include/linux/cpumask.h | 24 ++++++++++++++++++++++++
+>>>>>    kernel/Kconfig.preempt  |  4 ++++
+>>>>>    kernel/cpu.c            |  6 ++++++
+>>>>>    kernel/sched/core.c     |  5 +++++
+>>>>>    4 files changed, 39 insertions(+)
+>>>>
+>>>> [..snip..]
+>>>>
+>>>>>    #define cpu_is_offline(cpu)    unlikely(!cpu_online(cpu))
+>>>>> diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
+>>>>> index 985aea617cfe..edc067a0c422 100644
+>>>>> --- a/kernel/Kconfig.preempt
+>>>>> +++ b/kernel/Kconfig.preempt
+>>>>> @@ -194,3 +194,7 @@ config SCHED_CLASS_EXT
+>>>>>          For more information:
+>>>>>            Documentation/scheduler/sched-ext.rst
+>>>>>            https://github.com/sched-ext/scx
+>>>>> +
+>>>>> +config PREFERRED_CPU
+>>>>> +    bool
+>>>>> +    depends on SMP && PARAVIRT
+>>>> FWICT, PREFERRED_CPU mechanism can work perfectly fine without PARAVIRT
+>>>> selected. It would be annoying to enable it and implement a dummy
+>>>> paravirt_steal_clock() just for that.
+>>>>
+>>>> Shrikanth, would it be possible to drop that dependency?
+>>>
+>>> Do you have a non-paravirt case in mind?
+>>
+>> s390 LPARs are exactly that. s390 does not select PARAVIRT by default
+>> but enabling PREFERRED_CPU is strongly considered.
+> 
+> s390 may not have PARAVIRT=y, but this use case is still a virtualizated 
+> system no?
 
-#syz test
+Yes, it is virtualized.
 
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 1a5072425c4a..e3a202f0b08d 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -2149,6 +2149,11 @@ static int parse_origin_dev(struct cache_args *ca, struct dm_arg_set *as,
- 		return r;
- 	}
- 
-+	if (ca->ti->len > get_dev_size(ca->origin_dev)) {
-+		*error = "Device size larger than cached device";
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
+> i.e you are observing steal time. By definition of steal time, it is a 
+> para-
+> virtualized system. Though you may be deriving the steal time not using the
+> paravirt_steal_clock.
+> 
+> Or my understanding here is wrong?
+> 
+So you propose s390 to enable CONFIG_PARAVIRT *just because* s390
+fits the "paravirtualized system" definition, even if s390 would not
+utilize any functionality comes with the config option? (even worse
+it comes with deadcode...)
+
+That sounds a bit wrong to me, I would really like to avoid
+enabling a config option just because it's name suggests that
+it is related to our platform.
+
+Yury already sent the patch series he mentioned. I suppose we should
+keep discussing this there.
+
+Thank you!
+-Mete
