@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623390;
-	b=gv1Gonhhtj1VgHDc6L1IAfehw0ulGWNQUPDbCPAUzCs+ASwxcAa22u9Bn0RZEUvD6ijx
-	 aOFl1niaN/8d2hZfap8GwKECjB/BRQikt9yMSqnQT8CeLozMzAXNc4J/8E1Xt0oIgNoQN
-	 bIdRTbVcL/Ei1uEJ2wo7M2ipWiH2kbnWSqjYQqvBbBwfr+mVNfkhCr2S2Hx8N/z38OkAt
-	 6hvMi/hqXrOwCKVrgZDJFXJeLaHo16Qh5MnDycNFCgxZShUpmhopVq40wc2mzqinOfa0D
-	 jQXO1FYky+MtZzJGF0Xzjoi+x3ouahKfarTIvLfMXkEPZz/TkD+ZlxAmGrD9duWS9yw==
+	t=1793623391;
+	b=W20Z0F4DYgzi/9xjp4eAgRcHd+SWzs2LdNJpMDWi1HP4bSGN3vJEbdzyFyBrlHGatJpw
+	 TUOj9x3Xwdru2aDTTaS7+Kc/TmQxtofq/QUp2/LlVjAyL3EAzfFpdPMhVtMapwdrhd4OD
+	 4eAZerdH5tMVmRB2PfXodDzNO/lNzyXm6Ma3FSIiOLpZckIiphrfYrv3BBYBDOgn7aHZI
+	 e01TCm8cFbCOXu9aZaNzKNs+W3RdhX/H+e/GX27hn6kaGMGvamDAt8XOcneyeqIW68OTm
+	 HSuLcxpnF1FB9uJlDV90xoFIDg4qW6Wn092UtBLd/6U+xaUQLgWXPNh1nfcMdBjhJdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623391;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=nmPyHrdHeNFlQD4qR4KsRRkb7hhXkl15EJwk4XfzXxA=;
-	b=5fNugcOYMHdhN+nc+M1nnl9GDHogppDI1RVtIuI6TC1o6HZ3X8lRXKg9kwDk9h2irQVb
-	 gzyO8BI+lWFbSZXvydama3PEeOhc7/P3cZbNo/9Q7WQLIYWiL8BTWT3SxYtL32xAtsPPz
-	 W2/wQIo/JWlmBXYC8yMOGpcqQqvmmeWJY+uXD7ZekdoZAbcyfLhrruAJzMfpOBa+L5vQc
-	 4CBePoG8/21J6wD4pqLzNx8s0slrSkQuRgQSq1y0/Biq1rHJhKQxGIzuNprMQqtuIbxce
-	 K3zv6r/5fy76/Vnw4vduhHAVswFfxWWHRcAw8Kn0Gufetzh4xLq7vOOWgbIdo7MEvvA==
+	bh=47gPGwQDcpWQVb0oOB9vJD1DBbnS1YYcP6qZGFfC+AU=;
+	b=3sHzCji1XvhdzMfr4uVwp1twA+K6iqIxrYYbTiGjJ38eWNDHN8yjz5IRJM0g+DG3hzPr
+	 xaN/Y09E2mEFQWo+BGZ57YbiW6nwJwDR38uuMRlkeVlqAyND9PnqraSFQgAkb/dB23tca
+	 IV+/oOnB3pRYCXZ0QdyWmJ+B6MSXGAnQqoWfS6m1Yim2BwhOCIQ7VEDR4YfCbLRTsiqpA
+	 KN9HnyZJFNmyEU1L9rRP41t5itC19F3eCOux4c9Hj4P875mU22TjW6bQSHM6eVRHcaUv7
+	 jun2AL8vqbi0sHUzqv2xtnKe7nLCq+wyET4BeMg0irRA/lEHh3L17QaKAeV4H9NUj7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaDPSKWx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij5HJGTD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481A260A3811;
-	Mon,  2 Nov 2026 12:43:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639A760A381C;
+	Mon,  2 Nov 2026 12:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaDPSKWx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AD131F00A16;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij5HJGTD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD71E1F00A1A;
 	Mon,  2 Nov 2026 12:43:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793623390;
-	bh=nmPyHrdHeNFlQD4qR4KsRRkb7hhXkl15EJwk4XfzXxA=;
+	s=k20260515; t=1793623391;
+	bh=47gPGwQDcpWQVb0oOB9vJD1DBbnS1YYcP6qZGFfC+AU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=KaDPSKWx7h51Kmy2dMBx3z3T3/lMb/p0jV7jc1wieQ54CNL3oFU64E9xCR1SmfoNf
-	 xpx6MX259PwI3VamZ9XbE07aH0CteLmkJOreehCry8BXNHgh21xhNfuSH0W1orrjtJ
-	 OC1iTc/ZFTOFXo7yn85r3XuVN0wkRp02sccWzVRow8TocdcROyd2sdE0NQ1cyacF+p
-	 5PNbRjUWaiZ7egdJiyAvJ/D9iXQziWY2EJUauG9iq7ji/aLGgzgqjgaEqW3+0RnPR3
-	 3lqo9LShb5xNGBN2nRfC3t6CZb6fj8xE6YCJhZ4S2NQrJESayDVx6Ew7nyNfcOC+9A
-	 A2L72Q19lURdA==
+	b=Ij5HJGTDOeolTEdQC/crYdYRTVEBfDqTDg08/th/xWIwQT4+tEsSKn3W0dJaoGl15
+	 +XHpT4tY2tjk3WOWKtNRoNwZOeEw96LQx6tTTu8V2EecF6xB60tiRN7GMFdXLkkjHM
+	 YRhHlYS8RNZ7xIbKJLoWKnOF9Lu0NWVnggyTFzvBoHoSWloY1HbsovGDlmVQdqYX65
+	 5H2a5ZabTiTXYgFIUfow4UF5beihn42xs5fH88DnMMdXAYbYWd6g6QvcjQ+7X1+IuT
+	 zTAoaFZtTwj6+wFav9ev+wnSonVFBQX7y3FIXW/MoPqmqu+KzSHFYZd3tLIQQ2RWvy
+	 kEvYKHASCM0DQ==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 53E02231054D;
-	Mon, 02 Nov 2026 12:43:08 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 35B142310559;
+	Mon, 02 Nov 2026 12:43:09 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Raju.Rangoju@amd.com, krishnamoorthi.m@amd.com, 
- linux-spi@vger.kernel.org, Weibin Liu <liuwb@xiaopeng.com>
-Cc: linux-kernel@vger.kernel.org, zhugl3@xiaopeng.com
-In-Reply-To: <20261027021340.914399-1-liuwb@xiaopeng.com>
-References: <20261027021340.914399-1-liuwb@xiaopeng.com>
-Subject: Re: [PATCH] spi: amd: validate FIFO usage before executing message
-Message-Id: <179357647437.1716893.1993598078742812854.b4-ty@b4>
-Date: Sun, 01 Nov 2026 23:41:14 +0000
+To: Jyan Chou <jyanchou@realtek.com>, Yu-Chun Lin <eleanor.lin@realtek.com>, 
+ David Carlier <devnexen@gmail.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>
+In-Reply-To: <20261030145909.285144-1-devnexen@gmail.com>
+References: <20261030145909.285144-1-devnexen@gmail.com>
+Subject: Re: [PATCH] spi: rtk-nor: Limit exec_op writes to one byte per
+ operation
+Message-Id: <179357771350.1716893.12371926655363855543.b4-ty@b4>
+Date: Mon, 02 Nov 2026 00:01:53 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,17 +67,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1120; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Ldxr/tnh85SVJt4VHczBhqP5ie+DAa8XHF0Eclzicv8=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetMZsyZ3OnNQifzv5pWXZ1lZBjyPpxqLboy67KpVIG
- Qao7DbrKGVhEONikBVTZInL4n5ZX/J6Dd/BhW0wc1iZQIYwcHEKwERCHzP8jzk35UL353Nxi/1i
- pQqDM/w3n9+pJ9PdwXY6+qmSf91UP4b//j91rG9FL+b18zipVvjp4lbflpBm72yRSJ6/52K3C0Y
- zAAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1135; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=lrDIIr+Eg+99x731KjiM0ZvZdyWC+t1qUZHVn99o8oA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetMae3cXfXhd8NZgtIfCQyK5Hr62815QeUFnete3y4
+ sflS1pPdpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAie7Yz/NPovT+3I0/a7NSP
+ w5Y9b0I22auun/zpUXzyk7QpX1q7w5QYGQ4w91jkcT44tTQwjq275Nn6jZU6J/7PzQnJ4JN3sWM
+ zZQAA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 27 Oct 2026 10:13:40 +0800, Weibin Liu wrote:
-> spi: amd: validate FIFO usage before executing message
+On Fri, 30 Oct 2026 14:59:06 +0000, David Carlier wrote:
+> spi: rtk-nor: Limit exec_op writes to one byte per operation
 
 Applied to
 
@@ -83,8 +85,8 @@ Applied to
 
 Thanks!
 
-[1/1] spi: amd: validate FIFO usage before executing message
-      https://git.kernel.org/broonie/spi/c/aed0c7475d6a
+[1/1] spi: rtk-nor: Limit exec_op writes to one byte per operation
+      https://git.kernel.org/broonie/spi/c/30421d2469d3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
