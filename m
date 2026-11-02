@@ -1,62 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793642248;
-	b=es6vkvfIGQpJNxI1OCFrWnfn+kVkTiUDcqF5CbLbsY4ujy/NxEdxGOfaMYv91epT0vNe
-	 SwCOARfz6Iyuq6w3OR0ZYU8Qitzqhp2AGIwzOgyZyMYuaYYAGl6Tu4B0ASZMnIiy2j1sb
-	 LBWdJXjGiMPdHBBdN1sAlmtmIu3DOVYZ7ejJU9FqSTE1UsJeu9low91BjQBurl4hmLVy9
-	 eo2hICA1xPIylYsvfM0Q4idw5jZcFtvxr8PsppfQqxE1h0q93gcmG44VX1ri/R2MoEkkP
-	 Cz0meu7E9lkUnIcMYRnTI/kJFataTn1HNobKUiFKCQFDfYdP56+Gf+UP6Xi+c79uw7A==
+	t=1793642273;
+	b=TegSvV4vDU3YDAoBBdHYkjkMRKFfg0ia3ycw+NasNoSywwPz9DRE5H3HDhI1K55Buij2
+	 aspc7rlED22HZnEXJc3/bZliwaIop/KDZ7ZdmEXw8Q84DvfPR49HRJZxfx2OHv1xhL1fk
+	 rh5MYhWNXy+GBKqHdJdldTXh8UmFkNKFKoLEBUXR+h0lQV/o68pPzL0fdNURnVUxIwAdM
+	 fE9H2sRGCTZvaxSAFq0K/FfzEcE5AJLfehkVPSyMoiktXT2s3QeoA1/Mb6yhEvgZp+HFM
+	 0lkStcx4jQB1UF5uE2+ub/o2AfpRtrMYxkYp90ygugGUZruWE4jTKdY1WqQSKf7Wkxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642248;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=9yN/enZfckxR/KaazQYI51lP72amm4JJmcuC6uTU2Oc=;
-	b=T0i880irx/kAn9HlGxDYUTh2eJuvaoEvUTFN4lXA0hNndqzhKKAqRFx9XiwR3MMOY4r6
-	 8Qrb8a423FWxhX3EvbRoi5Q5pN82bCt/mYopVQpOxIMMOu90GqHFjlaEmJBYla6fZY2/I
-	 vTCNM0lCeX5mossSj4nO5WTqIV92Lh67sxhB5dqiL6Y/hUDrOTK1ujgch2myJlkc0G1RC
-	 TxNcRgmmKS/zkbAl8hNvwEZxrQ0YbvFDx7HgUboXJf68lSuh6DQqZqsVjLsEn7naXaAej
-	 GJId1y4vEnoyYgnne5qQcZLr8B4oqBZxXg29WEZ3FGAD3AgEEpQhq1yRGYf/NfSL1Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793642273;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Z315d8rOKowv6IXdAf5MryJ4yd+EB7ArfeE3mgpBZio=;
+	b=GC1yHKrQ7A0na+VcZn4C502bayxk82XhwhATg6y+rvZKC+IUNz2CY8g5wqijo22S+f6R
+	 ldg8SzmbJt9z1objjP1irDyb93Qkc/qap09ihQz/u5GJSzznlGmWONts2+j8X7g2hd+mr
+	 Irk5murN7nYIJg8ERPP200MYIlBtlPRYpBytQrxJCkTwyU/mx2gYU4zoI6VnB5GyG94kV
+	 aDuKuyBHAwlp2a4lb5ewOHjfQhpR4C5MZoyM9u6g87cRac9T/5F+wuU1sB8NoBKMu4G9T
+	 dP4vFiebk4Gb3Ch16h8Q1zNUef7VIjzVGncWnWC9UO2gV1orwDLgSP59rZZahwmM+sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcTvm6uM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="Hh/64bkM";
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6129560716C5
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:57:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF66606E00C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:57:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AF66606E00C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kcTvm6uM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8930A1F00A17;
-	Mon,  2 Nov 2026 17:57:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793642248;
-	bh=9yN/enZfckxR/KaazQYI51lP72amm4JJmcuC6uTU2Oc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kcTvm6uM4hHl2o6FdFgVY6v1NyTLeSRetQGO03jcOBvMddtdOrpST+IL4s6+Mfei9
-	 NUkBnNxXuuxm07FIDtdNtX6ChQD/D2dIXexIESLJj/2rTuQLyCUS6gcbKPrAXDmAh+
-	 bV24zqnSVUYA++RkUpi9jHHSqKou5w3csFuVevqeHe3fRimZ0pAn16cDVm0WKXqNRv
-	 6KMyl12KfzdzrSgbMlECNk96GQn4rF4B6OHq/pUthlAr9Kvyh/sGYUr879prMdwXe/
-	 8h0vD+0jvfMJz4YsePT7byIsb2bBayxtQqiIGXSOyKkNwSDCl4c+wZ9rWQBR47MON0
-	 9Dbr8e2uoTmRw==
-Date: Mon, 2 Nov 2026 19:57:20 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Qi Zheng <qi.zheng@linux.dev>, Lance Yang <lance.yang@linux.dev>,
-	James Houghton <jthoughton@google.com>,
-	David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 04/12] mm: hugetlb_vmemmap: generalize vmemmap page
- allocation
-Message-ID: <aujPACLfTbPJnIJa@kernel.org>
-References: <20261102032525.3597743-1-songmuchun@bytedance.com>
- <20261102032525.3597743-5-songmuchun@bytedance.com>
- <179361471104.1337633.3959715900505206111.b4-review@b4>
- <09EF0F81-23CA-4F3C-BA0E-41F34A0AA4B2@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Hh/64bkM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=Z315d8rOKowv6IXdAf5MryJ4yd+EB7ArfeE3mgpBZio=; b=Hh/64bkMkyAvkJnSjmOEdQUO14
+	LxyWJv8CHamAzgmzyCUBEsnck66xFTUG8NYQjxIS2c84DMTpjMgCyFWpMfWILcdVsU9lrDYdcmj8/
+	IVhn3zfHZg5mp+KDJQ60lLzxLoHlI2ZyKAnNT/V/jSRlfNjcma2f7BTiKxPGSfP44BL8p4+VSDSVc
+	H5tduT0kd6khxbZK1F7LBdvsZwivFWSz9n1xfklCAEYRNfrtZcQBtWyFn4sCQgxCcp9FucFPLtV7F
+	KArcB5Xam0N6eVQSrxa1Qtw5VfeZzC2GT+S6dBbVaF4lOv6oocfXq01zisvpkongt/dVd0pGF5MAS
+	QQzpbFYQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xNwI4-0000000HXmw-2AeZ;
+	Mon, 02 Nov 2026 17:57:52 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Leo Yan <leo.yan@arm.com>,
+	James Clark <james.clark@arm.com>,
+	Tao Zhang <quic_taozha@quicinc.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	coresight@lists.linaro.org,
+	Danilo Krummrich <dakr@kernel.org>,
+	Mike Leach <mike.leach@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v6] coresight: coresight.h: add '*' to kernel-doc lines
+Date: Mon,  2 Nov 2026 09:57:51 -0800
+Message-ID: <20261102175751.2274430-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,134 +71,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <09EF0F81-23CA-4F3C-BA0E-41F34A0AA4B2@linux.dev>
 
-On Mon, Nov 02, 2026 at 08:34:03PM +0800, Muchun Song wrote:
-> > On Nov 2, 2026, at 18:18, Mike Rapoport <rppt@kernel.org> wrote:
-> > 
-> > Hi Muchun,
-> 
-> Hi,
-> 
-> It's my email client's fault. Let me email it again.
+kernel-doc reports 2 (kernel-doc) lines in coresight.h that don't have
+a beginning '*' in them, so fix these lines.
 
-Things happen :)
+Also convert struct coresight_trace_id_map to kernel-doc format to
+remove another warning.
 
-> >> Vmemmap page allocation is currently tied to restoring a virtual range
-> >> and assumes an empty destination list.  These constraints prevent it from
-> >> being reused when pages are requested independently of a vmemmap range or
-> >> appended to an existing list.
-> >> 
-> >> Generalize the allocator and give it an all-or-nothing list contract so
-> >> the restore and optimization paths can share the same allocation policy.
-> >> This also allows HVO head-page allocation to fail gracefully under memory
-> >> pressure without triggering the OOM killer.
-> >> 
-> >> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> >> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> >> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
-> >> ---
-> >> v2:
-> >> - Collect Reviewed-by from Lance Yang and Qi Zheng
-> >> ---
-> >> mm/hugetlb_vmemmap.c | 39 ++++++++++++++++++---------------------
-> >> 1 file changed, 18 insertions(+), 21 deletions(-)
-> >> 
-> >> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> >> index 0e5b2b182d1bf..4b20a8efc0678 100644
-> >> --- a/mm/hugetlb_vmemmap.c
-> >> +++ b/mm/hugetlb_vmemmap.c
-> >> @@ -334,28 +334,26 @@ static int vmemmap_remap_free(unsigned long start, unsigned long end,
-> >> return ret;
-> >> }
-> >> 
-> >> -static int alloc_vmemmap_page_list(unsigned long start, unsigned long end,
-> >> -				    struct list_head *list)
-> >> +static int alloc_vmemmap_page_list(struct list_head *head, unsigned int nr_pages,
-> >> +				    int nid)
-> > 
-> > Please indent with two tabs, like David likes :)
-> > Applies throughout the series.
-> 
-> Sure. Should we update scripts/checkpatch.pl in the future for MM,
-> since this script seems to favor the alignment approach?
+Warning: include/linux/coresight.h:173 bad line:
+  connected to @src_port. NULL until the device is created
+Warning: include/linux/coresight.h:177 bad line:
+  needs to be filtered.
+Warning: include/linux/coresight.h:236 This comment starts with '/**',
+  but isn't a kernel-doc comment.
 
-Yes, makes sense to me. 
+Fixes: ec9903d6cc34 ("coresight: Add support for trace filtering by source")
+Fixes: d49c9cf15f89 ("coresight: Rename connection members to make the direction explicit")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Leo Yan <leo.yan@arm.com>
+---
+v2: rebase & resend
+v3: rebase & resend
+v4: rebase & resend; add Andrew to Cc: list
+v5: rebase & resend
+v6: rebase & resend
+
+Cc: James Clark <james.clark@arm.com>
+Cc: Tao Zhang <quic_taozha@quicinc.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: coresight@lists.linaro.org
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Mike Leach <mike.leach@arm.com>
+Cc: Leo Yan <leo.yan@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: Andrew Morton <akpm@linux-foundation.org>
+---
+ include/linux/coresight.h |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- linux-next-20261030.orig/include/linux/coresight.h
++++ linux-next-20261030/include/linux/coresight.h
+@@ -179,11 +179,11 @@ struct coresight_desc {
+  * @dest_port:	destination's input port number @src_port is connected to.
+  * @dest_fwnode: destination component's fwnode handle.
+  * @dest_dev:	a @coresight_device representation of the component
+-		connected to @src_port. NULL until the device is created
++ *		connected to @src_port. NULL until the device is created
+  * @link: Representation of the connection as a sysfs link.
+  * @filter_src_fwnode: filter source component's fwnode handle.
+  * @filter_src_dev: a @coresight_device representation of the component that
+-		needs to be filtered.
++ *		needs to be filtered.
+  *
+  * The full connection structure looks like this, where in_conns store
+  * references to same connection as the source device's out_conns.
+@@ -236,7 +236,7 @@ struct coresight_sysfs_link {
+ #define CORESIGHT_TRACE_IDS_MAX 128
  
-> >> -	for (i = 0; i < nr_pages; i++) {
-> >> -		page = alloc_pages_node(nid, gfp_mask, 0);
-> >> -		if (!page)
-> >> -			goto out;
-> >> -		list_add(&page->lru, list);
-> >> +	for (unsigned int i = 0; i < nr_pages; i++) {
-> >> +		struct page *page;
-> >> +
-> >> +		page = alloc_pages_node(nid, GFP_KERNEL | __GFP_RETRY_MAYFAIL, 0);
-> >> +		if (!page) {
-> > 
-> > I think goto err_do_cleanup is cleaner than ad-hok cleanups
-> 
-> I’ll use goto style, either is OK for me.
-> 
-> > 
-> >> +			memmap_pages_add(i);
-> > 
-> > This is confusing. Updating counters only to use
-> > free_vmemmap_page_list() seems worse choice than walking the list and
-> > __free_page().
-> 
-> I think the memmap accounting should be done right after each successful
-> allocation — that way, using free_vmemmap_page_list() becomes more natural
-> and simple.
-
-Why are you against using a loop with a plain __free_page()?
-
-We know for sure it's not a reserved page and there is no need in
-free_vmemmap_page().
-
-And with memmap_pages_add() per page do a bunch of atomic_long_add()s
-instead of one.
-
-BTW, it would have been nice to avoid per-page counters update in
-free_vmemmap_page_list() too, but that's not related to this series.
- 
-> Somthing like:
-> 
-> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index c04f53f708d2..cab9ec14873d 100644
-> --- a/mm/hugetlb_vmemmap.c
-> +++ b/mm/hugetlb_vmemmap.c
-> @@ -207,14 +207,13 @@ static int alloc_vmemmap_page_list(struct list_head *head, unsigned int nr_pages
->  
->                 page = alloc_pages_node(nid, GFP_KERNEL | __GFP_RETRY_MAYFAIL, 0);
->                 if (!page) {
-> -                       memmap_pages_add(i);
->                         free_vmemmap_page_list(&local);
->                         return -ENOMEM;
->                 }
-> +               memmap_pages_add(1);
->                 list_add(&page->lru, &local);
->         }
->         list_splice(&local, head);
-> -       memmap_pages_add(nr_pages);
->  
->         return 0;
->  }
-> 
-> Thanks for your review, Mike.
-> 
-> Muchun
-> 
-> > 
-> > -- 
-> > Sincerely yours,
-> > Mike.
-> 
-> 
-
--- 
-Sincerely yours,
-Mike.
+ /**
+- * Trace ID map.
++ * struct coresight_trace_id_map - Trace ID map.
+  *
+  * @used_ids:	Bitmap to register available (bit = 0) and in use (bit = 1) IDs.
+  *		Initialised so that the reserved IDs are permanently marked as
