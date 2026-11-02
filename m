@@ -1,100 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.26
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793649344;
-	b=dHSJ7reydorRHRcpU9loSRalwwP/UNuvp1cvS4rnwnt2PSVqgZhXHQaJiiEYhSKHgf/1
-	 wh4Z9XtBmeansY3es17LSaufIf8bRdio+670NKYg7DpdwNPxc85TMeg2RwG9DOGYQmGiC
-	 8MvVD0q9Jn2hV0g3WBrb1GRsXpaYWFJ660wA86BzCcaWwChm2EfMvoUjDAqIZ3nsEmmrk
-	 Ht3c6N//9dGsQRARrar5oWvgh5dzhgUMGa5obQfIrZ/yEe9cpO9LW/iuZqU78gruSKZ4F
-	 75jUTRjZndqja/e6SE/jfqCBG9NL5DNMNpIgvgfwAmd3dWvXCTUdVR0jkK8vsNzOjtw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793649344;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=kOjn7wHUD5EqmO3OM+h6qu6BcG3zMtsUhJOrbvzWrfA=;
-	b=gCFYuAw+YF5v43NIPABiEIG10ioaWMm8/0M0SP36mOUuT7xwQqsbKwFhvZIeBAtFQ4lw
-	 NDjRMIG7DRCnCZ8JZYwvaeMqY/ubmF59sBuvmx9lXa+GRTvNagROmW2Mlq92O/F3i+g9y
-	 OOwTL0zZM4JUmwFELmanUtqw2qpq7ISIWEBwGET/aMwj0za77NeHFVn9SAO3tvw9DYj+F
-	 IWjdDcqHmYq6SaXVGLflI2Y1t/1fuOWow5e87xBLYSq6qtfYFnbTPzTCuy+SAGrcNxyGr
-	 JQOAom3mhz17G+0/Fv75wb/1CQmGLLrFVCeFAaDfX2oRRRLle6wjXSzs4iLFzSq2ztQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=R93N8URD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.26
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013026.outbound.protection.outlook.com [40.107.162.26])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793649374;
+	b=K9ampdKidsxkEGrmb1Ms4VQMZXJiyXuMri5Pj8fO1Te+jEk0eo6nOczZJSt9d3UExvYO
+	 XoJV3D2mYK63MMOXP84tvbFeqgB0XatCccMoUpMWVNAuZ/N+9ovGN2L0nqicyogJCyWFJ
+	 ZZnlKIIXFlJPFwALFyemy6nZC+JNFRX3O4a461YAx6z4TfuX0RFqEZxAzIp14LE4LzUUJ
+	 JcMTkYZF1r6TIIiGVCuJOp1Th/uvwamGNslsHln5hg3FDDa6aSqTYUTRRaAevbqBz5V4m
+	 NpZjvZ5sjmwIaXZ2sJheHFAfQghwjR2YG2yt8IK8Ty9UKR5W2kgOUpqaLSge4AN9BLQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649374;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=nt1uEavnKw9psabByYlGe9e6SCHLvz+7OsAHfwrAJJ4=;
+	b=KZIy3hpbiW1nGF3Vmmby+usFargMcVB97KvqTatHnaPMtwZVjkU62R3hht93IFtfZDwt
+	 q1w3t+/vUTZM4AvINV2lH48HP+mZbdT/AnVO5AcvrrDLy1NYf2KeKvUTKKqg0u8ewtO0t
+	 Ie+vWRWZ75/OS3B0j0+3YxEmEUYwz+ag8Co5v70bk2K4eVqErUIL0BeHGnPM57sYnXJ33
+	 NSH64knfwFo71N+wqI/K6ad3xO0EsOpoZUCtI9uJPFTVywp8rIvcRNYOIpugs2sBsDqHc
+	 e6aZnGsPgah1a23MPFtnRFiiAE1T8YrEaOwHPS3SQdW3xnk7FQkZYc4a8VdAk7HiCBA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=BWyPOxVo;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AEJZCVGI;
+	arc=none smtp.remote-ip=103.168.172.149
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84EC608509E;
-	Mon,  2 Nov 2026 19:55:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E84EC608509E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857F7606D825
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:56:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 857F7606D825
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=R93N8URD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=etmJrLIyP5pLJZeLE5ZTN5IYPSjfzXi81I56IhY5nTcVgBD2mycIjur73NwJWJtYWhWNa+9mLNd/asdZToftU9SiSeobcO8RXaeZoTZGpUP0X+OXcvtyt6EkFX1tH23SpRa/eOgZeiLNGUQcBPKjcfiCWGRaeiOAilatgv4+V2xLBpHFjbCTULqE6+VTxX1FUm2KJiYGh8FYlx1m5C3ynNk0xe4tt7Qe+b8Oo0zN7whDNVzaQRtSHwaiYm/lzCe62xxgN/4Bw8C/LJzM5Lwi3Noh+N0WTe8yZRmUhxbz+2MDC33A6PMEG2l9RYvjwOiEVivJYwzaGKAT4xq15F6a6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kOjn7wHUD5EqmO3OM+h6qu6BcG3zMtsUhJOrbvzWrfA=;
- b=vJYzR5di/CynizmeVYbaLpQYgecNjcnZKT8mTFB89p6PGnqrU3bAr5FN/+6GExDOVxn5G2faznnyp4bE+IRlBzosmssWX3QT+1BA83fATjHPTa0FXhlR2F9AbeifHHRQSPzmL/q0Ravwnft3YgLmyyDqz29etK2UKwDberCMplktiyt/Z07CdcuhMZOS/3Mq4JlkcyBdx+3OiF3V0Tfaz5SsvrGG9t92Npv+m26TjSvwW/E6vsv0wzWmMsy6PhO2QOaHxn60gzmxzuuuX3VtpMD1rPoKM87ADcp1iWsaCIZsZm2UY+l2BtupbN03tdM+IRfZXNMhu9zobBmbw9WX7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kOjn7wHUD5EqmO3OM+h6qu6BcG3zMtsUhJOrbvzWrfA=;
- b=R93N8URDAT3pEwazarxPm4NlZpsrMPcAx53a9yMGXazmVBnJcB1LcyD0G/mZFuaceZlRv71tGxUpLpgMH4Ee6vA2vZy3E1UDsOHnyCE4nxKuF8gUCM3sv+XQe60AOAhgXEOoP+4K7oIc3D8cqM7MgSEJF7dljoM8V3KBrTAiMzJ8Kci1JRY9MkA+/FouX7DLmW1kH3br2OecFZrcnyULa3MZ/Iaa9g7fY9Pd8HcqXi2bkCcYAh2t/78Q3dSdOzDwY8L4STEiTfbV0Wm/a5+XWBq4nfhs0gH91H2PhHexBU8cJ42lss6aMdE0BLHBIpyPLbbHXQuKAF8TVwcZAsBCfA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by BR0PR04MB048570.eurprd04.prod.outlook.com (2603:10a6:2c8:50::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 19:55:40 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 19:55:40 +0000
-From: Frank.Li@oss.nxp.com
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	mhi@lists.linux.dev (open list:MHI BUS),
-	linux-arm-msm@vger.kernel.org (open list:MHI BUS),
-	linux-pci@vger.kernel.org (open list:PCI ENDPOINT SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	vkoul@kernel.org,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCH 1/1] PCI: epf-mhi: use dmaengine_desc_set_callback()
-Date: Mon,  2 Nov 2026 14:55:33 -0500
-Message-ID: <20261102195534.4088523-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH8P220CA0036.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:348::16) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=BWyPOxVo;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AEJZCVGI
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id C016BEC0589
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:56:12 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Mon, 02 Nov 2026 14:56:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1793649372; x=
+	1793735772; bh=nt1uEavnKw9psabByYlGe9e6SCHLvz+7OsAHfwrAJJ4=; b=B
+	WyPOxVoB73oWl2NCWl/NVaUIsHrDg/9RexCuc0rkJmhto36Ovm/4kB1y209R2d0P
+	S3gMrq3XFvCLY29gqZyXaOLBopBDuT5L83gEdMe0SoCpdFBhvtq0z+7zmIoV+FSp
+	GRyoxjXc21xOiIg91kxL75x3ANt4iCuE3qsCsuE/sB9TlC6rneGdGKBnTo6m4zsa
+	JBtdR9yGkj9unfroRtUJKfgec7/bbMlBPWjCtG7Fr74tut71mEAZt6/sLgNs2lNe
+	M54jw2QTJJYiWYLlH4OGKALUcqAVAZUSSkx1EtgJrEDwD0IuC1GOT+HCxjamAdJs
+	hkxh0PT0cnJolohhQ5q5Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1793649372; x=1793735772; bh=n
+	t1uEavnKw9psabByYlGe9e6SCHLvz+7OsAHfwrAJJ4=; b=AEJZCVGIvcn0F0Xiy
+	CzIU1SRqBNgwZcf63P6BzZerP3G5PB5cBX3kHGetYDEsPTwZog96e91HskoQIx3G
+	JDZs2c3yPD81dVeJmnmubPXvZ4YW1KMS0zDuKER2LuKFuiX5IxZuKpMV6qNiZWt/
+	snDNbm/cHT2utq59kEi4NNVoo+J8LjzN64Pbd88HzFSixmU9+hW6MTb3rH6RyvFU
+	APG/MPx0a8PzqPZv5cdITYe2OO4/QLLSKZOAhY5zjxEMorR3na7cmYra+0zNh2R9
+	mK4O7ZqnQNNs8gUgAdq/2rvcIuVwj/2lMzSIO5M423QWgojlVAELzTWjstLdoy14
+	PXJ6w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793649372; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:E+tILiKu4hsYmHxp6F5YsML20gh8aGwSomDrZ2K3gZdQhhb
+	jXbqC8MqeXqouly3UIAg5Gha4v9RR7NOOhR9N7GipEXfC24/z0GxQC2yBPQ6mzna
+	dcTNVlb3kXovzMHmo2W3FERT1y7o4QK3qfohmTnhYS5WYOC3A+AootA/zKgx5PLs
+	E+KcDd1vWopq2XoHWw15krq2Fax4yorettfRSfryZHxEXQWbomHxZr5zxwvb4G1M
+	veQds9VWRJqoPCFSzogk1wx7CILrzVHwzYoSfx8lpHmeE3MOmDR415QCe+YWxlWf
+	z4uheuXdnkaplap3GX4aEMhVAS0J1xYzKWAMZfA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:2Pqmkq2K1v7kdosw75qP3PSBnmpsC39owV29NkVo6AE=:nt1uEavnKw9psabByYlGe9e6SCHLvz+7OsAHfwrAJJ4=;
+X-ME-Sender: <xms:3Oroag-_VYo9sOM2u_O0282VXoqNEU8GbRwIl_Skr7kPrNECXK2xQw>
+    <xme:3OroalS6yYuKJuNZrU9WpRLKDxtnmC7ul2QsZLsPomHRAunrwtY2uub-s56c9_Nbt
+    YEwmOR4vDAnZsNuZXNApM5yLDVh4Vryvr1X6COSMPsHuKCYUnICUXlU>
+X-ME-Received: <xmr:3OroaqcGYtOsKge_VzWFa_3r0-VhGelu5BUBbQcVhIYzsPuPxMIrzYewncEnjIkl>
+X-ME-Proxy-Cause: dmFkZTEl3OoJhsvttp1+3wDYnSBd+qeVWAsTNohixiFMXts+2OjJZZIbfvvRn+KaVHClwT
+    TXn0DdYTVyMOY7hhqyrLIjTjKbyEF08BGwyYtuhc0Fm5YfvT0F5BKEye6XP4zkZ5zp+XIn
+    fV7STQhBAMj9PR4oP9E0Ol7NIcKiDt6kLaWy6794CQwiX+XDSKroG4LaQaWnO7VTI/1kjK
+    GKgCSiJQW15ybeIlbPFOnRaRRDLDXGodcWURbD0XjN7q6tHxQa1U9YePhGk9nIL7TwjnRR
+    AmoWGEi80h0r48sHoPOWybmdc/OgfkAzdjvU1DtT1V7dZV1lrIEWzlze7dyEi7IPp9SXnE
+    s7RknX0DJySgtaWKnWUlipCeyLVkAEBNb/dahv0DP+noeO/Wm8JhXn44iQi/CK6z/zUw+G
+    c4keopWqF3uE+l6Cl0MmSAi98kbVpjLjCcng6TUk2+UUpVGNh2PJDrPP0ScrPMWRFJ2Qee
+    4XrU5l+0TE66CP6BV11R5GrYfIrJ6/a4ET5znG35KJW9q26JpTqCEdPus1IGCsYeb87WrE
+    hX9fgwkl8f0x2fejnPjTx5NUqeL2gSlJgs/IlnQaTQgJJMZOiWzR8gzy1n882p6HXjDHQM
+    eee0f9HXzbZ/lm0lQAPooUvhBIqx6YZV7IeL9Jk2qB7skdZdnTJ2DuebMUXg
+X-ME-Proxy: <xmx:3OroanTgHzde6jIbxoInEfygFeqMA5oTL0Ymb2pxCkbobN0gPjPJ2w>
+    <xmx:3OroamKhSPt9z5BpMP3TJcFnxR5GUA7BcyPss0RKdEpRyBzHUh2RjQ>
+    <xmx:3OroakI6RdqWvbgM06I21q8MnBdwL6ZxHoKDDYu07sxVedcHNGynag>
+    <xmx:3OroahiDaaaQT-mtmX1FzmmX4Qb5KGfsxiyC8aPLJpQhA0O4WY-IIw>
+    <xmx:3Oroak96_bIntyBjVydZclNPd9J5POPLSW6nVLtMVbkt06jRcmIxX8gx>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 2 Nov 2026 14:56:11 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	stable@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [PATCH 2/2] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow
+Date: Mon,  2 Nov 2026 13:55:59 -0600
+Message-ID: <20261102195559.883967-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAKYAXd9Om3RcrgxAKbQZGT2Lxs7XSktm2bhLTUEJB96Oc0-iZg@mail.gmail.com>
+References: <20261102061537.830714-1-icb@fastmail.org> <20261102061537.830714-3-icb@fastmail.org> <CAKYAXd9Om3RcrgxAKbQZGT2Lxs7XSktm2bhLTUEJB96Oc0-iZg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,123 +131,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BR0PR04MB048570:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33481105-8b7d-4ea6-fd4a-08df391b456e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|19092799006|376014|366016|1800799024|23010399003|6133799003|10067099003|18002099003|921020|261102123227099003|56012099006|11063799006|261022113327099003|261021123027099003|261022105027099003|261022075727099003|261026135527099003|261022115727099003|261026140227099003|261026121527099003|261026130827099003|261009223027099003|261028144727099003|261021135927099003|261021133027099003|261021130227099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	FDavFfmRxIbKqHC2hGb15EB2cmvYyiWz6y50UK1tJ4cjm/uluaFMzvXfMahWgM6j1VD5/A3tyGtBLI0SjG31roUyY0iofcpkCm53uvx4CNeegBHt6RClyozhzomwa+UCpHw/Xp9ktwZM20ZLj5tSrz4vE+/AVchqY1KuiGLZMfvXfsWFfDLiq2jCEvC/+P8wiM8M5sImOANW8xjymvWqgayQM3w0ZcK0A34cWFozs2W+qQswuma2scNbh5EyEsGHtyDVgvn6Byb2EIbSsOxBnWCVY/Gplq7rJbnL0PKQLALx1EmLfm8di5b5bRPGw1E9IT2kZuDZVLfAJvQv+LbN6Ebc+ydWAMfqAh4a3v0XZMiTLbwRPVHzseoxKHLIyvH4fDCTNl9h43CBO+E4B6sSUeKb52v3AaHyCfnViDEpLUW7MoqZj0JbJ/PAecy9/s702djJU2Iuklj/EJDhbaZ6t/VJyhnfVH8HNvS7kfJKW+p9pc5WMtOOYI9O9VBHtxgKOgnNrkICbVDYNW66XyMowa5QnS4s2TbXCaD9PgtpRjJWIi/l7Wr0yPWYef98aScAF2sHrgLsxXZgCyxPrYkufA1cECGqEwPYrKfRZdw1oacos8Wx6bDNdwyns5zq/bvYYHKcdrV2hQv5lW2Uz5XqV3y9UPzLs5rtJ0mbxlvBC3XcrmuB6ewdSbKqcmXvUEFze4k4OOV7QGFabB7+T4pNhg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(19092799006)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(921020)(261102123227099003)(56012099006)(11063799006)(261022113327099003)(261021123027099003)(261022105027099003)(261022075727099003)(261026135527099003)(261022115727099003)(261026140227099003)(261026121527099003)(261026130827099003)(261009223027099003)(261028144727099003)(261021135927099003)(261021133027099003)(261021130227099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5MwrKjTMoWWLJFkN463BhaMEfBaXbSd1iu9h+832M8gQRtBPHdTyVeDmWEaF?=
- =?us-ascii?Q?FHgT8JWh4Hk1CtxXMcFaprX8JzJd/YUQMclajkkA5MEmPwQjljJi42sUm/CX?=
- =?us-ascii?Q?khNEBkXc/CGfKaKX9rkBn9AB6JysHYi1O0B9GlaSeRwrS+37iAHlhK4ur3rP?=
- =?us-ascii?Q?aqpb2BKE5F1oizIpIcbXxKmWQw+4E4MdKccWQpaHUFXocJH7/Q5bhUWHBudo?=
- =?us-ascii?Q?fFhoN/fsA57KT0Kw6fUKZAIw3xRLfOuLLwbXLb6y7txGshLtV1mCdQOYgYm9?=
- =?us-ascii?Q?FjmK0AooXOfwbrdF+8dgHMgZprvFAyoY3BTo44DSAVNll6Kp8m7f1clLDliM?=
- =?us-ascii?Q?0sljHVizk5wKvxoiZghmKIJGGrWyagtwG+qNGNbMDlQPaYCa3GLrJMk5cKkc?=
- =?us-ascii?Q?qNegXsf+7uOGge8W4BwzskWuYSXNpvdsDjmAF+SOpTOUZOqpTOXnx4dwiNi5?=
- =?us-ascii?Q?f0Hjqau8k9Zex5Go7BdvRYrQnKue+vIk+CDyEsUjzftBaDIMC1R1fDvFlQNd?=
- =?us-ascii?Q?CkYV30eaVrdRI3JWf/1Y+yYi92CQwHZA0Nc7FAMu1iVS3VzgJiO61KgngEZg?=
- =?us-ascii?Q?/hm4EqEEefmNavtVAYHdrfvdJh+vNvhvNGhb7dn4kqLynP8h1QPQQA0hRqgV?=
- =?us-ascii?Q?jUrsUbrAGTNiABs4hXPlullIH4mZOMzDKUa/cII4vLm8pbO+1owqBxC/+0+0?=
- =?us-ascii?Q?ZC/HxgSN3m84bOyuqnO5Ir501pMiz+ViiAJ18SnNbw1ezcGdt8n+f1idVraW?=
- =?us-ascii?Q?L+IPsYbJIwfLdtCqREumhKda45Efc9vphScob00rEbY3kJyh9XsZgEDStwgF?=
- =?us-ascii?Q?A1+eoBy8vAu0XeW8Li/vaP9eMwe6CbOcDV2ZLY7IzGOWUIYuDzMGmGEeXEXw?=
- =?us-ascii?Q?oukBFUGvLn1ArcnXvoRyy7JPik0X4ZRASMvU8p113QmPbtcA2TTrxyhMxqSz?=
- =?us-ascii?Q?u48h6qw85jK9GPXRbW5EtD9p/QeGc2rHVklgFvLoxx1R52VbhrD1oWnL7MhS?=
- =?us-ascii?Q?8wviN9JIKUlc0nf7x1jrJcT2wGtWsgCJxhSX/nYVKBdhpbsEV7m9rJKkaZf/?=
- =?us-ascii?Q?hphC+0zsI4bXgrv28cn6QVyzK3jn2Q7koD4Y009CzgM7r+TEIQa55Vf8gqqU?=
- =?us-ascii?Q?Jjca9cSdhOj2wV+aaAHSqzCu9taX37K9XT0rXez6pnJGv8SuQfoiiwxx1NPF?=
- =?us-ascii?Q?GAofRYm2ppVR1NlWJTOdQqi+4ahp7FS9qq3IL34jjBIEg+4WcRrrCMXqAnU+?=
- =?us-ascii?Q?wyuRt/0n91WC3iLrrgZbzF7F3nvRSVFmnuiQXOCc+3V3pgGtDd43OG5lR8lE?=
- =?us-ascii?Q?djxgVoYHm3eGtIttDxx22RzfCkY/TeHxqvsXzs2rT99+/m0bbqI5fz/7ByUU?=
- =?us-ascii?Q?tIgD8XhMlEvHfnJKTw4xyBoVUgRdSs4PQtL6ttLoXzxmm8J+ZxiYy/e6+G72?=
- =?us-ascii?Q?sdGVvxLTiPfIclhj8MYuk5Zyp6cLd0A31EmO/hF/7vZPSPJF9/pVOITbxySd?=
- =?us-ascii?Q?vslMgrgiwK2hF7JtPLM/rfCeJ8dxSL41zQ4HddGjvQw7U5Q/2XoO/EaKsFXn?=
- =?us-ascii?Q?UjuMS+GeWE0BIPC+DFnyNDw3jligquWMJnQvxHT/3XFp+NjCPNamkiFj3NZ9?=
- =?us-ascii?Q?LNoTrRw4yd+6+U3e5oMq5BTLs21qknZnMyqdaszdfIwVXvVtuxf2qlBAp1qT?=
- =?us-ascii?Q?jREJMj8Aq/c8PekPkLP1iBFR+sQRX4BWuh8TDH/FxkxTkEbZdbVRnb5L8uG+?=
- =?us-ascii?Q?ZcUvUqS/UzuNtz3iXAafANbYEYyJdT/LH6WkJCKCIBDnFo6J3VoA?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33481105-8b7d-4ea6-fd4a-08df391b456e
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 19:55:40.2283
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6xtMEiRDZfrxY39tgHlgFdVNz5KVVbwWtG1LQvJT1iX7PmbEMs13ubZOgmYokkR1h9fwItffyjGrgBvLH0RzEpjuUpZaLL/o1gTxHWvAdQSiA+X30p5tcTqLvHzoBWEh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB048570
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+Hi Namjae,
 
-Replace open-coded assignments to callback and callback_param fields of
-struct dma_async_tx_descriptor with calls to the
-dmaengine_desc_set_callback() helper.
+Sashiko is right about access_bits. In v1, an explicit request could
+gain rights from the ordered walk when the selected ACE had a type
+the lookup does not handle. I've prepared v2, which clears access_bits
+after that walk for explicit requests.
 
-No functional change intended. Prepare to make struct
-dma_async_tx_descriptor private to the DMA engine.
+The other three findings describe limitations that also exist before
+this patch.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- drivers/pci/endpoint/functions/pci-epf-mhi.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+For FILE_EXECUTE, the reported OWNER RIGHTS ACE grants generic read
+without execute. MAXIMUM_ALLOWED|GENERIC_EXECUTE is refused before
+and after the patch. The execute adjustment is not included in the
+new OWNER RIGHTS-only path. A probe confirms this.
 
-diff --git a/drivers/pci/endpoint/functions/pci-epf-mhi.c b/drivers/pci/endpoint/functions/pci-epf-mhi.c
-index 78f1fb1a6b0c7..a63c50d235d6e 100644
---- a/drivers/pci/endpoint/functions/pci-epf-mhi.c
-+++ b/drivers/pci/endpoint/functions/pci-epf-mhi.c
-@@ -346,8 +346,8 @@ static int pci_epf_mhi_edma_read(struct mhi_ep_cntrl *mhi_cntrl,
- 		goto err_unmap;
- 	}
- 
--	desc->callback = pci_epf_mhi_dma_callback;
--	desc->callback_param = &complete;
-+	dmaengine_desc_set_callback(desc, pci_epf_mhi_dma_callback, NULL,
-+				    &complete);
- 
- 	cookie = dmaengine_submit(desc);
- 	ret = dma_submit_error(cookie);
-@@ -414,8 +414,8 @@ static int pci_epf_mhi_edma_write(struct mhi_ep_cntrl *mhi_cntrl,
- 		goto err_unmap;
- 	}
- 
--	desc->callback = pci_epf_mhi_dma_callback;
--	desc->callback_param = &complete;
-+	dmaengine_desc_set_callback(desc, pci_epf_mhi_dma_callback, NULL,
-+				    &complete);
- 
- 	cookie = dmaengine_submit(desc);
- 	ret = dma_submit_error(cookie);
-@@ -526,8 +526,8 @@ static int pci_epf_mhi_edma_read_async(struct mhi_ep_cntrl *mhi_cntrl,
- 	transfer->dir = DMA_FROM_DEVICE;
- 	memcpy(&transfer->buf_info, buf_info, sizeof(*buf_info));
- 
--	desc->callback = pci_epf_mhi_dma_async_callback;
--	desc->callback_param = transfer;
-+	dmaengine_desc_set_callback(desc, pci_epf_mhi_dma_async_callback, NULL,
-+				    transfer);
- 
- 	cookie = dmaengine_submit(desc);
- 	ret = dma_submit_error(cookie);
-@@ -600,8 +600,8 @@ static int pci_epf_mhi_edma_write_async(struct mhi_ep_cntrl *mhi_cntrl,
- 	transfer->dir = DMA_TO_DEVICE;
- 	memcpy(&transfer->buf_info, buf_info, sizeof(*buf_info));
- 
--	desc->callback = pci_epf_mhi_dma_async_callback;
--	desc->callback_param = transfer;
-+	dmaengine_desc_set_callback(desc, pci_epf_mhi_dma_async_callback, NULL,
-+				    transfer);
- 
- 	cookie = dmaengine_submit(desc);
- 	ret = dma_submit_error(cookie);
--- 
-2.43.0
+For Everyone and Authenticated Users, the existing lookup still lets
+one of those ACEs decide the explicit request when no ACE names the
+caller's own SID. Group and OWNER RIGHTS ACEs are ignored in that
+case. This patch changes only requests that the lookup and POSIX ACL
+fallback would otherwise refuse.
 
+For the maximal access context, a non-owner relying solely on group
+grants still fails the MAXIMUM_ALLOWED check. An explicit open can
+therefore succeed without MxAc and fail with it. The probe confirms
+this, and the v2 message now documents it. Counting groups in
+MAXIMUM_ALLOWED also needs changes in smb2_open().
+
+Thanks,
+Ian
