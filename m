@@ -1,91 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612314;
-	b=F+3jY/CEtcZgmlpR+WswXKiJ5thRbJcBrsEfhFEjDRmL+GiCze7cUdAxEVjokQ1aLY6k
-	 k5IkX00Nx1zNTswwiAqWWug/5O+Y2vGkFiD309RnVr5Eo+80PqJE4ZA121NUduPi2SvKW
-	 Ra8fNZxPKJXO9ElXQDEh29IF5M6EA0xee0Xs0Af0yJtlLXBVJ/IsMEsjvL6BTDALNDSXo
-	 Z7NREx6l2pgV3JPaJ8Z+0FtayT2ZrnVqk7P21oNY4rhclCMmRpcPbWAKlsn4NyoGPkvvU
-	 cUBZ3n0RFJIGrHd4pv8qwEKsCguD2po3GlZffjd7hGaZM9etGpOtAms2RTia3W92HGQ==
+	t=1793612327;
+	b=0bIJUqClmyyoluwl3pmlPQr1fhQQkU1osfi188d/VsmBMFAM/CqufV9S0OXw8EMFCrxK
+	 uJNTWRndG/KlnccfgxlnF5bsHx3SdDoqNepuDSVowSLdkQsGO/P/GKI2iUNQCrE5nGckP
+	 kw29txRA4KFaL0/2WGoirOoZJEwg7WLzFSul4ZUD8OghInVdPk1ZARCH26uAtEcgwzbv4
+	 BHFtZQ+QFQx5x4HoybIX8scE1Uxfi+K+h6i8KTp6cpvUx1bM3bdfff6gcgP7XFYG4oeQp
+	 jg5SHbWArPFJNAa2yNHWwrcRPflvDQQUnrOnWwkCjua6DbYRZRZwaeMMRfCvk9I4ZXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612314;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612327;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9W6SMwMnOG7tjkQ5Ri3kpEZarqiEynjz7U73u8xMxLA=;
-	b=TKw/ZqRKBMs6ixjlqT+0ovmXN3ZK9AEyW5hBQYIuQEQYcspBS0+vAv6zB3zP+AYyxyOz
-	 eDVnZuGeB4Hsn3npr2o19Up2tFrhGdBDeAP8hdzdximDhBoYEawT6YQ6/DHqQNMztDTLf
-	 yPbvoS884xE6kiAAucx4uAUJP/zsHSbtNqq83ckUQV0ngsx2RIHwzyU75hhP+SzS8iMc/
-	 1HILpI17/12+/Nz/ljxwV9KtnDglHgXNOlpIK0Ki2L6XjHYE3X0PrpgLzE9EImsPT4sw5
-	 u9ZY3qhLf8EBMlaEF7Wqw1kYeencn5qE5mn3SD1iIfoA0cNNo6eYMb9GoYnDLWPNAeA==
+	bh=/gTJQbZWPXuukNhpxnhsiQoF377JbkV8BMf46VNa8zs=;
+	b=089vq1UXC3AnNGzBO5EtL/kom2Ncaj8I/rDj5AO9buT10WfNxmydu+K32zdaubMG6OZD
+	 LiE19mbLig99gzbNuhK3ElaeCDt9dsLpBOxDdKKzIdfrcngYUT86+/tXgbuxKEvkfPNFe
+	 0cKnz5+wjPuAJ6BKx6aPFVUkJTMbnZIvEc9b7Y1mm34CdSBBWZd6MJYcJfaKSiZ5E4PBF
+	 zVjMrjoSmUXa9cYLnWNE/N97S+/M4fYeOFa/s/0hUtONXELRP07Y+uQOOYQzLQL0+Ki6a
+	 8kY2HvjgMPJmXc3CcU4ZoxhYftJ2k4DiuR4QIv0gSCyeCVrB97G9ITsThiOYTgDlzTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=korea.ac.kr;
-	spf=pass smtp.mailfrom=korea.ac.kr;
-	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=lpDNggkl;
-	arc=none smtp.remote-ip=74.125.224.50
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0E0606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:38:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD0E0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=lpDNggkl
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-679e6ab6471so3328201d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:38:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=korea.ac.kr; s=google; t=1793612311; x=1794217111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9W6SMwMnOG7tjkQ5Ri3kpEZarqiEynjz7U73u8xMxLA=;
-        b=lpDNggkl1wdDfUyHy0IGsj330/0ITDVxw0HAC2o42SIcmmsQg4sCcTd221hmuK8Fwb
-         KTrUnU+ZKoPmysoWazVFzL9sObwRnEECcVx0HkmbI3HxwBLyQ6hVhmgqdw/JhH8BROcT
-         dSeXbp+Ga19xif+mRpVGQh2G8ASyiUj9r8gIJvbta0yRPyFjgteQIGqdNPRu60itDSGs
-         pYmBZIvYFHPdsy6JzghVuJyaYXANwi97nSAVFQZJmg3/7mWRDv9uRNx4Xg4Jd7XB0rcE
-         O/BX6zPEBvp1mfQrHihqnelbKtTQpLWZMs5yagqMjosFZeQI0qlV8VNmE+tnFiABu/R1
-         AVfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793612311; x=1794217111;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9W6SMwMnOG7tjkQ5Ri3kpEZarqiEynjz7U73u8xMxLA=;
-        b=NnGCZV8BxpOh9CbiUU1FaDQPYBP3FE9lbfwdyY5Jeq3uGTjhg6uE+B2tWMqaSDqZsj
-         m+LTC0Aif7xVx2cfKYBsnc/NmuS6WzCfbuRQzUJPTk3/hKpdcUJUGvGwwdSlJMsf5gZn
-         YZTMfuWxfmMH2qY/Z+6T2vVoQJSIZWOGUaNyg9gaE/B9JlMCbJHemCyDor9jRYCG5mdA
-         Ds1UNSqUJgQNMvaoQ6yKWBH8exhcGYHzoxDpTvb2P/ErpYaT06b9rlKCP9XHuNz7DDLw
-         EKlTlEDQSBv46k8dY7bMda+ju+YfTrNvlwf37sINjr0YZXioZJVaaN7ey5vBQE/0lX/x
-         unXA==
-X-Forwarded-Encrypted: i=1; AKwUvByJLgP6yDun9OsMa8UdAOxFbVOYkYl/R0Qafdb4cmjl1PQlGl6T3CokPc8cXHBjc4v7B8aIa1hdb1AFGEI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87s35A+lISz17z6imyvtytVGPX/oa2qeYn65aWiYibAVnTJrbS
-	yuTPUagZ/V9T1Z59qqBfMipMj+Fme8TE10GsEIlu0c1J3FJ0P+lHQYpWPHFzaCCPuA==
-X-Gm-Gg: AYBFou2Fkif93HN4UF20SYgwwawyqg2KOPjJSYrNOKLUBsNtGPaAb0jjjF7m666EAm9
-	2PNXynoNUvreIINE5I6OS6ohRMNDKlXgBh87pmqi3WS1OwIjXf5AhZMneIno8hXSNGQwaDMDtLu
-	RZrQlVzJo0Duq2TcMzoVxwyCEP/jlXBm2KvMLMxrdk655nmpNny5FoJ99niiDgVInOwdHkFM81W
-	APOWbd3H7cfmksSWBczlpUFtwLOdLaKxsYCfO1dZ6v0YIUsf0JoR7sl22jk6/lFjPGZTU2NBX13
-	C5hANHlJi9vA/2OSL4JQEwlZB1ZLXGswhdUII+iLASbXS8TZ0KADfqTokcBExh+4Tm2VqCp3DzP
-	VyANMiRoeBBo0I6jgllGmh3Xq+xerFPnoal+XxfrmgfG+pVY4weo6gMUsxoferI/6GntTW7voxu
-	wfYO5ZcVIcKWWpejAexBmwJWIRYkwjZbi+6has/039tbsvOJDb1qoUporhKoe2VwCyL5/LyH5Ie
-	oIbBAF7R8hNP5quXCKx61o+xKZU10V9TECC4a0T5TYALnbs52ekPvl02iqBx+SW36qUzz4=
-X-Received: by 2002:a05:690e:1186:b0:679:a925:edf8 with SMTP id 956f58d0204a3-67ba50a3868mr7303167d50.44.1793612310652;
-        Mon, 02 Nov 2026 01:38:30 -0800 (PST)
-Received: from s2lab05.. ([163.152.163.130])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf2e0937sm4731269d50.13.2026.11.02.01.38.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:38:29 -0800 (PST)
-From: Ingyu Jang <ingyujang25@korea.ac.kr>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ingyu Jang <ingyujang25@korea.ac.kr>
-Subject: [PATCH v2] ALSA: ice1712: Make chip_init helpers return void
-Date: Mon,  2 Nov 2026 18:38:24 +0900
-Message-Id: <20261102093824.3123528-1-ingyujang25@korea.ac.kr>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA86606A324;
+	Mon,  2 Nov 2026 09:38:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA86606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 2ad7dd0ad6a111f19a56ed5b684f684d-20261102
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:5187ac7a-33cd-413b-aec7-efaaa935b386,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:df488f2e91aaeb5c2279f1e5acd87788,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2ad7dd0ad6a111f19a56ed5b684f684d-20261102
+X-User: weilixiang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <weilixiang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 910925608; Mon, 02 Nov 2026 17:38:32 +0800
+From: Wei Lixiang <weilixiang@kylinos.cn>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	fuse-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Documentation: fuse: fix spelling of 'successfully'
+Date: Mon,  2 Nov 2026 17:38:27 +0800
+Message-Id: <20261102093827.6-1-weilixiang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,112 +73,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-snd_ice1712_chip_init() and snd_vt1724_chip_init() always return 0, so
-the error checks on their return values in the probe and resume paths
-never trigger.
+Fix two misspellings of 'successfully' in the FUSE dentry cache
+documentation. No functional change.
 
-Change both functions to return void and remove the dead checks.
-
-Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+Signed-off-by: Wei Lixiang <weilixiang@kylinos.cn>
 ---
-Changes in v2:
-- Rebased onto sound for-next, on top of commit d54819ee513f ("ALSA:
-  ice1712: add a board-specific EEPROM initialization hook").
+ Documentation/filesystems/fuse/fuse-caches.rst | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Link to v1: https://lore.kernel.org/all/20261101172134.3451066-3-ingyujang25@korea.ac.kr/
-
- sound/pci/ice1712/ice1712.c | 12 +++---------
- sound/pci/ice1712/ice1724.c | 12 +++---------
- 2 files changed, 6 insertions(+), 18 deletions(-)
-
-diff --git a/sound/pci/ice1712/ice1712.c b/sound/pci/ice1712/ice1712.c
-index 5481720a17ed6..2d4c9bdfb62f2 100644
---- a/sound/pci/ice1712/ice1712.c
-+++ b/sound/pci/ice1712/ice1712.c
-@@ -2299,7 +2299,7 @@ static int snd_ice1712_init_eeprom(struct snd_ice1712 *ice)
- 	return 0;
- }
+diff --git a/Documentation/filesystems/fuse/fuse-caches.rst b/Documentation/filesystems/fuse/fuse-caches.rst
+index 0778dd3d357f..de1a452fdd31 100644
+--- a/Documentation/filesystems/fuse/fuse-caches.rst
++++ b/Documentation/filesystems/fuse/fuse-caches.rst
+@@ -156,8 +156,8 @@ in several occasions:
  
--static int snd_ice1712_chip_init(struct snd_ice1712 *ice)
-+static void snd_ice1712_chip_init(struct snd_ice1712 *ice)
- {
- 	outb(ICE1712_RESET | ICE1712_NATIVE, ICEREG(ice, CONTROL));
- 	udelay(200);
-@@ -2343,8 +2343,6 @@ static int snd_ice1712_chip_init(struct snd_ice1712 *ice)
- 	      ICE1712_IRQ_PBKDS | ICE1712_IRQ_CONCAP | ICE1712_IRQ_CONPBK : 0),
- 	     ICEREG(ice, IRQMASK));
- 	outb(0x00, ICEMT(ice, IRQ));
--
--	return 0;
- }
+ - When a new file system object is created (e.g. ``FUSE_CREATE``,
+   ``FUSE_MKDIR``, etc).
+-- When a lookup is sucessfully performed.
+-- When a dentry is sucessfully revalidated (``->d_revalidate()``).
++- When a lookup is successfully performed.
++- When a dentry is successfully revalidated (``->d_revalidate()``).
  
- int snd_ice1712_spdif_build_controls(struct snd_ice1712 *ice)
-@@ -2517,8 +2515,7 @@ static int snd_ice1712_create(struct snd_card *card,
- 	err = snd_ice1712_init_eeprom(ice);
- 	if (err < 0)
- 		return err;
--	if (snd_ice1712_chip_init(ice) < 0)
--		return -EIO;
-+	snd_ice1712_chip_init(ice);
- 
- 	return 0;
- }
-@@ -2696,10 +2693,7 @@ static int snd_ice1712_resume(struct device *dev)
- 	else
- 		rate = PRO_RATE_DEFAULT;
- 
--	if (snd_ice1712_chip_init(ice) < 0) {
--		snd_card_disconnect(card);
--		return -EIO;
--	}
-+	snd_ice1712_chip_init(ice);
- 
- 	ice->cur_rate = rate;
- 
-diff --git a/sound/pci/ice1712/ice1724.c b/sound/pci/ice1712/ice1724.c
-index 651d926635675..d4ed7050c533a 100644
---- a/sound/pci/ice1712/ice1724.c
-+++ b/sound/pci/ice1712/ice1724.c
-@@ -2342,7 +2342,7 @@ static void snd_vt1724_chip_reset(struct snd_ice1712 *ice)
- 	msleep(10);
- }
- 
--static int snd_vt1724_chip_init(struct snd_ice1712 *ice)
-+static void snd_vt1724_chip_init(struct snd_ice1712 *ice)
- {
- 	outb(ice->eeprom.data[ICE_EEP2_SYSCONF], ICEREG1724(ice, SYS_CFG));
- 	outb(ice->eeprom.data[ICE_EEP2_ACLINK], ICEREG1724(ice, AC97_CFG));
-@@ -2364,8 +2364,6 @@ static int snd_vt1724_chip_init(struct snd_ice1712 *ice)
- 	 * since they cause machine lockups
- 	 */
- 	outb(VT1724_MULTI_FIFO_ERR, ICEMT1724(ice, DMA_INT_MASK));
--
--	return 0;
- }
- 
- static int snd_vt1724_spdif_build_controls(struct snd_ice1712 *ice)
-@@ -2511,8 +2509,7 @@ static int snd_vt1724_create(struct snd_card *card,
- 	snd_vt1724_chip_reset(ice);
- 	if (snd_vt1724_read_eeprom(ice, modelname) < 0)
- 		return -EIO;
--	if (snd_vt1724_chip_init(ice) < 0)
--		return -EIO;
-+	snd_vt1724_chip_init(ice);
- 
- 	return 0;
- }
-@@ -2703,10 +2700,7 @@ static int snd_vt1724_resume(struct device *dev)
- 
- 	snd_vt1724_chip_reset(ice);
- 
--	if (snd_vt1724_chip_init(ice) < 0) {
--		snd_card_disconnect(card);
--		return -EIO;
--	}
-+	snd_vt1724_chip_init(ice);
- 
- 	if (ice->pm_resume)
- 		ice->pm_resume(ice);
+ A dentry expiry time can be set to 0, indicating that it is stale. This means
+ that a ``FUSE_LOOKUP`` will be sent to user-space then next time it needs to be
 -- 
-2.34.1
+2.25.1
 
