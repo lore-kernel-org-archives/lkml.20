@@ -1,48 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626259;
-	b=Ge5oujwSFEYEcMojisaX71EvfbvOYYUCfufwUJTB0tBwaE/g8ZEyg6xQ73jOYszUoHG+
-	 3paGvNvxbpHuFmGei7CJRYRW7IGtrywkkpFe8uHXbvbaJzJhefVRQeDkCLHJ/AvnoUJZy
-	 qw9Db5Qi18j+Fm8VbHlcsLDD+sjIuvqOvvOgfuJLZ4qrPZP74e08iWUjOHuyjfgwi7KeU
-	 TZQIeosZcl2IM1HdaULXNEUHImWKrEQ7OncQHJ+cU4EvjhDVkyRqy2fyHyvNPhNgOQ1Uc
-	 u62fpZYYqUtm7uFkNTJ7rCS4fM3OnKuxoVU/3Sugq/fNJOrWMb/tlsV7iNdGDLOmhtg==
+	t=1793626276;
+	b=BiRh5P7EpHv+zS6AImwO9kKrLmmWRhVt8WMYeguR139jOwLrt+/3btb2//S2XC/Jujpm
+	 49A6y/N3IFKQg3TseKiDVqjOKb4YmYHaxha4ZfSV2+cWUwvBbFlmN3E6juHEz/gml8kV5
+	 7HTb8M4g57twweP45Spd1B/0aFbr1Z4xYRLen0s2DfaIMqLvoHcL+s6kQvMMe5r1zLo4a
+	 QoyOMD+MMdBDo+rIrMs0UVm3QCx9qoRWOVpBwF5m5yTH/Btio9Ha/4QKB7bwxbm2RHEuo
+	 zFWywwQ+pGQzMwj07hhvtJVBelPwvvIa3mx86Z5paFdpaaXpeDNQrT4bAATlR4ycv1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626259;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=k88wWLlxzRtcrpIpBYaGs2GvFCG5I+LbVM6LZUEshQM=;
-	b=MZ/GICv94iKtbuesl0XE6Xqs3PqPsZFJ5je5DOiMvjM4mWSNckzJ5QBDCmyFXQWasxi9
-	 bNISZz2XyT5hEjmS8UYxZ/UiQzeoUHXUBveRUJgHlFqGobwSwXG8BL9aKvzT13Vy0ne5G
-	 W41tH6gjw5/abxG2VJMArPqqovfYjFk5D7uoYBVYCZiD+Ewnqwqgxpnf+7HOas+voggw+
-	 tI8zRINneAYdhC1LO1DUM7+EA5D9V2ie+TU+aLfioy07xb760fqVLZGJqjwggAosZW8gX
-	 EyolN7LmLsH83sbOqKZmWTEov6lPTsWLxdQTFMKHXSVe+JZiWlUNqUTlraOL0uulZkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626276;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=z2VcmWiQfYdESRbeg/UZvm9BGb4bUA/D2IsTBQi5i8Q=;
+	b=X5maDZcOKNPkjkW2LjXvDuIWxwB+AJBchtKHkMQglTOl+On2EafZAbctFM1UO5VBIHIj
+	 h6rLApEuujsNyo9U+SowRaJWLD2XM1QPXxAaQEqEjRQ/3RBZIadFhPGIb7sj3UdnSK8lp
+	 RKTHUWWxuGqAMMg/FsxpHL1EoU1Fg8uAM0GhDToQvQZIi8ZjNvQ4HI4P2jhS7gymRLwgi
+	 quo/vxb0lu3YGnlfQ9pGYA/xmbVVPUlNkl9IMeIx21M9XEh6VU3dS9/XP4Vc8UeIF3xCc
+	 gJWyM63woZsA/sRv8480RhYU1K3yNIldcVk2tkaw+Ya16Vzs40yY1pI8Gy06HOeIJgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgOWsOpJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="exdYKI/p";
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD54606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:30:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2B1606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:31:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD2B1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgOWsOpJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0D3C1F00A17;
-	Mon,  2 Nov 2026 13:30:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793626259;
-	bh=k88wWLlxzRtcrpIpBYaGs2GvFCG5I+LbVM6LZUEshQM=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=UgOWsOpJM+FLFpy8xfuxrRkh1RB7hbIvUI0zhakntxspcyOPf/pgURiALMezh9UXC
-	 JeDBlUpEx7TeKkxjUP0LSZw7m0glL5fETy9CT76QsIJ9il/YZTJ0UQNeY1H6LVbu+z
-	 NLXniabhIdXwq6U/LtB0JUTXsef/SBvlz2QHslOz8Wd1yXlHiJHh1+RKtjgBWHsvK+
-	 Z1OgIz/UhiqnaulnJyJa9ahfKD2Z+LGaCe3zGnZ7SmwMU3ZnN0nxuDqEzUjN/yEOja
-	 KoTanF9/HnoPvWh78cbC+0vYStW8bT082b84mlSdScIi1zwlP9cxAFSeY7Zuc3dUX1
-	 xUMmqVvzpFIKg==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id C7FA8232B38D;
-	Mon, 02 Nov 2026 13:30:56 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=exdYKI/p
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48dc1508191so459202f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:31:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793626274; x=1794231074; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z2VcmWiQfYdESRbeg/UZvm9BGb4bUA/D2IsTBQi5i8Q=;
+        b=exdYKI/p3ZLFwYOH/UwyULF0ebfy/+I5e53a7o6NcKf0WAOZYCtaYnr2RB7XDrnooS
+         +mq2wDIjhWHSTwC8Sfv2vZPKbJC557EYT2ds+Qo8LCht8vngiJ+gTycllgEhz5JYKQQp
+         SgXokJGlTl+4x6QRe8pZGnonL90pODxvzl07GJDJuYifJV2ac73xmWXNAl4R8j3D2QWm
+         uERien/dXCNNt7rNCEW35nHpMJWJa6MgLoIihfgPlz5rMOSLZzbn3asT4D3tGE8UbYHt
+         Wq9Ssg06ZuyOJbkm2icm3tTycgeaJoJ0fyIq7ff7wqP0H4dwJ6ALwgqihEAz1FY3dlWW
+         ODpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793626274; x=1794231074;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z2VcmWiQfYdESRbeg/UZvm9BGb4bUA/D2IsTBQi5i8Q=;
+        b=Et49AKFSRFHTV93gSNnV8n/UyQjz7O7sJo3IMWeKgCh7CJgaSrjY0ppfsMLj9pLqA0
+         50q9sNL3Fbaxjz6tUh4JPotrZnrV4GurjlXPZRon2WZXxvQUqc910VxKQaQUZF54QnZ3
+         1lLdAAp+NTfDKgheG/otLyyk98JZJ7JEKzbVLLNSRnBmjjl2H7i++nMpNfkx6j7K7sa+
+         rYlcXVBJb37TMQmXbONhbiI9i2+WlbvHr78wuwY5nynp1/d2Sc26opyBvepBePZbvGw5
+         rkSSw7AeeFM0b3Qml7GTsbWBOVKzXOdsaffvCZlNXAkYRi0tSSDiZVpc168VIR/2iQ7N
+         OZ6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzZYlMDe02mdJxff85qm9+gEhr28BA7oqXFjH3liw8l4e+euc0sld+wWL5PqXIbIzLTqdWciRvRWVLvUoU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZMb+wS6GmZBMS/yla1QJ44Ctxkcvy78g0V2+ioiW3HfOX0oMw
+	qxzcQM2NI6ET7h+KDHvEPQ6PgDHDE8VrAO5MqL6Ir6/kja4TL+Rt60uyhj53yA==
+X-Gm-Gg: AYBFou18MgyCrrgHoies8FWlvpu0I2uYZ1bi8ga1Xsa2TeyR76nEs73mskYZBWYTQms
+	gtm79IMEM0ML8q07IsfNqKGoCTJbKFXCSumbdp34g3pW4PW7/ue0BM4rskuGjZBGInSOKpLI31/
+	/zikNs1EBrzKaPU1C+a8jEcqO+6wod/Zqv5W9M33ZJn4X9dg28V8xrnbb5z6/cX/E4Bkt48ke4d
+	3hKtVR2rvljw3jdzlZXzbnFVGnK5MSQJIyxLZvNZ40hU4VnvTbiEyznRwbo8BEVti7wXfiQqqTD
+	QKBWSbf1s+khq9772lXy+So1j4tUUCGt7hhOrQZuW4hZ1T3DRex2rRMffv3UUQokmiO/Ju4lhlX
+	ge0p69GedMkE5xTGoZdj8oCNvEQLONoZzEMmXJPrfm8CHMPhVyPWm1XRHXEloeIw94xfuTrKZ94
+	ebdEahoV4/DY8Db4G+nTAAqXY4xCmWkN7zg14Id2SxUw8mbCsOANi4Px+TpTaMIdK8LajIJwuwm
+	QmeGxUTqbmZkY+9cIInTF996CHoWM+3JIrkwwZpjPiNkvclqkKedsmc4tqDoDB7ZfgfhiTNAxXF
+	N/aW7Puleg1qMqYSp+/F4jpZDgTlxFHVbdsS6SlHDiFnHD8GbYsh5Xqcw+qPM2ndr323iYY3ifb
+	+MA==
+X-Received: by 2002:a05:6000:4006:b0:48e:28f2:64ea with SMTP id ffacd0b85a97d-48e6e30088amr27345388f8f.4.1793626274013;
+        Mon, 02 Nov 2026 05:31:14 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d4f9sm20432460f8f.2.2026.11.02.05.31.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 05:31:13 -0800 (PST)
+Date: Mon, 2 Nov 2026 16:31:10 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org, vincent.guittot@linaro.org, 
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: christian.loehle@arm.com, elif.topuz@arm.com, 
+	linux-kernel@vger.kernel.org, mingo@kernel.org, sh@gentwo.org
+Subject: Re: [PATCH v5] sched/eevdf: Fix vprot across reweighting
+Message-ID: <auiQU5LZ--A-PLor@scheduler.schedules>
+References: <20261016153721.7843-1-kayracizmeci@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,57 +101,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 3/7] regulator: sy7636a: wait for power good on
- enable
-From: Mark Brown <broonie@kernel.org>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Alistair Francis <alistair@alistair23.me>, 
- Andreas Kemnade <andreas@kemnade.info>, linux-kernel@vger.kernel.org
-In-Reply-To: <20261101223125.302001-4-pmazzini@gmail.com>
-References: <20261101223125.302001-1-pmazzini@gmail.com>
- <20261101223125.302001-4-pmazzini@gmail.com>
-Date: Mon, 02 Nov 2026 13:30:55 +0000
-Message-Id: <179362625591.1990291.13023153378073511078.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=933; i=broonie@kernel.org;
- h=from:subject:message-id; bh=666ZysnzgTMlI+KHcshHlTs4uLKXI0qTlGnJHURLR9A=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeTJhwa85kn+3ql1UvfnN10tsbb91UZKy+Ofs88479x
- oe3FbdN6ShlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEHE4z/Pd+dOFqzclLq2NX
- HHddevlg1cuD6wzMOrR5V75NdnjTek6YkaHvj4tYTw5XyE/l0NBHvP9zG+p1I9fuNC1htry19qL
- WWW4A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261016153721.7843-1-kayracizmeci@gmail.com>
 
-> Wait for power good on enable, as the TPS65185 and FP9931 drivers do,
-> so that consumers can use the rails once the enable returns.
 
-> +static int sy7636a_enable(struct regulator_dev *rdev)
-> +{
-> +	struct sy7636a_data *data = dev_get_drvdata(rdev->dev.parent);
-> +	int ret;
-> +
-> +	reinit_completion(&data->pgood_completion);
-> +	ret = regulator_enable_regmap(rdev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	wait_for_completion_timeout(&data->pgood_completion,
-> +				    msecs_to_jiffies(PGOOD_TIMEOUT_MSECS));
-> +	ret = gpiod_get_value_cansleep(data->pgood_gpio);
-> +	if (ret <= 0) {
-> +		regulator_disable_regmap(rdev);
-> +		return ret ? ret : -ETIMEDOUT;
-> +	}
-> +
-> +	return 0;
-> +}
+Hi Peter,
 
-One thing here is that if the regulator was already enabled on power up
-we'll get the full delay during startup if the regulator was configured
-as boot on but already enabled.
+Gentle ping on this one. Do you think its ready to be applied?
 
--- 
-Mark Brown <broonie@kernel.org>
+
+Thanks,
+
+Kayra
