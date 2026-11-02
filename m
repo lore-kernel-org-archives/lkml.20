@@ -1,53 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616560;
-	b=izgODnA4YmR+enxgc/xaZwF5YXXlIH/NfMu2QLKJvpBFGWTuKCplvgxszDvsVmR6c8r/
-	 AKkpH4ZaS0DOZwJCHh4EZiYoiKk8VkkFbw2UIABtGP7u/yw+fK5N+wjNkN2dBz2iJZ91p
-	 RevHoWVEbqw/0e9jQ+pbx0jQGP5SSwtXL1IOt92ZJBIRw1UTnWMEo5p3+3IUWMNV3Mb82
-	 yp2et7ouo1f+bOL3wrTl90GtQUvcLur/78jwG7Jq2YuCveRpTzi0vQJX7LRFS8+ljneSG
-	 NZu8XROM0fR+ILRP453Bz5eG34vsHRS5pNczkeTqJt5ezsAGFEEYXVFWemBYWFR+TSw==
+	t=1793616637;
+	b=OWKBNxnOU+zXxeGsa/Jw5baR9BUK7+gkADNHX+KHx/rJEbIlNxYLJeu6sJ3yN/4SyNMf
+	 9SvHz2KO7zRX5afHZ6yUoeYsrsVQm0Hb+GOozDqcgslc+u2mOIi0Rjq21zEIX+x+OSYvH
+	 BETjw5LrFZ+3fe/4nD6L5RgrmdCdHZEzPtowLAVMhg/VKv+OLhLl78xafRPLDmEljvn04
+	 svQuJUaODHoiiwKVmrQBVkcIC9Z/uudLqJup6oeLSQKdw5v+ym8b1s8miX9QdHkndR0DF
+	 DlqncVK3t7DaOPQft0XCzhx1bDDJg/YKMdvr5vanJpFLYR8bu8J5tIPxBUXPSUlf4TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616560;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gpIxHqVOMFNtoSJJTK/5AEEVucJj0dS5sOclUQy4pQg=;
-	b=z+3fFUEhe4Qq5tF0/r5ukYOBapVtapVx7jpmrgL2dlv5rnCTQVPOBqmJuFqfscD8Fxoi
-	 jgT7Bvl8KL8aV3XNqpg4a2y+H8Nfpc5JsNYV+5Amf0fA284niwX4js1Gmmhfmm0y4Rspf
-	 SCWVRhgWJ2de1MExhScDDjg+ByCtABuqNzE/xQmx8YoDzJQCD+dKL7yhM7zT3s0AVcofO
-	 XkhnYWtGYGe/LbWaMfYM1cdqsWro9t6u4h31p/AQv7plu8skWah5TXXBVF8UzWcQXsdbX
-	 cXpPV8pM+fgxg2iEdeQjIjnWaHLsSVG21c4B2PFvbg461JYywEdDTp+FgvhVe00KIpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616637;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wLI3n7dT9jhrlDm7AKISWebGqJni218wwz7fppboSog=;
+	b=afMR6V8sJmKTljne4B44SFIPp1pdV1ALMxOc/8QMU53mD5fh8gGxch109CBw5lfGrJrS
+	 Wp7PblYT/C9Yzv39COmMWXT9EeLpL4Ie2rV/j3/nmeJ3zNsTCmhg6w+VeC+CuWXZIiS0Q
+	 4OHSFPtJpKXcMqNS04cdJ0bye84PnRxDHgupc2fLXoNUZGDQsQqbimMvyj646S0H8ZA1C
+	 HXOs+Iu/enEu1ehUyKXksAJ4ati7OvsMZlq6GnJDHh5o4Gd8kbpBrPKU61eogX/sscY8P
+	 dfuM955G7PudiswjNOuC5bjbnpTcp19Sww2R3Heby4DuYG5LOfjQiGtTDHKrQcJm93A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MqdcBxY6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D08606A32E;
-	Mon,  2 Nov 2026 10:49:19 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ENH9FpOe;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 204A8606A324;
+	Mon,  2 Nov 2026 10:50:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 204A8606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MqdcBxY6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D9A1F00A15;
-	Mon,  2 Nov 2026 10:49:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793616559;
-	bh=gpIxHqVOMFNtoSJJTK/5AEEVucJj0dS5sOclUQy4pQg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MqdcBxY699YWjuPFCOnibOLIKrMu+jh12hPCQsy8uEdcbZrjgLWgP0TadCrb3wFQN
-	 3LGa0JsCzXIR77qqR4BBdGgnTbar2l2/3+3Ct2u0TbuhrknF6xYHuymRD/uBG6LOUj
-	 3qrGqNNrlAhNCh8StbOf3d6V7IgKNtJUyt9zh03wPhTpi3RHrdlA1rc4X+rwgmQchm
-	 ornWfPSr9Inhvd+5Ukz1SI3oawKEdZ502qM0wcmftVp3Zpr957n50ILvc2GKDb/WJK
-	 lOY9UuVHNS1zLBEgYUpK6ymmjAGbSmQFgnrItJ3YAwjDBbUg7tDtyGTw/2T1evEdRX
-	 flXmljFbvGdcg==
-Date: Mon, 2 Nov 2026 11:49:16 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Selby Mashiki <mashikiselby@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] of: overlay: fix device_node leak when attaching node to
- changeset fails
-Message-ID: <20261102-versed-giga-gharial-edbdcb@quoll>
-References: <20261025180237.445403-1-mashikiselby@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ENH9FpOe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=ENH9FpOeuA591fFTlmdspBjtLKzeqHj4ycCM3nlnNCkNsFkCaGVR4YyEJa3+fsEe1j+hcPKx8iJ9g
+	 Dyhz/F0TvuMO3qv1kxPzdoEH/qPZglTVksS/us34/SpP34qxhNjnWSnBMyqrIWjAUKe05luTK5tNdS
+	 r60fAQ5vfSFgA5DM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae86ae013b-567f8;
+	Mon, 02 Nov 2026 18:50:09 +0800 (CST)
+X-RM-TRANSID:2ee66ae86ae013b-567f8
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16ae86adfc73-cfa2a;
+	Mon, 02 Nov 2026 18:50:08 +0800 (CST)
+X-RM-TRANSID:2ee16ae86adfc73-cfa2a
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	linux-pwm@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] pwm: mxs: Disable clock on invalid period error path
+Date: Mon,  2 Nov 2026 18:50:05 +0800
+Message-ID: <20261102105005.1007-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,30 +74,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261025180237.445403-1-mashikiselby@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 08:02:37PM +0200, Selby Mashiki wrote:
-> In add_changeset_node(), when creating a new target child node via
-> __of_node_dup(), tchild is initialized with a reference count of 1. If
-> of_changeset_attach_node() subsequently fails, add_changeset_node()
-> returns the error without calling of_node_put(tchild), leaking the
-> allocated device_node.
-> 
-> Furthermore, because OF_OVERLAY is set on tchild before
-> of_changeset_attach_node() is called, calling of_node_put(tchild) when
-> tchild was never added to the changeset (and thus never had
-> OF_OVERLAY_FREE_CSET set by __of_changeset_entry_destroy()) would cause
-> of_node_release() to log a premature refcount zero error and skip
-> freeing the node.
-> 
-> Move of_node_set_flag(tchild, OF_OVERLAY) after
-> of_changeset_attach_node() succeeds and call of_node_put(tchild) on the
-> failure path, matching of_changeset_create_node().
+mxs_pwm_apply() enables the clock when the PWM channel is currently
+disabled, but when the requested period is too long to be represented
+by the period divider it returns -EINVAL without disabling it again.
 
-How did you reproduce it? Looks like LLM written log.
+The PWM core does not roll back the hardware state when ->apply()
+fails and pwm->state is only updated on success, so pwm_is_enabled()
+still reports the old (disabled) state after the failed apply.  The
+clock is shared by all channels of the chip and stays prepared and
+enabled forever, and every further failed apply bumps the enable
+count again.
 
-Best regards,
-Krzysztof
+Disable the clock on the error path, mirroring the condition used
+when it was enabled.
+
+Fixes: bf29c2ff82fd ("pwm: mxs: Implement ->apply()")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+---
+ drivers/pwm/pwm-mxs.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pwm/pwm-mxs.c b/drivers/pwm/pwm-mxs.c
+index e1a3df654..ece42da8e 100644
+--- a/drivers/pwm/pwm-mxs.c
++++ b/drivers/pwm/pwm-mxs.c
+@@ -78,8 +78,11 @@ static int mxs_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+ 		if (c < PERIOD_PERIOD_MAX)
+ 			break;
+ 		div++;
+-		if (div >= PERIOD_CDIV_MAX)
++		if (div >= PERIOD_CDIV_MAX) {
++			if (!pwm_is_enabled(pwm))
++				clk_disable_unprepare(mxs->clk);
+ 			return -EINVAL;
++		}
+ 	}
+ 
+ 	period_cycles = c;
+
 
