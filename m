@@ -1,87 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617689;
-	b=ztnDZocout/BvHhJsIYtxKZbb6qcBk+imu6bQejBJjVU8czruO7bI92qkyQWonX5vsUI
-	 hxQYUdzMP89vyVn30ej3U81VrLZB0mu/uJuEHi5cta1aLFQrbyMA3MCDicT/hLHJuAf8C
-	 8FPh5PeHDbEQfJIDWuQCqIcL4/hAAzsdGha049udGNshSzopzSuHIfQ3vtdo+6qlrgwm8
-	 Ruh+PEMbwcQdfJZBuxV7Zq+bvhSsdHLE8DvGm6GFY+cpi5aBLqnVOZt3Dcr6uxzJc+875
-	 1QmAw0sMaLkCF9OGqcB29Ce42IdOPNklAEUj9aBHvfj6M1xEXqTGznjuDcIlsD8pn2Q==
+	t=1793617728;
+	b=KngT9EzLCH2gZnt3gW+cBJSK6x7qTRSymh+/zhgM259XidOG7GQMNffH+Mkp0xchr6e3
+	 BBl+W+PoTsOr0FNrhoUrXp/IFWd1pH70IzepNzsDbFp/+Si/vUnuF3Huy+RRcQmFkkKab
+	 +Uj/o7NCs3AnUuxvdwj448icdyXpyDV7aO56rRO/bEnj0Rw/sm17MU/R5BLvTY78lUp8j
+	 /y0qAOBW6qf06cqAZ9hW/O3+Ge0JGmEiWgRWOVALmHhYu7AFAf5ZOi4q7PuOwxiYw4Xqd
+	 yOoE92AGdBQ/AzHv7de0g251KjryHytf2OnFR5TR6zS2mZdaytgO/8khLesmP8nEMBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617689;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7DXPCrJavnRLEwyl5yXDcP5FfFWrG3htAzB0Azwe5sQ=;
-	b=VcgIG+ou6/xyCop2IjGIk2TFlVz97l0PiH7HwvUv8Zi/FWzlR6kPoMtE2++7dh/sQ6TK
-	 cuKxpq9cVkiHwFrOyqQDzAW+T8Ubp9HNAVBa6HyrZ2p6+r7SzXokWg76zC2k7+vGQ01gY
-	 H2a3bRW8yTFIV0HIqWde/lhLGQClQ9S82tm+/4yITDhCT5iMghwiiby5LIFw4rnQ+rMbp
-	 HlMm82o6q+0L8LjwL03YdMyd6zenqx64jswjNA7DqNZpJW+orsnpv1tjsMGZGzUaIYvFZ
-	 a4i5JbI8FqhNHlQksviISnkl2XYzhT4j+B+9xktTs9m/0ziSwvUUQ80rMzj62hY1z3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617728;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=vKivxmk0Fp/Q25vo6oTqWa5phfU7YrjeQWxvIf6IC+g=;
+	b=BfaW7VIsZKOe4WzDSvqa1IHZgGLiX95JOk35hsjy/tUQDU/d7ndAuAV8Cab+2U9MtAU4
+	 7el0kdi9btYkKdz6KK+MvGHFsmGVOszEX1862UZuIEMhOLuJdIeLHYHVanyIKYkPlk/bF
+	 UuGxJILYQX/KSwgeNbQhXxNNr5HSL65P8pN3++KHfI92NcxhNIhj352BgVdB1YZ98BqLr
+	 hfOh7PLFsTW8qH1waqifHGkDhP6cVW2Gyhr5kYyNi4BaIZDj68ydY0z8ZHXsHOWQ9aCps
+	 DD/pi3Jy9U46ewykwOxbKhpqvnfqpfmL2aA56N/NAtIwEwr1KpR2EqkzQvfqDIBmWAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=XHFP6Bui;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkrNBaQr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3DE606A327;
-	Mon,  2 Nov 2026 11:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A3DE606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24BB2606A32F;
+	Mon,  2 Nov 2026 11:08:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=XHFP6Bui
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=7DXPCrJavnRLEwyl5yXDcP5FfFWrG3htAzB0Azwe5sQ=; b=XHFP6BuihMppwPmbS6bxBqCC1B
-	WhNdRfMddfOhAMdCf3gNHaS1OWTnxL+wlJVkdui2I9DhnNcH/GMk1529nbKXYjI4vTGJpycJ1AZ1d
-	5gjN/YKTCEH6lmQWBNMcwkZ9qWb4PqHB6Fw8oGFJYQTMKHANO4ey6OH8aYCmPKgV2oPmx8B3e3VnD
-	ZnIYTb9GJGlmyw1x/wEbtPZTm7diMeFRhulXyHT14XBmtnJaTp+4H+aOp3uXYsa+fRRkG9fhSO5gL
-	eqj7+ajvhK7HyH6XJsp4KzmPmSBsc6KlhE/sMODXPLooVrFFr0VL4d/haag7LKvLcj9McMP8WUty2
-	SLUjFYMQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNptK-00000002PaO-0yIo;
-	Mon, 02 Nov 2026 11:07:56 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id DD014300322; Mon, 02 Nov 2026 12:07:52 +0100 (CET)
-Date: Mon, 2 Nov 2026 12:07:52 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
-	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Andi Kleen <ak@linux.intel.com>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH 2/6] perf/x86/intel/pt: Stop tracing if VMXON has not yet
- happened
-Message-ID: <20261102110752.GX1779021@noisy.programming.kicks-ass.net>
-References: <20261102074039.26983-1-adrian.hunter@intel.com>
- <20261102074039.26983-3-adrian.hunter@intel.com>
- <20261102095750.GS1779021@noisy.programming.kicks-ass.net>
- <ca44daab-662e-41bf-b050-3ff4a94c7948@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkrNBaQr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29611F00A16;
+	Mon,  2 Nov 2026 11:08:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793617727;
+	bh=vKivxmk0Fp/Q25vo6oTqWa5phfU7YrjeQWxvIf6IC+g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UkrNBaQr8nrfYUXUf6x/jboQX0SGbIpUnV4lCW8UH2lrmoFZTbM0DlDdc0/upJjL2
+	 Z27FuwE55Ld3qoaHFLxgMxAhJqC1g2ir3zMjSvw2yPXX0ycASIXlMGMYsdvURkFzOF
+	 efy5JnZR9TxeHnxmlWN8W7yLiim+KOnu3NbzCUsrKkRcJGov141WVCxsPuUwn/Jdp/
+	 XHyrApUGGGF9+8Oa61qa1JRe6CHxmRUUFCA33VJWBzZBGrZX1O8G24Zm9TwH5Q382X
+	 S6dTSNJqbzyfsxKrcl6teA2KMfuk9JZ4dAd0n6tkiCSyusEZtWpXM9B3au8HpPWIKo
+	 n6Df0cnrNroFg==
+Date: Mon, 2 Nov 2026 12:08:43 +0100
+From: Carlos Maiolino <cem@kernel.org>
+To: Wilfred Mallawa <wilfred.mallawa@wdc.com>
+Cc: "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] xfs: fix unwind handling during xfs_mount_sysfs_init()
+Message-ID: <auhvGIXs1XVqNxgF@nidhogg.toxiclabs.cc>
+References: <20261026053454.987673-2-wilfred.opensource@gmail.com>
+ <auDFY4Lkxs76I_F5@cronus.toxiclabs.cc>
+ <7aa0056fad8faa98a79b2df930fec1119797b51c.camel@wdc.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,22 +59,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <ca44daab-662e-41bf-b050-3ff4a94c7948@intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7aa0056fad8faa98a79b2df930fec1119797b51c.camel@wdc.com>
 
-On Mon, Nov 02, 2026 at 01:04:59PM +0200, Adrian Hunter wrote:
-
-> > It seems rather unfortunate to issue a RDMSR for state we fully control.
-> > Surely we can track this?
+On Tue, Oct 27, 2026 at 10:39:09PM +0000, Wilfred Mallawa wrote:
+> On Tue, 2026-10-27 at 16:50 +0100, Carlos Maiolino wrote:
+> > On Mon, Oct 26, 2026 at 03:34:55PM +1000, Wilfred Mallawa wrote:
+> > > From: Wilfred Mallawa <wilfred.mallawa@wdc.com>
+> > > 
+> > > The goto for failing to setup /error/metadata jumps to the wrong
+> > > place
+> > > in xfs_mount_sysfs_init(). Fix it.
+> > > 
+> > > Fixes: a9a7b9e8686d ("xfs: add support for lazy direct read bounce
+> > > buffering")
+> > > Signed-off-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
+> > > ---
+> > >  fs/xfs/xfs_sysfs.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/fs/xfs/xfs_sysfs.c b/fs/xfs/xfs_sysfs.c
+> > > index e77917ac179d..4a6a8c92c3a1 100644
+> > > --- a/fs/xfs/xfs_sysfs.c
+> > > +++ b/fs/xfs/xfs_sysfs.c
+> > > @@ -906,7 +906,7 @@ xfs_mount_sysfs_init(
+> > >  				"metadata", &mp-
+> > > >m_error_meta_kobj,
+> > >  				xfs_error_meta_init);
+> > >  	if (error)
+> > > -		goto out_remove_csum_dir;
+> > > +		goto out_remove_error_dir;
+> > 
+> > Hmm. I think this is wrong. Don't we need to remove the
+> > fail_at_unmount
+> > file *before* removing the kobject?
+> > 
+> > So, we'd need to actually call sysfs_remove_file() before actually
+> > deleting the m_error_kobj.
+> > 
+> > I am honestly not sure if kobject_del would clean up any attributes
+> > added there, but I think that's the right thing to do here?!
 > 
-> The RDMSR only happens on BDW and only when VMX is on and someone still
-> tries to use Intel PT (even though no trace can be produced on BDW
-> while VMX is on).
-> 
-> There is a window between setting vmx_on and clearing TRACEEN.  Dealing
-> with that would be complicated, compared with reading the MSR.
+> With the xfs_sysfs_del(m_error_kobj), we end up in sysfs_remove_dir(()
+> which deletes any subdirs/files. So we *shoudn't* need to explicitly do
+> a per file remove?
 
-So I thought we'd manually clear the thing before VMXON, but you're
-saying VMXON itself will clobber that register? I stand by my previous
-statement ;-)
+Yup, you're right.
+
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+
+> 
+> 
+> Thanks!
