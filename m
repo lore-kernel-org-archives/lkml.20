@@ -1,116 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793590264;
-	b=Hjp3qz8XjqcOGRYFGcqdyF/MZmDXha8k6DTzDo5f6FfkzGD0DHYh55dZoOohO83RquzF
-	 /QrpTsumf44xs/OT3OnB+Nvh/eksAXQ9KldJlHvvelCwaKgiPBnj40J1zIUgpjxrR8dS9
-	 olbG/3Paj1SoL9VSDavQckhzcI3+B7edt1LPMFoRZVP/Q9J9VQxeU+I6vK9HqjMsOl5Iu
-	 KfGMwu4zoBepzx5nspjFlEnIRg3651uGK9Ak+stLupf9OvJ5Htpz9uzc1QnxMBm73Wif8
-	 vr9UjNvcksZGESZmmrnwzM9dxHTwk/JGy01Cs750hAFF9042vHj+NCMAWlhu1nJtezQ==
+	t=1793590273;
+	b=Wnd+Z3P9qsBylmipbPt4Ofa44qBjIJQHZT3/+hvmsfvMSwd8zYaq8Y8CZc4hfX2t8hll
+	 qdn+cUd2MYjTWnoQBrwTU/qNXB/ICQou+pqaV3vGkaMb/GIms6ciQQIIkGk/2DD9ouVrJ
+	 AUSMeA63Tq1I40PlyvyLL/5ArhkhNkTHZxehrQlmnCBREwk05OtnOb716SJpzCtBsZztm
+	 2pnoQ6KGQzs8krhZHMaIY+tynIrHd4aRAOyim5V1+MUnBzldK6h2IQm4LSzTMTRRqw1/L
+	 H8pZ4rCZWMThQjyRgtN1vwKe35d0TPnEclO6AHMocTrdtsqWK7/IqQxi8+T4X/AKbvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793590264;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hihKANaFN7ZRmE7wCF2vMCjr0gw5XzFZ3kGAEbB5LRo=;
-	b=4d9gTvzsGCeJYlTUIU3IOoZt2uUA83AJy6J/bxqbOqo2/9WKJ1Jn0WfV/9qHBESY18JC
-	 W75H4u3Ft6G26CsNEZ6uh3ijrWIHMEOhcIJAknYzPKJARpSzIo8FDbZ/D5M8P8L5EXOys
-	 2+CtyM1v4SSXIh3iJlvfrq5y4Ktm0Z0sl3AfIrcG3IFUIFi36F4uXZKC4czs7u2xy5aK+
-	 NbTGiCVDPQl7Th9l6lVx2If8RSazqAfU8U9FAHbnkKw7poYaGjcmIg3mDUqilK6e1VA4Q
-	 V5QCHkZ8JsJYff4mRwisLzC95kEsbfdg3Z4MOlUbgdIAb37VY+/4Q0l+UEaKYkQ/s/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793590273;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VHJb5ESvBR0ZqeLSv5C3SV8G+5auVLvklZHg1Jf7b/4=;
+	b=rGyeYtVe0hBLpDViGk4RWCHxmjsDUFzTiUEbZM2HHJ8vVju9eLdCPQCfdzMwEULZ5ooz
+	 ZcmSgo8le/NijBlCOq1W432iMHalWTc18kl+9Rv0OY8g7dgAeDXTa7Zfe8ZK1pX371D7K
+	 IirySdgMHDamW9FsFXLIuB7OdZ7S5Ksgc4cFZVOM1kozz7PR8Q26Hiv3KO7xoQooeLZGR
+	 x8dAj27uvQ7iwlS+ie/lvU5Ba+KSHX9/FCrIeyg349eYdwTBtcCPvrCIUtfk576+edQMd
+	 1V8ITUJFiHXqBlBg8wfZZpJK03uaMHPn1CWD42BMH7Vd33nXUrB952ySLX4asRCmccg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sakamocchi.jp;
-	spf=pass smtp.mailfrom=sakamocchi.jp;
-	dkim=pass header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=FsyL06mO;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=TbLxSRmE;
-	arc=none smtp.remote-ip=202.12.124.151
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyjfL4uG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA36606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FA36606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFF7606A324;
+	Mon,  2 Nov 2026 03:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=FsyL06mO;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=TbLxSRmE
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id D323D1D001E8
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:31:02 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Sun, 01 Nov 2026 22:31:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1793590262; x=1793676662; bh=hihKANaFN7
-	ZRmE7wCF2vMCjr0gw5XzFZ3kGAEbB5LRo=; b=FsyL06mOE7JIRdwD7whZqpbxDS
-	14URcp28Q+cQqmh85IQZqLX2JnP88ZFRp11Ot7/lnCDnq2UyMRHbARkpRj9Uimci
-	O4WwJ2ChzIiyk4Yruk7vVTrp9V0eHNkw0LrOBA9DOyR2c7wb+RodjAtVglaLULR4
-	4/QkKqlWXCVGBKl7bxdYpbuk8qUZ3mxshlA8QHTJvehUNvyPQcrFFwP+7EY9t1rF
-	vJxZh70bv1IXluaD/R5w3E8ggrjM6S7KIgOsVt0f4Jb3JILFM9Ist6A2kczU9x8Z
-	FExkJaaG4MXGnlBFunm5RNtRbXHmAub/ItlF3JyG8cgB77aa61sumxXaFUXA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793590262; x=1793676662; bh=hihKANaFN7ZRmE7wCF2vMCjr0gw5XzFZ3kG
-	AEbB5LRo=; b=TbLxSRmEq7Ei28HB6mjxFA0ApK/KOs6Ob9o0yrsi98MxqbR4opx
-	3P6yCE9VrvdjWJ67HRnn3FQyxnvsktpQv7CE84iGxRwVPY2h+ijP7qUwgnqJLQ9l
-	YMDZTmEReiwWiT5lpFaAcc3qsl/gr4jTu1Ddxp6WP4KQUMgGl6h/1wzYBjJjqYrB
-	2zqlnhZBNkyYfk4U/9OROQ45oHmHpH4B+yQI/3klmmAx5Tqj6bvmX70X4ZcT/EiC
-	+I47tXVmyz46ZdTmaF/wtr2f7FdDuwE/We3+xAM4dgqzwCaJmKwdmaFRlr1010al
-	9HMnCye8p4hi3+bY3cGNO5E7bCkUeOWd70w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793590262; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:SikGRpdY2tzxASCiFLSJGMNF/w8ZX+V50t0NB4j46sG1hom
-	wlIP2VDOavxSyWpioHvRwudSxTPsuUwT+Uc+hOVFQbljR40NBp4B8iUyb/XwrCmx
-	d2eY8Tr+W/dTouMXYi/4moEAdqS6TbUr6g1jO9AW2Td91Q/ElCGBdhdQGgkvqYM9
-	x91yK6Ks8S/i8QKv3FoCqvATDCttONx/GjrX8Ql1MspRhomt6DcXje60xa3jG08C
-	3VXeNSKvebDOl3OcNOFs/nkl3ysO9VxleUCPx2nkbY26eLg+3f+DZaVrM3PaY+3q
-	9g0z+58/27cu3L+OTTfS6Ahut1GUlZD+r62Wf/w==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:VrRBHYJgRJNomnexM87jSqA0KRS3/jWZMFNV56mOO/4=:XviE2y+AnCYSe5ZTUUrNQibrqFPOo1Y0I8Cth3YLsjo=;
-X-ME-Sender: <xms:9gPoauUyK4qkwuN62JzBEBtfN5IeDcUhg0xlZGZj-IHtoQEg7t9Ang>
-    <xme:9gPoaoiyFE2bZtghRmashwH0z9bJChLyY08hJjJtzmtaTpDpJRcc2cRvabe-knU5q
-    ThldPqeoUE0lm-BDp7ob7A1SbUVpRVhNpP_RDwDtn6Yy5L1Gw9bXi89Uw>
-X-ME-Received: <xmr:9gPoap-xXNmQbULMwA9sx-JxmCbTl4WSEiyq36DXmACdUeKWLaVQstikxUA2Sdc0G6Box_clmRgp2Wuf3fGWHSnWj5jlClRZ5aIILlBmSjZQcg>
-X-ME-Proxy-Cause: dmFkZTFQwSoy8odge4VCKS4VYM5c0WwKl6/nxPPqh8t7LiFj9gZhwGWU4fKpzi6wARaINT
-    tdwgHCNNzwvCWQRoTBAat5qdFlTQw/DTd03xlv0rMMkOu65l1WWTuoeSVaN8kH1GEgM892
-    MeDQk2nYisVLVEQkWETzzd4TEulz65XQ4RGUdF9+XmaZUPnp1RcDYH+7ScNn47JqdbEVWC
-    LMV9REmsrTrYJiqoTvtCiT2E25gFlWO6cUaDQMD3VwdTylGI9eJXfHj+ZhagfYW1ZYp3Gp
-    a0yOw8V56XKac4prRApqlrd8Qh8SBGeIhXO10VzIKDPYOBvl/tje3XDUhTS3oeMBaVLSBy
-    20Lfmi9tuQcY4U/S5tm6/CFZWVOgaYqMtee1iBtoS5rVrJ7nCJzhIxwog1QbnwXXE8RvxZ
-    JPIEum4CqVYg5DdvNt2AhQsnlLimuYeUaX7DpZL15IB9a9IuXkeyRXM0ltxrsSr/kyKp8n
-    J6X+j02RU4ag5hjHumOzQKORAhW8MEf06InfxJXBRSpkaki8nId4KKN7oYm4eK1uM2EVJw
-    /QntzF6FOw7NwLWwj48o/A52rfJPMzRaWK7YyvVoh6surPYhFSRTPpo6qm56NH8IEj8gpv
-    dxWOn6ylOsLEU4eqltaBpbhiidqa2dhIL99lyoOPNdTAmA0hWk5qRUZrqDiQ
-X-ME-Proxy: <xmx:9gPoaiBmOBJDxrnMawJZ6MTJMkeSGfjE3eIZO1mZKANkTiTPDAkx6Q>
-    <xmx:9gPoamLu2C71PhDsGuXDwztH3Gr6olvOoCHk7El6owk9mY558DYV7g>
-    <xmx:9gPoalmDs0h5lfyBbEJInnExFRcH9sfGRkUkUUQ-70t9P86FB6FEQg>
-    <xmx:9gPoakHr-rSaBkSVkKVhBUsqqj7SXM8ymFVMBSVA_lLHmFlmwKnrmQ>
-    <xmx:9gPoamr4_enw-kg2EOkvd_VONDzic07sRXJhiZwij9XBWWpoZn9Bpl_p>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 22:31:01 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: ohci: avoid potential deadlock when queueing AT local requests
-Date: Mon,  2 Nov 2026 12:30:58 +0900
-Message-ID: <20261102033058.1184485-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyjfL4uG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AF191F00919;
+	Mon,  2 Nov 2026 03:31:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793590273;
+	bh=VHJb5ESvBR0ZqeLSv5C3SV8G+5auVLvklZHg1Jf7b/4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hyjfL4uGkWeFjA3l4JYgi2l58AFeYj48ZxE/zYKMZsx814mXnO3EF4l5PPYsiEVef
+	 r93vyP/EzobuEtjQ1h0Z9UApTT1H3P//rg4Kqx1hHHhrzclZuEop3t9kC1IbCJ1yAi
+	 VcJtHnYnYdFweM5Ah7r6MxDYDQjq4gPOArmMputEQZ8b183JYqPef8BsxUEGbfh7JY
+	 IGXNPcPrPS5o/PRkKav4ddYjQurAiwvWX1gxjeyStgapSRV85NAZPF21A7kcc5x7P+
+	 ansBaTkV1aA2KA27j/zyypP9X6QMOTElbDrTKzTAsHCdp2x38qTFSM5Z7ZO2SUQ8sx
+	 K2IuGnNi+zFHA==
+Date: Mon, 2 Nov 2026 03:31:10 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: sean@starlabs.systems
+Cc: Brian Norris <briannorris@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	kernel test robot <lkp@intel.com>, chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev
+Subject: Re: [PATCH] firmware: coreboot: Fix CFR error-pointer handling
+ warning
+Message-ID: <augD_nelcantfYCf@google.com>
+References: <CABtds-16eUH6ah3Rr9R=N2605TPdFgDekM5oXVeWqGcmYfWqag@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,60 +59,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CABtds-16eUH6ah3Rr9R=N2605TPdFgDekM5oXVeWqGcmYfWqag@mail.gmail.com>
 
-AT local requests are retrieved from the queue in process context
-(workqueue), while requests can be added to the queue from any context
-through __fw_send_request(). The queue is protected by a spinlock, but
-interrupts are still enabled when acquiring the lock in the former case.
+On Wed, Oct 21, 2026 at 07:57:49AM +0000, sean@starlabs.systems wrote:
+> From 4e74bf1ccc0f61b4712f688eab66a7750f693243 Mon Sep 17 00:00:00 2001
+> From: Sean Rhodes <sean@starlabs.systems>
+> Date: Wed, 21 Oct 2026 08:55:54 +0100
+> Subject: [PATCH] firmware: coreboot: Fix CFR error-pointer handling warning
+> 
+> The scoped kfree cleanup already ignores error pointers, so passing the
+> pointer through no_free_ptr() before PTR_ERR() is unnecessary. It also
+> makes the IS_ERR/PTR_ERR expressions appear inconsistent to Coccinelle.
+> 
+> Return PTR_ERR() directly. The scoped cleanup still leaves error pointers
+> untouched while freeing successful allocations on later returns.
+>
+> [...]
 
-This can lead to a deadlock if the same lock is acquired from interrupt
-context while it is already held.
+Applied to
 
-Avoid the deadlock by using a pair of spin_lock_irqsave() and
-spin_unlock_irqrestore() to protect access to the queue.
+    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-firmware-next
 
-Fixes: 5fe52c6aa28e ("firewire: ohci: use workqueue to handle error case of AT request/response packet queueing")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- drivers/firewire/ohci.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+[1/1] firmware: coreboot: Fix CFR error-pointer handling warning
+      commit: 2433db2af8e1482a3a50b8cefaf25cf7e4a9374d
 
-diff --git a/drivers/firewire/ohci.c b/drivers/firewire/ohci.c
-index c06e8d87239c..cf49910fa900 100644
---- a/drivers/firewire/ohci.c
-+++ b/drivers/firewire/ohci.c
-@@ -1593,12 +1593,13 @@ static void handle_at_local_packets(struct at_local *local, struct fw_ohci *ohci
- 			void (*handle_at_local_packet)(struct fw_ohci *, struct fw_packet *))
- {
- 	struct fw_packet *packet;
-+	unsigned long flags;
- 
--	spin_lock(&local->lock);
-+	spin_lock_irqsave(&local->lock, flags);
- 
- 	while ((packet = list_first_entry_or_null(&local->list, typeof(*packet), link_for_local))) {
- 		list_del_init(&packet->link_for_local);
--		spin_unlock(&local->lock);
-+		spin_unlock_irqrestore(&local->lock, flags);
- 
- 		if (unlikely(packet->ack != 0)) {
- 			// This case is active when the call of at_context_queue_packet() returns
-@@ -1608,10 +1609,10 @@ static void handle_at_local_packets(struct at_local *local, struct fw_ohci *ohci
- 			handle_at_local_packet(ohci, packet);
- 		}
- 
--		spin_lock(&local->lock);
-+		spin_lock_irqsave(&local->lock, flags);
- 	}
- 
--	spin_unlock(&local->lock);
-+	spin_unlock_irqrestore(&local->lock, flags);
- }
- 
- static void at_request_local_work(struct work_struct *work)
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.53.0
-
+Thanks!
