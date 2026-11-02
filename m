@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641560;
-	b=adKEEIL4TP/vtcHxkbx+sezUlI8mVtkzl+upEAIt3C01AIWwkjP8e/nI3B959+kGeCM9
-	 +eHbZ+nseG8qPCdAx3tL7IlxToAi55yLDHwGZS/Ah814BXAa5capcpq5aKvEaNX71JuiU
-	 4YszFRQ9EflEL7AOyGgY0szUKMeJmwHa8ufDodeDhj7rBXiDzOcAjs/Uw8rk8nhSc96dy
-	 eD+uVvef+qhrD4Wj7uE+VJztf5aHq2qnMKE2s23ATgSlTGoDny6ujRG/JYI4O+KSKbSCH
-	 y4fU7nlUgAHayWP77T9OI79m2173RQkN8HwNDex2s6hDEtmg2TEXkEU6uqtJxFhThig==
+	t=1793641589;
+	b=mvCRvvluv2SQrhA+JGg0FwoKQnipieC3js/gTDqMU+YUR9Fwyec1xmKfa3ATYIiD4e1c
+	 m1WLdIgcJetaquY3b71MbU/GWbiz6bKkFyzBz5w1+d4iovgDBG5X5m0xoLdmGk0ZhdfjK
+	 S36E7o8gfgRZvmg17LYHCZSITwpFOlOlGNZ0AU2vdwf3fps9tp9t2BCYqrSSfUbAhJXbW
+	 1MtEH0xHMLuljKpwcnp2A2PxJW8bxYaRkINQlWq+RAkgLSsJuJVGxHkfv1trVOUWrzm7l
+	 BMxKKmD9bPUDb+WW4tsmCNr3QrwzXzjDlBq1joG7Sjn3UKt4CiKkZoEI5aUt1nTBIAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641560;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=TyrupP9HlfXQmjG2GxRqzTa9XeQTSyEAkYuFINjOMic=;
-	b=2WtcVta65B6iZqqiMQNgFwDWoZLUjgnEb7GpI09PRHX/CRV/4OVLzX0pg+Mcn+t06vDZ
-	 rvhevuOfSvUEHTJSkkHGnBiLC+o+sPmVFJah/PgJWvqcCrfp0oMRma2Pl9wUcMLXBw5XE
-	 PJ4UIjI4Xj0TDH3eteY9p6syfE3VvNw4k0/PQWiAk9a/XQ6fOnb+hlNW1h98KG6DsSnma
-	 6D6I7kGjMeWLQ7T7HRes66otowRBl1iBXgKSOpE2cEGbKBAu+aCvzJ66oUESFDKoyEp1D
-	 yMrSP+lYoYA3AGYO//bOvKqhk6PAdUvYLx9xNKytcZ/7ua2bLKzo+gFP/kxhBXhF+dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641589;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=qYyD49aeXrQ/bZeNGHoSmAuESNs1lMdSf2HL87qSocs=;
+	b=eiH7O6l8Xv9CLwdSeFepSNGHWtSNHbYl1NYWe7QVRUJadsoUPoL86oPqI+A1xpKJ/nSE
+	 RKwiZCgbzFAoycdnwSv6BfMsCR9WSgIp00nmRVHSiMUhUNDIdu4lDHHCym2OtDGR5nnJr
+	 76aFwd1TWXzjejCyUSHflVofD2klLuzaA15qM5g39cRNiOb3I/KMmaAxyl48yMaLA7A34
+	 +ghu9HSQeuOOM8AYV2cihqmzomw7gg/XIHG7hypqeLeHgOv+aUSvD4D5uEna0xx0B4WL+
+	 qonkw5j1WSlQddsxIYMF4YTx/fCY30osHoTK1GqNLHSMphEtk8rEbWAPcUPokcQfhBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BPnU6XEl;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNBwqO2p;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDFD6074661;
-	Mon,  2 Nov 2026 17:45:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FDFD6074661
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1E7606A5A2;
+	Mon,  2 Nov 2026 17:46:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BPnU6XEl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793641560; x=1825177560;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uD19Fb5fdpt/7jRuUUbcNI5DvCbhjKMzTNkgHXyTE6c=;
-  b=BPnU6XEl1kh0Y/qMRSmaNZOmNTZIaGTVL9fysGDicJI/X/Y5w1dphxAR
-   /XdvVOEGSkt7XmfKt1KSzEo5QFJ/vWOGepf5KOBuXgN480TuZjh0OdqCd
-   aAh7TkEnKZMHhJmnLkUgptBdfqPkc+ZfBGZtAmtMrfhG0PkW64Cxyit9n
-   l2vh3E5B79iw9RMv8uWB9aOqQ4MO1vdhqhfu5n0S6q9C9L2nlpXZYMk5Y
-   Trif07gQLglFL/Wr0TOe389pJRzEAIDfBCPf4Kkil1PMMddQc0J+F2R5r
-   L4HyrmasjwtOZ3pqVfYXyuu5C0L1Hp4Ol/U4DpK8DVietJsLsbJiUNtag
-   A==;
-X-CSE-ConnectionGUID: VCUdeNORSoW6n4OpJ6sCJA==
-X-CSE-MsgGUID: fOQ4b7/4QimON8Ob+7cHyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2375573"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2375573"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:45:59 -0800
-X-CSE-ConnectionGUID: hzN+wRsuQ6+Zf5DjyDJwTg==
-X-CSE-MsgGUID: wfp7iaEFQUa/aOEfGKH1AA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6570948"
-Received: from tassilo.jf.intel.com (HELO tassilo) ([10.54.38.190])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:45:58 -0800
-Date: Mon, 2 Nov 2026 09:45:56 -0800
-From: Andi Kleen <ak@linux.intel.com>
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
-	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, driver-core@lists.linux.dev
-Subject: Re: [PATCH 3/6] perf/x86/intel/pt: Stop tracing at syscore shutdown
-Message-ID: <aujMVC0_8purXK5k@tassilo>
-References: <20261102074039.26983-1-adrian.hunter@intel.com>
- <20261102074039.26983-4-adrian.hunter@intel.com>
- <aui3L0ppW-cBBo1W@tassilo>
- <a2108322-0c88-48e0-a10f-77ae2556bcae@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNBwqO2p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F081F00A16;
+	Mon,  2 Nov 2026 17:46:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793641588;
+	bh=qYyD49aeXrQ/bZeNGHoSmAuESNs1lMdSf2HL87qSocs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GNBwqO2px9Jg9kN6VOJHtWHGihyWvqggdiUZXBvqVweYC0y/nkaK9EkT7mU1anu0n
+	 oLDd9Uam8ypHVE5BGHwwJ79x0fReUU3gu6/nFgxBmVU1Au/5aKuh0PM7wU5O2/n5oX
+	 UFlVE69evaUmCgFJL1UtnJuQXyl8AEgV13/OU664LvUIY6eYmF2B14uU/2u/Jgn2wM
+	 x6qAMmAY2JMZPkMuxtVaG+3kGB7O6NaUspPhdMarYYXzYwFP5Gc6xgqWvhzTrcGkFD
+	 sBzudMDSYdtfpufoZ7DP0AV5uxLkaOs4zzAN14ppBdqmXOpgJ2z5ID0oKnFumIVSKB
+	 ivyFg76ze+9ZQ==
+Subject:
+ Re: [PATCH net] net/sched: em_ipt: reject hook values >= NF_INET_NUMHOOKS
+From: netdev-bot+sashiko@kernel.org
+To: hj351016@gmail.com
+Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 02 Nov 2026 17:46:27 +0000
+Message-ID: <179364158761.3131.14745083619044110931@kernel.org>
+In-Reply-To: <20261029163516.2476127-1-hj351016@gmail.com>
+References: <20261029163516.2476127-1-hj351016@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,43 +63,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a2108322-0c88-48e0-a10f-77ae2556bcae@intel.com>
 
-On Mon, Nov 02, 2026 at 06:27:30PM +0200, Adrian Hunter wrote:
-> On 02/11/2026 18:15, Andi Kleen wrote:
-> >> +
-> >> +/*
-> >> + * Tracing must not continue into a kexec'ed kernel, which may reuse the
-> >> + * trace buffer memory, so stop tracing on all CPUs and prevent it from
-> >> + * being started again. Events are left in place, but record nothing more.
-> >> + */
-> >> +static void pt_syscore_shutdown(void *data)
-> >> +{
-> >> +	WRITE_ONCE(pt_shutdown, true);
-> >> +	on_each_cpu(pt_shutdown_cpu, NULL, 1);
-> > 
-> > I don't think adding more and more broadcast NMIs to the panic path 
-> > is a good idea. It's always a very big hammer and a risky operation
-> > that risks breaking the actual dump. panic reallhy needs to be
-> > simple and reliable, and this is the total opposite.
-> 
-> Is pt_syscore_shutdown() called on a panic path?  I can't find a way.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-It's called from kexec which can be called from panic.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> 
-> > 
-> > KVM already does one at least (which I never liked either). At a
-> > minimum please find a way to consolidate those into a single
-> > one (as in have a notifier chain that is called on the target CPU).
-> > 
-> > But better would be to not do this and find some other way.
-> > 
-> > How about just passing the PT region as reserved and maybe free
-> > it later after the target kernel had a chance to reinitialize all CPUs?
-> 
-> Intel PT has cpu_emergency_stop_pt().
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-?
+- [Medium] The patch is redundant.
+
+--
+
+net/sched: em_ipt: reject hook values >= NF_INET_NUMHOOKS
+
+This patch adds a range check on TCA_EM_IPT_HOOK in em_ipt_change(), so
+hook values >= NF_INET_NUMHOOKS are rejected before check_match() uses
+im->hook as a shift amount. According to the commit message, an "addrtype"
+match can otherwise carry any hook value and trigger a UBSAN
+shift-out-of-bounds.
+
+> diff --git a/net/sched/em_ipt.c b/net/sched/em_ipt.c
+> index 26f1c4269a487..53358886a88c5 100644
+> --- a/net/sched/em_ipt.c
+> +++ b/net/sched/em_ipt.c
+> @@ -168,6 +168,11 @@ static int em_ipt_change(struct net *net, void *data, int data_len,
+>  
+>  	im->match = match;
+>  	im->hook = nla_get_u32(tb[TCA_EM_IPT_HOOK]);
+> +	if (im->hook >= NF_INET_NUMHOOKS) {
+> +		ret = -EINVAL;
+> +		goto err;
+> +	}
+> +
+
+[Severity: Medium]
+Can this condition ever be true? The tree already contains commit
+94cea342e891 ("net: sched: em_ipt: validate hook value from netlink").
+That commit added the same check to em_ipt_change(), right after the
+required-attribute check:
+
+net/sched/em_ipt.c:em_ipt_change() {
+    ...
+	if (!tb[TCA_EM_IPT_HOOK] || !tb[TCA_EM_IPT_MATCH_NAME] ||
+	    !tb[TCA_EM_IPT_MATCH_DATA] || !tb[TCA_EM_IPT_NFPROTO])
+		return -EINVAL;
+
+	if (nla_get_u32(tb[TCA_EM_IPT_HOOK]) >= NF_INET_NUMHOOKS)
+		return -EINVAL;
+    ...
+}
+
+That check runs before get_xt_match() and kzalloc(), for every match name,
+"addrtype" included. A hook value of 32 is rejected with -EINVAL long
+before check_match() gets to:
+
+	mtpar.hook_mask	= 1 << im->hook;
+
+So the new branch looks like dead code.
+
+For the same reason, some statements in the commit message don't seem to
+match the current tree:
+
+  "em_ipt_change() reads the TCA_EM_IPT_HOOK netlink attribute into
+  im->hook as an unbounded u32"
+
+  "the only range check on the hook lives in
+  policy_validate_match_data()"
+
+  "A filter using match_name "addrtype" can therefore carry an arbitrary
+  hook value."
+
+Was the v7.3-rc3 reproduction done on a tree without 94cea342e891?
+
+94cea342e891 has no Fixes: or Cc: stable tag. Would it be better to drop
+this patch and ask for 94cea342e891 to be backported to stable instead?
+
+If the range should also be enforced in the netlink policy, em_ipt_policy
+still has a bare NLA_U32 entry:
+
+	[TCA_EM_IPT_HOOK]		= { .type = NLA_U32 },
+
+Could this become NLA_POLICY_MAX(NLA_U32, NF_INET_NUMHOOKS - 1) and replace
+the open-coded check, instead of adding a second copy of it?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029163516.2476127-1-hj351016%40gmail.com
