@@ -1,83 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621313;
-	b=riCSW9LTzawIKFMfpjZQG5bkbR193EXP89TnnVQDUWq+mm6HMljhWqvvB0dBcZpAXzvV
-	 WeYWNHQ5Xhw59CAkQ1ME55d3dhB/kq4pLxzDEmF98KlI9sGA79CRdy7qWiJBY6CIZ03tX
-	 sWkmJfQEb5bnmtMj4xq4J1VmQX2HpnJceC+m9YRoNcjwn0tY9xIg6R13rNvgPWUvUjIww
-	 viSzZqAT8m1RrIDaBLfJpwNRJOToPqz54t5AyCAOMhlNPkyyIQzcd6XVvZfLHjnPYy67k
-	 H+on+HwlR1cliJOwCL8V5wOoFgtJlaMGm7/GimhQouegrqEklATNpWuom6ADiqElKqw==
+	t=1793621374;
+	b=R8Lj2Cal06GNEdA3gTRefGz73CEUz+VDl2o6pxkuRqochY8lpZPc9jPgxraO11hTt2F/
+	 CFgmLRGS43U8JOzDeMJiaLw4QK9lJ8cgaRfzjXJnejqlTLxAMZqHi/bizTK9/NStYgdiU
+	 BEzgQGRy24tmvbvTT82HhsLrg7AJGHnJBX+f5w/m5zu1X2ozDjRzteJ2Ie5XLEAEGdZ6t
+	 YlkdSokb12RJgLIGJpAGY4qOF7Ny+SO9+0x97c0yhnoEFLp3D/JfTC1Nlp5iixtB9U49c
+	 2b7J3Ty0OinrQd8basInfY2NrV/zGCDoZyPAA7T08tvzhM4ZqwEkWb62VqK5rV26tfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621313;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=By66bYTFhBThGs/zLzCMxno1bj2bflp/WhHlT6imhVg=;
-	b=QFWKuewdA7/xS/y3KuzriZzgDuELeVKjZBHgHzIR1FgLQQKpCsykjv2YLJeVNNHVyAOs
-	 Fo0Ekqv/4RGae9aOIyjXajfNqxVJf5gOv0z8G827eES6iMhGinJuf2OAfvZM49Bacc/av
-	 Yl63srJHziAqn9GqelyQVJmbjKZoYqLc/I3cqnHIR1HRa8Rp0Bh2laLZ7kIBe2xsfGw3X
-	 vmW4jHFOOXPKkvkjQ0fgWNYv5E2sfNBLDX1xhBdMZ5Zg2Oj5WpKn187O9kx0j6zDh+DF6
-	 ds6Pso9w8KfxqHpAUOH/q/rPOVtTe2Dyj+uMc28V88lrAQa5AG0mC/fyr01YCnQDfZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621374;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=zDL/1MJP5TL90RnmLlT28rab6xGthMP97p8sOIl7EEQ=;
+	b=Z0VJ+OLjRcoyfkde1zEsa+ctvuAyVWy99tMoA90GYRIiA1ymqhLlkQiHHW0QGatW+Mr8
+	 kvJlMXc+6+xNBECmd2jGrTK9iZm36kQGKS03j+L1iPPh/85JzFi1YQJmFA5IO7g6mEvNL
+	 LKcZ270IYmki4wRPJXN3ZMMI8i6HkD8LP/lYvLEl0H59PmQ1IdZJpkMj/aWLc6JkOlbp+
+	 U03QDA7nDJLYxtfMjL1RO+VEIXnP9uPulEUuyI5V1l7dOAssW5HOaWtUWRepvruiQFDMq
+	 DU20I3sPq5tunqvUwVXWW5/0FlaiwCQ8S7Wfkg7VMfB3fBZc7l0t+IqOTmrchAnO58w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qf18+BzM;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=HvbIScFW;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19287606A324;
-	Mon,  2 Nov 2026 12:08:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19287606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E63C606A324;
+	Mon,  2 Nov 2026 12:09:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E63C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qf18+BzM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793621314; x=1825157314;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BAs5hO5y59m2LjTMW/RiLpKnfPIZEU4eU5HLaRKeFdQ=;
-  b=Qf18+BzM+uC2dwm6mu6jrG3aY7lT7n8Pt1ZYhN0kq7FO1xEvLl1o0StI
-   Qru4Sw8o2tJ8yfv+hKfXgDpUPyaY5PCdPSa0dsCtyOIoVVlQ9XjJFde8s
-   f7m4BYCTEYTnGuA8hKQlsr2wBoBveyaaoIKa+rKQ9A5XRCxx9CLojG+OA
-   g+sQlV4dFh0VBDSapqEc7xEyCaCtudfaTeJLpIkOFchW1nZ2CiQQ4ZiQa
-   cgo4jMjknLDMwNgShRsQhspnxYJvJKHNH3yTNmhZNA2zf9A5kXI/+QwDB
-   FH+MaLh245qgL2vSY13hdAqYwowzC6GbIwhExr6GyYZJBfDBe0MaAnIKM
-   Q==;
-X-CSE-ConnectionGUID: cLAZQVbgRyOi+aeurqyVNw==
-X-CSE-MsgGUID: KOhnVy4kSXejMhHoHEDZ/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2303783"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2303783"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 04:08:33 -0800
-X-CSE-ConnectionGUID: XNAWffhlTJ2foie7jU52tw==
-X-CSE-MsgGUID: 1rxzJJ17RPCYauAPqimt+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6233528"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.242])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 04:08:30 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5599B121B6E;
-	Mon, 02 Nov 2026 14:08:40 +0200 (EET)
-Date: Mon, 2 Nov 2026 14:08:40 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Hans Verkuil <hans@jjverkuil.nl>
-Subject: Re: [PATCH v2 1/2] media: i2c: vd55g1: Mark the AE lock and bias
- controls inactive in manual mode
-Message-ID: <auh9SHrLKHTjENwY@kekkonen.localdomain>
-References: <20261101195006.220657-1-fernandorimoli11@gmail.com>
- <20261101195006.220657-2-fernandorimoli11@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=HvbIScFW
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=zDL/1MJP5TL90RnmLlT28rab6xGthMP97p8sOIl7EEQ=;
+	b=HvbIScFWhWDTTwdBbxrP3FBKIxxzLq6vdCLd3CxwXmjXza36bZ9JLJ85pSqVCOL7Jc6SJzscn
+	xMecTl8mvn9SMF7bifpcbLHa9B1shrIXtYYwfOzFCGK44CxuVI26qzK2u2jvXMktjmxON+4PGet
+	nycjVKozzc+PHEVs2HJje/8=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jJ9VD4qJZz1T4GW;
+	Mon,  2 Nov 2026 20:09:08 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id A0AC8203C8;
+	Mon,  2 Nov 2026 20:09:25 +0800 (CST)
+Received: from [10.67.110.140] (10.67.110.140) by
+ whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 2 Nov 2026 20:09:24 +0800
+Message-ID: <faee04cc-fb04-4e56-bfe4-1eae5b819137@huawei.com>
+Date: Mon, 2 Nov 2026 20:09:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,59 +62,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101195006.220657-2-fernandorimoli11@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ima: initialize the real inode attributes of the iint
+ cache
+To: Mimi Zohar <zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
+	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
+	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
+	<amir73il@gmail.com>
+CC: <linux-integrity@vger.kernel.org>,
+	<linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <lujialin4@huawei.com>
+References: <20261102024703.816178-1-caixinchen1@huawei.com>
+ <cb3ef53e2e5c6d74051528c2b9b9c0a294d6c119.camel@linux.ibm.com>
+Content-Language: en-US
+From: Cai Xinchen <caixinchen1@huawei.com>
+In-Reply-To: <cb3ef53e2e5c6d74051528c2b9b9c0a294d6c119.camel@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-Hi Fernando, Hans,
+Hi Mimi. Thanks for review.
 
-On Sun, Nov 01, 2026 at 07:50:04PM +0000, Fernando Rimoli wrote:
-> In manual exposure mode the auto exposure lock and bias controls have
-> no effect, and the driver marks them grabbed. The grabbed flag means a
-> control is temporarily locked, for instance while streaming, so
-> v4l2-compliance fails on it while the sensor is idle:
-> 
->   fail: v4l2-test-controls.cpp(134): GRABBED flag set
->   test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: FAIL
->   test VIDIOC_QUERYCTRL: FAIL
+I mistakenly used integrity_inode_attrs_store. In the next version, I 
+will directly use
+memset to initialize the real_inode structure.
 
-Hans: v4l-utils commit 0a4d4accea726 adds a check for this but the commit
-message doesn't explain why. I don't think grabbing a control is a bug as
-such; it's normal that if exposure is set to auto, you can't access the
-manual exposure controls.
+I double checked b836c4d29f27. That commit also added real_ino and 
+real_dev to struct integrity_iinit_cache and started reading them in 
+process_measurement(). However, iinit_init_always() only reset 
+iint->version, leaving real_ino and real_dev stale. After 309e2b775da8, 
+these three variables are encapsulated into integrity_inode_attributes. 
+Therefore, I believe b836c4d29f27 is the appropriate Fixes tag. If I 
+have missed anything, please let me know.
 
-> 
-> A control that does not apply to the current configuration is what the
-> inactive flag is for. Use v4l2_ctrl_activate() instead.
-> 
-> Setting the controls in manual mode now stores the value rather than
-> returning -EBUSY. That has no effect on the sensor:
-> vd55g1_lock_exposure() writes only in auto mode, and the bias sets the
-> auto exposure target, which the sensor uses only once auto exposure
-> resumes.
-> 
-> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
-> ---
->  drivers/media/i2c/vd55g1.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index e3939bb..69ffb3a 100644
-> --- a/drivers/media/i2c/vd55g1.c
-> +++ b/drivers/media/i2c/vd55g1.c
-> @@ -1503,8 +1503,8 @@ static int vd55g1_s_ctrl(struct v4l2_ctrl *ctrl)
->  		break;
->  	case V4L2_CID_EXPOSURE_AUTO:
->  		is_auto = (ctrl->val == V4L2_EXPOSURE_AUTO);
-> -		__v4l2_ctrl_grab(sensor->ae_lock_ctrl, !is_auto);
-> -		__v4l2_ctrl_grab(sensor->ae_bias_ctrl, !is_auto);
-> +		v4l2_ctrl_activate(sensor->ae_lock_ctrl, is_auto);
-> +		v4l2_ctrl_activate(sensor->ae_bias_ctrl, is_auto);
->  		break;
->  	case V4L2_CID_HDR_SENSOR_MODE:
->  		/* Discriminate if the userspace changed the control value */
-
--- 
-Regards,
-
-Sakari Ailus
+On 11/2/2026 7:20 PM, Mimi Zohar wrote:
+> Thanks, Cai.
+>
+> Instead of calling integrity_inode_attrs_store(), reset the entire real_inode
+> structure. The store sets dev and ino to the stacked inode’s values, but at
+> allocation time there are no valid real-inode attributes yet, so the fields
+> should be cleared. The patch only works because the stacked and real inodes
+> happen to be on different superblocks.
+>
+> The Fixes: tag looks wrong. In b836c4d29f27, real_inode is an unsigned long
+> version and init_always() resets it fully.
