@@ -1,157 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638702;
-	b=uEfg+DLT/Xk4jxSKw8VpiP3WmvtFKJEFsb7QQ7LkzeZUOuO19XoiRwf9cisHZqM4XOSI
-	 F0QFBEkF9l2Du3q/EGE+KfQ1//Z6NRi7fwD3Rjo9fEI1M1aRPX9O9FGqcF/lBgzdnibtv
-	 YzgDLV9bAwCfdKCTZt/OnaPGpjNyupSUgXe1bnxwCJ7lD4jZchHCrSPvric8L+9VCcncg
-	 Wxwb1Mt+jadZQnB2t4kAAnPyWPK6gXhhQbMZWrwpf+r2eH0UouQWSX5DSmnKWriAC7Ro+
-	 xKkCnSIkG5MEjX6BNSpLzlvaK9ZaURE6uFOoBQ2ru8SkfELuOlh3WcnXN/l1QwLogHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638702;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=PzJGXubz8ItkEzPUWY/nEgW+2q4rBpwlu9LIiqUJd14=;
-	b=20Tq4xsGjAfIFb/t/K+BX8WdCMWZDrSZ0HSEvLATudpdEYkq2h2+ulimjADUaOgrXuQH
-	 vzyJdkP2uoMzlevuxuTBhwflck9QhbTiU6UUo+GiaajF9QpeaPxpunvID5UU5SBwXhFP8
-	 cnjG4HwwKRFvvxU0wwbCgNsv0ThiyE9j6tHQdH7VNyGVhXpI2gNq8NZ0zPrUsNSgGhar1
-	 mdLNxqZf3aGzSuFe3sVpJtogolCOCR9TziOHqh/gPBHs3WCsdhzCJT/j8xpZ9xYl4UcR5
-	 UVn6B0LTYM/n2bXlHg7Qzr4vneLCqvnAX5JWcSXgy9e69IGIpHsJZK/EtcZuoEQWvjA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dUN+m8HR;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jgUKC03J;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793638685;
+	b=AA6ZP1bMDhVh4mntKji9NzouFDR/ppougKukMlFB7iOfOfdZaxeBBGr6fFYkOj7wr8IM
+	 soikmsD9jCqRS1/STUr1LBM7SzaT4+RlkkuHmFy40ZhpylpnOlLZWaACFnzEEIp+EQxMg
+	 u+kJ3A0ywd12jXLdYB3ZZJTEkEfKllfk1popZl+94acIoOflkyLfIx8NWqfxzP3y1FH2d
+	 Pz9tMUZJ61aowN9sICiKiBdnecWW3NtiJU+FQz22M5OnOR+05tEVZbYcLX/Tabx26u+Y+
+	 hnveAFsTEmKddJ38qOdJMh11oHEMsNL32MRfiWMyPZ1oxEwOwwLoIPVsRBbI5gyHBHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638685;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Jp8DX7/QhrlYZH534G3CZnxJ2bnt3NbST8IeVr5PZM8=;
+	b=iQvK81iiWVIO+rXDushH49gbLZzV7eiN224PLaE49YPP2wmld1o3hivbqP+r7T9GJ97V
+	 Ko94VmFx3C6GxwKRMQUZMwIw6vS7VYF6ET6D75wx2DptUzdbFt9NIbqfZk/G9vSZWW/W5
+	 n+a+b7k7rcFeFZ+pFTKw9Y90jN/GNB5bLEKB+IVBxoG2mpEgOZ58+TVAK0ka3E9Pw4vQe
+	 W4QmLZBXU3hPiV4TU1/2XC6SLyXCnu5mP5uT5gATuwqGu8DCitR4KMZo5256wry2lkqeM
+	 3W6SmFkoZneV8/PdRQwUvRVXgDOpHI7D/j1v3BBy+F5vcsNRZU5IlBNEN1WqEzxsgEw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I/ICoZ6w";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5656074A44;
+	Mon,  2 Nov 2026 16:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I/ICoZ6w
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793638685;
+	b=plOmO91dtLQ/QPGXCNTXqlgiaXHjMysP8yWvJYadHqHZK6WiqY5IOKidf7Dp9hl6S/zp
+	 +Hg2lohdfrawF2uyZmoBmLcklYK9MXwjfxwTe8UjHdugBu9lNVfiTOpxh9s3y0hreAo42
+	 16kpDA4TK3BdQTQOLoYBP+9W4PS4BkD6oT1NuS0nnr1+Kk3VyXbHM9jtAEcq5d1dzOJch
+	 HFMddRUwoVCuF/ixOxiBy+N5pyAwB1+T7NmWEtGHxezEgmc4CF2FZyJ1nqWdx9qKj/K5A
+	 52GO8Dge5kZk0PsnoK+V6f05V3VvfJnUy2bH8vEi002iuaF12MVnV/RlCFtoUyrF0Yg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793638685;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Jp8DX7/QhrlYZH534G3CZnxJ2bnt3NbST8IeVr5PZM8=;
+	b=1D19kbYqe9Bm/+Ed6OD8xBvIe+N9Vv6crWteqiFtWEl1/oKbY5q8VxjJoRqWKqeOq7hz
+	 24PXWV2bDnUS4hTO8wyQ8pj3/Y0O+Fzdknqtm5Xf6OO1pOO3zQ8owaQQy0HIWVOxP/cnU
+	 QlSnWxth7Q/fI0ZcSHNaivLEHuwQTR6HjHT7NCiodj/6pI1Py0v2bZ9q4ruMf1BJL1d6a
+	 NTzDNiVD+qJk03Hq3nZgM3x+6EQfjy3v10DHvzmJSWzdai7g9kJ4aE8YvJkx0q9dDWc9o
+	 nyQ65rrXSLto6XvZzOwbI6fXon7i4b1hBpCgJJF6VAr1D6bQKrXk677+2Au5rX1gimg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493E4607BD22
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:58:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 493E4607BD22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dUN+m8HR;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jgUKC03J
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2GZ9or215023
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 16:58:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PzJGXubz8ItkEzPUWY/nEgW+2q4rBpwlu9LIiqUJd14=; b=dUN+m8HRQemx+JdO
-	1Kq3YwsYqp2TrSKgPY3P1b0kRCoBuWIs3Jmhjw9Q8gtZ1DVoVEYtMHmPpysXpt4w
-	2jye2Swznblo03xfDawI44V2DSeCGRIdhtk4c0QMmUvnt7CubrvLmcqHad7A9dI2
-	l47x1f43RQlT/GnjWbzy6uWjN/f/oHGSzef/u4Pb3y5VnoRGgwYBKLGfSOTrU3A8
-	GKjFkluaUCa64y+XRLVyOFPp0OUmNFrLg5VOQZqarjK5ejjJB8Ll0yFQHZut9DES
-	2geDkoysbL7Qgq9sBB+kIlBDsfPg3EM1adQ/FoU5j/rLejnBs7mADF+8eDk0jcbc
-	0DSp1Q==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hppfea91x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 16:58:21 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3698bd5392cso2812755eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:58:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793638701; x=1794243501; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PzJGXubz8ItkEzPUWY/nEgW+2q4rBpwlu9LIiqUJd14=;
-        b=jgUKC03J1qarY0z2tMlQ+AQIMT7+TGTKktzZXZdn9i9PTXj12XBUa+Ml1slAzDHPoK
-         2sbO6VEwN6BDayzFHVe/o4s2CJ5Brr3tU/6AfDnASg9/bCsIFT+t1M35aWE4AygS7TXr
-         fE32PjksDn7lITqgfGyGAi+s5jNI4lm0GP7k/fX2xHXPTpVJjo+VdFCYWrwamJpPlnSO
-         no5xLZZF9TGa+Luabiq+Xr9PZTxM96ZAL7hTx0ZiFtsrIsj3/SmYW4wg/WEjeyzDqroZ
-         L2m8D0a6eEKz+sGU6jK7vnr4EpTAdzxZlqhRHL+qtxD8eR5w9269dXyl0eSo+aJq1/d/
-         E22g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793638701; x=1794243501;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PzJGXubz8ItkEzPUWY/nEgW+2q4rBpwlu9LIiqUJd14=;
-        b=HF3QOmHRa3MYYJ8+bcSFVKLavrOEgunrNPvqWv/ZTVNJfrEhMMUn1gPPfenpZ+W+bq
-         EI5zghpDduRMeUB11G5wlslGqaIpT0fvkyZ10fEIXJeGg6aBv4JktwpMaCHeyYU6gWIJ
-         jQQC9SnH6jj5hGoeO5GibB4efvTy0+Ym5t/OhU0CAmx1bpNgY5r76eSvzT9iYqGOVRgz
-         kBWzmu089EiZuj5vveF5b+ZqzLe1B06HeBT1PNiZ+EC1K1lU++h8SeLDT3SDAVEPFxSg
-         3VwAtxqLNQNWt2NbmTi/R2Nyb2kUo8pHZVdwKPK0nEMGlyNlCHOPhK+6KT8eEf2fSHjq
-         lHgw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQKdElkGrxvcmKTdp0GBuV8VPrueWyK5w1EdcgVd24Vo68AV9fuY7acY0Zr2ExP8qfbM8gpN1pVma1WkI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIu49I590onI0pVpmqUSnzPKvccA1cw/AR8ylxmqOES/p4hDV4y
-	POethYh/k8uAufZzhLc10Hnb+Idq2MvbYHUw/ND5abJVUvNq7s8igUwiTy75NJzGriaNvNz73hk
-	XHWAHYnHppTBiWYa4X+6301ErWFKoqi2qUH5VLkRZBgx96tkn1chPpC8nkAj4NRotvc0=
-X-Gm-Gg: AYBFou21Yk050CbSbvKiuINUm40PIKkn+WDQFuJDNoMwfiqeB8WicF75h81aO4y02/v
-	B06MYq/Rro+/8shDuEJTK+ExvV7f/pKwrb0nJ1adkws2dT1+C5J1pLKQo28rFN3UM4CLBy5DvEd
-	9E7YJzz1CMFWIe48QZs8SALIdB9eLMLPNnldKGsG9VpM6Ba6rcWekMEa/HgqKQBhp5cbd7qXLpF
-	+LQGx+dJM2EasfNqeATpiQY410jRP6ZYyZHdQdwn04o1+9yIUA14HRRTSwyDqr94qy6oBJMqxts
-	J0CvSTMLTLy2vVVPIdvY7EMDc0aH9LcrolTJxzGSo41BIZcZ9FjqIrxZCKZ1gfcot23JbtM5GXZ
-	OGDozuj8H4Ffu1B3VewisJwLw0kapDTJYEb/ltJMnHtxvuKMlKFvcCR5WVBqC04QpqUYzBzsfM9
-	HwBryeUKxu35mB60EY+Aj4LuKdH5E=
-X-Received: by 2002:a05:693c:864d:10b0:362:2e2f:c261 with SMTP id 5a478bee46e88-36a3b5fdb1bmr19288527eec.27.1793638700556;
-        Mon, 02 Nov 2026 08:58:20 -0800 (PST)
-X-Received: by 2002:a05:693c:864d:10b0:362:2e2f:c261 with SMTP id 5a478bee46e88-36a3b5fdb1bmr19288478eec.27.1793638699826;
-        Mon, 02 Nov 2026 08:58:19 -0800 (PST)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4291e38fsm44938189eec.15.2026.11.02.08.58.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:58:19 -0800 (PST)
-Date: Mon, 2 Nov 2026 08:58:15 -0800
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Pierre Gondois <pierre.gondois@arm.com>
-Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
-        Mauro Carvalho Chehab
- <mchehab+huawei@kernel.org>,
-        Tony Luck <tony.luck@intel.com>, Borislav
- Petkov <bp@alien8.de>,
-        linux-kernel@vger.kernel.org, James Morse
- <james.morse@arm.com>,
-        Mark Brown <broonie@kernel.org>,
-        "Rafael J. Wysocki"
- <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-        Mauro Carvalho Chehab
- <mchehab@kernel.org>,
-        Shuai Xue <xueshuai@linux.alibaba.com>,
-        Maciej
- Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-        Pawel Chmielewski
- <pawel.chmielewski@intel.com>,
-        Dave Jiang <dave.jiang@intel.com>,
-        "Fabio M.
- De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-        Breno Leitao
- <leitao@debian.org>, Dan Williams <djbw@kernel.org>,
-        Terry Bowman
- <terry.bowman@amd.com>, Ard Biesheuvel <ardb@kernel.org>,
-        Morduan Zang
- <zhangdandan@uniontech.com>, linux-acpi@vger.kernel.org,
-        linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev,
-        Ashok Raj
- <ashoraj@qti.qualcomm.com>
-Subject: Re: [PATCH v2 0/6] CPER: Add Memory Error Section 2 support
-Message-ID: <20261102085815.00002239@oss.qualcomm.com>
-In-Reply-To: <3718c5fa-88de-471b-89f5-4cba15975a49@arm.com>
-References: <20261019203915.2019037-1-pierre.gondois@arm.com>
-	<20261020101048.00000186@oss.qualcomm.com>
-	<0817615d-5e96-4a3a-b39e-3e5d1b88e716@arm.com>
-	<20261023142621.00007051@oss.qualcomm.com>
-	<20261024003917.283b890d@foz.lan>
-	<20261023170405.000060b8@oss.qualcomm.com>
-	<at0rs4parlHFGI7k@hu-ashoraj-lv.qualcomm.com>
-	<43301529-f169-493c-bc59-fa08b77e1ef3@arm.com>
-	<20261030081941.000040e7@oss.qualcomm.com>
-	<fdbce441-921f-4ef9-9c57-0685706cdf89@arm.com>
-	<20261030144013.0000320e@oss.qualcomm.com>
-	<3718c5fa-88de-471b-89f5-4cba15975a49@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	by smtp.kernel.org (Postfix) with ESMTPS id 20E431F00A20;
+	Mon,  2 Nov 2026 16:58:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793638685;
+	bh=Jp8DX7/QhrlYZH534G3CZnxJ2bnt3NbST8IeVr5PZM8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=I/ICoZ6wO2O5DiuG52uxhf7MbGs5Ch9NFYAkOdUGJjT5x/UtYhc02ZYp0vDuwcrhK
+	 0mKxZasle01IPkE6i4iaE8/QI/3B3+A2BpVoCO/tRSSFga1bxpYyLD2ZAzVumqnB6y
+	 kUL1hVsXmMuRV4wyuOXbVRzAMxUxjL6wdiIIhBUvOH3BwldWlVOmK+Fe6ZZPaXEs9D
+	 cYqHOHF4+cNbitXT4tPFkeFfPObLt0suD8W1Uvb7EWLi2zVIypMIxZ+8glP29KX5x5
+	 Tb9SsQs6Z3DZpwujQW6PiUxl9UAE3QfXiiXuEvV91z5wIIpz5Tf1MX7Oe6VH7oPx4O
+	 9T8f2OBNlvJpw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 95187465AB;
+	Mon,  2 Nov 2026 16:58:01 +0000 (UTC)
+From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
+Date: Mon, 02 Nov 2026 11:57:59 -0500
+Subject: [PATCH net-next v4 2/5] tls: add socket options to register the
+ traffic secrets
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -161,226 +83,344 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=SeZi5fRu c=1 sm=1 tr=0 ts=6ae8c12d cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=eIcoSznhEi4KaPes0yMA:9
- a=wPNLvfGTeEIA:10 a=bBxd6f-gb0O0v-kibOvt:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2NyBTYWx0ZWRfX6ks7jNbNW2Eb
- cVnCzmMZid6w4u4D3RkfufXchYSUhY1p0NH0TaklW17IixVwJB8EZMXIcia4bX6NzHkGbaFPgow
- FoLj9d/rOhvqHW1HC12TWRYr9k7Z9p6DQ62az2bXqzMM42kvFTBBm9v6h5uWr3YVNS9WLGBaqD2
- TLL6bE3W3UkzOe8uL1BoH2Y5stkqlHrNwRWndzxD/QIY/Dd78CHBUFl+dOK6OSBd7i1kslnCd82
- aVcKe0R1tFEZtWpuB3qyota6EHIG/E60wVLz3d23b5j5aI5euNeCxvdaDYlccNvsREXFFPydoxn
- 4SKKprio2pHYpxSMH19G92KccSPhggTGOD6pW3sZsn2nETJ1/gf0ArW+cElOI18fv2W8i2pqq0D
- L9K3DjKvyUHanwwvnKppsNnDQ6BwVrrvyYyYDXmeGHJ6zJZwbLnnqIabNpjap/VitgRmgY86OFl
- omJYBjrtBiIZlxy3agQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2NyBTYWx0ZWRfX3YGzw6uO33J+
- CU28gGRKHAJuC0q53XGU5pK7mXAsU0eoEJGtwYXzkSJB5GF2eYWU0XMQn02BYVGm2Cbr8GdkveI
- thlWQMO9QDCGAg2xcFFDqKrDGSXkqO0=
-X-Proofpoint-ORIG-GUID: 4c2c7FS2CUVcK8MthCkrmLnb-AbdO0vh
-X-Proofpoint-GUID: 4c2c7FS2CUVcK8MthCkrmLnb-AbdO0vh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_04,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 clxscore=1015 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020067
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-keyupdate-rfc-v4-2-f17419972b9f@gmail.com>
+References: <20261102-keyupdate-rfc-v4-0-f17419972b9f@gmail.com>
+In-Reply-To: <20261102-keyupdate-rfc-v4-0-f17419972b9f@gmail.com>
+To: John Fastabend <john.fastabend@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>, 
+ kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org, 
+ Alistair Francis <alistair.francis@wdc.com>, 
+ Martin Belanger <martin.belanger@dell.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793638681; l=10158;
+ i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=XULSW2ld30PktMPOL3DYioR7rw0P37WP71UH+9VxP6I=;
+ b=WwVgmtXXlJlEl8MIYHMW3W3iYeVPJI2PzQOp6qivYUh8naBzW1xxYpldmcF12doSxahBqr0yC
+ /67g4aLaOdMDszqTjTneEdgaIyURuADyVc9n2aCFzXAT72+A1dCMqNw
+X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
+ pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
+X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
+ with auth_id=1176
+X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
+Reply-To: martin.nvme.dev@gmail.com
 
-On Mon, 2 Nov 2026 12:33:16 +0100
-Pierre Gondois <pierre.gondois@arm.com> wrote:
+From: Martin Belanger <martin.belanger@dell.com>
 
-> On 10/30/26 22:40, Jonathan Cameron wrote:
-> > On Fri, 30 Oct 2026 18:16:06 +0100
-> > Pierre Gondois <pierre.gondois@arm.com> wrote:
-> > =20
-> >> On 10/30/26 16:19, Jonathan Cameron wrote: =20
-> >>> On Fri, 30 Oct 2026 12:51:47 +0100
-> >>> Pierre Gondois <pierre.gondois@arm.com> wrote:
-> >>>    =20
-> >>>> On 10/25/26 00:05, Ashok Raj wrote: =20
-> >>>>> On Fri, Oct 23, 2026 at 05:04:05PM -0700, Jonathan Cameron wrote: =
-=20
-> >>>>>> On Sat, 24 Oct 2026 00:40:33 +0200
-> >>>>>> Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
-> >>>>>>       =20
-> >>>>>>> On Fri, 23 Oct 2026 14:26:21 -0700
-> >>>>>>> Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
-> >>>>>>>       =20
-> >>>>>>>> On Thu, 22 Oct 2026 09:07:25 +0200
-> >>>>>>>> Pierre Gondois <pierre.gondois@arm.com> wrote:
-> >>>>>>>>           =20
-> >>>>>>>>> On 10/20/26 19:10, Jonathan Cameron wrote: =20
-> >>>>>>>>>> On Mon, 19 Oct 2026 22:38:39 +0200
-> >>>>>>>>>> Pierre Gondois <pierre.gondois@arm.com> wrote:
-> >>>>>>>>>>              =20
-> >>>>>>>>>>> The support is mostly duplicated from Memory Error Section ha=
-ndling.
-> >>>>>>>>>>> Other than differences coming from the content of  Memory Err=
-or
-> >>>>>>>>>>> Section 1 and 2, differences in the support are:
-> >>>>>>>>>>>
-> >>>>>>>>>>> - v2 do not rely on a compact "struct cper_mem_err_compact" s=
-truct.
-> >>>>>>>>>>> This structure was used to support older versions of the Memo=
-ry
-> >>>>>>>>>>> Error Section (1). This is not needed for the new structure.
-> >>>>>>>>>>>
-> >>>>>>>>>>> - The compact version is also used by the tracing framework.
-> >>>>>>>>>>> To avoid relying and propagating a non-standard record format,
-> >>>>>>>>>>> through trace event (cf. extlog_mem event) the new trace event
-> >>>>>>>>>>> prints each field individually.
-> >>>>>>>>>>>
-> >>>>>>>>>>> The last patch of the serie was only build-tested due to the
-> >>>>>>>>>>> absence of relevant hardware. apei_mce_report_mem_error() and
-> >>>>>>>>>>> arch_apei_report_mem_error() implementations were also remove=
-d since
-> >>>>>>>>>>> last version.
-> >>>>>>>>>>>
-> >>>>>>>>>>> It will also require a proper handling from the rasdaemon. Ap=
-plying
-> >>>>>>>>>>> this last patch without rasdaemon support will silent the rep=
-orts of
-> >>>>>>>>>>> Memory Error Section 2 error, cf. ras_userspace_consumers() c=
-heck. =20
-> >>>>>>>>>> Hi Pierre,
-> >>>>>>>>>>
-> >>>>>>>>>> I'd slow down a bit.  We are mid merge window and convention i=
-s normally
-> >>>>>>>>>> one version a week or so anyway.  Better to gather up feedback=
- from
-> >>>>>>>>>> a number of folk and spin only one revision to cover it all.
-> >>>>>>>>>>              =20
-> >>>>>>>>> Hello Jonathan,
-> >>>>>>>>>
-> >>>>>>>>> Ok sure, as the v1 was reviewed quickly I thought there was a c=
-hance
-> >>>>>>>>> of having the serie accepted quickly aswell. I ll wait a bit mo=
-re.
-> >>>>>>>>>
-> >>>>>>>>> Thanks for the review,
-> >>>>>>>>>
-> >>>>>>>>> Pierre
-> >>>>>>>>>             =20
-> >>>>>>>> A general question that came up in a related thread with one of
-> >>>>>>>> our RAS architects. How does firmware decide what to send?  As f=
-ar as
-> >>>>>>>> I can tell firwmare has no way to know whether the OS understand=
-s the CPER
-> >>>>>>>> Memory Section 2.
-> >>>>>>>>
-> >>>>>>>> So options that come to mind.
-> >>>>>>>> 1. Firmware must send a CPER with both Memory Section and Memory=
- Section 2. =20
-> >>>>>>> Please don't do this: this would require either Kernespace or use=
-rspace to
-> >>>>>>> discard one of the reports, only if the other one is there, which=
- can be
-> >>>>>>> tricky. Could be done more easily at userspace, but only if some =
-database
-> >>>>>>> support is enabled, but, at least on rasdaemon, this is an option=
-al module. =20
-> >>>>>> Good. That confirms my view that is horrible. =20
-> >>>>> Hi Jonathan,
-> >>>>>
-> >>>>> I agree that an _OSC capability is the right long-term solution.
-> >>>>>
-> >>>>> Firmware should select one native CPER format based on OS support, =
-rather
-> >>>>> than emit both Section 1 and Section 2 and leave deduplication to t=
-he OS
-> >>>>> or userspace.
-> >>>>>
-> >>>>> For a Section 2-capable kernel, we may still avoid a second GHES no=
-tifier
-> >>>>> chain: preserve the existing struct cper_sec_mem_err * contract and=
- give
-> >>>>> it a lossy Section 1 projection of a Section 2 record. The conversi=
-on must
-> >>>>> translate validation bits and clear validity for values that cannot=
- be
-> >>>>> represented, rather than truncate them. =20
-> >>>> I understand we might want to emit a new extlog_mem2_event and a los=
-sy
-> >>>> extlog_mem_event for legacy userspace, but I'm not sure to follow how
-> >>>> you want to do it.
-> >>>>
-> >>>> Do you suggest that we only need one notifier (ghes_report_mem_chain)
-> >>>> and that we should not add ghes_report_mem2_chain ? This would mean
-> >>>> that the .notifier_call (=3D ghes_edac_report_mem_error) should hand=
-le
-> >>>> both cper_sec_mem_err/cper_sec_mem_err2 struct.
-> >>>>
-> >>>> Another solution would be to keep the ghes_report_mem2_chain,
-> >>>> which would be responsible of creating the lossy v1 struct and
-> >>>> triggering the original ghes_report_mem_chain. =20
->=20
-> [1] Not sure about the outcome of the above.
+kTLS holds the key and IV of each direction, but not the traffic secret
+they were derived from. The derivation is one-way, so the kernel cannot
+compute the next generation for a KeyUpdate on its own.
 
-Needs input from the RAS maintainers etc - particularly on x86.
+Add TLS_TX_TRAFFIC_SECRET and TLS_RX_TRAFFIC_SECRET. The owner of the
+socket passes the TLS 1.3 application traffic secret of a direction after
+installing its key. The cipher of the installed key selects the hash, so
+the option takes only the secret. A socket without a registered secret
+behaves as before.
 
->=20
-> >>>>    =20
-> >>>>> That preserves legacy EDAC consumers, but cannot carry all Section =
-2 data.
-> >>>>> Updated userspace needs the native Section 2 payload through a
-> >>>>> full-fidelity path, such as the existing GUID-tagged raw CPER event.
-> >>>>>
-> >>>>> This does mean an updated userspace listener may receive both the l=
-egacy
-> >>>>> EDAC summary and the raw Section 2 record for the same firmware err=
-or.
-> >>>>> They are two kernel views, not two firmware reports. We should ther=
-efore
-> >>>>> add a shared GHES record/section ID to both events, so userspace can
-> >>>>> correlate them reliably; address and timestamp are not sufficient.
-> >>>>>
-> >>>>> So _OSC solves firmware selection for old versus new kernels, while=
- a
-> >>>>> Section 1 projection plus the raw payload handles legacy versus upd=
-ated
-> >>>>> consumers on a new kernel.
-> >>>>>
-> >>>>> Thoughts? =20
-> >>>> This will put more burden on the firmware, but this seems the right
-> >>>> thing to do. I ll share the thread with the group working more close=
-ly
-> >>>> on the architecture aswell, =20
-> >>> We have will have a code first proposal for the _OSC part shortly. Ju=
-st going
-> >>> through internal review.  I'll make sure you + others here are on the=
- +CC. =20
-> >> Ok thanks,
-> >> If you can also also add Mark Brown <broonie@kernel.org>
-> >> =20
-> > https://lore.kernel.org/linux-acpi/20261030143802.0000231d@oss.qualcomm=
-.com/
-> >
-> > I started a new thread so it wasn't too buried. =20
->=20
-> Thanks !
->=20
-> Just to be sure, the _OSC=A0discussion should not prevent this patchset
-> to proceed right ? I think there is only [1] which I m not sure about the
-> outcome otherwise,
+The secret must give the installed key and IV, or the option fails with
+-EINVAL. A wrong secret would otherwise fail only at the first
+KeyUpdate.
 
-It doesn't prevent this going forwards, but reality is I think no platform
-is going to surface any Memory Section 2 errors until we have the _OSC. =20
+The TX secret can be registered alone. The RX secret needs the TX secret
+first: a received KeyUpdate can ask for one in reply, and since the
+kernel consumes the record, only the kernel can send that reply.
 
-It should be a trivial addition though to pop the _OSC assuming we get
-it in the spec.
+Installing a new key with TLS_TX or TLS_RX removes the secrets that no
+longer apply. The secrets are cleared when the context is freed and
+cannot be read back.
 
-thanks,
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Signed-off-by: Martin Belanger <martin.belanger@dell.com>
+---
+ Documentation/networking/tls.rst |  26 +++++++
+ include/net/tls.h                |  13 ++++
+ include/uapi/linux/tls.h         |   2 +
+ net/tls/tls_main.c               | 145 ++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 185 insertions(+), 1 deletion(-)
 
-Jonathan
+diff --git a/Documentation/networking/tls.rst b/Documentation/networking/tls.rst
+index 980c442d7161..2e011bd1ce4a 100644
+--- a/Documentation/networking/tls.rst
++++ b/Documentation/networking/tls.rst
+@@ -300,6 +300,32 @@ extra byte used by the ContentType field.
+ 
+ [1] https://datatracker.ietf.org/doc/html/rfc8449
+ 
++TLS_TX_TRAFFIC_SECRET and TLS_RX_TRAFFIC_SECRET
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++``TLS_TX_TRAFFIC_SECRET`` registers the TLS 1.3 application traffic secret
++of the transmit direction, ``TLS_RX_TRAFFIC_SECRET`` that of the receive
++direction. With a registered secret, the kernel performs KeyUpdate for that
++direction itself (RFC 9846, section 4.7.3). The value is the secret itself.
++TLS 1.3 only, software path only.
++
++Install the key of the direction first, with the ``TLS_TX`` or ``TLS_RX``
++socket option described above. The cipher of that key selects the hash, and
++the secret must have the length of that hash: 32 bytes for SHA-256
++(AES-128-GCM, AES-128-CCM, ChaCha20-Poly1305) or 48 bytes for SHA-384
++(AES-256-GCM). Other ciphers return ``EOPNOTSUPP``.
++
++Each secret can be registered once. ``TLS_RX_TRAFFIC_SECRET`` needs
++``TLS_TX_TRAFFIC_SECRET`` first: a received KeyUpdate can ask for one in
++reply, and only the kernel sees it. ``TLS_TX_TRAFFIC_SECRET`` alone is
++allowed.
++
++If the application installs a new key itself with ``TLS_TX``, both secrets
++are removed. With ``TLS_RX``, the RX secret is removed. KeyUpdate for that
++direction is then left to the application again.
++
++The secrets cannot be read back.
++
+ Statistics
+ ==========
+ 
+diff --git a/include/net/tls.h b/include/net/tls.h
+index e57bef58851e..aacc6d12226e 100644
+--- a/include/net/tls.h
++++ b/include/net/tls.h
+@@ -65,6 +65,9 @@ struct tls_rec;
+ 
+ #define TLS_AAD_SPACE_SIZE		13
+ 
++/* SHA-384, the longest hash of a TLS 1.3 cipher suite kTLS supports */
++#define TLS_MAX_TRAFFIC_SECRET_SIZE	48
++
+ #define TLS_MAX_IV_SIZE			16
+ #define TLS_MAX_SALT_SIZE		4
+ #define TLS_TAG_SIZE			16
+@@ -224,6 +227,12 @@ struct tls_prot_info {
+ 	u16 tail_size;
+ };
+ 
++/* A TLS 1.3 application traffic secret. len is 0 if none is registered. */
++struct tls_traffic_secret {
++	u8 data[TLS_MAX_TRAFFIC_SECRET_SIZE];
++	u8 len;
++};
++
+ struct tls_context {
+ 	/* read-only cache line */
+ 	struct tls_prot_info prot_info;
+@@ -266,6 +275,10 @@ struct tls_context {
+ 	union tls_crypto_context crypto_send;
+ 	union tls_crypto_context crypto_recv;
+ 
++	/* Registered for KeyUpdate, protected by the socket lock */
++	struct tls_traffic_secret tx_secret;
++	struct tls_traffic_secret rx_secret;
++
+ 	struct list_head list;
+ 	refcount_t refcount;
+ 	struct rcu_head rcu;
+diff --git a/include/uapi/linux/tls.h b/include/uapi/linux/tls.h
+index 1245ab38afc1..d1b136ecea96 100644
+--- a/include/uapi/linux/tls.h
++++ b/include/uapi/linux/tls.h
+@@ -42,6 +42,8 @@
+ #define TLS_TX_ZEROCOPY_RO	3	/* TX zerocopy (only sendfile now) */
+ #define TLS_RX_EXPECT_NO_PAD	4	/* Attempt opportunistic zero-copy */
+ #define TLS_TX_MAX_PAYLOAD_LEN	5	/* Maximum plaintext size */
++#define TLS_TX_TRAFFIC_SECRET	6	/* TLS 1.3 TX traffic secret */
++#define TLS_RX_TRAFFIC_SECRET	7	/* TLS 1.3 RX traffic secret */
+ 
+ /* Supported versions */
+ #define TLS_VERSION_MINOR(ver)	((ver) & 0xFF)
+diff --git a/net/tls/tls_main.c b/net/tls/tls_main.c
+index b8d5a843f761..3ab71e98527a 100644
+--- a/net/tls/tls_main.c
++++ b/net/tls/tls_main.c
+@@ -31,6 +31,8 @@
+  * SOFTWARE.
+  */
+ 
++#include <crypto/sha2.h>
++#include <crypto/utils.h>
+ #include <linux/module.h>
+ 
+ #include <net/tcp.h>
+@@ -325,6 +327,8 @@ void tls_ctx_free(struct sock *sk, struct tls_context *ctx)
+ 
+ 	memzero_explicit(&ctx->crypto_send, sizeof(ctx->crypto_send));
+ 	memzero_explicit(&ctx->crypto_recv, sizeof(ctx->crypto_recv));
++	memzero_explicit(&ctx->tx_secret, sizeof(ctx->tx_secret));
++	memzero_explicit(&ctx->rx_secret, sizeof(ctx->rx_secret));
+ 	mutex_destroy(&ctx->tx_lock);
+ 
+ 	if (sk)
+@@ -757,8 +761,16 @@ static int do_tls_setsockopt_conf(struct sock *sk, sockptr_t optval,
+ 		ctx->rx_conf = conf;
+ 	update_sk_prot(sk, ctx);
+ 
+-	if (update)
++	if (update) {
++		/* The registered secret no longer matches the key. The RX
++		 * secret also needs the TX one, see do_tls_setsockopt_secret().
++		 */
++		if (tx)
++			memzero_explicit(&ctx->tx_secret,
++					 sizeof(ctx->tx_secret));
++		memzero_explicit(&ctx->rx_secret, sizeof(ctx->rx_secret));
+ 		return 0;
++	}
+ 
+ 	if (tx) {
+ 		ctx->sk_write_space = sk->sk_write_space;
+@@ -868,6 +880,130 @@ static int do_tls_setsockopt_tx_payload_len(struct sock *sk, sockptr_t optval,
+ 	return 0;
+ }
+ 
++/* Length of the TLS 1.3 traffic secret for @cipher_type, the size of
++ * its hash. 0 if KeyUpdate is not supported for the cipher.
++ */
++static int tls_traffic_secret_len(u16 cipher_type)
++{
++	switch (cipher_type) {
++	case TLS_CIPHER_AES_GCM_128:
++	case TLS_CIPHER_AES_CCM_128:
++	case TLS_CIPHER_CHACHA20_POLY1305:
++		return SHA256_DIGEST_SIZE;
++	case TLS_CIPHER_AES_GCM_256:
++		return SHA384_DIGEST_SIZE;
++	default:
++		return 0;
++	}
++}
++
++/* The installed key and IV must be the ones that @secret gives
++ * (RFC 9846 section 7.3):
++ *
++ *   key = HKDF-Expand-Label(secret, "key", "", key_length)
++ *   iv  = HKDF-Expand-Label(secret, "iv", "", iv_length)
++ *
++ * crypto_info holds the iv as salt followed by iv. Each KeyUpdate
++ * derives the next key from the secret, so a wrong secret fails only
++ * at the first KeyUpdate, with no clear cause.
++ */
++static int tls_check_traffic_secret(struct tls_crypto_info *crypto_info,
++				    const u8 *secret, int len)
++{
++	const struct tls_cipher_desc *cipher_desc;
++	u8 iv[TLS_MAX_SALT_SIZE + TLS_MAX_IV_SIZE];
++	u8 key[TLS_CIPHER_AES_GCM_256_KEY_SIZE];
++	int rc;
++
++	cipher_desc = get_cipher_desc(crypto_info->cipher_type);
++	if (!cipher_desc || cipher_desc->key > sizeof(key) ||
++	    cipher_desc->salt + cipher_desc->iv > sizeof(iv))
++		return -EINVAL;
++
++	rc = tls_hkdf_expand_label(secret, len, "key", key, cipher_desc->key);
++	if (rc)
++		goto out;
++
++	rc = tls_hkdf_expand_label(secret, len, "iv", iv,
++				   cipher_desc->salt + cipher_desc->iv);
++	if (rc)
++		goto out;
++
++	if (crypto_memneq(key, crypto_info_key(crypto_info, cipher_desc),
++			  cipher_desc->key) ||
++	    crypto_memneq(iv, crypto_info_salt(crypto_info, cipher_desc),
++			  cipher_desc->salt) ||
++	    crypto_memneq(iv + cipher_desc->salt,
++			  crypto_info_iv(crypto_info, cipher_desc),
++			  cipher_desc->iv))
++		rc = -EINVAL;
++
++out:
++	memzero_explicit(key, sizeof(key));
++	memzero_explicit(iv, sizeof(iv));
++
++	return rc;
++}
++
++static int do_tls_setsockopt_secret(struct sock *sk, sockptr_t optval,
++				    unsigned int optlen, int tx)
++{
++	struct tls_context *ctx = tls_get_ctx(sk);
++	struct tls_crypto_info *crypto_info;
++	struct tls_traffic_secret *secret;
++	u8 data[TLS_MAX_TRAFFIC_SECRET_SIZE];
++	int len, rc;
++
++	if (tx) {
++		crypto_info = &ctx->crypto_send.info;
++		secret = &ctx->tx_secret;
++	} else {
++		crypto_info = &ctx->crypto_recv.info;
++		secret = &ctx->rx_secret;
++	}
++
++	/* The key must be installed first: its cipher selects the hash */
++	if (!TLS_CRYPTO_INFO_READY(crypto_info) ||
++	    crypto_info->version != TLS_1_3_VERSION)
++		return -EINVAL;
++
++	if ((tx ? ctx->tx_conf : ctx->rx_conf) != TLS_SW)
++		return -EOPNOTSUPP;
++
++	len = tls_traffic_secret_len(crypto_info->cipher_type);
++	if (!len)
++		return -EOPNOTSUPP;
++
++	if (sockptr_is_null(optval) || optlen != len)
++		return -EINVAL;
++
++	/* A received KeyUpdate may ask for one in reply. The kernel
++	 * consumes the record, so only the kernel can send the reply.
++	 */
++	if (!tx && !ctx->tx_secret.len)
++		return -EINVAL;
++
++	if (secret->len)
++		return -EBUSY;
++
++	if (copy_from_sockptr(data, optval, len)) {
++		rc = -EFAULT;
++		goto out;
++	}
++
++	rc = tls_check_traffic_secret(crypto_info, data, len);
++	if (rc)
++		goto out;
++
++	memcpy(secret->data, data, len);
++	secret->len = len;
++
++out:
++	memzero_explicit(data, sizeof(data));
++
++	return rc;
++}
++
+ static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
+ 			     unsigned int optlen)
+ {
+@@ -901,6 +1037,13 @@ static int do_tls_setsockopt(struct sock *sk, int optname, sockptr_t optval,
+ 		release_sock(sk);
+ 		mutex_unlock(&ctx->tx_lock);
+ 		break;
++	case TLS_TX_TRAFFIC_SECRET:
++	case TLS_RX_TRAFFIC_SECRET:
++		lock_sock(sk);
++		rc = do_tls_setsockopt_secret(sk, optval, optlen,
++					      optname == TLS_TX_TRAFFIC_SECRET);
++		release_sock(sk);
++		break;
+ 	default:
+ 		rc = -ENOPROTOOPT;
+ 		break;
 
->=20
-> Regards,
->=20
-> Pierre
->=20
+-- 
+2.53.0
+
 
