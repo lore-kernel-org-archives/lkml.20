@@ -1,119 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629394;
-	b=qSBkFFinzSiTGLcpKRck7RDYYLLdBmjPeUVPl9U3AqXKMoKMNC4vK7rEgF5bsScQVUw4
-	 WAYd1tyZPb7aHO3bOXpy8XtRAfAcqeNwG0aPMI6t2OKQIHAN2XbmbBbs2gWXXoY3c7IrV
-	 Nop1eBe3JYG7i90SdLAcYpnPhyCzfv7BmVmnk7hGAD4oxaIxyAyfjdg2u2zcPHJNicqqG
-	 ewGaLdGlnhGZg7PwCzDxqOTyDA8LPnnu5PV8SZ79urxEQpF3T3iNK37xUwvFBsNKgUT3s
-	 rThIiPvxWyQkY1S3Ez/JGc+zZv5Lt70V523U0khHtTCSNa5hI/Vwkdl8VrGuZGai4rQ==
+	t=1793629379;
+	b=0xfutx6q4t3lvwd3M9Sv7O05KQ7dz9U4LAfrwbY32Ie7Uh1v/mDLqisgUYOENHbEG3Tf
+	 B2HCP6u5OlW1sp5NRlVWSPEDe5WIoGFTKtoVcQ35Mv1BmUComFXPbAxrRsmCNcabnbpp0
+	 psC1Zrwhewd6qZgEArAWW9lKHuq3WGPwxo5VTH13DgGFh8KI2gACWhNW7viFBLYVYkhXX
+	 dLN/wclFBLfg174xOYqTCtz71vEFWD2iGYdnsYJ7j0I6Eo60cu20qXBeFolrrJfFsC+UJ
+	 Meklqwvm70EFQ/F4wmULRDeET13gUB1HEwB64LeBAFRnBxMZj+WdfDukjYnd84wSsdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629394;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3gGF/z34qzW/NHH0K5bqzl6N3TvYgzHsW7PQwuk+Eb8=;
-	b=2SkLRq8slKbqyhWa3pUMo3PA/6TeTgcoJkUyBxQF5EzGw0YkxpRCq9T7UT9xBmqDJs8B
-	 bGoctWN0CuFrgJT+p2TTyH8CIqVfBkUIxztbXdWYVySQ2Dbj5RuFQoMGVcb6w2D5XRZFa
-	 h77FtqXwkgRUkyHWEspX/LvILpYaEIYfk9gWvsmMiYYIoMwv2F4MDtyRWjMpEAF3kqVSV
-	 16Bd/wQ+2hTtyCeTIlKcncYVJ70fEmil2RWhxuFH+C+IAcAzXaZQ25FVnMt6RBRTOuH3v
-	 Cgf2Z54ThBb6Vfqg17/vVbujejwQ5qRtzYn3etE6VEwbTIcTU4kQj7lha9QjKT2q1VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629379;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=WXeWRtHDTvlcvQqGcGXKpHSOkC75TIYAS6cttW7V/+A=;
+	b=bG3L3aC48Tl4aHu+n0ubOF7LUJQP4ZChUkYOlizrQcE+x2qrWK7CiEJ3W2jzieHIQ8dh
+	 W/i7+WnuHympDmpGWIn0du/m0FCi88YOjLE7uHTqgjAE7M1bPe6rfoTIKBLtPhkMxZaL6
+	 +XPybg6NEvPhk3NAwWDYALlxISu3EqIx14ciPYUUSWRijtjE4WkboGjqXbFursj9e/Myk
+	 7beS4uJu9HAvnXEyb6f225eO9c1Wyf+Bd9E2WSTxInauSLa+6oheISGitBCYRC5orDziL
+	 ecHwy0rlAQtdWaXpMcLp4wZ++sm+KWE2qaWaztFcOyYnp30ggD7NhfLnfTt52T4q39w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0FsI8JKf;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvHRMzqf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E3360A2613
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:23:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8E3360A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7A4606A32E;
+	Mon,  2 Nov 2026 14:22:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0FsI8JKf
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2eb5251724bso6308885ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:23:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793629393; x=1794234193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3gGF/z34qzW/NHH0K5bqzl6N3TvYgzHsW7PQwuk+Eb8=;
-        b=0FsI8JKfdwQmudyzyfmTQVlPByzYNYayujLicTy5q2pnwA3kjZGMJapOQ6MTLzgTey
-         sv2u3Pk+lLXkuI+OC+/J3DjbHekDnHy+c5G087tA2Le9rNkjzfaYr2cQe7PNC7prgD4v
-         F+9K4c2P73XReb2VxRYXhhQhkKpKws04CBX4cZ5d0fhkSlP4nDszMoFcdsGkg0xPddpj
-         FAEJZ6ff2ipqfgiKbYhKpnZI7et2OEME8aCu3hutxuVw+Fj2dc2lwsCvNoRtZpmnwGCh
-         LwR0fZsw6bzXxE1UxIDLU2FvH7e6K5z679/E5PBYLQgS3k3Zkp0liWioZKsz4vJIC5wd
-         FcxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793629393; x=1794234193;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3gGF/z34qzW/NHH0K5bqzl6N3TvYgzHsW7PQwuk+Eb8=;
-        b=ri15T+qP9YFxBN3kRNjs64ePDOj3N2PWtWMXIpJShjgyq4MFVe5fPbIyo3OJUbaqn+
-         x0OrUzYupHOamFPRQhWGzah7R5KHykqcWS3ZyfbASF+vU65oaba8Dzy/kvhrPYpmveUw
-         zDSlxUwHwafvxZslsfshwWl1xt5kFE1Hh++x7Z6BJ9N8R3LnZ6EmSpckYuNW/b+ZyFm/
-         ww+TmEUkJOs2wpJCQgUosyQvTSQkmqFK6jvciTAJa0WcV7nh0TYPYMMOcPGQQuQwE7B4
-         0fhhWP1G/T1BdKS8ZmXyFxP+Fct6NxQei/I/PFihenrIj8pWDQOnWavSkmIRGBzUq9pI
-         +iSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAagDUUjPN4wBan226v/Cmf5qpSfk5VCtkxH6atccPgFYD5Fc2Pnf4OVNCpX5yTMlqE6uRmFXvSnEJ2yc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ccMY5mXCI0C7piMDoH2Ze0wPsk1J1X/lBL5zAc5iEGsCYyI9s
-	2vc3VmVKeiltZpp1tn9LiI6aoftAvZjoZT+vBnMrxIvT9+150RrurG2v
-X-Gm-Gg: AYBFou0IAwsfIXT5dQbycXyaOJXc8TP/VKlInBfnaWgLUcDxPhSsGFbNpJiAs0dya4g
-	3JwcZGilxTLbeUd7i2Pp5xFH0SkUWif/qyxqgSPEIfjxRkR/w+fU41EQT73etvg43b/Za86BcEo
-	OYGMhVc06XsngE2zGmSHP+uQ0XrDUeymM5w1fvjkKvRynXGggPzNMIQjlRdqbczvv3jTxdVI082
-	7UijR1QUTNyZlV++j3rPBq9xQ8XsWoyVg3P2ewP7/W4+brTt3Fnk4drCbFmouXEsg7chgBm1dSX
-	9aH/qkZmUEnhqFnp92VHcPDDUBiE1aDPYUGMTGwAx/Kr4kmmglhYUuRaGuETkAaf6ty2MT3n8fR
-	JUJdtp03nJO7pv1GuiYOFvb1KYyOAYIU45XNqtztAZ2OHgcnkrFAsMRv0UjDXWfluMQl/gk0BRt
-	CYFpqoysvR5K9sOhbunLOmsJVlMFsR4Yk8dwwmHuZIDfqdSSB8QHARwlLqBBqStguL/NtRZi1+q
-	T9qfwYWttSISHdn+OocZp+kC/7mNXazojHO4J+g1ieoNDvS6rF97SdrwK9dOUOxDD2XJ7EiCGCu
-	aeBvrvPJox5LdiILpAH6caeBtdoDNav+sHpr29xnahmQR3ONO6EcTbpEeg==
-X-Received: by 2002:a17:902:f70c:b0:2e9:5829:9b3b with SMTP id d9443c01a7336-2eb364b55b9mr86204895ad.35.1793629392936;
-        Mon, 02 Nov 2026 06:23:12 -0800 (PST)
-Received: from localhost ([2.27.148.106])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392486d5sm29700245ad.29.2026.11.02.06.23.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:23:10 -0800 (PST)
-From: Han Gao <rabenda.cn@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Han Gao <rabenda.cn@gmail.com>,
-	gaohan@iscas.ac.cn,
-	Drew Fustini <fustini@kernel.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-riscv@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Anup Patel <anup@brainfault.org>,
-	Radu Rendec <radu@rendec.net>,
-	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
-	devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-gpio@vger.kernel.org,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>
-Subject: Re: [PATCH 17/18] riscv: defconfig: enable A210 support
-Date: Mon,  2 Nov 2026 22:22:53 +0800
-Message-ID: <20261102142300.3784622-1-rabenda.cn@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261022-concrete-rebound-593001f1ac18@spud>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvHRMzqf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AA61F00A17;
+	Mon,  2 Nov 2026 14:22:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793629378;
+	bh=WXeWRtHDTvlcvQqGcGXKpHSOkC75TIYAS6cttW7V/+A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=kvHRMzqfiFxfaykdXJncqNCKytFOYdWEA6z2XKwrpx1cXAUWC/1f6IelPxZz69lt3
+	 bZzGsPY7tAF+nhMSErY6rPc/3QL/4TA7hlVU8tM89mYfPX9Z6KS6p4IW1PsDrhG0OQ
+	 bkcIKIyEY1GGRPu5UaBXvghHdY/CIfOPJbzAJZHTg7fVeaIOTOcs6v9yzyjdbAXIjO
+	 eLo1eYZ4IN84HHP6CrAMeFl9oPgWiHXBV4hrBwe2eZenA/caTo8Hx2CSrazCqEHP19
+	 DS3uVg+WucdQObp90U98MCzPe1bAhdyoN7eZZYLpOUglkgctnTto/e3gh/m1uyI5m1
+	 KND/LIH3rUy8Q==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 15:21:20 +0100
+Subject: [PATCH RFC 05/38] platform/x86: toshiba_acpi: reject malformed
+ brightness and fan writes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,62 +53,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-bugfixes-v1-5-59422ed3e465@kernel.org>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1850; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=dBPyRrfA4AE5uU+SDwP01KQAXBYhly7L9ZsRpXHhzrM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJP1X33fLpsJXpWBaifTEsT2SLto6RSE/d33f+fli
+ mfvjj3d3lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRafMYGSYH7L886UKoRuDq
+ G9c+FRp4acs2loQbL5Kbz/ZCoj25bhYjw/4HhzpE/VP23N4kdd2x9P4SBZmAjRbxpyfu2bkqlD9
+ 1GTMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Thu, 22 Oct 2026 19:50:51 +0100 Conor Dooley <conor@kernel.org> wrote:
+When lcd_proc_write() and fan_proc_write() were refactored their checks
+were inverted but the && stayed. They only fail if sscanf() didn't
+parse anything and the value is out of range at the same time, and for
+the brightness value < 0 && value > levels can't be true at all. So an
+out of range brightness or fan setting is passed on to the hardware,
+and so is the uninitialized value if nothing could be parsed.
 
-> On Thu, Oct 22, 2026 at 03:53:37AM +0800, Han Gao via B4 Relay wrote:
-> > From: Han Gao <gaohan@iscas.ac.cn>
-> > 
-> > Enable A210 platform drivers and reserve ten 8250 UART ports.
-> > 
-> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> > ---
-> >  arch/riscv/configs/defconfig | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-> > index 04ae305d5511..b9b3bca12089 100644
-> > --- a/arch/riscv/configs/defconfig
-> > +++ b/arch/riscv/configs/defconfig
-> > @@ -33,6 +33,7 @@ CONFIG_SOC_STARFIVE=y
-> >  CONFIG_ARCH_SUNXI=y
-> >  CONFIG_ARCH_TENSTORRENT=y
-> >  CONFIG_ARCH_THEAD=y
-> > +CONFIG_ARCH_ZHIHE=y
-> >  CONFIG_ARCH_ULTRARISC=y
-> >  CONFIG_ARCH_VIRT=y
-> >  CONFIG_ARCH_CANAAN=y
-> > @@ -149,6 +150,8 @@ CONFIG_KEYBOARD_GPIO=y
-> >  CONFIG_KEYBOARD_SUN4I_LRADC=m
-> >  CONFIG_SERIAL_8250=y
-> >  CONFIG_SERIAL_8250_CONSOLE=y
-> > +CONFIG_SERIAL_8250_NR_UARTS=10
-> > +CONFIG_SERIAL_8250_RUNTIME_UARTS=10
-> 
-> Why are these options needed?
+Restore the checks as they were before the refactoring.
 
-The A210 has 10 UARTs and the TH1520 has 6. With the default of 4,
-UARTs beyond the 4th don't get a fixed ttyS index and end up in
-whatever slot is free. Raising both to 10 keeps the index stable.
+Fixes: e1a949c1b988 ("toshiba_acpi: Refactor *{get, set} functions return value")
+Fixes: 3e07e5baa2af ("toshiba_acpi: Add set_fan_status function")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/platform/x86/toshiba_acpi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-> 
-> >  CONFIG_SERIAL_8250_DW=y
-> >  CONFIG_SERIAL_OF_PLATFORM=y
-> >  CONFIG_SERIAL_EARLYCON_RISCV_SBI=y
-> > @@ -167,6 +170,7 @@ CONFIG_SPI_PL022=m
-> >  CONFIG_SPI_SIFIVE=y
-> >  CONFIG_SPI_SUN6I=y
-> >  # CONFIG_PTP_1588_CLOCK is not set
-> > +CONFIG_PINCTRL_A210=y
-> >  CONFIG_PINCTRL_TH1520=y
-> >  CONFIG_PINCTRL_SOPHGO_CV1800B=y
-> >  CONFIG_PINCTRL_SOPHGO_CV1812H=y
-> > 
-> > -- 
-> > 2.55.0
-> > 
-> > 
-> 
+diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
+index a0b8060836d0..9eb8f1e5aeda 100644
+--- a/drivers/platform/x86/toshiba_acpi.c
++++ b/drivers/platform/x86/toshiba_acpi.c
+@@ -1498,8 +1498,8 @@ static ssize_t lcd_proc_write(struct file *file, const char __user *buf,
+ 	cmd[len] = '\0';
+ 
+ 	levels = dev->backlight_dev->props.max_brightness + 1;
+-	if (sscanf(cmd, " brightness : %i", &value) != 1 &&
+-	    value < 0 && value > levels)
++	if (sscanf(cmd, " brightness : %i", &value) != 1 ||
++	    value < 0 || value >= levels)
+ 		return -EINVAL;
+ 
+ 	if (set_lcd_brightness(dev, value))
+@@ -1678,8 +1678,8 @@ static ssize_t fan_proc_write(struct file *file, const char __user *buf,
+ 		return -EFAULT;
+ 	cmd[len] = '\0';
+ 
+-	if (sscanf(cmd, " force_on : %i", &value) != 1 &&
+-	    value != 0 && value != 1)
++	if (sscanf(cmd, " force_on : %i", &value) != 1 ||
++	    value < 0 || value > 1)
+ 		return -EINVAL;
+ 
+ 	if (set_fan_status(dev, value))
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+-- 
+2.53.0
+
