@@ -1,52 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618541;
-	b=1u98+ZKHd8zdNMrenY+UZYcbMqsF2L4b1neuc0gQisktuu+yhwmEkGkMWPVHFlDTAo6F
-	 F7YcaG7co5tyc+ckz5cT1JvQek5ykeTiN3rlqQmFKEaWI9B2gFBSqURnckjwxRREv04Lp
-	 XBx7ohxZZVTiwO/c3+dvqo8/8Q5tOBmO2+aC7yxIjO7MNChlml5cxjxs698N63e8cGbar
-	 jUMhLHS0kgYYcfThNB7PE3lzu3Eb6zvHt8SKR3/qpiAVCe182o+TJsjf58xRac/oV0xNG
-	 Zt5VJYcfY7Rj/kjP8iJlxh2vqQ5a88F2eNAX4Zr7a0uA9d9N8mwOODOSPGbYlzXt2zQ==
+	t=1793618556;
+	b=Zes9hWjULH1Hi2wO6qmbbsoln52WWw4YUW1C3KqYFhMjlfKBLsh2PPORjktbQI9yjOz5
+	 RHqAZNyUeKhNugQhU0u274PO56c0ja67mvXx05HoIgYdP9jXRPceRag2n3FdN9KtBD0BJ
+	 vAu9Kc2ncHTYioQ2ZDl4FAu+IUsPNzntT4JSnP5owia7GUmDp5TDsdztquXHeKJ9cs9hC
+	 c9OoGvbH6V5hYjGwH2fusSUu1+XfJHhA4oew3T6krwi10KdxZ5jIkUF2Mcc2EN1/uBnuA
+	 lkWzfYpmVn16iHWndFtK0UwPVm4kKm8hraLGRXpK2RmVVq2BdcZHcODGq+/9sHCWdCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618541;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=AhZPH2Id1V3UJZ0PUDk/Q6jSjnsEPYgfRRz51ht6Rp4=;
-	b=lo4sMriqfdxb1BwpURpg0crY39/agBY1L0vs5k+IJeJA27EMH9h6/lMInDLDDou7MtfT
-	 pqgo/EtHM92cXG7FzWTbqa2t1mnyEyJT3w8/h1+gI5bdCl46T8oFBIyy4D9UsykVZXgi1
-	 tCZwCtYInRN21dVTVmhgqhfRgkkWeuDLg01bX77rNMMQ3dTF3fnCChQHf6l4jOLT5N6LQ
-	 x4mYHwG7EH48AVFa5YLzxJ/40nvxc0XeOK4Krtp89PJJkAgjIsDgvT51wxFGPsLOUC2Ec
-	 DYBLJNB/r853Fh0fXlpwBHEvVzHoX9eQnaMYQA6Misv8m2FW4PX7U/9EAp7alEEJidA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618556;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rlYYUg5m282yLIStEKkIHTozLzxeQHV9wO/ECVNrg9o=;
+	b=kGunKrF0MyZBotdpIoicHXQLSsLtRf0AdaAeO4OKhoz8NFt7tFjt0aBYCuRN+Jb3v1cM
+	 KkE3BsPN+F4v2sy1ZDqQWRSSf8PiblgfESboR16BiPeSQ18nmctcrX8z9K7UlCJ1iMkuS
+	 MAjKM5NzTfOg0xn888lqJN2NlyEhkZ1rEgYa1Pp5weZlMGYp+fl6J+yQbWEWRexfwsMF3
+	 lBqv2vFuXSLH6BiVPlfQr2jTq5QudmtpRl44W5XJ9CdYUfmMCAZFwcuBG+B7KwfRxJ0nu
+	 ykLQ8Ab7N1W88tIguMkdxFY1IbEhXTXJcUY2yVVTaSxym84cAkUB3N2Qq4j52LYUjBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="PsZ/xV55";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5AAB60A2633;
-	Mon,  2 Nov 2026 11:22:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5AAB60A2633
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dNl8kU2Z;
+	arc=none smtp.remote-ip=91.218.175.49
+Received: from mta0.migadu.com (out-49.mta0.migadu.com [91.218.175.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6159D60A5BD2
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:22:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6159D60A5BD2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PsZ/xV55
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1E6232972;
-	Mon,  2 Nov 2026 03:22:17 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2DD373F632;
-	Mon,  2 Nov 2026 03:22:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793618540; bh=iAKWhkLBUL8Dbje3w+lN/zrtNjFP/+2E4XMbJAzkSwE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=PsZ/xV55JWI15/OuGGIzIxarKfdNw1USnk6yd5/qGxAT2iQNKUyjmZiknVsIG9EAM
-	 FHVIK/r0dSwZlieqJ6i4Ub47uuLajcoviLMk9DLJUT8YpfdyuFurfnAbmwFqi15Qes
-	 azpHEA/ThKpZh5kfXCYp/IH1C3ruHlJgAZacMHks=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Mon, 02 Nov 2026 11:21:20 +0000
-Subject: [PATCH RESEND v2 07/21] mm/pgtable: define
- (pgd|p4d|pud)_offset_lockless() for folded page tables
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dNl8kU2Z
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rlYYUg5m282yLIStEKkIHTozLzxeQHV9wO/ECVNrg9o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793618553; v=1; x=1794223353;
+ b=dNl8kU2ZZnY7p+1AZb5FkPRPxnYNE0pNnRkYzfMXhsQ6nzU8z5o/GWyH69JI2jndGu8pOXov
+ iCXfD2V18rj7VtN0dm54SEJgnoT8r9LSk12pObDE1JIpBZph6bgTHoxZAQEPzv45DOvyDH48795
+ PK/VAB0uVps+jfwrxgnpYmZo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0a735c2090dc6b54;
+	Mon, 02 Nov 2026 11:22:32 +0000
+X-Mizu-Trace-ID: 0a735c2090dc6b54
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	kees@kernel.org,
+	peterz@infradead.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hughd@google.com,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	lance.yang@linux.dev,
+	riel@surriel.com,
+	harry@kernel.org,
+	apopple@nvidia.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	minchan@kernel.org,
+	muchun.song@linux.dev,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	youngjun.park@lge.com,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	jgg@ziepe.ca,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	mason@kernel.org,
+	stable@vger.kernel.org,
+	skhawaja@google.com,
+	usama.anjum@arm.com
+Subject: Re: [PATCH v3 20/47] mm/gup: fix clearing folios in memfd_pin_folios()
+Date: Mon,  2 Nov 2026 19:22:27 +0800
+Message-ID: <20261102112227.62593-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261031-fixes_core-v3-20-d6437171ecc3@kernel.org>
+References: <20261031-fixes_core-v3-20-d6437171ecc3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,171 +131,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-dummy_ptxp3-v2-7-78840b2ec73c@arm.com>
-References: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
-In-Reply-To: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
-To: Russell King <linux@armlinux.org.uk>, 
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
- Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>, 
- Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>, 
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonas Bonn <jonas@southpole.se>, 
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
- Stafford Horne <shorne@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-openrisc@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4366; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=u76iVQJbWCdkEbiJ5jZQxWZGCtfm9Pp2msKkXET/qwE=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq6HIypEb9aXVoCMG7pxsrAGeq/LTHoW1uWXEBM
- pIwPB40LByJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCauhyMgAKCRBt1cPRWsUx
- MzzkDADQPtRN+DQ0QdZ/E5ulISLF3JkAQe33ZVd/+S87WO+Sy3zOmf/s77mek/A86gwCB52rGz6
- NsFtjGs+ALYco+k3aCZaOJ+4OI+GsRLUJBA8kK1l/X00CILC9t0qmJGYamB8dsPxPMO+M21DwVI
- /rk19ar+YAisNFKK7f0r5JRGn1r6rtA/zTelmesjg8qXXW2d3R/orYzgSRJNRVGfHplzMvW5WF7
- 2SV4kMDEQq/4kLJUcVebxdFAS9HJCf3XrJTRtiDgy0aEVXoT+q2DWd2LJKPSA+QL6zMvxFgIt8D
- t6P+wsuF+ihqujWnCZw/I+PE5C+Jd11Rk9vGE3JKnMrNmMnR1Sp2jL30ZQcG/HwQ7coqXiYVVSk
- vhNQdA4aQ9WI4ceztWVvVzhXt1frhLl1HR8P0NGGqLVFaAJL3L+M+HjZBrU9dMhkbtwMTx/1+S9
- SzYhL7QXCQWSjEax1AfhVDQ8sPZIqGPWAtZQ/BR8IPZRp8AoNMk/iHqhsX16+teiHOk3Y=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-The default helpers fallback to pud_offset(), passing a pointer to the
-stack value.
+On Sat, Oct 31, 2026 at 10:39:49AM +0100, David Hildenbrand (Arm) wrote:
+>From: Chris Mason <mason@kernel.org>
+>
+>memfd_pin_folios() pins folios obtained directly from the page cache
+>without checking whether they are uptodate. However, shmem fallocate()
+>can leave newly allocated folios uncleared and not uptodate. Callers
+>such as udmabuf can then expose uninitialized memory to userspace.
 
-Let's provide variants that do exactly what (pgd|p4d|pud)_offset() do,
-but ignore the passed pgd_t/p4d_t/pud_t, consequently not working on a
-pointer to the stack value like the default handlers would.
+Right, just make sure the folios are initialized before handing them to
+callers. They shouldn't have to care whether shmem deferred the clearing ;)
 
-With this patch, Drop the arm64 custom variant that did that. As it documents:
+>Clear non-uptodate folios and mark them uptodate under the folio lock
+>before returning them to the caller.
+>
+>Fix generated by an LLM and sent by Chris Mason in private.
+>
+>Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Chris Mason <mason@kernel.org>
+>[ david: simplify description and comment ]
+>Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+>Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
+>Tested-by: Samiullah Khawaja <skhawaja@google.com>
+>Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-	Note: reusing the original pointer means that it may be
-	dereferenced the same (live) page-table entry multiple times.
-	This is safe because it is still only loaded once in the
-	context of each level and the CPU guarantees same-address
-	read-after-read ordering.
+LGTM!
 
-Do not document this, as the double read will be removed in the next patch.
-
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- arch/arm64/include/asm/pgtable.h    | 23 -----------------------
- include/asm-generic/pgtable-nop4d.h |  7 +++++++
- include/asm-generic/pgtable-nopmd.h |  7 +++++++
- include/asm-generic/pgtable-nopud.h |  7 +++++++
- 4 files changed, 21 insertions(+), 23 deletions(-)
-
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index 763c5a411d64e..b391f325670f8 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -1141,29 +1141,6 @@ static inline bool pgtable_l5_enabled(void) { return false; }
- #define p4d_clear_fixmap()
- 
- #define p4d_offset_kimg(dir,addr)	((p4d_t *)dir)
--
--static inline
--p4d_t *p4d_offset_lockless_folded(pgd_t *pgdp, pgd_t pgd, unsigned long addr)
--{
--	/*
--	 * With runtime folding of the pud, pud_offset_lockless() passes
--	 * the 'pgd_t *' we return here to p4d_to_folded_pud(), which
--	 * will offset the pointer assuming that it points into
--	 * a page-table page. However, the fast GUP path passes us a
--	 * pgd_t allocated on the stack and so we must use the original
--	 * pointer in 'pgdp' to construct the p4d pointer instead of
--	 * using the generic p4d_offset_lockless() implementation.
--	 *
--	 * Note: reusing the original pointer means that we may
--	 * dereference the same (live) page-table entry multiple times.
--	 * This is safe because it is still only loaded once in the
--	 * context of each level and the CPU guarantees same-address
--	 * read-after-read ordering.
--	 */
--	return p4d_offset(pgdp, addr);
--}
--#define p4d_offset_lockless p4d_offset_lockless_folded
--
- #endif  /* CONFIG_PGTABLE_LEVELS > 4 */
- 
- #define pgd_set_fixmap(addr)	((pgd_t *)set_fixmap_offset(FIX_PGD, addr))
-diff --git a/include/asm-generic/pgtable-nop4d.h b/include/asm-generic/pgtable-nop4d.h
-index c6a5a43899b50..019c3f074b771 100644
---- a/include/asm-generic/pgtable-nop4d.h
-+++ b/include/asm-generic/pgtable-nop4d.h
-@@ -39,6 +39,13 @@ static inline p4d_t *p4d_offset(pgd_t *pgd, unsigned long address)
- 	return (p4d_t *)pgd;
- }
- 
-+static inline p4d_t *p4d_offset_lockless(pgd_t *pgdp, pgd_t pgd,
-+		unsigned long address)
-+{
-+	return (p4d_t *)pgdp;
-+}
-+#define p4d_offset_lockless p4d_offset_lockless
-+
- #define p4d_val(x)				(pgd_val((x).pgd))
- #define __p4d(x)				((p4d_t) { __pgd(x) })
- 
-diff --git a/include/asm-generic/pgtable-nopmd.h b/include/asm-generic/pgtable-nopmd.h
-index 4e5aaf253b6a5..1dd5b165234be 100644
---- a/include/asm-generic/pgtable-nopmd.h
-+++ b/include/asm-generic/pgtable-nopmd.h
-@@ -49,6 +49,13 @@ static inline pmd_t * pmd_offset(pud_t * pud, unsigned long address)
- }
- #define pmd_offset pmd_offset
- 
-+static inline pmd_t *pmd_offset_lockless(pud_t *pudp, pud_t pud,
-+		unsigned long address)
-+{
-+	return (pmd_t *)pudp;
-+}
-+#define pmd_offset_lockless pmd_offset_lockless
-+
- #define pmd_val(x)				(pud_val((x).pud))
- #define __pmd(x)				((pmd_t) { __pud(x) } )
- 
-diff --git a/include/asm-generic/pgtable-nopud.h b/include/asm-generic/pgtable-nopud.h
-index 6c9bca78047c4..5a2b0a81ae197 100644
---- a/include/asm-generic/pgtable-nopud.h
-+++ b/include/asm-generic/pgtable-nopud.h
-@@ -47,6 +47,13 @@ static inline pud_t *pud_offset(p4d_t *p4d, unsigned long address)
- }
- #define pud_offset pud_offset
- 
-+static inline pud_t *pud_offset_lockless(p4d_t *p4dp, p4d_t p4d,
-+		unsigned long address)
-+{
-+	return (pud_t *)p4dp;
-+}
-+#define pud_offset_lockless pud_offset_lockless
-+
- #define pud_val(x)				(p4d_val((x).p4d))
- #define __pud(x)				((pud_t) { __p4d(x) })
- 
-
--- 
-2.43.0
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
