@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609612;
-	b=DcIr1HHqvWX6sPZu7efVlffDHapUUQLnWvr4OuAS97PQMO6lmWJsrLU6MWoZ0WJ91iaW
-	 VKsfhpB3QDLDs5PE+9L3TYJWY7B3RRb6dNWneRaqmIOiaP/NJuEEYbOKRXbgMXoo8Hefz
-	 vRs7dKi8NAR5G4lWWoPkeSbcM33l6036Gvo0vca+1lFiAcKlvifjIaaFUMdTE5oyk9nFB
-	 4cAPtzI3AENc8AbEy/hcfzO5we1l5omxl7rCWeAwZyzXIiD8AuVsaq/91O7NjpE2E1CoW
-	 KXnAGg91gr6lUFSK5n50gU5UaXmg2i2x6c9tnMkNVy09GkgVlHemw65W4aRs6zX4byQ==
+	t=1793609630;
+	b=0A4FDjwTqUD794aQ0VD/9iYNd87EHkSENJCNO1uU8NsNWapmsbqtvVlDFvoNpDDMvTj3
+	 vCvdQHhdHYQqMS/s1DaYnWKrvP2KK/Enw4BilY5jZqoMzJ4ntDGGHfeVyd08BKtze7jP/
+	 KPa4ljbuzOUXsDALlOrrfpB1ZCkm0gPCvKxKRV2iOGTgaByqOZc4wBcOD7yHY8TSBXpsM
+	 qTiD3/ipEBvOkacP2YZmo0f/o+l0joVx1B1d7VtcoNC5EER/U2MFRi6t70Ar7e99zcw8y
+	 y3kce63JJHrxEf/cH3//jq2WCPoMa1LxxKPgb1880fC1TFb93CnI8l3ePJ3tcbqpBug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609612;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=oYYP3lK9ndIzshGQaIxwuIG/4WySmOAiuLgTfIPt85E=;
-	b=cayVbkygmddj/UZ5dHDsEvo19zrlpohgcb/RXzcHEOCbW0zNnJrfabLiGxI5HnDF6Y3n
-	 FnXJpGFnbCZGNaFvcNuHtKiPzEHePhWO1lxddPETBDb5BSPHtJqpfMr6mRpj+oBdtw+mr
-	 fUNSE5sdXMPpG+XmzWWg4IcQ3tjwP5yWckmklC/NF5OruS1n9gxjKc1L5zhXQLxUfHATw
-	 DgqXhERz1xwQ057UGMV3d1wJlhrEoh0DFAqat7rPSWLaKzZje9sdllreX+RQV1j5raYn2
-	 hVPod4hh/C0oonU2uKNWw1BODv1qMkTy2RVI9Kw7OqWmygWS01/zWvW4YS0ZQVLMhGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609630;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=Tupbzvx4VkKzIlj8hM3jEDvpvxLK2n9OwH+R3BnYryg=;
+	b=jZlmP8MOTCwv0YDQ2Vjn4rYwmu/Sum02d/xeY+xaWlYrAfwEofKeTOQN4bMNJQKRZkSt
+	 qHDxaP7142lPTQJEwr54P3+OpKT4/56tslpaQu06uh7O0jklXF5wEF86ON2GAkh2uu9Np
+	 afb/Q7E2pypKtlET7FcDhLDWmQRcqcXm8HB2cBmN4i5fZBYQipNrOFlvsvYPEJn68vfuM
+	 xaNzLtPZagv6pdKAkdLA0dXa1Ra91U9LYPcgM9YrFF+fAwUjPs/U/QAVgETQDnnJtqDS1
+	 Jnc/7xNdYs0TlslhVIU6LdUFHI6KUB8RwnvOel84YcpIlrZuvhCFMR1mFSjYIrh4AUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkgljhrV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=xxlpOj9D;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F48606A329;
-	Mon,  2 Nov 2026 08:53:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CF2606A326;
+	Mon,  2 Nov 2026 08:53:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84CF2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkgljhrV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DDEA1F0093A;
-	Mon,  2 Nov 2026 08:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793609611;
-	bh=oYYP3lK9ndIzshGQaIxwuIG/4WySmOAiuLgTfIPt85E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SkgljhrVlMkigM187kml4RIuWzUhCNfNRB1WWapYtJu506IB54itPx4UTX+oAJvZy
-	 EjjyrlyeUK8VnX4ctKLUvacWcKtHyE47aBf8pRTtz6RgaCGnaHrRJ9Lu8mxJZgOxug
-	 3o7xQih30i69llZOKoUtRXiPfS6KmvN1vM9HRotmAP5sTlHgj313FF4AAqsFMHX3aZ
-	 of212pwWwFfrAHNM+HtTPEqxKvxhhNmACICBjBzQhFO3fvLXbSakDgbD46hQY1dhGq
-	 VW2IIF8yX1SEb7NkSKYLLQB2BM1qkXEu99DEhrQZNLUDdKgP4j+y/Tt7LqXldtvkkP
-	 SyooD4lG2mdDw==
-Message-ID: <a97fb0b0-e4e1-4b25-a5ac-60777941c574@kernel.org>
-Date: Mon, 2 Nov 2026 09:53:18 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=xxlpOj9D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793609629; x=1825145629;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=8QAClhMDGss4VRpG0qd8RvKwAum8v/xYsu3E2qScQZg=;
+  b=xxlpOj9DeeSso1HsMWN8FEcdlbXA5XUn9ejZDAAk6B0YnKTZTVYeHf6m
+   Hq03CNzgqv4QIyLMFWHQKbxSevo++ZoDLraQtqXojNAkkNQfb4+0DZ2Lq
+   mmAD1reI4JVcBnOp6UMcr52rF278dtuB2KMvPVoAkf8EIeTN//fpbv2dA
+   zw4ghABUga+//5f6dZ5FXDVOfT89mgphVSoOEUAD2g+gX6GZlExn3JxtX
+   Aj/8N1jvdu5LZ4j4qUHr7hjy2kZf9W/LetoApL5G0oaoq7+SoSrLwFnCt
+   RB+ym0SAIlWMqpG2viD5wlwE5mfPzUqiDTULPyXBO4Mx+q7LwZgJrOQW3
+   w==;
+X-CSE-ConnectionGUID: vaCC1SBATlqPHVLQLR5a7Q==
+X-CSE-MsgGUID: 55cphz5uTJS2AXRo/JsVYg==
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="64906431"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 01:53:43 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Mon, 2 Nov 2026 01:53:42 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 2 Nov 2026 01:53:39 -0700
+Date: Mon, 2 Nov 2026 09:53:39 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <horatiu.vultur@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <ast@kernel.org>,
+	<daniel@iogearbox.net>, <hawk@kernel.org>, <john.fastabend@gmail.com>,
+	<sdf@fomichev.me>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<bpf@vger.kernel.org>
+Subject: Re: [PATCH net] net: lan966x: don't free XDP buffers in fdma tx
+ clear with budget 0
+Message-ID: <20261102085339.ixdqujaly75yldp7@DEN-DL-M70577.microsemi.net>
+References: <20261029-lan966x-fdma-tx-clear-budget-v1-1-38c52d7aab8c@microchip.com>
+ <179339596952.3131.4206946876532380801@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,103 +84,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
- andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
-Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
- sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
- Chenna Kesava Raju <chennak@qti.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- Ekansh Gupta <ekangupt@qti.qualcomm.com>
-References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179339596952.3131.4206946876532380801@kernel.org>
 
-On 01/11/2026 23:21, Ekansh Gupta wrote:
->  drivers/accel/qda/qda_soc.c            |   66 ++
->  drivers/accel/qda/qda_soc.h            |   61 ++
->  drivers/misc/Kconfig                   |    1 +
->  include/uapi/drm/qda_accel.h           |  282 +++++++
->  33 files changed, 5877 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-> change-id: 20261102-v4-e8feb321263f
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 (1) · Medium: 1 (1) · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] This patch adds a skip to lan966x_fdma_tx_clear_buf()
+>   (drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c, line 359): `if…
+> 
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but
+>   lan966x_fdma_reload()…
+> - [Medium] This problem wasn't introduced by this patch, but
+>   lan966x_fdma_deinit()…
+> 
+> --
+> 
+> net: lan966x: don't free XDP buffers in fdma tx clear with budget 0
+> 
+> This patch makes lan966x_fdma_tx_clear_buf() skip completed XDP_TX and
+> ndo_xdp_xmit DCBs when netpoll calls it with a budget of 0. That way the
+> page pool and XDP return APIs are not called with hardirqs disabled. The
+> skipped buffers are left for the next NAPI poll, and skbs are still freed
+> via napi_consume_skb().
+> 
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> > index 21668bbcc9063..1fbe910c5ec38 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> > @@ -353,6 +353,12 @@ static void lan966x_fdma_tx_clear_buf(struct lan966x *lan966x, int weight)
+> >               if (!fdma_db_is_done(db))
+> >                       continue;
+> >
+> > +             /* XDP and page pool APIs can't be used with a budget of 0.
+> > +              * Leave these buffers for the next NAPI poll.
+> > +              */
+> > +             if (!weight && !dcb_buf->use_skb)
+> > +                     continue;
+> 
+> [Severity: Medium]
+> Can this starve netconsole transmits on the port that owns the FDMA NAPI?
+> 
+> skbs and XDP frames get slots from the same ring through
+> lan966x_fdma_get_next_dcb(), which only checks the used bit:
+> 
+> lan966x_fdma_get_next_dcb() {
+>         ...
+>                 if (!dcb_buf->used &&
+>                     !fdma_is_last(&tx->fdma, &tx->fdma.dcbs[i]))
+>                         return i;
+>         ...
+> }
+> 
+> If heavy XDP_TX or ndo_xdp_xmit traffic fills every usable slot, a
+> netpoll skb ends up here in lan966x_fdma_xmit():
+> 
+>         next_to_use = lan966x_fdma_get_next_dcb(tx);
+>         if (next_to_use < 0) {
+>                 netif_stop_queue(dev);
+>                 return NETDEV_TX_BUSY;
+>         }
+> 
+> __netpoll_send_skb() then polls between retries:
+> 
+> netpoll_poll_dev()->poll_one_napi()->napi->poll(napi, 0)
+>   ->lan966x_fdma_tx_clear_buf(lan966x, 0)
+> 
+> With the new check, every completed XDP DCB is skipped. No slot is freed,
+> clear stays false, and lan966x_fdma_wakeup_netdev() is never called.
+> 
+> Once the retries run out, the skb is put on npinfo->txq and handed to
+> delayed work, and later messages queue behind it. In normal operation a
+> later IRQ-driven NAPI poll frees the DCBs and output only comes late.
+> 
+> During a panic, with the other CPUs stopped and hardirqs off, would that
+> work ever run? If not, the netconsole output is lost.
+> 
+> Before this patch, the budget-0 poll freed those slots, so netpoll could
+> make progress.
 
-What is happening here? How are we supposed to work with this?
+Seems right, however, AFAICT, this is only an issue if the panic hits while the
+ring is completely full of finished XDP frames. Freeing those frames from
+netpoll is what napi.rst forbids: with a budget of 0 the driver cannot call any
+XDP or page pool APIs, and doing so is the splat this patch fixes.
 
-v1: 20260223-qda-firstpost-4ab05249e2cc
-v2: 20260519-qda-series-78c2bf0ed78b
-v2 again: 20260817-qda-v2-78e2d1f10529
+The only other way I see is to give XDP its own FDMA injection channel, so XDP
+frames can never take the slots netpoll needs. lan966x has free injection
+channels for that, but it is a rework for net-next, not a fix for net.
 
-And now completely different one?
-
-This makes the change id completely unusable. b4 diff obviously does not
-work. Any tracking of this does not work.
-
-NAK, really, I already complained internally months ago about such
-practice, so apparently not enough.
-
-Best regards,
-Krzysztof
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but can XDP_TX pages that TX
+> DCBs still hold end up in the wrong page_pool when lan966x_fdma_reload()
+> replaces the RX pool?
+> 
+> lan966x_fdma_reload() does:
+> 
+>         napi_synchronize(&lan966x->napi);
+>         napi_disable(&lan966x->napi);
+>         ...
+>         err = lan966x_fdma_rx_alloc(&lan966x->rx);
+>         ...
+>         page_pool_destroy(page_pool);
+> 
+>         lan966x_fdma_wakeup_netdev(lan966x);
+>         napi_enable(&lan966x->napi);
+> 
+> It never walks tx->dcbs_buf[]. Suppose an XDP_TX DCB posted by the last
+> poll completes in hardware after napi_disable(). The FDMA IRQ's
+> napi_schedule() then does nothing, and the DCB stays used.
+> 
+> The first poll after napi_enable() then runs this in
+> lan966x_fdma_tx_clear_buf():
+> 
+>         page_pool_recycle_direct(rx->page_pool,
+>                                  dcb_buf->data.page);
+> 
+> At that point rx->page_pool is the new pool. __page_pool_put_page() does
+> not check which pool owns the page. So the old pool's page, with its old
+> DMA mapping and order, goes into the new pool's cache.
+> 
+> If the MTU change raised page_order, could the new pool give this smaller
+> page to the RX ring? There db_size is PAGE_SIZE << new_order, so the
+> device could DMA a large frame past the end of the page.
+> 
+> Even if the order stays the same, the old pool's inflight count would
+> never reach zero, so its shutdown stalls and the pool is leaked. And
+> wouldn't the new pool's inflight count go negative when it is destroyed?
+> 
+> This can happen on these paths while XDP_TX traffic is flowing:
+> 
+> lan966x_port_change_mtu()->lan966x_fdma_change_mtu()
+>   ->__lan966x_fdma_reload()->lan966x_fdma_reload()
+> 
+> lan966x_xdp_setup()->lan966x_fdma_reload_page_pool()
+>   ->__lan966x_fdma_reload()->lan966x_fdma_reload()
+> 
+> This patch doesn't widen the window much. An IRQ-driven NAPI poll still
+> reclaims those DCBs if it runs before napi_disable().
+> 
+> [Severity: Medium]
+> This is a pre-existing issue, but does lan966x_fdma_deinit() leak the TX
+> DCBs that are still marked used?
+> 
+> lan966x_fdma_deinit() {
+>         ...
+>         napi_synchronize(&lan966x->napi);
+>         napi_disable(&lan966x->napi);
+> 
+>         lan966x_fdma_rx_free_pages(&lan966x->rx);
+>         fdma_free_coherent(lan966x->dma_dev, &lan966x->rx.fdma);
+>         page_pool_destroy(lan966x->rx.page_pool);
+>         lan966x_fdma_tx_free(&lan966x->tx);
+> }
+> 
+> lan966x_fdma_tx_free() only does:
+> 
+>         kfree(tx->dcbs_buf);
+>         fdma_free_coherent(lan966x->dma_dev, &tx->fdma);
+> 
+> Entries that are still used are never released:
+> 
+> - skb and xdp_ndo buffers stay DMA-mapped
+> - skbs are not consumed
+> - xdp_frames are not returned
+> - XDP_TX pages are not returned to the page pool
+> 
+> Those pages keep the destroyed pool inflight, so its shutdown stalls.
+> 
+> lan966x_remove() and the probe error path both call fdma_deinit() before
+> lan966x_cleanup_ports(). After napi_disable() no poll can reclaim these
+> entries.
+> 
+> This patch adds completed but deferred XDP buffers to what can still be
+> outstanding here. The window is narrow, because an IRQ-driven poll
+> normally frees them before napi_disable().
+> 
+> --
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029-lan966x-fdma-tx-clear-budget-v1-1-38c52d7aab8c%40microchip.com
