@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793599561;
-	b=0IDdyGEl3b0o+4zMii/HDbhQX+110NXTDCrFL55MtKfQG/ZSOVejeyHdVjP1XrZJViqP
-	 pPnNhoIZ1qoRGUKFqKE+7shKvDhLLGttbrYk//Gm1xviSdeiTFaOLzsP7oH6qbYAwO2W2
-	 037eU8ePRRaICvNP01/uf6VRI/E7rP8VvpkniCzj6gWga/G4AIgjweRyJGEWZ5wxUfdiz
-	 p7x1tcCaSETcF9XiuVbKKaTlzQ85Rkg419i904y4u+rz8Bn+/ZhiDIcIZJpoXlKdNI2G0
-	 VlO4hoWuk1sZn7TL2ltNldjBqqts8XpbDzXrj3+KzYaFF3DF8yIU2AxzN4Nh2famNdg==
+	t=1793599700;
+	b=Q4SbtZCXFC4qpQcEkeu+RC76lAYDgjBvFXKa41BhIdyVEO3lkmfySeGWhyPr1KnB+ofr
+	 jswcOPqgPu359QuSqK6ofLVVp+KSwPfcmDq3mZioFQTM0p81yPhL9a6UWlTI+n+IO94wF
+	 4eNOiiA7o1EQwi//nBmJzknY5BxHTYjDU7IZ5pmXzgEnjHF2iQBVU8zkBUGUksCLz4YSb
+	 tZQZTSfYhFQaRawR1ub1Cgq8EmmZmfizdUH3fgFoeNBGLUOiWB5+5vhBkh/EFyHzsP1lU
+	 35Gzc9K/Rd7ckgOfHW3pNF2JfYwjqiA7UNUbzcjP/8QHWdpy41E4nJZ1oa/kFrkuImQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599561;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=h1VSrMby2SX5eM2E4NxQctXhVt0Tc6AaUP5veYJ4paM=;
-	b=pQxCKAp2Nl6u0mcNjGUfLMQ9djdLfHTep33yBqUklHow9aLVLjix4Qe+S7igNVqogosi
-	 1bIUS+XE/fXd4RBnf3D+CCnWnspJvekjhNFrHvJ+Ne+wfaqzsASoYkuOid7K5LjZX+uEl
-	 Wn081kHmqKEqktpewN+TI9mCWJiDDzHwbqw5Cb9n3bmr1AOhuWhyMiqeDkqKNmsfHfqSu
-	 x5Qyv/xqQD8TrjIK16ayizffZv8S1eyGSo+jQ1uPV+/GkDMaU9vl/QAIIaYNtSVIwpi3/
-	 oWpuJqY9QPnUIKpfzB8Z+0iqyg+Qkxlo61Pc6wEaXgTMTswTtEHoe8NxP7QXdgAUjVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793599700;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=hBHoVDgYosEEjwFENvnqm8RfVk+ydgr5qWMoLpA4mck=;
+	b=WcYG+bUPqhw2fSTdo0n9q3g4Jp9JmrKaeYEufKl/D6ASzCzPFq2VPEsly+e2CvP5Qy6C
+	 zRkIUKgbrmoezIiP+/Hs0TwbNnRynv1gnx+h64BFADZs+1Qg5MxgGfIdVxEv+ubeTtcc/
+	 yPUi2eO5Yei2LogcDSRfpvOwo7bH5Hvy5TdCEeYUC0hq095icRN3uO8Lbi5qIezgS1mpA
+	 CKrdcmrpx77J6/krizEVyCBpqUCaR0c1VPVylr90VR6v5eCAhhtNZOS81DW1twbPD9+Hi
+	 8BAVrlVZP0uV2kxfMxtdm4n9WKHbAiDAyMIiO1Re2zA0+y8XbdSOv7whR1RjFWaffGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=opLyUe7j;
-	arc=none smtp.remote-ip=95.215.58.176
-Received: from mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QpBWZ7hS;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D4A606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:05:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55D4A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA6F606A324;
+	Mon,  2 Nov 2026 06:08:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA6F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=opLyUe7j
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=m9NFSN0c8k/rqWtXM6UCsQER/s2DqAk40a8du6haVV4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793599558; v=1; x=1794204358;
- b=opLyUe7jGCNX/Ks2Wfw0GvCvGymVCVFY2l4AjF+DjnJkuDGtnq5w8qUxEBVGRbjNMihUgh2p
- N2WbiyMNueHHPSHUSGE/VxojS8kqzm1uSC+IpGtAVRaUN87GTq88H0oOGL1Su97yAdfj0UCXL5R
- lWXN8dhDPTy0Vq7auiEh+2BU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b978153f13cb2e16;
-	Mon, 02 Nov 2026 06:05:58 +0000
-X-Mizu-Trace-ID: b978153f13cb2e16
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <72d1b1d7-2fb6-402f-a557-0eaa767d6f86@linux.dev>
-Date: Mon, 2 Nov 2026 14:07:18 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QpBWZ7hS
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793599696; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=hBHoVDgYosEEjwFENvnqm8RfVk+ydgr5qWMoLpA4mck=;
+	b=QpBWZ7hSm+I+U2aCg6L8NDwYV69Hycgk0zL26kk+Qt5J7hlY1w1z82HfB76j5rheOSm5gXgQvydEiA7xgUDL8tfBxYMTnURXdWuKiFc2o0nwkPclSX0ALfOmyTe534rQ7VzsZcwnhGfz5yn0O1htSl3s4+5rbcuBWHVyVFYJV7c=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R801e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=66;SR=0;TI=SMTPD_---0XDuTEnB_1793599690;
+Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDuTEnB_1793599690 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 14:08:12 +0800
+Message-ID: <dda009fe-abda-4745-810c-da02d8440b3c@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 14:08:10 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,161 +54,83 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/10] mm/vmalloc: clamp an unaligned range in
- vunmap_pte_range()
-To: Dev Jain <dev.jain@arm.com>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org,
- Sashiko <sashiko-bot@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
- <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Uladzislau Rezki <urezki@gmail.com>, Suren Baghdasaryan <surenb@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-References: <20261026080329.140244-1-hao.ge@linux.dev>
- <20261026080329.140244-4-hao.ge@linux.dev>
- <99f529e8-06f7-4a20-a60b-0330c5d3d91c@arm.com>
- <5452d555-82f9-45a6-b443-ee732b1874ba@linux.dev>
- <e8a2a42d-e424-4366-8a68-e39167f62276@arm.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <e8a2a42d-e424-4366-8a68-e39167f62276@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v3 09/47] mm/rmap: handle device-exclusive entries in
+ folio_referenced_one()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-9-d6437171ecc3@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261031-fixes_core-v3-9-d6437171ecc3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 2026/10/30 22:20, Dev Jain wrote:
+On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
+> page_vma_mapped_walk() can return non-present device-exclusive entries,
+> but folio_referenced_one() passes them to PTE young-bit accessors that
+> require present PTEs.
 > 
+> We must neither call clear_flush_young_ptes_notify() nor
+> folio_pte_batch() with non-present entries. For example, clearing the
+> young bit on non-present PTEs can corrupt the entry: on arm64
+> PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
+> entry into an ordinary swap entry.
 > 
-> On 30/10/26 2:00 pm, Hao Ge wrote:
->> Hi Dev
->>
->> Thanks for your review.
->>
->> On 2026/10/30 15:14, Dev Jain wrote:
->>>
->>>
->>> On 26/10/26 1:33 pm, Hao Ge wrote:
->>>> commit a739e6b557af ("mm: vmalloc: WARN_ON if mapping size is not
->>>> PAGE_SIZE aligned") made vmap_pte_range() warn and bail out when the
->>>> size is not a multiple of PAGE_SIZE. That loop steps in page
->>>
->>> Why are we checking the alignment so late into vmap_pte_range? Why not
->>> simply do
->>>
->>> if (!IS_ALIGNED(addr, PAGE_SIZE) || !IS_ALIGNED(end, PAGE_SIZE))
->>> 	return; (or return -EINVAL);
->>>
->>> at the start of vmap_range_noflush and vunmap_range_noflush?
->>
->> I think adding that check at the entry of vunmap_range_noflush()
->> goes against its design intent. Its job is to tear down the mappings
->> of the given VA range, so even when the caller passes a size that is
->> not page-aligned, we still have to unmap whatever is mapped within
->> that range.
->>
->> So the patch clamps end down to the last full page and keeps
->> clearing. A buggy caller still gets its mapping torn down as far as
->> it goes, and nothing is left behind. The check here is just for
->> protection. 
->>
->> This is just my preliminary understanding; I may be mistaken.
+> folio_pte_batch() will VM_WARN_ON_FOLIO.
 > 
-> Hmm I get you, but this is very ugly. We are trying to tolerate
-> a blatant bug in the caller with not-so-nice code. But see below.
->>
->> Thanks
->> Best Regards
->> Hao
->>
->>
->> But that's just my understanding, happy to be corrected.
->>
->>
->>>
->>>
->>>> multiples and stops only at addr == end; with an unaligned size addr
->>>> never lands on end, so the loop cannot terminate and walks off the
->>>> end of the page table.
->>>>
->>>> vunmap_pte_range() has the same loop without any guard, so an
->>>> unaligned range would clear PTEs past end without ever stopping,
->>>> walking off the end of the page table.
->>>>
->>>> Add the check there too. The range is clamped down to the last full
->>>> page rather than dropped, and the loop is skipped when nothing is
->>>> left, so a buggy caller still gets its PTEs cleared as far as they
->>>> go.
->>>>
->>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>>> ---
->>>>  mm/vmalloc.c | 5 +++++
->>>>  1 file changed, 5 insertions(+)
->>>>
->>>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->>>> index 44e0eb32708f..7131f60d1a8e 100644
->>>> --- a/mm/vmalloc.c
->>>> +++ b/mm/vmalloc.c
->>>> @@ -393,6 +393,11 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
->>>>  	pte_t ptent;
->>>>  	unsigned long size = PAGE_SIZE;
->>>>  
->>>> +	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
->>>> +		end = addr + PAGE_ALIGN_DOWN(end - addr);
+> Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
+> treat these entries as old from the CPU's perspective and obtain their
+> young state through the MMU notifier.
 > 
-> For simplicity assume PAGE_SIZE is 4, start is 3, end is 10.
-> With your code we will get
+> Skip PTE batching and MGLRU look-around for non-present entries, and
+> don't modify non-present PTEs.
 > 
-> addr = 3, end = 3 + ALIGN_DOWN(10 - 3) = 3 + 4 = 7.
-> So the range becomes [3, 7) clearing only two ptes, the one covering
-> [0, 3], the second covering [4, 7]. I feel we should rather make
-> the range from [3, 10] to [0, 11], clearing three ptes.
->
+> Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Cc: stable@vger.kernel.org
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> Reviewed-by: Dev Jain <dev.jain@arm.com>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-Thanks for the example. Looks like I nearly introduced a new bug while
-guarding against the old one, good thing you caught it.
-
-> So, at the start of vunmap_range_noflush we could basically
-> WARN_ON on non-alignment, and then clamp the start down, and clamp
-> the end up to PAGE_SIZE.
-
-I'm wondering whether we should simply BUG_ON for non-aligned ranges here.
-Because the unmap could silently clear mappings at adjacent addresses, which
-may not even belong to the caller, and this kind of problem is really hard to
-track down afterwards. Say [0, 3) is in use by someone else, with PAGE_SIZE=4
-an unmap starting at 3 still begins with the pte covering [0, 4), since the loop
-clears page by page, so that owner loses his mapping without doing anything wrong,
-and only sees the damage much later when he touches it again.
-
-WDYT?
-
-> 
-> And with this also throw in a patch to bring the -EINVAL bailout
-> in vmap_pte_range to the top, in vmap_range_noflush and check
-> both start and end alignment.
-
-For the vmap_range_noflush() check, fully agreed.  The current check
-is indeed too late, the range is only found to be bad after part of
-it has already been mapped. 
-
-Looking forward to your valuable comments.
-
-Thanks
-Best Regards
-Hao
-> 
->>>> +	if (end == addr)
->>>> +		return;
->>>> +
->>>>  	pte = pte_offset_kernel(pmd, addr);
->>>>  	lazy_mmu_mode_enable();
->>>>  
->>>
-> 
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
