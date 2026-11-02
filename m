@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633839;
-	b=ORYKjXg7cY94cpqstOir4RJUPq1ZgRzYIPLVuhFAHmmICUR2CvFVf/Ex16JVa3s53Wty
-	 3y+QgYli06v2wVwGjJ6yDBvup8r8b9DdKfgELftk6QC90Zj4MPfMM/ds2fg/8yVjjU8By
-	 46OP0xWUk2R3klICkCAIGlpmckwevcLxPtfqd2A1r0PHL9PYtuaYU0CeKvgeV/ZUn+Htv
-	 HnCxniJveUXsGkcZe7GfShOdXMr9Eful5ea5aEfqpYKWVNu1OjcDcO4Vs8U0FQUuu4IVn
-	 5Qq3dh8fd1TZpxUceihG91Z8GWEUq0wVfv/M1jER9bdLpUrEvEp6nikYKDtXTS7Cg/A==
+	t=1793633850;
+	b=EKXgN1Ex667XqwkVM9sldZOgwkG1f36/CcRMoXsSZKTeseA5ljTHh2+P1E/zqjjwmTfU
+	 5+XYyDpbK857sRD4EZDdtH+/9Asl1elvD/2v0LvySElD6xUbpin91eXtBeiE9PNPkNH8Q
+	 96z8wviIueCpAteO3mucGo2pfFZxf+r8AQXF0SqDRBgb8sHjHC0QJ53i1fgliRzagY4IV
+	 e49Qn4rav5FwMglK1/oTUrgmMgsT+ZlRogUr/WnE5pezpdrPYH8AzcupJLK3L09Hj4Wyp
+	 VVnlHzBKcp2DclHlLCrMix/MO9kqLX8X7n7CQbbOabDNvjvVFE8GgQWvR9zD7YtaWYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633850;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=xs0C+G7zjdZllGuTbQSqQheVXxWPk9ZHdH8YJo8R+C0=;
-	b=CvIvORiaBW5ZvDSnz5pGdmP8tnFKXK9KJ4P2InvqEXV1FNIK7h9ri0Q644BHMG/rJX2W
-	 Fp4K6b9rBjH9SRKPbAx1NLl+3tImimWKGczEVcW7eeDAD0DdpBjhnxF8lsOC7IOoxUNUR
-	 Hmqur3RdihfJc10kP7J1X+70KS6uuai+jcuhyE1e88XgcHgldHgI8OwuaaK6KIgUk00LU
-	 T2tR754DE0FbP4r7FGQi+yei37nddbeN9uFWnOSu6DMFyiMHd/cGk3djB4YYvff95t7Lh
-	 1pklZNxtxnUF1GmYqzZ9/zoY2eXvpKlpEa/0YNsQM9zwC1ePyTMdcRFV4OejcVqf5Ng==
+	bh=PQb3q6R6QngEoe3ekBduEqXoGdMTuhEwA2ttf4WySgI=;
+	b=nOdQRxZDRTBeM3oJDtfe1d0k+Pu6pYM2m93MTHo0S32g9KnFK3Ohw1dfsQlgwK7xgEfw
+	 BTu5KeYe1EmeGGGyqkXSDfQOIXV6JsogvZJjDmPk58ybD/Q1HWiRfN3RGmFLlsQYwLp79
+	 R+54XVbQGjHwea9DdSyhxrGr+vl0vtRSqD9m2JZUbq856TqLiUG85zW6COrwaaXf40fjo
+	 JgQhxh7+dTHUVpjyY6lfUlvUSWbf9VmVd4JzuyXw9el12BowslDPCHTxImO4aoJkCfQnC
+	 Z2gUlcZa22QtIouNyaPeUxabvGYP7syhkBS+3mbMobnKGlCpcl9DffPX/eVdkYNMlXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gSEQHn4+;
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B9YggvqK;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB32860E7EFB
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB32860E7EFB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD020606B1C5
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD020606B1C5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gSEQHn4+
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd3b9e70f88so3414382a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B9YggvqK
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e818ca61bfso33412835ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793633838; x=1794238638; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793633849; x=1794238649; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xs0C+G7zjdZllGuTbQSqQheVXxWPk9ZHdH8YJo8R+C0=;
-        b=gSEQHn4+giolmmxb06w49f8gwQb4Hw6xUmYno5iGPS/7VrDSZusjyW4c/X7tzC9pBm
-         da6NblMhUG3X6TAe6MtQY3mkfc72i56MGVPxkgrmHbBHIXSlOg/tnXh35RP8Uv5rNxFX
-         1sybx0WobbdwcU2uK8wq7z3LNjgn1r0VpnKZQWzhbaDvSVdMi+gw3bj3DPxPWp3mEAnu
-         xek+at6jdJuN61cZtWCw2wWzpYOI6bahEHmbdnWKDILRyWIkrkJgFrZGRqBxXXvvIpR6
-         6jAJY7UghFzsqVs2STfTGxIuW10DsxvgYeddNzI2Orv1nhMrqOwe6NfgFSuSaW4LBYNe
-         pxKw==
+        bh=PQb3q6R6QngEoe3ekBduEqXoGdMTuhEwA2ttf4WySgI=;
+        b=B9YggvqK1b6/ndmOkslCwgJVAP+YGiso7ePHposRJDtPfk+ybU6XyHllaIDcX1HIif
+         P97GZ4E+QuRC2cycyTSRtTO2YvqRfIpzNTs4wsPbwz4Fpi89pyN+vMVoWzNL3uRVEEPj
+         4Rhkl3DaifwVPlQEesNkxF+9gwVZPdThZAhn8Jl8R8+eSsEWSgc5cevHIWCHeaDZb6OE
+         IU2UtrqEn5ZaquCYPuP27CVfpLfg11cmepE4WlVQSfbEZ2MlAxdGPohHH5EyungZSQhl
+         sh///uBWwWqdaLUP0fyk5gaAgXqQjTS3v4EJBauOi0Zs47V/DsFSIc7yITgG3qr5tPtJ
+         DIwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793633838; x=1794238638;
+        d=1e100.net; s=20260707; t=1793633849; x=1794238649;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xs0C+G7zjdZllGuTbQSqQheVXxWPk9ZHdH8YJo8R+C0=;
-        b=EwPtYrHIJB6BCt+3RaniVn9WzYyBu2mKUaXMgFNh79QKTf1P+O83o426udE7TBEMTN
-         GcgaUPquzJT0SqznVq8yR9wVz4zQh9wYI+crnkYHvZvBv5uauSq/d75TrHSz1Fbyn30X
-         Oe8ckj8qCRlnl/xj+La6xdCmM5eGt5QMBPLkYQBWY7yY+GrD/nwlFQpLQEzZN95Pt2Io
-         H+4ffVKPDRvZY3CA0LT+6YGUxuowOklA5s9D2NFU/JLHAPWAjYZSDhUMF6Z0nxjiQIeJ
-         1TndlTfKbyacDubNu9yYarAIj0sHsetlBcu3OJGJpNBab15JA/tTlOQwNy9/71lUZXij
-         S1aQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbFI/sy9kHpa83vUvoZBr6iPNKvWfmmCLLoJ94fOmYLSOeKaOyaNpNuW6snEe7YhMLL4+RhbJdr360Q84=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YEDjoWAbk+3t0Odm8XNHBlgp+8SVtcYvxyygu+NCcm4242fLJ
-	jNaHAqiMCueqlv0/yQXFnh2DKh7owFRdn2pfe1+Uc9xnURu+liMlVZdReTINjiYywOsjZnqQYMm
-	ohvtsIqBFbA==
-X-Received: from plko2.prod.google.com ([2002:a17:902:6b02:b0:2e8:bfd5:b889])
- (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f542:b0:2e9:9263:a5f
- with SMTP id d9443c01a7336-2eb36493707mr97418395ad.17.1793633838083; Mon, 02
- Nov 2026 07:37:18 -0800 (PST)
-Date: Mon,  2 Nov 2026 07:36:46 -0800
+        bh=PQb3q6R6QngEoe3ekBduEqXoGdMTuhEwA2ttf4WySgI=;
+        b=na41HZWyqhs7DW4hb4li/9JB/MmD3Or6mNNmdpCttgPIp76TGmViJPnr5KYX0pOi6A
+         9Ttcbeozz6PSy4SgOpuT8FLBXbY/c349JB9grLl+cBG1n/AgajNeiOaWXKv74/n6UpIx
+         o300nFZsR+Ux89/gy480LbADzCjIL3nyUIZCWNncp649hVPtqixZprouv5c1KARcN0pE
+         YD9PlstraynKrKOJ9hda9Z8ViFLELHaEnUWMN85QRizF/NTp5TSOKcWhghfq/hCRL16+
+         6hewSDKmJaSWt+92VvKXr9KmJ7BcRb/Tryat13wtxh+I5M1F0/pds6kouIIxaw8X4OoO
+         dVeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwj+841U4hXjSVXJg5Kg0VfSnVH0slg++MJORkw9t3X0eI5qrtmkgS2hGUokky+WvFJRpgCdJwarLfuq1A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/K9wfIZbQDc77V0p86UIG4m38FMv/LY7XH1SANr4amCDyb2OBx
+	QrTsGi2X93DF7uQfv6Jn6mz2luUCc5VCk0XXlPhD0NviGbbkHx/TfIIpjKVt2aJz/kSKcBmpD0k
+	q80ZRD3IK0A==
+X-Received: from plbjf11.prod.google.com ([2002:a17:903:268b:b0:2e8:7c73:6eb4])
+ (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2ecc:b0:2e9:9c65:1aff
+ with SMTP id d9443c01a7336-2eb364d70e3mr109468515ad.45.1793633848882; Mon, 02
+ Nov 2026 07:37:28 -0800 (PST)
+Date: Mon,  2 Nov 2026 07:36:56 -0800
 In-Reply-To: <20261102153656.1431701-1-vipinsh@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261102153656.1431701-1-vipinsh@google.com>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261102153656.1431701-18-vipinsh@google.com>
-Subject: [PATCH v6 17/27] vfio: selftests: Add vfio_pci_liveupdate_uapi_test
+Message-ID: <20261102153656.1431701-28-vipinsh@google.com>
+Subject: [PATCH v6 27/27] vfio: selftests: Add continuous DMA to vfio_pci_liveupdate_kexec_test
 From: Vipin Sharma <vipinsh@google.com>
 To: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org, 
@@ -102,173 +102,379 @@ Cc: ajayachandra@nvidia.com, alex@shazbot.org, amastro@fb.com,
 	yanjun.zhu@linux.dev, yi.l.liu@intel.com
 Content-Type: text/plain; charset="UTF-8"
 
-From: David Matlack <dmatlack@google.com>
+Extend vfio_pci_liveupdate_kexec_test to exercise continuous DMA across
+a Live Update when the device is in noiommu mode.
 
-Add a selftest to exercise preserving various VFIO files through
-/dev/liveupdate. Only the VFIO cdev files of devices in noiommu mode can
-be preserved. Ensure that preserving the cdev file of a device that is
-not in noiommu mode fails, and that everything else (group-based device
-files, group files, and container files) fails too.
+Allocate a shmem memfd backed by three 2MB THP folios (for the driver
+region, source buffer, and destination buffer), map each folio at
+IOVA == PA via iommu_map_identity(), and preserve the memfd in the same
+Live Update session before the device so that LUO's LIFO finish order
+keeps the memory alive until after the device is finished.
 
-In FIXTURE_SETUP, probe luo_session_preserve_fd() on the bound cdev FD
-in a temporary session for iommufd variants and skip if LUO returns
--ENOENT, so the test skips cleanly when CONFIG_VFIO_PCI_LIVEUPDATE=n or
-when the target device does not support VFIO PCI Live Update (e.g. an
-SR-IOV VF).
+Before kexec, initialize the selftest driver, run a sanity memcpy, kick
+off a long-running DMA memcpy, and disable MSI-X so freeze() succeeds.
+After kexec, take over the device via __vfio_pci_device_init(), retrieve
+and map the preserved memfd verifying that all three 2MB folios stayed
+at the exact same physical addresses, attach the driver without resetting
+the device, wait for the pre-kexec memcpy to complete, and run another
+memcpy without reinitializing the device.
 
+Co-developed-by: David Matlack <dmatlack@google.com>
 Signed-off-by: David Matlack <dmatlack@google.com>
-Co-developed-by: Vipin Sharma <vipinsh@google.com>
 Signed-off-by: Vipin Sharma <vipinsh@google.com>
 ---
- tools/testing/selftests/vfio/Makefile         |   1 +
- .../vfio/vfio_pci_liveupdate_uapi_test.c      | 126 ++++++++++++++++++
- 2 files changed, 127 insertions(+)
- create mode 100644 tools/testing/selftests/vfio/vfio_pci_liveupdate_uapi_test.c
+ .../vfio/vfio_pci_liveupdate_kexec_test.c     | 266 +++++++++++++++++-
+ 1 file changed, 257 insertions(+), 9 deletions(-)
 
-diff --git a/tools/testing/selftests/vfio/Makefile b/tools/testing/selftests/vfio/Makefile
-index 55e1e1843090..c2764fcef31d 100644
---- a/tools/testing/selftests/vfio/Makefile
-+++ b/tools/testing/selftests/vfio/Makefile
-@@ -13,6 +13,7 @@ TEST_GEN_PROGS += vfio_pci_device_test
- TEST_GEN_PROGS += vfio_pci_device_init_perf_test
- TEST_GEN_PROGS += vfio_pci_driver_test
- TEST_GEN_PROGS += vfio_pci_sriov_uapi_test
-+TEST_GEN_PROGS += vfio_pci_liveupdate_uapi_test
+diff --git a/tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test.c b/tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test.c
+index 9610fe593cf6..c33b62118523 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test.c
+@@ -1,22 +1,120 @@
+ // SPDX-License-Identifier: GPL-2.0-only
  
- TEST_FILES += scripts/cleanup.sh
- TEST_FILES += scripts/lib.sh
-diff --git a/tools/testing/selftests/vfio/vfio_pci_liveupdate_uapi_test.c b/tools/testing/selftests/vfio/vfio_pci_liveupdate_uapi_test.c
-new file mode 100644
-index 000000000000..da25ea4e2b1e
---- /dev/null
-+++ b/tools/testing/selftests/vfio/vfio_pci_liveupdate_uapi_test.c
-@@ -0,0 +1,126 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++#include <errno.h>
+ #include <fcntl.h>
+ #include <limits.h>
++#include <stdlib.h>
++#include <string.h>
++#include <time.h>
++#include <unistd.h>
 +
-+#include <libliveupdate.h>
-+#include <libvfio.h>
-+#include <kselftest_harness.h>
+ #include <sys/ioctl.h>
++#include <sys/mman.h>
 +
-+static const char *device_bdf;
++#include <linux/sizes.h>
+ #include <linux/vfio.h>
 +
-+FIXTURE(vfio_pci_liveupdate_uapi_test) {
-+	int luo_fd;
-+	int session_fd;
-+	struct iommu *iommu;
-+	struct vfio_pci_device *device;
-+};
+ #include <libliveupdate.h>
+ #include <libvfio.h>
+ 
++#define DRIVER_REGION_SIZE	SZ_2M
++#define MEMCPY_FOLIO_SIZE	SZ_2M
++#define NR_MEMFD_FOLIOS		3
++#define MEMFD_SIZE		(NR_MEMFD_FOLIOS * SZ_2M)
 +
-+/*
-+ * LUO fails with -ENOENT if no file handler accepts a file. For the bound VFIO
-+ * cdev file of a device, that means that the kernel lacks VFIO PCI Live Update
-+ * support (CONFIG_VFIO_PCI_LIVEUPDATE=n) or that vfio-pci does not support
-+ * preserving the device (e.g. an SR-IOV VF).
-+ */
-+static bool device_preserve_supported(int luo_fd, int device_fd)
++#define MEMCPY_TIMEOUT_S	(30 * 60)
++
++static struct dma_region src_region;
++static struct dma_region dst_region;
++static void *memfd_vaddr;
++static u64 folio_pa[NR_MEMFD_FOLIOS];
++
+ static const char *device_bdf;
+ 
+ static char state_session[LIVEUPDATE_SESSION_NAME_LENGTH];
++static char data_session[LIVEUPDATE_SESSION_NAME_LENGTH];
+ static char device_session[LIVEUPDATE_SESSION_NAME_LENGTH];
+ 
+ enum {
+ 	STATE_TOKEN,
+ 	DEVICE_TOKEN,
++	MEMFD_TOKEN,
++	DATA_TOKEN,
+ };
+ 
++static u64 memcpy_size(struct vfio_pci_device *device)
 +{
-+	int session_fd;
-+	int ret;
-+
-+	session_fd = luo_create_session(luo_fd, "probe");
-+	VFIO_ASSERT_GE(session_fd, 0);
-+
-+	ret = luo_session_preserve_fd(session_fd, device_fd, 0);
-+
-+	/* Closing the session unpreserves the device. */
-+	VFIO_ASSERT_EQ(close(session_fd), 0);
-+
-+	return ret != -ENOENT;
++	return min_t(u64, src_region.size, device->driver.max_memcpy_size);
 +}
 +
-+FIXTURE_VARIANT(vfio_pci_liveupdate_uapi_test) {
-+	const char *iommu_mode;
-+};
-+
-+#define FIXTURE_VARIANT_ADD_IOMMU_MODE(_iommu_mode)			\
-+FIXTURE_VARIANT_ADD(vfio_pci_liveupdate_uapi_test, _iommu_mode) {	\
-+	.iommu_mode = #_iommu_mode,					\
++static bool is_filled(const char *buf, u64 size, char c)
++{
++	return buf[0] == c && !memcmp(buf, buf + 1, size - 1);
 +}
 +
-+FIXTURE_VARIANT_ADD_ALL_IOMMU_MODES();
-+#undef FIXTURE_VARIANT_ADD_IOMMU_MODE
-+
-+FIXTURE_SETUP(vfio_pci_liveupdate_uapi_test)
++static void dma_memcpy_one(struct vfio_pci_device *device, char c)
 +{
-+	self->luo_fd = luo_open_device();
-+	ASSERT_GT(self->luo_fd, 0);
++	u64 size = memcpy_size(device);
++	void *src = src_region.vaddr;
++	void *dst = dst_region.vaddr;
 +
-+	self->session_fd = luo_create_session(self->luo_fd, "session");
-+	ASSERT_GT(self->session_fd, 0);
++	memset(src, c, size);
++	memset(dst, 0, size);
 +
-+	self->iommu = iommu_init(variant->iommu_mode);
-+	self->device = vfio_pci_device_init(device_bdf, self->iommu);
-+
-+	if (self->iommu->iommufd &&
-+	    !device_preserve_supported(self->luo_fd, self->device->fd))
-+		SKIP(return, "Live Update of %s is not supported", device_bdf);
++	VFIO_ASSERT_EQ(vfio_pci_driver_memcpy(device, to_iova(device, src),
++					      to_iova(device, dst), size), 0);
++	VFIO_ASSERT_TRUE(is_filled(dst, size, c));
 +}
 +
-+FIXTURE_TEARDOWN(vfio_pci_liveupdate_uapi_test)
++static void dma_memcpy_start(struct vfio_pci_device *device)
 +{
-+	if (self->device)
-+		vfio_pci_device_cleanup(self->device);
-+	if (self->iommu)
-+		iommu_cleanup(self->iommu);
-+	if (self->session_fd > 0)
-+		close(self->session_fd);
-+	if (self->luo_fd > 0)
-+		close(self->luo_fd);
-+}
-+
-+TEST_F(vfio_pci_liveupdate_uapi_test, preserve_device)
-+{
-+	int ret;
-+
-+	ret = luo_session_preserve_fd(self->session_fd, self->device->fd, 0);
++	u64 size = memcpy_size(device);
++	void *src = src_region.vaddr;
++	void *dst = dst_region.vaddr;
++	u64 count;
 +
 +	/*
-+	 * Only VFIO cdev files of devices in noiommu mode can be preserved;
-+	 * device files obtained through a VFIO group never can.
++	 * Rough Math: If we assume the device will perform memcpy at a rate of
++	 * 30GB/s then 7200GB of transfers will run for about 4 minutes.
 +	 */
-+	ASSERT_EQ(ret, self->iommu->iommufd ? -EOPNOTSUPP : -ENOENT);
++	count = (u64)7200 * SZ_1G / size;
++	count = min_t(u64, count, device->driver.max_memcpy_count);
++
++	memset(src, 'x', size);
++	memset(dst, 0, size);
++
++	ksft_print_msg("Starting %lu DMA memcpy operations of size 0x%lx\n",
++		       count, size);
++	vfio_pci_driver_memcpy_start(device, to_iova(device, src),
++				     to_iova(device, dst), size, count);
 +}
 +
-+TEST_F(vfio_pci_liveupdate_uapi_test, preserve_group_fails)
++static void dma_memcpy_wait(struct vfio_pci_device *device)
 +{
-+	int ret;
++	u64 size = memcpy_size(device);
++	void *src = src_region.vaddr;
++	void *dst = dst_region.vaddr;
++	struct timespec start, end;
++	long ms;
 +
-+	if (self->iommu->iommufd)
-+		SKIP(return, "iommufd-mode does not have group files");
++	VFIO_ASSERT_EQ(clock_gettime(CLOCK_MONOTONIC, &start), 0);
 +
-+	ret = luo_session_preserve_fd(self->session_fd, self->device->group_fd, 0);
-+	ASSERT_EQ(ret, -ENOENT);
++	/* Fail rather than hang if the device stopped, e.g. as it was reset. */
++	alarm(MEMCPY_TIMEOUT_S);
++	VFIO_ASSERT_EQ(vfio_pci_driver_memcpy_wait(device), 0);
++	alarm(0);
++
++	VFIO_ASSERT_EQ(clock_gettime(CLOCK_MONOTONIC, &end), 0);
++	ms = (end.tv_sec - start.tv_sec) * 1000 +
++	     (end.tv_nsec - start.tv_nsec) / 1000000;
++
++	VFIO_ASSERT_TRUE(is_filled(src, size, 'x'));
++	VFIO_ASSERT_TRUE(is_filled(dst, size, 'x'));
++
++	ksft_print_msg("Pre-kexec DMA memcpy operations completed after %ld ms\n",
++		       ms);
 +}
 +
-+TEST_F(vfio_pci_liveupdate_uapi_test, preserve_container_fails)
+ static void check_noiommu(const char *bdf)
+ {
+ 	const char *cdev_path = __vfio_pci_get_cdev_path(bdf, true);
+@@ -35,26 +133,162 @@ static void check_noiommu(const char *bdf)
+ 	free((void *)cdev_path);
+ }
+ 
++static void dma_memfd_regions_map(struct vfio_pci_device *device, int fd,
++				  bool before_kexec)
 +{
-+	int ret;
++	struct dma_region *regions[NR_MEMFD_FOLIOS] = {
++		&device->driver.region,
++		&src_region,
++		&dst_region,
++	};
++	int i;
 +
-+	if (self->iommu->iommufd)
-+		SKIP(return, "iommufd-mode does not have container files");
++	memfd_vaddr = vfio_memfd_mmap_aligned(fd, MEMFD_SIZE, SZ_2M);
 +
-+	ret = luo_session_preserve_fd(self->session_fd, self->iommu->container_fd, 0);
-+	ASSERT_EQ(ret, -ENOENT);
++	for (i = 0; i < NR_MEMFD_FOLIOS; i++) {
++		struct dma_region *r = regions[i];
++
++		r->vaddr = memfd_vaddr + (u64)i * SZ_2M;
++		r->size = SZ_2M;
++		iommu_map_identity(device->iommu, r);
++
++		if (before_kexec)
++			folio_pa[i] = r->iova;
++		else
++			VFIO_ASSERT_EQ(r->iova, folio_pa[i],
++				       "Folio %d moved across kexec (0x%lx != 0x%lx)\n",
++				       i, r->iova, folio_pa[i]);
++	}
 +}
 +
-+int main(int argc, char *argv[])
++static void dma_memfd_recheck_pa(struct vfio_pci_device *device)
 +{
-+	int fd;
++	struct dma_region *regions[NR_MEMFD_FOLIOS] = {
++		&device->driver.region,
++		&src_region,
++		&dst_region,
++	};
++	int i;
 +
-+	fd = luo_open_device();
-+	if (fd < 0)
-+		ksft_exit_skip("open(%s) failed: %s, skipping\n",
-+			       LUO_DEVICE, strerror(errno));
++	for (i = 0; i < NR_MEMFD_FOLIOS; i++) {
++		u64 pa, len;
 +
-+	close(fd);
-+
-+	device_bdf = vfio_selftests_get_bdf(&argc, argv);
-+	return test_harness_run(argc, argv);
++		VFIO_ASSERT_EQ(__iommu_noiommu_get_pa(device->iommu,
++						      regions[i]->iova, SZ_2M,
++						      &pa, &len), 0);
++		VFIO_ASSERT_EQ(pa, folio_pa[i]);
++		VFIO_ASSERT_EQ(len, (u64)SZ_2M);
++	}
 +}
++
++static void dma_memfd_regions_unmap(struct vfio_pci_device *device)
++{
++	iommu_unmap(device->iommu, &dst_region);
++	iommu_unmap(device->iommu, &src_region);
++	iommu_unmap(device->iommu, &device->driver.region);
++	VFIO_ASSERT_EQ(munmap(memfd_vaddr, MEMFD_SIZE), 0);
++	memfd_vaddr = NULL;
++}
++
++static void save_data_session(int luo_fd)
++{
++	char buf[256];
++	int data_fd;
++
++	data_fd = luo_create_session(luo_fd, data_session);
++	VFIO_ASSERT_GE(data_fd, 0);
++
++	snprintf_assert(buf, sizeof(buf), "0x%lx 0x%lx 0x%lx",
++			folio_pa[0], folio_pa[1], folio_pa[2]);
++	VFIO_ASSERT_EQ(create_and_preserve_memfd(data_fd, DATA_TOKEN, buf), 0);
++}
++
++static void load_data_session(int luo_fd)
++{
++	char buf[256] = {};
++	char *end, *cur;
++	int data_fd;
++	int mfd;
++	int i;
++
++	data_fd = luo_retrieve_session(luo_fd, data_session);
++	VFIO_ASSERT_GE(data_fd, 0);
++
++	mfd = luo_session_retrieve_fd(data_fd, DATA_TOKEN);
++	VFIO_ASSERT_GE(mfd, 0);
++	VFIO_ASSERT_GT(pread(mfd, buf, sizeof(buf) - 1, 0), 0);
++	VFIO_ASSERT_EQ(close(mfd), 0);
++
++	cur = buf;
++	for (i = 0; i < NR_MEMFD_FOLIOS; i++) {
++		errno = 0;
++		folio_pa[i] = strtoull(cur, &end, 0);
++		VFIO_ASSERT_EQ(errno, 0);
++		VFIO_ASSERT_NE(end, cur);
++		cur = end;
++	}
++
++	VFIO_ASSERT_EQ(luo_session_finish(data_fd), 0);
++	VFIO_ASSERT_EQ(close(data_fd), 0);
++}
++
+ static void before_kexec(int luo_fd)
+ {
+ 	struct vfio_pci_device *device;
+ 	struct iommu *iommu;
++	void *init_vaddr = NULL;
+ 	int session_fd;
++	int memfd;
+ 	int ret;
+ 
+ 	check_noiommu(device_bdf);
+ 
++	memfd = vfio_thp_memfd_alloc(MEMFD_SIZE, &init_vaddr);
++	if (memfd < 0)
++		ksft_exit_skip("Failed to allocate 2MB THP memfd: %s\n",
++			       strerror(-memfd));
++	VFIO_ASSERT_EQ(munmap(init_vaddr, MEMFD_SIZE), 0);
++
+ 	iommu = iommu_init(MODE_IOMMUFD_NOIOMMU);
+ 	device = vfio_pci_device_init(device_bdf, iommu);
+ 
++	if (!device->driver.ops || !device->driver.ops->attach)
++		ksft_exit_skip("No driver that supports attach() found for %s\n",
++			       device_bdf);
++
++	dma_memfd_regions_map(device, memfd, true);
++
+ 	create_state_file(luo_fd, state_session, STATE_TOKEN, /*next_stage=*/2);
+ 
+ 	session_fd = luo_create_session(luo_fd, device_session);
+ 	VFIO_ASSERT_GE(session_fd, 0);
+ 
++	/*
++	 * Preserve the DMA memfd in the same session before the device so that
++	 * LUO's LIFO finish order resets an unclaimed device before freeing
++	 * the memfd folios.
++	 */
++	ret = luo_session_preserve_fd(session_fd, memfd, MEMFD_TOKEN);
++	VFIO_ASSERT_EQ(ret, 0);
++
++	dma_memfd_recheck_pa(device);
++
+ 	ret = luo_session_preserve_fd(session_fd, device->fd, DEVICE_TOKEN);
+ 	VFIO_ASSERT_EQ(ret, 0);
+ 
++	vfio_pci_driver_init(device);
++	dma_memcpy_one(device, 'a');
++
++	dma_memcpy_start(device);
++
++	/*
++	 * Disable interrupts on the device or freeze() will fail. The memcpy
++	 * operations do not generate any.
++	 */
++	vfio_pci_msix_disable(device);
++
++	save_data_session(luo_fd);
++
+ 	close(luo_fd);
+ 	daemonize_and_wait();
+ }
+@@ -98,13 +332,16 @@ static void after_kexec(int luo_fd, int state_session_fd)
+ 	struct iommu *iommu;
+ 	int session_fd;
+ 	int device_fd;
++	int memfd;
+ 	int stage;
+ 
+-	check_open_vfio_device_fails();
+-
+ 	restore_and_read_stage(state_session_fd, STATE_TOKEN, &stage);
+ 	VFIO_ASSERT_EQ(stage, 2);
+ 
++	load_data_session(luo_fd);
++
++	check_open_vfio_device_fails();
++
+ 	session_fd = luo_retrieve_session(luo_fd, device_session);
+ 	VFIO_ASSERT_GE(session_fd, 0);
+ 
+@@ -112,16 +349,25 @@ static void after_kexec(int luo_fd, int state_session_fd)
+ 	VFIO_ASSERT_GE(device_fd, 0);
+ 
+ 	iommu = iommu_init(MODE_IOMMUFD_NOIOMMU);
+-
+-	/*
+-	 * This will invoke various ioctls on device_fd such as
+-	 * VFIO_DEVICE_GET_INFO. So this is a decent sanity test
+-	 * that LUO actually handed us back a valid VFIO device
+-	 * file and not something else.
+-	 */
+ 	device = __vfio_pci_device_init(device_bdf, iommu, device_fd);
+ 
++	memfd = luo_session_retrieve_fd(session_fd, MEMFD_TOKEN);
++	VFIO_ASSERT_GE(memfd, 0);
++
++	dma_memfd_regions_map(device, memfd, false);
++
++	vfio_pci_driver_attach(device, /*memcpy_in_progress=*/true);
++	dma_memcpy_wait(device);
++
++	/* The device was not reset, so it can be used without reinitializing it. */
++	dma_memcpy_one(device, 'y');
++
+ 	VFIO_ASSERT_EQ(luo_session_finish(session_fd), 0);
++	VFIO_ASSERT_EQ(close(session_fd), 0);
++
++	vfio_pci_driver_remove(device);
++	dma_memfd_regions_unmap(device);
++	VFIO_ASSERT_EQ(close(memfd), 0);
+ 
+ 	vfio_pci_device_cleanup(device);
+ 	iommu_cleanup(iommu);
+@@ -133,6 +379,8 @@ int main(int argc, char *argv[])
+ 
+ 	snprintf_assert(device_session, sizeof(device_session),
+ 			"vfio-lu-device-%s", device_bdf);
++	snprintf_assert(data_session, sizeof(data_session),
++			"vfio-lu-data-%s", device_bdf);
+ 	snprintf_assert(state_session, sizeof(state_session),
+ 			"vfio-lu-state-%s", device_bdf);
+ 
 -- 
 2.56.0.317.g454f8302e1-goog
 
