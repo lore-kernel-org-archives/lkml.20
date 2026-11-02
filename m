@@ -1,48 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633173;
-	b=VaVo5jV5cnuK8YHipLzgHxNwI9Qg1OAtl+B0Ad3HdqgPHB6MCXN8O56m+hyS8wIqK7DV
-	 oOd/hNR70qLBXddUTz9pYKbFJmHPhI1YJctFYBcTCPWxg/saCnYmAmUduXfhXlSx1WgjJ
-	 OqjvYiy7iXZWBOKudTzWdz2RsUGMnleW1Z7U9Xf0w88Hq2vxtiEeXV0wkf2sLsgbPrCmG
-	 99qLvu3KJUcp16HE2HMI9z7/pJejrTjjuvXU2HpyVSGgRL5TilYRslxJ60pQZWJegaiC/
-	 FXrcuOpag7fCq4wKgI9q9tXjr6d1rDgUjaiRyOJsBe8aP6QvYg0kBBnQAfaRkdv7AyA==
+	t=1793633184;
+	b=hzMQJdtCGTOucyfGQunhAFNTZyirAVfvyP9lShtKVVCQ26OTywKpiS/gc0eViLrujbO6
+	 Fo8UnbHWG+1SndGLfXgsas8W1e0GtaISsJHFmv7aB1K6NDiKoYMvfJcFHJOePoXGCzm1f
+	 VrgLGSFP5DwcQARtfNLQgcwkJ9IVVM/2D92afYCpsM5vAB++ovwK7BCk66VtDb/kI3xFt
+	 9/UOtJstVIb5UnFthjZHTHGfE6XK2IhckJz2zugr2YRBBCjjUEibKj7AF5V5sn7UkNWpV
+	 DwsFLUcGnB8LxzAbQ9cc4pOE4Y15dqHrcw5OrIE3OGoBmABDussT6LViPk2GXbKyS5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633173;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=B1LcgTjI6osh59ZzieUt8cHCAfIdiXhMZk2FTOpmVb0=;
-	b=zsgDu7MjfGpQfsd52LZ5d+s1PS+A4Ci5V0Nz3t9iIl9xoSbE0vbZa2q5DgdJnB5PR8M5
-	 oOwBILflqiDTeZ7BLsZ0fVVHwXsvbiu8g46pt5ZltBzZd7GhPh6D0hdThv0XEhVb0AL5G
-	 AQoy3MKkKcc7rm28yzeor23/dUQhfcIM0hiWtFSfCLVZhg+OdMLEYsW7KmKRm4yEYuw4s
-	 neBjYQrxQemEaJXqpw7qBVZnQKRYqsns5PA/kM4FUkrQNufEeWcsdqo081jLZv81JFnSR
-	 SXP9XVmfTNK7+qJk81ihyeV1vJvUdHXg1dl3mRqeDxKQ3KSeM+xyB0L5AeH03XAHMTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633184;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=NZ7uDGaJuz3784OD9oFLUOQAlulPmdnktGy1Lcp2kIQ=;
+	b=2PQ+dDoHxjXypkCEhiV8I5l+fOfN6XXiY3nS7y9qGwSTI6YrwRcUug1tX0K+jW52yPql
+	 4IFiXmBEMAO1rYXeEYE+zAKO81CYT64KeDFdk5vKI8wiseHiHgLhpoi0jUE9FGwR2XdSy
+	 6ZiDOhCiSywCqe+PBluOxMX9xbHq3qWBH+GVkXPe6RAJigqTzYpbjxX7OcQhPR8rCuoVl
+	 ZjPoRaN7Ks07XS9z3D/LqqHBbLum9tJTvcq9O0EOZUjyVseaOpH4jfcGEkCwCSXx2MJ7w
+	 n6byCL/1YQeHMVKws5Jn+4ipf9zFvoyh6cWOZAvv05NYuQKErVZGgvsiwNBHMGceovw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDk6OKCI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="fVjPD5/2";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OL3eQZMl;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A27F609A731;
-	Mon,  2 Nov 2026 15:26:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82221609A736
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:26:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82221609A736
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDk6OKCI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E611F00A16;
-	Mon,  2 Nov 2026 15:25:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633173;
-	bh=B1LcgTjI6osh59ZzieUt8cHCAfIdiXhMZk2FTOpmVb0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=aDk6OKCI0ar0R/BnCnovLiGiUgsQiS5cX2Iwq/bm/oxbS1/IImKGdug7FdOjvklfD
-	 64oCwGAK6j+ynLF1muOCW0FEO0ciDHlSkU3IC2ugiIhQRfFVM/NQ0oqazBDBhOY57h
-	 sJCWDt4wqHqEb5aSyBD/+EPtWOITuneefzTGQ8mUGHB8tDqm3gA+4PZZ3S4JIuMiZc
-	 GXmPDubR+xVQwezYvxsVrQArwRXqg2mHgtAgwVyPXxzSE4iifxjtpH179wLH+qs5l+
-	 IW4VUxjdneaQ8roktcSnrLzCGbyg0Xatn3vQmPJgGEy5D/5zzbKmwEEMZ7lOT8pEwl
-	 qwtHvgii6pE7g==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:28 +0100
-Subject: [PATCH RFC 18/27] sched/psi: mark the pressure files permanent
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fVjPD5/2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OL3eQZMl
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DpRVn2449107
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 15:26:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NZ7uDGaJuz3784OD9oFLUOQAlulPmdnktGy1Lcp2kIQ=; b=fVjPD5/2rsrAeWny
+	dY4kXttgQdcC8B2da4/JGFKlwB88zU2Wt+us18VB1OZwQ+AH7/UwypCGNuzM3nc3
+	u8ZKNI3lps1ppameBkvboOCjTzKDvJsaNM2Fs9Y+I5WUxnRVPTGdCTLVJr8omCPd
+	D38LG0xJBLYhh0+QZ89jL2tVARDXTPMlynaADDFK1bixIqZF3EeYyMC+9TiWlgNe
+	dlBN53bF9lSLcHCNf90k+wucjcAbTG3V2V2IHUqirxUAdalbSJFoKT6zLGrafWpw
+	UKeNrnd6WJcRHAT7WWuFGgb8Av267GPs51xoJ8o+nLMp4plyJtKWn5Sgl8UXvt4g
+	+9EYEw==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpky4jcmf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:26:23 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eabe7151daso109147e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:26:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793633182; x=1794237982; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NZ7uDGaJuz3784OD9oFLUOQAlulPmdnktGy1Lcp2kIQ=;
+        b=OL3eQZMltBoWi9CGbPiMIMuw1LRrS+wlf2WxDcLysdI11SXb3Mp9NirNxJTZMlJW6h
+         OxwUTXQz8ab6IVv2X+yWSdAnx/hs3VezLIxbNzukRDc7ssFb/liRsb6wh8nYzL+Iy+sE
+         mn6a8Ny9fNYvg+9kpbulC1RBGHHSHcOSgZFD86JrersLHgL+TDP9aauBPRBniIUwg+4Z
+         s4qcu9vpYBw1AbpeL7h6jUvKXWmgmjzjp6P5TVWrayl2ncQoyRzQsf/VzU/BAiSlJTKk
+         k2wyGHYLrkqkvFuswLOyMZNvcnFyF/2J9xhRrQ4PwIVjpP3bIj6eR9XvCHMvHq4DVmEl
+         N8Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793633182; x=1794237982;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NZ7uDGaJuz3784OD9oFLUOQAlulPmdnktGy1Lcp2kIQ=;
+        b=UU01PIPMzp37dS+EgpEqg/p8yR/I3mZEhNkW+qvZyU4K7XfFGaeV2h2MGZh6KgQmL4
+         m0/FinkBm0QcSNP9OFSa+vIrFHn8UUi7dYm68JuM5oOwgAPSJXvQLYzT465mbAGZaxjX
+         VaoLGGXyRwGcBR0WW5j6wMW9kwx4QsijoNd8uU03jF8NYoV0tdQaDq2SY+vx1z1igei1
+         ej/l/ZVfLSL/YC5sLfJn523stV7UjQoYa98HE3jpa25m+PI5oNujj3unu21EIr1UUTKZ
+         4Jl0WVP/8zwj5vBNYdRQxqFIdv9eREZIgJ8lUbjkFdlhjB0lsdDQWs8naOO5HAuvcc5c
+         l04A==
+X-Forwarded-Encrypted: i=1; AKwUvBxP4lFTk6gQYXqC0XYOUDT2Ik6iGxGsDBvfXEEo48pwA1FYaWWuc1tz6jV3j/XZ4jIWwF5gYG5XxjoovMk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9879g4bw7zDmWSvmiH7OXb8556DcJowkxPL5Nd8ceFhfGrDpEb
+	7amxlYABLYaQjt8MVJtUOshLqMvnVUUPxaJNuAQfppeoPGS2y60GHgDyd0rkJInwmHoESJPKZIn
+	tyrT2Sz6gCTUocZyLlyix+yIMEr9sqxPJxRXTqXOt0IyYs+LV2twiuryXRA7k5Gldd+Q=
+X-Gm-Gg: AYBFou1OSltjE1ZrAA3As5qf2Dw0WfKjz5uHZ2sju21yTRdl13iZVUHaTrc5HQaYt2r
+	Tm8QauEFjudyjNtBBmFv5EMX6T7TsBw6n47M9pKtDZZPJphqPPujs04pasCFJOF2K0QvEgHPCVD
+	ZRLVy/jVuehcpLBsfj+IqpE6bj4MXuciZWsMTum2zcqGNL/iEuzm8pwKajeirlecnqCYT+AzX6o
+	NS6CIIx7+4erLD66AuTxW7U+zU7XQTazoRW5jQMO/50p3IKKr6pRj52e4kq3HDVfbd3TMI7dQj8
+	CRIFY4pfTDy6SV+hjt1aTQg2YV9zQVSZe8LLkjymMEtPtgKRYNjd7QYBY1qwssQZRrR/i4Z+Zdl
+	oTR6zySdzHW1ZVnYiu2szS70NJMtoSm2OkduBEqQHNzDHgyMmENsuiKCQ8SmCrXYclEECpw==
+X-Received: by 2002:ac5:cdb8:0:b0:5ce:23fe:84d8 with SMTP id 71dfb90a1353d-5ec7562c7c4mr2941416e0c.0.1793633182195;
+        Mon, 02 Nov 2026 07:26:22 -0800 (PST)
+X-Received: by 2002:ac5:cdb8:0:b0:5ce:23fe:84d8 with SMTP id 71dfb90a1353d-5ec7562c7c4mr2941372e0c.0.1793633181338;
+        Mon, 02 Nov 2026 07:26:21 -0800 (PST)
+Received: from [192.168.226.93] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cebd3a2desm2237066b.10.2026.11.02.07.26.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 07:26:20 -0800 (PST)
+Message-ID: <427972ac-130b-4e56-92b4-9d11d278d6af@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 16:26:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,107 +115,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-fs-v1-18-d09a996317b3@kernel.org>
-References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2074; i=brauner@kernel.org;
- h=from:subject:message-id; bh=tXr5cu1BdmO0jHsjps1+bZ2IKVwDVWrseoizU64SWOY=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG7kztYrxVWs4L7JrPOz+wSfbxdD3doWh3h9ivDfs
- j/t3nS+jlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIl8TmNk2OS7Of/7mXtnrpvY
- SWw+cDKm06eJnev5ArnA2Z7Kmpt18xn+O605/1eW86zoiteWxTHfRDjWzEmrUjjwJ+3Hhezzqf8
- qeAE=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/msm/gem: Fix VM_BIND range check
+To: rob.clark@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+        freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20261101174911.25184-1-robin.clark@oss.qualcomm.com>
+ <20261101174911.25184-2-robin.clark@oss.qualcomm.com>
+ <90ae1b4e-d83e-4209-9df1-7ebf778a881a@oss.qualcomm.com>
+ <CACSVV012ncykN3PnXnuP+-tK51r4kJ4BUfiThcjV2JYvn_jXwQ@mail.gmail.com>
+ <CACSVV01=19OWZ4i1Bc-j8m8u0+5jtfOgqPU-VfkLUQUQ_oVdmg@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CACSVV01=19OWZ4i1Bc-j8m8u0+5jtfOgqPU-VfkLUQUQ_oVdmg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: hEjUf-XmE4-zIOrXAvqWw6HINts9P5MR
+X-Proofpoint-GUID: hEjUf-XmE4-zIOrXAvqWw6HINts9P5MR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MSBTYWx0ZWRfX3+WO6g+smlqM
+ vMysUsLxIbbLEGmy1iLwjWkUZ427sAwNV9mT5l3HJCq1KNiQWwXLnSFl9ZiuEnWkdai8G2uR7sN
+ eWlCTreSIpcHYGoTYtSWDJpRZnyv3xY=
+X-Authority-Analysis: v=2.4 cv=QoHLTlyd c=1 sm=1 tr=0 ts=6ae8ab9f cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=lvvAgqv1s9cMsEWjrR4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MSBTYWx0ZWRfX2ISug/zjEpjL
+ dasldvmVeN7NK7mmE22BtZCSn+1dLMHd+xGoStJnxmh4wF/sMFNLv3EG2LvN4duCCWBrGJ6R2J2
+ 99NkJO/hlgmACeXyzqR3e+/4Q9TvWtH85lsOpEQpbthBJa8WlpRMT+K+9y2ElGK17RC5DoZXX7V
+ MyXKJfQ9ue3bglJ9i71hK0AIhcTAz3623gUX44qB//LrVFUREib7L91nkuH4GspIRdaXJCIgi/o
+ vKksyS26ToEE3w6GzdKzi6J8QrUa+73HlFedjjLRgBWEbKT6q1Bk/+TxTl+aZ32DNkqewEmDagI
+ w94XBVJG5qoRaXgcaNNZRaE5nm/q4sqBYmu2f49FBnhszFtfcRAtjDFN7YYBv2fT3jPojO8fdZi
+ OPAxsy+sWyiD7MopSt4svxGN+2oeEpc/qyCEd3elNZfhZIhCnIpdza6EeNV633LTLiAp/rtav/K
+ rMuzI6kJQ5LXdZc0+TA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020061
 
-/proc/pressure/* are created when psi initializes and never removed.
-Say so with PROC_ENTRY_PERMANENT, procfs then calls into them without
-pinning them, like it does for /proc/profile.
+On 11/2/26 4:18 PM, Rob Clark wrote:
+> On Mon, Nov 2, 2026 at 5:59 AM Rob Clark <rob.clark@oss.qualcomm.com> wrote:
+>>
+>> On Mon, Nov 2, 2026 at 1:40 AM Konrad Dybcio
+>> <konrad.dybcio@oss.qualcomm.com> wrote:
+>>>
+>>> On 11/1/26 6:49 PM, Rob Clark wrote:
+>>>> Use size_add() to guard against overflow.
+>>>>
+>>>> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>> Fixes: 3a3bef68a6c1 ("drm/msm: Fix missing VM_BIND offset/range validation")
+>>>> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+>>>> ---
+>>>>  drivers/gpu/drm/msm/msm_gem_vma.c | 2 +-
+>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+>>>> index f687a629629d..16b3870d5e90 100644
+>>>> --- a/drivers/gpu/drm/msm/msm_gem_vma.c
+>>>> +++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+>>>> @@ -1118,7 +1118,7 @@ vm_bind_job_lookup_ops(struct msm_vm_bind_job *job, struct drm_msm_vm_bind *args
+>>>>               op->obj = obj;
+>>>>               cnt++;
+>>>>
+>>>> -             if ((op->range + op->obj_offset) > obj->size) {
+>>>> +             if (size_add(op->range, op->obj_offset) > obj->size) {
+>>>
+>>> GPT and Sashiko are unhappy about what this does on 32b
+>>
+>> Considering that we can't have >4gb BOs on 32b, I think the concerns
+>> are probably unwarranted.  But yes, I do look at Sashiko's reports
+> 
+> Probably we should add checks that obj_offset/range are not more than SIZE_MAX?
 
-That also takes care of a rule the files bent. psi_write() takes the
-seq_file's lock to serialize the triggers. A reader holds that lock
-while it copies to userspace, and now that procfs owns the seq_file it
-does that with the entry unpinned. So nothing that runs with the entry
-pinned may wait for that lock, and psi_write() ran pinned. Nothing ever
-waited for it since the files are never removed, but with the files
-permanent nothing runs pinned at all.
+Wouldn't hurt
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- kernel/sched/psi.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
-index 3132105bf382..9811c3b705eb 100644
---- a/kernel/sched/psi.c
-+++ b/kernel/sched/psi.c
-@@ -1622,6 +1622,7 @@ static int psi_fop_release(struct inode *inode, struct file *file)
- }
- 
- static const struct proc_ops psi_io_proc_ops = {
-+	.proc_flags	= PROC_ENTRY_PERMANENT,
- 	.proc_show	= psi_io_show,
- 	.proc_write_buf	= psi_io_write,
- 	.proc_poll	= psi_fop_poll,
-@@ -1629,6 +1630,7 @@ static const struct proc_ops psi_io_proc_ops = {
- };
- 
- static const struct proc_ops psi_memory_proc_ops = {
-+	.proc_flags	= PROC_ENTRY_PERMANENT,
- 	.proc_show	= psi_memory_show,
- 	.proc_write_buf	= psi_memory_write,
- 	.proc_poll	= psi_fop_poll,
-@@ -1636,6 +1638,7 @@ static const struct proc_ops psi_memory_proc_ops = {
- };
- 
- static const struct proc_ops psi_cpu_proc_ops = {
-+	.proc_flags	= PROC_ENTRY_PERMANENT,
- 	.proc_show	= psi_cpu_show,
- 	.proc_write_buf	= psi_cpu_write,
- 	.proc_poll	= psi_fop_poll,
-@@ -1655,6 +1658,7 @@ static ssize_t psi_irq_write(struct file *file, char *buf, size_t nbytes,
- }
- 
- static const struct proc_ops psi_irq_proc_ops = {
-+	.proc_flags	= PROC_ENTRY_PERMANENT,
- 	.proc_show	= psi_irq_show,
- 	.proc_write_buf	= psi_irq_write,
- 	.proc_poll	= psi_fop_poll,
-
--- 
-2.53.0
-
+Konrad
