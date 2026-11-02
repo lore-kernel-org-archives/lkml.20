@@ -1,113 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612158;
-	b=OAtYjMrpnaE+tsScthqAXZk85LRzBZ5bsjWxyBhDRjCQV/PzthZppKHmvH7gBI+6WrPL
-	 l0B3vrM55Q7EVDzaZ6VNmdBGQjiKyFX+GtXbXXv8ENG1gNvCm+VV25jlGAluAfJZzzV7D
-	 gOgxKHv2qOnGb3xlolZKvF3SEfpJK4B7AUqX2EYXCCLfI9bB1M6MAJS6iAzJnxT95rgQO
-	 xjnQU5oTSbvQRQhAy0ZUllgse7cQURotBwQN+3PsyCt3Dlk9Z+lY/tY4+DBkoA3KZyj3u
-	 NXeYJUmOcROfcuPIrSh/mMfHjUjtH04V005Z5ESLPJoS3FSOIjuibPWCsL39Xb6AKgA==
+	t=1793612167;
+	b=D4/TI1sqRAy9n7G7dBoOiAi8I5Lu3gM1bLJ8f2PEaAPIImb/aEffPSrsJEsX+xTLkQJ3
+	 /GZg+mt7TexQ5jVr21JKjT3N7OqJlJHDzpF3mitMVx3DwfqNlAxKTT4626Fu3I18b9v8Z
+	 OqAad4O3Ye+rdwg5m0elm7b5MMlCA+6AoAS37N+cxHeEDL36Ff4EZ7tfBCVfyh+QRunME
+	 gT0FwVP6qkEluTZwScGug2iggh7pIPZC+O6Nv79gIFWtSQXCM98LLYbinW3sLRSfZUZht
+	 +UEcxsrFgsbl/dmaGhj0MAvguz2bhnrjcVJxGD+U6OFOiNAno017br6MX5xvBEdYb3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612158;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Mm9UAeiTDrhCY7oe9mnBBjHCOX4kZjsSHaPe1K0OWSw=;
-	b=Lu7mHyyMT2SCnIhMYmz80yyIctY87+Gd3kAd7sn3Z9arm1OAHLWdqj4f466kKhPFGH0w
-	 REJ07iPcfwLAoWoqx7ofZd0ZGduiRrOcCvz66lVAAuOm/0F5ylgjzHtWVpPA7O7qz0G/G
-	 OAmN2UaruenRrmSXQwMRVTWgU8EfltRPhdpBpueuDxm4t2LY558spjiqSNeDmvVEFGrOr
-	 wTa2auAGvVsx5sYKhdMkzyTqq6e8kBrbslqCEZwEcHhvWVLB7ncteJgRDoeX9iXoCZEk6
-	 27Kk+uNK+r0rkW2/Uj5p/Ke2IySP/sUdBK5lbZ8cxxZc5mn4UYCj2kIfAMGT42bLieA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612167;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=+/sMZYds1uhOZXW3Ia/g+6VA7auA/l8PP9TjhomiEy4=;
+	b=M4HSH7aUzHtqfWCQZzcQWYE2HRh+9QEDRzKsTOHOorsEWZyg6pQoSa7eahPZT18Zp2lP
+	 ccsjkVDoIKgzNT+hMTmDmPv/AmK0PsVVAhJmx0IOrS7lLpUlYOTouyVgUqpPezgoFzhHg
+	 m+LOV6p/krdFnQDAVZgXguky4VieZyzGWkoK2GcLLqYAkGPC8cDds2g/8/aS248hipOEc
+	 skMlK4rwYc/reWB/rAudPXDeE5wIEVAleQK/mNt9RGd18eeQPnvX2tA29i/6Upo1tj1z4
+	 lk3YZYhMoBwV3ZnEl+Y9/AokXBxWeZLJWflwYM8EeDkngAHol4rlq0axDPDXjqIEWUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UFTkJ+mv;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=nGt8834H;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=LdTYYRbv;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B603606A337
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:35:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B603606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131CC606A338;
+	Mon,  2 Nov 2026 09:36:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 131CC606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UFTkJ+mv;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=nGt8834H
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793612156;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=LdTYYRbv
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ65Z1smrzMlFg;
+	Mon, 02 Nov 2026 10:36:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793612162; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Mm9UAeiTDrhCY7oe9mnBBjHCOX4kZjsSHaPe1K0OWSw=;
-	b=UFTkJ+mvX0cSyL7Ru/Ychv8nd/tsyjr4F7N4I953A4u1L4VaNQXzJ2qpFhkAnClSBDjzeT
-	KVsPG/QVtBHzCgKP9q2Yi7TKljoYTf0KAWiMFebpZLFOBqMSM5cjJqkM+3YuMSBUMmYgXC
-	2lNQMWxGLMQrxzxzhLG42nbu2PC7bZg=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-460-ovx8CLY9OPCKoxC__N_KpQ-1; Mon, 02 Nov 2026 04:35:55 -0500
-X-MC-Unique: ovx8CLY9OPCKoxC__N_KpQ-1
-X-Mimecast-MFC-AGG-ID: ovx8CLY9OPCKoxC__N_KpQ_1793612154
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4afef353dd2so11744915e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:35:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793612154; x=1794216954; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mm9UAeiTDrhCY7oe9mnBBjHCOX4kZjsSHaPe1K0OWSw=;
-        b=nGt8834HJ1051BE9IIkxb1iFxH6KWri6OHygXgQ9dIsLe7HCfs+dUJNAhiqrHDfG+F
-         dRLgQ32Al/xfeRt9FpMVJ/H5c4wR/74XwkDcukw7rqfh6JUElkHalS4iR1GklHni2HDc
-         c52cgMxwXRZD2piV7tXpqWUalyrzUJY6pXw4uRlTbQ0riCFVMwzUx/PM5+U4ZQwEXY4f
-         7W2SjjvFM5EoUXqHo7CKTHabky6ubWWdVV/6YDnimS/RVi2Ox7NgkRXujCzv75oJ6jGx
-         ehHpZiURKYBj4a+80alZXqMKmUpY3V3+7+C+iTRIg4vAYY3myREErjY7ZTq0yrDR5LAi
-         en2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793612154; x=1794216954;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mm9UAeiTDrhCY7oe9mnBBjHCOX4kZjsSHaPe1K0OWSw=;
-        b=jMQdhVzr/GocvLdO5MRdbBM/iWx0fwMpNr5GuiTLA6yiTg45xec1IeJw+Ilz+WG1ca
-         vOBVAGbaLLSMMzUd+Mr4ulWGopPAjD1LZopWH2J6Xo17+DHKBgyNnX0DXUgAKv6pJNp5
-         tKXlYjLuFL7CwYvx+SF+EcmWGDiLq1SxD7Ip+KNF+fY80g5ARjghTW0mrqNbIDLPgBVc
-         RzunuAX/ZvJzOwu54TlqmcM/cxTRRWGCzfvKv/MOWifUzeClOYsb5VlTPrK5VhI+khAr
-         N0MOzVRPg0nySEIAZqVQUkuC6+vBxe9qfeS5oqdIpNvsMQBIQ/ki5E/i4LP1qkyf6lVj
-         4nsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwW+IlpR6aO767nTGrYMqx8LCgPAgF97dUt8LKMfSHV9uszqgQvkL8jE6XGzppJhrCjEoyVOOio23K6PXI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKo4WbgJ0LvCHbyjpYSKJAVw1ng1gjgoSLDJwuVf4pkh7pJ8Ggq
-	CPo5/iLRGd2ZwfEu+T8MsGz+DPIs8rKBWF3dhmu7EGL24DXElqsamWzNpE5pyP0xS4eE5eahPKg
-	PKtljFMbCxo6lGcRuXp8pg7pRNRF6d6A01VVq8in/msXTt6VTPNaF2+lK7UZ5cYYI5Q==
-X-Gm-Gg: AYBFou0ybVxZnywxA66TPXlR9O8ZtuyDRpnEdvwI4AFL1/Pym/hYJkQoCA1MIKsQR5Q
-	LgW08Ygpm9+duQTpYfpjxS6keq6fJqVxs5KZfn0hQkksT/1CHT0V4OlOAgPT7uMLVFrKqFwpBR/
-	E2Yglk5yES9sO0j+22COM0mJ198ceUFiUOHvZobLbe80ACxdueATe6JLkbF4t61dQ88gpKwDJy+
-	Oip2o2NYiLfXca8a9o83X+q1iMCMT7wCx6RKlhZ2wMNB/mQOOwx8L0kQJQuq8QLUruSrt37cufL
-	236mH5OYlRiQb7DByaDGrTKjWdxO045LpxMavu3zwDp/ybm4m+gIZ3PFEwGV6LYKUPkbHuTDMH+
-	xCMinyJg9joou+396vzGUtT49036YN8UMd/5LY8W4UA==
-X-Received: by 2002:a05:600c:5397:b0:4a3:5991:719 with SMTP id 5b1f17b1804b1-4ac1899353bmr216599245e9.31.1793612154067;
-        Mon, 02 Nov 2026 01:35:54 -0800 (PST)
-X-Received: by 2002:a05:600c:5397:b0:4a3:5991:719 with SMTP id 5b1f17b1804b1-4ac1899353bmr216598595e9.31.1793612153380;
-        Mon, 02 Nov 2026 01:35:53 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1501:b100:9ea2:fd21:b361:8dab])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm335169085e9.12.2026.11.02.01.35.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:35:52 -0800 (PST)
-Date: Mon, 2 Nov 2026 04:35:50 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH] vdpa: fix typos in comments
-Message-ID: <20261102043526-mutt-send-email-mst@kernel.org>
-References: <20260904104440.18772-1-hemanth.selam@gmail.com>
+	bh=+/sMZYds1uhOZXW3Ia/g+6VA7auA/l8PP9TjhomiEy4=;
+	b=LdTYYRbve+2a9AsrYz20m520ncMvUqWtNFNrebXBDHnKI8ybVi/PYzzpfE9c2aWuFQazCh
+	Yanfhn1iktpfZnQvu6kAr70M9l9F5WvWdkfMTslOXz1AiDpwxsLPj04BF7RZ5NgJt2Mrio
+	YY5bbjEEPl6bCHSmIjrPAAqY8i0x94+e6LlSve+QrM9iyCGTKdUjw9uOK33jJpYH+ZHH/Q
+	ZXCFvol5foGJGa5kgTewdfkcTM6PPV/7x+yH/OVp/6tN+BAr23IGPKCZD7XpsivZOn9fCH
+	C3bAI15a1dLfcj0+ibFzUcP+JhkDXEA4k6fD+tfyudO2wKsvS/NOOAMT/wbNdg==
+Message-ID: <3a81450158fe5a46d76257c5018eaf5592168f18.camel@mailbox.org>
+Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
+ Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Date: Mon, 02 Nov 2026 10:35:57 +0100
+In-Reply-To: <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
+References: <20261020100034.759183-2-phasta@kernel.org>
+	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
+	 <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
+	 <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
+	 <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
+	 <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
+	 <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
+	 <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
+	 <f9a47d563f896e0789fffa72df5847e2878cbe5e.camel@mailbox.org>
+	 <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,55 +100,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904104440.18772-1-hemanth.selam@gmail.com>
+X-MBO-RS-ID: 9c9e0b972831da15e15
+X-MBO-RS-META: rpf1r7o51nkurn4xtfgfh9p8yhndq3x9
 
-On Fri, Sep 04, 2026 at 04:14:38PM +0530, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/vdpa/alibaba/eni_vdpa.c | 2 +-
->  include/uapi/linux/virtio_net.h | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/vdpa/alibaba/eni_vdpa.c b/drivers/vdpa/alibaba/eni_vdpa.c
-> index fd6fdba46094..6bb5f6ef57cf 100644
-> --- a/drivers/vdpa/alibaba/eni_vdpa.c
-> +++ b/drivers/vdpa/alibaba/eni_vdpa.c
-> @@ -273,7 +273,7 @@ static int eni_vdpa_set_vq_state(struct vdpa_device *vdpa, u16 qid,
->  	struct virtio_pci_legacy_device *ldev = vdpa_to_ldev(vdpa);
->  	const struct vdpa_vq_state_split *split = &state->split;
->  
-> -	/* ENI is build upon virtio-pci specfication which not support
-> +	/* ENI is build upon virtio-pci specification which not support
->  	 * to set state of virtqueue. But if the state is equal to the
->  	 * device initial state by chance, we can let it go.
->  	 */
+On Wed, 2026-10-28 at 14:38 +0100, Christian K=C3=B6nig wrote:
+> On 10/28/26 10:47, Philipp Stanner wrote:
+> > > > 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race=
+")
+> > >=20
+> > > This bug is exactly what I'm trying to prevent here.
+> >=20
+> > What is your proposed strategy for preventing it?
+>=20
+> nouveau_fence_signal() is consistently used by all signaling path to
+> both signal and cleanup a fence.
+
+No, you miss the point. Look at the bug. It exists because nouveau
+thinks it can drop a reference now because the fence is signaled.
+
+I grant the point, though, that this is actually a refcounting issue.
+The path that is signaling does not have its own extra reference.
+
+> When we stop calling callbacks with locks held and signaling fences
+> from dma_fence_is_signaled() and dma_fence_enable_signaling() nouveau
+> can call nouveau_fence_signal() consistently from all cleanup paths
+> with the proper handling.
+>=20
+> This makes it completely unecessary to have those cleanup hacks as
+> well as the nouveau_fence_release() callback.
+>=20
+> Background is that you can then put the fence context directly after
+> the fence is signaled=20
+>=20
+> > > This problem only exists because we call the backend operations with
+> > > the lock held!
+> >=20
+> > Nope, this particular bug exists because Nouveau thought that it can
+> > drop its reference when dma_fence_is_signaled() returns true, which is
+> > not the case, because the fence backend has a race condition there.
+>=20
+> No it doesn't, the fence backend works exactly like intended.
+
+You mean the lockless checking of a bit that is set under lock-
+protection works as intended?
+
+>=20
+> I agree that we made tons of mistakes here but that is actually one
+> of the few things which we got right on dma_fences from the very
+> beginning.
+> > A race condition that was allowed for performance reasons.
+>=20
+> Well it is at least partially for correctness as well.
+>=20
+> It is mandatory for quite a number of use cases that the signaling
+> status becomes visible before the callbacks finish because otherwise
+> you run into race conditions with the callbacks again.
+
+That's not what I mean. There are two things here:
+
+a) signaled-bit is read without lock-protection
+b) signaled-bit is set before callbacks execute
+
+fixing a) makes b) irrelevant.
+
+But that's not even my point in this mail.
 
 
-given you are bothering - built, not build
+I'm still interested btw in who is busy-polling on a fence, waiting
+until the signaled-bit gets true (that would be the "performance"
+argument).
 
-> diff --git a/include/uapi/linux/virtio_net.h b/include/uapi/linux/virtio_net.h
-> index 1db45b01532b..4a458ebb2567 100644
-> --- a/include/uapi/linux/virtio_net.h
-> +++ b/include/uapi/linux/virtio_net.h
-> @@ -316,7 +316,7 @@ struct virtio_net_ctrl_mac {
->   * Control link announce acknowledgement
->   *
->   * The command VIRTIO_NET_CTRL_ANNOUNCE_ACK is used to indicate that
-> - * driver has recevied the notification; device would clear the
-> + * driver has received the notification; device would clear the
->   * VIRTIO_NET_S_ANNOUNCE bit in the status field after it receives
->   * this command.
->   */
+If you want to know when a fence changes from unsignaled to signaled,
+use this function:
 
-separate patch pls.
+dma_fence_add_callback()
 
-> -- 
-> 2.48.1
+problem solved.
 
+> > What signaling handler are you referring to?
+>=20
+> Take a look at the hack nouveau_fence_is_signaled() does for example.
+> The cleanup part the other signaling call path do is completely
+> missing here because the function can't take the fctx->lock.
+
+Again, ops->signaled() merely has to read an atomic64_t and return a
+bool. Driver locks are not required here.
+
+>=20
+> Yes, but if we want to get away from the external lock concept in
+> dma_fence we must allow drivers to take their own fctx->lock inside
+> the enable_signaling callback.
+>=20
+> Just take a look at what nouveau_fence_enable_signaling() does, that
+> is only possible because the dma_fence framework has grabbed fctx-
+> >lock before calling this function.
+>=20
+> The alternative is forcing drivers to use lockless approaches for
+> their internal handling, and that is much much worse than that a
+> dma_fence signaling status is visible without taking the lock.
+
+[=E2=80=A6]
+
+> Just take nouveau_fence_enable_signaling() as an example, if we don't
+> use fctx->lock as external dma_fence lock then the whole approach
+> used here doesn't work any more.
+
+My entire point is that the driver does not need any driver-lock
+conflicting with the fence-lock-order at all.
+
+I tried to point this out several times, but you keep iterating back to
+"this is what nouveau does".
+
+That nouveau does it does not proof that it's necessary. It just proofs
+that nouveau does it.
+
+> > >=20
+> > My impression was more that central design criteria for dma_fence (like
+> > module unload of the driver who issued your fence, which is designed to
+> > live arbitrarily long) were ignored, there was no clear guidance for
+> > drivers how they should use what callback, and then driver problems
+> > were solved in dma_fence, for instance with this shared lock. So same
+> > story as with drm_sched.
+>=20
+> Yes, exactly that.
+
+Good!
+
+So we agree that the dma_fence backend should give clear guidance about
+what a driver must, must not and should do in its backend_ops
+implementations.
+
+Right?
+
+Because so far the conversation sounded to me like "the driver must be
+able to do whatever it wants and therefore needs to be able to grab
+whatever locks".
+
+>=20
+>=20
+> And that is strong evidence. Nouveau is actually the perfect example
+> of why this approach causes so much trouble for driver
+> implementations.
+
+Calling Nouveau a "perfect example" is like calling Ronald McDonald a
+role model in dietary choices.
+
+Nova is being written right now, for reasons.
+
+>=20
+> And such guidance should not exist in the first place.
+>=20
+> It is up to the driver if they want to use locks for their internal
+> state protection and the dma_fence framework should absolutely not
+> enforce anything it doesn't need to deal with.
+>=20
+> That the dma_fence lock should protect the state of the dma_fence is
+> something I can perfectly agree on, but that does not include the ops
+> call chain because that isn't dma_fence state in the first place.
+>=20
+> > The only evidence I have ever seen is the fence-list-lock, and it's
+> > just not clear at all why any callback would need access to that.
+>=20
+> Because they need to clean things up after signaling.
+>=20
+> > Let's walk it through together, shall we?
+> >=20
+> > ops->release() and ->wait(): deprecated
+> >=20
+> > ops->get_XXX_name() -> never needs driver locks
+> >=20
+> > ops->signaled(): "Driver, here you read an atomic integer, the sequence
+> > number, and tell the fence backend whether this fence shall be regarded
+> > as completed"
+> > No need for any driver lock.
+>=20
+> Incorrect, you can only work without driver locks here when you delegate =
+the cleanup.
+>=20
+> In other words either to a worker or the ->release callback, both are thi=
+ngs we try to avoid.
+>=20
+> Again see nouveau as a perfect example of the problem.
+>=20
+> > If this particular driver also signals fences through an interrupt
+> > handler, it can take a list lock, then signal the fence. The ops must
+> > not do that.
+> > Why would a driver need both modes, sw *and* hw signaling? And why then
+> > is it supposedly the case that both paths need to keep a list updated?
+>=20
+> Because the signaling through the interrupt is mandatory for correct,
+> the signaling through the is_signaled callback is then on top for
+> performance optimizations.
+
+is_signaled() never conflicts with any lock, see my list above.
+
+I think at this point you and I should really first get in sync
+regarding what the backend_ops are supposed to do, because we seem to
+turn in circles a bit in our discussion.
+
+And the only ops that seems to be controversial and that informs the
+nouveau argument is ops->enable_signaling()
+
+What should enable_signaling() do, in your mind? What should we tell
+the driver to do in there?
+
+And why does nouveau even implement it, when its interrupt handler will
+ultimately signal the fence anyways. Since, as usual, nothing is
+documented, and one enable_signaling function carries literally the
+name "no_signaling", I don't give it the benefit of the doubt and just
+assume that this is broken, bad design.
+
+
+My impression is that ops->enable_signaling() and having an interrupt
+handler signaling fences is mutually exclusive design-wise.
+
+
+P.
+>=20
