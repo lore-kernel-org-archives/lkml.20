@@ -1,105 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.57
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793605906;
-	b=Ip2GEli9ajn36ku0grPABFJVCmepYanSQVTpoZiFHvHgzJkKfRixk0ug1ebxlTTXiyqd
-	 OUaKtb2brdBcapE+EKmPRInwwmSkTie/QSUvNLYSFa8npAmozDsx2ETvkmH6i73fMu2w/
-	 990Jd+/C3Gk9eLHi/iyCpHgVP8EyIzkEYgDz6nvJ8IW1qhfN97wzg23Zgz8qdyc8RIMp6
-	 fUNhCUrsBWl+V5pc2Er+dCMvzLYcNKb4iWFnVwnX5DX+FkbTS614PBaS0hzk4up3Lz2bX
-	 wTtKtbnV4nfyyWFbyJkHou8bOrHu739b6XBMcv7pl+sgVBFgiZVDlpyAq1XdLxFimXA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605906;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=DJ/aJ8Nr/qlFcxbpvwkWXqHe8owBNaySlKUfRW+2NG4=;
-	b=nvQuhXBQVqDTqjF8PQgVb7AI6Xx43Fzx+31ojCm5l4OdFgL/y8Ob1IoArieJ3eBXkcNJ
-	 k15qrYoxQO3AEICEnLjKVXB2hr3zldivvMFu3cwjVrFt7zpAOdG3OLY3QbUl2fuCAjM0+
-	 CzaAyhiTaJ9oor6HcMguVs+ntdHLAxLn/cqLqJxrF92jKZBBCuyB2dd8ya8+lYWMes8yW
-	 kVFHIM+YKokbmICCOhlQ8IuMaj7hW/t03OC6EiIAzlLmo1WXN6eymrYbZTXdRPWBquEYT
-	 mtxcA13jZHgIe9VPW6LENgdSQ6F3li7LXZHRkcJoujIWSHbqeTbcoDerB2QqXrx1p3A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KV5cDH2t;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.57
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013057.outbound.protection.outlook.com [52.101.83.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C63D606A32E;
-	Mon,  2 Nov 2026 07:51:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C63D606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793605905;
+	b=xr10mP+iLvQw4k1ModR9u+GI0/HaaWAHFGj5ZxjXfOxXkTdT4TvRjJc/1Ontd6wSTEb5
+	 mN5wSpojNrMyNMkblzWCTIpWv8JVVTTkBdG36HHpc052/4G6trS2/rPpNpfx2sglSkT8P
+	 xzbo1y824VUtpQHpx6oFibIoQANRss+AR1iwPovevS/D/FqbblHTBgeHlnzJgIw0erBL2
+	 Rfp2ntgBAeVXTJgA+Gi0+3oB5Y31HEhSsO7ORTTtDqW62caGmEZ7iwqHn5nJUY06uCxBy
+	 6Qi1vKss23k2kWlRZ1gOd/YhYJSdlmenQmbN7m/1Wwc6wndZgRqZMW+9X+RWQkeAf4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605905;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=39768UITE41AYlJNmfpyyvPGwvwyzs1lv13/2Sl4ptk=;
+	b=sf6emkstZjCNoD4YJfV+rOYIgCb6u1/s5woBr45t0mWRCn6izhpMwNseNUKrdq0mQMtC
+	 32o7MZm1qoVa5qVsFbCc7indmPcFY9BfU2QvQUpy77NvzPcnehvaNpzw7Y8UkPthUGed4
+	 I2bWKbFPWgI90vhKjQJUq2zeyUj0WvZz41xq4Q95F3mwY5qMt0lTfDDe9UZk1wpu67/C0
+	 tAXlxAFBgpxylJxn8bos8/pnrl4UmLRpxzebW1KUEYHqwxGB9KD9acxuuTra1MGkC94NB
+	 I5niy5PinkLFRG6WCkUBOTRpoM1ZI1iFThK8hvKcKUTBA01wXDnKkE/E3fp4dv34EFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tjBs1NjS;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C6361606A334;
+	Mon,  2 Nov 2026 07:51:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6361606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KV5cDH2t
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YVCrpUoox5F4RRi60ZbFPUEEzb57KLMz2+AE6ktI3/xzW7faQDxJN3OIGsMCYZ9BuMzSgiBakGQWLGr+SxwQEjAk96NrsHAwqqedT4udm6vxyzhNUoW+B1b03//mY/GdzjAd0BoaHgojFtVp/V5QTYtSzU4IB2RBbrVnJdld0XT4hWTYQ+GJORoy7HNB/M0M0SEu0/u2fOVPkX84zHKqMd6tS6WFQ5tp2a3ftZvj43X86bO3BFr8q9/Z4aTaH2umeCtv5qf98KwQG6zEMJm1oi+IdSSLPg83JQJskle/IN2XQiqkyjPcYii9UMLhiGF7fDWPG0jbX7Ngo1OEtKepvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DJ/aJ8Nr/qlFcxbpvwkWXqHe8owBNaySlKUfRW+2NG4=;
- b=BkIiau3VG3sUDWo7iqVD/9f/agBcpMvK2pzXErjGAtsaO0o4AY5mYPMv2rzgUO+oZLf06YuUhQ6QKQO7868CjIK2Gq6giuNbAvR7rBi6/6WNeCgC9ICFp5oj1BapGu5P00lpFbc8BsG6JoI6QRzsBHo62W1fys4tu2QFC1CUclgAYCjZJO4zNkpyE6GtnHmzPXWUIvdu2XyhQRZEiYqMOkIvbmB2t4UtxeNRDMEWnjZ84NVkY7aXK9O6mgEROFnivormogLxCDm2sPqzkI+do0rX76dVrjWVpLhtLu4lpe+DoZBuICuxkJ8PNG7QPUa6cQp56gsmuaNFjMjDWxNaTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DJ/aJ8Nr/qlFcxbpvwkWXqHe8owBNaySlKUfRW+2NG4=;
- b=KV5cDH2tOhk75ZHRHkd2EjOMelo1o3RqmTvot0tXzmjO7gPm7gUMrV0kxNb5alXcpgVNgSRa0N8p9pRoajKi2406a6afwpZTz187O3Rld2eL7bCZMUo7lkIik2kfQGWhMk57avFn9fz4RT/WEVFiJcRJZWE/97ZO2s25Kpv2vf+nr6YdVwmUNptNRljDtlx1W/H028InY9LrRTVdt5X7WqXBzv+WA11CwoBRQusbmNOueHkRBawq9fb2NWqJF1o0uWfrfW7jBJh1xo/ZVvwBoQF/SDlbVSstMJqkuc1OD0jO/dymKubCqwfXi/3oRbfKmcTTuFCum9FwUKZzoM3BdA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by PA1PR04MB10939.eurprd04.prod.outlook.com
- (2603:10a6:102:489::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 07:51:38 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 07:51:38 +0000
-Date: Mon, 2 Nov 2026 09:51:32 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v8 06/15] drm/imx: dc-crtc: Disable at boot
-Message-ID: <auhAyqHZSFD0MsUQ@vm>
-References: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
- <20261030-imx8-dc-prefetch-v8-6-c4f81afd4533@nxp.com>
- <auR3zOdTi93AhWSS@vm>
- <aufxSha2jzQJxjWu@raspi>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aufxSha2jzQJxjWu@raspi>
-X-ClientProxiedBy: AS4PR09CA0021.eurprd09.prod.outlook.com
- (2603:10a6:20b:5d4::19) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tjBs1NjS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=tjBs1NjS38BAtrfje1DJWPRw4+z6Wwo3u9u32sz6VNZr+6QUU6DoakAcT6qeF0aIXXuGTg9A6Nry6
+	 BB7OJ4kdyplzK0fymNBda57WSJ41OjDh/R5icyCFsNNA+PUaITdzoEIW7X2qM66eVhPbFpRGww4Vnt
+	 Wd5/z+WBUbubn4zQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ae84105156-8847b;
+	Mon, 02 Nov 2026 15:51:33 +0800 (CST)
+X-RM-TRANSID:2ee76ae84105156-8847b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [198.18.0.93] (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86ae84103747-c9362;
+	Mon, 02 Nov 2026 15:51:33 +0800 (CST)
+X-RM-TRANSID:2ee86ae84103747-c9362
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: Alex Henrie <alexhenrie24@gmail.com>
+Cc: Yingjie Wang <1075151112@qq.com>, netdev@vger.kernel.org,
+ dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-kernel@vger.kernel.org, yana06070@163.com
+Subject:
+ Re: [PATCH net v3] ipv6: reject wrapped temporary address preferred lifetimes
+Date: Mon, 02 Nov 2026 15:51:32 +0800
+Message-ID: <1793605892000.83333.5506952827930878398@cmss.chinamobile.com>
+In-Reply-To:
+ <CAMMLpeQKJO52qhba=G-ZudUA57iAdX4SOapOv7YuprBZ3FzM-w@mail.gmail.com>
+References: <tencent_7A270291DDE5CD89DAFFE8A745D094D5BD06@qq.com>
+ <179344707641.114606.12665582704521593779@cmss.chinamobile.com>
+ <CAMMLpeQKJO52qhba=G-ZudUA57iAdX4SOapOv7YuprBZ3FzM-w@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,204 +76,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|PA1PR04MB10939:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8ba704c-54c5-455d-b4ec-08df38b61fc5
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|376014|7416014|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|11063799006|4143699003|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	pxSlzbyAKAL1sZ+5bdpqE9V2/38HdSJkGuwcsQCIU9Pe6t27JKNKMW/kgt5UDXnmD6QkhQZkOIiTeq00L6vGJ6YSAt+7Qc/bPWtvAyY7D4uXdAnOTAopCdilz7Hfsg5Yk9nq93P/GQ1iO8z0OWQmDB0UXCvfnJS9aBdW5AiHNpW64zqwvNC7Mre0w6VGOycb0GRRi9BoTEuE8cI5QbXXkoj5EVK6wFDuu0uto6w6iLq7tbuRq9OmvHRG8g0RnQyWOQD+gNm4KN9NcpOg0jCO1aPjxsK7wymSGoOHIds+2Ev5zSVssZ2XIYJiCTNG1tiHSYJwOmE9uCB+wOnSk0Uf7eag4klYO/on/bejh/Dcly/R06WjH+vkMU+ijs1khM5mRSrCdYS5LBeqCmZl1VsoejQUylTEUdLOH/olBg0ds4FEQvw5bJeNxvZl1aG47A/fFcwFFJ9YGkeNfPQHzwAbkCV4Sh4nBH09wEJvBWw9roh8bVciWi7ONU4/YdHZ62l+kuNTr2mb3RyQ8ZO4AA1bsBwniPVhC2Ka85QisJlBJDSqIWMLzoftOrA3hfikpn3RFvjXr872Qz9ibs6Id3GW2g92JzukX5mclaPVRPX6Uro60brFSHpanyoY1N0Pz9dT07+sLjVVGQWTq9WrgLP5Q/p3bVhvRLnSKAem7uryvUU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(376014)(7416014)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(11063799006)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AIggiwMfQMYW7CQdlOyBO4lkGwdIz75ioke4/HGaGZqCJQhGOqMGDPsGkP9G?=
- =?us-ascii?Q?5riT+qibi1M88Bx3Sz3tCrIIKddpC/X1pe2baHByO8nNX0w0x+uU8DtEeGlV?=
- =?us-ascii?Q?FkBYeEPOGR5/uTHCj7juFWIKPZNhhjUFkOYjnAeNZFTSx1R4/FzYCUWeisos?=
- =?us-ascii?Q?+oeifkyiOulNXJb7b1cmNAKlLd77q3BRAw2u7C8GqvlhfGk6vrHrd/o0SCmQ?=
- =?us-ascii?Q?X3j/LyC/j0PJIRPkUjW9C0Ccc63KpWXlYSSF2cgqm6dCFX0BeHcrJoQcavHc?=
- =?us-ascii?Q?dPr1Ibjxnu/mx6vLqJGMFQ5ODdisZB9ranMvRvSSxPLHciAYTB8UPWqIeZwJ?=
- =?us-ascii?Q?GF4CQhuE6Di7i+MVEXwRvrPVdiC/+b+/LsET8V508aJs1GniGj/1uW2Gm2Yq?=
- =?us-ascii?Q?tP7TL5cgnXJ4fybIx3MT2G3Z2inNynD2LDy50bHfstjzX0C7oAiMNOkSyoY9?=
- =?us-ascii?Q?e3lpfYFZM75CN26WSiZvzBjroyBpsJtZOzOCoHlW9A6I56UlPGsI6T4rngXS?=
- =?us-ascii?Q?3KBPVZd6XU9YUUIpvXFmsIPefSq6+dZhhVgYB0F6bgSyPWLsNrD4F9gMG+JB?=
- =?us-ascii?Q?yzaEcBWEljsIhudlnK/U4cOYFuqmhScqOWf9FCQ16W7Fl/kdyfKfNOGz5C/R?=
- =?us-ascii?Q?n71uGGGAwRtEIEqJyD2Ueyv37aci2G+V/p7/pmD/Xhr2oebWJ2oCmmoVGdl1?=
- =?us-ascii?Q?PgnYBOESK+MJxcjzhjn9ukDWfS2qCBf6MPK6/ZmUDFgu11S5D0Gr16kXgZMR?=
- =?us-ascii?Q?7xOSEgp1ATBRsABAkkW7CP8zfXwf/ffZd258mYmjEXrBBLg2/5W+6/jaNcMr?=
- =?us-ascii?Q?EvS6q1kO7LryCecuoONaAsE9bhfIuTUFz84j0rf9vmOENQBzPRKnovhimaZF?=
- =?us-ascii?Q?628PwmiqtPboBSgjCaK99NOSud0ab9eWpjA4zrYMADDI1mhTQswZH99Rv8tL?=
- =?us-ascii?Q?LSR3ICXlTvnye/N+FFWeLXWqGRibIocqnbF/LFqOK3qUmJnCrRxfaEkEjvnJ?=
- =?us-ascii?Q?gzZUF1ZKGJU5MpOXv3P89hMZoLtU2jej/RX0In2unhnQp90QkfD7KPv3v2ul?=
- =?us-ascii?Q?tjwVbVcV8tOeFjs8Lwveiz0K0kiungPU4K+VkDLwtc88k3oU+7BAcHLItbfj?=
- =?us-ascii?Q?Sq9hxmYpxLeWi3tLsfDJ02btLETSel3kdDGu5tHkuEPGK/NJ0i+CDVJPySGF?=
- =?us-ascii?Q?ETGXHM9Pz+ViLM4wz20nlWmAp23T0lzjCnrHJTkF8JfflD8cKpN3bSW4NpYS?=
- =?us-ascii?Q?JxchJbRqmhS04nYb09+bx6zZmEMUjddoIMYxkofPi3PgqdyXqHqsbzqVzLYK?=
- =?us-ascii?Q?/u5SR+4bqxayB63JrAOEIwIY/x9Zmjx0XiZr6aMdHIJ/pMD2kDtX2HCAnSVN?=
- =?us-ascii?Q?R1lTzz2rbPbMptQ9T72GKThqD/ufDBVEs5GMnyUzbjZ+doDjgtwYTyT463ZF?=
- =?us-ascii?Q?R8BSBfyXiThdvC5OsSqrmbVZr8bX6iXpB2m2zSmONQGIprgwY9RjcGamx8MV?=
- =?us-ascii?Q?HPiKWrXXWFubLUPXavkpkaNL7rMo82Z3CeUVKxQEO0OnTLxetswjQAORMbS/?=
- =?us-ascii?Q?swCZO7XRvWNQDPHkJ9QMDU5+E2l+SdJFKb2Pe/kFB4a9lDOHb41EQDTLpIWP?=
- =?us-ascii?Q?Ewwq/StrAMAxbtjvI9LjCAIb7rYFO2YofRkA3+1tSVO9lloy94JXJYLXbK+o?=
- =?us-ascii?Q?CMdVFBdxCzCYzxcioJkCxXFcuD5dFu4FCWYbcfS3Ejqa16RosNzmg6AotKin?=
- =?us-ascii?Q?nqR/eF80a5z5ZTrO6xz4jQ4ngsBssts=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8ba704c-54c5-455d-b4ec-08df38b61fc5
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:51:38.0994
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EYtq+Du3gKy+C+YIMNZkdGNlhuzlAqBC1/iJCtGZlM9no3A1njN+SGXSirLsfVuIqK43vFzPycGm8B/at8cd0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10939
 
-On Mon, Nov 02, 2026 at 10:11:22AM +0800, Liu Ying wrote:
-> On Fri, Oct 30, 2026 at 03:05:14PM +0200, Laurentiu Palcu wrote:
-> > On Fri, Oct 30, 2026 at 05:54:30PM +0800, Liu Ying wrote:
-> > > CRTC(s) could still be running after the DRM device is unplugged by
-> > > calling drm_dev_unplug(), because the CRTC disablement logic is
-> > > protected and bypassed by the drm_dev_enter()/drm_dev_exit() pair.
-> > > Hence, Pixel Engine's AXI clock use count(managed by Pixel Engine
-> > > driver's runtime PM) and pixel clock use count could be inbalanced
-> > > after removing and re-installing the driver module.  To fix this,
-> > > add a helper dc_crtc_disable_at_boot() and call it to properly
-> > > disable all CRTCs before advertising DRM device to user-space by
-> > > calling drm_dev_register().
-> > > 
-> > > Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
-> > > Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> > > Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> > > ---
-> > > v8:
-> > > - Call dc_drv_set_crtc_disable() in dc_crtc_disable_at_boot() after CRTC
-> > >   is disabled.  (Sashiko AI bot)
-> > > - Make dc_crtc_disable_at_boot() return an integer instead of void.
-> > >   (Laurentiu)
-> > > - Postpone Pixel Engine AXI clock disablement at boot to the time point
-> > >   where CRTC1(with index == 1) is being disabled at boot.
-> > > 
-> > > v7:
-> > > - Check CRTC status to ensure that clocks were enabled by a previous boot
-> > >   before disabling them in dc_crtc_disable_at_boot().  (Sashiko AI bot)
-> > > - Modify debug message in dc_crtc_disable_at_boot().
-> > > 
-> > > v6:
-> > > - Rebase onto the latest drm-misc-next and resolve conflicts.
-> > > 
-> > > v3:
-> > > - Collect Frank's R-b tag.
-> > > ---
-> > >  drivers/gpu/drm/imx/dc/dc-crtc.c | 72 ++++++++++++++++++++++++++++++++++------
-> > >  drivers/gpu/drm/imx/dc/dc-drv.c  | 11 ++++++
-> > >  drivers/gpu/drm/imx/dc/dc-drv.h  |  3 ++
-> > >  3 files changed, 76 insertions(+), 10 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc-crtc.c
-> > > index 0d64186a9901..5bc952d6883e 100644
-> > > --- a/drivers/gpu/drm/imx/dc/dc-crtc.c
-> > > +++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
-> > > @@ -227,6 +227,7 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-> > >  	struct drm_crtc_state *new_crtc_state =
-> > >  				drm_atomic_get_new_crtc_state(state, crtc);
-> > >  	struct drm_display_mode *adj = &new_crtc_state->adjusted_mode;
-> > > +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
-> > >  	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
-> > >  	enum dc_link_id cf_link;
-> > >  	int idx, ret;
-> > > @@ -287,29 +288,37 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-> > >  
-> > >  	DC_CRTC_CHECK_FRAMEGEN_FIFO(dc_crtc->fg);
-> > >  
-> > > +	dc_drv_set_crtc_enable(dc_drm, drm_crtc_index(crtc));
-> > > +
-> > >  	drm_dev_exit(idx);
-> > >  
-> > >  out:
-> > >  	dc_crtc_queue_state_event(new_crtc_state);
-> > >  }
-> > >  
-> > > -static void
-> > > -dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-> > > +static inline void __dc_crtc_disable_fg(struct drm_crtc *crtc)
-> > >  {
-> > > -	struct drm_crtc_state *new_crtc_state =
-> > > -				drm_atomic_get_new_crtc_state(state, crtc);
-> > > -	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
-> > >  	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
-> > > -	int idx;
-> > > -
-> > > -	if (!drm_dev_enter(crtc->dev, &idx))
-> > > -		goto out;
-> > >  
-> > >  	enable_irq(dc_crtc->irq_dec_seqcomplete);
-> > >  	dc_fg_disable(dc_crtc->fg);
-> > >  	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
-> > >  	disable_irq(dc_crtc->irq_dec_seqcomplete);
-> > > +}
-> > >  
-> > > +static void
-> > > +dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-> > > +{
-> > > +	struct drm_crtc_state *new_crtc_state =
-> > > +				drm_atomic_get_new_crtc_state(state, crtc);
-> > > +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
-> > > +	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
-> > > +	int idx;
-> > > +
-> > > +	if (!drm_dev_enter(crtc->dev, &idx))
-> > > +		goto out;
-> > > +
-> > > +	__dc_crtc_disable_fg(crtc);
-> > >  	dc_fg_disable_clock(dc_crtc->fg);
-> > >  
-> > >  	/* request pixel engine power-off as plane is off too */
-> > > @@ -318,8 +327,9 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-> > >  	/* request display engine power-off when CRTC is disabled */
-> > >  	pm_runtime_put(dc_crtc->de->dev);
-> > >  
-> > > -	drm_dev_exit(idx);
-> > > +	dc_drv_set_crtc_disable(dc_drm, drm_crtc_index(crtc));
-> > >  
-> > > +	drm_dev_exit(idx);
-> > >  out:
-> > >  	drm_crtc_vblank_off(crtc);
-> > >  
-> > > @@ -331,6 +341,48 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
-> > >  	spin_unlock_irq(&crtc->dev->event_lock);
-> > >  }
-> > >  
-> > > +int dc_crtc_disable_at_boot(struct drm_crtc *crtc)
-> > > +{
-> > > +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
-> > > +	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
-> > > +	int ret;
-> > > +
-> > > +	ret = pm_runtime_resume_and_get(dc_crtc->de->dev);
-> > > +	if (ret < 0) {
-> > > +		dc_crtc_err(crtc, "failed to get DC display engine RPM: %d\n",
-> > > +			    ret);
-> > > +		goto out1;
-> > > +	}
-> > > +
-> > > +	if (!dc_fg_wait_for_frame_index_moving(dc_crtc->fg)) {
-> > > +		dc_crtc_dbg(crtc, "FrameGen frame index isn't moving\n");
-> > 
-> > Shouldn't you set 'ret' to something here? Otherwise you'd return the previous
-> > ret value, which would be 0.
-> 
-> We take FrameGen frame index not moving as a normal case, which means
-> the CRTC was not enabled before this boot, so returning 0 is fine.
+On 11/1/26 22:08, Alex Henrie wrote:
+> Is there another combination of parameters that might cause a problem?
 
-Ok
+Hi Alex,
 
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Thanks for explaining the reasoning behind the clamp. I was wrong
+about creation eventually being refused as the public address gets
+older. I had missed the "+ age" in cfg.valid_lft.
 
--- 
+With an infinite-lifetime parent, cfg.valid_lft grows with age too.
+For the values you tested, I don't see an age-dependent cutoff in
+that lifetime check. Normal successful regenerations don't reach the
+retry limit either: addrconf_verify_rtnl() resets the parent's
+regen_count before each regeneration. Repeated ipv6_add_addr() or DAD
+failures can still exhaust the retries.
+
+I don't have a reproducer for another refusal case.
+
+The remaining worry for me is retention. With a short preferred
+lifetime and temp_valid_lft at its two-day default, deprecated
+temporary addresses stay on the interface until their valid lifetime
+expires, and this path does not check max_addresses. Your 90-second
+configuration ages them out fast; with the default I would expect
+many more addresses held at once, but I have not tested that or
+measured the cost. The creation rate also depends on DAD timing, so
+my earlier one-address-per-second estimate was too definite.
+
 Thanks,
-Laurentiu
+Xia
+
+
