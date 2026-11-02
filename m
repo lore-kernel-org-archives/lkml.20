@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638195;
-	b=vk8YjCHck9FjmaZF5Vk3FYBsk9WfOc0OCqzEFk8SZM8JFY1bic2+uX4ZQCJg4wzWI0hG
-	 sIi3OkqCrsfWvW/edRJFslBy7ErNU2MVCS88yqYRfuovosjk9iTGG8F+M45PB+1+5lSVk
-	 CcZFn5hXTRhPVfe1I4BDPBywQeKEONq/7UU4ku7TiZ0niKVkKLVnAML+M1UHH6qBBF+3p
-	 1P9uUmRO8sZpMjNJVImoLwtz6oR4PM9HRD4VjhK5gRygfDxqfC9o9/0HsR4LlRjST3CsB
-	 QBUju5DsSiZWPBBYj314bmtZ/4F/cbgqYl9cGfayxQqf5L+J0WKULeGwUyQ44bUZSlQ==
+	t=1793638183;
+	b=N5XLmdXZRGKEqvidOacL9tDSpdAJ8gyKxZpdtl5Kfd+FoTXPcrS24pqLH2M7AIOvl7g8
+	 N0y6OKKcQRTkjcrjNk+cyVF8Mi/KkTjY1iJ/sdhqvffHhyTJrfMZyPNJXKJ8Vvm1PJud+
+	 aJxUAMcQGmiv9ZDTOJyluUzA0/zIOXS9/oZp3TU09uwRoHY38mmBI4Q4abuVg76C5E2kP
+	 0TxC1PKR/u5WOqwL+4pzjnknPlA86C8SkF5+BUkPFpgAgU1d4vDSYDeVCRDP+EGdNEM4Q
+	 bTykvtpvmnhCNQPc6p/ipOi1PzuuX7UQjAZqsS380tx29yoSqvdV7PR3UhvuA2LLxnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638183;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=FPR/Ghg+mbQA5dNcfU/XXlDPhtrJNvT0MIlhCyTMhWk=;
-	b=S2k6PzjEDlcWjOdQmh+Q7NhCO+1Qstf0bHgcGcWCGYKOMF14QHRmQhTf/wKLYj1ZzbFg
-	 Kjxjc/uP3taNiDJP45EbtnmQ0qO12hEC1RMNH1iTU02kWQbHUbNHAM6sgQQmIHFSWVQmu
-	 Ha+apOqMejH+HPFBChUVsjhp7bbMt+JqCvsLEVmmpgX+8X3P8R0gktL5prCjV1EU+2jW/
-	 VEHPU2eamU9EG9vS1wtvN5/YSu2KntU9OZXAwsyAmWp72CWqV7m1Er0zRWZ4jrYbloKd4
-	 dRF3hscRbLmcIeEYdIB0798TIVNOXnyBJkuLV86FDhkdUjro10T2nju0QYsolbkKoag==
+	bh=hI1MJq4K8L5jI0+LOV3XfRn/TD9k2MaKrMvKNdRDEoU=;
+	b=3LBKklQeF+H/9JF2Exvfz7BLifdh8qa6Va3D6eASIaF/nAZ2pj2umcs/ZN+rFnJufzAQ
+	 5KTnIHtp1sTd2UymCWcGZNCPvo2H5OxK4j7Ryp2/p3v2EzvVtdjRN3Lng/YjUqQo53pcQ
+	 7sCD2TMifSpzBk6DUzqKwLvpdGdjrBHilHOm2nfrDjHN9rCRViuVVDGhHorWJvIDrbGbg
+	 kXdA8y4dhptdyyPawiCuVPO3ze1dS2S5t0Qh7WTlKi1Mqju3a6ObuXNyK0s8Nz+eLDXVG
+	 1IB8+XS/ImjBdxAWAe8zhXQbkajd3px2c3YmdbcQMNYmGVFS0OX+yHi9JVEGW7WR9yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/b4hTLF";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bak8PR33;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C546606D827
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA016072C7B
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/b4hTLF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20AA01F01578;
-	Mon,  2 Nov 2026 16:49:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bak8PR33
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D691F00A1A;
+	Mon,  2 Nov 2026 16:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793638193;
-	bh=FPR/Ghg+mbQA5dNcfU/XXlDPhtrJNvT0MIlhCyTMhWk=;
+	s=k20260515; t=1793638182;
+	bh=hI1MJq4K8L5jI0+LOV3XfRn/TD9k2MaKrMvKNdRDEoU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=M/b4hTLFil05zxZXdOQx4SZVEtBCUUX/YbygJuYYsEIhfhGpWK2FjXjsninOhk8f6
-	 JWZDSKvGwbSER1yxUSbOXHu/UE/2u5L35/9FzLBPA0wuH/vKq0MWtJ5W4VUIXSA36J
-	 YN9g+VHeLOrB0A6DKZnMokcnGC0p2PsVle5cMACRIUJwwqLT/3xT5rSCLruxn4JK/e
-	 jhQCjbDZLbUiAbJht0vfchL98mPc7CRTyW4pbmLojAQk+aytXX86Pw6P4/ugETGCKu
-	 EsKllmGTVplhtfnLVMCnmZHvqhP03dWcq4I6Pt8hEq912alMJBkwFaOjUJAJjxrWRB
-	 /y8zi8X2qGGDg==
+	b=Bak8PR33p6oWgFybUkZoLevJ2evrRwZLe86BX79lDY+3foHj7EE2Zs6nlKZ+K67oc
+	 wAKdmTFo/LotMoKeXC8KRqSpoEIpQSpngubonYVfJFzWda/yf9YOoUX8ZPDE7mVlx/
+	 OxAV6pAhOPgcn+TNQ1MN+S9ZULeDUAFTET1VqaDy4e+mqQNMOWhrNbPuFvdwh9LKHb
+	 1jwmW4azVC+VLAC3G1H9PN8k8MiftCEX0zrFmGJaj6XZlBKsTiF3qiK2JXyuQ35Y6Q
+	 ijGETtfoKU8JQGt3bV694yhBfUToAYTd3wh0NdIOFX8SJ/FE8TSXq5qgO/Dy7S9EjE
+	 EXmHIhbwKy6Zg==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:29 -0600
-Subject: [PATCH v10 13/15] drm/gma500: add connector luminance support
+Date: Mon, 02 Nov 2026 10:49:23 -0600
+Subject: [PATCH v10 07/15] drm/bridge: add connector luminance operations
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-13-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-7-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -75,177 +75,123 @@ X-Mailer: b4 0.16.0
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose GMA500 panel brightness through the connector LUMINANCE property
-when DRM_LUMINANCE is enabled. Route updates through the existing platform
-backlight operations and preserve legacy registration otherwise.
+Allow bridges that own brightness control to advertise a luminance
+operation and its supported relative range.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/gma500/Kconfig          |  2 +-
- drivers/gpu/drm/gma500/backlight.c      | 45 +++++++++++++++++++++------------
- drivers/gpu/drm/gma500/cdv_intel_lvds.c |  2 ++
- drivers/gpu/drm/gma500/psb_drv.c        |  2 +-
- drivers/gpu/drm/gma500/psb_drv.h        |  4 ++-
- drivers/gpu/drm/gma500/psb_intel_lvds.c |  3 ++-
- 6 files changed, 38 insertions(+), 20 deletions(-)
+v10:
+ * Split bridge operations out of the combined panel and bridge patch
+---
+ include/drm/drm_bridge.h | 74 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
 
-diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
-index dc4c566388192..08871a8f6fa22 100644
---- a/drivers/gpu/drm/gma500/Kconfig
-+++ b/drivers/gpu/drm/gma500/Kconfig
-@@ -9,7 +9,7 @@ config DRM_GMA500
- 	select I2C_ALGOBIT
- 	# GMA500 depends on ACPI_VIDEO when ACPI is enabled, just like i915
- 	select ACPI_VIDEO if ACPI
--	select BACKLIGHT_CLASS_DEVICE if ACPI
-+	select BACKLIGHT_CLASS_DEVICE if ACPI && !DRM_LUMINANCE
- 	select INPUT if ACPI
- 	select ACPI_WMI if ACPI
- 	help
-diff --git a/drivers/gpu/drm/gma500/backlight.c b/drivers/gpu/drm/gma500/backlight.c
-index c8f1716a12d52..4bb39fba04539 100644
---- a/drivers/gpu/drm/gma500/backlight.c
-+++ b/drivers/gpu/drm/gma500/backlight.c
-@@ -8,7 +8,6 @@
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 1981d24a700d2..95f5c2b8656cd 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -62,6 +62,15 @@ enum drm_bridge_attach_flags {
+  * struct drm_bridge_funcs - drm_bridge control functions
   */
- 
- #include <linux/backlight.h>
--
- #include <acpi/video.h>
- 
- #include <drm/drm_print.h>
-@@ -73,10 +72,9 @@ static const struct backlight_ops gma_backlight_ops __maybe_unused = {
- 	.update_status  = gma_backlight_update_status,
+ struct drm_bridge_funcs {
++	/**
++	 * @set_luminance:
++	 *
++	 * Apply a relative luminance level to a bridge that controls panel
++	 * emission. Bridges implementing this callback shall set
++	 * @DRM_BRIDGE_OP_LUMINANCE.
++	 */
++	void (*set_luminance)(struct drm_bridge *bridge, unsigned int luminance);
++
+ 	/**
+ 	 * @attach:
+ 	 *
+@@ -1021,6 +1030,11 @@ enum drm_bridge_ops {
+ 	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
+ 	 */
+ 	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME = BIT(10),
++
++	/**
++	 * @DRM_BRIDGE_OP_LUMINANCE: The bridge controls panel luminance.
++	 */
++	DRM_BRIDGE_OP_LUMINANCE = BIT(11),
  };
  
--int gma_backlight_init(struct drm_device *dev)
-+int gma_backlight_init(struct drm_device *dev, struct drm_connector *connector)
- {
- 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
--	struct backlight_properties props __maybe_unused = {};
- 	int ret;
- 
- 	dev_priv->backlight_enabled = true;
-@@ -92,28 +90,43 @@ int gma_backlight_init(struct drm_device *dev)
- 		return 0;
- 	}
- 
--#ifdef CONFIG_BACKLIGHT_CLASS_DEVICE
--	props.brightness = dev_priv->backlight_level;
--	props.max_brightness = PSB_MAX_BRIGHTNESS;
--	props.type = BACKLIGHT_RAW;
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE))
-+		return drm_connector_attach_luminance_property(connector, 0,
-+							 PSB_MAX_BRIGHTNESS,
-+							 dev_priv->backlight_level);
+ /**
+@@ -1071,6 +1085,12 @@ struct drm_bridge {
+ 	void *driver_private;
+ 	/** @ops: bitmask of operations supported by the bridge */
+ 	enum drm_bridge_ops ops;
 +
-+	{
-+		struct backlight_properties props = {};
- 
--	dev_priv->backlight_device =
--		backlight_device_register(dev_priv->ops->backlight_name,
--					  dev->dev, dev,
--					  &gma_backlight_ops, &props);
--	if (IS_ERR(dev_priv->backlight_device))
--		return PTR_ERR(dev_priv->backlight_device);
--#endif
-+		props.brightness = dev_priv->backlight_level;
-+		props.max_brightness = PSB_MAX_BRIGHTNESS;
-+		props.type = BACKLIGHT_RAW;
++	/** @luminance_max: Maximum relative luminance level. */
++	unsigned int luminance_max;
 +
-+		dev_priv->backlight_device =
-+			backlight_device_register(dev_priv->ops->backlight_name,
-+						  dev->dev, dev,
-+						  &gma_backlight_ops, &props);
-+		if (IS_ERR(dev_priv->backlight_device))
-+			return PTR_ERR(dev_priv->backlight_device);
-+	}
++	/** @luminance: Current relative luminance level. */
++	unsigned int luminance;
+ 	/**
+ 	 * @type: Type of the connection at the bridge output
+ 	 * (DRM_MODE_CONNECTOR_*). For bridges at the end of this chain this
+@@ -1522,6 +1542,60 @@ void drm_bridge_hpd_disable(struct drm_bridge *bridge);
+ void drm_bridge_hpd_notify(struct drm_bridge *bridge,
+ 			   enum drm_connector_status status);
  
- 	return 0;
- }
- 
-+void gma_connector_set_luminance(const struct drm_connector_state *conn_state)
++#ifdef CONFIG_DRM_PANEL_BRIDGE
++bool drm_bridge_is_panel(const struct drm_bridge *bridge);
++struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
++struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
++					      u32 connector_type);
++void drm_panel_bridge_remove(struct drm_bridge *bridge);
++int drm_panel_bridge_set_orientation(struct drm_connector *connector,
++				     struct drm_bridge *bridge);
++struct drm_bridge *devm_drm_panel_bridge_add(struct device *dev,
++					     struct drm_panel *panel);
++struct drm_bridge *devm_drm_panel_bridge_add_typed(struct device *dev,
++						   struct drm_panel *panel,
++						   u32 connector_type);
++struct drm_bridge *drmm_panel_bridge_add(struct drm_device *drm,
++					     struct drm_panel *panel);
++struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *bridge);
++#else
++static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
 +{
-+	gma_backlight_set(conn_state->connector->dev, conn_state->luminance);
++	return false;
 +}
 +
-+void gma_connector_disable_luminance(const struct drm_connector_state *conn_state)
++static inline int drm_panel_bridge_set_orientation(struct drm_connector *connector,
++						   struct drm_bridge *bridge)
 +{
-+	gma_backlight_disable(conn_state->connector->dev);
++	return -EINVAL;
 +}
 +
- void gma_backlight_exit(struct drm_device *dev)
- {
--#ifdef CONFIG_BACKLIGHT_CLASS_DEVICE
- 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
++#endif
++
++#if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL_BRIDGE)
++struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct device_node *node,
++					  u32 port, u32 endpoint);
++struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct device_node *node,
++					  u32 port, u32 endpoint);
++#else
++static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
++							struct device_node *node,
++							u32 port,
++							u32 endpoint)
++{
++	return ERR_PTR(-ENODEV);
++}
++
++static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
++						     struct device_node *node,
++						     u32 port,
++						     u32 endpoint)
++{
++	return ERR_PTR(-ENODEV);
++}
++#endif
++
++void devm_drm_put_bridge(struct device *dev, struct drm_bridge *bridge);
+ void drm_bridge_debugfs_params(struct dentry *root);
+ void drm_bridge_debugfs_encoder_params(struct dentry *root, struct drm_encoder *encoder);
  
- 	if (dev_priv->backlight_device)
- 		backlight_device_unregister(dev_priv->backlight_device);
--#endif
- }
-diff --git a/drivers/gpu/drm/gma500/cdv_intel_lvds.c b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-index 336ab411d6995..cef97f1532358 100644
---- a/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-+++ b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
-@@ -412,6 +412,8 @@ static const struct drm_connector_helper_funcs
- 	.get_modes = cdv_intel_lvds_get_modes,
- 	.mode_valid = cdv_intel_lvds_mode_valid,
- 	.best_encoder = gma_best_encoder,
-+	.set_luminance = gma_connector_set_luminance,
-+	.disable_luminance = gma_connector_disable_luminance,
- };
- 
- static const struct drm_connector_funcs cdv_intel_lvds_connector_funcs = {
-diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
-index d17cb5b4a4bf2..5de7af651ac39 100644
---- a/drivers/gpu/drm/gma500/psb_drv.c
-+++ b/drivers/gpu/drm/gma500/psb_drv.c
-@@ -396,7 +396,7 @@ static int psb_driver_load(struct drm_device *dev, unsigned long flags)
- 
- 		if (gma_encoder->type == INTEL_OUTPUT_LVDS ||
- 		    gma_encoder->type == INTEL_OUTPUT_MIPI) {
--			ret = gma_backlight_init(dev);
-+			ret = gma_backlight_init(dev, connector);
- 			if (ret == 0)
- 				acpi_video_register_backlight();
- 			break;
-diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
-index db197b865b90a..4fc22c66e6c8f 100644
---- a/drivers/gpu/drm/gma500/psb_drv.h
-+++ b/drivers/gpu/drm/gma500/psb_drv.h
-@@ -604,11 +604,13 @@ int psb_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
- #endif
- 
- /* backlight.c */
--int gma_backlight_init(struct drm_device *dev);
-+int gma_backlight_init(struct drm_device *dev, struct drm_connector *connector);
- void gma_backlight_exit(struct drm_device *dev);
- void gma_backlight_disable(struct drm_device *dev);
- void gma_backlight_enable(struct drm_device *dev);
- void gma_backlight_set(struct drm_device *dev, int v);
-+void gma_connector_set_luminance(const struct drm_connector_state *conn_state);
-+void gma_connector_disable_luminance(const struct drm_connector_state *conn_state);
- 
- /* oaktrail_crtc.c */
- extern const struct drm_crtc_helper_funcs oaktrail_helper_funcs;
-diff --git a/drivers/gpu/drm/gma500/psb_intel_lvds.c b/drivers/gpu/drm/gma500/psb_intel_lvds.c
-index cd882786d9461..fa0bc8492ff7f 100644
---- a/drivers/gpu/drm/gma500/psb_intel_lvds.c
-+++ b/drivers/gpu/drm/gma500/psb_intel_lvds.c
-@@ -610,6 +610,8 @@ const struct drm_connector_helper_funcs
- 	.get_modes = psb_intel_lvds_get_modes,
- 	.mode_valid = psb_intel_lvds_mode_valid,
- 	.best_encoder = gma_best_encoder,
-+	.set_luminance = gma_connector_set_luminance,
-+	.disable_luminance = gma_connector_disable_luminance,
- };
- 
- const struct drm_connector_funcs psb_intel_lvds_connector_funcs = {
-@@ -808,4 +810,3 @@ void psb_intel_lvds_init(struct drm_device *dev,
- err_free_encoder:
- 	kfree(gma_encoder);
- }
--
 
 -- 
 2.53.0
