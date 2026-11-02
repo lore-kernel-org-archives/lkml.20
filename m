@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793663602;
-	b=nBRH6PfTyLc5aWLNTrVpRssZvXgrGqfEe57aNtQnijromY7+7hWsFCndPhUeCrzM5SgL
-	 Z9MgI19KZFARjBZU2GknQwZtozSkFQoXiHou0ywPuzNP0Po0bSjeiTYYbXiJVk/Jb9WzC
-	 X2A3BIWTa9KoSc3/kVWc112+j2hr9sGXkDL+l9mzvebCrMnuockP+pSeJOHy0erjtdbow
-	 bfTiF/kygzOs6jLeidlhI/tikmbSzNY0dLdtphZwkMLHHbvjPl888Sb9FSPJJztKWYRvo
-	 zVHF0BefS9WmK9if7Sy1tnsdpMi3nZnZQ63dTR5HCQL7CsuzgA4u1Fx6UJKGKlFUP5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793663602;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=y6R/7JiyY+QNpdkHpLxoucL3TEKilfqNsAl22fI4rCc=;
-	b=n/divHbfw/dG6wz5Y1EHBe9vfGeQTGH2BeOAXXW+m3IJ7aOALYagYNoNRXx2D6sJsh8R
-	 9YDC1XErDg88QO1QGgwDeWBm86BXMd7dp6m83GCQtmpUvzYqmZgCiCtsb0KTp/bFKLYhG
-	 894cof8BRPAOlLrGagAHXcaV2yCjb4nqv/9llMUUJbFXUsQS6VQkliANKMt3q/9JkH0ql
-	 ziUADAmn8PLQVS2VSWsBnPbJ+DuWBnxREmLTD28LhY/LSGiPQjdyqHKRCN80WWA9STNYQ
-	 f102tVU9egvtxawQAOO6xZk9NQndbi5ugwbOYOGemugq5zfgtSdrkW9NadqPIUyj3bg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LWInwadQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793663654;
+	b=xvez9eg+R0ksNcAW7v9BGCJO09d8pGwOn8B5SjEar9fkYqbzSNlEnsQm2/qWG+s+D0jT
+	 wV3bZsyLHUA7wu3r4WpCcXJOrHna2OMeV88UHpAcAJ4x5gV30qjlqwZeFDvG8MjCPg5Sq
+	 j+cLCCh5v7jOWqdoQZ5HXbHhnUUbblzIwKySAPn/czaeMtc5mR3bQgDowftRW0VuoWYXz
+	 PVTIgtiZCPLDcuG8OTHCfjCDwmEcVaMplpuRyvdy8ybPJmvrldASSiI8LhZI7P7dLqVl+
+	 3iqPTk0TfEwHRTJda4Y+/V/x5P1YEkKSbxjn0TaYilxPc9/LinKAG81CdJp9rz+zkjg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793663654;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+UqSyir9zlJtTj6oGLIp9AFPvgL5F/23wHoJo5ierls=;
+	b=3T9Byjher7pcnb3Y/vOh+hc9hDWXVts+FNiSSrNs1TsMID7LGSsBNWiddUL7AK7nE6l0
+	 gU4LsQV82pM/639NrWcFRngX1yw9ENs8ftn7Oxa4raxZzF2mtkovnwRc8lB86QUpZ2pC8
+	 pFINh6enfH/fRNZIeiIfER/yOqlM/dnmcXbKLwpQ61dqXr5hDrI8cf+QDSah/E3Jcr5z6
+	 +kDWco0RXixmaCKKKrAYAAkBv+pQs8d7Nc2jxv4M+Mt/v7UCUi3HlHsRmz56PpfPjI0sB
+	 hWNMNzU8xdxHgvupNj6WMUijekWsaxYPtbSABkT1JLZXWIaTvhjaGDuq5Pjvm5RJu9Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lChM+1O7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A76606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34A76606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E560606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:54:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LWInwadQ
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-54492d8a988so98381cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:53:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793663600; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N49vA1VvwetRiCmYXlH5ppjEDKHQ0rt/ayAmAsO0IIExpCYkUvIO7WzkLSsBToma4K
-         hHvOrDp7oM4RcDNlHTjeB66U5SdTvCGLz4k7+ubyuqO2J8YspqHb7yFqjwCPwptbp4F6
-         qOoxiTMdDcROT1ELtDpsjUZsdCn/BALhnC00IWpWEONLSCg1mW9j1zzfoTEBAebql6PK
-         7pJVdu/9Ews1K6gkIvdV1gMDNq2n+qH11GDtAjWHP7arvoZe6iu8diYrvWV+s4lYmgJl
-         unHZGwBOHSuFB/0TFgnewlpSRX59w/BArZENG3mrHU0O9/auHwus+EQmu1X1Fs7BiCxE
-         SRjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=y6R/7JiyY+QNpdkHpLxoucL3TEKilfqNsAl22fI4rCc=;
-        fh=NUGW3xLwtbAheM+o/SZwAornze48oSTe/whanlqf0VY=;
-        b=qli9piAxop88AQsGI4nnm3pORqhocJ9QhgYGzB92CjTtrbwFWO9pf+Yh7EzTBD9MlA
-         bPioqD6gktrsSIl6BKF4w9WqV6LTY/M/LTyTXbPkoeamZdV7iKW+cZqx8lFHJnidl4H8
-         B+Bcs6DuwDg/PE2aIaYwGMdWPygslgFS1i1Xwb/XF3rhRAGRUDPW4pQIGhbLaDCxqqeg
-         sgXnP+NiwhgZSx+rwkkCd4uGXe4JjUt4XiTliYhn8pYgkwJc1/qzG3YXS9OaG7XDytnv
-         HACsk/bejrOc3DnBZxzz7Zl0WlC3TdyrOq5jQwAq1+8BHJv5Uo/yp9tJiZE/zXm4pYFN
-         SP/w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793663600; x=1794268400; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y6R/7JiyY+QNpdkHpLxoucL3TEKilfqNsAl22fI4rCc=;
-        b=LWInwadQSl92S4+jocVul9v4ws1MfhzZfGmblCxS1OopQQQjACkzJA6lAnQJDRwDTy
-         nDt7MxK7yKAtE5gjcSoDr/hJ3CPopHj1yV0lgw8XVXJQoeW2pp9UdvvCSLpKiGnZCFk1
-         FyHEXbbHMBuPZIkenZryEFDvECc/G5oqKYMvC3nV6qjEenC+80xSQplwvfKbNrL53sdH
-         Dcj6txqU6D7uzRClo+/IoADkCX6FiKW/mWXzXACUQuSAMvcP5a0DbhUyHGWFALaa7dCZ
-         b8TaIdFkkT3561AgTAIr58r9mJ3j3ULpnmuf035cfn0OEmnP1OoY1Y8XYMEcpWMSrnty
-         z8TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793663600; x=1794268400;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y6R/7JiyY+QNpdkHpLxoucL3TEKilfqNsAl22fI4rCc=;
-        b=M09v0h4RgbyQvtAd3R/RPtbzm9CcMwA4aORLBQdw/owBLqNUvUn7dxt2LNTO6MhQIk
-         vzQYv+ZwC594lY/KFod/Owu1FfmYaBjwjmqkGxZ7BfiOfD6WQhkUemQrVa9OcpgZn/El
-         UMUHT+UHwRkAUrfemgCnMUPRrIOsPIioV1Qv3TtSozImKCTVlIDz41/obAN9XiaH7jl9
-         RnFa5yGW0q4b8ThN5fAzxCKv9AHwWTlJjE1LdogaB4XhU1cA7DWThDumUShZzEruBMgu
-         UnEerjOgMiE02qPqgF7NIKMOgtxEUNdN+zB2pWZnseAxOHXdzM5pxrRsFHNakcFwSarr
-         ExHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzzwNDF8STLP22gh9sywFntuebK7MKxTJx2MS3DoDiw0Z808w2YwgzXbdlua3hVQ1dh0+B7Yt04kuMikgI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHJFHziIQCJoUkXlKvDC9rLkIvNkxXwWCFflHaPUkgbfVCMpfA
-	n9xVg2eHHBjK9MVRvjlaHO/5Bc2qidzTgMIbO3YHFtPfH1hatOaCeK0bTwL7J5tC/THzVfNFmj8
-	jeG7C6YRLk7tntwRHJZEWg8b4EtN9BgcdO38wamh3
-X-Gm-Gg: AYBFou2Qip7YEPk2Or0OikymXcZV0J9J3KargQ1OPOs3b5VVkVazPBy4KjDvSYpb+cj
-	uRNvrE6wALS7SR0mKAvdx8ETa0k9WO8rkx2rb6x7dWiGVJ0AnrxRBajNJWPjMxGW/W/suN1LBIO
-	WjhYVML9veqe196/xJZGhMuYKXU3q2nKFO2vaMO0z8k2E0HwpGa+nlZ/wzPycXkyi8mg0xIO1dH
-	h0bz2pQxsfkHtSWoAwwoRSB5E35m8fS2DQ9nu7npAzUkJygtQY2cAaP8074CFbCugf+8CJyRnl0
-	8n3F0Y7tHtxdAgHj3HewScCxPA8HAn8Du2Nit8AkzwrFxzKsAsKxeywL2nwHBb0ijLPqQvsUIZL
-	Gzu26sSmaZGfyKYsFqljmKuA8e8rvmxJ2d/aiyQ==
-X-Received: by 2002:a05:622a:1c11:b0:52f:8389:29e0 with SMTP id
- d75a77b69052e-549b675d2f3mr2787571cf.0.1793663599242; Mon, 02 Nov 2026
- 15:53:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lChM+1O7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23E51F00A18
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793663653;
+	bh=+UqSyir9zlJtTj6oGLIp9AFPvgL5F/23wHoJo5ierls=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lChM+1O75/pz8GnNKwtFDREVmqSf1W++CekSa/AKO8SYp8u5C8LP6XHWXtNQhSXpK
+	 OPAuJMpsoI7q8iDybVE3Wtsq2BCVgj9UD3lSCNHejpt6cq14FrMn8ubIo73ywKi/D5
+	 AIwe5gQjpMbRaD5BLymxg9eYp66tauf1xL0EMdZtE1NpTBQlx76mUwqd9DpLbNpIJi
+	 cjCv3OdG8Z4GWb1FfApBrXnVV/Rj9OI6LCR9ji87+hjTolIbQkzjEYgyTvGp/uPRkS
+	 fGKxqDXuv7RzRC1VQwsMzrYulUDTuwA8ceENOkGwUNW7Aikjm1brN3xI+dmtUnE9LM
+	 WseOHDO/zV4Eg==
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c411e139259so319643866b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:54:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwwuqBENoe0BgM5UlI3XTdzPmutw+B+tDgfcdSYKETfuFKC4AFL5QWfPayObCDbKnRYx4WChlwnUcCV+Hk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RbPyoZ1vRCIkz8Sk0UEX2oKbkHtU70h3F7HTRdCBJSKEXONAi
+	cLiIFXqXMhVBZpYi3IVFcVHbcyT9F4Q6uiRug8WCHzDS4PE7/9XFtFQbaQB13mfhDhkAewZtiyZ
+	ZSVVqjKQX+BVOjDx2GEk1d37KdJvJgck=
+X-Received: by 2002:a17:907:18c3:b0:c26:22ae:b66b with SMTP id
+ a640c23a62f3a-c4ca7aee966mr947443066b.15.1793663652482; Mon, 02 Nov 2026
+ 15:54:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,371 +59,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030174816.1544471-1-bwicaksono@nvidia.com>
- <CAP-5=fUEmNrREh-ipxYMiStr5xCakGDBZW8OmAj1rhACs8qaZw@mail.gmail.com>
- <SA1PR12MB6773B13BD3EB2B60FBED6013A06D2@SA1PR12MB6773.namprd12.prod.outlook.com>
- <CAP-5=fWJn=Fws6ew_HCsxVo6Bcqvvgn-8g=21+nvoEHA5GhLKA@mail.gmail.com> <SA1PR12MB6773A9E13CCFD7322501EE0BA06A2@SA1PR12MB6773.namprd12.prod.outlook.com>
-In-Reply-To: <SA1PR12MB6773A9E13CCFD7322501EE0BA06A2@SA1PR12MB6773.namprd12.prod.outlook.com>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 2 Nov 2026 15:53:07 -0800
-X-Gm-Features: AclHuK9AmugvMqLXDCOPc8pKZIzILBtJSEV_O6t_Xr6tdxsqP1qTjRrJzqawtBs
-Message-ID: <CAP-5=fWKC7GD43BebLd_nP+TM87aS0fBKg2o=q-C156tAgCLGQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/9] perf: Add NVIDIA Tegra410 uncore PMU events and metrics
-To: Besar Wicaksono <bwicaksono@nvidia.com>
-Cc: Will Deacon <will@kernel.org>, "acme@kernel.org" <acme@kernel.org>, 
-	"namhyung@kernel.org" <namhyung@kernel.org>, "ctshao@google.com" <ctshao@google.com>, 
-	"linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Vikram Sethi <vsethi@nvidia.com>, 
-	Rich Wiley <rwiley@nvidia.com>, Sean Kelley <skelley@nvidia.com>, Matt Ochs <mochs@nvidia.com>, 
-	Raj Joshi <rajjoshi@nvidia.com>, Thierry Reding <treding@nvidia.com>, 
-	Jon Hunter <jonathanh@nvidia.com>, "john.garry@linux.dev" <john.garry@linux.dev>, 
-	"james.clark@linaro.org" <james.clark@linaro.org>, "mike.leach@arm.com" <mike.leach@arm.com>, 
-	"leo.yan@linux.dev" <leo.yan@linux.dev>, "mark.rutland@arm.com" <mark.rutland@arm.com>, 
-	"alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>, "jolsa@kernel.org" <jolsa@kernel.org>, 
-	"adrian.hunter@intel.com" <adrian.hunter@intel.com>
+References: <179362071771.29269.6848836845989806334@stu.pku.edu.cn>
+In-Reply-To: <179362071771.29269.6848836845989806334@stu.pku.edu.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 3 Nov 2026 08:53:59 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9G9VKLYzsKMqS87yj0KLxSjis-8iAAegnPdDzdpv=vGw@mail.gmail.com>
+X-Gm-Features: AclHuK_ZiPl_8EII_1_G4Hx1xfHmBmUEZKMwbV1xvMdMI83u3u7g6JkbLF7jK5g
+Message-ID: <CAKYAXd9G9VKLYzsKMqS87yj0KLxSjis-8iAAegnPdDzdpv=vGw@mail.gmail.com>
+Subject: Re: [PATCH] cifs: bound invalid NTLMSSP signature diagnostic
+To: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+Cc: Paulo Alcantara <pc@manguebit.org>, linux-cifs@vger.kernel.org, 
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
+	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, 
+	Steve French <sfrench@us.ibm.com>, samba-technical@lists.samba.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 3:08=E2=80=AFPM Besar Wicaksono <bwicaksono@nvidia.c=
-om> wrote:
+On Mon, Nov 2, 2026 at 8:58=E2=80=AFPM Yifan Zhang <yfzhang23@stu.pku.edu.c=
+n> wrote:
 >
-> > -----Original Message-----
-> > From: Ian Rogers <irogers@google.com>
-> > Sent: Saturday, October 31, 2026 4:18 AM
-> > To: Besar Wicaksono <bwicaksono@nvidia.com>
-> > Cc: Will Deacon <will@kernel.org>; acme@kernel.org;
-> > namhyung@kernel.org; ctshao@google.com; linux-tegra@vger.kernel.org;
-> > linux-arm-kernel@lists.infradead.org; linux-perf-users@vger.kernel.org;
-> > linux-kernel@vger.kernel.org; Vikram Sethi <vsethi@nvidia.com>; Rich Wi=
-ley
-> > <rwiley@nvidia.com>; Sean Kelley <skelley@nvidia.com>; Matt Ochs
-> > <mochs@nvidia.com>; Raj Joshi <rajjoshi@nvidia.com>; Thierry Reding
-> > <treding@nvidia.com>; Jon Hunter <jonathanh@nvidia.com>;
-> > john.garry@linux.dev; james.clark@linaro.org; mike.leach@arm.com;
-> > leo.yan@linux.dev; mark.rutland@arm.com;
-> > alexander.shishkin@linux.intel.com; jolsa@kernel.org;
-> > adrian.hunter@intel.com
-> > Subject: Re: [PATCH v2 0/9] perf: Add NVIDIA Tegra410 uncore PMU events
-> > and metrics
-> >
-> > External email: Use caution opening links or attachments
-> >
-> >
-> > On Fri, Oct 30, 2026 at 3:19=E2=80=AFPM Besar Wicaksono
-> > <bwicaksono@nvidia.com> wrote:
-> > >
-> > > > -----Original Message-----
-> > > > From: Ian Rogers <irogers@google.com>
-> > > > Sent: Friday, October 30, 2026 6:07 PM
-> > > > To: Besar Wicaksono <bwicaksono@nvidia.com>
-> > > > Cc: acme@kernel.org; namhyung@kernel.org; ctshao@google.com;
-> > linux-
-> > > > tegra@vger.kernel.org; linux-arm-kernel@lists.infradead.org; linux-=
-perf-
-> > > > users@vger.kernel.org; linux-kernel@vger.kernel.org; Vikram Sethi
-> > > > <vsethi@nvidia.com>; Rich Wiley <rwiley@nvidia.com>; Sean Kelley
-> > > > <skelley@nvidia.com>; Matt Ochs <mochs@nvidia.com>; Raj Joshi
-> > > > <rajjoshi@nvidia.com>; Thierry Reding <treding@nvidia.com>; Jon
-> > Hunter
-> > > > <jonathanh@nvidia.com>; john.garry@linux.dev; will@kernel.org;
-> > > > james.clark@linaro.org; mike.leach@arm.com; leo.yan@linux.dev;
-> > > > mark.rutland@arm.com; alexander.shishkin@linux.intel.com;
-> > > > jolsa@kernel.org; adrian.hunter@intel.com
-> > > > Subject: Re: [PATCH v2 0/9] perf: Add NVIDIA Tegra410 uncore PMU
-> > events
-> > > > and metrics
-> > > >
-> > > > External email: Use caution opening links or attachments
-> > > >
-> > > >
-> > > > On Fri, Oct 30, 2026 at 10:49=E2=80=AFAM Besar Wicaksono
-> > > > <bwicaksono@nvidia.com> wrote:
-> > > > >
-> > > > > Add event aliases and derived metrics for the NVIDIA Tegra410 unc=
-ore
-> > > > > PMUs, and fix perf's aggregation of PMU instances that are number=
+> The NTLMSSP Signature field is an eight-byte binary value and need not be
+> NUL-terminated.  decode_ntlmssp_challenge() prints it with %s on the
+> signature-mismatch path, so the diagnostic can continue beyond the receiv=
 ed
-> > in
-> > > > > more than one parts in their name.
-> > > > >
-> > > > > The series covers the UCF, PCIe, PCIe target, CPU memory latency,=
- and
-> > > > > chip-to-chip interconnect PMUs. It provides symbolic names for th=
-e
-> > raw
-> > > > > event encodings and metrics for bandwidth, frequency, and average
-> > read
-> > > > > latency.
-> > > > >
-> > > > > The PCIe and PCIe target PMUs are named
-> > > > nvidia_pcie_pmu_<socket>_rc_<rc>
-> > > > > and nvidia_pcie_tgt_pmu_<socket>_rc_<rc>. Their json Unit uses th=
-e
-> > > > > existing comma-separated form ("nvidia_pcie_pmu_,rc_"), but perf
-> > only
-> > > > > merged instances that differ in the trailing number, so these eve=
-nts and
-> > > > > metrics gave one result per socket and were reported incorrectly =
-(e.g.
-> > > > > with --metric-only), as discussed in v1. Patches 6-9 fix this:
-> > > > >
-> > > > > - Patch 6 adds a check of the cpumasks of all merged PMU instance=
-s to
-> > the
-> > > > >   zero-count skip in perf stat, so a socket that counts nothing s=
-hows 0
-> > > > >   instead of having its row hidden.
-> > > > > - Patch 7 merges PMU instances that match the same comma-
-> > separated
-> > > > json
-> > > > >   Unit. This also applies to the HiSilicon hisi_sccl PMUs, which =
-use the
-> > > > >   same json form; not tested on HiSilicon hardware.
-> > > > > - Patch 8 labels a merged uncore counter after all of its PMUs, e=
-.g.
-> > > > >   nvidia_pcie_pmu_*_rc_*/cycles/ or nvidia_ucf_pmu/cycles/, inste=
-ad
-> > of
-> > > > >   after the first instance, such as nvidia_pcie_pmu_0_rc_0/cycles=
-/.
-> > > > >   Output with --no-aggr is unchanged.
-> > > > > - Patch 9 describes these PMU names in the ABI document.
-> > > > >
-> > > > > Changes in v2:
-> > > > > - Move the uncore JSON out of the sys directory and remove the
-> > > > >   "Compat" fields. Thanks to Ian Rogers for the feedback.
-> > > > > - Drop "perf jevents: Process model files before sys subdirectori=
-es",
-> > > > >   which this series no longer needs.
-> > > > > - Add UCF SLC and memory bandwidth metrics from all sources to lo=
-cal
-> > > > >   CMEM (read, write and read+write) and from local sources to loc=
-al
-> > > > >   CMEM and to remote memory, PCIe bandwidth metrics to local
-> > > > >   destinations, and read+write bandwidth metrics for UCF SLC, UCF
-> > > > >   memory and PCIe. Thanks to Chun-Tse Shao for the suggestion.
-> > > > > - Add patches 6-9 to fix the PCIe instance aggregation. Thanks to=
- Ian
-> > > > >   Rogers and Chun-Tse Shao for the pointers.
-> > > > >
-> > > > > v1: https://lore.kernel.org/all/20261019164241.403644-1-
-> > > > bwicaksono@nvidia.com/
-> > > >
-> > > > Why don't we look to fix code in drivers/perf? This series introduc=
-es
-> > > > PMU instances, overloads the meaning of aliases, and a bunch of oth=
-er
-> > > > silly complexity due to poor reviews and maintenance of drivers/per=
-f -
-> > > > specifically by not pointing out the ABI issues. Isn't this a
-> > > > straightforward, whoops we did a bad suffix and here's the patch to
-> > > > rename our PMU in the driver? Throwing more complexity at the
-> > problem
-> > > > doesn't feel like the right fix.
-> > >
-> > > Hi Ian,
-> > >
-> > > My apologies for the names not following perf's PMU naming convention=
-.
-> > > I will be more careful about this in future.
-> > >
-> > > These names (nvidia_pcie_pmu_<socket>_rc_<root complex> and
-> > > nvidia_pcie_tgt_pmu_<socket>_rc_<root complex>) have been upstream
-> > > since v7.1, and several customers already rely on them. Renaming them=
- in
-> > > the driver would break their use case.
-> >
-> > It only breaks their use case if they name the PMU with an event. You
-> > have multiple naming conventions for the PMU and only those involving
-> > multiple sockets have a broken suffix.
-> >
+> blob until it encounters a zero byte.
 >
-> Naming the PMU in the event is currently the main way to use the PCIE PMU=
-s,
-> which we can't break.
+> KASAN reports:
 >
-> > > Given that, what would you suggest as the next step? Would handling
-> > these
-> > > names in perf, as in patch 7 and 8, be reasonable, or do you have ano=
-ther
-> > > approach in mind?
-> >
-> > So we don't need a new abstraction, I've been reducing aggregation
-> > abstractions in the perf tool. As I pointed to previously, the suffix
-> > is computed with pmu_name_len_no_suffix:
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-
-> > next.git/tree/tools/perf/util/pmus.c?h=3Dperf-tools-next#n66
-> > So you can do something like (untested):
-> > ```
-> > size_t pmu_name_len_no_suffix(const char *str)
-> > {
-> >   if (strstarts(str, "nvidia_") && strstr(str, "_rc_")) {
-> >     // nvidia PMU with a non-ABI suffix of nvidia_..._[0-9]+_rc_[0-9]+
-> >     const char *p =3D str + strlen(str);
-> >     int n =3D 3;
-> >     while(p > str && n > 0) {
-> >        if (*p-- =3D=3D '_')
-> >           n--
-> >      }
-> >      return p - str;
-> >   }
-> >   // The rest of the existing pmu_name_len_no_suffix code.
-> >   ...
-> > }
-> > ```
+>   BUG: KASAN: slab-out-of-bounds in string
+>   Read of size 1
+>   string
+>   vsnprintf
+>   _printk
+>   decode_ntlmssp_challenge
 >
-> Thanks for the suggestion. I can replace the changes in patch 7 and 8
-> with NVIDIA PCIE RC specific check in pmu_name_len_no_suffix().
+> Print the fixed-width field with the bounded hexadecimal format.
 >
-> While trying it, I noticed two side effects:
-> 1. perf list now combines the nvidia_pcie_pmu_<socket>_rc_<rc> PMUs and
->    shows their events as nvidia_pcie_pmu/<event>/, but "perf stat" doesn'=
-t
->    accept just "nvidia_pcie_pmu" on the command line, e.g.
->    "perf stat -e nvidia_pcie_pmu/rd_req/" can't find the PMU.
-> 2. After fixing no.1, "perf stat -A -a  -e nvidia_pcie_pmu/rd_req/"
->    lists the result in sysfs directory order. On my system, it gives the
->    result for RC 0, 5, 3, 1, 4, 2.
+> The patched kernel reaches the invalid-signature path and returns -EINVAL
+> without a KASAN report.
 >
-> Both look like they can be handled with a similar NVIDIA specific check
-> in perf_pmu__match_wildcard() and pmu_name_cmp():
->
-> /* perf_pmu__match_wildcard() */
-> if (strstarts(pmu_name, "nvidia") && strstr(pmu_name, "_rc_")) {
->         /* NVIDIA PMU with a non-ABI suffix of nvidia_..._[0-9]+_rc_[0-9]=
-+. */
->         if (tok_len =3D=3D pmu_name_len_no_suffix(pmu_name) && !strncmp(p=
-mu_name, tok, tok_len))
->                 return true;
-> }
->
-> /* pmu_name_cmp()*/
-> if (lhs_num =3D=3D rhs_num && strstarts(lhs_pmu_name, "nvidia")) {
->         /*
->          * NVIDIA PMU with a non-ABI suffix of nvidia_..._[0-9]+_rc_[0-9]=
-+:
->          * compare the RC too.
->          */
->         const char *lhs_rc =3D strstr(lhs_pmu_name, "_rc_");
->         const char *rhs_rc =3D strstr(rhs_pmu_name, "_rc_");
->         if (lhs_rc && rhs_rc) {
->                 lhs_num =3D strtoull(lhs_rc + 4, NULL, 10);
->                 rhs_num =3D strtoull(rhs_rc + 4, NULL, 10);
->         }
-> }
->
-> What do you think about these additional changes?
+> Fixes: 0b3cc858003b ("[CIFS] NTLMSSP reenabled after move from connect.c =
+to sess.c")
+> Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
 
-Sounds good to me. I really hate we didn't fix cycles -> cpu_cycles
-and instead have to carry:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
-t/tree/tools/perf/builtin-record.c?id=3Dc5a244bf17caf2de22f9e100832b75f72b3=
-1d3e6#n1389
-given the other event is called bus_cycles and the documentation
-literally calls the event CPU cycles (and Linus wants `perf record -e
-cycles` not to complain).
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 
-Things in Linux do get fixed over time. For example, PMU devices in
-/sys/devices/ will one day disappear and only be accessible under
-/sys/bus/event_source/devices . Given the PMU name only appeared in
-January IIRC, it hasn't appeared in an LTS Linux release yet. So, yes,
-someone running a non-LTS kernel on a dual socket machine and using
-the PMU name in the event name would be impacted by renaming the PMU.
-The pain I feel about that will be momentary, while carrying around
-NVIDIA non-ABI specific PMU suffix code will be long lasting.
-
-Thanks,
-Ian
-
-> Regards,
-> Besar
->
-> > I'd much rather we didn't add bespoke behavior to the tool for every
-> > new PMU. This happened previously when PMUs were merged in
-> > drivers/perf with hex instead of numeric suffixes. We already handle
-> > certain PMUs specially due to their lack of hotplug support:
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-
-> > next.git/tree/tools/perf/arch/arm/util/pmu.c?h=3Dperf-tools-next#n41
-> > And due to event name fiascos:
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-
-> > next.git/tree/tools/perf/builtin-record.c?h=3Dperf-tools-next#n1395
-> > At some point, perf's internals become so forked due to mismatched
-> > conventions that every code path will have a variant. This saddens me
-> > as something that we've much improved this year is being able to say
-> > `perf stat record` on one machine type and then `perf stat report` on
-> > another.
-> >
-> > Thanks,
-> > Ian
-> >
-> > > Will, do you have any comment on this?
-> > >
-> > > Thanks,
-> > > Besar
-> > >
-> > > >
-> > > > Thanks,
-> > > > Ian
-> > > >
-> > > > > Besar Wicaksono (9):
-> > > > >   perf jevents: Add support for NVIDIA Tegra410 UCF PMU aliasing
-> > > > >   perf jevents: Add support for NVIDIA Tegra410 PCIE PMU aliasing
-> > > > >   perf jevents: Add support for NVIDIA Tegra410 PCIE-TGT PMU alia=
-sing
-> > > > >   perf jevents: Add support for NVIDIA Tegra410 CPU Memory Latenc=
-y
-> > > > PMU
-> > > > >     aliasing
-> > > > >   perf jevents: Add support for NVIDIA Tegra410 C2C PMU aliasing
-> > > > >   perf stat: Check merged PMU instance's cpumasks when skipping z=
-ero
-> > > > >     counts
-> > > > >   perf pmu: Merge PMU instances that match the same comma-
-> > separated
-> > > > json
-> > > > >     Unit
-> > > > >   perf evsel: Name a merged uncore counter after all of its PMUs
-> > > > >   perf Documentation: Describe PMU names numbered in more than
-> > one
-> > > > place
-> > > > >
-> > > > >  .../testing/sysfs-bus-event_source-devices    |  14 +
-> > > > >  .../arm64/nvidia/t410/uncore-cpu_mem.json     |  43 +
-> > > > >  .../arm64/nvidia/t410/uncore-nvclink.json     |  67 ++
-> > > > >  .../arm64/nvidia/t410/uncore-nvdlink.json     |  43 +
-> > > > >  .../arm64/nvidia/t410/uncore-nvlink_c2c.json  | 115 +++
-> > > > >  .../arch/arm64/nvidia/t410/uncore-pcie.json   | 249 ++++++
-> > > > >  .../arm64/nvidia/t410/uncore-pcie_tgt.json    |  83 ++
-> > > > >  .../arch/arm64/nvidia/t410/uncore-ucf.json    | 764
-> > > > ++++++++++++++++++
-> > > > >  tools/perf/tests/pmu.c                        | 134 +++
-> > > > >  tools/perf/util/evlist.c                      |   2 +-
-> > > > >  tools/perf/util/evsel.c                       |  83 +-
-> > > > >  tools/perf/util/evsel.h                       |   2 +-
-> > > > >  tools/perf/util/parse-events.c                |   2 +-
-> > > > >  tools/perf/util/pmu.c                         |  65 ++
-> > > > >  tools/perf/util/pmu.h                         |   9 +
-> > > > >  tools/perf/util/pmus.c                        |  47 ++
-> > > > >  tools/perf/util/pmus.h                        |   1 +
-> > > > >  tools/perf/util/stat-display.c                |  20 +
-> > > > >  18 files changed, 1737 insertions(+), 6 deletions(-)
-> > > > >  create mode 100644 tools/perf/pmu-
-> > > > events/arch/arm64/nvidia/t410/uncore-cpu_mem.json
-> > > > >  create mode 100644 tools/perf/pmu-
-> > > > events/arch/arm64/nvidia/t410/uncore-nvclink.json
-> > > > >  create mode 100644 tools/perf/pmu-
-> > > > events/arch/arm64/nvidia/t410/uncore-nvdlink.json
-> > > > >  create mode 100644 tools/perf/pmu-
-> > > > events/arch/arm64/nvidia/t410/uncore-nvlink_c2c.json
-> > > > >  create mode 100644 tools/perf/pmu-
-> > > > events/arch/arm64/nvidia/t410/uncore-pcie.json
-> > > > >  create mode 100644 tools/perf/pmu-
-> > > > events/arch/arm64/nvidia/t410/uncore-pcie_tgt.json
-> > > > >  create mode 100644 tools/perf/pmu-
-> > > > events/arch/arm64/nvidia/t410/uncore-ucf.json
-> > > > >
-> > > > > --
-> > > > > 2.43.0
-> > > > >
+The patch is quoted-printable encoded, so we can not apply it.
+Please send it as plain text, preferably using git send-email.
+Thanks.
