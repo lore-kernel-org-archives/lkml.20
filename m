@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604954;
-	b=xdm/wOzN0YH7q/R32M/5YiLZA15mL848KtYCNDXl/kob5YD6gugjaawQ2ZTizQq1MLP8
-	 khP647Q+fpnAGkNZmZwAFZlqyDdvEk49AXLkM7QpKYkxqhtOnJUvhIhWgXYkiZcmcMX0e
-	 PiggcoWERGOa0X9rvB9eRfM+Ic8ywfnYoKC4cLs63825nlYmqky3k1L2HTCf0RCZfFos7
-	 XK3QpG7OaG4SwAae4HoOtLX99lbHbJixrWKGV/CawDKFBAI4vjeCXHB1KlNHCIb5OaJJ5
-	 UvjdGNqgPXExIHuArai/3+jvZK+RdKT/SNhySsmcc8uXXOU8L9F5Neeh3t03kM0+hCA==
+	t=1793604960;
+	b=K0EZukNs/A4SzjJ6bGS+iHPb9yA0DEAu2JCIf8qCZoS2vhTnLaHHZJsex0VhBhvzRxWs
+	 OhsaEuMJktwxwELmKteDHH5VPlAGFsCDV/M5OjB+Em5/7tcHJq9l58NLKSCzl8DioyHxm
+	 YiActoEQWBlDX9fmEtk78RUp0XE/IwKzcKF/c3TlztJSel3H7uv7MDxHYLK7R1YYKrzlD
+	 tN+Qn9jH07e4R5uO26IAZgPmf5vqri65AUqL0oU1gxGxAAsABvJ49MI19O6Ibp8JKUYZI
+	 xxBFrqn/WVs9bsbJgOlT4mS5Qsafi11fhjVwfR+2YVyzXQWyMmDc+E8/vCOPcqZvZ5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604954;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=H8bgsnBmy+s9QeJK5LIf80vVKjPFt0+InMVENaj/8xk=;
-	b=a8MkuW9Pb0/TNZEeVYG/x+OiDg87ps3EEU6yVJ7UX7Tu/G+KOD2coxbHIZWnFLoTZKPA
-	 kZaWmtYwZ9JLeYaEQ56OXUDNY804xFZRN/SIobZCSV1BH5RNYv4adk5CWAAEussm2OfUc
-	 tGoVp7qjT91GtFmFQdNaklZrY2RBPIqNs4G216gkLsa75dNhq8tSb59MRVQALLxKd6I7b
-	 /KyCzYj/4Zg3tzTAr/zM+bTfC+zBDl3NXYcLqFujJVH4vUBMPwUo1RmF7CuFT1mjbB1P1
-	 3MHSNLhTVTZy12Tbcq3I+nbJa9Pwch/Dc5rpC6uuCZ4dC7ovElTapGLHEWua+X6CtVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604960;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tgeRDsuy5w8yKpx9FEg0UTJK5z2DUghOSJu6TemiYLc=;
+	b=FgKTc3zO45WZuJ9h9ke5vziSX6wPrVUUJgpLB6Laun/BhefJOB3C/BNr2xPs6rMeCLj9
+	 JNYgosWZIMKDZDsxFpi0F0O7Cmug0mXhP9H+i1/rsj3UwsJmGpTwSqcLfmPlYjoMaeqas
+	 jNfO7V+LwXgF5RC74bltRkJknSk0hciQhSh7grbRCkx4QgA7Ax5+kCh4t2iT3E8M4vt2l
+	 Fc9O5fEW3DPuvOWb4dM2as8+VX+s+KpeG8Qgp9O9GwBtD3e9UdKtGh5R0w79UkwcNwp9h
+	 4BaE09AmebhnvlceMmVzpOnBbel+XJ9hxAVVbBgJrQUjRbC+LvYd7fHlNgp3gK6FtRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=I31rqLVO;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=eL9FLDwT;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F54606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:35:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35F54606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7467660A2616
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:35:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7467660A2616
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=I31rqLVO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=H8
-	bgsnBmy+s9QeJK5LIf80vVKjPFt0+InMVENaj/8xk=; b=I31rqLVOlKt2gNfkfI
-	p55p9Twe1FgBWiuKybGvaWnUFBycG2OPG+w7psPWwz7nVdZIrELPQkeiZT9/SgmN
-	1kMciDnT0EVAB5J375nd6H4q0FhSyfU1X7PwOp/2Bkn3+J6vos32W/Pnoobg4NdW
-	ClKDXU0J0+VjPpkz/fTgRUoo0=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3f5hGPehqi52fEw--.9836S2;
-	Mon, 02 Nov 2026 15:35:35 +0800 (CST)
-From: Xuewen Wang <wangxuewen_ky@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: wangxuewen_ky@163.com,
-	ntfs@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=eL9FLDwT
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a56e05568aso10915545e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:35:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1793604958; x=1794209758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tgeRDsuy5w8yKpx9FEg0UTJK5z2DUghOSJu6TemiYLc=;
+        b=eL9FLDwTm7RgAydFwUlBt59URClfd6IDs4z2aAAMigqvsWcEIpNe+qPq3JHzUJHva1
+         Oq4s1W810lhJ4XEp1rUF8hFiGGf2ccPPdPJVbRV2A7iusf+caTcUk3uF05h0nIbKDTBE
+         peT/BYm859Xro6EcNUKbcpw0jG9ZhtvJG60PUDwQduxemZjTD34WeShHbR1bIYBDOJQ6
+         3S4qHJUG1ARNhCFQJSpEV6jZGlzeQ3qOf2V6ecBKDnTcnvmzUCRocO7nPgk3jtzniRP9
+         YbYi+gCm929GO0KJ8PPehmhB/o/cOzGKRd3j/ud5PEVE+qFhUlE3f18icD6ZFi8Hh5/5
+         9bHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793604958; x=1794209758;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tgeRDsuy5w8yKpx9FEg0UTJK5z2DUghOSJu6TemiYLc=;
+        b=LyU5TIsBfvSMhFjFATz0cli66F8WXJ4YuuZ20m2NDdg9d/dUK+qr5yiVRz7qa2XW0i
+         49cYXdKEnAgMVa+dMszkK/zHRlxzdhBufFf76z3KltX/ZqGawGA2Oeb1a35AEWpfXSXr
+         9Vmc/6GbsdkIWq8MeFrG7Ale9h2KF1ZML+DUw3wSsSRUhmwRLDaI0Cm06jLR6QJZEDER
+         LgZ9wlp3m50FvgVAFMzam/Oq70lXJyW4zUTPh55J+Y+kq5E1RW+FJec86HmaIZ5OZ4AA
+         omLXRVu5mVEA+c2aPPjpx26AwsjVrLTx+yfhMPin3wtabsm+LICI7WBsIPHni0y0dTZT
+         6CcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBynxFA+3DenDsn5JWJmrOeGzLc65M/7duLj3MLWJx6gPu6FmGOSV8iADA/6bXBTHWrJC5kTbco4zSmFHw4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISRjXikcvX2/06ubJWJBWnn7nzIYFz346Jx1btvwcyKfe0TinF
+	xlHRP35PPEt6oUlI3RxFonrDsGa1B6jKHy0KYPZ1gDp/VcxQiHShOKOuUtnSL1Ijb9I=
+X-Gm-Gg: AYBFou0fS5gB+HK8AA7qs1f0VYZibcWS6PX2WlznPcxzwSQsoKv6Y42idKGiOXkj3R1
+	ed5GUnLORZgIOBtDdS2cEU9bHST1hJjbYXCLhFIYto6mmLGCcH3IDQ/DzvhtBWSBPETtbY1EGhK
+	z8gh4hMyC7ZCuHjpxcsjvEAoBV+eugT8LXjXNPpa79PsuwWLwk+HtkaQmuBc/OLj/Nd2GwHtahS
+	4mwnkrDuCT+1jTTT6IvgMQqISji/DKJiVMMW89t5niZRYvRcCrrwX7QYF4P6UXPqbKy5xwkSPr1
+	/0ZG84J1LFxbVSD7kEm9gK6+Pj4l4mzSjBBvWsPVtQmhJFU8nCGMLPmqGoNgBwaVjhIV93Bh5Ao
+	hEL0kPNcf6L9dg8uhLYxntnWjQy8hQEJW+dGYfiTQFA+QY9SFhRtey27E2TrXTUc8NaJitFwao/
+	aDwfIFsX/DqmDCJ3NaBevzVWuj3+GCgIrLK/WFcfXy+pnv3yccBMd7qXxSrkaKytIbU8FrxDg9I
+	xzFTmdKIb1PmXK49f4wn40FUdEoG53i0+04A6lhNZkLOyGROrvN9eYxuPfQI4TlG2YKLX95rqE+
+	wFI97VznQAiCPmuj8xzlk7pwO5E48UdTbRcD//h8hPXYsS6XmuXKZd87Fc4qAQ==
+X-Received: by 2002:a05:600c:c08c:b0:4a0:1e9f:64f6 with SMTP id 5b1f17b1804b1-4ac12193b17mr168784715e9.0.1793604957868;
+        Sun, 01 Nov 2026 23:35:57 -0800 (PST)
+Received: from jwang-ThinkPad-T14-Gen-6.fritz.box ([2001:9e8:1447:4f00:35ef:c1f0:6ffd:177c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71baa1b3sm17676058f8f.56.2026.11.01.23.35.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 23:35:56 -0800 (PST)
+From: Jack Wang <jinpu.wang@ionos.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Xuewen Wang <wangxuewen@kylinos.cn>
-Subject: [PATCH v5 00/31] ntfs: report metadata errors and shutdown through FAN_FS_ERROR
-Date: Mon,  2 Nov 2026 15:35:01 +0800
-Message-Id: <20261102073532.98873-1-wangxuewen_ky@163.com>
-X-Mailer: git-send-email 2.25.1
+	Jack Wang <jinpu.wang@cloud.ionos.com>
+Subject: [PATCH v3] md: clear MD_CLOSING when array_state_store() bails on interrupted lock
+Date: Mon,  2 Nov 2026 08:35:55 +0100
+Message-ID: <20261102073555.53941-1-jinpu.wang@ionos.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <eded31de-2e92-4a3b-9384-03dbebc5e9e7@fygo.io>
+References: <eded31de-2e92-4a3b-9384-03dbebc5e9e7@fygo.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,212 +102,103 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3f5hGPehqi52fEw--.9836S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Cw1xCrWrXw15Cr4xtw1DZFb_yoWDuw15pF
-	Z3C3s5tws7tFyIyws2y3yjya4Skas5Ga1UXr1DK342krn8Kr12qFW8t3WUZFyrurWFq3yq
-	qw4jq39ruryUAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U4uWdUUUUU=
-X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbCzgc1HmroPUc6rgAA3O
 
-From: Xuewen Wang <wangxuewen@kylinos.cn>
+From: Jack Wang <jinpu.wang@cloud.ionos.com>
 
-Report NTFS metadata corruption, failed recovery and shutdown through
-FAN_FS_ERROR. File events identify the affected base file; volume events
-cover errors without a safe file reference. Preserve the existing volume
-error bit and errors= policy. Before SB_ACTIVE, metadata reporting helpers
-record the volume error state without queuing an event.
+Writing "clear", "readonly", "inactive" or "read_auto" to array_state
+calls mddev_set_closing_and_sync_blockdev(), which sets MD_CLOSING to
+keep the array from being reopened while it is torn down. The flag is
+only cleared again at the tail of array_state_store() (for readonly /
+read_auto / inactive, or the failed-clear case).
 
-Use -EFSCORRUPTED (-EUCLEAN) for confirmed corruption in the updated error
-paths, both in reports and in failing NTFS operations. Preserve the errnos
-of genuine I/O, allocation and unsupported-format failures. Ordinary EOF
-and missing names or streams are not corruption. Partial-I/O and
-best-effort operations retain their existing return semantics; an
-independent recovery failure can report a different errno from the
-initiating operation. Generic file-handle decoding may still translate
-filesystem errors to ESTALE.
+Between setting the flag and reaching that tail there is an early return:
 
-Based on ntfs-next commit 5dffb7307023
-("ntfs: handle a failed size rollback in the write error path").
+	err = mddev_lock(mddev);
+	if (err)
+		return err;
 
-Changes in v5 (since v4):
+mddev_lock() is mutex_lock_interruptible() on reconfig_mutex. If the
+writing task catches a signal while blocked there, it returns -EINTR and
+MD_CLOSING is left set on a still-running array. do_md_stop() /
+md_set_readonly() never ran, so the array keeps working internally, but
+every subsequent md_open() now returns -ENODEV for all callers - the
+device shows up in /proc/mdstat and sysfs is fully populated, yet cannot
+be opened, and cannot be recovered without a reboot (all clear paths
+either need the device open or re-enter test_and_set_bit(MD_CLOSING) and
+bail with -EBUSY before the clear).
 
-Address the four points raised during the v4 review:
-- Patch 4: ntfs_attr_exist() now returns 1 for a present attribute, 0 only
-  for -ENOENT, and the negative errno for search-context or other lookup
-  failures. Its callers propagate negative results instead of treating an
-  error as an absent attribute.
-- Patch 5: The remaining inner ntfs_read_locked_inode() failure in
-  ntfs_read_inode_mount() now goes through common cleanup and returns its
-  specific errno instead of the literal -1.
-- Patch 6 and other affected paths: defer local reports to common exits,
-  after releasing resources acquired on those paths. Suppress a duplicate
-  when a lower layer already reported the same failure, but retain a report
-  for an independent cleanup or recovery failure.
-  The follow-up audit also covers resident WOF reads, attribute-list and
-  nested-attribute removal, and index/bitmap operations.
-- Patch 28: distinguish malformed EA metadata and missing required EA
-  attributes from read failures. Preserve lower-level EIO, ENOMEM, EFBIG
-  and other errors. In listxattr(), recheck HasEA under mrec_lock and report
-  missing required EA_INFORMATION or EA as -EUCLEAN. Ordinary missing keys
-  remain -ENODATA, and lower-layer reports are not duplicated.
+The window is easy to hit on a busy host: reconfig_mutex is held for long
+stretches by a running resync/recovery, widening the interruptible wait,
+and a userspace helper writing to array_state and then being killed or
+timed out is enough to leak the flag.
 
-Other changes since v4:
-- Rebase all 31 patches onto the updated ntfs-next base. Adapt the series to
-  the upstream write-size rollback change, the minimum INDX entries_offset
-  check, the logfile USA-count widening, and the current iomap and const
-  mnt_idmap interfaces.
-- Adapt patch 23 to the rebased file-write rollback path. The upstream size
-  rollback implementation is retained; this series adds FAN_FS_ERROR
-  reporting and records the volume error when an attempted size rollback
-  fails.
-- Adapt patch 19 to the existing minimum INDX entries_offset validation and
-  report the resulting corruption as -EFSCORRUPTED (-EUCLEAN) from the
-  affected index-read paths.
-- The follow-up audit adds reports for EIO from LZNT1 block reads and direct
-  nonresident WOF table/chunk reads, and for failure to restore the resident
-  MFT record after an unsuccessful conversion. It also preserves errors
-  returned by lower-level runlist operations.
-- In patch 23, treat positive reparse-index cleanup lengths as success and
-  report only negative cleanup errors. Recheck the reporting paths on the
-  rebased tree and rerun the validation listed below.
+Clear the flag directly in the interrupted-lock exit. Guard the clear
+with a set_closing flag that records whether this write actually set
+MD_CLOSING: the set call is skipped when the array is not running
+read-write (or mddev->pers is NULL), and in that case this write must
+not clear a MD_CLOSING it never set. This also tightens the pre-existing
+tail clear, which had the same unconditional behaviour.
 
-The v3 maintainer feedback is retained and rechecked in v5:
-- The cited omission paths are covered: ntfs_ib_read() reports local
-  short-read, MST and index-block corruption errors, and corruption exits
-  in ntfs_read_iomap_begin_non_resident() report as well. The current tree's
-  corresponding directory-lookup path is ntfs_lookup_inode_by_name(); its
-  corruption exits report against the affected directory. Genuine I/O and
-  allocation errors, ordinary EOF and missing names or streams retain their
-  existing meaning.
-- Use ntfs_inode_base() at the affected call sites for base-file
-  attribution, with volume reports when inode lifetime prevents retaining a
-  safe file reference.
-- Use test_and_set_bit(NV_Shutdown, &vol->flags), so concurrent callers
-  notify only the first caller for each clear-to-set shutdown transition.
+Fixes: 99b902ac1725 ("md: sync blockdev before stopping raid or setting readonly")
+Assisted-by: Claude:claude-opus-4-8 [Claude Code]
+Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+---
+v3: (Kuai) clear MD_CLOSING directly at the mddev_lock() failure and
+    return, drop the out_clear_closing label; reword the commit message.
+    Keep the set_closing guard: the set call is skipped when the array
+    is not rdwr or mddev->pers is NULL, so this write may not own the
+    flag. Rebased on v7.4-rc1.
+v2: guard the clear with set_closing.
 
-The series remains split by metadata subsystem and recovery operation.
-The search-context API conversion stays together with all its callers.
+ drivers/md/md.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Series organization:
-- 1-4: writeback errno propagation, cluster-free counts, reporting
-  helpers and search-context/attribute-existence error propagation.
-- 5-7: boot/MFT bootstrap, required system files and logfile errors.
-- 8-10: runlists/cluster allocation, iomap and LZNT1/WOF streams.
-- 11-17: attribute moves, lookup, record/list updates, conversion,
-  resize/relocation and incomplete range updates.
-- 18: inode metadata and eviction cleanup.
-- 19-22: index validation, traversal, directory lookup and index updates.
-- 23-24: namespace/file recovery and export parent reconstruction.
-- 25-27: MFT record lifecycle, bitmap/data growth and writeback.
-- 28-30: EA/ACLs, named streams and reparse/ObjectID metadata.
-- 31: atomic shutdown reporting.
-
-Validation:
-- Built all NTFS objects and the bootable kernel with W=1.
-- Sparse C=2 checked all 31 NTFS translation units without diagnostics.
-- Passed 13 QEMU guest runs with NTFS built in, including normal file
-  and namespace operations, named streams, inode/index/runlist/EA
-  corruption, readdir, shutdown, filesystem ustat selftests and
-  fsync/remount/data verification.
-- Two of those runs specifically exercised INDX entries_offset below
-  the new minimum, through lookup and readdir. Both operations returned
-  EUCLEAN and generated EUCLEAN events after the listener was ready.
-- Tested 374 controlled error-path scenarios using extracted, unmodified
-  functions, including every ntfs_attr_exist() caller and EA/readall
-  error classification, LZNT1/WOF read failures, runlist lookup errors,
-  resident-record restoration, EA setter reporting and failed
-  relocation/list persistence, including duplicate-report suppression.
-  Forty of these cases cover index bitmap set/clear errors and local
-  duplicate-report suppression. These are userspace harness tests with
-  controlled dependencies. Eighteen cases check reparse-index cleanup
-  return values, including successful positive lengths.
-  Twenty-four additional cases check duplicate-report suppression in the
-  two resident-attribute relocation paths.
-  Thirty further cases exercise the real WOF table parser and chunk reader,
-  including lower-layer errors and local corruption checks.
-  Twelve cases check list-entry removal reporting and early failures.
-  Thirty cases exercise real range-editing helpers with malformed
-  runlists, valid ranges and allocation failures before and after changes.
-  Forty-two additional cases exercise nested attribute removal and
-  index/bitmap reads, distinguishing propagated corruption from local
-  detection, I/O errors and independent failed cleanup.
-- Fault injection in a separate test kernel validated errno handling in
-  ntfs_read_inode_mount(). The tested function matches the final v5
-  implementation apart from the test instrumentation. ENOMEM, EIO and
-  EUCLEAN were preserved; missing required metadata (ENOENT) returned
-  EUCLEAN.
-- The QEMU test runs used non-strict KCSAN and lockdep; all 3 KCSAN
-  selftests passed, and no KCSAN or lockdep diagnostics were printed.
-
-The patches in this series are available at:
-https://github.com/liubaolin-murphy/liubaolin-ntfs/tree/main/ntfs_notify/ntfs_notify_patch_v5
-
-Thanks to Hyunchul and Namjae for reviewing the earlier versions.
-
-Baolin Liu (11):
-  ntfs: preserve cluster-free counts in attribute cleanup
-  ntfs: add filesystem metadata error reporting helpers
-  ntfs: report runlist and cluster allocation metadata errors
-  ntfs: report attribute lookup and validation errors
-  ntfs: report attribute list update and recovery failures
-  ntfs: report attribute conversion and mapping update failures
-  ntfs: report inode metadata and eviction cleanup errors
-  ntfs: report MFT record validation and lifecycle errors
-  ntfs: report MFT bitmap and data growth recovery failures
-  ntfs: report MFT writeback errors to fsnotify
-  ntfs: report each shutdown transition once
-
-Dandan Wu (11):
-  ntfs: report required system file and volume metadata errors
-  ntfs: report logfile metadata and emptying errors
-  ntfs: report iomap corruption and preserve buffered read errors
-  ntfs: report LZNT1 and WOF compressed stream errors
-  ntfs: report attribute resize and relocation recovery failures
-  ntfs: report incomplete attribute range updates
-  ntfs: report index validation and block I/O errors
-  ntfs: preserve index traversal errors and directory retries
-  ntfs: report directory lookup and metadata corruption
-  ntfs: report index update and recovery failures
-  ntfs: report namespace and file recovery errors
-
-Xuewen Wang (9):
-  ntfs: propagate mapping-pairs update errors from inode writeback
-  ntfs: preserve attribute search context initialization errors
-  ntfs: report boot geometry and MFT bootstrap errors
-  ntfs: handle source record removal failure during attribute moves
-  ntfs: report attribute record update and cleanup failures
-  ntfs: serialize and report export parent reconstruction errors
-  ntfs: report EA metadata and restoration errors
-  ntfs: report named stream metadata and recovery errors
-  ntfs: report reparse and object ID metadata errors
-
- fs/ntfs/aops.c         |  24 +-
- fs/ntfs/attrib.c       | 890 ++++++++++++++++++++++++++++++-----------
- fs/ntfs/attrib.h       |   8 +-
- fs/ntfs/attrlist.c     |  61 ++-
- fs/ntfs/attrlist.h     |   4 +-
- fs/ntfs/bitmap.c       |   2 +-
- fs/ntfs/compress.c     |  35 +-
- fs/ntfs/dir.c          | 112 ++++--
- fs/ntfs/ea.c           | 173 +++++---
- fs/ntfs/file.c         |  30 +-
- fs/ntfs/index.c        | 349 ++++++++++------
- fs/ntfs/inode.c        | 266 ++++++++----
- fs/ntfs/inode.h        |  10 +-
- fs/ntfs/iomap.c        |  66 ++-
- fs/ntfs/lcnalloc.c     |  17 +-
- fs/ntfs/logfile.c      |  58 +--
- fs/ntfs/mft.c          | 351 ++++++++++------
- fs/ntfs/named_stream.c |  61 ++-
- fs/ntfs/namei.c        | 144 +++++--
- fs/ntfs/object_id.c    |  50 ++-
- fs/ntfs/reparse.c      | 109 ++++-
- fs/ntfs/reparse.h      |   2 +-
- fs/ntfs/runlist.c      |  23 +-
- fs/ntfs/runlist.h      |   4 +-
- fs/ntfs/stream.h       |   2 +-
- fs/ntfs/super.c        | 310 ++++++++++----
- fs/ntfs/volume.h       |   4 +
- fs/ntfs/wof.c          |  49 ++-
- 28 files changed, 2287 insertions(+), 927 deletions(-)
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a802..f14a31387990 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -4671,6 +4671,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ {
+ 	int err = 0;
+ 	enum array_state st = match_word(buf, array_states);
++	bool set_closing = false;
+ 
+ 	/* No lock dependent actions */
+ 	switch (st) {
+@@ -4691,6 +4692,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 		err = mddev_set_closing_and_sync_blockdev(mddev, 0);
+ 		if (err)
+ 			return err;
++		set_closing = true;
+ 		break;
+ 	default:
+ 		break;
+@@ -4718,8 +4720,12 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 		return err ?: len;
+ 	}
+ 	err = mddev_lock(mddev);
+-	if (err)
++	if (err) {
++		/* Interrupted before any teardown ran, don't leak MD_CLOSING */
++		if (set_closing)
++			clear_bit(MD_CLOSING, &mddev->flags);
+ 		return err;
++	}
+ 
+ 	switch (st) {
+ 	case inactive:
+@@ -4792,8 +4798,9 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 	}
+ 	mddev_unlock(mddev);
+ 
+-	if (st == readonly || st == read_auto || st == inactive ||
+-	    (err && st == clear))
++	if (set_closing &&
++	    (st == readonly || st == read_auto || st == inactive ||
++	     (err && st == clear)))
+ 		clear_bit(MD_CLOSING, &mddev->flags);
+ 
+ 	return err ?: len;
+-- 
+2.43.0
 
