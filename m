@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=40.107.44.109
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.126.83
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
 	t=1793588672;
-	b=X+9qVhqWHej18P+1/YhntJ17TdqN7F4XORh056V/nDEO4vy3RDQO+PJyWMkxWgK298yy
-	 U7XuR8DOFneJYYkRqTI7tDVG0kJu0M0Al+Slw5exOSrKZ6Wm8ZxoPRDWWGGHz+kn6kaGU
-	 O/XL2F72c6HCXICQMT5u5FBORsGaZyqVtPzSKafPjakki8k1n5srztKgeRys9KkeOVgXk
-	 qAUavfXudgRacSJSgC7mcYTsIICOZpX6YcnhJWUhUilBZqa+XFyB8Oz43h3OGsnthqP9U
-	 kJJhaNqLBY2pGdG4gO39VFPuhM6h1RIeT/h93DLCTc41+BQkgtxtbZy5Gu/9jXNrQKQ==
+	b=hPixMqikACjVULdzexx3mdopHGYLw/Mzc+cayM/3IoZel9xXWJYBXxfPGF/X1nvUur9F
+	 a4SKZPatYugA6jx2qSqAOE7ILw27OQQ5gthVCZ9gjM4fbDuJNemCDP/pfvRpz9+w0YA9g
+	 tcQh1vzKqx7QIzu0HRQM9U1Im+SG5IoQjUhC162C+iY49nhn1OFApGgRbKu7RZ+HhB3VP
+	 WJ24XkuVP7Gpw0UY4T+fYqXtNgR1KV3gH6dfBesbylKuvThRNazGOt47ZaLU6LGdkWoyV
+	 uln4WfD98ltpwLpSp+KBekpsYN13Mpwot8VZqZJ4NdgWpLEW9RNSf2tjzaPlIoGHVxw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793588672;
 	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
 	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
@@ -25,46 +25,46 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oshhTtTAIEEjN/mrpPYmkDIAn5Lu3NZFglnc0Hhg0Jk=;
-	b=b3jBEEdVBW9aSap4X2UkaYzzHM6avBZ7OFkrMvO17FSTZBgc3FiMktQunpSo2rik9ZOt
-	 LD0KF0w+yjtc7jeE2QTtZWva//DDRWL4Gku6Qsm76Svh2EML07Uf+9EzKShV/UD9n6KOt
-	 pz/p9YqZyt0toOSLRnMEELGUr/Itef206uSsaWoSA2xrmaXcJANI2UfESa5sqSnl8Y2GK
-	 quB9J8Oxs+618jA6J6LYxh7yQMDQ0K6R3P56m/Za8bj7wYEgFkasTGk99pret8btMFd5I
-	 X6azdv6LQdvLi7UKIrifZ3CSGEOiQkwKYjo30JgOXxu6BgDkO8om6jh3FeY2bidlC+A==
+	bh=Kybe0YYJOE5rF/u6tYyCnCVmCpSZR1B7KWBQX5J8Q9s=;
+	b=Gxme5UwgDLOv7nbRrGVEysPLiTU7oqfY0BpxZrEc0JbeS0CkJnPa9AedH9mckr5KNhi4
+	 KU+R6p/y8uYvQefO/L6SDOAplzUxeHwr4iRHOoCAUfeRbjno8Kn8D3GUC2Gr0Q/pAtdjS
+	 z2IpsA9CPY/Amnv9m9Mf0P/b3kdrXD9P2ay+B5HpNVWMx/rcI6T/3R7ToqLoK6RoKPsMK
+	 vEAN1sS0U2I8SoTnf7njuLuZfxHBfhCkykUrWugotFGIetQhMQT5UZq7YKuEhoneGYJk7
+	 KOU7j1dxi0cMGIWpiOomY4kIKTQFKwAlw+IccrD0yIvcxpkAoV1WUHK0WegQR2NCtcw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=cixtech.com;
 	spf=pass smtp.mailfrom=cixtech.com;
-	arc=fail smtp.remote-ip=40.107.44.109
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023109.outbound.protection.outlook.com [40.107.44.109])
+	arc=fail smtp.remote-ip=52.101.126.83
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022083.outbound.protection.outlook.com [52.101.126.83])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54081606A327;
-	Mon,  2 Nov 2026 03:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54081606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B231B606A326;
+	Mon,  2 Nov 2026 03:04:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B231B606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qk4U0Ldqhqaz+Yn7JMsVZCnoMYMVYBTerR4bdk1FZ0cqD6UGSTNbYPpUAFzrjmz1sKQNAvngTm6q9yymtvwQ9IVgBPtExPQ4jsXoF7wh2l0dskxxCSSyaKGh/89NsbSRB6TpbM3o3Tu/TtluQFO5V/zEetbsu7K7SlPcv7e/RDJ3mCPHMtLhrlu3sXFCcY7YnmbF1q1kr+jiXz+c4aHQ7EOme0FVXo/6p9eGY7BeLL9vANZjR9gFZEYG43GAElzFofl/f1Fbm/9Qm3APmJlHTSR3yM6d6U2wT5hi8SYvBceIgebjhUDvkqkj/TK9IJ6rYyf4oYbFD2KcBM+jYRrs1Q==
+ b=h24bck+Z35p2Tww6qmsVzPQ/LiWSNVP4qwfc0y2jO3Ll1sRicHocfga2v3M00I1kDleRvOJRyUG4uKyToZKiKjZmf06cbt3U2iGQpFQWR1pUfdfTJO9smnU1S71buY327fnbRbesL1IbMx+bFRqG4efP8LfgPYTVjcHLhIOYJZ81flavA0hYCv2AUTysEpHKqdqbbFsMNH0qbMQPeuDz52oXTJYiaOc5BDDPkZEhwoSdtYugpsD6jE2Cr/NZYiCML0hXkU/jUitBc94C3n6Qo3rjZWKWp2AKeQYqaUs+AhCYEz9bWdhB/Fxxs+lq3LGela16BKNbdwQ0man+mmBntA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oshhTtTAIEEjN/mrpPYmkDIAn5Lu3NZFglnc0Hhg0Jk=;
- b=PH+fOOsM9gCZONNLr5dIHCbrMnow+oBB516c+wishfZ2rim+VOLpKNSQ6YOL4mUowkq1KE7tX6y+lkf4uuXK4GZDhkzQT7hoiZh30N4izef9/DDbZd+CCtdz3Shwli7aOgSielJeGZKRMCdpDlVloWesQRZda90Nph4XQuBM+s32jLQgEPdjAz1LeOGn/4QGiigOgkArF98/+cDWZ53rv+QmgTMyz0EZXRTgLomAyDEQUdmSwVsI/5JyxmUXrK6rpbkkrSWdT5acl2yv12n0fDuH9pr/QCrVh7+mekINzR6pcDIx2FmRYhaqMPtXdGx04frLYpLKrZr63vtVqGFCIg==
+ bh=Kybe0YYJOE5rF/u6tYyCnCVmCpSZR1B7KWBQX5J8Q9s=;
+ b=hlfDij0G3nlbw3aVEMWabJYWjYKG6zBW6mTPzl02ZNkSi2PeSzZUu96clUVupA1ay0xq2YvdNefxJYw0s1Ctc9n//zwrkF6iBU5dCuk7IVeolYwLkJ2KphD/ZCl4C3JCjcLiG3N3TrONUsZzCsnDejOAXp/JaUTkz/5N9aMce14H2n7zy8sIZwbY3S6ETYs1pPScGv5DMJQyXANZWc2ERtvld1tVDwrFlYxueEvNKSTr/pwS0ez395LzhRchLXOuAUphvAUyw0G9lC/6iPV3zh90juWRYEsU9e/gEtLF8metEX/1S0nLBt2avuWrvEoAMvicnICYOhJj41+ctVuC0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
-Received: from JH0PR01CA0128.apcprd01.prod.exchangelabs.com
- (2603:1096:990:54::19) by KUXPR06MB8293.apcprd06.prod.outlook.com
- (2603:1096:d10:5f::9) with Microsoft SMTP Server (version=TLS1_2,
+Received: from TYCP286CA0064.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:31a::11)
+ by TY0PR06MB6802.apcprd06.prod.outlook.com (2603:1096:405:11::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 2 Nov 2026
- 03:04:26 +0000
-Received: from SG1PEPF000082E8.apcprd02.prod.outlook.com
- (2603:1096:990:54:cafe::5b) by JH0PR01CA0128.outlook.office365.com
- (2603:1096:990:54::19) with Microsoft SMTP Server (version=TLS1_3,
+ 03:04:27 +0000
+Received: from TY2PEPF0000AB87.apcprd03.prod.outlook.com
+ (2603:1096:400:31a:cafe::69) by TYCP286CA0064.outlook.office365.com
+ (2603:1096:400:31a::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 03:04:26 +0000
+ Nov 2026 03:04:27 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
  header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
@@ -72,11 +72,11 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
  222.71.101.198 as permitted sender) receiver=protection.outlook.com;
  client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E8.mail.protection.outlook.com (10.167.240.9) with Microsoft
+ TY2PEPF0000AB87.mail.protection.outlook.com (10.167.253.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 03:04:26 +0000
 Received: from localhost.localdomain (unknown [172.16.64.56])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B489C4102B4B;
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id A3AA34102B47;
 	Mon,  2 Nov 2026 11:04:25 +0800 (CST)
 From: Luo Liu <Luo.Liu@cixtech.com>
 To: vkoul@kernel.org,
@@ -96,12 +96,10 @@ Cc: cix-kernel-upstream@cixtech.com,
 	Luo.Liu@cixtech.com,
 	Wuyi.Shen@cixtech.com,
 	EastLake.Yang@cixtech.com
-Subject: [PATCH v4 1/3] dt-bindings: phy: Add CIX Sky1 DP PHY
-Date: Mon,  2 Nov 2026 11:04:23 +0800
-Message-Id: <20261102030425.1957585-2-Luo.Liu@cixtech.com>
+Subject: [PATCH v4 0/3] phy: cix: Add Sky1 DisplayPort PHY support
+Date: Mon,  2 Nov 2026 11:04:22 +0800
+Message-Id: <20261102030425.1957585-1-Luo.Liu@cixtech.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261102030425.1957585-1-Luo.Liu@cixtech.com>
-References: <20261102030425.1957585-1-Luo.Liu@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,138 +112,91 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E8:EE_|KUXPR06MB8293:EE_
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB87:EE_|TY0PR06MB6802:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: ea2e3d10-8946-439c-26a4-08df388e0155
+X-MS-Office365-Filtering-Correlation-Id: bc421a90-c38e-4c2c-c391-08df388e014f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|42112799006|82310400026|921020|56012099006|261009223027099003|261028144727099003|261021121427099003|261021135927099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003|3023799007;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|42112799006|921020|56012099006|261009223027099003|261028144727099003|261021121427099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	mJp2Wd7iC5oP3++eCnwM/BMJ/AuN0xkI/Ho4SfK+DMHGU2lYittdkWF9JJwH9QAvZqqmcZvS+WaAmYt0Yp4Mz1O9x/RIAS7dBLY+NF86zj18AsQqv6HOQjXZYaAgYJeI/b+aBUwDNJCSB/l+aYOOt5Z/mK6Uqnkswfy7frpkCuC/pfpjYNSouTbdZUloqcPr7LbfdzGpVL20ReGULRi+YapruMxIdBEDMwuXT4cG3ahUqLgDI2M0copHy6MHW/52kCpl6YHuN3b4Yyvfzq+/G8eMYgLQl6bHlLj0cDZsM1gqE8cv62EEHJq99PElxjyN+QZT2SfAggMo/TCc/XCvoQYv3K0Qs4+qTKqUocy5T+Q8KAHU6lUtflNvj4WxUe8dGSxI1/uQATEu2hJ5AmMKZBZIMsHNlgtFovdgsPsV88596G/5aP61arClmMWe7ucgHJOcAYnX+4gEqBYb7iweNYFWUw9u/b9t3BsmJ6TdH78HbL862L2KTfMkvaXtK5XMnr48ixr0SOCr1rtTLpkY5HO7A+757GTdDWU8xIAYv8PSMgiCgREB9qxEk5sDh6ijvsqJGFFblhFbu8N7ZjyBqpv6AHM51AieG5dgePDTKGmw8C9CzpdRmJ+8YSLiGjhBOr+TtfJMQT9iwSIqUPkj76q4mcVVDx3sKk5f+z7E0Ko8TDHOXKKwI5MRTFywe5rC
+	283JV1R1/2PzXAzInHyT5j65YoJSd3eFpgHXnolMyOlx/iih0PHPADehXpT8PnzZRX4gw7OR9HD6//Otr7t2uL8zFq5+uHrPmQLYrQOgu55JHBk54ffap4+/q73ZqUDL9VonqpdKxdXUusMXjpuRILCyW8LV1cpoZiIwCX37ZCHn07Pim6yXFxJJq5XzoZZJmjruPbBgdQXGxtJ0wF/LBdmm+IHO/cVG4BFhSvpATvG7HLkwB/LG6lNZfDY4YLpjqMh4rt7GhA9Ju1mT3rqm+tNs9B3hfKifSGYohf/kU/qndtMoBGCGbe9bk3KdRfcgH0Bne30SL02HKkXOSbuxgRT4+XzSqoV3ovp4+AAZ/sQncMkZp4/uAZNdLEcgIBpADZ6mTd+Z7Eg52lWNuZfMyT/4La1HAbTFyMMXFXIFM4TopoVHGsUkIHkL9elC7IJtqTgHMuGOaWKKg7qgpdMHvPTJEFNMBvcufitrGrdnE8Ej708SMmgENeKGDM4k50/2gZlW1C0jxY7dSzCE67t8w/BSG+pSzc032sEzUIQOIL0JoMmqej2IZujfoOWvrJlPoHtoDMjCO3TOJ68wMRO0UQLvyaY2wSyWRis5f6JyQi7jQJXyn2AL2PB4Z9gXfWK27YAQaRyJQDeD2hETkitp6DCM/3VYYM+MaCzpnuk7NXa/sWuAxkuikZ0zbZgVO8O2QkMQfJDv+CNDp09xk/gLnVOFR2HN1ms+Dx5MlUj+lAZuRY/7l38/lNjwuWsFkC7P
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(42112799006)(82310400026)(921020)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021135927099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(42112799006)(921020)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	jPOg9HfE7fNlTJ8kPAebE2DBCiadl0C91e4BqJOnoeTKhtfwrvaUFZLT0uiizEU2MyjIRr+UkV7O9BO2vv1wno9/gUTe5YUf2WVdDXRblllZbiP2Cmo6wqgbet6OQZWcd+6eFwK7WSFTIk4n3Q5DNM8SvMo7innjKioGps38U9XbDFj2FHXbs7KW6e25YY5yuH68aKOf4z77vJbDFoak8keiNreN2wOeiGHr3/kpU/uAjqyDg94pQHoL88R6Tse3I1WbQ8ND8zVM71C+n1gDQtFUFrvfoPj8k04kvSYxmEnJnizvXTLQfk/MvIzmBjOmfv0VYhuU/cDR9I5Ry/utWm+djzkIcVIAiObpE5FwVy6PqUPdquivnxjqychoIWCg6ZXLySLpNdoy1/YSG/CyKOk6rl11wEUUOFIzaNYcejBoHCQqK2xk6hGIU9FXx3Vs
+	99I50TzMExAhPJhebru0eq94cWbAxzfaSnRJZZ37RSSir0shpEReRYBPhj9/jJuljPXAtOHx1Dv8F2re7xozYI1eYDCIIMR8Mj0x2yY4Nm1N5cCCNELlHg2fP6tGU+THvHN9h0RLWpOzBVJs6k8HE9CVw1GIlQBbMFQ1PZ4pohLuVR/LZFfzjZ89i/jdmW55gFYrjdbwuXEi8K/6TBDQfJxCQ6Rvg5woqxAHf5Wl5UorBFAnP+x4+W5JZFNCjgcLjuJ6nxyRb1O6/1ONN3hvMazGGTiBny9fruhdOLz8rhQiZ333uEKvvcHkbypQnBSUgFP9fwXORPdIpc06AQa5w40VhEciNKKeNJnLDPznSKsaWSfEeC3XCiOi2oyHb/4DFr8Gqovd50Ms8Rz4xQh1QGHbPwQt+xeveB9KOZxL+u6v/RTNNA06J8U/phdflckr
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 03:04:26.6861
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 03:04:26.5990
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea2e3d10-8946-439c-26a4-08df388e0155
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc421a90-c38e-4c2c-c391-08df388e014f
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E8.apcprd02.prod.outlook.com
+	TY2PEPF0000AB87.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUXPR06MB8293
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB6802
 
-Document the dedicated DisplayPort PHY on CIX Sky1, including the
-required APB clock shared with the DPTx controller, reset, and the
-optional cix,external-dp property to select the external DP swing
-table instead of the default low-voltage values.
-Add a MAINTAINERS entry for the binding and driver.
+Add dt-bindings, driver and DTS support for the dedicated DisplayPort
+PHY on the CIX Sky1 SoC.
 
-Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/phy/cix,sky1-dp-phy.yaml         | 67 +++++++++++++++++++
- MAINTAINERS                                   |  8 +++
- 2 files changed, 75 insertions(+)
+The PHY exposes a PMA/CDB register interface and is controlled through
+the generic PHY DP configure ops (link rate, lane count, SSC and
+voltage swing). The APB clock is shared with the DPTx controller; the
+PHY driver enables it around init/exit together with the hardware
+reset.
+
+Patch 1 adds the binding and MAINTAINERS entry.
+Patch 2 adds the PHY driver.
+Patch 3 describes the SoC node and enables it on Radxa Orion O6.
+
+Changes in v4:
+- Keep cix,external-dp for the external connector swing table
+- Require clocks/clock-names ("apb"); wire CLK_TREE_DPC2_APBCLK
+- Enable and disable the shared APB clock in phy_init/phy_exit
+- Update copyright years to 2026
+- Move bool members to the end of struct cix_dp
+- Move the lane-count and timeout macros out of the register block
+- Add CIX_DP_CDB_ENABLE_BIT instead of writing 1
+- Drop the power_on/power_off dp->powered check; the PHY core already
+  refcounts those calls. The flag remains so link-rate updates know
+  whether the PLL is running
+- Pick up Reviewed-by from Rob Herring
+
+Changes in v3:
+- Rename cix,external-dp to cix,edp (select eDP vs DP swing table)
+- Restore TX_DIAG_ACYA on cix_dp_phy_set_lane_voltage() error paths
+- Note that the PHY APB clock is managed by the DPTx driver
+
+Changes in v2:
+- Move MAINTAINERS into the binding patch; keep tabs; add R: entry
+- Require resets; use exclusive reset in the driver
+- Include linux/property.h; document Sky1 1/2-lane physical routing
+- Rename DT label to dp_phy; enable it on sky1-orion-o6
+- After CDB_ENABLE, wait for busy then idle to avoid a stale READY race
+
+Luo Liu (3):
+  dt-bindings: phy: Add CIX Sky1 DP PHY
+  phy: cix: Add Sky1 DP PHY driver
+  arm64: dts: cix: Add Sky1 DP PHY node
+
+ .../bindings/phy/cix,sky1-dp-phy.yaml         |   67 ++
+ MAINTAINERS                                   |    8 +
+ arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |    4 +
+ arch/arm64/boot/dts/cix/sky1.dtsi             |   10 +
+ drivers/phy/Kconfig                           |    1 +
+ drivers/phy/Makefile                          |    1 +
+ drivers/phy/cix/Kconfig                       |   18 +
+ drivers/phy/cix/Makefile                      |    2 +
+ drivers/phy/cix/phy-cix-dp.c                  | 1004 +++++++++++++++++
+ 9 files changed, 1115 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+ create mode 100644 drivers/phy/cix/Kconfig
+ create mode 100644 drivers/phy/cix/Makefile
+ create mode 100644 drivers/phy/cix/phy-cix-dp.c
 
-diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-new file mode 100644
-index 000000000000..ea19f0aa0b1c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/cix,sky1-dp-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: CIX Sky1 DisplayPort PHY
-+
-+maintainers:
-+  - Luo Liu <Luo.Liu@cixtech.com>
-+
-+description:
-+  The CIX Sky1 DP PHY provides the PMA/CDB register interface for the
-+  dedicated DisplayPort instance on CIX Sky1.
-+
-+  The PHY APB clock is physically shared with the DPTx controller.
-+
-+properties:
-+  compatible:
-+    const: cix,sky1-dp-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+    description: APB register interface clock
-+
-+  clock-names:
-+    const: apb
-+
-+  resets:
-+    maxItems: 1
-+    description: PHY hardware reset
-+
-+  "#phy-cells":
-+    const: 0
-+
-+  cix,external-dp:
-+    type: boolean
-+    description:
-+      Use voltage swing values suitable for an external DisplayPort
-+      connector instead of the default low-voltage values.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - resets
-+  - "#phy-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/cix,sky1.h>
-+    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-+
-+    phy@1414c000 {
-+        compatible = "cix,sky1-dp-phy";
-+        reg = <0x1414c000 0x4000>;
-+        clocks = <&scmi_clk CLK_TREE_DPC2_APBCLK>;
-+        clock-names = "apb";
-+        resets = <&s5_syscon SKY1_DP_PHY_RST_N>;
-+        #phy-cells = <0>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..b46d0f4220a9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6360,6 +6360,14 @@ M:	Satish Kharat <satishkh@cisco.com>
- S:	Supported
- F:	drivers/infiniband/hw/usnic/
- 
-+CIX SKY1 DISPLAYPORT PHY DRIVER
-+M:	Luo Liu <Luo.Liu@cixtech.com>
-+R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
-+L:	linux-phy@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
-+F:	drivers/phy/cix/
-+
- CLANG CONTEXT ANALYSIS
- M:	Marco Elver <elver@google.com>
- R:	Bart Van Assche <bvanassche@acm.org>
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
 2.25.1
-
