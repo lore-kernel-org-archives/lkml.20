@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793642769;
-	b=JCg5Ssh6Hoa0sB59IdN0vKSz2LNFI4zvBsZXD0WYdoJ9HMV5iBDtDjHRYKre9d22oXJp
-	 +DKFzl3AHcQfqsg08d5c8nnR8pvcNuWk+ccVkLy5LBSg0HJzleUo3RR7gQ0lb8vQrBeXX
-	 gm72uhxThUiAz+bleqpJFfKrNZvMOklh5J38s+Dyc11Zdm63Kq9gYS9WVWTMt+3cpOedm
-	 XIrjGH5jqR3QMYMM3E2lt11lnoaGVeLj3JmdllQ5H4sHuvOg4nlW9ZnE1tCb4KVDxM9LI
-	 wtUPlqq2mOrQrh3epT+JOnzcmlT32mZqKr0TdZvlNOy4PE3s9NJyckJ3YNRhhNMPsvg==
+	t=1793642838;
+	b=Kj8duNY7S+1rbqKcOVg/C+/919Vba+xlzmoZuCfPThHuyZsReeYKIzvGXCTLUflMPM6E
+	 sYdQaAlrZwP5EeSKqcJUpsypKAUN2J1C2PapRj2ZPRHVG0YZeiNAS1BgozpCFTULsgJRQ
+	 EN/27pKuovTRLGZ6KdIlkB8PY+q6U8+8l5+WQE6MyHi14XfX+pC3NS7WSGfacg7kjGaX6
+	 D16RVl72wGle+nbU6H1rdjMwJsfYCoEZgfPfSdXUDiwtP2NIUT5WYIrY2/KQ1lVjORSRJ
+	 jNxcq7yY5xDNZVWnQ6jrjtu9uEThqV/f9yCRwdmZm13SaBa0SqGbhOZIzLxnwgdHpLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642769;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
-	b=0BTg0Nl5BhGUeAfrz6YqKWE7oOLdfP1abzRsSayaOAtacRUGlJxmCBm7SBzuiuBRSVzY
-	 ib0y0T2e5ciNTzkmiSGpRq3rCXpVVPLXe1mTBKSwk/84dGWEVYrvl/AOjxC2dNAs4v8AD
-	 +yngQBHd2aDivzps+Ede46VrKiyUDc4P3BHfkSdUEg+BNAf76ZyFD+MrCmFyO3PBsW5EH
-	 iPuo0ey0+4VNv+yZ+SFnsxrjfWAYNSb8jFx6gNKsgKvwc9anbQop6viDMXanUOyVH/Eq9
-	 T9QS+bbQiK8h1XsIt5F5YdoIMFpmSiEs3DexxYGc+215FoZ4mDKkjyAYoFEi5rPA6LA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793642838;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=agAvZaMsii/M7oBGgfwhInzi1SJ/3NKHTvsHEi6370s=;
+	b=N4Jo0ji4agthnxnZ1pBxsBG9kJsiD1M11oZO7NVqtyzq3wuwgLs3qLisQ3+4vqATF/ZH
+	 Dnk1ClZV2OmsyysDEZbYeEfy7vNfxKASTrvZVEN8YiMt516qUCUBIYoaRAMr4zbcZ70jq
+	 T27q8HTLzUE9IsogzJQHCK59P2sxfwlGfBKGLP4vGdLzTKHo0Y+4crD4YmXzVxmMCCB19
+	 fS0KPub7FRKqQVy6GH7LdarTM2xu6SSNGFSKJr+cftjBvvbvy5qHHttzd7jpYfATENRzx
+	 nEvQFsEVU05ivOWDP1aF0O5QRWyan0cJiRH7peEK5bPXodxJ0qLVNGEpnEFI3x2tAuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=F1ILInaG;
-	arc=none smtp.remote-ip=209.85.208.182
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmyTQFbI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AB7606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:06:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77AB7606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85733606A326;
+	Mon,  2 Nov 2026 18:07:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=F1ILInaG
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab28f3e4dcso37260511fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:06:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793642767; x=1794247567; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
-        b=F1ILInaGHXSQShR6g8ld+015Ct+V2Y3IXwMQelGmSLKqyL+TL76ZLZy2L09VWFTA6o
-         qyWfxUTv3Ojt0Cxe7rvdbGSJm0yFszKZyv4ot9BjgYPsLu6AhahChLTGt5menkkACcFh
-         d09ieixwGpMqTcOTgULBdvP2EKQWWVhKRD9hk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793642767; x=1794247567;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
-        b=dpNKzTE+ctxVdrvlwe5yC2yApNoLzNdN7Y5sZNBxfMHXnNbx3I75rqmeL+oUWK7IDT
-         gSboW9nBKH/HBiLAcrDWZpWfqW0SOLVh2VBuG491YwfMka7zOCrCdqfIuD4DbBEogndN
-         9a2kG+i5PI/YYTbd1BmiKcbobf8uo3VTWg8WQT4JTmon2CCRPaZaO2QhilIkWgW5focj
-         NEb42vBpeXHfmuZyMvTrKwo2nfoRKxm9/k52D5jXdlETFwTY+B9R6H9b68SDeOoceu6N
-         CJfz3M5Bt01oroMjPHNemigkSPhZBSmgzCbv12Gm32IEtQveU9p4VaJz3VjYwxNNibHC
-         bHpg==
-X-Forwarded-Encrypted: i=1; AKwUvBwp62bzlEeHegs9L9Jl5OtK7fLk/2qBsUw4JGBVS/wMEPoL8o7faJ21nCSPn9KwS/QhHOQFazvKFkqXRhw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+N6brox23DxDIvEu92+wpE6SSyiRQgLQA6I7AGtQMA36glEZMX
-	MThyqE4MCR0eXEW5NyHdbcDYwD9YKzeSN9XlyZW38aFyA3d6FqNCy565L01Ew2ZMhGpwqcVHoOw
-	Pl5Mdh1bK5Q==
-X-Gm-Gg: AYBFou0Y/vn7BDp2XejAT86AuFfOAbzVEmSNAf2d2WHiEKUVu506v+lts6DWTe10GWj
-	JufGyl9ULLkxao3fxLAiAdn+lekLgT2WkD2Wx4hM6x6bjv4BBX/Ll4EpglpgBXpNc+GJEmLIM+Y
-	vXf8TyzDnr4tB6/T2CbWTsy7No3bRUIZvdb1oX1wSkdUg2GxhFP86LE00HfRYstD4U7WV5MgHTz
-	LaE7/JrYQpWCCknuRO6PoQR9t71Qgc5BeliQtM8F8uzAhzkIFKFD5DQ9M6b1EEl2fina1J/qPJw
-	UBpjPDeVHUo9t19P9RM17HwycDiAOes1pBGmQtRX8PSsGSF7fbpJ9ygal44Vs1S+A3K4kH6ATys
-	+5VsmODkfAo7d7VOrEEcxJ7b5k+Te6QV4BGKe4w+MYec2FjVlQxJRoemGu+vzI/FXNN5yLoJ19R
-	7L21gyxq5D5aOK2JfVe5IGOMSORfa25HIDbTfE6OYYQkxubk0hA7ltgyipfuy+ZlISwBrv5+jGd
-	yT/ohp9zZAa2jUVRMuxkuypziL8mws40JOALdG6fLph7xvIK+KPj+TR1RtwW0gc2v4G8Sc6GRJu
-	KilwkiLb7PzHgU02nydrt1/rHxDIyflK+wmhMpoJUY0lPQPf6w8biSovM9fR4t/oqALOgjLHNNM
-	8BQ==
-X-Received: by 2002:a05:6512:b91:b0:5bf:ae99:5251 with SMTP id 2adb3069b0e04-5bfd118c477mr4530293e87.5.1793642766677;
-        Mon, 02 Nov 2026 10:06:06 -0800 (PST)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com. [209.85.167.44])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe04edd67sm1882517e87.12.2026.11.02.10.06.06
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 10:06:06 -0800 (PST)
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcb440d1cbso2155929e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:06:06 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByQ1s57sEYbV48pkUtZylIpY8EwUw5nt/Bbe4HJ8KPU9X81ixkZ9bThS347ABoLq980zNvySwjkEdjgqwI=@vger.kernel.org
-X-Received: by 2002:a17:907:d94:b0:c2d:c80e:8366 with SMTP id
- a640c23a62f3a-c4ca7426f6emr874452266b.0.1793642348398; Mon, 02 Nov 2026
- 09:59:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmyTQFbI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E084A1F00A16;
+	Mon,  2 Nov 2026 18:07:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793642838;
+	bh=agAvZaMsii/M7oBGgfwhInzi1SJ/3NKHTvsHEi6370s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HmyTQFbIPJL2tO/fGsNC+7kD4bLxJNYclE/KDhy0Rv6Bwz5EfLqzDrNmll7PFlhjK
+	 64uMPARI85h12wbROqXKmx7GYkuUtpzgz99GxydS+Vc9znLlbK8CawvOJXpkHBy3p+
+	 npZhAap+7PIDvJLGbK8fmNs8i4mW3oBpyixijw2N8C5YUqf7g+OQ0kYR4h/RQHiSH/
+	 mFmuLV4ReSLBbIkOLQpJF7vjWtMAph7T5T5CLSGTvhSMAy4BTKRMiAzUbJsWeN4R08
+	 vNmZ0uF6HzpcRP9Pghtsr9pi/m6eyQ9wTrrKShQ6GNKLksRNwqB/UH9DSQ+6W24c5L
+	 Z1gyUjd70rbow==
+Message-ID: <d34469ed-1e6a-498d-beab-1c4900ad2afb@kernel.org>
+Date: Mon, 2 Nov 2026 19:07:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,60 +51,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org> <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 2 Nov 2026 09:58:51 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
-X-Gm-Features: AclHuK_qZTBVsLQIdymgRHScSFenC6XsGggUDmcuOugjrSTbuVkeASUmC_hYPZo
-Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 01/38] PCI/proc: don't truncate the position of config
- space accesses
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>, 
-	Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
-	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
-	kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
-	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
-	samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
-	linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH] mptcp: pm: kernel: use RCU to free endpoint listeners
+Content-Language: fr
+To: Kyle Zeng <kylebot@openai.com>
+Cc: mptcp@lists.linux.dev, Mat Martineau <martineau@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ outbounddisclosures@openai.com
+References: <20261030042255.74216-1-kylebot@openai.com>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20261030042255.74216-1-kylebot@openai.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2 Nov 2026 at 06:22, Christian Brauner <brauner@kernel.org> wrote:
->
-> proc_bus_pci_write() truncates the file position to an int. A pwrite()
-> at an offset like 0xfffff000 turns it negative [..]
+Hi Kyle,
 
-I think this would actually be better with rw_verify_area() just
-checking a per-file maxbytes.
+On 30/10/2026 05:22, Kyle Zeng wrote:
+> mptcp_pm_nl_create_listen_socket() starts the TCP listener directly
+> instead of going through mptcp_listen(). It consequently misses setting
+> SOCK_RCU_FREE on the parent MPTCP socket.
+> 
+> tcp_child_process() can invoke the listener's subflow_data_ready()
+> callback without holding the MPTCP parent lock or a reference to the
+> parent. An authenticated MP_JOIN racing with endpoint teardown can
+> therefore access the parent after its last reference has been dropped.
+> The ADD_ADDR error path can also close an already published listener.
+> 
+> Set SOCK_RCU_FREE before __inet_listen_sk() publishes the TCP listener,
+> matching mptcp_listen(). This protects the parent on every subsequent
+> close path, including a failed endpoint addition.
+Thank you for the fix, it looks good to me!
 
-We already have that logic for lseek and friends - using that fairly
-hacky combination of s_maxbytes and !unsigned_offsets().
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
-We should combine s_maxbytes and unsigned_offsets() at file open time
-into f_maxbytes and check that not just at lseek but in
-rw_verify_area.
+@Net maintainers: this patch can be applied in -net directly.
 
-And then things like proc_bus_pci could set it's size limit in one single place.
+Cheers,
+Matt
+-- 
+Sponsored by the NGI0 Core fund.
 
-Hmm?
-
-                   Linus
