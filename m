@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622117;
-	b=YM3SbZYT8+Kd9dToSaSbflDSS3/5VRgRTGh2G9ecHHhGH9iNTppYXQV4ISstkzHIAu8J
-	 4ZRknMwHqBKvz6/jpMMGlZIzB2lo4/JyQHTvOB8sM2BekMS2dTx5uuYWhpW8u+6LBCQcf
-	 N53bpLoN4ryPaLmmje4Tl7VilBm8OTCs7TAxH1ibBH3MoZiNXzFjHbqdcMxalfUfHjhK1
-	 PMQg0qtsNkUP7wCxSG1fAMgmImI3/6vUBAzpBj2YZG8m7oeD87nvbs0882wZUMb0cXw6z
-	 uG4borSf2UWQccN8LR9ysftWtu950RL1BoXek0QzYZ+564H4MQUztWMdDTEXBIlJc5A==
+	t=1793622123;
+	b=eXmSeKjckV3qjrbmvH9vCq4/4fFcspgWsrhdus/SR432mxtrUI353nYBEs4nJSkE9Na5
+	 /gGvJ4k/sSM9IEbPAtcXZrAQlITJj1F+vKRr2K4paYiox5YNCFhpgIi+RwFGIvZEp86TJ
+	 37ORnXcpzkii8YDDXamOktawkxZZrFMi2ihwnJkVLlFKPNamEvS/086KnUzyeBk5ULZ+t
+	 Z+7TAXTMfy+AcImY6kFXlXUs+AVovm1A1OYAzXa+Est6DlimDwpYco/VkGi4+msvbWgHS
+	 dzOiRi3ysvnRCL/wWuCSZ12e0AMNurL5F7TWBartWAXUcZ3v/ETHnXXqHYwEm2sxZOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622117;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lJSyYvwSTzmhS0c4ngcLjWN7ivwDuselzLolPFvY7As=;
-	b=FlvUH7IAvIQHDFFeF5NQLP37w6gpIA57hieZz62oYYMveyed4CLZ/2QT1JpAKLlsHx5Z
-	 hgKC/e27VYaa37fPlFn7YwocxB8DdifiPPkhjVzJu5od5TisllcqTImbwwPVlhbKq6yYl
-	 qqCHv4WRESKHFt/LpOZ/BbI7Nw71yfEUMO76Rg4qH5Pfmh+wPPJYyTH1YY5tFe4fwaYMG
-	 y9HC84iXmaarwvYyQH7zxTPy7cwYOEHUdaPAN3kbWcAtb3X2j/axCgPvDW0OL4rb61Sjg
-	 jC0Ly1ZAmfUWjJsxstCCK7F7HvE5QFWSaU1u9BAR4GqzZ3G6gj0RWaLiVRjIMOjengg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622123;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=EhNWkq3/1xTqw1H6NxEJBiT/R0Gcvl3kzcf7c3ysdiQ=;
+	b=3kAPeISH4uhKgrJrdKnuQrribpTCyxX5l2LYk6yOqXkR6S+XMJ+3iGq1iW/FI/mDzJhx
+	 VGRsxzckZG4iLR6s+8FyFoLpG4TPJF8NQrUb7/3GrvhUQfeYbSat3BZidX49BJscayYJ5
+	 es7P6+li+lY69b0R6KjgmJsStIynRFdDaB4uCrMOEm7AiQHIlWQQDXp/ZSDtdazEh5BoA
+	 XazH7P5/Ybdo7PALMk1uxCug/2780Ev/e1O+Gicq85i476ytds6aKYw+7j+ZFhCsRviOj
+	 Qn3YO/LIFA2ldEvlW+xw9n/emeuaGU/VpUzhvn0zUewXGl5NpZ1x3VkZKSQfcy3Df+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cElEVmNU;
-	arc=none smtp.remote-ip=91.218.175.51
-Received: from mta0.migadu.com (out-51.mta0.migadu.com [91.218.175.51])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34EC60A6F75
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C34EC60A6F75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cElEVmNU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lJSyYvwSTzmhS0c4ngcLjWN7ivwDuselzLolPFvY7As=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793622110; v=1; x=1794226910;
- b=cElEVmNU937nh44jKlu5viOPZ2Kt6mygyHlA41x4Ijf4x6Jik9yWSQGWcppeiFXLHZHA5Inr
- Xx/F+p29wmDcZzSWxQ3vOWEJxQhc9ae/WEEU/c5Z2wVIzmCNbpjZUkJpfwlb4boIWdAoB7oay/x
- X50CRGrVeZDkwslztUyX45gI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 98fd0dfb40fe473a;
-	Mon, 02 Nov 2026 12:21:49 +0000
-X-Mizu-Trace-ID: 98fd0dfb40fe473a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0368f299-52e5-451f-b1f9-19524af0e931@linux.dev>
-Date: Mon, 2 Nov 2026 20:21:39 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B37606AA0A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43B37606AA0A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so4465033b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:22:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793622122; x=1794226922;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EhNWkq3/1xTqw1H6NxEJBiT/R0Gcvl3kzcf7c3ysdiQ=;
+        b=bCuMgpNojmK7mv4Ys7UfKzo5C+ggWLwqAm+4uZs8vRqjCk/vnVLnrUZDUbGShNY1R+
+         z+qPzS4MW+v/c6GoBNyC3NTcuNwNljTvGLYD5LK9K1Ees8G8ytpWf/RYhLQ3xMk70CIx
+         9aEWPrsZtyo+ZAnapqSQ1RGQ0qlArRm+4K44xApqNzGMNpWuyjgQejK9vpyIVpwH3zwX
+         Gtlw3Xzh2fGFHlY9GszfG26n9RFexvo8md3sH6NBXEV3IiROvoSCV6Nwa47WfmS+uO9V
+         SlCycBKSGfZ6AtDJEzGWS7J+FyBDAOFr0YGqFZs6iopSbF9GhlwPjcWJljMvNewBNLoZ
+         kr3g==
+X-Forwarded-Encrypted: i=1; AKwUvBwfObpaJShLI0/Hg1eDek2RQve0BewsPP1wEih0RCpaZNUh2nr2Qs53AocWjKQ07VIMLoNy+PtMGgwK6zM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLu8VYTUr7r/dUzh7QxW6zZnlc0DcQoY1ADncUFUIebt5mNbkxg
+	b67pHWCHkt/TmD7N0Te+zZNGqz/7Em1F7aewez+bOwQz/l3NJangDCqkw4pkQPCOOFJ/y567wrE
+	nb0QmTdYQFHx62BUWZyH37040L2lFW8iAS67DgSeiPtQWYyQg1LMlgIvl1gQ=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,76 +58,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH mm-new v1 2/2] mm: vmscan: skip anon folios zswap would
- refuse when writeback is off
-To: Yosry Ahmed <yosry@kernel.org>, Barry Song <baohua@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>,
- David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261030095223.325309-1-jiayuan.chen@linux.dev>
- <20261030095223.325309-3-jiayuan.chen@linux.dev>
- <CAO9r8zMF-cj4StEz9okWGROGjBhQ1XFVW3H2nJj3b8i5Jj=zAA@mail.gmail.com>
- <CAGsJ_4y52-hyd=JrPaX-isNWNFUfX30aLCgbsiCAFjxDzhYs8Q@mail.gmail.com>
- <auUZPZfxNNBCH5uf@google.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <auUZPZfxNNBCH5uf@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:3383:b0:4b3:8d45:aa2b with SMTP id
+ 5614622812f47-5640ddb06c8mr6498928b6e.16.1793622122261; Mon, 02 Nov 2026
+ 04:22:02 -0800 (PST)
+Date: Mon, 02 Nov 2026 04:22:02 -0800
+In-Reply-To: <20261102120252.9880-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae8806a.64e51036.15cf6a.0026.GAE@google.com>
+Subject: Re: [syzbot] [media?] [usb?] KASAN: slab-use-after-free Read in dev_dbg_obj
+From: syzbot <syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+Hello,
 
-On 10/31/26 6:32 AM, Yosry Ahmed wrote:
-> On Sat, Oct 31, 2026 at 03:03:26AM +0800, Barry Song wrote:
->> On Sat, Oct 31, 2026 at 1:52 AM Yosry Ahmed <yosry@kernel.org> wrote:
->>> On Fri, Oct 30, 2026 at 2:53 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
->>>> A memcg with memory.zswap.writeback=0 can only swap into zswap. Once
->>>> zswap stops taking its pages, because the pool is at its limit or the
->>>> memcg is at memory.zswap.max, swap_writeout() has nowhere to put a
->>>> dirty folio and returns AOP_WRITEPAGE_ACTIVATE.
->>>>
->>>> shrink_folio_list() only learns that at the very end. Every folio it
->>>> picks gets a swap slot, is unmapped, fails in swap_writeout() and goes
->>>> back to the active list, to be aged and tried again. Each round costs
->>>> a slot, an rmap walk, a TLB flush and a minor fault for the owner, and
->>>> frees nothing. The folio also stays in the swap cache holding its slot.
->>>>
->>>> The obvious place for a zswap check is can_reclaim_anon_pages(), but
->>>> it cannot go there. Zero-filled folios never reach zswap:
->>>> swap_writeout() marks them in the swap table and returns before
->>>> zswap_store() is called. They need no pool space, they are common, and
->>>> a memcg-wide "no anon" decision would keep them in memory for as long
->>>> as zswap is full. With zswap full they must still be reclaimable.
->>> I really wonder if we should revisit not swapping zero-filled pages at
->>> all, and instead mapping them to the zero page read-only (and whatever
->>> the equivalent for shmem could be), because yes, the right place is
->>> can_reclaim_anon_pages(). I don't remember what happened to that
->>> proposal, Usama do you remember?
->> Hi Yosry,
->>
->> FYI, I recalled that we discussed something similar in this
->> thread too:
->> https://lore.kernel.org/linux-mm/20241212073711.82300-1-21cnbao@gmail.com/
->>
->> It would be nice to see an implementation that maps
->> zero-filled pages to the shared zero page.
-> Yeah I also found Usama's attempt and the complication that were found,
-> unfortunately it's not simple:
->
-> https://lore.kernel.org/linux-mm/20240604105950.1134192-1-usamaarif642@gmail.com/.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
+Reported-by: syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com
+Tested-by: syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com
 
+Tested on:
 
-Exactly, it is complicated.
-Taking zero-filled pages out of the swap path doesn't look like an
-easy thing to do.
+commit:         6628e7d4 Linux 7.4-rc1
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13303c8d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f4b0888d27d9a541
+dashboard link: https://syzkaller.appspot.com/bug?extid=54648a6c1187a7ef46a6
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=13c9e2b1580000
 
+Note: testing is done by a robot and is best-effort only.
