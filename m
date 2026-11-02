@@ -1,48 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633596;
-	b=Q9Kmc4OJfGbsXwm+5RpvZNtZ5BGe/lpqlda/dpfR37vwfdwkgbzKXebYRE4Lqybbf7Q0
-	 F/9tVfOk/xf/uaQprhYCUBsKiQmmxqmVKTLGfK44dWPrUnURVhY3BCxg/aBj8loeKVGIL
-	 u0qAnAeN3vwrhEwErCWTvLPc5zkFvKdmiVnsGP+33gCbEj1wrRTKJdcXOs4cqJBZAATcz
-	 xBy4tWBqztzq9Nlb2lDWBP5fzVRPnHTw7bv6NZWZxNqeoR73SIYEHjY8n8rT104HyehZH
-	 /UA9/D85BbaddntEvQ9HlV5mUiE+i1GIjtOquSfwRaQnp9n7KDLXoiyijXvf4B6DeKA==
+	t=1793633600;
+	b=vV9GiJ15rlevqByeVy6CuGW19yG3CBgdtm1HsYRH84p956hk+XOebt28RSnXX5sXHjNZ
+	 Qjv3so9n3oLBt/94u3XtmVYxzB2hJygu3wrJnrWyoq/nwrqVJATbwiEl+xYoXsOR6tL4W
+	 EY8bsiewLhNuSNbBJVpgyVDhbVyVMmE0kIbCj/itYZuDQcFRjPr+R0bfGtRk34wD4EQ+n
+	 Qx2SEQVbH4XniAt8ELKZGf0x5Pr8fyrD5/6vSwyrlcN4+TQjJUks/8R/8BernFKvcczUQ
+	 0rf3WY+dmV933En7WwzMahW6Scb127xDzlVHJgokzSEqqELfJJ9qUKyp/zSevpIifdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633596;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=I87aXd9DKn5INMWxVGI3L3LJev8psccpA6qjKtl7++0=;
-	b=k6m+u6SwSayyhoI6ku4z3b/5m54KVB2N+izyIdQbmdsnr9FghM5MLM224kcNJQalAtD/
-	 pLR+NHKUlvVTfIEtcr6fuVd349eVTFgGZFJWasnThsIQl1jN5jXWx2o1wd2yEvkJxJ2jA
-	 FBRsKo3eb06cIZCDY3G25XucoOP5aukDU8NWu18lF7RZJ+Xc/GhjAI6lVr4lDNON4RsPr
-	 9kuqZQNeVlvKMaEBw3bsDdnk/dLvbX2Kl8Zb5Q+GbZgjJc5r/hBo2KH/DFlf9gtpSnKNO
-	 T3rsBIbTlkn2VNhm5Q2wFlRznElOUPP0uzEIOk4bqEPYflrxOFgvXvnlyUk1C3h7jAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633600;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=BQsaASFcwTR98Ua/j2/w7tivjnC0NUs/EPQM2iEIWxg=;
+	b=Oy3TvJZk79vZjcvXmFQahJnFiHrUzAqufVaunCwYtUdQTL6KKwIlDa28fhCebErCrIbr
+	 Qi61aiq7wuB7Z5CIcY+s7Mde33LAuUzUIFN3ffG2jAroWObVqx1KfMWXC/c5xk0vo5mP8
+	 NZzIUbQbGLzRoW2bRGKAPbD8Hf6N6QvK0USjBBWggzsnRDlQH2BVkXmaHdGwlARtiYsxv
+	 SGXbyGd5Efnk+vtF5VOiiwvje2DpP9YBmMwcXmfQgq0eERy2xpyDH0LGJSGEPhFR3e6Lj
+	 OV+Sqp5JdJFmyJrMR4FseUl6yCXCHJLNnCzkv/PZe6K0LTHFTGWrQ4GJWE3kVus26Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lY4jcv6k;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=km0KRzyr;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11E8608A35C;
-	Mon,  2 Nov 2026 15:33:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C61608A354;
+	Mon,  2 Nov 2026 15:33:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6C61608A354
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lY4jcv6k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99BA1F00A17;
-	Mon,  2 Nov 2026 15:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633595;
-	bh=I87aXd9DKn5INMWxVGI3L3LJev8psccpA6qjKtl7++0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lY4jcv6krIB7tSgezJZ0V+JS72cdUlJSNkPro3CnXcMDEMbA71z5fLxOwnxG5iNkC
-	 rp3t+Brf19zrcUHbxB4mEw/GXvOdm1oi2xkw2hpPnVuKqF63DhYCdo+P7KrF0k9ySw
-	 q3WnWWnNPvOQjnIIlISDoS4h+NGj1NrV2Jh1P/jEmiGYv49kocMRPrjiUdBmefuqET
-	 1ShVqFtZ3SJTeboI3TL14lRgICjngxPE349v7hPpsjveDK6gezuIAK+69D9q6LdAv9
-	 73twS08QrRhGo6PjTHEfdslbb4r0jzOEE8UMiaU6s9+19ZD/+9Ub+CAZVV3kngpDqS
-	 WLDxb1Y0Pf41w==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:21 +0100
-Subject: [PATCH RFC 07/11] SUNRPC: let procfs copy in writes
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=km0KRzyr
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EEFDH3333621;
+	Mon, 2 Nov 2026 15:32:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=BQsaASFcwTR98Ua/j2/w7tivjnC0NU
+	s/EPQM2iEIWxg=; b=km0KRzyrvJCvYWGvdxZLIQtpVChnlJb09PzDpSMrjXB+y2
+	EiEtQfSUoklr4D7ZLh98AvH4myEMejuvNotugTEDk+hc9IH7sBGPC4XNbh+CkmJ0
+	+HzZAOHhqosaf7waExH3cFRGjqkQNjEd0VW5D8xQYNU0LzVZLt5HMxuwvff3/IMA
+	+ggupIXDvaRZDKuTLLD+rCJzOSj/A6/UD9excoqDFlPSHXeO2LkSAXr/cwZ77ksM
+	U09ej/4wKCOvha+VgMWDi+xIuMLlni3IjPdfdnlGlxcl+MezqxSHAKNIL2e7VSx/
+	D0jSPesAcXu/7UJmjIE5DJyVdWwxoxvrPRwtBKhQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7u39cp5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 15:32:35 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2Dp3k8932188;
+	Mon, 2 Nov 2026 15:32:34 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnunjxhmn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 15:32:34 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2FWUrY45220142
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 2 Nov 2026 15:32:30 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3DAF120043;
+	Mon,  2 Nov 2026 15:32:30 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6387620040;
+	Mon,  2 Nov 2026 15:32:29 +0000 (GMT)
+Received: from osiris (unknown [9.87.153.156])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon,  2 Nov 2026 15:32:29 +0000 (GMT)
+Date: Mon, 2 Nov 2026 16:32:28 +0100
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+        Huacai Chen <chenhuacai@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+        Paolo Bonzini <pbonzini@redhat.com>, Fuad Tabba <fuad.tabba@linux.dev>,
+        Joey Gouly <joey.gouly@arm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, Nicholas Piggin <npiggin@gmail.com>,
+        Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        kvm@vger.kernel.org, loongarch@lists.linux.dev,
+        linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Subject: Re: [PATCH 1/7] KVM: s390: Drop unused and unreachable
+ kvm_arch_vcpu_should_kick()
+Message-ID: <20261102153228.240804-H-seiden@linux.ibm.com>
+References: <20261028190259.1819571-1-seanjc@google.com>
+ <20261028190259.1819571-2-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,237 +106,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-net-v1-7-982104a4f592@kernel.org>
-References: <20261102-work-procfs-net-v1-0-982104a4f592@kernel.org>
-In-Reply-To: <20261102-work-procfs-net-v1-0-982104a4f592@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6349; i=brauner@kernel.org;
- h=from:subject:message-id; bh=qIHvvtDF4hd5tLnMryapPJOuLcFfYH/7YZBGB4Dja6Y=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG7CdjuxYNKH1PsxikWnjN8tZPqx7Tq7i8/lCrHdJ
- 97HOtSLdZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExE8xXD/9jUmsqIIw9en38y
- Z8Vu48gvWjue7r2yq9U2dybrZ1vjReyMDFdXTv0uWTl90SWl4+aLZwnG1ttwHbg+V1jiwIy/pZo
- V97kA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028190259.1819571-2-seanjc@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Zsp4uN7G c=1 sm=1 tr=0 ts=6ae8ad13 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1XWaLZrsAAAA:8
+ a=e2WrUwKQfGWSWgw8ceQA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: TmxCuOpzq6vA5Vx27S-wl8VaUu08c3rl
+X-Proofpoint-GUID: KVXVtrhgD1GJzUOP0CvMGutz2Xg2IILr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX7bqvyy+G4IRi
+ YuDNWW2rtZhIuWgYthjFwF9+9BvaQqjUd0NCjGgytPI2kgitQSqHnwzde0DvmKT5ekh2NyjS0Nq
+ F9Z/Zdzj1pOgrZG2yR5VLS36NId8bM3pN7WDBUKOt9UCD+QFNKQAZu+Jyci2pVHVvCbSWlrBtzk
+ 4AIduMbPdqh6wI13eR6unsEG4RU8A4ZAJXpBquIr8jswWYP5JT1UMzhOQVTUhyasVm3yKq19/37
+ g8IQ6IsFUU0CmiqM7aH5od6K0UDK4Pufp7iAip5do5FEjWgMz0BL8a8ds/SYC3EFA4Du3R6hGdA
+ 0zHdfqn6psBiKyEKCPFmlpIxWnmBKc5C9d6tL8dsAaGzrFS280m4gYPAHt09nU+p77BxB+4etoO
+ zPcjuUT7rpSjV4uYvQkRwMMejfxArhysp1beSjd8DEChKl+d8KSwLwvy9Sujp9ZrxPVJILSraLV
+ unHwMnZGlBbuYsnY1Xg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfXzMWFCRCaICBW
+ YVdaYUPRVlAbXrli6ZNZR2sTDTrenRk6sxAut1SiSIk+5dhzpZRcRftKd34+qSoKLUq5b5QITXp
+ q7EjnwMhcLT8GbXDC7vsw0JN8N6I7PQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1011
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020060
 
-Implement ->proc_write_buf() for the procfs channel, flush and
-use-gss-proxy files so procfs copies in what is written before it pins
-the entry. The channel file parses the downcall from that copy and the
-flush files share the parsing with rpc_pipefs in do_write_flush(). The
-rpc_pipefs files keep copying in themselves.
+On Wed, Oct 28, 2026 at 12:02:53PM -0700, Sean Christopherson wrote:
+> Drop s390's kvm_arch_vcpu_should_kick() stub as the one and only call site
+> is wrapped with "#ifndef CONFIG_S390".
 
-CACHE_DOWNCALL_MAX and CACHE_FLUSH_MAX name the limits both sides
-enforce, procfs through ->proc_write_size. The procfs files are removed
-when the network namespace goes away and that no longer waits for a
-writer that faults on its buffer.
+In the somehow near future I'll remove those #ifdefs and use the kick
+stuff for kvm_arm64. The native s390 KVM then must at least keep an
+(unused) symbol at hand. It seems that the compiler could not optimize
+those calls away. So let's keep it there so I do not have to re-add it
+soon.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- net/sunrpc/auth_gss/svcauth_gss.c | 10 +++----
- net/sunrpc/cache.c                | 63 +++++++++++++++++++++++++++------------
- 2 files changed, 48 insertions(+), 25 deletions(-)
-
-diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index 43839e805531..8d105cd900d4 100644
---- a/net/sunrpc/auth_gss/svcauth_gss.c
-+++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -1408,8 +1408,8 @@ svcauth_gss_proc_init(struct svc_rqst *rqstp, struct rpc_gss_wire_cred *gc)
- 
- #ifdef CONFIG_PROC_FS
- 
--static ssize_t write_gssp(struct file *file, const char __user *buf,
--			 size_t count, loff_t *ppos)
-+static ssize_t write_gssp(struct file *file, char *buf, size_t count,
-+			  loff_t *ppos)
- {
- 	struct net *net = pde_data(file_inode(file));
- 	char tbuf[20];
-@@ -1418,9 +1418,7 @@ static ssize_t write_gssp(struct file *file, const char __user *buf,
- 
- 	if (*ppos || count > sizeof(tbuf)-1)
- 		return -EINVAL;
--	if (copy_from_user(tbuf, buf, count))
--		return -EFAULT;
--
-+	memcpy(tbuf, buf, count);
- 	tbuf[count] = 0;
- 	res = kstrtoul(tbuf, 0, &i);
- 	if (res)
-@@ -1468,7 +1466,7 @@ static ssize_t read_gssp(struct file *file, char __user *buf,
- 
- static const struct proc_ops use_gss_proxy_proc_ops = {
- 	.proc_open	= nonseekable_open,
--	.proc_write	= write_gssp,
-+	.proc_write_buf	= write_gssp,
- 	.proc_read	= read_gssp,
- };
- 
-diff --git a/net/sunrpc/cache.c b/net/sunrpc/cache.c
-index 007521e8a57f..a257598768fa 100644
---- a/net/sunrpc/cache.c
-+++ b/net/sunrpc/cache.c
-@@ -924,6 +924,9 @@ static ssize_t cache_do_downcall(char *kaddr, const char __user *buf,
- 	return ret;
- }
- 
-+/* 32k is max userland buffer, lets check anyway */
-+#define CACHE_DOWNCALL_MAX	(32768 - 1)
-+
- static ssize_t cache_downcall(struct address_space *mapping,
- 			      const char __user *buf,
- 			      size_t count, struct cache_detail *cd)
-@@ -931,7 +934,7 @@ static ssize_t cache_downcall(struct address_space *mapping,
- 	char *write_buf;
- 	ssize_t ret = -ENOMEM;
- 
--	if (count >= 32768) { /* 32k is max userland buffer, lets check anyway */
-+	if (count > CACHE_DOWNCALL_MAX) {
- 		ret = -EINVAL;
- 		goto out;
- 	}
-@@ -1508,19 +1511,15 @@ static ssize_t read_flush(struct file *file, char __user *buf,
- 	return simple_read_from_buffer(buf, count, ppos, tbuf, len);
- }
- 
--static ssize_t write_flush(struct file *file, const char __user *buf,
--			   size_t count, loff_t *ppos,
--			   struct cache_detail *cd)
-+/* longest number the flush files take */
-+#define CACHE_FLUSH_MAX		19
-+
-+static ssize_t do_write_flush(char *tbuf, size_t count, loff_t *ppos,
-+			      struct cache_detail *cd)
- {
--	char tbuf[20];
- 	char *ep;
- 	time64_t now;
- 
--	if (*ppos || count > sizeof(tbuf)-1)
--		return -EINVAL;
--	if (copy_from_user(tbuf, buf, count))
--		return -EFAULT;
--	tbuf[count] = 0;
- 	simple_strtoul(tbuf, &ep, 0);
- 	if (*ep && *ep != '\n')
- 		return -EINVAL;
-@@ -1551,6 +1550,20 @@ static ssize_t write_flush(struct file *file, const char __user *buf,
- 	return count;
- }
- 
-+static ssize_t write_flush(struct file *file, const char __user *buf,
-+			   size_t count, loff_t *ppos,
-+			   struct cache_detail *cd)
-+{
-+	char tbuf[CACHE_FLUSH_MAX + 1];
-+
-+	if (*ppos || count > CACHE_FLUSH_MAX)
-+		return -EINVAL;
-+	if (copy_from_user(tbuf, buf, count))
-+		return -EFAULT;
-+	tbuf[count] = 0;
-+	return do_write_flush(tbuf, count, ppos, cd);
-+}
-+
- static ssize_t cache_read_procfs(struct file *filp, char __user *buf,
- 				 size_t count, loff_t *ppos)
- {
-@@ -1559,12 +1572,21 @@ static ssize_t cache_read_procfs(struct file *filp, char __user *buf,
- 	return cache_read(filp, buf, count, ppos, cd);
- }
- 
--static ssize_t cache_write_procfs(struct file *filp, const char __user *buf,
--				  size_t count, loff_t *ppos)
-+/* procfs copied in what was written */
-+static ssize_t cache_write_procfs(struct file *filp, char *buf, size_t count,
-+				  loff_t *ppos)
- {
- 	struct cache_detail *cd = pde_data(file_inode(filp));
-+	struct inode *inode = file_inode(filp);
-+	ssize_t ret;
- 
--	return cache_write(filp, buf, count, ppos, cd);
-+	if (!cd->cache_parse || !count)
-+		return -EINVAL;
-+
-+	inode_lock(inode);
-+	ret = cd->cache_parse(cd, buf, count);
-+	inode_unlock(inode);
-+	return ret ? ret : count;
- }
- 
- static __poll_t cache_poll_procfs(struct file *filp, poll_table *wait)
-@@ -1599,7 +1621,8 @@ static int cache_release_procfs(struct inode *inode, struct file *filp)
- 
- static const struct proc_ops cache_channel_proc_ops = {
- 	.proc_read	= cache_read_procfs,
--	.proc_write	= cache_write_procfs,
-+	.proc_write_buf	= cache_write_procfs,
-+	.proc_write_size = CACHE_DOWNCALL_MAX,
- 	.proc_poll	= cache_poll_procfs,
- 	.proc_ioctl	= cache_ioctl_procfs, /* for FIONREAD */
- 	.proc_open	= cache_open_procfs,
-@@ -1653,19 +1676,21 @@ static ssize_t read_flush_procfs(struct file *filp, char __user *buf,
- 	return read_flush(filp, buf, count, ppos, cd);
- }
- 
--static ssize_t write_flush_procfs(struct file *filp,
--				  const char __user *buf,
--				  size_t count, loff_t *ppos)
-+static ssize_t write_flush_procfs(struct file *filp, char *buf, size_t count,
-+				  loff_t *ppos)
- {
- 	struct cache_detail *cd = pde_data(file_inode(filp));
- 
--	return write_flush(filp, buf, count, ppos, cd);
-+	if (*ppos)
-+		return -EINVAL;
-+	return do_write_flush(buf, count, ppos, cd);
- }
- 
- static const struct proc_ops cache_flush_proc_ops = {
- 	.proc_open	= open_flush_procfs,
- 	.proc_read	= read_flush_procfs,
--	.proc_write	= write_flush_procfs,
-+	.proc_write_buf	= write_flush_procfs,
-+	.proc_write_size = CACHE_FLUSH_MAX,
- 	.proc_release	= release_flush_procfs,
- };
- 
-
--- 
-2.53.0
-
+	Steffen
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  arch/s390/kvm/s390/s390.c | 7 -------
+>  1 file changed, 7 deletions(-)
+> 
+> diff --git a/arch/s390/kvm/s390/s390.c b/arch/s390/kvm/s390/s390.c
+> index 18fb200f854a..9900a1a1c148 100644
+> --- a/arch/s390/kvm/s390/s390.c
+> +++ b/arch/s390/kvm/s390/s390.c
+> @@ -3922,13 +3922,6 @@ bool kvm_arch_no_poll(struct kvm_vcpu *vcpu)
+>  	return false;
+>  }
+>  
+> -int kvm_arch_vcpu_should_kick(struct kvm_vcpu *vcpu)
+> -{
+> -	/* kvm common code refers to this, but never calls it */
+> -	BUG();
+> -	return 0;
+> -}
+> -
+>  static int kvm_arch_vcpu_ioctl_get_one_reg(struct kvm_vcpu *vcpu,
+>  					   struct kvm_one_reg *reg)
+>  {
+> -- 
+> 2.56.0.313.g2479322e68-goog
+> 
