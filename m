@@ -1,104 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793593960;
-	b=R0OgHnAqBxhvJDfGe9QEfxM0PFX/lKQfXy+2rUkSVEcF97P+PCcVTb49BUZ+3ZYO43Yw
-	 Ork55LXlotGwEmtCiNC5ZMg4PDcnSieIWuCjZ1L9amu7uFyWOo9zy6IwyxpbyNi47hcK4
-	 FARywC9AGgKiBE4DHY/VHY79otnFc53umvtMPnO4KbmNPtDPRE/WX0+appCf/OELTtU1l
-	 MnJRU4mxvBfwoGLF02g5ubywArWgx0axUUlgPQdmT6kp1qPtW7OmtJ8qUC4KBy4pzap2i
-	 Uk//pfgS3IpNU+HhuUJ6ODKvMSdsKwXzq4OUZoeVlZHvWdybfSXLqJRWsnujE5SGw8g==
+	t=1793593974;
+	b=M/JjUE0h3FAjYuOqVkl1HMmobcDGEVIEPUeRBFOOtgRLj81YI/U3iPmWOSMcrAXiOsCk
+	 6mqocDo3c3RyDiS9M/XvQeKFOoxX29/6zdvZITOvwMdRnoVTGvGf/B4mumQ1khZ/8tSEe
+	 RN0V80FJfASxahsCZn+9U5QNeiBtlV9Pr7fqFGhPcucQt4gpqexyrsViRzsWCEGR8LyOM
+	 Rxg88bx0QGptU8QMo5+vjeAHHeMcFMCywEfKYjbWo5peAZtTGaWvS5sAqUY+M3nzNkv+X
+	 9R170ovrV4D+JGS8YtrB8MWOMOoxpJeX7aPB4Ea9vSTCMsOZCDq9sqZyuXIukE7CY5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793593960;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=K5j1pwkggFGWmolmU2OjJfiaIzHorqtOlyZmT6W8xzo=;
-	b=mNtX4xUabt81d06533AWFmUQfZqBWp/PaUScCGZKTkPasuy0J/WHKTSGpuRsYTAKin+v
-	 wHOs63jw50UnCUNS4JuVbQl+FwqSJ6U96/GaXCV+DnGLTDXWbycg3l/0OjmZe6mV/T0Bw
-	 mP3m3Nt6G8ioi7acP9wKhT5UCuGD9dJZLVze7d2TKrhmoGJE30WSA35sit+mpwiNQhKwt
-	 SiwIwpSrQayAmjN5otS6NsyrunInIiAn9q/wBgHmAmmYtTQWSL/Zv//kz87wo3jpTLwKJ
-	 uCVUtEDFu01wZwgbTsgkcJs+sxPug1Qq3FIRFoNDwNF3QALdFRT1PR1qi64ukjVzS8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793593974;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=bZsx4kHQdXlvl+m91/cU/HmYwWh4oFFZJcdDaksSHOE=;
+	b=2gOOKYRixgXHkpxlmB8/3dutakQtem2FcPucvUcDoKAmGClySalz3sygq48vk9TcAZ2Z
+	 IcdbTV8uPjVvZyFm3iSiloLMdphx90UIBVbd7Id1cfBh+dA7o5k5orbek3/U3b8wRyGw9
+	 V/gZiHdU+Ez//NzAXj7Quhf2JS94mxGuIWD7l6haTsQhpgSaafKT5nSAWPkXRlDW8tgPi
+	 x1wPx58BL2bJuBTn0CD+TyfdAFQccLqETfwVp/Dkrm8c/oY2DgbEeeCEXuIQNYrvmC6oE
+	 Srb1zEgyhPqdzFU5SyKvUENuEHnAciopGvlac/aynhdUprX6prgZpMhkKAsmeZtRD+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VZTDfbIL;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VticY2ci;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dXooyExh;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB42A606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:32:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB42A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09AC606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:32:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C09AC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VZTDfbIL
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso288029eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:32:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VticY2ci;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dXooyExh
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A23vI3U1134867
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 04:32:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bZsx4kHQdXlvl+m91/cU/HmYwWh4oFFZJcdDaksSHOE=; b=VticY2cihfFLCDyw
+	a7fpmLIQtwYsoHmu5fMOcfnHUfhcAjAT7hxuTq1gVTv6fpDcBsJ0k08aVakzNCmU
+	PmuLzcvg7gvyLllTC72QWlQiQhVnCZ+Uk6SYc/RFuTS4Kd68M4jCEo//sanIgMYR
+	ED/0m0a7AiQP0XX5pSoa226Rew5xRKQ7IEoE5f6LUUtVMILdkFRVP5unr96eq5ZK
+	MKH8agA1iyz7y3s2gsz2lSQc0rcVB8y2U13vLOMP5b7b+bkaWSLuIlOEO+rdUKpN
+	/+sE+YosHELDRLK7z+O75jQSv+SnDXvZ3GBaU7ddgZuwVvT+LyrjIpd+xmUcaDSv
+	j5ssBA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn9gk4wpt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:32:52 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e603f62450so9221035ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:32:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793593959; x=1794198759; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K5j1pwkggFGWmolmU2OjJfiaIzHorqtOlyZmT6W8xzo=;
-        b=VZTDfbIL6cPyCSb0cC89yqZjKh1RmI58ZEiOkTVxoJch8hA639mqDLj7+1j7LMHLDB
-         KYKdLAbKzTPCZY4a57hCsxbYwiaXvfZxpIFeN8HOBkQ6G/0IRxFuFDkaIbvxCzzSs+5s
-         3ys9WxOaTQJ/o7WgGnByUnFEzPShWLvi3tFGatTzitY+u6onkvB9o8q6SUry0i+H7unV
-         6RvPLwS1c9MxI0ndfACSDkZuLmjCL974lpry718OiPIPpN6wvLqQPavuSOhOASo9jWpf
-         stCCUeHtBNZwVtV9m2kJb/qeVooYkdE5KdKj69XDvMUTYKLAougEC1uGjoKUdqtSxsm7
-         t3Zg==
+        d=oss.qualcomm.com; s=google; t=1793593972; x=1794198772; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bZsx4kHQdXlvl+m91/cU/HmYwWh4oFFZJcdDaksSHOE=;
+        b=dXooyExhp9ZQcD7y+ASUcaY2Kane5RFEdUyHQ5GAsMyG1T76atmToLpnGetti95AMm
+         nuI5vvV0DIZJopAfT4R7jEMSfPruVn/Kg2+2mEu7qbJidi0K9MUeWzaYIPTxrx8TeDNt
+         4LEhq3BaI9hxvJbSeX/8pt8UGlBKulGO8yqEFeuwvioF9webEc3CmmrtNFbUAe1wkUz+
+         kxlsK6O/m5PiNzv18Ef2HvTy0zkB58f7LhzsO3JplG0IYCJEjzNfSlboRz4xdDtwKLl8
+         tIfvuwrHVokrK1lYcfrDwBQ6dHzwaeJVGYrQ1UoY0CQSQ1o1cUFXehQ1Nb+j8bpFmhOv
+         7NIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793593959; x=1794198759;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K5j1pwkggFGWmolmU2OjJfiaIzHorqtOlyZmT6W8xzo=;
-        b=SiBO2IkrKXMwcUoFJ8OARCcboUOI8HeUFtREMgw+wkeCSOHKB9m0bt4ClN3fa5kUKt
-         OiAUJ0XvWbzBtrLrClOkOwuAm3xOiuKlprRNep4GxYtW4woxFl1gG1dzuqTmDWo/MGEu
-         Fvm7eiYiV2SE9j3uAp/jIK7amL9TX4vqyAzVDcqbXp6mgq2Q1o7NBPn3cGBL0mQ7O5hC
-         h+k3yPiT42bJwp5ak5SK2s+DAXKhbGByem0g/I2d+xRE5yqvqORhdnlVEmEAAAVDvoR9
-         O6ccmGzLZ02PBJoggj5z7pXfPfbzEQV2FUqBFuG1QiX9YEqV8KhenGQ3P8Sh2vbHTgnV
-         8Xiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwzI8W9l0AqeqxsZbFzjFBfIxwIWzIaOv/CqDJpqMh/IHrxVZlHKPqbYq4ne7B+csV/vhQetv+nYzm1HUw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mc4AFiTvgKEvazOqIxRFfvEuT9ZsHUuRtWWMCvZu/IaRmCLlp
-	ZAEtx/kjxed1HCIWVbTDcPjzXlzpoKUQKDBG7EnVMAUzOjVMV4TBiVfo
-X-Gm-Gg: AYBFou0Cqk+O6iVATNNi4cLAUIb/RWrL+u0jcbPovX5nnQ3utInxZ6Bx5wXT4mD0kUA
-	hnMDIK002GvNLq/VbqFlEpLpNlxasp70BOrCFKpSTBF8AZr/VmifF8IL1RevobnZ45mvihoRaFU
-	POd8fqyB40q039fLhb16oeXHTK6z+BmiFtLikE3P2MUMTGGBJXr3KdFrmEUOIps6FKPqtrmYE8q
-	AA6OsrF2ZVDuYz/kEsmUKDqswiIk/UseLMZkcZL6oSOzNXVGwHdbPwuiFD+vUI9EvFBXXeSRlT6
-	tNXDUjZRG8sxAlk7cg6dK6ZGTfzcv9Vo2WHydprKY2pQxg6Sg4+NDPqyfR7Lw+okTGLNj9VsGVO
-	S1QfrY/FX6Ni6uqafjemZD9gSh77KznXkahecVU2zTS9PRToyLu0sRBDAh5rDVXDdRH1PzBnHMs
-	3kryoPTwf/uZYeZ/pmCwvraqj1tkk9DLQF6hj4Wr+1Yl6BYyYv8lZbUX4kSUq7n/yP3ybxiuS/0
-	B+lmyW/wyTeGwD5IDE9tPyT9GpxplajFMf8RkI7qQAp2j0gJid8jH3/+gkXMahBUMZeyZXLGbPF
-	9uh4ifh28axJqb707UKalD45ERqDRfdubfg1q/4c+H8gKBkqFlQEHtKkt9qVRwuDh7S0eqzsD3t
-	MiUAgOKyMUy17k6Ec8IqwkdUQi+t3MmWBBj7/JTHn
-X-Received: by 2002:a05:693c:6382:20b0:366:f9c2:9b16 with SMTP id 5a478bee46e88-36a423f5d7amr14181136eec.31.1793593958509;
-        Sun, 01 Nov 2026 20:32:38 -0800 (PST)
-Received: from NB150512.ADVANTECH.CORP (118-163-147-185.hinet-ip.hinet.net. [118.163.147.185])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm38581063eec.26.2026.11.01.20.32.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 20:32:38 -0800 (PST)
-From: Hsieh Hung-En <hungen3108@gmail.com>
-To: dianders@chromium.org,
-	neil.armstrong@linaro.org,
-	jesszhan0024@gmail.com
-Cc: jagan@amarulasolutions.com,
-	osama.abdelkader@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	Hsieh Hung-En <hungen3108@gmail.com>
-Subject: [PATCH v2 5/5] drm/panel: raydium-rm68200: Use lowercase hex literals
-Date: Mon,  2 Nov 2026 12:32:15 +0800
-Message-ID: <20261102043215.990351-6-hungen3108@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102043215.990351-1-hungen3108@gmail.com>
-References: <20261102043215.990351-1-hungen3108@gmail.com>
+        d=1e100.net; s=20260707; t=1793593972; x=1794198772;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bZsx4kHQdXlvl+m91/cU/HmYwWh4oFFZJcdDaksSHOE=;
+        b=EX8piYKH3nzwSkL+bR+ZT+z6kuM7pxJ7lcEBZO86CpaUF+0PWtmJCbSeSw0n1KmHG0
+         NobBjoGIzzyw7vmGUbkh+0uaTwwymzrRq9yFpJeO4v+bvRRsSIjgNndXc29sG5C0HBAg
+         ra6ve1lGC9pJ2sZJ2TZ4/3Xf4UgWW541Er4krPIPmYqyMZfI1qKQRB8c+zqfb+DhsZmt
+         bREUUx3xm5uwvt7gAHrAdy8JrnVhRvMvUZPgi9HKPDghZU074T7I5fWeDSppoxOjNxYi
+         CBph3w6pJsmQLo1HdwQEUMXf1vmV5uJPJekCecpIyJFeCF8LzmWA85MSgUY0UMy3f4XK
+         OYuA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3/JOKNocjj/0RftwUGUY5f59CsshpF1yQ0NvZeuDRXn7I5Udd+Ui43t6Xn5A87uuBTkItsPrMKVUpsjA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgD7sB2nUtu1c+V+2LDv9natElU8SLzVbYZwDGHYxyRrBBs+Kn
+	WfWZDAtIlGXtTQVDhP2y1nNzh5heaJNqYa0yfGDE3DASocrxU/JnuhjykUb7qUwFjrmj6vF4EFt
+	i/23tGPtbfOqsSJoHgAkwIDtc59pHKD/M3FzsnAGXxPELzfI03xOVE79AZiLCorz0plY=
+X-Gm-Gg: AYBFou022xV/M6rMRrxvbtqDwcwFAhSKJ8AnqOcFY3cyl0FbuWcCajABjyclULMYhnM
+	Fzw79mWpeO9tPoQN3cVdY4AOq0oS4ccirh4Vb1jKjYrAltDOTeHW02t3QuRW2fu4RQEl8y7PvVq
+	8G+XTavZUwfJIb8+VGeJuDPH8L9jk0Ec38DMkhz/dsn60m49hKJ5sVU12uw3DQ1QYDAl2DBMKv2
+	U64E9n+ZYjcvJh+mciVNLzmIL3mchh30RLXym/YZXTMACYOBKNGHyLr6wzedmuOF2GAnI3+QF8y
+	qwG5s1zISAtV1fIsMROHMahv8dX6ctRdx92Qw9DLYCPNzUMjK3i3f1IDzWMNY9BX266dL7N8jWd
+	xUGca44e76x2Zv8thzrT1yeBB3y9ATtyeqX4TJrqHH2yoR2RBAc5T28ub6kWJJiJwUPWBWQtsNg
+	==
+X-Received: by 2002:a05:6a20:6f89:b0:3e2:7c10:d48b with SMTP id adf61e73a8af0-3e9288ece44mr13630164637.2.1793593971989;
+        Sun, 01 Nov 2026 20:32:51 -0800 (PST)
+X-Received: by 2002:a05:6a20:6f89:b0:3e2:7c10:d48b with SMTP id adf61e73a8af0-3e9288ece44mr13630135637.2.1793593971514;
+        Sun, 01 Nov 2026 20:32:51 -0800 (PST)
+Received: from [10.253.75.206] ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aadad94a8esm1391140b3a.55.2026.11.01.20.32.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 20:32:51 -0800 (PST)
+Message-ID: <2798317e-69e0-4dfe-9d2d-30e3ba8e1aed@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 12:32:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,242 +116,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm64: dts: qcom: shikra-iqs: add M.2 Wi-Fi and
+ Bluetooth overlay
+To: Rob Herring <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, kernel@oss.qualcomm.com,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
+        Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>,
+        Cheng Jiang <cheng.jiang@oss.qualcomm.com>,
+        Wei Deng <wei.deng@oss.qualcomm.com>
+References: <20261012122934.3240030-1-linghui.wu@oss.qualcomm.com>
+ <20261020020925.3915548-1-linghui.wu@oss.qualcomm.com>
+ <CAL_JsqLyhWzPRq6MmPJedbzVi6xLFS3zDMsnCt088jU1y0aZ6A@mail.gmail.com>
+Content-Language: en-US
+From: Linghui Wu <linghui.wu@oss.qualcomm.com>
+In-Reply-To: <CAL_JsqLyhWzPRq6MmPJedbzVi6xLFS3zDMsnCt088jU1y0aZ6A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: f0JKzVnCgHL5HS2LqmMUrc2RZzLdgo8A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAxNyBTYWx0ZWRfX0w8YiwiLATkZ
+ cenlyL45Jle4UzCORP+qqSCkV/1H9UWXwZjn4y8EaUFxb+njIMnFit8R0sc75KxVuXqbmwWYKUJ
+ KxsnRLXYqEvPYGmUlIONDwtbjbxBcWpR4DDJ4qML6p2Sbm4YLh/yjn2VcxCP+lPmEqa2giMF09u
+ e5ffVGQhzTGmqs2ED7goI6mILdDzRta5cln1oFxwRx1EcZ2IyGsKuqeoPnjkQ8LR4fYY7h89bvi
+ 956UfMFgWJdsSMXvNlKl3l5eppO/U+MNQ/HmDe0nHaXw5G/vPE8cjNi1/+Hr5RJPgEMo2MzFviP
+ 6ejW9sqZxJz+xZ6pu25vPIs/ILrksbhMUhhMKdfCWC+NPnkSSoFymhrJDXLeCVaZjyyCj8luDRf
+ lIvE7d+NMVuTf7WqIDo00H1j5JGRCDRqWqflWHqQSB/NAJgGmgMSk1jyYrrdOW7zaU0iTJ6Zm6T
+ xbTDQZXnW5fAhcfy7kA==
+X-Authority-Analysis: v=2.4 cv=HNBWhYtv c=1 sm=1 tr=0 ts=6ae81274 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=x9Xzq8uMDaG3QzGCHd0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAxNyBTYWx0ZWRfX4tkrtAA031On
+ R8Lk1sKXPlyJKVQ+Y6omkHiVk94g0TVqqJFHXKiMPNa3GZYOWVxJhXMNtrQLpGxJ2/QhtEsV9vu
+ /DldRdVnu0sFQxTkURCUhuV555haBoA=
+X-Proofpoint-ORIG-GUID: f0JKzVnCgHL5HS2LqmMUrc2RZzLdgo8A
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ adultscore=0 suspectscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020017
 
-Convert hexadecimal literals in the RM68200 register definitions and
-initialization sequence to lowercase for consistency with the
-preferred formatting convention.
+Hi Rob,
 
-This is a formatting-only change. Register addresses and command
-data remain unchanged.
+Thank you, and sorry for not replying to the earlier Sashiko reports.
 
-Suggested-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
----
+I have updated v4 to use the existing composite DTB build pattern:
 
-Notes:
-    Changes in v2:
-    - Add a separate patch to convert hexadecimal literals to lowercase,
-      as suggested by Doug, keeping the _multi() conversion focused on
-      functional changes.
-    
-    Validation:
-    - Compared all 65 modified source lines after normalizing only the
-      hexadecimal digits in literals. No other differences were found.
-    - Confirmed that no uppercase hexadecimal literals remain.
-    - Built the driver before and after the change using the same
-      configuration. The .text, .rodata, .rodata.str1.8 and .data sections
-      were byte-for-byte identical.
-    - The build completed with W=1 and no warnings or errors.
-      checkpatch reported no issues.
+shikra-iqs-evk-m2-wifi-bt-dtbs := \
+         shikra-iqs-evk.dtb \
+         shikra-iqs-evk-m2-wifi-bt.dtbo
 
- drivers/gpu/drm/panel/panel-raydium-rm68200.c | 132 +++++++++---------
- 1 file changed, 66 insertions(+), 66 deletions(-)
+dtb-$(CONFIG_ARCH_QCOM) += shikra-iqs-evk-m2-wifi-bt.dtb
+dtb-$(CONFIG_ARCH_QCOM) += shikra-iqs-evk-m2-wifi-bt.dtbo
 
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-index 8ce89f09540c..df99b6837057 100644
---- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-@@ -18,7 +18,7 @@
- #include <drm/drm_panel.h>
- 
- /*** Manufacturer Command Set ***/
--#define MCS_CMD_MODE_SW		0xFE /* CMD Mode Switch */
-+#define MCS_CMD_MODE_SW		0xfe /* CMD Mode Switch */
- #define MCS_CMD1_UCS		0x00 /* User Command Set (UCS = CMD1) */
- #define MCS_CMD2_P0		0x01 /* Manufacture Command Set Page0 (CMD2 P0) */
- #define MCS_CMD2_P1		0x02 /* Manufacture Command Set Page1 (CMD2 P1) */
-@@ -28,44 +28,44 @@
- /* CMD2 P0 commands (Display Options and Power) */
- #define MCS_STBCTR		0x12 /* TE1 Output Setting Zig-Zag Connection */
- #define MCS_SGOPCTR		0x16 /* Source Bias Current */
--#define MCS_SDCTR		0x1A /* Source Output Delay Time */
--#define MCS_INVCTR		0x1B /* Inversion Type */
-+#define MCS_SDCTR		0x1a /* Source Output Delay Time */
-+#define MCS_INVCTR		0x1b /* Inversion Type */
- #define MCS_EXT_PWR_IC		0x24 /* External PWR IC Control */
- #define MCS_SETAVDD		0x27 /* PFM Control for AVDD Output */
- #define MCS_SETAVEE		0x29 /* PFM Control for AVEE Output */
--#define MCS_BT2CTR		0x2B /* DDVDL Charge Pump Control */
--#define MCS_BT3CTR		0x2F /* VGH Charge Pump Control */
-+#define MCS_BT2CTR		0x2b /* DDVDL Charge Pump Control */
-+#define MCS_BT3CTR		0x2f /* VGH Charge Pump Control */
- #define MCS_BT4CTR		0x34 /* VGL Charge Pump Control */
- #define MCS_VCMCTR		0x46 /* VCOM Output Level Control */
- #define MCS_SETVGN		0x52 /* VG M/S N Control */
- #define MCS_SETVGP		0x54 /* VG M/S P Control */
--#define MCS_SW_CTRL		0x5F /* Interface Control for PFM and MIPI */
-+#define MCS_SW_CTRL		0x5f /* Interface Control for PFM and MIPI */
- 
- /* CMD2 P2 commands (GOA Timing Control) - no description in datasheet */
- #define GOA_VSTV1		0x00
- #define GOA_VSTV2		0x07
--#define GOA_VCLK1		0x0E
-+#define GOA_VCLK1		0x0e
- #define GOA_VCLK2		0x17
- #define GOA_VCLK_OPT1		0x20
--#define GOA_BICLK1		0x2A
-+#define GOA_BICLK1		0x2a
- #define GOA_BICLK2		0x37
- #define GOA_BICLK3		0x44
--#define GOA_BICLK4		0x4F
--#define GOA_BICLK_OPT1		0x5B
-+#define GOA_BICLK4		0x4f
-+#define GOA_BICLK_OPT1		0x5b
- #define GOA_BICLK_OPT2		0x60
--#define MCS_GOA_GPO1		0x6D
-+#define MCS_GOA_GPO1		0x6d
- #define MCS_GOA_GPO2		0x71
- #define MCS_GOA_EQ		0x74
--#define MCS_GOA_CLK_GALLON	0x7C
--#define MCS_GOA_FS_SEL0		0x7E
-+#define MCS_GOA_CLK_GALLON	0x7c
-+#define MCS_GOA_FS_SEL0		0x7e
- #define MCS_GOA_FS_SEL1		0x87
- #define MCS_GOA_FS_SEL2		0x91
--#define MCS_GOA_FS_SEL3		0x9B
--#define MCS_GOA_BS_SEL0		0xAC
--#define MCS_GOA_BS_SEL1		0xB5
--#define MCS_GOA_BS_SEL2		0xBF
--#define MCS_GOA_BS_SEL3		0xC9
--#define MCS_GOA_BS_SEL4		0xD3
-+#define MCS_GOA_FS_SEL3		0x9b
-+#define MCS_GOA_BS_SEL0		0xac
-+#define MCS_GOA_BS_SEL1		0xb5
-+#define MCS_GOA_BS_SEL2		0xbf
-+#define MCS_GOA_BS_SEL3		0xc9
-+#define MCS_GOA_BS_SEL4		0xd3
- 
- /* CMD2 P3 commands (Gamma) */
- #define MCS_GAMMA_VP		0x60 /* Gamma VP1~VP16 */
-@@ -119,41 +119,41 @@ static void rm68200_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
- {
- 	/* Enter CMD2 with page 0 */
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, MCS_CMD2_P0);
--	dcs_write_cmd_seq(dsi_ctx, MCS_EXT_PWR_IC, 0xC0, 0x53, 0x00);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_BT2CTR, 0xE5);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETAVDD, 0x0A);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETAVEE, 0x0A);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_EXT_PWR_IC, 0xc0, 0x53, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_BT2CTR, 0xe5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETAVDD, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETAVEE, 0x0a);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SGOPCTR, 0x52);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_BT3CTR, 0x53);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_BT4CTR, 0x5A);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_BT4CTR, 0x5a);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_INVCTR, 0x00);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_STBCTR, 0x0A);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_STBCTR, 0x0a);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SDCTR, 0x06);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_VCMCTR, 0x56);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETVGN, 0xA0, 0x00);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETVGP, 0xA0, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETVGN, 0xa0, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SETVGP, 0xa0, 0x00);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_SW_CTRL, 0x11); /* 2 data lanes, see doc */
- 
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, MCS_CMD2_P2);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_VSTV1, 0x05);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x02, 0x0B);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x03, 0x0F);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x04, 0x7D, 0x00, 0x50);
--	dcs_write_cmd_seq(dsi_ctx, GOA_VSTV2, 0x05, 0x16, 0x0D, 0x11, 0x7D, 0x00,
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x02, 0x0b);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x03, 0x0f);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x04, 0x7d, 0x00, 0x50);
-+	dcs_write_cmd_seq(dsi_ctx, GOA_VSTV2, 0x05, 0x16, 0x0d, 0x11, 0x7d, 0x00,
- 			  0x50);
--	dcs_write_cmd_seq(dsi_ctx, GOA_VCLK1, 0x07, 0x08, 0x01, 0x02, 0x00, 0x7D,
-+	dcs_write_cmd_seq(dsi_ctx, GOA_VCLK1, 0x07, 0x08, 0x01, 0x02, 0x00, 0x7d,
- 			  0x00, 0x85, 0x08);
--	dcs_write_cmd_seq(dsi_ctx, GOA_VCLK2, 0x03, 0x04, 0x05, 0x06, 0x00, 0x7D,
-+	dcs_write_cmd_seq(dsi_ctx, GOA_VCLK2, 0x03, 0x04, 0x05, 0x06, 0x00, 0x7d,
- 			  0x00, 0x85, 0x08);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_VCLK_OPT1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 				     0x00, 0x00, 0x00, 0x00);
- 	dcs_write_cmd_seq(dsi_ctx, GOA_BICLK1, 0x07, 0x08);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2D, 0x01);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2F, 0x02, 0x00, 0x40, 0x05, 0x08, 0x54, 0x7D,
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2d, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2f, 0x02, 0x00, 0x40, 0x05, 0x08, 0x54, 0x7d,
- 				     0x00);
- 	dcs_write_cmd_seq(dsi_ctx, GOA_BICLK2, 0x03, 0x04, 0x05, 0x06, 0x00);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3D, 0x40);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3F, 0x05, 0x08, 0x54, 0x7D, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3d, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3f, 0x05, 0x08, 0x54, 0x7d, 0x00);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_BICLK3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
- 				     0x00, 0x00, 0x00, 0x00, 0x00);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, GOA_BICLK4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-@@ -167,38 +167,38 @@ static void rm68200_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_GOA_EQ, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
- 				     0x00, 0x00);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_GOA_CLK_GALLON, 0x00, 0x00);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL0, 0xBF, 0x02, 0x06, 0x14, 0x10,
--			  0x16, 0x12, 0x08, 0x3F);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL1, 0x3F, 0x3F, 0x3F, 0x3F, 0x0C,
--			  0x0A, 0x0E, 0x3F, 0x3F, 0x00);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL2, 0x04, 0x3F, 0x3F, 0x3F, 0x3F,
--			  0x05, 0x01, 0x3F, 0x3F, 0x0F);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL3, 0x0B, 0x0D, 0x3F, 0x3F, 0x3F,
--			  0x3F);
--	dcs_write_cmd_seq(dsi_ctx, 0xA2, 0x3F, 0x09, 0x13, 0x17, 0x11, 0x15);
--	dcs_write_cmd_seq(dsi_ctx, 0xA9, 0x07, 0x03, 0x3F);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL0, 0x3F, 0x05, 0x01, 0x17, 0x13,
--			  0x15, 0x11, 0x0F, 0x3F);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL1, 0x3F, 0x3F, 0x3F, 0x3F, 0x0B,
--			  0x0D, 0x09, 0x3F, 0x3F, 0x07);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL2, 0x03, 0x3F, 0x3F, 0x3F, 0x3F,
--			  0x02, 0x06, 0x3F, 0x3F, 0x08);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL3, 0x0C, 0x0A, 0x3F, 0x3F, 0x3F,
--			  0x3F, 0x3F, 0x0E, 0x10, 0x14);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL4, 0x12, 0x16, 0x00, 0x04, 0x3F);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xDC, 0x02);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xDE, 0x12);
--
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, 0x0E); /* No documentation */
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL0, 0xbf, 0x02, 0x06, 0x14, 0x10,
-+			  0x16, 0x12, 0x08, 0x3f);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL1, 0x3f, 0x3f, 0x3f, 0x3f, 0x0c,
-+			  0x0a, 0x0e, 0x3f, 0x3f, 0x00);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL2, 0x04, 0x3f, 0x3f, 0x3f, 0x3f,
-+			  0x05, 0x01, 0x3f, 0x3f, 0x0f);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_FS_SEL3, 0x0b, 0x0d, 0x3f, 0x3f, 0x3f,
-+			  0x3f);
-+	dcs_write_cmd_seq(dsi_ctx, 0xa2, 0x3f, 0x09, 0x13, 0x17, 0x11, 0x15);
-+	dcs_write_cmd_seq(dsi_ctx, 0xa9, 0x07, 0x03, 0x3f);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL0, 0x3f, 0x05, 0x01, 0x17, 0x13,
-+			  0x15, 0x11, 0x0f, 0x3f);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL1, 0x3f, 0x3f, 0x3f, 0x3f, 0x0b,
-+			  0x0d, 0x09, 0x3f, 0x3f, 0x07);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL2, 0x03, 0x3f, 0x3f, 0x3f, 0x3f,
-+			  0x02, 0x06, 0x3f, 0x3f, 0x08);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL3, 0x0c, 0x0a, 0x3f, 0x3f, 0x3f,
-+			  0x3f, 0x3f, 0x0e, 0x10, 0x14);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GOA_BS_SEL4, 0x12, 0x16, 0x00, 0x04, 0x3f);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdc, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xde, 0x12);
-+
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, 0x0e); /* No documentation */
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x01, 0x75);
- 
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, MCS_CMD2_P3);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GAMMA_VP, 0x00, 0x0C, 0x12, 0x0E, 0x06,
--			  0x12, 0x0E, 0x0B, 0x15, 0x0B, 0x10, 0x07, 0x0F,
--			  0x12, 0x0C, 0x00);
--	dcs_write_cmd_seq(dsi_ctx, MCS_GAMMA_VN, 0x00, 0x0C, 0x12, 0x0E, 0x06,
--			  0x12, 0x0E, 0x0B, 0x15, 0x0B, 0x10, 0x07, 0x0F,
--			  0x12, 0x0C, 0x00);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GAMMA_VP, 0x00, 0x0c, 0x12, 0x0e, 0x06,
-+			  0x12, 0x0e, 0x0b, 0x15, 0x0b, 0x10, 0x07, 0x0f,
-+			  0x12, 0x0c, 0x00);
-+	dcs_write_cmd_seq(dsi_ctx, MCS_GAMMA_VN, 0x00, 0x0c, 0x12, 0x0e, 0x06,
-+			  0x12, 0x0e, 0x0b, 0x15, 0x0b, 0x10, 0x07, 0x0f,
-+			  0x12, 0x0c, 0x00);
- 
- 	/* Exit CMD2 */
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MCS_CMD_MODE_SW, MCS_CMD1_UCS);
--- 
-2.43.0
+The composite DTB target makes Kbuild apply the overlay to
+shikra-iqs-evk.dtb and validates the symbols and fixups during the build.
+The standalone DTBO is retained because the existing FIT flow loads the
+base DTB and overlay separately.
 
+I am rerunning the kernel build with this change before sending v4. I will
+also reply to the individual Sashiko findings rather than leaving the
+automated reports unanswered
+
+
+On 10/22/2026 1:18 AM, Rob Herring wrote:
+> On Mon, Oct 19, 2026 at 9:09 PM Linghui Wu <linghui.wu@oss.qualcomm.com> wrote:
+>> Add an overlay for M.2 Key-E Wi-Fi and Bluetooth modules on the Qualcomm
+>> Shikra IQS EVK.
+>>
+>> The M.2 variant uses the external module connected through the Key-E
+>> connector instead of the onboard WCN3988 devices. Disable the onboard
+>> Wi-Fi and Bluetooth nodes when the overlay is selected so the device tree
+>> matches the hardware variant and does not probe the unavailable onboard
+>> connectivity path.
+>>
+>> Describe the PCIe and UART connections through the M.2 connector, the
+>> 3.3 V supply, the W_DISABLE signals and the PCIe reset signal.
+>>
+>> The Wi-Fi PCIe path was tested on a Shikra IQS EVK with a QCC2072
+>> module. The overlay was applied, the link trained at Gen2 x1 and the
+>> endpoint enumerated. Bluetooth UART and HCI runtime validation is
+>> pending.
+>>
+>> Co-developed-by: Wei Deng <wei.deng@oss.qualcomm.com>
+>> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
+>> Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
+>> ---
+>> Changes in v2:
+>> - Drop regulator-boot-on and startup-delay-us from the 3.3 V regulator.
+>>
+>> Changes in v3:
+>> - Drop the unused reg override from the disabled TC9563 node.
+>>
+>>   arch/arm64/boot/dts/qcom/Makefile             |   1 +
+>>   .../dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso   | 105 +++++++++++++++++
+>>   2 files changed, 106 insertions(+)
+>>   create mode 100644 arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+>> index 1c86e7e98f55..799faa32e2d9 100644
+>> --- a/arch/arm64/boot/dts/qcom/Makefile
+>> +++ b/arch/arm64/boot/dts/qcom/Makefile
+>> @@ -339,6 +339,7 @@ dtb-$(CONFIG_ARCH_QCOM)     += sdx75-idp.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)        += shikra-cqm-evk.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)        += shikra-cqs-evk.dtb
+>>   dtb-$(CONFIG_ARCH_QCOM)        += shikra-iqs-evk.dtb
+>> +dtb-$(CONFIG_ARCH_QCOM)        += shikra-iqs-evk-m2-wifi-bt.dtbo
+> Overlays must be applied to a base DT to test that they apply. Sashiko
+> has pointed out that this doesn't apply on every version you've sent
+> and you've not replied to the report. Please reply on the other
+> issues.
+>
+> Rob
