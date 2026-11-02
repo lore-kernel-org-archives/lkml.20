@@ -1,101 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793632469;
-	b=HRpPxeeJfGdAH+GJRUb+H6zgQz+vP7zF0T/eD8R0p9SClE8zELQ+GkS/5U/eEtxW5vrz
-	 6X/XcGfNxFDXCjKAhPjZmH/MyR9KSEVo7GUgod54r73v+Lu1UzJAS1PuAObmakh1D2Sa/
-	 siEOCs7WdMxKTBhCgGVgRoWJ2SH9npcio8nV4f/rMNLC6A385oEnzWOEuisxOI4d+CNWH
-	 3X+d3atd2HWfybhNhczdU38moMRfhsBvtx01qvpb+M2CuXq5ZqiNiVgWAuqziZ4Zv5H3T
-	 E0Q1Jp85bFSL+qTIZPjCHM4V42YZPwiKsKx+pO5PdqF+IXoXX1XEF0ACDgO7N7O8uZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632469;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aOdCxZO55hUw/6I077tI6EL/o28ur2wlUbUGRR4UyJU=;
-	b=nph7WXTaJIoX+ncTsRJeYo7/RASAdwzcIm8ER+0Ju9FjfzelNY1sc+7ibDofo/fC/Hm9
-	 MvAxrukwvpzBmEDbaH8TEx2dPU7QZaze1+LgyAeHx1bfj/yC2ZqM+33joyXrF5eNqEYMW
-	 G7tAFqUVPPPwRbeNmVoLIkiSh5Gc6AiLlULK/aKxs5bIJGZQwD6CAQ2320kycKZTGeg9g
-	 2EsXz6A9lDj5fVP2JVWbOqoLjsBodl4EXo3Ph9G7WDKLCPTFmXDKZjQIr95oz8hB1vIXq
-	 P9Gyp5cgc8iOkEMZ/UkeSop1ut5/bb9AUEqu1d96WS2JhFMrVEx2UND0KhaSplZCxrw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="UK/Ov2Zm";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793632438;
+	b=gcXHlNyXoAfoexXv5DvwKKzIhZ7LRHYbm7xh5AWOdzHzpsYtRK2bMbOrB0tzIJlqLY5c
+	 +k7dY34NtyJnayHIBBMtF8haVTrDxC6MRpzUcccP8q0w0uKjJ0Kq+KAtKOmZqOzuGhOJv
+	 c6mVt9JPltIpCsmj7SRk9mcv6hj/7bnp/ejynTORSgOLYtVVACYpHWoxlobaRo5ukO9MI
+	 wRAPS190h50QmTG3AXS3J/+4yPR5YlTHT+ljW1SP2qkSnWFkeQb91j7VZwz5LQT5IZGU7
+	 fphFzNykqrM5GP80UGV76thN2WYcK9qUTqnXs1fNzvIHYIBJ+mZJwzxhELS4Ah+MX8Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632438;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=S+W+g44aCaL43FGK45odLf2WH3NZSIh4HEIsQNMUIAQ=;
+	b=qvcHhHrr/ji2iE2+j5bSHA8c5BT7ziNPMmLfVVbFubojc+x+V+jOIWG/OGKyJKluYf1X
+	 IZCcSv+ZVv+4DGnBToP9w4DslzoeWHyPw1k7V3l7mj3YDDXsu02OWRwcj1YayMrzpGObi
+	 WBHWfYyC7yN9KqiOpDsJZMBDpPJPL3qz9X1dFpqgPCiqI9mnnMloZLocbd8udEJx/V80u
+	 Wx9FbkYbZgprikO4ik3UNE/h7O2xeIU/aZIRA9IoJD99T+PnknLWzV4b6S+wK+SxQZ9Hg
+	 p3kplMBZ/bfX7DJgPX1HWushURvvSQ5prDzhk52GVjeObKsnxtVuWDBi0e6AoC3+BNA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F7Ox97aH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB506079931
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:14:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AB506079931
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6063160B016C;
+	Mon,  2 Nov 2026 15:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UK/Ov2Zm
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67b9bd530b7so2053947d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:14:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793632468; cv=none;
-        d=google.com; s=arc-20260327;
-        b=I7xYCwt0F4IWXt7ipFoJgzj8L/PNiDHpJnD9wYtu1oaoYqo1UEFITrwN/1L0rHwM44
-         h3v2WGSAP3NubS7k2CJYbaoNMdgdI4QT8MuIS25kaO13Qc2tOV/VNlZZPhGMWRBNKL4R
-         ZYRO2NP5dVk2/0wYnkznw4B0urLQjKuLvDGK2CKQArdPJ4hSjugVqnd/REauBbmVejtL
-         dq2FEvxqwEK3GbslMMvIbg6y/zDaBljo65MWjqRnMrr1E3NfcQylsj1fNob7bpgaEDhK
-         kMaXFf6beUpbTHCB/4knPJne4BOrFwehi40LC5IJTCT4vd0ZuXYXiQaI0FBzJnL47UKf
-         lHMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aOdCxZO55hUw/6I077tI6EL/o28ur2wlUbUGRR4UyJU=;
-        fh=tpQUs/JlHtuBlP8mbCnJdfoBEJjhyzvdIyM2GWjbshc=;
-        b=iFyyHEOdXwJJGSRmyj9OmaEz7m+L+cznxzU1BIVgdu26wyiVB17H+kF9EHY74isadU
-         8be1EJQjQc/qpbw5LhcowQCBrN8tZSOXlHWxZSsk3hB9umIsWm0d8x8bpwqPXlBmBhia
-         0dEz1j2srn7neYNvUG2eYz0306r2GPdzD92zCRmmErAAm1md4kL5Yx9M1U/UJpPJuU9M
-         ks+Z+wu5x+UYDP60s/Trm5yQixUHEJlF8DOca6EaCBGVhN+e4UdR/SM0AvX0nJfR8/lw
-         U+eaI4t6zxER7MiX+ZOeZDGOj8CbcqiGk1butQsQCCyLMxguNwcMryHJLLH6bBlfGIwX
-         HJAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793632468; x=1794237268; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aOdCxZO55hUw/6I077tI6EL/o28ur2wlUbUGRR4UyJU=;
-        b=UK/Ov2ZmZrdzn6wtpyN4IuP0s2NI94uQI7yYBJibP6aHf1CPcffmPVYaLkzYSc7pZm
-         Q+awmbVw7SIAx9igzH2GxMbpkJkUZWNm5FYtB1KlYDTmR1d4BJDrwn+eZuXuDN3hfkKi
-         wic6ZSVgM3Y1UqylgTszFO6RuIHOCzlfX7DyBHr6w+fBZfeaHkL3L5lbBc4iRYJCXspt
-         9pzWytIy2fjqQ7RVqjA8Iyg0vs6YCR+ISjcat8IZewOZC+HDkTF+GC7SBwr94lTftIlb
-         iXOhyfTyOpSiHWGkM8CQhvl9wo0AmvYC/zHu1qJMn7diEAHe+U1q3JmLq16spCqaJO9l
-         ToNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793632468; x=1794237268;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aOdCxZO55hUw/6I077tI6EL/o28ur2wlUbUGRR4UyJU=;
-        b=mNr4JtwsjFLcQs59Z2n6CeMM32ggI5uxh9296K7lz6dkk/Wm87mfFSOTG0YbFlSsor
-         Er7vuP/Vf0pTpkDN3zj7i4c5ZF8wtsGoUVE8AjQeCwZ5M5fMrfe0Wi0NrEaV2cePx8ED
-         nRrxmsABoku+jII4QVBSQKJTnS5aGdVAKYcPQvWecd6x0w2A3jC658CMiiLG9zp1PU13
-         l7lu0BNF+QVV1ftqbNHZR6V6rMIEHnAUzEwePhWjWDCwWEgdwzfcJAq2l6QC4XtuER55
-         ihGFSoVHFT1yU1ydtaYhAP81DSP70I63m6qya54+4T6k569Qgmws/RCZFcp2Jv5Hb66D
-         j0eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwulLnkDl5dyRCwWa/KWRPbBEl8+WH2EMzypNsej6dYAxU0c0e01F2SYZznvZxmtWqwH39eTp/lqOABXQw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lD+zXYCkJn8UUIL//zsLWtHMCxOpziYQSCwz38NVo4h0c36Fu
-	cd9THhbUCs50twCuqrQwSOOCF7YiD+4LuXjxYxGLbpIA2CiyuYPkLwlsZCvIYMnXYIj327IAKaU
-	rHFeWH/opMiTxOqKCyMWXHXgR+c5BCFY=
-X-Gm-Gg: AYBFou197YPRDiS2p4mFPkdvtQdlgZXKUjzX7QmkjrKNne6YhJhvglIfu+SBjdZiSEY
-	U0q0PDHain/2GGeIvQnwvyF32CyRhmS5vDnp5HfSbawk3/CoDGu1Gdj3oaEMfBbc1p6+8hUq7z7
-	08GZIJJMdnMd77OsXH+3clZd0nGMV63oAZRVagJjf1txcCTejqGgQ9q8OEhaXy3xkj19lcVgdgF
-	CzfeO1JdSmPePPlrfjUgdR7rFHFNOUJHCjQEY0T4DSuwuzOkfRHZKcVEhK+z3bGyoKrwO+8z8m/
-	nktxCD3ac4rhAHIrSAeHdkcKvS76Me9UXMRrk4L6rnXOY3sQDvA9mj4hzEB5VHTnKRszQGbnv1p
-	dX158Hwqp3vDQPvTdgsgEPFXHKN8eyFXUkFhtJWoHJo78ejRFBZCtAHthA6DzEYLMAfRW12NENI
-	N6b39xLcfT9sUe9PwoFvSrs2v0AAhKUUD4U30eCBpQLMEYR0AqYdT0sEl6ZA==
-X-Received: by 2002:a05:690e:1201:b0:679:28ad:d8d8 with SMTP id
- 956f58d0204a3-67ba5118897mr8055833d50.104.1793632468374; Mon, 02 Nov 2026
- 07:14:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F7Ox97aH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6A051F00A17;
+	Mon,  2 Nov 2026 15:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793632438;
+	bh=S+W+g44aCaL43FGK45odLf2WH3NZSIh4HEIsQNMUIAQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=F7Ox97aHb5v/69dEjCfSG3zYZyDUWGBbQmgwQbZqpHayfaTm2G57txgqdUeZo3I1H
+	 tTuLLwDngX1C0kdrF8+z5iHcLOLMVPlNHU7Ek70BsEwCNAgxWcFwACFn8dRM9vXuNi
+	 fR/HuBwWCNGkBIHly+3JqFmxpEpN+D+9f46wasKzYOnOtzNu5VuibzVNrASnI3ElKf
+	 98h5jEevjX95199qLf7TWhYAItcY3sascPk/jhcInRBKh/iRe1KPIclCVzGPEmbyX3
+	 JHM1Cp1LfYRKc0S2TNo/H269vvS4ZY0/H1hFOPI9a3WaLrf1PSJB04nf+i5VJqta6B
+	 C97Z41nHrVXzg==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:07:18 +0100
+Subject: [PATCH RFC 11/23] selftests/proc: check that a faulting writer
+ doesn't hold up removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,153 +53,315 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102130540.252894-1-omosnacek@gmail.com>
-In-Reply-To: <20261102130540.252894-1-omosnacek@gmail.com>
-From: Stephen Smalley <stephen.smalley.work@gmail.com>
-Date: Mon, 2 Nov 2026 10:14:17 -0500
-X-Gm-Features: AclHuK_S3LwuvSZEIcs1e2WEC4WgX3S0M8bKoabDzHzf2mxELuht56K17Z9rPEg
-Message-ID: <CAEjxPJ4hxdvV-r8chmF3RAi9RJX=-4AqntG01=fWUhh4-xP+ew@mail.gmail.com>
-Subject: Re: [RFC PATCH] af_unix: introduce MSG_CMSG_SEALED
-To: =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Simon Horman <horms@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	netdev@vger.kernel.org, selinux@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, io-uring@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-drivers-v1-11-a994bd4d3b1a@kernel.org>
+References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
+In-Reply-To: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7699; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=E/Aoc9uQW8LTsep+BLiQcemfYl1Vwa4LIRzF+EstznY=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG7Q9XihutiU620/TOp4nTfpGEvuYL3x8mh9fPS6m
+ l0cd9YYdpSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEykYy0jw80klv9bnE6761yY
+ H2ijFaLOd2/76W8uCq84DzG1i6+RmM7I0Gm2vy378801RpOnHzpQy/rRzmj9jUkqNSHZgglMcT1
+ TWAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Mon, Nov 2, 2026 at 8:05=E2=80=AFAM Ondrej Mosn=C3=A1=C4=8Dek <omosnacek=
-@gmail.com> wrote:
->
-> Currently, when a process receives a file through AF_UNIX's SCM_RIGHTS
-> mechanism, the security_file_receive() LSM hook is calledto allow LSMs
-> like SELinux to validate the receiver's access to the received file
-> (similarly to a process inheriting file descriptors through execve(2)).
->
-> However, there are cases (such as dbus daemon/dbus-broker) where the
-> receiver doesn't intend to access the received file and merely wants to
-> forward it to a third process. In this case the forwarding process would
-> need to have the appropriate r/w access to the file in order to receive
-> it, even though it will never actually acess it. That leads to the
-> security policy having to grant the forwarder access to a potentially
-> wide range of files (in case of dbus-broker basically all files), which
-> is not ideal.
->
-> This patch adds a new CMSG flag MSG_CMSG_SEALED that, when passed to
-> recvmsg(2), wraps any received files into an opaque anonymous inode with
-> the name "[envelope]", skipping the security_file_receive() LSM check.
-> The returned "[envelope]" file descriptor can't be used in any
-> meaningful way other than being passed forward via sendmsg(2) with the
-> MSG_CMSG_SEALED flag. In that case the original file is unwrapped and
-> sent via SCM_RIGHTS to the receiver. The receiver can then either
-> receive the file as normal (subject to the LSM check) or again "sealed"
-> in the "[envelope]" anon inode for further forwarding.
->
-> Note that sending the "[envelope]" file is only allowed with the
-> MSG_CMSG_SEALED flag set, to make the unsealing explicit and avoid
-> unexpected behavior. Attempting to send it without this flag will fail
-> with an error. This also avoids recursive nesting of "[envelope]" files,
-> which would only make this feature harder to audit for possible issues.
->
-> This patch also adds a simple read-only sockopt for UNIX sockets that
-> allows userspace to determine if this feature is present (passing
-> unknown CMSG flags unfortunately doesn't lead to an error currently).
-> The minimal code to do so can look like this:
->
->     #ifndef SO_RIGHTS_SEALED_SUPPORTED
->     #define SO_RIGHTS_SEALED_SUPPORTED 88
->     #endif
->
->     #include <sys/socket.h>
->     #include <unistd.h>
->     #include <stdbool.h>
->
->     bool MSG_CMSG_SEALED_supported(void)
->     {
->         int sock, ret;
->         socklen_t optlen =3D 0;
->
->         sock =3D socket(AF_UNIX, SOCK_STREAM, 0);
->         if (sock < 0) {
->             /* handle error */
->             /* ... */
->         }
->
->         ret =3D getsockopt(sock, SOL_SOCKET, SO_RIGHTS_SEALED_SUPPORTED,
->                          NULL, &optlen);
->         close(sock);
->
->         return ret =3D=3D 0;
->     }
->
-> Related: https://github.com/fedora-selinux/selinux-policy/issues/3286
-> Related: https://github.com/fedora-selinux/selinux-policy/issues/3287
-> Signed-off-by: Ondrej Mosn=C3=A1=C4=8Dek <omosnacek@gmail.com>
-> ---
+Write to /proc/scsi/scsi_debug/<host> from a buffer whose page is backed
+by userfaultfd and remove the host while procfs copies in what is
+written:
 
-> diff --git a/net/core/scm.c b/net/core/scm.c
-> index ae38f3c1165c..08822b2a1f22 100644
-> --- a/net/core/scm.c
-> +++ b/net/core/scm.c
-> @@ -114,10 +127,29 @@ static int scm_fp_copy(struct cmsghdr *cmsg, struct=
- scm_fp_list **fplp)
->
->                 if (fd < 0 || !(file =3D fget_raw(fd)))
->                         return -EBADF;
-> -               /* don't allow io_uring files */
-> -               if (io_is_uring_fops(file)) {
-> -                       fput(file);
-> -                       return -EINVAL;
-> +
-> +               if (sealed) {
-> +                       /* Only allow sealed files */
-> +                       if (file->f_op !=3D &envelope_ops)
-> +                               return -EINVAL;
+- removing the entry doesn't wait for the writer
 
-This leaks a file reference.
+- the write fails with -EIO once the fault is resolved
 
-> +
-> +                       file =3D (struct file *)file->private_data;
+The test loads scsi_debug if it isn't there and skips without it.
 
-This fails to take a reference to the underlying file but will later get fp=
-ut().
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ tools/testing/selftests/proc/.gitignore            |   1 +
+ tools/testing/selftests/proc/Makefile              |   1 +
+ tools/testing/selftests/proc/config                |   3 +
+ .../selftests/proc/proc-remove-slow-writer.c       | 203 +++++++++++++++++++++
+ 4 files changed, 208 insertions(+)
 
-> +
-> +                       /*
-> +                        * No need to check for io_uring files here as th=
-e
-> +                        * underlying file had already successfully passe=
-d the
-> +                        * check when it was first sent.
-> +                        */
-> +               } else {
-> +                       /* Don't allow sealed files */
-> +                       if (file->f_op =3D=3D &envelope_ops)
-> +                               return -EINVAL;
+diff --git a/tools/testing/selftests/proc/.gitignore b/tools/testing/selftests/proc/.gitignore
+index e2566cc0ae07..51969f81afc5 100644
+--- a/tools/testing/selftests/proc/.gitignore
++++ b/tools/testing/selftests/proc/.gitignore
+@@ -24,6 +24,7 @@
+ /proc-remove-slow-sysctl
+ /proc-remove-slow-reader
+ /proc-remove-slow-readlink
++/proc-remove-slow-writer
+ /read
+ /self
+ /setns-dcache
+diff --git a/tools/testing/selftests/proc/Makefile b/tools/testing/selftests/proc/Makefile
+index 6a9bdc999f54..aecec6b93173 100644
+--- a/tools/testing/selftests/proc/Makefile
++++ b/tools/testing/selftests/proc/Makefile
+@@ -35,5 +35,6 @@ TEST_GEN_PROGS += proc-pidns
+ TEST_GEN_PROGS += proc-remove-slow-sysctl
+ TEST_GEN_PROGS += proc-remove-slow-reader
+ TEST_GEN_PROGS += proc-remove-slow-readlink
++TEST_GEN_PROGS += proc-remove-slow-writer
+ 
+ include ../lib.mk
+diff --git a/tools/testing/selftests/proc/config b/tools/testing/selftests/proc/config
+index 7b0e1d9be1a2..c7c61a2d7927 100644
+--- a/tools/testing/selftests/proc/config
++++ b/tools/testing/selftests/proc/config
+@@ -5,3 +5,6 @@ CONFIG_USERFAULTFD=y
+ CONFIG_SOUND=y
+ CONFIG_SND=y
+ CONFIG_SND_DUMMY=m
++CONFIG_SCSI=y
++CONFIG_SCSI_PROC_FS=y
++CONFIG_SCSI_DEBUG=m
+diff --git a/tools/testing/selftests/proc/proc-remove-slow-writer.c b/tools/testing/selftests/proc/proc-remove-slow-writer.c
+new file mode 100644
+index 000000000000..f69ca75ba87c
+--- /dev/null
++++ b/tools/testing/selftests/proc/proc-remove-slow-writer.c
+@@ -0,0 +1,203 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * A write that faults while procfs copies it in must not hold up removal of
++ * the /proc entry. Removing a scsi_debug host removes its
++ * /proc/scsi/scsi_debug/<host> file.
++ */
++#define _GNU_SOURCE
++#include <dirent.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <limits.h>
++#include <linux/userfaultfd.h>
++#include <poll.h>
++#include <pthread.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++#include <sys/syscall.h>
++#include <unistd.h>
++
++#include "../kselftest_harness.h"
++
++#define ADD_HOST	"/sys/bus/pseudo/drivers/scsi_debug/add_host"
++#define HOST_DIR	"/proc/scsi/scsi_debug"
++#define TIMEOUT_MS	5000
++#define MAX_HOSTS	4096
++#define HOST_BITS	(8 * sizeof(unsigned long))
++
++struct writer {
++	int fd;
++	char *buf;
++	ssize_t ret;
++	int err;
++};
++
++struct remover {
++	int done;
++	int ret;
++};
++
++/* a positive @nr adds hosts, a negative one removes the last ones added */
++static int add_host(int nr)
++{
++	char s[16];
++	int fd, len, ret;
++
++	fd = open(ADD_HOST, O_WRONLY | O_CLOEXEC);
++	if (fd < 0)
++		return -errno;
++	len = snprintf(s, sizeof(s), "%d", nr);
++	ret = write(fd, s, len) == len ? 0 : -errno;
++	close(fd);
++	return ret;
++}
++
++/* the numbers of the hosts in /proc/scsi/scsi_debug as a bitmap */
++static int list_hosts(unsigned long *hosts)
++{
++	struct dirent *d;
++	DIR *dir;
++
++	memset(hosts, 0, MAX_HOSTS / 8);
++	dir = opendir(HOST_DIR);
++	if (!dir)
++		/* the directory comes with the first host and goes with the last */
++		return errno == ENOENT ? 0 : -errno;
++	while ((d = readdir(dir))) {
++		char *end;
++		long nr = strtol(d->d_name, &end, 10);
++
++		if (end != d->d_name && !*end && nr >= 0 && nr < MAX_HOSTS)
++			hosts[nr / HOST_BITS] |= 1UL << (nr % HOST_BITS);
++	}
++	closedir(dir);
++	return 0;
++}
++
++/* the host that is in @after but wasn't in @before */
++static int new_host(const unsigned long *before, const unsigned long *after)
++{
++	for (int i = 0; i < MAX_HOSTS / HOST_BITS; i++) {
++		unsigned long new = after[i] & ~before[i];
++
++		if (new)
++			return i * HOST_BITS + __builtin_ctzl(new);
++	}
++	return -1;
++}
++
++static void *write_thread(void *arg)
++{
++	struct writer *w = arg;
++
++	w->ret = write(w->fd, w->buf, 2);
++	w->err = errno;
++	return NULL;
++}
++
++static void *remove_thread(void *arg)
++{
++	struct remover *r = arg;
++	ssize_t ret;
++
++	r->ret = add_host(-1);
++	ret = write(r->done, "x", 1);
++	return (void *)ret;
++}
++
++FIXTURE(host) {
++	char path[PATH_MAX];
++	int host;
++};
++
++FIXTURE_SETUP(host)
++{
++	unsigned long before[MAX_HOSTS / HOST_BITS];
++	unsigned long after[MAX_HOSTS / HOST_BITS];
++
++	self->host = -1;
++	if (access(ADD_HOST, W_OK) && system("modprobe -q scsi_debug add_host=0"))
++		SKIP(return, "no scsi_debug");
++	if (access(ADD_HOST, W_OK))
++		SKIP(return, ADD_HOST ": %s", strerror(errno));
++
++	/* host numbers are reused, so look for the one that's new */
++	ASSERT_EQ(list_hosts(before), 0);
++	ASSERT_EQ(add_host(1), 0);
++	ASSERT_EQ(list_hosts(after), 0);
++	self->host = new_host(before, after);
++	ASSERT_GE(self->host, 0);
++	snprintf(self->path, sizeof(self->path), HOST_DIR "/%d", self->host);
++}
++
++FIXTURE_TEARDOWN(host)
++{
++	if (self->host >= 0 && !access(self->path, F_OK))
++		add_host(-1);
++}
++
++TEST_F(host, remove_while_writer_faults)
++{
++	struct uffdio_api api = { .api = UFFD_API };
++	struct uffdio_register reg = {};
++	struct uffdio_zeropage zero = {};
++	long psz = sysconf(_SC_PAGESIZE);
++	struct writer w = {};
++	struct remover r = {};
++	struct uffd_msg msg;
++	struct pollfd pfd;
++	pthread_t wt, rt;
++	int uffd, done[2];
++	char *buf;
++
++	w.fd = open(self->path, O_WRONLY | O_CLOEXEC);
++	if (w.fd < 0)
++		SKIP(return, "%s: %s", self->path, strerror(errno));
++
++	uffd = syscall(__NR_userfaultfd, O_CLOEXEC | O_NONBLOCK);
++	if (uffd < 0)
++		SKIP(return, "userfaultfd: %s", strerror(errno));
++	ASSERT_EQ(ioctl(uffd, UFFDIO_API, &api), 0);
++
++	buf = mmap(NULL, psz, PROT_READ | PROT_WRITE,
++		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	ASSERT_NE(buf, MAP_FAILED);
++	reg.range.start = (unsigned long)buf;
++	reg.range.len = psz;
++	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
++	ASSERT_EQ(ioctl(uffd, UFFDIO_REGISTER, &reg), 0);
++
++	w.buf = buf;
++	ASSERT_EQ(pthread_create(&wt, NULL, write_thread, &w), 0);
++
++	/* The writer now sleeps while what it writes is copied in. */
++	pfd = (struct pollfd){ .fd = uffd, .events = POLLIN };
++	ASSERT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1);
++	ASSERT_EQ(read(uffd, &msg, sizeof(msg)), sizeof(msg));
++	ASSERT_EQ(msg.event, UFFD_EVENT_PAGEFAULT);
++
++	/* Removing the host removes the file that is being written. */
++	ASSERT_EQ(pipe2(done, O_CLOEXEC), 0);
++	r.done = done[1];
++	ASSERT_EQ(pthread_create(&rt, NULL, remove_thread, &r), 0);
++	pfd = (struct pollfd){ .fd = done[0], .events = POLLIN };
++	EXPECT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1) {
++		TH_LOG("removing %s waited for the writer", self->path);
++	}
++
++	zero.range.start = (unsigned long)buf;
++	zero.range.len = psz;
++	ASSERT_EQ(ioctl(uffd, UFFDIO_ZEROPAGE, &zero), 0);
++	ASSERT_EQ(pthread_join(wt, NULL), 0);
++	ASSERT_EQ(pthread_join(rt, NULL), 0);
++	EXPECT_EQ(r.ret, 0);
++
++	/* The entry was gone by the time the write got to it. */
++	EXPECT_EQ(w.ret, -1);
++	EXPECT_EQ(w.err, EIO);
++}
++
++TEST_HARNESS_MAIN
 
-This also leaks a file reference.
+-- 
+2.53.0
 
-> @@ -365,18 +398,37 @@ static int scm_max_fds(struct msghdr *msg)
->  }
->
->  int scm_recv_one_fd(struct file *f, int __user *ufd, unsigned int flags,
-> -                   bool notrunc)
-> +                   bool notrunc, bool sealed)
->  {
-> +       struct file *f_received;
->         int error;
->
->         if (!ufd)
->                 return -EFAULT;
->
-> -       error =3D security_file_receive(f);
-> -       if (error)
-> -               return notrunc ? put_user(error, ufd) : error;
-
-Design point: I would suggest adding and using a new LSM hook that
-allows security modules (like SELinux) to still be able to check a
-(new) permission that governs whether a process can pass along these
-sealed fds so that we do not entirely lose control over their use.
