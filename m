@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793620954;
-	b=s1cQkgvxmwsikoVJyybHONHnT6fkIcsoRGpJFLoAFt+JwblNWaUy7ZxAuQXgIM0pGoGe
-	 2LLSWUN7jlm6iy5OckjTpobIJNaGHQkq90zU+XULRW/73ETZS1mEZ3An4o+mPdLn7pWEu
-	 oUKjs9spm7htErsSSmyt0b5ClVAi3NeTnhNuamqdeUD46HpzDtvgs9a3vY2yTcB1X9+5Q
-	 3w/fC6hXUQznU06902pGcEgBMW24GZ5pryiXXVgJBJ7X4jaBSkN2mHr9MoDs4oI7usQ3v
-	 tnSe977mjIMJOFD/FPnp8Qit4Cnlpo2eZbAfHWCm/mGgjsqlxOyi5TCV+ORV/qOT2sw==
+	t=1793620968;
+	b=r3KAj6kaWKW0GAc+Ptff/xmkXVrr7ED7f1OI+wkC6lFkLDYZP4sD9y+KFl2r5kSx8E2Q
+	 JzVfV5rK0fX+0je99lxL8apK30QYRiDe5qjaKKdVpRJBiQDtpy956x3+agrSptT5eN4r8
+	 6gzWkvNgOO820cJ7RyqXluoiIPZx8rBaG6MWvIQv4Vog32/f4iv7gmKXp4lCoWqM39V6s
+	 xCnwbYPnhELk2XkHuTE6XZ8qMW3BhQsFNyKe0o68UOQ+FClFqblCG4lPhap81gehcEkve
+	 nP3gcOUz0/PSlWevF506PrrnFQHiG66HIsYGaS42YebL0hZryHc6BUZzQTobziuFdRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793620954;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620968;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Fr0PNZ8uIjWuUyi5jHRttjfJcgJHs22wa+3cbgmTv6Y=;
-	b=03B3Fo0FMxRxAuyztvg2VT5NLMTfaOV7YoPAe6TkYuvFoUDRxoDbCg3cjgCedpMfabuR
-	 5YUwZFUHRglGlSyevl/Tz7GT5/6NmwiWtqbxqVafJOwoqIY1FQFNtPgDobDQrPgkCSFta
-	 R2JCeGTbrkk756pl/kZTDf7d7bw+Cnv1Rt0CzCdcvxk+piYM/yxYeYJvL/l7Tm5wjIQmH
-	 rd5PtznA/nA8ACbb+hpRdQjaerw/pWHxgebolYX2VlIitaXBYFP/0rNTR51aJ6Ou+MyDE
-	 dBNpmOdeHb1QG/O/iMfR1TLqtTkxvYIh0a2m4aQNDlKv8UUdVCLIdA7RtTuBATNyJag==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=EcZZcR+j7klFX/DTJ2GLRDMqMpj1vpPCfVf5foVRPkM=;
+	b=lslmgaqmY7p105x496fF7YezslHuTs5l0jedjD0nvdkXnC0FwssuG50cAqZ16PSA5O72
+	 mmg3VhwEysHYY76cSmUO63xuj7R03cDygz6vHjdLvvYBwjUuJ1vZbwmn3i2Z2dWzeoL2p
+	 gsylAo2QF2W1yx8vDiJHLWk0sX+dCJE19pXQsgi/+nLCgN6UINpUz36PTxpr8P9oieOaF
+	 YOCJ+S+WCAAuycvjI8Jq0GQbRzcIq4DXu5f7uAWgkXivP6poZF5hpd9kSuIAJL1FXdUw6
+	 tjmRYcAAI8tmFO60Ex09lMcjfOBSmKWLtGaJ3Gmw9hIGU2Qw385M7wZEPysK1uU33Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfYVxPB9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnlu3lz0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E071606B147;
-	Mon,  2 Nov 2026 12:02:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30681606A975;
+	Mon,  2 Nov 2026 12:02:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfYVxPB9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CC701F00A1A;
-	Mon,  2 Nov 2026 12:02:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnlu3lz0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3385B1F00A18;
+	Mon,  2 Nov 2026 12:02:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793620953;
-	bh=Fr0PNZ8uIjWuUyi5jHRttjfJcgJHs22wa+3cbgmTv6Y=;
+	s=k20260515; t=1793620967;
+	bh=EcZZcR+j7klFX/DTJ2GLRDMqMpj1vpPCfVf5foVRPkM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dfYVxPB9FUjwqMKzUEdki3dEUE+JjX6MW5u4ot6oLabApyiP1RviAtUeLvEP5pm6u
-	 MPMpM/JZfubJfG5nvMPUo7oxtSxvXnyaBxH1JAytGEU1MzHjhlDT5sqXiX5qKA2F4/
-	 K5KtA2DnKWSFNcCl3ALFAhmhU+4MPPUjHzB2A26ihsykZGkHGq2jtzUJvdL9umrjta
-	 70PMnZM8vC8QoDil13KxnBIessCPw+qVfUOjd4fbnS8z8Yaf8C+SeICJBEzBjn9E62
-	 2gSOri5oI1X4LuRN6e8u5anUFi1gE0+Vgxbg9zdBNBq2qn7dhQh8r7ybGoLO/WM4qG
-	 6w4znKQSvSrHQ==
-Date: Mon, 2 Nov 2026 12:02:30 +0000
-From: Simon Horman <horms@kernel.org>
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: Re: [PATCH net 2/2] devlink: sb: do not dereference a missing shared
- buffer
-Message-ID: <20261102120230.GC257209@horms.kernel.org>
-References: <20261030033332.3685172-1-xiaolinkui@126.com>
- <20261030033332.3685172-3-xiaolinkui@126.com>
+	b=bnlu3lz05LNqPTN1A9cNFp+3Tbfr+giiaEUYe8kGzg4tTuE/XHZV6KJN8IGqC4tF2
+	 VWWgagg46unmKLvbWb/F50h9kAZeSIw04jd/AZJxEz6BxWUkpXyLTb1bFtnhNsK0mp
+	 aq9T8J7LysoHmzefdyg7dhWaulQQ3qb/w32qM9CjXZDVHhnKtMhVOeKeYCV5PbF5Gf
+	 eE2tlAC9sQJw7u2BeVYGgil8ihiII/CCAS9DbEMw+4lAjlnWlyAWhpVzpSE77l5InC
+	 sJc1RU2WA1W2z1PjCMkMhjj47tzVoJSlULhwc8yCqa+fHDezxRsyfZ1oAtNlfdCbs9
+	 GVSKk8EmvF2qA==
+Date: Mon, 2 Nov 2026 12:02:43 +0000
+From: Mark Brown <broonie@kernel.org>
+To: yo@miguelrevilla.com
+Cc: Vijendar.Mukunda@amd.com, linux-sound@vger.kernel.org,
+	venkataprasad.potturu@amd.com, lgirdwood@gmail.com, perex@perex.cz,
+	tiwai@suse.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 16-by0xxx
+Message-ID: <a3824f2b-8468-4eb7-912d-495ea47851c5@sirena.org.uk>
+References: <CAG9fDsV01JJx6=xbts1XJ3+utG5yzys5BqJ5UcHWp6-_wDKpxA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,26 +58,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Np8ZQHrdHf164aRC"
 Content-Disposition: inline
-In-Reply-To: <20261030033332.3685172-3-xiaolinkui@126.com>
+In-Reply-To: <CAG9fDsV01JJx6=xbts1XJ3+utG5yzys5BqJ5UcHWp6-_wDKpxA@mail.gmail.com>
+X-Cookie: Used with permission.
 
-On Fri, Oct 30, 2026 at 11:33:32AM +0800, Linkui Xiao wrote:
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> devl_sb_unregister() looks the shared buffer up by index and only warns
-> when it is not on the list. list_del() and kfree() are then called on the
-> NULL result, so unregistering an index that was never registered, or
-> unregistering the same index twice, turns the warning into a NULL pointer
-> dereference. list is the first member of struct devlink_sb, so list_del()
-> reads the next and prev pointers from address 0 before storing to them.
-> 
-> The register side already fails gracefully: devl_sb_register() returns
-> -EEXIST when the index is taken. Make the unregister side symmetric and
-> return after the warning.
-> 
-> Fixes: bf7974710a40 ("devlink: add shared buffer configuration")
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+--Np8ZQHrdHf164aRC
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, Nov 01, 2026 at 11:18:13PM +0100, Miguel Revilla Rodr=EDguez wrote:
+
+>   DMI_MATCH(DMI_BOARD_NAME, "8DC2"),
+>   }
+>   },
+> + {
+> + .driver_data =3D &acp6x_card,
+> + .matches =3D {
+> + DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
+> + DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
+> + }
+> + },
+
+This has been mangled by your MUA so tooling can't understand it, all
+spaces look to have been stripped.
+
+You might want to look at b4 to send the patches, especially it's web
+submission endpoint which avoids having to configure mail:
+
+   https://b4.docs.kernel.org/en/latest/contributor/overview.html
+
+
+--Np8ZQHrdHf164aRC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmroe+IACgkQJNaLcl1U
+h9CVCQf+ISpDPoJiTcOIXHjhK6mWD3FaA+MfF+myVfyvSxfVQPzcH4owi4YEG9IC
+MjeqfXdiEpL/PEbxkUEKsavE0YDiQeLMb0+4KZHsJbpVJ79U4/VqCZGTY4i01tg4
+IbaoHYyn6ofYUaTUGFyVko4zWLVbDTm3MaPUr0fuoIPQW0PGZc/eZf/xY5sb678P
+mRJR3fEPrHYF9IxtGnYG/Lshq5MhS3q+7oZgoH3PQVMdGHw1Yt5KYBub5oetcDLT
+2jSnRZrIxhRvYj+2EwYc1SZL26UqhL6Hvt916dZPicupxkBAKQyqR7j4trG04BGj
+twDj+s9VEO5f6OsxqZ3k3EPV0w1nFw==
+=hSu7
+-----END PGP SIGNATURE-----
+
+--Np8ZQHrdHf164aRC--
