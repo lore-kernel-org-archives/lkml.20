@@ -1,74 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793647817;
-	b=2J1NZEniLDFLm5+zIqSkg+NJHJ+5EFG6wd60EHUijWKzZzmF9GMncUWOW5Ymg0vu9qZ/
-	 SWdy0OJ371ckpCm9DNRz1SIyyamdfS0VRvv+YK7gVUs4Fx0rzYr4xypikrAu3WFS1LYUY
-	 1N2SQ9qy3n+rKUEf4dtYvSOQjSWzEdi9iBXun9PyULuQA+6t/TvezRQmZ35YUuLUmPqYi
-	 6ZnSgQvsqUq7vGYCgJuix6YQq/d32evmkF6UezhVAPqaYdoER8ZvIlxNvx5XQUu3a7hez
-	 oOR15YLtajjrcoTKp6vuUMl0G0m4x3arAZ+pQD/AqQM2EjJlIdGhKsx4ykhLebw9uPw==
+	t=1793647843;
+	b=ArQsTg8/k+k2ZCuhBKklCe0qEqzbeWEl1oeWvH6oIIuYqpu9iAVrH9unqjNHsKRbhuSz
+	 hleBkq/z+AceztbtzMbUvQ+LEG9BYr/GtMYGBZIltQ5fNPd/y0UGp/9mu5LjoB51c+ZhC
+	 0oZrastG+OLq2kiJXewhgNae0A/iHplQq3UZZf3KeqrGh788lIHZuuoS9RlSjr7O+bEMk
+	 mqiqr6Q6DG3Chjs9/JFDUaDK/2aLI0X/EmxK/TtQ3GS/OJ22YLT22M0c8gDvLd4JO5T18
+	 D3rrriEc5PLurgw4ajKedyJEDg8aa8lV6l0ZRpLrTiiv7TKQh5o+9eVMBphmumZTH8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793647817;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=KMZG+Vonh2kG6IEXx5qekjJyTd7RpEVJ3Nhz9EIK9Q4=;
-	b=ycwM6VsUztifyE0LPyh00I1dikMrNaieFNBaxxTSZkH/UqvnHu8xgb30ciAlo3l6qC9R
-	 x1CYjYDJlx2qJf9xpAmnHHjHRbqpGrL9eAl+YHckrP+Mg3ed/lfeTzES8k2/lFhX4ZzrK
-	 SMP9F8SVKEcM/H/Syj+dcEeWf6WiJM/IzkWmWV/XR53Y54yTa936sICQ7ub/HMkzZV5dL
-	 2jTeUeHw9Z/O6Sbv7Xldz6zJfxYGt1Rc2GcBqxUj8mbfa6V2o2DOvD2iB/mYdI8Q3aZiT
-	 1qIRBwvsY7iaWW0r6c5BCAgHxlMEcSA+ilMB6gDOrNaandYFnR0Rtp/Qn03rUX06dhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793647843;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=raRdFfKQG3ctF9Rx/PRY8SMQGHRdhOgJO6NWXsk2doQ=;
+	b=4DmTO9JzKdjeIctBZHR5J7tFk58Sp9EsCq0nesfA/+XvUe+89OHLF6zjrhaf8JH6yxeP
+	 dke/mCV2WnI5im/AtB/N38NI03CjKzqA6RTx46DgfRDxX8hABx9QwEhuuZwhrTu6PAv78
+	 jp/cRVfs/DEZpJlqhRSFGzCdyeognHj/3xMat14nFhMu78FfZCvLhQX9ynDo4jglMPVG1
+	 spwQgwxxqYMERgr5nuNQ/HWbgx5RogYIZqfhtTOxykXv7JbRHzmtGT/yKfWeKvPXzZ/K+
+	 8hh+pR1UqfCTeGgZQyiWacEtlyuD57tjHXdslruH7p3yBVR22Hioyb5h/bTMfhy+6MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XHtO+pR7;
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=MKnnxfMi;
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAB7606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:30:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFAB7606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6132606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:30:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6132606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XHtO+pR7
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so2015723a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:30:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793647816; x=1794252616; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KMZG+Vonh2kG6IEXx5qekjJyTd7RpEVJ3Nhz9EIK9Q4=;
-        b=XHtO+pR7W6UhdkRORPR0QLvu5lPna3DK4Qx+VZ5vIC7r76TVNkNdSWKxbifu1TXCdx
-         8PxUJNOe3D3ncHXtfM9wZysK/YJ0SVWTFv8ivv1NljiqrmDc214IpNQGyVD7BKwXPU8G
-         6Vjt7/i+/Lq5cex9CHjeHMU5GVc54fZwicUKFjJwZF8PQGNUqVTzEOt6f+fHBI9F85a7
-         /0+6aJ/boiCgVEJeVuzGE4INcyjqglXDGwJzvDah31f5SMIabvtvTASt6DXzq7YuZJSe
-         S02gSPhqjyeedI/ZWv5OkTbuTp2H3rtzQyC7vR8iGcfkQm0KYs3U99hZYanDlLz9pXYV
-         V+Zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793647816; x=1794252616;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KMZG+Vonh2kG6IEXx5qekjJyTd7RpEVJ3Nhz9EIK9Q4=;
-        b=ViPax4bh+fTFonPSsILFnCqpDY9+k2BopC/czWPx5rT6gwyIu8pek4/b9cnEeOS7P4
-         qigi5nnj2c2AGEP3/8WlIkfUe4S0h50G8u/bBCW+S7n/v6bmm57zBHxyc0F+SkEqxuki
-         M0SyuSgSgY1nd1z2IGlvYawh34mDUqZoNF/++OMXhln8Ihp7LYETp81ltmXdzX5OzSmI
-         NvP1QQr9emXy5RR80eP1W/jvrhpD3YH01XlPYkojdDw9fp0RTNjTVnBJtdRArt0e0Tpg
-         Y0qZ6hJ/cgjpNImX+LWzlIjmLftU/SindQWMsO6Whg48MpxDFpJl2U+6+ifuaNespXjs
-         Q4+A==
-X-Forwarded-Encrypted: i=1; AKwUvByqzOG4PMmk68MxC2Iw9mEdirx96EfyNeTh5az6O2TkrT+N8l5VBdCEC+qWIZJBLkan51ymcI0b+8LCEpc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyOzTza+KsDvePuIvvunqHCZie5MF5us7UcN4vGvJxTB6WbkEC
-	5MZd2zPTz2QK/jip1WDxnoeCyhsSmC26RjHBnfVwuAnc/5MmLZTVcPNQwXLBou7p0OEwwlsWYNn
-	iu+HBMw==
-X-Received: from pgfd13-n2.prod.google.com ([2002:a05:6a02:654d:20b0:cd6:1ef9:53db])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:1441:b0:3e1:a4ac:2d5b
- with SMTP id adf61e73a8af0-3e928dc6c6fmr8634625637.41.1793647815861; Mon, 02
- Nov 2026 11:30:15 -0800 (PST)
-Date: Mon, 2 Nov 2026 11:30:15 -0800
-In-Reply-To: <979f3d53-d4b8-411f-bc66-cf487ff76d42@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=MKnnxfMi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=raRdFfKQG3ctF9Rx/PRY8SMQGHRdhOgJO6NWXsk2doQ=; b=MKnnxf
+	MibGczrzkmbcauZqJ6WSN2EtKBURVekAiOKKVnCxjQUcjc2UszWqQcgXztGvyiK+TdJ7gyTd+fbRX
+	ygT+a64vCOF3oG3IGXNzXQJTTm6uF7ACusqHYdaCdIr7oQmkGzlCiQGjjEzsYVHmxemMDoqdPQwhQ
+	mlpTwBKtZBIau721Z4G4sISRKr8Z/O8tjv39S7sBQS9t3wo4KHUF+d3yJaUrwGPbY/RQcaQ8AZY7e
+	FhvZruzPODFN0wHznsEHp/3RtKpdCa2kQRF+khjt/mo8b7xUx8fKys19LisUqMCy2Va8eEwCTfQyS
+	wRxgMy7smnxjDf6CIn/Bm1s8nPGQ==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219] (helo=fangorn.surriel.com)
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xNxjk-00000001W8x-0RGy;
+	Mon, 02 Nov 2026 19:30:32 +0000
+From: Rik van Riel <riel@surriel.com>
+To: linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Yuan-Hao Hsu <aa9736195201@gmail.com>,
+	Christoph Hellwig <hch@infradead.org>,
+	linux-mm@kvack.org,
+	Rik van Riel <riel@surriel.com>
+Subject: [PATCH 3/8] mm/gup: split out folio grab-and-store helper
+Date: Mon,  2 Nov 2026 14:30:21 -0500
+Message-ID: <20261102193026.3860700-4-riel@surriel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102193026.3860700-1-riel@surriel.com>
+References: <20261102193026.3860700-1-riel@surriel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,30 +75,163 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261031003309.3751-1-jason.andryuk@amd.com> <20261031032009.GIauVeaXTMNHgjYEiM@fat_crate.local>
- <979f3d53-d4b8-411f-bc66-cf487ff76d42@amd.com>
-Message-ID: <aujkx3-YmRrWd6nX@google.com>
-Subject: Re: [PATCH] x86/paravirt: Add ioremap_verify_range hook and implement
- it for Xen PV
-From: Sean Christopherson <seanjc@google.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Borislav Petkov <bp@alien8.de>, Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>, 
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Yazen Ghannam <yazen.ghannam@amd.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>, Ingo Molnar <mingo@kernel.org>, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026, Jason Andryuk wrote:
-> On 2026-10-30 23:20, Borislav Petkov wrote:
-> > And I know Sean doesn't like X86_FEATURE_HYPERVISOR but sorry, nothing beats
-> > a oneliner at the beginning of print_s5_reset_status_mmio() vs this overkill.
+follow_page_pte() does two things once it has resolved a present PTE
+to a page: run the per-PTE safety checks (write-fault, unshare), then
+grab a folio reference and hand the page back: fault it in if pinning,
+mark it dirty/accessed, and fill the caller's array slot.
 
-Deleting Xen PV support would beat it :-D
+Split the second part into gup_grab_folio_pages(), which
+takes its inputs as parameters, so the checks and the grab-and-store
+can be applied at different granularities. The name states what the
+helper does, not 'commit', and it takes the PTE's dirtiness as a bool.
 
-Yeah, just go X86_FEATURE_HYPERVISOR, I don't care _that_ much.
+The helper stores the pages but leaves the cache flushes to the
+caller: split them into gup_flush_pages(), which follow_page_pte()
+runs after dropping the PTE lock. Storing one slot under the lock is
+cheap; flushing is not, and needs no lock once the folio reference
+is held.
+
+No functional changes intended.
+
+Suggested-by: David Hildenbrand <david@kernel.org>
+Signed-off-by: Rik van Riel <riel@surriel.com>
+---
+ mm/gup.c | 101 +++++++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 72 insertions(+), 29 deletions(-)
+
+diff --git a/mm/gup.c b/mm/gup.c
+index f7d940e7e5ffb..27ae2a1d7c36d 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -650,6 +650,25 @@ static void gup_fill_pages(struct vm_area_struct *vma, unsigned long address,
+ 	}
+ }
+ 
++/*
++ * Flush the caches for @nr pages stored in @pages. The caller already
++ * holds folio references, so the pages cannot go away; this runs
++ * without any page table lock held.
++ */
++static void gup_flush_pages(struct vm_area_struct *vma, unsigned long address,
++		struct page **pages, unsigned long nr)
++{
++	unsigned long i;
++
++	if (!pages)
++		return;
++
++	for (i = 0; i < nr; i++) {
++		flush_anon_page(vma, pages[i], address + i * PAGE_SIZE);
++		flush_dcache_page(pages[i]);
++	}
++}
++
+ #ifdef CONFIG_PGTABLE_HAS_HUGE_LEAVES
+ /* FOLL_FORCE can write to even unwritable PUDs in COW mappings. */
+ static inline bool can_follow_write_pud(pud_t pud, struct page *page,
+@@ -822,6 +841,54 @@ static inline bool can_follow_write_pte(pte_t pte, struct page *page,
+ 	return !userfaultfd_pte_wp(vma, pte);
+ }
+ 
++/*
++ * Grab a folio reference for @nr pages starting at @page, mark the folio
++ * accessed (and dirty for FOLL_WRITE), and store the pages for the caller.
++ * The caller flushes the caches after dropping the page table lock.
++ */
++static long gup_grab_folio_pages(struct folio *folio,
++		struct page *page, unsigned long nr, bool dirty,
++		unsigned int flags, struct page **pages)
++{
++	unsigned long i;
++	long ret;
++
++	/* try_grab_folio() does nothing unless FOLL_GET or FOLL_PIN is set. */
++	ret = try_grab_folio(folio, nr, flags);
++	if (unlikely(ret))
++		return ret;
++
++	/*
++	 * We need to make the page accessible if and only if we are going
++	 * to access its content (the FOLL_PIN case).  Please see
++	 * Documentation/core-api/pin_user_pages.rst for details.
++	 */
++	if (flags & FOLL_PIN) {
++		ret = arch_make_folio_accessible(folio);
++		if (ret) {
++			gup_put_folio(folio, nr, flags);
++			return ret;
++		}
++	}
++	if (flags & FOLL_TOUCH) {
++		if ((flags & FOLL_WRITE) && !dirty && !folio_test_dirty(folio))
++			folio_mark_dirty(folio);
++		/*
++		 * pte_mkyoung() would be more correct here, but atomic care
++		 * is needed to avoid losing the dirty bit: it is easier to use
++		 * folio_mark_accessed().
++		 */
++		folio_mark_accessed(folio);
++	}
++
++	if (pages) {
++		for (i = 0; i < nr; i++)
++			pages[i] = page + i;
++	}
++
++	return 0;
++}
++
+ static long follow_page_pte(struct vm_area_struct *vma,
+ 		unsigned long address, pmd_t *pmd, unsigned int flags,
+ 		struct page **pages)
+@@ -877,39 +944,15 @@ static long follow_page_pte(struct vm_area_struct *vma,
+ 	VM_WARN_ON_ONCE_PAGE((flags & FOLL_PIN) && PageAnon(page) &&
+ 			     !PageAnonExclusive(page), page);
+ 
+-	/* try_grab_folio() does nothing unless FOLL_GET or FOLL_PIN is set. */
+-	ret = try_grab_folio(folio, 1, flags);
+-	if (unlikely(ret))
++	ret = gup_grab_folio_pages(folio, page, 1,
++			pte_dirty(pte), flags, pages);
++	if (ret)
+ 		goto out;
+-
+-	/*
+-	 * We need to make the page accessible if and only if we are going
+-	 * to access its content (the FOLL_PIN case).  Please see
+-	 * Documentation/core-api/pin_user_pages.rst for details.
+-	 */
+-	if (flags & FOLL_PIN) {
+-		ret = arch_make_folio_accessible(folio);
+-		if (ret) {
+-			gup_put_folio(folio, 1, flags);
+-			goto out;
+-		}
+-	}
+-	if (flags & FOLL_TOUCH) {
+-		if ((flags & FOLL_WRITE) &&
+-		    !pte_dirty(pte) && !folio_test_dirty(folio))
+-			folio_mark_dirty(folio);
+-		/*
+-		 * pte_mkyoung() would be more correct here, but atomic care
+-		 * is needed to avoid losing the dirty bit: it is easier to use
+-		 * folio_mark_accessed().
+-		 */
+-		folio_mark_accessed(folio);
+-	}
+-
+-	gup_fill_pages(vma, address, page, 1, pages);
+ 	ret = 1;
+ out:
+ 	pte_unmap_unlock(ptep, ptl);
++	if (ret > 0)
++		gup_flush_pages(vma, address, pages, ret);
+ 	return ret;
+ no_page:
+ 	pte_unmap_unlock(ptep, ptl);
+-- 
+2.53.0-Meta
+
