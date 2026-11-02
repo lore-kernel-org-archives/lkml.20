@@ -1,108 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657128;
-	b=Dzh2TJzrlRatJAQyqS7LpFQMSKSU3yG7VvbYRicmZMte71SaEVorRAaNfcC0gg53sX2Q
-	 WTIZsMff0arZtNpLEGEoKLj+BkerAupgHxh1sDjLYvGd87s0fHki3mISl0rjQn0egKEDQ
-	 jsxlf4d4vXWKZjbYqYW7Fsl0k/zD8grM00+g/Zb7Xw5Rhwv8uPUR8sogyIoR8nUiKvHja
-	 rMve07Fb4myUuCI+8lqInOq8ucOH2wZab0wf0g2m9fS2TkL+jRcV3vip9DhrWBK9GRiLp
-	 4AwJBRe9bQEMjBwu3B8y6uqFQWWnqqcZwBWRK1W3S/QIE9U62EjRDZOnE8ZdIzob1EQ==
+	t=1793657151;
+	b=RH63KtdKLkxDbSwicwTXDbDsl2HzpeASFb2LKad2833ihurqBB+TeA+CJfrl3GIVqhvg
+	 nfSwnaIbuJtVz7ZO+o/4+AgDqF//FxG8yqK/V4bsvbRosmyWMx2jQpIiHWjWhhKP62tGK
+	 Jl+DDycdQ5yOIPkk+8BXiv9oIaoiX6Ky+vIy9bJwSGT8/Dmu3Ktq6yEhFSIyZ3SH/Ejye
+	 vo0tHX1b7xwaIE+CWpAFTKJ/7o6tz8ys7bWAzZIlb4UqRrqJS1VnjsEC55dbmHn758DOg
+	 R1oBXfRlC+hSm8bHSh2q7s5/C65KRMm6wlByO1njJNBsml9BkICBnZL/f42E5avAXgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657128;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2JasoZs4pU8J575UCokZsfJygggnE4HUTF2MY/ekZJM=;
-	b=eXTMdFFJDFo/E2lUOZgldYs/Xs7DaYS73y1XMU0rqfVljsHEMvcxwprnmETmy7xl+vJv
-	 EZ34my9nJuySqz90TWbVLazSvQ5MktdF8boKSClh1rKrsgcfcyyEN7c86VBJbUqaCAHsT
-	 ez5xvLOzUM8pnhJZzHCCCGibpOsDqeAAMMsckQnV6+OtFJmumref0JvfC9yM0/nD7KrjJ
-	 ANPHLq0bQxvZ7uEPv2DnjcNA5B7y8e32dFqm6JBkHcckzod8QIIV7rS0C5LMX4eIK07i0
-	 Zz0CXCmbQcQ9GFjp/1ipKmmzxJ1+q9SHgctiAwKLK/PPcGKT2L307fwBadx2/ceBoyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657151;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WbO27fB9MCHWgmwd8K9aWTFM4mLncfhM2klGB0+xjUE=;
+	b=LirLmHdJ3Oxv0jD4gn12Xr7tp+7HhAe0dEFX7iew5aEmM7G9SDNALoEkVtmgzxJfdG48
+	 LK+vnP4cAxx3QFyKZO0gDnaptkmJqMbIau1OTVsoS6Rl/0Tc/4E2pjWmwh0Y8GdpKwdNp
+	 SYxIvxkcGUbUDKgZLKKt5OgIQh8H4XVprQbx18XviGy4y4DurwTjjj4bmbp9GcdgxxDyB
+	 l1r3u6XWtmAHh6gAgvaEG9KQ1FprG3D6Q8bF86Kqhs7pFzk49mcEaFDpPPqYsZe1CwN8H
+	 NyhuxqzC5kCfQpjSFEXUOjztaTVTDLTeWZzj0ajZU66tAqTO/E06epzd45MP2OGXuGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O99SkEkG;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjR47HKY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AF1606D80D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:05:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12AF1606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A87B606A32C;
+	Mon,  2 Nov 2026 22:05:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O99SkEkG
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a18fc7a38so6476032eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:05:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793657127; x=1794261927; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2JasoZs4pU8J575UCokZsfJygggnE4HUTF2MY/ekZJM=;
-        b=O99SkEkGgX+yDaEspfPEBwygqQ8yh0ngcnnm/iplfx2/07xIvSVgCWc2jc1qSkcnwO
-         jwtCw1qWTsbouhE1lPeROQ3bJgD/8puj6J3ZcZehM7KiNfcNo5a15Ea1Tn+iKWQN0xcC
-         SVz0yHWR9XOgcrbepl4xvqGN0g4RpL1+2S5tarjVZ127Q6+qaBy9dPX3zPa8fFvAvtMm
-         klf9k68dSi0CUQizgOk+OWsodAUtoJTSo47meAdeX/9NRKcji9hdhBcZyU3a7b35XVVY
-         DH9AisRVVfLhfy/udG35z2389KxygGWgIF/3F/JYdd2ks6xjup4RnAYhSiRQqnJHS7/G
-         9PZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793657127; x=1794261927;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2JasoZs4pU8J575UCokZsfJygggnE4HUTF2MY/ekZJM=;
-        b=ShzZDZCZMbTZ5IxumOhn8nFLuLg4ZnbfXD+3y3KaauP5iz6dCoydkCpjdRlxe/UaK4
-         aPYTiA3Z51gDrVTZrhZQOjSkmI/5Uk7ZvwoXQRQ3qjWJOPdDqCiFtVR2bSnA/ZpzTxYU
-         tB87rN8G9BHiS0XkUfvAiY++TPkzaGEW0HZGTeV2Bj+KYD9AR8b9ZcKDL6vECSkYRRxH
-         jFSzsHnC6f/KpmK+oxfWi1sTlwVif6nnLVCssUfRCe8+nhGTrk0ZERV89JTrh5cL8Pm/
-         Y2+knAZpsfvSzloYiNXNjhMZMfLeVqxrDk01Kfs9iBtD4KPdfg1P3lrZv2I2Mj8z9aFd
-         SVOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwb1rMQLo94rf5ytPRstsiZ9M0HPEAyFOrK58HMKsROkyxaisA9X1UiTwZllU1mIOpjP6VZDBbC2Z4TIgg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++V+zQ9V6R9TZRvJj13AlVP+s5jC+pkAIgW6VMhQwYV9nNs0cV
-	V+z9qoNOkmxN8xUzM0FBCwJuzQutnEG86wNX1ObRzLs1EL2T2XbRgE8X
-X-Gm-Gg: AYBFou1MLgf3zscHd1ePVZTvqEbhLWYnbIGY+AfUrlC6LuRYAO+eiRLPFAbtd1f5Ogn
-	VqSJuacqdy3iBfBYPox/8je1G13pqNjHeth7wXIzTcn+CAF7HST7zJeX1NzPE9AfaEdVGImtEvu
-	+PtNS4TYyIPZ8n+6aVKA3MDfPtK0dDnZNAHAoyDlhffiac9aJ03dK6nPAV2KU3gVxQI6wOkuwnP
-	zUvo/AU2I4DcIlH/0zU4ZH+x+5AjFx+TFiRjXq2TKtYK8UmaWPG9k0kHPhykif0gre9UGbGO7Dy
-	VEx+4Cdrx29OvLPwWbHuPOAE7lNlsE/r5OdTmDiDR6V+QWotYJD2ZOTx7HnivBncPM1dZVQr6jR
-	RWkuxUhj1xuge+EmmY7aN3Y/Iwm+jJd8Zo//jrkixcGA2qsHY+MdaE2EK7N33jugNqFD+LmHx7Y
-	vhFHM65CrbHP/PGYWN8Kz87PpWRA4dWB+2X9euC7uyN2Pkwc30M8HBRgrmtYbhFR2dJfe9hVv04
-	OOJ7BnO8ut37NFgcqbq/8Wqj83Y/GoDcrXUcF5FW9cGNky6eD1Z+6g49iCWrbKFkUiqoxLdZeeI
-	OuQL9BKV+FRHvIc0JgatiK3xDQURg9xmYsByYhT8mwWb
-X-Received: by 2002:a05:693c:6092:b0:361:7ab9:479d with SMTP id 5a478bee46e88-36a423ee70bmr20683512eec.27.1793657127005;
-        Mon, 02 Nov 2026 14:05:27 -0800 (PST)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429467cdsm38470009eec.19.2026.11.02.14.05.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 14:05:26 -0800 (PST)
-From: Joonhoe Kim <26rote@gmail.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Stefan Schmidt <stefan.schmidt@linaro.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Birk Skyum <birk.skyum@pm.me>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion during power-off
-Date: Tue,  3 Nov 2026 07:05:26 +0900
-Message-ID: <20261102220526.1755-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
-References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com> <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjR47HKY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA941F00A16;
+	Mon,  2 Nov 2026 22:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793657151;
+	bh=WbO27fB9MCHWgmwd8K9aWTFM4mLncfhM2klGB0+xjUE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IjR47HKYx7+3vt6N7O/fs0Hbtsx2Hrzt+gv6lOk1k6l7sXW0sgUAtjV0QX2XejiXU
+	 5GpFhU/HfpQ/DHWoPYn/OCyWGOQZxjDnW6a1p39+OgXiEjg1xijv66dLPPklsNOhCM
+	 mUrJIGw2mMYtkxSKVupQL5NtNQPLzFbFGVQhTEVVyYwaw5/+TqUZgvdpqh0h6CJ8nW
+	 KLadvIpU9jA0bIgLaR8UTFW/nSqbt/J4RiuuaZSlhq2+hAhzJcmivrcCw65cGIyxXy
+	 oToZrKsH3Ycp/seNs5VWHnZCerfYdlKZMWULrlY4P0y4MXkGRpSsEi2+iYGR6LGRHH
+	 E1QqqEn07ftdQ==
+Date: Mon, 2 Nov 2026 22:05:46 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: Brian Norris <briannorris@chromium.org>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Rafael J. Wysocki"	 <rafael@kernel.org>, Ulf Hansson
+ <ulfh@kernel.org>, linux-pm@vger.kernel.org, Andy Shevchenko	
+ <andy@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ linux-iio@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>,
+ linux-kernel@vger.kernel.org, Jiri Kosina <jikos@kernel.org>
+Subject: Re: [PATCH v2 09/17] iio: hid-sensors: Discard
+ pm_runtime_put_autosuspend() return values
+Message-ID: <20261102220546.6fa5c62d@jic23-hlaptop>
+In-Reply-To: <84d712c6aa3df7df8fdb6cb85b85d720bdab5840.camel@linux.intel.com>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+	<20261021165858.v2.9.Idbac8a0f9ecdd345191130e256e8d881d991bfc7@changeid>
+	<20261102015255.487bd1bd@jic23-hlaptop>
+	<84d712c6aa3df7df8fdb6cb85b85d720bdab5840.camel@linux.intel.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,30 +68,126 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vishnu,
+On Mon, 02 Nov 2026 08:55:44 -0800
+srinivas pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
 
-Without the series, I hit the same deadlock on a Lenovo Y700 Gen 5
-(TB323FU, Kaanapali, v7.3-rc). It happened when removing the module
-right after a decode session. rmmod waited in __synchronize_irq(),
-and the iris IRQ thread in iris_hfi_isr_handler() waited for
-core->lock. A loop of decode, rmmod and modprobe reproduced it in
-round 4 of 20.
+> On Mon, 2026-11-02 at 01:52 +0000, Jonathan Cameron wrote:
+> > On Wed, 21 Oct 2026 16:57:10 -0700
+> > Brian Norris <briannorris@chromium.org> wrote:
+> >  =20
+> > > The hid-sensors driver propagates the return value of
+> > > pm_runtime_put_autosuspend(), which is not particularly useful.
+> > >=20
+> > > Returning an error code from pm_runtime_put_autosuspend() merely
+> > > means
+> > > that it has not queued up a timer or work item to check whether or
+> > > not
+> > > the device can be suspended and there are many perfectly valid
+> > > situations in which that can happen, like after writing "on" to the
+> > > device's runtime PM "control" attribute in sysfs for one example.
+> > >=20
+> > > For this reason, modify this driver to simply discard the
+> > > pm_runtime_put_autosuspend() return value.
+> > >=20
+> > > This will facilitate a planned change of the
+> > > pm_runtime_put_autosuspend() return type to void in the future,
+> > > similar
+> > > to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put()
+> > > return
+> > > type to void").
+> > >=20
+> > > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com> =20
+> > +CC the various hid-sensors maintainers.
+> >  =20
+>=20
+>     Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+>=20
+>=20
+> > Anyone remember why this does
+> > pm_runtime_use_autosuspend(&st->pdev->dev);
+> > in this code?
+> >=20
+> > That is unusual...=C2=A0 My immediate instinct is to
+> > get rid of it, but maybe there is something subtle
+> > going on. =20
+>=20
+> When reading sensor via raw interface, you need to power-up, read and
+> power-down (This is done via runtime PM). To avoid repeating this
+> sequence of power up and power down for consecutive fast reads, auto
+> suspend is used. If there are reads with in 3 seconds, the sensor will
+> keep power up.
+>=20
+Ah. I was too vague in that query.  Why is it enabled only the power
+state interface rather than at the start when runtime pm is enabled?
 
-With both patches on v7.3 and out-of-tree Kaanapali support, the same
-loop passed 60 of 60 rounds. 2/2 needed context changes only. H.264,
-HEVC and VP9 decodes still matched software decoding.
+That seems to be done via a slightly unusually on first turning on
+of the trigger rather than more generally.  Normally we'd expect
+it to be enabled in driver probe and all paths that need the power
+on to do a pm_runtime_resume_and_get().
 
-Tested-by: Joonhoe Kim <26rote@gmail.com> # Kaanapali
+I'm not seeing why it is in this particularly location which doesn't
+seem to be particularly sensible to me.
 
-One question. While core->lock is dropped around disable_irq(), some
-callers take core->lock directly rather than through
-iris_acquire_core_lock(): iris_hfi_queue_cmd_write(),
-iris_set_clocks() and iris_set_interconnects(). These are not held off
-by irq_disabling. Also, in iris_core_deinit() the firmware is already
-unloaded at that point, while core->state is still IRIS_CORE_INIT. Is
-that window meant to be safe?
+Jonathan
 
-Thanks,
-Joonhoe Kim
+
+ =20
+
+
+
+> Thanks,
+> Srinivas
+>=20
+> >  =20
+> > > ---
+> > >=20
+> > > Changes in v2:
+> > > =C2=A0* Split iio patch into per-driver patches
+> > >=20
+> > > =C2=A0.../iio/common/hid-sensors/hid-sensor-trigger.c=C2=A0=C2=A0=C2=
+=A0 | 14 +++++-----
+> > > ----
+> > > =C2=A01 file changed, 5 insertions(+), 9 deletions(-)
+> > >=20
+> > > diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > > b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > > index 60808e2430ca..d76a6d9f04f6 100644
+> > > --- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > > +++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > > @@ -154,21 +154,17 @@ int hid_sensor_power_state(struct
+> > > hid_sensor_common *st, bool state)
+> > > =C2=A0{
+> > > =C2=A0
+> > > =C2=A0#ifdef CONFIG_PM
+> > > -	int ret;
+> > > -
+> > > =C2=A0	if (atomic_add_unless(&st->runtime_pm_enable, 1, 1))
+> > > =C2=A0		pm_runtime_enable(&st->pdev->dev);
+> > > =C2=A0
+> > > =C2=A0	if (state) {
+> > > =C2=A0		atomic_inc(&st->user_requested_state);
+> > > -		ret =3D pm_runtime_resume_and_get(&st->pdev->dev);
+> > > -	} else {
+> > > -		atomic_dec(&st->user_requested_state);
+> > > -		pm_runtime_use_autosuspend(&st->pdev->dev);
+> > > -		ret =3D pm_runtime_put_autosuspend(&st->pdev->dev);
+> > > +		return pm_runtime_resume_and_get(&st->pdev->dev);
+> > > =C2=A0	}
+> > > -	if (ret < 0)
+> > > -		return ret;
+> > > +
+> > > +	atomic_dec(&st->user_requested_state);
+> > > +	pm_runtime_use_autosuspend(&st->pdev->dev); =20
+> > This is odd enough to make me nervous even though the patch is
+> > obviously a no-op change.
+> >=20
+> >  =20
+> > > +	pm_runtime_put_autosuspend(&st->pdev->dev);
+> > > =C2=A0
+> > > =C2=A0	return 0;
+> > > =C2=A0#else =20
+> >  =20
+
