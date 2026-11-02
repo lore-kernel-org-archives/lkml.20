@@ -1,115 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793622112;
-	b=IcuOV4dtJsUfDPdDR3HI91qfvdnCtm0N8mpVlIqa0LJAjPc4n7zrTtH0zRkYquetq+on
-	 D8MIj66FZwBb3TYvokekWmzsnecmc08hYRwczCN9qtYorGAv6rGeLHLQ55G/eR1kp2GZX
-	 jqOvvSePZAPDXj0MdUXruqadihEbP76GTP+hSnUEg+Zlt/H/GtaI3NX9ON4IBxKXLNpBm
-	 P1+okZhHzk4/KGzwM/nhnrvyBeEe8BdOt5r63ogrDDxs7YRtUx3MbPuzOisGp8EYExFOW
-	 mYpYzqUgx2fooVbMPgq8ZLNmchFqRhE3RdBFd1ZrwG8kRg4JY4KzCE16DVJJqgvLU3w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622112;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xVGwxQnPo8iNr+bJIVXidlAAJucJK72QQd8YYeApDKs=;
-	b=Xc+fO6fWJGVWCFNyha1oy7o/W0ka/rtjoEcA3tBzo3cqG3/CRV+vZcdzabjv/ab6LfSv
-	 bcT67D1V2aha+QQa3MsZPm21jCzruEe6HSBvJOa8bo/LUrE1eJq/eA8aCrTkxz1yuWkbC
-	 mHLT7eWj9RJfS0/y2brITPfU/p2S7T3B7ll0laRE+KoO+mCUn0GFztD4ZTuXvusQMi/2Q
-	 rPBnzcHHO2nQVmHPdeWInancT4252s6DiU7rEZ3kJvtKPnj0Ny4+zbb//sKzRpKQUtx04
-	 1p9Oh9XPppL2ttwdmh6capazAC3tuBDr72P+rU/srRYxcvnzbJ5UK5hzcMeKz00Xz7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XM26OgWD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.62
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013062.outbound.protection.outlook.com [40.93.196.62])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793622104;
+	b=mlnLkN8CeWzHMcWxWdSbXlwmymO2WooVK3LyfJ/V76F2lD37m8q6gKSToaMGW2qaUueH
+	 rYQ8nMZH7ScmbbDK1goUD7l1LskzdKH9FnzF+tiWKMJ5ZVOsgwJbWgNYrReowkPREmC6s
+	 nY2VZ7vkLNycuMIUY0afHOdbpgmoVSoWU2n/6h1anaNBojzavCtkaEjUlyv1mceDgJEnc
+	 8EWX58HOvCYlVSdu5osVDk9ovSda9uMPJVJLuQ4Clu5tE0V3gW4XTbNHQpGJ/vMctfDj7
+	 OLFnylN9mWOoCEFeAxrmmGG4xD0R8cRSN7hgcESswZzQ3F9/iGYG3BnpusCe9jtrP+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622104;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
+	bh=J0rANoRyuKSy0ZjIVrTiCMH86C3H43yiAnxVDLnS47Q=;
+	b=JmuaEbuX2Uwaie02CDC89izEcUqo1l85NfAuzx2Iui8calxpufkPsyZQmwXErZmteKb7
+	 d7VLT9qon+1uxYIzMErCw9Ac+lPnAdP489Yau7KKyi2WZC4NzlJOXVvNbjphbs7e20C/M
+	 SwUKpGWL0JcoQTzZEMkHp3A+EwBDBVlRClKLgU5XP3AW8A9gJXXV+ZYzHsGiNfi5UlQ/5
+	 NEO4WMwH4O3jsMjTBS68cCrhUxYEhcMQA6/sjbdK/RRF2O8TULMvNMsrDD8+UE5mr8HuB
+	 JSTimWzPIbc7fBwtY93tRFoDCqoOAzbXhKCGz4EqQ+Z5TBaNsKtb2QgJKDl5PD3ReqA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=uKtgmZVe;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F088960A6F6C;
-	Mon,  2 Nov 2026 12:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F088960A6F6C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADC660A3815;
+	Mon,  2 Nov 2026 12:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ADC660A3815
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XM26OgWD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ama+vbEcyIT3ZWCzBktiF2Ub9bcMPL9jggFTrjuPP6/cstT/X5lplruYa+TYzz42yXzRArcQ6d+wiq360GdxQu9be2r0CX61GciEADFFRUapoXUeRRr4DhQBWdAphJ+R2qdu2Adbz7zMahATl6O51RjCV60R7Q9it9so0pGe+UzplMxDwd9gQeSTu80dx0Vi/sLjtDG0O8fynmC2dkInLVpAlZ1C7cdBO8sPD7SzNVn0wUg8yfrkFeUkV2IzsU2g3WP7H4Rj6TIXEVxs4HX+WofLfzzvdoTc6Aaoy1ae0dhMeNK7nIgyKT2L9C967cpuV8sRvDEYMK1b/mz+uBGwaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xVGwxQnPo8iNr+bJIVXidlAAJucJK72QQd8YYeApDKs=;
- b=gplnDUDnDzwnJQdFQ9TFtTmizXMom/dOAEHJthfTf8Bye+cWJbDhi3THHJ5XWmKggspRqXz/BELeBPhuZ2z/FmCxiQYU0j//dTVu6pZonRooDxHhej/xB6YBnEY/SSDqUWpE7ATYpAzzG0SfBZF9gC2AlDvL6MvH2F/kVsFs6vgbUImrutnIjlItLnw86MGHl/EYRVmue/8hPEJonNlTI0z/y0/e1PcRBIBWTNa1DIDKuNNToua2dUdPD1cQ60TnGJtkDrR4R7eywBDqotn0/fGN8WxZI5n27ONSZC7VxnPVlS7EOWoNV+nwCOEDNvGdQ1URkd4iNAFpmGX6MkWKSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xVGwxQnPo8iNr+bJIVXidlAAJucJK72QQd8YYeApDKs=;
- b=XM26OgWD9eMJsHfLZh2uvlKPPBOVVrfqVNLAh0qQs1JR0YOA0pl+BkCfPIQQe5wurW3eI7jqfmOoh7UOJZhMDOiH8gmCma9qs1Ydz/j3hCFVndxKIkg39i0I71nvO7S0o2v6MlzPzQB5TvyCDTV0sZNUjQAJIzKBVmusnEqQEgc=
-Received: from BN9P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::12)
- by DM4PR12MB6009.namprd12.prod.outlook.com (2603:10b6:8:69::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 12:21:47 +0000
-Received: from BN3PEPF00022BC9.namprd05.prod.outlook.com
- (2603:10b6:408:10c:cafe::9) by BN9P222CA0007.outlook.office365.com
- (2603:10b6:408:10c::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.11 via Frontend Transport; Mon, 2
- Nov 2026 12:21:47 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF00022BC9.mail.protection.outlook.com (10.167.248.218) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 12:21:47 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 06:21:45 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 06:21:45 -0600
-Received: from xhdakumarma40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 2 Nov 2026 06:21:41 -0600
-From: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-To: Jonathan Cameron <jic23@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<amitrkcian2002@gmail.com>, Amit Kumar Mahapatra
-	<amit.kumar-mahapatra@amd.com>
-Subject: [PATCH 6/6] MAINTAINERS: update Versal SysMon maintainers
-Date: Mon, 2 Nov 2026 17:51:12 +0530
-Message-ID: <20261102122112.1723130-7-amit.kumar-mahapatra@amd.com>
-X-Mailer: git-send-email 2.44.4
-In-Reply-To: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=uKtgmZVe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793622103; x=1825158103;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=DzR/WcG18Lzs3fVFkqOEe50jzYkekyiez1z5HnVwevY=;
+  b=uKtgmZVe9FtkDN2LxA3xgdEH2hK+ZRUihJJoGqKuQcrLvwdgvNrcepEc
+   sDD+LH2R4PGJjaq+JjxCAG5jMGHdvtXAu996WDoKg3oW6hopzLByHutHB
+   Myvs3u5lZC4ng02/Qe4MfeTDLB6KHE+aW5V3Up5f5fJaPZ9Na6mPmIOeI
+   b4JC7a25PpOCUIZRYILb+HmKazzlt/gtoryABK0eBQDHObvcBOZlSXY0l
+   ZdZflxGlP2Ur12voqW7NTn9tTIfVNolhVg/R0fnGNtt4jBnGnGpwcqZld
+   bWQP42gk1/1PMnA4ooOlGFIa5tYQn8+7ycLs+5FZrlDYVe9VkF5EAts7y
+   g==;
+X-CSE-ConnectionGUID: E8AEfcniTAmGfcC9z3xeZw==
+X-CSE-MsgGUID: qY1peQcPRt2HUtMCUEvYSA==
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="232950957"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 05:21:43 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Mon, 2 Nov 2026 05:21:42 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 2 Nov 2026 05:21:40 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Mon, 2 Nov 2026 13:21:28 +0100
+Subject: [PATCH net-next v2 5/5] net: sparx5: Offload tc port policers via
+ matchall
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,57 +74,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC9:EE_|DM4PR12MB6009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 885ce92f-da9e-42e1-5a57-08df38dbdd52
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|261021123027099003|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	0TVBxJbsLN/zDDxExUCJsq7ZO/rXtNj/ZeAi7fOMR6hsg1QUdmCtUw3aM3aK0r1B6QHFMhnt8tg2EwIknrS/gx3lvr/hUXuDF7BURs3tAYu0Zo0+JHfdIk9atXY7ae0HUTpCZT9vNG2U2jFZRH7m/ItjnXRLe+BNFEnsmdOwrR764TuZokG6hz93hTlI5/Rno8j1lHM3hP9CmmF6n4Y+bkkKC4zLlYIO6DLTCZw2wLaHvTE5LfnOrG3JlevMt+HFCYiBukTcXegB6ZXeoNuYqh8e5pF9yVE2Go38IBztIrGpT+C7o+okshPlAp/8GLhzOPlMBjvzGdCzFWn80/GuWexfDA+dBa4L7WAipHSa+WJuaHD2RbZPmYH7buASqKODGRua+JgtV541x0TPPHWZGxhcwvXk4lg+g2Hn+U22kpamJnF03sOjPJj2VG6/nQakBusR+JWfmL8m7+/5/cGZG9e0RIDYOsdArDt+sByqQXVYr/WPE0Se+A11NIYC2rbU2GGZLIW9u77VW4e1rw6Z0tZB6ZJ5t/PESPiCo8ApIG1hmZHaQKSDM4Z0edhHDMzJOonBU95yZ5MeMoKO5OHowa78WwAfqKmxY2oO1E5CBSpg0ziy3+2iDyGRCK4eTWp4wJDsLOad6G6aGJFzFWpmEWaqiZwCB4W4DDc87l//F9wSjLaQj215sGNUDLPbPa/XbQOtU1rusXt6xE7ap+THqg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(261021123027099003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	gZnwTwbPWJksg63QRaSwxrSU3Zk1gLej264wmWfTb4Z4wbGzlSO2BBiuig8+7vfZfVksX5+kPHHbvDnq/36caZ3DJEt/hiRt0fXr71jUL2CtpkWs4970P6+T6dwxWLv0iUjThNOkheX4MQaWDxOl8Dc/cnr+neIBiocOqEmi+JxGEWg2/ilCYYgjoVcqxERoFbmw+t1BdUSdpq2AwDOEc93VmjOJKkYhm9HWP1L64kXm2SkhHSxomcbLh94bkld2SbQFql8+bCUyUm6OVgWyE8EfnRlmD9twg3oqwFXgofJKcJf57VHjzO4sTEttDdx6xXoKqJAmKRqZ+B6wUoP78R4QQ+CIY0aZ9mm20U+wmRXsUiSJgj7304DoXcJqFxvRIhlsKxq3cxDDuJTwbmAPhMlWFC183Ivxe7yzgiqcWnoGTvZDH5i3kIoGYwFlnQdp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:21:47.1620
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 885ce92f-da9e-42e1-5a57-08df38dbdd52
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6009
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261102-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v2-5-3bd47ec1b227@microchip.com>
+References: <20261102-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v2-0-3bd47ec1b227@microchip.com>
+In-Reply-To: <20261102-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v2-0-3bd47ec1b227@microchip.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>
+CC: <robert.marko@sartura.hr>, <netdev@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
-Replace Salih Erim with myself as a maintainer of the Versal SysMon
-driver.
+Offload a tc matchall filter with a police action to the port policer:
 
-Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+  tc qdisc add dev <eth> clsact
+  tc filter add dev <eth> ingress matchall skip_sw \
+      action police rate <bps> burst <bytes> conform-exceed drop
+
+The port policer meters all ingress frames on the port, so offload the
+filter only on ingress, on chain 0, with protocol all, and on a block
+that is not shared. Only drop is supported as the exceed action, and
+only one policer per port. A police action shared between ports is a
+single bucket in software, which the per-port policers cannot express,
+so reject a police action that is already offloaded as a port policer on
+another port. Report the pass and drop counts through the matchall
+stats.
+
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../net/ethernet/microchip/sparx5/sparx5_main.h    |  3 ++
+ .../net/ethernet/microchip/sparx5/sparx5_police.c  | 27 +++++++++++++++
+ .../ethernet/microchip/sparx5/sparx5_tc_matchall.c | 39 ++++++++++++++++++++++
+ 3 files changed, 69 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ecc22d1149d1..e3aca3bee13a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -30023,8 +30023,8 @@ F:	drivers/edac/versalnet_edac.c
- F:	include/linux/cdx/edac_cdx_pcol.h
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
+index 93df90a62a9c8..ad29db91ce91e 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
+@@ -218,6 +218,8 @@ struct sparx5_port_policer {
+ 	struct flow_stats prev;
+ 	/* Port policers hold the client reference (cookie) */
+ 	unsigned long policer;
++	/* tc police action, the same for every filter bound to it */
++	unsigned long act_cookie;
+ };
  
- XILINX VERSAL SYSMON DRIVER
--M:	Salih Erim <salih.erim@amd.com>
- M:	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-+M:	Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/adc/xlnx,versal-sysmon.yaml
+ struct sparx5_port_tc {
+@@ -304,6 +306,7 @@ struct sparx5_mall_mirror_entry {
+ 
+ struct sparx5_mall_port_policer_entry {
+ 	struct flow_action_police police;
++	unsigned long act_cookie;
+ };
+ 
+ struct sparx5_mall_entry {
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_police.c b/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
+index 0fb1003e1b189..a635b95a7bd73 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
+@@ -301,6 +301,25 @@ int sparx5_update_port_policer_stats(struct net_device *ndev,
+ 	return 0;
+ }
+ 
++static bool sparx5_port_policer_act_in_use(struct sparx5_port *port,
++					   unsigned long act_cookie)
++{
++	struct sparx5 *sparx5 = port->sparx5;
++	struct sparx5_port *other;
++	int i;
++
++	for (i = 0; i < sparx5->data->consts->n_ports; i++) {
++		other = sparx5->ports[i];
++		if (!other || other == port)
++			continue;
++		if (other->tc.port_policer[0].policer &&
++		    other->tc.port_policer[0].act_cookie == act_cookie)
++			return true;
++	}
++
++	return false;
++}
++
+ int sparx5_add_port_policer(struct sparx5_mall_entry *entry,
+ 			    struct netlink_ext_ack *extack)
+ {
+@@ -322,6 +341,13 @@ int sparx5_add_port_policer(struct sparx5_mall_entry *entry,
+ 		return -EOPNOTSUPP;
+ 	}
+ 
++	if (sparx5_port_policer_act_in_use(port,
++					   entry->port_policer.act_cookie)) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Police action shared between ports is not supported");
++		return -EOPNOTSUPP;
++	}
++
+ 	if (police->exceed.act_id != FLOW_ACTION_DROP) {
+ 		NL_SET_ERR_MSG_MOD(extack,
+ 				   "Policer parameters are not supported");
+@@ -388,6 +414,7 @@ int sparx5_add_port_policer(struct sparx5_mall_entry *entry,
+ 		return err;
+ 
+ 	port->tc.port_policer[idx].policer = entry->cookie;
++	port->tc.port_policer[idx].act_cookie = entry->port_policer.act_cookie;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c b/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
+index 146d7f28e8f3d..4961b49fe1831 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
+@@ -43,6 +43,14 @@ sparx5_tc_matchall_parse_mirror_action(struct sparx5_mall_entry *entry,
+ 	entry->mirror.port = netdev_priv(action->dev);
+ }
+ 
++static void
++sparx5_tc_matchall_parse_port_policer_action(struct sparx5_mall_entry *entry,
++					     struct flow_action_entry *action)
++{
++	entry->port_policer.police = action->police;
++	entry->port_policer.act_cookie = action->cookie;
++}
++
+ static int sparx5_tc_matchall_replace(struct net_device *ndev,
+ 				      struct tc_cls_matchall_offload *tmo,
+ 				      bool ingress)
+@@ -98,6 +106,30 @@ static int sparx5_tc_matchall_replace(struct net_device *ndev,
+ 		}
+ 		/* Get baseline stats for this port */
+ 		sparx5_mirror_stats(mall_entry, &tmo->stats);
++		break;
++	case FLOW_ACTION_POLICE:
++		if (tmo->common.protocol != htons(ETH_P_ALL)) {
++			NL_SET_ERR_MSG_MOD(tmo->common.extack,
++					   "Policer is only supported with protocol all");
++			kfree(mall_entry);
++			return -EOPNOTSUPP;
++		}
++
++		if (tmo->common.chain_index) {
++			NL_SET_ERR_MSG_MOD(tmo->common.extack,
++					   "Policer is only supported on chain 0");
++			kfree(mall_entry);
++			return -EOPNOTSUPP;
++		}
++
++		sparx5_tc_matchall_parse_port_policer_action(mall_entry,
++							     action);
++		err = sparx5_add_port_policer(mall_entry, tmo->common.extack);
++		if (err) {
++			kfree(mall_entry);
++			return err;
++		}
++
+ 		break;
+ 	case FLOW_ACTION_GOTO:
+ 		err = vcap_enable_lookups(sparx5->vcap_ctrl, ndev,
+@@ -151,6 +183,11 @@ static int sparx5_tc_matchall_destroy(struct net_device *ndev,
+ 
+ 	if (entry->type == FLOW_ACTION_MIRRED) {
+ 		sparx5_mirror_del(entry);
++	} else if (entry->type == FLOW_ACTION_POLICE) {
++		err = sparx5_delete_port_policer(entry);
++		if (err)
++			NL_SET_ERR_MSG_MOD(tmo->common.extack,
++					   "Could not delete port policer");
+ 	} else if (entry->type == FLOW_ACTION_GOTO) {
+ 		err = vcap_enable_lookups(sparx5->vcap_ctrl, ndev,
+ 					  0, 0, tmo->cookie, false);
+@@ -180,6 +217,8 @@ static int sparx5_tc_matchall_stats(struct net_device *ndev,
+ 
+ 	if (entry->type == FLOW_ACTION_MIRRED) {
+ 		sparx5_mirror_stats(entry, &tmo->stats);
++	} else if (entry->type == FLOW_ACTION_POLICE) {
++		sparx5_update_port_policer_stats(ndev, tmo);
+ 	} else {
+ 		NL_SET_ERR_MSG_MOD(tmo->common.extack, "Unsupported action");
+ 		return -EOPNOTSUPP;
+
 -- 
 2.34.1
 
