@@ -1,62 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793577847;
-	b=Ms/6lcyMCcBkWI+Pp0vTaSFG594USi3PSQ7wPPcw1TTANs6YOqvO0oV2PrvVbkTInnfa
-	 ije7EL6s7a48fMtcHvIWXH7b+baY4TVQWL+4mC8R6G7zwrMN3FWj/YLfGEbYdYc+sodDX
-	 b3jqRuxnWxkN6zViLX+bdUKhlOitbLoxMiVTMZaVL02GKBUR3ez79EnUtOeTUOSZa9fWP
-	 MlEG7flep/BsaWzthZ5P0qKjvNVgWtjCtW/YV/LUHPKKDoSsDekjQEYGlHp6KK0PjyDDM
-	 5ZVyPV38uiQTW3ohj27F1N9ia8M7JmVE4T3SZDo1WvcvSP1CHu1UKGS844nud4GU/8w==
+	t=1793577853;
+	b=CNsxpCoGEBB9lIabJfvHLuG2KvbmSEGiwkA2qCN8wxB4Iohc4TpQYG6HF22XpLLWzH5A
+	 zUJPwP52MspuH7yS45lnoj7UOhVymMxQ5tuw6TNWdakofFFerDEDJoI0W1k/X5NV+8rBa
+	 aSw3eO3tfVArNbmSyZDIzc4++flxr92zXgxVVovmNty3Z+mgmhjihMOaUpimzxLaAW9Xl
+	 b+X/TerIvLVyfwFqXoTGZgDiyWyr10cRbzR3JT25W2AKyX2jxd+KBKSzfet1107TqjQ8o
+	 5AtvTN1L0fHFgMiR942ZIDym96g/VFi99NkXqskM+nUQ4hIS3Y1uul0VgvStaM62mRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793577847;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577853;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Yht5EhO2fepanr/r7uFa+SNwGFcgYQP5fg401lDqyv0=;
-	b=ofueHHgVgQg72PjiPfWF6yDT5PebGU8NSNJiIk9AcqWPmjOtUcMBdr/0oPXjY3OSGRvR
-	 1HAb65j1cv4szJ4gJI4FUSCKum5C40SWaDRbNdvNye2yXQoxLrVBjH8KWytr0YxofMOJQ
-	 9ZekhmHWpdb1YxBU9SZff1nLPFtJwqMyaQbx43l0lpE9zJd2+qvRsZKDnk7xuc7DGCm6k
-	 HzOapnOQFfWalfGjdXcPOw6gKulbZjekIR2tGd73zKTJ8Bz5WYokPT54jq5mXAEeiq03h
-	 wCz1Q+8sDI0VwXUK+fSUsWDhWtHLPKf/2bQ4ujLJey4sY+TOR43bXFPBfZDquvF/6ug==
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KBin+VBb1gehkdGJoG2mdgFia04vBVa3nhreBJaAphI=;
+	b=XRpZfIikv8WrP/BRKjwJiwqc0WqdoCFGwfAC2+3Lvpcm0PMpqfQvQS+i7or6GvQAJ9kc
+	 q+PyD/PuryKwTxX9vEtRhnrsPMIQgucsDN7A3GwH+HjasJnCAuij6W7bnc2K9Kg9QE0/H
+	 wKyv4qX+0WMm8hD4TnwW6jxW5LDsVNFPn9bemVTXmiWobhuATGLzCyA7+FzvZfm0B8l6T
+	 jhyLjCrapFmu0hOb0x4Apx0T0SVY+5fPB4eT8EQ271Mu+2mRh+ymgEPaI1Cwj5UuvMSl7
+	 RKSD0ImTU3ClWMdmUatG/ciq79I9ty4KeFJjX+kdi7k2LHtTcaCPbNRZaiwKik/Hh0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgoWLjoC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1rgjWhg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id DEC39606A331;
-	Mon,  2 Nov 2026 00:04:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52739606A33C;
+	Mon,  2 Nov 2026 00:04:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgoWLjoC
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3CD281F00919;
-	Mon,  2 Nov 2026 00:04:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1rgjWhg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7B01F00919;
+	Mon,  2 Nov 2026 00:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793577846;
-	bh=Yht5EhO2fepanr/r7uFa+SNwGFcgYQP5fg401lDqyv0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lgoWLjoC3Bl4vLFt/K7GfHSW1aV2rqlvD1tpNVc93ALT6CDzfOmecmkpcmwkck7Wg
-	 kwuskCJvtzf+nqzJkV0rs45qAG5fRScDjV1OlB94FdXvdDvBD1Puh9uf8WXOOitBZw
-	 GMG4PbddiAPIF1+MgXP1TuXgWq3U8E693UPuHMPPAKVsPzjslZV9Me4XJexXNpkWaX
-	 sw16c5NmcUOLqcZl4OWq5MQHThPRoM89luj1NuHg+YAohHiWtsa3W2wvJBvGgckQIf
-	 6xpawYvq3OGiSaVCqm9gYGLUTS7N9FDEDssI6TkZZCWMDz6G6lSUxH+hoEZFj1QTL8
-	 spLF9uldDntbQ==
-Date: Mon, 2 Nov 2026 02:04:02 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:ASYMMETRIC KEYS" <linux-crypto@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v4 2/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <aufTcqW-DTB9Ofai@kernel.org>
-References: <20261029232437.2581640-1-jarkko@kernel.org>
- <20261029232437.2581640-3-jarkko@kernel.org>
- <20261101232149.GC2689@quark>
+	s=k20260515; t=1793577852;
+	bh=KBin+VBb1gehkdGJoG2mdgFia04vBVa3nhreBJaAphI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=R1rgjWhggpddPfEwOMveGnQqrUll52v6MaouClMm7/QQ5Gox51xe+oVsjnERB3eap
+	 UZ03fkZRvzQMh56tRlNTBmmHLd/1YuzSaqB5khHFWYRZz0Yqj62rKsuH+KcSCY6fKa
+	 1fPLw5qZS9ynrhA/9ZKrdy8K+OoojoD0nPFoHuGYKxEkQTOX08gUOH0cdoPz3/wOB2
+	 hXRetKTyJMbzxNB3AxLtQML08iakUJMW6OfTsQatrmqPBzTqixlI0AisKtoIOzeAON
+	 cWFhHsG6Ol1br0LpOwuFnVwyQPFqzKj2wFLngX6N1VG8+upU70wb2tFcc/K+iejB+v
+	 hiJjMI6vy0qpQ==
+Date: Mon, 2 Nov 2026 00:04:06 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
+ <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, linux <linux@analog.com>
+Subject: Re: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
+ buffered/triggered capture
+Message-ID: <20261102000406.342657af@jic23-hlaptop>
+In-Reply-To: <20261101235010.79416e15@jic23-hlaptop>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+	<20261026000910.328f6cd8@jic23-hlaptop>
+	<LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
+	<20261101235010.79416e15@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,134 +72,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101232149.GC2689@quark>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 01, 2026 at 03:21:49PM -0800, Eric Biggers wrote:
-> On Fri, Oct 30, 2026 at 01:24:10AM +0200, Jarkko Sakkinen wrote:
-> > It is the sole user of this data structure,
-> > which has during the age of LLMs transformed into a maintenance nightmare.
-> 
-> As I said on v3, this probably should be reworded to be more specific.
-> Otherwise it sounds subjective, and it may become a weird Phoronix
-> headline like "Linux awakens from associative array nightmare".
-> See the sentence I suggested at
-> https://lore.kernel.org/keyrings/20261027012952.GC2395@quark/
+On Sun, 1 Nov 2026 23:50:10 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-The point I'm trying to deliver is that the evaluation of the
-implementation is not important overall.
+> On Tue, 27 Oct 2026 09:36:47 +0000
+> "Sabau, Radu bogdan" <radu.sabau@analog.com> wrote:
+> 
+> > > -----Original Message-----
+> > > From: Jonathan Cameron <jic23@kernel.org>
+> > > Sent: Monday, October 26, 2026 2:09 AM    
+> > 
+> > ...
+> >   
+> > > > +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
+> > > > +				       u8 *fifo_data, s64 timestamp)
+> > > > +{
+> > > > +	struct adis16607 *st = iio_priv(indio_dev);
+> > > > +	u16 msw, lsw;
+> > > > +	s32 val24;
+> > > > +	int bit, offset = 0;
+> > > > +
+> > > > +	memset(st->data, 0, sizeof(st->data));
+> > > > +
+> > > > +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev-
+> > > >masklength) {    
+> > > iio_for_each_active_channel()
+> > > 
+> > > As sashiko notes, masklength is private.
+> > > 
+> > > There are a load of places we need to update to stop accessing these
+> > > directly but please don't add another one.
+> > > 
+> > > It's on my list to throw some LLM tokens ago once I get out from
+> > > under review backlog.
+> > > 
+> > > https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20261023-
+> > > adis16607-v4-0-
+> > > a4d541ebfd13*40analog.com__;IyU!!A3Ni8CS0y2Y!9cguUuIwYMdnmBcoNR
+> > > ye0_U99KUnJt04T6XlSnvS-9rxh5-8Y2fQXC39Mxsw3erc_JwvyFp3ssecZg$
+> > > Check everything else reported.
+> > > 
+> > > FWIW there are also some nasty race conditions around active_scan_mask
+> > > being available when the buffer is being torn down. You might
+> > > want to close those off by claiming buffered mode to prevent
+> > > such a transition.
+> > >     
+> > 
+> > Agreed, I'll switch to iio_for_each_active_channel() and I'll go through the
+> > rest of the Sashiko findings for v5.
+> > 
+> > On the active_scan_mask races, I'd like to check which path you mean.
+> > In this driver the only reader of the mask is the trigger handler
+> > (fifo_push_sample()), which runs as the pollfunc.
+> > As far as I can tell, iio_trigger_detach_poll_func()'s free_irq() waits for it
+> > to finish before iio_disable_buffers() frees the mask, so I couldn't find a
+> > window where the handler sees a stale or NULL mask today.  
+> 
+> Ah. I may have failed to distinguish between cases with a trigger involved
+> and those without.  The bug reports are probably on the ones without.
+> Unfortunately I haven't found time to look at the overall issue
+> in enough detail yet.
+> 
+> > Even so, I'd like to close this off for good, so that a later change to the
+> > driver or to adislib can't introduce the race.
+> > 
+> > Claiming buffer mode inside the handler looks like it would deadlock
+> > against iio_disable_buffers(), which holds mlock while waiting for the
+> > handler in free_irq().  
+> 
+> We'd use a conditional claim in here - only the core code driving the state
+> transitions should take a claim unconditionally (they can just grab the lock).
+> If mlock is held it should fail and we just drop out of the handler having
+> done nothing.  So either disable buffer wins and we drop through the handler
+> quickly or it looses and the attempt to take mlock blocks in
+> iio_disable_buffers()
+> 
+> Or am I missing something worse?
 
-Or like, we just need key-value that works well for sparse keys, not any
-"special keyring aware" key-value store. Thus, having our own one and
-maintaining that is not worth it.
-
-I could just write that?
-
-I think practical QA reasons dictate this change more than anything
-related to the kernel internals in-depth. E.g., it's great that 
-whenever any bug is fixed in rhashtable that fix also improves
-keyring too. And that objectively attenuates the LLM hit rate.
-
-> 
-> > assoc_array is replaced with three new data types:
-> 
-> Well, 'struct keyring_edit' is the odd one out, since it replaces
-> 'struct assoc_array_edit', not 'struct assoc_array'.  It is also
-> temporary transactional state.
-> 
-> It would be clearer to say that the replacement for 'struct assoc_array'
-> is 'struct keyring_index'.  Then describe what that contains (which
-> would include mentioning 'struct keyring_link').
-> 
-> It would also be worth mentioning explicitly that this is a significant
-> negative diff in the keyrings subsystem, since correctly integrating
-> with assoc_array was quite complex.
-> 
-> Overall I suggest de-emphasizing the rhashtable in the commit message
-> slightly, given that it's just one piece of the new implementation.
-> After all, it could have been a basic custom hashtable instead, and
-> other high-level details of this commit would still be the same.
-
-These are good points. I have not clearly paid enough attention to the
-commit messages.
-
-> 
-> > Jhashes used by rhashtable are rehashed from the SipHash digests of the
-> > search keys and links.
-> 
-> The commit message should mention explicitly whether there are any
-> userspace-visible behavior changes or not.
-> 
-> KEYCTL_READ now outputs in insertion order, not hash order, right?  And
-> likewise for the search order of sibling keyrings.  Those differences
-> should be fine, but they should be mentioned.  Any other changes?
-
-Keyrings are prepended, keys are appended, and while linking a key a
-match with type, description and domain retains its place.
-
-Right now any other major changes don't come to mind but yeah that
-can be broken down a bit.
-
-> 
-> > -/*
-> > - * Hash a key type, domain and description.  KEYCTL_READ exposes the tree's
-> > - * traversal order, so no part of the index may contain kernel addresses.
-> > + * Hash a key type, domain and description.
-> >   */
-> >  static void hash_key_type_and_desc(struct keyring_index_key *index_key)
-> >  {
-> > -	const unsigned level_shift = ASSOC_ARRAY_LEVEL_STEP;
-> > -	const unsigned long fan_mask = ASSOC_ARRAY_FAN_MASK;
-> >  	static siphash_key_t hash_key __read_mostly;
-> > -	unsigned long hash;
-> >  	u64 acc;
-> >  
-> >  	get_random_once(&hash_key, sizeof(hash_key));
-> >  	acc = siphash(index_key->description, index_key->desc_len, &hash_key);
-> > -	acc = siphash_3u64(index_key->type_id, index_key->domain_id, acc,
-> > -			   &hash_key);
-> > -
-> > -	/* Fold the hash down to 32 bits if need be. */
-> > -	hash = acc;
-> > -	if (ASSOC_ARRAY_KEY_CHUNK_SIZE == 32)
-> > -		hash ^= acc >> 32;
-> > -
-> > -	/* Squidge all the keyrings into a separate part of the tree to
-> > -	 * ordinary keys by making sure the lowest level segment in the hash is
-> > -	 * zero for keyrings and non-zero otherwise.
-> > -	 */
-> > -	if (index_key->type != &key_type_keyring && (hash & fan_mask) == 0)
-> > -		hash |= (hash >> (ASSOC_ARRAY_KEY_CHUNK_SIZE - level_shift)) | 1;
-> > -	else if (index_key->type == &key_type_keyring && (hash & fan_mask) != 0)
-> > -		hash = (hash + (hash << level_shift)) & ~fan_mask;
-> > -	index_key->hash = hash;
-> > +	index_key->hash = siphash_3u64((uintptr_t)index_key->type,
-> > +				       (uintptr_t)index_key->domain_tag,
-> > +				       acc, &hash_key);
-> 
-> There should be a comment here that explains why it's safe to hash the
-> pointers and truncate the hash value.  It is clear to me but will not be
-> to others.  Here is what I suggested on v1:
-> 
->         /*
->          * Compute a SipHash value of the description, type pointer, and domain
->          * tag pointer using a per-boot random key.
->          *
->          * Note that using the pointers as input to the hash is safe, since
->          * SipHash is a cryptographically secure pseudorandom function.  Thus
->          * the hash values don't leak any information about the pointers.
->          *
->          * Similarly, truncating the SipHash values to the required 32 bits is
->          * also safe.  No "folding" step is needed.
->          */
-> 
-> Side note: keyring.c now uses jhash as well, so it should include
-> <linux/jhash.h> explicitly rather than rely on transitive inclusion.
-
-+1
+I'm indeed being dopey today.  Whilst it is a conditional claim we grab the lock
+unconditionally as part of that.  Which makes sense because we want
+multiple simple read the state calls to block behind each other.
 
 > 
-> - Eric
+> > 
+> > Would snapshotting the active-channel layout in update_scan_mode()
+> > (called before the pollfunc is attached) and having the handler read
+> > only that copy be an acceptable way to close it?  
+> It would but that feels like we are just papering over a lifetime issue
+> by creating another object rather than fixing it if necessary.
+> 
+> Anyhow, from your first comment this may all be irrelevant anyway.
+> 
+> Jonathan
+> 
+> >   
+> 
+> 
 
-Br, Jarkko
