@@ -1,84 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627644;
-	b=EBT2P1mArrVxQYsEEIAurH1skd7ASs1q3+5zcd8HCubSMBK3XD5aw205/GXtwBkXQg2G
-	 q6U9OfqjGOdiBhRynAWzkKq3/0icIxtJZ4ly2nIkd2Hwz/bktpWVO7kkDlnbClpEngDEa
-	 aQBmBQOQssMngmEVIFttLjCILumAILzPZqjO8zHrJFt+Vxkxu+DWD2SUo+EQcb6le2uBc
-	 nYL255W2MIVxBP+e2U8FRtnuz3e7YxxsUWdbYm+WSyPAtgZMROj9jylL87WN6FYMuXlN1
-	 O1W/CjAyRfRUYd7TzWMXEDHm3FSkzmVeBu5xKtNu0MtcPlOL7x0msfky4DYn5y3anWw==
+	t=1793627663;
+	b=NfQRZ6tlWoc3AQHJVyfeVhfT7ku2wHV1d41yNtMFDV4p2DapEdbb2ApE4nbXJlRnu9zh
+	 rgJPaTvXN4pWKGoVQCWowgvSbJc3QzmZv15q7I2Yn+xTRoUP53Cbocug369WU3F3tMfzW
+	 hScoL3cwc2WiRXKCSq9+dzDQijpd/BcTUPutuniN1ukgpWPgDWhFBqKM2GHPPJPEWUPoy
+	 2FMlnVbVLfSQxZjq76nYS4OlFHC2tMJqSH1PIY8uLh94AMEYMVpFHEeHHzWRYQ9ZyPVJJ
+	 oLVHAdS9FUCgudb93qLeVEnFAQ/Ul58avyeE/uH3XXqdnEvnCOk4jJMbMNqmPDy6V1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627644;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
-	 Content-Type;
-	bh=qiFpuA7RWkkGkHy1fqN15ah46fr+RUcj2Ci5g9oEtT4=;
-	b=VXO9mD1nA5OhvhgJYyRjaIh/OwP65By7+qXfOdhG3UX6hEdh+/QFTraqOxzTpbetBFJb
-	 pz3I1UYYohmXs09i6jIwkr648OWkfmnmCfzDmH4Z/543vsNedaqZWGQ3M8ZcAqN3hmp3Q
-	 esIhZLvR6Z/kaQ6iAOthbl+q8S5WGuR/hh/mHNr/3zPuvxRZ/irK2PfCpRnba3/nLy/LH
-	 nyNUQuL6OO2rsQvFaemueedWTRy4GXUYsHnC2Tmt7Ofpz3JatLRKBuy3nh25+JBfIrsm0
-	 sZZtJ1+VCjVBY7Ub5+Kv4+MIsLcpyw3ABLscyDLRpMIdpsV+3vwAxKD014OfidKMEzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627663;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=mFtjTfjF96h3Bv9TOaPN4aONAIjO6u2dFzKJuI6D/kM=;
+	b=veulf2mwEWHDqY/VFDeizZvFflmBXNu8huRlEXPPhZgEmq/jkZyepC7BkR/XHHox9KD4
+	 WYR+3AsXsWEo5dtkBP4d/Mmf7pxL9oa/F9X6x799LmzkiNBYrwvkwrVUiiqTsLCwD9iqL
+	 OEwOlgL3m9nXYqmzS7ApKj/DtyU7fMl0H4qvuL3MkVgZaA/LTZfkyAuia6BK/ohqm9Z+8
+	 NnVaBrNpUQHi13WmA7iyxru2IsEvl5/yoKe7+krQ+y7TMoE0UkJQadQo3f9bNMacP+hUd
+	 M4rhH19KgX16sgA5x07Ohibf/3x5TzozIVjc91IfFDO53/EW/ziaxuiyeThX1Nd+nwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ssi.bg;
-	spf=pass smtp.mailfrom=ssi.bg;
-	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=Vj1f1t3D;
-	arc=none smtp.remote-ip=193.238.174.39
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCnVpNCR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1E6606A32E;
-	Mon,  2 Nov 2026 13:54:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F1E6606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D0E60A2606;
+	Mon,  2 Nov 2026 13:54:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=Vj1f1t3D
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 3896821F81;
-	Mon, 02 Nov 2026 15:53:59 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=qiFpuA7RWkkGkHy1fqN15ah46fr+RUcj2Ci5g9oEtT4=; b=Vj1f1t3DOmog
-	kMf0cTDwlRTjzBQa6lnIf4TLK8HRfvWCtcrSCj/niFblfd6MlNsWcuQhtachSPNw
-	vUIfmo9WCtsTL6hwwInbs+WCawajvZ5qkSgmX2tjeBUhxbe9x+XSolvlurSRpAFj
-	lF8xeHwRdDdzCVkMDvbsW09m8iReiABlKvHKBx7YP6fYYSJ6N4vybhjsCz7ypVEp
-	qgBuEkLFgBTZ0q2gt68SNOUwjxGeT/kVHFUUR90Xe3MJLmpWcKK8fxweTS+GR8bV
-	WPGHAQ7f5nlBqsz2AVfApyqKbB6w/Fmo4PjNyvLtkJ8qqF76XCM6OhQs3OxXWcKn
-	ejfeR7anOjUNCee3byxewBGJrQCLaPya8X5dmGyiuofgG85DrFdFhtU0NkkWSVOo
-	aCLmZCkep85+qVPwc2VgKO2lhRCICUrkCDEUb2lRZF1wqBmO2gWC4y0CY6GRIoqy
-	CWh0m5Nhds25/PbSMsPVXn3YqtmVXjY8KzOVCha0yaSbGsE4UyoiPBG8s9cw5196
-	YZrQUtqQK/weoYKFYj7I+8FjiulWe+5dlhQSeqehL7jPhRkQXMqLp642oexsUXf6
-	A9ktorW+hskW3lARCEY2HtPDccTTO8dG8/4sxdpSYd4q0mFt7rV4frXzYQ2YXbs+
-	4EFYZTSL3DQ4QoSKnMvcyBw48kEiHxk=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Mon, 02 Nov 2026 15:53:59 +0200 (EET)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 7105360CB3;
-	Mon,  2 Nov 2026 15:53:58 +0200 (EET)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 6A2DrqUE058237;
-	Mon, 2 Nov 2026 15:53:53 +0200
-Date: Mon, 2 Nov 2026 15:53:52 +0200 (EET)
-From: Julian Anastasov <ja@ssi.bg>
-To: Yingjie Wang <x-professor@outlook.com>
-cc: "lvs-devel@vger.kernel.org" <lvs-devel@vger.kernel.org>,
-        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "horms@verge.net.au" <horms@verge.net.au>,
-        "pablo@netfilter.org" <pablo@netfilter.org>,
-        "fw@strlen.de" <fw@strlen.de>, "phil@nwl.cc" <phil@nwl.cc>,
-        "davem@davemloft.net" <davem@davemloft.net>,
-        "edumazet@kernel.org" <edumazet@kernel.org>,
-        "kuba@kernel.org" <kuba@kernel.org>,
-        "pabeni@redhat.com" <pabeni@redhat.com>,
-        "netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
-        "coreteam@netfilter.org" <coreteam@netfilter.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH nf v2] ipvs: avoid wrapping persistent service timeouts
-In-Reply-To: <969309eb180c2e577dd6bb54a7d28afcbb2efeb3.1793513714.git.x-professor@outlook.com>
-Message-ID: <dd093f06-b80d-72b5-0f10-886aa1f5e25b@ssi.bg>
-References: <969309eb180c2e577dd6bb54a7d28afcbb2efeb3.1793513714.git.x-professor@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCnVpNCR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7DAB1F00A16;
+	Mon,  2 Nov 2026 13:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793627663;
+	bh=mFtjTfjF96h3Bv9TOaPN4aONAIjO6u2dFzKJuI6D/kM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=DCnVpNCRgJUE7VaBJ0XVsv2S78YcT8dtN0tPStJwegyCcoP5u/riLvIREEb9Tiszn
+	 bjNuux5gUsKNOelW5FYDwfmPt7IiWdStEDtPTmALUzlFLW3JePPAf4khsZGDTmg4U2
+	 hxYB4vLgXi5KMFbRWyw8RbkIN3N+Wlr95PQGiy+FIIl7fBrvhOJxEFQujx/yuRg0Vl
+	 9eG7gA+EMdlb3Aou5nkaOLIaRRogFqDxahlyrRxCZxc1nCZc7tuhhCcyN9hxY03mxw
+	 efdPyB1rqoJMhus+gtiX9w1XejiZQXA5EyvrNCzRzL3MWhQmW0fRn/m/S5OrqyPrd3
+	 dWs3Kh2QgzZIA==
+From: Mario Limonciello <superm1@kernel.org>
+Date: Mon, 02 Nov 2026 07:54:10 -0600
+Subject: [PATCH 2/2] PM: Add shutdown=legacy command line option
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,133 +52,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261102-superm1-s4-at-s5-v1-2-313e0012dd39@kernel.org>
+References: <20261102-superm1-s4-at-s5-v1-0-313e0012dd39@kernel.org>
+In-Reply-To: <20261102-superm1-s4-at-s5-v1-0-313e0012dd39@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>
+Cc: Denis Benato <benato.denis96@gmail.com>, 
+ AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>, 
+ Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ =?utf-8?q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Mario Limonciello <superm1@kernel.org>, 
+ Bartu Alev <bartualev@gmail.com>
+X-Mailer: b4 0.16.0
 
+Powering off now uses the hibernation callback flow when it is available.
+Add an escape valve for systems that fail with this flow.
 
-	Hello,
+The shutdown=legacy option restores the device_shutdown() path. Document
+it in the kernel parameter reference and the shutdown debugging guide.
 
-On Sun, 1 Nov 2026, Yingjie Wang wrote:
+Tested-by: Bartu Alev <bartualev@gmail.com>
+Tested-by: Merthan Karakaş <m3rthn.k@gmail.com>
+Signed-off-by: Mario Limonciello <superm1@kernel.org>
+---
+Bartu specifically tested his ASUS FA507 with this series.  His laptop
+got really hot in S5 before the series.  He also intentionally used
+this debug knob to verify the problem comes back.
 
-> ip_vs_add_service() and ip_vs_edit_service() convert an unchecked u32
-> timeout from seconds to jiffies with u->timeout * HZ. Both operands are
-> unsigned int, so values above UINT_MAX / HZ wrap.
-> 
-> With HZ=1000, 4294968 seconds becomes 704 jiffies and is reported back
-> as 0 seconds. Persistence templates copy svc->timeout, so their timer is
-> armed for 0.7 seconds and a client can be moved to another real server
-> long before the configured timeout.
-> 
-> ipvsadm limits service persistence and protocol timeouts to 31 days.
-> Enforce the same limit in the kernel and reject larger values with
-> -EINVAL. Convert accepted values through a common helper that clamps
-> them to MAX_JIFFY_OFFSET / HZ on 32-bit systems. Use the helper for
-> timeouts received from the synchronization protocol as well, since those
-> values do not pass through the service configuration checks.
-> 
-> Change the service timeout and protocol timeout tables to unsigned long
-> because they store jiffies. With HZ=1000, 31 days is 2678400000 jiffies,
-> which does not fit in the signed int used by the protocol tables. This
-> also allows the global protocol timeout interface to represent the full
-> 31-day range on 64-bit systems.
-> 
-> The overflow was reproduced in an x86-64 QEMU guest with HZ=1000. A
-> persistent one-packet UDP service was set to 4294968 seconds, and two
-> datagrams sent 1.5 seconds apart were directed to different real servers
-> after the template expired.
-> 
-> On the x86-64 test kernel with HZ=1000, 2678401-second service timeouts
-> were accepted and 4294968 seconds read back as 0, while a 2678400-second
-> protocol timeout was rejected. With this change, 2678401 and 4294968
-> seconds are rejected, a failed edit leaves the previous service timeout
-> unchanged, and 2678400-second service and protocol timeouts read back
-> unchanged.
-> 
-> On an i386 test kernel with HZ=1000, the accepted 2678400-second values
-> were clamped to 1073741 seconds by the 32-bit jiffy limit and read back
-> as such through both interfaces.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Suggested-by: Julian Anastasov <ja@ssi.bg>
-> Link: https://lore.kernel.org/r/4f420fda8690ac470be44b3da284b65501c77bb5.1793430892.git.x-professor@outlook.com
-> Link: https://lore.kernel.org/r/5fa37fba-530c-2c5b-038e-9cb95e34023d@ssi.bg
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
-> ---
-> 
-> Notes:
->     Changes since v1:
->     - Follow Julian's suggestion to use the 31-day ipvsadm limit, reject
->       larger configured values, and clamp accepted values only for the
->       32-bit jiffy limit.
->     - Move the conversion helper to include/net/ip_vs.h and use it for
->       service, protocol and synchronized connection timeouts.
->     - Store service and protocol timeout ticks in unsigned long values so
->       the full range is representable.
->     - Add runtime coverage for the 31-day boundary, failed service updates
->       and global TCP/UDP timeout readback on x86-64 and i386. The i386 test
->       also verifies the intended MAX_JIFFY_OFFSET clamp.
->     
->     v1: https://lore.kernel.org/r/4f420fda8690ac470be44b3da284b65501c77bb5.1793430892.git.x-professor@outlook.com
-> 
->  include/net/ip_vs.h                   | 20 ++++++++++++---
->  net/netfilter/ipvs/ip_vs_app.c        |  3 +--
->  net/netfilter/ipvs/ip_vs_ctl.c        | 35 ++++++++++++++++-----------
->  net/netfilter/ipvs/ip_vs_proto.c      |  4 +--
->  net/netfilter/ipvs/ip_vs_proto_sctp.c |  6 ++---
->  net/netfilter/ipvs/ip_vs_proto_tcp.c  |  6 ++---
->  net/netfilter/ipvs/ip_vs_proto_udp.c  |  6 ++---
->  net/netfilter/ipvs/ip_vs_sync.c       |  6 ++---
->  8 files changed, 52 insertions(+), 34 deletions(-)
-> 
-> diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-> index 9a83bff32569..4eaa06b5f991 100644
-> --- a/include/net/ip_vs.h
-> +++ b/include/net/ip_vs.h
-> @@ -18,6 +18,7 @@
->  #include <linux/workqueue.h>
->  
->  #include <linux/compiler.h>
-> +#include <linux/jiffies.h>
+Merthan tested on his ASUS laptop and it fixed system getting hot at
+S5.
+---
+ Documentation/admin-guide/kernel-parameters.txt |  4 ++++
+ Documentation/power/shutdown-debugging.rst      |  7 ++++++-
+ kernel/reboot.c                                 | 10 +++++++++-
+ 3 files changed, 19 insertions(+), 2 deletions(-)
 
-	The patch looks good to me but you should not include
-jiffies.h
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd94..16d584bdbb73d 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -6981,6 +6981,10 @@ Kernel parameters
+ 	shapers=	[NET]
+ 			Maximal number of shapers.
+ 
++	shutdown=legacy [KNL]
++			Use the legacy device shutdown callbacks when powering off
++			the system instead of the hibernation power-off callbacks.
++
+ 	show_lapic=	[APIC,X86] Advanced Programmable Interrupt Controller
+ 			Limit apic dumping. The parameter defines the maximal
+ 			number of local apics being dumped. Also it is possible
+diff --git a/Documentation/power/shutdown-debugging.rst b/Documentation/power/shutdown-debugging.rst
+index c510122e0bbc2..254cd3e0b5907 100644
+--- a/Documentation/power/shutdown-debugging.rst
++++ b/Documentation/power/shutdown-debugging.rst
+@@ -33,7 +33,7 @@ some potential options include:
+ 
+ Kernel Command-line Parameters
+ ==============================
+-Add these parameters to your kernel command line:
++Add these parameters to your kernel command line to capture shutdown logs:
+ 
+ * ``printk.always_kmsg_dump=Y``
+ 	* Forces the kernel to dump the entire message buffer to pstore during
+@@ -41,6 +41,11 @@ Add these parameters to your kernel command line:
+ * ``efi_pstore.pstore_disable=N``
+ 	* For EFI-based systems, ensures the EFI backend is active
+ 
++If the system fails while running the hibernation power-off callbacks, add
++``shutdown=legacy`` to use the legacy device shutdown callbacks instead. This
++can be used to work around the failure and confirm which callback flow caused
++it.
++
+ Userspace Interaction and Log Retrieval
+ =======================================
+ On the next boot after a hang, pstore logs will be available in the pstore
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index 1ad8629fde4d9..6c80356b9a85f 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -70,6 +70,7 @@ struct sys_off_handler {
+  * of that.
+  */
+ static bool poweroff_fallback_to_halt;
++static bool shutdown_legacy;
+ 
+ /*
+  * Temporary stub that prevents linkage failure while we're in process
+@@ -317,7 +318,7 @@ static void kernel_shutdown_prepare(enum system_states state)
+ 	system_state = state;
+ 	usermodehelper_disable();
+ #ifdef CONFIG_HIBERNATE_CALLBACKS
+-	if (state == SYSTEM_POWER_OFF) {
++	if (state == SYSTEM_POWER_OFF && !shutdown_legacy) {
+ 		if (!dpm_suspend_start(PMSG_POWEROFF) && !dpm_suspend_end(PMSG_POWEROFF))
+ 			return;
+ 		pr_emerg("Failed to power off devices, using shutdown instead.\n");
+@@ -1112,6 +1113,13 @@ static ssize_t hw_protection_store(struct kobject *kobj,
+ static struct kobj_attribute hw_protection_attr = __ATTR_RW(hw_protection);
+ #endif
+ 
++static int __init shutdown_setup(char *str)
++{
++	shutdown_legacy = true;
++	return 1;
++}
++__setup("shutdown=legacy", shutdown_setup);
++
+ static int __init reboot_setup(char *str)
+ {
+ 	for (;;) {
 
-> diff --git a/net/netfilter/ipvs/ip_vs_sync.c b/net/netfilter/ipvs/ip_vs_sync.c
-> index 157f5c8361ab..175b842cdfec 100644
-> --- a/net/netfilter/ipvs/ip_vs_sync.c
-> +++ b/net/netfilter/ipvs/ip_vs_sync.c
-> @@ -847,7 +847,7 @@ static void ip_vs_proc_conn(struct netns_ipvs *ipvs, struct ip_vs_conn_param *pa
->  			    unsigned int flags, unsigned int state,
->  			    unsigned int protocol, unsigned int type,
->  			    const union nf_inet_addr *daddr, __be16 dport,
-> -			    unsigned long timeout, __u32 fwmark,
-> +			    unsigned int timeout, __u32 fwmark,
->  			    struct ip_vs_sync_conn_options *opt)
->  {
->  	struct ip_vs_dest *dest;
-
-	The above hunk does not apply cleanly due to a pending
-work "ipvs: update flags and seqs in backup server under lock".
-I'll let you know when you can post v2 after removing the jiffies.h
-above and re-syncing after the above patch.
-
-> @@ -939,9 +939,7 @@ static void ip_vs_proc_conn(struct netns_ipvs *ipvs, struct ip_vs_conn_param *pa
->  	 *  - No problem.
->  	 */
->  	if (timeout) {
-> -		if (timeout > MAX_SCHEDULE_TIMEOUT / HZ)
-> -			timeout = MAX_SCHEDULE_TIMEOUT / HZ;
-> -		cp->timeout = timeout*HZ;
-> +		cp->timeout = ip_vs_timeout_ticks(timeout);
->  	} else {
->  		struct ip_vs_proto_data *pd;
->  
-> 
-> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-> -- 
-> 2.43.0
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
+-- 
+2.53.0
 
