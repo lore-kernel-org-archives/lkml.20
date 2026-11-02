@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626444;
-	b=KKiSt+TpmCwT5cN1yxj8WTt/o90aMDGVK9og9Ji8gdJG0o+vkSwsJedoeNB+lrj/x8sN
-	 8ijGeNe5gcfPiQcszOFjf6Zqh0ND3gxYmQZRaXVtHawDIms0xYVKSc5Vr9HEt1Z5o+Uog
-	 nMXWBs5vtqRLFAW3yI2brItkx6qa+YyQcxrAwZzff/WF6CdC3LWiBV5PsO9kwgR4qtBSq
-	 rB5NL/lZBCMm42NPLRgxYVDMpxCL8pqhfCCNKjY/PckoMbzHIFv8xQXRgz8nMOvHO8Vxp
-	 8EDradq0geZtzsxXEBta42EOJScNxLSjDpRY4J8wuXqTrE16mLUxhim+lXX4D5p5Mvw==
+	t=1793626455;
+	b=CVAZRl8CBKUH7q29hHl+YJ6DZnz+UN0KDkRuKaEDY3giggv13oOAQb/FvNT83c1aohwJ
+	 N9/Ae8RGnGhZSxe4n/LMF9nlFX5tOQB1AGTC2lDCB32+A2CzIx5YQAO+g0Y4jYBl5oncB
+	 yx9ZVOxXA6yK2cpwGv95yX/V4iPNFQcsl5aF+x/OEIO0+gHdMGXWPhoPx5PkZmRkMw6hR
+	 La0Y8kvmjr9+EaHnzEzwxJkzAvvlpcC8ydENgSYD1TLbvDl+7TOHH2StbNUd6iatbFMMH
+	 +7lCkFFD9rERQFmH7cVC1BNBEtZaJAYQCARDLht4hYLIYGYUhAhFRk9r9H1OBdUI8YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626455;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=alxGzPQfi7xFVYa0w5MWB3+Rmx+g2BzBmVB8Eeu41Gc=;
-	b=fHMUN2PPmoCYtIBZMAVXoZP9MD7D2pACQs/pa44Ovfk2Loo+9CEGsEKJMtqMIWHwiMyb
-	 OmMfgQNdSBe8/8uRJnoSZLIujLVZOunHlase1ZMW4LR1ATjccwsvqvAHlQBc/dwwCQcs6
-	 qBtRyXghDcORDslCmaoqKPclO66hu8MHLUNDpvJ01jw/3rFSMmAYeZ29LPBQ+g1FeTLOQ
-	 CwjLePGI2LYHmSd71um1dBC5XiXSIW8LqV6EAQomtxwf0mBDeIiHHybWfjFdvtzM4tv1m
-	 yeLmDhcTOH3xDe4g/o+G9l3kgjmvtacHaw9yZZAuK+X07HwRsso44enUMPjVkPOAqmw==
+	bh=zRvvd/YokVriiQ2VOVt57RI27Q3ijuDbxDuzLaJI+A0=;
+	b=ma3ATqhe3WZqDGgqYBnnS6cIa4Ac3A7O35xcmlNgeEzHMFNQcUguuqS3KmSGZaZ+mVym
+	 dZX9X0B08eFwOu6vXcEtrqENR/bdXZccI6czP3WPg54oJw7cHYwCLNfXlDsVbuIwwl6zZ
+	 bQ6e9iKdudjX/c/yNHy1EzhdzNcfuFAqi6RxI56UaQJzurp9OMntqXYHtE6lD+Z0f/i+7
+	 x9F7YKfE8KBEqpALQ7rY1huets81UyXePxDh/RhtttbP5HfdWt0vJ4yAlCk5PvCPnCc8P
+	 gYRWwli63jabyeIYQNadioWFP8YiS1ULIpDfSWrHmLeyLPx73i6OXzl4TZrXp0dUt/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Y8WQBpyT;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ugA7XNyF;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BEC3A606A332;
-	Mon,  2 Nov 2026 13:34:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC3A606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C69860A3812
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C69860A3812
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Y8WQBpyT
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ugA7XNyF
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F20AA2A6B;
-	Mon,  2 Nov 2026 05:33:59 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5D3A1595;
+	Mon,  2 Nov 2026 05:34:11 -0800 (PST)
 Received: from e133894.arm.com (e133894.arm.com [10.2.80.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A418A3F632;
-	Mon,  2 Nov 2026 05:34:01 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 80F453F632;
+	Mon,  2 Nov 2026 05:34:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793626443; bh=/DcnFSYTB6ZcFv8Cx8gN1oloDDlfm+K2pxLZErDmOkY=;
+	t=1793626454; bh=FinUPkAoVZpYc3piTVdTKrvIQOoQFfMpjjnaiPNCUHo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Y8WQBpyTRckWznroREPgE9PC75uv4j9iis5u6pclJVUnpsBUMiewXnFDg4Ce+7apn
-	 c95ZRm+3nA8O/gJ+Bg/inbUkJ2J/cXiVEdBFjeCnnIlR+gFmZmb65QHm61eZvKa0jO
-	 kJeCzIEayf9InJX3VvGJd2AHhaqYirH0IMsRB6F4=
+	b=ugA7XNyF6I+A6XtMadyCWKvL75M2bLnFIOtgrBs5l9TvwFA59Tfi+NDRrMoUdxNj+
+	 BnutvWBmd8FYakW+MwcUMvReMuBMvC6F8I4R1M9BtM/oWi0K4krjW9GfHZ6diw8PtA
+	 9DbUHXeq4Zj5l9aL9uaehs3eDE5I89AqIZKlv07E=
 From: Sascha Bischoff <sascha.bischoff@arm.com>
-Date: Mon, 02 Nov 2026 13:32:56 +0000
-Subject: [PATCH 03/10] irqchip/gic-v5: Serialise IRS synchronisation
- requests
+Date: Mon, 02 Nov 2026 13:33:03 +0000
+Subject: [PATCH 10/10] irqchip/gic-v5: Release ITS MMIO region on DT probe
+ failure
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-host_gicv5_fixes-v1-3-743b61626fc5@arm.com>
+Message-Id: <20261102-host_gicv5_fixes-v1-10-743b61626fc5@arm.com>
 References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
 In-Reply-To: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
 To: Marc Zyngier <maz@kernel.org>, 
@@ -68,60 +68,53 @@ To: Marc Zyngier <maz@kernel.org>,
  Jonathan Cameron <jic23@kernel.org>, 
  "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sascha Bischoff <sascha.bischoff@arm.com>, stable@vger.kernel.org
+ Sascha Bischoff <sascha.bischoff@arm.com>
 X-Mailer: b4 0.15.2
 
-IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
-Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
-the second request to be dropped. Its caller can then observe the
-first request completing and assume that its own events have been
-processed.
+of_io_request_and_map() reserves the ITS configuration frame region.
+If ITS initialisation fails after mapping it, the error path only
+unmaps the registers and leaves the region reserved.
 
-Serialise the request and completion poll with a raw spinlock. We use
-atomic polling, as the lock cannot be held over a sleeping wait.
+Keep the resource description and release the region on that path.
 
-Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
-Cc: stable@vger.kernel.org
+Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
 Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
 ---
- drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/irqchip/irq-gic-v5-its.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
-index 4edf787f3f97f..ead76560ea08f 100644
---- a/drivers/irqchip/irq-gic-v5-irs.c
-+++ b/drivers/irqchip/irq-gic-v5-irs.c
-@@ -10,6 +10,7 @@
- #include <linux/log2.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
-+#include <linux/spinlock.h>
+diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+index c0f3982229194..91abe63cb5cf9 100644
+--- a/drivers/irqchip/irq-gic-v5-its.c
++++ b/drivers/irqchip/irq-gic-v5-its.c
+@@ -1188,6 +1188,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
  
- #include <linux/irqchip.h>
- #include <linux/irqchip/arm-gic-v5.h>
-@@ -22,6 +23,8 @@
- #define LPI_ID_BITS_LINEAR		12
+ static int __init gicv5_its_init(struct device_node *node)
+ {
++	struct resource res;
+ 	void __iomem *its_base;
+ 	int ret, idx;
  
- static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
-+/* Synchronization requests must not overlap in an IRS Domain. */
-+static DEFINE_RAW_SPINLOCK(irs_sync_lock);
- static LIST_HEAD(irs_nodes);
+@@ -1197,6 +1198,11 @@ static int __init gicv5_its_init(struct device_node *node)
+ 		return -ENODEV;
+ 	}
  
- static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
-@@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
- 		return;
++	/* Save the region to release if ITS setup fails after mapping it. */
++	ret = of_address_to_resource(node, idx, &res);
++	if (ret)
++		return ret;
++
+ 	its_base = of_io_request_and_map(node, idx, of_node_full_name(node));
+ 	if (IS_ERR(its_base)) {
+ 		pr_err("%pOF: unable to map GICv5 ITS_CONFIG_FRAME\n", node);
+@@ -1213,6 +1219,7 @@ static int __init gicv5_its_init(struct device_node *node)
  
- 	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
-+	guard(raw_spinlock_irqsave)(&irs_sync_lock);
- 	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
- 
--	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
--			  GICV5_IRS_SYNC_STATUSR_IDLE);
-+	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
-+				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
+ out_unmap:
+ 	iounmap(its_base);
++	release_mem_region(res.start, resource_size(&res));
+ 	return ret;
  }
  
- int gicv5_irs_register_cpu(int cpuid)
 
 -- 
 2.34.1
