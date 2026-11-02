@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608635;
-	b=5XXRwHUHuWhtvdK1+2rlhyg2vcwXR/GAvG6v1uqKxtPEkPEC6dboWT3rD/3tVmJbGFWu
-	 hjDXUGxgGXNFs9cJjwzuvT7wmA2AG3+DSFpczTB6RdgC3RnoIu0c4WN2kiKRFY+atoA5f
-	 hhiSraif5TyHCaHpdNfPij2Ct7b1q17usGO0uzkElvVnP0JyTpDTF5XHejT81WDHiKyak
-	 1PQrHYqSjeoMVo7fBHJ9tFVfeldUeT57JLUTb5hITfGX/6KKf3pZftNpJLhVmD5U4eXcB
-	 GiEM2nT1ecMzHHv883ToSXing2HRlbPYKdiQY3rH6sN1NS1SpD5foZtKdEZ3jzG7pUQ==
+	t=1793608631;
+	b=toYM+Ne6aP43gF08T62iwJ+F7RutQNOEN1NwvGt0AjG8G15Xg/svSxkfU77SrGPnOXPN
+	 FwXAmhUxILDtUiBJi5skHK13TR9jqd0CB2nFl61L9dN9+eu11w0fJu63bHQ8ZDRqiwmwk
+	 q+D8akY8VMGPmjJb/SUoGk6CBA9Op3UMMbbdkr9PuK7ZWf27te/mQrm9598qTBpttCG2e
+	 gMhnRB13YRjCgo87bOF1thALm+H0zqzodfNNomD7UeqBZqT8GIgBYqv0dzNOby8v9rfn7
+	 OvE24M9oxhy76K8mg2qgdZCoPHp7vy/jJFkem1W4hH8GrjpV/NMpYRKfYD9O5fWLrpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608635;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=g59qi3BiyVa9BdK2dHXLgm5AywXSblVqWdtAixzoZKA=;
-	b=BOTEDmXakD22qG+owYNJA6agVARo1I/pbknlAakko2ZJsyGp3dm+NmqbDAcPymusMHoA
-	 2OLdusO1vcdE0Fb3JoFHCVQuh48Bt8P47F9N+gKoUE1Y1AB48TMNgfaQC6O+3m89OQUl1
-	 AgQ1JsyW2FUcy8Wj9HRCzRm+mCOqp2frRr0aR30bV2dWYU5tK6af8v7k101E8zs9BwVe+
-	 xFDDnRHqrla9oNxhU5CXSVrsvYaEdGDhq1j6487AfHdn/bNV66tOyS8f7TcePCxq6NoJO
-	 E0K0x1JonTfk0E6nvxWQIMo3DOP7s4on42kPy2q6oH4JI0t0S2LxKh9QNoBuZ4iRVsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608631;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=lfr+9f3d0uSXwEEu6qQaZk27BopGzDyuDbKtBIZ0OVU=;
+	b=YMsottJ+hiqKQiuG+BE2N4KI2H/EqoNTSi7tFnW0UAtSssd16Un0HJpp+VwbTAg4xn0I
+	 v6zozsfW8Ho91+xd+PuN/Rs9AMcW2tnqwNtezI/jJRnb9yiaOOyn3yOyQY4B+DV+ig3Tz
+	 6oPutof9VOLJTCHEgHr5d0DlIyW+cc35CTB8pvF4zcLbQKaT9FSLiNMpd1ZYtDpd73+kC
+	 9etPVXAYiJD3q27S6B9ARFa6dNIP7GA9wZfv85itbQlRiLTZ9hMDlMMe30Dyq3UAhmmmq
+	 k3qyNZYsKTWaT1ycyqTR7anGFkUTNmEkgbO4Z7EPwBqa4pnw4dP30tsi3ebAWTCqWbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQDjXKTZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TCaSoz+D;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F186606A329;
-	Mon,  2 Nov 2026 08:37:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7672C606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7672C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQDjXKTZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623AA1F0093A;
-	Mon,  2 Nov 2026 08:37:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608635;
-	bh=g59qi3BiyVa9BdK2dHXLgm5AywXSblVqWdtAixzoZKA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cQDjXKTZNNGPXewxH5t8oliA8VUIXQziJwtUxqa7P1KREIWqlGfMCZUrzx1OzKMVY
-	 HG8yCZRpgUduGRWLnMotDYtKcjYkJD/JH10axtVChOt4aEsQg7ATvK4fxCrhN8k8QY
-	 meBJTte4IjfUqA2C0Bi+Jgqg+jSjSlL+QbDmw0g2r9P5d16fqnYHqbI8H4XAHXjg0R
-	 6v29uMCLNf3KPkLKvGy+1K6jJu/74uzrIFzGg6Qch+nW1koN9BxQr0COGdaPHAwjq5
-	 Rx8UJJT3RncZxSwwKvhWsFByfRthtsfgIhNfHxFGUo+QYwSKEQh32BRjDup8ytM9wK
-	 /szcEO/yduh4A==
-Date: Mon, 2 Nov 2026 08:37:07 +0000
-From: Lee Jones <lee@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hardik T Shah <hardik.t.shah@intel.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
-	linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	Mastan Katragadda <Mastan.Katragadda@amd.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Rander Wang <rander.wang@intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
-	Simon Trimmer <simont@opensource.cirrus.com>,
-	sound-open-firmware@alsa-project.org,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH 00/21] soundwire: Fix Critical and High issues reported
- by Sashiko
-Message-ID: <20261102083707.GA13023@google.com>
-References: <20261030104840.3361217-1-lee@kernel.org>
- <aug1F0pampktAuzZ@parshuram>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TCaSoz+D
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E67E31A1402;
+	Mon,  2 Nov 2026 08:37:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AE76B60750;
+	Mon,  2 Nov 2026 08:37:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6286910329123;
+	Mon,  2 Nov 2026 09:36:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793608620; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=lfr+9f3d0uSXwEEu6qQaZk27BopGzDyuDbKtBIZ0OVU=;
+	b=TCaSoz+DO/wzRp2Sz1lkU5w0pxuYwycMzx9SH1Wr7XPr0oGIz5YdiRmVsK2OlSyy3J2Iaq
+	u6LWiI7sNn1oAwOCtJ9Dtlg+QXv1it/jJANgVoc1F4b2pWU1cIZ+bu/kbBrrm3batPP82X
+	sJkpkvdsXBazNjL3e/tdhA7F1Ij8IVWluJ7WxtrY7kyN7yGACRSQIYwdMa55LZaDmOSFG9
+	1xQ09j4chDBGdeVw1YK1EMJa7fgJKz5beObCjMYp9sB9hQ40kDfFs/jMh7zi+rkJMGlF1S
+	Ao9AjHJOYlDnyVpu4NyOqByLuIaLAqqpgVkrvXCtXGQa4diXJOPaThYcDhoBJw==
+Message-ID: <f5a88825-2d0b-4f5f-863b-e2369d009d24@bootlin.com>
+Date: Mon, 2 Nov 2026 09:36:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,26 +62,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aug1F0pampktAuzZ@parshuram>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: stmmac: dwmac-motorcomm: mask the MISC interrupt
+To: Nicolai Buchwitz <nb@tipi-net.de>,
+ Magnus Leatti <magnusleatti@kernelriot.com>
+Cc: Yao Zi <me@ziyao.cc>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261102080938.2955-1-magnusleatti@kernelriot.com>
+ <805aeb73d9e32b237bcb30c8fd44ffed@tipi-net.de>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <805aeb73d9e32b237bcb30c8fd44ffed@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 02 Nov 2026, Vinod Koul wrote:
-> On 30-10-26, 10:46, Lee Jones wrote:
-> > These issues were reported by Sashiko.
+Hi,
+
+On 11/2/26 09:29, Nicolai Buchwitz wrote:
+> Hi Magnus
 > 
-> Thanks for looking up issues and fixing them. Some of them do sound good
-> to me. I would not want to cc stable and tag them to fixes though. These
-> are bugs, but I have no evidence they are impacting real world
-> scenarios. Mostly a good but theoretical exercise, so I would like to
-> avoid churn and move them for next cycle...
+> On 2.11.2026 09:09, Magnus Leatti wrote:
+> 
+>> [...]
+> 
+>> Russell, d3265c19b35d ("net: stmmac: xgmac2: disable RBUE in default RX
+>> interrupt mask") describes a similar storm on xgmac2. Should dwmac4 do
+>> the same? I have only tested the glue change.
+> 
+> AFAIU RBU is the cause. Dropping it in dwmac4, as Russel did in  d3265c19b35d,
+> would cover all multi-MSI users.
 
-That is expected.  I would like these to soak in -next.
+As I commented, the other solution is to properly ack it. I'm not convinced about
+the RBU interrupt's usefulness TBH, even when ack'd it makes a bad situation even
+worse, but it does have the nice effect of making this visible by incrementing the
+associated counter.
 
-I plan on preparing a v2 this week, taking into account all of the
-review comments and collected trailers.
+Anyway, this issue should be covered by this :
 
-Would you like me to strip the Stable tags as well?
+https://lore.kernel.org/all/20261030102251.208929-1-maxime.chevallier@bootlin.com/
 
--- 
-Lee Jones
+Maxime
+
