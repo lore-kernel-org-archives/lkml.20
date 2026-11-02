@@ -1,91 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657797;
-	b=qVYhjqG8GZ2Hq6UNmXHE1Z5QC0nI/3hyMKRF6j1OEl0TKlhJaptnPrAIDPLe6s8NfOhW
-	 mWjSn4TafE8+sytZ05/miyOWv7uLzExHKysOIsxpbNcT4mx1zl66kvk9ADKTpWN05rmzr
-	 2vqrMM9fdFpYd6cbWEpjr3D6NLcNqLxUOyZBIsXl8z3IjQemxqqlsG2gAii13LqcAvWk1
-	 rQKV9HBXExnQlrizK+NLxhw2B3LQoVO5wFA0LrbsiNGI+ZLW82QGboPIGk5FD/P/XzmrX
-	 g/XiIhDiz/ZcJ/zw05g607Sd4/OjHSysJjnBmU7PjeZzz9uKv5pJU0FxfFc1dk9VqTA==
+	t=1793657831;
+	b=ODeZGHvs+ezr/8Om3JLdymPRWhPqUj1k8YsasY7hxpA2eRTZx8zrjnvTaxE8w+1TEshG
+	 4d76G8Iy/ONeJpJMgBNuZ6EYaMWum8R94iXsP14F5AZV79afD+SMdHjHzdNMygFr2qihi
+	 2bbKqNDYS6ZhoFKcAkZzr8ZXym/YLFWchV+55gG7ZD5aQcquEZ9O+1Qe4yt3PZsN/BAUN
+	 Dw9j1vqjGDNrtUoK5OumZx3Qc02yGRUhaikON/cDRXo055j8+O5pAwMykgxtxnD6IdtGN
+	 dBjG5X+RJNI+tSFHG1kychO2xyp2PUfHjPn4d+przpIwaIB1spNKlm59yjYa43FGL0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657797;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657831;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7RbsrJbC+78XvE/Jv08a1o71KMq3rArHAmE6ml/65NA=;
-	b=L7vsqvlwEEJQABw2mPt8xg8HFT0/ltFKNCA9MAiZf7NcdutMRm10FrRZhl/PAbOPAN80
-	 Ph+po3FSmBm1VoJy5Wdij7O3kUI7lrZUwSjVmG+xTSDDdmtKK0452tcx81dFbMK3bg3FB
-	 +O1AL77TbbrFNA7uWxbJOt5DnZ8LiNaUiIJqv0zommMpbpy8HNowj2VTd3afk+/HKWUq2
-	 vbPvyG5f08aMSV1TC6vLGyJ+JYE8pP5M4zDhAKWGMl8cvs4RGR/mNgAp3RusakaQXiIQs
-	 NJJ5JFGPpsDw51A14+WcdAHuYnn24IWwS9HRZNthwRLuLrVvcQhemzRBXbp2ONJ7ELg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=XtEgL/miWZ1olP8ce54kEQWLV8a3bUZ6w45Zvf1BpeQ=;
+	b=QAuVh555M+bq+Ec+lifFKwHMw5UP6py0wPoyTCQ/Nw7yBNCD09/zZuPdm9rVTtyy18kU
+	 t+7NNqORPc85qdLLkdZ38nDWOoJpnFTRSwYPiyb75Pq87vp6Es+cFa+7lwBdaRWQbP9rh
+	 lvrMWUQOi6+r+BxxjtoHDHM91wq8Gr4zruKJjZnEmggaoM0ITQs4mPOe89Al4hhYXpC7i
+	 Hme8q3/a9kDKKbhpRtPjN1JB+WemFHjK4u8MeaJ/vLDmhT5aMACjhDRGyOsChbMSZax8R
+	 Jf1bOOIctRzA6T4Kmj3gdH+q5cFFSSFgBY0+CeUkU69Ew/WzmscMIlyzHnVnyMBPJ6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I5Cs8nr7;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NdG+pad6;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52813606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:16:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52813606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40879606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:17:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40879606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I5Cs8nr7
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e20edd106so2729829f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:16:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=NdG+pad6
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8ab38a051aaso35948857b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:17:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793657795; x=1794262595; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7RbsrJbC+78XvE/Jv08a1o71KMq3rArHAmE6ml/65NA=;
-        b=I5Cs8nr7qtS5Gn4X5tF2GZWTgK0D00M6Sny6nh1ntLNXKZaQ9j4gG38aI7jVPk9l6A
-         TT37nNYREAzpwOTqf2xgcB8w9slpGhfDQNhQzWFHt7CwNqMBsAkttf7wrcJIcs+nB4Fz
-         MapwBIupvOlJ4atQBMYC/BrGDfpHVVjKmjJt9q2Qabz6dUC9JLvtvcDhC57+0BSVfsNL
-         i4ifp14dOU98shscDtw9/LL0Hpalhx0FN0itaBQUalqYeAobdy39dRSBJRpTUp5Pl6R8
-         W4SSU6Ua/ciYxrEd8WNp90hxChsEH3Qb2ytlchYf8m4bqohNdjGabk87E1cW02DS6qcD
-         e7Sw==
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1793657830; x=1794262630; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XtEgL/miWZ1olP8ce54kEQWLV8a3bUZ6w45Zvf1BpeQ=;
+        b=NdG+pad6BzfnpbF0AvbKdGy3MzplOcjK4Kc4VHsC4UFViZJ9M/affo2ysF6qlPqYo+
+         7+/XPZ2jEPS7pXzc4SpvFfwKvgdUbxXPTStELuV41bA7RjoDgR3lLgYvk6gbYPY5t5Gx
+         1Y2MDTigATKftmNP+PIF+Zds0zd9rRB/9EywpzBdEbVhCJRLZXpNjg5444SfdpYkgoj0
+         pX2KTgCQbSYNGIaLk5oRu93Jc/kbWoYHH4lQMFJ8zak4N4QzWZOZNizJStyY0xL6whkB
+         X8Z7JRYwQZ/U0ADErcDEg6A0cuW5CDi86AC7OtBJOhpTJ17jnh3m4bhkWECkox/Xsovy
+         l00g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793657795; x=1794262595;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7RbsrJbC+78XvE/Jv08a1o71KMq3rArHAmE6ml/65NA=;
-        b=T6kotF5yzH1QEQLAxVNgAjV/g3I6yCsRUrx516drvxXoqQ/LhqO/0i4E9a0s4fxFLO
-         +0/6Om0gFP3BtytL1o4Vm958rEOB8h//0AaFiBl0uAJF3sdfuz6xg0qEcULKFEGzEPE4
-         oyHwge0GvoBd0Nm/fEORJueF9nT7j7cwvrqB2BXM1J0CqxpLfSwYMYEbt0lUx5vLL+kQ
-         v3A+BkXiUE18K96XIq1qsol41TM3y8G+kC7e44lE4ZVAEpFobXweUENO7Bl89Lqt+t8B
-         gTDKBa8YPCad9BmFpywcPI8h2JCWQSrArsFmzoj+JZMuMTb6e1aEtwmPJaOrjAkC+vF1
-         fhgQ==
-X-Gm-Message-State: APuU4Z85EmlSoNgzrLuUdhxY7FWzWBkkvuoQO+9gzcHCQi3xyg+/XhgN
-	/ADN9k8I8cEHKe4JmphedMdEiP4duZK+fdyqouEWFUoONKhwA/ZEOyLUKurr
-X-Gm-Gg: AYBFou1VOFRM8J0zP6cyJF/TwRSrv0HJhvcTnN2RoE3OUL20wDxSB++7KmNYPJDchpo
-	adcOEmiu/Dzqjha+Hu06pmfulNLeb7CMwrJBtZ12X5DAAMhWg0sqCA2Z1Ti+bIYABbgr4igMEER
-	srzi2kyABJap63RDU19gAOnhWc7bVSYOn6SUaGee2L2QBgmWXEYF+KSAMMNqICISGKBbC4Ao73E
-	bCqam3ls5OzJwuNDiwL02tAgm+uzgWKmSvYT5RePlQtoXEuEM86QnBnuH3Xku5XCrgNW9cf6aEN
-	5FIQe4dZxXXEkYTHQ2lAjkzfdz8dI+5COMyyI/ZfI5/LkZi0r87YsckCYyZ4ehVpnM9BMkCmPKI
-	OXZqprjqj7wbDphwq4idPkEARay2nsWRv2Q8E3ZexcC1KpBPlaQPAtL7Kc+g5h4ctBXq2SDAw77
-	NjkFh3pLYgGAdzTBNPlspR84xf5GIW+wRzxDBe/xxKQnKtADVfyWp1TrhWhzYoZvugH2j9y9W/s
-	TiIDjn881tZixhc/uQ8t9MD7Oi8Upu49h2467KoFWNO9YqN2Q6FVqpXvzlVkT6uQvoNL0fQl0KG
-	kwh5RuIlQdM=
-X-Received: by 2002:a5d:64c4:0:b0:48b:9ed:b81f with SMTP id ffacd0b85a97d-48e6e2e768fmr26733322f8f.10.1793657794653;
-        Mon, 02 Nov 2026 14:16:34 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e77409821sm17917202f8f.0.2026.11.02.14.16.33
+        d=1e100.net; s=20260707; t=1793657830; x=1794262630;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XtEgL/miWZ1olP8ce54kEQWLV8a3bUZ6w45Zvf1BpeQ=;
+        b=qg+XDtcIA0/SGXPcd0vq4rSTd7aJExcgNhof5QhUbjUdIM05RaNuXPNF4wUkCtNjG4
+         HfSWhwvldhx0j9F/AR5AUHxVh/D/5DpE22JpApwk5ZQdSPeFYLTO3wHhd8/RNtABkBsF
+         hoGypZrA9wqejXpgdtjYXpO/rXivwXBzfPHbVWa1u51XoXQyIr+jZtssTsQdz7Mn90D3
+         Yjt7tOcDjnLhxzMLRSJDA8D6i1WSjUVG3jWGdQB6pENy0ukKmA4h9/CSEPMqHOAO+v6X
+         78YHBVmJWaeNcv/tEYnH/4/M2bXVLtQ3Fq/7lVIwPA9ioeiLEazmHzDeZOg42KLLinoA
+         7Pxw==
+X-Gm-Message-State: APuU4Z8uAmtdaTCjrMF6EaCuEqq+aaUAnv8S3C9867McGrCeUk8Kr/RQ
+	MSuT3nFYJJp0lawiqp82FmoWWQ0B/69bc+TJvBcyC61wHxwESbIo72rXJOvCbH9ytRo=
+X-Gm-Gg: AYBFou2taAvsQN59/S2Ssdffi0PW66lG1Buh2aCt/Px7CQe33UE9FTtt41Yesd6TsIq
+	lEYb+ocJ1fpuSyiVFJsYpSLBboHcObGEvVFaEzQ1oi6MepkFki7BVX4A+Cfc/P8vJ1JwNgWvK7r
+	gEMaM5IOuskA7/HNZKS/3JXAG0Y52w6LV/2CpW2cCgVCRx2peH01cFhZ5LRzxgPEjun3BmS/CEM
+	1ZZzYFhP3Y2US6h8M/Mb19NeoFQLdjknB2ybiLW+IAfJoK4VTX53cKAn3po+sN3R/m74h/d6nHf
+	qoGbeBW3obTma8rqopF9J/pzAIPH0Ql1LOsk++Lt7tBpILblZcugFYjSQBbpvcv1MvqS70kPox+
+	UfmulqpIG72qPmEkD58+LMgDLo6z+bS8Yt1ysMiMWezDOZeevdYRVWogkhJ4S+QssTIoEGIk4L8
+	w8xAVn8mpGna9Q3cI4wSXz0ThkkZyJ8qE0EIb2iBdxpkipb0HUM064liXJCSMGCeBp5AitXfZdP
+	zbRq0QrGA6/ghNTcW+yIgn/nUYW+yJKxUGYKSIeE4vgC4bVEiHLxXa0luRCZAEAp+2g7EfYnXPD
+	eO4tpvfWanVx5aesqMu7FwZw56v5WlhbZehvMIorjD11E46/C1W6kkk3+MmwPdaqP+M14DdT0qG
+	EEs0cmWy2KYm4tlxf1NgfRhtaJCxWP6F4/1OIGJSjbYzoEqYtNiq/ccDheqtRRJ1EWuZUXpIkDH
+	7azAAb8TNJGd7DKVjq
+X-Received: by 2002:a05:690c:82:b0:8ac:c329:67e6 with SMTP id 00721157ae682-8b2b66d063amr89870697b3.16.1793657830162;
+        Mon, 02 Nov 2026 14:17:10 -0800 (PST)
+Received: from ?IPv6:2600:1700:6476:1430:2f9f:a96f:bcb:6021? ([2600:1700:6476:1430:2f9f:a96f:bcb:6021])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b714bd40sm60952257b3.16.2026.11.02.14.17.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 14:16:34 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: linux-wireless@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH wireless] wifi: libertas_tf: use timer_delete_sync() in lbtf_remove_card()
-Date: Mon,  2 Nov 2026 22:16:33 +0000
-Message-ID: <20261102221633.3483437-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+        Mon, 02 Nov 2026 14:17:09 -0800 (PST)
+Message-ID: <92845c60aca5dc2209a43d309b7bb9fa66aa044e.camel@dubeyko.com>
+Subject: Re: [PATCH] hfsplus: free failed b-tree nodes in hfs_bnode_put()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Song jeonghak <thdwjdgkr123@gmail.com>, Markus Elfring
+	 <Markus.Elfring@web.de>, John Paul Adrian Glaubitz
+	 <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>, 
+	linux-fsdevel@vger.kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>, Edward Adam Davis <eadavis@qq.com>,
+  Shardul Bankar <shardul.b@mpiricsoftware.com>,
+ syzbot+98547b0428b6a6a3467c@syzkaller.appspotmail.com
+Date: Mon, 02 Nov 2026 14:17:07 -0800
+In-Reply-To: <20261101162949.147400-1-thdwjdgkr123@gmail.com>
+References: <773c7445-8d4b-4d94-a995-297ecee9c879@web.de>
+	 <20261101162949.147400-1-thdwjdgkr123@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,41 +150,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-lbtf_remove_card() uses timer_delete() for the command_timer.
-timer_delete() only dequeues a pending timer without waiting for a
-currently executing callback to finish.  If command_timer_fn() is
-running on another CPU during card removal, it accesses priv->cur_cmd
-and queues work on lbtf_wq while lbtf_remove_card() proceeds to free
-the adapter, leading to a stale reference.
+On Mon, 2026-11-02 at 01:29 +0900, Song jeonghak wrote:
+> Hi Markus,
+>=20
+> (Resending as plain text; my previous reply was rejected by the lists
+> because it contained an HTML part. Sorry for the duplicate.)
+>=20
+> > How do you think about to avoid a bit of duplicate source code?
+>=20
+> Thanks for looking at the patch. The two branches share the
+> unhash/unlock/free steps, but they handle different situations:
+>=20
+> =C2=A0- HFS_BNODE_DELETED is only set by hfs_bnode_unlink(), when the nod=
+e
+> =C2=A0=C2=A0 is removed from the tree. Its slot becomes unused, so
+> =C2=A0=C2=A0 hfs_bnode_put() also clears its bit in the allocation map
+> =C2=A0=C2=A0 (hfs_bmap_free()) and, if HFSPLUS_VOL_UNUSED_NODE_FIX is set=
+,
+> =C2=A0=C2=A0 zeroes it (hfs_bnode_clear()).
+>=20
+> =C2=A0- HFS_BNODE_ERROR means the node failed to load. It is still part o=
+f
+> =C2=A0=C2=A0 the on-disk tree; only the in-memory copy is dropped. Its ma=
+p bit
+> =C2=A0=C2=A0 must stay set, otherwise the allocator could hand out a node=
+ that
+> =C2=A0=C2=A0 is still linked, and its on-disk contents should not be
+> =C2=A0=C2=A0 overwritten. In my reproduction the failing node is the head=
+er
+> =C2=A0=C2=A0 node (node 0), which must always stay allocated. From readin=
+g the
+> =C2=A0=C2=A0 code, hfs_bmap_free() would hit its BUG_ON(!node->this) for =
+it;
+> =C2=A0=C2=A0 I have not run that.
+>=20
+> I looked at how other put functions that take the lock with
+> atomic_dec_and_lock()/refcount_dec_and_lock() deal with this, and
+> both forms are used. ceph_put_snap_realm() in fs/ceph/snap.c repeats
+> the unlock in each branch, while fsnotify_put_mark() in
+> fs/notify/mark.c records the difference in a flag and does the common
+> part once. Following the second style, the two branches could become:
+>=20
+> 		bool deleted =3D test_bit(HFS_BNODE_DELETED, &node-
+> >flags);
+>=20
+> 		if (deleted || test_bit(HFS_BNODE_ERROR, &node-
+> >flags)) {
+> 			hfs_bnode_unhash(node);
+> 			spin_unlock(&tree->hash_lock);
+> 			if (deleted) {
+> 				if (hfs_bnode_need_zeroout(tree))
+> 					hfs_bnode_clear(node, 0,
+> tree->node_size);
+> 				hfs_bmap_free(node);
+> 			}
+> 			hfs_bnode_free(node);
+> 			return;
+> 		}
+> 		spin_unlock(&tree->hash_lock);
+>=20
+> I am fine with either form and will use whichever the maintainers
+> prefer in v2.
+>=20
+> While looking into this I found a mistake in my changelog. It says a
+> failed node "has no b-tree map bit to release and no contents to zero
+> out". That is wrong: the bit is set and the contents are on disk.
+> They
+> are left alone on purpose, as described above. I will correct this in
+> v2.
+>=20
+>=20
 
-A prior fix addressed the same timer access issue in
-lbtf_free_adapter() but missed the call in lbtf_remove_card().
-Use timer_delete_sync() here
-as well to ensure any in-progress timer callback completes before
-proceeding with device teardown.
+Somehow I cannot find the patch in my email client. Please, double
+check that you send the patch in plain text and, please, ping me if I
+don't answer on v2 of the patch.
 
-Fixes: 06b16ae53192 ("libertas_tf: main.c, data paths and mac80211 handlers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/net/wireless/marvell/libertas_tf/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/marvell/libertas_tf/main.c b/drivers/net/wireless/marvell/libertas_tf/main.c
-index 411f075b6186a..f518ed48523e7 100644
---- a/drivers/net/wireless/marvell/libertas_tf/main.c
-+++ b/drivers/net/wireless/marvell/libertas_tf/main.c
-@@ -642,7 +642,7 @@ int lbtf_remove_card(struct lbtf_private *priv)
- 	lbtf_deb_enter(LBTF_DEB_MAIN);
- 
- 	priv->surpriseremoved = 1;
--	timer_delete(&priv->command_timer);
-+	timer_delete_sync(&priv->command_timer);
- 	lbtf_free_adapter(priv);
- 	priv->hw = NULL;
- 	ieee80211_unregister_hw(hw);
--- 
-2.47.3
-
+Thanks,
+Slava.
