@@ -1,86 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609233;
-	b=bJ/x2JrKVpzdsoGmtcckKv6bKMitXDTlUbVG9l+t9d+jmV7fSiD4Gdw6fOnRkMrbpXK/
-	 ODraWyHF9qtOZiUvMt2giivn4xcobUhBSaWbHo5tTIGNcCrdK2pwXb8vn3rWNYLAEtkHW
-	 IjH/00rMq44c8rOBerg16dL2hqEeDO4HDnCpC3u2cw/p7+Cqt8K8vmHsX0v9p18uiHt2D
-	 o8J63TS9XWwsDNJUXoxr5gZKocsqNwOSDx3hq9HhsX2rfRsvTj0j6h77+UkIKRhT4ndMs
-	 Nwu/j/rI8Eg8tPR0PE8O26KZIPmQYlevRNqUAfi7WV/FXVeEnWX04sINTK1Kb5C4ThA==
+	t=1793609223;
+	b=FPSt6cRMtxmBjiSq8pysdZFN4mTBKhBpRDtDBPsFtJFA+u034v77F8Vomy0AQ+FtUlwg
+	 jN4Q0jD8ifDq7NQEmu4XhM9Cnn39tpDaqO6m6nZzSZ6g8DjgfMtqk9/ajUP9gp4vegadt
+	 5dFUkc7ZFha5weVpIjc7IN4s4S0VPZppqFEovg11JBLULOhnK9rRwjeOzuok3DOIB+pjF
+	 3HhC7dBE23NAi66ToCDiOXvH7bgYWhtfFaZNMhcTFsiV/xUjMliwqsRxZdy6Mcn8Pg+Sv
+	 73ahRNh9/67GII4XAIUP2mxxGauNLNihRhGNewyMhfnz3iw99yM9mq/1H2e191Z6f1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609233;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=O6XkqYJ4LCtg+uTN40dEnOg33yY3/MM80Et9d1AnyoQ=;
-	b=xZKOE0XHA3zQ7wNd5iKl7A9//yFMQs8hK0D3/V7WWxnjmTrCYuThcIE07jzGPAyN+Qv+
-	 yviaxbp4aHHKilddXiOAvMTgGtk/zZtwScJggcs0HPomg9EG7fSJkGr8z4IsgpKaWdwHC
-	 +gbBrdTZYqmdZAXh+DT+i6mFrODAKEOtrYOi3ZzLeHqt1YGQxAY6Jefsn5/ofutKjNipk
-	 ulSZC6QqLUCHZpV3tyXzZQQRBNqlXlaJAQ9JElwdrUcl8LpP/c3ao06khTSO6VLkAQ2hv
-	 +k7uQXZ9AVQ/bK3vsiJ8eBG5czi/z+2PhflR3YFiPHGev4lwLvCygdqm/S2HGjDjcyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609223;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yuiWaWQDrq0Vg9DrcjhhGqt3JHN8TGxGS0CrvgppQHM=;
+	b=h3d6LY7sW6/fUyC99LihgX5IhUvkFNooFa+l2cLjt3Mmz0r26DTIT2iulAjcHass9T7m
+	 yHMLXYUKUXEguu/XuuKc7sNJ2LNCcdjmjyS3GuG05YtE8+hn19+NnQiOkKUzrA8QxqF8v
+	 Lv53qoHYWHtYSLAqgtOJ/TUPaFzdWXTAhrF1+CKMJv/6IcEJSqnZw8wSE9jC+CAzlp5WP
+	 TKuCgm6nKvd7mXOCTqskQ0EsTsXAwi/dWB4S9O0LgE6mvGXopUBPH7D6vjkKz1s6ELaIg
+	 0wvG2NVOm3l8UcK6XfNlXnkXELeLlPODucEyZ+xsUGQ1PNRh5ydBXqeMKqrisO6xdqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=J33ugY7P;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=kernelriot.com;
+	spf=pass smtp.mailfrom=kernelriot.com;
+	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=Z1HGC3Hk;
+	arc=none smtp.remote-ip=74.208.142.49
+Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B622606A329;
-	Mon,  2 Nov 2026 08:47:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B622606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C243606A324;
+	Mon,  2 Nov 2026 08:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C243606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelriot.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=J33ugY7P
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=O6XkqYJ4LCtg+uTN40dEnOg33yY3/MM80Et9d1AnyoQ=; b=J33ugY7PgrW7DnzIWE9Xn7D5Jh
-	anvIDvyIleo64jYgJrJRfmEXWTJtvut4yTs3nlMiV0T/8WOcATAFr6Jac2ORjQjOY/VQgnFrd5voQ
-	+o/D/yg978HQ/N6QCiq6p1y9ZajKCnteMxYNCn5fRI3OKoT0QyghbeyIv3Z4R1RBJ6eQEkKqB8KRi
-	6Rg4mn51QJmE062vd/ufQhftAxLXW39yWSrOxhFt0kUp3whIxdR6DPw++1iim36iaeTKRhdX6WWGo
-	B8PoJ75tfXQ7Nq793Et3J5UP5gvTJ+UR/Z4CEcqnf8aZixxgvk1zgPSAYECCxl0TCK8ODQbaN2TMG
-	bhjfzeFg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNnh4-00000001Yrx-0VPY;
-	Mon, 02 Nov 2026 08:47:06 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E0D62300312; Mon, 02 Nov 2026 09:47:04 +0100 (CET)
-Date: Mon, 2 Nov 2026 09:47:04 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andrea Righi <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Mel Gorman <mgorman@suse.de>, Mete Durlu <meted@linux.ibm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-s390@vger.kernel.org
-Subject: Re: [PATCH 0/6] sched: Expose writable interface for preferred CPUs
- mask
-Message-ID: <20261102084704.GQ1779021@noisy.programming.kicks-ass.net>
-References: <20261101192203.6979-1-ynorov@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=Z1HGC3Hk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
+	s=kr2026; t=1793609222;
+	bh=yuiWaWQDrq0Vg9DrcjhhGqt3JHN8TGxGS0CrvgppQHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:From;
+	b=Z1HGC3HkR8D00Uh0FiLWurch+GQd10bwl2o2HDqhQXQmKVZsWi2pnIo94j6nTnyWI
+	 TePKg9UI0on9soMqJYZ2ICUTB36Ii7//aTV+5o5DRK54lTOlYvhqAfbIgo9+RlVUUh
+	 vXMW9ff3cdv1Jb8B1C8oAJw0+AFj+IvCiYR6Zra9xCqFH+Im3iei2uXeYIlafn+hz5
+	 7/xaJcTPgVCNaaUzNFGJxOQL540GjMq2Xol/1KYHRCGo4Z6ovG5ogoLfPVpTQArYAg
+	 tSDTMGktKaG+xIgwD+RxTVMYCExwE6jmkcCKDjFhRBN3r0PjsfvpyY0xO+mXfMnIvX
+	 5lWwKAUA9c+OA==
+Received: by mail.kernelriot.com (Postfix, from userid 995)
+	id 22D0F81455; Mon,  2 Nov 2026 08:47:02 +0000 (UTC)
+From: Magnus Leatti <magnusleatti@kernelriot.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	thomas.petazzoni@bootlin.com,
+	alexis.lothore@bootlin.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net] net: stmmac: Clear DMA errors for multi-channel interrupts
+Date: Mon,  2 Nov 2026 05:45:58 -0300
+Message-ID: <20261102084558.5105-1-magnusleatti@kernelriot.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261030102251.208929-1-maxime.chevallier@bootlin.com>
+References: <20261030102251.208929-1-maxime.chevallier@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,49 +80,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101192203.6979-1-ynorov@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 01, 2026 at 02:21:56PM -0500, Yury Norov wrote:
-> The preferred CPU mask currently lets the steal governor reduce vCPU
-> demand when physical CPUs are contended. This series adds manual control,
-> opening more use cases.
+On 10/30/26 11:22, Maxime Chevallier wrote:
+> The Multi-MSI interrupt handler doesn't clear the DMA error interrupts,
+> and this leads to interrupt storms when one of these interrupts starts
+> firing :
 
-Sceptical, I am.
+Tested on a YT6801 (dwmac-motorcomm) with net at cb284914e749 and the
+glue unmodified. Without this patch, a 64-byte UDP flood
+(iperf3 -u -b 0 -l 64 -R -P 4) hangs the machine. On this board the
+stuck RBU also keeps the MISC bit in MGMT_INT_CTRL0 set, so vector 5
+fires about 120k times per second. With the patch, the MAC interrupt
+only fires while the flood runs, about 1k/s, and stops afterwards;
+same with eight streams plus a TX flood for 30 s. Throughput is
+the same.
 
-> For example, setting CPUs aside for selected fair tasks at runtime while
-> steering other fair tasks toward the remaining CPUs.
+Tested-by: Magnus Leatti <magnusleatti@kernelriot.com>
 
-That's exactly the kind of nonsense we don't need and makes me want to
-stop reading right here.
-
-We already have cpusets that is more than capable of doing this.
-
-> A user can mark a CPU non-preferred and pin a workload to it. Fair tasks
-> whose affinity includes preferred CPUs are steered away, while tasks
-> whose allowed CPUs contain no preferred CPU can still run there. The CPU
-> stays online, task affinity is preserved, and the selection can be
-> reversed without rebooting:
-> 
->     # rmmod steal_governor
->     # echo 0 > /sys/devices/system/cpu/cpu3/preferred
->     # taskset -c 3 ./my_workload
->     # echo 1 > /sys/devices/system/cpu/cpu3/preferred
-> 
-> The current preferred list is still readable from:
-> 
->     /sys/devices/system/cpu/preferred
-> 
-> This provides task-placement isolation similar to a use of
-> isolcpus=domain, with a runtime interface. Scheduling domains remain
-> intact, tick suppression, RCU offloading, and managed-IRQ avoidance
-> can be configured separately when needed.
-> 
-> Different preferred cpumask governors may coexist; all update the
-> same mask under common locking. Manual settings are not privileged,
-> and later governor updates may override them.
-
-That is a recipe for disaster.
-
-Don't bother trying again, this isn't happening.
+nit: "YT8601" in the commit message should be YT6801.
