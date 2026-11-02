@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793623455;
-	b=SW0Z9zZd9a5fExxPuT+IimKnqW0Pt/ZPeP/qQQQWOb3zBVS+jgPmjyew39GzAHOyjBal
-	 tpV6OkCsdRWx8sHTEfGDeiU25c7X6Op8DHfFarN3xTfzt66cJ+P8m0GkGQXG68HqPYJSo
-	 UP9VKNRCxS3fXcUZcROJfRqKYIbkc0TA0oPplHb2oZXkpz9P13sVPAELjaO9kvJIW7iTM
-	 nxW8SwQ3GdVy4pSuXQabT+lfn6cb+FV7c3uFbNu3BzCeeHhKKbWly0OAA5M2IINGXENR0
-	 OWqT8/ViJt6Ut9Qz0RGD9SBkzEJ7E2OzjenwmLBfYegpZZbf194wAC+N2MqZu9eI5vQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623455;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YJ0MEdP/OpEvDHQppLVI3yiWJWVlPZMuIhPkYtaqjuY=;
-	b=0Uohw8fQck8x0jy8rKlI6IV6318n+jayNlfnx4+vDSW+6p454n8qQVDO73yovBkpqym2
-	 355sZ8vSdV6cRjnltRZW4QWy8FvybfUP5R/OQPGrBqZ+gmRiP76YAm+YycltzJvaZeo3D
-	 qA6HuhniTvwr9fLcAaq2DlwYZ/BW+vQaY1HsSOGhfpRoWLtowVTuk6pXhwdIAAcqbC0cQ
-	 iZ2K9ZkW9WhY6aTOZH2kATeBKMua3A72fBjYKJRa2yQsRT+tfDln0JUzH4Ah1p9Wri8Rk
-	 d9HuAVsOLg2kaHCKQkJK0bInVFf9vPEIOIJdy6CI6aPZkeOCb/ree/tLO7HGZr3O1Dw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBiVf7yO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21173606A337;
-	Mon,  2 Nov 2026 12:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBiVf7yO
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793623454;
-	b=UUj+NdoBjby6NzBwktSsJIyjMhbKvZPJcq6WTyMl+9MfBi57q9BJ1JiPjBdCeu0NyKzK
-	 BfUQHfRXFYVcGdxIwFzPX0LeFK0Uj5yWf++x42qqFJ4CPrMkIQB7Yp/2/ksBayNBpubcu
-	 76s2Pvj8o5xD1KgjnG+7MFsH3b0HpzP6rmHPWrOG/8L6JP0PGnMR8t61YDAOk4PtPT6Zq
-	 q2Ry7ztyWIes+ay19YxFn/FUiBKECyuv0AKim2n7vQXIiWXB4TJiz6Va6ColTDyheVaad
-	 Ue5gI1+nWMwGQhMssYc2COOwkFYPdRusrR2gKHYtLCthc5pzxpmnQ5hdGc3FONwC6vw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793623454;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YJ0MEdP/OpEvDHQppLVI3yiWJWVlPZMuIhPkYtaqjuY=;
-	b=jMOdLV8qAc1sApLFpsEXblw0SLFrvxXpyH6FuYbsicyc9A4VsonyAsFbAC0pAiazTF1l
-	 7y4Mqh7TsdZ1zM9agSitn3jx9u1UJ0MZEGAPYBgrWBRsyWw4Ie2L/oyCrxXIfVoNLxFZt
-	 +hqhSsRus+Qah/maCUbOev82FbP1k0+2bg9gG5ufMaoHG4cC9GCvg176IkB1uYNr8wIPU
-	 zSYjYGh6CJ0+Zg+Oi/remwCzRb2bl8oZM7iKsXPSsFdPuCFTH5Uz9ynZZzh+XzB6e9ulM
-	 rVtrrHZSy96r5UsmkXwDZLDZu9tm9z1GsfYCLWeP95QBVMlIqQEQ3GHbwjCXXRBgYYg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793623474;
+	b=I/yj/W54p/G+7ZD5BAxmwRJcFaOrcc5Dep+X6P4eBzMpgpUiOpjpwiaqRyl8xQZX/dBX
+	 89vRkMJIvF6FytOuxNdC7Wp1oMoN9x7P4pB84Aw8RLCN/TPRwpUbLZS9bMPAw+FskyiRh
+	 /mfUD8NhZsX2FBoKmpFkYD3RuvwbbyvgBPklJ0v8LLhrrwWiwcMc72et8mWblQtjxhqT/
+	 geWgiHUPPT6SUkbRFPtjGIyExsIOLtCEvZy8SiXOl0mWPuqe4uH60Wyb4kJ35bC7b50K2
+	 2Yl8/Lc9DpXtQ9e0+ueLMDo1ByTz0yIMtLJf9tll6D5LM46dw+e2RPxgLWeLl5umlUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623474;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Disposition-Notification-To:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=dYanbEJ7ydWKIVlseZIgyCbLcRNjwGo/7gUCZwqpJKs=;
+	b=Y8M5L4gt1X+Wi+h7piE27oYQtPzuyrCjt/4gZU9HLL/azus+410xe+ynliPPKB70AaYJ
+	 y8O6vZZOMzy190YA6iAJKFMI4m2IZiED3xElc+S5NfyC3OatD9Sd/rAwwIZW6EZPRkWhO
+	 rGt5cyFXP94DmStRYRXyNC8G5dkxxXqsHOrUgZ/XXjDVNmDbUpcg2NkJidfgiH350lR5v
+	 AKeuj9dLcgTin0K/rGV201ayfvarpxLfrHx6SSg7sKs3lJjz4PCy9yPq7yXEG+nSu2B21
+	 HFVOyREKWlNo9Ugb+S7Ufxj21zdStVQt5FWXjEUefQs4XQoF9IQq+R/mPutGeJDaojg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ipripHyn;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 381BA1F00A18;
-	Mon,  2 Nov 2026 12:44:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793623453;
-	bh=YJ0MEdP/OpEvDHQppLVI3yiWJWVlPZMuIhPkYtaqjuY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=EBiVf7yOlNu9FSLXGJG62bKkVhlqKaNvNT194/ynr+LBQ5yqWHBnv5NEs2jrIQb4j
-	 Gpjs7YhO9c4T12JLx1OnmBn7ND6MhivbWTSdFmOx911yLlqUNcpGFae3ab3vQks1qO
-	 eg6pw05hVClymlFgNwUtERIvrUBponiQ/C3YbPMAAdZsEjbe7CFIW1oAEffrT7ydzv
-	 C9qsC3KwgLdscmhla1Lg6/EvuBzNXGarO2Qrl3/aCT7DBu5HrB4uDYkfm/LEmrYrWe
-	 rbxdMwVD0ni45nm2/r+gkETbny7gbow9/Do4n2Kska9Nw+TUJaDFFRHM1OQDu1MrAW
-	 Li1h8yUNcYPyg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B3A64464E1;
-	Mon,  2 Nov 2026 12:44:12 +0000 (UTC)
-From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 17:44:12 +0500
-Subject: [PATCH bpf-next v4 2/2] bpftool: Make the LLVM disassembler an
- optional runtime dependency
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD70F606A337
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD70F606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ipripHyn
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6acbdf8e70dso824328a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:44:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793623472; x=1794228272; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :disposition-notification-to:references:in-reply-to:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dYanbEJ7ydWKIVlseZIgyCbLcRNjwGo/7gUCZwqpJKs=;
+        b=ipripHynXFhBUZYO3ONkgpAkySdmoxAaDbs93kVcEyX1tuR6xSxgQMnbjh+OfX4ozK
+         3ROdQxJdv3Vh/6K70Ycd/gX7I1HGc+HbdWgEcCn281ZdUL5H66Hb2hfk1oIwK8OyZGCV
+         YqFq0wo6Z48sEqRXQJVBxDPjcHuXWpPtINRmOjaKecvPs6TuwLfdDiPm6RuhX6UabD6J
+         3PWpz/tm8vagnQFLxPv/SqjZySmGtt8OdhXGJhHWx0svC6YSsK4K/BHln98i0VrJwGQB
+         +yYMwH2I5/K64IWYRaWxD1RnvziHZPS0ZDU2Yv7bxaUKh4hD44bxeluaiDP3p5/RpAKz
+         ERqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793623472; x=1794228272;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :disposition-notification-to:references:in-reply-to:date:cc:to:from
+         :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dYanbEJ7ydWKIVlseZIgyCbLcRNjwGo/7gUCZwqpJKs=;
+        b=Cn8ZKMfLQpXHcVEDdI6Tl2cpbQNkMyKTaKdtukA4XoeGBJ+zWkm8i7BTpgeraJXMlP
+         NlIE0LGpddX9/GchI/7YWeuYt0uuEWCyvn4wn2i/sOFKZAfhwkFmZGIVegNtdmpsqKxN
+         Lvks2hudZC/20VTqREyGw72nl+eZO/KPoMZ5INf4YKHOykRS2S94PboHX8LcElQLlsnJ
+         by2M15mZEzvDpPzW2963giydjRwMSgWXwXDYumFr09N5QfO8aZvJwzyUXl7rOtMRwr29
+         vw4sirjHyCWJ+XOyM3oPAmm14THu1m8r6/5r8uc8bEmoFumvLB1KE3C+w3jIoIUhpd9Y
+         bfPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFrSWIcTwK3kWONTIUkipCinvhRTuzV2q+MGGHXBijV35QG72aYrAJN2Ak6jRS1wczrN6cOpKw39YGZps=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rc08Qws0TqPGL0lR+9oOP0DyU8SNTiDTjWUJiAv5gv7cX3PoK
+	7MIzNVD+tLN/j11PV0h3c8j3/MvMoEnPghmoz5UuKeSzVG+ON2hQM2UT
+X-Gm-Gg: AYBFou0LcGVnd6yFsqk4OHuXftO3Ej2Q1K3hjhyCB23AICVje4ywW2sHycdTKAyen6v
+	RkkpB2dQgLFuSW0bhkIdqWmu5HohsUl47u67OCji+aQf7bJ+ZDdNtISs0AJGK4fwjETmO4zHisj
+	+5l6MHwleADqiiNtFIflDxBa9bzp0V/dmGuDPqP/sNS+YsY3//AvIkNPGx/YqEyPZcXN62j7b9N
+	NZ3jiiUurXkER1RkmNf5PHerF/3tfQNljW2qK2eJ0ezsO7tkceEYf9JZL1Qa9IZonv6SCAjiNx8
+	pHEaANXvp4QLVP4y9pB9WXh4WanyIfWFB1AicgskZoviorUIx3bNnyf3dxThzJnhFrUZ+xlo3uH
+	6jFkERvfSVRnv7Pb1r3XEG1WMXEvZ3J8/bCxl7k4sc/U/76q8kmXYv3iiFE9qLeLpoaZuCKXDFu
+	myydpRZFmnAvtFBqKlqL3GrCOL77XbxQ2f+uCbYcnDYuHzeA5rvLsDwZjGFz5gY8HMyM3PHacbB
+	SslKSykfMRiwbs2Db4jCCTvEg7dQDzSzWiPvtQHQ47RsFgZk8PIUG0kesoRCYWePrLbu75U1HDw
+	zEMsGkQPlfMpl8Zk3fS9B0+KtGLajOwRXPFuZ5UWvf77FqwXiLYAG6QQ+4DXs2/jLmPLfRRAAwq
+	nGGDAPvaDhwee9B1bn/jcKJjZgRl6aZ6KcQA=
+X-Received: by 2002:a17:906:178e:b0:c46:b5a7:5b29 with SMTP id a640c23a62f3a-c4ca7a50798mr780727266b.2.1793623472076;
+        Mon, 02 Nov 2026 04:44:32 -0800 (PST)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca214fdsm3152504a12.36.2026.11.02.04.44.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 04:44:31 -0800 (PST)
+Message-ID: <bbd1ec87a9fff50b189f74cbd21e1d5bddf41136.camel@gmail.com>
+Subject: Re: [PATCH] HID: pidff: bound the unit exponent rescaling loop
+From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: Shengzhuo Wei <me@cherr.cc>, Oleg Makarenko <oleg@makarenk.ooo>, Jiri
+ Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ =?UTF-8?Q?Micha=C5=82_Kope=C4=87?=
+	 <michal@nozomi.space>, Paul Dino Jones <paul@spacefreak18.xyz>
+Cc: linux-input@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 02 Nov 2026 13:44:28 +0100
+In-Reply-To: <20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc>
+References: <20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,204 +106,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-bpftool-plugin-v4-2-5a853e973db9@gmail.com>
-References: <20261102-bpftool-plugin-v4-0-5a853e973db9@gmail.com>
-In-Reply-To: <20261102-bpftool-plugin-v4-0-5a853e973db9@gmail.com>
-To: Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Martin KaFai Lau <martin.lau@linux.dev>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Nick Desaulniers <ndesaulniers@google.com>
-Cc: linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
- Mark Korenberg <socketpair@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793623450; l=5400;
- i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
- bh=qS1vKaFei4x8R94EkIEUARWR3+po+AM+0LwZ2fhdRwI=;
- b=DNm+NtiRFKG+RSciLvDX559sC0GrIYDdYnL2qPt+IKL5zKx+0iMyqn0CBZAVELjXXTAkdhIu1
- 8sxvHbnAnGlBEziRcM7aURaLhfVE0dh0psKHGRwu8ty6NrxUeylN0oB
-X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
- pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
-X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
- auth_id=806
-X-Original-From: Mark Korenberg <socketpair@gmail.com>
-Reply-To: socketpair@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Mark Korenberg <socketpair@gmail.com>
+On Thu, 2026-10-29 at 00:04 +0800, Shengzhuo Wei wrote:
+> pidff_rescale_time() walks the device-provided unit exponent one step
+> at a time, allowing extreme values to cause billions of iterations
+> while ff->mutex is held. In a UHID test with an INT_MIN exponent,
+> EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
+>=20
+> Stop rescaling once scaled_time becomes zero, since further
+> multiplication or division by 10 cannot change the result. The u32
+> value becomes zero within 32 multiplications by 10, and the u16
+> input within 5 divisions. This bounds the loops while preserving
+> their results for all exponents, including wraparound.
+>=20
+> Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field unit=
+s")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+> ---
+>  drivers/hid/usbhid/hid-pidff.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidf=
+f.c
+> index 22951b7ecd17..1a2fffcf204e 100644
+> --- a/drivers/hid/usbhid/hid-pidff.c
+> +++ b/drivers/hid/usbhid/hid-pidff.c
+> @@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_fi=
+eld *field)
+>  =09int exponent =3D field->unit_exponent;
+> =20
+>  =09pr_debug("time field exponent: %d\n", exponent);
+> -=09for (; exponent < FF_TIME_EXPONENT; exponent++)
+> +=09for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
+>  =09=09scaled_time *=3D 10;
+> -=09for (; exponent > FF_TIME_EXPONENT; exponent--)
+> +=09for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
+>  =09=09scaled_time /=3D 10;
+> =20
+>  =09pr_debug("time calculated from %d to %d\n", time, scaled_time);
+>=20
+> ---
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
+>=20
+> Best regards,
+> -- =20
+> Shengzhuo Wei <me@cherr.cc>
 
-libLLVM is only needed for "bpftool prog dump jited", yet it is a hard
-dependency of bpftool: on Fedora 43, installing the ~730 KiB bpftool pulls
-in ~140 MiB of llvm20-libs.
+Tested this locally and works nice.
 
-When libLLVM is a shared library, don't link bpftool with it. Instead,
-disasm_init() loads it with dlopen(), under the name llvm-config reports
-at build time, and resolves the few llvm-c functions bpftool uses with
-dlsym(), like perf does for libcapstone. Distributions can then make LLVM
-an optional dependency of bpftool.
+Should we maybe add a warning to the driver that the time exponent might
+be out of a sane range? Sane range being, say, 10 to 0? This of course
+would have to happen during init stage not to spam dmesg.
 
-"bpftool version" still reports "llvm" as a build time feature. Static
-LLVM, and LLVM built with one library per component, are linked as before.
-
-Link: https://github.com/libbpf/bpftool/issues/262
-Suggested-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Mark Korenberg <socketpair@gmail.com>
----
- tools/bpf/bpftool/Makefile     | 10 ++++-
- tools/bpf/bpftool/jit_disasm.c | 86 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 95 insertions(+), 1 deletion(-)
-
-diff --git a/tools/bpf/bpftool/Makefile b/tools/bpf/bpftool/Makefile
-index b0f7168e7943..876bf3cf93e3 100644
---- a/tools/bpf/bpftool/Makefile
-+++ b/tools/bpf/bpftool/Makefile
-@@ -186,10 +186,18 @@ ifeq ($(HAS_LLVM),1)
-   # Makefile includes lib.mk which sets -D_GNU_SOURCE) which would cause
-   # compilation error due to redefinition. Let's filter it out here.
-   CFLAGS  += $(filter-out -D_GNU_SOURCE,$(shell $(LLVM_CONFIG) --cflags))
--  LIBS    += $(shell $(LLVM_CONFIG) --libs $(LLVM_CONFIG_LIB_COMPONENTS))
-+  LIBLLVM_SO := $(shell $(LLVM_CONFIG) --libfiles $(LLVM_CONFIG_LIB_COMPONENTS))
-   ifeq ($(shell $(LLVM_CONFIG) --shared-mode),static)
-+    LIBS += $(shell $(LLVM_CONFIG) --libs $(LLVM_CONFIG_LIB_COMPONENTS))
-     LIBS += $(shell $(LLVM_CONFIG) --system-libs $(LLVM_CONFIG_LIB_COMPONENTS))
-     LIBS += -lstdc++
-+  else ifeq ($(words $(LIBLLVM_SO)),1)
-+    # Don't link with libLLVM.so. "prog dump jited" loads it with dlopen().
-+    CFLAGS += -DLIBLLVM_SO='"$(notdir $(realpath $(LIBLLVM_SO)))"'
-+    LIBS += -ldl
-+  else
-+    # LLVM built with BUILD_SHARED_LIBS=ON, one library per component
-+    LIBS += $(shell $(LLVM_CONFIG) --libs $(LLVM_CONFIG_LIB_COMPONENTS))
-   endif
-   LDFLAGS += $(shell $(LLVM_CONFIG) --ldflags)
- else
-diff --git a/tools/bpf/bpftool/jit_disasm.c b/tools/bpf/bpftool/jit_disasm.c
-index 5ff144ce84a1..2c646626e256 100644
---- a/tools/bpf/bpftool/jit_disasm.c
-+++ b/tools/bpf/bpftool/jit_disasm.c
-@@ -25,6 +25,7 @@
- #include <bpf/libbpf.h>
- 
- #ifdef HAVE_LLVM_SUPPORT
-+#include <dlfcn.h>
- #include <llvm-c/Core.h>
- #include <llvm-c/Disassembler.h>
- #include <llvm-c/Target.h>
-@@ -47,6 +48,89 @@ static int oper_count;
- 
- typedef LLVMDisasmContextRef disasm_ctx_t;
- 
-+#ifdef LIBLLVM_SO
-+/*
-+ * libLLVM.so is big and only "prog dump jited" needs it. bpftool is not linked
-+ * with it. disasm_init() loads it.
-+ */
-+#define LLVM_FUNCS(F)			\
-+	F(LLVMCreateDisasm)		\
-+	F(LLVMCreateDisasmCPUFeatures)	\
-+	F(LLVMDisasmDispose)		\
-+	F(LLVMDisasmInstruction)	\
-+	F(LLVMDisposeMessage)		\
-+	F(LLVMGetDefaultTargetTriple)	\
-+	F(LLVMNormalizeTargetTriple)
-+
-+#define F(fn) static __typeof__(&fn) p_##fn;
-+LLVM_FUNCS(F)
-+#undef F
-+
-+static const struct {
-+	const char *name;
-+	void *ptr;
-+} llvm_funcs[] = {
-+#define F(fn) { #fn, &p_##fn },
-+	LLVM_FUNCS(F)
-+#undef F
-+};
-+
-+/* The functions that LLVMInitializeAll*() in llvm-c/Target.h call */
-+static const char * const llvm_init_funcs[] = {
-+#define LLVM_TARGET(t)	"LLVMInitialize" #t "TargetInfo",	\
-+			"LLVMInitialize" #t "TargetMC",
-+#include <llvm/Config/Targets.def>
-+#define LLVM_DISASSEMBLER(t) "LLVMInitialize" #t "Disassembler",
-+#include <llvm/Config/Disassemblers.def>
-+};
-+
-+#define LLVMCreateDisasm		p_LLVMCreateDisasm
-+#define LLVMCreateDisasmCPUFeatures	p_LLVMCreateDisasmCPUFeatures
-+#define LLVMDisasmDispose		p_LLVMDisasmDispose
-+#define LLVMDisasmInstruction		p_LLVMDisasmInstruction
-+#define LLVMDisposeMessage		p_LLVMDisposeMessage
-+#define LLVMGetDefaultTargetTriple	p_LLVMGetDefaultTargetTriple
-+#define LLVMNormalizeTargetTriple	p_LLVMNormalizeTargetTriple
-+
-+static void *llvm_sym(void *lib, const char *name)
-+{
-+	void *sym = dlsym(lib, name);
-+
-+	if (!sym)
-+		p_err("%s is not in %s", name, LIBLLVM_SO);
-+	return sym;
-+}
-+
-+int disasm_init(void)
-+{
-+	void (*init)(void);
-+	void *lib, *sym;
-+	size_t i;
-+
-+	lib = dlopen(LIBLLVM_SO, RTLD_NOW);
-+	if (!lib) {
-+		p_err("failed to load %s: %s", LIBLLVM_SO,
-+		      dlerror() ?: "unknown error");
-+		return -1;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(llvm_funcs); i++) {
-+		sym = llvm_sym(lib, llvm_funcs[i].name);
-+		if (!sym)
-+			return -1;
-+		*(void **)llvm_funcs[i].ptr = sym;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(llvm_init_funcs); i++) {
-+		init = llvm_sym(lib, llvm_init_funcs[i]);
-+		if (!init)
-+			return -1;
-+		init();
-+	}
-+	return 0;
-+}
-+#endif /* LIBLLVM_SO */
-+
- static int printf_json(char *s)
- {
- 	s = strtok(s, " \t");
-@@ -135,6 +219,7 @@ disassemble_insn(disasm_ctx_t *ctx, unsigned char *image, ssize_t len, int pc,
- 	return count;
- }
- 
-+#ifndef LIBLLVM_SO
- int disasm_init(void)
- {
- 	LLVMInitializeAllTargetInfos();
-@@ -142,6 +227,7 @@ int disasm_init(void)
- 	LLVMInitializeAllDisassemblers();
- 	return 0;
- }
-+#endif
- #endif /* HAVE_LLVM_SUPPORT */
- 
- #ifdef HAVE_LIBBFD_SUPPORT
-
--- 
-2.56.0
-
-
+Regardless of that:
+--=20
+Reviewed-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
