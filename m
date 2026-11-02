@@ -1,111 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612663;
-	b=z/dYG8hF1I8uzdQETil38JPCntkQqaeU3n973eWmFwvCimGoIZBPj67DYKjZ+6yZd2ET
-	 XOG/8ZL2Okt+igmUsU/b6H8a1ZpUwTmJlKcBT6J4IfSYqzr65DBClLlVQn2hs//pPqyg7
-	 dfxP1JmnsfeXBNs4w1zt/qJcch1Jpfh9ZXmLNcJjSmaHYK9mkN4PC9RvcQdtvkamVHH0K
-	 PXD7RxPjJOcvGlpA07y57cPdQDMTL18F4NQqiaAUCXKMj5BNcCMiwh/A10V06MXuJ/iRR
-	 XTJ8DF5SCgaqB2I5UOhYl+IvLYioM9hZzldv2MlL+hSX3WVCpiOdWPbtg1T2d7olb7A==
+	t=1793612703;
+	b=ZaQl5psC0FvWXLoQaBKqSMgEjX4WmBrg5tFfDZvQZc4HybGZYkc7RFsk+Iyp+G2p2K0f
+	 5Jwz6oo1EAwV/8kGnd30G1HB7DXQNMcDK4Du0PooTig/4xSYKziqYm3ah9dCxtZBYObhx
+	 uv+Lg2F1pMv3M6au1Lv0o7rYKJawpswu7r2hFRuZZuQK9IN0nfPHu0dwMiiJxI/hsN2Lp
+	 rwdN/JjHmaTtaQqwCbnu+mvgTU8mrJtwuJ+pdnorvBMgbhCUTLCv2yniUCdirgFmo8G0z
+	 60Fx/L9DvNhjhswou0EBDFgTDmoUzpcvJY3MO4JnYAcnG8SXGR4XDh/+g7g6HVABpDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612663;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ZCa/YPK9ZlF3OQw519mYhFypdJ6PeksxTIjOEMw7euE=;
-	b=ptg0RnbnFfXDRwC4W7N9gKMXnIk3AE+61IT8W0+hcf1z7LVZYUtBH+LOAMt/sAOVpI67
-	 quQdJI/8kdHuILmxQMS0QFiniXPUcVvLU7Xr1zbiP/2reI7fWA4WQRA/rgA0da8ko8i42
-	 PsZco1LsHhLtkIMwKpfRJzuFrgNuf0vc/HAb7jV2Eq7VKsinftUukF0LzlGDQ2poF3RXY
-	 cC6cTYz1Z4uEfYkaXU2yEmU3TMZZ6YhsgU/SX3HeMUP8ehEBLfWcy6bgcisJbOwSu3o9G
-	 81FeQ6mOS8TNKdey7jO7rc3qlq2MOOUWU5SY/ZyXh8cMhUB1ggCW2k0U5fbRg//1QEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612703;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=CKiEFEvoAV37kTlieYx5EENYcbPCljmecF7v8qsd2AM=;
+	b=bBpd9EjtkvQQZMlBk4QoQQgq63U1V1EmRKugw8p22ob0SUKYFLZgvML2QKhDILxw66Bi
+	 JSLetdQQl0ucRftnG1zMO5cTnmZ4zqH/C9a0zAv37QCGaaqMzNeczvBN7q/TDSJw199co
+	 7nKwHM/XVA0f3djdYB3wJQARnwi3lZ5S0TW3X1OKc+wlmHte2b7y9tJ57hkD9cHVSYRJF
+	 +viX4Xl/nkKW73/rfAZK7Uln1G5OuprWNhVQnLl/Umk0EXyi7GxCws+qbCUK1hGmJXhg5
+	 +Q5IaSswpdTgzVH6jQnrQWymZpWMp17CSoq1k9PlF7s1HSDXSeeSpWHmPhriBWuLyJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZRREO1QA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KQgAlhh4;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2JYbBDI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF58E606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF58E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BB9606A324;
+	Mon,  2 Nov 2026 09:45:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZRREO1QA;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KQgAlhh4
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AP0i3086563
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 09:44:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZCa/YPK9ZlF3OQw519mYhFypdJ6PeksxTIjOEMw7euE=; b=ZRREO1QAjeVOSxCH
-	lv9RJxZx6z6iWF9jL2zBA7cxtzVayVF4tRsCazMYPa+gDalzYovZbrHVdgmEDcMQ
-	4OPdDGklBAzv/3CWt69NSeI9TW2snsq7uT3+LzIMxkol2Ny9jnw4bGF5Q0Z2lujf
-	rP0ICGltYROVYVALb4AbHFg2/9QX2K95et3GiThuGdJe4Ykt0ZBq3O4W8czAYtXE
-	/XUX5lgx16wyZZDLPxuxB2TQCP01X3NAN5WrZQ2CDuHQBWKKZiVYUFudXd5wN0uM
-	gGW1IEm8rGkc1hoTCpv9OKLNKx26fqRID1BlAhS/zB+XknvZ7WociAJwoa26gSej
-	mwAL8g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka61612-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:44:21 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93e629c7b16so48467485a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:44:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793612661; x=1794217461; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZCa/YPK9ZlF3OQw519mYhFypdJ6PeksxTIjOEMw7euE=;
-        b=KQgAlhh4nDDk0Lp9lFowBkfeocguj0TGQNNC91USFy3a5dR83dKMZf1Tf/HNvN34VD
-         xM24O0lT/Cj0lGrC5pC5Q8E2imL3oIAyVDgXy85tyZUz7iB22QEFFZIFEGUxi0QA9v3/
-         losG2+PrzELumYHu3J7DmA4pbabtmSngki1QWJjVgU9kK6X0ysJavagNbo9NghYuysWG
-         QkZEVuxq2HtuooIG/dFAMa5lxasDhXeTdtCRm46FFVzVG1IxqEGgI8Q3x6a+YNq/9dEF
-         43CALuJXOGlLNM4dJFvyumUgvGs75kIel5WXiUMY8l4h7BNYZzYGk9kp2aur1iJ/SxEO
-         C5gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793612661; x=1794217461;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZCa/YPK9ZlF3OQw519mYhFypdJ6PeksxTIjOEMw7euE=;
-        b=W+UaKdy0hLdccRbV3glq0e8mg1KE1hsF8iP1QiwJboClPf9/poSl4SviNFOBmq2Pdk
-         gJl0C6MlhFjo2OOTs5Lpo7WnWyADGMKeXLaruT2HmZFSleP3E5B6j8TbxmZmoStp043/
-         COuDCOPLLNmbu72zFrMRWRVY/bU9P5sKT6BzgjeayIXMoDJETdjSgpA52gOoDKRf/k2A
-         Lr3UtrivJ0VeCNrABLlPEQxy2E1v1+tcTuzjOk+DQSM5SnUVLZ4t3X97xH/mj3SyqjEq
-         L6Um/IU6CQ9Aux0+/GmvZi721UDVwW9yayJTnPk7+GeoCsFWdAJYtWrsy/iJ5jBzAsXZ
-         zQ7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwnHnzl82YM+hHtO9AFKNhUzRSfnxOL6kTxa+kPfBfBTiFRuYxiui64ZzgAoybU0QCxVT5wHLIBVf0hCoQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+4TuOEMbXreiNmMWkHRyOPhOcK1OE3K1RkdmBJX1fhLpo8J4y
-	12S+u+XkIzthYoAUwydWrkPHgl455/di24k5mLqUXHNOsy3CrAHbn2C/MwsI1QOYw8kXhUmYSDi
-	W4HwVGa8Uc8cRcgpTkanOKpjaNTytpq8rA/FE3A7ghKu0OwKDWFUL8BmfyCgMKfwycV8=
-X-Gm-Gg: AYBFou2yc9tE0Vxs5xLiZkNmG6Cjh2/gkEBn4CW0+2BBf6kByLIXWCg9DeQScyhN+NF
-	z/yktO+S4YQEXRDbyZRwDam1mQK1F+uKa5mJjG+Vh2qzs//O28hkhbyXtliREWrQH5Sk17zq0wY
-	0MmJiKNWdNHPOWycDMmupAKlIQIccIeEIHm+ESfZZz1nvk18qAt3wytD74tqme7da9B5D5StgY5
-	ItPGMJl2MiCQ2no8EsHc3y/Refb9T1GVq2NsTQPpp0Y9CU6jNUwRnyX6UdWCxgesKpMJ7/bopc3
-	515q0whYvuzOJouXeyF3zVmg1rxPr/qkVR1aMzAEtM8bde5sX6L5zsyU5bG5Mzvt2EAgHFLKo3f
-	5Zy8JOyymvOk/0eilJzKdDTX8uaW2yV7WvYJV8K2jT2VeXFezo8opG2cvxAt9UPY0pXRDNDQ=
-X-Received: by 2002:a05:620a:4d0e:b0:939:8148:1e3d with SMTP id af79cd13be357-944215b76dbmr1780538985a.2.1793612660988;
-        Mon, 02 Nov 2026 01:44:20 -0800 (PST)
-X-Received: by 2002:a05:620a:4d0e:b0:939:8148:1e3d with SMTP id af79cd13be357-944215b76dbmr1780536485a.2.1793612660576;
-        Mon, 02 Nov 2026 01:44:20 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9a767esm3081382a12.5.2026.11.02.01.44.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 01:44:18 -0800 (PST)
-Message-ID: <6f842ef2-91d3-40b9-b22b-365be4c0c6ed@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 10:44:15 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2JYbBDI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640A31F000C1;
+	Mon,  2 Nov 2026 09:45:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793612702;
+	bh=CKiEFEvoAV37kTlieYx5EENYcbPCljmecF7v8qsd2AM=;
+	h=From:To:Cc:Subject:Date;
+	b=D2JYbBDIdO/Vdy4SxYK6DcLo3KVd5oZv+YavK5I4rGIwcbmLz3SCaeAnROUfb7brF
+	 taiMMZUf5dJS3UptE4we8mJt+VUNYdHsrzQYFdoWBRrQXDTAJm/rcujMBB7irKRk3e
+	 eYrnkgb2bt46Yg/d71Ue6Qpldj6q8nYqw3UYNPstB8lJnW2mtOdfJFutYP8rAJ5gfb
+	 5me1GGNqyMCv9G1gowyqj/ejWGe/8ozok6LxKjkpEptoOCyn2N3rOffNgzI4zHdfrd
+	 Fyz/nJiub2InQrH5LaXI15raQkqMVvcuBw4t9ovHv8b1ot32+PND+OfTqQcJgVLxvb
+	 gn27Z37fYbxGA==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] MIPS: c-r4k: Flush the cache error vector before writing it uncached
+Date: Mon,  2 Nov 2026 10:43:45 +0100
+Message-ID: <20261102094345.27840-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,69 +59,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] drm/msm: Decouple IFPC disable and sysprof
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        open list <linux-kernel@vger.kernel.org>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
-References: <20261101174631.23637-1-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261101174631.23637-1-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: DhP7EPU2FGh_RZkYVcI8ynu7U07h_mUr
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX2WnaQXk5FwfN
- O0QCiyET7Kncg1dCr7alVgwoRs1ofMfm8KwVIk+7Y9YRjXAalv0JuF7aYJ+LJngjY8gx+Afzh6e
- 04l3rkcA6iv91EAUzqEBB3rMSNMQo6k=
-X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae85b75 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=e5mUnYsNAAAA:8 a=D_WMUv83azVPUa-0ShAA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX1OWRnIUTSaH+
- EbRJZauwunSg1cpeWIKgkpfl/166qHNbu4hGhkMOIIbfFCBfDLJx1O9zA/gmdjxk4kbE8D45yAV
- NjdHHUt5euFMb/eUR5kI4o9YOVjgropn5FuHjSSPriC5BQit6CK0ljl4podw/w7F34VevPK/XBo
- TaSGJ0SmmdY7MI79MEe+lPeul1eg7dYCZZ214cvcd6ZznNOMI8dGSScIMbWrF19oN2w54oXCuMy
- Z0oyOw6LZPqiAtVunEiffGZekrc1X5ZVHHSZK3gfPhXr5l4vdnp1HYJv2rQ/L9EaIHzj0srO75e
- QGxJYuw3jMHqBVFjBjft70DAd5D0+7GIYr05gs4t7h95ykRmo6qg5fLYHEPyIbJDOo7YOKtWGY0
- FWhaeVjVPAAQyhCXYiNuYXxsJh21xBGEePOMi7M688haCOelVXPvd/6Vx+ne9owYPu3NKDH8MQC
- HAHLmGOnz7Ovv2PpI7A==
-X-Proofpoint-GUID: DhP7EPU2FGh_RZkYVcI8ynu7U07h_mUr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020038
+Content-Transfer-Encoding: 8bit
 
-On 11/1/26 6:46 PM, Rob Clark wrote:
-> Convert IFPC-disable into it's own refcnt so that multiple threads can
-> request IFPC to be disabled without stomping on each other.
-> 
-> Extracted out of gen8 GPU state capture series[1], as other than fixing
-> a missing IFPC disable in debugfs state capture path, it is unrelated.
-> 
-> [1] https://patchwork.freedesktop.org/series/176505/
-> 
-> Rob Clark (4):
->   drm/msm: Rework IFPC disable
->   drm/msm: Add cleanup help for disabling IFPC
->   drm/msm/debugfs: Use cleanup.h for gpu state dump
->   drm/msm: Inhibit IFPC for state snapshot
+On R10000-class CPUs, a store prefetch while copying the preceding
+vector can leave a dirty line whose write-back overwrites the uncached
+cache error handler.
 
-Sashiko has seemingly valid high-prio comments
+Write back and invalidate that line in set_uncached_handler() before
+the copy, through a new flush_dcache_size() hook. c-r4k and c-r3k
+provide it with r4k_dma_cache_wback_inv() and r3k_dma_cache_wback_inv(),
+renamed as they are no longer DMA-only.
 
-Konrad
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+Changes in v3:
+- Renamed the hook to flush_dcache_size() and the c-r4k implementation
+  to r4k_flush_dcache_size().
+- r3k_dma_cache_wback_inv() becomes r3k_flush_dcache_size() and is
+  installed as the hook as well.
+
+Changes in v2:
+- Fixes: 1da177e4c3f4 instead of e01402b115cc.
+- Moved the write-back into set_uncached_handler(), for every caller.
+- Renamed r4k_dma_cache_wback_inv() to r4k_cache_wback_inv().
+
+v2: https://lore.kernel.org/r/20261026120430.13238-1-kaloz@kernel.org
+
+ arch/mips/include/asm/cacheflush.h |  1 +
+ arch/mips/kernel/traps.c           |  6 ++++++
+ arch/mips/mm/c-r3k.c               |  9 +++++----
+ arch/mips/mm/c-r4k.c               | 11 ++++++-----
+ arch/mips/mm/cache.c               |  1 +
+ 5 files changed, 19 insertions(+), 9 deletions(-)
+
+diff --git a/arch/mips/include/asm/cacheflush.h b/arch/mips/include/asm/cacheflush.h
+index 5099c1b65a58..fb8eeb205897 100644
+--- a/arch/mips/include/asm/cacheflush.h
++++ b/arch/mips/include/asm/cacheflush.h
+@@ -120,6 +120,7 @@ extern void copy_from_user_page(struct vm_area_struct *vma,
+ 
+ extern void (*flush_icache_all)(void);
+ extern void (*flush_data_cache_page)(unsigned long addr);
++extern void (*flush_dcache_size)(unsigned long start, unsigned long size);
+ 
+ /* Run kernel code uncached, useful for cache probing functions. */
+ unsigned long run_uncached(void *func);
+diff --git a/arch/mips/kernel/traps.c b/arch/mips/kernel/traps.c
+index 8ec1e185b35c..19a8946e14ae 100644
+--- a/arch/mips/kernel/traps.c
++++ b/arch/mips/kernel/traps.c
+@@ -2305,6 +2305,12 @@ void set_uncached_handler(unsigned long offset, void *addr,
+ 	if (!addr)
+ 		panic(panic_null_cerr);
+ 
++	/*
++	 * A store prefetch or speculative store may have left a dirty line of
++	 * the cached view; write it back and invalidate it first, or its later
++	 * write-back overwrites the handler.
++	 */
++	flush_dcache_size(ebase + offset, size);
+ 	memcpy((void *)(uncached_ebase + offset), addr, size);
+ }
+ 
+diff --git a/arch/mips/mm/c-r3k.c b/arch/mips/mm/c-r3k.c
+index 5869df848fab..a1be13775d2c 100644
+--- a/arch/mips/mm/c-r3k.c
++++ b/arch/mips/mm/c-r3k.c
+@@ -270,7 +270,7 @@ static void r3k_flush_kernel_vmap_range(unsigned long vaddr, int size)
+ 	BUG();
+ }
+ 
+-static void r3k_dma_cache_wback_inv(unsigned long start, unsigned long size)
++static void r3k_flush_dcache_size(unsigned long start, unsigned long size)
+ {
+ 	/* Catch bad driver code */
+ 	BUG_ON(size == 0);
+@@ -299,10 +299,11 @@ void r3k_cache_init(void)
+ 	__flush_kernel_vmap_range = r3k_flush_kernel_vmap_range;
+ 
+ 	flush_data_cache_page = r3k_flush_data_cache_page;
++	flush_dcache_size = r3k_flush_dcache_size;
+ 
+-	_dma_cache_wback_inv = r3k_dma_cache_wback_inv;
+-	_dma_cache_wback = r3k_dma_cache_wback_inv;
+-	_dma_cache_inv = r3k_dma_cache_wback_inv;
++	_dma_cache_wback_inv = r3k_flush_dcache_size;
++	_dma_cache_wback = r3k_flush_dcache_size;
++	_dma_cache_inv = r3k_flush_dcache_size;
+ 
+ 	pr_info("Primary instruction cache %ldkB, linesize %ld bytes.\n",
+ 		icache_size >> 10, icache_lsize);
+diff --git a/arch/mips/mm/c-r4k.c b/arch/mips/mm/c-r4k.c
+index d8aadd3dc057..8b600de64dff 100644
+--- a/arch/mips/mm/c-r4k.c
++++ b/arch/mips/mm/c-r4k.c
+@@ -743,9 +743,7 @@ static void r4k_flush_icache_user_range(unsigned long start, unsigned long end)
+ 	return __r4k_flush_icache_range(start, end, true);
+ }
+ 
+-#ifdef CONFIG_DMA_NONCOHERENT
+-
+-static void r4k_dma_cache_wback_inv(unsigned long addr, unsigned long size)
++static void r4k_flush_dcache_size(unsigned long addr, unsigned long size)
+ {
+ 	/* Catch bad driver code */
+ 	if (WARN_ON(size == 0))
+@@ -786,6 +784,8 @@ static void r4k_dma_cache_wback_inv(unsigned long addr, unsigned long size)
+ 	__sync();
+ }
+ 
++#ifdef CONFIG_DMA_NONCOHERENT
++
+ static void prefetch_cache_inv(unsigned long addr, unsigned long size)
+ {
+ 	unsigned int linesz = cpu_scache_line_size();
+@@ -1743,14 +1743,15 @@ void r4k_cache_init(void)
+ 
+ 	flush_icache_all	= r4k_flush_icache_all;
+ 	flush_data_cache_page	= r4k_flush_data_cache_page;
++	flush_dcache_size	= r4k_flush_dcache_size;
+ 	flush_icache_range	= r4k_flush_icache_range;
+ 	local_flush_icache_range	= local_r4k_flush_icache_range;
+ 	__flush_icache_user_range	= r4k_flush_icache_user_range;
+ 	__local_flush_icache_user_range	= local_r4k_flush_icache_user_range;
+ 
+ #ifdef CONFIG_DMA_NONCOHERENT
+-	_dma_cache_wback_inv	= r4k_dma_cache_wback_inv;
+-	_dma_cache_wback	= r4k_dma_cache_wback_inv;
++	_dma_cache_wback_inv	= r4k_flush_dcache_size;
++	_dma_cache_wback	= r4k_flush_dcache_size;
+ 	_dma_cache_inv		= r4k_dma_cache_inv;
+ #endif /* CONFIG_DMA_NONCOHERENT */
+ 
+diff --git a/arch/mips/mm/cache.c b/arch/mips/mm/cache.c
+index ad9b0430a28e..b69b87c6c0cb 100644
+--- a/arch/mips/mm/cache.c
++++ b/arch/mips/mm/cache.c
+@@ -51,6 +51,7 @@ EXPORT_SYMBOL_GPL(__flush_kernel_vmap_range);
+ /* MIPS specific cache operations */
+ void (*flush_data_cache_page)(unsigned long addr);
+ void (*flush_icache_all)(void);
++void (*flush_dcache_size)(unsigned long start, unsigned long size);
+ 
+ EXPORT_SYMBOL(flush_data_cache_page);
+ EXPORT_SYMBOL(flush_icache_all);
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.47.3
+
