@@ -1,101 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793633398;
-	b=JUcmKJ6bCVpcn28QKMBBS2FKfBWGUkGBLUEWm76yaBJPe7EnZ+qWL/lL7XxOb4UHv/QM
-	 ZpHSOqgpkJTx5tcIFoc8mZR7y+zarR33s686rz+97owX1x4IX5yzXGXzisIT2wBYTPoim
-	 GdFGU+rDgUKYo4So+Y6sp/dsFu5agh2ct0QxVsX7fZsocrJhsfYNTL55gddt39U4DOe65
-	 a2cmx72AULof0reQxh91PvKoZZCQxdWJ/Pd9dHlEM8ZHjF4QjiYNBl5y3nAMm9EnlreMx
-	 Hg9uLCtzjTFsn2po1FVRFTC3YBCIOBgdUH5TlY4SPFyCJHDgzJU3Nh+D2RCGmPeyCtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633398;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=P7oHHMkIM1swADUlplUIw0AliwJNApZ8BZBXp6ze1xc=;
-	b=lYfaoNWgDH5S3+GukQxXySCf8q+jMrRANVOopGSAmLgp0WcKZc7DnrStVxPtbIcTnywk
-	 r29xQOxiifayM43Lp6CQKc1LF9uiYcmIaof4+LadSOGUNkis4NmjiwKbhBCdy0dPUPsRW
-	 PakxwKH4pt0K/Bk/RGLVh6LvCMVRDnJdou9EmO3qDgt7yv+5neSpssUMEWNezB2Aa+Jd6
-	 Qqvci63DKS8l1BfyPJ9Bn7ZOsv44nyjkzwwQ06+Tt9/DjISgBjePEYrTM/9PNZIuGyWgI
-	 p+cda4etKX2FTXGOrjDTBCE7XwPyaYHudjVy6ggnTFf3CGvLsRVlCGlJi+LDZsx1r6g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DPoB7zEb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793633439;
+	b=tOLi7aIxdTJIXnFg1tvZZ1+QpFw72a+EWKB4Xu14u4mWLO5Wl4tSohYL7KxSBX47l09m
+	 rqoK3smbXi9XIjlLB3UP3ZgUyu7+27WG2rFmhesMg6RqvHgtn+oc9jdnNE+UPw84Hgh8C
+	 nY1gSldte2J1XE8amq8poHWNh+VyHT0pxYW1qaIqm4tgiZk+tZHkVwXOLIwy+cVfOQMdU
+	 h7Vt75MJsCPt9+wg71G4ioaBgDyi2o5fsTfLoUyUMknjd2gD1q5lxLQvK0jlIZFeVZgUN
+	 hbthA9kmFLR2nkj5h52syq/ho3b8GVYWBj6Ex1FjBU37dizbzzhmgWe9p2WTnbCWskA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633439;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:
+	 In-Reply-To:References:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=nWuCT5YfGLZKMaCIQ2u9uqZ5zT0FDhvi/3SVn3tmVzc=;
+	b=BV9D2kVpb2jYXDi/zadAcTjwtp4DcsgBOFwnRVhi35hrSpCXCo5B+pZe3J8UowY/bwFM
+	 wHRiSbuldYo3vBYVXjq5fFtVxhZis1LC1HDaHHwfmMgnFvCHaOOHfrxLnwEdI7G6WM2bm
+	 TsPPgTNNvQiAXMBrnfCHyGDQZPSU9XclBITJ45FWvSJrtR33cTXWAVOdLhata6Ils+0qF
+	 ce35CJ2/GTvqI66NPx7ICVH3Kq9eQWtFglo/IE0oHwex8kj8RYgNrMghILlWzBizljQlP
+	 XBlKLxrtfpM6qI9VrJ6nY58wijJKsKlb1fd+Kznv0utZH7MoBdduOi0k+Nf1NeobPlg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JvJL3xSm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B0960D2B9E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:29:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7B0960D2B9E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61295606A916;
+	Mon,  2 Nov 2026 15:30:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DPoB7zEb
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so3932701241.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:29:57 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793633397; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZTPaj38Dra7Smg6HAqepMPGkCZouq5ZLKngNdZJDprrrytfcFWlzSh/o40jYqQulb7
-         HsHnJbsi+B97Y1OVV/D5IPRNf8sd7LU7SNjOeF7+v/FPKJa3SdKHEdgaxkiP+aceUMvz
-         g+7kBemftT52TfprDr6UIy4nkSsldr9n6kiQEwMXKItl9JawaAN4msOkNCR/ChDyFY+C
-         syy9pUwLAHp63ZgQ01lU5ME5lb2SDXkbk/3VoM+duJpGXsT9OTlluzb7aRrdEHkuSvz2
-         oEatRZ1qwQir48kGHKBqSNYxZnxv2DgqP7S/4wVTGT0gdqAd7lEJpTlju/mtjMmBkeme
-         0HDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=P7oHHMkIM1swADUlplUIw0AliwJNApZ8BZBXp6ze1xc=;
-        fh=jnZfl/EJ3sWovGK3P9GmeBy7zCYjILGFXHPlaGJf8w8=;
-        b=KI3b8g9I5VE0r8gS9kV4lMXNd7ggR6ljb7ibuDUazP3CJPTJ2i1OPayk9HOpQoB0/e
-         Eo5ib20SsPINB9rLNo1C2QJWPACjgz7SpR+4WFrwvTzFyCv4d7Nv4dwpHyfhfpWssB9a
-         AG2X6Q0+TAhneuE+d0VKHuH1QxL1NLx2JHt5BeU+XKKat/1uk9ovyC18k5kvf4a26VN7
-         LxDNEpk+Qi0M7bfuSabbLh9RfELTlvqSEUPO1ZruPPWvW23hyw00xA6rBmyR7VMpMVn0
-         EocqZuD+EWsCKg9zC81TZb17NdnP2w1IWRQ9BvoRxv4DuyC3OsZjbEs6D5fUWReCJSzv
-         DaSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793633397; x=1794238197; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P7oHHMkIM1swADUlplUIw0AliwJNApZ8BZBXp6ze1xc=;
-        b=DPoB7zEb46bWtdTF7JIKZ0Wo33TffI9DxLqdPRgUQhsGB4mHSFJlFzSIOMGV5PtPFa
-         2kXsamgrfS5DXbQR5pqHDJsLlXJ3Qr0cYdm6AOXSB+i8lturJutBvpA/qfOWYwX1/s/W
-         7rX+QeVytIAVoxAi08HK+WyKT9oBk5KHBiRNi9q97xMdhbQN8jm02w3iFU7/L11XOU6B
-         tqpTBU2wla+w5DSOO/Wuv+0C2Gpgf74xoqrSMsak6dEoS3Pl1ASyPgTeN2471WA0TfH4
-         CL7cppNNBD/wtOO549kHZxnvDI+RG1qCoY2QfSpL3kK6QFRmG+vI+M1mtR/VwEi7FD5C
-         82MA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793633397; x=1794238197;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P7oHHMkIM1swADUlplUIw0AliwJNApZ8BZBXp6ze1xc=;
-        b=xmpYjmBlrpbeG9LYDRiRv5fCBU42gau1ZMleea17DpZsMK/lgllbOWf9YAcMoCgMqh
-         fU0iymtPktJESn3Vs3kl8oW/EipyIU+aSGLZlll2JXOo0+ge3ZtUojsQ6SEcFA0aEnjS
-         qIxgN8SFEvx6eI99MV4OFh9Y7EkbkR5Qs4b0sGiJ9y0Q2Z1lVDm2lfPstQ6pluovgIvM
-         FVj4Lx/HTf3HTMcAPkWB/BG20FqBMrwZAT55SXOR85acctJphj1G/0MGqY/nhbWWuZhz
-         sqsDbj9OjpefROkr0ni0pJsFONXMDJ81L0cLpiZmtjzdtEBWLD74l1PIsY9OzrQFQx1p
-         xXWg==
-X-Forwarded-Encrypted: i=1; AKwUvByd3iMsw/yAMw8KFooXZIkbyp7I5/DUF6D3rQu6zoguLvhQ5+dIDNBXp1bViY8L8iUv08s//ikR7PGED50=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8jvGOUODxQK+1nqtt949eUVydxF+bif27eA+UIcO5X+oPLzq/F
-	IMyIFRc9BB9rgDdEFt10UwSb/Ax3sP+4nrQTOwhFEfQ+uGF7XPz4c9zzjpRiAI3Z24UHECQTubB
-	BQdDithFsVsehKvVLWgdlw81bndkHoD8=
-X-Gm-Gg: AYBFou3ghU8gmp9SUvGHyYXXaT/kQg/htLYTDnHTNnLL1hWVwa4+70WSfrOZe+NIx2M
-	0/6NJAQm79Ug7UUCT3qkpI5bbF8TQEvxUNNL5H02NBzt5iJrXFC2r8leC/T+Hids7Pl49Es59lO
-	jcG2E12rrNm4XWqz7UMZrDN4SCRJ38vgH63vsqcGG123pkaxk4CA+ur79DOiU5QrC6OvQdP3WNk
-	DgZywJr4j1bCot39WfjqsSZaX6g2nq0a+Ard+0Z4DZ9OEX9d7lKWWXFDLnRZ9stCVE1x9l59zcW
-	mKQWctHdfc13tlhJAQ5MnWn4RvgOj6HxuKt6W7obN78JejPsjwsb+zDWu31DQKKxopjZISXFwsH
-	M3sAYZQek57FPkybgPhE9KOA9FOocxYRhCu7idurJvvGhEC4n8z59Ib8nCS53OjggyGGvhlGpPa
-	MBeVnRttAO
-X-Received: by 2002:a05:6102:5cc8:b0:7c3:874d:60bb with SMTP id
- ada2fe7eead31-7d072bc027emr2842138137.5.1793633396723; Mon, 02 Nov 2026
- 07:29:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JvJL3xSm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577111F00A17;
+	Mon,  2 Nov 2026 15:30:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793633439;
+	bh=nWuCT5YfGLZKMaCIQ2u9uqZ5zT0FDhvi/3SVn3tmVzc=;
+	h=From:Subject:Date:In-Reply-To:References:To:Cc;
+	b=JvJL3xSmCx1jEXZXFgCWdABT0EtARcgIeWlliBcwjsQggtBY2gtJtPeeTuwFe1En3
+	 yghubbz+b6akUmjQFQundlEviJxzYnXvvJ10JOd1KMP0/nBgMjIkXwZ/XC5Z80/QRU
+	 TM3v1jZON2+8k+xpLjLlBV7eV9w+fBiVNw5CKH84T3Q2OzPSyUKXQM3m+Ax30lI93Y
+	 OyoOQjlKotkqtBU9MfoL0KIPG2osrCvKNSLQ40t0sUClpEBfOkQbyLQFLb27zpFu+Y
+	 n8mMnghA5U6ON/ROReGn5Up0EpOwUQn7lOK4akX5XlElTMVXhFxJ9ikuqMVKjPgINC
+	 iKJ2YSbzsjVGA==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH RFC 00/11] proc: convert the net entries and the kfifo
+ samples
+Date: Mon, 02 Nov 2026 16:07:14 +0100
+Message-Id: <20261102-work-procfs-net-v1-0-982104a4f592@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,135 +55,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030161234.1505367-1-gourry@gourry.net> <CAN+CAwN+OPMPpVdBA+XtQvFpDy+EOY2TAiusxMjYR+r0F+MPhw@mail.gmail.com>
- <20261030164303.02c5cce0521c3d6fd4ddf015@linux-foundation.org>
-In-Reply-To: <20261030164303.02c5cce0521c3d6fd4ddf015@linux-foundation.org>
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-Date: Mon, 2 Nov 2026 10:29:45 -0500
-X-Gm-Features: AclHuK-onw5mfffqhDCdUvG-akV0FfaPCDY7vf1GKDjU7CU-jXjuRXPuiw8F_m8
-Message-ID: <CAN+CAwOSz7BuPyd+u8KOitbDNFiDa0iNv+oFnQwbbt6kUw21PA@mail.gmail.com>
-Subject: Re: [PATCH v2] mm/mempolicy: recompute automatic interleave weights
- on memory hotplug
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, david@kernel.org, ziy@nvidia.com, rakie.kim@sk.com, 
-	ying.huang@linux.alibaba.com, harry@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OQQ6CMBBFr0JmbQ0tiJWtiQdwa1i00xmtBqoto
+ onx7oIaVy7/z/w37wGJoqcEdfaASINPPnRjkLMM8GC6PQnvxgwqV5WUuRS3EE/iHANyEh31wqK
+ 2SlJBzDmMq3Mk9vc3cQfbzRqaT5mu9kjYT6zpzJpEwkbT4WGqJur8Q51z+nIiXa6jUP+F/Xzq7
+ K8NhkhCsylNyaVUyPUgf68wtK3v66xaWKO5KAm1rgiXyirMl86hRi6clgsslK5WDprn8wWY6yG
+ oHQEAAA==
+X-Change-ID: 20261101-work-procfs-net-bc8b21e3eff0
+In-Reply-To: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
+References: <20261102-defizit-jobaussicht-kurios-7016c6e67442@brauner>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6204; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=Lm5+su7qsScEvEwR5OzG4cxYScUPPN8KO8cD1pJduAM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG6sZzlnpdTObhHnrxsNnhcwhx7JdFJe6ZC4aXbLM
+ a/56SU2HaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPZ58vwP2FCTv7c1nPufxUn
+ rxVffbXetcGH6/Pd/nXCDCUSoTFLchj+WfEH5fmX5SrzarKvehro8vvd34Piq3/NKC07Jbo2ZmU
+ OMwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Fri, Oct 30, 2026 at 7:43=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Fri, 30 Oct 2026 12:35:38 -0400 Joshua Hahn <joshua.hahnjy@gmail.com> =
-wrote:
->
-> > On Fri, Oct 30, 2026 at 12:12=E2=80=AFPM Gregory Price (Meta) <gourry@g=
-ourry.net> wrote:
-> > >
-> > > In auto mode, weighted interleave derives each node's weight from its
-> > > bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
-> > > node's bandwidth once, when the node first gains memory, and nothing
-> > > else on the hotplug path recomputes the weights.
-> > >
-> > > This can result in a major skew in distribution and overload tiers
-> > > with more data than their respective bandwidth can support, resulting
-> > > in a performance regression.
-> >
-> > ...
-> >
-> > I think you may have dropped my review tag from the previous
-> > version!!! I believe the only thing that changes is the warn, so
-> > please feel free to add:
-> > Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
->
-> Actually, quite a lot changed, so dropping the v1 tags seems
-> appropriate.
+This converts the proc entries of atm, l2tp, pktgen, xt_recent and
+sunrpc, and the kfifo samples, to what "proc: let procfs own the data
+path" set up: procfs owns the seq_file, copies in writes, copies out
+reads and copies ioctl arguments in and out, so the entries' code only
+ever runs with the entry pinned and never touches userspace memory.
 
-Hi Andrew,
-Ah, thank you for the catch. Looking through the code again, I think
-it still looks good to me so my review tag should stil stay. I'll be
-more careful about stuff like this in the future!
+One patch per subsystem and method, in the order seq_file, write, read,
+ioctl. The sunrpc channel files take 32k downcalls, which is what
+->proc_write_size is for, and their ioctl goes away: do_vfs_ioctl()
+answers FIONREAD for regular files before the file's ioctl ever sees
+it. The sunrpc channel and the kfifo samples are streams. They hand out
+what is read before procfs copies it out, so a reader that passes a bad
+buffer loses that part. Where a write that is larger than anything the
+entry parses now fails with -EINVAL from procfs I've called that out in
+the commit.
 
-> v1->v2:
->
->  mm/mempolicy.c |   36 ++++++++++++++++++++++++++++--------
->  1 file changed, 28 insertions(+), 8 deletions(-)
->
-> --- a/mm/mempolicy.c~mm-mempolicy-recompute-automatic-interleave-weights-=
-on-memory-hotplug-v2
-> +++ a/mm/mempolicy.c
-> @@ -261,7 +261,11 @@ static int wi_state_refresh(void)
->         mutex_lock(&wi_state_lock);
->         old_wi_state =3D rcu_dereference_protected(wi_state,
->                                         lockdep_is_held(&wi_state_lock));
-> -       /* NULL wi_state assumes auto=3Dtrue */
-> +       /*
-> +        * Hotplug events can arrive before any node reported its bandwid=
-th,
-> +        * leaving nothing to compute weights from. NULL wi_state assumes
-> +        * auto=3Dtrue.
-> +        */
->         if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto))=
- {
->                 mutex_unlock(&wi_state_lock);
->                 kfree(new_wi_state);
-> @@ -302,6 +306,28 @@ int mempolicy_set_node_perf(unsigned int
->         return wi_state_refresh();
->  }
->
-> +/*
-> + * HMAT and CXL report a node's bandwidth only when it first gains memor=
-y, so
-> + * recompute the weights whenever N_MEMORY changes.
-> + */
-> +static int wi_state_node_notifier(struct notifier_block *nb,
-> +                                 unsigned long action, void *data)
-> +{
-> +       struct node_notify *nn =3D data;
-> +       int err;
-> +
-> +       if (action !=3D NODE_ADDED_FIRST_MEMORY &&
-> +           action !=3D NODE_REMOVED_LAST_MEMORY)
-> +               return NOTIFY_OK;
-> +
-> +       /* The hotplug is done, failing the notification would not undo i=
-t */
-> +       err =3D wi_state_refresh();
-> +       if (err)
-> +               pr_warn_once("failed to recompute weighted interleave wei=
-ghts for node%d: %d\n",
-> +                            nn->nid, err);
-> +       return NOTIFY_OK;
-> +}
-> +
->  /**
->   * numa_nearest_node - Find nearest node by state
->   * @node: Node id to start the search
-> @@ -3424,6 +3450,7 @@ void __init numa_policy_init(void)
->         if (do_set_mempolicy(MPOL_INTERLEAVE, 0, &interleave_nodes))
->                 pr_err("%s: interleaving failed\n", __func__);
->
-> +       hotplug_node_notifier(wi_state_node_notifier, DEFAULT_CALLBACK_PR=
-I);
->         check_numabalancing_enable();
->  }
->
-> @@ -3910,15 +3937,8 @@ static int wi_node_notifier(struct notif
->         case NODE_REMOVED_LAST_MEMORY:
->                 sysfs_wi_node_delete(nid);
->                 break;
-> -       default:
-> -               return NOTIFY_OK;
->         }
->
-> -       /*
-> -        * HMAT and CXL report a node's bandwidth only when it first gain=
-s
-> -        * memory, so recompute the weights whenever N_MEMORY changes.
-> -        */
-> -       wi_state_refresh();
->         return NOTIFY_OK;
->  }
->
-> _
->
+Build tested per commit on x86_64 and with W=1 on the touched objects.
+The pktgen selftest behaves the same with and without the series and so
+do the entries I could get at in a VM.
+
+This is on top of "proc: let procfs own the data path". The other three
+conversion series don't depend on it and it doesn't depend on them.
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (11):
+      atm: let procfs copy out reads of the device files
+      l2tp: let procfs own the seq_file of /proc/net/pppol2tp
+      net: pktgen: let procfs copy in commands
+      netfilter: xt_recent: let procfs own the seq_file
+      netfilter: xt_recent: let procfs copy in writes
+      SUNRPC: let procfs own the seq_file of the cache content file
+      SUNRPC: let procfs copy in writes
+      SUNRPC: let procfs copy out reads
+      SUNRPC: drop the ioctl of the procfs channel files
+      samples/kfifo: let procfs copy in writes
+      samples/kfifo: let procfs copy out reads
+
+ net/atm/proc.c                     |   9 ++-
+ net/core/pktgen.c                  | 128 +++++++++++++----------------------
+ net/l2tp/l2tp_ppp.c                |  20 +++---
+ net/netfilter/xt_recent.c          |  19 ++----
+ net/sunrpc/auth_gss/svcauth_gss.c  |  34 +++-------
+ net/sunrpc/cache.c                 | 133 ++++++++++++++++++++++---------------
+ samples/kfifo/bytestream-example.c |  18 ++---
+ samples/kfifo/inttype-example.c    |  20 +++---
+ samples/kfifo/record-example.c     |  21 +++---
+ 9 files changed, 177 insertions(+), 225 deletions(-)
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+change-id: 20261101-work-procfs-net-bc8b21e3eff0
+prerequisite-change-id: 20261101-work-procfs-core-8fa4a4f412cf:v1
+prerequisite-patch-id: 0474af12959624910718795bf86684383664c685
+prerequisite-patch-id: 540aa9ea28adcbc54d8264f66314e29e3b8c9d49
+prerequisite-patch-id: 2f7139d1c972c4439dccca610caa5f1288987a3d
+prerequisite-patch-id: b0031a7c4855b7ec38259c59f30f65101a8fc4b5
+prerequisite-patch-id: 0b7f226abf2b9ff41873a1aa55cf97747647d56b
+prerequisite-patch-id: f63e345f897619af54813958046617c655fb7daf
+prerequisite-patch-id: c0e21e762a2960e3324c5ab04634a7035e515fa6
+prerequisite-patch-id: fd59c71eadd8f39c58b3baea93567bc093bc9b0e
+prerequisite-patch-id: 5d52cc8a5c73e4c5ba16b8e24f51408c17583bf9
+prerequisite-patch-id: 1f9179284e2f3314d4b46ac5e989089a21c7576c
+prerequisite-patch-id: 10397bbf696bee16dc71eb79fff6c5e73842bcbc
+prerequisite-patch-id: 9b44279dcf08912238d2f6438a3328a778a79a0c
+prerequisite-patch-id: 16854b621a3a71dfc365aaf7abaa7f65adfe9f7e
+prerequisite-patch-id: ca42eea21fae1fd1cd3518ab057c74b61ffd68fe
+prerequisite-patch-id: 23255dc2be76b0479c083dbd4c897bfbb533aed5
+prerequisite-patch-id: 82129c687ebf0a41b369893b92f2c038420ab801
+prerequisite-patch-id: 56ad57a99a5bda075a9f4e844368974296744934
+prerequisite-patch-id: 288b3cbaa11e01a778cc3d7beb6c0549aacf59f2
+prerequisite-patch-id: a163b1549608652bfa5bd9ff93efa55b541010c4
+prerequisite-patch-id: 78f067c343177e52d49ddfe9ee2992e602549869
+prerequisite-patch-id: 19c12bc6e3fbed35acc1f657196b1a997f48cdfe
+prerequisite-patch-id: 5800c3076694bad719954b2ad4d7448c6e013bfd
+prerequisite-patch-id: 2a2f63d8843b159594b9eee6ddea028ce76a6270
+prerequisite-patch-id: 40a1951d57906c4a1b98a4bd96a814b80339b9c5
+prerequisite-patch-id: e2141077e69f20a2b27fab69c8d61d0686682f53
+prerequisite-patch-id: c4d6018c26c40dc549d88330d23ce48f872c2b7f
+prerequisite-patch-id: 6de8ec17746031bc6d1d9ac262c5be0f905fcd79
+prerequisite-patch-id: b87bcb167884605bff1fd0f2ed8a88942d07efd5
+prerequisite-patch-id: cfa9a8b4c67e20cfd22d77035bfd21ee96ab3298
+prerequisite-patch-id: abf3482ed2399b7b2e1ee72e937af05bb9200667
+prerequisite-patch-id: 02c175b2dee565a85b3308ecf2ec8e3c9a029e0f
+prerequisite-patch-id: 4ed6b3d3d45de49d4967e88ba4e7f03372775f55
+prerequisite-patch-id: dbe02fe3f784776fda5e7ae99f077bef0cd4b48d
+prerequisite-patch-id: 53edc9a95afff57c4acba40095a8054924261ea2
+prerequisite-patch-id: cf9ce0099005fd3bc31a1e15131d48e315ac3bee
+prerequisite-patch-id: 16a657a5d0046068dbace29e7ea046ac1441f46f
+prerequisite-patch-id: efeb2d6f7df71d5dede2c1d12fe999a28e38aab9
+prerequisite-patch-id: e6ffe2a5c3ee5645f56c8366b568fbc9f140848c
+prerequisite-patch-id: 117db27dcdef433de7c6be5e95973cac1e373927
+prerequisite-patch-id: a0844aa26ffb65ccb362b88ef6c2f4758e15edbf
+prerequisite-patch-id: 143fb91bddf33068b6ee11e205818c4c2815e23d
+prerequisite-patch-id: 6490e4da1cb2f543683bd164bc9a5a1c943057e7
+prerequisite-patch-id: cdefca57d3c552fb6f6b928699edd85f33be25fd
+prerequisite-patch-id: 2f0fdb970ddd760d85ff5d2caad0b96348270182
+prerequisite-patch-id: f2aa468ff5cbb1cabab3f70e1b8eeee0286cfb4a
+prerequisite-patch-id: 037030d95eeb7c49b1e43f638ec954f2cebbcfb1
+prerequisite-patch-id: 487141c49e2548310bfb6c2a0964a78f08b285a9
+prerequisite-patch-id: c3d3008819fa5629a18142ec9ba6d7024ade7fdb
+prerequisite-patch-id: ba15e7c86b60ccc2f0f7ee4c9bc99073068757bc
+prerequisite-patch-id: 9423f410b99853693db06c29f12f1c08278b050d
+prerequisite-patch-id: 4e7966978e4b11c4d843831f312cdcd5b848f00c
+prerequisite-patch-id: 3d24be1897a624d519ef144801f76d152c7528a9
+prerequisite-patch-id: 3b4d9fe7b26f6b7b9b3f7725ea333df357107c44
+prerequisite-patch-id: 7d9dd345428baeb88c862ef902612f7160dc1d8c
+
