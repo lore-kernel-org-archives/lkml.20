@@ -1,71 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613766;
-	b=ubAvncM4Pwgopu50/nHnt2anE9LIk4zEsfhahpwqpeE4cWIhy/ZT1i4UsIihDEhfHi6m
-	 sE/NEwXuOsBDKue8g/MV7cnvlf9r2W22dOStzOivPkLZ0vgJ8RPrdSc0gCYW/6NUK4H03
-	 5kwkGB8WnEN9T2+4w3ph/nsO2JgbnkKJjeTbyDdGv9vwnXGWBiIGOvKLqU6eCs7k/Vkcj
-	 BQAtsyizUPluRNwR4j2Tr+JhX15U80tpFLwuWdp3O5LcsV/+06QYg1nilc+T7s8f2v/s1
-	 RucKjLEkXwskY7z+QpdB9xCVw/yFwwN9DGy6lmxbJpeRnRqgO7vDE6ee40dymXrHy5Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613766;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793613750;
+	b=oygBHB6nVsaEXLqtEjQ0YR4w7mc1dGbxj66YidTf2ntUc9MCCswHP8jwewqm6tVmtqtb
+	 +sgTu6nZzJCGo7mpbcCao4fVaKv210+buewrNlmVVd6+YAzCqMgoAAnSCNOs9dgY8PfPG
+	 XNFsZ2yTMLXFils2CKaNiDcou4ZKli29qf2BMSIwTX4eGxA+R4XcirjmV/uev2Jv4NgtO
+	 VICJhuo08QO8wMHtB2CGULcfvS6J4Bw1uYiKG45GEoMZkvWISCzFz5q9jVYF6y0tv4ar7
+	 GSbvjIPbyqj6VhSAv+oYfMDK9/bLmMO+EllbPmEjhs9vAN/ppHrZKKy9ufWqo9Y1xig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613750;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=i4Em7Py7g4q0VGn8W2HCRonK/evyicnat7HWkjVfGeQ=;
-	b=HO121zH8djzmMONJRH02GvI5MroEZY0h/WVUZ55vTStDBxk2RWdk7w2qZLcDvHWJI3XN
-	 MWkuDG9vTaKoAxP7I6Yl7aN+Q0S6unUr68yXaf3Kqt0P+Trmz4FOhG39QqwWjetv5ymI9
-	 0AI+JoeuGBF5pfGQO1Ngu68nheysnvpPF1jqtMffcjS7afS7s87gBnrGwS36IFJ6OEJ77
-	 hiL8bV4CQ9Tf1QjpEjbuqVPZusYvhrvYhXwd6WGenZ+OZUA1cQttfIvfBbiKEsm19A2GZ
-	 8i/GNmJiFy00nhpWp9ZucgSamQ4NqiyD5EHgzBeD67Yab2iSCR4Lr2pXgjlAd7vxxEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AFH7tUh1;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F14DC606A330;
-	Mon,  2 Nov 2026 10:02:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F14DC606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=XzpjiuDg14m5/0rAwtwR3uEc9Ha934pVu4Nw/YOiHAQ=;
+	b=5JXu6o7TdeFi/yz4EDTZQ581BBj6rRqFtVwjvzO+2X5pOkrthm51QEF5Jxhzp6QMy4c6
+	 bt7aFFN7zyar954KnGnW9r5e+HEA2ARXxh68sWBdd7osb4MdzlpqM+lzF2UVFt6FeiRgp
+	 0X+4OP97y3GptrfFN/qaePWLwGGDuvf6d3IzGtqT2WZYeMZ4yZsUzmdQFhgGPZ3UGT1nQ
+	 FlA08v09Z4nr3/kKHy19GaWfI7lIoinLj0ta3heipH4O8scnaU50wvwAclqavBpYNv9uc
+	 1vKa5nqFXk7Iq62D9eDrgiSFX6PiYNLbuEqp8AFyVLP9xSf0z9ELde7A92pZax8Eo2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OTjL0PkG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6C9606A326;
+	Mon,  2 Nov 2026 10:02:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AFH7tUh1
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6FBFB1595;
-	Mon,  2 Nov 2026 02:02:42 -0800 (PST)
-Received: from a081061.arm.com (unknown [10.163.156.187])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 32D743F59E;
-	Mon,  2 Nov 2026 02:02:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793613765; bh=4thU010nDUqthwP71EjUPPcaPA4vWd28xw0e1Se/q+w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=AFH7tUh17/igJI+PU3NpCguj2gqLFnslktS0xnrfE8IGjqLMMK7IercLlwfXxs9pR
-	 Ce25TkwLPR7wn7Sje93s/IXgJH8o1Er83jVJ4xZGbGSqjljynF8nXEZzTSlNDpI7PS
-	 r/NDt4VY5A8VqdlUAYrftBfXbfBX+nwwfw5ytzlg=
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Park Tae-sun <ts930@dgu.ac.kr>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: [PATCH RESEND v2 02/12] selftests/mm: mremap_test: drop munmap() checks from cleanup paths
-Date: Mon,  2 Nov 2026 15:32:01 +0530
-Message-ID: <20261102100211.141831-3-sarthak.sharma@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102100211.141831-1-sarthak.sharma@arm.com>
-References: <20261102100211.141831-1-sarthak.sharma@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OTjL0PkG
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793613749;
+	b=Sdw3n8cZJlkrzqGPdh6dMB3CD9GNo0GpsZrP3JyZtIurlibo69cIBSXntqTNWTe6kNVp
+	 thb5P8bMdO+rt7dif2IAVhUlealtv+FXOns/v0zhl42weCIob4yw87bThAu4jHZVLYNA7
+	 cx64dXeHsPgfhz0cjq7okJj+fk8HXdLwW2tGOHIwKnMKSaiBgvewkCq51QdrGl903tjc7
+	 vqFxTd62RjuZp7kpg7PkyXGXSLLXTi+iR+bM/UEDsYBXiaHWsRzK7i1F24McXvtGhXQCc
+	 zWIkvAvMDkSX3bqXbN8OvtOR8uh4zPvn1YGBAp/17ivI+SGr52UcyaNcOMvVH20ji+A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793613749;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=XzpjiuDg14m5/0rAwtwR3uEc9Ha934pVu4Nw/YOiHAQ=;
+	b=IDkuIHi7IvRGnPuP7kqdSidtY304aymblgvlpoY2+azECmXj5MN8PaWJT8Wzx3C7jfek
+	 Mr38mHkbkZ6HV/M2fjk8A7tIuLgv8I/3BQLr1UU6vCmy11iIB2nUq6uy5g9J10dGKaw8g
+	 emSAfO9J4iFaXHSoiXOwvpB/eM5pABsZ9cSQdtIxWQshh6yY++ftFqk5pKNFux4r4R9Fu
+	 w3KAuvX/CfIVoattwJ8tLgdhBWsqT5iKxhMHo6Fq678QGOm0KKMJeywmtkEDfkYyeQ6xm
+	 F9B7TqsfZFdw/9MKDrJ/NJ2Lu4JiRMXfo75Yqyp2OGzrWm4qOgmHMqsCaTXyrB1EuJQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 3DE491F00919;
+	Mon,  2 Nov 2026 10:02:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793613749;
+	bh=XzpjiuDg14m5/0rAwtwR3uEc9Ha934pVu4Nw/YOiHAQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OTjL0PkG+1OJ9V2ZkWrnG9o1YZAZtk+U9U1I1LfmZNIHxfuq1nGzGGjch7beI9jhM
+	 6GttOvG4VxGMldeJqwpBgmLdN5YsrU6vrAHeVK7QesfFMIc+NIO5mmD2tlJykkF3YB
+	 VUNn1sBTp+z8RA9RjGhKay/jTiLteO0Czlh0cZ8ZNj50LbiX+gY0h3wlNm5hNrhMEt
+	 H+ElJx6fwDazK7WLbbqlxCHGF7TTFtZHXmik/Y3qqe1OOxuVtLIsiIY1pG4Y/nU3H2
+	 SgogVlqZokBaeQqMDWQKs0dqltwnneujRivAOh6RoL6ZNGh3O2yfPP5uPhV8y9SxGf
+	 62HJG9l9ghOzQ==
+Date: Mon, 2 Nov 2026 11:01:58 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] staging: iio: addac: adt7316: clean up header
+ inclusions
+Message-ID: <20261102110158.0000386b@kernel.org>
+In-Reply-To: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
+References: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,103 +89,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-mremap_test checks the return value of munmap() on some cleanup
-paths and prints an error when it fails. These failures do not
-affect the test result and there is nothing useful we can do
-about them during cleanup.
+On Mon,  2 Nov 2026 11:42:34 +0200
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-Stop checking munmap() return value on cleanup paths.
+> This series cleans up header inclusions in adt7316.c by following
+> the Include What You Use (IWYU) principle.
+> 
+> The series is split into two logical steps:
+> 1. Sort existing header inclusions alphabetically without modifying the
+>    list of included headers. Keep subsystem <linux/iio/*> headers
+>    separated and insert a blank line before "adt7316.h".
+> 2. Drop proxy header <linux/kernel.h>, explicitly add missing headers
+>    (<linux/bits.h>, <linux/err.h>, <linux/errno.h>, <linux/kstrtox.h>,
+>    <linux/pm.h>, <linux/string.h>, <linux/types.h>), drop unused headers
+>    (<linux/i2c.h>, <linux/list.h>, <linux/rtc.h>, <linux/slab.h>,
+>    <linux/workqueue.h>), and maintain alphabetical sorting.
+> 
+> v3:
+>  - Split the series as suggested by Joshua Crofts: patch 1 only sorts
+>    the headers, patch 2 replaces kernel.h and adds/drops headers.
+>  - Explicitly include <linux/err.h>, <linux/errno.h>, and
+>    <linux/types.h> per IWYU following verification of symbols used.
+> 
+> v2:
+>  - Address review feedback from Andy Shevchenko: drop <linux/kernel.h>
+>    and include the headers actually used.
+>  - Split the original patch into a 2-patch series.
+> 
+> v1:
+>  - Initial submission.
+> 
+> Abdelnasser Hussein (2):
+>   staging: iio: addac: adt7316: sort headers alphabetically
+>   staging: iio: addac: adt7316: replace kernel.h with explicit headers
+> 
+>  drivers/staging/iio/addac/adt7316.c | 22 ++++++++++++----------
+>  1 file changed, 12 insertions(+), 10 deletions(-)
+> 
 
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
----
- tools/testing/selftests/mm/mremap_test.c | 35 +++++++++---------------
- 1 file changed, 13 insertions(+), 22 deletions(-)
+Much more readable in this order.
 
-diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
-index 15d8f7458251..ea1348a9532e 100644
---- a/tools/testing/selftests/mm/mremap_test.c
-+++ b/tools/testing/selftests/mm/mremap_test.c
-@@ -364,8 +364,7 @@ static void mremap_move_within_range(unsigned int pattern_seed, char *rand_addr)
- 	}
- 
- out:
--	if (munmap(ptr, size) == -1)
--		perror("munmap");
-+	munmap(ptr, size);
- 
- 	if (success)
- 		ksft_test_result_pass("%s\n", test_name);
-@@ -510,10 +509,8 @@ static void mremap_move_multiple_vmas(unsigned int pattern_seed,
- 	}
- 
- out_unmap:
--	if (munmap(tgt_ptr, 2 * size))
--		perror("munmap tgt");
--	if (munmap(ptr, size))
--		perror("munmap src");
-+	munmap(tgt_ptr, 2 * size);
-+	munmap(ptr, size);
- 
- out:
- 	if (success)
-@@ -590,10 +587,8 @@ static void mremap_shrink_multiple_vmas(unsigned long page_size,
- 	}
- 
- out_unmap:
--	if (munmap(tgt_ptr, size))
--		perror("munmap tgt");
--	if (munmap(ptr, size))
--		perror("munmap src");
-+	munmap(tgt_ptr, size);
-+	munmap(ptr, size);
- out:
- 	if (success)
- 		ksft_test_result_pass("%s%s\n", test_name,
-@@ -713,10 +708,8 @@ static void mremap_move_multiple_vmas_split(unsigned int pattern_seed,
- 	}
- 
- out_unmap:
--	if (munmap(tgt_ptr, size))
--		perror("munmap tgt");
--	if (munmap(ptr, size))
--		perror("munmap src");
-+	munmap(tgt_ptr, size);
-+	munmap(ptr, size);
- out:
- 	if (success)
- 		ksft_test_result_pass("%s%s\n", test_name,
-@@ -948,10 +941,8 @@ static void mremap_move_multi_invalid_vmas(FILE *maps_fp,
- 	}
- 
- out_unmap:
--	if (munmap(tgt_ptr, size))
--		perror("munmap tgt");
--	if (munmap(ptr, size))
--		perror("munmap src");
-+	munmap(tgt_ptr, size);
-+	munmap(ptr, size);
- out_close_uffd:
- 	close(uffd);
- out:
-@@ -1146,11 +1137,11 @@ static void mremap_move_1mb_from_start(unsigned int pattern_seed,
- 	}
- 
- out:
--	if (src && munmap(src, c.region_size) == -1)
--		perror("munmap src");
-+	if (src)
-+		munmap(src, c.region_size);
- 
--	if (dest && munmap(dest, c.region_size) == -1)
--		perror("munmap dest");
-+	if (dest)
-+		munmap(dest, c.region_size);
- 
- 	if (success)
- 		ksft_test_result_pass("%s\n", test_name);
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
+
 -- 
-2.53.0
-
+Kind regards,
+Joshua Crofts
