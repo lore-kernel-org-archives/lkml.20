@@ -1,55 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629526;
-	b=RRlrDTdTOoD5sMI/tn/6lrktrN/3icTexPU5IoZwongbRrc/T8ibxgaIfX91CEYHRE05
-	 5MTb6SEPgOOgFRGXs07Bb2I0X45lceThk59bhD/obgS4FzvzZePT7UWXEE9hkrpVPV9XT
-	 yWq3l3DWX/Oy5uHukFyltl/aT+IWi4W1RXU/9U2lO48QBVjsA95HXCFwJ4jn/CYsyG2BP
-	 einlfIs3QbQHbe+vmNvSMsiP+hv2xZfWLYRuWi9UwLI8ZwftBOCrjoXZD7xaw7nxTgs0j
-	 LRsYV2Z5ybyvyyi1Z6gDQJboXdLhoc0xLPxfPstGU6BcuvTko5TgrKemGeYF8/bwlHg==
+	t=1793629497;
+	b=1Pq4EyExvFeMpQ1v4yIXZM5OU6WYJ0o3S8rI2D1La32Tjrof9rfdXlPGzJuYsd9I3Yhj
+	 jwWd7XyQsBJnqB5yKRnyjy4qgblLfV51ceLOGIpR2n/sOvwcYtG+9gX9yg/XODKUPvqKe
+	 oNE4nUdGopcarUbEg9DxZcn3g//J55AXOi/UvdFNDjrFyXkogcrCNHKDEU31arFnM96KS
+	 conUdNohZFm/TBk/YnPIKCwoJ6zaBHZUSmE/Nc+autAxlt2D72zR1KZbZ9ucr3kuvA2fV
+	 Q2ix5rxhUA7OpKVP1f/NRjPc8x3RfJCkvco6fEfO6CoRw36INKKDjsXNZz+3teFGMXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629526;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=wxk2D2Tyz0niqEJ7raNF2H1HyA1O1DKEL6gbE1BW9h4=;
-	b=m349EwU/JZDSEdk5zBLPD42lPP/OaFYA8hpQxfdEimZySq507/4k7supLVRfCVzvAoLc
-	 XZYUpph1X521FxoOYt3wWNR1Uc+j1lS8Pn9zlUArsTYqQBRNIvAV7+lUViam75H4I2BN0
-	 eiuwWVVZOMPfN0dXF3uvJW35mGPbxxZVQVjg+ApLjA6ygd8/GNbW9frN2/++3vG/zbikX
-	 fcOUXExwzffoBqtqH/BlIOUmGNRef2Q3FNKcyNksENmtztBXWSjiZoIPILpZI76GRAQxU
-	 I7avwzgg6rXTTxc0wMwom2Qk+5f2FdpJBdunExsKE9z7MQMQeyiUnl1MmgdcSMZ5yHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629497;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=e+OZmX8JIf6s1L/six0W6PN/I70GBs5nxLKcsSZPbfs=;
+	b=bqI07n/RACPWF9VPCG5rbOlexFhE8iXg1feCh3TaiSEtg59UHcAnVSCMqXkHFpTsV6/z
+	 sb1MtJ4NJ6XaLdzZQmzuDJ2KKMwul4IdPocvlNpSFUNcg+MUyk8QJMYYmZYhkzSbCUwdm
+	 CgtI/TV22J0Q+mX2r1qRe7MaNcmSfBcJzsABcLqwV08iVgZkbcYI+fxdc3d9uUQNxmnhF
+	 71nXHPARrcBZa7CMpPWbSlzBo3XEYEJNvKbHissKcyPtwYUSS9/JlIGzwQSZ1389vSFXI
+	 hs3lgOFWuVzsKSIkmdc5lvcR6JsXmzd5cUDU9gXGNyer8lLeL3BK3HDZgeWqWo4pZIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5DC61606B0E0;
-	Mon,  2 Nov 2026 14:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DC61606B0E0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="CGf/6wG6";
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E485606C3FC
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:24:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E485606C3FC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CGf/6wG6
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e7e742a2c7so20489455ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:24:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=wxk2D2Tyz0
-	niqEJ7raNF2H1HyA1O1DKEL6gbE1BW9h4=; b=Hhum9g4EHbXywPStVc3wWl4tkl
-	vB7y8AsZmnwyiqFJB+lDzIAX7Ji0RzMgM4XzfE1UAgBPeGIszIx3i0ImtOYCN+uA
-	Bg5VicHgwgpmgtvjiFrDBNWR8YiZrktT4gR3sUjpgNXVpOPcgontOlMuJmAZQobL
-	u3cZlEqJMp4yM/vkY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGywBEnehqrvoZAQ--.54106S2;
-	Mon, 02 Nov 2026 22:25:10 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-media@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1793629496; x=1794234296; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e+OZmX8JIf6s1L/six0W6PN/I70GBs5nxLKcsSZPbfs=;
+        b=CGf/6wG6HrD1nXTDASXQnD+Py+nvrQdLruMml935MtSVqpMqRekdAtsa7uvlpxZ+1Y
+         8PHql+xyG69D71HRpkBzDGG5fWIdtyh83VaBKeRDHQqDRbIMw1W6jETA+ycr+1N50SaE
+         sV6L1+suxdiHPijgn/jedn0+KcMZKBsSrZ86BrY6kT+IL3OZMVjQG51injm1sd5TWBD3
+         DG6ig865RrIhZVMIrBJaF0ezJoOIHwFPWp+a7JT0kIheHXHPYBl7feIs/uW/PvSoqtoH
+         Dm1xZLNWah8+S11qO3EaH7JKiUMea+mDtohV+IcGLvEsYitZ42oM+jZLos4QqKFhOs34
+         heJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793629496; x=1794234296;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e+OZmX8JIf6s1L/six0W6PN/I70GBs5nxLKcsSZPbfs=;
+        b=uyFSozzL+01Q1jwxh81whabLjbcS7cssTSEBWdmB4p7wif2qeZnXSzxLYSXw139atP
+         AhxgDY3QlHsBhZb1XyudtxXbPLHjRyLpmfIENxhES5JtwOHe+oRz5XcG1SSSfaGpMWdl
+         VqwskLAmxRm1ufroWInk6VoawE7CAYVs9Y0sdUdVw/xmXp/zq1VcWD1Jo7DCmHgldm/Z
+         qg/aQezmzVLN6Db20efxLYD7COpamAvxVbPiIztMwnp+pKhI8W7AYrogjy9NWRGKkQZI
+         QEzfJgqYpUqqS0DT7dHYy3cszV5nLmLak/vGd23mXC1j3rU+B7IuwGvaTefTsoB+VVpw
+         S8Tg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2Kaz00KbiAPbjCkNErgof6WwaZYOP4YxRt9LI7juFVTC4Pq0QsXUrB4+Xk3isF/+A32+J05bu+tKo2xQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8a4X+d3Jqnq+0eESrSIL4XkWlaut7Vjlol7dsgv7zLzBka7Y0z
+	iFHiXe5KhVZ22rbh+r6uofLpe/v4PTm/ZegnNjZZLKqexNajEcGPuARB
+X-Gm-Gg: AYBFou1VGQDeDHVlHkp22A87VHxGu01IRoReFeoCsqYurn5vIf/eDv6MUTCdG3jIR3D
+	RrpGdlXnvEU+XKxLQs8HBJPBts0102nZkToeS6hLrfGlz+WZjiibYNMRurXmHdzBVtagVpPFqvL
+	VsC5ySVv89sM0+8zrP+gCXgFgOJfLym882VUPnm7x2JIlv/9ax3mjohj4ULi+P5EbdPZY3JZVkt
+	DERokjNUdVlVVmUDFByQ3ewpNk0GvbUAub5gpqLjik28RlZIzMvJAIJcJILYAO/6tPnoYJPmuxV
+	AuNksLyW7KndhYVzBcfLcKAPRDIb8gtb0WDybxTkuAdyLE1XiB+BG7wJm0geDoFaACQXXJknjRC
+	SmI29EBdspIU1L4lDLmYkfZ6UeipVHfxnGrRiZPF7syjQVdyCFTv6XDkU0qO30jKjOBMArA4UDc
+	Tf7of5A2piXJqkLftzF0g2ZShDPyuuZe4IgsdExig9xDs3sGGPovklKv3iZwMqExNlxw/Z/jDS4
+	gLh1gqD7gVzVG8uJEzUW/lTI5xWhAO1QYouC9C3qrg13rokZRnm5sMcpHSWnQt5tFjDi+pTVyIY
+	+U4vvbLvtAuJGVsbYhCoIbJHtDhTZl3BUSeRpXDB2+GW0ApfjUe+mgi3sQ==
+X-Received: by 2002:a17:903:1a4e:b0:2df:9e44:32f1 with SMTP id d9443c01a7336-2eb364e1741mr69092915ad.29.1793629495462;
+        Mon, 02 Nov 2026 06:24:55 -0800 (PST)
+Received: from localhost ([2.27.148.106])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39298543sm28720445ad.60.2026.11.02.06.24.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 06:24:54 -0800 (PST)
+From: Han Gao <rabenda.cn@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Han Gao <rabenda.cn@gmail.com>,
+	gaohan@iscas.ac.cn,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>,
+	Icenowy Zheng <uwu@icenowy.me>,
+	Drew Fustini <fustini@kernel.org>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: au0828: release the media source when the device is disconnected
-Date: Mon,  2 Nov 2026 22:25:08 +0800
-Message-Id: <20261102142508.24277-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-riscv@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>
+Subject: Re: [PATCH 14/18] riscv: dts: zhihe: add A210 UARTs
+Date: Mon,  2 Nov 2026 22:24:46 +0800
+Message-ID: <20261102142448.3784989-1-rabenda.cn@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <ef0957a4ceaf754989f8a7132cb6276686244d24.camel@pengutronix.de>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,146 +124,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCGywBEnehqrvoZAQ--.54106S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZrW8JFWDKw4UZFWxuFyrXrb_yoW7JFyfpF
-	yftF4ftrWqqF45u3y7Ja47XF1ruF9agFWxJr9Fga93uF4fCFy8Xw1fua43Wrn8CryrurWY
-	yw4jqw4UCFWUWFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
-	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
-	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Xryl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUcmhFUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2rnWELD1QAAsM
 
-au0828_enable_source() starts the media pipeline and saves the link, its
-owner and the source and sink entities in struct au0828_dev.  The matching
-au0828_disable_source() is only called from the frontend open and release
-paths.
+On Thu, 22 Oct 2026 11:22:51 +0200 Philipp Zabel <p.zabel@pengutronix.de> wrote:
 
-When the device is disconnected, au0828_dvb_unregister() removes the
-frontend entity through dvb_unregister_frontend().  dvb_remove_device()
-frees the entity unconditionally and __media_entity_remove_links() frees
-every link of it, but the source is not released: the pipeline is never
-stopped and dev->active_link, dev->active_link_owner, dev->active_source
-and dev->active_sink keep pointing at freed memory.
+> On Do, 2026-10-22 at 03:53 +0800, Han Gao via B4 Relay wrote:
+> > From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+> > 
+> > Add the ten A210 UARTs with their clocks, resets and interrupts, using
+> > the snps,dw-apb-uart compatible.
+> > 
+> > Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+> > Co-developed-by: Han Gao <gaohan@iscas.ac.cn>
+> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> > ---
+> >  arch/riscv/boot/dts/zhihe/a210.dtsi | 150 ++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 150 insertions(+)
+> > 
+> > diff --git a/arch/riscv/boot/dts/zhihe/a210.dtsi b/arch/riscv/boot/dts/zhihe/a210.dtsi
+> > index bbad51a3edb0..a07b67d10633 100644
+> > --- a/arch/riscv/boot/dts/zhihe/a210.dtsi
+> > +++ b/arch/riscv/boot/dts/zhihe/a210.dtsi
+> > @@ -405,6 +405,66 @@ rst_peri1: reset-controller@2010400 {
+> >  			#reset-cells = <1>;
+> >  		};
+> >  
+> > +		uart0: serial@2014000 {
+> > +			compatible = "snps,dw-apb-uart";
+> 
+> Prepend a vendor compatible if you need two resets, similar to
+> "starfive,jh7100-uart"?
 
-struct au0828_dev stays alive until the last V4L2 file descriptor is
-closed, because the video device holds a reference to v4l2_device.  A
-later close therefore reaches au0828_disable_source() through
-v4l2_fh_exit() and dereferences the freed link and entity.
+Thanks, agreed. The RFC that replaced this series adds a
+"zhihe,a210-uart" compatible and lists both resets.
 
-Stop the pipeline and deactivate the link in au0828_usb_disconnect(),
-before the frontend entity is unregistered and while holding graph_mutex.
-Move the cleanup tail of au0828_disable_source() to
-au0828_release_active_link() so that both paths share it; the disconnect
-path must not be skipped by the dev->users > 1 check, which only applies
-to a video owner.  Nothing has to be released when no link was activated,
-so the new call runs only when dev->active_link_owner is set.
+> 
+> > +			reg = <0x0 0x02014000 0x0 0x400>;
+> > +			clocks = <&clk_peri PERI1_UART0_SCLK_EN>,
+> > +				 <&clk_peri PERI1_UART0_PCLK_EN>;
+> > +			clock-names = "baudclk", "apb_pclk";
+> > +			interrupt-parent = <&intc>;
+> > +			interrupts = <321 IRQ_TYPE_LEVEL_HIGH>;
+> > +			reg-io-width = <4>;
+> > +			reg-shift = <2>;
+> > +			resets = <&rst_peri1 PERI1_UART0_PRST>;
+> 
+> This looks to me like it should be
+> 
+> 			resets = <&rst_peri1 PERI1_UART0_PRST>,
+> 				 <&rst_peri1 PERI1_UART0_S_RST>;
+> 
+> instead.
+> 
+> regards
+> Philipp
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
 
-Fixes: c94903f1f7cc ("[media] media: au0828 add enable, disable source handlers")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/usb/au0828/au0828-core.c | 53 +++++++++++++++++++-------
- 1 file changed, 39 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/media/usb/au0828/au0828-core.c b/drivers/media/usb/au0828/au0828-core.c
-index 445cbeb7abae..57a163415d1c 100644
---- a/drivers/media/usb/au0828/au0828-core.c
-+++ b/drivers/media/usb/au0828/au0828-core.c
-@@ -120,6 +120,7 @@ static int recv_control_msg(struct au0828_dev *dev, u16 request, u32 value,
- #ifdef CONFIG_MEDIA_CONTROLLER
- static void au0828_media_graph_notify(struct media_entity *new,
- 				      void *notify_data);
-+static void au0828_release_active_link(struct au0828_dev *dev);
- #endif
- 
- static void au0828_unregister_media_device(struct au0828_dev *dev)
-@@ -175,6 +176,18 @@ static void au0828_usb_disconnect(struct usb_interface *interface)
- 	set_bit(DEV_DISCONNECTED, &dev->dev_state);
- 
- 	au0828_rc_unregister(dev);
-+#ifdef CONFIG_MEDIA_CONTROLLER
-+	/*
-+	 * The frontend entity can own the active link.  Its entity is released
-+	 * by au0828_dvb_unregister() below, so stop the pipeline and deactivate
-+	 * the link while the entity is still registered.
-+	 */
-+	if (dev->active_link_owner) {
-+		mutex_lock(&dev->media_dev->graph_mutex);
-+		au0828_release_active_link(dev);
-+		mutex_unlock(&dev->media_dev->graph_mutex);
-+	}
-+#endif
- 	/* Digital TV */
- 	au0828_dvb_unregister(dev);
- 
-@@ -438,6 +451,31 @@ static int au0828_enable_source(struct media_entity *entity,
- 	return ret;
- }
- 
-+/* Callers should hold graph_mutex */
-+static void au0828_release_active_link(struct au0828_dev *dev)
-+{
-+	int ret;
-+
-+	__media_pipeline_stop(dev->active_link_owner->pads);
-+	pr_debug("Pipeline stop for %s\n", dev->active_link_owner->name);
-+
-+	ret = __media_entity_setup_link(dev->active_link, 0);
-+	if (ret)
-+		pr_err("Deactivate link Error %d\n", ret);
-+
-+	pr_info("Disabled Source: %s->%s->%s Ret %d\n",
-+		dev->active_source->name, dev->active_sink->name,
-+		dev->active_link_owner->name, ret);
-+
-+	dev->active_link = NULL;
-+	dev->active_link_owner = NULL;
-+	dev->active_source = NULL;
-+	dev->active_sink = NULL;
-+	dev->active_link_shared = false;
-+	dev->active_link_user = NULL;
-+	dev->active_link_user_pipe = NULL;
-+}
-+
- /* Callers should hold graph_mutex */
- static void au0828_disable_source(struct media_entity *entity)
- {
-@@ -537,20 +575,7 @@ static void au0828_disable_source(struct media_entity *entity)
- 			dev->active_link_owner->name);
- 
- deactivate_link:
--		ret = __media_entity_setup_link(dev->active_link, 0);
--		if (ret)
--			pr_err("Deactivate link Error %d\n", ret);
--
--		pr_info("Disabled Source: %s->%s->%s Ret %d\n",
--			 dev->active_source->name, dev->active_sink->name,
--			 dev->active_link_owner->name, ret);
--
--		dev->active_link = NULL;
--		dev->active_link_owner = NULL;
--		dev->active_source = NULL;
--		dev->active_sink = NULL;
--		dev->active_link_shared = false;
--		dev->active_link_user = NULL;
-+		au0828_release_active_link(dev);
- 	}
- }
- #endif
--- 
-2.34.1
-
+Sent using hkml (https://github.com/sjp38/hackermail)
