@@ -1,90 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632590;
-	b=0gIW0OdtKo8lzUiznFfBQH8SZKVEVSSGmQ7ntFeKWO/6B9cBMCw4rfp+JhKp9oBr8RpC
-	 bkW6MS6A0TB2+wAWFYZe0v6Bn3+0gOBSM4hKS0CoektGgnWWXcJf3V8l3EVTM5M+xWcQv
-	 EqNw1vVweGrdjOvDwi2xL4DIlOUkueTzjy6PlKyrezMf9s76SHoflCsLBb/RL5e8AdieO
-	 j19/EkmhGv+pnnzRR2oi//Q22FEmAB13smNLYGOu+EQ7F6N6lLs1ei7gQi0VaLIMJ6C5g
-	 DdbEV+XU//Z8Ni/A0tutoM54A3qU98w9QcNhnRWapjmF/Cv4/CjkQ4BG7p/Q8KtC1ag==
+	t=1793632594;
+	b=SBYwW9T1/lQ64SkoRj40rqocpu+9Uw+SF5Hxo/RdtwT3/wnV0qgFkqk+CijHkr7EtkO+
+	 wRJtUDJN0/LWR2qKwK7DFUE3aJTr+DycFVE4sBOUTH2oE7yFTnge5unJh20/aBEe7lG2R
+	 wtHYZGkrsPljUabX+FzC3hG2WnOyeS9lMRyyPhr7aUzM0y9G2kPpggeBM3PcMj/nR+tv0
+	 L7xtWYiDbPnanz1QeLCjSF9+X+hYowiQoSsyqa2SLvLLa/fX4gRr7rG2fRk3pJ0TxZh5g
+	 39JpsivkpAzQPv+zsVyzTbG2zmpw7NsQQsYeNhh5yX3VEKeWnfGLfZWEqqD3MO8MCww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632590;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=faMoFAkyez9tsTH3nm4z3LYH710V6RsXShM7y6hT9ik=;
-	b=UR++nA0694gA+If7R3tFvWO3EchMfzxF5Jr4xKsmtrflN2fPGuZjheiFhAnx8gI/YvlP
-	 iPiNCq+LXcXX9kSFfJ91Eeu6eJwXryquoSsO1OUcCeVslcMvWoISdpjrwd2Cx2kHVZxy3
-	 7i0HhiATGeJ809CYhsVGCnJR5Xep/UX+NYuhV54Um9SxXehxbNgKD0Voi/813I+SOxoiU
-	 G3hh336veyeuHaF9omP+Zb6BEGLO2tpJQs0IW781ii6xE2sla/2DSFF5Bqqs7r0cA4jzb
-	 aYFaW5heUUaHOwk9vf2CLp846/l86PLOLm0U/SPRSBdMCQvL1DBmYWk6ynhWxAuJd3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632594;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=6lhp5lP3IR5uF75os6lL1lZTm+qOi+cJScoaRZnhdVA=;
+	b=maLaRQx+7XPBee/wNWlmWqfiViGJVsV4HksVUwmThtUvmSVJH98hxDQBDw2GUvokgYY3
+	 iguXHbO5MtCbKejabXNlcgqySLrfR3SE/4x61K7PdTMD5Hqii35N4iPgnW0TU+ABoHRat
+	 C/0a8+uunNtU9WCYbPMj71z1ksMMczDslethdQMzZewRSiA8nSUt4sN9PvKdbukY2ByFC
+	 0ZCrbQE4pQWD/GfHY/hYwSkcKbw+u6wPNUq5GnQlBzL4nhHKN0Urhz2NF2CUvgKhmF7tw
+	 pc6u3L5gbqAjgT1d5NQM25kLLs13XmGhyFv+D9CWUnjqErs9kSKHEyJ8wqq0gc49Jdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=bm+rWvwV;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=meVKerlp;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35176074A7E;
-	Mon,  2 Nov 2026 15:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D35176074A7E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C91A60B9977
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:16:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C91A60B9977
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=bm+rWvwV
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EE9cA3103393;
-	Mon, 2 Nov 2026 15:16:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=faMoFAkyez9tsTH3n
-	m4z3LYH710V6RsXShM7y6hT9ik=; b=bm+rWvwV7wM/AokLqf4bYLQuyM9eFyWCl
-	FJrpK0yOBAZrlWLYhbwtaHyu6abN1Q7HoOUjA52uQ/bzoze6/F/OjYt43+rWitlj
-	HafBBXbxPF2+RoEZ3BC8ms3x0LIetqSlnfXqDicyhEADWH/81ydWIXDo9l7qIZbN
-	OrOMsvLx95Mmaf8zD+lrAaYxHsIhSFhU9gNKGNeDK+Z+6o8sauehKIOY9F1sEUu9
-	6bHGqAjrm+irxxYWeAV55PrQxmgsnpjtEbX626qJPq7xKanlSwZxjoi2V+YuKF6o
-	/mJIySnhCdZz/CESwbSCwdPi34eNLfddNQceqy27V4+dyJA5eYBwA==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn826h8tq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 15:16:24 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2E5xjb1034511;
-	Mon, 2 Nov 2026 15:16:23 GMT
-Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnu1vej7x-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 15:16:23 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2FGLr931064664
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 15:16:22 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CE2945805A;
-	Mon,  2 Nov 2026 15:16:21 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 98D965805C;
-	Mon,  2 Nov 2026 15:16:20 +0000 (GMT)
-Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.57.150])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  2 Nov 2026 15:16:20 +0000 (GMT)
-From: Anthony Krowiak <akrowiak@linux.ibm.com>
-To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kvm@vger.kernel.org
-Cc: jjherne@linux.ibm.com, freude@linux.ibm.com, borntraeger@de.ibm.com,
-        cohuck@redhat.com, mjrosato@linux.ibm.com, pasic@linux.ibm.com,
-        alex.williamson@redhat.com, kwankhede@nvidia.com, fiuczy@linux.ibm.com
-Subject: [PATCH v11 11/14] s390/vfio-ap: Callback to get the size of data to be migrated during guest migration
-Date: Mon,  2 Nov 2026 10:14:51 -0500
-Message-ID: <20261102151604.2150055-12-akrowiak@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102151604.2150055-1-akrowiak@linux.ibm.com>
-References: <20261102151604.2150055-1-akrowiak@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=meVKerlp
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so23669695e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:16:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793632592; x=1794237392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6lhp5lP3IR5uF75os6lL1lZTm+qOi+cJScoaRZnhdVA=;
+        b=meVKerlpBR06p2xu78USFrY7qxx4y+v8+7552sDFZMA8i0KEUjtCFSxu+ZVvp+aLvC
+         vAlICTSZMRXqjlEP6G/V6FV66qZGolxBie7o0HDWkfWOm5q2Ka1TTfMzHs4mcM1nmJNL
+         ddCHMKDctIdSLEbRsHakjmCMFY4rp+KlnFKkte63FzJ0oWzu0+6mW3JhVaZNVVAQIKVA
+         DttyTw+OfR+XSC9Lgi4hXW/qkzCIYDraC8PHOBlEdWmVAByC20/gX2FpAmrUo0G9as9S
+         w5Z9RHlwJM2Whj1VS7mX3pQToSlsKXI/zx/l7wMhRZN4/GJ+LkRDbwwtr0YoM8wibyF2
+         e5vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793632592; x=1794237392;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6lhp5lP3IR5uF75os6lL1lZTm+qOi+cJScoaRZnhdVA=;
+        b=JdpOlFiwPsQZQPn0rP8iSO49YPzS5ImE2dFxZc2tpYZa3FyGLBg28rjEVRO7EAFAWY
+         6FO1DDu9BUi8toSYB8by36pfl0ORURw94w3JqhLwnmtX8vybRlM9WrIKVUtuuQtYlhnc
+         CbUV8bl5uYS8G0JaSvd+cg1e2Jqe6gIFfajGqwGyJ3cxq97STdlvFulHXxa6VruKWnRY
+         +NLI7PEc6H29s68Bla/Oh+l2gMLQFbAO4vaJaekfzpHl0IqL1BB/zG8jaE5ntFTTBHwS
+         xeMzShtN8Pq6C68fc6sVaMACHNFBOq1iq0AXU5BPyCLiRlEFawiPoM2VhRIfcwLJCXRF
+         7zSA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3GsWRAwi8MptJGXMgJPXBdSs+UopLOCoSpDJyUO3NZ/gc5Sqb+2XWRcgc5y63oHUrTEZFK7VN9RHtpnk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8Z4RR7IN2xiBYwSk+Adag+cRri6pQDbjwvhHL4sjoFrlYB3Wb
+	PqHvnkmlvCQMA11ZuInU5ehfo+MRskRnjlPU2sp56qhqIprzETPWeJyg4OwOXkfeVjg=
+X-Gm-Gg: AYBFou08CBN2v5ZMFoAQO+0H+Co7ulG96mBH+XJQlHrL3b3UiJSUO0LRY6+o5m+/6TR
+	0xYur5Ahj/5Zj47rTztVx3IwchG1tSE3GfozK9eA/IjMldLuyxcWnuATlbHFFRq4csMMOmN8ZvJ
+	Wz0uhumEB3381TKHCpV28jXtTUC4UnDcG6riFqsNNYXj7eXGgGCOqPD9OaUqqG4b8YnYhm1c9ia
+	e42M8HGh9ZWl+xR+h8FUVVMN/RgnRwB3w46LnhvzQyv0m5s8Hl/wSsPJ68QfUlFIt0fPSmrTV4U
+	cCJVWWIhJl1cFu6A654gNewSfDnM+ggc2sF7B8Pw+XGbpGW9IVTU0JG0EZvr4SWHkpLc806ea3C
+	GFsNNDMenQmvQNwzMin7L7JxOPKmcQVt6W8aItfcZaYu61vuu9dCH9DOI33qllL2qfC54VuiNm1
+	SkLzMPYsJdDYybV1U9/oLtomZ/KSBYANPSjAN8x1cyuMi48WGVmWEhl1GoGmPXJsMB4TySze27H
+	O8cFytJVG0wltawWVhp7W9jjZceb00x183+TrQVqBPTUuv6WNrmm3e9vSASAT1Qr7E4btl9HDFG
+	CaWAxRR7d6Zc1Decf1z13UGdjW1eT1hBY5W72dES96NcWMjZQRBrZNihKpWkJJWcDlAx1Q==
+X-Received: by 2002:a05:600c:a107:b0:4af:e04f:cbaa with SMTP id 5b1f17b1804b1-4afe04fcd89mr78414005e9.29.1793632591746;
+        Mon, 02 Nov 2026 07:16:31 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab69b54742sm523955975e9.15.2026.11.02.07.16.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:16:31 -0800 (PST)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jian Hu <jian.hu@amlogic.com>, Yu Tu <yu.tu@amlogic.com>, 
+ Carlo Caione <ccaione@baylibre.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chuan Liu <chuan.liu@amlogic.com>
+In-Reply-To: <20261029-upstream-clk-encp-sel-shift-v2-0-31ffbb6b82af@baylibre.com>
+References: <20261029-upstream-clk-encp-sel-shift-v2-0-31ffbb6b82af@baylibre.com>
+Subject: Re: [PATCH v2 0/3] Fix the ENCP clock select field on GXBB, G12A
+ and S4
+Message-Id: <179363258546.2870673.13247205665671196595.b4-ty@b4>
+Date: Mon, 02 Nov 2026 16:16:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,72 +105,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 7UR6Zf4TLSb35XQ7iEHft1nOOjk-1xXs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX32ZjAjzhGgiI
- Eq3Z8jY0pkrMEWhHqqX9Z/594fAOxjx2DESJl7d730WrorcpuQBMPt2yTGdIjOMqJvKr3mikrGU
- auPWFQoyiufTxcG6gDOVmRPqV8Z27DsPNIUhWIOhTlLK5bENIRmyko0lxlRLyKB36Sc77w6/gIe
- Gh1yR6CvIiXQlIsYfwdB+8M12f3kPSOBzFH4MtfHGdTkc7v8nXDbmtKuemb7Y0lUN3JZRIuZA0L
- 8h7IOG9pqMiOExUIxYXGYv9S2DjnQmlLyqklAoAki2nPD3tCfQI8vv4pODX0kR26VEUazWSRnL+
- wib1AEhQeA/knzDYYMXQD7UT2U7NZbLYPse/GuMLAHfBJs25s4B/ptChg9CsmhvaSot0IvTCCPL
- TdyHa9lNJPISpTB2i9yWh75/3FLv8N5dV11SmTTraHdwLmNUlnbiA2tg0S+mWyhyW8cJc6ymuSH
- h4KweqAsBlTnB30K6OA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX8DTcTJmUUTwL
- Fe0o58mUgfBkvIHv3Co2sIcuFONriJokYVD1rTdV034gVzai94jWtEiNQAq2Ezmxwcq8LOknCPl
- b1pnBIE7Mb60u55V6NilsS8m+B3y2cY=
-X-Proofpoint-GUID: 7UR6Zf4TLSb35XQ7iEHft1nOOjk-1xXs
-X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6ae8a948 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=vZ-Ft76KQvoWVpZ_:21 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=dNOmgfuV3ZSo10a98CMA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020060
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=393; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=QkKO+7KRF9p6IxoBwO0rqMIDnmIJ+8dF2oqr4paee6Y=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFkvVvptqUrhvGV14pzz059soU2xjl9zPhutmLT11fbZy
+ Rdu3fvJ2lHKwiDGxSArpshSw10t/k5S68us6Tq3YeawMoEMYeDiFICJBKQw/JXjWX1Y2/5yktTy
+ RsZfjaFa/tMeetoHxe05W5qwJelVlyXDP6VY+cVbpzBzXLlkmeSpanBhNmtS3yrpktO/+A6Vftf
+ /ygkA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Callback to get the estimated data length of the data that will be required
-to complete reading of the vfio device's internal state. It's mandatory for
-VFIO_DEVICE_FEATURE_MIGRATION migration support.
+Applied to clk/linux.git (clk-amlogic), thanks!
 
-The function pointer for this callback is specified via the
-'migration_get_data_size' field of the 'vfio_migration_ops' structure
-which is stored with the VFIO device when the 'vfio_device'
-structure representing the mediated device is initialized.
+[1/3] clk: meson: gxbb: fix ENCP clock selection
+      https://git.kernel.org/clk/linux/c/17b53ee5a743
+[2/3] clk: meson: g12a: fix ENCP clock selection
+      https://git.kernel.org/clk/linux/c/8fb4c1084cb9
+[3/3] clk: meson: s4: fix ENCP clock selection
+      https://git.kernel.org/clk/linux/c/7c328cc402a8
 
-Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
-Reviewed-by: Jason J. Herne <jjherne@linux.ibm.com>
----
- drivers/s390/crypto/vfio_ap_migration.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/s390/crypto/vfio_ap_migration.c b/drivers/s390/crypto/vfio_ap_migration.c
-index c5534c6ee3ce..7c282d396f50 100644
---- a/drivers/s390/crypto/vfio_ap_migration.c
-+++ b/drivers/s390/crypto/vfio_ap_migration.c
-@@ -1308,7 +1308,15 @@ static int vfio_ap_get_state(struct vfio_device *vdev,
- static int vfio_ap_get_data_size(struct vfio_device *vdev,
- 				 unsigned long *stop_copy_length)
- {
--	return -EOPNOTSUPP;
-+	struct ap_matrix_mdev *matrix_mdev;
-+	int num_queues;
-+
-+	mutex_lock(&matrix_dev->mdevs_lock);
-+	matrix_mdev = container_of(vdev, struct ap_matrix_mdev, vdev);
-+	*stop_copy_length = vfio_ap_config_size(matrix_mdev, &num_queues);
-+	mutex_unlock(&matrix_dev->mdevs_lock);
-+
-+	return 0;
- }
- 
- static const struct vfio_migration_ops vfio_ap_migration_ops = {
--- 
-2.53.0
+Best regards,
+--
+Jerome
 
