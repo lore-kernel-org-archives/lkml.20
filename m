@@ -1,63 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631527;
-	b=2DFaK+OL/CMt7XE1d8TEFmLgddq080EdS+oa2VW6Nxhe+zaFmuMfJlu3Kmje+BlnhWJz
-	 vw9cA6GYY/Mw0ImdmI583gJ6xTmwTz2X1PjcGGGxRSS4z2N02hqh0hkdhXQuM1gI25bjc
-	 3pj+Ov37s7NZA7BZwr1Zx0eeeawU64qUN4GCAbT/xmwbfb/a0zn5jQB31vkqbQZnGRqJt
-	 +L7pwO5fK0AQz1QBZtAjmIIgvDxUhE12Smc3HMLkIwP93s2TU2UgBo9jXiUNRYwWpLN5T
-	 D/NANrelgHtevtx83JRMOMBjhfUZxXY5eozaPmMNSK5QlipCyQtPrVI8X3StZ29xNQw==
+	t=1793631530;
+	b=Dhi859egoOlpJykyWzLGmVNZxHxRxBShwrJi8XU3ZUhLFXleQL9oIOsJzuj5rldbREon
+	 4wChLAEZZ2wV9nd3LZopeHFXQeJP8JtMIvzJknhHI36x7FWGx5PAXQm2a8YISdFby1S/d
+	 KvK6yMElhqIv/WNA3EjtVGxxrjGfb6TAdVksP+R105U9WUEHHASDqnjABwQPtRSbw2r3o
+	 cayfTQc/b5DCZGINHXjzgKRuKBAlyj4FEbKrXJilsfPN4QHs+B9J4uaJL3Xv5VjDp9usV
+	 MocFvHdjqB7bh04GuF+nx11zLMAuYW0aNIk4Al3bE/lwiwLwUUHCs0gQlq1LLEy2jMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631527;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ipzJWtZr09PM7ZkIhvJieHFp76x/Kz4S2q5kz7eEA5Y=;
-	b=ZemBi5WzALGUpXRGsDg2JR0vYGyn6YcE/LB6HIF0u7M/lNHxaouxJpdUpElN/VZGaHP4
-	 KGXTGAgQO5Qt+Ew/06Hc0ZmSjCTMA4QE5OTtXlkW9zIKpxQnVHQ5sivT3Wwsfs3kTEFO2
-	 Qr3Za6BMk51HqTEhzP/D1TVDYttHkbmptSxfZRlcIwy16rDOfEYGElvMnG/EZ0Xlrbsi3
-	 rSPBhMbyzphGWvbLBHuyUocxP+ighZB178YBqki4mGG+z8x2y2/opYVrfxEWgPQASfvo7
-	 nUV5IKrdiLW9Mt3Xfkizdff9ueQJVxOcX2KaPyFlupL/loAIvrwpQH3KR3ZjjkSR6gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631530;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=BGZaLVl/bf+VQNDSvC9YaFRzMNQ+JkOw52QT0TU0FxI=;
+	b=4aRACpa0Ss4rEdDPnG3TABT0Y5bxsytzFyEoBQIjwFukbGQffFN8XqxHS1mnMsBL6Z20
+	 3g29i5F2aKu9A6EDnClySUkR3+zXvP5bIJHTB2+ALRBrvLTTeYsgWrR2ae5lFPUhdVuTn
+	 Av9HFCPxyx61sJFAEcfj5qsW5lioZQ8Xf3R0VPhIWGjkTwGbhWbyqFsNBl7mkh4J9g28m
+	 m1TPscAqlSgEaAtQbev7eO4noJ7y3zXTP4VnJopccTtbFX6lWCFnzFGUN0Tjuo04ywWxP
+	 LeFBim4V12monFGPN1HSaNpenExydzPbd0egfr4Awmbc0LxgXUIOgkZStswlGKl9hgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TsSjnMly;
-	arc=none smtp.remote-ip=95.215.58.193
-Received: from mta1.migadu.com (out-193.mta1.migadu.com [95.215.58.193])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TZywBXE3;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60C4606A5BC
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:58:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E60C4606A5BC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D774606C3D4
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:58:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D774606C3D4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TsSjnMly
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ecSSOXwMPLSgrPwivWZlr5O7kQVEdpqiDzJteOU8z7Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793631523; v=1; x=1794236323;
- b=TsSjnMlyxIgJqGg0OM2ywhSGrEVVTnr3vB4zsrEM3kHnNVX8ZTH9mMISulsN3rcRNybl8cKu
- zAbDByyVZXzO0PN+5hEF7nqXl2K34scaiF1k6aTa/96CKZ1aX0X7qZO3wE4EF4qjYVSWM7/8SMv
- 7cHWfLk8fYaO5gqtumrwsE2A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 66ae8b979347ddfb;
-	Mon, 02 Nov 2026 14:58:43 +0000
-X-Mizu-Trace-ID: 66ae8b979347ddfb
-X-Migadu-Flow: FLOW_OUT
-From: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@linux.dev>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] riscv: kgdb: Fix potential missing local_irq_restore() call
-Date: Mon,  2 Nov 2026 15:58:11 +0100
-Message-ID: <20261102145812.36939-1-clement.leger@linux.dev>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TZywBXE3
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e9821ca96fso50484655ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:58:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793631529; x=1794236329; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BGZaLVl/bf+VQNDSvC9YaFRzMNQ+JkOw52QT0TU0FxI=;
+        b=TZywBXE3oo1AuLBH7fBdMETQ/ZJUgYCO5nOgYZhMM2/RSWMHeOnBsVWpkN2kAt7KvD
+         74dzAt9PIPbwp/6+RUsGUMXtWVUoMV3MdAigrrJIZiU/oT21l+cUq8atuQ+RAalmSlHk
+         g3RJ7DyQkTdkIAvVBxgZUe0Sz810/Xb582RtJwJCvscY3ni5bJfSTeCbvv+C4vp62UV3
+         an0957++A+LpFnNFNacx9MYI7lnZMrH8MOcXyiWyZ5j8n9FueDIB/nvRaAJodCsoUOg1
+         oMXcKKC21ctT7VDibGCwQcUAZ00IKICYtJZusuhXMeMnt4qTZRFqLClfq3HFOkmznWQ7
+         q4pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793631529; x=1794236329;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BGZaLVl/bf+VQNDSvC9YaFRzMNQ+JkOw52QT0TU0FxI=;
+        b=dgVNVx8zei8FazvARKOc3M3jL7HqQBboNOPbMzTOsl3Ff/F2tvhvOY27hMaHpU6i6K
+         cOVcQQ8w7PD4ybWLyTSLEJliGPbdc245cXl+sAa+En64jFlBYoKTIhWYuoQgcETMBynm
+         rfwvAYwCF0FJPOHdtgow/39bp1VQl4rQm00cZS8l0aJIlabtR2Jke1kxFSxJ+TQdPxuj
+         HuBmwJAZ/6AKtp5TLdfRv2jrNUA/L+R0MxHY9BBuq8c9Yb+iDjyrnKiwRjqNSDi2pCpZ
+         KGZ9eMgCyr5esRQaVDOag2K2WQ0JfRvhNI+B5dkvGKQP65GZTh7d1H/BAXD6S1X97Q4D
+         D1Cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxJnpM0ju3i66pCYz9QA3JMh37xJU2fihBdXuVJJ/cHwlMWb+QHOPwTrIHxN48OBW48Wa2YO288VH8ywPg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cY8Fxtc9kR2CkmHQznB/DDzPWMUlXk/fTRxJ7KQMjh2YONHg/
+	KRf520dNArtOhT0IWjeIn8fg+qrIQWGBbqXh0XepD/PTuOCMIKzris/bzgBHqzzGAbYjrc/cRt3
+	9qItGxw==
+X-Received: from plnl5.prod.google.com ([2002:a17:902:fd85:b0:2ea:44fa:2c44])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f691:b0:2e2:d39f:182f
+ with SMTP id d9443c01a7336-2eb3643d489mr99134825ad.28.1793631529137; Mon, 02
+ Nov 2026 06:58:49 -0800 (PST)
+Date: Mon, 2 Nov 2026 06:58:48 -0800
+In-Reply-To: <20261102074657.27715-1-jtornosm@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,77 +77,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261029165845.GQ1685504@ziepe.ca> <20261102074657.27715-1-jtornosm@redhat.com>
+Message-ID: <auilKFwKLjw-BnZM@google.com>
+Subject: Re: [PATCH v3 2/8] KVM: add PCI MSI hypercall for VFIO passthrough
+From: Sean Christopherson <seanjc@google.com>
+To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Cc: jgg@ziepe.ca, alex@shazbot.org, ath11k@lists.infradead.org, 
+	ath12k@lists.infradead.org, bhelgaas@google.com, jjohnson@kernel.org, 
+	johannes@sipsolutions.net, kevin.tian@intel.com, kvm@vger.kernel.org, 
+	kwilczynski@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	lpieralisi@kernel.org, mani@kernel.org, pbonzini@redhat.com, robh@kernel.org, 
+	vkuznets@redhat.com
+Content-Type: text/plain; charset="us-ascii"
 
-If kgdb_handle_exception() returns an error, local irqs are not
-reenabled. Fix this by factoring out the kgdb exception handling to a
-function and call it between local_irq_save()/local_irq_restore() so
-that the error handling flow is simple.
+On Mon, Nov 02, 2026, Jose Ignacio Tornos Martinez wrote:
+> > I probably would not have selected this, it is why I suggested
+> > virtio-msi or something that could be optional and seperate from the
+> > core KVM guest ABI.
+> >
+> > But maybe there is interest in doing it this way?
+> 
+> Since there was no feedback from KVM maintainers,
 
-Signed-off-by: Clément Léger <clement.leger@linux.dev>
+NAK to adding any KVM-handled hypercall, and probably NAK to any approach that
+requires KVM changes.
 
----
-- Resent because of a bad msmtp configuration.
-
- arch/riscv/kernel/kgdb.c | 28 ++++++++++++++++++----------
- 1 file changed, 18 insertions(+), 10 deletions(-)
-
-diff --git a/arch/riscv/kernel/kgdb.c b/arch/riscv/kernel/kgdb.c
-index 0bf629204c76..b833408494f9 100644
---- a/arch/riscv/kernel/kgdb.c
-+++ b/arch/riscv/kernel/kgdb.c
-@@ -319,13 +319,28 @@ static int kgdb_riscv_kgdbbreak(unsigned long addr)
- 	return kgdb_has_hit_break(addr);
- }
- 
-+static int kgdb_riscv_handle(struct die_args *args, unsigned long cmd,
-+			     int type)
-+{
-+	struct pt_regs *regs = args->regs;
-+
-+	if (kgdb_handle_exception(type == KGDB_SW_SINGLE_STEP ? 0 : 1,
-+				  args->signr, cmd, regs))
-+		return NOTIFY_DONE;
-+
-+	if (type == KGDB_COMPILED_BREAK)
-+		regs->epc += 4;
-+
-+	return NOTIFY_STOP;
-+}
-+
- static int kgdb_riscv_notify(struct notifier_block *self, unsigned long cmd,
- 			     void *ptr)
- {
- 	struct die_args *args = (struct die_args *)ptr;
- 	struct pt_regs *regs = args->regs;
- 	unsigned long flags;
--	int type;
-+	int type, ret;
- 
- 	if (user_mode(regs))
- 		return NOTIFY_DONE;
-@@ -335,17 +350,10 @@ static int kgdb_riscv_notify(struct notifier_block *self, unsigned long cmd,
- 		return NOTIFY_DONE;
- 
- 	local_irq_save(flags);
--
--	if (kgdb_handle_exception(type == KGDB_SW_SINGLE_STEP ? 0 : 1,
--				  args->signr, cmd, regs))
--		return NOTIFY_DONE;
--
--	if (type == KGDB_COMPILED_BREAK)
--		regs->epc += 4;
--
-+	ret = kgdb_riscv_handle(args, cmd, type);
- 	local_irq_restore(flags);
- 
--	return NOTIFY_STOP;
-+	return ret;
- }
- 
- static struct notifier_block kgdb_notifier = {
--- 
-2.55.0
-
+With regard to timing, please show a little patience and awareness.  It's Monday.
+You posted a fairly large series on a Thursday, during a merge window.  If you
+change direction after ~2 days for a series of this natures (touchs multiple
+subsystems and introduces guest/host ABI), you're likely going to end up with
+severe whiplash.
