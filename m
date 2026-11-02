@@ -1,86 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618588;
-	b=GhNU8dZSgkYNfxl68mfjiylsyaRJvteh7RZrTNjM0pS1YmYmfUBOaGFQpI3wCWozyWkn
-	 lRGv52JCMX7fcnEZNgbTftURG+SlAORpdc2IzRnaaXMKcM4P0IMqIWN87tJc8wSh6WBRO
-	 XVVGp9xbjlOlvlS9KJq14PnCb5MxVlNOFZ5lbztsObDtne5vKflZghavE/gbrHfiQ7buP
-	 M8X9cd9TaLItpr1bn7/bTu0nC7RN+7//UP1tPK9zAVERWMtQ8+gC8SE6zNXz9tH88CSEM
-	 bM8wfLxiSstR3xeeki1PlFYBef/FjW+Z5HlBzOjKL99HvvIoFHUjLmRe7/vkb+SCnvw==
+	t=1793618580;
+	b=DS0lZr6EU1w6hKmvAHWAD2XWdnVa3Qsun12xYlLnw06soqMprXSciAiO3LYR8UfBqfye
+	 34/X7N3GtZ8unvpL12ON8IDkn3rLv4AYT/MKDIRy/g1D+TT5xlGh5UQujZw9D76UULQuy
+	 fF1was6P9PEiIUjsGJVRP+yBziZbSYLdvrvnYtxcJZizcY6KO87wAI8oBx/LA6Su5P5jk
+	 9BPO4ZNligrezNc94R/ak/EzVqpPalB4S9kxBm0ewlQ865kRWRu8C7bHhT15MPhpTk4xq
+	 Jf45Hl46BETMikX+q8NTeQaNRetR6UoS43/sXRyAb/0XSfP5jsk1rQoRejGA+wr1yJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618588;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=MLwsV9NgSX1cUZ+sDk8sdbw+D/bmCKl1tXgdytSXAeg=;
-	b=DMe7evsX1zdn/g37RpmIGB9psRmV7xP738iOmD+6lFIwdhC4/CeOLHJ5CM1ZMmK0NTdI
-	 F/nw5IZaPp6ZtOBE8fc05ULwXthME/tAyXdAgu4Q9KKZMkAIjM64PCkZIdrJEaL1/9+zI
-	 fzbEKkvQ/tcMPzusEGT7DesWbpHSUGt7ovnFu/haJ/ohdF1hjfL39om/ild6kiSDiotDC
-	 ygDKEK3jwe1hzN8rDDUQoTVkACzKSqa1uLuCWT7Oe2B1NRxbtWG40CEzw+kXLppPXGnX2
-	 jpw7ye9RO7C2OuxHbj3oVzE1EOEtFr9fSzOAPjjerlAI7FLmhnxWsbezIBAd24DITAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618580;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=3lY+1ZzPRqoScYAMKyAN5RN/YFCIvuobO8x0DYvXDjE=;
+	b=JeOlG98j397eg9f7n1RkHQc+QViwXRCufHJZFwKA8M0q4wI2qyR0dIBTCL90nVx7VHgT
+	 GT56XeVVr0xgCOkmaGHx47EByWrLGdkXUhsQMGxeLtu7BF8JtROyhzPA07pUSj4D7mDg2
+	 fby0sJVjPNPnbUGvw9TbDaqFGoh36g+nD8KG9ak+H6UIn/3qpBEY7jEctooU9lMdHDtX0
+	 HE60PUp4M7PYBbZwa4t9928bu/rY28+763MNvij/cQlW3VXv3FqahU+Z5yS0x6PPAVKHf
+	 zVnQHiRzcoaF4saCdw8y+b5Gx1Rj7XHKBBe7lgpUhd115a/KkCoYD6fbqWIQnSKT5Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVbzE52v;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E276606B3A0
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:23:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E276606B3A0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OL6q65xC;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 45C0C60A6F6A;
+	Mon,  2 Nov 2026 11:22:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45C0C60A6F6A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVbzE52v
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c46bd7a7345so580896866b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:23:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793618586; x=1794223386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MLwsV9NgSX1cUZ+sDk8sdbw+D/bmCKl1tXgdytSXAeg=;
-        b=gVbzE52vZSXVkg90qyn9/dRBZgyInVdeABnqiccT1tk6JfbWd1QC1WlKCA/UO2f0b2
-         6ABREc8Zq1m8inodhEwUy4DvIyYstmWcoD/zFQRI/kqfm2f3AszLqUvRXJ2Re0+p8AqO
-         M+5VKV8gz6FJnAkW29WMUwaQiK4gJ1ptzSSVZjQQtAjoPRB/9haKuAx5Pggm7M7PSAiR
-         4paE5e74uVAyuWlzdN1Ihz95StexUF+kWMEW411MdjeiX23qDu+Ghx4aCxaa80YUZgfC
-         erLtXqVnk5TNRVOmkn8PMsO9TqmnSnvyuXDcIG+U83mkgSM+RxHvdXX2M1IXl9PT+2QO
-         T17Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793618586; x=1794223386;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MLwsV9NgSX1cUZ+sDk8sdbw+D/bmCKl1tXgdytSXAeg=;
-        b=qxcSKljcI65ELKU2jgo3a7EeksiMrmMCvhKhbDMBjELtSXYiGJWaj2sVhkQ8Nfd0/E
-         AcI7DeqVCT/D/dGk4tBtPY7o4nQa5zoQzTzi348Nr02/zlM8r/yVKcDWs8BecaTMWk+6
-         zccN9Oj4Os32nU3j5rdQpvLCCDlfTTAJDc2iKpaWm503Ntt7E3OhTGDXSlcVRSZpiaxw
-         JIKmPQuYTZ6HjiuiJiue3eelUm8SVJL1rE6Oqz4Vr9IMmOw04XSwLPcbVqB0/qUGdfSd
-         m7PQ+4Ic0I1DVVyZR0wxcMUx14cninvHKns7ef1c4Qk73GBvaxgmaXdC3HKCscWFFTfz
-         E7uQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMmGbrQvckRaXMWQI4ckjf/70eZRM91yIT8h9dsdJ9NKk7Y23r13TkSTEHPRDbNshfpyQYxuUGeg3coTU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/o0UJMhYvWzIQNz+xjVSyewkEG6k/ymalg4oHpO06+Pm9RmJx
-	R9fyjb4ULzvpaacGLPvOqySZUAUXF6gtbmjtYqc0Y+5u5f81gzhYq4XBcgooqg==
-X-Gm-Gg: AYBFou3V8J68Xy0KSK+UHim/EyTH5+ey4ocZEfskE9lWzYu6gUHQIZ7/jmvBoEYava8
-	uJnFTWYra7PDKz16uGiXfQRKJYeLec7vTNTAkzhpse+Pb2wLaoLq9/zXiw/hIDjHd3bNDLRRonu
-	2e5rplm0NgEZkC2Z+fVUze+b5P7oNWEb/o90HBKKPKSn4ORvglJQgnKm/lGKH9ToBgDV6Fz5W4N
-	YMxLI2tpcJodzG3wdMlRt3CnRMiUmBUHddB07jwZkT5SZvTYke/k6hk+HxkgsPzgVxPZKxGygpO
-	LDbwEj0e3aNTuvw21rMDD2Xe2VOVTorYSOXZZmbyTjKliJwsW4JEp5cFNBgmV4EKfICXN67gJ03
-	/rYGbudajB8XmhgElTLflSCiZ2Rtd8wuEVMGXStlmVdn3RPurcLM2oshTc1DmSiG7YEHQGNKqiW
-	qpV/qWG58bjdF9d+IzUxhKmjfMdz4buchS03c2zFCyCWtSDaICZ+ZseLYlnVlG7W9kXb2lRIbjP
-	PsieO9W5E+H85167w+I+xfL4FzOORO9JCCLPw5QjWmbMXQAcVDN1msW6mXf7cFwYxlZys5RN/3i
-	uSK8e/zQSqlCq9+qNLyNs58bvJq8a00xxQOhR6P8ZHcwRVI6h7gSLJ9XAqkvvQ==
-X-Received: by 2002:a17:907:9410:b0:c2d:c6e7:9e9a with SMTP id a640c23a62f3a-c4ca7a6aa13mr804002966b.11.1793618585792;
-        Mon, 02 Nov 2026 03:23:05 -0800 (PST)
-Received: from [192.168.1.89] (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe4a5f5sm377975966b.50.2026.11.02.03.23.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 03:23:05 -0800 (PST)
-Message-ID: <24af6daf-dbf3-5c47-beb7-077c4473ea7e@outbound.gmail.com>
-Date: Mon, 2 Nov 2026 12:23:02 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OL6q65xC
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C0D662A31;
+	Mon,  2 Nov 2026 03:22:55 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9B2FB3F632;
+	Mon,  2 Nov 2026 03:22:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793618578; bh=bEX3sSqEnQKAQjL0B+MI6TFOYIMgpmFaiG2QcWnZ5UQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=OL6q65xCnF2Tz4ITltDKgFLNBYVVrj82d5jxdji1GVBZb75n9gPi0z1tfCET6eB7u
+	 4s4rCEiwCIn3qlysbR++0NoFqJK82k/WXfZq11aTvIy0cVuMV3M4EHp2+WOGymGRhI
+	 8T0sz25bKGSqnXOGGxivwKApdCmjhFNLN3gptB4o=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Mon, 02 Nov 2026 11:21:26 +0000
+Subject: [PATCH RESEND v2 13/21] x86/mm: Introduce helper for checking
+ direct map 1G page support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,48 +56,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-From: Eli Billauer <eli.billauer@gmail.com>
-Subject: Re: [PATCH] char: xillybus: use stream_open for stream semantics
-To: mdshahid03@gmail.com
-Cc: arnd@arndb.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org
-References: <20261031083610.87160-1-mdshahid03@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20261031083610.87160-1-mdshahid03@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-dummy_ptxp3-v2-13-78840b2ec73c@arm.com>
+References: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
+In-Reply-To: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
+To: Russell King <linux@armlinux.org.uk>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
+ Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>, 
+ Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-openrisc@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>, 
+ Sohil Mehta <sohil.mehta@intel.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5614; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=ArnDgja24P54ewtxWlKChMWDZmg5SmpxwVJZIltWfVo=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq6HI1RIbrWXEKJzjwjPKklaXB5ULDRFe5CQCSy
+ l3tJmaWOOyJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCauhyNQAKCRBt1cPRWsUx
+ M5ZHC/4tf/XkQKbv2sSjxw7u2qbrKs9afdYINdi0Ck9j09hNi8AocMbGW9v/Vi9jdTVJhqvjeM+
+ 0sYVgbLZ7S1NsxmWc+vOyzpYCgCWM8FI1l7ZGEf/tFHGBxVsXiPh2p0/5rAlHtJmpZBBY45cONO
+ yJ0kAXibS0A3hvLaJbkw6PSC3kLvxObC5zVc/nyVKFvByL2NL/jYQbYUtgZ/G8X7idCTR5++VqV
+ 5FCMJ61PnZtwooqTgFZaz96tdLnXBgid9Tx5+ZQ1lySgDzMx2h5UE9MRTNLZOgaPd/QARaBHgER
+ 9GeJyNqO+4m2xPCIhjFa9rk63IaIQ3oNhZxMaZFbnq8TlJ4mud1USfX8U/LQk8IVQw02LEOokQJ
+ IVbwwNYeY+sXQc0PostpjU9MZCnD10kjbGu0XjEb1ifkhYYkn8eIiQNghYQZ0Aie5KTCSuT2hLO
+ SuYDXUuJF3Zd1utQ8h1lmnOikT85YsrZp+E5Rb1mpROYDHK+aMhG5EmJyA/gSFehyrnws=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-Hello Mohammad,
+From: Dave Hansen <dave.hansen@linux.intel.com>
 
-On 31/10/2026 9:36, mdshahid03@gmail.com wrote:
-> Use stream_open() to mark these channels as streams and
-> disable unnecessary file position handling,
+There is an existing variable (direct_gbpages) that says whether the
+kernel can and should use 1G pages in the direct map. It is driven
+by a bunch of other machinery. At least:
 
-The difference between stream_open() and nonseekable_open() is that the 
-former sets FMODE_STREAM and clears FMODE_ATOMIC_POS. I made a quick 
-test run, and FMODE_ATOMIC_POS isn't set in either case. As 
-FMODE_ATOMIC_POS is clear, no lock is taken while updating fpos either way.
+ 1. Hardware support for 1G pages
+ 2. Kconfig support for 1G direct mappings
+ 3. Kernel command line overrides
 
-So in effect, the only difference is that FMODE_STREAM is set. Frankly 
-speaking, I'm not sure in what way this matters, if at all.
+Most code just checks the 'direct_gbpages' variable itself.  But there
+are cases where 1G mappings are compile-time disabled (via
+X86_DIRECT_GBPAGES) and 'direct_gbpages' is always 0. Unfortunately,
+that constraint is invisible to the compiler.
 
-> allowing read
-> and write operations to run concurrently.
+This opacity has been historically functionally harmless; it only
+leaves a bit of dead code. But, there are plans to tigthen up the
+compile-time checks around folded page table levels. The build will
+break if that dead code appears reachable to the compiler. Making
+the compile-time config visible to the compiler fixes the build.
 
-I checked that with hardware. There's no problem running read() and 
-write() concurrently even before this patch. And I don't see why there 
-would be a problem.
+Add a helper to replace 'direct_gbpages' checks. Check the Kconfig
+option and base CPU support before looking at the variable.
 
-It seems like FMODE_STREAM was supposed to replace FMODE_ATOMIC_POS 
-somewhere back in 2019 with Linus' commit 0be0ee71816b ("vfs: properly 
-and reliably lock f_pos in fdget_pos()"). That is where he urged the 
-move towards stream_open(). But then he reverted it with commit 
-2be7d348fe92 soon afterwards.
+This lets the compiler optimize things better, especially
+collapse_pud_page() where most of the function can now be optimized
+out when the PUD level is folded.
 
-All in all, I don't know what to say about this. Calling stream_open() 
-does sound more correct, and nothing broke with this patch. But I'm 
-generally unhappy fiddling with code unless it fixes something.
+Notes:
 
-Regards,
-    Eli
+Use boot_cpu_has() instead of cpu_feature_enabled(). There's no
+required/disabled features for 1G pages themselves
+(X86_DIRECT_GBPAGES is for kernel mappings only) and the
+static_cpu_has() infrastructure is just gets in the compiler's way.
+
+This makes 64-bit build marginally larger (20 bytes in one compile)
+and 32-bit builds less marginally _smaller_ (~700 bytes).
+
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Tested-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Link: https://lore.kernel.org/all/20260902-dummy_ptxp3-v3-15-5d8f5b17c25c@arm.com/ [1]
+Reviewed-by: Sohil Mehta <sohil.mehta@intel.com>
+---
+ arch/x86/include/asm/pgtable.h     | 14 ++++++++++++++
+ arch/x86/kernel/cpu/common.c       |  2 +-
+ arch/x86/kernel/machine_kexec_64.c |  2 +-
+ arch/x86/mm/init.c                 |  2 +-
+ arch/x86/mm/pat/set_memory.c       |  6 +++---
+ 5 files changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+index 000fc6c1ca37c..a277082121878 100644
+--- a/arch/x86/include/asm/pgtable.h
++++ b/arch/x86/include/asm/pgtable.h
+@@ -1167,6 +1167,20 @@ static inline int pgd_none(pgd_t pgd)
+ #ifndef __ASSEMBLER__
+ 
+ extern int direct_gbpages;
++static inline bool direct_gbpages_enabled(void)
++{
++	/* Check the direct map config option: */
++	if (!IS_ENABLED(CONFIG_X86_DIRECT_GBPAGES))
++		return false;
++
++	/* Check the CPU feature: */
++	if (!boot_cpu_has(X86_FEATURE_GBPAGES))
++		return false;
++
++	/* Check the command-line and early setup variable: */
++	return direct_gbpages;
++}
++
+ void init_mem_mapping(void);
+ void early_alloc_pgt_buf(void);
+ void __init poking_init(void);
+diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+index 9bd50c68cd7e5..12a51dba16627 100644
+--- a/arch/x86/kernel/cpu/common.c
++++ b/arch/x86/kernel/cpu/common.c
+@@ -2655,7 +2655,7 @@ void __init arch_cpu_finalize_init(void)
+ 		 * Right now we don't do that with gbpages because there seems
+ 		 * very little benefit for that case.
+ 		 */
+-		if (!direct_gbpages)
++		if (!direct_gbpages_enabled())
+ 			set_memory_4k((unsigned long)__va(0), 1);
+ 	} else {
+ 		fpu__init_check_bugs();
+diff --git a/arch/x86/kernel/machine_kexec_64.c b/arch/x86/kernel/machine_kexec_64.c
+index c3f4a389992da..0da0e89f2611a 100644
+--- a/arch/x86/kernel/machine_kexec_64.c
++++ b/arch/x86/kernel/machine_kexec_64.c
+@@ -257,7 +257,7 @@ static int init_pgtable(struct kimage *image, unsigned long control_page)
+ 		info.kernpg_flag |= _PAGE_ENC;
+ 	}
+ 
+-	if (direct_gbpages)
++	if (direct_gbpages_enabled())
+ 		info.direct_gbpages = true;
+ 
+ 	for (i = 0; i < nr_pfn_mapped; i++) {
+diff --git a/arch/x86/mm/init.c b/arch/x86/mm/init.c
+index 079f8c7e9e3cd..f0f4a06584c61 100644
+--- a/arch/x86/mm/init.c
++++ b/arch/x86/mm/init.c
+@@ -251,7 +251,7 @@ static void __init probe_page_size_mask(void)
+ 		__default_kernel_pte_mask &= ~_PAGE_GLOBAL;
+ 
+ 	/* Enable 1 GB linear kernel mappings if available: */
+-	if (direct_gbpages && boot_cpu_has(X86_FEATURE_GBPAGES)) {
++	if (direct_gbpages_enabled()) {
+ 		printk(KERN_INFO "Using GB pages for direct mapping\n");
+ 		page_size_mask |= 1 << PG_LEVEL_1G;
+ 	} else {
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index b1d5c5a0ffb41..f27811e6e00bd 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -130,7 +130,7 @@ void arch_report_meminfo(struct seq_file *m)
+ 	seq_printf(m, "DirectMap4M:    %8lu kB\n",
+ 			direct_pages_count[PG_LEVEL_2M] << 12);
+ #endif
+-	if (direct_gbpages)
++	if (direct_gbpages_enabled())
+ 		seq_printf(m, "DirectMap1G:    %8lu kB\n",
+ 			direct_pages_count[PG_LEVEL_1G] << 20);
+ }
+@@ -1355,7 +1355,7 @@ static int collapse_pud_page(pud_t *pud, unsigned long addr,
+ 	pmd_t *pmd, first;
+ 	int i;
+ 
+-	if (!direct_gbpages)
++	if (!direct_gbpages_enabled())
+ 		return 0;
+ 
+ 	addr &= PUD_MASK;
+@@ -1737,7 +1737,7 @@ static int populate_pud(struct cpa_data *cpa, unsigned long start, p4d_t *p4d,
+ 	/*
+ 	 * Map everything starting from the Gb boundary, possibly with 1G pages
+ 	 */
+-	while (boot_cpu_has(X86_FEATURE_GBPAGES) && end - start >= PUD_SIZE) {
++	while (direct_gbpages_enabled() && end - start >= PUD_SIZE) {
+ 		set_pud(pud, pud_mkhuge(pfn_pud(cpa->pfn,
+ 				   canon_pgprot(pud_pgprot))));
+ 
+
+-- 
+2.43.0
+
