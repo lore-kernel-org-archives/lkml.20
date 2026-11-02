@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623321;
-	b=GfJafON3pvFh2wXfpWT6Zo4jIWa2jfv2mHgmrNEPBpkJ/2VW7zTH3E8r6UFV7SPp7OpF
-	 wxhqnq7DBk8cD3uCioXUKRf/oV47jJ4NUae2zK6DkbBFcYHBzJafTqv6qJ/mtfwRTkxS6
-	 M+6Dv0Nq764LrvBEJJVyKVtbhc1ISVc+HWZ2u1pTFcGz0LFxcwjJw+RYrqL8QREViIl5m
-	 F7HC4UmQq/iAWhMxb6DAGc9kFZ9dyXq59m9Vn8eVSAbCdlTi6ljqmZWxwaZV5HogqskMh
-	 wUfmMaZx8KM1Ugftpgdw7OsgYGLzque0LvzNzcEbIVgD5ajXo+/rj3JoIrQuA/jydkg==
+	t=1793623346;
+	b=S16V8ZHdXlKmN9+32c4PS3dGx4QMqDHfLS6EbEZY4mJgsuWkSf2MGU7fBlAqvuouvk7d
+	 kDx7REFbpps0UjRht2/5GrvND59pXdN557PCUBSwbDr6SKSRm3BOLizCgN5ybKhiTbU78
+	 6oTkNl1zWZScJVIqHOREsb4PFvFLx7OmkvHOYADvXxsLJqZcSuhFPjGKE67sNOisraVIF
+	 xI7IOy7OXe+Zss5Ms7dsX3vw/JNUWunc+WaHSWbqxXGpfumE/bQ29jBWmYD9dd5Y02q9L
+	 aJbhKo7cWUW41p0XcpJO71Y7wqY3DRNHiCR0R2Mhgj9B6F+tJLSkN/M6dL/FK6t0uvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623321;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623346;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=7lQkyy1/pRpP8p41cOakIFXXXUGW7SHK28G13dhCbDw=;
-	b=Pibs0NM3Uz5J4OG1+wTOrWZzn67Bw+RLbkY3c/aPHIPpQsfkIqcXQ7NGroVTrZIdSOLk
-	 gZWzQTBMj4m9CiHcy1rlGQMZ5gYPRMSikGAjS8HiQ5BlnxAAqsaXPTiMpzOqPnvmiT9Us
-	 R2RQHUwP9sX2TfboEG1eQJPW0BxhHFTE69v3EZISj6dG5VhfEiq/DcpGK1MNCmykO3Hg5
-	 ZgvI6n0Jww4OeVzXH+9vBKezT039RpUOSneZH4LW3w9w5ux8Dp4wU4j+JD82+qv7tBc4y
-	 CCH/MZ10PgDnrmFZjlMaIQlRhgvUXo6yba1EyoCWWDN8i7UH8+8c9bEOvFN86Z0mf9A==
+	bh=wNFBAMtBFiUoqzwvIebrkT7W9QmBJ7fSnYGesY4q/Rk=;
+	b=qhyMwdWX1Anrla27lxlpIqtpmQ2e2Swd4LiULquMAB54rSveEYu/qc38uZgdO6Mjv4AC
+	 ybKcI1/EZbeSU7QlPCi53J+k63ISA86FIHcCQJOEupyfIVX2weqsmUHeLMa7RMaeImZc9
+	 aCrNpYko/Hiqgvma96HPltCca5raX70EQ6Rm0ml//Qo5d0lqozF9DsVEt+p0t6mhmyKvm
+	 8WlHklOeG9bf3u+Bjomq+wGurTGplb4FLyThuMOeU38wYIUubkP1M5a9IHTftJ7zA2H6F
+	 e68TjjDuWFWt7WzKSrVO1AuppPHrflpXoMrtaPkHcc2MCv+j4eijPU+7RbU26H+RLyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKlxbWRA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=koAn34HZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B526F60A262C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:42:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A07606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:42:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NKlxbWRA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35DA91F00A16;
-	Mon,  2 Nov 2026 12:42:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=koAn34HZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F601F00A16;
+	Mon,  2 Nov 2026 12:42:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793623320;
-	bh=7lQkyy1/pRpP8p41cOakIFXXXUGW7SHK28G13dhCbDw=;
+	s=k20260515; t=1793623346;
+	bh=wNFBAMtBFiUoqzwvIebrkT7W9QmBJ7fSnYGesY4q/Rk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=NKlxbWRAvMWWuMMLRUXDe05FesWXwP7uZOuihZF/jH2gN8o7Ee5mrwmiXCPH5CWJn
-	 X58nl1Z9iUeONpUQapp8Hf0yshWRDKrwLLX6+NzQ2sXuLcdORryyCtt3MiooeX+t/r
-	 AZbs4pIPqam/E/iL38TQuBFf6crTT71Hf7uWYAzadOyaLlTVo/OGGglC0G+RDsqokp
-	 4cGDf931c6NfNrsTrO7GcWOtZF+wSHU/nk+jjAXIfiCDDJ8lHg+sFWotznPRnQavNd
-	 VZD62otqCLE0RUJmKJYPg/f9WmQMCULxw4nBZptc40ZDqg6swduvGlBkYevDiobQ7W
-	 A/CxXJoZzMGnw==
+	b=koAn34HZNUcAm5Jqye2oFdomqGi7+UpC1m/Vkt2iCYV27klLhOZJ9xrJ3w99+JPXX
+	 LCBlsrT4DB6V7Ykjmvcyh+aBkTtfMDaDWrbxZCG6jiyXNjfy4CDNt6KJy8KsZjnQcW
+	 CUGR94q5Rax8XQNljovuNmoOZ/lXvcl413TfZOr7AoRC0ga77XdQ4G+KjF2VJhyHb9
+	 hD01kIVCAKwNirgeMaX5L/afMSfs3n1Wm0Z3KW06HMvHWr09KU7OPgdHWnf+e1dunQ
+	 ookwqJGN/2z/28wB7xVxqq1e4WCLkWIXXrbYp+gVXA7Q1NzF4nSCLcfydikXmhZite
+	 CQP3CPG2f4I4w==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 547DB231043F;
-	Mon, 02 Nov 2026 12:41:58 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 48DFD2310468;
+	Mon, 02 Nov 2026 12:42:24 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-In-Reply-To: <20261026-regmap-drop-region-min-max-v1-0-2c28637ede23@kernel.org>
-References: <20261026-regmap-drop-region-min-max-v1-0-2c28637ede23@kernel.org>
-Subject: Re: [PATCH 0/2] regcache: Validate bounds of regcache drop
- requests
-Message-Id: <179357833930.1716893.4233321219639536848.b4-ty@b4>
-Date: Mon, 02 Nov 2026 00:12:19 +0000
+To: lgirdwood@gmail.com, kr494167@gmail.com
+Cc: neil.armstrong@linaro.org, kancy2333@outlook.com, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260724024625.11057-1-kr494167@gmail.com>
+References: <20260724024625.11057-1-kr494167@gmail.com>
+Subject: Re: [PATCH] regulator: sgm3804: handle gpiod_get_value_cansleep()
+ error returns
+Message-Id: <179357826454.1716893.8508212144256627147.b4-ty@b4>
+Date: Mon, 02 Nov 2026 00:11:04 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,35 +66,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1537; i=broonie@kernel.org;
- h=from:subject:message-id; bh=WFsrvkMOj0qf12WPSjft39A1kxLuySxY5HsqmudtU/Y=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetIoxmf+JT7adaOeyZn/Tlf+qojb/2R4ZbBSsY73//
- nbWjHDvjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAExEjInhn2bF1phlvWVmfw6f
- 05w+dfWJyOdPbf7e/707KuH078Mt068wMkw2+hna/pXrY9sVZXG3jJ/mtalO05eKr+sNvccVu/t
- BBT8A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1166; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ou7oUlcrAM1OKfSMpQLNLHts03lvtFl/hVBIRmwAKCM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetBr01/p467Ceu3oleENcgbLZcoE/s36r+uV9XfiL9
+ /ucUyLPOkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRD7KMDOt+Z0dMqpaSnKi/
+ /uf3E4avu4ud//6tbA0JzHH0mLj0qw/Df+dPlsrsK6bPOH7F6p6Mv4eR4IZL7yImpMzof7JOsDt
+ ZhwEA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, 26 Oct 2026 23:32:06 +0000, Mark Brown wrote:
-> regcache: Validate bounds of regcache drop requests
-> 
-> It is not valid for a caller to try to drop a range of registers from
-> the cache where the minimum register is greater than the maximum register,
-> and doing so is likely to trigger bugs in the caches.  Reject such
-> invalid inputs and add a KUnit test for it.
-> 
-> [...]
+On Fri, 24 Jul 2026 08:16:25 +0530, kr494167@gmail.com wrote:
+> regulator: sgm3804: handle gpiod_get_value_cansleep() error returns
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.5
 
 Thanks!
 
-[1/2] regcache: Validate bounds of regcache drop requests
-      https://git.kernel.org/broonie/regmap/c/0334cc4c6e26
-[2/2] regcache: Add test for bounds checking of regcache drop requests
-      https://git.kernel.org/broonie/regmap/c/3547211537fd
+[1/1] regulator: sgm3804: handle gpiod_get_value_cansleep() error returns
+      https://git.kernel.org/broonie/regulator/c/cdfbeace852d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
