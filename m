@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793649012;
-	b=zixaYNZZg+chDaweWPsZiehVeXuERI1cXNRNteqBfVpF+GZBFS6pzydIbZwMczzI3gh9
-	 u2aUYRPDvEDKsGSPRcr1irdvcQFK/ZFNGli63LF8siDD6K15le8zl9jlKkr9Tnm+3GpaL
-	 VyGTntWi46oOGZqOKZQgizMKKiFLLY48PJUr/kRL8oltxq8LmaMb8l3bULKaeAtnerGkt
-	 qXs6g2Sm1XyOviNzH9nXhtWttsUT+5e3vWSIfDPLrlZ+/ZgSp5QYnMl+1f+TMeKz6Dy8W
-	 0UgW4x/CLvYCDZ955NUIkIWSPNG2wV/gBnPkbTstKzOSLGBCIgZJyNpstSPXjwyaEXA==
+	t=1793649078;
+	b=5JZ2Dk+ZM4Ly1E13CZfX4EPI7ThjGmIX8hNpUqRYaVymfbzG6A8AfukDjH+kQjj6gQvs
+	 AJvPmOlmPn/bmCWb4Fcrd4ZpOIO7O/6yCo+L62XXyhrbc7Ww4z3DO61j9vZTEOETYmjfX
+	 XPeqEYiOVklHGcilPOy1/2LONnvmiAkcWicD2ss5r6PoDJ7u2BIaI6h2PoPQmEhGe434u
+	 +lJQ8Am7DiI4LEKbi6/W+dxIZTPVJm1Mj+2TWZ9ca6U+oJdcgithFE66t9XDcAcfh0sdf
+	 +iMSgcsJDwwNczUgHlKxN1BBpQ2yuAuTeak7IiupujOnRdpEKX+8aM9QrPTnD/GdWsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793649012;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6b+t4DLaXsTbBo3v4wTWOzTtPpjmGsh78Ivlm5MgXBA=;
-	b=UPVZg8A75OuZvzgjkTzDZpfQ22y/BHMOmLh8A0Pcx21yvbJiaSMvvTRtLiYYAkASYJjE
-	 nwJHw0p+F4ChcoItv+cYXBzPMQHd6INkUICvxHUMyDlI00q4DtLpDlFqIAu82WOfjtwR0
-	 QTGxSiOfIHtCN4YvKx/qP3yUQFDvg2zdoy7I4PeniJZT+8RsJqEsNgpgSHWy4ue5jWFpo
-	 FXZSrvBE0jxnIkpZAjkiniYHDeGGZmGcAWNJx3zAe7VVM3Psfyw+XoZiRpQ/GN2Edws8M
-	 FsQxWFyX2wsSs5ZZFQkVRDU2qD0QkoLv7MBNk6s4VF9xg4XtKSHaYIFbGt434FJK4wA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649078;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ByzPJcPHD+/MZugpPjiaW6JdHdzSrBmVJioywqKvUl4=;
+	b=Hqm+vOqdnvzKUOiQsGDVarWBbVnocwSqNFOZAwDQmAvt3M61wXhwH7Dxfiy1GJRShtsQ
+	 qyaLdp/a41jKRN/nsZHxWTAJzFcIfATYYnuH2Lk5C/9Z/Tg8H1VdVErxRcsUgP+tIUkCY
+	 CTmcsqLnw9vwdpeWQ5ZX79l0OEz9lViZ4PwWFKMcUWtH6rTQUK0O2HLytjo+8VCZa/BxJ
+	 SP9FWWWhi6zuMzSx7WKG6dNNhtMsATG0/Iq/ts/iAAfvYYzkKuSXzXujzziKMv00NkQ66
+	 QrWaMqVEb1WlE8MMskkBdR/lorAN633iMYGLe4w9X96nnq5vlTX0GgCr/1byYWnIoXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Q4c7HHZx;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NIGnOxmk;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0047606A329;
-	Mon,  2 Nov 2026 19:50:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0047606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3526606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:51:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3526606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Q4c7HHZx
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A03FE40E02B7;
-	Mon,  2 Nov 2026 19:50:09 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id K2LTiNWHYnAL; Mon,  2 Nov 2026 19:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793649004; bh=6b+t4DLaXsTbBo3v4wTWOzTtPpjmGsh78Ivlm5MgXBA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Q4c7HHZxNNyjLdj82SDdH90ubdZp2j335bULS93wJJeuc8Q3YM5EDCRGeyAW4ZcQZ
-	 0F+5FLADLQWtkDZNFizrJgq4o3Oj0kKJwxSa0JyTG1UKCkWLDlQ7HXxfLMpvKExu8s
-	 HdSvoOnEkWX6qSLuEGDVM7hC91vfxd7dinOWArxb7xF4LPi49xqYjv9xdktjno1z3U
-	 o2DmFUpy0pyi9zBZ2g1oaoTqDZBsoHjopl3l1RxxRA9UXVNnOISmC1Cn64xI3KhkaA
-	 tGOcUb5kYmPWNbfCIbfnonkZCqQS6ZfLQ/TBv/ZQqstw6slVEZRrB9hnO/1cENHMxT
-	 fOE8lFReNL72vwB4rYzgbhpZbSgKC22y6unZqzst3rWgHEnmGHk9SprG5cxgwE09oZ
-	 lcldiouakI+xn1Q7ey3dkzLeDsjGNjXeF8E7l4KeKB/IO+XbpvMHPuvryUe6kOKfdB
-	 8gCJ8mlHUwlXOx1+BKOV0BroyXMYIY0RcQOesV7DOogkneghldDF9edF4eFXDJeNc9
-	 atGQOkRTRMrgaun31vAtpki2NVpfvpIqi1fsO8U6aSguE2r8TY9PftQEmMA7kaAG3Z
-	 i1QLQQKkrrVLucWTNs4uiBpYL0JYkk9ZVKRurGotoCIoWHKXIWZErt2d9MK9dNixiN
-	 A/JO1WzVrAkw3jQ4uNmVZq2k=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 307D540E016C;
-	Mon,  2 Nov 2026 19:49:47 +0000 (UTC)
-Date: Mon, 2 Nov 2026 11:49:43 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "kas@kernel.org" <kas@kernel.org>,
-	"seanjc@google.com" <seanjc@google.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"krzk@kernel.org" <krzk@kernel.org>,
-	"au.dang.jx@renesas.com" <au.dang.jx@renesas.com>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"biju.das.jz@bp.renesas.com" <biju.das.jz@bp.renesas.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"biju.das.au@gmail.com" <biju.das.au@gmail.com>,
-	"jirislaby@kernel.org" <jirislaby@kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
-Message-ID: <20261102194943.GEaujpV134C7Wgx0Nj@fat_crate.local>
-References: <TY3PR01MB113468FBD8E5EFA65C4B4E5EB86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <072dd88c-4ca1-4c8a-98b1-7783bc43c1c5@kernel.org>
- <TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org>
- <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
- <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
- <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
- <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
- <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
- <953b3d774dc281bf13f5025041d4434f560cf776.camel@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NIGnOxmk
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so26339645e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:51:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793649076; x=1794253876; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ByzPJcPHD+/MZugpPjiaW6JdHdzSrBmVJioywqKvUl4=;
+        b=NIGnOxmkb+2jVAnNLME39LE7KIlW1GaiH4Rrdx5uqLkEcAaH9DzFx+rYMBKWXzYSQc
+         8sRbdYfKxcWxwDzIs9jSt/F5IxwFLcxErC1SR5p0DF+Qmvf1CKupro+xB7z9G5zVRqbh
+         Pjm9BEeH1jTjqRrvDV6yhB2SYikroDWOPQsTSXJ35OP+j5gygP0noHNUi/Qy4wI7DTjR
+         R7DEpE15OIrxnSiWcpYB3lsIk6W20kNmOwRU0YmQaO6XHSv9XjHUYP+YT9leL0izu0qX
+         BnB0hZUQ/f86g3wntxIjUX7lMcF4EcwVfeZNJGyIFSzL/oIrsEA+UFh+Jkn44W4io5Fl
+         c8Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793649076; x=1794253876;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ByzPJcPHD+/MZugpPjiaW6JdHdzSrBmVJioywqKvUl4=;
+        b=uBpKz+0c4VDfaowQ2PpkJQezQxWCHXwYnyXCC8LquKYttvO3/SZ3FNbvA+Uz/DZm0+
+         zW66VtGZcQNVpSdzji2fRlNAT3F50dpr3QiCtD9W0rH37De7LqyYRm8bmY8hg4RWbbEz
+         rWFgKRkgd4ngs3/+Ji38/wjOuHRKSwgHzDHuVxCqffBpKRDq9h6AXrOhtGUsj+ZHAjKY
+         AhoZCSd48qTtjV7JH/Yrrc6Fx3eU9kjUvdzEUgBUjDq7/g/l2ocq/LwkvHpXK/vaVKeZ
+         KXcNiZ6ETNa5CYhFKA0TVpDK4Ufjql48y3Owx/NZe4sieOQbPAjIBM9vUgccxCP6UqLG
+         PThw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDWljWN856GLXlHZHjlM7w1Z5GXOduRX/gXyG9SrAXIGddrh1DXmQX6/kc81CTAdviUGfuH0J9ATRG2qs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJnvahEFJR4GpP9UW/IoYRcy38Am9R4Gac9ZkD4AYAXnJ1sRTS
+	lCh2C/CNXjOla1zVt9mJUmE1S2Uvcw5GyiWKSISdS9XvWLz1gMX1uBNSVWv1fee0
+X-Gm-Gg: AYBFou0Otg5E9zgFKCMaNOWFahGrW7M8gtWsN5nwle8s/IGI3Jk0XSv97hQ90K58LWQ
+	8vCk7TTQtZ+oV9kC8OfmNguXNXzBqriFxny97dLMJ/ACmQG4E0lY5yaaN9mimway5mZfR+24Huj
+	UDABgHgf/GaC+carcKgXJVOp77INMJdn2p3K9nKFX2cd4Zbyhk00hvDQdOM45nVB6o6yZDs6b37
+	gDbjOctosq3Vm+ycigW/YVibfGnCw8XiVncHT+0AwuHX1ssX5tIA2e6BermQrXA2jIpITEOVIZW
+	H3MH22sRYX7m4Np4UhjBXWaglSEE65wEgOMsrrNU0kwwKOoHAPpcDtAo1/SjFDu5wTXtJJyK3M+
+	4/Dny7JtiEWB/CksnV0ZW9qPBmzg5yHq81wBwbWUeX62aNbRZqHpkNs9wx2eSUiqCv9RPxdtoaY
+	V9L9086Dlof2ddYLk5aj4QNmglbX3WC8jlLoa3Cx9iVaw2nNLqNerOGtIH7slP12HN8LYyhaIQu
+	6jgc/yPNNkMK07pHo1uk48U7m9rUw6Gfn3IUqD3qoCXvN8rRsYl0EHf74w+dTZxuv6dWv1UewZx
+	Qu2t+fKNxo4JGHeiP/BFgOtTlbI0cxwNegMLhtX3Kml10vnBo7Hn+M6Vruvis6hZ
+X-Received: by 2002:a05:600d:82f2:b0:4af:c210:5b3f with SMTP id 5b1f17b1804b1-4afc2105bf0mr153755035e9.24.1793649076120;
+        Mon, 02 Nov 2026 11:51:16 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa5781c9sm8659825e9.8.2026.11.02.11.51.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 11:51:15 -0800 (PST)
+Date: Mon, 2 Nov 2026 19:51:14 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Julian Braha <julianbraha@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>, Linux Kernel
+ Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: Speed up KConfig - fix hashtable confusion
+Message-ID: <20261102195114.742df19b@pumpkin>
+In-Reply-To: <CAHk-=wjx9EAO50CkadGadOA_ea0D7bBBmMbFfRqyf0OriZP+tQ@mail.gmail.com>
+References: <CAHk-=wi_GuySe0L-uCAM2+nScCLYGBp5BLi6UUPR1gALmNM_3w@mail.gmail.com>
+	<20261102094716.2c8b1cdd@pumpkin>
+	<CAHk-=wjx9EAO50CkadGadOA_ea0D7bBBmMbFfRqyf0OriZP+tQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,29 +102,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <953b3d774dc281bf13f5025041d4434f560cf776.camel@intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 07:38:07PM +0000, Edgecombe, Rick P wrote:
-> > +F:	arch/x86/**/*tdx*
-> > +F:	Documentation/**/*tdx*
-> > +F:	drivers/virt/coco/tdx*/
-> > +F:	include/uapi/linux/tdx
-> > +F:	tools/testing/selftests/tdx/
+On Mon, 2 Nov 2026 10:20:35 -0800
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
+
+> On Mon, 2 Nov 2026 at 01:47, David Laight <david.laight.linux@gmail.com> wrote:
+> >
+> > An alternative would be:
+> >         ((key) * (u64)(size)) >> 32
+> > which avoids the division when size isn't a constant power of 2.  
 > 
-> This drops arch/x86/kvm/vmx/tdx.c.
+> That's certainly cleaner
+> 
+> Not that it should matter - afaik the size is always a constant (it
+> comes from 'sizeof()'), and I would actually prefer it if
+> HASHTABLE_DECLARE and HASHTABLE_DEFINE took the number of *bits* (like
+> DECLARE_HASHTABLE() does for the kernel proper), and we'd just make it
+> a rule that it's always a power-of-2.
+> 
+> It already *is* always a power-of-two, and the old code used to make
+> it a slow modulus operation if it wasn't.
 
-./scripts/get_maintainer.pl -f arch/x86/kvm/vmx/tdx.c
-Sean Christopherson <seanjc@google.com> (maintainer:KERNEL VIRTUAL MACHINE FOR X86 (KVM/x86))
-Paolo Bonzini <pbonzini@redhat.com> (maintainer:KERNEL VIRTUAL MACHINE FOR X86 (KVM/x86))
-Kiryl Shutsemau <kas@kernel.org> (maintainer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-Rick Edgecombe <rick.p.edgecombe@intel.com> (maintainer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-Dave Hansen <dave.hansen@linux.intel.com> (reviewer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-...
+Ah yes, some people think hash tables need to have a prime size.
+Do not doubt the sanity of the person who decided that the elf symbol
+hash table size would be (IIRC) 'the prime number below the power of
+2 below the number of symbols' - this makes every hash list have ~1.5
+symbols so you pretty much always have to do name compares on every
+shared library that gets loaded with a program in order to find a
+symbol that is in libc.
+I remember significantly speeding up loading of mozilla by rewriting
+the elf interpreter to generate a merged symbol table for all those
+libraries - no idea what the one the Linux uses does.
 
--- 
-Regards/Gruss,
-    Boris.
+With a reasonable hash function (or even the crap and slow to calculate
+one elf uses) a power of two sized table works just as well.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+> I'd also worry a tiny bit about what the compilers do on 32-bit
+> targets, although obviously hopefully (a) they'd optimize it to the
+> right 32-bit code rather than do 64-bit ops and (b) it's not like we
+> seriously care about 32-bit host builds anyway.
+
+They'll probably zero-pad both sides to 64 bit and do all four multiplies.
+But that isn't so bad on most systems.
+At least the 32bit shift is cheap!
+
+But yes, you are going to have trouble with a lot of builds on 32bit hosts.
+objtool sat for minutes (long enough for me to think it might be stuck)
+with an RSS of ~30GB on a recent build (ok it was allyesconfig - I wanted
+the symbol table) - but I suspect it will hit 3GB on a reasonable kernel.
+
+David
+
+> 
+>              Linus
+
