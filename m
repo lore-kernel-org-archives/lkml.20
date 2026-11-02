@@ -1,89 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638737;
-	b=kiL/LaGJqd0njfSoqd3JvtBwYJqapRJN4cxLjfi3jDRyGJIvB1t29aNfC/DnKkxNFizM
-	 zwkinGHQvKhmvkRXMkPQUvymfgAh+7HxT+1ESLLNjX2qOM2M08wCS9iR/n+gMoTlSMvep
-	 3xOpGot3WrElcX06nJ0NFQwOd/3wgzuxEHhmFAZU7wGvrLbZAA0RYKE6aaMMTLTKXdcHj
-	 xpfSb0gD9LNEzsZ51Bs/sXg0ROCi8wXPAQ/73lnyOz/HdM2fYqgwIx6z4yd4OYw9OMA62
-	 4HHWIOXu0BEjVdIEn1mXAgvTCAGIdelg5aWNtTyUKT7oQBScjM7X4qXcbtV8FsOYC9Q==
+	t=1793638738;
+	b=Hs76i5WQ12kB9J82mmmxV9IzYCV+jx9i1yOCYrPOmHAw/YSOAsn5pRJmJNHjQbgpKPy1
+	 wOxnuF7fPqQQyunK87/0evSARMRHzvg3O9kfdM5gtbALGLpyCLjVFnucO4GGL276F+rKU
+	 t+fy8X2W220I1kneWwuNF0zKfzQVs108DokXVtxFRvmWZna57mhfDI8yxfIoLG57e1PpB
+	 V9ZPrBnSD5SHzruwvOQeFac6wfvCD8zuN504ABzR76klO/tGTfVJepXNVAmxqSUYP5gA+
+	 NX9bYAUl4OXrShWjZ1YGX7Pp12XYF8TZUHM6UVA/YCz6vi/mZUgVx7X7+yczCWdlTvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638737;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=a1UEizqhRrALzFHTNmQJUTSrG4L5xUZaP4W7alKZj4s=;
-	b=ZlQd8tXrQQL+WsJ81XdgycwhSZbhj4jbOcUYzhW3TBhWQqG0vj0LBaigL+dPn4+CiECH
-	 5tqBrs4NhRRqj1o2x3V194L6tb9yVq0P5zlUsXWDDzYEPONJgdJz63fICT2v2jzjXqG59
-	 rbnHXPVyYcrAWaFGclB5nHJWIvDJhdZ1co2KcQkLvgMqYptdU2oD7HjRRGUlWGqH0yq5O
-	 otYOE5XeUl3aVAeO1Uvaiodxp3NiBcKsfMnd8GPS73c9PvR+nLVNLL1sW9yXHD4uOqDRq
-	 FB4X7j+KDFn+g7JZcwC6MPPsnr+YYXBeDKPDV5TnwnqIt7izW37fzCFlbd6C7Rwpg1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638738;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jvlnmkcKG0dJPEmZQtzeUz0YXTyf9zopZ1vDLA4pyAs=;
+	b=M9vejef3ZjBDuQEz2DqVQYg0iBdErLsdF+KvrjJEmhNWzr6NWAZZqCWBgckCQf6qslM7
+	 eMNBUjJLL9AI1Jtk7yLMEjiM1EFAuFFamjCoOsoDVok4hSoY52bq7uYE89cRHWaTCLT50
+	 HSZXVNHtnImU5xGxnhZwsp/1ymO76DMiB/Dyl7qIAtH4ngplACXnzuzRjFKg9vdbNynGE
+	 py9VMn/zYkMCGpYFLFiTb/eMGaKGAru+PE88i4ZcqmDsmR9q4gnjK07cyJkflAwlLgNgD
+	 M6wPajD+iALOc4vPrVmoE++bmbSQ6j7uKvqUXleBrBCvoCia65M8Lz0T05vjknKvJ6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YxufiMKy;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i6xRhUjn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D109606A5B7
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:58:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D109606A5B7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21749606EE9B;
+	Mon,  2 Nov 2026 16:58:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YxufiMKy
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e946155442so29329345ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:58:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793638731; x=1794243531; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a1UEizqhRrALzFHTNmQJUTSrG4L5xUZaP4W7alKZj4s=;
-        b=YxufiMKy+5T6HFI/woya2krFgptqtHLbGe3rwyLWiQZMTCIIxkoLbaDFYuinTxnDFQ
-         jBNeRWpghfgUamRChITph1viv7GFidy9xg4+jtJoiBRdR8InNlMfCI05jOIRCkoqALPK
-         GpA8ByvN7M6EL+H3AZZh2427QyqKSXxkbrSYxWIa2YHY8mR4wdniz25s+VrHilKMecZ5
-         iN+88ridw0KG+e9+ILMExg7wzeDWazL5ZXxTMlsM1iO1815PwMqxV/JXNb9drO1a7Kqb
-         GgJoT13jzZAsjaZuixpDgSYbCxuTuKN0hLBCDqQjivoCOgZsS7uIJh5fm89oD2UbzlHD
-         fVsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793638731; x=1794243531;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a1UEizqhRrALzFHTNmQJUTSrG4L5xUZaP4W7alKZj4s=;
-        b=uV1nbEq86Rto5qKW4fgrkVVCgVNmTDeHxwN1h1qeMGpaMM+3Se+JBgfbx9Erk2gjwX
-         4YOMuIqQe1xoeP3ZT2WU8e8n33tWaLj3IbjLA8w3r7Uz0HXrcPyRehs8TX4nS/S97TIq
-         DskCQfOMknKphNAH9T/N2KI3ExcoarEjWSIyPjEx9eHD0gdMc78uIHOaI6i5kirPtlJD
-         7Z5OXN9YfAwNnnIMfEfwlSrgKXW3+0SAW2LsqWgLRKx92etpV9gaaiTjoXAlxagC9ZkK
-         pSVEdRZBABgjQz+IHRmUs5XLcvYTR8jAbUx4kX9Sf4teCDojv7v9lgDkcgqWAt0OPBHy
-         zxQw==
-X-Forwarded-Encrypted: i=1; AKwUvByDTj0XysxhZChOH8i5ZHijXvvJJXxox/zMaw1YPcwuo7vc7qyE2HuYIz1LwgMR6e74vmhMhn91mhczKuI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Q5Nl7AjLKzVhwjZPBvFb7W1dSzKGceiEbwEtPI9VsiCmlSMeW
-	pCHDOp25ZAUPPorUubK8eikQ5HeCn6i58V5Zpu0KKFjNjGwRDcUxP3Lw
-X-Gm-Gg: AYBFou21/k0TAuIwGLmCAPyYrNRpbMiM/gYW+ruE6Jtbta/FrNwNK4Z5bdBuTXrkUb0
-	Lr5pXvo1IEeSkrPICwt61mbGX+cSWqgmNPExF6W5WzNwsDEh3ENGG8K8mh8axwdykzkZiot1kQb
-	Zn7a0qvoYRjgQ/JOi6PaS39GOJNl5lkhN1mgz8/tCvtL9XPUKyRFghA2CWIyePgek2TZ15UZpZv
-	IJVQW8CI1dh/aYwK3L+IK/GEv8Fw0nbEqBdoHE/r000aUcETEhzgxt3WTKmFLd+LIFruMkwg/xy
-	bu5pUPDVnXiq/XSUDMbgOvJwCYqzqZZh+p0SVyarvo5jOEHhvbZVquTWe/tkHpCskzm8aF9qQms
-	fkwei8nNZ+06Eey5Mw8QwOKt4nbLLOZKgiAoKl2yyv5KYc+je9b5UG2NedFawWrmnng/7FWArXg
-	4YIvWsWdaueEEu/H0Au3l75KqRZ8Oy4okgG0vHi65KZXN6wrHji4hBYEk8ZUb3IZk3MpBxGRRGt
-	Nv+jPR9P8+AhyxGiW/9NZ9zQr2yYJFW5wI5oCpytjp3Bbl1rqqxSIuiIVXhGfH2bGPH4uWtnd/R
-	GMPfpEZEcR6HoBkZD++Sh4HGBf9WcCuiLIlYfKHSDtmRBZ+r7DEeXdsUnEAbY/4lLAhG1Du+ZZg
-	=
-X-Received: by 2002:a17:90b:570c:b0:3ac:8897:7ba9 with SMTP id 98e67ed59e1d1-3ae8985d52dmr9637264a91.56.1793638731557;
-        Mon, 02 Nov 2026 08:58:51 -0800 (PST)
-Received: from ?IPV6:2a03:83e0:1151:15:c56:221b:35d5:85f? ([2620:10d:c090:500::4:97ab])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85d24261sm8776807a91.0.2026.11.02.08.58.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 08:58:51 -0800 (PST)
-Message-ID: <ea9e29df-6f3a-4f98-a08a-d7efbee2ce9a@gmail.com>
-Date: Mon, 2 Nov 2026 08:58:49 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i6xRhUjn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 410A41F00A16;
+	Mon,  2 Nov 2026 16:58:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793638737;
+	bh=jvlnmkcKG0dJPEmZQtzeUz0YXTyf9zopZ1vDLA4pyAs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i6xRhUjnYc3QKqs9KrGeV8OTdH425YsBd2O3bfLQHnzdQo3H5S/E2GJNfb93ob+eX
+	 vy9QtehYFvbfadBibiWzV9BL6iO5XaiprPbBFb6ODTbxSD9pxKCbitx98GliMu1g1X
+	 ufI0BgM2TndsSvo+JDgZR1MUUvVGn5bx48Qtaf8o=
+Date: Mon, 2 Nov 2026 17:31:14 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jack <jacktangsc@icloud.com>
+Cc: Tejun Heo <tj@kernel.org>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kernfs: fix stale comment referencing old @sd
+Message-ID: <2026110207-everglade-stretch-4ef2@gregkh>
+References: <20261102155715.6633-1-jacktangsc@icloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,49 +53,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] selftests: drv-net: pause: Skip support tests without
- link autonegotiation
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org
-References: <20261030173516.1002250-1-mohsin.bashr@gmail.com>
- <701c6f7e-e715-4647-bddf-48a1485afbe2@bootlin.com>
- <7cd99851-5bc0-4db8-a44c-a664c3f824b1@gmail.com>
- <2efe9f61-5a04-473e-bb57-12d2779ad829@lunn.ch>
-Content-Language: en-US
-From: Mohsin Bashir <mohsin.bashr@gmail.com>
-In-Reply-To: <2efe9f61-5a04-473e-bb57-12d2779ad829@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102155715.6633-1-jacktangsc@icloud.com>
 
-
-
-On 10/30/26 1:12 PM, Andrew Lunn wrote:
->>> Or maybe a bit more clever, have a quick check to see if the device accepts
->>> an ethtool -s XXX command ? looks like fbnic will refuse all of'em as it
->>> doesn't have a .set_link_ksettings.
->>>
->>
->> Yes, checking whether the DUT accepts ethtool -s is one options. We could
->> reuse the existing autonegotiated and forced-link attempts, and report SKIP
->> if neither allows pause checks to run. Alternatively, we can add a remote
->> arg to require_link_autoneg(), default to True, and pass False for this test
->> so it checks only the DUT’s autonegotiation support.
+On Mon, Nov 02, 2026 at 11:57:15PM +0800, Jack wrote:
+> The comment still refers to old @sd which was a sysfs_dirent.
+> Update it to @kn to match the current function argument.
 > 
-> There is a subset of pause configurations which don't require autoneg.
+> No functional change.
 > 
-> ethtool --pause eth42 autoneg off [rx on|off] [tx on|off]
-> 
-> These can be implemented by a device which does not support
-> autoneg. These setting go straight to the MAC. They are never
-> negotiated.
-> 
-> 	 Andrew
+> Signed-off-by: Jack <jacktangsc@icloud.com>
 
-Hi Andrew,
+Full name please.
 
-Right. The autoneg setup and MAC pause checks need to be decoupled. Let 
-me respin the fix.
+thanks,
+
+greg k-h
