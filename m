@@ -1,125 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619893;
-	b=zzf0X+n0BX8W4dzozvrPHTSS7qIS6/X59jOHoYNWOeUh4H8zYeBgEZEjihT/nj1jV6p0
-	 Ei34hg1yF0F/xfw97k+n7PWMCpXSI7RNShbxGxRRu+60slfzoboM0b7FUBnYZSC7JAUXO
-	 hteR0szRWu6Dk+RTHzLIL1/+kGxjWD0FPxu4q5K+I3oqx0qH1gmvOB51k3sDRyBteGsvF
-	 xlgL+pO1WC0JcOsk9f+MLV4fJ6pP3fg07edDGGE41xtpu14RpYBJCvkc3yPBK4qofzHsG
-	 GeR5SyBK78Fq8XntAFbgTQrMnmk4Z4CQODsdNVDKjV01TD4V0BJEGEi0G3xTno1Y6UQ==
+	t=1793619923;
+	b=kKuMZa3MHEe4QkmvpXx58IeYuT9jHktsPjQMhOhT6uzVyminLMRZLXoNZa1O4LYEnNAa
+	 2wjJAr/OTCs8R+KpsutIZLy5Vc31dqEGe0sD5mq6Y5WP67HIHKtxok/t5nRYKtid9khxP
+	 TYV2LvD94T8nuy6HWaQtoIBtqU7GT5BCZt8V115ndTVfX2P/v+xM+vnUqL96nbfBvkQfT
+	 iMgJcJsAppQbmUnsh/TDqP7Lv0X0CakSOAzTYrOlWwMIrWjpiScG9Y1P6YSJPjdKm/Fx1
+	 nyccfOUcGnRm5QikvOuupsNRrmSrGJuaKEHbTAEZZ7Hi9XtQRONQcI8hAe9Skw28acg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619893;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619923;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=who8ZKKpx/jTygdDf46XygrUGTNQ5Ti9QGrea7MK2kQ=;
-	b=U1OUDmI1qIbwG7izTI/QCWEGcjQPoZZA0ty9rCQVsifVC+lIF024GMNbzjfZrl19AplZ
-	 6HgmiqwhuNd91UTl3VsqD4JM/TKV3o4ESsGwoWBYKSr7FfSZ0GUSH0JCa88+5x0mgK7jB
-	 FU9rHTg9jkfp8W9FyaXCp6nqJdSKn1daizVrbCdVtKShJfJVBCC6MPpzoDb99CEyT4BIc
-	 OaLpXEJwnDDGUuExbNvy4jDiPm4Ap3ZqvfpqKqBBnEEuPS7ns+p1Dhj0Qp15iU0hWjeyq
-	 qH2s7w3Xu98YpRx5+eKowXc5eK09OZygUpStGpNxq6RK6HdmSdFBeDz6QKqa4BVhU2w==
+	bh=2iW75D2tc7+B3ipWuNmxmErb7fmmq8W4bpLgK3YkqfU=;
+	b=ETCy2fHk/73S3F8GJPZYYgOLngr5JcTc6wQNWBiKkYcGun5k1P1p+hgezu2h32oL4Mfw
+	 A53imAn3VIMC0/TB1Jeg9DSj/FrkDncxQAVn8pgjH7H96SJExxbFUbDrNT17EUcZX08sM
+	 T7ZAOEHr8qjkZsBqlz3MzE2xs6AxP+9zbCfYz7SSlHEDLkodEv+B1BvBGf1BtcljwSvft
+	 +oZP45yMYk/NbJxvYUUMWcl9POH74C6iVEkUBiWltdR4QM97eqhSPnYHPX2hY+7mfIV73
+	 vJMyp57pP422O+dW/40q86QBZlprEbH9HWSHvylbxNWRh87Lkeo8YelbBv8H6n4YAYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Zb1GeGbo;
-	arc=none smtp.remote-ip=91.218.175.209
-Received: from mta0.migadu.com (out-209.mta0.migadu.com [91.218.175.209])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CWuxymhd;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D551606A339
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D551606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F07606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:45:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F07606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Zb1GeGbo
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fgRhZQDSEmJFZyIgGkSRYKnhjZ4Z1l5m8LV8w/ZXnHw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793619890; v=1; x=1794224690;
- b=Zb1GeGbojxXveT3cZxDPn//4R8A7h+RMO72HLl435m67FVvM9SHf44yaVVp55n3SAPWWoirq
- Hz8XE56QJlzs5IpeJmF7MvIRESwEWtyXzDq/oA5mLYy34SDIJOr+HdZ4EG3OGTtz9aHGD3cJfWY
- yqj/TBZodxsUUHX+M5Y8plAE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6ed161f8dd0a3c59;
-	Mon, 02 Nov 2026 11:44:49 +0000
-X-Mizu-Trace-ID: 6ed161f8dd0a3c59
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CWuxymhd
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e46e449e8so1775832f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:45:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793619922; x=1794224722; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2iW75D2tc7+B3ipWuNmxmErb7fmmq8W4bpLgK3YkqfU=;
+        b=CWuxymhdCZDUyoGLevjZJ++ZyeOFkqaVRzstAiq0GcdmiVkaJUAyjo6W2hct2Qen1r
+         nAzJcCQnsGP1w9SUFUo+ihzHa0UrvqENRPwa/wn7mOzuRa4nBGPBvi0iw6/MRvteq+HY
+         qN4txXGirJZqs2AhQJD5ZmZg9wzs2/JtIV1BgUiCgZfd88iMU938GlX6exTKMugFfoMG
+         hifMb7hbKAeDwCBT0l9hpfdi2Q6ti7d8XQQ3pWrdnu0tbUSAbTBJP22f8r6B5q47HBKy
+         9ObXtZBdqoPZ9eAfuuT8tTmFkKtn+CU1pPhYouSkP/9YVpzBkbuoBqEw6GKvkKEmvf8c
+         zLnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793619922; x=1794224722;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2iW75D2tc7+B3ipWuNmxmErb7fmmq8W4bpLgK3YkqfU=;
+        b=23vERWzD+8uXqhUGG8DpjpmKQK//8j/YnnXE8SwhxISI3+26RN47pbfHF3CG9kI1dt
+         ctTxU4CPxA5POD2F46TY31xgxFEmahgGT8hfmdYqA21Lt/6Fe1iZXJWQ7hEF6Fm/kg6T
+         0NPrZ0+QdPc0O+Yr/lzmkRgM9WuHkeCv/zS8xz3HJQeFy6K9yZFMPsj9ed1VgBf41g1G
+         LBUI0MASyHwCGZP/g/wie+w++jwcfxD3jUE2IJhCRQctm9EcUlHkC9NT+qOxJRV9Q0Az
+         ZPd8vrT+56ELtpqHX6BGT3Jb2Ai5qtlunalg+92biqD7bFt87K3W1YXggS9mAoCcvVNz
+         KW5A==
+X-Forwarded-Encrypted: i=1; AKwUvBxWzABHo9fWovG0XFWlG7HT/urb6jrM/fh9L/Mh6+E4M6Oru7ieVbZ0QbKmqgGM+DZRdChD9PZWBOaivU0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z980HHtBoKmEHOf/4uPUIcqTmoLRZ8sel3XrXZiwlPeXWRF6XR1
+	9hXg5ip1Qi4Ync96DKqffLQGkKqH9rV6GPGq+vZrVIDfBcgy7qQ41Nui
+X-Gm-Gg: AYBFou29iEHMFqGu+3Jq7WdCr4VAWzPuQUnz7kJvTfKGzibOWPC31rimHJAb6NHedYv
+	Vo6R118G87tbsVAjT9sNMyzDIxek5fG+RlAtbgwFLY//wLjrpNFUQO8B6JAPzr5+aloDBAy9RuV
+	FKbaAkD9+yU0wVdN9WRIUD47UrEDsPfRo7A5hz/jL6MJETBN5ynl36XVhpm1xayXdxqmH0IkwLR
+	TIBK/cvnXxiHtg0tfWk9kIBs3yS9Fs4JQxCG++vPj12V9yMUXgfbmy6jOnQOmO4bRIs+jOo0/Ub
+	4D4QGn1QMZgswtNoGiXuDcqf1pBOgDz4XJSCxm2P2E4+NIn6z12UON37gp1RqwHFKme6g5Y+wx6
+	8CSvszxy1VOjspfWf9KviI0YffDHNFReAqjnv168B1oD/KwheX79qka6Wj7l7/av/i2ak7f0DiH
+	KEg0Mw5LA+jHc/ie+4WznXBMdquU2QYmmKC9PtfMkJ7Xd6j7mX5h+n8lceSjsrtPDwNMFm6Q/7k
+	cpMkpjrXvDClYiO4CuUunRB0Q8zDxJhP0EXM6M+6nFvFSAXbb7gpYyIG8CO1bz6mqdOM1pyaygy
+	uQSMiWr/T9NJmPK+APiUt6+n8d3o7dYahNq+u34IYgtqWILGZMNGESKIs+a8u8OG2ndiYSgWq63
+	MyJR1Rvw7stOtvUciv2t1mO9LKyHKrAqMXVSM
+X-Received: by 2002:a05:6000:4b0b:b0:48d:db77:d124 with SMTP id ffacd0b85a97d-48e6e2db9e1mr21860101f8f.6.1793619921668;
+        Mon, 02 Nov 2026 03:45:21 -0800 (PST)
+Received: from x1e ([196.189.89.249])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8bd8esm19731126f8f.42.2026.11.02.03.45.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 03:45:21 -0800 (PST)
+From: Maritu Hone <marehone12@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com
-Subject: Re: [PATCH v3 30/47] mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
-Date: Mon,  2 Nov 2026 19:44:42 +0800
-Message-ID: <20261102114442.65682-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261031-fixes_core-v3-30-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-30-d6437171ecc3@kernel.org>
+	outreachy-kernel@googlegroups.com,
+	Maritu Hone <marehone12@gmail.com>
+Subject: [PATCH] staging: axis-fifo: fix integer underflow in TX size check
+Date: Mon,  2 Nov 2026 14:44:51 +0300
+Message-ID: <20261102114451.54579-1-marehone12@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,53 +97,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+fifo->tx_fifo_depth is an unsigned int parsed from the devicetree
+property "xlnx,tx-fifo-depth" with no lower-bound validation. The
+write() packet-size check subtracts 4 from it:
 
-On Sat, Oct 31, 2026 at 10:39:59AM +0100, David Hildenbrand (Arm) wrote:
->move_huge_pud() reads the old PUD and clears it in separate operations.
->Hardware accessed or dirty updates between those operations can be lost
->when the saved entry is installed at the new address.
+	words_to_write > (fifo->tx_fifo_depth - 4)
 
-Yep. HW can still update the A/D bits while the PUD lock is held :)
+If tx_fifo_depth is less than 4, this subtraction underflows and
+wraps around to a value near UINT_MAX, so the check that is supposed
+to reject oversized writes never triggers, regardless of how large
+words_to_write actually is.
 
->The raw pud_clear() also bypasses page_table_check_pud_clear(), while
->set_pud_at() accounts for the destination mapping. This leaves the
->checker counts unbalanced for mappings tracked by page table checking.
->
->To fix it, simply use pudp_huge_get_and_clear().
->
->Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
->Cc: stable@vger.kernel.org
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->Reviewed-by: Dev Jain <dev.jain@arm.com>
->Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
-> mm/mremap.c | 3 +--
-> 1 file changed, 1 insertion(+), 2 deletions(-)
->
->diff --git a/mm/mremap.c b/mm/mremap.c
->index 0d06d7f37f19a..16e736c72d9cb 100644
->--- a/mm/mremap.c
->+++ b/mm/mremap.c
->@@ -509,8 +509,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
-> 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-> 
-> 	/* Clear the pud */
->-	pud = *old_pud;
->-	pud_clear(old_pud);
->+	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
+Reject the write up front when tx_fifo_depth is below the minimum
+required by the hardware, before the subtraction can underflow.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Fixes: 52ff2b840bc7 ("staging: axis-fifo: fix maximum TX packet length check")
+Signed-off-by: Maritu Hone <marehone12@gmail.com>
+---
+ drivers/staging/axis-fifo/axis-fifo.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> 
-> 	VM_BUG_ON(!pud_none(*new_pud));
-> 
->
->-- 
->2.43.0
->
->
+diff --git a/drivers/staging/axis-fifo/axis-fifo.c b/drivers/staging/axis-fifo/axis-fifo.c
+index 7bb35e11d1dd..aa76be5d78e4 100644
+--- a/drivers/staging/axis-fifo/axis-fifo.c
++++ b/drivers/staging/axis-fifo/axis-fifo.c
+@@ -228,6 +228,7 @@ static ssize_t axis_fifo_write(struct file *f, const char __user *buf,
+ 	 * raised, which requires a reset of the TX circuit to recover.
+ 	 */
+ 	if (!words_to_write || (len % sizeof(u32)) ||
++	    fifo->tx_fifo_depth < 4 ||
+ 	    (words_to_write > (fifo->tx_fifo_depth - 4)))
+ 		return -EINVAL;
+ 
+-- 
+2.43.0
+
