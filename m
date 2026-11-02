@@ -1,64 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627480;
-	b=P9qpENzSoTXp0nk5/O+ZjPvOOAHQEiYhaUnFk82oCyQVKStwZgqFfWszZEKJxtwo7XCV
-	 n6CSuje6hl7NPMHE6817n+QhoM7TxAoyV23Lt19gu815swkGvkXItLH+J8FIF1zRsowaf
-	 ze0IkeOdbMJJly6eL41C53MdHYBogxOLcHVgI5GKEZxVAH0l2/WAjVVy9zmanAypqvbpZ
-	 kfSOMjC96aYaniQmSF8s926ZkpQz41Ca0nvICvFZ/kjx4JOlPMs5KnjlAKT4+WEWdrUel
-	 ZEky2wOnXpKShxq4iizhKkVMaDv2l5yd6G9OpNK7hbprNcfZizFWmPxJBm4r008JBSg==
+	t=1793627486;
+	b=qQEVX5GRcZY/S96LhVmOLgaKqWANh5bVli8jfcCoTZmK+paQ7jye25AwEiBnsAyMbaSy
+	 gYEIyTjILr+df5pvWjI3HgiMlQktcSnU2qUm40yD0IO0hqQAnxg2/204P2LOR2SXUlyrO
+	 R91wekruMU/cDj4tH0YNYOscaQ6ycoJNGkhKjtBA73NgaToC1yYMsU6W7BdvHkGVQGE0p
+	 6urosVECBbgQlmRPBJg34e02qAwkW2n7+TwhR9wMy4WPizx21ZhgaUuUw2ycrnP4HY8zc
+	 m7e4d4SfVSIl5QAbkfsN4hWRbaUe7Edp4xz61j3clHSGm7sE2xq8VuN52t2jFutU8OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627486;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=yUE+ajKb2SvUu34rlf3PuV8op+JEWESp3G1IkxKNGVg=;
-	b=zcrnrPv20lA8E/WoG8hX9ugpr0VaCx75C2sG6H9dkC02iz20gdHwIsfaMykhy5fxK463
-	 ut9lbagEdp6sVN/Mpsl50URwHWCHn9VAyrtlVtEsBh7bdQyVGzH9MekDPuhvNNrjtgwcr
-	 zCyX/QwFvPWY3n3fItRiwLw7a7YWx30uSIrkU5Lj4ILqHTvm3PEC+GRkVVOPhb9iEaQxn
-	 MYjl907ahtxx/pP7wmyAPmNcKPqiBVuwRDBCebvto1I5SuetTZ/fbskJYd20tQCOdGtYx
-	 ilY3tiy3pScDzZF/xTuFMRHM0D566enzsRpGEmIjeQdtShOPoaeSCv8kmaiDmrH3xVQ==
+	bh=LNXVihKSU/0J5Uk6NC8qqFVodyaTPDhxD+ZTMY26u2k=;
+	b=pYBfPmh+5RpeTlngJqDZxKJdduihvMV8Yzjp2HzH9WrXRyhK3hCo22kzoRRbL5n+xbV9
+	 vOdNI+U6CDgd52/U1uEdqGglD/lPccJWbxlVyyPPJoubIocqUK5WFjrJn7K4QwIFTrx1O
+	 dMNMP8cyURx/EmaQcsfn4TR2TM2LbCacfqFNqRY731jvtJ0ZCrWUYH3D8a4ztTbIbIXpT
+	 aZmHUFcJqrOUHjDSMfHUljI+5/+maN1WRsrjMaApBzM2FuySeUdO587AdeQ7CNF4au4hn
+	 9tnqKbQOCPPb9g0sCvO/P0sB7JULQbk3VxmrIvsEMxIyhyijffhGLO0Lxzwmk44tpXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DzW3QY/E";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVN+ktJb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01924606A324;
-	Mon,  2 Nov 2026 13:51:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5459560A3804;
+	Mon,  2 Nov 2026 13:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzW3QY/E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881AB1F00A16;
-	Mon,  2 Nov 2026 13:51:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVN+ktJb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD06C1F00A28;
+	Mon,  2 Nov 2026 13:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793627479;
-	bh=yUE+ajKb2SvUu34rlf3PuV8op+JEWESp3G1IkxKNGVg=;
+	s=k20260515; t=1793627485;
+	bh=LNXVihKSU/0J5Uk6NC8qqFVodyaTPDhxD+ZTMY26u2k=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=DzW3QY/E1vTYb0tPj5dhj31TqNOVZLX3yHkAtyhaoWRl55SR9+VWdUGoQdoUArbeF
-	 oOmbLYVMiJJo6w7s3YA+pUyBE40zbeCBYcoys4vrEcq26jihwgKWcukCnDX5HPjnNA
-	 Yzi3dEK12FV1CjQ0gyfVenSlnygpmL8YXnOQKAiBhTxiyrXsIdvj3p2AHikiUP0BdN
-	 ZdXvVHzumMQ/sh0VZ0wDrSIhkr6YzJBzicE2g38hnlymFLXLPmb3CkpSPRbcOpfleb
-	 ZDHS22NwN/8NkdzNtDvStsihWKQP5CT/vadj266iVCYOJ1+qFkIYpYFeYJA6lt1c1r
-	 VLNTonOzIvqtw==
+	b=nVN+ktJb+16Wnc2z6jft3QiVKvoY8RlASP5Puj2TsImE+JLFEMl+LTWAYVjttTuH9
+	 e+Vf1OlR75TOlcGkpGpHouLNybyFHIkrYKdzAoYCEc+KSZcO6afyMEQR9SoN8Zluyd
+	 bSQoz0m/pihmpclKqjXVMXA0LPV4Gazj70OIwjwbpB/pb0HBYLST+hOz8sOjrKLGoe
+	 xuiwhCHqOvXib68dtzSErx18M/79mcbgEcQxPhlL3vwFJ66OPBO/xHQFzq6ylqe3yf
+	 ZxA3oTs/4vSS8HBAlbRBDYOtF6R22MvaUvAKoRUtU+dWeIT5+V+GTk3imq/h2Vaq/D
+	 BZMF+o9TsZiCg==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id C65672344C8A;
-	Mon, 02 Nov 2026 13:51:17 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 22E9B2344CF7;
+	Mon, 02 Nov 2026 13:51:24 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- =?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Trevor Wu <trevor.wu@mediatek.com>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org
-In-Reply-To: <20261016161455.194400-1-michal@nozomi.space>
-References: <20261016161455.194400-1-michal@nozomi.space>
-Subject: Re: [PATCH] ASoC: mediatek: mt8188: Suspend the AFE across system
- sleep
-Message-Id: <179357913438.1716893.724348214369386121.b4-ty@b4>
-Date: Mon, 02 Nov 2026 00:25:34 +0000
+To: phucduc.bui@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261027104417.7150-1-phucduc.bui@gmail.com>
+References: <20261027104417.7150-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH 0/2] ASoC: img: Fix double clock disable on probe
+ failure
+Message-Id: <179357883120.1716893.14576659532783606777.b4-ty@b4>
+Date: Mon, 02 Nov 2026 00:20:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,19 +66,29 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1138; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Q+rLYquHGS+G0a65fcTBl8j90yUlRSeS2WSUr1yi3T0=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeTA2NfyBbv/DNFum23rnHi4PeaBq8fxo3Ocb/9EReV
- S5mG6nbHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjI4UsM/yOMXE2554gJFJzg
- mviM+wTjEQvWU9OepKpNN2559n+FGBMjw9Ku+YvfHGQuyGINOC1kV90o4VcmHrrS17KQSVdk8WI
- /HgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1562; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=6MIWTTSzxXYGpqB79gSGRjmIgPLGETw2EF8+tMjr8C4=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeTI058HjWHYG2z9MqeE5I6LruEp9yosCaO8Gu6n/pj
+ O6F879JdJSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAipSkM/ysXLvQ73N/Y9Vrv
+ rbPSHQ63p/4L5h1lWrk2TCGyy8RniQwjw7Nl5bPPtAbxe7Ird5ok7ph1K1zuZNr3kreCyivOlye
+ aMAEA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 16 Oct 2026 18:14:55 +0200, Michał Kopeć wrote:
-> ASoC: mediatek: mt8188: Suspend the AFE across system sleep
+On Tue, 27 Oct 2026 17:44:15 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: img: Fix double clock disable on probe failure
+> 
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> Hi all,
+> 
+> These patches fix double clock disable on probe failure in the IMG I2S
+> and SPDIF output drivers by disabling runtime PM before checking
+> the device's suspended state and manually suspending it.
+> 
+> [...]
 
 Applied to
 
@@ -89,8 +96,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8188: Suspend the AFE across system sleep
-      https://git.kernel.org/broonie/sound/c/6c97476ea8d6
+[1/2] ASoC: img: img-i2s-out: Fix double clock disable on probe failure
+      https://git.kernel.org/broonie/sound/c/b57bf0ede3ca
+[2/2] ASoC: img: img-spdif-out: Fix double clock disable on probe failure
+      https://git.kernel.org/broonie/sound/c/52937c91c844
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
