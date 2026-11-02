@@ -1,73 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634736;
-	b=G7juDQ52523/lMNMpofURRgssNOAVlQKRNloO+kJ2siGqu9Asw8mef+OgQnIwMnd54nn
-	 PXyqkXpZWNOwv//3cjrTOvliCaoLdnr3jEqeTdB58W1HbpbtkYNWVAJub0X/0GuhV+6TM
-	 NHHCVJwTS2rFjLeyvGgp9O5Dua3A8KwCFHSB+Sm03J2QsG/NOt4+yGbbZQs/K4jPCxCzR
-	 9jIPNTnWKOUuLkRV6TwfykrqLJvHrWln051cFDy6bsnfwwyJ7rHpiODN4K009mAn4S5+7
-	 NwZ/EOLxHfT4zQQ7VHubMjRknNVCqUKp4TFwuvCuickDSvDVVtHUGE9tai7pw4x2xxg==
+	t=1793634765;
+	b=aeAxg9d44WgxrXE3EmYhw0DFU6g4MxKuUOfQWLQ3itwqYTwio+68wxmgYWueCe6FSOSh
+	 X7Dw/n+JTvvSDs9Uh2J65yDUEzaWc9tpXjxgccd2jxM2pPoZC/pvr2/HjpEu/noJaOJ/k
+	 1LSDxwrlcSdT3zeCuD1sMS7yNYkZ1yY77zB6qPbsJ5dsKFT7fmuzM9E4lN7XvnBrUegb2
+	 4SpZcrnVHXoejO1bw5t9HczEx6w1o0fHflFISnpvM0gZx2U4sp9yE4AYyhA3rfzRcb0zK
+	 dMdSZZvf5aba5MTHQ9ppWFEZajoPab5ypkth8gLqHhq+xqGosNPr69T9q49nGv47uPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634736;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=j6RtsTbIlQ1+MerKC0xhFDG/d459vnICRyJwyVtriLE=;
-	b=LQuvq33UIQxMzL/HYW+SChXu3aeQVaH7eIlNdF2JZ2cWc1U/g1RlY1ruU1+Z+2nmZkZ+
-	 bftCuyhuEg9tgGBNoeiQ/6p89gCATy/4durOInBq6cETTAa/Guc7ctpn8aDHj/Bqe9G9E
-	 GYuk8Uhoe+FOQzWmZP3lTGJOz1d2IPq7at7tWZ7jNp4Ia4ifQgJMY27DeZ2QrT3LBXP6L
-	 S1wwoLNj5loadB6MuADhB/soOImGAnPkC2XSSBtNzaThKypELQ0XRYe4d6jzAH//LMJoh
-	 op4p7r3A5rlIRLQYDNzmMSWgcowxrr127D58Tp/wPnrgiGJIIJoh5mASwsNKc7xvtig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634765;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=w6Y6e+xAw5MQ+ALCeUKut6/Y+RkoG9YtlyYbDh09rhI=;
+	b=GsUHfSQJGhAJohYT6tcGndoqQg/gRa6j/OCbK5nEAPUxXY0/9plFHSFHvvgHVIqo3BNQ
+	 Y6tiXOu8CQwfcHaqXEeMrkREl1w1RmnZv3pbFn1tZ9FagNNFFgHS2AfaMijeBh/OKSBl7
+	 J6x+Q7SlMpqyurINWhMR59cKSXekC/aGUOu72nXgNRTx8WBjiPfseqXrm1x4GcK2gFQI7
+	 hfSVrzClfKFTl1gCrdKW79SKUGBMnjY0U4sFmIQB0XLgIljzvQJXai/KAicA3QXSPRqOC
+	 7jz+KQkHoAlfgiGGRUNR7vXBbiGDjYZbmafUkt3DV5TnoO9um1nnImMoE+2sDL7kCNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.208.71
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaYOjJIG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF32F607827D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF32F607827D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b1d818b501so1330751a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:52:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793634734; x=1794239534; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=j6RtsTbIlQ1+MerKC0xhFDG/d459vnICRyJwyVtriLE=;
-        b=BHPvzdIUTfLewJrYkQH7AM5ACZXWMySrmwNdCiSs5e6SI86mj4u2FQFZ7r+Sb1n78o
-         gc7efW8JFDUlvS0IFhI4lySJQ+geqabqJd3Q5I7XQAl3Y3/Yw/+TdJ8ntmwzO5rfOTpG
-         PoKQ8nTXisY9CAUjnrWbqf8y6JSz5U9KT5YbVXJcpFQQX4bZ54DVJBvod155mno//Klr
-         K4qF7GT6YqPFEocNq77QalEX6VfNP+5OPCh9Rl51yPooTkxLTI41oszKeo9V3be0MCxE
-         125q2mUMZMjjNDHFbTMTsuMzt+8SAccC+vqPIehEIlLY04xwwd9hOUGvIAqgUWFvNJVv
-         m9GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793634734; x=1794239534;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j6RtsTbIlQ1+MerKC0xhFDG/d459vnICRyJwyVtriLE=;
-        b=cF7PaEbAHf6uSZCyci6bDRMHm7ifBrD9uRPoJn4NSaSvtOiHKF2iVV0RskLBqNvjxm
-         dD4YM1RFd+Q9pSHtLIDYPLmIiV8ZheZrcpIcSg8mKrF7BHs59Q8PkQD9JSDxi4wqK+Dy
-         iGmSEBLWk6IzbmPlSPY7bZOSB//SwpRgOmQvx5XvP9+ezPyy1+eCIJclhg5sjXHRgade
-         97i7xjW6FCDw7GmHv/VRiQfOoXY79SmUFf22d9X6uSg61qYxHOmA3VqEuEfXqxmPv5U5
-         o/xkKMH4vMmDgXKHD8myFA/5qpGjwph7DndgvWkWBoIwTUNkOlMQKL7qqaGokTjUApjV
-         14lA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCyMckdeAgxXtsJJMs9FjOoQfglgJXtsPJ3hD/3DboxqBybD+/LTUEL8JP6mr2qMMaQCsPpyes/T1jKHo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80xdNg8AOlCTWhb4VuUxRkaEtXNrFsxV9+Jmty4XI1yPRnFNdP
-	nBm507krW9ILmfMhZ4vyJ+aBIU4Qd4fLpuB0GYEKN3PP2NggdXX+o5pFFquhuheonw8cFjbph3B
-	OAgFGjwtQLRbT8CZvUA==
-X-Received: from edwr13.prod.google.com ([2002:a05:6402:34d:b0:6ac:bd6a:1c30])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:aa7:cc09:0:b0:6ac:7737:e50d with SMTP id 4fb4d7f45d1cf-6b4d4d83eb2mr5865537a12.29.1793634733847;
- Mon, 02 Nov 2026 07:52:13 -0800 (PST)
-Date: Mon, 02 Nov 2026 15:52:12 +0000
-In-Reply-To: <auI02M-pZO_aQ4jn@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66536606D821
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:52:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaYOjJIG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3410C1F00A16;
+	Mon,  2 Nov 2026 15:52:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793634765;
+	bh=w6Y6e+xAw5MQ+ALCeUKut6/Y+RkoG9YtlyYbDh09rhI=;
+	h=From:To:Cc:Subject:Date;
+	b=WaYOjJIGDxbP+uyPBpyV18rjSzgof+LXUjPKj1x8dy80Z1pe8UcT03jOxlcRuLhaq
+	 vxkN/3jLbxRhXMiJQnO7A6s0Qfj548LgSPd6FkZxRCSM4/P1+pbUvi+/hsIZBsfnQn
+	 UokcAD9g+g85O0vbbi23MuLL2zp0amwCDG+/FZacJ5tnq5slEmz4OJtnbLS4mTFCij
+	 Jhq8sepEhSvzhAp2HjhcwtLypTH0NkkdNEJ81UhDi4sN8BI2gue+C0yZanHhvHlfiM
+	 QxczS/oTV2+GpcRDniV5+URw1Vl2Y2B6RP01vGQ0DCGAzphnBsmpOJYL5Wuc4b2M8L
+	 S/dV4DnY6zJnQ==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	tzungbi@kernel.org
+Subject: [PATCH v2] reset: Add KUnit test cases
+Date: Mon,  2 Nov 2026 23:52:07 +0800
+Message-ID: <20261102155207.19252-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,109 +55,429 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
- <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
- <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
- <atpNFEFIlqAoYIwH@google.com> <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
- <attmFVIFU_mS0Y7p@google.com> <CA+CK2bDXDWbww_d3sD6OZqpo37V1a3t76_ubbrXLQS=9DB3dWA@mail.gmail.com>
- <at-8vkVpN2SF3XgB@google.com> <2vxz8q3hoicx.fsf@kernel.org>
- <CALzav=eG5j2n5omO2Mxqw8xA4sZLduxdbBYFcnHpPn0PDpt9Hg@mail.gmail.com> <auI02M-pZO_aQ4jn@google.com>
-Message-ID: <9huzik2fz0wj.fsf@tarunix.c.googlers.com>
-Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
- a 2-bit pair feature header
-From: tarunsahu@google.com
-To: Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
-	Mike Rapoport <rppt@kernel.org>, maz@kernel.org, arnd@arndb.de, jgg@nvidia.com, 
-	robin.murphy@arm.com, loganodell@google.com, oupton@kernel.org, 
-	kevin.tian@intel.com, alex@shazbot.org, dwmw2@infradead.org, 
-	pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
-	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
-	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
-	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Pasha Tatashin <pasha.tatashin@soleen.com> writes:
+Since commit 9035073d0ef1 ("reset: convert reset core to using firmware
+nodes"), reset suppliers and consumers can be wired up using software
+nodes without requiring Device Tree or hardware devices.  Leverage this
+to add KUnit test cases for the reset controller framework.
 
-> On 10-28 10:24, David Matlack wrote:
->> On Wed, Oct 28, 2026 at 10:17=E2=80=AFAM Pratyush Yadav <pratyush@kernel=
-.org> wrote:
->> >
->> > On Mon, Oct 26 2026, David Matlack wrote:
->> >
->> > > On 2026-10-25 04:38 PM, Pasha Tatashin wrote:
->> > >> On Fri, Oct 23, 2026 at 9:50=E2=80=AFAM David Matlack <dmatlack@goo=
-gle.com> wrote:
->> > >
->> > [...]
->> > >> The reason I care about keeping the header compact is that we are
->> > >> defining a foundational kernel ABI and want to use this header acro=
-ss
->> > >> almost every serialized data structure so we can evolve them later
->> > >> without breaking compatibility. While some top-level structs are on
->> > >> sparse folios today, other serialized structs are tightly packed, a=
-nd
->> > >> we are looking to add KHO slab support in the future where tightly
->> > >> packed allocations will be common.
->> > >
->> > > My intuition is we will have a small number of headers per preserved
->> > > file and per preserved FLB. One for the top-level struct and then
->> > > optionally a few more for sub-structs like arch-specific data. That =
-is
->> > > why I am less worried 8 bytes per header, even if we fix the folio
->> > > problem.
->> > >
->> > > Maybe where our visions differ is when there are collections of
->> > > serialized structs, like KHO blocks. For collections I don't think t=
-he
->> > > elements will each have their own headers. Otherwise the elements co=
-uld
->> > > be different sizes.
->> >
->> > kho_block today doesn't store entry_size in the serialized payload. It
->> > relies on its caller to do so. With extensible structures, this can ge=
-t
->> > messy. Sure, the owner of the kho_block_set can track the size somewhe=
-re
->> > in its payload, but perhaps we should store the size in
->> > kho_block_header_ser to begin with?
->>=20
->> +1000
->>=20
->> KHO block should track the entry size automatically and not rely on
->> the caller. Otherwise every caller is going to have to store the entry
->> size in the struct that owns the KHO block, like I had to do in the
->> PCI v10 series :(
->
-> I am fine with updating this as part of the versioning change so that we=
-=20
-> do not have to do it twice.
->
-> Tarun, could you pelase include entry size change into the next version a=
-s=20
-> well?
+The test cases cover the following scenarios:
 
-Yes, This will be important to track the extensible serialized structure
-across kernel. For example struct luo_session_ser has larger size in N+1
-kernel which gets deserialized on the beginning of the boot so incoming
-block_set must use entry_size of the kernel N which we can update inside
-kho_block_set_restore(). And this updated incoming->block_set be used
-for iterator in luo_session_deserialize to properly walk through
-session_ser entries.
+- Basic: Verifies that a consumer can acquire a reset control via
+  fwnode and perform reset, assert, deassert, status, release, and
+  acquire operations.
+- Use After Unregister: Verifies that after the supplier unregisters
+  the reset_controller_dev while a consumer still holds a reset_control
+  handle, subsequent consumer operations fail safely with -ENODEV.
+- Concurrent Unregister: Verifies that unregistering the
+  reset_controller_dev concurrently with an in-flight reset operation
+  waits for the active operation to complete before returning.
 
-I will send v4 soon including this.
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+---
+Test:
+$ ./tools/testing/kunit/kunit.py run \
+        --kconfig_add CONFIG_RESET_CONTROLLER=y \
+        --kconfig_add CONFIG_RESET_KUNIT_TEST=y \
+        reset_test
+---
+v2:
+- Separate out from the revocable series.
+- Add reset_test_exit() to clean up rstc and rcdev on test exit or
+  assertion failure.
+- Clean up kthreads on error paths in reset_test_concurrent_unregister().
 
-~Tarun
+v1: https://lore.kernel.org/all/20261011121246.162759-5-tzungbi@kernel.org
+---
+ drivers/reset/Kconfig     |   5 +
+ drivers/reset/Makefile    |   2 +
+ drivers/reset/core-test.c | 351 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 358 insertions(+)
+ create mode 100644 drivers/reset/core-test.c
 
->
-> Thanks,
-> Pasha
->
->>=20
->> > Anyway, not a problem this series needs to solve, but something we
->> > should eventually do.
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index eda9c698a95f..c7dceec8f58c 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -457,4 +457,9 @@ source "drivers/reset/starfive/Kconfig"
+ source "drivers/reset/sti/Kconfig"
+ source "drivers/reset/tegra/Kconfig"
+ 
++config RESET_KUNIT_TEST
++	tristate "KUnit tests for reset controller" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++
+ endif
+diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+index 489fafd6bbe3..bb01198d495b 100644
+--- a/drivers/reset/Makefile
++++ b/drivers/reset/Makefile
+@@ -55,3 +55,5 @@ obj-$(CONFIG_RESET_UNIPHIER) += reset-uniphier.o
+ obj-$(CONFIG_RESET_UNIPHIER_GLUE) += reset-uniphier-glue.o
+ obj-$(CONFIG_RESET_ZYNQ) += reset-zynq.o
+ obj-$(CONFIG_RESET_ZYNQMP) += reset-zynqmp.o
++
++obj-$(CONFIG_RESET_KUNIT_TEST) += core-test.o
+diff --git a/drivers/reset/core-test.c b/drivers/reset/core-test.c
+new file mode 100644
+index 000000000000..613db78040c6
+--- /dev/null
++++ b/drivers/reset/core-test.c
+@@ -0,0 +1,351 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright 2026 Google LLC
++ *
++ * KUnit tests for the reset controller.
++ *
++ * The test cases cover the following scenarios:
++ *
++ * - Basic: Verifies that a consumer can acquire a reset control via
++ *   fwnode and perform reset, assert, deassert, status, release, and
++ *   acquire operations.
++ *
++ * - Use After Unregister: Verifies that after the supplier unregisters
++ *   the reset_controller_dev while a consumer still holds a reset_control
++ *   handle, subsequent consumer operations fail safely with -ENODEV.
++ *
++ * - Concurrent Unregister: Verifies that unregistering the
++ *   reset_controller_dev concurrently with an in-flight reset operation
++ *   waits for the active operation to complete before returning.
++ */
++
++#include <kunit/fwnode.h>
++#include <kunit/test.h>
++
++#include <linux/completion.h>
++#include <linux/fwnode.h>
++#include <linux/iopoll.h>
++#include <linux/kthread.h>
++#include <linux/property.h>
++#include <linux/reset-controller.h>
++#include <linux/reset.h>
++#include <linux/sched/task.h>
++
++struct reset_test_context {
++	struct fwnode_handle *supp_fwnode;
++	struct fwnode_handle *cons_fwnode;
++	struct reset_controller_dev rcdev;
++	bool rcdev_registered;
++	struct reset_control *rstc;
++
++	int reset_count;
++	int assert_count;
++	int deassert_count;
++	int status_count;
++
++	void *priv;
++};
++
++static int reset_test_op_reset(struct reset_controller_dev *rcdev,
++			       unsigned long id)
++{
++	struct reset_test_context *ctx = container_of(rcdev, typeof(*ctx), rcdev);
++
++	ctx->reset_count++;
++	return 0;
++}
++
++static int reset_test_op_assert(struct reset_controller_dev *rcdev,
++				unsigned long id)
++{
++	struct reset_test_context *ctx = container_of(rcdev, typeof(*ctx), rcdev);
++
++	ctx->assert_count++;
++	return 0;
++}
++
++static int reset_test_op_deassert(struct reset_controller_dev *rcdev,
++				  unsigned long id)
++{
++	struct reset_test_context *ctx = container_of(rcdev, typeof(*ctx), rcdev);
++
++	ctx->deassert_count++;
++	return 0;
++}
++
++static int reset_test_op_status(struct reset_controller_dev *rcdev,
++				unsigned long id)
++{
++	struct reset_test_context *ctx = container_of(rcdev, typeof(*ctx), rcdev);
++
++	ctx->status_count++;
++	return 0;
++}
++
++static const struct reset_control_ops reset_test_ops = {
++	.reset = reset_test_op_reset,
++	.assert = reset_test_op_assert,
++	.deassert = reset_test_op_deassert,
++	.status = reset_test_op_status,
++};
++
++static int reset_test_init(struct kunit *test)
++{
++	static const struct property_entry supp_props[] = {
++		PROPERTY_ENTRY_U32("#reset-cells", 1),
++		{}
++	};
++	static const struct software_node supp_swnode = {
++		.name = "reset-test-supplier",
++		.properties = supp_props,
++	};
++	static const struct software_node_ref_args refs[] = {
++		SOFTWARE_NODE_REFERENCE(&supp_swnode, 0),
++	};
++	static const struct property_entry cons_props[] = {
++		PROPERTY_ENTRY_REF_ARRAY("resets", refs),
++		{}
++	};
++
++	struct reset_test_context *ctx;
++	int ret;
++
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	test->priv = ctx;
++
++	ctx->supp_fwnode = kunit_software_node_register(test, &supp_swnode);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->supp_fwnode);
++
++	ctx->cons_fwnode = kunit_fwnode_create_software_node(test, cons_props,
++							     NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->cons_fwnode);
++
++	ctx->rcdev.ops = &reset_test_ops;
++	ctx->rcdev.nr_resets = 1;
++	ctx->rcdev.fwnode = ctx->supp_fwnode;
++
++	ret = reset_controller_register(&ctx->rcdev);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	ctx->rcdev_registered = true;
++
++	ctx->rstc = __fwnode_reset_control_get(ctx->cons_fwnode, NULL, 0,
++					       RESET_CONTROL_EXCLUSIVE);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->rstc);
++
++	return 0;
++}
++
++static void reset_test_exit(struct kunit *test)
++{
++	struct reset_test_context *ctx = test->priv;
++
++	if (!ctx)
++		return;
++
++	reset_control_put(ctx->rstc);
++	if (ctx->rcdev_registered)
++		reset_controller_unregister(&ctx->rcdev);
++}
++
++static void reset_test_basic(struct kunit *test)
++{
++	struct reset_test_context *ctx = test->priv;
++	struct reset_control *rstc = ctx->rstc;
++
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_reset(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
++
++	KUNIT_EXPECT_EQ(test, ctx->assert_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_assert(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->assert_count, 1);
++
++	KUNIT_EXPECT_EQ(test, ctx->deassert_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_deassert(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->deassert_count, 1);
++
++	KUNIT_EXPECT_EQ(test, ctx->status_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_status(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->status_count, 1);
++
++	reset_control_release(rstc);
++	KUNIT_EXPECT_EQ(test, reset_control_acquire(rstc), 0);
++}
++
++static void reset_test_use_after_unregister(struct kunit *test)
++{
++	struct reset_test_context *ctx = test->priv;
++	struct reset_control *rstc = ctx->rstc;
++
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 0);
++	KUNIT_EXPECT_EQ(test, reset_control_reset(rstc), 0);
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
++
++	/* Unregister supplier while consumer still holds rstc. */
++	reset_controller_unregister(&ctx->rcdev);
++	ctx->rcdev_registered = false;
++
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
++	KUNIT_EXPECT_EQ(test, reset_control_reset(rstc), -ENODEV);
++	KUNIT_EXPECT_EQ(test, ctx->reset_count, 1);
++
++	KUNIT_EXPECT_EQ(test, reset_control_assert(rstc), -ENODEV);
++	KUNIT_EXPECT_EQ(test, reset_control_deassert(rstc), -ENODEV);
++	KUNIT_EXPECT_EQ(test, reset_control_status(rstc), -ENODEV);
++
++	reset_control_release(rstc);
++	KUNIT_EXPECT_EQ(test, reset_control_acquire(rstc), -ENODEV);
++}
++
++struct test_concurrent_unregister_context {
++	struct kunit *test;
++	struct completion started, enter;
++	struct task_struct *thread;
++
++	/* Used by test consumer. */
++	struct completion entered, exit;
++	int expected_ret;
++};
++
++static int test_concurrent_unregister_supplier(void *data)
++{
++	struct test_concurrent_unregister_context *ctx = data;
++	struct reset_test_context *rtc = ctx->test->priv;
++
++	complete(&ctx->started);
++
++	if (wait_for_completion_interruptible(&ctx->enter))
++		return 0;
++	reset_controller_unregister(&rtc->rcdev);
++	rtc->rcdev_registered = false;
++
++	return 0;
++}
++
++static int test_concurrent_unregister_consumer(void *data)
++{
++	struct test_concurrent_unregister_context *ctx = data;
++	struct reset_test_context *rtc = ctx->test->priv;
++	int ret;
++
++	complete(&ctx->started);
++
++	if (wait_for_completion_interruptible(&ctx->enter))
++		return 0;
++
++	ret = reset_control_reset(rtc->rstc);
++	KUNIT_EXPECT_EQ(ctx->test, ret, ctx->expected_ret);
++
++	return 0;
++}
++
++static int
++reset_test_concurrent_unregister_op_reset(struct reset_controller_dev *rcdev,
++					  unsigned long id)
++{
++	struct reset_test_context *rtc = container_of(rcdev, typeof(*rtc), rcdev);
++	struct test_concurrent_unregister_context *ctx = rtc->priv;
++
++	rtc->reset_count++;
++	complete(&ctx->entered);
++
++	wait_for_completion_interruptible(&ctx->exit);
++	return ctx->expected_ret;
++}
++
++static const struct reset_control_ops reset_test_concurrent_unregister_ops = {
++	.reset = reset_test_concurrent_unregister_op_reset,
++};
++
++static void reset_test_concurrent_unregister(struct kunit *test)
++{
++	struct reset_test_context *rtc = test->priv;
++	struct test_concurrent_unregister_context *ctx;
++	int i, ret, val;
++
++	rtc->rcdev.ops = &reset_test_concurrent_unregister_ops;
++
++	ctx = kunit_kmalloc_array(test, 3, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++
++	for (i = 0; i < 3; ++i) {
++		ctx[i].test = test;
++		init_completion(&ctx[i].started);
++		init_completion(&ctx[i].enter);
++
++		if (i == 0) {
++			ctx[i].thread = kthread_run(
++				test_concurrent_unregister_supplier, ctx + i,
++				"supplier%d", i);
++		} else {
++			init_completion(&ctx[i].entered);
++			init_completion(&ctx[i].exit);
++
++			ctx[i].thread = kthread_run(
++				test_concurrent_unregister_consumer, ctx + i,
++				"consumer%d", i);
++		}
++		if (IS_ERR(ctx[i].thread)) {
++			ret = PTR_ERR(ctx[i].thread);
++			while (i--)
++				kthread_stop_put(ctx[i].thread);
++			KUNIT_ASSERT_EQ(test, ret, 0);
++		}
++		get_task_struct(ctx[i].thread);
++
++		wait_for_completion(&ctx[i].started);
++	}
++
++	rtc->priv = &ctx[1];
++	ctx[1].expected_ret = 0x12345678;
++	/* consumer1 enters reset(). */
++	KUNIT_EXPECT_EQ(test, rtc->reset_count, 0);
++	complete(&ctx[1].enter);
++	wait_for_completion(&ctx[1].entered);
++	KUNIT_EXPECT_EQ(test, rtc->reset_count, 1);
++
++	/* supplier0 unregisters. */
++	complete(&ctx[0].enter);
++	ret = read_poll_timeout(reset_control_status, val, val == -ENODEV,
++				1000, 100000, false, rtc->rstc);
++	if (ret) {
++		for (i = 2; i >= 0; --i)
++			kthread_stop_put(ctx[i].thread);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++	}
++	/* supplier0 can't exit.  It's waiting for all consumers. */
++
++	ctx[2].expected_ret = -ENODEV;
++	/* consumer2 must see -ENODEV. */
++	complete(&ctx[2].enter);
++	kthread_stop_put(ctx[2].thread);
++
++	/* consumer1 exits reset(). */
++	complete(&ctx[1].exit);
++	kthread_stop_put(ctx[1].thread);
++	kthread_stop_put(ctx[0].thread);
++
++	/* Subsequent access must see -ENODEV. */
++	KUNIT_EXPECT_EQ(test, reset_control_reset(rtc->rstc), -ENODEV);
++}
++
++static struct kunit_case reset_test_cases[] = {
++	KUNIT_CASE(reset_test_basic),
++	KUNIT_CASE(reset_test_use_after_unregister),
++	KUNIT_CASE(reset_test_concurrent_unregister),
++	{}
++};
++
++static struct kunit_suite reset_test_suite = {
++	.name = "reset_test",
++	.test_cases = reset_test_cases,
++	.init = reset_test_init,
++	.exit = reset_test_exit,
++};
++
++kunit_test_suite(reset_test_suite);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Tzung-Bi Shih <tzungbi@kernel.org>");
++MODULE_DESCRIPTION("KUnit tests for the reset controller");
+-- 
+2.53.0
+
