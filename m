@@ -1,108 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793655977;
-	b=2VlAvQKAUp82i2dv+Hba27mcT2zOZ1/VnJZ8FkJLsxQCKaiYrPwhtFxAEdpfK/8/ht2B
-	 hQo3Nvp2hiszqJPquShW5bx9Bznf7LQhxfx+I/vgmOOCfGG10sz964VQx1yKyRkbmeJuu
-	 P16Q8Tvw/ziMPzSatiQbEctvPG5c+WJXNFBK+INVgzNCNzz22M8h8UuETbo5RkWAeBCkR
-	 yahBqN5nyWsdsQfIHHLuF05JIXnkDmxtjzcCyHGptBiroIxm9jWqmYsXZKZi3i6caywuD
-	 27hBd/H4MwFF7plehPBfqHxL1r9s65zoX8SLBbgplMEbAJK5vFP8y1iboCq2KbEaxYA==
+	t=1793655979;
+	b=gTyQuA9txN3jJIo2iSrlUHjayFBB6fcclhWYeSHUcb8COmUmpSHrG80q/kj//UDCG7In
+	 T7/XtGkOOk4DchGVfYQ6LEsFzzOzWi6fuYrqcw1I2uJG/g2i20v+qNu4burJMXyDT7KwS
+	 xoinyQAv+l9KDf3NtpRZ491QP/J7fBbeKLD1PSURruyqciL7jnjL9bNvaymrIA9nV5dum
+	 0jiIXqbOcZTZtgMmrV02RYXVQ7sSUByN9l99XlHpsxfTkSCFDsoMilY2ORtcrHVErOdk2
+	 12m2ih/x5mses3Y+ZB3vo0Hq/b3hBUXGc0yBcYMbSmYVZsBJJYEOgW889dBJU/tORPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655977;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=FJPSwS1dKDAOqkSA6MWiKD6GwRfZLBYjMISnGkKuJ+c=;
-	b=B8WzI5eqvl7BdvWOhzAZ5AqPeGOxmg4PmN7SSDy1iqoOfN4JzSSMW4X39mzTm0ggzXII
-	 o6ilxT6Fgx74BMKMF+tCD9W7Df/EbDJlg20SPsPGIJj3qAqrADjwtyQ/4hk9jTZaooh60
-	 9c4S9zYQ5yyJoVW99MXy0N0IKw0H3B7aeOXOV8E9kZHs9TEfOc5s42IP/cSuD8hJB9S9e
-	 rDQ1/FNm5WvyjBMboCFVwxs7fI7BGP/jUYwFWtDCkTDPRtkbWDy+lS1fyuJJ/CXhj6qsa
-	 ND+Spm2GhhXJmiXbriKFUN7CevVhm3qvURZTHgTw18/GXP3Lz8PDvwG4eoddIUUfgUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655979;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
+	b=xgxpHdpkBg6IFqEj6Mf7s/Ev61Lz44XbphQIvfMwwYlFG95W9lWkorSvddLZR9etHMAe
+	 9zs/KhvViZ1tGDfC4l/1wZVaFXoza8FAi9atgwMyWRmBMbBTwmWwruiA1V7aJg9TRuN8/
+	 pm1cJbaUz3ena+fVcK9uKHs0pA+GPhNqZ8uv5lGJbwSmY9O1gtsi7Wsd+BTdZGLCbwbXQ
+	 3NyOSxeu4Y9/fMOO9zA9KkUchRL0k8Y//LsaBwUvDeHiKYyYXyrjcrKfucWmEcaARCP05
+	 pEIUjSADkZuPWoetcAKi9AqifuFESFdxfkuS0NlQNLjYbaehhIhmZexqgfmTbPELfsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="C5OXb/sc";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bBY+q+Jb;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Z5Wr7Xlk;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QzV2K6E2;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=WsNqg78j;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+e2ZHuHV;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABBA606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ABBA606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864F0606D802;
+	Mon,  2 Nov 2026 21:46:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 864F0606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C5OXb/sc;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bBY+q+Jb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793655975;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Z5Wr7Xlk;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QzV2K6E2;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=WsNqg78j;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+e2ZHuHV
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 783EE1FB0B;
+	Mon,  2 Nov 2026 21:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793655976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FJPSwS1dKDAOqkSA6MWiKD6GwRfZLBYjMISnGkKuJ+c=;
-	b=C5OXb/scUI6lDM32iI3IXS+geTXgkSyFEjMPbOeyx3ZfE7l2mDRp7rNdSsQSQoLG/QdkL9
-	jP/A2G1X/tn+8DMjflRHHD1D2MLLPtom8BcUnouH0UgPOWv6e5bPeunsL97cvYTRPNmpOx
-	vB0lkCxJuUvRsKkUw+MZVSZ6fkwcCZA=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-19-LPXzkxEjMnWQEQpavv_aVw-1; Mon, 02 Nov 2026 16:46:14 -0500
-X-MC-Unique: LPXzkxEjMnWQEQpavv_aVw-1
-X-Mimecast-MFC-AGG-ID: LPXzkxEjMnWQEQpavv_aVw_1793655973
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a20e41008cso24776525e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:46:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793655973; x=1794260773; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FJPSwS1dKDAOqkSA6MWiKD6GwRfZLBYjMISnGkKuJ+c=;
-        b=bBY+q+Jbl1OsCdVUPAc3TLlm2ZdLn1POJ2xcKXxLkIiOMLhO4zTl1hwKgrbW7uigE0
-         RWcL9DiLQ8STUShPfY11USg/VkHDKRamOPGCCwcRzv8Hwvd70OBGKLHtdJ9fCHRS5xy2
-         /0SOsMST8FHpmdI5w1RBs/9u7XncRx8M32gyWSelaIYH3Ep22HJLtxyVE0jq7OQwMNpv
-         ZmESJxWKu6Sd9HoWN50IQMeXDhnaRZLKxkRr35beuX1tKa5myRlLfqKIlgm5CcyaLptO
-         IiQR6ns+//XRSJ+N+vYW7tTYU/KHwBqr3pYJmEtMDJFY91/0VJfCSbMEeSXkIFH9Xq/W
-         vrDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793655973; x=1794260773;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FJPSwS1dKDAOqkSA6MWiKD6GwRfZLBYjMISnGkKuJ+c=;
-        b=JIpUcXF4wIhOxEskOXaXolk+L77MGQG2CTOskPKU3qkpJ/kbWgskoB+/2Kyr+jnhFr
-         FY1XRlY99m9npsjrlHadc4m5RtLan8d7jw4LpfH0RLM9DZ386LGoPbCVvIG11k4MXjs+
-         SEeijzHlE6LVd+mBoqq7FIicCvFMnmVEIBKfmWBEohnw3sO5sh0s1peLge7JoEc6BDSN
-         YciP/pU9fUJzqf2cIfYbQuvyrBbhkWcDOgtkl6ZluxdH5uD5FX7B5akkzJZtVnq1Cs0Y
-         BpH668khg9G1T+uOy5pD5pL61jitFMUmkoxHCKhH2HAE5l7GLLm4WbJzoPiRKlDdgwsl
-         aQ/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwN2ZfXWPkbrnAghpib9Ymcdm1HI8qh64phn1KdoKNjujfUUjAE9xVaRrrmdBcOIWNnMA6XTZHD5yYKebg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcyUJvZrKcsrXigCkjfLPxcFm4Wgiv9C6mJhYydE8/ToFkkuSy
-	CWJ7V8vSSZgxPenZ6AAg5kX0Mjgs25PZRzlJ8CrJy3Ur06FtWyw4q+1oZzw1LeTREac2YmvJHxs
-	A9rK/7qoJw+gewfqgA0vQLTXB11hTuU9hcj9GQ6uuZyizf967cfx1BKLoEoMnwRH9qg==
-X-Gm-Gg: AYBFou38Fgs1oQcYhbwwhDcoxssfb3E/aNHNrYhWwRCCHv+KSdfYJTREraqoY9Giz8w
-	SKHVSpL1CuDu+Bc8hAkBOgniK7Ykb1r4MDNwefLmajWnzndWZ1Tc0eqqd66BhspCLTjtzltVwnR
-	cB2UF/AEUeac5a4J448LadudD1UVQYCt/BT47Aip1cmJ5W3cDU2BkYU4c2P7rH5c4uOLp7zu1P0
-	Je3nEVgbFsiVqjosqJ16h+xcNst/UdJokiBNpC4zv0bLVBOQi2QGr/DLUpDd1a0Iq1uOGfGmmKJ
-	WXLHr/pyzfdfM0pFXLoT5pAon/HNDdH5cSAjrMhtCuCeA9+aK0Pkoxy+hHxI5SaUqIcSOgbhGYP
-	Y90TfRNk0xldr2lY5as3dNkbpA4g0v7eBrU0JtSrsYej4k9ETb27OZGuSr4lrd19Fd0pS9LvIfV
-	Dj3Cudbv0n+5uL1K+dkD1FJYyiIYU1PqxEvJXiU/tspJo=
-X-Received: by 2002:a05:600c:848a:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4ac17b2ce84mr286349425e9.6.1793655973289;
-        Mon, 02 Nov 2026 13:46:13 -0800 (PST)
-X-Received: by 2002:a05:600c:848a:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4ac17b2ce84mr286348985e9.6.1793655972889;
-        Mon, 02 Nov 2026 13:46:12 -0800 (PST)
-Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09ad5ff8sm207221675e9.4.2026.11.02.13.46.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 13:46:12 -0800 (PST)
-Message-ID: <07a21553-8ab1-4478-8a22-b1a13e70faba@redhat.com>
-Date: Mon, 2 Nov 2026 22:46:10 +0100
+	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
+	b=Z5Wr7XlkIKLyxNsfGEG46FSbSP4fT2MkGoUUnP8U3jSBZVCy81UNDrtNTRvlzxJizahELh
+	tLVPtq7BdFq7/wflaHFn85Fi+KqjlGxZVtjbhIyTKMI4y65DdhS0E6neIi7YxY17bg+Djc
+	zdaacuU033xAoLYWp008Sux1aLvV7ts=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793655976;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
+	b=QzV2K6E2oTnrR+E26DD3IWvAnEgaKPaEu7jP+7ndlz93PS+jTOC/oTa/FF+OY1XZ8ivonm
+	PaM38zsn33u9vYDA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=WsNqg78j;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=+e2ZHuHV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793655975; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
+	b=WsNqg78jKbyhjDmnFbRDS0eqkxeGVRpDe0tuPdYO6jvx5n+r3yunu7ZGvWAdjJ+Zr0ylbo
+	ZVcwyACmdCwd4OqS9Q4aBGicjsTaWKpwuI3F38AXSBJbitwXUxwZ9HDxcqAETRP69OObeR
+	ik9unSZqpa1LTLHbYNCi4mfe8qhy+nw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793655975;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
+	b=+e2ZHuHVYDXzM9eoqYywchpCtcUcJiKL7nTiy+mnG33DxAKNcFSBaSk6hmH6QsgLGTn85o
+	TAQr9rG4QT2vB8CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2E55A134B3;
+	Mon,  2 Nov 2026 21:46:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id enAeAqcE6WqGfwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:46:15 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id AB37EB15F; Mon, 02 Nov 2026 22:46:14 +0100 (CET)
+Date: Mon, 2 Nov 2026 22:46:14 +0100
+From: Jan Kara <jack@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: Jan Kara <jack@suse.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
+	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ext2: preserve completed DIO bytes when buffered
+ fallback fails
+Message-ID: <rf4wqzjsxgpujhaegwonjk77gscw5sj4rv6dbhtc47qpmzrlnq@ea533mcohg5i>
+References: <20261102061555.55183-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,192 +112,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4] net: mana: Add support to process throttled EQEs
-To: netdev-bot+sashiko@kernel.org, sahilchandna@linux.microsoft.com
-Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, kotaranov@microsoft.com, horms@kernel.org,
- ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
- mawasthi@linux.microsoft.com, leitao@debian.org,
- linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261028084020.2051254-1-sahilchandna@linux.microsoft.com>
- <179352349805.3131.9139142774275348324@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <179352349805.3131.9139142774275348324@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102061555.55183-1-dennylin0707@gmail.com>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,gmail.com,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 783EE1FB0B
 
-On 11/1/26 09:58, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
+On Mon 02-11-26 06:15:55, Hungyu Lin wrote:
+> ext2_dio_write_iter() can complete part of a direct write before
+> falling back to buffered I/O for a hole inside i_size. If
+> generic_perform_write() then fails, its error overwrites the completed
+> direct-I/O byte count.
 > 
-> Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
+> For example, on a full filesystem, an 8 KiB write to a file with an
+> allocated 4 KiB prefix and a 4 KiB hole overwrites the prefix but returns
+> ENOSPC and leaves the file position unchanged. GNU dd with oflag=direct
+> consequently reports zero bytes written.
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> Preserve a positive direct-I/O result and return the buffered error
+> when no bytes were direct-written. This restores the fallback policy of
+> generic_file_write_iter(), which ext2 used before its iomap conversion.
 > 
-> - [High] The patch tells firmware that every EQ on the function handles
->    throttled EQEs.
-> - [Low] The patch marks only one side of the concurrent accesses.
-> 
-> Pre-existing issues:
-> - [High] mana_gd_destroy_cq() waits for a grace period
->    (synchronize_net()) only when mana_gd_detach_cq() returns true,…
-> 
-> --
-> 
-> net: mana: Add support to process throttled EQEs
-> 
-> This commit handles GDMA_EQE_THROTTLE events. It records up to two child
-> CQs per EQ and calls their callbacks when a throttle EQE arrives. CQ
-> teardown now detaches the CQ from its parent EQ and from cq_table[]
-> before a grace period. The patch also advertises a new capability bit and
-> adds a per-EQ throttle counter to ethtool stats.
-> 
->> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
->> index 8c915e0087846..ab942d5bfe058 100644
->> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
->> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
->> @@ -757,6 +757,27 @@ void mana_gd_free_service_wq(struct gdma_context *gc)
->>   	gc->service_wq = NULL;
->>   }
->>   
->> +static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
->> +{
->> +	struct gdma_context *gc = eq->gdma_dev->gdma_context;
->> +	struct gdma_queue *cq;
->> +	u8 i;
->> +
->> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
->> +		cq = rcu_dereference(eq->eq.child_cq[i]);
->> +
->> +		if (!cq)
->> +			continue;
->> +
->> +		if (cq->id >= READ_ONCE(gc->max_num_cqs) ||
->> +		    !gc->cq_table || gc->cq_table[cq->id] != cq)
->> +			continue;
-> 
-> [Severity: Low]
-> This patch marks only the write side. mana_gd_detach_cq() clears
-> gc->cq_table[id] with WRITE_ONCE(), and mana_hwc_destroy_channel() now
-> sets gc->max_num_cqs with WRITE_ONCE().
-> 
-> The readers still use plain loads. Here that means gc->cq_table and
-> gc->cq_table[cq->id]. The GDMA_EQE_COMPLETION branch of
-> mana_gd_process_eqe() also reads both fields without READ_ONCE():
-> 
-> 	if (WARN_ON_ONCE(cq_id >= gc->max_num_cqs))
-> 		break;
-> 
-> 	cq = gc->cq_table[cq_id];
-> 
-> Could KCSAN report these as data races? Should the readers use
-> READ_ONCE() to pair with the marked writers?
-> 
-> This is mostly an annotation issue. The completion-path race was already
-> there before this patch, and the loads in mana_gd_schedule_eq_cqs() only
-> compare the pointer value.
-> 
->> +
->> +		if (cq->cq.callback)
->> +			cq->cq.callback(cq->cq.context, cq);
->> +	}
->> +}
-> 
-> [ ... ]
-> 
->> @@ -1073,25 +1104,66 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
->>   			      struct gdma_queue *queue)
->>   {
->>   	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
->> +	struct gdma_queue *parent;
->> +	u8 i;
->>   
->>   	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
->> -	queue->cq.parent = spec->cq.parent_eq;
->> +	parent = spec->cq.parent_eq;
->> +	queue->cq.parent = parent;
->>   	queue->cq.context = spec->cq.context;
->>   	queue->cq.callback = spec->cq.callback;
->> +
->> +	if (!parent)
->> +		return;
->> +
->> +	/* For throttled EQE store the child CQ */
->> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
->> +		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
->> +			rcu_assign_pointer(parent->eq.child_cq[i], queue);
->> +			return;
->> +		}
->> +	}
->> +
->> +	WARN_ONCE(1, "mana: EQ %u has no free child CQ slot\n", parent->id);
->>   }
-> 
-> [Severity: High]
-> Do mana_ib CQs ever end up in child_cq[]?
-> 
-> This is the only place that writes child_cq[], and it returns early when
-> spec->cq.parent_eq is NULL. mana_ib_create_kernel_queue() uses a zeroed
-> spec:
-> 
-> drivers/infiniband/hw/mana/main.c:mana_ib_create_kernel_queue() {
-> 	struct gdma_queue_spec spec = {};
-> 	...
-> 	err = mana_gd_create_mana_wq_cq(mdev->gdma_dev, &spec, &queue->kmem);
-> 	...
-> }
-> 
-> mana_ib_gd_create_cq() then binds the RNIC CQ in hardware to an mana_ib
-> EQ:
-> 
-> 	req.eq_id = mdev->eqs[cq->comp_vector]->id;
-> 
-> mana_ib_install_cq_cb() adds it only to gc->cq_table[].
-> 
-> mana_ib_create_qp_rss() and mana_ib_create_qp_raw() attach raw and RSS
-> QP CQs to the per-vPort mana_en EQs:
-> 
-> 	eq = &mpc->eqs[cq->comp_vector % mpc->num_queues];
-> 	cq_spec.attached_eq = eq->eq->id;
-> 
-> These CQs are also registered only through mana_ib_install_cq_cb().
-> 
-> The patch also adds GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE to
-> GDMA_DRV_CAP_FLAGS1, which mana_gd_verify_vf_version() sends for the
-> whole function.
-> 
-> Suppose hardware folds one of these CQs' completions into a
-> GDMA_EQE_THROTTLE. mana_gd_schedule_eq_cqs() walks child_cq[], which is
-> empty on mdev->eqs and holds only the mana_en TX and RX CQs on mpc->eqs.
-> mana_ib_cq_handler() never runs, and nothing polls or re-arms the CQ.
-> 
-> Wouldn't that stall the RDMA CQ the same way the commit message
-> describes for TX?
-> 
-> A fixed two-entry child_cq[] also cannot represent an EQ shared by many
-> RDMA CQs on the same comp_vector.
-> 
-> The commit message says:
-> 
->    "A mana_en EQ serves one TX CQ and one RX CQ, and the HWC EQ serves
->    the HWC CQ."
-> 
-> Is that still true once raw QPs attach CQs to mpc->eqs?
-> 
-> If advertising the bit is what turns on throttle EQEs, this patch adds a
-> new RDMA stall. If it is not, the RDMA case stays unfixed. Could the
-> commit message cover mana_ib in either case?
-I understand from discussion on v3 that this will be handled separately,
-am I correct?
+> Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-/P
+Thanks. Applied to my tree.
 
+								Honza
+
+> ---
+>  fs/ext2/file.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext2/file.c b/fs/ext2/file.c
+> index 67fe423c3828..8ddc149d4884 100644
+> --- a/fs/ext2/file.c
+> +++ b/fs/ext2/file.c
+> @@ -145,7 +145,8 @@ static ssize_t ext2_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>  		pos = iocb->ki_pos;
+>  		status = generic_perform_write(iocb, from);
+>  		if (unlikely(status < 0)) {
+> -			ret = status;
+> +			if (!ret)
+> +				ret = status;
+>  			goto out_unlock;
+>  		}
+>  
+> -- 
+> 2.43.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
