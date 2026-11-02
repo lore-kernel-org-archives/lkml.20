@@ -1,68 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793662967;
-	b=ktBm3I7sZok/YTZzMwcj/ro2kJmW3IvrgwGrO+51aET0M7m8daoFTbTocJPxe6ethTV4
-	 8mfgPOE8gN40g0PShL/zysu0/nSX9licN0RnFidnVGbz8soeGpTL0KI4WTjkjGRkf2B4i
-	 b3KnfXkKGwjz4WkTklVDjBHk3CkwjxqneMAEMnpelj/aqVNJq4LYHyzOurAKUnXL5eVYl
-	 Ec8fRe3LZi1po5SkQGgAYmt4fwezwacH90pa1aZ8vwvmAhmWHd+vDkmxXuHJyj2tAHX4g
-	 dZXN2vWfc0zfCdsxp73RKT57wSKGzKsDjS/8f+UXYMH09Mv7dARNOwB2zmBJfpdqY7g==
+	t=1793662997;
+	b=WSF4QIuye4F89UabOXOmrtMojvyeaY1VcVG3dj9UbLAWYHOJ2ilKnCiKN9vMtNwO0QJe
+	 rPxQV6zZrm2Z2vJavVBffIvbb4Y9TBGdz3mgJ45aWSFQtBpaq3ClOBUfM/lLOdck/Dffh
+	 iZT3/kxhbln1B9zvSbbD5SU15vT+rXbU4OCakXmRdRrLqtRB83NCbPcUrJOHZsn5A1LM2
+	 R1fmtYFE3FEyI+/Dp3QHsX8E64YwUPqjd+9NBHykieLI8zYOpmN/LnWCMWfOuRE1iKbGH
+	 NUqzLdnJWujGSfOFKeOyahjuopFCjWsGlIvrFGIaRJ/SUpx2PLN9PCrO4y9nR6nelFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793662967;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=o3AyBdMUkVdCCJKAQY/1TakIHf1rsXe0QcmI773jn9M=;
-	b=yBS1V2qULUzRnfFA6gDZ7KZKzbJXuhbZ/ql+Gu7aNHw6WJ/pIcJs5yjLKbQtyRJhvsQw
-	 mRV1MpufkFy79Y5EpasPs6sOxX1IETsOzIiM6ZG+vZ+HT6g520IKMdATy+wbdWpHJhdbq
-	 /8CfmVkGYDGD+OeLA4hnj+Ch70ihJG6n5Kv8j/OHKGTbsHFEg75kuoFhyRUOvgQq2g/YA
-	 kJqQgOLog2hpAn0x68ptPaOBF3x1ZDpe0e8YiIptzItYOKkkRX8OfqSHdZJNIkDzMLTyX
-	 Hqwu6gmOqOoSP9mQAex8SLWhx+8XFGw3GXpy+ZkIYTd1bGsRMkRrhnls2x6ZDM5P90A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793662997;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=RCDzNKPwpp/Q/HkSclv5Zusf499nja7ZNvT3ZXN5ATk=;
+	b=x+krBXzbGSlOqpHEZKSFaGH+FzG6kM5ezSYLK4OA60sd68pFi9VV13n/6j5BJMiLuF16
+	 t2XLb9+HR7d2OThLka3tUekIR0Zk+DhWAuDWT7wRKB5q4mVii1RiC0iwclOY9wCv76nxr
+	 pBh8bNtwD9a26A1du3NHExf+7fQFhgd3muQ+xFTWXdnyvWaOavkdqLDWzlihNyVC8Va1R
+	 x8XikibdkYyw9rFBDN6whCmw5EKF+LRUDjM6c5j9x7CRHmcH18grQ8kiYcIS5uAwL4+nM
+	 1Lza2wpzm/3eF1SKlWcNZ69jK7mETMo84xZXrOgISxfzfh13d1Q02qXBNzES0iMeqQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ibl1EM8b;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f6V6RDuF;
+	arc=none smtp.remote-ip=74.125.82.69
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE17606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBE17606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7374E606A33C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:43:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7374E606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ibl1EM8b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793662952; x=1825198952;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=LXChv3V1vRZYD43vc5i6FcOX7rjeKYnWqEFenVJgnkE=;
-  b=ibl1EM8bw6yRMyaWDGjWfTHdXPm87QlLvtV24LuYOAYqGAKXVWb8uqcH
-   RYNoDRsl7iDDseunhSRP2inERugcJnSUMcd/q+bOcDVITHf11VN/LoIdq
-   BxvtFpMAi6bcrIzSxFoF5IUSa9eRDRX77Ra9xpkKHR0zCmGG7uDc0B9ja
-   FC10G++fh6po2NLXMSRsSMTqGvYHsGnUuJqVRvsNJfuADWJZeycs4z7WX
-   HoC7LcheKtjMllu5Mbo9AhR6fhRmrkWHgNQogKKamAZ1SRrZbuDBovkAg
-   xOemEAhrG+TA8Ol2/EKLDstWPzOiTvZYhYV8heGAohPGCWnURc6ref3+o
-   g==;
-X-CSE-ConnectionGUID: krU3tQ62SimkCnNUN1oIqA==
-X-CSE-MsgGUID: HEMIft9/QcmPSZxoBY53jw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2366699"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2366699"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 15:42:31 -0800
-X-CSE-ConnectionGUID: gLubmmTpTOCBojPNKbMtGw==
-X-CSE-MsgGUID: jh+VBy3gRB6jV2futItRiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6097933"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.163]) ([10.125.109.163])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 15:42:31 -0800
-Message-ID: <84b07585-6dec-45c5-ba5a-784d0da7a961@intel.com>
-Date: Mon, 2 Nov 2026 16:42:29 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f6V6RDuF
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1aa0fb7f157so5528651c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:43:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793662996; x=1794267796; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RCDzNKPwpp/Q/HkSclv5Zusf499nja7ZNvT3ZXN5ATk=;
+        b=f6V6RDuFAv+WlspbK0jUKd9ykn98XIEc5qKjAYKp5AELMfxzAXdvJuC1eaeC7ODgiW
+         J+CIPIE/T7NUTZPdC68wG1YT/XGLkJ6EVw5SgV3yy0lNf8SWwUWDTJ0VzEwQN0v5DOAQ
+         MaVzAXe7L1dRYfv7JYt09wG2qcxB0CJM8dWOJqe8TpNTMReMbgqBPM/2sXrWYmmiFYSF
+         DoLrOT4gRSVnPcCpufrnXITNDBEwDD6WepjE5VQAKA4vr31bXt8QaMOnoRNcnq0RJVB8
+         zu9Hd48YjaEztGdG2OAbqpjKC5wj9nnkOIG0S/cZB+03EWgATet3kh2lzJhCrdew39mj
+         2DIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793662996; x=1794267796;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RCDzNKPwpp/Q/HkSclv5Zusf499nja7ZNvT3ZXN5ATk=;
+        b=t8tsdcEYI4UHP3jlc8MHa6BE9I45p6FPsg51285GCx7931u4cP1EkGuj7/Ev/JHlTe
+         YnnyqzziBkVrKxI7Gcd6pOzUiCPHifx2Ode50ZKXah19sOoFXyBRyzSf5YIhcyo0mOh7
+         EceQFES6jz/n46d3kB+zN9M6uxzbEf0vNP8vsw8P7L5XCv/o1/epFe83I5xtfSHYYrdM
+         FVUS00jOn+OpQW1gALzn0nsHP7LlgVheE2IRYhURLtNdw2O+KW9l/8kfFYcAJvIPGlaY
+         QnvqfEgaJpXaW+MPamC9wkkOxQT8VwVuxtOo4ToJQvf+ZAOUSPz/Jb5iG+2DFrXRC6xd
+         72jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz3hWEMarKgj7Qt/apVRJoMH0+i4uEYEDrU/kOquDq5lH1MDdVsaDti+GUC2PGDg4F8Tjsq0jcvDL3Rtq4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXp8Aw6xdgFwflkCbWitvC4RpBZUyeQbRfbKMGb9y2CFBmMZJ9
+	qCUjCPnRSjFpOgan6B/aVVRDsCBH9SvGDS3UEoL+SXxHt3Ll/l4fSb+BplLyJHm8vFGyWwtW4Iz
+	u5sTupvCKiQ==
+X-Received: from dlep8-n1.prod.google.com ([2002:a05:701b:4588:10b0:168:3bc7:9e8])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4213:10b0:1a4:fac9:aeee
+ with SMTP id a92af1059eb24-1ac56d95c0amr16914327c88.4.1793662996134; Mon, 02
+ Nov 2026 15:43:16 -0800 (PST)
+Date: Mon,  2 Nov 2026 15:42:59 -0800
+In-Reply-To: <20261102234301.2242242-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,97 +78,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] ntb: use dmaengine_desc_set_callback()
-To: Frank.Li@oss.nxp.com, Jon Mason <jdmason@kudzu.us>,
- Allen Hubbe <allenbh@gmail.com>, Matt Porter <mporter@kernel.crashing.org>,
- Alexandre Bounine <alex.bou9@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Andrew Morton <akpm@linux-foundation.org>, James Kim
- <james010kim@gmail.com>, Dan Carpenter <error27@gmail.com>,
- "open list:NTB DRIVER CORE" <ntb@lists.linux.dev>,
- open list <linux-kernel@vger.kernel.org>
-Cc: imx@lists.linux.dev, vkoul@kernel.org
-References: <20261102195748.4092882-1-Frank.Li@oss.nxp.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261102195748.4092882-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261102234301.2242242-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261102234301.2242242-2-irogers@google.com>
+Subject: [PATCH v15 1/3] dt-bindings: perf: Add Broadcom Raspberry Pi AXI PMU definition
+From: Ian Rogers <irogers@google.com>
+To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Dom Cobley <popcornmix@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	"=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=" <u.kleine-koenig@baylibre.com>, Stefan Wahren <wahrenst@gmx.net>, 
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+	bcm-kernel-feedback-list@broadcom.com, linux-perf-users@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Add device tree bindings for the Broadcom Raspberry Pi AXI PMU block
+found on BCM2835, BCM2711, and BCM2712 SoCs.
 
+Depending on the SoC and security configuration, these PMUs support
+either direct MMIO access for the System monitor or routing via the
+Raspberry Pi firmware mailbox IPC for the VideoCore VPU monitor.
 
-On 11/2/26 12:57 PM, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Replace open-coded assignments to callback and callback_param fields
-> of struct dma_async_tx_descriptor with calls to the
-> dmaengine_desc_set_callback() helper across ntb drivers.
-> 
-> No functional change intended. Prepare to make struct
-> dma_async_tx_descriptor private to the DMA engine.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Co-developed-by: Dom Cobley <popcornmix@gmail.com>
+Signed-off-by: Dom Cobley <popcornmix@gmail.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ .../bindings/perf/brcm,bcm2835-axiperf.yaml   | 50 +++++++++++++++++++
+ MAINTAINERS                                   |  7 +++
+ 2 files changed, 57 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/perf/brcm,bcm2835-axiperf.yaml
 
-For the NTB bits:
-Acked-by: Dave Jiang <dave.jiang@intel.com>
-
-> ---
->  drivers/ntb/ntb_transport.c              | 6 ++----
->  drivers/ntb/test/ntb_perf.c              | 3 +--
->  drivers/rapidio/devices/rio_mport_cdev.c | 3 +--
->  3 files changed, 4 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index f9caa1a653c5b..370196ecf8f9d 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -1557,8 +1557,7 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
->  	if (!txd)
->  		goto err_get_unmap;
->  
-> -	txd->callback_result = ntb_rx_copy_callback;
-> -	txd->callback_param = entry;
-> +	dmaengine_desc_set_callback(txd, NULL, ntb_rx_copy_callback, entry);
->  	dma_set_unmap(txd, unmap);
->  
->  	cookie = dmaengine_submit(txd);
-> @@ -1889,8 +1888,7 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
->  	if (!txd)
->  		goto err_get_unmap;
->  
-> -	txd->callback_result = ntb_tx_copy_callback;
-> -	txd->callback_param = entry;
-> +	dmaengine_desc_set_callback(txd, NULL, ntb_tx_copy_callback, entry);
->  	dma_set_unmap(txd, unmap);
->  
->  	cookie = dmaengine_submit(txd);
-> diff --git a/drivers/ntb/test/ntb_perf.c b/drivers/ntb/test/ntb_perf.c
-> index dfd175f79e8f0..862b3dffa2b17 100644
-> --- a/drivers/ntb/test/ntb_perf.c
-> +++ b/drivers/ntb/test/ntb_perf.c
-> @@ -834,8 +834,7 @@ static int perf_copy_chunk(struct perf_thread *pthr,
->  		goto err_free_resource;
->  	}
->  
-> -	tx->callback = perf_dma_copy_callback;
-> -	tx->callback_param = pthr;
-> +	dmaengine_desc_set_callback(tx, perf_dma_copy_callback, NULL, pthr);
->  	dma_set_unmap(tx, unmap);
->  
->  	ret = dma_submit_error(dmaengine_submit(tx));
-> diff --git a/drivers/rapidio/devices/rio_mport_cdev.c b/drivers/rapidio/devices/rio_mport_cdev.c
-> index 40d2953a9a7f9..585e3f9ff29ca 100644
-> --- a/drivers/rapidio/devices/rio_mport_cdev.c
-> +++ b/drivers/rapidio/devices/rio_mport_cdev.c
-> @@ -717,8 +717,7 @@ static int do_dma_request(struct mport_dma_req *req,
->  		goto err_out;
->  	}
->  
-> -	tx->callback = dma_xfer_callback;
-> -	tx->callback_param = req;
-> +	dmaengine_desc_set_callback(tx, dma_xfer_callback, NULL, req);
->  
->  	req->status = DMA_IN_PROGRESS;
->  	kref_get(&req->refcount);
+diff --git a/Documentation/devicetree/bindings/perf/brcm,bcm2835-axiperf.yaml b/Documentation/devicetree/bindings/perf/brcm,bcm2835-axiperf.yaml
+new file mode 100644
+index 000000000000..08d8c7c7e476
+--- /dev/null
++++ b/Documentation/devicetree/bindings/perf/brcm,bcm2835-axiperf.yaml
+@@ -0,0 +1,50 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/perf/brcm,bcm2835-axiperf.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Broadcom BCM2835/2711/2712 AXI Performance Monitor
++
++maintainers:
++  - Ian Rogers <irogers@google.com>
++
++description: |
++  The Broadcom BCM2835 series (including BCM2711 and BCM2712) features hardware
++  performance monitors on the AXI bus for evaluating memory bandwidth and
++  system traffic. Two monitor register blocks are present: the primary monitor
++  evaluates the System fabric, while the secondary monitor evaluates the
++  VideoCore VPU fabric. This block is distinct from the BCM5301X AXI Trace
++  Module.
++
++properties:
++  compatible:
++    enum:
++      - brcm,bcm2711-axiperf
++      - brcm,bcm2712-axiperf
++      - brcm,bcm2835-axiperf
++
++  reg:
++    items:
++      - description: System monitor registers
++      - description: VPU monitor registers
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    pmu@7e009800 {
++        compatible = "brcm,bcm2835-axiperf";
++        reg = <0x7e009800 0x100>,
++              <0x7ee08000 0x100>;
++    };
++  - |
++    pmu@7c012800 {
++        compatible = "brcm,bcm2712-axiperf";
++        reg = <0x7c012800 0x100>,
++              <0x7ee00000 0x100>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..b8a3cb005c91 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5338,6 +5338,13 @@ N:	bcm113*
+ N:	bcm216*
+ N:	kona
+ 
++BROADCOM BCM2835 AXI PMU DRIVER
++M:	Ian Rogers <irogers@google.com>
++L:	linux-perf-users@vger.kernel.org
++L:	linux-rpi-kernel@lists.infradead.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/perf/brcm,bcm2835-axiperf.yaml
++
+ BROADCOM BCM2835 CAMERA DRIVERS
+ M:	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+ L:	linux-media@vger.kernel.org
+-- 
+2.56.0.385.gac671c819a-goog
 
