@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.85
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793586236;
-	b=Wh7wrPKeDfnglxWNcE1yU5iHw4/9G/+8YGyGBQCYAI687Dp+sYLlgOcS9mvaWJmyHQ9T
-	 zVK9sTXIWOZ/mj3pW0fJYp2rO0FLNCOKmcUCvJUgMcgmjf31EEICRV5OecGV4MnW1fv9f
-	 wem5K8qF5KQDr3qsJYm9gwjbLZNZ7kxglRtEzIJ6NRpgNyGW69tByt3JDez+GwtKXaZH5
-	 7JDe6pu0iDm0pqD2CdHWideqPTYoD+b69y1SdiMGlPgrFhdyABMZjENaWqvjy96DaNhvN
-	 7yqK3ZPpwBjH8URQ7QmrL9jEmktnBHNEiqPfO6pqLD9PiDZDswJECCISwn8A13QgbSA==
+	t=1793586299;
+	b=cFvS5cPFJ07OySXa7QLlSXEHqPf5GkGKNBfil49MWWD/uCQfTbx9VVZbiugVz9bM4nJ8
+	 q9sfzwk0G3gz6ZUoDf1rZkEg3dYUaBth5/i30sppeSEN3GiUzIO/5RGvzmJirnmB0SBqY
+	 hzc7OMiy297bBYbnkh50czBmCYK5sQBDw6jDQI0tOYuhAioCmfGs0pBwlFUJNkQem3r3R
+	 1EbAhX04sd0s8QgwTjj7EvgRMEbmGSNg0iBco8W+g/iX/CEijbpC4NSxbxnL6koTSS2zI
+	 rxYqCXdDtHwiggwp9wGIy5BQTUB6TRsrWzs1ID232tcG6pxY+eAz6rE+jIDYWPxHZhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793586236;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gz5AWrOwF+eMYz6dvsxu4Bgg5u11ePYMcl7sZ0k9G5Y=;
-	b=YD0/zJgiN5wVXi0nIe4Dd10kXijF85gz4mzPlk7PqCSic+55nlxbcRnTgIN3rzQJkq6o
-	 mXrCtunfJEWIMmhUwWUNOyDLBWeLC2eHwLGyjZKiDwrakZYQjB+gVBTB6/S4PBAawJ8Xd
-	 mQbhP2J3aSfSRAsT+dCsVz1sqXf0u8XbM4YW2HiIAI/JusOQpZNCcO2VyNU/pRL6w2YS7
-	 84r3LN3RR4roU3/i994v4IxN4j7jZIPdZEKFnBhDvnZOxH4B5Vs/o5aBm6bsMGS4T1vo6
-	 ApYE46dJ2mDFshC251qTlEEpW+uMVceH/JqPZ3QNxRlqK/Ou9jwXMO2sA/Sw2Aisewg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793586299;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=2mnsyMY9o09dxT12b5diRUF6Cicg8w6KasRAQlIeI/I=;
+	b=iXKKf7hVSTB2/DPyCxNJvdAQACRtdP2DuuopyLKSwuJEf0npyImAXp555ccabb9dfRbM
+	 sGccR13w6G0Zk3L4uDA4+Ca/KCxCI9iDFeNh4CJPPgyD5WL/q21ZKihOWSShP5JY9Ulk9
+	 mPesR4ImmR7fI+e14g3aUJQ8Gk7lVyZM5oH9e9nkisvn2Q3GENO3MOQa08XN4uHXextaI
+	 WWtghhV9piX+F6IyocEoqCpNc6cbMBaB8RVTnnedZX58ilC++pPo1twez0WOY2qufV8Ie
+	 DuG/gxIqeH1tivW/EqSnOQqXuywJjYFreDcMZYiCac8JqmvkOsZE93CgODj1Hlk8j9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsNY7HU0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RddVEMc0;
+	arc=none smtp.remote-ip=91.218.175.85
+Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8E1606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:23:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA99606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:24:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CA99606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsNY7HU0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16551F0093A;
-	Mon,  2 Nov 2026 02:23:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793586235;
-	bh=gz5AWrOwF+eMYz6dvsxu4Bgg5u11ePYMcl7sZ0k9G5Y=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=SsNY7HU0g6zxYpVGBwA2RrD+kUjJSjedeTfWV27RiqyxDiW2TGOTnc+F7+loO/Cgu
-	 keOOTlI3tLPuIVeqU/Q+xUgpYB4DugV4PuVSvYjDErDzxVVJQSw1KbcysRddt0rq6V
-	 UVB3uf0Qfu9TLIRN8ZdE1p19ItDYHbt7003PjBAR+cX1PG/RXsF8vFPgjMycD4Webw
-	 nw6y9oQlNshWxPBE/oglSb5Z2B+ynuExcAOiqAgCXcozmK62/pi5dm8OQ90B7EP7cN
-	 VX1WuJq7iGxSjpSfOq2p6L2ID6rF7vZ2991Beo9KTDu63WS5H52ivmIhq1fwBz28sU
-	 xbcToWKGaY8ww==
-Message-ID: <abdfe196-e847-4f11-8d1e-b53bc565a078@kernel.org>
-Date: Mon, 2 Nov 2026 10:23:52 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RddVEMc0
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9MWJaTq44xn+tvTxU7mQ3vu6AIJLcPaBU+1NzYl4ghk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793586296; v=1; x=1794191096;
+ b=RddVEMc0Nc6NAvlP05NTHE/hYX6XO7jCA5N64VxWF8G/+V12NHaXseYCOduZ0SctWX3A7uDu
+ L+u9fua1pQ5u2i6+Vm7RredncvQPNGs4PAdTii9cVvi5XHeCVlBVbfXRwIe4gik+HI9JdH4yyKr
+ KjWpVYrcR93TY51p6/OHadUw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 112a86c3f0c26040;
+	Mon, 02 Nov 2026 02:24:56 +0000
+X-Mizu-Trace-ID: 112a86c3f0c26040
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,41 +57,170 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] f2fs: report sub-block project quotas in statfs
-To: Hungyu Lin <dennylin0707@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20261101230552.55034-1-dennylin0707@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261101230552.55034-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v3] hugetlbfs: move hugetlbfs_free_inode tracepoint to
+ ->destroy_inode()
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com>
+Date: Mon, 2 Nov 2026 10:24:38 +0800
+Cc: Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Hongbo Li <lihongbo22@huawei.com>,
+ linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6FC96012-76AA-483B-BDA4-8E1C1ABB5FFE@linux.dev>
+References: <20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com>
+To: joasantonio108@gmail.com
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-On 11/2/26 07:05, Hungyu Lin wrote:
-> f2fs_statfs_project() converts the selected block quota from bytes to
-> filesystem blocks before checking whether a limit is set. A nonzero
-> limit smaller than one filesystem block therefore becomes zero and
-> skips the project block statistics.
-> 
-> For example, on a filesystem with 4 KiB blocks, setquota accepts a
-> 1 KiB project hard limit, but df on the project-inherit directory
-> reports the filesystem-wide capacity and free space instead of zero
-> whole blocks. Quota enforcement still rejects a write that requires
-> another data block.
-> 
-> Check the byte limit before converting it to blocks. This distinguishes
-> a sub-block limit from an unlimited quota while retaining the existing
-> rounding and free-space calculations.
-> 
 
-Cc: stable@vger.kernel.org
 
-> Fixes: ddc34e328d06 ("f2fs: introduce f2fs_statfs_project")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> On Nov 1, 2026, at 21:48, Joas Antonio dos Santos via B4 Relay =
+<devnull+joasantonio108.gmail.com@kernel.org> wrote:
+>=20
+> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+>=20
+> hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
+> hugetlbfs__inode event class records inode->i_sb->s_dev.  =
+->free_inode()
+> runs from an RCU callback (destroy_inode() queues i_callback() with
+> call_rcu()), and Documentation/filesystems/porting.rst says that this
+> callback "is *NOT* ordered wrt superblock destruction; as the matter =
+of
+> fact, the superblock and all associated structures might be already
+> gone".  put_super() frees the superblock with call_rcu() followed by a
+> workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
+> hit this with the event enabled:
+>=20
+>  BUG: KASAN: slab-use-after-free in =
+trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 =
+include/trace/events/hugetlbfs.h:36
+>  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
+>   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
+>   i_callback+0x46/0x80 fs/inode.c:317
+>   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+>   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
+>  Allocated by task 6134:
+>   alloc_super fs/super.c:326 [inline]
+>   sget_fc+0x1ba/0x1f60 fs/super.c:874
+>   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
+>  Freed by task 855:
+>   kfree+0x22b/0x6d0 mm/slub.c:6923
+>   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+>=20
+> Emit the event from hugetlbfs_destroy_inode() instead.  =
+destroy_inode()
+> calls ->destroy_inode() synchronously, before it queues the RCU
+> callback, while the superblock is still alive; =
+hugetlbfs_destroy_inode()
+> already dereferences inode->i_sb there.  ->free_inode() is left with
+> only the kmem_cache_free().
+>=20
+> Since the event no longer fires from ->free_inode(), rename it to
+> hugetlbfs_destroy_inode so that its name matches where it is emitted,
+> as suggested by David and Muchun.
+>=20
+> Found by syzbot; analysed and tested with the syzbot C reproducer on =
+an
+> arm64 KASAN kernel.
+>=20
+> Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs =
+functions.")
+> Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
+> Closes: =
+https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Suggested-by: Muchun Song <muchun.song@linux.dev>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+> ---
+> Andrew, this replaces
+> hugetlbfs-emit-hugetlbfs_free_inode-from-destroy_inode.patch in
+> mm-hotfixes-unstable.
+>=20
+> Tested with the syzbot C reproducer (adjusted for the new event name)
+> on an arm64 KASAN kernel: no splat in 3 of 3 boots, and
+> hugetlbfs_destroy_inode events are recorded.
+>=20
+> Tool-use note: the analysis and testing were done with help from an
+> LLM-based assistant; I reviewed the change and ran the tests myself.
+> ---
+> Changes in v3:
+> - Rename the tracepoint to hugetlbfs_destroy_inode in the same patch,
+>  so its name matches where it now fires (David, Muchun).
+> - v2 was the resend with the Assisted-by trailer dropped; it should
+>  have been marked v2 in the subject, sorry about that.
+> - Link to v2: =
+https://lore.kernel.org/r/20261031-b4-hugetlbfs-trace-v1-1-4ec8d02a30cc@gm=
+ail.com
+> ---
+> fs/hugetlbfs/inode.c             | 6 +++++-
+> include/trace/events/hugetlbfs.h | 2 +-
+> 2 files changed, 6 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+> index 01c4d6f44e..095b7fceee 100644
+> --- a/fs/hugetlbfs/inode.c
+> +++ b/fs/hugetlbfs/inode.c
+> @@ -1179,12 +1179,16 @@ static struct inode =
+*hugetlbfs_alloc_inode(struct super_block *sb)
+>=20
+> static void hugetlbfs_free_inode(struct inode *inode)
+> {
+> -	trace_hugetlbfs_free_inode(inode);
+> 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
+> }
+>=20
+> static void hugetlbfs_destroy_inode(struct inode *inode)
+> {
+> +	/*
+> +	 * Not in ->free_inode(): that runs from an RCU callback, when =
+the
+> +	 * superblock the event reads may already be freed.
+> +	 */
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+Since the trace point name has already been changed, the comment here
+doesn't seem to serve much purpose anymore, as there isn't any =
+ambiguity.
 
-Thanks,
+With the comment removed:
+
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
+
+> +	trace_hugetlbfs_destroy_inode(inode);
+> 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
+> }
+>=20
+> diff --git a/include/trace/events/hugetlbfs.h =
+b/include/trace/events/hugetlbfs.h
+> index 8ba72c1d4f..a7932e0db0 100644
+> --- a/include/trace/events/hugetlbfs.h
+> +++ b/include/trace/events/hugetlbfs.h
+> @@ -72,7 +72,7 @@ DEFINE_EVENT(hugetlbfs__inode, =
+hugetlbfs_evict_inode,
+> 	TP_ARGS(inode)
+> );
+>=20
+> -DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_free_inode,
+> +DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_destroy_inode,
+>=20
+> 	TP_PROTO(struct inode *inode),
+>=20
+>=20
+> ---
+> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+> change-id: 20261031-b4-hugetlbfs-trace-341b338ab57b
+>=20
+> Best regards,
+> --=20
+> Joas Antonio dos Santos <joasantonio108@gmail.com>
+>=20
+>=20
+
