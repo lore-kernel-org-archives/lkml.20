@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628844;
-	b=5BHFKdSY42sSIE/umZaXE4T7DrUYR7u+ag+yq9cujj2K9XyRbj97EHzLPibnygSg57NI
-	 7hwBuR+QWnMrzzSlspSIdSnTLEp2uLIR0IHRX4wEjGEuIg1pgHmFwltZmUVb4MdJPJNFN
-	 I+uHC2/0PE3O8DCpWJfUNPUzRSs4yQX5eWyNaAHBad7InhSZbKR1vQAJRmjcSGFsm4x9I
-	 k2epyoWJf/DPI8FTY+InHfzIlnbaTApGrNvWP2L4cpFDskgx3oJBtaleKLOwr2VkDzCf5
-	 zYx3/9xzisxrmEA5HoDWor01l/ziVKtRYx/8feyiWJwP+HWY7MM6mFoYxESTm+0EScg==
+	t=1793628835;
+	b=ySdH9y6j7BE53CagZb5/5BSwlDUT0kzXjypFS3Q3eCyTJlgmcbTfJwZbqVjj9Ri/PpiE
+	 vAGqdBbhL9HozK9X2ia9ikTKmYqeqG8yJ5Rkth3rAew2AX/eLpvmV1BVNmQfmzio9u+x0
+	 Ft5eG6SJ//xvjGb8O1/ueyxJmDz1bq0nYHs1E79jKhhGdVKbyatP6uNaka0/Vhb16+iIe
+	 ykL5rrrcbHSo4Mu7Sa1cecwBjPucwCUqNfi1FS3QYx0uteu6elU/jtYeoMp/j6itbx2z4
+	 Q/iueKaTgjgPzMDdF0oiNe8CnCk8FP1W5FdEfTh/vrNfdY0FBQ2tM61rml3kKkUAAYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628835;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hhfgOVJdNtvAKvMMAlMB+tTG2sdyeu2GcY5bkTFaCl4=;
-	b=b59rPhsncBtYE1q5Y0QZ0uE/N+5vd0ukurq5iMutaGxqi43+zOuXy8U0RIRJsMBphC0i
-	 TmYXkgYIYtTABEGWmfdpK+Zoh97BCjArCGfTDGBrMIvea+WTRDxCgBawEBRb2t7s0okvK
-	 r88W0P1fbYgZp7t3o8hr8+3dU1vHwMCf02jt2nIFXv27qjc2vTQC+MuHhq+QWUmyWNmVx
-	 vOnzI7HsCwBLROSNYSv+q2Dqgc0HZ9Y6S7oml9GiccKA/hw/Ao8Xbwg/ZLWj3mUcAkx0V
-	 LIrEmbtqpyz4bgYv1z0z9w/2kQ9eo+ir1Ltx5r42p6gzM2JgAMxDM++BgVZEt4V+uIw==
+	bh=0CR6E+bn1Yy6xbocFj/9seNy7JbEsK4i2xFk1mAZAKA=;
+	b=IM0Z8Mly/l5wnx7A4uIzoqVrv2mPa471ngRpajxsTRuaFlpF+dKDby6OVaxijHsi+Ffu
+	 a7O89nnc1q2IXjolCBxKaO8X1E+vBW/CFLjnN+Z0pvjEruG2NyEooCBHTEHxJswLZs72s
+	 jn+20HiwXa6jHwpoubnJ72ytbL4MmAnk1XZSs2vrRkTIcT+HeS612059XmF52zXJwfFfj
+	 f9MR4yZfW+naUs4whkXK9JaWx37bNkZqtUhZBYDKplYafl5H9RWHc+yNN49H8ni8hT6km
+	 /HSzMyQh/6ZnWijc9w18FMkGXWJ/63JI3CyO1gmUUbIRZnP7FQXYSNyyxfOEgXsR/9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=tNVEtYz1;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="M111ZIT/";
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A56A860A2617;
-	Mon,  2 Nov 2026 14:14:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A56A860A2617
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C101B606A334;
+	Mon,  2 Nov 2026 14:13:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C101B606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=tNVEtYz1
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M111ZIT/
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F1CBE19F0;
-	Mon,  2 Nov 2026 06:13:59 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B40B619F0;
+	Mon,  2 Nov 2026 06:13:50 -0800 (PST)
 Received: from e122027.arm.com (unknown [10.57.58.9])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5FCEC3F59E;
-	Mon,  2 Nov 2026 06:13:58 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 206613F59E;
+	Mon,  2 Nov 2026 06:13:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793628843; bh=6t1ZbeHw0asCe0zzWHPtNRjhDSD2fGCqJ1RNvTWHPZs=;
+	t=1793628833; bh=oP2Nt6Drf3zSmA8WscZ35ko8TghDQk6KJhslmNIwLj4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tNVEtYz1hz0TPuKO5dVNcPawZukohIzIi6eZYl3kx2gtIMI53teMRfvtIfR7bwX3K
-	 1siJdGKrrmudBE8SGH48shj+P7Z4AYSXHWSJxMDtxLwrBtoPcqQxZZ50Q6A7rShFWb
-	 DVBJwiRlG2uKAUY2I0Uz4c4IecU/HTKk+2LkTztk=
+	b=M111ZIT/1UoC+/KjFk6KePEqAYvvmSwrLhIZF/WOUujjTmowUMbsSRLnMyW50wBto
+	 W86UqS0oidrwtuYxWd7fc0cCUzqzhgb5QDshOy5A1jHCSzq8OJfQNpz3z6xlS6fo/f
+	 DDWyF8GMkXY7OuFqNQ9v5uYSM4+MEP+mLrFos5f0=
 From: Steven Price <steven.price@arm.com>
 To: kvm@vger.kernel.org,
 	kvmarm@lists.linux.dev
-Cc: Steven Price <steven.price@arm.com>,
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Catalin Marinas <catalin.marinas@arm.com>,
 	Marc Zyngier <maz@kernel.org>,
 	Will Deacon <will@kernel.org>,
 	James Morse <james.morse@arm.com>,
 	Oliver Upton <oliver.upton@linux.dev>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Zenghui Yu <yuzenghui@huawei.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
@@ -68,10 +67,11 @@ Cc: Steven Price <steven.price@arm.com>,
 	Emi Kisanuki <fj0570is@fujitsu.com>,
 	Vishal Annapurve <vannapurve@google.com>,
 	WeiLin.Chang@arm.com,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>
-Subject: [PATCH 07/11] KVM: arm64: CCA: Tear down RTTs
-Date: Mon,  2 Nov 2026 14:12:58 +0000
-Message-ID: <20261102141304.126883-8-steven.price@arm.com>
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Steven Price <steven.price@arm.com>
+Subject: [PATCH 05/11] KVM: arm64: Handle attributes in stage2_unmap_range
+Date: Mon,  2 Nov 2026 14:12:56 +0000
+Message-ID: <20261102141304.126883-6-steven.price@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102141304.126883-1-steven.price@arm.com>
 References: <20261102141304.126883-1-steven.price@arm.com>
@@ -86,315 +86,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RMM owns the stage 2 page tables for a realm, and KVM must request
-that the RMM creates/destroys entries as necessary. The physical pages
-to store the page tables are delegated to the realm as required, and can
-be undelegated when no longer used.
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-Creating new RTTs is the easy part, tearing down is a little more
-tricky. The result of realm_rtt_destroy() can be used to effectively
-walk the tree and destroy the entries (undelegating pages that were
-given to the realm).
+With the introduction of private memory support, we need to
+handle invalidation requests with filters for a given type.
+Add support for passing the attributes down.
 
-Unmap the Realm IPA space once during stage-2 teardown. Defer destruction
-of non-root RTTs until final Realm destruction, after REALM_TERMINATE and
-before destroying the RD; root RTTs remain until the RD has gone away.
-
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 Signed-off-by: Steven Price <steven.price@arm.com>
 ---
- arch/arm64/include/asm/kvm_rmi.h |   9 ++
- arch/arm64/kvm/mmu.c             |  17 ++-
- arch/arm64/kvm/rmi.c             | 189 +++++++++++++++++++++++++++++++
- 3 files changed, 214 insertions(+), 1 deletion(-)
+ arch/arm64/include/asm/kvm_host.h |  4 +++-
+ arch/arm64/kvm/mmu.c              | 31 +++++++++++++++++++++++--------
+ 2 files changed, 26 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/asm/kvm_rmi.h
-index f1a1ed6b91f5..58d825e40bdf 100644
---- a/arch/arm64/include/asm/kvm_rmi.h
-+++ b/arch/arm64/include/asm/kvm_rmi.h
-@@ -57,6 +57,7 @@ enum realm_state {
-  * @sro: Preallocated SRO state context for Realm MMU operations
-  * @state: The lifetime state machine for the realm
-  * @ia_bits: Number of valid Input Address bits in the IPA
-+ * @stage2_unmapped: The Realm stage-2 mappings have been removed
-  */
- struct realm {
- 	void *rd;
-@@ -70,6 +71,7 @@ struct realm {
- 	struct rmi_sro_state *sro;
- 	enum realm_state state;
- 	unsigned int ia_bits;
-+	bool stage2_unmapped;
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 7d0222047ca1..41e15230263d 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -241,6 +241,7 @@ struct kvm_vcpu_ops {
  };
  
- void kvm_init_rmi(void);
-@@ -77,5 +79,12 @@ u32 kvm_rmm_ipa_limit(void);
+ struct kvm_gfn_range;
++enum kvm_gfn_range_filter;
+ struct kvm_s2_fault_desc;
  
- int kvm_init_realm(struct kvm *kvm);
- void kvm_destroy_realm(struct kvm *kvm);
-+int kvm_realm_teardown_stage2(struct kvm *kvm);
-+
-+static inline bool kvm_realm_is_private_address(struct realm *realm,
-+						unsigned long addr)
-+{
-+	return !(addr & BIT(realm->ia_bits - 1));
-+}
+ struct kvm_vm_s2_ops {
+@@ -251,7 +252,8 @@ struct kvm_vm_s2_ops {
+ 					  u64 nr_pages);
+ 	void (*vm_stage2_unmap_range)(struct kvm_s2_mmu *mmu,
+ 				      phys_addr_t start, u64 size,
+-				      bool may_block);
++				      bool may_block,
++				      enum kvm_gfn_range_filter filter);
+ 	int (*vm_mem_abort)(const struct kvm_s2_fault_desc *s2fd);
+ };
  
- #endif /* __ASM_KVM_RMI_H */
 diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index b049ea67d9af..51fda7b2ff7f 100644
+index 34ddcb2f094a..1301c563d705 100644
 --- a/arch/arm64/kvm/mmu.c
 +++ b/arch/arm64/kvm/mmu.c
-@@ -1145,9 +1145,24 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
- 	return err;
+@@ -324,7 +324,8 @@ static int kvm_pgtable_stage2_unmap_tracked(struct kvm_pgtable *pgt,
+ 
+ static void kvm_vm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
+ 				      phys_addr_t start,
+-				      u64 size, bool may_block)
++				      u64 size, bool may_block,
++				      enum kvm_gfn_range_filter filter)
+ {
+ 	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+ 	int (*fn)(struct kvm_pgtable *, u64, u64);
+@@ -339,14 +340,16 @@ static void kvm_vm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
+ 
+ static void pkvm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
+ 				    phys_addr_t start,
+-				    u64 size, bool may_block)
++				    u64 size, bool may_block,
++				    enum kvm_gfn_range_filter filter)
+ {
+ 	WARN_ON(stage2_apply_range(mmu, start, start + size,
+ 				   pkvm_pgtable_stage2_unmap, may_block));
  }
  
-+static void kvm_realm_uninit_stage2(struct kvm_s2_mmu *mmu)
-+{
-+	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-+
-+	mutex_lock(&kvm->arch.config_lock);
-+	if (kvm_realm_state(kvm) == REALM_STATE_ACTIVE) {
-+		kvm_set_realm_state(kvm, REALM_STATE_DYING);
-+		WARN_ON(kvm_realm_teardown_stage2(kvm));
-+	}
-+	mutex_unlock(&kvm->arch.config_lock);
-+}
-+
- void kvm_uninit_stage2_mmu(struct kvm *kvm)
+ static void no_stage2_unmap_range(struct kvm_s2_mmu *mmu,
+-				  phys_addr_t start, u64 size, bool may_block)
++				  phys_addr_t start, u64 size, bool may_block,
++				  enum kvm_gfn_range_filter filter)
  {
--	kvm_free_stage2_pgd(&kvm->arch.mmu);
-+	if (kvm_vm_is_realm(kvm))
-+		kvm_realm_uninit_stage2(&kvm->arch.mmu);
-+	else
-+		kvm_free_stage2_pgd(&kvm->arch.mmu);
- 	kvm_mmu_free_memory_cache(&kvm->arch.mmu.split_page_cache);
  }
  
-diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
-index 45ecbaa467d1..f190143b33ba 100644
---- a/arch/arm64/kvm/rmi.c
-+++ b/arch/arm64/kvm/rmi.c
-@@ -11,6 +11,14 @@
- #include <asm/kvm_pgtable.h>
- #include <asm/virt.h>
- 
-+static inline unsigned long rmi_rtt_level_mapsize(int level)
-+{
-+	if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
-+		return PAGE_SIZE;
-+
-+	return (1UL << ARM64_HW_PGTABLE_LEVEL_SHIFT(level));
-+}
-+
- static bool rmi_has_feature(int reg, unsigned long feature)
- {
- 	return !!u64_get_bits(rmi_feat_reg(reg), feature);
-@@ -21,11 +29,180 @@ u32 kvm_rmm_ipa_limit(void)
- 	return u64_get_bits(rmi_feat_reg(0), RMI_FEATURE_REGISTER_0_S2SZ);
+@@ -388,25 +391,36 @@ static int kvm_pgtable_stage2_unmap_tracked(struct kvm_pgtable *pgt, u64 addr, u
  }
  
-+static int get_start_level(struct realm *realm)
-+{
-+	return 4 - stage2_pgtable_levels(realm->ia_bits);
-+}
-+
-+static void free_rtt(phys_addr_t phys)
-+{
-+	if (rmi_free_delegated_page(phys))
-+		return;
-+
-+	kvm_account_pgtable_pages(phys_to_virt(phys), -1);
-+}
-+
-+/*
-+ * realm_rtt_destroy - Destroy an RTT at @level for @addr.
-+ *
-+ * Returns - Result of the RMI_RTT_DESTROY call, and:
-+ * @rtt_granule:	RTT granule, if the RTT was destroyed.
-+ * @next_addr:		IPA corresponding to the next possible valid entry we
-+ *			can target
-+ */
-+static long realm_rtt_destroy(struct realm *realm, unsigned long addr,
-+			      int level, phys_addr_t *rtt_granule,
-+			      unsigned long *next_addr)
-+{
-+	unsigned long out_rtt;
-+	long ret;
-+
-+	ret = rmi_rtt_destroy(virt_to_phys(realm->rd), addr, level,
-+			      &out_rtt, next_addr);
-+
-+	*rtt_granule = out_rtt;
-+
-+	return ret;
-+}
-+
-+static int realm_tear_down_rtt_level(struct realm *realm, int level,
-+				     unsigned long start, unsigned long end)
-+{
-+	ssize_t map_size;
-+	unsigned long addr, next_addr;
-+
-+	if (WARN_ON(level > KVM_PGTABLE_LAST_LEVEL))
-+		return -EINVAL;
-+
-+	map_size = rmi_rtt_level_mapsize(level - 1);
-+
-+	for (addr = start; addr < end; addr = next_addr) {
-+		phys_addr_t rtt_granule;
-+		long ret;
-+		unsigned long align_addr = ALIGN(addr, map_size);
-+
-+		next_addr = ALIGN(addr + 1, map_size);
-+
-+		if (next_addr > end || align_addr != addr) {
-+			/*
-+			 * The target range is smaller than what this level
-+			 * covers, recurse deeper.
-+			 */
-+			ret = realm_tear_down_rtt_level(realm,
-+							level + 1,
-+							addr,
-+							min(next_addr, end));
-+			if (ret)
-+				return ret;
-+			continue;
-+		}
-+
-+		ret = realm_rtt_destroy(realm, addr, level,
-+					&rtt_granule, &next_addr);
-+		if (ret < 0)
-+			return ret;
-+
-+		switch (RMI_RESULT_STATUS(ret)) {
-+		case RMI_SUCCESS:
-+			free_rtt(rtt_granule);
-+			break;
-+		case RMI_ERROR_RTT:
-+			if (next_addr > addr) {
-+				/* Missing RTT, skip */
-+				break;
-+			}
-+			/*
-+			 * We tear down the RTT range for the full IPA
-+			 * space, after everything is unmapped. Also we
-+			 * descend down only if we cannot tear down a
-+			 * top level RTT. Thus RMM must be able to walk
-+			 * to the requested level. e.g., a block mapping
-+			 * exists at L1 or L2.
-+			 */
-+			if (WARN_ON(RMI_RESULT_DATA_LEVEL(ret) != level))
-+				return -EBUSY;
-+			if (WARN_ON(level == KVM_PGTABLE_LAST_LEVEL))
-+				return -EBUSY;
-+
-+			/*
-+			 * The table has active entries in it, recurse deeper
-+			 * and tear down the RTTs.
-+			 */
-+			next_addr = ALIGN(addr + 1, map_size);
-+			ret = realm_tear_down_rtt_level(realm,
-+							level + 1,
-+							addr,
-+							next_addr);
-+			if (ret)
-+				return ret;
-+			/*
-+			 * Now that the child RTTs are destroyed,
-+			 * retry at this level.
-+			 */
-+			next_addr = addr;
-+			break;
-+		default:
-+			WARN_ON(1);
-+			return -ENXIO;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int realm_tear_down_rtt_range(struct realm *realm,
-+				     unsigned long start, unsigned long end)
-+{
-+	/*
-+	 * Root level RTTs can only be destroyed after the RD is destroyed. So
-+	 * tear down everything below the root level
-+	 */
-+	return realm_tear_down_rtt_level(realm, get_start_level(realm) + 1,
-+					 start, end);
-+}
-+
-+static int realm_destroy_rtts(struct kvm *kvm)
-+{
-+	struct realm *realm = &kvm->arch.realm;
-+	unsigned int ia_bits = realm->ia_bits;
-+
-+	lockdep_assert_held(&kvm->arch.config_lock);
-+
-+	return realm_tear_down_rtt_range(realm, 0, (1UL << ia_bits));
-+}
-+
-+static void realm_unmap_stage2(struct kvm *kvm)
-+{
-+	struct realm *realm = &kvm->arch.realm;
-+
-+	lockdep_assert_held(&kvm->arch.config_lock);
-+
-+	if (realm->stage2_unmapped)
-+		return;
-+
-+	write_lock(&kvm->mmu_lock);
-+	kvm_stage2_unmap_range(&kvm->arch.mmu, 0,
-+			       BIT(realm->ia_bits - 1), true);
-+	write_unlock(&kvm->mmu_lock);
-+
-+	realm->stage2_unmapped = true;
-+}
-+
-+int kvm_realm_teardown_stage2(struct kvm *kvm)
-+{
-+	lockdep_assert_held(&kvm->arch.config_lock);
-+
-+	realm_unmap_stage2(kvm);
-+	return 0;
-+}
-+
- void kvm_destroy_realm(struct kvm *kvm)
+ /**
+- * kvm_stage2_unmap_range -- Clear stage2 page table entries to unmap a range
++ * kvm_stage2_unmap_range_filter -- Clear stage2 page table entries to unmap a
++ * range
+  * @mmu:   The KVM stage-2 MMU pointer
+  * @start: The intermediate physical base address of the range to unmap
+  * @size:  The size of the area to unmap
+  * @may_block: Whether or not we are permitted to block
++ * @filter: Filter for the ipa range (private and/or shared)
+  *
+  * Clear a range of stage-2 mappings, lowering the various ref-counts.  Must
+  * be called while holding mmu_lock otherwise another faulting VCPU may
+  * come in and mess with things behind our backs.
+  */
+-void kvm_stage2_unmap_range(struct kvm_s2_mmu *mmu, phys_addr_t start,
+-			    u64 size, bool may_block)
++static void kvm_stage2_unmap_range_filter(struct kvm_s2_mmu *mmu, phys_addr_t start,
++					  u64 size, bool may_block,
++					  enum kvm_gfn_range_filter filter)
  {
- 	struct realm *realm = &kvm->arch.realm;
- 	size_t pgd_size = kvm_pgtable_stage2_pgd_size(kvm->arch.mmu.vtcr);
+ 	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
  
-+	guard(mutex)(&kvm->arch.config_lock);
+ 	lockdep_assert_held_write(&kvm->mmu_lock);
+ 	WARN_ON(size & ~PAGE_MASK);
+ 
+-	kvm->arch.vm_s2_ops->vm_stage2_unmap_range(mmu, start, size, may_block);
++	kvm->arch.vm_s2_ops->vm_stage2_unmap_range(mmu, start, size,
++						   may_block, filter);
++}
 +
- 	if (!kvm_realm_is_created(kvm)) {
- 		kfree(realm->sro);
- 		realm->sro = NULL;
-@@ -34,12 +211,24 @@ void kvm_destroy_realm(struct kvm *kvm)
++void kvm_stage2_unmap_range(struct kvm_s2_mmu *mmu, phys_addr_t start,
++			    u64 size, bool may_block)
++{
++	kvm_stage2_unmap_range_filter(mmu, start, size, may_block,
++				      KVM_FILTER_PRIVATE | KVM_FILTER_SHARED);
+ }
  
- 	kvm_set_realm_state(kvm, REALM_STATE_DYING);
+ void kvm_stage2_flush_range(struct kvm_s2_mmu *mmu, phys_addr_t addr, phys_addr_t end)
+@@ -2597,7 +2611,8 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
+ 	if (!kvm->arch.mmu.pgt)
+ 		return false;
  
-+	/*
-+	 * REALM_DESTROY requires the realm to be non-live: all RECs must have
-+	 * been destroyed and the root RTTs must be empty. Unmap the IPA space
-+	 * and destroy any non-root RTTs before tearing down the RD. The root
-+	 * RTT pages are still owned by the RMM at this point, so keep the KVM
-+	 * pgtable alive until after REALM_DESTROY and undelegation.
-+	 */
-+	realm_unmap_stage2(kvm);
-+
- 	if (realm->rd) {
- 		phys_addr_t rd_phys = virt_to_phys(realm->rd);
+-	kvm_stage2_unmap_range(&kvm->arch.mmu, gpa, size, may_block);
++	kvm_stage2_unmap_range_filter(&kvm->arch.mmu, gpa, size, may_block,
++				      range->attr_filter);
+ 	kvm_nested_unmap_cipa_range(kvm, gpa, size, may_block);
  
- 		if (WARN_ON(rmi_realm_terminate(rd_phys, realm->sro)))
- 			return;
- 
-+		if (WARN_ON(realm_destroy_rtts(kvm)))
-+			return;
-+
- 		if (WARN_ON(rmi_realm_destroy(rd_phys, realm->sro)))
- 			return;
- 		rmi_free_delegated_page(rd_phys);
+ 	return false;
 -- 
 2.43.0
 
