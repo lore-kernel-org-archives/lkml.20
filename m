@@ -1,99 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793648646;
-	b=YrraTWZG5ua25kd5p6ZwACxUB7whPXLky1ccIe5OafCZe+mkFwWzCMS2+8n8TXs4FVPr
-	 bx+RdEWdqVVcOkZ4hOjme1BUMz6SU9i5ZiQX5xEB28u/VQQ6LsqSdTiAxT1RaBVKMmLwy
-	 UdDSaDaxCXTASp2rUuPxSzjTIAd7Kb8ZLwbi9Z/NzAU4MsVikzynQp6FqExJ0LS6rXewl
-	 YARQR8obZYkKgzgCP2/WOZzojbrej2Frz1Gz0HDxfUrKvJ27gfSY7Rs0xewc4hOt7xEWq
-	 yvvR7mHJi4GiTw6DxtaARpvqzVPzC9NRzYFfIscfMK8bq8sDaUoDQYKiNHKOSHhl1wQ==
+	t=1793648681;
+	b=QT2mSuXxJv3PkykM2ew3JGfYlQgEZ5FVj+LdXXnxSAyIA4qkYvByD7qzanf6d4uWK+TG
+	 Mr9qtJgZNV1CqkFN68pmx5l/2SnqEmDyn/+Bf4Z+UZ8+W5kb9D1ptX82aLkxtstQ1h2b3
+	 Ff154sDyFMQqmFXlZtPNFYuSPYTQiWm730P76arC91Di+2O8h5bddTJdrJeCfNZ5HSrPx
+	 TjUxSjyftr2tML1YVN1HPmDCv+GNbKcGjDCXucOK6FZpxo9noNtPO1YaGrD1HW2tjQMwD
+	 W6YynnGvq5m/HBKt7oIyvqDAalVEP9niDfScu32wUkh7UMsH9xrFtxREi/nzp2B8OaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793648646;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Originating-IP:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version;
-	bh=Xs/bknxSjUD992DcwA52sYwD2HmK67B3GQnMd3KGXmA=;
-	b=306C/nc87W1Gv9iMjt66t+nM6PjnZw4eRcRwW+jiz5tVQ/Sis2xEmuOn9tnTcTMYnv6k
-	 rKlNH0PHvQxMafJH/030/TBdcN1HoIqeUKyp6d/g/e5SSYGd8hqstSTCEUA4aWtzqF8ND
-	 vT1138QX2hqS7TEzBxnSGs32HvbgvxlkBBs2vhaV9fvYPMHcdFWhaxfJxe2ebMU4xH4JI
-	 1WH5GWyGY8Pxsm0WG4GnNyIcC27s7OzGEE2AQW+y3Q2BTsnRNVCW2Pexft9MXg42ZfV9y
-	 BIXyRy06xaCxVKFH/g+CpHgmuTnoLkA6PBSAaTnC0rTBT3q2Ttab0riyyqp+upoG3eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793648681;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=Weu5Zca/hPX7MdlI7TVErZ4xT18FxVN+YlEWkEZPcA8=;
+	b=OUGjL6yPgZUrWIXQh3aaeDWzYqhtTzSfnnhaXldXwNajW9/rMYLzouJwhmWiztBQwTjE
+	 YJleFnGHx8xC3lBhTc4y5l6w46ZHqm686I1dXCJiEiPAFQlpXDf7o25Y82WubhJNcViCG
+	 T7LBhCQtYfT3rfZ0Oui8m5OEC2UwfkjA2yYu6G2oWbIBTX4mTXQCcGczDuH5XkR8pNbHF
+	 mkGjcMUzTR3z2qFULirf1BuC+jnaQQdryO0DuCuqMvwmAqpohr2I4hu58HF1LZkdCjX2/
+	 XR2Ds8iAOcjd9UjhPRsWyFzis4QtyyFBH98k8kTqdZSq+2RzIlzQFOqPN7Q57+LzeKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Xz6MZ6Q5;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=v2zabGsB;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8917A606A329;
-	Mon,  2 Nov 2026 19:44:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8917A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1BD606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:44:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A1BD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Xz6MZ6Q5
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2IhL6b3944200;
-	Mon, 2 Nov 2026 11:43:38 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps82601-s2048-2026-q3; bh=Xs/bknxSjUD
-	992DcwA52sYwD2HmK67B3GQnMd3KGXmA=; b=Xz6MZ6Q55LH2h5+cH8Uv9SYwyhG
-	fqA0wCgtCeQ2MLDJE5lEOYNeF2tBmMxf/Ozjov+u3E3gde/WflZJDwBao7xj7sS8
-	x+YiE+yvgTc53YY5b89vpl2L1l5FAQsyGao1lBjvZhO8LmPpCMJBYfR3WLhJRaz2
-	Ju7xsfJ+U1/q/2/dM4jxfqRL6Ri1wUnlzo7YVwGCzoLAfU43sEFrXSNt0sPjpgP5
-	gLVtCwSquAWEu6Ibk9k1YodRwN+FMA10HHh0dhV5VT1HmU1Ongvi3dFQqWf18xtd
-	P9ElzdgxTJCRynqy7J0zQLiia8LoN7NTX3cEsjNE3ribWcsz5OF/7y+21Dg==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hne57ca7n-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Mon, 02 Nov 2026 11:43:37 -0800 (PST)
-Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 2 Nov
- 2026 19:43:36 +0000
-Date: Mon, 2 Nov 2026 11:43:35 -0800
-From: Bobby Eshleman <bobbyeshleman@meta.com>
-To: Michal Luczaj <mhal@rbox.co>
-CC: Stefano Garzarella <sgarzare@redhat.com>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Stefan Hajnoczi
-	<stefanha@redhat.com>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang
-	<jasowangio@gmail.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Eugenio
- =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-        Shuah Khan
-	<shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-        Donald Hunter
-	<donald.hunter@gmail.com>,
-        Eric Dumazet <edumazet@kernel.org>, <virtualization@lists.linux.dev>,
-        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <kvm@vger.kernel.org>,
-        <linux-kselftest@vger.kernel.org>, <sargun@sargun.me>,
-        <jlinbox@meta.com>
-Subject: Re: [PATCH net-next v4 4/7] vsock: add a netlink command to assign
- the g2h device to a netns
-Message-ID: <aujn5/nm9f9YX6bM@devvm29614.prn0.facebook.com>
-References: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
- <20261020-vsock-guest-ns-v4-4-047527cfccfc@meta.com>
- <atjZZP2ebhXKzMxL@sgarzare-redhat>
- <atld3+5LKmGxJ8+s@devvm29614.prn0.facebook.com>
- <atnjOZjKUBagRVWq@sgarzare-redhat>
- <d946003a-8bec-4e8b-89a3-05eeb96780cc@rbox.co>
- <auT+YIawHSMPHbJI@devvm29614.prn0.facebook.com>
- <5a411a67-f550-459d-be9b-5e8e51d3018c@rbox.co>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=v2zabGsB
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df8fe8513so2926435f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:44:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793648680; x=1794253480; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Weu5Zca/hPX7MdlI7TVErZ4xT18FxVN+YlEWkEZPcA8=;
+        b=v2zabGsBMccgcYnOKyyoJfrpcS6FC2kf1CeYjOep7ud5b84amOVeXc4O9Bn7QHljxM
+         kleSVMzmTjk8J7500JVzYCCNljyqjHHUgpYpYmKtuYqxR+860A49+oGL6efFuH9uJKH1
+         o9WuQnPigNB98hrxPxhmFhmrpcNTrCxsVh1HPM0+aBBM7CmTzECx01VZlas2N3sB+xpw
+         zevN2gyXBQ+fCAZi91gsLVJTORdB0l3CzBB2NdQQ+kiJy6PW+JWVNwpb7SMh0QACuPNL
+         7Wc16yRYdIpVtUDoiOkiPrknjvJYA8VEUTpxyooGhTNXENUS3pjVefS32oOjaz8C0bfv
+         g86A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793648680; x=1794253480;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Weu5Zca/hPX7MdlI7TVErZ4xT18FxVN+YlEWkEZPcA8=;
+        b=AwA/HJosXb4/eOI1+bpptbPhlfLIKfFsSgMP3OfbXxntWN6o4hk6CE8YO3x6M5jqPk
+         aegS5B1V8yaPaR6U4EyKqWCRxFYJTioE1uAfpUupsHehW6JvUHihRwNf0l/C7RYdhDem
+         f7x1me1/YOiJZPVyX04xQCxKImYUKmml8/V159KTKjyL/9gA4OCD2aDUUqHKQiPxyOU3
+         oNCR14RhXGEPJ0u18ouo1aZMeQJ0Mra8J3qcAuiA+dK4CIizZVTLj1OF51Snfdci05GN
+         n3L7dxyTa7o+m5JKDhLnwMZsEkdMSDK3tZQsYUVJKm9daNHwq2Oxc6qs4te9ZQ1CGChD
+         Nc5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwbRME3gNBRu43BTFOXFk0myOlpc95+lreMFetsvMwhtOIsIaP8AmWECTv7OWAp6tCPpumxb24Vo76SrOs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xMT2wOzEsdfrw8o+CihvvQUrn3nDBHr4k/toyBSEKKYQvvVtU
+	a7l70ju+F0QyGyfaNLbdTX1DvMFWQbWgaMHgvlI4ZAnDtpAjIjO91szfWSREtFaKSnI=
+X-Gm-Gg: AYBFou32LxkjIIpGx6GT3FgNubh/SHLD56Cg4JuGyt4rduKBIMM/awuNCQrQrNThtXv
+	tYHFssA4ddaO8phn4rrBP7KWMXlTjixy/Qj+zS6rCZBpywX7pjfkpyIFBOPreNNdjIxylDPS2Ct
+	2kLkAVD3AWZbLm4J3Sm6RKCnzcQdtFnxTk/O0DonwqwLTs5OEqrFOxbCwxBMy778s6DIE4Wm0nZ
+	UHGN3Iw7mkD7Vka5h9PFQKJDEX3aU2c9N2iumlZaZeH6YJ924dD9dSi5ZjGLYrSbM9rWgEYzgQB
+	WD+8J4CTfDDYSgi+k87EhHmWBXQLQ6f+/v4snZFpVhYPIm52f2z1xXxKbC4OJpgQzlVexRfzNsP
+	uyX3MNXtqxis1zt6Oub+gmaKhLJE0mHSIo8MsiKdMqpH0a5FG8J9dnR/G4daDU8P3OArT0VPy71
+	AWC6V97RwSk2v4MzzL5+uS2hlqDHRS2oHKYaFXJYwmjYtAtE4x4KvDPgfS8cPQ8eSFiYWnDaHij
+	aVkZj2eoHVpzR4jE09q2lUOhpvAQFMEntCDEFCVx/jTTG0aZVLT6+CWHT6fgwqHnnzGtVaKqAbd
+	rtcp8M5JNwlVDi0YVJ5L9TAsKD3RIgqzqj9kLbmdvDKYW0V8yEu66IH9wYS55iVrKRw4Pegg7wJ
+	4WaUvWx1t37nAAQeSkf3BCCrysXI+2zunIcpsBFj7VA==
+X-Received: by 2002:a05:6000:2611:b0:48e:4e00:b72f with SMTP id ffacd0b85a97d-48e6e50c8ecmr23807080f8f.32.1793648679554;
+        Mon, 02 Nov 2026 11:44:39 -0800 (PST)
+Received: from localhost ([151.40.161.170])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80333sm23147608f8f.32.2026.11.02.11.44.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 11:44:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,167 +88,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <5a411a67-f550-459d-be9b-5e8e51d3018c@rbox.co>
-X-Proofpoint-GUID: QR2S-efKBO6QdYqmIxgc6lAyUaLaTRaV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA3OCBTYWx0ZWRfX/+ZJayM1LQ+r
- 9CV/sgjbk1pFruMf2Sg0Afqz45bxdOm/q1kCI1B+bg8HW4Cjn7g4Lr79nb2RdSW2Xmzq4dF0XOW
- GqQjtLSbwrhVrlFabcgVpqZqM5ZWyic=
-X-Authority-Analysis: v=2.4 cv=SJ/Xx+vH c=1 sm=1 tr=0 ts=6ae8e7e9 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=wpfVPzegXHpEFt3DAXn9:22 a=VwQbUJbxAAAA:8
- a=BjZWFOVnn3HtxxQ2TYoA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: QR2S-efKBO6QdYqmIxgc6lAyUaLaTRaV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA3OCBTYWx0ZWRfX2ea4iepLya8e
- u/RHH1/wfHIKJZ8+Jf7wOY4wj8XR9xzoUNBYjnpFjO47yzsaKfjU/XN8j7g82pGNcHLIAuDVzMJ
- KMGfZDToKxladXb1lbLFhLwt5iGVw3LJBtrZsMaVjskGsjdSEfVKQXCCYwA5zkPm482GMtvPwN3
- jyJIuvtvK2eZdI8VGkblCf8zlVF/GyFNxFgJDRGQUE4YhkD6gz6U8H7oeeXXITLS0LjBEBIQkVd
- hciJv6mh5dbOOr8WbBAG68O9jPfYLSopCyL97moXfPwULj4fUglw2KjlroxFs7mDRTA3fUU1qXY
- XulWKBv1MwarGtHmsJHqll9CuwDtloBZZGQW/RsUBi0kqUJ/29Ugn3cBOSVu/19P+N8EkFP2I+3
- RQ+4KR1LzEbgliAqZ8kR4kJ2WqGwZjinnsOjv8iLgk7AxJ9WUGp/AjfY+5pp07gMXMNbiYKu5YO
- VcLFK14qbwpeW4bMkfw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_05,2026-11-02_03,2025-10-01_01
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 Nov 2026 20:44:38 +0100
+Message-Id: <DMKZE3GQVDLB.18QYA9ULAH75I@linaro.org>
+Cc: "Aaro Koskinen" <aaro.koskinen@iki.fi>, "Kevin Hilman"
+ <khilman@baylibre.com>, "Roger Quadros" <rogerq@kernel.org>, "Tony
+ Lindgren" <tony@atomide.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Christopher Obbard" <chris.obbard@oss.qualcomm.com>, "Andrew Goodbody"
+ <andrew.goodbody@linaro.org>, "Paul Walmsley" <paul@pwsan.com>, "Russell
+ King" <linux@armlinux.org.uk>, "Rouven Czerwinski"
+ <rouven.czerwinski@linaro.org>, <linux-omap@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH v2 5/9] ARM: dts: omap: dm816x: Correct speed for
+ sysclk5
+From: "Ettore Chimenti" <ettore.chimenti@linaro.org>
+To: "Andreas Kemnade" <andreas@kemnade.info>, "Ettore Chimenti"
+ <ettore.chimenti@linaro.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
+ <20261028-patch-ektor5-dm8168-dts-v2-5-4544429251e2@linaro.org>
+ <20261101222942.1a78c6fb@kemnade.info>
+In-Reply-To: <20261101222942.1a78c6fb@kemnade.info>
 
-On Mon, Nov 02, 2026 at 02:21:27AM +0100, Michal Luczaj wrote:
-> On 10/30/26 21:30, Bobby Eshleman wrote:
-> >>>> Yeah its all kind of a pain. The problem is that we need to hold
-> >>>> sock_lock to set sk_state and sk_err, but can't acquire it under the
-> >>>> table lock. Instead, we grab the socket ref sock_hold under the table
-> >>>> lock to guarantee it stays alive between releasing the table lock and
-> >>>> grabbing the socket lock.
-> >>>>
-> >>>> I was really tempted to not do this lock_sock dance though. The race
-> >>>> condition I'm avoiding here is that if this reset races with an RST
-> >>>> receive, then the socket could end up with TCP_CLOSING + sk_err
-> >>>> ECONNRESET... but I'm not sure this actually propagates up into a real
-> >>>> problem for any potential user.
-> >>
-> >> Right, vsock_connect() is fragile. Two things to be cautious about:
-> >> 1. Don't let it reset the already connected socket. Because that would
-> >> allow user to "re-connect()" and make mess in connected_table.
-> >> 2. Don't let it re-assign transport of an already connected socket. Because
-> >> that breaks the contract in few places.
-> >>
-> >> State 1 is not an issue: vsock_g2h_reset_unreachable() calls
-> >> __vsock_remove_connected().
-> >>
-> >> State 2 may be problematic: if vsock_g2h_reset_unreachable() sets TCP_CLOSE
-> >> when connect() is scheduled out, then after the wake-up sock may get reset
-> >> to SS_UNCONNECTED. Then user re-connect()s and hits the transport
-> >> re-assignment logic. I'm worried that, as we re-assign, someone may be
-> >> holding a reference to such "connected" (even if not in connected_table
-> >> anymore) vsock.
-> > 
-> > I see path you're looking at... after vsock_connect() gets scheduled
-> > back in we set TCP_CLOSE/SS_UNCONNECTED if sock_error returns non-zero.
-> > Could you elaborate on your last concern there about someone holding a
-> > reference? I'm not sure I fully understood.
-> 
-> Ah, sorry, let me explain. This case reminded me of the vsock's TCP_CLOSING
-> bug[1]: reporter mentioned vsk->trans getting freed when skb was still in
-> flight. I did not reproduce the exact scenario, but it did sound plausible
-> and I thought it applies here: virtio_transport_destruct() frees vsk->trans
-> the moment vsock_loopback_work() invokes virtio_transport_consume_skb_sent().
-> 
-> Now, to get there let's start with vsock_connect() setting SS_UNCONNECTED
-> (on a connected) socket after vsock_g2h_reset_unreachable(). Then user is
-> able to re-assign the transport, which involves
-> virtio_transport_destruct(). But since we're dealing with a connected
-> socket, (before the reset) some send() might have triggered
-> vsock_loopback_work(). Does this make sense to you?
+Hi Andreas,
 
-Ah you're right. I think that your approach of making vsock_connect()
-more robust is probably the right way to go...
+On Sun Nov 1, 2026 at 10:29 PM CET, Andreas Kemnade wrote:
+> On Wed, 28 Oct 2026 17:06:06 +0100
+> Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
+>
+>> From: Andrew Goodbody <andrew.goodbody@linaro.org>
+>>=20
+>> The default code for setting up the clocks results in sysclk5 running at
+>> 1.6GHz whereas it is expected to run at half that ie 813MHz. Force the
+>> divider to be /2 to achieve the 813MHz speed.
+>>=20
+>> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+>> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+>> ---
+>>  arch/arm/boot/dts/ti/omap/dm816x-clocks.dtsi | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>=20
+>> diff --git a/arch/arm/boot/dts/ti/omap/dm816x-clocks.dtsi b/arch/arm/boo=
+t/dts/ti/omap/dm816x-clocks.dtsi
+>> index 76ebc6c3c3e5..cb990773b098 100644
+>> --- a/arch/arm/boot/dts/ti/omap/dm816x-clocks.dtsi
+>> +++ b/arch/arm/boot/dts/ti/omap/dm816x-clocks.dtsi
+>> @@ -144,7 +144,7 @@ sysclk5_ck: sysclk5_ck@310 {
+>>  		#clock-cells =3D <0>;
+>>  		compatible =3D "ti,divider-clock";
+>>  		clocks =3D <&sysclk4_ck>;
+>> -		ti,max-div =3D <1>;
+>> +		ti,dividers =3D <2>;
+>
+> so this changes register value  0 is intepreted as divider 1
+> to divider 2. Sounds strange. It just changes the interpretation of the
+> register values, not the setting. Maybe checkout the register value from
+> user space with tools like devmem. The original interpretation was right.
+> So this change does not make any sense. I think sysclk5 still runs at
+> 1.6Ghz, but it is displayed as 813Mhz.
+>
+> I would expect some assigned-clocks / assigned-clock-rates pair somewhere
+> in this patch instead.
+>
 
-I think this is the new race...
+We tested on EVM with devmem and this patch correctly sets bit 0 to 1
+(which is /2 in the manual).
 
-1) vsock_connect(cid=VMADDR_CID_HOST)
-   -> enqueue pkt
-   -> sleep
+However, should ti,max-div in this case be <2> (and all the other clocks
+that supports two dividers)?=20
 
-2) rx worker receives OP_RESPONSE
-   ->  sets TCP_ESTABLISHED/SS_CONNECTED
+I tested to set `ti,max-div =3D <2>;` and it seems to correctly set the /2
+divider as well, but without specifying any assigned-clock{s,-rates}, so
+I'm missing the rationale of how the divider is selected.
 
-   (vsock_connect() still asleep)
-
-2) sendmsg()
-   -> sees SS_CONNECTED
-   -> enqueues skb
-
-3) netns reset sets TCP_CLOSE and sk_err=ECONNRESET
-
-4) vsock_connect()
-   -> scheduled back in
-   -> sees sk_err != 0
-   -> sets SS_UNCONNECTED
-
-5) vsock_connect(CID=VMADDR_CID_LOCAL) call #2
-   -> sees SS_UNCONNECTED
-   -> frees old vsk->trans
-
-6) sendmsg's skb tx completes
-   -> tx worker dereferences vsk->trans for the UAF
-
-If connect() checks for SS_CONNECTING before setting SS_UNCONNECTED,
-then in step 4 sock->state stays as SS_CONNECTING and the second
-connect() call will hit -EISCONN instead of freeing vsk->trans.
-
-Seems to work for a racing vsock_shutdown() too, where sock->state would
-become SS_DISCONNECTING, and the second connect() would hit -EINVAL
-instead of freeing the vsk->trans.
-
-I guess the rule would be that vsock_connect() sets SS_CONNECTING before
-sleeping and only changes it to SS_UNCONNECTED after waking if and only
-if it is still SS_CONNECTING.
-
-WDYT?
-
-> 
-> Another thing is this feature of vsock_assign_transport(): in some
-> re-assign failure paths you may end up with vsk->transport = NULL. In the
-> past this caused issues with sockmap: see WARN_ON_ONCE in
-> vsock_bpf_recvmsg(). Problem here is that normally vsock gets removed from
-> sockmap on close(), but in our (reset+reassign) case close() is never invoked.
-> 
-> [1]: https://lore.kernel.org/netdev/anzT1fREOSyHT99k@v4bel/
-> 
-> >> So I don't know, maybe it's vsock_connect() that should be fixed/hardened
-> >> instead?
-> >>
-> >> Or at least disallow transport *re*-assignment? Does the "re-" part have a
-> >> use case?
-> >>
-> >> Hope it's not too off-topic.
-> >>
-> >>>> It also avoided some racing with the tx path, but now that send_pkt()
-> >>>> also checks reachability I think that path is safe.
-> >>>>
-> >>>> What do you think about doing the below hunk (TCP_CLOSE, ECONNRESET,
-> >>>> sk_error_report) with no lock_sock?
-> >>>
-> >>> Looking at the code, it seems that in all the places where we close all 
-> >>> connections (virtio_vsock_reset_sock, vhost_vsock_reset_orphans) we do 
-> >>> with no lock_sock but with vsock_table_lock.
-> >>>
-> >>> So, makes sense to me.
-> >>
-> >> virtio_vsock_reset_sock() and vhost_vsock_reset_orphans() are my pet
-> >> peeves: state switcheroo without taking lock_sock(). Which, again, races
-> >> vsock_connect().
-> > 
-> > True, I don't love that either, but I feel the impact is at least
-> > constrained by the fact that it only happens when the module or device
-> > is already going away.
-> 
-> Doesn't it happen on suspend as well? Is so, with a poorly timed connect()
-> things can go south on resume.
-
-Ah that's true.
+I'll drop this patch from the series for now, I think it needs more
+investigation to figure out why it behaves like this.
 
 Thanks,
-Bobby
+Ettore
