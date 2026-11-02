@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608355;
-	b=KiKThFHJkdG7An9e2WtytyGXaT/FhyYD4WpHJ3a3p04cwxGYVW9IXVQ2i1qmqQ5vMiaC
-	 Gp1h8LL1K2BOJMVuSaQ3oWVX8LbEiCLkVb0wz3Yo+6ZTPNN/2dg1rRw7v4KSJWyXst8tW
-	 WwA5lTwszeS76mAuRk2dZgHQaivIBr/vM5juwOPXaxywopvXWufQJQ8BtZBJf4Z9qkRMv
-	 MKFwc9+fcDoTUsoMqJbr76Vfqg5ZTecMieq/0/cVEie+s5Yp+fJJdNl7NK4ANggH0Pc6y
-	 k+/6RH9E2IQB88o1FnIOd8KQCuDo/JYTbA/r2bWBFAAtxexkaJgh+9jUjaUt+2q/uQg==
+	t=1793608383;
+	b=IGEqP+TgmHp6bispfhDuJteLBqxKqg2yp/1/RO2irsHZBu95MfriiCZMBPZwQRfjxaTs
+	 gx8TLx9k6Aox5em7kKi9ecQu0XXDGA3tmbMqh9POw6QL60jXjUk0RZXwVGTwsGVJb/Vds
+	 eSZigWdqsfic+rUhVUQ4wdtuWCbERO3gN5a2cdO+4iLtZ1+uM64vudTbzHAdsDEOGV58y
+	 K+VEAKHdfupRMETdMBJEL8rML8qHboZUBgcaN2fHOepHjbMhgje6Mw8n1FnBBBgGaqSCC
+	 mIOnv7Ox6HezwnlOOP5FcjNWQE7xwKOAiHpc1lUFCqI4H4enMqXm5h2xzzL5hRfjHog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608355;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=RzMvX/4kYH6XrpqdRwOjj7jHgC8mTYV+RR3L9mmvwWw=;
-	b=yGiC6a/hgwLBLaGoF+/FvTr7CqKnOshTaF4jNO9cK3EO/Vlw22VvWJistpHSZG+VjUCT
-	 1TbcMDBdl6YUKykAk4ynvWlukWejGetMlRvIGR8zs90rCr00jsLGng3+S5EFtE3oYKJpu
-	 E3x1gZspAOpREr3DGERq35256LlJ6I0SjAfnvEK3bBGYMk86dfuoeuLSmqhMiJwolIcYB
-	 hgnzP5HFnXs+NO1HmFwRMXwLpMit5sjFlrqqeapRls2MXIatEk7p17b0YIKwvDPNQRPbw
-	 /PvgNKdtmPEqrSUnSu2klUCxOcVz50AnLkZvgDdStfnmGtpGtdY6JVIY7aFf6fuLFTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608383;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=QGcTZJzW+xMsKpYi5IZQ6V6prOuqDJ91eD24Yaff/KQ=;
+	b=HQOf6+HkkGpBtzIP2TYm7qNlrHiNY6bPJ4vnujeh9qEXGn3x3ToyabllDk4BTTWIJYIT
+	 5yiCDmNXD6LAAdKMbYZ/3XoxS15yqi2zIeBqMMz92OpTUf10h1/uT5CMV69MnMla2eTfI
+	 SaFvqOyposbADt8oSLqqeG2bzBdU6DNhFvbub9hDaolRPICUfHOPNr6k7Adjn6tuAMBng
+	 la8Pqk3zJCOlV5aI7MxB2ghswZT85LQjq5t1azSwkBzuXaCjxqmwwsbnl0P4WUCiSaKtx
+	 JeD8CxTVKjVWtZNjl1jdD9wgxo2HT1p+uwPYiVZwMx+1sg4KUflnVIUGHzWgv7ZIwQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dgre8Vxy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40379606A32C;
-	Mon,  2 Nov 2026 08:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dgre8Vxy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E50E41F000C1;
-	Mon,  2 Nov 2026 08:32:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608354;
-	bh=RzMvX/4kYH6XrpqdRwOjj7jHgC8mTYV+RR3L9mmvwWw=;
-	h=From:To:Cc:Subject:Date;
-	b=Dgre8VxyUijsZO07AhfuYErppIj8V/Z7jqBIMBRE0XVE2Kop03U10dio+uNjCeMEk
-	 cADmsjy+30QZO9UAk/mzgLhOFf0QcNj9G6Nj7A4c+r+dXetNTMm+AGqPbPYCoJ5Ks/
-	 NuVR1ajJYXWNcI1eZoMgtfIWoOye20POe+4U+Vk8hOAkI+s8yjSeIJqrTUc2vOxoz1
-	 SP5yQrEgLorzH/eTpE1RFRYD5xKvC3WLSMNVp0MejR8PX6r6MpZt4bv3nZJMMHw6kD
-	 iR6LgRJb8YcdEDf2s8lR8gXQYjVpaEv2v6q3Y+BxSjKH2Ivk05dmI5XnDn98R7krHp
-	 O9Oi1jIfFqs7A==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xNnSy-00000005Ltd-36ry;
-	Mon, 02 Nov 2026 09:32:32 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] MAINTAINERS: update auxiliary bus entry
-Date: Mon,  2 Nov 2026 09:32:18 +0100
-Message-ID: <20261102083218.1275785-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410CE606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:33:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 410CE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4d2f0f77124so3105063b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:33:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793608382; x=1794213182;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QGcTZJzW+xMsKpYi5IZQ6V6prOuqDJ91eD24Yaff/KQ=;
+        b=NaKmJm9IsSuCsL5IIfqhFbhLz/JDpIimvhkdB4WpNsMOJd+Xmx4bEGpjieoz92f+Jf
+         o/jUnPDXcHqqwQfVZMcDsTGtn0VXO8N8az+PGUDO7lR3c33MvgrWVaXohXKDl/f4u0st
+         FZIa6OPLvSyr6u6oyisnOf4EPYmFCfbCNt3aUas+odK4/LQR9lhZnEJBQMZ6QFXJxLHA
+         bTQ8aiKRg+z5PWmuk5c6gwp9PM4VhlpZk6vO1ZUxhSa3vUD/6rfoWa9ERc6vCjy2hQgB
+         prbK6Z3XqKIkCSBtlH7CQpgCMIsUp/D+BRfn6wKFwfTQBk6wJLiYLXbwJIDTQgYjWjh6
+         J2Rw==
+X-Forwarded-Encrypted: i=1; AKwUvByZrVAkSsXK/8Y4eHwfivRW5Z3PlzeoMNYrzY0QMI8tqqm4yTwa8t54Z+opCfBJgmmFP+tzlw6Q0ZaKBKY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7muCzYrqZUj9o9fPd7kwRQNb7kM1R/Pp7oAFleitQU40q3nsJ
+	JdqcmXeJ7Ua8/lyDPokwYYT3fFBlt5E5JOAB1jN4WkBIeqccfwgOMkSfhrCIM7+k08ElX7cMsr6
+	0eERhN1L5nTGiwKjj+gc4orAK1QrhZ9Aa5WZsTwlqAP/WEShe3AwYfp9uKyg=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,28 +58,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6809:58:20b0:564:3bc3:4605 with SMTP id
+ 5614622812f47-5643bc34ee3mr1433576b6e.40.1793608382276; Mon, 02 Nov 2026
+ 00:33:02 -0800 (PST)
+Date: Mon, 02 Nov 2026 00:33:02 -0800
+In-Reply-To: <20261102080049.417712-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae84abe.e91b1aea.38328a.0007.GAE@google.com>
+Subject: Re: [syzbot] [dm?] WARNING: zero-size vmalloc in cache_ctr
+From: syzbot <syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The auxiliary bus is part of driver core so add another maintainer entry
-for myself.
+Hello,
 
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..92401850930f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4484,6 +4484,7 @@ AUXILIARY BUS DRIVER
- M:	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
- M:	"Rafael J. Wysocki" <rafael@kernel.org>
- M:	Danilo Krummrich <dakr@kernel.org>
-+M:	Johan Hovold <johan@kernel.org>
- R:	Dave Ertman <david.m.ertman@intel.com>
- R:	Ira Weiny <iweiny@kernel.org>
- R:	Leon Romanovsky <leon@kernel.org>
--- 
-2.55.0
+Reported-by: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
+Tested-by: syzbot+c8564fc0a96e3ecbe4d4@syzkaller.appspotmail.com
 
+Tested on:
+
+commit:         7a19f0cc Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=166b1cb1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=6602d83d2f34eb80
+dashboard link: https://syzkaller.appspot.com/bug?extid=c8564fc0a96e3ecbe4d4
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: arm64
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=16ea4f95580000
+
+Note: testing is done by a robot and is best-effort only.
