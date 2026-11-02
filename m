@@ -1,85 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793613750;
-	b=oygBHB6nVsaEXLqtEjQ0YR4w7mc1dGbxj66YidTf2ntUc9MCCswHP8jwewqm6tVmtqtb
-	 +sgTu6nZzJCGo7mpbcCao4fVaKv210+buewrNlmVVd6+YAzCqMgoAAnSCNOs9dgY8PfPG
-	 XNFsZ2yTMLXFils2CKaNiDcou4ZKli29qf2BMSIwTX4eGxA+R4XcirjmV/uev2Jv4NgtO
-	 VICJhuo08QO8wMHtB2CGULcfvS6J4Bw1uYiKG45GEoMZkvWISCzFz5q9jVYF6y0tv4ar7
-	 GSbvjIPbyqj6VhSAv+oYfMDK9/bLmMO+EllbPmEjhs9vAN/ppHrZKKy9ufWqo9Y1xig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613750;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793613758;
+	b=t7gEQVzUhEXp7/atqz086B+p1i+y05yyEBMgMvyY6lZsnOLnzQ5FBMCV0a1HCPvsFkcA
+	 sfjB8vm1zBKJc7MZRiJLIKImpSTNylVUXBGXV9u29L0Skwc77q96wK8eTcEet2NcyvUb0
+	 giJwCX9XuwWV32ktZCdxTfz0JAABDHsn3T9sdU9h8Qw8SfKQSVS7pl5bA9nBh18ftyNvb
+	 cthQyOu8jSOLfRiTfMpVfNwgNc1eARUCejurMyEkH5OgPW/iWv5WmLkYXAD+TA9kqyiE3
+	 dOalssjB5djeD0GZU5hTOZXdSv2M7T5/U9CCciQzIQ//Bm/6cGXXpP2Uxt5cgkthBrg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613758;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=XzpjiuDg14m5/0rAwtwR3uEc9Ha934pVu4Nw/YOiHAQ=;
-	b=5JXu6o7TdeFi/yz4EDTZQ581BBj6rRqFtVwjvzO+2X5pOkrthm51QEF5Jxhzp6QMy4c6
-	 bt7aFFN7zyar954KnGnW9r5e+HEA2ARXxh68sWBdd7osb4MdzlpqM+lzF2UVFt6FeiRgp
-	 0X+4OP97y3GptrfFN/qaePWLwGGDuvf6d3IzGtqT2WZYeMZ4yZsUzmdQFhgGPZ3UGT1nQ
-	 FlA08v09Z4nr3/kKHy19GaWfI7lIoinLj0ta3heipH4O8scnaU50wvwAclqavBpYNv9uc
-	 1vKa5nqFXk7Iq62D9eDrgiSFX6PiYNLbuEqp8AFyVLP9xSf0z9ELde7A92pZax8Eo2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OTjL0PkG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6C9606A326;
-	Mon,  2 Nov 2026 10:02:29 +0000 (UTC)
+	bh=GOgDKaBCd/uW5l3tWVac81a1JgyJkjCjE7oa9weDmqs=;
+	b=GsNggJS+xHKy62g2PA20hGldOkd5xqHQqmGUQa354rNzdZ9Px6EyapPfKUDE96s2/jT7
+	 5tG1TI44jmJTHg4/bPl7BzfRgVO8U9LHg/ftVwIAFdB5BIl8Eol37tu8PSEzza4PiRNkx
+	 w+ADaqLyFF7gWTi4L1pme/HsWZdPpQNp/xp5HB7eRlwCcGtrooyZmUhwO52DP/2ZhwEt1
+	 lMf9JFy/9ALRr55adZdVD4r9dEY/wxkhOD+bq8UplxVMlWJ/ZUsYui4WT+Y7Y59/02GNk
+	 PVaSPtwgGl0e2JabZxy2f2Hlq/d2nYt1Waw0W4qHAdtmmIKIWDM8ezTGe0P4CJbdmXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LUs5F0sL;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD546606A327;
+	Mon,  2 Nov 2026 10:02:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD546606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OTjL0PkG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793613749;
-	b=Sdw3n8cZJlkrzqGPdh6dMB3CD9GNo0GpsZrP3JyZtIurlibo69cIBSXntqTNWTe6kNVp
-	 thb5P8bMdO+rt7dif2IAVhUlealtv+FXOns/v0zhl42weCIob4yw87bThAu4jHZVLYNA7
-	 cx64dXeHsPgfhz0cjq7okJj+fk8HXdLwW2tGOHIwKnMKSaiBgvewkCq51QdrGl903tjc7
-	 vqFxTd62RjuZp7kpg7PkyXGXSLLXTi+iR+bM/UEDsYBXiaHWsRzK7i1F24McXvtGhXQCc
-	 zWIkvAvMDkSX3bqXbN8OvtOR8uh4zPvn1YGBAp/17ivI+SGr52UcyaNcOMvVH20ji+A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793613749;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XzpjiuDg14m5/0rAwtwR3uEc9Ha934pVu4Nw/YOiHAQ=;
-	b=IDkuIHi7IvRGnPuP7kqdSidtY304aymblgvlpoY2+azECmXj5MN8PaWJT8Wzx3C7jfek
-	 Mr38mHkbkZ6HV/M2fjk8A7tIuLgv8I/3BQLr1UU6vCmy11iIB2nUq6uy5g9J10dGKaw8g
-	 emSAfO9J4iFaXHSoiXOwvpB/eM5pABsZ9cSQdtIxWQshh6yY++ftFqk5pKNFux4r4R9Fu
-	 w3KAuvX/CfIVoattwJ8tLgdhBWsqT5iKxhMHo6Fq678QGOm0KKMJeywmtkEDfkYyeQ6xm
-	 F9B7TqsfZFdw/9MKDrJ/NJ2Lu4JiRMXfo75Yqyp2OGzrWm4qOgmHMqsCaTXyrB1EuJQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 3DE491F00919;
-	Mon,  2 Nov 2026 10:02:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793613749;
-	bh=XzpjiuDg14m5/0rAwtwR3uEc9Ha934pVu4Nw/YOiHAQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OTjL0PkG+1OJ9V2ZkWrnG9o1YZAZtk+U9U1I1LfmZNIHxfuq1nGzGGjch7beI9jhM
-	 6GttOvG4VxGMldeJqwpBgmLdN5YsrU6vrAHeVK7QesfFMIc+NIO5mmD2tlJykkF3YB
-	 VUNn1sBTp+z8RA9RjGhKay/jTiLteO0Czlh0cZ8ZNj50LbiX+gY0h3wlNm5hNrhMEt
-	 H+ElJx6fwDazK7WLbbqlxCHGF7TTFtZHXmik/Y3qqe1OOxuVtLIsiIY1pG4Y/nU3H2
-	 SgogVlqZokBaeQqMDWQKs0dqltwnneujRivAOh6RoL6ZNGh3O2yfPP5uPhV8y9SxGf
-	 62HJG9l9ghOzQ==
-Date: Mon, 2 Nov 2026 11:01:58 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] staging: iio: addac: adt7316: clean up header
- inclusions
-Message-ID: <20261102110158.0000386b@kernel.org>
-In-Reply-To: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
-References: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LUs5F0sL
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 410981762;
+	Mon,  2 Nov 2026 02:02:34 -0800 (PST)
+Received: from a081061.arm.com (unknown [10.163.156.187])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 06D823F59E;
+	Mon,  2 Nov 2026 02:02:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793613757; bh=HyPdk0n2/OF09K954RkPRG3iIDUACQY+PsIvlzDGa20=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=LUs5F0sL+6hylMUkR+TZVfKkl10paUGcrplQiQQZ6WUfKLIjCLPhYGglP6Wb8wXTz
+	 ar+3NnOPL300FWcax/3rYqdtkE0QnKJoVzemZcTwruUYy/r54YOhcITgXHWqwM/qrV
+	 h/gacCCm20AoPv79aMBnztDGWfWcledNR5IdXzaM=
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Park Tae-sun <ts930@dgu.ac.kr>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: [PATCH RESEND v2 01/12] selftests/mm: mremap_test: remove command line options
+Date: Mon,  2 Nov 2026 15:32:00 +0530
+Message-ID: <20261102100211.141831-2-sarthak.sharma@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102100211.141831-1-sarthak.sharma@arm.com>
+References: <20261102100211.141831-1-sarthak.sharma@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,51 +75,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon,  2 Nov 2026 11:42:34 +0200
-Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
+mremap_test supports command line options for changing
+the validation threshold and random pattern seed.
 
-> This series cleans up header inclusions in adt7316.c by following
-> the Include What You Use (IWYU) principle.
-> 
-> The series is split into two logical steps:
-> 1. Sort existing header inclusions alphabetically without modifying the
->    list of included headers. Keep subsystem <linux/iio/*> headers
->    separated and insert a blank line before "adt7316.h".
-> 2. Drop proxy header <linux/kernel.h>, explicitly add missing headers
->    (<linux/bits.h>, <linux/err.h>, <linux/errno.h>, <linux/kstrtox.h>,
->    <linux/pm.h>, <linux/string.h>, <linux/types.h>), drop unused headers
->    (<linux/i2c.h>, <linux/list.h>, <linux/rtc.h>, <linux/slab.h>,
->    <linux/workqueue.h>), and maintain alphabetical sorting.
-> 
-> v3:
->  - Split the series as suggested by Joshua Crofts: patch 1 only sorts
->    the headers, patch 2 replaces kernel.h and adds/drops headers.
->  - Explicitly include <linux/err.h>, <linux/errno.h>, and
->    <linux/types.h> per IWYU following verification of symbols used.
-> 
-> v2:
->  - Address review feedback from Andy Shevchenko: drop <linux/kernel.h>
->    and include the headers actually used.
->  - Split the original patch into a 2-patch series.
-> 
-> v1:
->  - Initial submission.
-> 
-> Abdelnasser Hussein (2):
->   staging: iio: addac: adt7316: sort headers alphabetically
->   staging: iio: addac: adt7316: replace kernel.h with explicit headers
-> 
->  drivers/staging/iio/addac/adt7316.c | 22 ++++++++++++----------
->  1 file changed, 12 insertions(+), 10 deletions(-)
-> 
+As part of a larger series to remove validation threshold
+and randomization, remove all command line options from
+the test. The test is already invoked without any
+arguments in run_vmtests.sh, so no runner changes are
+required.
 
-Much more readable in this order.
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+---
+ tools/testing/selftests/mm/mremap_test.c | 45 +-----------------------
+ 1 file changed, 1 insertion(+), 44 deletions(-)
 
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
-
+diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
+index 31b484517bda..15d8f7458251 100644
+--- a/tools/testing/selftests/mm/mremap_test.c
++++ b/tools/testing/selftests/mm/mremap_test.c
+@@ -1190,49 +1190,9 @@ static void run_mremap_test_case(struct test test_case, int *failures,
+ 	}
+ }
+ 
+-static void usage(const char *cmd)
+-{
+-	fprintf(stderr,
+-		"Usage: %s [[-t <threshold_mb>] [-p <pattern_seed>]]\n"
+-		"-t\t only validate threshold_mb of the remapped region\n"
+-		"  \t if 0 is supplied no threshold is used; all tests\n"
+-		"  \t are run and remapped regions validated fully.\n"
+-		"  \t The default threshold used is 4MB.\n"
+-		"-p\t provide a seed to generate the random pattern for\n"
+-		"  \t validating the remapped region.\n", cmd);
+-}
+-
+-static int parse_args(int argc, char **argv, unsigned int *threshold_mb,
+-		      unsigned int *pattern_seed)
+-{
+-	const char *optstr = "t:p:";
+-	int opt;
+-
+-	while ((opt = getopt(argc, argv, optstr)) != -1) {
+-		switch (opt) {
+-		case 't':
+-			*threshold_mb = atoi(optarg);
+-			break;
+-		case 'p':
+-			*pattern_seed = atoi(optarg);
+-			break;
+-		default:
+-			usage(argv[0]);
+-			return -1;
+-		}
+-	}
+-
+-	if (optind < argc) {
+-		usage(argv[0]);
+-		return -1;
+-	}
+-
+-	return 0;
+-}
+-
+ #define MAX_TEST 15
+ #define MAX_PERF_TEST 3
+-int main(int argc, char **argv)
++int main(void)
+ {
+ 	int failures = 0;
+ 	unsigned int i;
+@@ -1261,9 +1221,6 @@ int main(int argc, char **argv)
+ 
+ 	pattern_seed = (unsigned int) time(&t);
+ 
+-	if (parse_args(argc, argv, &threshold_mb, &pattern_seed) < 0)
+-		exit(EXIT_FAILURE);
+-
+ 	ksft_print_msg("Test configs:\n");
+ 	ksft_print_msg("threshold_mb=%u\n", threshold_mb);
+ 	ksft_print_msg("pattern_seed=%u\n", pattern_seed);
 -- 
-Kind regards,
-Joshua Crofts
+2.53.0
+
