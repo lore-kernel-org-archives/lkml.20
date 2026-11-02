@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607661;
-	b=ECxqrApmqPDn7u6OJBV8EMTk901MxtHgqg5GqOv8JM2QBjbQVAFNEepc5Ww+KokzBfQ9
-	 Mis0E71yXsmtYfUDO4f/SdVQaQei+5JR3F6tA0Ms9kvWFgcIG63xV6fCmdM7WDKEL+pBR
-	 AP2Sri8prXYBxNnAkoZ8wWZcWWAIk1f7HtMADpB2Vb43vN5UhPmQ52OSwOfKyxo3wvDzl
-	 HRBviC524CLKC5bnaFnpqerPq+sIP0RIogYwOIdhfjdjVbiia9Jw7AhbeLamhr0LY9Lby
-	 tYF0C19g0v3boe9JyfwcDwtE3kxyFOfmWh+2GhDL2pBaO8TdDfk6SOBelYoQzCcG8GA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607661;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=uBfJJilvsrye3sZPINSFwLYLhpZUOxlraaYo4APzklo=;
-	b=hDSZTjlzKtW+rhicdd7T8KKEZWHnrYO41e4XrmAYiU3//nSEsBKKYBrrg5bvwHS1Oq3y
-	 DEt/RP0Rq/xyQ0y1rJjlsBQ1NUnTCTmlpb6YaXu1l3DCwW1FC5Yphn7xHg5dtK1gWVDMb
-	 lGbafeCzwBQVfzDwgDAJWA3K4A4Z2K0TWvIzOC7hMiRoF+198miJVsG+eKJV/bKMAMZoT
-	 FZvdo/Cjb1q2FGpq35faX2VlwlC5JzA0JqRjF+c+Qya8M26wuthFTqJIVyBDTj/u98LCF
-	 LdZ6lcjBE92/8UfFrijgxbhSElIvp1HA34/8+B3QswYiDXp8nMNTtZp7SucpscVBPvQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="Cv/ZBqya";
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.125
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793607679;
+	b=cepstMLoc10fQdNK7pzFtC6b1OI0lfR/oJOEwr5QmeIVLB2zRfkPg1DhNVQCSYkINsNx
+	 Gk4Uxkw3M1BPnlYTZYsbyxAVUr62rFDxrozzEiIZB5cmNS9CqwkUsbnRkb/loKhBy8baB
+	 m4z+1WR6Kvslb46x5s5142YckcFPnSfj7eHmEUyVzkqmo+kgOf4u2pzbVVx7cffoeBNzQ
+	 Iab2EUbOj8VJ2XQCnFsigAVMjlPm3OUso8m21rbPe8PdZ1Wmu8dzntjVYL0AqHtFpzZcm
+	 XDR1R4/aE5o0yzCQJEc5oxN/qUeaJTHineurHxfAe4skZn7ieATKzqonSGFzbRLDEig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607679;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Gl8z4GzzRnJVNB+iu5QzAHm7NL38k1NY0HbxTBUijyQ=;
+	b=nweqxqYMJznjZ7onSJZ4YsyN+DxLLUuoBLocODoymLkqr2T5Z5DmSKb0G+hw13h6DvG1
+	 tpNPXVjNyZvMTVVgZx5mBvIPpW43EUBy6uzsuvbhiZsFuMN063/1N1VkhYdIUMSSdDRmX
+	 apPJvVLLkfCHIrW9C4K2aU/+yJ6gqTpuOLLGcZ6pHbtzxNsrsEu5pBydFDuwFofmaHCDH
+	 M4tmglg7lt0pn0WxoV0mzqmSh7X3genkTJbBqdegY7nK7PcyEAAtyhNntip4wallpxzvq
+	 eYx882bICpVWuMWO+DJCGEpl28Wbvs/KpyDYek3OzWuqlecFYwoUii2C28ggEqEf3tA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.125
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023125.outbound.protection.outlook.com [40.107.44.125])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69331606A329;
-	Mon,  2 Nov 2026 08:20:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69331606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Cv/ZBqya
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793607654; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=uBfJJilvsrye3sZPINSFwLYLhpZUOxlraaYo4APzklo=;
-	b=Cv/ZBqyauKvpIiJsJbve1p37lt8DylOPEhkkaGir9F1MTv6bCr/eHTIDxKR+sEqsF6Cn+1n+FH+8RJREwX1PgRCbK+TnwQ8Lz1QisKs847CGaBtygoMIWG6dRL2gyLz5I/LVvgpbEe4PFLJGISKxPFwNJonBdcFusDNrFDvunjU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=64;SR=0;TI=SMTPD_---0XDw-lN._1793607648;
-Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDw-lN._1793607648 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 02 Nov 2026 16:20:50 +0800
-Message-ID: <62268831-f6f3-4666-a32f-a77546b95432@linux.alibaba.com>
-Date: Mon, 2 Nov 2026 16:20:47 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC56D606A33F;
+	Mon,  2 Nov 2026 08:21:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC56D606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AozlZFA4zgusamXuw2QjNcjHCa5f4/ACL79TGniNEfHwXQfsVIK3pl5RK/023JXj/UosysUYIltwgqXdX9iZg1fwXRjj2QJvy99S7+ND0yRdPS48qcdkXnS91REiBYCDOZm7sOBw7Y5u8RjN76ATkFmerMV3Aw3aGf1DYX2n9btqduWbong/pNnzpYMD/dKN1x6Coo1BdkclIne7eMW/A1D9YZzCiifjN0XIhwe5mEDpkLcX3FRGAkr2w6Whz+gV5fVU3tuS9tTDKzw6EdEWZMkOtjwBLx1Ih6YVmPlpt6LJ4iVGqToyXesk7duMpvPqqmOcO8x5o8xsDWSOB/FAsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gl8z4GzzRnJVNB+iu5QzAHm7NL38k1NY0HbxTBUijyQ=;
+ b=nndjWX0I3QnBEdyvy1zKzKjavSUfsK28gEv2i5zf3gq5eDChYUHvMfH+OD2aQ3yWLdqoTtRGJqOQVIXeqm/LkY69JoIjrLudXxz/r63bUYCyqIdYnntg2wLTBSglDqn2A1iWsv3GFnabzeQ1IGEL757pMOOlz4MzdmyZiGWua+x3pQOgES/PjofJDEbdEs8d8vA33+xMOeN+6rtBQrdGHr/bn51KBF7wu9IsmzbhN1/GlupDxgRx03pR0UUVzrpmj/dPIuqliW9pzKJbAcsEdlvadHP9+h4WI5PwZAozi61JkiARTZjdEslXnb2ko98TltXw4TY1im2CH6Jb8hnwxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from JH0PR03CA0030.apcprd03.prod.outlook.com (2603:1096:990:74::11)
+ by SE1PPFF9F12DF7E.apcprd06.prod.outlook.com (2603:1096:108:1::432) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 2 Nov 2026
+ 08:21:15 +0000
+Received: from SG2PEPF000B66D0.apcprd03.prod.outlook.com
+ (2603:1096:990:74:cafe::76) by JH0PR03CA0030.outlook.office365.com
+ (2603:1096:990:74::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Mon, 2
+ Nov 2026 08:21:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66D0.mail.protection.outlook.com (10.167.240.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 08:21:13 +0000
+Received: from gary-System-Product-Name (unknown [172.16.64.55])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 7B73A4102B47;
+	Mon,  2 Nov 2026 16:21:12 +0800 (CST)
+From: Gary Yang <gary.yang@cixtech.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Cc: CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Gary Yang <gary.yang@cixtech.com>
+Subject: [PATCH 0/3] phy: cix: add Sky1 USB/DP combo PHY
+Date: Mon,  2 Nov 2026 16:21:09 +0800
+Message-ID: <20261102082112.2306326-1-gary.yang@cixtech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,106 +105,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 18/47] mm/khugepaged: check if PTE table is empty in
- try_collapse_pte_mapped_thp()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- Muhammad Usama Anjum <usama.anjum@arm.com>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
- <20261031-fixes_core-v3-18-d6437171ecc3@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261031-fixes_core-v3-18-d6437171ecc3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66D0:EE_|SE1PPFF9F12DF7E:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: bd584ff3-0810-4d2f-dd56-08df38ba423a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|7416014|376014|23010399003|6133799003|18002099003|10067099003|56012099006|261009223027099003|261022105027099003|261021121427099003|261022075727099003|261028144727099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	u2jYacx2lPpoBa83KwYvflxccMkyf2vTcx16Pr2nYjLiSdcQKUiqNwXzJND7MAhBe7EQVdf74Pd7fF10JtgTb5S6UgXpO0LW0L+Jf9ozUNEiCg3haPDg1AiJnFeV9B2CtW4tHLeKWHwWZu0gMsw+mpqHwoolH1BujCt56paSStVt7jd9ui03Gle2vWIBX8upye7agyZ5CyiCkU+3Y9d8tIid4DwGVTa7Ca+fgKFfL9saIGI4Zvk8k0IvDMIOqpguzi2+PcuBkv9DkR9DWhU4b1vJkXo3MCqGWw9InFyesL1RHeUEXE3eJ3PGTuqk6cQ17tIrpcb3rzDGykfJ8/JFzqcvrUQfT6yKX1jlye4hXKt/DrWIMwjo1BH+5MSBsl/7cUeqX/5KP9Y3CJerYBNh2TvN64uFFLXMs4IA8i7UE1fjdSVckbjLyS9GfqQWx9AD/44rEqgFXSCdjBvPodNnGJtP/Eq0t6eRQljsV2PVDp6HV4Ye9E1O1HBdnSfr5yF6+OyVZQc2pTxf/6/BAt2BrNMpzKIfJVhwx9LyMBowiOxkwz34uPtpDsD+jY5aJERGbx0wn6mgjt57znYV6ZxaTGSceyqofoQI837/Yu2COtLlesKGtFs2xmM8EsJHREhCpF+do69PzHdw/+CEExMR8i5E9mguX/yVySWZ/EESe7ko7b3VwREr9eSp/VPbYRHlbOTqFo5HhlPo01KTQNV5Jg==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(7416014)(376014)(23010399003)(6133799003)(18002099003)(10067099003)(56012099006)(261009223027099003)(261022105027099003)(261021121427099003)(261022075727099003)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	V3sgUcPR3lExce0c2kwZndBtI08ZoLL5ffDafKCO0g1pJ4nx4LEUu86/iZQ3xJckINLqZ5U6gVU+VOam6dfutAwSs+6Pwj+qMWKdC3M7BSwF/FAE0K+JKAsNJ55+YJ8eO4AESTBkJh/4xpsM7l6n4gMUwp7wzPhdvKV6y9YTfzMq2Qy6Nq7sMIbO4ZIGYGYno6nQDG6A/bx1SbP3Tw1aS531ebqlfWxygGF/KUYXzKcw0GQFf1VT6BWmjNbSqxtOkx+EyRlVmzbPUJz9iHhvQfr7wwIiPvPKUYh8uaUzMGPYmVosIQbmY/O1UC+w6/+lInCQx/UpiV3ery1CokXZxLTzNWdBxZkfOnGtks+BwMyFlh4Obbz2mHj1IMUB0BNEdiSTKhCHirPzImphzbFlbEPBgfWqaBzdShxWjS6j9WCKE3y9zfNSXsJSweqysfAh
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:21:13.4292
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd584ff3-0810-4d2f-dd56-08df38ba423a
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66D0.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE1PPFF9F12DF7E
 
+This series adds support for the USB/DP combo PHY found on the CIX Sky1
+SoC. Each PHY instance provides one SuperSpeedPlus USB lane and one
+DisplayPort lane of a USB Type-C port, with plug orientation and USB/DP
+lane muxing handled through the S5 system controller.
 
+The PHY registers a Type-C switch and mux so that the connector driver
+owns orientation and mode decisions, and exposes the USB and DP lanes as
+separate child PHYs so that the USB and DP controllers can bind to them
+independently.
 
-On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
-> The existing code is rather horrible and already resulted in bugs in the
-> past: we special-case UFFD inserting anonymous folios by grabbing the PMD
-> lock early, but ignore any other markers (guard, poison through uffd) that
-> could have been inserted into the page table in the meantime, effectively
-> dropping them.
-> 
-> Let's just unify and simplify the locking: try to grab the PMD table
-> lock and if that fails, flush the TLB, drop the PTE lock, take PT locks in
-> the right order and check if the page table is still empty.
-> 
-> We still perform the heavy lifting (zapping the folio ptes) under PTE table
-> lock only.
-> 
-> Include <linux/hugetlb.h> for now, as x86's flush_tlb_range() macro
-> depends on hugetlb helpers. This dependency needs a separate cleanup.
-> 
-> Both issues this fixes are rather corner cases. Let's not CC stable for
-> now.
-> 
-> Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only mappings")
-> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->   mm/khugepaged.c | 64 ++++++++++++++++++++++++++++-----------------------------
->   1 file changed, 31 insertions(+), 33 deletions(-)
-> 
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index ce794d9760a87..ad07c8caa3bd9 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -10,6 +10,7 @@
->   #include <linux/mm_inline.h>
->   #include <linux/kthread.h>
->   #include <linux/khugepaged.h>
-> +#include <linux/hugetlb.h>
->   #include <linux/freezer.h>
->   #include <linux/mman.h>
->   #include <linux/hashtable.h>
-> @@ -1832,6 +1833,17 @@ static enum scan_result set_huge_pmd(struct vm_area_struct *vma, unsigned long a
->   	return SCAN_SUCCEED;
->   }
->   
-> +static bool pte_table_empty(pte_t *pte)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < HPAGE_PMD_NR; i++, pte++) {
+Patch 1 documents the binding, patch 2 adds the driver, and patch 3 adds
+the SoC nodes and enables them on the Radxa Orion O6.
 
-Using PTRS_PER_PTE to iterate PTEs seems more straightforward? Otherwise 
-LGTM.
+The driver has been built for arm64 with the PHY enabled both built-in
+and as a module. dt_binding_check, dtbs_check and checkpatch --strict
+pass.
 
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Gary Yang <gary.yang@cixtech.com>
+
+Gary Yang (3):
+  dt-bindings: phy: add CIX Sky1 USB/DP combo PHY
+  phy: cix: add Sky1 USB/DP combo PHY driver
+  arm64: dts: cix: add Sky1 USB/DP combo PHY
+
+ .../bindings/phy/cix,sky1-usbdp-phy.yaml      |  150 ++
+ MAINTAINERS                                   |    2 +
+ arch/arm64/boot/dts/cix/sky1-orion-o6.dts     |   28 +
+ arch/arm64/boot/dts/cix/sky1.dtsi             |   96 ++
+ drivers/phy/Kconfig                           |    1 +
+ drivers/phy/Makefile                          |    1 +
+ drivers/phy/cix/Kconfig                       |   22 +
+ drivers/phy/cix/Makefile                      |    2 +
+ drivers/phy/cix/phy-cix-usbdp.c               | 1477 +++++++++++++++++
+ drivers/phy/cix/phy-cix-usbdp.h               |  265 +++
+ 10 files changed, 2044 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml
+ create mode 100644 drivers/phy/cix/Kconfig
+ create mode 100644 drivers/phy/cix/Makefile
+ create mode 100644 drivers/phy/cix/phy-cix-usbdp.c
+ create mode 100644 drivers/phy/cix/phy-cix-usbdp.h
+
+-- 
+2.50.1
+
