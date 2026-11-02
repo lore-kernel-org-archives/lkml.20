@@ -1,78 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793611544;
-	b=XHKE+4JmduMFMTBo3RLrdfJi+RCWm1q3y3tw/RFPCW0y16uKz/dmBgtHWaYiOObfXkhr
-	 hqoGj8qM6TIQHcYGk+XgtMB2LFYr3dv1tn+0oTXiW1uPF2EPQcW//J5YFhZVS7N/NsSz2
-	 I/oWd1KLndqxzYKtqSrESN9qM2LOcStdesvrl+8Cpp0fQk5qCBo+Lv2EtJyJaxtEohn+s
-	 o+hOzr6hotGNbDPujIn1OGb6bz+qFLnSsEMKm+nnlf8xnkk1Ovme0BWd7Jjbp/JrvrAMg
-	 aS1kVDJb2GXlqybiCRqhSO1zQthovLT8hlEwXsFl7OXebTNJDlEOWR+MWdq0yCSOYKg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793611544;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LSMose7FrhY6I+Ycp2huiawH1d1GE6nqj8yLgiqCN5g=;
-	b=Ke9le9Z0Fdam5/PZUwVW1dF8jepVbTEwKVGZt0QCRj1zuRZ7IQMbyaIheZWlft53VEjv
-	 qKM+XxsdG/GJ1XlTIxQTnEhES54dj8Tulfiep5/O/5UkIQtllxLVuJ7sZB/rl6ZHIopWq
-	 8eMd/JXnhHMZCfgHxhk9d/ay3UZxpyKsWCF40vfb3I5e3ChIdd9zh+Kk2xm2rNCCpUdDL
-	 jMzvXBdnR0uU5NtixzYhVsBtsIeWkpBNcFEZz4Z0mVbhuvzbMz+RlXqjbUTSTwDX8GBzD
-	 zViILIvGS0wJDaKCxVzrRwfNmV5x2tEDCMkpKx15As5OJUpyMZik+h4s7iENxdLyKhQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4ywVzIB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6539960A3807;
-	Mon,  2 Nov 2026 09:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4ywVzIB
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793611544;
-	b=EIeFzAGPy6527TuyWQBPj1EtvP+bGZfJflcWXFx28ZlPYJltfQWbtg9lV0eDBNr3x5qU
-	 JIa+q0fGVnZfv0LoobifB7KR2nQ0Je1t5wUjD2OP/CpXP4ZRcFE95XbW5NHbr2jVi3ETK
-	 cM5Y6HGUcqQQsAoMjEw6S7GTIzU+EziDDYBdZpfKFg0BM6tR8Y3q0cdeKfUbLpzxNJPCq
-	 C7d2+QuIhfG+MyBntoX+bPugtEg7D6ZSvrSOFNQURRnwXYm/vMqwe4USMK5+AYYjI3axu
-	 PPAiDc+k1lHPmc9R81OrCoMAp7YABGW99D+3ivrpEPBdWBml2ZxkRwxnoDXlKxVLzHQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793611544;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LSMose7FrhY6I+Ycp2huiawH1d1GE6nqj8yLgiqCN5g=;
-	b=yPf5y6JoJYOWw/faz4vtcH2xxdnsg3OaIfKRFSdNywBu35ZfrVno/SwhfdU1vdS7Z1Xz
-	 IIs39tL2yIJoGpAAZ1nbhz8nzQsXYrYkXcXg412jVhazjYAs3f6ASxCdAtMPhyvMKSr2E
-	 KnoyIKezwj5IfngjvroVJ3Lr9a+oyHpzFLV1M4FJ79ad4ml4C6zKIdiaIoyPP2asjtjtQ
-	 5McF+VSWaQMI76c+fykhXdVaYk57SMrbO81b8jXGP275cWQz88oSgwBItH4SMhAiylpRk
-	 O566ThYorC8a+RNpMIe5J+4t5FJm/k44ZrxKrMma67YPT5YQdF7pRNvr04zeOlC2FxA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793611529;
+	b=k3eVgLukJAft+kvPdsTYkOMUdGKEPfrP4L+6yvHR0/sYCLgCIGW7PfbuO4O5Ok0cwep8
+	 Yi0ohoBb3rPfkM6/rWOo97Y0hQhFkUbTmequTEYUv75Yd5yNS0YeHzn7KSl2Y2DwiQIom
+	 iFC1xoQqjRVu7GfHXbDmvWtSd0EZHgO01BWrzruAObUqNKqcCdb5I8CiaWD6GnxBgCI7c
+	 WnOiKwRNONzwtk5ytzU4ep9GUXyFdCBWVeTEnXIfELMAXYdZ6HxfZiIfu3dD+yw7GoWe/
+	 WwkpUQngngmu0lLAdx9NZhzBhAChy5BNAG2L2OCD5nH00UNxRf4jIOSxBMbaI6W4aRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793611529;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-MTK;
+	bh=nx9t0DBjKPEzI7mXKLL19DVrkZGWq9IzOdeDEWe3D9Y=;
+	b=n/VQUrGEYeMEdvF8PC2md5aPC5P0Fe2leSki5nwDQqjQTIFnH0t8cKO/uBbjH3FkOKsX
+	 KojcJSqh79Rh4BB6xhLBRyIHAz7e5haYLfBKeRqqqMtuL5ecJhHAh8p0dwNfivi6XUw9d
+	 F4DjvIRH6Pv0IsFjjh9LAoIhov0FX6mA+itsOcMN+UdBgkXGEkBLqjjz9KxrgX998dYTF
+	 cr4h0Ye9X40NoG1T4/9hShq0SXgFTp39pg+Yvwhq8BLdtyJBos0ihxNHErOUyzK9yF6kt
+	 sp6g6FS3jjk17giDneZhl0cui7XycvDfeJdLcZdtSdrmG/ilYaufT58qyHAssdj5/AQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b="j4w/+Vdo";
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2E93A1F00A18;
-	Mon,  2 Nov 2026 09:25:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793611544;
-	bh=LSMose7FrhY6I+Ycp2huiawH1d1GE6nqj8yLgiqCN5g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=N4ywVzIBIEtQmqvjOfggr4iQRKOIOrBl7NBY7Fy4Uc8GMDAjvFrFniLftAhHcdRqI
-	 XbkswJAjKdBk2HODOhIT0avLaVEEl9fahFEZn+j8LkAgU3So6TBCTrUaWSALWr6yqX
-	 7aAY9zIXZQtRK3R1UNiffG8wPmmGGZNpVnZV3Ce+li3fcmkVJXzWi+lhppheD2OS5h
-	 kJoFA3Xsw2iLTVgNfNI8NB7h6bsC+XqVtkJm+vt0v0xrD39sD0ghaONXpYDrMIMxfG
-	 yDtoIGk/WxIwYqRnY5yuQ4G0fOaNg6LK3bVpeIRFC/K/mm1/TnomPHm2xb85Ays/x5
-	 ypXN+fXuv19HQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B8A4346441;
-	Mon,  2 Nov 2026 09:25:40 +0000 (UTC)
-From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Mon, 02 Nov 2026 11:25:38 +0200
-Subject: [PATCH v5 2/8] iio: imu: adis: Add optional self_test callback
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28286606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:25:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28286606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=j4w/+Vdo
+X-UUID: 5444266ed69f11f18dc8c9802ae25ab1-20261102
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=nx9t0DBjKPEzI7mXKLL19DVrkZGWq9IzOdeDEWe3D9Y=;
+	b=j4w/+VdobJfZOmmxo2skt0/swVg3lpkdaG1SC93DouoBdgca1oiVkMgFzdKD1IsEIL4eKo2qd0MekTBaNpzphiuGYpmry+6L+gABzUnm1OhJocbmN1yu9P7L26XQMnYjwM5YA6TJS2Mf8HoljjEPUsqeh7N9kKN+ykalPir0jQk=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:7dd7ffac-3378-49e7-819c-5a509c6b57c4,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:f5f1a340-45ea-40f0-99fe-3ce442058644,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
+	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL
+	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5444266ed69f11f18dc8c9802ae25ab1-20261102
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
+	(envelope-from <santino.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 369095546; Mon, 02 Nov 2026 17:25:22 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 2 Nov 2026 17:25:21 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 2 Nov 2026 17:25:21 +0800
+From: santino.wang <santino.wang@mediatek.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>
+CC: <linux-mediatek@lists.infradead.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<light.chen@mediatek.com>, <Fred-WY.Chen@mediatek.com>,
+	<arnab.layek@mediatek.com>, Santino Wang <santino.wang@mediatek.com>
+Subject: [RFC PATCH 06/11] soc: mediatek: dram-ecc: keep error counters across boots
+Date: Mon, 2 Nov 2026 17:23:28 +0800
+Message-ID: <20261102092334.138759-7-santino.wang@mediatek.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20261102092334.138759-1-santino.wang@mediatek.com>
+References: <20261102092334.138759-1-santino.wang@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,90 +85,270 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-adis16607-v5-2-4f98b0d271ac@analog.com>
-References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
-In-Reply-To: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
-To: Lars-Peter Clausen <lars@metafoo.de>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Nuno Sa <nuno.sa@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Alexandru Ardelean <alexandru.ardelean@analog.com>, 
- Radu Sabau <radu.sabau@analog.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux@analog.com, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793611539; l=2180;
- i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=tkzZy4kOyhyn9i1xmuSSgwdCRKGw+8zTfZiJqELNqH0=;
- b=oVEahSgG4RzTtjv74tBx8WYsbtF8LRQtXnEn7zbRWnRPrMx40EUB8Tps/VQ0ffhhz3OsTae59
- ak0yZ5HsOgMBOAdnK/80bv8gbiGfmi1N+oE91aXWeprr/rmZGxK+OdS
-X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
- pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
-X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
- auth_id=1094
-X-Original-From: Radu Sabau <radu.sabau@analog.com>
-Reply-To: radu.sabau@analog.com
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-From: Radu Sabau <radu.sabau@analog.com>
+From: Santino Wang <santino.wang@mediatek.com>
 
-Add an optional self_test callback to struct adis_data, for devices
-whose self-test doesn't fit the generic mask-write/sleep/check-status
-sequence. Purely additive: defaults to NULL, no change for existing
-drivers.
+Keep aggregate corrected and uncorrectable error counters in EFI
+variables, so they survive a reboot. The firmware creates the
+variables; the driver increments them.
 
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+EFI SetVariable() can take tens of milliseconds, so the increments are
+accumulated and written from a work item instead of the GHES notifier
+context.
+
+Signed-off-by: Santino Wang <santino.wang@mediatek.com>
 ---
- drivers/iio/imu/adis.c       | 3 +++
- include/linux/iio/imu/adis.h | 7 +++++++
- 2 files changed, 10 insertions(+)
+ drivers/soc/mediatek/dram-ecc/core/counters.c | 145 +++++++++++++++++-
+ drivers/soc/mediatek/dram-ecc/core/counters.h |   3 +
+ .../mediatek/dram-ecc/core/ghes_notifier.c    |   6 +-
+ 3 files changed, 150 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/iio/imu/adis.c b/drivers/iio/imu/adis.c
-index 793e3b6b0ea7..5c3bb7259037 100644
---- a/drivers/iio/imu/adis.c
-+++ b/drivers/iio/imu/adis.c
-@@ -357,6 +357,9 @@ static int adis_self_test(struct adis *adis)
- 	int ret;
- 	const struct adis_timeout *timeouts = adis->data->timeouts;
+diff --git a/drivers/soc/mediatek/dram-ecc/core/counters.c b/drivers/soc/mediatek/dram-ecc/core/counters.c
+index 88d7961975db..8e3fd83cf60a 100644
+--- a/drivers/soc/mediatek/dram-ecc/core/counters.c
++++ b/drivers/soc/mediatek/dram-ecc/core/counters.c
+@@ -3,13 +3,20 @@
+  * Copyright (c) 2026 MediaTek Inc.
+  */
+ /*
+- * Volatile (reset every boot) CE/UCE counters come from ghes_notifier.c's
+- * in-memory tally; retired pages are tracked per PFN so each page is
+- * counted once.
++ * Aggregate CE/UCE counters. "volatile" counters (reset every boot) come
++ * from ghes_notifier.c's in-memory tally; "agg" counters persist across
++ * boots via the same EFI NV variable UEFI RasDxe.c initializes
++ * (MtkDramEccCeCount, MtkDramEccUceCount_inline, MtkDramEccUceCount_ondie,
++ * GUID must match RasDxe.c's mMtkEccCounterGuid). The UCE count is kept
++ * per ECC source. Inline ECC detects every UCE, including one that
++ * originates in the DRAM die, so agg_uce_inline is the total; the
++ * agg_uce_ondie subset counts those that on-die ECC also flagged.
+  */
+ #include <linux/kobject.h>
+ #include <linux/sysfs.h>
++#include <linux/efi.h>
+ #include <linux/export.h>
++#include <linux/workqueue.h>
+ #include <linux/atomic.h>
+ #include <linux/xarray.h>
  
-+	if (adis->data->self_test)
-+		return adis->data->self_test(adis);
+@@ -17,12 +24,110 @@
+ #include "ghes_notifier.h"
+ #include "counters.h"
+ 
++#define MTK_ECC_EFI_ATTR \
++	(EFI_VARIABLE_NON_VOLATILE | \
++	 EFI_VARIABLE_BOOTSERVICE_ACCESS | \
++	 EFI_VARIABLE_RUNTIME_ACCESS)
 +
- 	ret = __adis_write_reg_16(adis, adis->data->self_test_reg,
- 				  adis->data->self_test_mask);
- 	if (ret) {
-diff --git a/include/linux/iio/imu/adis.h b/include/linux/iio/imu/adis.h
-index 97323b8d1cb3..c09b381eb619 100644
---- a/include/linux/iio/imu/adis.h
-+++ b/include/linux/iio/imu/adis.h
-@@ -52,6 +52,12 @@ struct adis_timeout {
-  * @self_test_mask: Bitmask of supported self-test operations
-  * @self_test_reg: Register address to request self test command
-  * @self_test_no_autoclear: True if device's self-test needs clear of ctrl reg
-+ * @self_test: Optional device-specific self-test override. When set,
-+ *		it is called instead of the generic mask-write/sleep/
-+ *		check-status sequence. The callback owns its own pass/fail
-+ *		determination entirely (it should call __adis_check_status()
-+ *		itself if it wants status-register checks). Must return 0 on
-+ *		success, a negative error code otherwise.
-  * @status_error_msgs: Array of error messages
-  * @status_error_mask: Bitmask of errors supported by the device
-  * @timeouts: Chip specific delays
-@@ -82,6 +88,7 @@ struct adis_data {
- 	unsigned int self_test_mask;
- 	unsigned int self_test_reg;
- 	bool self_test_no_autoclear;
-+	int (*self_test)(struct adis *adis);
- 	const struct adis_timeout *timeouts;
++static efi_guid_t mtk_ecc_efi_guid =
++	EFI_GUID(0x5a3f1e8c, 0x0b2d, 0x4e7f,
++		 0x9c, 0x6a, 0x1d, 0x2b, 0x3e, 0x4f, 0x5a, 0x6b);
++
++static efi_char16_t mtk_ce_var_name[]  = L"MtkDramEccCeCount";
++static efi_char16_t mtk_uce_inline_var_name[] = L"MtkDramEccUceCount_inline";
++static efi_char16_t mtk_uce_ondie_var_name[]  = L"MtkDramEccUceCount_ondie";
++
+ static struct kobject *counters_kobj;
+ static struct kobject *retired_kobj;
+ static atomic64_t retired_by_ce = ATOMIC64_INIT(0);
+ static atomic64_t retired_by_uce = ATOMIC64_INIT(0);
+ static DEFINE_XARRAY(retired_pfns);
  
- 	const char * const *status_error_msgs;
-
++/*
++ * Deferred EFI variable write.  SetVariable NV can take tens of
++ * milliseconds, so it should not be called from the GHES vendor-record
++ * notifier's atomic/IRQ context.  We accumulate pending increments and
++ * flush them from a workqueue instead.
++ */
++static atomic_t pending_ce_inc  = ATOMIC_INIT(0);
++static atomic_t pending_uce_inline_inc = ATOMIC_INIT(0);
++static atomic_t pending_uce_ondie_inc  = ATOMIC_INIT(0);
++static void counters_flush_work_fn(struct work_struct *work);
++static DECLARE_WORK(counters_flush_work, counters_flush_work_fn);
++
++static u64 efi_counter_get(efi_char16_t *name)
++{
++	unsigned long size = sizeof(u64);
++	u64 val = 0;
++	efi_status_t status;
++
++	if (!efi_rt_services_supported(EFI_RT_SUPPORTED_GET_VARIABLE))
++		return 0;
++
++	status = efi.get_variable(name, &mtk_ecc_efi_guid, NULL, &size, &val);
++
++	if (status != EFI_SUCCESS && status != EFI_NOT_FOUND)
++		pr_warn("mtk-dram-ecc: get EFI var failed: 0x%lx\n", status);
++
++	return (status == EFI_SUCCESS) ? val : 0;
++}
++
++static void efi_counter_inc(efi_char16_t *name, int delta)
++{
++	unsigned long size = sizeof(u64);
++	u64 val = 0;
++	efi_status_t status;
++
++	if (!efi_rt_services_supported(EFI_RT_SUPPORTED_SET_VARIABLE))
++		return;
++
++	status = efi.get_variable(name, &mtk_ecc_efi_guid, NULL, &size, &val);
++	if (status == EFI_NOT_FOUND)
++		val = 0;
++	else if (status != EFI_SUCCESS)
++		return;
++
++	val += delta;
++	status = efi.set_variable(name, &mtk_ecc_efi_guid,
++				  MTK_ECC_EFI_ATTR, sizeof(u64), &val);
++	if (status != EFI_SUCCESS)
++		pr_warn("mtk-dram-ecc: set EFI var failed: 0x%lx\n", status);
++}
++
++static void counters_flush_work_fn(struct work_struct *work)
++{
++	int ce_delta, uce_inline_delta, uce_ondie_delta;
++
++	ce_delta = atomic_xchg(&pending_ce_inc, 0);
++	uce_inline_delta = atomic_xchg(&pending_uce_inline_inc, 0);
++	uce_ondie_delta = atomic_xchg(&pending_uce_ondie_inc, 0);
++
++	if (ce_delta > 0)
++		efi_counter_inc(mtk_ce_var_name, ce_delta);
++	if (uce_inline_delta > 0)
++		efi_counter_inc(mtk_uce_inline_var_name, uce_inline_delta);
++	if (uce_ondie_delta > 0)
++		efi_counter_inc(mtk_uce_ondie_var_name, uce_ondie_delta);
++}
++
++void mtk_dram_ecc_agg_ce_inc(void)
++{
++	atomic_inc(&pending_ce_inc);
++	schedule_work(&counters_flush_work);
++}
++
++void mtk_dram_ecc_agg_uce_inline_inc(void)
++{
++	atomic_inc(&pending_uce_inline_inc);
++	schedule_work(&counters_flush_work);
++}
++
++void mtk_dram_ecc_agg_uce_ondie_inc(void)
++{
++	atomic_inc(&pending_uce_ondie_inc);
++	schedule_work(&counters_flush_work);
++}
++
+ void mtk_dram_ecc_record_retired_page(unsigned long pfn,
+ 				      enum mtk_dram_ecc_retire_reason reason,
+ 				      int memory_failure_ret)
+@@ -79,6 +184,12 @@ static ssize_t volatile_uce_show(struct kobject *kobj,
+ 	return sysfs_emit(buf, "%llu\n", mtk_dram_ecc_get_volatile_uce());
+ }
+ 
++static ssize_t agg_ce_show(struct kobject *kobj,
++			   struct kobj_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "%llu\n", efi_counter_get(mtk_ce_var_name));
++}
++
+ static ssize_t volatile_uce_inline_show(struct kobject *kobj,
+ 					struct kobj_attribute *attr, char *buf)
+ {
+@@ -91,16 +202,43 @@ static ssize_t volatile_uce_ondie_show(struct kobject *kobj,
+ 	return sysfs_emit(buf, "%llu\n", mtk_dram_ecc_get_volatile_uce_ondie());
+ }
+ 
++static ssize_t agg_uce_inline_show(struct kobject *kobj,
++				   struct kobj_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "%llu\n", efi_counter_get(mtk_uce_inline_var_name));
++}
++
++static ssize_t agg_uce_ondie_show(struct kobject *kobj,
++				  struct kobj_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "%llu\n", efi_counter_get(mtk_uce_ondie_var_name));
++}
++
++/* Total UCE count across boots: every UCE is seen by inline ECC. */
++static ssize_t agg_uce_show(struct kobject *kobj,
++			    struct kobj_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "%llu\n", efi_counter_get(mtk_uce_inline_var_name));
++}
++
+ static struct kobj_attribute volatile_ce_attr = __ATTR_RO(volatile_ce);
+ static struct kobj_attribute volatile_uce_attr = __ATTR_RO(volatile_uce);
++static struct kobj_attribute agg_ce_attr = __ATTR_RO(agg_ce);
++static struct kobj_attribute agg_uce_attr = __ATTR_RO(agg_uce);
+ static struct kobj_attribute volatile_uce_inline_attr = __ATTR_RO(volatile_uce_inline);
+ static struct kobj_attribute volatile_uce_ondie_attr = __ATTR_RO(volatile_uce_ondie);
++static struct kobj_attribute agg_uce_inline_attr = __ATTR_RO(agg_uce_inline);
++static struct kobj_attribute agg_uce_ondie_attr = __ATTR_RO(agg_uce_ondie);
+ 
+ static struct attribute *attrs[] = {
+ 	&volatile_ce_attr.attr,
+ 	&volatile_uce_attr.attr,
++	&agg_ce_attr.attr,
++	&agg_uce_attr.attr,
+ 	&volatile_uce_inline_attr.attr,
+ 	&volatile_uce_ondie_attr.attr,
++	&agg_uce_inline_attr.attr,
++	&agg_uce_ondie_attr.attr,
+ 	NULL,
+ };
+ 
+@@ -169,6 +307,7 @@ int mtk_dram_ecc_counters_init(struct kobject *parent)
+ 
+ void mtk_dram_ecc_counters_exit(void)
+ {
++	cancel_work_sync(&counters_flush_work);
+ 	sysfs_remove_group(retired_kobj, &retired_group);
+ 	kobject_put(retired_kobj);
+ 	sysfs_remove_group(counters_kobj, &group);
+diff --git a/drivers/soc/mediatek/dram-ecc/core/counters.h b/drivers/soc/mediatek/dram-ecc/core/counters.h
+index fd718dc45ea6..af2e5ea16b90 100644
+--- a/drivers/soc/mediatek/dram-ecc/core/counters.h
++++ b/drivers/soc/mediatek/dram-ecc/core/counters.h
+@@ -16,6 +16,9 @@ enum mtk_dram_ecc_retire_reason {
+ int mtk_dram_ecc_counters_init(struct kobject *parent);
+ void mtk_dram_ecc_counters_exit(void);
+ 
++void mtk_dram_ecc_agg_ce_inc(void);
++void mtk_dram_ecc_agg_uce_inline_inc(void);
++void mtk_dram_ecc_agg_uce_ondie_inc(void);
+ void mtk_dram_ecc_record_retired_page(unsigned long pfn,
+ 				      enum mtk_dram_ecc_retire_reason reason,
+ 				      int memory_failure_ret);
+diff --git a/drivers/soc/mediatek/dram-ecc/core/ghes_notifier.c b/drivers/soc/mediatek/dram-ecc/core/ghes_notifier.c
+index c1d885f0bf15..633bf89e2231 100644
+--- a/drivers/soc/mediatek/dram-ecc/core/ghes_notifier.c
++++ b/drivers/soc/mediatek/dram-ecc/core/ghes_notifier.c
+@@ -242,6 +242,7 @@ static int mtk_ghes_vendor_cb(struct notifier_block *nb, unsigned long severity,
+ 
+ 	if (evt.severity == MTK_DRAM_ECC_NOTIFY_CE) {
+ 		atomic64_inc(&volatile_ce_count);
++		mtk_dram_ecc_agg_ce_inc();
+ 		spin_lock(&addr_lock);
+ 		if (ce_addr_count < MTK_ECC_MAX_BOOT_ADDRS)
+ 			ce_addrs[ce_addr_count++] = evt.spa;
+@@ -258,8 +259,11 @@ static int mtk_ghes_vendor_cb(struct notifier_block *nb, unsigned long severity,
+ 
+ 		/* Inline ECC detects every UCE, including an on-die one. */
+ 		atomic64_inc(&volatile_uce_inline_count);
+-		if (vs->from_ondie_ecc)
++		mtk_dram_ecc_agg_uce_inline_inc();
++		if (vs->from_ondie_ecc) {
+ 			atomic64_inc(&volatile_uce_ondie_count);
++			mtk_dram_ecc_agg_uce_ondie_inc();
++		}
+ 		spin_lock(&addr_lock);
+ 		if (uce_addr_count < MTK_ECC_MAX_BOOT_ADDRS)
+ 			uce_addrs[uce_addr_count++] = evt.spa;
 -- 
-2.43.0
-
+2.45.2
 
