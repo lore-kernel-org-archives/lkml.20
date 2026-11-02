@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633477;
-	b=t/lUMuROVGoy09o/i7dfW4o7rb01/hcpqPPAIXKE+gFf0ct6YgBN14xSCHxtPNXtO8wy
-	 ILcP5oP2roB/v13XMc5IPBkEIJ2Q/1zNltlVXOwTA7PuD3M/FOTD4cSWydEtPO01TIK1g
-	 +xmrpv+MZepDWXZ3PIJSfAigwfxnFUwPzFioGsSElJKIwHZUPwn2ZeXUrKVIiCbLjf9AA
-	 38hEMQmkBeVwV6liAaxVKj3xY/33sHtrY2ntf6IrVx0HMi0dfAf16SjZeh432CjXLokU8
-	 KQhZfSmQ0vbuAYrJewZD/RZlE2qDrgN+e7AU+maNRXcFOpEsIO5omPKIAfj1IjpJqfw==
+	t=1793633482;
+	b=BEsqeNNgHdIEkTWsGfZ5YE7nPpdNKukBKIsHY/2HpasJ8TW5plv20Hgdfw25uf1ntDWA
+	 C5syQldvwNIiFHud7uc8ZUNfQHjYVgkksFbSEq4adgeDuSYiK3JGCv9ifuMlCDGysY9aM
+	 ZtsCxQokTYU2qGxHwM33OleYKQMZ2yz7BBc0k2iU+ftimyAyMeybX+XnGUpzugYbE5Eo4
+	 zFE67vmtD8JSgMnRjItCWaSM8g4luFXCmuxEllnCMpid1lU0+DswFUw/lYEzRskCrLN/L
+	 BMdkDtq756UNr2laHumC9trXYHYSghL1JzKWe9moQteeId7xi78RcnRHCUEZ9Wki13A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633477;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633482;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=+9txrTl5/NO8hYAgz5oQlXyA2nE6DwHGSloTA/xHM54=;
-	b=KGDqIRWLXDX6T77jwyXrErCWSabGuNwtrp0uv9ThXT3rXWr1Fpb+qS5+S4FIZrPFw0VP
-	 b/Hg+6IDzWQ5PmGz+UlaLd/JYeaP6Bb60MSXLNS5y27orRHkOYxkOuB9yNSKFlC2/wyIY
-	 3r4bVUj1O8yhsUjKRVWHmvj477KB2tvhfNJuZljygg9XEyybrB09yaqXIxTqa/+VidsUS
-	 qHe5VRU9+IGvvoJAstVPYWTLZvAXi3zE0KPPU9AmORSXFfx1WwHMJ2fbEsKVkeqpMMIl4
-	 T79HUz8auatrz7lFRq1uSvdIN5OCYuGNgq9+R4kI45kwKUa0vcjMo8fWxJnWfVK07dg==
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=u8KlsjglqgYtj5jEusWZDtIHX8Luz8pZC9rBnXtmi0Q=;
+	b=HvQGzumOvZTjJ4yZKAKA/r/OfY+Cs1gD2Sf58gOc+jK+BEdHXVw/74RFzYrKWro0ZD7G
+	 7bKQIWEruXnf93CqJq+Oy1n36OYcfsmfPYSRWbLDVgXObU3IPNMP6h0IpMctdmxRik/8K
+	 IeaqgtZKACcDeVSFT9Llb1pUk6VurmudmCaWJCBCjtUtZQZaRYQLU1fyMBYL2Qk3t+C8L
+	 PEq4xu0wF85xtOsZw7A+wziMK80j1IxIHKWt3ohnS18ECPva8CiOqq4fmeP91TL8XaTRa
+	 KFGlSpp9odIr6rYcrLQ4ZpFzQXhb8IkrOMmoSmM2w0T+5B+EOQ41usGF4tu975VEO4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zsqqkc9k;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J/qdmox2";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925686088B0E;
-	Mon,  2 Nov 2026 15:31:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71A8609EE42;
+	Mon,  2 Nov 2026 15:31:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zsqqkc9k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD7E1F00A16;
-	Mon,  2 Nov 2026 15:31:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J/qdmox2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E461F00A16;
+	Mon,  2 Nov 2026 15:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633477;
-	bh=+9txrTl5/NO8hYAgz5oQlXyA2nE6DwHGSloTA/xHM54=;
-	h=From:To:Cc:Subject:Date;
-	b=Zsqqkc9kduFdUaxpOIpvWzLs4s6w1weryuyFxz/3zrBRZkBRlHX1FaiJwSIB50s3n
-	 2zELJefLLOL1ytjVcg96/9BbfGy7BsA/l9ijHsdL7+uojqzkaKvSoPkiR/FE2hOgrm
-	 y0wSIFcvti7pxrVNqHVMpbjF4WAY/rOSM9WIAg+qGu2Wtq7vKfD/1Pq1ZazX/FkA/z
-	 K6JhZJaGXKEXGvujkA593Ty0aZv2c9yRgHlGqHdP2Ed83vd/Hd5AgXWVEvpGf9NCem
-	 7M9d19u9Ua8zLR47QB4Zj1VN5Nfg/xErLVdfZV1x4JdVFsCfRiD8myOhjuPQjrvP/7
-	 XUJG0iDjgTl/w==
+	s=k20260515; t=1793633481;
+	bh=u8KlsjglqgYtj5jEusWZDtIHX8Luz8pZC9rBnXtmi0Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J/qdmox2eqXEWCv5XUEJQx37Od8nU1wMi0Bc2C9mCDhL88i+zSzGRbVihYHiqXLOa
+	 g3Dfo9QA3MmH8rJNsoNOBBbat/liFHRZjNV0muYx/wuyAamwIzOyboc3aQNaG1Fpv8
+	 CmJopb7QZVW9mKI6nlkx20lP84DZ5fMfWgfMcc/AI5kSYQRWOuRQQg5tcF0Lr3Tl80
+	 VdxnogL31pZlj1Yewi0W5WJbAPBZ9GMUQ04l04+KJsZqsHB1JLWdWFTUfHrUXUb2oY
+	 YJsgjEm1zbOnFDa1ShHicpDP/KBYRVUkIqSzwe1OoQoIbz+p5Ql702WWJKb9ZbqBCU
+	 MBom5HcpX+00A==
 From: Thorsten Blum <blum@kernel.org>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -56,10 +56,12 @@ Cc: devicetree@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	Thorsten Blum <blum@kernel.org>
-Subject: [PATCH 0/6] powerpc: MVME5100 fixes and cleanups
-Date: Mon,  2 Nov 2026 16:29:58 +0100
-Message-ID: <20261102152957.300019-8-blum@kernel.org>
+Subject: [PATCH 1/6] powerpc: dts: mvme5100: Drop #interrupt-cells from ISA node
+Date: Mon,  2 Nov 2026 16:29:59 +0100
+Message-ID: <20261102152957.300019-9-blum@kernel.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102152957.300019-8-blum@kernel.org>
+References: <20261102152957.300019-8-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,24 +71,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=863; i=blum@kernel.org; h=from:subject; bh=ZxhEJFnmm8qLi9HIdGUmQB3gA8pliXDANXM6do7v4Wg=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkv1pSVTg58qupTfC48RZdfPWDP1ESWZrnz2qJii1Nl3 sl633rYUcrCIMbFICumyPJg1o8ZvqU1lZtMInbCzGFlAhnCwMUpABNZcpiR4cqb63kTtog2tApN UzyZUC0113fO+lyVmappZ86Ym/GevsXwP+XiBQvbW0s0XU7xOqxS0szbFrl09pOFDj4/onO9nRl vsgEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1041; i=blum@kernel.org; h=from:subject; bh=k9cmxF3STQ+7TVeFgrQyaw4gu4MlGxo9bPzSio1vBok=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkv1tSoZE30EfxuI5r0fUniiW3Psyw2LWBlLdhyK7jfu 3/Xu5gjHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjAR4zCG//W39E1+H4s3/c3q enbbm85ValOO3ue01Gx6Fja9Okp69RGG/04mf1V2R5Y3N0TYHdx/4Pa389NMQv3XzYs7VbmJ4ZP YFXYA
 X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
 
-Patch 1 removes a dtc warning, patch 2 prevents an out-of-bounds read,
-and patch 3 fixes the function name in a log message.
+The ISA node does not provide interrupts. Its interrupt-parent property
+points to the i8259 controller, which already defines #interrupt-cells.
 
-Patch 4 replaces hard-coded function names with __func__, patch 5 marks
-pci_membase as __initdata, and patch 6 removes redundant initializations.
+Remove the #interrupt-cells property from the ISA node to fix the
+following dtc warning:
 
-Thorsten Blum (6):
-  powerpc: dts: mvme5100: Drop #interrupt-cells from ISA node
-  powerpc/embedded6xx: Validate bus-range length in mvme5100_add_bridge()
-  powerpc/embedded6xx: Fix logged function name in mvme5100_add_bridge()
-  powerpc/embedded6xx: Use __func__ in mvme5100_pic_init()
-  powerpc/embedded6xx: Mark pci_membase as __initdata
-  powerpc/embedded6xx: Drop redundant initializations
+  Warning (interrupt_provider): /pci@feff0000/isa:
+    '#interrupt-cells' found, but node is not an interrupt provider
 
- arch/powerpc/boot/dts/mvme5100.dts            |  1 -
- arch/powerpc/platforms/embedded6xx/mvme5100.c | 19 +++++++++++--------
- 2 files changed, 11 insertions(+), 9 deletions(-)
+Fixes: be2019816e4d ("powerpc/embedded6xx: Add support for Motorola/Emerson MVME5100")
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ arch/powerpc/boot/dts/mvme5100.dts | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/powerpc/boot/dts/mvme5100.dts b/arch/powerpc/boot/dts/mvme5100.dts
+index a7eb6d25903d..b7e97d56c324 100644
+--- a/arch/powerpc/boot/dts/mvme5100.dts
++++ b/arch/powerpc/boot/dts/mvme5100.dts
+@@ -155,7 +155,6 @@ pci0: pci@feff0000 {
+ 		isa {
+ 			#address-cells = <2>;
+ 			#size-cells = <1>;
+-			#interrupt-cells = <2>;
+ 			device_type = "isa";
+ 			compatible = "isa";
+ 			ranges = <0x00000001 0 0x01000000 0 0x00000000 0x00001000>;
