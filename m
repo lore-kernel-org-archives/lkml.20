@@ -1,85 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612577;
-	b=xcUCJirC7JetZGz5PWolUPqcqhbHtJdQBUV5VfuKvBlUde1zbX6ObSp6jKioPsAeHEg9
-	 idpMoReEZq8RhyquCEJ3t8vOOSYx2RI+Fdila5C4i4S5xKGb6m/AAi1rUvPOQDpTxP9VC
-	 87mQ0ijcwQykZd5aA/nPg6dB+ru2t+hbAsgrU1s+0mDTCCesgwSmuX2CnnE4ylGOs0iNP
-	 CXyKG6rVShv7NnHR7wX2EjGxuo6XKemYSj74bJDvLKvLY4wKNc2bNAw/QUyskGsD2mkue
-	 I0E22aU1osPcyloFSfY13UnPf+9D2sxPSU1vdJtjNmqsi6yJmHicph7ODs7GLzkJmbg==
+	t=1793612591;
+	b=nKJjixBHnjYFEauVWRi0fZGG2vQht03sLVJNgJFkaw6gNkHNjm6DYcW81dxfD3nsvZ6Y
+	 VpYY9kr+EFMdlZX915jmKCBVuJ7Tp7bviFCBB87ESRxUljc72AI72ZmvGANvCc02lNhtq
+	 UZs6MYoUOpxJrv2scpTiDLJBo15D0JoRIGVoSAFZ2U9ls+TkCZjoPwTFtIbQbMzp0aN0j
+	 sb1n2REDSIuCH6etk7x5fus822gFQ9PgZR5/N9CMDDwHfd4RYUDeb/oqbeO67Taq+aOzx
+	 LZ/4zkenoywcWbN3vXQC1GdsxhWwFg68gANpDTY8kgiOtVxfx3nvFk9Mr0yinAG6Icg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612577;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=s7UqG3TpVMZULsSsKNu6N4cz1DW5BOeuUtIPS6QDAis=;
-	b=VHPXJzAc7At1QjUSaWF0uoijm2HakYVK0BRLxA74SzPZD+bc1LlEXlwoVlhQOpaxhMad
-	 sX+j+5pHsjgCuRDJ76a0Mh61h33Ugkb5oe70A6LMWDSJJphlKoSCS3PDOWIbnl/FbF9fh
-	 y/6Y9a6uX+OIbItasezqtThLO+PY2ygitBDfwabb88gUWvcdgyIRm7K/St9fDoCqB6dmW
-	 DGA9q+2tOrk9eTyPakxJeOnamfF7SpQEXiF4owcS541FPKyOe6ra3bKJ3PuTUySMmSBvo
-	 240fDtB9ZtZihP7zGCat8dTWlYxy1NeA46SlXkHGnbmy6ynxOVpwhGnNj4qufgLxtBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612591;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6B409QdOnvI4K640/GRyjBqzLJCAanW7cL4zy0aAKRk=;
+	b=awM+vZMSiQy5csEwAmsTmYZXtD74AuWdZEe4ziLjU3Xo8CPSBiCEMfAgVxMmrNmMynpx
+	 xAJN8pVp5cVoe0WhXukf/enUxjVtrhQW4iXR1ZaDmqvQ/APogMUauQramtP8jfb+wnTND
+	 urBpM+p377JbNXFM2u03ZRlGceBSiMyQyr2ebmRosjcwXmFp95/EfJq6juztMjP51i3fd
+	 LP9XCdlJ6UHsxGa67FGKcQsdDFpR5wNYP/O+rNl5GwM3YluzXcggLiEQUIqmjRI7SO6hB
+	 MAulG69JG359IQUyTeBkuZHn9KIYqAtH1bHxDVgVlMBGxFQcGP5RK1GpLROvLDc44og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ClPA+bY0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cJMJVYuA;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC343606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:42:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA63A606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:43:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA63A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ClPA+bY0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AF131F0093A;
-	Mon,  2 Nov 2026 09:42:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793612576;
-	bh=s7UqG3TpVMZULsSsKNu6N4cz1DW5BOeuUtIPS6QDAis=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ClPA+bY0o9FxQCw3epZF0M2lsgcTlSM1NNFz9qB/JW0tgE/R64AjRSGxWkn0dGiUB
-	 0NacSapE7jKS4ww2wO8aEblAEyUyy3PkCAoFT4p8VChO++7sDabB5gPyV9SjchNBXZ
-	 u3cpKD1g/qvToBBSPoC3L4li6QA/0tftW8R6h6MJKwQt9nJfsu+UapGXCgBQKvKq0M
-	 oZrUG2OQirut2iIcoDa+/a0yb/GG6PPPdjkqXtJ/6zPNdQRCGUdVzJC1/5gT8FtOz1
-	 E79LCOcJHyEmih5hWNJPqGcYdY7QmJnyKAw9Jqfw8J+wCIvXORORsb8hf1uu/DEImN
-	 cJ2wfOvNEgXvw==
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfauth.ams.internal (Postfix) with ESMTP id B5D5F198004A;
-	Mon,  2 Nov 2026 04:42:52 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Mon, 02 Nov 2026 04:42:54 -0500
-X-ME-Sender: <xms:G1voajdT0_ST4aQr5srb36ML8tbnQydvXNDb1Wa0pglc3-bl__0YRw>
-    <xme:G1voamoeTNZ_tLBRDKp4twtHfohRjjLY4Xdgxca7BPM58xswyriI0uPrLDxUcPrGJ
-    Ezolv1sTUcr7-5o0NIrPwaOZweizPE15Oa4Gu575E_BOCfeZSmZZDJm>
-X-ME-Received: <xmr:G1voasfqxLXbh9XEw9fIfqRJKKZl5m2OFKwZnoCvtkwLsethhHA1tzFqAMI>
-X-ME-Proxy-Cause: dmFkZTGUOybRtx7YsTcBd5eNLK4m3Fkm/Ey/0xNm/0ciR+HWLydMlnFcbPmj41D+Y1M07r
-    Sge36pJQ3Qh+uHPDZOt/Z0sw/zsNNy1zqLH6KQvtPBB7yRjuoI07tRUvZSKeBRtG7B1sD0
-    uAMxb5LPpw1ft4DgUZO3C8U4DLm5LSGomrKiANeik8BfMUm7H1eDcnAULVGAG4HLh4jZMz
-    ngg87BfUvwo2om0W0IDhfELBej4BrrIUZDHHWL61OWFhiKNr8MV2yCZ9saruXg5vczc+sN
-    56+11nmDJ3E6+gjErvQq7eGSpVe+dO5PhqG3Qe7j+bLHcDRWh4Xh7mITAz11RYl23v9FNE
-    9WySUbJ+jWj8Ngudc6sIePDxuGI+T/pG7YC5TIoUgGstZcw1h8NKcrBTIvaG3VWxSW1vmw
-    fgHGNcQRfeqJVryEov4ON6A5qd73Jtl3FkZhFcF8E0cJSOOaXI9bg8it/xzDBUw9aSRrWv
-    OnaDSuZ4s2b7vbpy8V2NHpB0dML1teWBFvRl5gk63Z8q8FbTPFM2KWPijasMF0zidFe8bK
-    08j54SKtHXyfp4NXSnpoIp949Lvt1fzxEg4CxmQCL/Z0ChfLObP0gnAmQqc8O3pdmwrrKZ
-    r+seW0vgXh4jOQejglUudMHx7CMpM2RrChQF3ctdHz/9mo0qPfwkJ8aIjPFA
-X-ME-Proxy: <xmx:G1voamlZf7s0DTyUWpxwvlxGs6f2Q_7BgepitSo_USDSMTdr-ErkkQ>
-    <xmx:G1voavu_HeXJX7iywt4AiOTqV54DB5KKlTYfIjCXVCp-mJCzZgf7QQ>
-    <xmx:G1voapxx6N7ltWYBSw6C5B7w4IbKrl_5MbI5rXH-QcW7rx_qsUlclA>
-    <xmx:G1voaqzwqwzR_zITWWZaT7wJMmOSAzFgKSFAW3C2pdC4o69fl8QrtA>
-    <xmx:HFvoan5gDyq0b69Nhm1DONlarQjnMvSSx45oTUCz0rkzanScX9i30Ews>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 04:42:51 -0500 (EST)
-Date: Mon, 2 Nov 2026 09:42:50 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Challvy Tee <challvy.tee@gmail.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, regressions@lists.linux.dev, 
-	stable@vger.kernel.org, dave.hansen@linux.intel.com, rick.p.edgecombe@intel.com, 
-	vishal.l.verma@intel.com, kai.huang@intel.com, seanjc@google.com
-Subject: Re: [PATCH v4] x86/virt/tdx: Skip TDH.SYS.DISABLE if the TDX module
- is not initialized
-Message-ID: <auhbCeeG-hX6tLZ_@thinkstation>
-References: <07cfa95a-e766-411b-8765-33352a04c0be@intel.com>
- <20261102073244.919864-1-challvy.tee@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cJMJVYuA
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214af2076so20643135e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:43:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793612589; x=1794217389; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6B409QdOnvI4K640/GRyjBqzLJCAanW7cL4zy0aAKRk=;
+        b=cJMJVYuAWVoaYwkyiNjlAEONxZr6+M9ML6SRyadMccsHMImZ0MWRheq7Xdn3ZkwFY2
+         q8U0K7yGEvv6dqDplu6A877k6T1uSnLg4bmATjrW/rFSU2rMBibYOph6nDiHZmC6BNuE
+         DSGuDaJqy9b75U+Jyt+m+KTMX5TKhHzAF2vghZigjc+CeI7aQb1MnE4jIHnf71fHRfZH
+         HH63OuS9qRr8APwHgkCJXq9WfcfgAP/MDTKT5yMwIhZMyc0KWHFNd2GCjGKGPXv2isJC
+         nAXtMn/1OQMf24+GbSLAM4N/r7yu6O+XLqXt2V6nkxl8OA+WAoIyRJPT9K8+UX+NDGAO
+         VILQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793612589; x=1794217389;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6B409QdOnvI4K640/GRyjBqzLJCAanW7cL4zy0aAKRk=;
+        b=gOTqXwJZC7hcznuvT8Ekc+tu0JFFEe9Klh9qRd7x/pXRdYX/ezOlOSyfZr5RCp7gAH
+         FH8A2bai+j/iV3XICN0/CuI3kTaTpH4A7yv1K1dpf05lq1/r95Eq0W2/PwG8HQh14pMP
+         2hAWNoj832evb+NBd3lRsQB8GtR8AR/CoYFuILi41Aa7u1KvAdPoipbPIYRO3eK4OH/P
+         ySf9OjP9ysi66GVhwjDosA5x+PvQlbiaeik7Uq6D8HN+U66LfCgvY8WIOggq2GyZoRVO
+         r+otEywtnaLthj3hadv7qsyxznOguWbNPFYzGcuJB4xVrrZRm/8HLI/ySJ/xzjVv9+Ja
+         CsMw==
+X-Forwarded-Encrypted: i=1; AKwUvBwXnmcEMAPj0CTksXQW0MZ+oGzd4SFAeqEtyjWmC2+eNFlR025vSg1A6kD2Gm/odAp8iyTfc5aYTZquUoE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/qJ7erlvJ+SpXuozYo1QeKt9MdNQQFW9t61GtxBcw2MpOgsCK
+	ixDupZXmjjoeFbBa9fPlrJYHTxvkvxholqxmxhYKSrv3kaMM1WcNUhx4
+X-Gm-Gg: AYBFou3ljz8MQcYhBOisQM2L0eB2FyU9M+kWcUOgsNT0/qgZNiXwlY8/PGQFJg2tbif
+	2eDpXFgQ7eGiAZA7XvrY1l2whT6UKo1M+zsN68Qe3ASbKT3mtNhwQl2L8x2AjlzwB8OCERbjc1l
+	3X/m7asWoHZm7pXz2Exqy/LIJHwxL0YIjVf2uPm4V05X9+iCxh21CRl1iS4/mlv2/YXqmtsHxTN
+	lpXI1h/lNqOwsT0a80tvRE7mbo1fnzVPeKjDCkZdVb0FHYY1sVMGi4JenvyQFF1b7fmIxJ0xK9P
+	ELGxPZPz/fn3GMWsCXnxZYSonETzXUR93QKVQgMXNRh/78TXyYMp34V3c8cRvlQJo8Wdzn88Rm9
+	AZarFG4I+rNoPXPnqOSTfGCgjxnuPbxfKqQhxNEEVkgFW42088/BLUZnByMW9BbCfvUjbl4Jsy4
+	pYBjCw3tQNsdP6O5ydK3rm5T8TmtEJqh34TYiv4MkDj1E7qHXFvO6pzy+pFblpb3y3Cpdkrtvvj
+	rnMGkzdq9MpxXdpq2zJbw82cxLXTXKRHCSFepSm/36whlReyQPgcbQSRRcogytUIe9d4gQh2KBm
+	xaf9qQdPI4E0VA13M04RVZ1Z56OeXGM63N4Gymk=
+X-Received: by 2002:a05:600c:b8a:b0:4ab:c447:49df with SMTP id 5b1f17b1804b1-4ac182dca8emr210351705e9.23.1793612589183;
+        Mon, 02 Nov 2026 01:43:09 -0800 (PST)
+Received: from fedora ([154.183.179.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d295csm332507285e9.7.2026.11.02.01.43.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 01:43:07 -0800 (PST)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joshua Crofts <crofts@kernel.org>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v3 0/2] staging: iio: addac: adt7316: clean up header inclusions
+Date: Mon,  2 Nov 2026 11:42:34 +0200
+Message-ID: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,41 +103,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102073244.919864-1-challvy.tee@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 03:32:44PM +0800, Challvy Tee wrote:
-> Commit 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and
-> kdump") made native_machine_crash_shutdown() call tdx_sys_disable(),
-> whose only gate is compile time (CONFIG_INTEL_TDX_HOST).  A kernel that
-> never initialized the TDX module therefore still issues
-> TDH.SYS.DISABLE.
-> 
-> In VMX non-root operation on a SEAM-capable host, SEAMCALL causes a VM
-> exit instead of a native #UD.  KVM injects #UD only since
-> commit 9d7dfb95da2c ("KVM: VMX: Inject #UD if guest tries to execute
-> SEAMCALL or TDCALL"), first released in v6.18.  On an older host the
-> VMM gets KVM_EXIT_INTERNAL_ERROR and the vCPU never resumes, so
-> machine_kexec() is never reached and no vmcore is written.  Kdump is
-> thus broken only in guests on SEAM-capable hosts whose hypervisor does
-> not handle the exit; plain kexec is unaffected because tdx_shutdown()
-> only runs as a syscore op, registered after init_tdx_module() succeeds.
-> 
-> Gate the SEAMCALL on X86_FEATURE_TDX_HOST_PLATFORM before issuing it,
-> the way paddr_is_tdx_private() already guards its own SEAMCALL in this
-> file.  Without that feature the module is never initialized, so there
-> is nothing to disable; on a TDX host the gate is a no-op.
-> 
-> It also decouples kdump from the host KVM version -- a guest cannot
-> require its host to inject the #UD.
-> 
-> Fixes: 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and kdump")
-> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Challvy Tee <challvy.tee@gmail.com>
+This series cleans up header inclusions in adt7316.c by following
+the Include What You Use (IWYU) principle.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+The series is split into two logical steps:
+1. Sort existing header inclusions alphabetically without modifying the
+   list of included headers. Keep subsystem <linux/iio/*> headers
+   separated and insert a blank line before "adt7316.h".
+2. Drop proxy header <linux/kernel.h>, explicitly add missing headers
+   (<linux/bits.h>, <linux/err.h>, <linux/errno.h>, <linux/kstrtox.h>,
+   <linux/pm.h>, <linux/string.h>, <linux/types.h>), drop unused headers
+   (<linux/i2c.h>, <linux/list.h>, <linux/rtc.h>, <linux/slab.h>,
+   <linux/workqueue.h>), and maintain alphabetical sorting.
+
+v3:
+ - Split the series as suggested by Joshua Crofts: patch 1 only sorts
+   the headers, patch 2 replaces kernel.h and adds/drops headers.
+ - Explicitly include <linux/err.h>, <linux/errno.h>, and
+   <linux/types.h> per IWYU following verification of symbols used.
+
+v2:
+ - Address review feedback from Andy Shevchenko: drop <linux/kernel.h>
+   and include the headers actually used.
+ - Split the original patch into a 2-patch series.
+
+v1:
+ - Initial submission.
+
+Abdelnasser Hussein (2):
+  staging: iio: addac: adt7316: sort headers alphabetically
+  staging: iio: addac: adt7316: replace kernel.h with explicit headers
+
+ drivers/staging/iio/addac/adt7316.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.56.0
+
