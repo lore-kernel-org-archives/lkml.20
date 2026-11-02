@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604454;
-	b=kt3/pXU8KYRReZ9PArY0Bw6+pIcfUR0HQ/D31bnAyi2UIjZA2Oay4h/9zu7wTM2h1ZZo
-	 60C6XWXSxC9Vh8ZNSDCvid6s7oVrN+Rb4LUkuxZkDafI+aRetj1DhYNDeGV29h/OUPEci
-	 Fs5tcijIn1c8/TQQ05HXw9A4phCYKe4j5Qh+kx8StweOAsFidQEqe1sgoo+ph8l9jUrle
-	 xPZaNuIxEshPFIuuWNPxvCrIQzV/vTP8a8DCrHaiyQlzd6aZ9vAUIuofwZrHwMYw1SN+5
-	 cUXC/k86sr7bMiQXhZ3yxp29C9Qotf1mBOuWsrYzaJ7XW6IXppDtsItQHEJYiZK6foA==
+	t=1793604483;
+	b=bcQTpPjadk2nDr5mANhxr0yJAkKHUtSHbk7YDb7rQlnQ7mgHhjwHPp0cOk6rPK0+BAlv
+	 +A+St+yHuzEcZJLGXSyaLIwCgbuKd4zWz3/IZr/M96UoT6TBZUE+lGZPVWr867pTlD1J7
+	 5neRargnCHqcL480qNuycDXt2RSPE5pmolitBGWNPmYO9BmUV5W+LpEzRaFdH6VofJziD
+	 +jQVLmXTkrMFFH9rWsoFqG5tfuNi0285M1TqySLz9DYylsDPrXk/FM0bPozzIn57izw1D
+	 KetADIXMqIQth1wAs5rv0k9lBlyJUNiaF4MuS71sY7J0HfEVOVK7yOkVPnZ0bxfqoIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604454;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OV7qYi7W/vfkD8MCwFb5WEeCnowUs5B5QyZ5kQjzbiI=;
-	b=tcbyEbCi91NZW/3wSun6FejNdBCNnW+zAmtmUoPiLPYVEeKVeJkxTbmpBIdx16crwgG9
-	 aHdTVvAS6HtuZIf3lhoIhyGKGcQ5Tohwt/xNlHtSiSN36LShJVfXlLU6HJ3GcinY9DRyp
-	 SyOjE4jO7Md+cVDe1TovbzGJMXhKleqnoMkC9Yg9WfCPXMTVgYaKwm6rYK2WmPr3t70py
-	 FrEXTORMBP2JAVSWI7OVPCBxdLWjurkDqYHJltLqhJIF67fvlhV9+9acH1InY3wGlc46Z
-	 WrE0fDnTf2oeCXPlWK5SEh+aFq6YotCiS+z8mE+fa4WbHK3+hzByqsQAxDWQv+ydy4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604483;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2jVbgmKga7DskLxfH8gIwm0upGtwbSPepnoiTB0wtYE=;
+	b=FDB96PGQ/vRoMqvXDX30YRIvS/fQNPrcp7Q7rN+PQO0JkvzC4EE6uCK09Rj6+9stFFZ0
+	 y1jut5TaN8Mw2HWhNlLJYT+qOvp68mFUKxVbnBIyVV0FM86kcLIpAeUuex1aDpucJQqpk
+	 W7G7d8SHBJkdey5h+iRREnTvN8aO8W+diSwVpg5AqqIrfO50CtRoSznBQwEGt5URXQTYi
+	 9RjQiO2OWuEUOUkAhIsPLYqkwuBrJC0Qy2Y5fmLv0DC8g7/RSay4NQjQfPXvPoy2sOxco
+	 JUWBzhb+n78X1gXcaYJrt4542RZlSRWlx8R2xUq6rxQnhEJEQiR/Krwf1F2hmN0wUjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F337+Enm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VbWLWe52;
+	arc=none smtp.remote-ip=209.85.208.176
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 51B09606A324;
-	Mon,  2 Nov 2026 07:27:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B871606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:28:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B871606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F337+Enm
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 67D0A1F00919;
-	Mon,  2 Nov 2026 07:27:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793604453;
-	bh=OV7qYi7W/vfkD8MCwFb5WEeCnowUs5B5QyZ5kQjzbiI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F337+EnmUtVqpRcwDVIMM76HdG8LPLxs6tk0pj0bhi3x485ZcTlxX/Evm2x5qsdd+
-	 f5oYnPvTJsGq2sgi6sOAq+3pMuTmPi8x99E1tuKKEeAEinSX9kMapI9NndpCsMHLts
-	 yiX7GTzjCBe7QmO4NM9gQMJTVWfOVT34dwfCP+RjOjlwBatCjJPEDDkmXpD3Gs2End
-	 I8OKY01Mc2lqbu7yHfA6eH6fyZAAmPkrLsm0tP8xUi2SdV39QFIRNN+a+8gWq0cd2b
-	 dvox5ouQp19W43K3aRVqZksWHZV69wZwxtdQXVsPprdcsA9OQ96a09JWtXOWUAE3SG
-	 CdYYJv7dX36SQ==
-Date: Mon, 2 Nov 2026 09:27:30 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Cen Zhang <zzzccc427@gmail.com>, dhowells@redhat.com,
-	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
-	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com,
-	jjzuming@gmail.com
-Subject: Re: [PATCH v3] keys: Protect the update method check against type
- removalg
-Message-ID: <aug7YvK_mhbm51JR@kernel.org>
-References: <pm-keys-update-type-removal-20261029-v8-a0dbc48c588bf2b6a278@gmail.com>
- <20261101221519.GB2689@quark>
- <aug072sNik47BXxQ@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VbWLWe52
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ab39af88aeso29555251fa.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:28:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793604481; x=1794209281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2jVbgmKga7DskLxfH8gIwm0upGtwbSPepnoiTB0wtYE=;
+        b=VbWLWe52AThHVc9c+BIwlWvFcnec+XkynCsLxVpRkx6OEckKdr+lLR+3w3jT/+mik9
+         zIk6rRn+zFbQhUuyAo4/cWDAQ0yaWNchd2ZwJW1WHiciB9GqoV39o9i8KHeoREnK6uG8
+         4AMhfz36m2V//iVbIA0km2CdcYcIdGe/rrp7zs9WpO3UPVMfWWDqSkYPqnaTgTOPyOR2
+         7uCdHWdFkrTGGowYwfdAVa9eqiBOujgw+8JKOYqEDGLFSfiDIyG5jrzzqMZDtVHjqxFV
+         /lYDyT5XJyzZUbfEFbN7pvy6dZ7QwswLWaTQCvzuIFOmp7iyqMIrA4Lg9eWhK/3NKViL
+         SZVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793604481; x=1794209281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2jVbgmKga7DskLxfH8gIwm0upGtwbSPepnoiTB0wtYE=;
+        b=FbUShvvNA20V46B5zhbzj+ic1w4QOjzplffmb+Y7GuSu9nmEnKSufIgm0FTWi3+x6m
+         LNvDFfeD1fwiVgLL7v7W6njQzKBcIG9W7LlNrxhHwHxonrl3POtgwqqUqlE3bCCS7uOL
+         AHlz908qOT0MxU21/0YrX3pSDFjTDfQXNvn5sSMB5aMuBF8x3+SwtcyfGcYt1wFhA2Tu
+         olHbLXzIz4c6yvMVA+zEmKbNuw9RvYYFno8RbhVaDe2UNQo39Y7hEc6Q2w5ii0RmOoQA
+         YPINRQlJtjXB9jFp8r7IKgu+acKRoS6DBv4QFR325d8m5K1sJ17gkSsXrW55s02hZMxW
+         fC4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwchXt1xSuRlUooVWvyN2xAbObxAW0avHKhYidf8n/GG5sR49+iRfka5wJaQ9we3uOyzV3fF3kwvmHeY9U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Oeocvu3RiD/wAtlOZ7c7XGT8DJ2HBrlZIwmpH7T96vlnZ6MRv
+	RarEQ95/vCY4ZPTNzO2M3sQ5h4o5fl4DXEcgFK8mng7PeK+AgpMBMvBd
+X-Gm-Gg: AYBFou2T7EDTsksiPQtT7pQ/0F47ypr0y063ofQBgANccZVDjB28FWbnByZ/OpazAFy
+	NC3QO1hx0R4yXNkdp0yX/4jXieSUZN7EeDE6qVt4M2Xzv4sZUAA8QPbfQSp9gF9lTLiXmAgdgVK
+	agxH4MHEIkecMGtSkzYJVp1meCAlVHYvQAuq4AgCfcpRC+SdrGQxgwukzZy0eh+vnmuSTEwmPVA
+	JDvf8AU5fjoZ/zAnVDSvCkDAa6jWXKzSY6divwzoymqXqbtq9sN7yeTfDfBeNwypGULTU2OxiWN
+	opV5Acx4AFDSMYwWJmDsTy1ajKBZumnopWL4Rg21r8GCSSK28n1/+aNPFffKNu5U1PtTEvtpqcl
+	on0z/JCTYEwlz55t0oVnli7FDoL9SpftMLCwQfvD580XVLy8qwuODNY36gFtr1uS1qZ3cn3f17m
+	OA5TkJYOTQVqB+x9SkvjyZeVUv7gs5A8aU2atMK+EOmMl7XcGIGknHIbatO6p5EoLxAixQRMei2
+	/42fCzojDWE6lQdzZToxOpps1Va1SjK8I7jGOElRGzCCV8STxdZpziKtowHsirw2Fq4Vrokoheh
+	FViWUYhosmzBVQcBdrJT7vT/yVckCAjB1dbThBVtdK+oor8EtSbGb3u/wwnu/TDsTE4Nq4/TizN
+	NEXm7jJviTjQDbKV19i2qgosDu8IXy2dVwDxq3KTDWYK/DoRGXD+H/1T5tZg=
+X-Received: by 2002:a05:651c:1991:b0:3a8:380c:9fb6 with SMTP id 38308e7fff4ca-3acb7b187d1mr21133061fa.28.1793604481125;
+        Sun, 01 Nov 2026 23:28:01 -0800 (PST)
+Received: from yantra.. (nekmmqsyzuioqaviu43-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:3ce1:244f:bbe9:eff3])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe9856894sm452283e87.5.2026.11.01.23.27.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 23:27:59 -0800 (PST)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: [PATCH] iio: pressure: dps310: put the chip in standby on remove
+Date: Mon,  2 Nov 2026 09:27:55 +0200
+Message-ID: <20261102072755.17043-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,33 +101,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aug072sNik47BXxQ@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 09:00:03AM +0200, Jarkko Sakkinen wrote:
-> On Sun, Nov 01, 2026 at 02:15:19PM -0800, Eric Biggers wrote:
-> > On Sat, Oct 31, 2026 at 05:26:36PM +0800, Cen Zhang wrote:
-> > > Take key->sem before the first access to key->type and hold it until
-> > > the preparsed payload has been freed. Once a key exists, only the GC
-> > > changes key->type, and it does so with key->sem held for writing.
-> > 
-> > Reviewed-by: Eric Biggers <ebiggers@kernel.org>
-> > 
-> > But it seems broken that a key type can be removed while keys of that
-> > type still exist.
-> 
-> It might sense add ->owner and use try_module_get(). That would lead
-> into removal of key_type_dead.
-> 
-> I'd think that is doable but I would first consider applying
-> https://lore.kernel.org/keyrings/20261030205412.3138975-1-jarkko@kernel.org/
-> as that is more substantial multi-subsystem change.
+Remove resets the chip, though all it needs is to stop background
+measurement. Write 0 to MEAS_CTRL instead.
 
-I would probably favor this idea but it would also change visible
-semantics how key types behave with rmmod.
+Probe now resets the chip itself, so nothing depends on this reset.
 
-I.e. -EBUSY instead of immediate success. I'm only worried here
-of user space relaying on how it works right now.
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+---
+Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 
-Br, Jarkko
+Applies on top of the dps310 fixes series [1], which resets the chip at
+probe. Discussion: [2].
+
+Tested on a DPS310 on a BeagleBone Black. Written with help from an LLM
+coding assistant.
+
+[1] https://lore.kernel.org/linux-iio/20261029220635.18816-1-zoone.rupert@gmail.com/
+[2] https://lore.kernel.org/linux-iio/20261101173009.3549f50d@jic23-hlaptop/
+
+ drivers/iio/pressure/dps310.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+index c364fbaeb3fe..5cee23986f30 100644
+--- a/drivers/iio/pressure/dps310.c
++++ b/drivers/iio/pressure/dps310.c
+@@ -1391,11 +1391,12 @@ static irqreturn_t dps310_trigger_handler(int irq, void *p)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static void dps310_reset(void *action_data)
++static void dps310_standby(void *action_data)
+ {
+ 	struct dps310_data *data = action_data;
+ 
+-	dps310_reset_wait(data);
++	regmap_write_bits(data->regmap, DPS310_MEAS_CFG,
++			  DPS310_MEAS_CTRL_BITS, 0);
+ }
+ 
+ static const struct regmap_config dps310_regmap_config = {
+@@ -1449,8 +1450,7 @@ static int dps310_probe(struct i2c_client *client)
+ 	if (IS_ERR(data->regmap))
+ 		return PTR_ERR(data->regmap);
+ 
+-	/* Register to run the device reset when the device is removed */
+-	rc = devm_add_action_or_reset(dev, dps310_reset, data);
++	rc = devm_add_action_or_reset(dev, dps310_standby, data);
+ 	if (rc)
+ 		return rc;
+ 
+
+base-commit: d1425b382b9cc5bd19223fad8ba4a8af3dbe1305
+prerequisite-patch-id: 22f0452fa0da955789612d82cac492cb20ca45a5
+prerequisite-patch-id: 53d86ea85edbf34082bf9bf9e590c6436994982d
+prerequisite-patch-id: f5af50326a55df0acc42474b3fe04e60f25a3e16
+-- 
+2.43.0
+
