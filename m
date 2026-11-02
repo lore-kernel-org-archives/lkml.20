@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626847;
-	b=d5UaBQmbfd60va3A8s2uOfNOs2KOd6Qm1rE0vTRYFwTxOcT8aTTIlk6eBuBnu2d8Lpu/
-	 LBkmdAQvVU7zDoDXgiIrgmWG1UP9br1k7IiUa2HYiNrTDcEun90JDogE9kXJ/tW0ZWKgn
-	 tc/x01P/rNsc9+aEc+zrGALh+mLT2UUrS0v4z6kIZx6UrmyhCiWDC4BB+18V0O1vlRaFu
-	 TJhpKUFYzKEoNQ5IfTRcrpmz2DMEdAPyAlI7lRgLoQfaE8rhLoDtQ1MPeRCACQ6qdCbvi
-	 cBDJs5vUVTA4lY6h+JPi0z3oz2rXnJ1Zplv2SRxQBjZWxmHJW6G+O0NaTWuhoftQFsQ==
+	t=1793626851;
+	b=lOecD8TB2qNJgXSs6EbatxO5spOWhYGRBaY6g9As2sGAVM3TAjxVm21Eegk9BEK/EY/j
+	 0u51QPwyQdSQHGrpkLg1c6LTBSINMte8hb++WAUsL3erk3jhp39EDmuR64pnfHIBf9NKN
+	 bErvblfQw3WS65HPPkgpUA/RrABP+Bt/CBEg9RtKygjKXeInXKNK5Yz85UkPJ6QgSZ+8U
+	 xBguiqGpLkJAH1bg5nkYAfEUk1gw1nSyzhRKADBF/pFX23+cEhKBQoTD9qFJfghWutq6j
+	 ZRijO3vgCaFLKTIGyw3rCKhK3rDDmlIZEPPlc8N2f/TwcXlWVuh3pWyWE0nxFIcYQZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626847;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626851;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=Dl78OSEC2a8P0qNwjbCaKAfKyZ4r0+nLQbHmynuYPGc=;
-	b=OEGYddCOJPsuTjxHg+THu7MBSmK1D2PekOXcbcthbWZokvXtIBVsZpeMdWRfRTB+IgjW
-	 LScEo4FFK3jv2DqCnCSbZ2rzmkDNH2+Hc2tY3ZO2UyZbBlUpJ0wvUq1Uhvdk+MdqgB7aI
-	 rdWdMiAP+XZJLTS04Or6yBZlIeb3BBg+5nLF6o/WcoZDhYLC+emjcxbjFncZrt7pxbAYo
-	 zIkwpSA+t3Rd86spNU9XilVTKN6tBv8+WyndyXzI1fCnPbJBb1HAHnAO1FsnylJClFE3S
-	 0wpVdZ1nTMcJlPE7+pfCedxCug9lGEt8mUWeo5u29phNuXChkV5se9j4LYEgVqa0xqA==
+	bh=EEkPJ5sYCs2riG84XpmGHlS11U398nauVojefjsmFUk=;
+	b=J1fgT6zIBSlUHgMwotwAfhxVupVtM/sx0/4oyyY8+oXJUF8F6EqAcs/Gr9FnIasDRKiI
+	 icM7WN6iqANzEshRE4ze5EIiqlVx3XAAukSUCcyyDjRQGpwfsVza+FLrJlwHZJy3VQasw
+	 jUWXFS5MqmFGc30DranJStkAWRdsYPSEKXsbui2ArlJOxW+UviuO+67iMw3MIw4oCL/jV
+	 SStyIpZNq5UfSzaf370sXFwbpzEGC/j9ie66leUvYzKlHr/JUB9UC05q+JbdfY6ba55kh
+	 XHzyAWnY5pIN3Uy6SGAH6N10ijz91FiRE9YMbB+VxHMCYdAgzxsxQM+upM2GahS7LRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=pGkOIJT8;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gApoeV5F;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED5F60A5BCA
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:40:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED5F60A5BCA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DF960A3811
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:40:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0DF960A3811
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=pGkOIJT8
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so22822535e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:40:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gApoeV5F
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so19897735e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:40:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793626845; x=1794231645; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793626849; x=1794231649; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Dl78OSEC2a8P0qNwjbCaKAfKyZ4r0+nLQbHmynuYPGc=;
-        b=pGkOIJT8aTj7/6uiIaRBS3XwqfzCUiLgyjr+tCG+wwhMd6uN3K/73Apl4KlOG4GhNr
-         gYiqhRrlgYSVaY7APylkHGDuW6gpsEqkcW9llLievmRJBHXfm9PpGGMzdhdv2vGddSYW
-         0ZlNtSb020V1mglQBLioU+kZ/Vd+1pDe/n7QRDKkoKOMIqLeJtP9e/eeK9wy01cGBmO1
-         K7KtIn/1dy+SjWLlvY7vzP/Jd2rjTuxfGEnhgGOxpBc3X74P4KH5rd+abpBDcCxInnTQ
-         xq0hm9e/a+qKjV6NvNW7tDJ4V7hMjYzCF2mOUJf6ONxWc8Z8amvSDtqIJZ2zuKqi0WbV
-         xnxw==
+        bh=EEkPJ5sYCs2riG84XpmGHlS11U398nauVojefjsmFUk=;
+        b=gApoeV5FaQOL3LZ3kov1v98gEBTfqYxsHtINMIBtfaCPB69384rmGi1tcoJtqBYge+
+         X4LYpA4fBK14PhYkncgTat/TqdS3w2Vpa3kZwMzzCCMtQfL9agaiu7Xsm5eVP9WDnb93
+         h594C2VTz4y5cJQKIXOxZIa6ffjwl+1kBrWEl+vjfZG2VsGQvzU21sp00MEk6SVvt+/W
+         gDQr9k5Hy7qsyPr/y7obkzVawCrYOxdM8Lc5NyGT71MoiDJBX37GXenZ1SWovH4S5ctG
+         JGkxnB5QQMkFdMwv6X9vLnP09IxBBaLosDBJKy3rizHT0kVlzULTDXROyzLHoX3HVBXd
+         AihA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626845; x=1794231645;
+        d=1e100.net; s=20260707; t=1793626849; x=1794231649;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Dl78OSEC2a8P0qNwjbCaKAfKyZ4r0+nLQbHmynuYPGc=;
-        b=ooNn2VKCS/PQczjf6Xix9TCvNBgT9b9mvaL8F0khedj0va9mb4ZSwhNHP10K7URk6/
-         W0wIZUNqiugWKc+x8X1tVlNCLFFxpK5F1GYrgVq7WbbRcjnI9E2Lb0ZrvGJRJa9nD8TZ
-         NcDBu7H1dE6eg+CNOIV2luOjjOfRyLUOWNGyIv+9SY6n97AIhgsSGsQx5JIJdFIgGObf
-         3eEG2InSYY37idFXnGjDbT1cY+dvoiXti/3MjrNvE6ZzJfNPewsb+FjbgsiGjQJCMxM6
-         xtLBbyz9LVOJQ0+Ig89KBow8ekwsrun5qSG78PivNhTCX6EhcYzUe1DPjIFwxAY31LPZ
-         mOrg==
-X-Forwarded-Encrypted: i=1; AKwUvBwBwkI0ZMv0rNusHKyekFA09fVHMXUz59ZdLwgqQ7MWSn3ziaLE4/7JYcjYcJiNJaJcOlmNT8mSWR6G5gY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdOy3eGOaQ9N3LISKYsSwpImpeIhewG2/x3OdTaz5EkkVgQHhb
-	HajXMD13WjMQHH5a4EAjRQnL/4BhfBfxhsm9JdohcYqqwlQUEPfxW9reAcknB2FvMP4=
-X-Gm-Gg: AYBFou1TKywndfJ1HLfRqeZs1jUUQnZsrokN6pz/HU6fPSPGBQnqyKxBB65XYEGRQgI
-	FBXc/UWd1jL5JtMD1t3qb5DsEC0QmiWnWCKo+5dssmxozbqreRs3xQMIP+5ppHJAlQwSVOHhU3X
-	8j+Z2AejxWLu86gdrehWKVv5b5K7jF1Cocc9CaoE6YRRqTuRTFJrb9nqqKPWx5ilf3usgF/Ix97
-	n34V0BxZz/My9ZqMpYB+bNo8P0GAu686vkUXRNEobiZgwoSbBwo9rTPXpWXeK8KNWl4VPQ2+k71
-	mtS78+UkPU2o9KbNzCEuUVRqRe7Stqo+SNzSggaQrET27rQnDt1OpPLZ64uUqQYFItmcteLvw+I
-	FXI91EDCsl3GgPdAhwwF6s/LYrrd5VlQb1QPsmaO8WOVYOVsYHrR2D2X1vTC9GPF7gyTea8Aa53
-	nq3ITEaPnnge9o8qMbGxAz+ktyDVqrUdcR/rQjXPODjKQn0+4xjV6/noZZtSitTmn99InnA0dWL
-	IjrZa1uvqL1vtTubDC89+WTf9OIoxPsWUbFtzwpJaNz7ZuSvbctv1NhD0hhQk7B1Ca2IbE6rBzr
-	HoHv+G7mju5IS9YXWgTaFbwpvxH5SQw6w/qiqGSMtk2cx+88ZmCdtRUISspb0Jglg2HzXN4=
-X-Received: by 2002:a05:600c:4f82:b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4ac1889c857mr215222075e9.20.1793626845007;
-        Mon, 02 Nov 2026 05:40:45 -0800 (PST)
+        bh=EEkPJ5sYCs2riG84XpmGHlS11U398nauVojefjsmFUk=;
+        b=qaZoxJUUVCiKmoly6ffNOLxq2wXjw7x5JfoBgz9yvYAjhITnfPUQxUdHlLUuB1UYXl
+         5D6/zqre1pgvUFUYVSNMr8L4Gw2ryoUpFRqvD1HsewwUWcinKpbNSRUI0+r/PNsxiU2r
+         i9mwqjorEVbWR1K1qDzqsR2tVmkGMSpfhPJxwHM2u0yiPhWKlCi664f0jcSsP+nulcNs
+         oYAFfXSvQo8SFNkHyivjbOYVdIuxJHPAoNeuf/7XMEEBMTzPK7aL8oPbINAgykTDWuaI
+         Jg823bhUHFzA+Zpp8VcUNqcUzIhQRSVAoLwl1tc3QyMJtGuFpNoaaoH1vT+mcpmC1rdI
+         eXsw==
+X-Forwarded-Encrypted: i=1; AKwUvBx/JEnp4p+9bvFR4sbhtx6/VPVQDIhPRiomXFqEn+eL7TjsdaBmfmeX8t3iD+oe/eZtXqX5CEB8RAll7eg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKb6cII9mXl2Ppes03Kx+dJbGXQFGUb6aTMcMkWm2nCFCt7WJZx
+	4OOEzq9O9wnbzKWuQug7jFe/IAEbxM2k03N3BCknDIiEOQcIErB0WAhTDD2WHhAEYhQ=
+X-Gm-Gg: AYBFou0I0Ksb+f0YRxo9GFNMzLDr6DePVi8NYANgUEIKUh+UMmI7e+y4FOnErnj+S5p
+	SL7f9PrLNs/7lcRqps0QQgkogALfZ3nTLLK/xJ8pSu36tb7Pl4itbHZLrFi4zrkBCAH1XTMOwPg
+	riTuUSAAX+2DMAatTsYK+VMv0lBcuE82jWZVZkKmHEAYrCLtFWPXWbHLKVBDo2upKl2cpKcJjTC
+	jeT2ttxJWhwbsOWS/8nKw6jUGZA58g8p/cpn6o/KNUFd1vzrO18UWVNuPxXlqyM3Q8yFlr+vYyL
+	Sio9S1iw7IQmlQAuNYbBCE2t+EE6XhOdEzeZV8P68p7yVLvxk49b9K5dm9250USpxocJ3CCYQ4d
+	A/xv5h3htbXNdowDBXbbM1sRrsT/zejiM1dhGbv3ok8dbYyMiaq3ec4uLgJ9Ml1ImeZys5yD8aZ
+	AFj3lyqralPzKS/+oL+lnQq2HGL3DxWstVZc2rool4DEsQXxGziHqwOMiVdu03MAb/YftdG7MgN
+	FcFUCPpXqQ1lUpDmKcg3jw1qRMl+Syxy/RujwvVWuLhF1ScJEoQ4RMeMnKhSxweo/f7ck0N1hwS
+	Kaet5aJrcwrgjLNs5oDj+ntSPPF8cXfXD6jkxxa78Cwralyhng==
+X-Received: by 2002:a05:600c:8b55:b0:4a1:ddca:8b66 with SMTP id 5b1f17b1804b1-4ac19234a06mr223771975e9.31.1793626849036;
+        Mon, 02 Nov 2026 05:40:49 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:40:44 -0800 (PST)
+        Mon, 02 Nov 2026 05:40:47 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ishu Brar <patches@brar.si>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
-References: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
-Subject: Re: (subset) [PATCH v2 0/2] drm/panel: Add Samsung AMS644VK04
- panel
-Message-Id: <179362684370.3310106.4332858082729247133.b4-ty@b4>
-Date: Mon, 02 Nov 2026 14:40:43 +0100
+To: dianders@chromium.org, jesszhan0024@gmail.com, 
+ Hsieh Hung-En <hungen3108@gmail.com>
+Cc: jagan@amarulasolutions.com, osama.abdelkader@gmail.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch
+In-Reply-To: <20261102043215.990351-1-hungen3108@gmail.com>
+References: <20261102043215.990351-1-hungen3108@gmail.com>
+Subject: Re: [PATCH v2 0/5] drm/panel: Use mipi_dsi_*_multi() in feiyang
+ and rm68200
+Message-Id: <179362684683.3310106.2850734684775211382.b4-ty@b4>
+Date: Mon, 02 Nov 2026 14:40:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,23 +107,31 @@ X-Mailer: b4 0.15.2
 
 Hi,
 
-On Mon, 26 Oct 2026 22:09:31 +0530, Ishu Brar wrote:
-> Add a binding and a driver for the Samsung AMS644VK04, a 6.44 inch
-> 1080x2400 MIPI DSI command mode AMOLED panel with DSC, used in the
-> OnePlus Nord (SM7250).
+On Mon, 02 Nov 2026 12:32:10 +0800, Hsieh Hung-En wrote:
+> This series converts the Feiyang FY07024DI26A30-D and Raydium RM68200
+> panel drivers to the MIPI DSI multi-context helpers, as suggested in
+> Documentation/gpu/todo.rst.
 > 
-> The driver describes only the 90 Hz mode for now; the panel also does
-> 60 Hz, which needs a way to pick the mode from the display pipeline that
-> I did not want to invent here.
+> The first two patches fix pre-existing prepare() error paths that leave
+> regulators enabled on failure. The following two patches convert the
+> DCS helpers and initialization sequences, with command failures
+> propagated through the cleanup paths. The final patch normalizes the
+> RM68200 hexadecimal literals.
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] dt-bindings: display: panel: Add Samsung AMS644VK04
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/362fc4c73d39eff00ff1232275631a5b05474a52
-[2/2] drm/panel: Add Samsung AMS644VK04 panel driver
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a72e7d5b3d038915e05a1c459b513e40f7e06ec2
+[1/5] drm/panel: feiyang-fy07024di26a30d: Fix prepare error cleanup
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/439e9dcfb3ba4980522cbb2c33eff5f9f321db64
+[2/5] drm/panel: raydium-rm68200: Fix prepare error cleanup
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a1b23a5bc8567c16552e5e16cb6e9d59c54d262b
+[3/5] drm/panel: feiyang-fy07024di26a30d: Use mipi_dsi_*_multi() functions
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/6b84154cdc1a4ebc237b308640d2ecd67aa90cb6
+[4/5] drm/panel: raydium-rm68200: Use mipi_dsi_*_multi() functions
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/c8e7ae312688b05836376d11420bcaa4893053e6
+[5/5] drm/panel: raydium-rm68200: Use lowercase hex literals
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/57a2f4d7c90ba17a5bb84ce6741927e85896f413
 
 -- 
 Neil
