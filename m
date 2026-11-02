@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624512;
-	b=ErBFTUCiQSYlka3mAesJGyaTXrBh+HpHyDdSXljGVegzDa/qlna98frhaIiIAwl3o8Es
-	 lMNGrvvjYE1QsIQRvkCPC7GFtBvzcYqSdnFIEgClBtUNyw+dibjJR8BqjkLzH09uP8eeN
-	 6wHB4CeKT32ux/kpIDeyfYk53YgpMkDLHoDCmcEZglEdfNl40We071lXdrNYL2vLlahj0
-	 fSvUOu6zNbIypze5XSHM8C3iLenHRanfsI9sZMJ+oGTjG8Pw25QQRxcGwlAVM45CSDmFQ
-	 j/QK+VG3FDM11S4NtYo3Xe3qmgytqaRWF5L6FpvBhXLidBZc9OCpEGiKeveHB3+6l4A==
+	t=1793624537;
+	b=nw7WYkav9ALuPUHWCQtnNIB3dckBEZYODvcWhUYInD6yj7PKgvlYUGDliIgpMABlhPob
+	 1cC6Pt9yzw+qx+hnFgFjLk44zMSeccPVY/dFnXUQs49SScc83rhh1ICyp169QyB480Z5t
+	 xV0Cp3Sdu4QUCO+WnskToexxQXTYNzi5TVSaFQEg8B192bBg3GYrW7Vmejhd+hoQlhWCl
+	 AXdNe1Qq8YDRmA+5vfZS9ciajNY9IBJ0y36wvCXEvlVdDB02NOKLehsuprCaBCtW+dK1X
+	 IV0X+RIeZ+P7Mk3juURGCGH4evsHBXLaGtEpEJ7Rz9/w1yjbvDoU1yRcprgjrKdWisQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624537;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=vzUCBfEqZA71dS3jLvdXgp0iBiHaOT4PnmGdXf9hgiI=;
-	b=EhVDu7/CccNdE5K6Qqka3d62OA5M2UYacUQSrgfOgbN37AMVjXMJnHsAgMgCUFpejnou
-	 84R9VxzSweDrOUk2MvjYSpGlGTFddfG6+9LpZTbh511uU/NyCEeTj6aKmQlpJ2m9EYU7/
-	 lscW2xr3xEdzEI3wQ+7jDXL53kkyhmT6EGEwS1SxA28jYEwm1K6Xw9BCinwsdo/S9yJ2t
-	 t65CfogcfRtnqWcqVCpHJ2U/qyc/OuNRgd2CaPbwXxkiQP4SwebWkEeCHLnn/2RZsMvmL
-	 T3Q8duW7Z0Km489YOUgEpCBmOpJfXP2zVyYgaK+bsXpA4ZN3rwqUP0eo51UBTDXe3WQ==
+	bh=PssXTR1GZrsqtEK7C6unt3X/SPdoffa44UYfSuTum6E=;
+	b=mCEqZiaH43w785jw4AR5x691LnRlURTLbIIYmr6ikak7DCo8bMrcV4QSjbgJ1FWv5/61
+	 9eJsXarxAVehWTHg9No14ASBi0lRTdn//CfZX0zo1UztFEU8wQN7QpD/h5bqZr7QvQbrj
+	 w3HyYufZ2s4H+6jXCgCOWFcy+Igc3IvDpz5iVkSVRU76UO0t/jLKu1wNKToWF2c5E/QiZ
+	 UukFEBUl03VI2MLrJ5H+nVPdMp7TIQnNq+qof0pFwbOxVntEhTIDk0YUQ19tz70vjDivz
+	 o3D4uxJ2/uhJo7AxDqGSCkJ5bGpCZO9JZHfA/sBHzyfKSA54xn3LTX0YyDH9ma1j3pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aX23+1+G;
-	arc=none smtp.remote-ip=95.215.58.177
-Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jlPxDJfT;
+	arc=none smtp.remote-ip=91.218.175.15
+Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84B9606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:01:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A84B9606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326CB60A2630
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:02:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 326CB60A2630
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aX23+1+G
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jlPxDJfT
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ic6nIPaRt569Q39hvXzAm3CJLBkg+LPeh9WqbciieLg=;
+DKIM-Signature: a=rsa-sha256; bh=j0NbCmVOZODkpnuzQJFxfbpF22caqI/A/jhViukqerg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793624509; v=1; x=1794229309;
- b=aX23+1+GSfAb4heSxPGHbC4itt2et46sZoOAiZzTKmW840sXVuY9VVvs7iuP2g0p6XIr4ZtB
- D70KVPSkJD85JQLfPLdZcrEAm/ntdwQoCe2F1k8fZRvY0Wzus5SWWTxj6k9dgaqFT6+cqpUEkwW
- RNZwAVKLeVYlw7/Un/lEOopg=
+ t=1793624535; v=1; x=1794229335;
+ b=jlPxDJfTcCwv2f3cNALy5MgRybKbR/0qxi+tE3u36fbJWj1xED+YqDHsjGUuXIe7PBvSjC4P
+ /gRvBGbU+UML71oLfBweGM3j99CAP+fIWvRAFdxKS7BaxngJiBvpBebli0Pyv0f1hg5E1c/+Nx2
+ 8LCLJZHT1VPYJubP/sTUMWJU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a1dd30557d3ae716;
-	Mon, 02 Nov 2026 13:01:49 +0000
-X-Mizu-Trace-ID: a1dd30557d3ae716
+Received: by smtp.migadu.com with ESMTPS id 62b76b9dce29e721;
+	Mon, 02 Nov 2026 13:02:14 +0000
+X-Mizu-Trace-ID: 62b76b9dce29e721
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -71,9 +71,9 @@ Cc: Will Deacon <will@kernel.org>,
 	kvmarm@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 02/13] KVM: arm64: Take host-registered MMIO regions at pKVM finalisation
-Date: Mon,  2 Nov 2026 13:01:22 +0000
-Message-ID: <20261102130133.3684226-3-fuad.tabba@linux.dev>
+Subject: [PATCH v3 06/13] KVM: arm64: Share the ITS command field accessors with the hypervisor
+Date: Mon,  2 Nov 2026 13:01:26 +0000
+Message-ID: <20261102130133.3684226-7-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261102130133.3684226-1-fuad.tabba@linux.dev>
 References: <20261102130133.3684226-1-fuad.tabba@linux.dev>
@@ -88,115 +88,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sebastian Ene <sebastianene@google.com>
+The vgic's ITS emulation reads command fields with its_cmd_mask_field()
+and the its_cmd_get_*() accessors. struct its_cmd_block, the block they
+decode, is private to the ITS driver, and a later patch has the
+protected KVM hypervisor parse the host's commands too.
 
-To mediate a device, the protected KVM hypervisor has to own its
-registers, so that a host access to them takes a stage-2 abort rather
-than reaching the device.
+Move the command block and the accessors to arm-gic-v3.h, which already
+holds the GITS_CMD_* encodings, so there is one copy of each. Only KVM
+reads commands, but the accessors decode the block the driver writes, so
+they sit with it rather than in a KVM header.
 
-Let the host register MMIO regions before the hypervisor initialises,
-and have __pkvm_init_finalise() donate each one and record where it's
-mapped in the hypervisor's private range. The donation runs before
-pkvm_check_host_ownership(), which then covers those mappings too. A
-failed donation fails the hypervisor's initialisation before the host
-stage 2 is installed, so nothing is given back.
+No functional change intended.
 
-Nothing registers a region yet.
-
-Signed-off-by: Sebastian Ene <sebastianene@google.com>
-Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
+ arch/arm64/kvm/vgic/vgic-its.c     | 15 ---------------
+ drivers/irqchip/irq-gic-v3-its.c   | 10 ----------
+ include/linux/irqchip/arm-gic-v3.h | 22 ++++++++++++++++++++++
+ 3 files changed, 22 insertions(+), 25 deletions(-)
 
-Notes:
-    Changes since v2 (v2 patches 02 and 03, merged):
-    - The trap handling moved to patch 9, which calls the ITS emulation
-      directly (was a per-region callback)
-    - Each region records its hypervisor VA
-    - A failed donation is no longer unwound
-
- arch/arm64/include/asm/kvm_pkvm.h     | 12 ++++++++++++
- arch/arm64/kvm/hyp/nvhe/mem_protect.c |  3 +++
- arch/arm64/kvm/hyp/nvhe/setup.c       | 22 ++++++++++++++++++++++
- 3 files changed, 37 insertions(+)
-
-diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
-index fd042d2b54624..4695c35b31e1a 100644
---- a/arch/arm64/include/asm/kvm_pkvm.h
-+++ b/arch/arm64/include/asm/kvm_pkvm.h
-@@ -17,6 +17,18 @@
- 
- #define HYP_MEMBLOCK_REGIONS 128
- 
-+/* MMIO regions the host registers for the hypervisor to take at finalisation. */
-+#define PKVM_PROTECTED_REGS_NUM	8
-+
-+struct pkvm_protected_reg {
-+	u64			pfn;
-+	u64			nr_pages;
-+	void __iomem		*hyp_va;
-+};
-+
-+extern struct pkvm_protected_reg kvm_nvhe_sym(pkvm_protected_regs)[];
-+extern unsigned int kvm_nvhe_sym(num_protected_reg);
-+
- int pkvm_init_host_vm(struct kvm *kvm);
- int pkvm_create_hyp_vm(struct kvm *kvm);
- bool pkvm_hyp_vm_is_created(struct kvm *kvm);
-diff --git a/arch/arm64/kvm/hyp/nvhe/mem_protect.c b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-index a6dacaca77610..8d45f45d30e6a 100644
---- a/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-+++ b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-@@ -28,6 +28,9 @@ struct host_mmu host_mmu;
- 
- static struct hyp_pool host_s2_pool;
- 
-+unsigned int num_protected_reg;
-+struct pkvm_protected_reg pkvm_protected_regs[PKVM_PROTECTED_REGS_NUM];
-+
- static DEFINE_PER_CPU(struct pkvm_hyp_vm *, __current_vm);
- #define current_vm (*this_cpu_ptr(&__current_vm))
- 
-diff --git a/arch/arm64/kvm/hyp/nvhe/setup.c b/arch/arm64/kvm/hyp/nvhe/setup.c
-index 7bbc26b28faa5..18f348d1331a8 100644
---- a/arch/arm64/kvm/hyp/nvhe/setup.c
-+++ b/arch/arm64/kvm/hyp/nvhe/setup.c
-@@ -295,6 +295,24 @@ static int fix_hyp_pgtable_refcnt(void)
- 				&walker);
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 7e9b265b1f521..78e480d112025 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -802,21 +802,6 @@ static bool vgic_its_map_lpi(struct kvm *kvm, struct its_ite *ite,
+ 	return false;
  }
  
-+static int donate_protected_mmio_regions(void)
+-static u64 its_cmd_mask_field(u64 *its_cmd, int word, int shift, int size)
+-{
+-	return (le64_to_cpu(its_cmd[word]) >> shift) & (BIT_ULL(size) - 1);
+-}
+-
+-#define its_cmd_get_command(cmd)	its_cmd_mask_field(cmd, 0,  0,  8)
+-#define its_cmd_get_deviceid(cmd)	its_cmd_mask_field(cmd, 0, 32, 32)
+-#define its_cmd_get_size(cmd)		(its_cmd_mask_field(cmd, 1,  0,  5) + 1)
+-#define its_cmd_get_id(cmd)		its_cmd_mask_field(cmd, 1,  0, 32)
+-#define its_cmd_get_physical_id(cmd)	its_cmd_mask_field(cmd, 1, 32, 32)
+-#define its_cmd_get_collection(cmd)	its_cmd_mask_field(cmd, 2,  0, 16)
+-#define its_cmd_get_ittaddr(cmd)	(its_cmd_mask_field(cmd, 2,  8, 44) << 8)
+-#define its_cmd_get_target_addr(cmd)	its_cmd_mask_field(cmd, 2, 16, 32)
+-#define its_cmd_get_validbit(cmd)	its_cmd_mask_field(cmd, 2, 63,  1)
+-
+ /*
+  * The DISCARD command frees an Interrupt Translation Table Entry (ITTE).
+  * Must be called with the its_lock mutex held.
+diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+index f06da58cccf3d..3e27c7d58e024 100644
+--- a/drivers/irqchip/irq-gic-v3-its.c
++++ b/drivers/irqchip/irq-gic-v3-its.c
+@@ -528,16 +528,6 @@ struct its_cmd_desc {
+ 	};
+ };
+ 
+-/*
+- * The ITS command block, which is what the ITS actually parses.
+- */
+-struct its_cmd_block {
+-	union {
+-		u64	raw_cmd[4];
+-		__le64	raw_cmd_le[4];
+-	};
+-};
+-
+ #define ITS_CMD_QUEUE_SZ		SZ_64K
+ #define ITS_CMD_QUEUE_NR_ENTRIES	(ITS_CMD_QUEUE_SZ / sizeof(struct its_cmd_block))
+ 
+diff --git a/include/linux/irqchip/arm-gic-v3.h b/include/linux/irqchip/arm-gic-v3.h
+index ea5fd2374ebe0..e0bec40adf2b7 100644
+--- a/include/linux/irqchip/arm-gic-v3.h
++++ b/include/linux/irqchip/arm-gic-v3.h
+@@ -657,6 +657,28 @@ static inline bool gic_enable_sre(void)
+ 	return !!(val & ICC_SRE_EL1_SRE);
+ }
+ 
++struct its_cmd_block {
++	union {
++		u64	raw_cmd[4];
++		__le64	raw_cmd_le[4];
++	};
++};
++
++static inline u64 its_cmd_mask_field(u64 *its_cmd, int word, int shift, int size)
 +{
-+	struct pkvm_protected_reg *region;
-+	unsigned long haddr;
-+	int ret, i;
-+
-+	for (i = 0; i < num_protected_reg; i++) {
-+		region = &pkvm_protected_regs[i];
-+		ret = __pkvm_host_donate_hyp_mmio(region->pfn, region->nr_pages, &haddr);
-+		if (ret)
-+			return ret;
-+
-+		region->hyp_va = (void __iomem *)haddr;
-+	}
-+
-+	return 0;
++	return (le64_to_cpu(its_cmd[word]) >> shift) & (BIT_ULL(size) - 1);
 +}
 +
- void __noreturn __pkvm_init_finalise(void)
- {
- 	struct kvm_cpu_context *host_ctxt = host_data_ptr(host_ctxt);
-@@ -335,6 +353,10 @@ void __noreturn __pkvm_init_finalise(void)
- 	if (ret)
- 		goto out;
- 
-+	ret = donate_protected_mmio_regions();
-+	if (ret)
-+		goto out;
++#define its_cmd_get_command(cmd)	its_cmd_mask_field(cmd, 0,  0,  8)
++#define its_cmd_get_deviceid(cmd)	its_cmd_mask_field(cmd, 0, 32, 32)
++#define its_cmd_get_size(cmd)		(its_cmd_mask_field(cmd, 1,  0,  5) + 1)
++#define its_cmd_get_id(cmd)		its_cmd_mask_field(cmd, 1,  0, 32)
++#define its_cmd_get_physical_id(cmd)	its_cmd_mask_field(cmd, 1, 32, 32)
++#define its_cmd_get_collection(cmd)	its_cmd_mask_field(cmd, 2,  0, 16)
++#define its_cmd_get_ittaddr(cmd)	(its_cmd_mask_field(cmd, 2,  8, 44) << 8)
++#define its_cmd_get_target_addr(cmd)	its_cmd_mask_field(cmd, 2, 16, 32)
++#define its_cmd_get_validbit(cmd)	its_cmd_mask_field(cmd, 2, 63,  1)
 +
- 	ret = pkvm_check_host_ownership();
- 	if (ret)
- 		goto out;
+ #endif
+ 
+ #endif
 -- 
 2.47.3
 
