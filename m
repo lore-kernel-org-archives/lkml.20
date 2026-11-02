@@ -1,42 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793581568;
-	b=2R5FYrvh3irqXTr4nWPcVi20OLzd5ZyccLuT3r+D1P3FXKC4hiETlQ/gqsPQA46M5lWd
-	 IEEBQLSCZPnUegMx/G62/ZP0ud8Gncy2s8QqQhARPbqKcSAxRXzMQfWahSBu6hIiJrp7f
-	 F7dGi1WpMsYp75sKaFZqw5Xi6jtgnrAi/lNA94lj7sgj4bejLj9+ET5dGA/wUhoKB7eXv
-	 uU6E4J9HJkjZckfCi4F4oJY+4BAQDlFlgWCkq/a0J7Efe1Uk6/ISx0tXLlGy4BfyjVQOz
-	 nYCRRkazqHiaP6WcDSUWSiaHHnFXgR8Ic36OeT38nMCVxGKNMoHjdLFRQHW//ffkPlw==
+	t=1793581609;
+	b=XqyDOunGT2u12rWahaUygJiXzCoRos1PSXmpHjzTj2pNqzRXK4QX72ystSgIUA2o1IZm
+	 bKrqwj+THD8lpFCYAZ6zINh66oUWEHAid8HGXkck+KH4dBBlhvwq8XH4ceU4kLDnhEL52
+	 rs1c6sE1cE0+vqBxoBN9ytP8TxTVMSQruY1F10aSL50NKgsUjTLH1hSJCe2peVJXWL03n
+	 5+aFNN/fXKj0N+oOXlTWax+gGMJbEcwywO96MdSWexBdE/Dz5/34yJY+EavGGpM8ZRls7
+	 Jp15STQ4ocMb53bPUjw4671pKA4SFPg16RmXbFRh/yz5TVp8zovFhJD5SI1kd0/BxSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793581568;
-	h=DMARC-Filter:Received:Received:MIME-Version:Date:From:To:Cc:Subject:
-	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 X-HE-Tag:X-HE-Meta;
-	bh=Zo1UgpfExrdSaxdzBucFoa8Yd5E7v5UM/ya82JsqfeA=;
-	b=jkJ/uVu3ht3a8fMFc65Vp/PScCgq/BjDrKpJQ9+zx6zzuByXzx/iWqO+UosS7d0G8JP+
-	 l55/Ig352aaoZmh1M2iVOpjfQFwX90Ryf9WZxipenOguGxSdv/n0yoSH8p+tV2rbxtow4
-	 1xTnPQZyXaN7M5zJ/+jMdbY2LLxLpfVHBajnoop+TPLTAGMYWiBL7IOj7/d7xHPwBjZhV
-	 ksc2StxwDzW68/PfFrZXjV85617KOUXpbgjgAplJ6lbOyg+aIfsQF33mIwWe83py9lmXX
-	 vY7tcg8oBsgfW9BD9BtMc+TEb0q6p39Rf9kXxQAQifWjQFIiFx41h9IUpaYuYQ8SlRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793581609;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=AUjSmHXfLT2gi8Fgm+ThC2mvbmf8MyE+898uzs3bVLU=;
+	b=TbOAiryrYcV+OM0Wp4r1XVxZUfpmEYb31wEgjevtcnDRXLlRQjpJ7fpNwruAUvF0KOzJ
+	 UQtGtybEu4KHTpCoMbzJtZu2yqxqmtC4IUl7EmvHjHVVCWmsFyX4Jf8Aj7tCKMCRUoCwY
+	 qSkTGR8dcmPpyAYCvSXZ1v12eIa3rEJrI97T7ItgyAF1gKQV7ETwqJuOkOQuMcPFeqPOU
+	 t2T8bkwDTfnqLBQigSkDmUj6Yn3UVyf5Q7Wgv2ZcOR3Dp567onUtGu+1U1pdbWrrb5jk9
+	 ZIQ+Fa0n8HxE/IPOtf8w0tFYvGHDuvO1qrV7/PJOjDcRho7+zq9KeOciHulPlrfWYJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dHxf7xki;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D28606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:06:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D28606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id 4831B80A80;
-	Mon,  2 Nov 2026 01:06:00 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf19.hostedemail.com (Postfix) with ESMTPA id 9932C20027;
-	Mon,  2 Nov 2026 01:05:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B50E606A324;
+	Mon,  2 Nov 2026 01:06:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B50E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dHxf7xki
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793581609; x=1825117609;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=h3sGhMWylHDbWx7qk02bfTT/q2nZbBG2djgSRusnxIU=;
+  b=dHxf7xki4YnvmwrC7+52ywOvtYyUsTMt8h9CNiR0bsF3jb9pimX42UPI
+   bW+OdC2/zCPR0eqHsiXaQrdHLdV2n8R2cAWHM7uH2UKirA9KxEYyMmKNh
+   EedNmq22SWBRZgGL0JinLdsqJqWlrlxnGNXfyWjMfNnezmAqjZvirtuCJ
+   0uZuRzYP7QaE6im8uIa2RyYNq1TYsxVmuhhVak52GCnRxoJVTja6bmwRw
+   JRvLsMYYIAkSvccWEnNtDVR5Sgd0gRkpH6AiIqpk0RnLg5u15DPpvlbxJ
+   XWvyd6AwdHXi0k0Nsad72G92bZZ1i9xOD7LFeOk62Owr1NosPFIIoHwET
+   w==;
+X-CSE-ConnectionGUID: LD4ZkOczRMab19+NU983CQ==
+X-CSE-MsgGUID: cYWQBxUuR5+j+iNttjL0HA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2146009"
+X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
+   d="scan'208";a="2146009"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 17:06:48 -0800
+X-CSE-ConnectionGUID: HqnpdBkSSFSrHUIgBwiWPA==
+X-CSE-MsgGUID: CF2iGjdbRGuudQLQT6T9mQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
+   d="scan'208";a="6106332"
+Received: from spr.sh.intel.com ([10.112.229.196])
+  by fmviesa003.fm.intel.com with ESMTP; 01 Nov 2026 17:06:43 -0800
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>,
+	Hanxiang Xu <xuhx@hust.edu.cn>
+Subject: [PATCH 1/2] perf/core: Avoid NULL dereference in mux interval store
+Date: Mon,  2 Nov 2026 08:59:04 +0800
+Message-Id: <20261102005905.2017784-1-dapeng1.mi@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -46,82 +91,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sun, 01 Nov 2026 17:05:58 -0800
-From: Joe Perches <joe@perches.com>
-To: Julia Lawall <julia.lawall@inria.fr>
-Cc: Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>, Kees Cook <kees@kernel.org>,
- driver-core@lists.linux.dev, Nicolas Palix <nicolas.palix@imag.fr>,
- cocci@inria.fr
-Subject: Re: [resend PATCH] coccinelle: Add devm_kmalloc_objs conversion
- script
-In-Reply-To: <1a6026c4-3e19-a1a9-e637-f1842172482b@inria.fr>
-References: <9b55b3e3269ef43ede64fff34f42121f7aa47979.camel@perches.com>
- <1a6026c4-3e19-a1a9-e637-f1842172482b@inria.fr>
-Message-ID: <2556411d9bf65125cf5c1dfa37eb4454@perches.com>
-X-Sender: joe@perches.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 7ihqq8zu4wt8d6sc9oe61qzyiepq3q84
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 9932C20027
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1+tSEqHxwg/Cl4Yi9FtrWtASKGJGfOSlM4=
-X-HE-Tag: 1793581558-879429
-X-HE-Meta: U2FsdGVkX1+hucxXj/E8FjYYuXOJBvbHv6o/KN2yNbo/Y3VW4ETf8+sBjAhSVgjcoGsIuO/mon1vo7oVd2Jq2FSoH475Wdou2uvoSsDfVVS1C86tQ1nJ6Rgq2YV3XelvlEkqjqQjT175PdsfEvZwd0iFuw1o6Q313ni2sgG91rX6RFUMtFvy/zi9pFZVbM5Z/QfUmPX10+sb7d5AayvPi6ENto98Sm9I0ebHQUN4x6JpX7yBH6MWKzU/PHltLT91Q+rT2s6hOfXDsgs6llyRs1zAqztN18GlF0gWLSRXPEtapS8zZuNKk2ZBdSGNITVvQf8F6xVKS6dyMP6wmLhfMQ==
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-01 15:51, Julia Lawall wrote:
-> On Sun, 1 Nov 2026, Joe Perches wrote:
-> 
->> Like commit bdc5071d7f7b ("coccinelle: Add kmalloc_objs conversion 
->> script")
->> with commit 1c7bbaeed110 ("coccinelle: kmalloc_obj: Remove default 
->> GFP_KERNEL arg")
->> 
->> Finds and converts sized devm_kmalloc-family of allocations into the 
->> typed
->> devm_kmalloc_obj-family of allocations.
-> 
-> Applied
-> 
->> 
->> Signed-off-by: Joe Perches <joe@perches.com>
->> ---
->> 
->> Maybe this might be useful to run and apply just prior to some -rc1
->> 
->> This script would change more than 8000 instances in more than
->> 5000 files in Linus' current master.
->> 
->> $ spatch -D patch --very-quiet --cocci-file 
->> ./scripts/coccinelle/api/devm_kmalloc_objs.cocci \
->>     --include-headers-for-types --all-includes --include-headers 
->> --keep-comments \
->>     -I ./arch/x86/include -I ./arch/x86/include/generated -I ./include 
->> \
->>     -I ./arch/x86/include/uapi -I ./arch/x86/include/generated/uapi -I 
->> ./include/uapi \
->>     -I ./include/generated/uapi --include 
->> ./include/linux/compiler-version.h \
->>     --include ./include/linux/kconfig.h .
-> 
-> I'm not sure that --include-headers-for-types is useful.  That is 
-> useful
-> when there is an expression metavariable that is required to have a
-> particular type.  I don't see that here.  I also got around 5000 
-> changes
-> in Linus's current master without using that argument.  I didn't try 
-> it,
-> but I think --no-includes would thus be fine.  --include-headers will 
-> get
-> the changes in the header files.
-> 
-> If the --keep comments argument is useful, it could be added to the
-> semantic patch, by putting #spatch --keep-comments at the top of the 
-> file.
+perf_pmu_register() currently exposes the PMU device and its attributes
+before the per-CPU perf_cpu_pmu_context (cpc) has been allocated and
+initialized. That allows a race where user space writes
+perf_event_mux_interval_ms before cpc is ready, and
+perf_event_mux_interval_ms_store() dereferences it unconditionally.
 
-Ok. Whatever is appropriate.
+Fix this by allocating and initializing the per-CPU PMU context before
+making the PMU attribute visible, and add a NULL check in
+perf_event_mux_interval_ms_store() to avoid dereferencing a missing cpc.
 
-I just copied the command line from the one that applied the commits 
-above.
+Reported-by: Hanxiang Xu <xuhx@hust.edu.cn>
+Closes: https://lore.kernel.org/all/de936c3.1476b.1a162c34cec.Coremail.xuhx@hust.edu.cn/
+Fixes: 62b856397927 ("perf: Add sysfs entry to adjust multiplexing interval per PMU")
+Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+---
+ kernel/events/core.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 7cdd02dba4f1..e088c31534bc 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -12831,6 +12831,9 @@ perf_event_mux_interval_ms_store(struct device *dev,
+ 	if (timer == pmu->hrtimer_interval_ms)
+ 		return count;
+ 
++	if (!pmu->cpu_pmu_context)
++		return -ENODEV;
++
+ 	mutex_lock(&mux_interval_mutex);
+ 	pmu->hrtimer_interval_ms = timer;
+ 
+@@ -13062,12 +13065,6 @@ int perf_pmu_register(struct pmu *_pmu, const char *name, int type)
+ 	pmu->type = pmu_type.id;
+ 	atomic_set(&pmu->exclusive_cnt, 0);
+ 
+-	if (pmu_bus_running && !pmu->dev) {
+-		int ret = pmu_dev_alloc(pmu);
+-		if (ret)
+-			return ret;
+-	}
+-
+ 	pmu->cpu_pmu_context = alloc_percpu(struct perf_cpu_pmu_context *);
+ 	if (!pmu->cpu_pmu_context)
+ 		return -ENOMEM;
+@@ -13086,6 +13083,12 @@ int perf_pmu_register(struct pmu *_pmu, const char *name, int type)
+ 		__perf_mux_hrtimer_init(cpc, cpu);
+ 	}
+ 
++	if (pmu_bus_running && !pmu->dev) {
++		int ret = pmu_dev_alloc(pmu);
++		if (ret)
++			return ret;
++	}
++
+ 	if (!pmu->start_txn) {
+ 		if (pmu->pmu_enable) {
+ 			/*
+-- 
+2.34.1
+
