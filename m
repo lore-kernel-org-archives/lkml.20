@@ -1,110 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615787;
-	b=yJ4rfF+65zNWO9XXcTeAdGwCSJ2U9U2yMeiFD/3Xw9PqGrj3uxGX1zFAQ8Nsk7vCemE2
-	 GaduOffZkjO/TWIj6OCI6MTd3qqFidL4Tvk0FwET5OxhhQPEEN/ulzyH8Lmd6IT3FAiTn
-	 NAtL0k6YUDT537V3C8hIYh3RuPOECbrE7Ora0iRw6PeN4ghzojSq2kgC10Aa46SabVL4m
-	 CjS91aQ2VwKZj0QEwavHS5pOBxlExyIvtuWCjuc6J6MbCkqz0PXCgiTz47G6MnI3B0/z5
-	 aP38jRzdGAOqZ9G0pFolJg7jwgpWNC+bbQrzO5VyAMB9glIDDZQ5IvMCg8/bH+fdxRg==
+	t=1793615831;
+	b=lMzhsPtLibOsN9v5MvibQSipFVRw+WIyCDDHkxFDZ8QQxokh+GISETPDuuzwNEL6z9VA
+	 S7KeF3BnJFGDk8+IGSirO8Xay7WAKNC4S9CvCx0iFDPsr4CyJJorZwsIxjOHkWP0/fvG5
+	 /9FOQMhPWNLQFsOtAkdSvwokORk6jEfgYCbbqAIFr10CaobINiDDAA3PqXp79ff7Wu7tl
+	 WYc3wf4RwiczCMuhN26BimbWMwoGoNWv+5m6XU7zOcwMabBWbyHle53GWTEHAKCvUTnQB
+	 O/Oz70axq5wUG0Am+VURnC7ZJ22unCDv/JZbpSu2lTRM8E3X3IlNtQBvGSErv8FQnTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615787;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=j/h1nzyLwLos+57W9zu2/iGj9UgqL5dXrMfiNd2SNZU=;
-	b=W4SFF07KEWtNCvcihs0B8xIl5wPwOUQ1jLgWr4l1hdO/PTJbYRhhARpbRyOQbQPtm7Pq
-	 kFjMgCD2Ck6CRAKsj5unV8+Elf7B3rQOrPXtujgRtTjJWhpdbNYcge10s7C4YGkF2k4pT
-	 G1bnpc4rO/Fz1VG5TWyOkB2WbMG4HlqoH5xA6JljUNETCJtLvT4tWOCEKV6PjAjyR9C77
-	 gUY88hIbaI/15GdZevQvAa+N0ECTP3spcsg9e7bx4AAtsuQmRvkwepIDZ3xokC0HVIUay
-	 /gGImCjXtkwreC4Ww8uCbiryfBfbKR7cCVuLf9WXTVi0TH9XaXKBitYzHDQ5R3hG/IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615831;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=gwaL41LwtiFIKV3Ez0ETu4oWSklrJRjCTtvrAeLv5Cs=;
+	b=xSIfrdxAKtAs0vDhALyKWPObLOxxA7DQAurbK5DQ3VJkWEpMnhd+9EP0cYQwC7qu1F4E
+	 FIyzstDc2CZOLWUjlXd9lXoAzo53KIM2bipUV0A6QHQ3c1V6X31Fbepxrj4yE2r16HJgm
+	 NJldM1xnIpylt/bkyn+/acAZDrcntgxV4iQlF93wkUj8Zhn/ee9CHWqAJqmh0dXzsjmsT
+	 gh1yaRLKD7P8qkbr9S0bXrrXXemZcfYbapZq2oNPd6+qAZeVmUHOSQRARK5F0Uc8hwIBj
+	 CSwVy1mzwvFUjgRH4IE9jGds0FdHpWkO/C3Ct5IOQeGtzwrQYpgimi7/rQPPb8OctRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dqRMo+cS;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VGVeLrOd;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQKUOG3F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E43606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2E43606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234FD606A327;
+	Mon,  2 Nov 2026 10:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dqRMo+cS;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VGVeLrOd
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AQEw3440401
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 10:36:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	j/h1nzyLwLos+57W9zu2/iGj9UgqL5dXrMfiNd2SNZU=; b=dqRMo+cSRMsreCgu
-	/jQKDuUdCRXiqAJDUQ2UirIhyyJWVFsvA8LlMNa0KNYMgtJLXUhwfWytP1BaGd47
-	M5DCeDHRqxfY4DfqHtDCYoVs8G2VZqnQrnKPufVksU+LUk56E+UEu5w0i2pHWkX5
-	uCf8jHzk8sQzqLnRVSL7E9DIMWZZHwJzQgP62+ucqxqvAAlx1G6YNWjFmZnqpwGQ
-	kH4nioi3AmWiJZiS6g6zR9Zi2Bo+5VtnQ8go/0y4XQ3OLCT5cgjYRPWF5LlODaGc
-	GcS+dPi1ZgNGVlykOAXqj39gd9Grf0G6H0CaCILsSF4IJv3jM3jz8h+PMH3opAfj
-	H5LW+w==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpg201wv5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:36:25 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-147be78cd56so6732981c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:36:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793615785; x=1794220585; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j/h1nzyLwLos+57W9zu2/iGj9UgqL5dXrMfiNd2SNZU=;
-        b=VGVeLrOd2GvAG844DHWOJb4z9Lof6lYEMcp71dRe6sOzmqbWZGfNW4GvU3btuJY/M9
-         /naAlIOkgwZkwUmFm1Bl8mbnTiiXhly5JFh+Td7fxMM9KYtmYADh2WQnF0D/Eo1lo0wK
-         OXVhYlaermIrag7qWKW0st1FxQFordHgWn73Xc46ImmY7GsL9TKN+cfpie/t6Ppqlcfh
-         phnvvITabs76yq/xAhizPkGumXteCO3wfV8TXfkxkD4q9ke8cfz5F6YyTUHutP6toHRV
-         GYaLMPBPZKxZi0pBrPiL+k9iUaIjbjK8N7FkGwp1xY37E7pn7RdSJ/t1QnMoIMrM0vQh
-         9BxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793615785; x=1794220585;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j/h1nzyLwLos+57W9zu2/iGj9UgqL5dXrMfiNd2SNZU=;
-        b=gG1vHqBSrUzBwQMHHx40KNJ5RJW3ErC6LaRevZCQDgxPap0I5TXNbdECuoF1/6TLwy
-         agNILN+drIVPOx5wUhRDfrndNX4/iVs96lgn++ECwa6e6WsBMd0FQkZu4T7mzAulpJ84
-         lTo2HLk3qyRLiPF717bSm2kogkaTfXGgKpLn2c3d/7SawP+VzFtrxACSNHkYTRXo5xc9
-         HfF+++iQRphYB49kxfToQTcMZIryswCqmc+uCaL3Es2a0f5xmqk0YOkvO+Bpl2tynMap
-         vCkLlxPNFeS1wt/Mmq/V2Egi7jx4NrJvLig6D12HEh9UQJK4Ucs2IYaFLOVjkMpLB2zD
-         c3+A==
-X-Forwarded-Encrypted: i=1; AKwUvBxgW77/GK5EBV8Z8B/D/9+xn6Q3Bto3wg8Kf1VEHSa9HkRzCc9Snspm56zntFlGBgWkFPwCMXOH+ohX85s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/sJz1B9ppLesrO5JaogWZ0ijALPD1LLl3kC1udGR835Ot5ZEk
-	mDZpINI/razOJgQgfE4OOGK09RH8C9xH7xK+Q3Zexpgs4PabewD91kCyn4nxDzXdRhVBh1+4t6Y
-	ZFoQq/14UUAwL/dhDVcSLVuZHZLXudig9ockMEWWSVsFIDs4yd1QVFt2SFUXuyoXtfKo=
-X-Gm-Gg: AYBFou0OqfoNAe3hzFtBMgABujRatxXvKkjUXuCes9+D1bg+GPkX0mMAEjEGZ0Ov4q9
-	efG1k8kyxxOFhwI9ur3bipGcPPR6uLRj0fi1qyeH2nnwegh6hekU3ZPE5DHFYMVB7Z4EWASy4SZ
-	SzmjMNQ1J2RgM5KoG+xhtYlpgWE4ZYswCq+Elum+U+5w61ocYvft4wrowDo8TMs1rA9tG8eHAbM
-	/kv3VBCgLzwJ0w5jzEAt6rqJSpn2lA566jsN9iJxhwcUe4aXIxRch47ay/8ERX+yZ52qqm9yyoU
-	NAYKFTJf/RyFiCDcHf1hU/ACE9rQSGFkOy7+BQnrs6Y3pfoWnTi0LgonewULx0h/6eE7gpu4Vjn
-	N8YkJlLTlhsveahYRoZqRTEieXrMZE9OJtQ728G+DGsulNh3llvtqe1YHEGECplnGumCq8Hh2r6
-	VwV9JDnTn0PiD6
-X-Received: by 2002:a05:701b:4244:10b0:188:ed6d:ebc9 with SMTP id a92af1059eb24-1ac5e6f5225mr14728395c88.38.1793615784526;
-        Mon, 02 Nov 2026 02:36:24 -0800 (PST)
-X-Received: by 2002:a05:701b:4244:10b0:188:ed6d:ebc9 with SMTP id a92af1059eb24-1ac5e6f5225mr14728355c88.38.1793615783725;
-        Mon, 02 Nov 2026 02:36:23 -0800 (PST)
-Received: from [10.152.199.23] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4b08bsm38136990c88.16.2026.11.02.02.36.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 02:36:23 -0800 (PST)
-Message-ID: <98f13907-fe0a-4a8c-8ac9-3be40edcaff5@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 16:06:18 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQKUOG3F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4E21F0093A;
+	Mon,  2 Nov 2026 10:37:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793615830;
+	bh=gwaL41LwtiFIKV3Ez0ETu4oWSklrJRjCTtvrAeLv5Cs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=cQKUOG3F9TXwOfU/OY7ib6lGOtFn0t9xErsdd/0shFGfZ4FoIszitqHshwAoEr2Fr
+	 3MB/exSCvcxNDCAFbSj/2jVbWOHcPYxR/zmO1YgbdVltNl5PWlV4NtsyZo+J3zE/Bv
+	 MU3KgoVC0uH5HqUnFpVG+QqPzoMSu4zdZY9TpjFd783+jqjpLnOvBLFVNIICC4Op2K
+	 Tn9P18L5o/sP9d6Z/GuZwiDhE3enyzFpOIPBTzhdixInd7lCF+wT8NuGZy3wTG5ohO
+	 0jrig5REGhcbpyNcY+Q2qOIel7p14eY+/WLyW9u/elEqhJET7Bwki5Pqb5ywDTxv/V
+	 EhpzBUykxSj2w==
+From: Niklas Cassel <cassel@kernel.org>
+To: Damien Le Moal <dlemoal@kernel.org>, Igor Pylypiv <ipylypiv@google.com>
+Cc: John Garry <john.garry@linux.dev>, 
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
+ Hannes Reinecke <hare@suse.de>, linux-ide@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261029184445.1615717-1-ipylypiv@google.com>
+References: <20261029184445.1615717-1-ipylypiv@google.com>
+Subject: Re: [PATCH] ata: libata-sata: allow re-enabling NCQ with the same
+ queue_depth
+Message-Id: <179361582895.1214002.12853176964658405598.b4-ty@kernel.org>
+Date: Mon, 02 Nov 2026 11:37:08 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,143 +61,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next 1/3] wifi: ath12k: allocate the AFC memory region
- requested by firmware
-To: Goran Sustek <gsustek@gmail.com>, Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20261030220824.915760-1-gsustek@gmail.com>
- <20261030220824.915760-2-gsustek@gmail.com>
-From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261030220824.915760-2-gsustek@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: nrJIj5l-v7yosINRrRjtiwRpfIIPM3rA
-X-Authority-Analysis: v=2.4 cv=fZY4WEQF c=1 sm=1 tr=0 ts=6ae867a9 cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=pGLkceISAAAA:8 a=dEvXkhbO6Lc7JD6ITUUA:9 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-ORIG-GUID: nrJIj5l-v7yosINRrRjtiwRpfIIPM3rA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX3RJ0tLahxOeQ
- cUUn+nfz76/yLTRf+kkSlaUbW9heF5uNI15Utdh2nU5lE5+9nl/mgNRwVkNWSNv9fCd05z1cHyU
- zKn1yL2m2e3K/bEnkbaSyUT/HCa68qNaWki42WGQY7AfuzZpdKkGRRzUrAyCh1k4QwpSvHOEeqi
- mQNdO1m3BOmqVVTJuoFYLsRQW1zs2KiXikrz6fX8Lh5FMKCHddhJW9m6wS8X1Ar7Nmw5UlC4P5Y
- bwgAz8I6xoPaN2NAWhIsWftHMrKGJnkNXdm73CGjAb9q+qzhvzuKhIVsrZ2S1nqi5qVRzCcZxMQ
- dXP5pJDGX5iIiBHSfrwdrK23Lvz9BhYnHyQ0dCcIBRT/OyW4JBE9oI+GY/ddf5xJkUK95qzClRm
- mWoxiFh23iB4sT1AI/J++vchFc2GrRGYVbgJRKTdfZBsvzDDcBOBRmc3bbRk4UsIqkytp1PXM4n
- mpzqFQHfis35DWO8tTQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX6ofvqcQlHnIJ
- FNlmtxqhyb5n/DQHkyh5rnD+j8S6o8RPRT+w8NCzIAoI5Wvwu0kL+a771PQThNh6RAh2URERgfg
- 56cjo7oMFNkg7d+6uXgjxgb6ykATuaU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 impostorscore=0 adultscore=0 phishscore=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020042
+X-Mailer: b4 0.14.3
 
-On 10/31/2026 3:38 AM, Goran Sustek wrote:
-> QCN9274 firmware WLAN.WBE.1.6-01243 requests a target memory segment of
-> type 0xa at every boot. The driver does not know this type, so it logs
+On Thu, 29 Oct 2026 11:44:45 -0700, Igor Pylypiv wrote:
+> When ata_eh_speed_down() disables NCQ due to excessive errors, it sets
+> ATA_DFLAG_NCQ_OFF without changing sdev->queue_depth. Userspace can
+> re-enable NCQ by writing a queue depth > 1 to the sysfs queue_depth
+> attribute, which invokes ata_change_queue_depth() to clear
+> ATA_DFLAG_NCQ_OFF.
 > 
->    ath12k_wifi7_pci 0000:06:00.0: memory type 10 not supported
+> However, ata_change_queue_depth() returns early if the requested
+> queue_depth is equal to sdev->queue_depth before clearing
+> ATA_DFLAG_NCQ_OFF. As a result, writing a different queue depth > 1
+> re-enables NCQ, whereas writing the current sdev->queue_depth value
+> leaves ATA_DFLAG_NCQ_OFF set.
 > 
-> and answers the request with a NULL address but the requested size.
-> 
-> Type 0xa is the AFC region: QMI_WLFW_AFC_MEM_V01 = 10 in Qualcomm's
-> wlan_firmware_service_v01.h. The firmware asks for 8 KiB, one 4 KiB
-> slot per radio, where the host places the answer of an Automated
-> Frequency Coordination server for 6 GHz Standard Power operation.
-> 
-> The firmware's handler of the memory response records the reported
-> address and marks the region as provided whenever the size is
-> non-zero; it does not check for a zero address. With the current
+> [...]
 
-In that case, shouldn't chunk->size be cleared when no memory is 
-allocated, or should the response only contain the chunks that were 
-actually allocated and assigned by host ? (see 
-ath12k_qmi_assign_target_mem_chunk() which updates ab->qmi.mem_seg_count)
+Applied to libata/linux.git (for-7.4-fixes), thanks!
 
-Allocating AFC_REGION_TYPE while AFC itself is not supported by the host 
-looks wrong to me.
+[1/1] ata: libata-sata: allow re-enabling NCQ with the same queue_depth
+      https://git.kernel.org/libata/linux/c/d7c5cc8c
 
-> NULL answer the firmware therefore holds a region at bus address 0.
-> This driver never enables AFC and no misbehaviour has been observed,
-> but the firmware state is wrong.
-> 
-> Name the type and allocate it like the other host regions, bounded to
-> two 4 KiB slots. This removes the warning and gives the firmware a
-> valid region. An oversized request keeps today's behaviour with a
-> warning.
-> 
-> Tested as part of the series.
-> 
-> Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
-> Signed-off-by: Goran Sustek <gsustek@gmail.com>
-> ---
->   drivers/net/wireless/ath/ath12k/qmi.c |   17 +++++++++++++++++
->   drivers/net/wireless/ath/ath12k/qmi.h |    3 +++
->   2 files changed, 20 insertions(+)
-> 
-> diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
-> index 280e50a1f31d..0679e5d2d4fc 100644
-> --- a/drivers/net/wireless/ath/ath12k/qmi.c
-> +++ b/drivers/net/wireless/ath/ath12k/qmi.c
-> @@ -2707,6 +2707,23 @@ static int ath12k_qmi_alloc_target_mem_chunk(struct ath12k_base *ab)
->   			if (ret)
->   				goto err;
->   			break;
-> +		case AFC_REGION_TYPE:
-> +			/* Firmware requests the AFC region at every boot, even
-> +			 * when the 6 GHz radio does not use Standard Power. It
-> +			 * treats a non-zero size as a provided region, so hand
-> +			 * it real memory instead of a NULL address.
-> +			 */
-> +			if (chunk->size > ATH12K_QMI_AFC_MEM_SIZE) {
-> +				ath12k_warn(ab, "AFC memory request of %u B exceeds %u B, not allocated\n",
-> +					    chunk->size, ATH12K_QMI_AFC_MEM_SIZE);
-> +				chunk->paddr = 0;
-> +				chunk->v.addr = NULL;
-> +				break;
-> +			}
-> +			ret = ath12k_qmi_alloc_chunk(ab, chunk);
-> +			if (ret)
-> +				goto err;
-> +			break;
->   		case MLO_GLOBAL_MEM_REGION_TYPE:
->   			mlo_size += chunk->size;
->   			if (ag->mlo_mem.mlo_mem_size &&
-> diff --git a/drivers/net/wireless/ath/ath12k/qmi.h b/drivers/net/wireless/ath/ath12k/qmi.h
-> index 6da10f3cb597..c438ef6c7680 100644
-> --- a/drivers/net/wireless/ath/ath12k/qmi.h
-> +++ b/drivers/net/wireless/ath/ath12k/qmi.h
-> @@ -26,6 +26,8 @@
->   #define ATH12K_QMI_BDF_EXT_STR_LENGTH		0x20
->   #define ATH12K_QMI_WLFW_MAX_DEV_MEM_NUM_V01 4
->   #define ATH12K_QMI_DEVMEM_CMEM_INDEX	0
-> +/* AFC region: one 4 KiB slot per radio, at most two radios */
-> +#define ATH12K_QMI_AFC_MEM_SIZE		(2 * 0x1000)
->   
->   #define QMI_WLFW_REQUEST_MEM_IND_V01		0x0035
->   #define QMI_WLFW_FW_MEM_READY_IND_V01		0x0037
-> @@ -173,6 +175,7 @@ enum ath12k_qmi_target_mem {
->   	CALDB_MEM_REGION_TYPE = 0x4,
->   	MLO_GLOBAL_MEM_REGION_TYPE = 0x8,
->   	PAGEABLE_MEM_REGION_TYPE = 0x9,
-> +	AFC_REGION_TYPE = 0xa,
->   	LPASS_SHARED_V01_REGION_TYPE = 0xb,
->   };
->   
-> --
-> 2.47.0
-> 
+Kind regards,
+Niklas
 
-
--- 
-Ramesh
