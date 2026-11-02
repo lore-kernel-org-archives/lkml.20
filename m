@@ -1,84 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793588308;
-	b=EY86czzrnAfWDrLXQbNZ27v4wXmQ8RJrsBcwLdidHLtzTHc6HEM2zg2UjoozrLY3QBdM
-	 iY7L/hLpYhEBgKyKNFfxAMivB871gNA4M7VoW1YB8FDrPK60+KOOKh3XClMe9zf2Rr2v9
-	 40iHyWW/99SdcWe06Py89LhYv6kMJug7cR7V7Pm35+MsSD2jjX38adqyjBxagSTzUmO2O
-	 56hfw9IhNrZWn0wfKiYw5wTda4OksNyn1xVcxAI65x1dAEYcEEcO+wEeLtzIz8rqkry4/
-	 4MJhKMhk67RzN9njRHVwQFjtGvB5wIELQSXHqz0Xy9L5s/jdID6/W3XZPB9S0oX+Neg==
+	t=1793588318;
+	b=a2ADhtTIMGoMBL0nH8p1xoouG7b0hCMC2LfY/Efx9PS9X2P54sFcnLXiyYTa0pRxWAAC
+	 fx3pElNBVtLJhKnELP1X+MYTla/dPEQ4I4HnAS3VX0mhEnGTTDZbLOpHuBUG5hHMb0G7N
+	 xQNWoZONSf4nYVq1/qWo6vhf1SynT74Lwd0F22abDHnUkNSCQnjnnRzuueY5TQIPnbRBH
+	 77OQJjfw+4DwF3hdNFOEi/g71PnpbI3T/A9cxUWB7rJOaJN3JG3DpoRkXl6reSWE6jQ0R
+	 uKLtdme1QCeGyTMzxXSKTTleWd8P6VvGlJ1cjUJPQBlyib+7JS32JOlEZ1d0apPPlsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793588308;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=vbhM51MkwqyzYIK/l0MrHOeAdqnx2rbbHcfO8pxxmSY=;
-	b=SFgkxxsWlnMt++bL7GotITNtdq/uxvPdKA1YUDpqQ021tQ/LZkqEO9c0B/FTTVNCY9eH
-	 7pCXwKQuiCeQLErsQ4pqHXagInM2tr20Mu7iO1CEjQ/L5uwmWp/ymF41MmuY0MdGQ8Wcc
-	 Bgavt0+0HgQBGO5iIb0o/QhA+HyPkwPWn0TDUkt+fTW2nHYqFzZPvRWHp9CIwtPMDMlxC
-	 smMwOQxtZKnLWMn2kJ1GouiNiYCCVUJMMGMp2Nw5fxemjptAKi31lnSl0XwNDfG2G75O3
-	 Oc42V/O07pA9SA18ho4pOG+ZsBaAskFT9C2CCDeQxHHqA6d+jO+aChq6Tpl1MnLxl9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793588318;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=yo1bE5Jn+d6HRkfvc/K55Bet7/oP53aLc2JOnHT9uEE=;
+	b=VUyVWoY7agkSc/5/fHOvWxCJ3sxa4JXDjjU4uQ8VJ+6/u78YLwLC4i8W1K9PgNlS5hhV
+	 kRCiq0Cm9SE8sRS4fpW1OWluAyyQ2PWqBR+TojNb6cRpKDsnOmCRtmjpbrutSYAXtO6Y0
+	 1pxzptJDlUBlExn0d4QljKvYvrB3KmIdosf24l7gzRiI1soNces0w4JpQcTqWZwHi6v5V
+	 9YdWzaHprMOONgY244mR0sdFVUx874iW4NrTOs6eou0cIOFCFUDyFWD8pD2zhqN7WQpS4
+	 NlzG25M6NGDuWoRHhnTvL971aOlrklfc8Bi71wSYh9SEXlyjfeb7vOd8b/cobkugZqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJxda32a;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=nfBTfKaB;
+	arc=none smtp.remote-ip=115.124.30.133
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544D5606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:58:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 544D5606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66B1606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:58:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B66B1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JJxda32a
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a1865cfdcso248537eec.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:58:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793588307; x=1794193107; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vbhM51MkwqyzYIK/l0MrHOeAdqnx2rbbHcfO8pxxmSY=;
-        b=JJxda32av2GyQVDm0JDdP2T7TyIrT3HMVMeksaeiZ1TImqrJNbznsMjVuL3R7xtYmL
-         Mi5TMrQ2q335MnDAQy2TF4QMhiwFHynJURyOMCqPVG2fvijuUvFX5YmJrk8tThQFDuwU
-         8ihplGHkWbWwIIM4i0oyvpy17Ok6mMLTjNTaTkbkrbAaW4FUfNEb9JgelOGgXrN20YQc
-         fI1YtWlwbfSljL9dx44H/gv+3hwLrYlt+GSDJoyDHDkc2/IJvoPqcTK2UZeelkwU22Aa
-         f3MQl91GW3iAYP9Od7NzmH5+wc7mHWY68lYQjt++XZ7KHNezt6CUYXqKtnQxa7qo8bf3
-         NOqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793588307; x=1794193107;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vbhM51MkwqyzYIK/l0MrHOeAdqnx2rbbHcfO8pxxmSY=;
-        b=LI3wHQRLLo795c2dQZSINj+HZFrKeGzasmEcirDDwlee7/bEzWxTE4s90I7v1i/aTT
-         hdu+E9L/pfaLCrKRRrYI3tOcJq6tdbxSc09bruTy4H5TPWE1xrI8g2vGDlygNRuZQSs1
-         1/vBNHKiYmLZK6llNivcqLP5sXLtvQILiN+vL6WT0a7Vw4tz0ByB/QZ16CRHrpHQcCJH
-         0VTn8DUEMLgHEwIBWRxWx/05dBvLdcL1LUOGuqxQ8eWoSN6mGRNPPrgc8HZyrKEt1j88
-         YrRWercKCPsTQIqrJCND2s5UfIDfDlaZrkjOQt+4hDQB+oq73d4cNDmxdI9MvY8/AHk+
-         F9UA==
-X-Forwarded-Encrypted: i=1; AKwUvBzE0XL9vFUW+OlZSJ2ojHfOKTIuiESQXbp4CMhNi4dHpFIyWnVFnfXzUx5jvh+UgN5NF7/7rn1tjsiAiME=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqYW0BkSN82pnXRzcGVxluEjMQ2b8qi0waTJ/yAHSRFEmikLF2
-	AVWzXFzUvN/6RGuU9ohXmfnHZyORPN0PaXH8v+X+7xgYdKjSutp6Yihp
-X-Gm-Gg: AYBFou13RrK5+ROB9mlQyTei1LtHwXyNNqbpQiK3uw8Qa3HrkOYOAeAd3QUDway+1zC
-	sfvZxvqcYSLaPYT3Z5HRhopThoWi+/YsZXEpq5Z+ZQEx0I22DyYO0hirn3AtxCcP9AHkKfeoS0x
-	EEYwEtV68nsy84I646m97BaYlcnIf0a1dWJcS+7uCCScCKuPNN4Nezlf1bIVQS66pbIruH0jqUG
-	OzHpGXEABR/BAvhUyFJKXd15cKEG3Ug7PinDfRjjk2oPDbJWvFAUoqGW5dWB6TR239R/rmIlmzO
-	03aHs5dURNmNu0GGrec/4HRKubbNlHMCTT8ooQ2P659uv52IqA84BZXVmOrZ3i+yPYXu6lx+ZsB
-	K/5rU2RMpEL4dM9Spd8+/iOT27Sk4TiJRcDO0OsYUBCMCI5RvYFX5yfTygndLMBNc7EWB3LsEWm
-	Up1ld6VbKK9y3pvLL6dcEMYJvihG0UHHA47uIVtRlCFk2qVGHPf3aAEG5+/cIAEUOGuCV9IA8ZK
-	OmjdbvEJQexXMnXFHxlVbAuLKFSxPD8OpGLLwob5f8Qjpx54OCnBHB2pGmV2hyUYNpfbOIMYYlu
-	X2z24QrYeChOE7GSq58pQ5YohtO5D+VP5jUNgMBwBFyx1XIml8mh8uF/FodlA5UwH1VZ
-X-Received: by 2002:a05:701b:2302:b0:183:d275:cf76 with SMTP id a92af1059eb24-1ac59dd0e2emr19891581c88.2.1793588307274;
-        Sun, 01 Nov 2026 18:58:27 -0800 (PST)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcf67csm29779410c88.21.2026.11.01.18.58.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 18:58:26 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=nfBTfKaB
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793588308; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=yo1bE5Jn+d6HRkfvc/K55Bet7/oP53aLc2JOnHT9uEE=;
+	b=nfBTfKaBnIYUtHWkuRUw02SS7IdUjhhxmSkF64D7nssniNQiY+Uh9EBJngLBAVuAKvbmHgBSUxQGJoouV92xJ6uIAn/IEXRJcdPXCjB3rlFF2wg687yWkxVk0tJjjV+UDx0xjKVhDRbyY1zM1WHppW3/FkxfetIMivxKMMfEyxM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDsHgp._1793588304;
+Received: from 30.221.129.143(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDsHgp._1793588304 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 10:58:25 +0800
+Message-ID: <88281285-5b3e-4266-88d9-784dfea5ebe7@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 10:58:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,66 +53,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: drain domain handlers before destroying the DLM
+ worker
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, akpm@linux-foundation.org,
+ Heming Zhao <heming.zhao@suse.com>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0056-v2-57239c657ac017b50fa1@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0056-v2-57239c657ac017b50fa1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction
- budget-aware
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Nhat Pham <nphamcs@gmail.com>, Xueyuan Chen <xueyuan.chen@vivo.com>, 
- Barry Song <baohua@kernel.org>, Yosry Ahmed <yosry.ahmed@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Brian Geffon <bgeffon@google.com>, 
- Minchan Kim <minchan@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, xueyuan.chen21@gmail.com
-In-Reply-To: <auKlTdFbOZmAuheo@google.com>
-References: <cover.1786003779.git.xueyuan.chen@vivo.com>
- <anVWZVOt-xeD0dMH@google.com>
- <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
- <anXJ-5_vO7-toSe1@google.com>
- <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
- <auKjuiRxQwtsZF_0@google.com> <auKlTdFbOZmAuheo@google.com>
-Date: Mon, 02 Nov 2026 10:58:21 +0800
-Message-Id: <179358830137.300028.11084163850071476613.b4-reply@b4>
-X-Mailer: b4 0.16.0
 
-On 2026-10-29 10:48 +0900, Sergey Senozhatsky wrote:
-> On (26/10/29 10:43), Sergey Senozhatsky wrote:
-> [..]
-> > > Hmm we'd need to collect more data in our workloads to determine, but
-> > > if we can compute compactable ratio (freeable_pages / total_pages) on
-> > > a per size class basis, can we just skip the size class whose ratio is
-> > > too bad? Would that at least cut down on the vast majority of
-> > > fruitless memcpys and lock acquisitions etc?
-> > > 
-> > > I'm always a bit hesitant to over-rely on userspace, especially when
-> > > kernel has information to do something smart about it. It might not
-> > > react in time, and many proactive reclaiming schemes back off under
-> > > heavy memory pressure.
-> > 
-> > Apologies for the delay.
-> > 
-> > The thing about shrinker compaction is that it's sort of on the
-> > wrong end.  It doesn't trigger compaction when memory is plentiful,
-> > no matter the internal fragmentation rate, and start firing compaction
-> > scans when memory pressure hits.  The problem with this is that, now
-> > compaction moves objects (if can compact zspages) and releases empty
-> > zspages, in parallel with potentially heavy swapping out activities,
-> > which can simply allocate those released pages back.  Which seems like
-> > a useless exercise and needless memcpy-s.  So I was thinking about
-> > either putting it under config or just removing it (this might be a
-> > harder decision).
+
+
+On 10/9/26 4:11 PM, Cen Zhang wrote:
+> The domain workqueue must remain usable until every network handler that
+> can submit work has finished. dlm_unregister_domain_handlers() removes
+> handlers from the o2net lookup tree, but an already referenced handler can
+> still run. Its dlm_grab() reference pins the context, not dlm_worker.
 > 
-> In embedded (android/bookOS/etc.) there is a daemon, that triggers
-> various zram activities.  We can wire in pool-compaction (once under
-> memory pressure), which is a zram sysfs device attribute, instead
-> of pondering zsmalloc with scan callbacks.
+> On the final local domain disconnect, a migration receive callback can
+> have passed dlm_joined() before shutdown changes the domain state, yet
+> still be preparing its work item when teardown destroys the queue:
 > 
+>   o2net receive worker             Final domain teardown
+>   --------------------             ---------------------
+>   Get the handler reference
+>   dlm_grab(); pass dlm_joined()
+>                                    Unregister domain handlers
+>                                    Stop the DLM threads
+>                                    destroy_workqueue(dlm_worker)
+>                                    dlm_worker = NULL
+>   Publish the migration work item
+>   queue_work(dlm_worker, ...)
+> 
+> The handler lookup reference lets the callback continue after unregister.
+> The work-list lock does not protect the queue lifetime, and destroying the
+> queue drains submitted work without waiting for this producer. The late
+> queue_work() therefore passes NULL to __queue_work() and crashes.
+> 
+> Use o2net_unregister_and_flush_handler_list() at the existing domain
+> handler unregister point. Removing the handlers prevents new lookups,
+> and flushing o2net receive work waits for already referenced callbacks
+> and their post handlers. They can finish submitting while dlm_worker is
+> still live; the subsequent destroy_workqueue() drains those submissions.
+> The same unregister helper covers failed registration and join cleanup,
+> without changing the DLM thread or workqueue teardown order.
+> 
+> KASAN report as below:
+> 
+>     Oops: general protection fault, probably for non-canonical address 0xdffffc0000000038: 0000 [#1] SMP KASAN NOPTI
+>     KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
+>     CPU: 0 UID: 0 PID: 14 Comm: kworker/u8:1 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+> 
+> [Hardware details omitted.]
+> 
+>     Workqueue: o2net o2net_rx_until_empty
+>     RIP: 0010:__queue_work+0x9b/0x1600
+> 
+> [Instruction and register dump omitted.]
+> 
+>     Call Trace:
+>      <TASK>
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx___queue_work+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? clear_pending_if_disabled+0x83/0x1c0
+>      ? __pfx_clear_pending_if_disabled+0x10/0x10
+>      ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+>      ? dlm_mig_lockres_handler+0x984/0x1500
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      queue_work_on+0xda/0xf0
+>      dlm_mig_lockres_handler+0x9d5/0x1500
+>      ? percpu_rwsem_wake_function+0x10/0x480
+>      ? __pfx_dlm_mig_lockres_handler+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on+0x18/0x160
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? kvm_clock_get_cycles+0x31/0x60
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      o2net_rx_until_empty+0x1a55/0x32f0
+>      ? reacquire_held_locks+0xdd/0x200
+>      ? __pfx_o2net_rx_until_empty+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? process_one_work+0x935/0x1b40
+>      ? process_one_work+0x834/0x1b40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      process_one_work+0x9a8/0x1b40
+>      ? __pfx_process_one_work+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? lock_is_held_type+0x8f/0x100
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      worker_thread+0x65c/0xe40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __kthread_parkme+0x177/0x220
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_worker_thread+0x10/0x10
+>      kthread+0x351/0x460
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork+0x659/0x940
+>      ? __pfx_ret_from_fork+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __switch_to+0x74f/0xf70
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork_asm+0x1a/0x30
+>      </TASK>
+> 
+> [Empty module list omitted.]
+> 
+>     ---[ end trace 0000000000000000 ]---
+> 
+> Fixes: 3156d2670166 ("ocfs2: move dlm work to a private work queue")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+> 
+> diff --git a/fs/ocfs2/dlm/dlmdomain.c b/fs/ocfs2/dlm/dlmdomain.c
+> index 97bb9400e24bbf6badea1339dd8de1623fe5bac5..b69baf99a4a6e4d5a5c51664625bafa905dc3bf5 100644
+> --- a/fs/ocfs2/dlm/dlmdomain.c
+> +++ b/fs/ocfs2/dlm/dlmdomain.c
+> @@ -1708,7 +1708,7 @@ static void dlm_unregister_domain_handlers(struct dlm_ctxt *dlm)
+>  {
+>  	o2hb_unregister_callback(dlm->name, &dlm->dlm_hb_up);
+>  	o2hb_unregister_callback(dlm->name, &dlm->dlm_hb_down);
+> -	o2net_unregister_handler_list(&dlm->dlm_domain_handlers);
+> +	o2net_unregister_and_flush_handler_list(&dlm->dlm_domain_handlers);
+>  }
+>  
+>  static int dlm_register_domain_handlers(struct dlm_ctxt *dlm)
 
-What triggering policy do you have in mind for the daemon?
+Seems we also have to guard the flush on a non-empty list, just like
+28f366d84023 ("ocfs2/dlm: drain join handlers before releasing module text")
 
-If compaction is still triggered when the system is under memory
-pressure, wouldn't it still overlap with heavy swap-out? The shrinker
-can already run from kswapd, so moving it to a daemon alone would not
-necessarily change that timing.
-
-
+Thanks,
+Joseph
