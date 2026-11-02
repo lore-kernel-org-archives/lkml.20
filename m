@@ -1,49 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632403;
-	b=IfCicKvWyi1ipusw9z2oXCo19CYuN748rCLFLxloHZrYJBQJ058kOGqyvfk9LtVb4GaB
-	 8kQCK3OmCCnIhW9OL9EGuZ714zfjmi9imMzCENyHT+0/UjzJNiYs5YUU9AKZwVtitADIc
-	 6azEAKyO68yR2qf+owiYm/4tis7LyAm/Oj80IduELejDA28pqyQiTxbFSeI82EmrfNC5t
-	 KRamRZx8c6dAAafMw4FbXQAaG1F5rDuMII2K/rSwZcm+fzeFBmd0Ne4HtWOOnahLcKhVp
-	 kNrSVyWxNTwSBI2A4ExRiYNbDa0nvdMQoEy1NNK3/zI482mX4a5mkj4b+X4ADCevXWg==
+	t=1793632423;
+	b=4zvR2Rcz1zSJSVYehzOhRjcizATTxFSlsnA77SyHfpOG5cV/hbirLkm6v77gpJQ4r0OD
+	 3OdQY6EjdzJ1pOG8eaEXMnWfgo/9a9DDHYjxm5GNmaYJrdXzDvkJJrdYBMgSDrvwV4333
+	 /w6enUpkvS87bLxENxYs5djHN51I0amrUJS1nJ57NQcieWWXPYXJircfRlcXFtp5qjhdk
+	 C31tqvChabJkg9VgFyb66yu6IvcSHQHcLxTfsecJ2Ga0+cwvWITN4bGj6vUPuvsnN2RD3
+	 y14uFxrNra8jQQKEv7tyKKPHLtP16MO4RCuPthY6l3TBK8MYjG00JuUvZOZHcdhD5sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632403;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=BWMrcMxphM3j3KhJxvOCR+KbGizC6kQdxxuLzJskxVk=;
-	b=nrBt8/HsOlPkrLAlPReqlz8GpUi6Ki9AR4L2IHlsIzwyEhQ2SnHQAYp6xMYSM2GDCFCU
-	 krgj76RT5Stq5/Jq0p/ifZh23W9HDsDrf3IurY1YFZSbTMReSwKD/weOPgxPSlAmt/6f9
-	 lfO5fWxcaSq6oZoNnY3SBmH7qcdZeju6CWcHABUngbhaHwWQgp3Ouy6CDXK7kiuuDfjLa
-	 nnLK15QRGUgWh72bXhlbBvbKLoDMyfMiyerLl5Jo+tK65ENW32dec8dRzovLGxpb4rOoS
-	 PkaXGjh9uNZmrYokh4brK02Hhud40uTL4JcmZdHZFkePIWbSLDUtZ9Tjhvkaci5Vr3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632423;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DRu5y9IEIWHGb7/eSUxJjK+SiC3Y8A9DyNTgcIJk/P8=;
+	b=SGZlxGkoG8pxKGIdctoygfRWjKGV/L/QfN4OKJKZO6nbTMXE1ct/ke+twPvnAB7ZivZg
+	 Ndm7ZMVbZl2q5waXso6I15emRAX/e+64RWgc5ZFsm0tFvlMcI0GI7Y5tnJ3p6nnzfvlzf
+	 qhbUUaCQ5F6OwNP1l/spN2hw5Y7yZ6v2RXsmGr+M+cEX8lTL6drNpqNo95TBg8PtewwD5
+	 PfSib9+ekkQtO56PyCsmtZtXx4/IeIeK5+9BaV28sCcs1INUFMiwijHJxR8WnbeVuxUiy
+	 APUtKHEuTw8qvB2++oq2PQoAwC2kpyXcNBdEuDmC3wHuz5LQLpZOYL80vTcb8hkWjPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIjK3Qwt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HShl6aUg;
+	arc=none smtp.remote-ip=74.125.227.133
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50F060913CA;
-	Mon,  2 Nov 2026 15:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7958C6079907
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:13:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7958C6079907
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIjK3Qwt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 643241F00A16;
-	Mon,  2 Nov 2026 15:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632402;
-	bh=BWMrcMxphM3j3KhJxvOCR+KbGizC6kQdxxuLzJskxVk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=mIjK3QwtTVilSpcRMeaoz6MTKvP7Sy6dH4N9uXF4AEtvkmOD+/LZgf883MtrMNbfX
-	 Fc7qy6+hRUrZLI12uqt+tFP3+FSAd9d3s0S7Oj/5J8YKb9MuvzMCclBQW5ujuLEY3R
-	 0jZ40m7Qe6thFpBjmEpgSnaWIQpr2OFaA+Hu2iHvPuRwIzTy5CX2f99EzFV0hO5HRa
-	 v3h43WiiAhfIdyZllqL5RbxOqUX3/Hcfx8oBtLvZRAePXNc6Si2FGn6GzYJmq+441r
-	 GdWXtRs4TvUpEjCZFIA+oogkhKJvXJm8hEiDfFaliMcEnFuCVmnTvn4+eIcYomOAzM
-	 v0Y6JeRoVTSgA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:16 +0100
-Subject: [PATCH RFC 09/23] scsi: let procfs own the seq_file of the host
- files
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HShl6aUg
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2eb0c699769so10624355ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:13:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793632422; x=1794237222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DRu5y9IEIWHGb7/eSUxJjK+SiC3Y8A9DyNTgcIJk/P8=;
+        b=HShl6aUgVwrE59N6fYNuPaLhljDz5RBWdUG0z8ZGXIScUNFAPcqvIiSX+RDT5CkC6p
+         xwbK7hFveHiKl5bchzg5pSDGwriUIdGlB6SGyilI9GriHdVIJJrE3CoClQ8T0OaNodp/
+         LZ6RLj3Z5EJ61EFXgCwYmzUw60uR0kkePsX9zth7cqPQ4rYI8TD7hw5pJGw0m7EquCBX
+         OQ9KVxH61w8rw+OUfpPPiS1KKnFzek5pHZuNHx/wC7TrMl7AKf+C0hWZgvNokJcz1zeN
+         HG48roWZXt2TyscMS3NrLBruVnwhMQK0tESLiOFiF2YUMPwgAukoTDc3NWxt4ubcKBZg
+         ZCQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793632422; x=1794237222;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DRu5y9IEIWHGb7/eSUxJjK+SiC3Y8A9DyNTgcIJk/P8=;
+        b=h+m9j+h4r8AbcXOzoVMPAet3IrBxr9dYx/zLWonWgkneVPul2k/TYXBnZMBGgcG+08
+         H8vtEn4gSxj85R8Tci5BQMdPxfaF7hWgh28tnpro2bET/g+Xaz6r2au2Yh7e4zDnhy5N
+         Gmd2MHl98hiQsmCglPfYJIDOF1nadXgFwCC931gWM9g04NtKtRdq5oT9QDfDWhkRycVu
+         vABqVdNiE6ukhc4lGKRj90EzriF484FgpEUTe1IWOgPWuEqHfcDbcKTXpK9nLIGpHVM0
+         adTQz5DZGT5cSLmKiT9EKEQdKZXS/6hbKC0upexmCEk1+yl919HjkJDWyHo61J91xlim
+         esSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1okVX41suS+CYXaA5IrmZ+VW0OgAGPihNvObQxhm/gtOZF1Z/2GwPhSbMolh9NCwwpde0U/wdcdm0zMM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8D8DKhlvcJ1KRxpB2x6SeYcQm0J9sfQIKweGXoU3jyVBCX7GA3
+	uh+y2ZnXGXk1+06ME9STVJc60L6v5Baq0Aei17Qz8BTrmrMtPTFfMltd
+X-Gm-Gg: AYBFou3FuST+I1CydIJBAOifHIQFKgN/C6HjwYWIXsQAcHTP6ntYmvD8FsawcaID7vB
+	hLLvD+NGrVYq0fj0i1S3l6de8PWs/jdGiKd9958J/z21Y/4XqEOCo9zkmOt12MGEKvsUgo+WtuX
+	k1ssj/9v3prOXV7WT/VXYUMBQLx074q2I1KsvWveEkWjGIcX2acxUd06jEo+0gWnJGbMgsygO8I
+	pY25d0Oh/uYmqKGPmb703qQYy+P/wcWpzct3aCMF5mjZYO0wf4FhJowimDzfq5meOwpo2A55Kpl
+	n06m7Up0GasNLghZuiSXhKG7M9kP3KVk4j8noOcGeY/dN6qpZTT6s5pBtGuNcjv6FsTbPm2hyZN
+	cM2oUj6rW1q+OIfcgstzypJ8A1EkiiSH3mj7e9oIqghhFpVIm3hOyF5SQCSSoQgz7DBLZRjMb00
+	rGovasxO+XMP9ha9RcCmKDHHx/8TNbXJb2ySwMAfkcQVeFg1NwUe3fVt3BTomR0wXgQE87kya+j
+	31Z57xX560Q7foXJp/fG1c7RbMv3tzL6ghE/QFGj7Ux1JPYSa9nX3KFvbl5vszCTgQkp+QipC7R
+	dJX2lcDIynl0qJEcRswDtJfDcGlREe70KNVZqLkFNEArem8KZ2EQFlA=
+X-Received: by 2002:a17:903:2f06:b0:2df:35f1:8771 with SMTP id d9443c01a7336-2eb3650da0cmr99597675ad.54.1793632421903;
+        Mon, 02 Nov 2026 07:13:41 -0800 (PST)
+Received: from ThinkPad ([240e:46e:8710:e4e:e10f:cd51:e533:58a5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3924c93fsm30567675ad.34.2026.11.02.07.13.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:13:41 -0800 (PST)
+From: Qiling Zhu <kmatzkaczor244@gmail.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Rong Zhang <i@rong.moe>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Henrique de Moraes Holschuh <hmh@hmh.eng.br>
+Cc: Griffin Kroah-Hartman <griffin@kroah.com>,
+	ibm-acpi-devel@lists.sourceforge.net,
+	Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	platform-driver-x86@vger.kernel.org,
+	vishnuocv@gmail.com,
+	vsankar@lenovo.com,
+	Qiling Zhu <kmatzkaczor244@gmail.com>
+Subject: [RFC PATCH v2 1/2] platform/x86: thinkpad_acpi: Extract kbdlight_notify_change() helper
+Date: Mon,  2 Nov 2026 23:10:18 +0800
+Message-ID: <20261102151211.40701-2-kmatzkaczor244@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
+References: <20261101100123.28749-1-kmatzkaczor244@gmail.com>
+ <20261102151211.40701-1-kmatzkaczor244@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,93 +111,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-drivers-v1-9-a994bd4d3b1a@kernel.org>
-References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
-In-Reply-To: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1394; i=brauner@kernel.org;
- h=from:subject:message-id; bh=l1PqfsIz+cqTipGWNtI2ZFkSTs3hYfw6G0B1mtmwjUo=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG4wo+Pp/Vmn2AIF2jK3Rnc8S5TW89ldrDXNvflSK
- a9TlSBvRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwER2/GNk+LjMbs1f+SqdgEVP
- 95yaUyouP9NB9EfZdvNTxdef/51/W53hnylf8tFqgbuGLVyB25bLi7g6NKw02Kjm+6TD3337TuM
- +XgA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-Declare the show function and let procfs open and free the seq_file of
-/proc/scsi/<driver>/<host>. ->proc_open() only preallocates the buffer
-now. Reading the file then no longer holds up its removal when the host
-goes away.
+TP_HKEY_EV_KBD_LIGHT handling in tpacpi_driver_event() reads back the EC
+level, updates the cached brightness and notifies the LED core inline.
+Extract this block into a separate kbdlight_notify_change() helper, in
+preparation for reusing it in further changes.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+No functional change intended.
+
+Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
 ---
- drivers/scsi/scsi_proc.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/platform/x86/lenovo/thinkpad_acpi.c | 41 +++++++++++++--------
+ 1 file changed, 25 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/scsi/scsi_proc.c b/drivers/scsi/scsi_proc.c
-index 3e49c4c8704f..59229bf9938e 100644
---- a/drivers/scsi/scsi_proc.c
-+++ b/drivers/scsi/scsi_proc.c
-@@ -94,10 +94,10 @@ static int proc_scsi_show(struct seq_file *m, void *v)
- 	return shost->hostt->show_info(m, shost);
+diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+index 4f81855ad..3260eaa62 100644
+--- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
++++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+@@ -5313,6 +5313,29 @@ static void kbdlight_resume(void)
+ 	led_classdev_resume(&tpacpi_led_kbdlight.led_classdev);
  }
  
-+/* procfs opens the seq_file */
- static int proc_scsi_host_open(struct inode *inode, struct file *file)
- {
--	return single_open_size(file, proc_scsi_show, pde_data(inode),
--				4 * PAGE_SIZE);
-+	return seq_preallocate(file->private_data, 4 * PAGE_SIZE);
- }
- 
- static struct scsi_proc_entry *
-@@ -140,10 +140,8 @@ scsi_template_proc_dir(const struct scsi_host_template *sht)
- EXPORT_SYMBOL_GPL(scsi_template_proc_dir);
- 
- static const struct proc_ops proc_scsi_ops = {
-+	.proc_show	= proc_scsi_show,
- 	.proc_open	= proc_scsi_host_open,
--	.proc_release	= single_release,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
- 	.proc_write	= proc_scsi_host_write
- };
- 
-
++/*
++ * The EC cycles the keyboard backlight level itself on Fn+Space; check
++ * the current level and update the LED core state.
++ */
++static void kbdlight_notify_change(void)
++{
++	struct led_classdev *led_cdev = &tpacpi_led_kbdlight.led_classdev;
++	enum led_brightness brightness;
++
++	guard(mutex)(&kbdlight_mutex);
++
++	/*
++	 * Check the brightness actually changed, setting the brightness
++	 * through kbdlight_set_level() also triggers this event.
++	 */
++	brightness = kbdlight_sysfs_get(NULL);
++	if (kbdlight_brightness == brightness)
++		return;
++
++	kbdlight_brightness = brightness;
++	led_classdev_notify_brightness_hw_changed(led_cdev, brightness);
++}
++
+ static struct ibm_struct kbdlight_driver_data = {
+ 	.name = "kbdlight",
+ 	.read = kbdlight_read,
+@@ -11581,22 +11604,8 @@ static bool tpacpi_driver_event(const unsigned int hkey_event)
+ 		/* Key events are suppressed by default hotkey_user_mask */
+ 		return false;
+ 	case TP_HKEY_EV_KBD_LIGHT:
+-		if (tp_features.kbdlight) {
+-			enum led_brightness brightness;
+-
+-			guard(mutex)(&kbdlight_mutex);
+-
+-			/*
+-			 * Check the brightness actually changed, setting the brightness
+-			 * through kbdlight_set_level() also triggers this event.
+-			 */
+-			brightness = kbdlight_sysfs_get(NULL);
+-			if (kbdlight_brightness != brightness) {
+-				kbdlight_brightness = brightness;
+-				led_classdev_notify_brightness_hw_changed(
+-					&tpacpi_led_kbdlight.led_classdev, brightness);
+-			}
+-		}
++		if (tp_features.kbdlight)
++			kbdlight_notify_change();
+ 		/* Key events are suppressed by default hotkey_user_mask */
+ 		return false;
+ 	case TP_HKEY_EV_DFR_CHANGE_ROW:
 -- 
-2.53.0
+2.56.0
 
