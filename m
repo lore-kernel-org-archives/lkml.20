@@ -1,56 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607507;
-	b=QFlBdSXA3ERWXJeWyhkgyr1mcGHOVijUDmUOmz3XFI78Dhu30vlXNEjyAIRoTYg7Nlfs
-	 QAXOuwQInzlL1cL8BbmenZpCu++vIRzbELiC9zf4GmydJocK0E4vrZnj1YPpfIeLl8IlY
-	 UWJjcm2V0SSFzyqtl6tr37LrooTKgAKCcocPEvBU2cMcupbAXygx6Tjabq24x1M655cTD
-	 SHjUjhkGcYO36kBYPjAyFt7hg5phSqNbbtJmd5qUM70nVcY6BgQQU+p+dCDwUHiw08WZ0
-	 fkX5WEFBVnTxo6n8pGK5RqTxKc+HgvElTuf1Pnmn80Cr0LZbSpyId+s3rEzX7pJNYzA==
+	t=1793607580;
+	b=TvbPZ7T1bCpnvR4AD8GLSALi0Ww3ZwtDRQ45wbSYHWu2KCuHv7lB3Rs/eGqfVQ/NW6Ow
+	 yLMDs/fdX27DACXvAItB7Q4020cRgYRO+bx7d47Y4N2/q1GfF7S65IfgI2vJsSCKatAjk
+	 Q9aiMrLDxYRUu129HzN5BoUzIVL5gTrXl2yERlhHqiIUkgQWjqvdXswxsoq3PaBzTCism
+	 6U25btoUA52tJNCP5mcRr3gU1+vlpoO7oABB/ZLgA/3Ayz5LmIwvbjBfk4IpuVTlqaZSY
+	 fhlYy+WmupAmc+zGGJYPut152Kr8FvSbBNLU1C3r/b2zjz62IpeSOZNE/NEO7H3kj9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607507;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=FYdFc44IQikX6J1CTFDnvhjQzgd+C32LDt8NR+Ki3Fk=;
-	b=2xogotwbbUs3JHXXy0z4hcVUxstESCfKGdvB2yE/3RVuZp2WLsTeHM232JgMiyzFlluQ
-	 gbwdXunbWZN2ThN3ipfK1YGf8xLj6DgtlKCVQvxu3AQtKCjSOKz2I+rzNT2v7QQd7bkFS
-	 ozrlmChLxAGCVQzOt1U3uZfjqK9P6rAoEFo5pz5Z/ecqVzbQo5/ybki/yYfO57jlgnPDW
-	 Pb01JV6XGTRo2Ma9Vd2Anc77l506ORJ027ZUbvBIzcYARs+4/Z7FIvWYeFf9E1a5NOqa1
-	 VIBcidVOQur+GgkkkWGD/nKcKxq1rY5j25tTcNYDABY5BTY7YiTJg5vzKP8B1fc2EPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607580;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=6LIgKMD8dHTd4WojjokCcwg495C76eo9u3xZtsqzS+k=;
+	b=MPsqa+R2NdipF+klEnMZ4fYT5E7UPcnQUM3zcf9I1ETJ8tKbLG3gt7neyu9gOgBfAvt+
+	 42yhUhgvBsLmci++OsqkqFfms0s99N5FSRdKH1oOcArY7P4pjYBUDvYg0UGBYPqajirZs
+	 T3aO8MrCmEtVAGwxn4A5HkPJWxbUpfIx7qJR/8tr4RVr6U5izNzi0NaxFnzT1NiUHaHXz
+	 RTO+z0lNz/P0VhY7ickjUtE3m9Cc7F+aLZvToP9dKqPphIa8atWSykW90TX809mSPX8Lz
+	 psj0oIw6tNzaHhy91LhQj/yckRTnOE227FE4fAzOmBUEu4AWAjDL9QGv/SrbkTwkNNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dle2+n6E;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.163
+Received: from mta0.migadu.com (out-163.mta0.migadu.com [91.218.175.163])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097E2606A324;
-	Mon,  2 Nov 2026 08:18:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 097E2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dle2+n6E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=FY
-	dFc44IQikX6J1CTFDnvhjQzgd+C32LDt8NR+Ki3Fk=; b=dle2+n6ELVXVk8SvAO
-	2TRW7qbtC0xM/R2qdAcCl4bbwyUxkBvV4h0ZK1HRwGly5dnAjHQOM35NmGhepOgH
-	V+44yKC7mnfUUYY+P/ST8Yf0YeCKwZcfQmrP6p0GAwL5VdZj5nIb+Ug5j8t1/hdt
-	uW5j62SIuPETAomxMg5HVoPng=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDn1jhGR+hqZ3mIEg--.61514S2;
-	Mon, 02 Nov 2026 16:18:15 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v1] RDMA/iwpm: Fix use-after-free in mapping info dump
-Date: Mon,  2 Nov 2026 16:18:13 +0800
-Message-ID: <20261102081813.37754-1-18983559317@163.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EE8606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:19:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2EE8606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EBKM40GcqovOdTmepBxoC9IiuiPwdTEdquc/inXuQmU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793607576; v=1; x=1794212376;
+ b=AZDzOl1WlM0ZM+HlRBWP8R2eySrKpGJIpSlS84qhwFCPdwO3z0lg0x+ioEPVsR71T3wegNd2
+ FCRPfwrNebKHsirn2PZKLgRXt8rmNSW5PyoK2LjoDTv+I5vIqg5MzMEhk1VHm5VDo0BHzEb0piK
+ Yt4ws4hq3JjvhVFChcDlxgy8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 684001e98352b0ca;
+	Mon, 02 Nov 2026 08:19:36 +0000
+X-Mizu-Trace-ID: 684001e98352b0ca
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	stable+noautosel@kernel.org,
+	Dev Jain <dev.jain@arm.com>
+Subject: [PATCH v3] mm/compaction: annotate data race for zone->free_area[order].nr_free
+Date: Mon,  2 Nov 2026 16:19:18 +0800
+Message-ID: <20261102081919.80625-1-hui.zhu@linux.dev>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,142 +70,106 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn1jhGR+hqZ3mIEg--.61514S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXryDAw4DKr1DZryUCryrCrg_yoW7Jryxpr
-	WFqF90kF1vvFn29rZ7G34xWF47Gw1qgFsrJayxGw4xAr15Xry2g3Z3CF909FykAF17Jr1x
-	ArZ2v3Z8AFZ8ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi8uctUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC3we3m2roR0cRbAAA3L
 
-iwpm_send_mapinfo() walks the mapinfo hash table while holding
-iwpm_mapinfo_lock, but when the current skb is full it temporarily drops
-that lock to send the skb and allocate another one.  The hlist iterator is
-not protected across that window:
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-CPU0                                                CPU1
-iwpm_send_mapinfo()
-spin_lock_irqsave(&iwpm_mapinfo_lock, flags)
-hlist_for_each_entry(..., map_info, ...)
-  map_info points at map_info A
-  fill the current skb
-  spin_unlock_irqrestore(&iwpm_mapinfo_lock,flags)
-  send the skb / allocate the next skb
-                                                    iwpm_remove_mapinfo()
-                                                    spin_lock_irqsave(&iwpm_mapinfo_lock,flags)
-                                                    find map_info A
-                                                    hlist_del_init(&A->hlist_node)
-                                                    kfree(A)
-                                                    spin_unlock_irqrestore(&iwpm_mapinfo_lock, flags)
-spin_lock_irqsave(&iwpm_mapinfo_lock, flags)
-hlist_for_each_entry() reads A->hlist_node.next
+KCSAN reports a data-race on nr_free which also exists on mainline:
 
-CPU0 then resumes an iterator whose object has been freed, producing a
-use-after-free.  The race is reachable with many mapped iWARP CM IDs when
-the port mapper hello path dumps the mapinfo table concurrently with
-teardown of the ID at the iterator position.  It can be reported by KASAN
-or lead to memory corruption and a panic.
+  BUG: KCSAN: data-race in fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
 
-The spinlock still protects the hash table itself, but it cannot protect
-an iterator that is retained across an unlock.  Add a mutex which covers
-the complete dump and also serializes individual removal and full-table
-cleanup.  The netlink dump and CM ID teardown paths can sleep, so this
-outer lock is appropriate.
+  race at unknown origin, with read to 0xffff9894ff3dcb60 of 8 bytes by task 179078 on cpu 12:
+   fast_isolate_freepages+0x284/0x1550 mm/compaction.c:1589
+   isolate_freepages+0x52/0x650 mm/compaction.c:1722
+   compaction_alloc_noprof+0x36e/0x3e0 mm/compaction.c:1850
+   compaction_alloc+0x21/0x30 mm/compaction.c:1880
+   migrate_folio_unmap+0x7f/0x820 mm/migrate.c:1177
+   migrate_pages_batch+0x37e/0x1200 mm/migrate.c:1762
+   migrate_pages_sync+0xce/0x560 mm/migrate.c:1928
+   migrate_pages+0x8c6/0xc20 mm/migrate.c:2037
+   compact_zone+0x539/0x10b0 mm/compaction.c:2660
+   compact_zone_order+0x1b8/0x230 mm/compaction.c:2795
+   try_to_compact_pages+0x20b/0x630 mm/compaction.c:2851
+   __alloc_pages_direct_compact+0x98/0x2b0 mm/page_alloc.c:3722
+   __alloc_pages_slowpath.constprop.0+0x452/0xdf0 mm/page_alloc.c:4401
+   __alloc_pages_noprof+0x28a/0x2d0 mm/page_alloc.c:4794
+   alloc_pages_mpol_noprof+0x1b1/0x470 mm/mempolicy.c:2270
+   alloc_pages_noprof+0x7a/0xe0 mm/mempolicy.c:2347
+   io_mem_alloc_compound io_uring/io_uring.c:2848 [inline]
+   io_pages_map+0xb9/0x330 io_uring/io_uring.c:2892
+   io_allocate_scq_urings+0x231/0x300 io_uring/io_uring.c:3933
+   io_uring_create+0x29c/0x9c0 io_uring/io_uring.c:4091
+   io_uring_setup+0xb6/0x100 io_uring/io_uring.c:4203
+   __do_sys_io_uring_setup io_uring/io_uring.c:4230 [inline]
+   __se_sys_io_uring_setup io_uring/io_uring.c:4224 [inline]
+   __x64_sys_io_uring_setup+0x66/0xe0 io_uring/io_uring.c:4224
+   x64_sys_call+0x1816/0x1d90 arch/x86/include/generated/asm/syscalls_64.h:426
+   do_syscall_x64 arch/x86/entry/common.c:51 [inline]
+   do_syscall_64+0x70/0x2a0 arch/x86/entry/common.c:81
+   entry_SYSCALL_64_after_hwframe+0x76/0xe0
 
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by deep code inspection. Due to a lack of hardware
-infrastructure, the issue was not observed at runtime.
+  value changed: 0x00000000000002f4 -> 0x00000000000002f5
 
-Fixes: 30dc5e63d6a5 ("RDMA/core: Add support for iWARP Port Mapper user space service")
-Assisted-by: Coccinelle
-Signed-off-by: Binbin Deng <18983559317@163.com>
+nr_free is only updated with zone->lock held, but fast_isolate_freepages()
+and fast_find_migrateblock() read it locklessly to skip an order that has
+no free pages.  page_alloc.o is excluded from KCSAN, so the writer is not
+instrumented and the report is of unknown origin.
+
+The race is benign: a stale zero only skips the order for this round, and
+a stale non-zero just finds an empty MIGRATE_MOVABLE freelist under the
+lock.  Annotate both reads with data_race(), following commit
+af1c31acc853 ("mm/vmstat: annotate data race for zone->free_area[order].nr_free"),
+and say at each site why both stale directions are harmless.
+
+No functional change intended.
+
+Fixes: 70b44595eafe ("mm, compaction: use free lists to quickly locate a migration source")
+Fixes: 5a811889de10 ("mm, compaction: use free lists to quickly locate a migration target")
+Cc: stable+noautosel@kernel.org # KCSAN annotation only, no functional change
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
 ---
- drivers/infiniband/core/iwpm_util.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Changelog:
+v3:
+Reword both comments to explain why a stale read is harmless (Vlastimil).
+v2:
+Real name in Signed-off-by, add Fixes: and Cc: stable+noautosel tags.
 
-diff --git a/drivers/infiniband/core/iwpm_util.c b/drivers/infiniband/core/iwpm_util.c
-index 51af8c1c49f9..be5c77356c78 100644
---- a/drivers/infiniband/core/iwpm_util.c
-+++ b/drivers/infiniband/core/iwpm_util.c
-@@ -45,6 +45,8 @@ static DEFINE_SPINLOCK(iwpm_nlmsg_req_lock);
- static struct hlist_head *iwpm_hash_bucket;
- static DEFINE_SPINLOCK(iwpm_mapinfo_lock);
+ mm/compaction.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/mm/compaction.c b/mm/compaction.c
+index f1b2060eb2016..426563acf7acf 100644
+--- a/mm/compaction.c
++++ b/mm/compaction.c
+@@ -1601,7 +1601,12 @@ static void fast_isolate_freepages(struct compact_control *cc)
+ 		unsigned int order_scanned = 0;
+ 		unsigned long high_pfn = 0;
  
-+static DEFINE_MUTEX(iwpm_mapinfo_mutex);
-+
- static struct hlist_head *iwpm_reminfo_bucket;
- static DEFINE_SPINLOCK(iwpm_reminfo_lock);
+-		if (!area->nr_free)
++		/*
++		 * Opportunistic lockless check.  A false non-zero is fine, we
++		 * inspect the freelist under the lock.  A false zero is fine,
++		 * we just miss this order.
++		 */
++		if (!data_race(area->nr_free))
+ 			continue;
  
-@@ -159,6 +161,7 @@ int iwpm_remove_mapinfo(struct sockaddr_storage *local_sockaddr,
- 	unsigned long flags;
- 	int ret = -EINVAL;
+ 		spin_lock_irqsave(&cc->zone->lock, flags);
+@@ -2031,7 +2036,12 @@ static unsigned long fast_find_migrateblock(struct compact_control *cc)
+ 		unsigned long flags;
+ 		struct page *freepage;
  
-+	mutex_lock(&iwpm_mapinfo_mutex);
- 	spin_lock_irqsave(&iwpm_mapinfo_lock, flags);
- 	if (iwpm_hash_bucket) {
- 		hash_bucket_head = get_mapinfo_hash_bucket(
-@@ -182,6 +185,7 @@ int iwpm_remove_mapinfo(struct sockaddr_storage *local_sockaddr,
- 	}
- remove_mapinfo_exit:
- 	spin_unlock_irqrestore(&iwpm_mapinfo_lock, flags);
-+	mutex_unlock(&iwpm_mapinfo_mutex);
- 	return ret;
- }
+-		if (!area->nr_free)
++		/*
++		 * Opportunistic lockless check.  A false non-zero is fine, we
++		 * inspect the freelist under the lock.  A false zero is fine,
++		 * we just miss this order.
++		 */
++		if (!data_race(area->nr_free))
+ 			continue;
  
-@@ -193,6 +197,7 @@ static void free_hash_bucket(void)
- 	int i;
- 
- 	/* remove all the mapinfo data from the list */
-+	mutex_lock(&iwpm_mapinfo_mutex);
- 	spin_lock_irqsave(&iwpm_mapinfo_lock, flags);
- 	for (i = 0; i < IWPM_MAPINFO_HASH_SIZE; i++) {
- 		hlist_for_each_entry_safe(map_info, tmp_hlist_node,
-@@ -206,6 +211,7 @@ static void free_hash_bucket(void)
- 	kfree(iwpm_hash_bucket);
- 	iwpm_hash_bucket = NULL;
- 	spin_unlock_irqrestore(&iwpm_mapinfo_lock, flags);
-+	mutex_unlock(&iwpm_mapinfo_mutex);
- }
- 
- static void free_reminfo_bucket(void)
-@@ -654,6 +660,7 @@ int iwpm_send_mapinfo(u8 nl_client, int iwpm_pid)
- 		goto send_mapping_info_exit;
- 	}
- 	skb_num++;
-+	mutex_lock(&iwpm_mapinfo_mutex);
- 	spin_lock_irqsave(&iwpm_mapinfo_lock, flags);
- 	ret = -EINVAL;
- 	for (i = 0; i < IWPM_MAPINFO_HASH_SIZE; i++) {
-@@ -712,17 +719,20 @@ int iwpm_send_mapinfo(u8 nl_client, int iwpm_pid)
- 				skb = NULL;
- 				if (ret) {
- 					err_str = "Unable to send map info";
-+					mutex_unlock(&iwpm_mapinfo_mutex);
- 					goto send_mapping_info_exit;
- 				}
- 				if (skb_num == IWPM_MAPINFO_SKB_COUNT) {
- 					ret = -ENOMEM;
- 					err_str = "Insufficient skbs for map info";
-+					mutex_unlock(&iwpm_mapinfo_mutex);
- 					goto send_mapping_info_exit;
- 				}
- 				skb = dev_alloc_skb(NLMSG_GOODSIZE);
- 				if (!skb) {
- 					ret = -ENOMEM;
- 					err_str = "Unable to allocate skb";
-+					mutex_unlock(&iwpm_mapinfo_mutex);
- 					goto send_mapping_info_exit;
- 				}
- 				spin_lock_irqsave(&iwpm_mapinfo_lock, flags);
-@@ -731,6 +741,8 @@ int iwpm_send_mapinfo(u8 nl_client, int iwpm_pid)
- 	}
- send_mapping_info_unlock:
- 	spin_unlock_irqrestore(&iwpm_mapinfo_lock, flags);
-+	mutex_unlock(&iwpm_mapinfo_mutex);
-+
- send_mapping_info_exit:
- 	if (ret) {
- 		pr_warn("%s: %s (ret = %d)\n", __func__, err_str, ret);
+ 		spin_lock_irqsave(&cc->zone->lock, flags);
 -- 
 2.43.0
 
