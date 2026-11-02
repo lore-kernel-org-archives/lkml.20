@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793657020;
-	b=xfMTBg7Iz+S+OIMP8f4XuWgbZj5XPDv65mXk5usR0zn2lz7P0/GZRB0PqjBM3xUrTYhq
-	 RMBmHHUjdfrf8TEsRA5Gp+jDQx6U1FFmnWE6O9OGQ9+d4H5AR6+pwGf3fxmV39CYJZTai
-	 ha4sfKd/LZ5dq7/Cx4JEdN8ZSYuHHLGXQJQoSHoSvI7TtUsJgQ1Sk5mSDDVXoDVi6Ti+n
-	 I24VbP28hAYZXdjaEnTliDhH9tzNRHcF7PkExCx7JahK/Mfu5JZ3Ik9zC052Q5PDq4LGz
-	 z7z94OQqnttMmebXeZDewaVOFIlciPsFUbSByGNy7y9Ei3BfVjQ3qG0Np7Lx+XqrrKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657020;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793657038;
+	b=hwh0yhnje/yjuWWfTdMkBQsy5HLXh0g8SIW4JEWgEXCSZtD58xMD4pO0Zc45y3w6PvfF
+	 mZfyYPw7vXU73ZdldIuf6sHQ6yv6cF5EIJ6Qyo3jo9c4toItr2LpGdPHCjdYvdp9HJRFS
+	 0XJtvuLiIpEtxPN2rzbggJB4pGV1mpNSGEqXjiTwSatycbLRN7LMtxlAGppz6oGiDYSdM
+	 uDMXIsqzRSQRHazC3lic509mLS7wjvIc36madR0vKg7YFXyoYGhFfXyajk76JzLgdEN9e
+	 WDhpRwuXT6KMLwcUyKJBaHEZTTBSGt0NrwTuymzPcBfl7wVtv0d3jIId8iC9YdEQ33w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657038;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rrfVG2EGCWVcNVqJJ0w+zoLBPZPkVLhQgz0OvfGHs+s=;
-	b=uv3Xjr5jvZAzj91LsBa4HXk4HA2HmY3cpRBnMNdwH1Ido2WSPsVsNIU/hV209mTfUDFg
-	 e/oEqtilcG/+mtA/bJBOjuCHgqfjekuucrWqldWiHReLk3kzzf2D8kqa+zb1D/xTGtLuq
-	 0bKmqSHFSaa95/pDksZWtb7osIysmFimdap/1bRBPp+IEyyqe/QE4+c4TXTa+38/GkzML
-	 6qSwqWSdCYgrviVf4irrKGGQVzeqdecWKGRueR2YcTk/kkPLIG6rEDhjIllSevGlOHDHr
-	 ms/wAqKtNVIy/JrtyT699qnfNYYeMhZGnV0qkk1mYbwS5d20+WQSSM313ILMlTSXAPA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eKIjyL9t;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DncHvoOx1Bk3VdBYZQNnZtb51zAHtz3xGgwwKAZ+m10=;
+	b=qt/fBuvZ2vyfVW0ubJcdcERD38/KMMH8liuh9ISOtbotAjjPQkXBb3UCDnl7/g2vQMaa
+	 yBvEu2HdbLki8daGZhfezRZSlcVmOtN+GdSMmC7SZa0g/HJkx7o1ImJ9aSOg6JtDw8/4+
+	 ivbjcuywlatT27dAjnIQ1XZLpQdukhiwKjwMIF+beiKh3EONmLemKVqAcZbTcG6bhGI3d
+	 Gx8+QgJXX4KFRQdVbVRMowcS4E9u63LJzNeNVWPWwxn2PNCkbZ9dZ8x+UqpXUjPaQ/2u1
+	 XLmoG9Q8yikeyvJGszPrTnEAWpJesznIKtKIu6Qg/3OmvugXYoHIdVsmJXP5Ump3KaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zvXhj5/7";
+	arc=none smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2AF606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:03:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF2AF606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9147E606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:03:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9147E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eKIjyL9t
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so3092a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:03:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793657018; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pT82Pa2MFk84+mJ5atkzHiKmUszO9aTFvkAEIo0fBs30IQlRTx7Fpj5Za6NNHeq10f
-         APJAmVWuL/FywXKS1LEd+l/lvDAZ4gzfrCI81Yoz3eI34I0zFtCWx72W8fhXAgWpHgAF
-         yFwP5qPo84F/FQ4L6xpuK1fchvEjeduGRCRJV+dxVAFLaXZF1F83SpT095VF17DhXzpY
-         4nkdZeSXRWwRqadUpTm5Gxa7qvRz+Y6ele/RpsO2OzXWepBtXlfv8Qs37Kf6CSNy8AoE
-         o14LixJBUqdEkIe7KK6pprPddazlxmXFqQsmLiWA3M8vnjLv9DyVqBypfjQby5Az0u8R
-         DGMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rrfVG2EGCWVcNVqJJ0w+zoLBPZPkVLhQgz0OvfGHs+s=;
-        fh=U43Ga9dTt1MAamj/QxxKmte9cOomEUhQGsQrlQ40JGs=;
-        b=F5HT1dROCqSpMfEKaLad/mUkcHlUaip0KtgDZzPmsi6XUfPd1mj7foCcsNsWF6F8jk
-         LgBqzfGfurErxQTX7hmTg3DqfRkVu/FxpuCq5U5g+HfB3aVLnr7IYk8BcCYlkxDKbP5t
-         WgqnjDR+Z1KvCiJ5xDy6YJEY4gdpSlGlPxEPqnux4dBg0xoC2fV9zVe9NNaqRYg7fuTb
-         S0H1U54R/sybjjC8FU6QuHFUijQA1ilqDgdlpCvfunVMDu3PwqyroSsuqkNskFYntAc0
-         KSVJTjxhU/BLNXQWz3oIJTkXAvLC3o6wwEnOu/oMkTUM2iY9IszF9N0xfSQcGEw6eVlb
-         tLGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvXhj5/7
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso4747042a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:03:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793657018; x=1794261818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rrfVG2EGCWVcNVqJJ0w+zoLBPZPkVLhQgz0OvfGHs+s=;
-        b=eKIjyL9tJJgkUM84z/AEYuKFdq2F89MguOg4/JVV770xf+cFqZnUOCaDRGoGs17CVK
-         5LsH3tiIEzTZrwgawdNY/w/0rnY1/NNaBZUDy13IjciYwldh5bZov4HLLdr/VTUqxe50
-         WIpzFdEtlxh7vlkRwrK2NbO/Dm//tNglyyJ7bzZgaGwUwgRRV5oMpsKtl9RA3inBJuG1
-         AbSeB2f5on544dmM+ku70U8aTDcmI+TX80ZvCRJVCjx3w1EyLvs8wdqT9a2Ga9mYhwZm
-         bHfRrTu2gSB5GCI46FK0Y22BQRXK4p7A8dFCIIWFFGB+uhp8r3AkeZwNcuTITCDriyYu
-         3R5A==
+        d=gmail.com; s=20260707; t=1793657036; x=1794261836; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DncHvoOx1Bk3VdBYZQNnZtb51zAHtz3xGgwwKAZ+m10=;
+        b=zvXhj5/7bYQ1aS0bJasF2TTeW+DTwO5l+SM+ohcKISP1lTX3qrfls0Bim79gb2jNPY
+         9WmY4s9l/SYQsMuibZ2+faYa31Lweq9COWu2QMfBy8bktkDgKI6sg+3JtJEM9yLiKFm1
+         wbWaTgAnmvXuFIhHlAGkXmKgUOOrSYRmuJIYKWeXgxX2YQCGjNDo7GTIZFEoNt8VC4VI
+         a996NZJsZs5Do/4aWDjlljs+dQdS3DCvYQiKDpcm48urgkzbB3qGUSuh8ok2yNfIXH7d
+         vt5HGzgUk/djYRLGAYc1/Bg0O7cEWoJbA8nvhptrol0GEETPI+EbdP81uJwEZ2UFnMfU
+         P0mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793657018; x=1794261818;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rrfVG2EGCWVcNVqJJ0w+zoLBPZPkVLhQgz0OvfGHs+s=;
-        b=w0G9FdNnrHgS/a3SWNPg3rs77JnRE3P0qu3w/8oaOJcho3Jy9C+eEU+nIok23GI+qC
-         62asGpKNebAxKFEfcExhZB5kUFMm1Hk182VlOxM7I+d4UoRLbayCnPlJxLxPG7ljyoD5
-         lCIeSLFiCFaFQuUDqCjLwOBy0FfCvDeqXld/SiaTLpjxVxt+9copEzvp+gwY1yG/sMqn
-         AdfhKgL2N6uEXi8lNAD+6EFcwib5r2pfaqDWzQ5ixepgrYF+0+UlekFrqOQQ+w9fYZs1
-         aYMFr/rt8H9BWeWiEGfvGBzE2AEV2v38Cc92cpRB7wDB+VhGu3nwXNaF2xjIWr2ECjK2
-         /hWA==
-X-Forwarded-Encrypted: i=1; AKwUvBx13x2Wn6RThWT/4q06vjLTKGLAL2EZCCop2LpkljecP2w8JxAmmg0pgDtdbCh2hDyg59kwShqRcbdNd7w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LRwPAhh91/U6K7ItTpoY9BvsEUdn0VXf1BXdNiqQiVFlOxhUo
-	kqspDTrsG2vLJoruiqV+kcciHTRLeOco9vGaVuIb8Q9sOjUTXBRDI+0NVB6oklK0jRQDQILSsq3
-	eK5wSMETg1G3iCcR5hOKFAVNbkZgQdUSzd59Sb/xaTcMHTDwVIyAoh640iR8=
-X-Gm-Gg: AYBFou1XaOMopzhMINelOFMFaHQnfBoKZrOGFEeKZQgAqiVw+/APa7qFaiu+JGhVgPZ
-	RtugUeiXY2L47L8n0+UzTmBJh43rcrWIs9tT4c34IiV6ebaQ4CiIPRlur7Z6Z/6R8XN3m7vboHi
-	yQV3KngYsHXuBxu/6ekTLCevtPurQist7+1HUWIcBdnVKVzY9Pz7jh2FR/skM4MlPPl5gAKv5N/
-	Z+pSmX4QCibk2UvCBL9oadIe80Uyr8i3g5bfWRHlK1zBmX2o6pr0ASRa49GQQddL60oJZdv9RL6
-	Fbd3gWK0Wkf3idevzGgWbM3llbXUjBHCSAGB8at/dlHQJFDBWsWCdqCvqDYx6nZWibIbS7Plaii
-	fRbC/IeOUzSSTp3hrCrr7QRqaEgqLmP9O8lWjyA==
-X-Received: by 2002:a05:6402:2750:b0:6a6:7dff:61ab with SMTP id
- 4fb4d7f45d1cf-6b53e7796a1mr3987a12.15.1793657017608; Mon, 02 Nov 2026
- 14:03:37 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793657036; x=1794261836;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DncHvoOx1Bk3VdBYZQNnZtb51zAHtz3xGgwwKAZ+m10=;
+        b=Msa+fNtYAHtgvLiTfGQFcVrnkJVBzYqDoi+FB5HxntHCXoHo4moyg5o0mffTioHj44
+         a/7X+OfR8v/oLwXhpKYaPfCNH4zii8gtR/rOumYJhEOgmYXN2pqd3mWJieIiaEphi5IX
+         XLrwLPDlChbNPvpmEY0R+68bzOf9CidLg/aCqlQSSlgvvJ3krlnOsz/qmILnMOvJ81S9
+         XnoKzyPTjeDUDSqIWNfWX6hG4UrUcOXi0/IKBrvqKMoTvCzdT0bVqjSS1h3vdBv0qtJ7
+         ygiMGvUZKfGE8A9rlB0nD7/BxXbv8Xfs92AbFwOUdOyhb9d4FRmLvM39zAcY8MDS5UlL
+         Spug==
+X-Forwarded-Encrypted: i=1; AKwUvBy94/SHfqXGgq3LC4RlzaV9WQ3lqnlppwN3riYMX/Fs3XtUaNMwPfAdMmGrUGYASjEhVaazmyT/Yd8ILxE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+p0qdtHa1m7KZ4UTHlLK2KT4nceQwwN1pjxIyG2+pFcXcFVnxS
+	gDRaEC6dFKI3/+YLnQ2KhMfCkRcUQvfNl8JIbH9HjyJZf12qryR73bHd
+X-Gm-Gg: AYBFou00DngGVedqqmfQXMydxJKgedgu/jbuQabXcNZtC8xdLWYckkEnX24/xeczxGm
+	Pc6w9Arx4nimCd3hrZL/4zg5ojRHTPyDNMZXponwQxs6EzQRbuservUHLtNBnoK6T5tZFnjd3FW
+	gXwMeOPOFR9itesNtre65w+VbvBeaPSyFNZPlQV3xzJ8vMY5MlXWSv1xnwdHVE5p944xE3/NopE
+	vUz77a7K1/55ldRyswBhotVgVF6/Dz5RmyQcrZLp+TKf7NDkgS6gbViztzoNyMkQxUe1C1K87Ai
+	XQ4F/eqPh4pRveRl9iXX97QX/vf6mBstwNQj1OGPFFZgWJ6v6oLvdoQAm+ptomFV8kHS9Udhj5e
+	gYDU298pN01/o4eycSVLZgC1IEn/GDBdu3MyU75spjtbLqQqVjrTs4fxgddhKoQPTjC8FsN2to0
+	wSfXJQaEXhzMD775LO/KeBf3Bu4cRtJD7aMcFeBzaM79uWwD6cfHV/G/HC0UrKfRkPOLYSid2kv
+	QaFhVULlwP7EWm0Ih6GF81/3L5rTsSWnw63kY4uDj2BDLhI2Lj70QV2Oo+l3nRF1ThiiHoXlaGB
+	Ds/McooOREIF/EqHjuiAdQ==
+X-Received: by 2002:a17:907:3f9e:b0:c29:4fcb:2886 with SMTP id a640c23a62f3a-c4ca7ac023amr899897166b.39.1793657035537;
+        Mon, 02 Nov 2026 14:03:55 -0800 (PST)
+Received: from fedora ([39.51.57.121])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cebf009b8sm27470266b.42.2026.11.02.14.03.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 14:03:54 -0800 (PST)
+From: Muhammad Waleed Badar <walid.badar@gmail.com>
+To: linux-media@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: Muhammad Waleed Badar <walid.badar@gmail.com>,
+	Ricardo Ribalda <ribalda@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] media: uvcvideo: Handle payloads starting in the middle of a bulk URB
+Date: Tue,  3 Nov 2026 03:03:36 +0500
+Message-ID: <20261102220339.70218-1-walid.badar@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261025170220.42789-1-walid.badar@gmail.com>
+References: <20261025170220.42789-1-walid.badar@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,117 +101,227 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030212112.2598640-1-seanjc@google.com> <20261030212112.2598640-3-seanjc@google.com>
-In-Reply-To: <20261030212112.2598640-3-seanjc@google.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Mon, 2 Nov 2026 14:03:25 -0800
-X-Gm-Features: AclHuK_pbmXvVHoGFvB48dY3tOJxijbO3CKujkx_4ml0ueoZxbb4z5FYesg9juM
-Message-ID: <CALMp9eR-di2U5QZzDHh7CjnVg20ZnBcTBu0CKbbWh9QCxYiJdQ@mail.gmail.com>
-Subject: Re: [PATCH v4 02/23] KVM: nVMX: Don't force a full nested VM-Exit
- when destroying a vCPU
-To: Sean Christopherson <seanjc@google.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, James Houghton <jthoughton@google.com>, 
-	Chris Mason <mason@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 2:21=E2=80=AFPM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> For all intents and purposes, revert commit b4b65b5642d6 ("KVM: x86: clea=
-nup
-> freeing of nested state") and go back to manually tearing down nested sta=
-te
-> when freeing a vCPU.
->
-> When a vCPU is destroyed while L2 is active, KVM synthesizes a nested
-> VM-Exit, which flushes the cached shadow VMCS12 back to guest memory:
->
->   vmx_vcpu_free()
->   |-> nested_vmx_free_vcpu()
->       |-> vmx_leave_nested()
->           |-> nested_vmx_vmexit(vcpu, -1, 0, 0)
->               |-> nested_flush_cached_shadow_vmcs12()
->                   |-> kvm_write_guest_cached()
->                       |-> __copy_to_user(ghc->hva, ...)
->
-> Accessing user memory via a memslot during VM destruction is broken, as
-> there are no guarantees that current->mm =3D=3D kvm->mm when the VM is dy=
-ing,
-> because the last reference to the VM can be put from a different process
-> than the original creating processes.
->
-> And even if the original process does put the final reference, during
-> process exit, do_exit() calls exit_mm() before closing file descriptors, =
-so
-> vCPU destruction runs with current->mm =3D=3D NULL on a borrowed lazy TLB
-> active_mm.  If the borrowed address space has a writable mapping at the
-> to-be-written userspace address, KVM will corrupt an unrelated task's
-> memory since uaccess APIs, including __copy_to_user(), don't sanity check
-> current->mm (and *can't* sanity perform KVM's current->mm =3D=3D kvm->mm =
-check
+The bulk decoder assumes that every payload starts at the beginning of
+a URB. It detects the end of a payload either by a short URB or by the
+accumulated payload size reaching dwMaxPayloadTransferSize, and then
+decodes the start of the next URB as a new payload header.
 
-s/sanity//
+The Realtek USB Camera (0bda:579f) integrated in Razer Blade laptops
+sends payloads of dwMaxPayloadTransferSize bytes back to back without
+aligning them to URB boundaries, which is not compliant with the UVC
+specification. When a frame spans more than one payload, the next
+payload header lands in the middle of a URB. The driver then copies
+that header and the data that follows into the current frame, and
+parses frame data at the start of the next URB as a header. This shows
+up as "Marking buffer as bad (error bit set)" and "Dropping payload
+(out of sync)" trace messages, and most frames larger than one payload
+are returned empty or truncated. On this camera every MJPEG mode above
+1280x720 is affected.
 
-> since that is firmly a KVM-only concept).
->
-> Furthermore, the shadow VMCS flaw is only the tip of the iceberg, as the
-> MSR load/store lists mean that emulating a nested VM-Exit can read or wri=
-te
-> an arbitrary set of MSRs, e.g. if MSR_KVM_SYSTEM_TIME_NEW is in L1's MSR
-> load list:
->
->       kvm_arch_vcpu_destroy()
->         kvmclock_reset() - takes pv_time off kvm->gpc_list
->         vmx_vcpu_free()
->           nested_vmx_free_vcpu()
->             vmx_leave_nested()
->               nested_vmx_vmexit()
->                 __nested_vmx_vmexit()
->                   load_vmcs12_host_state()
->                     nested_vmx_load_msr() - writes the MSRs that L1 liste=
-d
->                   kvm_cpu_has_injectable_intr() - reads Xen's vcpu_info
->         kvm_xen_destroy_vcpu() - deactivates the vcpu_info cache
->
-> processing the MSR write puts the "pv_time" cache back on kvm->gpc_list,
-> and the next list_del() writes into the freed vCPU.  And as effectively
-> pointed out by syzbot[*], attempting to fix each case individually is a
-> losing game of whack-a-mole.
->
-> Deliberately leave "nested_run_pending" as-is, because even though doing =
-so
-> creates potentitally inconsistent state, KVM should *never* consume said
+Add a UVC_QUIRK_BULK_UNALIGNED_PAYLOAD quirk for this device. When it
+is set and a payload ends in the middle of a URB, split the URB at the
+payload boundary and decode the remainder as a new payload, provided
+that it looks like a payload header (EOH bit set and a header length
+that fits the data and covers the announced PTS and SCR fields).
+Otherwise the URB is processed as before. Print a non compliance
+warning once when the workaround is used.
 
-s/potentitally/potentially/
+The quirk is limited to this device, and the header check is kept as a
+safeguard, because other non compliant bulk devices append trailer
+data to their payloads, and decoding that data as a payload header
+would break them. Devices without the quirk are unaffected. The quirk
+can be enabled for other devices with the quirks module parameter.
 
-> state while freeing a vCPU.  I.e. if leaving nested_run_pending set trips=
- a
-> sanity check or bug, then that just means there's more fixing to be done.
->
-> Open code only the "free vCPU" path, i.e. keep emulating a nested VM-Exit
-> when forcing a vCPU out of L2 via vmx_leave_nested(), as there are a numb=
-er
-> of updates buried in the nested VM-Exit flow that are needed if the vCPU =
-is
-> going to run in L1, e.g. clearing pending exceptions and MTF traps, setti=
-ng
-> the TSC offset+scale information back to L1, and so on and so forth.  Not=
-e,
-> this means svm_leave_nested() is all but guaranteed to be buggy, but that=
-'s
-> basically an open secret at this point and at least any bugs "only" break
-> L1, i.e. don't corrupt host state as is the case for abusing nested VM-Ex=
-it
-> when freeing a vCPU.
->
-> Link: https://lore.kernel.org/all/6ac0145f.34119e79.2f92f3.0003.GAE@googl=
-e.com [*]
-> Fixes: b4b65b5642d6 ("KVM: x86: cleanup freeing of nested state")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-Reviewed-by: Jim Mattson <jmattson@google.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=207045
+Assisted-by: Claude:claude-opus-5.5
+Signed-off-by: Muhammad Waleed Badar <walid.badar@gmail.com>
+---
+Changes in v3:
+- Align the continuation line of the uvc_video_decode_bulk() declaration
+  with the open parenthesis, as reported by the Media CI checkpatch run.
+- Link to v2: https://lore.kernel.org/r/20261025170220.42789-1-walid.badar@gmail.com
+
+Changes in v2:
+- Limit the workaround to the Realtek 0bda:579f camera through a new
+  UVC_QUIRK_BULK_UNALIGNED_PAYLOAD quirk (Hans de Goede).
+- Only split a URB when the remainder looks like a valid payload header,
+  so devices that append trailer data are not affected, and print a
+  non-compliance warning once (Ricardo Ribalda).
+- Link to v1: https://lore.kernel.org/r/20261009165248.56440-1-walid.badar@gmail.com
+
+ drivers/media/usb/uvc/uvc_driver.c |  9 +++
+ drivers/media/usb/uvc/uvc_video.c  | 95 +++++++++++++++++++++++++-----
+ drivers/media/usb/uvc/uvcvideo.h   |  2 +
+ 3 files changed, 90 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71b..cfdcfd96a 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -2887,6 +2887,15 @@ static const struct usb_device_id uvc_ids[] = {
+ 	  .bInterfaceSubClass	= 1,
+ 	  .bInterfaceProtocol	= 0,
+ 	  .driver_info		= (kernel_ulong_t)&uvc_quirk_probe_minmax },
++	/* Realtek USB Camera (Razer Blade) */
++	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
++				| USB_DEVICE_ID_MATCH_INT_INFO,
++	  .idVendor		= 0x0bda,
++	  .idProduct		= 0x579f,
++	  .bInterfaceClass	= USB_CLASS_VIDEO,
++	  .bInterfaceSubClass	= 1,
++	  .bInterfaceProtocol	= 0,
++	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_BULK_UNALIGNED_PAYLOAD) },
+ 	/* Sonix Technology Co. Ltd. - 292A IPC AR0330 */
+ 	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+ 				| USB_DEVICE_ID_MATCH_INT_INFO,
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index fc3536a43..8a1e4bc77 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1612,27 +1612,20 @@ static void uvc_video_decode_isoc(struct uvc_urb *uvc_urb,
+ 	}
+ }
+ 
+-static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+-			struct uvc_buffer *buf, struct uvc_buffer *meta_buf)
++static void uvc_video_decode_bulk_chunk(struct uvc_urb *uvc_urb,
++					struct uvc_buffer **bufp,
++					struct uvc_buffer **meta_bufp,
++					u8 *mem, int len, bool short_urb)
+ {
+-	struct urb *urb = uvc_urb->urb;
+ 	struct uvc_streaming *stream = uvc_urb->stream;
+-	u8 *mem;
+-	int len, ret;
+-
+-	/*
+-	 * Ignore ZLPs if they're not part of a frame, otherwise process them
+-	 * to trigger the end of payload detection.
+-	 */
+-	if (urb->actual_length == 0 && stream->bulk.header_size == 0)
+-		return;
++	struct uvc_buffer *buf = *bufp;
++	struct uvc_buffer *meta_buf = *meta_bufp;
++	int ret;
+ 
+-	mem = urb->transfer_buffer;
+-	len = urb->actual_length;
+ 	stream->bulk.payload_size += len;
+ 
+ 	/*
+-	 * If the URB is the first of its payload, decode and save the
++	 * If the chunk is the first of its payload, decode and save the
+ 	 * header.
+ 	 */
+ 	if (stream->bulk.header_size == 0 && !stream->bulk.skip_payload) {
+@@ -1671,7 +1664,7 @@ static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+ 	 * Detect the payload end by a URB smaller than the maximum size (or
+ 	 * a payload size equal to the maximum) and process the header again.
+ 	 */
+-	if (urb->actual_length < urb->transfer_buffer_length ||
++	if (short_urb ||
+ 	    stream->bulk.payload_size >= stream->bulk.max_payload_size) {
+ 		if (!stream->bulk.skip_payload && buf != NULL) {
+ 			uvc_video_decode_end(stream, buf, stream->bulk.header,
+@@ -1684,6 +1677,76 @@ static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+ 		stream->bulk.skip_payload = 0;
+ 		stream->bulk.payload_size = 0;
+ 	}
++
++	*bufp = buf;
++	*meta_bufp = meta_buf;
++}
++
++/*
++ * Check whether data looks like the start of a payload: a header with the
++ * EOH bit set, and a length that fits in the data and is large enough for
++ * the PTS and SCR fields it announces.
++ */
++static bool uvc_video_bulk_is_header(const u8 *data, int len)
++{
++	unsigned int min_len = 2;
++
++	if (len < 2 || !(data[1] & UVC_STREAM_EOH))
++		return false;
++
++	if (data[1] & UVC_STREAM_PTS)
++		min_len += 4;
++	if (data[1] & UVC_STREAM_SCR)
++		min_len += 6;
++
++	return data[0] >= min_len && data[0] <= len;
++}
++
++static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
++				  struct uvc_buffer *buf, struct uvc_buffer *meta_buf)
++{
++	struct urb *urb = uvc_urb->urb;
++	struct uvc_streaming *stream = uvc_urb->stream;
++	bool short_urb = urb->actual_length < urb->transfer_buffer_length;
++	u8 *mem;
++	int len;
++
++	/*
++	 * Ignore ZLPs if they're not part of a frame, otherwise process them
++	 * to trigger the end of payload detection.
++	 */
++	if (urb->actual_length == 0 && stream->bulk.header_size == 0)
++		return;
++
++	mem = urb->transfer_buffer;
++	len = urb->actual_length;
++
++	do {
++		int chunk = len;
++		int rem = stream->bulk.max_payload_size -
++			  stream->bulk.payload_size;
++
++		/*
++		 * Some devices (such as the Realtek 0bda:579f) start the next
++		 * payload immediately after the previous one instead of in a
++		 * new URB, so a payload boundary can fall in the middle of a
++		 * URB. For those, split the URB at the payload boundary if
++		 * the data that follows looks like a payload header. Other
++		 * devices may append trailer data to a payload, which must
++		 * not be decoded as a header, so leave them alone.
++		 */
++		if ((stream->dev->quirks & UVC_QUIRK_BULK_UNALIGNED_PAYLOAD) &&
++		    len > rem && uvc_video_bulk_is_header(mem + rem, len - rem)) {
++			uvc_warn_once(stream->dev, UVC_WARN_BULK_UNALIGNED,
++				      "UVC non compliance - bulk payload starts in the middle of a URB. Enabling workaround.\n");
++			chunk = rem;
++		}
++
++		uvc_video_decode_bulk_chunk(uvc_urb, &buf, &meta_buf, mem,
++					    chunk, short_urb && chunk == len);
++		mem += chunk;
++		len -= chunk;
++	} while (len > 0);
+ }
+ 
+ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index b6bcee4a2..59ad516ae 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -81,6 +81,7 @@
+ #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
+ #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
+ #define UVC_QUIRK_MSXU_META		0x00040000
++#define UVC_QUIRK_BULK_UNALIGNED_PAYLOAD	0x00080000
+ 
+ /* Format flags */
+ #define UVC_FMT_FLAG_COMPRESSED		0x00000001
+@@ -661,6 +662,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+ #define UVC_WARN_MINMAX		0
+ #define UVC_WARN_PROBE_DEF	1
+ #define UVC_WARN_XU_GET_RES	2
++#define UVC_WARN_BULK_UNALIGNED	3
+ 
+ extern unsigned int uvc_clock_param;
+ extern unsigned int uvc_no_drop_param;
+-- 
+2.56.0
+
