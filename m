@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626276;
-	b=BiRh5P7EpHv+zS6AImwO9kKrLmmWRhVt8WMYeguR139jOwLrt+/3btb2//S2XC/Jujpm
-	 49A6y/N3IFKQg3TseKiDVqjOKb4YmYHaxha4ZfSV2+cWUwvBbFlmN3E6juHEz/gml8kV5
-	 7HTb8M4g57twweP45Spd1B/0aFbr1Z4xYRLen0s2DfaIMqLvoHcL+s6kQvMMe5r1zLo4a
-	 QoyOMD+MMdBDo+rIrMs0UVm3QCx9qoRWOVpBwF5m5yTH/Btio9Ha/4QKB7bwxbm2RHEuo
-	 zFWywwQ+pGQzMwj07hhvtJVBelPwvvIa3mx86Z5paFdpaaXpeDNQrT4bAATlR4ycv1w==
+	t=1793626286;
+	b=IhtgVtkucIsivE7rn67fSNTtZW++cjD1jxNCu4a73awX1s+ON3i85F7sV3ZfsORwe6Qj
+	 NpXlE5ChVUHGS9GguEzqiCk5xtmLkuhcfoFo9j6ooGnLsYIPePj0q55RNm5Rx/8YtP5QG
+	 fXK9tv9zlxoPv/TrKLrAIaElDBTxbq4wvwgwOxpHodyW7b118/uReDK4+ug8GGyrIjeE8
+	 4rjveL5CHwrNnhn0cGd10PoL1f6YCdUnY494HTbEnrt/yC9eVreP5vXf4XJODPQ1r9fEM
+	 SjoLMDH43FNJwsRhYd49dhcelGR9Lc8Iy3HOqFqqhRynsx2TUWPW1tXJIDkghDxh+Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626276;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=z2VcmWiQfYdESRbeg/UZvm9BGb4bUA/D2IsTBQi5i8Q=;
-	b=X5maDZcOKNPkjkW2LjXvDuIWxwB+AJBchtKHkMQglTOl+On2EafZAbctFM1UO5VBIHIj
-	 h6rLApEuujsNyo9U+SowRaJWLD2XM1QPXxAaQEqEjRQ/3RBZIadFhPGIb7sj3UdnSK8lp
-	 RKTHUWWxuGqAMMg/FsxpHL1EoU1Fg8uAM0GhDToQvQZIi8ZjNvQ4HI4P2jhS7gymRLwgi
-	 quo/vxb0lu3YGnlfQ9pGYA/xmbVVPUlNkl9IMeIx21M9XEh6VU3dS9/XP4Vc8UeIF3xCc
-	 gJWyM63woZsA/sRv8480RhYU1K3yNIldcVk2tkaw+Ya16Vzs40yY1pI8Gy06HOeIJgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626286;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WWMGndPAPi/9UPLdPzs/eClP3b+MIDrQWGzMEfhXf+0=;
+	b=IxCCm6zCLxHLOAULR3PRAjyN7EOUny7XygNjTBGJmids+jKBZrRglqFJ0H+BSoN7LF1b
+	 WF2e7CiXLM1aay8V0TOV/Wi382TYxtrwSZP1hV473/bGwduLPoBAIt2IRr8ogn/9inioD
+	 Kt/m7AYRcH1vNRf43BeRiOYS7i8zct6hcWiwSfblv8mfw8ZkmbyIlwcq92k6eEF+Vkyxa
+	 I0SybCQrb20LD15UlibzJ+67Xmue2zKEdl9Zh7dIOUUg6QxV0fbvTO62LYynes8TLrrzM
+	 Kf/gy4zntQxUPpIg4asUaXuZxE8RIng5bO6lue26wWMKPQ8uCz6e8edFrG19t6n3dIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="exdYKI/p";
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fWfUia+b;
+	arc=none smtp.remote-ip=95.215.58.2
+Received: from mta1.migadu.com (out-2.mta1.migadu.com [95.215.58.2])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2B1606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:31:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD2B1606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD32606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:31:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DD32606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=exdYKI/p
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48dc1508191so459202f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:31:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793626274; x=1794231074; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z2VcmWiQfYdESRbeg/UZvm9BGb4bUA/D2IsTBQi5i8Q=;
-        b=exdYKI/p3ZLFwYOH/UwyULF0ebfy/+I5e53a7o6NcKf0WAOZYCtaYnr2RB7XDrnooS
-         +mq2wDIjhWHSTwC8Sfv2vZPKbJC557EYT2ds+Qo8LCht8vngiJ+gTycllgEhz5JYKQQp
-         SgXokJGlTl+4x6QRe8pZGnonL90pODxvzl07GJDJuYifJV2ac73xmWXNAl4R8j3D2QWm
-         uERien/dXCNNt7rNCEW35nHpMJWJa6MgLoIihfgPlz5rMOSLZzbn3asT4D3tGE8UbYHt
-         Wq9Ssg06ZuyOJbkm2icm3tTycgeaJoJ0fyIq7ff7wqP0H4dwJ6ALwgqihEAz1FY3dlWW
-         ODpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626274; x=1794231074;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z2VcmWiQfYdESRbeg/UZvm9BGb4bUA/D2IsTBQi5i8Q=;
-        b=Et49AKFSRFHTV93gSNnV8n/UyQjz7O7sJo3IMWeKgCh7CJgaSrjY0ppfsMLj9pLqA0
-         50q9sNL3Fbaxjz6tUh4JPotrZnrV4GurjlXPZRon2WZXxvQUqc910VxKQaQUZF54QnZ3
-         1lLdAAp+NTfDKgheG/otLyyk98JZJ7JEKzbVLLNSRnBmjjl2H7i++nMpNfkx6j7K7sa+
-         rYlcXVBJb37TMQmXbONhbiI9i2+WlbvHr78wuwY5nynp1/d2Sc26opyBvepBePZbvGw5
-         rkSSw7AeeFM0b3Qml7GTsbWBOVKzXOdsaffvCZlNXAkYRi0tSSDiZVpc168VIR/2iQ7N
-         OZ6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzZYlMDe02mdJxff85qm9+gEhr28BA7oqXFjH3liw8l4e+euc0sld+wWL5PqXIbIzLTqdWciRvRWVLvUoU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZMb+wS6GmZBMS/yla1QJ44Ctxkcvy78g0V2+ioiW3HfOX0oMw
-	qxzcQM2NI6ET7h+KDHvEPQ6PgDHDE8VrAO5MqL6Ir6/kja4TL+Rt60uyhj53yA==
-X-Gm-Gg: AYBFou18MgyCrrgHoies8FWlvpu0I2uYZ1bi8ga1Xsa2TeyR76nEs73mskYZBWYTQms
-	gtm79IMEM0ML8q07IsfNqKGoCTJbKFXCSumbdp34g3pW4PW7/ue0BM4rskuGjZBGInSOKpLI31/
-	/zikNs1EBrzKaPU1C+a8jEcqO+6wod/Zqv5W9M33ZJn4X9dg28V8xrnbb5z6/cX/E4Bkt48ke4d
-	3hKtVR2rvljw3jdzlZXzbnFVGnK5MSQJIyxLZvNZ40hU4VnvTbiEyznRwbo8BEVti7wXfiQqqTD
-	QKBWSbf1s+khq9772lXy+So1j4tUUCGt7hhOrQZuW4hZ1T3DRex2rRMffv3UUQokmiO/Ju4lhlX
-	ge0p69GedMkE5xTGoZdj8oCNvEQLONoZzEMmXJPrfm8CHMPhVyPWm1XRHXEloeIw94xfuTrKZ94
-	ebdEahoV4/DY8Db4G+nTAAqXY4xCmWkN7zg14Id2SxUw8mbCsOANi4Px+TpTaMIdK8LajIJwuwm
-	QmeGxUTqbmZkY+9cIInTF996CHoWM+3JIrkwwZpjPiNkvclqkKedsmc4tqDoDB7ZfgfhiTNAxXF
-	N/aW7Puleg1qMqYSp+/F4jpZDgTlxFHVbdsS6SlHDiFnHD8GbYsh5Xqcw+qPM2ndr323iYY3ifb
-	+MA==
-X-Received: by 2002:a05:6000:4006:b0:48e:28f2:64ea with SMTP id ffacd0b85a97d-48e6e30088amr27345388f8f.4.1793626274013;
-        Mon, 02 Nov 2026 05:31:14 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d4f9sm20432460f8f.2.2026.11.02.05.31.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:31:13 -0800 (PST)
-Date: Mon, 2 Nov 2026 16:31:10 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: peterz@infradead.org, vincent.guittot@linaro.org, 
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: christian.loehle@arm.com, elif.topuz@arm.com, 
-	linux-kernel@vger.kernel.org, mingo@kernel.org, sh@gentwo.org
-Subject: Re: [PATCH v5] sched/eevdf: Fix vprot across reweighting
-Message-ID: <auiQU5LZ--A-PLor@scheduler.schedules>
-References: <20261016153721.7843-1-kayracizmeci@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fWfUia+b
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tyuUU3tex6yGuGsqkMIA7zBej2IJkvxByg23hzKT+6k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793626284; v=1; x=1794231084;
+ b=fWfUia+bn78oXS6xaZceLZFGdj2BUs/KRC9uhgCV4jRuhku0GRK9Djp5dGvPEC4qK8aCbsTI
+ L/YK+zh4u6+MJwvDK4WvN2vvMtRPGgPJKjdEkCNZhSKI/lWMPX6xe4zS8TW7HzgURgEmJZsFtXg
+ h/mouv1NXRAM8A4QRgHhMVjo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cfaa51096a2fcffc;
+	Mon, 02 Nov 2026 13:31:24 +0000
+X-Mizu-Trace-ID: cfaa51096a2fcffc
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b88e357a-819e-4f82-a6ea-00dab9b7f232@linux.dev>
+Date: Mon, 2 Nov 2026 13:31:23 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,16 +58,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261016153721.7843-1-kayracizmeci@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 10/14] drm/tidss: oldi: Move the setup of one OLDI TX
+ to its own function
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
+ <20261029-beagley-ai-display-v4-10-dc7f2b532478@ideasonboard.com>
+Content-Language: en-US
+From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+In-Reply-To: <20261029-beagley-ai-display-v4-10-dc7f2b532478@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-Hi Peter,
 
-Gentle ping on this one. Do you think its ready to be applied?
+On 29/10/26 10:18, Tomi Valkeinen wrote:
+> tidss_oldi_init() sets up each OLDI TX inside its loop over the OLDI TX
+> nodes, which is not a few lines of code and indents quite deeply. Clean
+> up the code by separating the setup of a single OLDI TX into its own
+> function.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
+Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
 
-Thanks,
+-- 
+Regards
+Aradhya
 
-Kayra
