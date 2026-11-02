@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.68.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.247
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635045;
-	b=gfa8/P4Sn78Z7yrgT2gKQYBiPVzUsf87LoJx3AeaqCvWWQ1whoIn94k6AyCr6wUr8UfA
-	 2KL7czdO2rIp47vhc1YJYccjtokpH1rVB7gs/X6tw1vPRK9jV+iJnGAPob2qbL14GcCY1
-	 oZM+QobW9f9t+lqixldU3TN3aVvM+yuqydRpV4XOH//1tsNxXKDqQaTY02z/GP51QAN7N
-	 yCH04VpOu6SfHKbPKfDiNOa0p3UYfB+GdaxgiRAX+GHAVal9FSM6fbiI66M4VMJ3OjzRv
-	 so0nHDCoPDOlKUilXQ1V2SFFjGGpZ3DAbQttkhkgDM6RfNwXTB08QlCz+yVer0/BQdA==
+	t=1793635087;
+	b=bt7U/CWaqd95wqgpK7hXrWs6Cq22j0TNyzOS3QHzV4BNPufulzfWgqwuGs0mgi8MG/Ls
+	 e0wE+ZDamo5WlVvjHDrLIfUZQpODRfo7J3vd+sfTil9AE2A70EX39xwg+TvOB6z9ZJNmn
+	 8bOWeAtmWBtkfet0C5zqFWIPRBfe7pO2EOf0ru4xewPcNxrGRkAagUtkJsiwEUsLfDBYh
+	 75Ur3W6H83gKemUlfS/mXTdaiYuW1tC4Ws7poXO5q6M4GUqpombvxT0i8pBlAgc2lK271
+	 +c22Q34m5b3dJOH//otFYxy5pTCzMko93tUcLG46huYcdLsBuAg7oHibneJofB+a5SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635045;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Info-Out:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:X-JNJ;
-	bh=2LxqEL0c09YgpVOKrP0D08bRca+IF1yQu3oKxoVysls=;
-	b=nVhaxiicvlXd/HFgod6w6SO5RwmGIy8VsTH7otczp4eqYj9ToUfVEkn37AWEbi2Qf/2n
-	 HV4TtK6IpwpwueL+4Loysn/eyuU0qDv+kvNs3+vwIXyXxBwDfktBXQTPS2ZHaUb+hWAkz
-	 yGkWjmk0DCy7UeTUwS1gAZbp9+SBPu/nhPh9D2kOd7HrVqv/3gq3eiHfZAa+C91K96tIO
-	 XD+RuIlOaUt/0GkDyRO+u8SsNK0b7cmk9c/9QQwciBp2h8EOpuSIwczG++v5Ek4h0ZK4l
-	 IY46XeCnJdbM/cWdriHmNclz+ryTqlZUAH424URHlRUTfFsHJedDEpHPjActDJyy/Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635087;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=QuMgc0nw33KkJCMxo+8yBifrJk7oWSHrJDQEhhWnRDo=;
+	b=DGacsz0ZcWCbFOiWvzKo5CQn+H/lOBnF4c3CQfPqP/Lve8/hHkECv9eSXRsgdWo2jLWz
+	 o/zrBPfTo5/durMhq6SRIbzKqOzFsHi4FSYdB1MyyeFmRxyhIYmxXfvfiW7H/2Jf1nI2H
+	 yW9/qzBU/GBEuCMAAvkWVS0wApNIHE+DZHNiSFdYnfrQHiJocfeOVpxrhhUsa6ekPm6nY
+	 A1tgIGYgqTQ4KO1WiBgXrqtrBiAywH82xaqQ76ZaDvn/5k9lNoD6fNw2OuQ0RMrjOyxBr
+	 6LHGTaSZBBcG5qfQhrym/yylalHqOOkupakowtw/DPH/95xcw1IMXtKn1Zhbppn0YQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=ZJmqvu0a;
-	arc=none smtp.remote-ip=57.103.68.181
-Received: from outbound.mr.icloud.com (mr-2002j-snip4-8.eps.apple.com [57.103.68.181])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sFDce9rv;
+	arc=none smtp.remote-ip=95.215.58.247
+Received: from mta1.migadu.com (out-247.mta1.migadu.com [95.215.58.247])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAD5606A5B2
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:57:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDAD5606A5B2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB2C606A5B2
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:58:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCB2C606A5B2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=ZJmqvu0a
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-0 (Postfix) with ESMTPS id B02441800103;
-	Mon, 02 Nov 2026 15:57:23 +0000 (UTC)
-X-ICL-RepId: 01a19cfa-c94d-71b1-901e-5ee954807d78
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhOAEMGXAteC0kCQwJYEhVdRVkMVABGEVcfQA53AlEcVg1XQ1QEX1BfHA4EVAddBV1WUAJaS0ATBE0TBVIHXU1WDUcPWB5cFBcVQUNeCF4fTBwdDlgGEgBNCg42BlkFXglWA0MFNhIUXUVaDlsERxQXG1wAFwZbFAREAV0FXQNBCUoCWAJcA0UXTgVeBEYDXVMZUAZDClwXShtzBFQHXQVdVlACWlUSBEAIVlBeCF4fTBw=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793635044; x=1825171044; bh=2LxqEL0c09YgpVOKrP0D08bRca+IF1yQu3oKxoVysls=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=ZJmqvu0amP+RS18BxyzIT8fgt2ogMdjfuQG1PMsJS3OpznfxohtxAqgHqEoWV4tBrJv+AgtsZbFlP9TCQfL/be+GuawDAJ3rnWcM7+5+PQsMMWMZH6orztVYwGfbGqjUAwfBewJEI4V3gsaeU5FqvUntDaysPPY72hHskDjWDHW/MLGebYBG73pyV4VQTyJCqrENLqqF3g/EER92zDYVimPvEMhkVgyEBjA863HXlCGEqngfh1ahhpeY0ed4vvnxLB7OrRvBe0uEQy7aMGnItR6KPHzHOfOU5RyxsFfDBL8fDWAWGj4jC5pkM0bKK/x8rByOsRziHX7PAIcpNU9qrg==
-Received: from localhost.localdomain (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-0 (Postfix) with ESMTPSA id CA87018000AB;
-	Mon, 02 Nov 2026 15:57:21 +0000 (UTC)
-From: Jack <jacktangsc@icloud.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jack <jacktangsc@icloud.com>
-Subject: [PATCH] kernfs: fix stale comment referencing old @sd
-Date: Mon,  2 Nov 2026 23:57:15 +0800
-Message-ID: <20261102155715.6633-1-jacktangsc@icloud.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=sFDce9rv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=giT7Ub4tDNwcGbsfCiNVRlt46uIIAK3CYU8BLuMPRA4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793635083; v=1; x=1794239883;
+ b=sFDce9rv38qoXhuevHzE/U+Rd0ImKfj9PTdFmJwNtW1572d27ZmVN0V3sFWUgmJAaOwFui93
+ pUk1ux7Mgkh3y1OcsTYZqsFWX7P0J0JvwuOLGYXEEKR6DPxt/JImc3p+YcLh+C+VpK0YrR4aKUR
+ /7BgaWTDTZC47fMJy3LEUJDE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1a898305129db6a1;
+	Mon, 02 Nov 2026 15:58:03 +0000
+X-Mizu-Trace-ID: 1a898305129db6a1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <050b2715-84a0-4dab-b9ed-7f93964bb6a1@linux.dev>
+Date: Mon, 2 Nov 2026 23:57:59 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,62 +58,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=Qq9THFyd c=1 sm=1 tr=0 ts=6ae8b2e3
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
- a=whGDNnZ4qqUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=v3ZZPjhaAAAA:8
- a=9tPP0pGvBWh4zwi6mFgA:9
-X-Proofpoint-GUID: OC6IOQq_fGMzM2Hs-VaUcTFJZCNpxcM1
-X-Proofpoint-ORIG-GUID: OC6IOQq_fGMzM2Hs-VaUcTFJZCNpxcM1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MyBTYWx0ZWRfX2OVIEZuw4HEA
- M2HfT1uWB/ngx1Y02qDl38aQrjUd67k8uY5RevTxEf9p3gsxy1eK035uvvm4yPID5knyKCbgbkf
- K14dEkLWbalQsMYgG0IIIK5d1xb+Rwm9zDxlrKqW4A+hStA9kZEIEkTMLiDYLe11+pYGdps+hzr
- 6wkH+1qSHcmEyNhnFyuPvNxKsNSe5qEIEfJOQoriclRnHEm6kE6sdo2xNeGjeiKXcrzaPYWA49h
- D9pDKN91UrLER8/bTP0Ga4FUa9g1ntsjHtineF4eE3GAGbL7Y29X2dOdkXpKdM9Bok3Tq/PiURm
- y2EozCy+YZBK0xyg6FyRbRGcZQYHHiZr/wEFEj4w4tlg/JObzwpHHNBHMKgIqk=
-X-JNJ: AAAAAAABHoDLA64DKmkuzYE6sIrOmA65anVKc9yEKfUzp2V5bm2sdLRvJKWKi9xpUBLxpn
- v5s1haI/Q2KMxDaBZezDnHm8/t9LHyU+7GW8tZ+knmkocUQQV4h94Qv7aF7uYunPu06rD8
- 0W7OwZYFk1sS/rSVz2RqevpHGArK9AIrdsjHuPMvpSVAuIQ+hCV1V8sQj6ATde8FVoVYqq
- c+9AWY4S88xvOnJj8bhZ9KEsmCayyRUWISgEQlXZ6T6zqM9Vu9iPZvJVrRWtOY3nNFtR4S
- qBNXPWp2FJ++OzL3tLpaqW4YsX3Y/2kzOJzvsSAJr3h5eNhXlewte1Izx+Ttzs87DAddxS
- RlNsJb/LL7J1nigfVGX4rPM7Iebh3Xv9H06lVFBzauZZHKZm7f9susljYngiA/0xDBs8JZ
- iu+oEENaiBl3ednE8gquhZBH4FuWy3hpmmYwvtYnkDLojf/fTyCvdTJquILAItF7IB/5HJ
- kpQtdwpIALBej6QBhXsTFn2h1xG9+OgtMheht1xxsZkoGCljIo4NdMRWPVNwWSpfCHc6mf
- 9uy5uAfplyfIwlCIVnSm6MT/sR2Q/3z5/F27DirRqw8gJYovLQXZm34nEInXVWFZ36wxbe
- 0Sjf1hCTixjpWc3UAKeEsaCKpWGkKFX3VwqozcNDMCQcasFZNe7+6QSKPT7PNGZ/vHDLnY
- 551ZIYsp5g4d4DBQRA4WNCxugBXFgCFBnbYgnfiwgvvnIjEYKmHX119n+SeZkmbnF171FV
- RO5PTryfvsy+r4K3C+7wWPIF0cP1NnFUISUCK2EKQxbHhbMh2GCCdsWO3g7DG9E7Xtb0kc
- OwulJ0r9T2oLcZPukAiRgpjpSsZGoftfUjdOJ4yJuD1JYeArfAiLlhuOAxGdsKZdwNV7+8
- ZLqK58l4Mm+CyPxXz3rlRrPKq2wNDinGBHErWRfTf/SqsVnfvCrRi81UoEkHJHQLgws23a
- MtcoxGXuM3rr1ib6nTsTMFddDu3erX9qwu+Kd9vlX6zPMhToV3ELRlKG36q5DNuRZOnxLW
- Lm+L9GIDyUiDjcGkek0Nzp23WWy+GeDQ0IdYG6XFRe8DVaSZUusPu1EeX7Bv4mtnsp3DUe
- 324RE+0Kh9476pdh5oZG/20ymCdlo/r3Pxy7qSTyLMKvxui9f1cWzSrHzYZunrccZkJnP0
- 1T1o/hfU9zHYazBqPiV5qu6xwDgpdCTC0UQu4mmw6+srrsBS8Qrg==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v5 0/2] sysctl: add CTLTBL_ENTRY_XXX() macros for
+ ctl_table initialization
+To: Joel Granados <joel.granados@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1774463505.git.wen.yang@linux.dev>
+ <3626b4c0-319b-4944-b7ff-704ab146fd1e@linux.dev>
+ <57fctybn2i7fapt7mo466rou7pu2qfudhkqfmd22y2yu72uilh@zpaewmnbjqbo>
+ <6047c828-07a4-449e-aaa6-8fa182c11cba@linux.dev> <auh_b-jm5yW5ouh5@hobbes>
+Content-Language: en-US
+From: Wen Yang <wen.yang@linux.dev>
+In-Reply-To: <auh_b-jm5yW5ouh5@hobbes>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The comment still refers to old @sd which was a sysfs_dirent.
-Update it to @kn to match the current function argument.
 
-No functional change.
 
-Signed-off-by: Jack <jacktangsc@icloud.com>
----
- fs/kernfs/kernfs-internal.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 11/2/26 20:23, Joel Granados wrote:
+> On Sun, Oct 25, 2026 at 12:43:37AM +0800, Wen Yang wrote:
+>>
+>>
+>> On 6/17/26 23:25, Joel Granados wrote:
+>>> Hey Wen
+>>>
+>>> Sorry for not getting back to you sooner.
+>>>
+>>> IMO, this is approach is the way to go to bring back the control of the
+>>> sysctl variables into the sysctl subsys files. Would like to get another
+>>> set of eyes on it before committing to it though.
+>>>
+>>> I think it has not gotten too much attention because it does not touch
+>>> any other subsystem. Would you consider adding one subsys to the series?
+>>> Something like implementing it for the users in arch/ or fs/ or
+>>> drivers/.
+>>>
+>>> Also, this might be a signal to park this temporarily and let it simmer
+>>> until more ppl are annoyed at making changes to the sysctl API.
+>>>
+>>> Best
+>>>
+>>
+>> Hi Joel,
+>>
+>> Apologies for the long delay, and thank you for your helpful feedback.
+>>
+>> I've been tied up with other commitments, but can now return to this
+>>
+>> work and prepare v3 based on your suggestions.
+>>
+>>
+>>
+>> Given the time that has passed, I'd appreciate any updated advice or
+>>
+>> related developments I should take into account.
+> 
+> There is now more clarity that the use of MACROS like we had discussed
+> for this series is probably not the way to go. In [1] it is clear that
+> the overuse of macros will probably be rejected once it gets upstream.
+> So for now I would let this implementation go.
+> 
 
-diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
-index f1e93b09e..0fd8dea0b 100644
---- a/fs/kernfs/kernfs-internal.h
-+++ b/fs/kernfs/kernfs-internal.h
-@@ -72,7 +72,7 @@ struct kernfs_root {
- static inline struct kernfs_root *kernfs_root(const struct kernfs_node *kn)
- {
- 	const struct kernfs_node *knp;
--	/* if parent exists, it's always a dir; otherwise, @sd is a dir */
-+	/* if parent exists, it's always a dir; otherwise, @kn is a dir */
- 	guard(rcu)();
- 	knp = rcu_dereference(kn->__parent);
- 	if (knp)
--- 
-2.50.1 (Apple Git-155)
+Hi Joel,
 
+It's okay, we'll keep trying other approaches.
+Since it has existed for so many years, it's indeed hard to deal with,
+but we won't give up. As we increasingly adopt Linux in autonomous 
+driving, we will pay closer attention to information security issues of 
+this kind.
+We would greatly appreciate your continued guidance. Could you take a 
+look at this RFC series and share your thoughts on whether the approach 
+makes sense?
+
+https://lore.kernel.org/all/cover.1793204511.git.wen.yang@linux.dev/
+
+
+Thanks,
+Wen
+
+
+> Best
+> 
+> [1] https://lore.kernel.org/all/CAHk-=wjUmLrJd4KM4xvJHUN4P0r8oSu5LyvG4JipnhxizBrE9Q@mail.gmail.com
+>>
+>>
+>>
+>> Thanks again for your time and patience.
+>>
+>>
+>> -- 
+>>
+>> Best regards,                                                            Wen
+>>
+>>> On Sat, Jun 13, 2026 at 11:56:50PM +0800, Wen Yang wrote:
+>>>> Hi Kees, H jioel,
+>>>>
+>>>> Gentle ping on this series. Please let me know if there are any
+>>>> concerns or if further changes are needed.
+>>>>
+>>>> The series is available at:
+>>>> https://lore.kernel.org/all/x5stdwwsfp2h22zyexn5ycbxnkyc4ioxscninxsa6q7lf6djqr@jkuppwwqubkp/
+>>>>
+>>>> Thanks for your time,
+>>>> Wen
+>>>>
+>>>>
+>>>> On 3/26/26 02:39, wen.yang@linux.dev wrote:
+>>>>> From: Wen Yang <wen.yang@linux.dev>
+>>>>>
+>>>>> Historically, changes to how struct ctl_table entries are initialized
+>>>>> (e.g. removing the child field, const-qualifying ctl_table) required
+>>>>> touching hundreds of files across all subsystems.  Such series require
+>>>>> the attention of many maintainers, sometimes need to be pulled into
+>>>>> mainline in a special way, and create lots of unnecessary churn.  With
+>>>>> CTLTBL_ENTRY_XXX(), future structural changes to struct ctl_table need
+>>>>> only update the macro definitions.
+>>>>>
+>>>>> Conversion of existing call sites will proceed incrementally from
+>>>>> kernel/sysctl.c outward, rather than as a treewide sweep.
+>>>>>
+>>>>> This series:
+>>>>>     1. Introduces the CTLTBL_ENTRY_XXX() macros in include/linux/sysctl.h,
+>>>>>        using _Generic() for automatic proc_handler selection, auto
+>>>>>        address-of, auto maxlen via sizeof(), and compile-time validation.
+>>>>>        Supported types: int, unsigned int, long, unsigned long, bool, u8.
+>>>>>     2. Converts kernel/sysctl-test.c as a demonstration, adding a
+>>>>>        parameterized KUnit test covering all macro variants (V, VM, VMR,
+>>>>>        VN, VNM, VNMH) across int, u8, bool, and char[] types.
+>>>>>
+>>>>> Based on discussion and suggestions from:
+>>>>> [1] https://sysctl-dev-rtd.readthedocs.io/en/latest/notes/ctltable_entry_macro.html
+>>>>> [2] https://lore.kernel.org/all/psot4oeauxi3yyj2w4ajm3tfgtcsvao4rhv5sgd5s6ymmjgojk@p3vrj3qluban/
+>>>>>
+>>>>> ---
+>>>>> Changes in v5:
+>>>>>      - Extend __CTL_AUTO_HANDLER to support bool and u8
+>>>>>      - Replace individual test functions with a single parameterized KUnit
+>>>>>        test (KUNIT_CASE_PARAM) covering all variants and types
+>>>>>      - Use struct ctl_table as the expected-value container in the param
+>>>>>        struct, eliminating custom expected_* fields
+>>>>>
+>>>>> Changes in v4:
+>>>>>      - Fix Wpointer-type-mismatch warnings detected by lkp:
+>>>>>        https://lore.kernel.org/oe-kbuild-all/202603050724.SZxrEyyu-lkp@intel.com/
+>>>>>
+>>>>> Changes in v3:
+>>>>>      - Replace the unique macro with "capital letter approach"
+>>>>>      - Reduce the name further
+>>>>>      https://lore.kernel.org/all/rn4rsazh7kxf5byq65vw2phyqgzvwm3scczu3l5h2r4aqit2r6@znlpb24z2zuo/
+>>>>>
+>>>>> Changes in v2:
+>>>>>      - Add lvalue check, handler type check, etc.
+>>>>>      https://lore.kernel.org/all/xptwb3uwbzposd4xf7khj52ifv4tchcjdgllhv7aabi6d7wgef@2msurl564v53/
+>>>>>
+>>>>>
+>>>>> Wen Yang (2):
+>>>>>      sysctl: introduce CTLTBL_ENTRY_XXX() helper macros
+>>>>>      sysctl: convert kernel/sysctl-test.c to use CTLTBL_ENTRY_XXX()
+>>>>>
+>>>>>     include/linux/sysctl.h | 307 +++++++++++++++++++++++++++++++++++++++++
+>>>>>     kernel/sysctl-test.c   | 237 ++++++++++++++++++-------------
+>>>>>     kernel/sysctl.c        |   2 +
+>>>>>     3 files changed, 447 insertions(+), 99 deletions(-)
+>>>>>
+>>>
