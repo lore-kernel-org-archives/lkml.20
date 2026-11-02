@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627660;
-	b=RXbU69QMPfe1igj47GjYdJ0IMPceUWr6rnTDmBwwc/wsWGiPpFfEhdFLqJczzBCQyxzf
-	 mc3ZuKcr6Q9Yvkcs32HHAPU8e6vpSVNjFQP4RfJNcBjg8H9U9K73dwHh3kn7iuHbzplKD
-	 OsrCEdcBB45/WNbMUHzJMBac2TTuew0PBgrUc7lsG/rOopjk7DzNJf2hC7UUrcyrEdsjj
-	 ORJnsXcLNsRS0tzOa+NmUhxW0BKJOK1yxVnsBzpfAg11xOKehf+ts1Pk37UUZdlzZTD61
-	 RKsMUxlMMfccGHb0ABLiipc4z7CgdLJpEtiYyanNW1NmpT4Ka3MXoWk1B54OAB8TgTg==
+	t=1793627668;
+	b=y2noghmK+e4XCJ+dLkWg98sbL/kZqbYy9W6OU4jP5FCHuXtKiqXdzisooNxH7VGjvNNY
+	 Q6rujrAxmvFzCMRnDDw4WqZvJGmW4xcSjilUCejKW4gYyk5xZcGSxNWU7J4nSMKSESwPY
+	 Nh5IcEM3hL8C4jQ73un660gTNvCNCJ71q3ITiASVJQVmuTHtyR2V0mhjIVYxsMz3YYIcR
+	 +HaifBwrSBbqITvh7V9gx0jnrjuB16Fr9FhuPbcZqCGEhT1JJUHi0e6McZW/cRcHk6oyq
+	 ULza2f/g5QhISxVysgTGW6NLBmotJfPDC+hIcYz9ovikpnhPMwhMAih26JtwU5NCLkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627660;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer;
-	bh=lCTSBvg/sVJta496EObSjzg3KWEJc4BDFGrEHVQJdC4=;
-	b=AVW3hr5LU+2fEYq3zMVI9/pG0XJt6ZNLtySEPpjg15cW0xRj28jWJamJcZuzR2FUs0ye
-	 FrmUkCAaiGDm38vOhvp5xjUOUD0q+gW5z2CkzAz1j0v2F5oc4lh25A7zC4VB8pd3ctRGq
-	 3VIQvroW0+Ptjc/x6Ck/mLEVqJ2TtyJXgnip1dCsCHCtI9Tcg1Yssxu5WxNl8JyAQZs/T
-	 C5d8kcjxpTXi1ihiehuWRfH9e6JWxbeuVu+4CijCsnldVOhJLQmIILIanpNCqf8t+2k0P
-	 ZdIo1Rio/jRUgh8zDHILPmoUIZxFFGIoYyHL+BOTorYwQno95ZUis50/+Al6+InM3dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627668;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=QS2A6RVporIMo1a+1YYRSQLz7OfV4Pf3A/A2Z7pJ3n8=;
+	b=wZ8PaZJpI/9r0G9/KidCk17ZzeJ7Jf4iYp0ag40vWm2PNe+PQ6vFZPDP0uF4KGjiAfps
+	 qS9F22vV2yFlfYeY/U/rFxt6XTCAhCk5EkdOe/xyNuzSuq2HYlzBsmU12RCscAMEvAvJa
+	 QOZ7sRtMkH5JYogsesiPE/M3gw5nLps4EJMgzXzmrhk0OngSMVuOHruEfL89reniqYSKs
+	 4ccyWC8j7K2eLnbYZOEjGxclWunnNXhlkAVdH0tIjvN+uHjdiGQ35riag5UXNMIyyoZnR
+	 MRtxw1k4+UQIT5GFzpIbPrpoBY5BKDPAVWZjxCB+2BQlm+rgmeEVzQzW9/nyM9npVdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BWEg0rPO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTmS8CX3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3828C606A326;
-	Mon,  2 Nov 2026 13:54:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64E860A262A;
+	Mon,  2 Nov 2026 13:54:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BWEg0rPO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 675971F00A16;
-	Mon,  2 Nov 2026 13:54:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTmS8CX3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAB511F00A1E;
+	Mon,  2 Nov 2026 13:54:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793627659;
-	bh=lCTSBvg/sVJta496EObSjzg3KWEJc4BDFGrEHVQJdC4=;
-	h=From:Subject:Date:To:Cc;
-	b=BWEg0rPOtaPNDlx8uNukUpcbfb/QmAYEp+HYE+tLdPyiiHY3zRCz8qcJFmduFZeOj
-	 DUpa8zpX2pkBesFQrijJa22dTTZNIgTavr+19ICx2Hae+K925ESSixkm2OQah+ZDzk
-	 m9+F728SVDFi+PrOADJW3pjYXHW8FVwwFvBcUOnh2bxFiw4hye1NzlM3Gsig8bOCsX
-	 3bMLxmDI3c5EWF7P330zc7Ka+56jP43GSkYe13nPMwzy7Us3fhu4wWCf2oTV1H2ABc
-	 3NJ7VIlWAxx4YytBbh4zFsGwN054FLUwxC2oXq0ezoS4AKODpqx5nYCZG4TT6mko0s
-	 z2fheGReIZoyg==
-From: Mario Limonciello <superm1@kernel.org>
-Subject: [PATCH 0/2] Use hibernate callbacks when shutting down the system
-Date: Mon, 02 Nov 2026 07:54:08 -0600
-Message-Id: <20261102-superm1-s4-at-s5-v1-0-313e0012dd39@kernel.org>
+	s=k20260515; t=1793627667;
+	bh=QS2A6RVporIMo1a+1YYRSQLz7OfV4Pf3A/A2Z7pJ3n8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mTmS8CX3Yeh6gA5kL8Ne1AtPywEYlEVgndy2Aj3VtM91jOTJDC568QkcDwIzCmivD
+	 2LYuSafTGVhqXilQrH7jf5VAnxujN5ZZVo6NNIgpP02KLyTJ1BIFfh3hX5l5pc003Z
+	 IIc2dzGj6tqehwINNSUeFNimzIhdsQ00m1X3sZ7WyyaKB727AfH+ec317Abl4Fp+73
+	 qZHTnZNDAQvrFl5cK/zB9+5/+a8voikVXiN2KwOAMdz+jFjlA7Q6g959u6nKrRhXBS
+	 JKk0rfQP8Zm9eq4mqXmdfqzMs/IaAPM1ajPAgQO+GaqtAixFcfdFG5VImUJAY6SixU
+	 iHUaYGM8DrZCw==
+Message-ID: <e10d1eff-0b9d-4834-b1ed-77def7f716bf@kernel.org>
+Date: Mon, 2 Nov 2026 14:54:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,94 +51,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MPQ6AIAxA4auQzjYBAwxexTgIFO3gT6gaE+PdJ
- Y7f8N4DQoVJoFMPFLpYeFsrTKMgzuM6EXKqhla33mjtUc6dymJQLI4HisPsXLDWJB9dgJrthTL
- f/7If3vcDsRKBmmIAAAA=
-X-Change-ID: 20261006-superm1-s4-at-s5-f55b441d6c5b
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
- Pavel Machek <pavel@kernel.org>
-Cc: Denis Benato <benato.denis96@gmail.com>, 
- AceLan Kao <acelan.kao@canonical.com>, Kai-Heng Feng <kaihengf@nvidia.com>, 
- Mark Pearson <mpearson-lenovo@squebb.ca>, 
- =?utf-8?q?Merthan_Karaka=C5=9F?= <m3rthn.k@gmail.com>, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-pm@vger.kernel.org, Mario Limonciello <superm1@kernel.org>, 
- Eric Naim <dnaim@cachyos.org>, Bartu Alev <bartualev@gmail.com>
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] memory: mtk-smi: fail larb runtime resume until
+ component bind
+To: Valentin Haudiquet <valentin.haudiquet@canonical.com>,
+ linux-mediatek@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jian Hui Lee <jianhui.lee@canonical.com>,
+ stable@vger.kernel.org, Yong Wu <yong.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>
+References: <20260926192417.1448813-1-valentin.haudiquet@canonical.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260926192417.1448813-1-valentin.haudiquet@canonical.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-OEM systems that ship with Linux preloaded need to go through energy
-certifications that match regulatory bodies in the regions that they
-will ship.
+On 26/09/2026 21:24, Valentin Haudiquet wrote:
+> 
+> Publish the bind state with smp_store_release() and check it with
+> smp_load_acquire() in mtk_smi_larb_resume(); that answers how the
+> check synchronizes between CPUs.  Fail the resume with -EAGAIN: the
+> larb stays RPM_SUSPENDED and retryable, the error is dropped by
+> pm_runtime_get_suppliers() on the driver-core probe path, and the
+> consumer's first runtime resume after the bind (at display enable,
+> mtk_crtc_atomic_enable()) re-runs the callback, which configures the
 
-If any of those certifications don't pass then OEMs might not be able
-to ship systems preloaded in applicable regions.
+Do not describe obvious patch contents. You wrote huge wall of text,
+instead of keeping it concise and informative.
 
-Multiple models of systems are reported to fail in Linux but pass
-for Windows on the exact same hardware.
 
-By looking at a breakdown of power consumption across devices the
-issue is that some devices aren't turned off when user puts the
-system into S5 (shutdown).
+> larb ports then.  Failing rather than skipping keeps the larb
+> suspended instead of marking it active with unconfigured MMU ports,
+> which would only turn the crash into silent iommu faults.
+> 
+> A failed supplier resume does not break the consumer's probe.
+> pm_runtime_get_suppliers() is void and drops the error, so a probe
+> inside the window just proceeds.  The display components do not touch
+> the larb in probe: mtk_disp_ovl_probe() and its siblings only call
+> pm_runtime_enable(), and mdp3 only enables runtime PM for its
+> DMA-capable components (mtk-mdp3-comp.c).  The first real runtime
+> resume happens later, at display enable: mtk_crtc_atomic_enable()
+> does pm_runtime_resume_and_get() and the device links resume the
+> larb first.  By then the component master bind has completed, so the
+> larb configures its ports and the resume succeeds.  There is no
+> deadlock either: the bind only records the larb pointers, it does not
+> resume the larb, so the window closes when the bind completes
+> regardless of what consumers do.  -ENODEV is not an alternative;
+> like -EPROBE_DEFER it is recorded in dev->power.runtime_error
+> instead of being exempted.
+> 
+> The bind state is a separate flag rather than a NULL test on
+> larb->mmu so that the publication explicitly covers both larb->mmu
+> and larb->bank.  mtk_smi_larb_unbind() clears it again with
+> WRITE_ONCE(), which is all the clear side needs since it publishes
+> nothing, so an iommu removal or module unload can not leave a stale
+> bound state pointing at the freed iommu data.  A resume in flight
+> while the iommu goes away is a pre-existing teardown hazard (the
+> data it reads belongs to the iommu device, whose removal breaks
+> bound consumers anyway); clearing the flag makes every resume that
+> starts after the clear fail safely instead.
 
-A few years ago when I first root caused this I submitted patches
-to PCI core to change the PCI policy at shutdown [1].
+All this looks LLM generated. Don't send LLM explanation to people. It's
+only for you.
 
-But through various iterations I've come up with a better approach.
-Instead of changing policy in each subsystem we can instead
-change our shutdown command to run hibernate callbacks for all hardware.
+> 
+> Tested on MT8183 (krane) with the full MTK stack built as modules:
+> with this change applied the machine boots reliably, the iommu
+> probes and binds all larbs, and the display stack comes up fully
+> functional.
+> 
+> The Fixes: tag points at 4f0a1a1ae351, which moved the port
+> configuration into the runtime resume.  The device links that open
+> the race window are added on the mtk-iommu side, but the dereference
+> guarded here is the one that commit introduced.
 
-In order to accomplish that the last 17 kernel cycles I've been slowly
-drippping changes into the hibernate code paths of all subsystems to make
-sure they behave as intended.
 
-Those are all merged as of kernel 7.4-rc1, and thus I am now ready to
-start using the hibernate codepath at shutdown. This series adds that
-support.
-
-I'm not naïve; there is definitely risk involved with this change as it
-will essentially affect anything running Linux that gets turned off.
-
-To that I will say that I have been running, rebasing and iterating this
-series on my personal development tree ever since December 2023.
-Various rolling distro community members have also been testing iterations
-of these patches in their hardware and distros.
-
-I've also put a few guard rails in place:
-
-1. Don't mandate hibernate support. If not compiled with it, just use
-   previous shutdown paths.
-2. If hibernate callback fail, emit a `pr_emerg()` message but fallback
-   to previous shutdown paths.
-3. Offer a kernel command line option `shutdown=legacy` that any affected
-   user could use to roll back to previous behavior while we root cause
-   any issues.
-
-I did split out the kernel command line option to a second commit.  If we
-later decide that we want to keep this behavior but drop the rollback knob
-we can revert that commit.
-
-Link: https://lore.kernel.org/linux-pci/20231213182656.6165-1-mario.limonciello@amd.com/#t
-
-Signed-off-by: Mario Limonciello <superm1@kernel.org>
----
-Mario Limonciello (2):
-      PM: Use hibernation callbacks for system power off
-      PM: Add shutdown=legacy command line option
-
- Documentation/admin-guide/kernel-parameters.txt |  4 ++++
- Documentation/power/shutdown-debugging.rst      |  7 ++++++-
- kernel/reboot.c                                 | 16 ++++++++++++++++
- 3 files changed, 26 insertions(+), 1 deletion(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261006-superm1-s4-at-s5-f55b441d6c5b
+I do not see how is this relevant.
 
 Best regards,
---  
-Mario Limonciello <superm1@kernel.org>
-
+Krzysztof
