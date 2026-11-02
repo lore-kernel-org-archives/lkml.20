@@ -1,101 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632594;
-	b=SBYwW9T1/lQ64SkoRj40rqocpu+9Uw+SF5Hxo/RdtwT3/wnV0qgFkqk+CijHkr7EtkO+
-	 wRJtUDJN0/LWR2qKwK7DFUE3aJTr+DycFVE4sBOUTH2oE7yFTnge5unJh20/aBEe7lG2R
-	 wtHYZGkrsPljUabX+FzC3hG2WnOyeS9lMRyyPhr7aUzM0y9G2kPpggeBM3PcMj/nR+tv0
-	 L7xtWYiDbPnanz1QeLCjSF9+X+hYowiQoSsyqa2SLvLLa/fX4gRr7rG2fRk3pJ0TxZh5g
-	 39JpsivkpAzQPv+zsVyzTbG2zmpw7NsQQsYeNhh5yX3VEKeWnfGLfZWEqqD3MO8MCww==
+	t=1793632575;
+	b=hh6GoLBRd3wrsg8+UAxpG/WpAK56UjGE8Jjj5Scs0tfyBF1ybl3H9PxMrDim7pdHX0rC
+	 gPYlV/K5P+UVrYeQwIfBJV0zHkri3SE6fPMhQpv+NxLaSj4Vj3bnh4eB88OyFCMKQ1xar
+	 sy+Bj5H9641lfrutfN8hGyA9EjUa9dIWchqxyWHqQiWMdx10I0Zf5c1WZE2gI2y3EvWiJ
+	 VIKDz3XnR67+fTe9XMgFhxTYlYoYsyA11oyTUtqyUZ6WDjJbpHU68Z4mAG1aHEeBfuuDm
+	 QIw6avpP28pjxNUuEVRE4oPHgxANfiDu7lykMnljwYImTjEM14LOruM703s0awX1/bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632594;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=6lhp5lP3IR5uF75os6lL1lZTm+qOi+cJScoaRZnhdVA=;
-	b=maLaRQx+7XPBee/wNWlmWqfiViGJVsV4HksVUwmThtUvmSVJH98hxDQBDw2GUvokgYY3
-	 iguXHbO5MtCbKejabXNlcgqySLrfR3SE/4x61K7PdTMD5Hqii35N4iPgnW0TU+ABoHRat
-	 C/0a8+uunNtU9WCYbPMj71z1ksMMczDslethdQMzZewRSiA8nSUt4sN9PvKdbukY2ByFC
-	 0ZCrbQE4pQWD/GfHY/hYwSkcKbw+u6wPNUq5GnQlBzL4nhHKN0Urhz2NF2CUvgKhmF7tw
-	 pc6u3L5gbqAjgT1d5NQM25kLLs13XmGhyFv+D9CWUnjqErs9kSKHEyJ8wqq0gc49Jdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632575;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=goLGxFor5aDHmq+/63YZ7VsFVk0WPo8/IlwPxf0/q/E=;
+	b=PvViG6YL6Q022EZFeB5bsQFq6rDBKnbA/JoaN3tHMcrLjHohnRf2eqUIFqO7QOVLI0KB
+	 3HP6CDXan7JovGefOYN87bfBc/rrqJ8p+LmwTG/X2rNqFa6WFg2NUsmxhlcRoc+o0j3PQ
+	 UV9gLGZ2SDcZDOm59GPJIvpoo61jOUyxrpKehjf3yJqFFArnsu6n8TQr2BJJiW05xc6PX
+	 sS1NpSdRuhLyJq1uLd6y5oA+VV3qPXeB8yefAroAzI4tu01Cyn9+GCAcOxHpnAeoK8E25
+	 wf48zJfbCq2U6CsqDOAgm1YAGh251NNlJvNHYz0nlGLY00j+HaJ1yQrmd1dxRNplrqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=meVKerlp;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ej70vPT/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C91A60B9977
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:16:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C91A60B9977
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C4A606A592;
+	Mon,  2 Nov 2026 15:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=meVKerlp
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so23669695e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:16:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793632592; x=1794237392; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6lhp5lP3IR5uF75os6lL1lZTm+qOi+cJScoaRZnhdVA=;
-        b=meVKerlpBR06p2xu78USFrY7qxx4y+v8+7552sDFZMA8i0KEUjtCFSxu+ZVvp+aLvC
-         vAlICTSZMRXqjlEP6G/V6FV66qZGolxBie7o0HDWkfWOm5q2Ka1TTfMzHs4mcM1nmJNL
-         ddCHMKDctIdSLEbRsHakjmCMFY4rp+KlnFKkte63FzJ0oWzu0+6mW3JhVaZNVVAQIKVA
-         DttyTw+OfR+XSC9Lgi4hXW/qkzCIYDraC8PHOBlEdWmVAByC20/gX2FpAmrUo0G9as9S
-         w5Z9RHlwJM2Whj1VS7mX3pQToSlsKXI/zx/l7wMhRZN4/GJ+LkRDbwwtr0YoM8wibyF2
-         e5vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793632592; x=1794237392;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6lhp5lP3IR5uF75os6lL1lZTm+qOi+cJScoaRZnhdVA=;
-        b=JdpOlFiwPsQZQPn0rP8iSO49YPzS5ImE2dFxZc2tpYZa3FyGLBg28rjEVRO7EAFAWY
-         6FO1DDu9BUi8toSYB8by36pfl0ORURw94w3JqhLwnmtX8vybRlM9WrIKVUtuuQtYlhnc
-         CbUV8bl5uYS8G0JaSvd+cg1e2Jqe6gIFfajGqwGyJ3cxq97STdlvFulHXxa6VruKWnRY
-         +NLI7PEc6H29s68Bla/Oh+l2gMLQFbAO4vaJaekfzpHl0IqL1BB/zG8jaE5ntFTTBHwS
-         xeMzShtN8Pq6C68fc6sVaMACHNFBOq1iq0AXU5BPyCLiRlEFawiPoM2VhRIfcwLJCXRF
-         7zSA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3GsWRAwi8MptJGXMgJPXBdSs+UopLOCoSpDJyUO3NZ/gc5Sqb+2XWRcgc5y63oHUrTEZFK7VN9RHtpnk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8Z4RR7IN2xiBYwSk+Adag+cRri6pQDbjwvhHL4sjoFrlYB3Wb
-	PqHvnkmlvCQMA11ZuInU5ehfo+MRskRnjlPU2sp56qhqIprzETPWeJyg4OwOXkfeVjg=
-X-Gm-Gg: AYBFou08CBN2v5ZMFoAQO+0H+Co7ulG96mBH+XJQlHrL3b3UiJSUO0LRY6+o5m+/6TR
-	0xYur5Ahj/5Zj47rTztVx3IwchG1tSE3GfozK9eA/IjMldLuyxcWnuATlbHFFRq4csMMOmN8ZvJ
-	Wz0uhumEB3381TKHCpV28jXtTUC4UnDcG6riFqsNNYXj7eXGgGCOqPD9OaUqqG4b8YnYhm1c9ia
-	e42M8HGh9ZWl+xR+h8FUVVMN/RgnRwB3w46LnhvzQyv0m5s8Hl/wSsPJ68QfUlFIt0fPSmrTV4U
-	cCJVWWIhJl1cFu6A654gNewSfDnM+ggc2sF7B8Pw+XGbpGW9IVTU0JG0EZvr4SWHkpLc806ea3C
-	GFsNNDMenQmvQNwzMin7L7JxOPKmcQVt6W8aItfcZaYu61vuu9dCH9DOI33qllL2qfC54VuiNm1
-	SkLzMPYsJdDYybV1U9/oLtomZ/KSBYANPSjAN8x1cyuMi48WGVmWEhl1GoGmPXJsMB4TySze27H
-	O8cFytJVG0wltawWVhp7W9jjZceb00x183+TrQVqBPTUuv6WNrmm3e9vSASAT1Qr7E4btl9HDFG
-	CaWAxRR7d6Zc1Decf1z13UGdjW1eT1hBY5W72dES96NcWMjZQRBrZNihKpWkJJWcDlAx1Q==
-X-Received: by 2002:a05:600c:a107:b0:4af:e04f:cbaa with SMTP id 5b1f17b1804b1-4afe04fcd89mr78414005e9.29.1793632591746;
-        Mon, 02 Nov 2026 07:16:31 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab69b54742sm523955975e9.15.2026.11.02.07.16.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:16:31 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Jian Hu <jian.hu@amlogic.com>, Yu Tu <yu.tu@amlogic.com>, 
- Carlo Caione <ccaione@baylibre.com>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chuan Liu <chuan.liu@amlogic.com>
-In-Reply-To: <20261029-upstream-clk-encp-sel-shift-v2-0-31ffbb6b82af@baylibre.com>
-References: <20261029-upstream-clk-encp-sel-shift-v2-0-31ffbb6b82af@baylibre.com>
-Subject: Re: [PATCH v2 0/3] Fix the ENCP clock select field on GXBB, G12A
- and S4
-Message-Id: <179363258546.2870673.13247205665671196595.b4-ty@b4>
-Date: Mon, 02 Nov 2026 16:16:25 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ej70vPT/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B757A1F00A16;
+	Mon,  2 Nov 2026 15:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793632574;
+	bh=goLGxFor5aDHmq+/63YZ7VsFVk0WPo8/IlwPxf0/q/E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=ej70vPT/y7NrhBgRnVeJZJCWCJCY4Ir+tDI0qb3+EynguB83LrhQsFn2l3M5OZtXE
+	 2VH+S87/JA3tEOQ5oF6NbafdeM5dvCGs7k+Pl66iGGY0VzHGdvfeTuOHMGET++saO9
+	 8CMGsO+isRtfapDtsUOvJJ1+uTuGk8RHjvFSx0T6P4hnrtLPTR2SSKodt/mLQIBmk2
+	 SzbEgwffy1kv1xXhMujkkGK8afuda14vw1NrfhyqY3qJhPF7pdO3kkpnpsfKhmpNYh
+	 jxGaC2jmsD4TftiMbXuIK38lcVEqXr7YxWPTdZiDHhvMHLfLf4/cExgZfn7c5HC9H0
+	 J+psMOIMcn0fQ==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:07:24 +0100
+Subject: [PATCH RFC 17/23] usb: gadget: function: rndis: let procfs copy in
+ writes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,26 +55,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-drivers-v1-17-a994bd4d3b1a@kernel.org>
+References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
+In-Reply-To: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=393; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=QkKO+7KRF9p6IxoBwO0rqMIDnmIJ+8dF2oqr4paee6Y=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFkvVvptqUrhvGV14pzz059soU2xjl9zPhutmLT11fbZy
- Rdu3fvJ2lHKwiDGxSArpshSw10t/k5S68us6Tq3YeawMoEMYeDiFICJBKQw/JXjWX1Y2/5yktTy
- RsZfjaFa/tMeetoHxe05W5qwJelVlyXDP6VY+cVbpzBzXLlkmeSpanBhNmtS3yrpktO/+A6Vftf
- /ygkA
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1569; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=saz4p5rW2UOPmCRi+6zEslqjX7E5721ehvji7/y2TLU=;
+ b=kA0DAAoWkcYbwGV43KIByyZiAGropzGhaJWnu9+4zvQgXLhUThJNad18i/diIL3NsOXTHFLIm
+ Yh1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmropzEACgkQkcYbwGV43KIUZwD+IHp+
+ nA7hxed0nI3IkqLBHaX8l90Mx69iUsGXRMOlkboA/3KH9SLJ/MMw6rQ8ujZlKhQxzG1q+lU/vjC
+ oZkDuYDUH
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Applied to clk/linux.git (clk-amlogic), thanks!
+Implement ->proc_write_buf() so procfs copies in what is written to
+/proc/driver/rndis-<n> before it pins the entry, and handle the
+commands from that copy. Writes larger than PAGE_SIZE - 1 bytes fail
+with -EINVAL now.
 
-[1/3] clk: meson: gxbb: fix ENCP clock selection
-      https://git.kernel.org/clk/linux/c/17b53ee5a743
-[2/3] clk: meson: g12a: fix ENCP clock selection
-      https://git.kernel.org/clk/linux/c/8fb4c1084cb9
-[3/3] clk: meson: s4: fix ENCP clock selection
-      https://git.kernel.org/clk/linux/c/7c328cc402a8
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/usb/gadget/function/rndis.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-Best regards,
---
-Jerome
+diff --git a/drivers/usb/gadget/function/rndis.c b/drivers/usb/gadget/function/rndis.c
+index 3c7bd30b8a3a..e05e0c6ae8fb 100644
+--- a/drivers/usb/gadget/function/rndis.c
++++ b/drivers/usb/gadget/function/rndis.c
+@@ -1138,7 +1138,7 @@ static int rndis_proc_show(struct seq_file *m, void *v)
+ 	return 0;
+ }
+ 
+-static ssize_t rndis_proc_write(struct file *file, const char __user *buffer,
++static ssize_t rndis_proc_write(struct file *file, char *buffer,
+ 				size_t count, loff_t *ppos)
+ {
+ 	rndis_params *p = pde_data(file_inode(file));
+@@ -1146,9 +1146,8 @@ static ssize_t rndis_proc_write(struct file *file, const char __user *buffer,
+ 	int i, fl_speed = 0;
+ 
+ 	for (i = 0; i < count; i++) {
+-		char c;
+-		if (get_user(c, buffer))
+-			return -EFAULT;
++		char c = *buffer;
++
+ 		switch (c) {
+ 		case '0':
+ 		case '1':
+@@ -1185,7 +1184,7 @@ static ssize_t rndis_proc_write(struct file *file, const char __user *buffer,
+ 
+ static const struct proc_ops rndis_proc_ops = {
+ 	.proc_show	= rndis_proc_show,
+-	.proc_write	= rndis_proc_write,
++	.proc_write_buf	= rndis_proc_write,
+ };
+ 
+ #define	NAME_TEMPLATE "driver/rndis-%03d"
+
+-- 
+2.53.0
 
