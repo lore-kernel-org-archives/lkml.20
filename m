@@ -1,68 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635249;
-	b=i7DOmAcs5LbJO5yV4jYJyGYMx/UeK8WvBHJ447+vea3qdGyKEe0ruxTCsFxZsh7T8lKN
-	 0WKHdT4diS0tt0OS83rwFlXuPt/vn4JinOzyLSG8FColfTfhR8FCeCbIz3OoiXWT4dfEF
-	 2bWw2b+EW2o63UmuchkXjIAxnKZKTC7UAzPb/9Vz0I/iDWlYdVgDSHeECHYu3+dS/lxAO
-	 1X61dg3Q0moZTffyEFDdNvCS6IhH8nQG6lJzFRVDcgKVXEUufI9g3QsaYbmQu6TMjfe6u
-	 wrwt/yC8nN1nwLkLCHalOW8J6RsMmUPxR4bGCZe7DxGuMvX90Nvi0kFNMz/Tt6m7d9g==
+	t=1793635257;
+	b=rs4yWw1by8+LjPIhI5D9BE3aaEPjVJWBrAe8Aw4RInBN4brzUAZdHKWXPSKUmEgSa4DE
+	 jFrX1tM44vERCJ5EHk7W/YMiceINzLmjCvq7HKomlTzZgW/38cdukPyHLA9CZIcp0YOUS
+	 InVPfRiWtdrFmNiPW+92zZ+drY13B9Zu8MjjAbjCMZxChvf/uyIRYmovCnVhwsKzI/QLk
+	 WlSlZ9Na6+h1ANMdRFZvZMSWYZAooE8PTFSCW/wado9afPXvk7sj6kd0qGJxMEXwQHqZj
+	 DUYh3hnN5PK1jw1qse7JRjKYD1IBJMLAqw9cPcqjwyfl0gyRStC9lO3MmnemBr8ZUbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635249;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 Message-ID:Subject:From:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qdDzCJX2QhExG4+G0pbTNThq0KYMMur6UF4zTamumCc=;
-	b=oLYczzcKiwnCqZzNeJNoYVy3q8Q3lEcMrNTtYoeH4t2Vi/2J8D2pp3mT9Q/9o1QkzDsn
-	 zmCuUt8IOhQQDJLDv0zAmr2xcYzahNRxOrgDSrPzwRjcdQoIxlKqd3ZNJdDCki0TLkC3L
-	 9URi6js5X8MTd+aDzkT59pEF36jmFU6DbuFNqoDtETXj8s3E5aI/iLwtqkl+cqhb47okB
-	 5QnZv5/mwpsIa9rlaH4j5pQq27xY3+NvKKrOnITyQcUDcx77IyrBR1c/iRZnWthF09b4J
-	 fuYqmt0/A2r8FmmmcZOpjxepZ9t2oH8CsVZuRrxtltCqrL9SWX53g1/KIOEWCzq2h7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635257;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=IgmL7KoazEO+N5k/G7mhejGu6n1VTdMXQbMqN8Tkwz0=;
+	b=TQd8JcI+QzyCyc5/MyiEyJibOUTrsN1ZE7XJ79VeguOlTnkbrDxX/Ns5yIPScHInJm6p
+	 JsXOOgyy0qzuMvsP21ScUtOl3wQKEY3BOFAgWSRJCs5g/Lz7ip2Zo44SjuuJsohueEyol
+	 jzCRroHhUMMrb39q6x/3RbwubSY9MaQsb7r0bILnpT/YHH3cSdIxyhnPvGqaZO+OhwydV
+	 PkAiB3oM7epk8vUe8TaiCK4Xabh5eOMpZjLiZgKesCa+5ofqaDatFvcz8J9Yn77s2gl03
+	 /9wrnVbiBkafapQUaS6E5ez10tY+8ijsIjZ0SDSSCibJxezPqjdRbW5LYNeFBUC7uHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ESdUcMPJ;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cb1qf98L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3C0606A5A8
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:00:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A3C0606A5A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959E4606F229
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ESdUcMPJ
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so6110375eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:00:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793635248; x=1794240048; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:date:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qdDzCJX2QhExG4+G0pbTNThq0KYMMur6UF4zTamumCc=;
-        b=ESdUcMPJnMdTnShyzCn1FAjj71GVhOeFKa3VioWa24llVaWc4RZL0f5GRmDi2cfhqN
-         7xHrWVmOb/3lu4Db4R6yUuy0YAh7jAQHF8y6+WAbPIlN7Yo4I9D+NDxto8IPYoWGNpyW
-         P4xz23LiQwQsIC4+bhZCrYem7VBFjLK4Zi0svTKyPDVcYD38JBBuVrkIUGZ7S7i+8rxa
-         mdMVobuOjuyfTOtftlifgSyk4h7dHBkTjCcQGtklde8EkmceW1e68jTudz1oVM2Qown1
-         kDYj3h+jECh71+fV6mkFApcP1SXeLBcS/jkaat0sHFwHduKJ7Zy8toEhanpuBbvnvbs7
-         3bUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793635248; x=1794240048;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:date:mime-version:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qdDzCJX2QhExG4+G0pbTNThq0KYMMur6UF4zTamumCc=;
-        b=qMs/3kE7SsneOIMdFCauyo+1YRjcuyYn3eg/AiMlovIblQamOszh18krYlLy1jaXaJ
-         6Ip+4hNM2uS51PwCqhofqeVyaxWSMzORu9B4RUpT3FHxbGiJ7Y9KN7+1+6JcSfTR88Ep
-         mtBPzfcUJ5d0ZtT2KWHy3AyyrgJlVMQ2bafcvKb9XGrJSUAWkTEm9lvR40burUEC/Mok
-         xzCUt+RDpzWi6i/y8nLNDoPv67xdwV9rZSb81fXQ4PdYbUfjt+Nnd+mQWPfwDqfcJvNe
-         IhUY33qEG+C/JZbbdLaWQ18PgnpUtZoEt1Nfn60maoKyt7cQWqhrhVZUSAFFQGE4X1pU
-         nN0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwDr32iesqQaCIdGc6h28xnvp3ZiA+AIRu4aNTxjnNgOjQM6hG6FocVrm0EU95o10wlrLaRs1p23D0MgeY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9B7e0gS2KZ6XsBKJlaUMWRTYIAhJDuw9pjTkDSJr9SrZQ+timf
-	Rpfoe3du9MN8YIO+mSBlgQkue1KZiPz6OzZzxoVRmtENMRmXtL8AY1yDTrrA2eGochRZ8BEwDEd
-	lhHU+6/+/VCsUXi/IYMUedbt3OaQWKQ==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cb1qf98L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 502F21F00A1B;
+	Mon,  2 Nov 2026 16:00:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793635257;
+	bh=IgmL7KoazEO+N5k/G7mhejGu6n1VTdMXQbMqN8Tkwz0=;
+	h=From:To:Cc:Subject:Date;
+	b=cb1qf98LXFUKmpBroetL6jIOCgsLPPcJ6pOUY9rv8xIiTTh25eghUEePHQyUQKv5p
+	 txV9diATe67KB4ikwod3l2Ib8KzzJcsarOivKkoxqm0C92H/CyT91/SE3QTjQVZYuj
+	 f1NzjE/nAFdncgW7kq1WkjmAJLHKLyKjJN7WchwnYS5cjWaVmRcJrFabrj4qWOgtZG
+	 2i5UHObJMlVnr0JVxQe79mfiuaLvzie+Y0VDT2SbatQj5sHrWfYmMqAMehEIi+kd12
+	 Lmc/3M7BObP2DJyVfa7TfXyR+7B3oYrruMWtrQkRvjzlfv0kY9LpMeq9+sQlQigl5E
+	 exx8nXww5ZPdw==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	tzungbi@kernel.org
+Subject: [PATCH 0/2] reset: Fix issues reported by Sashiko
+Date: Mon,  2 Nov 2026 23:58:38 +0800
+Message-ID: <20261102155840.20376-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,100 +57,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: from dyhb15.prod.google.com ([2002:a05:7300:148f:b0:368:927a:cdaf])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:3a95:b0:36a:12c4:8bdd with SMTP id 5a478bee46e88-36a42389979mr18350254eec.21.1793635248187;
- Mon, 02 Nov 2026 08:00:48 -0800 (PST)
-Date: Mon, 02 Nov 2026 16:00:47 GMT
-Message-ID: <18e445c150434665.3137322e32332e3235332e313736.109a67.0000sendgmr@google.com>
-Subject: [PATCH] dma-buf: Reject private mappings in dma_buf_mmap_internal()
- and dma_buf_mmap()
-From: Chris Wiseman <chriswiseman@google.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	"T.J. Mercier" <tjmercier@google.com>, John Stultz <jstultz@google.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
-	Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-DMA-BUF mappings do not support copy-on-write.  Mapping a dma-buf with
-MAP_PRIVATE and PROT_WRITE faults into do_wp_page() -> wp_page_copy()
-and allocates private anonymous pages whose writes never reach the
-underlying buffer.
+This series fixes two issues in the reset controller unregistration path
+reported by Sashiko:
 
-Individual exporters like cma_heap_mmap(), system_heap_mmap(), and
-mmap_udmabuf() already require (VM_SHARED | VM_MAYSHARE), and DRM
-helpers like ttm_bo_mmap_obj() and drm_gem_shmem_object_mmap() reject
-vma_is_cow_mapping(vma).  However, dma_buf_mmap_internal() and
-dma_buf_mmap() do not check for this and pass MAP_PRIVATE mappings
-straight through to dmabuf->ops->mmap().
+- Patch 1 fixes a reset_control leak when reset_control_put() is called
+  after reset_controller_unregister().
+- Patch 2 fixes a circular locking dependency between `rcdev->lock` and
+  `rstc->srcu` in reset_controller_unregister().
 
-Reject mappings with -EINVAL in both dma_buf_mmap_internal() and
-dma_buf_mmap() when neither VM_SHARED nor VM_MAYSHARE is set.  Checking
-both flags still allows read-only MAP_SHARED mappings, where do_mmap()
-clears VM_SHARED and leaves VM_MAYSHARE set.
+Tzung-Bi Shih (2):
+  reset: Fix reset_control leak when put after controller unregister
+  reset: Fix circular locking dependency in
+    reset_controller_unregister()
 
-Suggested-by: T.J. Mercier <tjmercier@google.com>
-Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-Signed-off-by: Chris Wiseman <chriswiseman@google.com>
----
-Note: For the prior discussion Christian mentioned, commit f91142c62161
-("drm/ttm: nuke VM_MIXEDMAP on BO mappings v3") added the
-vma_is_cow_mapping() check in TTM, and commit fa5239f2af98
-("drm/amdgpu: workaround failed COW checks for Thunk VMAs") worked
-around a legacy ROCm KFD Thunk PROT_NONE, MAP_PRIVATE mapping on native
-amdgpu GEM nodes.
+ drivers/reset/core.c | 34 +++++++++++++++++++++++++++-------
+ 1 file changed, 27 insertions(+), 7 deletions(-)
 
-Tested in ARM64 QEMU (Linux 7.3.0+) across /dev/dma_heap/system:
+-- 
+2.53.0
 
-  BASE:
-    [CASE 1: MAP_SHARED O_RDWR]     ret=3D0   buf[0]=3D0x00000000cafebabe
-    [CASE 2: MAP_SHARED O_RDONLY]   ret=3D0
-    [CASE 3: MAP_PRIVATE PROT_RDWR] ret=3D0   underlying_buf[0]=3D0x0000000=
-0cafebabe
-    [CASE 4: MAP_PRIVATE PROT_READ] ret=3D0
-    [CASE 5: MAP_PRIVATE PROT_NONE] ret=3D0
-
-  PATCHED:
-    [CASE 1: MAP_SHARED O_RDWR]     ret=3D0   buf[0]=3D0x00000000cafebabe
-    [CASE 2: MAP_SHARED O_RDONLY]   ret=3D0
-    [CASE 3: MAP_PRIVATE PROT_RDWR] ret=3D-22 (-EINVAL)
-    [CASE 4: MAP_PRIVATE PROT_READ] ret=3D-22 (-EINVAL)
-    [CASE 5: MAP_PRIVATE PROT_NONE] ret=3D-22 (-EINVAL)
-
- drivers/dma-buf/dma-buf.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 1ccaffabbdbe..51e9a4dc56be 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -235,6 +235,10 @@ static int dma_buf_mmap_internal(struct file *file, st=
-ruct vm_area_struct *vma)
- 	if (!dmabuf->ops->mmap)
- 		return -EINVAL;
-=20
-+	/* check for private mappings */
-+	if (!(vma->vm_flags & (VM_SHARED | VM_MAYSHARE)))
-+		return -EINVAL;
-+
- 	/* check for overflowing the buffer's size */
- 	if (vma->vm_pgoff + vma_pages(vma) >
- 	    dmabuf->size >> PAGE_SHIFT)
-@@ -1610,6 +1614,10 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_a=
-rea_struct *vma,
- 	if (!dmabuf->ops->mmap)
- 		return -EINVAL;
-=20
-+	/* check for private mappings */
-+	if (!(vma->vm_flags & (VM_SHARED | VM_MAYSHARE)))
-+		return -EINVAL;
-+
- 	/* check for offset overflow */
- 	if (pgoff + vma_pages(vma) < pgoff)
- 		return -EOVERFLOW;
---=20
-2.51.0
