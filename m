@@ -1,53 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793647276;
-	b=oE3N0M/xrcBdGQTDKqjajSIFJnZ6+YWNR/dFeXjuhwcKL8QVpZaskrKPOgYG5t3X4WRD
-	 PAoxS78Bg/bb3sOpCZqF7TQ/a8sFJ/dDv369nthuS71fLbYtWTnoYl52bnLcj8wcO8YIZ
-	 bcM4ezMFgz77RExfZxoVuurJYBmU4OSyhGVmz3gm/oSEVH2KfNvYyEXpO96p3M/2oJ53q
-	 4P1tduNYsAd6C7o0oBwFdwSTsjWto+A2mZk3pJzolJLUGC6/Qf7LwlgDWfEKK9pyQDIjI
-	 ggLRNxMCPYrfxtxDQS/W1yGitAJq9/gYA9Herw+S2sjmlWOtojgLn27hP1Y/Rm1VRjA==
+	t=1793647385;
+	b=AVqXWjUA0wR43KJvPM6w/diUejalytBsFo58CCNPQdJZ2VVg2ZDiJPNyl7hmE6DO7Ffu
+	 zzKzbVraX1in4hc8xGh+4/UlQCC7nQSEm8B2rMAzS9cmv7Sok3CFUlJx0B6sIkPd7vYyx
+	 VWEvUZzOi4uH2dIGhePhJ05WxZz/S8DKzhVpkytX1dr0rXqkveR8Lbxr7Yx9CJDJMJgQj
+	 mgAbxVx1FXO8p3Zcbw2Jc5XrjBw4lYcFd/AQb5EmjwuBaYRW7xT0dXeIWJ0niOzW1gUCg
+	 B73j5eRrTzA938wkm+qBvBgOwKUtzjs24j2xtffvMpZsQTngGl4Ya08KZMY8hSuGeoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793647276;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sgye7KMtIQghLo0c5ZRO6JjF5lRmO6nRJnfahgHri9Y=;
-	b=f3cXT4EJA6bb+rITTPDB9N6pHRDJ6I3UYn9bA11/Ez1rPRzi1lFfwiqPYg9bPNNKr1Ys
-	 sJGxqgR4J+Ein9cAZxf4zKq2GLvc9YFjP2LSnDMc8K6YPm7RacxMyn54hroEm3wP20tU1
-	 JohIByY8gAoP/4lpmrr0Hb0Xazf9b1wSy5y+NMX2TFobjn2+buekjwshXspbh3oh9KdhR
-	 2oLCL/olt+K0LAebti6YK6tkAAEm4u84tpRYHh35yN948q/NRT9D89NoAz2lv4rhCaTra
-	 YYGea4U1kzOFkGvJqSC8MK7V9xhK+nSC51AiCAO0mQoT+8PDYGyAG8XmSXYig3+P8PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793647385;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AEn5kOuJI8KKdvD9XcEieAYlhY01m/lTY2e281fbPUk=;
+	b=P9+CEa4NriP+XsO8wkfH/1UIlFHp2uPec91zWL8V/7o5oBXUgseeFilEJDvbMJZendJY
+	 Cae8jPFrMMLKjtSaWNN0KdDD4+MPo0BRfNxU8MVYJ7NHr0c3Vu90aR9rPmUzr3WS7AEr9
+	 TTNoXrgZBCBhSNGepiCsom9WCXTt6zG4FR4GJz0lQX7b+d4Irv9ygxZSzxa+xRUyGHbXn
+	 lby1+YQwIQYuf3X03geeBTB0qXx9LF5xbTS3HezZCcTRw0KL1/WWSZ9XXLnhyU7qTqSss
+	 hCazceTFCuXaR/Q4/a1AA0D9INt6UDLheh8Wa/Lc9rD0Ef3mPlx83TvKDg4C9hdG39g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5x9PtL+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltyQGKjL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB05C606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:21:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19565606A326;
+	Mon,  2 Nov 2026 19:23:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5x9PtL+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BC0F1F00A16;
-	Mon,  2 Nov 2026 19:21:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ltyQGKjL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D13D1F00A16;
+	Mon,  2 Nov 2026 19:23:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793647275;
-	bh=sgye7KMtIQghLo0c5ZRO6JjF5lRmO6nRJnfahgHri9Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=T5x9PtL+ia4V482NgFjJylYf2pvIQMVjExEi/y6v98ekmEHkhDDdT7EfSa9tFB2X7
-	 8AH3E/fIWay3Cz7JfbKWT3Jvlk+OyiNVFSGdInKMYihFu20oIyFzBb1xUpuvPVpwrZ
-	 uC5YPF5dHPzuQUolaMTLybLvvt3TwxYDnnbYOKkvNE5FOSjyoyMpRAhbR0lLj06dUa
-	 /9O5TQPwQZTBCTBa7y/T0IvNncs8BqctVQjKnEpoMTAvAqh6FaFvreOhIIrqVsncIM
-	 xruUdkdCAsnQ1G6kwD8ARw/EhyfUV/lVcTswtfxmmDk9G4jvafgCv4dKfgMQQu2xOW
-	 Ba+bV8z5cVQjg==
-Date: Mon, 02 Nov 2026 09:21:14 -1000
-Message-ID: <705081716ac8615650a0cc4b668689ba@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Daehyeon Ko <4ncienth@gmail.com>, Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/autogroup: Fix task_group UAF during thread creation
-In-Reply-To: <20261102101759.GF1813469@noisy.programming.kicks-ass.net>
-References: <20261023013631.881730-1-4ncienth@gmail.com> <20261026115707.GF2668200@noisy.programming.kicks-ass.net> <20261030034540.2074077-1-4ncienth@gmail.com> <20261030154940.GW2668564@noisy.programming.kicks-ass.net> <36ce43428e53d1d6e47dddb43697ccf2@kernel.org> <20261102101759.GF1813469@noisy.programming.kicks-ass.net>
+	s=k20260515; t=1793647384;
+	bh=AEn5kOuJI8KKdvD9XcEieAYlhY01m/lTY2e281fbPUk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ltyQGKjLitBfM0+NBf4Fy9LRsKlMC5f5A5WFTb2Yyc518zMy50CfuMZQfkXKFxB5v
+	 t06dQg4OalfMa4ioajDnUQ/hqc6oTZ4wBegCYmN5dVJh5j77a7eJEfSiY4MYROgURp
+	 318V/ce2T1OptEpwUSjfaXByL4jgsKDZ5MQn7IDiB5h3Q0EjFXd8AmSxs04pDmSc6L
+	 jbrDSzE1rAnrOUXMkdhRRmoY7XIam2OheJ6MYHML9Gd9dabrjTW8cr0o6QjNbaYuaN
+	 0SQAvaPFmSxR7d48L1M0hjIJ5dHYue9uSATh/Ocskhm1s5AwkJvEcvqxkbFP6K4mfJ
+	 WsPp289gzkQdA==
+Date: Mon, 2 Nov 2026 13:23:02 -0600
+From: Rob Herring <robh@kernel.org>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
+	Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>,
+	Gary Guo <gary@garyguo.net>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v12 1/2] dt-bindings: pwm: Add Raspberry Pi RP1 PWM
+ controller
+Message-ID: <20261102192302.GA882027-robh@kernel.org>
+References: <cover.1790686331.git.andrea.porta@suse.com>
+ <ee0aa89faa14e0073f1271693bae28678652998b.1790686331.git.andrea.porta@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,98 +70,25 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <ee0aa89faa14e0073f1271693bae28678652998b.1790686331.git.andrea.porta@suse.com>
 
-Hello, Peter.
+On Tue, Sep 29, 2026 at 03:02:11PM +0200, Andrea della Porta wrote:
+> From: Naushir Patuck <naush@raspberrypi.com>
+> 
+> Add the devicetree binding documentation for the PWM
+> controller found in the Raspberry Pi RP1 chipset.
+> 
+> Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+> Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../bindings/pwm/raspberrypi,rp1-pwm.yaml     | 66 +++++++++++++++++++
+>  1 file changed, 66 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
 
-On Mon, Nov 02, 2026 at 11:17:59AM +0100, Peter Zijlstra wrote:
-> On Fri, Oct 30, 2026 at 04:28:54PM -1000, Tejun Heo wrote:
-> > cgroup_threadgroup_rwsem is a global percpu rwsem and taking it for
-> > write on a regular basis can be really expensive.
->
-> Yeah, but setsid() isn't more critical than moving tasks between
-> cgroups. Also, AFAIK nearly nobody is using autogroups these days,
-> because systemd does the cgroup thing.
+Applied for v7.4 as the .dts user is already applied.
 
-We don't want to take the write lock on every setsid(). It would have to be
-limited to actual autogroup joins, which seems doable but likely adds a bit
-of complication.
-
-> > Either way, AFAICS, autogroup doesn't need cgroup_threadgroup_rwsem. The
-> > cgroup side has to be settled early in fork, but the autogroup side
-> > doesn't. Can't we just move the autogroup assignment later in fork, to a
-> > point where it can't race against setsid()?
->
-> That is more or less the proposal, but it rather creates more complexity
-> rather than reducing it.
->
-> Having two different rules for p->sched_task_group, depending on cgroup
-> or autogroup isn't at all appealing. Not to mention adding even more
-> fork callbacks.
-
-I see your point. Moving the autogroup handling into the cpu controller
-keeps it better contained though. sched_cgroup_fork() places the new task by
-its cgroup only, and the cpu controller applies the autogroup once the task
-is on the thread list. This isn't a hill I'm going to die on, but it looks
-like the better direction to me. Can you please take a look at the patch
-below?
-
-diff --git a/kernel/sched/autogroup.h b/kernel/sched/autogroup.h
---- a/kernel/sched/autogroup.h
-+++ b/kernel/sched/autogroup.h
-@@ -27,12 +27,12 @@ static inline bool task_group_is_autogroup(struct task_group *tg)
- 	return !!tg->autogroup;
- }
- 
-+extern unsigned int sysctl_sched_autogroup_enabled;
- extern bool task_wants_autogroup(struct task_struct *p, struct task_group *tg);
- 
- static inline struct task_group *
- autogroup_task_group(struct task_struct *p, struct task_group *tg)
- {
--	extern unsigned int sysctl_sched_autogroup_enabled;
- 	int enabled = READ_ONCE(sysctl_sched_autogroup_enabled);
- 
- 	if (enabled && task_wants_autogroup(p, tg))
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -4958,7 +4958,6 @@ int sched_cgroup_fork(struct task_struct *p, struct kernel_clone_args *kargs)
- 		struct task_group *tg;
- 		tg = container_of(kargs->cset->subsys[cpu_cgrp_id],
- 				  struct task_group, css);
--		tg = autogroup_task_group(p, tg);
- 		p->sched_task_group = tg;
- 	}
- #endif
-@@ -9598,6 +9597,15 @@ static void cpu_cgroup_cancel_attach(struct cgroup_taskset *tset)
- 	scx_cgroup_cancel_attach(tset);
- }
- 
-+#ifdef CONFIG_SCHED_AUTOGROUP
-+static void cpu_cgroup_fork(struct task_struct *p)
-+{
-+	if (READ_ONCE(p->sched_task_group) == &root_task_group &&
-+	    READ_ONCE(sysctl_sched_autogroup_enabled))
-+		sched_move_task(p, true);
-+}
-+#endif
-+
- #ifdef CONFIG_UCLAMP_TASK_GROUP
- static void cpu_util_update_eff(struct cgroup_subsys_state *css)
- {
-@@ -10562,6 +10570,9 @@ struct cgroup_subsys cpu_cgrp_subsys = {
- 	.can_attach	= cpu_cgroup_can_attach,
- 	.attach		= cpu_cgroup_attach,
- 	.cancel_attach	= cpu_cgroup_cancel_attach,
-+#ifdef CONFIG_SCHED_AUTOGROUP
-+	.fork		= cpu_cgroup_fork,
-+#endif
- 	.legacy_cftypes	= cpu_legacy_files,
- 	.dfl_cftypes	= cpu_files,
- 	.early_init	= true,
-
-Thanks.
-
---
-tejun
+Rob
