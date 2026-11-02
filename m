@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793632979;
-	b=3eq1+HZmrB7UXLBcW59TB54Q/f3m6upHahfUY0mXS5XCTIBrU/8dwYCTv6lLhGQ6uGq7
-	 tZ3cTVdsZCOK0fkbUiL6UzVjkHYhTdGmq++m7JpPeNrNhByyh6t9KYxbMXM3Y4J3XcEpJ
-	 LAhwibV0+aX1Fmnj3ybcAtcv1Cnvq9SFfahnR4bRsWlVXwG1wb4I60aovbIi0PXdfnYEn
-	 RuL8jhehiKAypmfkqAZR89cyOy83Ysc2dHhTx3+uFaumaSyY9LVCbVWvUmV+Iqk8sfnYq
-	 uG5mdSX3yY1cM2zvqihzIRZhVIhzzFSfMc6qly3TFhd9n/IkFdDDoY814iCUlZaPe6w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632979;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1wuG1t645DYhkT3v1nTMe3PxAn0VwtDhlTpOvdLsMIA=;
-	b=RcfC91wDFF5rqC+7DZIUOq4Qzdu1x4D80rSI7kg+wyOonNwrb1h6oGEwiuupd4qHMZvQ
-	 67fEHfNYkRRVSWqBGK60qJcL6ZJRQ2ouV357fsM5xaTfvdf6WR4N2XgXR7fCIGy4jydDo
-	 VP6Ev6z3u0DNUCkKUhbupetuzTd9MilgUn9EgIPx9wTOtC1fTb0m3QIpZwi6OfbPBxOvv
-	 LXsRyhrVOw2zYJBDS+dY5BKv84rsy+mACmDQ25lu7Ag6WOVZ4HVRxmejfZhrrcYxzc65c
-	 169X4Ve2x8KeB1XMr/QJOYAQh/q7u0/JlMSjtXVVAst4miSUEqIioIGI2CZXhUxEiow==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BetumiTH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793632992;
+	b=2BW0vnH9DsMSDfaSv1cEe51Sgnzdn/qM6+1P93uzOOBHTK288TN/mq8UgtKbnjAsqkDy
+	 u+hh7zWPOb8HWtwbxPREQgUfG73Tpb+xzUITUxTpliOGOnOsMoTYC5OeBVLjpyNU3tgSd
+	 rvw8r4HD+572F31ky0ZqD3eRktebZqMz9fL3pWWGcD3BW2s3BxeCHxqd3goNy8+OpJTC5
+	 1hch+ep+O9zsrdI816vcGUxX/G91SrEBNQTlMnfnMR0dHZAU8i/zrKJVMNdI++Z96RHXc
+	 qKY9o0DnfMe5gVCuW9nNyzpwSF2eTZ5BF2Gvr2sK/4JCjPGXUN4ATe6CdsHS56cKhAQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632992;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=cbUv3n1tBnI1k6VxTZ3ZcHd/CVUe8/cnvkVP6mlO6Yc=;
+	b=E4oKysjktgMBxrFWJp7FXGImDI2+04q3nKmr5kHyBteHoTAG4bcWsVoZH+et+WBJ75NJ
+	 ScS9ozwxeqyT2Spz6tcwjLhi9RTcUqsq6rd51oawibDXB3tiFXIRIwrqB0IKO/ua2nZcj
+	 cm9nC5G4vEqmiJ6P4KhCBUBxDR43gIfm+lm8YtdveWIjedgBKaBpoxTGGTFYrr1nKFju/
+	 sy+lXMaTU6ArReRj5900DVgm8srl+49oy3hT7nIHhHM05LumHSt5qh0O9gtvz+qeDETxT
+	 JEifKId3E9tJX8jKMWPsO9pd70ou8KcUupbfd6avJfPVVwCxqrzgzPRXmW6X24N386g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtwKUokO;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A57660C412D;
-	Mon,  2 Nov 2026 15:22:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D3960C51F4;
+	Mon,  2 Nov 2026 15:23:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BetumiTH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793632979;
-	b=W1I9Us12TuAJMXVX9mi0HZei6frJ6eyxvrEM6yodKZOh+NlLA3ujBBsAwhjzGC1/EWTm
-	 RFShRpOUAU5wKZceUGYo1VxONu/OXQcMHi66eoc5ZKgjemvoV73g8PA9as/osHzK9udPw
-	 iTK86OTrtJQ+GsBSDAQdj9G9ar/UBmvqkyjhvHlDeHf02He4HYm1Vx9HltkrEKTE2I/jv
-	 v2Xb1GEvec7mByWB2EiJ3JJbmKEaXnbD8u5LO6Y0PXKrxCgBDgsmXnKdrbluxy2wzo3f2
-	 YKeokyIwIJIpyFaixe47EFQ2O8TtfwUwXTLWHzOsg45fm1hARCpqF20NguZY9G6RCFw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793632979;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1wuG1t645DYhkT3v1nTMe3PxAn0VwtDhlTpOvdLsMIA=;
-	b=JFzwSd/JcUzoN8Ped5om8avM15uF6R4uF7Mg2QNEJmUyT/UOoZia9eR1X22hXDfWgn8q
-	 8DP7FCBPNpSHlYhZ8O3JN8IupwMxctYhyAsEdo37UBq9+oRgrld2W4LrEQFZgvHl5GsIL
-	 /FAMEu4vmeClXG3mTFGt2ctBhvh5i2k8iwFpfUhXGUp6z68JqxU0TnqGbh4raxszVv4dQ
-	 WzA+S7zDdN837YReC59nYGLxVpprqNPlx2KGQkx7GQ5ZvoPoe2xVyb27MBH6nZk35HNBU
-	 f0sUxFvPY6C6l0gZGpIXWSslTNEnIyomKv6Ic1zJyeqSe5In7sLOJ4/N9fO+vi6mq/A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E94D01F00A1A;
-	Mon,  2 Nov 2026 15:22:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtwKUokO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB961F00A16;
+	Mon,  2 Nov 2026 15:22:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632978;
-	bh=1wuG1t645DYhkT3v1nTMe3PxAn0VwtDhlTpOvdLsMIA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BetumiTHUa35BXbujArBG2pvr6Twn1o45pTeIOzaw6fI7+VhnPWGfOhgErxgnCZ1t
-	 24vx+cdcCZ4HJ0gJwQChUD98rpoUxo02nm/5lRWxqYuInb6yPiNNrUINv8FzEEut0H
-	 LZnjpyYRTqTrKJj6v3cRzlANohrX34Wgz5/DWFtX6eGlXeKV+h2Y/wWGFdMMxvBObO
-	 kiObIIB1u3GEoJf96FW3dBiNo3wV/Obe2bYXI6awZb26LB8DjM0nVIKohEen5zQ8qc
-	 mnRI4nHmQfvoVa6GcLFZgn3LZEixOKsjf4wDNAfNSRKH4dmuR/eO54kp3wVKtWgypp
-	 BBSQZMyFcqeeQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5AD3346564;
-	Mon,  2 Nov 2026 15:22:57 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 17:22:56 +0200
-Subject: [PATCH 1/2] dt-bindings: leds: irled: pwm-ir-tx: add power supply
- support
+	s=k20260515; t=1793632991;
+	bh=cbUv3n1tBnI1k6VxTZ3ZcHd/CVUe8/cnvkVP6mlO6Yc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=gtwKUokOODP26lfp4y7mSUu6DYdG/zt2FxgYuDS+oho+JQ5cga5uqjc8YY6VgrcQs
+	 VTaytOyGE9Q36HAhmeQO/tpkWrmaem5nfcs9DoO11v1we3+YYyPqsUjQ0RtzlSJ/r7
+	 PjD7PtqydOyrhI0RMb58/TQgdn/JW1bEao0zBiP6y+8iVzXby6r+qrPSMfF1VCtR3o
+	 f+fxAzOWnAKXVVQlIcMAzpg04hv/Asv4XFoEe0YrkCVsCJLh0AlwObscrypUo3bOUD
+	 I88qZEPZKE9AXxN0jtQQ7Cv/rHCklqSSX1h/8YUYGnUDPn7pa9hj9iyObikXEB/IoK
+	 IjWpl3b9MOeCg==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:07:20 +0100
+Subject: [PATCH RFC 10/27] genirq/proc: let procfs copy in the affinity
+ masks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,61 +54,162 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-6768-irled-v1-1-c7064f3afed1@protonmail.com>
-References: <20261102-6768-irled-v1-0-c7064f3afed1@protonmail.com>
-In-Reply-To: <20261102-6768-irled-v1-0-c7064f3afed1@protonmail.com>
-To: Sean Young <sean@mess.org>, Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793632976; l=912;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=lrAuDDWc631H8kDzeXXaEWZPrYdjJgCBsuDfNWjP9es=;
- b=QonYg6UGNgFyURq5T7Isz6r0IAf56o1L6vgClckpFuFmgYzieXOhemc4SwTYnbWOcbrKBkSEi
- OfuiQb1E3n4BoNCtnJScVv8SxCNs3M6cweo9I/v6/hbh9buCWI/GMI3
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-fs-v1-10-d09a996317b3@kernel.org>
+References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
+In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3770; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=WZPzG5+ElQbjbcTuZJJKbql/hLS5VpybW+Y2WsbSVy8=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG6Uyh8z/eu1hrs32SIFLvZ8+rqj2fax/9rr51N3L
+ TzROveFV0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBE5soyMtz79dy2qTFnUlGi
+ 7Rv7nTPlZCfr1j9uiJscE3tp0bIdbPYM/10MrwvWc26+27EhfVkc7w0pUx3fZeee9Fxveua24pn
+ WK1YA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-From: Roman Vivchar <rva333@protonmail.com>
+Implement ->proc_write_buf() for smp_affinity, smp_affinity_list and
+default_smp_affinity so procfs copies in what is written before it pins
+the entry, and parse the masks from that copy. A list of CPUs can be
+longer than a page on large machines, so the files take as much as
+memdup_user_nul() could copy in before. Anything larger fails with
+-EINVAL instead of -ENOMEM.
 
-On some boards, the IR LED is connected to a switchable power rail, such
-as an eMMC supply. If this regulator is disabled, IR transmission fails.
-
-Add an optional power-supply property to document this regulator.
-
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- Documentation/devicetree/bindings/leds/irled/pwm-ir-tx.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/irq/proc.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/leds/irled/pwm-ir-tx.yaml b/Documentation/devicetree/bindings/leds/irled/pwm-ir-tx.yaml
-index 7526e3149f72..35a601cc068b 100644
---- a/Documentation/devicetree/bindings/leds/irled/pwm-ir-tx.yaml
-+++ b/Documentation/devicetree/bindings/leds/irled/pwm-ir-tx.yaml
-@@ -23,6 +23,10 @@ properties:
-   pwms:
-     maxItems: 1
+diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
+index aa3d5544cfc1..fe683457a088 100644
+--- a/kernel/irq/proc.c
++++ b/kernel/irq/proc.c
+@@ -9,6 +9,7 @@
+ #include <linux/gfp.h>
+ #include <linux/proc_fs.h>
+ #include <linux/seq_file.h>
++#include <linux/slab.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+ #include <linux/kernel_stat.h>
+@@ -134,8 +135,11 @@ static inline int irq_select_affinity_usr(unsigned int irq)
+ }
+ #endif
  
-+  power-supply:
-+    description:
-+      The regulator controlling the current to the LED.
++/* lists of CPUs can outgrow a page, take what memdup_user_nul() took */
++#define IRQ_AFFINITY_WRITE_SIZE	(KMALLOC_MAX_SIZE - 1)
 +
- required:
-   - compatible
-   - pwms
+ static ssize_t write_irq_affinity(int type, struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
+ {
+ 	unsigned int irq = (int)(long)pde_data(file_inode(file));
+ 	cpumask_var_t new_value;
+@@ -148,9 +152,9 @@ static ssize_t write_irq_affinity(int type, struct file *file,
+ 		return -ENOMEM;
+ 
+ 	if (type)
+-		err = cpumask_parselist_user(buffer, count, new_value);
++		err = cpulist_parse(buffer, new_value);
+ 	else
+-		err = cpumask_parse_user(buffer, count, new_value);
++		err = cpumask_parse(buffer, new_value);
+ 	if (err)
+ 		goto free_cpumask;
+ 
+@@ -177,25 +181,27 @@ free_cpumask:
+ }
+ 
+ static ssize_t irq_affinity_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
+ {
+ 	return write_irq_affinity(0, file, buffer, count, pos);
+ }
+ 
+ static ssize_t irq_affinity_list_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
+ {
+ 	return write_irq_affinity(1, file, buffer, count, pos);
+ }
+ 
+ static const struct proc_ops irq_affinity_proc_ops = {
+ 	.proc_show	= irq_affinity_proc_show,
+-	.proc_write	= irq_affinity_proc_write,
++	.proc_write_buf	= irq_affinity_proc_write,
++	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
+ };
+ 
+ static const struct proc_ops irq_affinity_list_proc_ops = {
+ 	.proc_show	= irq_affinity_list_proc_show,
+-	.proc_write	= irq_affinity_list_proc_write,
++	.proc_write_buf	= irq_affinity_list_proc_write,
++	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
+ };
+ 
+ #ifdef CONFIG_GENERIC_IRQ_EFFECTIVE_AFF_MASK
+@@ -217,7 +223,7 @@ static int default_affinity_show(struct seq_file *m, void *v)
+ }
+ 
+ static ssize_t default_affinity_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *ppos)
++		char *buffer, size_t count, loff_t *ppos)
+ {
+ 	cpumask_var_t new_value;
+ 	int err;
+@@ -225,7 +231,7 @@ static ssize_t default_affinity_write(struct file *file,
+ 	if (!zalloc_cpumask_var(&new_value, GFP_KERNEL))
+ 		return -ENOMEM;
+ 
+-	err = cpumask_parse_user(buffer, count, new_value);
++	err = cpumask_parse(buffer, new_value);
+ 	if (err)
+ 		goto out;
+ 
+@@ -249,7 +255,8 @@ out:
+ 
+ static const struct proc_ops default_affinity_proc_ops = {
+ 	.proc_show	= default_affinity_show,
+-	.proc_write	= default_affinity_write,
++	.proc_write_buf	= default_affinity_write,
++	.proc_write_size = IRQ_AFFINITY_WRITE_SIZE,
+ };
+ 
+ static int irq_node_proc_show(struct seq_file *m, void *v)
 
 -- 
-2.56.0
-
+2.53.0
 
