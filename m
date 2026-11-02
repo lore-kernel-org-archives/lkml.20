@@ -1,101 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626162;
-	b=cifsj6DG0SmUALdF3JDGw2Jbv9pJy8+nK5VrMN4JxB6F0gSVdv5bDfxA98MlyQWkUFo7
-	 PqGcqdLCDWiucQywmJGjDrirzk7qRuwGLIaWcCSpr/9Qj0vn4PR6BaP44qkWVJ4WbYvhx
-	 ZLRapFAXmdj1YnPYbvyGqIo8LG6W0v49VdEI/gBe0TjkRqANY7KV79Inz5/wNBcmJSMls
-	 8AozyBM9hIgSWQDwxuvOxvazZh8eS/lVXzli7IApge2rmJiO1urq8zad1KAeke0do1as4
-	 uDS15FE2lvnEimNGep+zGAi0N3SgN+mU3BVsPyIEpRzFjdi8NfxrxNUGFoW36FOc2Xg==
+	t=1793626189;
+	b=IrZSpDeKdtPwWVcL/7QwFcF2btH/QsJn8+Khhrm2vioi01SACkkQpdHD6V1rVrHqAZ6e
+	 0rFtvfT1izT20beYQVhvqpBw7AfaVpfsU0s7tJ42udxRPdhXf00JfWrOhh3Wqu/fAtNtR
+	 JVlQKjJaXYYk1J3NpZqWv+fZWjeDZ/N0nwC8Au6/VPrSIKpycqAYi59+LIbVzpoYz8lzI
+	 VtuvTsP/ys3MusULRYO69Mh/6OfcCQOYYT/OcnaHa97KjhvV/krZvISEPcn/fp9Stlf9O
+	 erLIUrYMUtCdPITqAoYQYzv92wan7W3sCkVFfPOP3VCSnMCyzaE2FsZx5kb/CNAvKOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626162;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ty31UixZMR0FOPCqD5p7Tp42Nj5uvmQqWeSDdyuvVR8=;
-	b=axTb5UfFD4XUJ67EBmKQkE4DYRrBAmo7+p8aKcpk/ly5lDg7pH6qETV3XjI3CsTaodkl
-	 MIGhBzeVngPEaU0zWXsuoUZxzRoIr4COMIr68+PHaS6MK2B130MyWC2TnqGTWQVhTxt+q
-	 qrqiNwdkg3CzfkGTwm/Kk2ISG+NIxd9a6qnnLERkDtB7CVJ+0LDLJmvqx9FDO5UogBm/l
-	 VIhWGV/w4Q3AqTobEFLgEfXJpNlWgGuqxlmfEjoHXevqpFOiqGC7oZBB5m7Xg8Vn1M1m5
-	 s/mpSPX+85n6SPRp8a61wvemMH833SUEKSThBdLZW5hcsahvKmZuGqSrzOUfgA9oJqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626189;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=MaHSdSC68YCgPi3lz8iuASH0f6ZOoGx8qQJK3v92RQY=;
+	b=Kruycr0dh9yu+2cxxMdY4DZ3EHUW5jyxKxlIFGVRq8PxusltraN5WRbumKWDD63+uio9
+	 3hF06eyTppqctmrwDt+SQ1jt0p1s76/+D1pLjyZ+GAt2O6hbLMnGmDmgQa64miUHAUaHh
+	 d0UcXyPBIRwyeZPtoZ2SQKCpn0LA13vxKqcH9NeWjtfvBYtT/T0IAy8WxlB6D5c21gO4v
+	 7P8nA2icY6JPEOPxvaNErLy1G/HUG3+cLbLKIKAMu/12mQ7APXZJP5Q9vRZpk/LfTil3E
+	 wF9GEYMqGVGc2GmdcdjLpC0SRD/zLC1QpGyLRnmQp80FfTr0lSPQlyFMny+7sl9glTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ndpEhwdB;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZutqRrGj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FF3VqCj7;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6B7606A336
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:29:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF6B7606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4A6606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:29:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A4A6606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ndpEhwdB
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535a54bed9so4523209eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:29:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZutqRrGj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FF3VqCj7
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAOir804756
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 13:29:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=MaHSdSC68YCgPi3lz8iuASH0
+	f6ZOoGx8qQJK3v92RQY=; b=ZutqRrGj9Qy7ij4ckTkadu5YKgyRayrkWPiVgddp
+	TrmgYQVhehE4pI8aHMq9UfhDc0LNhNLjZdcD8Sd+I5ltaJF+gPj74JhqOWGvrk52
+	NPGe/HEcu02bQxGOS3pksJ7JXFNNhcd+ewnxudTifFrlYLih5FnUnWvsJe5J6Siy
+	Pj+aVjwow/37215QXQhfgZMa2nmZOGjZetepgLzfFMx42tTtjmfeM6/OkCBjZ9QP
+	v/R2xZwpWvu/PxmGIudZWZfKkLEIGkjPOpWyEmdV1YVHGVmLzG7dlGs/aiRPsCiS
+	4HciFR09ADNU+5Mq+7bhky/t/GfbRkE43fa8PY4IK3miKA==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqmvryw9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:29:48 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9913f410ba2so573210241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:29:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793626161; x=1794230961; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ty31UixZMR0FOPCqD5p7Tp42Nj5uvmQqWeSDdyuvVR8=;
-        b=ndpEhwdBXmtUGjuQLkcC3iwaf4xRR1PCLTmUssQjyIcMFCSIIvC3wmWF+y0P0TRAl9
-         zTgMqhoqo3vzNcDTbpdWS9nu+wCxLecI/ouwzpv1aAX1W5qZ07sYUi/C8udcSTgdpgRb
-         kWkoCPtSKa3/kqXmUaeqe1Jq9S/WQn/S99+9+LJGZWaCf48C0K9qPGhXFCnAH2Is4qrL
-         jsOrQt0OVuyN3jyciRqpLFrebfqYVnN/fdOIBSpurBBWa2MjwNJJZw8V0XxRkYnGOo/F
-         WLNol46b8fcaWjo4dgbRUH7VDcUGPz/bnHJK4ee4ne/B3D0ijcZcSTUYOAvKsVXBhr4O
-         JP9w==
+        d=oss.qualcomm.com; s=google; t=1793626187; x=1794230987; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MaHSdSC68YCgPi3lz8iuASH0f6ZOoGx8qQJK3v92RQY=;
+        b=FF3VqCj7/p782XIzRyJTXW9i8Pt808MrlF7U9B0/BrjVwU7KJ4yPmHdkbkDNN+7LS4
+         qnwkgh4ivqGk2Usqcj/xQkT0fIQcap0xhBvBSEJvLsj5GgIfk833hcwaKa9ffUSUUBQS
+         8Ts2z79Hpp4doEhaPtmBicILLG1p1vnGtK4InDxQH7PXVLXRjrUZLmW5Ae10ntKbDwuJ
+         +eysul4BuMFAPxGffAr3y3MvCfLEkumnlj2arb7FmqrWSZmM81BsxL1dr4aS+LR9rOzs
+         aUmhCrju5yNJGSeaKTp/0n1WLSR8/FPoOFvhISt8BpIFRYizmpCxEV9+UddZAU34WHNp
+         ki4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626161; x=1794230961;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ty31UixZMR0FOPCqD5p7Tp42Nj5uvmQqWeSDdyuvVR8=;
-        b=yA2hTZ1+/M/s/HVDprtyyjZXBkynfak4khgfCBmrKIQFeDLHwiZ8KupJwY1lJNoTqX
-         hmxwZ22SaYIVEoirAlrTMH7aRAvTGGUosm4nb+2JnTi+rpZpkG848zGYnBtaQLtvPt0r
-         j29Z1HJ/YpN9LIIYW2ZqawaqKj7MMgAhxt9sfgS3B+6JJAsiqm6p6EYAznZHeIT2/GCU
-         oUoOHr+R3y/8IgLgUtuqBnOeU0TmcEv31dOCOt4IyvLfa/2AdKKiZFLtms87wRZajGmM
-         QTpeRS+d+fkLQ32z2e1jF9YVNrmgvjowRaLwBPA8lrjZ5mIpnkrWhyOKvmSNoS5prI19
-         m9cw==
-X-Forwarded-Encrypted: i=1; AKwUvBx45ajmVt/MWNPkE5G5CZRuijPLdWOvH0VFxao+Njj1CEWsfeXP1sTnHllQFsKuRU9LcdiFSEmcfejsoc0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIl82HewglEAbwuw09oVqkJl41hpYAJT5Z3/o013PkS2bYQwlNt
-	WKFQxXHSGWCldECf27tQvlTf5B3KNgL+nEqjBbRmvnuT0HIVu/aHxByu
-X-Gm-Gg: AYBFou14iMdZ+m++7VQSJdHHyIPoHWFV/kHuvrgy1i0NTWwZqayoPutAxbJ6k2oVlAl
-	78BPnw9x6fG6L4i+i0YyiL6FQQ3t4FoY1FaarV7u2W0FfakVEx/Skm87HIephCF1qzHab9Mx2W1
-	//bLvqn1G35/oNoLBXtoAAD99gr/C66Dy2EqSgCaEsLd1trwcMC8Bh2V6YcoQ9ghKLcjqVyC00K
-	kmxxOy4wtXLcqjXXgklfXjFudmq4AygPLPvPf+E562+RWhvy8Ppq05Ad4ZWd1rgkoH3BDDKCPBI
-	RsEEHIvQOVsIgB7phFALZchjWBcoQFg+ib6PbhUupFZm+L9EzIlzobe2XukO6W2dEqWOp5vDUOT
-	TXhZByWQLK+SHbOYi7TfeDQ2LmqkhJG9IoHM1TR3tbbY2GoaGI3g/KSh718Kb8Jv+P4nPeNqeNG
-	mEXqjhN9Hosnu/1hxG5NAJzHhatF7sNqV15AFtzTahB/5OjrYOqCy+wrCGXYqNvXASEoGyjEicw
-	pG5VJzfuNvExdgez8V5mT2/+oLg5iAWgkI5VA5Ufflto19lLqx1iODIxliWOYUBN77CcX1arpKv
-	+zrokLTPUzKQUVkwn/6Efffu4psn2aDrl7kyqjpmjRgffoStz257ecGQK+qDt3AZ6bdwWgb+/+S
-	8+0u4THfXZ+3bXPwvLpyIZP2m
-X-Received: by 2002:a05:701b:4502:10b0:163:fd28:5658 with SMTP id a92af1059eb24-1ac5b02289fmr15049596c88.22.1793626160847;
-        Mon, 02 Nov 2026 05:29:20 -0800 (PST)
-Received: from ubuntu-22.. (36-229-14-41.dynamic-ip.hinet.net. [36.229.14.41])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcf67csm34357844c88.21.2026.11.02.05.29.17
+        d=1e100.net; s=20260707; t=1793626187; x=1794230987;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MaHSdSC68YCgPi3lz8iuASH0f6ZOoGx8qQJK3v92RQY=;
+        b=yslckuN07xcKvATQedXhTimgZj93+D3Ut2NL9caq7V34NFpS9IehrpmTr3IWzPqe+8
+         uXSjvxCHV78dYrklZV8Oq1oldXsiTEUANFw0Th4m2Gnhg3mwXOtPsRsR+tyV92npAND2
+         o5n/9+avoGa6S1JlAC7KsXbMi6ZJO0Lua+iVT3ZirrC+OwAKo1llTaYop4YYaFx2i8uc
+         CB8X3RVNt3ag4WA7Qhgx8czHiFlIm8Gg+FdW6oYfVtnXRey0kZQ7cQvCZwSrZUkXopfh
+         tCNzb3kqL9djdVsx5oOdhfrBUdiZstvElyfyPWIOY2IQQsfgYSRlUGyUUToIm2N/yGKr
+         BiBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxc0vL+e0fXUkUD/BtWXRITuN7dnleeUtpRO6Eqst13y8M8uPiTy/jU+YngTA/iKHJZOsucArrb4E9X2Jo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+F0abSVFCJqTTyd7HQF8pR3JUyTd3hWXXVKzJsXBOKWcOpKWoq
+	Oc1CxIr9k55aTm8KHlwudsfa6glXq4WMEQGv2rKL/+97UDckfwpQLkTqenTGGPrcYoZ64s1/2iC
+	R2v5uLwzxoYAciKIWRv7M4irqj8z5KyKVygk8UHWz9+3RD+4+fbkdYmMsT5ih+cSxuORanzA+yc
+	EDbQ==
+X-Gm-Gg: AYBFou0e3UK1m8kYF1UA1tnHq0NzI7wl78yXFHppdmsbQQcdyRlqFmUxHuvM6ktS9m6
+	EoXEwUwRMgjBGS5SkwUBv2z8rigK4l99VS1NJIw9/bOwXLRBHelZDuheZdxAqygFAe9F4+knjT3
+	xNkETjwvFOOIcaASVkR309ETDNurH7MGWQDX9oIoz7P40m5t3fYvSMjQe0iLul/UfPEDZymbaip
+	168QLMA4HkH9w/upuu66xrrlkSAjF4Xrt6JznvXogg9eo1AyaV4zXtu+8n+He70sdueDyxgCJgw
+	07bzPHx2DiVXhmtqHaF6wchYSnupy/xkQ5llPwt0RAy2zwGGJUE2+odTUDXoIEd98txghei93xa
+	LDXC1KWzzDTx2REz3PqKisnwzTrlWuzd3SJAHS12izwiXeV/8WyfODze9xMDrLoc=
+X-Received: by 2002:a05:6102:5486:b0:7c5:4da3:aefb with SMTP id ada2fe7eead31-7d0728c1b0amr3490570137.34.1793626187277;
+        Mon, 02 Nov 2026 05:29:47 -0800 (PST)
+X-Received: by 2002:a05:6102:5486:b0:7c5:4da3:aefb with SMTP id ada2fe7eead31-7d0728c1b0amr3490562137.34.1793626186628;
+        Mon, 02 Nov 2026 05:29:46 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80333sm21455580f8f.32.2026.11.02.05.29.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:29:19 -0800 (PST)
-From: Tommy Shih <tommy.shih92@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	"Lucien . Jheng" <lucienzx159@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: phy: air_an8801: add WAKE_PHY Wake-on-LAN support
-Date: Mon,  2 Nov 2026 21:29:03 +0800
-Message-Id: <20261102132903.713908-1-tommy.shih92@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Mon, 02 Nov 2026 05:29:45 -0800 (PST)
+Date: Mon, 2 Nov 2026 15:29:44 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org,
+        kernel-janitors@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH] powercap: dtpm: Constify some structures
+Message-ID: <ujl42bbqnsbakun4wffbtgtytojsntebdyt65vlpgxbz6mr2s7@cjqsl5j2kbm2>
+References: <a4737f7c69e044d35348c1e9c7f69f229070d29b.1793524483.git.christophe.jaillet@wanadoo.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,176 +120,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a4737f7c69e044d35348c1e9c7f69f229070d29b.1793524483.git.christophe.jaillet@wanadoo.fr>
+X-Authority-Analysis: v=2.4 cv=TMDQ2Fla c=1 sm=1 tr=0 ts=6ae8904c cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=5Yrv_TkWLuZ8LgkGlGMA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
+ a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-GUID: xSJ_PVyJivkug91BbyJv1p-JpczJoVX_
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX85qhRN9AC8+9
+ G1Bff4mtAFJz6O9/jXp7fFTNCHBkjhGyJ0WR4ZOHTKfdZhle9P2sF/tGh18zZmAQ58YrWikM+BX
+ Lq1ZomW2CEugC/cSdBDRz9OaEIB4UfU=
+X-Proofpoint-ORIG-GUID: xSJ_PVyJivkug91BbyJv1p-JpczJoVX_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX7sY4mEBRTjaz
+ RrrPYKvP2ltte1Q0wPMCmY5lpgKIGxEKSD0VBm625D/JA8E3Nb02/BFhbIW12c5S6FOjG4fxUmp
+ BFr/WyJHQWIkhmi2lO6ggUYcCJlzuKqmQa1qm0MYzabclwmPNddxgfNKGty2P86XNMof/SKQpOf
+ J33yE+f/dCtB2i1pikUvUyLbHnKDfHNzeBQ4v7vx5ZPZw+/mu/cPh/tvKCmy6nj8m8vQDQrRmoV
+ RCenO1xuQneFFdB2nZ6/N/nGNFofyWL8RWceXi19H1hdncwj407Z3org4pU1SjZ//p8xEP5bvX6
+ oHY12KUujDPOoGcJjuZvf3syaiAOJM/4QgRFyGtsrfnjKQRKX9s+FVAf7VPUqF7Hw9Xi6SxGWIV
+ 8KPrJ5lwZl/3fvYZUHx8lk10PedkaQpOrF/G53B9/596+txPfsjG1XtX6QvEv3mUbtwnzEcT2lL
+ dMQpHMuILifugDoNfag==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
+ phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020053
 
-The AN8801R can wake up the system on a link change, but the driver
-only supports WAKE_MAGIC and always masks the link change event on
-suspend. Supporting WAKE_PHY allows the system to be woken up when
-the cable is plugged in or unplugged.
+On 26-11-01 10:15:06, Christophe JAILLET wrote:
+> 'struct powercap_zone_constraint_ops', 'struct powercap_zone_ops' and the
+> 'dtpm_node_callback_t' array are not modified in this driver.
+> 
+> Constifying these structures moves some data to a read-only section, so
+> increases overall security, especially when the structure holds some
+> function pointers.
+> 
+> On a x86_64, with allmodconfig:
+> Before:
+> ======
+>    text	   data	    bss	    dec	    hex	filename
+>   22049	   7736	    128	  29913	   74d9	drivers/powercap/dtpm.o
+> 
+> After:
+> =====
+>    text	   data	    bss	    dec	    hex	filename
+>   22273	   7512	    128	  29913	   74d9	drivers/powercap/dtpm.o
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-Add WAKE_PHY support:
-- Keep the link change interrupt enabled, and only disable it on
-  suspend when the PHY is set to wake up by magic packet only.
-- Report a wakeup event when a link change interrupt is seen with
-  WAKE_PHY enabled.
-- Enable device wakeup when either WAKE_MAGIC or WAKE_PHY is set.
+Seems straightforward enough for me, so:
 
-Signed-off-by: Tommy Shih <tommy.shih92@gmail.com>
----
-
- drivers/net/phy/air_an8801.c | 38 +++++++++++++++++++++---------------
- 1 file changed, 22 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/net/phy/air_an8801.c b/drivers/net/phy/air_an8801.c
-index f97c78e43023..bf09c1fee398 100644
---- a/drivers/net/phy/air_an8801.c
-+++ b/drivers/net/phy/air_an8801.c
-@@ -560,7 +560,7 @@ static int an8801r_led_init(struct phy_device *phydev, u8 *led_cfg)
- 	return ret;
- }
- 
--static int an8801r_reset_wake(struct phy_device *phydev)
-+static int an8801r_reset_wake(struct phy_device *phydev, bool suspend)
- {
- 	struct an8801r_priv *priv = phydev->priv;
- 	u32 reg_val = 0;
-@@ -584,7 +584,10 @@ static int an8801r_reset_wake(struct phy_device *phydev)
- 	if (priv->wake_magic_enabled)
- 		reg_val |= AN8801_WOL_WAKE_MAGIC_EN;
- 
--	if (priv->wake_lnkchg_enabled)
-+	/* The link change event is needed for link state interrupts while
-+	 * running, but must only wake the system up if WAKE_PHY is enabled.
-+	 */
-+	if (priv->wake_lnkchg_enabled || !suspend)
- 		reg_val |= AN8801_WOL_WAKE_LNKCHG_EN;
- 
- 	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_WAKEUP_CTL1,
-@@ -603,7 +606,7 @@ static int an8801r_ack_interrupt(struct phy_device *phydev)
- 	int ret;
- 
- 	/* Reset wake status */
--	ret = an8801r_reset_wake(phydev);
-+	ret = an8801r_reset_wake(phydev, phydev->suspended);
- 	if (ret)
- 		return ret;
- 
-@@ -651,6 +654,7 @@ static int an8801r_config_intr(struct phy_device *phydev)
- 
- static irqreturn_t an8801r_handle_interrupt(struct phy_device *phydev)
- {
-+	struct an8801r_priv *priv = phydev->priv;
- 	u32 irq_status = 0;
- 	bool irq_handled = false;
- 	int ret;
-@@ -670,6 +674,8 @@ static irqreturn_t an8801r_handle_interrupt(struct phy_device *phydev)
- 	}
- 
- 	if (irq_status & AN8801_IRQ_WAKE_LNKCHG) {
-+		if (priv->wake_lnkchg_enabled)
-+			pm_wakeup_event(&phydev->mdio.dev, 0);
- 		phy_trigger_machine(phydev);
- 		irq_handled = true;
- 	}
-@@ -680,6 +686,7 @@ static irqreturn_t an8801r_handle_interrupt(struct phy_device *phydev)
- static void an8801r_get_wol(struct phy_device *phydev,
- 			    struct ethtool_wolinfo *wol)
- {
-+	struct an8801r_priv *priv = phydev->priv;
- 	u32 reg_val;
- 	int ret;
- 
-@@ -691,9 +698,12 @@ static void an8801r_get_wol(struct phy_device *phydev,
- 		return;
- 	}
- 
--	wol->supported = WAKE_MAGIC;
-+	wol->supported = WAKE_MAGIC | WAKE_PHY;
- 	wol->wolopts = 0;
- 
-+	if (priv->wake_lnkchg_enabled)
-+		wol->wolopts |= WAKE_PHY;
-+
- 	ret = an8801_buckpbus_reg_read(phydev, AN8801_BPBUS_REG_WAKEUP_CTL1,
- 				       &reg_val);
- 	if (ret)
-@@ -717,7 +727,7 @@ static int an8801r_set_wol(struct phy_device *phydev,
- 	if (!device_can_wakeup(&phydev->mdio.dev))
- 		return -EOPNOTSUPP;
- 
--	if (wol->wolopts & ~WAKE_MAGIC)
-+	if (wol->wolopts & ~(WAKE_MAGIC | WAKE_PHY))
- 		return -EINVAL;
- 
- 	if (wol->wolopts & WAKE_MAGIC) {
-@@ -775,9 +785,11 @@ static int an8801r_set_wol(struct phy_device *phydev,
- 	}
- 
- 	priv->wake_magic_enabled = !!(wol->wolopts & WAKE_MAGIC);
-+	priv->wake_lnkchg_enabled = !!(wol->wolopts & WAKE_PHY);
- 
- 	return device_set_wakeup_enable(&phydev->mdio.dev,
--					priv->wake_magic_enabled);
-+					priv->wake_magic_enabled ||
-+					priv->wake_lnkchg_enabled);
- }
- 
- static int an8801r_of_init_leds(struct phy_device *phydev, u8 *led_cfg)
-@@ -1040,8 +1052,6 @@ static int an8801r_probe(struct phy_device *phydev)
- 	if (!priv)
- 		return -ENOMEM;
- 
--	priv->wake_lnkchg_enabled = true;
--
- 	phydev->priv = priv;
- 
- 	/* Mark this PHY as wakeup capable and register the interrupt as a
-@@ -1063,12 +1073,11 @@ static int an8801r_suspend(struct phy_device *phydev)
- 	int ret;
- 
- 	/* If the PHY may wake up by a Wake-on-LAN (WOL) event, disable the link
--	 * interrupt to only keep the WOL magic interrupt enabled
-+	 * interrupt unless wake on link change (WAKE_PHY) is enabled
- 	 */
- 	if (device_may_wakeup(&phydev->mdio.dev)) {
--		priv->wake_lnkchg_enabled = false;
--
--		if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
-+		if (!priv->wake_lnkchg_enabled &&
-+		    phydev->interrupts == PHY_INTERRUPT_ENABLED) {
- 			ret = an8801_buckpbus_reg_clear_bits(phydev,
- 							     AN8801_BPBUS_REG_WAKE_IRQ_EN,
- 							     AN8801_IRQ_WAKE_LNKCHG);
-@@ -1077,7 +1086,7 @@ static int an8801r_suspend(struct phy_device *phydev)
- 		}
- 
- 		/* Reset WOL status */
--		ret = an8801r_reset_wake(phydev);
-+		ret = an8801r_reset_wake(phydev, true);
- 		if (ret)
- 			return ret;
- 	}
-@@ -1090,7 +1099,6 @@ static int an8801r_suspend(struct phy_device *phydev)
- 
- static int an8801r_resume(struct phy_device *phydev)
- {
--	struct an8801r_priv *priv = phydev->priv;
- 	int ret;
- 
- 	ret = genphy_resume(phydev);
-@@ -1101,8 +1109,6 @@ static int an8801r_resume(struct phy_device *phydev)
- 	 * state interrupts.
- 	 */
- 	if (device_may_wakeup(&phydev->mdio.dev)) {
--		priv->wake_lnkchg_enabled = true;
--
- 		ret = an8801_buckpbus_reg_set_bits(phydev,
- 						   AN8801_BPBUS_REG_WAKEUP_CTL1,
- 						   AN8801_WOL_WAKE_LNKCHG_EN);
----
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
-branch: an8801-wake-phy
-
--- 
-2.34.1
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
