@@ -1,120 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793601381;
-	b=0rR+WZ1kDjOIB284dPwWuz73kySym0Oe2PAImJneqPx9c05B4IgTEw6FdHuE/uyqRIcF
-	 q0uDPQ/452B7JH+iy0BrakacoL5T4K5rI7HdVjzPOEM2R5a+C6f/bN3+BTj1dO91eUK+Q
-	 44VW6Z4mC/EX1Fo/P0KExrReDxKjEH0WdL5A/yReSmFxa6mOxXlxTA2RGDiXugsEUOk1P
-	 sU8jbiK9yKsOKZb8kHR4UixYSVSPMBv2VGqvKPCz5QRU/dPjcn6PvAmPZXb9s73j5tia/
-	 ILWk0V0KhTBGseiriJ7TCRDy7s0s5YQwXRwit/NVMCQ6srNWjdonwBegsl0ptY3wt4g==
+	t=1793601419;
+	b=fEydpt0C3mTMuyH+S3NY/26pfYqMRqWWCsR9LRGFoR9Kxv+dZaKvVoyIGdi3KP6doRaV
+	 PNziPIM+DlAfLzQGA59K/igLx35xCSDJYtbTG65v1HLshc63HKR+xCATkuo7s888a2LU8
+	 sVdB/Qi7n/0tdD8VxalV4nPiDojd03YFy3qtGU1bJFtvMM3i/W7Gt5/KiMLvPA1pIwuEz
+	 kZ4ONCTUwJspfcipGPgPYf11SmFSIkiL3lYmnZskRpCt35Pcb55UsP1u6fHKzZhFbaVaW
+	 8IpYywEp4Xks8v2nfgzVQm2H760TdX0wRMu3oYewHmOYDtdgy3UVIt0fvVTUsko+GUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793601381;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=FNgNqTqkeVY9ayKVbUhSJOCwh1lLbqAoM2n3eAI1HTU=;
-	b=La3GUKOTYR1pSBOg7w3IC5AzDmJJoXko2vvvKkgABKYWTY17t2sqV5WDy73TbOgvV14b
-	 LW+tJDM3M6SeGvPHp6Hcb8PwoQVazfV+yyItZoShNjRj8Pi3u57Qnbok+mt05BeZiWGjh
-	 Srb+2ETb9xnRoeqCUPR0U5n14355PunrSrsmpjhKfo4LMK3syjTaBd9shWiAymIxrDtPq
-	 aIBVHXqMIVlIGmIXZDLYU/rNr1EFzHAtSRAqb1BJ8BANtNRnqDG9Cd0noT6RcaklNXq3n
-	 OwCJAQJgzYSr1qUkV7YfuJqZcBTQiz7rLiiUdFQzQoQfGhqTQMuIqU8NklKGLY+B24Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793601419;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=FIoy2Z3OD2zk6sZ28SkCKEoda0zBofnG2s9KCkyZzbw=;
+	b=d4UdSUtkqleTdSgd8rvS4ckkWnv1yferwhxxy8j76ii/gaN6GUcA+ohdKQxovC3V7URT
+	 J3ug318YENABD0MjDLqkOHAjyEgXmtTM3+QPcUHbML4tn0tU9zC2nbqMogtZ4OLltKYx3
+	 4TNLAHR8ceCFV/j7n7lq5fc+x4b4WQAGX6zdgCEbvpyL6+qN18s9Nmnezlw+jd8ObzGFY
+	 H6oRBPsDAdDjQFZeH1hanqEW/ZgccWlocaOqn8KnTPKdjVRKuXoU68ZdQq4amAEZNp9gz
+	 EZkyra3Tno/x+x+ZwoQITyWj/Q5XfPiYpf1sq/T8mKzmya4210Hh6A4s2XBjUaD0eHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IWkMDN19;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=STC+iUm2;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QwF7aUMn;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AC8606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:36:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2AC8606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8488606A324;
+	Mon,  2 Nov 2026 06:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8488606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IWkMDN19;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=STC+iUm2
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A23vEGp3348759
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 06:36:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=FNgNqTqkeVY9ayKVbUhSJOCw
-	h1lLbqAoM2n3eAI1HTU=; b=IWkMDN19kV++YBbZMUAhz+I1I/lDK3Z6w43RDED0
-	nDnD4Kk0JLUisYhJ78wK41jYqE1IC98hzX0uoDfGkx2kRg/sgqWi6X/v7w60Erzu
-	ZPGWzVcOFMdCOWKWU2B6nwqarnBVjDHvQgWcOhGsSYw2kWPopPIkLIPwkrhb4ZEY
-	dfzd0tSI/u/xFhMT+JXGy3wO+p15t3mk00WeN9L9/ohrkMVk7vJqmzVhw4Atw7rE
-	JCF42hzSWIt0Zg/8g2Rhj3zdnIXhTuTHVhr0Q3lpRl5hhHGlAphW6zn3R+Ja5wEH
-	QnnLE3QDAnbhV9fGwp4bmCUIko70yP5J4cKx+oi4/gII5g==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7wxnhnq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:36:19 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35cbea41088so3880217eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:36:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793601378; x=1794206178; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FNgNqTqkeVY9ayKVbUhSJOCwh1lLbqAoM2n3eAI1HTU=;
-        b=STC+iUm25DRhs+RRCDCJ5xvKil/a3zzIAL1KQXQaHkDWtkLGJmfOVj1frgNc3kvEer
-         a72kRq4o3wmKZpFjNibzlRSzIoq8+DEs9jBekjkDSnFLqa2g7f+lkBVhOJ/Nf4vgtBCW
-         /eDo0pbHMAXSlGVgo2L7ftzIOwipdWp7KnSSbVB3UHy9aZU+4NaIpYVokh07bozWQp5W
-         9/5MoGm4YTe9sERprvWlt8XqXvADTalGdw0rCIg6WXlxQpyFE0cHktYH5DBkEAynsLLf
-         E+eIymz2PigViU6S3YhN4BMXBMHmvlPzZlKayqsiex1xM9vByVZ46G0hJM1KBVFlvhpe
-         UWdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793601378; x=1794206178;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FNgNqTqkeVY9ayKVbUhSJOCwh1lLbqAoM2n3eAI1HTU=;
-        b=nhjCdaXtic1vYBZZR4zXeJzqlFCshc3wFci9UMzsiGab8uGETUJtVN2sKm1noXlG9J
-         Ky7YTnIKyA0xQGnE5W4wrceuyhQZ78iI+vdaxcQg8x0rvwLjD9ffJdMXqF2cKduldcZJ
-         B3YUfQLyE3jVEUuXvfXAzEm8VvzOkhZj9xHEkf/nUl9cznsRf673El+oHgZgjAY+BTsw
-         vnL6Wqf3xzk6rMqGE8OLFPgcbI3KKlsh+aRAEJ9rsV7HzTxNqDAHTB8G5Y+kHpKNJSnH
-         A98vAzO/ntIQvS3JJAuMfTp+LLK33hJnyY4ww2n9sby5jqr6rHTbEwtWfI7GqNSFxtTE
-         61hA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGNnoWvaXXQvI50t8crrwiXhQyh4r8t/l5DYhsHqcK1xwV1UfGxigiC1J6LnMn8bvbBQziWSFze7Qzdgc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL38fU0gVJeEq8A3uUBuHDoMXHD1r20L2hmVeSoedEtjGGhnwRx
-	EDvhQTie1TDKNxbl/LT/WKNFd3pT4tG7B8jP+dmO0+QRAqkkatg6IWatKSthhBxMLINwRaM1S2U
-	7WIqMGpVSKFsFNj0s/xUTS5ae7YzHqpr5tE8PvXjJQRwF2MKcYz4EZVBRWO+gYjq+cjM=
-X-Gm-Gg: AYBFou38E8A90K0Qb8P2D45rbEi4ywwY9hlG32jGCGirFmd+0w27uALpx2WRGE0ZZQh
-	WEigtD/lFfNgiOba0RtDvcqDS1LePn+PTsShjDoZ0tMAeVwd0xPgRxGxTAtEaiWoyLZfTYlfPR9
-	Xnb4sDtEk0YV/XZIQ/4m+t1e5puySk6F0C5IuSDb+GATuB6xBOP88+spk8W3dETLo/6CBr2neSk
-	L85VKDGI08cmCh0+lz2k4+ogdUDdc8eu+gMwqP4WKm96vLd+QwonRKC4pnIDHvZh2G5f+Pl0+Tk
-	YEEjEi9iyg0CzJG+A2mMhuEOE1s3j5aKWSGsS2Cyq/26X1cVEo5WtUsn21o+NzCaq7GcCPtiHxA
-	wDyerSmgPfao2jb60wXmpkJJmOq0SezuHkImgD6syvcMLdTGVvaupc2FqqGMj2b2hvIHtxarvbE
-	z317aSdQ6HSOPuPN06PuoP
-X-Received: by 2002:a05:7301:53cb:b0:35c:e696:2d4a with SMTP id 5a478bee46e88-36a423ea99dmr13280575eec.24.1793601378268;
-        Sun, 01 Nov 2026 22:36:18 -0800 (PST)
-X-Received: by 2002:a05:7301:53cb:b0:35c:e696:2d4a with SMTP id 5a478bee46e88-36a423ea99dmr13280533eec.24.1793601377560;
-        Sun, 01 Nov 2026 22:36:17 -0800 (PST)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm35915433eec.7.2026.11.01.22.36.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:36:17 -0800 (PST)
-Date: Sun, 1 Nov 2026 22:36:15 -0800
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Cc: linux-usb@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 7/7] usb: dwc3: qcom: Enable VBUS override at probe
- for default peripheral role
-Message-ID: <augvX4NwBcJot_AF@hu-petche-lv.qualcomm.com>
-References: <cover.1793212717.git.faisal.hassan@oss.qualcomm.com>
- <3c1778a36380bb6d9123c3791f15cc3656b80145.1793212717.git.faisal.hassan@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QwF7aUMn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793601417; x=1825137417;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Mj8Zo7ZDsS9A32QqDBR8EvgwoDbt2Mi1IV0DCLUNXMc=;
+  b=QwF7aUMn5Pb6IrIrIqxmo91Swi2F10vpZZKj01tLsp7SWbYXHN3pxhWv
+   s1gMmLV5g8gsPDbrNGhcw2Z9fM+7pAdjvColL5THIWElqGVN6X1ID8+GP
+   DLGme9q3LsM0iulmcu4nM4Eev8YQE/P0ulR4w99+E2zECsMtTA4iPPSDr
+   PgAYtt6yaet5kQpr6qWR35OIl842/USXujNKS5q5ti6BKeNqb2+9IYTJd
+   +atw6tpIc3qITZH8YN4xvgRWPOa8L1t/Y5XVOUX7RwY/pr6hbzyWhdpFv
+   hg7aARvYRCpX/Qhx/xjxgW2tKdn20NuHmcFoPuDNDoNAnnHNG+/OgCQhm
+   Q==;
+X-CSE-ConnectionGUID: zuOk2r+qSG62z5CcPgTXCg==
+X-CSE-MsgGUID: 5w5f0q3+SQmojHCqB5w5yw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2309966"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2309966"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 22:36:56 -0800
+X-CSE-ConnectionGUID: jWvrhJ9mQZmFpHDYt09xqg==
+X-CSE-MsgGUID: MAWPaxLXTZG1xnX/0hsmow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6025253"
+Received: from senthil-nuc10i7fnh.iind.intel.com ([10.223.163.42])
+  by orviesa002.jf.intel.com with ESMTP; 01 Nov 2026 22:36:53 -0800
+From: Saranya Gopal <saranya.gopal@intel.com>
+To: linux-acpi@vger.kernel.org
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rafael.j.wysocki@intel.com
+Subject: [PATCH v2] ACPI: s2idle: Handle shared _Ixx GPEs without an EC
+Date: Mon,  2 Nov 2026 12:06:10 +0530
+Message-Id: <20261102063610.3242714-1-saranya.gopal@intel.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,81 +78,224 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3c1778a36380bb6d9123c3791f15cc3656b80145.1793212717.git.faisal.hassan@oss.qualcomm.com>
-X-Proofpoint-GUID: 2idtQiQV9w1nN9xBVrzFMZFs1pGz4PSh
-X-Proofpoint-ORIG-GUID: 2idtQiQV9w1nN9xBVrzFMZFs1pGz4PSh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAyNiBTYWx0ZWRfXzdoVNpIj0/ay
- Fi3kyYOKub3rhWBKBOw6v5auO8UL3iUlEKr9QGtlEomrRM4M8C+b6i9iROVVgchWwaBixHGyaDC
- ruac1YZ4bDQCsQzwVSZbPMxYw7FOrB4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAyNiBTYWx0ZWRfX13xbQJqDjInk
- Y5NQP1I1Dmaz4gHItx4uO+LOYzskvUhoRPuZTi+xFqmZ66i0guY2PyF/bhlfqxUylzzl2ybazKu
- z1EO/Q+3wawQPeVB56H/DCCeSBQfJJFs6rI3bDBPxSX++AHhc6UwJiHiZ3pH8/L479aktGMuu9W
- XkQTbpsR1hLUb19L7M6cqDop110obaU4T0d1YUZ48mGvw106Q4B6ay5oZHr7kfnrh948+NsBax5
- UicKQqHey6hy7QgnFuUDjtFyqQUe0kvO1+eicBOGh6PNSYOUfVgJberEMzSdwLaU/71a3uhk2MT
- Y9jLNuokT08IiXXCrgbT2shZnOw9/rWkTmMpWNRYIS5jyumnUcHp77JTfeb00iFyDCZCLBslSIc
- lgnYN5BpBhgNEWtH8TsmNQ6UN5cq/fLmfhazWUC/QmAXmzOPrQbDjEwblPzrSuTyWz5SVfT3/5/
- sZAx1mIqpbvaCODss0A==
-X-Authority-Analysis: v=2.4 cv=JLquIMKb c=1 sm=1 tr=0 ts=6ae82f63 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=uiTGAi7-L7myVgi5AJsA:9 a=CjuIK1q_8ugA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
- clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020026
+Content-Transfer-Encoding: 8bit
 
-On 26-10-29 00:29:37, Faisal Hassan wrote:
-> When the controller is in OTG mode with usb-role-switch and
-> role-switch-default-mode set to peripheral, the role notifier never sees
-> a transition at probe, so the QSCRATCH VBUS override is not programmed
-> and the device never gets a session-valid indication.
-> 
-> Enable the VBUS override at probe whenever the initial role is
-> USB_ROLE_DEVICE.
-> 
-> Validated on SA8255P with an HS host attached: 20 unbind/bind and 20
-> suspend/resume iterations completed with no failures.
-> 
-> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-> ---
->  drivers/usb/dwc3/dwc3-qcom.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index 0896a323bdda..92f1223f7b21 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
-> @@ -953,10 +953,12 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
->  		dwc3_qcom_vbus_override_enable(qcom, true);
+When first_ec is NULL, acpi_ec_dispatch_gpe() previously treated any
+active GPE as a wake source. On platforms where an _Ixx GPE is shared
+by user-wakeup and background events, that can cause unnecessary
+wakeups.
 
-....
+Return -ENODEV when no EC instance is available so the s2idle wake
+path can handle that case. On x86, check active GPEs against those
+registered from _Ixx methods. Preserve immediate wakeup for active
+non-_Ixx GPEs; otherwise cancel the SCI wake request and dispatch
+active _Ixx GPEs. The common s2idle path then synchronizes event
+processing and checks whether a driver requested wakeup. Lookup or
+dispatch failures conservatively request wakeup.
 
->  	} else {
->  		if ((device_property_read_bool(dev, "usb-role-switch")) &&
-> -		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST))
-> +		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST)) {
->  			qcom->current_role = USB_ROLE_HOST;
-> -		else
-> +		} else {
->  			qcom->current_role = USB_ROLE_DEVICE;
-> +			dwc3_qcom_vbus_override_enable(qcom, true);
-> +		}
+The non-x86 fallback retains the previous any-GPE status check.
 
-How about move it and above [....] under device role, let above code purely determine current_role:
-	if (qcom->current_role == USB_ROLE_DEVICE)
-		dwc3_qcom_vbus_override_enable(qcom, true);
+Fixes: 46767b17fda3 ("ACPI: PM: s2idle: Add _Ixx GPE wake indicator support")
+Signed-off-by: Saranya Gopal <saranya.gopal@intel.com>
+---
+ drivers/acpi/ec.c         | 10 ++++-----
+ drivers/acpi/internal.h   |  6 +++---
+ drivers/acpi/sleep.c      | 18 +++++++++-------
+ drivers/acpi/sleep.h      |  8 ++++++++
+ drivers/acpi/x86/s2idle.c | 43 +++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 70 insertions(+), 15 deletions(-)
 
-Peter
-
+diff --git a/drivers/acpi/ec.c b/drivers/acpi/ec.c
+index 64ad4cfa6208..8be572af4115 100644
+--- a/drivers/acpi/ec.c
++++ b/drivers/acpi/ec.c
+@@ -2155,19 +2155,19 @@ static bool acpi_ec_work_in_progress(struct acpi_ec *ec)
+ 	return ec->events_in_progress + ec->queries_in_progress > 0;
+ }
+ 
+-bool acpi_ec_dispatch_gpe(void)
++int acpi_ec_dispatch_gpe(void)
+ {
+ 	bool work_in_progress = false;
+ 
+ 	if (!first_ec)
+-		return acpi_any_gpe_status_set(U32_MAX);
++		return -ENODEV;
+ 
+ 	/*
+ 	 * Report wakeup if the status bit is set for any enabled GPE other
+ 	 * than the EC one.
+ 	 */
+ 	if (acpi_any_gpe_status_set(first_ec->gpe))
+-		return true;
++		return 1;
+ 
+ 	/*
+ 	 * Cancel the SCI wakeup and process all pending events in case there
+@@ -2195,7 +2195,7 @@ bool acpi_ec_dispatch_gpe(void)
+ 	spin_unlock_irq(&first_ec->lock);
+ 
+ 	if (!work_in_progress)
+-		return false;
++		return 0;
+ 
+ 	pm_pr_dbg("ACPI EC GPE dispatched\n");
+ 
+@@ -2212,7 +2212,7 @@ bool acpi_ec_dispatch_gpe(void)
+ 		spin_unlock_irq(&first_ec->lock);
+ 	} while (work_in_progress && !pm_wakeup_pending());
+ 
+-	return false;
++	return 0;
+ }
+ #endif /* CONFIG_PM_SLEEP */
+ 
+diff --git a/drivers/acpi/internal.h b/drivers/acpi/internal.h
+index 40f875b265a9..d5435338d6ca 100644
+--- a/drivers/acpi/internal.h
++++ b/drivers/acpi/internal.h
+@@ -236,7 +236,7 @@ void acpi_ec_register_opregions(struct acpi_device *adev);
+ 
+ #ifdef CONFIG_PM_SLEEP
+ void acpi_ec_flush_work(void);
+-bool acpi_ec_dispatch_gpe(void);
++int acpi_ec_dispatch_gpe(void);
+ #endif
+ 
+ #else
+@@ -256,9 +256,9 @@ static inline void acpi_ec_remove_query_handler(struct acpi_ec *ec, u8 query_bit
+ static inline void acpi_ec_register_opregions(struct acpi_device *adev) {}
+ 
+ static inline void acpi_ec_flush_work(void) {}
+-static inline bool acpi_ec_dispatch_gpe(void)
++static inline int acpi_ec_dispatch_gpe(void)
+ {
+-	return false;
++	return -EOPNOTSUPP;
+ }
+ 
+ #endif
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index 132a9df98471..9366c3d927c2 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -787,13 +787,17 @@ bool acpi_s2idle_wake(void)
+ 			return true;
+ 		}
+ 
+-		/*
+-		 * Check non-EC GPE wakeups and if there are none, cancel the
+-		 * SCI-related wakeup and dispatch the EC GPE.
+-		 */
+-		if (acpi_ec_dispatch_gpe()) {
+-			pm_pr_dbg("ACPI non-EC GPE wakeup\n");
+-			return true;
++		/* Check EC handling and other GPE wake sources. */
++		{
++			int ret = acpi_ec_dispatch_gpe();
++
++			if (ret == -ENODEV) {
++				if (acpi_x86_s2idle_check_ixx_gpes())
++					return true;
++			} else if (ret > 0) {
++				pm_pr_dbg("ACPI non-EC GPE wakeup\n");
++				return true;
++			}
+ 		}
+ 
+ 		acpi_os_wait_events_complete();
+diff --git a/drivers/acpi/sleep.h b/drivers/acpi/sleep.h
+index 9c3cb109c5d2..955e9c22bf0d 100644
+--- a/drivers/acpi/sleep.h
++++ b/drivers/acpi/sleep.h
+@@ -20,6 +20,14 @@ extern int acpi_s2idle_prepare(void);
+ extern bool acpi_s2idle_wake(void);
+ extern void acpi_s2idle_restore(void);
+ extern void acpi_s2idle_end(void);
++#if defined(CONFIG_X86) && defined(CONFIG_SUSPEND)
++extern bool acpi_x86_s2idle_check_ixx_gpes(void);
++#else
++static inline bool acpi_x86_s2idle_check_ixx_gpes(void)
++{
++	return acpi_any_gpe_status_set(U32_MAX);
++}
++#endif
+ 
+ extern void acpi_s2idle_setup(void);
+ 
+diff --git a/drivers/acpi/x86/s2idle.c b/drivers/acpi/x86/s2idle.c
+index c278ea14c0b3..979684950f24 100644
+--- a/drivers/acpi/x86/s2idle.c
++++ b/drivers/acpi/x86/s2idle.c
+@@ -16,6 +16,7 @@
+  */
+ 
+ #include <linux/acpi.h>
++#include <linux/bitmap.h>
+ #include <linux/device.h>
+ #include <linux/dmi.h>
+ #include <linux/suspend.h>
+@@ -24,6 +25,8 @@
+ 
+ #ifdef CONFIG_SUSPEND
+ 
++static DECLARE_BITMAP(acpi_s2idle_ixx_gpes, 256);
++
+ static void acpi_setup_ixx_gpes(void)
+ {
+ 	acpi_handle gpe_root;
+@@ -47,11 +50,51 @@ static void acpi_setup_ixx_gpes(void)
+ 
+ 		acpi_mark_gpe_for_wake(NULL, i);
+ 		acpi_set_gpe_wake_mask(NULL, i, ACPI_GPE_ENABLE);
++		set_bit(i, acpi_s2idle_ixx_gpes);
+ 
+ 		pm_pr_dbg("ACPI: GPE0x%02x armed for wake via %s\n", i, gpe_nr_str);
+ 	}
+ }
+ 
++bool acpi_x86_s2idle_check_ixx_gpes(void)
++{
++	acpi_handle gpe_device;
++	acpi_event_status status;
++	u32 gpe;
++
++	for (gpe = 0; gpe < acpi_current_gpe_count; gpe++) {
++		if (ACPI_FAILURE(acpi_get_gpe_device(gpe, &gpe_device)))
++			return true;
++
++		if (!gpe_device && gpe < 256 &&
++		    test_bit(gpe, acpi_s2idle_ixx_gpes))
++			continue;
++
++		if (ACPI_FAILURE(acpi_get_gpe_status(gpe_device, gpe, &status)))
++			return true;
++
++		if ((status & ACPI_EVENT_FLAG_STATUS_SET) &&
++		    (status & ACPI_EVENT_FLAG_ENABLE_SET))
++			return true;
++	}
++
++	pm_system_cancel_wakeup();
++
++	for_each_set_bit(gpe, acpi_s2idle_ixx_gpes, 256) {
++		if (ACPI_FAILURE(acpi_get_gpe_status(NULL, gpe, &status)))
++			return true;
++		if (!(status & ACPI_EVENT_FLAG_STATUS_SET) ||
++		    !(status & ACPI_EVENT_FLAG_ENABLE_SET))
++			continue;
++
++		pm_pr_dbg("ACPI _Ixx GPE 0x%02x status set\n", gpe);
++		if (acpi_dispatch_gpe(NULL, gpe) != ACPI_INTERRUPT_HANDLED)
++			return true;
++	}
++
++	return false;
++}
++
+ static bool sleep_no_lps0 __read_mostly;
+ module_param(sleep_no_lps0, bool, 0644);
+ MODULE_PARM_DESC(sleep_no_lps0, "Do not use the special LPS0 device interface");
 -- 
+2.34.1
 
-Thanks,
-Peter Chen
