@@ -1,102 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633600;
-	b=vV9GiJ15rlevqByeVy6CuGW19yG3CBgdtm1HsYRH84p956hk+XOebt28RSnXX5sXHjNZ
-	 Qjv3so9n3oLBt/94u3XtmVYxzB2hJygu3wrJnrWyoq/nwrqVJATbwiEl+xYoXsOR6tL4W
-	 EY8bsiewLhNuSNbBJVpgyVDhbVyVMmE0kIbCj/itYZuDQcFRjPr+R0bfGtRk34wD4EQ+n
-	 Qx2SEQVbH4XniAt8ELKZGf0x5Pr8fyrD5/6vSwyrlcN4+TQjJUks/8R/8BernFKvcczUQ
-	 0rf3WY+dmV933En7WwzMahW6Scb127xDzlVHJgokzSEqqELfJJ9qUKyp/zSevpIifdw==
+	t=1793633613;
+	b=NlrIXJAyUr/50kGm8yevz5E6e0qFXEBczsGocKTBlqEP/5HzkkleJSCKo4SOxyVOEDQn
+	 Hjig4mTitNQUHNvNaQXhfyjbdMLnbDaRKSSqFQkTGZmh9vwMju1uogZ/MG7/7nkze5VIr
+	 M7bAMo++xuPsjYpf65fOFeJJm8/sRi9T5v1RvmUUvgHhldZgrU5ZFf7X63fyCkdRcw7uM
+	 bUY04gaXvjBpte1+4ZfzpWrXvdlYzY2sDhe3xKO0wyOjj178hxEvf+PPL+hw4g1ohbewM
+	 ViOB1iqk8VTgjgJIKoWm6mQ+NRcyz3GKmVw7TKKtHuOspqECEhyjBJn+R3fp8Efm31w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633600;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=BQsaASFcwTR98Ua/j2/w7tivjnC0NUs/EPQM2iEIWxg=;
-	b=Oy3TvJZk79vZjcvXmFQahJnFiHrUzAqufVaunCwYtUdQTL6KKwIlDa28fhCebErCrIbr
-	 Qi61aiq7wuB7Z5CIcY+s7Mde33LAuUzUIFN3ffG2jAroWObVqx1KfMWXC/c5xk0vo5mP8
-	 NZzIUbQbGLzRoW2bRGKAPbD8Hf6N6QvK0USjBBWggzsnRDlQH2BVkXmaHdGwlARtiYsxv
-	 SGXbyGd5Efnk+vtF5VOiiwvje2DpP9YBmMwcXmfQgq0eERy2xpyDH0LGJSGEPhFR3e6Lj
-	 OV+Sqp5JdJFmyJrMR4FseUl6yCXCHJLNnCzkv/PZe6K0LTHFTGWrQ4GJWE3kVus26Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633613;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=smCWbQs6ukV3YVKhBc8urlrOvvFMyp5AAI6CWIylDvk=;
+	b=PsV0/REEmUwBqk6kOSNXw/jTMKu8/C/QI7WOzcUsVi/32mZi9uPPZcHFSE1P4/9cp6c3
+	 I7BEaBW3XCzBD3T2lwoaS/MJEm5V8vIkYyentxfVCSRI32coDsFYZ3aYIVlh1wAD7KllE
+	 Nj035NLU/Ks33jF9Bd58aSdXEuTjo7DxAHLvI3erVaGiICBeOyeNidsk2/U6RO8qLEaoO
+	 lo6PgSpmhjUqW+olHCQQNlZcuR4iM4jSmQfQaHiUUpCR8ySK7y7QEKKjU45oLbstKs0KU
+	 t2goyBg7BqoInAmR0Mh4Yi3MGxu6xPtK/AeAnRMFshfmCDsaKtSqgdBF8Gwo+gFB5ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=km0KRzyr;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbJSDJV0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C61608A354;
-	Mon,  2 Nov 2026 15:33:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6C61608A354
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E3F0E60DAF50;
+	Mon,  2 Nov 2026 15:33:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=km0KRzyr
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EEFDH3333621;
-	Mon, 2 Nov 2026 15:32:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=BQsaASFcwTR98Ua/j2/w7tivjnC0NU
-	s/EPQM2iEIWxg=; b=km0KRzyrvJCvYWGvdxZLIQtpVChnlJb09PzDpSMrjXB+y2
-	EiEtQfSUoklr4D7ZLh98AvH4myEMejuvNotugTEDk+hc9IH7sBGPC4XNbh+CkmJ0
-	+HzZAOHhqosaf7waExH3cFRGjqkQNjEd0VW5D8xQYNU0LzVZLt5HMxuwvff3/IMA
-	+ggupIXDvaRZDKuTLLD+rCJzOSj/A6/UD9excoqDFlPSHXeO2LkSAXr/cwZ77ksM
-	U09ej/4wKCOvha+VgMWDi+xIuMLlni3IjPdfdnlGlxcl+MezqxSHAKNIL2e7VSx/
-	D0jSPesAcXu/7UJmjIE5DJyVdWwxoxvrPRwtBKhQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7u39cp5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 15:32:35 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2Dp3k8932188;
-	Mon, 2 Nov 2026 15:32:34 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnunjxhmn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 15:32:34 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2FWUrY45220142
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 15:32:30 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3DAF120043;
-	Mon,  2 Nov 2026 15:32:30 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6387620040;
-	Mon,  2 Nov 2026 15:32:29 +0000 (GMT)
-Received: from osiris (unknown [9.87.153.156])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon,  2 Nov 2026 15:32:29 +0000 (GMT)
-Date: Mon, 2 Nov 2026 16:32:28 +0100
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
-        Huacai Chen <chenhuacai@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Paolo Bonzini <pbonzini@redhat.com>, Fuad Tabba <fuad.tabba@linux.dev>,
-        Joey Gouly <joey.gouly@arm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>, Nicholas Piggin <npiggin@gmail.com>,
-        Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        kvm@vger.kernel.org, loongarch@lists.linux.dev,
-        linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
-Subject: Re: [PATCH 1/7] KVM: s390: Drop unused and unreachable
- kvm_arch_vcpu_should_kick()
-Message-ID: <20261102153228.240804-H-seiden@linux.ibm.com>
-References: <20261028190259.1819571-1-seanjc@google.com>
- <20261028190259.1819571-2-seanjc@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbJSDJV0
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 94F3B1F00A16;
+	Mon,  2 Nov 2026 15:33:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793633612;
+	bh=smCWbQs6ukV3YVKhBc8urlrOvvFMyp5AAI6CWIylDvk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cbJSDJV0sJgMwWjfuXWHB3Y5W0YvW5Zk4tHJXF+csNtUtHz6TME8GVHLqZm0tvT4N
+	 Vvyyp3hU+5QXLgXxjqjhBCtyBZMHZsNAjirtnYclI5SjgChPg/G0LLZNeY3oVA6JfC
+	 vi3xj103MHtkJ+goSxxIdIWax7oVWysMIt4S0oPKLPnAcRO6jmk24r9cvnb/jCgmR1
+	 JnY8QhGdruVbSLiRLjH3AVKuYpjDhbxCobqeQpxz356RCr2Sx3FAaSOnIveKtCSayF
+	 MCMJQdlWiHpJJl2+gtSt7SKRCCUucqCgDNNRGGOmqAR0+r6dxBle+A6iNQ34BF+bkR
+	 AXxLF6ZyCX58Q==
+Date: Mon, 2 Nov 2026 16:33:28 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Linus Walleij <linusw@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Raag Jadav <raag.jadav@intel.com>, Junjie Cao <junjie.cao@linux.dev>, 
+	Runyu Xiao <runyu.xiao@seu.edu.cn>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
+	Peng Fan <peng.fan@nxp.com>, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Andy Shevchenko <andy@kernel.org>, Peter Tyser <ptyser@xes-inc.com>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, 
+	William Breathitt Gray <wbg@kernel.org>, Israel Cepeda <israel.a.cepeda.lopez@intel.com>, 
+	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Subject: Re: [PATCH v1 0/5] gpio: Move most of the Intel GPIO to the
+ dedicated folder
+Message-ID: <gxfngcnnkgkk5zrmsyrmqam6bk2ti2aflipwsutvce3dtgc7tv@nu3mmjfrt75u>
+References: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,73 +67,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261028190259.1819571-2-seanjc@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Zsp4uN7G c=1 sm=1 tr=0 ts=6ae8ad13 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1XWaLZrsAAAA:8
- a=e2WrUwKQfGWSWgw8ceQA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: TmxCuOpzq6vA5Vx27S-wl8VaUu08c3rl
-X-Proofpoint-GUID: KVXVtrhgD1GJzUOP0CvMGutz2Xg2IILr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX7bqvyy+G4IRi
- YuDNWW2rtZhIuWgYthjFwF9+9BvaQqjUd0NCjGgytPI2kgitQSqHnwzde0DvmKT5ekh2NyjS0Nq
- F9Z/Zdzj1pOgrZG2yR5VLS36NId8bM3pN7WDBUKOt9UCD+QFNKQAZu+Jyci2pVHVvCbSWlrBtzk
- 4AIduMbPdqh6wI13eR6unsEG4RU8A4ZAJXpBquIr8jswWYP5JT1UMzhOQVTUhyasVm3yKq19/37
- g8IQ6IsFUU0CmiqM7aH5od6K0UDK4Pufp7iAip5do5FEjWgMz0BL8a8ds/SYC3EFA4Du3R6hGdA
- 0zHdfqn6psBiKyEKCPFmlpIxWnmBKc5C9d6tL8dsAaGzrFS280m4gYPAHt09nU+p77BxB+4etoO
- zPcjuUT7rpSjV4uYvQkRwMMejfxArhysp1beSjd8DEChKl+d8KSwLwvy9Sujp9ZrxPVJILSraLV
- unHwMnZGlBbuYsnY1Xg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfXzMWFCRCaICBW
- YVdaYUPRVlAbXrli6ZNZR2sTDTrenRk6sxAut1SiSIk+5dhzpZRcRftKd34+qSoKLUq5b5QITXp
- q7EjnwMhcLT8GbXDC7vsw0JN8N6I7PQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1011
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020060
+In-Reply-To: <20260925160913.1648565-1-andriy.shevchenko@linux.intel.com>
 
-On Wed, Oct 28, 2026 at 12:02:53PM -0700, Sean Christopherson wrote:
-> Drop s390's kvm_arch_vcpu_should_kick() stub as the one and only call site
-> is wrapped with "#ifndef CONFIG_S390".
+On Fri, Sep 25, 2026 at 05:57:02PM +0200, Andy Shevchenko wrote:
+> For the easier maintenance and future development move most of Intel GPIO
+> drivers to the dedicated 'intel' folder. For now it only covers the drivers
+> I maintain (as per record in the MAINTAINERS).
+> 
 
-In the somehow near future I'll remove those #ifdefs and use the kick
-stuff for kvm_arm64. The native s390 KVM then must at least keep an
-(unused) symbol at hand. It seems that the compiler could not optimize
-those calls away. So let's keep it there so I do not have to re-add it
-soon.
+I wanted to apply this in order to see how the menuconfig looks like
+with it but it doesn't apply neither to next/master nor v7.4-rc1.
 
-	Steffen
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  arch/s390/kvm/s390/s390.c | 7 -------
->  1 file changed, 7 deletions(-)
-> 
-> diff --git a/arch/s390/kvm/s390/s390.c b/arch/s390/kvm/s390/s390.c
-> index 18fb200f854a..9900a1a1c148 100644
-> --- a/arch/s390/kvm/s390/s390.c
-> +++ b/arch/s390/kvm/s390/s390.c
-> @@ -3922,13 +3922,6 @@ bool kvm_arch_no_poll(struct kvm_vcpu *vcpu)
->  	return false;
->  }
->  
-> -int kvm_arch_vcpu_should_kick(struct kvm_vcpu *vcpu)
-> -{
-> -	/* kvm common code refers to this, but never calls it */
-> -	BUG();
-> -	return 0;
-> -}
-> -
->  static int kvm_arch_vcpu_ioctl_get_one_reg(struct kvm_vcpu *vcpu,
->  					   struct kvm_one_reg *reg)
->  {
-> -- 
-> 2.56.0.313.g2479322e68-goog
-> 
+Bart
