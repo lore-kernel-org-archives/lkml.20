@@ -1,74 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793581875;
-	b=iHoUZ27TcCYw7C2ZqfJsYjflp6DAfY325DvvNB5gB/tsH6bO/QwN/SZ1q6eTgD2Kb6df
-	 U2TGywD38x2ABZqmXkWp/IQydte6a5iya53UW+qlt/+p+9T0IIYf2iXRDPXpKnQfeRSyY
-	 nJPobqQ7jGk5P4tDsZJfjOfQMCu4gEMkUWI03CASNlMDeZiJwpEys/+2BERagaDVg2CZq
-	 m1DwaMQ9ut3rCU/en0s6JIxHv1Lsafm7BaHyKoi8Ng1nnXXS3x/dlJa2e90KbIQYI6Pik
-	 4KIFuHu0Gvnm9LiSWHUqZIvlPPr74XvR/MJzOstdhCIyOuyL/9anH28+EBRbdvMzwHg==
+	t=1793581898;
+	b=hZGzuWffSITAA/SdneMv/c0MSP/OM0eMVmmpNXhK4gBQ1HSPpedP+8MlphN36pCE2/Ry
+	 h6a6e3GHxDFcjxfEzoz/1lnGzguMj179XI5lR8fijJOI6EA2/CDMfyo2EW6ERiKSLjQql
+	 glkWt9fO2rqtzwQ1aqgADqY72eelLjHizOlKmOO9n6HdoQrHRh/LjZ3v1qyDj7igwAKE4
+	 /Y5bgxBJMKTToWMSuieia6neTDTA7fCXvjFP9mmxfqgpL2IXdW04QhTuOfe89HpO3ZYYV
+	 Y4+Mye8HB3JAIKTdjzVfxUNm1TXGrhFXCSt/fOpHi38T7UnqE2aA3RX8s1Fna7eGSLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793581875;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=Y+k8hpGVYeUwOEv0Jo/0a23XJqN/6/6dhP4pk6TCZDk=;
-	b=JJV/SW28SN1PYm3CFPD3GQwP/7qSohJCtPWtZaHRC+3uV//qo3fhsKO9EHdmFP1Vt8Eh
-	 1fXb65CrZsJMWWvsVuZYVQYHMmUbdeVQu3SXcMsUBmhU5UlkjQ27Q21xmkFaIfAYjw1Zo
-	 Ig9IPWO2fjPzREbJMADXPlC/MewL8CTpt++ToKsXLM/2hJKrptyVf4tqKVYPFTokajw1E
-	 lP26kqKBbz6XH60Isy1k00GjC4r3r6UMwy5voiH6SyyPu6lxlx3yW5x7CPUB0ANedaSQJ
-	 5yxKgoFskbiCkkdYa9YD6Ma2fhgvKTzxAzh7CUveaW6tkC4e4YGhItMWgCsoOOU30UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793581898;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Rcwix2uwEWKi7035aDG+amqfMVRyuFKx2q048RQMB3c=;
+	b=LbFvWZy4Bacfq7U9HXN8MKSXC5J1l0TA5hkHnd75WUSO3Zc5mE3PN8M+MdSKmKAmDJpu
+	 06pBZbOAXVvU5a5ge9I/eNsxNTT/8PZ1ab6133gVhXTYms0e2VsDoGoHGAXvVjx8GI34o
+	 pYlTgqyGfmNknSO0AnXiEoNZexkcJ6tS1PyxtlPzOYkkZH+Mo0bEBPyfmD9MMzU0XJRDP
+	 S9siSnAX22DaDmbye5OIKpgsvhqwUhZ5k1MC6DhZ5GiiNDvuPWl1tT2+9TSOsPoAhkGsz
+	 Wqe+/2cnjPy98r6tro9g2WGv2oeR+2IUHDiqYdQNISRG9YPPfbCszegA96S3SxqPIaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aocOD7WN;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b="0/4lWtGA";
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12010606A326;
-	Mon,  2 Nov 2026 01:11:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12010606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B669606A324;
+	Mon,  2 Nov 2026 01:11:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B669606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aocOD7WN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793581873; x=1825117873;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=tCMvJzsRcFSMuMigcng7Q379fcSk3XClTExLzr1/g40=;
-  b=aocOD7WNuVReGodsdQd0GARDb6mXP61poR+DKNX0oNeIHlziCJwvWWwT
-   /2uLwTG4O0U/gvDRleb8soSVaIR71zwvIJSi7DtDg2N2bPzIlADxRGkwo
-   ZeBT6yyX3VHgAFwHulTO/vG2LwnvBFvFH054S8wgDV/mroSk3vhS2XaJJ
-   eikz8u87XOISDYTtIUlNP30LOnODnEhm+lboZY0PKZl2rtzzsHxbfQLYV
-   zEjenIhJ+xNgsJwXpB0GFmodyvUtDRbZiUytUA5TjAFqOGmsD7l4T31mv
-   dZLZSyWCnlzINAEj1U1OWwV+2msnv+V1F6q5iSpLURECpnIyY9Cb3hQWw
-   g==;
-X-CSE-ConnectionGUID: FOwEwAPoRH6d7cV2frv5lw==
-X-CSE-MsgGUID: gSoI7HMsRIKSYu7vpzYbBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2142336"
-X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
-   d="scan'208";a="2142336"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 17:11:12 -0800
-X-CSE-ConnectionGUID: qhj4lhiPQ5uRQLjUNkT4aw==
-X-CSE-MsgGUID: WMBZaa0TTNerH5kGH8hJog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
-   d="scan'208";a="7747426"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 17:11:09 -0800
-Date: Mon, 2 Nov 2026 09:11:06 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Miklos Szeredi <mszeredi@redhat.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: [linus:master] [ovl]  a518e63c37:
- kselftests.filesystems/fscontext_ns.fscontext_ns_test.fscontext_ns.overlay.create_from_descendant_userns.fail
-Message-ID: <202611020115.2281e158-lkp@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0/4lWtGA
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Rcwix2uwEWKi7035aDG+amqfMVRyuFKx2q048RQMB3c=; b=0/4lWtGAM1ZgkRyu9eUa46Ex7I
+	1F3RO1pfEwk9FGgEG3y40hILMDHAzmjjFloJY/FIlLfa5XzqJra3K8P0QwJZdV24R1d1gClKRe2rC
+	o5WTvX+FTtCngvvbgBKD41qu2nU75HEqU1efGHsXW7G+w0FWHS6gHqgWSzlcg+v8M46o=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xNgZr-00DiR9-NI; Mon, 02 Nov 2026 02:11:11 +0100
+Date: Mon, 2 Nov 2026 02:11:11 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/7] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
+Message-ID: <f8da1842-bdc0-4bf7-8f15-46b57a9eedc9@lunn.ch>
+References: <20261022200640.3101932-1-tanure@linux.com>
+ <20261022200640.3101932-3-tanure@linux.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,67 +79,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261022200640.3101932-3-tanure@linux.com>
 
+> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.yaml.
+> +        # The RX delay line of this glue is fine tuning in 200ps steps,
+> +        # added on top of what phy-mode describes. The TX side has no fine
+> +        # tuning: its only step is a quarter of the clock period, the full
+> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
+> +        tx-internal-delay-ps: false
+> +
+> +        rx-internal-delay-ps:
+> +          enum: [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000,
+> +                 2200, 2400, 2600, 2800, 3000]
 
+This is good, thanks.
 
-Hello,
+> +
+> +        amlogic,tx-delay-ns: false
+> +        amlogic,rx-delay-ns: false
 
-kernel test robot noticed "kselftests.filesystems/fscontext_ns.fscontext_ns_test.fscontext_ns.overlay.create_from_descendant_userns.fail" on:
+Maybe add a comment that these are deprecated in new SoCs favour of
+the standard {rx|tx}-internal-delay-ps properties.
 
-commit: a518e63c377574784f49653ef5314c70e2463b0c ("ovl: return EINVAL instead of EIO in case of mismatched user_ns")
-https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-
-[test failed on linux-next/master 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c]
-
-in testcase: kselftests
-version: kselftests-x86_64-24a19b953e2a-1_20261012
-with following parameters:
-
-	group: filesystems
-
-config: x86_64-rhel-9.4-kselftests
-compiler: gcc-14
-test machine: 16 threads Intel(R) Core(TM) i7-13620H (Raptor Lake) with 32G memory
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611020115.2281e158-lkp@intel.com
-
-
-026-10-30 20:02:04 make -j16 TARGETS=filesystems/fscontext_ns run_tests
-gcc -Wall -O0 -g -isystem /usr/src/perf_selftests-x86_64-rhel-9.4-kselftests-a518e63c377574784f49653ef5314c70e2463b0c/usr/include -isystem /usr/src/perf_selftests-x86_64-rhel-9.4-kselftests-a518e63c377574784f49653ef5314c70e2463b0c/tools/testing/selftests/../../../tools/include/uapi -D_GNU_SOURCE= -I/usr/src/perf_selftests-x86_64-rhel-9.4-kselftests-a518e63c377574784f49653ef5314c70e2463b0c/tools/testing/selftests/../../../tools/testing/selftests  -o /usr/src/perf_selftests-x86_64-rhel-9.4-kselftests-a518e63c377574784f49653ef5314c70e2463b0c/tools/testing/selftests/filesystems/fscontext_ns/fscontext_ns_test fscontext_ns_test.c ../utils.c -lcap
-# timeout set to 300
-# selftests: filesystems/fscontext_ns: fscontext_ns_test
-# TAP version 13
-# 1..3
-# # Starting 3 tests from 3 test cases.
-# #  RUN           global.create_from_same_userns ...
-# #            OK  global.create_from_same_userns
-# ok 1 global.create_from_same_userns
-# #  RUN           fscontext_ns.binfmt_misc.create_from_descendant_userns ...
-# # fscontext_ns_test.c:215:create_from_descendant_userns:TAINT_WARN already set, not checking for a new warning
-# #            OK  fscontext_ns.binfmt_misc.create_from_descendant_userns
-# ok 2 fscontext_ns.binfmt_misc.create_from_descendant_userns
-# #  RUN           fscontext_ns.overlay.create_from_descendant_userns ...
-# # fscontext_ns_test.c:208:create_from_descendant_userns:Expected variant->expected_errno (5) == errno (22)
-# # create_from_descendant_userns: Test terminated by assertion
-# #          FAIL  fscontext_ns.overlay.create_from_descendant_userns
-# not ok 3 fscontext_ns.overlay.create_from_descendant_userns
-# # FAILED: 2 / 3 tests passed.
-# # Totals: pass:2 fail:1 xfail:0 xpass:0 skip:0 error:0
-not ok 1 selftests: filesystems/fscontext_ns: fscontext_ns_test # exit=1
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261102/202611020115.2281e158-lkp@intel.com
-
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+    Andrew
 
