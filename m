@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793655325;
-	b=1mVM5vigdtFVmPImOOj2M11q1znPUNFUDWcW2N3VROVg/vet5g4AaPGniYfmL2fQIgxu
-	 /cjJ0qV0BBjajD6XlzXHSPrW9CDXCxF6WeIgvFQoj4x7URTy3W7g531li75o71D7/+9bh
-	 NuQu6QC+OtRR/KnPNRK6P1JD212eH+M3EOU5ofV6nQGhCjLfeTkrvTK+K4No7m5zk/ARw
-	 q8zIcwnrwOq1F3DaKPI1pE8vDWqrwgRZ83VgPFIRZC3VHTpqmhoIS+1bJZ9R0yxl7xv9Y
-	 nsrFta/eZ1XmZXgVuIwYgMAIQrppe68PAJGYLRmTdmNPvutbViGTaIUNgtN6QjGxPgQ==
+	t=1793655328;
+	b=c1uFpggwq6dUH3SyWKls7Y7lbtIJi9A6QX6DmuIR8AMJnAy0ibecmmt1Q1kZ4RJZ1JhL
+	 TX92AULWf4mEYKd/8EwuvMPej+c18ZpXPS7T9dX3eK6N8F5/9VIeNfwuy82a07g/WL44/
+	 ErrCR4flARvVU4bDgi0JkNy5o9FTp411ZUymRw3b9dRUfJFbKzBujoOPfvyvHHvKx9jKU
+	 V6/xcn2B4U7zNwC/Zzl6pQz68GUHLmBR9kGFH6EJo29ywAWeoF4/81lDvsF/OO+hiFJLU
+	 JcB8xvYurx+9f6Ih/adwkdWZmjIztOOIhAq2NgyeYds75o0QUDF7Vmc4O1O73/8khOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655325;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655328;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=p7L8EeHoJJ6a6twYhlPG73o0InImnBwcD/4WxplVNu4=;
-	b=hpnHzwy5zqvLZqFN7srQ0FEB60GeV0bcN8BM7wgCBXxpHyoOA4ELSDwErvo+9MfxvnMR
-	 hvPArRGSuXgBCaTyqF4GVGS4FqyOyKjcdTxxTcMBK4i7ZilXv0FuDrkZDDhH4hKpeu+nC
-	 1p9ANVIpLKd3Q8f4kOt3zRVshrnGibQvjVahPBSZTuX7dUaodEJJd2CxBNOOM3nprihD+
-	 FYiEUakXwzUP+CbGYVgctG1IRYnHvOvRFHJy3UgzXLwyZU/RVyjXdPBgxLhK1dcrsjZko
-	 M2OVGk00Kc6mWlQuAn3DXWP/XqailqT019b4qwtiUg+CcHy7ZsCLVkzG1NOxCPyOWxQ==
+	bh=Df1OCOo3/ZQGa3fH6XCHgfxD8+toxxag0Zm0KuDw2/I=;
+	b=YmQb9/x8mudx2P1xxX3wKWppjiCpdSi01gA/3D4H6S80lFRc3BwSk+sWDGQeI440upiG
+	 77V430Y9SbThC+A+9TuClUoo5VTSn4pwVzRRp1IMrvuXJnLNGs7NNaLWbEEllpB7KLzm7
+	 +zfuv77WvO+ObR4ExfvwKfOo40wHOxnwpqH3t05SvLdw0uYsfmcVVyJLEOIs6VS1IVo4U
+	 WA1KWk2Su1TfQ1ZuSMr9eCI6MefDbmbtDaDUW9O0Oc2uQkn2ZmUnoTMnXqxmfJANcVcxh
+	 KTgLMDUET5/iVmnQHZ1nslrkefXybo5J2OQNBikKTWQ0LjozquSDXB1X6/3KLKchP5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=acm.org;
 	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=oXNzFG31;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=FMRwonuJ;
 	arc=none smtp.remote-ip=199.89.1.14
 Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D89606D836
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:35:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84D89606D836
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA1D606EE8A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:35:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CA1D606EE8A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=oXNzFG31
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=FMRwonuJ
 Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJQ3d1sfMz1XLkpH;
-	Mon,  2 Nov 2026 21:35:25 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJQ3g5d37z1XLksY;
+	Mon,  2 Nov 2026 21:35:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
 	content-transfer-encoding:mime-version:references:in-reply-to
 	:x-mailer:message-id:date:date:subject:subject:from:from
-	:received:received; s=mr01; t=1793655321; x=1796247322; bh=p7L8E
-	eHoJJ6a6twYhlPG73o0InImnBwcD/4WxplVNu4=; b=oXNzFG31mvf1TNa25kcdv
-	SScvs41YbdWnQBSNg25zwHjeivpCsiQPL5WI7sNwg7fi2uQmXn6gumg21CODlW7g
-	l3IZy9Ul97XvFBJ1LT5fgn3D2SFA95ECOJyzxqTNydL3u1rVLV0WidImBLg1x8jO
-	WC9+72ycpyQTCjbtbmXISNOogVWsGGVZSx++6KxCXVjCH33Lg7tekF3lCnl+HJyc
-	ZpSs/LADll53ULl/9SEoYOWk7QYXzoiXdf52wRfBPoFeUTZ3Q3ca5gIejvv1oHr2
-	zb/MkSEbK9R/mZFAgg7z4kny/Wp+1FFLPQEhCjH8KKupdkVD/5Wwg+A5XzScTk6x
-	A==
+	:received:received; s=mr01; t=1793655321; x=1796247322; bh=Df1OC
+	Oo3/ZQGa3fH6XCHgfxD8+toxxag0Zm0KuDw2/I=; b=FMRwonuJI+DGKIAyU/X+t
+	IZHUjEEPA5gjpWI39peKHisHjJCvaT2aiNBMDdGe9mbgGN2lCIP/S98vZwz6TPWP
+	7icIqhvLo+yketwDYQdH0CfsPzDZ508QwJAJN6V+uTPhbbggBfSRWcDJ1RFkTUIj
+	CSazutEPA1WVVaRP8QqYUkaXEJJECVZfhC8UNYAxNNFGchRg3B8xWTqj2OF22JXO
+	qOwYx8WM1X2KH+OLPUDoWw5kx0B3d3wgxm2Rbnn7JZDM1fD30cnxYcluIx4f/99l
+	DdXOWbl4zagJc0cUx7bd23EgGuqA4DdvHWkmwhfcIyZFUlGroXSOzr8nxbOb5ggl
+	w==
 X-Virus-Scanned: by MailRoute
 Received: from 011.lax.mailroute.net ([127.0.0.1])
  by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id Q5lQShYvacNW; Mon,  2 Nov 2026 21:35:21 +0000 (UTC)
+ id TuqWvsEW6go1; Mon,  2 Nov 2026 21:35:21 +0000 (UTC)
 Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJQ3X6rNCz1XLksM;
-	Mon,  2 Nov 2026 21:35:20 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJQ3W65Lpz1XLksL;
+	Mon,  2 Nov 2026 21:35:19 +0000 (UTC)
 From: Bart Van Assche <bvanassche@acm.org>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -68,11 +68,13 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	Marco Elver <elver@google.com>,
 	"Paul E . McKenney" <paulmck@kernel.org>,
 	Bart Van Assche <bvanassche@acm.org>,
-	Thomas Gleixner <tglx@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
 	Nathan Chancellor <nathan@kernel.org>
-Subject: [PATCH 05/14] futex: Annotate __attach_to_pi_owner() and fixup_pi_*owner()
-Date: Mon,  2 Nov 2026 13:34:35 -0800
-Message-ID: <589a735a8b917f1e55226dad5ab57a6fb7c2ee37.1793654853.git.bvanassche@acm.org>
+Subject: [PATCH 04/14] srcu: Remove check from srcu_dereference_check()
+Date: Mon,  2 Nov 2026 13:34:34 -0800
+Message-ID: <5b3ecec8c995f0aac99f9f6b361027dabe01cb7f.1793654853.git.bvanassche@acm.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <cover.1793654853.git.bvanassche@acm.org>
 References: <cover.1793654853.git.bvanassche@acm.org>
@@ -87,75 +89,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-Annotate __attach_to_pi_owner() with __must_hold(&p->pi_lock) and
-annotate fixup_pi_state_owner() and fixup_pi_owner() with
-__must_hold(q->lock_ptr).
+Users of srcu_dereference_check() must either hold an SRCU reader lock
+or satisfy the lockdep condition 'c', e.g. by holding the update-side
+lock. However, srcu_dereference_check() calls
+__srcu_read_lock_must_hold(), which tells the Clang context analyzer
+that the SRCU reader lock must be held. That requirement is too strict
+for update-side callers. Hence, remove the __srcu_read_lock_must_hold()
+call from srcu_dereference_check() while keeping the fake RCU acquire
+and release around __rcu_dereference_check(). Retain the runtime lockdep
+check in srcu_dereference_check().
 
-__attach_to_pi_owner() modifies p->futex.pi_state_list and attaches a
-new pi_state to owner task p, which requires holding p->pi_lock.
-Enforce this requirement at compile time with __must_hold(&p->pi_lock).
+srcu_dereference() and srcu_dereference_notrace() do not accept a
+lockdep condition and hence may only be used by SRCU readers. Call
+__srcu_read_lock_must_hold() from these macros such that Clang context
+analysis keeps verifying at compile time that their callers hold the
+SRCU reader lock.
 
-__fixup_pi_state_owner() requires holding q->lock_ptr. Its caller
-fixup_pi_state_owner() and outer caller fixup_pi_owner() must both be
-called with the hash bucket lock held. Currently,
-lockdep_assert_held(q->lock_ptr) in fixup_pi_state_owner() implicitly
-assumes lock ownership for Clang context analysis. Prepare for removing
-the context assumption from lockdep_assert_held() by annotating both
-fixup_pi_state_owner() and fixup_pi_owner() with
-__must_hold(q->lock_ptr).
-
+Cc: Marco Elver <elver@google.com>
+Fixes: f0b7ce22d718 ("srcu: Support Clang's context analysis")
 Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 ---
- kernel/futex/futex.h | 3 ++-
- kernel/futex/pi.c    | 3 +++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ include/linux/srcu.h | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/futex/futex.h b/kernel/futex/futex.h
-index f00f0863ed44..3e162837e9d2 100644
---- a/kernel/futex/futex.h
-+++ b/kernel/futex/futex.h
-@@ -394,7 +394,8 @@ extern int futex_lock_pi_atomic(u32 __user *uaddr, st=
-ruct futex_hash_bucket *hb,
- extern int refill_pi_state_cache(void);
- extern void get_pi_state(struct futex_pi_state *pi_state);
- extern void put_pi_state(struct futex_pi_state *pi_state);
--extern int fixup_pi_owner(u32 __user *uaddr, struct futex_q *q, int lock=
-ed);
-+extern int fixup_pi_owner(u32 __user *uaddr, struct futex_q *q, int lock=
-ed)
-+	__must_hold(q->lock_ptr);
-=20
- /*
-  * Express the locking dependencies for lockdep:
-diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
-index 98f1b962e59a..e0310776b484 100644
---- a/kernel/futex/pi.c
-+++ b/kernel/futex/pi.c
-@@ -420,6 +420,7 @@ static int handle_exit_race(u32 __user *uaddr, u32 uv=
-al)
-=20
- static void __attach_to_pi_owner(struct task_struct *p, union futex_key =
-*key,
- 				 struct futex_pi_state **ps)
-+	__must_hold(&p->pi_lock)
- {
- 	/*
- 	 * No existing pi state. First waiter. [2]
-@@ -912,6 +913,7 @@ static int __fixup_pi_state_owner(u32 __user *uaddr, =
-struct futex_q *q,
-=20
- static int fixup_pi_state_owner(u32 __user *uaddr, struct futex_q *q,
- 				struct task_struct *argowner)
-+	__must_hold(q->lock_ptr)
- {
- 	struct futex_pi_state *pi_state =3D q->pi_state;
- 	int ret;
-@@ -940,6 +942,7 @@ static int fixup_pi_state_owner(u32 __user *uaddr, st=
-ruct futex_q *q,
-  *  - <0 - on error (-EFAULT)
+diff --git a/include/linux/srcu.h b/include/linux/srcu.h
+index 1a8a465a5650..e72d2e1dfd82 100644
+--- a/include/linux/srcu.h
++++ b/include/linux/srcu.h
+@@ -242,8 +242,11 @@ static inline int srcu_read_lock_held(const struct s=
+rcu_struct *ssp)
+  * No-op helper to denote that ssp must be held. Because SRCU-protected =
+pointers
+  * should still be marked with __rcu_guarded, and we do not want to mark=
+ them
+  * with __guarded_by(ssp) as it would complicate annotations for writers=
+, we
+- * choose the following strategy: srcu_dereference_check() calls this he=
+lper
+- * that checks that the passed ssp is held, and then fake-acquires 'RCU'=
+.
++ * choose the following strategy: srcu_dereference() and
++ * srcu_dereference_notrace() call this helper that checks that the pass=
+ed ssp
++ * is held, and srcu_dereference_check() fake-acquires 'RCU'.
++ * srcu_dereference_check() does not call this helper because its caller=
+s may
++ * satisfy the condition @c instead of holding ssp, e.g. on the update s=
+ide.
   */
- int fixup_pi_owner(u32 __user *uaddr, struct futex_q *q, int locked)
-+	__must_hold(q->lock_ptr)
- {
- 	if (locked) {
- 		/*
+ static inline void __srcu_read_lock_must_hold(const struct srcu_struct *=
+ssp) __must_hold_shared(ssp) { }
+=20
+@@ -261,7 +264,6 @@ static inline void __srcu_read_lock_must_hold(const s=
+truct srcu_struct *ssp) __m
+  */
+ #define srcu_dereference_check(p, ssp, c)					\
+ ({										\
+-	__srcu_read_lock_must_hold(ssp);					\
+ 	__acquire_shared_ctx_lock(RCU);					\
+ 	__auto_type __v =3D __rcu_dereference_check((p), __UNIQUE_ID(rcu),	\
+ 				(c) || srcu_read_lock_held(ssp), __rcu);	\
+@@ -279,7 +281,11 @@ static inline void __srcu_read_lock_must_hold(const =
+struct srcu_struct *ssp) __m
+  * is enabled, invoking this outside of an RCU read-side critical
+  * section will result in an RCU-lockdep splat.
+  */
+-#define srcu_dereference(p, ssp) srcu_dereference_check((p), (ssp), 0)
++#define srcu_dereference(p, ssp)					\
++({									\
++	__srcu_read_lock_must_hold(ssp);				\
++	srcu_dereference_check((p), (ssp), 0);				\
++})
+=20
+ /**
+  * srcu_dereference_notrace - no tracing and no lockdep calls from here
+@@ -287,7 +293,11 @@ static inline void __srcu_read_lock_must_hold(const =
+struct srcu_struct *ssp) __m
+  * @ssp: pointer to the srcu_struct, which is used to check that we
+  *	really are in an SRCU read-side critical section.
+  */
+-#define srcu_dereference_notrace(p, ssp) srcu_dereference_check((p), (ss=
+p), 1)
++#define srcu_dereference_notrace(p, ssp)				\
++({									\
++	__srcu_read_lock_must_hold(ssp);				\
++	srcu_dereference_check((p), (ssp), 1);				\
++})
+=20
+ /**
+  * srcu_read_lock - register a new reader for an SRCU-protected structur=
+e.
