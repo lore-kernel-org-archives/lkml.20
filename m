@@ -1,69 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638490;
-	b=ZNjO0aZUjoHLgRFKFSEtBSr021gmNmjovzxxqLRPw1xvTxMs8DLgoApkW36Qzn5qa5eb
-	 OsCYmau5YiRejTbnBT+gIZeFA9nxYQ5XFtsvyD4NlI9pxxLuZkcC0SQ+B37AiY/DcB7RG
-	 ZVf0AOgqCtn1SXSZMFbuYTHVcM+fuUMQ8Xv9JytuiGFB1J3Cp+WKMBw+XwlGc35E/3ktL
-	 cDTrZKI5Id3fg//DuoVTVadMgiX6x6Ft/j84WQZXA1nth0AIKst6qQetogUY/nOpSBrV4
-	 Li2rfrlEnAxzJT1KTskw/m44SLmNY9m13k6yb3d18wfM6lQsYpMYw3NACSFA0iaIhVQ==
+	t=1793638546;
+	b=t+5EK5qwTlHZIsWwH/o9GWcuf2yDAIlT7ZtmFwiFWiH5hJriy1iMKpZZc0svYqjeY7ZZ
+	 sMHkVG+MzeavBGhkQtla/0ACEphbKrNvSfoBUwbn8pQYSbdSPyTfapfReo35dFGGdBpzP
+	 gY5wukb/3zxeGqpjwlTnR5ygWTJeaiyEiUK54Z77mt1ppy65dE+fLilpqvaovXNSyAc3N
+	 E0PHwIwvHu7dI3U7Yfswbim3LVdGHqMBr12PNTu690cB4CnJ4MK0pGXwAZ79FpUjpPs3R
+	 tYoQUGVuPmryR/08GgMAeqfwZbLe2chATPW6ywkj9BoSehQ5IzODev8q8Afyu6eCezA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638490;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ymID8oqHCFAIWyYfqk6ucVD1Jsgmc6jMBtt8WzDyRFw=;
-	b=05Ix2MUN3B0Br75CVtgmFriDbwDB9+5Eyp0PHG7n1QHYfss8+73JkHwbIXjL3EhFcQnp
-	 hqifzhtrAgJ9qp8xnRsfK7qUHvGThUO6H7A/WOxxC/AwU0ItR6CbTLqW515NO5E/tqgOk
-	 4D+oVePAr68vBc39yUeiMSLz8edVt5Xy9Gwtq2ATphdGYseR3GaU2bFkGs9fQStiKleLu
-	 mLP+joKXMgIiWRMANmiCvkYqynExKAa/PrCwQOqXX86eihluXV/hcbBmiDa1Qp7rSsUNm
-	 +6bYz2YOLUcnQFRl9dbuV15UEcq2FwErSOybdpJHcrgqUs1hxslzv05iP9UgiJSX4gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638546;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=4RDMzPQ3Kc7Ayt29cgTuAx8lVc5b4/aAlpi/xEsU6A0=;
+	b=lloqvva2DMaGE/ge7l2Ylm2MYNRbd3Jg3mndL/v18uH9QDhkThPQzpKO0+ejQ9B+0JTF
+	 8yabGAX3H+82JnFAEslyNJvQ3kKsoP5FzErWP+9p0066ESAObN4tzpJCUsaEuoUsjTssh
+	 5fzoNjsEQg9I01VsPhA8HC3nqqH4yUYStm7N3NlSkShSuKpzw70EK1givL0H6OOkzkVGY
+	 00vi0DRHO0gYep5qgNkr2YYnTsYjJ1UX6bmKQZsGqjwrfBPPBhQecros1yyJsW3e1oi6U
+	 CNPg/pNd1Fk9c2B7Y6n5xTh0Z9UGpsqvwux98CHsvYbhL2/U/NzQvIc8+4yN+JywPPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CkMNFUcL;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 113436093D6A;
-	Mon,  2 Nov 2026 16:54:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 113436093D6A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U+WOEszz;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEA7606A582;
+	Mon,  2 Nov 2026 16:55:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAEA7606A582
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CkMNFUcL
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6DC3016F3;
-	Mon,  2 Nov 2026 08:54:46 -0800 (PST)
-Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 98CEA3F871;
-	Mon,  2 Nov 2026 08:54:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793638489; bh=eXLo4l00IuxcldPkqFxylRH7Wps8yF41ZAkJADgaRHA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CkMNFUcLyKKS7hFmChYHo7hyq6fTPx4zFHYNUemvl3FwrUGKiLuSknrczYGFwkSHd
-	 kLGyZ//v5qh4KUF7Tk0KhNKCc6WK+DYHpiO73M7NIY4xy8/xDfGqXF9KlgjwQRl0EP
-	 az4/kOSU9iShP6Gn8aHHc3YvDIiPm3pPbKEukSuI=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Salman Nabi <salman.nabi@arm.com>,
-	Vedashree Vidwans <vvidwans@nvidia.com>,
-	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-	Nirmoy Das <nirmoyd@nvidia.com>,
-	vsethi@nvidia.com,
-	Varun Wadekar <vwadekar@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v5 RESEND 6/6] firmware: smccc: lfa: add sysfs ABI documentation
-Date: Mon,  2 Nov 2026 17:54:20 +0100
-Message-ID: <20261102165421.3651202-7-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102165421.3651202-1-andre.przywara@arm.com>
-References: <20261102165421.3651202-1-andre.przywara@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U+WOEszz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793638546; x=1825174546;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=JXScI8WmnZi2CPPJHPNar6v2gK+emYwKGOG37t5KugI=;
+  b=U+WOEszz5zTnfl4ZJ5L5ffryYjiQjn6Jywipg8ipMErcmLRdWfYN9GDd
+   6zY8vtznhDH3a5eA4PSR11Jk+FMMqAjTu7esl3nANC81e58Wq8po2uKIi
+   sQIljR+VNm/NmBB6Y6vJYgAbsFcVl8gSTklUKC0SqlVqWOErD6IMkQXfX
+   2P/fqEsp8+NgIsCE/OARKjaK+kQnYcXxCIDTtraD1O9r6RZWu+1FWnevg
+   Z1aYREU5+inWakoLg7jNXKyo+v1M6fPrtv3HHfnr+qmlWlIMdV1owLB0M
+   ErnmsCwIgrf7TjZ1liV2ZIQ63//y+aHfI6hCeT213joNlDWYGWgz3W327
+   A==;
+X-CSE-ConnectionGUID: VGRkpjS/Rbqk+L3ItVEH7A==
+X-CSE-MsgGUID: gT4S/WMeQLyrhdOGyWkRPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2216569"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2216569"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 08:55:45 -0800
+X-CSE-ConnectionGUID: vXUXCuyvRGCIBpejotJQKQ==
+X-CSE-MsgGUID: FmajquUeRGSIy4yc7nvAmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6145309"
+Received: from spandruv-desk2.jf.intel.com ([10.24.80.14])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 08:55:45 -0800
+Message-ID: <84d712c6aa3df7df8fdb6cb85b85d720bdab5840.camel@linux.intel.com>
+Subject: Re: [PATCH v2 09/17] iio: hid-sensors: Discard
+ pm_runtime_put_autosuspend() return values
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Jonathan Cameron <jic23@kernel.org>, Brian Norris
+ <briannorris@chromium.org>
+Cc: Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, "Rafael J. Wysocki"	
+ <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ linux-pm@vger.kernel.org,  Andy Shevchenko	 <andy@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, 	linux-iio@vger.kernel.org, Andy
+ Shevchenko <andriy.shevchenko@intel.com>, 	linux-kernel@vger.kernel.org,
+ Jiri Kosina <jikos@kernel.org>
+Date: Mon, 02 Nov 2026 08:55:44 -0800
+In-Reply-To: <20261102015255.487bd1bd@jic23-hlaptop>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+		<20261021165858.v2.9.Idbac8a0f9ecdd345191130e256e8d881d991bfc7@changeid>
+	 <20261102015255.487bd1bd@jic23-hlaptop>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,128 +90,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Document the sysfs attribute files as exported by the LFA driver.
+On Mon, 2026-11-02 at 01:52 +0000, Jonathan Cameron wrote:
+> On Wed, 21 Oct 2026 16:57:10 -0700
+> Brian Norris <briannorris@chromium.org> wrote:
+>=20
+> > The hid-sensors driver propagates the return value of
+> > pm_runtime_put_autosuspend(), which is not particularly useful.
+> >=20
+> > Returning an error code from pm_runtime_put_autosuspend() merely
+> > means
+> > that it has not queued up a timer or work item to check whether or
+> > not
+> > the device can be suspended and there are many perfectly valid
+> > situations in which that can happen, like after writing "on" to the
+> > device's runtime PM "control" attribute in sysfs for one example.
+> >=20
+> > For this reason, modify this driver to simply discard the
+> > pm_runtime_put_autosuspend() return value.
+> >=20
+> > This will facilitate a planned change of the
+> > pm_runtime_put_autosuspend() return type to void in the future,
+> > similar
+> > to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put()
+> > return
+> > type to void").
+> >=20
+> > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> +CC the various hid-sensors maintainers.
+>=20
 
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
----
- Documentation/ABI/testing/sysfs-firmware-lfa | 106 +++++++++++++++++++
- 1 file changed, 106 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-firmware-lfa
+    Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-diff --git a/Documentation/ABI/testing/sysfs-firmware-lfa b/Documentation/ABI/testing/sysfs-firmware-lfa
-new file mode 100644
-index 0000000000000..4e93a1aea91f7
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-firmware-lfa
-@@ -0,0 +1,106 @@
-+What:		/sys/firmware/lfa
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		The Arm Live Firmware Activation (LFA) spec describes an
-+		interface between platform firmware (an agent) and any user
-+		on the non-secure side (like the Linux kernel) to activate
-+		pending firmware updates at runtime. The actual firmware
-+		update would be provided independently (out-of-band, or
-+		via any existing explicit firmware update mechanism), then,
-+		if supported, can be activated immediately, without rebooting
-+		the system.
-+		This directory contains one subdirectory for each of the LFA
-+		capable firmware components supported by the agent, identified
-+		by its UUID. Within each directory, the same set of sysfs files
-+		provides access to the properties and actions for this
-+		particular firmware component.
-+
-+What:		/sys/firmware/lfa/<UUID>/activate
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(WO) Write a boolean 'true' value to trigger the
-+		activation of that firmware component. An update must be
-+		pending for this to be successful.
-+
-+What:		/sys/firmware/lfa/<UUID>/activation_capable
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component is
-+		capable of being activated.
-+
-+What:		/sys/firmware/lfa/<UUID>/activation_pending
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component
-+		has an updated image ready to be activated.
-+
-+What:		/sys/firmware/lfa/<UUID>/auto_activate
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RW) Write a boolean 'true' value to allow this firmware
-+		component to be automatically activated once a new firmware
-+		update becomes available ("pending"). This depends on a working
-+		notification scheme, for instance via an ACPI notification
-+		or an interrupt to notify the kernel.
-+
-+What:		/sys/firmware/lfa/<UUID>/cancel
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(WO) Write a boolean 'true' value to cancel a recently
-+		triggered activation, if that has not finished yet.
-+
-+What:		/sys/firmware/lfa/<UUID>/cpu_rendezvous
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this component requires
-+		a CPU rendezvous in firmware to be activated. If true, this
-+		means all CPUs will enter the firmware during the activation
-+		process, so will not be able to execute kernel code or
-+		handle interrupts for a brief moment.
-+
-+What:		/sys/firmware/lfa/<UUID>/current_version
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) Shows the currently running version of that firmware
-+		component, as reported by the agent (if supported).
-+
-+What:		/sys/firmware/lfa/<UUID>/force_cpu_rendezvous
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RW) Write a boolean 'true' value to force whether the kernel
-+		will perform a CPU rendezvous during activation. This has no
-+		effect if the firmware already *requires* a CPU rendezvous.
-+		Firmware components might provide services to the kernel, at
-+		which point is might be unsafe to continue running the kernel
-+		while the activation is performed. Sending all CPUs into
-+		firmware provides the safest option for the kernel. If you know
-+		for certain that there are no services provides by that
-+		component or the firmware component can handle requests during
-+		the activation, you can write a 0 in here to avoid the brief
-+		kernel downtime.
-+
-+What:		/sys/firmware/lfa/<UUID>/may_reset_cpu
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) A boolean value to show whether this firmware component
-+		requires a CPU reset during the activation.
-+		Currently this type of firmware component is not supported by
-+		the kernel driver, as we cannot handle a CPU reset.
-+
-+What:		/sys/firmware/lfa/<UUID>/pending_version
-+Date:		May 2026
-+Contact:	Andre Przywara <andre.przywara@arm.com>
-+Description:
-+		(RO) Shows the version number of a pending firmware update
-+		image, as reported by the LFA agent (if supported).
-+		If not update image is provided, this returns zero bytes.
--- 
-2.43.0
 
+> Anyone remember why this does
+> pm_runtime_use_autosuspend(&st->pdev->dev);
+> in this code?
+>=20
+> That is unusual...=C2=A0 My immediate instinct is to
+> get rid of it, but maybe there is something subtle
+> going on.
+
+When reading sensor via raw interface, you need to power-up, read and
+power-down (This is done via runtime PM). To avoid repeating this
+sequence of power up and power down for consecutive fast reads, auto
+suspend is used. If there are reads with in 3 seconds, the sensor will
+keep power up.
+
+Thanks,
+Srinivas
+
+>=20
+> > ---
+> >=20
+> > Changes in v2:
+> > =C2=A0* Split iio patch into per-driver patches
+> >=20
+> > =C2=A0.../iio/common/hid-sensors/hid-sensor-trigger.c=C2=A0=C2=A0=C2=A0=
+ | 14 +++++-----
+> > ----
+> > =C2=A01 file changed, 5 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > index 60808e2430ca..d76a6d9f04f6 100644
+> > --- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > +++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > @@ -154,21 +154,17 @@ int hid_sensor_power_state(struct
+> > hid_sensor_common *st, bool state)
+> > =C2=A0{
+> > =C2=A0
+> > =C2=A0#ifdef CONFIG_PM
+> > -	int ret;
+> > -
+> > =C2=A0	if (atomic_add_unless(&st->runtime_pm_enable, 1, 1))
+> > =C2=A0		pm_runtime_enable(&st->pdev->dev);
+> > =C2=A0
+> > =C2=A0	if (state) {
+> > =C2=A0		atomic_inc(&st->user_requested_state);
+> > -		ret =3D pm_runtime_resume_and_get(&st->pdev->dev);
+> > -	} else {
+> > -		atomic_dec(&st->user_requested_state);
+> > -		pm_runtime_use_autosuspend(&st->pdev->dev);
+> > -		ret =3D pm_runtime_put_autosuspend(&st->pdev->dev);
+> > +		return pm_runtime_resume_and_get(&st->pdev->dev);
+> > =C2=A0	}
+> > -	if (ret < 0)
+> > -		return ret;
+> > +
+> > +	atomic_dec(&st->user_requested_state);
+> > +	pm_runtime_use_autosuspend(&st->pdev->dev);
+> This is odd enough to make me nervous even though the patch is
+> obviously a no-op change.
+>=20
+>=20
+> > +	pm_runtime_put_autosuspend(&st->pdev->dev);
+> > =C2=A0
+> > =C2=A0	return 0;
+> > =C2=A0#else
+>=20
