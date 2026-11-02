@@ -1,63 +1,42 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793581438;
-	b=zdrJFfvG8zVXAlkk+m+n9BTY9yAmdvOa55hpuD1Hq9zhrJz2qeudN8Ht8bNgcpqaukM3
-	 tj8rh0bQwIrHUfPGufp3NJ7hv/3YKBjt2wWZXmW5wWKPYu9Ufrh+sT2dXbSEQpJvlLv/n
-	 jz2dmqol9tsedi6+KAYJFocpPHpiOqgkyqreTZBl89WEg9vYpcmi6Ko3tcuqh1S/YShro
-	 RsvDLG//s8r4E1rMXvqFuIl09SGi3wjcUBOSrJif40O5kYXlSoGmTaLFR8REr9kbBYegQ
-	 8g3Wb8m5s0eH4cj1hxhryIgptG4yvuobTxaD15W4d66RbCUM1ifRXmzdicjitgeyp6g==
+	t=1793581568;
+	b=2R5FYrvh3irqXTr4nWPcVi20OLzd5ZyccLuT3r+D1P3FXKC4hiETlQ/gqsPQA46M5lWd
+	 IEEBQLSCZPnUegMx/G62/ZP0ud8Gncy2s8QqQhARPbqKcSAxRXzMQfWahSBu6hIiJrp7f
+	 F7dGi1WpMsYp75sKaFZqw5Xi6jtgnrAi/lNA94lj7sgj4bejLj9+ET5dGA/wUhoKB7eXv
+	 uU6E4J9HJkjZckfCi4F4oJY+4BAQDlFlgWCkq/a0J7Efe1Uk6/ISx0tXLlGy4BfyjVQOz
+	 nYCRRkazqHiaP6WcDSUWSiaHHnFXgR8Ic36OeT38nMCVxGKNMoHjdLFRQHW//ffkPlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793581438;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tiqvUFApBtrjWzOoPS6UoIbR2Mx+2HrDlZ832ZIExp4=;
-	b=xTebceZTdmOqlSGsLr1G+J6LJ9eFPvgt+v4GlUdnaFJ927d2jgZFLM6/m4dZ1GxcP02L
-	 mMgJw5UNePTLaDmGbPW7BBoR/YPBG+XZDGCbiBre7p3/JgTW9EOHJz59p6q+VBmQbgWU+
-	 nH0C8GZie4EjGvRuZ3ZMu0EI/g0dV6OCls9ODItIElffpo0CadafNGFA8oF2+1tVYLZ6s
-	 68qcWNI/Ov3Kuf0rTIwqUVfAfdBxsEKlE4sRF73h10Nrep8xaScU8EaAYeBF7/gYte7g6
-	 v2hUDWYznnsyIMMzgOCSNj1s8yZBI/oKwxP/+f5YkKsgh2EgjMDnrmh2HZWEBENL2LA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793581568;
+	h=DMARC-Filter:Received:Received:MIME-Version:Date:From:To:Cc:Subject:
+	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 X-HE-Tag:X-HE-Meta;
+	bh=Zo1UgpfExrdSaxdzBucFoa8Yd5E7v5UM/ya82JsqfeA=;
+	b=jkJ/uVu3ht3a8fMFc65Vp/PScCgq/BjDrKpJQ9+zx6zzuByXzx/iWqO+UosS7d0G8JP+
+	 l55/Ig352aaoZmh1M2iVOpjfQFwX90Ryf9WZxipenOguGxSdv/n0yoSH8p+tV2rbxtow4
+	 1xTnPQZyXaN7M5zJ/+jMdbY2LLxLpfVHBajnoop+TPLTAGMYWiBL7IOj7/d7xHPwBjZhV
+	 ksc2StxwDzW68/PfFrZXjV85617KOUXpbgjgAplJ6lbOyg+aIfsQF33mIwWe83py9lmXX
+	 vY7tcg8oBsgfW9BD9BtMc+TEb0q6p39Rf9kXxQAQifWjQFIiFx41h9IUpaYuYQ8SlRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RdjC8+Bw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E427E606A324;
-	Mon,  2 Nov 2026 01:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RdjC8+Bw
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E3DB21F000C1;
-	Mon,  2 Nov 2026 01:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793581437;
-	bh=tiqvUFApBtrjWzOoPS6UoIbR2Mx+2HrDlZ832ZIExp4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RdjC8+BwTm1JBgN1Klb5fYXv3qO1oaeEhpqPBFtg5K9GDz4z5DqRCkVAlW0E7jkXw
-	 4C3a+THsUUOT22Z+bS5APVIUyaQw1tLQIDzAG96FkubICVxINoUgZTtglG9UKdkrCX
-	 nMzc4iNzkVSZ6259eLH5rz5sQrkCM1SLOOCtnoZeQ5gyWYHp5WGWh57UCNEnEFAgXd
-	 Xbmad4CoI4PWbunFS4BeNEVCuReDNbEGxSAnznMqmOvFJwoKSSE9fSaB5HN0f0Ra1h
-	 nDr1Z6l+FNgwm6ZDpToM+sTYBzNFZ2yr+ogcIsTViun3O320BurhtuA6F07mw4cFga
-	 WNHUnleUdRpCg==
-Date: Mon, 2 Nov 2026 03:03:53 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:ASYMMETRIC KEYS" <linux-crypto@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v4 2/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <aufheZ9mR0rWqicW@kernel.org>
-References: <20261029232437.2581640-1-jarkko@kernel.org>
- <20261029232437.2581640-3-jarkko@kernel.org>
- <20261101232149.GC2689@quark>
- <aufTcqW-DTB9Ofai@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D28606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D28606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id 4831B80A80;
+	Mon,  2 Nov 2026 01:06:00 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf19.hostedemail.com (Postfix) with ESMTPA id 9932C20027;
+	Mon,  2 Nov 2026 01:05:58 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,34 +46,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aufTcqW-DTB9Ofai@kernel.org>
+Date: Sun, 01 Nov 2026 17:05:58 -0800
+From: Joe Perches <joe@perches.com>
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, Kees Cook <kees@kernel.org>,
+ driver-core@lists.linux.dev, Nicolas Palix <nicolas.palix@imag.fr>,
+ cocci@inria.fr
+Subject: Re: [resend PATCH] coccinelle: Add devm_kmalloc_objs conversion
+ script
+In-Reply-To: <1a6026c4-3e19-a1a9-e637-f1842172482b@inria.fr>
+References: <9b55b3e3269ef43ede64fff34f42121f7aa47979.camel@perches.com>
+ <1a6026c4-3e19-a1a9-e637-f1842172482b@inria.fr>
+Message-ID: <2556411d9bf65125cf5c1dfa37eb4454@perches.com>
+X-Sender: joe@perches.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 7ihqq8zu4wt8d6sc9oe61qzyiepq3q84
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 9932C20027
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+tSEqHxwg/Cl4Yi9FtrWtASKGJGfOSlM4=
+X-HE-Tag: 1793581558-879429
+X-HE-Meta: U2FsdGVkX1+hucxXj/E8FjYYuXOJBvbHv6o/KN2yNbo/Y3VW4ETf8+sBjAhSVgjcoGsIuO/mon1vo7oVd2Jq2FSoH475Wdou2uvoSsDfVVS1C86tQ1nJ6Rgq2YV3XelvlEkqjqQjT175PdsfEvZwd0iFuw1o6Q313ni2sgG91rX6RFUMtFvy/zi9pFZVbM5Z/QfUmPX10+sb7d5AayvPi6ENto98Sm9I0ebHQUN4x6JpX7yBH6MWKzU/PHltLT91Q+rT2s6hOfXDsgs6llyRs1zAqztN18GlF0gWLSRXPEtapS8zZuNKk2ZBdSGNITVvQf8F6xVKS6dyMP6wmLhfMQ==
 
-On Mon, Nov 02, 2026 at 02:04:07AM +0200, Jarkko Sakkinen wrote:
-> > The commit message should mention explicitly whether there are any
-> > userspace-visible behavior changes or not.
-> > 
-> > KEYCTL_READ now outputs in insertion order, not hash order, right?  And
-> > likewise for the search order of sibling keyrings.  Those differences
-> > should be fine, but they should be mentioned.  Any other changes?
+On 2026-11-01 15:51, Julia Lawall wrote:
+> On Sun, 1 Nov 2026, Joe Perches wrote:
 > 
-> Keyrings are prepended, keys are appended, and while linking a key a
-> match with type, description and domain retains its place.
+>> Like commit bdc5071d7f7b ("coccinelle: Add kmalloc_objs conversion 
+>> script")
+>> with commit 1c7bbaeed110 ("coccinelle: kmalloc_obj: Remove default 
+>> GFP_KERNEL arg")
+>> 
+>> Finds and converts sized devm_kmalloc-family of allocations into the 
+>> typed
+>> devm_kmalloc_obj-family of allocations.
 > 
-> Right now any other major changes don't come to mind but yeah that
-> can be broken down a bit.
+> Applied
+> 
+>> 
+>> Signed-off-by: Joe Perches <joe@perches.com>
+>> ---
+>> 
+>> Maybe this might be useful to run and apply just prior to some -rc1
+>> 
+>> This script would change more than 8000 instances in more than
+>> 5000 files in Linus' current master.
+>> 
+>> $ spatch -D patch --very-quiet --cocci-file 
+>> ./scripts/coccinelle/api/devm_kmalloc_objs.cocci \
+>>     --include-headers-for-types --all-includes --include-headers 
+>> --keep-comments \
+>>     -I ./arch/x86/include -I ./arch/x86/include/generated -I ./include 
+>> \
+>>     -I ./arch/x86/include/uapi -I ./arch/x86/include/generated/uapi -I 
+>> ./include/uapi \
+>>     -I ./include/generated/uapi --include 
+>> ./include/linux/compiler-version.h \
+>>     --include ./include/linux/kconfig.h .
+> 
+> I'm not sure that --include-headers-for-types is useful.  That is 
+> useful
+> when there is an expression metavariable that is required to have a
+> particular type.  I don't see that here.  I also got around 5000 
+> changes
+> in Linus's current master without using that argument.  I didn't try 
+> it,
+> but I think --no-includes would thus be fine.  --include-headers will 
+> get
+> the changes in the header files.
+> 
+> If the --keep comments argument is useful, it could be added to the
+> semantic patch, by putting #spatch --keep-comments at the top of the 
+> file.
 
-key_unlink(), keyring_clear(), keyring_revoke(), and keyring_gc() don't
-allocate memory.
+Ok. Whatever is appropriate.
 
-That is worth of mentioning too probably as it is in favor of this
-change.
-
-And because rhashtable_destroy() can sleep queue_rcu_work() is used
-instead of call_rcu().
-
-Hmm... and rhashtable_insert_fast() can cause transient -EBUSY, which
-is probably acceptable.
-
-Br, Jarkko
+I just copied the command line from the one that applied the commits 
+above.
