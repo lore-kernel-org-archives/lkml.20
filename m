@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618452;
-	b=rMUw7zJO423saQDDXc03iFxc1V4TvfQfiP/8PV9Pxvo0C/6VhlUjj1NNgmtNetikA5R8
-	 y7e4iQRr68W5LYo5IDX/FN2Ct1xXa74NNQycA3/rKeRl8dhEAkTMpLFaTIUeN01dpvBLz
-	 dMW/Atlhg6eTNW/0DHlbJosgMaJU1Q5u1OvnFHGr6/feQSdPHItvgx+EaIDNtkLFcxy1y
-	 h+YpNLoqyw8Hf4m8eNLoWLVJ5B4eCJ+7C2qPnsl2nlfSQAAtk50/+83Vgy2i3ipBz15PM
-	 9GsDkS2RaV5VGs0efuMxlX11n++gJthGcwltS07CfvnfKZ6ZeVPdJyNNhYBxn3JQduw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618452;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=C4RSG9f35lqL5fM1GInH2G1/IqD5FC34BaiDTKAoE9A=;
-	b=XyjW+6KfGsG23/iDEjlpWpB4CYehvS+FoAR0WYmcQqCXwSqN2E9gzVa1ree5UanI72Ay
-	 +WkuYyMQPtJqJUnJKyA81YK3wm6UldMjH3w3lviCQL69xkgHx6Ituh0WwJljsh8iYRgoo
-	 mksDplASVrw2jPLzz03+JFSEnvm5bFeECfAMCxjdHH1SlbvCgormxxKLp7FOccgesmo6q
-	 FyR/+nilD05rAfHJFZMAFrVhRCc9MJFrrhlrP0Sd8VUUUt4b0Imq2Qit5j+3paawvfcRH
-	 bJfQX9rdK7XqqkQkGBq8Wwo1fmBVzUBJCFV0cwI5neKg42xps6gMOnr/z54L/j7Ev+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qMTcSsiF;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793618457;
+	b=vLKJNlZ/4Rnbpcsno0fa53W1L/hateao9FIzxZRRH/hKMckgMdkJrckTbDMMDkthGinR
+	 ie5WEJJqHF6ZhjgIBN6pwYRoiwCHPZA1nVXgAZCOiDy7HB35ku0G57JPNjNc2ymPjjba2
+	 8gyJQBF0ut3dSef4ykmqNKWU6afkYoNcsgs3v+CAYceeUx3b1hO19K/I8GEHRixJD//M/
+	 asEeHtgMUt6UN9moPfKTF/xH1vQSSNubGPQ7EWfR6amvQ7gcK+USiciD3zja4McqIO5Wp
+	 asMTWin76yz9V7ksK+wP48HR4Wm1KbJHjUgwJ7HArFu1h/4imsAKWrBHZqz4Guwq/1g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618457;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=606lkFpezYKYJdK+zrK/Eu7/dLW3DvaWcJV8piNdwZg=;
+	b=brza0PTvBEzVZc/wsAVFxtls8JnuzgF9yRxaPXDEic7MxwXk1WaE/VBivnD9EUnLOtSQ
+	 MBfBE2f32xhaGA68ihCb/lILge9Ad3hvKBHHMUIhq6uO00vj8dUolH/Mn0+LP8F37E5Mq
+	 X+B79RKR1gWuCPG6EotpMOX+A5yUBMZWh4c/URZ7lCQX0I4fv7Od1VKDqfCGJl+PnfeiX
+	 YPJ7liiHah/PsH6fyWXstQsJJ9HjG0cfmYC+JtX76T3dQyQ2KxM7UYj9Ahntt+5AXgb5f
+	 xK5Wjih2Z7l0ibuq7H/i8SU0KQpZh28EYQh38sNO2LklkEwe7dSzFX7UlFlBKjCyS/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cz8kvan9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C172C606A332;
-	Mon,  2 Nov 2026 11:20:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C172C606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6B4606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:20:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F6B4606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qMTcSsiF
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29ECpl875948;
-	Mon, 2 Nov 2026 11:20:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=C4RSG9
-	f35lqL5fM1GInH2G1/IqD5FC34BaiDTKAoE9A=; b=qMTcSsiFU/tFL5WJmJMMx0
-	zH/15SssF/8AJbnHfM1E8sKp8X4dU5QB91P6l/TXvlhtCMseZIHcV8vgaI6KBBMf
-	nUS2UGCGDRnFR0p5RIzgLEwFJTrH0LOVVp3B+691/Npc9jX0gfG9WiiD5oJGd5zs
-	DU7G5duFthbz029T8mvlC5lPPYwMqhrhd7HWiFLnczym2kByu39UfssOGzI3/aEw
-	eZYfvpGcC/DU9Sb4RI8QZK7Z9qV9lfiyiGPJL0uJuKI70yRerXgjzm+wfxOh1A2s
-	QrFkBUfU+QVkVVQAGgTT7Hpl2uUKlDRcHYpCVR4NOivU66LFSaKzCjc6PgMpcwfQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80sg476-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 11:20:30 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29JuSm629592;
-	Mon, 2 Nov 2026 11:20:29 GMT
-Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnunjwg8x-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 11:20:29 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2BKTwj29950558
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 11:20:29 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E30425804E;
-	Mon,  2 Nov 2026 11:20:28 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B7FD05803F;
-	Mon,  2 Nov 2026 11:20:27 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.184.229])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  2 Nov 2026 11:20:27 +0000 (GMT)
-Message-ID: <cb3ef53e2e5c6d74051528c2b9b9c0a294d6c119.camel@linux.ibm.com>
-Subject: Re: [PATCH] ima: initialize the real inode attributes of the iint
- cache
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Cai Xinchen <caixinchen1@huawei.com>, roberto.sassu@huawei.com,
-        dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com,
-        paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
-        amir73il@gmail.com
-Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        lujialin4@huawei.com
-In-Reply-To: <20261102024703.816178-1-caixinchen1@huawei.com>
-References: <20261102024703.816178-1-caixinchen1@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 06:20:27 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cz8kvan9
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so3875798a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:20:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793618456; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aN7FFomcHIecFk+YKtMNw+uTVap+O7wYseZxbUpo+bzwRwotARwyxrfyi+Ok2syoJg
+         LuBV3dBJB2fq6wOtrnYrYNP54ax34YIdwVfDc0ejpOgN9ut3l9IPAAYpv5uTjeVWWFtq
+         KK4Na0K0ivnACPM7U9sF/nm2e3OZAkM4+AcCcOXO80/eOvV0dDxSlLDbFBumOcOBGyXG
+         o3azV/DW0fs2yQAhFr2CCy+2+fhfiXTFKaHniMv2P6tguKexn4ML0oRAc7zgUYOEOmnE
+         Og35i/RNRgPDo+Bn2XA+85jE+FqSV0qem51ZPY2k/c92fugcofY9dj/NSpvVuzUbEE3G
+         8MMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=606lkFpezYKYJdK+zrK/Eu7/dLW3DvaWcJV8piNdwZg=;
+        fh=UMNivoygy50qWdoIfHNvHNzTzd24MdOkyEoX9LSs9Zs=;
+        b=omv64LMxKqQecA9VcD/InJb4SgOG2nLbj5RNb5oJNGUkN6qlPOn09ph9FhiRWzducI
+         Simf6EFznjPrYI1JLsdXYmivR1L221yI2sKtmOk8Wqn7bddelbDFzYRBAowJrASyF2/z
+         WAUI44WNsHC1q30P7vKf9Of/+S+YfFr/xEzy65DLO9EqIds5jXL9nAyK/X4S2pwn7S9N
+         6Ts7BOVQJdZijYpgS500VnA92soK+BDII5rqUU+OvMjxDpHiSB0uk/07eOWvzSJuR5GS
+         45T/cDfzLCtd6Wf3tOme3syvo6AuhBAKkfHW8xW1TFzC0wCG+ooRiYb/v4+g6X/O1QlH
+         IODg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793618456; x=1794223256; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=606lkFpezYKYJdK+zrK/Eu7/dLW3DvaWcJV8piNdwZg=;
+        b=Cz8kvan9U7ghHmfRmsbOeJpVu5wzp5B/h08oQ14OfR4KbP21dIs7vuolbU22MO04IS
+         S3kvGSujcyQRwEQaUpX7zC/gNpfqynK9yOUymmrv4wriSn6nshxGSd9/mrDY6yjupicd
+         s5krV55vS4JyoDGFiiv7Bh8RCXGXVKCe39BBOdSafGJHGnALhJwBX+AB+eIPeOBJFl/J
+         Pkm/kPz2x1JYWTPKKcvUi3kr9eeK7rNzy+ZtUEvs4BzJp1JuXBvLioWtAgNgTCB0S+tO
+         fOJPIQVgXcksBrjMKcU9+b7G58rEYWvNjuOEQT+NyGg/FtCnYe2piFSecvzj1r799aC0
+         u5Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793618456; x=1794223256;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=606lkFpezYKYJdK+zrK/Eu7/dLW3DvaWcJV8piNdwZg=;
+        b=SnDZ7WXD1Jn2cYx/U0UZEuxQE9yU8KjaPFGiZoa/2KsexUBbpL0UQQzFx2gdWzGDnK
+         zIxMbVKM2OYr68gv6fCl11Ah7UeATFsI/W5wVRmrAEilRTrRMPuFFAg5tE4OJizAbLEw
+         qsTxERC560vDCVGL1YS9NrTGXi43L2tcSy8CQfDxNFk5gznr90wIn63+F8Zi63FHFAQx
+         vYxn0/dbK+qvKmxpJ6YMkLEizfOAOt0Wwxf7aa0B4UTAb75kuOtCJnUUkaxc3ENzd8pp
+         z+M1njv/9VzY0UdtxKHa/qea1HuFRFYaHs8O3GAMoUNybxnXLBgmzm9WlZUAULwT7xYN
+         5RkA==
+X-Forwarded-Encrypted: i=1; AKwUvBwqpljLxs7oWn0YhLUoaVC7Ors6lQoU/2HgoYPtRcrkcfmAi4coIC6CzSxtQZp6lEiVV0EjugtAtiTevjc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnUArYDxj91vFjaojuBZvyaO3mRiOhviR9ztVScGwpyEkIbk4f
+	203ljCMGYaQ86Rhz4HdailCTl61jW7NtY7vjbmCnIH2JxCZW6SRRYLM7NH01MhJntBtXlCVOhGf
+	cCGiNaqPo7pqBHwKmDAFNmRMhS/5rrTs=
+X-Gm-Gg: AYBFou1436g8QEDTSKEX8J23t89KZEiQk66fA8H98ZB/BPhHPdn7JMmgcuy3cViK9r2
+	m0YE3rHK10wCo2ViVBjNpm4MKvgK4uqL2TiLyFtlcDvubgwODVqIp+XHKnaWplhAb3PqAJr0EyV
+	aFkKqmNMUQaJ05owWCTAhYf/hkAOpCtOb9I++/o354XArNdRbSJl0Oi+lyLmzjfYEUHp0EHlDf6
+	EvSOmEmskZfSEl1+QF4aLdYwh613Q9kYiHsjTYybZ7P9Ix5YA7e3Pd9VPFHuosLfXIsVCemOlUl
+	jxpdumU1V0PbQ6BXNsV9ltToy4hz2/bstA+X56pi7qpWTO7mRb3EFmQmRZ8z+QoIH22vy6en+EU
+	uQzEzt5lNh22xwZMar69HvXl42eO8WQlNDTl4rw==
+X-Received: by 2002:a17:906:eec8:b0:c41:4964:90b6 with SMTP id
+ a640c23a62f3a-c4ca7ab11b3mr826426566b.36.1793618455509; Mon, 02 Nov 2026
+ 03:20:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,95 +104,289 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: KH8CsFX9PB1rM4kozeqM1iI3oX7AVFIV
-X-Proofpoint-ORIG-GUID: 5SeCfaCAX1gMjIutApMNTbrmx0pSomE2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0NCBTYWx0ZWRfXxPvPXS3GgLED
- E9D75XC4M74wGrvB5nQvMYAuN83bcn7thNjHRk36J6SkoenYpOoDwcYdieC0jb1H08bhs51zj1L
- Uujs0eOYXghFa6I9zH/nsjXtRTNxbIczMVFb6ZM9zotVW2s6CLKsfpXGBpilN4HKrK1Gjn6wj8h
- 5nUt1JYcP732VP9Bs2eCFwYIAO1MEzny+Hs4Gh0cTopgxwVn7st47aZnVfoAjFfgE7MIBbg3YEx
- V233EyHRBcUlSae+rMxOr6wyM0XuotS1JAUSiE6VEu/mW4NC7a9Lqlpbmz5S1x7vRaedVyLx3m2
- Ks5659BMJ5yLRN/uat112IV0BxH0BAfgacB0/4Gtkrdh1IQ9zxkMIOFeKNtzvYt/t6YtCGWKwck
- FOtHHlnZ5/8KyP7PjBMd6dKNB0hJIxxHkXTz/rN5qLVdborTNy9auXeP+17rbXhPBW4dRr6JOsD
- VCHe9Kn84CZKhQ82tSg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0NCBTYWx0ZWRfX7K1UwQTTvQJg
- C1cek9Yp9X6vxBrEiZ2ViS1fuy8LHBdABwlXOKGD2t+2xW2LD3XWKKo4E2Ib4lrhQyVKRf0smF8
- dgxLH7lei66K6e52mX95onapo6fVCYE=
-X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6ae871ff cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=i0EeH86SAAAA:8
- a=fvXhu7_MmMKcmc7fLc8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 clxscore=1011 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020044
+References: <CAHCio2jc9++n2Qoa0-sNkObZsWOybSwK1X2aBjFirchjRTBZsQ@mail.gmail.com>
+ <CAHCio2hpL+Y0iYdGXs5zKA-81+w_9pHs+tZPe2uaYKs8yOCz_w@mail.gmail.com>
+ <CAO9r8zMBcU_s3Dpc99jse=n7Njhy8Ly-daf6--YXVD+Cw_ed1w@mail.gmail.com>
+ <CAO9r8zOmH6yzcNbUOF3FoNsac8rtx47rp5wByOFfGgaBPaLxug@mail.gmail.com>
+ <CAHCio2hTSuTf4HcJ=+wb=_EQvi2as9QMwfRMG5tUkdCmex=yJg@mail.gmail.com> <auNvmlmXeWPh_HKT@google.com>
+In-Reply-To: <auNvmlmXeWPh_HKT@google.com>
+From: Jackie Yu <ufo19890607@gmail.com>
+Date: Mon, 2 Nov 2026 19:20:44 +0800
+X-Gm-Features: AclHuK_Vt_8677gatmhuZp3hBbCkC_mRm_NI_r0ysp6uGX788AWs5GAwddQIgy4
+Message-ID: <CAHCio2gdqdyGcGHN+dN9hzoj_0-XSKYFS4ruFrLU+DMG-4XooQ@mail.gmail.com>
+Subject: Re: Some options abort RFC: KVM: SVM: Rework ASID management
+To: Sean Christopherson <seanjc@google.com>
+Cc: Yosry Ahmed <yosry@kernel.org>, jmattson@google.com, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mlevitsk@redhat.com, pbonzini@redhat.com, 
+	thomas.lendacky@amd.com, vkuznets@redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-11-02 at 10:47 +0800, Cai Xinchen wrote:
-> ima_iint_cache objects are allocated with kmem_cache_alloc() from a
-> dedicated slab whose constructor only runs once, when the slab is first
-> created; the constructor does not run again when a freed object is
-> reallocated.  ima_iint_init_always() resets all iint fields except
-> real_inode.ino and real_inode.dev, which therefore keep the values of
-> the previously freed iint.
->=20
-> integrity_inode_attrs_changed() reads those fields in
-> process_measurement() to detect changes to the backing file on stacked
-> filesystems.  The fields are normally written by
-> integrity_inode_attrs_store() from ima_collect_measurement(), but the
-> IMA_HASH path sets IMA_HASHED without calling it, so on the next file
-> open the stale, uninitialized ino and dev are read.  Depending on the
-> residual values, IMA may skip re-evaluating a file whose backing data
-> or metadata changed, or needlessly re-evaluate it.
->=20
-> Initialize real_inode.ino and real_inode.dev with the identification
-> of the inode the iint is being associated with at allocation time.
-> On stacked filesystems the first comparison against the underlying
-> real inode will then fail until ima_collect_measurement() stores the
-> real inode's attributes, which is the safe, conservative direction.
->=20
-> Fixes: b836c4d29f27 ("ima: detect changes to the backing overlay file")
-> Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
-> ---
->  security/integrity/ima/ima_iint.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/security/integrity/ima/ima_iint.c b/security/integrity/ima/i=
-ma_iint.c
-> index 00b249101f98..02efa8eef28e 100644
-> --- a/security/integrity/ima/ima_iint.c
-> +++ b/security/integrity/ima/ima_iint.c
-> @@ -59,7 +59,7 @@ static void ima_iint_init_always(struct ima_iint_cache =
-*iint,
->  				 struct inode *inode)
->  {
->  	iint->ima_hash =3D NULL;
-> -	iint->real_inode.version =3D 0;
-> +	integrity_inode_attrs_store(&iint->real_inode, 0, inode);
+Hi Sean, Yosry, and KVM folks,
 
-Thanks, Cai.
+Sean, thank you for the reminder. Sorry about the earlier formatting.
+We will use plain text for future mailing-list replies.
 
-Instead of calling integrity_inode_attrs_store(), reset the entire real_ino=
-de
-structure. The store sets dev and ino to the stacked inode=E2=80=99s values=
-, but at
-allocation time there are no valid real-inode attributes yet, so the fields
-should be cleared. The patch only works because the stacked and real inodes
-happen to be on different superblocks.
+Yosry, thanks for clarifying. We understand that by "missing
+emulation" you meant the INVLPGB handling needed with distinct
+per-vCPU ASIDs, not a bug in an existing emulation path in our tree.
 
-The Fixes: tag looks wrong. In b836c4d29f27, real_inode is an unsigned long
-version and init_always() resets it fully.
+We agree that intercepting each guest INVLPGB and issuing a separate
+invalidation for every ASID in a large VM may undermine the benefit
+we are seeking. Using per-VM ASIDs consistently, rather than
+switching ASID allocation models based on nested usage, sounds like
+a promising direction. Our production guests do not run nested VMs,
+so direct execution before nested use would cover our use case.
 
-thanks,
+Your suggestion to change the INVLPGB interception policy when
+nested virtualization is first used is helpful. If EFER.SVME can be
+set before a guest runs a nested VM, the first VMRUN seems like a
+more precise trigger. Would KVM catch that VMRUN before entering L2
+and enable the necessary intercepts across the VM before any vCPU
+can execute an INVLPGB requiring nested handling? Could those
+intercepts then remain enabled for the VM's lifetime, rather than
+switching back when the guest leaves nested mode? We realize that
+interception would still require correct nested instruction handling.
 
-Mimi
+For context, our experimental KVM4 configuration used a VM-shared
+ASID and separate, out-of-tree guest INVLPGB passthrough. The
+madvise() latency measurements were:
 
->  	iint->flags =3D 0UL;
->  	iint->atomic_flags =3D 0UL;
->  	iint->ima_file_status =3D INTEGRITY_UNKNOWN;
+  Workers             INVLPGB off      INVLPGB on
+  64 mean              21.624 ms        12.505 ms
+  64 P99               32.760 ms        21.518 ms
+  128 mean             29.553 ms        20.459 ms
+  128 P99              39.628 ms        28.160 ms
+
+These were single sequential A/B runs with 64 allowed CPUs; the
+128-worker run was oversubscribed. The results measure madvise()
+syscall latency, not IPI counts, and do not quantify any additional
+flushes from vCPU switches on a physical CPU under per-VM ASIDs.
+
+We can share the benchmark source and run further comparisons to
+help evaluate that trade-off. Would the maintainers consider
+consistent per-VM ASIDs, with direct guest INVLPGB execution before
+nested use and interception once nested use begins, a direction
+worth pursuing?
+
+Best regards,
+
+
+Sean Christopherson <seanjc@google.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8830=
+=E6=97=A5=E5=91=A8=E4=BA=94 00:09=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Please send mails as plain text, otherwise they get ignored by the mailin=
+g lists
+> and don't get archived by lore.
+>
+> On Thu, Oct 29, 2026, Jackie Yu wrote:
+> > Subject: Re: [PATCH v2 00/29] KVM: nSVM: Optimize nSVM TLB flushes
+> >
+> > Hi Yosry,
+> >
+> > Thank you for the quick response. Two clarifications from our side:
+> >
+> > 1. About the boot failures: no emulation is involved in our
+> > experiment. Our out-of-tree changes enable direct guest
+> > INVLPGB/TLBSYNC execution by clearing the KVM intercepts, without any
+> > software emulation of the instruction. The failures occur with this
+> > unintercepted passthrough combined with static per-vCPU ASIDs, so they
+> > are not missing cases in an emulation path. Under the per-vCPU design
+> > we did not attempt to intercept and emulate INVLPGB at all.
+> >
+> > 2. We do not use nested virtualization in our deployments. L1 guests
+> > in our production scenarios run without nested guests. Therefore, the
+> > ASID-replacement behavior you quoted from the APM does not affect our
+> > current use case: with one shared ASID per non-nested VM, an
+> > unintercepted guest INVLPGB would be scoped to that VM's ASID, which
+> > matches what our per-VM configuration relies on today.
+> >
+> > Regarding the direction: we understand that with per-vCPU ASIDs,
+> > correct handling would require intercepting INVLPGB and re-issuing a
+> > flush for every ASID in use by the VM, which you note is unlikely to
+> > perform well on large VMs. We also note your point that as long as any
+> > vCPU uses nested, KVM must intercept INVLPGB anyway because the
+> > hardware replaces the requested ASID with the current ASID.
+> >
+> > If we read the situation correctly, the practical options seem to be
+> > either (a) a per-VM shared ASID mode restricted to non-nested VMs,
+> > with unintercepted guest INVLPGB, plus mandatory interception whenever
+> > nested is in use, or (b) always intercepting and virtualizing INVLPGB
+> > under per-vCPU ASIDs. Either way, direct passthrough would at most
+> > cover the non-nested case. We would appreciate Sean's and Paolo's
+> > input on which direction upstream prefers; we are glad to provide more
+> > details of our configuration or run tests that would help decide
+> > between these options.
+> >
+> > Thanks,
+> >
+> > Jackie
+> >
+> >
+> > Yosry Ahmed <yosry@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8829=E6=
+=97=A5=E5=91=A8=E5=9B=9B 14:08=E5=86=99=E9=81=93=EF=BC=9A
+> >
+> > > On Wed, Oct 28, 2026 at 1:15=E2=80=AFPM Yosry Ahmed <yosry@kernel.org=
+> wrote:
+> > > >
+> > > > On Wed, Oct 28, 2026 at 6:37=E2=80=AFAM Jackie Yu <ufo19890607@gmai=
+l.com> wrote:
+> > > > >
+> > > > > Hi, guys!
+> > > > >
+> > > > > Jackie Yu <ufo19890607@gmail.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=
+=8828=E6=97=A5=E5=91=A8=E4=B8=89 21:36=E5=86=99=E9=81=93=EF=BC=9A
+> > > > >>
+> > > > >> Hi Yosry and KVM folks,
+> > > > >>
+> > > > >> We would appreciate your guidance on supporting INVLPGB in ordin=
+ary
+> > > (non-SEV)
+> > > > >> L1 guests alongside the proposed static per-vCPU ASIDs.
+> > > > >>
+> > > > >> The 2025 ASID rework RFC proposed one static ASID per L1 VM and =
+listed
+> > > > >> "enabling INVLPGB virtualization" among its motivations [1]. The=
+ June
+> > > > >> 2026 RFC v2 changed the design from per-VM to per-vCPU ASIDs [2]=
+. In
+> > > > >> the October v2 series, patches 2-11 establish static per-vCPU AS=
+IDs,
+> > > > >> while the remaining patches primarily address nested TLB flushes=
+ [3].
+> > > > >> Our question is how guest INVLPGB should be supported under the
+> > > > >> per-vCPU design.
+> > > > >>
+> > > > >> Some of our workloads frequently discard and repopulate memory u=
+sing
+> > > > >> patterns involving madvise() and memset(). Broadcast IPI-based T=
+LB
+> > > > >> shootdowns are expensive for these workloads, so we are interest=
+ed in
+> > > > >> making AMD INVLPGB available to guests. We use a small benchmark=
+ to
+> > > > >> approximate the resulting shared-address-space pressure:
+> > > > >>
+> > > > >>     region =3D mmap(256 MiB, MAP_SHARED | MAP_ANONYMOUS);
+> > > > >>     memset(region, 0xab, 256 MiB);       // Initial population
+> > > > >>     start N workers, pinned across 64 allowed CPUs;
+> > > > >>     each worker repeatedly reads pages in its own slice of regio=
+n;
+> > > > >>
+> > > > >>     repeat 500 warmup + 2,000 measured iterations:
+> > > > >>         start =3D clock_gettime(CLOCK_MONOTONIC);
+> > > > >>         madvise(region, 256 MiB, MADV_DONTNEED);
+> > > > >>         record elapsed madvise() time;
+> > > > >>         write one page in every 64 pages to repopulate part of r=
+egion;
+> > > > >>
+> > > > >>     stop and join the workers;
+> > > > >>
+> > > > >> The benchmark uses memset() for initial population; subsequent
+> > > > >> iterations re-touch pages rather than repeatedly calling memset(=
+).
+> > > > >> The numbers below measure the advisor thread's madvise() syscall
+> > > > >> latency, not worker throughput.
+> > > > >>
+> > > > >> In our experimental KVM4 configuration with a VM-shared ASID and=
+ our
+> > > > >> separate guest INVLPGB passthrough changes, we observed:
+> > > > >>
+> > > > >>                          INVLPGB off     INVLPGB on    Differenc=
+e
+> > > > >>     64 workers  mean       21.624 ms       12.505 ms     -42.17%
+> > > > >>                 P99        32.760 ms       21.518 ms     -34.32%
+> > > > >>     128 workers mean       29.553 ms       20.459 ms     -30.77%
+> > > > >>                 P99        39.628 ms       28.160 ms     -28.94%
+> > > > >>
+> > > > >> These are single, sequential A/B runs for each worker count, wit=
+h
+> > > > >> 500 warmup and 2,000 measured calls per run. The process had 64
+> > > > >> allowed CPUs, so the 128-worker case was oversubscribed. The
+> > > > >> measurements show a useful latency difference, but do not by
+> > > > >> themselves establish INVLPGB instruction counts or IPI reduction=
+s.
+> > > > >>
+> > > > >> We then experimentally combined the October per-vCPU ASID change=
+s for
+> > > > >> ordinary guests with our existing, out-of-tree L1 INVLPGB/TLBSYN=
+C
+> > > > >> passthrough. With guest INVLPGB enabled, a one-vCPU guest boots,=
+ but
+> > > > >> otherwise comparable two-vCPU and 64-vCPU guests fail early duri=
+ng
+> > > > >> boot. Keeping QEMU's +invlpgb setting while adding clearcpuid=3D=
+419
+> > > > >> to the same guest kernel allows the multi-vCPU guest to boot; th=
+e
+> > > > >> guest logs "Clearing CPUID bits: invlpgb".
+> > > >
+> > > > I imagine for INVLPGB to work correctly with per-vCPU ASIDs, you ne=
+ed
+> > > > to intercept INVLPGB and basically issue an INVLPGB for each ASID u=
+sed
+> > > > by this VM (nr_vcpus or 2 * nr_vcpus with nested). I can't imagine
+> > > > this would perform well on large VMs, not sure if virtualizing INVL=
+PGB
+> > > > would still make sense.
+> > > >
+> > > > Regarding the boot failure, I would guess there are some missing ca=
+ses
+> > > > due to the complexity of emulating INVLPGB without a shared per-VM
+> > > > ASID.
+> > > >
+> > > > >> These controlled boot comparisons identify a problem with combin=
+ing
+> > > > >> static per-vCPU ASIDs and direct guest INVLPGB/TLBSYNC passthrou=
+gh:
+> > > > >> the multi-vCPU guest fails to boot when it uses INVLPGB, but boo=
+ts
+> > > > >> when its INVLPGB CPUID bit is cleared. A one-vCPU guest also boo=
+ts
+> > > > >> with INVLPGB enabled.
+> > > > >>
+> > > > >> In this configuration, an unintercepted guest INVLPGB targets th=
+e
+> > > > >> invoking vCPU's hardware ASID, while sibling vCPUs have distinct
+> > > > >> ASIDs.
+> > > >
+> > > > It's neat that INVLPGB will automatically use the current ASID and =
+not
+> > > > ASID=3D0 for guest usage.
+> > >
+> > > Hmm, actually, how is this supposed to work with nested
+> > > virtualization? The APM says:
+> > >
+> > >     A guest that executes a legal INVLPGB that is not intercepted wil=
+l have
+> > >     the requested ASID field replaced by the current ASID and the val=
+id
+> > >     ASID bit set before doing the broadcast invalidation.
+> > >
+> > > If any ASID passed by an L1 guest is replaced by its own ASID, then i=
+f
+> > > L1 is flushing L2's ASID (i.e. a non-zero ASID), passing through
+> > > INVLPGB would do the wrong thing and flush L1's ASID instead, right?
+> > >
+> > > Seems like if the VM is using nested (on any vCPU), KVM must intercep=
+t
+> > > INVLPGB anyway to correctly handle the ASID?
+> > >
+> > > The APM also says:
+> > >
+> > >     Two forms of INVLPGB intercepts, conditional and unconditional, a=
+re
+> > >     available to the hypervisor. The unconditional intercept traps al=
+l
+> > > guest
+> > >     usage of INVLPGB. The conditional intercept traps only
+> > >     illegally-specified INVLPGB instructions.
+> > >
+> > > When I read "conditional", I was really hoping it was conditional on
+> > > the ASID being zero or non-zero, as KVM really only needs to intercep=
+t
+> > > INVLPGB with non-zero ASIDs (assuming the ASID is shared to begin
+> > > with).
+> > >
+> > > Am I missing something?
+> > >
