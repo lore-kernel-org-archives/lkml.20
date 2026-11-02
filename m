@@ -1,64 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608296;
-	b=nO08PVQWXXaEH5ntXEwjW1DxhWxGqNqZAdZneAx2eO6FQxpJLhuRFv2xAVZSLVFvG2rf
-	 7mnS4ZLsUtOKc/x8AJFAp/npKX7kZv8T5+3MfwWW55LaXExmRjjg77rnZUlw5AX+wro4g
-	 KLmI2hPCoHERQ7sokRfiXZJG8bGduRMbSdnb0TinBNRWr0fmz6DlO4Kf7MMTAlSPdxY1+
-	 Ymbut24x2P83rLOqesjvNrAnZ3/9QnTdpBXXbBnXiELOA0UErE2/f6BqCbwRpRaJKokzA
-	 x7OH7bxStwbsknESsbXGL0OkKvkT0j0cTT0gZ88JdfAN9IOFUOWqsvr2fQ4gJdLdyUQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608296;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
-	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:X-ZMAIL-USEORIGINALEMLTOOUTBOUND:
-	 Content-Transfer-Encoding:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=I1Jnxph38MNK8i5fn2OjPXPYSGUxtZdLpFxLvyzlArI=;
-	b=Y/3EkbUkYBWHHPcb97556VYyBzWhUr66c8Wh0wE60Cuk/Ntjt/X5je1U12iShKSmx4kg
-	 aSny678HCIpnv54yKdWSH43Ct3dgC26Z2t9NS4ngnODLiEkQE5wuKpoWIhoLZlCZkvPWc
-	 NwWe1JpRVuJ8lh2uU58KoMVqQF3dz13cQTcz+hMS2Hqh7bQSHo4Kdz1whZjiERWqxjlqX
-	 RTADt6Fq6vn+re+bJkZVABS+7g2mpt5Y8NkFvQ9L5VHSTZI+HamYqtb52yWpfdHjO7WeM
-	 0mXNvTfd3SzzSGdyB34DmKhZrYD3iRLf1zYeBkXEY2K+p1gk4CX8wtJZexpRhA9P3+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793608352;
+	b=eCv3jWcyJ4SDk/k3HNOiCu4eLMIqMlcP0JCj3KP8DgpJjjkfk60aQwjWeo0p+BKUQpGQ
+	 /rYqEirIE49NVAolnusjTalAybTxhiU+jYbQc01b3Ei/qQHsw0IOFmSg5lTX9N4roefHH
+	 hEiC5GWOocupb1h5dQ407JBNYeotdAEAtiUTKOD6e9/dBOv0b84XxrWaB7naZQ7fiv8HD
+	 vkGf/lHa/1u27Q6/NQ9UAJHBJl6OKjisoIlhJjfMNs3lE0mpSDGMz4m92jAaMxZr/0ij1
+	 7OeetSTJghS53NiGMqu9P0RJpgz5B8ncM8rtUgquSxDIfKQ3r/UArQDvpLIIZr2tghA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608352;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PJNCXYIN4tLzumfSWxbAhtwN90Qu9INV8Dum43WK9W8=;
+	b=peEDV/RVA9CSDKeohdYJhbdlLUpUmCQRsslciCWHnA8sk+IExf9wHDQenkQKh851XggN
+	 aiFf9LiVKtZrlLpKMNGymfDsVTFNBNzyCf52zF8xv1xqt2JiBx72R4QjZLEsHGQPmQV4P
+	 MhgkPHOG64yI7xbrHUDmuZM5fEgSlBs3e09UyDot8KuPCJgdHXBPKupg+MB0NKYum6UUm
+	 HTOgzrgNuzKywKvERtly4dvnkSLROTjS9QY2+Ndyv1gILLtZ4rX+FxFlgwDwNycf+z7CX
+	 8S2ppKkIEYDr/m9l2Noy9eOV8G7CUm4PNBcsFSzi1OOEgHFSFegpqXO8cqEBsVxLOmg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Sp4dzyk4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.47
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012047.outbound.protection.outlook.com [52.101.43.47])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C1A606A329;
-	Mon,  2 Nov 2026 08:31:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0C1A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJ4fz5F6kz5B14n;
-	Mon, 02 Nov 2026 16:31:23 +0800 (CST)
-Received: from szxlzmapp02.zte.com.cn ([10.5.231.79])
-	by mse-fl2.zte.com.cn with SMTP id 6A28VCJg034385;
-	Mon, 2 Nov 2026 16:31:12 +0800 (+08)
-	(envelope-from zhang.yanze@zte.com.cn)
-Received: from localhost.localdomain (unknown [192.168.6.15])
-	by smtp (Zmail) with SMTP;
-	Mon, 2 Nov 2026 16:31:15 +0800
-X-Zmail-TransId: 3e816ae84a47028-fc597
-X-Zmail-LocalSMTP: 1
-X-Zmail-RealSender: zhang.yanze@zte.com.cn
-From: Yanze Zhang <zhang.yanze@zte.com.cn>
-To: jgg@ziepe.ca, leon@kernel.org, julianbraha@gmail.com,
-        huangjunxian6@hisilicon.com, yanjun.zhu@linux.dev,
-        Markus.Elfring@web.de
-Cc: lkp@intel.com, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
-        wei.quan@zte.com.cn, han.junyang@zte.com.cn, ran.ming@zte.com.cn,
-        han.chengfei@zte.com.cn, zhang.yanze@zte.com.cn
-Subject: [PATCH rdma v8 0/7] Add ZTE DingHai Ethernet Protocol Driver for RDMA
-Date: Mon,  2 Nov 2026 16:20:19 +0800
-Message-ID: <20261102082026.2645777-1-zhang.yanze@zte.com.cn>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2406606A324;
+	Mon,  2 Nov 2026 08:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2406606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Sp4dzyk4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ScL6rWiTTYZU6YAngfxoOvvqkIanKgRjds4+PjPTn8/2m1MnNFpjp4vNSr2z9C+/FXKixFYKUgD2QpE4OZgQO89MPvHHIdLwridRHd4/KqXsb/7je0ZjY6QDlUf+XVuiV4+R3jlNul468AZSYs4lcUXYt5mjSkT7iE1jYVxhyRveHtxofl+GJ0laaHCh6rrh104H02EfJbScqM9nyacijwzlZiZORs7eHHcZOPVmUdDaP7WMH3gE17b4jH8nq9vp11zS9qLdF4+w+d40vxBm53agY3vUBL2fk8Mh9iQQefSDvKO7TBsq2rsZnLEMvBoX6LOVldJXhoXep3fREMaRaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PJNCXYIN4tLzumfSWxbAhtwN90Qu9INV8Dum43WK9W8=;
+ b=rOPOCC8QLswTwxNpgDFAaOz0VP05EZBZE39DiIzSc9+/qg9EBunK6ce088vTUYx6JXIWhb+tDUI3aB4IJYMUHZ10cvlmNio9crtmtZgZ1atOg/bbaOjU6frrLhf9W/gCKPn80xCwW/BuY4kj4H4JiOYxKbYTjQa8Lgkl700wb3joHVv+uoc5dg62QOV1Y4PlCcikCc3cAePy67dgr7Y8BsYA98TTHhDrmb7yv66eOaM1Ot7fKvAzkBmmGoirZP5RrpAbkTK9Z30EcD9R89+sHjNplLnLoUrAoBj+cclbGghLsAJvO4/uq8eGUBlX/BxwSQcBajQLZLYImdM6R3UruQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PJNCXYIN4tLzumfSWxbAhtwN90Qu9INV8Dum43WK9W8=;
+ b=Sp4dzyk4uElbxw0v9mfH0CZ+0lo6pPERzvqwmuxUYMCsoVPcYXwKmzEN44nGDlY5ox2zVe87GiSqzzmakJaOOHyNPMWqVSmsGDHji5xw9yIjYAZopzmuswFzoPJofBiCmlUgQ4rqADrB19UJMXhzFYmw6kz/VXuIYR1CK3Nfsbef8VI/mITt+IxZqI3xvktLHi2OfCY1g8GYD36We/FMUSrfQhGjReOg1AORRoNZoSKkzwbNIRZ/bGRAqCMGcKaABag8zoivy8cqLS0eg+KqoVd+C/YQAhTW4ccXz5vso/6GWcGsYCGpT3h2jEcJ49LIH3VhhsV+PAH18DdeHrb0fw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by DS7PR12MB8324.namprd12.prod.outlook.com (2603:10b6:8:ec::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.12; Mon, 2 Nov 2026 08:32:26 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Mon, 2 Nov 2026
+ 08:32:25 +0000
+Date: Mon, 2 Nov 2026 10:32:16 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: xiaoblac <teel4res@gmail.com>
+Cc: Nikolay Aleksandrov <razor@blackwall.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	bridge@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] net: bridge: disable MRP ports before the FDB
+ flush in del_nbp()
+Message-ID: <20261102083216.GA794532@shredder>
+References: <20261101044840.1595584-1-1020691186@qq.com>
+ <20261102082553.GB778610@shredder>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102082553.GB778610@shredder>
+X-ClientProxiedBy: MR1P264CA0140.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:51::6) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,120 +102,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
-Content-Transfer-Encoding: 8bit
-X-MAIL:mse-fl2.zte.com.cn 6A28VCJg034385
-X-TLS: YES
-X-ENVELOPE-SENDER: zhang.yanze@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Mon, 02 Nov 2026 16:31:23 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE84A5B.001/4jJ4fz5F6kz5B14n
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DS7PR12MB8324:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c267fa0-b331-4551-4166-08df38bbd2ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|5023799004|261021121427099003|261021123027099003|261022105027099003|261026140227099003|261022075727099003|261026121527099003|261009223027099003|261028144727099003|260925021311599003|260925022911599003|260925021911599003;
+X-Microsoft-Antispam-Message-Info:
+	jU49IPA87kUs3NAHdEAsJBFJKa1SjusJ9nW8K5QfKAfY+kwPXuVNYv3GALYcpTL9Cy7Y2OnyubKFSrKDxmhPt9I6ZLrvUZItlLPFcIAh0xpgdpEuXst7vY3v/aN7PFWTKT9GRvOjk/bFWSTDCgW4udQTAsj3wpnFwaU4vCv9lt3NodjCqD42dHQnTzz4GR52zxpM5X8Vg/74xrOJcmfrGF/xss2nG7cVBC/2sG2ikniw6Bli9Q9IIbWNd+E9v3rlW8Ses+WqvZP2ovq2bb2BERnifejiqQszbVvBfdj1kaFE/Q/IG5QL88JWyD3nZ8w5/R/+4Y8DAsFC8l4PPJ82lzgLRnynBgw6SqbWSf0IsKLtueeMsql/v8Rmi3uwI4OkpQX7zxQSL2FU/skFSy7JTwJd1tEMR0dcGiwHVnTKrxrruSma7fH/1dFylDXxJKTuse/mNoe1rOI8oJAW6JQUOhXqyrD430BgIQNoGLjGSKyqjs566bDQDqNFKlX+Ok95H9yWUKeZ2CvTlFYZdAGe1CNcBtXhrIkNWV7+wBVNOtOrnQgYKGydHFkWmMYiB8jjBX5p3YzbAL6MxhKQvmskG84BEcD74IwV9JZ47GZW4A5JuB3Zpto3ylsJhKDZnM7OZ49ETvrBYdOYBeYczRLTXhn0VrGkAkEK4QfG9uuo9kk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(5023799004)(261021121427099003)(261021123027099003)(261022105027099003)(261026140227099003)(261022075727099003)(261026121527099003)(261009223027099003)(261028144727099003)(260925021311599003)(260925022911599003)(260925021911599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?i2vtULFdyDF7zK852mx0EtJrZqsgjrMTk3pTsLANqrH7KOU2UZEijr8v6hXB?=
+ =?us-ascii?Q?3WQ64eYQfv0ttfyydIK7hSpEEO+Nus+QSdX9dX5z+0vm7AT8IaX0udt878kB?=
+ =?us-ascii?Q?TkVXQHuBc3ed1cUx/pq8zDvQRu9lO98DodFEExXeoeK8TGh2F3qqGpA7FOxf?=
+ =?us-ascii?Q?oTHFe/IW2hbMv2etvYcSxzBV2Fobuz7JNQLHUVIXIIOuKRVLT8WpPfyEQgjx?=
+ =?us-ascii?Q?gL6ROEvssU2tiRiW7c8pOHdsof58yv7A5EcJnJ0tllBo2t++/LkW7vqz7sLE?=
+ =?us-ascii?Q?iKL22CCtyX7Aii35++XRecDUAVP+UbNZfNxxQgtcst9BXTbF42CSRYY/D3fS?=
+ =?us-ascii?Q?g/iS4cesidTXgXl9Vx9jxmn6wXNvuQjk4WwRCcJyNYb0gvBkF8OxSIDa7tTZ?=
+ =?us-ascii?Q?Gj5SJzVGzeI0eu0t9ZaHJ36RJvCDEQEIdhhslJgO2+zuhoZdJJlA2j8sleqC?=
+ =?us-ascii?Q?ILH57Lph+xXVYajhcDgRrHEG1+9Hu3PWQ5YtBBbBrkL6b8WyR7Ru1HEtJTwl?=
+ =?us-ascii?Q?0R1K1OnQaWnczK1h5eK+/Ntv+Y2RDiae0NXNLFeyddOzF+tCl3Xoq5L5Pj5U?=
+ =?us-ascii?Q?m1YCke9HZNsZwz0kkF/YDfg4DS0H1blqPuknArtbMFVnW6Ondmm6/m77vHWj?=
+ =?us-ascii?Q?OJ4MEZeDdcwTPFWr+Zc6t7wf0NKmuIMZGQ/67fyUYSZqFcnaD2qWhjm6Vmc5?=
+ =?us-ascii?Q?VCwr7b7/dLghIqyh9zlIZitxicXzFLzDJlWId4MS6BiHb3Yqam8SOxM+a7TF?=
+ =?us-ascii?Q?JPDlmIX/GAUhgmSNRRFFoW/jqYT4D0yMfJf78/EyEDxr73hnWNKp4ibFfo+/?=
+ =?us-ascii?Q?yRVpzlaHlOCq9o9jtGMCR/ldjtB3ypcIyXi4DUeSY0fUtd2JI5BUBgapyFN3?=
+ =?us-ascii?Q?T3AYiV1S/Zpk9GBn/ylsxMv0KLcV2CFuzL+fZ+XgqPglc8j57/h3iVE9kDOJ?=
+ =?us-ascii?Q?LKS2ExCA3xjYLheuuFzIuEORwRLFiCiaxId6uKz9ft4F387JLmrwpy6vN7jx?=
+ =?us-ascii?Q?INZ1ShZhcqe28AOtNaT5IyrDeldmv3JF0CfjeqNeOmEXJayKXNjZjY2RV+3o?=
+ =?us-ascii?Q?ArwsulhsAtQbE7eL8SsuVCRPIlgIzNoyeDTUk9kUh51qeqXlSRpETByMsNvT?=
+ =?us-ascii?Q?h4NU8z1xwApKUgma9WwhYOd4hiV4VsZmh6uyRM2kR0yxbNNY4+ndMos3mdPg?=
+ =?us-ascii?Q?0PqZTFaS/QleHuRqR99r/9GNIDDcWYI9YeeZ+RWcFxry78WZFeQuRq+dhhMk?=
+ =?us-ascii?Q?ZI+HaUfQT6NU1ZxylrjFcMCsvTV3W8l6EiWoeMfpKWyq+/aQIggMYJoSilzo?=
+ =?us-ascii?Q?1yoxrsLK7nJq4aRcL64KYBJthllG/ueZ3wSDUer/wQl6L+XInXABOC5hOSu3?=
+ =?us-ascii?Q?HbuH9nuTafuXnaA7kEv05snZMirN9ErfUZMgd2KO9VqgmWfLrjhIJg+b5dQk?=
+ =?us-ascii?Q?iluiRT2fs6qinbgPjUeuhiOIKXgqb5KXJ6KJRh9zLTRkAfAlKOMjEbdG+9y5?=
+ =?us-ascii?Q?kXg4LCoIe9U3YN7rBdZtRfT3B2egAXH1Sj1OCunNRXvxb/CuJFhIfRkn3Ps7?=
+ =?us-ascii?Q?eHU2duf/5DTkrk9c/PBoSi85KJ9E/HMMR5+J4dndBzg87QrDEGLIZpU0SYEE?=
+ =?us-ascii?Q?wG/PiOOSKKARsJ02en0j0G6QgOyVCsAJPuEyn+QZW/dQm89pyShdXHATTeAY?=
+ =?us-ascii?Q?/54hTqj8SD+XVBkOZsm8iXzcbw3SLuy+WDluvOBeXDM8UW6M?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c267fa0-b331-4551-4166-08df38bbd2ba
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:32:25.6627
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v/04/lrqLmx9Zou1QjtWaRI0GL4nAETHW2isI4YUX40Tm1nXT0b2IMbVlzZWrMy8ZTYEmVAkDbsGHSWUEAMC+w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8324
 
-Hi,
+On Mon, Nov 02, 2026 at 10:25:53AM +0200, Ido Schimmel wrote:
+> On Sat, Oct 31, 2026 at 09:48:40PM -0700, xiaoblac wrote:
+> > From: Cheng Yongkang <teel4res@gmail.com>
+> > 
+> > del_nbp() flushes the port's FDB entries before it unregisters the RX
+> > handler. For a normal port, br_stp_disable_port() moves the port to
+> > BR_STATE_DISABLED before this cleanup.
+> > 
+> > That does not hold for an MRP ring port. br_set_state() ignores state
+> > changes while BR_MRP_AWARE_BIT is set, so br_stp_disable_port() leaves
+> > the port state alone. br_mrp_port_del() then restores forwarding when
+> > the bridge is up before clearing the bit. A frame received between
+> > br_fdb_cleanup_by_dst() and netdev_rx_handler_unregister() can therefore
+> > create a new FDB entry referencing the dying port. Nothing removes that
+> > entry before destroy_nbp_rcu() frees the port, so a later frame to the
+> > learned MAC can be forwarded through the freed port.
+> > 
+> > Remove the MRP and CFM instances before disabling the port, so that
+> > br_stp_disable_port() actually transitions it to BR_STATE_DISABLED.
+> > With CONFIG_BRIDGE_VLAN_FILTERING=y, synchronize_net() in
+> > nbp_vlan_group_unpublish() also drains receive paths that could still
+> > learn with the old state before the final FDB cleanup.
+> > 
+> > Found through an LLM-assisted source code analysis workflow and
+> > reproduced on net with KASAN and CONFIG_BRIDGE_VLAN_FILTERING=y in QEMU.
+> > A diagnostic switchdev module accepts MRP objects and delays the
+> > NETDEV_CHANGEUPPER callback for 1.5 s, holding del_nbp() after the FDB
+> > cleanup and before RX handler removal. The reproducer floods the MRP
+> > port with rotating source MACs, waits for the port's RCU callback
+> > through the module's rcu_barrier(), then sends frames to those MACs
+> > from another port. The unpatched kernel reports:
+> > 
+> >   BUG: KASAN: slab-use-after-free in br_forward+0xb1/0x820
+> >   Call Trace:
+> >    <IRQ>
+> >    br_forward+0xb1/0x820
+> >    br_handle_frame_finish+0x148b/0x1e50
+> >    br_handle_frame+0x90a/0x15c0
+> > 
+> > With this patch, three runs of six cycles each reach the delay without
+> > a KASAN report.
+> > 
+> > Fixes: 6536993371fa ("bridge: mrp: Integrate MRP into the bridge")
+> > Suggested-by: Ido Schimmel <idosch@nvidia.com>
+> > Link: https://lore.kernel.org/netdev/20261012123051.GA714215@shredder/
+> > Closes: https://lore.kernel.org/netdev/20261022090431.3641707-1-teel4res@gmail.com/
+> > Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+> 
+> Reviewed-by: Ido Schimmel <idosch@nvidia.com>
 
-This is v8 of the ZTE DingHai (ZXDH) RDMA driver, providing RoCEv2
-support for ZTE DingHai network adapters.
-
-The DingHai Ethernet PF driver this RDMA driver attaches to is being
-merged through net-next. The first batch, which introduces the DINGHAI
-Kconfig symbol and the "dinghai10e" PF driver, is already in net-next
-[1]; the second batch is still under review [2]. The auxiliary device
-that this driver binds to is created by a patch that is still being
-prepared and has not been posted yet; this series is therefore posted
-for review ahead of that patch, and the driver will not probe on the
-upstream baseline until it lands. This series is based on an
-rdma/for-next baseline that already contains the first batch, so
-"depends on DINGHAI" resolves. The driver registers as an auxiliary
-driver and matches the auxiliary device by name only, so it cannot bind
-to an unrelated PCI function.
-
-This series covers the registration of the device, the device and the
-port queries, the user context, the protection domains and the mapping
-of the doorbell areas. The queue pair and completion queue data path is
-not part of it and follows separately. Protection domains that the
-kernel allocates are not supported either, because the driver does not
-provide the memory registration of the core yet.
-
-v8 folds the review feedback on v7 [3] back into the patch that
-introduced the affected code: the 8K index counter array is released
-with a cleared pointer on the probe error path, the number of completion
-vectors is no longer reported as zero, the driver info is read with the
-rtnl lock held unconditionally, the unused handler and name lists are
-gone, and the device and port query operations moved ahead of the probe
-path, because ib_register_device() calls the query callbacks without
-checking them for NULL.
-
-Testing in this version focuses on the review fixes: the driver builds,
-probes on DingHai hardware, and 'rdma link' / 'ibv_devinfo' enumerate
-the device. The hardware testing was done with a PF driver that already
-creates the auxiliary device, because the baseline that this series is
-based on only has the first batch, which does not create it yet. The
-build was tested with CONFIG_DINGHAI=y, because the Kconfig depends on
-it, and every commit of the series was built on its own to make sure
-that the series stays bisectable. Perftest (QP/CQ/MR creation and the
-data path) is covered by the parallel network driver series, so we did
-not want to hold these review fixes on it. Functional verbs testing
-will be reported once both series are merged.
-
-Two items raised in review are deliberately left out because they
-need input we do not have yet:
-
- - The common_func() opcode for the IRQ capability query: needs
-   confirmation against the firmware interface document; the current
-   opcode works on the tested firmware.
- - The shutdown-vs-quiesce semantics and the doorbell isolation
-   mechanism: these need the hardware team's confirmation.
-
-Two other points are noted for completeness. An __iomem annotation on
-mem_rsrc is moot, since it is plain vzalloc'd memory rather than a BAR
-mapping. Replacing the resource bitmaps with XArray/IDA is a cleanup
-that does not change behaviour and will follow separately. Neither of
-them affects probe/remove or the verbs that are implemented here.
-
-[1] https://lore.kernel.org/netdev/178598040988.599522.8462097247667886071.git-patchwork-notify@kernel.org/
-[2] https://lore.kernel.org/netdev/20261014151200489685SCIlolykW0NGfL5EtQ@zte.com.cn/
-[3] https://lore.kernel.org/linux-rdma/20261027021119.2325798-1-zhang.yanze@zte.com.cn/
-
-Yanze Zhang (7):
-  RDMA/zrdma: Add build infrastructure and module skeleton
-  RDMA/zrdma: Add core data structures and ABI definitions
-  RDMA/zrdma: Add internal headers and hardware register definitions
-  RDMA/zrdma: Add hardware resource initialization and verbs skeleton
-  RDMA/zrdma: Implement device and port query operations
-  RDMA/zrdma: Add device probe and remove logic
-  RDMA/zrdma: Implement context, PD, and mmap operations
-
- MAINTAINERS                               |   6 +
- drivers/infiniband/Kconfig                |   1 +
- drivers/infiniband/hw/Makefile            |   1 +
- drivers/infiniband/hw/zrdma/Kconfig       |  11 +
- drivers/infiniband/hw/zrdma/Makefile      |   7 +
- drivers/infiniband/hw/zrdma/zrdma_ctrl.h  |  20 +
- drivers/infiniband/hw/zrdma/zrdma_defs.h  |  19 +
- drivers/infiniband/hw/zrdma/zrdma_hw.c    | 129 ++++
- drivers/infiniband/hw/zrdma/zrdma_hw.h    |  21 +
- drivers/infiniband/hw/zrdma/zrdma_main.c  | 217 +++++++
- drivers/infiniband/hw/zrdma/zrdma_main.h  | 211 +++++++
- drivers/infiniband/hw/zrdma/zrdma_type.h  |  92 +++
- drivers/infiniband/hw/zrdma/zrdma_verbs.c | 735 ++++++++++++++++++++++
- drivers/infiniband/hw/zrdma/zrdma_verbs.h | 134 ++++
- include/uapi/rdma/ib_user_ioctl_verbs.h   |   1 +
- include/uapi/rdma/zrdma_abi.h             | 114 ++++
- 16 files changed, 1719 insertions(+)
- create mode 100644 drivers/infiniband/hw/zrdma/Kconfig
- create mode 100644 drivers/infiniband/hw/zrdma/Makefile
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_ctrl.h
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_defs.h
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_hw.c
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_hw.h
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_main.c
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_main.h
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_type.h
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_verbs.c
- create mode 100644 drivers/infiniband/hw/zrdma/zrdma_verbs.h
- create mode 100644 include/uapi/rdma/zrdma_abi.h
-
--- 
-2.43.5
-
+I replied to Sashiko before tagging this patch, but looks like the mail
+didn't make it to the list. The two issues that it flagged are separate
+pre-existing issues. The current patch fixes a UAF and doesn't make the
+situation worse.
