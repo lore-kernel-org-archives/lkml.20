@@ -1,89 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617241;
-	b=sm3n0sxtrZSmIrfQDihImVTWwxCo62dLrk+7QcwdiQgyvyrP5+ASz1k2E8p37dPvcH/r
-	 ufwB1KK3Rxf3uAxfdPLmQUznPaBDuLSGsOva6OlEfXmd5cvJOZE4PUQTi3mlxUy2YM7AZ
-	 ccPz1AfCxHJyl6vhRuRiyHVW2TKRkzQoczlB1paHi0DkF55rCpOkeslXEoXCvgqU/E8WY
-	 MlhofLMYjjR0pUXve24HIJ2NBb/LeMSuoU6iJwUY5DJxRG2+191BJg/nEwP/xlEEPf2EG
-	 qFK58Q+1qXsijeiz5+Znnr3KHpdur7pBZd9kLA++Ak+62/Bgglw2O9QuPRKZW6LRRVA==
+	t=1793617258;
+	b=AXNOHXJ/wuoltSUk2vEKgzZv8qIiUmA757Srs4XisQkytWrKV5CAFfu0mRDBKinMfQlh
+	 LkbzrVgloUfGTZwGtlxoat7nnuN0GrLtuGDdX/aZwOScYklHbJttTojXL/rzrBqibRpiK
+	 QqNixt6iCWemEMXWBzFRUGB7Txy55WxLWJyckZuzyE+rAqxwmRj7fGwc6mfYP4y+3oRk3
+	 65j+UxtSevhAPTvK2im+go/D3brnEfzJmNd7gBmE0KxBGOkngsAZpYK0sfEcivO1vKw2g
+	 mj+xmKX+E/WucBZB+K8zI2DgmcWncVHRAz7fdbHn7cZYivk2QC7+NFADclc1sWinsug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617241;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gmu1a3NLHJfVVFwt2LsdZOjGhk0iaWLym4PaWiReE/U=;
-	b=qDCufLmt2SE/L43wwClP6lnWj6qjd8QjltTWf+bpwQfQH74uQ95VBzpuHGQruRy10NiN
-	 oLQCYP5WQBQ/aVRugR4G5wvoXZjZnvi2y7+nf2Bl1/nLLWnj7/baBMDIiqjMeYxVI6NHv
-	 dCv1+HiPzqt57altQcRxeW2+toeqe17FYmYGE5UL78mvrxcdQB/zy2WU5pdZjhnoS3zST
-	 v+tKBTm6pylsM3AJVyUMHnQNoD4MP7NFPsP/wwPb5qbIwiNldqC1Vv62fYgFRqWv/gLyM
-	 iznESBm+ucB7jKuD1Cc+/SUsQNHFkj8SL3gCvgQIKWGccrxynDd98ebDVSZYVjreoEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617258;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=AXcAJiYjhnAAhHPPZuaZuaZYSgCJ50oa2Ib690f7nTQ=;
+	b=Cwvb+RbGHhbn34oRAd3frT8saJrt4w9r+dRgKh+IUFOdbb8/Ge3fGJBL0lBDuoFwqtym
+	 pnYFwOtOp6oWGbWhVaunICdQ8Qk3xNZEsko4UKcN9M8eMqB0XYz1KQmh4DRnNNv2suBZS
+	 JL8XcPKSfkd0ct2d3s6jUnsyyigmq5+zxIOEcS/X064IUJyb12Msot63S/hx2QQaJd+g2
+	 2ELXQGI5JPt+EZtqGyuZCNq/A4Jqg2ZXnaw6NNjCGBrt85OW7jN7JvSlyWlHzDhYWqeU8
+	 O3Hq/ucdg58vQ/HS1wgvB+wUfiSSnzHARAiGjSU/pFbUFg9ihKM6QfhA5MPvmqja5Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=pFIIuG9I;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GZm0wZmY;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5CB606A32D;
-	Mon,  2 Nov 2026 11:00:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C5CB606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF8A606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CF8A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=pFIIuG9I
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=gmu1a3NLHJfVVFwt2LsdZOjGhk0iaWLym4PaWiReE/U=; b=pFIIuG9Ix79G8xtMZU7N6Ru1g/
-	ZU3lybPoXV7qM675SevAwh7hG+KsUjzeYFFwu7JmsN+Tf6o0YExqPLv0X6j+PsEXW8OFJ0oruSiLy
-	JcWmASAayz6MW29RAESxTQi1aJGAjIwToi+cSjZSylBV5lus3FTCmYwRmVQNk2442enb21IFLrr/X
-	HO0cxL7jYPNZuBK2fg3Zfn3qpay6yRrHiVqOzMdKRkI/ES7fwqc1dLw6iOZUzrFNFQdvcMlEVdwb1
-	yuaB5WAUaaap65CXZHSE9Uym6hjsnuN8j8ysKdQWfg4XKxpQi3fknF/733Vgd+n3xZAxKog42HbsP
-	luZ4SBJw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNpm8-00000002PBW-3HSe;
-	Mon, 02 Nov 2026 11:00:29 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id AE3153002ED; Mon, 02 Nov 2026 12:00:26 +0100 (CET)
-Date: Mon, 2 Nov 2026 12:00:26 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: Yury Norov <ynorov@nvidia.com>, Ingo Molnar <mingo@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andrea Righi <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Mel Gorman <mgorman@suse.de>, Mete Durlu <meted@linux.ibm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-s390@vger.kernel.org
-Subject: Re: [PATCH 1/6] sched: decouple PREFERRED_CPU from PARAVIRT in
- Kconfig.preempt
-Message-ID: <20261102110026.GG1813469@noisy.programming.kicks-ass.net>
-References: <20261101192203.6979-1-ynorov@nvidia.com>
- <20261101192203.6979-2-ynorov@nvidia.com>
- <388636ac-4521-4523-bb5b-b6bc71591ff6@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GZm0wZmY
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so17500475e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:00:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793617256; x=1794222056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AXcAJiYjhnAAhHPPZuaZuaZYSgCJ50oa2Ib690f7nTQ=;
+        b=GZm0wZmYDtbojUgtw7QKwO5u0Spw4gcCkBn7glHJnS1zUaSksUJf7RKkLvfYkWZjlI
+         LhopI53C4wq5nc9ijxl59WFITMlSBh4Pfh1RZDEywyGeH3+SP2kjONAqGeo+L/+TIJgi
+         uU0ZFwGr1Yj6dxuvOGm569XcZPOb5fvmIbBFroyj80tX+MWocpymunicDlzCKJeEUoMz
+         IywXf2FX/uNkWCeqg033+duhA2NhgN/yPYJjvYkCzJH1VNehRH5eEmZ1GcACCF9zQ7tx
+         ncx6/dLXMM6rHSZMvDuAhg1mcDY3NLvnG0nc/4UB3+VVmMHX+a1wK/00C1NpmFhIwsl6
+         nIVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793617256; x=1794222056;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AXcAJiYjhnAAhHPPZuaZuaZYSgCJ50oa2Ib690f7nTQ=;
+        b=UOW0eYWHKRgSOl0rotfdrT8N4trEjP/BGbgoDp+D1cV313GlaZIjShkKKFiGaNhSC5
+         nRTEbLWMIhcOvsGY+25+NV5t+Jobg3SyWCt9wMyh4Q4jn7LmpSPQ50gZxbEP5TIRXly9
+         Q92ZrcvVNuYpriRw8chJgyfJroBYgwICgevm+XHSAa9yTByxtn/tOqVRbiYqGvWRKTY+
+         Nuih80J9PxDKnqhYyC/9g2WQdGZP3XNNTuJhonjocVqvHynClj9WhTFihNNq+uWOsgvw
+         mjlfcZEHSlqtUlnGbpc2AIq/rnM9r43+vX0SY1UaJcMYG9YijzqwOCI+eriCRlK+l+KH
+         by8A==
+X-Gm-Message-State: AFq9FYKKIT4vyJGRZ0ouIbYPTNDwt6pZ+W/2im/8STbCfIc9GTTtVbOz
+	uNgg8rjpgQylWz7Dsd2nOdhs9pa9IwiJ8hPwD65UV0p5zgnNW/4QUbyCaNbHdNboqlbHG2KpAP5
+	rEgkbAnE=
+X-Gm-Gg: AYBFou3xQjYqLm7FtlIEP2hGFEf2u718usGKbL4bCvZZXBfWfp8uyuOhl7mCl36fmic
+	FlS9XfOlWoLu4NKqJZ6s4KFmbiFelMoFVdTZP1qhkYMCGmW9MJTWDbLL9Jui59rVpA3w27kcXVs
+	0qIBVwjSf9ztTD9PoZ6IbBwZ3x7jaKiwRW+isIXbOvI3c2Xaws2yZtwSH3WAlKF8sRNjih1zHHw
+	lsSOTW4jL8NqCvJQC8HQQfcEOiJ3NCsOYdt0/CKquxzBenCkJdgIli42gfeEssL5M6mJU62DOGP
+	XFzyrMLKDC19LBQ8W3IC9kZibJPZqSf5OfWhungeFZbWjoio7owv2SM6Gf1x7yiiGGjrGcmXsL8
+	C7RBgzc/0tZk00/HC3Q419ERQREmO1QWVp/0IdTZmRahGiubLVvQ0lwUO0doFtv2M9ucCnNWSya
+	QncKwf7r6t+SkC0Uh+GsoS7/jHLqNH/q/IV5wjTUHRY4JTxl7nW/SAeexYWInU7aa/gFw/O4LM1
+	PfG5E3s93fHeCQb9e3++QUIerlmeWWfQwUu9gy28kXUSThnEpp2IXJ+e1q2RPkHf4YV+WbIwmde
+	YPO7YuYQwSFtQmby2HONottqNDMAkIrDfmpRm1Z2Idq5XYyhxDET
+X-Received: by 2002:a05:600c:1f94:b0:4a8:f2ad:a9e5 with SMTP id 5b1f17b1804b1-4ac1548f591mr223272545e9.3.1793617255437;
+        Mon, 02 Nov 2026 03:00:55 -0800 (PST)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf396dfdbsm266236305e9.1.2026.11.02.03.00.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 03:00:54 -0800 (PST)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org
+Cc: Tejun Heo <tj@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Breno Leitao <leitao@debian.org>
+Subject: [PATCH v5 0/2] workqueue: Make WQ_UNBOUND the default behavior
+Date: Mon,  2 Nov 2026 12:00:45 +0100
+Message-ID: <20261102110047.115375-1-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,115 +98,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <388636ac-4521-4523-bb5b-b6bc71591ff6@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 11:16:30AM +0100, Ilya Leoshkevich wrote:
-> 
-> 
-> On 11/1/26 20:21, Yury Norov wrote:
-> > The IBM s390 doesn't enable PARAVIRT config for their hardware
-> > virtualized Logical Partitions (LPAR). However, the steal time is
-> > accounted for the LPARs, once the config VIRT_CPU_ACCOUNTING_NATIVE
-> > is enabled.
-> > 
-> > Preferred cpumask doesn't rely on any feature gated by PARAVIRT config,
-> > and requires it to minimize the configuration space and runtime overhead,
-> > with the lack of non-paravirt user. Now that s390 wants to adopt preferred
-> > cpumask, there's no reason to keep it coupled to paravirt.
-> > 
-> > Make PREFERRED_CPU a user-configurable option, even if paravirtualization
-> > is not enabled, and drop PARAVIRT dependency on the steal governor.
-> > 
-> > Keep the default module selection conditional on PARAVIRT so other SMP
-> > configurations can opt in without enabling the governor by default.
-> > 
-> > Link: https://lore.kernel.org/all/4605dad5-aab2-49e3-b919-bf9897181834@linux.ibm.com/
-> > CC: Mete Durlu <meted@linux.ibm.com>
-> > Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> > ---
-> > Can be applied independently from the rest of the series.
-> > 
-> >   drivers/virt/Kconfig   |  8 ++++++--
-> >   kernel/Kconfig.preempt | 12 ++++++++++--
-> >   2 files changed, 16 insertions(+), 4 deletions(-)
-> 
-> This is really useful to us, since even though s390 is nominally
-> paravirtualized, it does not technically benefit from defining
-> CONFIG_PARAVIRT.
+Hi,
 
-And therefore removing PARAVIRT is the only possible solution?
+Currently alloc_workqueue() make sure one among WQ_UNBOUND or WQ_PERCPU is
+present with the current default being WQ_PERCPU.
 
-> Specifically, steal time accounting happens by
-> computing a difference between wall time and CPU time, and not by
-> explicitly querying the hypervisor.
+This default is suboptimal: most workloads benefit from unbound queues,
+allowing the scheduler to place worker threads where they're needed and
+reducing noise when CPUs are isolated.
 
-Nobody explicitly asks the hypervisor, that would be horrendously slow.
+This series changes this behavior as follows:
 
-Something trivial like this should do.
+[ P1 ]
+
+  - keep WARN_ON() if WQ_PERCPU and WQ_UNBOUND are present and drop
+    WQ_PERCPU.
+
+  - defaults to WQ_UNBOUND except for WQ_BH, that it is always per-CPU.
+
+[ P2 ]
+
+  Documentation updated accordingly.
+
+Thanks!
 
 ---
- arch/Kconfig                           | 9 +++++++++
- arch/powerpc/platforms/pseries/Kconfig | 1 +
- arch/s390/Kconfig                      | 1 +
- drivers/virt/Kconfig                   | 2 +-
- 4 files changed, 12 insertions(+), 1 deletion(-)
+Changes in v5:
+From Tejun / Breno:
 
-diff --git a/arch/Kconfig b/arch/Kconfig
-index 1163736de1f9..8980054beb52 100644
---- a/arch/Kconfig
-+++ b/arch/Kconfig
-@@ -1080,6 +1080,15 @@ config HAVE_IRQ_TIME_ACCOUNTING
- config HAVE_PV_STEAL_CLOCK_GEN
- 	bool
- 
-+#
-+#  Archs that can account CPUTIME_STEAL; normal route is through PARAVIRT which
-+#  selects HAVE_PV_STEAL_CLOCK_GEN. Directly selected by s390 and PPC-LPAR
-+#  which have their own thing and don't go through generic cputime accounting.
-+#
-+config HAVE_CPUTIME_STEAL
-+	bool
-+	default y if HAVE_PV_STEAL_CLOCK_GEN
-+
- config HAVE_MOVE_PUD
- 	bool
- 	help
-diff --git a/arch/powerpc/platforms/pseries/Kconfig b/arch/powerpc/platforms/pseries/Kconfig
-index 7d125e288f6e..3c49baf606d7 100644
---- a/arch/powerpc/platforms/pseries/Kconfig
-+++ b/arch/powerpc/platforms/pseries/Kconfig
-@@ -41,6 +41,7 @@ config PPC_SPLPAR
- 	depends on PPC_PSERIES
- 	select PARAVIRT_SPINLOCKS if PPC_QUEUED_SPINLOCKS
- 	select PARAVIRT_TIME_ACCOUNTING if VIRT_CPU_ACCOUNTING_GEN
-+	select HAVE_CPUTIME_STEAL
- 	default y
- 	help
- 	  Enabling this option will make the kernel run more efficiently
-diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
-index 7138d923d86f..03a884355218 100644
---- a/arch/s390/Kconfig
-+++ b/arch/s390/Kconfig
-@@ -291,6 +291,7 @@ config S390
- 	select USER_STACKTRACE_SUPPORT
- 	select VDSO_GETRANDOM
- 	select VIRT_CPU_ACCOUNTING
-+	select HAVE_CPUTIME_STEAL
- 	select VMAP_STACK
- 	select ZONE_DMA
- 	# Note: keep the above list sorted alphabetically
-diff --git a/drivers/virt/Kconfig b/drivers/virt/Kconfig
-index eeb84e578ddf..a3721d34a55c 100644
---- a/drivers/virt/Kconfig
-+++ b/drivers/virt/Kconfig
-@@ -43,7 +43,7 @@ config FSL_HV_MANAGER
- 
- config STEAL_GOVERNOR
- 	tristate "Dynamic vCPU management based on steal time"
--	depends on PARAVIRT && SMP
-+	depends on SMP && HAVE_CPUTIME_STEAL
- 	select PREFERRED_CPU
- 	default m
- 	help
+- Dropped the pr_warn_once() when neither among WQ_PERCPU | WQ_UNBOUND is
+  present and add WQ_UNBOUND.
+
+- move wq_dropped_percpu declaration on top
+
+- improve comments and commit log, so that it better describe also the
+  reasons of this change.
+
+- prefix "workqueue: doc:" on documentation improving descriptions about
+  the flags.
+
+Link to v4: https://lore.kernel.org/all/20261015140148.231126-1-marco.crivellari@suse.com/
+
+Changes in v4:
+- WQ_BH: add documentation about BH workqueue implying WQ_PERCPU
+
+Link to v3: https://lore.kernel.org/all/20260904141421.287647-1-marco.crivellari@suse.com/
+
+Changes in v3:
+- WQ_BH require WQ_PERCPU
+
+Link to v2: https://lore.kernel.org/all/20260903165251.481362-1-marco.crivellari@suse.com/
+
+Changes in v2:
+- if/else to add/drop WQ_UNBOUND/WQ_PERCPU moved before wq_size assignment
+
+Link to v1: https://lore.kernel.org/all/20260903152204.401638-1-marco.crivellari@suse.com/
+
+
+Marco Crivellari (2):
+  workqueue: Make alloc_workqueue() unbound by default
+  workqueue: doc: Update WQ_UNBOUND and WQ_BH documentation
+
+ Documentation/core-api/workqueue.rst | 14 +++++++-----
+ include/linux/workqueue.h            |  4 ++--
+ kernel/workqueue.c                   | 32 ++++++++++++++--------------
+ 3 files changed, 27 insertions(+), 23 deletions(-)
+
+-- 
+2.56.0
+
