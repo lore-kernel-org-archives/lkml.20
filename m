@@ -1,68 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605677;
-	b=0ccnt7SiQfp1ex1Fd2U/nVDMD2g+UD3CLYPsKx7JI2cEtoll7KStZhHAwMfx0DKuFXXH
-	 8vkClt9+SdThqvUslr5NBw4cAMMR6yibfRifFVyCN+G5/UJ17csNO/2hkvoAuNnKl4VRz
-	 RfCr/5g1IplUgO9UQw/Ua6+rMYkfM4qFUOBoV8O7pKFGbHThroG6pkkGiGS7HmZAWhZmn
-	 0EgAaYAxVQZV8efyzyU05Hm/LTP7O4Znoipo+WcexnP7j9CmoNLAtbbPMVuCVaYSoVtwN
-	 wvfX0aAl5kdleYtQg+t7NxMIIxFj4jnf7bYfPH0hV4MY5kPDvW+IUbiX+tbE4iR+3qw==
+	t=1793605679;
+	b=KoYAAo8YbCLIwHvZgVL9BYc+Zx0fpYhR3qRH08pOfaxnuxeatHosANodJlPtaQY6sluq
+	 h7vZcok8OqkTjxscj/rFJqiyR5G+6w8+vZ3uaFFCBn9U5aJYJqw0G47p+2BkADk64RJ6R
+	 LACqKKbDNfoxOiog9RvaSVj80uzaHstuPD4eINVjR7l4HhzDbgfLKBlkKXzj5x3Oye4eB
+	 nxXUyaK/COTfyme9Bk55vBJkcFiRPIRoeViBC4jgalN3FCor2WRzZOkWgQbKKlydLt+bf
+	 l2rwo8hAfhMXU1dUqkF/YJDCGF6dqOFt/7wzc/2lZL7tkaDGP81JKFwI4vqLAAJvK4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605677;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
-	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-MIME-Autoconverted:Content-Type;
-	bh=P2WHQc6zM3YpFYZ7gdc6FJKerdajDKeyE4O3ZrIVA+E=;
-	b=aKPtrLiPHiWux7tCcSMz2yrIVIJXS2Lql/m7TNC91l9QUNOdyg17LQSuqawWqPT2nkge
-	 f4JVUESEeXY85H41CDcjSgtCZGORw5iFfr53yQrvxSoAmHSiCPeyb9jCp31B1MZcBJjhR
-	 KcKlKRVlScB54RuPC3mQaie51tAJgvjLWLA4J3tp2UMy4xDHP+d6WShNRMwuLJMWrfHl7
-	 hdWb7qMjqAwv7KRTQmV0zNpsVoQW+1ecNgU7oyY6XsRypnFNNIr+3SP4Siq3FfL+OSjOQ
-	 QBCdr9YrUzAOwEZOwlnNf30tbu+lIyTOsKctkkSK8H4e0j07NzosxUXbJclo3BdMC4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605679;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/5I86CZ+slqkRJTosNHUxkAL8uURBN5dDpgqbLr07wU=;
+	b=X9x8U4l8UtI2eNh/qaIR57+w0SqZ7OyIh1myN85YFBMj+YxCa66Pw7PBDDqGZU3EbjgO
+	 U9FmKhpInuqnAolplukFq4D6wn1uDXW5TATzyfTT9WaSQVENKvZ2m4wUcSYCZF5Yei/cV
+	 TRWbZ3OmROTYPhCQoPc+hCqfK9NM25ImDOaDR6hxWSaE7VRY3GFvxLygNc0Cs9H5pLC+Y
+	 3SsWuekdtFMGVl1UWipAeB5nyTSPdBRaQ1aVUd4yVnRVOnP4jHZBghVnEEmvbzom0A7Ia
+	 N9c4O3e2exujaR/6bmVEMQGYAzgmEaNyrtHwKXJQzYLnHNar0wM128M5xPc0svZKs8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arkamondal.net;
-	spf=pass smtp.mailfrom=arkamondal.net;
-	dkim=pass header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail2 header.b=wBD3WBa2;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=HQZYvZ07;
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yt/7r3JE";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03C660A2621
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:47:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D03C660A2621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamondal.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7924D60A260E;
+	Mon,  2 Nov 2026 07:47:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail2 header.b=wBD3WBa2;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=HQZYvZ07
-DKIM-Signature: a=rsa-sha256; b=wBD3WBa2Xa+9cx3oUsQMcXeOxl1hO241sSuxHZUm3hDtC7XXOYg7otNl57tWw/Vynrzs/LrwHe4CpmhXKL3Xcc0u4v/vyeGaFnwgEhW4Hxcc5FtyROqE9qyn3WSRHyPQTCk1WRu4HyG2TelJQ9VoOtnWyljohqTwG6y1q5EVT6ycifJSnRv57cvGtdQVX0EyTp9fpo2Rov8iILku8E7AmO/e/hePfvl9Wn7hT1iwj5ytLQORnFqaubxhI0FG46QDwlMzsugmGJutQLtzwT9Noi9f/yIHTuE9d8tGcg918VTYA8v3A+kTHdDNe6nYgWzOp2tkOXsw6OU8Xp144Fmseg==; s=purelymail2; d=arkamondal.net; v=1; bh=qDJDGnNh0VyDniUgB1appHqn7rBPmTAD4rGUcCjsp0w=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=HQZYvZ07K/X4Bn+Kpc7BiVTtGzwQCFHgwbaZjFKFBbvDWPaSnex+Ln//58Nx/0p1r4KvTEOzaSKAdDy9lhiRoMk2flcWYkigs6rs34zyrrTlovFv+THyAZMePHgwH8dV2FEO8j9jNwjpJoImtWqA79EJKCnVEZobJjeToyChWka7xY8r03+wA48qZ6gfbtFGFt66NTCNYXf+60Fzoq5L/wnBXDg5WmziptQcDV/tmqWn4hi+pTjnmNDcp0y7weA2M9m05ise6yVNJ65o/Vocdf051ZmThqxTET8DWUyHV90SnSLxjSFxl5rqlu/eOII4ac/wJaq1IJ0Mcm5KfzHivQ==; s=purelymail2; d=purelymail.com; v=1; bh=qDJDGnNh0VyDniUgB1appHqn7rBPmTAD4rGUcCjsp0w=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1246644:48769:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1778885788;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 02 Nov 2026 07:47:33 +0000 (UTC)
-From: Arka Mondal <arka@arkamondal.net>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Peter Meerwald <pmeerw@pmeerw.net>,
-	Matt Ranostay <mranostay@gmail.com>,
-	Robert Eshleman <bobbyeshleman@gmail.com>,
-	Leonard Crestez <cdleonard@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arka Mondal <arka@arkamondal.net>
-Subject: [PATCH 6/6] iio: gyro: mpu3050: Fix the scale list and report it via read_avail()
-Date: Mon,  2 Nov 2026 16:47:00 +0900
-Message-ID: <20261102074700.63075-7-arka@arkamondal.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102074700.63075-1-arka@arkamondal.net>
-References: <20261102074700.63075-1-arka@arkamondal.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yt/7r3JE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20DB91F00919;
+	Mon,  2 Nov 2026 07:47:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793605676;
+	bh=/5I86CZ+slqkRJTosNHUxkAL8uURBN5dDpgqbLr07wU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Yt/7r3JEtzHG6GYJFiSgbdV4xZv1CP1WOEwveRYgMAoVmlr1ssFwCP3cji8JybOvP
+	 5pFdBlfjfYYpmPkLhRoaFM716IP8ckfK7/mpd6AbncfvqPt67Mlag7w25Tcel3PH+y
+	 fAzcYndBtlAVHCwlgyj4LYIpuny562C1vEhC4hqUFZ2UOKTd6kMjC7SnyVm+6765Hp
+	 snsim7fvwgSqAtSmB4ATTR51c9pbLaNiJA7T/pXaXBQ8ZaKOvHYUJ4GVSN2cZH3EwQ
+	 E4wu2/tajaDVYQruUjC5aZOWIHVkNWq0ituIE0wMlu4lpRoG7zL/7AAdMjHYmQmN93
+	 Rvd7Gyh1FFS4g==
+Message-ID: <f63bf987-aaf7-45d5-89da-24c16b1a848b@kernel.org>
+Date: Mon, 2 Nov 2026 08:47:47 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,108 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: mfd: mediatek: mt6397: describe the
+ RTC's 32 kHz output
+To: Ryan Brue <ryanbrue.dev@gmail.com>, Sen Chu <sen.chu@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
+ Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Eddie Huang <eddie.huang@mediatek.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-rtc@vger.kernel.org
+References: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-0-9758f38d7053@gmail.com>
+ <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The angular velocity channels keep IIO_CHAN_INFO_SCALE in
-info_mask_shared_by_type, so userspace reads the scale from
-in_anglvel_scale. One custom attribute lists the values it can take,
-and that list is wrong in both its numbers and its name.
+On 02/11/2026 06:33, Ryan Brue wrote:
+> The MT6397 RTC drives its 32 kHz clock out of the PMIC, where boards
+> use it as the sleep clock of a Wi-Fi/Bluetooth combo chip. The output
+> is off unless something turns it on.
+> 
+> Let the RTC node provide it as a clock.
+> 
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
 
-The four numbers were computed against 2^16 while mpu3050_read_raw()
-divides by U16_MAX, so not one of them is a value the channel ever
-reports. The list gives 0.000122070, 0.000274658, 0.000518798 and
-0.001068115, where the channel reports 0.000122072, 0.000274662,
-0.000518806 and 0.001068131.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-The name, anglevel_scale_available, has neither the in_ prefix nor
-the anglvel spelling the core uses for IIO_ANGL_VEL, so it sits at the
-device level and userspace that opens in_anglvel_scale_available finds
-no such file.
-
-Report the list through read_avail(), built from the same
-IIO_DEGREE_TO_RAD() terms and U16_MAX that mpu3050_read_raw() uses so
-the two cannot drift apart again, and delete the attribute along with
-the comment describing the hardcoded factors.
-
-Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
-Signed-off-by: Arka Mondal <arka@arkamondal.net>
----
-
-Notes:
-    Compile tested only; no relevant hardware available.
-
- drivers/iio/gyro/mpu3050-core.c | 40 +++++++++++++++++++--------------
- 1 file changed, 23 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-cor=
-e.c
-index 07c0f9011c63..0dfb5e6039fb 100644
---- a/drivers/iio/gyro/mpu3050-core.c
-+++ b/drivers/iio/gyro/mpu3050-core.c
-@@ -701,6 +701,8 @@ static const struct iio_chan_spec_ext_info mpu3050_ext_=
-info[] =3D {
- =09=09.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |=09=09\
- =09=09=09BIT(IIO_CHAN_INFO_CALIBBIAS),=09=09=09\
- =09=09.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),=09\
-+=09=09.info_mask_shared_by_type_available =3D=09=09=09\
-+=09=09=09BIT(IIO_CHAN_INFO_SCALE),=09=09=09\
- =09=09.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),\
- =09=09.ext_info =3D mpu3050_ext_info,=09=09=09=09\
- =09=09.scan_index =3D index,=09=09=09=09=09\
-@@ -736,29 +738,33 @@ static const struct iio_chan_spec mpu3050_channels[] =
-=3D {
- /* Four channels apart from timestamp, scan mask =3D 0x0f */
- static const unsigned long mpu3050_scan_masks[] =3D { 0xf, 0 };
-=20
--/*
-- * These are just the hardcoded factors resulting from the more elaborate
-- * calculations done with fractions in the scale raw get/set functions.
-- */
--static IIO_CONST_ATTR(anglevel_scale_available,
--=09=09      "0.000122070 "
--=09=09      "0.000274658 "
--=09=09      "0.000518798 "
--=09=09      "0.001068115");
--
--static struct attribute *mpu3050_attributes[] =3D {
--=09&iio_const_attr_anglevel_scale_available.dev_attr.attr,
--=09NULL,
-+static const int mpu3050_scale_avail[] =3D {
-+=09IIO_DEGREE_TO_RAD(250) * 2, U16_MAX,
-+=09IIO_DEGREE_TO_RAD(500) * 2, U16_MAX,
-+=09IIO_DEGREE_TO_RAD(1000) * 2, U16_MAX,
-+=09IIO_DEGREE_TO_RAD(2000) * 2, U16_MAX,
- };
-=20
--static const struct attribute_group mpu3050_attribute_group =3D {
--=09.attrs =3D mpu3050_attributes,
--};
-+static int mpu3050_read_avail(struct iio_dev *indio_dev,
-+=09=09=09      struct iio_chan_spec const *chan,
-+=09=09=09      const int **vals, int *type, int *length,
-+=09=09=09      long mask)
-+{
-+=09switch (mask) {
-+=09case IIO_CHAN_INFO_SCALE:
-+=09=09*vals =3D mpu3050_scale_avail;
-+=09=09*type =3D IIO_VAL_FRACTIONAL;
-+=09=09*length =3D ARRAY_SIZE(mpu3050_scale_avail);
-+=09=09return IIO_AVAIL_LIST;
-+=09default:
-+=09=09return -EINVAL;
-+=09}
-+}
-=20
- static const struct iio_info mpu3050_info =3D {
- =09.read_raw =3D mpu3050_read_raw,
- =09.write_raw =3D mpu3050_write_raw,
--=09.attrs =3D &mpu3050_attribute_group,
-+=09.read_avail =3D mpu3050_read_avail,
- };
-=20
- /**
---=20
-2.56.0
-
+Best regards,
+Krzysztof
