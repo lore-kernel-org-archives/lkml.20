@@ -1,120 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793648965;
-	b=HKl6VMDrAF9tgwjjliBNUkGBu+6F3ffyUybGIeaWzz3tPSyIbmY7SmUOxqRdBxs0qcu2
-	 FTjoTprcA7w9XxVovyd0AKtVCH2gaq2q+6+iWymExGU0VTUZuDgps6QZveti7U45Ear50
-	 UGJO9qjby+IM/ZoKL8mClLtn12gwocixWuME007PO+Zx93ztMyRk/HCHIgKdIFryrKQjM
-	 sWJZipRi3QBvkxb3213modNELCTqhVE1i7s25PmfU105C0jxaMffzAJCtR7Obhx1KlQ5f
-	 8Zev45DoF6hmGPGHM73WE0cW/zFyiCxsoW4rInrr0Lww0HnEfmL+uFdUJnAyjDFKnLw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793648965;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
-	b=mQNdMDeQW7ymvP8zW9VBL9PoLxnz/KS6I0dX5b5NJnnfirGm9VHHC8HUuhNK5dAZGGi/
-	 6J7H+VyEb0zuAS+R+CHq0Vd5YNnaZTlcqDq+VEKkygU3x+GlXF1wpj2O4DvyJt3yETspl
-	 CDhjwOVypyvW7U1B9pBDxM5l/BxqiI6xPIJ+tgoZMMDx1eyZeHFzddm+4f68guyOAPzqB
-	 csxYJOD2+aOHUBpx1G862bM1W/ZIH7aQJEZq385KJQMRPbcquG7+wzV4IhVvh9rSo7t16
-	 XlfwvExob2HoyxGyRkU88GO9vLqMuieMvKBQARCJl25zEBRTK5kZ+Rp2Co5ANzCz6Fg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QaM5xXg6;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GZPN26rX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793649012;
+	b=zixaYNZZg+chDaweWPsZiehVeXuERI1cXNRNteqBfVpF+GZBFS6pzydIbZwMczzI3gh9
+	 u2aUYRPDvEDKsGSPRcr1irdvcQFK/ZFNGli63LF8siDD6K15le8zl9jlKkr9Tnm+3GpaL
+	 VyGTntWi46oOGZqOKZQgizMKKiFLLY48PJUr/kRL8oltxq8LmaMb8l3bULKaeAtnerGkt
+	 qXs6g2Sm1XyOviNzH9nXhtWttsUT+5e3vWSIfDPLrlZ+/ZgSp5QYnMl+1f+TMeKz6Dy8W
+	 0UgW4x/CLvYCDZ955NUIkIWSPNG2wV/gBnPkbTstKzOSLGBCIgZJyNpstSPXjwyaEXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649012;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=6b+t4DLaXsTbBo3v4wTWOzTtPpjmGsh78Ivlm5MgXBA=;
+	b=UPVZg8A75OuZvzgjkTzDZpfQ22y/BHMOmLh8A0Pcx21yvbJiaSMvvTRtLiYYAkASYJjE
+	 nwJHw0p+F4ChcoItv+cYXBzPMQHd6INkUICvxHUMyDlI00q4DtLpDlFqIAu82WOfjtwR0
+	 QTGxSiOfIHtCN4YvKx/qP3yUQFDvg2zdoy7I4PeniJZT+8RsJqEsNgpgSHWy4ue5jWFpo
+	 FXZSrvBE0jxnIkpZAjkiniYHDeGGZmGcAWNJx3zAe7VVM3Psfyw+XoZiRpQ/GN2Edws8M
+	 FsQxWFyX2wsSs5ZZFQkVRDU2qD0QkoLv7MBNk6s4VF9xg4XtKSHaYIFbGt434FJK4wA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Q4c7HHZx;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43423606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:49:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43423606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0047606A329;
+	Mon,  2 Nov 2026 19:50:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0047606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QaM5xXg6;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GZPN26rX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793648963;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
-	b=QaM5xXg6PmvuF2z/E6SOZAr0JcwXklTlOkwDEPt6dfgCn3qGyGo9aPbJMG1lDfX2ymvybP
-	VXwQWYJx4WIVRWq9ir8SoTGJaIV2tNNPkKRPLIBIPGvDEqbTnjxKEwVrXizJ3OF4BZxqVD
-	Wo78Af1CFCXX93dwiPj1Uh4pLM1KJfQ=
-Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
- [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-74-y1IBDDO-PZuVXCodyTfKtw-1; Mon, 02 Nov 2026 14:49:22 -0500
-X-MC-Unique: y1IBDDO-PZuVXCodyTfKtw-1
-X-Mimecast-MFC-AGG-ID: y1IBDDO-PZuVXCodyTfKtw_1793648957
-Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3acd4c7120eso4411591fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:49:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793648957; cv=none;
-        d=google.com; s=arc-20260327;
-        b=F16j5Po/OlO1sglt+nT+FLorYKvfEGCvBdzX9yeKW+lmKigKf1JHZ5T1ndOFzY4rrr
-         gJwgiQZh/A+6i4JrtI3H+nq+sYiGZJ2ZAwSxzqsjDv3BTB08GNmPpAmdIYDTQuojdjv1
-         p2p+WUks9ZXSNkvein0UaDYi+aSrFo7Q/QLcEghUzxz1Q/ss5+YryW3pI/dQsV9DgyMo
-         56YGYCj+bogCKtjX4y78vnnZYYwC1LCvyrKNBgWNhJuENXuAPladDL1fawlgLQBjGJWB
-         dAHFcU4zUO15NQZdLLs0OkmCRQmrTUg0uKsqTWFWzYItCRZg93kU0avimkbe57oSPo4y
-         /bxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
-        fh=E2PkJi+YL0Dd7QnmoKiRMBB9VNxkP5ehkUL3Jf5tp34=;
-        b=fp4VFy30MgUM4Fr+CRBKq0qdQ8eFw555QvlDIhXVKP/tT34iSSh9A2TC3gzXPPbe33
-         vXAiYCbL17293QOC+Vgbp8xSDYMjO51d3P6vIKvl/9Xg8KSdQy297ZT1lqPM6+4wfiv1
-         xQgEi+VOQ9mPG7X2L+J9CYVnQ46s1yM1uTFlXaSXR/313I/0Q0GLztWJ9ZdttvMYXu8K
-         oT88JrN3JG/Ilza/mZpl5o/5YzG4WV9KyNKvtQNETc98n1QxubayGkMWDLHOrIE10MUN
-         6bmMk0ICKghLEKgGumSI9DqWPrYtJ0P+hFkOJs5j6yCirQzJI2MlSKrWkYi9QOS1SOk1
-         bwYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793648957; x=1794253757; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
-        b=GZPN26rXTz648Sbx7W2NREvzZidWMGu/9zzzgP6NsavF63+B7pRst7xS4Fnv9KOl44
-         DhZMUc4xAzmMwZj8CCl2Jcfl5gVYuXzXdEJsMbgbogVi74gWGWx6uSeg3iHAlV9AuosU
-         bKfNrWDKSfyaYZdeclnUzak4XyypB774QqE2bJNMD157EeQCYVIJuP+miOsBk6y6uw/C
-         deKBvWK1W68FtjRpekltm5PgEZdkUooFhAQrt4IiQOLLDaJeLMd0SVc3Zw+Ib/6jteqx
-         b06J3pWcov/ZPjUWmXQ1+Vly5mG/MNo7ITk0TKpqQtAMogKJbt7N2+F/Ol1LPp30Ri31
-         Unxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793648957; x=1794253757;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
-        b=D8chMF8PoNkDC+jcUQl3rVpsubVuF/gnsdiI+9bB/Ls+hh623Q18flz2u5LmmL0IWT
-         wj2d/AUHzjfm9rbulrtm9CdXX4HNcb9UawK3HzbcqZ1sFrJ+EWJ0MQosy+AaaDqzoJAp
-         cQ0kjOloOtuSWk56LqPMbFXGeeDfTQeaTWKcenku2WVvl8ls9jVX4OFqGZBKp8i0Ds0v
-         Tk5Ve+3FMIFvm2sWA40fNvldbA40K7WjsDsT3qM72qeYRaJox5Mh3RkN077fPIQGc6NQ
-         LYBWV4D/RV2oxPLiyBxvyOLxvkGGsI0H2Cpvmi/nfDf0fqvpAa8pTlNzxna+6PAkruIo
-         W8EA==
-X-Forwarded-Encrypted: i=1; AKwUvBztWzxg+sUwB7m/sjnvpIaDLNdg97RhLJ4mCUPokhOJ7fJTdpTrYD3g1ISolPnNNiS/k+8+ajpUG1xraQk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TCyIwmvA+ikYNdQIGdn0SQrxsojDE5SZQ1LO3qOCf4mGea3qN
-	DjkguX2ij8/Eg5oYc/E1GRD2WMTWlyVMrFY2/xYt8kewBnv1YM3jV7cZLvPYe9uxPI1HjOmGucC
-	3RgZ8yO0Wn6kYF6X5gVVqfV+DvS5sxD6HzrtnAwe/TnolCp3uC7s13H7Gj0IZQkSRQBQCrUfPOD
-	0kP29Rtlbyd8MPh1qQwUXs/K4DnIbZMy6uIV2AY72Z
-X-Gm-Gg: AYBFou03jtWfgQufR3CCrdE+ndxrSwm0PqdQ765310YZIfGHSWLoUcSQFpzjXXypAIJ
-	cu7nN6Bipucbn1CQK2dfx9VaRPFIOurJTZmscR9Hkb65Cbfr9ZOG7ljZgulHQVGNIVMDJYROUEV
-	6hKiInxpCI0NXVlTDv6rctIyghtgTjvYUt9dgFFxh+xcbp2iK9Mnx+z7EO
-X-Received: by 2002:a2e:a551:0:b0:3ac:8ce3:c477 with SMTP id 38308e7fff4ca-3acb7b30453mr24991641fa.21.1793648957442;
-        Mon, 02 Nov 2026 11:49:17 -0800 (PST)
-X-Received: by 2002:a2e:a551:0:b0:3ac:8ce3:c477 with SMTP id
- 38308e7fff4ca-3acb7b30453mr24991601fa.21.1793648957032; Mon, 02 Nov 2026
- 11:49:17 -0800 (PST)
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Q4c7HHZx
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A03FE40E02B7;
+	Mon,  2 Nov 2026 19:50:09 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id K2LTiNWHYnAL; Mon,  2 Nov 2026 19:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793649004; bh=6b+t4DLaXsTbBo3v4wTWOzTtPpjmGsh78Ivlm5MgXBA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Q4c7HHZxNNyjLdj82SDdH90ubdZp2j335bULS93wJJeuc8Q3YM5EDCRGeyAW4ZcQZ
+	 0F+5FLADLQWtkDZNFizrJgq4o3Oj0kKJwxSa0JyTG1UKCkWLDlQ7HXxfLMpvKExu8s
+	 HdSvoOnEkWX6qSLuEGDVM7hC91vfxd7dinOWArxb7xF4LPi49xqYjv9xdktjno1z3U
+	 o2DmFUpy0pyi9zBZ2g1oaoTqDZBsoHjopl3l1RxxRA9UXVNnOISmC1Cn64xI3KhkaA
+	 tGOcUb5kYmPWNbfCIbfnonkZCqQS6ZfLQ/TBv/ZQqstw6slVEZRrB9hnO/1cENHMxT
+	 fOE8lFReNL72vwB4rYzgbhpZbSgKC22y6unZqzst3rWgHEnmGHk9SprG5cxgwE09oZ
+	 lcldiouakI+xn1Q7ey3dkzLeDsjGNjXeF8E7l4KeKB/IO+XbpvMHPuvryUe6kOKfdB
+	 8gCJ8mlHUwlXOx1+BKOV0BroyXMYIY0RcQOesV7DOogkneghldDF9edF4eFXDJeNc9
+	 atGQOkRTRMrgaun31vAtpki2NVpfvpIqi1fsO8U6aSguE2r8TY9PftQEmMA7kaAG3Z
+	 i1QLQQKkrrVLucWTNs4uiBpYL0JYkk9ZVKRurGotoCIoWHKXIWZErt2d9MK9dNixiN
+	 A/JO1WzVrAkw3jQ4uNmVZq2k=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 307D540E016C;
+	Mon,  2 Nov 2026 19:49:47 +0000 (UTC)
+Date: Mon, 2 Nov 2026 11:49:43 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "kas@kernel.org" <kas@kernel.org>,
+	"seanjc@google.com" <seanjc@google.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"krzk@kernel.org" <krzk@kernel.org>,
+	"au.dang.jx@renesas.com" <au.dang.jx@renesas.com>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"biju.das.jz@bp.renesas.com" <biju.das.jz@bp.renesas.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"biju.das.au@gmail.com" <biju.das.au@gmail.com>,
+	"jirislaby@kernel.org" <jirislaby@kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
+Message-ID: <20261102194943.GEaujpV134C7Wgx0Nj@fat_crate.local>
+References: <TY3PR01MB113468FBD8E5EFA65C4B4E5EB86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <072dd88c-4ca1-4c8a-98b1-7783bc43c1c5@kernel.org>
+ <TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org>
+ <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
+ <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
+ <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
+ <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
+ <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
+ <953b3d774dc281bf13f5025041d4434f560cf776.camel@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,107 +102,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019151627.3324886-1-ameer.hamza@truenas.com>
-In-Reply-To: <20261019151627.3324886-1-ameer.hamza@truenas.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Mon, 2 Nov 2026 14:49:04 -0500
-X-Gm-Features: AclHuK9ZeucLYL1DScuSSaHH7_rMZLYot-5hfyfC4xJE5FYtmB70sxRvxJe_mfg
-Message-ID: <CAK-6q+j64=mSzuufOaSGjsC2aSwhb0hs9MKxxaAhbwugdztHZw@mail.gmail.com>
-Subject: Re: [PATCH] dlm: don't set RSB_MASTER_UNCERTAIN on rsb with no master
-To: Ameer Hamza <ameer.hamza@truenas.com>
-Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	caleb.stjohn@truenas.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <953b3d774dc281bf13f5025041d4434f560cf776.camel@intel.com>
 
-Hi,
+On Mon, Nov 02, 2026 at 07:38:07PM +0000, Edgecombe, Rick P wrote:
+> > +F:	arch/x86/**/*tdx*
+> > +F:	Documentation/**/*tdx*
+> > +F:	drivers/virt/coco/tdx*/
+> > +F:	include/uapi/linux/tdx
+> > +F:	tools/testing/selftests/tdx/
+> 
+> This drops arch/x86/kvm/vmx/tdx.c.
 
-On Mon, Oct 19, 2026 at 11:17=E2=80=AFAM Ameer Hamza <ameer.hamza@truenas.c=
-om> wrote:
->
-> When a local request reuses an inactive rsb, find_rsb_dir() sets
-> RSB_MASTER_UNCERTAIN if res_master_nodeid is not our nodeid. This also
-> matches an rsb that never got a master (res_master_nodeid 0, res_nodeid
-> -1). set_master() then trusts the "cached" master, copies res_nodeid -1
-> into lkb_nodeid and skips the lookup, and _request_lock() hits the
-> DLM_ASSERT(r->res_nodeid >=3D 0) in is_remote():
->
->   rsb: nodeid -1 master 0 dir 1 flags 200 first 1 rlc 0 name pr
->   Kernel panic - not syncing: DLM:  Record message above and reboot.
->   Call Trace:
->    _request_lock.cold+0x3e/0x3e [dlm]
->    request_lock+0xcc/0x110 [dlm]
->    dlm_user_request+0x110/0x340 [dlm]
->    device_write+0x605/0x6d0 [dlm]
->
-> Such an rsb is left behind when a request is cancelled while its lookup
-> is still outstanding and the lockspace then recovers, e.g. because the
-> dir node died: dlm_recover_waiters_post() completes the cancelled lkb
-> instead of resending it, so no master is ever set. Once the rsb is
-> inactive, the next request for the name revives it and crashes as
-> above. If we became the dir node in that recovery, deactivate_rsb()
-> even keeps the rsb as a dir record, so it does not age out.
->
-> Before commit c04fecb4d9f7 ("dlm: use rsbtbl as resource directory")
-> the flag was only set when res_nodeid was > 0. Restore that and set the
-> flag only when a master is actually cached, so that set_master() does a
-> normal lookup (or becomes the master itself as dir node) for an rsb
-> that has none. res_first_lkid is still cleared, as the cancelled lkb
-> leaves a stale id behind.
->
-> Fixes: c04fecb4d9f7 ("dlm: use rsbtbl as resource directory")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Ameer Hamza <ameer.hamza@truenas.com>
-> ---
-> Reproduced with two nodes: pause the dir node for a name, request the
-> name, cancel the request once the lookup is out, remove the paused node,
-> request the name again. The second request asserts without this patch
-> and is granted with it, also when the dir node moves to a third live
-> node.
->
+./scripts/get_maintainer.pl -f arch/x86/kvm/vmx/tdx.c
+Sean Christopherson <seanjc@google.com> (maintainer:KERNEL VIRTUAL MACHINE FOR X86 (KVM/x86))
+Paolo Bonzini <pbonzini@redhat.com> (maintainer:KERNEL VIRTUAL MACHINE FOR X86 (KVM/x86))
+Kiryl Shutsemau <kas@kernel.org> (maintainer:X86 TRUST DOMAIN EXTENSIONS (TDX))
+Rick Edgecombe <rick.p.edgecombe@intel.com> (maintainer:X86 TRUST DOMAIN EXTENSIONS (TDX))
+Dave Hansen <dave.hansen@linux.intel.com> (reviewer:X86 TRUST DOMAIN EXTENSIONS (TDX))
+...
 
-question:
+-- 
+Regards/Gruss,
+    Boris.
 
-how do you "pause" anything in DLM?
-
->  fs/dlm/lock.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
-> index c715e171bab7..2323c7709aa1 100644
-> --- a/fs/dlm/lock.c
-> +++ b/fs/dlm/lock.c
-> @@ -826,8 +826,12 @@ static int find_rsb_dir(struct dlm_ls *ls, const voi=
-d *name, int len,
->
->         if (from_local && (r->res_master_nodeid !=3D our_nodeid)) {
->                 /* Because we have held no locks on this rsb,
-> -                  res_master_nodeid could have become stale. */
-> -               rsb_set_flag(r, RSB_MASTER_UNCERTAIN);
-> +                * res_master_nodeid could have become stale.  If no mast=
-er
-> +                * was ever set, there is nothing to confirm and set_mast=
-er()
-> +                * must resolve it as for a new rsb.
-> +                */
-> +               if (r->res_master_nodeid)
-> +                       rsb_set_flag(r, RSB_MASTER_UNCERTAIN);
->                 r->res_first_lkid =3D 0;
->         }
-
-I tried this patch and no significant failure occurred, although your
-case is difficult to hit with a normal workload. So I will ack this
-patch...
-
-Acked-by: Alexander Aring <aahringo@redhat.com>
-
-This reminds me that there are too many places that determine the
-master or when the master isn't set, instead of having one central
-place. I tried to improve this situation, but the changes seemed too
-extensive to be accepted upstream. [0]
-
-- Alex
-
-[0] https://lore.kernel.org/gfs2/20240423195559.1527187-9-aahringo@redhat.c=
-om/
-
+https://people.kernel.org/tglx/notes-about-netiquette
