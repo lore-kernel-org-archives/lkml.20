@@ -1,96 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623741;
-	b=ByA/4+5JRdHzwe7timUHR+aFK7VCIvoDwXhl0/PdrV7+CKlhc/9WxfDprZ9zfsEXXCkZ
-	 /dEogABq5jPHH4T7U4tTJo/ieFp2kYz7J+H7LMHgwgjnlI3YpsZuOKbM9x87eEEqzZhii
-	 536iGaV7MM/ZCM3SAh+0Bq5TTifWfVQzJdj7TDHK/m8MUzi79yeoBWcxMUGQpcsiBs+86
-	 jr91dcRSFDDpaRjLuNArSEdZlVSDwAGQa7Ks0j3O5x/UkeRG0Ed7RMUeOllofoHnx4Wtr
-	 4LSN0K+FfScyYlChb32+mY8lBOSmNW/BiHIxk9+HlkLjPmNo8Vt7K2z9GjmNdxH9EQg==
+	t=1793623737;
+	b=QEP1eq51zzq2Ko5EBWrFke0kDg7oygY/vV50CbU7EDIqLrTUfCDsAsy5BGyfJWtRFma2
+	 FTfnxrqHcJpGEvTxhvVdNaOQvVSEZtwnSkhojSCh2MqjZcDyC+g06CFedgwf1Oax9LDJQ
+	 HG4vVrmyXP0P5IoDfei1ATyCJmSYKhxs9wYunBlQFfEhGumJSmfMyv+ld5hSVBQItHf1V
+	 X/zd6lxmcBIXSmGUjZ7w1AcfK+DpCIF1stcv8AuTNhfrAZ9heWE8zwNO9DqfjhR5CDXgI
+	 5RnWPOfkwM24UD2F7v0dgKleILyNiN8zvAWpYePaXMAqvePlq9mrQToGlx+AghYpDvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623741;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6XnqB70rXSs+gjzhceVbINLoPc35zaUEJn/5DXHkxzA=;
-	b=jXTvSpowRL2tKmG88+kPj+f3A4o9g7t+HAvbBwIX8HQQ5c/2Zgmio5CkDThMeXOhkoQ6
-	 BJj3JX4tOdMLRsC7vYCHUk7mOmKkwuyrwCOjpIFY78XDtddnopu/RuxSUp9JNIP7Xwyn/
-	 kBneQ4V3VXO1TncrlWsuWuFfku16HMxKIQ8xmUbwgJuKGtOtm5nF4o6lY2lg/kXTkC0Pb
-	 mgZ0TLJmeZUfp1M0YID7HHnLjJFUjvcTt5wgLEcn5jWavBslFx5xHAts7/V20gPWkMrVn
-	 AW5KBDY+tFbR4X23ho4WzwlclVOpGJCLd79DPtsftywU9YUqq9JZlLHaH3X7FV7/25g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623737;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=IgnFBSs4gU/9OiVWohQgrsqEzzqGnaK11LfxQ+b/54A=;
+	b=vEu0yunreRPt58d3p7lf35gQwkYs6j/6QMPZdbyoDSFSwbLuK61B0/wJIr4o3D77e9bG
+	 gWtFnoYZUfIxeQ3YvibiACIGTfBztJsFGAW9JYE9aWhps91zLg8NcTVTu2eHHX9HPhZoF
+	 fnY3enKqgrLxLK2cODm4MfNYnoPOLvhhTjMvbDoXVpI9k8G47jeMVBwEc7bNzTDHnum1i
+	 uMpNjgXA+iom7qy4bgjSvABNAy+0QhYpyPu6Y453G5TlZ+WY/Ge1VOY6MfHKBTiwIENXB
+	 pRSqVUh6kIp2AYpBPsWHb+8Bu40z0oidq0bolelEikyHgBPP6ZZqTaeSvpTg+q6tPHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yPFET6h3;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y58dpbKh;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C84F60A2634
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C84F60A2634
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD367606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:48:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD367606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yPFET6h3
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e0d1da913so2248755f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:49:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793623740; x=1794228540; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6XnqB70rXSs+gjzhceVbINLoPc35zaUEJn/5DXHkxzA=;
-        b=yPFET6h3ymIhzYfTSsZwQqIEDHtlUaPrM3o+jCOhKPl48hSOiJ/XlIS+P1rehHbLFW
-         WI5x+rlX0Hy8b8kPIdv3MjwSWESjt5qkMuB5wv3uz/bL9T5K7it4lcUH06aN26njy55u
-         YAvuS/ATk34QZBaUn24XtvGM7cfqakpfSBorVwZpuoNAwFQijIKJtMjB/1uHz0MfToir
-         qits2/pTRwzSOVq0sw6Z6LFZXqL1PNqb3RQCN3H8v1f8hA1mrwzW9dqOAEn6f21h4QBe
-         VNiUuC26oEx2fgJ2kTpg1UmyY0ETkda3+TMfO22n6EfzWos6bTry9AtLWKiSPgc/0h1C
-         XZlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793623740; x=1794228540;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6XnqB70rXSs+gjzhceVbINLoPc35zaUEJn/5DXHkxzA=;
-        b=hQ+tRZh2FWdQHwRxIaihzrm/2O05Xn9fNtvjv1PvaEGvIjnsI0hJLF0U+b1eY7z0xK
-         mb5rwFMIiRKPSiGgyFS2bSSqzAvCndX/upVgA8cMeX+rwO78ClXgA2trAlmRcNhPddZY
-         cgb0UZaBKxmnOPab1kwagSmkyQbHAVK48/9w9xFzclPzDYFMaNE9qaVukR1zr04TGr7R
-         sAbKqwdj8ckfIFU3POCDlem2tAqqSbHr1jV0mX1wL06gVOw/0Gf9CZntOPY139KIQpF4
-         cQcI+0rKWnIRxqm8tbeNFcNrGmenQjGGreR0ll+bJDQ79leSdoaoL2UKMzqlPielQ8jD
-         Kz6g==
-X-Forwarded-Encrypted: i=1; AKwUvBwA+f5w1n5b+561O5yVHQHBORvC+L/+dhNcnOMrJTKXxFlG4+nM8pbyhn5D7aVXE1FdB+dPG4C+cdMFd5c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/+mdpj3mNAXDz68A06FvKWUdqXKSIP8Ef/xiJRi2WJJfIQM4S
-	XIOxSGFj+G8oLKRQe13XaAfi9q8aM3U4W5XGPvxGo4KaUxffSV5+Igg=
-X-Gm-Gg: AYBFou0rSGM930ZGPKVFFwOdWwIn0AIlrhSIXLgahtDwy9LDGgoGqaX1lHk7G3OpvS1
-	cf/KwVkNLgd5ldNBDp8yMGZz6b6VmkcycOI1eJviMFxJ6oSqgvLfitMncgQrRPfBzJ+PCtMxSGl
-	8Fl73g7U6zryFgSXmXYOy5CIjfrKxo7cRU09ro7WRWmeBQBFhSbHr31nkmcsfqAEE5gr1XhxQxp
-	S4GQzzQ0fYNa9O3N7szuosxAWe+qQBvg9NrWY79Nvb+Xl82ogOwuvdWDK8pwGtXCFXsjuouqSKJ
-	uiULqU3zvCfSjidLLGmRkoXLv74FNxttjNsS7tHsrhWKw76ILQ1I5Qtf8FcRv1mVkfoCAnsbwwu
-	auU/Uod+MMRO+QUBReGASEUed+y6+Y/+uk/CRZvtdQFSpGMjG7ozSEUHkI+gdaI8OxXf6Eld5On
-	GvnXrTKI/1Nda0rCEUg9lYzx/l85JvA4xTkaloRyRWhbgb+Oyo0CYVm7Hg0y2/h1tglzxB7l58V
-	ZRhskOwE8bxXRKjjGtajVeXqBgQoB8UQ1by71Fn5aIAl1cUb/Nvk4uH/P0lafHfZfDtd07JCw==
-X-Received: by 2002:a5d:5d0c:0:b0:48e:7833:2e56 with SMTP id ffacd0b85a97d-48e7833321dmr15104937f8f.23.1793623739325;
-        Mon, 02 Nov 2026 04:48:59 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723bfsm18719736f8f.15.2026.11.02.04.48.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:48:58 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-To: Jeff Chen <jeff.chen_1@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>,
-	stable@vger.kernel.org
-Subject: [PATCH wireless 3/3] wifi: nxpwifi: validate command response size against buffer length
-Date: Mon,  2 Nov 2026 12:48:54 +0000
-Message-ID: <20261102124854.325979-4-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102124854.325979-1-tristmd@gmail.com>
-References: <20261102124854.325979-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y58dpbKh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793623736; x=1825159736;
+  h=date:from:to:cc:subject:message-id;
+  bh=718d8Norezs3ZysX252UJaxohIlGAU+FbYcANbSaDuQ=;
+  b=Y58dpbKh8hzKxbnh8ZXl+I3FAKRRW+j5DKX9VO4OmpDckdeVqQfeewPv
+   4juKAIJolafYLFE+jxO5w1BAHHzWnqDGSntOZ8ryxTZHw0GbRrGDbtytt
+   OnghUVVv39x7mBj+HZrLmmlofHmP5voIxCo0rMJlNyRPhNP9Ez0BFfamy
+   AKRTCNnK8noORoMWA2L5Hm8mYEnw3Ij1ILMxL23Quk/Kq3NncqR6Gv0JJ
+   DwcoyXbfH42nqZ61Is10ONyT+vgvdpG8BvMLzcAoqa8LEeOXnZArKpAeX
+   nhxZNB53hKixTsJfV/U03ldXwwcD3Su6IvAEisfYiBLwoO7EFtp9auFxl
+   A==;
+X-CSE-ConnectionGUID: sukoxDbXQpelVYp7IHflRA==
+X-CSE-MsgGUID: gkiMMM0uTrinPgVCTtwkHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2323887"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2323887"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 04:48:55 -0800
+X-CSE-ConnectionGUID: 8hTd09PJQwuo/KyWCui7Fw==
+X-CSE-MsgGUID: zYOIAzfoS26z8fTn0d0Zew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6432378"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by fmviesa009.fm.intel.com with ESMTP; 02 Nov 2026 04:48:53 -0800
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xNrT0-000000008Yv-1eop;
+	Mon, 02 Nov 2026 12:48:50 +0000
+Date: Mon, 02 Nov 2026 13:48:41 +0100
+From: kernel test robot <lkp@intel.com>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: drivers/gpu/drm/verisilicon/vs_bridge.c:325:9-16: WARNING:
+ ERR_CAST can be used with bridge
+Message-ID: <202611021314.XBaxacvs-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,52 +80,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+commit: dbf21777caa8b8c88c12f7f036b01208fec0d55a drm: verisilicon: add a driver for Verisilicon display controllers
+date:   9 months ago
+config: loongarch-randconfig-r2111-20261102 (https://download.01.org/0day-ci/archive/20261102/202611021314.XBaxacvs-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 3e5b45eed6c3ec25f4f1cc81ce0be10106a8f31f)
 
-nxpwifi_process_cmdresp() reads the firmware-provided resp->size field
-and passes it to individual command handlers that use it to determine
-how much data to process, but never validates it against the actual
-response buffer length. A firmware response with an inflated size
-field causes subsequent handlers to read past the buffer.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon display controllers")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611021314.XBaxacvs-lkp@intel.com/
 
-Add a check early in command response processing that validates the
-declared response size fits within the response skb.
+cocci warnings: (new ones prefixed by >>)
+>> drivers/gpu/drm/verisilicon/vs_bridge.c:325:9-16: WARNING: ERR_CAST can be used with bridge
+--
+>> drivers/gpu/drm/verisilicon/vs_crtc.c:175:9-16: WARNING: ERR_CAST can be used with primary
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/net/wireless/nxp/nxpwifi/cmdevt.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+vim +325 drivers/gpu/drm/verisilicon/vs_bridge.c
 
-diff --git a/drivers/net/wireless/nxp/nxpwifi/cmdevt.c b/drivers/net/wireless/nxp/nxpwifi/cmdevt.c
-index fc1950a125b65..50aabf1a72b2e 100644
---- a/drivers/net/wireless/nxp/nxpwifi/cmdevt.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/cmdevt.c
-@@ -722,6 +722,20 @@ int nxpwifi_process_cmdresp(struct nxpwifi_adapter *adapter)
- 	orig_cmdresp_no = le16_to_cpu(resp->command);
- 	cmdresp_no = (orig_cmdresp_no & HOST_CMD_ID_MASK);
- 
-+	if (le16_to_cpu(resp->size) > adapter->curr_cmd->resp_skb->len) {
-+		nxpwifi_dbg(adapter, ERROR,
-+			    "CMD_RESP: resp size %u exceeds buffer %u\n",
-+			    le16_to_cpu(resp->size),
-+			    adapter->curr_cmd->resp_skb->len);
-+		if (adapter->curr_cmd->wait_q_enabled)
-+			adapter->cmd_wait_q.status = -EINVAL;
-+		nxpwifi_recycle_cmd_node(adapter, adapter->curr_cmd);
-+		spin_lock_bh(&adapter->nxpwifi_cmd_lock);
-+		adapter->curr_cmd = NULL;
-+		spin_unlock_bh(&adapter->nxpwifi_cmd_lock);
-+		return -EINVAL;
-+	}
-+
- 	if (adapter->curr_cmd->cmd_no != cmdresp_no) {
- 		nxpwifi_dbg(adapter, ERROR,
- 			    "cmdresp error: cmd=0x%x cmd_resp=0x%x\n",
--- 
-2.47.3
+   288	
+   289	struct vs_bridge *vs_bridge_init(struct drm_device *drm_dev,
+   290					 struct vs_crtc *crtc)
+   291	{
+   292		unsigned int output = crtc->id;
+   293		struct vs_bridge *bridge;
+   294		struct drm_bridge *next;
+   295		enum vs_bridge_output_interface intf;
+   296		const struct drm_bridge_funcs *bridge_funcs;
+   297		int ret, enctype;
+   298	
+   299		intf = vs_bridge_detect_output_interface(drm_dev->dev->of_node,
+   300							 output);
+   301		if (intf == -ENODEV) {
+   302			drm_dbg(drm_dev, "Skipping output %u\n", output);
+   303			return NULL;
+   304		}
+   305	
+   306		next = devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev->of_node,
+   307					      output, intf);
+   308		if (IS_ERR(next)) {
+   309			ret = PTR_ERR(next);
+   310			if (ret != -EPROBE_DEFER)
+   311				drm_err(drm_dev,
+   312					"Cannot get downstream bridge of output %u\n",
+   313					output);
+   314			return ERR_PTR(ret);
+   315		}
+   316	
+   317		if (intf == VSDC_OUTPUT_INTERFACE_DPI)
+   318			bridge_funcs = &vs_dpi_bridge_funcs;
+   319		else
+   320			bridge_funcs = &vs_dp_bridge_funcs;
+   321	
+   322		bridge = devm_drm_bridge_alloc(drm_dev->dev, struct vs_bridge, base,
+   323					       bridge_funcs);
+   324		if (IS_ERR(bridge))
+ > 325			return ERR_PTR(PTR_ERR(bridge));
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
