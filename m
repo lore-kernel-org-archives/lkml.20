@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793635206;
-	b=RrlaeLrL4lN8zQ/pWwNsZU6v9+qblHYu2mipEHUdp4TgynVdLqunmPSgXZbm6h4qatJX
-	 53e9V1G8TKmIn4VeoQldJkXDiw92cx6m/xxNIYOie/TmNq8odFzVFHSUD7o3jOzSp5eOG
-	 zREHl1ONlq2a4FFLPmREsMrfcLMl/fzkE/MnyNUHaxPdM+5L90OPyPrunyP2o4M50QjsQ
-	 X55Pigmtt7XhckMFLDsxo5czqh6w3U/RKEFePqkH96QYv0mQfjmOHDg7VBLo5n1DyvSjE
-	 FUc4q2L02u7BmY+BisnvfHFyoyp6KPSYBiYXwzkIQanJmL9RWKh0DVV1eUvw3ePgAZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635206;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793635249;
+	b=i7DOmAcs5LbJO5yV4jYJyGYMx/UeK8WvBHJ447+vea3qdGyKEe0ruxTCsFxZsh7T8lKN
+	 0WKHdT4diS0tt0OS83rwFlXuPt/vn4JinOzyLSG8FColfTfhR8FCeCbIz3OoiXWT4dfEF
+	 2bWw2b+EW2o63UmuchkXjIAxnKZKTC7UAzPb/9Vz0I/iDWlYdVgDSHeECHYu3+dS/lxAO
+	 1X61dg3Q0moZTffyEFDdNvCS6IhH8nQG6lJzFRVDcgKVXEUufI9g3QsaYbmQu6TMjfe6u
+	 wrwt/yC8nN1nwLkLCHalOW8J6RsMmUPxR4bGCZe7DxGuMvX90Nvi0kFNMz/Tt6m7d9g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635249;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=q1PFYcNh+ALcjEaWQ1I52rEchwgKWiSa+Wd1iC2vUUU=;
-	b=GoNrwEe6wrp77GVVt51UQktquarKNoFK2VcTQrXXeicIbM4CQC3TV37nP1Q7jXaKnUKZ
-	 +o1qY9ex1fKTt6AWpoThBhN0QWVGjJKDhk0GzDKBQdIO6axLjsj7H9W7Q7oXCBicF/PPr
-	 rd0AN/0mFnPP7GnqcP/rDsF+UEnbn175teFhIGj4UfPxewr06eMJjFVeIenjzqEZpPKpX
-	 LbMLhJuR5Jcu18Nzca79xKFQJdZOI4gbLfC7KhOcTdf2IHyVH/+AFy/Ys3Vi+2B0NVI6L
-	 h4SAllkWT2xhGgqy8lH1AQhzHQJmBAtUie9Z8pEECw8WY9ACCW8s4d8Au1CEYLuP0kA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 Message-ID:Subject:From:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qdDzCJX2QhExG4+G0pbTNThq0KYMMur6UF4zTamumCc=;
+	b=oLYczzcKiwnCqZzNeJNoYVy3q8Q3lEcMrNTtYoeH4t2Vi/2J8D2pp3mT9Q/9o1QkzDsn
+	 zmCuUt8IOhQQDJLDv0zAmr2xcYzahNRxOrgDSrPzwRjcdQoIxlKqd3ZNJdDCki0TLkC3L
+	 9URi6js5X8MTd+aDzkT59pEF36jmFU6DbuFNqoDtETXj8s3E5aI/iLwtqkl+cqhb47okB
+	 5QnZv5/mwpsIa9rlaH4j5pQq27xY3+NvKKrOnITyQcUDcx77IyrBR1c/iRZnWthF09b4J
+	 fuYqmt0/A2r8FmmmcZOpjxepZ9t2oH8CsVZuRrxtltCqrL9SWX53g1/KIOEWCzq2h7A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UnqrwGlI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ESdUcMPJ;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87671606F3EF
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:00:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87671606F3EF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3C0606A5A8
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:00:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A3C0606A5A8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UnqrwGlI
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-54492d8a988so454771cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:00:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793635205; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Cn7OzmiAQuAUZ471aNdjf+mzQrTFF6FT5XI3hxGEV6jGsBHp5qz4QSewIBhXM4KBdz
-         yuXaXBHUceSdMXFGyvGKEyT4XddsVUTDrVgiP+mf373nfKarRW+Eld/12Mq5r6TgQo/p
-         F3aA/5uB1m1shVq10ErsRj5sQ6d73iSbEligGSXiKoF5wpgDVcl5MVuy7v2SRPHz0e6Q
-         TVwf/UHJpKcBIRt7ZepyPBsDpJkkguf0tJjPCY5QiEMop23yQ7ATzIVV+ppIlT0oprcq
-         fJmCRtPgSWfNvMRACkXi6a2znPPhGMNxRNgt3aFVWLbhAYcIL0YvUOUNv2GNBVVPAMI5
-         rSpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=q1PFYcNh+ALcjEaWQ1I52rEchwgKWiSa+Wd1iC2vUUU=;
-        fh=q4T+nekpn6LjicExZwm1b0HUjccth1zLEx0eYliRJxU=;
-        b=R8ed3SgKQpHH5D1K7OOTXdTeVBLmoZ1tz4Ry++EWm0zRajZOp9QpcOyYVHwYRpQTfy
-         PasSdeRuDNv87ef7wOSXil9pL4lz23qgf580oHe5g+FfVN5774IPd3JNv9JZStwY5PsF
-         k4DBE0U5sjfDOgaN5r2sN9JMrZSS1fdErg/hi9vKbcmZADjPyblEcKe4OoETcWkYDfZ1
-         1A6fQrAj3NV45mAdyb/S2kIB+vNKh6h+sj9GRGuz/sQ8dOcw3IjpsHVE1qedi9cogCfz
-         REN2Toby+eKWt//o/LFoc1inZTl5TvgFtxymW41jxZFEfdBzvWZMuLjwqN2+Qpac7n4M
-         RLQA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ESdUcMPJ
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so6110375eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:00:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793635205; x=1794240005; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q1PFYcNh+ALcjEaWQ1I52rEchwgKWiSa+Wd1iC2vUUU=;
-        b=UnqrwGlIFFgsUvYnNj2zvDtkyBQ5jAcUU0RuqXandS12fSr6+pnsADsXdINiz3xY3R
-         k/1fSW+/uvd65O9PPAQRdXb0AyHnVIQzD3WrxoElEPCU5eRcrIk2PdyGHvVTtEIcBOJo
-         HPB6oKwAOWZ5smEdE2uo3fZJKCM+xroy0CWvh+iy/Gd2E+7pVGY48n1QwhoekUyGhF+t
-         wmI/rff4Tr/e3kguX+q5sHEv4DqLMm6ILoCQGsTHEXLzqXkbyqLhf7ba/CZP8rNYFNfJ
-         zvbnY12QELh5J06ldbFoIakjsxASsEAiuO65V9V1dsD07LvrzFk+83uSViYKwjL9GDmJ
-         YYxg==
+        d=google.com; s=20260707; t=1793635248; x=1794240048; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:date:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qdDzCJX2QhExG4+G0pbTNThq0KYMMur6UF4zTamumCc=;
+        b=ESdUcMPJnMdTnShyzCn1FAjj71GVhOeFKa3VioWa24llVaWc4RZL0f5GRmDi2cfhqN
+         7xHrWVmOb/3lu4Db4R6yUuy0YAh7jAQHF8y6+WAbPIlN7Yo4I9D+NDxto8IPYoWGNpyW
+         P4xz23LiQwQsIC4+bhZCrYem7VBFjLK4Zi0svTKyPDVcYD38JBBuVrkIUGZ7S7i+8rxa
+         mdMVobuOjuyfTOtftlifgSyk4h7dHBkTjCcQGtklde8EkmceW1e68jTudz1oVM2Qown1
+         kDYj3h+jECh71+fV6mkFApcP1SXeLBcS/jkaat0sHFwHduKJ7Zy8toEhanpuBbvnvbs7
+         3bUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793635205; x=1794240005;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q1PFYcNh+ALcjEaWQ1I52rEchwgKWiSa+Wd1iC2vUUU=;
-        b=MsGFPQ9y/DgOU37V2avZwRIevdPg+PcUkWcqmAN6hLX2DE92aho5tHyZzJ5bxgFlso
-         mZPFH6h/wcD8N67wy8kzJklwhy3F+EqPBUYgmrDGzRzJR6pWjKTCNSXJHnMVy6ykHPle
-         kwC3kkIWcJ+J2h7yLSs34tsopReX3s3pdCFzcpDOKvbbqfn2I4QlPhnWKQz++LwHI8Dj
-         0hykuFHsXavokoTUGf2AhR1SUD4NgYutI3Pld0EgfXyr91I6NAaD38teigUZPhw7M8fh
-         IjW30jwprZDSW29iLYOWAC0G7QUPnb+/W6pIVYWdX8ol2ePSSHc/uBs0UKXgv0EYARBa
-         3FjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfY9P7tvTEZ3EC664Um2Yiqw+Nlrwz3QJ3CsUN4ZfYhY57melYxRoVMm2sBYREZV+KP7fCTdv2PgA7MNs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iHexNOfq0y+VolhnkWlUUWm1dELEfdeDEfYIa0fU4CbTRyge4
-	Nq9FsZ0LF+F7X396eyg/gakAgiSDleJHT0IKa8uBEshjC8Rl9zLCu1faIEhncyNcN1bgPeKaRFT
-	YBsgFPUGwh/k9ZVNc6YYzmtaYlv05H0Sb2y5c+Xw2
-X-Gm-Gg: AYBFou1d4Tzi3ljz1p9dwAglhrNWPuk3FYKNR9LS9kJdXuoMfpgdoF7ZVvBgO2gXGNe
-	s0Z+Q4lnqUBLoy1EsGDR9DtLat3I8Ormg4VFH9oYDg93avQAeaMyTzvENdO0M/XWf1TEYxHtIpu
-	auXonsxkhfnNSjenVzrRfjEd/HyEieoh2u5wWWBPlEveH85FvmToYjt3Sjm5HWC6lgtL+cpymVV
-	PsoLyeV6zJfkACLW0IzP0k6Gw5mDINwx020rWxk4istOPUlYWsoOK/tyeMcETAkjXE6H6EyQck7
-	t2j6SPN3/YDW8+4ekBg1qqblQN6NmKLNhTDoOLpxYYM9yEfVkHnunH24HHGqBvPz+mlZb4iW4qM
-	jVk3l6kjbI1Z3bQeFBveUm9Behq7MulMvlO1A
-X-Received: by 2002:a05:622a:400d:b0:536:35e0:4f97 with SMTP id
- d75a77b69052e-5414e8ec151mr81444421cf.11.1793635204453; Mon, 02 Nov 2026
- 08:00:04 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793635248; x=1794240048;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qdDzCJX2QhExG4+G0pbTNThq0KYMMur6UF4zTamumCc=;
+        b=qMs/3kE7SsneOIMdFCauyo+1YRjcuyYn3eg/AiMlovIblQamOszh18krYlLy1jaXaJ
+         6Ip+4hNM2uS51PwCqhofqeVyaxWSMzORu9B4RUpT3FHxbGiJ7Y9KN7+1+6JcSfTR88Ep
+         mtBPzfcUJ5d0ZtT2KWHy3AyyrgJlVMQ2bafcvKb9XGrJSUAWkTEm9lvR40burUEC/Mok
+         xzCUt+RDpzWi6i/y8nLNDoPv67xdwV9rZSb81fXQ4PdYbUfjt+Nnd+mQWPfwDqfcJvNe
+         IhUY33qEG+C/JZbbdLaWQ18PgnpUtZoEt1Nfn60maoKyt7cQWqhrhVZUSAFFQGE4X1pU
+         nN0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwDr32iesqQaCIdGc6h28xnvp3ZiA+AIRu4aNTxjnNgOjQM6hG6FocVrm0EU95o10wlrLaRs1p23D0MgeY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9B7e0gS2KZ6XsBKJlaUMWRTYIAhJDuw9pjTkDSJr9SrZQ+timf
+	Rpfoe3du9MN8YIO+mSBlgQkue1KZiPz6OzZzxoVRmtENMRmXtL8AY1yDTrrA2eGochRZ8BEwDEd
+	lhHU+6/+/VCsUXi/IYMUedbt3OaQWKQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,63 +72,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101154503.3203036-1-surenb@google.com> <auiMK6ynztyF1-MM@pedro-suse.tail5790ac.ts.net>
-In-Reply-To: <auiMK6ynztyF1-MM@pedro-suse.tail5790ac.ts.net>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Mon, 2 Nov 2026 07:59:51 -0800
-X-Gm-Features: AclHuK_cZDbtd_0ueJf6rRfK2iXBf9dKhq_tkrnJpLDfq54hZvQR7vC1PP9A1x8
-Message-ID: <CAJuCfpEbhjE2V57ekoFfOjoDf5j6LvtcsrzneGCAWy2d+pQW5w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
- tearing tests
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	jannh@google.com, liam@infradead.org, willy@infradead.org, paulmck@kernel.org, 
-	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
-	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org
+X-Received: from dyhb15.prod.google.com ([2002:a05:7300:148f:b0:368:927a:cdaf])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:3a95:b0:36a:12c4:8bdd with SMTP id 5a478bee46e88-36a42389979mr18350254eec.21.1793635248187;
+ Mon, 02 Nov 2026 08:00:48 -0800 (PST)
+Date: Mon, 02 Nov 2026 16:00:47 GMT
+Message-ID: <18e445c150434665.3137322e32332e3235332e313736.109a67.0000sendgmr@google.com>
+Subject: [PATCH] dma-buf: Reject private mappings in dma_buf_mmap_internal()
+ and dma_buf_mmap()
+From: Chris Wiseman <chriswiseman@google.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	"T.J. Mercier" <tjmercier@google.com>, John Stultz <jstultz@google.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kernel@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 5:26=E2=80=AFAM Pedro Falcato <pfalcato@suse.de> wro=
-te:
->
-> On Sun, Nov 01, 2026 at 07:45:03AM -0800, Suren Baghdasaryan wrote:
-> > Pss metrics can be affected by map count even if VMA tree stays unchang=
-ed,
-> > therefore tests checking VMA tree integrity can't use them. Use Rss ins=
-tead
-> > and pre-populate the VMAs so that Rss changes if a VMA gets skipped or
-> > double-counted.
-> >
-> > To ensure all test VMAs are populated with anonymous pages, remain
-> > mergeable across VMA operations, and do not have their Rss changed by
-> > memory reclaim:
-> > - Toggle PROT_EXEC instead of PROT_WRITE between adjacent test VMAs so
-> >   all test VMAs remain writable and MAP_POPULATE faults in anonymous pa=
-ges
-> >   (rather than the shared zero page, which is not accounted in Rss).
-> > - Use mprotect() instead of mmap(..., MAP_FIXED) in split_vma() and
-> >   merge_vma() so the first page of the split VMA stays resident.
-> >   mprotect(..., PROT_NONE) splits the VMA without unmapping the first p=
-age
-> >   (pte_present() remains true for PAGE_NONE PTEs), and
-> >   mprotect(..., self->mod_info->prot) merges it back. Both parts of the
-> >   split VMA retain their non-zero Rss.
-> > - Lock all present pages in the child with mlockall(MCL_CURRENT |
-> >   MCL_FUTURE | MCL_ONFAULT) so memory pressure cannot reclaim pages and
-> >   alter Rss during the test.
->
-> FWIW, I was wondering if it would remain constant in face of compaction (=
-page
-> migration). It seems so, from looking at the code the migration entry sho=
-uld
-> make it count the RSS. But is it always the case? I'm not super familiar =
-with
-> the migration logic.
+DMA-BUF mappings do not support copy-on-write.  Mapping a dma-buf with
+MAP_PRIVATE and PROT_WRITE faults into do_wp_page() -> wp_page_copy()
+and allocates private anonymous pages whose writes never reach the
+underlying buffer.
 
-I'll double-check, but it seems logical to me that page migration
-should not affect RSS.
+Individual exporters like cma_heap_mmap(), system_heap_mmap(), and
+mmap_udmabuf() already require (VM_SHARED | VM_MAYSHARE), and DRM
+helpers like ttm_bo_mmap_obj() and drm_gem_shmem_object_mmap() reject
+vma_is_cow_mapping(vma).  However, dma_buf_mmap_internal() and
+dma_buf_mmap() do not check for this and pass MAP_PRIVATE mappings
+straight through to dmabuf->ops->mmap().
 
->
-> --
-> Pedro
+Reject mappings with -EINVAL in both dma_buf_mmap_internal() and
+dma_buf_mmap() when neither VM_SHARED nor VM_MAYSHARE is set.  Checking
+both flags still allows read-only MAP_SHARED mappings, where do_mmap()
+clears VM_SHARED and leaves VM_MAYSHARE set.
+
+Suggested-by: T.J. Mercier <tjmercier@google.com>
+Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+---
+Note: For the prior discussion Christian mentioned, commit f91142c62161
+("drm/ttm: nuke VM_MIXEDMAP on BO mappings v3") added the
+vma_is_cow_mapping() check in TTM, and commit fa5239f2af98
+("drm/amdgpu: workaround failed COW checks for Thunk VMAs") worked
+around a legacy ROCm KFD Thunk PROT_NONE, MAP_PRIVATE mapping on native
+amdgpu GEM nodes.
+
+Tested in ARM64 QEMU (Linux 7.3.0+) across /dev/dma_heap/system:
+
+  BASE:
+    [CASE 1: MAP_SHARED O_RDWR]     ret=3D0   buf[0]=3D0x00000000cafebabe
+    [CASE 2: MAP_SHARED O_RDONLY]   ret=3D0
+    [CASE 3: MAP_PRIVATE PROT_RDWR] ret=3D0   underlying_buf[0]=3D0x0000000=
+0cafebabe
+    [CASE 4: MAP_PRIVATE PROT_READ] ret=3D0
+    [CASE 5: MAP_PRIVATE PROT_NONE] ret=3D0
+
+  PATCHED:
+    [CASE 1: MAP_SHARED O_RDWR]     ret=3D0   buf[0]=3D0x00000000cafebabe
+    [CASE 2: MAP_SHARED O_RDONLY]   ret=3D0
+    [CASE 3: MAP_PRIVATE PROT_RDWR] ret=3D-22 (-EINVAL)
+    [CASE 4: MAP_PRIVATE PROT_READ] ret=3D-22 (-EINVAL)
+    [CASE 5: MAP_PRIVATE PROT_NONE] ret=3D-22 (-EINVAL)
+
+ drivers/dma-buf/dma-buf.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 1ccaffabbdbe..51e9a4dc56be 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -235,6 +235,10 @@ static int dma_buf_mmap_internal(struct file *file, st=
+ruct vm_area_struct *vma)
+ 	if (!dmabuf->ops->mmap)
+ 		return -EINVAL;
+=20
++	/* check for private mappings */
++	if (!(vma->vm_flags & (VM_SHARED | VM_MAYSHARE)))
++		return -EINVAL;
++
+ 	/* check for overflowing the buffer's size */
+ 	if (vma->vm_pgoff + vma_pages(vma) >
+ 	    dmabuf->size >> PAGE_SHIFT)
+@@ -1610,6 +1614,10 @@ int dma_buf_mmap(struct dma_buf *dmabuf, struct vm_a=
+rea_struct *vma,
+ 	if (!dmabuf->ops->mmap)
+ 		return -EINVAL;
+=20
++	/* check for private mappings */
++	if (!(vma->vm_flags & (VM_SHARED | VM_MAYSHARE)))
++		return -EINVAL;
++
+ 	/* check for offset overflow */
+ 	if (pgoff + vma_pages(vma) < pgoff)
+ 		return -EOVERFLOW;
+--=20
+2.51.0
