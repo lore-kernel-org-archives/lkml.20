@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793620738;
-	b=bpm2ee0mOl28mdpQ2Z7cEf3oGsD1dI1C+1O9CAX9vmo8/OkPtMRYT1K9nbEpKd2t13vS
-	 mqogaGCbfTh/BHqIUyvUt58T8F2O9XlHVQJo2jC7OHa7w9D64EmZXQ413c9UGzPRpYe5M
-	 xn9HjLBwutBOgVBZVXryVRGppcANZpEp87CNXMKm2BBgKjWs11qgxq5Yx6rofIjRktIZA
-	 HcZJth38Xtpz2pRVVnKxkkGFGidmJM0VQGwWKf+Ns/bLka+VQUaPdcBdRK4Mc+s/ZRci2
-	 iWikWba/tcSLikTFHfpRvgPwOG1K/WvJPthTLMZKZDwCPNxzOml8PLAIKxezjWZTafQ==
+	t=1793620740;
+	b=wVDUdyYl+BaqNk/phQwzi08tkNMcN95eDlwRjKKjvSML8UpvB1cBk7xB4l3ZCdz/eS1U
+	 niC5nuLY6Vabj7MWBbiYlNDI/iYTvuDJxiKRy5XdLys4a7JRdDsm5gFisjttPd49WCCNB
+	 dgaqpAdINHHRLLL4DkhFvmrM8ATCoBqSm9oh59ul93yuEc9PrOWi7TEW7IpHkvuegIpsR
+	 T3Vig6qDL9tOj6hLBO5O3S4ASDDW17F9NZMTbrEFFbvd29bjuokCkECli03eijbq+qVYz
+	 XFnzygaRCjxUJrJ1PesP+z48gHMG4mCSW4y9jlRSr6u3wqLpbeu32/tbt+gmUbV9LwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793620738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620740;
 	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
 	 References:MIME-Version:Content-Type:X-HM-Tid:X-HM-MType:
 	 X-HM-Spam-Status:DKIM-Signature;
-	bh=+Edx4QAWwDblRYEpIzzvO7BCWf62n1EaHAu4mnsMnEk=;
-	b=AFD2+SP/sXTX3TIXI1RDag3cocjQEmkXEeNVXjMuZG1RKX+9qbgESVX5vGC70TFDUhnE
-	 ToxBKxSg/SSTksg7XY79TbST/xrHA9lgvOnbBYxY/yRbk3CaLozHKbPZuCOwbUXepvJ7E
-	 6TB6Of0f9kQKuovSwz3TgbvgRPpcOSZGsJ8Mzowxg6e/cXTgpdFRi0F5l2tKYvWNIS4dM
-	 4oHTZb3CcHT2v4iDmuaFR2TUO8UjlHDB8ns2Z9fKow+g3pI7X35yJHJMjxaQNQALPQ7W4
-	 J+HQQSvWdwkTi63xSNi7ExUp6dACuVsKBxKSi/PA6ioKRo+UXZMnoCMFGJI/wotGOfw==
+	bh=jEEsrSj5WY6vTVE/kHwqMsH3O84HUijuoXqWud31U60=;
+	b=unnUV4tXpr9QvjYtDAZVYT50Ps5kZx9cSGvWzMFyDrvqtY2hPImzsjcov6ajnuGZCo6N
+	 j6qFH+tV5yy/Kh+svmuAHxJp2JJFnkMOsE+mmMsp47ag4kjCnWPelqQXkC4ioqfKZBWx8
+	 GljDG79mhF1TC84kHYN8p12bUdOJgCNY9+YoFzotabDUbXMd67GkLb9CKh3oH/cxWDQ2Z
+	 hJIPfcuKeJTMmLaT6y6WeuL7E7CBI44lCEbX4QJrwCOYN4tBtJT5o38dCTgmUdr5i4Mp1
+	 EBAl9YaxaSUvN1HHafXkVh+0e5VlTnP1CAhy9s7CYupHwHWaAcBefKE0w8+wMS+aMvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.pku.edu.cn;
 	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b="A5sF/WTX";
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=F532pQfD;
 	arc=none smtp.remote-ip=45.254.49.198
 Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886B660A6F61;
-	Mon,  2 Nov 2026 11:58:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 886B660A6F61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA1F606DD9C;
+	Mon,  2 Nov 2026 11:58:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EA1F606DD9C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=A5sF/WTX
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=F532pQfD
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [1.202.162.49])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b2358;
-	Mon, 2 Nov 2026 19:58:50 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b2359;
+	Mon, 2 Nov 2026 19:58:53 +0800 (GMT+08:00)
 From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Beau Belgrave <beaub@linux.microsoft.com>, linux-kernel@vger.kernel.org
+To: Tomasz =?utf-8?q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+ Oleg Makarenko <oleg@makarenk.ooo>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org
+Cc: Dmitry Torokhov <dtor@mail.ru>, Anssi Hannula <anssi.hannula@gmail.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
 Date: Mon, 02 Nov 2026 19:58:37 +0800
-Message-ID: <179362071773.29269.16144964333565784886@stu.pku.edu.cn>
-Subject: Re: [PATCH 2/2] tracing/user_events: reject overflowing field offsets
-In-Reply-To: <179362071771.29269.8333068920166316746@stu.pku.edu.cn>
-References: <179362071771.29269.15129360535376085397@stu.pku.edu.cn>
- <179362071771.29269.8333068920166316746@stu.pku.edu.cn>
+Message-ID: <179362071774.29269.16661689905022285069@stu.pku.edu.cn>
+Subject: Re: [PATCH] HID: pidff: validate effect type usage indexes
+In-Reply-To: <179362071771.29269.11607321878213733518@stu.pku.edu.cn>
+References: <179362071771.29269.11607321878213733518@stu.pku.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,51 +56,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1354426194736975921=="
-X-HM-Tid: 0aa19c2062dc03a2kunmab045f0fe84f7
+Content-Type: multipart/mixed; boundary="===============1107554219196265214=="
+X-HM-Tid: 0aa19c206de703a2kunmab045f0fe84ff
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSh9DVk4eT0xLH0sdQktMQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
-	xVSktLVUtZBg++
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQkxDVhpOTx9OHh1NGENJH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSEpMTU
+	NVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=A5sF/WTX6HfqeT1WpsKkYpDXqVtV8RW0FNc2zKIo+2UKVyh7fYV6g/eBdANsuC1MqN+mXt+58IFbmHzjqW6fuw6DN6Jl0bey08o6FDGOqX1NCnVOfpBVQo0EqPV0ErZ0zfTEq0MdTxR02FBpgDMyMiqmPss7cMeWWuf5l3N4krc=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=+Edx4QAWwDblRYEpIzzvO7BCWf62n1EaHAu4mnsMnEk=;
+	b=F532pQfDHuLMUDjod1txyRyzOmz0EA5QmRgek4Pkq9clTSou08frZ4J5qFnd40fKXLYOz4/0/UkSK0jAY4bRUTSoULllhaJEp7qnge2VNs9ardSQzYBvvIdo7B4JVWgSZGZw+NqHIty1T7hbj7jLnHWbBTgjZl2a+XDDiUKJaps=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=jEEsrSj5WY6vTVE/kHwqMsH3O84HUijuoXqWud31U60=;
 	h=date:mime-version:subject:message-id:from;
 
---===============1354426194736975921==
+--===============1107554219196265214==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 
 Hello,
 
-I found an out-of-bounds read caused by field-offset wrap in user_events. I
+I found an out-of-bounds read in the HID PID force-feedback setup path. I
 reproduced it on two independent boots of an unmodified Linux v7.3 KASAN
 kernel. Both runs reported:
 
-  BUG: KASAN: slab-use-after-free in filter_match_preds
-  Read of size 8
-  filter_match_preds
-  trace_event_buffer_commit
-  user_event_ftrace
-  user_events_write_core
+  BUG: KASAN: slab-out-of-bounds in hid_pidff_init_with_quirks+0x3c78/0x3e10
+  Read of size 4
+  hid_pidff_init_with_quirks
+  universal_pidff_probe
+  hid_device_probe
+  uhid_device_add_worker
 
-user_event_parse_field() accepts structure sizes up to INT_MAX but accumulates
-field offsets in a u32 without checking addition overflow. A registration can
-therefore wrap the recorded minimum event size while a fixed u64 field keeps
-an offset near 64 KiB. A short write is accepted, and the field filter reads
-outside the event buffer.
+pidff_find_special_keys() records an effect-type position as usage_index + 1.
+pidff_find_effects() then uses that value directly as an index into the Create
+New Effect and Set Effect usage arrays. Those fields are separately allocated
+and can have different maxusage values, so a descriptor can make the Set
+Effect lookup leave its allocation.
 
-Build and run the attached reproducer as root:
+The attached reproducer creates the descriptor through /dev/uhid:
 
   cc -O2 -static repro.c -o repro
   ./repro
 
-Both runs used copies of the default syzkaller ext4 image.
+It requires root, /dev/uhid, and CONFIG_HID_UNIVERSAL_PIDFF=y. Both runs used
+copies of the default syzkaller ext4 image.
 
-The attached patch uses checked addition and rejects offsets above INT_MAX.
-The patched kernel rejects the overflowing declaration and accepts the valid
-control event without a KASAN report.
+The attached patch converts the stored position to a zero-based index and
+checks both usage-array bounds. The same descriptor is rejected on the
+patched kernel without a KASAN report.
 
 The patch is in the parent message. The reproducer source(s), KASAN
 report(s), and kernel config are attached.
@@ -108,646 +109,439 @@ report(s), and kernel config are attached.
 Regards,
 Yifan Zhang
 
---===============1354426194736975921==
+--===============1107554219196265214==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment; filename="repro.c"
 MIME-Version: 1.0
 
 // SPDX-License-Identifier: GPL-2.0
+// Directed UHID reproducer for validating hid-pidff descriptor indexing.
 #define _GNU_SOURCE
-
 #include <errno.h>
 #include <fcntl.h>
-#include <linux/user_events.h>
-#include <sched.h>
-#include <stdint.h>
+#include <linux/input.h>
+#include <linux/uhid.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <sys/ioctl.h>
-#include <sys/mount.h>
-#include <sys/stat.h>
 #include <unistd.h>
 
-#define TRACEFS "/sys/kernel/tracing"
-#define DATA_FILE TRACEFS "/user_events_data"
-#define EVENT_NAME "ue_struct_wrap64k"
-#define EVENT_DIR TRACEFS "/events/user_events/" EVENT_NAME
+/*
+ * Minimal PID force-feedback descriptor containing all reports required by
+ * hid_pidff_init().  The Create New Effect type array has eleven usages,
+ * while the corresponding Set Effect type array has one usage.
+ */
+static const unsigned char descriptor[] = {
+	0x05, 0x01,             /* Usage Page (Generic Desktop) */
+	0x09, 0x04,             /* Usage (Joystick) */
+	0xa1, 0x01,             /* Collection (Application) */
 
-static void die(const char *what)
+	/* One ordinary input report, so hid-pidff has an input device. */
+	0x85, 0x09, 0x09, 0x30, 0x15, 0x00, 0x25, 0xff,
+	0x75, 0x08, 0x95, 0x01, 0x81, 0x02,
+
+	0x05, 0x0f,             /* Usage Page (PID) */
+
+	/* Set Effect Report (required output report). */
+	0x09, 0x21, 0xa1, 0x02, 0x85, 0x01,
+	0x09, 0x22, 0x15, 0x01, 0x25, 0x40, 0x75, 0x08,
+	0x95, 0x01, 0x91, 0x02,
+	/* Effect Type logical collection: deliberately only one usage. */
+	0x09, 0x25, 0xa1, 0x02,
+	0x09, 0x44, 0x15, 0x01, 0x25, 0x01, 0x75, 0x08,
+	0x95, 0x01, 0x91, 0x00, 0xc0,
+	/* Required scalar fields. */
+	0x09, 0x50, 0x09, 0x52, 0x09, 0x53, 0x09, 0x54,
+	0x09, 0x56, 0x09, 0xa7, 0x15, 0x00, 0x26, 0xff, 0x7f,
+	0x75, 0x10, 0x95, 0x06, 0x91, 0x02,
+	/* Direction special field. */
+	0x09, 0x57, 0xa1, 0x02, 0x05, 0x01, 0x09, 0x30,
+	0x15, 0x00, 0x26, 0xff, 0x00, 0x75, 0x08, 0x95, 0x01,
+	0x91, 0x02, 0xc0,
+	0x05, 0x0f, 0xc0,
+
+	/* Effect Operation Report. */
+	0x09, 0x77, 0xa1, 0x02, 0x85, 0x02,
+	0x09, 0x22, 0x09, 0x7c, 0x15, 0x01, 0x25, 0x40,
+	0x75, 0x08, 0x95, 0x02, 0x91, 0x02,
+	0x09, 0x78, 0xa1, 0x02, 0x09, 0x79, 0x09, 0x7b,
+	0x15, 0x01, 0x25, 0x02, 0x75, 0x08, 0x95, 0x01,
+	0x91, 0x00, 0xc0, 0xc0,
+
+	/* Device Gain Report. */
+	0x09, 0x7d, 0xa1, 0x02, 0x85, 0x03,
+	0x09, 0x7e, 0x15, 0x00, 0x26, 0xff, 0x00,
+	0x75, 0x08, 0x95, 0x01, 0x91, 0x02, 0xc0,
+
+	/* PID Pool feature report. */
+	0x09, 0x7f, 0xa1, 0x02, 0x85, 0x04,
+	0x09, 0x80, 0x09, 0x83, 0x09, 0xa9,
+	0x15, 0x00, 0x26, 0xff, 0x00, 0x75, 0x08, 0x95, 0x03,
+	0xb1, 0x02, 0xc0,
+
+	/* Block Load feature report. */
+	0x09, 0x89, 0xa1, 0x02, 0x85, 0x05,
+	0x09, 0x22, 0x09, 0xac, 0x15, 0x01, 0x25, 0x40,
+	0x75, 0x08, 0x95, 0x02, 0xb1, 0x02,
+	0x09, 0x8b, 0xa1, 0x02, 0x09, 0x8c, 0x09, 0x8d, 0x09, 0x8e,
+	0x15, 0x01, 0x25, 0x03, 0x75, 0x08, 0x95, 0x01,
+	0xb1, 0x00, 0xc0, 0xc0,
+
+	/* Block Free Report. */
+	0x09, 0x90, 0xa1, 0x02, 0x85, 0x06,
+	0x09, 0x22, 0x15, 0x01, 0x25, 0x40,
+	0x75, 0x08, 0x95, 0x01, 0x91, 0x02, 0xc0,
+
+	/* Device Control Report. */
+	0x09, 0x95, 0xa1, 0x02, 0x85, 0x07,
+	0x09, 0x96, 0xa1, 0x02,
+	0x09, 0x97, 0x09, 0x98, 0x09, 0x99, 0x09, 0x9a,
+	0x09, 0x9b, 0x09, 0x9c, 0x15, 0x01, 0x25, 0x06,
+	0x75, 0x08, 0x95, 0x01, 0x91, 0x00, 0xc0, 0xc0,
+
+	/* Create New Effect feature report. */
+	0x09, 0xab, 0xa1, 0x02, 0x85, 0x08,
+	0x09, 0x25, 0xa1, 0x02,
+	/* Ten non-effect usages, followed by the supported Friction type. */
+	0x09, 0x44, 0x09, 0x45, 0x09, 0x46, 0x09, 0x47,
+	0x09, 0x48, 0x09, 0x49, 0x09, 0x4a, 0x09, 0x4b,
+	0x09, 0x4c, 0x09, 0x4d, 0x09, 0x43,
+	0x15, 0x01, 0x25, 0x0b, 0x75, 0x08, 0x95, 0x01,
+	0xb1, 0x00, 0xc0, 0xc0,
+
+	0xc0,                   /* End Application Collection */
+};
+
+static int send_event(int fd, const struct uhid_event *ev)
 {
-	perror(what);
-	exit(1);
+	ssize_t n = write(fd, ev, sizeof(*ev));
+	if (n != (ssize_t)sizeof(*ev)) {
+		perror("write /dev/uhid");
+		return -1;
+	}
+	return 0;
 }
 
-static void write_text(const char *path, const char *text)
+int main(void)
 {
-	int fd = open(path, O_WRONLY | O_CLOEXEC);
-	ssize_t len = strlen(text);
-
-	if (fd < 0)
-		die(path);
-	if (write(fd, text, len) != len)
-		die("write_text");
-	close(fd);
-}
-
-int main(int argc, char **argv)
-{
-	static const char bad_desc[] = EVENT_NAME
-		" struct A a 65527; u64 x; struct B b 2147483647;"
-		" struct C c 2147418122";
-	static const char valid_desc[] = EVENT_NAME " struct A a 8; u64 x";
-	const char *desc = argc > 1 && !strcmp(argv[1], "valid") ?
-		valid_desc : bad_desc;
-	struct user_reg reg = {0};
-	uint32_t enable_word = 0;
-	uint8_t *record;
-	char path[256];
-	ssize_t n;
-	int fd, cpu, iter;
-	long online;
-	cpu_set_t set;
-	size_t payload_len = desc == valid_desc ? 16 : 8;
-
-	if (geteuid() != 0) {
-		fprintf(stderr, "run as root\n");
+	struct uhid_event ev = {0};
+	int fd = open("/dev/uhid", O_RDWR | O_CLOEXEC);
+	if (fd < 0) {
+		perror("open /dev/uhid");
 		return 1;
 	}
-	(void)mkdir(TRACEFS, 0755);
-	if (access(DATA_FILE, F_OK) &&
-	    mount("tracefs", TRACEFS, "tracefs", 0, NULL) && errno != EBUSY)
-		die("mount tracefs");
 
-	fd = open(DATA_FILE, O_RDWR | O_CLOEXEC);
-	if (fd < 0)
-		die(DATA_FILE);
-	reg.size = sizeof(reg);
-	reg.enable_size = sizeof(enable_word);
-	reg.enable_addr = (uintptr_t)&enable_word;
-	reg.name_args = (uintptr_t)desc;
-	if (ioctl(fd, DIAG_IOCSREG, &reg))
-		die("DIAG_IOCSREG");
+	ev.type = UHID_CREATE2;
+	memcpy(ev.u.create2.name, "pidff type-index directed test", 31);
+	memcpy(ev.u.create2.phys, "uhid/pidff-index", 17);
+	/* Match hid-universal-pidff's MOZA R3 entry through UHID. */
+	ev.u.create2.bus = BUS_USB;
+	ev.u.create2.vendor = 0x346e;
+	ev.u.create2.product = 0x0005;
+	ev.u.create2.version = 1;
+	ev.u.create2.rd_size = sizeof(descriptor);
+	memcpy(ev.u.create2.rd_data, descriptor, sizeof(descriptor));
 
-	snprintf(path, sizeof(path), EVENT_DIR "/filter");
-	write_text(path, "x == 0");
-	snprintf(path, sizeof(path), EVENT_DIR "/enable");
-	write_text(path, "1");
-	write_text(TRACEFS "/trace", "0");
-
-	record = calloc(1, sizeof(uint32_t) + payload_len);
-	if (!record)
-		die("calloc");
-	memcpy(record, &reg.write_index, sizeof(reg.write_index));
-	online = sysconf(_SC_NPROCESSORS_ONLN);
-	if (online < 1 || online > CPU_SETSIZE)
-		online = 1;
-	for (cpu = 0; cpu < online; cpu++) {
-		CPU_ZERO(&set);
-		CPU_SET(cpu, &set);
-		if (sched_setaffinity(0, sizeof(set), &set))
-			continue;
-		for (iter = 0; iter < 1; iter++)
-			n = write(fd, record, sizeof(uint32_t) + payload_len);
-		fprintf(stderr, "CPU%d final write=%zd errno=%s\n", cpu, n,
-			strerror(errno));
+	if (send_event(fd, &ev)) {
+		close(fd);
+		return 1;
 	}
-	free(record);
+	fprintf(stderr, "created UHID PID descriptor (%zu bytes)\n",
+		sizeof(descriptor));
+	sleep(10);
+
+	memset(&ev, 0, sizeof(ev));
+	ev.type = UHID_DESTROY;
+	send_event(fd, &ev);
 	close(fd);
 	return 0;
 }
 
---===============1354426194736975921==
+--===============1107554219196265214==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="kasan-run1.txt"
 MIME-Version: 1.0
 
-[  237.138412] BUG: KASAN: slab-use-after-free in filter_match_preds+0x2a5c/0=
-x3080
-[  237.138504] Read of size 8 at addr ff1100001b2ad007 by task repro/418
-[  237.138514]=20
-[  237.138529] CPU: 0 UID: 0 PID: 418 Comm: repro Not tainted 7.3.0 #1 PREEMP=
-T(lazy)=20
-[  237.138546] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[   73.925255] BUG: KASAN: slab-out-of-bounds in hid_pidff_init_with_quirks+0=
+x3c78/0x3e10
+[   73.925319] Read of size 4 at addr ff1100000d2f7abc by task kworker/0:2/105
+[   73.925329]=20
+[   73.925339] CPU: 0 UID: 0 PID: 105 Comm: kworker/0:2 Not tainted 7.3.0 #8 =
+PREEMPT(lazy)=20
+[   73.925354] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  237.138561] Call Trace:
-[  237.138574]  <TASK>
-[  237.138579]  dump_stack_lvl+0x7b/0xa0
-[  237.138631]  print_report+0xd0/0x630
-[  237.138682]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  237.138712]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.138739]  ? filter_match_preds+0x2a5c/0x3080
-[  237.138760]  kasan_report+0xce/0x100
-[  237.138778]  ? filter_match_preds+0x2a5c/0x3080
-[  237.138801]  filter_match_preds+0x2a5c/0x3080
-[  237.138826]  ? ring_buffer_event_data+0xc9/0x120
-[  237.138853]  trace_event_buffer_commit+0x6ad/0x9f0
-[  237.138883]  user_event_ftrace+0x1c2/0x450
-[  237.138911]  ? __pfx_user_event_ftrace+0x10/0x10
-[  237.138930]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.138945]  ? fault_in_readable+0x121/0x180
-[  237.138987]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139004]  user_events_write_core.isra.0+0x3b6/0x560
-[  237.139028]  ? __pfx_user_events_write_core.isra.0+0x10/0x10
-[  237.139049]  ? update_rq_clock+0x1aa/0x4c0
-[  237.139090]  ? __pfx_migration_cpu_stop+0x10/0x10
-[  237.139107]  ? affine_move_task+0x9da/0xe60
-[  237.139123]  user_events_write+0x11b/0x190
-[  237.139143]  ? __pfx_user_events_write+0x10/0x10
-[  237.139163]  ? _raw_spin_lock_irqsave+0x8b/0xf0
-[  237.139182]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139197]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139214]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139230]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139245]  ? security_file_permission+0x40/0xe0
-[  237.139301]  vfs_write+0x26c/0xd00
-[  237.139321]  ? __pfx_user_events_write+0x10/0x10
-[  237.139344]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139361]  ? __pfx_vfs_write+0x10/0x10
-[  237.139374]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139389]  ? sched_setaffinity+0xe9/0x450
-[  237.139418]  ? __pfx_sched_setaffinity+0x10/0x10
-[  237.139443]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139459]  ? fdget_pos+0x1c1/0x520
-[  237.139485]  ksys_write+0x114/0x200
-[  237.139497]  ? __pfx_ksys_write+0x10/0x10
-[  237.139510]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.139526]  ? restore_fpregs_from_fpstate+0x55/0x100
-[  237.139557]  do_syscall_64+0xdd/0x4a0
-[  237.139578]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  237.139591] RIP: 0033:0x41b464
-[  237.139608] Code: 89 fe bf 9c ff ff ff e9 6a 74 04 00 66 2e 0f 1f 84 00 00=
- 00 00 00 f3 0f 1e fa 80 3d fd 7b 09 00 00 74 13 b8 01 00 00 00 0f 05 <48> 3d=
- 00 f0 ff ff 77 54 c3 0f 1f 00 55 48 89 e5 48 83 ec 20 48 89
-[  237.139629] RSP: 002b:00007ffef79e8cd8 EFLAGS: 00000202 ORIG_RAX: 00000000=
-00000001
-[  237.139651] RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 000000000041b=
-464
-[  237.139660] RDX: 000000000000000c RSI: 000000001ec39900 RDI: 0000000000000=
-003
-[  237.139668] RBP: 0000000000486028 R08: 1999999999999999 R09: 0000000000000=
-000
-[  237.139676] R10: 0000000000491a00 R11: 0000000000000202 R12: 0000000000000=
-003
-[  237.139687] R13: 000000001ec39900 R14: 0000000000000000 R15: 00007ffef79e8=
-d20
-[  237.139700]  </TASK>
-[  237.139707]=20
-[  237.139710] Allocated by task 358:
-[  237.139726]  kasan_save_stack+0x33/0x60
-[  237.139745]  kasan_save_track+0x14/0x30
-[  237.139759]  __kasan_slab_alloc+0x6e/0x70
-[  237.139773]  kmem_cache_alloc_noprof+0x149/0x3e0
-[  237.139797]  alloc_empty_file+0x56/0x1b0
-[  237.139813]  path_openat+0xdc/0x2030
-[  237.139831]  do_file_open+0x202/0x420
-[  237.139844]  do_sys_openat2+0xf4/0x1b0
-[  237.139865]  __x64_sys_openat+0x136/0x1e0
-[  237.139882]  do_syscall_64+0xdd/0x4a0
-[  237.139895]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  237.139907]=20
-[  237.139910] Freed by task 364:
-[  237.139916]  kasan_save_stack+0x33/0x60
-[  237.139929]  kasan_save_track+0x14/0x30
-[  237.139943]  kasan_save_free_info+0x3b/0x60
-[  237.139962]  __kasan_slab_free+0x43/0x70
-[  237.139976]  slab_free_after_rcu_debug+0xab/0x1f0
-[  237.139995]  rcu_core+0x55f/0x1870
-[  237.140014]  handle_softirqs+0x187/0x5a0
-[  237.140035]  __irq_exit_rcu+0x63/0x140
-[  237.140045]  sysvec_apic_timer_interrupt+0x6b/0x80
-[  237.140065]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
-[  237.140079]=20
-[  237.140081] Last potentially related work creation:
-[  237.140085]  kasan_save_stack+0x33/0x60
-[  237.140099]  kasan_record_aux_stack+0x8c/0xa0
-[  237.140120]  kmem_cache_free+0x206/0x430
-[  237.140133]  __fput+0x5c9/0xa80
-[  237.140147]  fput_close_sync+0xff/0x200
-[  237.140163]  __x64_sys_close+0x8c/0xf0
-[  237.140180]  do_syscall_64+0xdd/0x4a0
-[  237.140193]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  237.140205]=20
-[  237.140207] The buggy address belongs to the object at ff1100001b2ad000
-[  237.140207]  which belongs to the cache filp of size 176
-[  237.140217] The buggy address is located 7 bytes inside of
-[  237.140217]  freed 176-byte region [ff1100001b2ad000, ff1100001b2ad0b0)
-[  237.140228]=20
-[  237.140231] The buggy address belongs to the physical page:
-[  237.140236] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
- pfn:0x1b2ad
-[  237.140247] memcg:ff1100001b2ad0d1
-[  237.140252] flags: 0x100000000000000(node=3D0|zone=3D1)
-[  237.140269] page_type: f5(slab)
-[  237.140280] raw: 0100000000000000 ff1100000a003e00 dead000000000100 dead00=
-0000000122
-[  237.140293] raw: 0000000000000000 0000000300100010 00000000f5000000 ff1100=
-001b2ad0d1
-[  237.140300] page dumped because: kasan: bad access detected
-[  237.140305]=20
-[  237.140308] Memory state around the buggy address:
-[  237.140314]  ff1100001b2acf00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb
-[  237.140323]  ff1100001b2acf80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc f=
+[   73.925365] Workqueue: events uhid_device_add_worker
+[   73.925393] Call Trace:
+[   73.925401]  <TASK>
+[   73.925407]  dump_stack_lvl+0x7b/0xa0
+[   73.925440]  print_report+0xd0/0x630
+[   73.925475]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[   73.925494]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   73.925521]  ? hid_pidff_init_with_quirks+0x3c78/0x3e10
+[   73.925538]  kasan_report+0xce/0x100
+[   73.925555]  ? hid_pidff_init_with_quirks+0x3c78/0x3e10
+[   73.925574]  hid_pidff_init_with_quirks+0x3c78/0x3e10
+[   73.925598]  ? __pfx_universal_pidff_probe+0x10/0x10
+[   73.925621]  universal_pidff_probe+0x164/0x250
+[   73.925644]  ? __pfx_universal_pidff_probe+0x10/0x10
+[   73.925666]  hid_device_probe+0x542/0x880
+[   73.925688]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   73.925704]  ? __pfx_hid_device_probe+0x10/0x10
+[   73.925723]  really_probe+0x1fe/0x7a0
+[   73.925757]  ? __pfx___device_attach_driver+0x10/0x10
+[   73.925776]  __driver_probe_device+0x1c7/0x3c0
+[   73.925794]  ? __pfx___device_attach_driver+0x10/0x10
+[   73.925813]  driver_probe_device+0x4a/0x100
+[   73.925831]  __device_attach_driver+0x191/0x230
+[   73.925850]  bus_for_each_drv+0x14d/0x1d0
+[   73.925864]  ? __pfx_bus_for_each_drv+0x10/0x10
+[   73.925878]  ? mutex_lock+0x81/0xe0
+[   73.925900]  __device_attach+0x1b9/0x420
+[   73.925918]  ? __pfx___device_attach+0x10/0x10
+[   73.925937]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   73.925952]  ? kobject_get+0x87/0x110
+[   73.925972]  device_initial_probe+0x91/0xb0
+[   73.925990]  bus_probe_device+0x61/0x150
+[   73.926007]  device_add+0xf69/0x16e0
+[   73.926030]  ? __pfx_device_add+0x10/0x10
+[   73.926050]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   73.926066]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   73.926082]  ? debugfs_create_file_full+0x41/0x60
+[   73.926115]  hid_add_device+0x2e8/0x560
+[   73.926131]  ? kick_pool_pick+0x1dd/0x680
+[   73.926163]  uhid_device_add_worker+0x3e/0x100
+[   73.926178]  process_one_work+0x750/0x1200
+[   73.926197]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   73.926213]  ? __pfx_process_one_work+0x10/0x10
+[   73.926233]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   73.926250]  worker_thread+0x4ce/0xbc0
+[   73.926267]  ? __pfx_worker_thread+0x10/0x10
+[   73.926281]  kthread+0x2f9/0x400
+[   73.926296]  ? recalc_sigpending+0x187/0x210
+[   73.926312]  ? __pfx_kthread+0x10/0x10
+[   73.926324]  ret_from_fork+0x3f2/0x680
+[   73.926346]  ? __pfx_ret_from_fork+0x10/0x10
+[   73.926362]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   73.926377]  ? __switch_to+0x743/0xf60
+[   73.926400]  ? __pfx_kthread+0x10/0x10
+[   73.926412]  ret_from_fork_asm+0x1a/0x30
+[   73.926433]  </TASK>
+[   73.926438]=20
+[   73.926440] Allocated by task 105:
+[   73.926450]  kasan_save_stack+0x33/0x60
+[   73.926463]  kasan_save_track+0x14/0x30
+[   73.926476]  __kasan_kmalloc+0x8f/0xa0
+[   73.926488]  __kvmalloc_node_noprof+0x245/0x660
+[   73.926502]  hid_add_field+0x4b5/0x1490
+[   73.926519]  hid_parser_main+0x108/0xd10
+[   73.926540]  hid_open_report+0x431/0x940
+[   73.926557]  universal_pidff_probe+0x26/0x250
+[   73.926576]  hid_device_probe+0x542/0x880
+[   73.926593]  really_probe+0x1fe/0x7a0
+[   73.926608]  __driver_probe_device+0x1c7/0x3c0
+[   73.926627]  driver_probe_device+0x4a/0x100
+[   73.926647]  __device_attach_driver+0x191/0x230
+[   73.926664]  bus_for_each_drv+0x14d/0x1d0
+[   73.926676]  __device_attach+0x1b9/0x420
+[   73.926692]  device_initial_probe+0x91/0xb0
+[   73.926709]  bus_probe_device+0x61/0x150
+[   73.926723]  device_add+0xf69/0x16e0
+[   73.926741]  hid_add_device+0x2e8/0x560
+[   73.926756]  uhid_device_add_worker+0x3e/0x100
+[   73.926769]  process_one_work+0x750/0x1200
+[   73.926781]  worker_thread+0x4ce/0xbc0
+[   73.926793]  kthread+0x2f9/0x400
+[   73.926802]  ret_from_fork+0x3f2/0x680
+[   73.926814]  ret_from_fork_asm+0x1a/0x30
+[   73.926830]=20
+[   73.926833] The buggy address belongs to the object at ff1100000d2f7a00
+[   73.926833]  which belongs to the cache kmalloc-192 of size 192
+[   73.926846] The buggy address is located 12 bytes to the right of
+[   73.926846]  allocated 176-byte region [ff1100000d2f7a00, ff1100000d2f7ab0)
+[   73.926858]=20
+[   73.926863] The buggy address belongs to the physical page:
+[   73.926871] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xf=
+f1100000d2f7300 pfn:0xd2f7
+[   73.926884] flags: 0x100000000000200(workingset|node=3D0|zone=3D1)
+[   73.926900] page_type: f5(slab)
+[   73.926911] raw: 0100000000000200 ff110000094383c0 ffd400000031f750 ffd400=
+00002fe750
+[   73.926923] raw: ff1100000d2f7300 000000000010000c 00000000f5000000 000000=
+0000000000
+[   73.926931] page dumped because: kasan: bad access detected
+[   73.926936]=20
+[   73.926938] Memory state around the buggy address:
+[   73.926944]  ff1100000d2f7980: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
 c fc
-[  237.140332] >ff1100001b2ad000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb
-[  237.140339]                    ^
-[  237.140345]  ff1100001b2ad080: fb fb fb fb fb fb fc fc fc fc fc fc fc fc f=
+[   73.926953]  ff1100000d2f7a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
+0 00
+[   73.926962] >ff1100000d2f7a80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
 c fc
-[  237.140354]  ff1100001b2ad100: fa fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb
-[  237.140361] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+[   73.926969]                                         ^
+[   73.926975]  ff1100000d2f7b00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
+0 00
+[   73.926984]  ff1100000d2f7b80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
+c fc
+[   73.926991] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  237.140393] Disabling lock debugging due to kernel taint
-[  237.143002] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  237.143014] BUG: KASAN: slab-use-after-free in filter_match_preds+0x2a5c/0=
-x3080
-[  237.143043] Read of size 8 at addr ff1100001b282007 by task repro/418
-[  237.143053]=20
-[  237.143063] CPU: 1 UID: 0 PID: 418 Comm: repro Tainted: G    B            =
-   7.3.0 #1 PREEMPT(lazy)=20
-[  237.143080] Tainted: [B]=3DBAD_PAGE
-[  237.143085] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
-ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  237.143096] Call Trace:
-[  237.143101]  <TASK>
-[  237.143106]  dump_stack_lvl+0x7b/0xa0
-[  237.143125]  print_report+0xd0/0x630
-[  237.143144]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  237.143166]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143184]  ? filter_match_preds+0x2a5c/0x3080
-[  237.143205]  kasan_report+0xce/0x100
-[  237.143223]  ? filter_match_preds+0x2a5c/0x3080
-[  237.143247]  filter_match_preds+0x2a5c/0x3080
-[  237.143269]  ? ring_buffer_event_data+0xc9/0x120
-[  237.143289]  trace_event_buffer_commit+0x6ad/0x9f0
-[  237.143328]  user_event_ftrace+0x1c2/0x450
-[  237.143350]  ? __pfx_user_event_ftrace+0x10/0x10
-[  237.143369]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143384]  ? fault_in_readable+0x121/0x180
-[  237.143405]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143422]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143439]  user_events_write_core.isra.0+0x3b6/0x560
-[  237.143463]  ? do_syscall_64+0xdd/0x4a0
-[  237.143487]  ? __pfx_user_events_write_core.isra.0+0x10/0x10
-[  237.143515]  user_events_write+0x11b/0x190
-[  237.143535]  ? __pfx_user_events_write+0x10/0x10
-[  237.143556]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143572]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143589]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143605]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143627]  ? security_file_permission+0x40/0xe0
-[  237.143652]  vfs_write+0x26c/0xd00
-[  237.143664]  ? __pfx_user_events_write+0x10/0x10
-[  237.143686]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143702]  ? __pfx_vfs_write+0x10/0x10
-[  237.143715]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143731]  ? sched_setaffinity+0xe9/0x450
-[  237.143754]  ? __pfx_sched_setaffinity+0x10/0x10
-[  237.143776]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143792]  ? fdget_pos+0x1c1/0x520
-[  237.143809]  ksys_write+0x114/0x200
-[  237.143821]  ? __pfx_ksys_write+0x10/0x10
-[  237.143835]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  237.143850]  ? restore_fpregs_from_fpstate+0x55/0x100
-[  237.143873]  do_syscall_64+0xdd/0x4a0
-[  237.143888]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  237.143902] RIP: 0033:0x41b464
-[  237.143912] Code: 89 fe bf 9c ff ff ff e9 6a 74 04 00 66 2e 0f 1f 84 00 00=
- 00 00 00 f3 0f 1e fa 80 3d fd 7b 09 00 00 74 13 b8 01 00 00 00 0f 05 <48> 3d=
- 00 f0 ff ff 77 54 c3 0f 1f 00 55 48 89 e5 48 83 ec 20 48 89
-[  237.143927] RSP: 002b:00007ffef79e8cd8 EFLAGS: 00000202 ORIG_RAX: 00000000=
-00000001
-[  237.143939] RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 000000000041b=
-464
-[  237.143948] RDX: 000000000000000c RSI: 000000001ec39900 RDI: 0000000000000=
-003
-[  237.143956] RBP: 0000000000486028 R08: 0000000000000026 R09: 0000000000000=
-000
-[  237.143964] R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000=
-003
-[  237.143973] R13: 000000001ec39900 R14: 0000000000000001 R15: 00007ffef79e8=
-d20
-[  237.143986]  </TASK>
-[  237.143992]=20
-[  237.143995] Allocated by task 262:
-[  237.144001]  kasan_save_stack+0x33/0x60
-[  237.144015]  kasan_save_track+0x14/0x30
-[  237.144029]  __kasan_slab_alloc+0x6e/0x70
-[  237.144046]  kmem_cache_alloc_noprof+0x149/0x3e0
-[  237.144068]  vm_area_dup+0x28/0x940
-[  237.144085]  __split_vma+0x165/0x1150
-[  237.144114]  vma_modify+0x164c/0x2050
-[  237.144132]  vma_modify_flags+0x28b/0x400
-[  237.144151]  mprotect_fixup+0x216/0xc90
-[  237.144176]  do_mprotect_pkey+0x8df/0xd50
-[  237.144195]  __x64_sys_mprotect+0x7d/0xc0
-[  237.144214]  do_syscall_64+0xdd/0x4a0
-[  237.144227]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  237.144239]=20
-[  237.144242] Freed by task 0:
-[  237.144248]  kasan_save_stack+0x33/0x60
-[  237.144262]  kasan_save_track+0x14/0x30
-[  237.144275]  kasan_save_free_info+0x3b/0x60
-[  237.144295]  __kasan_slab_free+0x43/0x70
-[  237.144309]  slab_free_after_rcu_debug+0xab/0x1f0
-[  237.144329]  rcu_core+0x55f/0x1870
-[  237.144340]  handle_softirqs+0x187/0x5a0
-[  237.144351]  __irq_exit_rcu+0x63/0x140
-[  237.144362]  sysvec_apic_timer_interrupt+0x6b/0x80
-[  237.144382]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
-[  237.144396]=20
-[  237.144399] Last potentially related work creation:
-[  237.144403]  kasan_save_stack+0x33/0x60
-[  237.144416]  kasan_record_aux_stack+0x8c/0xa0
-[  237.144436]  kmem_cache_free+0x206/0x430
-[  237.144446]  tear_down_vmas+0x161/0x360
-[  237.144461]  exit_mmap+0x35c/0x7a0
-[  237.144476]  __mmput+0x75/0x3c0
-[  237.144496]  mmput+0x44/0x50
-[  237.144505]  setup_new_exec+0x1b8/0x280
-[  237.144528]  load_elf_binary+0x458/0x45d0
-[  237.144598]  bprm_execve+0x73a/0x1230
-[  237.144625]  do_execveat_common.isra.0+0x3f1/0x540
-[  237.144646]  __x64_sys_execve+0x98/0xd0
-[  237.144656]  do_syscall_64+0xdd/0x4a0
-[  237.144669]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   73.927230] Disabling lock debugging due to kernel taint
+[   73.927238] hid-universal-pidff 0003:346E:0005.0002: unknown condition eff=
+ect layout
+[   83.923353] hid-universal-pidff 0003:346E:0005.0002: device reports 0 simu=
+ltaneous effects
+[   83.923836] hid-universal-pidff 0003:346E:0005.0002: pid_block_load failed=
+ 60 times
+[   83.923846] hid-universal-pidff 0003:346E:0005.0002: upload request failed
+[   83.923859] hid-universal-pidff 0003:346E:0005.0002: Error initialising fo=
+rce feedback
+[   83.934047] hid-universal-pidff 0003:346E:0005.0002: probe with driver hid=
+-universal-pidff failed with error -5
 
---===============1354426194736975921==
+--===============1107554219196265214==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="kasan-run2.txt"
 MIME-Version: 1.0
 
-[  178.753529] BUG: KASAN: slab-use-after-free in filter_match_preds+0x2a5c/0=
-x3080
-[  178.753636] Read of size 8 at addr ff1100000da01007 by task repro/417
-[  178.753646]=20
-[  178.753667] CPU: 1 UID: 0 PID: 417 Comm: repro Not tainted 7.3.0 #1 PREEMP=
-T(lazy)=20
-[  178.753683] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[   31.435730] BUG: KASAN: slab-out-of-bounds in hid_pidff_init_with_quirks+0=
+x3c78/0x3e10
+[   31.435889] Read of size 4 at addr ff1100000d85edbc by task kworker/2:1/74
+[   31.435899]=20
+[   31.435914] CPU: 2 UID: 0 PID: 74 Comm: kworker/2:1 Not tainted 7.3.0 #8 P=
+REEMPT(lazy)=20
+[   31.435929] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  178.753702] Call Trace:
-[  178.753716]  <TASK>
-[  178.753722]  dump_stack_lvl+0x7b/0xa0
-[  178.753782]  print_report+0xd0/0x630
-[  178.753813]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  178.753838]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.753867]  ? filter_match_preds+0x2a5c/0x3080
-[  178.753888]  kasan_report+0xce/0x100
-[  178.753906]  ? filter_match_preds+0x2a5c/0x3080
-[  178.753929]  filter_match_preds+0x2a5c/0x3080
-[  178.753952]  ? ring_buffer_event_data+0xc9/0x120
-[  178.753979]  trace_event_buffer_commit+0x6ad/0x9f0
-[  178.754012]  user_event_ftrace+0x1c2/0x450
-[  178.754040]  ? __pfx_user_event_ftrace+0x10/0x10
-[  178.754059]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754074]  ? fault_in_readable+0x121/0x180
-[  178.754107]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754123]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754141]  user_events_write_core.isra.0+0x3b6/0x560
-[  178.754163]  ? do_syscall_64+0xdd/0x4a0
-[  178.754181]  ? __pfx_user_events_write_core.isra.0+0x10/0x10
-[  178.754209]  user_events_write+0x11b/0x190
-[  178.754229]  ? __pfx_user_events_write+0x10/0x10
-[  178.754250]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754265]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754290]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754306]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754322]  ? security_file_permission+0x40/0xe0
-[  178.754377]  vfs_write+0x26c/0xd00
-[  178.754396]  ? __pfx_user_events_write+0x10/0x10
-[  178.754417]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754433]  ? __pfx_vfs_write+0x10/0x10
-[  178.754447]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754462]  ? sched_setaffinity+0xe9/0x450
-[  178.754496]  ? __pfx_sched_setaffinity+0x10/0x10
-[  178.754518]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754535]  ? fdget_pos+0x1c1/0x520
-[  178.754556]  ksys_write+0x114/0x200
-[  178.754569]  ? __pfx_ksys_write+0x10/0x10
-[  178.754582]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.754597]  ? restore_fpregs_from_fpstate+0x55/0x100
-[  178.754636]  do_syscall_64+0xdd/0x4a0
-[  178.754652]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  178.754665] RIP: 0033:0x41b464
-[  178.754684] Code: 89 fe bf 9c ff ff ff e9 6a 74 04 00 66 2e 0f 1f 84 00 00=
- 00 00 00 f3 0f 1e fa 80 3d fd 7b 09 00 00 74 13 b8 01 00 00 00 0f 05 <48> 3d=
- 00 f0 ff ff 77 54 c3 0f 1f 00 55 48 89 e5 48 83 ec 20 48 89
-[  178.754698] RSP: 002b:00007fffcb64f9b8 EFLAGS: 00000202 ORIG_RAX: 00000000=
-00000001
-[  178.754726] RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 000000000041b=
-464
-[  178.754735] RDX: 000000000000000c RSI: 000000002e33e900 RDI: 0000000000000=
-003
-[  178.754743] RBP: 0000000000486028 R08: 0000000000000026 R09: 0000000000000=
-000
-[  178.754751] R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000=
-003
-[  178.754759] R13: 000000002e33e900 R14: 0000000000000001 R15: 00007fffcb64f=
-a00
-[  178.754773]  </TASK>
-[  178.754787]=20
-[  178.754790] Allocated by task 184:
-[  178.754806]  kasan_save_stack+0x33/0x60
-[  178.754822]  kasan_save_track+0x14/0x30
-[  178.754842]  __kasan_slab_alloc+0x6e/0x70
-[  178.754856]  kmem_cache_alloc_noprof+0x149/0x3e0
-[  178.754872]  do_getname+0x31/0x320
-[  178.754890]  do_sys_openat2+0xb4/0x1b0
-[  178.754909]  __x64_sys_openat+0x136/0x1e0
-[  178.754926]  do_syscall_64+0xdd/0x4a0
-[  178.754939]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  178.754950]=20
-[  178.754953] Freed by task 184:
-[  178.754959]  kasan_save_stack+0x33/0x60
-[  178.754972]  kasan_save_track+0x14/0x30
-[  178.754985]  kasan_save_free_info+0x3b/0x60
-[  178.755010]  __kasan_slab_free+0x43/0x70
-[  178.755025]  kmem_cache_free+0xe2/0x430
-[  178.755038]  putname+0x93/0xe0
-[  178.755051]  do_sys_openat2+0x125/0x1b0
-[  178.755067]  __x64_sys_openat+0x136/0x1e0
-[  178.755084]  do_syscall_64+0xdd/0x4a0
-[  178.755097]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  178.755109]=20
-[  178.755111] The buggy address belongs to the object at ff1100000da01000
-[  178.755111]  which belongs to the cache names_cache of size 192
-[  178.755121] The buggy address is located 7 bytes inside of
-[  178.755121]  freed 192-byte region [ff1100000da01000, ff1100000da010c0)
-[  178.755132]=20
-[  178.755135] The buggy address belongs to the physical page:
-[  178.755140] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
- pfn:0xda01
-[  178.755151] flags: 0x100000000000000(node=3D0|zone=3D1)
-[  178.755168] page_type: f5(slab)
-[  178.755179] raw: 0100000000000000 ff1100000a003a40 dead000000000100 dead00=
+[   31.435940] Workqueue: events uhid_device_add_worker
+[   31.435996] Call Trace:
+[   31.436013]  <TASK>
+[   31.436018]  dump_stack_lvl+0x7b/0xa0
+[   31.436083]  print_report+0xd0/0x630
+[   31.436160]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[   31.436182]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   31.436229]  ? hid_pidff_init_with_quirks+0x3c78/0x3e10
+[   31.436247]  kasan_report+0xce/0x100
+[   31.436263]  ? hid_pidff_init_with_quirks+0x3c78/0x3e10
+[   31.436283]  hid_pidff_init_with_quirks+0x3c78/0x3e10
+[   31.436305]  ? __pfx_universal_pidff_probe+0x10/0x10
+[   31.436327]  universal_pidff_probe+0x164/0x250
+[   31.436350]  ? __pfx_universal_pidff_probe+0x10/0x10
+[   31.436371]  hid_device_probe+0x542/0x880
+[   31.436401]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   31.436417]  ? __pfx_hid_device_probe+0x10/0x10
+[   31.436436]  really_probe+0x1fe/0x7a0
+[   31.436497]  ? __pfx___device_attach_driver+0x10/0x10
+[   31.436519]  __driver_probe_device+0x1c7/0x3c0
+[   31.436539]  ? __pfx___device_attach_driver+0x10/0x10
+[   31.436557]  driver_probe_device+0x4a/0x100
+[   31.436576]  __device_attach_driver+0x191/0x230
+[   31.436595]  bus_for_each_drv+0x14d/0x1d0
+[   31.436611]  ? __pfx_bus_for_each_drv+0x10/0x10
+[   31.436625]  ? mutex_lock+0x81/0xe0
+[   31.436654]  __device_attach+0x1b9/0x420
+[   31.436672]  ? __pfx___device_attach+0x10/0x10
+[   31.436691]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   31.436706]  ? kobject_get+0x87/0x110
+[   31.436729]  device_initial_probe+0x91/0xb0
+[   31.436748]  bus_probe_device+0x61/0x150
+[   31.436764]  device_add+0xf69/0x16e0
+[   31.436792]  ? __pfx_device_add+0x10/0x10
+[   31.436812]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   31.436828]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   31.436843]  ? debugfs_create_file_full+0x41/0x60
+[   31.436899]  hid_add_device+0x2e8/0x560
+[   31.436916]  ? kick_pool_pick+0x1dd/0x680
+[   31.436962]  uhid_device_add_worker+0x3e/0x100
+[   31.436977]  process_one_work+0x750/0x1200
+[   31.437004]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   31.437020]  ? __pfx_process_one_work+0x10/0x10
+[   31.437035]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   31.437052]  worker_thread+0x4ce/0xbc0
+[   31.437070]  ? __pfx_worker_thread+0x10/0x10
+[   31.437084]  kthread+0x2f9/0x400
+[   31.437106]  ? recalc_sigpending+0x187/0x210
+[   31.437125]  ? __pfx_kthread+0x10/0x10
+[   31.437136]  ret_from_fork+0x3f2/0x680
+[   31.437171]  ? __pfx_ret_from_fork+0x10/0x10
+[   31.437186]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   31.437202]  ? __switch_to+0x743/0xf60
+[   31.437232]  ? __pfx_kthread+0x10/0x10
+[   31.437244]  ret_from_fork_asm+0x1a/0x30
+[   31.437265]  </TASK>
+[   31.437270]=20
+[   31.437272] Allocated by task 74:
+[   31.437288]  kasan_save_stack+0x33/0x60
+[   31.437305]  kasan_save_track+0x14/0x30
+[   31.437317]  __kasan_kmalloc+0x8f/0xa0
+[   31.437329]  __kvmalloc_node_noprof+0x245/0x660
+[   31.437347]  hid_add_field+0x4b5/0x1490
+[   31.437364]  hid_parser_main+0x108/0xd10
+[   31.437382]  hid_open_report+0x431/0x940
+[   31.437406]  universal_pidff_probe+0x26/0x250
+[   31.437426]  hid_device_probe+0x542/0x880
+[   31.437443]  really_probe+0x1fe/0x7a0
+[   31.437458]  __driver_probe_device+0x1c7/0x3c0
+[   31.437480]  driver_probe_device+0x4a/0x100
+[   31.437500]  __device_attach_driver+0x191/0x230
+[   31.437517]  bus_for_each_drv+0x14d/0x1d0
+[   31.437529]  __device_attach+0x1b9/0x420
+[   31.437545]  device_initial_probe+0x91/0xb0
+[   31.437562]  bus_probe_device+0x61/0x150
+[   31.437576]  device_add+0xf69/0x16e0
+[   31.437594]  hid_add_device+0x2e8/0x560
+[   31.437609]  uhid_device_add_worker+0x3e/0x100
+[   31.437622]  process_one_work+0x750/0x1200
+[   31.437634]  worker_thread+0x4ce/0xbc0
+[   31.437647]  kthread+0x2f9/0x400
+[   31.437656]  ret_from_fork+0x3f2/0x680
+[   31.437669]  ret_from_fork_asm+0x1a/0x30
+[   31.437685]=20
+[   31.437688] The buggy address belongs to the object at ff1100000d85ed00
+[   31.437688]  which belongs to the cache kmalloc-192 of size 192
+[   31.437698] The buggy address is located 12 bytes to the right of
+[   31.437698]  allocated 176-byte region [ff1100000d85ed00, ff1100000d85edb0)
+[   31.437710]=20
+[   31.437719] The buggy address belongs to the physical page:
+[   31.437731] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
+ pfn:0xd85e
+[   31.437742] flags: 0x100000000000000(node=3D0|zone=3D1)
+[   31.437764] page_type: f5(slab)
+[   31.437775] raw: 0100000000000000 ff110000094383c0 dead000000000100 dead00=
 0000000122
-[  178.755191] raw: 0000000000000000 0000000200100010 00000000f5000000 000000=
+[   31.437787] raw: 0000000000000000 0000000000100010 00000000f5000000 000000=
 0000000000
-[  178.755199] page dumped because: kasan: bad access detected
-[  178.755204]=20
-[  178.755212] Memory state around the buggy address:
-[  178.755217]  ff1100000da00f00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb
-[  178.755227]  ff1100000da00f80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc f=
+[   31.437795] page dumped because: kasan: bad access detected
+[   31.437800]=20
+[   31.437803] Memory state around the buggy address:
+[   31.437808]  ff1100000d85ec80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
 c fc
-[  178.755236] >ff1100000da01000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb
-[  178.755243]                    ^
-[  178.755249]  ff1100000da01080: fb fb fb fb fb fb fb fb fc fc fc fc fc fc f=
+[   31.437817]  ff1100000d85ed00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
+0 00
+[   31.437827] >ff1100000d85ed80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
 c fc
-[  178.755258]  ff1100000da01100: fa fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb
-[  178.755265] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+[   31.437834]                                         ^
+[   31.437840]  ff1100000d85ee00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
+0 00
+[   31.437849]  ff1100000d85ee80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
+c fc
+[   31.437857] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  178.755301] Disabling lock debugging due to kernel taint
-[  178.757496] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  178.757505] BUG: KASAN: slab-use-after-free in filter_match_preds+0x2a5c/0=
-x3080
-[  178.757534] Read of size 8 at addr ff1100000c645007 by task repro/417
-[  178.757544]=20
-[  178.757552] CPU: 3 UID: 0 PID: 417 Comm: repro Tainted: G    B            =
-   7.3.0 #1 PREEMPT(lazy)=20
-[  178.757571] Tainted: [B]=3DBAD_PAGE
-[  178.757576] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
-ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  178.757585] Call Trace:
-[  178.757590]  <TASK>
-[  178.757595]  dump_stack_lvl+0x7b/0xa0
-[  178.757613]  print_report+0xd0/0x630
-[  178.757631]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  178.757653]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.757671]  ? filter_match_preds+0x2a5c/0x3080
-[  178.757692]  kasan_report+0xce/0x100
-[  178.757709]  ? filter_match_preds+0x2a5c/0x3080
-[  178.757733]  filter_match_preds+0x2a5c/0x3080
-[  178.757754]  ? ring_buffer_event_data+0xc9/0x120
-[  178.757775]  trace_event_buffer_commit+0x6ad/0x9f0
-[  178.757797]  user_event_ftrace+0x1c2/0x450
-[  178.757818]  ? __pfx_user_event_ftrace+0x10/0x10
-[  178.757838]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.757853]  ? fault_in_readable+0x121/0x180
-[  178.757873]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.757890]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.757907]  user_events_write_core.isra.0+0x3b6/0x560
-[  178.757930]  ? do_syscall_64+0xdd/0x4a0
-[  178.757946]  ? __pfx_user_events_write_core.isra.0+0x10/0x10
-[  178.757973]  user_events_write+0x11b/0x190
-[  178.757994]  ? __pfx_user_events_write+0x10/0x10
-[  178.758014]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.758030]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.758047]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.758062]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.758078]  ? security_file_permission+0x40/0xe0
-[  178.758101]  vfs_write+0x26c/0xd00
-[  178.758114]  ? __pfx_user_events_write+0x10/0x10
-[  178.758135]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.758160]  ? __pfx_vfs_write+0x10/0x10
-[  178.758173]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.758189]  ? sched_setaffinity+0xe9/0x450
-[  178.758211]  ? __pfx_sched_setaffinity+0x10/0x10
-[  178.758233]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.758249]  ? fdget_pos+0x1c1/0x520
-[  178.758266]  ksys_write+0x114/0x200
-[  178.758278]  ? __pfx_ksys_write+0x10/0x10
-[  178.758320]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  178.758336]  ? restore_fpregs_from_fpstate+0x55/0x100
-[  178.758359]  do_syscall_64+0xdd/0x4a0
-[  178.758374]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  178.758388] RIP: 0033:0x41b464
-[  178.758397] Code: 89 fe bf 9c ff ff ff e9 6a 74 04 00 66 2e 0f 1f 84 00 00=
- 00 00 00 f3 0f 1e fa 80 3d fd 7b 09 00 00 74 13 b8 01 00 00 00 0f 05 <48> 3d=
- 00 f0 ff ff 77 54 c3 0f 1f 00 55 48 89 e5 48 83 ec 20 48 89
-[  178.758411] RSP: 002b:00007fffcb64f9b8 EFLAGS: 00000202 ORIG_RAX: 00000000=
-00000001
-[  178.758424] RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 000000000041b=
-464
-[  178.758432] RDX: 000000000000000c RSI: 000000002e33e900 RDI: 0000000000000=
-003
-[  178.758441] RBP: 0000000000486028 R08: 0000000000000026 R09: 0000000000000=
-000
-[  178.758449] R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000=
-003
-[  178.758457] R13: 000000002e33e900 R14: 0000000000000003 R15: 00007fffcb64f=
-a00
-[  178.758471]  </TASK>
-[  178.758475]=20
-[  178.758478] Allocated by task 201:
-[  178.758484]  kasan_save_stack+0x33/0x60
-[  178.758498]  kasan_save_track+0x14/0x30
-[  178.758512]  __kasan_slab_alloc+0x6e/0x70
-[  178.758526]  kmem_cache_alloc_noprof+0x149/0x3e0
-[  178.758538]  alloc_empty_file+0x56/0x1b0
-[  178.758554]  path_openat+0xdc/0x2030
-[  178.758567]  do_file_open+0x202/0x420
-[  178.758580]  do_sys_openat2+0xf4/0x1b0
-[  178.758597]  __x64_sys_openat+0x136/0x1e0
-[  178.758614]  do_syscall_64+0xdd/0x4a0
-[  178.758626]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  178.758638]=20
-[  178.758641] Freed by task 14:
-[  178.758651]  kasan_save_stack+0x33/0x60
-[  178.758665]  kasan_save_track+0x14/0x30
-[  178.758679]  kasan_save_free_info+0x3b/0x60
-[  178.758698]  __kasan_slab_free+0x43/0x70
-[  178.758712]  slab_free_after_rcu_debug+0xab/0x1f0
-[  178.758732]  rcu_core+0x55f/0x1870
-[  178.758752]  handle_softirqs+0x187/0x5a0
-[  178.758773]  run_ksoftirqd+0x25/0x30
-[  178.758783]  smpboot_thread_fn+0x301/0x7b0
-[  178.758797]  kthread+0x2fe/0x400
-[  178.758815]  ret_from_fork+0x3f7/0x680
-[  178.758828]  ret_from_fork_asm+0x1a/0x30
-[  178.758844]=20
-[  178.758847] Last potentially related work creation:
-[  178.758851]  kasan_save_stack+0x33/0x60
-[  178.758865]  kasan_record_aux_stack+0x8c/0xa0
-[  178.758884]  kmem_cache_free+0x206/0x430
-[  178.758895]  __fput+0x5c9/0xa80
-[  178.758909]  fput_close_sync+0xff/0x200
-[  178.758924]  __x64_sys_close+0x8c/0xf0
-[  178.758942]  do_syscall_64+0xdd/0x4a0
-[  178.758955]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  178.758966]=20
-[  178.758969] The buggy address belongs to the object at ff1100000c645000
-[  178.758969]  which belongs to the cache filp of size 176
-[  178.758978] The buggy address is located 7 bytes inside of
-[  178.758978]  freed 176-byte region [ff1100000c645000, ff1100000c6450b0)
-[  178.758990]=20
-[  178.758993] The buggy address belongs to the physical page:
-[  178.758998] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xf=
-f1100000c645600 pfn:0xc645
-[  178.759009] memcg:ff1100000c6450d1
-[  178.759014] flags: 0x100000000000200(workingset|node=3D0|zone=3D1)
-[  178.759034] page_type: f5(slab)
-[  178.759045] raw: 0100000000000200 ff1100000a003e00 ffd4000000318b90 ffd400=
-00002a1a50
-[  178.759058] raw: ff1100000c645600 0000000300100002 00000000f5000000 ff1100=
-000c6450d1
-[  178.759065] page dumped because: kasan: bad access detected
-[  178.759071]=20
-[  178.759073] Memory state around the buggy address:
-[  178.759079]  ff1100000c644f00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb
-[  178.759088]  ff1100000c644f80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc f=
-c fc
-[  178.759097] >ff1100000c645000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb f=
-b fb
-[  178.759104]                    ^
-[  178.759110]  ff1100000c645080: fb fb fb fb fb fb fc fc fc fc fc fc fc fc f=
-c fc
+[   31.437902] Disabling lock debugging due to kernel taint
+[   31.437910] hid-universal-pidff 0003:346E:0005.0001: unknown condition eff=
+ect layout
+[   41.432233] hid-universal-pidff 0003:346E:0005.0001: device reports 0 simu=
+ltaneous effects
+[   41.432715] hid-universal-pidff 0003:346E:0005.0001: pid_block_load failed=
+ 60 times
+[   41.432777] hid-universal-pidff 0003:346E:0005.0001: upload request failed
+[   41.432794] hid-universal-pidff 0003:346E:0005.0001: Error initialising fo=
+rce feedback
+[   41.438610] hid-universal-pidff 0003:346E:0005.0001: probe with driver hid=
+-universal-pidff failed with error -5
 
---===============1354426194736975921==
+--===============1107554219196265214==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="config"
@@ -757,7 +551,7 @@ MIME-Version: 1.0
 # Automatically generated file; DO NOT EDIT.
 # Linux/x86 7.3.0 Kernel Configuration
 #
-CONFIG_CC_VERSION_TEXT=3D"gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+CONFIG_CC_VERSION_TEXT=3D"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0"
 CONFIG_CC_IS_GCC=3Dy
 CONFIG_GCC_VERSION=3D130300
 CONFIG_CLANG_VERSION=3D0
@@ -777,7 +571,7 @@ CONFIG_CC_HAS_ASM_INLINE=3Dy
 CONFIG_CC_HAS_ASSUME=3Dy
 CONFIG_CC_HAS_NO_PROFILE_FN_ATTR=3Dy
 CONFIG_LD_CAN_USE_KEEP_IN_OVERLAY=3Dy
-CONFIG_PAHOLE_VERSION=3D0
+CONFIG_PAHOLE_VERSION=3D125
 CONFIG_CONSTRUCTORS=3Dy
 CONFIG_IRQ_WORK=3Dy
 CONFIG_BUILDTIME_TABLE_SORT=3Dy
@@ -921,7 +715,6 @@ CONFIG_TREE_SRCU=3Dy
 CONFIG_TASKS_RCU_GENERIC=3Dy
 CONFIG_NEED_TASKS_RCU=3Dy
 CONFIG_TASKS_RCU=3Dy
-CONFIG_TASKS_RUDE_RCU=3Dy
 CONFIG_TASKS_TRACE_RCU=3Dy
 CONFIG_RCU_STALL_COMMON=3Dy
 CONFIG_RCU_NEED_SEGCBLIST=3Dy
@@ -1267,7 +1060,6 @@ CONFIG_LEGACY_VSYSCALL_XONLY=3Dy
 CONFIG_MODIFY_LDT_SYSCALL=3Dy
 # CONFIG_STRICT_SIGALTSTACK_SIZE is not set
 CONFIG_HAVE_LIVEPATCH=3Dy
-# CONFIG_LIVEPATCH is not set
 CONFIG_HAVE_KLP_BUILD=3Dy
 CONFIG_X86_BUS_LOCK_DETECT=3Dy
 # end of Processor type and features
@@ -1526,7 +1318,6 @@ CONFIG_JUMP_LABEL=3Dy
 # CONFIG_STATIC_KEYS_SELFTEST is not set
 # CONFIG_STATIC_CALL_SELFTEST is not set
 CONFIG_OPTPROBES=3Dy
-CONFIG_KPROBES_ON_FTRACE=3Dy
 CONFIG_UPROBES=3Dy
 CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS=3Dy
 CONFIG_ARCH_USE_BUILTIN_BSWAP=3Dy
@@ -4705,7 +4496,7 @@ CONFIG_HID_TOPSEED=3Dy
 # CONFIG_HID_THRUSTMASTER is not set
 # CONFIG_HID_UDRAW_PS3 is not set
 # CONFIG_HID_U2FZERO is not set
-# CONFIG_HID_UNIVERSAL_PIDFF is not set
+CONFIG_HID_UNIVERSAL_PIDFF=3Dy
 # CONFIG_HID_WACOM is not set
 # CONFIG_HID_WIIMOTE is not set
 # CONFIG_HID_WINWING is not set
@@ -4721,7 +4512,6 @@ CONFIG_HID_TOPSEED=3Dy
 #
 # HID-BPF support
 #
-CONFIG_HID_BPF=3Dy
 # end of HID-BPF support
 
 CONFIG_I2C_HID=3Dy
@@ -6254,6 +6044,8 @@ CONFIG_DEBUG_INFO_COMPRESSED_NONE=3Dy
 # CONFIG_DEBUG_INFO_COMPRESSED_ZLIB is not set
 # CONFIG_DEBUG_INFO_COMPRESSED_ZSTD is not set
 # CONFIG_DEBUG_INFO_SPLIT is not set
+# CONFIG_DEBUG_INFO_BTF is not set
+CONFIG_PAHOLE_HAS_LANG_EXCLUDE=3Dy
 # CONFIG_GDB_SCRIPTS is not set
 CONFIG_FRAME_WARN=3D2048
 # CONFIG_STRIP_ASM_SYMS is not set
@@ -6430,13 +6222,9 @@ CONFIG_NOP_TRACER=3Dy
 CONFIG_HAVE_RETHOOK=3Dy
 CONFIG_RETHOOK=3Dy
 CONFIG_HAVE_FUNCTION_TRACER=3Dy
-CONFIG_HAVE_FUNCTION_GRAPH_TRACER=3Dy
-CONFIG_HAVE_FUNCTION_GRAPH_FREGS=3Dy
-CONFIG_HAVE_FTRACE_GRAPH_FUNC=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE_WITH_REGS=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS=3Dy
-CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE_WITH_ARGS=3Dy
 CONFIG_HAVE_FTRACE_REGS_HAVING_PT_REGS=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE_NO_PATCHABLE=3Dy
@@ -6447,7 +6235,6 @@ CONFIG_HAVE_OBJTOOL_MCOUNT=3Dy
 CONFIG_HAVE_OBJTOOL_NOP_MCOUNT=3Dy
 CONFIG_HAVE_C_RECORDMCOUNT=3Dy
 CONFIG_HAVE_BUILDTIME_MCOUNT_SORT=3Dy
-CONFIG_BUILDTIME_MCOUNT_SORT=3Dy
 CONFIG_TRACE_CLOCK=3Dy
 CONFIG_RING_BUFFER=3Dy
 CONFIG_EVENT_TRACING=3Dy
@@ -6458,18 +6245,7 @@ CONFIG_TRACING_SUPPORT=3Dy
 CONFIG_FTRACE=3Dy
 CONFIG_TRACEFS_AUTOMOUNT_DEPRECATED=3Dy
 # CONFIG_BOOTTIME_TRACING is not set
-CONFIG_FUNCTION_TRACER=3Dy
-CONFIG_FUNCTION_GRAPH_TRACER=3Dy
-# CONFIG_FUNCTION_GRAPH_RETVAL is not set
-# CONFIG_FUNCTION_GRAPH_RETADDR is not set
-CONFIG_DYNAMIC_FTRACE=3Dy
-CONFIG_DYNAMIC_FTRACE_WITH_REGS=3Dy
-CONFIG_DYNAMIC_FTRACE_WITH_DIRECT_CALLS=3Dy
-CONFIG_DYNAMIC_FTRACE_WITH_ARGS=3Dy
-CONFIG_DYNAMIC_FTRACE_WITH_JMP=3Dy
-# CONFIG_FUNCTION_SELF_TRACING is not set
-# CONFIG_FPROBE is not set
-# CONFIG_FUNCTION_PROFILER is not set
+# CONFIG_FUNCTION_TRACER is not set
 # CONFIG_STACK_TRACER is not set
 # CONFIG_IRQSOFF_TRACER is not set
 # CONFIG_PREEMPT_TRACER is not set
@@ -6486,24 +6262,19 @@ CONFIG_BRANCH_PROFILE_NONE=3Dy
 CONFIG_BLK_DEV_IO_TRACE=3Dy
 # CONFIG_PROBE_EVENTS_DUMP_FETCHARG is not set
 CONFIG_KPROBE_EVENTS=3Dy
-# CONFIG_KPROBE_EVENTS_ON_NOTRACE is not set
 CONFIG_UPROBE_EVENTS=3Dy
 CONFIG_EPROBE_EVENTS=3Dy
 CONFIG_BPF_EVENTS=3Dy
 CONFIG_DYNAMIC_EVENTS=3Dy
 CONFIG_PROBE_EVENTS=3Dy
-CONFIG_FTRACE_MCOUNT_USE_CC=3Dy
 # CONFIG_SYNTH_EVENTS is not set
-CONFIG_USER_EVENTS=3Dy
+# CONFIG_USER_EVENTS is not set
 # CONFIG_HIST_TRIGGERS is not set
 # CONFIG_TRACE_EVENT_INJECT is not set
 # CONFIG_TRACEPOINT_BENCHMARK is not set
 # CONFIG_RING_BUFFER_BENCHMARK is not set
 # CONFIG_TRACE_EVAL_MAP_FILE is not set
-# CONFIG_FTRACE_RECORD_RECURSION is not set
-# CONFIG_FTRACE_VALIDATE_RCU_IS_WATCHING is not set
 # CONFIG_FTRACE_STARTUP_TEST is not set
-# CONFIG_FTRACE_SORT_STARTUP_TEST is not set
 # CONFIG_RING_BUFFER_STARTUP_TEST is not set
 # CONFIG_RING_BUFFER_VALIDATE_TIME_DELTAS is not set
 # CONFIG_RING_BUFFER_PERSISTENT_INJECT is not set
@@ -6608,4 +6379,4 @@ CONFIG_ARCH_USE_MEMTEST=3Dy
 CONFIG_IO_URING_ZCRX=3Dy
 CONFIG_IO_URING_BPF=3Dy
 
---===============1354426194736975921==--
+--===============1107554219196265214==--
