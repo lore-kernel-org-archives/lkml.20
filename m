@@ -1,60 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636248;
-	b=TWrvCR4R6kO1w0m2MW/A/z9uYmrzZext8DX0x9W/QmbX/i/orCs9pjFEGm4SVLQiE2AA
-	 nuMheRzJEaqkAuvAh8qZ1iprG45a8Z2hHSiXlK0T4HySEgPSr/ZlieKOAupYWePQbwa8G
-	 8h03UsssWqe2y3T5h05KmP8zZBOOY9JCtAodlwPrJj8aotTTlS+d7BU+karHl6kg1kbzQ
-	 uGn7Q24T15q2bjjYQJ3U5aVByVoA52hyYelQeM/fjsESjU9HSdP9mud8Am5b8DGOebg/p
-	 AGp9/+4jX9/OY8ErdtVt2V+Yuecx4Vs+MijrwgJ7id6tgwC09vRmI3aAZ0ejyCa8BVg==
+	t=1793636266;
+	b=4sQd0352MlmCKWBvbN2BiQm67X3tniw8CrcHC2d51Rwt/ldiZ3OWFHSMsFqYcdh0Zh3m
+	 C1pwD76owzz3l0jar1m1yJOh3/pryjnYLzxoU+hKCpzFd0LR+gy8odQuAsI2KQdm3ickm
+	 qdf1wt7AXNznQagJFqOiYgkLfGCpov1R9ND2ZvwOsJhDebmRFnxPBGe7BGU3xdDKx6B+L
+	 dPhwO8y/2DQevJl0f+cuhE0Ug3Y1lpocuaWDDMBrVjs4W/XoX1qdPzUOpt0yXEQ0DRDo6
+	 XEm4rgR3jw0JZpHmbS/VSochrOeaJxuWi4/4n0wfdAzXnnyvBN97j4oHxeJPSpQ+Ixg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636248;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sQ4T+b16Ti6+mg2ejejZKdmeCXOYlBVVk4FdYTSpBjg=;
-	b=Sq9glSCmogqx2PMPRPowjqaY76U1Mt94IAhI7iplb100AnE+TbkmwKn9liPW0a2fJc7n
-	 NV+ReiddYzFawCYD4s9ScZybp2Z7zS+b956S1lQTQpiMY9Zk48K57PwYOMPQMBTS6WX7N
-	 KGuTU75ZomrORAS7or3ZIme06te+CQTmYrYWWRTy1Xdji2ikwYHlX4Ns5rqcT4MIjykdV
-	 X9tTnSD226/8hEFnUaM+UMFOIOcW/7E7xzsnA31gd8w1QOjlGJ+BCCzByHEblYEMJfyyC
-	 Zl2LBUM7LMuv3FhAgGDIcSBWDWKvGxEoIk6hnaEQUP2F0ksNAGKQy/omVREOdiLVMVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636266;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kzVTbu8ingZzRNtB29p8thlcSTm8N1ZaYOvktC0Fylw=;
+	b=W8xiGR9t1jgRX7gsKW2el+F6Iy9BrLg8ja/hPaClkE/2bbRND8d6idKklmLhPjgPDLLU
+	 mmBGZtuKS6za44cWAJAby1zHNWp8b351isJM9Yftf3+uo6LOZZVfcONfLFcahTGuOJqXV
+	 0Eh2abDFfwxy27JXFKH8Z/9vnWZ6wbn33NZg3iHklBqphALYfHT7X1zkPGGqXqaxUBJYn
+	 NSbVCUGWZP67xCgtxP8EtZV8wT64LM8WFBMegV1qQwwFap01rF36KzPEW+0ZbwYa1dUl/
+	 4fpwl1xqhbZH44YF6jQO/h9k5krekLg79XyItyRLRPJiPBQHQToEdSbnZG57VGQM3Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChoCscwv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nAkx31Uv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FAA606AB88;
-	Mon,  2 Nov 2026 16:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7886A6082C7E;
+	Mon,  2 Nov 2026 16:17:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChoCscwv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D27C1F00A20;
-	Mon,  2 Nov 2026 16:17:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nAkx31Uv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D126E1F00A16;
+	Mon,  2 Nov 2026 16:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793636247;
-	bh=sQ4T+b16Ti6+mg2ejejZKdmeCXOYlBVVk4FdYTSpBjg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ChoCscwvUb8H/au752uRMGege38AvkMz6RfCL3trMS1vzmjN5ZndvlpGp21zQqNQo
-	 yfWp15FOL/ZEcVaABLMIIv9pnxj5Z0QE5OHLUne+GB/AwB6c7KOBw+iUBwJ0jXbtst
-	 COMxk0Qa1Gsuiw8oM898imohkLzN5Ojri21/0RD/IGnusGAOOdpvl69fRV9kXimg0y
-	 bBMXrGYlQ1rwCWxu6N15Uwpbji7hnOR/zvEKdIqamums7r2PgMryeZ6mQYiMFAkEGe
-	 Py/bhAgugemPc+grIhnnUMnjmzEMnaqwX82HpVMzJoizLwUrpyDTIFDbj4PQn6NsOp
-	 QP3qvFEm0KWUQ==
-Subject: Re: [PATCH net] openvswitch: advance by the real header length in
- get_ipv6_ext_hdrs()
-From: netdev-bot+sashiko@kernel.org
-To: joasantonio108@gmail.com
-Cc: aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, cpp.code.lv@gmail.com, netdev@vger.kernel.org,
- dev@openvswitch.org, linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 16:17:26 +0000
-Message-ID: <179363624604.3131.17678557171151335962@kernel.org>
-In-Reply-To: <179328922134.76862.10417963652853801970@gmail.com>
-References: <179328922134.76862.10417963652853801970@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793636265;
+	bh=kzVTbu8ingZzRNtB29p8thlcSTm8N1ZaYOvktC0Fylw=;
+	h=From:To:Cc:Subject:Date;
+	b=nAkx31Uvokdrwrk/m7jCzOA1pkrdNDvpF7KKD5MsBA6HExo95RCTDUFf6dVXm2Vze
+	 Q0ln28UEuKU3jUr9Ri/hlr+JDhCHpAHETA5To5Q6vw+mC+A+J/kAFOdrc0hN30qRNf
+	 9sDSNWLdV8VhRlSOCMa1MGKBzJJSgGmcFeqHHH59ry/2xdb2J0XAxkvgSF/UraKYia
+	 GGjd20NWwOjO2KJUMgIUnmyhd7Kd1ij39MJfkhByu4Q5hEsynP83RVUWRzONJ6Ny2a
+	 wB3Qc4oMbsN+bC5ZTktw5z3m67+o7piYqWUs89l/Xd+d8NpjxPDGGfVSK7XKoI72V0
+	 iWpO/WJiBoCGA==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	tzungbi@kernel.org
+Subject: [PATCH v15 0/4] drivers/base: Introduce revocable
+Date: Tue,  3 Nov 2026 00:17:05 +0800
+Message-ID: <20261102161710.24076-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,197 +67,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+This series introduces the "revocable" mechanism, a synchronization
+primitive designed to prevent Use-After-Free errors.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0 (2)
+- Patch 1 introduces the revocable which is an implementation of ideas
+  from the talk [1][2].
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+- Patch 2 adds KUnit test cases.
 
-- [High] The fix is incomplete for non-first fragments.
+- Patch 3 transitions the UAF prevention logic within the GPIO core
+  (gpiolib) to use the "revocable" mechanism.
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but OFPIEH12_ESP
-  is never set.
-- [Low] This problem wasn't introduced by this patch, but a single
-  Destination Options header in the final-destination position is…
-- [Low] This problem wasn't introduced by this patch, but repeated Hop-
-  by-Hop headers are not reported as OFPIEH12_UNREP when the first one…
+  The existing code aims to prevent UAF issues when the underlying GPIO
+  chip is removed.  The patch replaces that custom logic with the
+  generic "revocable" API, which is designed to handle such lifecycle
+  dependencies.  There should be no changes in behavior.
 
---
+- Patch 4 transitions the reset controller framework to use the
+  "revocable" mechanism.
 
-openvswitch: advance by the real header length in get_ipv6_ext_hdrs()
+Since v9, there are two ways to manage the resource provider handle.
+- Embedded allocation: patch 3 is the user.
+- Dynamic allocation: patch 4 is the user.
 
-get_ipv6_ext_hdrs() used to move past every extension header with
-ipv6_optlen(). That length is wrong for AH and Fragment headers. This
-patch advances by sizeof(struct frag_hdr) for Fragment headers and by
-ipv6_authlen() for AH, so the OFPIEH12_* bits come from the headers that
-are actually present.
+[1] https://lpc.events/event/17/contributions/1627/
+[2] https://lpc.events/event/19/contributions/2262/
+---
+Greg, Danilo, Rafael, Johan,
 
-Link: https://lore.kernel.org/all/178905555085.219967.6617611783437228045@kernel.org/
+Since the revert in February, the API and lifetime model have been
+redesigned, and the series now has concrete in-kernel users for both
+embedded allocation (gpiolib in patch 3) and dynamic allocation (reset in
+patch 4).
 
-> diff --git a/net/openvswitch/flow.c b/net/openvswitch/flow.c
-> index 1c4f3a0790443..a1c60d2f552cf 100644
-> --- a/net/openvswitch/flow.c
-> +++ b/net/openvswitch/flow.c
-> @@ -372,8 +372,13 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
->  		hp = skb_header_pointer(skb, start, sizeof(_hdr), &_hdr);
->  		if (!hp)
->  			break;
-> +		if (next_type == IPPROTO_FRAGMENT)
-> +			start += sizeof(struct frag_hdr);
-> +		else if (next_type == IPPROTO_AH)
-> +			start += ipv6_authlen(hp);
-> +		else
-> +			start += ipv6_optlen(hp);
-> +		next_type = hp->nexthdr;
+Do you think this series is heading in a direction that driver-core can
+accept, or do you still have fundamental concerns with the approach?  I
+would appreciate your thoughts on whether we should continue working on
+this series.
+---
+v15:
+- Rebase onto v7.4-rc1.
+- Fix resource and kthread cleanup on error paths in KUnit tests.
+- Rename revocable struct members in GPIO and reset subsystems.
+- Separate patch 4 (KUnit tests for reset controller) out.
 
-[Severity: High]
-Can payload bytes still set the exthdrs bits when the packet is a
-non-first fragment?
+v14: https://lore.kernel.org/all/20261011121246.162759-1-tzungbi@kernel.org
+- Rebase onto next-20261009.
+- See changelogs in [PATCH v14 1/5] and [PATCH v14 2/5] for revocable
+  API and KUnit test updates.
+- Add patches 4 and 5 for the reset controller framework.
 
-The IPPROTO_FRAGMENT case in get_ipv6_ext_hdrs() sets OFPIEH12_FRAG and
-never reads frag_off. This branch then always advances 8 bytes and
-follows hp->nexthdr.
+v13: https://lore.kernel.org/all/20260912123529.7951-1-tzungbi@kernel.org
+- Rebase onto next-20260911.
 
-RFC 8200 says every fragment carries the Next Header value of the first
-header in the Fragmentable Part. Take IPsec AH transport mode with
-fragmentation as an example. A later fragment shows up as
-FRAG(offset != 0, nexthdr = AH).
+v12: https://lore.kernel.org/all/20260908134223.13638-1-tzungbi@kernel.org
+- Rebase onto next-20260907.
+- Drop patch 4 and 5.
 
-The bytes after that Fragment header are payload from the middle of the
-packet. The next loop iteration still parses them as an ipv6_opt_hdr:
-payload[0] is taken as the next type and payload[1] as the length.
-Payload bytes such as 0, 43, 44, 51 or 59 would then set HOP/UNSEQ,
-ROUTER, FRAG/UNREP, AUTH/UNREP or NONEXT for headers that are not there.
+v11: https://lore.kernel.org/all/20260513091043.6766-1-tzungbi@kernel.org
+- Rebase onto v7.1-rc3.
+- Squash patches 4 to 7 into patch 3.  A single patch for GPIO.
 
-The commit message says the walk now advances "as ipv6_find_hdr() does".
-However, ipv6_find_hdr() stops at non-first fragments:
+v10: https://lore.kernel.org/all/20260508105448.31799-1-tzungbi@kernel.org
+- Unify handling of embedded and dynamic allocation.
 
-net/ipv6/exthdrs_core.c:ipv6_find_hdr() {
-    ...
-			_frag_off = ntohs(*fp) & ~0x7;
-			if (_frag_off) {
-				if (target < 0 &&
-				    ((!ipv6_ext_hdr(hp->nexthdr)) ||
-				     hp->nexthdr == NEXTHDR_NONE)) {
-					if (fragoff)
-						*fragoff = _frag_off;
-					return hp->nexthdr;
-				}
-				if (!found)
-					return -ENOENT;
-    ...
-}
+v9: https://lore.kernel.org/all/20260427135841.96266-1-tzungbi@kernel.org
+- Rebase onto v7.1-rc1.
+- Remove the selftests patch as it makes less sense to test revocable
+  APIs via kselftests.
+- Merge patches 7 to 11 from
+  https://lore.kernel.org/all/20260213092958.864411-1-tzungbi@kernel.org
+  into the series.
+- Merge patch from
+  https://lore.kernel.org/all/20250923075302.591026-5-tzungbi@kernel.org
+- Merge patch from
+  https://lore.kernel.org/all/20250912081718.3827390-6-tzungbi@kernel.org
 
-The wrong bits also seem to reach the flow key. parse_ipv6hdr() calls
-get_ipv6_ext_hdrs() before ipv6_find_hdr(). In the
-FRAG(offset != 0, nexthdr = extension header) case, ipv6_find_hdr()
-returns -ENOENT and leaves frag_off at 0. parse_ipv6hdr() therefore
-sets OVS_FRAG_TYPE_FIRST and returns -EPROTO. key_extract_l3l4() then
-treats that as success:
+v8: https://lore.kernel.org/all/20260213092307.858908-1-tzungbi@kernel.org
+- Rework on the revocable APIs.  See changelog in [PATCH v8 1/3] for details.
 
-net/openvswitch/flow.c:key_extract_l3l4() {
-    ...
-			case -EPROTO:
-				skb->transport_header = skb->network_header;
-				error = 0;
-				break;
-    ...
-}
+v7: https://lore.kernel.org/all/20260116080235.350305-1-tzungbi@kernel.org
+- Rebase onto next-20260115.
 
-key->ipv6.exthdrs is never cleared on this path. Flows that match on
-OVS_KEY_ATTR_IPV6_EXTHDRS would still misclassify these packets. The
-tests in the changelog only cover Fragment headers with offset 0.
+v6: https://lore.kernel.org/all/20251106152330.11733-1-tzungbi@kernel.org
+- Rebase onto next-20251106.
+- Separate revocable core and use cases.
 
-Would it make sense for the IPPROTO_FRAGMENT case to read frag_off with
-skb_header_pointer() and stop the walk when ntohs(frag_off) & ~0x7 is
-non-zero?
+v5: https://lore.kernel.org/all/20251016054204.1523139-1-tzungbi@kernel.org
+- Rebase onto next-20251015.
+- Add more context about the PoC.
+- Support multiple revocable providers in the PoC.
 
->  	}
->  }
->
+v4: https://lore.kernel.org/all/20250923075302.591026-1-tzungbi@kernel.org
+- Rebase onto next-20250922.
+- Remove the 5th patch from v3.
+- Add fops replacement PoC in 5th - 7th patches.
 
-[Severity: Medium]
-This is a pre-existing issue and the patch doesn't introduce it, but is
-OFPIEH12_ESP ever set? The loop in get_ipv6_ext_hdrs() is guarded by:
+v3: https://lore.kernel.org/all/20250912081718.3827390-1-tzungbi@kernel.org
+- Rebase onto https://lore.kernel.org/all/20250828083601.856083-1-tzungbi@kernel.org
+  and next-20250912.
+- The 4th patch changed accordingly.
 
-	while (ipv6_ext_hdr(next_type)) {
+v2: https://lore.kernel.org/all/20250820081645.847919-1-tzungbi@kernel.org
+- Rename "ref_proxy" -> "revocable".
+- Add test cases in Kunit and selftest.
 
-ipv6_ext_hdr() returns true only for HOP, ROUTING, FRAGMENT, AUTH, NONE
-and DEST:
+v1: https://lore.kernel.org/all/20250814091020.1302888-1-tzungbi@kernel.org
 
-net/ipv6/exthdrs_core.c:ipv6_ext_hdr() {
-	return   (nexthdr == NEXTHDR_HOP)	||
-		 (nexthdr == NEXTHDR_ROUTING)	||
-		 (nexthdr == NEXTHDR_FRAGMENT)	||
-		 (nexthdr == NEXTHDR_AUTH)	||
-		 (nexthdr == NEXTHDR_NONE)	||
-		 (nexthdr == NEXTHDR_DEST);
-}
+Tzung-Bi Shih (4):
+  revocable: Revocable resource management
+  revocable: Add KUnit test cases
+  gpio: Leverage revocable for accessing struct gpio_chip
+  reset: Leverage revocable for accessing struct reset_controller_dev
 
-NEXTHDR_ESP is not in that list, so the loop exits before case
-IPPROTO_ESP can run. flow.h documents OFPIEH12_ESP as "Encrypted Sec
-Payload header present", and the bit is exported through
-OVS_KEY_ATTR_IPV6_EXTHDRS. A flow matching ESP=1 can never match, and a
-flow matching ESP=0 matches every ESP packet. The OFPIEH12_ESP check in
-the second DSTOPTS mask is dead code for the same reason.
-
-If the loop guard is ever changed to include ESP, the new length
-dispatch in this patch would send ESP to ipv6_optlen(hp). That reads SPI
-bytes as a length, so ESP would need an explicit stop there.
-
-This patch does not change ESP behaviour. Before the patch, an AH
-followed by ESP also reached next_type == ESP, because next_type comes
-from the AH header's own nexthdr field.
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but should a single
-Destination Options header in the final-destination position really get
-OFPIEH12_UNSEQ? The first DSTOPTS seen in get_ipv6_ext_hdrs() is only
-accepted if it comes after HOP:
-
-		case IPPROTO_DSTOPTS:
-			if (dest_options_header_count == 0) {
-				if (*ext_hdrs &
-				    ~(OFPIEH12_HOP | OFPIEH12_UNREP))
-					*ext_hdrs |= OFPIEH12_UNSEQ;
-
-Take IPv6 -> Routing -> DSTOPTS -> TCP, or AH -> DSTOPTS. ROUTER or AUTH
-is already set by then, so UNSEQ is set. The changelog's own test result
-shows this: "AUTH DEST UNSEQ".
-
-The comment above the function lists the preferred order as Hop, Dest,
-Routing, Fragment, AH, ESP, Dest, upper-layer. Routing -> Dest and
-AH -> Dest both follow that order. The count of DSTOPTS headers seen so
-far is being used as if it were the header's position.
-
-[Severity: Low]
-This is a pre-existing issue, but are repeated Hop-by-Hop headers missed
-when the first one is out of sequence? In get_ipv6_ext_hdrs():
-
-		case IPPROTO_HOPOPTS:
-			if (*ext_hdrs & OFPIEH12_HOP)
-				*ext_hdrs |= OFPIEH12_UNREP;
-			...
-			if (*ext_hdrs == 0)
-				*ext_hdrs |= OFPIEH12_HOP;
-			else
-				*ext_hdrs |= OFPIEH12_UNSEQ;
-
-OFPIEH12_HOP is only set when HOP is the first header. Take
-IPv6 -> Routing -> HOP -> HOP -> TCP. The first HOP sees ROUTER already
-set, so it sets UNSEQ but not HOP. The second HOP finds HOP clear and
-also sets only UNSEQ.
-
-UNREP stays clear even though two HOP headers are present.
-ipv6_find_hdr() checks neither order nor repetition, so a short chain
-like this passes and the missing bit stays in the flow key.
+ .../driver-api/driver-model/index.rst         |   1 +
+ .../driver-api/driver-model/revocable.rst     | 440 +++++++++++++
+ MAINTAINERS                                   |  11 +
+ drivers/base/Makefile                         |   2 +-
+ drivers/base/revocable.c                      | 305 +++++++++
+ drivers/base/test/Kconfig                     |   5 +
+ drivers/base/test/Makefile                    |   2 +
+ drivers/base/test/revocable-test.c            | 598 ++++++++++++++++++
+ drivers/gpio/gpiolib-cdev.c                   |  77 +--
+ drivers/gpio/gpiolib-sysfs.c                  |  32 +-
+ drivers/gpio/gpiolib.c                        | 262 ++++----
+ drivers/gpio/gpiolib.h                        |  28 +-
+ drivers/reset/core.c                          | 125 ++--
+ include/linux/reset-controller.h              |   3 +
+ include/linux/revocable.h                     | 220 +++++++
+ 15 files changed, 1781 insertions(+), 330 deletions(-)
+ create mode 100644 Documentation/driver-api/driver-model/revocable.rst
+ create mode 100644 drivers/base/revocable.c
+ create mode 100644 drivers/base/test/revocable-test.c
+ create mode 100644 include/linux/revocable.h
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179328922134.76862.10417963652853801970%40gmail.com
+2.53.0
+
