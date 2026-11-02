@@ -1,59 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632088;
-	b=jIchs9FLW6JwSzuUASreGivfle+RKvbtvfg3ujjuijfW7tWVIvu7XJbv34/FhLqmZDQC
-	 XgTDw+1u2lSXl/M/g+W+CslOQd+0vmF3fzdfyGkAYMwR3HAPsNL6ftlkHZs8MLdPFqZYo
-	 N9K9Zh3euhLhK/xzJZFgyBdnZ8zcxGgUiXDg1I4MreieL7zo4eVXRbSYfiv0CZNPmXRUT
-	 KzF9ANwLlof5awjbIDIVrgskSFNV82pXTJ3mJdRQp0USE+70kKO7N2Ayt9sR+SYP6Pb29
-	 RgiPjymOcAKxF6V8OyVBIcXqvE34PS6cQoh9ofyKgoVxXQ8tY2aNmzFg+EHx94Z/Lyg==
+	t=1793632070;
+	b=ia1M7GP+uaZFHs5ac8tBoa1+n2lrYA4SxBJpjaLdNHIEFquzHJc/1re9CYQ0LT9Krx8j
+	 3hwjdv7TG49JjjGCUZRe4QJ/y1yluO9Jvpn+Pe/f0jM94P8T2UXUix1q18DTfvQ4us54R
+	 p1cxHTqhnDaUrxREefabW3StB5UlQJA7ZihqXHlHzjkG/qc2GurOkNvveEasjzPj6SJPj
+	 YU8TFooxLDcjjRjt2A4BGrddiLLclbvpi6O3nA9pq0aRF2hpKTA3wG5jrObGZqDkO9BrV
+	 k7I1g85br3sTec1Q99NRsKVKvPrsFnEk8mY1JM/s7y5U4wResNhNJCt92QgmEppuwsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632088;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IPYegOcZnqJKuxWjm10FaVpCHZ3NA5+s//M69XaIXpo=;
-	b=Hk2KHxnE2onFKulRAPEz7tWBwP24leAxVUapfhMDpTPx3cHPG5h/sJUbPrsvwZYq8f5b
-	 9Lt0C/jKEsSbMXPWCCtsxt7PlUGxnZTdLSzZJ/EL0DLidFXrM2UTWPxzW+hRgWoZ5pQrr
-	 mBhdmfVvm3R7fRoMUVrCOOQ8ssd9BLwx7Jk631y1ODDTXOUHmfcHMB3iqrdDAQ5iLn+64
-	 QTZVI1flfFyzS+bUBpWOHdzVisq2lra7QXha8ELiRafjdUSpsTPyUbzMycChhL6d/aS0n
-	 EdmagSKaIywTgBoKMKeIqA1MhJYug50RmIL8RuJVworSZVAgQLzUhFnXpPtYFfl/PUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632070;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=lzi0v2Iw6r5Nf2GLOsMSQBwdPNX93e2TzGzGfD3oQvk=;
+	b=dCqC+geZgYa+16mFGtApa1HOqzz9b5NuIwVHT56mBNo6IlopgiFvWjFHhhqyGaGCKJY/
+	 GZbh/wyHMAuBDjq6/djbUyYyRvvD8Gf3KvE7gN4bwXcByYqKfDIGQgYSjumcUitg815Nh
+	 9ObIyVO/zNXU75lrQtRimuz+4iqToLA1XQHzDfwAoLnqQ8RFJcdrU6GRbmmHBotIwEdHy
+	 TQHHJyx1qKV3rqy2Jx1wxFV3S9RSbiEZglNM9aG03RGG/f20CGDsSxpx5t0SOaO6NmeNr
+	 JeRvke48lc+kWLgSuxexZwK3vDdd4Az5273sm+yeY+3qE0TTUK+9+hgldp9jdK/Ri7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwS8eLLR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIoUwWZI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC1360A18BA;
-	Mon,  2 Nov 2026 15:08:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC56760A34CD;
+	Mon,  2 Nov 2026 15:07:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwS8eLLR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99591F00A1A;
-	Mon,  2 Nov 2026 15:08:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIoUwWZI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6921F00A18;
+	Mon,  2 Nov 2026 15:07:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632088;
-	bh=IPYegOcZnqJKuxWjm10FaVpCHZ3NA5+s//M69XaIXpo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UwS8eLLRWF8izmiHdkYNq5LjxdeOp4umkkvwQYcN34Z9rw3DEKdCxVIm/QMb8A7gR
-	 t5+m5d83T/fIrn5L0b2ZAaN+8jZ8g1DjsOy4JByu0FIJyt69c5MfIXSvrsAbFBC0Pd
-	 ZAtpp1vQf8YD6BCFoUNHZYkpQ79JLWhYVuCXuNHc2UKBv7hCmoi0Q7AAjw/MixKYxT
-	 uvmWxbyVmaVI3iozvmnI9cOQjZJEhATXkZoWZ8/1z9nyAElTJm9BLKwMSXMPyl9gO7
-	 EGmzLkuetYZj11k9JWy7s0gliO0ZEnlRkK04QqGqiUkHfFbEccHQnJ5BsvDFUF/TAU
-	 e16s1CFDecEtg==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	"Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Enze Li <lienze@kylinos.cn>
-Subject: [PATCH 7/9] mm/damon/reclaim: fix typo and grammar
-Date: Mon,  2 Nov 2026 07:07:54 -0800
-Message-ID: <20261102150757.93058-8-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102150757.93058-1-sj@kernel.org>
-References: <20261102150757.93058-1-sj@kernel.org>
+	s=k20260515; t=1793632069;
+	bh=lzi0v2Iw6r5Nf2GLOsMSQBwdPNX93e2TzGzGfD3oQvk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=kIoUwWZIZJmPIDGcbCqUMn+ysgkkYH4B9KIOKwQcxHvHBenqGMDwfSExIyruQhbFw
+	 GSvSuGXqLlsS/+2bX4zY15r68FSJdvY7PhgxxV9bnP9Q3PrAcl12NmKthDnezkWdzA
+	 YQcdsHreaTBVFGkt5/ixU0O685iwRTrAmT2xH295OHXHJaGkHJFEIXEMqGqXCeqbKp
+	 nkpHGaPfZ7GY12qU7tMKJN88syBFW289W+duXDc1qru1IIyFkTan4orRc22NIVl3pP
+	 G9JHqYUFv0jVxFqVlQXSQgnsHBo0FeNBeFWC+sINyeJMsGIfziINB34GYCGOVyuJWO
+	 tkxpbHP0pDc6g==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:01:45 +0100
+Subject: [PATCH RFC 18/22] macintosh/via-pmu: let procfs copy in writes to
+ the options file
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,79 +53,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-arch-v1-18-c9492ab08480@kernel.org>
+References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
 
-From: Manuel Ebner <manuelebnerli@mailbox.org>
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry, and parse the option from that copy. Writes larger
+than PAGE_SIZE - 1 bytes fail with -EINVAL now.
 
-DAMON_RCLAIM -> DAMON_RECLAIM
-set as -> set to
-
-Cc: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
-CC: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-Reviewed-by: Enze Li <lienze@kylinos.cn>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Changes from v1
-- v1: https://lore.kernel.org/20261008162010.4010682-2-manuelebnerli@mailbox.org
-- Collect R-b: from Enze.
-- Update subject prefix.
-- Collect R-b: from SJ.
-- Rebase to latest mm-new.
+ drivers/macintosh/via-pmu.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
- mm/damon/reclaim.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+diff --git a/drivers/macintosh/via-pmu.c b/drivers/macintosh/via-pmu.c
+index 49f929ae10e4..079c085be5d2 100644
+--- a/drivers/macintosh/via-pmu.c
++++ b/drivers/macintosh/via-pmu.c
+@@ -913,7 +913,7 @@ static int pmu_options_proc_show(struct seq_file *m, void *v)
+ }
+ 
+ static ssize_t pmu_options_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
+ {
+ 	char tmp[33];
+ 	char *label, *val;
+@@ -923,8 +923,7 @@ static ssize_t pmu_options_proc_write(struct file *file,
+ 		return -EINVAL;
+ 	if (count > 32)
+ 		count = 32;
+-	if (copy_from_user(tmp, buffer, count))
+-		return -EFAULT;
++	memcpy(tmp, buffer, count);
+ 	tmp[count] = 0;
+ 
+ 	label = tmp;
+@@ -958,7 +957,7 @@ static ssize_t pmu_options_proc_write(struct file *file,
+ 
+ static const struct proc_ops pmu_options_proc_ops = {
+ 	.proc_show	= pmu_options_proc_show,
+-	.proc_write	= pmu_options_proc_write,
++	.proc_write_buf	= pmu_options_proc_write,
+ };
+ #endif
+ 
 
-diff --git a/mm/damon/reclaim.c b/mm/damon/reclaim.c
-index 014b0779ea6dd..a84cea070ec76 100644
---- a/mm/damon/reclaim.c
-+++ b/mm/damon/reclaim.c
-@@ -19,8 +19,8 @@
- /*
-  * Enable or disable DAMON_RECLAIM.
-  *
-- * You can enable DAMON_RCLAIM by setting the value of this parameter as ``Y``.
-- * Setting it as ``N`` disables DAMON_RECLAIM.  Note that DAMON_RECLAIM could
-+ * You can enable DAMON_RECLAIM by setting the value of this parameter to ``Y``.
-+ * Setting it to ``N`` disables DAMON_RECLAIM.  Note that DAMON_RECLAIM could
-  * do no real monitoring and reclamation due to the watermarks-based activation
-  * condition.  Refer to below descriptions for the watermarks parameter for
-  * this.
-@@ -31,9 +31,9 @@ static bool enabled __read_mostly;
-  * Make DAMON_RECLAIM reads the input parameters again, except ``enabled``.
-  *
-  * Input parameters that updated while DAMON_RECLAIM is running are not applied
-- * by default.  Once this parameter is set as ``Y``, DAMON_RECLAIM reads values
-+ * by default.  Once this parameter is set to ``Y``, DAMON_RECLAIM reads values
-  * of parameters except ``enabled`` again.  Once the re-reading is done, this
-- * parameter is set as ``N``.  If invalid parameters are found while the
-+ * parameter is set to ``N``.  If invalid parameters are found while the
-  * re-reading, DAMON_RECLAIM will be disabled.
-  */
- static bool commit_inputs __read_mostly;
-@@ -92,11 +92,11 @@ module_param(quota_autotune_feedback, ulong, 0600);
- /*
-  * Auto-tune monitoring intervals.
-  *
-- * If this parameter is set as ``Y``, DAMON_RECLAIM automatically tunes DAMON's
-+ * If this parameter is set to ``Y``, DAMON_RECLAIM automatically tunes DAMON's
-  * sampling and aggregation intervals.  The auto-tuning aims to capture
-  * meaningful amount of access events in each DAMON-snapshot, while keeping the
-  * sampling intervals 5 milliseconds in minimum, and 10 seconds in maximum.
-- * Setting this as ``N`` disables the auto-tuning.
-+ * Setting this to ``N`` disables the auto-tuning.
-  *
-  * Disabled by default.
-  */
-@@ -151,7 +151,7 @@ static unsigned long addr_unit __read_mostly = 1;
- /*
-  * Skip anonymous pages reclamation.
-  *
-- * If this parameter is set as ``Y``, DAMON_RECLAIM does not reclaim anonymous
-+ * If this parameter is set to ``Y``, DAMON_RECLAIM does not reclaim anonymous
-  * pages.  By default, ``N``.
-  */
- static bool skip_anon __read_mostly;
 -- 
-2.47.3
+2.53.0
+
