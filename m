@@ -1,51 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626455;
-	b=CVAZRl8CBKUH7q29hHl+YJ6DZnz+UN0KDkRuKaEDY3giggv13oOAQb/FvNT83c1aohwJ
-	 N9/Ae8RGnGhZSxe4n/LMF9nlFX5tOQB1AGTC2lDCB32+A2CzIx5YQAO+g0Y4jYBl5oncB
-	 yx9ZVOxXA6yK2cpwGv95yX/V4iPNFQcsl5aF+x/OEIO0+gHdMGXWPhoPx5PkZmRkMw6hR
-	 La0Y8kvmjr9+EaHnzEzwxJkzAvvlpcC8ydENgSYD1TLbvDl+7TOHH2StbNUd6iatbFMMH
-	 +7lCkFFD9rERQFmH7cVC1BNBEtZaJAYQCARDLht4hYLIYGYUhAhFRk9r9H1OBdUI8YA==
+	t=1793626468;
+	b=BOdI3NlQN3qjtT0d0SZARWLRueV78hXX+DNzkPpSJaQHjabCX+wpPqgSIap/arhd8f27
+	 TWt0rii/Mua42za/dTMsQn2as+apRn4alASJyn34esIezsrqwoxCE4lOkrx8Yzgr1cHFy
+	 7y9tO2rjsxruHOjQtGk9Ig1HhB2KS0JLYvpiHpNg40mzFAKThYm0aEz/T6OwHtoUW2aWc
+	 xQR3R046ijHTG4V5uawSHo42e7PNqMWsqyL6kW0/8TQuCvNzVaJhnTINqzLqo3sCPnEx1
+	 pgmJn8Xe1fdr+PDz8NKl7MBb5wvtGhB6q1vg3QDU3rZLS7MEQgu5ZhCC6noV+fZN7BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626455;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=zRvvd/YokVriiQ2VOVt57RI27Q3ijuDbxDuzLaJI+A0=;
-	b=ma3ATqhe3WZqDGgqYBnnS6cIa4Ac3A7O35xcmlNgeEzHMFNQcUguuqS3KmSGZaZ+mVym
-	 dZX9X0B08eFwOu6vXcEtrqENR/bdXZccI6czP3WPg54oJw7cHYwCLNfXlDsVbuIwwl6zZ
-	 bQ6e9iKdudjX/c/yNHy1EzhdzNcfuFAqi6RxI56UaQJzurp9OMntqXYHtE6lD+Z0f/i+7
-	 x9F7YKfE8KBEqpALQ7rY1huets81UyXePxDh/RhtttbP5HfdWt0vJ4yAlCk5PvCPnCc8P
-	 gYRWwli63jabyeIYQNadioWFP8YiS1ULIpDfSWrHmLeyLPx73i6OXzl4TZrXp0dUt/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626468;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=g6NqlTicICQ+q+/83SlSfc2B/u3HZTwUz3v/TRoTmcQ=;
+	b=tvmNRmW9p3v0as6IcceOdiB5YNHNsZCKdiN5toz7F0zXm3j0NvUz250q1gYIB8kbARVn
+	 z8gGpryZJoigBy3+MEkYe+e6zNJjsRpXwWM4fJTX5E8KAWg5lHYNqGlM9T/kjlyJXibzN
+	 pHG/7twJLZQDNvOjUdEar8/PmMGSzGlTJfVG+gvyAwTjCmVjQChbJucMdCqNqwQrEFwnF
+	 1Y/cqazkFomfxxTMMrDyqhVLIhzKzMRBLYp1jF/YZ1+VuHxKq1UFD4mabv+Eby/lB28Bs
+	 q+N4jRot7n3QSBl3YSuC3kwrdXsgcAhnBzIZVsUetdTx6Opmf74EBIvpLWw6eshfvug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ugA7XNyF;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6C69860A3812
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:34:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C69860A3812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RG101fkI;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=p6aU+dmZ;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF11606A32C;
+	Mon,  2 Nov 2026 13:34:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF11606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ugA7XNyF
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5D3A1595;
-	Mon,  2 Nov 2026 05:34:11 -0800 (PST)
-Received: from e133894.arm.com (e133894.arm.com [10.2.80.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 80F453F632;
-	Mon,  2 Nov 2026 05:34:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793626454; bh=FinUPkAoVZpYc3piTVdTKrvIQOoQFfMpjjnaiPNCUHo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=ugA7XNyF6I+A6XtMadyCWKvL75M2bLnFIOtgrBs5l9TvwFA59Tfi+NDRrMoUdxNj+
-	 BnutvWBmd8FYakW+MwcUMvReMuBMvC6F8I4R1M9BtM/oWi0K4krjW9GfHZ6diw8PtA
-	 9DbUHXeq4Zj5l9aL9uaehs3eDE5I89AqIZKlv07E=
-From: Sascha Bischoff <sascha.bischoff@arm.com>
-Date: Mon, 02 Nov 2026 13:33:03 +0000
-Subject: [PATCH 10/10] irqchip/gic-v5: Release ITS MMIO region on DT probe
- failure
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RG101fkI;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=p6aU+dmZ
+Date: Mon, 2 Nov 2026 14:34:24 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793626465;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g6NqlTicICQ+q+/83SlSfc2B/u3HZTwUz3v/TRoTmcQ=;
+	b=RG101fkIyuPnwL7br2mkd5gFEHIIYvlds88GJF2Fay8Rfx9jv4mEggYFRLOkVLJKi8grhP
+	8jDxFfe4HkcPvSGiWuyjMHwxZYhVzBSTLod/0vHzOAjUda/UmDa2dkeBc1PS6iCbMvD+6h
+	4nMFRb2hEP4OzXmtdR4En83ifxAE59MnAq9OR0Sg3+TQSdZtpZiFai4zpMyzkOwEwgmdS1
+	jO5uQEKm96baMRqF8zKApWWALbfsuRsmrpcgzkqBDOuBL0eCzw72fCFFz8ggf+v0D4PG8R
+	722Ic/AGwFscpf02t56LuKbSZ/6hv+lCplgU01eToOm1cycr3zzOxo5OQ/y6Aw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793626465;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g6NqlTicICQ+q+/83SlSfc2B/u3HZTwUz3v/TRoTmcQ=;
+	b=p6aU+dmZl6ayr9jfXroxmyJFq8wrGWOdSon326kXuQGuPy4ppNcHnfBYQ7O7aZuaZAMsvW
+	+npbd/grJEuAaNCA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	clrkwllms@kernel.org, rostedt@goodmis.org, rppt@kernel.org,
+	arnd@arndb.de, bp@alien8.de, kmehltretter@gmail.com,
+	dapeng1.mi@linux.intel.com, elver@google.com,
+	enelsonmoore@gmail.com, jlayton@kernel.org,
+	quchaosheng000406@163.com, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH 2/2] docs: sched-preemption: Fix the list of
+ runtime-selectable models
+Message-ID: <20261102133424.rJTJIkFX@linutronix.de>
+References: <20261028024333.795917-1-ruanjinjie@huawei.com>
+ <20261028024333.795917-3-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,67 +78,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-host_gicv5_fixes-v1-10-743b61626fc5@arm.com>
-References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
-In-Reply-To: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
-To: Marc Zyngier <maz@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Timothy Hayes <timothy.hayes@arm.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Jonathan Cameron <jic23@kernel.org>, 
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sascha Bischoff <sascha.bischoff@arm.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261028024333.795917-3-ruanjinjie@huawei.com>
 
-of_io_request_and_map() reserves the ITS configuration frame region.
-If ITS initialisation fails after mapping it, the error path only
-unmaps the registers and leaves the region reserved.
+On 2026-10-28 10:43:33 [+0800], Jinjie Ruan wrote:
+> --- a/Documentation/scheduler/sched-preemption.rst
+> +++ b/Documentation/scheduler/sched-preemption.rst
+> @@ -20,9 +20,6 @@ change.
+>  The models selectable at runtime are:
+>  
+>  	=========	====================================================
+> -	none		No preemption of kernel code other than at explicit
+> -			``cond_resched()`` / blocking points.
+> -	voluntary	As ``none``, plus ``might_sleep()`` sites.
+>  	full		Any section that is not explicitly preempt disabled
+>  			may be preempted at any time.
+>  	lazy		As ``full``, except that the scheduling request is
 
-Keep the resource description and release the region on that path.
+This is fine.
 
-Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
-Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
----
- drivers/irqchip/irq-gic-v5-its.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> @@ -31,10 +28,12 @@ The models selectable at runtime are:
+>  			apply to real-time tasks.
+>  	=========	====================================================
+>  
+> -Not every model is available on every kernel.  An architecture that provides
+> -lazy-preempt support offers only ``full`` and ``lazy``, and ``none`` and
+> -``voluntary`` are rejected there.  A PREEMPT_RT kernel always offers ``full``,
+> -and ``lazy`` as well if the architecture provides it.
+> +CONFIG_PREEMPT_DYNAMIC depends on CONFIG_ARCH_HAS_PREEMPT_LAZY, so ``none``
+> +and ``voluntary`` are never selectable at runtime; passing either is
+> +rejected with "Dynamic Preempt: unsupported mode".  The two models are only
+> +left as build-time choices on architectures without lazy-preempt support.
+> +A PREEMPT_RT kernel always offers ``full``, and ``lazy`` as well if the
+> +architecture provides it.
 
-diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
-index c0f3982229194..91abe63cb5cf9 100644
---- a/drivers/irqchip/irq-gic-v5-its.c
-+++ b/drivers/irqchip/irq-gic-v5-its.c
-@@ -1188,6 +1188,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
- 
- static int __init gicv5_its_init(struct device_node *node)
- {
-+	struct resource res;
- 	void __iomem *its_base;
- 	int ret, idx;
- 
-@@ -1197,6 +1198,11 @@ static int __init gicv5_its_init(struct device_node *node)
- 		return -ENODEV;
- 	}
- 
-+	/* Save the region to release if ITS setup fails after mapping it. */
-+	ret = of_address_to_resource(node, idx, &res);
-+	if (ret)
-+		return ret;
-+
- 	its_base = of_io_request_and_map(node, idx, of_node_full_name(node));
- 	if (IS_ERR(its_base)) {
- 		pr_err("%pOF: unable to map GICv5 ITS_CONFIG_FRAME\n", node);
-@@ -1213,6 +1219,7 @@ static int __init gicv5_its_init(struct device_node *node)
- 
- out_unmap:
- 	iounmap(its_base);
-+	release_mem_region(res.start, resource_size(&res));
- 	return ret;
- }
- 
+What about:
+ Not every model is available on every kernel.  An architecture that provides
+ preemption support supports ``full``. If additionally lazy-preempt is
+ supported then the choice ``lazy`` becomes available. An architecture
+ without preemption support can not enable CONFIG_PREEMPT_DYNAMIC. On
+ such an architecture the preemption model can only be selected at
+ compile time. 
 
--- 
-2.34.1
-
+Sebastian
