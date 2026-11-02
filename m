@@ -1,47 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626887;
-	b=2LvB8HmNOZCVWl3e4HukPIiPwb+MYyYr5SUHPzu1L6C2JYQ/vl5FKRj6mhbpLWuYNB+l
-	 1PQxv+QpWJ6E8UX2uJsgmg/7M5Dr1FH+STRR/E/6+dL2gCFjuyM7RkzzDIW55F1v8QJqN
-	 oZQ5wPJ9Fka6O7dtJ08y1SYae/Hxd4o5fmhTilDjrb8JWs9lOhn6b+CejwvJUrJ3uEPjq
-	 zM861/br2e34xgLiKh3X4qB85PelWtz0loABU73ZGMeBDibAX4fxyW3hUfZy9Ji2HFHxZ
-	 /uCEYAUmxFXAlM94UWmjL3x/COx2PWUwJg6IWtYZKzn6hFMZNDhUS056FC3WhbqtT+Q==
+	t=1793626897;
+	b=wBNomh/3p4t6iwhSuZ3Zzhew45JHBqq/LwCusTKcGYvBbSuSLJe2oIuLrxHfS5hhhg1H
+	 E2/3BDvqdKUF7A6BnH2Dvo6H+yQLZ+ssNg3GG0K9i1RUFlK36eYwTI0b6xKZpuALfenzY
+	 pm4SU5tW+1MzCgZU3ufXCdQidtPlufxPcM15fioibrotqljQVXGuAoqcsOKi+eDvZunMR
+	 ivfOidD70nqoIDsdGbGJaxFc31sGSAT5lMKkdVa9HsztM8k961kxt9rNvrm+STnDU3Wxg
+	 xRV99NCmXwKZpQ5OGJkycrZjdcmizTgjh6OYbfCw507FRRrIyboy7qBkE3rz17DcQ2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626887;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=vtv8xpZBrQmEjFIrQCBqz+2OdEy+M0+o1H6jKGcfgF8=;
-	b=1Vj8Yz7lpsBNaza+i9W6wiV/MkWO4flBZlEC1RbuT+tLbVxwcEz5Ea9HocPXQW9sT01+
-	 MKc1rrxoy6WnYF8v7lXXkJroqRfDTirM/fDyt1Jf66P+P6azg7r/EvSaoku76PIazkh5I
-	 zmu58bRbtHytdmgAY80BzJM3waM4152X6IwFsx7/bTJ8nwsbvn9prHIZTmMaTGNiSu6QW
-	 jfq3hXkUlHjQPyOeY2yD5WgZCr9PwAnpum9IDegxhAcIigDKn1kl7X5i9ci/bsQeURDBm
-	 rULrIyfP3aPsVe8qjx7RKGMgWcZrHvpMusqZwU7U6tqWdXf9v3BhNCRAJUOnOR5aygg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626897;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Organization:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=u2CDzv4RDHZ8hPwlE+nBKssRwCunfdow4oBThFsTd0w=;
+	b=XICWtJdrb++A+tnLfoCWz3PSMSbvPKL9CcApDJ+y20sALZMGNQYplIMiCaFtC50h1mm7
+	 YzM8Uog4SzOP+tt1IC+5/MiZzbL19Lh0YMm7kJbXmLk5VXttYO1vLoWhe5FRTJiwdgY0+
+	 1wmCGYS0qzyTeiNip7w39FCiDzARb1tJKWQH5iyeskHRmXKfXFZwEMhvda18Tkj2YZp1J
+	 O5SkGBRnluy3v3SKJOQRlfzMWTZTh8oFldIvnAYrVuK8tiPr6DxZlyiA9ZJHQrPbnHW5s
+	 nniRDB+DQXVXeHu4X04NMYMH6v5O/Nz0CwinwWsb5NNRA5O8UNk+ZtwqCd/7fOlAe0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b/xvAP08";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Nu9kW/BD";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YhhZ7tu7;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C923606A905
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:41:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD4F606A919
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:41:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AD4F606A919
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b/xvAP08
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41001F00A16;
-	Mon,  2 Nov 2026 13:41:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793626887;
-	bh=vtv8xpZBrQmEjFIrQCBqz+2OdEy+M0+o1H6jKGcfgF8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b/xvAP08Bjx1FeNnlpwwolEeQo0hJONCM7VpEqmBHaG4h7s3SJNzElndSbaWMvZB6
-	 Dq0/W2YC9bV8CY5WAP0ydIBiEj3KyEpo9+xi5BHMzAokVP8KGx/rV4rs6iSyH4CVay
-	 0pmi45x8rCpJ0FiRclcFpYh9TDPBKqwcjf6AYAtBl25tgHtzR5eC65odz9TGIi0QCt
-	 XgbSOGyLVvJrKLIzSlNvjQ153VtlzhWlgq5xXtqSLyLe+zrsXdBX1adQ3lZTQLCLJQ
-	 CMIf3wP0QtWwAeGQm2Qlz/dWg+OLyHyzssyfkU5psC1yJhMpZrsaKAAILFBviSWhix
-	 z0TrzGzHiNmzA==
-Message-ID: <9742cc0b-e371-4ca1-9ca0-ca3451c39310@kernel.org>
-Date: Mon, 2 Nov 2026 14:41:21 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nu9kW/BD;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YhhZ7tu7
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAO6D3973520
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 13:41:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	u2CDzv4RDHZ8hPwlE+nBKssRwCunfdow4oBThFsTd0w=; b=Nu9kW/BDx7zBAKFG
+	f12o7NKAt8AkTWlmTjT1ZCCfWrQIzowQc1H5FACyz0MlwdfeDm4LgQMYR2gvpbmj
+	HbueCW1cV1awmTe5Z9WQVTZ+T1Kjrp9TweXelnFHlGgotbi2ARwvhfLm6cUz8rw9
+	OVg7WTkQmKPhKLrNy/jEIVunAYNxbRBYd0b2C/ySsBgxPrY6MQYXmlBV4YIpOoVI
+	poSsLjUkQZux90kC/+azzqzBbQKP38dV1JkNlMzuYM5hm9FY3kI3AWQ+ymGKLsSa
+	oShV0FoMFWwZm56demoKcXCcIeyXcRokNqgxFIncsqgSFpDCWGxoq9kTsBnQSTch
+	GHAgZg==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpnmesh38-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:41:35 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-464fb819ac5so3243784fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:41:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793626895; x=1794231695; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u2CDzv4RDHZ8hPwlE+nBKssRwCunfdow4oBThFsTd0w=;
+        b=YhhZ7tu7wOYvx8H0L8MqbuWVptq80HHG3cmaUFn2n7UcsZuVQJNsoOjapi2mhUV6a/
+         Lql+1PF8j/yLsrPvUMPD8e9iEH041MbCkeBcajXP4/Sq1X8y7O/K/ll9rFLEnt7qVrYz
+         ZbjQEgKqB0iYWrl/oec8a8W0WX2mBgwJAnFFUZxCPAGtocFi0zxSa9RZWKFfJFz5qOh6
+         tH3zU0D5tCGPhvS7b7M+5AHG2IvBIXll9z499r1X8nWHSTuggh2MVyq4MCpELRzTO6Pi
+         XQM8fF7DoRzKw+qD/YlqLfjhPFNoWJjH04QTQiUCxFoA+3tdbbQ7n+qBkBRcp1kN6Zgy
+         PgkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793626895; x=1794231695;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u2CDzv4RDHZ8hPwlE+nBKssRwCunfdow4oBThFsTd0w=;
+        b=OG1+B8oU4vAnyQT9tlTtcTU0JiTZf0xzjwfi3vGgbKmkna3XrH/+4uvXoMGM+/dEJT
+         K9B+CIy3azEcPEbiISCOslGLnIAyOnjTBRtfxFF3NpwP8JjfwoGCUm734yrsuN0o+Ixl
+         XRX05qqI64Tw7D86NBHabG08rlFonK5Svg0lbXaPtwy+O3L89yY8+W8DXo0rP6nLCMo0
+         Eo2EGgtfNKzeztKIDaUKO3smYlbXKRUIyPH7uVCX8xWl62cVTQH5ldn9o2ThnQFsldar
+         4chdvu7c+iuyoFN32OJGUv1DJdSM0umVjatJh/4Oo359bIm9xP3IAzPzNA7HnbSHHa8i
+         zEXg==
+X-Forwarded-Encrypted: i=1; AKwUvBznB9m1Qr9aYpQgC9XnGni9cuTjWR7nCFDqDPXbuOq+h5x6sWg+AlLIc4fxEG6GzqbBfMwG0NKKpum9hR8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOPfkd7pSUhUQtFCdzJzq0aq9kXyRlhBzofP0NdUjifP+jLBn6
+	vzPvlN6lb+Njyb6wCr/dIuTvdmzqpiYCzk7cgwC8/QMnfO5m2kNxtOM51xM0iPolwHVttKg13WH
+	wM3RNWjDcbJT9v1SetGZm6HPapVSqWC+k9dZFDZoEzYOkC3bAgAwntkVcTL+PYxnAIVs=
+X-Gm-Gg: AYBFou1xIWhOMqXXrRY/jF2mGjzGIy6VqLBQZ5oilpkOQ2hWhKzXzK0MlFxNzVIcHJ5
+	cwKf6KlT9Uh5lwodWrGngN4LDpwQKLW7cLQC8IuJcpMXGG/MW7Em1Rj79ah5hRSiWUmFjhTzWdn
+	wfmoIS98kBUtkklrN5KypioH1bpb6bXS6dc/6iuE2CHyg3XC6klTZd2n2khf3YAeO1lK1sbzL2G
+	5KE7zU2OUOUm2KOFfAqgzEIt/knoHEsvPeHCb7y3nfHn9OXgA75ISEoSLzsxLqCXIM972htgkhf
+	LGZDVb4HgFU1ftVspE20RTwKmwAVCkIriELcStKHYY4Jl7hSTs9EJLjAzog6yXyeSkfql3BzH26
+	BNh06I1Hz0LM8MlGdquv7EPpH+EEr4bcaiMmKZMvkh2bFJEH8/yHITIORM0yEKN896r0Ja6f41g
+	==
+X-Received: by 2002:a05:6871:1cd:b0:4a7:424b:934 with SMTP id 586e51a60fabf-4a9076455ffmr6067088fac.12.1793626895316;
+        Mon, 02 Nov 2026 05:41:35 -0800 (PST)
+X-Received: by 2002:a05:6871:1cd:b0:4a7:424b:934 with SMTP id 586e51a60fabf-4a9076455ffmr6067072fac.12.1793626894848;
+        Mon, 02 Nov 2026 05:41:34 -0800 (PST)
+Received: from [10.92.207.38] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a921a53b59sm6647163fac.14.2026.11.02.05.41.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 05:41:34 -0800 (PST)
+Message-ID: <e618a9f3-6a33-4dbc-a15f-217542ef28f9@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 19:11:27 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,193 +117,92 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 01/11] soc: mediatek: dram-ecc: add the DRAM ECC
- driver skeleton
-To: "santino.wang" <santino.wang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, light.chen@mediatek.com,
- Fred-WY.Chen@mediatek.com, arnab.layek@mediatek.com
-References: <20261102092334.138759-1-santino.wang@mediatek.com>
- <20261102092334.138759-2-santino.wang@mediatek.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v5 3/7] tee: qcomtee: Allow object invokes from kernel
+ clients
+To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Basant Kumar <basantk@qti.qualcomm.com>,
+        Apurupa Pattapu <apurupa@qti.qualcomm.com>,
+        Arun Kumar Neelakantam <aneelaka@qti.qualcomm.com>,
+        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>,
+        Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
+        Sumit Garg <sumit.garg@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+References: <20261015-qcom_uefisecapp_migrate_qcomtee-v5-0-1460691b35d3@oss.qualcomm.com>
+ <20261015-qcom_uefisecapp_migrate_qcomtee-v5-3-1460691b35d3@oss.qualcomm.com>
+ <952816ce-3e37-4628-8308-4208b4359549@oss.qualcomm.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261102092334.138759-2-santino.wang@mediatek.com>
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Organization: Qualcomm
+In-Reply-To: <952816ce-3e37-4628-8308-4208b4359549@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=KZ1HIgYD c=1 sm=1 tr=0 ts=6ae89310 cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=JrbDfxSjzSyu3ErrWlQA:9 a=QEXdDO2ut3YA:10
+ a=y8BKWJGFn5sdPF1Y92-H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfXy6Am4T8bIjwJ
+ SMlbC2t4mO9HMTgZ+6ILtsupiHmlGo0yEfXiNzuxeyExGexQwhULdHLkwVShRilGQ2FrsWQOxwN
+ i2o4mAhzyhi9HARnadeL76bef17CkepOds1MhJpVNZwdz4/tWfx7KZLJZ2UB9nGv6s7cTi/QRqm
+ 3g+1tm7TnZsPFPWb7eUWU4QvBZTN1O2KB6zY7kjaM/WrIE1S2GwP2Noh8X+9LyJN+5bdWiNNxMI
+ 9hzefh58g3d5+ONwtQiUyUU/sT9TYJXNJ3/QGMlxHJBBIoMQkmqqb0I1i/BUW1CkWuf+AbaKKBr
+ XAwH/2/40EiKfZerHDnVQgS9QKl6SuomowA0sGADDMvPqUK6EfZcF2lZnnAUmSaCCwyedNwSeyj
+ Jl0jle1lHm57J/XZPovOqxdq8gzZoeAu7uuigQ6//uywp6NTKUtD9cNdjz4SzEtHkfDNZ847HM/
+ c5QElYjXB0qUSLT36oQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfX+/oYwV3vRbGd
+ B7DWkcivp7IHdmYZTTF9NZnQGdbs+cDkLMm+6EcWj6t7G1t1/2vjPvFcLojoAHfxpX/S8VDjFig
+ SXR2GHOW4dDetSXlg+G46Ud+O8SmTxE=
+X-Proofpoint-ORIG-GUID: TlzQUGZ2RFypkB9vG3NKAX2QIojlOKQp
+X-Proofpoint-GUID: TlzQUGZ2RFypkB9vG3NKAX2QIojlOKQp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020054
 
-On 02/11/2026 10:23, santino.wang wrote:
-> From: Santino Wang <santino.wang@mediatek.com>
+Hi Amir,
+
+On 26-10-2026 08:45 am, Amirreza Zarrabi wrote:
+> Hi Harshal,
 > 
-> On the MediaTek mt8992 SoC the secure firmware (ATF) owns the DRAM
-> controller ECC interrupts and reports each corrected (CE) or
-> uncorrectable (UCE) error to the OS as an ACPI GHES record. The
-> following patches add the driver that consumes those records.
+> On 10/15/2026 10:39 PM, Harshal Dev wrote:
+>> From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>>
+>> QCOMTEE currently treats UBUF parameters as userspace addresses and
+>> applies userspace restrictions when invoking the root object. This is
+>> not suitable for object invocation requests issued by kernel clients.
+>>
+>> Use the kernel_ctx flag to distinguish kernel client requests from
+>> userspace requests. For kernel contexts, do not mark UBUF parameters as
+>> user addresses, and allow permitted root-object operations to proceed
+>> without applying the userspace-only checks.
+>>
+>> This allows in-kernel users of tee_client_object_invoke_func() to issue
+>> object invocation requests through the qcomtee backend.
+>>
+>> Co-developed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+>> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+>> Acked-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+>> Reviewed-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 > 
-> Add only the module skeleton here: the Kconfig entry, the Makefiles, a
-> class device that the later patches attach their sysfs attributes to,
-> and the MAINTAINERS entry.
-> 
-> Signed-off-by: Santino Wang <santino.wang@mediatek.com>
-> ---
->  MAINTAINERS                                   |  9 ++++
->  drivers/soc/mediatek/Kconfig                  |  2 +
->  drivers/soc/mediatek/Makefile                 |  1 +
->  drivers/soc/mediatek/dram-ecc/Kconfig         | 16 ++++++
->  drivers/soc/mediatek/dram-ecc/Makefile        |  3 ++
->  drivers/soc/mediatek/dram-ecc/core/Makefile   |  6 +++
->  drivers/soc/mediatek/dram-ecc/core/main.c     | 53 +++++++++++++++++++
->  .../soc/mediatek/dram-ecc/core/mtk_dram_ecc.h | 24 +++++++++
->  8 files changed, 114 insertions(+)
->  create mode 100644 drivers/soc/mediatek/dram-ecc/Kconfig
->  create mode 100644 drivers/soc/mediatek/dram-ecc/Makefile
->  create mode 100644 drivers/soc/mediatek/dram-ecc/core/Makefile
->  create mode 100644 drivers/soc/mediatek/dram-ecc/core/main.c
->  create mode 100644 drivers/soc/mediatek/dram-ecc/core/mtk_dram_ecc.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index aaf2825ac945..e7d25be97f24 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17026,6 +17026,15 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/dma/mediatek,*
->  F:	drivers/dma/mediatek/
->  
-> +MEDIATEK DRAM ECC DRIVER
-> +M:	Santino Wang <santino.wang@mediatek.com>
-> +L:	linux-kernel@vger.kernel.org
-> +L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
-> +L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
-> +S:	Maintained
-> +F:	drivers/soc/mediatek/dram-ecc/
-> +F:	include/uapi/linux/mtk_dram_ecc_netlink.h
-> +
->  MEDIATEK ETHERNET DRIVER
->  M:	Felix Fietkau <nbd@nbd.name>
->  M:	Lorenzo Bianconi <lorenzo@kernel.org>
-> diff --git a/drivers/soc/mediatek/Kconfig b/drivers/soc/mediatek/Kconfig
-> index d7293977f06e..91aed7d29be0 100644
-> --- a/drivers/soc/mediatek/Kconfig
-> +++ b/drivers/soc/mediatek/Kconfig
-> @@ -89,4 +89,6 @@ config MTK_SOCINFO
->  	  information about the SoC to the userspace including the
->  	  manufacturer name, marketing name and soc name.
->  
-> +source "drivers/soc/mediatek/dram-ecc/Kconfig"
-> +
->  endmenu
-> diff --git a/drivers/soc/mediatek/Makefile b/drivers/soc/mediatek/Makefile
-> index 0665573e3c4b..880342bed606 100644
-> --- a/drivers/soc/mediatek/Makefile
-> +++ b/drivers/soc/mediatek/Makefile
-> @@ -9,3 +9,4 @@ obj-$(CONFIG_MTK_MMSYS) += mtk-mmsys.o
->  obj-$(CONFIG_MTK_MMSYS) += mtk-mutex.o
->  obj-$(CONFIG_MTK_SVS) += mtk-svs.o
->  obj-$(CONFIG_MTK_SOCINFO) += mtk-socinfo.o
-> +obj-y += dram-ecc/
-> diff --git a/drivers/soc/mediatek/dram-ecc/Kconfig b/drivers/soc/mediatek/dram-ecc/Kconfig
-> new file mode 100644
-> index 000000000000..c015c66635b2
-> --- /dev/null
-> +++ b/drivers/soc/mediatek/dram-ecc/Kconfig
-> @@ -0,0 +1,16 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# MediaTek DRAM ECC error handling driver
-> +# See plat/mediatek/drivers/dram_ecc/ in ATF for the SMC handler side.
-> +#
-> +
-> +# core/ -> mtk_dram_ecc.ko
-> +config MTK_DRAM_ECC
-> +	tristate "MediaTek DRAM ECC Error Handling Driver"
-> +	depends on HAVE_ARM_SMCCC && ACPI_APEI_GHES
-> +	default m
-> +	help
-> +	  Driver for MediaTek DRAM ECC runtime error handling. It works
-> +	  with the secure firmware (ATF), which owns the DRAM controller
-> +	  ECC interrupts and reports each corrected or uncorrectable
-> +	  error to the OS as an ACPI GHES record.
+> Same here.
+>
 
-Why is EDAC-like driver outside of edac subsystem? drivers/soc/ is not a
-dumping ground.
+Ack.
 
-> +
-> +static int __init mtk_dram_ecc_init(void)
-> +{
-> +	int ret;
-> +
-> +	mtk_dram_ecc_class = class_create("mtk-dram-ecc");
-> +	if (IS_ERR(mtk_dram_ecc_class))
-> +		return PTR_ERR(mtk_dram_ecc_class);
-> +
-> +	mtk_dram_ecc_dev = device_create(mtk_dram_ecc_class, NULL,
-> +					 MKDEV(0, 0), &mtk_ecc_data,
-> +					 "mtk-dram-ecc0");
-> +	if (IS_ERR(mtk_dram_ecc_dev)) {
-> +		ret = PTR_ERR(mtk_dram_ecc_dev);
-> +		goto err_class;
-> +	}
-> +
-> +	dev_info(mtk_dram_ecc_dev, "initialized\n");
-
-No, that's not a code style which exists in upstream.
-
-> +	return 0;
-> +
-> +err_class:
-> +	class_destroy(mtk_dram_ecc_class);
-> +	return ret;
-> +}
-> +
-> +static void __exit mtk_dram_ecc_exit(void)
-> +{
-> +	device_destroy(mtk_dram_ecc_class, MKDEV(0, 0));
-> +	class_destroy(mtk_dram_ecc_class);
-> +}
-> +
-Best regards,
-Krzysztof
+Regards,
+Harshal
+ 
+> - Amir
