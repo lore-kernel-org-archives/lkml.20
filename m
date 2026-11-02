@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.223.95.204
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793661283;
-	b=Z4ViJSMFRlZytDom6T3OCRH4IMjHyukqdU77bVqL3Hz5rtU81BcW8QKaY8ke7nQdHYx5
-	 uXCzcmv7qW2gijCbjxp+lpLRZT4mcszZdejh7u2miqyuFKS26ABXBtVjHUqWYXsB089Vm
-	 Q7afDd2o9HLX0w3ZXeO59czMWmCJQWc+nWAhu4ESsvcElOZ1OGT5mISYPp4cypvx41pwH
-	 ZxwFfY1lYeUeO+/ac7u6BoT4Ldw4H9OdsnVq+xcx6fBOmOy0SvRpXjHvG6ZFaOKpAjhY8
-	 hB68gzDf3cqCafcNwl/8cspcfdpnfpfL2BGorSFNl27dulj9dXEERdMRUhXWysX6Cgg==
+	t=1793661376;
+	b=PgAtQMJyuhMscgWAQYFpvHFMdzAM53wn9CXm/wkyYFlb/kiGT0bC2Zr5MLLM06BEP/uO
+	 lJ45qGd4V+5aoSOrHEb2Utg72ux8X31sP4a3Teamkw0Q0cW1OaIy75AKJQunbPBto+zmb
+	 NwVYR7dUGgp+VFv5kivrElvBrE3KNdgvjvOqt63fhtkuTyw/frdgXIxCxe34llvWOFE1Z
+	 nn9CYj3DpRp74nyepIKXiHj0EhYW0hAsGMr20Cp0zW/Rv57BzHGGunRoQRPFja/En4SLX
+	 BEaqTI2bw/iD1GZJ5VKc9RUTe4oDOKQrtBfCrAvpI40udB7NnS1eZV6dD3LWQjjJKAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793661283;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=A54gT3IO9WKmImwah9XNTHPRX08hDBc7sZs/pq9+S4c=;
-	b=HRH1WHBzDvmmraq+zl4lhINS6H/yZj5MxWs4coXyVFtGlMAWD6O4iMoMQAvmwgDz3Mr0
-	 b3OMTovypYvU+ZMsHTd/y3pKy2qSWPPXfWSRge/2SerRDxDJuWUTVUtISu6l/hKy3jXXZ
-	 /kYtTbwW22npHF9rgQgl5y793WxUCYV6nVWxxBoFKo8t+j9B/Bfsy3DIYnOD0slWhpLjk
-	 EnvxpGFM/u8QcCQA/p9+u2kWpEbqi6Rp3dbAsBci2ZILaQ8rdURaudHJNB8GX5JYDy0re
-	 8D+NLXrnRdfurIYqiadw0XTo1CvMtFrqHgMll0jx0IsicfyGdaehOdPrcL37oWYfeJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793661376;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UcjCzXz5IJVcuXeXUDQ9tzNpo2Te/iR+ykAFbn2DRuk=;
+	b=BOzEZWHP1GYVjBe3yCI/rrZyTBqaACX1h6L5Iy/lb6NHnFpcD2S/GRMR1hg3mYxN1HOe
+	 1sWvuj4HinM9ACFFg8ofd7jDftYGSCHRDuXWmfNJncEiFP9Sskqox3efLSR+HN/SmXrxc
+	 iXQ26pj7gp0IhwkGnUGdaqfJx7ABSv3/nGirDnlR41Zb13uRZUobmz8cJoj5Y2e37LlmP
+	 feDpJDTiGceXnI8OBFgDfuflW24sWdCyfYNrHmhQ3ycOxVmpe5Mubd5UnY8DISBtrdoJn
+	 /gc1OGmobPmS20mjGAgWCPOZLfV2i2n6sPLPO9aM8sV2zmKghOx/ZIH//w4u3msQAHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="HLRows/3";
-	arc=none smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=wunner.de;
+	spf=pass smtp.mailfrom=wunner.de;
+	arc=none smtp.remote-ip=83.223.95.204
+Received: from mailout1.hostsharing.net (mailout1.hostsharing.net [83.223.95.204])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA55E606D804
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:14:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA55E606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HLRows/3
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6deb848ddd7so2740415eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:14:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793661282; x=1794266082; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A54gT3IO9WKmImwah9XNTHPRX08hDBc7sZs/pq9+S4c=;
-        b=HLRows/3UIceZHgKjgYdtz3irbkskP/VCUGwmx8hEpa4/da+am5zryNdOMogFIVTtd
-         0TtD4Xb2VEtIqQtxFB9t47SbXA8bR9eBWp+DvUoanMOkXVrsH6cpLcWXMa2Pe3ELJ84d
-         b3BfbO7X7oi8r7jWc6AQWyL0rCXKLsRa2WdMUK00kf4FxrPY+pD7uMaEjnu1W1mNEG1x
-         QmEUIowxwGBZRAG2CDwY2DXl2JDn6AG3liHgMy4Rify+3lskyN+HWvGlQyd6W9U9Vn3Y
-         Vth03acQ/zdYBsmHijOtCnaUNOFzAPHyRdGuzpmHtZ/eTxCTVjT58UGgjLvgVl3hR0LG
-         ctAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793661282; x=1794266082;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A54gT3IO9WKmImwah9XNTHPRX08hDBc7sZs/pq9+S4c=;
-        b=ochQFJUMGnTS3UBFYfWoh9iUfd9G15hxWdrbBMrKj2XfSh8af5Txzq15SuKfd4kkmx
-         3c3I/UijujteHHpynXvu/NH731/4Es7ujsRrJADy00wn0nzUuKVva741nRTEFdY6DUPl
-         3NqAxdJOL/7sx//so96Jbj7xLd/Groz9rey5OOtQl2h7BU9a0RMR+XVxnG4ZRvU6JZiM
-         6ICV6mHAVoanB61tkJxtipDJthIwe6pbNf12yWacnEX2JKciWwPyoJ/z9ZEK+akgX1FB
-         rHQADkQtkHPCmXBAVXPaaXrJIfylV4P4G6XA/STkW1AlBEy2sI1Pu3lPxtBvDmu+6aQf
-         u3LQ==
-X-Gm-Message-State: AFq9FYIpL8394g2Oqq42dZiBQ6Mxd7vpPVWv69SPTwD5ZvfRIwJ9Vl4a
-	yddOg5Hp3Bps2fynUjZ7T6zk1aU0E3MGKTSrycqkFDZC5xocdKpYRnXW
-X-Gm-Gg: AYBFou3svSDXKlF0uxCDDuWLPTRRIVEczJNRibfOyWZYAdA+CLXVWDz0MptCJ3UTWgL
-	Pr5TFU7a5UH1TfNvwDrSY07ZvD18/JXD5OQEz0xtIdRjs/CmQTJYh//4fngUpAnEJ8TD+N/fAFV
-	+ZSbfqSEHfxVf7i6BRdHTnZI23AezBddP30VtSB6a4OCVEvQRek54rhyH+AfmMjWtyzVneg9J2g
-	UuU9qOqJUQwJ2JDakr2SpcnEUd0WQKddS/ZV17jCZFlToWoMtgN5nvZWN4anyqbevcx7sUN+qqo
-	CB+ZvruSolUPsJpFo26+TyXnlRTcENblPlJs/wUznE130UYEV8Czd5GgSGPSN37Q47QqRWSGCx7
-	62m7QJ+XtU4hyyi6vvzhvvXl1fT64Kq4jhnZo+JtaX19evJhBvXGgH2gUvEEVJP0tZRnYHjesdJ
-	+F5KlKbj1y5DGN8CNKz9I/kYycqXNoFB/AlOBKBCWZr5L/GtnIweCs9Tg08DPCkeElEnDYQA6md
-	mqyxy2r9YlFgF1r1RmTr/rSh6G7EtC8nqrTxiCPB8aH/B76CHupo5yRde/jnnMt5YKwsjDrLJIW
-	qCxfcATJSoNYN+1dO/MReCxbGGo2g8+8FmHD1z8uOANA3UigINFBGDvU6yyQzrfoaQMBJ/2fxN9
-	+CjVtv/PsY4k61WwDgCRCQZW6XY/belAcp9bxfCtLs1yOJxkjMNm3HsCCWjjbaMChFz0Qj7Zxba
-	iWrkmAFtoiVq3RBxAb9ZuyqPGbhkA03jzWrKGI2MrrzaVhnaBFYQE=
-X-Received: by 2002:a05:6820:5717:20b0:6d8:57bf:57bf with SMTP id 006d021491bc7-714f2381e69mr4446915eaf.21.1793661281665;
-        Mon, 02 Nov 2026 15:14:41 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2ce869asm10134463eaf.4.2026.11.02.15.14.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 15:14:41 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 02 Nov 2026 16:14:30 -0700
-Subject: [PATCH v9 3/8] serial: 8250_omap: serialize RX DMA completion and
- flushing
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8372B606A326;
+	Mon,  2 Nov 2026 23:16:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8372B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout1.hostsharing.net (Postfix) with ESMTPS id 184161D4E;
+	Tue, 03 Nov 2026 00:16:07 +0100 (CET)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 016E2602D909; Tue,  3 Nov 2026 00:16:06 +0100 (CET)
+Date: Tue, 3 Nov 2026 00:16:06 +0100
+From: Lukas Wunner <lukas@wunner.de>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rafael@kernel.org, terry.bowman@amd.com, kanie@linux.alibaba.com,
+	olof@lixom.net
+Subject: Re: [PATCH v15 1/4] PCI: Assume control of portdrv-related features
+ only when portdrv enabled
+Message-ID: <aukZtm4aLMuH_JIB@wunner.de>
+References: <20261002211828.1293177-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20261002211828.1293177-2-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <aujwl45XrkVT-zUx@wunner.de>
+ <840c7598-f988-428a-8bea-4d66b0f4f4d7@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,120 +61,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-submit-serial-8250-dma-cancel-v1-v9-3-9159caade148@gmail.com>
-References: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com>
-In-Reply-To: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Tony Lindgren <tony@atomide.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Richard Genoud <richard.genoud@bootlin.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
- Timur Tabi <timur@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, 
- Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
- linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <840c7598-f988-428a-8bea-4d66b0f4f4d7@linux.intel.com>
 
-Moving RX DMA locking out of __dma_rx_do_complete() left the DMA
-completion callback calling it without rx_dma_lock. Shutdown and runtime
-suspend flush RX under rx_dma_lock but without the port lock, allowing
-these paths to overlap the callback's buffer accounting and flip-buffer
-insertion. RX submission and UART interrupt handling also require the
-port lock.
+On Mon, Nov 02, 2026 at 12:38:28PM -0800, Kuppuswamy Sathyanarayanan wrote:
+> On 11/2/2026 12:20 PM, Lukas Wunner wrote:
+> > This is now commit 6347fd9aee19 in Linus' tree and I think there's a problem:
+[...]
+> > The commit is setting the native_pcie_hotplug bit up front based on
+> > CONFIG_PCIEPORTBUS.
+> > 
+> > But there's an if-clause at the top of get_port_device_capability() which
+> > adds PCIE_PORT_SERVICE_HP to the port services used by a given PCIe port.
+> > 
+> > Inside the if-clause is code to disable hotplug interrupts if the BIOS
+> > left them enable.
+> > 
+> > Since the commit, if CONFIG_PCIEPORTBUS=n, the if-clause is no longer
+> > entered and so the interrupts are no longer disabled.
+> 
+> I don't think this case changed. get_port_device_capability() is in
+> portdrv.c, which is only built with CONFIG_PCIEPORTBUS=y:
+> 
+>   obj-$(CONFIG_PCIEPORTBUS)	+= pcieportdrv.o bwctrl.o
+> 
+> So with CONFIG_PCIEPORTBUS=n, the if-clause was never entered, before or
+> after this commit.
 
-Take rx_dma_lock inside the port lock in the completion callback. Hold
-the port lock around the shutdown and runtime-suspend flushes, matching
-the existing interrupt-path lock order. Assert both locks in the common
-completion helper and the port lock at the flush entry point.
+Okay, that convinces me, thanks for the explanation.
 
-Fixes: 789898416749 ("serial: 8250: 8250_omap: Move locking out from __dma_rx_do_complete()")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/tty/serial/8250/8250_omap.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+> Did you see a case where the interrupts stay enabled with this commit?
 
-diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
-index b6f108d34854..322403cec2de 100644
---- a/drivers/tty/serial/8250/8250_omap.c
-+++ b/drivers/tty/serial/8250/8250_omap.c
-@@ -771,8 +771,10 @@ static void omap_8250_shutdown(struct uart_port *port)
- 	guard(serial8250_rpm)(up);
- 
- 	flush_work(&priv->qos_work);
--	if (up->dma)
-+	if (up->dma) {
-+		guard(uart_port_lock_irq)(port);
- 		omap_8250_rx_dma_flush(up);
-+	}
- 
- 	serial_out(up, UART_OMAP_WER, 0);
- 	if (priv->habit & UART_HAS_EFR2)
-@@ -898,7 +900,7 @@ static int omap8250_rs485_config(struct uart_port *port,
- #ifdef CONFIG_SERIAL_8250_DMA
- static int omap_8250_rx_dma(struct uart_8250_port *p);
- 
--/* Must be called while priv->rx_dma_lock is held */
-+/* Must be called with the port lock and priv->rx_dma_lock held. */
- static void __dma_rx_do_complete(struct uart_8250_port *p)
- {
- 	struct uart_8250_dma    *dma = p->dma;
-@@ -911,6 +913,9 @@ static void __dma_rx_do_complete(struct uart_8250_port *p)
- 	int			ret;
- 	u32			reg;
- 
-+	lockdep_assert_held_once(&p->port.lock);
-+	lockdep_assert_held_once(&priv->rx_dma_lock);
-+
- 	if (!dma->rx_running)
- 		goto out;
- 
-@@ -977,7 +982,8 @@ static void __dma_rx_complete(void *param)
- 	if (dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state) != DMA_COMPLETE)
- 		return;
- 
--	__dma_rx_do_complete(p);
-+	scoped_guard(spinlock, &priv->rx_dma_lock)
-+		__dma_rx_do_complete(p);
- 	if (priv->throttled)
- 		return;
- 
-@@ -995,6 +1001,8 @@ static void omap_8250_rx_dma_flush(struct uart_8250_port *p)
- 	unsigned long		flags;
- 	int ret;
- 
-+	lockdep_assert_held_once(&p->port.lock);
-+
- 	spin_lock_irqsave(&priv->rx_dma_lock, flags);
- 
- 	if (!dma->rx_running) {
-@@ -1811,8 +1819,10 @@ static int omap8250_runtime_suspend(struct device *dev)
- 		}
- 	}
- 
--	if (up && up->dma && up->dma->rxchan)
-+	if (up && up->dma && up->dma->rxchan) {
-+		guard(uart_port_lock_irqsave)(&up->port);
- 		omap_8250_rx_dma_flush(up);
-+	}
- 
- 	priv->latency = PM_QOS_CPU_LATENCY_DEFAULT_VALUE;
- 	schedule_work(&priv->qos_work);
+Nope, just thought "this looks fishy" when I rebased my development branch.
 
--- 
-2.53.0
+Thanks!
 
+Lukas
