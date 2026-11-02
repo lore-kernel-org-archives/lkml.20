@@ -1,130 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793652391;
-	b=OZANpJK6RCMc9W7ki9MrCiEqam+zHx/UwlfxxAfxO4xgdoDN77M8xGMMOP+WJzO4wMR9
-	 r/fzO0UahtOOr8hraiPKJ5suwcA3XvnoT97FcYE5jd1qDRc8ghrVR09qsNbDY04Mx+v16
-	 46ORFFbRHKJymZSScTTO5Kw0OINIu3YP6sanaxWx14n2FbMdpRU16znd5ZqvOy8hf7nlg
-	 yeSCJAMRWrFzAQf2G9oGiBz2nqzIp6T0Kv2A3moviQo8XN2TI6wjgOQf+700kt1ExTVyA
-	 mitCngFvL60sS6dWexeJ4PUdmgWpTAJGdc9Esxs3fVbuyS0cSEYDf8BidBmw0DrihAw==
+	t=1793652460;
+	b=ybSX0JhsGTQeEs6+IWe54lAVtzQdCUhp0Z9qVsecd1jG8HJvziYWFId7OWyp6KsdU7Dj
+	 S5NZnxeMZR3JCHoCeNssl5dNz1L1F4kRAZTKiLaJ5vz4RLOIufEkWu4FE5Daj3xrsDv61
+	 9fgYiUSODhwZpCNOjERlfk4w6Ar84Q+IQp4lh1FnUYMGX+sI9Wj+7c4wr662vI18A+C3n
+	 Jo83DqB1tdeZhO4Dub7Zl2fJMfNbos7H6xhBXdaf+7vk6NoKPfB9t1oMLnDFsLwvuIZ9P
+	 eVZu9sxHI3IAR6j9mwSeKXp5trLrJDYKnjydk/SkfENKGQsgR6Cs/mJT0xgbPowZxaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793652391;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rIkyhrFM98T/vHO6RdFHgX5SpA5k8kK+utueYBru5u4=;
-	b=nOwcb0KVD69E6jijfc1y1+k1hF/1S06yPfO3KwljMGLYYDwQXGx+1l2ujIBrLPx+iZLU
-	 DOgnJ9zmpp17OwYA32jJqG36loL19C4gyFq8Vwtb+WPb8q3Tk2/0hDZFyB7+VV5jIrVku
-	 iA1+UYlpY5pdQqSdtzunjbz3j9uTTkyJ/8BNu6KdsE3AZwETrSec4MplERzE8oWuasaYF
-	 U2vE3sRr9pZs0MwG6iv00PzzO/X0m+S+FyTmsnuYa44WMutWjSbpRyNHBix5hpagjMN8Z
-	 9hPZpOwSr5pEox3hgxfbHGW6PCqjaWOF3usBRDD0L4bZ+EiMrh+PUyHbAozWmb8/CRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793652460;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=m8mSi3IAorPrWHZPk3j86qqURTkDETtees0X+vPzQzc=;
+	b=MQ5j4HdkzPNIYejgYGAMiSWilD2LCAE6I+p/gWQa0o/2cNezrjWCVG+thWqGIpDlV7aS
+	 Qly4o2vGF650Wmxw7on1Tfs0j7rS/oRr6UgEjVEo0q81ij6Jkwngj3f57o6HU+kxwLf/T
+	 dzuAPD6nMVeMbmo+aaMg++/AB9wT01kL6kp8KZDCJCumqJ+TaTkxVWehJYbPV12M0NPqC
+	 G5h5cOrGtDmqbfEtD65KOGrGP1uVe7mVLtWTo/rCPBtdfxbSRSO/1ZgTvaFwqyrAtOaR/
+	 /BBgakZX/aUxuTOzduunDSB6MXkCWTrhdt85jqHlK4B3lfL0T31v/imJvj9rliowJuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=dEl4irC7;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="hb/5GuHx";
-	arc=none smtp.remote-ip=103.168.172.155
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cZnYnqIE;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54ABD606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:46:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54ABD606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717E6606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:47:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 717E6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=dEl4irC7;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hb/5GuHx
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 71C911400230
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:46:29 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Mon, 02 Nov 2026 15:46:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1793652389; x=1793738789; bh=rIkyhrFM98
-	T/vHO6RdFHgX5SpA5k8kK+utueYBru5u4=; b=dEl4irC7E3FvWjeE0C3xyQtmm7
-	P97SKDgblnSCufI4yAIrH2SNZ5xaaIo6YCW+E+AJEbuzzc7bRRUiIGpmUkhNuQUX
-	lZtFyR9+qp/DbXkHR1NGndJOzqjuuqqTAkteUdlCOhMbLcJrbc+IWa7namxUd0dN
-	yRr+PLHRqmF5mSvYBnXwc8UNvduBVJ+hc41Bo576y/mQNagAFUc17txOtwmSJJ/3
-	ZbWg0AZdn8vHynHHx1zgr424czQVPHRmFsErftVuIL2gyYZro2/Z19Fdy6e1Ux++
-	f1k+Q+MzfQ2MkjTHJBle/Hxu4RBJT3qzZ3U5ih+y2xGtBdnuclQxQhtiOu/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793652389; x=1793738789; bh=rIkyhrFM98T/vHO6RdFHgX5SpA5k8kK+utu
-	eYBru5u4=; b=hb/5GuHx9arLWK/83a2O9c+5JIGOXLS+L9Zy66hbfAscUYqwOoc
-	VsYmG6DcF9HURay0Sf2hvm+jMKVEuvWAZUxYXo/RMdNjdBIm6d9f2VBzAA/oCUvw
-	SejtLGAK5+QR6C5sCcdRGnBqAZYDkql+XH/yiNBaqyFwfE4P01OYxWZoImi8UrYq
-	3or/ChFto1BBMGv8886tXleFNf43WbdWikhPnQra09z3klG2LCWXCj6N5SoLamOH
-	Gyx+X4lcNbb8X100yEeNOfGJ6dzIpAc6W7ucXj5T4dZCdLVNiAumdFhWzkCV8kyu
-	2tS0YPgDrqOeZwEwtX5g83eeSCvaImz0RxQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793652389; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:tMBGpNR7GGwxU9kjgldSl9TRUJsvLxCXOPo3F/W1RNdtIUR
-	3JCL1frSZ8r6ipqkEyXWEEA1HeCAHyRO2qWMK/b88sizzIUGdPu1aJyVH/rzacxC
-	raSt7mn9MyySQt1SQNAVs/sc9LiHyQGQX78HjSVb4xqVdRvYMY7Mclp09ONfEy/c
-	t7+DtafRZpFxyQJyZn57nkm+dVmZUE6i4p253Fd7gPJ0BsnDkYjsIm7Qz+fja5BN
-	pp1P5HoA4kw/zss6lZ/m9AlYcwUQ6h1gCmRkQp6NyZ7huGHX5MUXSRj9nlQJKxMe
-	FcKKZAoQH2lhY0Jd6d5c2jZsw7IPOKS6k6XNAnQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:5qtDy5+gC/134ujdEXJCgDet/gYQRgVF9N+5lkrmpMs=:Gn10J397k5HpCEWL0ZNgmvyOP2E7JV/sxhKi87f4cII=;
-X-ME-Sender: <xms:pfboamHfEo-EZXq2j3tTdktenK2LErO5dL3DKHi3BwrH-lNhDFCrfw>
-    <xme:pfboaml63A9VuyOdytu1CITv7hd_BmmEDM-qWijw280EDttU0JtwBIOUdsWtMGLNu
-    e7zwugBrTaE7cblC8uT2lI31BWMnryWV0xIspocqYhZ3_aaFvoPeacF>
-X-ME-Received: <xmr:pfboai9pBdhEG_OIqx-cDuypCSFrKX2hNzo856S1Vkgxx46ti-YmFYW16MZg-_hAaVRR0QaLIcInMxY_pQje_ZNM0NMvdn3RGXY>
-X-ME-Proxy-Cause: dmFkZTGf099nM2Uoe/+0Y+gh+ygQ0na0IsUtMAqk+PMxwzP2m8G9Q/hXN7oNPOeSqczmlP
-    GpkzUsJ06wZ8msVagoBN4R+93hsBSsBlJ1Mzsf42vFsKBRDuNEvQ/xrdRAqox3ElghD2xK
-    7E75Bgl/us+1sE3ayKnEWsGXBzJxOfXOLmcvkaqgfW7oOMKIZFEoJAsTcyIm27pC8tWWRg
-    vMw4lrmP9zxfk/yl0kVbQIOjqSqcjImNQKY2rPt/hBfr36bijDlsMpbo+Stu3NNd/S4gjY
-    uCKCg4lwJoIn45T0q6O9Xzvwq4TaNxaYnU+dkVnb3jF0Ptrpkj/ADHdCV79kFomBcL0xEI
-    3VK698brKMUkVzsMMpY7zaTUPx9Ehx2ZTdba2+qawwem/ILOdovw+qTHSJnD6c6nI5zBr6
-    Wb3y9K1X5dQyX5v2k9pLWssqDsHud3lCX5bfKPfjcKXw9gxJn+rJSRpJqf4r9eAG9/3lxF
-    8xv1wH1ng3nFJh/TMN+KHo11r3XXHHU4hlH0ntmPhWU8HekGodQFW5Fj+OXm3jEovUvqmD
-    01wpIf+qr659w2oiKf99rBNIxchbUZw1TF26Mk17DVxsP6NVeNfzk9uMLn/adtUc6hPnnA
-    y0FOYVqutYCh8BKc2Lct6LVjixtvhUkR6Fcz8VS4NmZwDQICL66/wRn48u3g
-X-ME-Proxy: <xmx:pfboanna8wzaIV8ebKY_qzXqC-knuQoxidBmRQmg9q3G7yunYoNylw>
-    <xmx:pfboagkE9SIh0sazd6KgHiEDC4mN-pFBp4unPM27i0VGmhQI--icdQ>
-    <xmx:pfboarscQmZJN9G-ta6XpR2emjQFZRHwKW7fNgIQhCButsziRSkW0w>
-    <xmx:pfboaqIkbp8Bc3ttYGfAYX58n479NGSxncc0hy9Cm29aD4p55-kDGA>
-    <xmx:pfboaogzj7z_G_h1QuQGbdxgrZjixRsIF6HwyO8sXoz9H17_gtrM1eUX>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 15:46:28 -0500 (EST)
-Date: Mon, 2 Nov 2026 21:46:27 +0100
-From: Janne Grunau <j@jannau.net>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: michael.reeves077@gmail.com,
-	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
-	"Franky Lin (Zhenhui)" <frankyl@broadcom.com>,
-	Mathy Vanhoef <vanhoefm@gmail.com>, Kalle Valo <kvalo@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com, asahi@lists.linux.dev,
-	Hector Martin <marcan@marcan.st>,
-	Daniel Berlin <dberlin@dberlin.org>, linux-kernel@vger.kernel.org,
-	Hante Meuleman <meuleman@broadcom.com>,
-	linux-hardening@vger.kernel.org,
-	Peter Robinson <pbrobinson@gmail.com>,
-	Izabela Bakollari <ibakolla@redhat.com>
-Subject: Re: [PATCH 00/13] wifi: brcmfmac: Add BCM4388 support
-Message-ID: <20261102204627.GB770347@robin.jannau.net>
-References: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
- <d78cbbd2-601a-4cf1-800f-3be57a2b7de2@broadcom.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cZnYnqIE
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-54465f79af8so24758101cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:47:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793652459; x=1794257259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m8mSi3IAorPrWHZPk3j86qqURTkDETtees0X+vPzQzc=;
+        b=cZnYnqIER6ZM+LMqeGSs/kfAZZKn+eV1lvfVK+Z+kxB+6zBHSOQqQ6TyjYNrH8/2/W
+         WmEhYuSok0kKu+i+wa2Eklz8aYBRBb0Z/fjoNipOKV6ENsViGC8CRBxBTp2YFkELGguW
+         GZfqgdh3jMfY99gThNNVp0uj/qEtPvCt6eTvfcN+TtOULBp0WaFmSaqTK96zqIth8JMH
+         mB/z82T7w/i6mpHcDKkA50MyvjzfW0a4OzXcjjOGLJiIrDmaqh0/qL4kOGl2IKlVf2Ob
+         rgemahoauVwDN1txrOcjeu2VJbvtl/Tqt8YdhZKiQ7RrTc7fX+bfYLc0mWtvnY19ZNkk
+         5/+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793652459; x=1794257259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m8mSi3IAorPrWHZPk3j86qqURTkDETtees0X+vPzQzc=;
+        b=wYKMQfbBejFF1ogu34Cd0KBQ4KhYd7uhucTxw2Z4VMRqdk1UVqnyoadm5AeQO1Uvnj
+         dewjQRSIO23GZaFuxzPDeNrP6G+U+Q+CuFwTv7MnimTv5m+3II+ZKJg/qPgy2uhH4w91
+         YJNG5GJTjRec5HQtN7Y8Stu5sZUnc/gfRN+aZSGP7hX9WnPZ2EXCgZueXTTB1bnpctmV
+         u8MZ8A1tSnmVCuwFPQfBXoQRG6x9oNNn85tCNn95LoiePszjTwN6RtwyqCnTWkU3wwOJ
+         zIpXbW+KDBh47FPRB8In4iDpT6nzWeqoDzJ9Zf80goBK3WPX+018jYPxyft0IaPJEsoh
+         GXXA==
+X-Forwarded-Encrypted: i=1; AKwUvBz08RzOB2tkut4+JFzkmy2oz2EuCXemhmUJqEzP3+nKAvajkMpON4pdIYgWSmkg9yIb/7pPH6u6dj+SjAI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fgSV6BwQvku+Mc8CHl9YthAufLwfZspiHBDTQYkf0hfdE4fXf
+	52VvAMYAF4nUy6RPg2vbsp0HZ7pKUaXz/fpJ7Bxn+eOvYGZls6QRmgps
+X-Gm-Gg: AYBFou2NLFKmn5WcO+5DJe8z7gQ/7MTP57HIxOb0WxyDpRO5MBNAVV3Jq52nyZhbHUb
+	EEV8AbhDKhR9E5IV2PDeFatxGo+5msUMbQVxIdoWN/YWt62QbJ/pqi77oL7mfHz+89UZ93BHc+Z
+	4O97j/8w8HZSrmcpYHhX1il4o/Wo48s4RuHw/fFtt47cSxk1AQksGVG/OQHxzvuJByTkTEyyHqJ
+	WmLoGOI5lRn/+cDQAkpsvVHj6MaLzA33mzPyPlfsrY/cJHfvCxd9wnNMId3UX0Gqed0yJ4r8i1Y
+	PcEbIUBGePbctgQ9J1uZbbYP6c38lp/wXS0+/q8j3kpp+6NchQHonUMLzPi1/Puk+WV33y72yog
+	eCxoVv8UECBxDe9GJ6v4HR42Y4v/yJDbrP3/RhZ4iYnCRdaQiBVuoVwXoqJVjL8rAVjDZVSdQ9P
+	F4qsUCAzGD/f+vkMIorQaZ7K84l9KbrSO334kI8P2ak436u+ZPd92xqs461Qu3JMHep2lI8lrxz
+	SDLy/k2ktFRSWxaJny2moLPBahmUxqmmoaV7uAKeMXbjDC/3ik6YxSf7CsFbdjvqfBY9ZODNkWn
+	BwGHs4Zw7SG6qN86g05By8TbC/rtUVyN7ubSyl2WrT37dn5LHzAE
+X-Received: by 2002:a05:622a:1826:b0:535:a5fb:645f with SMTP id d75a77b69052e-542b86e1d84mr191735211cf.74.1793652459409;
+        Mon, 02 Nov 2026 12:47:39 -0800 (PST)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7e23b0bsm99669676d6.2.2026.11.02.12.47.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 12:47:38 -0800 (PST)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Dragos Tatulea <dtatulea@nvidia.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
+Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v2] vdpa/mlx5: Don't free QP buffers if destroying the QP fails
+Date: Mon,  2 Nov 2026 15:47:30 -0500
+Message-ID: <20261102204734.443140-2-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,51 +99,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <d78cbbd2-601a-4cf1-800f-3be57a2b7de2@broadcom.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 01, 2026 at 08:27:22PM +0100, Arend van Spriel wrote:
-> + Peter, Izabela
-> 
-> On 25/09/2026 15:43, Michael Reeves via B4 Relay wrote:
-> > The Broadcom BCM4388 chipset requires new PCIe initialization and
-> > firmware interfaces. Add support for these interfaces to brcmfmac to
-> > enable basic station operation.
-> > 
-> > This series adds:
-> > - Signed firmware loading and mailbox transport
-> > - Fixes for chip identification and firmware capability matching
-> > - Versioned scan and join requests, and extended PMK payloads
-> > - Updated event mask handling
-> > 
-> > These changes include work by Hector Martin and Daniel Berlin from Asahi
-> > Linux, refactored where needed for upstream inclusion.
-> > 
-> > The series provides basic station support only. 6 GHz support is planned
-> > for a follow-up patchset after this lands. The driver retains legacy
-> > interfaces for older firmware.
-> > 
-> > Tested on an Apple M3 MacBook Air (J613):
-> > - Device boot and network scanning
-> > - 5 GHz WPA2-PSK association and DHCP
-> > - Bidirectional TCP traffic
-> 
-> Finally got some time to get this series tested on my setup. The patches 
-> generally look good. So far no regressions observed. It would be good if 
-> some more people could test this series on their equipment. I will do 
-> some more testing and wait some days.
+qp_destroy() frees the RQ buffer and doorbell record of a driver-owned
+QP even when DESTROY_QP fails. The QP then still exists in firmware and
+can read WQEs and the doorbell record from freed memory.
 
-Tested series on top of v7.3 + commit 7ed5dce55fa8 ("wifi: brcmfmac: map
-msgbuf RX packet IDs bidirectional") in wireless/main with resolving the
-conflict by dropping the conflicting hunk of this series.
+Return without freeing them in that case, as cq_destroy() does, and
+include the QP type and the error in the warning.
 
-Tested on Mac mini (M1, BCM4378) and Macbook Pro 14-inch (M1 Max,
-BCM4387) without regressions (except for the resolved RX msgbuf
-mapping).
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+v2:
+- Shorten the commit message (Dragos).
+- Drop the Fixes and Cc: stable tags (Dragos).
+- Print the QP type and the error in the warning (Dragos).
+- Rebased on v7.4-rc1.
 
-Tested-by: Janne Grunau <j@jannau.net>
+Compile-tested with W=1.
 
-thanks,
+ drivers/vdpa/mlx5/net/mlx5_vnet.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Janne
+diff --git a/drivers/vdpa/mlx5/net/mlx5_vnet.c b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+index 8563fec2855d..20f4ff67c975 100644
+--- a/drivers/vdpa/mlx5/net/mlx5_vnet.c
++++ b/drivers/vdpa/mlx5/net/mlx5_vnet.c
+@@ -479,12 +479,18 @@ static int qp_create(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_virtqueue *mvq
+ static void qp_destroy(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_qp *vqp)
+ {
+ 	u32 in[MLX5_ST_SZ_DW(destroy_qp_in)] = {};
++	int err;
+ 
+ 	MLX5_SET(destroy_qp_in, in, opcode, MLX5_CMD_OP_DESTROY_QP);
+ 	MLX5_SET(destroy_qp_in, in, qpn, vqp->mqp.qpn);
+ 	MLX5_SET(destroy_qp_in, in, uid, ndev->mvdev.res.uid);
+-	if (mlx5_cmd_exec_in(ndev->mvdev.mdev, destroy_qp, in))
+-		mlx5_vdpa_warn(&ndev->mvdev, "destroy qp 0x%x\n", vqp->mqp.qpn);
++	err = mlx5_cmd_exec_in(ndev->mvdev.mdev, destroy_qp, in);
++	if (err) {
++		/* The QP still owns its buffers */
++		mlx5_vdpa_warn(&ndev->mvdev, "destroy %s qp 0x%x failed: %d\n",
++			       vqp->fw ? "fw" : "sw", vqp->mqp.qpn, err);
++		return;
++	}
+ 	if (!vqp->fw) {
+ 		mlx5_db_free(ndev->mvdev.mdev, &vqp->db);
+ 		rq_buf_free(ndev, vqp);
+-- 
+2.43.0
+
