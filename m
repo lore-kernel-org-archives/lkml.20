@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629243;
-	b=U//PJAm/4P+JuT+TPlfVvhKucPI7oD+NDIFWOHGipngQCLY0p2T0D56cbXrdTD1b6kee
-	 jVilgtD9ZNND1zHJKVir1q/cggcF30QlXKjbAI81cgccZjsdZKRKuaFWbmIbf/gC2xiTT
-	 lRRPeVM7VCielTOYuh0fQyOg4UaKqbZOtahPlE4dT+5xs7dg2aQ2TNmnRLXPJQ7Vb/ec+
-	 nLSjRUGPwA4qvzQo6nEQD6a6ulLT+hFjWK/sGxAMBVjmqGy1Q7goZ2VprWR/uaNIkvV/T
-	 epxmMBBdbuIwqKdpR9pWydM1VXN/Pp9I4mPAo9vdXkPQsoHplxPxe6vjGdJiNzEFKVw==
+	t=1793629241;
+	b=yZkS6RCP9sEup9ymndxKLqteXq2TH3Rjm8c8yxy5CHKSQrenGE1B+gUPgANmthXDLFZU
+	 2ih+YdQbjHngKVcAyel0kT7d4HTrIKXvFluXi446Z0b38XG3fPzltq5AR/yyS8jmjYVov
+	 E+Mo4BjuRsTMhghbU2DZ1aglUaU+9Oznfnv4DPjRfptftM0WpCitfUMbFggGOEJ/DvBS1
+	 yaiKEuNnFRIAaZffGrbuo0mLq+uJk1CLwqSItbmTUxPeGTf+RwNb/RBZaGHsD8k7wK3TA
+	 GDTCR07KS0+xk9cTUrCnS2RNhtuG8tTY+6mZGaUw5dOmXO6+k7G2IVYDV62RNOQZSNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629243;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=rnqkMZ8CRclQ6FinRgL34ebPpXHJ+z3PKdKH9rEdEPc=;
-	b=kFpNetsWTrizE5DwDTZ/iikbUnZncIbapIGN+o4nRvRAMk+unqsGKjP+rqn/JCHzK9r8
-	 GDWoxzKBMabC0cvVLwhTXbLf8QMfy6HDvhk/40z4jTMmHMUqu92atMHoCRQHXoKXuANKf
-	 FaHHiaM0Xiyil/eJwIg+/FR72radoJ2Spu6XW4j1dzodR+0EP5T0Se2P64SDmZFwAXIhP
-	 JPRTzHtpQ9fldyhdhTz8iz86rKCqvoOQSW3JCTVDrxmzshJXJZ0DgjEfCcdSK9W7+gd2E
-	 zU83eVJfKJxs7OYa9MoSKQm76CohSbmts+mnB/liEnDTvKIdzTDsrcF/NjNtaG6SzRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629241;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wTwURxusbU8u324ldLVkqqEv7Duiy7GS1EwcVI2k/8o=;
+	b=l2dY6ttHwCp5VlUOP/Son7WE2LFjggz7e1XZNMI+DFQ2SLX8laRGJ/f/p3V1LlkS6O6R
+	 mQHN39lz8Axtu8YDhPwE5qOB5yvmduUlsaIvNfTmQ00ULPsZ7wOVV+VSgVw8Gerv+ZZaN
+	 ISWmBvBdyfHa18Ajb6xsQyWJCZNUEuDnrus2WEI/7+s0bGqky3hxBq85+5LVO/zjeZGGh
+	 3GaQeFKsPcyCPp+JEpfwju+1vkC5gNJCO87tYVHEZC15xWaMho+liZsQs46vPQ8Ost8e7
+	 1azrJphBxYZBIlILViOFjqyjj2yqSURUs7lswOideAbKCsbxctJjimWzvhX2oF9Ne6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=krAaTW0J;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MS/YjA6A";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9070F606A337;
-	Mon,  2 Nov 2026 14:20:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9070F606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D592A606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:20:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=krAaTW0J
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793629243; x=1825165243;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6IYdIllU7Skva9Xh9DLUseReR/l/v2CrWzARN5qQP60=;
-  b=krAaTW0JLUmJBkWxjnEAQFBC4ZeLrzOOzIjhqW87ipXireXmq7krvsPB
-   NXV220wh5cb+y/nUvm+ECo7fhjuEF6Vltum16l6NL1mSnyh2dEx9Q4e69
-   QQj0bmQx4/12r2/Xxnn4hhEJDxY/3zrD6JkhTIpRsf4AdO0VtSISJLiTS
-   L1ZdOWvafCqzeBN+8c7AqKUz6Lo9fZHzuDF4PjFSQOP24rXBdo0pePjp2
-   nvx0cvdKscXlGhycBCuoxa732z/fzhgwaQbJt95iZ0UQRQ+NGodzB0BPz
-   DnYzBt8FAbFMV9FLOg/+k2w4BBxXo4mYkeG6BN5jjlr0SupTzQasOSFac
-   g==;
-X-CSE-ConnectionGUID: BvFLyJmsRPuYcvXx9Sl9XA==
-X-CSE-MsgGUID: JxQz9LAeSUSXii12jkCYWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2338480"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2338480"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 06:19:32 -0800
-X-CSE-ConnectionGUID: 3L6NF0M2SF+LAJ8WyX+9kQ==
-X-CSE-MsgGUID: /gSbkW4gQdOl7/nqG217/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="5986053"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa005.jf.intel.com with ESMTP; 02 Nov 2026 06:19:29 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 3E5F499; Mon, 02 Nov 2026 15:19:28 +0100 (CET)
-Date: Mon, 2 Nov 2026 15:19:28 +0100
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: JaeGwon Go <ceo@logictree.app>
-Cc: linux-usb@vger.kernel.org, westeri@kernel.org, andreas.noever@gmail.com,
-	YehezkelShB@gmail.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] thunderbolt: Send header-only XDomain properties changed
- response
-Message-ID: <20261102141928.GX158991@black.igk.intel.com>
-References: <20261029081834.91559-1-ceo@logictree.app>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MS/YjA6A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BAC1F00A17
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:20:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793629240;
+	bh=wTwURxusbU8u324ldLVkqqEv7Duiy7GS1EwcVI2k/8o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MS/YjA6AMLGXuAthnGNbbe0MBVn8tjQEybVecCOWugzRr43ZALno9ES7/+yGM5ND6
+	 AbV5IH9TWYANEfv9NWjuF5wZzsj1XYvi6sWXgjaPocQoR8Udjd2nARP80bYnmYKkEX
+	 WpF8LUtX+Vd+dW2Wb3v5JtQ45IxNhMPK3APMgotMk2lVYv26oRUnlselZ4vZ2rVQ97
+	 stVxenclw+CmXNhbC/wixzaNdASsfFqaiqtJQCWvJN9cPWX0/YNa5wNVB2NK6Wudjc
+	 7IV6daGQXuTx3omntAyIfAS2dOFnytMrTMHjzyWVDD2V7WHvNicEP3leza9azlCdys
+	 8ntglE65n9dlQ==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso3691479a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:20:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzgaic8zJml1nas+2/1wZaeF1mOQh2A8DxA4nIxEGZ66y34rMf9QjjXFu4CXy9rDtvAYtjmlUg6TxuCns0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88xyXKm1cQ+xiZrU7ldYsLE4Io2G6Nkufsa/4wvSJp0+IMVkzK
+	ByYVaMTzByTgWaDKj9dMPmZdu78ly0R4TYCkgQLLl2KmWSyATjS+Ob60fhdnP8ZAUiYxASNdG84
+	jsBIRE7fYKs7+goY2IdO+MX8kRoGOzAs=
+X-Received: by 2002:a05:6402:1d49:b0:6b4:1037:2bb1 with SMTP id
+ 4fb4d7f45d1cf-6b4d4d7ae69mr7279562a12.22.1793629238917; Mon, 02 Nov 2026
+ 06:20:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,53 +59,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261029081834.91559-1-ceo@logictree.app>
+References: <20261102072808.23080-1-yangtiezhu@loongson.cn> <20261102072808.23080-2-yangtiezhu@loongson.cn>
+In-Reply-To: <20261102072808.23080-2-yangtiezhu@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 2 Nov 2026 22:20:26 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H52mbZJX2vkgG_h=XfwHoio=asLjFdhTJwUYqDp4V5JMg@mail.gmail.com>
+X-Gm-Features: AclHuK8eouGWl2Ju2BupUiXkLJR8d-YBXH4f10rwNZcSO6ZooS5wcrX91VkDbvA
+Message-ID: <CAAhV-H52mbZJX2vkgG_h=XfwHoio=asLjFdhTJwUYqDp4V5JMg@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] LoongArch: BPF: Make arena support depend on SCQ extension
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Hengqi Chen <hengqi.chen@gmail.com>, loongarch@lists.linux.dev, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hi, Tiezhu,
 
-On Thu, Oct 29, 2026 at 05:18:34PM +0900, JaeGwon Go wrote:
-> Commit 19813551701d ("thunderbolt: xdomain: Avoid potential stack OOB
-> read") turned struct tb_xdp_properties_changed_response into a union of
-> struct tb_xdp_error_response and struct tb_xdp_header, so that
-> tb_xdp_handle_error() can safely read the error field of a received
-> response. tb_xdp_properties_changed_response() still sends sizeof(res),
-> so since that commit the response Linux sends is 36 bytes instead of
-> 32: it carries the zeroed error field, and its XDomain length field
-> says 6 dwords instead of 5. The other responses changed by that commit
-> are not affected, because their non-error members are already larger
-> than struct tb_xdp_error_response.
-> 
-> macOS sends this response as the header only. macOS 27.2 (26B123) keeps
-> re-sending PROPERTIES_CHANGED_REQUEST when it gets the longer response:
-> after link-up it repeats the request every 1.5 s, ten times, and then
-> resets the link, about 15 seconds after it came up. thunderbolt-net
-> logs in and passes traffic before the reset. The same host stayed
-> connected to the same Mac for about 23 hours while the Mac ran macOS
-> 27.0.1, so the change in behavior came with macOS 27.2.
-> 
-> Send only the header again, as before that commit. The union stays, so
-> a received response still has room for the error field. Linux
-> requesters accept the shorter response: tb_xdomain_match() requires
-> only frame.size >= response_size / 4, and tb_xdp_handle_error() reads
-> the error field only when the type is ERROR_RESPONSE.
-> 
-> Tested on an ASMedia ASM4242 USB4 host running an Ubuntu 7.0.0-38
-> kernel, connected to a Mac17,6 running macOS 27.2. With this change
-> macOS stops re-sending after the first answers, and tracing shows an
-> 8-dword response with length 5, the same as the response macOS sends.
-> The link has stayed up for over 1.5 hours, about 80 minutes of which
-> carried a multi-gigabyte transfer every few minutes. Not tested: a
-> Linux peer, the error response path, and macOS releases other than
-> 27.2.
-> 
-> The analysis, the fix and the tests were done with an AI coding
-> assistant.
-> 
-> Fixes: 19813551701d ("thunderbolt: xdomain: Avoid potential stack OOB read")
+On Mon, Nov 2, 2026 at 3:28=E2=80=AFPM Tiezhu Yang <yangtiezhu@loongson.cn>=
+ wrote:
+>
+> When testing bpf selftest "jit_insns/cast_to_user", there are different
+> behaviors on different Loongson machines.
+>
+> (1) Loongson-3A6000
+>   $ sudo ./test_progs -a jit_insns/cast_to_user
+>   #193/2   jit_insns/cast_to_user:OK
+>   #193     jit_insns:OK
+>   Summary: 1/1 PASSED, 0 SKIPPED, 0/0 FAILED
+>
+> (2) Loongson-3A5000
+>   $ sudo ./test_progs -a jit_insns/cast_to_user
+>   ...
+>   libbpf: map 'arena': failed to create: -ENOMEM
+>   run_subtest:FAIL:unexpected_load_failure unexpected error: -12 (errno 1=
+2)
+>   ...
+>   #193/2   jit_insns/cast_to_user:FAIL
+>   #193     jit_insns:FAIL
+>   Summary: 0/0 PASSED, 0 SKIPPED, 1/1 FAILED
+>
+> This is because the arena range tree uses kmalloc_nolock(), which require=
+s
+> 128-bit atomic cmpxchg support, provided by SCQ extension on LoongArch. O=
+n
+> CPUs without the SCQ extension, arena map creation fails with a misleadin=
+g
+> -ENOMEM error.
+>
+> Make bpf_jit_supports_arena() return system_has_cmpxchg128() where it is
+> defined, so arena map creation fails with -EOPNOTSUPP on CPUs without SCQ
+> extension.
+>
+> Furthermore, given that the macro system_has_cmpxchg128() is only defined
+> when CONFIG_AS_HAS_SCQ_EXTENSION is enabled, guard it with an #ifdef to
+> preserve compile-time robustness and reject arena otherwise.
+>
+> With this patch, here is the test result on Loongson-3A5000 without SCQ
+> extension:
+>
+>   $ sudo ./test_progs -a jit_insns/cast_to_user
+>   ...
+>   libbpf: map 'arena': failed to create: -EOPNOTSUPP
+>   run_subtest:FAIL:unexpected_load_failure unexpected error: -95 (errno 9=
+5)
+>   ...
+>   #193/2   jit_insns/cast_to_user:FAIL
+>   #193     jit_insns:FAIL
+>   Summary: 0/0 PASSED, 0 SKIPPED, 1/1 FAILED
+>
+> It is better to mark the test status as SKIPPED rather than logging a
+> false-alarm failure if the feature is not supported, but this belongs
+> to a separate bpf selftest patch.
+>
+> This is similar to commit 536b523b4073 ("bpf, riscv: Make arena support
+> depend on ZACAS").
+>
+> Fixes: 4fdb5dd8aeba ("LoongArch: BPF: Implement bpf_addr_space_cast instr=
+uction")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: JaeGwon Go <ceo@logictree.app>
+> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+> ---
+>  arch/loongarch/net/bpf_jit.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+> index 3ab039d0afb6..01c12da168ee 100644
+> --- a/arch/loongarch/net/bpf_jit.c
+> +++ b/arch/loongarch/net/bpf_jit.c
+> @@ -2489,7 +2489,15 @@ bool bpf_jit_bypass_spec_v4(void)
+>
+>  bool bpf_jit_supports_arena(void)
+>  {
+> -       return true;
+> +       /*
+> +        * The arena range tree uses kmalloc_nolock(), which requires 128=
+-bit
+> +        * atomic cmpxchg support, provided by SCQ extension on LoongArch=
+.
+> +        */
+> +#ifdef system_has_cmpxchg128
+> +       return system_has_cmpxchg128();
+> +#else
+> +       return false;
+> +#endif
+You can "return cpu_has_scq" directly.
 
-Applied to thunderbolt.git/fixes, thanks!
+Huacai
+
+>  }
+>
+>  bool bpf_jit_supports_fsession(void)
+> --
+> 2.42.0
+>
