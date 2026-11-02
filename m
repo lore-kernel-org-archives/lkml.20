@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623034;
-	b=t6DrhhcnBuB1eDbPTbn4v21Ea3XA06fM1EIZBuoz9hWXtFBrKbibA28TSf23j9IC+sQV
-	 59IbcUz5zRsJt7q/o2fqLIlfN9MrBBEAA+qt8erNeQ2zwg3tWpuQjMahAFXsGdd5sjZzt
-	 OaGbGsb9ClE65ykE+E7pErZdA+gx1iiBe9wM48NrOYtiacQP/vhv8qVkh40ee6I+Z1git
-	 ZdkRMpldcPOX7x+3vFPayypt7Ctg1iZWrw6Oo2BdlrolixHJsXwgGt1jgHmeP+EtmaFZI
-	 ixf0sTZi5Gpo67zUiSWbUARqdT/5x8RjpifsNBHEs+uagwmM6xlsu1jKc+MLkGZbguQ==
+	t=1793623039;
+	b=NIlNFoFulZwgitPG3pAikxqzZ4iuwqJZ7Hwq2eYZqRdKGiDEGp1VOMwGNDtx7eYZIbJO
+	 zjtDNg8JPl1WGbbVL9scYIc8P5RED01/fHU4hx3cQd2DS1w9Mu+2TJKQcnsO7QdGMDJOq
+	 JPewS6D5lIwe0Utn0oeJ02W0z63z784gyYaxx2l8rNWTDdge2Ynuuu4YhZ8H/dwrqxhGo
+	 prbCtZB58UAH6fDCo5pH+Uz49ppYktoaI3/H3KskXYxYHaoFB8IrpUFYnXhNRQiIXv8HE
+	 DsvZlU5SbyYOkRhDu8vouCw4+srvrb44ZpsxDfMdeGJ5Ougqf2nXXeXjxzlGM1DaAGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623039;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=U/MTiY1V0zUX7TqOPFUlo7c3lUS2apbndjwJUhDa+Ak=;
-	b=N5ywNfQ9dzO7Zq9v/9Dzdy5KSiigb6C4TKYyrfug5zeXTy+N6PDe/Ef5APfgpGqKODQx
-	 OV1xHTxiIt93Qo0SocbjIaQX65+vz+U0znDhFnI73n0cGvoFn0FgxboiQ7JeR40zIi8Uw
-	 xr9GI4SwYenp2MWCXQTwwIIUk8iC80eXLqIXBtLg7fcwxmu3Iz3Tcfzi8AJq2Qo2zgm+T
-	 sUXLpC0I0nCQgL2lUkVPqod2ASCmulcsqRkEAqm417Q9b+w67wwXOHqmFHB5rpGaaGnXR
-	 R3EEmXazH/Fqoa62UptehxwnCvgxCf6ntPJRQheoVMtcoF1HSjxX6E4MMxGGxfm4++A==
+	bh=UjBzccaJDDlTsbT7lY8oUdWUO7cHir5+ebQJXokkFqw=;
+	b=Y0KoEkapcpL36wipAqdZl8TO4sUA1pAhc+68lNLjgW7Cuw2ZpSihfS/aPIQJi4Lc8/Z1
+	 wB8qv8Y6Hnx6V3ACTfJC30hmcIdZ9Y3OBvfmpWoJyJMGNc9PbimZGmIpLUdk/G/4RkU1f
+	 m3zkytFS9zGUh2EtWFKkJI1d6qFP+btbi6VgG1NkGysJNWRQ96By9FV2szUD4riUegLPy
+	 9odPDzi/ocCcvI50e+e14PEvL7bL528pbrEBsaBp9lhhE8efWidZueZ5WC5rFAKL4Bsj0
+	 qSH4wjJ2FgVrLOiXjS1B5yEHOfmOPU5VpGx1heK7dnHDGQzNO2w32i53UTUUgdSud7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hhpDXLq7;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pSdxvYEa;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219CC606A338
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:37:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 219CC606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDAD606A335
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:37:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BDAD606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hhpDXLq7
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3514b90bb89so5993964eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:37:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pSdxvYEa
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36a17a332ecso4677459eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:37:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793623033; x=1794227833; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793623039; x=1794227839; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U/MTiY1V0zUX7TqOPFUlo7c3lUS2apbndjwJUhDa+Ak=;
-        b=hhpDXLq7zFo/Yz4pfSGzL3ZIgyuvIihlgymMJdmmDgl15ebCTDxI+fPvf+j7CDxuFW
-         bp+EYpoGPrbWFrgyeA+2Pro6qA9o9Nb2WIzh+J5KbBSsX0gn4TnC6HqFK+nwkQi3lzaM
-         Gjazrm8uWGY1Xki/C24/F/0qBMSDLPf74m2dP1DO6hVwlK+kf+UHl14d4AS5hpq+VEw0
-         nyhmMxZgzoqQCcQz/PuaiyH5lqmKZAEicpKfogUdyiNGYIRwPGL8e+EbXjSFBe/r0VgS
-         fFZLXAvrr1saS/WWIYlfxlqmgVpqEc6XNFOlh5pFKh24UQDC7MH9txxmEDHA5TLmjy8H
-         gMbA==
+        bh=UjBzccaJDDlTsbT7lY8oUdWUO7cHir5+ebQJXokkFqw=;
+        b=pSdxvYEaXJkhqfPlsGxTuQA2m33GSpJYR2vhxJa1+ZrYumZkFLUcuwchm9jpzrSNRk
+         UzkKbt37f5AeVZHpA0d15xNQJgc94ZU58Y46J3sdd8FKUO5Kk1bUzEBBdJdHu5HdXhaN
+         mzPw3lO2D5zHTVHDUbdCNJnLRaGAyAl2F/7RCeuadNwmLat9snzopuhLI4IU3/t0lpAg
+         yz2z35wNTZ4H8KBMop0i+viOahduXqQhtKaAfrSvNOb66VIRms7VtvYBtSe5F2rcI7+H
+         XySFS0sBj6W5c4YxpowSdI9lyo5UzRZXT4V2fPBa3/8AMsQAby9x/8gWLrHvkWLL2/xn
+         mrGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793623033; x=1794227833;
+        d=1e100.net; s=20260707; t=1793623039; x=1794227839;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U/MTiY1V0zUX7TqOPFUlo7c3lUS2apbndjwJUhDa+Ak=;
-        b=qSgQl+6qEtxhKEUln/mBC5kpFVZ4KApjC0nJqHmoMgR0H7EeL+ZZfCm5i1yTSbPtqX
-         nY8s6QBTeCx/p50mHanlBW8XF3HP2ii7QJgNvlIbcwmVhbywFGBMLSnnsAgJYb5lfPtW
-         86ddwV9+wxhZp9IYGvWgt1rVZMVT1YXHMI+js0b/5xTll39YdY075bGz88QEY1wq/w2g
-         DIFjof5tS1lV5WtWRAOb0Wzrej75Dj1KrYGupjxZUAP+8L4JB2GYAmLACWaymyVycZ9W
-         pI2jj6sZqbN8H8K83+cTqSGUH2mpjUjjT0vd1K6Gn36JvaLctKEJWb2YVVayVfrogh4B
-         kSMg==
-X-Forwarded-Encrypted: i=1; AKwUvBwcGrFzEUxCBA/kAh/AfabbU70AvjCJqRMdzY7/p6ZVeL9PPimJMo8HzAwkUSAD5cmY7K7rD5H0oKVwe64=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9trBs0xp7XwUjVq0edWfFX8SS0HUrUC0UMYSGlg/S2nEQdVneO
-	EmsqCIeWrsBWHFKQCxtcQYHTCc6MHrcvnb1wiN4HV+pJW4qsLJnDjeQ/
-X-Gm-Gg: AYBFou3PTOwC/AbBFWYPxIoa7wfDAkgeq1YFsFSrM1ESu+8VmWsaGys0kkLQSsVOb3P
-	M9xk6gQjbKSH0ekFsYIflSBQdrsRfn6vQKhfNDsW5kqszR0YbqhPnwlNyW0xxBqDu6Ti4MrTA59
-	CSPD0W2bZu4ByH05vh0XhgM2mr8PhfhwQ/Q6eHRjRx93JajFpnErmvJkNonHxB8QTB8h+4rR18g
-	zy6nhzigF7TTxa1720j8YOyQLM2y0ECtG25UnX0vU4aLgRtjwftT9GG4xhMMLyipdtnANWxG13K
-	pdUtNyOxKyFSh2fpmqrzh6YdsbO5HBaH/FSenkQFPFw1IB9X268a9LWPPr8GuyAzjjJt/igc9KN
-	mQsRMcnEE4ONBLhXB/1maoZvIeKZIJG3K8ol+Hhzsg/kK2deyO17CnxkuNqr861X6jeNFuBbj37
-	JRrktC9rfBUXm4sQsP2X8JQshK3bvU9yUWKGmrWKY+9X+ljBGa8frTui5+xUbgj38lJZ+TlkHlD
-	f2sxhaaubqb+1eh2nbC8DKQKs7sENQHqEkaMMBEIGX+NCEF8xGXHclv9D9uHM10ETC6Ojd8bD3+
-	3E8SM6Jwqog0Jylj3NkgjW/0PQ==
-X-Received: by 2002:a05:7301:714:b0:35d:7565:8577 with SMTP id 5a478bee46e88-36a6524b024mr5497839eec.15.1793623033018;
-        Mon, 02 Nov 2026 04:37:13 -0800 (PST)
+        bh=UjBzccaJDDlTsbT7lY8oUdWUO7cHir5+ebQJXokkFqw=;
+        b=OKqC9lIlBlsPn+anVe/Xi18QZds9UKNY5blhZWXP8MhikxNDkL/F60gPj0X0OVdrLQ
+         rM/jeDttQuMd+cENeFLCEE2uqMSO47LhBVlNvbzYXpFOBUTsUdScuOOqc7bsL5NwUujn
+         /vjkWzY621OH/wcuwohlNyJFjh09CPTbPZ799vu5a+dWQEnnD0IoEyGitkmAobR0imuB
+         4183f3bMSHOl4ktwue0FOdU2cZcIRexMTqEy2BtVKV+KI6f0XgocBCKbRV55Eq4eRPDs
+         wUrcFkmWYgQGLxAmbsVHTMu+aeK/7nvBTl2z0ZLli65K0FvBYuyottwF07vn2+CBwf6Z
+         stPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwozEt497dbgDu/XFi0WYbesnjDAcoSa7KeLsweP6yI6IqZ4YusR3OjJ48LCgY5mJlQBFIhvSiUsmXeRC8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rvUVHasWX125CXk0xJEoP6OgSup7jRx5sZHJChiMYTRHpL7oX
+	YuyAnA7zkB/46KMV/yf3TyQ6Cv9fX+YRywvN25HyYBy7MLR2ak+rvOQX
+X-Gm-Gg: AYBFou2ksB4CvsyYuy5zCXxEfzIhjumUUbrwWg6RHnFuMjXYc42rV/9PobubfcAW2y4
+	zareiLYvb0iRfPERvsPwbAR1Ddj6ClT+cdZEip04jpmjMUr52PYhkmvzVT4I1bh5QvtXynKJny+
+	C1v5FVEGmwyXEm9mq58MW27p/fJGfinYDGey9Lll/Nh889bQ1qrLzRPZxnj3zoe5YYRChhTHgbG
+	GofTRjIo3RAk9UwfMXZjLXPShycnLm4tI5MOiveRu7l/6hg45GJm6m7hH31fsdbRB7z8s4xBIcz
+	Yvfr7fBk0+4/924cjlb1TZhlZwnPivOj9mhYRUYXIsBpFl5bRQ9MVJ6gGftPZ4H5v77CZUmsY3v
+	k1v2TMxUM1DdRrP2YnWfwXNYg2J9466UX5QmqVtCiqbcxrE6/6nmWMB9RDV7r4Jha2/zvao8hV+
+	FWvhPx0ToJwpsO/azBFivrjhPqA/BE6LAb6STakdGB9L8BurJb5LZ9qo21244w16ZLyx4IHiMum
+	KpFWYvct5B+PtdGZwoj2Buhmv3kgVRwa5outFgBlM7RCSDM702lA/mSpJWHYCi5uS3p7WB1D1NK
+	+BComCL10t7nBiIr9nWxkXq6
+X-Received: by 2002:a05:693c:638e:20b0:366:703c:5ef8 with SMTP id 5a478bee46e88-36a423935f0mr16041785eec.7.1793623038614;
+        Mon, 02 Nov 2026 04:37:18 -0800 (PST)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm36326095eec.6.2026.11.02.04.37.08
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm36326095eec.6.2026.11.02.04.37.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:37:12 -0800 (PST)
+        Mon, 02 Nov 2026 04:37:18 -0800 (PST)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Mon, 02 Nov 2026 07:37:01 -0500
-Subject: [PATCH bpf-next 1/5] bpf: Put the line info back when the JIT
- falls back after blinding
+Date: Mon, 02 Nov 2026 07:37:02 -0500
+Subject: [PATCH bpf-next 2/5] bpf: Keep the barrier of a nospec insn when
+ removing nops
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-bpf-blind-nops-fixes-v1-1-844300e42cdb@gmail.com>
+Message-Id: <20261102-bpf-blind-nops-fixes-v1-2-844300e42cdb@gmail.com>
 References: <20261102-bpf-blind-nops-fixes-v1-0-844300e42cdb@gmail.com>
 In-Reply-To: <20261102-bpf-blind-nops-fixes-v1-0-844300e42cdb@gmail.com>
 To: Alexei Starovoitov <ast@kernel.org>, 
@@ -112,119 +112,55 @@ To: Alexei Starovoitov <ast@kernel.org>,
  Xu Kuohai <xukuohai@huawei.com>, Hengqi Chen <hengqi.chen@gmail.com>, 
  Shuah Khan <shuah@kernel.org>
 Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+ linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>, 
+ stable@vger.kernel.org
 X-Mailer: b4 0.13.0
 
-bpf_jit_blind_constants() blinds the constants of a clone of the prog,
-which shares the aux data with the prog. The line info moves with the
-blinded insns.
+When an insn is unsafe on a mispredicted path, the verifier marks it
+nospec, and bpf_convert_ctx_accesses() puts a barrier in front of it.
+The verifier doesn't check the mispredicted path beyond the insn.
 
-When the JIT then fails, the kernel goes back to the prog that isn't
-blinded and runs it in the interpreter (CONFIG_BPF_JIT_ALWAYS_ON=n). Its
-line info keeps the offsets of the blinded insns. A prog of 4 insns with
-a line info record at each insn, loaded with bpf_jit_harden=2 and an
-allocation of the JIT failed through fail-nth:
+bpf_opt_remove_nops() runs before that and doesn't look at the mark. A
+conditional jump can be nospec, then become a 'goto' over dead code,
+and then a nop. The pass removes it, and the barrier goes with it. Here
+the jump behind 'r1 = 0' compared r1 = r10 on the mispredicted path, for
+a prog loaded with CAP_BPF and without CAP_PERFMON:
 
-  xlated=4 insns linfo: 0 3 6 9
+  0: call unknown
+  1: r0 &= 255
+  2: r1 = 0
+  3: r0 = 0
+  4: exit
 
-Keep the offsets from before blinding in aux->linfo_unblinded, and put
-them back in bpf_jit_prog_release_other() when it keeps the prog that
-isn't blinded. Free them either way.
+Don't take a nospec insn for a nop.
 
-Fixes: c454a46b5efd ("bpf: Add bpf_line_info support")
+Fixes: d6f1c85f2253 ("bpf: Fall back to nospec for Spectre v1")
+Cc: stable@vger.kernel.org # 6.17+
 Reported-by: Alexei Starovoitov <ast@kernel.org>
 Closes: https://lore.kernel.org/bpf/DMKHZS5B5CNO.186F6YH1T6YU4@gmail.com/
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- include/linux/bpf.h |  6 ++++++
- kernel/bpf/core.c   | 29 ++++++++++++++++++++++++++++-
- 2 files changed, 34 insertions(+), 1 deletion(-)
+For stable: before the patch list, opt_remove_nops() in verifier.c
+removes 'ja 0' and 'may_goto +0'. Skip an insn whose aux data has nospec
+there.
+---
+ kernel/bpf/fixups.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index a80e81ca19ec1..83b3688f176e7 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -1963,6 +1963,12 @@ struct bpf_prog_aux {
- 	 * using the linfo_idx.
- 	 */
- 	void **jited_linfo;
-+	/*
-+	 * linfo->insn_off of the prog before constant blinding, while the
-+	 * blinded clone is JITed. The kernel puts it back when it falls back
-+	 * to the prog that isn't blinded.
-+	 */
-+	u32 *linfo_unblinded;
- 	u32 func_info_cnt;
- 	u32 nr_linfo;
- 	/* subprog can use linfo_idx to access its first linfo and
-diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
-index 0586ed0203975..d45a82f1a42a5 100644
---- a/kernel/bpf/core.c
-+++ b/kernel/bpf/core.c
-@@ -1762,6 +1762,17 @@ static void bpf_prog_clone_free(struct bpf_prog *fp)
- 
- void bpf_jit_prog_release_other(struct bpf_prog *fp, struct bpf_prog *fp_other)
+diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
+index ead78713e04f4..0cc758749be9b 100644
+--- a/kernel/bpf/fixups.c
++++ b/kernel/bpf/fixups.c
+@@ -699,7 +699,8 @@ static bool insn_is_nop(struct bpf_verifier_env *env, int i, int next)
  {
-+	struct bpf_prog_aux *aux = fp->aux;
-+	u32 i;
-+
-+	/* The line info moved with the blinded insns, move it back. */
-+	if (aux->linfo_unblinded && !fp->blinded) {
-+		for (i = 0; i < aux->nr_linfo; i++)
-+			aux->linfo[i].insn_off = aux->linfo_unblinded[i];
-+	}
-+	kvfree(aux->linfo_unblinded);
-+	aux->linfo_unblinded = NULL;
-+
- 	/* We have to repoint aux->prog to self, as we don't
- 	 * know whether fp here is the clone or the original.
- 	 */
-@@ -1808,6 +1819,7 @@ static struct bpf_prog *bpf_patch_list_apply(struct bpf_prog *prog, struct bpf_p
- struct bpf_prog *bpf_jit_blind_constants(struct bpf_verifier_env *env, struct bpf_prog *prog)
- {
- 	struct bpf_insn insn_buff[16], aux[2], *last;
-+	u32 *linfo_unblinded = NULL, nr_linfo;
- 	struct bpf_patch_list pl = {};
- 	struct bpf_prog *clone, *tmp;
- 	struct bpf_insn *insn;
-@@ -1816,9 +1828,22 @@ struct bpf_prog *bpf_jit_blind_constants(struct bpf_verifier_env *env, struct bp
- 	if (WARN_ON_ONCE(env && env->prog != prog))
- 		return ERR_PTR(-EINVAL);
+ 	struct bpf_insn insn = env->prog->insnsi[i];
  
-+	/* keep where the line info is, for a fallback to 'prog' */
-+	nr_linfo = prog->aux->nr_linfo;
-+	if (nr_linfo) {
-+		linfo_unblinded = kvmalloc_array(nr_linfo, sizeof(*linfo_unblinded),
-+						 GFP_USER);
-+		if (!linfo_unblinded)
-+			return ERR_PTR(-ENOMEM);
-+		for (i = 0; i < nr_linfo; i++)
-+			linfo_unblinded[i] = prog->aux->linfo[i].insn_off;
-+	}
-+
- 	clone = bpf_prog_clone_create(prog, GFP_USER);
--	if (!clone)
-+	if (!clone) {
-+		kvfree(linfo_unblinded);
- 		return ERR_PTR(-ENOMEM);
-+	}
- 
- 	/* make sure the patches go to the clone */
- 	if (env)
-@@ -1883,11 +1908,13 @@ struct bpf_prog *bpf_jit_blind_constants(struct bpf_verifier_env *env, struct bp
- 		 * 'clone' is still valid.
- 		 */
- 		bpf_jit_prog_release_other(prog, clone);
-+		kvfree(linfo_unblinded);
- 		if (env && fatal_signal_pending(current))
- 			return ERR_PTR(-EINTR);
- 		return ERR_PTR(err);
- 	}
- 
-+	tmp->aux->linfo_unblinded = linfo_unblinded;
- 	tmp->blinded = 1;
- 	return tmp;
- }
+-	if (env->insn_aux_data[i].indirect_target)
++	/* keep a nospec insn, the barrier in front of it must stay */
++	if (env->insn_aux_data[i].indirect_target || env->insn_aux_data[i].nospec)
+ 		return false;
+ 	if (insn.off < 0 || i + 1 + insn.off > next)
+ 		return false;
 
 -- 
 2.43.0
