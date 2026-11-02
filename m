@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624858;
-	b=2dDh8GSSGxxrYe4h1JK0pjrNZZcHOTVLDll7BFzPxb1cjh6FgQpscC5qs9dpH+zhak0K
-	 kBI8eI+knhu4NXSHcVgbAz7ul4Eqsj9fJjFtZyTWFuTK0/tbN8+8a8Kx0h4fz1U5qpiKu
-	 7y9iQjSWWqSnG5FBU0hIIycxrYHUb2BqCAOHY0/s0EpYrAQEF8EAQk+kG9mR41/OGSwbU
-	 Wv0bh+VGAaYxhJelGHbLi/z0BjVMG60g6YLm9V3X+utulQVBGd89TcICib7hlzsZeAV4B
-	 X5KpJnjl+3Ana47hh1ncieXyBPX6sfNudgyDZ02sg+G9adPsH8B6wr1UuH0YBvevBog==
+	t=1793624851;
+	b=2VwMU8ZsngkMM+BFAhYxXMExkesLWJ+M7TPDInTWw9Rj282gnmlS7DisKOOHxOMPMjfH
+	 8sIO6B5LxZQqJ3oVY9UazROwPHJiccGTY5H1dbdgQA18+Yc3j/1LnAy/tPcpTHQ6Hp17Z
+	 H+kjlFSmIPGkz7LAoM9mgxiM1ou3BO5Ohj10xhtP+i9cSsJW3OlpcietOg4RTG9jOffPk
+	 +nhzgv3TCTrHFH1m1mwZFiPhWEXlBoAAPurV4ErbSX95Xm3buXHvCf7nPycQ17E+l7btj
+	 RTFZ/pIgqTx4fCzLBC5/rUaacqF+fufdyeiOlNVB/DJU1Xa35mpq8ZHcMiIkN0LiZ9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624858;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624851;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=Vjtbg0ZDAhw+N1qo63UozJWX21CxJvQ/AjeOgy46flo=;
-	b=LIcdT1s1K8TX3DKiaUOPWHh5HARwsl7KyWutfr7cawSzk+hTZyfe+gNKN8tGZFAtarAw
-	 d9oivw43gzLERB1rERi+jgwvDJWxYFGkuS25cTA8nbHuyCWtTWF3lhik2uAkTuV4Mc0kj
-	 kbdEY5fMlQTD3QsD8YsYERwJpkfWuAFKrbzpBbNqY+EDAZR7Y3XaEijxp37KOXcZGi/Vs
-	 akANDkfgdNblaEsT8e0IBdLhObH9aJ3tBxR6BZBLh0j0YXR2Vblatv1jiIiPTl1dJx3ki
-	 8bSI3/bKBlBUCfzzClAUVo10riwKSss33Qs7PfRVCWOJJ650QyCO5qfHHGz4Ke5H5bw==
+	bh=vd4UujPDzA0eLjqYOmoFDMFIfeJnmHMPRcAx0AsIvgQ=;
+	b=R/CRBsN4wAFOJQpTxWu3jJvBO4r+yABV73P+P4Wx0y00B0xMRoSinHCgxszaoOqOwScf
+	 p6OOWjyz4GW13j9rJvCSulRnooeIj7xSdAGgtTjmVnCxuhTb5cCHt7b/0iiN2NvE3M/9G
+	 YaItd87rdnZzx+FRxvS9ly1LAWJjjQOePGbZqhHxIz08AaAgt+NeN4r8vKK2KOYIrSD96
+	 FuVXym0JzzTZ8e2em7CD3htwEztqjP4MjrGyno++DX4QfwYZMTHpFuPbVn51o1QH1LEZz
+	 HdkWbMBo2Nc0UM0X9yXuHOO72ns02t0oq4ERQh2ozHn19014agJ+PKmSJgo+//XsilQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yHIlMa68;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="0VPq/ysI";
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A111460A2601;
-	Mon,  2 Nov 2026 13:07:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A111460A2601
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8287B606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:07:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8287B606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yHIlMa68
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0VPq/ysI
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 037561A1413;
-	Mon,  2 Nov 2026 13:07:36 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 451B9C4FECD;
+	Mon,  2 Nov 2026 13:08:33 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C5B2660750;
-	Mon,  2 Nov 2026 13:07:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5793A103290E8;
-	Mon,  2 Nov 2026 14:07:34 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2E52860750;
+	Mon,  2 Nov 2026 13:07:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EBCFA1032909D;
+	Mon,  2 Nov 2026 14:07:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793624855; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1793624844; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=Vjtbg0ZDAhw+N1qo63UozJWX21CxJvQ/AjeOgy46flo=;
-	b=yHIlMa68boQ5jp8tGATQo8e1TT4D7y3agiH1fFAdEtIRi4BRkSqvMTAFdHrbsLjn+EIO6T
-	+viHtie05x13KKEfNUiEhhtFs2Dy3l3V/U0HY/xXGmqnMKaCfwURBSoqOlzbIoXdSP2OCD
-	kidDs28dXMxXh/ALGg1XsNRkovvoaDIrUAtirU47U0ZGJjMHoaIocd+ZnVgXNfS3AuWXet
-	c+ImP2RV93qJL3Q1cn8RwZGg4RQq0sRPmbOVcvaCY81r4lzUOBaRBM/59ATExEQ1eplkkx
-	T91LcN7A31SsTkixZQ2G4N2G6Ju7QQF/R3rTL9mMJQBl43bRkn4aYpv2/WssXQ==
+	bh=vd4UujPDzA0eLjqYOmoFDMFIfeJnmHMPRcAx0AsIvgQ=;
+	b=0VPq/ysICkeaWSFbmA2Cpjjku3uMcIXbrCA+Yieb6NrUIyEwhfNMaSCEApKtwxx6JIR5tv
+	v73EdDBT5m8P0CD+ppA9lLE6EnQ54U0a8OSJLrUZvQ+3z4d/XLbH/3L8HIy58XNVRMqR+l
+	6ENXlj2a6bzkbmLAJgm4Oz4y6VtZx/pgXtXNBVWDmjbND/24bLG70/YG3Ruy+B9yJC7WWt
+	sDWPYxTHMoCS9JFGyAE5lPM2GBdRohTcKSzEHvUNj6Iyr5KA1fUtMovj787wHm0OPIAJb2
+	crcW/O2izhLhv+jgjnTwiLQ3r3xbBtz/KShvvvMHnkLQUKk3sscBrX39kHLjEQ==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Rob Herring <robh@kernel.org>,
@@ -60,9 +60,9 @@ Cc: linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	Herve Codina <herve.codina@bootlin.com>
-Subject: [PATCH 3/3] rtc: pcf2127: Disable the 100th counter for PCF2131
-Date: Mon,  2 Nov 2026 14:07:11 +0100
-Message-ID: <20261102130712.25104-4-herve.codina@bootlin.com>
+Subject: [PATCH 1/3] dt-bindings: rtc: pcf2127: Add support for clkout clock
+Date: Mon,  2 Nov 2026 14:07:09 +0100
+Message-ID: <20261102130712.25104-2-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102130712.25104-1-herve.codina@bootlin.com>
 References: <20261102130712.25104-1-herve.codina@bootlin.com>
@@ -78,50 +78,34 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The PCF2131 has a 100th counter. This counter is enabled by default but
-100th seconds values are not used in the RTC subsystem.
+PCF2127, PCF2129, PCF2131 and PCA2129 provide a configurable output
+clock on their CLKOUT pins.
 
-In order to save energy when the PCF2131 is powered by its battery,
-disable this counter.
+Add support for this clock considering those devices as clock
+providers.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- drivers/rtc/rtc-pcf2127.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ Documentation/devicetree/bindings/rtc/nxp,pcf2127.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/rtc/rtc-pcf2127.c b/drivers/rtc/rtc-pcf2127.c
-index 1bb84f72cf5f..d090e7d063c4 100644
---- a/drivers/rtc/rtc-pcf2127.c
-+++ b/drivers/rtc/rtc-pcf2127.c
-@@ -35,6 +35,7 @@
- #define PCF2127_REG_CTRL1		0x00
- #define PCF2127_BIT_CTRL1_POR_OVRD		BIT(3)
- #define PCF2127_BIT_CTRL1_TSF1			BIT(4)
-+#define PCF2131_BIT_CTRL1_100TH_S_DIS		BIT(4) /* Replace PCF2127 TSF1 bit */
- #define PCF2127_BIT_CTRL1_STOP			BIT(5)
- /* Control register 2 */
- #define PCF2127_REG_CTRL2		0x01
-@@ -1455,6 +1456,20 @@ static int pcf2127_probe(struct device *dev, struct regmap *regmap,
- 		ret = devm_rtc_nvmem_register(pcf2127->rtc, &nvmem_cfg);
- 	}
+diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf2127.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf2127.yaml
+index 11fcf0ca1ae0..11c0bc04f304 100644
+--- a/Documentation/devicetree/bindings/rtc/nxp,pcf2127.yaml
++++ b/Documentation/devicetree/bindings/rtc/nxp,pcf2127.yaml
+@@ -27,6 +27,12 @@ properties:
+   interrupts:
+     maxItems: 1
  
-+	/*
-+	 * PCF2131 has a 100th seconds counter enabled by default. 100th seconds
-+	 * are not used.
-+	 *
-+	 * In order to save energy when the RTC is powered by its battery, fully
-+	 * disable this counter.
-+	 */
-+	if (pcf2127->cfg->type == PCF2131) {
-+		ret = regmap_set_bits(pcf2127->regmap, PCF2127_REG_CTRL1,
-+				      PCF2131_BIT_CTRL1_100TH_S_DIS);
-+		if (ret < 0)
-+			return ret;
-+	}
++  "#clock-cells":
++    const: 0
 +
- 	/*
- 	 * The "Power-On Reset Override" facility prevents the RTC to do a reset
- 	 * after power on. For normal operation the PORO must be disabled.
++  clock-output-names:
++    maxItems: 1
++
+   start-year: true
+ 
+   reset-source: true
 -- 
 2.56.0
 
