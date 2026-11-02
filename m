@@ -1,107 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793656005;
-	b=arLmA0UG/K7JPmyNUYs1G36VbqrGmvTItqcQMeR/akmgzyJieNkdU3WC/K/epmt0tiNj
-	 gHMvplHAAopH7+r2s1mrj9erwLptdDIIc5ZXDe8zv5/S4rn7ELhfz2zwNeQvO45wCOagR
-	 cMfzOhqCCOwyfjpBu7kp1B8c/Z4LA66nSr9eCd/tbslxPRXxAHa2XAsUxESB/wD8jjmHI
-	 XtNr2QSzcAqC6QhRF2U3fLtCy5Xd+YiW6J7UO0q/MGKLMKj6zg1+re7cPJ1uiVFmzmGcY
-	 9K0fl8rewFhsM6zOwftbVywV5kNi8A+A/9gqqExxrkLvQ/E+77QsOew1aWiulCZec/Q==
+	t=1793655996;
+	b=Gal+7bXiyUiWONFz/oY2uFifqkuzBHJxGIQ9tYmxElJ/k4d8OcUA2ar3LXLd/YLn5i03
+	 Tjqq0ytuNc+iD43FfosIk3hp1PRywaijuiuZ6eqjAibWbN3OoKr70L6mDfUDHVOuI4gCm
+	 Sw9TxUpUW84t4FxEgux9XZRk5VkXCYxs//hVyFKJw8Fqn88eSnidlwpJRv37VBpiOxXwc
+	 Z4yRLDsar711ftfBzC7WUcMP6ERTFdlKbrSpdMPgU5LJoXLey6E96R6oxsRmRBNxw8eqi
+	 z1a6nkW5uv781bGNPamAOMoD2oBLdDtR6bWTjBwZoCZpCs8WP5xrHuCzDmHhNgwvF7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793656005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655996;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
 	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=GbOlEoeEjn4AmnKwJIfj7iQ/wucai9bwBp3Ox/nzMzA=;
-	b=fy6lsSdFySJB9b61513HyELYOJrb2vHYZ5BfytMhy/73upIJjmhpUlHZ4hPV8ITVWJh6
-	 WsIIW2PxYn/I/YhG2wo3j/wSlBN3mCfM1/1qDA+qoRUqBW1Rb8CJ16AVBAwNZrdnXpDVd
-	 k+To5kz2FomBeh5FyRzlSuvMs8+OjXnMHZ3fmk9U3txcK8txLFGvSH3fVYZ01SIqHiiIT
-	 OZtvPtXNGpnKY1H1eZhknfEj+6IoLSkxA5zojZlt69XZTAC5w3G8prvVbPvcHHBkbRxud
-	 eRozJXhqietMDkHZ3y8pWhu5zM4rAuwsNQNa5ETtlJQXV6ZDzWgnZIcRrvifomwik4A==
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=r7osJrqKFY47G7pAE+Ny+zpUsVHSKRVVOjeOqegEKbg=;
+	b=B4Svh01a5L6LO9iwuCjHRtIieaHWaCUZ8pfc03+VjdMp6Qd+t4VjPabWSjpLcuWbPq/0
+	 mnmHDFd54gcyjNqmmoXmXDxaPHJSi+jGHeYXZiAqxDlv6LIBNsPlfWlaoJIaEsiFKLvna
+	 FJ1XGwEYZZV+rwfR1FrPP2YWFUA4IjD91lxHt3g8z9f8hYFNcC4M9I420sepv5m/GLI+w
+	 qmoLo9na/NkxC4AzzRIz/1hngBatFGT4EmKneqbsCrMdJFhO7rEPyuYIAJKEhZHdXDLpC
+	 ZbpBrt+qbVXPsWUA9OEYH1okBsMLkZr7wY9lvwLZFkLM8bGPid/amnYo9JuOGX/0XQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=suse.cz;
 	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KnQgBc5L;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=b9Dy6Zmv;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KnQgBc5L;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=b9Dy6Zmv;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=vTfQN7Qs;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UtKAVpYF;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=yWQE2qaa;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3ykvZvOj;
 	arc=none smtp.remote-ip=195.135.223.131
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B81606D80A;
-	Mon,  2 Nov 2026 21:46:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67B81606D80A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B58606A332;
+	Mon,  2 Nov 2026 21:46:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40B58606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KnQgBc5L;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=b9Dy6Zmv;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KnQgBc5L;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=b9Dy6Zmv
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=vTfQN7Qs;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UtKAVpYF;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=yWQE2qaa;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3ykvZvOj
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D3A411FB0A;
-	Mon,  2 Nov 2026 21:46:43 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 668B51FB0B;
+	Mon,  2 Nov 2026 21:46:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793656003; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793655994; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GbOlEoeEjn4AmnKwJIfj7iQ/wucai9bwBp3Ox/nzMzA=;
-	b=KnQgBc5LSsfJB0vBErHP4sXiwRevi1h4AwYob2DboFHAo2gNhr4DMvTb/zodgjrfgN08h0
-	xkSaev+zFffkbIepELvuAWCWQ7bZbqK3uE+15+MBwXr8Gu7WDJVi20W7eXK8R6RTmz+VFu
-	mq3hjR+FGMzjR98w9uDe3yyK+Hcmjjc=
+	bh=r7osJrqKFY47G7pAE+Ny+zpUsVHSKRVVOjeOqegEKbg=;
+	b=vTfQN7QsrjcpoO+6EBD9chZXiAPui7vhF9TL2OeN8dX6/o1iMUZw3q78KD5mDllhaiRi5k
+	1EVXkN3wE/UcFKd97O1y0uKXf48I/OjWLp57E+phnCWnByztxiERhz+DIE51xrdYOFu5eh
+	IRMfExj2IPO6C/HA0pa5UxbWvuOsfWQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793656003;
+	s=susede2_ed25519; t=1793655994;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GbOlEoeEjn4AmnKwJIfj7iQ/wucai9bwBp3Ox/nzMzA=;
-	b=b9Dy6Zmv6zas3gtle7HmkEI71NHDs135kPvAFgqTESsMQP1iAfIAOKsOC066PRJG2GxyLM
-	0WCCYUoyS7Df5CDA==
+	bh=r7osJrqKFY47G7pAE+Ny+zpUsVHSKRVVOjeOqegEKbg=;
+	b=UtKAVpYFIMJA6nIDUXhHWHpn+LUsSQDUTOtrNiTESo8YL1eUK96BeeiiWdE6+31VhuHxVg
+	sjLCVKqt8UOiUyDA==
 Authentication-Results: smtp-out2.suse.de;
-	none
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=yWQE2qaa;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=3ykvZvOj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793656003; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793655993; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GbOlEoeEjn4AmnKwJIfj7iQ/wucai9bwBp3Ox/nzMzA=;
-	b=KnQgBc5LSsfJB0vBErHP4sXiwRevi1h4AwYob2DboFHAo2gNhr4DMvTb/zodgjrfgN08h0
-	xkSaev+zFffkbIepELvuAWCWQ7bZbqK3uE+15+MBwXr8Gu7WDJVi20W7eXK8R6RTmz+VFu
-	mq3hjR+FGMzjR98w9uDe3yyK+Hcmjjc=
+	bh=r7osJrqKFY47G7pAE+Ny+zpUsVHSKRVVOjeOqegEKbg=;
+	b=yWQE2qaaTyV4EzeoQY/t5qDeTau3Y8x+iYxaKnS0OjDoj3aTumaaPExlcXezEmEqA0X34r
+	IV0ymaa3WA/dKUzoWOMKeKAraBJudXiPdcaJYYmq2AlDZU0URH8fDRBAqhqbXlTGotDOJ2
+	JQM683hLmWjVIh0juUvswyta6tmmFD0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793656003;
+	s=susede2_ed25519; t=1793655993;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GbOlEoeEjn4AmnKwJIfj7iQ/wucai9bwBp3Ox/nzMzA=;
-	b=b9Dy6Zmv6zas3gtle7HmkEI71NHDs135kPvAFgqTESsMQP1iAfIAOKsOC066PRJG2GxyLM
-	0WCCYUoyS7Df5CDA==
+	bh=r7osJrqKFY47G7pAE+Ny+zpUsVHSKRVVOjeOqegEKbg=;
+	b=3ykvZvOjSIxF0u1DKG53hDTAaLNtzigAuBbL0gh7O00U33e749Wya4r6BkBZ2RSD2vdhty
+	j5qfOiBObwRZwKBg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A917E134B3;
-	Mon,  2 Nov 2026 21:46:43 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 18D981351F;
+	Mon,  2 Nov 2026 21:46:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id E7BdI8ME6Wp3AQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:46:43 +0000
+	id uXxWO7gE6WqufwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:46:33 +0000
 Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 58D03B16B; Mon, 02 Nov 2026 22:46:43 +0100 (CET)
-Date: Mon, 2 Nov 2026 22:46:43 +0100
+	id BBC5EB165; Mon, 02 Nov 2026 22:46:32 +0100 (CET)
+Date: Mon, 2 Nov 2026 22:46:32 +0100
 From: Jan Kara <jack@suse.cz>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/filemap: clear page cache marks once when removing a
- folio
-Message-ID: <zchm3kq5yykwhxbqgdr5sqkws2bp4qjmah4pcka5ancv4isk2t@co2erj67xpoe>
-References: <20261030-bug-mm-filemap-init-marks-once-v1-1-699835fc6690@gmail.com>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, yizhang089@gmail.com, chengzhihao1@huawei.com, 
+	yangerkun@huawei.com, yukuai@fnnas.com
+Subject: Re: [PATCH v2 1/4] ext4: return 0 instead of stale ret in
+ ext4_iomap_writepages()
+Message-ID: <x3x4mffcmoljjvvlfnahyykduxrvfyokl4hjx7jg2nc4q47rkf@4pkboz2f3fbp>
+References: <20261030021338.1768292-1-yi.zhang@huaweicloud.com>
+ <20261030021338.1768292-2-yi.zhang@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,92 +118,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030-bug-mm-filemap-init-marks-once-v1-1-699835fc6690@gmail.com>
-X-Spamd-Result: default: False [-11.30 / 50.00];
+In-Reply-To: <20261030021338.1768292-2-yi.zhang@huaweicloud.com>
+X-Rspamd-Queue-Id: 668B51FB0B
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.51 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	BAYES_HAM(-3.00)[100.00%];
 	SUSPICIOUS_RECIPS(1.50)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email]
-X-Spam-Score: -11.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,fnnas.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,intel.com:email,huawei.com:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.51
 
-On Fri 30-10-26 01:52:38, Qiliang Yuan wrote:
-> xas_store() clears the marks of an entry before it replaces the entry
-> with NULL.
+On Fri 30-10-26 10:13:35, Zhang Yi wrote:
+> From: Zhang Yi <yi.zhang@huawei.com>
 > 
-> page_cache_delete() calls xas_init_marks() after xas_store() whether it
-> stored a shadow entry or NULL, so a folio removed without a shadow, as
-> POSIX_FADV_DONTNEED and drop_caches do, has its marks cleared twice.
-> With 4K folios that is about 6% of the time it takes to drop clean page
-> cache.
+> smatch reports a "missing error code" warning:
 > 
-> Call xas_init_marks() only after storing a shadow entry, whose marks
-> xas_store() leaves alone. Dropping 8 GiB of 4K folios, median of five
-> runs, averaged over two boots of each kernel, in a 32 vCPU VM:
+>   fs/ext4/inode.c:4518 ext4_iomap_writepages() warn: missing error code? 'ret'
 > 
->                           before    after
->   POSIX_FADV_DONTNEED    1517 ms  1423 ms
->   drop_caches            1515 ms  1422 ms
+> The 'ret' variable has already been consumed by the
+> ext4_emergency_state() check at the beginning of the function, so its
+> value is always zero at this point. Returning it is equivalent to
+> returning 0, but it is misleading because it looks like an error code is
+> being propagated.
 > 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> This branch handles the race with ext4_change_inode_journal_flag(),
+> which flushes the dirty data and drops the page cache before switching
+> the inode to the buffer_head path, so there is genuinely nothing to
+> write back here. Return 0 explicitly to make the intent clear.
+> 
+> Fixes: bdcbb0f19e92 ("ext4: partially enable iomap for the buffered I/O path of regular files")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Closes: https://lore.kernel.org/r/202610160314.PLMEXaOJ-lkp@intel.com/
+> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 
-Correct but please add a short explanation before the condition like:
-
-	/* If xas_store() didn't clear marks, do it now */
-
-With that feel free to add:
+Sure. Feel free to add:
 
 Reviewed-by: Jan Kara <jack@suse.cz>
 
 								Honza
 
 > ---
->  mm/filemap.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  fs/ext4/inode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index b74bc1e5015c6..a0c959e74533e 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -140,7 +140,8 @@ static void page_cache_delete(struct address_space *mapping,
->  	VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index b4d581aa5ee1a..6b2f1b07f41e6 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -4515,7 +4515,7 @@ static int ext4_iomap_writepages(struct address_space *mapping,
+>  	 */
+>  	if (!ext4_inode_buffered_iomap(inode)) {
+>  		ext4_writepages_up_read(sb, alloc_ctx);
+> -		return ret;
+> +		return 0;
+>  	}
 >  
->  	xas_store(&xas, shadow);
-> -	xas_init_marks(&xas);
-> +	if (shadow)
-> +		xas_init_marks(&xas);
->  
->  	folio->mapping = NULL;
->  	/* Leave folio->index set: truncation lookup relies upon it */
-> 
-> ---
-> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-> change-id: 20261030-bug-mm-filemap-init-marks-once-b83c6aa67bab
-> 
-> Best regards,
+>  	trace_ext4_writepages(inode, wbc);
 > -- 
-> Qiliang Yuan <odys.yuan@gmail.com>
+> 2.52.0
 > 
 -- 
 Jan Kara <jack@suse.com>
