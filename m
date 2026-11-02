@@ -1,97 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608255;
-	b=JpZaT14blKbDKI5JsBsBkO46bqTxk1yswgux+CS4/24D0w4BclGZDHa4Mrn6MSruWZKF
-	 SWxk58t04THHby1PUhhJd9Q0UjAn39aY/N+z9MP05aZdYYxGD7f/mGsOHjnMdM3De0wv5
-	 yF0hjTZDMdJG6We/DEWXxDZfIOh+93wFTt68YrOASQi/JfppCp/mHlRUnwldzJAo3e+RF
-	 44YScMRo+1G5d3xNGWSSdVwDYAXZSifOk3eqhROIqZD33ZBkCiPxbdv7tKGZcKEZ/uIJi
-	 Bqof5Td/EACVj3wBOPEKeGRjPomL2ZF8MrTkI1hzofFu6P2lokTQDzGcqKLWsOaQiLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608255;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8KAS6t6RcH5YSPgaYyaJ/vTgjaBHTXeGZTqVGqeK6VE=;
-	b=DZW9b7Zz63YyT0/d8A2zTlDO1gGvrgUBHW4eY4gp2tMizFrQpo1OYPCeFHmzqakEGod4
-	 39bTsPWOKPaxisdofbikVWlZRO07xucx2STrmH5z80ebZQL6urqdkZmDGDjUgqqGxTGdV
-	 unlfnwP/IjAUq50hP3v2LOlhES+r6WaAhU1wk2b/UaW+PnXXi3ZaVUKpZB/sIpkooI/vs
-	 OdZoa4yaebiUXM+ZdMdyf1igiK0VT7KcyJB6zNeNuGGaAWjbZuxGTh6NXbcfiOmDkVQpy
-	 vxVJJSDPGl9piaKL0h20snfFx2sAs7o+RskSL7oItF6U8cQTAzXih9Y58XE77cGJ/bQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="v/R71VbI";
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793608268;
+	b=TyO+GQVrFA3lI97uuRkHyGwodCcSR0Q9om6ZBwCr1Ahpi1Rh0519gnVsoPIUcHV4cq1n
+	 TYgs8up2oCq3mI/Xo/ltg93+6s9zYu9HF4rA0ZxEdq3cIATbTTuMN1NjojMQwqanJanSb
+	 8L+n7VRkox9GOt/Vphv7YdWoQFSREL/h0zLwFL7QS+yK5K0Yr8wMvv6Ac7aQsLqKTZztl
+	 lMEYiyIxtd+fi7CufjL94gst2d/buhxvBzwuQ3FygeWnLgyemgXZaf6Ftm0+BCB3IRLVh
+	 bTCOooTYMkpNyiadqKAA92eEe3gBznIzYNRiiFfGZtGVmV7v7LbiWPdv2SyEB2DeXiw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608268;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=mtJlfq6a7VW/id5znaCNrABg+plgsEAQcVUC6ZfxKeE=;
+	b=SRvEvIvRi3bQRwLzmEgu0o3XiwF+2eDHrfq+rCIfG1S9D/vt5VO4l8EoHBruXlRk/xVP
+	 6Va/Q0HDGL6omGY4eL13D0fBw2w0A46bbZF3rAmm9hZO/DE5xAz/O9mGqiKootUE/fxhu
+	 jbzvQiNsbGZBYmlPhs03u5Sh9YGHB9WTar1H1hJkwcR6ib/Np4LFXVRBBHECDM5RBdbYb
+	 RAunNkLb77K0cbgROOzyMU1zvdeZIsEZ6Y97pJUU++pSrpicVW6DnSBb6tTnpgSwNu5oK
+	 rZ0J4OyXx+43M0n+QlLvLW50sZCkhF1dxTY4dX0KZXAMfpnK9JYqUOnenvKPLENcmyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ptneGtvA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.53
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012053.outbound.protection.outlook.com [40.107.209.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94894606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:30:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94894606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF39B606A326;
+	Mon,  2 Nov 2026 08:31:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF39B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v/R71VbI
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ae702d28c4so1193803a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:30:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793608254; x=1794213054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8KAS6t6RcH5YSPgaYyaJ/vTgjaBHTXeGZTqVGqeK6VE=;
-        b=v/R71VbI6cnNvY44QZUfxxS3nvAjayQwTCB31roEvhq6e3LYeihNBjWtclxJj9UyqT
-         PtnLvi6dWiAM6yXpM9qh6CaPpjOTp148k0o9bCPplMm+h5o3Kmt2uis6Op4ROaAiEYgw
-         w4L93Hdioyphn9IWpltmexJ3N3ISOR2owKEHI8qZeQ+IDu1ZiUIM9aa5bqguqCbtoWp3
-         iGu4/mLvTY6LklooKZSEqT+2aqW5IDjKT3NvssZ0lEbftcf5VFLJOmQexDjwcdrsTtgS
-         HvJLH4RFu9Kbxv52uAKrnWDFH63SWBmtjX38pv/3/2Mf1/YiGCucJchx3q3A4Ma4SWjl
-         bu+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793608254; x=1794213054;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8KAS6t6RcH5YSPgaYyaJ/vTgjaBHTXeGZTqVGqeK6VE=;
-        b=WLk0Nl1kFk0DMc9n4ZW/i8uawi6TPCBeG5ZOByGvNo/Lpew+cxy3kamgEGFqqh4zI4
-         cFPG2z3wLVOtZkDSw7vPvk0cc/08imKlxt0jRqZZfzmLIKSfmU9/YGaOH7aochfBNR5r
-         wcUI5PaBdEqru8SXITyuImoyZWdQ8bVhro4Hn/SBLwukT9VPC8O31zYrzAnOVdK/fSuj
-         2j8yKwh02m8v0K7SbaUNqI2rSKdaxgoeybKTRTrSN11jwTPIDUleDnyH0LtQe8IkL0X4
-         UGPLUvSg2piBt2LUbLEYJfL3Yi3S989gjlJxK8jYUqhFqP1g0lTNARXieclCL+2dfBKu
-         eBsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNT0Edq9/xWUETcrwJ7MZWCNjw8Rk9MBp7zn7q+eKPzAo4PQFHJzUutfQYM6fA/o/0fzOBOaWZ+gqqA4E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CFxtYdZNegAzECLzz2fEubGmukktbnFG97vO0W7QqH81vU984
-	mKZpdqr1JKFB59j0pHSuzMSrlmJSwhiWzfDmHHN3UzyfSeegVLpetbgDdekef+9pJ1ptbA==
-X-Gm-Gg: AYBFou3yTFkm4DyWdJwEF7edW1tgGHLzYVzbOt8ChrSVNrr+uqkUeh09rU3I/Vr2cij
-	UJ/VVCLKLLM4QXjiimfAhAAYI8Q4R2GaLdkRSxK6caqQEUV37y8hfF2SAbDXIrzS/nSdySOCBsu
-	LCl/JN2sE3SVGsEQ8i3o/bajkoLGyiMJJ4PheWa3arWEmKtls8zSj5E50is021wCdM7pkLqxA+L
-	e4h3qyHLX4Mu14StIhxGo344FlsnnCGE+jnzXLAK4/lEnbX0mkhVYZBvhuCZinRQN9A1D4Y6Srd
-	2MKoez0+TZDbY1kDnoBHS779Bb+1vvzl1txvPztyO8V0OZqapjxQnmvj9GQvnuRuDZyB08RNQNi
-	hpDy0kTjn3dmCU4wZD3V14Hkd26FpjAB/tUxjUh+0Jrw3Hn7maCCz3g2PXsuMeHiinK0ZELOT9V
-	Uwouzmn5P+JMzTwoDIFiLgulNRxWcd35FkmMXoay0EjJ8ePdgvKVwREjMpVOYcL3LaPvJI+z/jL
-	XMY/ScqJOmKpeMme89LXDQJ16lSDMF+QMv3j7wyxWrQ534idT60/ds/BarrmEQ5X6QD387vQDfu
-	1AYxpfO3OLGZXClOF+sXMrmQm39tDmZ8svldfnfTbWzUUq+0lRkBycauTeO/aVC0SqOnjDcoGbb
-	4
-X-Received: by 2002:a17:90b:57c5:b0:3ac:b44c:2d84 with SMTP id 98e67ed59e1d1-3ae897cc815mr8182409a91.13.1793608253825;
-        Mon, 02 Nov 2026 00:30:53 -0800 (PST)
-Received: from localhost.localdomain ([155.69.168.11])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845ae5b9sm13365251a91.12.2026.11.02.00.30.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 02 Nov 2026 00:30:53 -0800 (PST)
-From: Yuqiang Sun <izaiahsun@gmail.com>
-To: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: amit.kumar-mahapatra@amd.com,
-	luca.ceresoli@bootlin.com,
-	harshit.m.mogalapalli@oracle.com,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] mtd: virt-concat: Tear the concat down when its master goes away
-Date: Mon,  2 Nov 2026 16:30:45 +0800
-Message-ID: <20261102083045.8512-1-izaiahsun@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ptneGtvA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NYMHFrzpcp5ex8bI9AJIqYsZyqMN6lw1ID+cugncQjc5+AhOcRz8/jsp6CVFoCuZMAM1LSq76F9Zsg5UMvvu6v6mbPYheJTvJKLHYP24YKOLWNB+MPEz59PO94AyG2aMc+sUU+3iHQMZwPN/2J01Ri38ofObh6uUWEYzycrv4LkMZmdxJsMG7k8wx5InGrkFKHmaHXAmNYVtJKmVAtIBlF2dMSjZyJitLVh/JABYn4J0Wg8A3HntIjiS/SFYeUHNJtsEdXxA76Qo+sKt9/nT7rE5S1FpUdaPEFow2m6Z/j2W3vT/lofY5MFhvVy4iDOGGfBUwPVe3uo8+fxe+SWhxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mtJlfq6a7VW/id5znaCNrABg+plgsEAQcVUC6ZfxKeE=;
+ b=rEqSJL5GSkR2dSeGDIoFTMu82nsqOwMe3HDDhkkW4OCKDL7tSSH1HdF8U9ESGZpLKyd3mFcn1Zsj5IeUhM7Rd4xdlvesd76rjq4j8ccywNTUpeErW0lmYvl3pcZygN/FB5Rru/rSaRzq9Dbf+DvaPuC1BWwAkXQ8VNu8bBzC/7aVd29fsR/oh0SG2dkaBwY5lIPPL3QjgGXaI6giMsiVEyJp7vQ5rhiHFhBM/53p2d3cwEwHpaGAQ6xv2oFfMU4Kf1cUUVcKmUMVF6e83sJFsoNUSM4Ej5tcrY7HdjdimDIFYGUKbiQWYqDDAyjJv8kA3buZxh+GHokhIe91uyyg8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mtJlfq6a7VW/id5znaCNrABg+plgsEAQcVUC6ZfxKeE=;
+ b=ptneGtvAPRpLkXDtHC8nZVZtq3nE4ItvktBK60tvOvKq9+BqkvJjm2vJSCBdE9N+0SJy5UpSOVhA7KihrhVYOKigFwk+CTz8dvR74APEn6esb8y7XJlBi7tj7Bl/0I7ZtVIelZvQRnsEzHyyqVbGS3MUxd2dU+m/nyYrlWEsjTWKmhCwszpIl5YBIdrkqDuelESBEBkNUVHqZozwDGWmh+a01QwdckabP3el5lGZoweJciJDAi7cfy6Rv5r4/2vSXF83S8CpqC4yoWj2hKem0nMG8PRJXDnqMiZSu6LptpXgzsD8ZrBLEARRUQc0l1rh5rLV/SDtbemmzG6OGyqExg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by CH9PR12MB070576.namprd12.prod.outlook.com (2603:10b6:610:353::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 08:31:04 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 08:31:04 +0000
+Date: Mon, 2 Nov 2026 16:30:57 +0800
+From: Richard Cheng <icheng@nvidia.com>
+To: Jongwon Lee <ai@linux.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, 
+	Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>, 
+	Alison Schofield <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, 
+	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, 
+	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] cxl/edac: Mask DPA flags in the event record
+ cache key
+Message-ID: <auhH_eBMYqFznZlM@MWDK4CY14F>
+References: <20261101013418.87326-1-ai@linux.com>
+ <20261101013418.87326-3-ai@linux.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101013418.87326-3-ai@linux.com>
+X-ClientProxiedBy: SI2PR06CA0001.apcprd06.prod.outlook.com
+ (2603:1096:4:186::21) To BL0PR12MB2370.namprd12.prod.outlook.com
+ (2603:10b6:207:47::27)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,252 +100,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|CH9PR12MB070576:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa147469-9819-4a35-7638-08df38bba245
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|4143699003|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|261022105027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	k5JQIml5PPWqduV74JSce6PwviHDHWIbwVTcOt+8y9INjtcLSi4VHvq+UvdKLLuq4c2jBFHw2OUBDb0IgoTcMMnw50y6wugqFK7FzEFxjiI7/mPFdK6wBovPlDjqsr2NYhdw0R/hjUk1NvXuxNCHHbuRrPUhfO+4PGfdGOMRz7rysWp9kQdS3eu/dKhNbI2kwPAPT6teCg/5G4en+zDARQWxi6YEWrGK1Mziq8PRd+xE92ynRlGsuTEEzi/fr9ODbf8fXKgnVWSizmEceg2NwZ7iyOtokPx/1LLkmWaSsJjklSLmC33vxBwx4QfSFFNzjg4j5sgb3wMcHn482TIzEeBy5gpNjOWHRAIlAfO8+XrL7rxNi1XWDk8TBgySKoqHQqRvOfkXFON0DY51gd4u96MNQ7j4OJLP9rAVx0v1ZAxa8hKNjJxBimPN3cCP/6xJoGR1OwVKBleVDC7e+BMVcHOHAb/WbXPMmi1JmsaqT2xAgzVX4mJ01o+SU187uY8TZJhv0mkJK0sp3Py6kWjzLsxqFe+bruH3LnoGkg6BMT/4cv0OQ/16xIaSBolyoffQoEyxBLYeupfIM9jKZvI+vd1mSlaLukEUqv+kPjjbnjPJ+kaEbIcv0lBeXfLf5q/3ouxTrUe5V6QO9uh4Reu/zaMCBpZs14gc7XsZKb7DN+w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1wOBz4JTbMcMYtl4xvVvNUvXVCHcRkbjxAqT+E0eBN2JS8OS5i7/BKxJZ41g?=
+ =?us-ascii?Q?qLicaOf+VKf7UV2dsIAN+5V3UAa6y7+StWQz2jegxNhd+cfvlDIv9X1BCXnA?=
+ =?us-ascii?Q?/wxw8GyPIQya/Hd3BvbKR9VaoYIfBSTiptYOeUpWBP+7qJv78rGo9R7z0rMj?=
+ =?us-ascii?Q?RDmIZG7ry0uvxFa4YSOTYeN73TrLQs3ibH2JWIVeE3hqMVXXPzlI8EVVj9AH?=
+ =?us-ascii?Q?JpFY9/hEapZMJDck8h/pRn48tsto89XD15O0ZJcm855H4/tWRfHl/4DLiY9s?=
+ =?us-ascii?Q?dQ2EAeP0+q/OHHSuyRRPCmY8cF37w2e17Kc+vNzwu02azEr5ql1yODfBwMaF?=
+ =?us-ascii?Q?ym5nNTGPjVBBWPPo/6ofdaSDbXClTURtHPo2MLV9CHjAL0Y719Z56Zy9XMGf?=
+ =?us-ascii?Q?RtzzxZduo7TT0quM9Bu4OA3RW7atMsS2u9ST0s+PTT0yqYBunnHOun+LWTbb?=
+ =?us-ascii?Q?FOOwrRBRHQT3oPEWIAt4UgyOtkwL0UvbyLRrA4wvIru04oslG0NUhedf7a6P?=
+ =?us-ascii?Q?mTKRYeDioUAiBeqxwD4TyHWVObxozeFAHtZFwSiU8LH2WEd/Y17c8OSfCBOP?=
+ =?us-ascii?Q?3zUoDk4DTjMQO41BhfjI4kTfyMr5TsE3r57Ie+KuBzefcs2b6kytD1R10WwF?=
+ =?us-ascii?Q?u68u+e99/ITb5t6RwXoQIctKL+BtydEY8DqH/3S5Sz1L8braIp6g9PlpP2NC?=
+ =?us-ascii?Q?v6RjlfluYi8iQAPoavpYWwwKzgrk0RIYgR/NFlrhrorRRqVZE5MhoLJNf38u?=
+ =?us-ascii?Q?cbclkWUwxHUSkcOauqQqR8iOFMO1yAxt6OweeIdGhNZHWMrHX02T0mPhsgi6?=
+ =?us-ascii?Q?DI3TW/XTbeLmbEHGPvaKNdBJ+VZsDtlezBaLUQpRyRWOzOg0sTQbxJ3bYgzx?=
+ =?us-ascii?Q?LWd7j+rOsnSEc48Qhk5E6s2lawfXkXgeaNWKdaEZgkkGQ64cOH0UFOBkqofz?=
+ =?us-ascii?Q?OoufzRTwdTr0ytzNjSnzK9YpKtGfod0KWf+d6sq6mOH1Ld7kVBpH4qat2IU5?=
+ =?us-ascii?Q?IECVFe+c/qt070U/z2xfzWYxBCRiJ3an8yihX6EhOb+vXAni0aU2/5pIcKT6?=
+ =?us-ascii?Q?SUGlRyGxeVFuMWrBl4I5ecFkuA5G6nT2AaDAv/nJ7a2iJrExppVhqpPARbWO?=
+ =?us-ascii?Q?+TbY77RiNOuY4rlb6J2/VSZf3MZDqDp4/VVrt+Jj1Tssa98dHSgT8mGPBTHi?=
+ =?us-ascii?Q?wF+GShCwpbH4ade03k1dD3XNaFJATnh53moMwEnB+5lVxDq3R7VUYwjU4EQ0?=
+ =?us-ascii?Q?KfRY2RN3rOHhYNKofCh6jdHFMHykclpn6/7VdQ8XRIzxaS4ZKkWqYaPzzWti?=
+ =?us-ascii?Q?hiB5dLYuKUSrDXbPpsltoghE/KNoKvJRCngAgJnYIIR6H4JX7umC45l/vhcu?=
+ =?us-ascii?Q?9xi8Jw6KJFc8Fa4PzuiU9lCAH1eXjDiLRljzU1ZIE3vfrNLNWI1aFXTTXTRk?=
+ =?us-ascii?Q?qenz4L59Y1fyMJWkDuoNSNJKJm7Cif1mCpguwjM+x2WvB/c6Zny3SY53Kxtr?=
+ =?us-ascii?Q?DqtqzjLnl/7b14M5H/CYkhV2OWgeBhU5LS2TdcLbetEQ4Waoyp7RGd2oC+78?=
+ =?us-ascii?Q?eOb0n8hlGWB03vjzXTyMl4iIyV8Lo6aQndQVatdYyq4bUQSU2DSXMEczQ4yx?=
+ =?us-ascii?Q?bLXqogRCyZUh/yxg8ovZSUufK5gHdorLv6rCA2xx/1zeWj2CL8JLWXy6X4xq?=
+ =?us-ascii?Q?sps9LN9khS7fEYpzs87eQXyqIYvitLsNFTc2Jn2Q4bY6muqsJzkaKff3Nb8a?=
+ =?us-ascii?Q?5Jm1LdBNEQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa147469-9819-4a35-7638-08df38bba245
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:31:04.6311
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BzqS905OXirK75VViZt9/UIt08EmGeq4WYDm/lIJ/ZjZ+hO0sxKJ7YxIaAbE4S21IcbOADLnVaVyTfui+fBGfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB070576
 
-Partitions that are part of a virtual concatenation are never registered
-on their own: add_mtd_partitions() hands them to mtd_virt_concat_add() and
-skips them, so they are not on the parent's partition list either. The
-concatenated device is registered with a copy of the first partition's
-struct device, whose parent is the master's device.
+On Sun, Nov 01, 2026 at 10:34:20AM +0800, Jongwon Lee wrote:
+> The low bits of the DPA in a General Media or DRAM event record are
+> flags: bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace events
+> report the DPA with CXL_DPA_MASK applied, but cxl_store_rec_gen_media()
+> and cxl_store_rec_dram() use the raw value as the xarray key.
+> 
+> User space reads the DPA from the trace event and writes it to the
+> mem_repair dpa attribute. If the record had any flag set, xa_load()
+> misses it and the repair fails with -EINVAL. The raw key also lets a
+> repair go through for a record the device marked NOT_REPAIRABLE, if the
+> DPA is written with bit 1 set.
+> 
+> Key the records by the masked DPA and skip records marked
+> NOT_REPAIRABLE. cxl_find_rec_gen_media() now reads the record, so do
+> the lookup under the xarray lock as cxl_find_rec_dram() does, and
+> return a bool since its only caller tests the result.
+> 
+> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
+> Signed-off-by: Jongwon Lee <ai@linux.com>
+> ---
+>  drivers/cxl/core/edac.c | 43 ++++++++++++++++++++++++++---------------
+>  1 file changed, 27 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+> index f0c12871bd..94d44a3dc1 100644
+> --- a/drivers/cxl/core/edac.c
+> +++ b/drivers/cxl/core/edac.c
+> @@ -918,24 +918,37 @@ struct cxl_mem_repair_attrbs {
+>  	enum cxl_mem_repair_type repair_type;
+>  };
+>  
+> -static struct cxl_event_gen_media *
+> -cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
+> -		       struct cxl_mem_repair_attrbs *attrbs)
+> +/*
+> + * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
+> + * Records are looked up by the DPA user space writes back, which comes from
+> + * the trace event and has the flags masked off, so key them the same way.
+> + */
+> +static unsigned long cxl_rec_key(const struct cxl_event_media_hdr *hdr)
+> +{
+> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
+> +}
+> +
+> +static bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
+> +{
+> +	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
+> +}
+> +
 
-When the master is unregistered, mtd_virt_concat_destroy() looks for a
-concat item whose DT nodes include the master's of_node. The items hold
-the partition nodes, so nothing ever matches: the concat stays registered
-and keeps the master's device alive (it stays in the idr and in
-/proc/mtd), while the driver frees the master. Reading /proc/mtd then
-uses freed memory, and so does device_shutdown(). The concat's partitions
-are leaked, and since the item's subdev count is never reset, binding the
-driver again writes past the end of concat->subdev[].
+Hi Jongwon,
 
-The matching branch is reached only from the MTD core's module exit,
-which cannot run while the concat is registered (it holds a reference on
-the module). There, a failed add_mtd_device() frees the caller's mtd
-instead of the child. The concat also puts references on its parts that
-it never took.
+Maybe something like the following to follow the pattern of rb_parent
+hiding the packed address and metadata encoding ?
 
-Find the concats to tear down by the master of their parts instead.
-Unregister each one that includes a partition of the master that goes
-away, free those partitions and drop them from the item, which keeps its
-DT nodes and the other parts, so the concat is joined again when the
-master comes back. Do not put references that were never taken, and only
-unregister a concat at module exit if it is registered.
+```
+#define CXL_EVENT_DPA(hdr) \
+    (le64_to_cpu((hdr)->phys_addr) & CXL_DPA_MASK)
+```
 
-Tested on QEMU (arm64 virt, TCG) with KASAN, with two partitions of the
-CFI flash joined by part-concat-next, physmap and the MTD core as
-modules: unbind physmap, bind it again, unbind it again, unload the
-modules. Without this patch the first unbind leaves both devices behind
-and each read of /proc/mtd gives KASAN slab-use-after-free reports in
-mtd_proc_show(), binding again gives slab-out-of-bounds writes in
-mtd_virt_concat_add(), the MTD core cannot be unloaded, and
-device_shutdown() at power-off reports use-after-free and refcount_t
-underflow. With it the concat is removed on unbind, created again and
-readable after binding, and the MTD core unloads, with no reports. The
-same steps without part-concat-next are clean with and without this
-patch.
+Or at least make it static inline.
 
-Fixes: 43db6366fc2d ("mtd: Add driver for concatenating devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
----
+Best regards,
+Richard Cheng.
 
-Notes:
-    The bug was found with kbound, a research static analysis prototype
-    (its report was the add_mtd_device() failure path in
-    mtd_virt_concat_destroy(); running it showed the teardown problem).
-    The patch, the changelog and the test setup were written with the help
-    of an AI coding assistant (Claude); I have reviewed and tested them as
-    described above.
-    
-    Not tested: a concat whose parts are on two different masters (QEMU virt
-    has one flash), and a concat device held open while its master goes
-    away, which this patch handles like a master that goes away while open.
 
- drivers/mtd/mtd_virt_concat.c | 106 ++++++++++++++--------------------
- include/linux/mtd/concat.h    |  13 ++---
- 2 files changed, 49 insertions(+), 70 deletions(-)
 
-diff --git a/drivers/mtd/mtd_virt_concat.c b/drivers/mtd/mtd_virt_concat.c
-index 40b300021dda..ecd5b07d32ce 100644
---- a/drivers/mtd/mtd_virt_concat.c
-+++ b/drivers/mtd/mtd_virt_concat.c
-@@ -57,94 +57,76 @@ static bool mtd_is_part_concat(struct device_node *dev)
- 	return false;
- }
- 
--static void mtd_virt_concat_put_mtd_devices(struct mtd_concat *concat)
-+/* Unregister the concatenated device, if it is registered */
-+static void mtd_virt_concat_unregister(struct mtd_concat *concat)
- {
--	int i;
--
--	for (i = 0; i < concat->num_subdev; i++)
--		put_mtd_device(concat->subdev[i]);
-+	if (!concat->mtd.name)
-+		return;
-+
-+	del_mtd_device(&concat->mtd);
-+	kfree(concat->mtd.name);
-+	concat->mtd.name = NULL;
-+	if (concat->mtd.numeraseregions)
-+		kfree(concat->mtd.eraseregions);
-+	concat->mtd.numeraseregions = 0;
- }
- 
- void mtd_virt_concat_destroy_joins(void)
- {
--	struct mtd_virt_concat_node *item, *tmp;
--	struct mtd_info *mtd;
-+	struct mtd_virt_concat_node *item;
- 
--	list_for_each_entry_safe(item, tmp, &concat_node_list, head) {
--		mtd = &item->concat->mtd;
--		if (item->concat) {
--			mtd_device_unregister(mtd);
--			kfree(mtd->name);
--			mtd_virt_concat_put_mtd_devices(item->concat);
--			mtd_concat_destroy(mtd);
--		}
-+	list_for_each_entry(item, &concat_node_list, head) {
-+		mtd_virt_concat_unregister(item->concat);
-+		mtd_concat_destroy(&item->concat->mtd);
-+		item->concat = NULL;
- 	}
- }
- 
- /**
-- * mtd_virt_concat_destroy - Destroy the concat that includes the mtd object
-+ * mtd_virt_concat_destroy - Destroy the concats that include partitions of
-+ *                           an MTD device
-  * @mtd:        pointer to 'mtd_info'
-  *
-- * Return: 0 on success, -error otherwise.
-+ * Called when the master of @mtd is unregistered. Partitions of that master
-+ * that are part of a concatenation were never registered on their own, so
-+ * unregister every concat that includes one of them and free them. The other
-+ * parts stay with the concat item, which is joined again once all its parts
-+ * are back.
-+ *
-+ * Return: 0.
-  */
- int mtd_virt_concat_destroy(struct mtd_info *mtd)
- {
- 	struct mtd_info *child, *master = mtd_get_master(mtd);
--	struct mtd_virt_concat_node *item, *tmp;
-+	struct mtd_virt_concat_node *item;
- 	struct mtd_concat *concat;
--	int idx, ret = 0;
--	bool is_mtd_found;
-+	int idx, n;
- 
--	list_for_each_entry_safe(item, tmp, &concat_node_list, head) {
--		is_mtd_found = false;
-+	list_for_each_entry(item, &concat_node_list, head) {
-+		concat = item->concat;
- 
--		/* Find the concat item that hold the mtd device */
--		for (idx = 0; idx < item->count; idx++) {
--			if (item->nodes[idx] == mtd->dev.of_node) {
--				is_mtd_found = true;
-+		for (idx = 0; idx < concat->num_subdev; idx++) {
-+			if (mtd_get_master(concat->subdev[idx]) == master)
- 				break;
--			}
- 		}
--		if (!is_mtd_found)
-+		if (idx == concat->num_subdev)
- 			continue;
--		concat = item->concat;
- 
--		/*
--		 * Since this concatenated device is being removed, retrieve
--		 * all MTD devices that are part of it and register them
--		 * individually.
--		 */
--		for (idx = 0; idx < concat->num_subdev; idx++) {
-+		mtd_virt_concat_unregister(concat);
-+
-+		for (idx = 0, n = 0; idx < concat->num_subdev; idx++) {
- 			child = concat->subdev[idx];
--			if (child->dev.of_node != mtd->dev.of_node) {
--				ret = add_mtd_device(child);
--				if (ret)
--					goto out;
-+			if (mtd_get_master(child) == master) {
-+				kfree(child->name);
-+				kfree(child);
-+			} else {
-+				concat->subdev[n++] = child;
- 			}
- 		}
--		/* Destroy the concat */
--		if (concat->mtd.name) {
--			del_mtd_device(&concat->mtd);
--			kfree(concat->mtd.name);
--			mtd_virt_concat_put_mtd_devices(item->concat);
--			mtd_concat_destroy(&concat->mtd);
--		}
--
--		list_del(&item->head);
--		for (idx = 0; idx < item->count; idx++)
--			of_node_put(item->nodes[idx]);
--
--		kfree(item);
-+		concat->num_subdev = n;
- 	}
--	return 0;
--out:
--	mutex_lock(&master->master.partitions_lock);
--	list_del(&child->part.node);
--	mutex_unlock(&master->master.partitions_lock);
--	kfree(mtd->name);
--	kfree(mtd);
- 
--	return ret;
-+	return 0;
- }
- 
- /**
-@@ -309,10 +291,8 @@ int mtd_virt_concat_create_join(void)
- 				name_sz += (strlen(concat->subdev[idx]->name) + 1);
- 			name_sz += strlen(CONCAT_POSTFIX);
- 			name = kmalloc(name_sz + 1, GFP_KERNEL);
--			if (!name) {
--				mtd_virt_concat_put_mtd_devices(concat);
-+			if (!name)
- 				return -ENOMEM;
--			}
- 
- 			ret = 0;
- 			for (idx = 0; idx < concat->num_subdev; idx++) {
-diff --git a/include/linux/mtd/concat.h b/include/linux/mtd/concat.h
-index f8d4d6ac1fc1..ce9824567f98 100644
---- a/include/linux/mtd/concat.h
-+++ b/include/linux/mtd/concat.h
-@@ -62,16 +62,15 @@ bool mtd_virt_concat_add(struct mtd_info *mtd);
- int mtd_virt_concat_create_join(void);
- 
- /**
-- * mtd_virt_concat_destroy - Remove the concat that includes a specific mtd device
-- *                           as one of its components.
-+ * mtd_virt_concat_destroy - Remove the concats that include partitions of a
-+ *                           specific mtd device as components.
-  * @mtd: pointer to MTD device info structure.
-  *
-- * Returns 0 on succes, or a negative error code.
-- *
-- * If the mtd_info object is part of a concatenated device, all other MTD devices
-- * within that concat are registered individually. The concatenated device is then
-- * removed, along with its concatenation component.
-+ * Returns 0.
-  *
-+ * Called when the master of @mtd is unregistered: every concatenated device
-+ * with a partition of that master is unregistered, and those partitions are
-+ * freed. The concatenation is created again when all its parts are back.
-  */
- int mtd_virt_concat_destroy(struct mtd_info *mtd);
- 
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
--- 
-2.53.0
-
+> +static bool cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
+> +				   struct cxl_mem_repair_attrbs *attrbs)
+>  {
+>  	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
+>  	struct cxl_event_gen_media *rec;
+> +	bool found;
+>  
+> -	if (!array_rec)
+> -		return NULL;
+> +	if (!array_rec || attrbs->repair_type != CXL_PPR)
+> +		return false;
+>  
+> +	xa_lock(&array_rec->rec_gen_media);
+>  	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
+> -	if (!rec)
+> -		return NULL;
+> +	found = rec && !cxl_rec_not_repairable(&rec->media_hdr);
+> +	xa_unlock(&array_rec->rec_gen_media);
+>  
+> -	if (attrbs->repair_type == CXL_PPR)
+> -		return rec;
+> -
+> -	return NULL;
+> +	return found;
+>  }
+>  
+>  /* Caller holds the xarray lock. The record may be freed once it is dropped. */
+> @@ -949,7 +962,7 @@ __cxl_find_rec_dram(struct xarray *rec_xarray,
+>  	lockdep_assert_held(&rec_xarray->xa_lock);
+>  
+>  	rec = xa_load(rec_xarray, attrbs->dpa);
+> -	if (!rec)
+> +	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
+>  		return NULL;
+>  
+>  	validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
+> @@ -1130,8 +1143,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
+>  		return -ENOMEM;
+>  
+>  	old_rec = xa_store(&array_rec->rec_gen_media,
+> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
+> -			   GFP_KERNEL);
+> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
+>  	if (xa_is_err(old_rec)) {
+>  		kfree(rec);
+>  		return xa_err(old_rec);
+> @@ -1160,8 +1172,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
+>  		return -ENOMEM;
+>  
+>  	old_rec = xa_store(&array_rec->rec_dram,
+> -			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
+> -			   GFP_KERNEL);
+> +			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
+>  	if (xa_is_err(old_rec)) {
+>  		kfree(rec);
+>  		return xa_err(old_rec);
+> -- 
+> 2.55.0
+> 
