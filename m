@@ -1,120 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626711;
-	b=SZVer63j6hmAhU+E8UgkOvWq/5WuvuLcv2JRhuFY1J+XXxno6ThsxQPK+YbxoGPZofCq
-	 cXVDgCt5Pt2Xyv49hKMRTAxJnpUMOkcBfApXYyL4mfpr+Qz3aL8NGcOqdC+uWnwNcTSrP
-	 +Fy9iK/qMEuLb0vOfgUctACXYrm2gwomjGyypyra90Z1tf8ueHA7KY+SBpDlw7z4s5t0j
-	 2dhWY1pSa6q8EgmrKqDlO1/huHK3krcf23Ah7rFPlgII0k2c/R+3uzinLzhAttBSrJTDe
-	 OzbE1GJEvbRUSN8JD/SXPsA1nyLniTLCISuPymk8zL+Ls9hFX216djpXZ8/XUjmsG3w==
+	t=1793626764;
+	b=zJtq2TnOscTfYQEowOjsk6mCzKX60d3Sp6Cc4k4QjCwu/rxxJnktj/TvWUkrFgfoADsO
+	 X+mdr+sQsSXvLmOUvPG6YVUhOdQOyNwGaL7nY5KCSn0U3aoVT01gToIvTOfjWwVtN/vs7
+	 mb5G04czO9b/cA6tirjqkaNmRyXxLYoXTFOhvztR2c1AMvtCTSGFMJtuPIwsYyY8d11VV
+	 kIt0UbP4NVBl2S5lGoPv+3SrO4Ka0MDC02k1EKdG5DCZRnlULsn/ykv58RiuMBQ3z9h49
+	 J5wFKizplcFCXwBhalzKqb9bUiHQaCin0bNUXm/nzPgCL2IiF9SFtn2OAnVkds1KgQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626711;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=/f2A5wNOFNtrqG9jwc/qXpyGtWH8hqeuDCg3F2LvLAU=;
-	b=qIlciwaS3uU1Aty4hiy/WjgY5E7jq8T8AewhoGRtfH/clRxZpQl/9/j1EnxHmCXP0+g0
-	 PuRdDb7ODIwnk2r82QsJIRQbaRZ3kpgJ4NpY57E1zhybLj6Bt6XBwtp6vouNW6BOvaw5T
-	 ZvFSexOj8PmUcbzb87Qg6Ioad9gSGrirrWe9AcPET9H/l3cjdGlxO9NWQ0MG2prAYGyyU
-	 BY4aFF1wZryNo0Fbw/Sq3jTOJQtZmJW/R15a+JTt9RthWut906dUgvU81P5H/1UFI9mHX
-	 Xj9N+DIxQLYVWuWBds6wN5v+yzaa+AVzFqNVrwj6/O+6S7wt4xF2s1jybzC5goL52QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626764;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=R/MiW9VNy80Q9uOkhpysUgXCib54TiZt5zURlJeuqHs=;
+	b=VLZEhHVcSk2DRyX4pdq9BgiC81qpz83V5CmSagKQrT3efBybOkmhOYJ889Ab9ypnrPF3
+	 Qp2FKN1KGwbgoBqSmHPZ82uKppjcZvOuAgrt09D1hU9uDg+aJyeZZ9q+90Ej5pLvdCqrD
+	 EKRUaSsUv1JOpdygr11YCxCgGCzII10/ccWs6Q2Sgt3DWLlymV306rPBXZaTXO5wMKM2c
+	 tHV6Smh80Kf6bIS+DGZYmdNbasjTn2MVyT1LBBk3hZHyoocD/W//JGoJGa3tWfjvX7rW7
+	 EJXrJ8ElD1BKPOqqz58PBjbibTlBCnH2H5zfAPCGK+G2U6bZKlMeeE+MT8zdalJNruA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="KMQLsu/d";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mi7TfXCn;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6GzueEm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF1F606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:38:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEF1F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C3C606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:39:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KMQLsu/d;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mi7TfXCn
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAHb82902177
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 13:38:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/f2A5wNOFNtrqG9jwc/qXpyGtWH8hqeuDCg3F2LvLAU=; b=KMQLsu/dZ+9p+xSa
-	RFz1+xEPMEHgJy+HNNzDUcWqwXvco0yHJXy1nCngbWDJo0QZeKwDGdvpBEX0Z7fX
-	4CQLX4pRb/8S90Z1wag9ZwZPlbbpWsPJVsjKNivF1g7aJuP3ySaIQn7ZLigzmoNC
-	hL9HVMok4zlU0HDNwN2C0ed8m6NAzdsuCVqeMEArqGlnmZpwgBdjx+vTO2hRXr3N
-	bqWa4/4u1IzzhhnRwK/ZjFoLjzxU9PxmNVVVFbR57xWMAzZkfnBiYhuQlaObuX3b
-	biaPJ3OBPTBKhwsul0hOS9mzC379i0yNuIL72FklOYCE4puOog7ln6A+dHs+mvRD
-	x7FSuA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpsavghsw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:38:29 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7c10b8abe29so2453169137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:38:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793626709; x=1794231509; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/f2A5wNOFNtrqG9jwc/qXpyGtWH8hqeuDCg3F2LvLAU=;
-        b=Mi7TfXCnwNgz6/urgUY6Pxfug0qftuVxqHF3pJnlxvZJPZMtf049dekM9/DdFqKSOw
-         CaU6nuXzZEn/WDuOXfF8+xnIgY+izpqYLLNaFIUqNVHh7q6POLPPwaBfgOdLLz7gyg9f
-         AngnM3b/bFhSfQF/h8xsKr36YvPbysGBiKax7mN3y4sIOi7IrNpP4b3i0HzIvpDlpeSy
-         emsXgctD9TMDYFgao1JGwZvEKvlFF/YIuRZdseOqTVbccBGylKy6J9bCF1v084KVaNyG
-         cstKDpkKTupMRCZL+IWwvFilEsZMFqcqCuRulhra4LA/QnrpIdZxllJ3YJD1UjmF3ftf
-         ahRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626709; x=1794231509;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/f2A5wNOFNtrqG9jwc/qXpyGtWH8hqeuDCg3F2LvLAU=;
-        b=Kq7sVVPSK4Zm0koDzcL6ti6WSD7WPFzhtEBFMkOgXoKNg12xuAZvMrpy/qo1eQtQ14
-         pBLSoHcAfcH0PSv2QqgqxNeXXqx+vqdRLsf1sKFfnxBuvg3M33uzQSPmmJFl1D6nA8X9
-         +fIkvQXyDhjckyTn4kY6RnL3/gOP3sxki1IeeC5/Oz5/42eCd1G3fA0Eeg6qEXhr3Fy4
-         tlhzg3gjLDdmQqOWJjAAwAPnyMJOsI17ddXhM309YNukSM1b89S4alVTaBCLlmADGGuT
-         HL5In8ZmCfVNyJEyePPM+TsShJM0+8DNL3cq/C2zJwQEpe0yH2ZDioL7Uz6hfwFo5H64
-         e7lw==
-X-Forwarded-Encrypted: i=1; AKwUvBz9OML+HFRm9y8AFp4Y536xomAGTQAhHpamUvB1KlPtdRj//rrz8gZul32pM+meG2BLPpVCma8XZATOe0o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZZS2SSMDEI6yvtq2o4tpbjwBPmiuJ5HEtLTpLhucXLRMI9I7Y
-	OIY+UyZs7b2hZ/IwwAxbCE2jaJi8NiZFAyBPuqWr6BbJLYP9nw82UfHkKz8k0LDpyyI9RNLc2og
-	GwTmzfQy2Rns7O61pwzC1/s/AtC2NhKGiGNoZpAOSZtey0VOz6pJT8QEwRjEH2Ih8Y3g=
-X-Gm-Gg: AYBFou0NzPF90te7U/JKE9nSN36YO3ApfWq6Tc8vmj9iKFz+OfPKuvOhJyMO5a3xGEv
-	ECxqpcrFPUlu2b7PKocZg/z4419rZJB7iQQ/lGrl6mLabfaizp73Ss54BdAgO+GJorfsWVFpXVG
-	SP8DEeRHj0nCCHkAIvnJSnG+P9ktgdOBg9z1T3xt28R32mg+lM+0xhTm8pUJdASDj2D1NB2JtXM
-	Yt1vKMLvnuagBtYrlf8cel4TkPkraJYmUULpfLMwugZ4+Nek6YssrQqwwpBXz9xC0sCv/pfxDG5
-	O50UzCtoHmgB1oZ0BeL1dDjW+kiWWmGoUVRKl6qBqcpKglE4WuxNw6fwOv+hs2qSrR4RGLtoAP3
-	z6OoqGtIDco6vNU58pwQG2BX46W6/1yWd+0RtI+13IILv0mtZOSnVsPhDP4PMW7OU5VxHWrr5jF
-	gR
-X-Received: by 2002:a05:6102:f88:b0:7cc:1192:5636 with SMTP id ada2fe7eead31-7d07262e924mr3971074137.12.1793626709133;
-        Mon, 02 Nov 2026 05:38:29 -0800 (PST)
-X-Received: by 2002:a05:6102:f88:b0:7cc:1192:5636 with SMTP id ada2fe7eead31-7d07262e924mr3971063137.12.1793626708667;
-        Mon, 02 Nov 2026 05:38:28 -0800 (PST)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e88876946sm1194928f8f.5.2026.11.02.05.38.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:38:27 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpio: mpc8xxx: Fix potential use-after-free of IRQ domain
-Date: Mon,  2 Nov 2026 14:38:25 +0100
-Message-ID: <179362670032.76770.9373132482307036196.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <a4fec7fe970d6fc9135b488f57ba7e145b809359.1793377433.git.liguangshuo@mail.sdu.edu.cn>
-References: <a4fec7fe970d6fc9135b488f57ba7e145b809359.1793377433.git.liguangshuo@mail.sdu.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6GzueEm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1786C1F00A1F;
+	Mon,  2 Nov 2026 13:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793626763;
+	bh=R/MiW9VNy80Q9uOkhpysUgXCib54TiZt5zURlJeuqHs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=d6GzueEmMKMkMK7IGQLKu4z2aDrM1ElQKly5fKX1CcgzASh85t2PTWjmF/dTm95Bi
+	 Plo+StlOCBkHEkhQ3Rmxfsw7v4fC3zZ+gIu0Vexsenaw8l/f5lEvm7prcARz5CeWWV
+	 cN/axK8q93lO9gn6VbprsWVgP6SVoVDm/9wFnOThSHl3VR2up97iuvqJZTMqFfRTt3
+	 6zZiGOUepKl3XkMZIrtGi7bhyIKBIqHZ1AE30SqDA+lpu5J8Z/WXVKevcRTvr1l6sh
+	 lTnAIWB2Io3z5+x4OUz48h/q/nqMN2ptSp6rqEwmJrBqsho0WZeLq6lPsRYhmxcsu0
+	 /f5TqV5UF5GZg==
+Message-ID: <e06c0bdd-4d5c-4d08-8bbf-a26c4b38c6ae@kernel.org>
+Date: Mon, 2 Nov 2026 14:39:19 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,52 +51,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfX4I6K63zvGeHT
- oUUNpa7kBngpBZrFiw8ydCnGsSKN5tdO7i/BJfgTp9+4aGdG4VxvDXf+5NxTjOuyecH1ZstW3NG
- fhkOsGRmy+rm5/37ErzsH6AXRuTfwovjXC9SSKsKQCosQFF+MblEqarPqAWulmi614BNlPCgIzm
- qDJDVT8ABLX0F/+QcAtqe61KJwNhF7J5AticAyRvBIk1caJPQiI0rAR4LOUaiQIdJs0VpH83UOg
- iFIkHiEw2t2d3DmqGlZC+V40cgErwB1PqO68mdkcsavTgtnYIf9wjdikA7AY9/ZeLLhhT3ZH7zZ
- Vc6woZqkT8K/gRQ0z82v8+RaNavtjxuFpZ+FehOw8PLWWbMcC3QDxYLIRz92zMooPN5mD4evYBp
- qOtUNyKSVue7fsa4/fK4qGZWEpay70yQStODId/rsmWfqUph1hjmNcQJJ//c3Mv8FcpjfuJ1189
- xBeO88YdXMjAoSbQJtA==
-X-Proofpoint-GUID: tngBC2sH8axHs1qj8TKF94XPdsMuqK5p
-X-Authority-Analysis: v=2.4 cv=FZmiV5+6 c=1 sm=1 tr=0 ts=6ae89255 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=iSS-Be4OmSBwA7muS1YA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfXxkqzoUQYPyYM
- WLo4i7K529HkYwLAyHn89RPh8AyqOf4HKfP9KKWZiSUmGAXYYVRSQFSL3n+3mqH1Ks4PZ2nyJBw
- nW/xaTW/nW1rViDu5LCP9rTi2dC/8Dk=
-X-Proofpoint-ORIG-GUID: tngBC2sH8axHs1qj8TKF94XPdsMuqK5p
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0 phishscore=0
- malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020054
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/ksm: avoid unsafe anon rmap dereference in KSM merge
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Rik van Riel <riel@redhat.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Zhao Gongyi <zhaogongyi@bytedance.com>
+References: <20261102-ksm-anon-rmap-fix-v1-1-68962acfb59b@kernel.org>
+ <54e20549-ca49-4d86-90fd-9f5e483d362d@kernel.org> <auiHNPkbB0p7-2GI@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <auiHNPkbB0p7-2GI@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Sat, 31 Oct 2026 21:05:41 +0800, Guangshuo Li wrote:
-> GPIO chip cleanup can call the to_irq callback while releasing requested
-> GPIOs. Removing the IRQ domain first leaves that callback using a freed
-> domain, both on removal and after an IRQ request failure.
+On 11/2/26 13:55, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Nov 02, 2026 at 01:49:02PM +0100, David Hildenbrand (Arm) wrote:
+>> On 11/2/26 13:32, Lorenzo Stoakes (ARM) wrote:
+>>> When KSM examines candidate VMAs in scan_get_next_rmap_item(), it
+>>> accumulates (mm, address) pairs in ksm_rmap_item objects, assigning them
+>>> via get_next_rmap_item(), pinning folios via a page walk in
+>>> ksm_next_page_pmd_entry().
+>>>
+>>> Throughout this operation, scan_get_next_rmap_item() holds mmap read lock,
+>>> which it drops afterwards.
+>>>
+>>> After the mmap lock is dropped the VMAs might be freed and remapped where
+>>> the VMA belonging to the folio was previously mapped.
+>>>
+>>> mremap()'s ability to change where anon folios are mapped is dealt with by
+>>> KSM by essentially avoiding the problem - prep_move_vma() unshares KSM
+>>> folios, and the scanning logic is tolerant of concurrent remaps, discarding
+>>> stale ksm_rmap_item objects and allocating new ones at the new address.
+>>>
+>>> This doesn't account for a new VMA being mapped over an old one where a
+>>> folio was previously mapped, so KSM accounts for this by checking things at
+>>> the page table level.
+>>>
+>>> However, once an anon_vma's reference count reaches zero, it is freed, but
+>>> nothing clears folio->mapping, which is where the KSM pin interacts badly
+>>> with the current KSM implementation.
+>>>
+>>> page_address_in_vma() is consistently used to look up the folio's address,
+>>> but page_address_in_vma() explicitly states:
+>>>
+>>> "It is the caller's responsibility to check the page is actually within the
+>>> VMA."
+>>>
+>>> And KSM violates this, as it cannot know this to be true. This results in
+>>> this function performing a use-after-free:
+>>>
+>>> 		struct anon_vma *anon_vma = folio_anon_vma(folio);
+>>>
+>>> 		...
+>>>
+>>> 		if (!vma_has_anon_rmap(vma) || !anon_vma ||
+>>> 		    vma->anon_vma->root != anon_vma->root)
+>>> 			return -EFAULT;
+>>>
+>>> As anon_vma->root is dereferenced when anon_vma can already have been
+>>> freed.
+>>>
+>>> This is currently benign in practice, as anon_vma's are slab-allocated
+>>> objects so this will always be within the direct mapping and arbitrary
+>>> memory will be treated as if it were a pointer to be compared.
+>>>
+>>> This either results in an -EFAULT or a spurious match, which will be
+>>> rejected at the page table level.
+>>>
+>>> However we mustn't UAF even if it's harmless, and KASAN rightly flags this.
+>>>
+>>> It turns out we don't even need to use page_address_in_vma() as we already
+>>> know the folio's address, it simply needs to be passed through.
+>>>
+>>> This change therefore updates KSM to do this, sidestepping the issue
+>>> altogether.
+>>>
+>>> Explicitly check for KSM folios in try_to_merge_one_page(), which are
+>>> already merged, and by definition never have an anon_vma.
+>>>
+>>> This was previously handled implicitly by page_address_in_vma() as
+>>> folio_anon_vma() returns NULL for those.
+>>>
+>>> In many cases cmp_and_merge_page() will reject these, but it's possible for
+>>> KSM folios to fall into the unstable tree there, so eliminate that
+>>> possibility by checking for that early.
+>>>
+>>> This maintains existing behaviour.
+>>>
+>>> The bug was introduced by commit 21d0d443cdc1 ("rmap: resurrect
+>>> page_address_in_vma anon_vma check") which first dereferenced
+>>> folio->mapping unsafely, but commit b8c8ba73c68b ("slub: Introduce
+>>> CONFIG_SLUB_RCU_DEBUG") made it visible with CONFIG_SLUB_RCU_DEBUG enabled.
+>>>
+>>> Fixes: 21d0d443cdc1 ("rmap: resurrect page_address_in_vma anon_vma check")
+>>> Reported-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+>>> Closes: https://lore.kernel.org/all/20261031182256.40205-1-zhaogongyi@bytedance.com/
+>>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> ---
+>>> David - this seems benign in practice, so I'm not sure whether a backport
+>>> is required here.
+>>
+>> Ok, thanks. Is there a similar problem as with the other anon_vma->root issue
+>> where a false positive match could be problematic?
+>>
+>> I suspect not.
 > 
-> Register domain cleanup before GPIO chip registration so devres removes
-> the chip before freeing the domain.
+> No, as it checks stuff at the page table level later.
 > 
-> [...]
+>>
+>> In that case I would pick this for the next merge window after a couple of days.
+> 
+> Yup, this is far from urgent.
+> 
+>>
+>> [...]
+>>
+>>>  {
+>>>  	struct folio *folio = page_folio(page);
+>>>  	pte_t orig_pte = __pte(0);
+>>> @@ -1515,7 +1507,7 @@ static int try_to_merge_one_page(struct vm_area_struct *vma,
+>>>  	if (page == kpage)			/* ksm page forked */
+>>>  		return 0;
+>>>
+>>> -	if (!folio_test_anon(folio))
+>>> +	if (!folio_test_anon(folio) || folio_test_ksm(folio))
+>>>  		goto out;
+>> Okay, that makes sense. We don't have to check under the folio lock as KSM
+>> doesn't merge concurrently.
+>>
+>> Do we want to assert in write_protect_page() that we are not getting called with
+>> a KSM folio, similar to what we do with large folios in there?
+> 
+> Sure could do. I wonder whether that existing check should just be a
+> VM_WARN_ON_ONCE() anyway, seems a bit silly to if (WARN_ON_ONCE(...)) return
+> err; there.
 
-Applied, thanks!
+Just what I was thinking.
 
-[1/1] gpio: mpc8xxx: Fix potential use-after-free of IRQ domain
-      https://git.kernel.org/brgl/c/ede1a6a551d3728165b31b494bfaae73b328354e
+> 
+> Do you want a respin for that or happy to add?
+I can fix that up when applying. If there are more requests for changes, let's
+do a resend.
 
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cheers,
+
+David
