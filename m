@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793596450;
-	b=Kb25vy1DyI/cSVfnG6o9hvGgdmvHzusdgw8JfkyHK0jNcx9EO9mo/XcyMlVA8mn3YuqX
-	 RPrO4QOb5pnBwVRPrCoFPyHdny1TNBIOdXQY3Zy5jCSJSqnsDY25op9KivtPnt9FMio5Q
-	 Sn5But3N0Lrf8308NjcUj5qvjNv/JPjAQyKazloiyNAcJrdq/MLj/+FChFnhusVAA7yIU
-	 tA43PL3m+pyHh1R4+Q//ugE2MSg2is4YmXoOPAadBWzwuEd0HdWxPTTmwByxzUkH/JCOb
-	 +lYDq3IHbL+Q4YRRgNrMNXSgENh7OAz9jLpAXjVfYJiJdg3DExnbNGVhnTccU3QKB8A==
+	t=1793596451;
+	b=dIrEZcEig4cV0YA0B9DnMq94FYPukGDKjqlfoSSrSKwBHGmtrmezY//VWI21pT2K3V44
+	 NytqEotliiMc2IIuqgVEbeWTBmyvUFTj9wUM5DCJ8nQNsAoVAu7l/6PBVhhVenoR8VStQ
+	 acMP3e0ArUvZUzOdybSgM7X5e7rQ3cR66xhQ9bz2npi8N09R0d1EgSu7mCBpHB0/cN+V/
+	 cOFBaL69lnlz/SsyXQIr9rutQly5/6FwlUtK9Lrnv59tAA/z2fuadbb3F3Ux2bbK3Kf6t
+	 A2ig/ZBBqqqQ9yp69Fbu6Q/1q//fmTgwiYP/bbZibUikirTtFwjjDxTm2UHjIZLOM4Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793596450;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=6nXMXQjY9+cB3aji30VLYEiRwuVBc2jJoHH3tGpMNSw=;
-	b=3eKdU1D2rgy8kARxpMBrv3V+OCvmnaMfYOLhIWMwXxzXad0cvPp9w+yFpf+ejn9IUB/x
-	 //1uKi73rKffAV7iU64XSsCMJyq2kufE/LboiCJnrmOY+clN3RsEpDGjIhox8nWwBup5w
-	 sJkADh7PyJg34CqKWtcgIJB9Xf0LzonUz0hveIrURdrS5ZUzylbTuiVCZKV6rXVmTGEj3
-	 /MauW13MZnO20v3dvpZPQUHq7U353iYFGgo23zoLSx1YPHOGWWn1J794TL6XfnknMCqAF
-	 VpMiQHJnxHIYXopP/tOyt+n9cZJ0JbzwklXiIp8q0DNaYIjmw9CgsBEy3k/088QAQwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793596451;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XVpNLH2FiGtscLNxG2j1l4l4r0lRErkiBU7Q0Ju5Pww=;
+	b=EXLxZreBtnyjZdfOpyOaDbU0QlvGsIwvMBjmb7uGgJmXmOC8wB3vXSVCXQ+Q4OoB6ITQ
+	 3lNmI9XBJ7ObpzjmQ5UQbwZBlBMG737Cvr07saBzok5xLU5XWGKSXXrA+HrWSAPMKFuaW
+	 s5rR8mFGxT/1qiMsuoYd0lF9rCOXwhXJqd/9aFgXHoWAVIy6GIb3T49Ov8cM4e+0UoRhC
+	 2Y7sMUpqRlwGucsWIljKkghfLjupnBkpL3ydKvpEDyqodSNdmjnx0cFxUzFXIfWqYyJBe
+	 cdrVu7PThPBhbNGZRjOId1J/nBwjM/L49/8KHmbiPwhdLcwGpj/iw9N1SjWnyvlEz7A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZhF5OG5y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m75/0I0P";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E00606A32D;
-	Mon,  2 Nov 2026 05:14:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988E2606A33E;
+	Mon,  2 Nov 2026 05:14:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZhF5OG5y
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m75/0I0P
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793596450;
-	b=rcrEeXfQb/16X/pBek0C1YWzBT+K1iRzr+89BSvP8xj/Ness2h6GvfZmOfrOVprxi2Fa
-	 kWnADhlRNkcjZ6rl0Md+c3cQaYzTHKg7IjWxcSaEJ3FaQJKVQ7CV7wNx3IxDg75yfU+o3
-	 BMqOlp+OIpdmYVT9XhF9sK2H1IMGovqMIscYpoEXv+mRrnVCnMkVg5fiNSZjhWVw2Jrhv
-	 7eE2xB6en3XfPJYnQ9j0wXzO68DaKQ368vhp6PEITiTUVvKYgncnlEs1U2xOt7ztZ7qSf
-	 7LOtWK8/oG/fERCrWlC/jtMqTzBfXiqSZ1VM63upwAHLbRtOii4fv8GrdvGY8fiii3g==
+	t=1793596451;
+	b=0GuZFyoX0iSk1sYLZdM4tkNXhp4HJJR5znm/WIeTRO0qv0XRikOO6pXBGEh36ZoCigjA
+	 YehbQ6bgkZbalgPkGC+FAxUe9OY1Mlb6QHC7vgFnYihxpEPEWgnlEgrVWblvC/alq0fhL
+	 aggx2+lScsgLKUxbIIzkLD1lh8o9QXUJO4pgoCvYtjXkJ+L43AyVK4UP4WEZP0Ii+vrd/
+	 jaVAWKvwrrWCkkY3p2jh+lmZD/gCBSe5/Uc5N7Osfwc5IVfYHsATL1vu6cnj0XGg0CAo+
+	 z3btkCKUgpKSjUaEmz9oflkRX5IW3TXRjmrv+BuAobQsDMB3twGhj0qZ2WxvqkJd06Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793596450;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=6nXMXQjY9+cB3aji30VLYEiRwuVBc2jJoHH3tGpMNSw=;
-	b=hiJLQxn1y8k5NsZ2yu0HoIy67AlCaGwi8vTHYpx68KYPzDPeEng4lY6y5IbsnkeeGPJ3
-	 d0NKse407d78mfvi6f2MUtpKmkY2AateDfpTZXWdQ9oPic8iBIS5QAgJtMWaXhVcl0gTC
-	 ZowVU6EkxVbvyjKoKNdIQqJkzp60ZXZdrT07jyhaDdnKrFEWUYkjeWoXcFNxPijSFMopl
-	 2JdZhftBuLGIN/niyoBpgaaqNatqiRu1xsw2KGjZERjPTzBrXZpsZmKiYCIsBp/kVx9sA
-	 SgPYzbtDa5lLHht2q2WUuOVp//uucQpaHbUbInvqHur8TrAqGla6QrFgMUxUEmX4nPg==
+	c=relaxed/relaxed; t=1793596451;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XVpNLH2FiGtscLNxG2j1l4l4r0lRErkiBU7Q0Ju5Pww=;
+	b=szlP+/cdyvY9nmNQOacHM58VjGmh3FqJzZrDtneXqY8Bv/ujvy7a/YfqT6snfanh9tot
+	 E1rJUOy/Hfvsh0bjPqaGQXW0lwG02KvSf/QNjGH/sM7URtxaju244aTKk9seDSY5dp5Ms
+	 kElXCWetkhOKkWOBHO5TQhBYHPb0sMLZ5RAHXdv2Ncs+bsJaw3gwEEe+auSdHfLig0utP
+	 wUR/fmy3tiXe82Y3OD+5jeZHnEJgmo6DR9BabzoFrnQhTNxf8i+iVbMOmh4TIMp0dE2vy
+	 wgoUwBLRpBgtSpolW03VyV3r2U/ORm2kq4oQUmyMDZXAZG6+Ipgm9bsp3TNOynuE64w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A8D0D1F00A02;
+	by smtp.kernel.org (Postfix) with ESMTPS id A80741F00919;
 	Mon,  2 Nov 2026 05:14:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793596450;
-	bh=6nXMXQjY9+cB3aji30VLYEiRwuVBc2jJoHH3tGpMNSw=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ZhF5OG5yRbVSOlKk5G3gIpfXy0zAwnuHmli0191VpbAgtgrhd3l/84J+bPkG85nGc
-	 JqHg8taNunXyxxFHWgAlu0zNS8x2oxl/XJN44fPlatJKtK66jHxXBW+6tOF4kLoKgN
-	 IEf/I9Ow8MlcyBtXrpOLpoNbB5MyL0RDAbJleBRUQ5p6gc0PnNLMwrGgTT4B5Hla7V
-	 9f5ovdb0Zn9OOTt7uhj4DVPMyWg/Rr2P96sz82qdujEpUtNSUZglxvEOp2+wWzuC08
-	 Krnhiy3GuTav8xYoDyqGl4G8c+4HZ2QzIK/qCZOgQR0vWAl/IovogBHccz58q6iMk3
-	 EBbWIBGJtG2yQ==
+	s=k20260515; t=1793596451;
+	bh=XVpNLH2FiGtscLNxG2j1l4l4r0lRErkiBU7Q0Ju5Pww=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=m75/0I0PEglcwwJU6K1P0MJCo7Q9sOaU4YeKM1IQand65duGVCPAIzQQruJ7WqKjD
+	 Yh+9uh9BHB89nKPvD95lUjp7xlW67jtrxSra88n+gxtUYmsrg/TDF0Fe4QdTq6rYXW
+	 vHI32SuRGjiyHg7pBvg1DVMZ7yvT+JF6s69v2okMWAgaulXPZskC8y89FHHItilhOr
+	 gv2fiYzwOdck8+ZNZ1Vinb1YQMTHNENZVNVQNdry2OlWUyCH7Q7UQR0QklQ026CsCi
+	 QKp0bmHac1gmGCyb/tVV18o3m/69cxjOudDU3gaGFRdf2GjDB2UV+r6gvy0hcWMs2I
+	 QEE3oXRl9xCNA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0AD0346378;
+	by lkml.kernel.org (Postfix) with ESMTP id 32EE446386;
 	Mon,  2 Nov 2026 05:14:09 +0000 (UTC)
 From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Subject: [PATCH ath-next 0/3] wifi: ath11k: monitor frames: length, FCS
- failures and rates
-Date: Sun, 01 Nov 2026 23:14:08 -0600
-Message-Id: <20261101-b8-monitor-frames-v1-0-f0a43d9630e5@gmail.com>
+Date: Sun, 01 Nov 2026 23:14:11 -0600
+Subject: [PATCH ath-next 3/3] wifi: ath11k: report a monitor frame's MCS
+ and NSS only from the PPDU's SIG
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,11 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACAc6GoC/yWM0QqDMAwAf0XyvEAjTnS/MvbQapwZ2I6kDkH89
- 3Xz8TjudjBWYYNbtYPyR0xSLECXCobZxyejjIWhdnVL5AhDh0uKkpPipH5hw9Bw3/UN8dWNULq
- 38iTb/3kHn2eMvGV4nMbW8OIh/5ZwHF8H6ANHfwAAAA==
-X-Change-ID: 20261101-b8-monitor-frames-b4e98941e50d
+Message-Id: <20261101-b8-monitor-frames-v1-3-f0a43d9630e5@gmail.com>
+References: <20261101-b8-monitor-frames-v1-0-f0a43d9630e5@gmail.com>
+In-Reply-To: <20261101-b8-monitor-frames-v1-0-f0a43d9630e5@gmail.com>
 To: Jeff Johnson <jjohnson@kernel.org>, 
  Jouni Malinen <quic_jouni@quicinc.com>, Kalle Valo <kvalo@kernel.org>, 
  Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
@@ -106,66 +103,133 @@ Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
  Rajkumar Manoharan <rmanohar@codeaurora.org>, 
  Christopher Griffin <christophergriffin05@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793596448; l=2389;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793596448; l=4679;
  i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=aiMBWaeP4VCoKPc5rfu9vnen1taSbfQUzIsmGYDSs4g=;
- b=EfICl5+ggRkI4hafYcauThS/FzFKTwkOo0MqIeugjSa2A0B3CmWUvYtqbT3Kvnvxnci3pPJOO
- kfpnjyaJtM8C6ek9XVN0zdieLc+owJq1CIa0/3CS7yLosh0sf+RL/B8
+ bh=J4jRf5l59+FWEVGn47cCD/3aF3TptpB1fGEP1KJUXLA=;
+ b=bmG75PeLmhL3oUTVAm+ZrW60a0gibEUkuhKP79wvs56n1yY43XiE9zmwYPAl4VwJ4b5VqU79V
+ 6hPVtoKyQnUBCed6G7Zy0QidhWv6iD3jnpQ+hKWbuBg3JvKL23gUjT6
 X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
  pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
 X-Endpoint-Received: by B4 Relay for
  christophergriffin05@gmail.com/20261024 with auth_id=1309
 X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
 Reply-To: christophergriffin05@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Three fixes to what an ath11k monitor interface hands to mac80211, found
-capturing with the QCN9072 scan radio of an Arista C-360:
+From: Christopher Griffin <christophergriffin05@gmail.com>
 
-1. Size monitor MPDUs by the chip's rx descriptor. On a QCN9074 a
-   monitor frame kept its FCS plus 4 stale bytes, unflagged.
-2. Hold back FCS-failed monitor frames unless a monitor asked for them
-   (FIF_FCSFAIL), as ath10k does.
-3. Report a monitor frame's MCS and NSS only when the PPDU's SIG was
-   seen, so mac80211 no longer warns about, and drops, a VHT/HE rate
-   with no NSS.
+ath11k_update_radiotap() sets an HT, VHT or HE monitor frame's
+rate_idx from ppduinfo->rate. That is the L-SIG rate code, not the MCS
+that the SIG TLV gave (ppduinfo->mcs). ath12k had the same bug, fixed
+by commit 10085a654a4c ("wifi: ath12k: fix incorrect HT/VHT/HE/EHT MCS
+reporting in monitor mode").
 
-The series applies on top of these four, all still under review:
-- [PATCH ath-next 0/2] wifi: ath11k: two monitor destination ring fixes
-  <20261024-ath11k-monitor-buffers-v1-0-ff155feca2f6@gmail.com>
-- [PATCH ath-next] wifi: ath11k: update rx_channel on a channel switch
-  <20261024-ath11k-rx-channel-switch-v1-1-5fc2ba53ca8f@gmail.com>
-- [PATCH ath-next] wifi: ath11k: report the measured noise floor of the
-  channel in use
-  <20261024-ath11k-survey-noise-floor-v1-1-8eb03002aab8@gmail.com>
-- [PATCH ath-next] wifi: ath11k: add the measured noise floor, not -95,
-  to a received signal
-  <20261029-ath11k-signal-noise-floor-v1-1-8867d25298c8@gmail.com>
+The function also takes the preamble from the PPDU's user stats, which
+can arrive without the SIG TLV. The status of one PPDU can span more
+than one buffer, and since commit 01d2f285e3e5 ("ath11k: decode HE
+status tlv") ppdu_info holds only what the last buffer had. The frame
+then goes up as VHT or HE with MCS 0 and no spatial stream, and
+mac80211 drops it, warning once:
 
-Tested on an Arista C-360 (IPQ8074 + QCN9074/QCN9072) with OpenWrt
-main, these as backports, on the QCN9072 scan radio's monitor (no
-fcsfail flag), comparing captures of the same air:
-- frames ending in an unflagged FCS: 353 of 400 (88%) before, 0 of 800
-  with the series; beacons whose elements end at the frame's end: 1 of
-  43 before, 60 of 60 with it;
-- frames with a bad FCS: 44 of 400 (11%) before, 0 of 800 with it;
-- no "Rate marked as a VHT rate but data is invalid" warning during
-  the run (it showed once before, in a longer capture).
+  Rate marked as a VHT rate but data is invalid: MCS: 0, NSS: 0
 
+An Arista C-360 with monitor interfaces up logs this, and the HE
+equivalent, once per boot. Because the warning is WARN_ONCE(), every
+later such frame is dropped without a message.
+
+Take the MCS from ppduinfo->mcs, adding the stream offset for HT.
+Use the PPDU's HT, VHT or HE rate only when its SIG TLV was seen with a
+valid NSS and MCS. Otherwise keep the rate from the MPDU's rx
+descriptor, and if that names VHT or HE with no stream, report one
+rather than lose the frame.
+
+ath11k_dp_rx_deliver_msdu() sets RX_FLAG_RADIOTAP_HE on the rx_status
+that all skbs of an MPDU share. Clear the HE radiotap flags for each
+skb, so that each skb's flags match the radiotap data pushed onto it.
+
+Fixes: ab0a9ef605cf ("ath11k: translate HE status to radiotap format")
+Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.5.r4-00683-QCAHKSWPL_SILICONZ-1
+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
 ---
-Christopher Griffin (3):
-      wifi: ath11k: size monitor MPDUs by the chip's rx descriptor
-      wifi: ath11k: hold back FCS-failed monitor frames unless asked for
-      wifi: ath11k: report a monitor frame's MCS and NSS only from the PPDU's SIG
+ drivers/net/wireless/ath/ath11k/dp_rx.c | 37 ++++++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 3 deletions(-)
 
- drivers/net/wireless/ath/ath11k/dp_rx.c | 75 +++++++++++++++++++++++++++------
- drivers/net/wireless/ath/ath11k/mac.c   |  3 +-
- 2 files changed, 63 insertions(+), 15 deletions(-)
----
-base-commit: c5546d76a980fc035b20fb7932e191e6138dcb91
-change-id: 20261101-b8-monitor-frames-b4e98941e50d
+diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
+index 7809c92baa325..53d7b19d8807c 100644
+--- a/drivers/net/wireless/ath/ath11k/dp_rx.c
++++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
+@@ -5075,26 +5075,49 @@ static void ath11k_update_radiotap(struct ath11k *ar,
+ 	rxs->flag |= RX_FLAG_MACTIME_START;
+ 	rxs->signal = ppduinfo->rssi_comb + ath11k_noise_floor(ar, rxs->freq);
+ 
++	/* Each skb of the MPDU carries its own HE radiotap data, if any:
++	 * drop the flags the last one left, ath11k_dp_rx_deliver_msdu()
++	 * included.
++	 */
++	rxs->flag &= ~(RX_FLAG_RADIOTAP_HE | RX_FLAG_RADIOTAP_HE_MU);
++
++	/* An HT, VHT or HE PPDU's MCS and NSS come from its SIG TLV, its
++	 * preamble type (the *_flags) from its user stats. The status can
++	 * hold the latter without the former, as when it spans more than
++	 * one buffer. Keep the rate the MPDU's rx descriptor gave
++	 * (ath11k_dp_rx_h_ppdu()) then: reporting the preamble with no
++	 * spatial stream gets the frame dropped by mac80211.
++	 */
++	if ((ppduinfo->he_mu_flags || ppduinfo->he_flags ||
++	     ppduinfo->vht_flags || ppduinfo->ht_flags) &&
++	    (!ppduinfo->nss || ppduinfo->nss > HAL_RX_MAX_NSS ||
++	     ppduinfo->mcs > ATH11K_HE_MCS_MAX))
++		goto out;
++
+ 	if (ppduinfo->nss)
+ 		rxs->nss = ppduinfo->nss;
+ 
++	/* ppduinfo->rate is the L-SIG rate; an HT, VHT or HE PPDU's MCS is
++	 * ppduinfo->mcs, as the SIG TLV gives it.
++	 */
+ 	if (ppduinfo->he_mu_flags) {
+ 		rxs->flag |= RX_FLAG_RADIOTAP_HE_MU;
+ 		rxs->encoding = RX_ENC_HE;
+ 		ptr = skb_push(mon_skb, sizeof(struct ieee80211_radiotap_he_mu));
+ 		ath11k_dp_rx_update_radiotap_he_mu(ppduinfo, ptr);
++		rxs->rate_idx = ppduinfo->mcs;
+ 	} else if (ppduinfo->he_flags) {
+ 		rxs->flag |= RX_FLAG_RADIOTAP_HE;
+ 		rxs->encoding = RX_ENC_HE;
+ 		ptr = skb_push(mon_skb, sizeof(struct ieee80211_radiotap_he));
+ 		ath11k_dp_rx_update_radiotap_he(ppduinfo, ptr);
+-		rxs->rate_idx = ppduinfo->rate;
++		rxs->rate_idx = ppduinfo->mcs;
+ 	} else if (ppduinfo->vht_flags) {
+ 		rxs->encoding = RX_ENC_VHT;
+-		rxs->rate_idx = ppduinfo->rate;
++		rxs->rate_idx = ppduinfo->mcs;
+ 	} else if (ppduinfo->ht_flags) {
+ 		rxs->encoding = RX_ENC_HT;
+-		rxs->rate_idx = ppduinfo->rate;
++		rxs->rate_idx = ppduinfo->mcs + 8 * (ppduinfo->nss - 1);
+ 	} else {
+ 		rxs->encoding = RX_ENC_LEGACY;
+ 		sband = &ar->mac.sbands[rxs->band];
+@@ -5102,6 +5125,14 @@ static void ath11k_update_radiotap(struct ath11k *ar,
+ 							  ppduinfo->cck_flag);
+ 	}
+ 
++out:
++	/* The descriptor can name VHT or HE with no spatial stream too.
++	 * Report one rather than lose the frame.
++	 */
++	if ((rxs->encoding == RX_ENC_VHT || rxs->encoding == RX_ENC_HE) &&
++	    !rxs->nss)
++		rxs->nss = 1;
++
+ 	rxs->mactime = ppduinfo->tsft;
+ }
+ 
 
-Best regards,
---  
-Christopher Griffin <christophergriffin05@gmail.com>
+-- 
+2.43.0
 
 
