@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626959;
-	b=teFX86Pv9cnvoy9h8Hm2sVKl36LP5fWfmBuOjdr5qstSYdkMpyzHLouWWtrn4mMrMQH3
-	 v6u7F4hRBKVz6PDWzqCygnfPEbvzQ592LKPGnT640o3JOvfyznIsY51h5ADn1WTIwmsPG
-	 Abeur61kRofQxCAByV3x/xXukSQX60ulKaSCdsk1eLgOqTQRsHFqBW95K0x62Ds8qAlU1
-	 NwYAteb/UldJeWRmvz0HNvL8A6exjJpbkPmL3DFXfOOJXJbqX2B/f5CUgz3fLcwe4EFQl
-	 +4rdALFHT9ZhDyAaGvx49+pNfCr/VTBJYtqbQCWthepPKQ5voNx+OKAjUI8z8rTaMeg==
+	t=1793626993;
+	b=OmbF0yYugZtK9QJsbofGmTBoZxBIftG/DEYhQsHmht0C9x61UQaMtaih3Yxpvx2Mpz9g
+	 /SoMZksF+8qAjri6o/mjBGgQyXvMxxZ2x1Y6brNnKzVHueXJQj+Ra1Y4nvKIxJxKJuJvO
+	 7qotidFyT9f/O/YMzmei5nOdawjiRHk3k+drDuQUcShMHAWuRmZopVHUoLRwHgWx7G65o
+	 7cijZxW4d3Z15gKOii7CuG6dEksNDejVGaW0Zw95wzjXrAFny/KD54YQXYrki2HQgCCyl
+	 LvwKOOY2dzyniti5N+QpT+sErl9Gcsq8LQnW0i7uGa2QhOsV6Ed1Ph1k//jeNbn2+3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626959;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626993;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=n8krnApcdxXIbrhooq5aa+FZznz/OJP/sKAy+beq8Y4=;
-	b=0GIhKPe5/SJxLaakNZUc5kfN8kg8SAtkrQode6shCUQiVhavgycsdFZTlOkN/1PHMdSe
-	 YJA/sBcOev0yiu79+ZSXAr2XoBPG19YfgmHNkEqiImSqEOJ4sSorWJ5O5PbMvOg7H02Sb
-	 YpCFj5x92mzb3dqRt2WS6/j4c+gi3WI/vFhmAr6sNOaCVWa+CqU+L6afeQV7V0AsYOibz
-	 N6Mw+sU2kJqCz0gbobD0SQByGIP4hc3+iLmyWhtD3jgKLoIXUIJH8s/wcKFgAMIaZyC18
-	 /FM4TXoV7yJoVZZ/dl3/88MPLACiZ5YN7IxEPP3Dz6mdMo9cEG4rficwWgZdlkRXNzQ==
+	bh=vZtW7lCUy+nRe8aQGLzw6+UgY7GQ7HugFqgCTw6Ar5M=;
+	b=u5pt4x4v4MsHyIA+Ao2kT8y697AQX+0ZtYMbSDattTnlvGJcBD4mf0HZRWZRhNDBinqz
+	 JesWG8L0SoJBzok9S0fWT2asUYfFO8XYj2FiqCf57Bk0DMfAFshZoJXcVT8rTNckajfur
+	 To/aOpFTXRtJ8fmsjM8VA6a3yEZcBV9gkR1bb8DPIIeyMu4uV5qtOehYywuFXMe7lOqt5
+	 KCB9nFllxQNZX5r8AnmJzjrzO2sYYDwHxeKM6gvL+/UWz8RgL8pc2P/mCeFKyibBwXU6O
+	 epoVMnBjNBMg35ZPQUcCVwr/dFvHPKBzTchIVeuP913amwP1AstLzcY4Pkn5Cf26z5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nXbZutSQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eCnipccM;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A26606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:42:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F41606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:43:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01F41606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nXbZutSQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE861F00A16;
-	Mon,  2 Nov 2026 13:42:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793626958;
-	bh=n8krnApcdxXIbrhooq5aa+FZznz/OJP/sKAy+beq8Y4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nXbZutSQBhI9djuwabEGr2dBj61HIzmQw6r2u9j2T6oIK5fxQO7FkBt1KcFQ9auRS
-	 Iv+HpKbVbOoN3l0zcRt+rtQo/xd3o0bU9eYY+zS0EejM6hGnNqLjfJ6WdRCncq/lGq
-	 4Of73MdSAm06le2GfQMsaRdi3rHTpYT5bx8uES8VwqFuNAAxU+Qdc87Q6dt8jh5Pgm
-	 /S0rJnRLILezvtuK4WKfZ/sLlIIuGDQNsROudVBWfzwkcM7KDGTSOCan2go6H6AYYH
-	 A/jRIaGoafhfLLDusZJ9d4yUf0GUwL305IYPc6ihcK8/XcFMq9Jgmfu2wybDixTmPm
-	 GFV/5IpLsIxlQ==
-Message-ID: <4c473b0f-6b7a-4436-8aae-a14118de555d@kernel.org>
-Date: Mon, 2 Nov 2026 14:42:34 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eCnipccM
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so13402385e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:43:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793626991; x=1794231791; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vZtW7lCUy+nRe8aQGLzw6+UgY7GQ7HugFqgCTw6Ar5M=;
+        b=eCnipccMy8UHLWObF7WwFqtS67owPBdjNZB2HnIwclJeVcvqVAav8eg5oOuUaRJpaV
+         9uXuqp749RUHvyISzauT8fPkbJbdaHLULJOnazTTFR4x4kujviHfTfTSHVih5CVhwoLh
+         VsIGzkClIi50Fm/PtZ1e8p26mdw3KvJGXB1x9YkXMxQTecEBpJn32DvhgFP+7PUAOA58
+         i/LMzLlI7VRA7aPhN44meaBWE8qoVdnaBKAdVa6rY+3sgZUEdjqWauQZ9yEmJ++phQq8
+         LtMHzVLoTEKP34FRuxsPmLhtk+BVIWWRvfwS1/pZiltZy4H1WpBm3ZWzUreF4DlIXaT8
+         CJCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793626991; x=1794231791;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vZtW7lCUy+nRe8aQGLzw6+UgY7GQ7HugFqgCTw6Ar5M=;
+        b=I8rAYDLl9cmkKm9UAsoRcHnO52AJPED4l+DDbAbE9Nm7E5v0KknAi0//iIzdlvo8Yn
+         oaqA9uCnQXOFCVGKxyUN6KPBvv6o7tAkP7Phj+OQl/6grmLSmWtlvaTm7OfIrsAcn0D1
+         EE8JnyvWfL7rcPjmA440VP0H0eY8efQLkkDiSoQ7yfAxaFz8usX9YErdGnUgkeAXAu76
+         QCz0yYE5IwWUqLTG6vfGjcLwYW+RJiHwkwxWAXbqOkxjMKuWU0LIfEdQrS2ArUTCATBH
+         dutec5WJfRYLrO4QBHcT+iun91E3RqBYczxSoT6Akj5/rBKu5/jrXS2GzfdyscNOBd5a
+         h8SQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzNL4RW+l4rC4sTqroZoCRXs33ZORa9K4IrALSTKDV1/Xfmne5xQ+i4w+BMRDIk7omkdtTgbBndX5+kipc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvlPXAHJMb4b4FkI75751Zv45IPGkuSsBEYSmK/mtFTriWqP8v
+	+HUXDlytlvZkaygmDHBM00Ny3Pg5scEYXpSTEfsAjMuimP79qoOl47a6clo6QtfB8xI=
+X-Gm-Gg: AYBFou2eO5dQAd4kQwdFGct4qOsmaVzyC2DD6O0PSnen5LHimnhY+d1JGzkYDyMRwFO
+	/ngHgA+tLa2x+TwxryA56pVWYFYJ2BDLnlrRyiNJc8nFc5v4tELS5CkBf/l7kfxW/STbbV6GgJr
+	rTQJbEkoK73B3GR60oljojevblBTUJA08kLK8pJR5ixkhtODUUr9wSbozqsbMxdMvOzsod6kfwp
+	e/SevN3XD2IoK6lnjRFTgYgvemxNaEI0JnWolSYwwtE2eK8ccEHnNTnw+OgIfIaJS0YgDJwdhWm
+	BLxmfPg/5kXGzl2MYLz4br8mkPolxzWL2fcF9p3oOLu9QAvAx8wQp4tap9v4GHyNQH/AuSInKxy
+	SuSbeEn4Ya3ZwtqgHxuXMSL7jMfGN7haQKhBNDZ0OtdZBBf3lPmCfh5ckN+oIpIQSyaGfgOCbRz
+	FHOy1xNKsjpPdJ+OrTs1KeqyoAEW2Q/VCjbTNJ4rRlzYa1Y88tmvxEf/VKq1lQggzABGpPd2eBW
+	/envkv7stE0ufGCjoETN2i6v/GyqCJGaSUQV+g1hnq9KJ/6xWBeONVInoEvURabU/V+lwQYtGi2
+	fMWxjIL6dhsr+RJJGj1JOz5uLTw+CHq3DhWQiMFaHSQ//k/kekz+YzqwcxT6tFuKEX6QHhAMc0J
+	BZ2G/
+X-Received: by 2002:a05:600c:3510:b0:4a1:dec1:4e1 with SMTP id 5b1f17b1804b1-4ac1765d674mr232355375e9.22.1793626991204;
+        Mon, 02 Nov 2026 05:43:11 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe885d91esm201456445e9.0.2026.11.02.05.43.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 05:43:10 -0800 (PST)
+Message-ID: <d5dba5be-b386-467c-8cf5-2dee30c5d0cb@linaro.org>
+Date: Mon, 2 Nov 2026 14:43:09 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,111 +94,105 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 05/11] soc: mediatek: dram-ecc: add error counters and
- the address lists
-To: "santino.wang" <santino.wang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, light.chen@mediatek.com,
- Fred-WY.Chen@mediatek.com, arnab.layek@mediatek.com
-References: <20261102092334.138759-1-santino.wang@mediatek.com>
- <20261102092334.138759-6-santino.wang@mediatek.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261102092334.138759-6-santino.wang@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v1] drm/bridge: ssd2825: Fix panel enable sequence
+To: Svyatoslav Ryhel <clamor95@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261025133636.253505-1-clamor95@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261025133636.253505-1-clamor95@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/11/2026 10:23, santino.wang wrote:
+On 10/25/26 14:36, Svyatoslav Ryhel wrote:
+> Currently, in the case of a single bridge and a single panel, the DRM
+> framework calls panel prepare() > bridge pre_enable() > bridge enable() >
+> panel enable(). While this is fine for most cases, the SSD2825 requires
+> the last two steps to be swapped. There is no meaningful way to achieve
+> this using standard bridge chain configuration, so the bridge previously
+> called panel_enable() directly at the end of its pre_enable() hook to
+> gain fine-grained control over the sequence.
+> 
+> Commit 554d36acf5e0 ("drm/bridge: ssd2825: don't create a panel_bridge")
+> removed this call, resulting in a regression where display output is
+> missing because the panel enable function is now called after the bridge
+> completes its configuration.
+> 
+> Since panels are now automatically wrapped into the bridge framework,
+> invoke the next bridge's atomic enable directly, similar to how panel
+> enabling was handled previously.
+> 
+> This restores panel support on the LG Optimus 4X HD (P880) and
+> Optimus Vu (P895).
+> 
+> Fixes: 554d36acf5e0 ("drm/bridge: ssd2825: don't create a panel_bridge")
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>   drivers/gpu/drm/bridge/ssd2825.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/ssd2825.c b/drivers/gpu/drm/bridge/ssd2825.c
+> index 71877699dfab6..9216cee09115f 100644
+> --- a/drivers/gpu/drm/bridge/ssd2825.c
+> +++ b/drivers/gpu/drm/bridge/ssd2825.c
+> @@ -475,6 +475,7 @@ static void ssd2825_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+>   					     struct drm_atomic_commit *state)
+>   {
+>   	struct ssd2825_priv *priv = bridge_to_ssd2825(bridge);
+> +	struct drm_bridge *next_bridge = priv->output.bridge;
+>   	struct mipi_dsi_device *dsi_dev = priv->output.dev;
+>   	const struct drm_crtc_state *crtc_state;
+>   	const struct drm_display_mode *mode;
+> @@ -569,6 +570,14 @@ static void ssd2825_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+>   	/* Initial DSI configuration register set */
+>   	ssd2825_write_reg(priv, SSD2825_CONFIGURATION_REG, config);
+>   	ssd2825_write_reg(priv, SSD2825_VC_CTRL_REG, 0);
 > +
-> +static ssize_t by_ce_show(struct kobject *kobj,
-> +			  struct kobj_attribute *attr, char *buf)
-> +{
-> +	return sysfs_emit(buf, "%llu\n", mtk_dram_ecc_get_retired_by_ce());
-> +}
-> +
-> +static ssize_t by_uce_show(struct kobject *kobj,
-> +			   struct kobj_attribute *attr, char *buf)
-> +{
-> +	return sysfs_emit(buf, "%llu\n", mtk_dram_ecc_get_retired_by_uce());
-> +}
-> +
-> +static struct kobj_attribute retired_by_ce_attr = __ATTR_RO(by_ce);
-> +static struct kobj_attribute retired_by_uce_attr = __ATTR_RO(by_uce);
-> +
-> +static struct attribute *retired_attrs[] = {
-> +	&retired_by_ce_attr.attr,
-> +	&retired_by_uce_attr.attr,
-> +	NULL,
-> +};
-> +
-> +static const struct attribute_group retired_group = {
-> +	.attrs = retired_attrs,
-> +};
-> +
-> +int mtk_dram_ecc_counters_init(struct kobject *parent)
-> +{
-> +	int ret;
-> +
-> +	counters_kobj = kobject_create_and_add("counters", parent);
-> +	if (!counters_kobj)
-> +		return -ENOMEM;
-> +
-> +	ret = sysfs_create_group(counters_kobj, &group);
-> +	if (ret) {
-> +		kobject_put(counters_kobj);
-> +		return ret;
-> +	}
-> +
+> +	/*
+> +	 * The SSD2825 requires that the next bridge be enabled first;
+> +	 * otherwise, the SSD2825 cannot complete its configuration and
+> +	 * there will be no output.
+> +	 */
+> +	if (next_bridge->funcs && next_bridge->funcs->atomic_enable)
+> +		next_bridge->funcs->atomic_enable(next_bridge, state);
+>   }
+>   
+>   static void ssd2825_bridge_atomic_enable(struct drm_bridge *bridge,
 
-Sorry, but no. You do not get your own interface, especially
-undocumented one. Use existing subsystems. Also, drivers/soc/ cannot
-expose interface to user space.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-
-Best regards,
-Krzysztof
+Thanks,
+Neil
