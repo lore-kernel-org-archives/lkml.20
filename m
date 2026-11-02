@@ -1,125 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613410;
-	b=hm1iP4c+janDZHTGaMzldVUewgeSInOmlTK0kWhorhEryRbzipcKDJiHHIoQpPE0UMkN
-	 1+KSgzsiawxgv1UUAwPRqBKdogkswvZjJRW63/jTfEhgNMkk7E2YtXquq769kAmGgcjto
-	 ddsGPfSO/qVhXXa15flfWnmsH2tFavi9YOVvdTTOpZrh9ph4T1FFzBN/lBKqU4nY4xMd0
-	 Wfmig5Xpq3iDl41VRosSP/8IOE/dwFM5Y2/Ll90NJ3I5mzv+fTd/1NrGDWQN6UMSw5q9U
-	 +B8LkG3BI5LW0B4Y6C8khqTlzZFBh30quNtRijimhUyaWQNmoO7PGkFtnvn/2OsiIuQ==
+	t=1793613413;
+	b=dMQzWcQt6nAwEJ2zsLkSMzcMFlr1fCQUnF5wF6oPE+0Q2dQI6W85fHiQlCum1KoFuKOF
+	 kDG3gwI9CqlR34DbI0kNEK5X/J0sYpKs4vtkbd8CBVaUBe0hR5oDvRbIFjb1u0PvUS9oa
+	 acyY+3rKoML9kVJousx7QRZZFp80FzTqCJZfueSTeamzsbygYCR/XOmJCYvgOo8Uey9hC
+	 mXqmgPDCMgCpD4O4M3W1xAdudSvbTt1KeGiZwqrjHaa8ZRvGwHB7NNWSiNnQ6H4cpYPbv
+	 bVzmMBK89N8VxZO/UZ6EtNN7tTiAf7UD/usNTaAdlMW8XElW+QmaxiPCB0T+AKZgf9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613410;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fSEJYomxVT5C4R68mRDSvCPQQWerQtUgHd1oP8Jric0=;
-	b=InbED5mVkHJurnp5N+87FHEKoP+4+NaKhC/YPSGuFt0yjWe9xluhtjtLWTuFkiXokXv1
-	 vENwWx6WJSqmkFG2YguQu5KFN2WJvhlPoGGCRKUFmC2sOViOFFMKsuO87zTVUTx1FILfG
-	 JLkouIId8Cb5FWhiHXfImg1r2iC/s+uaJzyHV5mhnE2Dkfnb091NFl/4NJ3I9cd8TZuIo
-	 ai/yHYk7hqL4k09AeC8i1OTPcvW1mVpZJZ3JSrClWWW3B8TC+VRviXP+B2OaxMKXvE8C3
-	 cdiWk4ULiWfSbcSqbDp3/5ZNy4J8WSg/mOyo42lBMipDTEE5uiRuWH87mDqNdsgrQ/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613413;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=jEXZn25mOSnRSnFkDPXVKbT86gLRaygrv7hBJoYn83Y=;
+	b=Sw75FOHCMo/wJKzDrXOZTIQoyRwVoCdlqEOBUWPc4hvzXBGn6jqOBWo1IuA4M0kxFXTP
+	 PEMK+Ivv3HNJnhdp91bLIqzSQ4TilP38GMoNgyG2VFknD5GUk+z0SlxS16GUqaAbEh9IU
+	 k0BY4ON3JqawT0zVnDikWgjeHOAXOM/YrYuFVSANeIgEPJf456sXygsvONTjlFfxYQfr6
+	 m/MVeeZro+TIadWx8S1TYU6RLrqmxro1NPo/3n1/9GKLgsW405LSujQh83KG8smPII6ir
+	 jSAXP8H6r6WQK6bXXVzxAIpaxR442Aia3M9CjwdKljsHEumz6+7cpLk8Qe2sgIIH/NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SHUGRsnz;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XXL97qC3;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA56606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:56:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEA56606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zg48mlwk;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4A60606A33D;
+	Mon,  2 Nov 2026 09:56:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A60606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SHUGRsnz;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XXL97qC3
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29A1uu2466143
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 09:56:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=fSEJYomxVT5C4R68mRDSvCPQ
-	QWerQtUgHd1oP8Jric0=; b=SHUGRsnzaCIZ3CjE1mv7LUTZlJPgud6ICwQ3ILFy
-	d5/PVrH1MQdwuNXM+pK4dQMcEC+A47qdMlSrhu29GMjTBW4qwXAkTKpngIlJK1ug
-	MtmJUQMs0mDpB6oV5gDOUcbAOBku9RZw2m6vumC0yPbK8SamG3vsN9W1H+v18LNs
-	VqaFv2Gy6hZt3pjk0K+/5bwv6JzDwGe5xOp0StqkwNnAvi9b91PXrfSlCb596Fp5
-	RLhbrp6DiGfPoz1NrqyPdPksmzxPRCedff6gXqQIlnOEP5C7161tNtsYhiXgmyis
-	QeUw+FGJj6Oq7DKFVmdZmXoQawcXQ1ckNwzEE+WWxQ796A==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpk9rh7a6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:56:48 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91c70349f65so60703586d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:56:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793613408; x=1794218208; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fSEJYomxVT5C4R68mRDSvCPQQWerQtUgHd1oP8Jric0=;
-        b=XXL97qC33R5aDolMDH3FGpTNnlxW/0OHZ/94DKyYvZgFVrgmg61DYKum/MOTCMfrVE
-         6apeHan3WDrERH1u7YwxcN4zizUL71O+XPiYZTw/yFjZOvhCQAvIpKdycznctxbVueLE
-         Jtzh178amXDzj9wgQkGW8Vshsjp67I44eifObiyOfPhema/vxIAVmKETlDQ30opUcIXf
-         8cQbkt7/qqen4P71Gjir0g5fWOm9NmUFk2Xj7iX1NGUhm0TEyaRvmPgv+6x2lhOuMJjB
-         A4kuunoxNss88C1PSTaYFSMRnDptgctUeaL6ExhSGg3tddEzk/4/ykbcRvg0RIgXXMk9
-         iG9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793613408; x=1794218208;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fSEJYomxVT5C4R68mRDSvCPQQWerQtUgHd1oP8Jric0=;
-        b=sZTlrWyxIIASEItUITg55z4UlYMGky54RpgyWl6SeQbRiaZG2zoLSRDjW5MemQjD6e
-         zhuLcgB6UxH7Va5XsHiSGEj3JZxXq2yuLAF8CyUPhrkPb2LB6hKHCiDJNMRLW28D55bK
-         1BT7y0HY4k02hhwkhvnjkzr+ZKdfVjxkk7ONLu6jgXZagE11BFA6YBwQ+5HworMNM4Uk
-         GyJ+VUMNObbH8y3ZPnJTfaP61KLhvAp7Tz0yZBQ5DlW3b74I1m5+9PqpMKq4TA2e8a3t
-         Vw/jud0aRxkhmV6CJsBEShZP7wmB55gu7Fn6XFh9foRYjmKyFFYQ5N2eB7N0eX5zchdh
-         Q15A==
-X-Forwarded-Encrypted: i=1; AKwUvBzCz7TMRURhLuhwD1Mto44FsfSgkLXxfXQkg3XrTXZ2VnHdVkj4Jv/OZvLJ3/P7Y5FVW2tVO+orwpseZaQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtI5yRj2K1ajVLGX2ICRyES8DnHj5wV3f/Fq6W3Ta6kUVtLPnh
-	+Nf/uJhaMM8TfKs+VB6CgNWDbRxkLa1lPAjUvn1mMWGA1s/vIY8iUhwEmA/wjF3aaute2POpFDa
-	lzXqDLsE4PcyIq03woqox9Fvf7CuHkwYOvOOdZ2U4irl2Y3I1TtY3BlHuRzMreB02B7A=
-X-Gm-Gg: AYBFou3Gn2jugQK4PtH00KKvwESmYZpDMUFTdHtleZ9Z1iKKPO8lanX7jo4rnranC5+
-	1+YSpvEP4SBlFeaQkBVUZHRA/QO0N41xWewaw7PDtGSR2ZESbfZHfi08W1+Yceh0ZsbYadoR3/p
-	QOA8EE7RXPiCHnV/vtgKz7UtRxBuTBpFyz0em/fEo9fg5n7mYvhjsRqQ0NN9EmpL31yZ+l6q6fp
-	fkgpSr38cKMzQ1VbA5EuB38Qd2XBdGjjG0QurfbrKQVrgBfe02VK9W/eIUILQfr16hlnNRLX9Nf
-	PQ9GD/m8Iz1NHmsZSuUi68u3cGjnfdEPkMAHbin21dXyihq66dUp0bjE7a5dx6VLpDRivUDdkla
-	gnK6lp5aVtlaaiLYI0eTWLZWonisnPdkaAWG28xWYofVebpvE0iXeIRiCznvEnyLDrrm9dWR5zg
-	eQvxM176RSbzozUJBea++nVdASK0AHq3EQTWbI/N17s5r6udDWoOEmldHpN99N
-X-Received: by 2002:a05:620a:2989:b0:93f:5e6d:880f with SMTP id af79cd13be357-944217a1992mr1658098885a.74.1793613407876;
-        Mon, 02 Nov 2026 01:56:47 -0800 (PST)
-X-Received: by 2002:a05:620a:2989:b0:93f:5e6d:880f with SMTP id af79cd13be357-944217a1992mr1658095585a.74.1793613407338;
-        Mon, 02 Nov 2026 01:56:47 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe073e5e6sm1554344e87.57.2026.11.02.01.56.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:56:46 -0800 (PST)
-Date: Mon, 2 Nov 2026 11:56:44 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Fabricio Akio <fabricioakio@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jordan Crouse <jordan@cosmicpenguin.net>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/a5xx: Write CP_RB_WPTR under the ring's
- preempt_lock
-Message-ID: <bdtzw5qvdtsgeiqcr4dkvmrcnn7l7cznz2iqs72vjvabtvdbzg@ajqpgwwmmosc>
-References: <20261031-a5xx-wptr-lock-v1-1-fa7d7b9a7fbe@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zg48mlwk
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CF3DE1595;
+	Mon,  2 Nov 2026 01:56:48 -0800 (PST)
+Received: from [10.57.16.53] (unknown [10.57.16.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E43FB3F59E;
+	Mon,  2 Nov 2026 01:56:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793613411; bh=a+LR+CmbFBIcR2fiRj3wp8/wI+yAEpxcNhNDKOn/P+0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Zg48mlwkHNaWfJLi8qkWbskLRD3Pspw0QyjdDGJgFahD1n2OQCvVFP2WKnQ6GxZG6
+	 nbsNHPO6jsU2jOL517F/o6Cxqe5x79PUYiiL5XhOm8Bd/BYbyZUE72pzyB3COFi8C1
+	 eagMYzWRrNx5SLM9k3X3rs43KFd3aK/61j/dJIio=
+Message-ID: <3005f6f5-3b6a-4139-a170-1f60d93c9902@arm.com>
+Date: Mon, 2 Nov 2026 09:57:20 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,72 +53,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031-a5xx-wptr-lock-v1-1-fa7d7b9a7fbe@gmail.com>
-X-Proofpoint-ORIG-GUID: 5HNYbSQJ5sVxQX2j84zYigVV7XapHi0P
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX1xCqCn4mppnx
- /irAgMmy5Ac4huyISDNGLUgu3GLlGvMCc0ZS7IqpY4qk104TJIBOMAYVAnYx14lO9l1rPNAGwoc
- JH1Xfty8gBaGhaVfSwC8LCRdd8FBbC0vkUaDgCx9r9e2EroAdL+E1ho+fc2MQkTlsmvffPIzVfi
- CZBXKAGMaERNvE88PCjx8fwGN3ha3hIvZ7wT20+qoVhPLrvliOcW12dkSOx6xwiQlKTeSEgmCz0
- GZIAOICdlS8e6sp4D1ehYzhZjkNtlVTZgD46YS+joVCfF3lwXzXktVHZCK/sFM7aADO0j0AU+Qw
- 0ynGpNklH5crrTHqnLjFuwm3o7kuhzMQh/e5sbkvVkuyspVkRlzF3N3sdafC9415GvR9REM0hd/
- /sAOLL2uK5oescI9GNpP2T8dST9lMANuflDp3cPDp8xaOOElXlOpxYk3VxZw2qmo8hMX9M9zwzT
- xrzX7A2sWuWlhk1rdUA==
-X-Proofpoint-GUID: 5HNYbSQJ5sVxQX2j84zYigVV7XapHi0P
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX+/FTjnQ7gMxU
- 4UA9T762kfSNAKMmKEIOpJX0QVYuxyIHpnUe7V5UJBCziXvxKRh5VgAkE7P5XIe30JrTKR1+hhw
- vKLxr0gbhP5f3V6toktn5M6GZdHHM0M=
-X-Authority-Analysis: v=2.4 cv=LvwHWXdc c=1 sm=1 tr=0 ts=6ae85e60 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=-lvlwEyg7s3_QBC--IIA:9 a=CjuIK1q_8ugA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020039
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/6] powercap: dtpm: Use generic powercap hierarchy
+ helpers
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, rafael@kernel.org,
+ Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
+ Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kselftest@vger.kernel.org
+References: <cover.1793288783.git.daniel.lezcano@oss.qualcomm.com>
+ <f34635d2ce1d5c741968708e6349f7f059b03173.1793288783.git.daniel.lezcano@oss.qualcomm.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <f34635d2ce1d5c741968708e6349f7f059b03173.1793288783.git.daniel.lezcano@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 31, 2026 at 11:30:55PM -0300, Fabricio Akio wrote:
-> CP_RB_WPTR tells the CP how far the ring has been filled. Two functions
-> write it: a5xx_flush(), after a submit is added to the ring, and
-> update_wptr(), which a5xx_preempt_trigger() calls from the IRQ handler
-> each time a submit completes, whenever there is more than one ring,
-> even when no ring switch follows. Both read the ring's wptr holding
-> ring->preempt_lock, but write the register after releasing it, so the
-> two writes can land in the wrong order:
+Hi Daniel,
+
+On 10/29/26 16:56, Daniel Lezcano wrote:
+> DTPM implements its own hierarchy creation and destruction logic while
+> the powercap core now provides generic helpers for this purpose.
 > 
->   CPU A, IRQ:   update_wptr() reads wptr N
->   CPU B, flush: a5xx_flush() reads wptr N+1, writes N+1
->   CPU A, IRQ:   update_wptr() writes N
+> Convert DTPM to use the generic powercap hierarchy infrastructure.
+> Duplicate the platform hierarchy before creating it, and use
+> powercap_hierarchy_create() and powercap_hierarchy_destroy() to manage
+> the DTPM zones.
 > 
-> CP_RB_WPTR then points behind the last submit. If the CP has already
-> read past N, it treats the ring as nearly full and executes the
-> commands left over from its previous pass through the ring. This shows
-> up as CP opcode errors, and the old submits write old fences, so the
-> fence in memptrs goes backwards. Recovery then finds no submit to
-> blame and does not reset the GPU, which stays hung until reboot.
+> Add DTPM callbacks to create and destroy the zones associated with each
+> powercap hierarchy node. Adapt the CPU and devfreq backends to return
+> the created DTPM instance and use the node name provided by the
+> hierarchy.
 > 
-> Write the register before releasing the lock in both places, so the
-> last value written is always the newest, as a6xx_flush() does.
+> Convert the Rockchip RK3399 description to struct powercap_hierarchy
+> and keep the device tree path as DTPM-specific node data.
 > 
-> Fixes: b1fc2839d2f9 ("drm/msm: Implement preemption for A5XX targets")
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> This removes the DTPM-specific hierarchy traversal and destruction code
+> and leaves the hierarchy management to the powercap core.
+> 
+> Preserve best-effort creation: an unavailable backend returns NULL to
+> skip its branch, and setup failures are warned about and skipped rather
+> than rolling back independent zones. Invalid node descriptors remain
+> fatal.
+> 
+> When the representative CPU is offline, find an active policy through an
+> online sibling whose related_cpus mask contains it. Hold the CPU hotplug
+> read lock during selection and setup, and initialize the zone through the
+> policy's active CPU while keeping the hierarchy-provided name. An entirely
+> offline policy still has no active CPU to initialize through.
+> 
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 > ---
-> Tested on A508 (SDM630), with piglit's texelfetch tests run in
-> parallel: CP opcode errors in each of seven one-minute runs, the
-> seventh ending in a hang that never recovers; with this, none in 25.
+> Changes in v4 (since v3):
+> - Rebase on v7.3; no code or commit-description changes.
 > 
+> Changes in v3 (since v2):
+> - Rebase on v7.3-rc7.
+> - Preserve best-effort branch creation using the generic NULL result.
+> - Find an online policy sibling for offline CPU representatives and
+>    protect policy selection and setup against CPU hotplug.
+> - Keep generic API behavior and documentation in patch 1.
+> - Fix __initdata placement; match-table indentation is handled in patch 3.
+> - Name setup callback arguments and remove whitespace-only lines.
+> - Update the description.
+> 
+>   drivers/powercap/dtpm.c         | 177 +++++++++++++++-----------------
+>   drivers/powercap/dtpm_cpu.c     |  62 ++++++++---
+>   drivers/powercap/dtpm_devfreq.c |  22 ++--
+>   drivers/soc/rockchip/dtpm.c     |  67 +++++++++---
+>   include/linux/dtpm.h            |   6 +-
+>   5 files changed, 195 insertions(+), 139 deletions(-)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # a530, a540
+Tha patch in general looks good. I only have one
+comment related to the future usage of this mechanism.
+For this implementation it's safe, but I would add
+some extra safety net around the of_find_node_by_path().
+See comments below.
+[snip]
+
+>   
+> -static struct dtpm *dtpm_setup_dt(const struct dtpm_node *hierarchy,
+> +static struct dtpm *dtpm_setup_dt(const char *name, const char *path,
+>   				  struct dtpm *parent)
+>   {
+>   	struct device_node *np;
+> -	int i, ret;
+> +	struct dtpm *dtpm = NULL;
+> +	int i;
+>   
+> -	np = of_find_node_by_path(hierarchy->name);
 
 
--- 
-With best wishes
-Dmitry
+I would add a NULL check for 'path' here, or below
+where dtpm_setup_dt() is called.
+
+Usually it's up the the code which is calling that API
+to make sure that the NULL is not sneaked in.
+We probably can force drivers code for that, right?
+
+> +	np = of_find_node_by_path(path);
+>   	if (!np) {
+> -		pr_err("Failed to find '%s'\n", hierarchy->name);
+> +		pr_err("Failed to find '%s'\n", path);
+>   		return ERR_PTR(-ENXIO);
+>   	}
+>   
+>   	for (i = 0; i < ARRAY_SIZE(dtpm_subsys); i++) {
+> +		struct dtpm *tmp;
+>   
+>   		if (!dtpm_subsys[i]->setup)
+>   			continue;
+>   
+> -		ret = dtpm_subsys[i]->setup(parent, np);
+> -		if (ret) {
+> -			pr_err("Failed to setup '%s': %d\n", dtpm_subsys[i]->name, ret);
+> -			of_node_put(np);
+> -			return ERR_PTR(ret);
+> +		tmp = dtpm_subsys[i]->setup(parent, np, name);
+> +		if (IS_ERR(tmp)) {
+> +			pr_err("Failed to setup '%s': %ld\n",
+> +			       dtpm_subsys[i]->name, PTR_ERR(tmp));
+> +			dtpm = tmp;
+> +			break;
+> +		}
+> +
+> +		if (tmp) {
+> +			dtpm = tmp;
+> +			break;
+>   		}
+>   	}
+>   
+>   	of_node_put(np);
+>   
+> -	/*
+> -	 * By returning a NULL pointer, we let know the caller there
+> -	 * is no child for us as we are a leaf of the tree
+> -	 */
+> -	return NULL;
+> +	return dtpm;
+>   }
+>   
+> -typedef struct dtpm * (*dtpm_node_callback_t)(const struct dtpm_node *, struct dtpm *);
+> -
+> -static dtpm_node_callback_t dtpm_node_callback[] = {
+> -	[DTPM_NODE_VIRTUAL] = dtpm_setup_virtual,
+> -	[DTPM_NODE_DT] = dtpm_setup_dt,
+> -};
+> -
+> -static int dtpm_for_each_child(const struct dtpm_node *hierarchy,
+> -			       const struct dtpm_node *it, struct dtpm *parent)
+> +static struct powercap_zone *
+> +dtpm_node_create(struct powercap_control_type *pct, const char *name,
+> +		 void *data, struct powercap_zone *parent)
+>   {
+> +	struct dtpm_node *node = data;
+> +	struct dtpm *dtpm_parent = parent ? to_dtpm(parent) : NULL;
+>   	struct dtpm *dtpm;
+> -	int i, ret;
+>   
+> -	for (i = 0; hierarchy[i].name; i++) {
+> +	if (!node)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	switch (node->type) {
+> +	case DTPM_NODE_VIRTUAL:
+> +		dtpm = dtpm_setup_virtual(name, dtpm_parent);
+> +		break;
+> +	case DTPM_NODE_DT:
+
+... or a NULL check here.
+
+> +		dtpm = dtpm_setup_dt(name, node->path, dtpm_parent);
+> +		break;
+> +	default:
+> +		return ERR_PTR(-EINVAL);
+> +	}
+
+
+The rest looks good.
+
+If we are sure we would never experience that NULL ptr coming to those
+registration callbacks - then OK.
+
+Regards,
+Lukasz
