@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607169;
-	b=BJiTr9ycMj4wlH9eABOXkPOtYJ5TVOU+F260Eolj6zcyi6tY21Uo9Mq1DuilGggLC9wc
-	 zP5L+D8DGNz0MxHU1KDeE+N+2d1QfYrMJqRFNIq3qkuwu9zpME6EnByOG+dQheVWboCQW
-	 OnfK7LHdNJCU0P8kk4WEd/ff+z7TNcnkD6NmCZic4DWfjQyhLeZfVVVUr72lN09pZp7jB
-	 6e1klv+JI2fnG1d7y/RwCU6z8BCALoaULJp/y2O9xOOI6h3iE4QglguLwGjvn1JPqVyOA
-	 ZpxPTM7StaqlSgPyR07Cxf/albATKlAGp8JmVjCMiJbLcnqzEZi3Dd5YUWkTm+akX3g==
+	t=1793607160;
+	b=TSi0tNhUrWGoH4kpGxpkXI2+PxbN6NrS1azS3liaasePmTTvrJ/ha6T15zTXDdByyU+Z
+	 AK2kIARCvo308+QA4eCVn/4kF8rNZlrIaK/9NmpEVyJ9+Ok3rHw0k49GszykHjgrFA1TW
+	 QIOXPbsmWRUg/FbAXFHATCvniN22sApjqBpeWoWwtzpC2UQ5uItyvAC5wk6rRd3LFTqUT
+	 jg0p8MqsPtOvj1NQ5+qJAgxZKMQ/+nASCVnHC75ELPX/JnB82F3nN9v40Ll8JrSX++nu9
+	 basz4HEmfgWgmUSGN4zBZcoK2evy+FyBDdUNpggTxf7g5Wm2gDL/7dO/Ep4niNoRWQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607169;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=StNRhS3uLF68vr/22gxVM7chGhzsilgJi6E3RMdsv9c=;
-	b=cs2do7pgwxX/KHGGa0VYvCGQQJ1PhE9KmNlWAMov5rq4t//+jfao7HlTY7rTfoyZhODU
-	 nrs2p1ePrYtFI58G3D39ZM1Vdl+sL1+tHLV9UYuJEvgjfgJ7baxRb1+0UbVyViDwbv/9m
-	 gEyKpov8V2kaMFphjf1kA+F+IOJ/hF0dnJy/o7q0xuwLoSd+c40cxdZ8989Bx8/SvpRHX
-	 JtxoFBxj+DX3516eEGDEfTk+ogV1WmR1ncznNdKsJ1kF6M7QsHjef8NwiOHiiJqBezs1+
-	 b7rwpqVUnazm6k0Qn6VrSDrSYrPpva3ruvACjOpPzWJb5gKqfaW6AnQ4m7TsajRXZGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607160;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=rgA3jQowehsD4IDuk6EokEntcsXv8fWxLKITDX8CbVQ=;
+	b=EckocJhaPLREmVcC/U0Tb1nyvDXJ17iwjA8cAq11BBCBD1Xp7KUQCZW5NH7VxzMEYZpP
+	 ALNr7q2ngYNv4bj0kfSbpK5sPO30EGm9REAJt9a5w8ZakVATMnrGkQiBkk/Fo8ws2X3g/
+	 6YJkiLvRncnKbTbHHfSyqUBaGj6RMODUb0S1TvDRHUPz400ZOg6zsT8YOjKKeAqfVLCzs
+	 YcGr8j1o9NkwudwO6GfJ3yAQFlqCeUh2bTfzBRt1pm4v4F8xAQpsCq2j6EXIzGzuansqW
+	 MgNvm3KSuGqAAApAJB7kS6Fvk5twx1tdltLTvPkSXM9wWhSK1zSIMsEzMLRBMgoYjuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.112
-Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9BDC606A32C;
-	Mon,  2 Nov 2026 08:12:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9BDC606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jJ4F03llnz206N;
-	Mon,  2 Nov 2026 16:12:20 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id B839140561;
-	Mon,  2 Nov 2026 16:12:42 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgB3tfT6RehqnrYcCw--.16409S4;
-	Mon, 02 Nov 2026 16:12:42 +0800 (CST)
-From: Zizhi Wo <wozizhi@huaweicloud.com>
-To: axboe@kernel.dk,
-	bvanassche@acm.org,
-	hch@lst.de,
-	yukuai@fygo.io,
-	linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	yangerkun@huawei.com,
-	chengzhihao1@huawei.com,
-	wozizhi@huawei.com
-Subject: [PATCH] block: partitions: reject GPT entries with starting_lba > ending_lba
-Date: Mon,  2 Nov 2026 16:04:42 +0800
-Message-ID: <20261102080442.3775061-1-wozizhi@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB80B606A32E;
+	Mon,  2 Nov 2026 08:12:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB80B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8DxD9PyRehqTngbAA--.13991S3;
+	Mon, 02 Nov 2026 16:12:34 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAx3c7vRehq5cwxAA--.37701S3;
+	Mon, 02 Nov 2026 16:12:33 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v1 1/2] selftests/bpf: Handle EOPNOTSUPP gracefully in test_loader
+Date: Mon,  2 Nov 2026 16:12:29 +0800
+Message-ID: <20261102081230.7063-2-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20261102081230.7063-1-yangtiezhu@loongson.cn>
+References: <20261102081230.7063-1-yangtiezhu@loongson.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,65 +59,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgB3tfT6RehqnrYcCw--.16409S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF15KF47GFWUAFWxXF43Wrg_yoW8AF15pr
-	s3Gry3Cw18uF1fZa97tan7X34rurnrWw45tFW3W3yfKr43ZasrtF9I9ayjkryjqrZxt3sr
-	ZF1Ygr1kua13AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7
-	CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
-	rVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4
-	IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY
-	0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I
-	0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAI
-	cVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcV
-	CF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIE
-	c7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07UQ6p9UUUUU=
-X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
+X-CM-TRANSID:qMiowJAx3c7vRehq5cwxAA--.37701S3
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7KFW3Aw4DXr1rtr4xJFy7Jwc_yoW8ury7pa
+	92gF4jkrZ2q3WS9a1UXa1DGFWFyF4kGFy3Kr1rWrs5Ars8JFn3tr1fta4agFn5GFZ3Z3Wr
+	uasFyF4rZF17JFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Fb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v2
+	6r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
+	CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF
+	0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
+	AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
+	KfnxnUUI43ZEXa7IU8XyCJUUUUU==
 
-From: Zizhi Wo <wozizhi@huawei.com>
+When loading a BPF skeleton program via test_loader, certain test cases
+such as jit_insns/cast_to_user may fail if the underlying hardware lacks
+specific execution extensions required by newer features like BPF Arena.
 
-A GPT entry whose starting_lba is greater than its ending_lba is accepted,
-and the kernel creates a partition with a bogus size. The bogus sector
-count defeats the end-of-device check, so I/O through that partition is not
-confined to it and can access sectors outside the partition on the same
-disk.
+Now that arch-specific JIT backends can dynamically report these missing
+hardware extensions by returning -EOPNOTSUPP during object loading, the
+user-space testing should handle this gracefully rather than treating it
+as a generic loading failure.
 
-is_pte_valid() only rejects an entry when its type is NULL or when
-starting_lba or ending_lba is greater than lastlba; it never checks that
-starting_lba <= ending_lba. For a reversed entry both field checks still
-pass, but efi_partition() computes size = ending_lba - starting_lba + 1 in
-u64, which underflows to a huge value. That value also wraps in the
-end-of-device check in blk_add_partition() (from + size) and does not fit
-the signed i_size, which turns negative.
+Check the errno of bpf_object__load() to evaluate whether a load failure
+originates from an unsupported platform capability (errno == EOPNOTSUPP).
+If true, cleanly detour execution via test__skip() and branch to cleanup.
+This allows test_progs to mark the test status as SKIPPED rather than
+logging a false-alarm failure if the feature is not supported.
 
-Reject entries with starting_lba > ending_lba in is_pte_valid(), matching
-the head-level check against last_usable_lba < first_usable_lba.
+Before:
+  $ sudo ./test_progs -a jit_insns/cast_to_user
+  ...
+  libbpf: map 'arena': failed to create: -EOPNOTSUPP
+  run_subtest:FAIL:unexpected_load_failure unexpected error: -95 (errno 95)
+  ...
+  #193/2   jit_insns/cast_to_user:FAIL
+  #193     jit_insns:FAIL
+  Summary: 0/0 PASSED, 0 SKIPPED, 1/1 FAILED
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+After:
+  $ sudo ./test_progs -a jit_insns/cast_to_user
+  #193/2   jit_insns/cast_to_user:SKIP
+  #193     jit_insns:OK (SKIP: 1/33)
+  Summary: 1/0 PASSED, 1 SKIPPED, 0/0 FAILED
+
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 ---
- block/partitions/efi.c | 1 +
- 1 file changed, 1 insertion(+)
+ tools/testing/selftests/bpf/test_loader.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/block/partitions/efi.c b/block/partitions/efi.c
-index 9865d59093fa..b31227a13db0 100644
---- a/block/partitions/efi.c
-+++ b/block/partitions/efi.c
-@@ -458,10 +458,11 @@ static int is_gpt_valid(struct parsed_partitions *state, u64 lba,
-  */
- static inline int
- is_pte_valid(const gpt_entry *pte, const u64 lastlba)
- {
- 	if ((!efi_guidcmp(pte->partition_type_guid, NULL_GUID)) ||
-+	    le64_to_cpu(pte->starting_lba) > le64_to_cpu(pte->ending_lba) ||
- 	    le64_to_cpu(pte->starting_lba) > lastlba         ||
- 	    le64_to_cpu(pte->ending_lba)   > lastlba)
- 		return 0;
- 	return 1;
- }
+diff --git a/tools/testing/selftests/bpf/test_loader.c b/tools/testing/selftests/bpf/test_loader.c
+index d24e4fedae46..021818afbd3b 100644
+--- a/tools/testing/selftests/bpf/test_loader.c
++++ b/tools/testing/selftests/bpf/test_loader.c
+@@ -1474,6 +1474,10 @@ void run_subtest(struct test_loader *tester,
+ 			goto tobj_cleanup;
+ 		}
+ 	} else {
++		if (err < 0 && errno == EOPNOTSUPP) {
++			test__skip();
++			goto tobj_cleanup;
++		}
+ 		if (!ASSERT_OK(err, "unexpected_load_failure")) {
+ 			emit_verifier_log(tester->log_buf, true /*force*/);
+ 			goto tobj_cleanup;
 -- 
-2.52.0
+2.42.0
 
