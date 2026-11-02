@@ -1,47 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633305;
-	b=yRWIUvSexdp5FtiprssdDseUQkvmHtScgRaCuBie4f1UuqR5j4o58jelphTVa1Zwy/HI
-	 gDNvkKSA7tuwhFW5UkZL2/A9iv7wG8fXt5t0YV7dnzmRvug24JiOh68jqy8QlgizJUb40
-	 A1V4Z1zEPZvPd2Aj/DnkdMO7pvgH19BttTby/ZUAW676HNvbUd+KB1HTjhSFyMFPmkSNz
-	 1mPjHxQbq5NycNeDWdX6Ar/EWE5LO9Ocuvt2CAvz4CD5vNt/jYPIhDj2oZgbeJeuE8kb6
-	 6qeeLTdTYbkYIMT2YUgk+o42aspjtscvHKHOu2DcMHS48MV/udWbbq4BKXMXwE3CRxQ==
+	t=1793633338;
+	b=I9Vc2uMg3myHpVIfi2dBMttfI9CE7qKf2jipYzl06J9XnOZX1Zx70UyVDfToOPuIZ1qI
+	 MDcUpmiv9RS1/9E/fWntyuxiuzsWOQnlVnz+tDaJictgHu0+vmEt2SPMGRdLzyxhJbH8E
+	 C8Ts3cWWj/VQlsupOSMK8LW6SHTrTMqVAWF3HuvgGKaM3uwe7Tcfe3pStSOJTATwUyzxz
+	 HM0CNdpsJ50jd6QoRZTnVmZdvhLjHBg8kGXvocqZOCqXM2oZbX+c7UJankx+HF6EEpuVI
+	 oAKnlp3PSBVs85lx3D/0wJhjxNLl+B11VrKb2kz/NapjmdZS8QQ9wankGB62Rb8FTYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633305;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6WkRFhtCLZVCf9MxkWKrZd3TCBlxLoJ2vUik3IvzDyQ=;
-	b=yPEe3bXICfTuX/G97TmLgvmpHoBD0bhDb1sbp1js0ErrvkrNG/eVjFzxCASCsXv7eYc+
-	 onT7FDyM9lvrXbF6f2Z+SrZPnBHBCq7PFher3N1jq413DCPIMAZ4+GTak8xZpOdiSS85k
-	 ZQjJxpLuDM2JVyvyuWecNXfpTxdaUo6DjzBRm93l7jLa8r1oQNVSrY/SlrO7ycazyZri0
-	 f5uLZwLEdUr2ojHvprUkAK3bT9WoultfsHT0W6Nr3NiX8SYzsITLZeWBax8vCtzc8/Hu7
-	 HL6ipjT9PV+KSQx92OEH8Qg7PczVcqcECJelfeWFhu1UoSevnwv3tUG3h98RCpIg0Kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633338;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vgW6iwfR4oxej1sYSTg0bSps9+FkII3Zqymh4t6eG2I=;
+	b=ItFR/kDvGPb+eHBEJDetbUsMEIA/r/ZL/w+SCoExa08ZQ3dpEMto+lmTYqCHSeomqdmm
+	 H+BDt/w4kFPL/HD1PbwLH7CxQLuai9MFFjXCOJhI9Dj+x0C6y81gdxf3q4xU7Muml92xu
+	 DziVddMApsOTB++/HgD0AcNSjmRQ+ZXktIjn2cJDA7hpzdUIhYnBEWtr5hptSc5m7vNnY
+	 RRjshavcb/CYNjrE4g0WwgNy+otfh9cnapgC1Vlx271rqRE6gwNP5njdKTeXEaufVGbxJ
+	 q/JTAXMDm29FyRwlGVOgVdpp7JljT6h5l1T7uoUz61z8Jv7Nd2f+TFWSXrueqoAZEaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="m/zWX2XG";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gvpLyEv1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5806070C91;
-	Mon,  2 Nov 2026 15:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E30609D12D;
+	Mon,  2 Nov 2026 15:28:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m/zWX2XG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785021F00A1C;
-	Mon,  2 Nov 2026 15:28:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gvpLyEv1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08BF61F00A17;
+	Mon,  2 Nov 2026 15:28:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633305;
-	bh=6WkRFhtCLZVCf9MxkWKrZd3TCBlxLoJ2vUik3IvzDyQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m/zWX2XG/rSKuFdLED6Lda9izVUMAc9bvJUaKiwtDcsBszEDY7kYNcNCluie4aRZa
-	 Ijl/ivjA5oZsQiXZ0my2GvOtkz4c7/BveYGfnizFFLZTRCpSGLQaVzIlwaPlvsqfEp
-	 2ceCxjfj8oHEpAbG3Pw6dRiBLofIdbxSd9KCnwVA4VUwtErT8ukxVS7E9+fNHNGuJC
-	 WNZ6KoFU1573tc5xzNcN0dqKWn9Hsqs79KfgF7HbvtsWrUFJA0gWxt1aZ0AlvpWBHE
-	 gBWdXhcjctqiqp5g58DwwvqTHYLDrIwHOkALqFDbeBC8IakzJ9RsBrfKw4ZTpoC7F0
-	 OJ/+QcHVpW8Sw==
-Message-ID: <0d7672ae-a856-4f0e-9aa8-52e897bcd4da@kernel.org>
-Date: Mon, 2 Nov 2026 16:28:23 +0100
+	s=k20260515; t=1793633338;
+	bh=vgW6iwfR4oxej1sYSTg0bSps9+FkII3Zqymh4t6eG2I=;
+	h=From:To:Cc:Subject:Date;
+	b=gvpLyEv1W1KJxo1PAJDh8KPS32YJFHX7/HsmuuZht4rmXQ1GtOc6nGzDPSSy5NnCf
+	 LMx0sQVe1Yt1Us1YPjKRcAxNNDHs6AtycyfPlTz7kKK+XCJH0WhLzjqPvkq8YIAiKs
+	 wDkwg/aum3jc9pA3ldSeevn0LfCRUQEuWAlK6bo5HTM3+IjQ/7HKUEKIkyBNn6GSbZ
+	 ecp+8bNQtdUoAzfhCV5mjdmWHn9ghCd93h6BXd0O36MA8uWkvWWwzHiGUkTxHoIjKp
+	 5VA+3lP+TzWTeECyXAFF8Dr4pJxXV5bmsXd4jdkxNOb/jrrD+YeQ024oW8ht+4dBMd
+	 uLmqwT6KhOzNA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH v2 0/3] Docs/admin-guide/mm/damon: minor fixes
+Date: Mon,  2 Nov 2026 07:28:44 -0800
+Message-ID: <20261102152849.96057-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,37 +62,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v3 3/3] selftests/bpf: Cover enum signedness and
- legacy name matching
-To: Hungyu Lin <dennylin0707@gmail.com>, ast@kernel.org, bpf@vger.kernel.org
-Cc: andrii@kernel.org, daniel@iogearbox.net, yonghong.song@linux.dev,
- eddyz87@gmail.com, ihor.solodrai@linux.dev, shuah@kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261101103221.51534-1-dennylin0707@gmail.com>
- <20261101103221.51534-4-dennylin0707@gmail.com>
-From: Quentin Monnet <qmo@kernel.org>
-Content-Language: en-GB
-In-Reply-To: <20261101103221.51534-4-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/11/2026 11:32, Hungyu Lin wrote:
-> Exercise unsigned enum values with their high bit set and signed
-> controls through libbpf's data dumper. Include ordinary enums stored in
-> eight bytes and legacy BTF with kflag clear so normalization does not
-> lose existing names or match only the low 32 bits of wider data.
-> 
-> Extend bpftool_map_dump with BTF-backed array maps and check both JSON
-> and plain output. Cover narrow unsigned names, signed and unsigned
-> numeric fallbacks, legacy enum names, both enumerator orders for
-> ambiguous narrow names, and unmatched ENUM64 values.
-> 
-> Build legacy enum records through the public BTF API and load them into
-> the kernel before invoking bpftool. Initialize map data at its actual
-> width so the tests also work on big-endian hosts.
-> 
-> Suggested-by: Alexei Starovoitov <ast@kernel.org>
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+From: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
 
-Acked-by: Quentin Monnet <qmo@kernel.org>
+Docs/admin-guide/mm/damon: minor fixes
+
+This small patch series fixes various typos, copy-paste mistakes, and an
+incorrect command syntax in the DAMON documentation files.
+
+Changes from v1
+- v1: https://lore.kernel.org/20261006061549.627-1-adrianhuang0701@gmail.com
+- Collect R-b: from SJ.
+- Rebase to latest mm-new.
+
+Adrian Huang (Lenovo) (3):
+  Docs/admin-guide/mm/damon: fix various typos
+  Docs/admin-guide/mm/damon/lru_sort: fix copy-paste mistakes
+  Docs/admin-guide/mm/damon/usage: fix incorrect option syntax in perf
+    example
+
+ Documentation/admin-guide/mm/damon/lru_sort.rst | 6 +++---
+ Documentation/admin-guide/mm/damon/reclaim.rst  | 4 ++--
+ Documentation/admin-guide/mm/damon/start.rst    | 6 +++---
+ Documentation/admin-guide/mm/damon/stat.rst     | 2 +-
+ Documentation/admin-guide/mm/damon/usage.rst    | 2 +-
+ 5 files changed, 10 insertions(+), 10 deletions(-)
+
+
+base-commit: 7fa9b9f1350aa38c32315a6de022c770e78dbfae
+-- 
+2.47.3
