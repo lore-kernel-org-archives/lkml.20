@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603504;
-	b=uxVZF9XdKcIzj6HGs3IbqGE9NTfVUsMKX8yRRIzsOLq70SjBsbIegPgCnLCb0vHeFw/D
-	 yuIBWt/Bn+A/noqtXWeIx7T0ZaTHvl2ZjGP58GTJOr1UZkzdAVvRfmPRX/OKs44Ar9kUg
-	 G5CECdUw2ZmwdHvSmjOzq9T/sQqk/F8710owBG+9vXbSLahNaUUx1tvr2PCLzIwoR8hQq
-	 jcSXA2YAusCxivSAYwrXNMw2k5mMBnaQ4oWgn+isW55/cxcyD/Ti0BUR0oj3zh/lUIGRw
-	 9rwNJIlp8dZDCByCubybh2MFPKcGSMaX6FyqVMMSW7xa40YmcPIKqAJTvxtrvQBhWCA==
+	t=1793603511;
+	b=5CtZIEM3m7Q2H4I2eLOAwv3268IR9qSx5OsH3YbH7A+5djQ65in1p04uzXmMbvelhl34
+	 UKWa4F6OwT8a9oZoQTaDB0D83uepQdvH5kSvVrpK9yLL0THZvem/7mVTtXMGu1u91ujjp
+	 cmdEEZWCbI7OG591w1MqWX4XdxEOzL3svAGsxtx5AqUImm/I17TQH9qyS/ImfpIptXw/s
+	 KLkt7sXlITJJ9LO0+toyrGtWI0wHP/0scUqoR8BN8YZ1R3lUThD3kYYS65LsK/GmOHEYV
+	 CmkBWfqP9au/0Cb/qqL/V5O7nbyYO9TQFzSn4fDoQC7p0lv6i9Vg9sbJ0OlLBH0LdDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603504;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603511;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Mb/1g8nYCeIwcAw01UT60I+xXfiBOSX5Y/kTWaVFrFY=;
-	b=LUdC5ezyJ29LBjGZZ2GJefaypUYfIdKI+HW/tyeopv3gWoa1kcp8uH9QpHgqbdp+fTqr
-	 RfHk7FwugR6qhI57jluhKJti4LeJAa7fGYv9WBKMC6kCauQCASYIA46KthpW29v7Y58E7
-	 7OIaZ5VEKrxqz3FDUp815DokIMnVbYOuh2Retw1iyqGfteOyISW7CmIQQDwhqJMADtCtU
-	 tlgkfKoqHaEx2DqJ+X5Mo25fmZ3iFITV1tSi3R0jOz0UXHtDvVJ53fn0CN9XSU6yYQdCA
-	 7n8EFubM8VYx3ahWLOBBOux/k+tFgTyKH3byqxNKxomWdY6qzCYAsTdq+2+CJi1CBaw==
+	bh=aFf1QpqkAsJSo149csH6GOuvsyJZoB8FI+XgGaXyANI=;
+	b=fOI1V8BleD0b8Uzj1p3RsY8aID7UAwqJIHMqBvxZ56mWgbiRdv/eQhD+BEkmq4rxBODt
+	 YJyvrAhWoixFzEqXvdl1zBMP72OVEkQio1raBSh7Y92t4Pn4p+KDYlAaMu202u04GY98a
+	 l+WPi6+Z5NVKFB0CYYtaOanihTOCDsiGrLtttqrJ3X3WWox0vK/FJMy7jfH/NTfaO6NXh
+	 otQoyBlXFfrSJgZIxcoJGpz5xHvd8Qr0WgTCWMSWGOS1JKSg/tt9jgzJJZtA+1md6PFjR
+	 Nb4HJ7TtyShFx6YYVK5cTA1xIKRpx1ZOPUTtBZaDgDe8lD63Bbf/kqPjsuIubRqCR1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eT3wYLlN;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m1GgYHyU;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B85B606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:11:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B85B606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1990E606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:11:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1990E606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eT3wYLlN
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a06210b29fso984089b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:11:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m1GgYHyU
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a9f9473029so1806591b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:11:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793603503; x=1794208303; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793603509; x=1794208309; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Mb/1g8nYCeIwcAw01UT60I+xXfiBOSX5Y/kTWaVFrFY=;
-        b=eT3wYLlNjgKoDJgrmPLVf+z53ie/PBrzWlNf3RchnvysF5anw64TyRRgmRH18FfzOV
-         7jivWYbcp0PkW1F6FaEIJPI7U0r4renRH8Nxala5yjWMlzsCJ/beUiSQ4QXzcxewJMyR
-         krwWkhhNWxZeS1AOqf5A/4miQ+h5iAQf+SG85kk9+rBSzFjPlscdJcTOiq70rFpA05oM
-         qn9NXnsQjtS0g1WwJ4AN/4qTj/Uc+fLzGNGvb7TuJuhOCBkCxWyq8JKVugi+4O36rQ09
-         LRax8nRmHSrQgM0RoWu6HSAPUsKFRxEpqCjmyOUmrnukOD9+3RGzyowIZqopDlMr3pWF
-         erew==
+        bh=aFf1QpqkAsJSo149csH6GOuvsyJZoB8FI+XgGaXyANI=;
+        b=m1GgYHyUT7wzZIGMaCyigmBfrx3X8UXav8je8ts7399yhc//UOFZq5BRKyYvGCeE7W
+         XVbUSG9LKO+nIJSBB2sh0CSECFeyn8af5EaOQsvum/Zovsj59pOS6AhIgHqfxZWISsZz
+         amyCD4wsgCIdu5triHnel8qhD3BMZv5mtfc09NOza+lvF1KZpnAR5CqRvf607FeBU9Ge
+         p0fvPeWT+z/DsnEu4u+gl/OHGxLibJu/4enIhM72p9MEmJnb4CoTkxZLW7Kzo9z6ZFYq
+         lmyTG7c9hn8b9xpAXusGZKcNjWonOn/ASfm9nMvrU3cJ+tNw73XpLKi6gLZL4gYB7G0/
+         1+Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793603503; x=1794208303;
+        d=1e100.net; s=20260707; t=1793603509; x=1794208309;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mb/1g8nYCeIwcAw01UT60I+xXfiBOSX5Y/kTWaVFrFY=;
-        b=IObsqg1Wsf5YpVXZ7KH4ZLRPsx89NWBeRG41o2Y8NJIjZNHN+dX7bkZvS73buXDxno
-         7Bjcrle8Bte2xWklRdGgIA2k8I/uXx99aSQ/mR+AuwoCsGU7d7p0p8Kvh7c6W9RlhgSy
-         YRurjgUJefHqDdfhv5iBtJ9GkQzhwKjpzuuq8YuDRjyZWXo8rbStakmQ1VrqB3lhG+iq
-         z/DccEzpk6YDf9QUkuUR0kKysAHzqb5EoRuiCEB769nmTbXlzt6NIzoBKYozbOQs5xaN
-         89TTNfTITpECsmBUF3VEUlTYVtInlKkE1Ilb+YMsSGQIrqC/+m9YGuRHKKTBr3EXyu6Y
-         9e/Q==
-X-Forwarded-Encrypted: i=1; AKwUvByQdKB3zNMbWvbA/9mcmlqWlBxCYl5YfRNMcuWT0F6WVYfdYrUKUa6ja0dDPQLTaOt1h7u3wJl4dEq26ls=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mMngpJtqZ+BEtiGPVytliT9XTBMeHLqSPA+kx6au9EX9qkHOt
-	RD4DtQ3LnYKrgEPFcWmOZV8ivtN5WJ3vFLf6LhLPZwC4REKso3u1tPH6
-X-Gm-Gg: AYBFou1dyhYb6dSr0ZIqhKhcfX0HkpBtYFwW6aEkpc3BkpGdj2sMinzuEssgRzyh3cY
-	OyEHk2KCuCMw/AWr5oaNCKxTb9WwgVCDCyKkJsdZOzTNo4c3SmeoyqzgEMpBP/fN6YmKRlomGX4
-	+dATWPPzUy89NhzjW/XruoAaqgVO1A7gOLCXXcZ4/6VptTk9hv5qLXuICfbOumum/ERJJybfVKJ
-	t7CZt9Qx0x1lZatf+3jiaxtHn1Rf3W7xVJ5VpQgSxb0sWRA5C9hoHPxxsZDF0WxowsaXKzG3sKk
-	JncpK+2hz6fXSRgpVgBrzf49xGK12y1HGcoSeh1z9nvKm6u7hkFiLq7k+pjI7LzY5YrLUznW04G
-	Kh8leSqS24La75rKaaO5CeFdSbx8i9hMBly3NIOUP9t6D9hOLEhbiBJ8JRodHyxU8M5lbx1+TwB
-	k+1pwWWA4XSNDhBrALzn8jFUMl3pxg63oNtlaEafDC9uFcpAJBnI3sCI2y4lpyfrnm3Fnt78Rth
-	VqUtgQIRa1ig30sdhJjBmtARF868K0q4FcjP0uKhd3BDcqmyDbJ3wfYfc4kJxBEOTWXwZw4dcnU
-	GnFu0wtO+3NDhNm55/INJh+StYWPQKPZSxIgVYuyYNMEf4m2KfREZA==
-X-Received: by 2002:a05:6a00:4f94:b0:89d:ec58:ce47 with SMTP id d2e1a72fcca58-8a9c05ab245mr7894823b3a.55.1793603503283;
-        Sun, 01 Nov 2026 23:11:43 -0800 (PST)
+        bh=aFf1QpqkAsJSo149csH6GOuvsyJZoB8FI+XgGaXyANI=;
+        b=BBYxHn3jjpyChoxSFwFiRUFQhKuRP/K/iDjiCLv1QLNzKNDNEZI8WI/PJ2QiCxN3Qz
+         u6bLxwSdHjjIfu3fY8fFbOJgRSHl4C6AcxuYplm3J32xTJTpuvjXwuU6Yz0mO0o6FOU6
+         p85zUmGMNuTj372ER5kiZuyaZAMClyoTAR6xknLbNqclsMEJRkMaznUL3c/VXFVdlgMp
+         W+9i44hxkLONTztz7VmktbxQxMxbhflCiPkJ36mqHQXbLy+fwx5t0Lr/tQzVx0nimvke
+         BtqBPtN00fhpNk15Gonxb/21LBVsFTkniCekLBzilYI0VogLPimDNZzXpHJFko4cTB00
+         E/5w==
+X-Forwarded-Encrypted: i=1; AKwUvByatni3GP4wOAxo9eQlTh1y50t3j64bZoPMBY7TSSIb3KjLA11zN2mg0C4tdlxzJI+BY4uz4rxe9XprbbU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kqEQrVEYwOHE/B4BfPJLRaaQv8Ce2mm0a47ctB1hbFJjJrIs8
+	HtmM/Nj6A7RWOV/JbmYMYiBL6T101+1hskXW5I1jMKEUQpEPIqIN3hbo/UWuTe2D
+X-Gm-Gg: AYBFou3WevCPQExN8lR9YA47TFUjAx24kzToMharhyHYI/RzmofsG6iXg5KegaN8b4n
+	/6rscttq+s2eJ5F0dSJzANQ8a5AMxO7x0XMfugJkgo7HgTSPsBcKGzq6ZwzF5Te+LPbE8Dr2MIm
+	siEHXniSEvweLZjvSNk3RlhUaMeoR6LZPMsgpSpL7YKGO7Bz2P8O/NIqMv7yORJ4sJ8BRr//MNX
+	5l8ibVqsnqnrxovooJe3GN9zkCNIdOO67TDpfKJ1d6deJmHU2a0jyed9F2nxyMR7VCEO36yrp2n
+	qZFnpedQ5bieSRKCkpZ2wtlPN2q2Wp9Ti5EhtLijDLXvr5yMseXLstfNzlz71FEweLr/rsYqP8U
+	ocMz1Brrnz+A822aFlZBNGMUweHphmSx6IlAdc0ibXs+y4xRJEqrAinh9NV0Ca9sjgV4v+viuy0
+	69c7pnQeLnGwcZRR/C3nUvVLWoiL/b5NXr4P5T1YWxjhuth6Fab7b89D6gzfHVRd6FJnBgqWtBs
+	RpV4ua6hCGfJS3SJF8oj3em7aeGtnbz/HPNZDyBEMWOpxIMqA/ojn/Tqqk0TyQ1/VGPHenN1L2z
+	x9V4dEcrS/kj9JI76Pq3ZQuTbZyEfDcaBPmEnss4YGJLdLk8KdY1
+X-Received: by 2002:a05:6a00:22d5:b0:89f:d85a:6c0c with SMTP id d2e1a72fcca58-8a9bf337083mr7415827b3a.43.1793603509425;
+        Sun, 01 Nov 2026 23:11:49 -0800 (PST)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8abab0c6c6esm1140566b3a.48.2026.11.01.23.11.40
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8abab0c6c6esm1140566b3a.48.2026.11.01.23.11.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 23:11:42 -0800 (PST)
+        Sun, 01 Nov 2026 23:11:49 -0800 (PST)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -88,9 +88,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net 1/4] net: dsa: motorcomm: Fix extack message on unsupported TC actions
-Date: Mon,  2 Nov 2026 15:11:13 +0800
-Message-ID: <20261102071119.3435180-2-mmyangfl@gmail.com>
+Subject: [PATCH net 3/4] net: dsa: motorcomm: Stop at the first terminal flower action
+Date: Mon,  2 Nov 2026 15:11:15 +0800
+Message-ID: <20261102071119.3435180-4-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261102071119.3435180-1-mmyangfl@gmail.com>
 References: <20261102071119.3435180-1-mmyangfl@gmail.com>
@@ -105,26 +105,123 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-No extack reasons were given to unsupported TC actions. Fix it.
+tc software stops evaluating a flower action list at the first terminal
+action; the hardware translation did not, so a later trap or redirect
+silently overwrote the verdict of the actions before it: an `action drop
+action trap` filter with skip_sw trapped packets to the CPU instead of
+dropping them, and repeated redirects to different ports accumulated
+every target in hardware while software only honored the first one.
+
+Fix it by resolving only the first terminal action of the list.
 
 Fixes: 8eb9e7520b17 ("net: dsa: yt921x: Add ACL support")
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/dsa/motorcomm/tc.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/dsa/motorcomm/tc.c | 61 +++++++++++++++-------------------
+ 1 file changed, 26 insertions(+), 35 deletions(-)
 
 diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-index 9dbd61e48fee..8835907366bf 100644
+index 5a4459507582..87c04f0dd736 100644
 --- a/drivers/net/dsa/motorcomm/tc.c
 +++ b/drivers/net/dsa/motorcomm/tc.c
-@@ -1122,6 +1122,7 @@ yt921x_acl_rule_ext_parse_flow_action(struct yt921x_acl_rule_ext *ruleext,
+@@ -1038,55 +1038,43 @@ yt921x_acl_rule_ext_parse_flow_action(struct yt921x_acl_rule_ext *ruleext,
+ 	const struct flow_rule *rule = flow_cls_offload_flow_rule(cls);
+ 	const struct flow_action *flow_action = &rule->action;
+ 	struct netlink_ext_ack *extack = cls->common.extack;
+-	enum flow_action_id redir_act = NUM_FLOW_ACTIONS;
+ 	const struct flow_action_entry *act;
+ 	u32 *action = ruleext->r.action;
+ 	bool seen_priority = false;
+ 	const char *reason = NULL;
+ 	bool seen_police = false;
++	bool terminal = false;
+ 	unsigned int i;
+ 	int res;
+ 
+ 	memset(action, 0, 3 * sizeof(*action));
+-	flow_action_for_each(i, act, flow_action)
++	flow_action_for_each(i, act, flow_action) {
+ 		switch (act->id) {
+ 		case FLOW_ACTION_ACCEPT:
++			action[2] |= YT921X_ACL_ACTc_FWD_EN |
++				     YT921X_ACL_ACTc_FWD_FWD;
++			terminal = true;
++			break;
+ 		case FLOW_ACTION_DROP:
+-		case FLOW_ACTION_REDIRECT:
+-			if (redir_act != NUM_FLOW_ACTIONS &&
+-			    redir_act != act->id) {
+-				reason = "Different redirect actions";
++			action[2] |= YT921X_ACL_ACTc_FWD_EN |
++				     YT921X_ACL_ACTc_FWD_REDIR;
++			terminal = true;
++			break;
++		case FLOW_ACTION_REDIRECT: {
++			struct dsa_port *to_dp;
++
++			to_dp = dsa_port_from_netdev(act->dev);
++			if (IS_ERR(to_dp) || to_dp->ds != &priv->ds) {
++				reason = "Redirect to non-local port";
+ 				goto fallback;
+ 			}
+-			redir_act = act->id;
+-
+-			switch (act->id) {
+-			case FLOW_ACTION_ACCEPT:
+-				action[2] |= YT921X_ACL_ACTc_FWD_EN |
+-					     YT921X_ACL_ACTc_FWD_FWD;
+-				break;
+-			case FLOW_ACTION_DROP:
+-				action[2] |= YT921X_ACL_ACTc_FWD_EN |
+-					     YT921X_ACL_ACTc_FWD_REDIR;
+-				break;
+-			case FLOW_ACTION_REDIRECT: {
+-				struct dsa_port *to_dp;
+-
+-				to_dp = dsa_port_from_netdev(act->dev);
+-				if (IS_ERR(to_dp) || to_dp->ds != &priv->ds) {
+-					reason = "Redirect to non-local port";
+-					goto fallback;
+-				}
+ 
+-				action[2] |= YT921X_ACL_ACTc_FWD_EN |
+-					     YT921X_ACL_ACTc_FWD_REDIR |
+-					     YT921X_ACL_ACTc_FWD_REDIR_DPORTn(to_dp->index);
+-				break;
+-			}
+-			default:
+-				break;
+-			}
++			action[2] |= YT921X_ACL_ACTc_FWD_EN |
++				     YT921X_ACL_ACTc_FWD_REDIR |
++				     YT921X_ACL_ACTc_FWD_REDIR_DPORTn(to_dp->index);
++			terminal = true;
+ 			break;
++		}
+ 		case FLOW_ACTION_PRIORITY:
+ 			if (seen_priority) {
+ 				action[0] &= ~YT921X_ACL_ACTa_PRIO_EN;
+@@ -1140,15 +1128,18 @@ yt921x_acl_rule_ext_parse_flow_action(struct yt921x_acl_rule_ext *ruleext,
+ 			}
+ 			fallthrough;
+ 		case FLOW_ACTION_TRAP:
+-			redir_act = FLOW_ACTION_TRAP;
+-
+ 			action[2] &= ~YT921X_ACL_ACTc_FWD_REDIR_DPORTS_M &
+ 				     ~YT921X_ACL_ACTc_FWD_M;
+ 			action[2] |= YT921X_ACL_ACTc_FWD_EN |
+ 				     YT921X_ACL_ACTc_FWD_TRAP;
++			terminal = true;
  			break;
  		}
- 		default:
-+			reason = "Unsupported by HW";
- fallback:
- 			if (cls->common.skip_sw) {
- 				NL_SET_ERR_MSG_FMT_MOD(extack,
+ 
++		if (terminal)
++			break;
++	}
++
+ 	ruleext->r.sw_assisted = !cls->common.skip_sw;
+ 	return 0;
+ }
 -- 
 2.53.0
 
