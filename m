@@ -1,51 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793620746;
-	b=vzvvj+48aeqb3NBxdTeIIawtsjnSsh8ttg5hG9TrmsnIpHkiZzhYz/EpirMxsapnlE+f
-	 8+xobyOgDl5M4g8KKjM3aiybTqzz8c7PzHBNbAnHX1p6mwA9NdEPn6LJvxIL59NTUfgYW
-	 KnTxE5o0rLRfM+NnjzjrdB9mLtw09IAPkALwz4quf6HhlyBPWqCksU+nMgYbBNRbaeyuP
-	 UHz5cTO0MFjlobEUztq3i2fukNw9Cm3+KL8quCJWVihDm/RaN2L5t/MabYyZgO9FNKqM3
-	 8jw0U3Fmr9L3krizhOT5PGVJpLoNQOlqYdk3GsvzUAFN1jOu+57d4DsiBCDj/AbZ2OA==
+	b=KWuH55E0BvIVRHUsvsKBZoM/dzWHyeknn/YimgsQYwp2ycK2iEdojNofmE7VJX/v2kFu
+	 grsQWiq2BfN79xVHHVdJoQM9dxDTDj4QIpMO/gZ4Vbl2JVK/fhvhL1y9nOpKEhvgIjbIv
+	 pdas9ORFe5HBSefEc2yqw7jJluwfw/GEGCVhkQ2hktA9+XtOZGRCm3gu/NALqoX5MZVtP
+	 T9ulpIVWMHVEFyAoQzddla9c7q+cJY1TNfhRJM6hiXKYc8PiFQpgcAchuv6va3wPvR42y
+	 E57wZsHN1mAtrumzp8JGZtPC0xy/oD1j5WkxccJxD+tmwyyn/Lstpol1llOAwBDhcgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793620746;
 	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
 	 References:MIME-Version:Content-Type:X-HM-Tid:X-HM-MType:
 	 X-HM-Spam-Status:DKIM-Signature;
-	bh=3Fj9mudZJ+QQBZ3upIVz82snt/6C71t8Fk92mNqF0ZE=;
-	b=XoXgeSNTPhYc72Yvgv2NYNzmVublyvLNds7/yR7CC5p1iKpUX+RjseP19MLNJfb0c9Rp
-	 dcOn4BChwEK787kmUbyDo14xxXTrO7Su36cak7byKjuYOFvp50+iwGsKgY21ovg8nfAo4
-	 +hCRGjjedGE7iZ75aDuxsANOIhp8HhZZawRlWJ05roZPdiZlF8b1wxoV8mGNSE34wJuAH
-	 2/1ejOAsdukjzoFuLq7TOzK+afWUH5QuomNnKD/EmQO9SHux7cZs2bxzrXEiMqgHZXr9y
-	 Q1tX8/Ay82YH/JJOQ0iNgW83cDLfVi8mL/gzzfbGLUImjp8NMV5a3MYpEx7R2w3ippw==
+	bh=dgHaFV6O+r6b8TlbgDNcEktz7FMNoRP5DjZlZcBUyZg=;
+	b=vgsym3DeSe5uMFmAKkqkE9QLKbB05dci1mXAQoSpEm6RUemz4ei0lsxHWaPJb4p838co
+	 se0z0vmHqtl2mxpbhPswUgbQFk1ns2HFRwkmHYzuEIs04qcsLkclC8kjFHuV6IKRQgDhf
+	 jTadaTrxu8povAJck1RPexWbFMW9DD7eyjcvsITFIUHByv4MqgUAjgLswwmDUgqIcLZoo
+	 ToOWMyKlLBdvRJaNODIwUSJJqngQ+FSQXYMBFrrAamaVEjLBE4uiJUoVh2B36FPaDS1Cz
+	 1cyE+BnMgpATEZC+99PUFWOWb5h8ge9/gYzhFxk9bHuOq1FdGIMxQICIZI4wddCe/tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.pku.edu.cn;
 	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=NKBrmefD;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=ODkODvK2;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1227A606A971;
-	Mon,  2 Nov 2026 11:59:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1227A606A971
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3131606A97A;
+	Mon,  2 Nov 2026 11:59:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3131606A97A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=NKBrmefD
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=ODkODvK2
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [1.202.162.49])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b235e;
-	Mon, 2 Nov 2026 19:58:59 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b235f;
+	Mon, 2 Nov 2026 19:59:00 +0800 (GMT+08:00)
 From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org
+To: Ian Kent <raven@themaw.net>, autofs@vger.kernel.org
+Cc: Stanislav Kinsburskiy <skinsbursky@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
 Date: Mon, 02 Nov 2026 19:58:37 +0800
-Message-ID: <179362071776.29269.636621169914924951@stu.pku.edu.cn>
-Subject: Re: [PATCH] tracing/probes: bound symstr stores to reserved length
-In-Reply-To: <179362071772.29269.13958672165986396737@stu.pku.edu.cn>
-References: <179362071772.29269.13958672165986396737@stu.pku.edu.cn>
+Message-ID: <179362071777.29269.4076729226331522278@stu.pku.edu.cn>
+Subject: Re: [PATCH] autofs: pin the pipe while showing mount options
+In-Reply-To: <179362071772.29269.3108893293689933954@stu.pku.edu.cn>
+References: <179362071772.29269.3108893293689933954@stu.pku.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,55 +54,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============5575217477510584208=="
-X-HM-Tid: 0aa19c20856e03a2kunmab045f0fe850f
+Content-Type: multipart/mixed; boundary="===============3034607210149342054=="
+X-HM-Tid: 0aa19c20892103a2kunmab045f0fe8511
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHUkdVk0eTkwdGExOTxhMQlYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQh1LVh9NT01CGUxKH0IfSFYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
 	xVSktLVUtZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=NKBrmefDoKj6MwQAmTUAQwdr8zfituPSMoTOm879b/43kjahzYtuUPJdYi2fD8wwEy1ompzKJeR1zXO8vUGKtSVQCeWMR5SiP87GV2qOEVKiBdyREqCf6xo8YNPvKnF/sXfRPX5nDPEJmkVKhboekLBsq9665lflGhzrHTsEUG8=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=3Fj9mudZJ+QQBZ3upIVz82snt/6C71t8Fk92mNqF0ZE=;
+	b=ODkODvK210ZlizKK73UNiIstMqxjFwPRhii83tPqiV9ZOpduQfxqjF9N+otYTgRhDpPHaLV/pPJpjyOWkhW9NLa6To+jhTHt1Ea/bybnWQ455JEGJjGzOyd6tqUiycF5mG2Nj2TXvgUwKhefLJmPRHJ8GQTXITp6+436X74ewIA=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=dgHaFV6O+r6b8TlbgDNcEktz7FMNoRP5DjZlZcBUyZg=;
 	h=date:mime-version:subject:message-id:from;
 
---===============5575217477510584208==
+--===============3034607210149342054==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 
 Hello,
 
-I found an out-of-bounds write in traceprobe symstr storage when the probed
-pointer changes between the size and store passes. I reproduced it on two
-independent boots of an unmodified Linux v7.3 KASAN kernel. The first run
-reported:
+I found a use-after-free in autofs_show_options() when pipe teardown races
+mount-option reporting. I reproduced it on two independent boots of an
+unmodified Linux v7.3 KASAN kernel. Both runs reported:
 
-  BUG: KASAN: slab-out-of-bounds in sized_strscpy+0x248/0x2f0
-  Write of size 8
-  sized_strscpy
-  module_address_lookup
-  kallsyms_lookup_buildid
-  __sprint_symbol
-  process_fetch_insn
+  BUG: KASAN: slab-use-after-free in autofs_show_options+0x575/0x580
+  Read of size 8
+  autofs_show_options
+  statmount_string
+  __do_sys_statmount
 
-fetch_store_symstrlen() reserves space using the first symbol value. The
-store pass can then observe a longer symbol. fetch_store_symstring() reads the
-reserved maxlen but ignores it and calls unbounded sprint_symbol(), allowing
-the longer result to overwrite the trace record.
+With CONFIG_CHECKPOINT_RESTORE=y, autofs_show_options() tests sbi->pipe and
+then dereferences file_inode(sbi->pipe) without wq_mutex or a file reference.
+A concurrent AUTOFS_IOC_CATATONIC holds wq_mutex, drops the final pipe file
+reference, and clears sbi->pipe. The show_options path can then read the freed
+pipe inode.
 
-The attached helper provides the changing pointer and the userspace program
-installs a 64-field symstr kprobe event:
+Build and run the attached reproducer as root:
 
-  make -C /lib/modules/$(uname -r)/build M=$PWD modules
-  cc -O2 repro.c -o repro
-  sudo insmod helper.ko
-  sudo ./repro 300
+  cc -O2 -static -pthread repro.c -o repro
+  ./repro 500000 16
 
 Both runs used copies of the default syzkaller ext4 image.
 
-The attached patch formats the symbol using the reserved length as the
-destination bound. The patched kernel completed the same workload without a
-KASAN report.
+The attached patch takes a file reference under wq_mutex and releases it
+after printing the inode number. Two patched boots each completed 500,000
+cycles without a KASAN report.
 
 The patch is in the parent message. The reproducer source(s), KASAN
 report(s), and kernel config are attached.
@@ -111,18 +105,19 @@ report(s), and kernel config are attached.
 Regards,
 Yifan Zhang
 
---===============5575217477510584208==
+--===============3034607210149342054==
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment; filename="repro.c"
 MIME-Version: 1.0
 
-// SPDX-License-Identifier: GPL-2.0
 #define _GNU_SOURCE
-
 #include <errno.h>
 #include <fcntl.h>
-#include <linux/perf_event.h>
+#include <pthread.h>
+#include <sched.h>
+#include <stdatomic.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -130,831 +125,586 @@ MIME-Version: 1.0
 #include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/syscall.h>
+#include <sys/sysmacros.h>
 #include <unistd.h>
 
-#define TRACEFS "/sys/kernel/tracing"
-#define NR_FIELDS 64
+#ifndef __NR_statmount
+#define __NR_statmount 457
+#endif
 
-static void die(const char *what)
+#define STATMOUNT_MNT_OPTS 0x00000080U
+#define STATMOUNT_BY_FD 0x00000001U
+
+#define AUTOFS_IOCTL 0x93
+#define AUTOFS_IOC_CATATONIC _IO(AUTOFS_IOCTL, 0x62)
+
+#define AUTOFS_DEV_IOCTL_VERSION_MAJOR 1
+#define AUTOFS_DEV_IOCTL_VERSION_MINOR 1
+
+struct mnt_id_req_local {
+	uint32_t size;
+	uint32_t mnt_fd;
+	uint64_t mnt_id;
+	uint64_t param;
+	uint64_t mnt_ns_id;
+};
+
+struct autofs_dev_ioctl_local {
+	uint32_t ver_major;
+	uint32_t ver_minor;
+	uint32_t size;
+	int32_t ioctlfd;
+	union {
+		struct {
+			int32_t pipefd;
+		} setpipefd;
+		uint64_t align;
+	};
+};
+
+#define AUTOFS_DEV_IOCTL_SETPIPEFD_LOCAL \
+	_IOWR(AUTOFS_IOCTL, 0x78, struct autofs_dev_ioctl_local)
+
+static atomic_int stop_readers;
+static atomic_ulong statmount_calls;
+static int mount_fd;
+
+static void pin_to_cpu(unsigned int cpu)
 {
-	perror(what);
-	exit(1);
+	cpu_set_t set;
+
+	CPU_ZERO(&set);
+	CPU_SET(cpu, &set);
+	(void)pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
 }
 
-static void write_text(const char *path, const char *text)
+static void *statmount_reader(void *arg)
 {
-	int fd =3D open(path, O_WRONLY | O_CLOEXEC);
-	ssize_t len =3D strlen(text);
+	unsigned int cpu = 1 + (uintptr_t)arg % 3;
+	struct mnt_id_req_local req = {
+		.size = sizeof(req),
+		.mnt_fd = mount_fd,
+		.param = STATMOUNT_MNT_OPTS,
+	};
+	char buf[8192];
 
-	if (fd < 0)
-		die(path);
-	if (write(fd, text, len) !=3D len)
-		die("write tracefs control");
-	close(fd);
+	pin_to_cpu(cpu);
+	while (!atomic_load_explicit(&stop_readers, memory_order_relaxed)) {
+		(void)syscall(__NR_statmount, &req, buf, sizeof(buf),
+			      STATMOUNT_BY_FD);
+		atomic_fetch_add_explicit(&statmount_calls, 1,
+					  memory_order_relaxed);
+	}
+	return NULL;
 }
 
-static int read_id(void)
+static void init_dev_ioctl(struct autofs_dev_ioctl_local *p)
 {
-	char buf[64];
-	int fd =3D open(TRACEFS "/events/symrace/test/id", O_RDONLY | O_CLOEXEC);
-	ssize_t n;
+	memset(p, 0, sizeof(*p));
+	p->ver_major = AUTOFS_DEV_IOCTL_VERSION_MAJOR;
+	p->ver_minor = AUTOFS_DEV_IOCTL_VERSION_MINOR;
+	p->size = sizeof(*p);
+	p->ioctlfd = mount_fd;
+}
 
-	if (fd < 0)
-		die("read event id");
-	n =3D read(fd, buf, sizeof(buf) - 1);
-	if (n <=3D 0)
-		die("read event id");
-	close(fd);
-	buf[n] =3D '\0';
-	return atoi(buf);
+static int reconnect_pipe(int dev_fd)
+{
+	struct autofs_dev_ioctl_local p;
+	int fds[2];
+	int ret;
+
+	if (pipe2(fds, O_CLOEXEC) < 0)
+		return -1;
+	init_dev_ioctl(&p);
+	p.setpipefd.pipefd = fds[1];
+	ret = ioctl(dev_fd, AUTOFS_DEV_IOCTL_SETPIPEFD_LOCAL, &p);
+	/* Leave the kernel's write-side file as the only pipe file reference. */
+	close(fds[0]);
+	close(fds[1]);
+	return ret;
 }
 
 int main(int argc, char **argv)
 {
-	char command[4096] =3D "p:symrace/test symrace_probe_point";
-	char path[256];
-	struct perf_event_attr attr =3D { 0 };
-	int fds[256], nfds =3D 0;
-	int ncpu =3D sysconf(_SC_NPROCESSORS_CONF);
+	const char *dir = "/tmp/autofs-race";
+	unsigned long iterations = 200000;
+	unsigned int nr_readers = 12;
+	struct autofs_dev_ioctl_local p;
+	pthread_t *threads;
+	char opts[128];
+	int initial_pipe[2];
+	int dev_fd;
+	unsigned int i;
 
-	if (geteuid()) {
+	setvbuf(stdout, NULL, _IONBF, 0);
+	if (argc > 1)
+		iterations = strtoul(argv[1], NULL, 0);
+	if (argc > 2)
+		nr_readers = strtoul(argv[2], NULL, 0);
+
+	if (geteuid() != 0) {
 		fprintf(stderr, "run as root\n");
 		return 1;
 	}
-	(void)mkdir(TRACEFS, 0755);
-	if (access(TRACEFS "/kprobe_events", F_OK) &&
-	    mount("tracefs", TRACEFS, "tracefs", 0, NULL) && errno !=3D EBUSY)
-		die("mount tracefs");
+	/* A custom init starts in process group 0; autofs needs a real owner. */
+	if (getpgrp() == 0 && setsid() < 0) {
+		perror("setsid");
+		return 1;
+	}
+	(void)mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL);
+	if (mkdir(dir, 0700) < 0 && errno != EEXIST) {
+		perror("mkdir");
+		return 1;
+	}
+	if (pipe2(initial_pipe, O_CLOEXEC) < 0) {
+		perror("pipe2");
+		return 1;
+	}
+	snprintf(opts, sizeof(opts),
+		 "fd=%d,pgrp=%d,minproto=5,maxproto=5,indirect",
+		 initial_pipe[1], getpgrp());
+	if (mount("autofs", dir, "autofs", 0, opts) < 0) {
+		perror("mount autofs");
+		return 1;
+	}
+	mount_fd = open(dir, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
+	if (mount_fd < 0) {
+		perror("open mount");
+		return 1;
+	}
+	/* Only the autofs superblock now owns the initial write-side file. */
+	close(initial_pipe[0]);
+	close(initial_pipe[1]);
 
-	for (int i =3D 0; i < NR_FIELDS; i++) {
-		char field[64];
-		snprintf(field, sizeof(field), " f%d=3D+0($arg1):symstr", i);
-		if (strlen(command) + strlen(field) >=3D sizeof(command)) {
-			fprintf(stderr, "probe command too long\n");
+	dev_fd = open("/dev/autofs", O_RDONLY | O_CLOEXEC);
+	if (dev_fd < 0 && errno == ENOENT) {
+		(void)mknod("/dev/autofs", S_IFCHR | 0600, makedev(10, 235));
+		dev_fd = open("/dev/autofs", O_RDONLY | O_CLOEXEC);
+	}
+	if (dev_fd < 0) {
+		perror("open /dev/autofs");
+		return 1;
+	}
+
+	threads = calloc(nr_readers, sizeof(*threads));
+	if (!threads)
+		return 1;
+	for (i = 0; i < nr_readers; i++) {
+		int err = pthread_create(&threads[i], NULL, statmount_reader,
+					 (void *)(uintptr_t)i);
+		if (err) {
+			errno = err;
+			perror("pthread_create");
 			return 1;
 		}
-		strcat(command, field);
 	}
-	strcat(command, "\n");
+	pin_to_cpu(0);
 
-	write_text(TRACEFS "/kprobe_events", command);
-	write_text(TRACEFS "/buffer_size_kb", "1\n");
-	write_text(TRACEFS "/events/symrace/test/enable", "1\n");
-
-	attr.type =3D PERF_TYPE_TRACEPOINT;
-	attr.size =3D sizeof(attr);
-	attr.config =3D read_id();
-	attr.sample_period =3D 1;
-	attr.sample_type =3D PERF_SAMPLE_RAW;
-	attr.wakeup_events =3D 1;
-	for (int cpu =3D 0; cpu < ncpu && nfds < (int)(sizeof(fds) / sizeof(fds[0]))=
-; cpu++) {
-		int fd =3D syscall(__NR_perf_event_open, &attr, -1, cpu, -1, 0);
-		if (fd >=3D 0)
-			fds[nfds++] =3D fd;
+	/* Race the first pipe installed by mount(2). */
+	if (ioctl(mount_fd, AUTOFS_IOC_CATATONIC, 0) < 0) {
+		perror("initial CATATONIC");
+		return 1;
 	}
-	if (!nfds)
-		die("perf_event_open");
 
-	write_text("/sys/module/helper/parameters/run", "1\n");
-	fprintf(stderr, "running %d symstr fields with %d perf fds\n",
-		NR_FIELDS, nfds);
-	sleep(argc > 1 ? atoi(argv[1]) : 120);
-	write_text("/sys/module/helper/parameters/run", "0\n");
-	for (int i =3D 0; i < nfds; i++)
-		close(fds[i]);
-	return 0;
-}
-
---===============5575217477510584208==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment; filename="helper.c"
-MIME-Version: 1.0
-
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/atomic.h>
-#include <linux/delay.h>
-#include <linux/kthread.h>
-#include <linux/module.h>
-#include <linux/sched.h>
-
-static unsigned long symbol_slot;
-static struct task_struct *toggle_task;
-static struct task_struct *trigger_task;
-static atomic_t run =3D ATOMIC_INIT(0);
-
-void symrace_probe_point(unsigned long *slot);
-
-static noinline __used void a(void)
-{
-	barrier();
-}
-
-static noinline __used void
-this_is_an_intentionally_very_long_symbol_name_used_to_make_the_symbol_string=
-_expand_between_the_traceprobe_size_and_store_passes_abcdefghijklmnopqrstuvwx=
-yz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrst=
-uvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnop=
-qrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijkl=
-mnopqrstuvwxyz(void)
-{
-	barrier();
-}
-
-noinline __used void symrace_probe_point(unsigned long *slot)
-{
-	barrier_data(slot);
-}
-
-static int toggle_fn(void *unused)
-{
-	unsigned long short_addr =3D (unsigned long)a;
-	unsigned long long_addr =3D (unsigned long)
-		this_is_an_intentionally_very_long_symbol_name_used_to_make_the_symbol_stri=
-ng_expand_between_the_traceprobe_size_and_store_passes_abcdefghijklmnopqrstuv=
-wxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqr=
-stuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmn=
-opqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghij=
-klmnopqrstuvwxyz;
-
-	while (!kthread_should_stop()) {
-		WRITE_ONCE(symbol_slot, short_addr);
-		cpu_relax();
-		WRITE_ONCE(symbol_slot, long_addr);
-		cpu_relax();
-		cond_resched();
-	}
-	return 0;
-}
-
-static int trigger_fn(void *unused)
-{
-	while (!kthread_should_stop()) {
-		if (!atomic_read(&run)) {
-			set_current_state(TASK_INTERRUPTIBLE);
-			schedule_timeout(HZ / 20 + 1);
-			continue;
+	for (unsigned long n = 0; n < iterations; n++) {
+		if (reconnect_pipe(dev_fd) < 0) {
+			perror("AUTOFS_DEV_IOCTL_SETPIPEFD");
+			break;
 		}
 
-		for (unsigned int i =3D 0;
-		     i < 100000 && !kthread_should_stop(); i++)
-			symrace_probe_point(&symbol_slot);
-		cond_resched();
+		/* Let at least one reader enter statmount/show_options. */
+		if ((n & 7) == 0)
+			sched_yield();
+		if (ioctl(mount_fd, AUTOFS_IOC_CATATONIC, 0) < 0) {
+			perror("AUTOFS_IOC_CATATONIC");
+			break;
+		}
+		if ((n % 10000) == 0)
+			printf("cycles=%lu statmount=%lu\n", n,
+			       atomic_load_explicit(&statmount_calls,
+						    memory_order_relaxed));
 	}
+
+	atomic_store(&stop_readers, 1);
+	for (i = 0; i < nr_readers; i++)
+		pthread_join(threads[i], NULL);
+	printf("done statmount=%lu\n",
+	       atomic_load_explicit(&statmount_calls, memory_order_relaxed));
+
+	/* Best-effort cleanup. */
+	init_dev_ioctl(&p);
+	(void)ioctl(dev_fd, _IOWR(AUTOFS_IOCTL, 0x79,
+				 struct autofs_dev_ioctl_local), &p);
+	close(dev_fd);
+	close(mount_fd);
+	(void)umount2(dir, MNT_DETACH);
 	return 0;
 }
 
-static int param_set_run(const char *val, const struct kernel_param *kp)
-{
-	int value;
-	int ret =3D kstrtoint(val, 0, &value);
-
-	if (ret)
-		return ret;
-	atomic_set(&run, !!value);
-	return 0;
-}
-
-static int param_get_run(char *buf, const struct kernel_param *kp)
-{
-	return sysfs_emit(buf, "%d\n", atomic_read(&run));
-}
-
-static const struct kernel_param_ops run_ops =3D {
-	.set =3D param_set_run,
-	.get =3D param_get_run,
-};
-module_param_cb(run, &run_ops, NULL, 0644);
-
-static int __init helper_init(void)
-{
-	symbol_slot =3D (unsigned long)a;
-	toggle_task =3D kthread_run(toggle_fn, NULL, "symrace-toggle");
-	if (IS_ERR(toggle_task))
-		return PTR_ERR(toggle_task);
-
-	trigger_task =3D kthread_run(trigger_fn, NULL, "symrace-trigger");
-	if (IS_ERR(trigger_task)) {
-		kthread_stop(toggle_task);
-		return PTR_ERR(trigger_task);
-	}
-	return 0;
-}
-
-static void __exit helper_exit(void)
-{
-	atomic_set(&run, 0);
-	if (trigger_task)
-		kthread_stop(trigger_task);
-	if (toggle_task)
-		kthread_stop(toggle_task);
-}
-
-module_init(helper_init);
-module_exit(helper_exit);
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("traceprobe symstr size/store TOCTOU helper");
-
---===============5575217477510584208==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; filename="Makefile"
-MIME-Version: 1.0
-
-obj-m += helper.o
-
---===============5575217477510584208==
+--===============3034607210149342054==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="kasan-run1.txt"
 MIME-Version: 1.0
 
-[  979.534893] BUG: KASAN: slab-out-of-bounds in sized_strscpy+0x248/0x2f0
-[  979.534957] Write of size 8 at addr ff1100000a215032 by task symrace-trigg=
-er/468
-[  979.534967]=20
-[  979.534995] CPU: 2 UID: 0 PID: 468 Comm: symrace-trigger Tainted: G       =
- W  O        7.3.0 #1 PREEMPT(lazy)=20
-[  979.535019] Tainted: [W]=3DWARN, [O]=3DOOT_MODULE
-[  979.535025] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[   14.497954] BUG: KASAN: slab-use-after-free in autofs_show_options+0x575/0=
+x580
+[   14.498079] Read of size 8 at addr ff11000009a84b00 by task repro/129
+[   14.498089]=20
+[   14.498129] CPU: 3 UID: 0 PID: 129 Comm: repro Not tainted 7.3.0 #22 PREEM=
+PT(lazy)=20
+[   14.498150] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  979.535041] Call Trace:
-[  979.535055]  <TASK>
-[  979.535062]  dump_stack_lvl+0x7b/0xa0
-[  979.535086]  print_report+0xd0/0x630
-[  979.535131]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  979.535157]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535185]  ? sized_strscpy+0x248/0x2f0
-[  979.535204]  kasan_report+0xce/0x100
-[  979.535225]  ? sized_strscpy+0x248/0x2f0
-[  979.535247]  sized_strscpy+0x248/0x2f0
-[  979.535271]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.535305]  module_address_lookup+0xdc/0x130
-[  979.535341]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.535374]  kallsyms_lookup_buildid+0x157/0x1e0
-[  979.535401]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.535434]  __sprint_symbol.isra.0+0xd9/0x1f0
-[  979.535453]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
-[  979.535471]  ? __asan_memcpy+0x3c/0x60
-[  979.535485]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535500]  ? __sprint_symbol.isra.0+0x151/0x1f0
-[  979.535519]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
-[  979.535540]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535555]  ? copy_from_kernel_nofault_allowed+0x98/0xd0
-[  979.535591]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.535625]  process_fetch_insn+0x8c2/0x1990
-[  979.535654]  ? __pfx_process_fetch_insn+0x10/0x10
-[  979.535670]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535685]  ? rb_move_tail+0x433/0x1830
-[  979.535713]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.535756]  ? __pfx_rb_move_tail+0x10/0x10
-[  979.535779]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535798]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535813]  ? sched_clock+0x29/0x50
-[  979.535831]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535847]  ? __rb_reserve_next.constprop.0+0x62d/0x1480
-[  979.535875]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535891]  ? ring_buffer_lock_reserve+0x56d/0xfa0
-[  979.535908]  ? __pfx_ring_buffer_lock_reserve+0x10/0x10
-[  979.535924]  ? __entry_text_end+0xfdff5/0x1020f9
-[  979.535942]  ? handle_bug+0x184/0x2a0
-[  979.535962]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.535978]  ? ring_buffer_event_data+0xc9/0x120
-[  979.535997]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.536012]  ? trace_event_buffer_lock_reserve+0x3f3/0x6d0
-[  979.536035]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.536051]  ? ring_buffer_event_data+0xc9/0x120
-[  979.536070]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.536085]  ? trace_event_buffer_reserve+0x250/0x320
-[  979.536103]  kprobe_trace_func+0x3a6/0x700
-[  979.536123]  ? __pfx_kprobe_trace_func+0x10/0x10
-[  979.536142]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.536158]  ? preempt_schedule_notrace+0x4b/0x80
-[  979.536180]  kprobe_dispatcher+0xf0/0x120
-[  979.536196]  ? symrace_probe_point+0x4/0x20 [helper]
-[  979.536212]  kprobe_ftrace_handler+0x2bf/0x420
-[  979.536230]  ? symrace_probe_point+0x9/0x20 [helper]
-[  979.536245]  ? __pfx_kprobe_dispatcher+0x10/0x10
-[  979.536262]  ? __pfx_trigger_fn+0x10/0x10 [helper]
-[  979.536277]  0xffffffffa04010da
-[  979.536293]  ? __pfx_trigger_fn+0x10/0x10 [helper]
-[  979.536311]  ? trigger_fn+0x95/0xe0 [helper]
-[  979.536326]  ? symrace_probe_point+0x5/0x20 [helper]
-[  979.536343]  symrace_probe_point+0x9/0x20 [helper]
-[  979.536358]  trigger_fn+0xa1/0xe0 [helper]
-[  979.536374]  kthread+0x2fe/0x400
-[  979.536394]  ? recalc_sigpending+0x18c/0x220
-[  979.536412]  ? __pfx_kthread+0x10/0x10
-[  979.536426]  ret_from_fork+0x3f7/0x680
-[  979.536444]  ? __pfx_ret_from_fork+0x10/0x10
-[  979.536460]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.536476]  ? __switch_to+0x743/0xf60
-[  979.536502]  ? __pfx_kthread+0x10/0x10
-[  979.536516]  ret_from_fork_asm+0x1a/0x30
-[  979.536540]  </TASK>
-[  979.536546]=20
-[  979.536549] Allocated by task 362:
-[  979.536562]  kasan_save_stack+0x33/0x60
-[  979.536580]  kasan_save_track+0x14/0x30
-[  979.536596]  __kasan_kmalloc+0x8f/0xa0
-[  979.536610]  __kmalloc_noprof+0x1e9/0x510
-[  979.536628]  __memcg_list_lru_alloc+0x395/0x690
-[  979.536649]  memcg_list_lru_alloc+0xc0/0xf0
-[  979.536666]  __memcg_slab_post_alloc_hook+0x1fe/0x11b0
-[  979.536688]  kmem_cache_alloc_lru_noprof+0x3a5/0x3e0
-[  979.536701]  __d_alloc+0x3a/0x850
-[  979.536724]  d_alloc_pseudo+0x21/0xb0
-[  979.536743]  alloc_file_pseudo+0x101/0x270
-[  979.536768]  __anon_inode_getfile+0xbd/0x230
-[  979.536804]  __anon_inode_getfd+0x57/0xc0
-[  979.536819]  do_inotify_init+0x465/0x5c0
-[  979.536842]  __x64_sys_inotify_init1+0x35/0x50
-[  979.536862]  do_syscall_64+0xdd/0x4a0
-[  979.536876]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[  979.536888]=20
-[  979.536890] The buggy address belongs to the object at ff1100000a215000
-[  979.536890]  which belongs to the cache kmalloc-64 of size 64
-[  979.536903] The buggy address is located 2 bytes to the right of
-[  979.536903]  allocated 48-byte region [ff1100000a215000, ff1100000a215030)
-[  979.536915]=20
-[  979.536918] The buggy address belongs to the physical page:
-[  979.536929] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xf=
-f1100000a215c80 pfn:0xa215
-[  979.536946] flags: 0x100000000000200(workingset|node=3D0|zone=3D1)
-[  979.536964] page_type: f5(slab)
-[  979.536976] raw: 0100000000000200 ff110000098388c0 ffd40000003fbe90 ffd400=
-00002af310
-[  979.536988] raw: ff1100000a215c80 000000000020001f 00000000f5000000 000000=
+[   14.498179] Call Trace:
+[   14.498194]  <TASK>
+[   14.498203]  dump_stack_lvl+0x7b/0xa0
+[   14.498286]  print_report+0xd0/0x630
+[   14.498336]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[   14.498374]  ? irqentry_exit+0x2e8/0x670
+[   14.498394]  ? autofs_show_options+0x575/0x580
+[   14.498411]  kasan_report+0xce/0x100
+[   14.498427]  ? autofs_show_options+0x575/0x580
+[   14.498446]  ? __pfx_autofs_show_options+0x10/0x10
+[   14.498463]  autofs_show_options+0x575/0x580
+[   14.498481]  statmount_string+0x832/0x1a90
+[   14.498525]  ? __pfx_selinux_sb_statfs+0x10/0x10
+[   14.498589]  ? __pfx_statmount_string+0x10/0x10
+[   14.498609]  ? __kvmalloc_node_noprof+0x442/0x660
+[   14.498628]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.498673]  __do_sys_statmount+0x189c/0x2290
+[   14.498697]  ? __pfx___schedule+0x10/0x10
+[   14.498728]  ? __pfx___do_sys_statmount+0x10/0x10
+[   14.498751]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.498778]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.498794]  ? restore_fpregs_from_fpstate+0x50/0xf0
+[   14.498830]  do_syscall_64+0xdd/0x4a0
+[   14.498851]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   14.498865] RIP: 0033:0x42120d
+[   14.498880] Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89=
+ f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d=
+ 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+[   14.498898] RSP: 002b:00007faa7734e208 EFLAGS: 00000246 ORIG_RAX: 00000000=
+000001c9
+[   14.498925] RAX: ffffffffffffffda RBX: 00007faa7734e230 RCX: 0000000000421=
+20d
+[   14.498934] RDX: 0000000000002000 RSI: 00007faa7734e230 RDI: 00007faa7734e=
+210
+[   14.498942] RBP: 00007faa773502f0 R08: 0000000500000020 R09: 0000000500000=
+020
+[   14.498950] R10: 0000000000000001 R11: 0000000000000246 R12: 00007faa77350=
+6c0
+[   14.498958] R13: ffffffffffffffb8 R14: 0000000000000000 R15: 00007fff070b9=
+b00
+[   14.498971]  </TASK>
+[   14.498979]=20
+[   14.498982] Allocated by task 117:
+[   14.498994]  kasan_save_stack+0x33/0x60
+[   14.499012]  kasan_save_track+0x14/0x30
+[   14.499025]  __kasan_slab_alloc+0x6e/0x70
+[   14.499038]  kmem_cache_alloc_lru_noprof+0x13e/0x3d0
+[   14.499067]  alloc_inode+0xb8/0x230
+[   14.499088]  create_pipe_files+0x4c/0x910
+[   14.499109]  do_pipe2+0xa0/0x190
+[   14.499121]  __x64_sys_pipe2+0x54/0x80
+[   14.499133]  do_syscall_64+0xdd/0x4a0
+[   14.499148]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   14.499159]=20
+[   14.499162] Freed by task 117:
+[   14.499168]  kasan_save_stack+0x33/0x60
+[   14.499180]  kasan_save_track+0x14/0x30
+[   14.499192]  kasan_save_free_info+0x3b/0x60
+[   14.499216]  __kasan_slab_free+0x43/0x70
+[   14.499230]  kmem_cache_free+0xdd/0x430
+[   14.499251]  destroy_inode+0xc7/0x1b0
+[   14.499266]  evict+0x4f8/0x7e0
+[   14.499279]  iput+0x4ee/0x6d0
+[   14.499293]  dentry_unlink_inode+0x26b/0x430
+[   14.499312]  dentry_kill+0x233/0xa60
+[   14.499328]  finish_dput+0x20/0x1a0
+[   14.499343]  dput+0x24b/0x370
+[   14.499358]  __fput+0x483/0xa70
+[   14.499380]  task_work_run+0x13f/0x210
+[   14.499405]  exit_to_user_mode_loop+0x158/0x500
+[   14.499439]  do_syscall_64+0x359/0x4a0
+[   14.499454]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   14.499466]=20
+[   14.499469] The buggy address belongs to the object at ff11000009a84ac0
+[   14.499469]  which belongs to the cache inode_cache of size 560
+[   14.499478] The buggy address is located 64 bytes inside of
+[   14.499478]  freed 560-byte region [ff11000009a84ac0, ff11000009a84cf0)
+[   14.499502]=20
+[   14.499504] The buggy address belongs to the physical page:
+[   14.499513] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
+ pfn:0x9a84
+[   14.499527] head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 p=
+incount:0
+[   14.499536] flags: 0x100000000000040(head|node=3D0|zone=3D1)
+[   14.499559] page_type: f5(slab)
+[   14.499571] raw: 0100000000000040 ff110000096dbcc0 dead000000000100 dead00=
+0000000122
+[   14.499583] raw: 0000000000000000 0000000200170017 00000000f5000000 000000=
 0000000000
-[  979.536996] page dumped because: kasan: bad access detected
-[  979.537001]=20
-[  979.537004] Memory state around the buggy address:
-[  979.537009]  ff1100000a214f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
-0 00
-[  979.537018]  ff1100000a214f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
-0 00
-[  979.537027] >ff1100000a215000: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
+[   14.499595] head: 0100000000000040 ff110000096dbcc0 dead000000000100 dead0=
+00000000122
+[   14.499607] head: 0000000000000000 0000000200170017 00000000f5000000 00000=
+00000000000
+[   14.499619] head: 0100000000000002 ffffffffffffff01 00000000ffffffff 00000=
+000ffffffff
+[   14.499631] head: 0000000000000000 0000000000000000 00000000ffffffff 00000=
+00000000004
+[   14.499638] page dumped because: kasan: bad access detected
+[   14.499643]=20
+[   14.499646] Memory state around the buggy address:
+[   14.499651]  ff11000009a84a00: fb fb fb fb fb fb fb fb fc fc fc fc fc fc f=
 c fc
-[  979.537035]                                      ^
-[  979.537041]  ff1100000a215080: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
-c fc
-[  979.537050]  ff1100000a215100: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
-c fc
-[  979.537057] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+[   14.499661]  ff11000009a84a80: fc fc fc fc fc fc fc fc fa fb fb fb fb fb f=
+b fb
+[   14.499670] >ff11000009a84b00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb f=
+b fb
+[   14.499677]                    ^
+[   14.499683]  ff11000009a84b80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb f=
+b fb
+[   14.499692]  ff11000009a84c00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb f=
+b fb
+[   14.499699] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  979.537101] Disabling lock debugging due to kernel taint
-[  979.537106] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  979.537111] BUG: KASAN: slab-out-of-bounds in sized_strscpy+0x248/0x2f0
-[  979.537132] Write of size 8 at addr ff1100000a21503a by task symrace-trigg=
-er/468
-[  979.537142]=20
-[  979.537148] CPU: 2 UID: 0 PID: 468 Comm: symrace-trigger Tainted: G    B  =
- W  O        7.3.0 #1 PREEMPT(lazy)=20
-[  979.537168] Tainted: [B]=3DBAD_PAGE, [W]=3DWARN, [O]=3DOOT_MODULE
-[  979.537175] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[   14.499749] Kernel panic - not syncing: KASAN: panic_on_warn set ...
+[   14.529370] CPU: 3 UID: 0 PID: 129 Comm: repro Not tainted 7.3.0 #22 PREEM=
+PT(lazy)=20
+[   14.529845] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  979.537184] Call Trace:
-[  979.537188]  <TASK>
-[  979.537193]  dump_stack_lvl+0x7b/0xa0
-[  979.537212]  print_report+0xd0/0x630
-[  979.537229]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  979.537253]  ? sized_strscpy+0x248/0x2f0
-[  979.537271]  kasan_report+0xce/0x100
-[  979.537289]  ? sized_strscpy+0x248/0x2f0
-[  979.537311]  sized_strscpy+0x248/0x2f0
-[  979.537331]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.537365]  module_address_lookup+0xdc/0x130
-[  979.537388]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.537421]  kallsyms_lookup_buildid+0x157/0x1e0
-[  979.537441]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.537474]  __sprint_symbol.isra.0+0xd9/0x1f0
-[  979.537492]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
-[  979.537511]  ? __asan_memcpy+0x3c/0x60
-[  979.537524]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.537540]  ? __sprint_symbol.isra.0+0x151/0x1f0
-[  979.537558]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
-[  979.537579]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.537597]  ? copy_from_kernel_nofault_allowed+0x98/0xd0
-[  979.537619]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.537653]  process_fetch_insn+0x8c2/0x1990
-[  979.537672]  ? __pfx_process_fetch_insn+0x10/0x10
-[  979.537688]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.537703]  ? rb_move_tail+0x433/0x1830
-[  979.537724]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[  979.537766]  ? __pfx_rb_move_tail+0x10/0x10
-[  979.537789]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.537805]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.537820]  ? sched_clock+0x29/0x50
-[  979.537832]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.537847]  ? __rb_reserve_next.constprop.0+0x62d/0x1480
-[  979.537874]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.537889]  ? ring_buffer_lock_reserve+0x56d/0xfa0
-[  979.537910]  ? __pfx_ring_buffer_lock_reserve+0x10/0x10
-[  979.537925]  ? __entry_text_end+0xfdff5/0x1020f9
-[  979.537940]  ? handle_bug+0x184/0x2a0
-[  979.537956]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.537972]  ? ring_buffer_event_data+0xc9/0x120
-[  979.537990]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.538006]  ? trace_event_buffer_lock_reserve+0x3f3/0x6d0
-[  979.538026]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.538041]  ? ring_buffer_event_data+0xc9/0x120
-[  979.538060]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.538075]  ? trace_event_buffer_reserve+0x250/0x320
-[  979.538090]  kprobe_trace_func+0x3a6/0x700
-[  979.538109]  ? __pfx_kprobe_trace_func+0x10/0x10
-[  979.538131]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.538149]  ? preempt_schedule_notrace+0x4b/0x80
-[  979.538171]  kprobe_dispatcher+0xf0/0x120
-[  979.538187]  ? symrace_probe_point+0x4/0x20 [helper]
-[  979.538202]  kprobe_ftrace_handler+0x2bf/0x420
-[  979.538217]  ? symrace_probe_point+0x9/0x20 [helper]
-[  979.538232]  ? __pfx_kprobe_dispatcher+0x10/0x10
-[  979.538249]  ? __pfx_trigger_fn+0x10/0x10 [helper]
-[  979.538264]  0xffffffffa04010da
-[  979.538273]  ? __pfx_trigger_fn+0x10/0x10 [helper]
-[  979.538291]  ? trigger_fn+0x95/0xe0 [helper]
-[  979.538307]  ? symrace_probe_point+0x5/0x20 [helper]
-[  979.538323]  symrace_probe_point+0x9/0x20 [helper]
-[  979.538338]  trigger_fn+0xa1/0xe0 [helper]
-[  979.538353]  kthread+0x2fe/0x400
-[  979.538366]  ? recalc_sigpending+0x18c/0x220
-[  979.538381]  ? __pfx_kthread+0x10/0x10
-[  979.538395]  ret_from_fork+0x3f7/0x680
-[  979.538410]  ? __pfx_ret_from_fork+0x10/0x10
-[  979.538426]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  979.538441]  ? __switch_to+0x743/0xf60
-[  979.538461]  ? __pfx_kthread+0x10/0x10
-[  979.538475]  ret_from_fork_asm+0x1a/0x30
-[  979.538498]  </TASK>
-[  979.538502]=20
-[  979.538505] Allocated by task 362:
-[  979.538510]  kasan_save_stack+0x33/0x60
-[  979.538525]  kasan_save_track+0x14/0x30
-[  979.538539]  __kasan_kmalloc+0x8f/0xa0
-[  979.538553]  __kmalloc_noprof+0x1e9/0x510
-[  979.538564]  __memcg_list_lru_alloc+0x395/0x690
-[  979.538579]  memcg_list_lru_alloc+0xc0/0xf0
-[  979.538597]  __memcg_slab_post_alloc_hook+0x1fe/0x11b0
-[  979.538617]  kmem_cache_alloc_lru_noprof+0x3a5/0x3e0
-[  979.538630]  __d_alloc+0x3a/0x850
-[  979.538644]  d_alloc_pseudo+0x21/0xb0
-[  979.538663]  alloc_file_pseudo+0x101/0x270
-[  979.538680]  __anon_inode_getfile+0xbd/0x230
-[  979.538694]  __anon_inode_getfd+0x57/0xc0
-[  979.538709]  do_inotify_init+0x465/0x5c0
-[  979.538728]  __x64_sys_inotify_init1+0x35/0x50
-[  979.538753]  do_syscall_64+0xdd/0x4a0
+[   14.530521] Call Trace:
+[   14.530680]  <TASK>
+[   14.530823]  dump_stack_lvl+0x30/0xa0
+[   14.531067]  vpanic+0x78b/0x840
+[   14.531307]  ? __pfx_vpanic+0x10/0x10
+[   14.531549]  ? __hrtimer_rearm_deferred+0x17c/0x480
+[   14.531877]  ? autofs_show_options+0x575/0x580
+[   14.532159]  panic+0xca/0xd0
+[   14.532362]  ? __pfx_panic+0x10/0x10
+[   14.532603]  check_panic_on_warn+0x8c/0x90
+[   14.532870]  end_report+0xc8/0xe0
+[   14.533089]  kasan_report+0xdc/0x100
+[   14.533322]  ? autofs_show_options+0x575/0x580
+[   14.533614]  ? __pfx_autofs_show_options+0x10/0x10
+[   14.533918]  autofs_show_options+0x575/0x580
+[   14.534192]  statmount_string+0x832/0x1a90
+[   14.534464]  ? __pfx_selinux_sb_statfs+0x10/0x10
+[   14.534770]  ? __pfx_statmount_string+0x10/0x10
+[   14.535062]  ? __kvmalloc_node_noprof+0x442/0x660
+[   14.535355]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.535662]  __do_sys_statmount+0x189c/0x2290
+[   14.535959]  ? __pfx___schedule+0x10/0x10
+[   14.536241]  ? __pfx___do_sys_statmount+0x10/0x10
+[   14.536556]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.536857]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.537162]  ? restore_fpregs_from_fpstate+0x50/0xf0
+[   14.537475]  do_syscall_64+0xdd/0x4a0
+[   14.537721]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   14.538028] RIP: 0033:0x42120d
+[   14.538227] Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89=
+ f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d=
+ 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+[   14.539331] RSP: 002b:00007faa7734e208 EFLAGS: 00000246 ORIG_RAX: 00000000=
+000001c9
+[   14.539803] RAX: ffffffffffffffda RBX: 00007faa7734e230 RCX: 0000000000421=
+20d
+[   14.540229] RDX: 0000000000002000 RSI: 00007faa7734e230 RDI: 00007faa7734e=
+210
+[   14.540669] RBP: 00007faa773502f0 R08: 0000000500000020 R09: 0000000500000=
+020
+[   14.541098] R10: 0000000000000001 R11: 0000000000000246 R12: 00007faa77350=
+6c0
+[   14.541527] R13: ffffffffffffffb8 R14: 0000000000000000 R15: 00007fff070b9=
+b00
+[   14.541960]  </TASK>
+[   14.542213] Kernel Offset: disabled
+[   14.542439] Rebooting in 1 seconds..
 
---===============5575217477510584208==
+--===============3034607210149342054==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="kasan-run2.txt"
 MIME-Version: 1.0
 
-[   33.285771] BUG: KASAN: slab-use-after-free in sized_strscpy+0x248/0x2f0
-[   33.285862] Write of size 8 at addr ff1100000a215002 by task symrace-trigg=
-er/406
-[   33.285874]=20
-[   33.285894] CPU: 2 UID: 0 PID: 406 Comm: symrace-trigger Tainted: G       =
- W  O        7.3.0 #1 PREEMPT(lazy)=20
-[   33.285914] Tainted: [W]=3DWARN, [O]=3DOOT_MODULE
-[   33.285920] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[   14.239889] BUG: KASAN: slab-use-after-free in autofs_show_options+0x575/0=
+x580
+[   14.240064] Read of size 8 at addr ff1100000e3a5060 by task repro/119
+[   14.240074]=20
+[   14.240101] CPU: 2 UID: 0 PID: 119 Comm: repro Not tainted 7.3.0 #22 PREEM=
+PT(lazy)=20
+[   14.240119] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   33.285931] Call T
-** replaying previous printk message **
-[   33.285931] Call Trace:
-[   33.285946]  <TASK>
-[   33.285953]  dump_stack_lvl+0x7b/0xa0
-[   33.285976]  print_report+0xd0/0x630
-[   33.286036]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[   33.286063]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286081]  ? sized_strscpy+0x248/0x2f0
-[   33.286100]  kasan_report+0xce/0x100
-[   33.286122]  ? sized_strscpy+0x248/0x2f0
-[   33.286144]  sized_strscpy+0x248/0x2f0
-[   33.286165]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.286199]  module_address_lookup+0xdc/0x130
-[   33.286235]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.286269]  kallsyms_lookup_buildid+0x157/0x1e0
-[   33.286304]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.286337]  __sprint_symbol.isra.0+0xd9/0x1f0
-[   33.286356]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
-[   33.286374]  ? __asan_memcpy+0x3c/0x60
-[   33.286388]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286404]  ? __sprint_symbol.isra.0+0x151/0x1f0
-[   33.286422]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
-[   33.286442]  ? __pfx_a+0x10/0x10 [helper]
-[   33.286457]  ? copy_from_kernel_nofault+0x81/0x200
-[   33.286486]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286502]  ? copy_from_kernel_nofault_allowed+0x98/0xd0
-[   33.286531]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.286565]  process_fetch_insn+0x8c2/0x1990
-[   33.286585]  ? __pfx_process_fetch_insn+0x10/0x10
-[   33.286601]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286617]  ? rb_move_tail+0x433/0x1830
-[   33.286643]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.286679]  ? __pfx_rb_move_tail+0x10/0x10
-[   33.286707]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286723]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286738]  ? sched_clock+0x29/0x50
-[   33.286759]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286774]  ? __rb_reserve_next.constprop.0+0x62d/0x1480
-[   33.286802]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286817]  ? ring_buffer_lock_reserve+0x56d/0xfa0
-[   33.286835]  ? __pfx_ring_buffer_lock_reserve+0x10/0x10
-[   33.286850]  ? __entry_text_end+0xfdff5/0x1020f9
-[   33.286865]  ? handle_bug+0x184/0x2a0
-[   33.286884]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286900]  ? ring_buffer_event_data+0xc9/0x120
-[   33.286919]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286934]  ? trace_event_buffer_lock_reserve+0x3f3/0x6d0
-[   33.286966]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.286982]  ? ring_buffer_event_data+0xc9/0x120
-[   33.287000]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.287016]  ? trace_event_buffer_reserve+0x250/0x320
-[   33.287032]  kprobe_trace_func+0x3a6/0x700
-[   33.287051]  ? __pfx_kprobe_trace_func+0x10/0x10
-[   33.287070]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.287085]  ? preempt_schedule_notrace+0x4b/0x80
-[   33.287107]  kprobe_dispatcher+0xf0/0x120
-[   33.287124]  ? symrace_probe_point+0x4/0x20 [helper]
-[   33.287139]  kprobe_ftrace_handler+0x2bf/0x420
-[   33.287155]  ? symrace_probe_point+0x9/0x20 [helper]
-[   33.287170]  ? __pfx_kprobe_dispatcher+0x10/0x10
-[   33.287187]  ? __pfx_trigger_fn+0x10/0x10 [helper]
-[   33.287202]  0xffffffffa04010da
-[   33.287213]  ? __pfx_trigger_fn+0x10/0x10 [helper]
-[   33.287232]  ? trigger_fn+0x95/0xe0 [helper]
-[   33.287247]  ? symrace_probe_point+0x5/0x20 [helper]
-[   33.287264]  symrace_probe_point+0x9/0x20 [helper]
-[   33.287279]  trigger_fn+0xa1/0xe0 [helper]
-[   33.287295]  kthread+0x2fe/0x400
-[   33.287309]  ? recalc_sigpending+0x18c/0x220
-[   33.287325]  ? __pfx_kthread+0x10/0x10
-[   33.287339]  ret_from_fork+0x3f7/0x680
-[   33.287355]  ? __pfx_ret_from_fork+0x10/0x10
-[   33.287371]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.287386]  ? __switch_to+0x743/0xf60
-[   33.287406]  ? __pfx_kthread+0x10/0x10
-[   33.287420]  ret_from_fork_asm+0x1a/0x30
-[   33.287444]  </TASK>
-[   33.287456]=20
-[   33.287459] Allocated by task 193:
-[   33.287475]  kasan_save_stack+0x33/0x60
-[   33.287490]  kasan_save_track+0x14/0x30
-[   33.287507]  __kasan_kmalloc+0x8f/0xa0
-[   33.287521]  __kmalloc_noprof+0x1e9/0x510
-[   33.287545]  security_inode_init_security+0xf7/0x2f0
-[   33.287601]  shmem_mknod+0x26f/0x3e0
-[   33.287614]  lookup_open+0xf58/0x15a0
-[   33.287646]  path_openat+0xe36/0x2030
-[   33.287661]  do_file_open+0x202/0x420
-[   33.287674]  do_sys_openat2+0xf4/0x1b0
-[   33.287700]  __x64_sys_openat+0x136/0x1e0
-[   33.287718]  do_syscall_64+0xdd/0x4a0
-[   33.287732]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   33.287744]=20
-[   33.287747] Freed by task 193:
-[   33.287752]  kasan_save_stack+0x33/0x60
-[   33.287766]  kasan_save_track+0x14/0x30
-[   33.287781]  kasan_save_free_info+0x3b/0x60
-[   33.287801]  __kasan_slab_free+0x43/0x70
-[   33.287816]  kfree+0x18b/0x430
-[   33.287837]  security_inode_init_security+0x251/0x2f0
-[   33.287851]  shmem_mknod+0x26f/0x3e0
-[   33.287863]  lookup_open+0xf58/0x15a0
-[   33.287881]  path_openat+0xe36/0x2030
-[   33.287895]  do_file_open+0x202/0x420
-[   33.287909]  do_sys_openat2+0xf4/0x1b0
-[   33.287926]  __x64_sys_openat+0x136/0x1e0
-[   33.287944]  do_syscall_64+0xdd/0x4a0
-[   33.287957]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   33.287969]=20
-[   33.287972] The buggy address belongs to the object at ff1100000a215000
-[   33.287972]  which belongs to the cache kmalloc-64 of size 64
-[   33.287989] The buggy address is located 2 bytes inside of
-[   33.287989]  freed 64-byte region [ff1100000a215000, ff1100000a215040)
-[   33.288001]=20
-[   33.288004] The buggy address belongs to the physical page:
-[   33.288012] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
- pfn:0xa215
-[   33.288025] flags: 0x100000000000000(node=3D0|zone=3D1)
-[   33.288042] page_type: f5(slab)
-[   33.288055] raw: 0100000000000000 ff110000098388c0 dead000000000100 dead00=
+[   14.240154] Call Trace:
+[   14.240179]  <TASK>
+[   14.240191]  dump_stack_lvl+0x7b/0xa0
+[   14.240286]  print_report+0xd0/0x630
+[   14.240355]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[   14.240399]  ? autofs_show_options+0x575/0x580
+[   14.240416]  kasan_report+0xce/0x100
+[   14.240432]  ? autofs_show_options+0x575/0x580
+[   14.240451]  ? __pfx_autofs_show_options+0x10/0x10
+[   14.240468]  autofs_show_options+0x575/0x580
+[   14.240486]  statmount_string+0x832/0x1a90
+[   14.240532]  ? __pfx_selinux_sb_statfs+0x10/0x10
+[   14.240618]  ? __pfx_statmount_string+0x10/0x10
+[   14.240638]  ? __kvmalloc_node_noprof+0x442/0x660
+[   14.240658]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.240712]  __do_sys_statmount+0x189c/0x2290
+[   14.240735]  ? _raw_spin_lock+0x80/0xe0
+[   14.240756]  ? __pfx___do_sys_statmount+0x10/0x10
+[   14.240790]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.240807]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.240836]  ? restore_fpregs_from_fpstate+0x50/0xf0
+[   14.240890]  do_syscall_64+0xdd/0x4a0
+[   14.240920]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   14.240933] RIP: 0033:0x42120d
+[   14.240950] Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89=
+ f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d=
+ 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+[   14.240969] RSP: 002b:00007f002fd15208 EFLAGS: 00000246 ORIG_RAX: 00000000=
+000001c9
+[   14.241002] RAX: ffffffffffffffda RBX: 00007f002fd15230 RCX: 0000000000421=
+20d
+[   14.241011] RDX: 0000000000002000 RSI: 00007f002fd15230 RDI: 00007f002fd15=
+210
+[   14.241019] RBP: 00007f002fd172f0 R08: 0000000500000020 R09: 0000000500000=
+020
+[   14.241027] R10: 0000000000000001 R11: 0000000000000246 R12: 00007f002fd17=
+6c0
+[   14.241036] R13: ffffffffffffffb8 R14: 0000000000000000 R15: 00007ffed6f20=
+6f0
+[   14.241048]  </TASK>
+[   14.241053]=20
+[   14.241056] Allocated by task 117:
+[   14.241069]  kasan_save_stack+0x33/0x60
+[   14.241085]  kasan_save_track+0x14/0x30
+[   14.241099]  __kasan_slab_alloc+0x6e/0x70
+[   14.241112]  kmem_cache_alloc_lru_noprof+0x13e/0x3d0
+[   14.241142]  alloc_inode+0xb8/0x230
+[   14.241165]  create_pipe_files+0x4c/0x910
+[   14.241192]  do_pipe2+0xa0/0x190
+[   14.241204]  __x64_sys_pipe2+0x54/0x80
+[   14.241216]  do_syscall_64+0xdd/0x4a0
+[   14.241231]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   14.241242]=20
+[   14.241245] Freed by task 117:
+[   14.241250]  kasan_save_stack+0x33/0x60
+[   14.241263]  kasan_save_track+0x14/0x30
+[   14.241275]  kasan_save_free_info+0x3b/0x60
+[   14.241301]  __kasan_slab_free+0x43/0x70
+[   14.241314]  kmem_cache_free+0xdd/0x430
+[   14.241334]  destroy_inode+0xc7/0x1b0
+[   14.241348]  evict+0x4f8/0x7e0
+[   14.241361]  iput+0x4ee/0x6d0
+[   14.241385]  dentry_unlink_inode+0x26b/0x430
+[   14.241408]  dentry_kill+0x233/0xa60
+[   14.241423]  finish_dput+0x20/0x1a0
+[   14.241438]  dput+0x24b/0x370
+[   14.241453]  __fput+0x483/0xa70
+[   14.241480]  task_work_run+0x13f/0x210
+[   14.241514]  exit_to_user_mode_loop+0x158/0x500
+[   14.241560]  do_syscall_64+0x359/0x4a0
+[   14.241575]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   14.241586]=20
+[   14.241589] The buggy address belongs to the object at ff1100000e3a5020
+[   14.241589]  which belongs to the cache inode_cache of size 560
+[   14.241599] The buggy address is located 64 bytes inside of
+[   14.241599]  freed 560-byte region [ff1100000e3a5020, ff1100000e3a5250)
+[   14.241615]=20
+[   14.241625] The buggy address belongs to the physical page:
+[   14.241636] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
+ pfn:0xe3a4
+[   14.241649] head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 p=
+incount:0
+[   14.241658] flags: 0x100000000000040(head|node=3D0|zone=3D1)
+[   14.241687] page_type: f5(slab)
+[   14.241699] raw: 0100000000000040 ff110000096dbcc0 dead000000000100 dead00=
 0000000122
-[   33.288067] raw: 0000000000000000 0000000000200020 00000000f5000000 000000=
+[   14.241711] raw: 0000000000000000 0000000200170017 00000000f5000000 000000=
 0000000000
-[   33.288075] page dumped because: kasan: bad access detected
-[   33.288080]=20
-[   33.288083] Memory state around the buggy address:
-[   33.288089]  ff1100000a214f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
-0 00
-[   33.288098]  ff1100000a214f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
-0 00
-[   33.288107] >ff1100000a215000: fa fb fb fb fb fb fb fb fc fc fc fc fc fc f=
+[   14.241723] head: 0100000000000040 ff110000096dbcc0 dead000000000100 dead0=
+00000000122
+[   14.241735] head: 0000000000000000 0000000200170017 00000000f5000000 00000=
+00000000000
+[   14.241747] head: 0100000000000002 ffffffffffffff01 00000000ffffffff 00000=
+000ffffffff
+[   14.241759] head: 0000000000000000 0000000000000000 00000000ffffffff 00000=
+00000000004
+[   14.241766] page dumped because: kasan: bad access detected
+[   14.241771]=20
+[   14.241774] Memory state around the buggy address:
+[   14.241780]  ff1100000e3a4f00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb f=
+b fb
+[   14.241789]  ff1100000e3a4f80: fb fb fb fb fc fc fc fc fc fc fc fc fc fc f=
 c fc
-[   33.288114]                    ^
-[   33.288120]  ff1100000a215080: fa fb fb fb fb fb fb fb fc fc fc fc fc fc f=
-c fc
-[   33.288129]  ff1100000a215100: fa fb fb fb fb fb fb fb fc fc fc fc fc fc f=
-c fc
-[   33.288136] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+[   14.241798] >ff1100000e3a5000: fc fc fc fc fa fb fb fb fb fb fb fb fb fb f=
+b fb
+[   14.241805]                                                        ^
+[   14.241812]  ff1100000e3a5080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb f=
+b fb
+[   14.241821]  ff1100000e3a5100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb f=
+b fb
+[   14.241828] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[   33.288179] Disabling lock debugging due to kernel taint
-[   33.288197] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[   33.288203] BUG: KASAN: slab-use-after-free in sized_strscpy+0x248/0x2f0
-[   33.288222] Write of size 8 at addr ff1100000a21500a by task symrace-trigg=
-er/406
-[   33.288232]=20
-[   33.288238] CPU: 2 UID: 0 PID: 406 Comm: symrace-trigger Tainted: G    B  =
- W  O        7.3.0 #1 PREEMPT(lazy)=20
-[   33.288258] Tainted: [B]=3DBAD_PAGE, [W]=3DWARN, [O]=3DOOT_MODULE
-[   33.288265] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+cycles=3D10000 statmount=3D185490
+[   14.283450] Kernel panic - not syncing: KASAN: panic_on_warn set ...
+[   14.283882] CPU: 2 UID: 0 PID: 119 Comm: repro Not tainted 7.3.0 #22 PREEM=
+PT(lazy)=20
+[   14.284376] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   33.288274] Call Trace:
-[   33.288278]  <TASK>
-[   33.288283]  dump_stack_lvl+0x7b/0xa0
-[   33.288299]  print_report+0xd0/0x630
-[   33.288317]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[   33.288340]  ? sized_strscpy+0x248/0x2f0
-[   33.288358]  kasan_report+0xce/0x100
-[   33.288377]  ? sized_strscpy+0x248/0x2f0
-[   33.288399]  sized_strscpy+0x248/0x2f0
-[   33.288419]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.288454]  module_address_lookup+0xdc/0x130
-[   33.288477]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.288511]  kallsyms_lookup_buildid+0x157/0x1e0
-[   33.288531]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.288565]  __sprint_symbol.isra.0+0xd9/0x1f0
-[   33.288584]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
-[   33.288603]  ? __asan_memcpy+0x3c/0x60
-[   33.288617]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.288633]  ? __sprint_symbol.isra.0+0x151/0x1f0
-[   33.288651]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
-[   33.288670]  ? __pfx_a+0x10/0x10 [helper]
-[   33.288685]  ? copy_from_kernel_nofault+0x81/0x200
-[   33.288708]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.288724]  ? copy_from_kernel_nofault_allowed+0x98/0xd0
-[   33.288747]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.288782]  process_fetch_insn+0x8c2/0x1990
-[   33.288800]  ? __pfx_process_fetch_insn+0x10/0x10
-[   33.288817]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.288833]  ? rb_move_tail+0x433/0x1830
-[   33.288855]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
-o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
-abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
-xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
-tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
-pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
-[   33.288893]  ? __pfx_rb_move_tail+0x10/0x10
-[   33.288916]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.288933]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.288948]  ? sched_clock+0x29/0x50
-[   33.288969]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.288985]  ? __rb_reserve_next.constprop.0+0x62d/0x1480
-[   33.289013]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.289029]  ? ring_buffer_lock_reserve+0x56d/0xfa0
-[   33.289046]  ? __pfx_ring_buffer_lock_reserve+0x10/0x10
-[   33.289069]  ? __entry_text_end+0xfdff5/0x1020f9
-[   33.289094]  ? handle_bug+0x184/0x2a0
-[   33.289111]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.289127]  ? ring_buffer_event_data+0xc9/0x120
-[   33.289146]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.289162]  ? trace_event_buffer_lock_reserve+0x3f3/0x6d0
-[   33.289182]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.289198]  ? ring_buffer_event_data+0xc9/0x120
-[   33.289216]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.289232]  ? trace_event_buffer_reserve+0x250/0x320
-[   33.289247]  kprobe_trace_func+0x3a6/0x700
-[   33.289267]  ? __pfx_kprobe_trace_func+0x10/0x10
-[   33.289286]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.289302]  ? preempt_schedule_notrace+0x4b/0x80
-[   33.289325]  kprobe_dispatcher+0xf0/0x120
-[   33.289342]  ? symrace_probe_point+0x4/0x20 [helper]
-[   33.289357]  kprobe_ftrace_handler+0x2bf/0x420
-[   33.289373]  ? symrace_probe_point+0x9/0x20 [helper]
-[   33.289388]  ? __pfx_kprobe_dispatcher+0x10/0x10
-[   33.289405]  ? __pfx_trigger_fn+0x10/0x10 [helper]
-[   33.289421]  0xffffffffa04010da
-[   33.289431]  ? __pfx_trigger_fn+0x10/0x10 [helper]
-[   33.289449]  ? trigger_fn+0x95/0xe0 [helper]
-[   33.289464]  ? symrace_probe_point+0x5/0x20 [helper]
-[   33.289481]  symrace_probe_point+0x9/0x20 [helper]
-[   33.289496]  trigger_fn+0xa1/0xe0 [helper]
-[   33.289512]  kthread+0x2fe/0x400
-[   33.289525]  ? recalc_sigpending+0x18c/0x220
-[   33.289541]  ? __pfx_kthread+0x10/0x10
-[   33.289555]  ret_from_fork+0x3f7/0x680
-[   33.289570]  ? __pfx_ret_from_fork+0x10/0x10
-[   33.289586]  ? srso_alias_return_thunk+0x5/0xfbef5
-[   33.289602]  ? __switch_to+0x743/0xf60
-[   33.289622]  ? __pfx_kthread+0x10/0x10
-[   33.289636]  ret_from_fork_asm+0x1a/0x30
-[   33.289660]  </TASK>
+[   14.285108] Call Trace:
+[   14.285285]  <TASK>
+[   14.285432]  dump_stack_lvl+0x30/0xa0
+[   14.285689]  vpanic+0x78b/0x840
+[   14.285932]  ? __pfx_vpanic+0x10/0x10
+[   14.286184]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.286505]  ? preempt_schedule_irq+0x47/0x80
+[   14.286815]  ? autofs_show_options+0x575/0x580
+[   14.287123]  panic+0xca/0xd0
+[   14.287331]  ? __pfx_panic+0x10/0x10
+[   14.287579]  check_panic_on_warn+0x8c/0x90
+[   14.287860]  end_report+0xc8/0xe0
+[   14.288094]  kasan_report+0xdc/0x100
+[   14.288345]  ? autofs_show_options+0x575/0x580
+[   14.288655]  ? __pfx_autofs_show_options+0x10/0x10
+[   14.288980]  autofs_show_options+0x575/0x580
+[   14.289274]  statmount_string+0x832/0x1a90
+[   14.289558]  ? __pfx_selinux_sb_statfs+0x10/0x10
+[   14.289875]  ? __pfx_statmount_string+0x10/0x10
+[   14.290186]  ? __kvmalloc_node_noprof+0x442/0x660
+[   14.290498]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.290826]  __do_sys_statmount+0x189c/0x2290
+[   14.291140]  ? _raw_spin_lock+0x80/0xe0
+[   14.291403]  ? __pfx___do_sys_statmount+0x10/0x10
+[   14.291733]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.292056]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   14.292378]  ? restore_fpregs_from_fpstate+0x50/0xf0
+[   14.292718]  do_syscall_64+0xdd/0x4a0
+[   14.292969]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   14.293305] RIP: 0033:0x42120d
+[   14.293517] Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89=
+ f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d=
+ 01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
+[   14.294682] RSP: 002b:00007f002fd15208 EFLAGS: 00000246 ORIG_RAX: 00000000=
+000001c9
+[   14.295186] RAX: ffffffffffffffda RBX: 00007f002fd15230 RCX: 0000000000421=
+20d
+[   14.295649] RDX: 0000000000002000 RSI: 00007f002fd15230 RDI: 00007f002fd15=
+210
+[   14.296110] RBP: 00007f002fd172f0 R08: 0000000500000020 R09: 0000000500000=
+020
+[   14.296564] R10: 0000000000000001 R11: 0000000000000246 R12: 00007f002fd17=
+6c0
+[   14.297028] R13: ffffffffffffffb8 R14: 0000000000000000 R15: 00007ffed6f20=
+6f0
+[   14.297487]  </TASK>
+[   14.297854] Kernel Offset: disabled
+[   14.298100] Rebooting in 1 seconds..
 
---===============5575217477510584208==
+--===============3034607210149342054==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="config"
@@ -1128,7 +878,6 @@ CONFIG_TREE_SRCU=3Dy
 CONFIG_TASKS_RCU_GENERIC=3Dy
 CONFIG_NEED_TASKS_RCU=3Dy
 CONFIG_TASKS_RCU=3Dy
-CONFIG_TASKS_RUDE_RCU=3Dy
 CONFIG_TASKS_TRACE_RCU=3Dy
 CONFIG_RCU_STALL_COMMON=3Dy
 CONFIG_RCU_NEED_SEGCBLIST=3Dy
@@ -1474,7 +1223,6 @@ CONFIG_LEGACY_VSYSCALL_XONLY=3Dy
 CONFIG_MODIFY_LDT_SYSCALL=3Dy
 # CONFIG_STRICT_SIGALTSTACK_SIZE is not set
 CONFIG_HAVE_LIVEPATCH=3Dy
-# CONFIG_LIVEPATCH is not set
 CONFIG_HAVE_KLP_BUILD=3Dy
 CONFIG_X86_BUS_LOCK_DETECT=3Dy
 # end of Processor type and features
@@ -1733,7 +1481,6 @@ CONFIG_JUMP_LABEL=3Dy
 # CONFIG_STATIC_KEYS_SELFTEST is not set
 # CONFIG_STATIC_CALL_SELFTEST is not set
 CONFIG_OPTPROBES=3Dy
-CONFIG_KPROBES_ON_FTRACE=3Dy
 CONFIG_UPROBES=3Dy
 CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS=3Dy
 CONFIG_ARCH_USE_BUILTIN_BSWAP=3Dy
@@ -2445,7 +2192,7 @@ CONFIG_IEEE802154=3Dy
 # CONFIG_IEEE802154_NL802154_EXPERIMENTAL is not set
 CONFIG_IEEE802154_SOCKET=3Dy
 CONFIG_IEEE802154_6LOWPAN=3Dy
-CONFIG_MAC802154=3Dy
+# CONFIG_MAC802154 is not set
 CONFIG_NET_SCHED=3Dy
 
 #
@@ -3716,9 +3463,6 @@ CONFIG_WAN=3Dy
 # CONFIG_FRAMER is not set
 CONFIG_LAPBETHER=3Dy
 CONFIG_IEEE802154_DRIVERS=3Dy
-# CONFIG_IEEE802154_FAKELB is not set
-# CONFIG_IEEE802154_ATUSB is not set
-CONFIG_IEEE802154_HWSIM=3Dy
 
 #
 # Wireless WAN
@@ -4928,7 +4672,6 @@ CONFIG_HID_TOPSEED=3Dy
 #
 # HID-BPF support
 #
-CONFIG_HID_BPF=3Dy
 # end of HID-BPF support
 
 CONFIG_I2C_HID=3Dy
@@ -6639,13 +6382,9 @@ CONFIG_NOP_TRACER=3Dy
 CONFIG_HAVE_RETHOOK=3Dy
 CONFIG_RETHOOK=3Dy
 CONFIG_HAVE_FUNCTION_TRACER=3Dy
-CONFIG_HAVE_FUNCTION_GRAPH_TRACER=3Dy
-CONFIG_HAVE_FUNCTION_GRAPH_FREGS=3Dy
-CONFIG_HAVE_FTRACE_GRAPH_FUNC=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE_WITH_REGS=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS=3Dy
-CONFIG_HAVE_SINGLE_FTRACE_DIRECT_OPS=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE_WITH_ARGS=3Dy
 CONFIG_HAVE_FTRACE_REGS_HAVING_PT_REGS=3Dy
 CONFIG_HAVE_DYNAMIC_FTRACE_NO_PATCHABLE=3Dy
@@ -6656,7 +6395,6 @@ CONFIG_HAVE_OBJTOOL_MCOUNT=3Dy
 CONFIG_HAVE_OBJTOOL_NOP_MCOUNT=3Dy
 CONFIG_HAVE_C_RECORDMCOUNT=3Dy
 CONFIG_HAVE_BUILDTIME_MCOUNT_SORT=3Dy
-CONFIG_BUILDTIME_MCOUNT_SORT=3Dy
 CONFIG_TRACE_CLOCK=3Dy
 CONFIG_RING_BUFFER=3Dy
 CONFIG_EVENT_TRACING=3Dy
@@ -6667,18 +6405,7 @@ CONFIG_TRACING_SUPPORT=3Dy
 CONFIG_FTRACE=3Dy
 CONFIG_TRACEFS_AUTOMOUNT_DEPRECATED=3Dy
 # CONFIG_BOOTTIME_TRACING is not set
-CONFIG_FUNCTION_TRACER=3Dy
-CONFIG_FUNCTION_GRAPH_TRACER=3Dy
-# CONFIG_FUNCTION_GRAPH_RETVAL is not set
-# CONFIG_FUNCTION_GRAPH_RETADDR is not set
-CONFIG_DYNAMIC_FTRACE=3Dy
-CONFIG_DYNAMIC_FTRACE_WITH_REGS=3Dy
-CONFIG_DYNAMIC_FTRACE_WITH_DIRECT_CALLS=3Dy
-CONFIG_DYNAMIC_FTRACE_WITH_ARGS=3Dy
-CONFIG_DYNAMIC_FTRACE_WITH_JMP=3Dy
-# CONFIG_FUNCTION_SELF_TRACING is not set
-# CONFIG_FPROBE is not set
-# CONFIG_FUNCTION_PROFILER is not set
+# CONFIG_FUNCTION_TRACER is not set
 # CONFIG_STACK_TRACER is not set
 # CONFIG_IRQSOFF_TRACER is not set
 # CONFIG_PREEMPT_TRACER is not set
@@ -6695,32 +6422,24 @@ CONFIG_BRANCH_PROFILE_NONE=3Dy
 CONFIG_BLK_DEV_IO_TRACE=3Dy
 # CONFIG_PROBE_EVENTS_DUMP_FETCHARG is not set
 CONFIG_KPROBE_EVENTS=3Dy
-# CONFIG_KPROBE_EVENTS_ON_NOTRACE is not set
 CONFIG_UPROBE_EVENTS=3Dy
 CONFIG_EPROBE_EVENTS=3Dy
 CONFIG_BPF_EVENTS=3Dy
 CONFIG_DYNAMIC_EVENTS=3Dy
 CONFIG_PROBE_EVENTS=3Dy
-CONFIG_FTRACE_MCOUNT_USE_CC=3Dy
-CONFIG_TRACING_MAP=3Dy
-CONFIG_SYNTH_EVENTS=3Dy
-CONFIG_USER_EVENTS=3Dy
-CONFIG_HIST_TRIGGERS=3Dy
+# CONFIG_SYNTH_EVENTS is not set
+# CONFIG_USER_EVENTS is not set
+# CONFIG_HIST_TRIGGERS is not set
 # CONFIG_TRACE_EVENT_INJECT is not set
 # CONFIG_TRACEPOINT_BENCHMARK is not set
 # CONFIG_RING_BUFFER_BENCHMARK is not set
 # CONFIG_TRACE_EVAL_MAP_FILE is not set
-# CONFIG_FTRACE_RECORD_RECURSION is not set
-# CONFIG_FTRACE_VALIDATE_RCU_IS_WATCHING is not set
 # CONFIG_FTRACE_STARTUP_TEST is not set
-# CONFIG_FTRACE_SORT_STARTUP_TEST is not set
 # CONFIG_RING_BUFFER_STARTUP_TEST is not set
 # CONFIG_RING_BUFFER_VALIDATE_TIME_DELTAS is not set
 # CONFIG_RING_BUFFER_PERSISTENT_INJECT is not set
 # CONFIG_PREEMPTIRQ_DELAY_TEST is not set
-# CONFIG_SYNTH_EVENT_GEN_TEST is not set
 # CONFIG_KPROBE_EVENT_GEN_TEST is not set
-# CONFIG_HIST_TRIGGERS_DEBUG is not set
 # CONFIG_RV is not set
 # CONFIG_TRACE_REMOTE_TEST is not set
 CONFIG_PROVIDE_OHCI1394_DMA_INIT=3Dy
@@ -6820,4 +6539,4 @@ CONFIG_ARCH_USE_MEMTEST=3Dy
 CONFIG_IO_URING_ZCRX=3Dy
 CONFIG_IO_URING_BPF=3Dy
 
---===============5575217477510584208==--
+--===============3034607210149342054==--
