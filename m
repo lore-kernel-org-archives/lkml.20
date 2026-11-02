@@ -1,73 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793653906;
-	b=Oi0B15oK3zvNEZ2PuLwNCiSz+xPkR/KCBdLlUJJiPH7TBq0z48HrCaGw9Ehlc7FlZ7z/
-	 OA05sgAe2pfhmWhqGO/TjWDTqGjlvwTomLqa3Z+QSo1SsVhRh0MzmmFs2UqObcQbZFWeT
-	 Xvbi+PKxYJrM+uIeZvrztYJ/JydfM1QrF/+dK5+jhHfp9EbRtKF+z7DuJQscXHmCA602q
-	 z1soo9A2U+F97Wo+DPtONfTQUMVpwKQOsIZ5JpZ2hGocW7gu3tPbsxpzUGZNZO2B72scf
-	 ImcdibEsAD6J2MBqZfWzVHFx7pGqkUFND/mBsnw2tYVMA+0fyXbCxbaqMpPLClgC6nQ==
+	t=1793653914;
+	b=oMreLGtyN3vVPF2o0gJGu9TO7pfU1AtiiOleuoc8wMC1WLaiRpucTVQd+lWtQ2Ga7b1+
+	 GuM8LP10vGeuNif2T1lVjdNnLEeYFSKbb/JRcVzOUvJFiV4c+TEyTK6l1zZlssE+KUm0a
+	 SisB2Bg71k6tB+vlJ3RaxxMAD4RmhxJbTKocpsgyQTnVXgJEZkOiY8ayKxswJA9X8o75K
+	 OCM/+UN33Qm/qRlqsYJxjnv76aXSNmo6vZhwY0uS5kZSw22Cr0v6lPT2K7+7LvTgpPvCA
+	 7LnM7oobH66IVTU0Gi2N35vxYl0aOO76d8JBrdxnk87bxD0uqZdT/Ao6Z9BDvCiqZDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793653906;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=xxWoHxsw4VPFqHPAqACZbusTmTkHUnFSnkXXJwnJ4WA=;
-	b=yUmqlUKKJqXDaJFz3T5vp0terALxJDty4M0OFHshF3lnnAjBxBLRvxVngnPIeqa3TI3L
-	 9cjfnWKvNrQJBLO8KZUzDPgw7T6BTxltDSiD7wtAUiXQ8B48lQM1O8k+iii8FRqWxrIwY
-	 RbAaPeZVS71/9aKyiB54rtGJsP0+vN0P7OWebfnGLtq532UjxrQHeJbSFIy8CgMTOdmK6
-	 Ljgv+nTanIne7wNtR/Ur45ZW6BMnf2LHFTC0sHxH7+vq+lY9JOwJKeKuqDrQDL92KYg+B
-	 5mZcj6ap8xCBZJt6tTp3Vjh7K1EVkfgAyCTOB/+h4oNI5v9vPxvAlfZB0w8RNn1KG/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793653914;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zp0V6uq9cSdHG3OMQtcSrfjn66ui+Jf9Vm1BV0hp92U=;
+	b=wkiFAUuBFlJjN9ctO4cAiJmYmJ/RbHW550jj3NtGJ4IFutkEtvI5t+C+rm0X9A97NbZ4
+	 HfregK2xFEV5Wjc/7iv5SGAbVjiXVT4koHEgN6bnVNcfADZclQ7w2FI28Ih0CC8Yr+nl6
+	 l2LQyLivtuCCg9+a9UYzzvFfBDhVbA2DSneSEYMdBixXNo1WYdjdOJhaafEyzIuRO2d6p
+	 x/If8PGfR3Ii0PGY4O1ftUVD3sF6PaxtfTcYfn+3d4Mv5YbBm9k2UROxIN16nWjf/YyP5
+	 VOsBMbvdEkh6VA+CY+9cmj0vnD8q4W1IN16Lig57kGQA2k/xG6QW8vpTDNQ7j5C8CEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dytOCAJ8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pw7n9TV3;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90344606A337;
-	Mon,  2 Nov 2026 21:11:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1882F606D802
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:11:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1882F606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dytOCAJ8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC731F00A18;
-	Mon,  2 Nov 2026 21:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793653906;
-	bh=xxWoHxsw4VPFqHPAqACZbusTmTkHUnFSnkXXJwnJ4WA=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=dytOCAJ80VHiZ1OuHgOm2U1eYLbIsfTF1vQWmQotjAlcYPh3GK76v2x+nXUxkSisM
-	 rRSMnxpBhgTKN8qPsqtbMHMR1UcE5DT4mgUuhKJo4qXktvA3N/yVCLaVhqZ4M63hYH
-	 QbrscRO/3j+WrNfWqflniFd2/f4mJsHcE8FZW7CXPExB2Ibn6fo+J7vdNxA+QmucPj
-	 asTGnwJy3cojByhQ2o4smk8bCPPjZkdrGQJDXaJrz2GO4vpMh3YJ9pqlDgFCK3Aw3b
-	 4wFppyIBa3dGdCapF7WeNSk1Sr3UoL9HoLlYvJGsRNCyDrMBD3ag/9W+/du91VH57q
-	 5GRjihOJRtTyA==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id A6FA8F4006B;
-	Mon,  2 Nov 2026 16:11:44 -0500 (EST)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Mon, 02 Nov 2026 16:11:44 -0500
-X-ME-Sender: <xms:kPzoaoxuxxTdjPhQc-3C1zahFZ9aLPvFlowSXGC4R9C8GitGRfcHEQ>
-    <xme:kPzoanGt2jIbLsy47fOpg3WSZ6PY5cBPEClcODOsbon89QNyNk_IgDaAKQadQr2gv
-    uVji238fOMsmLse7Ab600gs9JzJ4DZGzIXqA8TonRFGYfmnT8t3fbcj>
-X-ME-Proxy-Cause: dmFkZTE7nCOuYmDhbapfq9wnjcJo8I33hiQgEa8gG2mpUd6SiuGVjxefYxNF6ts7apvhL2
-    O5TBTvvYo35j+hcPabsgTVdffpGt9MvK5vyw0ZMRJyC2vP2RybIncEIE31yiniEOHW+BGf
-    KJmARPQ+h8rxdMmbqHuWCrc+Rw3W1Pf0ttMp3mPjsGk8H3PuZMLxakWBNCayAXhn4arSzS
-    SZT0vmmbKnAjrINdR7jALY8t/GQLDesfw1v5pO7HM0aidEkcoMk/IX3mKuG96bBGSC44od
-    6j/8Jj2EeiKpBxuZiOuoARjnD/H7MmHLm4946WLbdldIeKehhGb+AjzJw7psiDGcN84+AT
-    fxd1ztnRd84WKFx7SmijybVrXSJKl1AR6Etu7r8JTz1E2IGG2rbVvLkvpR2IBVnXEcQUHC
-    r3GDkPNpHJrO1FrRX5A6DIGX8s2wqnE6WbRRhP/2UYux7WzU3qFcGt1leEKU+a12CXazx+
-    obllJ0NCoPjY5PVFTCgHM6NA+K8OAWAC3Y3QpVQ0GtrFfYBqHxRpcYNa889BVVJkMXM0Xx
-    NfAqx7SCTsESPLk/r6Zjs10FtyBDV2ONG987Ot6HPmAwX9PryQz/c+/GTZobKPftcCgNbF
-    dMjgQuUNaOpeJy2SLb+WxTNiYQx6H//DcXk9Eak51jjRY6pefZcEU0xUdZXw
-X-ME-Proxy: <xmx:kPzoakX1575s1xPK_eRnHKHwfrJs0dh41R1DNgFe6QjSA1GNvloQig>
-    <xmx:kPzoaucrAaHqLBPd5fXUJKW90uwtgM36P2rOCnTrC3gEediQhDxGvg>
-    <xmx:kPzoaq1brQHn036GXHRWgb2TJPEUtB4n80avLnuqxkDWgbKvmiH79A>
-    <xmx:kPzoakc8_jk9jC4iv-WEqTZu5jnNeZJxZR4JSbSaITEBNtWbgxkbuQ>
-    <xmx:kPzoau7BSrFGgoTyo_PA1CYGAey1sR943z5_XGLHZHfJ_ObFFdVmJ7Se>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 7098678273B; Mon,  2 Nov 2026 16:11:44 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pw7n9TV3
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e0d1da913so47841f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:11:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793653912; x=1794258712; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zp0V6uq9cSdHG3OMQtcSrfjn66ui+Jf9Vm1BV0hp92U=;
+        b=pw7n9TV3hXbr93+QK6KCZ4NiaMlSC9VR2NTKxZ2G0KbF5cf0GwPv6+wTsD2HFv5pVF
+         41/qrKMfz9jKsmJZ8B6zEoboqIokpkDk4hzu+vBELk2zJJ+itarOLBYTqepkoemmJL6Y
+         +s3X6mqVytQDAU3hRx4MntWocJJazcWWDfg1ze9l8hGMJhPRDsb9ghwED4Tqp47s4Yvl
+         5q+5uXdv+U2UtaXe5/+l3LWdkvL+on2ieWX92QKKxz0PGib0vx5UxbXbc/kOtIg/2NZf
+         r05xepgHxRbEPNpzHdkgCorevDEHFHAZbZlqVZ5Y50/PKFcyBOVIggBydWpyBRWzYQ/c
+         lWgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793653912; x=1794258712;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zp0V6uq9cSdHG3OMQtcSrfjn66ui+Jf9Vm1BV0hp92U=;
+        b=Krtt33AWytERJmcyUrynEfZqmwifyGlMnAhcMl0wbxz61tNONz/AcFtU1d5/I6VAih
+         28cuzi7xcIOdJFeNNKunLXycFxPrlyCAr31p/ekJGmQ+DonprfJXvl9LL8sd9zyomnlM
+         bUex8U3WsC/1rmixk/LEGpLICvoqy7wKd/bTmA+9mZ+7WH4+Pxbc1aUSc+ao22af4111
+         3VC1PJhcXRczsGnr4fe9Qx7FAXvKWgNo/TncxWGQ2tZ3/dqDML5nsdo7tfurvKS/bd3q
+         GTeP5BdboUzT0UxRl0/GCiCPysNWOg7mX2qks7U3MDPUcUkNWRDa9HhQJ/h0O5Q4IAd2
+         8m9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByFAP+fjmEH3zpHxP0VB8ZnwY1dn0HRo5pEo5ygF4EsMUE9BxgxXhY1wMJVIYpTln32KB6LRW1LkPLfebI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SHWzMrDGk12zY2/jXKz1Jq+nDPPXP77pwYgG2KXNOa7TglmLW
+	lItvUnZQQlzGayf7DlmysLKM9NhwW33souKO4ltfcYNoD2nxKGdklsk+
+X-Gm-Gg: AYBFou0Qyl6/6D4JIgHTIrtU1ibdcndoFSvzAbkryfqCaetQmQFY/qw6YJqjXr7yIx0
+	NVjKwFs7KB9CLbro+yYP3jld6qG+Gc7xz2Yg80iQtiTSU4SZTLitG5YOWGUm6nQ6IDcb7VA0RnO
+	5mqi1+okYep4gUSV8WDSlx0BNHxdqAiDLw7Z/UyDCvkzkoUgLapvoCY8fOXUz4wTzlhdp6WnTn4
+	aNt9L+uBUYEoVuPvH1xvydB/Y6tr8mEBkj2GBlO0OI+1tpyIraMbZGeNP+oR8kJ74CiCLr/Qwm9
+	OAu0m/jy2PtFOBsljUswap1yKhhHqmzBqTSYOaGjTSM7+58XEKJD1zCUsezXf7w9Jl8KNPBlmsR
+	aymBIpdYGGOpfWie7GVOIzQ64Vm7IRwbsC+rXmwNvq+ywjnDPYxnD1UBhHEN5p2yyRkpu7U8F9j
+	9WgtrgNsb4II3tAQKOdFcFhfHxcaWSkdffkonZENadqRvBMqzmzC3NELDdxBkwswFBwADiURUET
+	5HjAVZDI2fRzUaVmlEMiJrHhpxID6EluqDEDE36MjEaz7PThf5q5oQMAHhgeoHjQMBEdx8cOux1
+	0qECWPkTReAYKaCck3adLij1ZVGpRIoD1qGs3zxgUWcI9fQtBn/YXJxX1G6hWigB+e/OzVwU0g=
+	=
+X-Received: by 2002:a5d:584e:0:b0:48e:6669:fefb with SMTP id ffacd0b85a97d-48e6e2e2369mr26875294f8f.22.1793653912530;
+        Mon, 02 Nov 2026 13:11:52 -0800 (PST)
+Received: from fedora.fritz.box ([93.93.22.191])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728ddsm21535520f8f.9.2026.11.02.13.11.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 13:11:52 -0800 (PST)
+From: Stefano Munari <stefanomunari.sm@gmail.com>
+To: Thangaraj Samynathan <Thangaraj.S@microchip.com>
+Cc: UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3] net: usb: lan78xx: fix error handling in lan78xx_open()
+Date: Mon,  2 Nov 2026 22:11:19 +0100
+Message-ID: <20261102211119.8738-1-stefanomunari.sm@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,62 +103,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AFgPYeWZplpR
-Date: Mon, 02 Nov 2026 16:11:23 -0500
-From: "Chuck Lever" <cel@kernel.org>
-To: "Christian Brauner" <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Jann Horn" <jannh@google.com>, "Josef Bacik" <josef@toxicpanda.com>,
- "Chris Mason" <mason@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, "Eric Dumazet" <edumazet@kernel.org>,
- "Thomas Gleixner" <tglx@kernel.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Jonathan Corbet" <corbet@lwn.net>, "Christoph Hellwig" <hch@lst.de>,
- "Greg Kroah-Hartman" <gregkh@suse.de>,
- "Joel Granados" <joel.granados@kernel.org>, "Kees Cook" <kees@kernel.org>,
- "Jan Kara" <jack@suse.cz>, "Jan Kara" <jack@suse.com>,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-s390@vger.kernel.org,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
- "Linuxppc Dev" <linuxppc-dev@lists.ozlabs.org>, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org,
- linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net,
- jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org,
- linux-sh@vger.kernel.org, linux-usb@vger.kernel.org,
- samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- "Takashi Iwai" <tiwai@suse.de>, linux-input@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org
-Message-Id: <7ee779f9-db3d-4829-bdd8-1d09e3f74c43@app.fastmail.com>
-In-Reply-To: <20261102-work-procfs-net-v1-6-982104a4f592@kernel.org>
-References: <20261102-work-procfs-net-v1-0-982104a4f592@kernel.org>
- <20261102-work-procfs-net-v1-6-982104a4f592@kernel.org>
-Subject: Re: [PATCH RFC 06/11] SUNRPC: let procfs own the seq_file of the cache content
- file
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+A failed interrupt URB submission leaves NAPI enabled and EVENT_DEV_OPEN
+set. A subsequent open enables NAPI again, triggering BUG_ON() in
+napi_enable().
 
+Clear EVENT_DEV_OPEN and disable NAPI on the submission error path.
 
-On Mon, Nov 2, 2026, at 10:07 AM, Christian Brauner wrote:
-> Declare the seq_operations and let procfs open and free the seq_file of
-> /proc/net/rpc/<cache>/content. ->proc_open() and ->proc_release() only
-> take and drop the module reference and set up ->private now. The
-> rpc_pipefs file is unchanged. Reading the procfs file then no longer
-> holds up its removal when the network namespace goes away.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Reproduced using failslab on a Raspberry Pi 3 Model B+ (LAN7515).
+With the fix, the injected allocation failure returns -ENOMEM and a
+subsequent open succeeds. Verified connectivity with ping and SSH.
 
-Acked-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Stefano Munari <stefanomunari.sm@gmail.com>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+v3:
+- Target net-next and drop the Fixes tag as requested by Andrew.
+v2: https://lore.kernel.org/netdev/20261020202614.30277-1-stefanomunari.sm@gmail.com
+- Move cleanup code to err_napi unwind label as suggested by Nicolai.
+- Add Nicolai's Reviewed-by tag.
+v1: https://lore.kernel.org/netdev/20261016000521.92868-1-stefanomunari.sm@gmail.com
+---
+ drivers/net/usb/lan78xx.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index 181e8c087..d73002b2c 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -3497,17 +3497,20 @@ static int lan78xx_open(struct net_device *net)
+ 		if (ret < 0) {
+ 			netif_err(dev, ifup, dev->net,
+ 				  "intr submit %d\n", ret);
+-			goto done;
++			goto err_napi;
+ 		}
+ 	}
+ 
+ 	phylink_start(dev->phylink);
+-
+-done:
+ 	mutex_unlock(&dev->dev_mutex);
+ 
+-	if (ret < 0)
+-		usb_autopm_put_interface(dev->intf);
++	return 0;
++
++err_napi:
++	clear_bit(EVENT_DEV_OPEN, &dev->flags);
++	napi_disable(&dev->napi);
++	mutex_unlock(&dev->dev_mutex);
++	usb_autopm_put_interface(dev->intf);
+ 
+ 	return ret;
+ }
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+2.55.0
+
