@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793591995;
-	b=caDVyiMVoi+WQ4MtfqW6uS2DWZ12uypqBBJXgyH+EXFnRkjBh3jF1cZuYWsoBwmMiHw/
-	 gslcWTG04BZ/i3rDX3Gx+fLIpukxgg4YlrOIzZeHXUafL84kmv0whTaCRUjKr9+4sbpl2
-	 L/juODCHkoLjBIebmr3J+Haxd690Zk8tEaFESAerE7DktR9X+UR4byJ/GLSaJX4mxIPwz
-	 vGVVYTwO6LKHDaYfOl75oV0V2W/htP+FVB3VIHNvg/wvnhQfIIBFkUVJ0GDBVIo4rLkGm
-	 ud9/eAcRsmWjx0l/ny5JpUuCKHaGSGXzlcwie+nttLYhEJLdf9k6rTbxUUpbGGEF4XQ==
+	t=1793592097;
+	b=ZhhOUz/SJUEOpZ4dS8z6wk+3JcYCbAcyMiFk3sNs7MicEaqo/+/r22yu1ZBw1LY+6FRv
+	 sE0dBarB0dPZnqkanj99K03aOQ/we8+TSJlv/BCmnmqz9tYuc+3RxWH5GcvrM7hDNAMi1
+	 TKMPwVKysnriEBJeZhh8MRIhysJSB9VREXBbU2YFooT0KFIsC3i5pGkHYyYW1W5eI+hYn
+	 vKLf0rhHjaQpVdYikCk/5B8re/ojEiTNtDl2wjuejCHrbTDYyw8b5wvheUKqInKrVMagy
+	 x0nEP1NwQHRjXNK3cnGPZ9iR11uiCe/2eAnYEL+HB1R2uXI/rMP3Qp5nZr17fB75izg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793591995;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=WUOuof5QyeG4h6zDAvzUQGjyJrapVOdsqODDVpd/AzU=;
-	b=Ga5mU4v0snOIH2M/A+OY5wP/AAWEX3IoUZeLggocOdMx7EN+VXP8VRvvBmgI+EMs6MUT
-	 zgIJHlrrR95aCSZmD/pqmEfi3g/2RnChUfsHyJxu7ZgIi5XlwCcG8Uxe8Q/uI4aAsUSJi
-	 6E8xL6FtOiMpWayUBQ+GJ5K1vAnnoclpY/ksJ6itr3oG16laO9tAWTpMCu8fyplxo6k3e
-	 JrdGmA1myce4FQnqQkhL5x3CiY+weskYxWCVnNpB6+3KmSMojMpc5eoT/d7WWajvRHlp5
-	 gZU5v144qUzAylp1r1+O0hQELgMeeyKn2u+UpkIcKhzgfR1zCWgiF/k1l1gh7LvYHBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793592097;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=9GuEW49aZUzLgO1IBi6JN1m+bJNtvvMVZK06g6wbN2g=;
+	b=y7vIxV/lyOh8uG2x2XR3cpTPvf9ExdMkZDAEwP/ZM9A7fCav5pz49z13L7zecQOM1dkO
+	 hjfKJOqEkbpC0RzsovJQg7pb4BA/V5fONGbO7HXVA8hI1SIdjQBCKUimu7B1KlHGj/OOj
+	 hXAKbW4ET/hFO6+oymdoSla9TnycBV4vLQI1k/VzGKRBJ8E/yaVOHPR9DqTOmNUJoI5Ub
+	 oxVIaY2TYMdB7m28eh1SM/+LNs00SluLtAb6A8bBeAEMk/jQkHxc6yJF6h7LF7n5FthA0
+	 hXEDdtZfDOElq8iQsHQl+pFFWDolQO9vV1kukSCVRFvH+pm1dO6ckhjtcEVTBPkeqLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NY32l9RJ;
-	arc=none smtp.remote-ip=91.218.175.173
-Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.161.72
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C73606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52C73606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NY32l9RJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=q83PV9k/7H90lkCx+6f3IVbBsobtHrsCWaMNnm1i8fs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793591991; v=1; x=1794196791;
- b=NY32l9RJ68s2x9k6GR07/i/8hKrmAWD6GObhOLhx/1wMh0G5dUkZLTN90SC4VQdjXLHWvrfy
- ArYm6qJTNuPmVkkoq2P2VyAPQDPywqjDUeFzsynd/VWU+0V58n7W1eYSKhDZOGnYMkZK9NEgJyJ
- QHQI8xhG0hIlBnGEdkijL4QA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 72094826e2f7c04a;
-	Mon, 02 Nov 2026 03:59:51 +0000
-X-Mizu-Trace-ID: 72094826e2f7c04a
-X-Migadu-Flow: FLOW_OUT
-From: Qingfang Deng <qingfang.deng@linux.dev>
-To: Eric Dumazet <edumazet@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Yuchung Cheng <ycheng@google.com>,
-	Wei Wang <weiwan@google.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Qingfang Deng <qingfang.deng@linux.dev>
-Subject: [PATCH net] tcp: initialize send sequence numbers before deferring TFO
-Date: Mon,  2 Nov 2026 11:59:43 +0800
-Message-ID: <20261102035943.9700-1-qingfang.deng@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE04606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:01:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DE04606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-702f912301aso2583044eaf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:01:36 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793592096; x=1794196896;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9GuEW49aZUzLgO1IBi6JN1m+bJNtvvMVZK06g6wbN2g=;
+        b=JbLBvoUUStg/fR1umtRzpIj9rFamnak85TVMtKo/d2mmYvvQVuSplW2EooIgU5KB8K
+         WtkyISOoiyrNQ+xgNkxNnhmP13lS9pQ0okhIhHbPgKsDjKGeTR7AocZ0eHFOpcYz4uAp
+         g8GQNGkPZeN0sTSBd8q3o75dtwi6PtMZ6F/8erWmDfRjKc81cJJjIVHVEWsLRmBzTO1O
+         AV9H/3bB9LENCqjYSYfhm7F1RDNhHeaVijVTlCQB9oUy3Um1RET8nnCyq+yNVZxJH3f+
+         M2kGsliuDyGJxZvaC7HrjD2bzaMAM5WCO8jAgI3VIjLazXlFN/cCMI63VsvIO14NVrJF
+         Z1vA==
+X-Forwarded-Encrypted: i=1; AKwUvByoLfAHpGkNzF+GDIP4i6svtI9+NiGMMGC3/yzcg3qiFvayrjSTT+NupfcwxOcoA2nrz1x1kpJIs2iH+94=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ+DnnRqRiPWU+b0bW6dFMbxoD3sWPzwIcDoMbSQFHEz+yovCe
+	XatnEQ56qL+GzAFVOByrc8W1a1cuEvqC19tezHM3cEkP9H5IDwWmk6Qag7uTK//EfAUas/5P1wZ
+	f4JQz0DIDSNH4583TxN1adVcCmAcwlgRR3c6h+xUa+XegTgFXEyuDQ8cLV2Y=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,87 +58,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:a507:20b0:6de:1071:8b18 with SMTP id
+ 006d021491bc7-714f29fa7c1mr3121380eaf.75.1793592096008; Sun, 01 Nov 2026
+ 20:01:36 -0800 (PST)
+Date: Sun, 01 Nov 2026 20:01:35 -0800
+In-Reply-To: <6ae402bb.0c1d3ab6.e3d48.006d.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae80b1f.c8ffc79a.e3697.002e.GAE@google.com>
+Subject: Re: [syzbot] [iommu?] memory leak in iommu_fwspec_init
+From: syzbot <syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com>
+To: iommu@lists.linux.dev, jgg@ziepe.ca, joro@8bytes.org, kevin.tian@intel.com, 
+	linux-kernel@vger.kernel.org, robin.murphy@arm.com, 
+	syzkaller-bugs@googlegroups.com, will@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-TCP_FASTOPEN_CONNECT can return from connect() before tcp_connect_init()
-when a cached cookie or cookieless Fast Open allows deferring the SYN.
-At this point write_seq contains the initial sequence number, while
-snd_una and snd_nxt have not been initialized to that sequence number.
+syzbot has found a reproducer for the following issue on:
 
-Consequently, inet_diag and /proc/net/tcp{,6} report the initial
-sequence number as the send queue length despite no SYN or payload being
-queued.
+HEAD commit:    46fec1c3029b Merge tag 'sched-urgent-2026-11-01' of git://..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1263dc8d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=441b6cc593d83cc4
+dashboard link: https://syzkaller.appspot.com/bug?extid=fe84fc6a684e0beb86e2
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=107b1795580000
 
-Initialize snd_una and snd_nxt to write_seq before marking the
-connection as deferred. Both sequence-based queue lengths then remain
-zero until the first write starts the connection and runs
-tcp_connect_init().
+AI-generated root cause summary:
+A memory leak of `struct dev_iommu` occurs when `iommu_fwspec_init()` allocates
+`dev->iommu` via `dev_iommu_get()`, but subsequently fails on allocating the
+`iommu_fwspec` structure (e.g. via fault injection) and returns -ENOMEM without
+releasing `dev->iommu`. Furthermore, callers such as `iommu_mock_device_add()`
+do not invoke `dev_iommu_free()` on error from `iommu_fwspec_init()`. When
+device initialization fails and the device is released, `dev->iommu` remains
+allocated, causing an unreferenced object memory leak.
 
-Fixes: 19f6d3f3c842 ("net/tcp-fastopen: Add new API support")
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=fe84fc6a684e0beb86e2
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com
+
+BUG: memory leak
+unreferenced object 0xffff888129294b00 (size 64):
+  comm "syz.3.20", pid 6865, jiffies 4294946901
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 0):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4733 [inline]
+    slab_alloc_node mm/slub.c:5033 [inline]
+    __kmalloc_cache_noprof+0x35f/0x3f0 mm/slub.c:5676
+    _kmalloc_noprof include/linux/slab.h:991 [inline]
+    _kzalloc_noprof include/linux/slab.h:1312 [inline]
+    dev_iommu_get drivers/iommu/iommu.c:408 [inline]
+    dev_iommu_get drivers/iommu/iommu.c:399 [inline]
+    iommu_fwspec_init+0x20d/0x240 drivers/iommu/iommu.c:3086
+    iommu_mock_device_add+0x29/0x90 drivers/iommu/iommu.c:385
+    mock_dev_create drivers/iommu/iommufd/selftest.c:1026 [inline]
+    iommufd_test_mock_domain drivers/iommu/iommufd/selftest.c:1068 [inline]
+    iommufd_test+0x1a97/0x2ec0 drivers/iommu/iommufd/selftest.c:2104
+    iommufd_fops_ioctl+0x1ed/0x370 drivers/iommu/iommufd/main.c:556
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:597 [inline]
+    __se_sys_ioctl fs/ioctl.c:583 [inline]
+    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+
+
 ---
-Reproducer:
-
-#define _GNU_SOURCE
-#include <netinet/in.h>
-#include <netinet/tcp.h>
-#include <stdio.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
-int main(void)
-{
-	struct sockaddr_in dst = {
-		.sin_family = AF_INET,
-		.sin_port = htons(9),
-		.sin_addr.s_addr = htonl(INADDR_LOOPBACK),
-	};
-	struct tcp_info info = {0};
-	socklen_t len = sizeof(info);
-	int fd = socket(AF_INET, SOCK_STREAM, 0), one = 1;
-
-	if (fd < 0 ||
-	    setsockopt(fd, IPPROTO_TCP, TCP_FASTOPEN_CONNECT, &one, sizeof(one)) < 0 ||
-	    setsockopt(fd, IPPROTO_TCP, TCP_FASTOPEN_NO_COOKIE, &one, sizeof(one)) < 0 ||
-	    connect(fd, (struct sockaddr *)&dst, sizeof(dst)) < 0 ||
-	    getsockopt(fd, IPPROTO_TCP, TCP_INFO, &info, &len) < 0) {
-		perror("TFO setup");
-		return 1;
-	}
-	if (info.tcpi_state != TCP_SYN_SENT) {
-		fprintf(stderr, "Expected SYN_SENT, got state %u\n", info.tcpi_state);
-		return 1;
-	}
-	printf("PID %ld: deferred SYN_SENT; no SYN or payload sent\n", (long)getpid());
-	fflush(stdout);
-	for (;;)
-		pause();
-}
-
-`ss -ntp state syn-sent` will show a bogus Send-Q number, which is the
-initial sequence number interpreted as signed 32-bit:
-
-Recv-Q          Send-Q                        Local Address:Port                      Peer Address:Port          Process
-0               -1405690727                       127.0.0.1:57290                        127.0.0.1:9              users:(("a.out",pid=63363,fd=3))
-
-Diagnosis and implementation were assisted by GPT Codex.
----
- net/ipv4/tcp_fastopen.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
-index 6dfe40322fb5..ff81e663ac61 100644
---- a/net/ipv4/tcp_fastopen.c
-+++ b/net/ipv4/tcp_fastopen.c
-@@ -545,6 +545,8 @@ bool tcp_fastopen_defer_connect(struct sock *sk, int *err)
- 
- 	if (tp->fastopen_connect && !tp->fastopen_req) {
- 		if (tcp_fastopen_cookie_check(sk, &mss, &cookie)) {
-+			WRITE_ONCE(tp->snd_una, tp->write_seq);
-+			WRITE_ONCE(tp->snd_nxt, tp->write_seq);
- 			inet_set_bit(DEFER_CONNECT, sk);
- 			return true;
- 		}
--- 
-2.43.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
