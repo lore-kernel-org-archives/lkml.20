@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635259;
-	b=4U/yJgSBecnBGjiwPxASBMEfAdZ3hDsZNPYlCYzMD169zllTVIVsSQ9//dhGuDKx89OT
-	 cm/VmEs08Ektux8sAOZaK0SmGp72zm1Rxa4aigvg3XnYotDWf+BnFLyeRLX9eS+fRP/0b
-	 jGOpy14AYHLaSWFznw7Iwrh0hY1jVzcBo9qRdNkyCDn0SpbsipuZuTiQGLTthMmkqSpcn
-	 aQS3ulNa63FiP1ZzzNWltBpxVO4fjG4OB5gqv6t9FktibmEAs942nq7HO3DesKmpWuDnu
-	 dMFfuaDk3cQsUt0MGaQw839XgATSJjwQbgvC2PriU6vnUnt5m5/KNJ0wWkwgwJBTAYg==
+	t=1793635267;
+	b=BFRGM7OErcv4duEp49pimtPEcbl10G8hd7zCk5X0d6Bzcfb32YwrVQojFYZuI2A1dRji
+	 gbtnc40xzEYAedOdiDkQxsxgLojD0tsYqpEK9lsVwTHYq38EDWCdwTzErHVTjLIhDERFe
+	 lqrVLV6/mn2PtItgjVB/LsipNJ0LG3i518oCJymbiriJ+Va0ClSPi5PR9ZQq7TMsFvSca
+	 yYAjrla+ITZBnzSmQecYlJRC7W+mKGzeDioJkFhiAMBvcYbwpq4p+AJE/G3nDkaUsH6yK
+	 tcnt2cfU0mPIP8HNy8tOEy8x7zWiU5OINKb9x4rugZy9YaNqrYGOQeDPeXyq2Eem4QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635259;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QbRGF6PDC1fukVZ1RsUA+unwiK3pOtG/EjOYGFz8Idg=;
-	b=NXUbZPUBOF+epxKrB4NNbLR2vOI0yWreBhBxP1Y+dAXV/EiTrU6olEw3g0M2R1gZPVCg
-	 t0HkBTmpLI/7Y98XDtPVsx86rU1/2QGBGUcpYZiuGt3Ni57xj9vCFUWFnEtonyN1krGMK
-	 6bOHP+qQxOrTGWfLvFC0PgB8oCQG9xJt9WXMRUSwVsrXK8/1dHLOEE9tV15j/KHOFNmq3
-	 IFhyJUBne+CNT1O+da9sizG5uS6TYhOxlVYCbXEj4duBIJLyZHVjFgSmH/AT/mjv8Atbl
-	 fFyGcfcFZZ4aBT8/bOMJwvRGVX8CvT16hk2Po+xyWja0nit+73RwbX+U7hJxOOBtJdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635267;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RU2jBCpKBxpdRBvA25bZWKawafbZ9XeC+7q9nL03NOo=;
+	b=oRvMsFK2Jm91CsZrPMFvkQkY/7/a0Lat9C4EIAfKJ0qQgZ/ZQ9OYsCh99fLysENUYFGD
+	 NTE4oMDlovoktyuuLI21n3uy7E0Vgij6Yer1VYsuOkdiIjkEOjCXuauDcNeWCHzJ95wfM
+	 KF7yv3gG+7o3/YfeKcFT7o0XPBKYrHdDban3j4rGm4uoqksgW6siRyJHh2GEqNJomrcVz
+	 b8ajBhCYEY7NmKgTBDBLftvyk3FFybdwXVskpIJaHujkLldmCO/zaAHR0NWaAHeaZe5qS
+	 DylGtz6ePMWoUQCHmqOxfB5NqgqULcChGRaRmWuWweMW43YA7vKc/YJvsbQOnag1+cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtLJONEn;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=aHkxSWKA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CF9606F233
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:00:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE77606F233;
+	Mon,  2 Nov 2026 16:01:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gtLJONEn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A28CF1F00A16;
-	Mon,  2 Nov 2026 16:00:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793635258;
-	bh=QbRGF6PDC1fukVZ1RsUA+unwiK3pOtG/EjOYGFz8Idg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gtLJONEnovXZjXw4I7vzYTQZtxqLQUYvPv2DPJQkAjGqoNTwUtdp6xauWnIjqgwR+
-	 Uwg/08/bhJQbWrj9yx7tkEWGkEq3APlXN+Mi5/FL7QnNAmeNBx7znYrg25szwmPrwI
-	 plW5Lz6YbMemjWLO6mt3YNFXguzsNXhAUPHD7zA8NQcpok2Q3YyZYY5d2QGQ/MMJpb
-	 Lkf+4FAkZi2KZm4lEQcvd/CEkzS+p+i9WJGJpen1CJN89tALbKEHQkbe2boJQP5PUv
-	 o556y5+CG6JsnLsl+/mMRvxU//sC3tfeUpGcx12T6QUE5fafZA4+vmfBfhxzFskXf0
-	 WEgPJH+utI/eg==
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	tzungbi@kernel.org
-Subject: [PATCH 1/2] reset: Fix reset_control leak when put after controller unregister
-Date: Mon,  2 Nov 2026 23:58:39 +0800
-Message-ID: <20261102155840.20376-2-tzungbi@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102155840.20376-1-tzungbi@kernel.org>
-References: <20261102155840.20376-1-tzungbi@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=aHkxSWKA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EFA31F00A28;
+	Mon,  2 Nov 2026 16:01:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793635267;
+	bh=RU2jBCpKBxpdRBvA25bZWKawafbZ9XeC+7q9nL03NOo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aHkxSWKAW00AelAnZ15EN0hJ4hUc68nQkGl5Z4sA8HrqpLJeS40HhdTES22CTJwjM
+	 +NTau/6fUurg9JwioJilYiO+jiKK2GC+5ggVq17dH6E1ChUpNa2Dbn/N0CH7P/7OC6
+	 YCkWVJO4lvYbVqWMcJO6ZaMVeyjqj4bnSSbktN7Y=
+Date: Mon, 2 Nov 2026 08:01:03 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: david@kernel.org, ljs@kernel.org, jannh@google.com, liam@infradead.org,
+ willy@infradead.org, paulmck@kernel.org, pfalcato@suse.de,
+ usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org,
+ yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] selftests/proc: use RSS in
+ /proc/pid/smaps_rollup tearing tests
+Message-Id: <20261102080103.6e3f602364747ac6adb13f5c@linux-foundation.org>
+In-Reply-To: <CAJuCfpGmPLBRhHa_dmyP10QzyRyvcWMYDLU0+J9t-RCLBsTaWA@mail.gmail.com>
+References: <20261101154503.3203036-1-surenb@google.com>
+	<20261101110100.90796bf33ef50307a7698dca@linux-foundation.org>
+	<CAJuCfpGmPLBRhHa_dmyP10QzyRyvcWMYDLU0+J9t-RCLBsTaWA@mail.gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +61,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-After commit 8c91302a29bc ("reset: protect struct reset_control with its
-own mutex"), reset_control_put_internal() returns early if `rcdev` is
-NULL.
+On Mon, 2 Nov 2026 07:43:17 -0800 Suren Baghdasaryan <surenb@google.com> wrote:
 
-When a reset controller is unregistered while consumers still hold
-reset_control handles, reset_controller_unregister() sets `rstc->rcdev`
-to NULL.  When consumers later release their handles via
-reset_control_put(), the early return skips kref_put(), resulting in
-leaking resources.
+> > :
+> > : The patched userspace test passed all six cases on an existing
+> > : x86-64 6.18.57 kernel, with a PID-namespace adjustment. That kernel
+> > : predates ca5480fb53fa, so this checks selftest behavior, not the
+> > : intended kernel's procfs changes. Separate syscall tests on that
+> > : kernel confirmed the EXEC-merging and memlock failure cases.
+> 
+> I'm guessing your bot was using personality() to make the tests fail.
+> Again, I'm not sure we should handle such use case. Should we?
 
-Call kref_put() in reset_control_put_internal() even if `rcdev` is NULL.
 
-Fixes: 8c91302a29bc ("reset: protect struct reset_control with its own mutex")
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
- drivers/reset/core.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-index 38e189d04d09..1f6d7ef48a67 100644
---- a/drivers/reset/core.c
-+++ b/drivers/reset/core.c
-@@ -160,6 +160,8 @@ int reset_controller_register(struct reset_controller_dev *rcdev)
- }
- EXPORT_SYMBOL_GPL(reset_controller_register);
- 
-+static void reset_control_put_internal(struct reset_control *rstc);
-+
- static void reset_controller_remove(struct reset_controller_dev *rcdev,
- 				    struct reset_control *rstc)
- {
-@@ -185,11 +187,17 @@ void reset_controller_unregister(struct reset_controller_dev *rcdev)
- 		/*
- 		 * Numb but don't free the remaining reset control handles that are
- 		 * still held by consumers.
-+		 *
-+		 * Hold a temporary reference on rstc before clearing rstc->rcdev:
-+		 * once rstc->rcdev is NULL, a concurrent reset_control_put_internal()
-+		 * will not acquire rcdev->lock and could otherwise free rstc.
- 		 */
- 		list_for_each_entry_safe(rstc, pos, &rcdev->reset_control_head, list) {
-+			kref_get(&rstc->refcnt);
- 			rcu_assign_pointer(rstc->rcdev, NULL);
- 			synchronize_srcu(&rstc->srcu);
- 			reset_controller_remove(rcdev, rstc);
-+			reset_control_put_internal(rstc);
- 		}
- 	}
- 
-@@ -913,12 +921,13 @@ static void reset_control_put_internal(struct reset_control *rstc)
- 
- 	scoped_guard(srcu, &rstc->srcu) {
- 		rcdev = srcu_dereference(rstc->rcdev, &rstc->srcu);
--		if (!rcdev)
--			/* Already released. */
--			return;
--
--		guard(mutex)(&rcdev->lock);
--		ret = kref_put(&rstc->refcnt, __reset_control_release);
-+		if (rcdev) {
-+			guard(mutex)(&rcdev->lock);
-+			ret = kref_put(&rstc->refcnt, __reset_control_release);
-+		} else {
-+			/* Already detached from rcdev. */
-+			ret = kref_put(&rstc->refcnt, __reset_control_release);
-+		}
- 	}
- 
- 	if (ret) {
--- 
-2.53.0
+: The concern is pre-ARMv6 CPUs, where READ_IMPLIES_EXEC is set by
+: default. Nobody needs to call personality() to encounter this there.
+: 
+: We already addressed this in 0685630fdccb ("selftests/proc: make
+: proc-maps-race work with READ_IMPLIES_EXEC"):
+: 
+: https://lore.kernel.org/r/20260808200312.6326-1-kmehltretter@gmail.com
+: 
+: That fixed split_vma(). Alternating PROT_EXEC in setup introduces the
+: same assumption elsewhere: RW and RWX both become RWX, allowing adjacent
+: mappings to merge. The parent then cannot find the expected three-page
+: VMAs and the test fails during setup, before testing procfs tearing.
+: 
+: Yes, the focused x86-64 check explicitly enabled READ_IMPLIES_EXEC to
+: exercise this behavior. It wasn't tested on old ARM hardware. But I
+: think we should preserve the existing support for those machines.
+: Populating writable, then removing write permission from alternate
+: mappings, preserves both RSS and the required VMA boundaries.
 
