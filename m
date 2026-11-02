@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605026;
-	b=bcquDLk7H6+7/pwqB8oLP6sF8X+L+3Vy4TsQo6v8SmJwWCI+ffWt8l/e8uQGMyTCVAeY
-	 7hz/1e8Z/VmOhIEZY3kn5jVrWRWtrqYgLcQRjNXnJIAKIclwI7cIUhf5vzfPtss6RhyvG
-	 cEyDoiMAcS0y5awFHCNAhOfA7Kxbizf+pC5wTZZ7NG+o/JSjgkUXx7KIsWNL3ppt5nMtG
-	 d3Iwt5J+6ljFRxUWKmZlAzcbZR+TdRb8TgpYCfAgOeFDVuMtN8t7qrZDTd00nDtYu6pLL
-	 JGgttAqgC9dQe0Sp/iGrPvxB5b9bXQHe5l5CEmF+CliQXQ5P1LV2fzmVB+zQDMVV2ew==
+	t=1793605016;
+	b=hGRy7jo6Kh4AgzG4263AsdclIaopjowFIHTSlOUVbe77FSWYtToQU1zo+XCpgPcM7lWU
+	 sc2DJUlbxJ48s1MjaXlJzTX8c5uM2glWn8g7Csc/47anCcMNLpqPZNDnINRPq45MPgOve
+	 txUAILBKA6TB8g7bXue6caq+3QC7Z4R2qzcJsAxEdyX0gJ0s/Na57Q+wIL4PunkMNWpI8
+	 EQDiQ8m+fK+IAFHq0wZJTVmHqbumNQQA1PcflhGSYoiwPu8Xmo7zWLz1HKFwzYD6ayXB6
+	 6kV91Yz2YS8B5Ytv0gzF3DaQLoXAIKmZFZ/EYBMYAY9NMtOLsjULikMuOzAlgt187Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605026;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605016;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=2vdehVRmmcfWaraj13ioz+/Xsn+iKGko7cIIi/UD6c4=;
-	b=LJPozBXbY1UJA124Mh327UVEDhme9pxDoY+u+maOOtQHpcvaWp11eyoDdz0gVR2CXI2A
-	 4oTqLNdS3XayGHH6rkKFeB3OazhtaVTIVsYeDzo1snIy31ubD/D4mKP8UwK/VtyXD6dor
-	 BglYIg75+ujb1DRWuX/TGge+hqyiwrUgCuojvzY6WnSntEJ6/2QR4g+XXE0/yScesYNXb
-	 0TM6R/6MgnNUOEpcwEBnI8N4OHqOyCMyoGU773dm75mRTKjyVpvoQ9GyRR1PIB5sGM4MC
-	 nWVO6l/PGNFH7U01dbqmZqj/tt2Xevity+np2S40EtP5kDYVCiBF2gTdlnfoSi9GrYA==
+	bh=LZDJHQQx6zFLg0ujdRLGPa6MNrqwy4p7otdqELOivMk=;
+	b=rp/b4XH2EDO1d3e3q9T06CUEqqbgU9F+Wq+w6qDnLo2dWMRXic5qm5Na/V0QrQPsTz6Y
+	 me/wf3DSpSbl9SKwljW82NJ16HBZtzKhRNkM7UsE/I6/HPMu1TyvXKuvPiCa+y4QF3XzA
+	 HnEUEP9YujO4ZW2qB9OhujCEEjghjry/XnLtKiVFfmsYRoL66Vj814sdCkkybwxoB7mkS
+	 UZjuWwQMmHiEQbV8znNpSvmCydtQCXze7muu6/XNmYN5RtLtAT6pe8PAOGE7KECB8fpa5
+	 yOhJZZaP08pjU7qtpj1PdA4KSLtx7wrTKs2bmQ7nj+ucBAxhxZseNVbbydulel5TYUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kJDgHLVh;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="jV1t/4kd";
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B498B606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:37:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B498B606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E87606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88E87606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kJDgHLVh
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jV1t/4kd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=2v
-	dehVRmmcfWaraj13ioz+/Xsn+iKGko7cIIi/UD6c4=; b=kJDgHLVh8zNW34+2Yo
-	JYDvC+quRVgCRKwHLbPLRKIjR9LR8TvXCOlhD6iHHjZItuQbc9Ua/bqStI0tSHXe
-	vpRh3Xb0PspTqP/w1UkDzAltUQWkfHUp8+QKORDxjU3jGySDXcpVnPKqG3VWcz0p
-	Ps4ZDY3sL5lWA0fdLdNNg2x9Q=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=LZ
+	DJHQQx6zFLg0ujdRLGPa6MNrqwy4p7otdqELOivMk=; b=jV1t/4kdDJdx2liUyF
+	fNjaFGb2dYKlT6ZJSmIxkDUBcz5D1/vKDnbEF5Y9Tk8VDL7//sj7N0C+APLGEAR8
+	tQ7jm5HWMo9OzypV6RuJ0bqDwUXpe0VnU8Z8dVl+V5d/G6I80bGL1c2HlS6sBnY+
+	D9dtsNs3OhsmtWtbRK/oLQelg=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3vy+HPehqF0lcEw--.2040S4;
-	Mon, 02 Nov 2026 15:36:41 +0800 (CST)
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3vy+HPehqF0lcEw--.2040S6;
+	Mon, 02 Nov 2026 15:36:42 +0800 (CST)
 From: Xuewen Wang <wangxuewen_ky@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: wangxuewen_ky@163.com,
 	ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Dandan Wu <wudandan@kylinos.cn>
-Subject: [PATCH v5 10/31] ntfs: report LZNT1 and WOF compressed stream errors
-Date: Mon,  2 Nov 2026 15:35:11 +0800
-Message-Id: <20261102073532.98873-11-wangxuewen_ky@163.com>
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v5 12/31] ntfs: report attribute lookup and validation errors
+Date: Mon,  2 Nov 2026 15:35:13 +0800
+Message-Id: <20261102073532.98873-13-wangxuewen_ky@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261102073532.98873-1-wangxuewen_ky@163.com>
 References: <20261102073532.98873-1-wangxuewen_ky@163.com>
@@ -66,249 +66,351 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3vy+HPehqF0lcEw--.2040S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW3JFy7JF4rCryxKF4xXF4Dtwb_yoW3Gw17pF
-	WfCr93trWkXr9rWrnxtrs09w4ag34IgayUGrWxG3W7Xa15Kr1vqFWqqwnYgrWrKr95t3sr
-	Ja1DGrWDG3WUXF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UveHDUUUUU=
-X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbCzQlGL2roPYn-8gAA3W
+X-CM-TRANSID:_____wD3vy+HPehqF0lcEw--.2040S6
+X-Coremail-Antispam: 1Uf129KBjvAXoW3ZF18GryrZFyDGr13Wr17Jrb_yoW8Jr43Wo
+	Wavrs0vw4kZr1UAr4vk3Z5AF9xua45GrWUGry5Cr4DAas2qw1DAw1fG343Ga45uw15Gr4q
+	gry8Jwn5AF1kAFy5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUOYFCUUUUU
+X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC7wpGL2roPYpQ9wAA3e
 
-From: Dandan Wu <wudandan@kylinos.cn>
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-Compressed I/O can detect malformed LZNT1 data or WOF metadata and
-compressed data without reporting it. Report corruption as EFSCORRUPTED
-and retain underlying read, mapping and allocation errors.
+Attribute lookup and reading can detect malformed records and lists,
+invalid stored flags or sizes, and short metadata reads without reporting
+them. Report corruption against the base file and use EFSCORRUPTED.
 
-Also report EIO from LZNT1 block reads and direct reads of nonresident
-WOF tables and chunks. Avoid repeating metadata reports from resident
-WOF mapping and lookup failures.
+Report missing required attributes and missing AttrDef definitions while
+preserving underlying errors and ordinary lookup misses. Use EFBIG for
+the readall size limit so it is not mistaken for an I/O failure. Combine
+local reports at shared exits while retaining lower-level reporting.
 
-Save compression-buffer allocation errors before cleanup so ENOMEM does
-not become EIO. Report failed mapping updates after compressed writes
-and failed cluster release separately from the initiating error.
-
-Signed-off-by: Dandan Wu <wudandan@kylinos.cn>
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 ---
-Validation:
-- Seventeen LZNT1/WOF scenarios cover EIO reporting, allocation failures,
-  resident reads and cleanup.
-- Thirty additional WOF table/chunk cases use the real table parser to
-  check errno preservation, cleanup and resident-read report ownership.
-- All pass in extracted-source userspace harnesses with controlled
-  dependencies under ASan/UBSan. These check reporting calls, not kernel
-  FAN_FS_ERROR event delivery.
+ fs/ntfs/attrib.c | 105 +++++++++++++++++++++++++++++++++--------------
+ fs/ntfs/attrib.h |   4 +-
+ 2 files changed, 77 insertions(+), 32 deletions(-)
 
- fs/ntfs/compress.c | 35 ++++++++++++++++++++++++++++-------
- fs/ntfs/wof.c      | 39 ++++++++++++++++++++++++++++++++++-----
- 2 files changed, 62 insertions(+), 12 deletions(-)
-
-diff --git a/fs/ntfs/compress.c b/fs/ntfs/compress.c
-index 82c7c7d29073..dfb3215531d4 100644
---- a/fs/ntfs/compress.c
-+++ b/fs/ntfs/compress.c
-@@ -585,11 +585,13 @@ int ntfs_read_compressed_block(struct folio *folio)
- 	nr_cbs--;
- 
- 	mutex_lock(&ntfs_cb_lock);
--	if (!ntfs_compression_buffer)
--		if (allocate_compression_buffers()) {
-+	if (!ntfs_compression_buffer) {
-+		err = allocate_compression_buffers();
-+		if (err) {
- 			mutex_unlock(&ntfs_cb_lock);
- 			goto err_out;
- 		}
-+	}
- 
- 
- 	cb = ntfs_compression_buffer;
-@@ -633,7 +635,8 @@ int ntfs_read_compressed_block(struct folio *folio)
- 			 * duration.
- 			 */
- 			up_read(&ni->runlist.lock);
--			if (!ntfs_map_runlist(ni, vcn))
-+			err = ntfs_map_runlist(ni, vcn);
-+			if (!err)
- 				goto lock_retry_remap;
- 			mutex_unlock(&ntfs_cb_lock);
- 			goto map_rl_err;
-@@ -787,6 +790,8 @@ int ntfs_read_compressed_block(struct folio *folio)
- 			ntfs_error(vol->sb,
- 				"ntfs_decompress() failed in inode 0x%llx with error code %i. Skipping this compression block.",
- 				ni->mft_no, -err);
-+			err = -EFSCORRUPTED;
-+			ntfs_report_file_metadata_error(VFS_I(ni), err);
- 			/* Release the unfinished pages. */
- 			for (; prev_cur_page < cur_page; prev_cur_page++) {
- 				page = pages[prev_cur_page];
-@@ -839,12 +844,16 @@ int ntfs_read_compressed_block(struct folio *folio)
- 	goto err_out;
- 
- rl_err:
-+	err = -EFSCORRUPTED;
- 	up_read(&ni->runlist.lock);
-+	ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
- 	ntfs_error(vol->sb, "ntfs_rl_vcn_to_lcn() failed. Cannot read compression block.");
- 	goto err_out;
- 
- read_err:
- 	up_read(&ni->runlist.lock);
-+	if (err == -EIO)
-+		ntfs_report_file_metadata_error(VFS_I(ni), err);
- 	ntfs_error(vol->sb, "IO error while reading compressed data.");
- 
- err_out:
-@@ -859,7 +868,7 @@ int ntfs_read_compressed_block(struct folio *folio)
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index f1c99e0d8dca..a69b0c6e9de1 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -894,7 +894,7 @@ static bool ntfs_attr_value_is_valid(struct ntfs_volume *vol,
+  * @ctx->attr will point to the attribute before which the attribute being
+  * searched for would need to be inserted if such an action were to be desired.
+  *
+- * On actual error, ntfs_attr_find() returns -EIO.  In this case @ctx->attr is
++ * On actual error, ntfs_attr_find() returns -EFSCORRUPTED.  In this case @ctx->attr is
+  * undefined and in particular do not rely on it not changing.
+  *
+  * If @ctx->is_first is 'true', the search begins with @ctx->attr itself.  If it
+@@ -932,6 +932,7 @@ static int ntfs_attr_find(const __le32 type, const __le16 *name,
+ 		const u8 *val, const u32 val_len, struct ntfs_attr_search_ctx *ctx)
+ {
+ 	struct attr_record *a;
++	struct ntfs_inode *base_ni;
+ 	struct ntfs_volume *vol = ctx->ntfs_ino->vol;
+ 	__le16 *upcase = vol->upcase;
+ 	u32 upcase_len = vol->upcase_len;
+@@ -1058,8 +1059,9 @@ static int ntfs_attr_find(const __le32 type, const __le16 *name,
  	}
- 	kfree(pages);
- 	kfree(completed_pages);
+ 	ntfs_error(vol->sb, "mft %#llx, type %#x is corrupt. Run chkdsk.",
+ 		   (long long)ctx->ntfs_ino->mft_no, le32_to_cpu(type));
+-	NVolSetErrors(vol);
 -	return -EIO;
++	base_ni = ntfs_inode_base(ctx->ntfs_ino);
++	ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
++	return -EFSCORRUPTED;
+ }
+ 
+ void ntfs_attr_name_free(unsigned char **name)
+@@ -1156,34 +1158,52 @@ bool ntfs_attr_list_is_valid(const u8 *al_start, s64 size)
+ 
+ int load_attribute_list(struct ntfs_inode *base_ni, u8 *al_start, const s64 size)
+ {
++	int report_err = 0;
+ 	struct inode *attr_vi = NULL;
++	s64 read;
++	int err;
+ 
+ 	if (!al_start || size <= 0)
+ 		return -EINVAL;
+ 
+ 	attr_vi = ntfs_attr_iget(VFS_I(base_ni), AT_ATTRIBUTE_LIST, AT_UNNAMED, 0);
+ 	if (IS_ERR(attr_vi)) {
++		if (PTR_ERR(attr_vi) == -ENOENT) {
++			report_err = -EFSCORRUPTED;
++			attr_vi = ERR_PTR(-EFSCORRUPTED);
++		}
+ 		ntfs_error(base_ni->vol->sb,
+ 			   "Failed to open an inode for Attribute list, mft = %llu",
+ 			   base_ni->mft_no);
+-		return PTR_ERR(attr_vi);
++		err = PTR_ERR(attr_vi);
++		goto out;
+ 	}
+ 
+-	if (ntfs_inode_attr_pread(attr_vi, 0, size, al_start) != size) {
++	read = ntfs_inode_attr_pread(attr_vi, 0, size, al_start);
++	if (read != size) {
++		if (read >= 0)
++			report_err = -EFSCORRUPTED;
+ 		iput(attr_vi);
+ 		ntfs_error(base_ni->vol->sb,
+ 			   "Failed to read attribute list, mft = %llu",
+ 			   base_ni->mft_no);
+-		return -EIO;
++		err = read < 0 ? read : -EFSCORRUPTED;
++		goto out;
+ 	}
+ 	iput(attr_vi);
+ 
+ 	if (!ntfs_attr_list_is_valid(al_start, size)) {
++		report_err = -EFSCORRUPTED;
+ 		ntfs_error(base_ni->vol->sb, "Corrupt attribute list, mft = %llu",
+ 			   base_ni->mft_no);
+-		return -EIO;
++		err = -EFSCORRUPTED;
++		goto out;
+ 	}
+-	return 0;
++	err = 0;
++out:
++	if (report_err)
++		ntfs_report_file_metadata_error(VFS_I(base_ni), report_err);
 +	return err;
  }
  
  /*
-@@ -1315,6 +1324,7 @@ static int ntfs_write_cb(struct ntfs_inode *ni, loff_t pos, struct page **pages,
- 		int pages_per_cb, unsigned int page_offset,
- 		struct compress_context *ctx, struct ntfs_compress_workspace *ws)
- {
-+	int report_err = 0;
- 	struct ntfs_volume *vol = ni->vol;
- 	char *outbuf = ws->outbuf, *pbuf;
- 	u32 compsz, p, insz = ni->itype.compressed.block_size;
-@@ -1443,6 +1453,9 @@ static int ntfs_write_cb(struct ntfs_inode *ni, loff_t pos, struct page **pages,
- 		up_write(&ni->runlist.lock);
- 		ntfs_error(vol->sb, "Failed to merge runlists");
- 		err = PTR_ERR(rl);
-+		if (err != -ENOMEM)
+@@ -1233,7 +1253,7 @@ int load_attribute_list(struct ntfs_inode *base_ni, u8 *al_start, const s64 size
+  * attribute list entry for the inserted attribute should be inserted in the
+  * attribute list attribute at @ctx->al_entry.
+  *
+- * On actual error, ntfs_external_attr_find() returns -EIO.  In this case
++ * On actual error, ntfs_external_attr_find() returns -EFSCORRUPTED.  In this case
+  * @ctx->attr is undefined and in particular do not rely on it not changing.
+  */
+ static int ntfs_external_attr_find(const __le32 type,
+@@ -1355,7 +1375,8 @@ static int ntfs_external_attr_find(const __le32 type,
+ 
+ 			/* Not found?!? Absurd! */
+ 			ntfs_error(ctx->ntfs_ino->vol->sb, "Attribute list wasn't found");
+-			return -EIO;
 +			err = -EFSCORRUPTED;
-+		report_err = err;
- 		goto free_rlc;
++			goto report_error;
+ 		}
+ 	}
+ 	for (;; al_entry = next_al_entry) {
+@@ -1454,7 +1475,8 @@ static int ntfs_external_attr_find(const __le32 type,
+ 				ntfs_error(vol->sb,
+ 					"Found stale mft reference in attribute list of base inode 0x%llx.%s",
+ 					base_ni->mft_no, es);
+-				err = -EIO;
++
++				err = -EFSCORRUPTED;
+ 				break;
+ 			}
+ 		} else { /* Mft references do not match. */
+@@ -1479,7 +1501,7 @@ static int ntfs_external_attr_find(const __le32 type,
+ 							base_ni->mft_no, es);
+ 					err = PTR_ERR(ctx->mrec);
+ 					if (err == -ENOENT)
+-						err = -EIO;
++						err = -EFSCORRUPTED;
+ 					/* Cause @ctx to be sanitized below. */
+ 					ni = NULL;
+ 					break;
+@@ -1533,7 +1555,7 @@ static int ntfs_external_attr_find(const __le32 type,
+ 		/*
+ 		 * If the type and/or the name are mismatched between the
+ 		 * attribute list entry and the attribute record, there is
+-		 * corruption so we break and return error EIO.
++		 * corruption so we break and return error EFSCORRUPTED.
+ 		 */
+ 		if (al_entry->type != a->type)
+ 			break;
+@@ -1592,11 +1614,18 @@ static int ntfs_external_attr_find(const __le32 type,
+ 			"Base inode 0x%llx contains corrupt attribute, mft %#llx, type %#x. %s",
+ 			(long long)base_ni->mft_no, (long long)mft_no, type,
+ 			"Unmount and run chkdsk.");
+-		err = -EIO;
++
++		err = -EFSCORRUPTED;
  	}
  
-@@ -1453,17 +1466,25 @@ static int ntfs_write_cb(struct ntfs_inode *ni, loff_t pos, struct page **pages,
- 	err = ntfs_attr_update_mapping_pairs_locked(ni, 0, ni);
- 	up_write(&ni->runlist.lock);
- 	if (err)
--		err = -EIO;
-+		report_err = err;
- 	goto out;
- 
- free_rlc:
--	if (ntfs_cluster_free_from_rl(vol, rlc))
--		ntfs_error(vol->sb, "Failed to free hot clusters.");
-+	{
-+		int free_err = ntfs_cluster_free_from_rl(vol, rlc);
-+
-+		if (free_err) {
-+			ntfs_report_file_metadata_error(VFS_I(ni), free_err);
-+			ntfs_error(vol->sb, "Failed to free hot clusters.");
-+		}
+-	if (err != -ENOMEM)
+-		NVolSetErrors(vol);
++report_error:
++	if (err != -ENOMEM) {
++		if (err != -EINTR && err != -ERESTARTSYS)
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							err);
++		else
++			NVolSetErrors(vol);
 +	}
- 	kvfree(rlc);
- out:
- 	NInoSetFileNameDirty(ni);
- 	mark_mft_record_dirty(ni);
+ 	return err;
+ not_found:
+ 	/*
+@@ -1824,8 +1853,8 @@ void ntfs_attr_put_search_ctx(struct ntfs_attr_search_ctx *ctx)
+  *
+  * Return the attribute type definition record if found and NULL if not found.
+  */
+-static struct attr_def *ntfs_attr_find_in_attrdef(const struct ntfs_volume *vol,
+-		const __le32 type)
++static struct attr_def *ntfs_attr_find_in_attrdef(struct ntfs_volume *vol,
++						  const __le32 type)
+ {
+ 	struct attr_def *ad;
  
+@@ -1841,7 +1870,8 @@ static struct attr_def *ntfs_attr_find_in_attrdef(const struct ntfs_volume *vol,
+ 		/* We have gone too far already.  No point in continuing. */
+ 		break;
+ 	}
+-	/* Attribute not found. */
++	/* The requested attribute type must have a definition on this volume. */
++	ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 	ntfs_debug("Attribute type 0x%x not found in $AttrDef.",
+ 			le32_to_cpu(type));
+ 	return NULL;
+@@ -1856,8 +1886,8 @@ static struct attr_def *ntfs_attr_find_in_attrdef(const struct ntfs_volume *vol,
+  * Check whether the @size in bytes is valid for an attribute of @type on the
+  * ntfs volume @vol.  This information is obtained from $AttrDef system file.
+  */
+-int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol, const __le32 type,
+-		const s64 size)
++int ntfs_attr_size_bounds_check(struct ntfs_volume *vol, const __le32 type,
++				const s64 size)
+ {
+ 	struct attr_def *ad;
+ 
+@@ -1873,7 +1903,7 @@ int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol, const __le32 type
+ 	/* Get the $AttrDef entry for the attribute @type. */
+ 	ad = ntfs_attr_find_in_attrdef(vol, type);
+ 	if (unlikely(!ad))
+-		return -ENOENT;
++		return -EFSCORRUPTED;
+ 	/* Do the bounds check. */
+ 	if (((le64_to_cpu(ad->min_size) > 0) &&
+ 			size < le64_to_cpu(ad->min_size)) ||
+@@ -1891,15 +1921,15 @@ int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol, const __le32 type
+  * Check whether the attribute of @type on the ntfs volume @vol is allowed to
+  * be non-resident.  This information is obtained from $AttrDef system file.
+  */
+-static int ntfs_attr_can_be_non_resident(const struct ntfs_volume *vol,
+-		const __le32 type)
++static int ntfs_attr_can_be_non_resident(struct ntfs_volume *vol,
++					 const __le32 type)
+ {
+ 	struct attr_def *ad;
+ 
+ 	/* Find the attribute definition record in $AttrDef. */
+ 	ad = ntfs_attr_find_in_attrdef(vol, type);
+ 	if (unlikely(!ad))
+-		return -ENOENT;
++		return -EFSCORRUPTED;
+ 	/* Check the flags and return the result. */
+ 	if (ad->flags & ATTR_DEF_RESIDENT)
+ 		return -EPERM;
+@@ -3189,6 +3219,7 @@ static void ntfs_attr_init(struct ntfs_inode *ni, const bool non_resident,
+ int ntfs_attr_open(struct ntfs_inode *ni, const __le32 type,
+ 		__le16 *name, u32 name_len)
+ {
++	int report_err = 0;
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	__le16 *newname = NULL;
+ 	struct attr_record *a;
+@@ -3281,10 +3312,11 @@ int ntfs_attr_open(struct ntfs_inode *ni, const __le32 type,
+ 	    ((!(a->flags & ATTR_IS_COMPRESSED) != !NInoCompressed(ni)) ||
+ 	     (!(a->flags & ATTR_IS_SPARSE)     != !NInoSparse(ni)) ||
+ 	     (!(a->flags & ATTR_IS_ENCRYPTED)  != !NInoEncrypted(ni)))) {
+-		err = -EIO;
++		err = -EFSCORRUPTED;
+ 		pr_err("Inode %lld has corrupt attribute flags (0x%x <> 0x%x)\n",
+ 				(unsigned long long)ni->mft_no,
+ 				a->flags, ni->flags);
++		report_err = -EFSCORRUPTED;
+ 		goto put_err_out;
+ 	}
+ 
+@@ -3300,7 +3332,8 @@ int ntfs_attr_open(struct ntfs_inode *ni, const __le32 type,
+ 		}
+ 
+ 		if ((a->flags & ATTR_IS_COMPRESSED) && !a->data.non_resident.compression_unit) {
+-			err = -EIO;
++			err = -EFSCORRUPTED;
++			report_err = -EFSCORRUPTED;
+ 			pr_err("Compressed inode %lld attr 0x%x has no compression unit\n",
+ 					(unsigned long long)ni->mft_no, type);
+ 			goto put_err_out;
+@@ -3333,6 +3366,8 @@ int ntfs_attr_open(struct ntfs_inode *ni, const __le32 type,
+ 	ntfs_attr_put_search_ctx(ctx);
+ out:
+ 	ntfs_debug("\n");
 +	if (report_err)
 +		ntfs_report_file_metadata_error(VFS_I(ni), report_err);
  	return err;
- }
  
-diff --git a/fs/ntfs/wof.c b/fs/ntfs/wof.c
-index e64f40835957..25b9a87956da 100644
---- a/fs/ntfs/wof.c
-+++ b/fs/ntfs/wof.c
-@@ -294,7 +294,7 @@ static int parse_wof_chunk_table(struct ntfs_inode *base_ni,
- 		ret = ntfs_bdev_read_from_rl(ni->vol, &ni->runlist,
- 					     start_sector, sectors, buf);
- 		if (ret)
--			return -EIO;
-+			return ret;
- 		buf += sector_off;
- 	} else {
- 		struct ntfs_attr_search_ctx *ctx;
-@@ -655,6 +655,7 @@ static int ntfs_wof_decompress_chunk(struct ntfs_wof_workspace *ws,
- 
- int ntfs_read_wof_compressed_block(struct folio *folio)
+ put_err_out:
+@@ -5642,6 +5677,7 @@ int ntfs_attr_remove(struct ntfs_inode *ni, const __le32 type, __le16 *name,
+ void *ntfs_attr_readall(struct ntfs_inode *ni, const __le32 type,
+ 		__le16 *name, u32 name_len, s64 *data_size)
  {
 +	int report_err = 0;
- 	struct address_space *mapping = folio->mapping;
- 	struct ntfs_inode *ni = NTFS_I(mapping->host), *wof_ni;
- 	struct inode *wof_inode;
-@@ -685,15 +686,20 @@ int ntfs_read_wof_compressed_block(struct folio *folio)
- 				   WOF_NAME_LEN);
- 	if (IS_ERR(wof_inode)) {
- 		err = PTR_ERR(wof_inode);
-+		if (err == -ENOENT) {
-+			err = -EFSCORRUPTED;
-+			report_err = -EFSCORRUPTED;
-+		}
+ 	struct ntfs_inode *bmp_ni;
+ 	struct inode *bmp_vi;
+ 	void *data, *ret = NULL;
+@@ -5658,11 +5694,16 @@ void *ntfs_attr_readall(struct ntfs_inode *ni, const __le32 type,
+ 	}
+ 	bmp_ni = NTFS_I(bmp_vi);
+ 
++	if (bmp_ni->data_size < 0) {
++		report_err = -EFSCORRUPTED;
++		ret = ERR_PTR(-EFSCORRUPTED);
++		goto out;
++	}
+ 	if (bmp_ni->data_size > NTFS_ATTR_READALL_MAX_SIZE &&
+ 		(bmp_ni->type != AT_BITMAP ||
+ 		bmp_ni->data_size > ((ni->vol->nr_clusters + 7) >> 3))) {
+-		ntfs_error(sb, "Invalid attribute data size");
+-		ret = ERR_PTR(-EIO);
++		ntfs_error(sb, "Attribute data exceeds readall size limit");
++		ret = ERR_PTR(-EFBIG);
  		goto out;
  	}
  
- 	wof_ni = NTFS_I(wof_inode);
- 	if (wof_ni->initialized_size != wof_ni->data_size) {
-+		report_err = -EFSCORRUPTED;
- 		ntfs_error(vol->sb,
- 			   "WOF compressed stream is not fully initialized (init %lld, data %lld).",
- 			   wof_ni->initialized_size, wof_ni->data_size);
--		err = -EIO;
-+		err = -EFSCORRUPTED;
- 		goto out_iput;
+@@ -5675,8 +5716,10 @@ void *ntfs_attr_readall(struct ntfs_inode *ni, const __le32 type,
+ 	size = ntfs_inode_attr_pread(VFS_I(bmp_ni), 0, bmp_ni->data_size,
+ 			(u8 *)data);
+ 	if (size != bmp_ni->data_size) {
++		if (size >= 0 || size == -EIO)
++			report_err = size < 0 ? (int)size : -EFSCORRUPTED;
+ 		ntfs_error(sb, "ntfs_attr_pread failed");
+-		ret = size < 0 ? ERR_PTR((int)size) : ERR_PTR(-EIO);
++		ret = size < 0 ? ERR_PTR((int)size) : ERR_PTR(-EFSCORRUPTED);
+ 		kvfree(data);
+ 		goto out;
  	}
- 	if (NInoNonResident(wof_ni) && !NInoFullyMapped(wof_ni)) {
-@@ -725,21 +731,42 @@ int ntfs_read_wof_compressed_block(struct folio *folio)
- 		err = parse_wof_chunk_table(ni, wof_ni, chunk_idx, chunk_count,
- 					    decomp_size, &chunk_offset,
- 					    &chunk_size, input, input_size);
--		if (err)
-+		if (err) {
-+			if (err == -EINVAL || err == -EOVERFLOW || err == -ENOENT) {
-+				err = -EFSCORRUPTED;
-+				report_err = err;
-+			} else if (err == -EIO && NInoNonResident(wof_ni)) {
-+				/* Resident reads already report errors below. */
-+				report_err = err;
-+			}
- 			goto out_free_input;
-+		}
- 
- 		err = ntfs_read_wof_chunk(vol, wof_ni, chunk_offset, chunk_size,
- 					  input, input_size, &chunk_mem);
--		if (err)
-+		if (err) {
-+			if (err == -EINVAL || err == -EOVERFLOW || err == -ENOENT) {
-+				err = -EFSCORRUPTED;
-+				report_err = err;
-+			} else if (err == -EIO && NInoNonResident(wof_ni)) {
-+				/* Direct block reads do not report metadata errors. */
-+				report_err = err;
-+			}
- 			goto out_free_input;
-+		}
- 
- 		err = ntfs_wof_decompress_chunk(ws, vol, mapping, folio,
- 						folio_start, folio_end,
- 						chunk_idx * ws->comp_unit,
- 						chunk_mem, chunk_size,
- 						decomp_size);
--		if (err)
-+		if (err) {
-+			if (err != -ENOMEM) {
-+				err = -EFSCORRUPTED;
-+				report_err = err;
-+			}
- 			goto out_free_input;
-+		}
- 	}
- 
- 	if (folio_end > i_size)
-@@ -757,5 +784,7 @@ int ntfs_read_wof_compressed_block(struct folio *folio)
- 		folio_clear_uptodate(folio);
- 	}
- 	folio_unlock(folio);
+@@ -5687,6 +5730,8 @@ void *ntfs_attr_readall(struct ntfs_inode *ni, const __le32 type,
+ 	iput(bmp_vi);
+ err_exit:
+ 	ntfs_debug("\n");
 +	if (report_err)
 +		ntfs_report_file_metadata_error(VFS_I(ni), report_err);
- 	return err;
+ 	return ret;
  }
+ 
+diff --git a/fs/ntfs/attrib.h b/fs/ntfs/attrib.h
+index 9d6bf0320219..5a133ba741a6 100644
+--- a/fs/ntfs/attrib.h
++++ b/fs/ntfs/attrib.h
+@@ -89,8 +89,8 @@ void ntfs_attr_reinit_search_ctx(struct ntfs_attr_search_ctx *ctx);
+ struct ntfs_attr_search_ctx *ntfs_attr_get_search_ctx(struct ntfs_inode *ni,
+ 		struct mft_record *mrec);
+ void ntfs_attr_put_search_ctx(struct ntfs_attr_search_ctx *ctx);
+-int ntfs_attr_size_bounds_check(const struct ntfs_volume *vol,
+-		const __le32 type, const s64 size);
++int ntfs_attr_size_bounds_check(struct ntfs_volume *vol,
++				const __le32 type, const s64 size);
+ int ntfs_attr_can_be_resident(const struct ntfs_volume *vol,
+ 		const __le32 type);
+ int ntfs_attr_map_cluster(struct ntfs_inode *ni, s64 vcn_start, s64 *lcn_start,
 
