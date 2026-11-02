@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641520;
-	b=jfCsrn27I1+iw4eXp6Lfscid0lOEvMNTZcX5w0qTAfpKGMyurAZTZJXYO0lDgtvEUDGR
-	 y+zCTNo+JcYgyUkhlQLZhF1qKeBoVeGN5wGDAz5JmwLYm4co0A3on/XC9UOaYOhT/qkbZ
-	 ZpQAk/kDtKZv8JCj5pBNyc1mDrPlYA1Ps8R1E2XvJbMQG/fbi+MbykfA/wnewnPWeIMoq
-	 Mr78w7S/kXRCAh+s3oLqtvdC7zS//1P5Af5mVoXiSiKYvsT3KWp2jcMnVVJ+pBxKYt7Ln
-	 YNV+1EX/liEv0acWYSg0Q7avM+/z/gWC64ruUg5qfY9HxnPQk85d7/qtEmvcmWnLp6g==
+	t=1793641531;
+	b=CXMwtXn7g8kSQ/lJJa5k5nG3hUTVdOvLLynz3L4SGp6xsbF3RPDpVe5Iczntlc1R759M
+	 TkMS0QqBoaVx61Jq29dFkEgAwPOUzEjTyx+JOtSgIcDNEZwb4FH34AKYwMNI/JTBUk5cO
+	 bFLyKOUuKUvxsN6W6au2LEkaBEU1PP4oPc1WZ9AbN/qIZ+HzfpRN0OYM24oHtLd3rYtvO
+	 j4swggucEQkGLtVeiLXypGB/iZdozqB7KCifkIJHdFXcE+LozRWVDspskLzWaG1zS11zM
+	 8e6+meiAd6sCtlCDUFk2D+80DARVwv0AZ+XsVJu3nrmGrfYFW/b/VKSxMLwb9lf97eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641520;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641531;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=yaKAU6Ow7XUYCqR9G0iHJRFxDv4tOlXe6ZZRKBhpn4A=;
-	b=o5tqONOPOJ8iHnPjXVBFCh6V26rfPB/e+4dRWrfVWZ63f1OKaUWuEXmqFFmZ3Ed3eSM/
-	 mjRTBtGT5j7g+/S0mOht9ddNOMBRIWNcnrkOPloTTFxz38XO1QxRRt+X9lIdcUKxfw5RC
-	 QaTTsewcEtrOT9MdXyBy84YkAXmgARg9KtNgtr/AtopaanhngjM+W9GXoNjl8L5JtSKuY
-	 bQFXJIrveaO4rYoVya4iIr40u/upprAC6eMUOurzVWWsD4XZiwRosrk7Ku1faYKhq/a2V
-	 eOTf5Lw0P0ykqI2gTMWyNwiZTYxfcUxgDdRDJ+CqihJKKdxwuChy78/oYsW2LAJfrNw==
+	bh=eNiSWpnU8Lwgrp8cAZMrGw9BDm4Xqnl5gdC5H/nGJ6Y=;
+	b=Z5Cs7BJ7pcCX18Z7W/OBAUyk+POx+ec3wJl86XCcS23onWsqrr8KUdqAnd6ygTYQxBbe
+	 yhpPzjYGNq5O/XK0nYHPXneb26Ml5N+FtrFZCU/OExb4BxDpU5byieGSohk4pShQhcOLQ
+	 Zu34Z652TE83yxFLZK9LLxxAJkE7ckL8xHGXDVlqWdavD6h2UJl+T9UyA9ZYid0Eb3P5+
+	 7u1W7CELgsS18QuS6QcLfR7yRh0y+eCz3tGQCXgZTojXA8YGekSIXwbS1/irw7/4iyG8Q
+	 mt34NAjD26Wt5gc6l6Ccm6Lw6mBomTjT3iTZUHfc9t+4Pd7EXfI8rGMhD1iPsYNVZug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QCNuDBNo;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bcskjmyv;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB83606E003
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FB83606E003
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDD560B33C4
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FDD560B33C4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QCNuDBNo
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bcskjmyv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641518;
+	s=mimecast20190719; t=1793641529;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=yaKAU6Ow7XUYCqR9G0iHJRFxDv4tOlXe6ZZRKBhpn4A=;
-	b=QCNuDBNoD2i8HhPjANEi7klm55rAiV/PgjLB8u1/6BHliHfYdBqV/BADE53dRQk+SyPGpO
-	Wwt4fHYtk/IY5JrS0yXB/x+W7kucuHDnG8+WaRvU3K7Px/yStttCNg9C7WkRIs8/eai6rE
-	F0N2qo9ZcaYs/aw0i9owy41zFXfn/oQ=
+	bh=eNiSWpnU8Lwgrp8cAZMrGw9BDm4Xqnl5gdC5H/nGJ6Y=;
+	b=bcskjmyvoXRTR2ihg4GjvSTOQZfG9jD819L8G3eggn408BbOwbpnOe7bEUwT1LkH2PyTmi
+	fjUVi+f98DfHF976/8A1o3FIocMXsLRlDVdMIbipYxOOr6JXi+6KRcsld7FfzcAbptYeXO
+	EndD8mRCJ4ehzikI04vpPhlIeup/BdU=
 Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-500-1HrbbgwANhGSxTtZ-qfKRg-1; Mon,
- 02 Nov 2026 12:45:16 -0500
-X-MC-Unique: 1HrbbgwANhGSxTtZ-qfKRg-1
-X-Mimecast-MFC-AGG-ID: 1HrbbgwANhGSxTtZ-qfKRg_1793641515
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-681-Qtmpe5q4NPqN0vnZgNdZSg-1; Mon,
+ 02 Nov 2026 12:45:26 -0500
+X-MC-Unique: Qtmpe5q4NPqN0vnZgNdZSg-1
+X-Mimecast-MFC-AGG-ID: Qtmpe5q4NPqN0vnZgNdZSg_1793641524
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AA5871956064;
-	Mon,  2 Nov 2026 17:45:15 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 637F91955F30;
+	Mon,  2 Nov 2026 17:45:24 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 36FC71956087;
-	Mon,  2 Nov 2026 17:45:15 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E4520433;
+	Mon,  2 Nov 2026 17:45:23 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: [PATCH 20/45] KVM: Take memory protections into account for memory read/write/fetch
-Date: Mon,  2 Nov 2026 12:44:47 -0500
-Message-ID: <20261102174512.8903-4-pbonzini@redhat.com>
+Subject: [PATCH 33/45] KVM: x86: Allow page fault fixup to return errors
+Date: Mon,  2 Nov 2026 12:45:00 -0500
+Message-ID: <20261102174512.8903-17-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,132 +80,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Nicolas Saenz Julienne <nsaenz@amazon.com>
+kvm_fixup_and_inject_pf_error() reflects intercepted hardware page
+faults into the guest, walking the guest page tables when necessary
+to obtain an error code consistent with the guest's paging rules.
+For example, a GPA that exceeds guest.MAXPHYADDR but fits within
+host.MAXPHYADDR must cause a reserved-bit fault, even though hardware
+does not report one.
 
-Take into account memory attributes when accessing guest memory through
-the kvm_{read,write,fetch}*() family of functions.
+Allow the function's callers to propagate memory attribute failures
+from the page table walk; subsequent changes will return from
+kvm_fixup_and_inject_pf_error() any error from the page-table walk.
 
-All of these pass a struct kvm_memory_slot pointer to the actual
-workhorse functions, in order to share code between the VM-wide and
-vCPU-specific version of the functions (the latter of which handles the
-multi-address-space case).  For this reason they need specific changes
-and do not work even though the gfn_to_hva() path has been taught already
-about memory protection attributes.
-
-Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Link: https://patch.msgid.link/20260918135030.171564-17-pbonzini@redhat.com
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- virt/kvm/kvm_main.c | 34 ++++++++++++++++++++++++++--------
- 1 file changed, 26 insertions(+), 8 deletions(-)
+ arch/x86/kvm/vmx/vmx.c | 15 +++++++++++----
+ arch/x86/kvm/x86.c     |  3 ++-
+ arch/x86/kvm/x86.h     |  2 +-
+ 3 files changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 41818ed5eb3a..de54f52f2158 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -3362,11 +3362,13 @@ static int next_segment(unsigned long len, int offset)
- }
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 27cb0d64fb5c..c4511f83d59b 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -5418,10 +5418,14 @@ static int vmx_handle_page_fault(struct kvm_vcpu *vcpu, u32 error_code)
+ 		WARN_ON_ONCE(!IS_ENABLED(CONFIG_X86_SGX_KVM) ||
+ 			     !cpu_feature_enabled(X86_FEATURE_SGX2));
  
- /* Copy @len bytes from guest memory at '(@gfn * PAGE_SIZE) + @offset' to @data */
--static int __kvm_read_guest_page(struct kvm_memory_slot *slot, gfn_t gfn,
--				 void *data, int offset, int len)
-+static int __kvm_read_guest_page(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				 gfn_t gfn, void *data, int offset, int len,
-+				 unsigned long attr)
- {
- 	int r;
- 	unsigned long addr;
-+	unsigned long attrs;
- 
- 	if (WARN_ON_ONCE(offset + len > PAGE_SIZE))
- 		return -EFAULT;
-@@ -3374,6 +3376,11 @@ static int __kvm_read_guest_page(struct kvm_memory_slot *slot, gfn_t gfn,
- 	addr = gfn_to_hva_memslot_prot(slot, gfn, NULL);
- 	if (kvm_is_error_hva(addr))
- 		return -EFAULT;
+-		if (guest_cpu_cap_has(vcpu, X86_FEATURE_SGX2))
+-			kvm_fixup_and_inject_pf_error(vcpu, cr2, error_code);
+-		else
++		if (guest_cpu_cap_has(vcpu, X86_FEATURE_SGX2)) {
++			int r = kvm_fixup_and_inject_pf_error(vcpu, cr2, error_code);
 +
-+	attrs = kvm_get_vm_memory_attributes(kvm, gfn);
-+	if (attrs & attr)
-+		return -EFAULT;
++			if (r)
++				return r;
++		} else {
+ 			kvm_inject_gp(vcpu, 0);
++		}
+ 		return 1;
+ 	}
+ 
+@@ -5431,7 +5435,10 @@ static int vmx_handle_page_fault(struct kvm_vcpu *vcpu, u32 error_code)
+ 	 * to the GPA being legal with respect to host.MAXPHYADDR).
+ 	 */
+ 	if (enable_ept) {
+-		kvm_fixup_and_inject_pf_error(vcpu, cr2, error_code);
++		int r = kvm_fixup_and_inject_pf_error(vcpu, cr2, error_code);
 +
- 	r = __copy_from_user(data, (void __user *)addr + offset, len);
- 	if (r)
- 		return -EFAULT;
-@@ -3385,7 +3392,8 @@ int kvm_read_guest_page(struct kvm *kvm, gfn_t gfn, void *data, int offset,
++		if (r)
++			return r;
+ 		return 1;
+ 	}
+ 
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 5818101d1d8a..bb36ca1106e5 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -10811,7 +10811,7 @@ void kvm_arch_gmem_invalidate_range(struct kvm *kvm, struct kvm_gfn_range *range
+ #endif
+ #endif
+ 
+-void kvm_fixup_and_inject_pf_error(struct kvm_vcpu *vcpu, gva_t gva, u16 error_code)
++int kvm_fixup_and_inject_pf_error(struct kvm_vcpu *vcpu, gva_t gva, u16 error_code)
  {
- 	struct kvm_memory_slot *slot = gfn_to_memslot(kvm, gfn);
- 
--	return __kvm_read_guest_page(slot, gfn, data, offset, len);
-+	return __kvm_read_guest_page(kvm, slot, gfn, data, offset, len,
-+				     KVM_MEMORY_ATTRIBUTE_NR);
+ 	struct kvm_pagewalk *gva_walk = &vcpu->arch.gva_walk;
+ 	struct x86_exception fault;
+@@ -10833,6 +10833,7 @@ void kvm_fixup_and_inject_pf_error(struct kvm_vcpu *vcpu, gva_t gva, u16 error_c
+ 		fault.async_page_fault = false;
+ 	}
+ 	gva_walk->inject_page_fault(vcpu, &fault, true);
++	return 0;
  }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_read_guest_page);
+ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_fixup_and_inject_pf_error);
  
-@@ -3394,7 +3402,8 @@ int kvm_vcpu_read_guest_page(struct kvm_vcpu *vcpu, gfn_t gfn, void *data,
- {
- 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
+diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
+index cfe96962a4e4..4239765629b0 100644
+--- a/arch/x86/kvm/x86.h
++++ b/arch/x86/kvm/x86.h
+@@ -368,7 +368,7 @@ void kvm_deliver_exception_payload(struct kvm_vcpu *vcpu,
+ 				   struct kvm_queued_exception *ex);
+ void kvm_handle_exception_payload_quirk(struct kvm_vcpu *vcpu);
  
--	return __kvm_read_guest_page(slot, gfn, data, offset, len);
-+	return __kvm_read_guest_page(vcpu->kvm, slot, gfn, data, offset, len,
-+				     KVM_MEMORY_ATTRIBUTE_NR);
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest_page);
- 
-@@ -3403,7 +3412,8 @@ int kvm_vcpu_fetch_guest_page(struct kvm_vcpu *vcpu, gfn_t gfn, void *data,
- {
- 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
- 
--	return __kvm_read_guest_page(slot, gfn, data, offset, len);
-+	return __kvm_read_guest_page(vcpu->kvm, slot, gfn, data, offset, len,
-+				     KVM_MEMORY_ATTRIBUTE_NX);
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_fetch_guest_page);
- 
-@@ -3447,8 +3457,9 @@ int kvm_vcpu_read_guest(struct kvm_vcpu *vcpu, gpa_t gpa, void *data, unsigned l
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest);
- 
--static int __kvm_read_guest_atomic(struct kvm_memory_slot *slot, gfn_t gfn,
--			           void *data, int offset, unsigned long len)
-+static int __kvm_read_guest_atomic(struct kvm *kvm,
-+				   struct kvm_memory_slot *slot, gfn_t gfn,
-+				   void *data, int offset, unsigned long len)
- {
- 	int r;
- 	unsigned long addr;
-@@ -3456,6 +3467,9 @@ static int __kvm_read_guest_atomic(struct kvm_memory_slot *slot, gfn_t gfn,
- 	if (WARN_ON_ONCE(offset + len > PAGE_SIZE))
- 		return -EFAULT;
- 
-+	if (!kvm_mem_attributes_may_read_gfn(kvm, gfn))
-+		return -EFAULT;
-+
- 	addr = gfn_to_hva_memslot_prot(slot, gfn, NULL);
- 	if (kvm_is_error_hva(addr))
- 		return -EFAULT;
-@@ -3474,7 +3488,7 @@ int kvm_vcpu_read_guest_atomic(struct kvm_vcpu *vcpu, gpa_t gpa,
- 	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
- 	int offset = offset_in_page(gpa);
- 
--	return __kvm_read_guest_atomic(slot, gfn, data, offset, len);
-+	return __kvm_read_guest_atomic(vcpu->kvm, slot, gfn, data, offset, len);
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest_atomic);
- 
-@@ -3492,6 +3506,10 @@ static int __kvm_write_guest_page(struct kvm *kvm,
- 	addr = gfn_to_hva_memslot(memslot, gfn);
- 	if (kvm_is_error_hva(addr))
- 		return -EFAULT;
-+
-+	if (!kvm_mem_attributes_may_write_gfn(kvm, gfn))
-+		return -EFAULT;
-+
- 	r = __copy_to_user((void __user *)addr + offset, data, len);
- 	if (r)
- 		return -EFAULT;
+-void kvm_fixup_and_inject_pf_error(struct kvm_vcpu *vcpu, gva_t gva, u16 error_code);
++int kvm_fixup_and_inject_pf_error(struct kvm_vcpu *vcpu, gva_t gva, u16 error_code);
+ int x86_decode_emulated_instruction(struct kvm_vcpu *vcpu, int emulation_type,
+ 				    void *insn, int insn_len);
+ int x86_emulate_instruction(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
 -- 
 2.52.0
 
