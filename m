@@ -1,49 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613418;
-	b=zCuSBAwY7KQSXt/fICikmDJdpE8xEB7OaKc/eEWQZfKqj6ncdA7Qr3E0kZ6ZvXrYsLJz
-	 YQ8aRCzNCyovdPvLpJy7jU01Uqwov9fDD94ek7HuWdQmvaMZx9zOd6P5fu946w2jQVLn+
-	 Ac/ROQB16SHwQQDlSCuzd0KVEP/hODxDrjxgYXLJxLK1y3/SCAo+dpParXj/7uasnq9A/
-	 kKaXmS9SEo+HWOrkjOnqhydSMZw+Y8wouAfuG4oO5BWs24/y2KDr/+CK4iO5KMh2Whu5D
-	 Uv0+kGDQ87FmP+LkBFG11GXJdXvpgATsVFvmKSectoi0Qf9JPcnFnpy61DCQGuSaInQ==
+	t=1793613430;
+	b=Qijgq7VvWGgIaINFq9Wi8byRw/O6myxBBpRLZ9bIqNRxuSrh87dTPBGzR80wDAioIfrR
+	 UyTdEve8nRuBrL+PLR/xicqDWc829nNE8gh+/V9YjFb92ZFnd+f26GCBEeHbqvMXKZLX5
+	 bR2g/gbhS1nKCbnyucXB3qZpfd32+Ei41Uwb4k9vUi2/bGe3zxyzKcbGkNwXlpZ85GQLS
+	 L9LGn/rpzLS+f80jSY4unCy3GPEmQa8q0efzQDmy37U+yy8tQpCbECqMjRHKzB7m1XuEa
+	 c8+tJbgIF0Gvu/ZHsiBod0Pucuz0NzLiLJAM++rXOLeRT4V70H7utXrq1LSyVrDggWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613418;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=vhiIK5PdTbwawB02fP2FOqUEIxrnLxsctWx372F2gzw=;
-	b=P79Eqoj34TY+SBYH86UobFMrrs5yhcbQdEEKXW1pbD+7ERlJ33OIQbR11TPaZH03/FVO
-	 oVwMqm0yaopUZ5daV+LxnvxP/jczAbwQxB1ztVbb+5q8n67IAvqsnKbzM6ASTJSNRSo3M
-	 CMB171ufWRkGWGFgCCzxGQoKHWyY3G14fmMKWzOh6z5HBqpQ5bX+hlb8fY4HzfiCvnw7J
-	 AOr5rc+YqIkatHPEZAHnE+LrUDler5cezI2SmeyjxB3zSMjbkjIqqpgSavEgtkjrkqD22
-	 6GGIqhlmmqtcd5NTUw66TlfZD9gjk4NzK7W+S56RUPXrMe7J46y+rsjGaBglFbUtG/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613430;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=NF4sUbvPyij751VvJLGiH1sFVHF1zynFqu0g0nQ5mO8=;
+	b=mR8sPPXntTS/1BGyx8a3jfFCpHhl/z7+Z5H2nXWrnmE/upZuKasARZzx9MpSnWZYDiPC
+	 6K+Ey0vn6Rcg/5Vf9fY9m5Wy42WtA9I9NiuDF8aDMyf8sGmjDhycZeysASUy8Nlk0gjWf
+	 SKg5PRRjpD746UhtFNNhYkWih1cd7NOdkqLkEGh29JolivbTA796gOidOQnnQkU+OeFiJ
+	 KTHkq2yzlqB8CCucfvGr8lzZ5ZZv9HX9N9LEvyEbmWPMLuF/BdQVTgh2UgIpsYjVdLEWb
+	 jg3/pbgGTu+r8jLShsTblNQ5/Tci2GF/OOhs7SQpojc3smYoFHFJ+r7RSujoSnRyvxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gccdexj1;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7280606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7280606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QwDMTVXy;
+	arc=none smtp.remote-ip=91.218.175.20
+Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DCA606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:57:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30DCA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gccdexj1
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 069301595;
-	Mon,  2 Nov 2026 01:56:54 -0800 (PST)
-Received: from [10.57.66.79] (unknown [10.57.66.79])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0CC263F59E;
-	Mon,  2 Nov 2026 01:56:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793613417; bh=41gNfj/3A8ki9t26Cg2dgECj8r+E6+sd8etdy9Thqd8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gccdexj1jX8rBkY14YBg4UcTDhTgWONWIbGeArCgbRMNdU0/2G6ZZ43/73JSxGiVV
-	 7jKecXSJ+s1jgCav7JcsrTvW6tVxqbDJNiseB9CxPP2+6rmo1SUz8tZ8XOh/yIwWg/
-	 jUYkUKUNJop5w32l1YPjfgU4MDwn6mfs1ZxeXTMc=
-Message-ID: <5f82a68f-cb2c-4155-8f9f-cf287d5b00d6@arm.com>
-Date: Mon, 2 Nov 2026 09:56:53 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QwDMTVXy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AHRF3WdW4TVnGF5J3qplS9mbVl+JWJar5CHhjFr/pmc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793613422; v=1; x=1794218222;
+ b=QwDMTVXyG4+edckaGs8PJEvZ4txfbLY/qFE+oWo3YQaTIg6B2AzD91ixYwZMsPGj8qKFldYu
+ lQYltrp81oMhLR2ED1H44Pp+m4RPU1fl80g+TVTQYBKVMyQ3makPFhQzPrgRtGM+KETUWy1fo7w
+ dD/5aJ1ZtrzdDn6fM+T1RI4o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 484bc338bd20a5e5;
+	Mon, 02 Nov 2026 09:57:01 +0000
+X-Mizu-Trace-ID: 484bc338bd20a5e5
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>
+Cc: James Morse <james.morse@arm.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Xi Ruoyao <xry111@xry111.site>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Yuan Yao <yaoyuan@linux.alibaba.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
+Date: Mon,  2 Nov 2026 09:56:56 +0000
+Message-ID: <20261102095656.2948964-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,97 +78,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] KVM: arm64: Clear the default PMU when
- kvm_setup_vcpu() fails
-Content-Language: en-GB
-To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Zenghui Yu <yuzenghui@huawei.com>, Will Deacon <will@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Jack Thomson <jackabt@amazon.com>,
- Congkai Tan <congkai@amazon.com>, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Fuad Tabba <tabba@google.com>
-References: <20261102075843.2556018-1-fuad.tabba@linux.dev>
- <20261102075843.2556018-3-fuad.tabba@linux.dev>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261102075843.2556018-3-fuad.tabba@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02/11/2026 07:58, Fuad Tabba wrote:
-> Under KVM_ARM_VCPU_PMU_V3_STRICT, the VM has no PMU until userspace
-> selects one, and initializing the PMU fails with -ENXIO until then.
-> However, without STRICT, kvm_setup_vcpu() selects the default PMU
-> before it prepares the vCPU for nested virtualization, and leaves it
-> set when that preparation fails. After a retry with STRICT,
-> initializing the PMU succeeds and the guest gets the PMU of the CPU
-> the failed INIT ran on.
-> 
-> Drop the PMU and its number of counters along with the VM's feature
-> bitmap. While KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED is clear, no vCPU
-> has been initialized and the PMU attributes return -ENODEV, so only
-> such a failure can have set them. Once the flag is set, every INIT has the
-> features of the first one that succeeded, which either selected a PMU
-> or had none to select, so kvm_setup_vcpu() doesn't select another.
-> 
-> Fixes: ad220e275c398 ("KVM: arm64: Add KVM_ARM_VCPU_PMU_V3_STRICT vCPU feature")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->   arch/arm64/kvm/arm.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 3e91e01b032c4..65194e02cdbc2 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -1857,9 +1857,12 @@ static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
->   
->   	ret = kvm_setup_vcpu(vcpu);
->   	if (ret) {
-> -		/* Clear the bitmap if setup fails on the first vCPU to be initialized. */
-> -		if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags))
-> +		/* Clear the bitmap and PMU if setup fails on the first vCPU to be initialized. */
-> +		if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags)) {
->   			bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
-> +			kvm->arch.arm_pmu = NULL;
-> +			kvm->arch.nr_pmu_counters = 0;
-> +		}
+finalise_el2_state() clears the EL2 MPAM traps on every CPU whose ID
+registers advertise MPAM once the arm64.nompam override is applied.
+KVM sets them again on guest entry only when ARM64_MPAM is set, a
+capability that also requires MPAM1_EL1.MPAMEN. Without EL3, only
+MPAM2_EL2.MPAMEN is writable, and the kernel never sets it, so
+ARM64_MPAM stays clear and so do the traps. A guest can then access
+MPAM0_EL1, MPAM1_EL1, MPAMSM_EL1 and MPAMIDR_EL1 while its
+ID_AA64PFR0_EL1.MPAM reads 0.
 
-minor nit: While the above works, it looks a bit too much extracting the 
-PMU details to arm.c. Alternatively we could do something like this:
+Record two per-CPU flags at KVM's CPU init: whether MPAM is
+implemented as finalise_el2_state() tests it, and whether
+MPAMIDR_EL1.HAS_HCR is set (MPAMHCR_EL2 is UNDEFINED without it).
+Read ID_AA64PFR0_EL1, ID_AA64PFR1_EL1 and MPAMIDR_EL1 from cpu_data,
+which holds them with the overrides applied since commit 342e62ded77c6
+("arm64: cpufeature: Read MPAMIDR_EL1 in __cpuinfo_store_cpu()"). Set
+the traps from those flags. MPAMEN isn't part of any MPAM trap
+condition, so the traps take effect whether or not it is set.
 
+Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
 
-diff --git a/arch/arm64/kvm/pmu-emul.c b/arch/arm64/kvm/pmu-emul.c
-index e2b28dbc0451..7a669cccf912 100644
---- a/arch/arm64/kvm/pmu-emul.c
-+++ b/arch/arm64/kvm/pmu-emul.c
-@@ -1088,6 +1088,11 @@ int kvm_arm_set_default_pmu(struct kvm *kvm)
-         return 0;
-  }
+Notes:
+    Changes since v4:
+     - Take ID_AA64PFR0_EL1, ID_AA64PFR1_EL1 and MPAMIDR_EL1 from cpu_data
+       (was __read_sysreg_by_encoding() and read_sysreg_s()).
+     - Commit message tightened, and the TIDR comment no longer
+       rewritten.
+     - Ben's Reviewed-by dropped, since the probe changed.
+     - Rebased on 7.4-rc1.
+    
+    Based on Linux 7.4-rc1 (6628e7d4c6b25).
+    
+    v4: https://lore.kernel.org/all/20260924165329.1684155-1-fuad.tabba@linux.dev/
+    v3: https://lore.kernel.org/all/20260911104715.307500-1-fuad.tabba@linux.dev/
+    v2: https://lore.kernel.org/all/20260908145651.2828597-1-fuad.tabba@linux.dev/
+    v1: https://lore.kernel.org/all/20260903160819.831518-1-fuad.tabba@linux.dev/
 
-+int kvm_arm_clear_default_pmu(struct kvm *kvm)
-+{
-+       kvm_arm_set_pmu(kvm, NULL);
-+}
+ arch/arm64/include/asm/kvm_host.h       |  2 ++
+ arch/arm64/kvm/arm.c                    | 12 ++++++++++++
+ arch/arm64/kvm/hyp/include/hyp/switch.h |  8 ++++----
+ 3 files changed, 18 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 97332ffcb1300..d6b9538cbec36 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -839,6 +839,8 @@ struct kvm_host_data {
+ #define KVM_HOST_DATA_FLAG_VCPU_IN_HYP_CONTEXT		4
+ #define KVM_HOST_DATA_FLAG_L1_VNCR_MAPPED		5
+ #define KVM_HOST_DATA_FLAG_HAS_BRBE			6
++#define KVM_HOST_DATA_FLAG_HAS_MPAM			7
++#define KVM_HOST_DATA_FLAG_HAS_MPAM_HCR			8
+ 	unsigned long flags;
+ 
+ 	struct kvm_cpu_context host_ctxt;
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 157bf4b812020..5bab4833c9d33 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -32,6 +32,7 @@
+ #include <asm/mman.h>
+ #include <asm/tlbflush.h>
+ #include <asm/cacheflush.h>
++#include <asm/cpu.h>
+ #include <asm/cpufeature.h>
+ #include <asm/virt.h>
+ #include <asm/kvm_arm.h>
+@@ -2496,9 +2497,20 @@ static void cpu_set_hyp_vector(void)
+ 
+ static void cpu_hyp_init_context(void)
+ {
++	struct cpuinfo_arm64 *info = this_cpu_ptr(&cpu_data);
++	u64 pfr0 = info->reg_id_aa64pfr0;
++	u64 pfr1 = info->reg_id_aa64pfr1;
 +
-diff --git a/include/kvm/arm_pmu.h b/include/kvm/arm_pmu.h
-index 6b4a118d17ca..571c0ba8507c 100644
---- a/include/kvm/arm_pmu.h
-+++ b/include/kvm/arm_pmu.h
-@@ -92,6 +92,7 @@ void kvm_vcpu_pmu_resync_el0(void);
-  u8 kvm_arm_pmu_get_pmuver_limit(void);
-  u64 kvm_pmu_evtyper_mask(struct kvm *kvm);
-  int kvm_arm_set_default_pmu(struct kvm *kvm);
-+int kvm_arm_clear_default_pmu(struct kvm *kvm);
-  u8 kvm_arm_pmu_get_max_counters(struct kvm *kvm);
+ 	kvm_init_host_cpu_context(host_data_ptr(host_ctxt));
+ 	kvm_init_host_debug_data();
+ 
++	/* cpu_data has the overrides applied, as finalise_el2_state() does. */
++	if (id_aa64pfr0_mpam(pfr0) || id_aa64pfr1_mpamfrac(pfr1)) {
++		host_data_set_flag(HAS_MPAM);
++		if (info->reg_mpamidr & MPAMIDR_EL1_HAS_HCR)
++			host_data_set_flag(HAS_MPAM_HCR);
++	}
++
+ 	if (!is_kernel_in_hyp_mode())
+ 		cpu_init_hyp_mode();
+ }
+diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
+index e0c55644224cb..f487d3a93fe27 100644
+--- a/arch/arm64/kvm/hyp/include/hyp/switch.h
++++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
+@@ -298,11 +298,11 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
+ 	u64 clr = MPAM2_EL2_EnMPAMSM;
+ 	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
+ 
+-	if (!system_supports_mpam())
++	if (!host_data_test_flag(HAS_MPAM))
+ 		return;
+ 
+ 	/* trap guest access to MPAMIDR_EL1 */
+-	if (system_supports_mpam_hcr()) {
++	if (host_data_test_flag(HAS_MPAM_HCR)) {
+ 		write_sysreg_s(MPAMHCR_EL2_TRAP_MPAMIDR_EL1, SYS_MPAMHCR_EL2);
+ 	} else {
+ 		/* From v1.1 TIDR can trap MPAMIDR, set it unconditionally */
+@@ -317,12 +317,12 @@ static inline void __deactivate_traps_mpam(void)
+ 	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
+ 	u64 set = MPAM2_EL2_EnMPAMSM;
+ 
+-	if (!system_supports_mpam())
++	if (!host_data_test_flag(HAS_MPAM))
+ 		return;
+ 
+ 	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
+ 
+-	if (system_supports_mpam_hcr())
++	if (host_data_test_flag(HAS_MPAM_HCR))
+ 		write_sysreg_s(MPAMHCR_HOST_FLAGS, SYS_MPAMHCR_EL2);
+ }
+ 
 
-  u64 kvm_vcpu_read_pmcr(struct kvm_vcpu *vcpu);
-
-
-
-Either ways,
-
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.47.3
 
