@@ -1,57 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608577;
-	b=ONVJX3KLAAgPzvCuWg/OQ0trckdE68GLT8GHB977JKjSPFKxxsaKYilCLtINI0cbFG/w
-	 s8UpbvEEDmFjrpBbXIYZ3N/QQOVUMQZxKgr/6yifKipFWh/bPoqs9TjHWDQSsgJ7tGXfQ
-	 aMImQUPtTGddYtPgDE+Y5Sqa3qxrYgaMlBeck1wzYyV7abw2PtwyPuzbkZRdEyvUq/Yog
-	 6RZk6DBhyhJ/zNgQL0I0tPDRvL6zKmFIn2mzutsBjyycTtSnyg1SfsbsWko99NQ/MkH5M
-	 0Kx9ITnanthDCh8HJYk1bffxL7TCEovwyf2nVajdjdiYBhZumgO4XZVU0fdarMmU1Eg==
+	t=1793608635;
+	b=5XXRwHUHuWhtvdK1+2rlhyg2vcwXR/GAvG6v1uqKxtPEkPEC6dboWT3rD/3tVmJbGFWu
+	 hjDXUGxgGXNFs9cJjwzuvT7wmA2AG3+DSFpczTB6RdgC3RnoIu0c4WN2kiKRFY+atoA5f
+	 hhiSraif5TyHCaHpdNfPij2Ct7b1q17usGO0uzkElvVnP0JyTpDTF5XHejT81WDHiKyak
+	 1PQrHYqSjeoMVo7fBHJ9tFVfeldUeT57JLUTb5hITfGX/6KKf3pZftNpJLhVmD5U4eXcB
+	 GiEM2nT1ecMzHHv883ToSXing2HRlbPYKdiQY3rH6sN1NS1SpD5foZtKdEZ3jzG7pUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608635;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=71To1F+Ha52gfiOXVzuzWJ0D7FrFND/yLtAE+8lZwmk=;
-	b=211Enf5Q36IIgGfGygIrrss4++jimbob33MMu4lCuZOAvTXPI6l9UEOf4SgFYr/mwBaq
-	 lRc9QZKiofLkI1lsFYeTEB6lS9W/reWXyoJ5Da1PNqd4+Ly4kyrtU1o5acg0Qz5cOYLuM
-	 YqgK6MMtBBhW91bluklQj+OPYRZHYZ5HZxW/z0WkSwO5JYrcICjuAX7J1auLDz9DcTBwX
-	 aXFu0YhN3C9+E99/NZVtayhvDnfS7S0yt3BT39kQkxmisUnkjY0AR5UO9UDkzjMojY88a
-	 TfqKE8+HX0wBuEEDlil6/EdRTBtX6d3WvqLZV1hSger9X3VcXRY9jrakTNuycGkuReA==
+	bh=g59qi3BiyVa9BdK2dHXLgm5AywXSblVqWdtAixzoZKA=;
+	b=BOTEDmXakD22qG+owYNJA6agVARo1I/pbknlAakko2ZJsyGp3dm+NmqbDAcPymusMHoA
+	 2OLdusO1vcdE0Fb3JoFHCVQuh48Bt8P47F9N+gKoUE1Y1AB48TMNgfaQC6O+3m89OQUl1
+	 AgQ1JsyW2FUcy8Wj9HRCzRm+mCOqp2frRr0aR30bV2dWYU5tK6af8v7k101E8zs9BwVe+
+	 xFDDnRHqrla9oNxhU5CXSVrsvYaEdGDhq1j6487AfHdn/bNV66tOyS8f7TcePCxq6NoJO
+	 E0K0x1JonTfk0E6nvxWQIMo3DOP7s4on42kPy2q6oH4JI0t0S2LxKh9QNoBuZ4iRVsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hN2KP4pN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQDjXKTZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E914B606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:36:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F186606A329;
+	Mon,  2 Nov 2026 08:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hN2KP4pN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698601F00919;
-	Mon,  2 Nov 2026 08:36:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQDjXKTZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623AA1F0093A;
+	Mon,  2 Nov 2026 08:37:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608576;
-	bh=71To1F+Ha52gfiOXVzuzWJ0D7FrFND/yLtAE+8lZwmk=;
+	s=k20260515; t=1793608635;
+	bh=g59qi3BiyVa9BdK2dHXLgm5AywXSblVqWdtAixzoZKA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hN2KP4pNFL2p90V8j3d/hLfQeX2QZzb9dkQfAat0qfzSTf5GYlqtJ1PzjKS3P2zkJ
-	 RrjjMqw+iYfqFbInhZ3OrlHp5yEbrrPc+3VPUCVPVwd4Y77RXJWajAGWelPr76iq/X
-	 j1acplbF3c8IQ5DGD30RFStFv7VTdoX+KHqeGgwbXJYgXaEen+icaidGQPc/upEpxg
-	 QzHtvAqKv5xIeq01p4QdTNiIBlicUcI9sypwrt2z3DX8n04rS9oYy77b8b1NTVwBW+
-	 H3n7kH9vKsu9goozvQPdw88H+cmY5p22CzQdSDTZ+7JEX2eFYcQr2pCjOPcyuiyy/J
-	 iaAlGW95UJnlA==
-Date: Mon, 2 Nov 2026 10:36:09 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Greg Thelen <gthelen@google.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Evangelos Petrongonas <epetron@amazon.de>,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kho: check fdt_phys in is_kho_boot()
-Message-ID: <auhLedAuD32WNcXW@kernel.org>
-References: <20261023054518.3258350-1-gthelen@google.com>
+	b=cQDjXKTZNNGPXewxH5t8oliA8VUIXQziJwtUxqa7P1KREIWqlGfMCZUrzx1OzKMVY
+	 HG8yCZRpgUduGRWLnMotDYtKcjYkJD/JH10axtVChOt4aEsQg7ATvK4fxCrhN8k8QY
+	 meBJTte4IjfUqA2C0Bi+Jgqg+jSjSlL+QbDmw0g2r9P5d16fqnYHqbI8H4XAHXjg0R
+	 6v29uMCLNf3KPkLKvGy+1K6jJu/74uzrIFzGg6Qch+nW1koN9BxQr0COGdaPHAwjq5
+	 Rx8UJJT3RncZxSwwKvhWsFByfRthtsfgIhNfHxFGUo+QYwSKEQh32BRjDup8ytM9wK
+	 /szcEO/yduh4A==
+Date: Mon, 2 Nov 2026 08:37:07 +0000
+From: Lee Jones <lee@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hardik T Shah <hardik.t.shah@intel.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+	Mastan Katragadda <Mastan.Katragadda@amd.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Rander Wang <rander.wang@intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Simon Trimmer <simont@opensource.cirrus.com>,
+	sound-open-firmware@alsa-project.org,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [PATCH 00/21] soundwire: Fix Critical and High issues reported
+ by Sashiko
+Message-ID: <20261102083707.GA13023@google.com>
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <aug1F0pampktAuzZ@parshuram>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,62 +82,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261023054518.3258350-1-gthelen@google.com>
+In-Reply-To: <aug1F0pampktAuzZ@parshuram>
 
-Hi,
+On Mon, 02 Nov 2026, Vinod Koul wrote:
+> On 30-10-26, 10:46, Lee Jones wrote:
+> > These issues were reported by Sashiko.
+> 
+> Thanks for looking up issues and fixing them. Some of them do sound good
+> to me. I would not want to cc stable and tag them to fixes though. These
+> are bugs, but I have no evidence they are impacting real world
+> scenarios. Mostly a good but theoretical exercise, so I would like to
+> avoid churn and move them for next cycle...
 
-On Thu, Oct 22, 2026 at 10:45:18PM -0700, Greg Thelen wrote:
-> During arm64 setup_arch(), efi_init() -> reserve_regions() calls
-> is_kho_boot() before arm64_memblock_init() initializes memstart_addr.
-> At this point memstart_addr still holds its initial sentinel value (-1).
-> 
-> When booting via kexec with KHO enabled, kho_populate() sets
-> kho_in.fdt_phys from the /chosen FDT node. Calling is_kho_boot() ->
-> kho_get_fdt() invokes phys_to_virt(kho_in.fdt_phys), which evaluates
-> PHYS_OFFSET and triggers VM_BUG_ON(memstart_addr & 1) on arm64 kernels
-> built with CONFIG_DEBUG_VM=y:
+That is expected.  I would like these to soak in -next.
 
-Can't see the forest for the trees ;-)
+I plan on preparing a v2 this week, taking into account all of the
+review comments and collected trailers.
 
-Can you please translate the gist of the issue from LLMish to English?
- 
->   kernel BUG at ./arch/arm64/include/asm/memory.h:377!
->   Internal error: Oops - BUG: 00000000f2000800 [#1] SMP
->   Call trace:
->    is_kho_boot+0x2c/0x38 (P)
->    efi_init+0x94/0xf8
->    setup_arch+0xf0/0x240
->    start_kernel+0x84/0x490
->    __primary_switched+0x88/0x98
-> 
-> Check kho_in.fdt_phys directly in is_kho_boot() instead of calling
-> kho_get_fdt() so that early boot callers do not invoke phys_to_virt()
-> before the linear map offset is initialized.
-> 
-> Fixes: d6d511639185 ("kexec: introduce is_kho_boot()")
-> Assisted-by: Gemini:gemini-3.8-flash
-> Signed-off-by: Greg Thelen <gthelen@google.com>
-> ---
->  kernel/liveupdate/kexec_handover.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> index 7c4d86daf86d..d81baa38497f 100644
-> --- a/kernel/liveupdate/kexec_handover.c
-> +++ b/kernel/liveupdate/kexec_handover.c
-> @@ -1630,7 +1630,7 @@ EXPORT_SYMBOL_GPL(kho_restore_free);
->   */
->  bool is_kho_boot(void)
->  {
-> -	return !!kho_get_fdt();
-> +	return !!kho_in.fdt_phys;
->  }
->  EXPORT_SYMBOL_GPL(is_kho_boot);
->  
-> -- 
-> 2.56.0.257.gf7497c7d27-goog
-> 
+Would you like me to strip the Stable tags as well?
 
 -- 
-Sincerely yours,
-Mike.
+Lee Jones
