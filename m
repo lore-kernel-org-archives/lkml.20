@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633846;
-	b=kgWvwwumAbrcnSiD1JobkAfKOvB6fzfOUBvL5Is9mCDEYZVNJkAUlLYW73WB78yds/VZ
-	 oXoTKSTQwEedmrfdFc+0u//6TRvccWkLshrNmb9ZaXFRMSVaqTklJhDrEpYB/Piehe+0b
-	 bS5VDAyAxnF+tSGLN4d5dEyMb/KrEIeD3q/zGD7WaVXUGiVkRPDd8WtCLgI2iLDTTGoC0
-	 tsj6xCiZJnvnfDKowsi7IkWPZuVbNKq6frZbmWKGUrilyK1yi3jMBdafOdDaYGvnWl6n5
-	 FvQ9pO+dlCXeml/UB9sTGBBN/CCwDDcUqBCHTLYuFHUvtRiMJ0ZZ7lwkqbRdoEaKLaw==
+	t=1793633848;
+	b=jzfhk4biEkeG/coqaSf4gWh3C41piDcJ9rthDSUbGDPI3d2TdvTRQE9pQkLHezoOaxW/
+	 pbKTydhwFMFrmx961vXqLmCuIlWL44TbQksuxrQHsbKzgTUs9eF9+pzkt4Wet2EfquEQT
+	 qSuMytSYtrYZXoA4efvyg+oL7AwfkiMCQSG8vAHAFwyaOABm39qaLFZFPYvDkLxBsNr03
+	 MEUoKyS0OGf9FaoHLVNhYVaYA9HykSYQk3Il7xwaI7hQ9kQvcnMNTLwIAgoZTON0VD7ey
+	 4nDO7kcAgkavI0a4n/Q3Hyk1YY91lBh0w3NiIlSKYH1wtExEeyzDKlm8aVe669Zg3qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633848;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=Co3UjJyFEnZJpTpwZDKwqCjGC43bvHMJxy07QdLEStk=;
-	b=U5W35l8wy51J+p8lPxG84iNgHmTM3oSOAZsF5LG73oxsyWa0YZQxOotCs3wTFOx2qt1Y
-	 4r2X+hQ2pQY1bnG0rXrueFgYksowJYsP8JrIk0Eg0ofo3yGKg5jhAuTiHO5KJsfjBKAGA
-	 zDJIn+mRgNtJC5hZhMGOPJSDDFQsxhhxinLBFytwwQPitaN4/sjuoXzp3gLa8PFSfhVcW
-	 N18HxnyB9uAKLVKvxt3393r3tXxXDByBdN1Jjr1iIC+KdubFEsuaJMr7kZuQqjoFbunaY
-	 jiwt9EUK+0SQdTLJmY5Q06ehMoTfuW6FgliWYgyYtOmUMeshZHJEwsOkvXMZw9V0lFg==
+	bh=nvnsa/W44mPMiR0xmzXgygBXbMEl9kAu534qF23MUJo=;
+	b=u72OppF/zdoeHJqV40enMF8kT2u/itinGwh/IHTxkrKMvvyGt1Ud1/ooSaLYWFhr8XbH
+	 DSETNioaMcJTHGXZynCCWjnGdJo6v6McD0QrCperCcrNGIxYzCeonaYGs+aQJ1pC+Aq5I
+	 hqgsWIXxA0hxj48PnI/KHmQOTC5RuH6LDkDfS2114HdVD56qD3p3fYeYjfE5Yav0QTVpK
+	 FnHDBN+JULk9XbdE2eWkEBaItLODFQwyaQAX0U7RBIx37Ujb5D2uh6caLND2SxeXNV8Ix
+	 Do7HTMm1B4d5BpvvgjxDtR+sbsxpW8915LvIrKkmPiHiFRcnf/1R9glpdrjeCgnr7Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eFCqR4y8;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Cstrl3iW;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B4060ED0C3
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B4060ED0C3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964E860EDEE4
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 964E860EDEE4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eFCqR4y8
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad840053c7so2557698a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Cstrl3iW
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e93f266d20so51218305ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793633845; x=1794238645; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793633848; x=1794238648; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Co3UjJyFEnZJpTpwZDKwqCjGC43bvHMJxy07QdLEStk=;
-        b=eFCqR4y8D+jjzKu3zduK4bxfT2i7ETFhrPyeF4xmXoRdQVSGpuHPZ0ehsCqXJSdWi5
-         RCT7CiLsUxyIPH5GnsonBEfSoYzJ0Ke2GSN7iTdWsLS3QNdz6gMPmB/jaa7XoXgnXG4i
-         exbIUiUGI2f/Pe4ZR3R+cP4AZ6DCjGEWSyYHDSCD9OrBjwH37SPhiSdfAVhusLG6jM+q
-         xbrm4v0DUmdWbTsBPt58ugTAICsAufaFwljEwohQIu6nAOQO2WRdyBWva+i1TSrGSfXP
-         iaUIKjt16t91DkIQR+yAPwO57Fuxey28t55nFhnavoqzhprFSqazFjHbYECL3uTjrw2G
-         W5bA==
+        bh=nvnsa/W44mPMiR0xmzXgygBXbMEl9kAu534qF23MUJo=;
+        b=Cstrl3iWWFZdS21NZSsMRYbcjKaJCNQ9Bw+g9pMxmKPNXMuq2Ol1mIw2imet6uJE0e
+         VdeX7qfx+uTEVhfeOQHX8HR8Q9e9wiZ+hvHm43bbSCyuZwsOkY06pUn7CAedbUpJ9IwP
+         qwtiD8BpmDJZTt6Vs04H+nmxUOpSCLpwnwAyjHzBc6u0laSyzlqeFQF2XUrqvkA8rCiM
+         SnLNl+iWs5wsI/WMMsCwImXIOxl+vjI0byUWvi7QjCagfxD0CgFsEgEPObRnbOSCF0fE
+         GLGUM6AVJRDgYQXMpNf0LxWmoja+uSt15UQq7Km6SdHpUryn7gWzLv9iPpcXMdoqNnKC
+         ngtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793633845; x=1794238645;
+        d=1e100.net; s=20260707; t=1793633848; x=1794238648;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Co3UjJyFEnZJpTpwZDKwqCjGC43bvHMJxy07QdLEStk=;
-        b=LdrK1akKEhtuejgj6FcA+KxUfXy3OkbZPh0Fz9DeEsZrpw6Ne+DqYSGQqtghLhXaiU
-         lOgDSZVfYC37dSN+0p1f3FqN6zTO/v2mWEM9/Ww1O5EjITDyZSLcddRL86c/3ndbgzT8
-         Db/+b9bnLCZPpb/KIwRUFAD+2/43p3hDa/JzpGHdJ3rS1hX1iyd1lNInMr9nsaC3Gm6h
-         iOGeMiL5mHCdTiMIuRJRHPdXc8nqEJUHBxERPjCOERHzi6yd98NDEkfUajBVxfIKCxIr
-         mmb89HksFpeNxaCIJuNvf11iiLPr2lWGgYhmdiH7UhWkhsPor6bgBbnNg/1r5m8AOQVA
-         UHkA==
-X-Forwarded-Encrypted: i=1; AKwUvBwl1USYIiO3NBiwi5SkUFdaR7v+dduLxN2b+ldrnvqbSEp0vJbrpCYkOqwx/UqEz7G3StFMhCifKBl9UrQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FR2WZC/YD2JHjY+Qtgb7oRhXHsHdzcgidTOwHSLnjxjkz9FUP
-	YSvbCqOO05F0+E+hY23pbgKWm1suQI5gRRAM9dK7ZU58GX1hAVVcdWDDX1cXCRoYuvjLstPvqJ6
-	lZc5VQKCSCw==
-X-Received: from pjbir4.prod.google.com ([2002:a17:90b:4684:b0:3a8:74c5:5a5c])
- (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3887:b0:3ac:97e3:73a3
- with SMTP id 98e67ed59e1d1-3ae89574e10mr7137697a91.6.1793633844535; Mon, 02
- Nov 2026 07:37:24 -0800 (PST)
-Date: Mon,  2 Nov 2026 07:36:52 -0800
+        bh=nvnsa/W44mPMiR0xmzXgygBXbMEl9kAu534qF23MUJo=;
+        b=kAHn5L24f2Iq57yfQjpKVd4aasOARZ59MF6TnW5cI66XnCb1dYckJmLnoRMRZVrsbW
+         T2lYh7Ol6uZh0/fTV56I0HVSIncU97OFhMUykP2tVrNNQzEREiHRPzGvDxiBhzrZ0zTN
+         YinroKf7OMc8ddvQPbVk3AqZ5GJurKatBdi7x+wvc7VNfyr0aGP4fH1gggs9fuXalXsE
+         dJ6FvTnu1YyZj1SafDZMdEHbsvBpMRhJHQNIk6wHVg1waAzrs5V1RpRSO1pS0o+xH2bk
+         HhvvPeL5/JQ8bkOK+szz+DU9cNYIo/Kv/c7Nr0FCF9Y1gPoJblC50gbXs56RzoIwWQEx
+         SOoQ==
+X-Forwarded-Encrypted: i=1; AKwUvByRmngWhs4Ng8LQJdAxKXMZPkUr0kGo6AwNyQW5NGEEfhP5u+rTIKKGlmHSIq2vfx/5B1Tx4kKR1fgf+6s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nk7EUY1fEDfbFkMUs7xICV/mn6mf2/srpT6Q24pOOHVBAQsO1
+	lWZXyckN7ocuiwbovNasi8n7M7pyvqjzL8PoyhpgBDVXHjcmjdGiqxeqhpHa3bs/2auEECs0D7Y
+	HnLmzrnDexg==
+X-Received: from plbkl7.prod.google.com ([2002:a17:903:747:b0:2e9:dea5:138])
+ (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:db01:b0:2d9:599e:df95
+ with SMTP id d9443c01a7336-2eb3640503dmr101937705ad.3.1793633847651; Mon, 02
+ Nov 2026 07:37:27 -0800 (PST)
+Date: Mon,  2 Nov 2026 07:36:55 -0800
 In-Reply-To: <20261102153656.1431701-1-vipinsh@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261102153656.1431701-1-vipinsh@google.com>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261102153656.1431701-24-vipinsh@google.com>
-Subject: [PATCH v6 23/27] vfio: selftests: Add an attach() driver op
+Message-ID: <20261102153656.1431701-27-vipinsh@google.com>
+Subject: [PATCH v6 26/27] vfio: selftests: Verify that opening VFIO device
+ fails during Live Update
 From: Vipin Sharma <vipinsh@google.com>
 To: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org, 
@@ -102,232 +103,82 @@ Cc: ajayachandra@nvidia.com, alex@shazbot.org, amastro@fb.com,
 	yanjun.zhu@linux.dev, yi.l.liu@intel.com
 Content-Type: text/plain; charset="UTF-8"
 
-Add a new attach() op to vfio_pci_driver_ops and a corresponding
-vfio_pci_driver_attach() wrapper to adopt a device that was already
-initialized (and optionally has memcpy operations in flight) in another
-process prior to a Live Update, without resetting or reprogramming the
-hardware.
+Verify that opening a VFIO device through its cdev file and via
+VFIO_GROUP_GET_DEVICE_FD both fail with -EBUSY if the device was
+preserved across a Live Update. When a device file is preserved across a
+Live Update, the file must be retrieved from /dev/liveupdate, not from
+VFIO directly.
 
-Implement attach() for the igb and dsa selftest drivers: refresh process-
-local BAR pointers, verify that the device hardware state and descriptor
-rings are still intact as left before kexec, re-enable MSI-X, and set
-driver capability limits.
-
+Co-developed-by: David Matlack <dmatlack@google.com>
+Signed-off-by: David Matlack <dmatlack@google.com>
 Signed-off-by: Vipin Sharma <vipinsh@google.com>
 ---
- .../selftests/vfio/lib/drivers/dsa/dsa.c      | 35 +++++++++++++++--
- .../selftests/vfio/lib/drivers/igb/igb.c      | 39 +++++++++++++++++--
- .../lib/include/libvfio/vfio_pci_driver.h     | 17 ++++++++
- .../selftests/vfio/lib/vfio_pci_driver.c      | 22 ++++++++++-
- 4 files changed, 105 insertions(+), 8 deletions(-)
+ .../vfio/vfio_pci_liveupdate_kexec_test.c     | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
-diff --git a/tools/testing/selftests/vfio/lib/drivers/dsa/dsa.c b/tools/testing/selftests/vfio/lib/drivers/dsa/dsa.c
-index 19d9630b24c2..2764ed4c67f8 100644
---- a/tools/testing/selftests/vfio/lib/drivers/dsa/dsa.c
-+++ b/tools/testing/selftests/vfio/lib/drivers/dsa/dsa.c
-@@ -215,6 +215,16 @@ static void dsa_register_cache_init(struct vfio_pci_device *device)
- 	dsa->max_copies_per_batch = min(dsa->max_copies_per_batch, ARRAY_SIZE(dsa->copy));
+diff --git a/tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test.c b/tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test.c
+index 4919175c1173..9610fe593cf6 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_liveupdate_kexec_test.c
+@@ -1,6 +1,9 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ 
+ #include <fcntl.h>
++#include <limits.h>
++#include <sys/ioctl.h>
++#include <linux/vfio.h>
+ #include <libliveupdate.h>
+ #include <libvfio.h>
+ 
+@@ -56,6 +59,39 @@ static void before_kexec(int luo_fd)
+ 	daemonize_and_wait();
  }
  
-+static void dsa_set_limits(struct vfio_pci_device *device)
++static void check_open_vfio_device_fails(void)
 +{
-+	struct dsa_state *dsa = to_dsa_state(device);
++	const char *cdev_path = __vfio_pci_get_cdev_path(device_bdf, true);
++	char group_path[PATH_MAX];
++	int group_fd;
++	int group;
++	int ret;
 +
-+	device->driver.max_memcpy_count =
-+		dsa->max_batches * dsa->max_copies_per_batch;
-+	device->driver.max_memcpy_size = 1UL << dsa->gen_cap.max_xfer_shift;
-+	device->driver.msi = MSIX_VECTOR;
++	VFIO_ASSERT_NOT_NULL(cdev_path);
++
++	ret = open(cdev_path, O_RDWR);
++	VFIO_ASSERT_EQ(ret, -1);
++	VFIO_ASSERT_EQ(errno, EBUSY);
++	free((void *)cdev_path);
++
++	if (__sysfs_iommu_group_get(device_bdf, &group))
++		return;
++
++	snprintf_assert(group_path, sizeof(group_path), "/dev/vfio/noiommu-%d",
++			group);
++	group_fd = open(group_path, O_RDWR);
++	if (group_fd < 0) {
++		VFIO_ASSERT_EQ(errno, ENOENT);
++		return;
++	}
++
++	ret = ioctl(group_fd, VFIO_GROUP_GET_DEVICE_FD, device_bdf);
++	VFIO_ASSERT_EQ(ret, -1);
++	VFIO_ASSERT_EQ(errno, EBUSY);
++
++	VFIO_ASSERT_EQ(close(group_fd), 0);
 +}
 +
- static void dsa_init(struct vfio_pci_device *device)
+ static void after_kexec(int luo_fd, int state_session_fd)
  {
- 	struct dsa_state *dsa = to_dsa_state(device);
-@@ -236,11 +246,27 @@ static void dsa_init(struct vfio_pci_device *device)
- 	dsa_command(device, IDXD_CMD_ENABLE_WQ);
+ 	struct vfio_pci_device *device;
+@@ -64,6 +100,8 @@ static void after_kexec(int luo_fd, int state_session_fd)
+ 	int device_fd;
+ 	int stage;
  
- 	vfio_pci_msix_enable(device, MSIX_VECTOR, 1);
-+	dsa_set_limits(device);
-+}
++	check_open_vfio_device_fails();
++
+ 	restore_and_read_stage(state_session_fd, STATE_TOKEN, &stage);
+ 	VFIO_ASSERT_EQ(stage, 2);
  
--	device->driver.max_memcpy_count =
--		dsa->max_batches * dsa->max_copies_per_batch;
--	device->driver.max_memcpy_size = 1UL << dsa->gen_cap.max_xfer_shift;
--	device->driver.msi = MSIX_VECTOR;
-+static void dsa_attach(struct vfio_pci_device *device)
-+{
-+	struct dsa_state *dsa = to_dsa_state(device);
-+	union gensts_reg gensts;
-+
-+	VFIO_ASSERT_GE(device->driver.region.size, sizeof(*dsa));
-+
-+	/* The device must still be enabled as dsa_init() left it. */
-+	gensts.bits = readl(device->bars[0].vaddr + IDXD_GENSTATS_OFFSET);
-+	VFIO_ASSERT_EQ((u32)gensts.state, IDXD_DEVICE_STATE_ENABLED,
-+		       "Device was disabled or reset\n");
-+	dsa_check_sw_err(device);
-+
-+	/* BAR0 is mapped at a different address now, refresh the pointers into it. */
-+	dsa_register_cache_init(device);
-+
-+	vfio_pci_msix_enable(device, MSIX_VECTOR, 1);
-+	dsa_set_limits(device);
- }
- 
- static void dsa_remove(struct vfio_pci_device *device)
-@@ -420,6 +446,7 @@ const struct vfio_pci_driver_ops dsa_ops = {
- 	.name = "dsa",
- 	.probe = dsa_probe,
- 	.init = dsa_init,
-+	.attach = dsa_attach,
- 	.remove = dsa_remove,
- 	.memcpy_start = dsa_memcpy_start,
- 	.memcpy_wait = dsa_memcpy_wait,
-diff --git a/tools/testing/selftests/vfio/lib/drivers/igb/igb.c b/tools/testing/selftests/vfio/lib/drivers/igb/igb.c
-index fd9e05d77ea4..3f9f631a5977 100644
---- a/tools/testing/selftests/vfio/lib/drivers/igb/igb.c
-+++ b/tools/testing/selftests/vfio/lib/drivers/igb/igb.c
-@@ -224,6 +224,13 @@ static void igb_reset(struct igb *igb)
- 	igb_write32(igb, E1000_IMC, 0xFFFFFFFF);
- }
- 
-+static void igb_set_limits(struct vfio_pci_device *device)
-+{
-+	device->driver.max_memcpy_size = IGB_MAX_CHUNK_SIZE;
-+	device->driver.max_memcpy_count = RING_SIZE - 1;
-+	device->driver.msi = MSIX_VECTOR;
-+}
-+
- /*
-  * Program the device into a usable state.  Split out of igb_init() so it
-  * can be reused after a device reset to re-program the registers that
-@@ -372,9 +379,7 @@ static void igb_hw_init(struct vfio_pci_device *device)
- 	igb->tx_tail = 0;
- 	igb->rx_tail = 0;
- 
--	device->driver.max_memcpy_size = IGB_MAX_CHUNK_SIZE;
--	device->driver.max_memcpy_count = RING_SIZE - 1;
--	device->driver.msi = MSIX_VECTOR;
-+	igb_set_limits(device);
- }
- 
- static void igb_init(struct vfio_pci_device *device)
-@@ -400,6 +405,33 @@ static void igb_init(struct vfio_pci_device *device)
- 	igb_hw_init(device);
- }
- 
-+static void igb_attach(struct vfio_pci_device *device)
-+{
-+	struct igb *igb = to_igb_state(device);
-+	u64 iova_tx, iova_rx;
-+
-+	VFIO_ASSERT_GE(device->driver.region.size, sizeof(struct igb));
-+
-+	/* BAR0 is mapped at a different address in this process. */
-+	igb->bar0 = device->bars[0].vaddr;
-+
-+	/*
-+	 * The device must still use the rings and tails in the driver region,
-+	 * i.e. it was not reset and the region is mapped at the same IOVAs.
-+	 */
-+	iova_tx = to_iova(device, igb->tx_ring);
-+	iova_rx = to_iova(device, igb->rx_ring);
-+	VFIO_ASSERT_EQ(igb_read32(igb, E1000_TDBAL(0)), (u32)iova_tx);
-+	VFIO_ASSERT_EQ(igb_read32(igb, E1000_TDBAH(0)), (u32)(iova_tx >> 32));
-+	VFIO_ASSERT_EQ(igb_read32(igb, E1000_RDBAL(0)), (u32)iova_rx);
-+	VFIO_ASSERT_EQ(igb_read32(igb, E1000_RDBAH(0)), (u32)(iova_rx >> 32));
-+	VFIO_ASSERT_EQ(igb_read32(igb, E1000_TDT(0)), igb->tx_tail);
-+	VFIO_ASSERT_EQ(igb_read32(igb, E1000_RDT(0)), igb->rx_tail);
-+
-+	vfio_pci_msix_enable(device, MSIX_VECTOR, 1);
-+	igb_set_limits(device);
-+}
-+
- static void igb_remove(struct vfio_pci_device *device)
- {
- 	struct igb *igb = to_igb_state(device);
-@@ -578,6 +610,7 @@ const struct vfio_pci_driver_ops igb_ops = {
- 	.name = "igb",
- 	.probe = igb_probe,
- 	.init = igb_init,
-+	.attach = igb_attach,
- 	.remove = igb_remove,
- 	.memcpy_start = igb_memcpy_start,
- 	.memcpy_wait = igb_memcpy_wait,
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_driver.h b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_driver.h
-index e5ada209b1d1..09603eacab4d 100644
---- a/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_driver.h
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio/vfio_pci_driver.h
-@@ -28,6 +28,21 @@ struct vfio_pci_driver_ops {
- 	 */
- 	void (*remove)(struct vfio_pci_device *device);
- 
-+	/**
-+	 * attach() - Adopt @device as init() and memcpy_start() left it, e.g.
-+	 * in another process before a Live Update, without resetting or
-+	 * reprogramming it. Memcpy operations started then keep going and can be
-+	 * waited for with memcpy_wait(). Optional.
-+	 *
-+	 * Only sets up what is specific to the calling process (pointers into the
-+	 * BARs kept in the driver state, MSI-X) and the driver limits.
-+	 *
-+	 * Must be called after device->driver.region, and any memory the device
-+	 * was told to DMA to, have been mapped at the same IOVAs as when init()
-+	 * and memcpy_start() were called.
-+	 */
-+	void (*attach)(struct vfio_pci_device *device);
-+
- 	/**
- 	 * memcpy_start() - Kick off @count repeated memcpy operations from
- 	 * [@src, @src + @size) to [@dst, @dst + @size).
-@@ -85,6 +100,8 @@ struct vfio_pci_driver {
- 
- void vfio_pci_driver_probe(struct vfio_pci_device *device);
- void vfio_pci_driver_init(struct vfio_pci_device *device);
-+void vfio_pci_driver_attach(struct vfio_pci_device *device,
-+			    bool memcpy_in_progress);
- void vfio_pci_driver_remove(struct vfio_pci_device *device);
- int vfio_pci_driver_memcpy(struct vfio_pci_device *device,
- 			   iova_t src, iova_t dst, u64 size);
-diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_driver.c b/tools/testing/selftests/vfio/lib/vfio_pci_driver.c
-index 5e65434d2318..b4be2070342f 100644
---- a/tools/testing/selftests/vfio/lib/vfio_pci_driver.c
-+++ b/tools/testing/selftests/vfio/lib/vfio_pci_driver.c
-@@ -40,7 +40,8 @@ static void vfio_check_driver_op(struct vfio_pci_driver *driver, void *op,
- {
- 	VFIO_ASSERT_NOT_NULL(driver->ops);
- 	VFIO_ASSERT_NOT_NULL(op, "Driver has no %s()\n", op_name);
--	VFIO_ASSERT_EQ(driver->initialized, op != driver->ops->init);
-+	VFIO_ASSERT_EQ(driver->initialized,
-+		       op != driver->ops->init && op != driver->ops->attach);
- 	VFIO_ASSERT_EQ(driver->memcpy_in_progress, op == driver->ops->memcpy_wait);
- }
- 
-@@ -61,6 +62,25 @@ void vfio_pci_driver_init(struct vfio_pci_device *device)
- 	driver->initialized = true;
- }
- 
-+/*
-+ * Take over @device as vfio_pci_driver_init() left it in another process, e.g.
-+ * before a Live Update. Pass @memcpy_in_progress if memcpy operations were
-+ * started there, to be able to wait for them with vfio_pci_driver_memcpy_wait().
-+ */
-+void vfio_pci_driver_attach(struct vfio_pci_device *device,
-+			    bool memcpy_in_progress)
-+{
-+	struct vfio_pci_driver *driver = &device->driver;
-+
-+	VFIO_ASSERT_NOT_NULL(driver->region.vaddr);
-+	VFIO_CHECK_DRIVER_OP(driver, attach);
-+
-+	driver->ops->attach(device);
-+
-+	driver->initialized = true;
-+	driver->memcpy_in_progress = memcpy_in_progress;
-+}
-+
- void vfio_pci_driver_remove(struct vfio_pci_device *device)
- {
- 	struct vfio_pci_driver *driver = &device->driver;
 -- 
 2.56.0.317.g454f8302e1-goog
 
