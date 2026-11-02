@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633001;
-	b=VId+NHFHrNxFSdCgTyNeVCecZBBhpgIq8J3py2fACZ/AgvKZGxakya2qo5EUNFcaqUbR
-	 GriTz48pb49TpwpBpYGxHvPd1JMvT65h9NvE1fN8ijzFAhpWkig9JYbqS/bXxSY8C0vCD
-	 zT8fF5JW9MMfh50ZGWB6BiKVHsczqJEB05ADIxdu75lQyBF79zn769D/gVFV8S+Cf9IeL
-	 N5+S0EMhwpsFwYFEBYmAYgpZi8CC3yE+w88heSi+uM/0KqXrKcGbJD1BZR5qfSIfD9HMC
-	 gORQiofcJHSNmzTGz+2+5tQzIQiqxjtIGFdSsrB18VbqXM66QR78vk2L12tEXWtfyyg==
+	t=1793633012;
+	b=Hwqs6XMN0961bqDiJlhL7xM/MWH2UlR00KTmm3ur3shoVIhSkDuucO4ZBFw9JtryDlt4
+	 p4jCGyLb6PGS74MaPAHPSXZoCTjkHRBMCupKglSa33XGgw3JEQwpfL1N8a7j/fUn3A3xj
+	 AZd4GWlHBvFr0iQ5VmrVcfZzqnKj4GeLz2Ve/jK/PFHnJn2+8j2BszpSVdKpjx43Ylcc/
+	 a+kTLA7qmpWXJCkw+4hkRf8nlwtyAOQ1bmB2kA97CMRNZsieF/RZK0piJyalCTM9vLNci
+	 797TJxB0RFZ/5mJ9FjBu/9DtV+1rQcfYn6c+88OflrGwteCVBF53f7aUpMCXJ3yotpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633001;
-	h=DMARC-Filter:DKIM-Signature:Content-Type:To:From:Subject:Message-Id:
-	 Mime-Version:X-Original-From:X-Lms-Return-Path:X-B4-Tracking:Cc:Date:
-	 Received:Content-Transfer-Encoding:X-Mailer:X-Change-Id;
-	bh=guPZvxLd6vY90xPInQ08JAkLKvg/HCQkXV27YDibAYk=;
-	b=dcsnbBBHht95cMAJIyEBYkZiB4BOoKRbUoK2taqAalQv1EhS3/zXmoqg32SAj9bo4Jk3
-	 VzHIAgeY7iRb9BIL+R5rKORUXSfwEySlerrTjy6pn+wrVFUYkymPsDOvBT/NhlbUa8pHF
-	 1BUhAgmwQZMOEwuTsWnD3E6owVfwKI28WiFb+9FAVbEw2PO/Vp+ZU3dUHmxRwmjm0+gV/
-	 lIYmhJor/eKbUk8o2tkjAWmS7lxOYKUJ6GN2iawasY2NClLJhG0n3c7XfGjC3yvCBm5T6
-	 WGnrYDAsWUP1nsZiDsyeWMz3W9ItAjoDor8PEEny22uXLc3L8RhnyIl5sr1PQAu847A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633012;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=yr3akMspnIWFpqWJkjrAgv6glOgJhJX8fSAifemHFwA=;
+	b=eNw3bBYW4LT4hflHvIHHvCdp3jQPBQ8LQIGS3UHwqfbvGrkbKcX3rHKpBvWioNhGc/lj
+	 7pXhc6FI7DYosF4VfuWxRHFchrHa9uB53MXZMdoy9WHJy2WiXVDuL78/fpzQFDmsm/tT3
+	 rqshuwJlRpaFSIWc38QCuL2f3ezTCKlJsNFMldZ0W0hHSxjw305f6wY5CS50UmqyKn/pt
+	 mffqzokCK/Bl9wZnSEcd040luBcASnBC3bs0xpiEP6XuWDIJNG9q7e+DafF9LhoQIZ851
+	 e8Eao9FBjzJhSJ3RForVn4/7M7vIQIdtdBwwcYdkRa/bMtp4HArlO2Z4t40aE8cDUNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=jIBlJPg6;
-	arc=none smtp.remote-ip=71.18.227.5
-Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJCSbelw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECACF60A6EFE
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECACF60A6EFE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF6860A6F6E;
+	Mon,  2 Nov 2026 15:23:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=jIBlJPg6
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793632994; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=guPZvxLd6vY90xPInQ08JAkLKvg/HCQkXV27YDibAYk=;
- b=jIBlJPg68+S19w6K78CKfhTx1Bc6Oh3IhTAOVAUM6UgTTsjhcHe8jaP24ir3SvriymBxZe
- zsAA2PKmgUsjiTFd/EPJVWru5uAVDa1mZrDj8GuTU6rdkP25V8ycfIVsle1YwBV/AxPL2b
- mSt8AyGqulhhZHNlqDvMQ7n9fhy9qEawGiK1a1vdD022ZBGA0Qdq0Q4mvz/OCefihPZGHi
- 7QyFAOyGe5lw+1Cx1D3E8NJb3VkNtQV10eDPkoMjNofBadkljpRS0GBtAC+x0Bffz2NFx1
- Zo5lzG1Gw/Jm3kbc0SSF9w4eGwTzgkyFgXGgjfX7wT0AUAzg9MVMroObPFCB+w==
-Content-Type: text/plain; charset=UTF-8
-To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
-	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>, 
-	=?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>, 
-	"Paul Dino Jones" <paul@spacefreak18.xyz>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH v2] HID: pidff: bound the unit exponent rescaling loop
-Message-Id: <20261102-b4-pidff-rescale-exponent-v2-1-a75bcca65fd0@cherr.cc>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YJCSbelw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9111F1F00A1B;
+	Mon,  2 Nov 2026 15:23:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793633011;
+	bh=yr3akMspnIWFpqWJkjrAgv6glOgJhJX8fSAifemHFwA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=YJCSbelwTMu+lkg0XhQdoj8LyLuu8oZ2pe/iy53Q06xxAeDwqlvsnJcfvKWPrL8nO
+	 1LPsdJ6f92UxNgYIH2elZX5cKB2Bn/cwnYbrr5FGX2EiostBzZYZDEJohQQBKlZ100
+	 p7HUnoW1j6UUmYnSxVo38pqZI9irmD68pXikF1kIKMo2LkpHXgXPDrrJi4p7Z6BTEm
+	 Ho/gXdwOiakESPZcb3mkuegm2OWR2/e5jdgZUaERpTqlL7W8/AYhca74N335/39sZi
+	 ng2uaNbyx5FiMaSAp2/TUfphsXmLg87fQ3ClWdiErCTiRsq4P0nmjoEgLpLSQ0erqr
+	 l9l+F4V475wRA==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:07:21 +0100
+Subject: [PATCH RFC 11/27] latencytop: let procfs copy in writes to
+ /proc/latency_stats
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,97 +52,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Lms-Return-Path: <lba+26ae8aae0+3d8e8a+vger.kernel.org+me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIANuq6GoC/yXMQQrCMBBG4auUWTvQDLUUryIu2uSPjkgaMq0US u9u1OW3eG8nQ1EYXZqdCt5qOqcKOTXkH2O6gzVUk7TSu1YGnjrOGmLkAvPjC4wtzwlpYRfOvoO 4AX2g2ueCqNvvfb39bev0hF++QzqOD8/8BhF9AAAA
-Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Date: Mon, 02 Nov 2026 23:23:08 +0800
-Received: from [127.0.1.1] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 23:23:12 +0800
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: b4 0.16.0
-X-Change-Id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-fs-v1-11-d09a996317b3@kernel.org>
+References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
+In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1161; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=9/PXHkkWFBWwJpiw0GjnsftfBxXIsWStv0RQuWJfsao=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG6Uxf1FUCLiA19Y3u9pcme5JklFv7e+/n/G+vrUZ
+ 5GZL6Y4dJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEwkpIORYdf3e/NXsH6/4133
+ rv1C3AUbjW+79J6LeEzq8giUbOXbd4uRYa5Xn0HazZ7z2x9NiNU/Zf+6XrKpZKKX2K/DOgyTKn0
+ MWQE=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-pidff_rescale_time() walks the device-provided unit exponent one step
-at a time, allowing extreme values to cause billions of iterations
-while ff->mutex is held. In a UHID test with an INT_MIN exponent,
-EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry. The write only clears the statistics and doesn't look
+at what was written anyway. Writes larger than PAGE_SIZE - 1 bytes fail
+with -EINVAL now.
 
-Stop rescaling once scaled_time becomes zero, since further
-multiplication or division by 10 cannot change the result. The u32
-value becomes zero within 32 multiplications by 10, and the u16
-input within 5 divisions. This bounds the loops while preserving
-their results for all exponents, including wraparound.
-
-Also warn during initialization if the duration field's unit exponent
-is outside the range -8 to 0. This helps identify unusual device
-descriptors without logging on every effect upload or changing the
-rescaling result.
-
-Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field units"=
-)
-Reviewed-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-v1: https://lore.kernel.org/r/20261029-b4-pidff-rescale-exponent-v1-1-3ba54=
-accf767@cherr.cc
+ kernel/latencytop.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Changes in v2:
-- Following Tomasz's suggestion, warn during initialization when
-  the duration field's unit exponent is outside -8..0.
-- Add Tomasz's Reviewed-by.
----
- drivers/hid/usbhid/hid-pidff.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.=
-c
-index 22951b7ecd17..4540f49fe6e3 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_fiel=
-d *field)
- 	int exponent =3D field->unit_exponent;
-=20
- 	pr_debug("time field exponent: %d\n", exponent);
--	for (; exponent < FF_TIME_EXPONENT; exponent++)
-+	for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
- 		scaled_time *=3D 10;
--	for (; exponent > FF_TIME_EXPONENT; exponent--)
-+	for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
- 		scaled_time /=3D 10;
-=20
- 	pr_debug("time calculated from %d to %d\n", time, scaled_time);
-@@ -1428,11 +1428,19 @@ static int pidff_find_effects(struct pidff_device *=
-pidff,
-  */
- static int pidff_init_fields(struct pidff_device *pidff, struct input_dev =
-*dev)
+diff --git a/kernel/latencytop.c b/kernel/latencytop.c
+index b764f47606d3..35f73ca07656 100644
+--- a/kernel/latencytop.c
++++ b/kernel/latencytop.c
+@@ -267,8 +267,7 @@ static int lstats_show(struct seq_file *m, void *v)
+ }
+ 
+ static ssize_t
+-lstats_write(struct file *file, const char __user *buf, size_t count,
+-	     loff_t *offs)
++lstats_write(struct file *file, char *buf, size_t count, loff_t *offs)
  {
-+	int exp;
-+
- 	if (PIDFF_FIND_FIELDS(set_effect, PID_SET_EFFECT, 1)) {
- 		hid_err(pidff->hid, "unknown set_effect report layout\n");
- 		return -ENODEV;
- 	}
-=20
-+	exp =3D pidff->set_effect[PID_DURATION].field->unit_exponent;
-+	if (exp < -8 || exp > 0)
-+		hid_warn(pidff->hid,
-+			 "duration field has unusual time unit exponent %d\n",
-+			 exp);
-+
- 	PIDFF_FIND_FIELDS(block_load, PID_BLOCK_LOAD, 0);
- 	if (!pidff->block_load[PID_EFFECT_BLOCK_INDEX].value) {
- 		hid_err(pidff->hid, "unknown pid_block_load report layout\n");
+ 	clear_global_latency_tracing();
+ 
+@@ -277,7 +276,7 @@ lstats_write(struct file *file, const char __user *buf, size_t count,
+ 
+ static const struct proc_ops lstats_proc_ops = {
+ 	.proc_show	= lstats_show,
+-	.proc_write	= lstats_write,
++	.proc_write_buf	= lstats_write,
+ };
+ 
+ static int __init init_lstats_procfs(void)
 
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
+-- 
+2.53.0
 
-Best regards,
--- =20
-Shengzhuo Wei <me@cherr.cc>
