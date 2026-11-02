@@ -1,55 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793645365;
-	b=PEPh01joHtYo/T/7TdqEgJ2p482rXQyCIv02hG9iqLGnXMiTkFw8+q0s0KEoTzzCpTcg
-	 Y7r0kUMtDqXZaLxEQETEjwm24ODGWTfzpI1XStOERjBBiv1nnUVeIwJDXcnKJXcHQcTUv
-	 voyOcuuYk5cmiSNGicj51czvHAiRrx8penCiZsyyZroZy63SlneHBouV7nY26nIQO0MuP
-	 5s0z4gp40Fg2CGeob4v2A2uyTPLql13oJ8p5S4F45Iuu3DN3MRJFxIM+A2MDcdobdTaTp
-	 FV2QTmXIJ2Vog4wYVkP606aqlHIgrfcOmbi4UPsCbEbUvQw5K5ijuwpA/HEFXjQHyAQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793645365;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=k3mxN1eIB0dDqgp1tKW7+mAdNCuHH0HDF+C6icwQ5rA=;
-	b=w84UK/dr9LPQQex2JfQKB+4Czcea17yq/c6tkwnAEyP/+47+AyDlSvLlqlFi9BosoN7+
-	 w4o4LOZuFG95YD5NHE+bK8E8fpBrsFs9PygGBvboyd9pU7rDpGg29Ejhsr2x0XcpNCifp
-	 ZZxvvam8RULoizcEemKBxOaWK5mD9dYTvooAu5QIBT5iy/TgPYO0byjJrjkPn6sOrUyIu
-	 yoBPGpR+dz9Q31DfCWMs7/PFDy8rrgPTAhOUXkWhHmWkLSgFUoN/o0eFGRh9uRe3VjbV9
-	 H3Z3ApG8L8vFJc+z3zahIsURpafGpaPY1pya1ryyLyKNAMhrPhwRbRW6P4FyDLSBo9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=id03i6PG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793645399;
+	b=Zi9nXj5O1FgBpaMQumGtmx/WIT8exkvV+EEL16FIdXdsbSAYi9JL96FAm0bODfz78fSQ
+	 OYVRFknl543InO/t4oFPlKvo5d6Inx9v1Cpk2cbDtuhcAMIWswdAEOmLV2JBUzfhc6KW5
+	 FIyFhT/hLIK/JBAB1cu9mKOaR+PUFI8XGipI4/8Kq5ljawNAGpQvUM9SemSXcExC2WnSo
+	 f8ktxmJ1dP+MsXC5xGATCE3HDGtLr5If4Ts64foQVTdiOQv9TBsBe/BPYW2QLEWJOfU26
+	 VN9TYPqAKLmFgYkl1rIR2URGqqy1TgGqhHmyLUNvBoSLarxKh9TUWr5puFK1XBWYKAw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645399;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=mZWTDYLtSuuAeaPS9c5bJrnsNCHpnkCyUvC96yDn2zE=;
+	b=ztd29knndGRDF1k3sYDTi3dCtN3Bu1/yqto9/13H8mixFGkrqKvBFI24EUyLm0XuJbdy
+	 evS4o5r1MXaj/X3nSqujegOgrjkAEsF2hh4ntNjp4/6hyqthSXiJp3RrNBF19kQvaaH/J
+	 Gf/u7+9ozTr8Zpjv7E0xoAic9rEL067ZUOFUnv3J9VMQxxgOfQS/+UtcncSs4daU++emU
+	 KUlDCt46/lmIFvnIhtHnYcSS+ayCkUz93fmZbyquB8akR3rg4y1ygCAWKAIejugHDJ3Kj
+	 3OnvQfaUrUSIU28YuKRiITuBL8RGrCOsn7GfF1eztrTkJROpU0Pv3uzFSf0PBfQ7I2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gEJhuh+d;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.68
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011068.outbound.protection.outlook.com [52.101.57.68])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B0D606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:49:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCED606A326;
+	Mon,  2 Nov 2026 18:49:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BCED606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=id03i6PG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739121F00A22
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:49:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793645364;
-	bh=k3mxN1eIB0dDqgp1tKW7+mAdNCuHH0HDF+C6icwQ5rA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=id03i6PG121xVfB+h0TVlj83nfP00/RSI+PHIj4cskZQfqMEbEvBLQETdTRaBR47n
-	 PFhRyATJ0AeK3FiJlqvcs+xlZpbSQfNHXvMHEzyU/PF/OHd9rV1hRS6wgz2YdIgTAY
-	 Z2b69gxX4ZblU4xbj8p1jjI9fD8aJYD9r2kcnFoohQP8Z2wQMky2HSJM9+Ki1w2kR6
-	 JMmQbHkcrEZAZWc+NLdgJEU4IVDcOtA/gXr6pBj9x6vN4jjVQ+ocYsoitFi0+rBhMD
-	 wRqxxqrrN/SD2qfGUNYvXZ8xfl2Qw9GwHwMNIivtfo5Npaf9ToyuDKp63Hg57pEXqJ
-	 qquFDFrj0v/Eg==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c40f29667e6so516623066b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:49:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByVkP53hbQZvyXzQYQ5b+f3prXMOEpQMMmrVyH1GbtWtDnrGz0b0ZljdfwspeIxMJmS/XPMxL1St2ezlso=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xP9mLdVkML+g/x+FHFO801dZpniv4H3b7Hhpn8ZdLo9Sk1/Xy
-	bvrm957USFEiYxSdI47ZkuKTbMxndOg9sPSIBr+sMyh5Aig0Qi+Out5we16Q5gUcQbU7yBGk50m
-	i9hgr2npbNFe0F1+qY2KdofYBYqoYwAg=
-X-Received: by 2002:a17:907:84c:b0:c46:ba0d:3728 with SMTP id
- a640c23a62f3a-c4ca7a408c7mr889875966b.18.1793645363150; Mon, 02 Nov 2026
- 10:49:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gEJhuh+d
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OvUCDARXyNmiC5gqLN07X0VH+HYYgsZWHcF+NBKCoD3FidQfuqwzMbHGxdYL6SecKi3dCzd8reEuo1m0XHsA5ILKsjQNe6hADWyvk2I3mdi9q9kAyzmtEr1gYuYwSEmShLfX8MxGjYddhleATsNZ//+nTDludH6Hsfg1nNk8RLuHU0VxT1cW2q37ldD0Dv0Dwr8rRy93RNdcOjgvWrB60AHiru/pr0O2jJOgmjfKEg45DEcjJj/ImhggTTCq9ppNZWR22HRtutBRHezPrsxIaI4RZ3qfI3Yb4p+97mvCtqkO56E5b7iUmJ5YUpEGoAhyTkB0bOPJc/C4S4MzRdMwGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mZWTDYLtSuuAeaPS9c5bJrnsNCHpnkCyUvC96yDn2zE=;
+ b=JPG/qyaLr3s/ecitt6aTG8iElC/85TJxmkYHIANh8lwRdJMou5nKmRTXXxkOu0saKOXnCgp2EjfQ4BKTarode/mqMLJPTW3+uQVTaETmHOUreAqs5LmaAzWShO8qQfr7/Yb69sQzWfW5oPGqADp2pBIOMmdqNpdZ+TTuCzu2cZsnSLwduuP3kG/ih0xPph6UenavLL0pUTRMM4jflxDoAN4W/QGJH9pMB8lLC/GrtFsDrGmTHmbmr/AUrarFPlOrA3GB6mhXpfKNO+cFmtO4MlN6A9VF/pvjOZOldjNeIUjUfDq83Wbz9/gWetXTYcwAVf9OJojSCLCdvgAJi8g/gQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mZWTDYLtSuuAeaPS9c5bJrnsNCHpnkCyUvC96yDn2zE=;
+ b=gEJhuh+duGPNS+ple9KbJKIdmsac+Pi0nxncuUDOuCjsy/NWugUu9/9U2mfhuv6JZZhqC4gFJ93qz90eHwK5rwiOpdwAZFcdzph4e53Dx1gycrsU5wXzC0mri+JHdUCJxglm+C1U2ea8od/PI7hmyMxcvN6hUeoQQNZkstx6pWEXH7/51w1RHKzJdyb6BeuebZGk8iHMyItSaPVxZUGjLaxoqlvjcFr3pmLppuV2ZK1DIkeUjOHqFSW/mVSKhZIcnLJTB01tXnR4PLOgMh6nMD74Q+m4vMtxvvnBaxxrpD9639BTFSiel/a1PPlBeW5m8HHxALOsADzha4lLzM/pXg==
+Received: from BL1P222CA0027.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:2c7::32)
+ by PH7PR12MB5976.namprd12.prod.outlook.com (2603:10b6:510:1db::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 18:49:44 +0000
+Received: from BN1PEPF00018073.namprd04.prod.outlook.com
+ (2603:10b6:208:2c7:cafe::6e) by BL1P222CA0027.outlook.office365.com
+ (2603:10b6:208:2c7::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
+ Nov 2026 18:49:43 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN1PEPF00018073.mail.protection.outlook.com (10.167.245.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 18:49:43 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
+ 2026 10:49:24 -0800
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
+ 2026 10:49:24 -0800
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Mon, 2 Nov 2026 10:49:22 -0800
+Date: Mon, 2 Nov 2026 10:49:20 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Jason
+ Gunthorpe" <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>, "Thierry
+ Reding" <thierry.reding@kernel.org>, Krishna Reddy <vdumpa@nvidia.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>, Jean-Philippe Brucker
+	<jpb@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH RFC v7 7/7] iommu/arm-smmu-v3: Wire up shared-SID STE
+ ordering and feature gating
+Message-ID: <aujbMKormSlNQMOm@nvidia.com>
+References: <20261030-smmu-shared-sid-ver7-2026-10-26-v7-0-961726ebd6ab@Example.Com>
+ <20261030-smmu-shared-sid-ver7-2026-10-26-v7-7-961726ebd6ab@Example.Com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,85 +120,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-12-zide.chen@intel.com>
- <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
- <auUQgRVFASkWtkoK@google.com> <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
-In-Reply-To: <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 2 Nov 2026 10:49:11 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
-X-Gm-Features: AclHuK9elA3bTuNibJToBPiP04Z-isYfdu9yIT10eRqfuhSX3CWvUF7_3hpSAQY
-Message-ID: <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-To: "Chen, Zide" <zide.chen@intel.com>
-Cc: Jim Mattson <jmattson@google.com>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261030-smmu-shared-sid-ver7-2026-10-26-v7-7-961726ebd6ab@Example.Com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018073:EE_|PH7PR12MB5976:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3dbecd4c-fca3-435f-66e8-08df39120f4b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|7416014|1800799024|261021121427099003|261021135927099003|261022105027099003|261022075727099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|4143699003|11063799006|10067099003|56012099006|18002099003|261102123227099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	mOui/pV8prV7R0OdPuP9cS53SBGC6LPyy8sknDMTog0wg0HdDN/Sc47+U44W6cIZBRwL1iyQkPSwsfIPosjG1AR90HDhtGBLEZpAqmwlXhh2V427Rs9WVPUlC0IXSAEPCdQKkGBjTX/f83fpwwzyRtdalisewZN8d26jvu7Jw5AtWwJQCDpaLozw+0JnOhJ73agbkbSkLXjC/7zjqEqIgX+K8NRemVJ+0eZRjfi2t2ee5wDLVGUEcAv2TIGRe5WH7s++4jdbrsFLBEW5QDxguPSDRTAmPPGnX56Pe8OdSG3UG16iW4wq03GbuGv+o7jDVVSeAdlL+g84qb2mCzSNkVe9ARHvosw2n5fDogdgO8FwjxdfwQt5gsu1TapDAE6i3R592BecOARnlC2Zf/d8qa+Ne7HenTznOkD2OSPL3p2FIQe1mFo4qc02JxGl9z9dlFMO1Wjw0jwTzZx1uhZd34Z47COdsFnrwgNfLj7QYYbdy2V+F0PftUib9udhx38ydmzeBiFh7D8bBZocl726MO8cLvDuZu2PeP7SP0jXTPoRzgF+43K2bRgNmlJ4+zCsbf9+SNnyJJClB4162gctQNvLIYI5fR6fRbvwckivnQj4aDRTClJkl+IRJr0LA5HSz+I9JZBZVITRy4zMjlOxGCd9qkVEoE3DsKu7ZCjwDY6cUWCm+UcHp6VQDMubcL8acQW2svqMAFaqkQ38/ruzHA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(7416014)(1800799024)(261021121427099003)(261021135927099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(261102123227099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bXJpJ+/odPLWxUFeQhh2kA4eeKpWpzsLQXgcfRhVWsDVAKcDuDLqzg/iRnK7ykdW59vJWkeAl9WUTINSCbL9r4YN2CV3wZEoiBS3Hdw6wyuRH+0s/nwD9RHIzQaMCUn25OBi6O3L+QWbyxzhyjEWFdsu49tqINh+Xub8cp6oO5Q6FOIDrX3FYRACqXqm9EbrtYL+nW9kscd+3uuM7Z2hdw4r3rKiAJwYCUYTkipD7v93OBZuess5Vm546d+q+TTFn2s0BhDG9etSiNTZ3qu0aHAzg3fuAD7cuqFDnBdG8amJ+ZE44UX7JL2PIN5XMxNJOgt6cm3yUHJ3PzBeot8M29TbR1Chgol6xOd30Y5sSgn61J/PBXyj2ggxCXQ+wMiTwYdNeodUPxIfFHPB8BYzzr1bx5qcBB00I1LDKUAU0nCjhkjPoKTZJg56du4XisiW
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 18:49:43.6915
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3dbecd4c-fca3-435f-66e8-08df39120f4b
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018073.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5976
 
-> >> OTOH, what about PerfMon v4 bits 58 (GLOBAL_STATUS_LBRS_FROZEN), 59
-> >> (GLOBAL_STATUS_COUNTERS_FROZEN), and 61 (GLOBAL_STATUS_OVF_UNCORE)?  Per
-> >> Intel SDM Vol. 4, Table 2-2, those bits are valid in
-> >> IA32_PERF_GLOBAL_STATUS, IA32_PERF_GLOBAL_STATUS_RESET, and
-> >> IA32_PERF_GLOBAL_STATUS_SET when CPUID.0AH:EAX[7:0] > 3.
-> >>
-> >> When those MSRs are passed through in mediated mode, the guest can set bits
-> >> 58, 59, or 61 in hardware via IA32_PERF_GLOBAL_STATUS_SET. Leaving those
-> >> bits set in pmu->global_status_rsvd for pmu->version >= 4 will break
-> >> KVM_SET_MSRS(MSR_CORE_PERF_GLOBAL_STATUS) as well as any intercepted guest
-> >> writes to GLOBAL_OVF_CTRL / GLOBAL_STATUS_SET.
-> >>
-> >> As I pointed out in patch 04/16, we can't pass through the PMU global
-> >> controls unless their reserved bits match hardware.
-> >
-> > I think there are two other relevant (but pre-existing) problems here:
-> >
-> > 1. GLOBAL_STATUS_TRACE_TOPAPMI_BIT can leak from the host into the
-> > guest. If a host PT PMI arrives while the guest context is loaded, bit
-> > 55 will be set for the guest, and the guest won't be able to clear it if
-> > OVF_CTRL is intercepted (it will #GP as it is reserved for the guest).
-> > Similarly, the value can't be restored through KVM_SET_MSRS.
->
-> I think mediated vPMU assumes that no host PMIs can be generated while
-> guest PMU state is loaded.
->
-> If PT state can leak into the guest via bit 55, similar leakage can also
-> occur for other status bits, e.g. when the guest exposes fewer
-> general-purpose or fixed counters than the host.
->
-> The scenario where both host and guest can be active simultaneously is
-> handled by the perfmon_mask case, where intel_mediated_pmu_{load,put}()
-> filter guest-owned status bits.
+On Fri, Oct 30, 2026 at 08:09:39PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> With the per-domain CD table, every non-PASID sharer of a SID builds the
+> same normal-domain STE: same S1ContextPtr, S1DSS and S1CDMAX. Disable
+> stall and ATS for shared SIDs as well, so the remaining STE fields are
+> common too, and let any sharer program the STE. This also handles the
+> case where one device's driver attaches before the stream owner's driver:
+> the first attach now installs a valid STE instead of leaving the boot or
+> firmware STE in place.
+> 
+> A release or blocked attach must not abort a shared STE while other
+> sharers remain, otherwise it would break their ongoing DMA. Skip those
+> writes while the SID is shared; the last master (no longer shared) still
+> tears the STE down. This also means removing one device from a shared
+> group no longer leaves the survivors aborted.
+> 
+> Fault events on shared SIDs cannot be attributed to a specific master,
+> so arm_smmu_find_master() returns NULL when the stream's shared_masters
+> list is non-empty.
+> 
+> Disable SVA, PASID, vSMMU nesting, ATS and IOPF/stall for shared-SID
+> masters since all of them require an unambiguous SID-to-device mapping.
+> Reject sharing at insert_master() time if either master has stall enabled,
+> or if the existing master has PASID or ATS enabled.
+> 
+> Introduce arm_smmu_master_stall_enabled() to describe the policy actually
+> programmed into the hardware: a master stalls only if it asked for it and
+> its StreamID is not shared.
 
-Looking at the code:
+Why do we need this? A stall_enabled master shouldn't share its
+SID in the first place.
 
-kvm_mediated_pmu_load() -> perf_load_guest_context() ->
-perf_ctx_disable() will iterate PMUs with for_each_epc() and disable
-them, which skips PMUs without PERF_PMU_CAP_MEDIATED_VPMU.
+> Add arm_smmu_is_shared_sid() as an inline helper in arm-smmu-v3.h so that
 
-Same for kvm_mediated_pmu_load() -> perf_load_guest_context()
-->ctx_sched_out(), it also uses for_each_epc() to iterate PMUs and
-schedule them out.
+Use arm_smmu_master_shares_sid or arm_smmu_master_has_shared_sid.
 
-pt_init() does not set PERF_PMU_CAP_MEDIATED_VPMU on pt_pmu.pmu.capabilities
+> arm-smmu-v3-sva.c and arm-smmu-v3-iommufd.c can use it without repeating
+> the list_empty() pattern.
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 
-Please correct me if I am wrong.
+Please check sashiko findings; all seems valid.
 
->
-> https://lore.kernel.org/kvm/20260821222002.54907-1-zide.chen@intel.com/T/#m90394fda6d71ed0dd539a579abfb0c1df1e044fe
->
-> > (I think the PMI may also be lost as LVTPC points at the mediated vPMU
-> > vector)
-> >
-> > 2. On AMD, bit 58 and 59 have a similar problem. HW accepts those bits
-> > but they are reserved for the guest, so the guest can set them if
-> > GLOBAL_STATUS_SET is passed through, but userspace cannot restore them.
->
-> Right. That seems orthogonal to this series and could be addressed with
-> follow-up fixes.
+https://sashiko.dev/#/patchset/20261030-smmu-shared-sid-ver7-2026-10-26-v7-0-961726ebd6ab%40Example.Com
 
-Maybe AMD folks on the thread will take a look :)
+Nicolin
