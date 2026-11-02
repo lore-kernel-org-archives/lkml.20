@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616457;
-	b=V8pPr3+dDiF7fOzHjN/LYi/CovbUXHGr26eZXMa2L9AD+CYrXyYnj87hmAIRz/kn8/oZ
-	 Tn4Grum5xR2sZ1VA+nJT0aQWsGj0nokpbPtbWxDMeogenyffQkUwzr7spDlcLojXznuV+
-	 M3Hu9H5vTVTM8vwk1C2PSfYu7XgwaELAzFOBVywl7EmfV+Oj7k1HjFPIXM27PautB2CDj
-	 TSzUp5QYz3QxhSU5wxiRYLmwXi8imOxwo7cAkXfmaYhGf5jycaZt0HDVehVsCSLRDfHgO
-	 43bJwuIWUM76+L5AiyWTHJS3m8WRhgET4MEGzPKrSy9Ee8OM93l4kls/ewEw3y9JEHQ==
+	t=1793616463;
+	b=ej7Dmpt6/Nc3O+mT42f8tyHtbcn+8i/QlQAWcBv3WRCJzZIqJRdNn3xvi1bSRdmFqdlU
+	 rlhUGdIIN3FR3yEzn3Dl3gv4dNUICVcKqWBnfBRK7MnMWk6/X4lESXtTqwlu2tYLPpf78
+	 rd7LFV+SI71mJCQpac7pG5pwm9CmcY86fs8HgHiqT4PgglCpiBmEJ/KR9B35Nn1uzvtEe
+	 4cuAxwE3iEfoRenbJ4EDf202kFS9A679tOYNv2BvRnNIKEzAalHvULZJPj1GPgZm03BiW
+	 EclZd+9OyeAn4pG609KM6D+OQKGr2yfEz4AkfBLeEYIOj6qY46oooEfmc4cT118wh2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616457;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616463;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fgtT2+a9TrTITBRXB1pk27WkIgQ+nxQrQ3NB1J1hYuM=;
-	b=jD/REYmpp3WYjPIgIILnP81/yi6+hRKbRK+UQTbiijVnQRsUci2nvI8zucTXkPo2pHCs
-	 gShuziEQ60SsRJpvdK+VR6KDfqDrdlbRPNeQg1OtZxsA6PtU1wvOS6BkLMDkuZQzxDfIF
-	 sKY68CALMvzTeRHwJvdc5D5/blDuMZHHVirbo/XgizbZwdyVZo2Pkr6h4YoLhRDxPTZdM
-	 zLBcpOJuzXegIZYYV9dHX9tHzmWw22XB1XCsYD0rSJIeJm9zHod3YOtR8OMC4hK8F9VIx
-	 WAQ6zDVm9daKrpCAqxDOFQ7elyRwezKIp3YMgxUpkudR2UOQa6OC4jTzxPCRFx9Yv/A==
+	bh=2QVBZZ/JFvc6ExerAFVZp6Xujims56fhL0wTgciA7Uo=;
+	b=Rw/WEhxc4rA59qc+gbKOkrTZpqesPAr02LkULwFDmg1JsbL8iBLSx+UlSt2zCT5sSpH3
+	 c+QTq0XxIKOR1oWyJ11JsF4FeqBRs0ItSu81Krhanl1Bkz/YBSzX/9xRprc/GFPqZzALL
+	 nD9LncnJf3dfjpwN6OvH2ElgyoqDwXimErju0pufUaHmMK9x+zGHTLwSMnE/DduE6iOuk
+	 n9i1qJnCHL6J1GFEPCdr8QPuvYHR+1TdEwheYO7mH2QSURVtLeGVwuvIjO+QHa95RDUjk
+	 ElQZliL0ZCf6uqkkfDFoqu484HjVJGyq/TdATwjsv2k7E/A3y3/+IyUpm7EsWarSeag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="KfoU/C5V";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nkUbDXNW;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD77D606A336
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD77D606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03962606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:47:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03962606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KfoU/C5V
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a214af2076so21273125e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:47:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nkUbDXNW
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so18097835e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:47:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793616455; x=1794221255; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793616461; x=1794221261; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fgtT2+a9TrTITBRXB1pk27WkIgQ+nxQrQ3NB1J1hYuM=;
-        b=KfoU/C5VTwLgglWwOGIhOu2WjOGvxbM3LY2fCfJz6lShfFpPvqzy4ezwM/iMiYgL+q
-         Tul9qsTFt++Vxvo5bj+KuUneF0k5khy7EkUtw3aga+Z2wW4RYU6YE8GJuraORD8x08S/
-         aQtEf14PxG1LdsFtNKFgAq/Lpj2k0gGfugTqfojHwT01jomsA0iz3y0RfDCao2L/qmfm
-         65mIOVntxKNAxTZzjP9b1wIthVOejEPTuUOOjULlkmuMz9/xT40F6sutVETL1s64XQqg
-         0PPGjTllaw1G2DtC88d9PLKw6sF1RjF4k0+wdB5iPssFkdXmYpzHNeklTP2rebzN2zi1
-         rHYw==
+        bh=2QVBZZ/JFvc6ExerAFVZp6Xujims56fhL0wTgciA7Uo=;
+        b=nkUbDXNWGxlGmrQ1g0JcLY/zR9VSVMDSDooH4gNQSGig1tLcFm4GYRLq2BGWwZjeRI
+         OdxcQKotTKH/XU2sic6unSKu6siqHqmFNGjzP+LtkbDjQOGCmj7IlQR8DPjn046QjeE/
+         PnaV/zU8dL+x0ANWxCr8VzlaozDZQWftcIrCc3N3XR6LE/YUGiQTSFQ859fVNcW6qMrl
+         kYzujvQBPhf5YFHjM/4b3sm6zWmASn9jDd+Wce0qM0c/XhoqZjt4eAszoen34TOUN17R
+         Q8BKroF61KJqx/2GRltA77MGcVW+PVNVdlkSU7aszXjagBvz542Df5UcBqcGO/+gjYsy
+         IVJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616455; x=1794221255;
+        d=1e100.net; s=20260707; t=1793616461; x=1794221261;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fgtT2+a9TrTITBRXB1pk27WkIgQ+nxQrQ3NB1J1hYuM=;
-        b=iqtGBYma1gKWVdSK1kfK4GTyi2Az3QFYN4Sl/YJTypon+alfbd/JqAo7L1i6NUm9bB
-         grFWP/+KMuEb5s1mX9G9rUiqzbx3pNyoTteh+EUj8rxET86ABSlwhawi+PvEMMEFw7Q/
-         /KQhRdxUAul0+ieTeUbypL7Mz5CHJdO+Dkf/L7CWcUsmnCZrWb+xVv/cYR77UiOair/O
-         M6tuqVDsx9cFtW2y0a18YC+Amg3fl0PgbHvFPxhYutAFT9P8ZiUMRBWt0nzLZXkJDy53
-         +WYyR8FBaFfO7sBOYzIWa6Whdlpihn6xbzRlX5upRBhspfTJk0PrFNRpWCZTQ7l0HR1f
-         3r3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzODbjo+jLkxFB7FK8HDIeP7oXV7vJ30bPf9ERPHXZyVutExaPxF+qsJm2+H9vLcZZe14xlsvEcQTrWt+w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhzUIAVlbcNcVyBzPNxESoFgAWSoX5y8TTfTqyuv/oaV6QGEN7
-	CZUN5W7aRS3ozcGf+wU+ZzZ2LB0YYfEOiIrkMUspS9NysNQOXyUlVMhrmgkd1AEL
-X-Gm-Gg: AYBFou1Oz/StRmDgNGO/LzwC0WRN8jALYAAGkqMvpaRr9zw1eROv5620Xr9fDKzmlQZ
-	XueWZLPgkorYc9nUQV63WuqPrNWHI396K0nDGXFCb9JmQYwrvTcGBj3czqcXyOoVC0V8+lb4H8z
-	X0hdt8ITOsnvURFyLLAQoskgGO4rFs801Wbmp9IJ09+1t6eet2Pz+E258XIWzJQri2Z6LXP+Nm+
-	pzoHPJq/cXlRwZ88gsYesNNBHccOjA40iJJINU+FZX0HSGVbqS7PMU2StVEcjC51iEvOlsSHKvH
-	/leEAxOzdjpXyCmYoJGRrDHuXDbfkDUp3pakhyBSLbrXgwtldMGcHArhKy2gPRdN5ZhIXY2e79X
-	H3urwyriV5T54SZB8Rpi4lGWQL20CIT26aBpntBSJx+mepqoim/ADjQ/Y6T2Kf9QeeZv+g/Nb97
-	pdZh1fRYKO7PqeADUcY8OZmTNg/bLSZ2WEA42EvFuSuZWANHi60BNI2V//VM+DKoSsLT9ovCM14
-	9cVu/G8BqwNcsQAx5LeDuA9t3krJAu+ti2ASQl7rRr9QoqSeigt15WeErkDKv1EHC00unbn9qRQ
-	hi+WBdXv3+sAFm4wYeGfjkySX3Zos8D4HefCA4Pz7eF0xtw34+ZzDpbr/cHZMzdJ
-X-Received: by 2002:a05:600c:6992:b0:4a1:a2c0:7b73 with SMTP id 5b1f17b1804b1-4ac18992c01mr220277725e9.30.1793616454928;
-        Mon, 02 Nov 2026 02:47:34 -0800 (PST)
+        bh=2QVBZZ/JFvc6ExerAFVZp6Xujims56fhL0wTgciA7Uo=;
+        b=Qfm4SfPxINipeXZ98PZkrpYb50FuIt/7srdJJ6oPmeQWphrXpQzDR25lJpufpPU2jM
+         JNs0J8hvC9V353oh6zSdvkf19CEfo9FFFYTcStyt5e6/jDHDdBguVP+H2pDXUKr35JgA
+         8Xj5ooxiRP5jqgVD4GoLZqAOvDojE76o8DDD8Zukt28LDr2o9OoFvA197Yy1Ve55jMZg
+         N0/tN9pPcoigrpWOZ5WmPf1cJRKwXcq9wOPJG69GxxdDa4Wae4AmMXEA2HvqEzuRVwGF
+         p/qo82VhYMilSqigkBsAdBbs9GYzfMOxCnC/Nj1HanUTjw4wtQtR29Qes8N9vkkyirb5
+         S0tg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOFUJwTZ1gEsS+RpOIaM3grZlT/TZPQhuQbtueqvQDdFgi8/T0tcx9Tdr/CcawPgn3bjDI24WLSaJyQp0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIolXGaWx13IM8pNAjdw5U7rKVcOU8FLQjSBwq3g0QhgQrag2Ay
+	S+ZAKGilTp0tzsCev/pDLUgMW1AJm9OofKR7EUiLHz9E3+S0cGXH38vf
+X-Gm-Gg: AYBFou1MTCqOFilQKMcheaOnpeWGG/ke9H0syOxD2aCs0/FqPNumVfjGaAQqYhNmfOH
+	xfaMkHF96ZwVrY2Dhf28xefA4Z8y6PN9/UVvov3vG/aRdf2en7Qqa8dRO7SLtC2jPuURUAyrvK1
+	MtOdOugZE52piKIHaBn72mZ36+1WmkgymJrVWo4Rfk3lf7CA+h6QhSFwjadWGMk6BTQKTAxRDNK
+	VENyiGYDNaDxOqI9eDE2v2Dqhdb21crI7+ZeUZWTkEEip2eQ0oD94ys8ueGu3ACHUQDgwfZ/H8I
+	Qw4/sGZVWCrPx52OEAQKlMNZi7EOoFR6CPcmcEEse1lguYmCB8zGGW+ADkTMTPxFkYNAS77TypV
+	ujLe+uVqqYc3H78Wu1bR5MaDkiJx2fc2o/aFMhEXzEWLblTCYZPRlAyxEGXzklF4RpKmHeryhnl
+	R5snu8scweEb55tjrGAUhJ3T7hMNfIP1JdRuqFhF1sl1ie5YPopz1MwrvBxCbM+5uGv0haKXQlL
+	yS7YJyDKb+kNatXhjsx1N4ORRqI4pbugLufeLnoXpeo9pWTcLjquQj2aTUaZK/fSeFXvk5Jch8P
+	FAr8NqxL/iygDQ671gb8XUAOP5wfcl0SAZvt91WGecnhBqPQDcpA6FzP6G7EMg7w
+X-Received: by 2002:a05:600c:6095:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4ac18b7e1c1mr199730515e9.23.1793616461259;
+        Mon, 02 Nov 2026 02:47:41 -0800 (PST)
 Received: from dell-desktop ([2a02:587:4b42:1400:8199:c552:2b9e:c33])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6c7852esm248939695e9.11.2026.11.02.02.47.33
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6c7852esm248939695e9.11.2026.11.02.02.47.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:47:34 -0800 (PST)
+        Mon, 02 Nov 2026 02:47:40 -0800 (PST)
 From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 To: brauner@kernel.org
 Cc: bpf@vger.kernel.org,
@@ -91,9 +91,9 @@ Cc: bpf@vger.kernel.org,
 	viro@zeniv.linux.org.uk,
 	jack@suse.cz,
 	tasos.papagiannnis@gmail.com
-Subject: [PATCH vfs-7.5.bpf v2 1/3] bpf: Add bpf_path_getattr()
-Date: Mon,  2 Nov 2026 12:46:53 +0200
-Message-ID: <20261102104655.70901-2-tasos.papagiannnis@gmail.com>
+Subject: [PATCH vfs-7.5.bpf v2 3/3] selftests/bpf: Test bpf_path_getattr()
+Date: Mon,  2 Nov 2026 12:46:55 +0200
+Message-ID: <20261102104655.70901-4-tasos.papagiannnis@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102104655.70901-1-tasos.papagiannnis@gmail.com>
 References: <20261102104655.70901-1-tasos.papagiannnis@gmail.com>
@@ -108,82 +108,298 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Direct inode reads can differ from stat() and related system calls,
-especially on overlayfs.
-
-Add a sleepable LSM kfunc to query a trusted path and return struct kstat.
-Use vfs_getattr_nosec() to avoid calling security_inode_getattr() again.
-Limit the copy to the smaller of the buffer and the kernel structure.
+Compare basic fields with statx() on tmpfs and overlayfs, including
+copy-up and device encoding. Cover verifier restrictions.
 
 Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 ---
- fs/bpf_fs_kfuncs.c | 38 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 37 insertions(+), 1 deletion(-)
+ .../selftests/bpf/prog_tests/path_getattr.c   | 162 ++++++++++++++++++
+ .../selftests/bpf/progs/path_getattr.c        |  42 +++++
+ .../bpf/progs/verifier_path_getattr.c         |  57 ++++++
+ 3 files changed, 261 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/path_getattr.c
+ create mode 100644 tools/testing/selftests/bpf/progs/path_getattr.c
+ create mode 100644 tools/testing/selftests/bpf/progs/verifier_path_getattr.c
 
-diff --git a/fs/bpf_fs_kfuncs.c b/fs/bpf_fs_kfuncs.c
-index 35ccd98a4de6..97afc9659f1a 100644
---- a/fs/bpf_fs_kfuncs.c
-+++ b/fs/bpf_fs_kfuncs.c
-@@ -96,6 +96,40 @@ __bpf_kfunc int bpf_path_d_path(const struct path *path, char *buf, size_t buf__
- 	return len;
- }
- 
-+/**
-+ * bpf_path_getattr - get the attributes of the supplied path
-+ * @path: trusted path to get the attributes of
-+ * @request_mask: STATX_* flags of the attributes that the caller wants
-+ * @query_flags: AT_STATX_SYNC_AS_STAT, AT_STATX_FORCE_SYNC or AT_STATX_DONT_SYNC
-+ * @stat__uninit: buffer to return the attributes in
-+ * @stat__sz: size of the supplied buffer
-+ *
-+ * Ask the filesystem for the attributes of *path*. This is vfs_getattr()
-+ * without the call into security_inode_getattr().
-+ *
-+ * This BPF kfunc may only be called from sleepable BPF LSM programs.
-+ *
-+ * Copies the smaller of @stat__sz and sizeof(struct kstat). Any remaining
-+ * buffer bytes are left untouched. On error, the buffer is unchanged.
-+ *
-+ * Return: Zero on success or a negative error code.
-+ */
-+__bpf_kfunc int bpf_path_getattr(const struct path *path, u32 request_mask,
-+				 u32 query_flags, struct kstat *stat__uninit,
-+				 size_t stat__sz)
+diff --git a/tools/testing/selftests/bpf/prog_tests/path_getattr.c b/tools/testing/selftests/bpf/prog_tests/path_getattr.c
+new file mode 100644
+index 000000000000..6d8cabfd24c6
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/path_getattr.c
+@@ -0,0 +1,162 @@
++// SPDX-License-Identifier: GPL-2.0
++#define _GNU_SOURCE
++
++#include <linux/stat.h>
++#include <sched.h>
++#include <sys/mount.h>
++#include <sys/stat.h>
++#include <sys/syscall.h>
++#include <test_progs.h>
++
++#include "path_getattr.skel.h"
++#include "verifier_path_getattr.skel.h"
++
++static void query_stat(struct path_getattr *skel, const char *path)
 +{
-+	struct kstat stat;
-+	int ret;
++	struct statx stx;
++	int err;
 +
-+	ret = vfs_getattr_nosec(path, &stat, request_mask, query_flags);
-+	if (ret)
++	skel->bss->request_mask = STATX_BASIC_STATS;
++	skel->bss->calls = 0;
++	skel->bss->monitored_tid = syscall(SYS_gettid);
++	err = statx(AT_FDCWD, path, 0, skel->bss->request_mask, &stx);
++	skel->bss->monitored_tid = 0;
++	if (!ASSERT_OK(err, "statx") ||
++	    !ASSERT_EQ(skel->bss->calls, 1, "hook_calls") ||
++	    !ASSERT_OK(skel->bss->getattr_ret, "bpf_path_getattr"))
++		return;
++	ASSERT_EQ(skel->bss->ino, stx.stx_ino, "ino");
++	/* Kernel dev_t stores the minor number in the low 20 bits. */
++	ASSERT_EQ(skel->bss->dev, (stx.stx_dev_major << 20) | stx.stx_dev_minor, "dev");
++	ASSERT_EQ(skel->bss->size, stx.stx_size, "size");
++	ASSERT_EQ(skel->bss->mode, stx.stx_mode, "mode");
++	ASSERT_EQ(skel->bss->uid, stx.stx_uid, "uid");
++	ASSERT_EQ(skel->bss->gid, stx.stx_gid, "gid");
++	ASSERT_EQ(skel->bss->result_mask & STATX_BASIC_STATS,
++		  stx.stx_mask & STATX_BASIC_STATS, "result_mask");
++}
++
++static int create_file(const char *path)
++{
++	int fd, err;
++
++	fd = open(path, O_CREAT | O_EXCL | O_RDWR | O_CLOEXEC, 0640);
++	if (!ASSERT_GE(fd, 0, "create_file"))
++		return -1;
++	err = ftruncate(fd, 12345);
++	if (ASSERT_OK(err, "truncate_file"))
++		err = fchown(fd, 123, 456);
++	ASSERT_OK(err, "chown_file");
++	close(fd);
++	return err;
++}
++
++static void test_overlay(struct path_getattr *skel, const char *root)
++{
++	char lower[PATH_MAX], upper[PATH_MAX], work[PATH_MAX], merged[PATH_MAX];
++	char lower_file[PATH_MAX], merged_file[PATH_MAX], opts[PATH_MAX * 3 + 64];
++	__u32 overlay_dev;
++	int fd;
++
++	snprintf(lower, sizeof(lower), "%s/lower", root);
++	snprintf(upper, sizeof(upper), "%s/upper", root);
++	snprintf(work, sizeof(work), "%s/work", root);
++	snprintf(merged, sizeof(merged), "%s/merged", root);
++	if (!ASSERT_OK(mkdir(lower, 0755), "mkdir_lower") ||
++	    !ASSERT_OK(mkdir(upper, 0755), "mkdir_upper") ||
++	    !ASSERT_OK(mkdir(work, 0755), "mkdir_work") ||
++	    !ASSERT_OK(mkdir(merged, 0755), "mkdir_merged"))
++		return;
++	snprintf(lower_file, sizeof(lower_file), "%s/lower/file", root);
++	snprintf(merged_file, sizeof(merged_file), "%s/merged/file", root);
++	/*
++	 * Distinct layer filesystems with xino disabled expose a different
++	 * device for regular files than the overlay superblock's device.
++	 */
++	if (!ASSERT_OK(mount("tmpfs", lower, "tmpfs", 0, NULL), "mount_lower"))
++		return;
++	if (create_file(lower_file))
++		goto out_lower;
++	snprintf(opts, sizeof(opts), "lowerdir=%s,upperdir=%s,workdir=%s,xino=off",
++		 lower, upper, work);
++	if (mount("overlay", merged, "overlay", 0, opts)) {
++		if (errno == ENODEV || errno == EOPNOTSUPP) {
++			printf("%s:SKIP: overlayfs unavailable: %s\n",
++			       __func__, strerror(errno));
++			test__skip();
++			goto out_lower;
++		}
++		ASSERT_OK(-errno, "mount_overlay");
++		goto out_lower;
++	}
++	query_stat(skel, merged);
++	overlay_dev = skel->bss->dev;
++	query_stat(skel, merged_file);
++	ASSERT_NEQ(skel->bss->dev, overlay_dev, "lower_layer_dev");
++	/* Opening for write copies a lower-only file into the upper layer. */
++	fd = open(merged_file, O_WRONLY | O_CLOEXEC);
++	if (ASSERT_GE(fd, 0, "copy_up")) {
++		ASSERT_OK(ftruncate(fd, 23456), "truncate_upper");
++		close(fd);
++		query_stat(skel, merged_file);
++		ASSERT_NEQ(skel->bss->dev, overlay_dev, "upper_layer_dev");
++	}
++	umount(merged);
++out_lower:
++	umount(lower);
++}
++
++void test_path_getattr(void)
++{
++	char root[] = "/tmp/bpf_path_getattr.XXXXXX";
++	struct path_getattr *skel;
++	char file[PATH_MAX];
++	int nsfd, cwdfd;
++
++	skel = path_getattr__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "open_and_load"))
++		return;
++	if (!ASSERT_OK(path_getattr__attach(skel), "attach_skeleton"))
++		goto out_skel;
++	nsfd = open("/proc/self/ns/mnt", O_RDONLY | O_CLOEXEC);
++	if (!ASSERT_GE(nsfd, 0, "save_mountns"))
++		goto out_skel;
++	cwdfd = open(".", O_RDONLY | O_DIRECTORY | O_CLOEXEC);
++	if (!ASSERT_GE(cwdfd, 0, "save_cwd"))
++		goto out_ns;
++	if (!ASSERT_OK(unshare(CLONE_NEWNS), "unshare_mountns"))
++		goto out_cwd;
++	if (!ASSERT_OK(mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL), "private_mounts") ||
++	    !ASSERT_OK_PTR(mkdtemp(root), "mkdtemp"))
++		goto out_restore;
++	if (!ASSERT_OK(mount("tmpfs", root, "tmpfs", 0, NULL), "mount_tmpfs"))
++		goto out_dir;
++	snprintf(file, sizeof(file), "%s/file", root);
++	if (create_file(file))
++		goto out_umount;
++	if (test__start_subtest("stat_parity")) {
++		query_stat(skel, file);
++		query_stat(skel, root);
++	}
++	if (test__start_subtest("overlay"))
++		test_overlay(skel, root);
++out_umount:
++	umount2(root, MNT_DETACH);
++out_dir:
++	rmdir(root);
++out_restore:
++	ASSERT_OK(setns(nsfd, CLONE_NEWNS), "restore_mountns");
++	/* setns() also resets the working directory. */
++	ASSERT_OK(fchdir(cwdfd), "restore_cwd");
++out_cwd:
++	close(cwdfd);
++out_ns:
++	close(nsfd);
++out_skel:
++	path_getattr__destroy(skel);
++}
++
++void test_verifier_path_getattr(void)
++{
++	RUN_TESTS(verifier_path_getattr);
++}
+diff --git a/tools/testing/selftests/bpf/progs/path_getattr.c b/tools/testing/selftests/bpf/progs/path_getattr.c
+new file mode 100644
+index 000000000000..509cf13a0047
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/path_getattr.c
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <vmlinux.h>
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++#include "bpf_kfuncs.h"
++
++char _license[] SEC("license") = "GPL";
++
++__u32 monitored_tid;
++__u32 request_mask;
++__u32 calls;
++int getattr_ret;
++
++__u64 ino;
++__u32 dev;
++__s64 size;
++__u32 mode;
++__u32 uid;
++__u32 gid;
++__u32 result_mask;
++
++SEC("lsm.s/inode_getattr")
++int BPF_PROG(path_getattr, const struct path *path, int ret)
++{
++	struct kstat stat = {};
++
++	if (ret || (__u32)bpf_get_current_pid_tgid() != monitored_tid || calls)
 +		return ret;
++	calls++;
++	getattr_ret = bpf_path_getattr(path, request_mask, 0, &stat, sizeof(stat));
++	if (!getattr_ret) {
++		ino = stat.ino;
++		dev = stat.dev;
++		size = stat.size;
++		mode = stat.mode;
++		uid = stat.uid.val;
++		gid = stat.gid.val;
++		result_mask = stat.result_mask;
++	}
++	return ret;
++}
+diff --git a/tools/testing/selftests/bpf/progs/verifier_path_getattr.c b/tools/testing/selftests/bpf/progs/verifier_path_getattr.c
+new file mode 100644
+index 000000000000..8792f4242727
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/verifier_path_getattr.c
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+	/* struct kstat in the program's vmlinux.h may have a different size. */
-+	memcpy(stat__uninit, &stat, min(stat__sz, sizeof(stat)));
++#include <vmlinux.h>
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++#include "bpf_kfuncs.h"
++#include "bpf_misc.h"
++
++char _license[] SEC("license") = "GPL";
++
++static struct kstat output;
++
++SEC("lsm.s/file_open")
++__success
++int BPF_PROG(getattr_embedded_path_stack, struct file *file)
++{
++	struct kstat st;
++
++	bpf_path_getattr(&file->f_path, 0, 0, &st, sizeof(st));
 +	return 0;
 +}
 +
- static bool match_security_bpf_prefix(const char *name__str)
- {
- 	return !strncmp(name__str, XATTR_NAME_BPF_LSM, XATTR_NAME_BPF_LSM_LEN);
-@@ -504,6 +538,7 @@ BTF_KFUNCS_START(bpf_fs_kfunc_set_ids)
- BTF_ID_FLAGS(func, bpf_get_task_exe_file, KF_ACQUIRE | KF_RET_NULL)
- BTF_ID_FLAGS(func, bpf_put_file, KF_RELEASE)
- BTF_ID_FLAGS(func, bpf_path_d_path)
-+BTF_ID_FLAGS(func, bpf_path_getattr, KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_get_dentry_xattr, KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_get_file_xattr, KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_set_dentry_xattr, KF_SLEEPABLE)
-@@ -515,8 +550,9 @@ BTF_ID_FLAGS(func, bpf_sock_read_xattr, KF_RCU)
- #endif
- BTF_KFUNCS_END(bpf_fs_kfunc_set_ids)
- 
--/* Side-effecting kfuncs that stay exclusive to LSM programs. */
-+/* Kfuncs that stay exclusive to LSM programs. */
- BTF_SET_START(bpf_fs_kfunc_lsm_only_ids)
-+BTF_ID(func, bpf_path_getattr)
- BTF_ID(func, bpf_set_dentry_xattr)
- BTF_ID(func, bpf_remove_dentry_xattr)
- BTF_SET_END(bpf_fs_kfunc_lsm_only_ids)
++SEC("lsm.s/file_open")
++__failure __msg("dereference of modified untrusted_ptr_")
++int BPF_PROG(getattr_untrusted_path)
++{
++	struct task_struct *task = bpf_get_current_task_btf();
++
++	bpf_path_getattr(&task->fs->pwd, 0, 0, &output, sizeof(output));
++	return 0;
++}
++
++SEC("lsm/inode_getattr")
++__failure __msg("program must be sleepable to call sleepable kfunc bpf_path_getattr")
++int BPF_PROG(getattr_non_sleepable, const struct path *path)
++{
++	bpf_path_getattr(path, 0, 0, &output, sizeof(output));
++	return 0;
++}
++
++SEC("fentry/vfs_getattr")
++__failure __msg("calling kernel function bpf_path_getattr is not allowed")
++int BPF_PROG(getattr_fentry, const struct path *path)
++{
++	bpf_path_getattr(path, 0, 0, &output, sizeof(output));
++	return 0;
++}
++
++SEC("lsm.s/inode_getattr")
++__failure __msg("invalid write to stack")
++int BPF_PROG(getattr_short_output, const struct path *path)
++{
++	__u64 small;
++
++	bpf_path_getattr(path, 0, 0, (void *)&small, sizeof(output));
++	return 0;
++}
 -- 
 2.56.0
 
