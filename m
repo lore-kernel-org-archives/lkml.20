@@ -1,116 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.4
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793644320;
-	b=GY2IddvfRXdJmV4Ys8BlE1HLR69rhTKhE2BY+Gv6jHVxWgZEaoZ9MJqLIiuRmRZ4Ev2R
-	 QjhKSXdK/PzEQwJOsBaJ++x3mvq/S6kCAx3yUsOfrrGQgfHSWgzd+WSlqxWQQp/oqby0N
-	 NI6stE1l9C/3MJcTAkBPwYMtDoDj+T6Dk4r/keFojRT6M8ip/HZWYMjfHATkcDl8iSZb/
-	 VoAWQKuiMj5SU6hUuo/iHiI+f2FrHYJrleWFN2ayddTQa+x9P08e4/LQXn7uXAhVv8LtL
-	 BvewovOaoafhoOMPB9Ebwvb+NHJuUvyXvBi78jvWv+yeYVMT+3+3rT3hVWZBDEq3KCg==
+	t=1793644355;
+	b=BVU0okOsy0zHvVK2Z+MZvfnBbmEYJssfXWE7/YX9QWq2XzxI3PFOj6QsFAztNjrs3oBz
+	 Mxkm/2U79nN/dgVdie2ubTiA7G3XdfdpHPXG26U3//DKROhNpSqwnHHtCc4AfrCF1JNHw
+	 hswVjwAyrxmTBVjiXJneaUsVfIdNtiVJ2xXt7yw/yA1NXMZ5ovKJ+dlIFONZ7Sbe+Rja9
+	 UlUwB/N00HVcywOldBuhssvZ0wdaKZm3+8iyEmDUmKwuSnmlfd2kKx52WFgPySBID/JUP
+	 klCQQkZ0NFX8KbdnF5b3RigTHQcEJjb7rYNkVOiujLvUxacl333Hkfvtk5VZzldYeJQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793644320;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XtdDfVPsMN36q2fjhM7w8igynxRl1pFxGYhtL5UkQ+c=;
-	b=agmFa7uY/sOZ+zNFd4VevxQBNf8d3MV5Be8dXH1dcUVrwOEkggp3d/yDbXhD5TIgVy2b
-	 yCwl5DsbpqSznu6YPSza4joDQZ2MjfuDdgzOwhAdokTni/pB6AdSh09dbR+Q4IgJv73SN
-	 pmj0+UU4pm+z5TAG1hu1MjiINYVw+I0IB8BbyqeuM37rB1QKYhZjlp569p2Ur37m0hZLv
-	 EoBd2jyP5HmuEIgbXTsbPVIDg69tzMv/GfXq7jxZxA4zXBLiVZSQqvAkgGtP0WUEKX6NO
-	 Fg8igMPCglt3cXvXSr7PTJgQVk1BBqpbBQv7OBfmNEU5fLgaNtEjOjPRoiyNUPbGIJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793644355;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nttkeTLi+DUbV3NO9jcK80KbOp2wliMENbBClfvgbfU=;
+	b=f+P8rDt25bjU6hkzOfa3M3yYzcXZBel353JMktaWcXI5lYZjY6COmEDbXL7dsYjgQQ3l
+	 f7OQG6sXEjXp5yBe5gnYAHyOLtsgY9W2grSrL0+EQpInJXwPv/Ggpe4KF8g07ntRAWMDC
+	 ST0q3N9pSCAf5cgMB6NDV0Ky4qvHp7fG+lVMNDV5NlXmb8VIuupuEpqS7z9uYEyITjY6R
+	 FkqYRC/Kb6Me+08/IyaNHWjHhG4OQLktWP2B/1hY2s2EuR9L6744gBWd0d6IsQeAp4U0f
+	 jBfGSx5WyASoBhCBYjtdH5VcB8Z7I+gtzzoVu6gyCVX+w1UzsnrQG23Z2rz1Zv08sAg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=D3wrzLXf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.4
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010004.outbound.protection.outlook.com [52.101.193.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aTckfEwP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEADB606A326;
-	Mon,  2 Nov 2026 18:31:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEADB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F04F606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:32:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F04F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=D3wrzLXf
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vAMRjyTPOQwpB+knW9aPo9ib3o4b7LuHWVoEx7xj3B5fKMkf656BGuPrAqKlVwx5hwTXNriS8++wDITBpUNS7LLVc2IfaIymTWP/t11R+3Ue3MRouHO4OazvkufNoqrjkve9jKhFJVyIeQFE4yo/8lehY1dc16vzdpXXGUA2YkHxB6LXToYI4F5Uy9KrPMRcczyyBIoZ8Kugk9e6eSfZ1Y10D3frNOtGpNh4glDRdQvZELxaAl33Yh0/3mv/sFtxSXTo0ejKKA3KDskjBYPBQ31HwX0ribwVZFBX0kqNkJonQ7HCZjudGGU8J6sw1ItocXBHVpzRYtiCZ/NgRRi8dQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XtdDfVPsMN36q2fjhM7w8igynxRl1pFxGYhtL5UkQ+c=;
- b=zDEqPnI2uLAq3YzoocN9sjGf8/wJWi3126Q5qRLRtK3XC3RE799/1M/Na0t9rT1OvePpsq9raCaBmJ4A3i7GR+hOvjn0SP9YdSJKIido6BW+hVEauV+1Lb8Q0BL+DJF1TOdBbTPB/vsflMi+0NMBHYmtCvrdKgr75kZfoJx/pNxKmv2LtpZK4ktuMwm99pJvISMEq62sFKvsGajufQVapjKg1AtTZWEWcwmzcB3TPnTrDfzfeCGcogd9aVQQAXMQl8ImGJYBGwyadCREX7Dfed2QbRVo3ORbexLTpHbLdF4Uro/yncVUyL/E36OoI4TTSAutps7anNS5yxo2fSs9Ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XtdDfVPsMN36q2fjhM7w8igynxRl1pFxGYhtL5UkQ+c=;
- b=D3wrzLXfdfkoD9KgKbJ0MbLsD8zgy1GZylL0kFaVPVzUqtdSQvtqFY6aJpVlyfiAn/b66LFxG7sZ8tIm4zHt7wy7IdN2O5Mj2u4oCnOtxdY1vFgystLrE2E2O2JuvEhF8VQujJf6Y9Yfg0C97gEDzl9bZdGy/xQ0AgrYVJT/RNUBL6VNit6YgkR3F52BVrk4/+pcLGMu6/o+AnhGFs0iAGhABMVWA0ckvbje6LcVnoXDQj8jr1Zo213SEb7bcwlicmBLh2Vk9/Y448skJBCyr/+HQ4rDtz/Ut2tQ27r3FENb/mtCdpNjiWoYp8iDCOMOQS4b0s6nYqyJpuY6KxJ4mw==
-Received: from MW4PR04CA0377.namprd04.prod.outlook.com (2603:10b6:303:81::22)
- by LV3PR12MB9412.namprd12.prod.outlook.com (2603:10b6:408:211::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 18:31:54 +0000
-Received: from MWH0EPF000C6192.namprd02.prod.outlook.com
- (2603:10b6:303:81:cafe::54) by MW4PR04CA0377.outlook.office365.com
- (2603:10b6:303:81::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 18:31:54 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- MWH0EPF000C6192.mail.protection.outlook.com (10.167.249.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 18:31:54 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
- 2026 10:31:30 -0800
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
- 2026 10:31:29 -0800
-Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Mon, 2 Nov 2026 10:31:28 -0800
-Date: Mon, 2 Nov 2026 10:31:26 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, "Joerg Roedel (AMD)" <joro@8bytes.org>, "Thierry
- Reding" <thierry.reding@kernel.org>, Krishna Reddy <vdumpa@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>, Jean-Philippe Brucker
-	<jpb@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v7 6/7] iommu/arm-smmu-v3: Group aliasing devices
- into the same IOMMU group
-Message-ID: <aujW/ih0pRvJdcle@nvidia.com>
-References: <20261030-smmu-shared-sid-ver7-2026-10-26-v7-0-961726ebd6ab@Example.Com>
- <20261030-smmu-shared-sid-ver7-2026-10-26-v7-6-961726ebd6ab@Example.Com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aTckfEwP
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c49c32650adso429317666b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:32:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793644353; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fv0992zPA7TzP4NvCEtvGQ1FwwsLS3RagxnMklf39UNbLYSvS5EEXaycxeuu4s3pD6
+         8PNlTIglIq0phBLsW4SWUXFUt2UKh+rdWLS/r2gQH/dAG5FRw4zRRV1bSF12Dd9Cfnmu
+         MH6XnU7WP/Qf+tnKaru+ze2NwxqzaTEmiYrxRRzkM+JW0FYuuENwYOIWDYD0QKo1jlx5
+         aYd6lAmHP07shzjMSA2c/inO+nySd+NyNGlfZAmXjhUwD2QsALbQqCyHXc7MED9XxXeM
+         PRyOYBzNCpdingctT80lnbXk0BymGlAd7Wd5X8+guakiUfbQMIjHMaIuqxO6GTRqvLPp
+         qzHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nttkeTLi+DUbV3NO9jcK80KbOp2wliMENbBClfvgbfU=;
+        fh=Iio48Hysw9dvBM0j/J/Em3+CKYRhhs+TSijuzvNi3yc=;
+        b=SlD4Vr4F7flRcH6TT/XZ/Ma/Ip5HijvJWeOjTfduBBRlZGABovI2N4+Si9aTRvSY/B
+         617kXmT+jzgtSd7eTj0k/4lYw6b4VYPbqLkGJ459WI6v4Nx52nEgYQPPpOePyoZc3eT0
+         2On7AKfw9ueZr8tb/Ri8lCMFn+YjUyo3MItYPcAnIu4dp6kHoLDCm0NBevXnMpGnkpyy
+         A3EHt3sHSlVWygFAzyF69VYWmXZoOpbgC9EIwNwztVIYOjtfMBhRumuTkLvupz2Bzx3J
+         2QkI+VMqaHXAJfcEcFkwbrrfwFdEyLXWjCMF2nyhextVqdy1Abv6SJ+7ixySw4C3szkz
+         mJBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793644353; x=1794249153; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nttkeTLi+DUbV3NO9jcK80KbOp2wliMENbBClfvgbfU=;
+        b=aTckfEwPvbU5WirlHYTr+6JAfSTlUkOSyygxWhocwnnkphtAVlXMITaCE0TPTVvJmy
+         Zy1wMkrMoIHllESdvAzwh1t1+9IjTk8nuMAD8yyDD1n7+BEfA5b+GqmOs0Le76nPGbEs
+         MC2395WkimzvjwUhnZLLjMynuuxPGiNcmxuiaGX8/jd9OApJvxm4zergCD0/RrDxcjdP
+         x7HXTbz1OlYGHS+Nbd4AVqKVSJGisV2nAMA9mteM+2eWbaOrHTij/wWrchpT3VAXuV7A
+         Fo8GTfqxX405NPc/uMLshy5h0qOK36j2g6F8fVgsO5EIOJsC2hBESoeLbLpQFcB9HxA3
+         4kfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793644353; x=1794249153;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nttkeTLi+DUbV3NO9jcK80KbOp2wliMENbBClfvgbfU=;
+        b=o/go9udH+grZObweHoiPfTKdhp2VuY2/ZQyUd9KPKtFawBqsICs4JjU4zUoc+59czB
+         Iua2Kjdxs+3onsgEkxLMVvXn9trnQ7cvsrWd2Qw1fdIM//ilVe0uqcOxvXLOxLIbzcRz
+         0734pI1bxsXEas3IavT3znPhD4DFZ6C5lT7eVhfXQIZq9XITY0PVto7nhtCYS57OK9O9
+         XP/A1yNRLArkLrspVCkra27omsGLcO5Od7hCd5kzh+a8LGNi0QROr+OcmzoHC6qY47Xm
+         Bl9BhjDQG4yyEH8tAopKglvdmjojlT6vQynC5Cw+8wiKYreETatUpEwvoRDMbgdqwK4C
+         7lHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxF9OJ8Tv6tTz7YBBw/KGLgzN3UdSnZiudqX7JcDTlPGF1belnrGBgJZIb6Qo1hAzK6SIgpxjSJZPKstdg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+QsfcAfDxPT2vFfqAuoJy1r8cBpPrwibv3enGZybn+b/ID5Tx
+	TJg7rJtDkGQ+bltXmX6zeJaklkSW9f1ObNPUKryaGTehG+wAdTGAJ4gm8ifK9o8Mvs+4/ViLskN
+	TkwU1FiP1J/LdcPqv0y7TfvpFXHOKO/U=
+X-Gm-Gg: AYBFou35gpJhxvi5RhNCCB6eDkoKeRTHfHSrhiH8tomjK7BucXnzPSKuHjioK90l2Vo
+	KPg5N06zJuZ1JgYXIDLNDNaKJxyNXtA+MiM+sPkX8moiV61bnUdOjbFfOWcQ6g5yskpWfreJsVm
+	VS0Xed62BChKjqozPQE9/3TDtej16xMrjM1vQ+JqWrD2RR2v1Ra9aULgIoRTtXN5EmvBIwcCDSK
+	+NTDV4F/n8wNCeZBTYV5YQdsJ8/zftSHh4Urefs0mWdiVFADk6Khczzcg00U2n2jclx9SQuJHc6
+	tNVED7ABb5+v/CK6JQaF5HIZhSF81N9/szcHEQEbJhB82DNnICyDq+qMClXJVilpNh0jFSuko0t
+	2T6aj2cgVlmK21mnd8thu/Rz5gS+IkXVti7/2CAdYrGA48UPUlQm3pAP2YtPpl34E2cZv54SYHz
+	TMHlaP/VOc/yqdx/c=
+X-Received: by 2002:a17:907:2d24:b0:c2d:bc33:7be3 with SMTP id
+ a640c23a62f3a-c4ca7b804abmr968187666b.47.1793644352664; Mon, 02 Nov 2026
+ 10:32:32 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,64 +105,389 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261030-smmu-shared-sid-ver7-2026-10-26-v7-6-961726ebd6ab@Example.Com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6192:EE_|LV3PR12MB9412:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13de14fe-a38e-4cb5-a323-08df390f91c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|7416014|36860700016|23010399003|18002099003|56012099006|261102123227099003|22082099003|261022105027099003|261021135927099003|261021121427099003|11063799006|4143699003|10067099003|261028144727099003|261026121527099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	Fukb3nM5hrA0KHG+uMUtrpb1epSBhZAzM4nVQwDgh0TqX0BvpAhPhlWwAhBmEeuRCBDBlm5fLjrYkpOZ2TePSk41GLxJSjhz06XwXaUfSmt4d6B56Btu9zspjU+P9D0coyWjbZLN68JmuvO2hW+2M6SQuxEwGeFsNePVzl9Qjf/AI0fq0kJwOorfNFRaQGOrGaXGMuoI529miK9jx6Kqdf4dKVQ227Dr42GrK1sbcRrjNmw+X8ZwKS9ZKv0MaMITyaDvlkwjAMRzxy4NTsfnClXyVp4GXvRlDvuYfk0NB0+PCgcfIiKrkP2hEFNEaurGyr8G8EtVJM9eL/I5mLQZ0B/HuG4TSQ7bBTB8py5BupTYFvRMnGKEHjp5lNUjilVIalSeBLe0XMQkYU0/+FbRhtd3o7s026So+mQf71cOXNy9LrJr/4BZPTUwLukEQyS0iOiZLQO+cVvPH1254HkghrcN21Pnqg9cORaWNjROBDfyEL33FdsCnrJYDy3ESkbZBlc6F/GqIJD25SzSMr5GYDtUnH1HYJe+svi+zNgC+lAiecjU1MBQeMTkt5uUzJGmlpCurd5DvEAl1IQxxvAfIoR436lTHU7ZqIjuEdd6gaQ85IpKaZLFhY81HGTHERQp1r2DILGDQMP3R7CW1eCun+4IGWBIamJp/m8R8XP10dPsxevXSQkv0BFFhUAY95YBTS9SIL3qdJKpMlgzZMPH3w==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(7416014)(36860700016)(23010399003)(18002099003)(56012099006)(261102123227099003)(22082099003)(261022105027099003)(261021135927099003)(261021121427099003)(11063799006)(4143699003)(10067099003)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	d5QfapfVihS9pUQD2ysdydnlafo2uOl64vkWr8W9ZqBxei9P5m9UWj2lJe5wGrtqMA/l7/qSNOonM6bIq43Vt/rlF26JlPdS12kgUt8WmAhy+yiRhVeMFfxxmNho3HrKBbvf9IVLKBJSanQSFvsrvdUuFJsj5swClOvg1nFeOVBqt7VMzOHFh/0YdjjxXGXcXOSuZ2ADkOt4y6Ky80WVpkLGV4546aAmb00SWwBN8kR548MzUR7vfMq6qVewgzvTxwnuDKE/g5pp2zfkfMPKIkK1XXlQ0FrD3NiOpUpKNd19I6HTUBj3CqhHDmYCdWU+JkexqZXuI0bixQ+mFl5qJ091iTDOdFGidzJapcNySMeDxzpVP4K+QkBnGnVJ9sdrZw7Se+ZDjxUOSAzR0v/6pbwi2oNGdWqbaOzR+LO5KjGmE0ng6jXQN9Ey7s2sdkLu
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 18:31:54.1852
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13de14fe-a38e-4cb5-a323-08df390f91c4
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6192.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9412
+References: <20261031175213.704021-1-bestswngs@gmail.com> <20261102111707.484df6f5@gandalf.local.home>
+In-Reply-To: <20261102111707.484df6f5@gandalf.local.home>
+From: Weiming Shi <bestswngs@gmail.com>
+Date: Mon, 2 Nov 2026 10:31:54 -0800
+X-Gm-Features: AclHuK_RS_m_JKgha0ai_vElO6Q9uMmQOpV38BwpRUYVl16bZIZB6jB5Pl8H4Yc
+Message-ID: <CANgPUi1ev7Zb13Z4o=YdHY_JFf=7xXNHNVbR3KBDQ_p1rzUmZQ@mail.gmail.com>
+Subject: Re: [PATCH v3] ftrace: Complete subops teardown on shutdown failure
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, Xiang Mei <xmei5@asu.edu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 08:09:38PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Devices sharing a SID must share a single IOMMU domain because the STE
-> can only point to one CD table at a time. With the domain-owned CD table,
-> non-PASID devices in that domain share that table directly.
-> 
-> Detect SID aliasing at group-assignment time by looking up the RB tree
-> for existing owners. Since probe_device() inserts the master before
-> device_group() is called, skip the device's own stream and look for a
-> different, already-probed master that shares the same SID.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Steven Rostedt <rostedt@goodmis.org> =E4=BA=8E2026=E5=B9=B411=E6=9C=882=E6=
+=97=A5=E5=91=A8=E4=B8=80 09:22=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Sat, 31 Oct 2026 10:52:13 -0700
+> Weiming Shi <bestswngs@gmail.com> wrote:
+>
+> > ftrace_shutdown_subops() unlinks a subop before rebuilding the manager
+> > hashes, but leaves it enabled and managed when rebuilding or updating
+> > fails. unregister_ftrace_graph() cannot recover from that partial
+> > teardown, and a later registration can corrupt the empty manager state.
+> >
+> > Always detach and clear the subop once shutdown begins. Keep conservati=
+ve
+> > manager hashes behind per-subop filtering when an update fails, and dis=
+able
+> > direct graph dispatch until those hashes are exact again. If the last
+> > manager cannot be shut down, disable ftrace and normalize its list, fla=
+gs,
+> > count, and hashes before the caller releases the graph operation.
+>
+> What exactly is the above saying? It looks like pure AI output (non human
+> readable). AKA, AI slop!
+>
+> Is it fixing something when a subop is unregistered but fails? Where
+> exactly is the failure? What failed? Have an example of what happened?
+>
+> Direct calls is mentioned once, but there seems to be a bit of changes fo=
+r
+> that too. Some of it looks like it should be a separate patch.
+>
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: 0ae6b8ce200d ("ftrace: Fix accounting of subop hashes")
+> > Reported-by: Xiang Mei <xmei5@asu.edu>
+> > Assisted-by: OpenAI Codex <noreply@openai.com>
+> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> > ---
+> >  kernel/trace/fgraph.c          | 35 +++++++++++++++++----
+> >  kernel/trace/ftrace.c          | 57 +++++++++++++++++++++-------------
+> >  kernel/trace/ftrace_internal.h |  3 ++
+> >  3 files changed, 68 insertions(+), 27 deletions(-)
+> >
+> > diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
+> > index ed455b535..1a8e092ec 100644
+> > --- a/kernel/trace/fgraph.c
+> > +++ b/kernel/trace/fgraph.c
+> > @@ -1306,7 +1306,7 @@ static void ftrace_graph_enable_direct(bool enabl=
+e_branch, struct fgraph_ops *go
+> >
+> >       static_call_update(fgraph_func, func);
+> >       static_call_update(fgraph_retfunc, retfunc);
+> > -     if (enable_branch)
+> > +     if (enable_branch && !static_key_enabled(&fgraph_do_direct.key))
+> >               static_branch_enable(&fgraph_do_direct);
+>
+> Ug that is horrible. If anything static_branch_enable() should handle thi=
+s.
+> Or we have to have another type of accounting.
+>
+>
+> >  }
+> >
+> > @@ -1315,13 +1315,27 @@ static void ftrace_graph_disable_direct(bool di=
+sable_branch)
+> >       if (FGRAPH_NO_DIRECT)
+> >               return;
+> >
+> > -     if (disable_branch)
+> > +     if (disable_branch && static_key_enabled(&fgraph_do_direct.key))
+> >               static_branch_disable(&fgraph_do_direct);
+>
+> Same.
+>
+> >       static_call_update(fgraph_func, ftrace_graph_entry_stub);
+> >       static_call_update(fgraph_retfunc, ftrace_graph_ret_stub);
+> >       fgraph_direct_gops =3D &fgraph_stub;
+> >  }
+> >
+> > +void fgraph_update_direct_func(struct ftrace_ops *ops, bool enable)
+>
+> What is this for? It requires a kerneldoc as it is not a static function.
+>
+> It also looks unrelated to the partial shutdown. Is his needed as a
+> separate patch?
+>
+> > +{
+> > +     struct fgraph_ops *gops;
+> > +
+> > +     if (ftrace_graph_active !=3D 1 || !(ops->flags & FTRACE_OPS_FL_GR=
+APH))
+> > +             return;
+> > +
+> > +     gops =3D container_of(ops, struct fgraph_ops, ops);
+> > +     if (enable)
+> > +             ftrace_graph_enable_direct(true, gops);
+> > +     else
+> > +             ftrace_graph_disable_direct(true);
+> > +}
+> > +
+> >  /* The cpu_boot init_task->ret_stack will never be freed */
+> >  static int fgraph_cpu_init(unsigned int cpu)
+> >  {
+> > @@ -1406,16 +1420,24 @@ int register_ftrace_graph(struct fgraph_ops *go=
+ps)
+> >       gops->ops.flags |=3D FTRACE_OPS_FL_GRAPH;
+> >
+> >       ret =3D ftrace_startup_subops(&graph_ops, &gops->ops, command);
+> > -     if (!ret)
+> > +     if (!ret) {
+> >               fgraph_array[i] =3D gops;
+> > +             if (ftrace_graph_active =3D=3D 1)
+> > +                     ftrace_graph_enable_direct(true, gops);
+> > +     }
+> >
+> >  error:
+> >       if (ret) {
+> >               ftrace_graph_active--;
+> > +             gops->ops.flags &=3D ~FTRACE_OPS_FL_GRAPH;
+>
+> Hmm, clearing the flag looks like a separate bug that should be fixed in
+> its own patch.
+>
+>
+> >               gops->saved_func =3D NULL;
+> >               fgraph_lru_release_index(i);
+> > -             if (!ftrace_graph_active)
+> > +             if (ftrace_graph_active =3D=3D 1) {
+> > +                     ftrace_graph_enable_direct(true, NULL);
+> > +             } else if (!ftrace_graph_active) {
+> > +                     ftrace_graph_disable_direct(false);
+> >                       unregister_pm_notifier(&ftrace_suspend_notifier);
+> > +             }
+>
+> Nit, but I would have the above opposite. That is, don't make the current
+> if statement the else, unless there's a good reason to. Because it makes
+> reviewing harder.
+>
+>                 if (!ftrace_graph_active) {
+>                         ftrace_graph_disable_direct(false);
+>                         unregister_pm_notifier(&ftrace_suspend_notifier);
+>                 } else if (ftrace_graph_active =3D=3D 1) {
+>                         ftrace_graph_enable_direct(true, NULL);
+>                 }
+>
+>
+> >       }
+> >       return ret;
+> >  }
+> > @@ -1423,6 +1445,7 @@ int register_ftrace_graph(struct fgraph_ops *gops=
+)
+> >  void unregister_ftrace_graph(struct fgraph_ops *gops)
+> >  {
+> >       int command =3D 0;
+> > +     int ret;
+> >
+> >       if (WARN_ONCE(!(gops->ops.flags & FTRACE_OPS_FL_GRAPH),
+> >                     "function graph ops unregistered without registerin=
+g"))
+> > @@ -1447,9 +1470,9 @@ void unregister_ftrace_graph(struct fgraph_ops *g=
+ops)
+> >       if (!ftrace_graph_active)
+> >               command =3D FTRACE_STOP_FUNC_RET;
+> >
+> > -     ftrace_shutdown_subops(&graph_ops, &gops->ops, command);
+> > +     ret =3D ftrace_shutdown_subops(&graph_ops, &gops->ops, command);
+> >
+> > -     if (ftrace_graph_active =3D=3D 1)
+> > +     if (ftrace_graph_active =3D=3D 1 && !ret)
+> >               ftrace_graph_enable_direct(true, NULL);
+> >       else if (!ftrace_graph_active)
+> >               ftrace_graph_disable_direct(false);
+> > diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+> > index 673a54fdf..831f04de6 100644
+> > --- a/kernel/trace/ftrace.c
+> > +++ b/kernel/trace/ftrace.c
+> > @@ -3667,6 +3667,8 @@ static int rebuild_hashes(struct ftrace_hash **fi=
+lter_hash, struct ftrace_hash *
+> >       bool first =3D true;
+> >       int ret;
+> >
+> > +     *filter_hash =3D EMPTY_HASH;
+> > +     *notrace_hash =3D EMPTY_HASH;
+> >       temp_hash.filter_hash =3D EMPTY_HASH;
+> >       temp_hash.notrace_hash =3D EMPTY_HASH;
+> >
+> > @@ -3708,7 +3710,13 @@ static int rebuild_hashes(struct ftrace_hash **f=
+ilter_hash, struct ftrace_hash *
+> >   * will not affect functions that are being traced by other subops tha=
+t
+> >   * still exist in @ops.
+> >   *
+> > - * If the last subops is removed from @ops, then @ops is shutdown norm=
+ally.
+> > + * Once removal starts, @subops is detached even if rebuilding the man=
+ager
+> > + * hashes fails. The old manager hashes are conservative in that case =
+and the
+> > + * remaining subops continue to filter callbacks. If the last-manager =
+shutdown
+> > + * fails, ftrace is disabled before the manager state is discarded.
+> > + *
+> > + * Return: 0 on success or a negative error code if the manager could =
+not be
+> > + * updated or shut down.
+> >   */
+> >  int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_ops *=
+subops, int command)
+> >  {
+> > @@ -3716,9 +3724,6 @@ int ftrace_shutdown_subops(struct ftrace_ops *ops=
+, struct ftrace_ops *subops, in
+> >       struct ftrace_hash *notrace_hash =3D EMPTY_HASH;
+> >       int ret;
+> >
+> > -     if (unlikely(ftrace_disabled))
+> > -             return -ENODEV;
+>
+> Wait! Why this???
+>
+> > -
+> >       if (WARN_ON_ONCE(!(subops->flags & FTRACE_OPS_FL_ENABLED)))
+> >               return -EINVAL;
+> >
+> > @@ -3727,36 +3732,45 @@ int ftrace_shutdown_subops(struct ftrace_ops *o=
+ps, struct ftrace_ops *subops, in
+> >       if (list_empty(&ops->subop_list)) {
+> >               /* Last one, just disable the current ops */
+> >
+> > -             ret =3D ftrace_shutdown(ops, command);
+> > +             if (unlikely(ftrace_disabled))
+> > +                     ret =3D -ENODEV;
+> > +             else
+> > +                     ret =3D ftrace_shutdown(ops, command);
+>
+> Ug no!
+>
+> >               if (ret < 0) {
+> > -                     list_add(&subops->list, &ops->subop_list);
+> > -                     return ret;
+> > +                     bool enabled =3D ops->flags & FTRACE_OPS_FL_ENABL=
+ED;
+> > +
+> > +                     FTRACE_WARN_ON_ONCE(!ftrace_disabled);
+> > +                     remove_ftrace_ops(&ftrace_ops_list, ops);
+> > +                     if (enabled && ftrace_start_up > 0)
+> > +                             ftrace_start_up--;
+> > +                     ops->flags &=3D ~(FTRACE_OPS_FL_ENABLED |
+> > +                                     FTRACE_OPS_FL_ADDING |
+> > +                                     FTRACE_OPS_FL_REMOVING);
+> > +                     ops->func =3D ops->saved_func;
+>
+> Please explain the above.
+>
+> >               }
+> >
+> > -             subops->flags &=3D ~FTRACE_OPS_FL_ENABLED;
+> > -
+> >               free_ftrace_hash(ops->func_hash->filter_hash);
+> >               free_ftrace_hash(ops->func_hash->notrace_hash);
+> >               ops->func_hash->filter_hash =3D EMPTY_HASH;
+> >               ops->func_hash->notrace_hash =3D EMPTY_HASH;
+> > -             subops->flags &=3D ~(FTRACE_OPS_FL_ENABLED | FTRACE_OPS_F=
+L_SUBOP);
+> > -             subops->managed =3D NULL;
+> > +             goto out;
+> > +     }
+> >
+> > -             return 0;
+> > +     if (unlikely(ftrace_disabled)) {
+> > +             ret =3D -ENODEV;
+> > +             goto out;
+> >       }
+> >
+> >       /* Rebuild the hashes without subops */
+> >       ret =3D rebuild_hashes(&filter_hash, &notrace_hash, ops);
+> >       if (ret < 0)
+> > -             return ret;
+> > +             goto out;
+> >
+> >       ret =3D ftrace_update_ops(ops, filter_hash, notrace_hash);
+> > -     if (ret < 0) {
+> > -             list_add(&subops->list, &ops->subop_list);
+> > -     } else {
+> > -             subops->flags &=3D ~(FTRACE_OPS_FL_ENABLED | FTRACE_OPS_F=
+L_SUBOP);
+> > -             subops->managed =3D NULL;
+> > -     }
+> > +
+> > +out:
+> > +     subops->flags &=3D ~(FTRACE_OPS_FL_ENABLED | FTRACE_OPS_FL_SUBOP)=
+;
+> > +     subops->managed =3D NULL;
+>
+>
+> The above is doing a lot without really explaining why.
+>
+> -- Steve
+>
+> >       free_ftrace_hash(filter_hash);
+> >       free_ftrace_hash(notrace_hash);
+> >       return ret;
+> > @@ -3767,8 +3781,8 @@ static int ftrace_hash_move_and_update_subops(str=
+uct ftrace_ops *subops,
+> >                                             struct ftrace_hash *hash)
+> >  {
+> >       struct ftrace_ops *ops =3D subops->managed;
+> > -     struct ftrace_hash *notrace_hash;
+> > -     struct ftrace_hash *filter_hash;
+> > +     struct ftrace_hash *notrace_hash =3D EMPTY_HASH;
+> > +     struct ftrace_hash *filter_hash =3D EMPTY_HASH;
+> >       struct ftrace_hash *save_hash;
+> >       struct ftrace_hash *new_hash;
+> >       int ret;
+> > @@ -3800,6 +3814,7 @@ static int ftrace_hash_move_and_update_subops(str=
+uct ftrace_ops *subops,
+> >       } else {
+> >               free_ftrace_hash_rcu(save_hash);
+> >       }
+> > +     fgraph_update_direct_func(subops, !ret);
+> >       return ret;
+> >  }
+> >
+> > diff --git a/kernel/trace/ftrace_internal.h b/kernel/trace/ftrace_inter=
+nal.h
+> > index 3235470e6..3d5934b1c 100644
+> > --- a/kernel/trace/ftrace_internal.h
+> > +++ b/kernel/trace/ftrace_internal.h
+> > @@ -16,6 +16,7 @@ int ftrace_startup(struct ftrace_ops *ops, int comman=
+d);
+> >  int ftrace_shutdown(struct ftrace_ops *ops, int command);
+> >  int ftrace_ops_test(struct ftrace_ops *ops, unsigned long ip, void *re=
+gs);
+> >  int ftrace_startup_subops(struct ftrace_ops *ops, struct ftrace_ops *s=
+ubops, int command);
+> > +/* Once started, shutdown always detaches @subops, even when it return=
+s an error. */
+> >  int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_ops *=
+subops, int command);
+> >
+> >  #else /* !CONFIG_DYNAMIC_FTRACE */
+> > @@ -52,6 +53,7 @@ static inline int ftrace_shutdown_subops(struct ftrac=
+e_ops *ops, struct ftrace_o
+> >
+> >  #ifdef CONFIG_FUNCTION_GRAPH_TRACER
+> >  extern int ftrace_graph_active;
+> > +void fgraph_update_direct_func(struct ftrace_ops *ops, bool enable);
+> >  # ifdef CONFIG_DYNAMIC_FTRACE
+> >  extern void fgraph_update_pid_func(void);
+> >  # else
+> > @@ -59,6 +61,7 @@ static inline void fgraph_update_pid_func(void) {}
+> >  # endif
+> >  #else /* !CONFIG_FUNCTION_GRAPH_TRACER */
+> >  # define ftrace_graph_active 0
+> > +static inline void fgraph_update_direct_func(struct ftrace_ops *ops, b=
+ool enable) {}
+> >  static inline void fgraph_update_pid_func(void) {}
+> >  #endif /* CONFIG_FUNCTION_GRAPH_TRACER */
+> >
+>
 
-Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+Hi Steven,
 
-With a nit,
+Please disregard the v3 patch, as it was sent by mistake.
 
->  	if (dev_is_pci(dev))
-> -		group = pci_device_group(dev);
-> -	else
-> -		group = generic_device_group(dev);
-> +		return pci_device_group(dev);
->  
-> -	return group;
-> +	return generic_device_group(dev);
+I am still working on a new patch. There are some issues that I am
+currently investigating, and I will send an updated version once they
+are resolved.
 
-This change seems unnecessary.
+I apologize again for the confusion and for any inconvenience this may
+have caused.
 
-Nicolin
+Best regards,
+Weiming
