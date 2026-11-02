@@ -1,111 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623469;
-	b=R8oFaPETem5j18uOf5o42exf4yVcpbl/q86mQt6IPPXgilyATWUyhYTZpspPs6A5PYac
-	 GLZ8uAkicHzq032OLtDVEWaHRZuaUG2h7fevQ+0xMVQ97UHZbTOVLiGiKeK+i50SliUoe
-	 gtX70LDHUzJ2H9GO0+8O+U5FvttMbGCk5aDinFRW2PcV4AZx0NIZw/P3qLQW6xZnZy5hz
-	 DzO3EEI00//BAWNX0NX5h6jPgrz2mN+MznRtSRAmUn580stsyWmaABSew97jXcU3GueR3
-	 uaxhD8hJSlFSQ3eK/AoV+o8nCpwufwF4avcFoZFLSVvcbZFrpp5KvL717Qp2mAl8vyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623469;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=2IEIbjIJXVuOp6D5eD8OuUuoxSabHhJvcs0+CWKwqGM=;
-	b=pDEcS5wLVXLzLqlNjThsLdEe6HANtBsgPGPHUa7k1Puq4NgP5sjWjK+cYf5qqywf94c4
-	 0tLbritY981TSqGqLA/46bMz2v70xPXo+AGzKLGMmxavdZ3uxz3gvBlH6I0L2XFnEaDGw
-	 I2NyEauQvFh4XV/Iwys/S2X7MjgCzLn43Wyhg6r5DG1+LO5hmOj37QBTrOMxW0zWN+xCS
-	 I5GX5Sb7uDGh1As4gMl5CmylwZc+6DsTWDtqCiVhEoGTrnpf06e+BHKO5Y+vd9h5SAO78
-	 yGgiCmK/DoKwChInATjAGQ8y5s+jEJSJCKtzsLF7PfIsEl4gs+MakcA74rbF5YapOjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EOioltV4;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A7QlGTJT;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793623455;
+	b=SW0Z9zZd9a5fExxPuT+IimKnqW0Pt/ZPeP/qQQQWOb3zBVS+jgPmjyew39GzAHOyjBal
+	 tpV6OkCsdRWx8sHTEfGDeiU25c7X6Op8DHfFarN3xTfzt66cJ+P8m0GkGQXG68HqPYJSo
+	 UP9VKNRCxS3fXcUZcROJfRqKYIbkc0TA0oPplHb2oZXkpz9P13sVPAELjaO9kvJIW7iTM
+	 nxW8SwQ3GdVy4pSuXQabT+lfn6cb+FV7c3uFbNu3BzCeeHhKKbWly0OAA5M2IINGXENR0
+	 OWqT8/ViJt6Ut9Qz0RGD9SBkzEJ7E2OzjenwmLBfYegpZZbf194wAC+N2MqZu9eI5vQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623455;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=YJ0MEdP/OpEvDHQppLVI3yiWJWVlPZMuIhPkYtaqjuY=;
+	b=0Uohw8fQck8x0jy8rKlI6IV6318n+jayNlfnx4+vDSW+6p454n8qQVDO73yovBkpqym2
+	 355sZ8vSdV6cRjnltRZW4QWy8FvybfUP5R/OQPGrBqZ+gmRiP76YAm+YycltzJvaZeo3D
+	 qA6HuhniTvwr9fLcAaq2DlwYZ/BW+vQaY1HsSOGhfpRoWLtowVTuk6pXhwdIAAcqbC0cQ
+	 iZ2K9ZkW9WhY6aTOZH2kATeBKMua3A72fBjYKJRa2yQsRT+tfDln0JUzH4Ah1p9Wri8Rk
+	 d9HuAVsOLg2kaHCKQkJK0bInVFf9vPEIOIJdy6CI6aPZkeOCb/ree/tLO7HGZr3O1Dw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBiVf7yO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21173606A337;
+	Mon,  2 Nov 2026 12:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBiVf7yO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793623454;
+	b=UUj+NdoBjby6NzBwktSsJIyjMhbKvZPJcq6WTyMl+9MfBi57q9BJ1JiPjBdCeu0NyKzK
+	 BfUQHfRXFYVcGdxIwFzPX0LeFK0Uj5yWf++x42qqFJ4CPrMkIQB7Yp/2/ksBayNBpubcu
+	 76s2Pvj8o5xD1KgjnG+7MFsH3b0HpzP6rmHPWrOG/8L6JP0PGnMR8t61YDAOk4PtPT6Zq
+	 q2Ry7ztyWIes+ay19YxFn/FUiBKECyuv0AKim2n7vQXIiWXB4TJiz6Va6ColTDyheVaad
+	 Ue5gI1+nWMwGQhMssYc2COOwkFYPdRusrR2gKHYtLCthc5pzxpmnQ5hdGc3FONwC6vw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793623454;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=YJ0MEdP/OpEvDHQppLVI3yiWJWVlPZMuIhPkYtaqjuY=;
+	b=jMOdLV8qAc1sApLFpsEXblw0SLFrvxXpyH6FuYbsicyc9A4VsonyAsFbAC0pAiazTF1l
+	 7y4Mqh7TsdZ1zM9agSitn3jx9u1UJ0MZEGAPYBgrWBRsyWw4Ie2L/oyCrxXIfVoNLxFZt
+	 +hqhSsRus+Qah/maCUbOev82FbP1k0+2bg9gG5ufMaoHG4cC9GCvg176IkB1uYNr8wIPU
+	 zSYjYGh6CJ0+Zg+Oi/remwCzRb2bl8oZM7iKsXPSsFdPuCFTH5Uz9ynZZzh+XzB6e9ulM
+	 rVtrrHZSy96r5UsmkXwDZLDZu9tm9z1GsfYCLWeP95QBVMlIqQEQ3GHbwjCXXRBgYYg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE33606A336
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE33606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EOioltV4;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A7QlGTJT
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29ALPY1821086
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 12:44:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2IEIbjIJXVuOp6D5eD8OuUuoxSabHhJvcs0+CWKwqGM=; b=EOioltV4rTXNoKF3
-	ipmP8gz3lEBkTW5wy4eLvI4Uk9sWVyL/sio7Fh0GJKxk5fXSaL0VhZlQ37M5gKkl
-	utI1djX5mcfcMR2+HBR7ym00h560mBPHQ18bsMi/7RC38I0QdVzzCaVslhFxPB8g
-	WOQ8v9kMSmzZEf1Jp88whqKbJ/1aklD7VKWlFCwzgWhsfVoWp2Oiw4bKNw404hw6
-	HfrnjxMrD+UPUO/PmrzmEn2hqobqG7OY2RbeXRZ+2UxMZ06IrUJGvsgmVvVdvgaB
-	C2SVui3qlW+SumQ0SbJk3E6Qz5H/SzHMVgy3dcp4nnWhlThLJ6KEXmc17CFlcK+f
-	ur6lYQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpky4hpv3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:44:27 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93df7a9466bso18297985a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:44:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793623467; x=1794228267; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2IEIbjIJXVuOp6D5eD8OuUuoxSabHhJvcs0+CWKwqGM=;
-        b=A7QlGTJTg1R7aVCIxrZBno96wyT57p9MR4SyTVob30EUPPSoSOrERvCYWxWjWVfxtX
-         vRfgFikK0k5G76xM2d4jYhiJymFPWnXigQ1jPCl3iohwDdiuO2MttOCSMRve8gRyM7Mn
-         nhB87XZnpJqf3ciYGDiP7t6AUdFmZWBM7hpdN4L5qTZBp45kJuVLplZ1N2q1Ar8CSF9p
-         D26ml7GQzQ3RGKyZHBgso6ACO/zP+FuGRWVGvM7B7sMU8ziPFRvxF4D1uEAYX+lVnuHg
-         HJ5ORisL/e2+33bdKsNvUPtFIJTRXbMwLOyRR3L4NCJsQYP/l8jLef0Ele42dGrM2icI
-         ydaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793623467; x=1794228267;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2IEIbjIJXVuOp6D5eD8OuUuoxSabHhJvcs0+CWKwqGM=;
-        b=Uwy3ONK/TwdO9waVFDHm/f0XBQgqwOnYf3qfTtHAaFpWwhAtbMyPVNQbWP/Jd9y419
-         BeZ2wRHeoanPTeYGZ2tFyMQrrM0/b8BVhPDZLV9eu4SYkac86lCAptv8nfoyUlvbkfxU
-         tz2eO70HgKhTZgjrn3IUuiAymeIxV/Uaywp/77Gi+/KMDH1P+oY/HAM5EjZvX/esM60U
-         ySjLushI8Ys9KvJkuFxPAlAsnjVWz3BnNj+boYXq8Q8PbJKJzl96b4zTMk9+Qn24+5h8
-         ypfQCAmzd0V6MSqDOsWDjGc2FUgGWxFCEIEzQaHcYkhc2xeDWawXQKqpPhZsNuUSzTLz
-         IS3w==
-X-Forwarded-Encrypted: i=1; AKwUvBzqMWA1r0YHihQ5OnmB9DhTu6xzlJa5AFz2jeluIP5niGQfadCnfGXWoGbTKiy7qD5DErszQxd9Lj4oAZU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrwyQ9CvbpYQ/tSfd2P8yxXcftKgNmB47ZUZfyJC7C6hbN3Pop
-	hVZQu+1t5CkafALOkx8eJVvaUk6UM3RQ+6nn7Bnp27R8qhkexlYlE8vf0ydxse7SztGIX4JX+sv
-	WzRAbidwcnMQKSwyNUyjVXD/Pr24j2xMhzq5CvfN5IuZnaRC+P1CoO+pFQGxlBbdQcw0=
-X-Gm-Gg: AYBFou11DcwckoHOcnLFXGI3io6J6nG3owRM0B1F2sLTofSQ6KHglZvF30FWLwVK9ku
-	h4eM4V1fz3uYI6E1NDuwqtgkzPeI3+rpuj3MLY6nrTmPNXbDjxuKUi+S0qbnl6SYjR5MlLNTIA5
-	wLxC98XCqI7bVXrIANQ3qiZ/918jot9fLoGwv4R36/MLZSq3ByMhW2nPAqgNl4mjgyUw6RHy3Oq
-	kHEccfSGTWoD8A/YMqofgwyoS664BpS4eJyktDRsu9CUdl6y6oWD5yaST7qrZp6rzTyEzoY0We4
-	pIz9CksDRneu9NE2rSQ2uB69EJaR5B3Q5oJ21Rt8rR0rpZCEC2dDMQodxwk0nYlkAytGrbjwIHK
-	29ZcJd351PBrqubW2Atk72yLWKX2cY3efT6yPGtsw07KpD7kiKPXAlalwmfRpIpswFB2KOmY=
-X-Received: by 2002:a05:620a:6e46:10b0:939:c7d1:7471 with SMTP id af79cd13be357-944216cc78bmr1564911085a.4.1793623466934;
-        Mon, 02 Nov 2026 04:44:26 -0800 (PST)
-X-Received: by 2002:a05:620a:6e46:10b0:939:c7d1:7471 with SMTP id af79cd13be357-944216cc78bmr1564904885a.4.1793623466454;
-        Mon, 02 Nov 2026 04:44:26 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe101d4sm389225666b.40.2026.11.02.04.44.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 04:44:25 -0800 (PST)
-Message-ID: <73f05be8-6335-4d48-87fe-71ba5fb1d2c6@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 13:44:19 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id 381BA1F00A18;
+	Mon,  2 Nov 2026 12:44:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793623453;
+	bh=YJ0MEdP/OpEvDHQppLVI3yiWJWVlPZMuIhPkYtaqjuY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EBiVf7yOlNu9FSLXGJG62bKkVhlqKaNvNT194/ynr+LBQ5yqWHBnv5NEs2jrIQb4j
+	 Gpjs7YhO9c4T12JLx1OnmBn7ND6MhivbWTSdFmOx911yLlqUNcpGFae3ab3vQks1qO
+	 eg6pw05hVClymlFgNwUtERIvrUBponiQ/C3YbPMAAdZsEjbe7CFIW1oAEffrT7ydzv
+	 C9qsC3KwgLdscmhla1Lg6/EvuBzNXGarO2Qrl3/aCT7DBu5HrB4uDYkfm/LEmrYrWe
+	 rbxdMwVD0ni45nm2/r+gkETbny7gbow9/Do4n2Kska9Nw+TUJaDFFRHM1OQDu1MrAW
+	 Li1h8yUNcYPyg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B3A64464E1;
+	Mon,  2 Nov 2026 12:44:12 +0000 (UTC)
+From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
+Date: Mon, 02 Nov 2026 17:44:12 +0500
+Subject: [PATCH bpf-next v4 2/2] bpftool: Make the LLVM disassembler an
+ optional runtime dependency
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,96 +83,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 11/11] arm64: dts: qcom: generalmobile-shamrock: new
- device
-To: muzafferkadir@mainlining.org, Srinivas Kandagatla <srini@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Wim Van Sebroeck <wim@linux-watchdog.org>,
-        Guenter Roeck
- <linux@roeck-us.net>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Jassi Brar
- <jassisinghbrar@gmail.com>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Krishna Manikandan <quic_mkrishn@quicinc.com>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org
-References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
- <20261030-msm8952-initial-support-v7-11-ad748ace375d@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261030-msm8952-initial-support-v7-11-ad748ace375d@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-bpftool-plugin-v4-2-5a853e973db9@gmail.com>
+References: <20261102-bpftool-plugin-v4-0-5a853e973db9@gmail.com>
+In-Reply-To: <20261102-bpftool-plugin-v4-0-5a853e973db9@gmail.com>
+To: Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Nick Desaulniers <ndesaulniers@google.com>
+Cc: linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
+ Mark Korenberg <socketpair@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793623450; l=5400;
+ i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
+ bh=qS1vKaFei4x8R94EkIEUARWR3+po+AM+0LwZ2fhdRwI=;
+ b=DNm+NtiRFKG+RSciLvDX559sC0GrIYDdYnL2qPt+IKL5zKx+0iMyqn0CBZAVELjXXTAkdhIu1
+ 8sxvHbnAnGlBEziRcM7aURaLhfVE0dh0psKHGRwu8ty6NrxUeylN0oB
+X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
+ pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
+X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
+ auth_id=806
+X-Original-From: Mark Korenberg <socketpair@gmail.com>
+Reply-To: socketpair@gmail.com
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: RAfF9ljN8XBQDkB-RTWMiilr8G41EYJV
-X-Proofpoint-GUID: RAfF9ljN8XBQDkB-RTWMiilr8G41EYJV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX/zqG5TeeRvwH
- IgUhSZAgMy2EFCiMnPI/lYdvxhwWTIyCqCqAcGGd8rpMWyGcSoBFqWX4nfUVCyeP7K+sr6UxxYT
- iA8CZBOOuS1KznPJZe/fYgj8DfpIrm0=
-X-Authority-Analysis: v=2.4 cv=QoHLTlyd c=1 sm=1 tr=0 ts=6ae885ac cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=NCdQflJRAAAA:20 a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=MxLZmUXcRv2kY27zAqIA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=AKGiAy9iJ-JzxKVHQNES:22
- a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX0iDnep08Hq0t
- QPvnBFtRvX8ontqtGxYgXVCcsUhy1jb9Qne3KGPqEQYjpKH13caoAzpu7yZsK0xrkcW3bAIMsNS
- jfwjkoZYBrtmRShaeeTRRKQOfpi/fbsveolN42tJmu9uv4993g7zBjdGdS8wHlNNA4ezR3Cw7N6
- DX8gdaofkAe5vvVEgrYts9O5DzqsRhhkDinRFGeRCr/67L7v4VLWyZhDnozntEyarN03IfOMSbg
- fuxaQG5NgULZWCqEtj9V0fqDT+j8mEwHwDwDWkSHBHLhrbhy8SiEKIefXDVV2i7x1z/NjsdUBOh
- ZwSdWxuBOrJQ24VIrleJqPxCaj6209vkpBaOA/M0AxHGFEjECeYxhc8UyCxO/NArH0RweObHlMq
- PaM3BJsaa2LEdJNhSbrNQ95I94UG0oNe4BgyXau4unWii9eaF3J+l4nKebogpCkyRmQ09PADjUU
- phaVGbjMauNFmui5mjg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020050
 
-On 10/29/26 10:02 PM, Muzaffer Kadir via B4 Relay wrote:
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> 
-> Add General Mobile Shamrock (GM 5 Plus). Shamrock is designed
-> similar to L9300. Downstream reference is [1].
-> 
-> [1] https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob/cm-14.1/arch/arm/boot/dts/qcom/msm8952-l9300.dtsi
-> 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
+From: Mark Korenberg <socketpair@gmail.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+libLLVM is only needed for "bpftool prog dump jited", yet it is a hard
+dependency of bpftool: on Fedora 43, installing the ~730 KiB bpftool pulls
+in ~140 MiB of llvm20-libs.
 
-Konrad
+When libLLVM is a shared library, don't link bpftool with it. Instead,
+disasm_init() loads it with dlopen(), under the name llvm-config reports
+at build time, and resolves the few llvm-c functions bpftool uses with
+dlsym(), like perf does for libcapstone. Distributions can then make LLVM
+an optional dependency of bpftool.
+
+"bpftool version" still reports "llvm" as a build time feature. Static
+LLVM, and LLVM built with one library per component, are linked as before.
+
+Link: https://github.com/libbpf/bpftool/issues/262
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Mark Korenberg <socketpair@gmail.com>
+---
+ tools/bpf/bpftool/Makefile     | 10 ++++-
+ tools/bpf/bpftool/jit_disasm.c | 86 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 95 insertions(+), 1 deletion(-)
+
+diff --git a/tools/bpf/bpftool/Makefile b/tools/bpf/bpftool/Makefile
+index b0f7168e7943..876bf3cf93e3 100644
+--- a/tools/bpf/bpftool/Makefile
++++ b/tools/bpf/bpftool/Makefile
+@@ -186,10 +186,18 @@ ifeq ($(HAS_LLVM),1)
+   # Makefile includes lib.mk which sets -D_GNU_SOURCE) which would cause
+   # compilation error due to redefinition. Let's filter it out here.
+   CFLAGS  += $(filter-out -D_GNU_SOURCE,$(shell $(LLVM_CONFIG) --cflags))
+-  LIBS    += $(shell $(LLVM_CONFIG) --libs $(LLVM_CONFIG_LIB_COMPONENTS))
++  LIBLLVM_SO := $(shell $(LLVM_CONFIG) --libfiles $(LLVM_CONFIG_LIB_COMPONENTS))
+   ifeq ($(shell $(LLVM_CONFIG) --shared-mode),static)
++    LIBS += $(shell $(LLVM_CONFIG) --libs $(LLVM_CONFIG_LIB_COMPONENTS))
+     LIBS += $(shell $(LLVM_CONFIG) --system-libs $(LLVM_CONFIG_LIB_COMPONENTS))
+     LIBS += -lstdc++
++  else ifeq ($(words $(LIBLLVM_SO)),1)
++    # Don't link with libLLVM.so. "prog dump jited" loads it with dlopen().
++    CFLAGS += -DLIBLLVM_SO='"$(notdir $(realpath $(LIBLLVM_SO)))"'
++    LIBS += -ldl
++  else
++    # LLVM built with BUILD_SHARED_LIBS=ON, one library per component
++    LIBS += $(shell $(LLVM_CONFIG) --libs $(LLVM_CONFIG_LIB_COMPONENTS))
+   endif
+   LDFLAGS += $(shell $(LLVM_CONFIG) --ldflags)
+ else
+diff --git a/tools/bpf/bpftool/jit_disasm.c b/tools/bpf/bpftool/jit_disasm.c
+index 5ff144ce84a1..2c646626e256 100644
+--- a/tools/bpf/bpftool/jit_disasm.c
++++ b/tools/bpf/bpftool/jit_disasm.c
+@@ -25,6 +25,7 @@
+ #include <bpf/libbpf.h>
+ 
+ #ifdef HAVE_LLVM_SUPPORT
++#include <dlfcn.h>
+ #include <llvm-c/Core.h>
+ #include <llvm-c/Disassembler.h>
+ #include <llvm-c/Target.h>
+@@ -47,6 +48,89 @@ static int oper_count;
+ 
+ typedef LLVMDisasmContextRef disasm_ctx_t;
+ 
++#ifdef LIBLLVM_SO
++/*
++ * libLLVM.so is big and only "prog dump jited" needs it. bpftool is not linked
++ * with it. disasm_init() loads it.
++ */
++#define LLVM_FUNCS(F)			\
++	F(LLVMCreateDisasm)		\
++	F(LLVMCreateDisasmCPUFeatures)	\
++	F(LLVMDisasmDispose)		\
++	F(LLVMDisasmInstruction)	\
++	F(LLVMDisposeMessage)		\
++	F(LLVMGetDefaultTargetTriple)	\
++	F(LLVMNormalizeTargetTriple)
++
++#define F(fn) static __typeof__(&fn) p_##fn;
++LLVM_FUNCS(F)
++#undef F
++
++static const struct {
++	const char *name;
++	void *ptr;
++} llvm_funcs[] = {
++#define F(fn) { #fn, &p_##fn },
++	LLVM_FUNCS(F)
++#undef F
++};
++
++/* The functions that LLVMInitializeAll*() in llvm-c/Target.h call */
++static const char * const llvm_init_funcs[] = {
++#define LLVM_TARGET(t)	"LLVMInitialize" #t "TargetInfo",	\
++			"LLVMInitialize" #t "TargetMC",
++#include <llvm/Config/Targets.def>
++#define LLVM_DISASSEMBLER(t) "LLVMInitialize" #t "Disassembler",
++#include <llvm/Config/Disassemblers.def>
++};
++
++#define LLVMCreateDisasm		p_LLVMCreateDisasm
++#define LLVMCreateDisasmCPUFeatures	p_LLVMCreateDisasmCPUFeatures
++#define LLVMDisasmDispose		p_LLVMDisasmDispose
++#define LLVMDisasmInstruction		p_LLVMDisasmInstruction
++#define LLVMDisposeMessage		p_LLVMDisposeMessage
++#define LLVMGetDefaultTargetTriple	p_LLVMGetDefaultTargetTriple
++#define LLVMNormalizeTargetTriple	p_LLVMNormalizeTargetTriple
++
++static void *llvm_sym(void *lib, const char *name)
++{
++	void *sym = dlsym(lib, name);
++
++	if (!sym)
++		p_err("%s is not in %s", name, LIBLLVM_SO);
++	return sym;
++}
++
++int disasm_init(void)
++{
++	void (*init)(void);
++	void *lib, *sym;
++	size_t i;
++
++	lib = dlopen(LIBLLVM_SO, RTLD_NOW);
++	if (!lib) {
++		p_err("failed to load %s: %s", LIBLLVM_SO,
++		      dlerror() ?: "unknown error");
++		return -1;
++	}
++
++	for (i = 0; i < ARRAY_SIZE(llvm_funcs); i++) {
++		sym = llvm_sym(lib, llvm_funcs[i].name);
++		if (!sym)
++			return -1;
++		*(void **)llvm_funcs[i].ptr = sym;
++	}
++
++	for (i = 0; i < ARRAY_SIZE(llvm_init_funcs); i++) {
++		init = llvm_sym(lib, llvm_init_funcs[i]);
++		if (!init)
++			return -1;
++		init();
++	}
++	return 0;
++}
++#endif /* LIBLLVM_SO */
++
+ static int printf_json(char *s)
+ {
+ 	s = strtok(s, " \t");
+@@ -135,6 +219,7 @@ disassemble_insn(disasm_ctx_t *ctx, unsigned char *image, ssize_t len, int pc,
+ 	return count;
+ }
+ 
++#ifndef LIBLLVM_SO
+ int disasm_init(void)
+ {
+ 	LLVMInitializeAllTargetInfos();
+@@ -142,6 +227,7 @@ int disasm_init(void)
+ 	LLVMInitializeAllDisassemblers();
+ 	return 0;
+ }
++#endif
+ #endif /* HAVE_LLVM_SUPPORT */
+ 
+ #ifdef HAVE_LIBBFD_SUPPORT
+
+-- 
+2.56.0
+
+
