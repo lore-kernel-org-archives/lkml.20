@@ -1,52 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793597560;
-	b=JgITCEmNToK8iW9Sk/qT53qDadYmyZ9ZbQsJbgPyxYztTXd45tzlpBqXiL8JN4aMXVPh
-	 0FkTMeqbtgSaEC1jty2vCKyC6HwgA3pslb7pns5Nt+K3CrvPFZFpwZE35YXXGo+G+Ehzy
-	 NBgoREv2I8YKYDk1WWc1I/guFmN+bQiMa+qmXcNSf+HI/jv0+D9q0E9XLZbK+7VjPGbLW
-	 37FiR1LIwF4OnzlCg5kTxwMj26V3zIu3e99v95wjp8A2FtSKtp4EwgwJfyCVsG7wfsmWi
-	 eg1eoHQv8TxREAm49cijdSLC+yN20//f7+e9eiRl3iDCw7+eCvbJr66quuyWYYzOrtQ==
+	t=1793597634;
+	b=1l3nCu8M/wlh/Bt54EQLcvRNVoDnJVjVS9npc22uEokwd2jFQnptTtPOjByL46ctpxyO
+	 pfkkQWyh348QILYcWSlbd5G2hXshbRkU0p0gW4CbnHPQz+poefvFg0yXz5xUD0083Uk6n
+	 hvnttcGtg9fZV5EnOWx+mAw7+mn12ccbgYtjKXL9JuQy3bDV3YZKW3PX9/T6cinpz8w1H
+	 aSxMMDFDMQbqZ4s64PUrte7XwxcTPpyPLwES5nhElX8FILB8078i9f9w/Smuvm9Lp9j7u
+	 hk85Bv1ZaKKwZleQe6CfAYyOzllQ3Pkfz/+JwiNnyGBr1bBg4R1B88k45DnwqTWWhmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793597560;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=X5B0jYi4hYyR/YrLd/KRabGeGLqUPq4FlZEL3f9eI3w=;
-	b=RTiLiesT+xfCsnJloQy6AY4TttzN0Pb8Y6lATmCRuTu/GN9ANYh06ynUkiWRqg1HtzYM
-	 8xVD5NTo3FjC1XgMiLIJz8hNb0/3EAoIBDdVPTW63/zjc9RMSvUjh3cVsyvHh4v9xDlCE
-	 WWIwyxxcvB6B/PNOPu6IMKoFZbXoPQEU9Gm7cVatTmgrmm72Rawad4LbfFVrKrEJtURIi
-	 I8pKUImWS0uQY80ieX0CaWamVl6R4bqmx0/A18rc3fJYH0O4FT/Mo4LDHaJTlZFR2PtfA
-	 QvBXtpubNpZmE2E9X+mSNzim+bQm1eg8B+QC/vjUFiLnQ3kKi5TfTqmdJiMoM1NhcvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793597634;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=I5XmwGd7P9E6+oiwB7TsngJgYsa5mbeAvM601lSlbzM=;
+	b=sHb4XxQjdpnnR6HcHdGBttwv3SeYBtuALMBcTNvXoaZwiFYr3QYuPo80OvXhGuQT0r6t
+	 1kkXpeZwxnrvuh9tFKbgLe/OrHly/rl+4u0GUM2sbA9/j9YIQyi5m4b1bw3zWPn7vE7WQ
+	 fAZcs2c8vmU3spYTvMC6ZQ4nvNFNr3+Lcdt/3NSXyeH09UnqIng0WhKo2wooFKnTSrA/H
+	 qtOV6zGtFG/znsfVznCXBE+RTruW4SCIFf4x8PtmdLrJSG72bSQsan2i3DMU3pfp3ToIx
+	 aC4kZCi8LAo+XY5oTvlmTPV+zmkXnSFaJvBf/LYxYzpYYAQ8TQMjOiE8igfH9xKjqKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=ftNWmQxB;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gC5JrwAB;
+	arc=none smtp.remote-ip=74.125.231.132
+Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B739C606A326;
-	Mon,  2 Nov 2026 05:32:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B739C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0D4606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 05:33:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE0D4606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=ftNWmQxB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1793595619;
-	bh=dM7ktu0uO/zYaO33T/SNIPFkYf8MtY78bXeNc3UjLlg=;
-	h=From:Date:Subject:To:Cc:From;
-	b=ftNWmQxB7ewdoqNJk07gC8EfRGBDRIxHfG+Ky7OcWo0vPuOV3Y73lskv67zizLP6w
-	 xxd8KC9fl7q3tEw6A6IYilophzvh2n6xgZsfoNHv8uqvz+N6G9CD61V41lYVsNYU7Y
-	 7Cc3t5uObdIi5EeQazpKKBhspE1dJli3O38fknh8=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 56724406D0;
-	Sun, 01 Nov 2026 21:00:19 -0800 (PST)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Sun, 01 Nov 2026 21:00:12 -0800
-Subject: [PATCH] sched_ext: Reject scx_bpf_destroy_dsq() in tracing
- programs
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gC5JrwAB
+Received: by mail-oo2-f4.google.com with SMTP id 006d021491bc7-70073621339so1569635eaf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 21:33:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793597633; x=1794202433; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=I5XmwGd7P9E6+oiwB7TsngJgYsa5mbeAvM601lSlbzM=;
+        b=gC5JrwABTEgrHUcKQSph9CPY+fkkrfymHcqg5dnBovsdySJf8Wf+t6gXIID7ZwVMab
+         213xfh/PT/H66fsEzJs1qZz8BO28sPN9i/7dzLrNaDasGb73Pfe9sY4mCLcBE2Q5/xY2
+         +3huQcp9h6O+kpGD1diro5UffKGnF66W4HpE/HnNyn8RpYD2lrVpnBgx/x/jxNoVdt9/
+         GUbbYI5aNRvraCEAk1+3vNDT4SxB0cswUwX21ylxdL5Ib6q1ghVrbXVR88QJL3G7Ynpf
+         Zk5FahiBxEfSPNRKuleq/wSdzTZdxxHloyAYrm9uOCMA3qtfdx4SxgYk7NzrunyCe6bv
+         5t2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793597633; x=1794202433;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=I5XmwGd7P9E6+oiwB7TsngJgYsa5mbeAvM601lSlbzM=;
+        b=qb0gaS8Vfc6zPcnecKPMdi+M39iu6AzaECBl6l6PO6he0fBPHBEQu93F7Y7J273Ttp
+         C0V6zzORRT8j/EHDMknIg1RgB6O5ESyuUn9Ecot8qeoTK4Jpb5pS8Q73UB3L/EPpLQhm
+         2BFTDgr7CsfmZgzFUgIR+Fd6swvIeIihtCeQAHcWaswNGRcBHOPqLWB83ovwYuQ2e/5L
+         vWdb5Kir+3OqZoFWNKf94rrP3i0FbNKAGp3+Y/98t8+8ee+ANxsJWWF+Y70W9qfyZCx1
+         PWXGJkfoo8vbX52fzhAt/J/ttzjEvOXFUDydElM2kNEbPzM0fsBRJj9869kd11ZjCGim
+         4xOA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEQ+MSb8DG7KdM7hnfA5ZyicKticaQVazA/hBixOnN23W26E0wZBqxZEtEMzXn1qybqpWFyUWI6z7CRPQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2V2kZoHzAbX1Zz7iDFWSROzPCqotibJQMx/Sqgwltg7ts9oYD
+	K8bwsBMWqYHHTNBS+ahBsJw5xYwKJga8f9+23CUfw0uT6SWyU+1upEW4
+X-Gm-Gg: AYBFou15qhbcECgl8OswrGOzFaRZFYKtfmrJwdOg1B77s9FfGAAcbsQpnOHQL0oDtZ4
+	PzW6OQu2LparRQLgX2j7lqLXnQ5+MAk4guKbpjN0HUwEnhyQQwz6j3BqKaMdQ0/EAKBzly4N0e+
+	KU48ifXq54cJFrhIDcnImmcv18mZzn5NGhv0HIcXcETcEqWJsOCiiRLiwor1nT+VQ62qJV+AbKd
+	CNr09shyrWfwYh9NNu2CiAbe0PZH3R7bGOeJCvXW41NNrlmzEgqEtqXIcSUUKn2xf6LmDR5oUg5
+	gBNIXkdye8njMxQv6+OwiAn3MZbYR1S8mABmc9YyHPHEa3IUpcMGbMaiErP4e38nl2N0s9OL+Tc
+	pV2jNUiNYTj6T5SBmOKB4y3oONh7BhTyyYfD/tv6KSKy88lo2olBBCxZLlndd9beldiWD1UZiAB
+	rbeaVCiVSCq+ah2nrdtEl5crLqzh5Zd7jv7s0MIO3Vhz51mbSmCKxGbwuQYI4iPS2VFJunzSP0X
+	Qm5Q39X0vjjf+N3yygGJti3hqKHIVpatov07bu1r/AQM/E4hx3AwOs9r6/RC+vZSgP+phYpRwZC
+	jfIMUyWU3VmX/8PNeVLXxQXQ
+X-Received: by 2002:a05:6820:208c:b0:6f8:2346:cd78 with SMTP id 006d021491bc7-714f24fb531mr4934585eaf.5.1793597632682;
+        Sun, 01 Nov 2026 21:33:52 -0800 (PST)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::f01a])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2a818b9sm8321164eaf.1.2026.11.01.21.33.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 21:33:51 -0800 (PST)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH 0/2] rtc: mt6397: provide the RTC's 32 kHz output as a
+ clock
+Date: Sun, 01 Nov 2026 23:33:45 -0600
+Message-Id: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-0-9758f38d7053@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,100 +95,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-scx-destroy-dsq-tracing-v1-1-987a7f2f5bec@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIANsY6GoC/x3MMQ6DMAxA0asgz7UUU8LQq1QdkGPAS0JtVIFQ7
- t6I8Q3/X+BiKg6v7gKTn7qW3ECPDnid8iKoqRn60I9EgdD5wCS+Wzkx+Rd3m1jzgvHJgeNATDF
- CqzeTWY/7/P7U+geoj1MUaQAAAA==
-X-Change-ID: 20261101-scx-destroy-dsq-tracing-53c0c541c155
-To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
- Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, 
- Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, Josh Don <joshdon@google.com>, 
- Hao Luo <haoluo@google.com>, Barret Rhoden <brho@google.com>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- "Christopher Lameter (Ampere)" <cl@gentwo.org>
-Cc: sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793595619; l=2923;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=dM7ktu0uO/zYaO33T/SNIPFkYf8MtY78bXeNc3UjLlg=;
- b=2H123ZAEiiB7IjGsDVOEn/WHTBM5f5yDUDd53vFqt6zxH71jaDvfwbJ+aFKLLnClCH/qgi53h
- SZSPYbqgnmOBrLmY4wb0U4WOl62ROoQ3rDRF/FmK8somN1MUTBWbQ5s
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3NUQrCMAwA0KuUfC/QNqNqryJ+dDWbQVZH2oo4d
+ nfBd4G3Q2UVrhDNDspvqfIqEI0bDORHKguj3CEa8NYHZ/2IOmlnrJ2/2LfalNMqZcG1BbqcUFt
+ G8k+0yWUX5kB0JhgMbMqzfP7P9XYcPwxqctd3AAAA
+X-Change-ID: 20261024-rbrue-suez-upstreaming-mt6397-rtc-32k-0a1c16f63383
+To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
+ Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Eddie Huang <eddie.huang@mediatek.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-rtc@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793597629; l=2043;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=+AH9smEBqnGEd7Be3eQjkLdg1eIcwhdAuP4jWupgQ64=;
+ b=eov85h6Nzm1K0qbn0yx99tHtOauCX37OjFlOU3aSi5SRuzvUuLcnssjUB6YtD+fdgUHfOIXME
+ oIzVcU1KxpLA/SNkK/Wou5Q7v2zxcnGEVyrhCx3FDnngfTHaWMF3e7u
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-scx_bpf_destroy_dsq() takes the target user DSQ's raw spinlock. However,
-it is in scx_kfunc_ids_any, which is also registered for
-BPF_PROG_TYPE_TRACING.
+The MT6397 RTC drives a 32 kHz clock out of the PMIC, which boards use as
+the sleep clock of a Wi-Fi/Bluetooth combo chip. RTC_CON.F32KOB gates it,
+and mainline never touches that bit, so the chip only works if the
+bootloader happened to turn the output on.
 
-For an active root scheduler without ops.sub_attach, the compatibility
-path in scx_prog_sched() lets an unassociated tracing program resolve to
-that scheduler. The tracing program can then call
-scx_bpf_destroy_dsq() while the target DSQ lock is already held.
+On the Amazon Fire HD 10 (2017), which can boot through U-Boot instead of
+the vendor's LK, nothing sets it in the former - the bit is set at every
+boot, and the MT6630 combo chip's Wi-Fi and Bluetooth never come up.
+Letting the RTC provide the output as a clock lets the chip's
+mmc-pwrseq-simple enable it. With the clock wired up both came up on that
+board in two boots out of two, and in none of three without it.
 
-For example, a scheduler which mixes FIFO and priority-queue insertions
-into a user DSQ triggers scx_error() from scx_dispatch_enqueue() while
-holding that DSQ's lock. scx_claim_exit() emits sched_ext_exit before
-the lock is released:
+The driver registers the clock only when the RTC node has #clock-cells,
+so no existing board changes. The MT6323 shares the MT6397's driver data
+and gets it too; every MediaTek PMIC RTC whose registers I could read has
+F32KOB at bit 5 of RTC_CON, but for the MT6323 that is inferred from the
+shared driver data rather than read from a datasheet.
 
-  scx_dispatch_enqueue()
-    raw_spin_lock(&dsq->lock)
-    scx_error()
-      scx_claim_exit()
-        trace_sched_ext_exit()
-          tracing BPF program
-            scx_bpf_destroy_dsq(dsq_id)
-              destroy_dsq()
-                raw_spin_lock_irqsave(&dsq->lock)
+Both patches apply on top of the RTC nvmem layout pair, new in
+v7.4-rc1. That pair went through both rtc and mfd, so I'd suggest these
+two go through rtc only, with Lee's ack on patch 1, if that works for
+everyone.
 
-The tracing program recursively acquires the same raw spinlock and locks
-up the CPU. Because the tracepoint runs before scx_finish_exit(),
-disable_irq_work is not queued and the scheduler cannot enter its normal
-disable path.
+The board's devicetree that uses the clock is not upstream yet and follows
+separately.
 
-Reject scx_bpf_destroy_dsq() from tracing programs at verification time.
-The kfunc remains available to SCX struct_ops and syscall programs.
+This series was developed with the help of an LLM.
 
-Fixes: f0e1a0643a59 ("sched_ext: Implement BPF extensible scheduler class")
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- kernel/sched/ext/ext.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Ryan Brue (2):
+      dt-bindings: mfd: mediatek: mt6397: describe the RTC's 32 kHz output
+      rtc: mt6397: provide the 32 kHz output as a clock
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index f74ffb3b1aca6ee325ba583e8272be2afb0f1ecf..3ae21991b64ae51f61fe3c22f241b8c215fb4fd1 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -12134,6 +12134,9 @@ static const struct btf_kfunc_id_set scx_kfunc_set_any = {
-  * when scx_locked_rq() returns NULL. Taking it while the context already holds
-  * an rq lock, the same one or another cpu's, can deadlock.
-  *
-+ * scx_bpf_destroy_dsq() takes a user DSQ lock. A tracing program can run while
-+ * that lock is already held and recursively acquire it.
-+ *
-  * Before returning, scx_bpf_sub_grant() and scx_bpf_sub_revoke() invoke
-  * ops.sub_caps_updated() of the sub-schedulers whose caps changed, so those ops
-  * run in the tracing program's context. No SCX op expects to run from an
-@@ -12148,6 +12151,7 @@ BTF_ID_FLAGS(func, scx_bpf_cpuperf_set, KF_IMPLICIT_ARGS)
- BTF_ID_FLAGS(func, scx_bpf_cidperf_set, KF_IMPLICIT_ARGS)
- BTF_ID_FLAGS(func, scx_bpf_sub_grant, KF_IMPLICIT_ARGS)
- BTF_ID_FLAGS(func, scx_bpf_sub_revoke, KF_IMPLICIT_ARGS)
-+BTF_ID_FLAGS(func, scx_bpf_destroy_dsq, KF_IMPLICIT_ARGS)
- BTF_KFUNCS_END(scx_kfunc_ids_no_tracing)
- 
- /*
-
+ .../devicetree/bindings/mfd/mediatek,mt6397.yaml   |  6 ++
+ drivers/rtc/rtc-mt6397.c                           | 85 ++++++++++++++++++++++
+ include/linux/mfd/mt6397/rtc.h                     |  6 ++
+ 3 files changed, 97 insertions(+)
 ---
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261101-scx-destroy-dsq-tracing-53c0c541c155
+change-id: 20261024-rbrue-suez-upstreaming-mt6397-rtc-32k-0a1c16f63383
 
 Best regards,
 -- 
-Shubhang Kaushik (Ampere) <sh@gentwo.org>
+Ryan Brue <ryanbrue.dev@gmail.com>
 
