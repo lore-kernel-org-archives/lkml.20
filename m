@@ -1,94 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793617931;
-	b=cHxpRTExhDhpFDgGkNJYi3dNny2s1e8+UbrYnOgo+Astk5Wuu7ILIvSf516aofysX5or
-	 mjoIiMt488Y9m//qsIi0+JWCIX7BmEl99mCjSMIyknC4EFqU082lGQBcGxZVPmGhmch33
-	 GR7GuvXEUPe6tp26SoUf0TIpJ99zpJ4S8NBvXHAwtrAuenIT+ByPG3o/Ogv6QZ/P+ZseE
-	 UGW19up6CR2dcZg0REt8etUxnjfp+sE4pX5pD6LGqAEHQ/hZqFBX6n0E5hSNMiIYnFqag
-	 LbNGb7j3+PQDdtYiuhUSZekONMEnEc72PkMo4JS9ZQyg6mgo0oqlP0fXdJeTnOoaEdg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617931;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8pDTjSsxM5U6Ulfu0iqVLLFejr/vVLquSQNs6jlRCNI=;
-	b=lPM/F8F6vDQ0nr3semLg2EKQ/A0EGos3jcqcSLus6qfF7drYEWltxY/MYb951eY41T2X
-	 uH0u2isUxHkNrfaPdeI+cCf31fuVFJHaByx4hfazWV5hgQhcfkXl1Xe430uLF2d6ZhemW
-	 lQ3TaAaGEHmrTP6ivtR1qTcdzAES3EcG0zKLZ4UHgcTyftjsREkJHk/zuwDbB+8HCVO6k
-	 9IxSLK9L3VcuwDiKaDmPIhPA4KI5E5UkbK4imqW7ji+Nn/U2MJsv0fCL6nRQIlfE97fhX
-	 tXYO09G2RSaubb4vNaAU5DZtarEZsUdAnqjXqkwEO6oUTViPHO/R++7pjiQAXuhGNig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TqUsZKRz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.35
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011035.outbound.protection.outlook.com [40.93.194.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793617935;
+	b=cXBkMydb9I/uC16FpMAQ/yOwglYU2YIdidvs35lVJ08OCQUBcJJvw2SCkEH5ShkMd0Yv
+	 /vp47/OfiWI2WtBa8LE3Ow30PdgNsOEavrUEdGNKkSRQeN9uujQKlivN+mwd3sRgqqMt/
+	 PQsQttRDreSc/UW8tZjzgr11gWja4MFm1cmYNM42YGMBqaW6xY0p62A7a7GGwMaxYaTTN
+	 yekf8hkjWmHtqD1RdWfZ/o98Z11OV7cg4cw38BChsOTTR2QH/x+NQSeH88400qZRhq74b
+	 HlTiGbZGVFG47DLqLWv5fs3Dc9B9yHit8WvhBbrtDuvFxHqd5Lz6+UlpkXCToFGAtqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617935;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=p3QW/w/iY0YD/fqxj57gSpeQygMNXvAXA/WJlwwf7AY=;
+	b=oCUN1Rn9UGqXkuDswvVlaoiKUFWuv9lK/rEKj+eY6N82SVTgpzTlSiPZFiynACCTisk1
+	 NPZf6bA6c+IMliAt3pT+/7u0cfwhkKPdz4IsNOiedwzVO965E3dfLRWGJCw7HdpTn9voh
+	 7zvAylOblSqG2abeYb9NNiH+ggWsUDd3oheeUQSzbeG3w7dy3zipLhHc9OgyE81rmM2Xy
+	 AUZCAukFrWeZpnx6Fdtc6NAXmnPh/eZ66kLZb98+2uNEuZ/u1Dq5+ZD5x0CGFIxIJT2On
+	 e6N4JkI93SM0XgDSNiu2PF6mj0lfJEEr6HppP9cxS5DCqKa4KoVoRZs2PPfMboGsq4g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KDXpE5ZH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E771A606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:12:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E771A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF722606A32E;
+	Mon,  2 Nov 2026 11:12:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TqUsZKRz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OXTWCdc88CijbBwsR1SbGDTOBDndFfrXdO4zlFWchh/mTenfracbjQ9jqwNO5IJIEdJQU9S+Qfvgd66tRK+fLjvaPN9lxpU3+GnJkjG8nHMIZ0XhHZ//dLfZy6Mo7RoJNMdtsXmk+aTOvrBsasOZ1dTjdhGE6CuK+IGy6k1m0ZDE5OqUiBWTpp4YIkHhHHilcInO2zgSTfyXTShm7ekNoyvgdRAsi8B2a0y8imyUk41t2JD3HtzkfO+Hl4I9Jqnnp4xTxnjkTL6efK0/joLsrW0U8bFD+3aQhb9ZGpKsDXb8mmYC4LAw+VmpD7NgV00z8Sk8MQvigW/FZ93oz+OvIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8pDTjSsxM5U6Ulfu0iqVLLFejr/vVLquSQNs6jlRCNI=;
- b=uXYN7kV9dGqiB9JbpgHzphC4HJ+r/ib+jaezReEJoT2+bgaSd8IqJb0YazhFE1iIjXP68Vtp0TwPFaC2vTegqolTI6V8rBcM5AYHpVyaErH7Jsg99hgDaes3GNQoRdJ7uDWsIVWSqNumureS90mBXWHJrN7c6zc0CwQh0BFFVKDmc+HIRT3Lj7Cm0sjhXFOXIBzela9D/e7TWJqZBODN4PV4vZB6Fb7C4BqRqnLWpPwMsjYb1HDeCFRAGIzQ5EayIPKNMVqaCTDzaczLbSAKDWcJv8U619MET8T4ETAhDjeDi4ZMCB++lx7J+ALC8Y0JoUitT/Dh7djeIwve32oJ5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8pDTjSsxM5U6Ulfu0iqVLLFejr/vVLquSQNs6jlRCNI=;
- b=TqUsZKRzQyjb4j8E/BRgpnVWVzfmvd3bb9lJcRHK9XesfJ/UbkZhkE1LObHyGF5jRy8Xsh1E5twI0ZcC8tbNitgsdKQ2jqUNzuQ6ewLkXMIFMzKYiWjgko7K6Kwid/qS3TsJNU7DSnroYjUYpOq6k8nE2hGBgoZOZKFDHpkzPjjI6V7NSMnswJWSVl0afsWJoB/5jhfBsMIdh3LNXsyRq8YUFFO+8a67cWOKr/7yJvyDtZSckdrG6TCqxKusniOZW2RKPe2dWI3BuofYJjD1lZSV+DWfDTbF0MplVkswJIsTLcMqN4oCks7euf9vR6/a+wevCxh16zzczt3yhUkZTw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by DS0PR12MB9400.namprd12.prod.outlook.com (2603:10b6:8:1b6::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 11:12:06 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 11:12:05 +0000
-Date: Mon, 2 Nov 2026 12:11:56 +0100
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCHSET sched_ext/for-7.4-fixes] sched_ext: Fix
- ops.enqueue/dispatch() calls before ops.cpu_online()
-Message-ID: <auhv_Jdir0wpi3fw@gpd4>
-References: <20261031170541.710939-1-tj@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031170541.710939-1-tj@kernel.org>
-X-ClientProxiedBy: MI0P293CA0003.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:290:44::9) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KDXpE5ZH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A531D1F00A18;
+	Mon,  2 Nov 2026 11:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793617934;
+	bh=p3QW/w/iY0YD/fqxj57gSpeQygMNXvAXA/WJlwwf7AY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KDXpE5ZHAugBzRh7LbV3zOAVu3BfNLWIqbN74KktzmBSjq9HPggqNlTTtHPzs8ZyV
+	 8A9nwc7c9ipCGjvlBYVOZAs36kcyoSkX/RroQquXlpQmAXJ2jfOu+BsmSxscRGo6pd
+	 JY5ypURvzCSbsrqtqfiZqnmBMDWhF20DP+jadUb0fM9lwyrkY6Pe/fgwki/YgC62P3
+	 ZBqmxMyitVHBe5wS9g5/C/CrsSQ2Mz2l/ojGbPstB7KJS2Lv5EjS8zb3VAnC7clLeg
+	 D40LtjIH8e618txqVm10LPMDkZBIHm3/iNBPqEp+wxppfwmDIOirCGmrbcxnsbarXb
+	 5D5BBbKCETxYg==
+Date: Mon, 2 Nov 2026 11:12:10 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Linux Memory Management List <linux-mm@kvack.org>, Suren Baghdasaryan <surenb@google.com>, 
+	linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Subject: Re: drivers/hwtracing/stm/core.c:509:8-24: WARNING: stm_fops:
+ .write() has stream semantic; safe to change nonseekable_open ->
+ stream_open. (fwd)
+Message-ID: <auhvGNG1fJBFFM-q@gremlin>
+References: <f887f7b3-b72c-99d2-8dbf-96cbd83774bf@inria.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,101 +60,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DS0PR12MB9400:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccb664a1-b591-4651-4116-08df38d220b5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|11063799006|56012099006|261009223027099003|261028144727099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	rgtZ3HgvpUg6GKBSHA0mNH8FoUO3Yp2NpztHaW0mCD18Ic0hTdNZZsoF3sCM1Ol5R5/RPUlrMwB+JqjNbGhLJEDdtwMMteOY+HLiilAN8wAt6cww/DNU3IZaH07orC+UxpJ/xiMTMP1bp3eOer9W5/ZIrR79FgIpISjFbwvzddJ9514ujflfRXDb3GGVbpFKKPP8Dks72SS4sSrBBcvrMfKAqChkQgHVKgO0WqFc1Dzn5YR1nLgxJ28t5TH7dDd7vJmWTeOQ0jOV9bmqzn2HtPcvMF+/28Gbo8Aov4+uX9le6TgHdAVsEYyiCz0QLkNHNk++2ffGrW7PQI9MPOytFyCOPLYtOL38+0BXWYJVbGUpwgsowZVnrAbpReT0WlQrHei3yxPvBMYuEw+N5rnQtAcIe8BRSM6zfSUsPtDwIBm8xc1I5T76Nk9DpNAszQn0/ysueUxSKQ6lcJh95u+84MGayuiWthj8jBtYLWLaqvOes1BUB6eR3y2fQGYZfH2th0lDGawG9zf8sINABEJt5jbqNUPtGronM69DDjbIozUAicLRRTrI1jYsZT9YJ4t7VuIee75y/GwIL2Q7t+OP3yUarqbK/OL9EScZUe+0I/etcnpfASPegFca0g87wc+Cw+WNne/6zHl63iv2MmFfCG4gWCMnxJ55spGO1H+6flM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?omMzqY5KAWiai6/RoH418vIB3Q1s4XUMPIyq5JYW9lzDqFhwA3j9H53g7vqD?=
- =?us-ascii?Q?azdnEDrj9q/xDAc+dBUkQ91VAnkYKyrdOVZrMmEr+JGReqETEQNlctUlWiyE?=
- =?us-ascii?Q?eW1qw/L3jDNAKHYtQzsSyiuv/4r/f4unb1ED8LSC33ZP+G2QAQ/CJXvGG741?=
- =?us-ascii?Q?XiyX77OeVExIiazGKqG7sAT+6KniuZjyip4qT3rN2kuAGD4zB7Smy91agtRg?=
- =?us-ascii?Q?sTopuQEmF8DqfhXvXK9fupYtrDBFuz0HP8xWp1U59rrFtXHdjOS6TZhiUQxx?=
- =?us-ascii?Q?G0VaP3HjDWgjJ+QsyojIN4r5OnBQOzeM5SFiF9jC1nsoLJAV45gJ0422+MYm?=
- =?us-ascii?Q?11MFQTWzyXpop8qTiWCYVHEzV0JHhxhf5SGXJFyJSf8E4VNO+JCPdaI4kxWM?=
- =?us-ascii?Q?Sb6WdDEmoHhx+KD5RKbCV0+Aso0Y6uhtt/JHJ1mxJ4Lda9VNQjLpWFdhVcRz?=
- =?us-ascii?Q?FqKEu2pFvOm7ScmZJ3aLiGzLpRsDhCPAcG2eTlL+lMxWIdtgq1aUBHALiMad?=
- =?us-ascii?Q?YOugx4vV3gviw+yCN+r0ym1d6z7xvAYqmSFyuTIyxTp/8m1FiRXvQ0pPgGS8?=
- =?us-ascii?Q?fgcKNDSHfh+HRyb1f0CT5bCQrRyN6dDlt1cWCuV3Q+9qL7Mg2JnOuacGcI8Q?=
- =?us-ascii?Q?jLfW4P6BZgX+vDCg2e8DYJYeuAVN50hNrC+mrCEjR/Z/GyZ5hmSeKHbo1DVz?=
- =?us-ascii?Q?6CSIeitkbrDhFm4ih0uBQkr/1Fmaam1cFeZYDCRJzCiCCwf31UFeBn+DTzAP?=
- =?us-ascii?Q?Z71b6OCk6EnPliLpzQJrN8g5QEDcLzWvVnyWOQl2A7Sd5QHhsksdGvuN2J7j?=
- =?us-ascii?Q?SvxYzQ74H8x+AX7+MClf0WMhiidI/lXKr4E5UqtN6La7RjAizV88HTuFc8S6?=
- =?us-ascii?Q?7x+WLvIUcUyX9ulZlbrdqQLQCngJ9wlJFtvOvtU3ARAw3O8IlpylpDV7UGYm?=
- =?us-ascii?Q?5yajuBwEcU27ygk2xi0OppNKYT1s4OgjwPUHUAA0HW3FiK2tyBusSbKAavOe?=
- =?us-ascii?Q?Hwvd37d0g9PKX2dcyvP1cWOCFsqu/2aPk9r7kxYR3tJ7HRLAWxHJYUySfFK3?=
- =?us-ascii?Q?h+gxLv5zZevFUAYu2BD2M+z3UWfV3hDrJXXsvH5TDYljy80joUHjDtDRkwpA?=
- =?us-ascii?Q?Atqr9Kd6rcxrZoeoQ3SbE2Hcebu2Y9qcnVAgtIqVc8QaMx3/py9FCAfNz7At?=
- =?us-ascii?Q?2ymGhQ2vA67qgMFTX0zR7L1Ua1PlxPT26477bfaIUvWLIb//CnLdTEogUpf1?=
- =?us-ascii?Q?OXv0QE05UmrO5LpFyeEbG0sSwh+0OButTseQwpcfe3Y+oSPIanBlDB3kZpUC?=
- =?us-ascii?Q?CyQrNZ6n5njlQGyKutLPXlWbMCHEj1LSIDJKtCdXHsR7aTdttUE2UGtRxccG?=
- =?us-ascii?Q?VU76IkSrxOrmLG/0IMqzBwcMLzaKeWcnxFWCMAcem+NMvndeS+ATyrwFXq+i?=
- =?us-ascii?Q?s7liJEqEyv+bPfzuEWz/G5U7USR6s5NXJmZrGYhK3uI5YRD4nKg2jlqbIPY2?=
- =?us-ascii?Q?GdtmCxc8aFKThBafmI/jiLblJZxoBYFHDTNLtuzr+r76bkNJFU3P3V7v5PsX?=
- =?us-ascii?Q?qpqCmZvbM4oEkv5bZ0jiHikbR8N+2f4vf9yDh7qkTbPRH6Dj3o1zNvYcSSO9?=
- =?us-ascii?Q?c4eqOd3/HnWLCCAg9pOu+ITXjQed/2dOks9w3NTl5Ez/FF6Vx+NZRuAt1/J0?=
- =?us-ascii?Q?Z5p70bK23582m9t0N70gB6zNHKKSg5nmnGe4O3+2wvK1yBP0kvfOnWI/bHsW?=
- =?us-ascii?Q?NtQdObXDuQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccb664a1-b591-4651-4116-08df38d220b5
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:12:05.8424
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C9k4fHlE58tefWQVchzaaw9R+pjwRp9YiLTDC+tQdRHIrX3TL5gsLqOXyG9rBjy6VsI8ZkHDogkqPPq6CaP6Ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9400
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f887f7b3-b72c-99d2-8dbf-96cbd83774bf@inria.fr>
 
-Hi Tejun,
++cc Alex
 
-On Sat, Oct 31, 2026 at 07:05:39AM -1000, Tejun Heo wrote:
-> Hello,
-> 
-> This patchset fixes ops.enqueue/dispatch() calls for a cpu before the root's
-> ops.cpu_online(). Both ops are gated on SCX_RQ_ONLINE, which follows the
-> core's rq online state, and on a runtime cpu up the sched domain rebuild in
-> sched_cpu_activate() puts the rq online before scx_rq_activate() calls
-> ops.cpu_online().
+On Mon, Nov 02, 2026 at 12:54:31AM +0100, Julia Lawall wrote:
+> just forwarding.  I don't know anything about this issue.
+>
+> julia
 
-Both patches look good to me, I haven't found any issues.
+Thanks. This is unrelated to my change, looks like a cosmetic report that
+predates it. Cc'd Alex, but not sure if any action is required.
 
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Cheers, Lorenzo
 
-Thanks,
--Andrea
-
-> 
-> 0002 tracks the flag in handle_hotplug() instead, set right after
-> ops.cpu_online() and cleared when the cpu goes down. 0001 is preparation.
-> 
-> Based on sched_ext/for-7.4-fixes (0aba89317f38).
-> 
-> This patchset contains the following 2 patches.
-> 
->  0001 sched_ext: Factor out drain_offline_rq()
->  0002 sched_ext: Fix ops.enqueue/dispatch() calls before ops.cpu_online()
-> 
-> The patchset is also available in the following git branch:
-> 
->  git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git cpu-online-order
-> 
-> diffstat follows. Thanks.
-> 
->  kernel/sched/ext/ext.c     | 93 ++++++++++++++++++++++++++--------------------
->  kernel/sched/ext/inlines.h |  2 +-
->  kernel/sched/ext/sub.c     |  9 +++--
->  kernel/sched/sched.h       | 17 +++++----
->  4 files changed, 68 insertions(+), 53 deletions(-)
-> 
+>
+> ---------- Forwarded message ----------
+> Date: Mon, 02 Nov 2026 00:48:49 +0100
+> From: kernel test robot <lkp@intel.com>
+> To: oe-kbuild@lists.linux.dev
+> Cc: lkp@intel.com, Julia Lawall <julia.lawall@inria.fr>
+> Subject: drivers/hwtracing/stm/core.c:509:8-24: WARNING: stm_fops: .write() has
+>     stream semantic; safe to change nonseekable_open -> stream_open.
+>
+> BCC: lkp@intel.com
+> CC: oe-kbuild-all@lists.linux.dev
+> CC: linux-kernel@vger.kernel.org
+> TO: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+> CC: Andrew Morton <akpm@linux-foundation.org>
+> CC: Linux Memory Management List <linux-mm@kvack.org>
+> CC: Suren Baghdasaryan <surenb@google.com>
+>
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> head:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> commit: b0085cb94d2477787f4197a3000e33aabf3d48fc stm: replace deprecated mmap hook with mmap_prepare
+> date:   7 months ago
+> :::::: branch date: 2 hours ago
+> :::::: commit date: 7 months ago
+> config: mips-randconfig-r2106-20261101 (https://download.01.org/0day-ci/archive/20261102/202611020009.xkUfJUpm-lkp@intel.com/config)
+> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 8f6b51ca8bab1d49006ddaa042bc7e4e7306975d)
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Fixes: b0085cb94d24 ("stm: replace deprecated mmap hook with mmap_prepare")
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Reported-by: Julia Lawall <julia.lawall@inria.fr>
+> | Closes: https://lore.kernel.org/r/202611020009.xkUfJUpm-lkp@intel.com/
+>
+> cocci warnings: (new ones prefixed by >>)
+> >> drivers/hwtracing/stm/core.c:509:8-24: WARNING: stm_fops: .write() has stream semantic; safe to change nonseekable_open -> stream_open.
+>
+> vim +509 drivers/hwtracing/stm/core.c
+>
+> c7fd62bc69d022 Alexander Shishkin 2018-10-05  484
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  485  static int stm_char_open(struct inode *inode, struct file *file)
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  486  {
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  487  	struct stm_file *stmf;
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  488  	struct device *dev;
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  489  	unsigned int major = imajor(inode);
+> a0ebf519b8a266 Johan Hovold       2016-11-18  490  	int err = -ENOMEM;
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  491
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  492  	dev = class_find_device(&stm_class, NULL, &major, major_match);
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  493  	if (!dev)
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  494  		return -ENODEV;
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  495
+> bf4afc53b77aea Linus Torvalds     2026-02-21  496  	stmf = kzalloc_obj(*stmf);
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  497  	if (!stmf)
+> a0ebf519b8a266 Johan Hovold       2016-11-18  498  		goto err_put_device;
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  499
+> a0ebf519b8a266 Johan Hovold       2016-11-18  500  	err = -ENODEV;
+> cde4ad8368840e Alexander Shishkin 2016-02-15  501  	stm_output_init(&stmf->output);
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  502  	stmf->stm = to_stm_device(dev);
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  503
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  504  	if (!try_module_get(stmf->stm->owner))
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  505  		goto err_free;
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  506
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  507  	file->private_data = stmf;
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  508
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22 @509  	return nonseekable_open(inode, file);
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  510
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  511  err_free:
+> a0ebf519b8a266 Johan Hovold       2016-11-18  512  	kfree(stmf);
+> a0ebf519b8a266 Johan Hovold       2016-11-18  513  err_put_device:
+> f7c81c7176c72c Alexander Shishkin 2016-02-15  514  	/* matches class_find_device() above */
+> f7c81c7176c72c Alexander Shishkin 2016-02-15  515  	put_device(dev);
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  516
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  517  	return err;
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  518  }
+> 7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  519
+>
+> :::::: The code at line 509 was first introduced by commit
+> :::::: 7bd1d4093c2fa37d1ecab05da3c9d48ea2af2264 stm class: Introduce an abstraction for System Trace Module devices
+>
+> :::::: TO: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+> :::::: CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>
 > --
-> tejun
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+
+--
+Cheers, Lorenzo
