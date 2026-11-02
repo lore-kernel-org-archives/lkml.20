@@ -1,82 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624868;
-	b=sYbZEcP2t9zd/S7QS9zQCrJNONhRLBpoaBerPwGXA2eJGPldrfv+I2ibxdYolD3KmmVu
-	 dJM50eK2VEs7PULIAm1zjEXt1wBoOpqa7DBNNQaFMSD4kYXrC5c14TEYi/Vk1+o0zjwEO
-	 5zEvE490llr6jZ0qOGs829TdrjdqkICyPNyuUvBur6II/C+xiBY0cnGusDFRIhLouQ6jT
-	 DIQzD08abtK9q4s0TcEUTzAUwDlQUE8M5VBETilUoAyJ4QD7Aj2Jy+f09WSS7q+slvw5w
-	 l5s5vOMyBxA/EOThHuPS7iQVV89yaCbivIeSRFyQO0yPAgF1dYPwWhPBraRZOuffrKg==
+	t=1793624889;
+	b=vzPRLiYacYHYx+XNVCkNINaMiqkju1uX7QrYsaFl4RM0K2SspCWf6wOCF42gsFFG4XTj
+	 jtyTg+zNpzTqHJoS6SaLBptcAHkIycWfpsAPF4Gq9sXeET+DEyflkjh6ONA7hGCznHJCo
+	 fUKv1hUszo4v6BrZo6AcG6Oj/2lwOvLRMqjSzODy5Yk5d4ZeOSu+ajou34BTycMbs6e20
+	 kf5uzeTvlT//4VkUjEhwc/ra333rUPi8Y8ewd1kJIlq/n95DBdYNHjYOFLH+ZzgOoE2Ml
+	 toBFYtLpjP82ZyEijWH8j1vf/t0dEvbEPTZeP6FlOHCckm/D8kuLT45wni/QpYTR8HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624868;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CWUpUxuG2Mx+foSQNVCGez6jUd9JGdEclM2YhClG7mw=;
-	b=20F+sVNTN4bZcrlWCLvzRaTGilCHpZqViHS92OV+2/hPZYyuq5gJ6PnEkG8HCh6nh9fj
-	 mLNKT1wKcNKzSkrNQQrucOSCSaKM7tQi48sFpLN4fRJ+jUYS6Fy60VdwCOphVXZ90pOUn
-	 vJTH559X2ruNh7/hpHnrZCk6gHLh/LI2HJoUgNww/KQPDoCu5f69fD7Lg3bQZOmmluX/n
-	 0h+j02pRkZWSoQ4OfArAJ+LqYbMgsKqNZk0BSIEK5Eq6acJpExdAnnmfnxgc+cAjr12O3
-	 bj23wYkeimQL4/6di4YnFY73DGwe8Henv/NY+26MxAOdeFAyokAF3c35GGEFiGcdTag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624889;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=g3tTgLkyAwBFWlCI/FbAHsBH9T0WE64sP/L2ZFLzl+s=;
+	b=jTXmvJlfoXlbvNjpuXL+vPZFhMRnNtbrLVeQgJrtN5qi+q4unOG0qMlKTRl8p5ie94uU
+	 tWavz/pVcNEvNtDn2i5dPzQumxbS0CJOwfTHKXHcYfn88HEW7oEmyMlLIyZMh/n+l1OoB
+	 4e7W3NVgxlcQzGykCRCAs6o05QDiac2b6tlmgR9iHQGtbBtEIOkkGuufr16gHgOCcm+E3
+	 I2O6yLbZvXNInMXKF19Wbj0Jq8hVdGjlVc53HQbNeWecQZHi0NHlftJZ74Dcue80JzC5J
+	 bLlSggpBlQIIC8GxEEekW5XXBk6cz9pO7Yv9Y8VVvhzq7/qmrWUwbVV6QU1V+mlbfUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=KBpyMnOT;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T+jtve37;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BNTmvdF+;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T+jtve37;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BNTmvdF+;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EA0606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70EA0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A51606A326;
+	Mon,  2 Nov 2026 13:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95A51606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=KBpyMnOT
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29EIXY2500894;
-	Mon, 2 Nov 2026 13:07:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=CWUpUx
-	uG2Mx+foSQNVCGez6jUd9JGdEclM2YhClG7mw=; b=KBpyMnOTeBQWFRQZbJFA+4
-	brYwJBp8n0xNIMNXaOMEmTvvOn9YDg3Uc9pOu3W2Z56aGQvlhnYGJVD52D/qcgiX
-	3AtWB5zLS1ckgBLUzCKhOgk18ZNiZfmcXsLLu6T1+OOi+jaM15y8D4LntqSi6eY0
-	AWAUauUcqnlOXP5G5wYSyynugUgjk9RviQsBohetuaQaQmxH5vf3wcp6lucbVxtE
-	Xv5vPD9yZhEOh6BqhBJ4Dd0/aIdaIzvUsX83gsihl+k+wM5FesGHOgxvS0CGMFm2
-	bcGncDgn2CE87gog2Eq/Sz8UoWdS+XLcUjS2BBGh904R+h/2vwFljQAWQwwMuQ6Q
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7yrreyh-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 13:07:30 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2D4ugv1013130;
-	Mon, 2 Nov 2026 13:07:30 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnv5gnsh5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 13:07:29 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2D7P4l50790772
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 13:07:25 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C4CC520043;
-	Mon,  2 Nov 2026 13:07:25 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 20EFD20040;
-	Mon,  2 Nov 2026 13:07:21 +0000 (GMT)
-Received: from [9.124.210.123] (unknown [9.124.210.123])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  2 Nov 2026 13:07:20 +0000 (GMT)
-Message-ID: <c485c31c-1330-4be2-bb95-447cefa82c1e@linux.ibm.com>
-Date: Mon, 2 Nov 2026 18:37:19 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T+jtve37;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BNTmvdF+;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=T+jtve37;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BNTmvdF+
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D167C21DC3;
+	Mon,  2 Nov 2026 13:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793624886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g3tTgLkyAwBFWlCI/FbAHsBH9T0WE64sP/L2ZFLzl+s=;
+	b=T+jtve37/06SQqCKBcPZN/o6MfxbnDZaT1HKv4egW5dbUAFZAia6uyfaN66ds1tlXwvLOE
+	CcSn9/fc7w9enekMovX8wGQl9E5ATpd0l93SKl+agmLVPPpFYLON+L07QQrMW7UVbmfcbJ
+	ybnWPiqfzR7LgUdAefKOGr/QRT6xamg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793624886;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g3tTgLkyAwBFWlCI/FbAHsBH9T0WE64sP/L2ZFLzl+s=;
+	b=BNTmvdF+MgOrfF46D4oqTIWLXOAg9Nmzi9uj1klzhcnEeekbsvQnG1rKOFn4Cg6iGMs9DS
+	9FYa7OdkCVPcEoBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793624886; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g3tTgLkyAwBFWlCI/FbAHsBH9T0WE64sP/L2ZFLzl+s=;
+	b=T+jtve37/06SQqCKBcPZN/o6MfxbnDZaT1HKv4egW5dbUAFZAia6uyfaN66ds1tlXwvLOE
+	CcSn9/fc7w9enekMovX8wGQl9E5ATpd0l93SKl+agmLVPPpFYLON+L07QQrMW7UVbmfcbJ
+	ybnWPiqfzR7LgUdAefKOGr/QRT6xamg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793624886;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g3tTgLkyAwBFWlCI/FbAHsBH9T0WE64sP/L2ZFLzl+s=;
+	b=BNTmvdF+MgOrfF46D4oqTIWLXOAg9Nmzi9uj1klzhcnEeekbsvQnG1rKOFn4Cg6iGMs9DS
+	9FYa7OdkCVPcEoBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B05CD1351F;
+	Mon,  2 Nov 2026 13:08:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id B547HjWL6GpyYgAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 02 Nov 2026 13:08:05 +0000
+Date: Mon, 2 Nov 2026 13:08:03 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, david@kernel.org, 
+	ljs@kernel.org, jannh@google.com, liam@infradead.org, willy@infradead.org, 
+	paulmck@kernel.org, usama.arif@linux.dev, vbabka@kernel.org, 
+	linux-fsdevel@vger.kernel.org, yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
+ tearing tests
+Message-ID: <auiKq8zbQTMyY2tG@pedro-suse.tail5790ac.ts.net>
+References: <20261101154503.3203036-1-surenb@google.com>
+ <20261101110100.90796bf33ef50307a7698dca@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,154 +112,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] KVM: PPC: BookE: Disable preemption before loading
- guest FP and Altivec
-To: Christian Zigotzky <chzigotzky@xenosoft.de>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Narayana Murty N <nnmlinux@linux.ibm.com>, maddy@linux.ibm.com,
-        linuxppc-dev@lists.ozlabs.org
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, msuchanek@suse.de, harshpb@linux.ibm.com,
-        gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com,
-        "R.T.Dickinson" <rtd2@xtra.co.nz>,
-        mad skateman <madskateman@gmail.com>,
-        Damien Stewart <hypexed@yahoo.com.au>
-References: <20260928110411.844582-1-sshegde@linux.ibm.com>
- <20260928110411.844582-2-sshegde@linux.ibm.com>
- <9d83e196-4d6b-4be1-811c-eb72527d3cdd@linux.ibm.com>
- <2a75097f-6b49-456a-bfef-d5e559ce719a@linux.ibm.com>
- <33tnw44q.ritesh.list@gmail.com>
- <15075ad5-73f8-4714-0503-2565ca3dfb4b@xenosoft.de>
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <15075ad5-73f8-4714-0503-2565ca3dfb4b@xenosoft.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Mcr5KJ/f c=1 sm=1 tr=0 ts=6ae88b12 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=23x4nbAjRhaKqWu8sU0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX4vj918GjRKe4
- 3LyWvR2pppGa6jw9sRvATtuVKefDWKtXLrF8mjgkAQw8XKtgLx8wG8UwsmgbUYyaD7c/CUtzL2L
- yelRW/BHyAMdCwCIOou5rbqo76xJ3E0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX8/iQCGZyN/P0
- 7L0LUGYiurDcgwKzgwl96H5FBbbgYE/u+14k5ZJqVlRKK8DvYE16k1rVFgDPKszz4uAjEWP9Xor
- 0E9K2kN2nJQIxbwzCSm3PJVZIailujWtCh1mvgYjQR0qmWuPcG+DtXCFVig7LH5SjZBrvr4f/ht
- y0rZTNP9Lc9kdrtrbCHes8My2YDgslqsOgp+wzkVI7sAOlhtfUYj6O6cuHFhj2zmyZurKSPFFGe
- sKbJw80OIW1VVuB6WCcL9yECS7YDFFEja3f2epgYQcfhBA0cJEiWUcY2eLI1wRAlBAZISOV1MU9
- gxs9LEkxs/72RWcBbEVZohnlQscPddPj+hmQzKTjdP2QEqQOV8bWOu25B4mdvgCThzOP0tZGArp
- Dun3K37Yedt0n+yJ6L0EHsIEK5wqSx5hQdIp3Gq0zI5FAau5pt5i1Q+SDtI8bX910h89KK6joDt
- XBXZYP/k7s8hTJ+o0eQ==
-X-Proofpoint-GUID: RqJuW_-3prmXx-FUdwAsCu4AFcdX570a
-X-Proofpoint-ORIG-GUID: 4dr7mgdQZrbUm31m0COFNVuKKpXMC-6z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020050
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101110100.90796bf33ef50307a7698dca@linux-foundation.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.30
 
-Hi.
-
-On 11/1/26 1:58 PM, Christian Zigotzky wrote:
-> On 30/10/26 17:21, Ritesh Harjani (IBM) wrote:
->> Shrikanth Hegde <sshegde@linux.ibm.com> writes:
->>
->>> Hi Narayana.
->>>
->>> On 10/1/26 4:56 PM, Narayana Murty N wrote:
->>>> Hi Shrikanth,
->>>> Thanks for the fixes. I had one question on patch 1.
->>> See response below.
->>>
->>>>> diff --git a/arch/powerpc/kvm/booke.c b/arch/powerpc/kvm/booke.c
->>>>> index 13ad4cf5fa71..5b9118eefe1d 100644
->>>>> --- a/arch/powerpc/kvm/booke.c
->>>>> +++ b/arch/powerpc/kvm/booke.c
->>>>> @@ -1404,10 +1404,17 @@ int kvmppc_handle_exit(struct kvm_vcpu *vcpu, unsigned int exit_nr)
->>>>>            if (s <= 0)
->>>>>                r = (s << 2) | RESUME_HOST | (r & RESUME_FLAG_NV);
->>>>>            else {
->>>>> -            /* interrupts now hard-disabled */
->>>>> +            /*
->>>>> +             * kvmppc_fix_ee_before_entry() marks the software
->>>>> +             * IRQ state enabled while interrupts are still
->>>>> +             * hard-disabled. So disable preemption while loading
->>>>> +             * guest FP and Altivec.
->>>>> +             */
->>>>>                kvmppc_fix_ee_before_entry();
->>>>> +            preempt_disable();
->>>>>                kvmppc_load_guest_fp(vcpu);
->>>>>                kvmppc_load_guest_altivec(vcpu);
->>>>> +            preempt_enable_no_resched();
->>>> Would it be simpler to move kvmppc_fix_ee_before_entry() after the
->>>> FP/Altivec loads instead?
->>>>
->>>> The normal kvmppc_vcpu_run() entry path already loads the guest
->>>> FP/Altivec state while interrupts are still disabled and calls
->>>> kvmppc_fix_ee_before_entry() immediately before entering the guest.
->>>>
->>>> So could this path follow the same ordering:
->>>>
->>>> kvmppc_load_guest_fp(vcpu);
->>>> kvmppc_load_guest_altivec(vcpu);
->>>> kvmppc_fix_ee_before_entry();
->>>>
->> Thanks Narayana, that actually make more sense to me.
->>
->>
->>>> That would avoid making the software IRQ state enabled before loading
->>>> the guest FP/Altivec state, and also avoid the additional
->>>> preempt_disable()/preempt_enable_no_resched() pair.
->>>>
->>>> Thanks,
->>>> Narayana Murty.
->>>>>            }
->>>>>        }
->>> I thought I had put that for discussion after ---, but looks like I forgot.
->>>
->>> I don't mind the above too.  but I didn't have a way to test it.
->> Actually I agree with Narayan's reasoning here.
->>
->> Sorry for being so late to the game. As you know we have been occupied
->> with other things internally.
->>
->>> So kept it as is based on what Christian said works for him.
->>> If you have a way to test the patches, please let me know.
->>> We can try that too.
->> Let's ask Christian directly :)
->> @Christian - Once we have v2, would you kindly help us test that
->> please?
->>
->> We think the other approach which Narayana suggested might be a better
->> fix for this and it can avoid preempt_enable/disable() dance. However,
->> looks like we may not have the board where we can reproduce this.
->>
->>
->> -ritesh
->>
+On Sun, Nov 01, 2026 at 11:01:00AM -0800, Andrew Morton wrote:
+> On Sun,  1 Nov 2026 07:45:03 -0800 Suren Baghdasaryan <surenb@google.com> wrote:
 > 
-> Yes, I can help with testing.
->
-
-Thanks Christian.
-
-  
-> - Christian
+> > Pss metrics can be affected by map count even if VMA tree stays unchanged,
+> > therefore tests checking VMA tree integrity can't use them. Use Rss instead
+> > and pre-populate the VMAs so that Rss changes if a VMA gets skipped or
+> > double-counted.
+> > 
+> > To ensure all test VMAs are populated with anonymous pages, remain
+> > mergeable across VMA operations, and do not have their Rss changed by
+> > memory reclaim:
+> > - Toggle PROT_EXEC instead of PROT_WRITE between adjacent test VMAs so
+> >   all test VMAs remain writable and MAP_POPULATE faults in anonymous pages
+> >   (rather than the shared zero page, which is not accounted in Rss).
+> > - Use mprotect() instead of mmap(..., MAP_FIXED) in split_vma() and
+> >   merge_vma() so the first page of the split VMA stays resident.
+> >   mprotect(..., PROT_NONE) splits the VMA without unmapping the first page
+> >   (pte_present() remains true for PAGE_NONE PTEs), and
+> >   mprotect(..., self->mod_info->prot) merges it back. Both parts of the
+> >   split VMA retain their non-zero Rss.
+> > - Lock all present pages in the child with mlockall(MCL_CURRENT |
+> >   MCL_FUTURE | MCL_ONFAULT) so memory pressure cannot reclaim pages and
+> >   alter Rss during the test.
+> > - In remap_vma(), unlock next_addr before mremap(..., MREMAP_DONTUNMAP)
+> >   so next_addr is not split, use mmap(..., MAP_FIXED) in patch_vma() to
+> >   merge the middle VMA back into addr, and exclude smaps_rollup tests
+> >   from test_maps_tearing_from_remap since remapping moves and unmaps the
+> >   page from next_addr.
 > 
+> Thanks.  This is proving tricky.
+> 
+> My evolving reviewbot still isn't happy:
+> 
+> : This fixes the v1 RSS issues, but two things remain.
+> : 
+> : Alternating PROT_EXEC breaks with READ_IMPLIES_EXEC: both mappings
 
-Hi Ritesh, Narayana,
+This is nonsense btw. Not sure we'll ever support random personality()
+flags being set on selftests.
 
-I am afraid I won't be able to work on this at-least for couple of weeks from now.
-
-If v2 can be worked upon by our kvm team meanwhile, it would be helpful. It is always
-good to fix long standing bugs sooner.
-
-Where applicable, feel free to carry the tags.
-
+-- 
+Pedro
