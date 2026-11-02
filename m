@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609157;
-	b=Hrwo7+m1ox0ofOygP09TPTm1hsbSFC45kb2tEdTDuTaX0omnZsxzDGnZZeDyT1wEEtUC
-	 hFtUl6UHcNQdiCn6Yi/bxVoJ4qB8GOEogBt+ll2WzCO/yhFv9XtNjEGmuwlKkM8At5EGg
-	 WVzcBr91R8cSMnf2ILxpS6YNBM1zv6Mca1q1CPEC3UEf2/vT2ykhdqMdLTFS3bEPXhdlw
-	 KpwoY0V+qpYtB40I/aj+y/LwPMjGRVq9Zx7ywFX4nAS7UUwa/Q8UBOHaMC1Vl4axnwKdg
-	 4iegowFlVDeigkWWq3zKrSu2RBUUhz2scRczhE+ZnZeAo9Ij9psSWGarlTnD0WUmk8A==
+	t=1793609168;
+	b=ARpbj3tFu/QA6LvBje2ttRp6XniAcIih83ozXSZLxfw4SXpxLCkQgMQdbWhVjwS9Se61
+	 6Qguq55P0NPQsSOJBCVg6wB+JblxaimKhjVkvUrOv7YAwr1vaiWO/mCvsgrLBUBH+/M3L
+	 t/Ymfqve2u8HcYBtLnX2Tfojzta0AN7Wa2IhOOfFJCq/df2xgDAvGvsfVRhl91KuRJQV8
+	 34xSZYlXTbOJa+TQ3pYnsPifGtUgvQfSSXjU0VZOHN+0VJgs0MnEWTSjdUs70/ViiaIN/
+	 BSimMG7erhI2tL5Q0pahW5n0MvgSSoBpcS5UF083JQ4m7PqycVxDCvlwkcMdvSDQXbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609157;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=N7IcLcY/2Q1a/DaiRss1bOBrzubEkqeVJXqoWeZs/mA=;
-	b=zqp/1sLsQhnlCMcJzhr/Hj8bBZRnVCM8IsiU47o1NKL9nP1BulLg3fZcJG17NMaOFJEP
-	 ZuNJjC1rZhGBDj+NoXvvdTlnf1kSgqdmWQGmY3xcOMC5KfzP5mirOrBb3LUQCs82581fM
-	 Udh7M1mMmsbVhgb/AJn3FXgSanhTxpQTe571tcOnR4V2yaxKcJyBcvjq+ajYj+5iB/CTe
-	 UXkZhIVlfWAv7da2MuzqpDXHW5Ulel/rjg5Wb7em9LIzhyVFF3/NLD5EDhMBZo+Uz7Azd
-	 duc6+aXto6kI00d+MIkHWH0K9t21MJN6qV27OtcqZqpsI1V8BZtp2UCl+9i94cHJG7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609168;
+	h=DMARC-Filter:DKIM-Signature:To:Content-Transfer-Encoding:
+	 Content-Type:User-Agent:Cc:Message-Id:Mime-Version:From:
+	 X-Lms-Return-Path:References:Subject:Date:In-Reply-To:
+	 X-Original-From;
+	bh=fkdHJk8QQRuS99Uc5GE49DCjtU5u9to+Rk8I4s2WNPU=;
+	b=aelRyUResXyD+Wt28uEg0FLzt3WVc0Z7aX0X4whaxS9BPhVtnLOTaCfsXnuPuRx8eVq7
+	 e+xIoX3v7IWiTKczWqvNEiLEJbD4gCdnUCOhSmu3aEoq6Ch2/gA0QaHnAU5fObXmsPb/f
+	 vUeyEkQGMIhwQNfwGYEax02DamPCs0JfG1lbAFf+n/FBeBpLJM6vAhpfL23P9PdJTTTh3
+	 Xh4eBIp/XQsO7pJ9DY9vAfMP8sNMptERNPCyjFfYxG/MfrmJc6+UDUA2soAbh5o86AsY+
+	 XKi2AvK7gzNPQb9StMaQdSs9PM/bqJvepCF9ualoQsAxRXNWRr7GWdXUZLZJoBnIhpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=BfJwTguc;
-	arc=none smtp.remote-ip=60.244.123.138
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=iKvQtl60;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3324F606A32C;
-	Mon,  2 Nov 2026 08:45:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3324F606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98865606A335
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98865606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=BfJwTguc
-X-UUID: c91ae8cad69911f1b1788b6acf885367-20261102
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=N7IcLcY/2Q1a/DaiRss1bOBrzubEkqeVJXqoWeZs/mA=;
-	b=BfJwTgucK/Ee5gFxohBBJAqLEbcpwChisbLKFv7HQWQZerUlApzn+FngR0nyV4u6Pqkn7wef23YK6+Ym3JFb72rWgqOFX7EDZBnMkgwLw+jsL30B/+/5ibqBXzrz3+15+ZanEKto0mztmLVS/O8bGWYfhji3/jE6uEbxBvNr0hg=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:11d191ed-1025-4b65-ba0f-5c0fcb6f33d9,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:71f6b1ce-02bc-447e-ab88-2baec399874a,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
-	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
-	-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c91ae8cad69911f1b1788b6acf885367-20261102
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw01.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 302211017; Mon, 02 Nov 2026 16:45:41 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 2 Nov 2026 16:45:40 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Mon, 2 Nov 2026 16:45:40 +0800
-Message-ID: <bc9e2b99be871ef8c7e74a5ee7d573082cf61545.camel@mediatek.com>
-Subject: Re: [RFC PATCH] scsi: ufs: core: Allow error recovery before the
- device W-LUN exists
-From: Peter Wang <peter.wang@mediatek.com>
-To: Asdlerto Korry <korryasdlerto@gmail.com>, "Martin K . Petersen"
-	<mkp@kernel.org>, "James E . J . Bottomley"
-	<James.Bottomley@HansenPartnership.com>
-CC: Bart Van Assche <bvanassche@acm.org>, Alim Akhtar
-	<alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>, Can Guo
-	<can.guo@oss.qualcomm.com>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Date: Mon, 2 Nov 2026 16:45:40 +0800
-In-Reply-To: <20261102003607.341651-1-korryasdlerto@gmail.com>
-References: <20261102003607.341651-1-korryasdlerto@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=iKvQtl60
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793609156; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=fkdHJk8QQRuS99Uc5GE49DCjtU5u9to+Rk8I4s2WNPU=;
+ b=iKvQtl60VKC7KY5oseQXOFdHZCqTieWhzHEHaieKm4Q41DlL92H/kqzhHmZyJPnWEXEOkA
+ r5VKrtqULsDEkv1Qb8u9k3Nk5e5RsorZUcW0dg6WLXXBBOStwbGB4wW2UWdh1zbc4GKd9h
+ UJVsaqibFZMMHRDpKZglBwO9oj+Ek9bwc76owZxkLEVez46lJN+vFFiev0Eg+/EW7Bt3P9
+ Oz+ez8v5HZtwwQ63J/uhQD61bvWk9tQL93dJKkfqWgaIA0OwUqn0ZlgE3zsm55dgyJGZya
+ IsevLdpFMM00sSBXjn1yF4pBvZkrc86NfonPAGm+xwwFhdzgukzJSmGTL1OFSg==
+To: "Jinjie Ruan" <ruanjinjie@huawei.com>, 
+	"Catalin Marinas" <catalin.marinas@arm.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Cc: <will@kernel.org>, <mark.rutland@arm.com>, <oleg@redhat.com>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Message-Id: <8028d335-c304-49de-81fa-07fd446cf9d0@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,35 +60,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MTK: N
+Mime-Version: 1.0
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26ae84dc2+b7588e+vger.kernel.org+zhaogongyi@bytedance.com>
+References: <20261023110710.10145-1-zhaogongyi@bytedance.com> <at-czRUYRPRxi9dy@arm.com> <d8aced38-fb7a-4359-b3ab-c625faae5023@huawei.com>
+Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a group-stop
+Date: Mon, 2 Nov 2026 16:45:35 +0800
+In-Reply-To: <d8aced38-fb7a-4359-b3ab-c625faae5023@huawei.com>
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
 
-On Mon, 2026-11-02 at 02:36 +0200, Asdlerto Korry wrote:
-> ufshcd_err_handling_should_stop() returns true while hba-
-> >ufs_device_wlun
-> is NULL, i.e. until the first probe has added the device W-LUN. If
-> the
-> link fails during that first probe (for example NOP OUT failing after
-> link startup), the error handler therefore never resets the host or
-> the
-> link: it only marks the state operational and returns, and the probe
-> keeps failing until it gives up.
->=20
-> On a Samsung Galaxy M52 5G (SM7325) the first link startup regularly
-> ends in PA errors (LINERESET). With the W-LUN check removed, the
-> error
-> handler performs a real host reset and restore and the device comes
-> up;
-> without it, it never does.
+Hi Jinjie,
 
-Hi Asdlerto,
 
-I=E2=80=99m a bit curious why the first link startup fails, while=20
-the link startup after a reset and restore doesn=E2=80=99t.=20
-Shouldn=E2=80=99t these two flows be identical?=20
-I think the driver is designed on the assumption that the=20
-basic init must succeed, and that only a re-init can make=20
-recovery possible.
+On 11/2/26 3:54 PM, Jinjie Ruan wrote:
+> 
+> I think maybe we can refer to ptrace_get_syscall_info_op()?
+> 
 
-Thanks.
-Peter
+Thanks for the suggestion.
+
+I checked ptrace_get_syscall_info_op(). It is currently static to
+kernel/ptrace.c and identifies a syscall stop only when
+last_siginfo->si_code is SIGTRAP | 0x80.
+
+The arm64 path here also needs to handle a syscall-exit-stop when the
+tracer has not enabled PTRACE_O_TRACESYSGOOD. In that case, the tested
+si_code is plain SIGTRAP. Reusing the current logic from
+ptrace_get_syscall_info_op() would therefore fail to recognize that
+syscall-exit-stop and could update orig_x0 from x0, which contains the
+syscall return value at that point.
+
+We could refactor the generic helper and consider recognizing plain
+SIGTRAP there as well, but that would broaden this fix and potentially
+change the behavior of PTRACE_GET_SYSCALL_INFO. For this patch, I think
+the local check of last_siginfo, with bit 0x80 masked and ptrace_message 
+checked for PTRACE_EVENTMSG_SYSCALL_EXIT, is the smaller and safer change.
+
+Thanks,
+Gongyi
