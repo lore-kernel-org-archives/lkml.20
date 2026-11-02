@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617382;
-	b=NMGmpT9IXUpB6Rek4Bt54wDnayBD6alb3junOy4yJdwX4KzXB7IU7ZLlXmZFLv2oJ/9T
-	 INLnymb2VNeb9AIhbVfcdBCOJCONS7oKfVyjgHfp28MPp1vtSdfUEOTXSdlPYdKJwk5kA
-	 P/4r2UYtIk3JamU5nFMY+pBRU9aoEwp3aGC7jgv5CGHSjv35Zyt82F6++gasf3tNMtrys
-	 iJeH/UM2ZrDjlNUH7U7h06Ako5d0ydf+vYKfFcQcKYjqX5KnnHdVEtjOounhTcKuQlh8A
-	 3sYik6YbrARI3xuL6ZGEXisbfCZnLp5Fa4NwU7Fkn+fIBtkyPvNXWncJ9INXLCXXMvA==
+	t=1793617469;
+	b=pyf3CzaJ1J6+p3gG3wLgSfJfxLvRp6Wu5Iauo9lzAWC9isOLBJKF6FxaohF2tN949J00
+	 fPmm6pMam41fSwqcjbn9zZ0fAVWm52TYo5ZnOcpZFH+FEZdaLfhlhwDlSrx/10/hhnyal
+	 YcbJPJjjiNMDP57uIEKA6U0GA9/E+CJ7radaZCuuKearJ0Oqg1MxcekfznB/sxvHtKczT
+	 +ozfwEIlBtxsKp3GqeNNQaKsB8EzWAqdU1l3qPO6LMGkIY/9Aq3YiHHNqDK1Gs79ThgLX
+	 qk0GZvSNeUSFFsXJoQtZ0PdrLEOUpzsAVDuh1zs7L2TmbGL3XZdCttIV+sn6ClCPBUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617382;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617469;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sLsuIaO/vO0yxwqR0T4S/sMl30AM8Izc7otFPn1bjhA=;
-	b=llNQBdrLtkhsK+JR2M/ayQuduSOeQAJ+/PbwjgC2OftKuc7f1PE+aPkFgvvCdDbuqA8t
-	 Dr43rmsUCeyRyI4dQZymSeno7LNjgErJ0rHA05vkDKn2Zk/PP/kYsgrax3vt5nodpd7pr
-	 a7CA8TJjy9mC4F5HiKHYWdzqrw6td1jimPC1fWicPlFUES8Z0xJXBgO7oKuVF1ed1VTSe
-	 qAut9NlKiimxNNRP9WiRT2eslEbfVWUg9BU6u5jm5LHU6x9/MebGJVYXHC19x1w++oUXp
-	 HA6y2+O3FlXyWIMaxMZ0Q547lJkdyySqVrO1/wSnR+DXOnSVlHYy3uWEGONc5OEIljA==
+	bh=7ge4xhF2ujfXkwVZrVQamV67uWn0z1MILFxq9yG0j48=;
+	b=4RcppAoaPpx73+qpvMPEAYVJD4yQ7nio2Ye98MpEFGwBbajRjWDJxw+iQB4LUAKYTDhJ
+	 UFmmpycqKdkiHD7b2rl0u3YV5vK4vSrNc850QFR2u3V/RKdiugekfAsnezGFrkZzpvpbW
+	 L18Boe2nhJK9XRymAdbLFFlP9nL9rdOmSJhd643/dVBYNsGR8+yWmMjisBum2Pq1tnYRY
+	 S2TKJXy441jCF2FsT/mx0SH89Bs9ISzkTw5pYUo3O6uSmM+s9eJ+2gt0ywOCwbfeFUeEB
+	 cbU8IAQWDyMdhGIjDMwf5NdHKIu6VS04sHN7iM9uxt01MDfiBWxkGBpkDyKzVUYIfvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ee/5fqIw";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVFhxY1U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B37606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:03:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447E0606A324;
+	Mon,  2 Nov 2026 11:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ee/5fqIw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BDB51F00A16;
-	Mon,  2 Nov 2026 11:02:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVFhxY1U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E803D1F00A17;
+	Mon,  2 Nov 2026 11:04:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793617381;
-	bh=sLsuIaO/vO0yxwqR0T4S/sMl30AM8Izc7otFPn1bjhA=;
+	s=k20260515; t=1793617468;
+	bh=7ge4xhF2ujfXkwVZrVQamV67uWn0z1MILFxq9yG0j48=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ee/5fqIwaWuubHUFiZNmrig8kCTutPcyQDaTWVD/MrUbaZ1J3yb85Jm/UfWNjXSMx
-	 SUsE8wsymotgyZij57TwGJWvsvFRmeR9JIfeLuuXKcILia2GHbPzd3momuwB1BvydG
-	 hEY55Hdnao6q465NMJIOrmJafDujh15HreWRgoX/RyJvaF0+aJbnMqmybcI3JvsuTZ
-	 JBUsmKIlZ3IXyGKP8Q4p4F2/hZA4NHFRz1sM2RXQnAxggAUSsPnuXdh7uqFrvKd3b8
-	 JV+0SvKa1Rn1NSpF0SY3dgrACZn87+zVgv24lRYu2Ure1xDAKLslAKSK++USdNAuhV
-	 pHwERphOPbCxQ==
-Date: Mon, 2 Nov 2026 11:02:56 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com, 
-	Songsen Yang <yangsongsen@insta360.com>
-Subject: Re: [PATCH] mm/vma: read anon_vma carefully in validate_mm()
-Message-ID: <auhrcEfT5v5MVcFj@gremlin>
-References: <20261102-fix-validate_mm-v1-1-5c309614ef15@kernel.org>
- <auhn01dpDzK47igy@thinkstation>
+	b=XVFhxY1UjgyRi2hSOwlMwP5vymSaoqhkIKQ3Ie6kb528DKM5H+VO405Y4Zwf1lHsC
+	 1F3RYrBIQNJSVHpfKgqLsJBXicpnAPu6xiJbdYBiOI0fOFwnswCXiuUkDmuqhUT81E
+	 Kq8FUqpVQgDPnle5HbzW0Lwo0rceA9SYHhJWol/IPLwDUaQqO51XogniUt16Y6zMQg
+	 aJvKo+ws5NUL24IO2UCW2a7eMZpcXMhd8DCiY6RLXcktSAlA12ae7eIuD1iWQgT3mW
+	 l5JTENAeMXAFRa5eqwhbMQiVehdhXLEY911nGJ+E0YhMJz41sF4T6NQXj7lEe6sKQ5
+	 UHnbpmLdkJGeg==
+Date: Mon, 2 Nov 2026 12:04:25 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: shengjiu.wang@oss.nxp.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	shengjiu.wang@nxp.com, daniel.baluta@nxp.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, andersson@kernel.org, mathieu.poirier@linaro.org, 
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+	festevam@gmail.com, p.zabel@pengutronix.de, linux-remoteproc@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/4] dt-bindings: dsp: fsl,dsp: document debug reset
+ control
+Message-ID: <20261102-tough-brawny-rooster-a3d3cd@quoll>
+References: <20261029073257.84594-1-shengjiu.wang@oss.nxp.com>
+ <20261029073257.84594-2-shengjiu.wang@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,154 +62,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <auhn01dpDzK47igy@thinkstation>
+In-Reply-To: <20261029073257.84594-2-shengjiu.wang@oss.nxp.com>
 
-On Mon, Nov 02, 2026 at 10:48:45AM +0000, Kiryl Shutsemau wrote:
-> On Mon, Nov 02, 2026 at 10:25:20AM +0000, Lorenzo Stoakes (ARM) wrote:
-> > Commit 38564710f443 ("mm: implement and use vma_has_anon_rmap(), silence
-> > KCSAN") rather clumsily converted the read of vma->anon_vma into a
-> > vma_has_anon_rmap() without accounting for the separation between
-> > assignment of anon_vma and later use of it.
-> >
-> > vma_has_anon_rmap() is intended as an optimistic check, so doesn't need to
-> > protect against a torn read in vma->anon_vma. The caller is expected to
-> > take care of this themselves if they then in fact access the field.
-> >
-> > validate_mm() does indeed then reference the field, so resolve the issue
-> > via READ_ONCE(), and simplify the code by separating this into a new
-> > function validate_mm_anon_rmap().
-> >
-> > Finally, add a vma_assert_stabilised() to make it clear the required state
-> > of the VMA.
-> >
-> > Fixes: 38564710f443 ("mm: implement and use vma_has_anon_rmap(), silence KCSAN")
-> > Reported-by: syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com
-> > Closes: https://lore.kernel.org/all/6ae78418.6552420f.2a0efc.005c.GAE@google.com/
-> > Reported-by: Songsen Yang <yangsongsen@insta360.com>
-> > Closes: https://lore.kernel.org/all/20261102074414.10902-1-yangsongsen@insta360.com/
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  mm/vma.c | 36 ++++++++++++++++++++++++------------
-> >  1 file changed, 24 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/mm/vma.c b/mm/vma.c
-> > index d416ba58eb4c..9f02f19a7845 100644
-> > --- a/mm/vma.c
-> > +++ b/mm/vma.c
-> > @@ -669,6 +669,28 @@ static int dup_anon_vma(struct vm_area_struct *dst,
-> >  }
-> >
-> >  #ifdef CONFIG_DEBUG_VM_MAPLE_TREE
-> > +#ifdef CONFIG_DEBUG_VM_RB
-> > +static void validate_mm_anon_rmap(struct vm_area_struct *vma)
-> > +{
-> > +	struct anon_vma *anon_vma = READ_ONCE(vma->anon_vma);
-> > +	struct anon_vma_chain *avc;
-> > +
-> > +	vma_assert_stabilised(vma);
-> > +
-> > +	if (!anon_vma)
-> > +		return;
-> > +
-> > +	anon_vma_lock_read(anon_vma);
-> > +	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
-> > +		anon_rmap_tree_verify(avc);
-> > +	anon_vma_unlock_read(anon_vma);
-> > +}
-> > +#else
-> > +static void validate_mm_anon_rmap(struct vm_area_struct *vma)
-> > +{
-> > +}
-> > +#endif
-> > +
-> >  void validate_mm(struct mm_struct *mm)
-> >  {
-> >  	int bug = 0;
->
-> This ifdeffery seems unnecessary. What about this:
+On Thu, Oct 29, 2026 at 03:32:54PM +0800, shengjiu.wang@oss.nxp.com wrote:
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> 
+> The HIFI4 DSP provides an additional debug reset control that can be
+> used by the debug interface.  This patch adds the `dbgreset` entry to
 
-Yup, even better.
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
 
-Andrew - could you update it in-place or do you need a v2?
+> the `reset-names` property and expands the `resets` array to allow up to
+> three entries (runstall, softreset, dbgreset) by setting `maxItems: 3`.
 
->
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 9f167950926a..2e43077dcd51 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -4363,9 +4363,7 @@ anon_rmap_tree_iter_first(struct anon_vma *anon_vma,
->  struct anon_vma_chain *
->  anon_rmap_tree_iter_next(struct anon_vma_chain *avc,
->  			 pgoff_t pgoff_start, pgoff_t pgoff_last);
-> -#ifdef CONFIG_DEBUG_VM_RB
->  void anon_rmap_tree_verify(struct anon_vma_chain *avc);
-> -#endif
->
->  #define anon_rmap_tree_foreach(avc, anon_vma, pgoff_start, pgoff_last)		 \
->  	for (avc = anon_rmap_tree_iter_first(anon_vma, pgoff_start, pgoff_last); \
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 1be613044b4a..30f31d3b3e26 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -669,6 +669,26 @@ static int dup_anon_vma(struct vm_area_struct *dst,
->  }
->
->  #ifdef CONFIG_DEBUG_VM_MAPLE_TREE
-> +static void validate_mm_anon_rmap(struct vm_area_struct *vma)
-> +{
-> +	struct anon_vma *anon_vma;
-> +	struct anon_vma_chain *avc;
-> +
-> +	if (!IS_ENABLED(CONFIG_DEBUG_VM_RB))
-> +		return;
-> +
-> +	vma_assert_stabilised(vma);
-> +
-> +	anon_vma = READ_ONCE(vma->anon_vma);
-> +	if (!anon_vma)
-> +		return;
-> +
-> +	anon_vma_lock_read(anon_vma);
-> +	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
-> +		anon_rmap_tree_verify(avc);
-> +	anon_vma_unlock_read(anon_vma);
-> +}
-> +
->  void validate_mm(struct mm_struct *mm)
->  {
->  	int bug = 0;
-> @@ -678,10 +698,6 @@ void validate_mm(struct mm_struct *mm)
->
->  	mt_validate(&mm->mm_mt);
->  	for_each_vma(vmi, vma) {
-> -#ifdef CONFIG_DEBUG_VM_RB
-> -		struct anon_vma *anon_vma = vma->anon_vma;
-> -		struct anon_vma_chain *avc;
-> -#endif
->  		unsigned long vmi_start, vmi_end;
->  		bool warn = 0;
->
-> @@ -702,14 +718,8 @@ void validate_mm(struct mm_struct *mm)
->  			vma_iter_dump_tree(&vmi);
->  		}
->
-> -#ifdef CONFIG_DEBUG_VM_RB
-> -		if (vma_has_anon_rmap(vma)) {
-> -			anon_vma_lock_read(anon_vma);
-> -			list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
-> -				anon_rmap_tree_verify(avc);
-> -			anon_vma_unlock_read(anon_vma);
-> -		}
-> -#endif
-> +		validate_mm_anon_rmap(vma);
-> +
->  		/* Check for a infinite loop */
->  		if (++i > mm->map_count + 10) {
->  			i = -1;
-> --
->   Kiryl Shutsemau / Kirill A. Shutemov
+No need to repeat the diff. And if explaining more, say something
+useful.
 
---
-Cheers, Lorenzo
+Best regards,
+Krzysztof
+
