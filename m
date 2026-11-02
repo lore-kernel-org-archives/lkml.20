@@ -1,68 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607022;
-	b=YyWuO9CbcH8f4GJrfpq+bM66F/w9nUFPgLWFSnrLx1WtNIhJ697u+So2chNEVfq9V8DQ
-	 TJ7HlYbVaaExZdl7tNdMqBpy7FE9Aals33j8MbB9DIcm7FGMiAX10uF5HInZzvTSjMW52
-	 jh4vWTs1rECoaFySAlz1F++JeWLPYZFPsk1Lw712f/JOPqDdyTm97YSzvDESeXFhnxMDF
-	 FPFVwwjed99HUj8EF/G6dMJgyYroV8qSQN1bXDv7di0HnSD1d7B29TLaOtsjCyvWGJRdP
-	 ldpeuHK/rMDbhfuBoDb0VDl/hN1exZwu+iOG97QwJWda+1LgHbu9++Iq6biTIiNFWmw==
+	t=1793607107;
+	b=yHkskpoBj7/mSd7STkKN3fltHUbt7s92F0nZapG4t+HchF4fm0r7ixXuzoAHJhL3AT6+
+	 Q6JMLo+Izds7EH6ZDtoUbKYcl7F5B+B5+yqS3TaYq2ZFtDUty4aqJnVtUoXcO4fPwt6Ha
+	 TJa/kF1EQZp6lv91yjYqiRAmGq5r1nKs9GLaXpFwyVu+/PXRbK7XsIAtQ0qjpv8+HvPNK
+	 u+mhV2xWBU4rAKPrygtRBpHLEaz2PwkJG+/Z3jJ97zduk2mKNvkFE1RUrGXvOf6ehTyB/
+	 iZ2QsFoYM2+cuJyc7uHjwURPZeExi53f6wFzWsuxxdjdlLbviX6eM3EjAw4rq4GtWkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607022;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Ysgu5v3eB4ToaKQ09/3znJj2IM+I6eUAuOt4TqVE94w=;
-	b=WRkMgRGCuD3iWk5gNg8eubV/Nw+txpvi9Dr6Zjrd+Lwe5/Sc01AEoURVglseR9H4ihFU
-	 TqW/ygsJmZpilxvp+xvep7VWxiPDLhHXlW5F0L73qBfr/8BiylhvTIBbXJER0+rQlMEjc
-	 ITzaiImmi6kquxXF+3/Bf0SMfwzSbnXldQC30w87IwJm4BbKKMYSaKhU9AOkEov6wH3XL
-	 hGfcZCR2ZSGqBrR/cn9apDBX/HjnXOeffjJ3V+/bXcRIFcmcnWkTW1Z8fVNBTwurBKwwh
-	 p8UdVY4pKr5SyRSoQdR/D452CYEnhox+598CCzO5c0HpkCTdl2Kl9+g8N4RzRsy4QWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607107;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=n45aLFyavI2LtF2m7I+VQnPGHMyctlLmfLLfzdcQlpQ=;
+	b=E9UPFKujTOv5kQqxa3/eT1Sezx/QHlXlmWqVT2c3DM8O13iE+WC8X0vyfgS3up2OtNiz
+	 oP5hQC8xfpkBCQ6yWxmIhFeRKocH1sn2AS4NosLNSqYiOr4IcNYPZlM8l+CUEee2sW2++
+	 jr5sf8O4VcKpenA2ETVWmYp26bqFxT60hvnfFde1xsMykS61a01lDpCPZJZLwLxhAdZrO
+	 sIW7VvSAiv9MK576YEIvmprkgWO6uaPkvBwqvcIHDFFQnJtHfCO08Pa3SHg6j9OrOtGUP
+	 sNhCj6AAmrfT4ikGWyMSH/9UNAVSbBud2qXhxPpVSVw1h6QJsLpjNhbxc/jQEatn9gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelriot.com;
-	spf=pass smtp.mailfrom=kernelriot.com;
-	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=0b5DIR22;
-	arc=none smtp.remote-ip=74.208.142.49
-Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XUS6RQPy;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC77606A324;
-	Mon,  2 Nov 2026 08:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAC77606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelriot.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6988606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:11:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6988606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=0b5DIR22
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
-	s=kr2026; t=1793607020;
-	bh=grCTlBxrI9QvxJqQg5lsXzodkISaca8fxUUkda8novc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:From;
-	b=0b5DIR22zqTZl3Za56pRR/PekIahY9BVK9nCQSB1jiIx+FdsN0ca0gimJ5evBju6D
-	 0Pf//CGM9LsGSYk/y3STMlK6sv6Xy4Q9cFup6ioK8ZejLtHMMhDuYnfTpFsZwsw30V
-	 OszqDWltgcVFgSF3anb9Cr/qIrH53WjE3S/xQ+DbR4TvwUJmXRAK6Pme6epwngqGcS
-	 Fe3Tec4xsEwDX4Hke0KgnWuUVHvMtcXt1ImlTm+UR8zQlpthm3yV0Pb5zgeMw2NN8/
-	 bEu3iV4JKovrvK4dIjzOrj4Ejmjv//hXgt81sjtgUyEnlbQzR01DpKDm6+5+hc67lx
-	 QqlGyfcNs0How==
-Received: by mail.kernelriot.com (Postfix, from userid 995)
-	id 7572480E76; Mon,  2 Nov 2026 08:10:20 +0000 (UTC)
-From: Magnus Leatti <magnusleatti@kernelriot.com>
-To: Yao Zi <me@ziyao.cc>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: stmmac: dwmac-motorcomm: mask the MISC interrupt
-Date: Mon,  2 Nov 2026 05:09:38 -0300
-Message-ID: <20261102080938.2955-1-magnusleatti@kernelriot.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XUS6RQPy
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so19947955e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:11:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793607105; x=1794211905; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n45aLFyavI2LtF2m7I+VQnPGHMyctlLmfLLfzdcQlpQ=;
+        b=XUS6RQPyb3otLnmDTaqJaQXOx+d5IGnB97gdhyJ16YFLMBS9Oi9L5ba5RebRSivImX
+         xUKMnCVgsV8Zo94W80KHvK8Y6iHgiVUyQ3mxKPGhDQ8t+goiA1toTD7uDr0dy4ExQvbf
+         UkqXJFec3gDJSxPjQiiS3zCpiwwd2IV3+dCOsbo2vQndD0h3weBG6qM1+8VyU3zYfRDB
+         p4F+vHBU3+378wo8ZVn6soA6X+CfQdNY8KXaJZfIQ8zZizSbpiMf2ARPB9ehyNNWz8pN
+         tEqOOt04zgi2h4pWjc7qyqfFb1693V/mCU9IrLV80LXrwFhLuGmv7fJzKMUdGh6t6pi6
+         VEzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793607105; x=1794211905;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n45aLFyavI2LtF2m7I+VQnPGHMyctlLmfLLfzdcQlpQ=;
+        b=ibkb7/mqsRw19n3Rzvx8o2beW7NfWteQEfvcP6Bt08IGPHRTOr4xfOIWloXdWSsig9
+         FmbvbNR+1pxryQbeubyI4hDd30nFU+RSaB3Prm2YZibENtzZxSk0PDr+Hu86Lk5GhWvb
+         9Z+8nmkLeguGbsC+o7B4IlWXxgJfa5carLMLYP+fMQBUmXzZnpLTZ8jcomjBJH7z9F9g
+         HS1jZyH2w4MjnjFCWsUdIQdrWyHBTO+fOiUSH6OFZOsY0gRoXZk6gmmDpVG3t3Yu4UCC
+         mAIgmZSk0HHS7i1ZVOdlRRORBFsPIOizB1hVLlK/hTxfaus61B41jE6o3aODK71slEXs
+         +PWA==
+X-Forwarded-Encrypted: i=1; AKwUvBz6sxl0xIKr6cuebnCWFoks7glpyQJu7Du8qWNsVpzRWUP7iKJeO7XpCCNf1ha4qRfpGgGICnx+W8WSr5E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYa1KoH2Hs6L3ztzdcU12PAzMeLr+1gwV9FtPHl4g0mNa/8yO+
+	n8Pi46nwGDA+dlNUnrrgvvPOU0cPfNm+W0skf8hzfXYwiOTdcMSU7XoR
+X-Gm-Gg: AYBFou3+9eGJlEH4B73aBMt9V9SZyYYcRwdn+cS9pErhIrdeS6spkYal9K1nXCSLFZa
+	ibmWqLeOAjqLGzhk53lqc6joNGVklQkaUY2HaZ2IPJ+2TMDEhYkrHWB8zTIIkyDLti7oZ8YoxiF
+	b08gn32WbyeQpv77xlBCxLyozOUnQ7hH+8oNNXH3AlrqaIwoP9/1Vr0U1z/d6Y6qA8IcwRciKCS
+	C/6j+AtKSJPKjsHCxHeSEvsZHrzbMFBuJDkWOr1xZkw9pn/F0CfJcWkgfY+a/A+3OiezVM4iE6g
+	6yyiitUq3I2Sn1+PHqqRIXI6nIwRArjSDTtxV+h0eLRo3PywRoC51FEOMsUAKMDseFC/AwD0zmo
+	0b37OVIz9gsnI8RdksOabORV7E+pTd+H1KVuv/J087FgRhSKOyHSepeiKR8tW8lUUmrne1iXtxd
+	YzefUVIjwJI+0MixtGHew1N9OJt04m21sF4STTQ1F+FvqzGtZsBT1NuHNok1cqx4rGOtR4hCWBs
+	pnte7aUdYXaspC/NCMdu8AM5BXJ+6cS2W4vs+Q6NoeKxGL+zg4Mu0JdbHXAE+AKhZn4Ksyeqnwt
+	6MuJH7fQ9kEA6bCETneQAaYGUvnOl4JBMuc=
+X-Received: by 2002:a05:600c:46d2:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4ac1980118cmr202498175e9.33.1793607105171;
+        Mon, 02 Nov 2026 00:11:45 -0800 (PST)
+Received: from nobara ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm333331005e9.14.2026.11.02.00.11.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 00:11:44 -0800 (PST)
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Peter Xu <peterx@redhat.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH v2 0/2] mm/userfaultfd: recheck WP registration in the hugetlb UFFDIO_COPY retry
+Date: Mon,  2 Nov 2026 09:11:29 +0100
+Message-ID: <20261102081140.201987-1-azpijr@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,67 +109,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-motorcomm_init() writes 0 to MGMT_INT_CTRL0, which unmasks the MISC
-interrupt. MISC arrives on MSI-X vector 5, which stmmac requests as its
-MAC interrupt, and nothing in stmmac clears it. The vendor driver masks
-it.
+The urgent fixes made hugetlb_fault() tolerate uffd bits left in VMAs
+that are no longer registered for them, and asked for follow-ups that
+remove the sources [1]. This is one: a hugetlb UFFDIO_COPY_MODE_WP copy
+that has to fault in its source page doesn't recheck the WP registration
+before retrying, so re-registering the range without WP in that window
+leaves a uffd-wp PTE behind.
 
-Since commit 1b9707e6f1a9 ("net: stmmac: enable RPS and RBU interrupts"),
-heavy RX load sets MISC and it never clears again, even though every
-status register I could find reads zero. Vector 5 then fires about 120k
-times per second and the machine stops responding until the TX watchdog
-resets the adapter, or does not recover at all. A 64-byte UDP flood
-from another host is enough:
+Patch 1 adds the missing check. Patch 2 adds a uffd-unit-tests case for
+it, which fails on hugetlb without patch 1.
 
-  iperf3 -c <host> -u -b 0 -l 64 -R -P 4 -t 10
+The other source 6/10 of [1] mentions, UFFDIO_COPY in MODE_WP racing
+with UFFDIO_UNREGISTER [2], is closed by "mm/userfaultfd: write-lock the
+VMA before waking waiters when unregistering" [3].
 
-Mask MISC, as the vendor driver does. I could not find anything else
-that depends on it here: EEE is not supported, and Wake-on-LAN uses PME.
+Based on mm-unstable.
 
-Tested on one YT6801 board with net at cb284914e749. Without this
-patch the flood above hangs the board within a second. With it, no MAC
-interrupt fires under that flood or heavier ones, including after link,
-ring, MTU and speed changes and a module reload, and throughput is
-unchanged. Suspend could not be tested. The register values were read
-with a debug build of stmmac.
+Tested on x86_64 in QEMU.
 
-Fixes: 02ff155ea281 ("net: stmmac: Add glue driver for Motorcomm YT6801 ethernet controller")
-Signed-off-by: Magnus Leatti <magnusleatti@kernelriot.com>
----
-Russell, d3265c19b35d ("net: stmmac: xgmac2: disable RBUE in default RX
-interrupt mask") describes a similar storm on xgmac2. Should dwmac4 do
-the same? I have only tested the glue change.
+[1] https://lore.kernel.org/20261015-urgent_fixes-v1-0-42796911043b@kernel.org
+[2] https://lore.kernel.org/20261015-urgent_fixes-v1-6-42796911043b@kernel.org
+[3] https://lore.kernel.org/20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org (v1, now 23/47 in v3)
 
- drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Changes in v2:
+- 1/2: drop the leftover sentence and the non-hugetlb reference from the
+  commit message, add Mike's Reviewed-by
+- 2/2: "all memory types" in the commit message, rename copy to result
+- rebase on mm-unstable
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-index 124fcd55a..610d533b9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-@@ -30,6 +30,7 @@
- #define OOB_WOL_CTRL				0x1010
- #define  OOB_WOL_CTRL_DIS			BIT(0)
- #define MGMT_INT_CTRL0				0x1100
-+#define  MGMT_INT_CTRL0_MASK_MISC		BIT(21)
- #define INT_MODERATION				0x1108
- #define  INT_MODERATION_RX			GENMASK(11, 0)
- #define  INT_MODERATION_TX			GENMASK(27, 16)
-@@ -172,7 +173,11 @@ static void motorcomm_reset(struct dwmac_motorcomm_priv *priv)
- 
- static void motorcomm_init(struct dwmac_motorcomm_priv *priv)
- {
--	writel(0x0, priv->base + MGMT_INT_CTRL0);
-+	/*
-+	 * Nothing services the MISC source, and once raised it never
-+	 * deasserts, so keep it masked.
-+	 */
-+	writel(MGMT_INT_CTRL0_MASK_MISC, priv->base + MGMT_INT_CTRL0);
- 
- 	writel(FIELD_PREP(INT_MODERATION_RX, 200) |
- 	       FIELD_PREP(INT_MODERATION_TX, 200),
+v1: https://lore.kernel.org/20261029221129.89068-1-azpijr@gmail.com
 
-base-commit: cb284914e749388eef402938bdb3115fe1f6d337
+Jose A. Perez de Azpillaga (2):
+  mm/userfaultfd: recheck WP registration in the hugetlb UFFDIO_COPY
+    retry
+  selftests/mm: add a uffd test for re-registering during UFFDIO_COPY
+
+ mm/userfaultfd.c                             |   4 +
+ tools/testing/selftests/mm/uffd-unit-tests.c | 105 +++++++++++++++++++
+ 2 files changed, 109 insertions(+)
+
+
+base-commit: 34f88a114888c9dba49e45f2b0c2a3e83c4c871c
 -- 
-2.54.0
+2.56.0
 
