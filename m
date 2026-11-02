@@ -1,116 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626189;
-	b=IrZSpDeKdtPwWVcL/7QwFcF2btH/QsJn8+Khhrm2vioi01SACkkQpdHD6V1rVrHqAZ6e
-	 0rFtvfT1izT20beYQVhvqpBw7AfaVpfsU0s7tJ42udxRPdhXf00JfWrOhh3Wqu/fAtNtR
-	 JVlQKjJaXYYk1J3NpZqWv+fZWjeDZ/N0nwC8Au6/VPrSIKpycqAYi59+LIbVzpoYz8lzI
-	 VtuvTsP/ys3MusULRYO69Mh/6OfcCQOYYT/OcnaHa97KjhvV/krZvISEPcn/fp9Stlf9O
-	 erLIUrYMUtCdPITqAoYQYzv92wan7W3sCkVFfPOP3VCSnMCyzaE2FsZx5kb/CNAvKOg==
+	t=1793626196;
+	b=soKXu1dbani2P5Or+M73avwEjB3cuY3hi9hCbYwkkMUFNOaGFwCs3nE02JNw3B1maQ78
+	 LZvnvQYihZ54omfGI2VIDQ2AitPYjJNvQdCvK9EhO3Sad9bm95gUzE4u5GbiN/cGc32jS
+	 6gCojQRC7h9olba/Ue5ITvnGP6sIMVilqETAiSavYkhqtG48OFk3y0+5G+/1vfYN+GE3N
+	 5fsWMJEoRaMDFfelHxQ7gtlG44IHF4nzfBH3dLjlesCuMPF41JmaQEvLP5oE/CSszXI+C
+	 TTUsuaR/sBCbHbTx8tTPLJUfhaUsULD3D+riN75Cksuj/8UN+0lkZDW7zsE0J3WMD8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626189;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=MaHSdSC68YCgPi3lz8iuASH0f6ZOoGx8qQJK3v92RQY=;
-	b=Kruycr0dh9yu+2cxxMdY4DZ3EHUW5jyxKxlIFGVRq8PxusltraN5WRbumKWDD63+uio9
-	 3hF06eyTppqctmrwDt+SQ1jt0p1s76/+D1pLjyZ+GAt2O6hbLMnGmDmgQa64miUHAUaHh
-	 d0UcXyPBIRwyeZPtoZ2SQKCpn0LA13vxKqcH9NeWjtfvBYtT/T0IAy8WxlB6D5c21gO4v
-	 7P8nA2icY6JPEOPxvaNErLy1G/HUG3+cLbLKIKAMu/12mQ7APXZJP5Q9vRZpk/LfTil3E
-	 wF9GEYMqGVGc2GmdcdjLpC0SRD/zLC1QpGyLRnmQp80FfTr0lSPQlyFMny+7sl9glTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626196;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zWVE/AqRKRaVNddmv6NG+nhnU89aW+d0SMAU+Uuclug=;
+	b=1NXHooEhp2OHdkTZZ2+APcsDDpV2OzTXdPIxXCmpVsiIih7TU6CL2jeCjprV/kxFvbnk
+	 zBMsbYFLKZlI/u3G/VJQ5Y8LxkIkbtzKICUYDmxSUZyjGGiyXHVKG7g2FgHysfwx5Bz5C
+	 oh5GxXxoD2cDh3BvZwKE/HWIpMsjWtzUKj8nS7TmsK1lKRdJZCEIZ4H7pN457vXmlWC2D
+	 jFDR3sbBd1+H0UBUdRAxRB9GqGIO4Mn7tqTOn6uyWbTZIwigr3SC4iIxnkIf6dvcI3XWF
+	 ZQsX+RtU+KPuvHglyo5asxpUMu2n/qWHlPpiWJWRlZu2PobdKffD3IktRxbpOuk+J8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZutqRrGj;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FF3VqCj7;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gOKGLvIO;
+	arc=none smtp.remote-ip=95.215.58.193
+Received: from mta1.migadu.com (out-193.mta1.migadu.com [95.215.58.193])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4A6606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:29:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A4A6606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E46606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7E46606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZutqRrGj;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FF3VqCj7
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAOir804756
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 13:29:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=MaHSdSC68YCgPi3lz8iuASH0
-	f6ZOoGx8qQJK3v92RQY=; b=ZutqRrGj9Qy7ij4ckTkadu5YKgyRayrkWPiVgddp
-	TrmgYQVhehE4pI8aHMq9UfhDc0LNhNLjZdcD8Sd+I5ltaJF+gPj74JhqOWGvrk52
-	NPGe/HEcu02bQxGOS3pksJ7JXFNNhcd+ewnxudTifFrlYLih5FnUnWvsJe5J6Siy
-	Pj+aVjwow/37215QXQhfgZMa2nmZOGjZetepgLzfFMx42tTtjmfeM6/OkCBjZ9QP
-	v/R2xZwpWvu/PxmGIudZWZfKkLEIGkjPOpWyEmdV1YVHGVmLzG7dlGs/aiRPsCiS
-	4HciFR09ADNU+5Mq+7bhky/t/GfbRkE43fa8PY4IK3miKA==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqmvryw9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:29:48 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9913f410ba2so573210241.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:29:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793626187; x=1794230987; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MaHSdSC68YCgPi3lz8iuASH0f6ZOoGx8qQJK3v92RQY=;
-        b=FF3VqCj7/p782XIzRyJTXW9i8Pt808MrlF7U9B0/BrjVwU7KJ4yPmHdkbkDNN+7LS4
-         qnwkgh4ivqGk2Usqcj/xQkT0fIQcap0xhBvBSEJvLsj5GgIfk833hcwaKa9ffUSUUBQS
-         8Ts2z79Hpp4doEhaPtmBicILLG1p1vnGtK4InDxQH7PXVLXRjrUZLmW5Ae10ntKbDwuJ
-         +eysul4BuMFAPxGffAr3y3MvCfLEkumnlj2arb7FmqrWSZmM81BsxL1dr4aS+LR9rOzs
-         aUmhCrju5yNJGSeaKTp/0n1WLSR8/FPoOFvhISt8BpIFRYizmpCxEV9+UddZAU34WHNp
-         ki4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626187; x=1794230987;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MaHSdSC68YCgPi3lz8iuASH0f6ZOoGx8qQJK3v92RQY=;
-        b=yslckuN07xcKvATQedXhTimgZj93+D3Ut2NL9caq7V34NFpS9IehrpmTr3IWzPqe+8
-         uXSjvxCHV78dYrklZV8Oq1oldXsiTEUANFw0Th4m2Gnhg3mwXOtPsRsR+tyV92npAND2
-         o5n/9+avoGa6S1JlAC7KsXbMi6ZJO0Lua+iVT3ZirrC+OwAKo1llTaYop4YYaFx2i8uc
-         CB8X3RVNt3ag4WA7Qhgx8czHiFlIm8Gg+FdW6oYfVtnXRey0kZQ7cQvCZwSrZUkXopfh
-         tCNzb3kqL9djdVsx5oOdhfrBUdiZstvElyfyPWIOY2IQQsfgYSRlUGyUUToIm2N/yGKr
-         BiBw==
-X-Forwarded-Encrypted: i=1; AKwUvBxc0vL+e0fXUkUD/BtWXRITuN7dnleeUtpRO6Eqst13y8M8uPiTy/jU+YngTA/iKHJZOsucArrb4E9X2Jo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+F0abSVFCJqTTyd7HQF8pR3JUyTd3hWXXVKzJsXBOKWcOpKWoq
-	Oc1CxIr9k55aTm8KHlwudsfa6glXq4WMEQGv2rKL/+97UDckfwpQLkTqenTGGPrcYoZ64s1/2iC
-	R2v5uLwzxoYAciKIWRv7M4irqj8z5KyKVygk8UHWz9+3RD+4+fbkdYmMsT5ih+cSxuORanzA+yc
-	EDbQ==
-X-Gm-Gg: AYBFou0e3UK1m8kYF1UA1tnHq0NzI7wl78yXFHppdmsbQQcdyRlqFmUxHuvM6ktS9m6
-	EoXEwUwRMgjBGS5SkwUBv2z8rigK4l99VS1NJIw9/bOwXLRBHelZDuheZdxAqygFAe9F4+knjT3
-	xNkETjwvFOOIcaASVkR309ETDNurH7MGWQDX9oIoz7P40m5t3fYvSMjQe0iLul/UfPEDZymbaip
-	168QLMA4HkH9w/upuu66xrrlkSAjF4Xrt6JznvXogg9eo1AyaV4zXtu+8n+He70sdueDyxgCJgw
-	07bzPHx2DiVXhmtqHaF6wchYSnupy/xkQ5llPwt0RAy2zwGGJUE2+odTUDXoIEd98txghei93xa
-	LDXC1KWzzDTx2REz3PqKisnwzTrlWuzd3SJAHS12izwiXeV/8WyfODze9xMDrLoc=
-X-Received: by 2002:a05:6102:5486:b0:7c5:4da3:aefb with SMTP id ada2fe7eead31-7d0728c1b0amr3490570137.34.1793626187277;
-        Mon, 02 Nov 2026 05:29:47 -0800 (PST)
-X-Received: by 2002:a05:6102:5486:b0:7c5:4da3:aefb with SMTP id ada2fe7eead31-7d0728c1b0amr3490562137.34.1793626186628;
-        Mon, 02 Nov 2026 05:29:46 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80333sm21455580f8f.32.2026.11.02.05.29.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:29:45 -0800 (PST)
-Date: Mon, 2 Nov 2026 15:29:44 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org,
-        kernel-janitors@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH] powercap: dtpm: Constify some structures
-Message-ID: <ujl42bbqnsbakun4wffbtgtytojsntebdyt65vlpgxbz6mr2s7@cjqsl5j2kbm2>
-References: <a4737f7c69e044d35348c1e9c7f69f229070d29b.1793524483.git.christophe.jaillet@wanadoo.fr>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gOKGLvIO
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oTSssby8yHdQ2jW4COWEzOnQpMmBT2IW4EkQbQx53ao=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793626194; v=1; x=1794230994;
+ b=gOKGLvIOSmkS2OG+LA2rWuw8FXD4Vyi6jCqX/OUMEy3h1wFH5gMa4b0sp28yMfzkngp56N1p
+ 4k1YsUvgYns2foURZFG18EpK7xFQK5t5Ndl8wwk3wNCRHGjCMNrTOVfc+oi8WCCxdw8PQAD7d34
+ zOYyIyLx4OpILSV7czNcJS9s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id d9179c91a3ca1243;
+	Mon, 02 Nov 2026 13:29:53 +0000
+X-Mizu-Trace-ID: d9179c91a3ca1243
+X-Migadu-Flow: FLOW_OUT
+From: xu.xin@linux.dev
+To: xu.xin@linux.dev
+Cc: acme@kernel.org,
+	adrian.hunter@intel.com,
+	agordeev@linux.ibm.com,
+	akpm@linux-foundation.org,
+	alexander.shishkin@linux.intel.com,
+	apopple@nvidia.com,
+	baohua@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	borntraeger@linux.ibm.com,
+	byungchul@sk.com,
+	chengming.zhou@linux.dev,
+	david@kernel.org,
+	dev.jain@arm.com,
+	gerald.schaefer@linux.ibm.com,
+	gor@linux.ibm.com,
+	gourry@gourry.net,
+	harry@kernel.org,
+	hca@linux.ibm.com,
+	irogers@google.com,
+	james.clark@linaro.org,
+	jannh@google.com,
+	jolsa@kernel.org,
+	joshua.hahnjy@gmail.com,
+	kas@kernel.org,
+	lance.yang@linux.dev,
+	liam@infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-s390@vger.kernel.org,
+	ljs@kernel.org,
+	mark.rutland@arm.com,
+	matthew.brost@intel.com,
+	mhiramat@kernel.org,
+	mhocko@suse.com,
+	mingo@redhat.com,
+	namhyung@kernel.org,
+	nico.pache@linux.dev,
+	oleg@redhat.com,
+	peterz@infradead.org,
+	riel@surriel.com,
+	rppt@kernel.org,
+	ryan.roberts@arm.com,
+	surenb@google.com,
+	svens@linux.ibm.com,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	ying.huang@linux.alibaba.com,
+	ziy@nvidia.com,
+	xialonglong2025@163.com
+Subject: [PATCH v2 2/4] mm: make folio_walk_start()'s locking asserts scalable
+Date: Mon,  2 Nov 2026 21:29:27 +0800
+Message-Id: <20261102132927.301921-1-xu.xin@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102132416.300084-1-xu.xin@linux.dev>
+References: <20261102132416.300084-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,58 +113,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a4737f7c69e044d35348c1e9c7f69f229070d29b.1793524483.git.christophe.jaillet@wanadoo.fr>
-X-Authority-Analysis: v=2.4 cv=TMDQ2Fla c=1 sm=1 tr=0 ts=6ae8904c cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=5Yrv_TkWLuZ8LgkGlGMA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-GUID: xSJ_PVyJivkug91BbyJv1p-JpczJoVX_
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX85qhRN9AC8+9
- G1Bff4mtAFJz6O9/jXp7fFTNCHBkjhGyJ0WR4ZOHTKfdZhle9P2sF/tGh18zZmAQ58YrWikM+BX
- Lq1ZomW2CEugC/cSdBDRz9OaEIB4UfU=
-X-Proofpoint-ORIG-GUID: xSJ_PVyJivkug91BbyJv1p-JpczJoVX_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MyBTYWx0ZWRfX7sY4mEBRTjaz
- RrrPYKvP2ltte1Q0wPMCmY5lpgKIGxEKSD0VBm625D/JA8E3Nb02/BFhbIW12c5S6FOjG4fxUmp
- BFr/WyJHQWIkhmi2lO6ggUYcCJlzuKqmQa1qm0MYzabclwmPNddxgfNKGty2P86XNMof/SKQpOf
- J33yE+f/dCtB2i1pikUvUyLbHnKDfHNzeBQ4v7vx5ZPZw+/mu/cPh/tvKCmy6nj8m8vQDQrRmoV
- RCenO1xuQneFFdB2nZ6/N/nGNFofyWL8RWceXi19H1hdncwj407Z3org4pU1SjZ//p8xEP5bvX6
- oHY12KUujDPOoGcJjuZvf3syaiAOJM/4QgRFyGtsrfnjKQRKX9s+FVAf7VPUqF7Hw9Xi6SxGWIV
- 8KPrJ5lwZl/3fvYZUHx8lk10PedkaQpOrF/G53B9/596+txPfsjG1XtX6QvEv3mUbtwnzEcT2lL
- dMQpHMuILifugDoNfag==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020053
+Content-Transfer-Encoding: 8bit
 
-On 26-11-01 10:15:06, Christophe JAILLET wrote:
-> 'struct powercap_zone_constraint_ops', 'struct powercap_zone_ops' and the
-> 'dtpm_node_callback_t' array are not modified in this driver.
-> 
-> Constifying these structures moves some data to a read-only section, so
-> increases overall security, especially when the structure holds some
-> function pointers.
-> 
-> On a x86_64, with allmodconfig:
-> Before:
-> ======
->    text	   data	    bss	    dec	    hex	filename
->   22049	   7736	    128	  29913	   74d9	drivers/powercap/dtpm.o
-> 
-> After:
-> =====
->    text	   data	    bss	    dec	    hex	filename
->   22273	   7512	    128	  29913	   74d9	drivers/powercap/dtpm.o
-> 
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+From: Xu Xin <xu.xin@linux.dev>
 
-Seems straightforward enough for me, so:
+Add an additional member 'walk_lock' to folio_walk to indicate
+locking requirements for the walk. Similar to commit 49b0638502da0
+("mm: enable page walking API to lock vmas during the walk").
+But no change is made on any existing locking behavior,
+all existing folio_walk_start() callers are currently still
+under mmap_read_lock() protection.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+This change is prepared for the later patch to enable VMA locking
+asserts. folio_walk_start now operate under write-locked mmap_lock.
+With introduction of vma locks at the next patch, the vmas have to
+be locked as well during such walks to prevent concurrent page
+faults in these areas.
+
+No functional change intended.
+
+Signed-off-by: Xu Xin <xu.xin@linux.dev>
+---
+ arch/s390/mm/fault.c     |  4 +++-
+ include/linux/pagewalk.h |  1 +
+ kernel/events/uprobes.c  |  4 +++-
+ mm/huge_memory.c         |  4 +++-
+ mm/ksm.c                 |  4 +++-
+ mm/migrate.c             |  8 ++++++--
+ mm/pagewalk.c            | 10 +++++++++-
+ mm/rmap.c                |  4 +++-
+ 8 files changed, 31 insertions(+), 8 deletions(-)
+
+diff --git a/arch/s390/mm/fault.c b/arch/s390/mm/fault.c
+index 46d828926009..968f128a5232 100644
+--- a/arch/s390/mm/fault.c
++++ b/arch/s390/mm/fault.c
+@@ -412,7 +412,9 @@ __context_unsafe(/* folio_walk_end() not instrumented */)
+ 	unsigned long addr = get_fault_address(regs);
+ 	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma;
+-	struct folio_walk fw;
++	struct folio_walk fw = {
++		.walk_lock  = PGWALK_RDLOCK,
++	};
+ 	struct folio *folio;
+ 	int rc;
+ 
+diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
+index 1c397be0d092..455428eaf1fc 100644
+--- a/include/linux/pagewalk.h
++++ b/include/linux/pagewalk.h
+@@ -184,6 +184,7 @@ struct folio_walk {
+ 	};
+ 	/* private */
+ 	spinlock_t *ptl;
++	enum page_walk_lock walk_lock;
+ };
+ 
+ struct folio *folio_walk_start(struct folio_walk *fw,
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index caf444762a27..3e3927109ee9 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -507,7 +507,9 @@ int uprobe_write(struct arch_uprobe *auprobe, struct vm_area_struct *vma,
+ 	int ret, ref_ctr_updated = 0;
+ 	unsigned int gup_flags = FOLL_FORCE;
+ 	struct mmu_notifier_range range;
+-	struct folio_walk fw;
++	struct folio_walk fw = {
++		.walk_lock  = PGWALK_RDLOCK,
++	};
+ 	struct folio *folio;
+ 	struct page *page;
+ 
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bd44d58e8684..62ec81396c9d 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4816,7 +4816,9 @@ static int split_huge_pages_pid(int pid, unsigned long vaddr_start,
+ 	 */
+ 	for (addr = vaddr_start; addr < vaddr_end; addr += PAGE_SIZE) {
+ 		struct vm_area_struct *vma = vma_lookup(mm, addr);
+-		struct folio_walk fw;
++		struct folio_walk fw = {
++			.walk_lock  = PGWALK_RDLOCK,
++		};
+ 		struct folio *folio;
+ 		struct address_space *mapping;
+ 		unsigned int target_order = new_order;
+diff --git a/mm/ksm.c b/mm/ksm.c
+index d6f736a1aa2f..d4fc0b0965aa 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -819,8 +819,10 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
+ 	unsigned long addr = rmap_item->address;
+ 	struct vm_area_struct *vma;
+ 	struct page *page = NULL;
+-	struct folio_walk fw;
+ 	struct folio *folio;
++	struct folio_walk fw = {
++		.walk_lock  = PGWALK_RDLOCK,
++	};
+ 
+ 	mmap_read_lock(mm);
+ 	vma = find_mergeable_vma(mm, addr);
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 875079464930..89662d5bedf4 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2301,7 +2301,9 @@ static int add_folio_for_migration(struct mm_struct *mm, const void __user *p,
+ 		int node, struct list_head *pagelist, bool migrate_all)
+ {
+ 	struct vm_area_struct *vma;
+-	struct folio_walk fw;
++	struct folio_walk fw = {
++		.walk_lock  = PGWALK_RDLOCK,
++	};
+ 	struct folio *folio;
+ 	unsigned long addr;
+ 	int err = -EFAULT;
+@@ -2463,7 +2465,9 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
+ 	for (i = 0; i < nr_pages; i++) {
+ 		unsigned long addr = (unsigned long)untagged_addr_remote(mm, *pages);
+ 		struct vm_area_struct *vma;
+-		struct folio_walk fw;
++		struct folio_walk fw = {
++			.walk_lock  = PGWALK_RDLOCK,
++		};
+ 		struct folio *folio;
+ 		int err = -EFAULT;
+ 
+diff --git a/mm/pagewalk.c b/mm/pagewalk.c
+index e6493bbe6919..7d85289fcb87 100644
+--- a/mm/pagewalk.c
++++ b/mm/pagewalk.c
+@@ -910,7 +910,15 @@ struct folio *folio_walk_start(struct folio_walk *fw,
+ 	pgd_t *pgdp;
+ 	p4d_t *p4dp;
+ 
+-	mmap_assert_locked(vma->vm_mm);
++	/*
++	 * Other locking modes except for mmap or vma read locking are not
++	 * expected.
++	 */
++	if (fw->walk_lock != PGWALK_RDLOCK && fw->walk_lock != PGWALK_VMA_RDLOCK_VERIFY)
++		WARN_ONCE(1, "walk_lock is not expected!\n");
++	process_mm_walk_lock(vma->vm_mm, fw->walk_lock);
++	process_vma_walk_lock(vma, fw->walk_lock);
++
+ 	vma_pgtable_walk_begin(vma);
+ 
+ 	if (WARN_ON_ONCE(addr < vma->vm_start || addr >= vma->vm_end))
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 1131b76bbbc2..6e3bc2acd1d7 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2862,7 +2862,9 @@ struct page *make_device_exclusive(struct mm_struct *mm, unsigned long addr,
+ 	struct mmu_notifier_range range;
+ 	struct folio *folio, *fw_folio;
+ 	struct vm_area_struct *vma;
+-	struct folio_walk fw;
++	struct folio_walk fw = {
++		.walk_lock  = PGWALK_RDLOCK,
++	};
+ 	struct page *page;
+ 	swp_entry_t entry;
+ 	pte_t swp_pte;
+-- 
+2.34.1
+
