@@ -1,49 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604324;
-	b=3CxRWxTFbsOYxl93OkFqBqjWtJiqRZBTmmZlofq0y0GGhwxBIfsltDZ0k8w/1kkDPZ5n
-	 6e8tZoSIRUiCBSO4sa0rFmnLCqqm/tQ+lI4xQ9RoaZV2+qXBNwZN95T/tt5h7cRqVdqVg
-	 2DoUYz2XP63ZRqJL+gQCM4d/d63TRdPMmtsuA565lKZrd5jdUE+rQhjWeSoYwDfBG8x1H
-	 Ae+Bn+5w8NT33o0AT+3d6Ol1WfgFuSnH8QXvwCdFnGec0rJ5vurmpvkMsitrof7VsiO1M
-	 3QHjMTPBe4QWFFt6L2KXf+6VWSmMRdPdC7Op0eViowKqPuNYMw0pEkO6p5MTdAh1LEA==
+	t=1793604421;
+	b=ZxavdFSB9CyLCVAkE41PzTuGpef4R32wADIiDZOUeEiQEPpm9WLsrHQ72H48FRL7Z/Rn
+	 w2ml174xQ7F5vBxpcAzCaNvUe6t/YZZXZOWSlsHabMp4x3U0cpC+aZUFZiH/pu9/quEV1
+	 g/QUkLV6U+PU51j/oNyS5EzJuZROoZ9pACbNWjw12HEXaIyZhWYYUtWtAeLSj4O3G4rOB
+	 waokUnxe+FLe2ej0GrnvotuCIR+R8VcWIvyze2/AJjVYoB30t3AsSI3DprTw6A4uJwv5j
+	 XVvZbAD65gOiqtix0F0QnWExzXudKWcZIgCnsCDaTNhXvgmR1IqeZWJ+yrgbBp/sEtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604324;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=FpzobxBA97ERHDZ10JHwpxS0fLfapgQK42Ay+O68OEA=;
-	b=rkYQzkr/yQtyu0Kk2xNqIvQm9JmWli/Lq7xH8GS6ApLnv1LwKVA1tv4bWToHIIiX9zW4
-	 ReQcGvdvmSuFqppkxo/X28JtSSDyySIo4czdziRUep94oZQ7hwwRgIRohqj+jAubqQBEH
-	 iTd04mDju2lIr0HTQZB+HKzhgDjTWXj8ZBVFQ26w6OfTAY2/NKi2xGGBcFfR2zptDzvgM
-	 vpO873IHZZ5DPrGDKY50EyyjcARHGwGlJ+HFhT2l/em/vNvqwOOjhsp84ewaz9+0jmRk6
-	 IX6DaE+c7QxnnmlaosMoMiXtyo/Et4Gt2mHlJqBN+ExIVlJBDdRJEE0VnsG5IK/EU9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604421;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
+	b=niVKfKGMJajn1QCLUQ+zCFe/OI3DBmDpsp7OHxA2kaBJtsuVHyBUFPwBBJG0rEPXa7x0
+	 qUCyBpmGssyNM8F/cRM16E9hS7tW7Que1FVTp9am9zcrcRuj/icE8NFW+ng18U3DgaX9O
+	 RHkFHq5mRVduL5Dsf+B+sjEJhpxHHjkEc3gG71DQveVgSPv/W4Mj/RyUNWoCcfQQLAXdM
+	 4bhWNxNnUjrZXDQY8JRq5YzKsuTw+fZvjhhvN9ltXs7epOEmJ67vT6y3qqUJReTH2oWW6
+	 nq8oTByWjsyyMqunZDKaXmT2sLibGZSvvwiFiEk9dwD5rVZ9vAbljQsYmhts2zQBzcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=gYzN4YGm;
-	arc=none smtp.remote-ip=115.124.30.130
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nMt8BHjk;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="tg47q/4A";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nMt8BHjk;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="tg47q/4A";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F152B606A324;
-	Mon,  2 Nov 2026 07:25:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F152B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8876F606A324;
+	Mon,  2 Nov 2026 07:27:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8876F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=gYzN4YGm
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793604317; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=FpzobxBA97ERHDZ10JHwpxS0fLfapgQK42Ay+O68OEA=;
-	b=gYzN4YGms8SeNBqvZnLG2kLDm91HkCDUJvS2G17KX8cbyTWIPmtB6qXTs85Pkhvi+N0hO4AQlnhhP3S+gZBkkgBGNTQMwzaJU6X+clrXqPu9smWoC8VMbA5pBh3HTbvpa4rUSlMrCcRQMKHcu5AZAJeUrN35xE9UgEkaOoUWaXc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=66;SR=0;TI=SMTPD_---0XDv5rjy_1793604311;
-Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDv5rjy_1793604311 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 02 Nov 2026 15:25:13 +0800
-Message-ID: <17e9d4c6-6ea4-4c3f-986f-a3775c591da3@linux.alibaba.com>
-Date: Mon, 2 Nov 2026 15:25:10 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nMt8BHjk;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tg47q/4A;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nMt8BHjk;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tg47q/4A
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B0D541F788;
+	Mon,  2 Nov 2026 07:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793604418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
+	b=nMt8BHjky/1S3YlOjl184PVLOw65SCzlu4n73GFxSTVyupFfIGsS3VqtuQJWBGZ6gyI0NT
+	XVEHCJKEzsW0pz4z1z3NuWBLYtg+8+UQETgXeqwb7OEiJEWe/hPuK9S/zj9F7bYG08G77O
+	Q+ysKX66LokrFu0L6P09u4g8D3/wsUA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793604418;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
+	b=tg47q/4AJwq592NmqX2E0MwXUjLzXsl+/I0fHmMcZNh0cuTBsSi0NUXMPOEbfufoYhKzRh
+	vNp4CMc0n7chf0Ag==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793604418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
+	b=nMt8BHjky/1S3YlOjl184PVLOw65SCzlu4n73GFxSTVyupFfIGsS3VqtuQJWBGZ6gyI0NT
+	XVEHCJKEzsW0pz4z1z3NuWBLYtg+8+UQETgXeqwb7OEiJEWe/hPuK9S/zj9F7bYG08G77O
+	Q+ysKX66LokrFu0L6P09u4g8D3/wsUA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793604418;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
+	b=tg47q/4AJwq592NmqX2E0MwXUjLzXsl+/I0fHmMcZNh0cuTBsSi0NUXMPOEbfufoYhKzRh
+	vNp4CMc0n7chf0Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4371E134B3;
+	Mon,  2 Nov 2026 07:26:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UBfCAEI76GpfbQAAD6G6ig
+	(envelope-from <hare@suse.de>); Mon, 02 Nov 2026 07:26:58 +0000
+Message-ID: <6e9e6f78-4bd7-46f0-bf57-5c227a65a69e@suse.de>
+Date: Mon, 2 Nov 2026 08:26:57 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,86 +107,130 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 17/47] mm/khugepaged: preserve dirty bits when
- collapsing PTE-mapped THPs
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org,
- Muhammad Usama Anjum <usama.anjum@arm.com>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
- <20261031-fixes_core-v3-17-d6437171ecc3@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261031-fixes_core-v3-17-d6437171ecc3@kernel.org>
+Subject: Re: [PATCH 1/2] nvme: remove namespaces in parallel
+To: Qiliang Yuan <odys.yuan@gmail.com>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, Ming Lei <tom.leiming@gmail.com>,
+ Nilay Shroff <nilay@linux.ibm.com>,
+ Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+ Stuart Hayes <stuart.w.hayes@gmail.com>
+References: <20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com>
+ <20261102-bug-nvme-remove-ns-async-v1-1-61780fee111c@gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261102-bug-nvme-remove-ns-async-v1-1-61780fee111c@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-11.79 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,kernel.dk,lst.de,grimberg.me];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[lists.infradead.org,vger.kernel.org,gmail.com,linux.ibm.com,wdc.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	TAGGED_RCPT(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
+X-Spam-Score: -11.79
+X-Spam-Level: 
+X-Spam-Flag: NO
 
+On 11/2/26 7:14 AM, Qiliang Yuan wrote:
+> nvme_remove_namespaces() removes the namespaces of a controller one
+> after another. Each removal waits for RCU grace periods in
+> del_gendisk() for the namespace and for its multipath head, about
+> 20 ms in all.
+> 
+But that isn't changed by calling async_schedule_domain, isn't it?
 
-
-On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
+> Deleting a controller, such as disconnecting from a fabrics target,
+> thus takes time proportional to its namespace count, over a second for
+> 64 namespaces. Scanning had the same problem until commit 4e893ca81170
+> ("nvme_core: scan namespaces asynchronously") made it add namespaces
+> in parallel.
 > 
-> try_collapse_pte_mapped_thp() clears PTEs without transferring their dirty
-> bits to the folio. A shmem read fault can map a clean folio writable, so
-> a later store only dirties the PTE. Losing that dirty bit allows reclaim
-> to discard modified data.
+> Remove the namespaces through an async domain the same way, and wait
+> for all of them before returning.
 > 
-> The assumption that regular files are read-only is also obsolete since
-> commit 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse
-> for writable files"). In any case, transferring PTE dirty bits to the folio
-> when removing mappings (and while the folio is still mapped) is the right
-> thing to do.
+> Disconnect time from a target on the same host, over tcp to 127.0.0.1
+> and over nvme-loop, with 4 I/O queues, median of 3 runs on each of two
+> boots per kernel:
 > 
-> Use get_and_clear_ptes() to collect the dirty bits and mark the folio
-> dirty before unmapping it. Update the comment.
+>    namespaces  transport  before              after
+>             8  tcp         170 /  171 ms        85 /   91 ms
+>            32  tcp         628 /  628 ms       294 /  293 ms
+>            64  tcp        1201 / 1308 ms       533 /  550 ms
+>            64  loop       1988 / 1913 ms      1283 / 1200 ms
 > 
-> This was reproduced with shmem using MADV_COLLAPSE followed by
-> MADV_PAGEOUT.
-> 
-> Fix generated by an LLM and sent by Chris Mason in private.
-> 
-> Fixes: 27e1f8273113 ("khugepaged: enable collapse pmd for pte-mapped THP")
-> Fixes: 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: adjust comment; simplify description; cover file-thp as well ]
-> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 > ---
+>   drivers/nvme/host/core.c | 13 ++++++++++++-
+>   1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+> index a7a4d09644c13..18948c2ba218d 100644
+> --- a/drivers/nvme/host/core.c
+> +++ b/drivers/nvme/host/core.c
+> @@ -4716,6 +4716,11 @@ static void nvme_scan_work(struct work_struct *work)
+>   #endif
+>   }
+>   
+> +static void nvme_ns_remove_async(void *data, async_cookie_t cookie)
+> +{
+> +	nvme_ns_remove(data);
+> +}
+> +
+>   /*
+>    * This function iterates the namespace list unlocked to allow recovery from
+>    * controller failure. It is up to the caller to ensure the namespace list is
+> @@ -4725,6 +4730,7 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
+>   {
+>   	struct nvme_ns *ns, *next;
+>   	LIST_HEAD(ns_list);
+> +	ASYNC_DOMAIN(domain);
+>   
+>   	/*
+>   	 * make sure to requeue I/O to all namespaces as these
+> @@ -4759,8 +4765,13 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
+>   	mutex_unlock(&ctrl->namespaces_lock);
+>   	synchronize_srcu(&ctrl->srcu);
+>   
+> +	/*
+> +	 * Remove the namespaces in parallel, as each removal waits for several
+> +	 * RCU grace periods.
+> +	 */
+>   	list_for_each_entry_safe(ns, next, &ns_list, list)
+> -		nvme_ns_remove(ns);
+> +		async_schedule_domain(nvme_ns_remove_async, ns, &domain);
+> +	async_synchronize_full_domain(&domain);
+>   }
+>   EXPORT_SYMBOL_GPL(nvme_remove_namespaces);
+>   
+> 
+Other than that it looks fine.
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
