@@ -1,50 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793642111;
-	b=5mVupApvuwmpGJvDpMuXsHvAe68YEWFn+e+ZGyPbq5jUWzpRYprwFJQM8m7sg8VG1L3b
-	 Z03Tu7tSc7oKqoxjQRS1vKMz6DGLBxchk81lXM4TwcQvEHZebxbkEIHdylxHvmWnRKE/b
-	 KeOzXKIv9jspj+EJjHicKhj4SBmDB/JLAUOmm8YSck0rLaMHsgYh+ZptWBk3OzvxCSAsI
-	 JgD2rTM6W+baTHdR66oPyUrBcRaXgPfG46FDjmQ6E9eVK5KN/BWR//KEKMtgb+8BRNu0P
-	 UupSowvgROkKXItZNHV/O2V3582B5c4s5WN6nnH79ih8wlZXYf+MckPv8prZ7qplrwA==
+	t=1793642188;
+	b=OwdTP4S1+neZb7YpEKQO+Mfn5+ZU1kJpDKCgTA8XTYfz91PMH5ZhTTGH63BIyRS5H2Ea
+	 a9rm8VXHQID7xtGc94vx4ojtnI8/Py4j5pf0Dm72sGDLSc8gVm2bdTHWRj1LVsiNfOUxo
+	 mjtKWeb4KNIpcWLePETXxb65WeTbBheQrhizpQ+7l1npE/JsLJ08gMiN+6/1dmE9q4q+q
+	 80WfLYaODqZB+HLMG5iWJtwEl5Zab7+a+r4RAy7eO0ipnjwlzDgNbsyAqVLnaAlAFW1kz
+	 O6HA+s2C2DCguEteUr0O/9Pez4al165Rru2tNtDpD/QSlirnRgFpAX8pBvMg6PQTS9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642111;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=I6gbravnOgRD2MRs/Kd+cTOIEtilIY3ejlnNzjQeb6U=;
-	b=c1Bitj/3pVoddQo/swpQY7ry2fYx0FzLvlE0knw8Gt5GNEiFuyqCkFdtIu8OWItLvSWi
-	 ESFOmzRFRo2vNkDprwM81CGRRiRC9Ca6M7isaINDQLSqq/HF5/a0x40k/sHJ6bCzZECmF
-	 Px2RaIgrGhr87+yQDTfs2xngK5hiDi1F6IJQ4NUIzrA0uVd9ZsNCWx0lFiZj7V6FbYAf4
-	 KSN/x56pmz9SLv3zc5gA2ui4SpipExmgC5jISFKNTioSBzNUS88JqnY4/OSTz6eLtzMT0
-	 meVz0SOePwE+a/EXaMolF9MTw4v9CoYQ9e5FEtbDo0OK0vBIrH+ztHa2WYJJe5XPqlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793642188;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=wksPVf4+3BY129091ZVPp8TwYhF+Bq8Qv4YKU7zTmjs=;
+	b=scuTuLcQjjcqO0L5RYqrwOCPxeoVH1xgihMVBi8MctLTy7yvf3tZQOBzxSLQh3Q05esw
+	 SW60a4Cn5COIfMIKje+KBKwTBvSprcjynG56Gf2UWT+jgcHsYn/W26xSfbBNowF5EGu8J
+	 VJ2KVc+gVSG8B0OBcG0B/KgwthyGss8RNLQOonjMwtmeCzIEU6fq7ogf3sYeBjni4ZCN8
+	 Od/3/SbVX4yJWXNYBEkFLESB4/3/dRyjTebkq/AKVTbmeAT9H2utP7szdhhhgLTHWOXnh
+	 zFVCULN5M/TFzUfr4sLmPCkX8QDIUIvMO6+MhHxDkvLPriqZcVXGFytFOmShtqTmqUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l7YgSDPj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=dZK7zyHM;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB953606BA5C;
-	Mon,  2 Nov 2026 17:55:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7BE606A589;
+	Mon,  2 Nov 2026 17:56:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB7BE606A589
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l7YgSDPj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36EAB1F00A1B;
-	Mon,  2 Nov 2026 17:55:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793642110;
-	bh=I6gbravnOgRD2MRs/Kd+cTOIEtilIY3ejlnNzjQeb6U=;
-	h=Date:From:To:Cc:Subject;
-	b=l7YgSDPjZGVT/WCS+bEAcQpcSqG7NFFPYN9Vw+XAxF/m/1+zwVRCb8kQz1fO0uOLh
-	 9qsB0BJBy6nE7RDr/lRN18XDMKVv7yNgS3futu/0Ld9KLPCHCzEfkufs2GBILI3YGe
-	 Qc0aErRn3LOdLlemKvIl1YeLadhujkPmkY8C5sJtwLuV+NQDrFmVhV5k9XMkJ5X94j
-	 aqfL1a041YABa9rofCYM/q5/YptePUTDvX33WlgeFvNtwampbzL3XF5JTIPkhoK/Mp
-	 VtUJHsTJiQGaK+rcIsO6gq3kl9qXxWdpWw0Og586fKP15LXS4MOa7LKCATxGz/KqUh
-	 nm1hVw9Xkje8g==
-Date: Mon, 02 Nov 2026 07:55:09 -1000
-Message-ID: <98e1914a51b7851253e93b2c6d756261@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: proxy_reset_donor() warning from sched_proxy_block_task() when p is curr
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=dZK7zyHM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=wksPVf4+3BY129091ZVPp8TwYhF+Bq8Qv4YKU7zTmjs=; b=dZK7zyHMmVcP48N00IenBMCX+Z
+	o/yReFYgu0RlweK61kvVICf3+IdrR04qdXyCDYFGJlfQiMz3Vf18t7orAjRSwQnHJfQIBX6UU1BH/
+	DpiFtlXZi54c0aV2bdZz7/uWb+H3p3wPrAkobXdf4hBYKa+sP98O5HOzKBxenRi2ul/w3nxnbFU0C
+	au3VMDS9FkEXUnokh00uqNwuR6KExyRWhKz4Bz0VeCeAW5a1iUMeLkfnErUN00knw5G/sm4s+DwdF
+	aDCYH6zmK0tb9CmbVmr5mJ3CL6kfOXOaDrnnNy/Me/GDAPIbbJ2Wno5OnJ/2X59JoziyW/Cn3MA1i
+	rGfY+6Vg==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xNwGe-0000000HXav-43SO;
+	Mon, 02 Nov 2026 17:56:25 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Bagas Sanjaya <bagasdotme@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH v2] Docs: mmap_prepare: don't italicize structs
+Date: Mon,  2 Nov 2026 09:56:19 -0800
+Message-ID: <20261102175619.2274135-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,51 +68,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Using a single quote mark `struct xyz` causes the html output to be
+produced as italic. Omit the quote marks so that kernel-doc's automarkup
+can make the "struct xyz" bold monospace ("code" style") in the
+generated html.
 
-sched_proxy_block_task() calls proxy_reset_donor() whenever p is the
-donor, without checking that p isn't also curr. proxy_reset_donor() then
-triggers its WARN_ON_ONCE(rq->donor == rq->curr):
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Acked-by: Bagas Sanjaya <bagasdotme@gmail.com>
+Reviewed-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+v2: fix one more instance of unneeded single quotes
 
-  WARNING: kernel/sched/core.c:3809 at proxy_reset_donor+0x129/0x140, CPU#3: flip/1539
-  Call Trace:
-   sched_proxy_block_task+0xa1/0x170
-   scx_prepare_setscheduler+0xcf/0xe0
-   __sched_setscheduler+0x6d6/0xb60
-   do_sched_setscheduler+0x105/0x160
-   __x64_sys_sched_setscheduler+0x18/0x30
-   do_syscall_64+0xec/0x420
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: linux-mm@kvack.org
+Cc: linux-doc@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>
 
-p is a sched_ext task under a scheduler with SCX_OPS_ENQ_BLOCKED. It
-blocks on a mutex in __schedule() and stays queued as a retained donor,
-still curr and donor until the pick finishes. The pick goes through
-sched_ext dispatch, which drops the rq lock while ops.dispatch() moves a
-task from another CPU.
+ Documentation/filesystems/mmap_prepare.rst |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-In that window, sched_setscheduler(p, SCHED_EXT) from another CPU takes
-p's pi_lock and rq lock and reaches sched_proxy_block_task() with p both
-curr and donor. I also hit it, rarely, through scx_sub_enable_workfn()
--> scx_prepare_task_sched_change().
-
-Nothing else went wrong in my runs. The pick sees p dequeued and carries
-on.
-
-It reproduces reliably within a minute in an 8-CPU VM on
-sched_ext/for-7.4-fixes (2227a34ff7bf) with:
-
-  scx_qmap -X -s 100
-  stress-ng --cpu 4 --cpu-method loop
-  modprobe locktorture torture_type=mutex_lock nested_locks=8 \
-      long_hold=2 nwriters_stress=16
-
-and a small program that flips the lock_torture_wr threads between
-SCHED_EXT and SCHED_OTHER with sched_setscheduler() as fast as it can.
-
-Thanks.
-
---
-tejun
+--- linux-next-20261030.orig/Documentation/filesystems/mmap_prepare.rst
++++ linux-next-20261030/Documentation/filesystems/mmap_prepare.rst
+@@ -156,16 +156,16 @@ pointer. These are:
+ * mmap_action_simple_ioremap() - Sets up an I/O remap from a specified
+   physical address and over a specified length.
+ 
+-* mmap_action_map_kernel_pages() - Maps a specified array of `struct page`
++* mmap_action_map_kernel_pages() - Maps a specified array of struct page
+   pointers in the VMA from a specific offset.
+ 
+-* mmap_action_map_kernel_pages_full() - Maps a specified array of `struct
+-  page` pointers over the entire VMA. The caller must ensure there are
++* mmap_action_map_kernel_pages_full() - Maps a specified array of struct
++  page pointers over the entire VMA. The caller must ensure there are
+   sufficient entries in the page array to cover the entire range of the
+   described VMA.
+ 
+ * mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
+-  `struct page` pointers over the VMA. They must span from the start of the VMA,
++  struct page pointers over the VMA. They must span from the start of the VMA,
+   but may terminate prior to the end (leaving the remainder unmapped).
+ 
+ **NOTE:** The ``action`` field should never normally be manipulated directly,
