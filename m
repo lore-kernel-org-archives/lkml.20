@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605151;
-	b=hWERZmSv1/1/4UGnIlIlpNcNwh8qKfnXe2LIZv8J57w5/JWG97n8SBZwRlKnO6iqMs8o
-	 VoHdq4mCc/nniim5RjFB9k6uL4YMEv8c14pdB2EdCJ4EtGw3TjkY5lpEgXoCnkn99CacH
-	 FdTxZiP41IVXe6hhfZrN3ajJbE2Eg9n3nfScDsVmU2V4mP7TywYCoepB+u5QKhHHoavPb
-	 UgU8pQC3Yv3SsnKuEehd5PO5KmNykO+rBM4Fpfw2tgg76YsylcYv9VayzBgZd2ld9IrJx
-	 l5yN2pX/PtdyUe+Sq3F3Qo+5mUAD0ORbj8CkhEsNkMlKvPxB2s0OjPkN87+Uud2t4Hw==
+	t=1793605147;
+	b=lt3vKevJY3ikO6adx7uTuZwTk8aWdtQXbiUF04T/nnGp7MDp7GpQ3XkiLeIknG4m0WuQ
+	 1G0UtcrYaq0Zcq6zuTBujzcKWjYnVwDplfZzM9x7iuSlnauZf9YRJz3gTGmAFTc713teh
+	 eaPJCP+TTchXVfPDb7g4jI/wZ5NmeBV190fKPVX6TRcl7YziDQSKRZPHfZdObKv+Cn+15
+	 ZeqY7dtI3/BuFAfVX4VmFyLysAajM9MISx+RR9PSxtrfH/tC7AoHRmN+Ql9Olh79niEC6
+	 ua9MKldaVhNKnGbois4JILtfosv8RWIfxf94U62LOZK+Ktk9jkpUzkgQ3TA76hhAiSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605151;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605147;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=pc+t/sBP4msBuO2u5r/6zX21HNjMObf3cA+ETzGNpmk=;
-	b=aRuYSZnzEWUYwk0Ok4UNnEbrKE2QoHTORSerhkm+/aU3zOpdetNQNItXwABbWVr/RsK1
-	 isZ1XSdVOKwtfpIAvxzO1vlpVHkeFb9eLQSZWCOuw1iQFMJtjBx9WQydpT+9aUSWJarFP
-	 RWr54skpYclyUfb4b4NGpb3z8e8KHIQwyS7vTtCL6Clvr33P9gNV4r3bb4s59q5XwcDLF
-	 nUkxdzO7uKGaWNyrbxldICOTa1aScdJqHA8dkY60N03up5dktuDNV51ZOui1XKQz9K0IO
-	 utx5LnuL0kwWhhdlv8hUA6/naX0rTqS3HHFBrcxKmFManby92UIpP4kHmtNjrhNVaAQ==
+	bh=Via2I54afS2+dTm2WApc/qdn6339E6C54jWSa2r2L5Y=;
+	b=Zq6WZeBNeEAhxNJu2ytfgEafQ+gdd/LvNgrnuk0ypTire9AoQ+jjwOKCGNMXbGDKebSD
+	 zVa9XZAI6Y5pTpsiGzrzecgOc76Dxy1BaxkT/O7oDEMLwkG6QzINa4OwJktlompYaFkQ3
+	 KadopCXq/M+fFgujGuThzXQyrw7JOhGa7kwxMC7RNRLel0jMCJqucHVr8EsEAZ0tC1s/A
+	 zAKS+OV2fVN3vq3E4dsGWp6fskV7EWxrvc7kMvdDsvgKUFUDG+03kIrmdYENO6h075i+o
+	 WhXtKFI1MgFFflhYeFskBHcuqcR2q8J0B2s+PaA0gd8OyCXb9Gj1Q6ih/+YYEi9qp4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nuG48Gt7;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=e4m4ewFI;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AEE606A329
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:39:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9AEE606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C2F606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:39:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48C2F606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nuG48Gt7
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=e4m4ewFI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=pc
-	+t/sBP4msBuO2u5r/6zX21HNjMObf3cA+ETzGNpmk=; b=nuG48Gt7cl6kduCZoj
-	FYg7W6o4zE8rB3SmwQ2J9tWVHYCSp2xl85ysDXl+YgJxpZYYnb6QDLiTo/TOGPcE
-	FXp3zZEd6ZAWUbpfmJJKWNqW6FO4DKuIA8s7hQKYzI20ZA0JDXZ+CFcxXB1rr2uy
-	6bhx9FEPVCQDCusJ4vHQVrNt8=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Vi
+	a2I54afS2+dTm2WApc/qdn6339E6C54jWSa2r2L5Y=; b=e4m4ewFIvi1hIqxt1O
+	O7X0AEdawS8y4XO6zgV0mRV0XMYOLW7GvCymOB63/EbSDJfGcNIhWb8Vj1phrRu5
+	kwNZY6t9/12uOdscB8QGZYN+CpbcdFX8Qih+VX1VVXRBsVqdSV76ZW0i3VTgMXwr
+	mRljeEkzlgpEU/n9EpIqRAfIg=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nygJPuhqucJHEg--.56690S6;
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nygJPuhqucJHEg--.56690S7;
 	Mon, 02 Nov 2026 15:38:52 +0800 (CST)
 From: Xuewen Wang <wangxuewen_ky@163.com>
 To: linkinjeon@kernel.org,
@@ -50,9 +50,9 @@ Cc: wangxuewen_ky@163.com,
 	ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Xuewen Wang <wangxuewen@kylinos.cn>
-Subject: [PATCH v5 28/31] ntfs: report EA metadata and restoration errors
-Date: Mon,  2 Nov 2026 15:35:29 +0800
-Message-Id: <20261102073532.98873-29-wangxuewen_ky@163.com>
+Subject: [PATCH v5 29/31] ntfs: report named stream metadata and recovery errors
+Date: Mon,  2 Nov 2026 15:35:30 +0800
+Message-Id: <20261102073532.98873-30-wangxuewen_ky@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261102073532.98873-1-wangxuewen_ky@163.com>
 References: <20261102073532.98873-1-wangxuewen_ky@163.com>
@@ -66,403 +66,170 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3nygJPuhqucJHEg--.56690S6
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Cw4kZw15GFyfJF47Xr4xZwb_yoWkZFWxpF
-	yfC34Dt3yrJr9rWrn2ywnFq3WY9ryIgrWUGryxK3WIk3Z8twn0qa4q9FWa9FZYkrWkGw18
-	KF4Dtws8AF4UXr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UzlksUUUUU=
-X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC7wxnUGroPgxc2wAA3j
+X-CM-TRANSID:_____wD3nygJPuhqucJHEg--.56690S7
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Xw13WryDuw1UCrWUArW7CFg_yoW7Kw13pF
+	Z7Cws3K3s3tFyxKwn7tanYv34fKF1kKw47Kr4UX3W7ArsYqr15tF4jkrn29FWrtryrWanI
+	qF45twsxur17ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UWMKNUUUUU=
+X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC7wxnUGroPgxc4wAA3b
 
 From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-Report malformed EA chains, orphaned attributes and invalid Linux flag
-sizes. Check HasEA under mrec_lock in listxattr; when it is set, missing
-EA_INFORMATION or EA is corruption. Preserve read errors already reported
-below, ordinary missing keys and buffer-size errors. Report local setter
-validation failures once without repeating lower-level reports.
+Report missing or stale MFT references after a successful base-name
+lookup as EFSCORRUPTED only when the caller holds the directory i_rwsem.
+Pass that locking state through the helper and its callers. Unlocked
+revalidation can race with unlink or record reuse and must not report
+those races as corruption.
 
-Convert invalid stored ACLs and inconsistent saved-ACL read lengths to
-EFSCORRUPTED. Keep unsupported ACL versions and allocation failures
-distinct. Preserve missing AttrDef errors and non-ENOENT flag lookup
-errors; report mapping-pairs sizing errors only for EFSCORRUPTED.
-
-Report EA and EA_INFORMATION restoration failures separately, and failed
-ACL restoration after a WSL mode update. Preserve the initiating error
-and existing shutdown decisions, including on recovery-time ENOMEM.
+Also report missing required stream attributes and cleanup failures.
+For rollback failures that trigger shutdown, report the cleanup errno
+and retain the EIO operation result. Preserve the existing ENOMEM and
+interruption exceptions, and keep ordinary missing streams silent.
 
 Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
-Validation:
-- Thirteen cases cover EA setter report ownership, local corruption,
-  lower read/update errors, missing AttrDef, ENOMEM and the attribute-size
-  limit. Lower-level reports are not duplicated.
-- All pass in an extracted-source userspace harness with controlled
-  dependencies under ASan/UBSan; checks cover reporting calls.
+ fs/ntfs/named_stream.c | 41 ++++++++++++++++++++++++++++++++---------
+ fs/ntfs/stream.h       |  2 +-
+ 2 files changed, 33 insertions(+), 10 deletions(-)
 
- fs/ntfs/ea.c | 161 ++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 103 insertions(+), 58 deletions(-)
-
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index fc8a57e0e7d0..2fec8bfcdd89 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -113,7 +113,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- {
- 	struct ntfs_inode *ni = NTFS_I(inode);
- 	const struct ea_attr *p_ea;
--	char *ea_buf;
-+	char *ea_buf = NULL;
- 	s64 ea_off, ea_size, all_ea_size, ea_info_size;
- 	int err;
- 	u32 ea_info_qlen;
-@@ -125,25 +125,28 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- 
- 	p_ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
- 			&ea_info_size);
--	if (IS_ERR(p_ea_info))
--		return PTR_ERR(p_ea_info);
-+	if (IS_ERR(p_ea_info)) {
-+		err = PTR_ERR(p_ea_info);
-+		goto read_error;
-+	}
- 	if (ea_info_size != sizeof(struct ea_information)) {
- 		kvfree(p_ea_info);
--		return -EUCLEAN;
-+		goto corrupt;
- 	}
- 
- 	ea_info_qlen = le32_to_cpu(p_ea_info->ea_query_length);
- 	kvfree(p_ea_info);
- 
- 	ea_buf = ntfs_attr_readall(ni, AT_EA, NULL, 0, &all_ea_size);
--	if (IS_ERR(ea_buf))
--		return PTR_ERR(ea_buf);
--
--	if (ea_info_qlen > all_ea_size) {
--		err = -EUCLEAN;
--		goto free_ea_buf;
-+	if (IS_ERR(ea_buf)) {
-+		err = PTR_ERR(ea_buf);
-+		ea_buf = NULL;
-+		goto read_error;
- 	}
- 
-+	if (ea_info_qlen > all_ea_size)
-+		goto corrupt;
-+
- 	err = ntfs_ea_lookup(ea_buf, ea_info_qlen, name, name_len, &ea_off,
- 			&ea_size);
- 	if (!err) {
-@@ -165,11 +168,23 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- 		return ea_value_len;
- 	}
- 
-+	if (err == -EUCLEAN)
-+		goto corrupt;
- 	if (err == -ENOENT)
- 		err = -ENODATA;
- free_ea_buf:
- 	kvfree(ea_buf);
- 	return err;
-+
-+read_error:
-+	/* I/O and decoding errors are already reported by the read path. */
-+	if (err != -ENOENT)
-+		goto free_ea_buf;
-+corrupt:
-+	/* With HasEA set, both NTFS EA attributes must exist. */
-+	err = -EUCLEAN;
-+	ntfs_report_file_metadata_error(inode, err);
-+	goto free_ea_buf;
- }
- 
- static inline int ea_packed_size(const struct ea_attr *p_ea)
-@@ -181,7 +196,7 @@ static inline int ea_packed_size(const struct ea_attr *p_ea)
- 	return 5 + p_ea->ea_name_length + le16_to_cpu(p_ea->ea_value_length);
- }
- 
--/* Unlike ntfs_attr_exist(), preserve lookup errors. */
-+/* Return the lookup errno, including -ENOENT for an absent attribute. */
- static int ntfs_ea_attr_lookup(struct ntfs_inode *ni, __le32 type)
- {
- 	struct ntfs_attr_search_ctx *ctx;
-@@ -254,17 +269,15 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 		return err;
- 	/* Do not silently discard an orphaned attribute. */
- 	if (exists != !err)
--		return -EUCLEAN;
-+		goto corrupt;
- 
- 	if (exists) {
- 		old_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
- 					     &info_size);
- 		if (IS_ERR(old_info))
- 			return PTR_ERR(old_info);
--		if (info_size != sizeof(*old_info)) {
--			err = -EUCLEAN;
--			goto out;
--		}
-+		if (info_size != sizeof(*old_info))
-+			goto corrupt;
- 		old_ea = ntfs_attr_readall(ni, AT_EA, NULL, 0, &old_size);
- 		if (IS_ERR(old_ea)) {
- 			err = PTR_ERR(old_ea);
-@@ -272,19 +285,17 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 			goto out;
- 		}
- 		size = le32_to_cpu(old_info->ea_query_length);
--		if (size > old_size) {
--			err = -EUCLEAN;
--			goto out;
--		}
-+		if (size > old_size)
-+			goto corrupt;
- 	}
- 
- 	/* Validate even the entries following the one being replaced. */
- 	err = ntfs_ea_lookup(old_ea, size, NULL, 0, &offset, &entry_size);
- 	if (err != -ENOENT)
--		goto out;
-+		goto corrupt;
- 	err = ntfs_ea_lookup(old_ea, size, name, name_len, &offset, &entry_size);
- 	if (err && err != -ENOENT)
--		goto out;
-+		goto corrupt;
- 	if (!err) {
- 		if (flags & XATTR_CREATE) {
- 			err = -EEXIST;
-@@ -307,9 +318,13 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 
- 	add_size = remove ? 0 : ALIGN(sizeof(*entry) + name_len + 1 + val_size, 4);
- 	new_size = size - entry_size + add_size;
--	if (new_size && ntfs_attr_size_bounds_check(ni->vol, AT_EA, new_size)) {
--		err = -EFBIG;
--		goto out;
-+	if (new_size) {
-+		err = ntfs_attr_size_bounds_check(ni->vol, AT_EA, new_size);
-+		if (err) {
-+			if (err == -ERANGE)
-+				err = -EFBIG;
-+			goto out;
-+		}
- 	}
- 	if (new_size) {
- 		ea = kvzalloc(new_size, GFP_NOFS);
-@@ -366,7 +381,10 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 		info_err = ntfs_ea_update_attr(ni, AT_EA_INFORMATION,
- 					       (char *)old_info, sizeof(info));
- 		if (ea_err || info_err) {
--			NVolSetErrors(ni->vol);
-+			if (ea_err)
-+				ntfs_report_file_metadata_error(inode, ea_err);
-+			if (info_err)
-+				ntfs_report_file_metadata_error(inode, info_err);
- 			NVolSetShutdown(ni->vol);
- 			ntfs_error(inode->i_sb,
- 				   "Failed to restore EAs of inode 0x%llx (%d, %d); shutting down.",
-@@ -389,6 +407,11 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 	kvfree(old_ea);
- 	kvfree(old_info);
- 	return err;
-+
-+corrupt:
-+	err = -EUCLEAN;
-+	ntfs_report_file_metadata_error(inode, err);
-+	goto out;
- }
- /*
-  * Check for the presence of an EA "$LXDEV" (used by WSL)
-@@ -492,10 +515,12 @@ int ntfs_ea_get_linuxflags(struct inode *inode)
- 			  &value, sizeof(value));
- 	if (err == -ENODATA)
- 		return 0;
--	if (err < 0)
--		return err == -ERANGE ? -EUCLEAN : err;
--	if (err != sizeof(value))
-+	if (err < 0 && err != -ERANGE)
-+		return err;
-+	if (err != sizeof(value)) {
-+		ntfs_report_file_metadata_error(inode, -EUCLEAN);
- 		return -EUCLEAN;
-+	}
- 
- 	ni->linuxflags = le32_to_cpu(value);
- 	if (ni->linuxflags & NTFS_LINUXFLAGS_IMMUTABLE)
-@@ -543,23 +568,21 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	u32 ea_info_qsize;
- 	char *ea_buf = NULL;
- 	ssize_t ret = 0;
--	struct ea_information *ea_info;
-+	struct ea_information *ea_info = NULL;
- 
-+	mutex_lock(&ni->mrec_lock);
-+	/* Recheck after locking: the last EA may have just been removed. */
- 	if (!NInoHasEA(ni))
--		return 0;
--
--	mutex_lock(&NTFS_I(inode)->mrec_lock);
-+		goto out;
- 	ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
- 			&ea_info_size);
- 	if (IS_ERR(ea_info)) {
- 		err = PTR_ERR(ea_info);
- 		ea_info = NULL;
--		goto out;
--	}
--	if (ea_info_size != sizeof(struct ea_information)) {
--		err = -EUCLEAN;
--		goto out;
-+		goto read_error;
- 	}
-+	if (ea_info_size != sizeof(struct ea_information))
-+		goto corrupt;
- 
- 	ea_info_qsize = le32_to_cpu(ea_info->ea_query_length);
- 
-@@ -567,19 +590,17 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	if (IS_ERR(ea_buf)) {
- 		err = PTR_ERR(ea_buf);
- 		ea_buf = NULL;
--		goto out;
-+		goto read_error;
- 	}
- 
--	if (ea_info_qsize > ea_buf_size) {
--		err = -EUCLEAN;
--		goto out;
--	}
-+	if (ea_info_qsize > ea_buf_size)
-+		goto corrupt;
- 
- 	/* Validate the entire chain, including size-only queries. */
- 	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &offset,
- 			     &ea_size);
- 	if (err != -ENOENT)
--		goto out;
-+		goto corrupt;
- 	err = 0;
- 	if (!ea_info_qsize)
- 		goto out;
-@@ -605,11 +626,21 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	} while (next > 0 && offset < ea_info_qsize);
- 
- out:
--	mutex_unlock(&NTFS_I(inode)->mrec_lock);
-+	mutex_unlock(&ni->mrec_lock);
- 	kvfree(ea_info);
- 	kvfree(ea_buf);
- 
- 	return err ? err : ret;
-+
-+read_error:
-+	/* I/O and decoding errors are already reported by the read path. */
-+	if (err != -ENOENT)
-+		goto out;
-+corrupt:
-+	/* HasEA was checked under mrec_lock; this is not an absent xattr. */
-+	err = -EUCLEAN;
-+	ntfs_report_file_metadata_error(inode, err);
-+	goto out;
- }
- 
- // clang-format off
-@@ -673,6 +704,7 @@ static int ntfs_getxattr(const struct xattr_handler *handler,
- 
- static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
+diff --git a/fs/ntfs/named_stream.c b/fs/ntfs/named_stream.c
+index bf5fae52331e..788a581d854b 100644
+--- a/fs/ntfs/named_stream.c
++++ b/fs/ntfs/named_stream.c
+@@ -252,6 +252,7 @@ int ntfs_stream_path_check(struct ntfs_volume *vol,
+  * @dir_ino: directory containing the base file or directory
+  * @uname: UTF-16LE base name
+  * @uname_len: Length of @uname in UTF-16 code units
++ * @dir_locked: caller holds the directory i_rwsem against namespace changes
+  *
+  * Resolve the directory entry and verify its MFT reference before returning
+  * the inode.
+@@ -259,8 +260,9 @@ int ntfs_stream_path_check(struct ntfs_volume *vol,
+  * Return: Referenced inode on success, or ERR_PTR() on failure.
+  */
+ struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir_ino,
+-		__le16 *uname, int uname_len)
++		__le16 *uname, int uname_len, bool dir_locked)
  {
 +	int report_err = 0;
- 	struct ntfs_attr_search_ctx *ctx;
- 	struct mft_record *m;
- 	struct attr_record *a;
-@@ -694,7 +726,8 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 	err = ntfs_attr_lookup(ni->type, ni->name, ni->name_len,
- 			CASE_SENSITIVE, 0, NULL, 0, ctx);
- 	if (err) {
--		err = -EINVAL;
-+		if (err == -ENOENT)
-+			err = -EINVAL;
- 		goto err_out;
- 	}
+ 	struct ntfs_volume *vol = NTFS_SB(dir_ino->i_sb);
+ 	struct ntfs_name *name = NULL;
+ 	struct inode *inode;
+@@ -276,13 +278,24 @@ struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir_ino,
+ 		return ERR_PTR(MREF_ERR(mref));
  
-@@ -744,7 +777,10 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 				CASE_SENSITIVE,
- 				0, NULL, 0, ctx);
- 		if (err) {
--			err = -EINVAL;
-+			if (err == -ENOENT) {
-+				err = -EFSCORRUPTED;
-+				report_err = -EFSCORRUPTED;
-+			}
- 			goto err_out;
- 		}
- 		a = ctx->attr;
-@@ -770,6 +806,8 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 	mp_size = ntfs_get_size_for_mapping_pairs(ni->vol, ni->runlist.rl, 0, -1, -1);
- 	if (unlikely(mp_size < 0)) {
- 		err = mp_size;
-+		if (err == -EFSCORRUPTED)
-+			report_err = err;
- 		ntfs_debug("Failed to get size for mapping pairs array, error code %i.\n", err);
- 		goto err_out;
+ 	inode = ntfs_iget(vol->sb, MREF(mref));
+-	if (IS_ERR(inode))
+-		return inode;
++	if (IS_ERR(inode)) {
++		if (dir_locked && PTR_ERR(inode) == -ENOENT) {
++			report_err = -EFSCORRUPTED;
++			inode = ERR_PTR(-EFSCORRUPTED);
++		}
++		goto out;
++	}
+ 	if (MSEQNO(mref) != NTFS_I(inode)->seq_no &&
+ 	    MREF(mref) != FILE_MFT) {
++		/* Unlocked dentry revalidation can race with unlink and reuse. */
++		if (dir_locked)
++			report_err = -EFSCORRUPTED;
+ 		iput(inode);
+-		return ERR_PTR(-EIO);
++		inode = ERR_PTR(dir_locked ? -EFSCORRUPTED : -EIO);
  	}
-@@ -878,6 +916,8 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 	if (ctx)
- 		ntfs_attr_put_search_ctx(ctx);
- 	unmap_mft_record(ni);
++out:
 +	if (report_err)
-+		ntfs_report_file_metadata_error(VFS_I(ni), report_err);
- 	return err;
++		ntfs_report_file_metadata_error(dir_ino, report_err);
+ 	return inode;
  }
  
-@@ -1036,12 +1076,17 @@ struct posix_acl *ntfs_get_acl(const struct mnt_idmap *idmap, struct dentry *den
- 	mutex_unlock(&ni->mrec_lock);
+@@ -333,7 +346,7 @@ static int ntfs_stream_d_revalidate(struct inode *dir,
+ 			ni->vol->upcase_len))
+ 		goto out;
  
- 	/* Translate extended attribute to acl. */
--	if (err >= 0)
-+	if (err >= 0) {
- 		acl = posix_acl_from_xattr(&init_user_ns, buf, err);
--	else if (err == -ENODATA)
-+		if (IS_ERR(acl) && PTR_ERR(acl) == -EINVAL) {
-+			acl = ERR_PTR(-EFSCORRUPTED);
-+			ntfs_report_file_metadata_error(inode, -EFSCORRUPTED);
+-	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
++	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, false);
+ 	if (IS_ERR(base_vi))
+ 		goto out;
+ 	if (NTFS_I(base_vi) != ni->ext.base_ntfs_ino) {
+@@ -441,7 +454,7 @@ struct dentry *ntfs_lookup_stream(struct inode *dir_ino,
+ 	}
+ 
+ 	base_vi = ntfs_stream_lookup_inode_by_name(dir_ino, base_uname,
+-			base_len);
++			base_len, true);
+ 	kmem_cache_free(ntfs_name_cache, base_uname);
+ 	if (IS_ERR(base_vi)) {
+ 		err = PTR_ERR(base_vi);
+@@ -564,7 +577,7 @@ struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
+ 	bool stream_created = false;
+ 	int err, rollback_err;
+ 
+-	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
++	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, true);
+ 	if (IS_ERR(base_vi))
+ 		return base_vi;
+ 	if (!S_ISREG(base_vi->i_mode) && !S_ISDIR(base_vi->i_mode)) {
+@@ -635,6 +648,10 @@ struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
+ 	else
+ 		err = PTR_ERR(stream_vi);
+ 	if (err) {
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(base_vi, -EFSCORRUPTED);
 +		}
-+	} else if (err == -ENODATA) {
- 		acl = NULL;
--	else
-+	} else {
- 		acl = ERR_PTR(err);
-+	}
- 
- 	if (!IS_ERR(acl))
- 		set_cached_acl(inode, type, acl);
-@@ -1118,8 +1163,11 @@ static noinline int ntfs_set_acl_ex(const struct mnt_idmap *idmap,
- 			if (err != old_len) {
- 				kfree(old_value);
- 				old_value = NULL;
--				if (err >= 0)
--					err = -EIO;
-+				if (err >= 0) {
-+					err = -EFSCORRUPTED;
-+					ntfs_report_file_metadata_error(inode,
-+									-EFSCORRUPTED);
-+				}
- 				goto out_unlock;
- 			}
- 		} else if (old_len != -ENODATA) {
-@@ -1163,12 +1211,9 @@ static noinline int ntfs_set_acl_ex(const struct mnt_idmap *idmap,
- 							XATTR_REPLACE, NULL);
+ 		if (stream_created) {
+ 			rollback_err = ntfs_attr_remove(base_ni, AT_DATA,
+ 					stream_name, stream_len, &rollback_vi);
+@@ -646,7 +663,8 @@ struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
+ 				    rollback_err == -ERESTARTSYS) {
+ 					err = rollback_err;
+ 				} else {
+-					NVolSetErrors(base_ni->vol);
++					ntfs_report_file_metadata_error(base_vi,
++									rollback_err);
+ 					NVolSetShutdown(base_ni->vol);
+ 					err = -EIO;
  				}
- 				if (undo_err) {
--					/*
--					 * Record a failed rollback so the next
--					 * persistence point marks the volume
--					 * dirty.  Run chkdsk.
--					 */
--					NVolSetErrors(NTFS_I(inode)->vol);
-+					/* The ACL and WSL mode may now disagree. */
-+					ntfs_report_file_metadata_error(inode,
-+									undo_err);
- 					ntfs_error(inode->i_sb,
- 						   "Failed to undo the ACL xattr: %d",
- 						   undo_err);
+@@ -698,7 +716,7 @@ int ntfs_unlink_named_stream(struct inode *dir, struct dentry *dentry)
+ 	if (!path_result)
+ 		return -EINVAL;
+ 
+-	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len);
++	base_vi = ntfs_stream_lookup_inode_by_name(dir, base_name, base_len, true);
+ 	if (IS_ERR(base_vi)) {
+ 		err = PTR_ERR(base_vi);
+ 		goto out_free;
+@@ -1044,6 +1062,7 @@ static int ntfs_stream_finish_remove(struct inode *attr_vi)
+ 		remove_inode_hash(attr_vi);
+ 	} else {
+ 		NInoSetBeingDeleted(attr_ni);
++		ntfs_report_file_metadata_error(VFS_I(ni), err);
+ 		remove_inode_hash(attr_vi);
+ 	}
+ 
+@@ -1279,6 +1298,10 @@ static int ntfs_stream_ioctl_get_inode(struct inode *base_vi, __le16 *sname,
+ 	attr_vi = ntfs_attr_iget(base_vi, AT_DATA, sname, sname_len);
+ 	if (IS_ERR(attr_vi)) {
+ 		err = PTR_ERR(attr_vi);
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_file_metadata_error(base_vi, -EFSCORRUPTED);
++		}
+ 		attr_vi = NULL;
+ 		goto out_unlock;
+ 	}
+diff --git a/fs/ntfs/stream.h b/fs/ntfs/stream.h
+index 76b6c9cca5cc..701283143a39 100644
+--- a/fs/ntfs/stream.h
++++ b/fs/ntfs/stream.h
+@@ -29,7 +29,7 @@ int ntfs_stream_path_names(struct ntfs_volume *vol,
+ 		__le16 **stream_name, int *stream_len);
+ 
+ struct inode *ntfs_stream_lookup_inode_by_name(struct inode *dir,
+-		__le16 *name, int name_len);
++		__le16 *name, int name_len, bool dir_locked);
+ struct dentry *ntfs_lookup_stream(struct inode *dir, struct dentry *dentry,
+ 		const struct ntfs_stream_path *path);
+ struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
 
