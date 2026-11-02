@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619628;
-	b=5msYWeJJFQrm7mRbYZXLRaDhscdJshWAPfSd1n9I8WGi0LtvsV+mIDmnHEDp5RyMfBT8
-	 2qfts81WlK6hsUe13oklXUw3/UO5jZ0GEUv5A/kBt4LlkM3+vfzkcBHYkFfqM4/YNuuco
-	 Bkb8ZbGVpMMFxjukJVld3WzHL+edVy+CDY1dZ1l+NahBrryLCqyCs8e6bx1T4QeUcCclx
-	 ZkJHCDr8jb0lw6PrCDnR/MNG6+350SdLFLI4rPg4n3Jd+B3NjapxdMbMQiyRJgw9Kr46v
-	 Az9LrOWBwF2/dqbb1m3NPlxNRe15UDq7SXO0qBGvH1QGeF5SvsjDPP3Ioz2pn8Nq6sw==
+	t=1793619634;
+	b=j6tKBkpWpYj5fuB77JKbdEZjg2KtbDSwc0MPbbSQZt+/OzF6aCUywmj+Too2QMUVpl91
+	 UYpILoiTpyx1mgmFLR3+OXjeotv3cqvJ9ADtPPb1hQX3NY83c2Vfnh8b7QpbZ4QaFzDNJ
+	 Q2FL50fz2SCobUy/k0HQIjmCdk92lZ1egOYAuLrXyXn4fJabqncG14DxQwFYoZOAOxd9q
+	 dyMjaIgE4rEr96GALIFiNRJDAUEz/WzxrDo+LUvb4D/FKgHrNYVWTgk6Af2UDQ02olwWa
+	 97DVz0tAsXWhoFI/GUBA1ejgSUnq9MFnd4BLBj1TjrLF9rIz906HhZx8Wby5zMAtujg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619628;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619634;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:User-Agent:
 	 Date:From:To:Cc:Subject:References:MIME-Version:Content-Type;
-	bh=nnI+HtVvJqAE6HJJf0gTc9OpPe4dBoQOZPr4axzErbo=;
-	b=A47ZIKUc1bJZ170ZSuu/Nhwk2qIobokJFdi76PgqZaTmqGD4DOOJbpgPTf2GyB2qnlA/
-	 XyDRqdth4f8/615Wsfi1EaWQ4KKhSoE+0eOt2jY5hD2w0tAVTXQxhqHheabg/8ZUKZZlw
-	 9j/KEmph2GkwU9lPCVyGLrfYUNC1QS50+vM/MP/FBUE39tZ7NbZwJZqho+R1sZjgGf1Ze
-	 8PkBdX9AC8G2Y65kKgnfBf33nfdurI0pRFrjGX+X3k+WZVu7NGpwjuqjBLmKsMj6PH6SE
-	 3Jwwr9jeV9pSKoXCYldJsUiWuKqaVs/alktBBUDlHqQKShRC/PTb9L7vznY5QGsy7dg==
+	bh=f0FLNY6suxF7FUVhwQgnT/NMhQfGXzw7a/c6MzEKyjA=;
+	b=3NcEA6Zsnoj4L8I/Hy0sHuHHJt7mMuMSrLmFcoxqQ7X0VeYyVwwFFYUd/gy6m6XQ7aP+
+	 KrIQxCFnzB4IBV95lFFJEiVxwSxujCshPEMZZHean6gJCSFIHaWKLoqZ7glO87BfVeiil
+	 gPs35QdGzf7MzXOStWSrHAE6JHrodkiGjOLcyl8opC6MKkimFOalDpSGyxA57qZUcwWSI
+	 fXzIrAq5dZfpMHp7oitWy1naVN8clHT6VBUjFIjV3bk18W4wyuaQZdFPHu8U8LetIS+g1
+	 ixd0AIaZ/rjUGlQy61Fks+YCjH7U/AeByByhu4UlRvLNl7yaTIS5PXdQsCcWmYjNcSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=F7cQpqgZ;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=HAV6dRUz;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EB7606A329
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3EB7606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F90606A33A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:40:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76F90606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=F7cQpqgZ
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=HAV6dRUz
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
+	d=infradead.org; s=desiato.20200630; h=Content-Type:MIME-Version:References:
 	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:In-Reply-To;
-	bh=nnI+HtVvJqAE6HJJf0gTc9OpPe4dBoQOZPr4axzErbo=; b=F7cQpqgZLdHYI7vh8BXhvrLop4
-	IXG+wE0HUApS/gyTsc2YLV8pnkM3bdvVUcb3l3DOCLhmLADfV05JEbkcdR/KjCm337Cw/oxHFj3eV
-	RrD1Lh5U7QLf5Mdadg6r1Mc1LHDGlf+Elykgtf4akNDN4xaqvQ1EgPUTCGAQnHECUJeT/hEhCtDnz
-	UMDfDSKKXa+ErQktvjbJjC4ZRULnRXUVQrtn1Rq7NCjTMPpAMMnENvmWY6gZld8sDLyfNdTxlfFrz
-	j02ZC8v4XAdeF8aimF635DoqiHGA4K9Uuxraw1f1/rdb3hxvFnv+dSZbjus5ukjnIPd9PMMi1w3Kn
-	dQlObIdA==;
+	bh=f0FLNY6suxF7FUVhwQgnT/NMhQfGXzw7a/c6MzEKyjA=; b=HAV6dRUz82qqHwf8S7bgk6y6rf
+	ksJlj66EX+6j3a+6cceDCokj8D/F4By2HOn4M4u9h79iJ7LW/uswXF/CCXPbEMvrL8MnNxV7/bSl7
+	AOZbi/HozqDyzI091dEs8wOVaEVUtiNrg8/pzkQhyfpfbaYlYhrHdl/GZj/OtL/LpCOO/yuLK5VR2
+	UAqj4TA6RZuYS47Ur9gLCCSTGozMJ0TUr3aM7PV7iFFE2stebpWPpi5e3i8Gw/SLp7X4H9W7CQ2Ns
+	B9zErPqTFj88/TK+eXzgptmDopvKZtV50OTjtzXeHAGxHPYLGYwKfkrRvTGfwj1x39mMM4PqDBSz0
+	dQyUNBRQ==;
 Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNqOn-00000002K7X-1uLm;
-	Mon, 02 Nov 2026 11:40:25 +0000
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xNqOo-00000002SER-1JOB;
+	Mon, 02 Nov 2026 11:40:30 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
-	id 757503014C0; Mon, 02 Nov 2026 12:40:24 +0100 (CET)
-Message-ID: <20261102114000.436794287@infradead.org>
+	id 8C9FD3031E1; Mon, 02 Nov 2026 12:40:24 +0100 (CET)
+Message-ID: <20261102114000.994159236@infradead.org>
 User-Agent: quilt/0.68
-Date: Mon, 02 Nov 2026 12:25:50 +0100
+Date: Mon, 02 Nov 2026 12:25:55 +0100
 From: Peter Zijlstra <peterz@infradead.org>
 To: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -59,7 +59,7 @@ Cc: linux-kernel@vger.kernel.org,
  leitao@debian.org,
  keescook@chromium.org,
  hpa@zytor.com
-Subject: [PATCH 1/6] x86_64/entry: Unconditionally use -fno-jump-table
+Subject: [PATCH 6/6] x86_64/entry: Mark C noinstr __noendbr
 References: <20261102112549.714541309@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,117 +72,181 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-Currently we force -fno-jump-table for RETPOLINE=y || X86_KERNEL_IBT=y, which
-means that it is effectively disabled for most everyone these days.
-
-Simply unconditionally disable jump tables for x86_64 to take away the edge
-case.
-
-Doing so, allows removing the array_index_nospec() barrier in the syscall
-dispatch since it cannot be an array index anymore.
+Mark all the C noinstr entry functions __noendbr where possible. Nobody has any
+business of doing indirect calls to this.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- arch/x86/Kconfig            |    4 +---
- arch/x86/Makefile           |   27 ++++++++-------------------
- arch/x86/entry/syscall_32.c |    2 ++
- arch/x86/entry/syscall_64.c |    2 --
- 4 files changed, 11 insertions(+), 24 deletions(-)
+ arch/x86/entry/common.c             |    2 +-
+ arch/x86/entry/entry_fred.c         |    6 +++---
+ arch/x86/entry/syscall_32.c         |   10 +++++-----
+ arch/x86/entry/syscall_64.c         |    6 +++---
+ arch/x86/include/asm/entry-common.h |    2 +-
+ arch/x86/include/asm/fred.h         |    6 +++---
+ arch/x86/include/asm/syscall.h      |   10 +++++-----
+ 7 files changed, 21 insertions(+), 21 deletions(-)
 
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -2366,10 +2366,8 @@ config CC_OPT_INDIRECT_BRANCH_CS_PREFIX
- config CC_OPT_CF_PROTECTION_NONE
- 	def_string "$(cc-option-str,-fcf-protection=none)"
+--- a/arch/x86/entry/common.c
++++ b/arch/x86/entry/common.c
+@@ -15,7 +15,7 @@
+  * purely a signal that an NMI/IRQ is pending, i.e. the event that triggered
+  * the VM-Exit is held pending until it's unblocked in the host.
+  */
+-noinstr void x86_entry_from_kvm(unsigned int event_type, unsigned int vector)
++noinstr __noendbr void x86_entry_from_kvm(unsigned int event_type, unsigned int vector)
+ {
+ 	if (event_type == EVENT_TYPE_EXTINT) {
+ #ifdef CONFIG_X86_64
+--- a/arch/x86/entry/entry_fred.c
++++ b/arch/x86/entry/entry_fred.c
+@@ -234,7 +234,7 @@ static noinstr void fred_swexc(struct pt
+ 	}
+ }
  
--# with jump tables off: the compilers use NOTRACK for them, which kernel IBT
--# does not allow
- config CC_OPT_CF_PROTECTION_BRANCH
--	def_string "$(cc-option-str,-fcf-protection=branch -fno-jump-tables)"
-+	def_string "$(cc-option-str,-fcf-protection=branch)"
+-__visible noinstr void fred_entry_from_user(struct pt_regs *regs)
++__visible noinstr __noendbr void fred_entry_from_user(struct pt_regs *regs)
+ {
+ 	unsigned long error_code = regs->orig_ax;
  
- config CC_OPT_FALIGN_JUMPS
- 	def_string "$(cc-option-str,-falign-jumps=1)"
---- a/arch/x86/Makefile
-+++ b/arch/x86/Makefile
-@@ -90,17 +90,8 @@ CC_FLAGS_FPU += -mhard-float
- endif
+@@ -266,7 +266,7 @@ __visible noinstr void fred_entry_from_u
+ 	return fred_bad_type(regs, error_code);
+ }
  
- ifeq ($(CONFIG_X86_KERNEL_IBT),y)
--#
--# Kernel IBT has S_CET.NOTRACK_EN=0, as such the compilers must not generate
--# NOTRACK prefixes. Current generation compilers unconditionally employ NOTRACK
--# for jump-tables, as such, disable jump-tables for now.
--#
--# (jump-tables are implicitly disabled by RETPOLINE)
--#
--#   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104816
--#
- KBUILD_CFLAGS += $(CONFIG_CC_OPT_CF_PROTECTION_BRANCH)
--KBUILD_RUSTFLAGS += -Zcf-protection=branch $(if $(call rustc-min-version,109300),-Cjump-tables=n,-Zno-jump-tables)
-+KBUILD_RUSTFLAGS += -Zcf-protection=branch
- else
- KBUILD_CFLAGS += $(CONFIG_CC_OPT_CF_PROTECTION_NONE)
- endif
-@@ -178,6 +169,13 @@ endif
-         KBUILD_RUSTFLAGS += -Ccode-model=kernel
+-__visible noinstr void fred_entry_from_kernel(struct pt_regs *regs)
++__visible noinstr __noendbr void fred_entry_from_kernel(struct pt_regs *regs)
+ {
+ 	unsigned long error_code = regs->orig_ax;
  
-         percpu_seg := gs
-+
-+	# Due to retpolines and cf-protection=branch's implicit NOTRACK usage
-+	# for jump-tables, blanked disable jump-tables for all x86_64 builds to
-+	# get a consistent behaviour across configurations. This allows
-+	# removing some array_index_nospec() usage.
-+	KBUILD_CFLAGS += -fno-jump-tables
-+	KBUILD_RUSTFLAGS += $(if $(call rustc-min-version,109300),-Cjump-tables=n,-Zno-jump-tables)
- endif
+@@ -295,7 +295,7 @@ __visible noinstr void fred_entry_from_k
+ }
  
- ifeq ($(CONFIG_STACKPROTECTOR),y)
-@@ -214,15 +212,6 @@ KBUILD_CFLAGS += -fno-asynchronous-unwin
- ifdef CONFIG_MITIGATION_RETPOLINE
-   KBUILD_CFLAGS += $(RETPOLINE_CFLAGS)
-   KBUILD_RUSTFLAGS += $(RETPOLINE_RUSTFLAGS)
--  # Additionally, avoid generating expensive indirect jumps which
--  # are subject to retpolines for small number of switch cases.
--  # LLVM turns off jump table generation by default when under
--  # retpoline builds, however, gcc does not for x86. This has
--  # only been fixed starting from gcc stable version 8.4.0 and
--  # onwards, but not for older ones. See gcc bug #86952.
--  ifndef CONFIG_CC_IS_CLANG
--    KBUILD_CFLAGS += -fno-jump-tables
--  endif
- endif
- 
- ifdef CONFIG_MITIGATION_SLS
+ #if IS_ENABLED(CONFIG_KVM_INTEL)
+-__visible noinstr void __fred_entry_from_kvm(struct pt_regs *regs)
++__visible noinstr __noendbr void __fred_entry_from_kvm(struct pt_regs *regs)
+ {
+ 	switch (regs->fred_ss.type) {
+ 	case EVENT_TYPE_EXTINT:
 --- a/arch/x86/entry/syscall_32.c
 +++ b/arch/x86/entry/syscall_32.c
-@@ -75,7 +75,9 @@ early_param("ia32_emulation", ia32_emula
- static __always_inline void do_syscall_32_irqs_on(struct pt_regs *regs, unsigned long nr)
+@@ -124,7 +124,7 @@ static __always_inline bool int80_is_ext
+  *   eax:				system call number
+  *   ebx, ecx, edx, esi, edi, ebp:	arg1 - arg 6
+  */
+-__visible noinstr void do_int80_emulation(struct pt_regs *regs)
++__visible noinstr __noendbr void do_int80_emulation(struct pt_regs *regs)
  {
- 	if (likely(nr < IA32_NR_syscalls)) {
-+#ifdef CONFIG_X86_32
- 		nr = array_index_nospec(nr, IA32_NR_syscalls);
-+#endif
- 		regs->ax = ia32_sys_call(regs, (unsigned int)nr);
- 	}
+ 	long nr;
+ 
+@@ -239,7 +239,7 @@ DEFINE_FREDENTRY_RAW(int80_emulation)
+ #else /* CONFIG_IA32_EMULATION */
+ 
+ /* Handles int $0x80 on a 32bit kernel */
+-__visible noinstr void do_int80_syscall_32(struct pt_regs *regs)
++__visible noinstr __noendbr void do_int80_syscall_32(struct pt_regs *regs)
+ {
+ 	long nr = syscall_32_enter(regs);
+ 
+@@ -259,7 +259,7 @@ __visible noinstr void do_int80_syscall_
  }
+ #endif /* !CONFIG_IA32_EMULATION */
+ 
+-static noinstr bool __do_fast_syscall_32(struct pt_regs *regs)
++static noinstr __noendbr bool __do_fast_syscall_32(struct pt_regs *regs)
+ {
+ 	long nr = syscall_32_enter(regs);
+ 	int res;
+@@ -291,7 +291,7 @@ static noinstr bool __do_fast_syscall_32
+ }
+ 
+ /* Returns true to return using SYSEXIT/SYSRETL, or false to use IRET */
+-__visible noinstr bool do_fast_syscall_32(struct pt_regs *regs)
++__visible noinstr __noendbr bool do_fast_syscall_32(struct pt_regs *regs)
+ {
+ 	/*
+ 	 * Called using the internal vDSO SYSENTER/SYSCALL32 calling
+@@ -338,7 +338,7 @@ __visible noinstr bool do_fast_syscall_3
+ }
+ 
+ /* Returns true to return using SYSEXIT/SYSRETL, or false to use IRET */
+-__visible noinstr bool do_SYSENTER_32(struct pt_regs *regs)
++__visible noinstr __noendbr bool do_SYSENTER_32(struct pt_regs *regs)
+ {
+ 	/* SYSENTER loses RSP, but the vDSO saved it in RBP. */
+ 	regs->sp = regs->bp;
 --- a/arch/x86/entry/syscall_64.c
 +++ b/arch/x86/entry/syscall_64.c
-@@ -57,7 +57,6 @@ static noinline long x32_sys_call(const
- static __always_inline bool do_syscall_x64(struct pt_regs *regs, unsigned long nr)
- {
- 	if (likely(nr < NR_syscalls)) {
--		nr = array_index_nospec(nr, NR_syscalls);
- 		regs->ax = x64_sys_call(regs, (unsigned int)nr);
- 		return true;
- 	}
-@@ -70,7 +69,6 @@ static __always_inline void do_syscall_x
- 	nr -= __X32_SYSCALL_BIT;
+@@ -35,7 +35,7 @@ const sys_call_ptr_t sys_call_table[] =
+ #define __SYSCALL(nr, sym) case nr: return __x64_##sym(regs);
  
- 	if (IS_ENABLED(CONFIG_X86_X32_ABI) && likely(nr < X32_NR_syscalls)) {
--		nr = array_index_nospec(nr, X32_NR_syscalls);
- 		regs->ax = x32_sys_call(regs, (unsigned int)nr);
+ /* The unsigned int @nr argument is intentional as it creates denser code */
+-static noinstr long x64_sys_call(const struct pt_regs *regs, unsigned int nr)
++static noinstr __noendbr long x64_sys_call(const struct pt_regs *regs, unsigned int nr)
+ {
+ 	/*
+ 	 * Because -fno-jump-tables, this compiles into a binary branch tree
+@@ -51,7 +51,7 @@ static noinstr long x64_sys_call(const s
  	}
  }
+ 
+-static noinstr long x32_sys_call(const struct pt_regs *regs, unsigned int nr)
++static noinstr __noendbr long x32_sys_call(const struct pt_regs *regs, unsigned int nr)
+ {
+ #ifdef CONFIG_X86_X32_ABI
+ 	instrumentation_weak();
+@@ -84,7 +84,7 @@ static __always_inline void do_syscall_x
+ }
+ 
+ /* Returns true to return using SYSRET, or false to use IRET */
+-__visible noinstr bool do_syscall_64(struct pt_regs *regs, long nr)
++__visible noinstr __noendbr bool do_syscall_64(struct pt_regs *regs, long nr)
+ {
+ 	if (likely(syscall_enter_from_user_mode_randomize_stack(regs, &nr))) {
+ 		instrumentation_begin();
+--- a/arch/x86/include/asm/entry-common.h
++++ b/arch/x86/include/asm/entry-common.h
+@@ -96,6 +96,6 @@ static __always_inline void arch_exit_to
+ }
+ #define arch_exit_to_user_mode arch_exit_to_user_mode
+ 
+-extern void x86_entry_from_kvm(unsigned int entry_type, unsigned int vector);
++extern __noendbr void x86_entry_from_kvm(unsigned int entry_type, unsigned int vector);
+ 
+ #endif
+--- a/arch/x86/include/asm/fred.h
++++ b/arch/x86/include/asm/fred.h
+@@ -67,9 +67,9 @@ void asm_fred_entrypoint_user(void);
+ void asm_fred_entrypoint_kernel(void);
+ void asm_fred_entry_from_kvm(struct fred_ss);
+ 
+-__visible void fred_entry_from_user(struct pt_regs *regs);
+-__visible void fred_entry_from_kernel(struct pt_regs *regs);
+-__visible void __fred_entry_from_kvm(struct pt_regs *regs);
++__visible __noendbr void fred_entry_from_user(struct pt_regs *regs);
++__visible __noendbr void fred_entry_from_kernel(struct pt_regs *regs);
++__visible __noendbr void __fred_entry_from_kvm(struct pt_regs *regs);
+ 
+ /* Can be called from noinstr code, thus __always_inline */
+ static __always_inline void fred_entry_from_kvm(unsigned int type, unsigned int vector)
+--- a/arch/x86/include/asm/syscall.h
++++ b/arch/x86/include/asm/syscall.h
+@@ -164,13 +164,13 @@ static inline int syscall_get_arch(struc
+ 		? AUDIT_ARCH_I386 : AUDIT_ARCH_X86_64;
+ }
+ 
+-bool do_syscall_64(struct pt_regs *regs, long nr);
+-void do_int80_emulation(struct pt_regs *regs);
++__noendbr bool do_syscall_64(struct pt_regs *regs, long nr);
++__noendbr void do_int80_emulation(struct pt_regs *regs);
+ 
+ #endif	/* CONFIG_X86_32 */
+ 
+-void do_int80_syscall_32(struct pt_regs *regs);
+-bool do_fast_syscall_32(struct pt_regs *regs);
+-bool do_SYSENTER_32(struct pt_regs *regs);
++__noendbr void do_int80_syscall_32(struct pt_regs *regs);
++__noendbr bool do_fast_syscall_32(struct pt_regs *regs);
++__noendbr bool do_SYSENTER_32(struct pt_regs *regs);
+ 
+ #endif	/* _ASM_X86_SYSCALL_H */
 
 
