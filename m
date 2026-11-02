@@ -1,44 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793586845;
-	b=pItRzAoqdk0ywSEODHTuDx+zs+/HUK3ueGXrwQu6ro0NJRSk7g6ISZ3ePvEZN7czcs6X
-	 HmyPWemfjjXni5YIPEUkeys7d9s9juwk8nQNo1hFOy974CP9qZ4fE9gLdgRXnLSxYtxgE
-	 9y3cdLbXly8wAtUeSbWED6T3+Zq/Syy/4IQGkaTG3EFJ8E5vKZxIIlfIfeZbSKYMfAy1p
-	 r9mSFlmWQ2bS4oJvQq7wImg6+NxUwPVV0Zs77LkpnNMVmrPKcRUoI1aUo1oxAOAe8WQkZ
-	 Zc3hy1jqCif6zAd2WWpn3rhfHg4ZCywGeqWFnB+lDbmiCajN0s3MEtfYEAEvR7fT0mQ==
+	t=1793586855;
+	b=PW/HRh1KYU4bukyhNtXlzYHbdAQfYT19bhSf46Zipwn0Jj+l5w3m5M9JMmL7ndgQ/Nga
+	 Rqc6GSYF3PUwjyMspbt7vrjw2GOBag2lgSjtZOMJCvVxJrhNOoNYJIoNzLxIefJ3sFVmL
+	 chqFAG8xTR+c9S3b/kmDOQm1+KrRbEyTlyk+PCrtbSkPiEODpl1J02Un2OFILHxrU/7dx
+	 vDT2uICLsu+en9gLxlkKkiA5v/w0Yd/qOHNagWL+HUpQSrayIxY/TupwImG/m+iX4kxNq
+	 71ho/I8Oe5nmWfnQQOIMrerr19zlOtPgU9OV7T3c/gIot8Uxv1F/5K4DVAzHVX//3Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793586845;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=glRG5tlVhZsrjDdzfHaWbZnadWGxBJIspG1sxWXR8r8=;
-	b=PteYchKOj+J6abzLP7E/COfaL6hTCt4N0cDa8SrJbqAlSfDqx+2zs6mt2CdWrAXJXFp/
-	 AGtAhBkmRsCcYACWfMLbUJ/Li5966h7uDcUW34cpth15K6idSzrB39Fz0TpKd7MOtC7zo
-	 aMGnP8PboPeATgJXrFGaHEfiDh065cyHDXa/op8BPO2Uhsb0mx0sCrTwz74yQhaj258kX
-	 7G2fQrD+V+/EyZA3Gp6nEoq2DI2dDJ4GBCzNdSMhfXte/tRLauvKM1yT5hyr2cqwiTaoP
-	 aupvFJS8gZYwn0By6QSPY0BCZ36jH+Nf2wEt6le6sBf1/brreafwvCZf6H9IZcGMXlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793586855;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=/FXLf+M9BaHu2TxcFoVVCnBDYHhNMW6Wb+4ihYKMxog=;
+	b=cG/sidSwlFBeFdzb+8r4vES84ly74QTxzqVnJ+9PkN4O74uEHWuWjbAjCSYXpCceRFL1
+	 6h1XSp2W1Owc2i8K6vUr1MT53a84qUYsaPhLX6tBHubOX8uvb6LEfuwClLR/jD0ypN4jA
+	 D3XcIl7DiTV14kEtsMBM22mCI9GmvWrGVslTdXC64s178lfWT+8NmtLQ/fNHEwMO1x1cE
+	 gPV/ZingGl2kLKipyYJcW5FUpSf16/xePHAawfb7qf4cIUsddCSFmuhISwVoXatk2A0cQ
+	 ES2z7SQwb5PLc4JryyomqLrYljYzkySNz4EL3Qi/Yxn3BFYuom30bIvjDOQgvYdIPfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NChoCWA4;
-	arc=none smtp.remote-ip=210.79.60.35
-Received: from mail-m6035.netease.com (mail-m6035.netease.com [210.79.60.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fb5Vsf28;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A1D606A326;
-	Mon,  2 Nov 2026 02:34:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1A1D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D6B606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75D6B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=NChoCWA4
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 531ca0c80;
-	Mon, 2 Nov 2026 10:33:53 +0800 (GMT+08:00)
-Message-ID: <f4313b18-4ce2-4a1c-ab03-512da50191f5@rock-chips.com>
-Date: Mon, 2 Nov 2026 10:33:52 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fb5Vsf28
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a03834d8ffso3338091b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:34:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793586855; x=1794191655; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/FXLf+M9BaHu2TxcFoVVCnBDYHhNMW6Wb+4ihYKMxog=;
+        b=fb5Vsf28iEf53nz0Hsm5LellK12as1AC6OkkxoWYtFq0TXZv0M+0aCqe5l/9YH6Big
+         cSZEWXcnqtZQG5ODGYcbJTGhJISDto5wU0IQQ+8cJHqmHd6kk914a/jfEUmSNF5Xb2hY
+         IGnSgbXR7aJtqX0LHzI1qodN5YxA3MoYrdaTYDisWc2a/qmmBMZgtAdM+56Tg3SUHA0K
+         BLX+rRt51INYUJMQbqfhXBPMIlxKjBea/W488RIRMhAf6C092HB+ac4MVeqG08wsVPRH
+         tC3WWuJm2CGfRYEnoVNSPrdMpsAYIxv0oFkk7kEDMVO67b1Cv1jmxxOrtt0XOhisMHi5
+         6Y2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793586855; x=1794191655;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/FXLf+M9BaHu2TxcFoVVCnBDYHhNMW6Wb+4ihYKMxog=;
+        b=O+rrihH+jYcTokl27qlt2MeTfF0Nqhg7doCl3N+kGsGbnOqWTdimCyYSkW3vDUwMgl
+         HUjN8+Ddx/xv9xBBf09g2sHz4ioNoM06dWKfjqHjb77z3gH/l+SaAizIsmXSf2XbbgQa
+         vxKGi121H8Lt/oMlDQD6UtVDv0j6RjJg/V+LkEo3LjXZR3Qr0tf52K7JloQFfzIm2zDK
+         51O7fSQFZjC26yF+YXlaE2lG3UnYHKV1mDVe3bCmBUBTu8uKRXGrRXX8gQrhZDnCSlFe
+         d8gk8mUg6YSPdoIZ43GrKy96bvZLvQLhI6lcK08XMvRyjqTHw6FdKNnb5RnR8o4vsrnh
+         F+yg==
+X-Gm-Message-State: AFq9FYI+uogmID2BUoTHQ/NZ0kDEDH08rFwWo7O5sZwtXRCbE61abi1y
+	G3Xo+R5NDBuH1t8VOVe//uwcuOS6rFT+JeyKfmZaYEKImLfa8EhKO8PxgDWmOnsqgzljkiAwhOl
+	SJ1orW99FJiozNlkvdKVO8Q==
+X-Received: from pfbbu14.prod.google.com ([2002:a05:6a00:410e:b0:89e:861c:6b39])
+ (user=jenhaochen job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:a103:b0:3e2:9126:6128 with SMTP id adf61e73a8af0-3e928784767mr5412874637.9.1793586854500;
+ Sun, 01 Nov 2026 18:34:14 -0800 (PST)
+Date: Mon,  2 Nov 2026 02:34:12 +0000
+In-Reply-To: <20261030121633.258612-1-jenhaochen@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,64 +76,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jaehoon Chung <jh80.chung@samsung.com>,
- Ulf Hansson <ulfh@kernel.org>
-Subject: Re: [RFC PATCH v2 2/2] mmc: dw_mmc: cancel the watchdog timer on
- remove
-To: BeaCox <0xbeac@gmail.com>
-References: <20261101063719.88570-1-0xbeac@gmail.com>
- <20261102022924.51343-1-0xbeac@gmail.com>
- <20261102022924.51343-3-0xbeac@gmail.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261102022924.51343-3-0xbeac@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa19a1b27d603a4kunmd8a72fba3af66d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGBodVh9NGEgfTk9JSExMTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=NChoCWA4vKinVCnF928NUn8CjEkkVduGBfyK9x8kLs+Oe1ivkgKEdEWvmRJWjI9OaavDRfe9aux3cZgXdPJTOzDWpC1NNZn5j6Jlw8ErcxJnqQzgOKpH1Yk3ELfjGVmJAMi+4FagFbovFEMs8aQaynzwJKkmhRIofNQbJSlT3Zw=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=glRG5tlVhZsrjDdzfHaWbZnadWGxBJIspG1sxWXR8r8=;
-	h=date:mime-version:subject:message-id:from;
+Mime-Version: 1.0
+References: <20261030121633.258612-1-jenhaochen@google.com>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261102023412.701888-1-jenhaochen@google.com>
+Subject: [PATCH v2] zstd: Use shift mask in BIT_getMiddleBits() on arm64
+From: Jenhao Chen <jenhaochen@google.com>
+To: Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>
+Cc: linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>, 
+	Martin Liu <liumartin@google.com>, Ben Wei <benwei@google.com>, 
+	Jenhao Chen <jenhaochen@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-在 2026/11/02 星期一 10:29, BeaCox 写道:
-> The central watchdog added for command and data timeout handling is
-> armed while a request is in flight and is only stopped when the
-> completion is delivered.  If the host is removed with a request still
-> in flight, the timer can expire after the controller has been disabled
-> and its callback reads the controller registers and the host state.
-> 
-> Cancel the timer after bh_work has been disabled, so that a work item
-> that is still running cannot rearm it after the cancellation.
->
+In ZSTD_decodeSequence(), ZSTD_updateFseStateWithDInfo() calls
+BIT_readBits() -> BIT_lookBits() -> BIT_getMiddleBits() three times per
+decoded sequence (for literal length, match length, and offset FSE
+states). However, BIT_getMiddleBits() only enables the branchless
+register shift-and-mask path on x86_64, falling back to a BIT_mask[]
+lookup table load on arm64.
 
-Thanks for this fix,
+Enable the shift-and-mask path in BIT_getMiddleBits() on __aarch64__ so
+the mask is computed directly in registers instead of loading from
+BIT_mask[]. On arm64 at -O2, this eliminates three table loads per
+decoded sequence, shrinks zstd decompression .text by 212 bytes, and
+improves decompression throughput by 1-3%.
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Signed-off-by: Jenhao Chen <jenhaochen@google.com>
+---
+Changes in v2:
+- Drop the Makefile -O3 change, which triggered an undefined
+  __divsi3_table reference in zstd_compress.ko on nios2-linux-gcc
+  (reported by kernel test robot <lkp@intel.com>) and previously caused
+  stack frame size warnings on parisc (commit 7416cdc9b9c1).
+- Update the commit message with isolated -O2 numbers for the
+  BIT_getMiddleBits() shift-mask change alone.
+- Link to v1: https://lore.kernel.org/r/20261030121633.258612-1-jenhaochen@google.com/
 
+ lib/zstd/common/bitstream.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Fixes: ce0043b9a302 ("mmc: dw_mmc: add central watchdog and convert CTO onto it")
-> Signed-off-by: BeaCox <0xbeac@gmail.com>
-> ---
->   drivers/mmc/host/dw_mmc.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
-> index 5b47643..dc3beab 100644
-> --- a/drivers/mmc/host/dw_mmc.c
-> +++ b/drivers/mmc/host/dw_mmc.c
-> @@ -3410,6 +3410,7 @@ void dw_mci_remove(struct dw_mci *host)
->   	/* Stop the work before the timer that it can rearm. */
->   	disable_work_sync(&host->bh_work);
->   	dw_mci_stop_fault_timer(host);
-> +	hrtimer_cancel(&host->wd_timer);
->   
->   	/* disable clock to CIU */
->   	mci_writel(host, CLKENA, 0);
-
+diff --git a/lib/zstd/common/bitstream.h b/lib/zstd/common/bitstream.h
+index 86439da0eea76..01e69ab7053b4 100644
+--- a/lib/zstd/common/bitstream.h
++++ b/lib/zstd/common/bitstream.h
+@@ -299,7 +299,7 @@ FORCE_INLINE_TEMPLATE BitContainerType BIT_getMiddleBits(BitContainerType bitCon
+      * such cpus old (pre-Haswell, 2013) and their performance is not of that
+      * importance.
+      */
+-#if defined(__x86_64__) || defined(_M_X64)
++#if defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__)
+     return (bitContainer >> (start & regMask)) & ((((U64)1) << nbBits) - 1);
+ #else
+     return (bitContainer >> (start & regMask)) & BIT_mask[nbBits];
+-- 
+2.56.0.317.g454f8302e1-goog
