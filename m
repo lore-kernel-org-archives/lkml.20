@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793626060;
-	b=AwbzeBj4wfT//qD1HtqdgkBh//5wH0/p1Dwpc/xewiFWMfDrPsAYG780DRRyPbe1lY9/
-	 /IX9S93qU6ak0PqDgM4Lk3gju5VHiXAf3aVV3GkENoNW8lpL/bYzWmmHNNJZLxtLBJybE
-	 5jKBdGGJcbx3+dyUU49CFJptna2xel074EJ5T04I4FqDM15NSFufA9HMbw4fDqvyJ8QzE
-	 +68u2eRqGzGsjC41uGvD2SIr9jURZ3aDJcyNlodsGqQwzj0+wWMKlJ+zRNSEH9V8MvahT
-	 aQz9U+ee9jk+iGZwU4RhDxVsxYjqsB5XNe8+ev1gsihaGV3rW3mA+mOys0KOGuD4+oA==
+	t=1793626091;
+	b=hecY+9oiU3uwd6IoHpGpYaShxdC1jSq9nEHal+c4B6a7IZxuYg44UyLhGikRo3gZ+MwS
+	 Yb4VXXy99rw7n17SmFdYpuyui6RW8qIWdp1odB34K5BeWbRkNhbGlTGuJ7N/zXu7NmUUW
+	 v8uCeENEaH+G6YZhCLxIl+R37kfnGmUyw1HI12WB9hKt04LFaXbMS0BPbJnAQ7Le+uAr7
+	 7i121VbOvmoKpXdlUG38uai9yA185KhaUjYcHXZkMA4Z3ukMMTISB8menFL//YG4XnlK+
+	 KzoXs9202bztyZ1E270ga2xvahuYGzKnpVYlPy2UZzzS8FPn5UaRb2T58pzpJ88utng==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626060;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wL4VRNyM0lAnChGus4Zdcft5lYA8VOMZZskgcWXOMZ4=;
-	b=VtezBwmQFSu95GNxaa/SlHjpIWnrFumTPDbz1VoSmap+JpUL4j4gLn0WurwoTnzHaJz3
-	 GfSW/7BRe/hs7tr+ZoWtKzsEr7dBj4lwOmih4wwdPCmsel8BO8PFw3ik+HXSLbCVkE8Sg
-	 gyqzwUv7krnCi9MDAQnDbGCLxjAuyPyrDVlLZbSDWHGHsn48VSGMl18mpxiy80KRHIfFR
-	 TPyYlKEpFGWQfKYM/HHPsP3YYWqXqq4++bbzM8rGGUSclvuLTbaMBYBigKqlRgO46kvcV
-	 gRuCC2Y+9ovhH6iDtVj3rPb0KlbXvk+IQCmjHFPwoR6/YAO2ml80Mr9h2XXxOm0Yxuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626091;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qjPej5w11WbikcynHTF6kveEbA3S0oHjvCfUZQriRUU=;
+	b=Ax0oXJ5KsdpI9g/mZ284ZbKcLKfo2PB0+WS3wWuWOs7Q5Zpae+jAUnBwhelDOvEKzGdC
+	 sgM9H0Pso1kGHanMcQDPFbwpFW3nLDUZCl6MTl0a9tA1IEKD9p2etaHoOGNK8LPcMSVQD
+	 0pi+coviDh+oyEqh/BWWyC1kN8WzLb8w7qpb6JTTdRp75+C+vsSht421KmUXw8keyFNvm
+	 257T9p/FK9+j7e2fGccaAltvW4x8E1W4reWCSbn7R3AHUpb+G6M/y/RNKNLeEnwOt3BP6
+	 TZDmpB2FGkueiYcsIqevLmVeMVKWTUabWnr+7YH+YAqzYQt9fPWOG1qeHj0yrZVcQdg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DN1JNVuT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.41
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012041.outbound.protection.outlook.com [40.93.195.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eYS07XxP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5869606A326;
-	Mon,  2 Nov 2026 13:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5869606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C03606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:28:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48C03606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DN1JNVuT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cntpda02lpwBuwHvJLYDFRmpl4rDBuqizLHFPOYxeY9gP12BHTnqcFStaxDpGKDTeZnLTi3urBN5P/AkGI0wwwK0CVJKHBD4U66Ps7EDGkHyXjXEPfc9OX7v+qc6XY0OoDyFs97TaktAIKxSJ1GqiPnxu1gLO+60SjY/HYATpsSjJpRndV/o5FaTqbW0qhbEA68vAnxG1/GP0GfeYbbf6mKL8I7JqRmJ/KYA03jEnUjkNsNzUEYqeS23EooavzabtIHVtzNX90fdGO4CWLQNu2EDdhrLrQ3jL5NTHcoMEyJYq1ILk82vf5ZQQ7fw7UdNwdzGyFLL+3HveLslVyM5YQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wL4VRNyM0lAnChGus4Zdcft5lYA8VOMZZskgcWXOMZ4=;
- b=MKcH4PFm36vrNDHyBX6e45drC/9SznFw7ODMBzXwporlnkvg59ZnCy4+jdt0ky4HoaIH8QbkQjEuSpKeQPQRVHc24IWn2vM6j+7GNvTiLYzaUx7KIOjgePbPSCYZvdokAtwF9nNjR9NAeJikoAbiMwQjcl4BsVByyze5pGaWZby9aV4Fqe07Gv0EmrSnDF7F6vjk/5aujouKSQtNzNeYmE2RU11u9cC6OBP4w2n4A/UBKYqpVSuJjnucqgyr2kRs5WkJ8JFp/3Ml8hxjTqvWHdTX5RnyA2aVoTQKxnJO5E2gzzXoKa096ZseBnNbSqnMBNC7oI2HrbkGgtUyGktWuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wL4VRNyM0lAnChGus4Zdcft5lYA8VOMZZskgcWXOMZ4=;
- b=DN1JNVuTJ3H1JfPbHZN7cpehAeSQhK+greC+vniSEn3n6gPU8r9NxVBvqlTvKcMYNncAL3tQG7bEcRyZDJm3MpnZvFSAI+YKtM5pmgaThcc+F3iZ5o4aiiPTAMialWsydzl+/I2Lrt09pPuAorF7Ph3uVVylV1ShWLvsSRlnsBWRjvkrEjAuL/NoDC09ZP/urAqo4Ecl5oUJ1OqWqgVbqtv6tJYoct8IIjgqPJqh8nGUJvCHh7Lyhc9l42+A+vpVP3GuzHGlPPapSmUmSpyXNIXukyh3+tJp/OiCV9fZ/ij+b6croQL9Xwbs2U3no4WMJtmbTci2QgXSocMAak+9cw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- BL4PR12MB9481.namprd12.prod.outlook.com (2603:10b6:208:591::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.12; Mon, 2 Nov 2026 13:27:32 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 13:27:32 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Nov 2026 22:27:28 +0900
-Message-Id: <DMKRDBNW6KIO.OT0T0M6JFRDY@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 4/5] gpu: nova-core: gsp: cmdq: compute the queue
- regions from a count and a slot
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261102-r000-cmdq-prep-v2-0-c2c2b69bdec0@nvidia.com>
- <20261102-r000-cmdq-prep-v2-4-c2c2b69bdec0@nvidia.com>
-In-Reply-To: <20261102-r000-cmdq-prep-v2-4-c2c2b69bdec0@nvidia.com>
-X-ClientProxiedBy: TYCP301CA0069.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:7d::9) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eYS07XxP
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4322d310e7so490776766b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:28:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793626090; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cM0f3jKf8Rt6vTB+zdoYAHLlpNQoWKcD621MHYZXLUHS+Ru5K5osregO/Ca3POg8P9
+         I7YM6TuHu9Q4ayUzFKyKKWmrneFR41URsu8DIa35fl0GSjiQeLo1ND3J167IO+pcSORs
+         3wxUe+JY5xn3AluTgqgN9FsZ2zi/OCWHE3EaT7S8JEdaPy9pSH3973fDXVovp5kEAS7E
+         IWQ9pvLxh6NbBda3EMhA7T+9JAQJlHcKUsO6qBQwdpvCg2C9zifEaiRZs/e7x+AJOsRf
+         i1CRvXsQ1ociB16aWwarIm+0ZVQ7DpOQHkNNUsAPLsqquYluCL3T7kqhXNz5ujQH2SP0
+         5rkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qjPej5w11WbikcynHTF6kveEbA3S0oHjvCfUZQriRUU=;
+        fh=slz/sHARPdn6iEfbrU3MF2vPnEvfHIfNHMUu6VN4zE4=;
+        b=RzGHuQaWSdGdgWB+L5ZMxvYQDswidD34CGUP9+1tOtd0tn4eMN7YoOCU7zNWNb38VV
+         zK0yIyWdKbvyrrnOky9zQy0Ub3Lvf7br+wYT3j604mOD9WtxeQpCMgCrcqiPB5vSqnCF
+         nyY+PRTeGTqhQHInllUrqS7NUQS1XN4nMgi6LuloiXUvZSjaJsn8VBqEkwioB/0n0G+u
+         IcqVMzqMTZec7dsrz1f7K5aB2STriJp+p9NYgEjIrFbsKqVM7+h8oLKS1nB1HFD5JdeL
+         xcWTnpclwUndF4OJOY48BCbunEUfG1UYOUu8XtOa4AW8sYH398HmrwLnByKhqPgv72me
+         9Ebw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793626090; x=1794230890; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qjPej5w11WbikcynHTF6kveEbA3S0oHjvCfUZQriRUU=;
+        b=eYS07XxP8utYTK8HWQxrIfweY2AEeSo05MdTGi9bbVESvlC58yszyY6JPLobaWZfxc
+         imk/gxvuIXAaaTqV46KdtWmW3Q1ueQHZpbb2oWgLi8gNn6uXtkdbIzybF0KYsU5j+ayW
+         aKmXNPi+TN8LKEygHmb6+CngLX/IJwGYm57T1XXuB/0Hwxb0BVyeMHl6mO+yjqoQM26r
+         QIGMCxuRZeD0eC9omZ6Wonuh4ev5nNkK8FsviHCI0KaI33iz9G45ISt/6jkeihUvAQhw
+         AZzS1P60h62yvfPoc/o74f7YuADHPSqe7dJKIFt5i7QNTmMya1RJRdwQUTAclTJTikIQ
+         PtOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793626090; x=1794230890;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qjPej5w11WbikcynHTF6kveEbA3S0oHjvCfUZQriRUU=;
+        b=KPqYCAz1MM265AajOTdBC40RH/rurh6H6+AzThfr/MlH+2PqI/ixfjhIHBVlbUqxFX
+         /CoWQCUAvMy1jQA3A8/9fL57veKzJ4+cozucE0VIt/6jfxnkFt970Nk38KTi8xQQ/S9z
+         DL95iXQPhfO7hSooXfAe3L97fKz0VIkc5HMUK+owU4ZK2C08t/3FzEtsVeW+v3FA7SZA
+         DCxuQn5Mif9KydpQD85AEx3CFaKzhiCzXd4t9oFBpeKXLkBR3M+YAASWhEUKbOp93LiJ
+         /flwjYo/EZe/755sgokjJKEcsdZ8frN10FmAEpMyr56DDW3LiFEKtdw2PJcI0M8SmKvY
+         kPoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy3jTMTpNdUzcl6jLhhgT2OQjmIsOKR13ZeykyubzmzTHnhA01t0nfJoWGTeM/lNLdp18atwaxinSFTQjE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3M2/N6BEUBecnfYp6p8rU53NYy3gwV0WG+m36zHFYt4J+yvSf
+	k18qnuAs/MCq3+O8S8wNHfJpsRjrjaOPoI6SXKic7TvcpKXTHWsbOVjXl9UgmoD+FMF7HZITe5M
+	pzwn0U1wfMT8Skp/AHBU5af945PQweC8=
+X-Gm-Gg: AYBFou14u1OpRhfEAxfxDewzjXLcKoc8G4nc4lnZojY4JjFGSn/a3mQd0v6YVRgDh34
+	fHKK/xWOpa6BADueoNMlHVw1vLDRozC2ZW7vNIze9oqnv+ZLUzVd9IHf49iFORsuPxrY8nTbyLA
+	1pEzAvQf5x+LbSX9q5t54Yp5duGeC1ulbLGHB2/pdp2Kjj1rAPZocXksxcbvYyA7+9ijViB9BcU
+	c7Zc0pJ/Feiaboxr7sIhgiEhhh03Cd6perfknCAQ7Jr6aHYYIAoUh6KPv3DRM2jiZSrGGKntBEC
+	A9f1TTKlsXY1B8UOZ1AqnJkFEKbs0biiHTdDcMPUYZ4XhM3I9Lspf0ZOue4T0ehw2GfecxRGId2
+	aaCusZOMv9IchX2ZqoyycKRXnlA9OIvY9rrVh0aY=
+X-Received: by 2002:a17:907:7212:b0:c2e:3f49:df04 with SMTP id
+ a640c23a62f3a-c4ca793bcd1mr794308466b.1.1793626089392; Mon, 02 Nov 2026
+ 05:28:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,172 +104,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BL4PR12MB9481:EE_
-X-MS-Office365-Filtering-Correlation-Id: 555b17c5-f84d-4a3c-a731-08df38e50ceb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|366016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|56012099006|4143699003|11063799006|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261009223027099003|261028144727099003|261021135927099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	qHAyADeVYwQJw22/+3H9lgk/AL4/c2R2U2E61Us5FE1mIYS/Htj8lLzzHG2q6/tl+Lxi7PnVQj6OvkTvOrtN/D4dQ2pSbRVGmdwSibb/9y9VYVnqagOpFpWOHBARcUXgStw/ZC6XYRwX7e9awboILFGwhLBxLhXXA6J6kLucQgYNnj/aehiYWIYZNxw4gOjjDaIjvsEx6wJtyhTVvcW12+s60stVfEJ4Spf/a4CWS6e1tqnUig6uVjhQDp3LfezVhx9dzQJERCsCa18+5HXc7WlyBk9t4ZAektO9Ffe7/U/Tv/Sr4FBZT3RNeSAytw51CTItWvUgsZ5A6QYowEyBKSOJ1rhUU1HJdrWfsiAuCUF3l1ZYc88RlHb8UxwqXmFfZ8o3rL/0ZQ8Yoh5wyIAGf3npIMIY/QYILdIO8aX9/OE3hcRq/N/HO5fBo9Pt8N9BnMIBhDCGT35RxUOudt5HiDfhln0SMjAJ7Ei/yuHypgdlsAQeqXVOQySe2FTjP+hPNTMgNlL/goEvB9IXEsjsvlIu5QYLeFtxctupIFYIBGhew315yA1ksFIMt7pozkqsqZeiZ/wpoPfit8upgrWxU4zNjoY2PdJSDRY9HdLrj1WYPM03kjjCOTYtafmGU+2v8YpgwH+bngWRuHliqZQ6bAotwHNXkHCclsLRebvyf7E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261009223027099003)(261028144727099003)(261021135927099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SG0wYVowZWxNRmhxd1lWVnhDRUV5dHhRRHprMnNDcjUvaExZcmVPeXRnWnly?=
- =?utf-8?B?ZVNORC9ud1c0UkRVSUx0c2lCS3g0aHZRZVhMNFR0K002cXRweC9PendPRkhX?=
- =?utf-8?B?eWxXZUN5NWVIdmhyMnhEdkFjeHcvM2syQmw5V01ZN3FaUVpwcEpZbkt0WmM5?=
- =?utf-8?B?YjFhZnNnb1BNSSs4djNUWXNVQ01mNnk0cFhKcFYzcktPOTlkcTlISG80dFpD?=
- =?utf-8?B?TmxWWXFCa3laVlNsMlQydGpveU9pOWl5RkNkQlRrL1UyaUVqdWNLSGVhclRU?=
- =?utf-8?B?MHVscXF4NXE0OTl6NVhvYS9ObGhVSVo1TVgxUnBqOFBPRzhZeTNDdjJ0Rlg4?=
- =?utf-8?B?UFMzZDdBcXFkYWhBRDZ2dHNaMHJmcFBieDRTQXRleW1HKzNrQ2p6THFDK0tH?=
- =?utf-8?B?cnBwcjFTaEdDZk41amEvWHZCZlUyd3FoWkpNQkhMYVpBY1M5bjlraE1VOFVG?=
- =?utf-8?B?RkZwT1ZkaVA0YzFCOE9YdTJyWDdMU0MveWFaREFkbkp2MnU1QlVzMTYxdzB5?=
- =?utf-8?B?OTRBTnAxeTE5MFEzd1p0RHJIdDlvRnV4cFZYZFczUmFHb054dTJCd0FDL0lE?=
- =?utf-8?B?T3p5WXpXTDdpZnl3OTRzbllzYUx6NmM3Qkd3TUxhcE1VekprNldidENrK2Yz?=
- =?utf-8?B?c0lqUTRPeXZkbUFLckpIM0VkTW1xOTlhOERCM05aMzBsZUlNUEkxWmFrdHFP?=
- =?utf-8?B?S0NOMHBFZHJaU0hIelBXbkJSR0lNdFRqQUpka1d6ZDM1RElhaWtLT3NoVk9S?=
- =?utf-8?B?QkpHdFg2UDFDY3ZraWJEMW5WTENOdzJ5TzdqMTE3QzZSd2JRdXMrb05aK2Nw?=
- =?utf-8?B?ZWQvRjh4RkZtNVpndHNaM1JWSVBPR0xVUEIzQStYTHlnRCs5RDNVOEJWMXBO?=
- =?utf-8?B?K1NtUXdIR2FtcGtiZUpkTXQ3cW8zZzk1Mno2TkJDUWpRak5CTTMrcTBMakRF?=
- =?utf-8?B?UVI2MnZvZytUQTlOc0JMeVB4bmc3REV6Mno4Z2QxcGt5K01BcWYvSGE4ZHZs?=
- =?utf-8?B?R0hUcnRKYjRDR2IyVGdET2tzWG93NFpVNWdPbmdmQ0UzaWhrd2pYdFNqMkQy?=
- =?utf-8?B?T0Jla2RTZ0d0WWlFbmlaVC8xa0VDUFJYMjlXb25LS2RaakR6VmQ3eEEzWWxF?=
- =?utf-8?B?c3RsREYxd0hnSytUczVvaDR5QlJ3RU92Q0trMzVlZTRZRTR1dWpXbldIcXZZ?=
- =?utf-8?B?cTRrSWs4S0NNcFlPb1VvelJla1RzVlBhWHE5SU1TakhyMTNjajdzQnU3Wmp0?=
- =?utf-8?B?NXN4dVJuRXNEcG5pZ0xpWTNSTXhPZnZDa1duTzFhOEtBZS9tTmNLVVNuNGY3?=
- =?utf-8?B?RWRFb1VmUXB5NEZOUlRsS2NKVFNLNlRnMkRSdUl3TVkwWnd0aStzOXk1b29t?=
- =?utf-8?B?YWllcm1rN0lKRnByTWV4L3k5MHBFbEdZV1VWeGJSUG12YkgyRkZNbERZRFpj?=
- =?utf-8?B?NFAxV0RRK0VCK1hoWVBwTndGTVc2WnJTSkt6cDNWVWJicUJ4T0VsaHVjV1Fw?=
- =?utf-8?B?YWQ2NFdyby9NVUNzNisvNVRGL24vN3o1YllvLy9Bemk1NlgwcDRDZHpYOU92?=
- =?utf-8?B?WjVoWUdvN1BOOHBIY0Znd0NwcUt3S3JoWHRDc282OHZad0FhREV3VlVJQ0Vo?=
- =?utf-8?B?NnRjMFRPTld3QjU1dldka2Q3UDJNZUNXOGJMcm1BVFJQeFdEN1diTEtWRnZY?=
- =?utf-8?B?ZXZrbTF3NGZzdy85WlVaSDE0anNIT0labDRvNHBFNXN1WWhHdXUzUEVtbzB1?=
- =?utf-8?B?aHRPNjhlK3pjS0JWUy91VTcwVERNcERZcVVnVEsyLyt2b2Mzc1N6WGdLYThM?=
- =?utf-8?B?Tjh0K1hUUVlvTTBNVzZQdDQxVzIzbTI0SjVQWEkwVFp2dXMrR216K0FIUVZO?=
- =?utf-8?B?ZTg1YXArL2NneXlma3l3UkZneE5SZy9GNTNQUzlaMzRIb0lIREVib0F2UkNS?=
- =?utf-8?B?YlpNTTg0WEx3Vy8wVkZDbGdFVjVEL1VXSC8yZkV0MWU5SU9lOEJKL0RWeXpj?=
- =?utf-8?B?c3c3Mzc1eUlxcDdYWTRlNllmK1pKQjRsbWdEY1FXWGhUb0lpZUg5OWl3TjZx?=
- =?utf-8?B?cC9jVDdHWVl0RG1LQWd1a2tTUUtpVHNFTDE0Y1k2cDQ3WnNDM0d6TmJTZFo2?=
- =?utf-8?B?azcvcjNpQkpBRTFtTXBnME9kcFpUVHR3NjRvQzBwWGJOL05EOVBsTzBuQVQw?=
- =?utf-8?B?bWx4Z0JTcm1tblova00yeUtnc3lGVndiTWZyRUIrNTYzdVFrRFRBQ3gyUUw1?=
- =?utf-8?B?bWhOeHNOdTVUeUllejFLU3ErZkxHTzE2L3dYV3FENndDTWJaOGplYWVnUzFm?=
- =?utf-8?B?aUpIaFVFOHpuMy8zZkZlTWYrYUtHenl6RUNvdStKRlVYRzA0K1NvZkF5WWIz?=
- =?utf-8?Q?4BSDF30VKVtkA6iU4buGBncUY8966+MMcEu1stL6jtlh/?=
-X-MS-Exchange-AntiSpam-MessageData-1: UtU/eG4dDb4VfA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 555b17c5-f84d-4a3c-a731-08df38e50ceb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 13:27:32.6585
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wnDOoLJ5ilRxdb+JSKO3hBHYJXterYI+kr4XMA4S4BpKiK5teKVIN0/SoybU0ixyDj2OAHX9P0IEMH805KlXhA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9481
+References: <20261021085635.3633692-1-r772577952@gmail.com>
+In-Reply-To: <20261021085635.3633692-1-r772577952@gmail.com>
+From: Jiaming Zhang <r772577952@gmail.com>
+Date: Mon, 2 Nov 2026 21:27:28 +0800
+X-Gm-Features: AclHuK8kt_THxReORpsQp5Tyrq7frAGmxk4veLrbcHUVI_TWp6z1LJSbwSMGjP0
+Message-ID: <CANypQFYcKGJP7BxP-UAiKUXQ2Uw+H06WJY7kkCxuVQ742QbK_Q@mail.gmail.com>
+Subject: Re: [PATCH v2] ext4: clear in-inode xattr space before adding the
+ first xattr
+To: jack@suse.cz, linux-ext4@vger.kernel.org, tytso@mit.edu, 
+	adilger.kernel@dilger.ca
+Cc: libaokun@linux.alibaba.com, linux-kernel@vger.kernel.org, 
+	ojaswin@linux.ibm.com, ritesh.list@gmail.com, stable@vger.kernel.org, 
+	yi.zhang@huawei.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon Nov 2, 2026 at 9:09 PM JST, Alexandre Courbot wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
+Jiaming Zhang <r772577952@gmail.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8821=E6=
+=97=A5=E5=91=A8=E4=B8=89 16:56=E5=86=99=E9=81=93=EF=BC=9A
 >
-> `driver_write_area` and `driver_read_area` both branch on the relative
-> position of the read and write pointers to decide where the two slices
-> they return end. This works for msgq v0, where the pointers are indices
-> into the ring, but msgq v2 (used by the r000 firmware) keeps them in
-> BAR0 registers as free-running counters, so the branches and their
-> SAFETY arguments would have to be rewritten for it.
+> An inode can hold extended attributes in the space that follows its extra
+> fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
+> ext4_iget_extra_inode() validates that space only if it starts with the
+> xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
+> space is treated as empty and is not checked.
 >
-> Instead, compute the number of slots available to the driver and the
-> slot they start at, and derive the slices from that. The slot counts
-> come from one helper per queue, which are the only two places msgq v2
-> will need to touch.
+> ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
+> or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
+> there to find min_offs, the lowest value offset.  That offset decides
+> whether the new value fits and where the value is copied:
 >
-> Use I/O projections to limit the amount of unsafe code to the bare
-> minimum.
+>         free =3D min_offs - ((void *)last - s->base) - sizeof(__u32);
+>         ...
+>         void *val =3D s->base + min_offs - new_size;
 >
-> No functional change intended.
+> A crafted image can leave non-zero bytes in that space without the magic
+> where ext4 looks for it, for example by shrinking i_extra_isize.  Those
+> bytes are parsed as entries, and an entry that claims an in-inode value a=
+t
+> offset 0 sets min_offs to 0.  Because free is a size_t, the subtraction
+> then wraps around to a huge value, and the free space check passes althou=
+gh
+> the value does not fit.  The value is copied new_size bytes before the
+> start of the space, over the inode's own fields and, for a large value, t=
+he
+> memory in front of the inode.
 >
-> Assisted-by: LLM
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> On a kernel without KASAN, the copy corrupts memory: it overwrites the
+> inode's own fields and, for a large value, also the memory in front of th=
+e
+> inode.  The bytes and their length are decided by the setxattr() caller.
+> Nothing is freed and reused here, so the use-after-free in the report onl=
+y
+> reflects where the write happened to land.
+>
+> Triggering this issue requires mounting a crafted image, which needs
+> CAP_SYS_ADMIN or automounting of removable media; after that, any
+> setxattr() on the file reaches this path.  The issue was found by fuzzing
+> and has not been seen in production; a reproducer is available in the
+> linked report.
+>
+> When EXT4_STATE_XATTR is not set, zero the first 32 bits of the space in
+> ext4_xattr_ibody_set() before calling ext4_xattr_set_entry().  These are
+> the bits IS_LAST_ENTRY() reads, so the space is treated as empty and the
+> walk stops before reading any stale entry.
+>
+> Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
+> Closes: https://lore.kernel.org/lkml/CANypQFZzxTAH=3D4QRRDoqH6VAw1daAq88N=
+DWiQKoM7QTOnP40sg@mail.gmail.com/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude Code:claude-opus-5-5
+> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
 > ---
->  drivers/gpu/nova-core/gsp/cmdq.rs | 130 +++++++++++++++++---------------=
-------
->  1 file changed, 58 insertions(+), 72 deletions(-)
+> Changes in v2:
+> - Zero only the first 32 bits space instead of the whole space.
+> - Add a comment above the check.
+> - v1: https://lore.kernel.org/lkml/20260916084723.877552-1-r772577952@gma=
+il.com/
 >
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> index 90e26c4dcc28..33cb9174c1e6 100644
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-> @@ -19,8 +19,8 @@
->          Io, //
->      },
->      new_mutex,
-> +    num::casts::FromSafeCast,
->      prelude::*,
-> -    ptr,
->      sync::{
->          barrier::{
->              dma_mb,
-> @@ -186,60 +186,58 @@ fn new(dev: &'a device::Device<device::Bound>, bar:=
- Bar0<'a>) -> Result<Self> {
->      /// As the message queue is a circular buffer, the region may be dis=
-contiguous in memory. In
->      /// that case the second slice will have a non-zero length.
->      fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut=
- [[u8; GSP_PAGE_SIZE]]) {
-> -        let tx =3D self.cpu_write_ptr();
-> -        let rx =3D self.gsp_read_ptr();
-> +        let avail =3D usize::from_safe_cast(self.cpuq_free_slots());
-> +        let w_slot =3D usize::from_safe_cast(self.cpu_write_ptr());
-> =20
-> -        // Pointer to the first entry of the CPU message queue.
-> -        let data =3D ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.msgq=
-.data[build: 0]);
-> +        // `w_slot` is below `MSGQ_NUM_PAGES` per the invariant of `cpu_=
-write_ptr`, so the
-> +        // subtraction cannot underflow.
-> +        let before_wrap =3D avail.min(cv!(MSGQ_NUM_PAGES =3D> usize) - w=
-_slot);
-> +        // Per the line above, `before_wrap` is less or equal to `avail`=
- so the subtraction cannot
-> +        // underflow.
-> +        let after_wrap =3D avail - before_wrap;
-> =20
-> -        let (tail_end, wrap_end) =3D if rx =3D=3D 0 {
-> -            // The write area is non-wrapping, and stops at the second-t=
-o-last entry of the command
-> -            // queue (to leave the last one empty).
-> -            (MSGQ_NUM_PAGES - 1, 0)
-> -        } else if rx <=3D tx {
-> -            // The write area wraps and continues until `rx - 1`.
-> -            (MSGQ_NUM_PAGES, rx - 1)
-> -        } else {
-> -            // The write area doesn't wrap and stops at `rx - 1`.
-> -            (rx - 1, 0)
-> -        };
-> +        // PANIC: `w_slot + before_wrap` is at most `MSGQ_NUM_PAGES` by =
-construction of
-> +        // `before_wrap`.
-> +        let after =3D io_project!(self.mem, .cpuq.msgq.data[panic: w_slo=
-t..w_slot + before_wrap]);
-> +        // PANIC: `after_wrap` is at most `avail`, which is below `MSGQ_=
-NUM_PAGES`.
-> +        let before =3D io_project!(self.mem, .cpuq.msgq.data[panic: ..af=
-ter_wrap]);
+>  fs/ext4/xattr.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+> index 5c310747b965..8e1fd26329d3 100644
+> --- a/fs/ext4/xattr.c
+> +++ b/fs/ext4/xattr.c
+> @@ -2274,6 +2274,14 @@ int ext4_xattr_ibody_set(handle_t *handle, struct =
+inode *inode,
+>                 if (IS_ERR(ea_inode))
+>                         return PTR_ERR(ea_inode);
+>         }
+> +
+> +       /*
+> +        * Make sure xattr space is properly initialized so that
+> +        * IS_LAST_ENTRY() returns true for its first entry
+> +        */
+> +       if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
+> +               *(__u32 *)s->first =3D 0;
+> +
+>         error =3D ext4_xattr_set_entry(i, s, handle, inode, ea_inode,
+>                                      false /* is_block */);
+>         if (error) {
+> --
+> 2.43.0
+>
 
-It looks like compared to v1, this kept the `after` and `before` names I
-suggested but changed the indices (e.g. in_after =3D> before_wrap). It
-means that "before" and "after" are being used in two different ways in
-this function ("after wrapping" and "after write pointer"). What about
-picking one usage for the entire function? Either is fine imo. Same for
-the other spot (read side).
-
-With that changed:
-
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-
-
+Friendly ping, please tell me if any further change is needed.
