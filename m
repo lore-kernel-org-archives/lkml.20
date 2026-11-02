@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606583;
-	b=mMSNhP/bx1V3pzZKlz8+hzVXxz6YyoJcHPw+YJrWz4PCc3TglzTtzT69c+/CcXSHaCt8
-	 B7PqLdnQsDevm4CwbVs4GEMlWAbNW1o+WlY2aNGyOUpAdGfGigqgHtA+mB04vluctjlPd
-	 J/IzoeJ+4ffFtn2Mi+gT8Mkrnz3fWBfAuwjwQsSFJMWN3ykxQOue3QY0XHpaHUTOm0GDC
-	 U8lgq4jtAfFZPPzycA6NS6DdjSyYrqfdv4LhLywWIQxnFjglH0UTgYOCDgOBPSXPyJfy4
-	 12y9ui186+k+SfM8v3NI7hiea36ja8W50CYc8SnRgjgvs13ZF2K7xvPeWejgn21rnWg==
+	t=1793606581;
+	b=cPWvsp/hL+4RwwbkU5AR9wZKet0lOeyi5Ro+Hfe6U8nFI7O2x/GxCIqqUiR4834lapD8
+	 w6/IGMOf1vFHm01KRTVIljyBX/WkiLaVen9Sjx39hyml/eB3MA0wyJl3TEW0qz+QAgzCY
+	 2cgPRd6ZSs50BzThlfXZlTtF6hOIas3KfLLFnuIOn6HAlfkP6V4EoKinZl+raSxabKGpW
+	 1s++rnigxZ9i5AcRBNzScAsmLHr1d3esZwKhgvmxm6z6RIfF63vZGFhRh6bRmExVZ0H5s
+	 qQHefY7DMmJs0NOMV5U90KS6DJEf86AZ0NxPGZSBqSvdPRE1byjRLjASlw8NCYFJdXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606583;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=U6rujUAQs2Y1Y1weMw1WSfHc22ibpIuMwbt2s+QB2+k=;
-	b=oSRIBEoRcX9U2aLhAUeS+PNu6kHPjGc+deDawUEEdW37FEmq+vrufM9cDceGeeN1+bwZ
-	 kyMh4aYgNqe7KrX05rkRLUaM87UkKutR8+NCXK2L2MpHvJJBns9AfrglqKDfZGnZMBXZz
-	 t0vlV9CfKkdRGGLL9Tehc0iKNXEiP9y8sP9YlTcxTCln8moA5O6an0wcBIis294Y8umua
-	 a4o1EEudXgG+1ztPsXQeY2y6UQcwwX+wfpmb/E4WTfTn/p/e0mY5/yYYxciFv1jo0DvAC
-	 ZZURGYj647IVmZOhw/7W2IuYVOfCE0uO0BD9MpdvVhLj0c9Meypb5P8JSei0S5UEOHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606581;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kjzDJVbslYRFHwLeU4s4Hav9LIqixJ+vRMkjEDgPtR0=;
+	b=n7dKCfN+jSaOaiTLsRVQd0y48eWlxs5R5EZF1T3tMbKxAsTc7+XH27UHwAFjmVTYMAig
+	 OqCUSQ11UPd8wGviL3GcKPzbR9UPs0pZ3snyWfUgrh9PbvFAcPBySEygSElKuQ5drk9DR
+	 Jq2kI16bSMoAiZD05Z35W+kZ5IhsV8kI8ipGhzc5La37kWan8xaqqn/Y8/NcD9fVZL14K
+	 7afUN9dx7fBoViPpuDIsv3tiLETxPDoMNihofIKIVxBcHWRseER+CDZ+Snu2gHqJy9NMY
+	 /+qgAvF72u7oePHbwbdikZreaq28iOe+VtNxyXaeOME7s7+nPEG7NTwC62fbUoQW3Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkNoZJ0n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2wJZkgT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C68606A333;
-	Mon,  2 Nov 2026 08:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nkNoZJ0n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E330D1F000C1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F57F606A324;
 	Mon,  2 Nov 2026 08:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2wJZkgT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8AB1F000C1;
+	Mon,  2 Nov 2026 08:03:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793606582;
-	bh=U6rujUAQs2Y1Y1weMw1WSfHc22ibpIuMwbt2s+QB2+k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nkNoZJ0ncC7kvMOAEmJnnNbUlp2tHy4dbnyuT9fv2n0nS+11B4dO41kssOR9pUspI
-	 uw7G7IjA3et1iqmN3UrjTsJsuonqATVfKe8Q13m899JkYYSdLFl3uirYA+ODqCruDQ
-	 De9T/FrComFmMPphSBzjqN7NSJZXQ5iyG6Dcd6ByZYpxsJrkHRDC+JGhTMq5IPgtmd
-	 l9X/GdwM+JNmiv5wsfI3vTgae/P0PXBTjjzEQ9EvvVv0ut1SOvVUCH7WzAU1oQmR+Z
-	 HMQRDP6G4NKov4OmSRq4W0SsODcyr+0GiMbtJq7WYyzNX3iEtthDt2tDeC1fCh6nAn
-	 LZzuLcLx0fLcQ==
-Date: Mon, 2 Nov 2026 09:02:59 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Elaine Zhang <zhangqing@rock-chips.com>, Richard Cochran <richardcochran@gmail.com>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v5 1/4] dt-bindings: clock: rockchip: Add RK3572 CRU
-Message-ID: <20261102-casual-free-starling-fd87a5@quoll>
-References: <20261030-add-board-ok3572-c-clk-v5-0-9a43403cb149@qq.com>
- <20261030-add-board-ok3572-c-clk-v5-1-9a43403cb149@qq.com>
+	s=k20260515; t=1793606581;
+	bh=kjzDJVbslYRFHwLeU4s4Hav9LIqixJ+vRMkjEDgPtR0=;
+	h=From:To:Cc:Subject:Date;
+	b=M2wJZkgTJ4G/ouEIdczHzOudGHN9lFoA3o+KEwwxJRKvjbu6oEdAKBfDHnxpOm5U1
+	 ars0Ogk0ADzNfFAZE4jwzkpI/Elo3Qwls1yg2UGqiy8i/enGDLPZyC0RzuWr4Ozo1t
+	 xIp5mVw80M7q/KorAD3bazUn51YsThsSQ+blJPXGGmuK789vM/hoWPnQ4eEMi+mNFX
+	 ebtUnJW+GYJ9b2UXPO2VMXqVdOzqJF1lUf3Hog4VcbLSNRW7g6l50F2YMAjRBaF0qm
+	 wPRugrA7Sq+P0LurjCWeh4U132vn88jc9BKgZqgGCZcH9EPD/dClEY98f+emjhi8eS
+	 GJQ3Uj+UZ/faQ==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCH sched_ext/for-7.5] sched_ext: Say "hosting" instead of "running" in scx_exec_sched() comments
+Date: Sun,  1 Nov 2026 22:02:59 -1000
+Message-ID: <20261102080259.1509843-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,24 +61,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030-add-board-ok3572-c-clk-v5-1-9a43403cb149@qq.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 05:43:57PM +0800, Cunhao Lu wrote:
-> From: Elaine Zhang <zhangqing@rock-chips.com>
-> 
-> The RK3572 CRU uses the PMU0 GRF for the AUPLL reference mux.
-> Describe the controller and define its clock and reset IDs.
-> 
-> Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>
-> [adapted to mainline rockchip clock and reset handling (xin24m input,
->  don't introduce CLK_NR_CLKS)]
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> ---
+scx_exec_sched()'s comments call the nearest non-bypassing ancestor the
+sched running a bypassing sched's tasks. ops.sub_cid_sched_updated() uses
+"the sched running on a cid" for the sched owning the task running there.
+Call the ancestor the host, as the bypass dispatch code already does.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/internal.h | 10 +++++-----
+ kernel/sched/ext/sub.c      |  2 +-
+ kernel/sched/ext/sub.h      |  2 +-
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 80c746054ce7..c20326d6eed8 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -2756,14 +2756,14 @@ static inline struct scx_sched *scx_parent(struct scx_sched *sch) { return NULL;
+ #endif	/* CONFIG_EXT_SUB_SCHED */
+ 
+ /**
+- * scx_exec_sched - Find the sched running @sch's tasks on @cpu
++ * scx_exec_sched - Find the sched hosting @sch's tasks on @cpu
+  * @sch: sched owning the tasks
+  * @cpu: cpu of interest
+  *
+- * A bypassing sched's tasks are run by its nearest ancestor that isn't
+- * bypassing. Return @sch if it isn't bypassing on @cpu, otherwise that
+- * ancestor, or the root if every ancestor is bypassing. Hold @cpu's rq lock for
+- * a stable answer.
++ * A bypassing sched's tasks are hosted on the bypass DSQs of its nearest
++ * ancestor that isn't bypassing. Return @sch if it isn't bypassing on @cpu,
++ * otherwise that ancestor, or the root if every ancestor is bypassing. Hold
++ * @cpu's rq lock for a stable answer.
+  */
+ static inline struct scx_sched *scx_exec_sched(struct scx_sched *sch, s32 cpu)
+ {
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 8962498e937c..9732809c09f8 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -950,7 +950,7 @@ bool scx_task_reenq_on_cap_revoke(struct rq *rq, struct task_struct *p)
+ 	if (is_migration_disabled(p) || p == scx_rescuee(rq))
+ 		return false;
+ 
+-	/* check caps against the sched running a bypassed task */
++	/* check caps against the sched hosting a bypassed task */
+ 	missing = scx_missing_caps(scx_exec_sched(scx_task_sched(p), cpu), cpu,
+ 				   scx_caps_for_task(p));
+ 	if (likely(!missing))
+diff --git a/kernel/sched/ext/sub.h b/kernel/sched/ext/sub.h
+index eb1dba6d51e2..41099218e38d 100644
+--- a/kernel/sched/ext/sub.h
++++ b/kernel/sched/ext/sub.h
+@@ -238,7 +238,7 @@ static inline bool scx_task_can_stay_on_cpu(struct rq *rq, struct task_struct *p
+ 	if (unlikely(is_migration_disabled(p)))
+ 		return true;
+ 
+-	/* check caps against the sched running a bypassed task */
++	/* check caps against the sched hosting a bypassed task */
+ 	return likely(!scx_missing_caps(scx_exec_sched(scx_task_sched(p), cpu), cpu,
+ 					SCX_CAP_BASE));
+ }
+-- 
+2.56.0
 
