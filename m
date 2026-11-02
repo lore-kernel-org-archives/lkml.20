@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793636721;
-	b=SqreKe8pl/UCCFxlo+dEZjX3LhbXHho2Q0af2FHbzsmTvIwAIfo6B03B2Jlw3JEeNvYd
-	 uR7qzoL5DYKBOIbmsHNwz7QAG7sFwD9BglCl1+BHJ03fby7HlBiPUfa3HMzzXkEA9qt9P
-	 pPJj+Y+L6KwPSVopXVe/YiJrzNOAfxMwK5lULDVxpJnFzj38BaTpyq469ZgIfNbLD2qz8
-	 5DCeejkoaOhhyLVhVKqUBU5zYTy8RPwPKEiVGEiFKuGeZCLESKo+LYaTiDNtOlOw/RIXC
-	 tQzqe2/I0Q9aDMihwG7njbPhQcjJcOrldzTiBI5OABNYJ62JafS21uNrR7nynaRqxcw==
+	b=rNP/fLlUGlWea86YrSYk2g4f0o2MYjWlNI9hHzSFO4kbdz5KsrI+dc1TpZn2PWrGlvah
+	 Kv4113lvkEwS6SApTNUToDQ22M8PM/Fv+YvtE6uiKb1a9XDmmv379BsOc8AQYtJ/PQIEP
+	 Zd0sLutLNspvZ630KhuDIpDwl0NVrSy8qMzNgFr6SKJF0obPeZiDMVrSzY0+1NiOS8PMp
+	 hIb3DgTJZj++JM09cPkxc/qjAiIz/9CICaMt56SpwSvf5Ba0Tk6mMgfKfhDf0gDp2+bke
+	 IuxN7aAVeKqqOcXktmUrrV3UHj8mH9RE+j+uCQwl/Yru3L3oV/rKXYY72CBbpr2BE2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793636721;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=HwW40vo2o/uGDLbu7g1/rFGvFLAyIo2hkK9JwAuJaX4=;
-	b=cm2zGsu6ZlN9Nx7KMsrjtQHg09FPqCGGK5IblXY5Xc/Cdu2jwVJi81bYI5XcYnUhb4Ul
-	 qA353S3tX6YnDYPAXbKrxyJcrXKTmEQ/FGyn6sC2JjKgi/3d0Fp1LJW4/Jtj7RF6oagYR
-	 ufjmhtX/GoZw+ta54P34X479lAX/SzVyGdMK1Z+eA0iZk3YdMCSfSGj7I1ao5ZUYmkTGD
-	 d/rKQ+DrepTq8mpD/7ttvPsmi4xcoxM7hIpyvOkd09Llb7B6FfyOlPhip2WB8cfPVoZaB
-	 QWcCdbWJDq3V5BvEvL77rMyGRAi1cjPq0xWhpRMlEi6SeZi0JN/+M/y4QocppovziAA==
+	bh=rtAWr8aLJJGbLMkAW/QfAjNkIGwj00v3ffiqGlnvDJI=;
+	b=UBVY2BQLEBRBSnBm/0yuBXVCA42GtDsSVr8aEp5o09rGKugmyFQBlDXa8jBPp6UJQYAG
+	 0OBKWvVN6bzUaRm1XCaKqy299Z32kgrC+371r1G//OY3NlRrZGmtrLCKGpPS4qzrQbDTF
+	 SsetGwi43seZA5tkQ66mmMtlfYGBFLOfaQXd0+p5CP1kTEcw0r6WZH5a4P4voqAThQN+q
+	 7l2C1gRfje1UIbx7m07zu+9oW9BG7Dvr8TL4DRo8maqw0UX1AptHOkesK9dD4wxxwcyFX
+	 4JsY3tFzodNeAFHrkjRnfXYEV/cdXLZTqnm5Hz835TaWur9OTvFctQQI9vQDAr+/BoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.microsoft.com;
 	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=R6NxMh7O;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=m0+BW3m5;
 	arc=none smtp.remote-ip=13.77.154.182
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ADA60606A92E;
-	Mon,  2 Nov 2026 16:25:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADA60606A92E
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B9A5606AB90;
+	Mon,  2 Nov 2026 16:25:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B9A5606AB90
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=R6NxMh7O
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=m0+BW3m5
 Received: by linux.microsoft.com (Postfix, from userid 1186)
-	id 734BE20B716A; Mon,  2 Nov 2026 08:25:05 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 734BE20B716A
+	id 7F96920B716B; Mon,  2 Nov 2026 08:25:05 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7F96920B716B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1793636705;
-	bh=HwW40vo2o/uGDLbu7g1/rFGvFLAyIo2hkK9JwAuJaX4=;
+	bh=rtAWr8aLJJGbLMkAW/QfAjNkIGwj00v3ffiqGlnvDJI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=R6NxMh7OhHA34hk9BYz5S+UJIfnVuqrWmbXYlw26aZqo+V96hfJ6d7hG5GWwjBgYr
-	 3CcKCENuIvdP2Yaan7zw7nBvASUzP1gGeLc72nGe4g9tJ4Kip/UmKEk6+mgkrg9Vxu
-	 jJeZUmiKUs6o8cFEBZWDLyytGBLgXZpk+LqLDMQ4=
+	b=m0+BW3m5WiL7Hg0O7gdrEEJ5W715roswM6eNbR6YhMNmoCxo8ncoob4qsFihY8ytC
+	 F7g5Mjy6Ng7PiruYSvb93aItgDZ9m5laWbGF8M9clggo5L2l8uQqQR0iuO08+FuSxE
+	 zKA5fhCYFO1DohDjEdrARTf8NHHwZOR2f+4sLNmI=
 From: Konstantin Taranov <kotaranov@linux.microsoft.com>
 To: kotaranov@microsoft.com,
 	snsanghvi@microsoft.com,
@@ -48,9 +48,9 @@ To: kotaranov@microsoft.com,
 	leon@kernel.org
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next v7 4/9] RDMA/mana_ib: Maintain kernel RC QP state
-Date: Mon,  2 Nov 2026 08:25:00 -0800
-Message-ID: <20261102162505.501853-5-kotaranov@linux.microsoft.com>
+Subject: [PATCH rdma-next v7 5/9] RDMA/mana_ib: Post receive WRs on kernel RC QPs
+Date: Mon,  2 Nov 2026 08:25:01 -0800
+Message-ID: <20261102162505.501853-6-kotaranov@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20261102162505.501853-1-kotaranov@linux.microsoft.com>
 References: <20261102162505.501853-1-kotaranov@linux.microsoft.com>
@@ -67,106 +67,69 @@ Content-Transfer-Encoding: 8bit
 
 From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Update mana_ib_modify_qp_state() to support RC QPs. Initialize the
-packet, message, and frame counters for use by work requests.
-
-Arm the requester receive queue at the initial PSN so that a CQE is
-generated when the specified PSN is acknowledged, indicating send
-completions.
+Implement receive request posting for RC QPs. When posting a batch of
+WRs, ring the doorbell periodically to prevent the u8 counter from
+overflowing.
 
 Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
 ---
-v2:
-- Preserve IB_QPT_UC handling in mana_ib_modify_qp().
+ drivers/infiniband/hw/mana/wr.c | 37 +++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
- drivers/infiniband/hw/mana/mana_ib.h |  5 +++++
- drivers/infiniband/hw/mana/qp.c      | 22 ++++++++++++++++++++--
- include/net/mana/gdma.h              |  2 ++
- 3 files changed, 27 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
-index 6f5df64e838a..1094429af801 100644
---- a/drivers/infiniband/hw/mana/mana_ib.h
-+++ b/drivers/infiniband/hw/mana/mana_ib.h
-@@ -265,7 +265,12 @@ struct mana_ib_qp {
- 	/* The port on the IB device, starting with 1 */
- 	u32 port;
- 	u32 sq_psn;
-+	u32 sq_ssn;
-+	u32 sq_fsn;
-+	u16 sq_rsn;
-+	bool pending_mmq_fence;
- 	bool sq_sig_all;
-+	enum ib_mtu mtu;
- 
- 	/* Serializes receive WR posting. */
- 	spinlock_t rq_lock;
-diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
-index 387586c45aa0..5d6f45b9f53d 100644
---- a/drivers/infiniband/hw/mana/qp.c
-+++ b/drivers/infiniband/hw/mana/qp.c
-@@ -779,8 +779,10 @@ static void mana_remove_qp_from_cqs(struct mana_ib_qp *qp, bool reset)
- 	spin_lock_irqsave(&send_cq->cq_lock, flags);
- 	list_del_init(&qp->send_err_node);
- 	/* Keep shadow reset serialized with hardware polling and SW flushing. */
--	if (reset)
-+	if (reset) {
- 		reset_shadow_queue(&qp->shadow_sq);
-+		reset_shadow_queue(&qp->shadow_mmq);
-+	}
- 	spin_unlock_irqrestore(&send_cq->cq_lock, flags);
- 
- 	spin_lock_irqsave(&recv_cq->cq_lock, flags);
-@@ -1071,11 +1073,16 @@ static int mana_ib_gd_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- 				    int attr_mask, struct ib_udata *udata)
- {
-+	struct mana_ib_dev *mdev = container_of(ibqp->device, struct mana_ib_dev, ib_dev);
- 	struct mana_ib_qp *qp = container_of(ibqp, struct mana_ib_qp, ibqp);
-+	struct gdma_queue *rq;
- 
- 	if (udata)
- 		return;
- 
-+	if (attr_mask & IB_QP_PATH_MTU)
-+		qp->mtu = attr->path_mtu;
-+
- 	if (attr_mask & IB_QP_STATE) {
- 		switch (attr->qp_state) {
- 		case IB_QPS_RESET:
-@@ -1086,8 +1093,19 @@ static void mana_ib_modify_qp_state(struct ib_qp *ibqp, struct ib_qp_attr *attr,
- 		}
- 	}
- 
--	if (attr_mask & IB_QP_SQ_PSN)
-+	if (attr_mask & IB_QP_SQ_PSN) {
-+		qp->sq_ssn = 1;
-+		qp->sq_rsn = 1;
-+		qp->sq_fsn = 1;
- 		qp->sq_psn = attr->sq_psn;
-+		qp->pending_mmq_fence = false;
-+
-+		if (qp->ibqp.qp_type == IB_QPT_RC) {
-+			rq = qp->rc_qp.queues[MANA_RC_RECV_QUEUE_REQUESTER].kmem;
-+			mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), rq, attr->sq_psn,
-+						     SET_ARM_BIT, MANA_PSN_CLIENT_OFFSET);
-+		}
-+	}
+diff --git a/drivers/infiniband/hw/mana/wr.c b/drivers/infiniband/hw/mana/wr.c
+index 250d673f58f2..5d42af91fce4 100644
+--- a/drivers/infiniband/hw/mana/wr.c
++++ b/drivers/infiniband/hw/mana/wr.c
+@@ -70,6 +70,41 @@ static int mana_ib_post_recv_ud(struct mana_ib_qp *qp, const struct ib_recv_wr *
+ 	return err;
  }
  
- int mana_ib_modify_qp(struct ib_qp *ibqp, struct ib_qp_attr *attr,
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index 508da28591ae..fd0ec8fc44d5 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -605,6 +605,8 @@ struct gdma_cqe {
- 
- #define GDMA_EQE_OWNER_BITS 3
- 
-+#define MANA_PSN_CLIENT_OFFSET 0x8
++static int mana_ib_post_recv_rc(struct mana_ib_qp *qp, const struct ib_recv_wr *wr,
++				const struct ib_recv_wr **bad_wr)
++{
++	struct mana_ib_dev *mdev = container_of(qp->ibqp.device, struct mana_ib_dev, ib_dev);
++	struct mana_ib_queue *ib_rq = mana_qp_get_rq(qp);
++	unsigned long flags;
++	u8 wqe_cnt = 0;
++	int err = 0;
 +
- union gdma_eqe_info {
- 	u32 as_uint32;
- 
++	spin_lock_irqsave(&qp->rq_lock, flags);
++
++	for (; wr; wr = wr->next) {
++		err = mana_ib_post_rq(qp, wr);
++		if (unlikely(err)) {
++			*bad_wr = wr;
++			break;
++		}
++		wqe_cnt++;
++		if (wqe_cnt == 0xFF) {
++			mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), ib_rq->kmem,
++						     ib_rq->kmem->head * GDMA_WQE_BU_SIZE,
++						     wqe_cnt, 0);
++			wqe_cnt = 0;
++		}
++	}
++
++	if (wqe_cnt)
++		mana_gd_wq_ring_doorbell_ext(mdev_to_gc(mdev), ib_rq->kmem,
++					     ib_rq->kmem->head * GDMA_WQE_BU_SIZE,
++					     wqe_cnt, 0);
++
++	spin_unlock_irqrestore(&qp->rq_lock, flags);
++	return err;
++}
++
+ int mana_ib_post_recv(struct ib_qp *ibqp, const struct ib_recv_wr *wr,
+ 		      const struct ib_recv_wr **bad_wr)
+ {
+@@ -79,6 +114,8 @@ int mana_ib_post_recv(struct ib_qp *ibqp, const struct ib_recv_wr *wr,
+ 	case IB_QPT_UD:
+ 	case IB_QPT_GSI:
+ 		return mana_ib_post_recv_ud(qp, wr, bad_wr);
++	case IB_QPT_RC:
++		return mana_ib_post_recv_rc(qp, wr, bad_wr);
+ 	default:
+ 		/* Unsupported QP type */
+ 		*bad_wr = wr;
 -- 
 2.43.0
