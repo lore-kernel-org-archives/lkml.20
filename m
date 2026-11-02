@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638197;
-	b=1HAH6Vzt/zwtcJNC4AE4Jqi37MgUaTU+PYFXlfLHsCuFTzH2gpnPxZHZJt+9KOnEqO86
-	 1D+oUrH7O9uQJ5ljZBAsie4iXGjdQmWwiOUuzo0Z+IxuitqOOnoMhBw6JJHSgSfndACSH
-	 IgOhSc/pIleWUoyRrjHO2b0MztJXUvXomhzkO4xC/Vi3Se0Y1rjMQjAJAdyj3HvCX4XI/
-	 7OGhlRa5j4UMWnRcPbkJ1JOJg7jrffR+it37A5NJxBQzkNbbJ6OkRe4ms3Ld2HETRXTvG
-	 y61Y5a0/yc7Ud7/y/hZwPAOGhPo+cgU45aE1uyFlOvtMQ42oOi6r5GrNxijcEoC/QDQ==
+	t=1793638192;
+	b=zbgrxdNXH1x23Bky8xp/uyyqxsBq7O2BjXRuGZT1wdnqdUK0n9ic78kCj77XJrg/1Yys
+	 k1CEfdvoOhnZmUaqSfWvwyrCmNxteHYDowdLAzdAw9pL207a5CotI+OFDnsBQTqlyu5hS
+	 y8gTyCJUxQBr4Hj5/ZxsC16MGHntjHEtW7SK8k5u3fLOdShyQSWiogfkEmGDMaOS9Ukri
+	 pLh0MWvrL+ZLOwXdEnVFqtg7iw86YmwllBLEfMzFEb5bxzhUWw0tPztcZQsYf7ltd97Tw
+	 FlX7dj87dr5prfzXcosn6nx/P5k8SUaeRv3UtTx6RWtn0W7kAh2mdpOJ3F1BblCO62A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638197;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638192;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=oRJRMMD3ctMEcVviiDxytRdlmLbWxJT80Ce13o2Sbyo=;
-	b=emAOzkbQyzbXvhQpoR+kBay9PEFFhguVly/LZYtg5tDjBkRyRaPzvY9D3GzZLeLH1wDK
-	 L5Pcd5sUHAVlmdKaBhBHK6V6zpZqHtkzW+H+hBJB4RqRjWSGO+02xzUoN4CPn7yr39bAw
-	 jaRyeeH6GNbWFvDPhah/pDmeqKDDvGeKbIcwDAmPQ8a3Zmifj3dKbvjMp8PHCLIfos4qh
-	 XZYz6AcXfEaLydAkhd7ZrtEuP8I4VU8EU6PIJyFkFZwzo5IqMeVG99QyGZZOktnxqmrfr
-	 bnUG2QQpxM8rPpQ1VyDnF5VOTlWNMzyFCiC+TdJcUf/rxf5qqSuyWaW8/8Nuajdd+0w==
+	bh=CeLtMJy3R9kxJji/8niFyp2uHd5KpQJ0Wu7DMhAOnSE=;
+	b=oysZcjBc5enVhsKj/EnJIYO/aND9tHR/FiVjPknzt9yqJ3MU6e5x9iJMgGK3dwdROV/7
+	 WVNSYwrfG+Z3kAamcmo+OPFv6xMv1G5lVvxxbp+8U5ROw4ppXfG7NcxBsa/jCipngmd+u
+	 wyLMcJkoXzJ8qFqU9BBZoqfXOewbN8MmwW7uHyl3pESRcPZBW/RlA7oJC30SSB7cCd/35
+	 Lw4DJmdmHF7nHmhDAscQcMrRTPI84wqnxTi5Z98LHX1YsJk6eGo+irtQaE+hhYeMvDmUm
+	 KTawX2KCpQA0odhql18jl6gsatE1ncMlSUpRxJL05S3vYZnqyown0s84ENRsGK/MJVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MuWq2jam;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnmXVOH+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31F06072C76
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058BE608B7C6
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MuWq2jam
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE081F00A16;
-	Mon,  2 Nov 2026 16:49:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnmXVOH+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345F71F00A17;
+	Mon,  2 Nov 2026 16:49:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793638195;
-	bh=oRJRMMD3ctMEcVviiDxytRdlmLbWxJT80Ce13o2Sbyo=;
+	s=k20260515; t=1793638191;
+	bh=CeLtMJy3R9kxJji/8niFyp2uHd5KpQJ0Wu7DMhAOnSE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MuWq2jamAXbNo1Xz1TG/MelTuHxU/QDkjNY8A2r74MLF0kgIrW9J9Lh9vTAH5DlvO
-	 wByf+MJ7ePvJsu2l+iowPAmRUqHNcmxH4pz6cwPwKQtKdyUuK+NF5Hl5AypF1dA2Ad
-	 IPEqidNpl1XAuUx/eqhXekQwyEZOwOkPoxfu1E3CZdzQO3542cG6xuI9n42GT4Lq5f
-	 kRnfbMw05gz4v9r4zlrh31fcSnRsyOP5Muky17VgkzADC5+3P4SsKFF/vkSvGZrgd4
-	 9hIJkQyMZKG4osAc/yFaHFf9YBOaj6RO0YOYTJl9rbFQo/XmZ39tm+Of3t0u6WJZ4V
-	 ZgXhqwnCZaI5g==
+	b=RnmXVOH+rb1Uh8zAevN2KU4Btz7MUa1RKO1lUYYQ0G7KZwsHWAa4H2t3gHGWUIRpW
+	 wof6sw7RXawOXyqj0spbljNjs3aktMJoIzp2PVGTr7EnAR6WzVM72nGFcG3EW+dUdQ
+	 tN3NfI2gEd7lCD5Za/QknmqhO6iB0j8y9h26gTc8ULWhHk2dBvnYOh9yzQevRORYl2
+	 oyPR6BO2eZEerFlSv0jLsRweDs9BBUT2WxfgYjaAB1r0FAfd3DilWKiH05ppBJpdxP
+	 ShC9nJQpR2db7TIhmcVBzugy4i17FEAaTk3amPRdoUwvKRNmWpbpmGavYQxg2NPkCi
+	 PGiZwUk2dtY2Q==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:30 -0600
-Subject: [PATCH v10 14/15] drm/bridge: add PS8622 connector luminance
- support
+Date: Mon, 02 Nov 2026 10:49:28 -0600
+Subject: [PATCH v10 12/15] drm/radeon: add connector luminance support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-14-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-12-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -76,129 +75,267 @@ X-Mailer: b4 0.16.0
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose PS8622 brightness through bridge luminance operations when
-DRM_LUMINANCE is enabled. Keep registering the backlight class device
-otherwise.
+Expose Radeon panel brightness through the connector LUMINANCE property
+when DRM_LUMINANCE is enabled. Reuse the AtomBIOS and legacy hardware
+programming paths and preserve the backlight class interface otherwise.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/bridge/Kconfig         |  2 +-
- drivers/gpu/drm/bridge/parade-ps8622.c | 45 +++++++++++++++++++++++++---------
- 2 files changed, 34 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/radeon/Kconfig                  |  2 +-
+ drivers/gpu/drm/radeon/atombios_encoders.c      | 32 ++++++++++++++--
+ drivers/gpu/drm/radeon/radeon_connectors.c      | 34 +++++++++++++++++
+ drivers/gpu/drm/radeon/radeon_legacy_encoders.c | 49 ++++++++++++++++++++-----
+ drivers/gpu/drm/radeon/radeon_mode.h            |  2 +
+ 5 files changed, 106 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c7da6b02d7b6b..d27e9b2485fd6 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -278,7 +278,7 @@ config DRM_PARADE_PS8622
- 	depends on OF
- 	select DRM_PANEL_BRIDGE
- 	select DRM_KMS_HELPER
+diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kconfig
+index 3cd70aef770e1..2ccad1f2f8cee 100644
+--- a/drivers/gpu/drm/radeon/Kconfig
++++ b/drivers/gpu/drm/radeon/Kconfig
+@@ -17,7 +17,7 @@ config DRM_RADEON
+ 	select SND_HDA_COMPONENT if SND_HDA_CORE
+ 	select POWER_SUPPLY
+ 	select HWMON
 -	select BACKLIGHT_CLASS_DEVICE
-+	depends on DRM_LUMINANCE || BACKLIGHT_CLASS_DEVICE = y || !BACKLIGHT_CLASS_DEVICE
- 	help
- 	  Parade eDP-LVDS bridge chip driver.
- 
-diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
-index 3a2ec482037df..229d9d7218c4e 100644
---- a/drivers/gpu/drm/bridge/parade-ps8622.c
-+++ b/drivers/gpu/drm/bridge/parade-ps8622.c
-@@ -45,6 +45,7 @@ struct ps8622_bridge {
- 	struct drm_bridge *panel_bridge;
- 	struct regulator *v12;
- 	struct backlight_device *bl;
-+	u8 brightness;
- 
- 	struct gpio_desc *gpio_slp;
- 	struct gpio_desc *gpio_rst;
-@@ -276,7 +277,7 @@ static int ps8622_send_config(struct ps8622_bridge *ps8622)
- 
- 		/* FFh for 100% brightness, 0h for 0% brightness */
- 		err = ps8622_set(cl, 0x01, 0xa7,
--				ps8622->bl->props.brightness);
-+				ps8622->brightness);
- 		if (err)
- 			goto error;
- 	} else {
-@@ -324,6 +325,8 @@ static int ps8622_backlight_update(struct backlight_device *bl)
- 	struct ps8622_bridge *ps8622 = dev_get_drvdata(&bl->dev);
- 	int ret, brightness = backlight_get_brightness(bl);
- 
-+	ps8622->brightness = brightness;
++	select BACKLIGHT_CLASS_DEVICE if !DRM_LUMINANCE
+ 	select INTERVAL_TREE
+ 	select I2C
+ 	select I2C_ALGOBIT
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index 5b9c72bf40994..e6f762625bf1a 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -227,6 +227,27 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	memset(&props, 0, sizeof(props));
+ 	props.max_brightness = RADEON_MAX_BL_LEVEL;
+ 	props.type = BACKLIGHT_RAW;
++	pdata->encoder = radeon_encoder;
++	pdata->atom = true;
++	radeon_encoder->backlight_priv = pdata;
 +
- 	if (!ps8622->enabled)
- 		return -EINVAL;
++	dig = radeon_encoder->enc_priv;
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		props.brightness = atombios_get_backlight_level(radeon_encoder);
++		if (!props.brightness)
++			props.brightness = RADEON_MAX_BL_LEVEL;
++
++		if (drm_connector_attach_luminance_property(drm_connector, 0,
++							    props.max_brightness,
++							     props.brightness))
++			goto error;
++
++		atombios_set_backlight_level(radeon_encoder, props.brightness);
++		dig->bl_dev = NULL;
++		rdev->mode_info.bl_encoder = radeon_encoder;
++		return;
++	}
++
+ 	snprintf(bl_name, sizeof(bl_name),
+ 		 "radeon_bl%d", dev->primary->index);
+ 	bd = backlight_device_register(bl_name, drm_connector->kdev,
+@@ -236,9 +257,6 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
+ 		goto error;
+ 	}
  
-@@ -332,6 +335,15 @@ static int ps8622_backlight_update(struct backlight_device *bl)
- 	return ret;
+-	pdata->encoder = radeon_encoder;
+-
+-	dig = radeon_encoder->enc_priv;
+ 	dig->bl_dev = bd;
+ 
+ 	bd->props.brightness = radeon_atom_backlight_get_brightness(bd);
+@@ -258,6 +276,7 @@ void radeon_atom_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	return;
+ 
+ error:
++	radeon_encoder->backlight_priv = NULL;
+ 	kfree(pdata);
+ 	return;
+ }
+@@ -282,12 +301,19 @@ static void radeon_atom_backlight_exit(struct radeon_encoder *radeon_encoder)
+ 	bd = dig->bl_dev;
+ 	dig->bl_dev = NULL;
+ 
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		kfree(radeon_encoder->backlight_priv);
++		radeon_encoder->backlight_priv = NULL;
++		return;
++	}
++
+ 	if (bd) {
+ 		struct radeon_legacy_backlight_privdata *pdata;
+ 
+ 		pdata = bl_get_data(bd);
+ 		backlight_device_unregister(bd);
+ 		kfree(pdata);
++		radeon_encoder->backlight_priv = NULL;
+ 
+ 		DRM_INFO("radeon atom LVDS backlight unloaded\n");
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 16b048f58c9be..655361407b819 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -31,6 +31,7 @@
+ #include <drm/drm_probe_helper.h>
+ #include <drm/radeon_drm.h>
+ #include "radeon.h"
++#include "radeon_asic.h"
+ #include "radeon_audio.h"
+ #include "atom.h"
+ 
+@@ -931,11 +932,44 @@ static int radeon_lvds_set_property(struct drm_connector *connector,
+ 	return 0;
  }
  
-+static void ps8622_set_luminance(struct drm_bridge *bridge,
-+				 unsigned int luminance)
++static void radeon_set_luminance(const struct drm_connector_state *conn_state)
 +{
-+	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
++	struct drm_encoder *encoder = radeon_best_single_encoder(conn_state->connector);
++	struct radeon_encoder *radeon_encoder;
++	struct radeon_backlight_privdata *pdata;
++	u8 level = conn_state->luminance;
 +
-+	ps8622->brightness = luminance;
-+	ps8622_set(ps8622->client, 0x01, 0xa7, luminance);
++	if (!encoder)
++		return;
++
++	radeon_encoder = to_radeon_encoder(encoder);
++	pdata = radeon_encoder->backlight_priv;
++	if (!pdata)
++		return;
++
++	if (pdata->atom) {
++		atombios_set_backlight_level(radeon_encoder, level);
++	} else {
++		if (pdata->negative)
++			level = RADEON_MAX_BL_LEVEL - level;
++		radeon_legacy_set_backlight_level(radeon_encoder, level);
++	}
 +}
 +
- static const struct backlight_ops ps8622_backlight_ops = {
- 	.update_status	= ps8622_backlight_update,
- };
-@@ -438,6 +450,7 @@ static const struct drm_bridge_funcs ps8622_bridge_funcs = {
- 	.atomic_disable = ps8622_disable,
- 	.atomic_post_disable = ps8622_post_disable,
- 	.attach = ps8622_attach,
-+	.set_luminance = ps8622_set_luminance,
++static void radeon_disable_luminance(const struct drm_connector_state *conn_state)
++{
++	struct drm_connector_state state = *conn_state;
++
++	state.luminance = 0;
++	radeon_set_luminance(&state);
++}
+ 
+ static const struct drm_connector_helper_funcs radeon_lvds_connector_helper_funcs = {
+ 	.get_modes = radeon_lvds_get_modes,
+ 	.mode_valid = radeon_lvds_mode_valid,
+ 	.best_encoder = radeon_best_single_encoder,
++	.set_luminance = radeon_set_luminance,
++	.disable_luminance = radeon_disable_luminance,
  };
  
- static const struct of_device_id ps8622_devices[] = {
-@@ -502,18 +515,25 @@ static int ps8622_probe(struct i2c_client *client)
- 		ps8622->lane_count = ps8622->max_lane_count;
+ static const struct drm_connector_funcs radeon_lvds_connector_funcs = {
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+index 1f82e2b57f5d5..96b0dfd8e3521 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
+@@ -403,16 +403,9 @@ void radeon_legacy_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	memset(&props, 0, sizeof(props));
+ 	props.max_brightness = RADEON_MAX_BL_LEVEL;
+ 	props.type = BACKLIGHT_RAW;
+-	snprintf(bl_name, sizeof(bl_name),
+-		 "radeon_bl%d", dev->primary->index);
+-	bd = backlight_device_register(bl_name, drm_connector->kdev,
+-				       pdata, &radeon_backlight_ops, &props);
+-	if (IS_ERR(bd)) {
+-		DRM_ERROR("Backlight registration failed\n");
+-		goto error;
+-	}
+-
+ 	pdata->encoder = radeon_encoder;
++	pdata->atom = false;
++	radeon_encoder->backlight_priv = pdata;
+ 
+ 	backlight_level = (RREG32(RADEON_LVDS_GEN_CNTL) >>
+ 			   RADEON_LVDS_BL_MOD_LEVEL_SHIFT) & 0xff;
+@@ -441,6 +434,36 @@ void radeon_legacy_backlight_init(struct radeon_encoder *radeon_encoder,
+ #endif
  	}
  
-+	ps8622->brightness = PS8622_MAX_BRIGHTNESS;
- 	if (!of_property_read_bool(dev->of_node, "use-external-pwm")) {
--		ps8622->bl = backlight_device_register("ps8622-backlight",
--				dev, ps8622, &ps8622_backlight_ops,
--				NULL);
--		if (IS_ERR(ps8622->bl)) {
--			DRM_ERROR("failed to register backlight\n");
--			ret = PTR_ERR(ps8622->bl);
--			ps8622->bl = NULL;
--			return ret;
-+		if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+			ps8622->bridge.ops |= DRM_BRIDGE_OP_LUMINANCE;
-+			ps8622->bridge.luminance_max = PS8622_MAX_BRIGHTNESS;
-+			ps8622->bridge.luminance = ps8622->brightness;
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		props.brightness = pdata->negative ?
++			RADEON_MAX_BL_LEVEL - backlight_level : backlight_level;
++		if (drm_connector_attach_luminance_property(drm_connector, 0,
++							    props.max_brightness,
++							     props.brightness))
++			goto error;
++
++		if (rdev->is_atom_bios) {
++			struct radeon_encoder_atom_dig *lvds = radeon_encoder->enc_priv;
++
++			lvds->bl_dev = NULL;
 +		} else {
-+			ps8622->bl = backlight_device_register("ps8622-backlight",
-+							       dev, ps8622,
-+							 &ps8622_backlight_ops, NULL);
-+			if (IS_ERR(ps8622->bl)) {
-+				DRM_ERROR("failed to register backlight\n");
-+				ret = PTR_ERR(ps8622->bl);
-+				ps8622->bl = NULL;
-+				return ret;
-+			}
-+			ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
-+			ps8622->bl->props.brightness = ps8622->brightness;
- 		}
--		ps8622->bl->props.max_brightness = PS8622_MAX_BRIGHTNESS;
--		ps8622->bl->props.brightness = PS8622_MAX_BRIGHTNESS;
++			struct radeon_encoder_lvds *lvds = radeon_encoder->enc_priv;
++
++			lvds->bl_dev = NULL;
++		}
++		rdev->mode_info.bl_encoder = radeon_encoder;
++		return;
++	}
++
++	snprintf(bl_name, sizeof(bl_name),
++		 "radeon_bl%d", dev->primary->index);
++	bd = backlight_device_register(bl_name, drm_connector->kdev,
++				       pdata, &radeon_backlight_ops, &props);
++	if (IS_ERR(bd)) {
++		DRM_ERROR("Backlight registration failed\n");
++		goto error;
++	}
++
+ 	if (rdev->is_atom_bios) {
+ 		struct radeon_encoder_atom_dig *lvds = radeon_encoder->enc_priv;
+ 		lvds->bl_dev = bd;
+@@ -459,6 +482,7 @@ void radeon_legacy_backlight_init(struct radeon_encoder *radeon_encoder,
+ 	return;
+ 
+ error:
++	radeon_encoder->backlight_priv = NULL;
+ 	kfree(pdata);
+ 	return;
+ }
+@@ -482,12 +506,19 @@ static void radeon_legacy_backlight_exit(struct radeon_encoder *radeon_encoder)
+ 		lvds->bl_dev = NULL;
  	}
  
- 	ps8622->bridge.type = DRM_MODE_CONNECTOR_LVDS;
-@@ -529,7 +549,8 @@ static void ps8622_remove(struct i2c_client *client)
- {
- 	struct ps8622_bridge *ps8622 = i2c_get_clientdata(client);
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
++		kfree(radeon_encoder->backlight_priv);
++		radeon_encoder->backlight_priv = NULL;
++		return;
++	}
++
+ 	if (bd) {
+ 		struct radeon_backlight_privdata *pdata;
  
--	backlight_device_unregister(ps8622->bl);
-+	if (ps8622->bl)
-+		backlight_device_unregister(ps8622->bl);
- 	drm_bridge_remove(&ps8622->bridge);
- }
+ 		pdata = bl_get_data(bd);
+ 		backlight_device_unregister(bd);
+ 		kfree(pdata);
++		radeon_encoder->backlight_priv = NULL;
  
+ 		DRM_INFO("radeon legacy LVDS backlight unloaded\n");
+ 	}
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 6a16d821915d2..1c5b9ed0b6989 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -284,6 +284,7 @@ struct radeon_mode_info {
+ struct radeon_backlight_privdata {
+ 	struct radeon_encoder *encoder;
+ 	uint8_t negative;
++	bool atom;
+ };
+ 
+ #define MAX_H_CODE_TIMING_LEN 32
+@@ -456,6 +457,7 @@ struct radeon_encoder {
+ 	uint32_t underscan_vborder;
+ 	struct drm_display_mode native_mode;
+ 	void *enc_priv;
++	struct radeon_backlight_privdata *backlight_priv;
+ 	int audio_polling_active;
+ 	bool is_ext_encoder;
+ 	u16 caps;
 
 -- 
 2.53.0
