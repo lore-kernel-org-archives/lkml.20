@@ -1,85 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630061;
-	b=BHuaqO45MqK2JKuBDtJElj3kCzrx9sc8EGLj3l9zwg5WhlWb6KY5BnKLHMksLFEU+Cu3
-	 v3DtACSpwZcWn7PCrOwCrioJ0AadujwvsC+i2H7SHSf/7PGvVur7VE2nTVzu8i3g/PM3j
-	 /UxRYuR/OL6BwQrqoVTzckaFWKKvVtBEyfr93XtMdOOi20bJGFHxv6BpFsLhbRPEfx3gi
-	 I1/PHeZ6hnHLTqcxr43oUp7dBfkaDGoiRXuTF/V6C3DudlVB7Z5H9aieTu//FO1s6fU+v
-	 b8r58vZi9k5oXSxDjY2EnMk2gJKJiKRmWZTY7aORdk/6062/IvI560D2HbmnYy/Rnmw==
+	t=1793630067;
+	b=zZSv5UiEGeb1CkBpo/r7iL8LvHvoLMsNRMUiW/XzXusOrEntVQkRIEG5DOeyCZQ1L3cx
+	 NFg4FvDDju4IzZNXyhqEuTLhNMv3JxFZUZpgjk/awRcg0KB8m+C9dwg+BNQzgEaze/Bw0
+	 HLrzmya1HUnGMPTEFCH3W5yrFh/3xSOF64CXGaZfk5SExFSnwl+GQOz1/AGl3u1GgvhLb
+	 Zvbo7AmUkfGUAgJR1C2AxD5DwUK1QESWE1pmGSWaLaWfiNW/noC6UUXQz9PYu4VSx1gGq
+	 65doPEfYdij2eeyYfmszbFYiGuvq0PaHtOReIg6LaPvZ3EQ/rZ7dPfBCXwbgqnNNztg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630061;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=mnbEcy9yAD6phXCBWi7ToEYZPml/PD9q0TObYO3iXg0=;
-	b=gd3D69qfRdCKL/R4m43d2B7pfsvntHWp19Kf9k3hnqRVIB7UhqeX3sYGz0k0q+mzFHaL
-	 wj89ldLkyukkQi/4Qn/j3GNMJLD+3OjktvTBMCz2BCAZTpsalKZhPi7ZAetP5BtpbwTEN
-	 c7JKQaHNU2NGZcKWXiZmFVNlC9cSiqVqk5mPQ4ZkaASJuoE7LrqCCAD006AQlRnzBxn0X
-	 E4Tb5yPPaD7QSF7OUOepP3jSRf088ZIEa50gwIvDQVXwCipz2klBHGfZyPOS3nMAZLtP+
-	 nUe7Wy8aHrfDdiph3HKBaSPRdkKmfSBCNkpFkf35yvAY51Mg5IEGxDxfnpXXVaHdKHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630067;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=t2yJp9KJBtieLRaAUWCyHBOm25XmWK3DPcZY4ncy7dI=;
+	b=yw1A5T/CppGR9NFsjrTuePDeJU9rkSKMl1Pdsti3ON2Q+SS5ueZxS84W2e8lAPTgCfQk
+	 M12i2I94S0sr5ZSm/fDYqCMq4sSFAIc0iSdF3Qw4vp0nyw+UnwkcISnl+Ac7SSRaINjWy
+	 AGrMbA1gnBYeZ8v0f0DJO5+Fq0cao6auUXFt5sVLAaOniHIMiVVcBsYgOUJR07xecRHj8
+	 kcTj3lyxRByBPZzjmF0hCzX5pVtMAv7/85XUnwr2ghzV3FkN+6hSjozCJsvTVER8OGbqH
+	 xJ3acQnBrPid4Q2eLMCWuA/7b1Y67zGPgwDQH1xsos5bCqjjeG9cTGi5bzRe50ILL2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OrR46o0z;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 53808606B0ED;
-	Mon,  2 Nov 2026 14:34:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53808606B0ED
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OrR46o0z
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C1CD1576;
-	Mon,  2 Nov 2026 06:34:16 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3F42D3F59E;
-	Mon,  2 Nov 2026 06:34:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793630059; bh=sSMXuhaToN1bbAGIonxsHXOHufl/pcpSiAvNaSVjj+o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OrR46o0zexxiwk2zJWR5KHZn9xMWBWhTC1MviO+EetdzupvPVTzTZsZ4QeJxUM3+L
-	 XJ3Rvwgg9U7dRNVQm62aibAmTq/cDOGknoI2kI+vuyt/LJ4BLAFCf3NvpYpeOAekuo
-	 u7A3xYfqid7T5oZMMXLVocyyLHQU439ZM9ugRbeM=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Tian Zheng <zhengtian10@huawei.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	maz@kernel.org,
-	oupton@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	corbet@lwn.net,
-	pbonzini@redhat.com,
-	yuzenghui@huawei.com,
-	wangzhou1@hisilicon.com,
-	yangjinqian1@huawei.com,
-	caijian11@h-partners.com,
-	liuyonglong@huawei.com,
-	tangchengchang@huawei.com,
-	yezhenyu2@huawei.com,
-	yubihong@huawei.com,
-	linuxarm@huawei.com,
-	joey.gouly@arm.com,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A266606B0FE;
+	Mon,  2 Nov 2026 14:34:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A266606B0FE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=t2yJp9KJBtieLRaAUWCyHBOm25XmWK3DPc
+	ZY4ncy7dI=; b=kgnbyooCI7G9l7/YrnVEznB02NsJFa3oLBs0AZV+uyqOxg7JEZ
+	UzCMPnoGLWgnh5YK18nawp4ldGIM06hTkJp6kX0huVUTTCtNMDyF132qu5nKdEt4
+	UZ/ydH5QaObQbvPiJi6wNepUKnhCBb8esBf0L2JtCAfn6hdYb11Zf4U/U=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDm6v1nn+hqhrQZAQ--.25523S2;
+	Mon, 02 Nov 2026 22:34:16 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	fuad.tabba@linux.dev,
-	mark.rutland@arm.com,
-	seanjc@google.com,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	skhan@linuxfoundation.org
-Subject: Re: [PATCH v5 09/15] KVM: arm64: Handle HDBSS faults
-Date: Mon,  2 Nov 2026 14:34:03 +0000
-Message-ID: <auifWrY1u72afXfJ@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260929103655.85107-10-zhengtian10@huawei.com>
-References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-10-zhengtian10@huawei.com>
+	stable@vger.kernel.org
+Subject: [PATCH v3] media: dvb-core: skip disable_source handler for a released entity
+Date: Mon,  2 Nov 2026 22:34:15 +0800
+Message-Id: <20261102143415.26942-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
+References: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,130 +62,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkDm6v1nn+hqhrQZAQ--.25523S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKFyDZFyrtF47Xw1kKw4kWFg_yoWxGFy8pa
+	93tayYgrWjgr4UZr4jya17XF98ZwsYyay5CF9xX39Fgr4rXr9aqrySy34DWF17Crs7Aa12
+	qw1YqrW8u3yrWw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
+	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Xryl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUgUDXUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdTIMQAAs7
 
-On Tue, Sep 29, 2026 at 06:36:49PM +0800, Tian Zheng wrote:
-> From: Eillon <yezhenyu2@huawei.com>
-> 
-> Once the buffer is full, hardware stops promoting writable-clean
-> descriptors and raises a stage-2 Permission fault with
-> ESR_EL2.ISS2.HDBSSF instead. Failed HDBSS accesses, such as external
-> aborts and granule protection faults, are reported the same way.
-> 
-> Dispatch from kvm_handle_guest_abort() via the new esr_iss2_is_hdbssf()
-> helper. FSC == OK means the exit path already flushed, so resume the
-> guest; any other FSC is an error - clear it and report -EFAULT.
-> 
-> Signed-off-by: Eillon <yezhenyu2@huawei.com>
-> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
-> ---
->  arch/arm64/include/asm/esr.h           |  5 +++++
->  arch/arm64/include/asm/kvm_dirty_bit.h |  1 +
->  arch/arm64/kvm/dirty_bit.c             | 29 ++++++++++++++++++++++++++
->  arch/arm64/kvm/mmu.c                   |  4 ++++
->  4 files changed, 39 insertions(+)
-> 
-> diff --git a/arch/arm64/include/asm/esr.h b/arch/arm64/include/asm/esr.h
-> index f816f5d77f1a..4b3ccd407faa 100644
-> --- a/arch/arm64/include/asm/esr.h
-> +++ b/arch/arm64/include/asm/esr.h
-> @@ -437,6 +437,11 @@
->  #ifndef __ASSEMBLER__
->  #include <asm/types.h>
-> 
-> +static inline bool esr_iss2_is_hdbssf(unsigned long esr)
-> +{
-> +	return !!(ESR_ELx_ISS2(esr) & ESR_ELx_HDBSSF);
-> +}
-> +
->  static inline unsigned long esr_brk_comment(unsigned long esr)
->  {
->  	return esr & ESR_ELx_BRK64_ISS_COMMENT_MASK;
-> diff --git a/arch/arm64/include/asm/kvm_dirty_bit.h b/arch/arm64/include/asm/kvm_dirty_bit.h
-> index d828e6b43fe9..eb2039820777 100644
-> --- a/arch/arm64/include/asm/kvm_dirty_bit.h
-> +++ b/arch/arm64/include/asm/kvm_dirty_bit.h
-> @@ -39,5 +39,6 @@ static inline bool vcpu_hdbss_enabled(struct kvm_vcpu *vcpu)
->  int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu);
->  void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu);
->  void kvm_flush_hdbss_buffer(struct kvm_vcpu *vcpu);
-> +int kvm_handle_hdbss_fault(struct kvm_vcpu *vcpu);
-> 
->  #endif /* __ARM64_KVM_DIRTY_BIT_H__ */
-> diff --git a/arch/arm64/kvm/dirty_bit.c b/arch/arm64/kvm/dirty_bit.c
-> index be0d12555c84..893a8c4248bc 100644
-> --- a/arch/arm64/kvm/dirty_bit.c
-> +++ b/arch/arm64/kvm/dirty_bit.c
-> @@ -98,3 +98,32 @@ void kvm_flush_hdbss_buffer(struct kvm_vcpu *vcpu)
->  	vcpu->arch.hdbss.hdbssprod_el2 = prod;
->  	isb();
->  }
-> +
-> +int kvm_handle_hdbss_fault(struct kvm_vcpu *vcpu)
-> +{
-> +	u64 prod;
-> +	u64 fsc;
-> +
-> +	if (WARN_ON_ONCE(!system_supports_hdbss()))
-> +		return -EFAULT;
-> +
-> +	if (WARN_ON_ONCE(!vcpu_hdbss_enabled(vcpu)))
-> +		return -EFAULT;
-> +
-> +	prod = read_sysreg_s(SYS_HDBSSPROD_EL2);
-> +	fsc = FIELD_GET(HDBSSPROD_EL2_FSC_MASK, prod);
-> +
-> +	if (fsc == HDBSSPROD_EL2_FSC_OK)
-> +		/* Buffer full: the exit path drained it before handle_exit. */
-> +		return 1;
-> +
-> +	if (fsc != HDBSSPROD_EL2_FSC_ExternalAbort &&
-> +	    fsc != HDBSSPROD_EL2_FSC_GPF)
-> +		WARN_ONCE(1,
-> +			  "Unexpected HDBSS fault type, FSC: 0x%llx (prod=0x%llx, vcpu=%d)\n",
-> +			  fsc, prod, vcpu->vcpu_id);
+dvb_remove_device() frees the media entity of a dvb_device through
+dvb_media_device_free() and sets dvbdev->entity to NULL.  The media
+device of the adapter can still be registered at that point: au0828,
+for example, only clears mdev->disable_source in au0828_usb_release(),
+which runs after au0828_dvb_unregister() has unregistered the frontend
+device.
 
-Any reason for using if() before warn_once, given the first parameter is a 
-condition? I mean, why not use, instead:
+A file descriptor that survives the disconnect then reaches
+dvb_frontend_release() with dvbdev->entity already NULL and calls
 
-+	WARN_ONCE(fsc != HDBSSPROD_EL2_FSC_ExternalAbort &&
-+		  fsc != HDBSSPROD_EL2_FSC_GPF,
-+		  "Unexpected HDBSS fault type, FSC: 0x%llx (prod=0x%llx, vcpu=%d)\n",
-+		  fsc, prod, vcpu->vcpu_id);
+	fe->dvb->mdev->disable_source(dvbdev->entity);
 
-> +
-> +	/* Clear FSC so hardware dirty state updates can resume. */
-> +	write_sysreg_s(prod & ~HDBSSPROD_EL2_FSC_MASK, SYS_HDBSSPROD_EL2);
-> +	return -EFAULT;
-> +}
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 85a98d2c23a9..7bf82d65041c 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -15,6 +15,7 @@
->  #include <asm/pgalloc.h>
->  #include <asm/cacheflush.h>
->  #include <asm/kvm_arm.h>
-> +#include <asm/kvm_dirty_bit.h>
->  #include <asm/kvm_mmu.h>
->  #include <asm/kvm_pgtable.h>
->  #include <asm/kvm_pkvm.h>
-> @@ -2315,6 +2316,9 @@ int kvm_handle_guest_abort(struct kvm_vcpu *vcpu)
-> 
->  	is_iabt = kvm_vcpu_trap_is_iabt(vcpu);
-> 
-> +	if (esr_iss2_is_hdbssf(esr))
-> +		return kvm_handle_hdbss_fault(vcpu);
-> +
->  	if (esr_fsc_is_translation_fault(esr)) {
->  		/* Beyond sanitised PARange (which is the IPA limit) */
->  		if (fault_ipa >= BIT_ULL(get_kvm_ipa_limit())) {
+au0828_disable_source() dereferences that argument unconditionally:
 
-I did not get the criteria used to positioning it here:
-Why placed before is_abt, if not using the result before returning?
-What is the rationale to putting it here?
+	struct media_device *mdev = entity->graph_obj.mdev;
 
-Thanks!
-Leo 
+which faults:
+
+	general protection fault: 0000 [#1] SMP KASAN
+	KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+	RIP: au0828_disable_source+0x27/0xb70 au0828-core.c:445
+	Call Trace:
+	 dvb_frontend_release+0x2eb/0x500 dvb_frontend.c:2946
+
+The error path of __dvb_frontend_open() has the same call.
+
+Skip the handler when dvbdev->entity is gone.  For that check to be
+sufficient, clear dvbdev->entity in dvb_media_device_free() before the
+entity is unregistered and freed: both frontend paths read the pointer
+while holding mdev->graph_mutex, and media_device_unregister_entity()
+takes the same lock, so a reader either still sees a registered entity,
+for which unregister waits, or sees NULL.  Clearing the pointer after
+the unregister would leave a window in which the entity is read after
+it was already freed.
+
+Read the pointer only once, into a local variable, while the lock is
+held.  dvb_media_device_free() stores NULL before taking graph_mutex,
+so re-reading the field to pass it as the argument could still observe
+NULL and hand it to the handler.  That store is not serialised with the
+locked readers either, so publish the pointer with WRITE_ONCE() and
+read it with READ_ONCE().
+
+Stopping the pipeline the handler started is not done here.  Only the
+driver knows how to release the link it owns, and dvb_media_device_free()
+runs for every dvb_device, including the demux, dvr and ca entities that
+never own a media link; calling the handler for those would deactivate a
+link owned by another entity.  The au0828 driver stops the pipeline and
+clears its saved link in au0828_usb_disconnect(), before the frontend
+entity is unregistered, in a separate patch.
+
+Fixes: 68ff5767ddc4 ("[media] media: dvb-frontend invoke enable/disable_source handlers")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+Changes in v3:
+- Publish dvbdev->entity with WRITE_ONCE() and read it with READ_ONCE()
+  at both frontend call sites, so the clear in dvb_media_device_free()
+  is not a plain data race with the readers that hold graph_mutex.
+- State why the active pipeline is torn down by the driver rather than
+  in dvb-core.  The matching au0828 change is attached to this mail.
+
+Link: https://lore.kernel.org/r/20261102142508.24277-1-25031212351@stu.xidian.edu.cn
+
+Changes in v2:
+- Read dvbdev->entity once into a local variable under graph_mutex at both
+  call sites.  dvb_media_device_free() clears the pointer without holding
+  that lock, so re-reading the field for the call argument could still pass
+  NULL to the handler.
+---
+ drivers/media/dvb-core/dvb_frontend.c | 14 ++++++++++----
+ drivers/media/dvb-core/dvbdev.c       | 16 +++++++++++++---
+ 2 files changed, 23 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..bcee88e16576 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -2826,9 +2826,12 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+ #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+ 	mutex_lock(&fe->dvb->mdev_lock);
+ 	if (fe->dvb->mdev) {
++		struct media_entity *entity;
++
+ 		mutex_lock(&fe->dvb->mdev->graph_mutex);
+-		if (fe->dvb->mdev->disable_source)
+-			fe->dvb->mdev->disable_source(dvbdev->entity);
++		entity = READ_ONCE(dvbdev->entity);
++		if (entity && fe->dvb->mdev->disable_source)
++			fe->dvb->mdev->disable_source(entity);
+ 		mutex_unlock(&fe->dvb->mdev->graph_mutex);
+ 	}
+ 	mutex_unlock(&fe->dvb->mdev_lock);
+@@ -2941,9 +2944,12 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+ 		mutex_lock(&fe->dvb->mdev_lock);
+ 		if (fe->dvb->mdev) {
++			struct media_entity *entity;
++
+ 			mutex_lock(&fe->dvb->mdev->graph_mutex);
+-			if (fe->dvb->mdev->disable_source)
+-				fe->dvb->mdev->disable_source(dvbdev->entity);
++			entity = READ_ONCE(dvbdev->entity);
++			if (entity && fe->dvb->mdev->disable_source)
++				fe->dvb->mdev->disable_source(entity);
+ 			mutex_unlock(&fe->dvb->mdev->graph_mutex);
+ 		}
+ 		mutex_unlock(&fe->dvb->mdev_lock);
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a..bb6369c3abde 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -208,10 +208,20 @@ static void dvb_media_device_free(struct dvb_device *dvbdev)
+ {
+ #if defined(CONFIG_MEDIA_CONTROLLER_DVB)
+ 	if (dvbdev->entity) {
+-		media_device_unregister_entity(dvbdev->entity);
+-		kfree(dvbdev->entity);
++		struct media_entity *entity = dvbdev->entity;
++
++		/*
++		 * Clear the pointer before the entity is unregistered and
++		 * freed.  The frontend release and open paths read it under
++		 * mdev->graph_mutex and pass it to the disable_source
++		 * handler, so a stale entity must not stay reachable.  Publish
++		 * it with WRITE_ONCE() because the store is not serialised by
++		 * that lock.
++		 */
++		WRITE_ONCE(dvbdev->entity, NULL);
++		media_device_unregister_entity(entity);
++		kfree(entity);
+ 		kfree(dvbdev->pads);
+-		dvbdev->entity = NULL;
+ 		dvbdev->pads = NULL;
+ 	}
+ 
+-- 
+2.34.1
+
