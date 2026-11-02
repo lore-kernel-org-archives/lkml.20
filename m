@@ -1,89 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632892;
-	b=uWvJDaiVXr4rm3VOczR3YZmH4oIIxA5uloz0xqOH/YKp1UG0w8bxHgyRZzyX+Q+oQvW1
-	 1b0oTyv08QBSoweuC4ExCuX9cU0JT4GzhJZb6X2BW9YnS519JqcbmVr3Ico0ujv9uXOFD
-	 05wvorkH+/9K9PFHJAIDe3nVxk+P8YKEuYorh9t6so3zqZo5lGNixffEOvQd/YRFYVxjf
-	 33wmI3XQg8pNbk06+7DFP1fwhvXms5YYMoMjWa0yU6n4lzAyxmJVFrPaIecjJ80BWS+FZ
-	 mI8KA5SNvK/Bw01oEJkL6VCV7CNb4oPSFVXCdpRbfuF4JHfjNNnt5Zr3YzFLZCtnE9Q==
+	t=1793632913;
+	b=GGfKPca+jsxsFZeKLAbrUl2PH7YuEcDFwp7FxtxuJQ4qJS+NccpghQpuz+f4w55PIkOg
+	 ebfp8JuCsnc10VzYb4NsWgdY9E9Mx6c4g4fMOunYiL6/syn1raOGm152yH0Pl5jTXcOBc
+	 EI+kLMVtjqTcqidBCt6C9aRqlRDLMY+COoQ9WMU9P2kotpb3MzwO33YhfIQZ5o2yRGD4c
+	 k9lsD8P56iKtZXMKyqt+w9WtJfHpc8XpXHt2wUXxN12lX7s2EhLeu7pVDwrdxLeS4XUOu
+	 +4zbqLuz/s91Oc93E0OizevVLhIrrCX+riv0e8/gXB7R/WDeB/4o97M6jGG2g1SbVKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632892;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=Ar1uWTj3IJ9tEnHxn97KponzoGGyMBUmz+xZ4dUR9+c=;
-	b=MVbT/jKI8NX/m66Vw7g+JZ/iYT1VssQTRGHsLVr0WL08CRjWwLpNvPeG2jP8x4fbr2oz
-	 Rmh5I0nphjOk2iUM2UX3W5xdpOjklk+pOU/QnO94cOzi9OIdksKKxuu4n3oZ1NsdcFZ/d
-	 CWBSZHmFVH4sIiPy1NUqq7ET92VlCZHcsP5nI3/pRJIx6Frocx6QZ8dNMT3JS9Mo9VGpR
-	 vbUogLIZUa/WGcOUvN5NnPGZWrS/CJ5nMu0yIHk1ed00F3xTIm38TzJzdCsg19EnG7Aia
-	 4DSA9TRRDUKKQgtxUUV7K8ymSanjKHW3XigPDg+ZNvyXxhwSdYJonm21NsLBnyUywvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632913;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=+Br5BKTNsV9SKJ+VKUXfa+LuXFyw/MNJN1rBJWSG1Dk=;
+	b=qEIaXexBeeOeFyhSwozOxj5XTNyvqnfzjLf8ClkH71cG6HpjtPi5KVl2g7VD4CCIcMeN
+	 OuIQ/0u3ouMmxMQzyllZfBgtlOaTFoDoiE8onEep7L9nZqRxRGwn7r7yKr60oOupZiQLf
+	 HLlE2OhG4b/gF5HTDbK4iNLMEQgXvzFmmSMRsOqP2cTEJJrgVW1DlwQm9dftjEgqPrDeo
+	 E63eNE6v47q9nKuooWga5rjF2iBb6RseqsEqLQuHyEgnyEQRiwCNnK+C9qDLX7gKPQPfx
+	 e08HO7UeQWZnsDGqjOV5g81i196an8VaW1VB7KWSNMfs4+m9x1g8XeWvl5C5gTV3kgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=P6WLKQUF;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaGFkmgd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8B76070C8B;
-	Mon,  2 Nov 2026 15:21:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E8B76070C8B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36C66080484;
+	Mon,  2 Nov 2026 15:21:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=P6WLKQUF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793632884;
-	bh=Ar1uWTj3IJ9tEnHxn97KponzoGGyMBUmz+xZ4dUR9+c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=P6WLKQUFiubdMDE0OEw1poZ6yEA4wkfMqqhvYPHCAAmlMNL+ctJOISpnAkne2oTKe
-	 4AudCORZvnveIWShv5rOYfq1hG3s66mEc8ESXvREckIHK3RR6dxlnqpyrma43bfm6d
-	 KgWGXnIRg1479oYEq82uad35CqqRXQZKyaHujEoUnwZX/anoqcxlAHyX6DOuyPIINz
-	 /DZQr55svI9G9pmzFQfC3ruwNw+nPsW8cWVWe2dPVt+rHaRzx0GpEhtIz7lJqnVtzy
-	 50X/ewlusJVTQxlE3uiR/DwkC+5l0zTjIdkzCPQ3mhxVksz9koofPR7/wFaGzR1ggi
-	 SBPALVcGjeLSA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5DCCA17E038E;
-	Mon, 02 Nov 2026 16:21:22 +0100 (CET)
-Message-ID: <8aafdbbf04a0d939c6b4d7d5577d97bb58d1c439.camel@collabora.com>
-Subject: Re: [PATCH] media: rkvdec: Do not keep the clocks enabled from probe
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Igor Velkov <iav@iav.lv>, Detlev Casanova
- <detlev.casanova@collabora.com>,  Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Diederik de Haas	
- <diederik@cknow-tech.com>, Jonas Karlman <jonas@kwiboo.se>, Francesco
- Saverio Pavone <pavone.lawyer@gmail.com>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 10:21:20 -0500
-In-Reply-To: <20261030-rkvdec-runtime-pm-clocks-nicolas-reply-1@iav.lv>
-References: <20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv>
-	 <76e2e993fa5a8fd054bad97505907d3c4e88e11c.camel@collabora.com>
-	 <20261030-rkvdec-runtime-pm-clocks-nicolas-reply-1@iav.lv>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Hy9+b3DoQgbhz4pK6YIj"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaGFkmgd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A5D1F00A16;
+	Mon,  2 Nov 2026 15:21:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793632912;
+	bh=+Br5BKTNsV9SKJ+VKUXfa+LuXFyw/MNJN1rBJWSG1Dk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=BaGFkmgddplAg+7kWtOO3Xs2bTNw6C/l7s/H+s/ARAFWAG8PiIzq4DHKs1pIJtkZF
+	 MLQLlN2WfsWYgrHwMGc+LaYjthSVIYcPsAQ4ZVs0x8SWftIxeVXIb74Yi6DeQgLPv3
+	 MnvwnjVA4w76GNzJNNroqO1Ub2Of7dy2AD2kO3QhN5NULX8sENf6yS60Ffvc4YDPhz
+	 AVUwEuacSjAOwoVTTIoFEsTOOa+8af3coYqbYIzhqzqGrILTs/bIDcsXX7gywt7ryQ
+	 fcrmpnyg6ue+WCi9ocPVHrRqPbxVSWScBXs/eHykFP/KwB1QkPorU1BSb4GtLYc/Ew
+	 +SFzyKl+Rjtbg==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:07:17 +0100
+Subject: [PATCH RFC 07/27] ntfs3: let procfs copy in writes to the label
+ file
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,57 +53,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-
---=-Hy9+b3DoQgbhz4pK6YIj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le vendredi 30 octobre 2026 =C3=A0 20:05 +0200, Igor Velkov a =C3=A9crit=C2=
-=A0:
-> On Fri, 30 Oct 2026 08:49:03 -0400, Nicolas Dufresne wrote:
-> > So if CONFIG_PM is not set, the initial resume will never occur, and fi=
-rst mmio
-> > access will likely hang the CPU. We need a clean pattern to handle this=
-, and
-> > perhaps review other similar drivers while at it.
->=20
-> PM=3Dn only happens with COMPILE_TEST: ARCH_ROCKCHIP selects PM on arm64 =
-and
-> arm. rkvdec had the same gap until 6a846f7d72c7; rga and rkisp1 have it t=
-oday.
-> v2 keeps the clocks enabled from probe when PM is off, as etnaviv and v3d=
- do:
-> https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v2-1-8ff510a2=
-31de@iav.lv
-> rga and rkisp1 as separate patches?
-
-Thanks for v2, and yes, best to send0 independent patches per driver assumi=
-ng
-you have time to do so.
-
-regards,
-Nicolas
-
->=20
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
-
---=-Hy9+b3DoQgbhz4pK6YIj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-fs-v1-7-d09a996317b3@kernel.org>
+References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
+In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2130; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=1xpKZw46Wve9Gi/wwfJco67jsfuLoZVG6n9ZzMkX5cA=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG70gMfQcsmsxZVZlz3llvU6P9Q+FGFvnWXM+sG1i
+ OvlzHMNHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPZtYzhr8TWhVUbp6lu+ajh
+ slFF/whfzqNX3hf5107YP/PoQl9+338M/32S/bhdbNlEs9ZN/nX/VOfslLOLVi/+18m6pJt1w+5
+ V8TwA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
------BEGIN PGP SIGNATURE-----
+Implement ->proc_write_buf() so procfs copies in what is written before
+it pins the entry, and set the label from that copy. Writes larger than
+PAGE_SIZE - 1 bytes fail with -EINVAL from procfs now. A write that
+large only ever worked when most of it was trailing newlines or came
+after a NUL, ntfs_set_label() refused a label that long with
+-ENAMETOOLONG or -EFBIG.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauiqcAAKCRDZQZRRKWBy
-9KSfAP9Nfn/3c2GIjb7SxlVxK+rFOQ/ctwy9o9h5pMp7BSlPvwEA8+Vc93Ax4Ube
-2Xd1IZcCaTchUxJf8yNfTlcW8z70FA4=
-=wPZr
------END PGP SIGNATURE-----
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/ntfs3/super.c | 27 +++++++++------------------
+ 1 file changed, 9 insertions(+), 18 deletions(-)
 
---=-Hy9+b3DoQgbhz4pK6YIj--
+diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
+index 3d669e957ea4..fca73d2766c0 100644
+--- a/fs/ntfs3/super.c
++++ b/fs/ntfs3/super.c
+@@ -536,37 +536,28 @@ static int ntfs3_label_show(struct seq_file *m, void *o)
+ }
+ 
+ /* write /proc/fs/ntfs3/<dev>/label */
+-static ssize_t ntfs3_label_write(struct file *file, const char __user *buffer,
+-				 size_t count, loff_t *ppos)
++static ssize_t ntfs3_label_write(struct file *file, char *buf, size_t count,
++				 loff_t *ppos)
+ {
+ 	int err;
+ 	struct super_block *sb = pde_data(file_inode(file));
+-	ssize_t ret = count;
+-	u8 *label;
++	size_t len = count;
+ 
+ 	if (sb_rdonly(sb))
+ 		return -EROFS;
+ 
+-	label = memdup_user(buffer, count);
+-	if (IS_ERR(label))
+-		return PTR_ERR(label);
++	while (len > 0 && buf[len - 1] == '\n')
++		len -= 1;
+ 
+-	while (ret > 0 && label[ret - 1] == '\n')
+-		ret -= 1;
+-
+-	err = ntfs_set_label(sb->s_fs_info, label, ret);
++	err = ntfs_set_label(sb->s_fs_info, (u8 *)buf, len);
+ 
+ 	if (err < 0) {
+ 		ntfs_err(sb, "failed (%d) to write label", err);
+-		ret = err;
+-		goto out;
++		return err;
+ 	}
+ 
+ 	*ppos += count;
+-	ret = count;
+-out:
+-	kfree(label);
+-	return ret;
++	return count;
+ }
+ 
+ static const struct proc_ops ntfs3_volinfo_fops = {
+@@ -575,7 +566,7 @@ static const struct proc_ops ntfs3_volinfo_fops = {
+ 
+ static const struct proc_ops ntfs3_label_fops = {
+ 	.proc_show = ntfs3_label_show,
+-	.proc_write = ntfs3_label_write,
++	.proc_write_buf = ntfs3_label_write,
+ };
+ 
+ static void ntfs_create_procdir(struct super_block *sb)
+
+-- 
+2.53.0
+
