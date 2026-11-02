@@ -1,48 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632553;
-	b=HSHHpv66tw8sLMAIAg3D2oQ8WyYXrjdItac0M27vHGbkn330FZ4yFLyMOhlup8Q+g5eD
-	 Tyv4Exd9+RpuVwQVJDpONjkyGOVXookPv+Bx4+7NCDYCqvoMXIc1i0SzWAGfoqjn8JY7+
-	 8vFXd25324QcuoOOU1ykdVJvUcdD95oDus9VoTm6b/NSiDaMjgKP+IVArpXMSsQqJuuB4
-	 2O5NoqB0IE0KE+ATvrji1vnSu2D9UUH1O+wWvmXBzAFDT5/B224+7VPNG6VRbz2D5dZmq
-	 rnmG6Lqr3apoRulIbM5c1J6L1QTUoUtsONQrpt3gpTTWRs7QcDUpx5LBnJxb5fduXhA==
+	t=1793632573;
+	b=hp3+h99mce1jsrkOjOR6cGNzjEw5hu6rCltx3sfH9BAIzPZj7kn4hl38Xr1FkvDi88JX
+	 r3g4WP5CADUistd5q3XPCaWrWdSxLLOcauL7JOimo4CnJMQw31FQ0hbOKDftlr75N1m46
+	 yfnPrg22FMe7r40WR38B+4XSj2XrvdWBRqSQm8kwqOMGVl7JOP7I+9AunIP1jGTKUkhtZ
+	 TPnzYbiSIBBszD9bK0B/pW5kD+gEwpqLM3qkWwd+iW80AKKaJT68SS5hRsOhWPc/RPPkS
+	 8NPkQT9GFHABT8LHR0TPTHsuFoBdQcwBNsK64w209iCqpEc+wSgQyG3q3Imt52SQQQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632553;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/po/gL747wOLzB9LODGeMVhVpt9eaPUzZYdg1qfmMOQ=;
-	b=NimNnJhWmD6b1CcA09T50yIOo9azmmSwIlkcGs4r7i2CfXzcRmaFQc/4TS4+E7eWj8QA
-	 iN+PFMKAntbowaQvTVTawVcLD0dB3ZyKyRsUU6enZEiIJBNZmvP3QoxPcbX9D1paJa7gB
-	 8CKy0I6vFRdg6NNzNV2Tz2dhhz6Ix3kLENYSuCs3uWTWoQAbsb9iOHFbzHIY/w9jqRV51
-	 kbU+5/ya8fKurPyqzRZVNBsCYZOo7HowUyQtMo8JqnZ6N0qamUM3MDppQLmg/kuw5O9nZ
-	 RKb/wg4jp5h4zFMaakfLc36hMwF+EHjUxRnu8hre6x4k5hxRmYmzaY6yS2BCcVeDNBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632573;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=4FwtvuIAIzzf1W6DoLcxSMo6B2sr2GRT8crxL/9cXAs=;
+	b=RuPiDwg5YhZpz9vKIgkOSTZq7ocBHqK1Kklz1wNM5O/rp5DPA6AldaJOq4LpwdjAvNQK
+	 kj+9ydZ0TPQbnU869Wz/QNa2k1QS4zzLlRz3XMs2XV/YDbSRUfxhcXX3ygJrlCNKYbQGT
+	 DUFxH7EBq/RoDas6G2xZw5dPiVkZWhx1M9OSpXO73HhzO5mWcKDG3jrFTJUUL6k/AjuJE
+	 Wti+iwqtkAlDfaoNyGB+P8LwFno/2jNblqc1WF9I/HlMbFPZQUOqSEMAtLo0DJVCsC3tY
+	 j97glDiQoYnCG9+JzZ/8NYzdcjAnv+lKXtDUxquXYYxNzX+Oqx3laERNTFSwfW8pRGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CGKeYdZH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=B8XxKZt6;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4FD606A58D;
-	Mon,  2 Nov 2026 15:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEB9607B46B;
+	Mon,  2 Nov 2026 15:16:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DEB9607B46B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CGKeYdZH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B2421F01577;
-	Mon,  2 Nov 2026 15:15:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632553;
-	bh=/po/gL747wOLzB9LODGeMVhVpt9eaPUzZYdg1qfmMOQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CGKeYdZH3IwAOCMuWH4rKgTK8AFjvD4vT1A8MvChb7ekc5exPD2bZli39nsFA0rll
-	 Wro/pLXxHNScoGUOu2GS9dEhVACBfx94QMr+3AMAn65A2xaiLaTjC73SUe8x8Vxwck
-	 TeCW4nmblkVEQmFIwgDcUhlYB0U0/KpXLfCzgE+9+Se3WYxVgLhbEreVGTJlTh7c4u
-	 7jg8GYZ3EUYQeyZJ6KtO5lHZzH6stQjbxp/hT7OtsLZZLQOnXqbHn3uMLytT76+H+J
-	 11fMUBwYPr5hdM+l9taHXvznWRfSrNsArNpSfoPYVGe++uXgaOyNJuTilC2BxjGnzX
-	 V3ffhGBeXv1JA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:23 +0100
-Subject: [PATCH RFC 16/23] fbdev: viafb: let procfs copy in writes
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=B8XxKZt6
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EEgfh1950773;
+	Mon, 2 Nov 2026 15:16:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=4FwtvuIAIzzf1W6Do
+	LcxSMo6B2sr2GRT8crxL/9cXAs=; b=B8XxKZt6nTCaYPBYmTv9RR7Oi3FyNYWWM
+	1oUdmMN+yi129AS30WU17SK9ZAiIiXCRc/ubtXhBkCmt+eonyIi2pAxPz7whuezr
+	tkQKHafTvtefMAJ5ILhGpY5L/VOTql173F0CcFJY2VUOB9imHUO8vBemCx4pNrLg
+	XlBLvGvZkvbLpb2zbi0LgO7ujVgnjUvTQA0Mx8nRFKJjBaERejwyZaAbtMKXhva0
+	81z2RRSEDBYLgEzt9bLHlbaz30dnc1YhdmhK7/rCqjkq8lY1YWxTzImkYgoAE/0C
+	62loAQydu1i+uC4UmSbDtiIiQbFhqtlwYwic8+UHHIaofF5pNypnA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rd19e6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 15:16:09 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2Dp8MC932246;
+	Mon, 2 Nov 2026 15:16:09 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnunjxf4f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 15:16:09 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2FFJMq22741624
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 2 Nov 2026 15:15:19 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A96F75805A;
+	Mon,  2 Nov 2026 15:16:07 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 720825805C;
+	Mon,  2 Nov 2026 15:16:06 +0000 (GMT)
+Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.57.150])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  2 Nov 2026 15:16:06 +0000 (GMT)
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, freude@linux.ibm.com, borntraeger@de.ibm.com,
+        cohuck@redhat.com, mjrosato@linux.ibm.com, pasic@linux.ibm.com,
+        alex.williamson@redhat.com, kwankhede@nvidia.com, fiuczy@linux.ibm.com
+Subject: [PATCH v11 01/14] s390/vfio-ap: Provide function to get the number of queues assigned to mdev
+Date: Mon,  2 Nov 2026 10:14:41 -0500
+Message-ID: <20261102151604.2150055-2-akrowiak@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261102151604.2150055-1-akrowiak@linux.ibm.com>
+References: <20261102151604.2150055-1-akrowiak@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,255 +94,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-drivers-v1-16-a994bd4d3b1a@kernel.org>
-References: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
-In-Reply-To: <20261102-work-procfs-drivers-v1-0-a994bd4d3b1a@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7373; i=brauner@kernel.org;
- h=from:subject:message-id; bh=IvpcER7zxYNfDUB5gfp3pz3pT+0GSZCEEAhc7Zgpx0U=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG54f1e88Ubf1/OUJVMEWfZ4yKg+n9wdmu7zh8P0w
- mbtexXfOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACbyYx/DP839pVLn/F+/fJc4
- 901N3fx3nhnHtzv3nPPxi2y8FyOeH8Dw3+1pcIH7Q+ViI6Yijo/tvDyhr4RWLF3tMmnmydKdZ9Y
- mswMA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: xpYKbzNFAAmSo4fXS5gIO6Srwvxfs-VX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX8zm2Iq6gb1uG
+ gMROOw8P9GmMnzLw95F0aQ9eL+JZvyKJl4kOfgkL0CzlyW2osV3Pxt2Wzu5B+UfceM7LE6Ap5uM
+ KapjD5YxMnrsJ3K/WqYjPcj0RJmb1bcsEz63Zy+ey+/mysDLGWyO9UzBmvKxP29tvhiJAE8vNTZ
+ DyhJzrEUmc+QIYuF/6CgSEZelGDiApqAb0pOmE68srmjf0Ot13/VLrfPskXIFgsS2ys44ba1vUf
+ gt90LQuAZ6CH8dlQD3FypKrcH98/bH0WyFS1VAWp2NC0/cewBnKAbvaELD1a/bRehUVE5E9i4CK
+ g6hoip2vZOnMaKx4dZ8pdviOZGEX/DKNtQBe+Yv3jOshZLjHTZRiFNQpPM0QcmLjYQxg/Kj8fCp
+ 6lXqDoFIysZVsi2LERqqesCu2YG9eDdukhfFM8j85Zl11t2ABSOcXLPVa2bTTMGp0002NjjWwNp
+ TGuRINajwLf58bzjYlg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX2UPOQo+ewdtt
+ CgDXOsoHZllELMu9fzfdbINKTa+Xft32qntVt3dj10cisiafAPpXxedzMJz95bj68B8/yq+Tx7S
+ shoqQ+pAdAhn+ccZaNXr7B+XpHvzQQU=
+X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6ae8a939 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=yQsB-kB7boqL7geEApIA:9
+X-Proofpoint-ORIG-GUID: xpYKbzNFAAmSo4fXS5gIO6Srwvxfs-VX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020060
 
-Implement ->proc_write_buf() for the files in /proc/viafb so procfs
-copies in what is written before it pins the entry, and parse what was
-written from that copy. Writes larger than PAGE_SIZE - 1 bytes fail with
--EINVAL now, the output device files refused anything over 63 bytes
-already. kstrtou8_from_user() looked at the first 10 bytes of what was
-written to dfph and dfpl, now the whole write is parsed.
+Provides a function that returns the number of queues that are or will be
+passed through to a guest when the mdev is attached to a guest.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Reviewed-by: Jason J. Herne <jjherne@linux.ibm.com>
 ---
- drivers/video/fbdev/via/viafbdev.c | 46 +++++++++++++++++---------------------
- 1 file changed, 21 insertions(+), 25 deletions(-)
+ drivers/s390/crypto/vfio_ap_ops.c     | 8 ++++++++
+ drivers/s390/crypto/vfio_ap_private.h | 2 ++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/video/fbdev/via/viafbdev.c b/drivers/video/fbdev/via/viafbdev.c
-index 4b617e80a77c..94b303006915 100644
---- a/drivers/video/fbdev/via/viafbdev.c
-+++ b/drivers/video/fbdev/via/viafbdev.c
-@@ -1121,7 +1121,7 @@ static int viafb_dvp0_proc_show(struct seq_file *m, void *v)
+diff --git a/drivers/s390/crypto/vfio_ap_ops.c b/drivers/s390/crypto/vfio_ap_ops.c
+index 373ce574c431..83ba4193bdc3 100644
+--- a/drivers/s390/crypto/vfio_ap_ops.c
++++ b/drivers/s390/crypto/vfio_ap_ops.c
+@@ -2113,6 +2113,14 @@ static void vfio_ap_mdev_request(struct vfio_device *vdev, unsigned int count)
+ 	release_update_locks_for_mdev(matrix_mdev);
  }
  
- static ssize_t viafb_dvp0_proc_write(struct file *file,
--	const char __user *buffer, size_t count, loff_t *pos)
-+	char *buffer, size_t count, loff_t *pos)
++unsigned int vfio_ap_mdev_get_num_queues(struct ap_matrix *ap_matrix)
++{
++	lockdep_assert_held(&matrix_dev->mdevs_lock);
++
++	return bitmap_weight(ap_matrix->apm, AP_DEVICES) *
++	       bitmap_weight(ap_matrix->aqm, AP_DOMAINS);
++}
++
+ static int vfio_ap_mdev_get_device_info(unsigned long arg)
  {
- 	char buf[20], *value, *pbuf;
- 	u8 reg_val = 0;
-@@ -1129,8 +1129,7 @@ static ssize_t viafb_dvp0_proc_write(struct file *file,
- 	if (count < 1)
- 		return -EINVAL;
- 	length = count > 20 ? 20 : count;
--	if (copy_from_user(&buf[0], buffer, length))
--		return -EFAULT;
-+	memcpy(&buf[0], buffer, length);
- 	buf[length - 1] = '\0';	/*Ensure end string */
- 	pbuf = &buf[0];
- 	for (i = 0; i < 3; i++) {
-@@ -1169,7 +1168,7 @@ static ssize_t viafb_dvp0_proc_write(struct file *file,
- 
- static const struct proc_ops viafb_dvp0_proc_ops = {
- 	.proc_show	= viafb_dvp0_proc_show,
--	.proc_write	= viafb_dvp0_proc_write,
-+	.proc_write_buf	= viafb_dvp0_proc_write,
+ 	unsigned long minsz;
+diff --git a/drivers/s390/crypto/vfio_ap_private.h b/drivers/s390/crypto/vfio_ap_private.h
+index 9bff666b0b35..12d7d240addd 100644
+--- a/drivers/s390/crypto/vfio_ap_private.h
++++ b/drivers/s390/crypto/vfio_ap_private.h
+@@ -152,6 +152,8 @@ struct vfio_ap_queue {
+ 	struct work_struct reset_work;
  };
  
- static int viafb_dvp1_proc_show(struct seq_file *m, void *v)
-@@ -1183,7 +1182,7 @@ static int viafb_dvp1_proc_show(struct seq_file *m, void *v)
- }
++unsigned int vfio_ap_mdev_get_num_queues(struct ap_matrix *ap_matrix);
++
+ int vfio_ap_mdev_register(void);
+ void vfio_ap_mdev_unregister(void);
  
- static ssize_t viafb_dvp1_proc_write(struct file *file,
--	const char __user *buffer, size_t count, loff_t *pos)
-+	char *buffer, size_t count, loff_t *pos)
- {
- 	char buf[20], *value, *pbuf;
- 	u8 reg_val = 0;
-@@ -1191,8 +1190,7 @@ static ssize_t viafb_dvp1_proc_write(struct file *file,
- 	if (count < 1)
- 		return -EINVAL;
- 	length = count > 20 ? 20 : count;
--	if (copy_from_user(&buf[0], buffer, length))
--		return -EFAULT;
-+	memcpy(&buf[0], buffer, length);
- 	buf[length - 1] = '\0';	/*Ensure end string */
- 	pbuf = &buf[0];
- 	for (i = 0; i < 3; i++) {
-@@ -1225,7 +1223,7 @@ static ssize_t viafb_dvp1_proc_write(struct file *file,
- 
- static const struct proc_ops viafb_dvp1_proc_ops = {
- 	.proc_show	= viafb_dvp1_proc_show,
--	.proc_write	= viafb_dvp1_proc_write,
-+	.proc_write_buf	= viafb_dvp1_proc_write,
- };
- 
- static int viafb_dfph_proc_show(struct seq_file *m, void *v)
-@@ -1237,11 +1235,11 @@ static int viafb_dfph_proc_show(struct seq_file *m, void *v)
- }
- 
- static ssize_t viafb_dfph_proc_write(struct file *file,
--	const char __user *buffer, size_t count, loff_t *pos)
-+	char *buffer, size_t count, loff_t *pos)
- {
- 	int err;
- 	u8 reg_val;
--	err = kstrtou8_from_user(buffer, count, 0, &reg_val);
-+	err = kstrtou8(buffer, 0, &reg_val);
- 	if (err)
- 		return err;
- 
-@@ -1251,7 +1249,7 @@ static ssize_t viafb_dfph_proc_write(struct file *file,
- 
- static const struct proc_ops viafb_dfph_proc_ops = {
- 	.proc_show	= viafb_dfph_proc_show,
--	.proc_write	= viafb_dfph_proc_write,
-+	.proc_write_buf	= viafb_dfph_proc_write,
- };
- 
- static int viafb_dfpl_proc_show(struct seq_file *m, void *v)
-@@ -1263,11 +1261,11 @@ static int viafb_dfpl_proc_show(struct seq_file *m, void *v)
- }
- 
- static ssize_t viafb_dfpl_proc_write(struct file *file,
--	const char __user *buffer, size_t count, loff_t *pos)
-+	char *buffer, size_t count, loff_t *pos)
- {
- 	int err;
- 	u8 reg_val;
--	err = kstrtou8_from_user(buffer, count, 0, &reg_val);
-+	err = kstrtou8(buffer, 0, &reg_val);
- 	if (err)
- 		return err;
- 
-@@ -1277,7 +1275,7 @@ static ssize_t viafb_dfpl_proc_write(struct file *file,
- 
- static const struct proc_ops viafb_dfpl_proc_ops = {
- 	.proc_show	= viafb_dfpl_proc_show,
--	.proc_write	= viafb_dfpl_proc_write,
-+	.proc_write_buf	= viafb_dfpl_proc_write,
- };
- 
- static int viafb_vt1636_proc_show(struct seq_file *m, void *v)
-@@ -1313,7 +1311,7 @@ static int viafb_vt1636_proc_show(struct seq_file *m, void *v)
- }
- 
- static ssize_t viafb_vt1636_proc_write(struct file *file,
--	const char __user *buffer, size_t count, loff_t *pos)
-+	char *buffer, size_t count, loff_t *pos)
- {
- 	char buf[30], *value, *pbuf;
- 	struct IODATA reg_val;
-@@ -1321,8 +1319,7 @@ static ssize_t viafb_vt1636_proc_write(struct file *file,
- 	if (count < 1)
- 		return -EINVAL;
- 	length = count > 30 ? 30 : count;
--	if (copy_from_user(&buf[0], buffer, length))
--		return -EFAULT;
-+	memcpy(&buf[0], buffer, length);
- 	buf[length - 1] = '\0';	/*Ensure end string */
- 	pbuf = &buf[0];
- 	switch (viaparinfo->chip_info->lvds_chip_info.lvds_chip_name) {
-@@ -1404,7 +1401,7 @@ static ssize_t viafb_vt1636_proc_write(struct file *file,
- 
- static const struct proc_ops viafb_vt1636_proc_ops = {
- 	.proc_show	= viafb_vt1636_proc_show,
--	.proc_write	= viafb_vt1636_proc_write,
-+	.proc_write_buf	= viafb_vt1636_proc_write,
- };
- 
- #endif /* CONFIG_FB_VIA_DIRECT_PROCFS */
-@@ -1416,7 +1413,7 @@ static int __maybe_unused viafb_sup_odev_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t odev_update(const char __user *buffer, size_t count, u32 *odev)
-+static ssize_t odev_update(const char *buffer, size_t count, u32 *odev)
- {
- 	char buf[64], *ptr = buf;
- 	u32 devices;
-@@ -1424,8 +1421,7 @@ static ssize_t odev_update(const char __user *buffer, size_t count, u32 *odev)
- 
- 	if (count < 1 || count > 63)
- 		return -EINVAL;
--	if (copy_from_user(&buf[0], buffer, count))
--		return -EFAULT;
-+	memcpy(&buf[0], buffer, count);
- 	buf[count] = '\0';
- 	add = buf[0] == '+';
- 	sub = buf[0] == '-';
-@@ -1452,7 +1448,7 @@ static int viafb_iga1_odev_proc_show(struct seq_file *m, void *v)
- }
- 
- static ssize_t viafb_iga1_odev_proc_write(struct file *file,
--	const char __user *buffer, size_t count, loff_t *pos)
-+	char *buffer, size_t count, loff_t *pos)
- {
- 	u32 dev_on, dev_off, dev_old, dev_new;
- 	ssize_t res;
-@@ -1473,7 +1469,7 @@ static ssize_t viafb_iga1_odev_proc_write(struct file *file,
- 
- static const struct proc_ops viafb_iga1_odev_proc_ops = {
- 	.proc_show	= viafb_iga1_odev_proc_show,
--	.proc_write	= viafb_iga1_odev_proc_write,
-+	.proc_write_buf	= viafb_iga1_odev_proc_write,
- };
- 
- static int viafb_iga2_odev_proc_show(struct seq_file *m, void *v)
-@@ -1483,7 +1479,7 @@ static int viafb_iga2_odev_proc_show(struct seq_file *m, void *v)
- }
- 
- static ssize_t viafb_iga2_odev_proc_write(struct file *file,
--	const char __user *buffer, size_t count, loff_t *pos)
-+	char *buffer, size_t count, loff_t *pos)
- {
- 	u32 dev_on, dev_off, dev_old, dev_new;
- 	ssize_t res;
-@@ -1504,7 +1500,7 @@ static ssize_t viafb_iga2_odev_proc_write(struct file *file,
- 
- static const struct proc_ops viafb_iga2_odev_proc_ops = {
- 	.proc_show	= viafb_iga2_odev_proc_show,
--	.proc_write	= viafb_iga2_odev_proc_write,
-+	.proc_write_buf	= viafb_iga2_odev_proc_write,
- };
- 
- #define IS_VT1636(lvds_chip)	((lvds_chip).lvds_chip_name == VT1636_LVDS)
-
 -- 
 2.53.0
 
