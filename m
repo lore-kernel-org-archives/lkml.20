@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632342;
-	b=yvQIZn0vzxqMKiAFJUsvtS0FkIKpxT5fmtEs+wAlRLinI5VTuA9GAAz6sO9S4HqkpkE9
-	 q91iNGzFtpi7fel64kCdfUfOyNvUv4DYeXonJrUqEtTtANNBOvgYqjbjTsPiXJnUFn08F
-	 IEPt/WaWMzCUlvp1Dm54bq6Wnz3ZdO0ODnXJum7Nc23FDVtw+RiyN+p6s/1Bg4Y0/wgXe
-	 7Z6/n/O297YCM1n2yKsWGAQFDM6IUc991b6jB2p1CAAwmoQJIMTyor0f58BR8YaomOiaB
-	 JNDZLnVeNfEIM3vZmF7KSzMbigHIIw38siFb/i09fsr4MUwXDIAKKueqjvgMM4l3jKw==
+	t=1793632333;
+	b=xHfAXoKmm10SMZe2o2Z5Bc0tHnGAfXeXBLY6kzEmOklaG9gZwBuOayGhxVCbUMAK90fK
+	 dVuG1pLq9z+cMZLkRbqH0WUvz2+meuCzzBDuJ/gMIvq6I6z8dfL0KIbYwY5fBZ7hFTTgb
+	 /PoJcAxBEmrSxImiop6qRAvMpqhkGxJbk6k0RbYF96MKSCeGn33UujThIDnuTz262Ngx1
+	 WcykLwVM+7iK0vodhcFiJ3zWJRY+/BlvqT+oHtY6x9UQVJAEI2tyO/cjLSsEzfToYgPQz
+	 u88nHRjC4tft0qwTVbLlJTaGPb71iZRnAfg3EAjR7Oq68KBE/RSqXsX2R65/AUXT2AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632342;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nl4XdaZz2uL0DXOtmdE1FRqZ6AJVOjmG7j1+imya4cY=;
-	b=rmBE1Yqj3ZZN/4HBW9+7uPfdRMnL18RwS/JKQK0SBBGmTc4GG54YhNMMa5476yAgJeD2
-	 IRv9jMBRe82FKKj0dI4vojWv6DnBn2KS2OEYNYDRJod/FTb3DIySQ+y9OZUERLy8yY6he
-	 YRlieFjrUjeSl3bgJj4tfpiUQyH6ZvvgFKO6KN5zhlW/6KCCYCygyN6qGLoaxxZwAmD4h
-	 rTXpjIrjrzcNMRYDVCaKx8M54Crqw38dwJMVCwWwmL9adMjAKYFq/v9RT9s870qKFoFjc
-	 TIqdlxbGjlOznPz3HUsWy7zTEnjEL5GvuqnxWrhFMLiR3o/bPIj3g6gidkqHzL2exyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632333;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=s7ppLZMAjyyuilbixYy866dZSoM5/UMmIQ8fY8VwQIM=;
+	b=1Dle2zAiRlbSd4Vg94BKAwrnV6dfV1vVSSiaiyOecVR2PjEuV2vYGCAgluyRfxvaRa2s
+	 1ENkOyx5pg86DLFze25A33y6l33LsGRXiVhtudV5nJwoRNV2tHHFA0w/AU9DCsbbNToNA
+	 +1axIrR8wsmBG7DESwxzHpllkNFE8Zk7biLjISm5TGG7S+B2aV6Bxjn9hQ9vEbm8LMCkJ
+	 B4rAWCJnMEtVS+Qo/0th9uOGwyLmy2SfZNh6gwvk3CmAq7OhJEV7Pi/7fR2YXYWsO5DsG
+	 wOB2Xi1pfFUOPXCOXC24YWl3ph8qZ1vJwjsaqm47JUMEf0S0ziYbFBLPuu2Mk31TxnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qdv6+IgD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741F5606DEBB;
-	Mon,  2 Nov 2026 15:12:22 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=d5U+AbfK;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB9F360771E0;
+	Mon,  2 Nov 2026 15:12:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB9F360771E0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qdv6+IgD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E721F00A17;
-	Mon,  2 Nov 2026 15:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632342;
-	bh=nl4XdaZz2uL0DXOtmdE1FRqZ6AJVOjmG7j1+imya4cY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qdv6+IgDTuLTKP5nlxYiLM/rxYc6GJivp87oY9791L+gMKqtT35mwm66E6piqq7w6
-	 xe67kAm5esOSKFvQOGRv6oL0roIbYOjbHNYquK2Rw7AMdHom7rhHekuJJLyco9lZxY
-	 Uk7Zj45DIq9BnsoW+5ULnYB81c1wjITcnb4erxgXTn5WuK7A6U36P4DSPi41PG9rUD
-	 sC1l6TbS9cMJVyXmr0Z4CvvlHRs39JjIVUXQrlvV8Gh9Kf04OdgobM0g2Zv8jbeHdr
-	 PiNSSl1/NKel7/2xSyk7Pyc1bk7FtdmqZ2ty3gufwO4Fe5DH3vkg6j5Y+pcos6AQ2z
-	 Q5rZU4oAkCm8A==
-Date: Mon, 2 Nov 2026 16:12:17 +0100
-From: Niklas Cassel <cassel@kernel.org>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Cc: mani@kernel.org, kwilczynski@kernel.org, linux-pci@vger.kernel.org,
-	kishon@kernel.org, Frank.Li@kernel.org, bhelgaas@google.com,
-	den@valinux.co.jp, thierry.reding@kernel.org, jonathanh@nvidia.com,
-	vidyas@nvidia.com, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] PCI: endpoint: Skip upper halves of 64-bit BARs
- during search
-Message-ID: <auioURK_nCpmrgcn@ryzen>
-References: <20261102112306.4018464-1-mmaddireddy@nvidia.com>
- <20261102112306.4018464-2-mmaddireddy@nvidia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=d5U+AbfK
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BED8B1595;
+	Mon,  2 Nov 2026 07:12:08 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8053F3F871;
+	Mon,  2 Nov 2026 07:12:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793632331; bh=m3wJSJtQD9D+ud0ZiYqt81AP0zFjBodMC7qvifLjgJM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=d5U+AbfKMQ+WQ+H64mUgHOPj+0VxOmTroJphZ7yU3xRTnKcSzCeOPvCZ51upxaez9
+	 1zseJ0VSVrE65X5rYLfPftuaGKIecMKJ7UMt38Z8i6G17tBccd47v2kL5UbnRkZwv2
+	 FGg9aEze2odeZX47fJ5ayfhbvGDPwmGheoxz4Lw0=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 13/15] KVM: arm64: Add HDBSS buffer size ioctl for dirty-bitmap mode
+Date: Mon,  2 Nov 2026 15:12:04 +0000
+Message-ID: <auioRICO9Frhk-zT@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260929103655.85107-14-zhengtian10@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-14-zhengtian10@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,25 +91,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102112306.4018464-2-mmaddireddy@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 04:53:05PM +0530, Manikanta Maddireddy wrote:
-> pci_epc_get_next_free_bar() skips the upper half of a 64-bit BAR only
-> when it is the starting BAR. If the search subsequently passes a
-> reserved or disabled 64-bit BAR, it can return its upper half as an
-> independent BAR because that slot has a default programmable descriptor.
+On Tue, Sep 29, 2026 at 06:36:53PM +0800, Tian Zheng wrote:
+> In dirty-bitmap mode, a larger HDBSS buffer lets the guest dirty more
+> pages between VM exits, at the cost of memory. The default of one page
+> per vCPU is a reasonable starting point, so allow userspace to opt
+> into a larger buffer via KVM_CAP_ARM_HDBSS_BUFFER_SIZE.
 > 
-> For example, Tegra exposes a programmable 64-bit BAR0 and reserved
-> 64-bit BAR2 and BAR4. A search starting at BAR1 skips BAR1 and BAR2,
-> then incorrectly returns BAR3. The next search can similarly return
-> BAR5, causing the EPF test driver to allocate and program BARs that
-> belong to the reserved hardware windows.
+> The size is specified in bytes through KVM_ENABLE_CAP and must be a
+> power of two in [PAGE_SIZE, SZ_2M]: the upper bound is the largest
+> HDBSSBR_EL2.SZ encoding, and the power-of-two requirement matches the
+> buddy allocator. It must be set before any vCPU is created: -EINVAL
+> after vCPUs exist, -EBUSY if already set.
 > 
-> Check each candidate's preceding descriptor inside the search loop so
-> upper halves are skipped throughout the search. With the Tegra layout,
-> BAR0 is the only available BAR and subsequent searches return NO_BAR.
+> The capability is rejected in dirty-ring mode, where the size is
+> pinned by kvm_arch_dirty_ring_size_updated().
 > 
-> Fixes: 27ce1d8ecb9b ("PCI: endpoint: Allow only_64bit on BAR_RESERVED")
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+> KVM_CHECK_EXTENSION returns the configured size for a VM, or SZ_2M
+> when queried globally with a NULL kvm.
+> 
+> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+> ---
+>  arch/arm64/kvm/arm.c     | 34 ++++++++++++++++++++++++++++++++++
+>  include/uapi/linux/kvm.h |  1 +
+>  2 files changed, 35 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 5a7046acb62e..eadbf3a88d31 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/kvm.h>
+>  #include <linux/kvm_irqfd.h>
+>  #include <linux/irqbypass.h>
+> +#include <linux/log2.h>
+>  #include <linux/sched/stat.h>
+>  #include <linux/psci.h>
+>  #include <trace/events/kvm.h>
+> @@ -203,6 +204,31 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+>  		r = 0;
+>  		set_bit(KVM_ARCH_FLAG_EXIT_SEA, &kvm->arch.flags);
+>  		break;
+> +	case KVM_CAP_ARM_HDBSS_BUFFER_SIZE: {
+> +		u64 size = cap->args[0];
+> +
+> +		if (!system_supports_hdbss())
+> +			break;
+> +		if (kvm->dirty_ring_size)
+> +			break;
+> +		if (size < KVM_ARM_HDBSS_DEFAULT_SIZE ||
+> +		    size > KVM_ARM_HDBSS_MAX_SIZE)
+> +			break;
+> +		if (!is_power_of_2(size))
+> +			break;
+> +
+> +		mutex_lock(&kvm->lock);
+> +		if (kvm->created_vcpus) {
+> +			r = -EINVAL;
+> +		} else if (kvm->arch.hdbss_buffer_size) {
+> +			r = -EBUSY;
+> +		} else {
+> +			kvm->arch.hdbss_buffer_size = size;
+> +			r = 0;
+> +		}
+> +		mutex_unlock(&kvm->lock);
+> +		break;
+> +	}
+>  	default:
+>  		break;
+>  	}
+> @@ -500,6 +526,14 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+>  		else
+>  			r = KVM_ARM_EAGER_SPLIT_CHUNK_SIZE_DEFAULT;
+>  		break;
+> +	case KVM_CAP_ARM_HDBSS_BUFFER_SIZE:
+> +		if (!system_supports_hdbss())
+> +			r = 0;
+> +		else if (kvm)
+> +			r = kvm->arch.hdbss_buffer_size ?: KVM_ARM_HDBSS_DEFAULT_SIZE;
 
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
+This whole thing of allowing hdbss_buf_size to be set only once makes 
+everything more complex. Why do we have this limitation again?
+
+I mean, if we want to restrict size changes after the first hdbss buffer 
+gets allocated, it makes sense, other than that, I would like to understand 
+the reason for that.
+
+Thanks!
+Leo
