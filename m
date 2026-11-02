@@ -1,50 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602925;
-	b=QoGOlJDX8xPzfuKpZvj3imR1fkxELdgiAbxR5vM8lNmoUGdajTpxgokRvPFwshwZIwjc
-	 FUwm36tn+eR11hEYoc8F727epnOehA0kZ52zwu2FeBbLcR7SyaCGHTb3bp2+UR+TzrfP9
-	 Bq7o6WExluVzHprkp65vi2kA6jQzHx5hw+oSI/8YhRuWPQszgUKIevw4Y4m3xxxVYP6zk
-	 4pTkGUc22pgqbvBHBJZBO77kEBgteP2bIs8KfV4c54NGZhB9dHv26rTKiBLn5sydNTQTf
-	 iyNKcnJtmG7uJXTsvVpdBVriIVkCSCncf2G1wbt67JL7/y9cWY/MDww5l1FBYzDh+ig==
+	t=1793602982;
+	b=Q85aWd5ZU58DqosNielbp9ZlhQmPoS2P9nx6HYeqSeW5VJWDhV6MMsGfyDmLiEWI1OtK
+	 T3UT3fPN25tPunowAimoX2KX79OIZmgoAw99XA7otMAKD9VzdN4JNMR3LwGnL/KpS3IBX
+	 7r/B5X90gTg+sq435L2NseJ+gWZU3X9YCDS3+pwD4fPz4tYNTlvzKK7nrgizAl9mQmSdF
+	 4rhpBtA75zCX/2z+mQfnP2tQbVtvX92hrsWiMDEkVPllqJg4dQa1wo2w6A5/13q++8SfF
+	 q1PtTE7QSEPaUsFt2uiQPhDNEej7PuiX1d26/iDl8UMpNDV/q8+RAUfjkSltqAp326g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602925;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=o3unYrqPCzOkBcZOxi4mzaJllESmWrBv+ToHLviEttE=;
-	b=cWFd1G6qaYHs985r1Hep2EhjCwUffy5VMGVF3WZR0M6vPBnhp+99UKUBgQCWTR641SiJ
-	 vGrDFkKgWZ5BNhV2HHndkvov7jIzYl2GEjDIKqz3zCq8JSY/GaOvn71+TEhiwhoJYXoi6
-	 UPEpfVttpKtFHV8oo/HbRhryWyb+ERtNkVaSI6F0k4gMRN07H676yhzY1WdQaWao7bmBz
-	 8eiumPrUFFJ1G3+9MDSA0Gm7fq4IANo89rxmTX4CFOfCYXVP55FSrDy9407qrNEnsE/Rc
-	 b/UekEqusmRRU1fFSFFXjUzR63mob+gg4q1PI/lCavED/gs33udZqByteaNgoIl8YhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602982;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=aFyPqufKPTRfFHH6kiVo0N40szheXQ5ACKShZcHFEdc=;
+	b=gb8TMXYNJPnphSjhr+zagMT2wvhhwolkF8GWKZrumDchmAALKFKbt2XD7BBM1SR2nQiH
+	 Smqxm4u+b+t/r5uz5ynIaT0MDk7wF70zDjvaB59KgL11+ukfZqUT6CRnr+qKo2pnryxGo
+	 liIm9TQdHV8AM8MOzlAuZq+/XBbeTVXapLz4G/9wAh1pQifYz6NKIVSwFvATimt9BkkAL
+	 MMgE7ajFUh7m5FbK53wNviRZPUpR6ZYno/4A8Aky1Unpeq9773j2ew76wrFoKKLqFgBnV
+	 QgkUEA3Cbs4XpbwXoC3VxiuA2UBYitmjwabxNlX64YtVHaEo7wvgOZgfTlcnniCX4Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RV88SlN1;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jtJt+6aY;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C4F606A32F;
-	Mon,  2 Nov 2026 07:02:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41C4F606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2933C606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:03:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2933C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RV88SlN1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=o3unYrqPCzOkBcZOxi4mzaJllESmWrBv+ToHLviEttE=;
-	b=RV88SlN1JKsjaJSFcbAe7/KUJ8evmlhLyalceJg19oHR4+TowhGe0yCHFGFLdl
-	E1scwJMluYHOt832sXTV63nROH41Oit71/HyZTfVimGVLu1c0jv3sH0HGuMH6kQM
-	eoBsJBLrxk8mWMEnvAhB07sfQFaysskdmUDn/nMX+gYaU=
-From: Chaosheng Qu <quchaosheng000406@163.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Tomas Glozar <tglozar@redhat.com>, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] rtla: test that events are rejected without --trace
-Date: Mon, 02 Nov 2026 15:01:31 +0800
-Message-ID: <179360289114.124676.17105773066185078008@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jtJt+6aY
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3adad90c894so2970708a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:03:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793602981; x=1794207781; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aFyPqufKPTRfFHH6kiVo0N40szheXQ5ACKShZcHFEdc=;
+        b=jtJt+6aYbPByuXxUOxALSzqcBfCqep5WAKQ+Mk8/QBES5us1Qq15iqrp8nkRpEaF7C
+         TAb3ErLjuxlY8l+G4NAoyqa/YSHJqTRj3rr1FboPnvyZjTFdo7KiGULsdyLMexpwSjum
+         iJHobQFMrschpujBVY/0UJu/EHl0LYZGj814V7Oi75XQZ0wZLyv61jQpEzyxwDwpn7aj
+         ElhkbcvFlu067KOGpeYkCDeAnIfuaKEOC/Nil1UvmrXzImaGhCnr5vJK7joltytG6+mN
+         d+vUS6Ff9v5Nn2XEQBj3hNRTB19zqfnhW1ftaAdyx3qCvXkdjW5z27Sa7WGQS9waxRbT
+         U1hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793602981; x=1794207781;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aFyPqufKPTRfFHH6kiVo0N40szheXQ5ACKShZcHFEdc=;
+        b=aHGCw9alRYyCcNnV718mpoE6TDvWgy3QSGQasCaCZLMtdOSYhhCfwaamV2xHyzl7tF
+         8bbJ78FPFl9vxASv4FIJ6kVE7dZJ4BYoaVP5Lx5dRQk7oBf5L2STRudytrOylRAuLYzo
+         VxgJRUbTu4gOpH1RnwgxI0fO3Ycq4fj4PNtdRdp9U8PE5DZ8IrrKeVdPtGIrbDMj1NBJ
+         7apL9j9Tn5SLfaogrtKlVUVIaJRipR6/skM3cNv+7WcSA6EEgrzsWxcMqw30D3D7OzyT
+         1IwusFLb2szQ6Tjr5cizSHOJOz4s80C5O3m5hBrvbylCX3dTucm9DV3YvcKE6BZ0zWrk
+         k9KA==
+X-Forwarded-Encrypted: i=1; AKwUvBw63X3M7FUf3NAQCVHDZml9LuCABRwC4fdZ1Pa4dXYnLLN14eQ/S7uyj8H6Gz23C5nbaOyZ15TuTMJsFrM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JfVH/o9tPKpGT5QgGXfmKAPlwVZwwmQHQsC2jXfEJn6OrEsSy
+	xhzf2yeFLcqugd9pE4s0EQuvcb558y6LmnfBkXvGoOxRAoyOKQ5fsKtdOd3AUhjNsbGu5kaRBPQ
+	Fa3OXAQ==
+X-Received: from pglk11-n1.prod.google.com ([2002:a05:6a02:6b8b:10b0:cca:d82:90fc])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:180d:b0:3ab:2d46:1dd2
+ with SMTP id 98e67ed59e1d1-3ae895a5c46mr7949392a91.6.1793602981199; Sun, 01
+ Nov 2026 23:03:01 -0800 (PST)
+Date: Mon, 2 Nov 2026 07:03:00 +0000
+In-Reply-To: <82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,82 +77,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDH17BdNehq7sfwDQ--.60071S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZr15Jw4kZr1rCF13tF48tFb_yoW5urWxpa
-	90vr92yr1DGan0vw4rur18AFWDGrZ7WrW7KF1kGw1Yyry3Ar4fGF4xKFy7XrW3CrWfZ34a
-	k3yv9w12qa4UWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UMq2iUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5B45rmroNV562AAA3m
+Mime-Version: 1.0
+References: <82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor@outlook.com>
+Message-ID: <aug0tMr2QXRxTWuE@google.com>
+Subject: Re: [PATCH net] tcp: ipv6: keep request pktopts alive until request destruction
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "edumazet@kernel.org" <edumazet@kernel.org>, 
+	"ncardwell@google.com" <ncardwell@google.com>, "davem@davemloft.net" <davem@davemloft.net>, 
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, 
+	"horms@kernel.org" <horms@kernel.org>, "daniel@iogearbox.net" <daniel@iogearbox.net>, 
+	"martin.lau@linux.dev" <martin.lau@linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH] rtla: test that events are rejected without --trace
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Tomas Glozar <tglozar@redhat.com>,
-    linux-trace-kernel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
+On Mon, 02 Nov 2026 06:12:18 +0000, Yingjie Wang wrote:
+> When IPv6 flow label reflection is enabled, tcp_v6_send_synack() reads
+> ireq->pktopts to copy the flow label from the initial SYN.
+> 
+> Request sockets can be processed without the listener lock. A
+> retransmitted SYN can therefore run tcp_v6_send_synack() while a
+> concurrent final ACK creates the child in tcp_v6_syn_recv_sock(). The
+> latter clones ireq->pktopts for the child and immediately consumes the
+> request's reference. This can free the skb while the retransmit path is
+> still reading its IPv6 header, causing a use-after-free.
+> 
+> Request migration has the same ownership problem. inet_reqsk_clone()
+> copies pktopts without taking an skb reference, and reqsk_migrate_reset()
+> then clears the old request's pointer. A CPU holding the old request can
+> still be sending a SYNACK when the cloned request releases the only skb
+> reference.
+> 
+> Do not consume pktopts while creating the child. Give each cloned request
+> its own skb reference and let every request release its reference from
+> tcp_v6_reqsk_destructor().
+> 
+> I found this while testing IPv6 TCP request-socket lifetime handling. The
+> reproducer required no source changes, artificial delay, or fault
+> injection beyond enabling KASAN. It triggered the use-after-free before
+> this change. With this change, a 2000-round run completed without a KASAN
+> report. A separate 10-round test recorded four successful request
+> migrations and no KASAN report. Networking selftests were not run because
+> none directly exercises this race.
+> 
+> Fixes: e994b2f0fb92 ("tcp: do not lock listener to process SYN packets")
+> Fixes: 079096f103fa ("tcp/dccp: install syn_recv requests into ehash table")
+> Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  net/ipv4/inet_connection_sock.c | 6 +++++-
+>  net/ipv6/tcp_ipv6.c             | 7 ++++---
+>  2 files changed, 9 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+> index 93b306d91b6d..66f8ce25aa38 100644
+> --- a/net/ipv4/inet_connection_sock.c
+> +++ b/net/ipv4/inet_connection_sock.c
+> @@ -936,6 +936,11 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
+>  		      req->rsk_ops->obj_size - offsetof(struct sock, sk_dontcopy_end),
+>  		      /* alloc is larger than struct, see above */);
+>  
+> +#if IS_ENABLED(CONFIG_IPV6)
+> +	if (inet_rsk(nreq)->pktopts)
+> +		skb_get(inet_rsk(nreq)->pktopts);
+> +#endif
+> +
+>  	sk_node_init(&nreq_sk->sk_node);
+>  	nreq_sk->sk_tx_queue_mapping = req_sk->sk_tx_queue_mapping;
+>  #ifdef CONFIG_SOCK_RX_QUEUE_MAPPING
+> @@ -982,7 +987,6 @@ static void reqsk_migrate_reset(struct request_sock *req)
+>  	req->saved_syn = NULL;
+>  #if IS_ENABLED(CONFIG_IPV6)
+>  	inet_rsk(req)->ipv6_opt = NULL;
+> -	inet_rsk(req)->pktopts = NULL;
+>  #else
+>  	inet_rsk(req)->ireq_opt = NULL;
+>  #endif
+> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> index e006a30360ea..0b51cb4ad960 100644
+> --- a/net/ipv6/tcp_ipv6.c
+> +++ b/net/ipv6/tcp_ipv6.c
+> @@ -1522,11 +1522,12 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
+>  	if (*own_req) {
+>  		tcp_move_syn(newtp, req);
+>  
+> -		/* Clone pktoptions received with SYN, if we own the req */
+> +		/* Clone pktoptions received with SYN. Keep the request's
+> +		 * reference until the request is destroyed, as a concurrent
+> +		 * SYN retransmit may still read it.
+> +		 */
+>  		if (ireq->pktopts) {
+>  			newnp->pktoptions = skb_clone_and_charge_r(ireq->pktopts, newsk);
+> -			consume_skb(ireq->pktopts);
+> -			ireq->pktopts = NULL;
 
--e, --filter and --trigger configure events of the trace instance that
---trace creates.  Before the previous patch they were silently dropped
-when no --trace was given, and the tool still exited 0; the tests here
-pin down the messages and exit codes for both the rejected and the
-accepted cases.
+This is reported from another person in security@ mailing list
+yesterday and Eric has a better fix.
 
-hwnoise.t already covers the success path of -e with --trigger, so this
-adds the failure paths only.
-
-Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
----
-diff --git a/tools/tracing/rtla/tests/osnoise.t b/tools/tracing/rtla/tests/osnoise.t
-index 214fd40..ce9ff3e 100644
---- a/tools/tracing/rtla/tests/osnoise.t
-+++ b/tools/tracing/rtla/tests/osnoise.t
-@@ -99,4 +99,20 @@ check_top_q_hist "with conditional continue" \
- check_top_hist "with trace output at end" \
- 	"osnoise TOOL -d 1s --on-end trace" 0 "^  Saving trace to osnoise_trace.txt$"
- 
-+# -e, --filter and --trigger only take effect with --trace: they configure
-+# events of the instance it creates.  Without it rtla used to drop them and
-+# exit 0, so a typo in an event name went unnoticed.
-+check "filter without a preceding -e" \
-+	"osnoise top -q --filter 'prev_pid == 0' -d 1s" 129 "has no previous event to apply to"
-+check "event without --trace" \
-+	"osnoise top -q -e sched:sched_switch -d 1s" 1 "need --trace or --on-end trace"
-+check "invalid event without --trace" \
-+	"osnoise top -q -e nosuchsys:nosuchevent -d 1s" 1 "need --trace or --on-end trace"
-+check "filter without --trace" \
-+	"osnoise top -q -e sched:sched_switch --filter 'prev_pid == 0' -d 1s" 1 "need --trace or --on-end trace"
-+check "invalid event with --trace" \
-+	"osnoise top -q -e nosuchsys:nosuchevent -t -d 1s" 1 "Error enabling event"
-+check "valid event with --trace" \
-+	"osnoise top -q -e sched:sched_switch -t -d 1s" 0 ""
-+
- test_end
-diff --git a/tools/tracing/rtla/tests/timerlat.t b/tools/tracing/rtla/tests/timerlat.t
-index 5116857..18d7730 100644
---- a/tools/tracing/rtla/tests/timerlat.t
-+++ b/tools/tracing/rtla/tests/timerlat.t
-@@ -153,4 +153,20 @@ else
- fi
- done
- 
-+# -e, --filter and --trigger only take effect with --trace: they configure
-+# events of the instance it creates.  Without it rtla used to drop them and
-+# exit 0, so a typo in an event name went unnoticed.
-+check "filter without a preceding -e" \
-+	"timerlat top -q --filter 'prev_pid == 0' -d 1s" 129 "has no previous event to apply to"
-+check "event without --trace" \
-+	"timerlat top -q -e sched:sched_switch -d 1s" 1 "need --trace or --on-end trace"
-+check "invalid event without --trace" \
-+	"timerlat top -q -e nosuchsys:nosuchevent -d 1s" 1 "need --trace or --on-end trace"
-+check "filter without --trace" \
-+	"timerlat top -q -e sched:sched_switch --filter 'prev_pid == 0' -d 1s" 1 "need --trace or --on-end trace"
-+check "invalid event with --trace" \
-+	"timerlat top -q -e nosuchsys:nosuchevent -t -d 1s" 1 "Error enabling event"
-+check "valid event with --trace" \
-+	"timerlat top -q -e sched:sched_switch -t -d 1s" 0 ""
-+
- test_end
-
+pw-bot: rejected
