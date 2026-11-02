@@ -1,78 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585602;
-	b=a3+zXXJlgPW7h7Nx+nTiPnOQKd7OAeQjsUsWbF7a2Y3zRSFYF9Eaqsg+XDzc5Vo0XdRv
-	 H3EA5gd36CK4L3rtD7vZQq3dYyuBtD1QhwptlaWVAxMw2g81BcEygDByb8EcqDKSSgEcs
-	 VqN0+JKaTA0dOhfJ4jQinfqzCTRIs6X411piQNBtH0RxAsyOJ0Iyl99BcQKsKBLvkHofI
-	 em9ND1/oNhxwCwFxri8R6an5KsVufJCyf78+rEHbScLXOeoOxwhbF93hFbpytaW+x7Z94
-	 8WNKrS428KqzzStpRwilqSkZfn40llCykYhSGIwgVlaOfVayCsutNJXbnoovyoMsY6g==
+	t=1793585584;
+	b=Z/KuDVaZGqYY8EI2imSc05tLAL0GljW3DkDEuoi/wS1saZR4q4CUOn/q5hDAApaLlXKi
+	 6Qkws+ib2zFVXNjBJ59eckDAotQRHrauK6a2fT7vm7pLf/nLiQyeCfmPoHqZXKGklJ7m+
+	 9GgEQVU11XT3q3r3St6poLZLPG4UDVQanPS+2R3pIamUkHU1+ffXJNpTejPiGfai8S+79
+	 eeXh2heMS62rr/wF8wRBLmdjGvMuzK9SkQf3ArclCfFsSxMtrukT19QzQZM2CiN0cFYQr
+	 AK/dza0lYhNgNj7ZAH3frEaEaobV5mcE+bdNflxWNRvIr5nhaPHY1Ne1vBjPR1bwY7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585602;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=yvz+MvufKgYbwZrvLEKvrENqTO+kH2u2+d8MLeEiziI=;
-	b=47nBEXN5IXwr/nsRPyDb8kjJGFQXcAxvbeBTVzbPDKzE06EdoGvcq/dupw0lonWzpt7S
-	 DnpThUXTeaWegNPDBlQGYWQBIwq9mA1UoXXT3gSxwyrDPPjSqpGT+l34OYVDN5IWIfYHK
-	 wKt++M7sLWpWEhTnaA9BSRp4QfOZytfXylA9HLZ1+2NIn09j0JQhENOGnekWyJOQ00frl
-	 5xyuFls8CgnP/u7gcJKw2m6knLsQdGUiTX2OUxYIri1n7XzttDdWJeMcxhzoqmDbuBM6D
-	 NdU3Wye3Qv/FRlunhQr0q++UMJ/NTgHWJ/lepbc0L5SfbPSvRaxOH5PwV9oglLZyfiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585584;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=TkvIJtT2uYGtfsA/9mgNPYvW+4raY7xxarpE4GskwG4=;
+	b=A7hwYP3S0Q+nzfVXlQdmZN2ojNyj9FFxS6lyKnVDLVGZos0ZST6w+rl/FJQMy199w9JX
+	 XeWOFLUhVAO1uhrYzaKMzOW4gJIoCsI7JvqDFp/q8JkFp4hWCdaHkVOK2vYbW0z0i1/Qw
+	 EwMtt95FKCeVzXxhR37jkA8BdoKYd3G9yD/+kwWovfICWJfezjKs5VinZ9xVPRImPB/kg
+	 PV84zz8xlBq9y3FTG1fDaaiNWAU3U4nUJHS+tnco01ot94lEX+MddEVeaZBG32e9eKItR
+	 pe1O0ggrB//UP/nhl7uYOiTqfMM36NWb2qaFZdWvitW8K3/x1vxZRM4d566+zIbF/WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.50
-Received: from mta1.migadu.com (out-50.mta1.migadu.com [95.215.58.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpH+uFkT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A9560A2602
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:13:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95A9560A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Kh1L9N4J0VwonxvRmIWkE389mycuzqTwy4u3dSvyNpo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793585599; v=1; x=1794190399;
- b=Zw2xFXWLjx47d25BX2FbVziM4ibfWj7pIjYmQrxrfL95ItYGXRscMVkixzrOfWc29apRYbAG
- Qe0VMc3L1HjzEAeb3kSSDGBUhFoJ1qGBO+Fseb/FwKQNUvXmOOfzkFZxGMd2Oa3MsbpQ+b4QsWH
- vlE+TZJj2eiLAlHcHWshlOBo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id d3db1ab78c0e22d4;
-	Mon, 02 Nov 2026 02:13:19 +0000
-X-Mizu-Trace-ID: d3db1ab78c0e22d4
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 2 Nov 2026 10:13:12 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Barry Song <baohua@kernel.org>
-Cc: Ridong Chen <ridong.chen@linux.dev>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B7F60A260D;
+	Mon,  2 Nov 2026 02:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpH+uFkT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695711F00A21;
+	Mon,  2 Nov 2026 02:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793585583;
+	bh=TkvIJtT2uYGtfsA/9mgNPYvW+4raY7xxarpE4GskwG4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lpH+uFkTQZFHTxIMxofFzG+AROrhUVNLOExV6ySbiMHI24I7Y060fxAfg+HZ2inkC
+	 Ba3BGA6FbhitxRQvhDptUgrWBZuVHH6EkOGt4oLu5Zr3uVBs1VTz0aROT/4O59nkD2
+	 a9vRwkLtdFahndvcZ0SGpEFqTitzz8RDSwmgaCyxOq2QcCTX2R/uCMLU9GJU7PgIXR
+	 ttMgq7pxEgMDwVKcbS5POWsck/TF8esO1TkXlx7Orcpp3q3Sltz2z8OH+g3aGdGZq5
+	 eCVVITT1pI4LRKHYenL0Ft4sQtODz7p6UPyWiMf5IAhqT7JlfeaJY830rW1M4on/Av
+	 Q0KnQgoxmfYAA==
+From: Sasha Levin <sashal@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Dave Chinner <david@fromorbit.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: Re: [PATCH v5 6/6] mm/mglru: add tracepoint for inc_max_seq()
-Message-ID: <aufxuOaKZWMYqEQi@bogon>
-References: <20261031090041.58574-1-ridong.chen@linux.dev>
- <20261031090041.58574-7-ridong.chen@linux.dev>
- <CAGsJ_4zUbkFXBhAesVV74-Ndga5f6xEbestK7Qinqddip8xBrw@mail.gmail.com>
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: [PATCH v3 3/7] perf build: Add MINIMAL=1 to build without optional features
+Date: Sun,  1 Nov 2026 21:12:49 -0500
+Message-ID: <20261102021253.2545235-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261102021253.2545235-1-sashal@kernel.org>
+References: <20261102021253.2545235-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,121 +77,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4zUbkFXBhAesVV74-Ndga5f6xEbestK7Qinqddip8xBrw@mail.gmail.com>
 
-On 11/01/26 at 05:21am, Barry Song wrote:
-> On Sat, Oct 31, 2026 at 5:02 PM Ridong Chen <ridong.chen@linux.dev> wrote:
-> >
-> > From: Ridong Chen <chenridong@xiaomi.com>
-> >
-> > Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
-> > youngest generation. There is currently no tracepoint on this path, so
-> > the moment a new generation is created, and how the min_seq of each type
-> > trails behind it, cannot be observed as it happens.
-> >
-> > Add mm_mglru_inc_max_seq, emitted right after max_seq is bumped while
-> > the lruvec lock is still held, with the node id, memcg id, the new
-> > max_seq, the anon and file min_seq, and the number of pages in each
-> > generation for both types, summed over zones and clamped to >= 0 the
-> > same way the debugfs lru_gen file reports them. The nr_anon/nr_file
-> > arrays are indexed by generation slot, so the emitted max_seq/min_seq
-> > say which slot holds which seq. They are printed with __print_array(),
-> > so the output is hex and its length follows MAX_NR_GENS automatically.
-> >
-> > Only the lruvec is passed in; all of the above is collected in
-> > TP_fast_assign(), so inc_max_seq() does no extra work when the event is
-> > disabled. Paired with mm_mglru_scan_folios it makes the full
-> > aging-to-eviction window observable per memcg.
-> >
-> > Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> > ---
-> >  mm/trace_vmscan.h | 47 +++++++++++++++++++++++++++++++++++++++++++++++
-> >  mm/vmscan.c       |  2 ++
-> >  2 files changed, 49 insertions(+)
-> >
-> > diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
-> > index 8148b8224422..cddf42b5849a 100644
-> > --- a/mm/trace_vmscan.h
-> > +++ b/mm/trace_vmscan.h
-> > @@ -456,6 +456,53 @@ TRACE_EVENT(mm_mglru_scan_folios,
-> >                 __entry->min_seq)
-> >  );
-> >
-> > +TRACE_EVENT(mm_mglru_inc_max_seq,
-> > +
-> > +       TP_PROTO(struct lruvec *lruvec),
-> > +
-> > +       TP_ARGS(lruvec),
-> > +
-> > +       TP_STRUCT__entry(
-> > +               __field(u64, memcg_id)
-> > +               __field(unsigned long, max_seq)
-> > +               __field(unsigned long, anon_min_seq)
-> > +               __field(unsigned long, file_min_seq)
-> > +               __array(unsigned long, nr_anon, MAX_NR_GENS)
-> > +               __array(unsigned long, nr_file, MAX_NR_GENS)
-> > +               __field(int, nid)
-> > +       ),
-> > +
-> > +       TP_fast_assign(
-> > +               struct lru_gen_folio *lrugen = &lruvec->lrugen;
-> > +               int gen, zone;
-> > +
-> > +               __entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
-> > +               __entry->max_seq = lrugen->max_seq;
-> > +               __entry->anon_min_seq = lrugen->min_seq[LRU_GEN_ANON];
-> > +               __entry->file_min_seq = lrugen->min_seq[LRU_GEN_FILE];
-> > +               /* summed over zones and clamped to >= 0, as debugfs lru_gen does */
-> > +               for (gen = 0; gen < MAX_NR_GENS; gen++) {
-> > +                       __entry->nr_anon[gen] = 0;
-> > +                       __entry->nr_file[gen] = 0;
-> > +                       for (zone = 0; zone < MAX_NR_ZONES; zone++) {
-> > +                               __entry->nr_anon[gen] +=
-> > +                                       max(lrugen->nr_pages[gen][LRU_GEN_ANON][zone], 0L);
-> > +                               __entry->nr_file[gen] +=
-> > +                                       max(lrugen->nr_pages[gen][LRU_GEN_FILE][zone], 0L);
-> > +                       }
-> > +               }
-> 
-> I feel this is wrong. Can we calculate the newest and
-> oldest generations from seq, then print them in order
-> from newest to oldest?
+Turning off every optional feature takes a long list of NO_* variables,
+and the list has to follow features as they are added and renamed. The
+one in tests/make for make_minimal has fallen behind: it leaves
+libtraceevent, jevents, slang, AIO, LZMA, zlib, libLLVM and Rust to be
+detected, so a make_minimal build still needs libtraceevent and python.
 
-Agree, from newest to oldest or oldest to newest makes it clearer.
+Add MINIMAL=1, which turns off every optional feature, the BPF
+skeletons, and the shellcheck, mypy and pylint runs. perf then builds,
+natively or cross, with no library beyond the C library and without
+python, pkg-config, clang or rustc, and the result does not depend on
+what is installed on the build machine.
 
-Printing from lrugen->max_seq - MAX_NR_GENS + 1, or from MAX_NR_GENS,
-both looks good.
+A MINIMAL=1 build also leaves out the notices that post unwind and
+python support are disabled, which it asked for, and the one about the
+pkg-config search path for cross builds, as pkg-config is not needed
+then.
 
-> 
-> The nr_pages[] array isn't ordered from newest to
-> oldest or vice versa, as we have:
-> 
-> static inline int lru_gen_from_seq(unsigned long seq)
-> {
->         return seq % MAX_NR_GENS;
-> }
-> 
-> And I added a helper here:
-> https://lore.kernel.org/linux-mm/20261022220203.91911-11-baohua@kernel.org/
-> 
-> +static inline unsigned long lruvec_gen_size(struct lru_gen_folio *lrugen,
-> + int type, unsigned long seq)
-> +{
-> +     int gen = lru_gen_from_seq(seq);
-> +     unsigned long size = 0;
-> +
-> +     for (int zone = 0; zone < MAX_NR_ZONES; zone++)
-> +          size += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
-> +     return size;
-> +}
-> 
-> Maybe you could port it here as a separate patch so it
-> can land earlier as part of your tracepoints series. We
-> could then use it in the next version of the swappiness
-> series.
-> 
-> Best,
-> Barry
+It is handled in Makefile.perf rather than Makefile.config, as
+Makefile.config is included after the pkg-config, shellcheck, mypy and
+pylint setup.
+
+Use it for make_minimal in tests/make.
+
+Suggested-by: Ian Rogers <irogers@google.com>
+Link: https://lore.kernel.org/r/CAP-5=fWFY-tpJz2vcBZvurwdZY5gwd8cuTemE9q1rtZ0Vi0dng@mail.gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Acked-by: Namhyung Kim <namhyung@kernel.org>
+Acked-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+---
+ tools/perf/Makefile.config |  8 ++++++--
+ tools/perf/Makefile.perf   | 42 ++++++++++++++++++++++++++++++++++++--
+ tools/perf/tests/make      |  8 +-------
+ 3 files changed, 47 insertions(+), 11 deletions(-)
+
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index b4764f69f47f4..4af7934887539 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -753,7 +753,9 @@ dwarf-post-unwind-text := BUG
+ # setup DWARF post unwinder
+ ifdef NO_LIBUNWIND
+   ifdef NO_LIBDW
+-    $(warning Disabling post unwind, no support found.)
++    ifneq ($(MINIMAL),1)
++      $(warning Disabling post unwind, no support found.)
++    endif
+     dwarf-post-unwind := 0
+   else
+     dwarf-post-unwind-text := libdw
+@@ -828,7 +830,9 @@ endif
+ 
+ PYTHON_EXTENSION_SUFFIX := '.so'
+ ifdef NO_PYTHON_MODULE
+-  $(call disable-python,Python support disabled by user)
++  ifneq ($(MINIMAL),1)
++    $(call disable-python,Python support disabled by user)
++  endif
+ else
+ 
+   ifndef PYTHON
+diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
+index b74b534e1153f..c178c3976d154 100644
+--- a/tools/perf/Makefile.perf
++++ b/tools/perf/Makefile.perf
+@@ -129,6 +129,9 @@ include ../scripts/utilities.mak
+ # Define NO_MYPY if you do not want to run mypy during build
+ #
+ # Define NO_PYLINT if you do not want to run pylint during build
++#
++# Define MINIMAL=1 to build without any optional feature, needing only a C
++# compiler and library, flex and bison
+ 
+ # As per kernel Makefile, avoid funny character set dependencies
+ unexport LC_ALL
+@@ -174,6 +177,39 @@ endef
+ 
+ LD += $(EXTRA_LDFLAGS)
+ 
++# MINIMAL=1 is handled here rather than in Makefile.config, which is included
++# after the pkg-config, shellcheck, mypy and pylint setup below
++ifeq ($(MINIMAL),1)
++  NO_LIBELF := 1
++  NO_LIBDW := 1
++  NO_LIBTRACEEVENT := 1
++  NO_JEVENTS := 1
++  NO_PYTHON_MODULE := 1
++  NO_LIBBPF := 1
++  BUILD_BPF_SKEL := 0
++  NO_SLANG := 1
++  NO_DEMANGLE := 1
++  NO_BACKTRACE := 1
++  NO_AIO := 1
++  NO_ZLIB := 1
++  NO_LZMA := 1
++  NO_LIBZSTD := 1
++  NO_LIBNUMA := 1
++  NO_LIBLLVM := 1
++  NO_CAPSTONE := 1
++  NO_LIBPFM4 := 1
++  NO_LIBDEBUGINFOD := 1
++  NO_BABELTRACE2 := 1
++  NO_SDT := 1
++  NO_JVMTI := 1
++  NO_RUST := 1
++  NO_PERF_READ_VDSO32 := 1
++  NO_PERF_READ_VDSOX32 := 1
++  NO_SHELLCHECK := 1
++  NO_MYPY := 1
++  NO_PYLINT := 1
++endif
++
+ # Some distros provide the command $(CROSS_COMPILE)pkg-config for
+ # searching packges installed with Multiarch. Use it for cross
+ # compilation if it is existed.
+@@ -195,8 +231,10 @@ else
+       PKG_CONFIG_LIBDIR := $(PKG_CONFIG_LIBDIR):/usr/local/share/pkgconfig/
+       PKG_CONFIG_LIBDIR := $(PKG_CONFIG_LIBDIR):/usr/share/pkgconfig/
+       export PKG_CONFIG_LIBDIR
+-      $(warning Missing PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH and PKG_CONFIG_SYSROOT_DIR for cross compilation,)
+-      $(warning set PKG_CONFIG_LIBDIR for using Multiarch libs.)
++      ifneq ($(MINIMAL),1)
++        $(warning Missing PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH and PKG_CONFIG_SYSROOT_DIR for cross compilation,)
++        $(warning set PKG_CONFIG_LIBDIR for using Multiarch libs.)
++      endif
+     endif
+   endif
+ endif
+diff --git a/tools/perf/tests/make b/tools/perf/tests/make
+index 7524de5228029..bef5599b95d6f 100644
+--- a/tools/perf/tests/make
++++ b/tools/perf/tests/make
+@@ -119,13 +119,7 @@ make_install_prefix       := install prefix=/tmp/krava
+ make_install_prefix_slash := install prefix=/tmp/krava/
+ make_static         := LDFLAGS=-static NO_PERF_READ_VDSO32=1 NO_PERF_READ_VDSOX32=1 NO_JVMTI=1 NO_LIBTRACEEVENT=1 NO_LIBELF=1
+ 
+-# all the NO_* variable combined
+-make_minimal        := NO_PYTHON_MODULE=1
+-make_minimal        += NO_DEMANGLE=1 NO_LIBELF=1 NO_BACKTRACE=1
+-make_minimal        += NO_LIBNUMA=1 NO_LIBBIONIC=1 NO_LIBDW=1
+-make_minimal        += NO_LIBBPF=1
+-make_minimal        += NO_SDT=1 NO_JVMTI=1 NO_LIBZSTD=1
+-make_minimal        += NO_CAPSTONE=1
++make_minimal        := MINIMAL=1
+ 
+ # binutils 2_42 and newer have bfd_thread_init()
+ new_libbfd := $(shell echo '#include <bfd.h>' | $(CC) -E -x c - | grep bfd_thread_init)
+-- 
+2.53.0
+
