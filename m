@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793583503;
-	b=3oW0/gFdZLzJoqubCRa+SGFAirdH/7Hnzg+k45RF9pZLYPfe8Jr4wqrabNfBc7DswkQ7
-	 yYGGlAYEy38Cl2wD8x5NDQvEx//INKKvbwZzdtDm+66T1YeGKTDCm9CgF92Ux2qgxLVdM
-	 D3+oW0sUA1J0fO2+uh5FfGof+WaOCMKC3pKO2P1kUrSMi5EdrLt2rP57CJvkMWBL7z2eT
-	 LPaS7D3vysYqwg7GmhQpv7v2gU75GUth4bLk4yvzA/B/CD+5PPjm1da21LW9Bpp0AXvFE
-	 512DMuy0v1kCCq2pEBD+0MD4ktdkSQQJr4c1KYgpzXatuUV8AiHv+WmoY3rY/2PEcOA==
+	t=1793583517;
+	b=mZ77rvwWn6n0rThfiDf94fX57yWRJnL0eiwEkwdzBa15vzY0wPWUYg72cffG3Dxu7xn0
+	 Gsbo73seMBlYTEUxvPD9LEKlXN7w9hfRueAjGU5/2IJWIpamIz4gSTH6N2fJTpbRGwnzv
+	 2+RFoh6RMQXEjWEolh3kLXpOl6YPtbds8wac9Wbg0jO6Dn5E2a6HmN2WcezpgAuxLNt7w
+	 i4Np7DPGAYvQDANvtnBCaA7oQJCFHruXxA1bq3pP6MvVLP+GvwIXZp+ojV4KWGtvfmZmx
+	 18nhwyGVUjrLZwPhA1J6GhMQMRNMzhirpfrbRVcdhzvm0VbY0fqr99pU1KdXIydvY5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793583503;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ejtmm5eyowRk0NJhpHMP+57gHs3U6lwOV1L3TPVgTHs=;
-	b=yrk1ISN/Qd5sm8xJICV9rKWJNVwjAVwusIBQxOML4B1FAtGSMxxq8jfsU2NyycKesJyU
-	 rRGF3BfnOueBgfomgB6IS0SoldA2Kn5Hq7Vud7uFd+xRm06T2Fz8tQ9Iarvi0C75EiF1P
-	 bHwbn6cD61nYJc/bSPWEMXfIDHYzVvwOKmW+e/rhGcBmWgEemk1sME5Xg9ts4LWLKUPbe
-	 45FRX1Mhtc2guzALDdUJ28IFRgY8nA7gJ5QTBkiG6kwRtfjrYzYFnPr1L5uFIJpeFyj4b
-	 Svyzm1I3i+THz2eV5ElnnuWrzF5DSgcjNctJ9obXuCbh/J+qdP8Qf+HxrEaPUZlimfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793583517;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=98ogIzUPGu7VLgOlc7jyEjCqxoUMXHaR5mWvZQJYWL8=;
+	b=CqBzqGs3VC1trqd/ei2U3axnbOLhqhENBGJEMCNhKxnPvyjjAl1YPp3C9+b4VhC5E4ie
+	 XoaY3VLMLwRNC4XCaNvFWZ1F+G0E+q6g/tJF4/hAX3rz589+T5n9PKsiQ0TvvcCvCu5aA
+	 ejH/e5N/esmX8pUvCSJMifvYAXQ97/eN5Sj5t1/EtN2yc/yjc7wcXq8xvZoaNMHj2sht5
+	 Uc6js99uq/NKojYOBpUaPUgX48o7+NNdAHlknsr7mi6l83GXXJVwoLFdd9nOSTQxezdID
+	 VANQqIfliBIH61/48lZ6Xc087jFL8Dl5Z9vFIdhM7qGJuYx+VpP/6ZR1P1Wic9pc3fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2fYIna7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BgxRHqvo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975EC606A324;
-	Mon,  2 Nov 2026 01:38:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2464E606A324;
+	Mon,  2 Nov 2026 01:38:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2fYIna7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 669881F000C1;
-	Mon,  2 Nov 2026 01:38:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BgxRHqvo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33661F00919;
+	Mon,  2 Nov 2026 01:38:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793583503;
-	bh=ejtmm5eyowRk0NJhpHMP+57gHs3U6lwOV1L3TPVgTHs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=E2fYIna79grcBl77t8tbB69BarCPSZ0AfvOL3rasGPXT6c2tpL3XiHW9kcWMseWoF
-	 qxb+4mZtGSUvOsHEUXr72/d7pQriUUA8p3+sZzZsQxQwe2LLCdJhTDEmm2PXcGK8fu
-	 wwWczOApAKjg5R4RhtAeMPqrfMn+L8koM9KcQhCOr1XfbBZ71nuAMvoksT2mPmj8uU
-	 XhJX1zNFUcew2314rl3PPZTbt8dynAewR0gBwiDwS8yYl/JuUXy5t8sRF2yfe73Sgt
-	 obKGZO0tHQUe1E978FICJ80vXaN/GJMhE/L36fPYE8cZp0ZXNEQj66AnzGj7CxTRgR
-	 o+dnZWj9CMZ+g==
-From: Brian Masney <masneyb@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Xincheng Ji <jixincheng@ultrarisc.com>
-Cc: Brian Masney <bmasney@redhat.com>, 
- Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jia Wang <wangjia@ultrarisc.com>
-In-Reply-To: <20261014-ultrarisc-clock-fix-v2-1-bd126723a42c@ultrarisc.com>
-References: <20261014-ultrarisc-clock-fix-v2-1-bd126723a42c@ultrarisc.com>
-Subject: Re: [PATCH v2] clk: ultrarisc: Register DP1000 clock provider
- earlier
-Message-Id: <179358348606.348312.17586087081637814068.b4-ty@b4>
-Date: Sun, 01 Nov 2026 20:38:06 -0500
+	s=k20260515; t=1793583517;
+	bh=98ogIzUPGu7VLgOlc7jyEjCqxoUMXHaR5mWvZQJYWL8=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=BgxRHqvont4YB9LXG3eZLOBq3ZiQb0j1cjZxAdkrye2De8wyxLDkF54eNxN/M7dcS
+	 HnW3ia5/CGadudrItMNG2I1Wipk5ZCM2zlrD5CgXTe5x7VfhoVs+mkqzV4XzkUnO2O
+	 8rxHn2IYJ6oMo45GVAZVADPt2OFOQ9axX731uL+6wNalc3aPiYb4Pv7uIMRLQQ4oRU
+	 8MXEt/o+xIO0Gc3HsiaMC/uYGRu7DasomXyF1QdSQJqk9E1mxOeRTIPUfI/LTBKab0
+	 cWoYg+gkCTF2KO0qmTf+Zq8KgReH0iptTuUiDnRXhp63eLWi9d9IHwWBhM8EObTuUM
+	 10KRx37o8Jusg==
+Message-ID: <87d3a118-c6d1-4c8b-b88f-25f54b7418c7@kernel.org>
+Date: Mon, 2 Nov 2026 09:38:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,29 +51,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, lihongbo22@huawei.com, sandeen@redhat.com,
+ linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ zhanxusheng@xiaomi.com,
+ syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] f2fs: free the quota file name that remount drops
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, jaegeuk@kernel.org
+References: <20261030072423.197883-1-zhanxusheng1024@gmail.com>
+ <20261030072423.197883-2-zhanxusheng1024@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261030072423.197883-2-zhanxusheng1024@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-5d8fe
-X-Developer-Signature: v=1; a=openpgp-sha256; l=310; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=r1K3qhN0mIVVuV+DzrLeagjKZ8Hb9d7AJVnd7Dg5PEc=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLKev2xwOnh5vvC3M/tMuFRvrSkLM1ipe/vPquYtkm7x7
- MK/lGKOdpSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjCR9d2MDKs/116as9HhS8+H
- Kwzvr3AnzTzaO+eh6FF9xkNxT73mP+1hZPi/5sYsjgmyErNb0n5lSjBdmPFIsb56klLmfU9xhyX
- 7JTgB
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
+On 10/30/26 15:24, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> Remounting with an empty journalled quota option such as "usrjquota="
+> clears the name, but f2fs_apply_quota_options() overwrites the old
+> string without freeing it, so every such remount leaks it.
+> 
+> Free it after a grace period, as f2fs_show_options() may still be
+> reading it.
+> 
+> Fixes: d18535132523 ("f2fs: separate the options parsing and options checking")
+> Reported-by: syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=6c000dea1a93b4f5905c
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-On Wed, 14 Oct 2026 11:20:12 +0800, Xincheng Ji wrote:
-> clk: ultrarisc: Register DP1000 clock provider earlier
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-Applied, thanks!
-
-[1/1] clk: ultrarisc: Register DP1000 clock provider earlier
-      https://git.kernel.org/clk/linux/c/a2d4a2d2479b
-
-Best regards,
--- 
-Brian Masney <masneyb@kernel.org>
-
+Thanks,
