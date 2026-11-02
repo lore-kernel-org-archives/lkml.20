@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631819;
-	b=OixtwmrnimVRuchd+RraU6v3dS/bpBECUhz3oSmQEYwLPWFsn8XsCzVlSOxHfc3xILLY
-	 qbwMwvZkzrccH0nylv7eGBr/NjsDg2RsWlCzJCsYYlx6ek1f98CMXJ3h/pF5Je8rkgxpO
-	 c+hxV6QpYNHfUV2hCKBk0ZlkY/UVbYn5Q5g8Yu8vYAMU8wOjL1OSkNAdubDHcSwkzi7oQ
-	 SWv8aKulYVZZ8EabpTxgUjhPLm/JOdyGFvEW1wfkxzbUDdF2ZGvU/lC/hi3B0cUNGiZkJ
-	 gKNrABIq4hl2tHW22oJSQkb1my83Es2exNPF1h9811TazTeOQOox7khQl94RyID9gqg==
+	t=1793631813;
+	b=B8ZElZbPydEH9h6kg4m3cvbOiNU7k+bkBIdy2A9nYlI5tzaJddbmLVEcfBMOvBR9MMyV
+	 AtrRUGvultfkBIYw2bhF5caTBc5nODA9rWp7ZsosVPse/yIPkhbp6k3zhXKHvjgvTjKW0
+	 V42vFRUYynPpCd47BWf/I3QCpXgb5TCpPUnMopONIbZX+JSLwz7eGZ2bjCRZ+mUa3iCBf
+	 e9SgiqE/W2EOHi4UTzy0AgTV1GrbTMcLoL03Q4UhlAOF8Dm2CVGVvnSvo2SFbR0aa+YIp
+	 GoOK3KyPLQUfsVO0mBLvhCAp5jDLpAR+UR0LCNcGwbVRgCSnjl5pY4AEWMsKMqr6X7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631819;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=F/vQzTFayyFkCRmqJbg1f47qlyovwSCO1GLJCd5nXcw=;
-	b=g9NgF/OVA97yONUWm12ZNzgEabXWAtIFMPI3uy90T03Zl+rhuvnWwwN7UQvkwe52ilYH
-	 KRZDJmwaV1B8iOaEssBW01oQodDopmSo46XLI+NI82ruWf1YtibqS6XacUoglaN9oQp3g
-	 KTT5Uqh7kHBGKrKQAtvnisWrsSTSFsoYWTF5n/yGJZFkNPDVeYWHNeEVyJB6jzZzGXBG0
-	 uMEhmlzSfnemj59td/j6Ynx/3a1CUaSCQjyAVeK9W5tvidO0ZDdlcyAJ1SCB4iuOx0VrL
-	 UUX83tYpkL4ZB8A+EeHgC8kJXlDydjKu6QYBxXghto7opLn1s3Zb0RZWHrcBTeB5NfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631813;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=3ZxJdgjDA0OfZkHT1nltrt+fZftauqzpRenxqzTVLvE=;
+	b=iC3M+rn3zikFwBvJnG/bZoJgA/aMRVKoyYaI6L3dxOOF1DRatnUlCwo6q+YZnGUA4nwC
+	 xfcYQfoeWGLAwc3Csi88JlbrPUYMGJelo6bsenK+HvlV2W98xGMUamBkEYYaY2b/SB4NQ
+	 vCtM7mZqsTOuC5aGiYEK3ZKtHGVbjoTUlpKqmk/V7V0wsicUwjdQUqYyZJygkZKOazy/F
+	 /BUNiQaV93pioFOyCpeeOvS82uCfcE46N11N6UnklnZmLPB1a21HV+dENfij0Z4Njp6aq
+	 G0X2Q6iyt7C1Mgf9GVmjBrMFNsYjGG3ridXLwkK/Mpk3V3MoW5oGjeMwZUnyWYrcrUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=22zsud3j;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E666099971
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:03:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34E666099971
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QQbdLQCs;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 46D30609994F;
+	Mon,  2 Nov 2026 15:03:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46D30609994F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=22zsud3j
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id NsqRxXMfYLvgbNtZSxhr3N; Mon, 02 Nov 2026 15:03:38 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id NtZRxBtkALr2uNtZRx2MsS; Mon, 02 Nov 2026 15:03:37 +0000
-X-Authority-Analysis: v=2.4 cv=UudjN/wB c=1 sm=1 tr=0 ts=6ae8a64a
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=Bq6zwJu1AAAA:8
- a=QyXUC8HyAAAA:8 a=DlIQwTXsA3Kt32vZTR0A:9 a=CjuIK1q_8ugA:10
- a=KQ6X2bKhxX7Fj2iT9C4S:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=F/vQzTFayyFkCRmqJbg1f47qlyovwSCO1GLJCd5nXcw=; b=22zsud3jyKjuE8iSOkWioVFvS2
-	oPNLzxJBKdep+4vN+CFlmj6Zbz8dUR3FC89euC0/4oRtxMZI2xaFFbHWTojlkBKkxV4aAVBgM4Uru
-	RtP8qmvMhLCBa+C3XAOH8Xx2k/AOIc8PLIfFhTCYzRet4QV7qVpr56BcD00Fo0VpMpJHH7huU0Ge/
-	c3yH1gS1tTeBhzCxU2ZAy/qTOylpS0B2IIyHCiv2v+7oyLX1+EuafcmqSD0zZRyoNTZB4Bv8IQg0z
-	xVLm4jvliPtHDfAuyEg4vHF4MJX+oSVdPWEPXCQQBWCb6doM0kj1wpuZi+dhw4khtl46OHHNHmXuM
-	yW/UJ0PQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54142 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xNtZQ-00000003q96-4333;
-	Mon, 02 Nov 2026 20:33:37 +0530
-Date: Mon, 2 Nov 2026 07:03:36 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Iwona Winiarska <iwona.winiarska@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [PATCH v4 5/6] hwmon: (peci/cputemp) Add support for Granite
- Rapids (GNR)
-Message-ID: <35bba1af-7ed5-41c2-8608-3c81fc823345@roeck-us.net>
-References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
- <20261019114502.55307-6-changhuang.liang@starfivetech.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QQbdLQCs
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1C90D1A2D;
+	Mon,  2 Nov 2026 07:03:29 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7CA1B3F673;
+	Mon,  2 Nov 2026 07:03:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793631812; bh=8i8ugBRaP7hgcxk3uDp+fPMwqwaO4C5du0Yjd4app/8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=QQbdLQCsQgmltl7+Ykkt7ll804V/Mtn/FDbPemPE2r86Hyb8IY4XxVv/2L+q+6k1U
+	 cJMtjqXsbtaYtANFmBATF793gIv7UIlNACyCp3rRx7tNUiBjy5C+yUH8cZX6vdQpaO
+	 YaQrwd8ataTW1eO+S10xGw0jql0G5jjUM+Qi/8zw=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 12/15] KVM: arm64: Derive the VM hardware dirty mode from dirty logging
+Date: Mon,  2 Nov 2026 15:03:26 +0000
+Message-ID: <auimPtktqZ1cwk3-@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260929103655.85107-13-zhengtian10@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-13-zhengtian10@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,43 +91,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019114502.55307-6-changhuang.liang@starfivetech.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xNtZQ-00000003q96-4333
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:54142
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 4
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfP+XrEXNs3or9dCmGk8MDbUTTuLwPsh8D1m/+m3l2tkHD2/ljXdUkRoBc1MY7HE74bwZcXcWPm0c5yRCx60QY/NTTRU3bfHpo60f2If3X0+pZ67ZlWzR
- Sr8RAt/ji1dr1cGDtP02GCxX1bEVsWUajyqyuvDtP4DcKkrc4s7/iC9eMhyZboDfplPLvmdkeskw3LalJ0skaVcS1VJfoiNdxT/qV4zd8UxXRQpsYhGqr9fR
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 04:45:01AM -0700, Changhuang Liang wrote:
-> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver.
+On Tue, Sep 29, 2026 at 06:36:52PM +0800, Tian Zheng wrote:
+> Both HAFDBS and HDBSS flip VTCR_EL2.HD at memslot-update time. Two
+> independent toggles allow an intermediate HDBSS-set/HD-clear state,
+> an illegal combination, and need locking against concurrent updates.
 > 
-> For Granite Rapids, the resolved cores mask must be collected from each
-> compute core. This implementation is relatively complex. Since we do not
-> use the resolved cores information for these CPUs, we can explicitly
-> state in the driver that the core mask is not supported for this model.
+> Replace both with kvm_arch_update_hw_dirty_mode(), a pure function
+> of the static capabilities and the number of logging memslots:
 > 
-> Define new cpu_info structure for GNR with minimum PECI revision 0x42 and
-> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> Reviewed-by: Iwona Winiarska <iwona.winiarska@intel.com>
+>   - logging && HDBSS-capable  -> HD|HA|HDBSS
+>   - logging, no HDBSS         -> off
+>   - !logging && HAFDBS-cap.   -> HD|HA
 
-Applied.
+This last one is gone now, so I guess most of this patch has to be 
+reworked, right?
 
-Thanks,
-Guenter
+Thanks!
+Leo
+
