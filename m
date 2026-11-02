@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793642629;
-	b=pNQnZG7VkIwZkw28XcMItVV0aTQMAvMgfeMPePg9Wi627/lW2ir/Rt0K1sULichlkp/H
-	 3UZqH7A28oG+p5GWogvGzVpf61ZI+wD7v3vo7r8JSVgU7gWqcYVAn7mW3b2FDkR1oSWle
-	 iP2QepGwszfXRmJZ+irYNECdDYhIuACeDQ1XlOrlsGOjCiphbVHiKJbitYo9smq3Ls0vI
-	 EhSJ4gFvPLJ46zx9WNmDe3H4/OgT1QeOwwglo2O0qsuQmXxABK9mOWYSnw1u4wUmKoGrx
-	 ECvlkVdctDU0fkhgHpXmTHzeJcBUo4CtDmYkfMtKrBOdQ4aaz9ny1PbIpAIg9SZrU6A==
+	t=1793642632;
+	b=AZIk/+taIoj1VhOtLFrrvnzQ9RlRhL5K4KX8nth+ev3W/jLjUHR89SGWa93a1Rx9LkSf
+	 XW6cWaN/03F0+AGfo5/C9cC28MXnxqBpqS9qH/BawEbf0RYTq3hAH3IXNGCCzc+GtGZ4H
+	 tXWswZuCDw2HbMDp7nMNbKzrKHnh+312ySPmokKrcUZw2GmcjSmOhFQBGG0FAIpM3eaZ2
+	 9Kgv1wbQStZTG4X1mTuGfNtO7aK1kcZ4g5DAUKUrfqjOItbMrRjWaSaZXlpiwQFGRbcL5
+	 ANBoYxDHjdx6msUWEGnVSZbICO1xX3fp1shY1GU8/iG2EOM3rlehU3D5AwDg2zw5vnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642629;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793642632;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=mPPK6xid48pnQ++z3sYITqKhAutHo28UVT7NKYvIdjo=;
-	b=Gbjtp5Pn11gcVlnG05p2ybOp+YtpFWXZBpJOvqAxeviTcgPvuvlMHlF2X6f1IjADCgIg
-	 Vc4PdNB3c7m824WC5iqS9WX0dV02UOs7Mx8FKbrClcwT0YbPy9BXKCZUvWfWjqejU0/Mf
-	 bp7nQ3gzrbAUPM83rmOcD2I0i5WwHtzmh+bZxrhsrZ36m5SnH2d1bCO2aCL1vRTNzIWTz
-	 FrsEmu2Xz4+2cTNtK1OZ/p6a8iiVxt9BXx8Zw/2iyWU9XrL9OOXIG/z2O9URUNFpQY5tq
-	 Y6yGwyf8WbCwgaHczqQ5ovK2ya+uWBHxMGPiD6AWYjrpOoNKBbvo3YUwoUZG5Ez4SQw==
+	bh=WV+7n2rOz+MebmNFmGWu4EOMGPpGEuN6WHQVAUvB6IE=;
+	b=wXiC1WcYhwGNTy/7IdmXB3dtpb6iS1aFNsOsv8iiJLJ86b6Wiut/IApSSCQRvGBR3uaB
+	 0HRzsxaqa4uRbJdDwoMvD4EaorvZL/3NDkN6XHERpJWnbHlSIUsOyelkMSafqPUJQt1uE
+	 Zyo9RQIIYtZoeCgjJ6572TpXaYGnPaRULeFtBa47niklQSLEvFBQuK3gWhs4OW43YgwIr
+	 XptSCcZIOlo9Arx/UF1OZcHS1HbxeLn4DJ2sTOlYIJf2NHnEmdZhQNK9+tac+iJicYHvR
+	 wH/AB0dRcxwjQ/hrjLN5AQv3y9TB8hGSUyI4TOV53lblOexifO+dDkNW3MMEJ4GIaTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AThth0pH;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BHCsgsZM;
 	arc=none smtp.remote-ip=198.175.65.9
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A49606A32D;
-	Mon,  2 Nov 2026 18:03:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81A49606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE00F606B0EB;
+	Mon,  2 Nov 2026 18:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE00F606B0EB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AThth0pH
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BHCsgsZM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793642629; x=1825178629;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=biBNGKoBWQIyux7Qbv679Scb4dfJzP+dQzXjOob7PFE=;
-  b=AThth0pHGarO3tT6X2Hc4UPepAYMCzcD2jBQcZyyOwoaMJjQjHuK31S9
-   jGmRE3RPE1TpP7vaUGXX5luwJ5exXPM3EEyu+YMtScy3jzrCLW/JGjbl7
-   DDPxqmHTOWEM5HJPPzHZlCmp3qExbjuxTNRTK3Htbdj1dSLwgEcUf+gfj
-   tSuQTQ1NeYP/SXLGn8BdU4ee3bfjoYImq7XLFyVCAqXL/mzDHBmDjCn0h
-   egYh7RbTPVoFCw9TGjJ6ygvNpaWnfT2ziFOD1vfrsGqeHnQFMm75gPCo8
-   ziu4dIUAadi+Scwj3Y68hDkzSu7+swJCH2oiPUxiQS/fm+VdO5gyhOVK2
-   A==;
-X-CSE-ConnectionGUID: csAb9tEoTX2AqTGSxfZAwQ==
-X-CSE-MsgGUID: gmXh9tr0TNOyn3TiiEIaNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2235459"
+  t=1793642631; x=1825178631;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=pOYJBCdaR0JhfV/R9cKlKMJS80363+m+CUbH3ueWPSA=;
+  b=BHCsgsZM1XW9BfwU35sU2E8dIOvDgut5TQ0dMpm9V1lTD/nCbHVFLOy3
+   lbkWnNkAi7cpqeXRBR5kcwm8TdhPArra+6d2TgK/eZytAMVywRCZQdY9A
+   aJU/NN8Z4076cs0f9+bYx7BSL9af6+juUshREn5PcsCcJJ+Tw9yAyBh3z
+   72ARZSydhpsY0hTyFRJO8U4g4bX1RxytQhtwpgxndPQ4KYek7/1GPDMUB
+   6NEHC/9zV3tFx0X0HlR6+MKHVeE/Fc/Z5v518R2STpgOJNzJky2kJXM7j
+   zJAYI+9mlqmSpWfqdvtV9I45OvW7Di4sabiTcCVCXZmXe7+jdhyGXGfr7
+   g==;
+X-CSE-ConnectionGUID: GRI6Im/OTfiad/r+GSI8fQ==
+X-CSE-MsgGUID: RHf6GYSPTCmjD9gXAyzL6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2235474"
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2235459"
+   d="scan'208";a="2235474"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 10:03:48 -0800
-X-CSE-ConnectionGUID: ocKq/ExzTeO010B1M9piCA==
-X-CSE-MsgGUID: 3nwH10jhRG+7WO9iNY4O1A==
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 10:03:49 -0800
+X-CSE-ConnectionGUID: Fz96oMr+QUmzK4oxsS+0qA==
+X-CSE-MsgGUID: iXszuDNuQ6SBmJhz5b5jDA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6169160"
+   d="scan'208";a="6169183"
 Received: from crojewsk-ctrl.igk.intel.com ([10.237.149.0])
-  by orviesa001.jf.intel.com with ESMTP; 02 Nov 2026 10:03:34 -0800
+  by orviesa001.jf.intel.com with ESMTP; 02 Nov 2026 10:03:43 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: linux-sound@vger.kernel.org
 Cc: broonie@kernel.org,
@@ -72,10 +72,12 @@ Cc: broonie@kernel.org,
 	pierre-louis.bossart@linux.dev,
 	vkoul@kernel.org,
 	Cezary Rojewski <cezary.rojewski@intel.com>
-Subject: [PATCH 0/7] ASoC: Intel: avs: Soundwire support
-Date: Mon,  2 Nov 2026 19:10:35 +0100
-Message-Id: <20261102181042.1922005-1-cezary.rojewski@intel.com>
+Subject: [PATCH 3/7] soundwire: intel: Split PDIs and DAIs initialization
+Date: Mon,  2 Nov 2026 19:10:38 +0100
+Message-Id: <20261102181042.1922005-4-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102181042.1922005-1-cezary.rojewski@intel.com>
+References: <20261102181042.1922005-1-cezary.rojewski@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,87 +87,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The RaptorLake-P and RaptorLake-M based platform used in Automotive area
-do utilize SoundWire for streaming audio.  This patchset brings such
-support to the public domain.
+Not every client of the soundwire-driver needs the secondary
+soc-component and full range of DAIs immediately when initializing the
+device. As function intel_register_dai() does all of that on top of
+initializing PDIs, split it into two logical blocks to accommodate for
+both approaches. In consequence, register_dai() callback becomes
+optional.
 
-If possible, I'd like the changes to go through Mark's tree.
+To keep things in status quo for existing users, update
+intel_link_startup() to call sdw_intel_init_pdis().
 
-As the patchset updates drivers/soundwire, I've decided to strip it off
-any machine-boards and have here just the changes done to the main
-soundwire driver and their user/usage.  Machine boards for RPL-P/M will
-follow in a separate set and do not touch drivers/soundwire stuff.
+Cc: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ drivers/soundwire/intel.c           | 24 +++++++++++++++---------
+ drivers/soundwire/intel.h           |  3 ++-
+ drivers/soundwire/intel_auxdevice.c |  4 ++++
+ 3 files changed, 21 insertions(+), 10 deletions(-)
 
-
-The reasoning behind modyfing the soundwire code:
-
-Typically dai->startup() is responsible for checking if all the required
-resources are available whereas dai->hw_params() is responsible for
-configuring such resources.  Existing code does the PDI assignment and
-its configuration within one function - intel_hw_params().  The logical
-split is not possible.  The change provides functions that represent
-such logical blocks: assign, release and config.  Such division exists
-already for the HDAudio interface, see sound/hda/core/stream.c
-
-For the user i.e.: avs-driver (sound/soc/intel/avs) it also makes the
-code very cohesive - aligns with that's done on the HDAudio side as all
-the HDAudio streams are assignment during dai->startup() and configured
-with dai->hw_params().  
-
-Also, the existing code fetches the PDIs based on pre-defined "dai_id".
-That's not the case for the avs-driver.  It simply asks: "is any PDI
-free?" and assigns it for the substream if one is found.
-No predefining.  Again, this aligns with how HDAudio streaming is done.
-
-avs-driver -only patches follow the three soundwire ones.  First, they
-extend the existing code so it can accommodate SDW interface.  With that
-done, laverage existing PCM code (sound/soc/intel/avs/pcm.c) and
-soundwire-intel to implement DAI operations.
-
-Cezary Rojewski (7):
-  soundwire: intel: Define stubs when library is disabled
-  soundwire: intel: Allow for dynamic assignment of PDIs
-  soundwire: intel: Split PDIs and DAIs initialization
-  ASoC: Intel: avs: Pass irq to dsp_interrupt callback
-  ASoC: Intel: avs: SoundWire support
-  ASoC: Intel: avs: Expose common PCM functions
-  ASoC: Intel: avs: SoundWire PCM BE operations
-
- drivers/soundwire/cadence_master.c    |  64 ++++++
- drivers/soundwire/cadence_master.h    |  24 +--
- drivers/soundwire/intel.c             |  40 +++-
- drivers/soundwire/intel.h             |   3 +-
- drivers/soundwire/intel_auxdevice.c   |   4 +
- include/linux/soundwire/sdw_cadence.h |  35 ++++
- include/linux/soundwire/sdw_intel.h   |  41 ++++
- sound/hda/core/Kconfig                |   2 +-
- sound/hda/core/Makefile               |   3 +
- sound/soc/intel/Kconfig               |   1 +
- sound/soc/intel/avs/Makefile          |   4 +
- sound/soc/intel/avs/apl.c             |   2 +-
- sound/soc/intel/avs/avs.h             |  15 +-
- sound/soc/intel/avs/cnl.c             |  25 ++-
- sound/soc/intel/avs/core.c            |  24 ++-
- sound/soc/intel/avs/loader.c          |   3 +
- sound/soc/intel/avs/messages.h        |   2 +
- sound/soc/intel/avs/mtl.c             |   2 +-
- sound/soc/intel/avs/path.c            |   2 +
- sound/soc/intel/avs/pcm.c             |  42 +---
- sound/soc/intel/avs/pcm.h             |  51 +++++
- sound/soc/intel/avs/pcm_sdw.c         | 276 ++++++++++++++++++++++++++
- sound/soc/intel/avs/registers.h       |   4 +
- sound/soc/intel/avs/skl.c             |   2 +-
- sound/soc/intel/avs/soundwire.c       | 112 +++++++++++
- sound/soc/intel/avs/soundwire.h       |  63 ++++++
- 26 files changed, 765 insertions(+), 81 deletions(-)
- create mode 100644 include/linux/soundwire/sdw_cadence.h
- create mode 100644 sound/soc/intel/avs/pcm_sdw.c
- create mode 100644 sound/soc/intel/avs/soundwire.c
- create mode 100644 sound/soc/intel/avs/soundwire.h
-
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index d53fa3d299bc..708503373183 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -1027,23 +1027,29 @@ static int intel_create_dai(struct sdw_cdns *cdns,
+ 	return 0;
+ }
+ 
++int sdw_intel_init_pdis(struct sdw_intel *sdw)
++{
++	struct sdw_cdns_stream_config config;
++	int ret;
++
++	/* Read the PDI config and initialize cadence PDI */
++	intel_pdi_init(sdw, &config);
++	ret = sdw_cdns_pdi_init(&sdw->cdns, config);
++	if (ret)
++		return ret;
++
++	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pcm);
++	return 0;
++}
++
+ static int intel_register_dai(struct sdw_intel *sdw)
+ {
+ 	struct sdw_cdns_dai_runtime **dai_runtime_array;
+-	struct sdw_cdns_stream_config config;
+ 	struct sdw_cdns *cdns = &sdw->cdns;
+ 	struct sdw_cdns_streams *stream;
+ 	struct snd_soc_dai_driver *dais;
+ 	int num_dai, ret, off = 0;
+ 
+-	/* Read the PDI config and initialize cadence PDI */
+-	intel_pdi_init(sdw, &config);
+-	ret = sdw_cdns_pdi_init(cdns, config);
+-	if (ret)
+-		return ret;
+-
+-	intel_pdi_stream_ch_update(sdw, &sdw->cdns.pcm);
+-
+ 	/* DAIs are created based on total number of PDIs supported */
+ 	num_dai = cdns->pcm.num_pdi;
+ 
+diff --git a/drivers/soundwire/intel.h b/drivers/soundwire/intel.h
+index 7a2e7e73ad63..12416cef8224 100644
+--- a/drivers/soundwire/intel.h
++++ b/drivers/soundwire/intel.h
+@@ -158,7 +158,7 @@ static inline int sdw_intel_register_dai(struct sdw_intel *sdw)
+ {
+ 	if (SDW_INTEL_CHECK_OPS(sdw, register_dai))
+ 		return SDW_INTEL_OPS(sdw, register_dai)(sdw);
+-	return -ENOTSUPP;
++	return 0;
+ }
+ 
+ static inline void sdw_intel_check_clock_stop(struct sdw_intel *sdw)
+@@ -262,6 +262,7 @@ int intel_start_bus_after_reset(struct sdw_intel *sdw);
+ void intel_check_clock_stop(struct sdw_intel *sdw);
+ int intel_start_bus_after_clock_stop(struct sdw_intel *sdw);
+ int intel_stop_bus(struct sdw_intel *sdw, bool clock_stop, bool wake_enable);
++int sdw_intel_init_pdis(struct sdw_intel *sdw);
+ 
+ /* common bank switch routines */
+ int intel_pre_bank_switch(struct sdw_intel *sdw);
+diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
+index 5983fbc5725a..114dadedfa14 100644
+--- a/drivers/soundwire/intel_auxdevice.c
++++ b/drivers/soundwire/intel_auxdevice.c
+@@ -423,6 +423,10 @@ int intel_link_startup(struct auxiliary_device *auxdev)
+ 	if (ret)
+ 		goto err_init;
+ 
++	ret = sdw_intel_init_pdis(sdw);
++	if (ret)
++		goto err_init;
++
+ 	/* Register DAIs */
+ 	ret = sdw_intel_register_dai(sdw);
+ 	if (ret) {
 -- 
 2.34.1
 
