@@ -1,97 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631813;
-	b=Qao3lNCVT6jheKYXtuE1eDsrGvRjS2CLQcSmnwojMo3xTqCE+Ag5ynephxBeNSlefBf7
-	 LXd9HaqQmMqbJFcwmD21GhczTcYkUWCXtsCjHVtQpVihnZwn3z09hWSugZdV0EBectJc6
-	 dT8bcKz5O3aNUrnIwK06rgbKwxxkGc4M0o3CS75Kmn6CzjyyEUtYk+jKDVU1vnExZ3Utq
-	 bWrWje01P7J8FZ8OISqCa1Iz0MobqzICrGrbpx2XXcqknC9ZgaGia9FRgTOSzRWJhhhPw
-	 YBNDnHUtT/dg/CO0nwcEvE43MGekkRQuxrizOkgDGJjgl6Wr75Y70xSFqsb6xrkJqrw==
+	t=1793631812;
+	b=jvuczjW5stPh6f1t2BivJt1nAE5bqswo/r29afOJaPlSE2zeeXfcAhz2ALEJ3zJ5CZFo
+	 A23YaQhzUYd9rJD6w1jKkopOuO2ZJlY8QEjwJS3EJf41iGT1xh2T5veubehw+RSum6/Ii
+	 7bJmRTxaucnoAy8lWR42J1DxxlrW9E7vzOBs0zzwj4WY/by1Go+kzPURxwO/fs/VY+nc+
+	 t7QUTDXE8jbXbz7TOVi0Kz1nc4dppkDR97Xl1A69bWHimdQ65854MrGLV55JbJqjFW1hq
+	 lMrIkeX5D2RvSRF7oIcaLrjtHirbOmeVt1KfJ+hOyfuDzivFqWw4pUNXOyOeu1CA+Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631813;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Ty7plVzP6jvaud7DoUmeGN556MPHdfwG2xwLmx4C47U=;
-	b=VA9KW7tcPniM0dPlToIdN1NPmWWwC0Jqc48y9/P+PAOWRa+i+NU3j6WfIHjTcVqU1NfU
-	 kDJot1sQ+6RnZ1jJS8FILuTWDFtNohmPa1byLlA8LMPkD/crEA8bQ6D+/FKLsvgqKc1en
-	 H9ssw7m1yC4phJznpnswaUnhgDOVPvLhoUvBVqpy64s3ukqsD69GCxLfVKVCoBsHc84J3
-	 oERyHlK5BNIT9y6eL+B0N8EXPwckNppKdUuyXxjrHswwkPrCWB03GgcscIZDkwp7Z1jil
-	 5nLxqwDbcxJ2b6/dNQJ6VPYOPB3piWrdq6glq1642BFxcT/US/wRY60qNnKTiZ9Wq2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631812;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=oVeQwusVcdWt+t2MXjuQ/DhAoQowLCWkhlldD+EM/ro=;
+	b=TAOCg5Do/yxixTJOUb2HD3Ox27ebrpKDukLJ+XXRu6G3iLXrA+P502INe0L1Ze08+KLh
+	 E0e5DhmjFg/k2Hs8DyVjuBLgeaGaz5SurpyXN9zEgcStXthLm9QA+wvpcYyu9VqxcNLOf
+	 ArC3jthfywOtOWMPeEDHkDRToIAxZn8jBoPwqxEr274pJlNOosJ4777YOlSdgRbVJ0nF8
+	 sDoeMuh2G/dLdEiA80R0/snxTodiNCwrSx/mjtRzqX/19wc+IXsTWqgcAq2j9MZi51TeS
+	 Cv+oLPBDvwdGT7ms29HQW3IQdKlrnlZMQgVWIBZC6ouqoMVyZAEu0ZJztR1sfInytKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Rea0vsSj;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWjkcOBN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2365F6099941;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D5C60716C9;
 	Mon,  2 Nov 2026 15:03:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2365F6099941
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Rea0vsSj
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EEAG81949776;
-	Mon, 2 Nov 2026 15:03:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Ty7plV
-	zP6jvaud7DoUmeGN556MPHdfwG2xwLmx4C47U=; b=Rea0vsSjFenbA1EeCH25jI
-	RjotegPxVJ7fmYyRT+tBg2SGwE12PleDgewJ7lgSLOEhiiZwogugwNhqDh+JAyJ1
-	NB6pDzoYsa2QRFjRcmVr73OIR98oIpqJ85cTn+YBiQvUA8FPF/cMjgMa5KS+cZE7
-	wUhNM2WY239cD5k4KXyYA1TU2uLes4fI88cHWHV8FtyvmHup9bzWO3Y3HOjm1PXQ
-	jA//bD0PYtEXMca2XGWo4RJCwhupC3QptYBGqNkfhvQI+ePS8yMtHMtSDylJnPI/
-	I8m158tFcpni4Y1DfWCkpQ656nap1diOtdQwB/09N1zQoHrKlZ0Lyx+lVSRU7w6g
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rd16r1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 15:03:05 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2Dp5CP1004818;
-	Mon, 2 Nov 2026 15:03:05 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hntnpxj7g-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 15:03:05 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2F34dr5505930
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 15:03:04 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 81F0258059;
-	Mon,  2 Nov 2026 15:03:04 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 33BBA58043;
-	Mon,  2 Nov 2026 15:03:03 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.119.18])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  2 Nov 2026 15:03:03 +0000 (GMT)
-Message-ID: <ff1965b1cdaefa0d68b2da6050ebfddbb7b77ec1.camel@linux.ibm.com>
-Subject: Re: [PATCH] ima: initialize the real inode attributes of the iint
- cache
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Cai Xinchen <caixinchen1@huawei.com>, roberto.sassu@huawei.com,
-        dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com,
-        paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
-        amir73il@gmail.com
-Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        lujialin4@huawei.com
-In-Reply-To: <faee04cc-fb04-4e56-bfe4-1eae5b819137@huawei.com>
-References: <20261102024703.816178-1-caixinchen1@huawei.com>
-	 <cb3ef53e2e5c6d74051528c2b9b9c0a294d6c119.camel@linux.ibm.com>
-	 <faee04cc-fb04-4e56-bfe4-1eae5b819137@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 10:03:02 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWjkcOBN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822311F00A1A;
+	Mon,  2 Nov 2026 15:03:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793631812;
+	bh=oVeQwusVcdWt+t2MXjuQ/DhAoQowLCWkhlldD+EM/ro=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=OWjkcOBNjrMUeTufmvVyzLqLuyvTySsw+dhv5IHxs/hieYtMOgOEszSyAJzpSCxpE
+	 ivhlaW3vverSeo9xxXMpCNv4uvFlwTOs2Rxv79ipdQZsAXLlNfjnYXqlikAzK9Rhwj
+	 fbSTM45jfTBK7jdKNJHzSS+yPm+jYE9xinTq6+vQkPrWwGMPkbWnlrXkqvWf+SEGzv
+	 NUr+FGlXFmobxkkYkI8iFyJMqEYyanfGZehuXpsHLl/Q30PMDmV9NESufDJsqM/FXP
+	 RzCWFajSSJkhhGsUeItsbwH1Bh143kv0KKo/cAPN6grVu2VmnCed1H7khCoprygo9o
+	 BRZHUp6nTcKrA==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:01:33 +0100
+Subject: [PATCH RFC 06/22] powerpc/rtas: let procfs copy out reads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,58 +52,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: _NHq7FX3kmrwWPAwX001zhjUKwWrO8n0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1OCBTYWx0ZWRfXwOteJnMCZIb0
- LLBiEieM+9+F2XmhoHdfr5IVHYKO9esk31p0tjvS6cnSgd60wCYUpZ33qDm+X12oowZ6iiJCIx4
- FxY6qXUmGp5Vg2i8BFW3HOf3EnSwPEBumeJoZE7BrQF1i6CaqvgwUOrVySl7NZJ7Zo9Yb4hoHli
- kgoJENatiywLf52N5lQYQTTby1qSmYvRT346wkp8pNPPfcXriNas/o+URBrF6vqtoBkLPqJTm7P
- q6uNaTTknyzC8lGIegxf9smCO5rLMHM2w0vCShuWQ3DH2+wRIUSKuAadsaIvaKfdNu84cte8Y4+
- qDemyGXPynWa7gnfUkT9mRijKQZRs9XVnsrzf03cpZKGKa33QpeCyAUz1U5k+7NwaXA4Vb/9Zms
- OdpKlLBS8vsIwPQZE/fMSWtZij9J4NTVWCzdgc5b4X109Roly3SD++QTqf0lYyN6E8PkTD+qd3d
- Qx5Kno25odQdbivsT3g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1OCBTYWx0ZWRfX3DQvcukzl8OB
- Pl8NNSgM2XVOvlgSV1TCHRSGsWuQKRspVe0q/EZu6ISxPMx/x/NW2L8I9MoWdvxkhAd93RK3NI0
- Ntb2/ex+VlE1rDeIMQ3579VypK3KIeI=
-X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6ae8a62a cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VCljQN5vTxgyfkvg7k0A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: e6gg_4qVH1JgqX4-hhkFqccnlpj6l1Rd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020058
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-arch-v1-6-c9492ab08480@kernel.org>
+References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
 
-On Mon, 2026-11-02 at 20:09 +0800, Cai Xinchen wrote:
-> Hi Mimi. Thanks for review.
->=20
-> I mistakenly used integrity_inode_attrs_store. In the next version, I=20
-> will directly use
-> memset to initialize the real_inode structure.
+Implement ->proc_read_buf() for the error log and the flash files so
+procfs copies what is read to userspace after it unpinned the entry.
 
-Sounds good.
+The error log hands out a record the way it did before, the record is
+consumed before it reaches userspace. A reader that passes a NULL buffer
+now loses a record like one that passed a bad buffer always did, instead
+of getting -EINVAL. The files can be spliced now, like every entry that
+is read through ->read_iter(). Note that a sendfile() from the error log
+into a target that fails or takes less than was read drops the records
+in between, splice_direct_to_actor() rewinds any seekable file like
+that and the error log doesn't hand a record out twice.
 
-> I double checked b836c4d29f27. That commit also added real_ino and=20
-> real_dev to struct integrity_iinit_cache and started reading them in=20
-> process_measurement(). However, iinit_init_always() only reset=20
-> iint->version, leaving real_ino and real_dev stale. After 309e2b775da8,=
-=20
-> these three variables are encapsulated into integrity_inode_attributes.=
-=20
-> Therefore, I believe b836c4d29f27 is the appropriate Fixes tag. If I=20
-> have missed anything, please let me know.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ arch/powerpc/kernel/rtas_flash.c | 24 ++++++++++++------------
+ arch/powerpc/kernel/rtasd.c      | 19 +++++--------------
+ 2 files changed, 17 insertions(+), 26 deletions(-)
 
-Okay.  In terms of backporting, clearing the field using memset() would wor=
-k,
-but still the field name changed.  So it won't apply cleanly.
+diff --git a/arch/powerpc/kernel/rtas_flash.c b/arch/powerpc/kernel/rtas_flash.c
+index 77a4627f2507..5ebaee7683ef 100644
+--- a/arch/powerpc/kernel/rtas_flash.c
++++ b/arch/powerpc/kernel/rtas_flash.c
+@@ -269,7 +269,7 @@ static size_t get_flash_status_msg(int status, char *buf)
+ }
+ 
+ /* Reading the proc file will show status (not the firmware contents) */
+-static ssize_t rtas_flash_read_msg(struct file *file, char __user *buf,
++static ssize_t rtas_flash_read_msg(struct file *file, char *buf,
+ 				   size_t count, loff_t *ppos)
+ {
+ 	struct rtas_update_flash_t *const uf = &rtas_update_flash_data;
+@@ -283,10 +283,10 @@ static ssize_t rtas_flash_read_msg(struct file *file, char __user *buf,
+ 
+ 	/* Read as text message */
+ 	len = get_flash_status_msg(status, msg);
+-	return simple_read_from_buffer(buf, count, ppos, msg, len);
++	return memory_read_from_buffer(buf, count, ppos, msg, len);
+ }
+ 
+-static ssize_t rtas_flash_read_num(struct file *file, char __user *buf,
++static ssize_t rtas_flash_read_num(struct file *file, char *buf,
+ 				   size_t count, loff_t *ppos)
+ {
+ 	struct rtas_update_flash_t *const uf = &rtas_update_flash_data;
+@@ -299,7 +299,7 @@ static ssize_t rtas_flash_read_num(struct file *file, char __user *buf,
+ 
+ 	/* Read as number */
+ 	sprintf(msg, "%d\n", status);
+-	return simple_read_from_buffer(buf, count, ppos, msg, strlen(msg));
++	return memory_read_from_buffer(buf, count, ppos, msg, strlen(msg));
+ }
+ 
+ /* We could be much more efficient here.  But to keep this function
+@@ -370,7 +370,7 @@ static void manage_flash(struct rtas_manage_flash_t *args_buf, unsigned int op)
+ 	args_buf->status = rc;
+ }
+ 
+-static ssize_t manage_flash_read(struct file *file, char __user *buf,
++static ssize_t manage_flash_read(struct file *file, char *buf,
+ 			       size_t count, loff_t *ppos)
+ {
+ 	struct rtas_manage_flash_t *const args_buf = &rtas_manage_flash_data;
+@@ -382,7 +382,7 @@ static ssize_t manage_flash_read(struct file *file, char __user *buf,
+ 	mutex_unlock(&rtas_manage_flash_mutex);
+ 
+ 	msglen = sprintf(msg, "%d\n", status);
+-	return simple_read_from_buffer(buf, count, ppos, msg, msglen);
++	return memory_read_from_buffer(buf, count, ppos, msg, msglen);
+ }
+ 
+ static ssize_t manage_flash_write(struct file *file, char *buf,
+@@ -450,7 +450,7 @@ static int get_validate_flash_msg(struct rtas_validate_flash_t *args_buf,
+ 	return n;
+ }
+ 
+-static ssize_t validate_flash_read(struct file *file, char __user *buf,
++static ssize_t validate_flash_read(struct file *file, char *buf,
+ 			       size_t count, loff_t *ppos)
+ {
+ 	struct rtas_validate_flash_t *const args_buf =
+@@ -462,7 +462,7 @@ static ssize_t validate_flash_read(struct file *file, char __user *buf,
+ 	msglen = get_validate_flash_msg(args_buf, msg, VALIDATE_MSG_LEN);
+ 	mutex_unlock(&rtas_validate_flash_mutex);
+ 
+-	return simple_read_from_buffer(buf, count, ppos, msg, msglen);
++	return memory_read_from_buffer(buf, count, ppos, msg, msglen);
+ }
+ 
+ static ssize_t validate_flash_write(struct file *file, char *buf,
+@@ -623,7 +623,7 @@ static const struct rtas_flash_file rtas_flash_files[] = {
+ 		.handle		= RTAS_FN_IBM_UPDATE_FLASH_64_AND_REBOOT,
+ 		.status		= &rtas_update_flash_data.status,
+ 		.ops.proc_flags	= PROC_ENTRY_SHORT_WRITES,
+-		.ops.proc_read	= rtas_flash_read_msg,
++		.ops.proc_read_buf = rtas_flash_read_msg,
+ 		.ops.proc_write_buf = rtas_flash_write,
+ 		.ops.proc_write_size = RTAS_BLK_SIZE,
+ 		.ops.proc_release = rtas_flash_release,
+@@ -634,7 +634,7 @@ static const struct rtas_flash_file rtas_flash_files[] = {
+ 		.handle		= RTAS_FN_IBM_UPDATE_FLASH_64_AND_REBOOT,
+ 		.status		= &rtas_update_flash_data.status,
+ 		.ops.proc_flags	= PROC_ENTRY_SHORT_WRITES,
+-		.ops.proc_read	= rtas_flash_read_num,
++		.ops.proc_read_buf = rtas_flash_read_num,
+ 		.ops.proc_write_buf = rtas_flash_write,
+ 		.ops.proc_write_size = RTAS_BLK_SIZE,
+ 		.ops.proc_release = rtas_flash_release,
+@@ -645,7 +645,7 @@ static const struct rtas_flash_file rtas_flash_files[] = {
+ 		.handle		= RTAS_FN_IBM_VALIDATE_FLASH_IMAGE,
+ 		.status		= &rtas_validate_flash_data.status,
+ 		.ops.proc_flags	= PROC_ENTRY_SHORT_WRITES,
+-		.ops.proc_read	= validate_flash_read,
++		.ops.proc_read_buf = validate_flash_read,
+ 		.ops.proc_write_buf = validate_flash_write,
+ 		.ops.proc_write_size = VALIDATE_BUF_SIZE,
+ 		.ops.proc_release = validate_flash_release,
+@@ -655,7 +655,7 @@ static const struct rtas_flash_file rtas_flash_files[] = {
+ 		.filename	= "powerpc/rtas/" MANAGE_FLASH_NAME,
+ 		.handle		= RTAS_FN_IBM_MANAGE_FLASH_IMAGE,
+ 		.status		= &rtas_manage_flash_data.status,
+-		.ops.proc_read	= manage_flash_read,
++		.ops.proc_read_buf = manage_flash_read,
+ 		.ops.proc_write_buf = manage_flash_write,
+ 		.ops.proc_lseek	= default_llseek,
+ 	}
+diff --git a/arch/powerpc/kernel/rtasd.c b/arch/powerpc/kernel/rtasd.c
+index dd0df5e164a3..360ed2e30fd5 100644
+--- a/arch/powerpc/kernel/rtasd.c
++++ b/arch/powerpc/kernel/rtasd.c
+@@ -291,26 +291,18 @@ static int rtas_log_release(struct inode * inode, struct file * file)
+  * know that we can safely clear the events in NVRAM.
+  * Next we'll sit and wait for something else to log.
+  */
+-static ssize_t rtas_log_read(struct file * file, char __user * buf,
++static ssize_t rtas_log_read(struct file * file, char * buf,
+ 			 size_t count, loff_t *ppos)
+ {
+ 	int error;
+-	char *tmp;
+ 	unsigned long s;
+ 	unsigned long offset;
+ 
+-	if (!buf || count < rtas_error_log_buffer_max)
++	if (count < rtas_error_log_buffer_max)
+ 		return -EINVAL;
+ 
+ 	count = rtas_error_log_buffer_max;
+ 
+-	if (!access_ok(buf, count))
+-		return -EFAULT;
+-
+-	tmp = kmalloc(count, GFP_KERNEL);
+-	if (!tmp)
+-		return -ENOMEM;
+-
+ 	spin_lock_irqsave(&rtasd_log_lock, s);
+ 
+ 	/* if it's 0, then we know we got the last one (the one in NVRAM) */
+@@ -338,15 +330,14 @@ static ssize_t rtas_log_read(struct file * file, char __user * buf,
+ 	}
+ 
+ 	offset = rtas_error_log_buffer_max * (rtas_log_start & LOG_NUMBER_MASK);
+-	memcpy(tmp, &rtas_log_buf[offset], count);
++	memcpy(buf, &rtas_log_buf[offset], count);
+ 
+ 	rtas_log_start += 1;
+ 	rtas_log_size -= 1;
+ 	spin_unlock_irqrestore(&rtasd_log_lock, s);
+ 
+-	error = copy_to_user(buf, tmp, count) ? -EFAULT : count;
++	error = count;
+ out:
+-	kfree(tmp);
+ 	return error;
+ }
+ 
+@@ -359,7 +350,7 @@ static __poll_t rtas_log_poll(struct file *file, poll_table * wait)
+ }
+ 
+ static const struct proc_ops rtas_log_proc_ops = {
+-	.proc_read	= rtas_log_read,
++	.proc_read_buf	= rtas_log_read,
+ 	.proc_poll	= rtas_log_poll,
+ 	.proc_open	= rtas_log_open,
+ 	.proc_release	= rtas_log_release,
 
-Mimi
+-- 
+2.53.0
+
