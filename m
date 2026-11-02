@@ -1,58 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639827;
-	b=KmsTh2CsObk3yzD5ucqfNyVBRtDHSxwEI0saUIKoAxo55Skal6b0Lc17nGHJvSM1LXDd
-	 wS0vjLF7oH0dBb8yloFpPFQ8blg31ECZPOz3wr565O9iRMHIIEbnXRyW8fAFymiMEbYZe
-	 iIvBM4gDz6rqa8H2jyDT07bW7VUAE/kkPnVVFAohUfFoDT9E2CYff4v6b9qi2nlVdTRvP
-	 RFhiJ7q/sUD/cj89Y9seaLkqVQl3iDjkedwjSguQLbR2FvNv75lari7hm+0s6p7UGtjAi
-	 zNG3joLvwaLD/svAtv94yAL/dStpF3uE8Ku3VEWUvZReSlw5dEudVKkcVws+HmEgi1w==
+	t=1793639828;
+	b=M5AUQSHNQoBL+VyLlKgDzEt59evs4VPxZq0G5ZIRr1hJDMSqFn9VvJgJ0opEK0w0+uBQ
+	 QozkzaD2zGRlR/WgFr5067+lOBbSozupOD5YeopHAGE6IzLyWgDDF9oizT9ygQTM9IdcN
+	 bPvLCxxzwo2MkIO27sVXN3z6t8uCMl0iq0ywqZjXqOqeQK8Mcdgo3f1c39ZfQ6rUN0Yue
+	 k4++mL1rQC6SB1FTDwPZJgBRnXchZ/4NqHXVlWrg6kzD2RgSSi1a1wH69M5HLzkf7wDou
+	 aN8L3yl1EF3dizY2+b/y7R/5IG094orVvWpruhjnQWwvl+pClRI05OcXNH+QqTIRPGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639827;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=dhcI8iXfoBfJ1dGo4txMhr/t00XMqwmFL5pRs3OUOTw=;
-	b=wJGo0151knbXYj0Lu9ifCfJ+2LivTTJnPkWYf+znI2tYQlmP414zBugL1wypRCAEhO+4
-	 iNc4R1RrpVyP4vhNXa41PNCls9pv6PxCuJr/iRUX5/oI5/BG8o7sEAxvxCz4j7vm1tt+U
-	 1pJFR4EY3jifotOtXFYxNd6A+I0CbyOhIMZxMI2pe+FHVuaavNuCqS1mme4A/R6TAGCR+
-	 EYHWuffmfqqWUJExpNjjFQ6GrZW1N6K2W/dI18ijfXrsBBxNCK8n/NF6HJx3lbvvlFm5u
-	 Cxb7zBilFONJqJOs0fnLkQHwJ9yuXwRN28W+v0JJyPv196BBaeryMQhMj4tWnhtPuGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793639828;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=SFahV0/vxBo8Msro1Eu75lAzfkd06yG1u2ac/bBpjVI=;
+	b=pbC+Up7N0vzBJuqfM+2kHsCwRu2KUjYwRNrrMzsO1d3LccVspIH8gVhdf0d4GYxYNCKE
+	 lWDxFGBcIa+7GMhvXColi8II6wR2+JBF+MaT43siZ9SKY9VuYurG1+Q0WqUHfYeBJaWW8
+	 S97M9aottt1bfTYWV9lIqnXqIC3r8aHq663WlpIJozI+YvvrdMZmY7MpWWCLLhhYfAKw7
+	 dkUhkVH2aLm3IgUoyTqcp7zvF9RkUisHDq51zS7j3jMSleB7Qi7v/4UDfk0zPmHIyss9V
+	 SUpHsxH3Uf1yi7XRfMhODRhJgeLj8TS3PrmKHJ0eyQ55T1u3EOtwS0ie+qveI8UcazQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNCMYF+Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e02g4fCQ;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EC0606A926
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6AA606B0DF
 	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:17:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF6AA606B0DF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNCMYF+Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD831F00A16;
-	Mon,  2 Nov 2026 17:17:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793639827;
-	bh=dhcI8iXfoBfJ1dGo4txMhr/t00XMqwmFL5pRs3OUOTw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XNCMYF+QTnLC1C3ozGNL7UkhdATIcQkh7LAYv8aXDSDSoAsqTBNqp1Bb96Tx9UfVi
-	 CqgWpvgplDgN8NXIm0903Ha0fmPruOmDTVeBE922HEQ6DvrRrNc+TX8VAR2dGwihZS
-	 Hy+uoM0gHz/akb4cS8uHJ/NVdEoRxk99dHFBYYejnpB0YyjW4m6aORqQBt820CQQi8
-	 laYoUo1bQhVYZ2XAWc39mTs12fbJNTk//AvIxjr6CNXvl6eBO4RICSyR8ZVDksMFye
-	 vm+JPIZezmCxaGjb5xPOpkcGZVJma7pWsPlnUFHM4BtJo/x0gBjZQRCdFsCHl3Wios
-	 j7d5H/NqeMrxA==
-Date: Mon, 2 Nov 2026 17:17:03 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Alistair Francis <alistair@alistair23.me>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/7] regulator: sy7636a: wait for power good on enable
-Message-ID: <c0dbf6cf-b556-45fc-8935-71cec6fd50b0@sirena.org.uk>
-References: <20261101223125.302001-1-pmazzini@gmail.com>
- <20261101223125.302001-4-pmazzini@gmail.com>
- <179362625591.1990291.13023153378073511078.b4-review@b4>
- <CAAxh=jsmE=vzn_6e9JiVbFcjsH7+-0kf8x=4J7Krufzb5E=9HA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e02g4fCQ
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so20160695e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:17:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793639826; x=1794244626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SFahV0/vxBo8Msro1Eu75lAzfkd06yG1u2ac/bBpjVI=;
+        b=e02g4fCQxkQkLe3YLNorchFbvDGrVQ0zAYrBcmD+d25JC5l7qEzj/rJ0D8uONqKNxM
+         QJSm69L+fzTv2M/y9fziOIOboQE22ZPtQRBsCF1qKffVgCSJHI/4BlluDN1l5IKq6zKc
+         PNXRebCD6dFkDgbrYg6T6J2CVJyAyvnyBQm080Xvx4AjdUb70jOZGRdDlOkNgWwE9q7q
+         v4V00nND/8oh8IV8qrTQMrCqUt1qvBB0oKX8X46dlNNVIz+9SYOSqg8ZB3mv/EAEM+e1
+         uhW73RVZEFVYLZh96+R+yN3RgKbI8p8W8QXXq3uXaMVKaa8u0l0XNP3mBKkdWhT7RnRV
+         lrTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793639826; x=1794244626;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SFahV0/vxBo8Msro1Eu75lAzfkd06yG1u2ac/bBpjVI=;
+        b=sgfJslYgafJ2RplkDoJ0rqk+azoMmeEXTGofNcTY6scq1l5P/siGmmZTeXVNyEr2c8
+         FQjEjovm4ODslccByxe4XhHaNBZDv6b71D879HLMuSRQjdmGgjGYbq83dzb4NhHa5VBI
+         1xuvGl1f+SirDPr4dWoskEgp++Iz0ic0+Hk9WDboT0Q5gbSWmxcWCKVRihOUQ/I+Y15J
+         yJ34FhksWGuY+zja8m7v2xWfa4ue2Hc6hQaQrhzeJRmUoX6PzLLUgpd+Wf1W4arbnuMe
+         vEYwhZ40k468Qj0z0Gljp/xfvHSrvVso4Hxgf00QFYhldFwvr4RbDVXe2L9VyXRH4FF3
+         PP8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ4tXhJ0AhxCve5e7qv1t+YPjRIxa6boypBJl6WlnNMIX/p4WPJfbyTIuy+Y7IWCFBJdi2VJfqmpK9IG0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVWSRsQWsPBN5UuuJzBZQE858tcHYTik1NlJ4tHGTh0NpEhxeV
+	DxnDy/riw79aF5/C1/M0aQHKrE5LIdp0qKzMuT52jOcu/Zm98qdFxGiB
+X-Gm-Gg: AYBFou02YH/a9xmtVRl440qK67O/tudIhjgLwsiJTCmXlWvSRao/51+TWE+fXTcBN8P
+	VG0/3uuv9XFwgGfpaCFW3bnwn6v3X4QLh6NVol5hXMc5slYsIWW5pG0z3iBw6uMgdcCJFRILtM6
+	hYjQCKsaRNnLVMyHt2Dq4XjrlClbtkM0hX9LJBURLpTiLF9M8FN2fMfGAvwFHzQGg6Wj+I36QyG
+	Z1ifjabdhem3JLtnspQlLlAtZJnR1GGO9qLwGNCRa5vkVGdJnOKpPWQls5v+ZbLpaxS7Vl08T44
+	stAxIk4q+pWNar4YdaRcFZj6Jtz1QzbAMsptJmuRjloOGAMhwfkh95pz0qHyL5x1UtLO2QFXy9/
+	C1DS84dHxE1iGwVOnr9ygMP4oI1Yhza0iE4ckpst/VX2bcU+mGUESiMxp+6nYTxK5An34IY2eGD
+	s9kbKMI1JVquR4kcJcQi1R61Ox9VeYxmR278g6l9+x0EPVnXLYErBhCEOhb0DS6UlMjBdYyoBKN
+	7p5blU91anIdyivEpfgT9tjytd6fbKLZIy1i/nArBZo1QEZSZsrHSK4K21+dRt5J0MWHm92GLSz
+	yGy5+nsp1J1zHkozdVZG5/5d4plUFrduURLYOHjid8SFQsaHfKlDgBrAZ1P8LGaH
+X-Received: by 2002:a05:600c:a49:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4ac17ffb2ffmr250686375e9.9.1793639826380;
+        Mon, 02 Nov 2026 09:17:06 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9fafe08sm1311345e9.3.2026.11.02.09.17.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 09:17:06 -0800 (PST)
+Date: Mon, 2 Nov 2026 17:17:04 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, "Rafael J. Wysocki (Intel)"
+ <rafael@kernel.org>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Joe Perches <joe@perches.com>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ users@kernel.org, Federico Vaga <federico.vaga@vaga.pv.it>, Akira Yokosawa
+ <akiyks@gmail.com>, Carlos Bilbao <carlos.bilbao@kernel.org>, Avadhut Naik
+ <avadhut.naik@amd.com>, Alex Shi <alexs@kernel.org>, Yanteng Si
+ <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, Chen-Yu Yeh
+ <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org, Petr Pavlu
+ <petr.pavlu@suse.com>
+Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
+Message-ID: <20261102171704.2911cf20@pumpkin>
+In-Reply-To: <CAMuHMdXe1xxk2ZFJ=yr=7z1DUs3oRNfzHw1Ls1hftcGnmoNwrA@mail.gmail.com>
+References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+	<20261102093206.50b6c9ad@pumpkin>
+	<20261102-smiling-binturong-of-gaiety-f64c1f@meerkat>
+	<CAJZ5v0iOJ1r1OvYhV_KJSnHOJL+oVUrbOXizLk0kbGNiep7a6w@mail.gmail.com>
+	<87a4nrfgjm.fsf@trenco.lwn.net>
+	<20261102150535.6c5689f6@pumpkin>
+	<CAMuHMdXe1xxk2ZFJ=yr=7z1DUs3oRNfzHw1Ls1hftcGnmoNwrA@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,38 +113,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="om8lPdpIwABg6Otq"
-Content-Disposition: inline
-In-Reply-To: <CAAxh=jsmE=vzn_6e9JiVbFcjsH7+-0kf8x=4J7Krufzb5E=9HA@mail.gmail.com>
-X-Cookie: Used with permission.
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 2 Nov 2026 17:24:51 +0100
+Geert Uytterhoeven <geert@linux-m68k.org> wrote:
 
---om8lPdpIwABg6Otq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On Mon, 2 Nov 2026 at 16:49, David Laight <david.laight.linux@gmail.com> wrote:
+> > On Mon, 02 Nov 2026 07:34:37 -0700
+> > Jonathan Corbet <corbet@lwn.net> wrote:  
+> > > "Rafael J. Wysocki (Intel)" <rafael@kernel.org> writes:  
+> > > > So it occurred to me that it might be actually better to stop sending
+> > > > messages directly to LKML subscribers and only make it available for
+> > > > download somewhere and as a Lore archive.
+> > > >
+> > > > Is there really anyone depending on receiving all of the LKML traffic every day?  
+> > >
+> > > * raises hand
+> > >
+> > > Some of us crazy people really do depend on it, yes.  
+> >
+> > I certainly scan it.
+> > It is also useful to have an archived local copy that can be searched.  
+> 
+> Indeed. Sorry to say that, but Gmail web interface search is still
+> much more effective than lore web interface search.
 
-On Mon, Nov 02, 2026 at 05:08:40PM +0000, Pablo Mazzini wrote:
-> Right, I will skip the wait when power good is already high.
+You can't possibly look at lkml on any kind of web mail.
+Although I have setup an smtp server in the last (20 years ago) I'm back
+to the older scheme of doing hourly fetchmail pull from elsewhere.
+(and lkml isn't fetched from this gmail address...)
+I'm currently using claws as an mua, works moderately well apart from a small
+memory leak and its insistence on putting each email in its own file.
+But I can (and have) searched for things 'I know are there somewhere' using grep.
 
-Please don't top post, reply in line with needed context.  This allows
-readers to readily follow the flow of conversation and understand what
-you are talking about and also helps ensure that everything in the
-discussion is being addressed.
+David
 
---om8lPdpIwABg6Otq
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmroxY4ACgkQJNaLcl1U
-h9ArCQf/VMuphXEtXefJsQVtXp7zQAtwZ9SJmwVDMCD69o6wARyfgPb+WlFuDziD
-iwEakl5qcIuWO4U0h5U8XV8qwEBIKD3SewMhumUnyXRKlXL048yTpGlAvm+mlLcD
-5x4DzgrQaejbKKPsyevXUVyo8brhta/XJeuGG4lDVKaw0Z5pgITdi2dbymEyMAWi
-EodDpffW1Rt4T8zLxPN68n9Ch92FA9zy1hXdaNnMR8rfnNtQmqvaeZH8cElYnJqS
-95T6C4hSzQmI26vsIQcBRyGL54ovBZRSkp8U0CX2+MVrPXCjs7tZQNogsy2xxmkx
-6wywGEMCSeFeqsc5BFBdasoOIZC96A==
-=7Z8m
------END PGP SIGNATURE-----
-
---om8lPdpIwABg6Otq--
