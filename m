@@ -1,109 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.230
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626252;
-	b=gkkPZV5cv0mlEUWbvLq3lhMSQGE2pg/H9adz7YSUosKYgAAN9HeNEj91Yh6Nor3bwCwA
-	 Z9oj9aiDkBAY/oQXNZK7b7qDZG/Aoo4AUxbmn+QzOzITjL2bTd22ItqNxfN7OElti0TIk
-	 w8VycMITxPK/v9E5oIjtjTL+J8NGxLKSg4zlE2FQoLSPIthLpFwvC3ewB6SzqRCDOGHqh
-	 inMTA3P2i1C2OmxH5AiBgKvOHfPXnZmEybZdXn/zVAlUMHo34TLid9n7tB013zLj8KqEe
-	 SIqgeZ13vB9t+8wUtTqD72wn3iGHZi/A7s5lUaIeIr2xIM7OJugBzMOrMel0of7gpIg==
+	t=1793626259;
+	b=Ge5oujwSFEYEcMojisaX71EvfbvOYYUCfufwUJTB0tBwaE/g8ZEyg6xQ73jOYszUoHG+
+	 3paGvNvxbpHuFmGei7CJRYRW7IGtrywkkpFe8uHXbvbaJzJhefVRQeDkCLHJ/AvnoUJZy
+	 qw9Db5Qi18j+Fm8VbHlcsLDD+sjIuvqOvvOgfuJLZ4qrPZP74e08iWUjOHuyjfgwi7KeU
+	 TZQIeosZcl2IM1HdaULXNEUHImWKrEQ7OncQHJ+cU4EvjhDVkyRqy2fyHyvNPhNgOQ1Uc
+	 u62fpZYYqUtm7uFkNTJ7rCS4fM3OnKuxoVU/3Sugq/fNJOrWMb/tlsV7iNdGDLOmhtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626252;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xd4Zxt0dW9wnj47lwp9JjLaVdRyyCLyZMnAjVqO7/fo=;
-	b=KZoQqploU3tTN22vjBEukTRK0JX89JaFRYdv+VgUnFr7lLBhlzEh0LBmg6/dQnRPL4l2
-	 5Cm19bT+HP0IQvQi+w7NAlNSKWFVTOkh4hf091ookyAFM16bI2K5XAxVuh+uYaii5xO2a
-	 cxqClWNjyHxi6malZftwrvBWeHnkVrZqo68akSsUKMAgrhVkXi85P+UYGYfcB/MoY2SFe
-	 Ye9ZEe8AZ7iCYmJKMYKIeWT+x/kIe/urrjhx2FuWf4lsvNQSFtPQ0vAiLszPD/lh4P7m5
-	 AckdFsTskGPILRyhQjp2RaxAuXD7g7nU3YeD84a5OoEyEnI9/BDmzxP/7jQZs/s1+aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626259;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=k88wWLlxzRtcrpIpBYaGs2GvFCG5I+LbVM6LZUEshQM=;
+	b=MZ/GICv94iKtbuesl0XE6Xqs3PqPsZFJ5je5DOiMvjM4mWSNckzJ5QBDCmyFXQWasxi9
+	 bNISZz2XyT5hEjmS8UYxZ/UiQzeoUHXUBveRUJgHlFqGobwSwXG8BL9aKvzT13Vy0ne5G
+	 W41tH6gjw5/abxG2VJMArPqqovfYjFk5D7uoYBVYCZiD+Ewnqwqgxpnf+7HOas+voggw+
+	 tI8zRINneAYdhC1LO1DUM7+EA5D9V2ie+TU+aLfioy07xb760fqVLZGJqjwggAosZW8gX
+	 EyolN7LmLsH83sbOqKZmWTEov6lPTsWLxdQTFMKHXSVe+JZiWlUNqUTlraOL0uulZkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PnEnqxrA;
-	arc=none smtp.remote-ip=95.215.58.230
-Received: from mta1.migadu.com (out-230.mta1.migadu.com [95.215.58.230])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgOWsOpJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B52606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:30:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9B52606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD54606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:30:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PnEnqxrA
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=s4yg0ta58nGIz9mkSZjODrgZj5rI7gGZ4K62KqyBrVw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793626249; v=1; x=1794231049;
- b=PnEnqxrAP5VOtUyELIfWq4qwptJNvXCBq4ilsG0BQAgbPgJ8iF1bxQjKQD6v0j4tjlKlYioP
- HE0BVpYXunM2xhA7wUZO+T/S/OVW2fTSPEqktvA2dtQ9d5pv1MREBZglruTkXQYj6r8xawAmpT3
- K5HoqaVw2EB3qpLxPQbDfmZs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 931b8975140fde70;
-	Mon, 02 Nov 2026 13:30:19 +0000
-X-Mizu-Trace-ID: 931b8975140fde70
-X-Migadu-Flow: FLOW_OUT
-From: xu.xin@linux.dev
-To: xu.xin@linux.dev
-Cc: acme@kernel.org,
-	adrian.hunter@intel.com,
-	agordeev@linux.ibm.com,
-	akpm@linux-foundation.org,
-	alexander.shishkin@linux.intel.com,
-	apopple@nvidia.com,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	borntraeger@linux.ibm.com,
-	byungchul@sk.com,
-	chengming.zhou@linux.dev,
-	david@kernel.org,
-	dev.jain@arm.com,
-	gerald.schaefer@linux.ibm.com,
-	gor@linux.ibm.com,
-	gourry@gourry.net,
-	harry@kernel.org,
-	hca@linux.ibm.com,
-	irogers@google.com,
-	james.clark@linaro.org,
-	jannh@google.com,
-	jolsa@kernel.org,
-	joshua.hahnjy@gmail.com,
-	kas@kernel.org,
-	lance.yang@linux.dev,
-	liam@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-s390@vger.kernel.org,
-	ljs@kernel.org,
-	mark.rutland@arm.com,
-	matthew.brost@intel.com,
-	mhiramat@kernel.org,
-	mhocko@suse.com,
-	mingo@redhat.com,
-	namhyung@kernel.org,
-	nico.pache@linux.dev,
-	oleg@redhat.com,
-	peterz@infradead.org,
-	riel@surriel.com,
-	rppt@kernel.org,
-	ryan.roberts@arm.com,
-	surenb@google.com,
-	svens@linux.ibm.com,
-	usama.arif@linux.dev,
-	vbabka@kernel.org,
-	ying.huang@linux.alibaba.com,
-	ziy@nvidia.com,
-	xialonglong2025@163.com
-Subject: [PATCH v2 3/4] mm/ksm: make break_ksm() more scalable
-Date: Mon,  2 Nov 2026 21:29:56 +0800
-Message-Id: <20261102132956.302480-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261102132416.300084-1-xu.xin@linux.dev>
-References: <20261102132416.300084-1-xu.xin@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UgOWsOpJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0D3C1F00A17;
+	Mon,  2 Nov 2026 13:30:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793626259;
+	bh=k88wWLlxzRtcrpIpBYaGs2GvFCG5I+LbVM6LZUEshQM=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=UgOWsOpJM+FLFpy8xfuxrRkh1RB7hbIvUI0zhakntxspcyOPf/pgURiALMezh9UXC
+	 JeDBlUpEx7TeKkxjUP0LSZw7m0glL5fETy9CT76QsIJ9il/YZTJ0UQNeY1H6LVbu+z
+	 NLXniabhIdXwq6U/LtB0JUTXsef/SBvlz2QHslOz8Wd1yXlHiJHh1+RKtjgBWHsvK+
+	 Z1OgIz/UhiqnaulnJyJa9ahfKD2Z+LGaCe3zGnZ7SmwMU3ZnN0nxuDqEzUjN/yEOja
+	 KoTanF9/HnoPvWh78cbC+0vYStW8bT082b84mlSdScIi1zwlP9cxAFSeY7Zuc3dUX1
+	 xUMmqVvzpFIKg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id C7FA8232B38D;
+	Mon, 02 Nov 2026 13:30:56 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,125 +52,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 3/7] regulator: sy7636a: wait for power good on
+ enable
+From: Mark Brown <broonie@kernel.org>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Alistair Francis <alistair@alistair23.me>, 
+ Andreas Kemnade <andreas@kemnade.info>, linux-kernel@vger.kernel.org
+In-Reply-To: <20261101223125.302001-4-pmazzini@gmail.com>
+References: <20261101223125.302001-1-pmazzini@gmail.com>
+ <20261101223125.302001-4-pmazzini@gmail.com>
+Date: Mon, 02 Nov 2026 13:30:55 +0000
+Message-Id: <179362625591.1990291.13023153378073511078.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=933; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=666ZysnzgTMlI+KHcshHlTs4uLKXI0qTlGnJHURLR9A=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeTJhwa85kn+3ql1UvfnN10tsbb91UZKy+Ofs88479x
+ oe3FbdN6ShlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEHE4z/Pd+dOFqzclLq2NX
+ HHddevlg1cuD6wzMOrR5V75NdnjTek6YkaHvj4tYTw5XyE/l0NBHvP9zG+p1I9fuNC1htry19qL
+ WWW4A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Xu Xin <xu.xin@linux.dev>
+> Wait for power good on enable, as the TPS65185 and FP9931 drivers do,
+> so that consumers can use the rails once the enable returns.
 
-break_ksm() currently takes a boolean 'lock_vma' to select between two
-static mm_walk_ops tables.  This is fragile: the ops struct is full of
-function pointers and making it mutable (to switch walk_lock at runtime)
-turns it into a juicy target for attackers.
+> +static int sy7636a_enable(struct regulator_dev *rdev)
+> +{
+> +	struct sy7636a_data *data = dev_get_drvdata(rdev->dev.parent);
+> +	int ret;
+> +
+> +	reinit_completion(&data->pgood_completion);
+> +	ret = regulator_enable_regmap(rdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	wait_for_completion_timeout(&data->pgood_completion,
+> +				    msecs_to_jiffies(PGOOD_TIMEOUT_MSECS));
+> +	ret = gpiod_get_value_cansleep(data->pgood_gpio);
+> +	if (ret <= 0) {
+> +		regulator_disable_regmap(rdev);
+> +		return ret ? ret : -ETIMEDOUT;
+> +	}
+> +
+> +	return 0;
+> +}
 
-Replace the boolean with a KSM-local enum ksm_walk_lock and build the
-mm_walk_ops on the stack, so the table stays const and there is no
-shared mutable state.  This also prepares for the later patch that
-switches break_ksm() to per-VMA read-locking, where a third locking
-mode will be needed.
+One thing here is that if the regulator was already enabled on power up
+we'll get the full delay during startup if the regulator was configured
+as boot on but already enabled.
 
-No functional change intended.
-
-Signed-off-by: Xu Xin <xu.xin@linux.dev>
----
- mm/ksm.c | 42 +++++++++++++++++++++++++++---------------
- 1 file changed, 27 insertions(+), 15 deletions(-)
-
-diff --git a/mm/ksm.c b/mm/ksm.c
-index d4fc0b0965aa..84d363dabdc8 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -661,15 +661,25 @@ static int break_ksm_pmd_entry(pmd_t *pmdp, unsigned long addr, unsigned long en
- 	return found;
- }
- 
--static const struct mm_walk_ops break_ksm_ops = {
--	.pmd_entry = break_ksm_pmd_entry,
--	.walk_lock = PGWALK_RDLOCK,
-+/*
-+ * Locking contexts in which break_ksm() may walk the page tables.
-+ */
-+enum ksm_walk_lock {
-+	/* walk under mmap_read_lock() */
-+	KSM_WALK_MMAP_RDLOCK,
-+	/* walk under mmap_write_lock() */
-+	KSM_WALK_MMAP_WRLOCK,
- };
- 
--static const struct mm_walk_ops break_ksm_lock_vma_ops = {
--	.pmd_entry = break_ksm_pmd_entry,
--	.walk_lock = PGWALK_WRLOCK,
--};
-+static enum page_walk_lock ksm_walk_lock_to_pgwalk(enum ksm_walk_lock lock)
-+{
-+	switch (lock) {
-+	case KSM_WALK_MMAP_WRLOCK:
-+		return PGWALK_WRLOCK;
-+	default:
-+		return PGWALK_RDLOCK;
-+	}
-+}
- 
- /*
-  * Though it's very tempting to unmerge rmap_items from stable tree rather
-@@ -697,17 +707,19 @@ static const struct mm_walk_ops break_ksm_lock_vma_ops = {
-  * protection keys here anyway.
-  */
- static int break_ksm(struct vm_area_struct *vma, unsigned long addr,
--		unsigned long end, bool lock_vma)
-+		unsigned long end, enum ksm_walk_lock walk_lock)
- {
- 	vm_fault_t ret = 0;
--	const struct mm_walk_ops *ops = lock_vma ?
--				&break_ksm_lock_vma_ops : &break_ksm_ops;
-+	struct mm_walk_ops ops = {
-+		.pmd_entry = break_ksm_pmd_entry,
-+		.walk_lock = ksm_walk_lock_to_pgwalk(walk_lock),
-+	};
- 
- 	do {
- 		int ksm_page;
- 
- 		cond_resched();
--		ksm_page = walk_page_range_vma(vma, addr, end, ops, &addr);
-+		ksm_page = walk_page_range_vma(vma, addr, end, &ops, &addr);
- 		if (ksm_page <= 0)
- 			return ksm_page;
- 		ret = handle_mm_fault(vma, addr,
-@@ -809,7 +821,7 @@ static void break_cow(struct ksm_rmap_item *rmap_item)
- 	mmap_read_lock(mm);
- 	vma = find_mergeable_vma(mm, addr);
- 	if (vma)
--		break_ksm(vma, addr, addr + PAGE_SIZE, false);
-+		break_ksm(vma, addr, addr + PAGE_SIZE, KSM_WALK_MMAP_RDLOCK);
- 	mmap_read_unlock(mm);
- }
- 
-@@ -1247,7 +1259,7 @@ static int unmerge_and_remove_all_rmap_items(void)
- 		for_each_vma(vmi, vma) {
- 			if (!(vma->vm_flags & VM_MERGEABLE) || !vma_has_anon_rmap(vma))
- 				continue;
--			err = break_ksm(vma, vma->vm_start, vma->vm_end, false);
-+			err = break_ksm(vma, vma->vm_start, vma->vm_end, KSM_WALK_MMAP_RDLOCK);
- 			if (err)
- 				goto error;
- 		}
-@@ -2896,7 +2908,7 @@ static int __ksm_del_vma(struct vm_area_struct *vma)
- 		return 0;
- 
- 	if (vma_has_anon_rmap(vma)) {
--		err = break_ksm(vma, vma->vm_start, vma->vm_end, true);
-+		err = break_ksm(vma, vma->vm_start, vma->vm_end, KSM_WALK_MMAP_WRLOCK);
- 		if (err)
- 			return err;
- 	}
-@@ -3048,7 +3060,7 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
- 			return 0;		/* just ignore the advice */
- 
- 		if (vma_has_anon_rmap(vma)) {
--			err = break_ksm(vma, start, end, true);
-+			err = break_ksm(vma, start, end, KSM_WALK_MMAP_WRLOCK);
- 			if (err)
- 				return err;
- 		}
 -- 
-2.34.1
-
+Mark Brown <broonie@kernel.org>
