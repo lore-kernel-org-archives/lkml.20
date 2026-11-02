@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636952;
-	b=i56Y4p3KHo8vF5U946wcU9uFkJz4bQmNujJBN78SPPvLLZpvbNw8xK1bE4IPNIFYC4T2
-	 ypjLu2FXLMP5HMAn7bJy/nT5yqXGzAva/Cke1erlUT7cSIBUGP/aq6CzPYYTp+MdrRAQ1
-	 a6meZtfTo8VqSVliuzYjRCV2v/EtGMapx7DvcSgztiZO6HmNPXsdbE6agxcJN6c3MBoQm
-	 lffIJIJReGiN7zvGWGrP5f6ULaYbsjgOSUIT6ftOzGXH7gjFqP0XWPUDqFeMSrgdSVCWc
-	 3vLLEo0Yiq5iZd4ypHpUnYgZna9CtxE1UD8xNH2w9dXkBdW+nIDFKKaPAd73UGOaYAg==
+	t=1793636954;
+	b=eEWCdG8bHbzmADxV0S7CPSsAzoHXPFDfo1VE5/lGhAthqpTijnGqrtw8kubJpZiImDPm
+	 rCN/E/ublLqMSBpJDt82Epwsy3lLby+i0TGOwSMlQbggLA/ad5d5CbXHR6lT/ZFI70V+K
+	 56UC2JsyF4xWY9xur568Wwm10TowMw/dlmlzZCRyM2qfRrPEcqFew//QMsuDNylMWGQ+j
+	 wpWeba/BDVruWO4AGyfyaGxw7lI5qYmHVXTVCcFrWbgePVjH3/2QadEjZaimO4XFqSENo
+	 aemE9n+w/kRwO7ezo8zng0D3hP/PTwvSgEGULzvwsG8OMvPOu9vHlXJLtRQQbdBuU/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636952;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=IOiMng9RZC5ZsHueklZu31oTVbf21Mt0IXmlLvcfDKU=;
-	b=WIkvD8+M8/p4EC6OvjdSU6BAnXohsupHW7irMXe7h3mck6kGOBL4/hRBcwnMEpB4mOcs
-	 /td4e5pEBLJWpWjMHLj9sUgg1ho3WNmvLMhad7H8IHLm+o8Vr2F2fwdfkv2wPmScNmptU
-	 aNDHQa9CzwzeagS11peK2JfkC0SZHX3CfKvh6dEe1YZgM97EJCToZIruycUUCIs5J82E2
-	 oAtr40e7XRUb6M2+ZX8QTUr2p4vb0lGgqJbWX+o/nZXHzsta9+TV2BuiOH4UdTIC93pJd
-	 O6MfCs+kDmwkgTkJL/8k3O/3Dpm6bFJtLaV0FLVyqpmsvH0SNaVH977lDLjUSdZqhGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636954;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=49UzIiAo0VYsR6EXPEJbJmUgWYtE+uEvjPXao/cXtos=;
+	b=DAAOYpPFwQUg6RjEjaQH7M3VIvCRPWjgVEJQl6wJIjQSQuO11vBelP9ew9ybyRSp2zzz
+	 MuWwlTbktHURV0PVuKNk9ddRdNzPWNyVPP0KBalQBLxAK8bnJKjyvmaHk6juneaA6u6Qw
+	 AiuJuycBc58j9L4cAqUMysIHA+gWYP+A/LoLl4C5nbf2w57Mu16jxVnvtZPlTfs0XuEI5
+	 GKE253UzTZ//WGwNiP0FMXDxh2xB0jD1jlrxXyOCnRs8hqb2WFkPpE39YYA/dnO/aiYLY
+	 76VhxjCS2J+OY0+LMpxdlYBEii6UmAzE3U4IPMHNiVAQsiUOJEhpF1mclJMJcdXQWFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jhgj9Hsk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v+fNIhL2;
+	arc=none smtp.remote-ip=74.125.231.74
+Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82522606ABBF
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:29:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7FE6072290
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:29:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE7FE6072290
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jhgj9Hsk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9711F00A21
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:29:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793636952;
-	bh=IOiMng9RZC5ZsHueklZu31oTVbf21Mt0IXmlLvcfDKU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Jhgj9Hsk/pWSW0JNuD8gX/AgK/d+vsH0olhOBy3YqsDBZ9idYURMpqnvEsCav1U6C
-	 QWZAe/Pzj860mO0lbTSotZe3R+0hAZ6cjmDnypZfNBm2xFK93vvSgiNAweLNopRkoX
-	 9j+ORfW0JF2G6hIHU1eFQwgZDY//chJvsYJt91S+0Hkacmo0TXfo+lH1Aw4/zlYQMD
-	 zpgsj0Ric1+KOK1XeMU9Xc2tKo4rexzRCIHN86Ucbr2s2qNqo7Sirj59Ap/xoYCi8f
-	 sMijI6YGlbBe/SCyYwVgJyYYJh5O7AUWMI4pV2/OpM6SgXY0sKqaD9wfdlvBYyJA+h
-	 R4MS4Y2tFa+kw==
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7cccb2c96d0so849587137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:29:12 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwKlMyP3bXWVCweDYCsGrA9bF2mH9A6innl/Ehm6CrUBcEd1DfQe9OHozVDsKe/TWVweT7uPzV1Nbypw8c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/0pL02GDYwADOB2ipQHq4Lvp8uLzrMhmwYa5VSsuRi8RDvtfj1
-	oZiaSQziBZYo8TILQjIBeHlec/1H0sY6HT9S6KWfOQ7b2B6unOeBz99OIwaBfEbLaTFc6GMNWrc
-	3n85vWNTUUbTTqly+R0+Ai680ndaZbr0=
-X-Received: by 2002:a05:6102:50a8:b0:7cc:2bb7:1321 with SMTP id
- ada2fe7eead31-7d072715882mr3923901137.31.1793636951321; Mon, 02 Nov 2026
- 08:29:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v+fNIhL2
+Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-49e545b61f6so904720fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:29:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793636952; x=1794241752; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=49UzIiAo0VYsR6EXPEJbJmUgWYtE+uEvjPXao/cXtos=;
+        b=v+fNIhL2joFNJ2pxaxx6m5yVmCE6m53/MxT1dJKzSETMC1zLCRP52FjoaA0vXx5q6S
+         og3VLfRPF+NKFrooopBMUnnML9S3Buf9sc96wFDNeUDBY18LiVupQ/Mn3+7dgNo9JWjB
+         1s96YtiL+RcUISqDngzzUyQ218ve6r80rOLzXscifWsETLQzEJv6aQ41QaGOVN27B96u
+         kBVHxg7wQL8Yyf6xQ8XZbxvPx8sHxyKxJdncdP1aXOg0xFdXWt6d/jA40fiJyPDW/fHR
+         T36H8meCdmklAluI22oUeLvNvQOrgtfU17pULTM0mXNJtHMbjdj6mQ+1dwkDCK9qXml2
+         L73A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793636952; x=1794241752;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=49UzIiAo0VYsR6EXPEJbJmUgWYtE+uEvjPXao/cXtos=;
+        b=2JWg0snpeoLlkP1+KMegFt3rfiOuwIrdbOFRk+5ZEGo8tXcdIvi2ADryXmsUyB5SbA
+         kBPTrIK189dILNBKrEqeX85MBTIMO3ZCqEUVIznmuLoV6L8gia7ZZ90pGVSIdG38Ymez
+         FbXyo9mn9Kz0axnsjAWLOeGre0yvjaNN8cWT+oXKU7Xb84box33EVyGhDc1eXcf3bcMh
+         +QLpeEQvuhDkidFI+uUSY1N0SPEZf964Mg90XJpbR0QTQoGqVqe0Sbg65CRW/0jAVTH2
+         Ep4X/lJ3g8pqzpgH5JFDIjhVjX9ZgwAxMJayFRdmY1rvJeGnxXY0GJkFiGAd549APIyA
+         gFcw==
+X-Forwarded-Encrypted: i=1; AKwUvBwOuqJHPRTg4+NtICIUeXkHW7Rym+rw3BHsmnrVG+VpqaY5RT3y/9DAUkSDt0CSky5eGSXCTQTyEkX9jBo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ekBI02tpZPoLr25/saDDC6wwQ+GoMxNFjHteKerIpufpiZdvB
+	JUkYNuGvgrE7cbs8+3RG2QCvooKdoTUaqwverbWTtxe17McTnbrSX+GX
+X-Gm-Gg: AYBFou0xyUz7D7WgP5yemTW4qIiEo6+z5Fy2/+ovPLQxHibWkdb5TlJ+KYJUK4FPBGz
+	qEK3H+HkiUGFR1rktxbDIeSnG0nDGPzaZiuZfKcckoDt946tHOFGzmFnSW9TMHKZ+MVkp0HYmxt
+	WxL3ipYeEitxMS715mW+ZCbrr6I0kAYu7pp+58uWXMVYLDNgZ5MQH7f0hYmpJS+RYMjafaaZx2p
+	tzZIVxCTzftKJanOijpzulJ5tuF7SkwWe/sW5CR6me80F5jeLzYOZhBX9f9cRK/rx7Ch4exYYrZ
+	U+zZBogp/2kW6Zz++WoOU14/mamM/hdLWDVB0Oi8XGbTVsVFMzyDQ1x4tBeC/wmi99O8QzIOhRc
+	MTWi3BHfw6ZGJgF7OXhMFxLJR6aqc9aTOWxf0UENXkD/B07UJ+JoNXHMm7W4FTxnSHUxYVN5K55
+	c1nKweVxWS33jdWWxH1ZCiREjtMrp6F8vih+XQOuyH5qWsYocNCCejHReXePYtD4goNCeWrWDJC
+	wTjFMu6lFzy8yyi3gNaW7Ys7xl3sHTSr/cpm9n5atH57GWfMkDpWHuaoAJEuoCNFqjDzuM05NNq
+	ATJ64aHEyVAa6862PL5iTcvCoVzkhIRHpBQiSYMNOWG8bqPjal+C2n8mJIunbDumhAYft2KbcHa
+	eg8pmTFE+AEpMC8ri4oo=
+X-Received: by 2002:a05:6870:2dca:b0:49d:999d:c25a with SMTP id 586e51a60fabf-4a90729b213mr5773692fac.6.1793636952420;
+        Mon, 02 Nov 2026 08:29:12 -0800 (PST)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a9219148cbsm6536719fac.3.2026.11.02.08.29.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 08:29:11 -0800 (PST)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Mon, 02 Nov 2026 10:28:58 -0600
+Subject: [PATCH RESEND] usb: mtu3: fix system suspend in gadget mode after
+ soft disconnect
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,91 +92,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
- <20261030-b4-btrfs-data-integrity-v1-5-f4d4196731e6@toxicpanda.com>
-In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-5-f4d4196731e6@toxicpanda.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Mon, 2 Nov 2026 16:28:35 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H6vCcysZasPMMgLyuCDU2ejCV4PwbEDn_oN-eNdePU_UQ@mail.gmail.com>
-X-Gm-Features: AclHuK_9b2GWogEgG12V-2vwKZf19vf23a3IVQXLAo9Or9iJQQ38_LkwhNYOFCQ
-Message-ID: <CAL3q7H6vCcysZasPMMgLyuCDU2ejCV4PwbEDn_oN-eNdePU_UQ@mail.gmail.com>
-Subject: Re: [PATCH 5/5] btrfs: don't trim the target of a device replace
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
-	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
-	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-rbrue-suez-upstreaming-mtu3-fix-suspend-usb-gadget-mode-v1-1-70a74a392015@gmail.com>
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Fei Shao <fshao@chromium.org>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793636950; l=3537;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=42nYDcBAxNvHgQbbkGEcmz3UGXdz42wPE9jsdKzwvQo=;
+ b=kC0RERhuUqoTk8as12WfjWIGdzHEwAzcXv3BQz1EAmrEV2a2RHogHoPYdNRcJAHP1bpdGIw29
+ IyWH+b4r1bkASVyiHtRjVZPsvygEInH+Vw97GdpHLq7l7zt7e5pSCGg
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-On Fri, Oct 30, 2026 at 2:40=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
-wrote:
->
-> FITRIM also discards the space of every device that is not allocated to a
-> chunk. btrfs_trim_free_extents() goes over fs_devices->devices and, for
-> each device that is writeable, discards the ranges that have neither
-> CHUNK_ALLOCATED nor CHUNK_TRIMMED set in device->alloc_state.
->
-> The target device of a running replace operation is on that list and it i=
-s
-> writeable. But its alloc_state is empty. The allocated ranges of the
-> source device are only copied to it by btrfs_set_target_alloc_state(),
-> when the replace finishes. Until then the whole device looks unallocated,
-> so an fstrim discards everything that was copied to it so far, and what i=
-s
-> being written to it in parallel to the source device.
->
-> The replace finishes without any error and the source device is dropped.
-> With a single device filesystem, 700M of data and fstrim called in a loop
-> while the replace runs:
->
->   BTRFS info: dev_replace from /dev/vdb (devid 1) to /dev/vdc finished
->   BTRFS error: bad tree block start, mirror 1 want 30638080 have 0
->   BTRFS error: bad tree block start, mirror 2 want 30638080 have 0
->   BTRFS info: scrub: not finished on devid 1 with status: -5
->
-> Skip the target device. The flag is cleared with the device list mutex
-> held, after the alloc_state was set up, and the trimming code holds that
-> mutex while it works on a device.
->
-> Fixes: 499f377f49f0 ("btrfs: iterate over unused chunk space in FITRIM")
-> CC: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+ssusb_gadget_suspend() removes the D+ pullup for system suspend by calling
+mtu3_dev_on_off(mtu, 0) directly. That writes the hardware SOFT_CONN bit
+but leaves mtu->softconnect alone, deliberately: ssusb_gadget_resume()
+needs it to decide whether to pull up again.
 
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
+wait_for_ip_sleep() then asks ssusb_gadget_ip_sleep_check() whether the IP
+can sleep, and that function tests mtu->softconnect -- the gadget's intent
+rather than the state of the pin. So it answers "pulled up, the IP can
+sleep" for a device that was just disconnected, and the poll for
+SSUSB_IP_SLEEP_STS runs to its 100 ms timeout:
 
-Looks good, thanks.
+  mtu3 11271000.usb: gadget (high-speed) pullup D-
+  mtu3 11271000.usb: ip sleep failed!!!
+  mtu3 11271000.usb: gadget (high-speed) pullup D+
+  mtu3 11271000.usb: PM: dpm_run_callback(): mtu3_suspend returns -16
+  PM: Some devices failed to suspend, or early wake event detected
 
-> ---
->  fs/btrfs/extent-tree.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-> index 9b0a5c6b96f3..22155507f905 100644
-> --- a/fs/btrfs/extent-tree.c
-> +++ b/fs/btrfs/extent-tree.c
-> @@ -6641,6 +6641,14 @@ static int btrfs_trim_free_extents_throttle(struct=
- btrfs_device *device,
->         if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state) || !=
-device->bdev)
->                 return 0;
->
-> +       /*
-> +        * The target of a running device replace has nothing in its allo=
-c_state
-> +        * until the replace finishes, all of it would look unallocated a=
-nd we
-> +        * would discard what was already copied to it.
-> +        */
-> +       if (test_bit(BTRFS_DEV_STATE_REPLACE_TGT, &device->dev_state))
-> +               return 0;
-> +
->         /* Discard not supported =3D nothing to do. */
->         if (!bdev_max_discard_sectors(device->bdev))
->                 return 0;
->
-> --
-> 2.55.0
->
->
+and the suspend fails. The rule the hardware follows is stated in that
+same function: the IP cannot sleep while D+ is not pulled up.
+
+On an MT8173 tablet (Amazon Fire HD 10 2017, dr_mode = "peripheral") this
+makes system suspend impossible whenever VBUS is present, which on a board
+whose only USB port is also its charging input means whenever it is
+charging. Unbinding the UDC, which clears mtu->softconnect through
+mtu3_gadget_pullup() and so makes the check agree with the pin again, is
+enough to let the same suspend succeed with the driver still bound and the
+charger still attached:
+
+  gadget bound   (softconnect=1): suspend returns -16, "ip sleep failed!!!"
+  gadget unbound (softconnect=0): suspend completes, 20 s of 20 s
+
+So record what mtu3_dev_on_off() actually wrote and test that instead.
+Runtime suspend is unaffected: it does not soft disconnect, so the pullup
+is still set and the IP-sleep poll is still performed.
+
+Fixes: e69027c25361 ("usb: mtu3: allow system suspend during active gadget connection")
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+ drivers/usb/mtu3/mtu3.h      | 1 +
+ drivers/usb/mtu3/mtu3_core.c | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/mtu3/mtu3.h b/drivers/usb/mtu3/mtu3.h
+index ba5a63669e5f..7f4fb87d8438 100644
+--- a/drivers/usb/mtu3/mtu3.h
++++ b/drivers/usb/mtu3/mtu3.h
+@@ -361,6 +361,7 @@ struct mtu3 {
+ 	unsigned is_self_powered:1;
+ 	unsigned test_mode:1;
+ 	unsigned softconnect:1;
++	unsigned pullup:1;
+ 	unsigned u1_enable:1;
+ 	unsigned u2_enable:1;
+ 	unsigned u3_capable:1;
+diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
+index a40bf5bad2d5..5ce61240194f 100644
+--- a/drivers/usb/mtu3/mtu3_core.c
++++ b/drivers/usb/mtu3/mtu3_core.c
+@@ -346,6 +346,7 @@ void mtu3_dev_on_off(struct mtu3 *mtu, int is_on)
+ 	else
+ 		mtu3_hs_softconn_set(mtu, is_on);
+ 
++	mtu->pullup = !!is_on;
+ 	dev_info(mtu->dev, "gadget (%s) pullup D%s\n",
+ 		usb_speed_string(mtu->speed), is_on ? "+" : "-");
+ }
+@@ -1023,7 +1024,7 @@ bool ssusb_gadget_ip_sleep_check(struct ssusb_mtk *ssusb)
+ 		return true;
+ 
+ 	/* device is started and pullup D+, ip can sleep */
+-	if (mtu->is_active && mtu->softconnect)
++	if (mtu->is_active && mtu->pullup)
+ 		return true;
+ 
+ 	/* ip can't sleep if not pullup D+ when support device mode */
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260908-rbrue-suez-upstreaming-mtu3-fix-suspend-usb-gadget-mode-c69c5104b25b
+
+Best regards,
+--
+Ryan Brue <ryanbrue.dev@gmail.com>
+-- 
+Ryan Brue <ryanbrue.dev@gmail.com>
+
