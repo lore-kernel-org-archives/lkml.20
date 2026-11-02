@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636879;
-	b=5lG5iXTp+WApoM/NvmsZpnnny9DatnzC6vMUNerh6WL2EbFvfZuydPnMiEKQbe96VSL9
-	 28gjXns2ECPym/Yc/Nz2IWYsoWgHYvQ2x7+ARD5mPem19Abq7I7ip/OfCXUPDZcwKv4IJ
-	 wT8MLg8wA1LAJmnXktZy+SGlHE1EGBahCIHzpyfA0KzJugguGKwxWWUrrICemBZgDv/v3
-	 Lktctj+K0pvDtuJS/VG3lGzJm40A+KtX6fkgTVpIK3imesFOY7s/zPYc68jNCNd4jeqAQ
-	 tdURLfm0iSQfa69UKw/4KGqZWNicGeWulwCd66cvFQ8cRRXNRjssji22MQByrDjMwyg==
+	t=1793636952;
+	b=i56Y4p3KHo8vF5U946wcU9uFkJz4bQmNujJBN78SPPvLLZpvbNw8xK1bE4IPNIFYC4T2
+	 ypjLu2FXLMP5HMAn7bJy/nT5yqXGzAva/Cke1erlUT7cSIBUGP/aq6CzPYYTp+MdrRAQ1
+	 a6meZtfTo8VqSVliuzYjRCV2v/EtGMapx7DvcSgztiZO6HmNPXsdbE6agxcJN6c3MBoQm
+	 lffIJIJReGiN7zvGWGrP5f6ULaYbsjgOSUIT6ftOzGXH7gjFqP0XWPUDqFeMSrgdSVCWc
+	 3vLLEo0Yiq5iZd4ypHpUnYgZna9CtxE1UD8xNH2w9dXkBdW+nIDFKKaPAd73UGOaYAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636879;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=6Yzw89lsinqooxl3AQbwM5bflwcgQEHrujUJ/xTqMIU=;
-	b=YCR6L77D7KZ2FAAnCzSzi9BylN30shpRG+PEERtvO3MIn3m9HFqk1kKTkxLu85MZrsUH
-	 TzzdCMPvwyUyGG4VJyZAAPuHU2KjKA4WAG2rzHql0a3AJGqmLkwPAStnFrOFXL5hTkDCN
-	 2HW856ort2PH0HHLj9zXDimvtUlvKnH/9/O0Wr08SLdFWaq+N7mxPkTQHQx5Z7GplP5fH
-	 wk/bShL4JEbrAijr9oAtlywN039zRgbZP1+K0oGl74scvChOvPdbXDocLPHjxzE2jo7iE
-	 JP6H/bmkIjmXBK3XwqmicU0ffw1ucMFcmvQ+Hq81MaR0Rlq6Xyxt4cwGWT+t3cRE3Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636952;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=IOiMng9RZC5ZsHueklZu31oTVbf21Mt0IXmlLvcfDKU=;
+	b=WIkvD8+M8/p4EC6OvjdSU6BAnXohsupHW7irMXe7h3mck6kGOBL4/hRBcwnMEpB4mOcs
+	 /td4e5pEBLJWpWjMHLj9sUgg1ho3WNmvLMhad7H8IHLm+o8Vr2F2fwdfkv2wPmScNmptU
+	 aNDHQa9CzwzeagS11peK2JfkC0SZHX3CfKvh6dEe1YZgM97EJCToZIruycUUCIs5J82E2
+	 oAtr40e7XRUb6M2+ZX8QTUr2p4vb0lGgqJbWX+o/nZXHzsta9+TV2BuiOH4UdTIC93pJd
+	 O6MfCs+kDmwkgTkJL/8k3O/3Dpm6bFJtLaV0FLVyqpmsvH0SNaVH977lDLjUSdZqhGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="N/JdCmfo";
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jhgj9Hsk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2705B609EE4A
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:27:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2705B609EE4A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82522606ABBF
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=N/JdCmfo
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c45111bebso1368590f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:27:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793636876; x=1794241676; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6Yzw89lsinqooxl3AQbwM5bflwcgQEHrujUJ/xTqMIU=;
-        b=N/JdCmfoOQK7c/GlMh6ZWjDCLLUajzBzjn9fBpsmB2HQvN6puxJw/UkqIE7QPHlIoW
-         6K4m2yWk+nOk0+Kpdqxy5DIFfGmfpa5iCOJSQsL/lf6IuhXBPyzUIAgbNDgr+QvlRXEd
-         2Fmhluv+O62pXpzWu3XwgrWs4FPPga0Zy8OwSH0JcuHNWRKoSMcdxuKftMW7KerTEQ/P
-         gbIFOi+mBMM1Pl8qPZmEM8x8LRimJvlhMxDo2kkKoPldlJEdglHFuYzCyKVDrAgVIS3x
-         hdBHEPyglDigrWnysmsToQwL4mR0MWyhWNBlIYW0sIsTsfoxIpBNgQyarKxekqle1GWB
-         0AMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793636876; x=1794241676;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6Yzw89lsinqooxl3AQbwM5bflwcgQEHrujUJ/xTqMIU=;
-        b=q9LaK66HWQtK0zkLi9YlRLSy83KnxHtnBNXpKg5X9emv+sy67a+gSnFUP+yh0lDt4U
-         EMiiP7fsvySNkfa1lmpa6fTve78rH38egyv8Gz4lrjfHJvQEI+T05YNmCcBt9ZSKl9pz
-         kgonYri2i3/UMRoLmq7ErykVUgdZklzZpL1k2w/hPJG7v5QG59NtmHjrogNTNnW44MAm
-         V1Y/L1u9TUb9poyBi+XojI2i5kSKGR/OkrJ7QCbk5fo96TJm27healbF+ZFBfuZCsNnd
-         18Qzmo+UVQsVUPQVeCsLcN2YWKb5CpoLATxxdjC1Vr9YCq8ClzPHOZcnDymXNE0M/2KA
-         RYkg==
-X-Forwarded-Encrypted: i=1; AKwUvBwEnXjc0alZIo2HcN7StAvHVLC647KuiEakrrRANCTTScxuVCZLKiqZDobKmQajVLGtuOdXCpULw1oER0g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9v83boTQA/yxlIy+8biPawke7FwUOGLg4W31mbftHW0lDFknSa
-	jXqJpIZKqn4KQhyMAAxTDzRqluxqLqEbwRQBls1zAjLe2AdUhTI5IPuKiQ0GrawtrMY=
-X-Gm-Gg: AYBFou17W8HDmXaZcmhi2nxnBTeNa2/3NwGMEbhQZS6FZJRN/tXOFujhSM3GHVzJJwF
-	Fji6xN9D5DxFE7PoKJfFSe8/EtIzFrSeh2ymbIuPctn/j94PwnhTttsxx/wHFCbkrCUZ+B5Rrq5
-	GAneI76aSM7KdjSeu5xuIWa5a3V6VhL6AEraS8nWZ4si5nhgxc9adr6zrHUBAhkDXFnOPhPjxA1
-	jO1+77WarOdgdzudo0jE+XJ4yS4UpHIk40WLNwJXnu0NqzVZQawQXkbcCFGwmhhMLroF2fG6915
-	jBmIpYH19+yK8knwyt/EwXGn3vyDv3cB+JAHptpNmk+MGi/RWP+sUrOofYnxIcIvw5r5udv9K5f
-	QT8mCXTiLux7JkXfTeDZirlKVg5MM2OVdQZUnZ6U83YRjWoV4MAyBTu9+pk4jfBo7YYnsW2+k3f
-	K1v9bXBRc335+9TZGxJ+nFgZ0+iM5ho4mGQCgQw4dK6qtnlK0g7IqgKX4dxHiG8r0vW6vju4kN1
-	Mc5Fp8FixQXtt7Q6qQGy+ZWJGSh5PSWMzr9B++e1h2X0m0ArwP10MONxk2cr8wgeCVYb4gSXroU
-	DO1lxQxT79G31izKiQ+TGxHlrd4x/MV2X9Y7HEoEpJfLTG9GAQ==
-X-Received: by 2002:a05:6000:22c3:b0:48e:61c9:4e32 with SMTP id ffacd0b85a97d-48e6e505515mr22460208f8f.32.1793636875388;
-        Mon, 02 Nov 2026 08:27:55 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d425sm21327567f8f.1.2026.11.02.08.27.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:27:54 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Carlo Caione <ccaione@baylibre.com>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261029-upstream-clk-regmap-ro-divider-v2-0-7a375fd8f88e@baylibre.com>
-References: <20261029-upstream-clk-regmap-ro-divider-v2-0-7a375fd8f88e@baylibre.com>
-Subject: Re: [PATCH v2 0/3] Fix rate rounding for Meson read-only dividers
-Message-Id: <179363686177.2573818.9840227299008811238.b4-ty@b4>
-Date: Mon, 02 Nov 2026 17:27:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jhgj9Hsk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9711F00A21
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793636952;
+	bh=IOiMng9RZC5ZsHueklZu31oTVbf21Mt0IXmlLvcfDKU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Jhgj9Hsk/pWSW0JNuD8gX/AgK/d+vsH0olhOBy3YqsDBZ9idYURMpqnvEsCav1U6C
+	 QWZAe/Pzj860mO0lbTSotZe3R+0hAZ6cjmDnypZfNBm2xFK93vvSgiNAweLNopRkoX
+	 9j+ORfW0JF2G6hIHU1eFQwgZDY//chJvsYJt91S+0Hkacmo0TXfo+lH1Aw4/zlYQMD
+	 zpgsj0Ric1+KOK1XeMU9Xc2tKo4rexzRCIHN86Ucbr2s2qNqo7Sirj59Ap/xoYCi8f
+	 sMijI6YGlbBe/SCyYwVgJyYYJh5O7AUWMI4pV2/OpM6SgXY0sKqaD9wfdlvBYyJA+h
+	 R4MS4Y2tFa+kw==
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7cccb2c96d0so849587137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:29:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwKlMyP3bXWVCweDYCsGrA9bF2mH9A6innl/Ehm6CrUBcEd1DfQe9OHozVDsKe/TWVweT7uPzV1Nbypw8c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0pL02GDYwADOB2ipQHq4Lvp8uLzrMhmwYa5VSsuRi8RDvtfj1
+	oZiaSQziBZYo8TILQjIBeHlec/1H0sY6HT9S6KWfOQ7b2B6unOeBz99OIwaBfEbLaTFc6GMNWrc
+	3n85vWNTUUbTTqly+R0+Ai680ndaZbr0=
+X-Received: by 2002:a05:6102:50a8:b0:7cc:2bb7:1321 with SMTP id
+ ada2fe7eead31-7d072715882mr3923901137.31.1793636951321; Mon, 02 Nov 2026
+ 08:29:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,21 +59,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=78; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=6Yzw89lsinqooxl3AQbwM5bflwcgQEHrujUJ/xTqMIU=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFkvdnHpxHrPXvaH9XIH+4SEyWdKTjDzFkYtFOY7YbPEt
- ljWNNW4o5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABM5dZ/hD0+n5LxFfV82ZzPZ
- LpyvGbFFh8d2+Z7r0yJVltn8e3RUezHDP9Oft5buYvW7J6K6Z1Hb+ym/t6j/8G1lnzSlRvlYf7X
- 6Ri4A
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
+ <20261030-b4-btrfs-data-integrity-v1-5-f4d4196731e6@toxicpanda.com>
+In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-5-f4d4196731e6@toxicpanda.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Mon, 2 Nov 2026 16:28:35 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H6vCcysZasPMMgLyuCDU2ejCV4PwbEDn_oN-eNdePU_UQ@mail.gmail.com>
+X-Gm-Features: AclHuK_9b2GWogEgG12V-2vwKZf19vf23a3IVQXLAo9Or9iJQQ38_LkwhNYOFCQ
+Message-ID: <CAL3q7H6vCcysZasPMMgLyuCDU2ejCV4PwbEDn_oN-eNdePU_UQ@mail.gmail.com>
+Subject: Re: [PATCH 5/5] btrfs: don't trim the target of a device replace
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
+	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Applied to clk/linux.git (clk-amlogic), thanks!
+On Fri, Oct 30, 2026 at 2:40=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
+wrote:
+>
+> FITRIM also discards the space of every device that is not allocated to a
+> chunk. btrfs_trim_free_extents() goes over fs_devices->devices and, for
+> each device that is writeable, discards the ranges that have neither
+> CHUNK_ALLOCATED nor CHUNK_TRIMMED set in device->alloc_state.
+>
+> The target device of a running replace operation is on that list and it i=
+s
+> writeable. But its alloc_state is empty. The allocated ranges of the
+> source device are only copied to it by btrfs_set_target_alloc_state(),
+> when the replace finishes. Until then the whole device looks unallocated,
+> so an fstrim discards everything that was copied to it so far, and what i=
+s
+> being written to it in parallel to the source device.
+>
+> The replace finishes without any error and the source device is dropped.
+> With a single device filesystem, 700M of data and fstrim called in a loop
+> while the replace runs:
+>
+>   BTRFS info: dev_replace from /dev/vdb (devid 1) to /dev/vdc finished
+>   BTRFS error: bad tree block start, mirror 1 want 30638080 have 0
+>   BTRFS error: bad tree block start, mirror 2 want 30638080 have 0
+>   BTRFS info: scrub: not finished on devid 1 with status: -5
+>
+> Skip the target device. The flag is cleared with the device list mutex
+> held, after the alloc_state was set up, and the trimming code holds that
+> mutex while it works on a device.
+>
+> Fixes: 499f377f49f0 ("btrfs: iterate over unused chunk space in FITRIM")
+> CC: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-Best regards,
---
-Jerome
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
 
+Looks good, thanks.
+
+> ---
+>  fs/btrfs/extent-tree.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+> index 9b0a5c6b96f3..22155507f905 100644
+> --- a/fs/btrfs/extent-tree.c
+> +++ b/fs/btrfs/extent-tree.c
+> @@ -6641,6 +6641,14 @@ static int btrfs_trim_free_extents_throttle(struct=
+ btrfs_device *device,
+>         if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state) || !=
+device->bdev)
+>                 return 0;
+>
+> +       /*
+> +        * The target of a running device replace has nothing in its allo=
+c_state
+> +        * until the replace finishes, all of it would look unallocated a=
+nd we
+> +        * would discard what was already copied to it.
+> +        */
+> +       if (test_bit(BTRFS_DEV_STATE_REPLACE_TGT, &device->dev_state))
+> +               return 0;
+> +
+>         /* Discard not supported =3D nothing to do. */
+>         if (!bdev_max_discard_sectors(device->bdev))
+>                 return 0;
+>
+> --
+> 2.55.0
+>
+>
