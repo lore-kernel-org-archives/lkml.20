@@ -1,75 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793592233;
-	b=Re5U3+5756gcmwQ/abIo+rxuF1Y4j81J4KHhNMSsdHQ5ABuyJ6hrWmF0oJgfBS+H7zux
-	 itHkshJwWpgxWXvwPWlyHUFn/wcO4MHBW++9lzwC8R52lYrWNZyawS8E8J0HfanFt1+Iq
-	 xx+sshsu6Ovy5q4dPbj8TiBbQf3py79bFTtExItVQ6++NhrFHVGNkhNtpSrwB4oFgaiTl
-	 i3yUqBzyKXCdeTCFgFmF35CrRjVG1IFSMnDprGwfypnSdOjuZfeuB7hnz2Ks7ZaAmtQot
-	 Ed94ajfUaSX5p5N13Wt9HTLmpmSoFBGv5+Q5QLBZbwHNbzNj++L5jMCDVsT0ywncCSw==
+	t=1793592224;
+	b=vdYXKYBV0lDZiYdSOsM99wfPfG+Er0CzHR32IribKp8My9HM7BkudiZdap++H0r7HvOO
+	 IjaWrpMGk5L3bAUigzmByMiUYveyTubk4hFvsUR11lraezDCf6rBLN/OPm0BZztVrrSK6
+	 LXlDtAVRujPlbaXyJHmqz7UyFkNp4d4HYLO8mmiqfPobLmHzLorHkgLSSMRVd2kfz/yBu
+	 seyW3ModXEMBZ4rNla/lFfwVtZiDg+H3XR4LxCQa6lFhBiDBhMzE0lo3uhlMJDLZwD3yg
+	 nNCVA7EHfl2065RdiH4iLMknraypJelK+aJ06k6nfInCsVwzp4OBTGEU0objLX0sefA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793592233;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=qsWlwY+vxPmPFxRUYpkVys4GdRvLGTlYzdsiVqsoQl8=;
-	b=Hi0J7Px+Nqxf18wPwyYz5qLfDXPrCXq/YQX6+UysrOyMut+uDZOXc0h6Nzf/xbnST6xb
-	 u+kJdqMiiY9ezoarFL/DotB54urceiSTL2g3floOZ3veXy1RnExHKpgK1+n/mN5mGyd+l
-	 +qHrh4HLPiQ/u1GHf6V2DPardkPCe7D5bEu+OcEHybquMkjCzO0nbds+laTlmd5v6+rXE
-	 Na4xUvTPZ9gmr1SenJ1JeU7z8j8hWgytcsdFA07pkDLDqLxTtGMfugYtoh+i1+lhALI9W
-	 H+St97kXjvxi3yO40ozIut0RASViIwWuK7KO+hrIo+siylzpQFwZ9pKOUEiB1O5+U4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793592224;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=wTsAHM77lcB0bP9i+ePrebONUw/58fDsvo3achhO/jM=;
+	b=DAVy+IxlkEV0xYv2s6j4FIkFyX8L9FON4DgNc/bvcYoioCMbqU/PHWdGzESBM8UE8sl5
+	 xKIG9QQDPLfDinBuE6Zxeo76LoaGvBHqrzrzAtDoCh5Z9NEXttMZVczHm7kd3pwjxiP0M
+	 JRK/CZti6STF3aVoWevLGFDYoa3OPm8+z38OoBH4n+1BDYvLtlENbD6JCHffEZC6boj5R
+	 p5vtJheFzp/j170VVDMlphKZaA6w9t4b2w6kXtHe53WUM97XSFO8bOsDGbhfB9VfPJk6H
+	 buMNp3azD/rXSfAxdMR6wEjIVnx6abI+ulOyS9+/LzL3otNUxuvaPoPSoffGr6l70Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chungkai.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d3gtpeug;
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=XqxtgMze;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041E5606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:03:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 041E5606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chungkai.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9FB606A329;
+	Mon,  2 Nov 2026 04:03:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B9FB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d3gtpeug
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8aa185840bdso1472451b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:03:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=XqxtgMze
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793592232; x=1794197032; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qsWlwY+vxPmPFxRUYpkVys4GdRvLGTlYzdsiVqsoQl8=;
-        b=d3gtpeug6FV4i5D1jzTp7hFlhrCBwd0+Tb9izX8A8ynvMeubaXVUNucYTsmknPsyxf
-         jrCQnoJoKm1IR2PNT1SMkl1P+94fcQ3GUaJsX12aFL/+ThbsLJ5AgbBCep2CKVkPWU3/
-         BOmEIyw1ewRwvtB6dNaTjiYk/1uIYR/Veu/3GOLRGqnV6GUtr9WY1vp/FPP5EP2z2heR
-         Ky2j88n4pfWvh0Nr1XSaHY3zst9RkHSFIyyiTxKUtTE76J2ONhKx2GXHFd4G4oBchQEP
-         MLzf2x4K7COKfE1z0Z240F7b/3P7LjtWxnKnMMLDJ+yu+hr1MUXjhPonefcAWQeZ+Lso
-         P17g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793592232; x=1794197032;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qsWlwY+vxPmPFxRUYpkVys4GdRvLGTlYzdsiVqsoQl8=;
-        b=E5DTwnFFC68cVijiOFXKkZyfV5+bIyLsCC6noLQr1LtkdSUKtAfBH1D/MQxlnKV9h5
-         f1zOUyvL6hkXz8POC/N+oFzOJXPOX7Ca4apro0Zpgsu5ZOrHnaa8hufSyIh/kdljJd3n
-         cW0Vjiz+HxitNN8cLVBS9RlCNJY7oqfl0zSP4tV2rae5e2LTOHCIpze78s86VCR2vV4p
-         RU1cc/xrBaKkMOHfeeaEzzUBVxGdO2CCO9/BZ7U1d/vEUpfHQ7Dh8FjccFYLWqXxSGrJ
-         Y2JEE+GNGxht8V+VjGD+WQ+/zdV8HOfPKCE2dZHjwq+wcopd264zEVXIXUWlcprjBFnc
-         /k4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwYUHLWMV7jZJwufmsCHFcSObCk6CpKqtxGJ7nbckVfnLLvAUKBeHHINcujClq1N7XLkj+0DkzvnsSAqlo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uMqUx40a5vKeKozQVuCFGHQZWiO0OC6pPAIUWkkDiTeI8ySPU
-	TNiACSnlwounTaKSSMBHPLOhGm01id0Baqt9FtkGAtXVl9WWrVoSJgoUZHhQ6PSXra3A1ofJbSx
-	9iGyiffCupWhkMA==
-X-Received: from pfh28.prod.google.com ([2002:a05:6a00:12dc:b0:89e:ccf8:b3b4])
- (user=chungkai job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:1814:b0:8a0:7024:6360 with SMTP id d2e1a72fcca58-8a9be589bcemr8234543b3a.19.1793592231862;
- Sun, 01 Nov 2026 20:03:51 -0800 (PST)
-Date: Mon,  2 Nov 2026 04:03:48 +0000
-In-Reply-To: <CAJZ5v0hLYKeuSHpxxRkbK07DuqOat7AuUp4nwz-1V6bgfgzWAA@mail.gmail.com>
+	d=codeconstruct.com.au; s=2022a; t=1793592220;
+	bh=wTsAHM77lcB0bP9i+ePrebONUw/58fDsvo3achhO/jM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XqxtgMzeDPgwCwPFzRFBLbEboxpm+5MEr3r5FtVmgcta9YNoWuFxww9CgnEqqwOTV
+	 l1zS8CAL56VE1l1y5wb2Lb1mabzop5ql/0tbSuL9SSYbanxgslnlQUkMFPP6E+jVvp
+	 sfpaZPFfNwKhdiI/zkEUSpjpjZHU9CMFvB30t5AIjlagxD6sE44X6bIKuP5BYaT9nz
+	 JR22CxQ4fFqhVh/O37LOlYLDWGqapn57IFol+VH+6lwCrknbrYkMCyBJe6yGHtLTy9
+	 3tRRUWVDQxw3DMfwXFmzYiUkjFm06qNIc+UPDS6L83mO7CLZA8FPzvvv2zMO7dmbt8
+	 PjtO16/piol5w==
+Received: from [192.168.12.105] (unknown [144.6.157.237])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 62127648D1;
+	Mon,  2 Nov 2026 12:03:39 +0800 (AWST)
+Message-ID: <e83e3ae9505a60b58acc960b3256b5970fb5cca1.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v2] mctp i3c: Fix locking in an error path
+From: Matt Johnston <matt@codeconstruct.com.au>
+To: Bart Van Assche <bvanassche@acm.org>, Jeremy Kerr
+ <jk@codeconstruct.com.au>
+Cc: Leo Yang <Leo-Yang@quantatw.com>, Paolo Abeni <pabeni@redhat.com>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Andrew Lunn	
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet	 <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Nathan
+ Chancellor	 <nathan@kernel.org>, Leo Yang <leo.yang.sy0@gmail.com>
+Date: Mon, 02 Nov 2026 12:03:38 +0800
+In-Reply-To: <71e0a880ffe7a83237e501b07884bf54343e76ca.1793296780.git.bvanassche@acm.org>
+References: 
+	<71e0a880ffe7a83237e501b07884bf54343e76ca.1793296780.git.bvanassche@acm.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,69 +71,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261027090638.900747-1-chungkai@google.com> <CAJZ5v0hLYKeuSHpxxRkbK07DuqOat7AuUp4nwz-1V6bgfgzWAA@mail.gmail.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261102040348.4154728-1-chungkai@google.com>
-Subject: Re: [PATCH] PM: runtime: Allocate pm_wq with WQ_HIGHPRI
-From: "Chung-Kai (Michael) Mei" <chungkai@google.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, chungkai@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-On Tue, Oct 27, 2026 at 11:59 AM Rafael J. Wysocki wrote:
-> Interesting.
->
-> I suppose that there is a measurable performance benefit from this
-> change, so it would be good to say what it is (say, an increased frame
-> rate or similar).
+On Thu, 2026-10-29 at 11:00 -0700, Bart Van Assche wrote:
+> If netdev_alloc_skb() fails, mctp_i3c_read() jumps to a label that
+> unlocks mi->lock although that mutex has not been locked yet. Fix this
+> by returning -ENOMEM directly. This bug has been detected by the Clang
+> thread-safety analyzer.
+>=20
+> Cc: Leo Yang <Leo-Yang@quantatw.com>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Jeremy Kerr <jk@codeconstruct.com.au>
+> Cc: Matt Johnston <matt@codeconstruct.com.au>
+> Cc: netdev@vger.kernel.org
+> Fixes: 2d2d4f60ed26 ("mctp i3c: fix MCTP I3C driver multi-thread issue")
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+> ---
+> v1 -> v2:
+> - Return -ENOMEM directly upon allocation failure instead of adding a
+>   free_skb label.
+>=20
+>  drivers/net/mctp/mctp-i3c.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/mctp/mctp-i3c.c b/drivers/net/mctp/mctp-i3c.c
+> index 4e857dd5df64..5f225999d715 100644
+> --- a/drivers/net/mctp/mctp-i3c.c
+> +++ b/drivers/net/mctp/mctp-i3c.c
+> @@ -111,8 +111,7 @@ static int mctp_i3c_read(struct mctp_i3c_device *mi)
+>  			       mi->mrl + sizeof(struct mctp_i3c_internal_hdr));
+>  	if (!skb) {
+>  		stats->rx_dropped++;
+> -		rc =3D -ENOMEM;
+> -		goto err;
+> +		return -ENOMEM;
+>  	}
 
-Below is A/B data from two arm64 Android phones (6.12-based kernels)
-comparing unbound pm_wq at nice 0 vs. WQ_HIGHPRI (nice -20), with this
-patch as the only difference.
+Thank you.
 
-The workload is an automated UI test that repeatedly swipes open and
-collapses the notification shade on a 120 Hz display, driving frequent
-GPU and display runtime PM suspend/resume transitions alongside active
-frame composition:
+Acked-by: Matt Johnston <matt@codeconstruct.com.au>
 
-  Platform A: 8 CPUs, 245 vs. 245 runs (220,524 vs. 217,954 work items)
-  ---------------------------------------------------------------------
-  pm_runtime_work CPU wait mean    151.0 -> 107.5 us        (-28.8%)
-  pm_runtime_work CPU wait P99     1,867 -> 1,102 us        (-41.0%)
-  pm_runtime_work CPU wait max     15.08 -> 5.77 ms         (-61.7%)
-  pm_runtime_work wait >= 2 ms/run  7.51 -> 0.94            (-87.5%)
-  pm_runtime_work wait >= 5 ms/run 0.457 -> 0.008           (-98.2%)
-  UI rpm_resume() waker wait P90   662.7 -> 156.7 us        (-76.4%)
-  UI rpm_resume() D-state P90      717.4 -> 213.7 us        (-70.2%)
-  FrameTimeline app missed/run     0.204 -> 0.171           (-16.0%)
-  FrameTimeline SF missed/run      1.086 -> 1.074           (-1.1%)
-
-  Platform B: 7 CPUs, 196 vs. 245 runs (85,957 vs. 104,452 work items)
-  ---------------------------------------------------------------------
-  pm_runtime_work CPU wait mean    134.5 -> 100.9 us        (-25.0%)
-  pm_runtime_work CPU wait P99     1,809 -> 1,122 us        (-38.0%)
-  pm_runtime_work CPU wait max     15.77 -> 3.71 ms         (-76.5%)
-  pm_runtime_work wait >= 2 ms/run  3.40 -> 0.53            (-84.5%)
-  pm_runtime_work wait >= 5 ms/run 0.189 -> 0.000          (-100.0%)
-  UI rpm_resume() waker wait P90   207.5 -> 23.3 us         (-88.8%)
-  UI rpm_resume() D-state P90      217.1 -> 73.3 us         (-66.2%)
-  FrameTimeline SF missed/run      0.551 -> 0.531           (-3.7%)
-
-> Essentially, we're talking about redistributing CPU time between
-> tasks, so some tasks will get more latency as a result of this change,
-> which means that it is not an obviously right thing to do.
-
-Agreed, this is a scheduling trade-off: pm_wq runs arbitrary driver
-callbacks and genpd work whose cost is driver- and platform-dependent,
-so the impact on other tasks cannot be assumed negligible across all
-systems.
-
-If changing the global default is undesirable, would exposing pm_wq
-with WQ_SYSFS (so platforms that need it can tune
-/sys/devices/virtual/workqueue/pm/nice) be a cleaner alternative?
-
-Best regards,
-Chungkai
