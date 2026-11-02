@@ -1,74 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793582408;
-	b=cajiwdXgj0el2qnnHtv8rhD+KBF1mVqEKJid2DQPNPJaSehfYKRtgBtOVG9q99amgPjK
-	 GyRPAVqOn53sNEytoyi42WE3Dxg8v5Z0Oloxb3tYdwnMeP/HlPezC1GQEkxTasiTrbkJD
-	 ojeMMNwXrcrVaim2XnibxugwzVXAfzu7mo/13V2WeLilOHIJGhnU0c4EK49T1qU8ADA6h
-	 W1pCkQY07ndoams3Jqr1PBYaic42nU7rBY0FKUkCK/ujnpsr4UY0+x5lWO+866ZjGuPav
-	 rkqtmNUCvo5eVXhzGUi45e73Y5uN7SxKFetOs1pbbFmh/TVehgdEtyOrzC832S+U8/Q==
+	t=1793582460;
+	b=Z4fK+vnh5Aa5FKOtUi6Be0jHlh+DV/q+VEPhfoCnH8gCMn8JnYMD7DpcrwwKwtC53YaJ
+	 zZ+dyKWYKlU3I1wFWHd8ZSaVR9wbN4PAd3CeX+ZEaiF/qIEBGoVSBEf9EjTyIuzy6FE5v
+	 TjO8IRrpxhS8hPqximIPfMQERGPB2EC3oiCmyR9xhXB7PpBgWxDiE0svdfmNtXK1/SxQQ
+	 RtSZc79tPELlsP8+IpSyjcvbpoUXySVAyhA08PrONjE1JOlKn2LEofkaZ9WsbXTmD1Zl8
+	 8T1uOi7zLsvdaJ7Dv6NVSmFoZhCTtA3vTBCL55xDeZANgpHCw/lLT248DNd/Y9Iyc9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793582408;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
-	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=45c0jE9HbkCdxpNTN8bnPDNo8QDvZYgC9R9p9K09uiI=;
-	b=GtQn00umg9+Xy4VW5kU5yGHeL6FkcUfN4Jr+MXUS0K4NkfTki6Y145cEXcMCnfbV7r7S
-	 qWsjgLasP74hol1408mb92SGA5I/JRTAjcK4kVhvkXnftBfnbjfREZejdyA5zgXu/Sqqn
-	 Gr2vkOvSMVBqPjG/CN/MPOcD310pK+beXAc35153HWmOxQAn75Yq2YhOmrZRZayo/fJWI
-	 jA8b2jpqma0a7TvFJ+GQSVKJl4i1JXVCd6auV8YnckeEanVSxhWJwLRzOV+TKSPZml+3k
-	 cjrw53hU1QViopu2WnV2UdT/SJtCaquX3ieCSurVNwHzQdkSrk9z44hbri5IBAFkPig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793582460;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=G90+AFF7kEGEqmo5bVvMlpAQaZeZsFPxsjzSqr1O6BE=;
+	b=bbgEYyYjgh377xGZbH9o4cWE2k40Rsn6juZYudTjzSYbQmNnRjusePZmeN2p0j94bhmo
+	 SxzDUwgPOiUUuARtnl98WW3ISoQtXPkfTpsvIttr9vs8txn9hlyOXArf8uySQhRVaBAlR
+	 eTj20B3PcCjJOurNXkecJeQuH4A6nMeD5Cbwg397ZMO0vlbf383GMyd8xbowE7hh9IGty
+	 1J4LCjEstDf3nRdkV0rDh0eG9E9fOn2HUJrk2BM1XWgk2ubRRCiJ4apeb8eYXcTzbvLVZ
+	 Nx0FbZMJJE7YBYZP7ZdprOn91synphMdI9nWANisBl7trxoS8HLZVr0SKfYPpHjo7dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=TBpEvXw+;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rbox.co;
+	spf=pass smtp.mailfrom=rbox.co;
+	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=Y2CS9Qot;
+	arc=none smtp.remote-ip=185.226.149.38
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E814606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:20:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E814606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD01A606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:20:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD01A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=TBpEvXw+
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261102011956epoutp04dfdeac7fa3a7906f5c6a5392eb8e84ca~kFa-rUjj91155511555epoutp04u
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:19:56 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261102011956epoutp04dfdeac7fa3a7906f5c6a5392eb8e84ca~kFa-rUjj91155511555epoutp04u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793582396;
-	bh=45c0jE9HbkCdxpNTN8bnPDNo8QDvZYgC9R9p9K09uiI=;
-	h=From:To:In-Reply-To:Subject:Date:References:From;
-	b=TBpEvXw+eQcHTgYbRPLCH7v3jCI+B0Rrm0JynVRSYTaIouxC1sdB1B9vXVr3lYxBB
-	 YIQBIyDMArHp2CkRjDNWxwi5Ipp0zV2rgOjeZAwREoLv1KNtmKIfNB0tXAec8h5qCJ
-	 WthrGvagwle40tS7Wqhn+Y8pHoiag6xdESiLt2W0=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261102011956epcas2p4c07a8d4d77f017588ab97018446033db~kFa-apy1X1402414024epcas2p42;
-	Mon,  2 Nov 2026 01:19:56 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.202]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jHv582yf6z3hhTF; Mon,  2 Nov
-	2026 01:19:56 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261102011955epcas2p1eee400f7f34ac4f375b310edcf5e5472~kFa_teMAf2392223922epcas2p1V;
-	Mon,  2 Nov 2026 01:19:55 +0000 (GMT)
-Received: from KORCO164647 (unknown [12.80.211.160]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20261102011955epsmtip2f37bfb1c2eedea39030867a8cfaec312~kFa_oA2UX2236222362epsmtip2A;
-	Mon,  2 Nov 2026 01:19:55 +0000 (GMT)
-From: "Kiwoong Kim" <kwmad.kim@samsung.com>
-To: "'Bean Huo'" <beanhuo@iokpp.de>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <cpgs@samsung.com>
-In-Reply-To: <101b87d76029565d274ae96d66c8a343cab910d3.camel@iokpp.de>
-Subject: RE: [PATCH v3] ufs: mcq: fix dev cmd abort path and add OCS poll
- after sq cleanup
-Date: Mon, 2 Nov 2026 10:19:55 +0900
-Message-ID: <000601dd6a68$44e7d510$ceb77f30$@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=Y2CS9Qot
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1xNgjH-00AGrB-D2; Mon, 02 Nov 2026 02:20:55 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
+	bh=G90+AFF7kEGEqmo5bVvMlpAQaZeZsFPxsjzSqr1O6BE=; b=Y2CS9QotRZ6XM39LE5XVcV5tTd
+	GL/X2Yl2GJPKe0Uw/Ci66wfiyopZWD4QIvEi5IAPjcq7f4WYZHgrgMJ9BnyvCsfJFslnH+XSt0MZP
+	UsHlyKFNPAWbbDwss2RMajcwjr9MpdNbI9fEdMRY0t01T/uLLWt9OaWgZHNk7aWoebFYpzOcyubEo
+	86wTPCqck8Esd71GkQrQy5BAwElwzCWuvGUZsBtgzrNIXNiza5zb/5o1wHQpHRqDkNe1t9fJ7obYi
+	8EQ9XP77UojVn0hfZ7NMJSz4+9d6p0eACZuCjrgyQtsEidSB0IbVeOmlCKOUQh1tVHHsMZ8gVcpNg
+	Sfv5bdJg==;
+Received: from [10.9.9.73] (helo=submission02.runbox)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1xNgjH-00067f-3b; Mon, 02 Nov 2026 02:20:55 +0100
+Received: by submission02.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xNgj8-00AE9Q-C3;
+	Mon, 02 Nov 2026 02:20:46 +0100
+Message-ID: <d60bea00-6273-427d-8fbe-ff59fb6d83fe@rbox.co>
+Date: Mon, 2 Nov 2026 02:20:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,43 +66,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQHS6DuEV2CopjC7B98uMO/T9TG5nwKNTbBWAxtTbRC3AbkXEA==
-Content-Language: ko
-X-CMS-MailID: 20261102011955epcas2p1eee400f7f34ac4f375b310edcf5e5472
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053
-References: <CGME20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053@epcas2p2.samsung.com>
-	<20261030111045.982094-1-kwmad.kim@samsung.com>
-	<101b87d76029565d274ae96d66c8a343cab910d3.camel@iokpp.de>
+User-Agent: Mozilla Thunderbird
+From: Michal Luczaj <mhal@rbox.co>
+Subject: Re: [PATCH bpf-next 2/3] bpf, sockmap: Restrict iter-context sockmap
+ updates to iter/sockmap
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Lorenz Bauer <lmb@cloudflare.com>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+ Jakub Sitnicki <jakub@cloudflare.com>
+References: <20261016-sockmap-update-limit-iter-v1-0-23fa946db59e@rbox.co>
+ <20261016-sockmap-update-limit-iter-v1-2-23fa946db59e@rbox.co>
+ <DM6O08VBRY20.1PFUYACCZ38JL@gmail.com>
+ <a9ba4549-4bae-4516-85ef-ee38f13551cd@rbox.co>
+ <DM92JCFA4X4U.30MTDH0KCPTJ@gmail.com>
+ <0bcebb4f-4b36-4f8e-a3cd-1eb0455081a8@rbox.co>
+ <DMJHFZPKETD8.PUM30IJH9D66@gmail.com>
+Content-Language: pl-PL, en-GB
+In-Reply-To: <DMJHFZPKETD8.PUM30IJH9D66@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> I think this should be two patches, each needs different fix tag:
-Got it.
+On 11/1/26 02:28, Alexei Starovoitov wrote:
+>> Ah, sure. So the same bit for unix_reg_info left for later?
+> Yes. iter/unix cannot update sockmap after this patch.
 
-> > --
->=20
-> I didn't understand why here there is =22--=22, this shoudl be =22---=22?
-I just tried to separate two contents, but it seems like I made you confuse=
-d. Let me remove this.
+I've meant setting PTR_TRUSTED on bpf_iter__unix::unix_sk for the sake of
+unix_sk-consuming functions other than map update. bpf_setsockopt() came to
+my mind, but now I've realized it doesn't really need that. So this
+PTR_TRUSTED it's just a preparation for plain-PTR_TO_BTF_ID removal?
 
+>> I've noticed commit 7cc639dc45c5 ("bpf: Don't take an extension for an
+>> iterator program") got merged. Should I post v2 with the env->prog->type
+>> check dropped or you guys don't want to restrict iters anymore?
+> 
+> The former. We still want it.
+> bpf-next doesn't close during merge window. Only people that
+> can process patches get busier.
 
-> this is another patch, and OCS poll patch needs a fixes tag too, for the
-> MCQ abort support.
-Got it.
+Ok, I got confused by Documentation/bpf/bpf_devel_QA.rst: "for the time
+when the merge window is open, bpf-next will not be processed".
 
-> Kind regards,
-> Bean
+> Pls send the PTR_TRUSTED part in v2.
+> 
+> I'd also limit tracing_iter_filter() to iter/tcp and iter/udp.
 
-Thank you for your comments.
+Oh, right. Commit 4ddbcb886268 ("bpf: Add bpf_sock_destroy kfunc") says
+bpf_sock_destroy() expects a locked sk. So if I get it right, with
+bpf_iter__sockmap::sk being PTR_TRUSTED, we allow iter/sockmap to invoke
+bpf_sock_destroy() on an unlocked sk?
 
-
-Kiwoong
-BR.
+As for now, v2 posted:
+https://lore.kernel.org/bpf/20261102-sockmap-update-limit-iter-v2-0-e96a63c43b39@rbox.co/
 
