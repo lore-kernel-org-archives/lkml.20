@@ -1,49 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608174;
-	b=2U+kIUwToV83ZPffN7tlbm8b8W1jopdqxyXkWwuPrp0WNqu1h/8jaGoT6rj3tLM50sgA
-	 aDui79ULmg+idriB2Z3Gxm4r55A8ebA9S5IUYf9Nhl1ZjmvVy6seFvpzkZEgJn9qzExi1
-	 nwPcPCJ1LzNK1vKbe9NipJCTHoEhEo1l/g7mOEZLoxrUurgNWlWYZTlTCrrPsddSOBqMt
-	 +fZsV07TlG2BY4mFcq58/IMxeu5tLM0asG52rdOIDVhaTXO0IkWpBvb2Vx0r3pAmAD67V
-	 lBpeUvGnv3LZ4PstMolGHaCw+l16GSqeOHjg0vHeXrGGF2Kz0hyG83uXzJwVMBLV0VQ==
+	t=1793608178;
+	b=2BgbsVoa+jw5fXu3Lkn6peleNrL2aWY98KT5VhO1Bc16sQo3nGR4uo28pGwAzGG3Edw8
+	 BHmCqJ1K7VYI9/KdTi87WDG9fT/qsgZOCC1lwvV/5uDeffp4VJrNbKLeFVBhWQLuvGp31
+	 0pGK1KqDXeH0MbIaV9x3xKlFXjQfgSL7gVUavg2zzIkN6G1THXnxYMGnlbh+0bx3kptgs
+	 qt7st6HFyqdwnl2ecZMuFv2A4lGvMlW9gW++RhWWmnZT2vmjhEVxt3srkxqyC8OFNAH69
+	 tGf8Y4ZrsR0igm4mN9lM+rNkqhhGAWDn4xnZaxhbHjN1k1OkrIwCYyiqgmyYCtvlvnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608174;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=SVPciQr1s9BDQkZqo0irUvEcCQ8iKbnU6l79MHO+xgQ=;
-	b=3VZFvRzaDHYUA3WdwAOFgnB4uJwt6yf2BEJtRp+GBLPcXpewsftDzlLp2SFF/3c0IgS9
-	 Pk00X5heOOJgMKcNVZv79Z3W7fbI+/zM0xfSDAeWbUo4wv+JZEvVhKQ25CI2j5HRgd38X
-	 riNn/ZRyxGvjjTQF0y0X+5rkyXrcdMSaGraVbPcupy/lelnK+Phnh1C2GU2JgnZYJLuop
-	 CDnFKwDemJ/WN/4ZRSDTL/RjQa5eGfK3J3ettSQ5/peWZvF+EsXUULs3C083R2su4yupw
-	 DSyNd7wF/IDDU6HL+e2zFlDEgwM3Jcs0jGEnYahpq4nmE1HVh9SQOfCb4WiBNX/u7zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608178;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=euznYBocIb8kfNgcKlt2GHcUVDSBs2gzY/11E05nVeE=;
+	b=p9c6ZkAEXBVbklIj8rxZjRTlGCWbQ3gK5EBF53RAVovw3uiCbzURn+R8Rtu5IBZOeq5Z
+	 hcqgBnk8Yqd/XtZ+R0bFpcKWZxeWahytRY09Nlqakb3mLmaInqHwuVjtXcVVur4+FT6Qs
+	 8pWrUuZnSXd5NDsb+jgXs8KqpSK54DZuAXaokchpSloUeD/vzrs4m4aIfA9M5NJ/zOcJy
+	 dLwblZrFe705+KNv5QSj7BfVATYmH9qelh//omUr9Uc3U63MqiZCvtBnyhzXGP0cMa9zI
+	 NU8+33h3sf/YgtloOewEPaDcG9L/CE1LH9F7M4QnxASIS2c11GkT2SvhjRhwMWuHCYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=hZ6CDGNv;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F+5WWgPW;
+	arc=none smtp.remote-ip=95.215.58.4
+Received: from mta1.migadu.com (out-4.mta1.migadu.com [95.215.58.4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99559606A324;
-	Mon,  2 Nov 2026 08:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99559606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FB6606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:29:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4FB6606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=hZ6CDGNv
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 25664A1587;
-	Mon, 02 Nov 2026 09:29:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1793608163; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SVPciQr1s9BDQkZqo0irUvEcCQ8iKbnU6l79MHO+xgQ=;
-	b=hZ6CDGNvoqmbNZETgMYos71ChglJxAY5D1UMWnFszUL9QlgIvEgwNXd2Fv3qIjv1OBaSoA
-	1hehzwuSyn0Ktu816SVRZmeF0tPvTV0Ra2OJO7KKuYSjQ/ILeONbIIvgrpvcsX/3e3AgcC
-	eZYOvT3CUa9vRaYKueSZrRbJplxNGPexFCAeOf0QfV9xAd2uKHUS/qHrKiQUf92s34ChUI
-	Ofaw9ff8zVFsn+b9KUxUrpBzq/T8hO6kVumu711LTbLtlEX0fW0xagDc2L7cpcJUe7WIkf
-	ygAKn7SkXoYQBj+dDBYxoSETGPoPKAdZycjEiSpajFA/54XP75s8d/05JJeydQ==
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F+5WWgPW
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y8BgwjagvHGf78IlM6ng3nm9vDTk3b3hu1EyL1SF7ec=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793608174; v=1; x=1794212974;
+ b=F+5WWgPWHTgZkLOdWp34fjp8vKNTzLwWGqZ/4900AI/b1FTmGpR1sFpQt8SzIiPVy20OvRLv
+ h7fwwNHkpAZeLqoAxkwBPghJibjqFi5yr5vvVF8G2NWNsTRh8Fx/D44CNgsqKctPTHRQgrIphKQ
+ IaHcegGiTwV+63OFDSO3Vjy0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eddade33f188acbf;
+	Mon, 02 Nov 2026 08:29:34 +0000
+X-Mizu-Trace-ID: eddade33f188acbf
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	Eric Auger <eauger@redhat.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Will Deacon <will@kernel.org>,
+	Sascha Bischoff <sascha.bischoff@arm.com>,
+	Sebastian Ene <sebastianene@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] KVM: arm64: vgic-its: Update GITS_CTLR.Enabled under its_lock
+Date: Mon,  2 Nov 2026 08:29:33 +0000
+Message-ID: <20261102082933.2673799-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,80 +76,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 02 Nov 2026 09:29:18 +0100
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Magnus Leatti <magnusleatti@kernelriot.com>
-Cc: Yao Zi <me@ziyao.cc>, Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>, "Russell King (Oracle)"
- <rmk+kernel@armlinux.org.uk>, Nazim Amirul
- <muhammad.nazim.amirul.nazle.asmade@altera.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: dwmac-motorcomm: mask the MISC interrupt
-In-Reply-To: <20261102080938.2955-1-magnusleatti@kernelriot.com>
-References: <20261102080938.2955-1-magnusleatti@kernelriot.com>
-Message-ID: <805aeb73d9e32b237bcb30c8fd44ffed@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Magnus
+A GITS_CTLR write that disables the ITS clears its->enabled and
+invalidates the translation cache under cmd_lock, while an MSI
+injection tests the enable bit and populates the cache under its_lock.
+An injection that passed the test before the disable can cache its
+translation after the invalidation, and the cached path then injects
+the LPI from the disabled ITS on every later MSI for that event.
 
-On 2.11.2026 09:09, Magnus Leatti wrote:
+Take its_lock around the store and the invalidation, so that it
+serializes the store against the test. Nest it under cmd_lock, as the
+command handlers do.
 
-> [...]
+Fixes: 86a7dae884f38 ("KVM: arm/arm64: vgic-its: Check the LPI translation cache on MSI injection")
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Link: https://lore.kernel.org/ah6Lsi4MfKUU6wBR@v4bel/
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
 
-> Russell, d3265c19b35d ("net: stmmac: xgmac2: disable RBUE in default RX
-> interrupt mask") describes a similar storm on xgmac2. Should dwmac4 do
-> the same? I have only tested the glue change.
+Notes:
+    Changes since v1 [1]:
+      - Reworded the commit message.
+      - Rebased on 7.4-rc1.
+    
+    Picking up the fix Marc was worried had stalled [2].
+    
+    The GICR_CTLR.EnableLPIs path has the same window and is left as
+    is. vgic_its_invalidate_all_caches() can't take kvm->lock there (it
+    runs with vcpu->mutex held) or config_lock (the userspace GICR_CTLR
+    route already holds it). Instead, the vgic_target_oracle() check in
+    my LPIs-disabled series [3] keeps an LPI off a redistributor with
+    EnableLPIs clear. The two don't depend on each other.
+    
+    vgic_its_free_collection_list() still leaves the cache alone. A
+    guest reaches it only through a GITS_BASER write, which already
+    drops the cache (8cd92f77ae4f). An ITS reset frees the devices
+    first, which drops it too. That leaves a failed collection-table
+    restore. A VMM gets there with translations cached only by enabling
+    the ITS before the restore, against the documented order. Those
+    translations then keep injecting their LPIs into the old target
+    vCPUs.
+    
+    Based on Linux 7.4-rc1 (6628e7d4c6b25; also applies to kvmarm/fixes
+    79f3724ca8913).
+    
+    [1] https://lore.kernel.org/all/20260917162020.1612577-1-fuad.tabba@linux.dev/
+    [2] https://lore.kernel.org/861pbr6emw.wl-maz@kernel.org/
+    [3] https://lore.kernel.org/all/20261026092802.2636798-1-fuad.tabba@linux.dev/
 
-AFAIU RBU is the cause. Dropping it in dwmac4, as Russel did in  
-d3265c19b35d,
-would cover all multi-MSI users.
+ arch/arm64/kvm/vgic/vgic-its.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> 
->  drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c 
-> b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-> index 124fcd55a..610d533b9 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-> @@ -30,6 +30,7 @@
->  #define OOB_WOL_CTRL				0x1010
->  #define  OOB_WOL_CTRL_DIS			BIT(0)
->  #define MGMT_INT_CTRL0				0x1100
-> +#define  MGMT_INT_CTRL0_MASK_MISC		BIT(21)
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 7e9b265b1f521..68e3034e52236 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -1800,9 +1800,12 @@ static void vgic_mmio_write_its_ctlr(struct kvm *kvm, struct vgic_its *its,
+ 		 !(its->cbaser & GITS_CBASER_VALID)))
+ 		goto out;
+ 
++	/* vgic_its_resolve_lpi() tests the enable bit and caches under its_lock. */
++	mutex_lock(&its->its_lock);
+ 	its->enabled = !!(val & GITS_CTLR_ENABLE);
+ 	if (!its->enabled)
+ 		vgic_its_invalidate_cache(its);
++	mutex_unlock(&its->its_lock);
+ 
+ 	/*
+ 	 * Try to process any pending commands. This function bails out early
 
-Where is this bit documented? The vendor driver?
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.47.3
 
->  #define INT_MODERATION				0x1108
->  #define  INT_MODERATION_RX			GENMASK(11, 0)
->  #define  INT_MODERATION_TX			GENMASK(27, 16)
-> @@ -172,7 +173,11 @@ static void motorcomm_reset(struct 
-> dwmac_motorcomm_priv *priv)
-> 
->  static void motorcomm_init(struct dwmac_motorcomm_priv *priv)
->  {
-> -	writel(0x0, priv->base + MGMT_INT_CTRL0);
-> +	/*
-> +	 * Nothing services the MISC source, and once raised it never
-> +	 * deasserts, so keep it masked.
-> +	 */
-> +	writel(MGMT_INT_CTRL0_MASK_MISC, priv->base + MGMT_INT_CTRL0);
-
-Doesn't this turn off the stmmac MAC irq on vector 5 completely? If so,
-please mention it in the comment.
-
-Also, does the MSI fallback still get RX/TX interrupts with MISC masked?
-
-> [...]
-
-Thanks,
-Nicolai
