@@ -1,49 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619852;
-	b=pj3a2VLp5eMAyKYYbNBdL5ZmQZtmPanOQJuZ6OCBQYd+jeZXS+8uYpYNisVwXvB/RMw8
-	 wKAkt4Snq878g2gMhcuFt3/yg9qnjVecsNd4t0p+0ml4flNLNuBPV/yZzBzfzipimIdcU
-	 elcIw10LPsWDWQIFFBdLayfY+zE6AbN5fzTD7ayjfEZn6m7GYOIe37uhEJl7iFLdo4Nxf
-	 AfG8dySilCI7s31F11hm8fF42ZJFMjI6Saoe7iXRBM/9EdcL8WhVop+3aEg0kNbLrnZse
-	 mcyeFOr9plXnKsuxxA1pMS9dVQ9jDdURb6zWZcAIUVlgKYLjge0rfkR5HsG/nVUapFg==
+	t=1793619868;
+	b=gcCvwAx38BbYC/HiNvB4Ujm69i6jxREmNWZbxDKpE8dphn9+Et6RIjaRIjdoOPSkGjnD
+	 OufWoPJUHFqPXrQAxf04pLFcrQPH/LSVqPGITt8weoZglN0GqPPRx9aCSnvsBz0PxBFKk
+	 hxhrcwUYD8pIgL4rYPztY0rtehJueU+DfPRPP9SxiVfz/ccG74PjgIoJE7bL70EaozeL4
+	 OKx7sV+NJp/aSuaXDlkUNQVle5nPNmtS+xKuCVKLkZLbAswenRq8eFUMFtsloR6WvQpXo
+	 z9hg47fj5ZerMUrpvncB/03glRQJ1c75h30ah7uNU85cKrZcYXLWGBZWSbo3uHTZg+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619852;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=CEbYZciebtL2aKgroSydecBjkvTVNl1Hbb78SlOoaRg=;
-	b=xxAM4ZjFCstepIsCSl4gaf3cfL73bXB2PuBoPj/fnUoN4w11jnWnjMFeJe+anDYkxBkq
-	 j7MWMilr2V62WSod9Pc8mY2dFiZjamXQMHQgAomnk+C1IDmDD7p66tMeaV2Dvk5ZE20Cs
-	 2OweAr6D9Vr1U84ha/5nCsdMwG/6zbylJJqFN3F+HiCeaUaIudQxJ+lIw+LI8Ml7oBAEI
-	 das3gMHWEvP16jdVRW0oZdPg4n+5Vcib6DIe33ucz4TrdPN0cHJjoujZ9/qi8VdJdRid7
-	 3nE6Kq4IOb4MuaRJ03EaEr8vrL8RUZs/PhsV+slilS7g8RJBw/PFNLw0au8J400fRqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619868;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DwNOUDx3s8aWtTDxni4gD4AvCFiiolZW9PK8Ed9xdqo=;
+	b=ZYPwGdEfRL4iEl45O3aEUibn7OJLiKlMt3ShD3ddat4kkRTR6hZ1aVZ3Ax7JYfs/LO7T
+	 WjUyPfkoVJPWLbUu54SvLZJ/xpS14werMCeNhfbPo7qgHOUlUXKtJmP6WtJzi7VOr9ApC
+	 8NMHrZADltwWDAy8JUpJCZBcjojdKymr4ApEKmHBQYceMtpd23GwMKj/p+rIKlp2uOEP1
+	 RwooC5xkBC3s/fZYd+opGVlIzf3UbFGNgadWava9NHm/48tsqmrUXY/R8F57yr8leTX+i
+	 jKZuXfyQ30y9+FAvSu2IRm2WwTuk1cz45aVuRQEnCaDrsqp996T5ML09XDS44M7hDPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=h2z0Hw3P;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SeuMbo/c";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30F2606A324;
-	Mon,  2 Nov 2026 11:44:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E30F2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B28606A324;
+	Mon,  2 Nov 2026 11:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=h2z0Hw3P
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 913ABA12EB;
-	Mon, 02 Nov 2026 12:44:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1793619847; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=CEbYZciebtL2aKgroSydecBjkvTVNl1Hbb78SlOoaRg=;
-	b=h2z0Hw3PffeZ/4+TKe9RVKbucreoqLTN1ZOL0D9ChB3xIeCc3ev7ePBgeccDdJABxNxMqr
-	K/drIP0DOa/HmZjo3jongZTLKsMdmkwXlZgYEz+fqwgLm3HfhuvAy+wN74YV5Ad/EdAQ8x
-	46urajdusq1F3txkNgHenrBSYGUw5CJ5150j6J9ExpKemKYz3i2B7k/PUJ74OdX5iibVXc
-	2flYJ7PIx0QDTUzbf+5Ewifwmc7GFN4J9CSI3VCsw8SK/k2sO5Vmcp50MbDkxUoLdU1Ipt
-	yXbTTrEhAW7vAarAlm0cvvWqHys8tmooKGf4DunV6+JUr3LMxRKDW9cHOXFs7Q==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SeuMbo/c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64A51F00A16;
+	Mon,  2 Nov 2026 11:44:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793619867;
+	bh=DwNOUDx3s8aWtTDxni4gD4AvCFiiolZW9PK8Ed9xdqo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SeuMbo/cKza6FqQXc0v+eouBmO5lhLXVpA9ZMEUvoOtIXZnIo0XmMXnX16eD0fpLb
+	 +HazxW5slkl/F+LywE79ZY1Yv1xc3fLNL6cN1Lvdc7AFhXBUNaC3BjmEGby34L+jwx
+	 Cp8jKTSYeB2Ey1yeEdZCPVdXCn/XhwwfNK9uQwQgbQ0k/VxbqTy3Gnl3qzA+6dQfhM
+	 71D/4d72QvKfgg8CjpjgChaBt/M6TzWsQvcWB06gbkt5Uz9FJGqAu5WJtVZa2cPvAH
+	 T7qJNig1KW39sAp+N169vKELBIhHgJ30xHRwqDh2gAhfVXe7VC84AZ5FKDyAOIRvJ4
+	 S1C7ZVt2tS8rw==
+Date: Mon, 2 Nov 2026 12:44:24 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 05/10] dt-bindings: leds: kinetic,ktd202x: Add Etek ET6326
+Message-ID: <20261102-enthusiastic-flounder-of-domination-fb3a01@quoll>
+References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
+ <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,50 +63,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 02 Nov 2026 12:44:03 +0100
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: Sunil Goutham <sgoutham@marvell.com>, Geetha sowjanya
- <gakula@marvell.com>, Ratheesh Kannoth <rkannoth@marvell.com>, Subbaraya
- Sundeep <sbhatta@marvell.com>, Bharat Bhushan <bbhushan2@marvell.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard
- Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Suman Ghosh <sumang@marvell.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH net] octeontx2-pf: fix XDP frames freed as skbs on
- interface down
-In-Reply-To: <20261102113011.h4gv6z6y3ktab2cq@DEN-DL-M70577>
-References: <20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504@tipi-net.de>
- <20261102113011.h4gv6z6y3ktab2cq@DEN-DL-M70577>
-Message-ID: <06c7ea9008cf1d143a44750a36798610@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261101-ktd202x-et6326-v1-5-eb51eddad08c@telaak.dev>
 
-On 2.11.2026 12:30, Daniel Machon wrote:
-
-> [...]
-
->> @@ -1348,6 +1349,10 @@ void otx2_cleanup_tx_cqes(struct otx2_nic 
->> *pfvf, struct otx2_cq_queue *cq)
->> 
->>  		if (!cqe)
->>  			continue;
->> +		if (cq->cq_type == CQ_XDP) {
->> +			otx2_xdp_snd_pkt_handler(pfvf, sq, cqe, &xsk_frames);
+On Sun, Nov 01, 2026 at 09:12:29PM -0500, Joseph Telaak wrote:
+> The Etek ET6326 is a 3 channel LED driver with the register map, the I2C
+> address and the current steps of the KTD2026. It only differs in the
+> flash period, which is (Reg1 + 1) * 128 ms instead of 256 ms + Reg1 *
+> 128 ms, so a KTD2026 driver runs it with blink periods that are 128 ms
+> off. Document it with the KTD2026 as fallback.
 > 
-> Any reason xsk_frames is never handed to xsk_tx_completed()?
+> The ET6326 drives the status LED of the GL.iNet GL-SFT1200 (Opal).
+> 
+> Assisted-by: Claude:claude-opus-5-5
 
-No, just missed that, thanks. I'll send a v2 with this fixed, after 
-waiting for
-potential feedback from clashiko later today.
+Drop.
 
-> [...]
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-Regards,
-Nicolai
+> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> ---
+>  .../devicetree/bindings/leds/kinetic,ktd202x.yaml         | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
