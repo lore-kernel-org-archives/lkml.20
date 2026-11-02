@@ -1,73 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641303;
-	b=ytycAsc/KigpvWboDrQ/5SwFdCijF1L184Iv2P/Ey1brSe44hWFTpi2XaCgivgvVwhKs
-	 pkS+Nj0hXv/BTK6OSsGz1kKrc5KEd2gHAJvagrSxyzseLQtFHj1FL+kNPgNUr30FNWsT4
-	 6TJFqudGClBcJYqtGZm8+M+zliuHSsrgfnQ1oYXUbSoNwHLdoT2E4f/SIbY/u1hDn5CPW
-	 7QqWjOUZGWlIvYTXFLj7KHFHS1P+BZlETg34htpRK/wtmFPB4kyJaPgHBiVVapFGePDx0
-	 bD+Hc0PYJZjg2KJbjH4sYkWwZHzv+JB6WMRtmkQiqaUrjAzwA/e+6g6rzyC6p5uMWeQ==
+	t=1793641320;
+	b=5AlRAFyAmD5R0PM59cnX1VdAWHbPD6fbG4t/WkaXuJBZK0H5DT+A4Kla5cVAXUVDAwl4
+	 2+9GqSkp1q6iXK1YiLRPfcM1IMHeQ/NzfuGcPrFgTf4NTjQNLP3Ilc4k6LhJUbKwvCXUn
+	 9acM8l7KthaX5plEqBf2Nq2oc/tF7SFBz9RNoIBPJ+a10PqSjPexsHW+DLsk1EgMrOk7K
+	 uVZRNcL7g6GaoWf6i/8TvruB0wFoJfyoHf8lDPbpGJxrCb8yEN/jGg/HLpc6OE6ZaiIVP
+	 YwwARcSRwaCbHs26DiErKfZ8rIFc3o3tiYR6YvIU4vztVCdPaQalwe120Lx4Nwb/9DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641303;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=s+NlsL2Gb1GNQwiHFIrjaI9A06E3mE950NZsKTDhcfY=;
-	b=guhef/RyfhWlHtvp3+JNokPiaZ3QfZesVTqUSn/5wbjh3/VUg/FfuS8dkoIOxZmGYqDl
-	 tuoqEhwPyXzqHqAlxT6DVYpJGJjIi6zEcvryJ9y8W40IIscrGKHHPiITdnJ2T+7KCF3ij
-	 xrE/99g9mTi6elQTisFUrEvQBD8fGNXQy37XgyfE2ZzF0ScSasZkpG2A8SEV+gOFQpL+9
-	 j5IAUGOYJWpWA+naQfYywwxLUgIC3CA+m6DAQPZnsB1bPe8K9+55vH4MyJwyEXOYpMzz2
-	 HCH7SVca285jSn/TBCDNeLrrnTc9uOpMujvV1+JWVKfmaD560ks+Q9qCetNHwH1LowA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641320;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=P7U+PpugZaoiRZ3RSWfO6SRjEMCP3t2/Q0growSjEko=;
+	b=ny7QzA5Ij6bQ32payYGH+8c4JBWo9OmDzb1xdp571EbCOScX1xYA43oXuTyICpOUVHqV
+	 0p4hxspOHVS8+qmcKTIZfB/ehZCW8yC8DBHGBGle82k1pT65pvN4w2TNbl7e2LVSaqA7y
+	 WVfGoTEnBZWwHvqVnEkcGGZ4G4hSCrRTatDWSRpoJBu9AanKGZK/ko1vCkZSLH9OKNicC
+	 ez+AuGLSny7qL8LdSqLMsTE9sToqdQH7vrbQaz+IDHbustBBpEBnBgQCQy6nEiJOyZ5u1
+	 oLONAVKFOSxxR+GEk3BOxaVOKzsd5swKLJYO2lIHOFtjYhNA5rvSwSTeIf5MtqbZDfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d9t6Sjds;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gUohjNZo;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3963D6072236
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3963D6072236
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D33606CEC2
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:42:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58D33606CEC2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=d9t6Sjds
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641302;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s+NlsL2Gb1GNQwiHFIrjaI9A06E3mE950NZsKTDhcfY=;
-	b=d9t6SjdsVNoi5mGyrkxwTyhvFh3FCyqzklyyYnZgqOjIMEFzhSU17La7dDxoNJWHizhEbc
-	wh4IOU2kzGgtS9JP5usrfEaUtSq6LqFoCgG6ZvPWxBgvcQpOT8SHGTwXEnF4FuBJi+u51e
-	wBMWYI2JmrgGGRn5z7ANdqJ/Dn+12cY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-441-VBSyKnvaN6aO9v4k7urHAQ-1; Mon,
- 02 Nov 2026 12:41:39 -0500
-X-MC-Unique: VBSyKnvaN6aO9v4k7urHAQ-1
-X-Mimecast-MFC-AGG-ID: VBSyKnvaN6aO9v4k7urHAQ_1793641298
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2730A19560AB;
-	Mon,  2 Nov 2026 17:41:38 +0000 (UTC)
-Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BEB811800347;
-	Mon,  2 Nov 2026 17:41:37 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: [PATCH 11/45] KVM: selftests: test hypercall memory fault exits
-Date: Mon,  2 Nov 2026 12:40:55 -0500
-Message-ID: <20261102174130.8779-12-pbonzini@redhat.com>
-In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
-References: <20261102174130.8779-1-pbonzini@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gUohjNZo
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2674653f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:42:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793641319; x=1794246119; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P7U+PpugZaoiRZ3RSWfO6SRjEMCP3t2/Q0growSjEko=;
+        b=gUohjNZoEFog5+xCBv3q8ptD9jvH7QkhKGOlPFKzFA8vBZfyzKz801dxmzOJqOZYhA
+         W5iyJW/oRg6yJryHayX5kZAf0D7BpNGtzYzJRHcVn9c4E/YvaTCSW2AxklQaIB7CeLT0
+         7O2RC6Y35QjCveEW1ouAMjLUSm5N1mZV28evOAHVCOcTRiJVBASe3N+ensrtF2Ygk4ac
+         WBSBZKwCyJtXSns1w2xD/mihpyOGTwby4fGU5Kl0yT4gBEaNJ7Cy6rZTlyON8aD5S3/9
+         J5zcjsoppeUh01mu27rt/Gh6tFrjIQtkeKeQ4YxfhdkLqz0NXHzwL4olWSMRo6Vrj1Nu
+         V/MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793641319; x=1794246119;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P7U+PpugZaoiRZ3RSWfO6SRjEMCP3t2/Q0growSjEko=;
+        b=2essse5GaBKMk8SC4dIKZ0M45L88DrH5JxCZMTbblEnOQGMlIi4SSmr2zqP5TsaMis
+         1qbTD25USw/8OMniK7B8ZRbPTTOMdEAzakmBCpQMHrP7XfcEhzWTX1JHFQ5vR1ca4mcJ
+         VjBmi8qxYlIUBas34FhgLowXrGpKWwIsc67RiS+PSRUQ4OVDM86DUSxhWNF32Xn0j81P
+         9G5iSFNJwEzY9NX0pf5a1B0Yv8Dq3BE6KRLlX+GaxSFAfwJ1/pba0ZV4pRjdUGOFYCvG
+         9a5UjSPcJR8g6KNjOeIymydFj3sYlEDDDq6GLv4lePW1zcxdJ356gLa332oVmDQu3zQB
+         y1mg==
+X-Forwarded-Encrypted: i=1; AKwUvBywIs4LSSefQGpWQU2Tk96Ekt1ciO7jt20HjEHgDKzGywTX/fsOAQpHgTEEYUQdl14g8qnV2JUsY4Sil0U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81y/OgD3tGRjDLrXpskFT7w3h+s4sjrIUrzEMNgzEpONb5G9KG
+	spp94RwFsUXD9hhGW6odbUFIPCv+j7b/G/YweYuK+SYvRG4U0vJjDpwY
+X-Gm-Gg: AYBFou2uYeP7OobiQUeXmouLzLqkgRp4Seogb7UdjOAaHavh0VgX4U1pxk7vt2a8YeL
+	4tD3gclUuuPh8o0TaBCCCwKmkXErVqZHWTotwfnCwIkH7UG1UC9cufzv3bAcAGdbeevIV3LtPFH
+	/+IlC3upLZBxtP4REONNwjUQkT8xsm0yxDmoCQH/T7lTyvtGN+PYaFkQ3pNIWpbsrw6IBsZkQGX
+	XQotOvTA2DwCV0iRImq2Ikn5jf8HDGsBwYtAjOjaNewhh0P8+1pSgK3mA+uMf+hFoNR3gmaikAR
+	pVGYcxN6/fXov8h4cgoDPi6UNHwxI0FOERiVef3mBeSMPARt2jU7yUUkQBqFqcGlN34QGxkkz9t
+	h1CWwMQ7kfHQq49UEtxua1PPENdzPN+j8YHP1jb5TXCejRSUAiIP0zOx6zvcINmv/godPJP0oT/
+	LAEa/Z3W7hVYuleQsDZTMflCJ7iSKnBC4qiJCXLCejvCs7QQyAmH8AQsLyb4ULogKklZB9Y6phj
+	4Xo9BSRO9I+ew928om+RZkI9QGX5arw+bGOI+teWYruQL5cT+RT/TWSs538BhbCeGTUIpK3FkEv
+	XuHUli6qMk2qbk8C6jXAgkg8xveiU3cDawN6LpWhOsEWsjC9Bdn2X3fwmaGgXadRvxZicOgWIEb
+	l5OqXcjo30qUlvwxR8xd94Qt0rwF2zCZrWR/KJQMkHOwqA7/6nn9Oi0nXVRX45hZFTXEGWUoeET
+	FDyVgrWC9Yd+AZ4Wd8SL2XBg8Lz9n+ZdxY
+X-Received: by 2002:a5d:5e90:0:b0:48e:2bf4:e7f1 with SMTP id ffacd0b85a97d-48e6e518492mr24296986f8f.39.1793641318418;
+        Mon, 02 Nov 2026 09:41:58 -0800 (PST)
+Received: from ADM-D9YH122JTV.home.lan (158-199.dsl.iskon.hr. [89.164.158.199])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3cesm23534081f8f.7.2026.11.02.09.41.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 02 Nov 2026 09:41:57 -0800 (PST)
+From: Goran Sustek <gsustek@gmail.com>
+To: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Cc: Jeff Johnson <jjohnson@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH ath-next 1/3] wifi: ath12k: allocate the AFC memory region requested by firmware
+Date: Mon,  2 Nov 2026 18:41:36 +0100
+Message-ID: <20261102174136.37406-1-gsustek@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <98f13907-fe0a-4a8c-8ac9-3be40edcaff5@oss.qualcomm.com>
+References: <20261030220824.915760-1-gsustek@gmail.com> <20261030220824.915760-2-gsustek@gmail.com> <98f13907-fe0a-4a8c-8ac9-3be40edcaff5@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,324 +101,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Cover various scenarios where hypercalls are invoked with invalid or
-read-only GPAs, and check that they exit to userspace.
+On 11/2/2026 4:06 PM, Rameshkumar Sundaram wrote:
+> In that case, shouldn't chunk->size be cleared when no memory is
+> allocated, or should the response only contain the chunks that were
+> actually allocated and assigned by host ? (see
+> ath12k_qmi_assign_target_mem_chunk() which updates ab->qmi.mem_seg_count)
+>
+> Allocating AFC_REGION_TYPE while AFC itself is not supported by the host
+> looks wrong to me.
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Link: https://patch.msgid.link/20260918135030.171564-8-pbonzini@redhat.com
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- tools/testing/selftests/kvm/x86/hcall_fault.c | 246 ++++++++++++++++++
- .../testing/selftests/kvm/x86/hyperv_evmcs.c  |   4 +
- .../selftests/kvm/x86/hyperv_svm_test.c       |   2 +
- 4 files changed, 253 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/hcall_fault.c
+Agreed, thanks. The comment above the switch already says that the host
+does not allocate memory for regions it does not support, and v1 went
+against that.
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 3cb35a6963d5..478b85ceb7fb 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -83,6 +83,7 @@ TEST_GEN_PROGS_x86 += x86/evmcs_smm_controls_test
- TEST_GEN_PROGS_x86 += x86/exit_on_emulation_failure_test
- TEST_GEN_PROGS_x86 += x86/fastops_test
- TEST_GEN_PROGS_x86 += x86/fix_hypercall_test
-+TEST_GEN_PROGS_x86 += x86/hcall_fault
- TEST_GEN_PROGS_x86 += x86/hwcr_msr_test
- TEST_GEN_PROGS_x86 += x86/hyperv_clock
- TEST_GEN_PROGS_x86 += x86/hyperv_cpuid
-diff --git a/tools/testing/selftests/kvm/x86/hcall_fault.c b/tools/testing/selftests/kvm/x86/hcall_fault.c
-new file mode 100644
-index 000000000000..725c59ff750c
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/hcall_fault.c
-@@ -0,0 +1,246 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <errno.h>
-+
-+#include "kvm_util.h"
-+#include "processor.h"
-+#include "hyperv.h"
-+
-+#define TEST_MEM_GPA		0x100000000ull
-+#define READONLY_GPA		(TEST_MEM_GPA + PAGE_SIZE)
-+#define UNMAPPED_IN_GPA		(TEST_MEM_GPA + 2 * PAGE_SIZE)
-+#define UNMAPPED_OUT_GPA	(TEST_MEM_GPA + 3 * PAGE_SIZE)
-+
-+struct hcall_test {
-+	/* TEST_MEM_GPA in the guest */
-+	u64 control;
-+	u64 ingpa;
-+	u64 outgpa;
-+	u64 expected_status;
-+	u8 unused[PAGE_SIZE - 32];
-+
-+	/* READONLY_GPA in the guest */
-+	u8 readonly_data[];
-+};
-+
-+#define HV_FLUSH_ALL_PROCESSORS                 BIT(0)
-+#define HV_FLUSH_ALL_VIRTUAL_ADDRESS_SPACES     BIT(1)
-+
-+/* HvFlushVirtualAddressSpace, HvFlushVirtualAddressList hypercalls */
-+struct hv_tlb_flush {
-+        u64 address_space;
-+        u64 flags;
-+        u64 processor_mask;
-+        u64 gva_list[];
-+} __packed;
-+
-+static void guest_code(gpa_t hcall_page, struct hcall_test *test)
-+{
-+	u64 result;
-+	u8 vector;
-+
-+	wrmsr(HV_X64_MSR_GUEST_OS_ID, HYPERV_LINUX_OS_ID);
-+	wrmsr(HV_X64_MSR_HYPERCALL, hcall_page);
-+
-+	vector = __hyperv_hypercall(test->control, test->ingpa, test->outgpa, &result);
-+	GUEST_ASSERT(!vector);
-+	GUEST_ASSERT_EQ(result & 0xffff, test->expected_status);
-+	GUEST_DONE();
-+}
-+
-+static void clock_pairing_guest(gpa_t gpa)
-+{
-+	kvm_hypercall(KVM_HC_CLOCK_PAIRING, gpa, KVM_CLOCK_PAIRING_WALLCLOCK, 0, 0);
-+	GUEST_DONE();
-+}
-+
-+static gva_t create_test_regions(struct kvm_vm *vm)
-+{
-+	gva_t test_gva;
-+
-+	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, TEST_MEM_GPA,
-+				    10, 1, 0);
-+	memset(addr_gpa2hva(vm, TEST_MEM_GPA), 0, PAGE_SIZE);
-+
-+	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, READONLY_GPA,
-+				    11, 1, KVM_MEM_READONLY);
-+	memset(addr_gpa2hva(vm, READONLY_GPA), 0, PAGE_SIZE);
-+
-+	test_gva = vm_unused_gva_gap(vm, PAGE_SIZE * 2, 1 << 24);
-+	for (int i = 0; i < 2; i++)
-+		virt_pg_map(vm, test_gva + PAGE_SIZE * i, TEST_MEM_GPA + PAGE_SIZE * i);
-+
-+	return test_gva;
-+}
-+
-+static struct kvm_vm *create_vm(struct kvm_vcpu **vcpu, struct hcall_test **test,
-+				gpa_t *hcall_page_gpa)
-+{
-+	gva_t hcall_page, test_gva;
-+	struct kvm_vm *vm;
-+
-+	vm = vm_create_with_one_vcpu(vcpu, guest_code);
-+	vcpu_set_hv_cpuid(*vcpu);
-+	vm_enable_cap(vm, KVM_CAP_HCALL_FAULT_EXIT, 1);
-+
-+	hcall_page = vm_alloc_page(vm);
-+	memset(addr_gva2hva(vm, hcall_page), 0, PAGE_SIZE);
-+	*hcall_page_gpa = addr_gva2gpa(vm, hcall_page);
-+
-+	test_gva = create_test_regions(vm);
-+	*test = addr_gva2hva(vm, test_gva);
-+
-+	vcpu_args_set(*vcpu, 2, *hcall_page_gpa, test_gva);
-+	return vm;
-+}
-+
-+static void run_vm(struct kvm_vcpu *vcpu)
-+{
-+	struct ucall uc;
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+	switch (get_ucall(vcpu, &uc)) {
-+	case UCALL_ABORT:
-+		REPORT_GUEST_ASSERT(uc);
-+		break;
-+	case UCALL_DONE:
-+		break;
-+	default:
-+		TEST_FAIL("Unexpected ucall: %lu", uc.cmd);
-+	}
-+}
-+
-+static void test_unused_gpas(void)
-+{
-+	struct hcall_test *test;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	gpa_t hcall_page;
-+
-+	vm = create_vm(&vcpu, &test, &hcall_page);
-+	test->control = HVCALL_NOTIFY_LONG_SPIN_WAIT;
-+	test->ingpa = UNMAPPED_IN_GPA;
-+	test->outgpa = UNMAPPED_OUT_GPA;
-+	test->expected_status = HV_STATUS_SUCCESS;
-+	run_vm(vcpu);
-+	kvm_vm_free(vm);
-+
-+	vm = create_vm(&vcpu, &test, &hcall_page);
-+	test->control = 0xbeef;
-+	test->ingpa = UNMAPPED_IN_GPA;
-+	test->outgpa = UNMAPPED_OUT_GPA;
-+	test->expected_status = HV_STATUS_INVALID_HYPERCALL_CODE;
-+	run_vm(vcpu);
-+	kvm_vm_free(vm);
-+}
-+
-+static void assert_memory_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 flags)
-+{
-+	int r;
-+
-+	r = _vcpu_run(vcpu);
-+	TEST_ASSERT(r == -1 && errno == EFAULT, KVM_IOCTL_ERROR(KVM_RUN, r));
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_MEMORY_FAULT);
-+	TEST_ASSERT_EQ(vcpu->run->memory_fault.flags, flags);
-+	TEST_ASSERT_EQ(vcpu->run->memory_fault.gpa, gpa & PAGE_MASK);
-+	TEST_ASSERT_EQ(vcpu->run->memory_fault.size, PAGE_SIZE);
-+}
-+
-+/* Read-only hypercalls, read-only inputs, valid/invalid argument */
-+static void test_readonly_input(void)
-+{
-+	struct hv_tlb_flush *flush;
-+	struct hcall_test *test;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	gpa_t hcall_page;
-+
-+	vm = create_vm(&vcpu, &test, &hcall_page);
-+	flush = (struct hv_tlb_flush *)addr_gpa2hva(vm, READONLY_GPA);
-+	flush->flags = HV_FLUSH_ALL_VIRTUAL_ADDRESS_SPACES | HV_FLUSH_ALL_PROCESSORS;
-+	flush->processor_mask = 0;
-+	test->control = HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE;
-+	test->ingpa = READONLY_GPA;
-+	test->outgpa = UNMAPPED_OUT_GPA;
-+	test->expected_status = HV_STATUS_SUCCESS;
-+	run_vm(vcpu);
-+	kvm_vm_free(vm);
-+
-+	/* fails immediately because it requires SynIC */
-+	vm = create_vm(&vcpu, &test, &hcall_page);
-+	test->control = HVCALL_POST_MESSAGE;
-+	test->ingpa = UNMAPPED_IN_GPA;
-+	test->outgpa = UNMAPPED_OUT_GPA;
-+	test->expected_status = HV_STATUS_INVALID_HYPERCALL_INPUT;
-+	run_vm(vcpu);
-+	kvm_vm_free(vm);
-+}
-+
-+/* Read-only hypercall, unmapped input */
-+static void test_input_fault(void)
-+{
-+	struct hcall_test *test;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	gpa_t hcall_page;
-+
-+	vm = create_vm(&vcpu, &test, &hcall_page);
-+	test->control = HVCALL_SIGNAL_EVENT;
-+	test->ingpa = UNMAPPED_IN_GPA;
-+	test->outgpa = UNMAPPED_OUT_GPA;
-+	assert_memory_fault(vcpu, test->ingpa, KVM_MEMORY_EXIT_FLAG_READ);
-+	kvm_vm_free(vm);
-+}
-+
-+/* Read-write hypercall, unmapped or readonly input and output */
-+static void test_output_fault(bool readonly_in, bool readonly_out)
-+{
-+	struct hcall_test *test;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	gpa_t hcall_page;
-+
-+	vm = create_vm(&vcpu, &test, &hcall_page);
-+	test->control = HV_EXT_CALL_QUERY_CAPABILITIES;
-+	test->ingpa = readonly_in ? READONLY_GPA : UNMAPPED_IN_GPA;
-+	test->outgpa = readonly_out ? READONLY_GPA : UNMAPPED_OUT_GPA;
-+
-+	assert_memory_fault(vcpu, test->outgpa, KVM_MEMORY_EXIT_FLAG_WRITE);
-+	kvm_vm_free(vm);
-+}
-+
-+static void test_clock_pairing_fault(bool readonly)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	gpa_t gpa;
-+
-+	/* Unlike create_vm do not enable Hyper-V hypercalls. */
-+	vm = vm_create_with_one_vcpu(&vcpu, clock_pairing_guest);
-+	create_test_regions(vm);
-+	vm_enable_cap(vm, KVM_CAP_HCALL_FAULT_EXIT, 1);
-+	gpa = readonly ? READONLY_GPA : UNMAPPED_OUT_GPA;
-+	vcpu_args_set(vcpu, 1, gpa);
-+
-+	assert_memory_fault(vcpu, gpa, KVM_MEMORY_EXIT_FLAG_WRITE);
-+	kvm_vm_free(vm);
-+}
-+
-+int main(void)
-+{
-+	TEST_REQUIRE(kvm_has_cap(KVM_CAP_HYPERV_CPUID));
-+	TEST_REQUIRE(kvm_has_cap(KVM_CAP_HCALL_FAULT_EXIT));
-+	TEST_REQUIRE(kvm_cpuid_has(kvm_get_supported_hv_cpuid(),
-+				   HV_ENABLE_EXTENDED_HYPERCALLS));
-+
-+	test_unused_gpas();
-+	test_readonly_input();
-+	test_input_fault();
-+	test_output_fault(false, false);
-+	test_output_fault(true, false);
-+	test_output_fault(false, true);
-+	test_clock_pairing_fault(false);
-+	test_clock_pairing_fault(true);
-+	return 0;
-+}
-diff --git a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-index 2e1150c4bbbf..6b2fb3fbccd9 100644
---- a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-+++ b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-@@ -227,6 +227,8 @@ static struct kvm_vcpu *save_restore_vm(struct kvm_vm *vm,
- 
- 	/* Restore state in a new VM.  */
- 	vcpu = vm_recreate_with_one_vcpu(vm);
-+	if (kvm_has_cap(KVM_CAP_HCALL_FAULT_EXIT))
-+		vm_enable_cap(vm, KVM_CAP_HCALL_FAULT_EXIT, 1);
- 	vcpu_set_hv_cpuid(vcpu);
- 	vcpu_enable_evmcs(vcpu);
- 	vcpu_load_state(vcpu, state);
-@@ -257,6 +259,8 @@ int main(int argc, char *argv[])
- 	TEST_REQUIRE(kvm_cpu_has_ept());
- 
- 	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+	if (kvm_has_cap(KVM_CAP_HCALL_FAULT_EXIT))
-+		vm_enable_cap(vm, KVM_CAP_HCALL_FAULT_EXIT, 1);
- 	vm_enable_ept(vm);
- 
- 	hcall_page = vm_alloc_pages(vm, 1);
-diff --git a/tools/testing/selftests/kvm/x86/hyperv_svm_test.c b/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
-index 1c95b86ce2a5..ccd45a233b9b 100644
---- a/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
-+++ b/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
-@@ -162,6 +162,8 @@ int main(int argc, char *argv[])
- 
- 	/* Create VM */
- 	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+	if (kvm_has_cap(KVM_CAP_HCALL_FAULT_EXIT))
-+		vm_enable_cap(vm, KVM_CAP_HCALL_FAULT_EXIT, 1);
- 	vm_enable_npt(vm);
- 	vcpu_set_hv_cpuid(vcpu);
- 	vcpu_alloc_svm(vm, &nested_gva);
--- 
-2.52.0
+v2 will not allocate the region. It names the type, answers it with
+address 0 and size 0, so the firmware no longer holds an AFC region at
+bus address 0, and logs this at debug level instead of warning.
 
+I prefer clearing the size over leaving the segment out, for three
+reasons:
 
+- The firmware already treats a region with size 0 as not provided, so
+  the answer has a defined meaning. A response with fewer segments than
+  requested is not something I could verify for the PCI firmware.
+- It stays a local change in the existing switch case.
+- Compacting target_mem[] in the PCI path would shift the indices that
+  ath12k_qmi_alloc_chunk() uses to reuse memory after firmware recovery
+  (prev_type/prev_size), and the free path walks mem_seg_count. That
+  needs extra care to avoid stale or doubly freed entries.
+
+Tested with WLAN.WBE.1.6-01243 on two QCN9274 boards: the firmware sends
+the memory ready indication right after the response, reaches firmware
+ready, and both radios come up and serve clients, with no firmware
+crash. The AHB path already drops unknown types instead, so if you want
+both paths to behave the same way, I can follow that in the PCI path.
+
+v2 changes only type 10. The default branch for other unsupported types
+stays as it is, because this firmware requests no other one.
+
+Goran
