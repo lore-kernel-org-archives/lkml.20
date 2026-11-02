@@ -1,105 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633390;
-	b=sba5fW94b6zVXWy30ioxgAUvLyPgGN+WUV9N7SbOysaVIKb2Y2tXhSxzMY+Rqekspg58
-	 vkIZs89Y0DYHmO/CamKWzuoMeZEBVAat8sy9yO2l80OuaN8Qmh/iE0CggXazvFAUfx4hm
-	 DMT1NEvBOmpp89fQH4J6gNg5bENfq/X2UI5dK0/+hUEK6MwMGEb1Nv4++e6sDEHSd1jPr
-	 ezRoObRaCDMYbxLZwV3E3ai0bqIgjYuH3Ebo+rxY206dlU7QzXgS9n4EwDlMNQKwOFQHY
-	 YaXPfbuixM+dsCSzhcV+rEGqHUSjXfS5Lltojc7vqFLp5s6tLW03acReTs6pnI7SgUg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633390;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793633398;
+	b=JUcmKJ6bCVpcn28QKMBBS2FKfBWGUkGBLUEWm76yaBJPe7EnZ+qWL/lL7XxOb4UHv/QM
+	 ZpHSOqgpkJTx5tcIFoc8mZR7y+zarR33s686rz+97owX1x4IX5yzXGXzisIT2wBYTPoim
+	 GdFGU+rDgUKYo4So+Y6sp/dsFu5agh2ct0QxVsX7fZsocrJhsfYNTL55gddt39U4DOe65
+	 a2cmx72AULof0reQxh91PvKoZZCQxdWJ/Pd9dHlEM8ZHjF4QjiYNBl5y3nAMm9EnlreMx
+	 Hg9uLCtzjTFsn2po1FVRFTC3YBCIOBgdUH5TlY4SPFyCJHDgzJU3Nh+D2RCGmPeyCtA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633398;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=AfMnsvVTtJkxmfxbs2Yxgr4hKJCAmoy0tOEQOe4nWZ0=;
-	b=yTfdgtFd6iSA5JLFqD+FdKUGqnb7xc81W+WPjfWki1BRSmmdIGcg/0EmB32rdLuahRbk
-	 KWk9SzPh19IR911N6StupkcPAtDz961OnVHif9O+R8K6rseSOX0aFZn/tZO7CQDGutzRh
-	 fEs2SMAHfiq+tP0mC4HGM313gPBfHvS/E7V0l+dpFpISwOLHL7ViHJIfFkmmTGY8psDw+
-	 y1JNiXFGO16IdzX1/Fu7I9I35ub3xsrJGa4zmuPatYhZI2POLDEe4fkIBDJaHbzDorsh1
-	 KsgtITKJuVhK2cqJ9D41X83auKbLoPSPy62saIAURo85eXKlOw40lhFfh5jnA6IJfcg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=P7oHHMkIM1swADUlplUIw0AliwJNApZ8BZBXp6ze1xc=;
+	b=lYfaoNWgDH5S3+GukQxXySCf8q+jMrRANVOopGSAmLgp0WcKZc7DnrStVxPtbIcTnywk
+	 r29xQOxiifayM43Lp6CQKc1LF9uiYcmIaof4+LadSOGUNkis4NmjiwKbhBCdy0dPUPsRW
+	 PakxwKH4pt0K/Bk/RGLVh6LvCMVRDnJdou9EmO3qDgt7yv+5neSpssUMEWNezB2Aa+Jd6
+	 Qqvci63DKS8l1BfyPJ9Bn7ZOsv44nyjkzwwQ06+Tt9/DjISgBjePEYrTM/9PNZIuGyWgI
+	 p+cda4etKX2FTXGOrjDTBCE7XwPyaYHudjVy6ggnTFf3CGvLsRVlCGlJi+LDZsx1r6g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eBu3G+7A;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DPoB7zEb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.52
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6160260865D7
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:29:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6160260865D7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B0960D2B9E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7B0960D2B9E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eBu3G+7A
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c49c32650adso401210966b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:29:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DPoB7zEb
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so3932701241.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:29:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793633397; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZTPaj38Dra7Smg6HAqepMPGkCZouq5ZLKngNdZJDprrrytfcFWlzSh/o40jYqQulb7
+         HsHnJbsi+B97Y1OVV/D5IPRNf8sd7LU7SNjOeF7+v/FPKJa3SdKHEdgaxkiP+aceUMvz
+         g+7kBemftT52TfprDr6UIy4nkSsldr9n6kiQEwMXKItl9JawaAN4msOkNCR/ChDyFY+C
+         syy9pUwLAHp63ZgQ01lU5ME5lb2SDXkbk/3VoM+duJpGXsT9OTlluzb7aRrdEHkuSvz2
+         oEatRZ1qwQir48kGHKBqSNYxZnxv2DgqP7S/4wVTGT0gdqAd7lEJpTlju/mtjMmBkeme
+         0HDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=P7oHHMkIM1swADUlplUIw0AliwJNApZ8BZBXp6ze1xc=;
+        fh=jnZfl/EJ3sWovGK3P9GmeBy7zCYjILGFXHPlaGJf8w8=;
+        b=KI3b8g9I5VE0r8gS9kV4lMXNd7ggR6ljb7ibuDUazP3CJPTJ2i1OPayk9HOpQoB0/e
+         Eo5ib20SsPINB9rLNo1C2QJWPACjgz7SpR+4WFrwvTzFyCv4d7Nv4dwpHyfhfpWssB9a
+         AG2X6Q0+TAhneuE+d0VKHuH1QxL1NLx2JHt5BeU+XKKat/1uk9ovyC18k5kvf4a26VN7
+         LxDNEpk+Qi0M7bfuSabbLh9RfELTlvqSEUPO1ZruPPWvW23hyw00xA6rBmyR7VMpMVn0
+         EocqZuD+EWsCKg9zC81TZb17NdnP2w1IWRQ9BvoRxv4DuyC3OsZjbEs6D5fUWReCJSzv
+         DaSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793633389; x=1794238189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AfMnsvVTtJkxmfxbs2Yxgr4hKJCAmoy0tOEQOe4nWZ0=;
-        b=eBu3G+7Akvd7S5AmxMjgRwbGGdaOYmvss883RtWON7poOSslYNAYnjLsmkiIM2l8PH
-         0dbDdV8Gma/D/wO93QPARhoO+UU/5YGy3quG2VLJPbv/w8ekBOawD/spCsrocvs2aZWU
-         7iTioHmJ0h9mOKxJ5CkiJGoX/sR3DHwXXk1xiKe7c/2AN6qk9h+ltisuJXEC6UveCFIV
-         qSMJbPN13YzJQ7nmdTg/e8YQPAv0g1Ig/JWQ8fA6QaGw9XzFS/7zH6hDgavEFkF2eu5c
-         y1EyA2uKOFujmaUMBDkBgf+2Sl3VxhaHKdNKBAkH71qbOM5ATJyZkf9gRyRU7sdWfpuT
-         lwRA==
+        d=gmail.com; s=20260707; t=1793633397; x=1794238197; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P7oHHMkIM1swADUlplUIw0AliwJNApZ8BZBXp6ze1xc=;
+        b=DPoB7zEb46bWtdTF7JIKZ0Wo33TffI9DxLqdPRgUQhsGB4mHSFJlFzSIOMGV5PtPFa
+         2kXsamgrfS5DXbQR5pqHDJsLlXJ3Qr0cYdm6AOXSB+i8lturJutBvpA/qfOWYwX1/s/W
+         7rX+QeVytIAVoxAi08HK+WyKT9oBk5KHBiRNi9q97xMdhbQN8jm02w3iFU7/L11XOU6B
+         tqpTBU2wla+w5DSOO/Wuv+0C2Gpgf74xoqrSMsak6dEoS3Pl1ASyPgTeN2471WA0TfH4
+         CL7cppNNBD/wtOO549kHZxnvDI+RG1qCoY2QfSpL3kK6QFRmG+vI+M1mtR/VwEi7FD5C
+         82MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793633389; x=1794238189;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AfMnsvVTtJkxmfxbs2Yxgr4hKJCAmoy0tOEQOe4nWZ0=;
-        b=tJFaRKlANXNim0UzHPPyB46CNPe1l7A1ztMufeZ6hGu3zQGumSXxYKArZKhrLFmQ3F
-         xKBijnoqtsHMpdfOKeNjzE3cssUZj30AKcsnLWrYfcx4FuKFyX6/ig1ihgJFUkUdLQj1
-         GaKfyBOtZc2KN7q41XZa7+j+TImmok6R+hBpSx7gna3Jx8AZW1dgqtdTonuC19twS48A
-         5l+YkSYJfP8DR6JUbe69+z1oOpBx9g/WgtnEcNy6iIDxnOHpXpbU4i2B9v6eaGHkxId+
-         e3G86gXQnIdG0QsMajerZ8wh0z6IufZE3yvWyciPB4Hg+xunEtSU0Tb06E4jt3JWU59z
-         veog==
-X-Forwarded-Encrypted: i=1; AKwUvBzr1BWn12+a2mOMXAJ6Jx4cR3lQ/KDol8Lns1lRu9YR9w3I3huWUbG9uKzeuwiTVI/rFMxoj2VWjxXUsbo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wb9LHQq4XgyjzjWOlq9VLf6n9vWqisgsohTQJZ0mJLQ+osg7p
-	COOgE+L4S2Fw0tfJGOVUnlrS09POpkBYG22zU3YtC9B99Tz9NlxfqDkw
-X-Gm-Gg: AYBFou1QP8ugEGAzssHUwr1q8gtmT7bXq6o/0QEUBC9I6OY45clWRAxdwWPBnWRbxbI
-	hCX1I3aHv4H4uL5IRa/qPC+JdsQ93wvTQUemGsUZwhPBnir1jb55ZfcwEjialYUzrG/qdrEZLzO
-	rYJ9IpITVnjcNoa6Nz2SMmnxuwc7Zz0KCmm/pn2iTVMy8PrtU5m3RbPLzoz7AXG/Xx7g0tq88xq
-	W4akmNrW1eT0tFyQHKOMqWO3RuHdFzms5Z9dcovAAUz7M4yo6WgyeTqqgvXlriiZWoQ+zlI5k1C
-	CKgcaof7Ax7azjCKKgk+9qIpT78FKHk8eYSaFxpgFxOykNFMGiN/R65tOwKz49xYcAgA5xr9if9
-	2Y3hOcMGYrywjOmIg32U7pdFu0A7wcO0ioqVLkVvdvd+ioRjghxNNZEpx0HxTAHK6F7adCm/TQH
-	G0uUVhS/jxnj60PDpN0vL9XAdFmDyjkIcR2qoKGXTZQBB3fwtcWl/ylBt5pjLFN4bKpMkR6VREE
-	G9f5J5dFl1RJXpkcayGm/rRF+WeM6abmQ136T+OmfMckKg95tLJmUF5cxYVvLTblXHmHKx66rAM
-	1jr/T7qSTDpdPOj5a6xZrqc/D0CkuOoe9U/vxVmUBPGakcKKx4XSq3wRDpQmkftISLQJIiBtIIQ
-	=
-X-Received: by 2002:a17:906:7314:b0:c40:5de7:33d3 with SMTP id a640c23a62f3a-c4ca7b450f4mr799928466b.35.1793633388489;
-        Mon, 02 Nov 2026 07:29:48 -0800 (PST)
-Received: from andreayoga.wind3.hub ([31.189.68.219])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b725a2sm19381692f8f.13.2026.11.02.07.29.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:29:47 -0800 (PST)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: kpsingh@kernel.org,
-	matt@bobrowski.net,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	sdf@fomichev.me,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf] bpf, lsm: Fix cgroup shim selection for socket hooks
-Date: Mon,  2 Nov 2026 16:29:12 +0100
-Message-ID: <20261102152913.366237-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793633397; x=1794238197;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P7oHHMkIM1swADUlplUIw0AliwJNApZ8BZBXp6ze1xc=;
+        b=xmpYjmBlrpbeG9LYDRiRv5fCBU42gau1ZMleea17DpZsMK/lgllbOWf9YAcMoCgMqh
+         fU0iymtPktJESn3Vs3kl8oW/EipyIU+aSGLZlll2JXOo0+ge3ZtUojsQ6SEcFA0aEnjS
+         qIxgN8SFEvx6eI99MV4OFh9Y7EkbkR5Qs4b0sGiJ9y0Q2Z1lVDm2lfPstQ6pluovgIvM
+         FVj4Lx/HTf3HTMcAPkWB/BG20FqBMrwZAT55SXOR85acctJphj1G/0MGqY/nhbWWuZhz
+         sqsDbj9OjpefROkr0ni0pJsFONXMDJ81L0cLpiZmtjzdtEBWLD74l1PIsY9OzrQFQx1p
+         xXWg==
+X-Forwarded-Encrypted: i=1; AKwUvByd3iMsw/yAMw8KFooXZIkbyp7I5/DUF6D3rQu6zoguLvhQ5+dIDNBXp1bViY8L8iUv08s//ikR7PGED50=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jvGOUODxQK+1nqtt949eUVydxF+bif27eA+UIcO5X+oPLzq/F
+	IMyIFRc9BB9rgDdEFt10UwSb/Ax3sP+4nrQTOwhFEfQ+uGF7XPz4c9zzjpRiAI3Z24UHECQTubB
+	BQdDithFsVsehKvVLWgdlw81bndkHoD8=
+X-Gm-Gg: AYBFou3ghU8gmp9SUvGHyYXXaT/kQg/htLYTDnHTNnLL1hWVwa4+70WSfrOZe+NIx2M
+	0/6NJAQm79Ug7UUCT3qkpI5bbF8TQEvxUNNL5H02NBzt5iJrXFC2r8leC/T+Hids7Pl49Es59lO
+	jcG2E12rrNm4XWqz7UMZrDN4SCRJ38vgH63vsqcGG123pkaxk4CA+ur79DOiU5QrC6OvQdP3WNk
+	DgZywJr4j1bCot39WfjqsSZaX6g2nq0a+Ard+0Z4DZ9OEX9d7lKWWXFDLnRZ9stCVE1x9l59zcW
+	mKQWctHdfc13tlhJAQ5MnWn4RvgOj6HxuKt6W7obN78JejPsjwsb+zDWu31DQKKxopjZISXFwsH
+	M3sAYZQek57FPkybgPhE9KOA9FOocxYRhCu7idurJvvGhEC4n8z59Ib8nCS53OjggyGGvhlGpPa
+	MBeVnRttAO
+X-Received: by 2002:a05:6102:5cc8:b0:7c3:874d:60bb with SMTP id
+ ada2fe7eead31-7d072bc027emr2842138137.5.1793633396723; Mon, 02 Nov 2026
+ 07:29:56 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,113 +105,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261030161234.1505367-1-gourry@gourry.net> <CAN+CAwN+OPMPpVdBA+XtQvFpDy+EOY2TAiusxMjYR+r0F+MPhw@mail.gmail.com>
+ <20261030164303.02c5cce0521c3d6fd4ddf015@linux-foundation.org>
+In-Reply-To: <20261030164303.02c5cce0521c3d6fd4ddf015@linux-foundation.org>
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Mon, 2 Nov 2026 10:29:45 -0500
+X-Gm-Features: AclHuK-onw5mfffqhDCdUvG-akV0FfaPCDY7vf1GKDjU7CU-jXjuRXPuiw8F_m8
+Message-ID: <CAN+CAwOSz7BuPyd+u8KOitbDNFiDa0iNv+oFnQwbbt6kUw21PA@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/mempolicy: recompute automatic interleave weights
+ on memory hotplug
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, david@kernel.org, ziy@nvidia.com, rakie.kim@sk.com, 
+	ying.huang@linux.alibaba.com, harry@kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-bpf_lsm_find_cgroup_shim() picks the shim that runs a BPF_LSM_CGROUP
-program from the first argument of the attached hook. It compares
-args[0].type, the BTF id of the argument's pointer type, against
-btf_sock_ids[], which holds the struct ids of struct socket and struct
-sock. A pointer id is never equal to a struct id, so neither branch is
-taken and every cgroup LSM program runs through
-__cgroup_bpf_run_lsm_current().
+On Fri, Oct 30, 2026 at 7:43=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Fri, 30 Oct 2026 12:35:38 -0400 Joshua Hahn <joshua.hahnjy@gmail.com> =
+wrote:
+>
+> > On Fri, Oct 30, 2026 at 12:12=E2=80=AFPM Gregory Price (Meta) <gourry@g=
+ourry.net> wrote:
+> > >
+> > > In auto mode, weighted interleave derives each node's weight from its
+> > > bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
+> > > node's bandwidth once, when the node first gains memory, and nothing
+> > > else on the hotplug path recomputes the weights.
+> > >
+> > > This can result in a major skew in distribution and overload tiers
+> > > with more data than their respective bandwidth can support, resulting
+> > > in a performance regression.
+> >
+> > ...
+> >
+> > I think you may have dropped my review tag from the previous
+> > version!!! I believe the only thing that changes is the warn, so
+> > please feel free to add:
+> > Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>
+> Actually, quite a lot changed, so dropping the v1 tags seems
+> appropriate.
 
-Socket and sock hooks therefore run against task_dfl_cgroup(current)
-instead of the socket's cgroup. When a socket is used from a cgroup other
-than the one that created it, the caller's cgroup policy is applied instead
-of the socket's, and __cgroup_bpf_run_lsm_socket() and
-__cgroup_bpf_run_lsm_sock() are dead code.
+Hi Andrew,
+Ah, thank you for the catch. Looking through the code again, I think
+it still looks good to me so my review tag should stil stay. I'll be
+more careful about stuff like this in the future!
 
-Resolve the argument's pointee with btf_type_resolve_ptr() and compare that
-id against btf_sock_ids[].
-
-This makes __cgroup_bpf_run_lsm_socket() reachable for calls it cannot
-handle: ip_cmsg_recv_security() passes a NULL socket to
-socket_getpeersec_dgram, and sock_create_lite() calls socket_post_create
-before sock->sk is set. Fall back to __cgroup_bpf_run_lsm_current() in
-those cases instead of dereferencing sock->sk.
-
-__cgroup_bpf_run_lsm_sock() needs no such fallback. sk_alloc_security and
-sk_free_security run while the sk has no cgroup and stay on
-bpf_lsm_current_hooks; every other hook whose first argument is a struct
-sock is called with a non-NULL sk whose cgroup is already set.
-
-Existing BPF_LSM_CGROUP users will see a behavior change. Socket and sock
-hooks now run the programs attached to the socket's cgroup, as described
-in commit 69fd337a975c ("bpf: per-cgroup lsm flavor"). Hooks that can run
-in softirq, such as socket_sock_rcv_skb, inet_conn_request and
-sk_getsecid, no longer depend on which task was interrupted.
-
-The bug was found with the help of an LLM.
-
-Fixes: 69fd337a975c ("bpf: per-cgroup lsm flavor")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
----
-This changes behavior for existing BPF_LSM_CGROUP users: since
-69fd337a975c, socket and sock hooks have run the programs of the current
-task's cgroup, and with this patch they run those of the socket's cgroup,
-as that commit intended. I'm sending it to bpf with Cc: stable because a
-socket used from another cgroup is currently checked against that cgroup's
-policy instead of its own. Happy to retarget bpf-next and drop the stable
-Cc if you prefer.
-
- kernel/bpf/bpf_lsm.c | 8 ++++++--
- kernel/bpf/cgroup.c  | 7 ++++++-
- 2 files changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
-index f58dce888ff4a..9547d4f351103 100644
---- a/kernel/bpf/bpf_lsm.c
-+++ b/kernel/bpf/bpf_lsm.c
-@@ -95,6 +95,7 @@ void bpf_lsm_find_cgroup_shim(const struct bpf_prog *prog,
- 			     bpf_func_t *bpf_func)
+> v1->v2:
+>
+>  mm/mempolicy.c |   36 ++++++++++++++++++++++++++++--------
+>  1 file changed, 28 insertions(+), 8 deletions(-)
+>
+> --- a/mm/mempolicy.c~mm-mempolicy-recompute-automatic-interleave-weights-=
+on-memory-hotplug-v2
+> +++ a/mm/mempolicy.c
+> @@ -261,7 +261,11 @@ static int wi_state_refresh(void)
+>         mutex_lock(&wi_state_lock);
+>         old_wi_state =3D rcu_dereference_protected(wi_state,
+>                                         lockdep_is_held(&wi_state_lock));
+> -       /* NULL wi_state assumes auto=3Dtrue */
+> +       /*
+> +        * Hotplug events can arrive before any node reported its bandwid=
+th,
+> +        * leaving nothing to compute weights from. NULL wi_state assumes
+> +        * auto=3Dtrue.
+> +        */
+>         if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto))=
  {
- 	const struct btf_param *args __maybe_unused;
-+	u32 type_id __maybe_unused = 0;
- 
- 	if (btf_type_vlen(prog->aux->attach_func_proto) < 1 ||
- 	    btf_id_set_contains(&bpf_lsm_current_hooks,
-@@ -106,9 +107,12 @@ void bpf_lsm_find_cgroup_shim(const struct bpf_prog *prog,
- #ifdef CONFIG_NET
- 	args = btf_params(prog->aux->attach_func_proto);
- 
--	if (args[0].type == btf_sock_ids[BTF_SOCK_TYPE_SOCKET])
-+	/* args[0] is a pointer; match the struct it points to. */
-+	btf_type_resolve_ptr(prog->aux->attach_btf, args[0].type, &type_id);
-+
-+	if (type_id == btf_sock_ids[BTF_SOCK_TYPE_SOCKET])
- 		*bpf_func = __cgroup_bpf_run_lsm_socket;
--	else if (args[0].type == btf_sock_ids[BTF_SOCK_TYPE_SOCK])
-+	else if (type_id == btf_sock_ids[BTF_SOCK_TYPE_SOCK])
- 		*bpf_func = __cgroup_bpf_run_lsm_sock;
- 	else
- #endif
-diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-index 57a785241d42f..9100d1c4f35ff 100644
---- a/kernel/bpf/cgroup.c
-+++ b/kernel/bpf/cgroup.c
-@@ -171,15 +171,20 @@ unsigned int __cgroup_bpf_run_lsm_socket(const void *ctx,
- 	const struct bpf_prog *shim_prog;
- 	struct socket *sock;
- 	struct cgroup *cgrp;
-+	struct sock *sk;
- 	int ret = 0;
- 	u64 *args;
- 
- 	args = (u64 *)ctx;
- 	sock = (void *)(unsigned long)args[0];
-+	sk = sock ? sock->sk : NULL;
-+	/* NULL from ip_cmsg_recv_security(), no sk yet in sock_create_lite() */
-+	if (unlikely(!sk))
-+		return __cgroup_bpf_run_lsm_current(ctx, insn);
- 	/*shim_prog = container_of(insn, struct bpf_prog, insnsi);*/
- 	shim_prog = (const struct bpf_prog *)((void *)insn - offsetof(struct bpf_prog, insnsi));
- 
--	cgrp = sock_cgroup_ptr(&sock->sk->sk_cgrp_data);
-+	cgrp = sock_cgroup_ptr(&sk->sk_cgrp_data);
- 	if (likely(cgrp))
- 		ret = bpf_prog_run_array_cg(&cgrp->bpf,
- 					    shim_prog->aux->cgroup_atype,
--- 
-2.53.0
-
+>                 mutex_unlock(&wi_state_lock);
+>                 kfree(new_wi_state);
+> @@ -302,6 +306,28 @@ int mempolicy_set_node_perf(unsigned int
+>         return wi_state_refresh();
+>  }
+>
+> +/*
+> + * HMAT and CXL report a node's bandwidth only when it first gains memor=
+y, so
+> + * recompute the weights whenever N_MEMORY changes.
+> + */
+> +static int wi_state_node_notifier(struct notifier_block *nb,
+> +                                 unsigned long action, void *data)
+> +{
+> +       struct node_notify *nn =3D data;
+> +       int err;
+> +
+> +       if (action !=3D NODE_ADDED_FIRST_MEMORY &&
+> +           action !=3D NODE_REMOVED_LAST_MEMORY)
+> +               return NOTIFY_OK;
+> +
+> +       /* The hotplug is done, failing the notification would not undo i=
+t */
+> +       err =3D wi_state_refresh();
+> +       if (err)
+> +               pr_warn_once("failed to recompute weighted interleave wei=
+ghts for node%d: %d\n",
+> +                            nn->nid, err);
+> +       return NOTIFY_OK;
+> +}
+> +
+>  /**
+>   * numa_nearest_node - Find nearest node by state
+>   * @node: Node id to start the search
+> @@ -3424,6 +3450,7 @@ void __init numa_policy_init(void)
+>         if (do_set_mempolicy(MPOL_INTERLEAVE, 0, &interleave_nodes))
+>                 pr_err("%s: interleaving failed\n", __func__);
+>
+> +       hotplug_node_notifier(wi_state_node_notifier, DEFAULT_CALLBACK_PR=
+I);
+>         check_numabalancing_enable();
+>  }
+>
+> @@ -3910,15 +3937,8 @@ static int wi_node_notifier(struct notif
+>         case NODE_REMOVED_LAST_MEMORY:
+>                 sysfs_wi_node_delete(nid);
+>                 break;
+> -       default:
+> -               return NOTIFY_OK;
+>         }
+>
+> -       /*
+> -        * HMAT and CXL report a node's bandwidth only when it first gain=
+s
+> -        * memory, so recompute the weights whenever N_MEMORY changes.
+> -        */
+> -       wi_state_refresh();
+>         return NOTIFY_OK;
+>  }
+>
+> _
+>
