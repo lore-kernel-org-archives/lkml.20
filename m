@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630977;
-	b=iqtF/Tfmg1NQ14phE2qQXqinrdDSN7xNddtT+FQINgR5EFb9eJTtCRkcQK+m7+Kcy7Rn
-	 R+Hv5IuRHbNmA0QpwqEybTDNotHqQOaC654FIrYc3IF1fR4MEypzeJawGT/KOEx7Fqi+T
-	 4NElHW+Ai0AulRsQlt93lBYPhUOYNsrSo527gl+3IMZucCJ7Gf0jIssMxYJNadSac74C6
-	 T6p0V7f3SLEQRRvotr/yp1sinTSMpCobBiOvfBQ7DYi+blaNn1zUPMjs3ZPM9f+MyJ7q4
-	 /MqGWwL5Bxx4n5RGaG1Y++UhBWVD6y2aIYixGRmh2BQ1RQ4OqoBysxzs91fYbTzd3yQ==
+	t=1793630993;
+	b=uuVzrkIEUe46kzqxGXa72lNCT6qFdCKyy/OxnlnCtmIIahMuLHwaqYvqFeTkdzNTEjDQ
+	 TzttNfUtw42rxB9q2FkB/HMCs+X7leeLmK61V+Jxku4DEc6mD69Z0eEO5T2kuHcLqmzhH
+	 mzcI70EzNg7xcU670gXY8KwHyJVM61PErCV8V4qv8R9qtDWI4IdawezcDKUpDeMmW1Ev+
+	 zwQilu5lDGosqmiZk2PBnLFOkHmdCoe3SEGw1CQ73nbn8tkVQ6zCXsrgt0jiOAt8DBnmU
+	 E46wk+GEE1Oxrn5FKav7fgycqoNC2337WKrHoK4dM6lOMUg+/AW4eQ5XK65cEJWRDDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630977;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630993;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 MIME-Version:Content-Type:Content-Disposition;
-	bh=OPiT+5sNut9jIyct1/7n9MiZaAuYp/ZVynxMuxiF3eo=;
-	b=on3L4dDA2ZW6TiYPoicq7baFYiFacKMNUeNiPgJE2Q6Rtms4RvlnC9b4MNDnoIoswiBq
-	 kSUn/cfoI3YkW5YHFuNsD5eSaIgFY2QMq6b2lJNHWWw2J9+PjQbLqt8gL5QNB9vSeycsx
-	 tPJL5cfssq8tRPKhYKrkgjWTny/IamTSY869qh70i5tVosXNZ3QGuqvJMna3xw/ZKsjID
-	 dc6s0YfwptkJT4k63Z9Zmwb8+agUNDTBo00SfsWZO+aHOQl6iZbsbDHs5HEMVvNBha3ah
-	 uijtXKPxunfBHnipiMgleMfR0ezOemr+BpicGIsMt+Cp8fVSRp/rExTj+LYKzy+XiUA==
+	bh=9RIPeV3fKNfRabLfzKqeNznvU5T8sH8COSIN9Y2prVk=;
+	b=IUFHrWhFTZB1nB1CUfDmG3Io8b/rz1S++EPFFj+/+5jfqhc6Y19Sd8s/eeK2O990vi6B
+	 u3V2mPKLt+7so/Of9nP2W9b8v6gnNbv1Fv3y6MDWVifs6rZllLliW3GqmlJ9YX7siArUq
+	 SaK288p6gB2ax+NS8Pv85NikHORlkCZyqf3Rl/obZPbvuxeO8DNX5OIcY8A2oODzF5CXX
+	 oU9aS+Wfs2qLsXRY+OalUITjVg4ZFCpdYBNZ8XGwvYLGeIvbBJ7qoPYYWXmIvZv5CJ3vF
+	 U6CTES2XoHp6v8ur2Vo3gXWSbKdGz+uqoatJK+mGknLboISBCYXU8CMdUUIGBvNoHwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDvspN6m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F877o0UX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FB7606A924;
-	Mon,  2 Nov 2026 14:49:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94026072EFE;
+	Mon,  2 Nov 2026 14:49:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDvspN6m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832BE1F00A17;
-	Mon,  2 Nov 2026 14:49:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F877o0UX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1791F00A1D;
+	Mon,  2 Nov 2026 14:49:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793630977;
-	bh=OPiT+5sNut9jIyct1/7n9MiZaAuYp/ZVynxMuxiF3eo=;
+	s=k20260515; t=1793630992;
+	bh=9RIPeV3fKNfRabLfzKqeNznvU5T8sH8COSIN9Y2prVk=;
 	h=Date:From:To:Cc:Subject;
-	b=kDvspN6mxEDV+Iw046o4aOyLiaPmit0uYTvt4tV7RxxnVb3hqY9z3pgy2MoBSSpbx
-	 7sCQ8Oum59Qg2C6e0e0KP6NkOALB2lzgeWskGv5EK2UCBUn0rSqVwgPp4NsYZYnAuQ
-	 6DbP5flu0xtLcQd5QZuUHkBtCb86BaSAT9C2/tfLqCtrf+QynnrJyt1VrKX6+d8U3K
-	 aTPmDPvHcbAWQDVbNFT/pwMKoXjwBIUTGrDaMee00koL0p+ZjyYd0hQSgDOdOLyTc5
-	 8uAPiLmyhuqufMfR3vW5SsDvxjNcI0o17uUxdbEqmGWzyyPHuFmWvofzaOW+trAzUA
-	 pZJFwz6hNUHvw==
-Date: Mon, 2 Nov 2026 14:49:31 +0000
+	b=F877o0UXz8rCDAXxdt+v/jkwdteLPy0I20OEsMiyxtc0DV25OxHTcaiOIoQMhN4r9
+	 wu4L9n4IM3qbyOZRRNg/wBSQENYWLgfux+SLSBzuxBxReQUxeo6lCD9sjfPSt7JBo8
+	 iRgMaMCygaTKak6+hzmc6WZRSWSlYGWKu+VozfIklxH/+ZehKv8OpUZGeGD8DKEL/l
+	 4Uqi8nO+AlWp8QfJJa6aptp9MULs/CMOmkOaT0XU/cHbPcs+prE2uShAGN+WrbyvGe
+	 nqeND5p3eO4jFhGJ4Ai5jzprFAQ52ciLvc4ne1XUEsd1wBujLjSL3N3JgKDGU3Cepj
+	 u6U+UXw9tnNdg==
+Date: Mon, 2 Nov 2026 14:49:48 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Simona Vetter <simona.vetter@ffwll.ch>,
 	Jani Nikula <jani.nikula@linux.intel.com>,
@@ -47,16 +47,13 @@ To: Simona Vetter <simona.vetter@ffwll.ch>,
 	Rodrigo Vivi <rodrigo.vivi@intel.com>,
 	Intel Graphics <intel-gfx@lists.freedesktop.org>,
 	DRI <dri-devel@lists.freedesktop.org>
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+Cc: Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Mika Kahola <mika.kahola@intel.com>,
-	Suraj Kandpal <suraj.kandpal@intel.com>,
-	Uma Shankar <uma.shankar@intel.com>,
-	Vidya Srinivas <vidya.srinivas@intel.com>
+	Mika Kahola <mika.kahola@intel.com>
 Subject: linux-next: manual merge of the drm-intel tree with the
  drm-intel-fixes tree
-Message-ID: <auii-xCnyvW_d1ED@sirena.org.uk>
+Message-ID: <auijDJ-9T2YhFE80@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,11 +64,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fCs3BRg7iJNSnLVM"
+	protocol="application/pgp-signature"; boundary="OmMpsowGHg2watvk"
 Content-Disposition: inline
 
 
---fCs3BRg7iJNSnLVM
+--OmMpsowGHg2watvk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -80,26 +77,46 @@ Hi all,
 
 Today's linux-next merge of the drm-intel tree got a conflict in:
 
-  drivers/gpu/drm/i915/display/intel_dp.c
+  drivers/gpu/drm/i915/display/intel_psr.c
 
-between commit:
+between commits:
 
-  b42b656db1384 ("drm/i915/display: Disable pipe joiner on WCL")
+  cbe565475988d ("drm/i915/psr: Clear selective fetch area when duplicating=
+ plane state")
+  94cb1f08b197d ("drm/i915/display: Add enabled pipe planes into state for =
+selective fetch")
+  b56721c32eb3a ("drm/i915/psr: Disable linked plane sel fetch as well")
+  e30830d21860f ("drm/i915/psr: Don't clip plane state destination rectangl=
+e")
 
 =66rom the drm-intel-fixes tree and commits:
 
-  917676a55a690 ("drm/i915/display: Disable pipe joiner on WCL")
-  355ce9db5fcff ("drm/i915/display: Allow forcing the joiner on eDP")
-  a1cce75d66ad1 ("drm/i915/dp: Bump the max Link M/N ratio to 22 for DISPLA=
-Y_VER >=3D 35")
-  cfbcf0a546bdb ("drm/i915/dp: Extend intel_dp_can_support_m_n() for BMG M/=
-N bypass")
-  244cae26882a9 ("drm/i915/display: Implement Wa_14021768792 for BMG DP for=
- link_m/n ratio > 10")
-  3f96e57cda40f ("drm/i915/dp: Add M/N ratio check for DP link config")
-  be3b2c9a29aef ("drm/i915/dp_mst: Limit M/N ratio for MST")
-  6af30a4f3668d ("drm/i915/display_wa: Add support for Wa_14014191401")
-  7a75b5717409c ("drm/i915/dp: Limit M/N ratio for DP")
+  82a273802e29b ("drm/i915/psr: Allow Panel Replay and PSR2 with joiner")
+  81492de01598e ("drm/i915/psr: Resolve the PSR encoders through the joiner=
+ primary")
+  dd038a8d440a9 ("drm/i915/psr: Merge the selective fetch area across joine=
+d pipes")
+  ce234fd7ac01d ("drm/i915/psr: Derive the alignment loop condition from th=
+e SU area")
+  6a33b0c495174 ("drm/i915/psr: Split the selective fetch calculation into =
+helpers")
+  384679cd97c88 ("drm/i915/psr: Take the selective fetch area from pipe_src=
+")
+  e9b810694a5b1 ("drm/i915/psr: Exclude the joiner secondary from active_no=
+n_psr_pipes")
+  20470bb876bcf ("drm/i915/psr: Track all joined pipes for frontbuffer trac=
+king")
+  8621f3bcea6b0 ("drm/i915/psr: Don't clip plane state destination rectangl=
+e")
+  8330f2041b95f ("drm/i915/psr: Remove drm_info_once on failed selective fe=
+tch area")
+  1e922ed8c092a ("drm/i915/psr: Skip sel fetch support check for invisible =
+planes")
+  b10c83af60cbc ("drm/i915/psr: Disable linked plane sel fetch as well")
+  0d173898b1115 ("drm/i915/display: Add enabled pipe planes into state for =
+selective fetch")
+  bd58f0e221386 ("drm/i915/psr: Clear selective fetch area when duplicating=
+ plane state")
 
 =66rom the drm-intel tree.
 
@@ -110,295 +127,654 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --combined drivers/gpu/drm/i915/display/intel_dp.c
-index 47741957935ae,ef164a7976187..0000000000000
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@@ -63,12 -63,14 +63,14 @@@
+diff --combined drivers/gpu/drm/i915/display/intel_psr.c
+index 17542d812486b,288836d4a993c..0000000000000
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@@ -36,6 -36,7 +36,7 @@@
+  #include "intel_cursor_regs.h"
+  #include "intel_ddi.h"
   #include "intel_de.h"
-  #include "intel_dip.h"
-  #include "intel_dip_regs.h"
 + #include "intel_display.h"
-  #include "intel_display_driver.h"
-  #include "intel_display_jiffies.h"
-  #include "intel_display_utils.h"
+  #include "intel_display_irq.h"
   #include "intel_display_regs.h"
   #include "intel_display_rpm.h"
-  #include "intel_display_types.h"
-+ #include "intel_display_wa.h"
-  #include "intel_dp.h"
-  #include "intel_dp_aux.h"
-  #include "intel_dp_hdcp.h"
-@@@ -473,9 -475,15 +475,15 @@@ bool intel_dp_has_joiner(struct intel_d
-  	if (intel_dp->mso_link_count)
+@@@ -1597,6 -1598,13 +1598,13 @@@ static bool intel_sel_update_config_val
+  	struct intel_dp *intel_dp =3D intel_attached_dp(connector);
+  	struct intel_display *display =3D to_intel_display(intel_dp);
+ =20
++ 	if (crtc_state->joiner_pipes && !crtc_state->dsc.compression_enable &&
++ 	    crtc_state->output_format =3D=3D INTEL_OUTPUT_FORMAT_YCBCR420) {
++ 		drm_dbg_kms(display->drm,
++ 			    "Selective update not enabled, uncompressed joiner does not suppor=
+t YUV 4:2:0\n");
++ 		goto unsupported;
++ 	}
++=20
+  	if (HAS_PSR2_SEL_FETCH(display) &&
+  	    !intel_psr2_sel_fetch_config_valid(intel_dp, crtc_state) &&
+  	    !HAS_PSR_HW_TRACKING(display)) {
+@@@ -1744,8 -1752,8 +1752,8 @@@ static bool _panel_replay_compute_confi
+ =20
+  	/* Remaining checks are for eDP only */
+ =20
+- 	if (to_intel_crtc(crtc_state->uapi.crtc)->pipe !=3D PIPE_A &&
+- 	    to_intel_crtc(crtc_state->uapi.crtc)->pipe !=3D PIPE_B)
++ 	/* Every joined pipe needs its own PSR/Panel Replay register block. */
++ 	if (intel_crtc_joined_pipe_mask(crtc_state) & ~(BIT(PIPE_A) | BIT(PIPE_B=
+)))
   		return false;
  =20
-- 	if (intel_dp_is_edp(intel_dp) &&
-- 	    !connector->panel.vbt.edp.pipe_joiner_enable)
-- 		return false;
-+ 	if (intel_dp_is_edp(intel_dp)) {
-+ 		bool pipe_joiner_enable =3D connector->panel.vbt.edp.pipe_joiner_enable;
-+=20
-+ 		if (connector->force_joined_pipes > 1)
-+ 			pipe_joiner_enable =3D true;
-+=20
-+ 		if (!pipe_joiner_enable)
-+ 			return false;
-+ 	}
- =20
-  	return ((DISPLAY_VER(display) >=3D 12 && DISPLAY_VERx100(display) !=3D 3=
-002) ||
-  		(DISPLAY_VER(display) =3D=3D 11 &&
-@@@ -1267,6 -1275,93 +1275,93 @@@ bool intel_dp_has_dsc(const struct inte
-  	return true;
+  	/* 128b/132b Panel Replay is not supported on eDP */
+@@@ -1802,6 -1810,19 +1810,19 @@@ static void psr2_dc3co_disable_work(str
+  	mutex_unlock(&intel_dp->psr.lock);
   }
  =20
-+ static int
-+ intel_dp_get_max_m_n_ratio(struct intel_display *display)
-+ {
-+ 	if (DISPLAY_VER(display) >=3D 35)
-+ 		return 22;
-+=20
-+ 	if (intel_display_wa(display, INTEL_DISPLAY_WA_14014191401))
-+ 		return 4;
-+=20
-+ 	return 10;
-+ }
-+=20
-+ static int intel_dp_link_m_n_ratio(u32 link_m, u32 link_n)
-+ {
-+ 	if (!link_n)
-+ 		return 0;
-+=20
-+ 	return DIV_ROUND_UP(link_m, link_n);
-+ }
-+=20
-+ static bool
-+ intel_dp_can_bypass_m_n_limit(struct intel_display *display, int link_rat=
-e,
-+ 			      int m_n_ratio, enum transcoder cpu_transcoder)
-+ {
-+ 	return drm_dp_is_uhbr_rate(link_rate) &&
-+ 		intel_display_can_bypass_m_n_limit(display, m_n_ratio, cpu_transcoder);
-+ }
-+=20
-+ bool intel_dp_can_support_m_n(struct intel_display *display,
-+ 			      const struct intel_crtc_state *crtc_state,
-+ 			      int pixel_clock, int link_rate)
-+ {
-+ 	int max_m_n_ratio =3D intel_dp_get_max_m_n_ratio(display);
-+ 	enum transcoder cpu_transcoder =3D TRANSCODER_A;
-+ 	u32 link_m, link_n;
-+ 	int m_n_ratio;
-+=20
-+ 	intel_display_compute_link_m_n(&link_m, &link_n, pixel_clock,
-+ 				       intel_dp_link_symbol_clock(link_rate));
-+=20
-+ 	m_n_ratio =3D intel_dp_link_m_n_ratio(link_m, link_n);
-+=20
-+ 	if (m_n_ratio <=3D max_m_n_ratio)
-+ 		return true;
-+=20
-+ 	if (crtc_state)
-+ 		cpu_transcoder =3D crtc_state->cpu_transcoder;
-+=20
-+ 	return intel_dp_can_bypass_m_n_limit(display, link_rate, m_n_ratio, cpu_=
-transcoder);
-+ }
-+=20
-+ void intel_dp_check_m_n_ratio(const struct intel_crtc_state *crtc_state,
-+ 			      struct intel_link_m_n *m_n)
-+ {
-+ 	struct intel_display *display =3D to_intel_display(crtc_state);
-+ 	int max_m_n_ratio =3D intel_dp_get_max_m_n_ratio(display);
-+ 	int m_n_ratio;
-+=20
-+ 	m_n->bypass_m_n_ratio_limit =3D false;
-+=20
-+ 	m_n_ratio =3D intel_dp_link_m_n_ratio(m_n->link_m, m_n->link_n);
-+=20
-+ 	if (m_n_ratio <=3D max_m_n_ratio)
-+ 		return;
-+=20
-+ 	if (intel_dp_can_bypass_m_n_limit(display, crtc_state->port_clock, m_n_r=
-atio,
-+ 					  crtc_state->cpu_transcoder)) {
-+ 		m_n->bypass_m_n_ratio_limit =3D true;
-+ 		drm_dbg_kms(display->drm,
-+ 			    "Bypassing Link_m/Link_n ratio limit (ratio %d)\n",
-+ 			    m_n_ratio);
-+ 		return;
-+ 	}
-+=20
-+ 	drm_dbg_kms(display->drm,
-+ 		    "Link M/N ratio (%d) exceeds max allowed (%d)\n",
-+ 		    m_n_ratio, max_m_n_ratio);
-+ }
-+=20
-+ static int intel_dp_mso_pixel_clock(struct intel_dp *intel_dp, int pixel_=
-clock)
-+ {
-+ 	if (!intel_dp->mso_link_count)
-+ 		return pixel_clock;
-+=20
-+ 	return pixel_clock / intel_dp->mso_link_count;
-+ }
-+=20
-  static
-  bool intel_dp_can_join(struct intel_dp *intel_dp,
-  		       int num_joined_pipes)
-@@@ -1302,6 -1397,33 +1397,33 @@@ bool intel_dp_dotclk_valid(struct intel
-  	return target_clock <=3D effective_dotclk_limit;
-  }
- =20
-+ static bool intel_dp_mode_valid_m_n(struct intel_dp *intel_dp, int pixel_=
-clock)
++ /* Frontbuffer bits for every pipe driving this PSR/Panel Replay instance=
+=2E */
++ static unsigned int psr_frontbuffer_mask(struct intel_dp *intel_dp)
 + {
 + 	struct intel_display *display =3D to_intel_display(intel_dp);
-+ 	int m_n_pixel_clock =3D intel_dp_mso_pixel_clock(intel_dp, pixel_clock);
-+ 	struct intel_dp_link_caps_order order =3D {
-+ 		.key =3D INTEL_DP_LINK_CAPS_ORDER_KEY_RATE_LANE,
-+ 		.dir =3D INTEL_DP_LINK_CAPS_ORDER_DIR_DESC,
-+ 	};
-+ 	struct intel_dp_link_config link_config;
-+ 	struct intel_dp_link_caps_iter iter;
-+ 	bool found =3D false;
++ 	unsigned int mask =3D 0;
++ 	enum pipe pipe;
 +=20
-+ 	intel_dp_link_caps_iter_start(&iter, intel_dp->link.caps, order,
-+ 				      INTEL_DP_LINK_CAPS_FILTER_ALL);
-+ 	for_each_dp_link_config(&iter, &link_config) {
-+ 		if (intel_dp_can_support_m_n(display, NULL, m_n_pixel_clock,
-+ 					     link_config.rate)) {
-+ 			found =3D true;
++ 	for_each_pipe_masked(display, pipe, intel_dp->psr.pipe_mask)
++ 		mask |=3D INTEL_FRONTBUFFER_ALL_MASK(pipe);
 +=20
-+ 			break;
-+ 		}
-+ 	}
-+ 	intel_dp_link_caps_iter_end(&iter);
-+=20
-+ 	return found;
++ 	return mask;
 + }
 +=20
-  static enum drm_mode_status
-  intel_dp_mode_valid_format(struct intel_connector *connector,
-  			   const struct drm_display_mode *mode,
-@@@ -1456,6 -1578,9 +1578,9 @@@ intel_dp_mode_valid(struct drm_connecto
-  			return status;
+  static void
+  psr2_dc3co_flush_locked(struct intel_dp *intel_dp, unsigned int frontbuff=
+er_bits)
+  {
+@@@ -1817,8 -1838,7 +1838,7 @@@
+  	 * At every frontbuffer flush flip event modified delay of delayed work,
+  	 * when delayed work schedules that means display has been idle.
+  	 */
+- 	if (!(frontbuffer_bits &
+- 	    INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe)))
++ 	if (!(frontbuffer_bits & psr_frontbuffer_mask(intel_dp)))
+  		return;
+ =20
+  	mod_delayed_work(display->wq.unordered, &intel_dp->psr.dc3co_work,
+@@@ -1849,7 -1869,7 +1869,7 @@@ void intel_psr_set_non_psr_pipes(struc
+  	active_pipes =3D intel_calc_active_pipes(state, active_pipes);
+ =20
+  	crtc_state->active_non_psr_pipes =3D active_pipes &
+- 		~BIT(to_intel_crtc(crtc_state->uapi.crtc)->pipe);
++ 		~intel_crtc_joined_pipe_mask(crtc_state);
+  }
+ =20
+  void intel_psr_compute_config(struct intel_dp *intel_dp,
+@@@ -1877,17 -1897,6 +1897,6 @@@
+  		return;
   	}
  =20
-+ 	if (!intel_dp_mode_valid_m_n(intel_dp, target_clock))
-+ 		return MODE_CLOCK_HIGH;
+- 	/*
+- 	 * FIXME figure out what is wrong with PSR+joiner and
+- 	 * fix it. Presumably something related to the fact that
+- 	 * PSR is a transcoder level feature.
+- 	 */
+- 	if (crtc_state->joiner_pipes) {
+- 		drm_dbg_kms(display->drm,
+- 			    "PSR disabled due to joiner\n");
+- 		return;
+- 	}
+-=20
+  	/* Only used for state verification. */
+  	crtc_state->panel_replay_dsc_support =3D connector->dp.panel_replay_caps=
+=2Edsc_support;
+  	crtc_state->has_panel_replay =3D _panel_replay_compute_config(crtc_state=
+, conn_state);
+@@@ -1899,6 -1908,14 +1908,14 @@@
+  		return;
+ =20
+  	crtc_state->has_sel_update =3D intel_sel_update_config_valid(crtc_state,=
+ conn_state);
 +=20
-  	/*
-  	 * TODO: Even when using a 4:2:0 sink_format intel_dp_output_format()
-  	 * will always choose a 4:4:4 output_format if the DFP can do the
-@@@ -2656,6 -2781,49 +2781,49 @@@ intel_dp_dsc_compute_pipe_bpp_limits(st
-  	return true;
++ 	/* Plain PSR1 is not supported with joiner. */
++ 	if (crtc_state->joiner_pipes && !crtc_state->has_panel_replay &&
++ 	    !crtc_state->has_sel_update) {
++ 		drm_dbg_kms(display->drm,
++ 			    "PSR disabled, PSR1 not supported with joiner\n");
++ 		crtc_state->has_psr =3D false;
++ 	}
   }
  =20
-+ static bool
-+ intel_dp_compute_m_n_ratio_limits(struct intel_dp *intel_dp,
-+ 				  struct drm_connector_state *conn_state,
-+ 				  const struct intel_crtc_state *crtc_state,
-+ 				  struct link_config_limits *limits)
+  void intel_psr_get_config(struct intel_encoder *encoder,
+@@@ -2179,6 -2196,7 +2196,7 @@@ static void intel_psr_enable_locked(str
+  	intel_dp->psr.panel_replay_enabled =3D crtc_state->has_panel_replay;
+  	intel_dp->psr.busy_frontbuffer_bits =3D 0;
+  	intel_dp->psr.pipe =3D to_intel_crtc(crtc_state->uapi.crtc)->pipe;
++ 	intel_dp->psr.pipe_mask =3D intel_crtc_joined_pipe_mask(crtc_state);
+  	intel_dp->psr.transcoder =3D crtc_state->cpu_transcoder;
+  	/* DC5/DC6 requires at least 6 idle frames */
+  	val =3D usecs_to_jiffies(intel_get_frame_time_us(crtc_state) * 6);
+@@@ -2398,6 -2416,7 +2416,7 @@@ static void intel_psr_disable_locked(st
+  	intel_dp->psr.psr2_sel_fetch_cff_enabled =3D false;
+  	intel_dp->psr.active_non_psr_pipes =3D 0;
+  	intel_dp->psr.pkg_c_latency_used =3D 0;
++ 	intel_dp->psr.pipe_mask =3D 0;
+  	cancel_delayed_work(&intel_dp->psr.dc3co_work);
+  	intel_dp->psr.dc3co_allowed =3D false;
+  }
+@@@ -2623,6 -2642,24 +2642,24 @@@ static void intel_psr_force_update(stru
+  	intel_de_write(display, CURSURFLIVE(display, intel_dp->psr.pipe), 0);
+  }
+ =20
++ /*
++  * The joiner secondary has no encoders of its own, its uapi.encoder_mask=
+ is
++  * zero. PSR is a transcoder level feature driven by the primary, so take=
+ the
++  * encoders from there. Only valid once the state has been swapped in, i.=
+e.
++  * from the commit phase.
++  */
++ static u32 psr_encoder_mask(const struct intel_crtc_state *crtc_state)
 + {
-+ 	struct intel_display *display =3D to_intel_display(intel_dp);
-+ 	struct intel_connector *connector =3D to_intel_connector(conn_state->con=
-nector);
-+ 	struct intel_dp_link_caps *link_caps =3D intel_dp->link.caps;
-+ 	struct intel_dp_link_caps_order order =3D
-+ 		intel_dp_link_caps_connector_compute_order(connector);
-+ 	struct intel_dp_link_caps_filter new_filter =3D INTEL_DP_LINK_CAPS_FILTE=
-R_NONE;
-+ 	int pixel_clock =3D intel_dp_mso_pixel_clock(intel_dp,
-+ 						  intel_dp_mode_clock(crtc_state, conn_state));
-+ 	struct intel_dp_link_config link_config;
-+ 	struct intel_dp_link_caps_iter iter;
-+ 	bool found =3D false;
++ 	struct intel_crtc *primary_crtc;
 +=20
-+ 	intel_dp_link_caps_iter_start(&iter, link_caps, order, limits->link_conf=
-ig_filter);
-+ 	for_each_dp_link_config(&iter, &link_config) {
-+ 		if (!intel_dp_can_support_m_n(display, crtc_state, pixel_clock,
-+ 					      link_config.rate))
++ 	if (!intel_crtc_is_joiner_secondary(crtc_state))
++ 		return crtc_state->uapi.encoder_mask;
++=20
++ 	primary_crtc =3D intel_primary_crtc(crtc_state);
++=20
++ 	return to_intel_crtc_state(primary_crtc->base.state)->uapi.encoder_mask;
++ }
++=20
+  void intel_psr2_program_trans_man_trk_ctl(struct intel_dsb *dsb,
+  					  const struct intel_crtc_state *crtc_state)
+  {
+@@@ -2635,7 -2672,7 +2672,7 @@@
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		if (!dsb)
+@@@ -2646,9 -2683,11 +2683,11 @@@
+  		break;
+  	}
+ =20
+- 	intel_de_write_dsb(display, dsb,
+- 			   PSR2_MAN_TRK_CTL(display, cpu_transcoder),
+- 			   crtc_state->psr2_man_track_ctl);
++ 	/* The joined pipes drive one transcoder, so program it once. */
++ 	if (!intel_crtc_is_joiner_secondary(crtc_state))
++ 		intel_de_write_dsb(display, dsb,
++ 				   PSR2_MAN_TRK_CTL(display, cpu_transcoder),
++ 				   crtc_state->psr2_man_track_ctl);
+ =20
+  	if (!crtc_state->enable_psr2_su_region_et)
+  		return;
+@@@ -2733,12 -2772,11 +2772,11 @@@ static void clip_area_update(struct drm
+  		overlap_damage_area->y2 =3D inter.y2;
+  }
+ =20
+- static bool intel_psr2_sel_fetch_pipe_alignment(struct intel_crtc_state *=
+crtc_state)
++ static void intel_psr2_sel_fetch_pipe_alignment(struct intel_crtc_state *=
+crtc_state)
+  {
+  	struct intel_display *display =3D to_intel_display(crtc_state);
+  	const struct drm_dsc_config *vdsc_cfg =3D &crtc_state->dsc.config;
+  	u16 y_alignment;
+- 	bool su_area_changed =3D false;
+ =20
+  	/* ADLP aligns the SU region to vdsc slice height in case dsc is enabled=
+ */
+  	if (crtc_state->dsc.compression_enable &&
+@@@ -2747,18 -2785,12 +2785,12 @@@
+  	else
+  		y_alignment =3D crtc_state->su_y_granularity;
+ =20
+- 	if (crtc_state->psr2_su_area.y1 % y_alignment) {
++ 	if (crtc_state->psr2_su_area.y1 % y_alignment)
+  		crtc_state->psr2_su_area.y1 -=3D crtc_state->psr2_su_area.y1 % y_alignm=
+ent;
+- 		su_area_changed =3D true;
+- 	}
+ =20
+- 	if (crtc_state->psr2_su_area.y2 % y_alignment) {
++ 	if (crtc_state->psr2_su_area.y2 % y_alignment)
+  		crtc_state->psr2_su_area.y2 =3D ((crtc_state->psr2_su_area.y2 /
+  						y_alignment) + 1) * y_alignment;
+- 		su_area_changed =3D true;
+- 	}
+-=20
+- 	return su_area_changed;
+  }
+ =20
+  /*
+@@@ -2768,8 -2800,7 +2800,7 @@@
+  static void
+  intel_psr2_sel_fetch_et_alignment(struct intel_atomic_state *state,
+  				  struct intel_crtc *crtc,
+- 				  struct drm_rect *display_area,
+- 				  bool *cursor_in_su_area)
++ 				  struct drm_rect *display_area)
+  {
+  	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
+  	struct intel_plane_state *new_plane_state;
+@@@ -2797,7 -2828,6 +2828,6 @@@
+ =20
+  		clip_area_update(&crtc_state->psr2_su_area, &new_plane_state->uapi.dst,
+  				 display_area);
+- 		*cursor_in_su_area =3D true;
+  	}
+  }
+ =20
+@@@ -2874,6 -2904,11 +2904,11 @@@ intel_psr_apply_su_area_workarounds(str
+  {
+  	struct intel_display *display =3D to_intel_display(crtc_state);
+ =20
++ 	/*
++ 	 * Called on the merged area, with the joiner primary crtc_state. The
++ 	 * secondary has no encoders of its own and the WAs below have to see
++ 	 * the whole SU region that goes into PSR2_MAN_TRK_CTL.
++ 	 */
+  	/* Wa_14014971492 */
+  	if (!crtc_state->has_panel_replay &&
+  	    ((IS_DISPLAY_VERx100_STEP(display, 1400, STEP_A0, STEP_B0) ||
+@@@ -2891,39 -2926,22 +2926,22 @@@
+  		intel_psr_apply_pr_link_on_su_wa(crtc_state);
+  }
+ =20
+- int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+- 				struct intel_crtc *crtc)
++ static void psr2_sel_fetch_compute_su_area(struct intel_atomic_state *sta=
+te,
++ 					   struct intel_crtc *crtc,
++ 					   bool *full_update)
+  {
+- 	struct intel_display *display =3D to_intel_display(state);
+- 	const struct intel_crtc_state *old_crtc_state =3D
+- 		intel_atomic_get_old_crtc_state(state, crtc);
+  	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
+  	struct intel_plane_state *new_plane_state, *old_plane_state;
+  	struct intel_plane *plane;
+  	struct drm_rect display_area =3D {
+  		.x1 =3D 0,
+  		.y1 =3D 0,
+- 		.x2 =3D crtc_state->hw.adjusted_mode.crtc_hdisplay,
+- 		.y2 =3D crtc_state->hw.adjusted_mode.crtc_vdisplay,
++ 		.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 		.y2 =3D drm_rect_height(&crtc_state->pipe_src),
+  	};
+- 	bool full_update =3D false, su_area_changed;
+  	int i;
+ =20
+- 	/*
+- 	 * Selective fetch is not always usable, for instance it is dropped
+- 	 * while pipe CRC is active. The planes keep their selective fetch
+- 	 * enable bit set in hardware over that, and a plane disabled while
+- 	 * selective fetch is off never gets the bit cleared. Once selective
+- 	 * fetch comes back the hardware would resume fetching for a plane that
+- 	 * is no longer enabled and keep its DDB range reserved, so have the
+- 	 * plane update drop the bit for every plane of the pipe as selective
+- 	 * fetch is turned off.
+- 	 */
+- 	crtc_state->clear_psr2_sel_fetch =3D old_crtc_state->enable_psr2_sel_fet=
+ch &&
+- 		!crtc_state->enable_psr2_sel_fetch;
+-=20
+- 	if (!crtc_state->enable_psr2_sel_fetch)
+- 		return 0;
++ 	*full_update =3D false;
+ =20
+  	crtc_state->psr2_su_area.x1 =3D 0;
+  	crtc_state->psr2_su_area.y1 =3D -1;
+@@@ -2931,8 -2949,8 +2949,8 @@@
+  	crtc_state->psr2_su_area.y2 =3D -1;
+ =20
+  	if (!psr2_sel_fetch_pipe_state_supported(crtc_state)) {
+- 		full_update =3D true;
+- 		goto skip_su_area_calc;
++ 		*full_update =3D true;
++ 		return;
+  	}
+ =20
+  	/*
+@@@ -2953,8 -2971,9 +2971,9 @@@
+  		    !old_plane_state->uapi.visible)
+  			continue;
+ =20
+- 		if (!psr2_sel_fetch_plane_state_supported(new_plane_state)) {
+- 			full_update =3D true;
++ 		if (new_plane_state->uapi.visible &&
++ 		    !psr2_sel_fetch_plane_state_supported(new_plane_state)) {
++ 			*full_update =3D true;
+  			break;
+  		}
+ =20
+@@@ -3003,58 -3022,117 +3022,122 @@@
+ =20
+  		clip_area_update(&crtc_state->psr2_su_area, &damaged_area, &display_are=
+a);
+  	}
++ }
+ =20
+- 	/*
+- 	 * TODO: For now we are just using full update in case
+- 	 * selective fetch area calculation fails. To optimize this we
+- 	 * should identify cases where this happens and fix the area
+- 	 * calculation for those.
+- 	 */
+- 	if (crtc_state->psr2_su_area.y1 =3D=3D -1) {
+- 		drm_info_once(display->drm,
+- 			      "Selective fetch area calculation failed in pipe %c\n",
+- 			      pipe_name(crtc->pipe));
+- 		full_update =3D true;
++ static void psr2_sel_fetch_set_su_area(struct intel_atomic_state *state,
++ 				       u8 joined_pipes, int y1, int y2)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc *crtc;
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 		struct intel_crtc_state *crtc_state =3D
++ 			intel_atomic_get_new_crtc_state(state, crtc);
++=20
++ 		crtc_state->psr2_su_area.y1 =3D y1;
++ 		crtc_state->psr2_su_area.y2 =3D y2;
++ 	}
++ }
++=20
++ /*
++  * One transcoder means one SU region. Joining splits the image horizonta=
+lly, so
++  * the pipes share the Y range. Returns false if no joined pipe has any d=
+amage.
++  */
++ static bool psr2_sel_fetch_merge_su_area(struct intel_atomic_state *state,
++ 					 u8 joined_pipes)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc_state *crtc_state;
++ 	struct intel_crtc *crtc;
++ 	int y1 =3D INT_MAX, y2 =3D INT_MIN;
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 		crtc_state =3D intel_atomic_get_new_crtc_state(state, crtc);
++=20
++ 		/* An empty area must not drag the merged one down. */
++ 		if (crtc_state->psr2_su_area.y1 =3D=3D -1)
 + 			continue;
 +=20
-+ 		intel_dp_link_caps_filter_add(link_caps, &new_filter, &link_config);
-+ 		found =3D true;
-+ 	}
-+ 	intel_dp_link_caps_iter_end(&iter);
-+=20
-+ 	if (!found) {
-+ 		drm_dbg_kms(display->drm,
-+ 			    "[CONNECTOR:%d:%s] No link config with a Link M/N ratio <=3D %d\n",
-+ 			    connector->base.base.id, connector->base.name,
-+ 			    intel_dp_get_max_m_n_ratio(display));
-+=20
++ 		y1 =3D min(y1, crtc_state->psr2_su_area.y1);
++ 		y2 =3D max(y2, crtc_state->psr2_su_area.y2);
+  	}
+ =20
+- 	if (full_update)
+- 		goto skip_su_area_calc;
++ 	if (y1 =3D=3D INT_MAX)
 + 		return false;
-+ 	}
-+=20
-+ 	limits->link_config_filter =3D new_filter;
+ =20
+- 	intel_psr_apply_su_area_workarounds(crtc_state);
++ 	psr2_sel_fetch_set_su_area(state, joined_pipes, y1, y2);
 +=20
 + 	return true;
 + }
 +=20
-  bool
-  intel_dp_compute_config_limits(struct intel_dp *intel_dp,
-  			       struct drm_connector_state *conn_state,
-@@@ -2772,6 -2940,9 +2940,9 @@@
-  		limits->link_config_filter =3D new_filter;
-  	}
++ /*
++  * Merging only grows the area, so a cursor that missed its own pipe's ar=
+ea can
++  * end up partially covered. Realign on the merged area until it stops gr=
+owing.
++  */
++ static void psr2_sel_fetch_align_su_area(struct intel_atomic_state *state,
++ 					 u8 joined_pipes)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	struct intel_crtc *crtc;
++ 	bool su_area_changed;
  =20
-+ 	if (!intel_dp_compute_m_n_ratio_limits(intel_dp, conn_state, crtc_state,=
- limits))
-+ 		return false;
+  	do {
+- 		bool cursor_in_su_area =3D false;
++ 		su_area_changed =3D false;
+ =20
+- 		/*
+- 		 * Adjust su area to cover cursor fully as necessary
+- 		 * (early transport). A visible cursor is in the state
+- 		 * even when it is not updated by itself as all planes
+- 		 * of the pipe are added into the state before the plane
+- 		 * checks when selective fetch is enabled.
+- 		 */
+- 		intel_psr2_sel_fetch_et_alignment(state, crtc, &display_area,
+- 						  &cursor_in_su_area);
++ 		for_each_intel_crtc_in_pipe_mask(display, crtc, joined_pipes) {
++ 			struct intel_crtc_state *crtc_state =3D
++ 				intel_atomic_get_new_crtc_state(state, crtc);
++ 			struct drm_rect display_area =3D {
++ 				.x1 =3D 0,
++ 				.y1 =3D 0,
++ 				.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 				.y2 =3D drm_rect_height(&crtc_state->pipe_src),
++ 			};
++ 			struct drm_rect old_su_area =3D crtc_state->psr2_su_area;
+ =20
+- 		su_area_changed =3D intel_psr2_sel_fetch_pipe_alignment(crtc_state);
++ 			/* Needs the planes already pulled into the state. */
++ 			intel_psr2_sel_fetch_et_alignment(state, crtc, &display_area);
+ =20
+- 		/*
+- 		 * If the cursor was outside the SU area before
+- 		 * alignment, the alignment step (which only expands
+- 		 * SU) may pull the cursor partially inside, so we
+- 		 * must run ET alignment again to fully cover it. But
+- 		 * if the cursor was already fully inside before
+- 		 * alignment, expanding the SU area won't change that,
+- 		 * so no further work is needed.
+- 		 */
+- 		if (cursor_in_su_area)
+- 			break;
++ 			intel_psr2_sel_fetch_pipe_alignment(crtc_state);
 +=20
-  	if (!intel_dp_test_compute_config(connector, crtc_state, limits))
-  		return false;
- =20
-@@@ -3263,6 -3434,9 +3434,9 @@@ static bool can_enable_drrs(struct inte
-  	if (pipe_config->vrr.enable)
-  		return false;
- =20
-+ 	if (pipe_config->dp_m_n.bypass_m_n_ratio_limit)
-+ 		return false;
++ 			su_area_changed |=3D !drm_rect_equals(&crtc_state->psr2_su_area,
++ 							    &old_su_area);
++ 		}
 +=20
++ 		if (su_area_changed)
++ 			psr2_sel_fetch_merge_su_area(state, joined_pipes);
+  	} while (su_area_changed);
++ }
++=20
++ static int psr2_sel_fetch_apply_su_area(struct intel_atomic_state *state,
++ 					struct intel_crtc *crtc,
++ 					bool full_update)
++ {
++ 	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
++ 	struct intel_plane_state *new_plane_state, *old_plane_state;
++ 	struct intel_plane *plane;
++ 	struct drm_rect display_area =3D {
++ 		.x1 =3D 0,
++ 		.y1 =3D 0,
++ 		.x2 =3D drm_rect_width(&crtc_state->pipe_src),
++ 		.y2 =3D drm_rect_height(&crtc_state->pipe_src),
++ 	};
++ 	int i;
++=20
++ 	/*
++ 	 * On full update the whole pipe is fetched, the plane loop below then
++ 	 * gives every visible plane its full area. Plane states come out of
++ 	 * the duplicate with a zero sized area, so this has to run on full
++ 	 * update as well.
++ 	 */
++ 	if (full_update)
++ 		crtc_state->psr2_su_area =3D display_area;
+ =20
+ +skip_su_area_calc:
+ +	if (full_update)
+ +		clip_area_update(&crtc_state->psr2_su_area, &display_area,
+ +				 &display_area);
+ +
   	/*
-  	 * DRRS and PSR can't be enable together, so giving preference to PSR
-  	 * as it allows more power-savings by complete shutting down display,
-@@@ -3297,7 -3471,8 +3471,8 @@@ intel_dp_drrs_compute_config(struct int
-  	 * FIXME all joined pipes share the same transcoder.
-  	 * Need to account for that when updating M/N live.
-  	 */
-- 	if (has_seamless_m_n(connector) && !pipe_config->joiner_pipes)
-+ 	if (has_seamless_m_n(connector) && !pipe_config->joiner_pipes &&
-+ 	    !pipe_config->dp_m_n.bypass_m_n_ratio_limit)
-  		pipe_config->update_m_n =3D true;
- =20
-  	if (!can_enable_drrs(connector, pipe_config, downclock_mode)) {
-@@@ -3640,6 -3815,8 +3815,8 @@@ intel_dp_compute_config(struct intel_at
-  				       pipe_config->port_clock,
-  				       intel_dp_bw_fec_overhead(pipe_config->fec_enable),
-  				       &pipe_config->dp_m_n);
+  	 * Now that we have the pipe damaged area check if it intersect with
+  	 * every plane, if it does set the plane selective fetch area.
+@@@ -3107,6 -3185,82 +3190,82 @@@
+  	psr2_man_trk_ctl_calc(crtc_state, full_update);
+  	crtc_state->pipe_srcsz_early_tpt =3D
+  		psr2_pipe_srcsz_early_tpt_calc(crtc_state, full_update);
 +=20
-+ 		intel_dp_check_m_n_ratio(pipe_config, &pipe_config->dp_m_n);
++ 	return 0;
++ }
++=20
++ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
++ 				struct intel_crtc *crtc)
++ {
++ 	struct intel_display *display =3D to_intel_display(state);
++ 	const struct intel_crtc_state *old_crtc_state =3D
++ 		intel_atomic_get_old_crtc_state(state, crtc);
++ 	struct intel_crtc_state *crtc_state =3D intel_atomic_get_new_crtc_state(=
+state, crtc);
++ 	struct intel_crtc *joined_crtc;
++ 	bool full_update =3D false;
++ 	u8 joined_pipes;
++ 	int ret;
++=20
++ 	/*
++ 	 * Selective fetch is not always usable, for instance it is dropped
++ 	 * while pipe CRC is active. The planes keep their selective fetch
++ 	 * enable bit set in hardware over that, and a plane disabled while
++ 	 * selective fetch is off never gets the bit cleared. Once selective
++ 	 * fetch comes back the hardware would resume fetching for a plane that
++ 	 * is no longer enabled and keep its DDB range reserved, so have the
++ 	 * plane update drop the bit for every plane of the pipe as selective
++ 	 * fetch is turned off.
++ 	 */
++ 	crtc_state->clear_psr2_sel_fetch =3D old_crtc_state->enable_psr2_sel_fet=
+ch &&
++ 		!crtc_state->enable_psr2_sel_fetch;
++=20
++ 	if (!crtc_state->enable_psr2_sel_fetch)
++ 		return 0;
++=20
++ 	/* The joined pipes are handled in one go from the primary. */
++ 	if (intel_crtc_is_joiner_secondary(crtc_state))
++ 		return 0;
++=20
++ 	joined_pipes =3D intel_crtc_joined_pipe_mask(crtc_state);
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, joined_crtc, joined_pipes) {
++ 		psr2_sel_fetch_compute_su_area(state, joined_crtc, &full_update);
++=20
++ 		/* One pipe falling back takes all of them with it. */
++ 		if (full_update)
++ 			break;
++ 	}
++=20
++ 	/*
++ 	 * TODO: For now we are just using full update in case selective fetch
++ 	 * area calculation fails. To optimize this we should identify cases
++ 	 * where this happens and fix the area calculation for those.
++ 	 */
++ 	if (!full_update && !psr2_sel_fetch_merge_su_area(state, joined_pipes))
++ 		full_update =3D true;
++=20
++ 	if (!full_update) {
++ 		/*
++ 		 * The WAs clamp the SU region that ends up in the per
++ 		 * transcoder PSR2_MAN_TRK_CTL, so they have to run on the
++ 		 * merged area rather than on the per pipe ones. crtc_state is
++ 		 * the joiner primary, the only one carrying the encoders the
++ 		 * WAs look at, and the merge guarantees a non empty area.
++ 		 */
++ 		intel_psr_apply_su_area_workarounds(crtc_state);
++ 		psr2_sel_fetch_set_su_area(state, joined_pipes,
++ 					   crtc_state->psr2_su_area.y1,
++ 					   crtc_state->psr2_su_area.y2);
++=20
++ 		psr2_sel_fetch_align_su_area(state, joined_pipes);
++ 	}
++=20
++ 	for_each_intel_crtc_in_pipe_mask(display, joined_crtc, joined_pipes) {
++ 		ret =3D psr2_sel_fetch_apply_su_area(state, joined_crtc, full_update);
++ 		if (ret)
++ 			return ret;
++ 	}
++=20
+  	return 0;
+  }
+ =20
+@@@ -3332,7 -3486,7 +3491,7 @@@ void intel_psr_wait_for_idle_locked(con
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     new_crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(new_crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+  		int ret;
+ =20
+@@@ -3621,8 -3775,7 +3780,7 @@@ void intel_psr_invalidate(struct intel_
+  			continue;
+  		}
+ =20
+- 		pipe_frontbuffer_bits &=3D
+- 			INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe);
++ 		pipe_frontbuffer_bits &=3D psr_frontbuffer_mask(intel_dp);
+  		intel_dp->psr.busy_frontbuffer_bits |=3D pipe_frontbuffer_bits;
+ =20
+  		if (pipe_frontbuffer_bits)
+@@@ -3702,8 -3855,7 +3860,7 @@@ void intel_psr_flush(struct intel_displ
+  			continue;
+  		}
+ =20
+- 		pipe_frontbuffer_bits &=3D
+- 			INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe);
++ 		pipe_frontbuffer_bits &=3D psr_frontbuffer_mask(intel_dp);
+  		intel_dp->psr.busy_frontbuffer_bits &=3D ~pipe_frontbuffer_bits;
+ =20
+  		/*
+@@@ -3979,7 -4131,7 +4136,7 @@@ void intel_psr_lock(const struct intel_
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		mutex_lock(&intel_dp->psr.lock);
+@@@ -4002,7 -4154,7 +4159,7 @@@ void intel_psr_unlock(const struct inte
+  		return;
+ =20
+  	for_each_intel_encoder_mask_with_psr(display->drm, encoder,
+- 					     crtc_state->uapi.encoder_mask) {
++ 					     psr_encoder_mask(crtc_state)) {
+  		struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
+ =20
+  		mutex_unlock(&intel_dp->psr.lock);
+@@@ -4607,6 -4759,10 +4764,10 @@@ void intel_psr_compute_config_late(stru
+  		crtc_state->has_sel_update =3D false;
+  		crtc_state->enable_psr2_su_region_et =3D false;
+  		crtc_state->enable_psr2_sel_fetch =3D false;
++=20
++ 		/* Plain PSR1 is not supported with joiner. */
++ 		if (crtc_state->joiner_pipes)
++ 			crtc_state->has_psr =3D false;
   	}
  =20
-  	ret =3D intel_dp_compute_min_hblank(pipe_config, conn_state);
+  	/* Wa_18037818876 */
 
---fCs3BRg7iJNSnLVM
+--OmMpsowGHg2watvk
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmroovoACgkQJNaLcl1U
-h9BQswf/XmShDnwUSg0cqZj+WbXkiYC/wcBTz3BnPtX2zT10UbmCWKTeMeD7i7Xk
-manAniP7Y4urudeZnmVOTxRyDCdyFT7AqJ6CEqsxlihGKMFg6sSRtpiDio9gcY9/
-jtyH8eYX2P+uSY7nmGARxQcni3nYbBHC7NKB1Yu84Bdy0WHL56d/lqgPr/S9rSmw
-XhmCuDdql57uuMWHeIM5p8RJ68wAOAuKyGsYuoTcBLfXu2KitlTkZ31qMV3KiwF7
-YBNAztRKO1juLyVssw1IfjILlRAokzDktTYfHSkVuOUvy5wvr+00QJW/NBDLP8ux
-kOkRG9qWi8lJqlfIoWeDfQpZC+yQJw==
-=bP3A
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmroowsACgkQJNaLcl1U
+h9CM8Qf/U5P8hBXCS8o2WjpX5BNLC2Lv++FEEl2klg2d5J8j/tXSf0rPMegn7qOP
+OEiRM7HFoATxdPnsJUjufqE0SUCfbjotNy13Zk0lL6o3IvsxSU1znuwFyfDaHgkZ
+82ZAE1Kn2PlVypzpzstnqRWNkPftO3H2Hk1yOXRY91P1WzBS/aynHL7CXH7FLZAk
+EI9rqHIgCef4h9lPAv+9mKil1/RfjZB0nozsVMm9iMHu8rup7MHQ/Ts7o/qhkPmN
+dYMIJIAtIfnxBB0WnVUxl2aZkScIw+VFnwMSY+rsPaytkYojCpJ+FQbUJAZG4ChN
+UeuEGUiyi/DJoGu4EixjdcCpzgaLpg==
+=C5VS
 -----END PGP SIGNATURE-----
 
---fCs3BRg7iJNSnLVM--
+--OmMpsowGHg2watvk--
