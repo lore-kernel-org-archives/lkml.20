@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793662895;
-	b=tcup9L+DFQXVPOMylRmXokDLbVF/GhPoy1RdFdhP2u+sFue7Viol8HIhtTAsn+AAYAtc
-	 KYSBJtqJ6uSYd5nK0ybAjT9GPkUOp5w7AYgv4kFYfpEI0gy6SyUvx4OL/lNP7coj2tq1r
-	 b2vOu6ya5Aborx+Yohs70eRTUdDQoGKfUxW/mgVnBArOAANExruahTVY4wrirIkpY85ER
-	 OlSlAbeEAxvmF3CovUq3t+LvAcQ3dVrVCtsYjFN9ESBGb9AuCVRHhfkZa3DPOP1Ii3dkq
-	 0UkEYN7AcPrpXLJH/p5PRZ3tUfxz9WFZGM0FPx423BI9XBMwHFpZu9ilDSOGM79mhBQ==
+	t=1793662971;
+	b=G1ERovV2SKwVuzEbnm1IC3/AyCw4tTlbpH8TeVI+Bts4Zj+VTPgpwICWXLSghDx/JTwS
+	 0a+puDX/7o0KPAgS0r1nhjin320BkzP2NS0LlqGuUG63qUWx62Ss/W1BR6nCgckldwSYk
+	 RBW3tKPh66yolb+YB18PiB3UCEk1dKn89+HL/hpO71QIVq5fH4ig9L6D/1w4B8Xgg5jB0
+	 E9DF/RJSNgmBs+VZTe8rUcOlhJN376BgqQFbR/eJsBmRrUCtK/W+/ZCtdfKlaXjT8THm8
+	 6WFULuQRdXdhfn6irRvQWfnohwbHgvT8SHpptMQ0WedS+kYH/+s2vWfqn0WuC247SpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793662895;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=Dyb0KNEBDyW9YUH/H8NB1sb2XfBQhpgJT9JPFKBIQR0=;
-	b=WldtqZ85y7FbM/kPVqYGliVIqgKdWuPNFY70wKfV44LeCHxtQtCRIP3TPnSG+nQ+/lk3
-	 80mUU9aWjHciULYdrGM9qGO1PTWb86AnEcgE1Z1ynKye0WdbxA8buaGnlmZPR9G76pnCg
-	 peczVIs91UTkfD4CuZoOlnurBKpndcGhY1ChZFcumg9K/DhtXzJVnunkyKJzv1eKOgTfa
-	 27NzhYBQMJ6ryQTYBDOBkDuIfDwi0pZpp7MnHiSxkkekW1+XSjdH54UG2+ZvdCzEGQVuv
-	 kAbx6TgqqpYexawEbFEhWNhX79DOGoOG0GBfsAv+brccOJoggnMvmkvKnhn1IekZ15A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793662971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=JnQy500MsWrFun+T9a78f9QVRMeORY0a/XfwWvPhYUQ=;
+	b=LXYi7qJy/v0Vscfnh4sGcXBlcZ2IAAetCdJSxz9YLpFCC0iVkvE4wjWDQirpCbn6cWtX
+	 1JsN2EyaLM/OkHyYXv+tmvMS60UBLnF/fETwnQ+F357IxvukVlgIURti/oFQLAWHde+VZ
+	 FuybnjP3Amyd2JszYSTy8vjfdCt3hqReKUOnIw2WNcJBZz3d+XTgcE8G/HS+DOyT+YaIw
+	 xgnK3FPewYcL/H9Ecn/+sFtLH8QrN6IqP+3pyohCPwdYafoX99EKD26Oa2ex7j4jU3MJY
+	 DS5cWG1UYSOAbruLPZjsWhetRkJVaueIOOwERObA8fReIt/awX+ZlfS6U1l7FQk/3wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcEKMJZr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Nhk2wPqv;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEA6606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:41:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36F4606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:42:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F36F4606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcEKMJZr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BAE01F00A1B
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793662894;
-	bh=Dyb0KNEBDyW9YUH/H8NB1sb2XfBQhpgJT9JPFKBIQR0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gcEKMJZraK7/1lnoIxsE4M0dToWDBIVmwxvZeTbAW0zRaJ9SXE5zevsln6eLNtZzo
-	 yDxbYFWO3a6eKMh3u+gpl9RLkQfCLMmwPC6UMrPVcpJ7KyYSXdAy7z9hX3WmzNGlE4
-	 rp6EfVtsi7JEA2yppF2327WS85/tKckSlQeRLVR3NzvAxu2/iFLplc8+gh/bAHPtdN
-	 XupmLrstuma9RYmMcF0Eqo2P6v8HdOjbe4EpfAKxT3JDCq7e7M1nQJIBtSadaVrtQ8
-	 11h9HAghsglPYIAc0vQH+rM1a3dnxedJilUTdrxlPWB2bfbloh1G+GN4U+XPJMha6m
-	 DwUMS89EGMIMg==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so576064466b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:41:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwEoyF/4nshOZu3jA2n2DPRLwUHUCq/Ue1+VlXmI552/b6uLpQzuop8GbhXsg3XdANsVFmLArn4LmV3BQM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8288i1czaSqHahXNUrLc/B71+l1HRYr1laLoV+gGKYfnB8XTdM
-	p8lNVMRd17hzqJfWVAqGCT30xxxDnKDJS6uQZ9G3VLbqUTeiZewC9/bhxTP1q/AA6N69DmDUmto
-	CBozAoZ9j32McwOw+NqlPtdF7quXl3kA=
-X-Received: by 2002:a17:907:d91:b0:c35:babe:ab44 with SMTP id
- a640c23a62f3a-c4ca740b297mr962386666b.0.1793662893123; Mon, 02 Nov 2026
- 15:41:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Nhk2wPqv
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso35809475e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:42:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793662969; x=1794267769; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JnQy500MsWrFun+T9a78f9QVRMeORY0a/XfwWvPhYUQ=;
+        b=Nhk2wPqvSQrkiK/roTjKBer5PwoOjEZcUOiCTWZQflUNI1lHbA/yywr5hMwC4geZRo
+         /nQsIvO5rfSDbIjA77jp/JC2zJbvv6gA7lT7iyi0UpvRFcKxu2zmc8pmeIOaa2Yuj2cc
+         OifvuTw2PdxQxtkAyBWPS8z91JdzqQXhQ9E1kMmGqpqvE/UFlD9QHFr4hv2uECHobPeZ
+         I1I7vvMTxiKtviazNZh/URE7e2Ybhu69FANtbZEcsLCykFcM1UZ/zQVXpJAjilti3kjA
+         jQaIARJ4CsBE0ndIX0ro9nlfcUzDy+jTbPh/k5WL0h8d6hMrU/QYdWarlce0ISAWWs+2
+         4T1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793662969; x=1794267769;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JnQy500MsWrFun+T9a78f9QVRMeORY0a/XfwWvPhYUQ=;
+        b=pfP0LKPjRbNPmIJU3W4ddxtdePnv0SRvEKQJ8VjSeGuELQf/L5Xg5afSMcP89btWDn
+         qQPo3fPAgqrkvH0SS2jPj1P1uvBwAoi1LPFKa0dY/NOdJk7RH0O+YqqZJabTmIAHmwJc
+         eH3foYVPCsLhUK43heJUX43f1rUM4CnMoO92pb5JurIZPjfYCHSy0cygWBvIeg/5nzGT
+         v/2HGoAPu9uwajtBiezTRIKDDfBDBLASFINo/xppT/DkSyTY8UOy1Z67BMtltmTITZ2r
+         QNV3Q1I/I3+U1N5HLTf2zCkc72+QP7lFyi34kSVejhIBxSrk77QIZ2Eu9Auhg8gesI21
+         1mTA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5ouv92gTuE6U7Hhn+ncK+9/vSZbZZf65wrVDjxpHkpbSKr6aM7hRBuXjSzAirTPcheQzNGgzI+4yp2ak=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhVdyASOgeYVYcrPyqzi+4yaLf/tFn8wmD1HGJLdpbMxHcE9Gh
+	/Wk7BkpzD9AQCir0RbaI/fdDvSAeQm3J73RbGN8tBG8W1sGltClftMiEOYs8FCWt0DY=
+X-Gm-Gg: AYBFou2+t/fT9XIVVUZe+jGgrLAU2Kah6nNVxXU7AUbAshDxqkriKMbmWkx45J2vG+2
+	CaWDbWIvPZaoHpqzkcBsucIrPmg8ONXlkvBEXMQ8w2ieVUxNPuHlHuTUfCUAGTO8Gwj5E78H7Za
+	gjFS6HOfkbenPTqAlN9Kmj0pFJ1O0v+/qXyKrfPJLyfH7JClP8ENmFH83lCkYz6oO9l+JqxYshX
+	FWej94xionlvRyZhQm47WcAPIomQzLmKaj9Cuc0tkGH9ZnrWXmLcMvpqrR69/oN8lce5VV4pRmA
+	eP12ot0oI4lWWL+48fy1Ibeoptd7RvbVMKmubRDf+J7NA5f6aiRg8Nw8p92Dqa5VMPw+D80FUPV
+	oQ/Bz+b/dYR1z8kED06KgPXA54I/LIdfa2KZgZuk8OjcHamxZEyQDfuInWp9QB2oqrGWioqPUJu
+	HXutE0IUqRNW0gB1xSTM/WbcsxSSJvMws2J4sGAmcOTvKNyHa5PYdA8p7MPryfMeRExMdyEtHhH
+	sEliwbFcoxafh7EVBWvkssXbX6u6rtktYrw/oJtpMByovpQa1ZhdSUqbDhPg39iXYfpt6k5UX/z
+	gxP+1wkAKGAgitYOwIR7
+X-Received: by 2002:a05:600c:3b09:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4b14017c507mr86691865e9.20.1793662969331;
+        Mon, 02 Nov 2026 15:42:49 -0800 (PST)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm41517207eec.24.2026.11.02.15.42.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 15:42:48 -0800 (PST)
+Message-ID: <a12db355-d677-4656-9715-a537980e928a@suse.com>
+Date: Tue, 3 Nov 2026 10:12:42 +1030
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,37 +92,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102200353.884509-1-icb@fastmail.org>
-In-Reply-To: <20261102200353.884509-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 3 Nov 2026 08:41:20 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com>
-X-Gm-Features: AclHuK9G_vi4S7-_Tc8OkG8LlBlaaJXENvc1ro0Hs3ReisFb84vo12Ihx1bBJSU
-Message-ID: <CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com>
-Subject: Re: [PATCH v2] ksmbd: grant a caller what its groups and OWNER RIGHTS
- ACEs allow
-To: Ian Bridges <icb@fastmail.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Aamir Ahmed <elb12345@hotmail.co.uk>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: do not check support for an invalid sectorsize
+To: Siddharth Mishra <smish149@asu.edu>, David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Siddharth Mishra <brightprogrammer@asu.edu>,
+ stable@vger.kernel.org
+References: <20261102233041.310900-1-smish149@asu.edu>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261102233041.310900-1-smish149@asu.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> @@ -1562,7 +1586,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
->                              compare_sids(&sid_unix_NFS_mode, &ace->sid) &&
->                              compare_sids(&sid_everyone, &ace->sid) &&
->                              compare_sids(&sid_authusers, &ace->sid) &&
-> -                            compare_sids(&sid_owner_rights, &ace->sid)))
-> +                            compare_sids(&sid_owner_rights, &ace->sid) &&
-> +                            !(groups && smb_sid_in_group(&ace->sid))))
-groups is false for MAXIMUM_ALLOWED, so this skips group deny ACEs
-too. Consider a file owner whose group has a deny ACE for
-FILE_WRITE_RIGHTS, followed by an OWNER RIGHTS ACE granting full
-access. The group deny ACE is skipped, leaving full access in ordered.
-The new fallback then returns those rights.
-An explicit FILE_WRITE_DATA request is denied, but MAXIMUM_ALLOWED
-returns 0x001f01ff, including write access. Before this patch, the
-latter request was rejected. Since smb2_open() uses this mask for the
-handle's access rights, the client can write if the vfs permissions
-allow it. Could we also process group deny ACEs for MAXIMUM_ALLOWED
-requests?
+
+
+在 2026/11/3 10:00, Siddharth Mishra 写道:
+> From: Siddharth Mishra <brightprogrammer@asu.edu>
+> 
+> [BUG]
+> Mounting an image whose super block has an invalid sectorsize (for
+> example 4097) on a kernel with CONFIG_BTRFS_ASSERT=y triggers a BUG:
+> 
+>    BTRFS error (device loop0): invalid sectorsize 4097
+>    assertion failed: is_power_of_2(blocksize) &&
+>    blocksize >= BTRFS_MIN_BLOCKSIZE && blocksize <= BTRFS_MAX_BLOCKSIZE,
+>    in fs/btrfs/fs.c:137
+>    kernel BUG at fs/btrfs/fs.c:137!
+>    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>    RIP: 0010:btrfs_supported_blocksize.cold (fs/btrfs/fs.c:137)
+>    Call Trace:
+>     btrfs_validate_super (fs/btrfs/disk-io.c:2525)
+>     open_ctree (fs/btrfs/disk-io.c:3507)
+>     btrfs_get_tree.cold (fs/btrfs/super.c:2133)
+>     vfs_get_tree (fs/super.c:1943)
+>     fc_mount (fs/namespace.c:1282)
+>     path_mount (fs/namespace.c:4337)
+>     __x64_sys_mount (fs/namespace.c:4542)
+> 
+> [CAUSE]
+> btrfs_validate_super() rejects the sectorsize because it is not a power
+> of 2, but it does not stop there: it goes on to report all invalid
+> fields.  The next check passes the same sectorsize to
+> btrfs_supported_blocksize(), which requires a validated value and
+> asserts it since commit d728f2e5f8a0 ("btrfs: simplify support block
+> size check").
+> 
+> [FIX]
+> Only check whether a sectorsize is supported after it passed the
+> validity check.  An invalid sectorsize is still rejected with -EINVAL,
+> and the misleading second message "sectorsize 4097 not yet supported"
+> is no longer printed.
+> 
+> This bug was found by fuzzing. The cause was analysed and the fix was
+> written with the help of an AI tool. Tested on btrfs for-next
+> (d6f76ca0a70d) and on v7.4-rc1, with KASAN and CONFIG_BTRFS_ASSERT=y:
+> without the fix, mounting the image hits the BUG above; with the fix,
+> the mount fails with -EINVAL and only "invalid sectorsize 4097" is
+> printed.
+> A crafted image (22 KiB, xz) and a C reproducer are available on request.
+> 
+> Fixes: d728f2e5f8a0 ("btrfs: simplify support block size check")
+> Cc: stable@vger.kernel.org # 6.18+
+> Signed-off-by: Siddharth Mishra <brightprogrammer@asu.edu>
+> ---
+>   fs/btrfs/disk-io.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
+> index 8e8fb942d..b348591f8 100644
+> --- a/fs/btrfs/disk-io.c
+> +++ b/fs/btrfs/disk-io.c
+> @@ -2520,9 +2520,7 @@ int btrfs_validate_super(const struct btrfs_fs_info *fs_info,
+>   		     sectorsize > BTRFS_MAX_METADATA_BLOCKSIZE)) {
+>   		btrfs_err(fs_info, "invalid sectorsize %u", sectorsize);
+>   		ret = -EINVAL;
+> -	}
+> -
+> -	if (unlikely(!btrfs_supported_blocksize(sectorsize))) {
+> +	} else if (unlikely(!btrfs_supported_blocksize(sectorsize))) {
+
+If you want to change this, you should touch all callsites.
+Not only this one, but every unlikely() branch to return immediately.
+
+I do not like the ad-hoc fix just be cause you can trigger an ASSERT().
+>   		btrfs_err(fs_info,
+>   			"sectorsize %u not yet supported for page size %lu",
+>   			sectorsize, PAGE_SIZE);
+> 
+> base-commit: d6f76ca0a70d0c814731394a625ff0dc1feb390e
+
