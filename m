@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793663654;
-	b=xvez9eg+R0ksNcAW7v9BGCJO09d8pGwOn8B5SjEar9fkYqbzSNlEnsQm2/qWG+s+D0jT
-	 wV3bZsyLHUA7wu3r4WpCcXJOrHna2OMeV88UHpAcAJ4x5gV30qjlqwZeFDvG8MjCPg5Sq
-	 j+cLCCh5v7jOWqdoQZ5HXbHhnUUbblzIwKySAPn/czaeMtc5mR3bQgDowftRW0VuoWYXz
-	 PVTIgtiZCPLDcuG8OTHCfjCDwmEcVaMplpuRyvdy8ybPJmvrldASSiI8LhZI7P7dLqVl+
-	 3iqPTk0TfEwHRTJda4Y+/V/x5P1YEkKSbxjn0TaYilxPc9/LinKAG81CdJp9rz+zkjg==
+	t=1793663660;
+	b=Qp66s76xANAkW6zEJp5nsgV2bqlTwufVk8Be4hmx0pdgF4BjN/8HTiom2P3JUUfzp9HO
+	 JKopwEOckypHiJU1Hx2TY4IIuLCzndemGX85jzEFqTqU7ILtVTtrQRHrT7KbJBS8wxNvf
+	 T8NdQeQC4Sk/oXWP4qV7ELXNfKd3kZRqzYrEXphAz2yQD3LnMIkVad1/795wdVK7iI6Kv
+	 QWYg59gr0OJJHpE94Daaimm7OFoulmMnzaGZFHM2e64Jpo8K7zJVickWMocMBVbRhJr2v
+	 5+b4Kuq4hz6MhdcvDkqR8cNOH7Xx+4SkxF/wW5fraQBggHdNBe8kyg+NxUjdqUyn6+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793663654;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+UqSyir9zlJtTj6oGLIp9AFPvgL5F/23wHoJo5ierls=;
-	b=3T9Byjher7pcnb3Y/vOh+hc9hDWXVts+FNiSSrNs1TsMID7LGSsBNWiddUL7AK7nE6l0
-	 gU4LsQV82pM/639NrWcFRngX1yw9ENs8ftn7Oxa4raxZzF2mtkovnwRc8lB86QUpZ2pC8
-	 pFINh6enfH/fRNZIeiIfER/yOqlM/dnmcXbKLwpQ61dqXr5hDrI8cf+QDSah/E3Jcr5z6
-	 +kDWco0RXixmaCKKKrAYAAkBv+pQs8d7Nc2jxv4M+Mt/v7UCUi3HlHsRmz56PpfPjI0sB
-	 hWNMNzU8xdxHgvupNj6WMUijekWsaxYPtbSABkT1JLZXWIaTvhjaGDuq5Pjvm5RJu9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793663660;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DRZUBsfLVs5ALhAcjOQBIw2GOcnXP13A4aZ3TqgnF6s=;
+	b=X6T1g9sA3ixN0bfyte+4pdbHGHEZqRpvuK7kpu3JZdIlLCzrLUEHIi5RNhUMSiICJtcP
+	 XI0G4WoEVGrW30+en+KM8SGSXX70SrDbq9fFK+W6PTJVrVZM9BCHWw3qBRYLRkDOq5yg/
+	 DVsNvNQkMjdtkt2NP1GsUYjGCZYAyfDveQJ/6N6IMq/D5EqQlv36eTE0akhpT+9QAMSYM
+	 73Q63nUVDdRbydDbCYQTj6uM87KIKaHb78ppWWivwHUhXSC87Wkr3a/hqEy9ENbbw0eOG
+	 JecqirW5iYoR2OwHyV48Gp7srfhDFosYhPA5yh7Q3EijJWkQuAIHYWO8R9RJ6gxLEWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lChM+1O7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IyjuVrfS;
+	arc=none smtp.remote-ip=95.215.58.138
+Received: from mta1.migadu.com (out-138.mta1.migadu.com [95.215.58.138])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E560606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:54:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23490606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23490606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lChM+1O7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23E51F00A18
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:54:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793663653;
-	bh=+UqSyir9zlJtTj6oGLIp9AFPvgL5F/23wHoJo5ierls=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lChM+1O75/pz8GnNKwtFDREVmqSf1W++CekSa/AKO8SYp8u5C8LP6XHWXtNQhSXpK
-	 OPAuJMpsoI7q8iDybVE3Wtsq2BCVgj9UD3lSCNHejpt6cq14FrMn8ubIo73ywKi/D5
-	 AIwe5gQjpMbRaD5BLymxg9eYp66tauf1xL0EMdZtE1NpTBQlx76mUwqd9DpLbNpIJi
-	 cjCv3OdG8Z4GWb1FfApBrXnVV/Rj9OI6LCR9ji87+hjTolIbQkzjEYgyTvGp/uPRkS
-	 fGKxqDXuv7RzRC1VQwsMzrYulUDTuwA8ceENOkGwUNW7Aikjm1brN3xI+dmtUnE9LM
-	 WseOHDO/zV4Eg==
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c411e139259so319643866b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:54:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwwuqBENoe0BgM5UlI3XTdzPmutw+B+tDgfcdSYKETfuFKC4AFL5QWfPayObCDbKnRYx4WChlwnUcCV+Hk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8RbPyoZ1vRCIkz8Sk0UEX2oKbkHtU70h3F7HTRdCBJSKEXONAi
-	cLiIFXqXMhVBZpYi3IVFcVHbcyT9F4Q6uiRug8WCHzDS4PE7/9XFtFQbaQB13mfhDhkAewZtiyZ
-	ZSVVqjKQX+BVOjDx2GEk1d37KdJvJgck=
-X-Received: by 2002:a17:907:18c3:b0:c26:22ae:b66b with SMTP id
- a640c23a62f3a-c4ca7aee966mr947443066b.15.1793663652482; Mon, 02 Nov 2026
- 15:54:12 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IyjuVrfS
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5rwLWZUQEywqqEx+DZVIR9XTXe9WId4zBAGAoP+BUcM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793663657; v=1; x=1794268457;
+ b=IyjuVrfSS4r0wp/Ziiw+LvVFLzuF3Pg2B5akppybrhfnpulTKjzzO+6JsY8PDM75+vvA1V76
+ bfU+VwtKH4jyOn8pxX8WyHq9VB+vvZcfPjty2Uw5msgrvLrEVnuQYU/Er/bHFsRE4qK8AySpwBU
+ Rot9RmSfW+21G/OrJB+HLDLE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eb444f0ad2101dca;
+	Mon, 02 Nov 2026 23:54:16 +0000
+X-Mizu-Trace-ID: eb444f0ad2101dca
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b501e25d-022d-4f37-88f6-f82af3d101ff@linux.dev>
+Date: Mon, 2 Nov 2026 15:54:12 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,52 +58,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <179362071771.29269.6848836845989806334@stu.pku.edu.cn>
-In-Reply-To: <179362071771.29269.6848836845989806334@stu.pku.edu.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 3 Nov 2026 08:53:59 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9G9VKLYzsKMqS87yj0KLxSjis-8iAAegnPdDzdpv=vGw@mail.gmail.com>
-X-Gm-Features: AclHuK_ZiPl_8EII_1_G4Hx1xfHmBmUEZKMwbV1xvMdMI83u3u7g6JkbLF7jK5g
-Message-ID: <CAKYAXd9G9VKLYzsKMqS87yj0KLxSjis-8iAAegnPdDzdpv=vGw@mail.gmail.com>
-Subject: Re: [PATCH] cifs: bound invalid NTLMSSP signature diagnostic
-To: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-Cc: Paulo Alcantara <pc@manguebit.org>, linux-cifs@vger.kernel.org, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
-	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, 
-	Steve French <sfrench@us.ibm.com>, samba-technical@lists.samba.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] ASoC: tas2783-sdw: use the BIOS speaker ID in the
+ firmware name
+To: Mark Brown <broonie@kernel.org>
+Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016232416.2628603-1-matthew.schwartz@linux.dev>
+ <20261016232416.2628603-4-matthew.schwartz@linux.dev>
+ <179366321499.2186205.14199496267448130552.b4-review@b4>
+Content-Language: en-US
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+In-Reply-To: <179366321499.2186205.14199496267448130552.b4-review@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 2, 2026 at 8:58=E2=80=AFPM Yifan Zhang <yfzhang23@stu.pku.edu.c=
-n> wrote:
->
-> The NTLMSSP Signature field is an eight-byte binary value and need not be
-> NUL-terminated.  decode_ntlmssp_challenge() prints it with %s on the
-> signature-mismatch path, so the diagnostic can continue beyond the receiv=
-ed
-> blob until it encounters a zero byte.
->
-> KASAN reports:
->
->   BUG: KASAN: slab-out-of-bounds in string
->   Read of size 1
->   string
->   vsnprintf
->   _printk
->   decode_ntlmssp_challenge
->
-> Print the fixed-width field with the bounded hexadecimal format.
->
-> The patched kernel reaches the invalid-signature path and returns -EINVAL
-> without a KASAN report.
->
-> Fixes: 0b3cc858003b ("[CIFS] NTLMSSP reenabled after move from connect.c =
-to sess.c")
-> Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+On 11/2/26 3:46 PM, Mark Brown wrote:
+>> Some boards have TAS2783 firmware in linux-firmware named
+>> SSID-SPKID-LINK-0xUID.bin, with a speaker ID ahead of the link ID (the
+>> HP 8EA1 has its amps on link 0 and ships 8EA1-{0,1}-0-0x*.bin). The
+>> driver only builds the three-field SSID-LINK-0xUID name, so these boards
+>> never load firmware. On the ASUS ROG Xbox Ally X20 (SSID 1954) the BIOS
+>> provides the speaker ID in a 4-byte SPEAKER_ID EFI variable, and only
+>> the four-field 1954-*-*-0x*.bin files exist.
+> 
+>> Read SPEAKER_ID once and request the four-field name first when it is
+>> present. Boards without the variable keep the current names, and the
+>> unprefixed three-field name is still tried if the four-field file is
+>> missing.
+> 
+>> +static int tas2783_get_spk_id(void)
+>> +{
+>> +	efi_guid_t guid = TAS2783_SPKID_GUID;
+>> +	unsigned long size = sizeof(u32);
+>> +	efi_status_t status;
+>> +	u32 spk_id = 0;
+>> +
+>> +	if (!efi_rt_services_supported(EFI_RT_SUPPORTED_GET_VARIABLE))
+>> +		return -ENOENT;
+>> +
+>> +	status = efi.get_variable(L"SPEAKER_ID", &guid, NULL, &size, &spk_id);
+>> +	if (status != EFI_SUCCESS)
+>> +		return -ENOENT;
+>> +
+>> +	return spk_id;
+> 
+> This returns a u32 as an int so if someone decides to pick a very large
+> value it'll look like an error value.  That's likely unrealistic though.
+> 
+>>  	for (; dev; dev = dev->parent) {
+>>  		if (dev->bus == &pci_bus_type) {
+>>  			pci = to_pci_dev(dev);
+>> -			scnprintf(name, size, "%04X-%1X-%s%1X.bin",
+>> -				  pci->subsystem_device, bus->link_id,
+>> -				  fw_uid_prefix, unique_id);
+>> +			if (!tas_dev->spk_id_read) {
+>> +				tas_dev->spk_id = tas2783_get_spk_id();
+>> +				tas_dev->spk_id_read = true;
+>> +			}
+>> +			if (tas_dev->spk_id >= 0 && !tas_dev->fw_use_fallback)
+>> +				scnprintf(name, size, "%04X-%X-%1X-0x%1X.bin",
+>> +					  pci->subsystem_device, tas_dev->spk_id,
+>> +					  bus->link_id, unique_id);
+>> +			else
+>> +				scnprintf(name, size, "%04X-%1X-%s%1X.bin",
+>> +					  pci->subsystem_device, bus->link_id,
+>> +					  fw_uid_prefix, unique_id);
+> 
+> Mixing this in with the fallback decision seems confusing.  There's some
+> cases generated in the Sashiko review which look plausible though I
+> didn't fully work through everything:
+> 
+>    https://sashiko.dev/#/patchset/20261016232416.2628603-1-matthew.schwartz%40linux.dev
 
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Thanks, didn't know Sashiko feedback wasn't in-line anymore. I'll take a look and send out a v2.
 
-The patch is quoted-printable encoded, so we can not apply it.
-Please send it as plain text, preferably using git send-email.
-Thanks.
+> 
+
