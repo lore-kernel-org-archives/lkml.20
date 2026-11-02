@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619430;
-	b=arGZrg6GP3aPwV8rCkSyAtfK6lBb9J6YgUaJAZVgXziz8P0MEKWCXLPsfAt2D268qvYf
-	 6IYyBmsYUg9x8u4VaQUZ8K/ae4xef1X4OjCsYo07x2O+s8rgL/e/jcEmzp5OIWvu9Y7AJ
-	 jhI/AlNVvG2iXtp2TGM/YQx9TAx5pAak+ZZYm7eLc5RlheUjLEbUdjGhQ0u5Q57bKMufS
-	 eKV3yNAo8lknj/W7T5snPYK27vZt93yIMz/x1OHEZ4XLjxkRzHx6Lx+0VxaYOqJArgNPt
-	 5ifkXX5dQsIkREFFMG8n60BzV8hMiq+kO9SnP2/tBil3n06DR0/fKEVqcn9X5QSP1DQ==
+	t=1793619441;
+	b=rWoYnvV8Q4qecqL7ujGsjhAe9rkjCoJ+iC0XvTlxd/nMSi6/lUFC38vY/oYgH7jfJ9in
+	 b3jHseakPm+C/QF0P53geSkVOojwEcq/UNZ3h7zNOjRLpr4Duwv590RsvtrDCvrIdFthc
+	 kQNUHIKYO+W/TTYEv+hCL0i4BHy2/5m+UTxQA6Dg616VG8Mz31Q7BuVQtdRQ7EpO+09ZV
+	 erFQxsXkVpAL9q1/hjh7eX0yMWxQ7fxQZh4PRmagB+4xEl1hpmOYFkDTnKpTslzt1sMP1
+	 GUHymoYhXxLPjL8Q68l/K7OS3p6PcY/B1Hv/LFrFUu82eKDE66VHGhCXKkyNI0Fk1ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619430;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=bytB1fyy1wX/WQ59LZvnIJkEOWibnESqXNvK/GAnXzw=;
-	b=sI+knYPohQNeidfkTX2bzzxEMwUSWlmdF3k0WQmXmbV7JK0xRkU2k8vL1s7sqLrpmrk3
-	 paUFkIIJBAdQGGKhvLXrZ0MEQUQM32mrKWeHjLNwgrDux6bx0QH6rqZPYXdOMJjKFZF1t
-	 jXXqBTIC+ZrYCrM+JaGtCj9AznsiWYk/RyykjxrWzYC3ZjyvHEkcvMVawtST+GxrnWkby
-	 aFQezXZifA+6l57kJTuE8mHHaYI45d7M7Virog3y4CTXG65XTx/mcl+WsxgDO22L1pfKe
-	 yD7Lz3Pf1BIIiwSgdnSY9YyH5klclYOTTEE3UeRsM5FtNY78gz7MehRL15XEvhskCuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619441;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MNiGsrHToyaVJ/zYmtsH9eEes+/+LeMLhdggw3eFzDs=;
+	b=uAzbeAt6WLO3aZ5FwPxcLOcF/LOWIdrbYqVQC+BZMh5EeLXiPlgeXRSHKKoUlB6EPTYJ
+	 8Wk5G7xLAjmh4WaRWWbQbe//FXRp8Fk1L1WSz+rgA0Gj4PvC83HKX2DM5AUvZt7clpvr0
+	 051Yhzq4f0cyah1mPaCUNBWHZd21zKlxmlTRDQcOaCd+F13baM3nJeD3a7LxnQOXYJ8DZ
+	 D7MKhPNQsFUArpoKGSFjnpmznszS/qLYehWzELW9fXiZM6XQECisR7DyD0XAPfBPvUv0A
+	 REOeJ8Yb2+WE5GNhawz26ShG3Sfox9zzd717UMC4+uzDweFrcbz4xYIViRAqDt02Xyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CD77606A324;
-	Mon,  2 Nov 2026 11:37:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CD77606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=bytB1fyy1w
-	X/WQ59LZvnIJkEOWibnESqXNvK/GAnXzw=; b=skrzj08kxkryWvIEUi8iQj1zku
-	JiokPaJ7DZ1bnWmQqEvm/w3XutwSNF1onLlAUF2kqPazWo5RfoRfBjk2auaQTI4A
-	9YFxAY4xxcDEITce4fwSm26t2+hJXcEBf8iQAy+etVl9cmdLzAbHEsgmqk4n7kXt
-	lyxku5QYguxdh+Fhc=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDm6v3XdehqXgsZAQ--.24966S2;
-	Mon, 02 Nov 2026 19:36:55 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] Bluetooth: btusb: fix use-after-free in force_poll_sync
-Date: Mon,  2 Nov 2026 19:36:54 +0800
-Message-Id: <20261102113654.8724-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EHlkzm0F;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DF8606A326;
+	Mon,  2 Nov 2026 11:37:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EHlkzm0F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 336461F00A16;
+	Mon,  2 Nov 2026 11:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793619441;
+	bh=MNiGsrHToyaVJ/zYmtsH9eEes+/+LeMLhdggw3eFzDs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EHlkzm0F7/JaL2mUzUGHFgDZVibnUgMdixKA/V3u1vAHt0hY7J218j5xyIr4QCLKA
+	 drBt4KuOCz5qWA709Tp4lr9PTBvr7cbHNrRyea7z7zt/BDzMGKOW6s/qxmOWHo7h/m
+	 FHP4W3BHeTTxo0bgaR22v3c2+AQn5/0DIho0ZW9K7gKEaLPz86N44smHRLRgJZB4U0
+	 ycpJXhkTkX5LeXyeGymvOspy7bXOE9gsiIcVxuSKTqlBw71j1tErStVNOvm8Ne6CXd
+	 y9C3g9/80RVbtDLQO05h37sRLGM32WoiupsaxTRVANzaDzQGHhXp9LwFO5+V5VhhEX
+	 fORlUS0+J/I/Q==
+Date: Mon, 2 Nov 2026 12:37:17 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jun Yan <jerrysteve1101@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chris Morgan <macromorgan@hotmail.com>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: mfd: bq25703a: fix input current limit
+ default
+Message-ID: <20261102-thankful-spiked-agama-fa2deb@quoll>
+References: <20261101085754.277830-1-jerrysteve1101@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,96 +59,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkDm6v3XdehqXgsZAQ--.24966S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWr43Ary3uF18urWkWr1fCrg_yoW5GFykpF
-	WDCa4YkrWUtr4DCrn8Aa1xAasYv397X34UCa429345Wr9xW348AFyxt3yYgr97urWUAw12
-	yFn8KFy3u3W5CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx
-	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
-	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gw4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUcXdjDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdSm9wABsS
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261101085754.277830-1-jerrysteve1101@gmail.com>
 
-The force_poll_sync debugfs file uses the driver's struct btusb_data as
-its private data. The file is created under hdev->debugfs and is removed
-only when the HCI device is released, while btusb_disconnect() frees
-btusb_data unconditionally. The HCI device can outlive the driver data,
-for example when an HCI socket still references it, so reading or
-writing the already opened file then dereferences freed memory:
+On Sun, Nov 01, 2026 at 04:57:52PM +0800, Jun Yan wrote:
+> Section 8.6.6.1 "Input Current Registers" of the BQ25703A datasheet
+> states that "The default current limit is 3.3 A", while the binding
+> documents 3.25 A.
+> 
+> Use the documented value.  It also matches BQ25703_IINDPM_DEFAULT_UA,
+> which the driver falls back to when input-current-limit-microamp is
+> absent, so the binding and the driver now agree.
+> 
+> Fixes: 76bc2203a46e ("dt-bindings: mfd: ti,bq25703a: Add TI BQ25703A Charger")
+> Link: https://www.ti.com/lit/ds/symlink/bq25703a.pdf
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 
-  BUG: KASAN: slab-use-after-free in force_poll_sync_read+0x129/0x140
-  Read of size 1 at addr ffff88800cfb7038
-  ...
-  Freed by task ...:
-   kfree
-   btusb_disconnect
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Remove the debugfs file before the private data is freed.
-debugfs_remove() waits for callers that are already inside the file
-operations, and any later access fails with -EIO instead of reaching the
-driver, so btusb_data can no longer be dereferenced after it is gone.
-
-Fixes: 800fe5ec302e ("Bluetooth: btusb: Add support for queuing during polling interval")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-Changes in v2:
-  - Rebase onto v7.4-rc1; btusb was split into btusb_main.c and
-    btusb_qcom.c, so the fix now touches btusb_main.c.
-  - No functional change.
-
- drivers/bluetooth/btusb_main.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
-index 92a78a7e6039..95398e2ca098 100644
---- a/drivers/bluetooth/btusb_main.c
-+++ b/drivers/bluetooth/btusb_main.c
-@@ -1088,6 +1088,8 @@ struct btusb_data {
- 	int (*disconnect)(struct hci_dev *hdev);
- 
- 	int oob_wake_irq;   /* irq for out-of-band wake-on-bt */
-+
-+	struct dentry *force_poll_sync_dentry;
- };
- 
- static void btusb_reset(struct hci_dev *hdev)
-@@ -4820,8 +4822,9 @@ static int btusb_probe(struct usb_interface *intf,
- 
- 	usb_set_intfdata(intf, data);
- 
--	debugfs_create_file("force_poll_sync", 0644, hdev->debugfs, data,
--			    &force_poll_sync_fops);
-+	data->force_poll_sync_dentry =
-+		debugfs_create_file("force_poll_sync", 0644, hdev->debugfs,
-+				    data, &force_poll_sync_fops);
- 
- 	return 0;
- 
-@@ -4862,6 +4865,9 @@ static void btusb_disconnect(struct usb_interface *intf)
- 	if (!data)
- 		return;
- 
-+	debugfs_remove(data->force_poll_sync_dentry);
-+	data->force_poll_sync_dentry = NULL;
-+
- 	hdev = data->hdev;
- 	usb_set_intfdata(data->intf, NULL);
- 
--- 
-2.34.1
+Best regards,
+Krzysztof
 
