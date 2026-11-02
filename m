@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622544;
-	b=CzVjq/XUghHxaV8JFiZJOig8nej41Xo10k3vbN/St2pvXxrKnxbLSMu15559KThmDaFO
-	 aY1tfL74JJoDk+F51uLQDnlnfSosgSH0JXhumKoob4v9wIU8cyohPM5YPzpn8iJpC2Nr0
-	 hcJSfTHaEVKt4O0i2zmnflaVSytHUQyAvSzoIYorPy+kjQfxLxY55QYrkeETCicgavdrb
-	 /vi7C5vWpS5dxqe3iSvO3o8XIEhh/ebNizx7IEag2ud7pXqXbSi8Ai0MJH6vXlbrgIpYc
-	 7AOQavQ9M8D218YApoCVNxG2YYEXbO5ylgMAkbkJD0d9jlnMNyysZ0JjD6HrCY6de/A==
+	t=1793622557;
+	b=HR9seoE4lqXUa4Y3uB+EBiEv5QMHBwIHcOXPB7mO5IN1C4nO5PnvIf82MsKrqJd7zknn
+	 izejrwamVcS+UZgx4McbJ3IiPxErbmaqcpKDriG/tAFNDhUlIITyFNSgyUEEluWwYN2yb
+	 E6a24X596Xyjp9VSgx2/sm1zx8J+PzsWvR/+cWHPH1I/RQMPZPh2OyM9/Wg5IBS/qrp7E
+	 eWLQfo89fKVJPw7A1jCMyw37ad5SKuJaNxlAdou5ixVVjAqRGeOwqEnhTfz7FzB3dk4qS
+	 kYdfvJk9++XFpegwnYeyVVcQEsURcWrLQZv7T/JtcA8KLrTVQB0JlLXSJkPCpVYPiMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622544;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GyZdeAbOtqkzbSkUpNh0d1h4qY0XMF49rbWHS3d1uig=;
-	b=lyZvodl3Ve3sPAn281a+TFGUE0lvAAH712ZTOT3UwvR78orOUcAwGC0uddp0lqyhq46l
-	 gg9S32dOjUa0JkwMiQpUBkitlmZDD3kxPSkBUuKMsWuw9boikuh5CEn7M+v724rxbE19I
-	 Epuus9uRQqmW55t6yM8XxqZ+rztz1z+CgjEDeLFXZ9YMCe/O50+L9ZdEhyFBife5FlXPb
-	 geIGc5Eh8LYUXyVMp8qrMfEp06Z7aiZqSlYUTQkPKtB1OKMIqMII2LhAcaC6pCjiSsIdz
-	 jVsLVkGDZYmbInzpUJD6D557YNG8zeaEQs+JAnMATJOjKrjh5lecjOQBX8PvUhjpbZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622557;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=i5jpm5CuS5hMQjKmVnNP27jSTbTcYAnxBrA5dk6se5s=;
+	b=1uRn1TyjULWZkW2AKM83+BBekZLTiQhrizTnV/RLcitXAyVkNuegTk3KOgeLNhFeDXtk
+	 FzTxv2ZeQrqtTgph7BqcQOgER9O1dyLHD0Os4NwHZc40wX/OZ/q+FSI8I50amO8dT8Drz
+	 QGvZcO3mFMUCXMaGs7E21Q30pGCO+Tbz2nMnejIcqQf990UHn70FaFTdGDbDswrDrYXht
+	 hmKmhuupUsT1sm2ru4UbNY/k3YxYk7RU0rSvAL0GO4dmyPkrq0W3sfPkFfRWeB29v7XJU
+	 JveP37R8c1HKfZz47vKwp9U+jYvJ4qcDVADvuRBZ5HUYbFRkJ7dwM3tU1/PSt2cGBhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="pyHd//ED";
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="N4f8/RAK";
+	arc=none smtp.remote-ip=91.218.175.183
+Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFB7606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:29:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAFB7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CB2606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:29:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3CB2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pyHd//ED
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93cbc3ab2fdso135911985a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:29:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793622543; x=1794227343; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GyZdeAbOtqkzbSkUpNh0d1h4qY0XMF49rbWHS3d1uig=;
-        b=pyHd//EDO6sMRs2Eyv6ArIF0S4T1nBQcyGYd18mQA307hK6Vimkn+eYDIKYPOIJBAM
-         LXZfltIBDZVl7x4q3WusCqF3CP58tgow3o+jZy+rK3khMQ+Vnrwv0BVkNxxbF39M9aD7
-         vHghu+6nvAkoMwcA0FuvwarhhzR0NdsijfTDW8yLPjfqYIxVTMY/Ep/iCM0rdWpOlxR1
-         X7NIasuPZommqxVzEg89TaBP/rn/oRXufZRevaEHVbzgmy+3RhWUxrseqyK6h47Kp9i7
-         eqszrKLDltlBtWJaTGy6m043A+ad2DVnUhbO9nK6qRcKN6wdOUR76EPbqIsAePqvmiHh
-         5W5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793622543; x=1794227343;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GyZdeAbOtqkzbSkUpNh0d1h4qY0XMF49rbWHS3d1uig=;
-        b=nAh5HMcYiFK4wPHAG+CWLs+lE5pBzIlBgLzFtkco+tW01I3pNKgzfZ5llpozhFXZSy
-         P6royLnak0jzK2bAoy/ejI2CxZkL9+VaYp4Jek9Oczl7E1WEa6MM24TkHW74uqIVvIuA
-         GSffV8tCm7byb+B4IaCoyaJ3SL+1X9sGTgJgCsmD4zqCgc/HU+Xe/YTv0edXej7xJfBz
-         cGjH4iuJIlLjorR6nrykBgrGGS7JY7QcMb7lSeln5qBoqJSknZD9+y1sAFIJdJMAFYD+
-         MHqUh2UdNwkOX8Xn95xRk3vDBN/ozePuR+SBxr1RA+2iNiydksv2T9WCGlLoWDNJxlT6
-         ub1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxVuKAX9lmXzSJ/LxMSRernwEf1AJKsORrYYahDWGGaNFD4//i+vf+Nq8or4K0/4E7FjMSp27iE5oo306U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjR+JDv1FKXfzIPI39dRkFsgMohs23fo+2ICIB5OXwd6BtTYXs
-	mWG3yz9RqrNDfrZhqZqnWQfhB2zXNUpAYGe1vSedSgM15oPiAwOBnc3+
-X-Gm-Gg: AYBFou3ZblpAunDilg2s0OIuVA4mL3cjT8heyBKlGsUbzOhOUt058OpepKc3iY+ZUP4
-	jln0xQjyFobdLEGIM2rRk9Mgt+07ogOwfpb4uhhNmbk535fTJwS/SCMKivClioiSc7kY8i9BeqF
-	OfAqaXD8vyFfmSeZxnlDFYBgUTHRqx+wtisOrkC4ARW+uxaoqACUPGjFMYge0G18i/eoFDkIcpE
-	HNsTfiGRMMeAUoHvEW+cV47lrWaf/Za3q2QR8JQVmfjMs40ra2tVuRehrT4fdpLFaoGHkGzkAYx
-	YZXe5AtoCJN9/6jiJgRZuZStzoMxZpXDRzOK2gK4eR+OZajAwWbqIs6kMWTBR+neudwXFTu/Vx5
-	PGjw9FEA7h9qw4JIOFNfH6IqvbiVoCmqe0GyTkE/YKkzdB4Ol5rAMzLybF/Uiarx36ujaSWZWL/
-	/UStuVwH/KA/xOIk/kW96jkKBgy9XfW9sCLRzV1uCe8QrrrS0qzPGf0oUzmm18R/7m730aCH00f
-	t7YR9xQ/3Bab7Qzh7N/HN3Iofu/zK3JjHL4e0nh8G7DjyqH8bq4ZY6I65YloeJVkCzJ/HISzoMF
-	p7KopoZU6h4p3BsOUon0GlE7fjw3Z69r
-X-Received: by 2002:a05:620a:801c:b0:93e:c12c:fbcd with SMTP id af79cd13be357-944217a3ad0mr1573777385a.73.1793622542751;
-        Mon, 02 Nov 2026 04:29:02 -0800 (PST)
-Received: from fedora ([2409:40d2:102d:42fe:94:1c18:1e05:91ee])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425852274sm825390585a.19.2026.11.02.04.28.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:29:02 -0800 (PST)
-From: Sajal Gupta <sajal2005gupta@gmail.com>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>
-Cc: Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sajal Gupta <sajal2005gupta@gmail.com>,
-	syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com
-Subject: [PATCH] md: fix use-after-free in md_attr_store()
-Date: Mon,  2 Nov 2026 17:53:04 +0530
-Message-ID: <20261102122430.39209-1-sajal2005gupta@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=N4f8/RAK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lBOQhpowAzDqo4yhRDS5YU2BDNuirwHB1ryB/ebjSfs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793622554; v=1; x=1794227354;
+ b=N4f8/RAKVKgzDj0sMXRI2wKidp6iBEGTLilMDBxNotEE13jbz5JJ+Cm33bVE8fAzU2hNd27h
+ SItOAxujigfetZnAsyMS49nOaoaLVuXcj7qgfQDUuNka0MJtX84jfK2PYN99A1FJmyYZru/t0I3
+ nwh6USvqx0lIj0ME8kNrINcQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 1b3ff97483b36a93;
+	Mon, 02 Nov 2026 12:29:14 +0000
+X-Mizu-Trace-ID: 1b3ff97483b36a93
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,56 +57,123 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2 02/12] mm: hugetlb_vmemmap: unify
+ VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <179361471103.1337633.14353990207430443405.b4-review@b4>
+Date: Mon, 2 Nov 2026 20:28:56 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Lance Yang <lance.yang@linux.dev>,
+ James Houghton <jthoughton@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <B5E261FB-D532-48A2-801C-C8E4F86D7C1F@linux.dev>
+References: <20261102032525.3597743-1-songmuchun@bytedance.com>
+ <20261102032525.3597743-3-songmuchun@bytedance.com>
+ <179361471103.1337633.14353990207430443405.b4-review@b4>
+To: Mike Rapoport <rppt@kernel.org>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-md_attr_store() calls sysfs_break_active_protection() for a "clear"
-write to array_state before it calls mddev_get().
-sysfs_break_active_protection() does kobject_get() on the mddev
-kobject. If the array is concurrently being deleted, the kobject
-refcount can already be zero, which triggers "refcount_t: addition on 0;
-use-after-free".
 
-Fix by calling mddev_get() first. If the array is being deleted it
-fails with -EBUSY before the kobject is touched, and if it succeeds the
-array cannot be freed until mddev_put(). The -EBUSY path no longer
-needs to call sysfs_unbreak_active_protection().
 
-Fixes: 9e59d609763f ("md: call del_gendisk in control path")
-Reported-by: syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=dcad997ed2b5bd95cc5e
-Tested-by: syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com
-Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
----
- drivers/md/md.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+> On Nov 2, 2026, at 18:18, Mike Rapoport <rppt@kernel.org> wrote:
+>=20
+> Hi Muchun,
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 03e35386a802..26f17dd24bdf 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -6163,17 +6163,16 @@ md_attr_store(struct kobject *kobj, struct attribute *attr,
- 	if (!capable(CAP_SYS_ADMIN))
- 		return -EACCES;
- 
--	if (entry->store == array_state_store && cmd_match(page, "clear"))
--		kn = sysfs_break_active_protection(kobj, attr);
--
- 	spin_lock(&all_mddevs_lock);
- 	if (!mddev_get(mddev)) {
- 		spin_unlock(&all_mddevs_lock);
--		if (kn)
--			sysfs_unbreak_active_protection(kn);
- 		return -EBUSY;
- 	}
- 	spin_unlock(&all_mddevs_lock);
-+
-+	if (entry->store == array_state_store && cmd_match(page, "clear"))
-+		kn = sysfs_break_active_protection(kobj, attr);
-+
- 	rv = entry->store(mddev, page, length);
- 
- 	/*
--- 
-2.56.0
+Hi,
+
+I didn't realized that I'm not using a plain text in my last mail.
+It=E2=80=99s my email client's fault. Let me email it again.
+
+>=20
+>> VMEMMAP_SPLIT_NO_TLB_FLUSH and VMEMMAP_REMAP_NO_TLB_FLUSH do not
+>> describe fully independent choices. A split-only walk can defer the
+>> PMD-split flush to a later global flush, and a remap-only walk can
+>> defer the final remap flush. However, when a PMD split is followed
+>> by PTE remapping, the split flush must happen before the PTEs are
+>> changed, because stale large-page translations must not overlap with
+>> new small-page translations that map different physical pages.
+>>=20
+>> Replace the two flags with a single VMEMMAP_DEFER_TLB_FLUSH flag. The
+>> new name reflects that only safely batchable flushes are deferred. =
+Keep
+>> split-only walks able to defer the flush, but force the split flush
+>> whenever a remap_pte callback is present. Callers that batch HVO work
+>> can still defer the final remap flush and issue their own global =
+flush.
+>>=20
+>> Current callers keep the same flushing behavior.
+>>=20
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+>> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+>> ---
+>> v2:
+>> - Rename the unified flag to VMEMMAP_DEFER_TLB_FLUSH and update its
+>>  comment (suggested by Qi Zheng)
+>> - Update the commit message for the new flag name
+>> - Collect Reviewed-by from Lance Yang and Qi Zheng
+>> ---
+>> mm/hugetlb_vmemmap.c | 23 +++++++++++++----------
+>> 1 file changed, 13 insertions(+), 10 deletions(-)
+>>=20
+>> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+>> index 4b73d6ec8dcea..63e899cfaac3a 100644
+>> --- a/mm/hugetlb_vmemmap.c
+>> +++ b/mm/hugetlb_vmemmap.c
+>> @@ -42,10 +42,8 @@ struct vmemmap_remap_walk {
+>> struct list_head *vmemmap_pages;
+>>=20
+>>=20
+>> -/* Skip the TLB flush when we split the PMD */
+>> -#define VMEMMAP_SPLIT_NO_TLB_FLUSH BIT(0)
+>> -/* Skip the TLB flush when we remap the PTE */
+>> -#define VMEMMAP_REMAP_NO_TLB_FLUSH BIT(1)
+>> +/* Defer safely batchable TLB flushes to the caller. */
+>> +#define VMEMMAP_DEFER_TLB_FLUSH BIT(0)
+>> unsigned long flags;
+>> };
+>>=20
+>> @@ -85,7 +83,12 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct =
+page *head, unsigned long start,
+>> 		/* Make pte visible before pmd. See comment in =
+pmd_install(). */
+>> 		smp_wmb();
+>> 		pmd_populate_kernel(&init_mm, pmd, pgtable);
+>> -		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
+>> +		/*
+>> + 		 * Modern MMUs allow overlapping TLB entries with =
+different mapping
+>> + 		 * granularities only if they map the same physical =
+address. So
+>> + 		 * remapping must not proceed without first flushing the =
+TLB.
+>=20
+> Are we certain that *all* modern MMUs for *all* architecures that=20
+> support hugetlb are fine with skipping TLB flush after a split?
+
+I think this is the case on architectures that currently enable
+ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP. Of course, the point I want to
+further clarify is that the "skip" action here is not really a skip,
+but rather a "defer"=E2=80=94the TLB is subsequently flushed in a single =
+batch.
+
+Thanks for your review.
+
+Muchun.
+
+>=20
+> AFAIU, x86::set_memory always flushes TLBs after a large leaf is =
+split.
+>=20
+> --=20
+> Sincerely yours,
+> Mike.
+
 
