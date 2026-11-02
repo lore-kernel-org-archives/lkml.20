@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628520;
-	b=uev5ROoWPnYSwaVqUanWyIbic0i0x/BkC68clgXy7z+8FN8ySbROI47b/eDnX9QWQnt7
-	 2p79W/5oZJle3yHfyNgyYa5usqJm2Ja2GmfjITgjMO2Nrojn1pQYf3pUsCrkNlm6vep7a
-	 NuTbuDp1sJ89Uc+4sZrUPBJtpZJnQHQG0BX7R6kunFNd0nnP33hTEEyv1aEFxTpdbuzXq
-	 /uAIrFfRbrFg6O8Qt61S+vTXygGL6WT9F0YUFtiNguN5WLXQiwrdgTf5YEH27vb8rBw6T
-	 CggmtnKA1uBXmoEcptao62gKTDn+oJqQFAvcjsWgivVdve7feL0vHu7iYNs3xuezrww==
+	t=1793628544;
+	b=gI7ws9Tq13aHo3Cz2vA03stpj+tN81eh2zEnfW5hYoCcCi/vZEDz7qSSqyJTSsjARDtR
+	 xoghBfADMSVPNsMBtYmcrTvwyHdHijwBgWExMB4ASau2sSwxPxq8xPRzZnFtsv84Xj5Pr
+	 eN2KjsfeH9Z2N8Pa90IO3ifYKy0xyZ3dIwymL7ws4Wu721Y7xO8DPRuNvaxANeu3Q1I3J
+	 zAxayTTleW7TiP3N/kzCe115QeBJ6fzBeOdMn+s7FrfQxR+GIMIsEWLukzEW8/g97ud95
+	 +eSo2JqG7cxl6jz6+OjvSq4kFP5ADFIFoSVTYW1ehB3u0vFb/PaUw1znQSM0BmHMOrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628520;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=+aBypL6dTRQngXP8lrpR9n29mZ+faRZiRjbSPzxb8tI=;
-	b=S1sczNdI78qe3ZpAgqdvBwAZNA5hzciZPVOj8NFpcuDJZjdtrbQfgATglqnNXQeMr2f2
-	 bjCbFA6atjN5u3TRiuwJiYQYHeXcoeV6E3x7XokSqo5gFBqfJUZb6PbGAT9XZGLgGs2SZ
-	 DTOnKzNKyEwQ6NgfBMFtuBuhzwTuSSifSO8V2EV8RmawD/TRDO7Cuo6UkeVoSCSg1BWXG
-	 dEF/es8syIxz+BVwzTU/Chelrs+VK+P3c3jhaFj6emIb82i1diHb3IHr75WUyoRozm0bS
-	 7LCOVfvJ0a2qakabe8qB1NufdMz4rhXA+P1HW9fGIJrp0saJwa/79tUKrHgI5GaMExQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628544;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=b+3qEqV6PP1N+bahRHZFZzZptyewcuh/Bsmjmgo9eKs=;
+	b=QBQk2OFW85Y662XzWOefwL0fYPekJLwZROHRdzkEidkp64VMosP1yK4kpjk1mpjsjnXL
+	 1F6/Z9B80JPu7O9L9IUwsCWLGpgXuCaXYOoiGf+5vNTYIVphoOXRxr3Z0xZjLXtqDHm/9
+	 53mxRX0/gtlVKbrdj1EvhD6iRWyqWFmDTyaJY2c4ZsLENKc1vHmVQtD1uHGQsj5bMNq6o
+	 qUk8gGwxSgQT5H8z+IfOrv3XffN9GKHq4CH/7361o7pE/IGv75HzQ2ZNyGRyEO263ZRzV
+	 o64rDYip7MPxvKY2ggjGLeVKCeTwUjzI9VGjND7yBnEAy0F4FxUlOlFugqlRP043+ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbHYCId8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iXDy/hwl";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB649606A326;
-	Mon,  2 Nov 2026 14:08:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282A1606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbHYCId8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3781F00A17;
-	Mon,  2 Nov 2026 14:08:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXDy/hwl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72B71F00A16;
+	Mon,  2 Nov 2026 14:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793628519;
-	bh=+aBypL6dTRQngXP8lrpR9n29mZ+faRZiRjbSPzxb8tI=;
-	h=Date:From:To:Cc:Subject;
-	b=LbHYCId87toupimJ8yFIvEarDNau0+Wm1mF6kFtse0IbY3lxPpHd/yI9g2T31jDqt
-	 ITaRT481SJ9gF+PlnDxcyatjcUmOikTato42J5c2hfSi5qeha1GB/2Smm015D3OjVn
-	 oAVQFNdjdaj+j9Thr5erVAE51vLHHmL2w5R07TdyA91Tt+cSKi0ubQ2Aihsgg6kbel
-	 xhPtX4G8faR5EXc153I7NNQ0OxHNqiEk8/l0wlCOME3MAri8TIeBnHc4XsFSLZkH0Z
-	 m1fVAidGovsR/yPO89Iy4Afw5m1gwBjGCl3kG3tsBrBF6ItpvSzJHEjnelGluCq7eD
-	 vFREkqqHXPJ9A==
-Date: Mon, 2 Nov 2026 14:08:34 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
-	Networking <netdev@vger.kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Fixes tags need work in the bpf-next tree
-Message-ID: <auiZYnNYLEgcR6TT@sirena.org.uk>
+	s=k20260515; t=1793628543;
+	bh=b+3qEqV6PP1N+bahRHZFZzZptyewcuh/Bsmjmgo9eKs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=iXDy/hwlb6Q8s+YF8z977KRi6+7a0fH89M0oWcgtvqjaStqofshzCo+Fs5efNIsvK
+	 5n02OSsnCArB1GcaGc6BbIpLNEw4kM5aQwARtZwk+RVm93t5/9G2HjYAyUdr86A84I
+	 OGSdY7386i8WDrv0zzO7XeMtweO0mjapcjjnjccdNSSRZwNcTu3cEYM7aQu2Pqt73G
+	 84QtAUl9Ran2E6IzCD1ExBTZueH6T/Q2trSiyuUUd0sPAmnYJsThFeco4CYgwoguzk
+	 fAT2atJKaVLUVlkDfl5dNZIV7YHW7Md3BQ2SCgJCmqcEj46QzHeIr7Vl1Ir6wTD5UB
+	 5wryxtYdWCOig==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+In-Reply-To: <20261013182221.11963-1-kaloz@kernel.org>
+References: <20261013182221.11963-1-kaloz@kernel.org>
+Subject: Re: [PATCH] w1: add a scheduling point to the slave search
+Message-Id: <179362854259.191254.14004117673693007425.b4-ty@b4>
+Date: Mon, 02 Nov 2026 15:09:02 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,42 +57,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wkwjSDYh2aF5NlZk"
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
 
---wkwjSDYh2aF5NlZk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Tue, 13 Oct 2026 20:22:21 +0200, Imre Kaloz wrote:
+> sgi_w1 busy-waits through each time slot and has no triplet operation,
+> so one 64-bit search pass holds the CPU for more than 20 ms. Without
+> full preemption that delays every task woken meanwhile on a single CPU,
+> enough to underrun an audio ring while the bus is searched.
+> 
+> Call cond_resched() once per triplet.
+> 
+> [...]
 
-In commit
+Applied, thanks!
 
-  b73855c31c7be ("libbpf: Enforce program limit only for loaded programs")
+[1/1] w1: add a scheduling point to the slave search
+      https://git.kernel.org/krzk/linux-w1/c/3ade61837e8e61420e37edb818abc9a6199fec6a
 
-Fixes tag
+Best regards,
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
 
-  Fixes: c9b2a0975c39 ("libbpf: Reject excessive program counts in generated loaders")
-
-has these problem(s):
-
-  - Subject does not match target commit subject
-    Just use
-	git log -1 --format='Fixes: %h ("%s")'
-
---wkwjSDYh2aF5NlZk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmromWIACgkQJNaLcl1U
-h9BxSwf7BzEHGD35ZV1PCUyFainmKf9svpXDsXx+SaiU8mYWORbWGurMf6iRWMQI
-5LTkwFrl9/mRoKBxcZTo8qJtEmt7xyIFEHcooQoQaDc2M6sYgR2Alja+0l7n2nT4
-HFJgL4ANd23gRf5qoDugHxNxcc6K4GOKiKnprqX1sVhR7NcDGY9N1ldVrBNviyuE
-M8VOZ0A1o3sxwDWpIH4r5X57lJIjm0wCMbw7iNlgzA7q8PlGr6w6QFReYCo9yhmN
-kTtdNXJmmtGTzwVLpV86Q4KxOq7qiDaZ7XiOm3agNeqZIuqQO/Ljcc9AuR/8TnuR
-XaRIC4KVRzfryR7yH/lgNjgl7H7ciA==
-=3PmE
------END PGP SIGNATURE-----
-
---wkwjSDYh2aF5NlZk--
