@@ -1,80 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.191.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630189;
-	b=slMcODe1ok/t5P7wMOZ6cCtvSHBNkKFzRYPhSpgu+Rl+h9axCCUmqRew4+oKzlOwojSb
-	 5xhjJKjdHJHz7Y6xmliBEdHjztTXVQH52DwlVt0HN8BEyXfW+r38YmR++2pihKx9Sctcl
-	 8fZC7tcsGPik3f67gOBt/9d511AJPnQ+i52u32hSDdnDVvL6GRp7ObmNFAkvXsjIyC/Is
-	 q3/pSgZ0Ly4bBI0xpwCRR7PVlG/DAo7ftGCVibzd/Gn8dt/MBMe+CT/Jen2xkFE1eVtLF
-	 7rtWPdjkx7HIymbQk7oDdAyzCSr5GpQ96Gw48gg7VS1PUjKIIWFTKu6MHpodWBL3tZQ==
+	t=1793630249;
+	b=pUs+fIEFyOAgRmBdoO+U7K9nTBnQwWCDyriJaWfL3UHaSqgv8c6pey0BlhhilLhqSLyC
+	 KKv4N3B1hd50ion6KFX93gO+BAlm728Ddcww7SF1IWPeOs7Q2YUzehY6NvOZ8Jof9DUtf
+	 rP3u4ls9v7z5wq3+ktyxGlJAci2sUxrRhJlG04p/MM1G0TqXDJhnJacDlK9IyOtsDqkNo
+	 qh/TvPXmdSBuzWqQZCwMTYPoNkaCrVoZXycJihZ8LAMXsk8mHoSDpUv0Uiw9KSTawHu2E
+	 lR0+jmwSJedf8cAo123T2IiAR/mojbjgo/KHx/FK6u5noszqAvhpCRydFyUwZSrIN8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630189;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=HO43C3iEXRa6J85xNlHDELJDyLp/RMlGT8/nfr+lOp0=;
-	b=Sa7RuDdomJiQ6Y3PNVYZjjI+RqC/ExAiJ5wVlKbEMxHZhzn4jVmbmW2ue9+QHrm4Rnmk
-	 WjrrJrmgL3DpVZpX31QdZ5lggt2RhxL3NMAE+HpewU1vaZk1fnk9Bx4tVn5ZAncMjr7cB
-	 ghHI4YBfjjOeKf7PEwCEakgIWuzMQNk0z0h7PAO/tH03gN7Dc5oAXbK6TNY9hzGQ0uB7q
-	 7RSSMWdiPEZCazzEkUosNsPalszQKKxWnFbGH5Sn85LwwM4l5PZGpC4wac7la13tAvSsH
-	 jMsCGlMWTAWA4w4OS/KMPbR/mG0usxn2bdWTgRdMYrmtJ1hz34OVfa40dhr5I05v+Wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630249;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=w0m7B6qxePknJP+pcWTG3AkgD5pRq3pC5fs9XEyNxNE=;
+	b=h7YEuys1yQCMDVOsBLwQCTEACWrjqVyWqH0SniuO9a/QW2K4vcEABstlGOmS8fSWg9qH
+	 OaGza9SZYqsidaAC+i4zNBpBhAwuSe8wHOsIxIgLJZiEQ5SMxtywN7XtmWruQQpdvQ7rf
+	 agK2JqIe34t4LpMlscgTyfqpcJTDvFDzbHy6ybPLAbOP1CzYcEXlrOkLKv4s+y+OEk45z
+	 hj/YwYflxhKEm3UP6bm4IZxPlUNfy86NEpZi3F2/GIzuplKIkXKvr0ds2g4mbsTc2mQYH
+	 zzDLey6vI2IeuHzxQi1YyxPZN4Jh3aRtu4XT/gUvNccIZd/Md5JG7kaPs3IvSF6S9Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ry3IINMX;
-	arc=none smtp.remote-ip=66.163.191.147
-Received: from sonic304-21.consmr.mail.ne1.yahoo.com (sonic304-21.consmr.mail.ne1.yahoo.com [66.163.191.147])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nSk4BSud;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8C4606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:36:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC8C4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2328B606A33E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:37:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2328B606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ry3IINMX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793630187; bh=HO43C3iEXRa6J85xNlHDELJDyLp/RMlGT8/nfr+lOp0=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=ry3IINMXxmNR2JyG7PBIm2xHfDdkwQxDz1Vdg8CeSMzMT/ibSt9QTQKJq8dBsmdsa+5XG9CZ63hDQvI6TzvecKzNhBG0P2fVlDV64K3uaBqdJ9peu56n+UlOb07x4ul02NP456ExwAXLzMIKaEi5OS8IR4rKT6X/yjwJGGh71gJjKr5aDlsWGF+JR1NoVCA+mTFdddJDCZJoaoMIOaqDjuxMiGmlxbneAOWlBrikJrAmC4P2Rrr97K39BonZ8xkwaTQ+2vMKQh7IVFpll+AE4RQWnoy7aA/0YLTlaebrr42KuFZMOgF8iAkLxkYPN0/SbBxTij2sjbtejtsAriEtkw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793630187; bh=BjwOm3KD6Jp3QhRETD7sjkx7zIpwTFyWJ027lRb54o+=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=eU/iqPyh853PVHvlkqLC4ohIKkvvFbEjqbduiNUQwIgm0h74pPUpWJbewDCSUHLh0EMMRjMdtyvBdrT3sr+ZyBd1EiSVjwyyaK3P2EFzlrgDUYrJ2kzf5dkbtYeFVvtwdTJN6KrBtceIr0JPsx2+BeSstVRqOQn78BqNlTcx+1sP81tvrkI9bAXm9ewP4lRft7MkLNh+kUy+C0JKGlMtdiy2lSyBzHkmhTULkswYIpnVlON0f4laWdjh7Ivkviomv8CsUwi7r3BipzOEV+f7WX/oa9gEIA7cM2/Nu4N5XtpC3aAXUC23e1SwbGcGvshpq7X0a6cZA3GNm0v77sMKkw==
-X-YMail-OSG: d2qmvpAVM1keIGt_PHTpaNeDqgjtDr0AytCoOX9UVravvY.YQFwHqZf70qZjsA3
- J.NKDs1eHMTOhd0CBcZ7x2AH9BsoFqrvV4N2t7ls80MuSHzg2KP6JK4g3vyhE3qwSg89vPw1Fxac
- M2RIKxAP4fdHxsYCKLUYmSlt_ZgZAvu1geNYQB94MRkbQE_qYfpsQvnH4SDoYcbC_zjpYmVAvfGI
- waCZ_sNE72tzbvnjpCozeUhxBBGtwn.0U6cZh0x7tFO3ITAbD5AcuBIJT8jxACx25b4cSXRJUVZM
- Sj6qdB.Xh0I1ChJtNR7qNMe3bwN4iqoQ4sgYUo8Q8isFNox.M7PSrfiH34APBytJa9z9QBzltWp7
- bu6RPflFmYHy1wrbkglDbeIbPy2S8l0MjPiAxOBQnvgQ8BWDEtuGdBzn9oeVZiLY3vuqD7waXj4x
- h8izfeb7sFNXyANS1qAxS594GPXiujdNQ8Tdgwc1VeJdvDJQaN065.3tFEJ2w0MTFh8AEj2CszCf
- 9JLcn7IXHwVYQYREFQn.7rjU.Aqg2K9LhSCURxthghM48Zw9FbRA.U8iWL9sNTg1RYhEg0C4XBlF
- A2Uen6s4a2Y3YLfQlRgRn_SlnMWr7LiMWisBNNVvuRIeom1fz1QIYFUzWJvCa6SDhKh0Cu5HLPE3
- 1PlLZch5DLcaf9TTvCzpO8ueHZhGR1bmA4MYu.IFAgTm6jFTIUA4rGBgBfaOs80VI8yc2zRlulan
- ljxsgwXkwFlnMC1SxCgCmBKw24t9nNj7c1MOujRRvEKvvmj61OZJp66b0.DbW56YZs1kmXz4kkW.
- PFMJHanC0DuW8.1k20nnTDlreKjTLFkjYV2GYAxCSoQ5LalZ.msYzUkNIiJvJgNaRba4PvzgaPR.
- 3d7C8la6xTw8hXdJe6fFHq6QENdEciugCbCvd9Bv70ZgsRZIkO3PKf6WEGWQutF5QCSa0TTVlwZm
- V3TuAPffyQL0MnpPEKWlhQjDry0ERgwS0aOGmpGcr3duQrkgN1AC_3C.c6_k1J85W2ywSpu4eZ94
- tjWl3cg3.yJERMBxQPt7_b9faPY6VnnQ_zeqF1jKi54Cy7eKlx9jARke1TaSesHqx_2BLxIWhD4S
- vZfCghG__10ikq.4VfD7xVtyOOYks8lRBjKs4aRo5itwb9v2RjHLLSsUJbmWoA1z.p.BltMi.f4y
- 16pBk1IwGD5k9UyZL6Et8nxQuQFw2fFRDAW1Zd6bgIwlJuXVOYgrtGy6Q12MmG_AZO2QS7p7wlPz
- zrqJkkpraENivG1yjP0qffzJOmY9JDVnH5_bOzMPN_POe7OtOdtLxcV5nW_GL2WYo1GnJ3Pk7o8P
- 3G3XQFtmNziGmiL0YLHXZZ02yDMNnyEUMeRSxpFhhKtFqH3GPUq1hbzasiWt2XbVhaFsSY1B_vRr
- iMms4478XsGIwEPYfeBC5OrQQovQTpr0zKxPxUptD.ltGBHy5om1F2ZROLxQX5aXt7IDkbakPFca
- pRUn4vG4p0R9K5clP_ziEKF.oIYHYMhYyIrfIPl_mHlJKz6QB83xSh_94gMMzfphlCrTZ1L4wb9D
- dt99jZIpnMq1mV3kkaFXIf08IKPko4BPs.nEilR1qJnMctzguI9zarA3pobi.lX8Hb_LlDoVooBd
- YirHAAmavCeK8jSVEs6N2itwlcQ7XB7v6J4orw.qp6t3BKSVopxRSDlW15la3zzexkNiQaCvKYSF
- 9cZDlgo9.MQiTQIJyNpyzf6xRqYZ0mr6.wBUiw9tAna9hmPDPGBU7voUYWBnTop_bCDgHX2n3rUu
- SS2Uc9Y1ayA6cy9OQtQignd.AlOu9jV_zfgw6hLaD9QydniPZxMnLtSEQlZ5m77lS7HaG3Qg1A3x
- 6RVHj0sk7avSAWZS.y1v8Vi.tPxYIgzjdZJzRR0XgOhNYxsb5AoHiBZ5pWweZGpbIPf3BdPnpAbG
- 5BXTc0ImqTEt.nJFva3V8SmJtERDQaB2N53ZgIX7ETKq_H8AIhyfeCmfu_SsJSVLwee05slFAjb5
- lketuq0pBI9snF0msUgn.TqI6bgX_ZVzLl9qWZTaxvMuLld01FYtpieTPm0Og2P7_wjkrANy0j7b
- phuzYO_33F3vHlBpYAPSUUprM8mJ72slrpBmfu3ZI8klSHz1MneC9UGL4hcwBTav1O8IGxO1zP0y
- sLPd_el7d1Qew5wf9oYXnrMbyJ5CZed39_2p9I2sCwXcL1M9Bd9vdwL8AlcSeFtb4suFfIR7vUmh
- bj0i_zNwQQrlVv4Ti2D1aFZzQ15p035FA761Vp4uP1JV7DQFjKh377wdZMTqg81HUHs8n_jLPVwK
- 69dAI6Q3QzrFqHmcHgeQvU1AWTBKYIQakqJ8N6Is-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 19855212-b725-44b5-b295-0d4cb403237a
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic304.consmr.mail.ne1.yahoo.com with HTTP; Mon, 2 Nov 2026 14:36:27 +0000
-Received: by hermes--production-ir2-5dd9bf4598-bgsl4 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 09c28c63ade149ff97a4e5c1da845f5a;
-          Mon, 02 Nov 2026 14:36:24 +0000 (UTC)
-Message-ID: <d2e80c06-4fbe-4e59-9e41-d8ff697d8e20@yahoo.com>
-Date: Mon, 2 Nov 2026 15:36:21 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nSk4BSud
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3550c917fd3so4233977eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:37:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793630248; x=1794235048; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w0m7B6qxePknJP+pcWTG3AkgD5pRq3pC5fs9XEyNxNE=;
+        b=nSk4BSudI2H8XwKrIQyVADJPRNIROK+K+FtPVZzeMqocnmN7Ycy1dCOdccff+4vbzS
+         r+fPA3dAqUD6Yjyh0R+IWedzC8zR1AJdUJN7d/hPBLWlZBQkTMiASEsx581Ura62Cmq/
+         1LBDiIoxP/dJLtQF2QBal5iPAGlPw9xH1ALlahuI0+O60OQtKRjtHAYayFRCeUuh+ySv
+         eHb/1FQwEL/uEIkK+04l1JGrL5SYFzqLiHnhaRj3EeuKONJyZmKgafCRZLDi85qNfQaQ
+         AtoBYi2CDcwPECFcPly21Sfe20OCDxLFwFSZvqls3ZdxfECGFuVu0y4OlCS8Qu92tPQU
+         Q8xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793630248; x=1794235048;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w0m7B6qxePknJP+pcWTG3AkgD5pRq3pC5fs9XEyNxNE=;
+        b=w9F78HI00riS/cUDG0uEECos/0AF2S99R8XVOqJ2rQKGQvc5BggWpQrtIH9fPxOmi1
+         yE9wXYhGuj1hYmZARh7ALEYgQMPDsmWtZvDprih/3BCfUKXJnN2PK60UjKB+vHDnyEj9
+         MwQpEMQ3AGU9pyYzNZHQCP7R/BfBWSE3N4YHI8q2VTJlXOIxHUTKyYWmCwBmBzhMIa36
+         PcWq+de6uOhHongGwyK4jo82ZUfSTrG+AsHfwtJiepoxfi5dkQOE48e2bS+lQe68VZRg
+         Lf3Mje6/tiJlDXf0CuHAHN/wPNhK42h37si/HgqDCT3nl2Q6CO3gBBWdMCLunzPT15iq
+         aTKg==
+X-Forwarded-Encrypted: i=1; AKwUvBz5cm1V2lICdxTPMk68SOMeOwuyf8Ml8PZEeAJdTJQzF4GXT++z9JJT8dLjLFqa1vhvIRKwTU1acEr9upA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+n9H6mKhW1lM4TSdYiJLn/c30SCQ+2Dex1tWYzRbQ1yYMItExi
+	T8KWUyMRLTyd4MUYdJH0Dqk9iibAJDQGlaly38hhQeeNOpyL8nSk8zgF
+X-Gm-Gg: AYBFou2rk/3govrI60RwwwRwpYqGgzweEJP6NqpaOWApWAcmGnj3llieUEIA4LO55lj
+	k2mYAnl46SGG7PInaN1Gy3FpQvO9vhF++JyPjMWm3sCc0Nc7fT4XFawowmKJUR8qvsbbBYXtz5J
+	KPWgEN4QWed5FuinkQnS01HoxpKnOxmjs4W2/A6M2ORNVdxBjM4wGP1OQrRL6QwVqiWB+Frt9Uq
+	K4SxdvKfaevSm14iJleT7i6d0SqHkpmjnZkd9XnivlnK7C/AEquetPQQFmFx90sCyz3ehDUfI85
+	CYmXan0UccMdoQur/+h4Fmav/d9Az6ccsVhNYZz9C6cF5cpJZe5ZEv9GBi8/KkFUxR80uBVCbDY
+	J1KK3fHOumT+Zthc8cSsFhbvb//w+AQkvUl73N+FtF7LlTF7oMxjjvFlbg57VWiJrPnwjb+bfmV
+	4TkUNauDjB1bzZWKmG5jkmYHF4w2W0ru7Z8Y6Aaap0KrU1owl5CUGJCLH7jjDkIAeI088r5NLAo
+	P7SCS3eoIsJ4o8RM6r+hSdPZj5tLmXuzA4EoKd+iv5Lsm/9FKnOkgdhzmU4EIeQiwpHmWsgZcv7
+	2SgAZawN3ejZ8dgphCttCdG2iO3p5+BjqBm7+59jgGmR0Iw9bXBEA2koig==
+X-Received: by 2002:a05:7300:cd90:b0:34b:4b99:24ab with SMTP id 5a478bee46e88-36a42454b8emr23775126eec.22.1793630248138;
+        Mon, 02 Nov 2026 06:37:28 -0800 (PST)
+Received: from xploitoverload ([2406:b400:f11:1bac:4040:640b:8a1:8629])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42952e1csm40546368eec.20.2026.11.02.06.37.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 06:37:27 -0800 (PST)
+From: Kalpesh Solanki <skalpesh942@gmail.com>
+To: pkshih@realtek.com,
+	kvalo@kernel.org
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kalpesh Solanki <skalpesh942@gmail.com>
+Subject: Re: [PATCH 2/2] wifi: rtw88: ps: Trigger firmware recovery when failing to leave LPS state
+Date: Mon,  2 Nov 2026 20:07:02 +0530
+Message-ID: <20261102143702.24902-1-skalpesh942@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,46 +96,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v7 01/10] dt-bindings: net: dsa: realtek: add
- RTL8367S-VB
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
-Content-Language: pl
-In-Reply-To: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26871 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-The RTL8367S-VB (chip ID 0x6642) is supported by the rtl8365mb driver
-with the changes that follow in this series. It is identified by its
-chip ID register, so it does not need a compatible string of its own.
-List it under realtek,rtl8365mb.
+Hi Ping-Ke,
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
----
- Documentation/devicetree/bindings/net/dsa/realtek.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thank you for reviewing the series and for the Ack on patch 1/2!
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/realtek.yaml b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-index 473facd..ca775f6 100644
---- a/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-@@ -43,7 +43,7 @@ properties:
-       realtek,rtl8365mb:
-         Use with models RTL8363NB, RTL8363NB-VB, RTL8363SC, RTL8363SC-VB,
-         RTL8364NB, RTL8364NB-VB, RTL8365MB, RTL8366SC, RTL8367RB-VB, RTL8367S,
--        RTL8367SB, RTL8370MB, RTL8310SR
-+        RTL8367S-VB, RTL8367SB, RTL8370MB, RTL8310SR
-       realtek,rtl8366rb:
-         Use with models RTL8366RB, RTL8366S
- 
--- 
-2.53.0
+Please find my responses inline below:
 
+> After patch 1/2, does it still happen?
+
+No, after patch 1/2 is applied (with PCIe ASPM and deep LPS disabled via the
+DMI quirk for HP Laptop 15s-fr5xxx), this issue no longer occurs during
+normal operation. 
+
+The stall was observed before patch 1/2 (when deep LPS and ASPM were enabled),
+where the firmware became unresponsive upon attempting to wake up. Patch 2/2
+was therefore conceived as a general safeguard/watchdog for rtw88 in case the
+firmware fails to exit LPS on any device (either unquirked hardware or due to
+unexpected power-management glitches).
+
+> Is it helpful if you enlarge timeout time of __rtw_fw_leave_lps_check_c2h()
+> or __rtw_fw_leave_lps_check_reg()?
+
+In our testing, enlarging the timeout did not help. When this failure occurs,
+the on-chip microcontroller / PCIe link is completely deadlocked. It does not
+clear the register or complete the C2H handshake even with extended wait
+times. Subsequent H2C commands continuously fail with "failed to send h2c
+command" because the firmware has locked up rather than simply being slow to
+respond.
+
+> or retry 3 times to leave PS with below three steps?
+> 
+>     rtw_fw_leave_lps_check_prepare(rtwdev);
+>     rtw_fw_set_pwr_mode(rtwdev);
+>     rtw_fw_leave_lps_check(rtwdev);
+
+Because the microcontroller is locked up, resending H2C commands via
+rtw_fw_set_pwr_mode() also fails to get processed by the firmware.
+
+However, retrying 2-3 times could be beneficial as a first-line remedy for
+transient timing glitches on other hardware before resorting to recovery.
+If you think that is a better approach, I can update patch 2/2 to retry 3 times
+first and only trigger rtw_fw_recovery() if all 3 attempts fail.
+
+> Call rtw_fw_recovery() when rtw_fw_leave_lps_check() fails so the driver
+> can automatically reset the hardware and re-sync without requiring manual
+> user intervention.
+> 
+> Is this a real case? I'd just want to confirm this is real case it can help.
+
+Yes, this was a reproducible real-world case observed on this RTL8822CE
+platform.
+
+Prior to calling rtw_fw_recovery(), once rtw_fw_leave_lps_check() failed, the
+driver only cleared REG_TCR and logged the warning. The hardware remained in
+an unresponsive state with 100% packet loss (traffic hung indefinitely while
+NetworkManager still reported "Connected"), requiring manual user intervention
+(cycling the interface down and up) to restore connectivity.
+
+Calling rtw_fw_recovery() triggered the recovery workqueue and
+ieee80211_restart_hw(), successfully resetting the hardware and reloading
+firmware state, which automatically restored network connectivity without
+requiring the user to restart the interface.
+
+> failed to apply, because rebase to rtw-next.
+>
+> https://github.com/pkshih/rtw.git
+
+Understood. I pulled your 'rtw-next' branch and saw the conflict in ps.c
+(rtw-next uses rtw_warn() rather than rtw_warn_once()). I have rebased both
+patches onto pkshih/rtw-next, and both apply cleanly now.
+
+Please let me know if you would like me to submit a v2 patch series rebased on
+rtw-next (either with the 3-retry fallback or with rtw_fw_recovery() directly),
+or if you prefer to proceed with patch 1/2 alone.
+
+Thanks,
+Kalpesh
