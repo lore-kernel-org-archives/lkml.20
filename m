@@ -1,80 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.189.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630339;
-	b=IDt31MJg+qzzMLZN0w/4+SeqRspSleHcVBEx4eJmd1Bh86XTeSbCZ+xB6flrzKcQYZy7
-	 wvv5S8jOYNJcZfs2u+HcB66i91yKSMAIomFnyvauv9yzc5l4jfX8W166h/GFz0VKq04Wu
-	 Sbp4f02aZeZ3BPyPVp/IwCbc0Ikd02EAvUuRHQyjT1DoB38J4jxfTaF5SufsTX0azm0Td
-	 HlcGRflAJyY2bQu9RzoSTa8Zm0bSyXePBftixxOkApnm1wAyUSPBSWc0YWsO7kOzNPO0D
-	 PraN0EGoSpDdiL0LjOI6OXkMZgxaJjfVcrtvSPo2ObQIizsYza/XYYheAOOWrP89usA==
+	t=1793630358;
+	b=qAd/l0IptMFpL5cFEK6XGeOiu1waSD/gETXc9TIuO9/kOYW/z/rteyoUwodOYTxyPtMG
+	 N6fdr3M8ict8UrOrF7PoHgHfeBv9rQuIUN5g3fpQ48fQF3WrA6qhNwb3jBgLTvGs4l36+
+	 L+ATS05iPILXQ6XlfNTcLgYuGz1TO3oSW2J+UcKuRffEGWgpAf7rr9D0Prr2odeBwMK7L
+	 /Dp+SOgu1SdueF2WNjLK7QjQy0eGe5qF2jon5V1SCTJkkuQ3c9BeyoNf95OLGCIfX+hSy
+	 LDvQI3gfvhhbB6O2L1HLtMM3py9Kqyc6p4ElllC2/owKSPIqW+v+6DtR9uH14RIGiew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630339;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=avVz+7g88klb4HjdD4G58Z9rchyB7vSgeDbHsp8k0Ys=;
-	b=L8fm4DZFyPfcCLwsZAElrM/wkR+sZgBRBA6YVB7mORm46XpoYcsy0I9NHuSdtRAJq9Ar
-	 vzJpjQehLoC3PoWGEwE3myEUHVv5XRfnWM+7uvpCekqfux8ETWCe6d6nkxXlIk+DZPiex
-	 4Gp1bZfRyvS7VQrYNxLggwJla81aCBj/kEdZkztF4bPnZ8h86nlTNk3VSeZ6hDJQxQ9CL
-	 DN2vIQPvw3tlInWj+gZwdf/oYr0LTmPejOdBFNf8GHgPXqy1s9fpxbGtT8O9rjZCIhEgj
-	 IUc48Ff09d/5zLXnapLsluUuenwHVv15uMpdnG4mD1FRkTEmx+9NuQbVVLdlHySwKSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630358;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=t3uMzKFF0fpXKNPzeuZqcP8SHbCjBILits3drrR5UAs=;
+	b=LZp/w/RmvwH8Tqq2CMaydDTHxtPldRM5hdsOtVNCycpui8L9Rmh6TRHvhiKSxdZRs79Q
+	 J1R9W4VUIyy/WSI+/YIMRquOX4i4mlDrUOAD2lpq6dCaoYmvz06a3TQ7sj3ABoSaMIkfi
+	 8EVrJaVKfwDMwfk0zrtuVVRHsNXKdEowwb66PDDc7wt7eeunXu+bLKjZdZBne/i8b2mWJ
+	 bVOtGWyv5m4vbZUw/J3WDU67BJZCx8x9MvKip0o0LfByYNe9U2rRyrYqGM8OqDc3A2+X8
+	 XRpKZSXJVpM1RGk/0sDqgAE7o40+xzx9Y1gPF5ABgJqkq88iO7oE0LLo4oos5nih3Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Rv8n0JxV;
-	arc=none smtp.remote-ip=66.163.189.83
-Received: from sonic306-21.consmr.mail.ne1.yahoo.com (sonic306-21.consmr.mail.ne1.yahoo.com [66.163.189.83])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jrsDzUSF;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A68606A580
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:38:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8A68606A580
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDF8606A58A;
+	Mon,  2 Nov 2026 14:39:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEDF8606A58A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=Rv8n0JxV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793630338; bh=avVz+7g88klb4HjdD4G58Z9rchyB7vSgeDbHsp8k0Ys=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=Rv8n0JxV0M+IByHMhAcUjgrR+4kmWo6S+yPF21tOf7KeuWOgCO4lNchKlyVmxYsZhlZBG2uOwpbTLyDm0I6DGpeZBG8OZ+Rb/98KvgaTYNXu3oJMgGGEwPb++fgffk/E9hllIIZKtyA9k5/IICnrIH+IaC1VxQPrwWUxdV3OjP988YnOUJM2mSPmE8g8dYTy6SAj8r2tz0bvGHn4PMu7UIeDG7kPAMqbIfQWJT2D9yfTyLGFYGT0xhJEoLEBLmrF+jRphd3Uo2QxuJGDO8Iio+Pjyuddfs0HrEuh9US5RbvyrX1BMlkxHLm7Uxm2l8VwsYE7yWRUuQv5Cnhrx0LxnQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793630338; bh=FMqgTZ4ppemRAH8sY6EwbQ8jg8o/xFP20XC6aQRBxjd=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=g6v9D45MPAu2OtKtt5k8QvMYPWvw7s/cJLUmIhMXGcHxPgDtainnSOs+P5s7zHhK/NNK/GGIEZpv8Qz399ddSD+uWIZ1wV1YNs1ropGJMYyFIWISzL4Afxz1IV9Y89OLy0kEHwZECYPt4DsYHKb30NlAW2Te1W+O11FLrvFQ2yHbeOvGCQCuN98Qk3dhv4TlcF/9X+H62oWmYWFFPWzoT1Gw7IWY/C24L422Q0/7QaIqxbiDLMzMGbiS7Cv7rnXRxxDGdfFHT3j+0T3mOqQcvzCvTPG5KykJJX2Iml/njhMcHiLnL3TZNAxoEBkVNfLSGrUsFRq8RIpo1pxO6XRtPg==
-X-YMail-OSG: lb0kUucVM1kLCWekMMduGVPyh0XPBW6q865e6w4OR9ZykqUq16jiVJsk5Z5kyoC
- SH7hdCMscwJXlQIWuMG7i2w2hLqR834iZoCDBbk4A4VkmnF8oO30RPMmUhG9xh7n_oYiVNR1oq9a
- _WtFhm8v_8vaUblldZXvc2ofKAgrFGkuI8TW7hHdI9a5J7xTrBuUY0yQ_QRHwXBAqkuZRiDe0Ipg
- ElLhlPWbkTvAxb_pGvggiGrm44ftIXpfCujAxlBbRFWXb1EbyehbYdUbFy.HIAI8ZQXOx_JBNBFG
- aEfO6exgdh_m9YkQS8ueVb4B01v1VskBPplKhgcS8e7s9kXNJfAUUxp.2Ppd8Wsw1thX.S3_Jn3n
- U6sK8CTvQXBBW3XP6keLuzXf4JAJCZhCaIEkx02.TatL.MZnEDZz9QcI611KJa6801lShbofwG2U
- Du0.i0jTm5embTSx7wdz4l0N_m4SldKW8rypQXntuQYPlUu_vaZqfRqMGivXwPY1BGjWd0j4t.uG
- yLVmNdbGnzAVE5izDA5ALbOkPb_BDmYCbdorYJem37bGn.CfYGvCobAhRvEh15U4NPR9eR.LSf4x
- v2OCYKELSvt.aEwe.b8aaRntQz5MeiWtiNeCULGofsqsD20DHoIW3XbGaJdr0L2B9OKnCcc8cugP
- h787fimyR.LIdE3MLbtJD358Aop1OCXIt.wSAmJbXG.CVM49jdPFOlOr5BSgj_QQBjZ2YLLPik61
- 8YThIKAtNGsm_l.FZFyPDjFPLk7CrqSSY2EKBOerso_Oc8K4oy48iY0mOKRq3Ei9VEMgWnFP6N73
- y4zKrHcRGwEckPWp1EwEQ4em5gZiNAG25vl01VbWfSznR.sDuhP8SvNx_O9arUi9aZfIhTureeI8
- 924X2zKArtDfjGP3ljVwtahSkZGm2hme2kIhQZzSdkHecZ9j8srrOmUblUpZqGvRRewzvZRJ2THh
- SywM7Ic7je.78bPcdcpc27OdbHEjjh2ZiDKHoHFmyczvQVYlbjXyPAxpDVC3l.A5Ezw028aCGPNp
- y8mUeayFA8AZiH6_eaLSHtesbigwtMFfuXAe4tpknWAWESuTQaOWuaWDcVXg9u8s8PMoS9O12ebW
- rW977nGL0pCg04uV7PNJ0QuqKHHbbwQ.6OJZCBoxdxDVIBaqmR.x2QWDHvooAZx54C4yNp38xAFy
- d06yswiBrfTrSdMFI8gSrXBLY2EaW_CD4Ln4rdRPsB38ZJ43Nw6dLS_3zxuyr9pXTLJw0oaSGeMn
- 6A.2pv9Kx0GRppamsJ9VqGnYt7O0DacWCuhwsPV2ZkxVzw3D_YKd4NjEg_VIW95ZFlwbwLGhGIHj
- O4Hml4TxjFXz3.5uuoTN7u0mAe.XRAhxkOjhJLgT54ay.6s6RwwQ5P31AMy_ElyAlBbguM25xSZc
- 1cH5CtDBX2ElPjob1CXEaEB12cpIa1EpTyog0BYFrlRkUe683ioFEK2UHPLXsA5OW7RJIbPbvs9h
- lwkek4aqehPjknfDbdZMH_Q2JeKP3Pjj3U85gfopGVv3QIZJ3esaQTYWaUNITHXoENfhVdJRyP5.
- aY1RV7iH4HceI_zmSca_Li6I7PxuZWFiHHY105p1pHxPOnDo8PQh2hMDgAHRFK_oInMIZl2uBnDy
- wmKjiq6U0L1YKc9jDEC1oy9qboMu5mXFdmRtY_x51UyAQK.NivrRt.dSOUVdZDtL0TA9CJwAs1Kf
- W2ByIlhcpNUS2ocRYVPoSnVA_cW50MT_gZs.0.1pInykRwStbLniIJXoAsXphFzwd6fUpYdr0gxN
- EYOi02f3wd4Ot8_9eO3XqNXggz91InHzHlIxMSyxzNNDxVJdNbpX6pHREF2Dj_nhp14lq12kiGpQ
- cFghWpodgWKnc3ngIPaAX6FG7JrRCEuXZujBgtOYbo8X5aJmYX113WlVWAtSjnRSb_5FeEp6KGVk
- hHhnF7ljs_rIb1CNq.pok4zyAu_iSjWfLjWQJfbH5v0P9ljrx_XqEFLj..Ry4NVywFwVofQ9CPh1
- aFwPjRao2XTFiflsbMuxKabSsZt0fyVm2Ibth7zZ1BRriKsyxRiBEuVSaOiTd6e4NyEA9vuOz4Ah
- zyjO76MbyvPGFPR4RrqRTkCbm1zlAJhwKWca_dKapGZ1de6irWlMR3n8uylA60.sbtFXKBhmfjL7
- KDj.YZLMikFCrA0CUHEiEANfy0e3DRgn3ko6t6QXSIYqkd6leyK1RoqNDw4aDeHRq9xBbvVnWVNB
- nbcuQiOZ4u5WknbxzmKsL59SU0Gcqu0OS1VGCi7ilX1rD56hT6s.S1f70Y1LF_bpsHkDejDw1f4b
- 7lyHpb9g5QEuMR_kWXttJ541oXFRvhC4.jZWf3oFe
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 6f3851a8-82e1-45cb-9f54-f929327fb39a
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic306.consmr.mail.ne1.yahoo.com with HTTP; Mon, 2 Nov 2026 14:38:58 +0000
-Received: by hermes--production-ir2-5dd9bf4598-hl2mf (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 14f607e426603152465a6b495217399c;
-          Mon, 02 Nov 2026 14:38:55 +0000 (UTC)
-Message-ID: <d7f64039-b629-48eb-a985-dbcb2cc53774@yahoo.com>
-Date: Mon, 2 Nov 2026 15:38:53 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jrsDzUSF
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EEEvg3103442;
+	Mon, 2 Nov 2026 14:38:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=t3uMzKFF0fpXKNPzeuZqcP8SHbCjBI
+	Lits3drrR5UAs=; b=jrsDzUSF/OggKdN81wWhb4EQ3nK8LML9mgaSnR8qAY70jz
+	0DbJXtS4PJuv8PQiLy7abs+fG7sndfj6ShOJulStFvMaB4jzVmChtTE0sAet0Vm3
+	A1+30vWOdajDQi0XubC1JRA8+Z0IFqBUkwIt3tZHqrS7135+dwCfgEZ9oFFGPewC
+	l25ok0YfFnDEr9VN3wS8SYboK6sKCmQ6lfAwbRcX9ljp4AV5DyeSlhrCxiJoEWty
+	Y1DzMBTvPDR+g06pwD9FhYxvyUDi1W8x+t9hc8THVHlowf7A2mNVTcdtd7GnSpo3
+	aFq1FAonyVk3KK0s0pDgB8L2nMIRTSxdOjGsR3jA==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn826h1td-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 14:38:33 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2E5w6Q1034496;
+	Mon, 2 Nov 2026 14:38:32 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnu1vebv3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 14:38:32 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2EcS5845613524
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 2 Nov 2026 14:38:28 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A89912004D;
+	Mon,  2 Nov 2026 14:38:28 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0A5D02004E;
+	Mon,  2 Nov 2026 14:38:22 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.39.25.78])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon,  2 Nov 2026 14:38:21 +0000 (GMT)
+Date: Mon, 2 Nov 2026 20:08:19 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+        Huacai Chen <chenhuacai@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+        Paolo Bonzini <pbonzini@redhat.com>, Fuad Tabba <fuad.tabba@linux.dev>,
+        Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, Nicholas Piggin <npiggin@gmail.com>,
+        Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        kvm@vger.kernel.org, loongarch@lists.linux.dev,
+        linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Subject: Re: [PATCH 3/7] KVM: PPC: Explicitly force IPIs when directly
+ kicking vCPUs
+Message-ID: <auiZYdVzhFbnj0iy@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+References: <20261028190259.1819571-1-seanjc@google.com>
+ <20261028190259.1819571-4-seanjc@google.com>
+ <auStM0rbFol79h5o@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+ <auTohixp3V5-vNsB@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,180 +108,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v7 03/10] net: dsa: realtek: rtl8365mb: set speed for
- family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
-Content-Language: pl
-In-Reply-To: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26871 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auTohixp3V5-vNsB@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: MVuzkhZ7vtCvo0_kidGaNnCzUH4z2Q5t
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NiBTYWx0ZWRfX9NPC/owi16S7
+ 9yPcxDuxCXAVRis8gROnpHUQtX1lgGRd8hAKUnleFK3QWlX1SdAjhFR8oEvK54MRQDdismPxh+K
+ SQ8loUK3UQRzfSLpS9uRj+aWjubkYTlbIquMNg8PhpfWVJkZ76O3xxEXr80qfN6IOD19XJfjKtr
+ 634hKk5awadYPmt24Ux7BsSNM3cqVRZujAolWeljDDPrwops7bov/t92bCk4p83QwKy6YXStSnl
+ 0VsEIPP7bIE5T7r4zJSL0tKzTIgSYx+WFY3Qwo3DYgWTx5sTM9UVeBsh0rxrl31K1IM0pQFj1A7
+ gw+VtvRxiUYjK/87Jg4SStypE42sXR/2o22pNseu+/r/yDHR8uGSsjBtiHv4st3RTmohj8hx7JP
+ UCE4D1U1IEi/wr/eFIXPrL9wTCpxRXnB0VIgaijskvnY1QOUMWWKwaAo3sk8IykSUxckF0V1iQL
+ y3XMeya+tQcv90pkeiQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NiBTYWx0ZWRfX/Jv0f66eb8FC
+ gBsCZTcz1I/pV05gMEXUAwMes48ABsD2pbDotd5Qxpz6XqvBunVHHDSaqleBJACDat+c8lSkusL
+ mmZ2c5c7i5Q1tgycd0AKgoXZ+Q680vQ=
+X-Proofpoint-GUID: 3_YY6ZYXsy9uBgG-NjaOA9L9V7gYRG4x
+X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6ae8a06a cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=1XWaLZrsAAAA:8 a=VnNF1IyMAAAA:8 a=duh_M4KPJp97uAtK-N0A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020056
 
-On family C hardware, forcing a 2.5 Gbps link speed requires relying
-strictly on the HSGMII SerDes configuration block, while forcing a dummy
-1 Gbps value inside the standard digital interface register. Family D
-introduces a dedicated hardware link speed value (5) for 2500M. The speed
-bitfield width has been expanded to 3 bits, splitting the most significant
-bit into a new separate register field (FORCE_SPEED2), which maps directly
-to a distinct per-port digital interface force layout.
+On Fri, Oct 30, 2026 at 11:57:10AM -0700, Sean Christopherson wrote:
+> On Fri, Oct 30, 2026, Gautam Menghani wrote:
+> > On Wed, Oct 28, 2026 at 12:02:55PM -0700, Sean Christopherson wrote:
+> > > Explicitly force an IPI when invoking kvm_vcpu_kick() directly instead of
+> > > relying on kvm_arch_vcpu_should_kick() to unconditionally return 1/true.
+> > > This will allow dropping kvm_arch_vcpu_should_kick() in favor of
+> > > kvm_request_needs_ipi().
+> > > 
+> > > No functional change intended (1 || 1 == true).
+> > > 
+> > > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > > ---
+> > >  arch/powerpc/include/asm/kvm_ppc.h | 13 ++++++++++++-
+> > >  arch/powerpc/kvm/book3s.c          |  4 ++--
+> > >  arch/powerpc/kvm/book3s_pr.c       |  2 +-
+> > >  arch/powerpc/kvm/booke.c           |  6 +++---
+> > >  arch/powerpc/kvm/e500_emulate.c    |  2 +-
+> > >  arch/powerpc/kvm/powerpc.c         |  2 +-
+> > >  6 files changed, 20 insertions(+), 9 deletions(-)
+> > > 
+> > > diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
+> > > index 169ea6a7fbad..bbe7378ad0ef 100644
+> > > --- a/arch/powerpc/include/asm/kvm_ppc.h
+> > > +++ b/arch/powerpc/include/asm/kvm_ppc.h
+> > > @@ -30,6 +30,17 @@
+> > >  #endif
+> > >  #include <asm/inst.h>
+> > >  
+> > > +/*
+> > > + * TODO: For unknown reasons, KVM PPC has historically ignored vcpu->mode when
+> > > + *       determining if kicking a vCPU needs an IPI.  Either document why that
+> > > + *       behavior is necessary, or drop this helper and the @force param from
+> > > + *       __kvm_vcpu_kick().
+> > > + */
+> > > +static inline void kvmppc_vcpu_kick(struct kvm_vcpu *vcpu)
+> > > +{
+> > > +	__kvm_vcpu_kick(vcpu, false, true);
+> > > +}
+> > > +
+> > 
+> > AFAICS, there is no reason for PPC to always return 1. I was looking at
+> > the old patches on mailing list and found this - https://lore.kernel.org/kvm/0FEE585F-5E21-47F2-A3F0-AD0DE05EBB43@suse.de
+> > 
+> > ```
+> > How about we return 1 for kvm_arch_vcpu_in_guest_mode() on !x86 always, just
+> > like it's done today basically? Then we can worry about needless IPIs later
+> > and don't regress from the respective current kick implementations.
+> > ```
+> 
+> FWIW, I found that as well, but there are a metric ton of kvm_vcpu_kick() calls
+> that have been added since then, and they scared me.
+> 
+> > However, I'll do some testing and get back by mid next week to make sure
+> > there are no suprises.
+> 
+> Thanks!  If we can drop the PPC behavior, that would be wonderful!  Though if
+> we do that, it should be for 7.5 in a follow-up (this series really should go
+> into 7.4 due to the SNP issue).
 
-On family D the forced-mode configuration (link, duplex, pause, speed)
-is written to a per-port register at 0x12c0 + port instead of the
-per-extint register. The bit positions of TXPAUSE, RXPAUSE, LINK, DUPLEX
-and the low two speed bits are the same as on family C; the upper speed
-bits go to bits 13:12 (FORCE_SPEED2), so FORCE_EN (bit 12 on family C)
-is not set. A second per-port register at 0x12c8 + port enables the
-forced mode: the vendor RTL8367D API writes 0xFFFF there when the MAC
-is forced and 0 otherwise. This driver always forces the MAC, as on
-family C, so it writes 0xFFFF on every call, including link down.
 
-The family D branch is not reachable until the chip table entry is
-added in the last patch.
+Yeah I looked into it and realized that the newer variants of KVM on PPC
+are not even using vcpu->mode at all. So that has to be fixed from our
+end.
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
----
- drivers/net/dsa/realtek/rtl8365mb_main.c | 82 ++++++++++++++++++++----
- 1 file changed, 69 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 840db5a..2dabc4d 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -344,6 +344,7 @@
- #define RTL8365MB_PORT_SPEED_10M	0
- #define RTL8365MB_PORT_SPEED_100M	1
- #define RTL8365MB_PORT_SPEED_1000M	2
-+#define RTL8365MB_D_PORT_SPEED_2500M	5
- 
- /* External interface force configuration registers 0~2 */
- #define RTL8365MB_DIGITAL_INTERFACE_FORCE_REG0		0x1310 /* EXT0 */
-@@ -361,6 +362,28 @@
- #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_LINK_MASK		BIT(4)
- #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_DUPLEX_MASK		BIT(2)
- #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK		GENMASK(1, 0)
-+/* Width of the FORCE_SPEED field, bits[1:0] */
-+#define   RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_WIDTH		2
-+
-+/* bits[13:12]; bit 13 reserved, no defined speed value uses it yet */
-+#define   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_SPEED2_MASK	GENMASK(13, 12)
-+
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_BASE		0x12c0
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG(_port) \
-+		(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_BASE + (_port))
-+
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_BASE		0x12c8
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_EN(_port) \
-+		(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_BASE + (_port))
-+
-+/* Per-port force-mode enable. The vendor RTL8367D API
-+ * (dal_rtl8367d_port_macForceLink_set()) treats it as an on/off switch for
-+ * the whole forced configuration: all bits set when the MAC is forced, zero
-+ * when it is not. The meaning of the individual bits is not documented.
-+ * This driver always forces the MAC, as on family C, so all bits are set
-+ * on every call, including link down.
-+ */
-+#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_ALL_MASK	GENMASK(15, 0)
- 
- /* CPU port mask register - controls which ports are treated as CPU ports */
- #define RTL8365MB_CPU_PORT_MASK_REG	0x1219
-@@ -1646,23 +1669,32 @@ static int rtl8365mb_ext_config_forcemode(struct realtek_priv *priv, int port,
- 	u32 r_duplex;
- 	u32 r_speed;
- 	u32 r_link;
-+	bool is_d;
- 	int val;
- 	int ret;
- 
- 	if (!extint)
- 		return -ENODEV;
- 
-+	is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
- 	if (link) {
- 		/* Force the link up with the desired configuration */
- 		r_link = 1;
- 		r_rx_pause = rx_pause ? 1 : 0;
- 		r_tx_pause = tx_pause ? 1 : 0;
- 
--		/* The speed field has no value for 2.5 Gbps: the rate is
--		 * determined by the HSGMII SerDes configuration, and the
--		 * vendor driver programs the 1 Gbps value here.
--		 */
--		if (speed == SPEED_2500 || speed == SPEED_1000) {
-+		if (speed == SPEED_2500) {
-+			if (is_d) {
-+				r_speed = RTL8365MB_D_PORT_SPEED_2500M;
-+			} else {
-+				/* The speed field has no value for 2.5 Gbps:
-+				 * the rate is determined by the HSGMII SerDes
-+				 * configuration, and the vendor driver programs
-+				 * the 1 Gbps value here.
-+				 */
-+				r_speed = RTL8365MB_PORT_SPEED_1000M;
-+			}
-+		} else if (speed == SPEED_1000) {
- 			r_speed = RTL8365MB_PORT_SPEED_1000M;
- 		} else if (speed == SPEED_100) {
- 			r_speed = RTL8365MB_PORT_SPEED_100M;
-@@ -1692,20 +1724,44 @@ static int rtl8365mb_ext_config_forcemode(struct realtek_priv *priv, int port,
- 		r_duplex = 0;
- 	}
- 
--	val = FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_EN_MASK, 1) |
--	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_TXPAUSE_MASK,
-+	val = FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_TXPAUSE_MASK,
- 			 r_tx_pause) |
- 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_RXPAUSE_MASK,
- 			 r_rx_pause) |
- 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_LINK_MASK, r_link) |
- 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_DUPLEX_MASK,
- 			 r_duplex) |
--	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK, r_speed);
--	ret = regmap_write(priv->map,
--			   RTL8365MB_DIGITAL_INTERFACE_FORCE_REG(extint->id),
--			   val);
--	if (ret)
--		return ret;
-+	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK,
-+			 r_speed &
-+			 RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK);
-+
-+	if (is_d) {
-+		/* Speed is 3 bits on family D: bits[1:0] go into FORCE_SPEED,
-+		 * bit[2] goes into FORCE_SPEED2 (bit 12); only 2500M sets it,
-+		 * bit 13 of the field is unused.
-+		 */
-+		val |= FIELD_PREP(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_SPEED2_MASK,
-+				  r_speed >>
-+				  RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_WIDTH);
-+		ret = regmap_write(priv->map,
-+				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG(port),
-+				   val);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_write(priv->map,
-+				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_EN(port),
-+				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_ALL_MASK);
-+		if (ret)
-+			return ret;
-+	} else {
-+		val |= FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_EN_MASK, 1);
-+		ret = regmap_write(priv->map,
-+				   RTL8365MB_DIGITAL_INTERFACE_FORCE_REG(extint->id),
-+				   val);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	return 0;
- }
--- 
-2.53.0
-
+For this series,
+Reviewed-by: Gautam Menghani <gautam@linux.ibm.com> # PPC
