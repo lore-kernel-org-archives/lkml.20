@@ -1,62 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614081;
-	b=mY7YO0yZLv4X9p46oylQitNzbtE3gvbWxIf0ppTdJd7GhafvyRnNRYUVVBudsf/GAbz3
-	 WYmHTOIadjdhcTv0yyxIony0CRzHwZXGKyVoUyjrNK56R2ZUaiB4nFbCzoZ1YOACaUEQR
-	 kwHkYmoIHXUxFNBCSIT6r+OtY5j7z5QSh24tJb97nWWv5gGY7GC6XI98fvN6Ha563UMzC
-	 CutB4kLu1xiccdsp/9826sHGGIeqZGI5gUxxYPeoNr9Np3KpDJEvCw5jVF8+xa4ZRknU9
-	 6R9wL9zpKNvxroCIXA946F1eT0c4BkXE5Sq7DJIwg8IIqi1SeLEcfrM/Zzw0JUz1mig==
+	t=1793614091;
+	b=D0Rniv4Oo6UiK9j5RaoYuFFvGkTP4MCRMlq5MJUjlYDgr3XR22bk2bGWTbSAj7jJ7IyP
+	 X52Wghr/g8+5iTBMfm5lPSxEHvxvsZ7e4i1QioM3AOIKm3JVDUfqxPnrsdR7UPI5/S11u
+	 qrJS4G2b5z+zcq4+L2YFIi9W5ikZgtrUaGzeWQ2e5MrFP6MZqaQXeLIxX9nkuj0PD8pOq
+	 UkPypGEgQ/xYp9kXjmcrFkxdtPQyFrUdfWWhLzaJJfZLuCOr68gABkCPFRRsI4gBbhqJn
+	 y7OWqIBAZG4yGwTh765I8ITOO7clCpJPw6Vm8gocniWG4ctG+3yjMDBqNtzS/Pw9SMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614081;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PHGkVJUa8HZ0EZXHtvtoWcBsgIqIizfSFjqQHTffook=;
-	b=cBn5iNF6GUcKIIjcFJWzykRMn+7SOL+a98byKdK4XfgDCLkoj5QPuWVMHAjyTNfm4U65
-	 S/52vL+C/cxQRQnAxCBYteCAlaFUINJ8M7wvsPqqmFmk3Dj4ZMN/k6XK9T+nlAfZIjDf4
-	 4ZDos6qh6nUHI0OwP3dOdQxn1A1LakMiyy99vC3lEh+9p8rcoJ107LyOuHw5a5LRSOoFu
-	 ZiP/MNmOP8k0BQ6xJF6448qVhvREi8oK6WT5hQKwvtPM6h7gP9qSj0t6WwNry0982xbv5
-	 Vuhajt90yf64c4paufEWG7SFGeml+wiLbOJC1EsF5loCr2qA7Grs+GJjK69gvgP/7jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614091;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2YB7xrA0JT0IFETP3BjX0Ypy94aXSCDzJ2+kb+881MA=;
+	b=VhI83An0GAYdGlUoVGidT3TnrWe5FghMrnQ4w5eNzrvcDa/rcvUAog/PO6mwFfuws9GE
+	 HNv8fCdrV+b9wxhfOaSVsUtp1mKLeli8bCjUmBXFrVtA+Do9Gl4o7vmrZCttNpZF2og2y
+	 ihiE9k6WIfQ3uCh3weqBqGc/6MPH5ntLwBCxb8Ay/78ybuuQ22q7Oe/eTQpI5X1ei0dK5
+	 tf6NsXljunUKMgufGiMoIRyT94JRFTXalWgg4iWIxuuYitn8017hDCGoznijRPfYudsSE
+	 JRWnLGsvGli/FoaFtxW2rRCI3O2TJQ/+TOB2l6Bo4nDt6f/Ez9S1hVOlVRllLytShQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iPYSnUUT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=OeXhwYeb;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E23606A324;
-	Mon,  2 Nov 2026 10:08:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFC8606A329;
+	Mon,  2 Nov 2026 10:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BFC8606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iPYSnUUT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AE71F000C1;
-	Mon,  2 Nov 2026 10:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793614081;
-	bh=PHGkVJUa8HZ0EZXHtvtoWcBsgIqIizfSFjqQHTffook=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iPYSnUUTD7dz8nPcsslscQX96/YM7XFOPcKFwif1kzlBcgxqvNAMCrVFP3QT6/mJZ
-	 H4VRAaYJzIFAyHlW5W1jLO3NPMD+c7alEhiQmcQJo+OUkp/auAy/BT+u5o9cpDVicR
-	 p9fAM54yUdtbuB81DDxcYdF0dj4wOmfT9f70NL3ZyZHE9Lm9PsFsx30ljFlCCZ9xU2
-	 QViJXiddc29ptMiRWPuA7RjV29OSdK5nN+kph0hj6UopE8NUZ7NYGF4+RJ5ctqT9VH
-	 xalu0NI6bpvoTvTg0ePb8jy898hnsvd3z6I97tBZ5f9Zx7neuXHAP6Zaz4MoUb5VX7
-	 RbtKVBHSplV/w==
-Date: Mon, 2 Nov 2026 12:07:52 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>
-Subject: Re: [PATCH v2 2/2] selftests/mm: add a uffd test for re-registering
- during UFFDIO_COPY
-Message-ID: <auhg-HLrl4jbpaAT@kernel.org>
-References: <20261102081140.201987-1-azpijr@gmail.com>
- <20261102081140.201987-3-azpijr@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=OeXhwYeb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=2YB7xrA0JT0IFETP3BjX0Ypy94aXSCDzJ2+kb+881MA=; b=OeXhwYebvQGFMpo78KVF8COSNC
+	s4ZkGjVtr8ODxaygIo0W+sgGZFVw1z4p1IJkqwFTB3ul+tHO445HGeIEzP8hdQyduX0TaGkn3wMyD
+	fvo/WblPxF7eLX+6V6jpOKzG//ovQbZLn5GFZRnRYq9AJwbNLmolOMlCAzTHzh6uN9IaVK/CsJ/PO
+	DR9/W+/hZr3D5E6z8Z7YDrxtJ3YVUsQaYHQJ1CNu0ZA1U2SPkGUj+zvr/ZPTCtJpynseWjG3sTvYv
+	Ttek4tSct5LFBidErl1NjNz+jIKKhT7ebNdtDo2E2iBv92RY1D5u+RuHdLMTcS/lDTrdaW/pQ/akQ
+	4fHI79tg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xNoxD-00000002Lrl-1a4P;
+	Mon, 02 Nov 2026 10:07:55 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 1258E300312; Mon, 02 Nov 2026 11:07:50 +0100 (CET)
+Date: Mon, 2 Nov 2026 11:07:50 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Andi Kleen <ak@linux.intel.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH 4/6] perf/x86/intel/pt: Clear TraceEn in hardware in
+ cpu_emergency_stop_pt()
+Message-ID: <20261102100750.GU1779021@noisy.programming.kicks-ass.net>
+References: <20261102074039.26983-1-adrian.hunter@intel.com>
+ <20261102074039.26983-5-adrian.hunter@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,154 +91,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102081140.201987-3-azpijr@gmail.com>
+In-Reply-To: <20261102074039.26983-5-adrian.hunter@intel.com>
 
-On Mon, Nov 02, 2026 at 09:11:31AM +0100, Jose A. Perez de Azpillaga wrote:
-> Re-register the destination without WP while a UFFDIO_COPY_MODE_WP copy
-> waits for its source page, then check that the copy fails with -EINVAL
-> and leaves no uffd-wp bit behind. This covers all memory types.
+On Mon, Nov 02, 2026 at 09:40:37AM +0200, Adrian Hunter wrote:
+> cpu_emergency_stop_pt() stops tracing through pt_event_stop(), which
+> assumes the software state accurately reflects whether tracing is
+> enabled.  That assumption can fail when a crash NMI interrupts
+> pt_config_start().
 > 
-> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-
+> pt_config_start() sets TraceEn in IA32_RTIT_CTL before updating
+> event->hw.aux_config.  If a crash NMI arrives in that window,
+> pt_config_stop() sees TraceEn clear in aux_config and skips the MSR
+> write needed to disable tracing.  Tracing remains active in hardware.
+> 
+> Alternatively, an earlier NMI in the same window can stop the event
+> without restarting it, for example a group throttle calling
+> pt_event_stop(event, 0), or a PT PMI for which perf_aux_output_begin()
+> fails.  pt_config_stop() again skips the write, so the event is stopped
+> only in software: TraceEn remains set in IA32_RTIT_CTL, and
+> pt->handle.event becomes NULL.  When pt_config_start() continues, it
+> sets TraceEn in aux_config, so tracing continues until the event is
+> next stopped.  If a crash occurs before then, cpu_emergency_stop_pt()
+> sees no event and does nothing.
+> 
+> In both cases tracing can remain active into the kdump kernel.  Moreover,
+> pt_event_stop() may access PT MSRs while tracing is still enabled and
+> can trigger a #GP by writing IA32_RTIT_STATUS with TraceEn set.
+> 
+> Fix this by making cpu_emergency_stop_pt() disable tracing directly from
+> the hardware state.  Set pt_shutdown and invoke pt_shutdown_cpu(), which
+> reads IA32_RTIT_CTL and clears TraceEn whenever it is set, independent
+> of perf's software state.  The shutdown flag prevents any path from
+> re-enabling tracing afterwards, including intel_pt_handle_vmx(0) during
+> the emergency VMXOFF sequence on other CPUs.
+> 
+> Continue to call pt_event_stop() afterwards so that AUX state, including
+> the buffer head, is updated for vmcore collection.  Its PT MSR accesses
+> now occur with tracing disabled.
+> 
+> Do this only if the driver initialized successfully.  In particular, if
+> pt_init() finds tracing already enabled at boot, it leaves Intel PT
+> alone, and the emergency path must do the same.
+> 
+> The race is reachable only through restart paths that call
+> pt_config_start() with TraceEn clear in the software copy.  These were
+> introduced by the commits with the Fixes tags below.  The restart path
+> in the PT PMI handler runs in NMI context, so only a machine check can
+> interrupt it.
+> 
+> Fixes: 8e105a1fc2a0 ("perf/x86/intel/pt: Factor out pt_config_start()")
+> Fixes: 25e8920b301c ("perf/x86/intel/pt: Add sampling support")
+> Fixes: 08c7454ceb94 ("perf/x86/intel/pt: Add support for pause / resume")
+> Fixes: 2e17bf3a469a ("perf/x86/intel/pt: Fix stop/start with no update")
+> Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+> Cc: stable@vger.kernel.org
 > ---
-> Changes in v2:
-> - "all memory types" in the commit message
-> - rename copy to result
+>  arch/x86/events/intel/pt.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 > 
-> v1: https://lore.kernel.org/20261029221129.89068-3-azpijr@gmail.com
-> 
->  tools/testing/selftests/mm/uffd-unit-tests.c | 105 +++++++++++++++++++
->  1 file changed, 105 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
-> index 2a97ba1d6feb..cc22b4cde621 100644
-> --- a/tools/testing/selftests/mm/uffd-unit-tests.c
-> +++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-> @@ -375,6 +375,104 @@ static void uffd_wp_unpopulated_test(uffd_global_test_opts_t *gopts, uffd_test_a
->  	uffd_test_pass();
->  }
+> diff --git a/arch/x86/events/intel/pt.c b/arch/x86/events/intel/pt.c
+> index 7453e9880b25..8d71c00f9ff6 100644
+> --- a/arch/x86/events/intel/pt.c
+> +++ b/arch/x86/events/intel/pt.c
+> @@ -38,6 +38,8 @@ static struct pt_pmu pt_pmu;
+>  /* Set at shutdown, after which TraceEn must not be set */
+>  static bool pt_shutdown;
 >  
-> +struct wp_copy_args {
-> +	uffd_global_test_opts_t *gopts;
-> +	char *src;
-> +	__s64 result;
-> +};
+> +static bool pt_initialized __ro_after_init;
 > +
-> +static void *wp_copy_thread(void *data)
-> +{
-> +	struct wp_copy_args *args = data;
-> +	struct uffdio_copy copy = {
-> +		.dst = (unsigned long)args->gopts->area_dst,
-> +		.src = (unsigned long)args->src,
-> +		.len = args->gopts->page_size,
-> +		.mode = UFFDIO_COPY_MODE_WP,
-> +	};
-> +
-> +	ioctl(args->gopts->uffd, UFFDIO_COPY, &copy);
-> +	args->result = copy.copy;
-> +
-> +	return NULL;
-> +}
-> +
-> +/*
-> + * UFFDIO_COPY drops its locks to fault in the source page.  Re-register the
-> + * destination without WP while it waits there: the MODE_WP copy must then
-> + * fail instead of leaving a uffd-wp bit in a VMA that no longer has WP.
-> + */
-> +static void uffd_wp_copy_reregister_test(uffd_global_test_opts_t *gopts,
-> +					 uffd_test_args_t *args)
-> +{
-> +	struct uffdio_api api = { .api = UFFD_API };
-> +	struct wp_copy_args copy_args = { .gopts = gopts };
-> +	unsigned long len = gopts->page_size;
-> +	struct uffdio_zeropage zeropage;
-> +	struct uffd_msg msg;
-> +	struct pollfd pfd;
-> +	pthread_t thread;
-> +	uint64_t value;
-> +	int pagemap_fd;
-> +	int src_uffd;
-> +
-> +	/* The source fault comes from the kernel, so no UFFD_USER_MODE_ONLY */
-> +	src_uffd = uffd_open(O_CLOEXEC);
-> +	if (src_uffd < 0) {
-> +		uffd_test_skip("cannot open a kernel-mode userfaultfd");
-> +		return;
-> +	}
-> +	if (ioctl(src_uffd, UFFDIO_API, &api))
-> +		err("UFFDIO_API failed");
-> +
-> +	copy_args.src = mmap(NULL, len, PROT_READ | PROT_WRITE,
-> +			     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-> +	if (copy_args.src == MAP_FAILED)
-> +		err("mmap() failed");
-> +
-> +	if (uffd_register(src_uffd, copy_args.src, len, true, false, false))
-> +		err("register src failed");
-> +	if (uffd_register(gopts->uffd, gopts->area_dst, len, true, true, false))
-> +		err("register dst failed");
-> +
-> +	if (pthread_create(&thread, NULL, wp_copy_thread, &copy_args))
-> +		err("pthread_create() failed");
-> +
-> +	/* Wait until UFFDIO_COPY blocks on the source page */
-> +	pfd = (struct pollfd){ .fd = src_uffd, .events = POLLIN };
-> +	if (poll(&pfd, 1, 10000) != 1)
-> +		err("no fault on the source page");
-> +	if (read(src_uffd, &msg, sizeof(msg)) != sizeof(msg))
-> +		err("read() failed");
-> +
-> +	if (uffd_unregister(gopts->uffd, gopts->area_dst, len))
-> +		err("unregister dst failed");
-> +	if (uffd_register(gopts->uffd, gopts->area_dst, len, true, false, false))
-> +		err("re-register dst failed");
-> +
-> +	zeropage.range.start = (unsigned long)copy_args.src;
-> +	zeropage.range.len = len;
-> +	zeropage.mode = 0;
-> +	if (ioctl(src_uffd, UFFDIO_ZEROPAGE, &zeropage))
-> +		err("UFFDIO_ZEROPAGE failed");
-> +
-> +	if (pthread_join(thread, NULL))
-> +		err("pthread_join() failed");
-> +
-> +	if (copy_args.result != -EINVAL)
-> +		err("UFFDIO_COPY returned %lld, expected %d",
-> +		    (long long)copy_args.result, -EINVAL);
-> +
-> +	pagemap_fd = pagemap_open();
-> +	value = pagemap_get_entry(pagemap_fd, gopts->area_dst);
-> +	pagemap_check_wp(value, false);
-> +	close(pagemap_fd);
-> +
-> +	munmap(copy_args.src, len);
-> +	close(src_uffd);
-> +	uffd_test_pass();
-> +}
-> +
->  static void uffd_wp_fork_test_common(uffd_global_test_opts_t *gopts, uffd_test_args_t *args,
->  				     bool with_event)
+>  /*
+>   * Capabilities of Intel PT hardware, such as number of address bits or
+>   * supported output schemes, are cached and exported to userspace as "caps"
+> @@ -1900,6 +1902,12 @@ void cpu_emergency_stop_pt(void)
 >  {
-> @@ -2403,6 +2501,13 @@ uffd_test_case_t uffd_tests[] = {
->  		.uffd_feature_required =
->  		UFFD_FEATURE_PAGEFAULT_FLAG_WP | UFFD_FEATURE_WP_UNPOPULATED,
->  	},
-> +	{
-> +		.name = "wp-copy-reregister",
-> +		.uffd_fn = uffd_wp_copy_reregister_test,
-> +		.mem_targets = MEM_ALL,
-> +		.uffd_feature_required = UFFD_FEATURE_PAGEFAULT_FLAG_WP |
-> +		UFFD_FEATURE_WP_HUGETLBFS_SHMEM,
-> +	},
->  	{
->  		.name = "minor",
->  		.uffd_fn = uffd_minor_test,
-> -- 
-> 2.56.0
-> 
+>  	struct pt *pt = this_cpu_ptr(&pt_ctx);
+>  
+> +	if (!pt_initialized)
+> +		return;
+> +
+> +	WRITE_ONCE(pt_shutdown, true);
+> +	pt_shutdown_cpu(NULL);
+> +
+>  	if (pt->handle.event)
+>  		pt_event_stop(pt->handle.event, PERF_EF_UPDATE);
 
--- 
-Sincerely yours,
-Mike.
+So in general pmu::stop() is reachable from PTI/NMI context, through
+things like throttling. So arguably it not functioning correctly when
+interleaving with pmu::start() is a problem.
+
+
