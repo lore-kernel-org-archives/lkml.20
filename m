@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.34
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793604843;
-	b=XXI9A17Z3/vPwCw1ILt5x2sSqOAYYd3KMYFZQFvjpG3Eb7SsJJ5IC5Ha/2rNxSHlaVmj
-	 ntbXX88TElmr0A2JnysCM4bebaSfiZ0l8DOadds+fsBZTfUk5XtRqhE5VbyJd6/B8pDv2
-	 Wf7eP3qC9/eQGsINUGxZxvvm2VXaf2m6St+kPzjzRfH4U9adMtv7sXiXfPoAFY0nxsIRu
-	 OThtAL2jDqiAdAhZ9AHPVwwBRwdyyKDGSWET9/7bTunxqwVBvHd2SAl77x6vXZKOrq6hB
-	 O5vL2L9kLws2/2Xe3YBs84xXXDbmgsCQnUQXW7Kydel7wX00XoNmps4I98N0Dk3FFsw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604843;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6fSnqTvYzbwizhskQVeYnh3ptDK0pQWgg0bHBbxuwpM=;
-	b=S0qMowpWfeEa9386DRd7CUiDsICYUS0XiwY5ASX/Egn9f3ZHmJ4gru/YS/ebgri1oNUG
-	 rsdCkHklQzptCK7OyvcW2Wg4yVg351njsd+uThB8cLY0uZ47CZel0Ngqj2y8uiDBMGfgm
-	 D+MW0oJXoBX29DHJ41s7xLmhFwCG9GftcOqkBqjqfFGvPQMmGXM2p9BSrqZWVtGQzqUj1
-	 M/j7Mwbw1Zod4Fdwt59lFt0TaJavd+vuKEHSZmaYTKjem+4kqhmOHqKyrEPTXecKo8Xn/
-	 dvz5bCkEfh/jheWrQ6ZSTay9ct4oOLG3IJkpSoCgFLhxPHEk9a6+Ht96ELm5AsuqyMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kgwakDC+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.34
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010034.outbound.protection.outlook.com [52.101.201.34])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793604954;
+	b=cGHH4PHW1X+E4lr/UKfJ894QzaHGLPpuX53TdvNxbiIOFM9cY9KMslUpZEMJoDtgUwd5
+	 I+i8qj8WCVJv1HlTIlltKIXzDMiWH9QSMdDm0s+tsye2uFpEClqdTFpzFGR03JHVJdIml
+	 ceaFtD6Xc1jNs+Bg00ZxDkvqsluCbGNyWXrtaSmcswWq1dQorOdMC0zAIxxs/T46Oa2wJ
+	 JhhA+RVvc+B6UFFVL4cnNjWA34YfYXTx58ExPCMaIFAPEAVyHi1wr6ZUZWCE03c+/wfbK
+	 1WVGu0KNG3nEmwzoa8t/rHLAEpJBtB+CWNkLOydM6MwKjlHNCYi3KrrUzs8DiciypOg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604954;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=y3mENgwKhSSG21SY4LaZZ9btVNNNXA1Fr6B47VJtfdk=;
+	b=4/EhCh3RtFboEuB91TRcQssqPIkO+Wn9pc4q3pPNTea65L5UlBEF8QzAlN5HvlO3pA3d
+	 6qEVyPAwRp22VRQkROcGCYVKFp7y9wm4QCDpDXvrvz+MFmfvUe7zlSrTgATx6AK7Vdzh4
+	 67242sViDJTYaHDl4vjgYyD/BqgSVyBzJw8mVCc07O3mzVUAVKaYXNlWsh5ae/w+/+02X
+	 Thd4FyywGT0JMTzPbA0cw+pZqYfsOUd4wl97cFFzrlDELWo1mHkbcFywfNqkc5/laxlGV
+	 QIXydTy2LaGy4rBN7aS0KVQZ4sikMDu/jvGXX7G2riHeAQLJupPrljEGeBbemfrN63A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IP9SRXtt;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC00606A326;
-	Mon,  2 Nov 2026 07:34:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BC00606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E431A606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:35:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E431A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kgwakDC+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YB7yyhRNdGrL+LcZKKvTr7sXPVL5LnhITsXWCAQ7Foj3L7HqHjZkdDK7AEJC9lJiNqLb4xfsBoLLdm5bzYOznQj0HOeJdefmEnKLwlyB4RO3gPXo4vSUlKyX9uK5BcN21srp1y8qi0IbaWsQnZoBUxsONXF+7XFrE3qr7HOpPvi2OlGhcZb4qyWynBeriYwcxrClk7iKYu/MqmzKDtgzE0oN1idi+ORrdYmhW+S/QGXvAh0D5IWP+i1yM3kyBv5HHHAuvlYXr9e77M5swg3Z12dNR7Gu7Fz2WQXNyypoARnFnCFRStxoWhN40dmJLWBxIpeqX/NBp6PSPwdavkI++w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6fSnqTvYzbwizhskQVeYnh3ptDK0pQWgg0bHBbxuwpM=;
- b=DQ5V6qf727c2JylSwKDDsOGL2j2+WM6neF3irgumCOHmlvb2euAa7mSZDOSp65VMKYKkaRm/vC0iifDXUbNpLnfvXo/qeMl7Qp9PwZ0k8Z5DAkA+LAUf5qMC80Ywp5DnNXb66QorP8c/u/jJIPkchRdu7qRCJPjwzGds8nlbQ6rz22Rs8xRSOcs5OG3GoeYK9d2i/14xkNzXnKwwv7xiAs6/8C1Go2BGVnO6dK7GQ+CnsKpdlfu7p4RSDy5YCPXuP7EwTjTIl6Vu6LwRsca8w4NAd3rtMUXz/ZwRsV5zNHjzu6jJ3CZ32hIoSFHhFrmOL2o1Fsu+eA+Iaqhmo1YTZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6fSnqTvYzbwizhskQVeYnh3ptDK0pQWgg0bHBbxuwpM=;
- b=kgwakDC+I2UpNtOfKhtKEoWVHvjaxDJxSLQ0HSuQ7ENElTa+SsghWJZuvJPE1iwh4GPhel6cKytLNMB9w8pGShOZ1jz93qtpc8qbxyVz5bqrjtt4co8t/yhAbWcqjYXQzNHg25Z/cEWnVwDkBxqdco03qOXQizESFqyBZoTznhL+O+RaEMPeU13uMDtyqeeW7NGv3qml5dQeegcIO+/boVfQQkwcDOdWUWaW1JK4GV1dqDfm+Ix5BZvMdLWb/hqtDWmmrRxY/+cleBpKMnRNN2/ebMI824RgFi2UQMefAmV14yfVq8LoqUgGZE5rEWBKiOOaZo4oPdlnAFRQpd0t8Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by CY5PR12MB6346.namprd12.prod.outlook.com (2603:10b6:930:21::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 07:33:57 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Mon, 2 Nov 2026
- 07:33:57 +0000
-Date: Mon, 2 Nov 2026 09:33:47 +0200
-From: Ido Schimmel <idosch@nvidia.com>
-To: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Ben Greear <greearb@candelatech.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com
-Subject: Re: [PATCH net v2] ipv6: fix fib6 walker UAF on NLM_F_REPLACE
-Message-ID: <20261102073347.GA765417@shredder>
-References: <20261028160018.73299-1-cenzhang@linux.microsoft.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028160018.73299-1-cenzhang@linux.microsoft.com>
-X-ClientProxiedBy: TLZP290CA0012.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::10) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IP9SRXtt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=y3
+	mENgwKhSSG21SY4LaZZ9btVNNNXA1Fr6B47VJtfdk=; b=IP9SRXtt5FJhy63HN+
+	vWHRhZbnsVJOKkenWTmIfE4R/fnpGPxcGwgwVuh7O9FmAqXCMnlqJbhEtbmK1iJ6
+	/h2HfQGQdnKMy+vmZy0I/efUl3IhfbQY0EqM/1ARyEX7p7w78nzMr3mWqQwEXmdN
+	HxNx9nrPWz7pyCTM5qFk5lGo4=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3f5hGPehqi52fEw--.9836S7;
+	Mon, 02 Nov 2026 15:35:38 +0800 (CST)
+From: Xuewen Wang <wangxuewen_ky@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: wangxuewen_ky@163.com,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xuewen Wang <wangxuewen@kylinos.cn>
+Subject: [PATCH v5 05/31] ntfs: report boot geometry and MFT bootstrap errors
+Date: Mon,  2 Nov 2026 15:35:06 +0800
+Message-Id: <20261102073532.98873-6-wangxuewen_ky@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261102073532.98873-1-wangxuewen_ky@163.com>
+References: <20261102073532.98873-1-wangxuewen_ky@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,93 +65,389 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|CY5PR12MB6346:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e58660e-0b0b-4ad8-b829-08df38b3a789
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	scWJg1QqpjApkopFiU5C0zqQ0tMEMUwLgAL/1C1jlxzIkHbqx0n5T0keBTcrjf74DF8kCm0PHGTZoVXbT0W29K9qUE4hJ/udHJ4zCz9ofJzKlv3h4burtQOgW0rMAlobUiDKAkFduEdYl9Jp5+iec3I4ZCOpPgIEqY0wkdZScIYij28cLfi6GbTJoizUWM6NySFpgu95sP5Db45v42S7WQzzUQjOxA6NtapFlSvVDRPk9zgtNFPLZZxetsJxoquLlCV+dhLhVed4KfDOCAYlqd6XxK8aBTlMRZeLLRQHZtS+O1pXOeRVa9u6zAoK0WIP1k2s58uetfL7edSO6T5GBHgyMQ81Yzt9KcfOD1cYhuIHlijB4ANJ6kWtzY3s2HlqRgiqqZ0SPENDyVXTmRWJmlW6ZFGH1KdXNpfkD0wnhz1jkHPnGC+6HHeILNxO8BYSQgPlGvyaQ/wBxAJ83Xkz2euuPQDBdQRHQVR+wP4SFS9FDsV7nY4IZSMUAJUc08G8VzIElNevfGoVPN6wjetkuTfKWiegVZcJiyQx1kCJTIlmtgdE9GqLnrw8hRt79ChgvgxQ8AwYApNWz11hHqoWuxdwqZQfPCAE5VUGkYPf0tSJQ+xaLxJCMck3eVmNHZ8O6cwfdkS7WekVdolEew3rQ5Hy2zc55uqAaWlR/jWz4Mg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?U439p3N3r4WoOjbNiBqUeeKKAspZQzimJAA26GJALC3qM73HJF/iPI3hotzO?=
- =?us-ascii?Q?08Fwzw23g1Evn3zy0qx9Wr0+KmIhzZoCL/Ar7mqFLzbzx6yxXbhGIiG0yQL1?=
- =?us-ascii?Q?ugn168qkgTWQVSbWaVSLizIhwcRDT/lvWajlNFYOhUat4OT38xeMP/bxCyUz?=
- =?us-ascii?Q?p8NdUDcgXTqtWRJ4fsULO/V8HHz83CSGxpAt//GAhp812dC0i/AeikSf3ZLV?=
- =?us-ascii?Q?SkyjmzkZ58NIDxmLkiQOALDnoAwgve5t3CNghDwsE5r668rGLRZ24LkRn047?=
- =?us-ascii?Q?VK/PYhYcSjL+SfSKToAqkwMkrGqnCHxlgBJziQJYLqnmU7Xnwca8xiSyRaFp?=
- =?us-ascii?Q?Yk0+HSeCy5EjbMUCN+kxNnOeL4FDBLXtV71OviNwTag0Fmh6GxX2FYP8dQIP?=
- =?us-ascii?Q?zcY0mBWzxXsbK0VGE/CfSuVWntGeI0FlQZpRxe+7BnQoswtaecS7+vC3V7vb?=
- =?us-ascii?Q?qoi8fRj+z6Uvwx5cCZLvyhqfI0bBU4+zO3cn5Mmjq0x1kvjaK+/8irDKCIQp?=
- =?us-ascii?Q?onirhaTZRNPX4YrDMrvClZCxOMPn0QHaav0zmVoHlOZIYBA4FJ+We+k9d6V2?=
- =?us-ascii?Q?qAMXvef/wpx7wDbuKZyRC+LlEgbtY/QQFVjJuVHQrl7jEbOH4gDP5cD6iAKn?=
- =?us-ascii?Q?LiqmExT27RXmlWviEZU+DOXyCk55LDieDtsydIe60VXMC5FAmqirX7ep2GPv?=
- =?us-ascii?Q?NmV524rfbg4amJLj+wxUtivQgJJ12E+az5Mes1wDfUpRYJ/aE2HmoWOVFR8W?=
- =?us-ascii?Q?5R6Iyfed80TR5eV6r4KQamk7CBf9pHFxzSGGyOBq7BiNiq6XE+Yg8FFp/YXD?=
- =?us-ascii?Q?p9w/ezqxn1Q2gSK0Ihy86qMjVrMlgkEAICP7j42TIX6zbrCVceSDovjOLk8c?=
- =?us-ascii?Q?rVarDJAovSs1stQcPDARzsndU6+JNrBd4ukrdYG7SDluDGsLXMdqowfJBleK?=
- =?us-ascii?Q?q5BC9MT8hyNjcc+wJy+l3hNafMyLqWrfhKtQyfvb/0DiQ1t3egKErzeGn84Z?=
- =?us-ascii?Q?8jN/k5OvONm2ajlo3TdrtPYs5An4v/9RqCNTuadZ/+I81DHPx8swkcgcJQR6?=
- =?us-ascii?Q?WwNDScmpu/bb9T61NVb7IGLdIA1pwQK8d0tFHBDL0z/qGc52nhrTsswEjj3H?=
- =?us-ascii?Q?yFQqRRzRGe95te3OoagVJ3RmT+begelhUMljVZROSkgaea/ibTt8j9KIZzEs?=
- =?us-ascii?Q?yt9V6/Lkg8ymw+MmnvO1VJJ36IRX1Tg6mbyKzsgKvyzFgXGhD4a9hSFSHNr8?=
- =?us-ascii?Q?MQ04Pzwt5hlXvyuurtKwsRJ57b9/YkVpAW8JeO/Nx/7tQGqOEv7Ks+R6ZuoG?=
- =?us-ascii?Q?oP71vGmtjqfPer+kOTT7KBViWfIJN56Cn9kcIKoBwoelJdcFoIfZbxIWyLlu?=
- =?us-ascii?Q?SPXKrPLdC1O2azf7jxT9hauce1+nz7BdMWwcF9eG7Mx7R88+H8FNGmJ1ZB7E?=
- =?us-ascii?Q?SdF2lfZ8CGN36bmFCjPBsHPFjjAPbclD2TIZ9pQRsFPPdOFdTjD8cX/2SHjX?=
- =?us-ascii?Q?HZZEIkHapj74PGGXCAkgjVEgeW9uCR4RGLLOvWqCZUhtfsIonzAgusPRb5+U?=
- =?us-ascii?Q?c7RIg7f+U2f4UKh3jMt5hnyE11QA5L/N17V/tZ+QZp+BlYJac0sfTR/GQGpy?=
- =?us-ascii?Q?edJUGquAQiOESY2FdjDejzvBYumwRF/3RU5UPgb8fKryR3rhzcZNEy+7JsXL?=
- =?us-ascii?Q?alBJkSqfoscY7YkMJKAFnODGz7cbY4zD2vico91AY9EQOjej?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e58660e-0b0b-4ad8-b829-08df38b3a789
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:33:57.4284
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yOTYCHKTUJBXViS4X0WMnaYyuRXveTdCL4UW1CLxq8BHZqO3b3Wp7JeCizp+FGLlt6etmmaIJoKAXnnLtZxsKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6346
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f5hGPehqi52fEw--.9836S7
+X-Coremail-Antispam: 1Uf129KBjvAXoW3tr43Ar4ruF13Cw4fJrWDJwb_yoW8Jw4DCo
+	Wava1q9w1kKw13A3Wvgw18Xasru3ZxCw4rJr45Gr4Dua1vgw1jqa47Jw13XayfWw4Fgr1D
+	AryxJ3WrJFWxGryxn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUOXdbUUUUU
+X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC7wo2H2roPUpK4gAA3R
 
-On Wed, Oct 28, 2026 at 12:00:18PM -0400, Cen Zhang (Microsoft) wrote:
-> fib6_walker uses w->leaf to remember the next fib6_info to dump, so an
-> RTM_GETROUTE dump can continue there on the next recvmsg().  This
-> assumes that whoever removes a route from the tree also updates the
-> walkers pointing at it.  fib6_del_route() does: it moves w->leaf to
-> the next route.  The NLM_F_REPLACE branch of fib6_add_rt2node() does
-> not: it removes the old route, fib6_add() frees it, and w->leaf keeps
-> pointing at the freed object.
-> 
-> The fn_sernum version check in fib6_dump_table() normally protects
-> against resuming on a stale w->leaf, but it can be bypassed:
-> ip6_link_failure() resets fn_sernum to -1 when the default route
-> fails, which an unprivileged user in a user+net namespace can cause:
-> 
->   1) link failure            fn_sernum = -1
->   2) dump pauses on route R
->   3) replace R               fn_sernum changed, R freed
->   4) link failure            fn_sernum = -1
->   5) dump resumes            -1 == -1, reads freed R  <- UAF
-> 
->   BUG: KASAN: slab-use-after-free in rt6_fill_node+0x1c22/0x2cd0
->   Read of size 4 at addr ff11000011fa0064 by task poc/101
->    rt6_fill_node <- rt6_dump_route
-> 
-> Fix by adjusting walkers separately for replacement and deletion.
-> For replacement, add fib6_walkers_replace_leaf() points w->leaf
-> at the new route. For deletion and ECMP sibling removal,
-> fib6_walkers_skip_rt() calls fib6_walkers_replace_leaf() with the
-> next route. Reset w->skip_in_node when updating w->leaf, and set
-> w->state to FWS_U when no next route remains.
-> 
-> Fixes: 4a287eba2de3 ("IPv6 routing, NLM_F_* flag support: REPLACE and EXCL flags support, warn about missing CREATE flag")
-> Cc: AutonomousCodeSecurity@microsoft.com
-> Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Mount initialization detects invalid MFT locations, mirror mismatches
+and corrupt bootstrap metadata without consistently recording them.
+Report these failures and use EFSCORRUPTED for confirmed corruption.
+
+Preserve specific errors through boot-sector parsing and MFT loading,
+including the inner ntfs_read_locked_inode() failure during bootstrap.
+Use shared cleanup and reporting exits. Keep allocation failures and
+unsupported geometry distinct, and retain the read-only fallback.
+Before SB_ACTIVE, record the volume error state without sending events.
+
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+---
+ fs/ntfs/inode.c | 28 +++++++++++++-------
+ fs/ntfs/super.c | 69 +++++++++++++++++++++++++++++++++++--------------
+ 2 files changed, 69 insertions(+), 28 deletions(-)
+
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 5b3d1453d5e1..c0f91b02efa0 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -1880,7 +1880,7 @@ static int load_attribute_list_mount(struct ntfs_volume *vol,
+ 	ntfs_debug("Entering.");
+ 	if (!vol || !rl || !al || size <= 0 || initialized_size < 0 ||
+ 			initialized_size > size)
+-		return -EINVAL;
++		return -EFSCORRUPTED;
+ 	if (!initialized_size) {
+ 		memset(al, 0, size);
+ 		return 0;
+@@ -1896,7 +1896,7 @@ static int load_attribute_list_mount(struct ntfs_volume *vol,
+ 		/* The attribute list cannot be sparse. */
+ 		if (lcn < 0) {
+ 			ntfs_error(sb, "ntfs_rl_vcn_to_lcn() failed. Cannot read attribute list.");
+-			return -EIO;
++			return -EFSCORRUPTED;
+ 		}
+ 
+ 		rl_byte_off = ntfs_cluster_to_bytes(vol, lcn);
+@@ -1974,7 +1974,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 	struct attr_record *a;
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	unsigned int i;
+-	int err;
++	int err = -EIO;
+ 	size_t new_rl_count;
+ 
+ 	ntfs_debug("Entering.");
+@@ -2002,6 +2002,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 
+ 	/* Allocate enough memory to read the first mft record. */
+ 	if (vol->mft_record_size > 64 * 1024) {
++		err = -EOPNOTSUPP;
+ 		ntfs_error(sb, "Unsupported mft record size %i (max 64kiB).",
+ 				vol->mft_record_size);
+ 		goto err_out;
+@@ -2013,6 +2014,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 
+ 	m = kzalloc(i, GFP_NOFS);
+ 	if (!m) {
++		err = -ENOMEM;
+ 		ntfs_error(sb, "Failed to allocate buffer for $MFT record 0.");
+ 		goto err_out;
+ 	}
+@@ -2101,6 +2103,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 		ni->attr_list = kvzalloc(round_up(ni->attr_list_size, SECTOR_SIZE),
+ 					 GFP_NOFS);
+ 		if (!ni->attr_list) {
++			err = -ENOMEM;
+ 			ntfs_error(sb, "Not enough memory to allocate buffer for attribute list.");
+ 			goto put_err_out;
+ 		}
+@@ -2120,6 +2123,8 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 			rl = ntfs_mapping_pairs_decompress(vol, a, NULL, &new_rl_count);
+ 			if (IS_ERR(rl)) {
+ 				err = PTR_ERR(rl);
++				if (err != -ENOMEM)
++					err = -EFSCORRUPTED;
+ 				ntfs_error(sb,
+ 					   "Mapping pairs decompression failed with error code %i.",
+ 					   -err);
+@@ -2222,6 +2227,9 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 		nrl = ntfs_mapping_pairs_decompress(vol, a, &ni->runlist,
+ 						    &new_rl_count);
+ 		if (IS_ERR(nrl)) {
++			err = PTR_ERR(nrl);
++			if (err != -ENOMEM)
++				err = -EFSCORRUPTED;
+ 			ntfs_error(sb,
+ 				"ntfs_mapping_pairs_decompress() failed with error code %ld.",
+ 				PTR_ERR(nrl));
+@@ -2260,6 +2268,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 			 */
+ 			if ((vi->i_size >> vol->mft_record_size_bits) >=
+ 					(1ULL << 32)) {
++				err = -EOPNOTSUPP;
+ 				ntfs_error(sb, "$MFT is too big! Aborting.");
+ 				goto put_err_out;
+ 			}
+@@ -2285,11 +2294,7 @@ int ntfs_read_inode_mount(struct inode *vi)
+ 			err = ntfs_read_locked_inode(vi);
+ 			if (err) {
+ 				ntfs_error(sb, "ntfs_read_inode() of $MFT failed.\n");
+-				NVolClearMftBootstrap(vol);
+-				ntfs_attr_put_search_ctx(ctx);
+-				/* Revert to the safe super operations. */
+-				kfree(m);
+-				return -1;
++				goto put_err_out;
+ 			}
+ 			/*
+ 			 * Re-initialize some specifics about $MFT's inode as
+@@ -2356,9 +2361,14 @@ int ntfs_read_inode_mount(struct inode *vi)
+ err_out:
+ 	/* Also reached from inside the $DATA loop. */
+ 	NVolClearMftBootstrap(vol);
++	if (err == -ENOENT || !err)
++		err = -EFSCORRUPTED;
++	if (err != -ENOMEM && err != -EOPNOTSUPP &&
++	    err != -EINTR && err != -ERESTARTSYS)
++		ntfs_report_metadata_error(vol, err);
+ 	ntfs_error(sb, "Failed. Marking inode as bad.");
+ 	kfree(m);
+-	return -1;
++	return err;
+ }
+ 
+ static void __ntfs_clear_inode(struct ntfs_inode *ni)
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 9bf5a626abbc..eb0ebbc235a4 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -869,10 +869,10 @@ static bool ntfs_validate_mft_io_geometry(struct ntfs_volume *vol,
+  * @b:		boot sector to parse
+  *
+  * Parse the ntfs boot sector @b and store all imporant information therein in
+- * the ntfs super block @vol.  Return 'true' on success and 'false' on error.
++ * the ntfs super block @vol. Return 0 on success and -errno on error.
+  */
+-static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+-		const struct ntfs_boot_sector *b)
++static int parse_ntfs_boot_sector(struct ntfs_volume *vol,
++				  const struct ntfs_boot_sector *b)
+ {
+ 	unsigned int sectors_per_cluster, sectors_per_cluster_bits, nr_hidden_sects;
+ 	unsigned int logical_block_size;
+@@ -890,7 +890,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		ntfs_error(vol->sb,
+ 			"Sector size (%i) is smaller than the device block size (%lu).  This is not supported.",
+ 			vol->sector_size, vol->sb->s_blocksize);
+-		return false;
++		return -EINVAL;
+ 	}
+ 
+ 	if (b->bpb.sectors_per_cluster >= 0xf4)
+@@ -914,7 +914,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		ntfs_error(vol->sb,
+ 			"Cluster size (%i) is smaller than the sector size (%i).  This is not supported.",
+ 			vol->cluster_size, vol->sector_size);
+-		return false;
++		return -EINVAL;
+ 	}
+ 	clusters_per_mft_record = b->clusters_per_mft_record;
+ 	ntfs_debug("clusters_per_mft_record = %i (0x%x)",
+@@ -945,7 +945,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		ntfs_error(vol->sb,
+ 			"Mft record size (%i) exceeds the PAGE_SIZE on your system (%lu).  This is not supported.",
+ 			vol->mft_record_size, PAGE_SIZE);
+-		return false;
++		return -EINVAL;
+ 	}
+ 	/* We cannot support mft record sizes below the sector size. */
+ 	if (vol->mft_record_size < vol->sector_size) {
+@@ -953,7 +953,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 				vol->mft_record_size, vol->sector_size);
+ 	}
+ 	if (!ntfs_validate_mft_io_geometry(vol, logical_block_size))
+-		return false;
++		return -EINVAL;
+ 
+ 	clusters_per_index_record = b->clusters_per_index_record;
+ 	ntfs_debug("clusters_per_index_record = %i (0x%x)",
+@@ -983,7 +983,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		ntfs_error(vol->sb,
+ 			   "Index record size (%i) is smaller than the sector size (%i).  This is not supported.",
+ 			   vol->index_record_size, vol->sector_size);
+-		return false;
++		return -EINVAL;
+ 	}
+ 	/*
+ 	 * Get the size of the volume in clusters and check for 64-bit-ness.
+@@ -993,7 +993,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 	ll = le64_to_cpu(b->number_of_sectors) >> sectors_per_cluster_bits;
+ 	if (ll >= 1ULL << 32) {
+ 		ntfs_error(vol->sb, "Cannot handle 64-bit clusters.");
+-		return false;
++		return -EINVAL;
+ 	}
+ 	vol->nr_clusters = ll;
+ 	ntfs_debug("vol->nr_clusters = 0x%llx", vol->nr_clusters);
+@@ -1001,7 +1001,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 	if (ll >= (u64)vol->nr_clusters) {
+ 		ntfs_error(vol->sb, "MFT LCN (%llu, 0x%llx) is beyond end of volume.  Weird.",
+ 				ll, ll);
+-		return false;
++		goto corrupt;
+ 	}
+ 	vol->mft_lcn = ll;
+ 	ntfs_debug("vol->mft_lcn = 0x%llx", vol->mft_lcn);
+@@ -1009,7 +1009,7 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 	if (ll >= (u64)vol->nr_clusters) {
+ 		ntfs_error(vol->sb, "MFTMirr LCN (%llu, 0x%llx) is beyond end of volume.  Weird.",
+ 				ll, ll);
+-		return false;
++		goto corrupt;
+ 	}
+ 	vol->mftmirr_lcn = ll;
+ 	ntfs_debug("vol->mftmirr_lcn = 0x%llx", vol->mftmirr_lcn);
+@@ -1050,7 +1050,11 @@ static bool parse_ntfs_boot_sector(struct ntfs_volume *vol,
+ 		}
+ 	}
+ 
+-	return true;
++	return 0;
++
++corrupt:
++	ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++	return -EFSCORRUPTED;
+ }
+ 
+ /*
+@@ -1127,6 +1131,18 @@ static void ntfs_setup_allocators(struct ntfs_volume *vol)
+ 	ntfs_debug("vol->mft_data_pos = 0x%llx", vol->mft_data_pos);
+ }
+ 
++/* An unused record is corruption when a required system file is loaded. */
++static struct inode *ntfs_system_iget(struct ntfs_volume *vol, unsigned long mft_no)
++{
++	struct inode *inode = ntfs_iget(vol->sb, mft_no);
++
++	if (IS_ERR(inode) && PTR_ERR(inode) == -ENOENT) {
++		ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++		inode = ERR_PTR(-EFSCORRUPTED);
++	}
++	return inode;
++}
++
+ static struct lock_class_key mftmirr_runlist_lock_key,
+ 			     mftmirr_mrec_lock_key;
+ /*
+@@ -1142,7 +1158,7 @@ static bool load_and_init_mft_mirror(struct ntfs_volume *vol)
+ 
+ 	ntfs_debug("Entering.");
+ 	/* Get mft mirror inode. */
+-	tmp_ino = ntfs_iget(vol->sb, FILE_MFTMirr);
++	tmp_ino = ntfs_system_iget(vol, FILE_MFTMirr);
+ 	if (IS_ERR(tmp_ino)) {
+ 		if (!IS_ERR(tmp_ino))
+ 			iput(tmp_ino);
+@@ -1194,6 +1210,7 @@ static bool load_and_init_mft_mirror(struct ntfs_volume *vol)
+  */
+ static bool check_mft_mirror(struct ntfs_volume *vol)
+ {
++	int report_err = 0;
+ 	struct super_block *sb = vol->sb;
+ 	struct ntfs_inode *mirr_ni;
+ 	struct folio *mft_folio = NULL, *mirr_folio = NULL;
+@@ -1222,7 +1239,7 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ 					index, NULL);
+ 			if (IS_ERR(mft_folio)) {
+ 				ntfs_error(sb, "Failed to read $MFT.");
+-				return false;
++				goto out;
+ 			}
+ 			kmft_base = kmap_local_folio(mft_folio, 0);
+ 			kmft = kmft_base;
+@@ -1242,6 +1259,7 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ 		if (((struct mft_record *)kmft)->flags & MFT_RECORD_IN_USE) {
+ 			/* Make sure the record is ok. */
+ 			if (ntfs_is_baad_recordp((__le32 *)kmft)) {
++				report_err = -EFSCORRUPTED;
+ 				ntfs_error(sb,
+ 					"Incomplete multi sector transfer detected in mft record %i.",
+ 					i);
+@@ -1251,12 +1269,13 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ mft_unmap_out:
+ 				kunmap_local(kmft_base);
+ 				folio_put(mft_folio);
+-				return false;
++				goto out;
+ 			}
+ 		}
+ 		/* Do not check the mirror record if it is not in use. */
+ 		if (((struct mft_record *)kmirr)->flags & MFT_RECORD_IN_USE) {
+ 			if (ntfs_is_baad_recordp((__le32 *)kmirr)) {
++				report_err = -EFSCORRUPTED;
+ 				ntfs_error(sb,
+ 					"Incomplete multi sector transfer detected in mft mirror record %i.",
+ 					i);
+@@ -1276,6 +1295,7 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ 		}
+ 		/* Compare the two records. */
+ 		if (memcmp(kmft, kmirr, bytes)) {
++			report_err = -EFSCORRUPTED;
+ 			ntfs_error(sb,
+ 				   "$MFT and $MFTMirr record %i do not match.  Run chkdsk.",
+ 				   i);
+@@ -1310,14 +1330,20 @@ static bool check_mft_mirror(struct ntfs_volume *vol)
+ 	do {
+ 		if (rl2[i].vcn != rl[i].vcn || rl2[i].lcn != rl[i].lcn ||
+ 				rl2[i].length != rl[i].length) {
++			report_err = -EFSCORRUPTED;
+ 			ntfs_error(sb, "$MFTMirr location mismatch.  Run chkdsk.");
+ 			up_read(&mirr_ni->runlist.lock);
+-			return false;
++			goto out;
+ 		}
+ 	} while (rl2[i++].length);
+ 	up_read(&mirr_ni->runlist.lock);
+ 	ntfs_debug("Done.");
+ 	return true;
++
++out:
++	if (report_err)
++		ntfs_report_metadata_error(vol, report_err);
++	return false;
+ }
+ 
+ /*
+@@ -2741,9 +2767,10 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	 */
+ 	result = parse_ntfs_boot_sector(vol, (struct ntfs_boot_sector *)boot);
+ 	kfree(boot);
+-	if (!result) {
++	if (result) {
++		err = result;
+ 		if (!silent)
+-			ntfs_error(sb, "Unsupported NTFS filesystem.");
++			ntfs_error(sb, "Failed to parse NTFS boot sector.");
+ 		goto err_out_now;
+ 	}
+ 	if (!vol->mft_write_supported && !sb_rdonly(sb)) {
+@@ -2795,6 +2822,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		ntfs_set_default_dentry_ops(sb);
+ 	tmp_ino = new_inode(sb);
+ 	if (!tmp_ino) {
++		err = -ENOMEM;
+ 		if (!silent)
+ 			ntfs_error(sb, "Failed to load essential metadata.");
+ 		goto err_out_now;
+@@ -2802,7 +2830,8 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 
+ 	tmp_ino->i_ino = FILE_MFT;
+ 	insert_inode_hash(tmp_ino);
+-	if (ntfs_read_inode_mount(tmp_ino) < 0) {
++	err = ntfs_read_inode_mount(tmp_ino);
++	if (err) {
+ 		if (!silent)
+ 			ntfs_error(sb, "Failed to load essential metadata.");
+ 		goto iput_tmp_ino_err_out_now;
+@@ -2826,6 +2855,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	vol->lcn_empty_bits_per_page = kvmalloc_array(lcn_bit_pages, sizeof(unsigned int),
+ 						      GFP_KERNEL);
+ 	if (!vol->lcn_empty_bits_per_page) {
++		err = -ENOMEM;
+ 		ntfs_error(sb,
+ 			   "Unable to allocate pages for storing LCN empty bit counts\n");
+ 		goto unl_upcase_iput_tmp_ino_err_out_now;
+@@ -2876,6 +2906,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		queue_work(ntfs_wq, &vol->precalc_work);
+ 		return 0;
+ 	}
++	err = -ENOMEM;
+ 	ntfs_error(sb, "Failed to allocate root directory.");
+ 	/* Clean up after the successful load_system_files() call from above. */
+ 	iput(vol->vol_ino);
+
