@@ -1,72 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793584157;
-	b=1zs//SsPYETJv26QklJNK9UhZcz+8LbePJ2KGGs1daO5GmoYudT8JyChM6zkUhSbJMax
-	 Hnvzmn3Jd/sX2RZf6T80B5lT4fawBBMLi45C0zKeSMelwygFWuKJu8Xzc3QxCnTnSE1PK
-	 gAvQXf338w+gCH9y+eCQERM0Rolq7P/7/n15/5XS80/Lj9VkwyYlBuuYtWDEHhPIA/5PI
-	 1KO6vjEdjK1gIc9X+l/0CpvQHQox/lRYQoDnJRuqPw/guQG8tsoSL76cB9K2+ngh56y5x
-	 y7ndTCcq3mTivaZcpEhuWXfICCUnrh2onIpt7VFtualx5W2am8dCmezm4yIV03YfGbw==
+	t=1793584254;
+	b=193LO+Z8bWXG4kdfq5HkknECpSfF0LrdLswAIEy9gWFSnc8uFOFhMSvfJn+Iu0bcS29s
+	 OVAl79JMOv7tglleiKlFL9jJ1krKR/wpRI341LR+HUdR6m4BKJdIUaNXPsRSNU4nD8eZb
+	 ZOOeRyd1N8ApMMqPbKc6/GdXvr7efNUz2pe351za356Qlt65hjKmjwDVCfhlYZ6z4yLVt
+	 JdTGw/puSY7ixsbUvZn0ypHRLGgC5LIL4igfhDgaWTOqKtHNxBACHaHbr6nGX9CTIyaJI
+	 j2bIfz5vt2cQF30Ncx9Vf+drTqJB4hJIf9mxX48EAYvIkBx3Uz9uqaAGsRbL7DtZy3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793584157;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=18SqGK/PIQXaam5T+y8Kux6aYcZDlE1mP3zDFN7i6l8=;
-	b=JgbXqsj5wg73Pwi7oQd+/wEkKghZ68Y6EXknWmL8ibvtZctMh7tF3LukdhkdnYyjqN6E
-	 aa3keNTYb/ZZb2nRRqSKhZlqbqtT2KAdITMwRDrStTleCRcE5IjNBisuWZ6kpd7OoXS1+
-	 NtemDeyGWkdn7YEJByDO9PhIsuXq3MiAsVVGU1/+uuE4Rce/2nwbHOsBtfshE0yK1VE9N
-	 mS5aZmh2gBU3ZshlUd6sS5EyfnZ2uBlxJNWtjSByvkegiCqxdxzgYxx8FxqKTZws6T+mN
-	 xrZt2k7LgopYUcjExJp3Xu6/tysEhU3RuxH8ulj2pfD4nTfvtWULWSd+91bk5Sy3l7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793584254;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=uyg0B8ei3Mf4zbb08LWnZuHIxG8bAH3PwXAWr4Dyrgs=;
+	b=Lbw8Jw3RmTYUoW7P8G60vdU4Wjer8xptIwo32ktAeqSM+Wd2TauIqyLKxP+QLqrs7sE9
+	 MkV8dkTazGDeMe5nRQ42RItHSGFjCae7BiDo8TU0M+Yn5ZYEve5glOyS/xPqpcOheM13P
+	 PuhecZd9fzi73zRRibOJoygiSc+VR6eXw9iahFqO7eKz9yt2MWJktB/55YgDbp6oiXEdL
+	 v6/V8IRCk1uSUX9fBWzIlKwIBZSiIGFKvVRKEXUuMokqzFgns0P5ChMQOudXS6OvMA7Cd
+	 PFGzERLLtd+KyY3RbycgN+Bb/Mp9fMPE7P4TO3QTAQDJlI4lMS3nHjdsz/o7rPVVJYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=MJLF3vp0;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=p+FKN8ot;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E23E606A327;
-	Mon,  2 Nov 2026 01:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E23E606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6268606A326;
+	Mon,  2 Nov 2026 01:50:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6268606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=MJLF3vp0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793584153;
-	bh=18SqGK/PIQXaam5T+y8Kux6aYcZDlE1mP3zDFN7i6l8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MJLF3vp0vIACySlOMz9ZDVRXF7L1A6gX2FoLicBiDyk/4oUZb54QEA7ECmrTIFVD2
-	 xMY9mhwafz9UE29JXIjqmSrkWixwFjzVbZmIyb2LE8+4Pdlhdy7EGFYcQ7JIPzlAYU
-	 8VmWeNxva3gNJ9usy/XboMfpSUSNmB+rgUAl6ZBv3vaqqihTKLJAFWEWVtlbFDii+i
-	 16ab+SqlRm/pwBfhAhMFX5HrckPNQjCXAj1nrecmXpRTMHbq7Zl2ARt+0q/qAw4uO7
-	 L5RC2X2Agm6TqA3cm+pnIsfoOnEyI3l8kmiYGsaE8QuYsKyny1d50tv1eXA8wrTUk3
-	 SI6AwK2dgTdMg==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jHvkx4tBRz4wC6; Mon, 02 Nov 2026 12:49:13 +1100 (AEDT)
-Date: Mon, 2 Nov 2026 12:48:47 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Simon Glass <sjg@chromium.org>
-Cc: dianders@chromium.org, Devicetree-compiler@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Brian Norris <briannorris@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Devicetree@vger.kernel.org,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>
-Subject: Re: [PATCH v2 02/10] pylibfdt: Add subnode/property iterators and
- get_mem_rsv_list()
-Message-ID: <aufr7SA1BO7zDQws@gractus.seuss>
-References: <20261028215600.1713475-1-dianders@chromium.org>
- <20261028215600.1713475-3-dianders@chromium.org>
- <CAFLszThVtOwXJ4GKv5fFPGWGy7EL63JrEU=yhByUccW6Vkq+=A@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=p+FKN8ot
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793584250; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=uyg0B8ei3Mf4zbb08LWnZuHIxG8bAH3PwXAWr4Dyrgs=;
+	b=p+FKN8otQ7xNVORWIWqYsvdNoNKc9aHVvDhE8BxQigmE7QaEh3zcrvp/Vjy2mcSOriHJ7dmbUuYLRF0Co+lFvEkDBSa8aa0jdTeQE4gkrJp2QktV39UN/Bs4N29/pDccklShLZDv61Wkzm/gYmhakvjUT1wrj8wQ9ePUkpwiLxY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=yaoyuan@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XDrTvp6_1793584248;
+Received: from localhost(mailfrom:yaoyuan@linux.alibaba.com fp:SMTPD_---0XDrTvp6_1793584248 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 09:50:48 +0800
+Date: Mon, 2 Nov 2026 09:50:48 +0800
+From: Yao Yuan <yaoyuan@linux.alibaba.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Yicong Yang <yangyicong@hisilicon.com>, Zhou Wang <wangzhou1@hisilicon.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] KVM: arm64: Enable ST64BV0 for guests with
+ FEAT_LS64_ACCDATA
+Message-ID: <qqspcqmrtdx6xj4efvaq6v36pmz7xks27dzev2qqmovq3kw6jp@vn5yptbp7hfs>
+References: <20261025075138.2919734-1-fuad.tabba@linux.dev>
+ <20261025075138.2919734-5-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,112 +67,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x6ApwphbQFNCmrOS"
-Content-Disposition: inline
-In-Reply-To: <CAFLszThVtOwXJ4GKv5fFPGWGy7EL63JrEU=yhByUccW6Vkq+=A@mail.gmail.com>
-
---x6ApwphbQFNCmrOS
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261025075138.2919734-5-fuad.tabba@linux.dev>
 
-On Fri, Oct 30, 2026 at 07:50:17AM -0500, Simon Glass wrote:
-> Hi Doug,
->=20
-> On 2026-10-28T21:46:49, Douglas Anderson <dianders@chromium.org> wrote:
-> > pylibfdt: Add subnode/property iterators and get_mem_rsv_list()
-> >
-> > Add Pythonic iterator helpers on `FdtRo` to simplify walking nodes,
-> > properties, and memory reservation entries without manual offset loops
-> > or `-FDT_ERR_NOTFOUND` sentinel handling:
-> >
-> > - `subnodes(nodeoffset)`: yields the offset of each direct child subnode
-> >   of `nodeoffset`.
-> > - `properties(nodeoffset)`: yields a `Property` object for each property
-> >   of `nodeoffset`.
-> > - `get_mem_rsv_list()`: returns a list of `(address, size)` tuples for
-> >   all entries in the memory reservation block.
-> >
-> > Assisted-by: Gemini:gemini-pro-prerelease
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> >
-> >  pylibfdt/libfdt.i       | 45 +++++++++++++++++++++++++++++++++++++++++=
-++++
-> >  tests/pylibfdt_tests.py | 18 ++++++++++++++++++
-> >  2 files changed, 63 insertions(+)
->=20
-> > diff --git a/pylibfdt/libfdt.i b/pylibfdt/libfdt.i
-> > @@ -201,6 +201,23 @@ class FdtRo(object):
-> > +        soff =3D self.first_subnode(nodeoffset, quiet=3DQUIET_NOTFOUND)
-> > +        while soff >=3D 0:
-> > +            yield soff
-> > +            soff =3D self.next_subnode(soff, quiet=3DQUIET_NOTFOUND)
->=20
-> Since Fdt inherits this generator, a caller can easily write 'for off
-> in fdt.subnodes(0): fdt.del_node(off)' and get garbage, because the
-> offsets move under it.
+On Sun, Oct 25, 2026 at 07:51:37AM +0800, Fuad Tabba wrote:
+> Since commit 58ce78667a641 ("arm64: Add support for FEAT_{LS64,
+> LS64_V}"), a guest sees the host's ID_AA64ISAR1_EL1.LS64, but KVM only
+> enables the FEAT_LS64 and FEAT_LS64_V instructions in HCRX_EL2. On a
+> host with FEAT_LS64_ACCDATA, a guest's ST64BV0 therefore traps and hits
+> the WARN_ON_ONCE() in handle_other().
+>
+> Set HCRX_EL2.EnAS0 when the guest has FEAT_LS64_ACCDATA, now that
+> ACCDATA_EL1 is context-switched.
+>
+> Fixes: 58ce78667a641 ("arm64: Add support for FEAT_{LS64, LS64_V}")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Right.  I noticed that, but merged anyway, since you can basically do
-the same thing with the existing interfaces.  By abstracting it
-further, this interface does arguably make the problem worse.  This is
-kind of a perennial problem with the Python bindings.  The libfdt
-interface is shaped by what is and isn't possible with the flattened
-format - the reason we insistently name "offsets" everywhere, rather
-than just "nodes" or "properties" is an attempt to inculcate the right
-mental model.  By abstracting things more, the Python bindings make it
-easier to miss that.
+lgtm.
 
-[Aside: one of the many projects I'll probably never find time for is
- to write a Rust-native libfdt, where the ownership model could be
- harnessed to enforce many of the required invariants]
+Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
 
-> Since David has applied this, please can you
-> send a follow-up noting in the docstring (here and in properties())
-> that the tree must not be modified while iterating, as with
-> fdt_for_each_subnode() in C?
-
-Right, adding a comment is probably a good idea.
-
-> > diff --git a/tests/pylibfdt_tests.py b/tests/pylibfdt_tests.py
-> > @@ -243,6 +243,22 @@ class PyLibfdtBasicTests(unittest.TestCase):
-> > +        leaf =3D self.fdt.path_offset('/subnode@1/ss1')
-> > +        self.assertEqual(list(self.fdt.subnodes(leaf)), [])
->=20
-> The docstrings say both iterators raise FdtException for a bad offset,
-> but nothing tests that. A test that list(self.fdt.subnodes(-1)) and
-> list(self.fdt.properties(-1)) raise, perhaps alongside
-> testFirstNextSubnodeOffsetExceptions, would be good, perhaps in the
-> same follow-up. Since these are generators, the exception only appears
-> on the first next(), not when the method is called.
->=20
-> Reviewed-by: Simon Glass <sjg@chromium.org>
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---x6ApwphbQFNCmrOS
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrn6+0ACgkQzQJF27ox
-2Gctew/+OiJ2e5xrfpdrmfiambPg91RD6NR/oOZLdGELob8d0s4Uo0KpXNGlqZXs
-SjEddpJ0srIMlNlABTVawtwPC/L9fS3yATYKkTyudX9jA/Z2krP/hW6/qfdTaDIy
-h9wyz4tDV06kZb2/ho9664QhSATXa7Lbex37kXcI27QqYN3FXjkDGonYKcynEbzI
-KA8AwGPJvNDnepI0L9KgHDKVNNwL4lG70j9dg5IIaq1Y9TIkthgAZMLsl3mkPuwo
-R318c8YnzpIMuiXRatjAZIbZi1zZSvHQP5MxZJ+bA+O5SFpBgzxluBTTBp70tTHF
-7ODNxitnHFceBVPZb2AT07UG8yLaNGX6m1tHoRpjWyGM65FwRD1mTxZu48sMc+ws
-jdcQCd2REAmMRXfHQvaZ7ZUYepdF5kqaC4vtRK5y+dDuXeS+dKS4TwO+ikXzzB7u
-GUi1uYGsEmwWGw0lHfCc9YD8sDw4dktErUewHUnBhL+m6bxkpoehrGxHMus2ko7e
-K4hnjfheJitfqecLXoh9FS8oRyJ/WLJZ5lkAdL2cYgu7pk/4Y0ACqfJqmkSEUL13
-boJtEGC/TjZWJSjgv5JkV+fg6qSzu2vCDoBAGJ+c0RmhDQ8AEhIQ4soLDFSW6xRs
-fm903uGYemqahkeS/2iD/ViyhQtRIm1fu8otQ6VyguoEaPJKpoU=
-=H1eg
------END PGP SIGNATURE-----
-
---x6ApwphbQFNCmrOS--
+> ---
+>  arch/arm64/include/asm/kvm_emulate.h | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
+> index a3c1928bdf743..d07f72082531c 100644
+> --- a/arch/arm64/include/asm/kvm_emulate.h
+> +++ b/arch/arm64/include/asm/kvm_emulate.h
+> @@ -712,6 +712,9 @@ static inline void vcpu_set_hcrx(struct kvm_vcpu *vcpu)
+>  		if (kvm_has_feat(kvm, ID_AA64ISAR1_EL1, LS64, LS64_V))
+>  			vcpu->arch.hcrx_el2 |= HCRX_EL2_EnASR;
+>
+> +		if (kvm_has_feat(kvm, ID_AA64ISAR1_EL1, LS64, LS64_ACCDATA))
+> +			vcpu->arch.hcrx_el2 |= HCRX_EL2_EnAS0;
+> +
+>  		/*
+>  		 * NV3 is a host-specific extension, and we always use
+>  		 * it when present and that the guest uses NV. It may
+> --
+> 2.47.3
+>
