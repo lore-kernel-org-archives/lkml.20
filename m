@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793663004;
-	b=DeMZyejbTGStMHFX8d1Viw3Hs/1v59H+Jwh/u+5thZjaJKIoPIUFSkNglyXhYW2f3Yf1
-	 cdi1da94/+uCYNlLMPmmNM3nG3VW/9dLfg6sn9NFNc+bB19vyAnAHFGyJX12ye83IoKTm
-	 Y8UwBJXOjAdQzBHeIXepVB9zpDePNQRpVuNXQi4V/OXdpHJVLsl8XSQxHqAhkNs8vv4g2
-	 FHqpPGmfbYTyB+GemEmNNs6Sajg6T9t98JDZhYGqXPfSSuwy6QVXncmJdosq38vOVe7DT
-	 A3fYsEuhje4sVPknSqXKt2GJWtPQBcKNkDzqn4pNTo1Lliir9n+ZX9jTVyA99Z6oElg==
+	t=1793663025;
+	b=HaBP337UmHXtsApYmXL8tkm4lHYu7UkbQdGOj6AGmPXYjfFWpVfVIviFwpudMe6v/hXo
+	 etb+NiC0FfxtvupP6P+ct0sPrZxHgiloIzTNT0PmNz7Emkupc5lvcnJikMpwLdhbtTW9T
+	 J+U9VP7WLhdBS0d2EA2eB7pIdtmbggjLhgZMjqo23Mp5T6ix6G8/GuArHhS8RSYzmydyh
+	 MqByMzgykHLnO++r/P7QaJUR8gaeGUOjrPE8tU/66t4uXzKtsIynvdtEcD2xAHzzQ8Hl3
+	 21sjHFiEI3u7613Jwxrs86u2+RGJ64GBfC1MlSPPiAIQXDT1VzS5MnDbgMNrK9XUjMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793663004;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=iW1jHeD6LfP09QZRz308ADKG9DMznSnn7QotCcpmuLc=;
-	b=euVGsJ/iRId4abKPsj1IfKzzQoBRpxsW8eraVkSUGcPwelPUXW8RxhS1QwbytyF3PbxN
-	 JpE73yjLjWRSCIpyf5cymuUNOJlbU9fuOOB3eDWdDMWkaGg6St6uDDnPCydbbIXxy07n2
-	 TyFIcCNzlP4mMyJZzTlurM/Xf+bWBBYBdLihLKJZUWNahW95Px3XtuNmfxEzAtM3SR3l2
-	 iaGRcRklExr/KSspAJ6hTq1pAFdQ14wF3FxnKH9nN9i9yuGMo4MzDv2ThvRTC2FFocfnk
-	 uiFeLrAljfzcO8iqgAYZQUHaGlO/ubbOGBqJUkapBDJo9ZUfoA9oKWCph0giUXyKM7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793663025;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=AwLIGZfZw/5o+dOtzSU684ACh8V5MINOHpM2KEP51MQ=;
+	b=Hojy5rgeF0MYsVN7Lajgokq5tJoYqk+yo2chrg518lDiU2GklzY8fqIT8AP+pkw79pO1
+	 cl+p20ccpU6wjXlior/MBw2QOQhmP27A2YqbF+CdyCv4leB7y3RnZz8618SnRKr2we50f
+	 mcaFN8VAf9DMF9/ki73ux4ruTBU46A+yoqqd96vE88jwxKFwGRjGyYhjfPT6R7OZ1LTWh
+	 YMkHCixvjpUzJSSdd97suu+fgaEoFlMvZjHkFCn8+y+ZZcvaKCHax9PX3tdnfZ3GL5ZRV
+	 ai7aJunFRp98ZgJUJI2tcsJWYZ903gOx51LaL79tRBQRD3NZGGargwzlYfEW33VoOFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=No5HfH8m;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcUniiSB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D32F606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:43:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D32F606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4735606A324;
+	Mon,  2 Nov 2026 23:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=No5HfH8m
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso8011588eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:43:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793663002; x=1794267802; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iW1jHeD6LfP09QZRz308ADKG9DMznSnn7QotCcpmuLc=;
-        b=No5HfH8mEmgCX1PQcj8V5/QQw2q1iGLUpN4WojMPW49gTmoiMPldc6YnjUd1aviYXR
-         021sMJ4KmoegjjauZ0JLu8YewNnGJJy316mWMLbic5F0YilVuo1rgQwDPNUAhTgbNjUu
-         1HoQ8ayGFyQdy078CXLJdcxUbABl2W7g4FZjJsLadSJ8ImOUCFFK01G0W/KrrCFEvIC6
-         vp1U+11IPqv9dE3kgLs4IgF/4nIO4y8zxZNM+7l3TclXTKLim59XKTgzVgDNtOBpM7pT
-         YEGSeat39HePsYtgXk4+1MtPyhy2BYnf4bnFukpZn189huUgYedcPMq/IOKsoGu40s4V
-         2yew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793663002; x=1794267802;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iW1jHeD6LfP09QZRz308ADKG9DMznSnn7QotCcpmuLc=;
-        b=0plA2jAi7iFuOn5qgBsMWpJLZi6BalFKrGwxqAXTztSXQ4XDAG1dn9rVUBfiDwmFTX
-         9wlCJflfE46GJ/nLJLuUeZhiuPU5sWIRLQt+3ow2nWNQpJz2NXX8dsuq2GCjOohaL1YI
-         vcMm+kSikDb7NLakCY+rgsCB8eqh4snj23sp3MzG3eIPSBlo7vE+/iivw4yS3W8dgFfX
-         vD2tOzCfAcZU2faBbWjE0yG734jf+/p0WoFg1o6yPa/SH0uwp8tKEJ1f3yGp/Ws0W++i
-         FnMy6n2RAQO6vJ/8lqPJyjnjcgsu9q/2JnOuz7JCDtiZr5yRc5sWR2dpq+8jh9GPQzpl
-         nUmA==
-X-Forwarded-Encrypted: i=1; AKwUvBzxEzV3HW9SldCHylm3vQZTEx6FwXfywa3PeUF2ofbHkgxj1WKfQmb2XMEjJtmfSpGJEkwVju49cVfqvC8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8b36d18HgR2qSoaLMf0tzPsfzyp6T6WR4+QpnKAJ9w/PUwqPwg
-	ug618xU1ruXG2pUjy7Wlv1zPmJCfSzdRckz1VW2+976uA8LGMn6K1O9pe5HpPTOUxKi9FA1ufzP
-	/bHtxoZ9s0A==
-X-Received: from dyah26-n2.prod.google.com ([2002:a05:693c:83da:20b0:366:badf:c468])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:82a:b0:351:dbc:b663
- with SMTP id 5a478bee46e88-36a4244f9f6mr19682324eec.31.1793663001732; Mon, 02
- Nov 2026 15:43:21 -0800 (PST)
-Date: Mon,  2 Nov 2026 15:43:01 -0800
-In-Reply-To: <20261102234301.2242242-1-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcUniiSB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D005B1F00A16;
+	Mon,  2 Nov 2026 23:43:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793663024;
+	bh=AwLIGZfZw/5o+dOtzSU684ACh8V5MINOHpM2KEP51MQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GcUniiSBAfF70k8fPOvu13liULpxTkd9TmWsVN3/LaKgDmTf7cA465gfHPwP3maj5
+	 YdEiV2DQ1vrGOvvylNCtU2e8zcV4mC9GWS+1T9aEVHgDUJ8L3mr2EmuzoGaFed3dPK
+	 yTK8V8ARUqgQDAI/b399GTq5g6shQj1ESCi3Pfdgq+8iSQzl6O5XpwVNxBSIwssBsa
+	 9Dkp6UPk9U08DMpPllwQe01gfl7yw+HHk6FmtOTldFXuYgfEwibbrJumxjGlwKVa6C
+	 UWj+OhfH7Q9EkSLITGxjsMImir4pbI9/ZRhzIN8e/FQ+1nELX1rt50So8J87Zi6eMu
+	 zgqjlyZO6TmaQ==
+Subject: Re: [PATCH net 1/5] nfc: nci: don't drop data received on HCI and
+ loopback connections
+From: netdev-bot+sashiko@kernel.org
+To: joasantonio108@gmail.com
+Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, kipreyyy@gmail.com,
+ sanghyun.park.cnu@gmail.com, oe-linux-nfc@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 02 Nov 2026 23:43:43 +0000
+Message-ID: <179366302337.488856.9811166362114360611@kernel.org>
+In-Reply-To: <179331585573.30322.8986243734262725676@gmail.com>
+References: <179331585573.30322.8986243734262725676@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,1464 +63,296 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261102234301.2242242-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261102234301.2242242-4-irogers@google.com>
-Subject: [PATCH v15 3/3] perf: Add Raspberry Pi 5 (BCM2712) AXI PMU support
-From: Ian Rogers <irogers@google.com>
-To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Dom Cobley <popcornmix@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, 
-	"=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=" <u.kleine-koenig@baylibre.com>, Stefan Wahren <wahrenst@gmx.net>, 
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
-	bcm-kernel-feedback-list@broadcom.com, linux-perf-users@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-Extend the Raspberry Pi AXI PMU driver to support the Broadcom BCM2712
-used in the Raspberry Pi 5.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-As on earlier chips, the System monitor is accessed directly via MMIO
-and the VPU monitor via the firmware mailbox. BCM2712 has 6-bit AXI
-master IDs.
+Critical: 0 · High: 0 (2) · Medium: 2 (3) · Low: 0
 
-The System bus names in Broadcom's documentation describe the set-top
-box variant of the chip, so they were checked by measurement on C0 and
-D0 boards. RP1 traffic (PCIe2) appears on the port documented as
-BSTM_TOP, SD/eMMC with DMA0 and DMA1 on the one documented as SRC, and
-the WiFi SDIO controller on the one documented as ARB3; these are named
-rp1, sd_dma and sdio_wifi here.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-From BCM2712 D0, three System monitor ports (XPT, PCIE_01 and HVDP) are
-removed and the remaining ones renumbered, with the external PCIe moving
-to the ARGON_TOP port. The bus watchers also match a full AXI ID under a
-mask: 10-bit ID and mask fields on the System monitor, and 6-bit fields
-holding the master ID directly on the VPU monitor. D0 is detected at
-probe by whether the ID mask field is writable, and selects its own bus
-table and filter encoding.
+- [Medium] Three completion paths pass ndev->cur_conn_id where they
+  should pass the RF connection id, and after this patch that can leave…
+- [Medium] After this patch, completions on non-RF connections still tear
+  down the RF exchange's timeout state but no longer release…
 
-Co-developed-by: Dom Cobley <popcornmix@gmail.com>
-Signed-off-by: Dom Cobley <popcornmix@gmail.com>
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- .../admin-guide/perf/rpi-axi-pmu.rst          |   35 +-
- drivers/perf/Kconfig                          |    2 +-
- drivers/perf/rpi_axi_pmu.c                    | 1230 ++++++++++++++++-
- 3 files changed, 1262 insertions(+), 5 deletions(-)
+Pre-existing issues:
+- [High] HCI work can use the device after it is freed during teardown.
+- [High] At the target commit, this patch lets NFCC data on the HCI
+  connection reach nci_hci_data_received_cb() and nci_hci_msg_rx_work()…
+- [Medium] nci_nfcc_loopback_cb() (net/nfc/nci/core.c:409-423) ignores
+  err, stores the skb (possibly NULL) in conn_info->rx_skb, and…
+- [Medium] This patch makes the conn_info->rx_skb lifecycle reachable
+  again.
+- [Medium] For an HCP RESPONSE, nci_hci_hcp_message_rx() completes the
+  request twice.
 
-diff --git a/Documentation/admin-guide/perf/rpi-axi-pmu.rst b/Documentation/admin-guide/perf/rpi-axi-pmu.rst
-index d47ac3d6f2c2..596a35f94805 100644
---- a/Documentation/admin-guide/perf/rpi-axi-pmu.rst
-+++ b/Documentation/admin-guide/perf/rpi-axi-pmu.rst
-@@ -4,8 +4,8 @@
- Broadcom Raspberry Pi AXI Performance Monitoring Unit (PMU)
- ==============================================================
- 
--Broadcom BCM2835 and BCM2711 SoCs used in Raspberry Pi boards include two AXI
--bus-watcher performance monitor blocks:
-+Broadcom BCM2835, BCM2711, and BCM2712 SoCs used in Raspberry Pi boards include
-+two AXI bus-watcher performance monitor blocks:
- 
- - **System monitor** (``monitor=0``): Observes the primary System AXI fabric
-   and is read directly via MMIO.
-@@ -51,6 +51,7 @@ Counter Suffix   Width  Description
- 7       rtrans   32-bit Read data beats
- 8       rmax     28-bit Maximum read transaction latency (cycles)
- 9       rpend    8-bit  Pending read transactions (instantaneous level)
-+10      ratrans  32-bit Read address transactions (BCM2712 only)
- ======= ======== ====== =======================================================
- 
- Level Counters (``*max`` and ``rpend``)
-@@ -110,6 +111,36 @@ BCM2711
-   (8), ``PCIE`` (9), ``DMA2`` (18), ``GIGE`` (23), ``GISB_AXI`` (28),
-   ``ARM`` (30), and ``EMMCSTB`` (31).
- 
-+BCM2712 (C0 and D0)
-+-------------------
-+
-+BCM2712 D0 removes three unused set-top-box System fabric ports (``xpt``,
-+``pcie_01``, and ``hvdp``) and renumbers the remaining ports; the driver
-+detects D0 at probe time via the bus-watcher AXI ID mask field and exposes the
-+matching sysfs event table.
-+
-+- **BCM2712 C0 System buses (0..12):** ``vpu_uc`` (0), ``display_top`` (1),
-+  ``v3d`` (2), ``arm`` (3), ``xpt`` (4), ``rp1`` (5), ``pcie_01`` (6),
-+  ``argon_top`` (7), ``sdio_wifi`` (8), ``sd_dma`` (9), ``hvdp`` (10),
-+  ``per`` (11), ``system_l2`` (12).
-+- **BCM2712 D0 System buses (0..9):** ``vpu_uc`` (0), ``display_top`` (1),
-+  ``v3d`` (2), ``arm`` (3), ``rp1`` (4), ``argon_top`` (5), ``sdio_wifi`` (6),
-+  ``sd_dma`` (7), ``per`` (8), ``system_l2`` (9).
-+- **VPU buses (0..13):** Same ``0..13`` layout as BCM2711.
-+- **6-bit AXI master ID filters (1..63):** ``VPU_UC0`` (1), ``VPU_IC0`` (2),
-+  ``VPU_DC0`` (3), ``VPU_UC1`` (4), ``VPU_IC1`` (5), ``VPU_DC1`` (6),
-+  ``VPU_L2`` (8), ``DMA2`` (9), ``VPU_DEBUG`` (10), ``ARM`` (11),
-+  ``DMA0`` (12), ``DMA1`` (13), ``RAAGA`` (14), ``BBSI`` (16), ``PCIE0`` (18),
-+  ``PCIE1`` (19), ``PCIE2`` (20, RP1), ``UMR`` (27), ``SAGE`` (28),
-+  ``HVDP`` (29), ``BSP`` (30), ``HVS`` (32), ``HVS_WMK`` (33), ``MOP0`` (34),
-+  ``MOP1`` (35), ``MBVN`` (36), ``DSI`` (37), ``XPT`` (38), ``EMMC0`` (39,
-+  WiFi), ``GENET`` (40), ``USB`` (41), ``ARGON`` (42), ``UNICAM`` (43),
-+  ``PISP`` (44), ``PISPFE`` (45), ``JPEG`` (46), ``EMMC1`` (47),
-+  ``EMMC2`` (48, SD card), ``TRC`` (52), ``BSTM0`` (53), ``BSTM1`` (54),
-+  ``BSTM0_SEC`` (55), ``BSTM1_SEC`` (56), ``AIO`` (57), ``MAP`` (58),
-+  ``SYS_DMA`` (59), ``MMUCACHE0`` (60), ``MMUCACHE1`` (61),
-+  ``MPUCACHE0`` (62), ``MPUCACHE1`` (63).
-+
- Examples
- ========
- 
-diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
-index c1d7d64caba2..a84feca1e8ba 100644
---- a/drivers/perf/Kconfig
-+++ b/drivers/perf/Kconfig
-@@ -333,7 +333,7 @@ config RPI_AXI_PMU
- 	help
- 	  Enable support for the Raspberry Pi AXI Performance Monitor.
- 	  This provides access to the System and VideoCore performance
--	  counters on Broadcom BCM2835 and BCM2711 platforms.
-+	  counters on Broadcom BCM2835, BCM2711, and BCM2712 platforms.
- 
- 	  The System monitor is read directly via MMIO, while the VideoCore
- 	  VPU monitor is polled every 100ms via the Raspberry Pi firmware
-diff --git a/drivers/perf/rpi_axi_pmu.c b/drivers/perf/rpi_axi_pmu.c
-index f194b8633e43..3135bbcfeb61 100644
---- a/drivers/perf/rpi_axi_pmu.c
-+++ b/drivers/perf/rpi_axi_pmu.c
-@@ -62,10 +62,12 @@
-  * enum rpi_axi_chip - Supported Broadcom SoC generations
-  * @CHIP_BCM2835: BCM2835 / BCM2836 / BCM2837 (RPi 1-3, CM 1-3, Zero/W)
-  * @CHIP_BCM2711: BCM2711 (RPi 4, CM 4)
-+ * @CHIP_BCM2712: BCM2712 (RPi 5, CM 5)
-  */
- enum rpi_axi_chip {
- 	CHIP_BCM2835 = 0,
- 	CHIP_BCM2711,
-+	CHIP_BCM2712,
- };
- 
- /**
-@@ -123,6 +125,68 @@ enum bcm2835_system_bus {
- 	BCM2835_SB_MAX,
- };
- 
-+/**
-+ * enum bcm2712_system_bus - AXI buses monitored by the system monitor on BCM2712 C0 (RPi 5)
-+ * @BCM2712_SB_VPU_UC: VPU uncached bus
-+ * @BCM2712_SB_DISPLAY_TOP: Display (HVS) bus
-+ * @BCM2712_SB_V3D: V3D GPU bus
-+ * @BCM2712_SB_ARM: Arm CPU cluster bus
-+ * @BCM2712_SB_XPT: XPT bus (unused on Raspberry Pi)
-+ * @BCM2712_SB_RP1: RP1 south bridge on PCIe2 (BSTM_TOP in Broadcom documentation)
-+ * @BCM2712_SB_PCIE_01: External PCIe bus
-+ * @BCM2712_SB_ARGON_TOP: HEVC decoder and PiSP back end bus
-+ * @BCM2712_SB_SDIO_WIFI: WiFi SDIO controller bus (ARB3 in Broadcom documentation)
-+ * @BCM2712_SB_SD_DMA: SD/eMMC, DMA0 and DMA1 bus (SRC in Broadcom documentation)
-+ * @BCM2712_SB_HVDP: HVDP bus (unused on Raspberry Pi)
-+ * @BCM2712_SB_PER: Peripheral access bus
-+ * @BCM2712_SB_SYSTEM_L2: System L2 cache bus
-+ * @BCM2712_SB_MAX: Number of buses
-+ */
-+enum bcm2712_system_bus {
-+	BCM2712_SB_VPU_UC = 0,
-+	BCM2712_SB_DISPLAY_TOP = 1,
-+	BCM2712_SB_V3D = 2,
-+	BCM2712_SB_ARM = 3,
-+	BCM2712_SB_XPT = 4,
-+	BCM2712_SB_RP1 = 5,
-+	BCM2712_SB_PCIE_01 = 6,
-+	BCM2712_SB_ARGON_TOP = 7,
-+	BCM2712_SB_SDIO_WIFI = 8,
-+	BCM2712_SB_SD_DMA = 9,
-+	BCM2712_SB_HVDP = 10,
-+	BCM2712_SB_PER = 11,
-+	BCM2712_SB_SYSTEM_L2 = 12,
-+	BCM2712_SB_MAX,
-+};
-+
-+/**
-+ * enum bcm2712d0_system_bus - AXI buses monitored by the system monitor on BCM2712 D0 and later
-+ * @BCM2712D0_SB_VPU_UC: VPU uncached bus
-+ * @BCM2712D0_SB_DISPLAY_TOP: Display (HVS) bus
-+ * @BCM2712D0_SB_V3D: V3D GPU bus
-+ * @BCM2712D0_SB_ARM: Arm CPU cluster bus
-+ * @BCM2712D0_SB_RP1: RP1 south bridge on PCIe2
-+ * @BCM2712D0_SB_ARGON_TOP: HEVC decoder, PiSP back end and external PCIe bus
-+ * @BCM2712D0_SB_SDIO_WIFI: WiFi SDIO controller bus
-+ * @BCM2712D0_SB_SD_DMA: SD/eMMC, DMA0 and DMA1 bus
-+ * @BCM2712D0_SB_PER: Peripheral access bus
-+ * @BCM2712D0_SB_SYSTEM_L2: System L2 cache bus
-+ * @BCM2712D0_SB_MAX: Number of buses
-+ */
-+enum bcm2712d0_system_bus {
-+	BCM2712D0_SB_VPU_UC = 0,
-+	BCM2712D0_SB_DISPLAY_TOP = 1,
-+	BCM2712D0_SB_V3D = 2,
-+	BCM2712D0_SB_ARM = 3,
-+	BCM2712D0_SB_RP1 = 4,
-+	BCM2712D0_SB_ARGON_TOP = 5,
-+	BCM2712D0_SB_SDIO_WIFI = 6,
-+	BCM2712D0_SB_SD_DMA = 7,
-+	BCM2712D0_SB_PER = 8,
-+	BCM2712D0_SB_SYSTEM_L2 = 9,
-+	BCM2712D0_SB_MAX,
-+};
-+
- /**
-  * enum bcm2835_vpu_bus - AXI buses monitored by VPU Monitor on BCM2835 (RPi 1-3)
-  * @BCM2835_VB_VPU1_D_L2: VideoCore VPU Core 1 Data L2 cache bus
-@@ -403,6 +467,116 @@ enum bcm2711_filter {
- 	BCM2711_FLT_MAX,
- };
- 
-+/**
-+ * enum bcm2712_filter - AXI master ID filter options for BCM2712 (RPi 5)
-+ * @BCM2712_FLT_0: Disable master ID filtering (monitor all traffic on bus)
-+ * @BCM2712_FLT_VPU_UC0: VPU Uncached 0 master ID
-+ * @BCM2712_FLT_VPU_IC0: VPU I-Cache 0 master ID
-+ * @BCM2712_FLT_VPU_DC0: VPU D-Cache 0 master ID
-+ * @BCM2712_FLT_VPU_UC1: VPU Uncached 1 master ID
-+ * @BCM2712_FLT_VPU_IC1: VPU I-Cache 1 master ID
-+ * @BCM2712_FLT_VPU_DC1: VPU D-Cache 1 master ID
-+ * @BCM2712_FLT_VPU_L2: VPU L2 Cache master ID
-+ * @BCM2712_FLT_DMA2: DMA2 master ID
-+ * @BCM2712_FLT_VPU_DEBUG: VPU Debug master ID
-+ * @BCM2712_FLT_ARM: Arm Quad-Core CPU Cluster master ID
-+ * @BCM2712_FLT_DMA0: DMA0 master ID
-+ * @BCM2712_FLT_DMA1: DMA1 master ID
-+ * @BCM2712_FLT_RAAGA: RAAGA Audio Engine master ID
-+ * @BCM2712_FLT_BBSI: BBSI master ID
-+ * @BCM2712_FLT_PCIE0: PCIe 0 master ID
-+ * @BCM2712_FLT_PCIE1: PCIe 1 master ID
-+ * @BCM2712_FLT_PCIE2: PCIe 2 (RP1) master ID
-+ * @BCM2712_FLT_UMR: UMR master ID
-+ * @BCM2712_FLT_SAGE: SAGE master ID
-+ * @BCM2712_FLT_HVDP: HVDP master ID
-+ * @BCM2712_FLT_BSP: BSP master ID
-+ * @BCM2712_FLT_HVS: Hardware Video Scaler (HVS) display engine master ID
-+ * @BCM2712_FLT_HVS_WMK: HVS Watermark master ID
-+ * @BCM2712_FLT_MOP0: MOP0 master ID
-+ * @BCM2712_FLT_MOP1: MOP1 master ID
-+ * @BCM2712_FLT_MBVN: MBVN master ID
-+ * @BCM2712_FLT_DSI: DSI Display Interface master ID
-+ * @BCM2712_FLT_XPT: XPT master ID
-+ * @BCM2712_FLT_EMMC0: SD/eMMC Controller 0 master ID
-+ * @BCM2712_FLT_GENET: Gigabit Ethernet Controller master ID
-+ * @BCM2712_FLT_USB: USB Controller master ID
-+ * @BCM2712_FLT_ARGON: Argon master ID
-+ * @BCM2712_FLT_UNICAM: Unicam master ID
-+ * @BCM2712_FLT_PISP: ISP master ID
-+ * @BCM2712_FLT_PISPFE: ISP Front End master ID
-+ * @BCM2712_FLT_JPEG: JPEG decoder master ID
-+ * @BCM2712_FLT_EMMC1: SD/eMMC 1 master ID
-+ * @BCM2712_FLT_EMMC2: SD/eMMC 2 master ID
-+ * @BCM2712_FLT_TRC: TRC master ID
-+ * @BCM2712_FLT_BSTM0: BSTM0 master ID
-+ * @BCM2712_FLT_BSTM1: BSTM1 master ID
-+ * @BCM2712_FLT_BSTM0_SEC: BSTM0 Secure master ID
-+ * @BCM2712_FLT_BSTM1_SEC: BSTM1 Secure master ID
-+ * @BCM2712_FLT_AIO: AIO master ID
-+ * @BCM2712_FLT_MAP: MAP master ID
-+ * @BCM2712_FLT_SYS_DMA: System DMA master ID
-+ * @BCM2712_FLT_MMUCACHE0: MMU Cache 0 master ID
-+ * @BCM2712_FLT_MMUCACHE1: MMU Cache 1 master ID
-+ * @BCM2712_FLT_MPUCACHE0: MPU Cache 0 master ID
-+ * @BCM2712_FLT_MPUCACHE1: MPU Cache 1 master ID
-+ * @BCM2712_FLT_MAX: Maximum filter ID count for BCM2712
-+ */
-+enum bcm2712_filter {
-+	BCM2712_FLT_0 = 0,
-+	BCM2712_FLT_VPU_UC0 = 1,
-+	BCM2712_FLT_VPU_IC0 = 2,
-+	BCM2712_FLT_VPU_DC0 = 3,
-+	BCM2712_FLT_VPU_UC1 = 4,
-+	BCM2712_FLT_VPU_IC1 = 5,
-+	BCM2712_FLT_VPU_DC1 = 6,
-+	BCM2712_FLT_VPU_L2 = 8,
-+	BCM2712_FLT_DMA2 = 9,
-+	BCM2712_FLT_VPU_DEBUG = 10,
-+	BCM2712_FLT_ARM = 11,
-+	BCM2712_FLT_DMA0 = 12,
-+	BCM2712_FLT_DMA1 = 13,
-+	BCM2712_FLT_RAAGA = 14,
-+	BCM2712_FLT_BBSI = 16,
-+	BCM2712_FLT_PCIE0 = 18,
-+	BCM2712_FLT_PCIE1 = 19,
-+	BCM2712_FLT_PCIE2 = 20,
-+	BCM2712_FLT_UMR = 27,
-+	BCM2712_FLT_SAGE = 28,
-+	BCM2712_FLT_HVDP = 29,
-+	BCM2712_FLT_BSP = 30,
-+	BCM2712_FLT_HVS = 32,
-+	BCM2712_FLT_HVS_WMK = 33,
-+	BCM2712_FLT_MOP0 = 34,
-+	BCM2712_FLT_MOP1 = 35,
-+	BCM2712_FLT_MBVN = 36,
-+	BCM2712_FLT_DSI = 37,
-+	BCM2712_FLT_XPT = 38,
-+	BCM2712_FLT_EMMC0 = 39,
-+	BCM2712_FLT_GENET = 40,
-+	BCM2712_FLT_USB = 41,
-+	BCM2712_FLT_ARGON = 42,
-+	BCM2712_FLT_UNICAM = 43,
-+	BCM2712_FLT_PISP = 44,
-+	BCM2712_FLT_PISPFE = 45,
-+	BCM2712_FLT_JPEG = 46,
-+	BCM2712_FLT_EMMC1 = 47,
-+	BCM2712_FLT_EMMC2 = 48,
-+	BCM2712_FLT_TRC = 52,
-+	BCM2712_FLT_BSTM0 = 53,
-+	BCM2712_FLT_BSTM1 = 54,
-+	BCM2712_FLT_BSTM0_SEC = 55,
-+	BCM2712_FLT_BSTM1_SEC = 56,
-+	BCM2712_FLT_AIO = 57,
-+	BCM2712_FLT_MAP = 58,
-+	BCM2712_FLT_SYS_DMA = 59,
-+	BCM2712_FLT_MMUCACHE0 = 60,
-+	BCM2712_FLT_MMUCACHE1 = 61,
-+	BCM2712_FLT_MPUCACHE0 = 62,
-+	BCM2712_FLT_MPUCACHE1 = 63,
-+	BCM2712_FLT_MAX = 64,
-+};
-+
- /* Hardware register offsets & control bitwise constants */
- #define GEN_CTRL			0x00
- #define GEN_CTL_ENABLE_BIT		BIT(0)
-@@ -440,6 +614,13 @@ enum bcm2711_filter {
- #define BW_CTRL_BUS_WATCH_MASK		GENMASK(4, 0)
- #define BW_CTRL_BUS_FILTER_SHIFT	8
- #define BW_CTRL_BUS_FILTER_MASK		GENMASK(12, 8)
-+#define BW_CTRL_2712_FILTER_MASK	GENMASK(13, 8)
-+#define BW_CTRL_AXI_ID			GENMASK(17, 8)
-+#define BW_CTRL_AXI_ID_MASK		GENMASK(27, 18)
-+#define AXI_ID_MASTER			GENMASK(8, 3)
-+/* The D0 VPU monitor has a 6-bit ID holding the master directly, with its own mask */
-+#define BW_CTRL_VPU_ID			GENMASK(13, 8)
-+#define BW_CTRL_VPU_ID_MASK		GENMASK(23, 18)
- 
- /*
-  * RPI_AXI_PMU_TIMER_INTERVAL determines the background polling frequency
-@@ -612,6 +793,7 @@ static int rpi_axi_hw_events__get_alloc_event_idx(struct rpi_axi_hw_events *hw_e
-  * @pmu: Core Linux perf PMU structure
-  * @pdev: Owning platform_device pointer
-  * @chip: Detected Broadcom SoC generation (CHIP_BCM2835)
-+ * @axi_id_mask: Bus watchers match a full AXI ID under a mask (BCM2712 D0)
-  * @firmware: Raspberry Pi firmware handle for VideoCore mailbox calls (BCM2835-BCM2711)
-  * @cpu: CPU core assigned to process uncore PMU events
-  * @cpuhp_node: Dynamic CPU hotplug instance node
-@@ -628,6 +810,7 @@ struct rpi_axi_pmu {
- 	struct pmu		pmu;
- 	struct platform_device	*pdev;
- 	enum rpi_axi_chip	chip;
-+	bool			axi_id_mask;
- 	struct rpi_firmware	*firmware;
- 	int			cpu;
- 	struct hlist_node	cpuhp_node;
-@@ -690,6 +873,15 @@ static bool config_is_valid(struct rpi_axi_pmu *pmu, __u64 config)
- 		if (filter >= BCM2711_FLT_MAX)
- 			return false;
- 		break;
-+	case CHIP_BCM2712:
-+		if (mon == MON_SYSTEM &&
-+		    bus >= (pmu->axi_id_mask ? BCM2712D0_SB_MAX : BCM2712_SB_MAX))
-+			return false;
-+		if (mon == MON_VPU && bus >= BCM2711_VB_MAX)
-+			return false;
-+		if (filter >= BCM2712_FLT_MAX)
-+			return false;
-+		break;
- 	}
- 
- 	return counter < CNT_MAX;
-@@ -1910,6 +2102,995 @@ static const struct attribute_group rpi_axi_pmu_bcm2711_events_group = {
- 	.is_visible = rpi_axi_pmu_events_is_visible,
- };
- 
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_atwait, bcm2712_vpu_vpu1_d_l2_atwait, "monitor=1,bus=0,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_atrans, bcm2712_vpu_vpu1_d_l2_atrans, "monitor=1,bus=0,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_amax, bcm2712_vpu_vpu1_d_l2_amax, "monitor=1,bus=0,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_wwait, bcm2712_vpu_vpu1_d_l2_wwait, "monitor=1,bus=0,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_wtrans, bcm2712_vpu_vpu1_d_l2_wtrans, "monitor=1,bus=0,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_wmax, bcm2712_vpu_vpu1_d_l2_wmax, "monitor=1,bus=0,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_rwait, bcm2712_vpu_vpu1_d_l2_rwait, "monitor=1,bus=0,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_rtrans, bcm2712_vpu_vpu1_d_l2_rtrans, "monitor=1,bus=0,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_rmax, bcm2712_vpu_vpu1_d_l2_rmax, "monitor=1,bus=0,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_rpend, bcm2712_vpu_vpu1_d_l2_rpend, "monitor=1,bus=0,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_l2_ratrans, bcm2712_vpu_vpu1_d_l2_ratrans, "monitor=1,bus=0,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_atwait, bcm2712_vpu_vpu0_d_l2_atwait, "monitor=1,bus=1,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_atrans, bcm2712_vpu_vpu0_d_l2_atrans, "monitor=1,bus=1,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_amax, bcm2712_vpu_vpu0_d_l2_amax, "monitor=1,bus=1,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_wwait, bcm2712_vpu_vpu0_d_l2_wwait, "monitor=1,bus=1,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_wtrans, bcm2712_vpu_vpu0_d_l2_wtrans, "monitor=1,bus=1,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_wmax, bcm2712_vpu_vpu0_d_l2_wmax, "monitor=1,bus=1,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_rwait, bcm2712_vpu_vpu0_d_l2_rwait, "monitor=1,bus=1,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_rtrans, bcm2712_vpu_vpu0_d_l2_rtrans, "monitor=1,bus=1,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_rmax, bcm2712_vpu_vpu0_d_l2_rmax, "monitor=1,bus=1,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_rpend, bcm2712_vpu_vpu0_d_l2_rpend, "monitor=1,bus=1,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_l2_ratrans, bcm2712_vpu_vpu0_d_l2_ratrans, "monitor=1,bus=1,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_atwait, bcm2712_vpu_vpu1_i_l2_atwait, "monitor=1,bus=2,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_atrans, bcm2712_vpu_vpu1_i_l2_atrans, "monitor=1,bus=2,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_amax, bcm2712_vpu_vpu1_i_l2_amax, "monitor=1,bus=2,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_wwait, bcm2712_vpu_vpu1_i_l2_wwait, "monitor=1,bus=2,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_wtrans, bcm2712_vpu_vpu1_i_l2_wtrans, "monitor=1,bus=2,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_wmax, bcm2712_vpu_vpu1_i_l2_wmax, "monitor=1,bus=2,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_rwait, bcm2712_vpu_vpu1_i_l2_rwait, "monitor=1,bus=2,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_rtrans, bcm2712_vpu_vpu1_i_l2_rtrans, "monitor=1,bus=2,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_rmax, bcm2712_vpu_vpu1_i_l2_rmax, "monitor=1,bus=2,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_rpend, bcm2712_vpu_vpu1_i_l2_rpend, "monitor=1,bus=2,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_l2_ratrans, bcm2712_vpu_vpu1_i_l2_ratrans, "monitor=1,bus=2,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_atwait, bcm2712_vpu_vpu0_i_l2_atwait, "monitor=1,bus=3,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_atrans, bcm2712_vpu_vpu0_i_l2_atrans, "monitor=1,bus=3,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_amax, bcm2712_vpu_vpu0_i_l2_amax, "monitor=1,bus=3,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_wwait, bcm2712_vpu_vpu0_i_l2_wwait, "monitor=1,bus=3,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_wtrans, bcm2712_vpu_vpu0_i_l2_wtrans, "monitor=1,bus=3,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_wmax, bcm2712_vpu_vpu0_i_l2_wmax, "monitor=1,bus=3,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_rwait, bcm2712_vpu_vpu0_i_l2_rwait, "monitor=1,bus=3,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_rtrans, bcm2712_vpu_vpu0_i_l2_rtrans, "monitor=1,bus=3,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_rmax, bcm2712_vpu_vpu0_i_l2_rmax, "monitor=1,bus=3,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_rpend, bcm2712_vpu_vpu0_i_l2_rpend, "monitor=1,bus=3,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_l2_ratrans, bcm2712_vpu_vpu0_i_l2_ratrans, "monitor=1,bus=3,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_atwait, bcm2712_vpu_system_l2_atwait, "monitor=1,bus=4,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_atrans, bcm2712_vpu_system_l2_atrans, "monitor=1,bus=4,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_amax, bcm2712_vpu_system_l2_amax, "monitor=1,bus=4,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_wwait, bcm2712_vpu_system_l2_wwait, "monitor=1,bus=4,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_wtrans, bcm2712_vpu_system_l2_wtrans, "monitor=1,bus=4,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_wmax, bcm2712_vpu_system_l2_wmax, "monitor=1,bus=4,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_rwait, bcm2712_vpu_system_l2_rwait, "monitor=1,bus=4,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_rtrans, bcm2712_vpu_system_l2_rtrans, "monitor=1,bus=4,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_rmax, bcm2712_vpu_system_l2_rmax, "monitor=1,bus=4,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_rpend, bcm2712_vpu_system_l2_rpend, "monitor=1,bus=4,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_system_l2_ratrans, bcm2712_vpu_system_l2_ratrans, "monitor=1,bus=4,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_atwait, bcm2712_vpu_dma_l2_atwait, "monitor=1,bus=5,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_atrans, bcm2712_vpu_dma_l2_atrans, "monitor=1,bus=5,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_amax, bcm2712_vpu_dma_l2_amax, "monitor=1,bus=5,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_wwait, bcm2712_vpu_dma_l2_wwait, "monitor=1,bus=5,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_wtrans, bcm2712_vpu_dma_l2_wtrans, "monitor=1,bus=5,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_wmax, bcm2712_vpu_dma_l2_wmax, "monitor=1,bus=5,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_rwait, bcm2712_vpu_dma_l2_rwait, "monitor=1,bus=5,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_rtrans, bcm2712_vpu_dma_l2_rtrans, "monitor=1,bus=5,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_rmax, bcm2712_vpu_dma_l2_rmax, "monitor=1,bus=5,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_rpend, bcm2712_vpu_dma_l2_rpend, "monitor=1,bus=5,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_dma_l2_ratrans, bcm2712_vpu_dma_l2_ratrans, "monitor=1,bus=5,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_atwait, bcm2712_vpu_vpu1_d_uc_atwait, "monitor=1,bus=6,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_atrans, bcm2712_vpu_vpu1_d_uc_atrans, "monitor=1,bus=6,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_amax, bcm2712_vpu_vpu1_d_uc_amax, "monitor=1,bus=6,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_wwait, bcm2712_vpu_vpu1_d_uc_wwait, "monitor=1,bus=6,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_wtrans, bcm2712_vpu_vpu1_d_uc_wtrans, "monitor=1,bus=6,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_wmax, bcm2712_vpu_vpu1_d_uc_wmax, "monitor=1,bus=6,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_rwait, bcm2712_vpu_vpu1_d_uc_rwait, "monitor=1,bus=6,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_rtrans, bcm2712_vpu_vpu1_d_uc_rtrans, "monitor=1,bus=6,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_rmax, bcm2712_vpu_vpu1_d_uc_rmax, "monitor=1,bus=6,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_rpend, bcm2712_vpu_vpu1_d_uc_rpend, "monitor=1,bus=6,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_d_uc_ratrans, bcm2712_vpu_vpu1_d_uc_ratrans, "monitor=1,bus=6,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_atwait, bcm2712_vpu_vpu0_d_uc_atwait, "monitor=1,bus=7,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_atrans, bcm2712_vpu_vpu0_d_uc_atrans, "monitor=1,bus=7,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_amax, bcm2712_vpu_vpu0_d_uc_amax, "monitor=1,bus=7,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_wwait, bcm2712_vpu_vpu0_d_uc_wwait, "monitor=1,bus=7,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_wtrans, bcm2712_vpu_vpu0_d_uc_wtrans, "monitor=1,bus=7,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_wmax, bcm2712_vpu_vpu0_d_uc_wmax, "monitor=1,bus=7,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_rwait, bcm2712_vpu_vpu0_d_uc_rwait, "monitor=1,bus=7,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_rtrans, bcm2712_vpu_vpu0_d_uc_rtrans, "monitor=1,bus=7,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_rmax, bcm2712_vpu_vpu0_d_uc_rmax, "monitor=1,bus=7,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_rpend, bcm2712_vpu_vpu0_d_uc_rpend, "monitor=1,bus=7,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_d_uc_ratrans, bcm2712_vpu_vpu0_d_uc_ratrans, "monitor=1,bus=7,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_atwait, bcm2712_vpu_vpu1_i_uc_atwait, "monitor=1,bus=8,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_atrans, bcm2712_vpu_vpu1_i_uc_atrans, "monitor=1,bus=8,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_amax, bcm2712_vpu_vpu1_i_uc_amax, "monitor=1,bus=8,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_wwait, bcm2712_vpu_vpu1_i_uc_wwait, "monitor=1,bus=8,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_wtrans, bcm2712_vpu_vpu1_i_uc_wtrans, "monitor=1,bus=8,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_wmax, bcm2712_vpu_vpu1_i_uc_wmax, "monitor=1,bus=8,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_rwait, bcm2712_vpu_vpu1_i_uc_rwait, "monitor=1,bus=8,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_rtrans, bcm2712_vpu_vpu1_i_uc_rtrans, "monitor=1,bus=8,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_rmax, bcm2712_vpu_vpu1_i_uc_rmax, "monitor=1,bus=8,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_rpend, bcm2712_vpu_vpu1_i_uc_rpend, "monitor=1,bus=8,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu1_i_uc_ratrans, bcm2712_vpu_vpu1_i_uc_ratrans, "monitor=1,bus=8,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_atwait, bcm2712_vpu_vpu0_i_uc_atwait, "monitor=1,bus=9,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_atrans, bcm2712_vpu_vpu0_i_uc_atrans, "monitor=1,bus=9,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_amax, bcm2712_vpu_vpu0_i_uc_amax, "monitor=1,bus=9,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_wwait, bcm2712_vpu_vpu0_i_uc_wwait, "monitor=1,bus=9,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_wtrans, bcm2712_vpu_vpu0_i_uc_wtrans, "monitor=1,bus=9,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_wmax, bcm2712_vpu_vpu0_i_uc_wmax, "monitor=1,bus=9,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_rwait, bcm2712_vpu_vpu0_i_uc_rwait, "monitor=1,bus=9,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_rtrans, bcm2712_vpu_vpu0_i_uc_rtrans, "monitor=1,bus=9,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_rmax, bcm2712_vpu_vpu0_i_uc_rmax, "monitor=1,bus=9,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_rpend, bcm2712_vpu_vpu0_i_uc_rpend, "monitor=1,bus=9,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu0_i_uc_ratrans, bcm2712_vpu_vpu0_i_uc_ratrans, "monitor=1,bus=9,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_atwait, bcm2712_vpu_vpu_uc_atwait, "monitor=1,bus=10,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_atrans, bcm2712_vpu_vpu_uc_atrans, "monitor=1,bus=10,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_amax, bcm2712_vpu_vpu_uc_amax, "monitor=1,bus=10,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_wwait, bcm2712_vpu_vpu_uc_wwait, "monitor=1,bus=10,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_wtrans, bcm2712_vpu_vpu_uc_wtrans, "monitor=1,bus=10,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_wmax, bcm2712_vpu_vpu_uc_wmax, "monitor=1,bus=10,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_rwait, bcm2712_vpu_vpu_uc_rwait, "monitor=1,bus=10,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_rtrans, bcm2712_vpu_vpu_uc_rtrans, "monitor=1,bus=10,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_rmax, bcm2712_vpu_vpu_uc_rmax, "monitor=1,bus=10,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_rpend, bcm2712_vpu_vpu_uc_rpend, "monitor=1,bus=10,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_vpu_uc_ratrans, bcm2712_vpu_vpu_uc_ratrans, "monitor=1,bus=10,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_atwait, bcm2712_vpu_l2_out_atwait, "monitor=1,bus=11,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_atrans, bcm2712_vpu_l2_out_atrans, "monitor=1,bus=11,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_amax, bcm2712_vpu_l2_out_amax, "monitor=1,bus=11,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_wwait, bcm2712_vpu_l2_out_wwait, "monitor=1,bus=11,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_wtrans, bcm2712_vpu_l2_out_wtrans, "monitor=1,bus=11,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_wmax, bcm2712_vpu_l2_out_wmax, "monitor=1,bus=11,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_rwait, bcm2712_vpu_l2_out_rwait, "monitor=1,bus=11,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_rtrans, bcm2712_vpu_l2_out_rtrans, "monitor=1,bus=11,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_rmax, bcm2712_vpu_l2_out_rmax, "monitor=1,bus=11,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_rpend, bcm2712_vpu_l2_out_rpend, "monitor=1,bus=11,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_l2_out_ratrans, bcm2712_vpu_l2_out_ratrans, "monitor=1,bus=11,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_atwait, bcm2712_vpu_dma_uc_atwait, "monitor=1,bus=12,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_atrans, bcm2712_vpu_dma_uc_atrans, "monitor=1,bus=12,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_amax, bcm2712_vpu_dma_uc_amax, "monitor=1,bus=12,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_wwait, bcm2712_vpu_dma_uc_wwait, "monitor=1,bus=12,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_wtrans, bcm2712_vpu_dma_uc_wtrans, "monitor=1,bus=12,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_wmax, bcm2712_vpu_dma_uc_wmax, "monitor=1,bus=12,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_rwait, bcm2712_vpu_dma_uc_rwait, "monitor=1,bus=12,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_rtrans, bcm2712_vpu_dma_uc_rtrans, "monitor=1,bus=12,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_rmax, bcm2712_vpu_dma_uc_rmax, "monitor=1,bus=12,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_rpend, bcm2712_vpu_dma_uc_rpend, "monitor=1,bus=12,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_dma_uc_ratrans, bcm2712_vpu_dma_uc_ratrans, "monitor=1,bus=12,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_atwait, bcm2712_vpu_l2_in_atwait, "monitor=1,bus=13,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_atrans, bcm2712_vpu_l2_in_atrans, "monitor=1,bus=13,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_amax, bcm2712_vpu_l2_in_amax, "monitor=1,bus=13,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_wwait, bcm2712_vpu_l2_in_wwait, "monitor=1,bus=13,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_wtrans, bcm2712_vpu_l2_in_wtrans, "monitor=1,bus=13,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_wmax, bcm2712_vpu_l2_in_wmax, "monitor=1,bus=13,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_rwait, bcm2712_vpu_l2_in_rwait, "monitor=1,bus=13,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_rtrans, bcm2712_vpu_l2_in_rtrans, "monitor=1,bus=13,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_rmax, bcm2712_vpu_l2_in_rmax, "monitor=1,bus=13,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_rpend, bcm2712_vpu_l2_in_rpend, "monitor=1,bus=13,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_l2_in_ratrans, bcm2712_vpu_l2_in_ratrans, "monitor=1,bus=13,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_uc_atwait, bcm2712_vpu_uc_atwait, "monitor=0,bus=0,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_uc_atrans, bcm2712_vpu_uc_atrans, "monitor=0,bus=0,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_uc_amax, bcm2712_vpu_uc_amax, "monitor=0,bus=0,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_uc_wwait, bcm2712_vpu_uc_wwait, "monitor=0,bus=0,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_uc_wtrans, bcm2712_vpu_uc_wtrans, "monitor=0,bus=0,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_uc_wmax, bcm2712_vpu_uc_wmax, "monitor=0,bus=0,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_uc_rwait, bcm2712_vpu_uc_rwait, "monitor=0,bus=0,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_uc_rtrans, bcm2712_vpu_uc_rtrans, "monitor=0,bus=0,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_uc_rmax, bcm2712_vpu_uc_rmax, "monitor=0,bus=0,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_uc_rpend, bcm2712_vpu_uc_rpend, "monitor=0,bus=0,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_uc_ratrans, bcm2712_vpu_uc_ratrans, "monitor=0,bus=0,counter=10");
-+PMU_EVENT_ATTR_STRING(display_top_atwait, bcm2712_display_top_atwait, "monitor=0,bus=1,counter=0");
-+PMU_EVENT_ATTR_STRING(display_top_atrans, bcm2712_display_top_atrans, "monitor=0,bus=1,counter=1");
-+PMU_EVENT_ATTR_STRING(display_top_amax, bcm2712_display_top_amax, "monitor=0,bus=1,counter=2");
-+PMU_EVENT_ATTR_STRING(display_top_wwait, bcm2712_display_top_wwait, "monitor=0,bus=1,counter=3");
-+PMU_EVENT_ATTR_STRING(display_top_wtrans, bcm2712_display_top_wtrans, "monitor=0,bus=1,counter=4");
-+PMU_EVENT_ATTR_STRING(display_top_wmax, bcm2712_display_top_wmax, "monitor=0,bus=1,counter=5");
-+PMU_EVENT_ATTR_STRING(display_top_rwait, bcm2712_display_top_rwait, "monitor=0,bus=1,counter=6");
-+PMU_EVENT_ATTR_STRING(display_top_rtrans, bcm2712_display_top_rtrans, "monitor=0,bus=1,counter=7");
-+PMU_EVENT_ATTR_STRING(display_top_rmax, bcm2712_display_top_rmax, "monitor=0,bus=1,counter=8");
-+PMU_EVENT_ATTR_STRING(display_top_rpend, bcm2712_display_top_rpend, "monitor=0,bus=1,counter=9");
-+PMU_EVENT_ATTR_STRING(display_top_ratrans, bcm2712_display_top_ratrans, "monitor=0,bus=1,counter=10");
-+PMU_EVENT_ATTR_STRING(v3d_atwait, bcm2712_v3d_atwait, "monitor=0,bus=2,counter=0");
-+PMU_EVENT_ATTR_STRING(v3d_atrans, bcm2712_v3d_atrans, "monitor=0,bus=2,counter=1");
-+PMU_EVENT_ATTR_STRING(v3d_amax, bcm2712_v3d_amax, "monitor=0,bus=2,counter=2");
-+PMU_EVENT_ATTR_STRING(v3d_wwait, bcm2712_v3d_wwait, "monitor=0,bus=2,counter=3");
-+PMU_EVENT_ATTR_STRING(v3d_wtrans, bcm2712_v3d_wtrans, "monitor=0,bus=2,counter=4");
-+PMU_EVENT_ATTR_STRING(v3d_wmax, bcm2712_v3d_wmax, "monitor=0,bus=2,counter=5");
-+PMU_EVENT_ATTR_STRING(v3d_rwait, bcm2712_v3d_rwait, "monitor=0,bus=2,counter=6");
-+PMU_EVENT_ATTR_STRING(v3d_rtrans, bcm2712_v3d_rtrans, "monitor=0,bus=2,counter=7");
-+PMU_EVENT_ATTR_STRING(v3d_rmax, bcm2712_v3d_rmax, "monitor=0,bus=2,counter=8");
-+PMU_EVENT_ATTR_STRING(v3d_rpend, bcm2712_v3d_rpend, "monitor=0,bus=2,counter=9");
-+PMU_EVENT_ATTR_STRING(v3d_ratrans, bcm2712_v3d_ratrans, "monitor=0,bus=2,counter=10");
-+PMU_EVENT_ATTR_STRING(arm_atwait, bcm2712_arm_atwait, "monitor=0,bus=3,counter=0");
-+PMU_EVENT_ATTR_STRING(arm_atrans, bcm2712_arm_atrans, "monitor=0,bus=3,counter=1");
-+PMU_EVENT_ATTR_STRING(arm_amax, bcm2712_arm_amax, "monitor=0,bus=3,counter=2");
-+PMU_EVENT_ATTR_STRING(arm_wwait, bcm2712_arm_wwait, "monitor=0,bus=3,counter=3");
-+PMU_EVENT_ATTR_STRING(arm_wtrans, bcm2712_arm_wtrans, "monitor=0,bus=3,counter=4");
-+PMU_EVENT_ATTR_STRING(arm_wmax, bcm2712_arm_wmax, "monitor=0,bus=3,counter=5");
-+PMU_EVENT_ATTR_STRING(arm_rwait, bcm2712_arm_rwait, "monitor=0,bus=3,counter=6");
-+PMU_EVENT_ATTR_STRING(arm_rtrans, bcm2712_arm_rtrans, "monitor=0,bus=3,counter=7");
-+PMU_EVENT_ATTR_STRING(arm_rmax, bcm2712_arm_rmax, "monitor=0,bus=3,counter=8");
-+PMU_EVENT_ATTR_STRING(arm_rpend, bcm2712_arm_rpend, "monitor=0,bus=3,counter=9");
-+PMU_EVENT_ATTR_STRING(arm_ratrans, bcm2712_arm_ratrans, "monitor=0,bus=3,counter=10");
-+PMU_EVENT_ATTR_STRING(xpt_atwait, bcm2712_xpt_atwait, "monitor=0,bus=4,counter=0");
-+PMU_EVENT_ATTR_STRING(xpt_atrans, bcm2712_xpt_atrans, "monitor=0,bus=4,counter=1");
-+PMU_EVENT_ATTR_STRING(xpt_amax, bcm2712_xpt_amax, "monitor=0,bus=4,counter=2");
-+PMU_EVENT_ATTR_STRING(xpt_wwait, bcm2712_xpt_wwait, "monitor=0,bus=4,counter=3");
-+PMU_EVENT_ATTR_STRING(xpt_wtrans, bcm2712_xpt_wtrans, "monitor=0,bus=4,counter=4");
-+PMU_EVENT_ATTR_STRING(xpt_wmax, bcm2712_xpt_wmax, "monitor=0,bus=4,counter=5");
-+PMU_EVENT_ATTR_STRING(xpt_rwait, bcm2712_xpt_rwait, "monitor=0,bus=4,counter=6");
-+PMU_EVENT_ATTR_STRING(xpt_rtrans, bcm2712_xpt_rtrans, "monitor=0,bus=4,counter=7");
-+PMU_EVENT_ATTR_STRING(xpt_rmax, bcm2712_xpt_rmax, "monitor=0,bus=4,counter=8");
-+PMU_EVENT_ATTR_STRING(xpt_rpend, bcm2712_xpt_rpend, "monitor=0,bus=4,counter=9");
-+PMU_EVENT_ATTR_STRING(xpt_ratrans, bcm2712_xpt_ratrans, "monitor=0,bus=4,counter=10");
-+PMU_EVENT_ATTR_STRING(rp1_atwait, bcm2712_rp1_atwait, "monitor=0,bus=5,counter=0");
-+PMU_EVENT_ATTR_STRING(rp1_atrans, bcm2712_rp1_atrans, "monitor=0,bus=5,counter=1");
-+PMU_EVENT_ATTR_STRING(rp1_amax, bcm2712_rp1_amax, "monitor=0,bus=5,counter=2");
-+PMU_EVENT_ATTR_STRING(rp1_wwait, bcm2712_rp1_wwait, "monitor=0,bus=5,counter=3");
-+PMU_EVENT_ATTR_STRING(rp1_wtrans, bcm2712_rp1_wtrans, "monitor=0,bus=5,counter=4");
-+PMU_EVENT_ATTR_STRING(rp1_wmax, bcm2712_rp1_wmax, "monitor=0,bus=5,counter=5");
-+PMU_EVENT_ATTR_STRING(rp1_rwait, bcm2712_rp1_rwait, "monitor=0,bus=5,counter=6");
-+PMU_EVENT_ATTR_STRING(rp1_rtrans, bcm2712_rp1_rtrans, "monitor=0,bus=5,counter=7");
-+PMU_EVENT_ATTR_STRING(rp1_rmax, bcm2712_rp1_rmax, "monitor=0,bus=5,counter=8");
-+PMU_EVENT_ATTR_STRING(rp1_rpend, bcm2712_rp1_rpend, "monitor=0,bus=5,counter=9");
-+PMU_EVENT_ATTR_STRING(rp1_ratrans, bcm2712_rp1_ratrans, "monitor=0,bus=5,counter=10");
-+PMU_EVENT_ATTR_STRING(pcie_01_atwait, bcm2712_pcie_01_atwait, "monitor=0,bus=6,counter=0");
-+PMU_EVENT_ATTR_STRING(pcie_01_atrans, bcm2712_pcie_01_atrans, "monitor=0,bus=6,counter=1");
-+PMU_EVENT_ATTR_STRING(pcie_01_amax, bcm2712_pcie_01_amax, "monitor=0,bus=6,counter=2");
-+PMU_EVENT_ATTR_STRING(pcie_01_wwait, bcm2712_pcie_01_wwait, "monitor=0,bus=6,counter=3");
-+PMU_EVENT_ATTR_STRING(pcie_01_wtrans, bcm2712_pcie_01_wtrans, "monitor=0,bus=6,counter=4");
-+PMU_EVENT_ATTR_STRING(pcie_01_wmax, bcm2712_pcie_01_wmax, "monitor=0,bus=6,counter=5");
-+PMU_EVENT_ATTR_STRING(pcie_01_rwait, bcm2712_pcie_01_rwait, "monitor=0,bus=6,counter=6");
-+PMU_EVENT_ATTR_STRING(pcie_01_rtrans, bcm2712_pcie_01_rtrans, "monitor=0,bus=6,counter=7");
-+PMU_EVENT_ATTR_STRING(pcie_01_rmax, bcm2712_pcie_01_rmax, "monitor=0,bus=6,counter=8");
-+PMU_EVENT_ATTR_STRING(pcie_01_rpend, bcm2712_pcie_01_rpend, "monitor=0,bus=6,counter=9");
-+PMU_EVENT_ATTR_STRING(pcie_01_ratrans, bcm2712_pcie_01_ratrans, "monitor=0,bus=6,counter=10");
-+PMU_EVENT_ATTR_STRING(argon_top_atwait, bcm2712_argon_top_atwait, "monitor=0,bus=7,counter=0");
-+PMU_EVENT_ATTR_STRING(argon_top_atrans, bcm2712_argon_top_atrans, "monitor=0,bus=7,counter=1");
-+PMU_EVENT_ATTR_STRING(argon_top_amax, bcm2712_argon_top_amax, "monitor=0,bus=7,counter=2");
-+PMU_EVENT_ATTR_STRING(argon_top_wwait, bcm2712_argon_top_wwait, "monitor=0,bus=7,counter=3");
-+PMU_EVENT_ATTR_STRING(argon_top_wtrans, bcm2712_argon_top_wtrans, "monitor=0,bus=7,counter=4");
-+PMU_EVENT_ATTR_STRING(argon_top_wmax, bcm2712_argon_top_wmax, "monitor=0,bus=7,counter=5");
-+PMU_EVENT_ATTR_STRING(argon_top_rwait, bcm2712_argon_top_rwait, "monitor=0,bus=7,counter=6");
-+PMU_EVENT_ATTR_STRING(argon_top_rtrans, bcm2712_argon_top_rtrans, "monitor=0,bus=7,counter=7");
-+PMU_EVENT_ATTR_STRING(argon_top_rmax, bcm2712_argon_top_rmax, "monitor=0,bus=7,counter=8");
-+PMU_EVENT_ATTR_STRING(argon_top_rpend, bcm2712_argon_top_rpend, "monitor=0,bus=7,counter=9");
-+PMU_EVENT_ATTR_STRING(argon_top_ratrans, bcm2712_argon_top_ratrans, "monitor=0,bus=7,counter=10");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_atwait, bcm2712_sdio_wifi_atwait, "monitor=0,bus=8,counter=0");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_atrans, bcm2712_sdio_wifi_atrans, "monitor=0,bus=8,counter=1");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_amax, bcm2712_sdio_wifi_amax, "monitor=0,bus=8,counter=2");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_wwait, bcm2712_sdio_wifi_wwait, "monitor=0,bus=8,counter=3");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_wtrans, bcm2712_sdio_wifi_wtrans, "monitor=0,bus=8,counter=4");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_wmax, bcm2712_sdio_wifi_wmax, "monitor=0,bus=8,counter=5");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_rwait, bcm2712_sdio_wifi_rwait, "monitor=0,bus=8,counter=6");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_rtrans, bcm2712_sdio_wifi_rtrans, "monitor=0,bus=8,counter=7");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_rmax, bcm2712_sdio_wifi_rmax, "monitor=0,bus=8,counter=8");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_rpend, bcm2712_sdio_wifi_rpend, "monitor=0,bus=8,counter=9");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_ratrans, bcm2712_sdio_wifi_ratrans, "monitor=0,bus=8,counter=10");
-+PMU_EVENT_ATTR_STRING(sd_dma_atwait, bcm2712_sd_dma_atwait, "monitor=0,bus=9,counter=0");
-+PMU_EVENT_ATTR_STRING(sd_dma_atrans, bcm2712_sd_dma_atrans, "monitor=0,bus=9,counter=1");
-+PMU_EVENT_ATTR_STRING(sd_dma_amax, bcm2712_sd_dma_amax, "monitor=0,bus=9,counter=2");
-+PMU_EVENT_ATTR_STRING(sd_dma_wwait, bcm2712_sd_dma_wwait, "monitor=0,bus=9,counter=3");
-+PMU_EVENT_ATTR_STRING(sd_dma_wtrans, bcm2712_sd_dma_wtrans, "monitor=0,bus=9,counter=4");
-+PMU_EVENT_ATTR_STRING(sd_dma_wmax, bcm2712_sd_dma_wmax, "monitor=0,bus=9,counter=5");
-+PMU_EVENT_ATTR_STRING(sd_dma_rwait, bcm2712_sd_dma_rwait, "monitor=0,bus=9,counter=6");
-+PMU_EVENT_ATTR_STRING(sd_dma_rtrans, bcm2712_sd_dma_rtrans, "monitor=0,bus=9,counter=7");
-+PMU_EVENT_ATTR_STRING(sd_dma_rmax, bcm2712_sd_dma_rmax, "monitor=0,bus=9,counter=8");
-+PMU_EVENT_ATTR_STRING(sd_dma_rpend, bcm2712_sd_dma_rpend, "monitor=0,bus=9,counter=9");
-+PMU_EVENT_ATTR_STRING(sd_dma_ratrans, bcm2712_sd_dma_ratrans, "monitor=0,bus=9,counter=10");
-+PMU_EVENT_ATTR_STRING(hvdp_atwait, bcm2712_hvdp_atwait, "monitor=0,bus=10,counter=0");
-+PMU_EVENT_ATTR_STRING(hvdp_atrans, bcm2712_hvdp_atrans, "monitor=0,bus=10,counter=1");
-+PMU_EVENT_ATTR_STRING(hvdp_amax, bcm2712_hvdp_amax, "monitor=0,bus=10,counter=2");
-+PMU_EVENT_ATTR_STRING(hvdp_wwait, bcm2712_hvdp_wwait, "monitor=0,bus=10,counter=3");
-+PMU_EVENT_ATTR_STRING(hvdp_wtrans, bcm2712_hvdp_wtrans, "monitor=0,bus=10,counter=4");
-+PMU_EVENT_ATTR_STRING(hvdp_wmax, bcm2712_hvdp_wmax, "monitor=0,bus=10,counter=5");
-+PMU_EVENT_ATTR_STRING(hvdp_rwait, bcm2712_hvdp_rwait, "monitor=0,bus=10,counter=6");
-+PMU_EVENT_ATTR_STRING(hvdp_rtrans, bcm2712_hvdp_rtrans, "monitor=0,bus=10,counter=7");
-+PMU_EVENT_ATTR_STRING(hvdp_rmax, bcm2712_hvdp_rmax, "monitor=0,bus=10,counter=8");
-+PMU_EVENT_ATTR_STRING(hvdp_rpend, bcm2712_hvdp_rpend, "monitor=0,bus=10,counter=9");
-+PMU_EVENT_ATTR_STRING(hvdp_ratrans, bcm2712_hvdp_ratrans, "monitor=0,bus=10,counter=10");
-+PMU_EVENT_ATTR_STRING(per_atwait, bcm2712_per_atwait, "monitor=0,bus=11,counter=0");
-+PMU_EVENT_ATTR_STRING(per_atrans, bcm2712_per_atrans, "monitor=0,bus=11,counter=1");
-+PMU_EVENT_ATTR_STRING(per_amax, bcm2712_per_amax, "monitor=0,bus=11,counter=2");
-+PMU_EVENT_ATTR_STRING(per_wwait, bcm2712_per_wwait, "monitor=0,bus=11,counter=3");
-+PMU_EVENT_ATTR_STRING(per_wtrans, bcm2712_per_wtrans, "monitor=0,bus=11,counter=4");
-+PMU_EVENT_ATTR_STRING(per_wmax, bcm2712_per_wmax, "monitor=0,bus=11,counter=5");
-+PMU_EVENT_ATTR_STRING(per_rwait, bcm2712_per_rwait, "monitor=0,bus=11,counter=6");
-+PMU_EVENT_ATTR_STRING(per_rtrans, bcm2712_per_rtrans, "monitor=0,bus=11,counter=7");
-+PMU_EVENT_ATTR_STRING(per_rmax, bcm2712_per_rmax, "monitor=0,bus=11,counter=8");
-+PMU_EVENT_ATTR_STRING(per_rpend, bcm2712_per_rpend, "monitor=0,bus=11,counter=9");
-+PMU_EVENT_ATTR_STRING(per_ratrans, bcm2712_per_ratrans, "monitor=0,bus=11,counter=10");
-+PMU_EVENT_ATTR_STRING(system_l2_atwait, bcm2712_system_l2_atwait, "monitor=0,bus=12,counter=0");
-+PMU_EVENT_ATTR_STRING(system_l2_atrans, bcm2712_system_l2_atrans, "monitor=0,bus=12,counter=1");
-+PMU_EVENT_ATTR_STRING(system_l2_amax, bcm2712_system_l2_amax, "monitor=0,bus=12,counter=2");
-+PMU_EVENT_ATTR_STRING(system_l2_wwait, bcm2712_system_l2_wwait, "monitor=0,bus=12,counter=3");
-+PMU_EVENT_ATTR_STRING(system_l2_wtrans, bcm2712_system_l2_wtrans, "monitor=0,bus=12,counter=4");
-+PMU_EVENT_ATTR_STRING(system_l2_wmax, bcm2712_system_l2_wmax, "monitor=0,bus=12,counter=5");
-+PMU_EVENT_ATTR_STRING(system_l2_rwait, bcm2712_system_l2_rwait, "monitor=0,bus=12,counter=6");
-+PMU_EVENT_ATTR_STRING(system_l2_rtrans, bcm2712_system_l2_rtrans, "monitor=0,bus=12,counter=7");
-+PMU_EVENT_ATTR_STRING(system_l2_rmax, bcm2712_system_l2_rmax, "monitor=0,bus=12,counter=8");
-+PMU_EVENT_ATTR_STRING(system_l2_rpend, bcm2712_system_l2_rpend, "monitor=0,bus=12,counter=9");
-+PMU_EVENT_ATTR_STRING(system_l2_ratrans, bcm2712_system_l2_ratrans, "monitor=0,bus=12,counter=10");
-+PMU_EVENT_ATTR_STRING(vpu_uc_atwait, bcm2712d0_vpu_uc_atwait, "monitor=0,bus=0,counter=0");
-+PMU_EVENT_ATTR_STRING(vpu_uc_atrans, bcm2712d0_vpu_uc_atrans, "monitor=0,bus=0,counter=1");
-+PMU_EVENT_ATTR_STRING(vpu_uc_amax, bcm2712d0_vpu_uc_amax, "monitor=0,bus=0,counter=2");
-+PMU_EVENT_ATTR_STRING(vpu_uc_wwait, bcm2712d0_vpu_uc_wwait, "monitor=0,bus=0,counter=3");
-+PMU_EVENT_ATTR_STRING(vpu_uc_wtrans, bcm2712d0_vpu_uc_wtrans, "monitor=0,bus=0,counter=4");
-+PMU_EVENT_ATTR_STRING(vpu_uc_wmax, bcm2712d0_vpu_uc_wmax, "monitor=0,bus=0,counter=5");
-+PMU_EVENT_ATTR_STRING(vpu_uc_rwait, bcm2712d0_vpu_uc_rwait, "monitor=0,bus=0,counter=6");
-+PMU_EVENT_ATTR_STRING(vpu_uc_rtrans, bcm2712d0_vpu_uc_rtrans, "monitor=0,bus=0,counter=7");
-+PMU_EVENT_ATTR_STRING(vpu_uc_rmax, bcm2712d0_vpu_uc_rmax, "monitor=0,bus=0,counter=8");
-+PMU_EVENT_ATTR_STRING(vpu_uc_rpend, bcm2712d0_vpu_uc_rpend, "monitor=0,bus=0,counter=9");
-+PMU_EVENT_ATTR_STRING(vpu_uc_ratrans, bcm2712d0_vpu_uc_ratrans, "monitor=0,bus=0,counter=10");
-+PMU_EVENT_ATTR_STRING(display_top_atwait, bcm2712d0_display_top_atwait, "monitor=0,bus=1,counter=0");
-+PMU_EVENT_ATTR_STRING(display_top_atrans, bcm2712d0_display_top_atrans, "monitor=0,bus=1,counter=1");
-+PMU_EVENT_ATTR_STRING(display_top_amax, bcm2712d0_display_top_amax, "monitor=0,bus=1,counter=2");
-+PMU_EVENT_ATTR_STRING(display_top_wwait, bcm2712d0_display_top_wwait, "monitor=0,bus=1,counter=3");
-+PMU_EVENT_ATTR_STRING(display_top_wtrans, bcm2712d0_display_top_wtrans, "monitor=0,bus=1,counter=4");
-+PMU_EVENT_ATTR_STRING(display_top_wmax, bcm2712d0_display_top_wmax, "monitor=0,bus=1,counter=5");
-+PMU_EVENT_ATTR_STRING(display_top_rwait, bcm2712d0_display_top_rwait, "monitor=0,bus=1,counter=6");
-+PMU_EVENT_ATTR_STRING(display_top_rtrans, bcm2712d0_display_top_rtrans, "monitor=0,bus=1,counter=7");
-+PMU_EVENT_ATTR_STRING(display_top_rmax, bcm2712d0_display_top_rmax, "monitor=0,bus=1,counter=8");
-+PMU_EVENT_ATTR_STRING(display_top_rpend, bcm2712d0_display_top_rpend, "monitor=0,bus=1,counter=9");
-+PMU_EVENT_ATTR_STRING(display_top_ratrans, bcm2712d0_display_top_ratrans, "monitor=0,bus=1,counter=10");
-+PMU_EVENT_ATTR_STRING(v3d_atwait, bcm2712d0_v3d_atwait, "monitor=0,bus=2,counter=0");
-+PMU_EVENT_ATTR_STRING(v3d_atrans, bcm2712d0_v3d_atrans, "monitor=0,bus=2,counter=1");
-+PMU_EVENT_ATTR_STRING(v3d_amax, bcm2712d0_v3d_amax, "monitor=0,bus=2,counter=2");
-+PMU_EVENT_ATTR_STRING(v3d_wwait, bcm2712d0_v3d_wwait, "monitor=0,bus=2,counter=3");
-+PMU_EVENT_ATTR_STRING(v3d_wtrans, bcm2712d0_v3d_wtrans, "monitor=0,bus=2,counter=4");
-+PMU_EVENT_ATTR_STRING(v3d_wmax, bcm2712d0_v3d_wmax, "monitor=0,bus=2,counter=5");
-+PMU_EVENT_ATTR_STRING(v3d_rwait, bcm2712d0_v3d_rwait, "monitor=0,bus=2,counter=6");
-+PMU_EVENT_ATTR_STRING(v3d_rtrans, bcm2712d0_v3d_rtrans, "monitor=0,bus=2,counter=7");
-+PMU_EVENT_ATTR_STRING(v3d_rmax, bcm2712d0_v3d_rmax, "monitor=0,bus=2,counter=8");
-+PMU_EVENT_ATTR_STRING(v3d_rpend, bcm2712d0_v3d_rpend, "monitor=0,bus=2,counter=9");
-+PMU_EVENT_ATTR_STRING(v3d_ratrans, bcm2712d0_v3d_ratrans, "monitor=0,bus=2,counter=10");
-+PMU_EVENT_ATTR_STRING(arm_atwait, bcm2712d0_arm_atwait, "monitor=0,bus=3,counter=0");
-+PMU_EVENT_ATTR_STRING(arm_atrans, bcm2712d0_arm_atrans, "monitor=0,bus=3,counter=1");
-+PMU_EVENT_ATTR_STRING(arm_amax, bcm2712d0_arm_amax, "monitor=0,bus=3,counter=2");
-+PMU_EVENT_ATTR_STRING(arm_wwait, bcm2712d0_arm_wwait, "monitor=0,bus=3,counter=3");
-+PMU_EVENT_ATTR_STRING(arm_wtrans, bcm2712d0_arm_wtrans, "monitor=0,bus=3,counter=4");
-+PMU_EVENT_ATTR_STRING(arm_wmax, bcm2712d0_arm_wmax, "monitor=0,bus=3,counter=5");
-+PMU_EVENT_ATTR_STRING(arm_rwait, bcm2712d0_arm_rwait, "monitor=0,bus=3,counter=6");
-+PMU_EVENT_ATTR_STRING(arm_rtrans, bcm2712d0_arm_rtrans, "monitor=0,bus=3,counter=7");
-+PMU_EVENT_ATTR_STRING(arm_rmax, bcm2712d0_arm_rmax, "monitor=0,bus=3,counter=8");
-+PMU_EVENT_ATTR_STRING(arm_rpend, bcm2712d0_arm_rpend, "monitor=0,bus=3,counter=9");
-+PMU_EVENT_ATTR_STRING(arm_ratrans, bcm2712d0_arm_ratrans, "monitor=0,bus=3,counter=10");
-+PMU_EVENT_ATTR_STRING(rp1_atwait, bcm2712d0_rp1_atwait, "monitor=0,bus=4,counter=0");
-+PMU_EVENT_ATTR_STRING(rp1_atrans, bcm2712d0_rp1_atrans, "monitor=0,bus=4,counter=1");
-+PMU_EVENT_ATTR_STRING(rp1_amax, bcm2712d0_rp1_amax, "monitor=0,bus=4,counter=2");
-+PMU_EVENT_ATTR_STRING(rp1_wwait, bcm2712d0_rp1_wwait, "monitor=0,bus=4,counter=3");
-+PMU_EVENT_ATTR_STRING(rp1_wtrans, bcm2712d0_rp1_wtrans, "monitor=0,bus=4,counter=4");
-+PMU_EVENT_ATTR_STRING(rp1_wmax, bcm2712d0_rp1_wmax, "monitor=0,bus=4,counter=5");
-+PMU_EVENT_ATTR_STRING(rp1_rwait, bcm2712d0_rp1_rwait, "monitor=0,bus=4,counter=6");
-+PMU_EVENT_ATTR_STRING(rp1_rtrans, bcm2712d0_rp1_rtrans, "monitor=0,bus=4,counter=7");
-+PMU_EVENT_ATTR_STRING(rp1_rmax, bcm2712d0_rp1_rmax, "monitor=0,bus=4,counter=8");
-+PMU_EVENT_ATTR_STRING(rp1_rpend, bcm2712d0_rp1_rpend, "monitor=0,bus=4,counter=9");
-+PMU_EVENT_ATTR_STRING(rp1_ratrans, bcm2712d0_rp1_ratrans, "monitor=0,bus=4,counter=10");
-+PMU_EVENT_ATTR_STRING(argon_top_atwait, bcm2712d0_argon_top_atwait, "monitor=0,bus=5,counter=0");
-+PMU_EVENT_ATTR_STRING(argon_top_atrans, bcm2712d0_argon_top_atrans, "monitor=0,bus=5,counter=1");
-+PMU_EVENT_ATTR_STRING(argon_top_amax, bcm2712d0_argon_top_amax, "monitor=0,bus=5,counter=2");
-+PMU_EVENT_ATTR_STRING(argon_top_wwait, bcm2712d0_argon_top_wwait, "monitor=0,bus=5,counter=3");
-+PMU_EVENT_ATTR_STRING(argon_top_wtrans, bcm2712d0_argon_top_wtrans, "monitor=0,bus=5,counter=4");
-+PMU_EVENT_ATTR_STRING(argon_top_wmax, bcm2712d0_argon_top_wmax, "monitor=0,bus=5,counter=5");
-+PMU_EVENT_ATTR_STRING(argon_top_rwait, bcm2712d0_argon_top_rwait, "monitor=0,bus=5,counter=6");
-+PMU_EVENT_ATTR_STRING(argon_top_rtrans, bcm2712d0_argon_top_rtrans, "monitor=0,bus=5,counter=7");
-+PMU_EVENT_ATTR_STRING(argon_top_rmax, bcm2712d0_argon_top_rmax, "monitor=0,bus=5,counter=8");
-+PMU_EVENT_ATTR_STRING(argon_top_rpend, bcm2712d0_argon_top_rpend, "monitor=0,bus=5,counter=9");
-+PMU_EVENT_ATTR_STRING(argon_top_ratrans, bcm2712d0_argon_top_ratrans, "monitor=0,bus=5,counter=10");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_atwait, bcm2712d0_sdio_wifi_atwait, "monitor=0,bus=6,counter=0");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_atrans, bcm2712d0_sdio_wifi_atrans, "monitor=0,bus=6,counter=1");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_amax, bcm2712d0_sdio_wifi_amax, "monitor=0,bus=6,counter=2");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_wwait, bcm2712d0_sdio_wifi_wwait, "monitor=0,bus=6,counter=3");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_wtrans, bcm2712d0_sdio_wifi_wtrans, "monitor=0,bus=6,counter=4");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_wmax, bcm2712d0_sdio_wifi_wmax, "monitor=0,bus=6,counter=5");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_rwait, bcm2712d0_sdio_wifi_rwait, "monitor=0,bus=6,counter=6");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_rtrans, bcm2712d0_sdio_wifi_rtrans, "monitor=0,bus=6,counter=7");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_rmax, bcm2712d0_sdio_wifi_rmax, "monitor=0,bus=6,counter=8");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_rpend, bcm2712d0_sdio_wifi_rpend, "monitor=0,bus=6,counter=9");
-+PMU_EVENT_ATTR_STRING(sdio_wifi_ratrans, bcm2712d0_sdio_wifi_ratrans, "monitor=0,bus=6,counter=10");
-+PMU_EVENT_ATTR_STRING(sd_dma_atwait, bcm2712d0_sd_dma_atwait, "monitor=0,bus=7,counter=0");
-+PMU_EVENT_ATTR_STRING(sd_dma_atrans, bcm2712d0_sd_dma_atrans, "monitor=0,bus=7,counter=1");
-+PMU_EVENT_ATTR_STRING(sd_dma_amax, bcm2712d0_sd_dma_amax, "monitor=0,bus=7,counter=2");
-+PMU_EVENT_ATTR_STRING(sd_dma_wwait, bcm2712d0_sd_dma_wwait, "monitor=0,bus=7,counter=3");
-+PMU_EVENT_ATTR_STRING(sd_dma_wtrans, bcm2712d0_sd_dma_wtrans, "monitor=0,bus=7,counter=4");
-+PMU_EVENT_ATTR_STRING(sd_dma_wmax, bcm2712d0_sd_dma_wmax, "monitor=0,bus=7,counter=5");
-+PMU_EVENT_ATTR_STRING(sd_dma_rwait, bcm2712d0_sd_dma_rwait, "monitor=0,bus=7,counter=6");
-+PMU_EVENT_ATTR_STRING(sd_dma_rtrans, bcm2712d0_sd_dma_rtrans, "monitor=0,bus=7,counter=7");
-+PMU_EVENT_ATTR_STRING(sd_dma_rmax, bcm2712d0_sd_dma_rmax, "monitor=0,bus=7,counter=8");
-+PMU_EVENT_ATTR_STRING(sd_dma_rpend, bcm2712d0_sd_dma_rpend, "monitor=0,bus=7,counter=9");
-+PMU_EVENT_ATTR_STRING(sd_dma_ratrans, bcm2712d0_sd_dma_ratrans, "monitor=0,bus=7,counter=10");
-+PMU_EVENT_ATTR_STRING(per_atwait, bcm2712d0_per_atwait, "monitor=0,bus=8,counter=0");
-+PMU_EVENT_ATTR_STRING(per_atrans, bcm2712d0_per_atrans, "monitor=0,bus=8,counter=1");
-+PMU_EVENT_ATTR_STRING(per_amax, bcm2712d0_per_amax, "monitor=0,bus=8,counter=2");
-+PMU_EVENT_ATTR_STRING(per_wwait, bcm2712d0_per_wwait, "monitor=0,bus=8,counter=3");
-+PMU_EVENT_ATTR_STRING(per_wtrans, bcm2712d0_per_wtrans, "monitor=0,bus=8,counter=4");
-+PMU_EVENT_ATTR_STRING(per_wmax, bcm2712d0_per_wmax, "monitor=0,bus=8,counter=5");
-+PMU_EVENT_ATTR_STRING(per_rwait, bcm2712d0_per_rwait, "monitor=0,bus=8,counter=6");
-+PMU_EVENT_ATTR_STRING(per_rtrans, bcm2712d0_per_rtrans, "monitor=0,bus=8,counter=7");
-+PMU_EVENT_ATTR_STRING(per_rmax, bcm2712d0_per_rmax, "monitor=0,bus=8,counter=8");
-+PMU_EVENT_ATTR_STRING(per_rpend, bcm2712d0_per_rpend, "monitor=0,bus=8,counter=9");
-+PMU_EVENT_ATTR_STRING(per_ratrans, bcm2712d0_per_ratrans, "monitor=0,bus=8,counter=10");
-+PMU_EVENT_ATTR_STRING(system_l2_atwait, bcm2712d0_system_l2_atwait, "monitor=0,bus=9,counter=0");
-+PMU_EVENT_ATTR_STRING(system_l2_atrans, bcm2712d0_system_l2_atrans, "monitor=0,bus=9,counter=1");
-+PMU_EVENT_ATTR_STRING(system_l2_amax, bcm2712d0_system_l2_amax, "monitor=0,bus=9,counter=2");
-+PMU_EVENT_ATTR_STRING(system_l2_wwait, bcm2712d0_system_l2_wwait, "monitor=0,bus=9,counter=3");
-+PMU_EVENT_ATTR_STRING(system_l2_wtrans, bcm2712d0_system_l2_wtrans, "monitor=0,bus=9,counter=4");
-+PMU_EVENT_ATTR_STRING(system_l2_wmax, bcm2712d0_system_l2_wmax, "monitor=0,bus=9,counter=5");
-+PMU_EVENT_ATTR_STRING(system_l2_rwait, bcm2712d0_system_l2_rwait, "monitor=0,bus=9,counter=6");
-+PMU_EVENT_ATTR_STRING(system_l2_rtrans, bcm2712d0_system_l2_rtrans, "monitor=0,bus=9,counter=7");
-+PMU_EVENT_ATTR_STRING(system_l2_rmax, bcm2712d0_system_l2_rmax, "monitor=0,bus=9,counter=8");
-+PMU_EVENT_ATTR_STRING(system_l2_rpend, bcm2712d0_system_l2_rpend, "monitor=0,bus=9,counter=9");
-+PMU_EVENT_ATTR_STRING(system_l2_ratrans, bcm2712d0_system_l2_ratrans, "monitor=0,bus=9,counter=10");
-+
-+static struct attribute *bcm2712_events[] = {
-+	&bcm2712_vpu_uc_atwait.attr.attr,
-+	&bcm2712_vpu_uc_atrans.attr.attr,
-+	&bcm2712_vpu_uc_amax.attr.attr,
-+	&bcm2712_vpu_uc_wwait.attr.attr,
-+	&bcm2712_vpu_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_uc_wmax.attr.attr,
-+	&bcm2712_vpu_uc_rwait.attr.attr,
-+	&bcm2712_vpu_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_uc_rmax.attr.attr,
-+	&bcm2712_vpu_uc_rpend.attr.attr,
-+	&bcm2712_vpu_uc_ratrans.attr.attr,
-+	&bcm2712_display_top_atwait.attr.attr,
-+	&bcm2712_display_top_atrans.attr.attr,
-+	&bcm2712_display_top_amax.attr.attr,
-+	&bcm2712_display_top_wwait.attr.attr,
-+	&bcm2712_display_top_wtrans.attr.attr,
-+	&bcm2712_display_top_wmax.attr.attr,
-+	&bcm2712_display_top_rwait.attr.attr,
-+	&bcm2712_display_top_rtrans.attr.attr,
-+	&bcm2712_display_top_rmax.attr.attr,
-+	&bcm2712_display_top_rpend.attr.attr,
-+	&bcm2712_display_top_ratrans.attr.attr,
-+	&bcm2712_v3d_atwait.attr.attr,
-+	&bcm2712_v3d_atrans.attr.attr,
-+	&bcm2712_v3d_amax.attr.attr,
-+	&bcm2712_v3d_wwait.attr.attr,
-+	&bcm2712_v3d_wtrans.attr.attr,
-+	&bcm2712_v3d_wmax.attr.attr,
-+	&bcm2712_v3d_rwait.attr.attr,
-+	&bcm2712_v3d_rtrans.attr.attr,
-+	&bcm2712_v3d_rmax.attr.attr,
-+	&bcm2712_v3d_rpend.attr.attr,
-+	&bcm2712_v3d_ratrans.attr.attr,
-+	&bcm2712_arm_atwait.attr.attr,
-+	&bcm2712_arm_atrans.attr.attr,
-+	&bcm2712_arm_amax.attr.attr,
-+	&bcm2712_arm_wwait.attr.attr,
-+	&bcm2712_arm_wtrans.attr.attr,
-+	&bcm2712_arm_wmax.attr.attr,
-+	&bcm2712_arm_rwait.attr.attr,
-+	&bcm2712_arm_rtrans.attr.attr,
-+	&bcm2712_arm_rmax.attr.attr,
-+	&bcm2712_arm_rpend.attr.attr,
-+	&bcm2712_arm_ratrans.attr.attr,
-+	&bcm2712_xpt_atwait.attr.attr,
-+	&bcm2712_xpt_atrans.attr.attr,
-+	&bcm2712_xpt_amax.attr.attr,
-+	&bcm2712_xpt_wwait.attr.attr,
-+	&bcm2712_xpt_wtrans.attr.attr,
-+	&bcm2712_xpt_wmax.attr.attr,
-+	&bcm2712_xpt_rwait.attr.attr,
-+	&bcm2712_xpt_rtrans.attr.attr,
-+	&bcm2712_xpt_rmax.attr.attr,
-+	&bcm2712_xpt_rpend.attr.attr,
-+	&bcm2712_xpt_ratrans.attr.attr,
-+	&bcm2712_rp1_atwait.attr.attr,
-+	&bcm2712_rp1_atrans.attr.attr,
-+	&bcm2712_rp1_amax.attr.attr,
-+	&bcm2712_rp1_wwait.attr.attr,
-+	&bcm2712_rp1_wtrans.attr.attr,
-+	&bcm2712_rp1_wmax.attr.attr,
-+	&bcm2712_rp1_rwait.attr.attr,
-+	&bcm2712_rp1_rtrans.attr.attr,
-+	&bcm2712_rp1_rmax.attr.attr,
-+	&bcm2712_rp1_rpend.attr.attr,
-+	&bcm2712_rp1_ratrans.attr.attr,
-+	&bcm2712_pcie_01_atwait.attr.attr,
-+	&bcm2712_pcie_01_atrans.attr.attr,
-+	&bcm2712_pcie_01_amax.attr.attr,
-+	&bcm2712_pcie_01_wwait.attr.attr,
-+	&bcm2712_pcie_01_wtrans.attr.attr,
-+	&bcm2712_pcie_01_wmax.attr.attr,
-+	&bcm2712_pcie_01_rwait.attr.attr,
-+	&bcm2712_pcie_01_rtrans.attr.attr,
-+	&bcm2712_pcie_01_rmax.attr.attr,
-+	&bcm2712_pcie_01_rpend.attr.attr,
-+	&bcm2712_pcie_01_ratrans.attr.attr,
-+	&bcm2712_argon_top_atwait.attr.attr,
-+	&bcm2712_argon_top_atrans.attr.attr,
-+	&bcm2712_argon_top_amax.attr.attr,
-+	&bcm2712_argon_top_wwait.attr.attr,
-+	&bcm2712_argon_top_wtrans.attr.attr,
-+	&bcm2712_argon_top_wmax.attr.attr,
-+	&bcm2712_argon_top_rwait.attr.attr,
-+	&bcm2712_argon_top_rtrans.attr.attr,
-+	&bcm2712_argon_top_rmax.attr.attr,
-+	&bcm2712_argon_top_rpend.attr.attr,
-+	&bcm2712_argon_top_ratrans.attr.attr,
-+	&bcm2712_sdio_wifi_atwait.attr.attr,
-+	&bcm2712_sdio_wifi_atrans.attr.attr,
-+	&bcm2712_sdio_wifi_amax.attr.attr,
-+	&bcm2712_sdio_wifi_wwait.attr.attr,
-+	&bcm2712_sdio_wifi_wtrans.attr.attr,
-+	&bcm2712_sdio_wifi_wmax.attr.attr,
-+	&bcm2712_sdio_wifi_rwait.attr.attr,
-+	&bcm2712_sdio_wifi_rtrans.attr.attr,
-+	&bcm2712_sdio_wifi_rmax.attr.attr,
-+	&bcm2712_sdio_wifi_rpend.attr.attr,
-+	&bcm2712_sdio_wifi_ratrans.attr.attr,
-+	&bcm2712_sd_dma_atwait.attr.attr,
-+	&bcm2712_sd_dma_atrans.attr.attr,
-+	&bcm2712_sd_dma_amax.attr.attr,
-+	&bcm2712_sd_dma_wwait.attr.attr,
-+	&bcm2712_sd_dma_wtrans.attr.attr,
-+	&bcm2712_sd_dma_wmax.attr.attr,
-+	&bcm2712_sd_dma_rwait.attr.attr,
-+	&bcm2712_sd_dma_rtrans.attr.attr,
-+	&bcm2712_sd_dma_rmax.attr.attr,
-+	&bcm2712_sd_dma_rpend.attr.attr,
-+	&bcm2712_sd_dma_ratrans.attr.attr,
-+	&bcm2712_hvdp_atwait.attr.attr,
-+	&bcm2712_hvdp_atrans.attr.attr,
-+	&bcm2712_hvdp_amax.attr.attr,
-+	&bcm2712_hvdp_wwait.attr.attr,
-+	&bcm2712_hvdp_wtrans.attr.attr,
-+	&bcm2712_hvdp_wmax.attr.attr,
-+	&bcm2712_hvdp_rwait.attr.attr,
-+	&bcm2712_hvdp_rtrans.attr.attr,
-+	&bcm2712_hvdp_rmax.attr.attr,
-+	&bcm2712_hvdp_rpend.attr.attr,
-+	&bcm2712_hvdp_ratrans.attr.attr,
-+	&bcm2712_per_atwait.attr.attr,
-+	&bcm2712_per_atrans.attr.attr,
-+	&bcm2712_per_amax.attr.attr,
-+	&bcm2712_per_wwait.attr.attr,
-+	&bcm2712_per_wtrans.attr.attr,
-+	&bcm2712_per_wmax.attr.attr,
-+	&bcm2712_per_rwait.attr.attr,
-+	&bcm2712_per_rtrans.attr.attr,
-+	&bcm2712_per_rmax.attr.attr,
-+	&bcm2712_per_rpend.attr.attr,
-+	&bcm2712_per_ratrans.attr.attr,
-+	&bcm2712_system_l2_atwait.attr.attr,
-+	&bcm2712_system_l2_atrans.attr.attr,
-+	&bcm2712_system_l2_amax.attr.attr,
-+	&bcm2712_system_l2_wwait.attr.attr,
-+	&bcm2712_system_l2_wtrans.attr.attr,
-+	&bcm2712_system_l2_wmax.attr.attr,
-+	&bcm2712_system_l2_rwait.attr.attr,
-+	&bcm2712_system_l2_rtrans.attr.attr,
-+	&bcm2712_system_l2_rmax.attr.attr,
-+	&bcm2712_system_l2_rpend.attr.attr,
-+	&bcm2712_system_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_atwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_atrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_amax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_wwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_wmax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_rwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_rmax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_rpend.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_atwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_atrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_amax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_wwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_wmax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_rwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_rmax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_rpend.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_atwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_atrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_amax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_wwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_wmax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_rwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_rmax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_rpend.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_atwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_atrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_amax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_wwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_wmax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_rwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_rmax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_rpend.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_system_l2_atwait.attr.attr,
-+	&bcm2712_vpu_system_l2_atrans.attr.attr,
-+	&bcm2712_vpu_system_l2_amax.attr.attr,
-+	&bcm2712_vpu_system_l2_wwait.attr.attr,
-+	&bcm2712_vpu_system_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_system_l2_wmax.attr.attr,
-+	&bcm2712_vpu_system_l2_rwait.attr.attr,
-+	&bcm2712_vpu_system_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_system_l2_rmax.attr.attr,
-+	&bcm2712_vpu_system_l2_rpend.attr.attr,
-+	&bcm2712_vpu_system_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_dma_l2_atwait.attr.attr,
-+	&bcm2712_vpu_dma_l2_atrans.attr.attr,
-+	&bcm2712_vpu_dma_l2_amax.attr.attr,
-+	&bcm2712_vpu_dma_l2_wwait.attr.attr,
-+	&bcm2712_vpu_dma_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_dma_l2_wmax.attr.attr,
-+	&bcm2712_vpu_dma_l2_rwait.attr.attr,
-+	&bcm2712_vpu_dma_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_dma_l2_rmax.attr.attr,
-+	&bcm2712_vpu_dma_l2_rpend.attr.attr,
-+	&bcm2712_vpu_dma_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_l2_out_atwait.attr.attr,
-+	&bcm2712_vpu_l2_out_atrans.attr.attr,
-+	&bcm2712_vpu_l2_out_amax.attr.attr,
-+	&bcm2712_vpu_l2_out_wwait.attr.attr,
-+	&bcm2712_vpu_l2_out_wtrans.attr.attr,
-+	&bcm2712_vpu_l2_out_wmax.attr.attr,
-+	&bcm2712_vpu_l2_out_rwait.attr.attr,
-+	&bcm2712_vpu_l2_out_rtrans.attr.attr,
-+	&bcm2712_vpu_l2_out_rmax.attr.attr,
-+	&bcm2712_vpu_l2_out_rpend.attr.attr,
-+	&bcm2712_vpu_l2_out_ratrans.attr.attr,
-+	&bcm2712_vpu_dma_uc_atwait.attr.attr,
-+	&bcm2712_vpu_dma_uc_atrans.attr.attr,
-+	&bcm2712_vpu_dma_uc_amax.attr.attr,
-+	&bcm2712_vpu_dma_uc_wwait.attr.attr,
-+	&bcm2712_vpu_dma_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_dma_uc_wmax.attr.attr,
-+	&bcm2712_vpu_dma_uc_rwait.attr.attr,
-+	&bcm2712_vpu_dma_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_dma_uc_rmax.attr.attr,
-+	&bcm2712_vpu_dma_uc_rpend.attr.attr,
-+	&bcm2712_vpu_dma_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_l2_in_atwait.attr.attr,
-+	&bcm2712_vpu_l2_in_atrans.attr.attr,
-+	&bcm2712_vpu_l2_in_amax.attr.attr,
-+	&bcm2712_vpu_l2_in_wwait.attr.attr,
-+	&bcm2712_vpu_l2_in_wtrans.attr.attr,
-+	&bcm2712_vpu_l2_in_wmax.attr.attr,
-+	&bcm2712_vpu_l2_in_rwait.attr.attr,
-+	&bcm2712_vpu_l2_in_rtrans.attr.attr,
-+	&bcm2712_vpu_l2_in_rmax.attr.attr,
-+	&bcm2712_vpu_l2_in_rpend.attr.attr,
-+	&bcm2712_vpu_l2_in_ratrans.attr.attr,
-+	NULL,
-+};
-+
-+static struct attribute *bcm2712d0_events[] = {
-+	&bcm2712d0_vpu_uc_atwait.attr.attr,
-+	&bcm2712d0_vpu_uc_atrans.attr.attr,
-+	&bcm2712d0_vpu_uc_amax.attr.attr,
-+	&bcm2712d0_vpu_uc_wwait.attr.attr,
-+	&bcm2712d0_vpu_uc_wtrans.attr.attr,
-+	&bcm2712d0_vpu_uc_wmax.attr.attr,
-+	&bcm2712d0_vpu_uc_rwait.attr.attr,
-+	&bcm2712d0_vpu_uc_rtrans.attr.attr,
-+	&bcm2712d0_vpu_uc_rmax.attr.attr,
-+	&bcm2712d0_vpu_uc_rpend.attr.attr,
-+	&bcm2712d0_vpu_uc_ratrans.attr.attr,
-+	&bcm2712d0_display_top_atwait.attr.attr,
-+	&bcm2712d0_display_top_atrans.attr.attr,
-+	&bcm2712d0_display_top_amax.attr.attr,
-+	&bcm2712d0_display_top_wwait.attr.attr,
-+	&bcm2712d0_display_top_wtrans.attr.attr,
-+	&bcm2712d0_display_top_wmax.attr.attr,
-+	&bcm2712d0_display_top_rwait.attr.attr,
-+	&bcm2712d0_display_top_rtrans.attr.attr,
-+	&bcm2712d0_display_top_rmax.attr.attr,
-+	&bcm2712d0_display_top_rpend.attr.attr,
-+	&bcm2712d0_display_top_ratrans.attr.attr,
-+	&bcm2712d0_v3d_atwait.attr.attr,
-+	&bcm2712d0_v3d_atrans.attr.attr,
-+	&bcm2712d0_v3d_amax.attr.attr,
-+	&bcm2712d0_v3d_wwait.attr.attr,
-+	&bcm2712d0_v3d_wtrans.attr.attr,
-+	&bcm2712d0_v3d_wmax.attr.attr,
-+	&bcm2712d0_v3d_rwait.attr.attr,
-+	&bcm2712d0_v3d_rtrans.attr.attr,
-+	&bcm2712d0_v3d_rmax.attr.attr,
-+	&bcm2712d0_v3d_rpend.attr.attr,
-+	&bcm2712d0_v3d_ratrans.attr.attr,
-+	&bcm2712d0_arm_atwait.attr.attr,
-+	&bcm2712d0_arm_atrans.attr.attr,
-+	&bcm2712d0_arm_amax.attr.attr,
-+	&bcm2712d0_arm_wwait.attr.attr,
-+	&bcm2712d0_arm_wtrans.attr.attr,
-+	&bcm2712d0_arm_wmax.attr.attr,
-+	&bcm2712d0_arm_rwait.attr.attr,
-+	&bcm2712d0_arm_rtrans.attr.attr,
-+	&bcm2712d0_arm_rmax.attr.attr,
-+	&bcm2712d0_arm_rpend.attr.attr,
-+	&bcm2712d0_arm_ratrans.attr.attr,
-+	&bcm2712d0_rp1_atwait.attr.attr,
-+	&bcm2712d0_rp1_atrans.attr.attr,
-+	&bcm2712d0_rp1_amax.attr.attr,
-+	&bcm2712d0_rp1_wwait.attr.attr,
-+	&bcm2712d0_rp1_wtrans.attr.attr,
-+	&bcm2712d0_rp1_wmax.attr.attr,
-+	&bcm2712d0_rp1_rwait.attr.attr,
-+	&bcm2712d0_rp1_rtrans.attr.attr,
-+	&bcm2712d0_rp1_rmax.attr.attr,
-+	&bcm2712d0_rp1_rpend.attr.attr,
-+	&bcm2712d0_rp1_ratrans.attr.attr,
-+	&bcm2712d0_argon_top_atwait.attr.attr,
-+	&bcm2712d0_argon_top_atrans.attr.attr,
-+	&bcm2712d0_argon_top_amax.attr.attr,
-+	&bcm2712d0_argon_top_wwait.attr.attr,
-+	&bcm2712d0_argon_top_wtrans.attr.attr,
-+	&bcm2712d0_argon_top_wmax.attr.attr,
-+	&bcm2712d0_argon_top_rwait.attr.attr,
-+	&bcm2712d0_argon_top_rtrans.attr.attr,
-+	&bcm2712d0_argon_top_rmax.attr.attr,
-+	&bcm2712d0_argon_top_rpend.attr.attr,
-+	&bcm2712d0_argon_top_ratrans.attr.attr,
-+	&bcm2712d0_sdio_wifi_atwait.attr.attr,
-+	&bcm2712d0_sdio_wifi_atrans.attr.attr,
-+	&bcm2712d0_sdio_wifi_amax.attr.attr,
-+	&bcm2712d0_sdio_wifi_wwait.attr.attr,
-+	&bcm2712d0_sdio_wifi_wtrans.attr.attr,
-+	&bcm2712d0_sdio_wifi_wmax.attr.attr,
-+	&bcm2712d0_sdio_wifi_rwait.attr.attr,
-+	&bcm2712d0_sdio_wifi_rtrans.attr.attr,
-+	&bcm2712d0_sdio_wifi_rmax.attr.attr,
-+	&bcm2712d0_sdio_wifi_rpend.attr.attr,
-+	&bcm2712d0_sdio_wifi_ratrans.attr.attr,
-+	&bcm2712d0_sd_dma_atwait.attr.attr,
-+	&bcm2712d0_sd_dma_atrans.attr.attr,
-+	&bcm2712d0_sd_dma_amax.attr.attr,
-+	&bcm2712d0_sd_dma_wwait.attr.attr,
-+	&bcm2712d0_sd_dma_wtrans.attr.attr,
-+	&bcm2712d0_sd_dma_wmax.attr.attr,
-+	&bcm2712d0_sd_dma_rwait.attr.attr,
-+	&bcm2712d0_sd_dma_rtrans.attr.attr,
-+	&bcm2712d0_sd_dma_rmax.attr.attr,
-+	&bcm2712d0_sd_dma_rpend.attr.attr,
-+	&bcm2712d0_sd_dma_ratrans.attr.attr,
-+	&bcm2712d0_per_atwait.attr.attr,
-+	&bcm2712d0_per_atrans.attr.attr,
-+	&bcm2712d0_per_amax.attr.attr,
-+	&bcm2712d0_per_wwait.attr.attr,
-+	&bcm2712d0_per_wtrans.attr.attr,
-+	&bcm2712d0_per_wmax.attr.attr,
-+	&bcm2712d0_per_rwait.attr.attr,
-+	&bcm2712d0_per_rtrans.attr.attr,
-+	&bcm2712d0_per_rmax.attr.attr,
-+	&bcm2712d0_per_rpend.attr.attr,
-+	&bcm2712d0_per_ratrans.attr.attr,
-+	&bcm2712d0_system_l2_atwait.attr.attr,
-+	&bcm2712d0_system_l2_atrans.attr.attr,
-+	&bcm2712d0_system_l2_amax.attr.attr,
-+	&bcm2712d0_system_l2_wwait.attr.attr,
-+	&bcm2712d0_system_l2_wtrans.attr.attr,
-+	&bcm2712d0_system_l2_wmax.attr.attr,
-+	&bcm2712d0_system_l2_rwait.attr.attr,
-+	&bcm2712d0_system_l2_rtrans.attr.attr,
-+	&bcm2712d0_system_l2_rmax.attr.attr,
-+	&bcm2712d0_system_l2_rpend.attr.attr,
-+	&bcm2712d0_system_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_atwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_atrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_amax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_wwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_wmax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_rwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_rmax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_rpend.attr.attr,
-+	&bcm2712_vpu_vpu1_d_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_atwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_atrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_amax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_wwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_wmax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_rwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_rmax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_rpend.attr.attr,
-+	&bcm2712_vpu_vpu0_d_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_atwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_atrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_amax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_wwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_wmax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_rwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_rmax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_rpend.attr.attr,
-+	&bcm2712_vpu_vpu1_i_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_atwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_atrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_amax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_wwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_wmax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_rwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_rmax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_rpend.attr.attr,
-+	&bcm2712_vpu_vpu0_i_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_system_l2_atwait.attr.attr,
-+	&bcm2712_vpu_system_l2_atrans.attr.attr,
-+	&bcm2712_vpu_system_l2_amax.attr.attr,
-+	&bcm2712_vpu_system_l2_wwait.attr.attr,
-+	&bcm2712_vpu_system_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_system_l2_wmax.attr.attr,
-+	&bcm2712_vpu_system_l2_rwait.attr.attr,
-+	&bcm2712_vpu_system_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_system_l2_rmax.attr.attr,
-+	&bcm2712_vpu_system_l2_rpend.attr.attr,
-+	&bcm2712_vpu_system_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_dma_l2_atwait.attr.attr,
-+	&bcm2712_vpu_dma_l2_atrans.attr.attr,
-+	&bcm2712_vpu_dma_l2_amax.attr.attr,
-+	&bcm2712_vpu_dma_l2_wwait.attr.attr,
-+	&bcm2712_vpu_dma_l2_wtrans.attr.attr,
-+	&bcm2712_vpu_dma_l2_wmax.attr.attr,
-+	&bcm2712_vpu_dma_l2_rwait.attr.attr,
-+	&bcm2712_vpu_dma_l2_rtrans.attr.attr,
-+	&bcm2712_vpu_dma_l2_rmax.attr.attr,
-+	&bcm2712_vpu_dma_l2_rpend.attr.attr,
-+	&bcm2712_vpu_dma_l2_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu1_d_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu0_d_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu1_i_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu0_i_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_vpu_uc_atwait.attr.attr,
-+	&bcm2712_vpu_vpu_uc_atrans.attr.attr,
-+	&bcm2712_vpu_vpu_uc_amax.attr.attr,
-+	&bcm2712_vpu_vpu_uc_wwait.attr.attr,
-+	&bcm2712_vpu_vpu_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_vpu_uc_wmax.attr.attr,
-+	&bcm2712_vpu_vpu_uc_rwait.attr.attr,
-+	&bcm2712_vpu_vpu_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_vpu_uc_rmax.attr.attr,
-+	&bcm2712_vpu_vpu_uc_rpend.attr.attr,
-+	&bcm2712_vpu_vpu_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_l2_out_atwait.attr.attr,
-+	&bcm2712_vpu_l2_out_atrans.attr.attr,
-+	&bcm2712_vpu_l2_out_amax.attr.attr,
-+	&bcm2712_vpu_l2_out_wwait.attr.attr,
-+	&bcm2712_vpu_l2_out_wtrans.attr.attr,
-+	&bcm2712_vpu_l2_out_wmax.attr.attr,
-+	&bcm2712_vpu_l2_out_rwait.attr.attr,
-+	&bcm2712_vpu_l2_out_rtrans.attr.attr,
-+	&bcm2712_vpu_l2_out_rmax.attr.attr,
-+	&bcm2712_vpu_l2_out_rpend.attr.attr,
-+	&bcm2712_vpu_l2_out_ratrans.attr.attr,
-+	&bcm2712_vpu_dma_uc_atwait.attr.attr,
-+	&bcm2712_vpu_dma_uc_atrans.attr.attr,
-+	&bcm2712_vpu_dma_uc_amax.attr.attr,
-+	&bcm2712_vpu_dma_uc_wwait.attr.attr,
-+	&bcm2712_vpu_dma_uc_wtrans.attr.attr,
-+	&bcm2712_vpu_dma_uc_wmax.attr.attr,
-+	&bcm2712_vpu_dma_uc_rwait.attr.attr,
-+	&bcm2712_vpu_dma_uc_rtrans.attr.attr,
-+	&bcm2712_vpu_dma_uc_rmax.attr.attr,
-+	&bcm2712_vpu_dma_uc_rpend.attr.attr,
-+	&bcm2712_vpu_dma_uc_ratrans.attr.attr,
-+	&bcm2712_vpu_l2_in_atwait.attr.attr,
-+	&bcm2712_vpu_l2_in_atrans.attr.attr,
-+	&bcm2712_vpu_l2_in_amax.attr.attr,
-+	&bcm2712_vpu_l2_in_wwait.attr.attr,
-+	&bcm2712_vpu_l2_in_wtrans.attr.attr,
-+	&bcm2712_vpu_l2_in_wmax.attr.attr,
-+	&bcm2712_vpu_l2_in_rwait.attr.attr,
-+	&bcm2712_vpu_l2_in_rtrans.attr.attr,
-+	&bcm2712_vpu_l2_in_rmax.attr.attr,
-+	&bcm2712_vpu_l2_in_rpend.attr.attr,
-+	&bcm2712_vpu_l2_in_ratrans.attr.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group rpi_axi_pmu_bcm2712_events_group = {
-+	.name = "events",
-+	.attrs = bcm2712_events,
-+	.is_visible = rpi_axi_pmu_events_is_visible,
-+};
-+
-+static const struct attribute_group rpi_axi_pmu_bcm2712d0_events_group = {
-+	.name = "events",
-+	.attrs = bcm2712d0_events,
-+	.is_visible = rpi_axi_pmu_events_is_visible,
-+};
-+
- static const struct attribute_group *rpi_axi_pmu_bcm2835_attr_groups[] = {
- 	&rpi_axi_pmu_format_group,
- 	&rpi_axi_pmu_bcm2835_events_group,
-@@ -1924,6 +3105,20 @@ static const struct attribute_group *rpi_axi_pmu_bcm2711_attr_groups[] = {
- 	NULL,
- };
- 
-+static const struct attribute_group *rpi_axi_pmu_bcm2712_attr_groups[] = {
-+	&rpi_axi_pmu_format_group,
-+	&rpi_axi_pmu_bcm2712_events_group,
-+	&rpi_axi_pmu_cpumask_group,
-+	NULL,
-+};
-+
-+static const struct attribute_group *rpi_axi_pmu_bcm2712d0_attr_groups[] = {
-+	&rpi_axi_pmu_format_group,
-+	&rpi_axi_pmu_bcm2712d0_events_group,
-+	&rpi_axi_pmu_cpumask_group,
-+	NULL,
-+};
-+
- /**
-  * rpi_axi_pmu__validate_event() - Validates single event resource capability
-  * @pmu: Pointer to core PMU struct
-@@ -2085,6 +3280,19 @@ static void set_bus_watcher_control(struct rpi_axi_pmu *pmu, enum monitor mon, i
- 	}
- }
- 
-+static u32 rpi_axi_pmu_filter_bits(struct rpi_axi_pmu *pmu, enum monitor mon, int filter)
-+{
-+	if (pmu->axi_id_mask && mon == MON_VPU)
-+		return FIELD_PREP(BW_CTRL_VPU_ID, filter) |
-+		       FIELD_PREP(BW_CTRL_VPU_ID_MASK, GENMASK(5, 0));
-+	if (pmu->axi_id_mask)
-+		return FIELD_PREP(BW_CTRL_AXI_ID, FIELD_PREP(AXI_ID_MASTER, filter)) |
-+		       FIELD_PREP(BW_CTRL_AXI_ID_MASK, AXI_ID_MASTER);
-+	if (pmu->chip == CHIP_BCM2712)
-+		return FIELD_PREP(BW_CTRL_2712_FILTER_MASK, filter);
-+	return FIELD_PREP(BW_CTRL_BUS_FILTER_MASK, filter);
-+}
-+
- /**
-  * rpi_axi_pmu_enable_bus_watcher() - Enables a hardware bus watcher unit
-  * @pmu: Pointer to PMU context
-@@ -2104,7 +3312,7 @@ static void rpi_axi_pmu_enable_bus_watcher(struct rpi_axi_pmu *pmu, enum monitor
- 		      ((bus << BW_CTRL_BUS_WATCH_SHIFT) & BW_CTRL_BUS_WATCH_MASK);
- 	if (filter) {
- 		bus_control |= BW_CTRL_ENABLE_ID_FILTER_BIT;
--		bus_control |= FIELD_PREP(BW_CTRL_BUS_FILTER_MASK, filter);
-+		bus_control |= rpi_axi_pmu_filter_bits(pmu, mon, filter);
- 	}
- 	if (!pmu->monitor[mon].hw_events.monitor_running) {
- 		set_monitor_control(pmu, mon, GEN_CTL_RESET_BIT);
-@@ -2759,6 +3967,16 @@ static int rpi_axi_pmu__init(struct rpi_axi_pmu *pmu, struct platform_device *pd
- 		}
- 	}
- 
-+	/* Only BCM2712 D0 and later implement the AXI ID mask field */
-+	if (pmu->chip == CHIP_BCM2712 && pmu->monitor[MON_SYSTEM].base_address) {
-+		void __iomem *ctrl = pmu->monitor[MON_SYSTEM].base_address + BW0_CTRL;
-+		u32 old = readl(ctrl);
-+
-+		writel(BW_CTRL_AXI_ID_MASK, ctrl);
-+		pmu->axi_id_mask = !!(readl(ctrl) & BW_CTRL_AXI_ID_MASK);
-+		writel(old, ctrl);
-+	}
-+
- 	if (pmu->monitor[MON_VPU].use_mailbox_interface &&
- 	    !rpi_axi_pmu_vpu_accessible(pmu)) {
- 		dev_warn(dev, "VPU monitor not accessible through firmware\n");
-@@ -2780,7 +3998,11 @@ static int rpi_axi_pmu__init(struct rpi_axi_pmu *pmu, struct platform_device *pd
- 		goto err_teardown;
- 	}
- 
--	if (pmu->chip == CHIP_BCM2711)
-+	if (pmu->chip == CHIP_BCM2712 && pmu->axi_id_mask)
-+		pmu->pmu.attr_groups = (const struct attribute_group **)rpi_axi_pmu_bcm2712d0_attr_groups;
-+	else if (pmu->chip == CHIP_BCM2712)
-+		pmu->pmu.attr_groups = (const struct attribute_group **)rpi_axi_pmu_bcm2712_attr_groups;
-+	else if (pmu->chip == CHIP_BCM2711)
- 		pmu->pmu.attr_groups = (const struct attribute_group **)rpi_axi_pmu_bcm2711_attr_groups;
- 	else
- 		pmu->pmu.attr_groups = (const struct attribute_group **)rpi_axi_pmu_bcm2835_attr_groups;
-@@ -2866,6 +4088,10 @@ static const struct of_device_id rpi_axi_pmu_match[] = {
- 		.compatible = "brcm,bcm2711-axiperf",
- 		.data = (void *)CHIP_BCM2711,
- 	},
-+	{
-+		.compatible = "brcm,bcm2712-axiperf",
-+		.data = (void *)CHIP_BCM2712,
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, rpi_axi_pmu_match);
+--
+
+nfc: nci: don't drop data received on HCI and loopback connections
+
+This patch limits the NCI_DATA_EXCHANGE claim in
+nci_data_exchange_complete() to data on the static RF connection. Data
+on HCI over NCI and NFCC loopback connections goes to their
+data_exchange_cb again, instead of being freed. That undoes the
+regression from 8265a626cc14 where every HCI and loopback request timed
+out.
+
+> diff --git a/net/nfc/nci/data.c b/net/nfc/nci/data.c
+> index 4253edea5c8db..76ec891a02b09 100644
+> --- a/net/nfc/nci/data.c
+> +++ b/net/nfc/nci/data.c
+> @@ -46,8 +46,13 @@ void nci_data_exchange_complete(struct nci_dev *ndev, struct sk_buff *skb,
+>  	timer_delete_sync(&ndev->data_timer);
+>  	clear_bit(NCI_DATA_EXCHANGE_TO, &ndev->flags);
+>  
+> -	/* Claim completion atomically -- both close and rx_work may race here */
+> -	if (!test_and_clear_bit(NCI_DATA_EXCHANGE, &ndev->flags)) {
+> +	/* Claim completion atomically -- both close and rx_work may race here.
+> +	 * NCI_DATA_EXCHANGE only tracks nci_transceive() on the static RF
+> +	 * connection; data received on other logical connections (HCI over
+> +	 * NCI, NFCC loopback) is always handed to their callback.
+> +	 */
+> +	if (conn_id == NCI_STATIC_RF_CONN_ID &&
+> +	    !test_and_clear_bit(NCI_DATA_EXCHANGE, &ndev->flags)) {
+
+[Severity: Medium]
+Can this leave NCI_DATA_EXCHANGE set with nothing left to clear it?
+
+The callers gated on NCI_DATA_EXCHANGE pass ndev->cur_conn_id, not the
+RF connection id. In nci_rx_work():
+
+	if (test_bit(NCI_DATA_EXCHANGE_TO, &ndev->flags)) {
+		/* complete the data exchange transaction, if exists */
+		if (test_bit(NCI_DATA_EXCHANGE, &ndev->flags))
+			nci_data_exchange_complete(ndev, NULL,
+						   ndev->cur_conn_id,
+						   -ETIMEDOUT);
+
+Both completions in nci_close_device() do the same thing with -ENODEV.
+
+Only nci_transceive() sets NCI_DATA_EXCHANGE, so a set bit means an RF
+exchange on conn 0 is pending. But every nci_send_data() overwrites
+cur_conn_id without a lock. That includes HCI sends through
+nci_hci_send_data() and nci_nfcc_loopback(), and nci_transceive()
+doesn't take req_lock.
+
+Say an RF exchange from rawsock or LLCP is pending. An HCI or loopback
+send then sets cur_conn_id to a non-RF connection and re-arms data_timer
+in nci_tx_work(). If the timer fires:
+
+nci_rx_work()
+  nci_data_exchange_complete(ndev, NULL, ndev->cur_conn_id, -ETIMEDOUT)
+    timer_delete_sync(&ndev->data_timer);
+    clear_bit(NCI_DATA_EXCHANGE_TO, &ndev->flags);
+    conn_id != NCI_STATIC_RF_CONN_ID, so test_and_clear_bit() is skipped
+    HCI or loopback cb(cb_context, NULL, -ETIMEDOUT)
+
+The RF callback never runs. NCI_DATA_EXCHANGE stays set and no timer is
+left, so every later nci_transceive() returns -EBUSY. Only an
+RF_DEACTIVATE_NTF or a close with NCI_UP set clears it. Before this
+patch, test_and_clear_bit() released the bit whatever the conn_id was.
+
+The same mismatch lets a close-time completion and an rx_work delivery
+on the same non-RF connection both reach the callback. The atomic claim
+from 8265a626cc14 no longer covers them, so nci_nfcc_loopback_cb() could
+overwrite a just-stored rx_skb with NULL.
+
+One part of this is older than this patch. On close the RF callback
+never runs, which leaks the rawsock sock_hold(), but the old code also
+called the cur_conn_id callback.
+
+Should the paths gated on NCI_DATA_EXCHANGE pass NCI_STATIC_RF_CONN_ID
+instead, as nci_rf_deactivate_ntf_packet() already does?
+
+[Severity: Medium]
+With the claim now limited to conn 0, a completion on a non-RF
+connection still runs this on the device-wide data_timer:
+
+	timer_delete_sync(&ndev->data_timer);
+	clear_bit(NCI_DATA_EXCHANGE_TO, &ndev->flags);
+
+but it no longer releases NCI_DATA_EXCHANGE. Does this cancel the only
+timeout of a pending RF nci_transceive()?
+
+nci_tx_work() re-arms data_timer for frames on any connection. While an
+RF exchange is pending, any HCI or loopback data on its own connection
+deletes the RF exchange's timer. That includes unsolicited HCP events
+from the NFCC or SE.
+
+If data_timer has already fired and rx_work handles such a packet in
+its dequeue loop, NCI_DATA_EXCHANGE_TO is cleared before the check at
+the end of nci_rx_work(). The timeout is lost.
+
+nci_core_conn_intf_error_ntf_packet() has the same shape:
+
+	if (test_bit(NCI_DATA_EXCHANGE, &ndev->flags))
+		nci_data_exchange_complete(ndev, NULL, ntf->conn_id, -EIO);
+
+If the NFCC sends a non-RF ntf->conn_id, this deletes the RF timer and
+leaves the bit set.
+
+If the RF response is then lost, NCI_DATA_EXCHANGE stays set. Every
+later nci_transceive() returns -EBUSY until an RF deactivation. Before
+this patch, the non-RF completion's test_and_clear_bit() released the
+bit.
+
+The new comment says NCI_DATA_EXCHANGE only tracks the RF connection,
+but the timer and TO state are still shared. Should the timer and TO
+handling also be limited to conn_id == NCI_STATIC_RF_CONN_ID, or be
+made per connection?
+
+>  		kfree_skb(skb);
+>  		return;
+>  	}
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but now that non-RF data is
+always forwarded again, can nci_nfcc_loopback_cb() report success with
+a NULL skb?
+
+	conn_info->rx_skb = skb;
+
+	nci_req_complete(ndev, NCI_STATUS_OK);
+
+The callback ignores err. A NULL skb can come from the rx_work timeout,
+from CORE_INTERFACE_ERROR_NTF, or from the skb_cow_head() failure path
+in nci_add_rx_data_frag() (err = -ENOMEM). In each case the request
+completes with OK, and nci_nfcc_loopback() returns 0 with
+*resp == NULL. st_nci_loopback() then dereferences it:
+
+	r = nci_nfcc_loopback(ndev, data, data_len, &skb);
+	if (r < 0)
+		return r;
+
+	msg = nfc_vendor_cmd_alloc_reply_skb(dev, ST_NCI_VENDOR_OUI,
+					     LOOPBACK, skb->len);
+
+With this patch, the -ENOMEM case is reachable without an RF exchange.
+
+A later patch in this series, "nfc: nci: consume the loopback response
+exactly once", fixes the NULL dereference: nci_nfcc_loopback() detaches
+rx_skb and returns -EPROTO when it is NULL. One minor gap remains after
+that: a non-NULL skb that arrives together with an error is still
+reported as success.
+
+[Severity: Medium]
+This is a pre-existing issue, but this patch makes the
+conn_info->rx_skb lifecycle reachable again. At this commit rx_skb is
+never consumed in these cases, so those skbs leak:
+
+  nci_hci_set_param()
+  nci_hci_send_cmd(), when skb is NULL or the HCI result is non-zero
+  nci_hci_open_pipe()
+
+Also, any skb that is handed out leaves conn_info->rx_skb dangling.
+
+Later patches in this series fix most of that. "nfc: nci: hci: consume
+the HCP response exactly once" adds nci_hci_take_resp(), and "nfc: nci:
+consume the loopback response exactly once" does the same for loopback.
+
+One gap remains after those. nci_hci_resp_received() and
+nci_nfcc_loopback_cb() both still do:
+
+	conn_info->rx_skb = skb;
+
+without freeing an unconsumed previous skb. Does each late reply after
+nci_request() has timed out, or each extra unsolicited HCP RESPONSE from
+the NFCC, leak one skb? Nothing frees rx_skb when the connection or
+device is torn down either.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but HCI delivery was
+effectively unreachable after 8265a626cc14, and this patch turns it
+back on. Is msg_rx_work ever synchronized with device teardown?
+
+nci_hci_data_received_cb() queues non-RESPONSE messages on the system
+workqueue:
+
+		skb_queue_tail(&ndev->hci_dev->msg_rx_queue, hcp_skb);
+		schedule_work(&ndev->hci_dev->msg_rx_work);
+
+nci_unregister_device() only flushes and destroys the NCI cmd, rx and
+tx workqueues. nci_free_device() calls nci_hci_deallocate():
+
+void nci_hci_deallocate(struct nci_dev *ndev)
+{
+	kfree(ndev->hci_dev);
+}
+
+and then frees ndev. Nothing in net/nfc/nci calls cancel_work_sync() or
+flush_work() on msg_rx_work. msg_rx_queue and rx_hcp_frags are never
+purged.
+
+In the NCI_UP branch, nci_close_device() keeps the transport open
+during the reset request. HCI packets received then still go through
+rx_work and schedule msg_rx_work. That work can sleep: for example,
+st_nci_hci_connectivity_event_received() calls
+devm_kzalloc(GFP_KERNEL) and nfc_se_transaction().
+
+Suppose st_nci_remove()->nci_unregister_device()->nci_free_device()
+runs meanwhile. Can nci_hci_msg_rx_work() then touch the freed hdev and
+ndev, or call nci_hci_send_data()->queue_work() on the destroyed tx_wq?
+Any queued fragments and messages would also leak.
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but now that HCI responses
+reach their callback again, each HCP RESPONSE completes the request
+twice:
+
+nci_hci_hcp_message_rx()
+  nci_hci_resp_received()
+    nci_req_complete(ndev, NCI_STATUS_OK);
+  nci_req_complete(ndev, NCI_STATUS_OK);
+
+nci_req_complete() only checks req_status == NCI_REQ_PEND. Suppose
+rx_work is preempted after the first complete(). The waiter can return,
+drop req_lock and start the next nci_request(), which sets
+NCI_REQ_PEND. Could the second call then complete that new request
+early with OK?
+
+req_lock serializes submitters but doesn't exclude the receive worker.
+In the final series state, the next HCI request would get -EPROTO from
+nci_hci_take_resp(). A plain NCI command would instead return success
+before its RSP arrives, and its real response would later be stored and
+never consumed.
+
+At this commit, the race can also cause a use-after-free of a stale
+rx_skb. "nfc: nci: hci: consume the HCP response exactly once" fixes
+that part.
+
+[Severity: High]
+This is a pre-existing issue, but at this commit NFCC data on the HCI
+connection reaches nci_hci_data_received_cb() and nci_hci_msg_rx_work()
+again. nci_hci_hcp_message_rx() ends with:
+
+	nci_req_complete(ndev, NCI_STATUS_OK);
+
+It does this for COMMAND, EVENT and unknown types as well, and
+conn_info->rx_skb is never reset to NULL.
+
+Suppose an unsolicited HCP EVENT or COMMAND arrives while one of these
+is waiting:
+
+  nci_hci_send_cmd()
+  nci_hci_set_param()
+  nci_hci_get_param()
+  nci_nfcc_loopback()
+
+The request then completes with OK. Can the waiter skb_pull() a NULL or
+already-freed conn_info->rx_skb and hand it out again? That would lead
+to a double free in callers such as st_nci_hci_load_session() and
+st_nci_loopback().
+
+Later patches in this series fix this. "nfc: nci: hci: consume the HCP
+response exactly once" adds nci_hci_take_resp(), which detaches rx_skb
+and returns -EPROTO when it is NULL. "nfc: nci: consume the loopback
+response exactly once" does the same for nci_nfcc_loopback().
+
 -- 
-2.56.0.385.gac671c819a-goog
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179331585573.30322.4049957541187612575%40gmail.com
