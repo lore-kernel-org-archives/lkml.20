@@ -1,61 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629698;
-	b=Jnlovjsc3MnRCuHnyUQzqJ0JDA+4IfsrMLa7DrywMRirV9UaCA5mn0NsAZqu6RL1y3gj
-	 VBVyP+YmC+o/Fho0sZgW3QN9vJctdKOkFpIfjN/u5Cfed2z5d/9SOlp+O9j25OTVFC66X
-	 VsqUI3vkC0XRqMGzvh3ELAWMo7wsNu20ROaJ5PoYi3y4d+QU6YOSgRGbiJB7+GGMY+X/J
-	 ZkZUC2QCr7nQ6v3R1+nPUwPk8iDlEJCgXpmfjZsmo+oboIOG4l0N16ifuqZ9GR2oj5u6K
-	 dYr9xjpkpMQm5oSHxAmvzv3XGuvifBp425yz42kLOoCkE91pzp/BChjioKBWrGDegoA==
+	t=1793629704;
+	b=HBXBtH5qQ9Kwh04K46kJw6ZBV6lH5fJ/+KtGvW+DnBnlZ9IIsf2hSAUJ8JfStWCKSFDM
+	 yU3q/J6KrkqYL4jaYAWhw/PiFAkAu1DNBWnAjQl0XpUciYJ98aVPaKma+VGI9tcYZsLX8
+	 sATOdiisFX6KyHYRVO4j8Ktbc9ixkw9BwmpjR/V0GeE+cJ5xXY3cq/IAG6Q1wNZqljw0a
+	 k6vVw6XRPUbSPM84qx1qDhJW0Ia1qPmE89M3nUd0/DnSg57IQA+TcWUeq5BmUXh8BxwWk
+	 DgNpuHlTz5qDaW3M3QJtwYuwNmnB04LRPEno1DTdCjaDUFeJp/XXe30iC/jHhgn2vdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629698;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4Cie1gSyrYbMTqRrUQtHSjOhd7eFIgioVLrH28tB3EY=;
-	b=mUVAC7xvPNNX+a9dBCy09duJWzaghb0bIb792YgDFcwLGZPKQNZO08YqAO1r6YHL2UG4
-	 42YOEXtxek5cHN609o9gdWlstuIymlFqjigIv2UESFO0CDtCrF24swf0K2hZWvz6nhAAa
-	 elcVkCf5M3NG7lpjJANS1/WDYYowb3Iit9XM57A4MMInpT3T1czvPk/VnfHZGUY95KbgR
-	 IH8ZNkqtrSdFw4kAfErbdgeIU/uLitfmrhgbzp9F37wqW56d//evwo8xCDElisKI+6OAI
-	 oa/yMI90JLUgL7rIrWiElwY3X2GY4rbHFp9ins0j9nlhINnuTPfkDPl+5vdE4mB/MWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629704;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=0pK5ommQQILhJiDusmehxqIo5bMBDGkmBkDJ10oCG08=;
+	b=jNg5Piw+t566sirLvTXuphbg1dElGzQFA931xSrTHJajlpdHBPur4Bqn58GxmOx/K9L/
+	 t10S/oRaaCV0WTBSuuY2Pl5hQqA03aC34W/JS80r9VoN7+3mVHXQs2uKlVBQelFiehWXa
+	 /d5+jTme+VqB+uBxWgXZn9GdIsROVnfQUIPNUHmEHvJ4sP9jgiuy0ixnU+kzplmNec4Tj
+	 Hxy9aXEwchtmK73zuBaCeoj5t0jBeRHX7KsiwLMW8tEC3Q/CH5IdiCjZcGiFvjywqBeST
+	 ufaZxUMfoU4Pwng4o0O7M7fTMYEjqe2hSZvMtcGbfxsdJpr6alLndW36nNVsEu0RMlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6U8zPnz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UWtE8HH7;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C381D60A2617;
-	Mon,  2 Nov 2026 14:28:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306566080A7B
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 306566080A7B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6U8zPnz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4374A1F00A18;
-	Mon,  2 Nov 2026 14:28:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793629697;
-	bh=4Cie1gSyrYbMTqRrUQtHSjOhd7eFIgioVLrH28tB3EY=;
-	h=From:To:Cc:Subject:Date;
-	b=C6U8zPnzG6Kk9C0WRXWL/Lt86oVNlsaKN09RWtD8XeNRWioGGKqy3qwU2Bdzg2H5d
-	 kw+BmHVxewm+dTtZA1nJ7zizeUtamf5oxcGrOBineN25XtKAEObYg+fHTayncrRYic
-	 zRnLoSyqZfQ06x74xzj2+NOwtHcI09h5Rn2YjDrk5QgH6k6IOnOD6E73ePK7WD/Wu2
-	 eBip2dQCqpYBJw5a6PIrHrLCe6en30EOKg0NcG/R61DkYaOtCEmVg0APnYpnYXLUSf
-	 urRggLadORKILDtiwYo1mh/LFjTqbf9hY+HW5v6nKk/j1dFsH8B7+1hMA4iC2XRk/O
-	 FWWpWaY7MzFeg==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jiaxin Yu <jiaxin.yu@mediatek.com>
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH] ASoC: dt-bindings: mediatek: Fix MT8186 child node names
-Date: Mon,  2 Nov 2026 08:28:11 -0600
-Message-ID: <20261102142812.2743578-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UWtE8HH7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=0pK5ommQQILhJiDusmehxqIo5bMBDGkmBkDJ10oCG08=; b=UWtE8HH7eZ6iSZazPdkqJkDkIg
+	cB50hz3vyI6tD7uicnv3+ep19TXlarSmv78cMQyCUgeL36Ii1DMKTXs4nngvBjtiVM6BvR8sZLCtQ
+	uAH4PQs52SdmZD2okGbWOfIL/e8M6j5VhquxwLPJfA+XhZYfbp6UEqO04ViMp0aMXk+AQpjaWmCPS
+	Up7Q+mHgFS0wH7IPIA80hewpdf/1jTUi9P/Yrrwj9IBWVo7Paq0T/8FIrWZv0FB4aEZ6GL7c9Y9lQ
+	lgFpQL/NzFBoVg3hcRsiVb9WbK9rFiUidm9S2C0CWDnaBDpgE0vl9Vq5NOni509ue6gqDNZ5N0sTq
+	APIDUVOA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xNt1H-006DcX-1R;
+	Mon, 02 Nov 2026 14:28:19 +0000
+Date: Mon, 2 Nov 2026 06:28:14 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, jpoimboe@kernel.org, 
+	keescook@chromium.org, hpa@zytor.com
+Subject: Re: [PATCH 1/6] x86_64/entry: Unconditionally use -fno-jump-table
+Message-ID: <auid5MjnGmbN4Iif@gmail.com>
+References: <20261102112549.714541309@infradead.org>
+ <20261102114000.436794287@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,45 +67,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102114000.436794287@infradead.org>
+X-Debian-User: leitao
 
-Use 'playback-codecs' instead of 'speaker-codecs' in the legacy-property
-exclusion for both MT8186 sound card bindings. This appears to be a
-copy-n-paste error as 'playback-codecs' is the name defined by these
-bindings and consumed by the driver.
+On Mon, Nov 02, 2026 at 12:25:50PM +0100, Peter Zijlstra wrote:
+> Currently we force -fno-jump-table for RETPOLINE=y || X86_KERNEL_IBT=y, which
+> means that it is effectively disabled for most everyone these days.
+> 
+> Simply unconditionally disable jump tables for x86_64 to take away the edge
+> case.
+> 
+> Doing so, allows removing the array_index_nospec() barrier in the syscall
+> dispatch since it cannot be an array index anymore.
+> 
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/sound/mt8186-mt6366-da7219-max98357.yaml           | 2 +-
- .../devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Thanks for the patchset.
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-index 037f21443ad1..922dfdf55a66 100644
---- a/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-da7219-max98357.yaml
-@@ -145,7 +145,7 @@ if:
- then:
-   properties:
-     headset-codec: false
--    speaker-codecs: false
-+    playback-codecs: false
- 
- examples:
-   - |
-diff --git a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-index ed93f18ef985..ddc7a0ce69be 100644
---- a/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-+++ b/Documentation/devicetree/bindings/sound/mt8186-mt6366-rt1019-rt5682s.yaml
-@@ -144,7 +144,7 @@ if:
- then:
-   properties:
-     headset-codec: false
--    speaker-codecs: false
-+    playback-codecs: false
- 
- examples:
-   - |
--- 
-2.53.0
-
+Tested-by: Breno Leitao <leitao@debian.org>
