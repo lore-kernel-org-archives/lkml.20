@@ -1,65 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793662962;
-	b=Uxl+QNOAifC4N6ftwaYBRCtdnKXvSIDfFWoVyOfl3VXJ4TuSPsDGNhlQxCqllzqWboz4
-	 xJ7xFoZIuv57t5HRx8CzH/oX2ni/+sProkZOGPvHao9uvR41jxW1flN64D6Pt/vO+YYgC
-	 Xs7p+d9kSzSVfqPRVFWAAUBd0n6eI3nzkI1byMPKx4haFAQd09HY8kvUigZxGtIgunjNm
-	 W518k9tO8UH2qPJ7JoesNNPRbCIFezFKO2e3lu/O6d+8L0Tf3QhmKceK+SNTLwm5VTClc
-	 WbPXeqfEAxOwFrj7qez3FcyrgsEsqpq6fcZG9ECZodVb0HjvAq48AACYyCbobquQOQg==
+	t=1793662967;
+	b=ktBm3I7sZok/YTZzMwcj/ro2kJmW3IvrgwGrO+51aET0M7m8daoFTbTocJPxe6ethTV4
+	 8mfgPOE8gN40g0PShL/zysu0/nSX9licN0RnFidnVGbz8soeGpTL0KI4WTjkjGRkf2B4i
+	 b3KnfXkKGwjz4WkTklVDjBHk3CkwjxqneMAEMnpelj/aqVNJq4LYHyzOurAKUnXL5eVYl
+	 Ec8fRe3LZi1po5SkQGgAYmt4fwezwacH90pa1aZ8vwvmAhmWHd+vDkmxXuHJyj2tAHX4g
+	 dZXN2vWfc0zfCdsxp73RKT57wSKGzKsDjS/8f+UXYMH09Mv7dARNOwB2zmBJfpdqY7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793662962;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ozF3h4aUekaFNOe7DRyg0a3bh7Yt4mQLO1saPU6M4xE=;
-	b=PAinOwSs0khKB6QXwIdkAzgWC6q2SUxePEt9cCttMV5ratyYIuVpJdfEwZBwqgMyfOAB
-	 vc6r+YCZ9OkCQ1kzXPJzpzhld4k7ywOf91jOH3nBrkFxAipIldyUG3o/k1aYe4cMQyxta
-	 3Xd5qnYIorr0kTE2QiYm8VZGAmAUR1X0zzSDqcpIlTryEVmgWKGiJS7UED7kVOA2egPEl
-	 CzjlrM6N/2Yr5a+V5gKil8fM5ebASoq3g8j4sT7GiVkQsca9uPKOEGxVXw3J40yPSZ+TX
-	 BvFwLzdU3mUXHDHmak4ViRs2FomJ57eDgTpVaXQlNZiSwpCvYbgo/p1QJXEH/sXwRWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793662967;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=o3AyBdMUkVdCCJKAQY/1TakIHf1rsXe0QcmI773jn9M=;
+	b=yBS1V2qULUzRnfFA6gDZ7KZKzbJXuhbZ/ql+Gu7aNHw6WJ/pIcJs5yjLKbQtyRJhvsQw
+	 mRV1MpufkFy79Y5EpasPs6sOxX1IETsOzIiM6ZG+vZ+HT6g520IKMdATy+wbdWpHJhdbq
+	 /8CfmVkGYDGD+OeLA4hnj+Ch70ihJG6n5Kv8j/OHKGTbsHFEg75kuoFhyRUOvgQq2g/YA
+	 kJqQgOLog2hpAn0x68ptPaOBF3x1ZDpe0e8YiIptzItYOKkkRX8OfqSHdZJNIkDzMLTyX
+	 Hqwu6gmOqOoSP9mQAex8SLWhx+8XFGw3GXpy+ZkIYTd1bGsRMkRrhnls2x6ZDM5P90A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=gWUj0o1K;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ibl1EM8b;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42C7606A329;
-	Mon,  2 Nov 2026 23:42:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B42C7606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE17606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:42:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBE17606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=gWUj0o1K
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3690BB1A;
-	Tue,  3 Nov 2026 00:40:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793662823;
-	bh=wAQ2GsgCD/YQbE45EYrTMRsnhVSS61FPzdNJs1TgxY4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gWUj0o1Kms6l1VLKnhTo6f94CoPkynqMsMINex1oVsbdXynf0+v1F0br2jDDty1aE
-	 xqjTIiVcZmsIirZnG7OlMKxcxxNTLaTgUIpgrhpH2lUXFDHoV/CXIEYtL+g2dAnKU8
-	 GWEebUM2t1mKqXLfiWaY1IMeF5eY7em2SfYV2bKE=
-Date: Tue, 3 Nov 2026 01:42:38 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Igor Velkov <iav@iav.lv>
-Cc: Dafna Hirschfeld <dafna@fastmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: rkisp1: Depend on PM
-Message-ID: <20261102234238.GD3559911@killaraus.ideasonboard.com>
-References: <20261102-rkisp1-depends-on-pm-v1-1-35a26cb2bbce@iav.lv>
- <20261102223316.GB3548113@killaraus.ideasonboard.com>
- <20261103005500.rkisp1-pm-reply-1@iav.lv>
- <20261102231206.GA3559911@killaraus.ideasonboard.com>
- <20261103-rkisp1-pm-reply-2@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ibl1EM8b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793662952; x=1825198952;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=LXChv3V1vRZYD43vc5i6FcOX7rjeKYnWqEFenVJgnkE=;
+  b=ibl1EM8bw6yRMyaWDGjWfTHdXPm87QlLvtV24LuYOAYqGAKXVWb8uqcH
+   RYNoDRsl7iDDseunhSRP2inERugcJnSUMcd/q+bOcDVITHf11VN/LoIdq
+   BxvtFpMAi6bcrIzSxFoF5IUSa9eRDRX77Ra9xpkKHR0zCmGG7uDc0B9ja
+   FC10G++fh6po2NLXMSRsSMTqGvYHsGnUuJqVRvsNJfuADWJZeycs4z7WX
+   HoC7LcheKtjMllu5Mbo9AhR6fhRmrkWHgNQogKKamAZ1SRrZbuDBovkAg
+   xOemEAhrG+TA8Ol2/EKLDstWPzOiTvZYhYV8heGAohPGCWnURc6ref3+o
+   g==;
+X-CSE-ConnectionGUID: krU3tQ62SimkCnNUN1oIqA==
+X-CSE-MsgGUID: HEMIft9/QcmPSZxoBY53jw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2366699"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2366699"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 15:42:31 -0800
+X-CSE-ConnectionGUID: gLubmmTpTOCBojPNKbMtGw==
+X-CSE-MsgGUID: jh+VBy3gRB6jV2futItRiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6097933"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.163]) ([10.125.109.163])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 15:42:31 -0800
+Message-ID: <84b07585-6dec-45c5-ba5a-784d0da7a961@intel.com>
+Date: Mon, 2 Nov 2026 16:42:29 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,27 +72,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103-rkisp1-pm-reply-2@iav.lv>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] ntb: use dmaengine_desc_set_callback()
+To: Frank.Li@oss.nxp.com, Jon Mason <jdmason@kudzu.us>,
+ Allen Hubbe <allenbh@gmail.com>, Matt Porter <mporter@kernel.crashing.org>,
+ Alexandre Bounine <alex.bou9@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Andrew Morton <akpm@linux-foundation.org>, James Kim
+ <james010kim@gmail.com>, Dan Carpenter <error27@gmail.com>,
+ "open list:NTB DRIVER CORE" <ntb@lists.linux.dev>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: imx@lists.linux.dev, vkoul@kernel.org
+References: <20261102195748.4092882-1-Frank.Li@oss.nxp.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20261102195748.4092882-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 03, 2026 at 01:25:45AM +0200, Igor Velkov wrote:
-> On Tue, Nov 03, 2026, Laurent Pinchart wrote:
-> > What does the driver bind to when running on a system that has PM=n ? On
-> > which platform can that happen ?
+
+
+On 11/2/26 12:57 PM, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> None that I can name: the nodes exist only on Rockchip and i.MX8 boards,
-> and those select PM. The patch came out of the rkvdec thread, where Nicolas
-> pointed out that with PM=n the first MMIO access can hang and asked to
-> check similar drivers [1]; rkisp1 and rga had the same pattern. If that
-> case is not worth guarding, I'll drop it.
+> Replace open-coded assignments to callback and callback_param fields
+> of struct dma_async_tx_descriptor with calls to the
+> dmaengine_desc_set_callback() helper across ntb drivers.
+> 
+> No functional change intended. Prepare to make struct
+> dma_async_tx_descriptor private to the DMA engine.
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-Given that it can't happen on any platform, I don't think the patch is
-needed.
+For the NTB bits:
+Acked-by: Dave Jiang <dave.jiang@intel.com>
 
-> [1] https://lore.kernel.org/r/8aafdbbf04a0d939c6b4d7d5577d97bb58d1c439.camel@collabora.com
+> ---
+>  drivers/ntb/ntb_transport.c              | 6 ++----
+>  drivers/ntb/test/ntb_perf.c              | 3 +--
+>  drivers/rapidio/devices/rio_mport_cdev.c | 3 +--
+>  3 files changed, 4 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> index f9caa1a653c5b..370196ecf8f9d 100644
+> --- a/drivers/ntb/ntb_transport.c
+> +++ b/drivers/ntb/ntb_transport.c
+> @@ -1557,8 +1557,7 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
+>  	if (!txd)
+>  		goto err_get_unmap;
+>  
+> -	txd->callback_result = ntb_rx_copy_callback;
+> -	txd->callback_param = entry;
+> +	dmaengine_desc_set_callback(txd, NULL, ntb_rx_copy_callback, entry);
+>  	dma_set_unmap(txd, unmap);
+>  
+>  	cookie = dmaengine_submit(txd);
+> @@ -1889,8 +1888,7 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
+>  	if (!txd)
+>  		goto err_get_unmap;
+>  
+> -	txd->callback_result = ntb_tx_copy_callback;
+> -	txd->callback_param = entry;
+> +	dmaengine_desc_set_callback(txd, NULL, ntb_tx_copy_callback, entry);
+>  	dma_set_unmap(txd, unmap);
+>  
+>  	cookie = dmaengine_submit(txd);
+> diff --git a/drivers/ntb/test/ntb_perf.c b/drivers/ntb/test/ntb_perf.c
+> index dfd175f79e8f0..862b3dffa2b17 100644
+> --- a/drivers/ntb/test/ntb_perf.c
+> +++ b/drivers/ntb/test/ntb_perf.c
+> @@ -834,8 +834,7 @@ static int perf_copy_chunk(struct perf_thread *pthr,
+>  		goto err_free_resource;
+>  	}
+>  
+> -	tx->callback = perf_dma_copy_callback;
+> -	tx->callback_param = pthr;
+> +	dmaengine_desc_set_callback(tx, perf_dma_copy_callback, NULL, pthr);
+>  	dma_set_unmap(tx, unmap);
+>  
+>  	ret = dma_submit_error(dmaengine_submit(tx));
+> diff --git a/drivers/rapidio/devices/rio_mport_cdev.c b/drivers/rapidio/devices/rio_mport_cdev.c
+> index 40d2953a9a7f9..585e3f9ff29ca 100644
+> --- a/drivers/rapidio/devices/rio_mport_cdev.c
+> +++ b/drivers/rapidio/devices/rio_mport_cdev.c
+> @@ -717,8 +717,7 @@ static int do_dma_request(struct mport_dma_req *req,
+>  		goto err_out;
+>  	}
+>  
+> -	tx->callback = dma_xfer_callback;
+> -	tx->callback_param = req;
+> +	dmaengine_desc_set_callback(tx, dma_xfer_callback, NULL, req);
+>  
+>  	req->status = DMA_IN_PROGRESS;
+>  	kref_get(&req->refcount);
 
--- 
-Regards,
-
-Laurent Pinchart
