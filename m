@@ -1,98 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793600392;
-	b=wroci1Wu0o7K4XsgIV7Zog+n8r24b8GYkfF6hsoWuRzQyXITw7XLFPs9R/Wa9IbwvKL/
-	 obDB/CczacC0N3J1gC4MQ0ld8uUrMVhD7JkzLKms2M6l5DHVvW2lowVa5PylqJS692oFl
-	 QjSGYfkMRLcT7a3yasdVnn7G/N8HxZIsTCZs0VnHPVW1QIlEi4YM4ZGGh3sRsHZO1A39K
-	 lTWm8ujJfcAci+pT7c2seXLeu3m/1Jwu71FfphUuXlnZVS2sbSpFdw+9dFtFcegFHDezf
-	 iSdRhQHNqfQx7TVCUelAs2bAjb6gMyEiaWhzYROUV0hkNoayQ+nMGjuLCZd6v1/m1mQ==
+	t=1793600420;
+	b=AJYfjY3wPlXpdnmwDNtToCa8EgiK7M1yePuIPAZqqDehajioR08Alnt7bQr1grtzEXu2
+	 +ImenWtq9n6kDoDHx4HNq/XlhyrLczlGQangOTNf2WvKhUOX0J/SsWnoqkJ7YwpDt76Aj
+	 h4UMP5DMhaFOwbubHN87YnLfpybZpSc5GQTcpU46a9K7yiZIS+mRTkjGQbtityi0XchUa
+	 k951JCFqx+JhQm2xGD64N/t7f2It/mxTJ9Ekmn8FTaQN+SyULeSPPdbCbR6/ke9neFHi9
+	 dv77yGP3g5tOpvlbULaL3XNTVhqwL0DxEbUZ7YJD/1w0vbnknyvwqU/aMVQDrhpJv6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793600392;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mElJe/DzwSK4Juni12Wq7XJkw3SOr9Pu1K+PozWddZs=;
-	b=Q1KGKy6aJjbBqi1K0OLTEQFyUnt1MvtFW3SaNEJhwHOmcyE0RGIQD9uw1Hub+02qSpEP
-	 6cQD5yLs1xBw35jMVuyzJcCU+GWIObuo6scmp71ICrIR5raKDoy2Im0NdEZbxVDpLPZzk
-	 8k0TD/Wz98CxMDyGM0MfkUkEmt6zbih/AFIHKIhOQpsAp5s22BiXcBcBpAC2ZWQNqk2LA
-	 lGuf+nW1wlx+VK/wfsNZlYMzbu2I1jOugr7EVTNQh9hiCk71LfUlVf9JmEw3PmmYegJct
-	 UsFdhdGXRbBLN96gl0O2aPT0A1+gd5bZ3qePwDAQHqY6ZL4tPTnk0qOWKzqir7fmYew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600420;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=k85vwGun/ME58WuhAJ471wGe1ShuWGkpnjyDxU6NW6s=;
+	b=DXp9q+jImK1yH4Rp1Qx3dDqRF0smzJBcMxdeYD+Ubn4yEfu0IGY6jJWRoZONvHz4aDRY
+	 iyJbwGt8OguMOcqISbI7cQnqeFFvjVrgKJLJoJRGiA8MahLr3aOL2FjRr3xnBQSizb+Yo
+	 QubRFBnArAqWf2Y7d6zJiqrpXGsSCzbWrEcb/oabbaFBmC0dXldlX2/06VojjS5MPi9ty
+	 CDDHy6PzrUcoeXD7WQSZjJz84C6Lbtaz8rqxEQNZNZT0clAbpMWly1CsmVg7ApuGejdCq
+	 +gCrmxhyljB8TUrT5l+aW72DMGXxeRwgpZ+GDrZ1lxjUMreLq++BKjcItXDDu7wuzJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=iLdkvdVl;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=YYcFwmTi;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE5A606A337
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:19:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BE5A606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4EA606A32F;
+	Mon,  2 Nov 2026 06:20:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E4EA606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=iLdkvdVl
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso1565975a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:19:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793600392; x=1794205192; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mElJe/DzwSK4Juni12Wq7XJkw3SOr9Pu1K+PozWddZs=;
-        b=iLdkvdVlivdnBEwdF4/PbU7RuQHrRTPKAvS/0RZAfYJPkd4Zz/n+kjh0RLKW7xXrdM
-         /u1zi6YdXw0bUzOysZtLRTWe9+s7SWC/Jc0C7xwjMN4EzX9WL8D8CimQ4mNj79qUXTbA
-         4NruuwiNtW0Ya+rA+sSvLHvG64WEUk9/pmglxT8AK1uqvt+kMgm8/mkiACHHb+bjjh8P
-         8lE5PT3x8iXeDh+n/XIe/VgXPJ6yDygrbo1M2s7KwOdxRezkKhC0ey85XLThyFb+Kdk4
-         zF1MrHXbSBkWCwSJsOoqrUNXvoJQPf+L4bhLLLvJmv2R5jmABe2+ug3X/OPAb8ia8BxF
-         VSiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793600392; x=1794205192;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mElJe/DzwSK4Juni12Wq7XJkw3SOr9Pu1K+PozWddZs=;
-        b=rWEii+M4wLLQPHJOikxVUD8IKM26a7EhAJa3/Vzo4LLwL1395RXBeIaFnnHavEybK8
-         RX/H8cCod4JEGZKE1GONJqDW1zaqjhoLEpQRDmP4qstXbReasowo16mzJtNz06qi+ai7
-         7Ejz8hxdAiGSwCHF3CkX+fJS9+7mNIDGcan5CeQjE1iPkjxW6x5rkjnoSg3fGMdrxFtI
-         6POUDchaPY7YlqXV398zJJuFrh+Ty7wbczd5ZaG3AboheUzfNruy1V59f2CmY3KCkpDx
-         xwv9IQjEuHct673xs9LZWQZDdUTRroGEqUG5vAewqp19xyeP0K7PwiEeXbJbRsLoTwO0
-         SctA==
-X-Forwarded-Encrypted: i=1; AKwUvBxqHIW3LKl+IVYLWO8n9TT83iJmomFUOL7w8Y7oP8KXm2MZaPfVC6i5JLIwRq9TxMRHLO44Xmc8k391mhU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VPlT3VlQR8z1kRAApwPyD5nco0fRcj6Gr+EiKet1JKJNw1mhJ
-	hNZMAvpBQsXRR1vRssfBcJmF486NJysAVy1CoPQs3weHrZXd5DvXjy0OASs36skfhjI=
-X-Gm-Gg: AYBFou0bYSyfNmzxUR52caIRxiA5NWpazkpxp3809aCrlPiGD6JYst1B4o70/Pjh98l
-	ZNbKWx3HaKvXB5CtT/dlLf4fMS3IkZZJaWUnSz9zOJoURtWrExRK6amVzVaUlLHtFNQMSaCW5+e
-	swQJqu1MYSJvQK1ZFI90C+VFdrHlsOUhhQD4XzsuPkyYPdGxoyjgObfSzwOYG4qO/SW4E6bi6W5
-	wbauBo+lAQUyhgUSZ9qLv0g/yVORwnSAxge+n++WpKg19onbIvBB+h3C0XNFx1UutS5A7MxPz06
-	zWIzsCqnDAHxpsvTm8gKlQ50Yt1XozauabcwSJ36J/TXV707LP5WAjSz+apDNpIjvFhblgbfGHq
-	w6NieJmVmPf9TIfFk2RSweB0XeLlAxwaKQ/XfrQH6Oahf25XGlNczjtIYeibszpknLX3M4mUqIG
-	g8EFuPc4k+Ahkg6q7+K50EaI0xLobvPTI7eyRXcg3yYMm2jJymmyLNqXOqp2szHO3yPkMNNFQoo
-	UxCgIvDoMW2MQAdJHis5YwAtvHACpwzfL+alle8s0COFW8QMNIiU/zPZxiVWvHtugWUXdLkyhq7
-	Jur89TcZiQnw3t2lVnIi8TCTdbhcyG4xyXRt2d8ed8LZ/mNN3gBVTNDPXD42hg7fithGPti+7Gi
-	LDpiiZaH00wKQ0loD7CeTGAWB+lsU6iMxwy00/A==
-X-Received: by 2002:a17:90b:1e42:b0:3ab:5832:72af with SMTP id 98e67ed59e1d1-3ae897ce417mr7276437a91.32.1793600391928;
-        Sun, 01 Nov 2026 22:19:51 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:d115:e4f4:23fd:61df])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8441a5ecsm12927752a91.2.2026.11.01.22.19.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:19:51 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v3 2/2] RDMA/srp: do not DMA-sync a receive IU past its mapped length
-Date: Mon,  2 Nov 2026 15:19:38 +0900
-Message-ID: <20261102061938.617371-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102061938.617371-1-yhlee@isslab.korea.ac.kr>
-References: <20261102061938.617371-1-yhlee@isslab.korea.ac.kr>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=YYcFwmTi
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793600413; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=k85vwGun/ME58WuhAJ471wGe1ShuWGkpnjyDxU6NW6s=;
+	b=YYcFwmTif2MUle3G2fE4vTBfFxymZ/6Wm/kSqmMfYd4zpHXpazL0oP+iFcGBEjDmOtH0s8ExDjnOTWNQtw1bgB/HSZfRWpsf/vmvfmoWxZgTq8Txx2CVtdKBSj5GXuAcRgUyVtEgjZQnyedY+A4vUqnWsCa8mrCCfNehGjuYvAA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R601e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=67;SR=0;TI=SMTPD_---0XDunP4-_1793600408;
+Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDunP4-_1793600408 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 14:20:09 +0800
+Message-ID: <2fd4f929-d7e1-4deb-b3c7-4bdc611e789b@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 14:20:07 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,50 +53,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 10/47] mm/huge_memory: fix list corruption when
+ deferred_split_scan() races with deferred_split_folio()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ Mani Tofigh <mt4022@columbia.edu>, Muhammad Usama Anjum <usama.anjum@arm.com>
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-10-d6437171ecc3@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261031-fixes_core-v3-10-d6437171ecc3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-srp_recv_done() syncs the receive IU with ch->max_ti_iu_len, but the IU
-was mapped with iu->size.  Those are the same value only until the first
-reconnect.  srp_cm_rep_handler() takes ch->max_ti_iu_len from every
-SRP_LOGIN_RSP while it allocates the receive ring only when there is none,
-and srp_rport_reconnect() keeps the ring across a reconnect, so a target
-that reports a larger max_ti_iu_len the second time around makes both
-ib_dma_sync_single_for_cpu() and ib_dma_sync_single_for_device() run past
-the end of the mapping, which breaks the DMA API rules.
 
-The HCA itself cannot overrun the buffer, because srp_post_recv() posts
-iu->size, so sync the length that was actually mapped.
 
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Fixes: aef9ec39c47f ("IB: Add SCSI RDMA Protocol (SRP) initiator")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/infiniband/ulp/srp/ib_srp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
+> Since the deferred split queue became a list_lru, the isolate callback
+> moves the folios it took a reference on to an on-stack list, linked
+> through folio->_deferred_list, and deferred_split_scan() takes them off
+> that list with list_del_init() without holding the list_lru lock.
+> 
+> deferred_split_folio() does not know about the on-stack list. It only
+> holds the list_lru lock when it looks at the same list_head, and it can
+> run for such a folio: a THP is queued when it is mapped, as a candidate
+> for the underused check, and is queued "again" when a part of it gets
+> unmapped:
+> 
+>    CPU0 deferred_split_scan()          CPU1 deferred_split_folio()
+>    list_del_init(&folio->_deferred_list)
+>      next->prev = prev
+>      prev->next = next
+>      entry->next = entry
+>                                        list_lru_lock_irqsave()
+>                                        folio_set_partially_mapped()
+>                                        __list_lru_add()
+>                                          list_empty(item)  -> true
+>                                          list_add_tail(item, &l->list)
+>                                            item->next = &l->list
+>                                            item->prev = tail
+>      entry->prev = entry
+> 
+> The folio now sits on the list_lru with ->prev pointing to itself. The
+> next removal leaves the neighbours pointing to it, and they still do so
+> after the folio has been freed. With CONFIG_DEBUG_LIST:
+> 
+>    list_del corruption. prev->next should be ffd4000000270090, but was
+>    ffd4000000278090. (prev=ffd4000000270090)
+> 
+> Fix it by grabbing the lock around list_del_init() so
+> deferred_split_folio() cannot race with it.
+> 
+> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
+> Cc: stable@vger.kernel.org
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+> Reviewed-by: Mani Tofigh <mt4022@columbia.edu>
+> Tested-by: Mani Tofigh <mt4022@columbia.edu>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-diff --git a/drivers/infiniband/ulp/srp/ib_srp.c b/drivers/infiniband/ulp/srp/ib_srp.c
-index a85d28b95306a5..159d6b6aa93e3a 100644
---- a/drivers/infiniband/ulp/srp/ib_srp.c
-+++ b/drivers/infiniband/ulp/srp/ib_srp.c
-@@ -2111,7 +2111,7 @@ static void srp_recv_done(struct ib_cq *cq, struct ib_wc *wc)
- 		return;
- 	}
- 
--	ib_dma_sync_single_for_cpu(dev, iu->dma, ch->max_ti_iu_len,
-+	ib_dma_sync_single_for_cpu(dev, iu->dma, iu->size,
- 				   DMA_FROM_DEVICE);
- 
- 	opcode = *(u8 *) iu->buf;
-@@ -2148,7 +2148,7 @@ static void srp_recv_done(struct ib_cq *cq, struct ib_wc *wc)
- 		break;
- 	}
- 
--	ib_dma_sync_single_for_device(dev, iu->dma, ch->max_ti_iu_len,
-+	ib_dma_sync_single_for_device(dev, iu->dma, iu->size,
- 				      DMA_FROM_DEVICE);
- 
- 	res = srp_post_recv(ch, iu);
--- 
-2.43.0
-
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
