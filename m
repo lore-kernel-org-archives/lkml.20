@@ -1,122 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793596217;
-	b=os15vQkQLZNZioq3/abW+LSjcWcIGdt9cAPr59PL4YGX9qSiWbSBoT5uk7cYTXmkoWVn
-	 Vm8zNwEgS0kt8pbbS0gn3XTgqb5SGlIRSmvJRErzYFk28dTX5+C+KW8Sw+oWv29RkwBoK
-	 c0i1NNDuvYKMyrwTQbgwLB08QPAVrZlaAF+5ZiBPdVxNYQvz+pKgWMZtYCEKvZK1GwWIf
-	 aGwOXcYUM2/0bIjCMR3BNnOeS+GBinUHq4lzzQkUofXQIu3rqDz/EfrO0WL8WVLEeY2b0
-	 YaYGTvhZz4RS2A2eEhVK4E6ApqT7Y7NrHfZJXt/gDbUTcqKWENYoco1RUX/MSbCWZfQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793596217;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=D5QSQm4M1iOF9ifVVH/QLh34xRT2v7bR5+D0b5MMq+0=;
-	b=h8nxNFelCytKGPsRJOsLTSQmfwtdkHPcUeeGi1FuRf73NQryyc0kjnEHsn2O3QoJVLNZ
-	 UD8B3galjKkhJqyjfn4W0O1Koyq8+qCHhub182IZzeWV744Pq2EHfC7US/i71Gmo3ZOLT
-	 phh7DuX5NJmVoHwVfoSKJNRSgw8X6g1SY9YAkWmQOQsiUTgllOmVzMhp6FCP7jxLFiJYy
-	 wyI7BA6zTZBHYHVScGQl5Vbi1GBhe8oHd3TEh8IuQHRGAbxv467PvwXpgrpaFe6R1vO3N
-	 CoCpJ35PIg5OxKWq/CXZKYkrJM+s25KfvIiCkMTsr0U8NOAImHBKJyN7WCsITCxKJfA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=j8V7DDOQ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="nUCioCF/";
-	arc=none smtp.remote-ip=202.12.124.155
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793596212;
+	b=lxfZOHtZlRO91gNdObw0AtizGII4HLaDlR1TEzgdXE6htgfijCmlNQjvTGHoA7A4eMlC
+	 l1SoZu/4ci4BtygU3aUvMIQm64QMaJq+enx6Y5LQf1k8dg2g5+iBGl1CgVC7Da0GKMNww
+	 xjyGT43fgM8Au7uhXQ4s8/aydC6piwN/XSScYaMFxrAaNDi4J8RmiTAU4a71G1XH24w3i
+	 oArghQw8X6n6shfJdPlkLtWfElSNj6ZmEneXfvnZSdtCvzCKCly9ANQaGmw6MXhGJ7Avr
+	 eBjfSAx26pF78MErEFMnq2GvQ35sIf1ddzbbiQFyEAX+tOSd21eQAw5xhDUitJG3Hhg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793596212;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pC5b5twFF+SxzkhSXejiKzdM406HFo2duDeDWQZ2ajs=;
+	b=b63TIs796TFCPY8glxNzP2kPQSfDvE3l7qbu7PcjV1DntuuS2Kq8+EwzAnMKTg7+al1L
+	 I6ALOXMIujett0kyZtmphSgaoT6UnvwyaVBont3ZMYVACmDJX8jUVYYureCHSVA96WmVQ
+	 nYCeduol41H/lIHQ5lKUgnsjfiGzvVJ/eF3G64nQQejvnYj21agQUk14Lyd3s+sOcoVl4
+	 Wvtajy51ObvSOD4f1fho252a4JzJFnYhIZaDfgy7+4RKp7ZefidnNu2wF8fvqrKRgwDDr
+	 AtbusH33Zdb3dev6fcVRs0b8qlfA00U9ZUYVpX/8YHpyrEtaSawKOzCaTM5EQYStMqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdUXXzaV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05430606A324;
+	Mon,  2 Nov 2026 05:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdUXXzaV
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793596211;
+	b=iE5Ld6iqu4tGhrACU7jt7aVb/6EOZSPSCp34QRz2JYiBHdUd7sJ9uG+S68M2rZH7t/Jv
+	 Sb72KJS3xMVLoVfZdgbM18eK3cq8t0gCxocZj3chPckMS6bNCZyfR4C0bN3Jf67qE0lpp
+	 48d2UHyD/5gyI7izokdlT3CLDLRb6z55/ia7GDHhEzfHuRVcFcwXFghZa6LIl7kx8LQ5S
+	 xU0Q7CiaDuPajh4CRnXzo8ZGTbw/AfA0FLFmJY7wPyvNWUlYQYsMW5jiMVjiW+DAf9bXW
+	 orV/kgNPmhDxydVCJ7aeMXvBwPc15A/FUEuh1dGdgAOIed0obs5NWM1Mob291S4layw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793596211;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=pC5b5twFF+SxzkhSXejiKzdM406HFo2duDeDWQZ2ajs=;
+	b=l4+aZmyhMdQR9Rcy2SnIYpYz0uDRXuJXxLVujqF1Hd3SmBIb02u/uuutgLdDTzuDZs1C
+	 FeKDIXjoWm7SnezKf2f17czLirbtZalSsiuqBXk88cgrcC+0GGG4lwSw0e++aXMK1FLNo
+	 GtDyDRNQUHJzBZvjPZNyXi7Pkx1nNWx0Ugc6qm6E9SlnGV1UKVjn2SQi1D+LsB+bpkBsS
+	 ywvYfmfhxAAIGiu2EyxTX9YFBuoVJ1QR9lWlW2QqrnatGLvZsKuym3vykCiXUKrLhp9Az
+	 QSoBkPgBxaZuJYohsfmWFJ2EeLxRsGp2xprJL67sypNh36MyDmP0lZH5i+/yqBkNZCg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D62606A329
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 05:10:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37D62606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=j8V7DDOQ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=nUCioCF/
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 7C2987A0178
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 00:10:15 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Mon, 02 Nov 2026 00:10:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1793596214; x=1793682614; bh=D5QSQm4M1iOF9ifVVH/QL
-	h34xRT2v7bR5+D0b5MMq+0=; b=j8V7DDOQ74o6MT+OxZg7060myDX6b6Lz2rWgB
-	kIGMojA8o3AqVFTbGAFfXAO8grZUJLIYFo+6eBPEPmhO0zMEewueLBspPvBd2Bbz
-	W/2vqj8LKMwkrc2J/osl4UcFTIvtfcHHeV8DbxTQuFCY8ixXk+/y8xliqtIzceon
-	GiQ/cKWDVtXsaItnyVtFRKnm4qtFtgCNlH+0BBRk4ho+7nKGqMCewS6unkcfTt7r
-	o1yAIudm2PjNLwJMt5u8PGr/6jmueSPgVUi0Py399IYrUlhSOIQvbPPQafsndK5b
-	Lo7fGS1ILSBRdbUrmGy+mMbfyEMR3LB6W+9nPNOmjtonK1kkA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793596214; x=1793682614; bh=D5QSQm4M1iOF9ifVVH/QLh34xRT2v7bR5+D
-	0b5MMq+0=; b=nUCioCF/94OH+1vooWdgFn4JDhpE7BsNmTHChDXYSaXiWANPzVh
-	c6OI+eMQ4nix1BpcsfHQe9m/x8g8J9h3EzTJ+42RKPxUYUJzLfH+2RFjQ2pwDA7e
-	oZAn9kEsbn5gwkg20r60GivmH2JgNNBxQsl5TQEevYyxQa5Jvqd8tewJORld4O/t
-	ejc6Frxu2SFEyYz1vEo6o21UjIemRAfkraITUHgp+XEylVhYItTJMRMhB5uY5pNL
-	ccoixMhyUuNKSc1nKbl5LFToP3lgQVwcBLXmcNGqOg6XJrpejbVL0aA3EyDzZGqQ
-	R9A8rFF8AGp9tZCKvqmRo/WAF7mGHK7rv2w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793596214; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:aFuhNZ+14melVE/RukKmK/k/zzb8AbFRfVablciPSFnjxDb
-	xS+Z1T9rmJuoDJFg3HF+TxAjzLPZ7KFkptaMkF33flfwjxjyR3v2ZqKjRj3rUKP8
-	or2EiYAp8ms0GPSP9eVsrATl62Z8Ye9bjiT1ya4+2PgjdN0lGZ79ihCfOnVkC6Fy
-	21n6u4hXk3+sxgBm9Z2lpPqBm0v53BtkYsmDNihNoeai8XONQBKs6ywBkrhv1QNF
-	qUEk+Pwf9e+Pb9IzKIluRtwdnqQo7uv4tHEDkhBaqQdZwKpyKUDqpXJVHI1REAkI
-	l3qadawn2VDDnScZqHfJGSqqgK9EokoofXzUhFg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:t9pQkznsMKz/oO8WIV30CMqxBulu6bOVuERse6paSUk=:PL0FvH96kVnJF2L3ppS6jdwQnkdMLwy+FrS6zxof6SE=;
-X-ME-Sender: <xms:NRvoavOMeKp6YHQ5wGbvIpV5fPpLDYHdGUvYs55lgtRnRcdJI8513w>
-    <xme:NRvoal9Tsm4NNhQKsTOHGe_-rQVIqCJGz9PIjna0b_vSzy0muU14UCsjBfGUsD3cA
-    masgvEzFiwk2oxQf5SBfKMODWOJDeZ8SZaFnmc6alej6m5-U5GyxJ0k>
-X-ME-Received: <xmr:NRvoagcqLBksxnIsAjJE9ziIRRD3gjDd2B3rH3JopqO_hT6WOg2LbUn1J7J3jApy>
-X-ME-Proxy-Cause: dmFkZTFwO7Gjy9Skl7bA4lKKWiHb9m+IpkPfofdtQlcAfSF456pEiqDu6M9bDIdezGgjpF
-    SxPKaa1nkxQo02v5W8Z3xoJktwmH36B/WXf6rz3MNM/a6kMLO231n6z2/KFdrI2/SQuaHK
-    +PSKq77YMFNbzNMw8oBKHe/HoqzqziMmaCATfu9MQHjUt3sKgOslZr+86ojndc4TrwgoAn
-    3RUmz28RRMLByzysrDeoXVe8rj2aQExP46aU8nLFBXggA9HXtHbcFiZIf77nk3KBw/dwyj
-    gN6/lZs5uJQWwUQ7bID3EMkyVNulAebs0DpL2qldsXuDxn8aMXtgdnHxNW76IMEzJgcBcs
-    NT9tb76AGqsHtdhJxuGOkAqqkgO2/y+v543FXvWKH30Rus16VpdWCu6PdOtYpc4slJKS3y
-    gmI1tc4hhQnJKyhddfB+SU/txyLdB2IEFHboYZM0zEYd4VD9p69oGjxOFx5u951uwguZet
-    jrXWQU0ujaBnM65oH/8D2UhOhX/zqL3tGVB0mjQf0r/UM6axIvMspXlJ5x8T9dHAAaBxqW
-    5lmsYHdFO5qoE0eIa1r6/DmYAy3NyovSRcswjZRwzBesp59oETetaRFGdDpONj6UENlQvG
-    7QhLvVIyvNGgX09TI/QtEKFHJ75QdnMTR4Z7se71lcklN+XlwexmXraZTxTA
-X-ME-Proxy: <xmx:NRvoakwPuGjMwv354N7ApgJ3r5zx6AJDM306oC7xU_0NAtgkpWDXoA>
-    <xmx:NRvoalKgSn2bJ7prR7RTtOv4QkU7V4GR_moq2E2JOm4sig0rT_SiVQ>
-    <xmx:NRvoamGk9FlBAsaeNF15BG99SPuSPvATv_xryGche9IcMG1WKNtwSw>
-    <xmx:NRvoah9TxUHjCc2qBnApEkmvTPLRjDtcSOyHFsbzIohPG71PQsgVgw>
-    <xmx:NhvoakWIXnvYvGif6Xy9o4xn1dFe6J_jWvk9ZHi1X-5jHJB5i-y1RsA2>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 00:10:13 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: [PATCH] ksmbd: do not read past the DACL in the access denied debug message
-Date: Sun,  1 Nov 2026 23:09:15 -0600
-Message-ID: <20261102050915.816373-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id E140A1F000C1;
+	Mon,  2 Nov 2026 05:10:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793596211;
+	bh=pC5b5twFF+SxzkhSXejiKzdM406HFo2duDeDWQZ2ajs=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=SdUXXzaVaAM6U4RZGDjlZ/y3AbjbHWye6ZX7NQk2kj4+qUh0z38xo4INI47Kbz5MY
+	 5t/E4WqJIeZOrD9yQsCUOHdU+g9sF4LmqGKT/ZgFrj9p9ycvxkcE3D/7zcpHLCq1Ao
+	 WmnVB5/HMLDU0ke66pNUr/+oVs4WrojteISqCsqGIj4awOSh7zAhQG0oVkWlqYFfWB
+	 0yz/m9aMZZay0TjSFAPvzECibMzKr5tmqbbIqidvGFOCr+M6eC8YdEegcvQepLBz3e
+	 H4UyqJe6nvcBTw6FET7BQKcHZVfDh/qfxyqKDatzMeyKQFzWD6emsG9wJ3RRolqfMP
+	 22REGg5KdEPLQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4339F46378;
+	Mon,  2 Nov 2026 05:10:10 +0000 (UTC)
+From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
+Date: Sun, 01 Nov 2026 23:10:10 -0600
+Subject: [PATCH ath-next] wifi: ath11k: don't report a QCN9074's chan-info
+ noise floor
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,58 +83,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261101-b90-qcn9074-chan-info-nf-v1-1-aa0a99ba7ba6@gmail.com>
+X-B4-Tracking: v=1; b=H4sIADEb6GoC/yWMQQ6CMBBFr0Jm7STTKgJexbhoy1TGxaBtNSSEu
+ 1t0+fL/eytkTsIZLs0KiT+SZdYK5tBAmJzeGWWsDJbs2Rgy6AfCV9CBuhPuDxSNM2rEsSd3bPu
+ 2885C1Z+Joyy/9BVcmVB5KXD7L/ntHxzKXoZt+wKQB4RahgAAAA==
+X-Change-ID: 20261101-b90-qcn9074-chan-info-nf-d80a35857ba2
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Christopher Griffin <christophergriffin05@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793596209; l=3286;
+ i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
+ bh=te6WMy5xu/GQ3oR7I7RbrttS24vmR5JQGlg47fN/BYU=;
+ b=5VJ/Pz90aEwcbk5GCIHHTA0lTd2rLG+H8/yyaGQjxH8jG3s125XWb5/pdt+Ikr9i5hnZ/FG5I
+ E/fKuVMW4VUBcgkRscdQOdhy2YU0Ctv4CrNFxp0S2iexnDp8zxdOw5v
+X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
+ pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
+X-Endpoint-Received: by B4 Relay for
+ christophergriffin05@gmail.com/20261024 with auth_id=1309
+X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
+Reply-To: christophergriffin05@gmail.com
+Content-Transfer-Encoding: 7bit
 
-When smb_check_perm_dacl() falls back to the POSIX ACL and then denies
-the request, its debug message prints the access mask of the ACE that
-the second DACL walk stopped at. On that path the walk ran to the end
-of the DACL, so the pointer is one past the last ACE. If the DACL is
-the last part of the stored security descriptor, the message reads 4
-bytes past the buffer, and KASAN reports a slab-out-of-bounds read in
-smb_check_perm_dacl().
+From: Christopher Griffin <christophergriffin05@gmail.com>
 
-Print the requested and allowed masks instead. They are what the check
-compares.
+On a QCN9074 (and the QCN9072, which uses its hw_params) the noise floor
+in WMI_CHAN_INFO_EVENTID's START_RESP is a fixed value, not a
+measurement. On an Arista C-360 the QCN9072 scan radio read -107 dBm
++-1 on every 2.4, 5 and 6 GHz channel it visited (150 ms dwells), busy or
+quiet: 5540 at 52 % busy read -110, its lowest. The IPQ8074's own radios,
+on the same channels at the same time, read -95 to -98 and followed the
+channel (-96, -97, -96 on 5200/5220/5240; -95 on 5785, -98 on 5885),
+where the QCN9072 read -108, -107, -107, -107 and -106. -107 is also
+below the ~-101 dBm thermal noise of 20 MHz.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Leave the noise out of a QCN9074's off-channel survey entries, so that
+nothing takes the placeholder for a noise floor; their time and busy
+counts are unchanged, as is every other chip.
+
+Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.5.r4-00683-QCAHKSWPL_SILICONZ-1
+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
 ---
+ drivers/net/wireless/ath/ath11k/core.c | 1 +
+ drivers/net/wireless/ath/ath11k/hw.h   | 2 ++
+ drivers/net/wireless/ath/ath11k/wmi.c  | 8 +++++---
+ 3 files changed, 8 insertions(+), 3 deletions(-)
 
-Notes:
-    ksmbd_debug() evaluates its arguments only when SMB debug output is on
-    (/sys/class/ksmbd-control/debug). The 4 bytes go to the kernel log.
-    
-    Tested on ksmbd-for-next d13da43938d1 with KASAN. With SMB debug
-    enabled, a WRITE_DATA request reaches the POSIX ACL fallback and is
-    denied. Before the fix, the denial triggers a KASAN report. After the
-    fix, the request remains denied and KASAN reports no error. No other
-    access result changes. smbtorture gives the same results as on the base.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance.
-
- fs/smb/server/smbacl.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 664f01263611..cdb04d29ed09 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1672,8 +1672,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	}
+diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
+index 766ae27306f43..d6848789dcff4 100644
+--- a/drivers/net/wireless/ath/ath11k/core.c
++++ b/drivers/net/wireless/ath/ath11k/core.c
+@@ -392,6 +392,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.cfr_support = false,
+ 		.cfr_num_stream_bufs = 0,
+ 		.cfr_stream_buf_size = 0,
++		.chan_info_nf_invalid = true,
+ 	},
+ 	{
+ 		.name = "wcn6855 hw2.0",
+diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
+index 4996536fbd14f..202430fa5b0da 100644
+--- a/drivers/net/wireless/ath/ath11k/hw.h
++++ b/drivers/net/wireless/ath/ath11k/hw.h
+@@ -231,6 +231,8 @@ struct ath11k_hw_params {
+ 	bool cfr_support;
+ 	u32 cfr_num_stream_bufs;
+ 	u32 cfr_stream_buf_size;
++	/* chan-info's noise floor is a fixed value, not a measurement */
++	bool chan_info_nf_invalid;
+ };
  
- 	if (granted & ~access_bits) {
--		ksmbd_debug(SMB, "Access denied with winACL, granted : %x, access_req : %x\n",
--			    granted, le32_to_cpu(ace->access_req));
-+		ksmbd_debug(SMB, "Access denied with winACL, requested : %x, allowed : %x\n",
-+			    granted, access_bits);
- 		rc = -EACCES;
- 		goto err_out;
+ struct ath11k_hw_ops {
+diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
+index 08fd6795ed9e7..7c8b605b622cd 100644
+--- a/drivers/net/wireless/ath/ath11k/wmi.c
++++ b/drivers/net/wireless/ath/ath11k/wmi.c
+@@ -8031,9 +8031,11 @@ static void ath11k_chan_info_event(struct ath11k_base *ab, struct sk_buff *skb)
+ 	if (ch_info_ev.cmd_flags == WMI_CHAN_INFO_START_RESP) {
+ 		survey = &ar->survey[idx];
+ 		memset(survey, 0, sizeof(*survey));
+-		survey->noise = ch_info_ev.noise_floor;
+-		survey->filled = SURVEY_INFO_NOISE_DBM | SURVEY_INFO_TIME |
+-				 SURVEY_INFO_TIME_BUSY;
++		survey->filled = SURVEY_INFO_TIME | SURVEY_INFO_TIME_BUSY;
++		if (!ab->hw_params.chan_info_nf_invalid) {
++			survey->noise = ch_info_ev.noise_floor;
++			survey->filled |= SURVEY_INFO_NOISE_DBM;
++		}
+ 		survey->time = div_u64(ch_info_ev.cycle_count, cc_freq_hz);
+ 		survey->time_busy = div_u64(ch_info_ev.rx_clear_count, cc_freq_hz);
  	}
 
-base-commit: d13da43938d15b0b719827d8f2b32df8eaec5def
--- 
-2.47.3
+---
+base-commit: a3ddbb45768717b5c9f923489387cf55c838d1ad
+change-id: 20261101-b90-qcn9074-chan-info-nf-d80a35857ba2
+
+Best regards,
+--  
+Christopher Griffin <christophergriffin05@gmail.com>
+
 
