@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631768;
-	b=ftpPtuM6Ix4h9vREvZ3ckDLtzAevG0o1n7X3ZfL4nHVCyLOfkz5clPOZLffbgpqObKOT
-	 V9ZOWvUvyk0R5gZQdZFuQI68Ri/FPGfn8rOUXhbxYWoPlR76ZGKbHA/t1m39peGdcf6+a
-	 uI51Zh+7GD9foWON4/eIcSlsjmQG5Tg2z1LIonFoo+1QQajRwPxsbsocO4AhAPFFXJliC
-	 EMdpbaTngc95B/MFF3zqaEKLnpAw65aV6EnuOiUX/vLSsQR2CEZ3L/2Y5+KFD3SV6vUSc
-	 0LW+nTo37CgV9LoQqgoZn/Dv9l3eSo2O0917VJREYB/cLyfkhEmNHHtcPEjMFDi7q/Q==
+	t=1793631763;
+	b=cNxzQvkJILgKIQIlBjCqF4pVA3XB0s7gLi6Oq9K0tBisxsEOS28etb162ydhlP+NvK8E
+	 4oHjFNBN+r+szI/mLQEkjnIK4mMYX2RhqN1XQlBY0TFy0Jz/gqOXGl3wcBDrUy0icYsUv
+	 3xFEH3wTEV/oTQcVICjiezdL5TI+BCoo7mYXwXyG3NsXqMS+1N3agJ2R61r89cTW981Jm
+	 QKQV/qakQnL6LUif7wAAsOd/kYUZQ1Y4bXeCrtN/lY3r38Lqc6gqyMjmrR5w1lXKS2CGi
+	 hIOBi7w/crZNlHrKOj84rBE0xyIKb01I+F6YP0Jicnr9C+DC9JbxFZ7fbzpeD//WQeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631768;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=HTYnB64kl/8K8S/l1jw09tVmV1tXPpdfAcVOVpBhqUg=;
-	b=NeOHrQh44nbnDGpXqdemLiGPqw70JQyUQM3ynZVn6Otp7jX8KphfY4mrroVwXJVJzvfr
-	 OlF4d5xyw2yTN6Zd54hwAVe0qgb/bnYD6iOh6JgPp2KgWUz765SuCkSsUwPxTrhFoORoz
-	 nyuRpvkhIQ0PiUUB8qgMLKq62ABNiC2GbBBGE8POf2byBev81MHoIztUMGIRY/zjtP6m+
-	 u0CrZ1laxuPlms8X6erK52lBHX5d1VlntkeBowxdsAojz6lVgEyIrfpiF3JWCduX7eGqt
-	 +oiV+zmQy4fr8YINyZ9iy8Roqa7fQod+F2eSAfhY88iQWf3DrymqLFWdb5bWFl945Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631763;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=pQQ1Vs9Ggdq4tGJpsZZ2KAKh5WKICEOKhSgV+25xKrE=;
+	b=vD8xvkN7YrnViVkdH/DPmX8puXjfkFs6W9q25t+3YN2V2gkIZZWf+GsR3BFQlDZ/BKhg
+	 zd/p5W6lAp+MrfbCCtTM7oHXo4CBSDVALpO7R5wkYXmgsk0Vu1KBbf0UXkiXXeSI/Yy87
+	 xvEyHiVKfH7iZPliVKhtec/XbvJwf3Rkj4tls8F8VBmgqzUB6CrS0vzEYKIn8DZbV4LPj
+	 EpycEghglyhIQglND/s55xdHosx8w4i/tFuB3/vA+xoxcpo5ZRv0MFa+fSVRh/dX+5JOR
+	 vZdSLntCO5bzCTEzRBPtFXv7djj4LhcxpE+4HmQiw6ZDbBQQbpqUvecw6ALPecHsxZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CU8vNnaQ;
-	arc=none smtp.remote-ip=74.125.228.9
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNnLcX8e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB5C60A6F55
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:02:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AB5C60A6F55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781726097070;
+	Mon,  2 Nov 2026 15:02:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CU8vNnaQ
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cd6b195dd0cso566129a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:02:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793631767; x=1794236567; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HTYnB64kl/8K8S/l1jw09tVmV1tXPpdfAcVOVpBhqUg=;
-        b=CU8vNnaQ7FB2rsUgsw7c8nQBRo+kS+tzdA74zWoTsEfwNd837yQgHqGyeZftT8KAlF
-         BnsCaBWNpqjgFpzXfmElsYslUCKS/XSDof19TXb00LXJkLP5SGbCKHcaUN/R1qNTik7l
-         vo3CUoscs4VzMT/efoClxxjUNDJ6X4GdjmUmA3H0gae1Pj3o0R3S5w6TJf10A5058qlN
-         /q0z7PZVo3DWdiQ3HUZ+Wp8E/AREal5Mq/My9At9eGzdRDm9p1yFtsPKIwZz1DjKRfFC
-         r6NxKZiJV5MT5aM6Lui+1vSR8rxguaNSjZBZl+rtWvxEa/kFtVNQFeO9z+iyizxzOLe1
-         ntfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793631767; x=1794236567;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=HTYnB64kl/8K8S/l1jw09tVmV1tXPpdfAcVOVpBhqUg=;
-        b=PkBYkg7a0ljz6Ay8EqZ5v/kkJ7cqWscww3hCFnVD/e2kDrelxMwcEn1kdogEkv7Z8V
-         3nH5xPkX3z7xfwhAr05+kD7UIgs86JT6nGqB32m0/VtooMEfrTMBELgOkGRDa2c503A7
-         Y8A1n8enhM7oqNtCQhXlNCg630JTdjrw3vu1CSYulamjvrYW0CcWy0GLMfSLXM7aYG0N
-         zPz0GxPANVTwRl15qajvEYCsiti3tydgZmUA8IahLMEAHDrzGoHZ0pkZGz23tRO7XqrY
-         YaP8jtIU44z3usO42h5+D08JW/vhZOEvQ3IWJJhTWD+vm3EBgPK2xDvyuILJMHWM3upy
-         G9Tg==
-X-Forwarded-Encrypted: i=1; AKwUvBzK0evWd+bnVnOLB4rNtT1pt+oOfLoJfYgdZCY2ypcEwXHvfDC+HnjHqopkiKX7JmekictYoaWkdzS8AVE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3W/8VT6XR96oBsNg8ZT7npQMvYNiFhwvGq1CjHbigGC31ww0j
-	/+csszkhV1d6/8RZXKJYcX7+X2dzO6Td3l3rmQVy1Dx8oLSBm+559eeE
-X-Gm-Gg: AYBFou0/eAACpkHKuHmiAsPIkPUOrv9s05DtapcK33NZFfJKMA0CVgZgsFxvzk5edqc
-	76nn0L18qBY8b+4yocosMgpwrGcldn3SB9ri5+DL2ENTmJAhhiWgtLuG1BgjQok40ppL17jS5fS
-	fCSa5XC62N4apJqNBGuOpVtYpQp0X2NEpATquYlbvAfDD/SuU6aVYSQ8zLBSH53ggaJlTmr/a6D
-	pmVGNw226NFFGGt1JWXLjrpIlR4tTdCMdtAn0LgrZMyW0Ux07pYSWY4cIdO6RQDbqvsqVlBe4tG
-	BZJS8kkIVvx+aVsE50IJUCZ6YSvXv1+ERE1rdrWvZPJF/Cq5WrNVkqmFg+2AFMuVX3E67z+o0/5
-	s6d8QebqO9RNIFaiVLygQ3eDsqxo00umEeRYC28UgurTAUcW7hnwF9ARmHdRb2gfAOFBCRN2yxS
-	IcmOFGte9HxjGtCrFSYwrqBc+BU0Rq1ddg2FYj/GCDpU7xG9gNduYPuFZo3ivB0efh0xVgTh2gw
-	M6t2bMitVk/hd/U3lteOuC26vZRVWeg0fj4tgOsEbQf5DopUUO5mBF9n/fpYjXImA9DpD5mXA/5
-	KpGUWxu1U5FMTgV4afKu1gi+Yi8YG2oLe+NfEQaGTKGTgJJdKDfWJPzZcc1euFJQ5LFpiTr7WQ0
-	IcWj/ZHNOK90zrtTdChUq0XnFhFu1A1o2
-X-Received: by 2002:a05:6a21:4994:b0:3e0:b71b:a8ec with SMTP id adf61e73a8af0-3e928c9f5e6mr7089810637.21.1793631767479;
-        Mon, 02 Nov 2026 07:02:47 -0800 (PST)
-Received: from [10.131.7.109] (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb09800dc1sm3490669a12.22.2026.11.02.07.02.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:02:46 -0800 (PST)
-From: Aveline Noir <jm5905938@gmail.com>
-Date: Tue, 03 Nov 2026 02:00:19 +1100
-Subject: [PATCH] drm/amdkfd: reject foreign device pages in
- svm_range_dma_map_dev()
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNnLcX8e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822B61F00A16;
+	Mon,  2 Nov 2026 15:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793631763;
+	bh=pQQ1Vs9Ggdq4tGJpsZZ2KAKh5WKICEOKhSgV+25xKrE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=RNnLcX8egvEl5rPbLFMIscYDo1QnoOrpG6e02ikgGgR/Z2oamdimB42SLpFro378t
+	 USbuYkcNHDjjzryLCSmr+2mmsvc3Atos4MVc28LQXLDJayaUp2uu3SYOz50KP5/BKt
+	 3u8kERoVbEfv90E7PC1AQzopGHBD/M7WfJWVvb4TNCYwjGxWo6SsNG7sq/Lq8yJIja
+	 zntE5mo3Bhg9BDYczlvI4bibAH3u2IIBa/7c1DzqGQ/HgRro22a3o66odi6Je5Ttco
+	 L0BW9ZHBEZJkGL3uRb7ev3sdiVhk7xK/B7muXSKuAHvnwQSKK0opx2IHD1lw9HfJa5
+	 LqGcvESsuLu/A==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:01:30 +0100
+Subject: [PATCH RFC 03/22] ARM: atags: let procfs copy out reads of
+ /proc/atags
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,78 +55,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-kfd-svm-foreign-vram-20261103-v1-1-d6282053cad3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32MywrCMBBFf6XM2oGkpYr+irjIY9KO0lRmtAil/
- 26i4NLlufdwVlASJoVTs4LQwspzLmB3DYTR5YGQY2FoTbu31nR4SxF1mTDNQjxkXMRN+HuPgcz
- B9J3pU4TSuAslfn3658uX9emvFB41Wg3vlNCLy2Gs0/98lWHb3r0d7Zm2AAAA
-X-Change-ID: 20261103-kfd-svm-foreign-vram-20261103-9ce0705305fd
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Alex Sierra <alex.sierra@amd.com>, Philip Yang <Philip.Yang@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
+Message-Id: <20261102-work-procfs-arch-v1-3-c9492ab08480@kernel.org>
+References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
 
-svm_range_dma_map_dev() converts every zone device page returned by
-hmm_range_fault() to a VRAM address using prange->svm_bo, and
-svm_range_get_pte_flags() takes the VRAM node from prange->svm_bo too.
+Implement ->proc_read_buf() so procfs copies what is read to userspace
+after it unpinned the entry.
 
-The dev_private_owner passed to HMM is per device or XGMI hive, not per
-process, so HMM can also return pages of another svm_bo. For example,
-after fork() the child shares the parent's VRAM pages, and validating
-the child's range returns them. If the child's range has no svm_bo,
-prange->svm_bo is dereferenced as NULL. If its svm_bo is on another
-device in the hive, the address is computed with that device's VRAM
-base and pgmap range instead of the page's.
-
-Fail the mapping with -EFAULT for zone device pages outside the pgmap
-of the svm_bo device. Clear the entry before returning, because its old
-DMA mapping, if any, has already been unmapped and must not be unmapped
-again.
-
-Fixes: 1d5dbfe6c06a ("drm/amdkfd: classify and map mixed svm range pages in GPU")
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Found by source review. Compile-tested only (W=1, no new warnings);
-not tested on AMD hardware, so the fork case has not been reproduced.
+ arch/arm/kernel/atags_proc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-KFD SVM is being moved to drm_gpusvm, so this is only meant as a small
-fix for existing kernels.
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index ed5e3318877b..6e9b9dcaa136 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -181,7 +181,21 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
+diff --git a/arch/arm/kernel/atags_proc.c b/arch/arm/kernel/atags_proc.c
+index 8411fbfbcb8b..ff28bf24dd30 100644
+--- a/arch/arm/kernel/atags_proc.c
++++ b/arch/arm/kernel/atags_proc.c
+@@ -10,15 +10,15 @@ struct buffer {
+ 	char data[] __counted_by(size);
+ };
  
- 		page = hmm_pfn_to_page(hmm_pfns[i]);
- 		if (is_zone_device_page(page)) {
--			struct amdgpu_device *bo_adev = prange->svm_bo->node->adev;
-+			struct amdgpu_device *bo_adev = prange->svm_bo ?
-+				prange->svm_bo->node->adev : NULL;
-+
-+			/*
-+			 * The pgmap owner is per device or XGMI hive, so HMM
-+			 * may return a page of another svm_bo, e.g. one shared
-+			 * with another process after fork(). The VRAM address
-+			 * below and svm_range_get_pte_flags() assume the
-+			 * svm_bo device.
-+			 */
-+			if (!bo_adev ||
-+			    page_pgmap(page) != &bo_adev->kfd.pgmap) {
-+				addr[i] = 0;
-+				return -EFAULT;
-+			}
+-static ssize_t atags_read(struct file *file, char __user *buf,
++static ssize_t atags_read(struct file *file, char *buf,
+ 			  size_t count, loff_t *ppos)
+ {
+ 	struct buffer *b = pde_data(file_inode(file));
+-	return simple_read_from_buffer(buf, count, ppos, b->data, b->size);
++	return memory_read_from_buffer(buf, count, ppos, b->data, b->size);
+ }
  
- 			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
- 				   bo_adev->vm_manager.vram_base_offset -
+ static const struct proc_ops atags_proc_ops = {
+-	.proc_read	= atags_read,
++	.proc_read_buf	= atags_read,
+ 	.proc_lseek	= default_llseek,
+ };
+ 
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261103-kfd-svm-foreign-vram-20261103-9ce0705305fd
+-- 
+2.53.0
 
