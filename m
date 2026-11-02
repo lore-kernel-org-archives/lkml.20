@@ -1,121 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793594194;
-	b=qXPClcc9HtzUmkAR5wxCCHBi1g0RfhCCW+ceuGo29/HCRb8Wv+EjZC27ywSdQRG9ZPZ1
-	 /8nDKUaev5N8eEi9ynJuFetFiYroYycQWCCAW3OqXj89SHMxng21OnXasmM0NV43a4o9c
-	 Ux21qDnNpxgiZ/GuBjgSn/8GJA59PO6P25cxSQhneEeXU4Cp7gpADKq71XdLZla2vS4Ds
-	 O0pJYDVS1CIx2PdusXmSY5SPeLn+w3hta7W8e1pkiP8V4gMjoN7+VoinSrub3PJ1g5B8/
-	 j4txeg8jwq3dtIko+0OSGVQbxC7tduHlvK8BT7aOsVogpK+sP/hIfGVCRoWhKh61EIA==
+	t=1793594233;
+	b=T5pkz7V+PLx2xD72gS+2igiwvrxNbwQwgEO4HTdbvRNVEMYXICZrVg79US31mCbTEcs2
+	 OPP6Rjv3YNKBQDFdd22BUIQQaaSV8mQbtXTAjpnG+bcasZuOiaXDUInLNY98JSLSRfPpK
+	 abeptY49XENuJOw4z+K9k7OXhFylXwiAYyJe1z1uJiSb0GOpVYG2gj3WGlYbc8l09U3mA
+	 n27pc8zLAGjgkPPDKmmDPmwmzL/C6leWK0t3BDYflg7PU5QdenlzC2bqNrR7rW7qgK9th
+	 n2QJYtoT8zeEZi0hImoLkBrgdB0v+2yoGw6rEFNd3bZ0RfKOrxthgidg7TsIZLP07pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793594194;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ps8jnieIBUvXKQt8okCCezQ1Z4XeJY8OG3ZtaCjBE/4=;
-	b=uNPNANuKvwzWQeaFepSidbYHc0egtN20VXnfOybqqZRbqlaN6lkDU07/Vxcnaomb7H4F
-	 YONaqI/0QuACb+PmPpvfzFzFv36/FzC9pHVsWpUgEPJ7c/rFZFTiz8J01WuTU6Nrm0lnp
-	 wQHez0SRMAKI7bCAQbWpXQHlQQgM0PLkPxUcGVjF7yDGtwhEKDJJO5rldd2w0XngYxdcS
-	 OfKAw2RJYd9kdPNeGaFve+0OIYhSEiVcjS+FoVg5opTEC9RXFGYpSYCFoE4cBCmXRWUas
-	 MyWrqgEBjFsxIs/KYpp5x/5yHDbKmmsV/YcYjS5Wbvs0nO//qhzXhfJP/lzU7L4P/Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793594233;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
+	 Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=8fYcbaqg3AJtsdl2Nhs2ZaPF2pePrFdSPvGWxBrAvzM=;
+	b=3L2jpj2aYq1fArYVPwpKQF8/fJy/8xNwGz+fmDaROh676mOMbUeUdDpWEtyw6RlIcALD
+	 oeH/UpCaVqbh+ExVq7zJI84hrmvClp4NNzl+43jfvbjfeaGtfovNGHV7F9s+ozuiClfqi
+	 PMlU9e8kYZXZBXPoH7JCo6a9EqeWxggG0yKwQedGENRhG1mm6ASWne8IgcptmvCbb2/3Z
+	 T84mFryfg7w017M9XkF50LNc2sMd9+3d2uMR1U9ao9GclXsNJc4hXEloS6Zwi9SkE6PCu
+	 6naRFqxPC72oRVh5F5iSnfllA36ma7sWczTpdZY0wE3hA+hK556BsP3nKLZC+jGpq9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sakamocchi.jp;
-	spf=pass smtp.mailfrom=sakamocchi.jp;
-	dkim=pass header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=A9yovqxC;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hCAsqppb;
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=uY5FusZ+;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=EGEhIgRN;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE6A606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:36:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE6A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FC0606A324;
+	Mon,  2 Nov 2026 04:37:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FC0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=A9yovqxC;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hCAsqppb
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 1AD171D0018F
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:36:33 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 01 Nov 2026 23:36:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1793594192; x=
-	1793680592; bh=ps8jnieIBUvXKQt8okCCezQ1Z4XeJY8OG3ZtaCjBE/4=; b=A
-	9yovqxCegX6wIWLDLL8z92b+NcFUR6C+qIRh5FVhPt/pM2xSx05EdwUJP73CyIY6
-	GHsFPQTMUyooOpoTP+q9S3xG3YoU66EnLgI6ye69YEfkQnftHq6gsjJfkN1w3v36
-	SnL6S+YRQua62Bs4etdkjEvk3Q9knPqNpiNpLhV7aTpx6u1voH2OEaR56pzFI5Mn
-	HLq+3bduEZUl97OYqmxSPoGCoWbL24r+8CkSWwrXnTGx4MbXZh4GLLKOJYUDrs7b
-	bcGuDHb/E0gyLWsgh7qXInPzje6LGKE8qTmYqaodxOFIHWTM3dF0BPbPOQDw6VwD
-	JaNrTfsqP4jFbBKctC2/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793594192; x=1793680592; bh=ps8jnieIBUvXKQt8okCCezQ1Z4XeJY8OG3Z
-	taCjBE/4=; b=hCAsqppbdET8OSsJ2FPEw0flZivlUBS6DW1v7UBaHLzLAkxDDAJ
-	1e7BTSz+XzvRof/In1IdxWzUAOwf2R3GBi7HbgudjBuQiV6i7VDxtRaMmPm6fQex
-	CCksfK1H2yoxkWzkqvcAvYeUvFr6cmS4qtIbgA5+qOjeXSpyoMh+BEzWo8hWeCAg
-	4lCgUza9sh7z/ajVapHBehwOSbp1Mb8EGLXnxSYj6JQACDAqedQfmx+w30a3U1FU
-	ALtH/fgCX01U4WeWgqFvWeegobRIZzpYYsRgSCupfVnBYWKRBsEDrWKacJmW/9xv
-	uQ/ll6Jt4Fu7Fzi2OmWSggwZL42uV/aEUSw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793594192; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:te9Talat231G0mlZsSwF3ZqtT0l2pdKR5DbrR2cotlQNF4x
-	Nszi+ePkOYRWTO5ROTucFRA2e2AZqZAXH+XCHB3Cevz1ZYKrVIKxNPmsGhspMqQQ
-	H7DcVB8Tb4MiQTjIeOZoiexFMX3lOSvCjY9F8FxBzS5xxA7bpYIBAGueYORyUaIU
-	hk1kuey7ErkOIhrHGSikStIO3aPDoMrP/YQ1fFQLvlI+JmvEhW6I+hm8a1OIj4BA
-	inalaCTpJl3uy9f/qmDqIjhGtd4jISZSxdX9sDISQAJFnBtOrQudq6KzSm5+SvRT
-	LbI8JqWb6b+4/oD376NjraIeZA5bX4H5GcyOHeQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,mail-followup-to,message-id,mime-version,references,
-	subject,to;
-Message-Instance: m=1; h=sha256:pGTUg3s5Inf1+R0yQZ6PpzA3zn2xB5g7Sfwi7BrP6UU=:D06H3y4bSA2VD3+5kMxkcfHExhxxAl6AboudfnqLBGo=;
-X-ME-Sender: <xms:UBPoajt28tqSDM1yK8QYqaFFHEovnvhajHYAe6IKx9ALKU27ZYruqQ>
-    <xme:UBPoasPcoyBJzBh7cUfyeBToIu95GCGq0r7eNr6dx0gXluhRy04W8co4Ol6SZpSX7
-    1SEMlqWJU63EIst2s9hRS8dt4Kk6apcVnzQdK9Ta_5ysgsgu_PvIbA>
-X-ME-Received: <xmr:UBPoap2sQSZkGNOGsEYwYZAOrR8fDdgJCJnF9uoS6_QoPfCKublO9b897aWC8Jddj-k230k2jEWtTpnRTTmvmVjD-5_e5w>
-X-ME-Proxy-Cause: dmFkZTGQf5CGUGC4oBa05Ym+fbEqJ0QxZV0RRQsZply85Hp+hMkK3iZVnXqliZRqGp8DOR
-    qxjMyYNHRYFU3pdZytKRNn7IxkA3oKmnJnhSgE+yVCrA4At1i69xfsQt6XQFGp6BfVOc2u
-    oLr3dCjbY12svB6GQ8i3C2jYBY6ySmBvS8zwrv5XbH3Yr/U3faMY5LQ6a2/QS3xkNjraVp
-    EYfluJL6hf5UtFRu/DoMJedxebQ9GgxtW1VDTHJscn8z9TJ822zxHiC3w8bBxtVovgnqaO
-    1EaDsOBNkFn7b/GNODUyZDDIp8x0IcfEDhOZD5QIU5Aj8JLX8s4I+VXajsA6xTvwPBCKtn
-    q3LVlbYH7Vq9fEa2K+pk10neQcyqGP0ipMYC1D3EU+AUtJiwnYFAnQiJhz328/e0GBzltC
-    OAY6hvg4DZwI6seyBJFysewWVU9uUmQ7rkyc360ENdprF9kkA2tnUq56LpS+chcBGmpTna
-    vf5TvmsuyMxQ/p+o9BpEMEAD+rkjMSoM/44k5g+pR9VSL73rK9Kxo26aUJfk/QT9cT7Azs
-    qTdgMO7wT+oxjLAo0xpOOa5epcZ2lWQmz87d6j06ilIgILpDU003tULqROO6VngkYhzIc2
-    xnh1QfFeKPtigmzXWizspiOmlpU3Mcw35sxBKP1QFxtQtsGlzMyc+KVCdiIA
-X-ME-Proxy: <xmx:UBPoagMOWZyEjv_KijDfnBJTPNfWYFkNa-Xq3TC5yYvr5kQwWnHYQw>
-    <xmx:UBPoah2zGIdZ_bwjhm07NhtifOXvWlePYNkCl4foqSIjgAnWGuEQDw>
-    <xmx:UBPoavERW17V5BVhI3xth7yQOMkFzL1vUMEINOHP1AavkjgODuIJtg>
-    <xmx:UBPoam43-_TvjTqZwLvPZ0N5kPwsOS1nPpgPXidXRpvoYUjEbeIAqA>
-    <xmx:UBPoakVmBlyZPyThMEVCbcqqVXBcvesDU6aruGZYLfAqEsmY_HmG0ulM>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 23:36:31 -0500 (EST)
-Date: Mon, 2 Nov 2026 13:36:29 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Cc: linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firewire: cdev: Check return value in
- ioctl_get_cycle_timer()
-Message-ID: <20261102043629.GA1188344@sakamocchi.jp>
-Mail-Followup-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>,
-	linux1394-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-References: <20261029101545.3216-1-sreekuttan2156239@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=uY5FusZ+;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=EGEhIgRN
+Date: Mon, 02 Nov 2026 04:37:09 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793594231;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=8fYcbaqg3AJtsdl2Nhs2ZaPF2pePrFdSPvGWxBrAvzM=;
+	b=uY5FusZ+UtGQPDSYOynjsAaq5xjNWpk89g/w7My03j5Iz8jv2Y4ho3D/488ptag1PFGn3i
+	k57EAr4G4ikCTTrO36NGYOoLoBGfgmMUEuk+IpmkTcGsfVWUDWwsJjI0ihROZFJrBLaEbC
+	2mGCjnH6lccGGyRGh7nFnH30akmrnZkEfJn3YBMp+l03EgXF5qcSv9dw1/Mft+GIcFViSh
+	kDjAt6XmU0KwuFxFrZeVHHmsdKmxNEKZlo+X4rJMS8vuQnkuFgKsNePovi20ZxxSqDkRRw
+	/74MTwzW92tNNHx4IxxWCqH5bOgkOy1Ar+Xg64Azl//Z4ZmmLRnVwFYK8O3Avw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793594231;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
+	bh=8fYcbaqg3AJtsdl2Nhs2ZaPF2pePrFdSPvGWxBrAvzM=;
+	b=EGEhIgRNut6pL8dOIL0OK68Pdms0uD7Qr6YTi0xVNjh1gI4ofreys4lyo6oJvdwL9G5oNt
+	CSlq8fJhuPUjtLBw==
+From: "tip-bot2 for Rosen Penev" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/csum: Relax the len and proto constraints in
+ 32-bit csum_ipv6_magic()
+Cc: "kernelci.org bot" <bot@kernelci.org>,
+ Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Rosen Penev <rosenp@gmail.com>,
+ Sasha Levin <sashal@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Nick Desaulniers <ndesaulniers@google.com>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,35 +75,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029101545.3216-1-sreekuttan2156239@gmail.com>
+Message-ID: <179359422932.1009794.18246611743877568673.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+The following commit has been merged into the x86/urgent branch of tip:
 
-On Thu, Oct 29, 2026 at 10:15:45AM +0000, Sreeraj S Kurup wrote:
-> ioctl_get_cycle_timer() ignores the return value of
-> ioctl_get_cycle_timer2(). If the latter fails, the output fields
-> may remain uninitialized, causing the caller to use uninitialized
-> data when calculating local_time and assigning cycle_timer.
-> 
-> Check the return value and propagate the error to the caller.
-> 
-> Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-> ---
->  drivers/firewire/core-cdev.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+Commit-ID:     f01a394fe2a00d3cb4cf2cda279c58604a2540ad
+Gitweb:        https://git.kernel.org/tip/f01a394fe2a00d3cb4cf2cda279c58604a2=
+540ad
+Author:        Rosen Penev <rosenp@gmail.com>
+AuthorDate:    Mon, 19 Oct 2026 20:32:38 -04:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Sun, 01 Nov 2026 20:29:47 -08:00
 
-Applied to for-next branch.
+x86/csum: Relax the len and proto constraints in 32-bit csum_ipv6_magic()
 
-I prefer this submission to the previous ones from other contributors[1].
-It's concise, to the point, and easy to read. When using generative AI in
-our work, it's especially important to keep the intended recipients in
-mind.
+Building an i386 allmodconfig kernel with clang fails since allmodconfig
+started building netfilter with GCOV profiling:
 
+  In file included from net/netfilter/nf_synproxy_core.c:7:
+  In file included from ./include/linux/skbuff.h:26:
+  In file included from ./include/net/checksum.h:21:
+  In file included from ./arch/x86/include/asm/checksum.h:9:
+  ./arch/x86/include/asm/checksum_32.h:149:6: error: inline assembly requires=
+ more registers than available
 
-[1] https://lore.kernel.org/lkml/20260617023554.2789907-1-michael.bommarito@gmail.com/
+The csum_ipv6_magic() asm needs five registers at once: the early-clobber sum
+plus register-only inputs for saddr, daddr, htonl(len) and htonl(proto). With
+frame pointers enabled, six general purpose registers are left to choose from.
 
-Thanks
+In synproxy_send_tcp_ipv6(), the GCOV instrumentation lets clang's machine
+scheduler move the copies of two incoming register arguments, EDX and ECX,
+below the asm.
 
-Takashi Sakamoto
+Both registers then stay live across the asm, which leaves four registers for
+its five operands. This is LLVM issue #206307. The error goes away without
+either GCOV or frame pointers, and it reproduces with clang 19-22.
+
+Neither len nor proto has to be in a register: ADCL also takes a 32-bit memory
+or immediate source operand. Use "g" for both, so the asm needs at most three
+registers whatever the caller looks like.
+
+ASM_INPUT_G, which normally replaces "g" to avoid clang's poor handling of it,
+is not enough here. It expands to "ir" for clang, so callers that pass
+a variable protocol, like nf_ip6_checksum(), would still need five registers.
+With "g", clang passes a non-constant len or proto through the stack and still
+turns constants into immediates.
+
+  [ bp: Make Rosen Penev the author because of a previous identical submission
+    https://lore.kernel.org/all/20260904000833.2058186-1-rosenp@gmail.com/ and
+    Sasha graciously agreeing and giving his much more detailed commit message
+    explaining the background of why this exists. ]
+
+Fixes: 403cec8ab6d0 ("netfilter: add option for GCOV profiling")
+Closes: https://dashboard.kernelci.org/build/maestro:6ad55fe255fda507603d2651
+Closes: https://lore.kernel.org/a28df759-d0e9-41c0-97c7-5f89a18d54e2@oss.qual=
+comm.com
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Nick Desaulniers <ndesaulniers@google.com>
+Cc: stable@vger.kernel.org
+Link: https://github.com/llvm/llvm-project/issues/206307
+---
+ arch/x86/include/asm/checksum_32.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/include/asm/checksum_32.h b/arch/x86/include/asm/checks=
+um_32.h
+index 17da953..f74873a 100644
+--- a/arch/x86/include/asm/checksum_32.h
++++ b/arch/x86/include/asm/checksum_32.h
+@@ -159,7 +159,7 @@ static inline __sum16 csum_ipv6_magic(const struct in6_ad=
+dr *saddr,
+ 	    "adcl $0, %0	;\n"
+ 	    : "=3D&r" (sum)
+ 	    : "r" (saddr), "r" (daddr),
+-	      "r" (htonl(len)), "r" (htonl(proto)), "0" (sum)
++	      "g" (htonl(len)), "g" (htonl(proto)), "0" (sum)
+ 	    : "memory");
+=20
+ 	return csum_fold(sum);
