@@ -1,60 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.168
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615583;
-	b=l9soQMmYYLt2i31TtoiXhfqQaShLDZC0Kp2Urbg9R0mnIcdPb8CjqzjWVEqqUwi+LWg4
-	 LeCgnrqeJYpPuI+H7P3vQn/VnRnhOaajh3SI4FJfiviKHCJ6ICjPLXuFKOMXZ0FY+vAR5
-	 kuK1HGokkxyVF4ii5BFfDh8gqKImz0yK/ntAZnOcGHgDIg5UkuG3ltFDLWWmNIVE8y971
-	 C10KQxA9ZxX+NyudR1ndyhoooyWfEQ5yaU8H+VFFYbl/twxO774Qe3FLRcjTmgH/quNP3
-	 amsdh7NnqoVTc5pTVK2oF8PsTOd7SxlQuQfSUOIrHRj9p9y6/kZnY8DMUgp8eVm5sNQ==
+	t=1793615646;
+	b=h5+4TBreQv+hHsR8dr2t5U/UmrdfSW8dsYQabnA2DRDphnxMrHDqn1El5s86yAIzJY6K
+	 AvMgzTUGgHlVHUJpnJX0FE+x2bloEbhKUtO52pTvarkWJ5VQrUTyOlNtvD+0UsnFVYo5C
+	 wtGYaZ8J+WoLameESoYvgUGZpd35lAPVF1yOST4dARSGd7dAjq04EijfCbXOMaiXV/TzC
+	 VgLZLaT7HlGDPsvCNUb/urjnkQTK02KRyDQWWrvh/kfVF4jybRf5FewJip34MSAEL2n0N
+	 FnI0vq89syP+ffFiZoAAordyAbYMBVHD8ysaGU9Nn1hF97IJntjE/UHpQ1enqJOL1cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615583;
-	h=DMARC-Filter:DKIM-Signature:Date:X-Original-From:X-Lms-Return-Path:
-	 Content-Type:References:Content-Transfer-Encoding:From:Message-Id:
-	 X-Mailer:In-Reply-To:To:Subject:Mime-Version;
-	bh=aituG1bxTpae/DDlLBLRyzfIzZb6iuG1m7AYxCW4Jno=;
-	b=emH36ULYnIiRLJkpUBypkn18UR/Lbtfdn+Rf2R9f65GupyL9VoJcgi92cg1JAGL1H7xy
-	 2xN/T8DJFsTelNrEsRxR19Aqnz/BXvL8dBL05Vqi+qfncPJ1s/3AItyLSRksKPzyX8FjR
-	 ybfz3U2mfgGrOP/FgmW6X3kzl6Jl4hLW1Iw+sFe3XB5nExLP7c3djyTNgOpZP9yVHfqVJ
-	 PD78WBxWuWA0EwTCKIBkQTzyfmRjKd0dDyOwH7CsDykH85FBOH57kYGgTYV2DPh+KgWLd
-	 ecJjxN8ub+WGb1Izzs1aspB6c47Brhpg+DPBNl2NbavIxjEl1SuGcnNfWBNAxwHWbCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615646;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=zOuEJl576VYtRf0K3AP7aY3pIr+oXdhrrj9wOG3kLFg=;
+	b=NImEUXQWrer7YkceL+tBqc06U28OF5MQ+7Y+Vwe3RNJkxo84kzmQm/EGLLLHjQVDJVro
+	 PI7daki5JKKauuzARe/9gME8w7g7W73/9wyx10c+tQzgWyS6Kv3j/TO7tMkpgpn0lEETi
+	 Bg9oO8FMKreTJf56W5mn9OZ9/nmYR7SJWwrMmjYfpuimI3JSKqpBNAjcXzRBnb+JE0R9Y
+	 WZVkwvRLuuLZSVjf5BSJBNwo5nx1QFVAn+pDk1Sbshl3QzTVNXUrY+AXseCFwcjoSH+Gb
+	 TXjv9iFhLmtLF+arrZcnIh5Ms10lLrXmW6V2sp8HDDGwM0SxkM0QIvAXEc9Xw6T5lKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=kXo6CCYv;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=hHF4vOIb;
+	arc=none smtp.remote-ip=61.135.153.168
+Received: from smtp153-168.sina.com.cn (smtp153-168.sina.com.cn [61.135.153.168])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56269606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:33:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56269606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222C7606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 222C7606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=kXo6CCYv
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793615577; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=aituG1bxTpae/DDlLBLRyzfIzZb6iuG1m7AYxCW4Jno=;
- b=kXo6CCYvErHN2kyEqA0vi+Z9wvf+5Q50uj5zwxFL1BDhgfDWqz1sj58V+zU2l/75iDaHT4
- dh4DVZ6zQ+Go1QYefEkpJ2GRWIsC7KITSiuKk/KTd19mJxtR0IuGqspzb1hAJrxSaHRh+J
- +Mh99D1UvpCSDJe51fhG6U+AYipOPiKzuB5qumDbxIk0DyzGAUxQF1yCWCTS5cA5Y7NJ4S
- PRT3CvrwZNnF07m8Q67Lo2/jLdZm05SQfH7GlvvO5gZhHVaXmjSeCuAvofTDoaGPXVU/xm
- HFqd6bBGN/ozMPrXjsCWjKBozH+79KTLw1pXqqV5UM/StXoVyml0SIHScj1YHg==
-Date: Mon,  2 Nov 2026 18:32:46 +0800
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-X-Lms-Return-Path: <lba+26ae866d7+4279ac+vger.kernel.org+weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-References: <cover.1793604327.git.weiguixiong@bytedance.com>
-Content-Transfer-Encoding: 7bit
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-Message-Id: <728ed963f43b44c97f4807a2060f77c0b362521e.1793604327.git.weiguixiong@bytedance.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1793604327.git.weiguixiong@bytedance.com>
-To: <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 1/2] x86/fpu: Fix memory leak with dynamic fpstate and exec()
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=hHF4vOIb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793615641;
+	bh=zOuEJl576VYtRf0K3AP7aY3pIr+oXdhrrj9wOG3kLFg=;
+	h=From:Subject:Date:Message-ID;
+	b=hHF4vOIbK3qINx/hzviPwPT4ByY+ed8tsU6Ukf3zkuous1dvdhQqoNJbs4sWZhcWy
+	 F0vTlezhxM/WFjvBTk/8x9WCjRndyKDCjfSUN2qKoXev51f1NPIAswKpsusOtyZoFb
+	 CauscwCsBpr/+k5eM77WS8NVQxA/Ggi3eRdStRWw=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AE86712000031A4; Mon, 2 Nov 2026 18:33:57 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 4421456685334
+X-SMAIL-UIID: AA9BDDEC5C4B40D699DF352E469666A8-20261102-183357-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+a31cda410a4ccd419712@syzkaller.appspotmail.com
+Cc: axboe@kernel.dk,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH] loop: prohibit the use of sysfs as a backing file
+Date: Mon,  2 Nov 2026 18:33:54 +0800
+Message-ID: <20261102103354.427722-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6ae807da.c8ffc79a.e3697.002b.GAE@google.com>
+References: <6ae807da.c8ffc79a.e3697.002b.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,72 +70,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Using an XFD-controlled xfeature can allocate a larger fpstate. On
-exec(), fpstate_reset() replaces fpu->fpstate with the embedded buffer
-without freeing the dynamic allocation. Once the pointer is overwritten,
-the allocation cannot be freed on task exit.
+The loop driver's backing file validation in loop_validate_file() and
+loop_check_backing_file() only checks for the presence of read_iter/
+write_iter operations, S_ISREG/S_ISBLK inode mode, and direct loop-to-loop
+device recursion. Because sysfs/kernfs attribute files are regular files
+(S_IFREG) and implement read_iter/write_iter, a loop device can be configured
+with its own sysfs queue attribute (such as /sys/block/loop0/queue/scheduler)
+as its backing file. When an I/O request is submitted to the loop device,
+loop_workfn processes the request while holding a reference on the queue's
+q->q_usage_counter and writes to the sysfs file via lo_rw_aio(). The sysfs
+write handler (elv_iosched_store -> elevator_change -> blk_mq_freeze_queue)
+then attempts to freeze the loop device's own queue, waiting indefinitely
+in blk_mq_freeze_queue_wait() for q->q_usage_counter to reach zero, causing
+an unresolvable self-deadlock, potentially hitting:
 
-Free dynamic state at the start of fpstate_reset(). In fpu_clone(),
-clear the new task's fpstate pointer before resetting its state, so the
-parent's allocation is not freed.
+INFO: task kworker/u8:1:13 blocked for more than 143 seconds.
+Call trace:
+ blk_mq_freeze_queue_wait+0xe0/0x160 block/blk-mq.c:191
+ blk_mq_freeze_queue_nomemsave+0x28/0x38 block/blk-mq.c:207
+ blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
+ elevator_change+0x174/0x35c block/elevator.c:668
+ elv_iosched_store+0x2a8/0x3bc block/elevator.c:826
+ queue_attr_store+0x1c0/0x24c block/blk-sysfs.c:906
+ sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+ lo_rw_aio+0xaa0/0xd04 include/linux/percpu-rwsem.h:-1
+ do_req_filebacked drivers/block/loop.c:-1 [inline]
+ loop_handle_cmd drivers/block/loop.c:1949 [inline]
 
-fpstate_reset() may now free the current task's buffer. fpu_flush_thread()
-calls it before fpu_reset_fpstate_regs() sets TIF_NEED_FPU_LOAD. If a
-context switch or a kernel FPU user happens in that window, the register
-state still looks live and gets saved into the freed buffer. Set
-TIF_NEED_FPU_LOAD before the reset so that nothing saves the hardware
-state until it is reloaded from the reset in-memory state.
+Add a sysfs file check to prevent loop devices from using such files
+as backing files.
 
-Fixes: 500afbf645a0 ("x86/fpu/xstate: Add fpstate_realloc()/free()")
-Suggested-by: Chang S. Bae <chang.seok.bae@intel.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+Reported-by: syzbot+a31cda410a4ccd419712@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a31cda410a4ccd419712
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
 ---
- arch/x86/kernel/fpu/core.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/block/loop.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/x86/kernel/fpu/core.c b/arch/x86/kernel/fpu/core.c
-index d1aeecd57f5ed..af1c1688d69bf 100644
---- a/arch/x86/kernel/fpu/core.c
-+++ b/arch/x86/kernel/fpu/core.c
-@@ -592,8 +592,15 @@ static void __fpstate_reset(struct fpstate *fpstate)
- 	fpstate->user_xfeatures	= fpu_user_cfg.default_features;
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index a3325ceab484..71647793a717 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -534,6 +534,9 @@ static int loop_check_backing_file(struct file *file)
+ 	if ((file->f_mode & FMODE_WRITE) && !file->f_op->write_iter)
+ 		return -EINVAL;
+ 
++	if (file_inode(file)->i_sb->s_magic == SYSFS_MAGIC)
++		return -EINVAL;
++
+ 	return 0;
  }
  
-+/*
-+ * Callers resetting the current task must ensure that its FPU register
-+ * state isn't saved on context switch as the buffer may be freed here.
-+ */
- void fpstate_reset(struct fpu *fpu)
- {
-+	/* Free dynamic fpstate (if any) before resetting pointer: */
-+	fpstate_free(fpu);
-+
- 	/* Set the fpstate pointer to the default fpstate */
- 	fpu->fpstate = &fpu->__fpstate;
- 	__fpstate_reset(fpu->fpstate);
-@@ -670,6 +677,8 @@ int fpu_clone(struct task_struct *dst, u64 clone_flags, bool minimal,
- 	/* The new task's FPU state cannot be valid in the hardware. */
- 	dst_fpu->last_cpu = -1;
- 
-+	/* Break the link to the other FPU's fpstate: */
-+	dst_fpu->fpstate = NULL;
- 	fpstate_reset(dst_fpu);
- 
- 	if (!cpu_feature_enabled(X86_FEATURE_FPU))
-@@ -866,6 +875,9 @@ void fpu__clear_user_states(struct fpu *fpu)
- 
- void fpu_flush_thread(void)
- {
-+	/* Prevent the hardware state from being saved on context switch */
-+	set_thread_flag(TIF_NEED_FPU_LOAD);
-+
- 	fpstate_reset(x86_task_fpu(current));
- 	fpu_reset_fpstate_regs();
- }
-
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-2.55.0
+2.43.0
+
