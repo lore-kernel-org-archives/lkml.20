@@ -1,101 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793634708;
-	b=bQ4oiqfI7UEx01gnyn3JH0yF0HnGpllrWTHbttL/M8XcR3OQ9aQv+zzneBfRY8LGgZot
-	 1jU7ACgPu4D4uMHkp7P9m0LZhyg66NRBemg/HNqi5fCa8Hf9E9emTsCZUngt0lCh6ZMVr
-	 +QToW5+QDOsfeWFgwTidOV7fVpFqvccZm0gNVMOytDZe7Dsa3RoSxzxkVW+qWHSmGXFmd
-	 hoWnb/sK2X5KCSrrb9sEolRh4QsCNCu47Nhf3+gMzUlcUJviSJnN4faM/pJtuwZg1Raq3
-	 5NyWLtbFjMQRkwnkAnY428loZOOoWnLssU0QCYrj3F9gDUanm646dfwk6X9uSII71yQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634708;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793634736;
+	b=G7juDQ52523/lMNMpofURRgssNOAVlQKRNloO+kJ2siGqu9Asw8mef+OgQnIwMnd54nn
+	 PXyqkXpZWNOwv//3cjrTOvliCaoLdnr3jEqeTdB58W1HbpbtkYNWVAJub0X/0GuhV+6TM
+	 NHHCVJwTS2rFjLeyvGgp9O5Dua3A8KwCFHSB+Sm03J2QsG/NOt4+yGbbZQs/K4jPCxCzR
+	 9jIPNTnWKOUuLkRV6TwfykrqLJvHrWln051cFDy6bsnfwwyJ7rHpiODN4K009mAn4S5+7
+	 NwZ/EOLxHfT4zQQ7VHubMjRknNVCqUKp4TFwuvCuickDSvDVVtHUGE9tai7pw4x2xxg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634736;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=nOCgKoJdIhSObbuGxZ7xKscGyZkjtDdaeTHB5AW5EkM=;
-	b=CofU4VIk51bTgtyPmaoXzGzzGXFJADtoMi4HOxG912UzM0uAXa5xclLW6DnJsqJ/L8y9
-	 S1BZdRmG15K2k1MPGyGhl6hY74TGSAUWWMlDQ/uPXiGnSAry876UpPOb7X7Ck0P/gGEfR
-	 L2iK31vUHwLMsQ+Q8eY8sgq7yqH61r/X/1FWSbzI+33+Qf9FDrlSQ8rsmbrjt2vrf9pC8
-	 BRYeDY3NTlQBt7AKZKHJ6IGynBF2iOcXAq/mmGsRVinvsHhh5i+dCMhkpOAM5RC2IR48l
-	 f56D7oYt+GWwX8XXscx3rnfhEEBMJNBiDCMHetGYy8SwsV9uFCocXYWaG84dhevfSMg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AFkgrfP3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=j6RtsTbIlQ1+MerKC0xhFDG/d459vnICRyJwyVtriLE=;
+	b=LQuvq33UIQxMzL/HYW+SChXu3aeQVaH7eIlNdF2JZ2cWc1U/g1RlY1ruU1+Z+2nmZkZ+
+	 bftCuyhuEg9tgGBNoeiQ/6p89gCATy/4durOInBq6cETTAa/Guc7ctpn8aDHj/Bqe9G9E
+	 GYuk8Uhoe+FOQzWmZP3lTGJOz1d2IPq7at7tWZ7jNp4Ia4ifQgJMY27DeZ2QrT3LBXP6L
+	 S1wwoLNj5loadB6MuADhB/soOImGAnPkC2XSSBtNzaThKypELQ0XRYe4d6jzAH//LMJoh
+	 op4p7r3A5rlIRLQYDNzmMSWgcowxrr127D58Tp/wPnrgiGJIIJoh5mASwsNKc7xvtig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.208.71
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE06079906
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:51:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDCE06079906
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AFkgrfP3
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdb0c80318cso139361a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:51:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793634707; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qllf/k4KTxahzEUuLIDGQMIdaHBpl/RXWtoumctpJSamglsMi0k1QlF1YE5Q8EkdYd
-         raR0DtPA9WnGXAoy7y7qwFkA/jQrLgHirThyz9WK0fzwrEOM53lBG6wXhrM2hOqG88S9
-         Z9w5g11ihBktq5ReHwM1Pewv0Q+gpKRuTnpSGnt3g2i8imeDP0pFRaTE3ulKQhHBnT3k
-         zPCPzToiKZqTiserKqEkabrt3xRQ/tV4WKNlE5TGlYVM/CDcvhAuSq4WQP9PJ8+/b9In
-         YSRcu2LZAdq6aOSEnkKzPuEtd4njGxwhFpS2Al+IH33eKswIBCtkJS1dujVsmqnVWUp+
-         P1mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nOCgKoJdIhSObbuGxZ7xKscGyZkjtDdaeTHB5AW5EkM=;
-        fh=ijz6HIutAlGQwgibPjf31qErJahQM8tKjQdP6l3Qcis=;
-        b=aWVvlR494iT0HiOOpL0D5Dzs0NZ3CCRT0782+EuQiTzyQ8oYBKkudQS0CoAsurymQ4
-         f/vUg14aHmpk0z6idD0jK+gN/r7cE2oPNJnlTeBx7UnwBvbhssq6CNYQucFeu5KnbXhm
-         +28zzTRsmxYfiU7X3ltORew9YM0mNUd6LkJolo0rJJd4Kii3DZChL8x5OL96HUPx+GBZ
-         EJSAHRdtYfZJ08wuT2zuGcjftZ28dcgsPO3ryoM2nxEjiJN84IBkzSiUVpA0+MGsqZrf
-         6Dx3fbNbh9SDgQJLXauTZG9pVdi9kNX36DIHkhvYBiySONvVPpQioWd88T1YDyg/ov33
-         bslA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF32F607827D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF32F607827D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b1d818b501so1330751a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:52:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793634707; x=1794239507; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nOCgKoJdIhSObbuGxZ7xKscGyZkjtDdaeTHB5AW5EkM=;
-        b=AFkgrfP3eZEkNC4h3hExBJwzEDLfBpcht8jrC/teFI3b5R0fXev9o5F7PSBMXPq54G
-         nYoZdNAMvUScbMc9HbGLZZ8uWZqnV3aVBV97iuf2tmGDZieU5m2dv1Ztf/LirZFx6Leh
-         0bYGxMPumyPBrGDj4bL/5VGAt2GRPPL0U3yC/i5zTXO+doqn7EN5MhGuYnkzM0KBj9fe
-         S/z2UilVXNGsI5GMCiatWgGKD6/aRl+r9JZucDW/I0egaYFvd5H5eLvg4g4AMhadIlna
-         FqAMJZ6XxZoorGKzcup5ghbTWrlk6MwKPMeBHTeJBkGsMRMNrcXrbea3mLLklDTXBX3N
-         O2Qg==
+        d=google.com; s=20260707; t=1793634734; x=1794239534; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=j6RtsTbIlQ1+MerKC0xhFDG/d459vnICRyJwyVtriLE=;
+        b=BHPvzdIUTfLewJrYkQH7AM5ACZXWMySrmwNdCiSs5e6SI86mj4u2FQFZ7r+Sb1n78o
+         gc7efW8JFDUlvS0IFhI4lySJQ+geqabqJd3Q5I7XQAl3Y3/Yw/+TdJ8ntmwzO5rfOTpG
+         PoKQ8nTXisY9CAUjnrWbqf8y6JSz5U9KT5YbVXJcpFQQX4bZ54DVJBvod155mno//Klr
+         K4qF7GT6YqPFEocNq77QalEX6VfNP+5OPCh9Rl51yPooTkxLTI41oszKeo9V3be0MCxE
+         125q2mUMZMjjNDHFbTMTsuMzt+8SAccC+vqPIehEIlLY04xwwd9hOUGvIAqgUWFvNJVv
+         m9GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793634707; x=1794239507;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793634734; x=1794239534;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nOCgKoJdIhSObbuGxZ7xKscGyZkjtDdaeTHB5AW5EkM=;
-        b=B9JZIn1EpnATW/2HvfDNWpMf9cXgwvZPHR7DfoqO3WTDOZ6fe9YGBtt38s5E7Xs9V5
-         pB6/EbxyqVtbWzFJtL8In14ZVPGrqiSBhifywWdpctSvjSCFtUB5dUQ1EeuUcQSEdY2/
-         ZI0XMbgEPD1Heg4d8myTWrOa03kMVIv8qqa8KudfBWI4eUQ4aQWiJS74lD8AJscYzXuC
-         Bo+NCQpPS+gx9y+9iQuEztrNRj+k20u+D/ewmorBSrDN8YHgWLUsJUb486FC1Ln/z3b7
-         cwJXd/ZfGsXGchyGSdCXOi2mE4tpKqUE3w+hVBQPKgPwSLxxpMCfvCKB8ASgwZ+ManCu
-         cX6g==
-X-Forwarded-Encrypted: i=1; AKwUvBzchfVE4/rZ0LSs/n4hDwTArRrgsU64ZqSM6jJrgAqAxHwXn3l3CIMsKs7wprc8WloflDKUwFzh/IHGn3M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LlYA3fL5g+uQoQVx5UhCGSORp5sZs3XbqGobUgn+dDTfxVOjA
-	/tpCN/BSAiiKssSD7fjkYnQoTmBCT5Llphg2XCf6Hxvi5eIeUTUX2GeidQrS16qgG7IYF6NRGBG
-	NUisNz1K044EWunnKkPNzWGngUqGYxyM=
-X-Gm-Gg: AYBFou3pDVZHrtjSSR+wmQnjhrVfMM3b+TJyuOjGORxX6hsbcshNTappOheaf5UMc8t
-	3S5zsQtxj6cI6EqDn5HOFbmdz1PAwO7ZIROzG0vIKLDC4BXpSN47ia4JZ0lrUMRolHcJihy1j0Z
-	f8m9hIWPOEQ0vCQu46cj9HG2oU/q+hOtwUb4FpgkfaV3ke+ypat+E2L1t9kAIFcme51rS3Lk0wB
-	aGtODnVrYYIz43CvDTLZdbq2i49LKH07CH4VU0T5hmPie/Ov/bV7BTOUHKeNXRz6X0cHap2HDj5
-	IGO1m2d8rv/sRZrR9wSTdZJaMPCo+eOE2pRJkyaM8+ZOq+Dpg51tSObu6ihzccqaiCijlVMbN9C
-	QM5iN4S+8gg+JE/xjNkBKKxnyAGM7zpqqDgykAHX9qlOt3CzkqMXfZ0K8h9dfN0Tr7IeJMmhrFL
-	sOHDJL8XCx70DbfN4BaQV0ZtiO
-X-Received: by 2002:a17:903:37cf:b0:2e9:6468:2005 with SMTP id
- d9443c01a7336-2eb3648cd80mr155350785ad.2.1793634707021; Mon, 02 Nov 2026
- 07:51:47 -0800 (PST)
+        bh=j6RtsTbIlQ1+MerKC0xhFDG/d459vnICRyJwyVtriLE=;
+        b=cF7PaEbAHf6uSZCyci6bDRMHm7ifBrD9uRPoJn4NSaSvtOiHKF2iVV0RskLBqNvjxm
+         dD4YM1RFd+Q9pSHtLIDYPLmIiV8ZheZrcpIcSg8mKrF7BHs59Q8PkQD9JSDxi4wqK+Dy
+         iGmSEBLWk6IzbmPlSPY7bZOSB//SwpRgOmQvx5XvP9+ezPyy1+eCIJclhg5sjXHRgade
+         97i7xjW6FCDw7GmHv/VRiQfOoXY79SmUFf22d9X6uSg61qYxHOmA3VqEuEfXqxmPv5U5
+         o/xkKMH4vMmDgXKHD8myFA/5qpGjwph7DndgvWkWBoIwTUNkOlMQKL7qqaGokTjUApjV
+         14lA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCyMckdeAgxXtsJJMs9FjOoQfglgJXtsPJ3hD/3DboxqBybD+/LTUEL8JP6mr2qMMaQCsPpyes/T1jKHo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80xdNg8AOlCTWhb4VuUxRkaEtXNrFsxV9+Jmty4XI1yPRnFNdP
+	nBm507krW9ILmfMhZ4vyJ+aBIU4Qd4fLpuB0GYEKN3PP2NggdXX+o5pFFquhuheonw8cFjbph3B
+	OAgFGjwtQLRbT8CZvUA==
+X-Received: from edwr13.prod.google.com ([2002:a05:6402:34d:b0:6ac:bd6a:1c30])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:aa7:cc09:0:b0:6ac:7737:e50d with SMTP id 4fb4d7f45d1cf-6b4d4d83eb2mr5865537a12.29.1793634733847;
+ Mon, 02 Nov 2026 07:52:13 -0800 (PST)
+Date: Mon, 02 Nov 2026 15:52:12 +0000
+In-Reply-To: <auI02M-pZO_aQ4jn@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,334 +76,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20260114163807.2525868-1-ingyujang25@korea.ac.kr> <20261101132405.1387745-1-ingyujang25@korea.ac.kr>
-In-Reply-To: <20261101132405.1387745-1-ingyujang25@korea.ac.kr>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Nov 2026 10:51:35 -0500
-X-Gm-Features: AclHuK_dNc-WbpSUdvsrzWpZry_6vBxHfWOCNfPxLRPLLxJ6Y7fVPrrrC1rt0jw
-Message-ID: <CADnq5_MU1M1_7gsQFv_+B4r-YNa6yQ0WTCiO1_DAahwmshDWUg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/pm: remove dead code in smu7_patch_dependency_tables_with_leakage()
-To: Ingyu Jang <ingyujang25@korea.ac.kr>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+References: <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
+ <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
+ <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
+ <atpNFEFIlqAoYIwH@google.com> <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
+ <attmFVIFU_mS0Y7p@google.com> <CA+CK2bDXDWbww_d3sD6OZqpo37V1a3t76_ubbrXLQS=9DB3dWA@mail.gmail.com>
+ <at-8vkVpN2SF3XgB@google.com> <2vxz8q3hoicx.fsf@kernel.org>
+ <CALzav=eG5j2n5omO2Mxqw8xA4sZLduxdbBYFcnHpPn0PDpt9Hg@mail.gmail.com> <auI02M-pZO_aQ4jn@google.com>
+Message-ID: <9huzik2fz0wj.fsf@tarunix.c.googlers.com>
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+From: tarunsahu@google.com
+To: Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, maz@kernel.org, arnd@arndb.de, jgg@nvidia.com, 
+	robin.murphy@arm.com, loganodell@google.com, oupton@kernel.org, 
+	kevin.tian@intel.com, alex@shazbot.org, dwmw2@infradead.org, 
+	pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
+	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 1, 2026 at 8:31=E2=80=AFAM Ingyu Jang <ingyujang25@korea.ac.kr>=
- wrote:
->
-> The smu7_patch_*() helpers called in this function only call the void
-> smu7_patch_ppt_v0_with_vdd_leakage() and always return 0, so the error
-> checks on their return values can never be true.
->
-> Make the helpers and smu7_patch_dependency_tables_with_leakage() return
-> void, and remove the dead checks.
->
-> Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+Pasha Tatashin <pasha.tatashin@soleen.com> writes:
 
-Reviewed and applied.  Thanks!
+> On 10-28 10:24, David Matlack wrote:
+>> On Wed, Oct 28, 2026 at 10:17=E2=80=AFAM Pratyush Yadav <pratyush@kernel=
+.org> wrote:
+>> >
+>> > On Mon, Oct 26 2026, David Matlack wrote:
+>> >
+>> > > On 2026-10-25 04:38 PM, Pasha Tatashin wrote:
+>> > >> On Fri, Oct 23, 2026 at 9:50=E2=80=AFAM David Matlack <dmatlack@goo=
+gle.com> wrote:
+>> > >
+>> > [...]
+>> > >> The reason I care about keeping the header compact is that we are
+>> > >> defining a foundational kernel ABI and want to use this header acro=
+ss
+>> > >> almost every serialized data structure so we can evolve them later
+>> > >> without breaking compatibility. While some top-level structs are on
+>> > >> sparse folios today, other serialized structs are tightly packed, a=
+nd
+>> > >> we are looking to add KHO slab support in the future where tightly
+>> > >> packed allocations will be common.
+>> > >
+>> > > My intuition is we will have a small number of headers per preserved
+>> > > file and per preserved FLB. One for the top-level struct and then
+>> > > optionally a few more for sub-structs like arch-specific data. That =
+is
+>> > > why I am less worried 8 bytes per header, even if we fix the folio
+>> > > problem.
+>> > >
+>> > > Maybe where our visions differ is when there are collections of
+>> > > serialized structs, like KHO blocks. For collections I don't think t=
+he
+>> > > elements will each have their own headers. Otherwise the elements co=
+uld
+>> > > be different sizes.
+>> >
+>> > kho_block today doesn't store entry_size in the serialized payload. It
+>> > relies on its caller to do so. With extensible structures, this can ge=
+t
+>> > messy. Sure, the owner of the kho_block_set can track the size somewhe=
+re
+>> > in its payload, but perhaps we should store the size in
+>> > kho_block_header_ser to begin with?
+>>=20
+>> +1000
+>>=20
+>> KHO block should track the entry size automatically and not rely on
+>> the caller. Otherwise every caller is going to have to store the entry
+>> size in the struct that owns the KHO block, like I had to do in the
+>> PCI v10 series :(
+>
+> I am fine with updating this as part of the versioning change so that we=
+=20
+> do not have to do it twice.
+>
+> Tarun, could you pelase include entry size change into the next version a=
+s=20
+> well?
 
-Alex
+Yes, This will be important to track the extensible serialized structure
+across kernel. For example struct luo_session_ser has larger size in N+1
+kernel which gets deserialized on the beginning of the boot so incoming
+block_set must use entry_size of the kernel N which we can update inside
+kho_block_set_restore(). And this updated incoming->block_set be used
+for iterator in luo_session_deserialize to properly walk through
+session_ser entries.
 
-> ---
-> Changes in v2:
-> - Make the smu7_patch_*() helpers and
->   smu7_patch_dependency_tables_with_leakage() return void, as suggested
->   by Alex Deucher.
-> - Rebase onto current mainline.
+I will send v4 soon including this.
+
+~Tarun
+
 >
-> Link to v1: https://lore.kernel.org/all/20260114163807.2525868-1-ingyujan=
-g25@korea.ac.kr/
+> Thanks,
+> Pasha
 >
->  .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 117 +++++-------------
->  1 file changed, 30 insertions(+), 87 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/driver=
-s/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> index bdf1e489369e6..dafe25b1efb65 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -2672,8 +2672,8 @@ static void smu7_patch_ppt_v0_with_vdd_leakage(stru=
-ct pp_hwmgr *hwmgr,
->  }
->
->
-> -static int smu7_patch_vddc(struct pp_hwmgr *hwmgr,
-> -                             struct phm_clock_voltage_dependency_table *=
-tab)
-> +static void smu7_patch_vddc(struct pp_hwmgr *hwmgr,
-> +                           struct phm_clock_voltage_dependency_table *ta=
-b)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2682,12 +2682,10 @@ static int smu7_patch_vddc(struct pp_hwmgr *hwmgr=
-,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                 &data->vddc_leakage);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_vddci(struct pp_hwmgr *hwmgr,
-> -                              struct phm_clock_voltage_dependency_table =
-*tab)
-> +static void smu7_patch_vddci(struct pp_hwmgr *hwmgr,
-> +                            struct phm_clock_voltage_dependency_table *t=
-ab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2696,12 +2694,10 @@ static int smu7_patch_vddci(struct pp_hwmgr *hwmg=
-r,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                         &data->vddci_leak=
-age);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
-> -                                 struct phm_vce_clock_voltage_dependency=
-_table *tab)
-> +static void smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
-> +                               struct phm_vce_clock_voltage_dependency_t=
-able *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2710,13 +2706,11 @@ static int smu7_patch_vce_vddc(struct pp_hwmgr *h=
-wmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                         &data->vddc_leaka=
-ge);
-> -
-> -       return 0;
->  }
->
->
-> -static int smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
-> -                                 struct phm_uvd_clock_voltage_dependency=
-_table *tab)
-> +static void smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
-> +                               struct phm_uvd_clock_voltage_dependency_t=
-able *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2725,12 +2719,10 @@ static int smu7_patch_uvd_vddc(struct pp_hwmgr *h=
-wmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                         &data->vddc_leaka=
-ge);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
-> -                                        struct phm_phase_shedding_limits=
-_table *tab)
-> +static void smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
-> +                                      struct phm_phase_shedding_limits_t=
-able *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2739,12 +2731,10 @@ static int smu7_patch_vddc_shed_limit(struct pp_h=
-wmgr *hwmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].Voltage,
->                                                         &data->vddc_leaka=
-ge);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
-> -                                  struct phm_samu_clock_voltage_dependen=
-cy_table *tab)
-> +static void smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
-> +                                struct phm_samu_clock_voltage_dependency=
-_table *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2753,12 +2743,10 @@ static int smu7_patch_samu_vddc(struct pp_hwmgr *=
-hwmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                                         &data->vddc_leaka=
-ge);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
-> -                                 struct phm_acp_clock_voltage_dependency=
-_table *tab)
-> +static void smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
-> +                               struct phm_acp_clock_voltage_dependency_t=
-able *tab)
->  {
->         uint16_t i;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2767,12 +2755,10 @@ static int smu7_patch_acp_vddc(struct pp_hwmgr *h=
-wmgr,
->                 for (i =3D 0; i < tab->count; i++)
->                         smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->e=
-ntries[i].v,
->                                         &data->vddc_leakage);
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
-> -                                 struct phm_clock_and_voltage_limits *ta=
-b)
-> +static void smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
-> +                                  struct phm_clock_and_voltage_limits *t=
-ab)
->  {
->         uint32_t vddc, vddci;
->         struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
-;
-> @@ -2787,11 +2773,9 @@ static int smu7_patch_limits_vddc(struct pp_hwmgr =
-*hwmgr,
->                                                    &data->vddci_leakage);
->                 tab->vddci =3D vddci;
->         }
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_le=
-akage_table *tab)
-> +static void smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_l=
-eakage_table *tab)
->  {
->         uint32_t i;
->         uint32_t vddc;
-> @@ -2804,63 +2788,22 @@ static int smu7_patch_cac_vddc(struct pp_hwmgr *h=
-wmgr, struct phm_cac_leakage_ta
->                         tab->entries[i].Vddc =3D (uint16_t)vddc;
->                 }
->         }
-> -
-> -       return 0;
->  }
->
-> -static int smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hw=
-mgr)
-> +static void smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *h=
-wmgr)
->  {
-> -       int tmp;
-> -
-> -       tmp =3D smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_o=
-n_sclk);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_o=
-n_mclk);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency=
-_on_mclk);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_o=
-n_display_clock);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_vol=
-tage_dependency_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_vol=
-tage_dependency_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_v=
-oltage_dependency_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_vol=
-tage_dependency_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_p=
-hase_shed_limits_table);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock=
-_voltage_on_ac);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock=
-_voltage_on_dc);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       tmp =3D smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_t=
-able);
-> -       if (tmp)
-> -               return -EINVAL;
-> -
-> -       return 0;
-> +       smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_sclk);
-> +       smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_mclk);
-> +       smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency_on_mclk=
-);
-> +       smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_displa=
-y_clock);
-> +       smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dep=
-endency_table);
-> +       smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_voltage_dep=
-endency_table);
-> +       smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_voltage_d=
-ependency_table);
-> +       smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_voltage_dep=
-endency_table);
-> +       smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_phase_she=
-d_limits_table);
-> +       smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage=
-_on_ac);
-> +       smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage=
-_on_dc);
-> +       smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_table);
->  }
->
->
-> --
-> 2.34.1
->
+>>=20
+>> > Anyway, not a problem this series needs to solve, but something we
+>> > should eventually do.
