@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793620574;
-	b=49Yzr3iqgk0hhRRLJDqj0JqQ3jtILIPwWmTH1+fVf8BqZYKFsrZH8zga/wr4ssp/eEBm
-	 2V4Pzk85qcRkJcwNOp1qlG37dhIDwQNiFQNVJ1d+u5HiVebkKAt9e/EnW5E0yEAg0SC99
-	 2Rr1eDycebZ7tK9eKZXJPAiVV3WZuyiH8343P16P/oFeBw0Tlg1E+Rlx4A80iHT4T+QUJ
-	 t+G1uCA8ca537WN/nubCbGCmdolmNRwlvDXrsLkKPHc1j3aNutbHdilK7Ay8a0uLaHGfc
-	 vbZm5I3e/NKemcuTjk8L4CoWqvBpC4+BJnadYSEeTADvnBoC6ZruVxBs033Um5oW34A==
+	t=1793620598;
+	b=IOBUvrxVOJ9Ew9YoQ+1dMorShqYyDDuXTQ7Nd2Ve4NrouWC+v6NKS9ZFVwlWn68PIfvc
+	 qUIrIFAF58/XpEVfANHpIE7lkZOvqTIJRZPmpOfd5qWXX6rxmsQT/I2SyawrcskRzRnpg
+	 hFD8DSuPhranoKmW5Uv4y5P+ogqkaVZIAR8b8E/q38deHRK4wPLT8QJr/nv3WkMkSnyh/
+	 C9z7kVhIiCXpYRguOpHg4T15/4i1vZCSFd6r4eTZFhvC6YKJuCpPnDEJ922Xg6Xl8xeT1
+	 Zy+2U+J3XD4SbV914XPNvPKeTjgOI257xHqKEZGjDoadTfgm615thR5am3aKS+8Ujiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793620574;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=edBP2A68Bu7W9EkTwCHYe8SPLgIZpJkGOjQwcfidHTM=;
-	b=PgpOSObhuAyGw3ENpkAqDQjUB9iXajcCq39hStIg74ln+SbkMrnyeItUmYjT9dZpIsRB
-	 tT5gzsmIAh9Mq1M9n7qL35qYGwtQCWZ3rJT8M2he9gT3OrN3m/6LpKasCKk4Rux6fhki+
-	 ftTtrzFdxl66m86MRPj4CTg3lDRSWsbkDIjavGVAJotG+4Rx0Ykey1+T4fnZEP8gcz5AX
-	 r2Eu36uZxkiG4os0NZ9F2CscvgAgZjSBcBKHvrQV59qQVFjhKEi2IDHVfoJ0/8gBNkbYF
-	 lamplOpNNQiG5CoZSsczMt+azYsKhUl5f8t4Mk5040FzPezMmaWOWBpln7DaQtfzWfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620598;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:References:Date:Mime-Version:From:To:Subject:Content-Type:
+	 X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=NWBSo6JiDET5m/Z7QDrfEi5ti+8jerlMRY0F8wuR4vs=;
+	b=aOreqq0cBm5Mmma6Vz0my7OFsA7wzNjD8Dep4aT47/i6myMo+o4crX3todbhiw1wFG2L
+	 fKwctCnDr99cahKhjG79SoRtzmrKE6JauoIa5oIqNLvQrM8i7pV5K0aGDIgEhRdNV2eCb
+	 Fpe2UB8B22n1bkvkbffW4g2gMifct/mxYKD+2QhHReHzLNSWpiJNaUvhJOU4kW/Klw0q9
+	 z4+bi+mBOd9ThSHOaqB88xeFkCO9jr8kWKZzaLAgcf00b7n5GcojHgyOEPpJnLfgMUqaV
+	 KJB724sasyC5J+iZ0SlwHGiXMb5F2sxLCYqufK7uARB2ZwMXUJbnYsEztxqiaAgPVzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZB9D6Xzw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52384606A329;
-	Mon,  2 Nov 2026 11:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZB9D6Xzw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 782D31F00A16;
-	Mon,  2 Nov 2026 11:56:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793620573;
-	bh=edBP2A68Bu7W9EkTwCHYe8SPLgIZpJkGOjQwcfidHTM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZB9D6Xzwd9V0KWzgRay9qxu3z4JVvBe4OPAVsFf203Woxl4RClT/YrnH6K4nBD/na
-	 DXtL9XYKSyieJh/JWVUVynigesvd3ygarNHTnkfg7MrJmJR5YacNNkCNyQQF+c7pJl
-	 3p50jOAr74+5d8wBFkSjxBIpn5fbI4SMJ7/79+4qA1KtDo/zEXZh1igH9a9px8QOHy
-	 wVlqSwLKt1LcsurRaPG7r4LuT1AGaEnWfjXeI13Ikl5Qmhry6E/wsxN3kbfGR4NJ0m
-	 X5b1RKzvfkaGlqz1BXZrPz6dbdxN3LU295cMpqF5lx0H3AXYt+Jfk+3PuemaIss+26
-	 miSzc4QBzyN2A==
-Date: Mon, 2 Nov 2026 11:56:09 +0000
-From: Simon Horman <horms@kernel.org>
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, Steen.Hegelund@microchip.com,
-	UNGLinuxDriver@microchip.com, richardcochran@gmail.com,
-	horatiu.vultur@microchip.com, netdev@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: sparx5/lan969x: release the in-flight slot of a
- stale TX skb
-Message-ID: <20261102115609.GA257209@horms.kernel.org>
-References: <20261029-sparx5-ptp-stale-tx-slot-v1-1-ec15f391bbb7@microchip.com>
- <179339983815.3131.4933059375204484548@kernel.org>
- <20261102091449.oigddj44eapymqua@DEN-DL-M70577>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE52606A329;
+	Mon,  2 Nov 2026 11:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE52606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJ9Ck0wC0z4yjjH;
+	Mon, 02 Nov 2026 19:56:34 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6A2BuM8j007548;
+	Mon, 2 Nov 2026 19:56:22 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 2 Nov 2026 19:56:25 +0800 (CST)
+X-Zmail-TransId: 2afa6ae87a69acd-8295b
+X-Mailer: Zmail v1.0
+Message-ID: <20261102195625207uxpYcc94_VO6Ir71GcQ99@zte.com.cn>
+References: 20261102195030814Aeehrb4WmExc085745ldN@zte.com.cn
+Date: Mon, 2 Nov 2026 19:56:25 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,84 +57,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102091449.oigddj44eapymqua@DEN-DL-M70577>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>, <linux-mtd@lists.infradead.org>,
+        <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDIvM10gdWJpZnM6IHhhdHRyOiBwcmVzZXJ2ZSB0aGUgZW5jcnlwdGlvbiBmbGFnIHdoZW4gY3JlYXRpb24gZmFpbHM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A2BuM8j007548
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 02 Nov 2026 19:56:34 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE87A72.000/4jJ9Ck0wC0z4yjjH
 
-On Mon, Nov 02, 2026 at 10:14:49AM +0100, Daniel Machon wrote:
+create_xattr() clears UBIFS_CRYPT_FL in its error path regardless of
+whether this call set the flag.  The flag is also set for every inode
+that already carries an encryption context, so a failed setxattr() on
+such an inode clears it from the in-memory inode.  The next inode write
+then packs ui->flags without UBIFS_CRYPT_FL, and after the next mount
+the inode is no longer treated as encrypted although its names and data
+still are.  ubifs_jnl_update() can fail before anything is written, for
+example when its journal buffer cannot be allocated.
 
-...
+Remember whether this call actually set the flag and only clear it in
+that case.
 
-> > [Severity: Medium]
-> > Can this decrement race with sparx5_ptp_txtstamp_release() and count the
-> > same skb down twice?
-> > 
-> > Each port netdev has SPX5_PRIOS TX queues and there is no
-> > ndo_select_queue, so two CPUs can run sparx5_port_xmit_impl() for the same
-> > port at the same time. sparx5_ptp_txtstamp_old_release() unlinks while
-> > holding only tx_skbs.lock. The busy path decrements without checking
-> > whether the skb is still on the list:
-> > 
-> > drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c:sparx5_ptp_txtstamp_release() {
-> >     ...
-> >         spin_lock_irqsave(&sparx5->ptp_ts_id_lock, flags);
-> >         port->ts_id--;
-> >         sparx5->ptp_skbs--;
-> >         skb_unlink(skb, &port->tx_skbs);
-> >         spin_unlock_irqrestore(&sparx5->ptp_ts_id_lock, flags);
-> > }
-> > 
-> > A possible sequence:
-> > 
-> > CPU0
-> > sparx5_ptp_txtstamp_request()
-> >     skb_queue_tail(&port->tx_skbs, X)
-> >     sparx5->ptp_skbs++
-> > spin_lock(&sparx5->tx_lock)   /* waits */
-> > 
-> > CPU1
-> > sparx5_ptp_txtstamp_request()
-> >     sparx5_ptp_txtstamp_old_release()
-> >         /* X looks older than SPARX5_PTP_TIMEOUT */
-> >         __skb_unlink(X); dev_kfree_skb_any(X); purged++
-> >     sparx5->ptp_skbs -= purged
-> > 
-> > CPU0
-> > ops->fdma_xmit() or sparx5_inject() returns -EBUSY
-> > sparx5_ptp_txtstamp_release(port, X)
-> >     sparx5->ptp_skbs--
-> > 
-> > At HZ=100, SPARX5_PTP_TIMEOUT is one jiffy, so crossing a single tick is
-> > enough for X to look expired.
-> > 
-> > Before this patch the purge path did not decrement, so X was counted down
-> > only once. ptp_skbs is a u16 and the limit check only tests for equality.
-> > 
-> > If the counter wraps to 65535, does the SPARX5_MAX_PTP_ID limit stop
-> > working, so that ts_id values can be reused while they are still
-> > outstanding?
-> > 
-> > The same window already lets CPU0 keep using X after CPU1 has freed it.
-> > That part predates this patch; the double decrement is new.
-> 
-> This fixes a leak seen in normal operation. Each lost timestamp keeps
-> an in-flight slot, and after SPARX5_MAX_PTP_ID losses, two step
-> timestamping stops on all ports. The lan966x twin (074caa30a627) is
-> already in net.
-> 
-> AFAICT, the wrong count can never be used. The second decrement is in the busy
-> path, which on the very next line unlinks an skb that a purge on
-> another TX queue has already freed. That use-after-free is
-> pre-existing and crashes before the count matters.
-> 
-> I am working on a net-next series that reworks PTP TX timestamping and fixes
-> this and several related issues.
-
-Thanks Daniel,
-
-I agree that is a good approach.
-
-Reviewed-by: Simon Horman <horms@kernel.org>
-
-...
+Fixes: d475a507457b ("ubifs: Add skeleton for fscrypto")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
+index 3b0e8a270f59..7f82ddb9e3f2 100644
+--- a/fs/ubifs/xattr.c
++++ b/fs/ubifs/xattr.c
+@@ -69,6 +69,7 @@ static int create_xattr(struct ubifs_info *c, struct inode *host,
+ 			const struct fscrypt_name *nm, const void *value, int size)
+ {
+ 	int err, names_len;
++	bool set_crypt = false;
+ 	struct inode *inode;
+ 	struct ubifs_inode *ui, *host_ui = ubifs_inode(host);
+ 	struct ubifs_budget_req req = { .new_ino = 1, .new_dent = 1,
+@@ -133,8 +134,10 @@ static int create_xattr(struct ubifs_info *c, struct inode *host,
+ 	 * To avoid multiple updates of the same inode in the same operation,
+ 	 * let's do it here.
+ 	 */
+-	if (strcmp(fname_name(nm), UBIFS_XATTR_NAME_ENCRYPTION_CONTEXT) == 0)
++	if (strcmp(fname_name(nm), UBIFS_XATTR_NAME_ENCRYPTION_CONTEXT) == 0) {
++		set_crypt = !(host_ui->flags & UBIFS_CRYPT_FL);
+ 		host_ui->flags |= UBIFS_CRYPT_FL;
++	}
+ 
+ 	err = ubifs_jnl_update(c, host, nm, inode, 0, 1, 0);
+ 	if (err)
+@@ -152,7 +155,8 @@ static int create_xattr(struct ubifs_info *c, struct inode *host,
+ 	host_ui->xattr_size -= CALC_DENT_SIZE(fname_len(nm));
+ 	host_ui->xattr_size -= CALC_XATTR_BYTES(size);
+ 	host_ui->xattr_names -= fname_len(nm);
+-	host_ui->flags &= ~UBIFS_CRYPT_FL;
++	if (set_crypt)
++		host_ui->flags &= ~UBIFS_CRYPT_FL;
+ 	mutex_unlock(&host_ui->ui_mutex);
+ out_free:
+ 	make_bad_inode(inode);
