@@ -1,63 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615037;
-	b=xLNkeU9ICUx8p+51LVvNJuwBC1jywsWpnxhzuYgONIp8Eu4Fj+CE0bdsWs9u2f7jWFYi
-	 EnXjOKlszdzjpSegANy3Gw2LE1lYbD6t5AJdRUF2h/Hu3R/ssse2TE6SwKybHkz3pS/NF
-	 rplt93yAlhjGlwxwy9/GJGegztvfDUkcfA3Q0eolrSD97dbjqY1FI2k0XzJRrG5FYhc0E
-	 vNmgKM8jhWb96V3IxJQuB23XnJ6GrEFgsO1bmQKe0Qxuj5cUWzlnVSK8OZTjiHAcOk7BJ
-	 60ogKx7Jajl/SncWllsGJMqc2TrW3ZfZP0zFRk2JuqpwskIPYPdmkp1Uasj9majth5A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615037;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=OYzYidSp1VSxcpHdr/miQGxFM0jYNG8Wpj6ohdU34G4=;
-	b=bimjqVWAEcfMfJlhUVMR3RO/Tawolcnh+Y7OgJlcMiB6awd9sYTWLCFUrWQTvAW9XS0P
-	 iU48GRqnl+h59JAspoAW+dmRgL0rUe9GaiYT3tdodaBs9gjv7ydva0c4ym5i/X8taIKuF
-	 e/JC2rV1806eHUWbmC3ORz2Rw74IYrqIte5Im5t/22vqtK+tvJfI1OdreeA9nnjQvlIiJ
-	 YEVxeBvVC+qlOlB44HeUy/5FlTj5HjW8ZuuYuBJOOyeOvpp1uafiVa68jGtZLPz2hk5WK
-	 vcseLs7FIrQy7pN7UFfqNUA97oIMHSiJUun8VUAy/7pLCQTtx+07dGMTvWBMrn6hl1A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FcZCBphX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793615051;
+	b=oyCSgROzJ96A9/9gaenogxvodvXPJgZx5FN6SWHIzlstzK/N5qZi66Iw8KEkNTiLHM40
+	 vL5LqZ+wN/zQG+zMzleE+Qi+l0rhU0xAxrPpPGzIUaBP8hjvcBUtt1PsNtbGoknHB4rJs
+	 uYf22IsG3yZyRwGzzfsB4h/maxJLdf5rk6yWTrTT6Z4oU3kdml3q2Zgy7L/s1pgtZHLk7
+	 i6HhFfGpKHaUWGQNVUNV/3zLj1V6ehH8cFGB835MANzqMh4aIqs/zFKAwScrkWF5pxBnC
+	 MzZeG9k8/NtkIl3yKWI3GLO8W8y4c66ftrkge+88QfLlkrk8C0mRRv/nOKRl4gpKsAA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615051;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=lsox1+XC0oIL3mFSDS6nHHUhaOMMXtufo20mJV8KX/k=;
+	b=mym7FQot8Q2JFSS2vWsP3FTEdXDLXr671ipCf/c9ZBgrfFrzKbpaUVeVypXYbXSdgjbE
+	 edVyPnSCZtKNMiIyNti+JWv+8ZeEpdYMV2AjSCke13gX6eGhz7/MWFt0v+56hKOZaK3yN
+	 pD0P1aL6HZPr4EvQp31sdXNgYim3whu1uS6Nlym1yIB32011WmUPoUjQkHOVhrTXVKtiS
+	 uSX/+I4C4CRQZT2fwcrWc5fT3eQmiS944zrREFA0pfkQRQCfYn7HTRnwj4FsmRGCt2zPl
+	 GtdoQc3Ti4/1yXwNeJt73rLeZRIvdjAzrC+Ss3D2gfu3EIi+57WcaWz4sBhsS5tHefg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fM65xz6Y;
+	arc=fail smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F899606A327;
-	Mon,  2 Nov 2026 10:23:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0571B606A324;
+	Mon,  2 Nov 2026 10:24:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0571B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FcZCBphX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C950F1F00919;
-	Mon,  2 Nov 2026 10:23:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793615036;
-	bh=OYzYidSp1VSxcpHdr/miQGxFM0jYNG8Wpj6ohdU34G4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FcZCBphX5SYCXJPpx/xz10gWVQ9TtSazqMuitqro3fzwcKduPbLrUOmT1Xk9jaZll
-	 pGlPOSTeopVHmiRM2bBbL4vvIGAiGXvMW7oeaFZOwner6BmHBbkl1WOnwU/vzE0jNl
-	 gMOC5Cw8O8lKvlxYlLoX3UEB3CWWiuvr1adrOVVQjjpuMucf0OjCfzumvy0RLsCiIm
-	 LqrFvR+pHWn+G8btlWJZXxClkkFqnJNcdMQ5EEDh8WPi8uiHXK8FHWE4mZFSZBVJ0l
-	 YivXt7SAjlt+/kIDaTQtjk79vcfj0P0ir2R7p91vKacq05IVqo6tE1VjFJthfAzNKO
-	 MdjyUdLGfkjug==
-Subject:
- Re: [PATCH net] net: stmmac: Clear DMA errors for multi-channel interrupts
-From: netdev-bot+sashiko@kernel.org
-To: maxime.chevallier@bootlin.com
-Cc: andrew+netdev@lunn.ch, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- linux@armlinux.org.uk, lorenzo.bianconi@oss.qualcomm.com,
- ovidiu.panait.rb@renesas.com, thomas.petazzoni@bootlin.com,
- alexis.lothore@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Date: Mon, 02 Nov 2026 10:23:55 +0000
-Message-ID: <179361503537.3131.1099699821303752523@kernel.org>
-In-Reply-To: <20261030102251.208929-1-maxime.chevallier@bootlin.com>
-References: <20261030102251.208929-1-maxime.chevallier@bootlin.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fM65xz6Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793615050; x=1825151050;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=N+erJ8de8abzYaxTjwaNVt1YdCosAhHFnRjj5Zsuc3g=;
+  b=fM65xz6Y/cM7KHSImpd5V8lBWQI2+BSSwp3UNZCp/JfEoOEumK9Tu3zq
+   eZph/YKFJYz+q4GoegVvAswf2lSV9+VwbkBed6DjPhP4hihkrCWppuxxw
+   F6yS0waExb86SvxEWtrWrhkD1cQpwsb2upaCqWaMYeemxCxsYixS1LtFW
+   i5c792ZyWKjMfsoWXnJUy5xeoTgByhgYa/9AENcDKF+XcRD+V9YG4/yVf
+   FZvSLABFzcsIcziypk769LGLWk0hJARxFpaoI0kVs3eH7XIlNTDCDi3uj
+   PVSMtcjpXH20aH0jIZf7HdNPWY6c7PVXGlr3aPYS0f9ClvEYbXCwZGkMj
+   g==;
+X-CSE-ConnectionGUID: 4nBiIo9SSIq6grx6GJhY4w==
+X-CSE-MsgGUID: xxXMouo4R1OWj33pjhjyGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2327322"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2327322"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 02:24:10 -0800
+X-CSE-ConnectionGUID: eUlMAmkDQQ+EkT70zZozmw==
+X-CSE-MsgGUID: wds5r4JzSNWaahCV6bDGqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6214961"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 02:24:09 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 02:24:09 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 02:24:09 -0800
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.45) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 02:24:08 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ebYl2YR9adE6pna4jB8xSKWNeeUvrBpgsVtApP1PV5lwwU/AfoUAEP8AR6d50KxCtvWcRNdHcr1bJWenIc0bxLxBxWrfa0u42d2SFxda5gdzeWh21skCk3tvRgOQvVAOfnNG0vxAEeZg2ORLUZW8hHb/B47BNFQtzG/c5LlfENza9G5+iyuZHTaUB1fV2/kt2bfTYEa0fWbQcddvtHusvfYq7g3Ij/Cq3ptt6luXR5RYxrLUVOBpoc1sbfywVsnI2dAVJyjuWrlQtWfav1RSjz3idOeeZ2nHX9a3ZrGMX0BKNS4yBAiVUQpB6pHhdYKhDaE5kzMqWSqj3Drmt8YSLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lsox1+XC0oIL3mFSDS6nHHUhaOMMXtufo20mJV8KX/k=;
+ b=F0w49AQCs8f5bBDII1HyEWeSQAhw4ra79VdNW2pQF4U8Co45i+I3i2IZZrFgHlun0++iHbC/jfOhsCsXAnn6UEa0YIn5L5pq85Hgm3V3QxN5kUvsSw55yLbvbwrXb75+LozCcns0aFE6zbLTjY77rbZTirmaoMfLxKWt2/i7oKZwo/iJdqwML7T/DBTg08ENg/Ek7MMrFkNfILMPf2fOmr+IONMZ6EttjhoRKyv57ODnu04lmwzqzolbIkw9mkTv7U+QlXMoQsYRL1VPVKELbks/nzG3kF+OOmCCXmcf82akV8JzFfpre90aqmNmrnQUucJrCTPn2cg66HHl80FkXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by MW3PR11MB4649.namprd11.prod.outlook.com (2603:10b6:303:5b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Mon, 2 Nov
+ 2026 10:24:06 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 10:24:05 +0000
+Message-ID: <8cd3d3f3-c866-4ed3-a41f-a4210e2d73c2@intel.com>
+Date: Mon, 2 Nov 2026 12:23:57 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] perf/x86/intel/pt: Stop tracing at syscore shutdown
+To: Peter Zijlstra <peterz@infradead.org>
+CC: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
+	<acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
+	<mark.rutland@arm.com>, Alexander Shishkin
+	<alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, "Ian
+ Rogers" <irogers@google.com>, James Clark <james.clark@linaro.org>, "Thomas
+ Gleixner" <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
+	<hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek
+	<pavel@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Danilo
+ Krummrich" <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, Mathieu Desnoyers
+	<mathieu.desnoyers@efficios.com>, Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>, "Vineeth Pillai (Google)"
+	<vineeth@bitbyteword.org>, Frederic Weisbecker <frederic@kernel.org>, "Andi
+ Kleen" <ak@linux.intel.com>, <linux-perf-users@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+	<driver-core@lists.linux.dev>
+References: <20261102074039.26983-1-adrian.hunter@intel.com>
+ <20261102074039.26983-4-adrian.hunter@intel.com>
+ <20261102100451.GT1779021@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
+ 4, Domiciled in Helsinki
+In-Reply-To: <20261102100451.GT1779021@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DUZPR01CA0146.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4bd::9) To IA1PR11MB7198.namprd11.prod.outlook.com
+ (2603:10b6:208:419::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,203 +154,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|MW3PR11MB4649:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ead79b8-1fda-4a87-9c73-08df38cb6c4a
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|4143699003|11063799006|56012099006|261028144727099003|261022105027099003|261026140227099003|261026121527099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: +ytzkLvXQxeWf70CStG3sPPKtfMAuzGjxRUXe4+gGkjI46eZyKndCLa5B7EKc077obGZQrZJFpLfd/xdvPbMsP8eg35EUaERW74y3kNFBykmwUDnb/wMIq8XjYz5bjDgSX7/OHLSPaODuhE6c4T7lVuu2Q6WUky6MPOUhEd0UMWu7imeDoLqR/IcjDibMK8PCvlD/j7jVczwUmDyDm4G8kDbjFzojonh794QNGw7NTbVzN8OZj04BojWayza5IFaXd8CVHgBhE5pb+xx9+cAueT+MJ3C7rYgQYtSow8b4xsJsx0B6lqCujbcL16ky3h8hbTvZjTnBG9K89l/epmZ+aFrsU2EWqfVSIcFJqqGQfTINGhy2uGSpHmpcRdxac7uvRGw067IB3wT7zBdt1RsiTnWf6/GLBgR/MLh5PSGsAmbrcyCsbShjwamcxGZckfvD7DBSJ57mTwibFLp9ezdPqJ11U3ZoZbDNBIim5nIh2j7/SEUkgrS04zJ6dOE35SHI7hR3/FwaYXXLEgqz4LU9jjlO+DTXsSP9SqDIu+rXZjshKcogqTF1sP5Em+rh7dJ3VjwzTxelDuk8KkE+5gwkPiTnQe2LRalfoLDdsrzUJoZYSZPz3Fa0+FUh4CCoPjyaAuT1OwPTjs4qccUOFeOesePGJenQ8t8KpUG2ohg1E8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SUhFRkkzVDhpL3BHNjJnaENkRmhqTEpvTjByNjArTHVHQzhaLzNwUkNueVlR?=
+ =?utf-8?B?OGNNTlB2ZzlWZUxEc0ZNVTM4MlZMdnZXMlR4a082dXhuNGZTaFgxeFNXcEN5?=
+ =?utf-8?B?N1lnMjVvQ2FkN09HZUswL2s5OGtIWWFhNGU3LzloRm5CTElTQmV3WFJGai8z?=
+ =?utf-8?B?SWtYWnRKSDJjcnkwbzZWM01aczRzZ3A0VnNkdmhVOWEwTVFFakxqK2dYRUxm?=
+ =?utf-8?B?MlRYbE5UVS9xblQ5SHBaWVZpV3hjaTJBZmgzV1ZDU2dRN1BHVnJxVWtRb1p3?=
+ =?utf-8?B?aTFEQU1USkRMRlBKaDdQYlZUanFFMGFwa1Fkbk52RTFjcHpRR2duY002dFEw?=
+ =?utf-8?B?bWlwNms0eExOOE9rSXpVZHFVeEZONzRMVFNzYkgwRnVyMDZ6TE5mK2diUDhO?=
+ =?utf-8?B?SytuVXp6VEg3Q0swNGo4UHJsT0tYK0Izd2hmczhFVFBBdWNPbTBZQTMwU2NQ?=
+ =?utf-8?B?UGQ5Q0N6cnNsNG1lZGh5bHljTlJlVHdqU1RjRjd2aXZwWmo1S1pJZW0ycDQw?=
+ =?utf-8?B?UHJwdDBPZEJzRU5zKzYvaGI5M0p5bld4MUZYYzRMV2NEOGlmZzBxcUJCYnht?=
+ =?utf-8?B?MVUrT2pJYWJiQ2N2VUcwZVh3N2dGY1FwZm5nd2l1VWtCdEFQV0lxSnZmMytj?=
+ =?utf-8?B?bS9tU016aitBcUZ4VXM1Umh4bTU3NmRaSng1SjN6SWZ2Sk1scTFaRkNIUTlY?=
+ =?utf-8?B?TXFqUUZTKzhqQ1hwcjRzdmNYYkoxL3pCRFNVb3Z2bGVyMVZrVU93OHdjM0tp?=
+ =?utf-8?B?QWM0YVlnczNKN3U4RkFOb3J5c3YxSFdKdFpRYmZzb0tFa3RVNk1NSkUvaEhu?=
+ =?utf-8?B?T3daKzRTbitpYXRSbG41WTE0MEF6VkVjYUZ1VHROSWd6U0pMMFNBcmRSTXdl?=
+ =?utf-8?B?aXhhdHRSUGc1NnZ0U1FpMXRGUzlEekVFMDNWTjBPNVVBb2NkUzc2R3V1Q2Zw?=
+ =?utf-8?B?SEhoRVBTdC9mMUVrRUlkREY4Q3ExUGRMMXRsTGZXcTIxVldGclJGSUpQWENF?=
+ =?utf-8?B?NW5kNzF3U1ZqUVp5eFR6SlBRUWlYRCtQVlVKbzBlb0Z5L3lGMmtvc0x3Ukd2?=
+ =?utf-8?B?VFVxd1cwaUc0MkFBd0xCenM3alFTR0JGczZqYnJySTdQd2VyUitKeUErd3BT?=
+ =?utf-8?B?YVhJeGNoQWd5N1Z1SmFucUVSN2JmWFFETzZUeVVqSEFsYkIrZ1hOQXFza05z?=
+ =?utf-8?B?ZjZJNmJRQ3RTU2VPblNWVTkvRFRqNG1lNVcxT01ubHM3V21KaGpoejhjZ2xE?=
+ =?utf-8?B?dTl2WUQ5Z1ZTc3RwOGlYQkdISG1POXFRUmIwUnl3NUtnQnZibDJuWGo4ejQw?=
+ =?utf-8?B?N3dySjVwc0FlYTJDaU05bnZEZ3ljQ01VeVh0WEIzVHhaQnNleUgrSUV1TmpB?=
+ =?utf-8?B?YkFUSy92anY4OEI0VTk5MWdFV2NSaDVPS1hDVGpwLzlBSXo5c2NVMTAyWHBp?=
+ =?utf-8?B?QUZDRnN4MEFHU2QrRHdIK1liZE5qWTZ2d014Y01vb2kzZWJCUDFCb3RZZ2sz?=
+ =?utf-8?B?VG5HN0oycUZuZnVPUmlrVjVaTlRqSG5iWG1FcHFtSjVuWGV4WXlXZWdrVVBN?=
+ =?utf-8?B?K2tDNENPT2M5SmVBbnptMHFyTkVHM0dtM2g5N2p2cE9wRDFEbFBUdGRiemZL?=
+ =?utf-8?B?bE1adlVic01lWTVFTFRaSi9ETlN5MXVvQ0UrMzRXSFRlazRIUVpBdXJPSG8x?=
+ =?utf-8?B?SDBJVHBzTHdpRnVIZnZCTHVmOWNzTHVPdjN2WndjVzZvaEJZWFVnN3FkTWRR?=
+ =?utf-8?B?ZnZzTVdOL1NpVHhYWmpQNGhTZmlXY2E0b2Z1d2p4SnprajRrOEVjWi9uM3pi?=
+ =?utf-8?B?VWVlV0t6ZGNpZUdXNnpOaVVOZXlRajZkZjJKZE5uR05rS00yanZNNVcycDc4?=
+ =?utf-8?B?UUllbys1Nlg2K0lLOHRNYldHZjErRFZVc2YydWRKN0h5MUdDclBOaXVYNUxv?=
+ =?utf-8?B?V1hNaU83SmFYcGZZcGRGbHliODgwWTZZOXdhaG1abHZKODJocGR4OUcxTS9C?=
+ =?utf-8?B?WlBDK2hVMkp1SlBBY3BILy9qYS81NnMwKzAwNnhSUStXTW8rRDBRV1RLNThP?=
+ =?utf-8?B?L3Q5UVYzalh4M1FJMWNPVHFrR2FVQnhUVmhocXdCZmFkRE9YNUE4Tm1WcEFy?=
+ =?utf-8?B?eXRQMytlNWVtb3lkT3UxQTQwampkMDBBNnZYekE1Z2dNVnZlSzF2ZlNzMllo?=
+ =?utf-8?B?UkFsVU1IUjJ5ME9PSmgxQjZFQjhwbFZ3SmRjSmpOT2Y0M0lWNXU0L3Zoc2tI?=
+ =?utf-8?B?QzAyUU8zRCthV2lJK3NES0Voa25vRG1FK2JCQ3lqY1k3K1pFRkhscXJpNzFs?=
+ =?utf-8?B?NU81Zjh6dkxMd05pc3RaVW1lM2JLeVBmcE1ESEgyNW1SK2RtOFJxcXdVK01F?=
+ =?utf-8?Q?IjxWYwMdO0/awtQM=3D?=
+X-Exchange-RoutingPolicyChecked: DGQmSTx6QqVFv/jczoq0ybykux0sQn/kQjkBkBDDokHkcuE0hsfFoaHdCwzb7D9lpenm0Ne9r+otA4ysQaoiuV/GdCxtNM8ZSIfgdiIOizkqCW2XPdpW7VY7RNQU62GqWAxoZUXDdeEcpfoAWamTDat5Ro2yv9Owbjy/LWUAbb3gMbsJzwy/zvDoB4tjNqMiSMktu/ei2S/bNI303ntW61vaSHPodYW+1I0gcIkv4ejOpF6/uhz+2qSBf9H7oxyaSmhJVs6WedNYvKgzKFxq7TV6DAIwqHSw7azM1/p7tAL4Qw6oaeh3UDxchMmE/Uxc27kZFzvGqO7a5kODknUmiA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ead79b8-1fda-4a87-9c73-08df38cb6c4a
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 10:24:05.8062
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mhdeEk6aOLk2VdtOEEa1gKZydwrbe8p0SpEKKPQ8b6X6dPEp5SBAUe1dqQNYIcgGcmdLAornvjoTH0J8C4aNxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4649
+X-OriginatorOrg: intel.com
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On 02/11/2026 12:04, Peter Zijlstra wrote:
+> On Mon, Nov 02, 2026 at 09:40:36AM +0200, Adrian Hunter wrote:
+>> +static void pt_shutdown_cpu(void *info)
+>> +{
+>> +	u64 ctl;
+>> +
+>> +	/*
+>> +	 * After VMXON on CPUs without PT support in VMX operation,
+>> +	 * TraceEn is already clear and RTIT_CTL must not be written.
+>> +	 */
+>> +	rdmsrq(MSR_IA32_RTIT_CTL, ctl);
+>> +	if (ctl & RTIT_CTL_TRACEEN)
+>> +		wrmsrq(MSR_IA32_RTIT_CTL, ctl & ~RTIT_CTL_TRACEEN);
+>> +}
+> 
+> Why not unconditionally do: wrmsrq(MSR_IA32_RTIT_CTL, 0), at this point?
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 0
+Writing 0 instead of ctl & ~RTIT_CTL_TRACEEN would be fine, but the
+condition is needed.  The comment tries to explain.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The new common-MSI error path runs stmmac_tx_err() without any
-  synchronization against TX NAPI or the transmit path for the same…
-- [Medium] In multi-MSI mode the patch adds new callers of
-  stmmac_tx_err() for a channel, and nothing serializes them.
-- [Medium] Use-after-free of the TX ring during AF_XDP pool
-  setup/teardown while the device is up.
-
---
-
-net: stmmac: Clear DMA errors for multi-channel interrupts
-
-On dwmac4, the multi-MSI MAC interrupt handler now clears the per-channel
-DMA error status bits (AIS, FBE, RPS, RBU) through a new DMA_DIR_ERR
-direction. This avoids interrupt storms. The TX error handling is also
-factored out into stmmac_dma_tx_error(), and the new
-stmmac_dma_err_interrupt() path calls it as well.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 9ded31150fbe6..2068b57df8d52 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-
-[ ... ]
-
-> @@ -3165,13 +3175,24 @@ static void stmmac_dma_interrupt(struct stmmac_priv *priv)
-
-[ ... ]
-
-> +static void stmmac_dma_err_interrupt(struct stmmac_priv *priv)
-> +{
-> +	u8 tx_channel_count = priv->plat->tx_queues_to_use;
-> +	u8 channels_to_check = max(priv->plat->rx_queues_to_use,
-> +				   tx_channel_count);
-> +	int status;
-> +	u8 chan;
-> +
-> +	for (chan = 0; chan < channels_to_check; chan++) {
-> +		status = stmmac_dma_interrupt_status(priv, priv->ioaddr,
-> +						     &priv->xstats, chan,
-> +						     DMA_DIR_ERR);
-> +		if (chan < tx_channel_count)
-> +			stmmac_dma_tx_error(priv, chan, status);
-
-[Severity: High]
-Can this race with TX NAPI or stmmac_xmit() on the same queue?
-
-DMA_DIR_ERR masks out RI/TI/TBU. A latched FBE with AIS therefore makes
-dwmac4_dma_interrupt() return exactly tx_hard_error, and the MAC IRQ goes
-straight into the recovery path:
-
-stmmac_mac_interrupt()
-  stmmac_dma_err_interrupt()
-    stmmac_dma_tx_error()
-      stmmac_tx_err()
-        netif_tx_stop_queue()
-        stmmac_stop_tx_dma()
-        dma_free_tx_skbufs()
-        stmmac_clear_tx_descriptors()
-        stmmac_reset_tx_queue()
-
-stmmac_tx_err() does not take the txq lock and does not quiesce NAPI. At
-the same time, TX NAPI for that queue may be in stmmac_tx_clean() on
-another CPU, walking and freeing the same tx_skbuff[] entries under:
-
-	__netif_tx_lock_bh(netdev_get_tx_queue(priv->dev, queue));
-
-While NAPI runs, dwmac4_disable_dma_irq() only clears
-DMA_CHAN_INTR_ENA_TIE, so the AIE/FBE-driven MAC line is not blocked.
-The TX MSI affinity is set with cpumask_of(i % num_online_cpus()), so
-NAPI for queue i will usually run on a different CPU from the MAC IRQ.
-
-netif_tx_stop_queue() also does not wait for a stmmac_xmit() that is
-already filling the ring.
-
-Could this cause a double free or use-after-free of skbs and xdp_frames,
-duplicate DMA unmaps, or corrupted cur_tx/dirty_tx?
-
-Before this patch, stmmac_tx_err() could only be reached in multi-MSI
-mode from stmmac_msi_intr_tx(). That handler is TI-driven, and its source
-is masked while NAPI is active.
-
-The single-IRQ path has the same unsynchronized stmmac_tx_err(). Taking
-the BH-only txq lock from hardirq context would deadlock. Would it be
-better to defer this recovery, for example to the service task or a
-reset?
-
-[Severity: Medium]
-What happens here if an AF_XDP pool change on a running interface has
-freed the TX queue's ring?
-
-stmmac_xdp_enable_pool() and stmmac_xdp_disable_pool() call
-stmmac_disable_tx_queue():
-
-stmmac_disable_tx_queue() {
-	spin_lock_irqsave(&ch->lock, flags);
-	stmmac_disable_dma_irq(priv, priv->ioaddr, queue, 0, 1);
-	spin_unlock_irqrestore(&ch->lock, flags);
-
-	stmmac_stop_tx_dma(priv, queue);
-	__free_dma_tx_desc_resources(priv, &priv->dma_conf, queue);
-}
-
-Only TIE is masked. __free_dma_tx_desc_resources() then frees the
-descriptor ring and does the following, without clearing the pointers:
-
-	kfree(tx_q->tx_skbuff_dma);
-	kfree(tx_q->tx_skbuff);
-
-During this window the MAC IRQ stays requested, AIE/FBE stay enabled,
-and STMMAC_DOWN is not set. stmmac_dma_err_interrupt() walks every
-channel below tx_queues_to_use without checking whether its ring is
-allocated.
-
-Suppose FBE is latched on that channel before stmmac_enable_tx_queue()
-reallocates the ring. Would stmmac_tx_err() then read tx_skbuff_dma[i]
-and tx_skbuff[i] from freed memory in stmmac_free_tx_buffer()? And would
-stmmac_clear_tx_descriptors() write into freed coherent DMA memory?
-
-Before this patch, no IRQ path touched the TX ring in this window in
-multi-MSI mode.
-
->  	}
->  }
-
-[ ... ]
-
-> @@ -6466,6 +6487,9 @@ static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id)
->  	/* To handle Common interrupts */
->  	stmmac_common_interrupt(priv);
->  
-> +	if (priv->plat->core_type == DWMAC_CORE_GMAC4)
-> +		stmmac_dma_err_interrupt(priv);
-> +
-
-[Severity: Medium]
-Can stmmac_tx_err() now run on the same channel from two CPUs at once?
-
-In multi-MSI mode, stmmac_request_irq_multi_msi() installs
-stmmac_mac_interrupt() on dev->irq. When wol_irq is a different line, it
-installs the same handler there too:
-
-	if (priv->wol_irq > 0 && priv->wol_irq != dev->irq) {
-		...
-		ret = request_irq(priv->wol_irq,
-				  stmmac_mac_interrupt,
-				  0, int_name, dev);
-
-dwmac-intel, for example, sets res->wol_irq to a separate MSI vector.
-
-stmmac_msi_intr_tx() can also reach tx_hard_error on the same channel,
-because FBE and AIS are part of DMA_CHAN_STATUS_MSK_TX through
-DMA_CHAN_STATUS_MSK_COMMON.
-
-dwmac4_dma_interrupt() reads the status first and clears it later:
-
-	u32 intr_status = readl(ioaddr + DMA_CHAN_STATUS(dwmac4_addrs, chan));
-	...
-	writel(intr_status & intr_en,
-	       ioaddr + DMA_CHAN_STATUS(dwmac4_addrs, chan));
-
-Two of these handlers could both see FBE before either one clears it,
-and both would then call stmmac_tx_err() on the same tx_q.
-stmmac_free_tx_buffer() does an unlocked check-then-free:
-
-	if (tx_q->tx_skbuff[i] &&
-	    tx_q->tx_skbuff_dma[i].buf_type == STMMAC_TXBUF_T_SKB) {
-		dev_kfree_skb_any(tx_q->tx_skbuff[i]);
-		tx_q->tx_skbuff[i] = NULL;
-	}
-
-Could this double free the skb or xdp_frame and double unmap
-tx_skbuff_dma[i].buf? Could it also race on descriptor clearing, ring
-reset and TX DMA channel reprogramming?
-
-In INTM=1 the TX MSI normally fires with TI set. That gives
-tx_hard_error | handle_tx, which fails the == tx_hard_error check, so the
-TX MSI case probably needs a status snapshot without TI. The MAC plus
-WoL case needs the WoL vector to fire at the same moment at runtime.
-
-The single-IRQ path already has a similar MAC plus WoL race, since
-stmmac_interrupt() is also requested on wol_irq there. In multi-MSI mode,
-this patch is what introduces it.
-
->  	return IRQ_HANDLED;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030102251.208929-1-maxime.chevallier%40bootlin.com
+The first processor to support Intel PT (BDW) will #GP if a write is
+made to RTIT_CTL while VMX is on.  Since VMXON clears TRACEEN,
+if TRACEEN is set, then the write is safe.
