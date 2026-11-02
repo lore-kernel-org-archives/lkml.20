@@ -1,102 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616068;
-	b=Usdtmhpq/9qEzLfFW9MdQxyoploJIctSS2EV7sZ5Ih290DVBhElHWKjMxK3L9Y/qqPiY
-	 iUG6kzN+JGT8OJ90EBZXDHrJ1H0N3x5yZ+O/kiIVMUFvBrb9QB87Ri2DYcn3NFFqh68M7
-	 6VJzkliqJSVZaa3lqJVQrkwJP5Yxp2BPwTU7oqqL4iPtX5DYu8VEJtML7hdjIKk/BwPUm
-	 2umuTpHymg4KlBn1/IYPy3ej8qAUsJtYlfuqJgA8/4k+wvUDQT7JUrFAT05/uvQ13UE/s
-	 3E5q92YwBRok9fAqCxRXD2O8zPSyO+Fm0JiblLH4mWroSbjYON+DTL7Z5sMPr21OqSg==
+	t=1793616076;
+	b=CXesDZBKV6QaYT0eChyNokVh7AjOlW/mNGpiAMQDJKvWDCyISuQeNrqqzyWnKrGieMpF
+	 Iyj+leFWue3cUbm4ZPoYRbKQaPjSGuH3T7LWQnPCiAbuvJZ19JQuHHYH/WTjzO0/hee/v
+	 ol9wtSPXEAkKDjw66tndOgcr7LNL5UKdtyUom2F0BuEfaU1QMb2tcFhhozpnnI3CfLxmI
+	 SFI7ydCkijhniITJBpvWEcviCdSsWGFFtL34m5rYwpd22q+FECk+WuSE5paoFs35WuZDL
+	 xG8z78gi7wDYoA4ARYVd8F9YR81o3FdUjnFUFsaLQ27tHAHmtrSu/3rStfxvjDr5gHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616068;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616076;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cBjUGHG8kbdoyzZbGr/iLJi2HGc+aHIvJeTBRuTSpM8=;
-	b=5L5gXIOaL6jDvy1uZge/7lFRhEL8CcB27fNyXy/O+89nZ9UQrDdwWbVvn+P2dnBywCPv
-	 +60+L18RsrtfOmSA5+EBLGpqjlmOsaffkoNpmaLjnMnL8BYSpAyyFvf3ThEAgp6R2dn5a
-	 QFDAPFW9Psua375Bp0Abrkk72b4aKhWk5UQ9wzJCmRTSbmiauE08Bzm0bRKj/hzUveecM
-	 yYMwS8ZIKTwakLqXoCT697Yd+kIqh2rR1IqSwsZrjlzePefqq2YTRNb89EXxcoilyg+e9
-	 T5/j6HTMgQgw6OG8TeempNMnKiUmavDtKX8jNjHcUMDx46yMFIoVwqjNX9Xb+BSh7aA==
+	bh=4aaIDhtCEIv+g4XbgCs2JJwVMBanpKEyQuZrw5hylKk=;
+	b=z9YvJloqGBipIhbbibIScEhL38o0WhfX/6NVN8eGtiTnhXHIZFXaNEkjdxOnP3WNSGxY
+	 DXdZhZM3UYB+lfNP9sJBghzuZkk/6SCWxptkosKYNHO5BYiKqe3r/HRXcwdnicnUijAyu
+	 B4a75oxyq7D/rrTFMW3bYpPush5KCPMt5SSFoFWQIX2cKhRq7IUr1/0s48HZ2DqtcPG0R
+	 GUCTttlJaCIr4pZtMF2p86iewIb+zDNAlEyu4GdDHlXGn0dekjPDdbVnU/0cfe9wI+68s
+	 qC0Sbh+0pmkO8REFe1HI2wlQLLdNmoAusrOp4w+YMLocToTchQDuSrNhPSawwJdG4lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qWytMOOf;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C10606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:41:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C10606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WE7aUxtW;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF43A606A324;
+	Mon,  2 Nov 2026 10:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF43A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qWytMOOf
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e812e2b31bso16418085ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:41:07 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=WE7aUxtW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793616067; x=1794220867; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cBjUGHG8kbdoyzZbGr/iLJi2HGc+aHIvJeTBRuTSpM8=;
-        b=qWytMOOfUicPwRY+FS79HBPw85D8Q3674+Rm0NB5JU3h+WdGR5LTOMOgpc6MGuBZRH
-         LpLMMAADPzdXE800ESbNjE4KStnU+0LLZMKC7sHqm/Dm3FPO9rBJFCqrzSdvM5sPJjic
-         ba/HXBj+1UcFfnxM9oqL3IXYuAnLfx1Kyiz60x9LWb3LFNOfNFM/CX1k/aSoBl+e94xL
-         GLCx/A84cSjKsheLl76EBBys+ad3vZULXSISB0Dg2cwHlDWZGN2yW0MxpRLkafyLaYSH
-         Yrvz+Iid29sRrfvi9Dm3aJ/LCcRHhZkVBH+Y7jQYkk6NqPViSi0/wlG9iYFrqSIBbLc+
-         QY4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616067; x=1794220867;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cBjUGHG8kbdoyzZbGr/iLJi2HGc+aHIvJeTBRuTSpM8=;
-        b=Zssr4/baC/U8GEyI0uMaV39JO6ghC9W3CGDIxHk6ri4VYYPU9Zwe1U+fP3J9k8Dz5C
-         wzyok/UqC0M4Q4EljR1ujUxriQIoYv6/EsAfVeZiFT7mEEhJwvW13HgJBuYOe4AK9B30
-         mAUmIY1RIAYi8PpLfh44CTahQS/BZ95Xuh98kRtsjgwQTCO0mmxQNFgkTxINqc33L6rj
-         j9Ej/QqiFi6mgS48XgkhgKoqpWQyNbtqFsxN7KZKd7C5XNnZvATCrsdUIWBA7xae9KZ9
-         48onnX5u6IKdNflXK7gMvEIKb4WvHrZG6CCN9mlYYyDpHuYqtut/wLBosqxNhjqeP31D
-         2m1A==
-X-Forwarded-Encrypted: i=1; AKwUvBybMpj2V1aATZ1Mf1Aifw16HOX4mt6RzP/RnpS/Af9iYFcVwVEXDKJB6yUL4RjiBFXylrkNUGGzNoQaoyo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RVk9xjXog+BMuRur2Kbo/gz4+JyihLLKpWkGlCnt6AIZDtCrN
-	yuL0Zd3p8rx8dQpD/0lLZzqxoZZJasSE/8dHsyo6a+fIV+3z4XdKae0k9kocPrpR
-X-Gm-Gg: AYBFou2nt2nstfqhYUGbkeSSpJI6dmtROoyRG+RL5KpQbt9oGL4U/hq7zy8lIxAXdyC
-	1JUk/ig58aDBU8w6lAuPMtXJtGmsHhfKs1lOO7ZDqmccLF6rKXrAERdsdeGi2Ht0xASKtPv5scv
-	L14U4nLfU5GKjAL/s2tNHOBd33GTE4T/IqUieSDQQxQkH/QnxYm9Dtams0O+sAj3C9HtuFdVhAd
-	APTqLrPjcsZn6ohTMkna+H/NvOghXUT+37akL4QTd1LYF5p9+k4A268/MWSQuFV+5MiHBDU4cYd
-	vvDWjQkF01oodwGnToyoW29AKv6t0JHauWOZYdfchG3FOPBrmB7DD9bkFu0AA8rCnZ0RpXWlxRX
-	8V83XGYhvR9vsYgB98As1GlCe5OweUnRU0JwoQR4YWUAVG14s5gv/FI8749GoTASD+m2YQ23u/Q
-	8QXKhhH3ZCBzvoyTnm+DrMfWFSZ37886iRJx8SMIUEs99Lyt2hfDMxa3ai9OdEKraNu0YP8qe+F
-	u7KkpOBSLe7XzrtyK82WnSyjn4/zt9oI3bba35IRbHUMWNXNav38Zv7hkSQnzwDHCuiOkpJhKit
-	x1bXe3Sx6URZs0K4GFn+hFs9Qfc1tCIGQrsFNq3ZkH7CbSEUwza57kFo7xJCKoixb7CpkiYklA=
-	=
-X-Received: by 2002:a17:902:f607:b0:2e9:4b32:fc66 with SMTP id d9443c01a7336-2eb3649be71mr94161175ad.10.1793616066876;
-        Mon, 02 Nov 2026 02:41:06 -0800 (PST)
-Received: from umang-Inspiron-3501 ([2401:4900:1f3a:7c59:eeec:de7d:b077:9b9f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3925ff38sm25195465ad.36.2026.11.02.02.40.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:41:06 -0800 (PST)
-From: Umang Pokhriyal <umangpokhriyall@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	Peter Xu <peterx@redhat.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=WE7aUxtWY6vl8lo9CB+GVp5wcPZ/b03EbJdEMPcLBAiqU1parnJPG0fuOE46k0+f4y2azOlzbIhq8
+	 cHJRa1sBpAtPC0D1vGo2o8JWyTsk2BeJJxi2yUhXpcmK+xKU0S60VFpk9U1hdMBn4wF0FfT4YdVM/V
+	 4a1Pdv3O4dVbF+9U=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96ae868c622a-8f02e;
+	Mon, 02 Nov 2026 18:41:11 +0800 (CST)
+X-RM-TRANSID:2ee96ae868c622a-8f02e
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76ae868c5a87-cf5da;
+	Mon, 02 Nov 2026 18:41:11 +0800 (CST)
+X-RM-TRANSID:2ee76ae868c5a87-cf5da
+From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+To: =?UTF-8?q?Am=C3=A9lie=20Delaunay?= <amelie.delaunay@foss.st.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Umang Pokhriyal <umangpokhriyall@gmail.com>
-Subject: [PATCH 0/2] userfaultfd: validate the whole range before changing write protection
-Date: Mon,  2 Nov 2026 16:06:19 +0530
-Message-ID: <20261102103621.156928-1-umangpokhriyall@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] dmaengine: stm32-dma: Fix runtime PM reference leak in pm_suspend
+Date: Mon,  2 Nov 2026 18:41:07 +0800
+Message-ID: <20261102104108.794-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,30 +76,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A UFFDIO_WRITEPROTECT range that spans an unregistered VMA fails, but
-the VMAs before it are already (un)protected, and on unprotect no waiter
-is woken.  Patch 1 validates the whole range first, as
-mrwprotect_range() does; it is open-coded rather than shared with it so
-that it applies to stable kernels without RWP.  Patch 2 adds a uffd
-selftest.
+stm32_dma_pm_suspend() increments the runtime PM usage counter with
+pm_runtime_resume_and_get(), but when a channel is still enabled it
+returns -EBUSY directly without dropping the reference.  The matching
+pm_runtime_put_sync() only runs on the success path.
 
-The problem was found while reviewing the userfaultfd range ioctls with
-an LLM, which also helped write the patches.  Tested on mm-new in a VM:
-the new selftest and a standalone reproducer (both directions, and a
-misaligned hugetlb range) fail without patch 1 and pass with it, and the
-rest of uffd-unit-tests gives the same results with and without it.
+Each failed suspend attempt therefore leaks one runtime PM reference,
+so the device can never runtime suspend afterwards.  Drop the
+reference before returning -EBUSY.
 
-Umang Pokhriyal (2):
-  userfaultfd: validate the whole range before changing write protection
-  selftests/mm: test a uffd write-protect range with an unregistered
-    page
+Fixes: 05f8740a0e6f ("dmaengine: stm32-dma: add suspend/resume power management support")
+Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+---
+ drivers/dma/stm32/stm32-dma.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- mm/userfaultfd.c                             | 20 +++++--
- tools/testing/selftests/mm/uffd-unit-tests.c | 56 ++++++++++++++++++++
- 2 files changed, 71 insertions(+), 5 deletions(-)
+diff --git a/drivers/dma/stm32/stm32-dma.c b/drivers/dma/stm32/stm32-dma.c
+index d3ad78562..2abe846a9 100644
+--- a/drivers/dma/stm32/stm32-dma.c
++++ b/drivers/dma/stm32/stm32-dma.c
+@@ -1743,6 +1743,7 @@ static int stm32_dma_pm_suspend(struct device *dev)
+ 		scr = stm32_dma_read(dmadev, STM32_DMA_SCR(id));
+ 		if (scr & STM32_DMA_SCR_EN) {
+ 			dev_warn(dev, "Suspend is prevented by Chan %i\n", id);
++			pm_runtime_put_sync(dev);
+ 			return -EBUSY;
+ 		}
+ 	}
 
-
-base-commit: d42dfde37af766d1c272467352c0a56d3169ee58
--- 
-2.53.0
 
