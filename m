@@ -1,59 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634994;
-	b=Gpmwh/9z8XcjbYXgvK11tgPYnkdFS9QyUO2Ozg6C+5KrwMng7WoQcgu0AsbFvC1Omk+W
-	 lHtTCbSfuvzqCKYbF4ZqfcxriiFWkfqDZKA+MnX5rPgBSqIXwKcPxbt41YHStKYGbpVgA
-	 oqqx4bV2UDR6holMTBXclQmBaY5ycmHD9aRuJsWiawUKSdDVgE8bI4g0bKCsUy3/wNXz5
-	 9lkoiaV6goc2ZtJYOzNddwRS8E5InCGH05EQ68FayZlccSmfgrDGm6Qpizmj1U9Zp6d/N
-	 ZcIkK40LYASGDVnefqrKG4EQUhxm3VGP7oR2p58nnYBYE703lzpE5MCQGEnBjYqJbEg==
+	t=1793635015;
+	b=IGefCnQLnRoCNyDw2MTszE0v2peu+1qsSqfFKgcTOlM+S+7q/+MQKlH2fq0Sk7xJ0F6F
+	 /r7af5tk6U6VSIXP7FulrZLy1rG7EoGznQh/tnS00fPadgEYc4IpsKuTXldI7lhV8rCtC
+	 TODubeDZVpUjW/DrJjCq5osx8CUHOs8amA5dCj6KFjeNxPdiIcOYB3tdPTS2hNenuuM14
+	 59dIxh70NSRLe35+xpcofD+izvQZXZqC7LB2hbzxoRy2EvuPgaHQBgKsLxnm5ZMnV3wk7
+	 DJWVgzC5nw0b5dJBuKbO63KZJPvKCWWsmA0QU7yZlZyORcyLR+nLveKIIHk8CyQ+Whw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634994;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rIIz/gtfC2Y+ir/ymx8Qwz0qEnZD5kOfLUgExDZlSUE=;
-	b=ZBFzFfuNNOOI2FzVWFTDHGxFFE1zph1aMhnHUqt67y7xUnVwBZXzPXr4rcda9L1KaAFU
-	 PG5x2794AJ3qIV8FXl+SZKuoedRlcppc1ludNTDU0jpb0Y7QhV3e4HLgJtdyU531Fe+D0
-	 Os+H6hsNg24MivYNkQCQdnyqFcqajNRQFXh4YYV0n9EuRtfjpdIpW2jRabjMljnNRrFch
-	 h/CLXg6SuM88Tfk5fU7EXbphOgnJi+tzrX/HNPXeLYQ7NVWQTQzNLTRZ4Dd4Z9GG6bBBz
-	 A7wmZqvt9EHRWEZH/CGnc24C5uCKxb0CNiapsRbjp/0OA3LwPR3LV4Qt9CkDyxG8Xsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635015;
+	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=svdWyrsgF+90eWwYkwJ+BgLca86Hpg504Cs6W86/4gc=;
+	b=LM2vUB733k96WFvqMnRYnNXM4bXNB5hJaBWEJGLajjP4+0s7LZjBLWqS+vwdbyew+2qv
+	 6KBVJIiyw3h4NgnQSfmG+Z/0veTCcV8ZXrSMejfM89I9UHTgT3tT8myN7brlrctDCEiZR
+	 cUhy+AkQeVtJX0bbrwInkH/dV23Y/VB4s4n4OhrXgAIxYeuFZco0PQlo6chwPOu77F5Bn
+	 OdA56S2ZSSUMB5GqdSsA/nvsJg0AMdPnxJFoT1rcpvjCB+OVDUmZ7WvGnukjk/TlEqTfa
+	 8bVSDWB6n8n3ocYY0j/ZWuVNUx2Td8qsPQhNpZHb5qsKwxXugzT97/b86vcWNYIgwTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X0TlLx/+";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lwn.net;
+	spf=pass smtp.mailfrom=lwn.net;
+	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=QaP9RCUe;
+	arc=none smtp.remote-ip=45.79.88.28
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA66606EE90;
-	Mon,  2 Nov 2026 15:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8622606E032;
+	Mon,  2 Nov 2026 15:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8622606E032
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0TlLx/+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3842E1F00A16;
-	Mon,  2 Nov 2026 15:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793634994;
-	bh=rIIz/gtfC2Y+ir/ymx8Qwz0qEnZD5kOfLUgExDZlSUE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X0TlLx/+2BqpUJ0O7uF4HJlMVjvUqcctCY4wJh2DmEYtVPJMg/9bWsnMuFoxFMO7/
-	 MHHvPM999easQh4jTVkg75DMRhcS29B06kRPVVmHKc75emzSi00DGtxtv/DxIyQ4yg
-	 w9PQDEyAO1LRnGyVBgqgsSIafZzzptaLT4MEa/zEFBFuAXD/5ot8yT8pfKc6e1GYYD
-	 AF7yXXmK9NChbzEO1Fv/Tzj0lvMDW+wZbc2tvAum4QhbDU/pVrCQL36pdKP+WiC5eQ
-	 SxSj10W/ACEPziCQVHNxjY+RYeC4lNHQrtSIvBcliS/BFJ09TguCFozEEGSZ78+nna
-	 JjEmR9ugF0lQQ==
-Date: Mon, 2 Nov 2026 16:56:28 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Sascha Bischoff <sascha.bischoff@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Timothy Hayes <timothy.hayes@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 04/10] irqchip/gic-v5: Serialise ITS invalidation commands
-Message-ID: <auiyrFXjX0hGgd7D@red-moon>
-References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
- <20261102-host_gicv5_fixes-v1-4-743b61626fc5@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=QaP9RCUe
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net A1E4C40430
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1793635013; bh=svdWyrsgF+90eWwYkwJ+BgLca86Hpg504Cs6W86/4gc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=QaP9RCUe5ki0aqKAVxXwzM8AvvLCGl+a7hvHW+vW8zAhuTUX6SdY48QO0fk4GB3CM
+	 VVqaWGt7mo7i/XBErrZvqhKtYlpFh95r6QBsc6S+UIt8J6kCKmG8jw0wMxZYuF+s6V
+	 GqfP1bgMI9XfRMA39x93ZHnXUYfZp5iRUH3cCEmwE4zbsXFfOF91a11I/+Gb5cCT6M
+	 TPnq7F/Bjnk/y3tt8eZVeL4/KxpAMRpfQI+T9OKiDVx0U19FnS24hFcsRwGzkaCOxi
+	 UQ9I5jLqdZ5+y8Gb+aMBrUybVGIlx9r2GEY/O/q1ICKOQA3zEkNqew6ooIz6ptf9jP
+	 +sr4zneWhEWDg==
+Received: from localhost (mdns.lwn.net [45.79.72.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id A1E4C40430;
+	Mon,  2 Nov 2026 15:56:53 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Andrew Morton <akpm@linux-foundation.org>, "Carlos Bilbao (Lambda)"
+ <carlos.bilbao@kernel.org>
+Cc: danielmaraboo@gmail.com, skhan@linuxfoundation.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Avadhut Naik
+ <avanaik92@gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: remove bouncing reviewer for Spanish
+ documentation
+In-Reply-To: <20261101184806.11850a34e2dcfae9c3f55af9@linux-foundation.org>
+References: <20261102022923.686974-1-carlos.bilbao@kernel.org>
+ <20261101184806.11850a34e2dcfae9c3f55af9@linux-foundation.org>
+Date: Mon, 02 Nov 2026 08:56:52 -0700
+Message-ID: <87fqxjdy63.fsf@trenco.lwn.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,94 +70,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-host_gicv5_fixes-v1-4-743b61626fc5@arm.com>
+Content-Type: text/plain
 
-On Mon, Nov 02, 2026 at 01:32:57PM +0000, Sascha Bischoff wrote:
-> The ITS uses DIDR and EIDR to select the translation to invalidate.
-> These registers are shared by all interrupts targeting the ITS. Event
-> invalidation can run concurrently for different IRQs, and device
-> invalidation can overlap it. The per-IRQ descriptor lock does not
-> serialise the commands, so one CPU can accidentally issue an
-> invalidation using another CPU's DeviceID or EventID.
+Andrew Morton <akpm@linux-foundation.org> writes:
 
-"Another CPU's DeviceID or EventID " can probably be explained better
-(or just removed because it is unclear) I understand there is a link to
-Sashiko's report but it is worth updating the log IMO.
+> On Sun,  1 Nov 2026 18:29:22 -0800 "Carlos Bilbao (Lambda)" <carlos.bilbao@kernel.org> wrote:
+>
+>> Remove Avadhut Naik as reviewer for Spanish documentation. Mail to
+>> avadhut.naik@amd.com bounces with "address not found". Translator credits
+>> in the .rst files are left intact as historical attribution.
+>> 
+>
+> Thanks.
+>
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -24843,7 +24843,6 @@ F:	drivers/i2c/busses/i2c-k1.c
+>>  
+>>  SPANISH DOCUMENTATION
+>>  M:	Carlos Bilbao <carlos.bilbao@kernel.org>
+>> -R:	Avadhut Naik <avadhut.naik@amd.com>
+>>  S:	Maintained
+>>  F:	Documentation/translations/sp_SP/
+>
+> https://lore.kernel.org/all/20260316125324.396889-1-yazen.ghannam@amd.com/
+>
+> suggests a better patch.
 
-"using the DeviceID or EventID associated with an IRQ that is invalidated
-on another CPU" or something like that.
+I don't quite see how ...?
 
-> Add a raw spinlock to each ITS and hold it across the command register
-> writes and the STATUSR.IDLE poll for both invalidation paths. A raw
-> spinlock is required because the forwarding path calls the event
+I've gone ahead and applied this one.
 
-Can you please define "the forwarding path" more explicitly ?  See above.
+Now if we could get that translation active again, that would be even
+better :)
 
 Thanks,
-Lorenzo
 
-> invalidation helper with the IRQ descriptor lock held.
-> 
-> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
-> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
-> ---
->  drivers/irqchip/irq-gic-v5-its.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
-> index 28e39b065de0e..6d98f3dbe34b6 100644
-> --- a/drivers/irqchip/irq-gic-v5-its.c
-> +++ b/drivers/irqchip/irq-gic-v5-its.c
-> @@ -16,6 +16,7 @@
->  #include <linux/of_address.h>
->  #include <linux/of_irq.h>
->  #include <linux/slab.h>
-> +#include <linux/spinlock.h>
->  
->  #include <linux/irqchip.h>
->  #include <linux/irqchip/arm-gic-v5.h>
-> @@ -28,6 +29,8 @@
->  struct gicv5_its_chip_data {
->  	struct	xarray			its_devices;
->  	struct	mutex			dev_alloc_lock;
-> +	/* Event and device invalidation commands share DIDR. */
-> +	raw_spinlock_t			inv_lock;
->  	struct	fwnode_handle		*fwnode;
->  	struct gicv5_its_devtab_cfg	devtab_cfgr;
->  	void	__iomem			*its_base;
-> @@ -129,6 +132,8 @@ static int gicv5_its_itt_cache_inv(struct gicv5_its_chip_data *its, u32 device_i
->  	eidr = FIELD_PREP(GICV5_ITS_EIDR_EVENTID, event_id);
->  	eventr = FIELD_PREP(GICV5_ITS_INV_EVENTR_I, 0x1);
->  
-> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
-> +
->  	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
->  	its_writel_relaxed(its, eidr, GICV5_ITS_EIDR);
->  	its_writel_relaxed(its, eventr, GICV5_ITS_INV_EVENTR);
-> @@ -371,6 +376,9 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
->  		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
->  			     its_dev->itt_cfg.event_id_bits)	|
->  		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
-> +
-> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
-> +
->  	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
->  	its_writel_relaxed(its, devicer, GICV5_ITS_INV_DEVICER);
->  
-> @@ -1112,6 +1120,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
->  		return -ENOMEM;
->  
->  	mutex_init(&its_node->dev_alloc_lock);
-> +	raw_spin_lock_init(&its_node->inv_lock);
->  	xa_init(&its_node->its_devices);
->  	its_node->fwnode = handle;
->  	its_node->its_base = its_base;
-> 
-> -- 
-> 2.34.1
-> 
+jon
