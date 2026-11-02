@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621750;
-	b=VOqz9x2fx0G9OCxsDPFS/1pMrbUqnVzGZ/V1PZtlW5aNag+bHetjmZtnTsQw3ONsPjqA
-	 od0SzVkvGTfKd081FEWPwMXXV1FKlTrO5dVlDmJQxYnZi5Hj776PpqW4s2CIpXL4wzfVX
-	 Jk+cHj4F+JRF6e0uWsMN5osvq9pMza3if/cmjdag2snU/e2FZ37EPfvyfsBvssbuVvmJI
-	 f+NR6YnN3sBLGpQT6gfdAGTQTLnV7myOZtYhrf65vrtuPoFCqLXuH5vKRrsyvrkdKTc/h
-	 CfEhpapzSDBooR7zs1J1msYr9bYIOOSIAHUfS7m4TgYlRpjV0HLZLaw3tIfZVpz4zMA==
+	t=1793621752;
+	b=nC36oHMzyo6o+3/mhJy+TurHLocaKbRrzi4y5furag9A7Fki4aPzqEnzjTYzG8z4BuIm
+	 bOGLF53q8Nq9xV+KfPYvge4O5dpNhZn3kF9WxSW3pgP/PSYSdE0wWV6covOdG/rUHQRGE
+	 UvJisJmJjFcqU8f8LLLrxTVf1WdLafHU7AO8/0FgqGF67TSbh55t4xekI/ww44ufDAdbR
+	 6wKCmLme0wv0cKwTZsjIlRW7e1nYqbeSVbF2yTUBTv/VU+vwTQDIGHFzqmsD5iT81Kvjo
+	 DpFqTzKT+dD8anGmHrwJj55MJCpFlb5tROn34vIhUeSU6YT4108FejtXKqB5zfLH4rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621750;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621752;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=1kx5q/BQBwUxVzCJruBUh0184bcctd1FMQSl+tIj0LU=;
-	b=Pay5J8t5R3SG7PqjTtEy2fn0/+gBc1WC4uHdOw1ZtIF70GiYrGF24i1kywYIJa6SX68w
-	 eH+BPraz7+WWMmfCTaTfy1akcbstvH4uVs+4IqVAZENm7GEgut8jfqkC8kMZU5wL57OKL
-	 CAA4aT6iZeIH3AfaSN06/3J7HHC5HmsIb68wZAbbGbHUmZIYIIZuUGdwV04Vm+9Er2zpa
-	 280l/ZbUrgdZexvG/Q7NK74oOAMSdilOdUJD8iqSWfsDZKd5Sq4HttTCp5wkt2Fxr9VWE
-	 LTeAnJThJinyIlalKUNYR2ye6w42aAUlpJloZDf7KMqoKN7t1IvZVwhecQp2vYdKEyQ==
+	bh=oer2FEylh2AuHX11Qb8KMHS0ZlqBiWuym9WiBTameTg=;
+	b=4dED3u9m/eUQawm+smPLIGicXFa3fi6GwfWVlsUlfGhSGEfNtEdGNiiiVXqG4Pnq2al3
+	 c6bQa5ePRRiQRBciRLex5b6E4Ij1CCO1hXwtvTDim31ZWBs8nxJT+469xHftJhbcLoNXF
+	 asNZothYkRbQ579bFO5JKy2ChkjkBuZCC6NOqKGT2ILxl00ePKGhdQtecAkLNXzQF9rer
+	 42TBpObcAvObwNLlOTH6/cElqpN36ykA2zK0ZIjTSd/u55hA2jjo+C25BuSu5XPveDSJm
+	 EAwuD5V+iaPVytdea24C+X/mGTbaFX23uz50Nr5XE/9DyrIjz6S1rVpUmwcO8WwZT9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jAyjX8Rj;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gvnO6Qr2;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6920C60A3811
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6920C60A3811
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39D360A3828
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:15:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B39D360A3828
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jAyjX8Rj
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so18446695e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:15:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gvnO6Qr2
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so24209205e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:15:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793621749; x=1794226549; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793621750; x=1794226550; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1kx5q/BQBwUxVzCJruBUh0184bcctd1FMQSl+tIj0LU=;
-        b=jAyjX8RjikbSFOz5r/4iZSr/XrWjeb8swvY9HDzvFD1DH8Kntoq8ZhuLVTIVkUl2MB
-         FWoArT1ZtuATqoAEhlSo7JGby6VeNVxrowZrXhz5PMqHnriraQRM7poLHdwu4wKNeHzz
-         cUbEdWg+qVQsum2j+4tW8aTNKNxosI1P0+Y/Jlz0Fb+gVTIEZ93CscZ5tHnujXeux3yq
-         i8RZJrj0piV5/3CWkQHFo+lxJ65Rh8TtRlCnA8ftaZDtrHYNtoytBuoGuF8Akc5Y9pQx
-         J40nLhmsQ1QpO+GYecxtag2hBmA7JWsH588DsFKM3WJX7PfxI/jumvJWdfGJ3tqjvXje
-         DhqQ==
+        bh=oer2FEylh2AuHX11Qb8KMHS0ZlqBiWuym9WiBTameTg=;
+        b=gvnO6Qr2RYy5zQZT176OT/G2HVWIFwlXQzUK0wo4atjCzvz9E/z4GfaBV/6Il8L+OZ
+         i8E7Lm0kFrsJcaKrMqvpGLMiTBZ2zvHVGZslCK3GlC3WrRSg2rn1Atmz58qDexatGiSl
+         jdQY2U1LDfifRT9NUR7UPxFrT2DfOrL7hZPI4+FdOH/D8wOs/ZxP1JxtDfiUqXPjN1ZL
+         9SHEZ8nP2o1Ecndpf7z68kI31CgVGPfj0kpckDpu0WycpRf+z3FMRrlByLcnFLgMmvHu
+         kONwPH96y2jNPhcSLhgch7XLzK17ZbuxJ05/YDbDNBaFsYFPLTeJiWns7GEb7DXy+ZeR
+         UK0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793621749; x=1794226549;
+        d=1e100.net; s=20260707; t=1793621750; x=1794226550;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1kx5q/BQBwUxVzCJruBUh0184bcctd1FMQSl+tIj0LU=;
-        b=u0T6Ci2jifplNokI1lgb9TvRBWv3PKBTP2+nkFp25PjkZTJlXnwy2ugke0aErYDwb4
-         rupkncGZboz5+0pQnFZuV5TEuR/Z/TtY1CmMI7O51XS8Im7tEodda40LuWwI3MW5z2BB
-         6QTzKGSszKY3buYmj6Dl8CHb6iAScSkMyF1Yhfk5vw/r2qTVqr84HwhXfY/iI6tm69HQ
-         uZOkuhEn6fye59CX9eQU9moYxD9I6A2UywufDkFu1f8IEe5M36WFJ4xcebYw9rQgJRCJ
-         vxbBNlO3BMNwa6I87TccfPoQxsmtDJpJ5ku2aQLpzLJzPo7iPGO3ohYK2iRJymEVCuus
-         dKhA==
-X-Forwarded-Encrypted: i=1; AKwUvBywgn/2qLZ7HS2Q/RIjVQPOZuf90/b5N9BHcmR0oLEyn1g/0eUUePOK47yQUeIfQdhpDb6qqLgcEaJFCPI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLw0VtMMibAPJt3nYrSkqjy8pyulGFA+x8vUfgna8xvq3wduHA5
-	Rr11yBAHiGO73Ta4CMsXmR4u21+myfDM7mS3U1sEXT1zskVln+a3S0TOs7+jYYpHOhE=
-X-Gm-Gg: AYBFou3Qb6OpPW2bOC5mF1oaKpz+amEf/aG7mCfN65148Ef7uIpJUV9Jfz+gxhQ+NZQ
-	pkAHhpeiZIcRoT6/mCK2GZtwiMTi4NKDaPzmcldlgZZEKFm/JHrguI50U0QCXR0dhBi4oISiBM6
-	YOt6d2wEeqneH0TCvF0VYdLecH9nk+tE0MxgpkyBkT8teCk22Zaohzkp9iQF8gXkQimhWt5B5q9
-	ZHBYSUHim57UrST+jCo6MTRWsMgqE1/03znS31S+S4GSr0RXzQhK2PBDbO5wNqUs/tchxIg1dn1
-	JzeL0j3DB22S0o8DZOSZuKAS9S35Efekg3iKAb70mxQgqZ70/+Dd/T8thnHZo/sVyu5h2vbtC6c
-	Rf3IXCCTgHs5oa/TQ34Op6KEZVwnPe6oYtypAzrG82aYXdX/mMsmpLuvzq3f/L1oBakaYzj3nrz
-	n3Iyc4ComSXCHXtkffW8V09bnsFJvF+EWod1XeDP1PvTkCDIHCX+LkFLpWY7mpAU0tAYrltAu3W
-	Sh7SWiTy7hwED8jjIXm5+67UatZyaO6yrecmrjg0EeNN3lBW5AYqV4Euc5O5//LMAov8LLtuZz9
-	3C2HtVhD5t74JDWr0EwpSik8KjmSXe/v
-X-Received: by 2002:a05:600c:4e41:b0:4a6:42cc:bf6c with SMTP id 5b1f17b1804b1-4ac16acfbd0mr207623275e9.7.1793621748831;
-        Mon, 02 Nov 2026 04:15:48 -0800 (PST)
+        bh=oer2FEylh2AuHX11Qb8KMHS0ZlqBiWuym9WiBTameTg=;
+        b=eyWw23RweY3DEyMxflk3AWsbqaeeqhvWb3w8Wfcp28He7I7NazkEqemtMLiuxwomTY
+         y1iRS8crxWHdSQ1fmuftXkPh6H9IfvGJOZOiTJYXYgMDBCSJOymgErVoyOckur3YXxHC
+         mnRdC9LyrelAVrnZ7ZLDQb2j/XTPVASk/mfpgg0Cxmh4O/LY2XwaE/7tFktr2We3laXd
+         j/eab1Mr5N71kUmFHTfnmQyMiEARB7QpIZkE3XUZDs2IBTXypDF0ODHwVdv+H1VqiR/O
+         UpFreVOSYGTnwou67X/bxYp4fWHKBg6gN5BLQ+DLsGbIXcQ87JxO789sPHUZN2yTbnki
+         kpUg==
+X-Forwarded-Encrypted: i=1; AKwUvBwH227YxJC3IVWBLfxnvyevmPnLQgEZZC9vUJOqAMtzNTML55I2Lj59Mg0LkBcUawH/uEfkUN+3//kyPxg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqHPEDW01U3pwwtdgO36/rLLPLg/OQjP+R1v8Re+6fA308NmoQ
+	Hdwiea9BVxyDj9qYv5PBHHLx7dtJG3liKcGZm7yM1CCLiFB272HZ1ksKfv9sJkiBe4g=
+X-Gm-Gg: AYBFou1FZsovAwqsGkehLTmW4W0CdGmgqqZAfO3dc9TkjWJX5PAuBB23c5AHErRbHho
+	IXhrhZXP31OqEV2jItJjvomXwklXBRe9sYYHw5WFcsMvZU+VcVGtHZU/sfXuUxJDTjlQdafvQTF
+	56vLJxPrvCS7iX2XKnsZncYvdSU4z8dW/3wK2Z4ND2BUWX7BVyy2C88reEU6/EnR09SXPNWuFWH
+	h2AQWwUSGx0loO4ZYraga+FkGrDpdm8Q37Pn8vPYxVMKflrbTHBn5d6i+7zcPfQRg3ABJTn0s2D
+	FerRvnrg28qXHXJQYWXXUVVEpjeniyUSgufef5xCd61Wm72rfBl7V8OS/QehtrfChOhPOfSzwYE
+	WxjDz6mDgDIVkW8ZFZwej3kMKWuRYb+3c+BpwGHxIYmkSpnsPRvxzkV/ijdKcBpnVhqTYuscssj
+	h0s0sVVsxnjYXpTuvW/gL9Csdsptv1um+MTC+iCxsoOFEz0v2nz8i8nGxwTVKaw0e52FY6KfkBj
+	7M1zEUhs7faUgM22TFrePpkONQNTbkMUiZu9cmZaLIgUxufLGmwxJ4qi8jHXRS1dyMbpwFiejPI
+	EF6f8a7OOvK2aFJFYmly+XCVs++MfQcz
+X-Received: by 2002:a05:600c:4e90:b0:4a4:f48e:78fa with SMTP id 5b1f17b1804b1-4ac175669e4mr220866395e9.12.1793621750147;
+        Mon, 02 Nov 2026 04:15:50 -0800 (PST)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm434974855e9.3.2026.11.02.04.15.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm434974855e9.3.2026.11.02.04.15.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:15:48 -0800 (PST)
+        Mon, 02 Nov 2026 04:15:49 -0800 (PST)
 From: James Clark <james.clark@linaro.org>
-Date: Mon, 02 Nov 2026 12:15:19 +0000
-Subject: [PATCH v3 05/18] perf test: cs-etm: Increase window size in
- disassembly test
+Date: Mon, 02 Nov 2026 12:15:20 +0000
+Subject: [PATCH v3 06/18] perf cs-etm: Don't drop previous target for
+ kernel samples
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-james-cs-unformatted-per-thread-fix-v3-5-dbcb0c281b9b@linaro.org>
+Message-Id: <20261102-james-cs-unformatted-per-thread-fix-v3-6-dbcb0c281b9b@linaro.org>
 References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
 In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
 To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
@@ -114,43 +114,50 @@ Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
  James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
 X-Mailer: b4 0.15.2
 
-When we increase the default timestamp interval in a later commit, less
-trace will be recorded. At the moment the amount of trace overflows the
-64K buffer, so the exit snapshot trace is what happened at the end of
-the process rather than the beginning. With the new default interval,
-the entire execution will be contained in one buffer and the first few
-samples are always various instruction and data faults. These go to the
-kernel so don't result in ranges that can be disassembled.
+The branch target of the previous sample is used as the start of the
+range to disassemble, but if that sample's DSO is "[unknown]" then we'll
+drop it even though it's useful information. This happens when recording
+userspace only. Save the address earlier for "Trace On" samples, before
+we get to the early exit condition for unknown DSOs.
 
-Increase the window to 6 samples to ensure something with a branch can
-be disassembled even with the fault samples.
+In a later commit to change the default timestamp interval, trace will
+be collected that triggers this issue, so fix it now.
 
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/perf/python/arm-cs-trace-disasm.py | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-index d298b18154b2..236c4160e480 100755
---- a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-+++ b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-@@ -50,7 +50,7 @@ if [ "$(id -u)" == 0 ] && [ -e /proc/kcore ]; then
- 	echo "Testing kernel disassembly"
- 	perf record -o ${perfdata} -e cs_etm//k --kcore -Se -m,64K -- touch $file > /dev/null 2>&1
- 	perf script -i ${perfdata} arm-cs-trace-disasm -- \
--		-d --stop-sample=2 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
-+		-d --stop-sample=6 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
- 	grep -q -E ${branch_search} ${file}
- 	echo "Found kernel branches"
- else
-@@ -62,7 +62,7 @@ fi
- echo "Testing userspace disassembly"
- perf record -o ${perfdata} -e cs_etm//u -Se -m,64K -- touch $file > /dev/null 2>&1
- perf script -i ${perfdata} arm-cs-trace-disasm -- \
--	-d --stop-sample=2 2> /dev/null > ${file}
-+	-d --stop-sample=6 2> /dev/null > ${file}
- grep -q -E ${branch_search} ${file}
- echo "Found userspace branches"
+diff --git a/tools/perf/python/arm-cs-trace-disasm.py b/tools/perf/python/arm-cs-trace-disasm.py
+index 1812ccaf4b20..5a7daf927bea 100755
+--- a/tools/perf/python/arm-cs-trace-disasm.py
++++ b/tools/perf/python/arm-cs-trace-disasm.py
+@@ -52,6 +52,7 @@ DISASM_CACHE: Dict[str, List[str]] = {}
+ DISASM_RE = re.compile(r"^\s*([0-9a-fA-F]+):")
+ DISASM_FUNC_RE = re.compile(r"^\s*([0-9a-fA-F]+)\s.*:")
+ CACHE_SIZE = 1024
++PERF_IP_FLAG_TRACE_BEGIN = 1 << 8
+ class _State:
+     sample_idx: int = -1
+     source_file_name: Optional[str] = None
+@@ -252,12 +253,12 @@ class TraceDisasm:
+             print(f"Event type: {ev_name}")
+             print_sample(sample)
+ 
+-        # Initialize CPU data if it's empty, and directly return back
+-        # if this is the first tracing event for this CPU. This must happen
+-        # before the dso == '[unknown]' check because the initial
+-        # CS_ETM_TRACE_ON sample has ip == 0 (dso == '[unknown]') and
+-        # carries the starting target address in sample.sample_addr.
+-        if self.cpu_data.get(f"{sample.sample_cpu}addr") is None:
++        # Initialize CPU data on the first event and whenever tracing resumes.
++        # Trace-start samples may have no source DSO map, but carry the next
++        # range's starting address in sample.sample_addr. Instruction samples
++        # in the first range also have TRACE_BEGIN set, so only check branches.
++        if (self.cpu_data.get(f"{sample.sample_cpu}addr") is None or
++                ("branches" in ev_name and sample.flags & PERF_IP_FLAG_TRACE_BEGIN)):
+             self.cpu_data[f"{sample.sample_cpu}addr"] = sample.sample_addr
+             return
  
 
 -- 
