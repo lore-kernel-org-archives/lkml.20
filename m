@@ -1,49 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632830;
-	b=5fdiGbtyJGEIe44PJ70Wrqg15UGikdNvDRbusnad64aUWxexkj7GuddbJT7FzpOsBGdC
-	 gt8wc72EBitUWKn40doBSCLqt84nSIQedcU6ncslEifjab4NX3Xdji7cBZX1RmOHuqxyO
-	 IdCRQmnnkYzkOS+grBDt3pzraEah0tCjuJhUjOAXsMA2a1RKt036e5eEVviwVqIjc+/Ug
-	 AhyJ+BKJ37/oMEnezlEYg4O9qOUsDHuzvZ7AkfFpL1Km5bZm3L534MbOadEdCBwb3Jppe
-	 9V5s7KQxa0hfqd/8nnQxeb4euVz84vrjIxankhEAWZuV0lyQ6cvinzTQ3aJkm2iJQjg==
+	t=1793632845;
+	b=sdxoA12aCWp2G1oOGV42yAsJehawnBApmuXt4/yOcNOcDUnL8WefZ+4hiRgvsYhJIrNv
+	 cTOrlWzfGfDxfDS0ZtlqElu/wBA+nq+8TBCt8A+oKo+JM2bzBdT+3YtcwW/ScIC7jVL3H
+	 jIdP7JTuvRBSBO502J9YxPU46scAXJQXKQrbr+XS7HoMYTi0Hwu2673tCQ2FGiRkxySrH
+	 um+GGNp5nvKnKPZX7Nx19jOw9phUV52r/cUstp4kLcCQhOwYog6KFlPB+9dUIMdG6B+0i
+	 Yv7eQ/46iSLYoXMaX4ESMTig+4R2I9nER0LjWqDWdPbYmTS6OvovkgKAC5HpW/YdsMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632830;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=yfb68sR2lkv/WstwrNi2kV1cVJpZCk5/QcENUoLv//k=;
-	b=unkcPFsNa2+3HcYh0LAfiTowMru1F1Qp4HuyQlB+blcxtVML0fb+B+gx2htZQSES9mWe
-	 S8A/dMGga6gSBvea+wSH+QmoIIPL+ZtbP+LN5DDub99hjrR2Z8rIuLp98zK9vQwINtvru
-	 onuIWdT8fWQ2/FXeQ4bOva5R1IQwrhiXDB/LRMi3AIb84KpMZ/kCYK7lxIce5tsskfIKR
-	 cZr+L//yxZW0mmklMZCyc2vTtR0ZfDEhCgSBnEOS3MOacw+Dca72jJAkgPe6NVK88Davn
-	 mGwemVBk7xWV4e2IyFerazL05fUAg7DZdRLi+V2nYnlcCeJfIam08I7soOjt/gx5fSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632845;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/xOLEWd4CVZtheZ0aeUPwLLg+DYfGKXSOQaolIBDtBY=;
+	b=RX04JwxjD/FTwnha99RwG07qp6mT9Zw9lkcpLtYuaRtjll9ybG/jiFwwNHvFR/2aa2TZ
+	 +fGe7A7ydldRncOzPvMs5Ex49OCP4U0mMPJYx5bD8aM82gF8hN7h5t0SBg9Ky4Ny07oT2
+	 1KYIPSugjsbZ4GCh8iNK5eHccmFHkPdMt3uvffZFNvl2wYDisDtZ4PxSmK31fN96SyKVH
+	 m/zTHRy5ouoh9BUL4ohBgdiuK1nA6lk+w1Ho3BHBILXEmcLRmE6xzMeANlEIHSDjdO2Hv
+	 04ameylHqwTaCPrGcp9+WUVv55Eg9PosPsHXJN6ywgGQqAd3V3L3mtJmEqZ/9Oh/a+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BN1DryDe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HDhz1eGY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D170609622F;
-	Mon,  2 Nov 2026 15:20:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910BC607F10B;
+	Mon,  2 Nov 2026 15:20:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BN1DryDe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70991F00A18;
-	Mon,  2 Nov 2026 15:20:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HDhz1eGY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8646F1F00A17;
+	Mon,  2 Nov 2026 15:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632829;
-	bh=yfb68sR2lkv/WstwrNi2kV1cVJpZCk5/QcENUoLv//k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BN1DryDe3qV+C4aWHJuIRcQk7/grenL2yY2/u1V9RuZ76eccMjBgLsEcUTNnhaGbx
-	 eXhhwX7Vgu+zR+JmG/2wvin1dOiYZvsWSYg6kfl1F4CTtJJewyZhllNVl1QPSHankI
-	 Y/8n3DCOX6o11uevej4+0kaVGNpGzwrrLFwkHxO8Xf20op7zpFONM4MND0dOsyrGS9
-	 lt+VjVHm27V5kG1yhzDMUWKDR0YRqKdDimg5wHtncjttH7DdkNFA88vxAFcS8nd5HC
-	 WE2enuopE0QMfUuIQi9FBTnJNj/5vBq/jOfhCbxPWlMeXV21MywGi2MtjhSPk+gxJF
-	 /V1HSYuIItaBw==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:13 +0100
-Subject: [PATCH RFC 03/27] lockd: let procfs copy in writes to
- nlm_end_grace
+	s=k20260515; t=1793632845;
+	bh=/xOLEWd4CVZtheZ0aeUPwLLg+DYfGKXSOQaolIBDtBY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HDhz1eGYAbkOSwXaqmB0Apa2Ta1tDfDIh1exfQ1WYiqbowaXTZdsECLK5nUiOjyGa
+	 YmLYcXi8jdqvM+HldTm0DGSHvaMhfj7imNFbazByGaOZ1Vg4Wa9eBljdeROA010/ND
+	 gNXU8EPwPWMAWSzLGBgDUMvAF/6p+9V2k7ELiml5KN0H4Ut80uvFJtVJFlJmChCUtA
+	 SrEKPxRVUV4SKlMtgIX4erNRVc4fZ9nZheMm5IGBliLdDygM+KQjhntZlP9koTxgvi
+	 zYxbbMrboW4LqKtoh+KMylSI28HXjbDXXxEKQktGRc/NS+AVZ62ZI2Ooialjb5zbS/
+	 nbrxO79Rk9aKw==
+Date: Mon, 2 Nov 2026 16:20:40 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Cc: jingoohan1@gmail.com, mani@kernel.org, lpieralisi@kernel.org,
+	kwilczynski@kernel.org, bhelgaas@google.com,
+	linux-pci@vger.kernel.org, robh@kernel.org,
+	thierry.reding@kernel.org, jonathanh@nvidia.com, vidyas@nvidia.com,
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org,
+	kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v3 4/4] PCI: tegra194: Add PCI_ENDPOINT dependency
+Message-ID: <auiqSIKbGilCYxDT@ryzen>
+References: <20261102111450.4010818-1-mmaddireddy@nvidia.com>
+ <20261102111450.4010818-5-mmaddireddy@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,107 +61,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-fs-v1-3-d09a996317b3@kernel.org>
-References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1756; i=brauner@kernel.org;
- h=from:subject:message-id; bh=yoBjzpwXPCFL2mmsMcO6fDyZh19yBZX5M0Ko6zu/SW0=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG4otvP03RvTPvA6+q/2CHm77dh8jlWRxmva3p208
- Ze+9//u4Y5SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJzFzD8JNRYNGmuUuv5fXJ
- SixnOtLlrT9xxidJDp7+ycnCGRxRXQ8Z/qlce21cuoK5yfPMxbQIy6ar6sn9zobuoRNUY3eHqBs
- eYwQA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102111450.4010818-5-mmaddireddy@nvidia.com>
 
-Implement ->proc_write_buf() so procfs copies in what is written before
-it pins the entry. simple_transaction_get() was only used to get a copy
-of what was written, so look at procfs' copy instead and drop the
-transaction. A second write to the same file doesn't fail with -EBUSY
-anymore. Writes larger than PAGE_SIZE - 1 bytes fail with -EINVAL from
-procfs instead of -EFBIG from simple_transaction_get(), which refused a
-few bytes less.
+Hello Manikanta,
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/lockd/procfs.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+On Mon, Nov 02, 2026 at 04:44:50PM +0530, Manikanta Maddireddy wrote:
+> The PERST# assertion handler now calls pci_epc_linkdown() to notify
+> Endpoint functions before powering down the controller. This function
+> is only declared when CONFIG_PCI_ENDPOINT is enabled and has no stub
+> when endpoint support is disabled.
+> 
+> Add a PCI_ENDPOINT dependency to ensure that the endpoint framework is
+> available whenever the Tegra194 PCIe driver is built.
+> 
+> Fixes: bf644226574e ("PCI: tegra194: Notify Endpoint functions on PERST# assert")
 
-diff --git a/fs/lockd/procfs.c b/fs/lockd/procfs.c
-index a01f08c8c2f3..47949bec7a09 100644
---- a/fs/lockd/procfs.c
-+++ b/fs/lockd/procfs.c
-@@ -18,21 +18,15 @@
-  * We only allow strings that start with 'Y', 'y', or '1'.
-  */
- static ssize_t
--nlm_end_grace_write(struct file *file, const char __user *buf, size_t size,
--		    loff_t *pos)
-+nlm_end_grace_write(struct file *file, char *buf, size_t size, loff_t *pos)
- {
--	char *data;
- 	struct lockd_net *ln = net_generic(current->nsproxy->net_ns,
- 					   lockd_net_id);
- 
- 	if (size < 1)
- 		return -EINVAL;
- 
--	data = simple_transaction_get(file, buf, size);
--	if (IS_ERR(data))
--		return PTR_ERR(data);
--
--	switch(data[0]) {
-+	switch(buf[0]) {
- 	case 'Y':
- 	case 'y':
- 	case '1':
-@@ -61,10 +55,9 @@ nlm_end_grace_read(struct file *file, char __user *buf, size_t size,
- }
- 
- static const struct proc_ops lockd_end_grace_proc_ops = {
--	.proc_write	= nlm_end_grace_write,
-+	.proc_write_buf	= nlm_end_grace_write,
- 	.proc_read	= nlm_end_grace_read,
- 	.proc_lseek	= default_llseek,
--	.proc_release	= simple_transaction_release,
- };
- 
- int __init
+Where is this SHA1? I can't seem to find it in the PCI tree.
 
--- 
-2.53.0
 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610230923.2lf3BsLs-lkp@intel.com/
+> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+> ---
+> Changes V2 -> V3:
+> - New patch in v3: require PCI_ENDPOINT for pci_epc_linkdown(), added to
+>   the PERST# assertion handler, to be declared when the driver is built.
+> 
+>  drivers/pci/controller/dwc/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
+> index 0a0d56fcf0ac..704134684900 100644
+> --- a/drivers/pci/controller/dwc/Kconfig
+> +++ b/drivers/pci/controller/dwc/Kconfig
+> @@ -245,6 +245,7 @@ config PCIE_TEGRA194_HOST
+>  	tristate "NVIDIA Tegra194 (and later) PCIe controller (host mode)"
+>  	depends on (ARCH_TEGRA && ARM64) || COMPILE_TEST
+>  	depends on PCI_MSI
+> +	depends on PCI_ENDPOINT
+
+This looks wrong to me.
+
+If you look at:
+include/linux/pci-epc.h
+
+you can see that there are stubs already for e.g.:
+pci_epc_init_notify() and pci_epc_deinit_notify().
+
+$ git grep pci_epc_init_notify
+drivers/pci/controller/cadence/pcie-cadence-ep.c:       pci_epc_init_notify(epc);
+drivers/pci/controller/dwc/pci-dra7xx.c:        pci_epc_init_notify(ep->epc);
+drivers/pci/controller/dwc/pci-imx6.c:  pci_epc_init_notify(ep->epc);
+drivers/pci/controller/dwc/pci-keystone.c:              pci_epc_init_notify(pci->ep.epc);
+drivers/pci/controller/dwc/pci-layerscape-ep.c: pci_epc_init_notify(pci->ep.epc);
+drivers/pci/controller/dwc/pcie-artpec6.c:              pci_epc_init_notify(pci->ep.epc);
+drivers/pci/controller/dwc/pcie-designware-plat.c:              pci_epc_init_notify(pci->ep.epc);
+drivers/pci/controller/dwc/pcie-dw-rockchip.c:  pci_epc_init_notify(rockchip->pci.ep.epc);
+drivers/pci/controller/dwc/pcie-keembay.c:              pci_epc_init_notify(pci->ep.epc);
+drivers/pci/controller/dwc/pcie-qcom-ep.c:      pci_epc_init_notify(pcie_ep->pci.ep.epc);
+drivers/pci/controller/dwc/pcie-rcar-gen4.c:    pci_epc_init_notify(ep->epc);
+drivers/pci/controller/dwc/pcie-stm32-ep.c:     pci_epc_init_notify(ep->epc);
+drivers/pci/controller/dwc/pcie-tegra194.c:     pci_epc_init_notify(ep->epc);
+drivers/pci/controller/dwc/pcie-uniphier-ep.c:  pci_epc_init_notify(priv->pci.ep.epc);
+drivers/pci/controller/pcie-rcar-ep.c:  pci_epc_init_notify(epc);
+drivers/pci/controller/pcie-rockchip-ep.c:      pci_epc_init_notify(epc);
+drivers/pci/endpoint/pci-epc-core.c: * pci_epc_init_notify() - Notify the EPF device that EPC device initialization
+drivers/pci/endpoint/pci-epc-core.c:void pci_epc_init_notify(struct pci_epc *epc)
+drivers/pci/endpoint/pci-epc-core.c:EXPORT_SYMBOL_GPL(pci_epc_init_notify);
+include/linux/pci-epc.h:void pci_epc_init_notify(struct pci_epc *epc);
+include/linux/pci-epc.h:static inline void pci_epc_init_notify(struct pci_epc *epc)
+
+I suggest that you just add a stub for pci_epc_linkdown().
+
+
+Kind regards,
+Niklas
