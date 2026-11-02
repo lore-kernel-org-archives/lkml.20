@@ -1,96 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793652386;
-	b=cCsyCY39rJfL1kiGiFwpqw9Ftj5ca2Cc5J2xDJ5aTr+xQRJkBtM6GQddkz2PkWzg02GT
-	 nezPGWa60qCIh5BV9H7U5uyPUXcEy4W/fh7X1N3B+tTkxLUn5+LyOUs71L72t/6Osmz1c
-	 CfOGFKZ8VSf5qngpP+NvphSH0nQNtF2tT7foFiewunw0gykXk9zQLJaq6Rf5YEVdrmqG/
-	 EGIktKAbUeQm2hKuZUfc1HXzzGqEbJIsjUrx49Ur4Xu8KPNnwYcq58eDpp2CjzqZKVbV/
-	 ZOzR6GFD0W+i5wrjxlXiXzRMFAmuQJVNx8aZOpG8OJ3LeH83bVBQQEhckWt0eNelDsg==
+	t=1793652391;
+	b=OZANpJK6RCMc9W7ki9MrCiEqam+zHx/UwlfxxAfxO4xgdoDN77M8xGMMOP+WJzO4wMR9
+	 r/fzO0UahtOOr8hraiPKJ5suwcA3XvnoT97FcYE5jd1qDRc8ghrVR09qsNbDY04Mx+v16
+	 46ORFFbRHKJymZSScTTO5Kw0OINIu3YP6sanaxWx14n2FbMdpRU16znd5ZqvOy8hf7nlg
+	 yeSCJAMRWrFzAQf2G9oGiBz2nqzIp6T0Kv2A3moviQo8XN2TI6wjgOQf+700kt1ExTVyA
+	 mitCngFvL60sS6dWexeJ4PUdmgWpTAJGdc9Esxs3fVbuyS0cSEYDf8BidBmw0DrihAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793652386;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=di6Jkafc/mpbrSDW2gaJ0nmrbE6SSajMfKo0S//Reo0=;
-	b=eMZ42r6BjfgeSdzwzOxmQxVq5t3tm08v5jrahEvv+dlzqu81Esi2nZblMhpC8I6BVvfZ
-	 n5vJJ+LxDMgKMLtz9HCeivjVyK0O/AEKRd4MjNvTYkNM7sGtwx5EFyzy/v799NskthimX
-	 ZTDaRZbM4/iy9P+BJEjw9xEP+Hh0OfBJK2vstuha/MuK+NliXEctANun4j0W3qgJWGhbw
-	 bwjanS6pWljhEQPtvvSGfU313Liih0dD10z5qxCqSTJXwGc1ecHgt+YnxLwmDLOkG07vN
-	 3/ZT8Y6oVGDX4UW2znSO5dKeyWkjYkNNCHVQL3EHMFJoo++aPdCkGBvzmGZzh6dyf/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793652391;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=rIkyhrFM98T/vHO6RdFHgX5SpA5k8kK+utueYBru5u4=;
+	b=nOwcb0KVD69E6jijfc1y1+k1hF/1S06yPfO3KwljMGLYYDwQXGx+1l2ujIBrLPx+iZLU
+	 DOgnJ9zmpp17OwYA32jJqG36loL19C4gyFq8Vwtb+WPb8q3Tk2/0hDZFyB7+VV5jIrVku
+	 iA1+UYlpY5pdQqSdtzunjbz3j9uTTkyJ/8BNu6KdsE3AZwETrSec4MplERzE8oWuasaYF
+	 U2vE3sRr9pZs0MwG6iv00PzzO/X0m+S+FyTmsnuYa44WMutWjSbpRyNHBix5hpagjMN8Z
+	 9hPZpOwSr5pEox3hgxfbHGW6PCqjaWOF3usBRDD0L4bZ+EiMrh+PUyHbAozWmb8/CRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yOAp7HcV;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=dEl4irC7;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="hb/5GuHx";
+	arc=none smtp.remote-ip=103.168.172.155
+Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8F5606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:46:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C8F5606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54ABD606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:46:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54ABD606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yOAp7HcV
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-369f3e9e431so35386eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:46:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793652385; x=1794257185; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=di6Jkafc/mpbrSDW2gaJ0nmrbE6SSajMfKo0S//Reo0=;
-        b=yOAp7HcVolNt6JCpahtsBRUCuob9eeHzXReSWD0jBkmeri+7PsGX8cGOLPoLZMln4H
-         GQKhqlZ+izRX2A2QxfAr4EyxHJuox4Zxo1HrnYJSdmtTUEpj1eduhDc3ggqRUJmB2/w1
-         sMvjiWofHX8o8tddTIoAhOhX2YVJkLf/5xHgb4RrMvNdu7dWt5A6tWJ4aZLa2sPvOYxV
-         TVSsHoQeo3P2qNBV3AIs0023ubwCaNr3S/JY3gxyUUAPWzurr0V9qHoHtM/wN8u2DkZh
-         b+nVjyjLi89zKcWcXIubbyxGdS8+8BZ1XNSNHRNs4mbfcWblTTzmzPDUCqDWthbXvXXZ
-         jHFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793652385; x=1794257185;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=di6Jkafc/mpbrSDW2gaJ0nmrbE6SSajMfKo0S//Reo0=;
-        b=FrC2w2+xShVBYauU3YQfqLanJffO/MaY8ScP3LqUEWqHMHnQRhGttaaIKBGPLf9XKy
-         rPh0AF75F7alAGyuzPEifEwyhJWjmzN+z1hd15cUnPhlnjPHVJNHA4HIUFbxh/CeQEwG
-         9Jkr8NPcAsnYUf7ZvULnkaOv0iesX8hn3/ksKB4pEuEejPESZN8edlkh2ULOm5jMj/in
-         1BKo9wnCP8nw8pJNkw5FGV8G7v6sXJkJpLFD690TffWtjUxTmZUrOVhD4mlPKXsorTYs
-         gOqjcpxyncvcxjlgJ19WT7a+CxUdHRyfwMf/E+Zs8rrcbRuL/wGkKl7KI8zRY/6EnmiR
-         WijQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5GW0vudEZbVJ7PTtdiv8JLHLtcZ09yhrfa9+eLWSjN7/t14+NstRiz1WlZfZAzQMU1fyCZxFUkcwaNyM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zkNkDQ/e2ygVqTLCiw5ub3xrkz3VQ/TE4JaZtCR3P0Lybiu4y
-	+mrjJbA7VcBJyFSw5gRfUI69koYHV6Li8UmpCrri+VcfD/vfsoNNQr44
-X-Gm-Gg: AYBFou3kq2P+FNWXCn+fNGFdMKAOWfyPNKQfUM/Lw8+ONoU9sbwJRGvUvbk5aLr6DUT
-	/NZIY3e0LQbyZohAbVLmbzg0uo8sEp4oOL7NfSuf+54Q4Ko50ewhbUauvbUJAhw4JLzUfBt4mat
-	w9wvdobUbmUpaTLYyexXGGqAb/dtAyBIgG+7kNLIbVXIynuQwpe4HBvO+dENyDv64QbNZfm2ch3
-	gYQsg2prpe8k+2YoYI5YPPltlmm/lN8WtLf8V2AFe6hCJmpQJ3VsvB3+D3TlLQFgeTFga9kPk4J
-	O0b4DwGrBlvrTnWjhvvVwAAy6THFKOoWQQgSIHDGRh5cGbWVTnF5vsa6oyLlZD6KVoieyKJnBQY
-	go5KiNT+rQYWInrDLofe8hcEFEgR6wAWDcTouZebMUmc6Im5efdRMAUGHbCTHoyaxeSz+FvBKuM
-	LJ6frrZDQDNseAMYxzZfrwrCsedAuPVNfAVgWBn/IJWAhzqW+mbBt2YCBl30ixvhtWGG2bMk4QL
-	80EtfTVDRqoPiiHfqQZjdCku03Hk3+Nraef774sO9dE+2K4i6QHMdOabusqC2s9DsZrMNTXL6ER
-	C/8V08+B1ODGQCFpzWqxTJTzHhxnMNrDnFRFefA4Wr2K1FNa
-X-Received: by 2002:a05:7301:6e98:b0:343:5f5f:eef0 with SMTP id 5a478bee46e88-36a3007202dmr22788846eec.21.1793652384988;
-        Mon, 02 Nov 2026 12:46:24 -0800 (PST)
-Received: from Lucy-Fedora ([155.254.126.101])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm48033670eec.26.2026.11.02.12.46.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 12:46:24 -0800 (PST)
-From: Lucy Wong <lucywong2778@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Armin Wolf <W_Armin@gmx.de>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lucy Wong <lucywong2778@gmail.com>
-Subject: [PATCH v3] platform/x86: add Xiaomi WMI key driver
-Date: Tue,  3 Nov 2026 04:46:11 +0800
-Message-ID: <20261102204611.63792-1-lucywong2778@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <0f1fab72-bf10-4074-b832-77ab1b583b78@gmx.de>
-References: <0f1fab72-bf10-4074-b832-77ab1b583b78@gmx.de>
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=dEl4irC7;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hb/5GuHx
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 71C911400230
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:46:29 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Mon, 02 Nov 2026 15:46:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793652389; x=1793738789; bh=rIkyhrFM98
+	T/vHO6RdFHgX5SpA5k8kK+utueYBru5u4=; b=dEl4irC7E3FvWjeE0C3xyQtmm7
+	P97SKDgblnSCufI4yAIrH2SNZ5xaaIo6YCW+E+AJEbuzzc7bRRUiIGpmUkhNuQUX
+	lZtFyR9+qp/DbXkHR1NGndJOzqjuuqqTAkteUdlCOhMbLcJrbc+IWa7namxUd0dN
+	yRr+PLHRqmF5mSvYBnXwc8UNvduBVJ+hc41Bo576y/mQNagAFUc17txOtwmSJJ/3
+	ZbWg0AZdn8vHynHHx1zgr424czQVPHRmFsErftVuIL2gyYZro2/Z19Fdy6e1Ux++
+	f1k+Q+MzfQ2MkjTHJBle/Hxu4RBJT3qzZ3U5ih+y2xGtBdnuclQxQhtiOu/w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793652389; x=1793738789; bh=rIkyhrFM98T/vHO6RdFHgX5SpA5k8kK+utu
+	eYBru5u4=; b=hb/5GuHx9arLWK/83a2O9c+5JIGOXLS+L9Zy66hbfAscUYqwOoc
+	VsYmG6DcF9HURay0Sf2hvm+jMKVEuvWAZUxYXo/RMdNjdBIm6d9f2VBzAA/oCUvw
+	SejtLGAK5+QR6C5sCcdRGnBqAZYDkql+XH/yiNBaqyFwfE4P01OYxWZoImi8UrYq
+	3or/ChFto1BBMGv8886tXleFNf43WbdWikhPnQra09z3klG2LCWXCj6N5SoLamOH
+	Gyx+X4lcNbb8X100yEeNOfGJ6dzIpAc6W7ucXj5T4dZCdLVNiAumdFhWzkCV8kyu
+	2tS0YPgDrqOeZwEwtX5g83eeSCvaImz0RxQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793652389; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:tMBGpNR7GGwxU9kjgldSl9TRUJsvLxCXOPo3F/W1RNdtIUR
+	3JCL1frSZ8r6ipqkEyXWEEA1HeCAHyRO2qWMK/b88sizzIUGdPu1aJyVH/rzacxC
+	raSt7mn9MyySQt1SQNAVs/sc9LiHyQGQX78HjSVb4xqVdRvYMY7Mclp09ONfEy/c
+	t7+DtafRZpFxyQJyZn57nkm+dVmZUE6i4p253Fd7gPJ0BsnDkYjsIm7Qz+fja5BN
+	pp1P5HoA4kw/zss6lZ/m9AlYcwUQ6h1gCmRkQp6NyZ7huGHX5MUXSRj9nlQJKxMe
+	FcKKZAoQH2lhY0Jd6d5c2jZsw7IPOKS6k6XNAnQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:5qtDy5+gC/134ujdEXJCgDet/gYQRgVF9N+5lkrmpMs=:Gn10J397k5HpCEWL0ZNgmvyOP2E7JV/sxhKi87f4cII=;
+X-ME-Sender: <xms:pfboamHfEo-EZXq2j3tTdktenK2LErO5dL3DKHi3BwrH-lNhDFCrfw>
+    <xme:pfboaml63A9VuyOdytu1CITv7hd_BmmEDM-qWijw280EDttU0JtwBIOUdsWtMGLNu
+    e7zwugBrTaE7cblC8uT2lI31BWMnryWV0xIspocqYhZ3_aaFvoPeacF>
+X-ME-Received: <xmr:pfboai9pBdhEG_OIqx-cDuypCSFrKX2hNzo856S1Vkgxx46ti-YmFYW16MZg-_hAaVRR0QaLIcInMxY_pQje_ZNM0NMvdn3RGXY>
+X-ME-Proxy-Cause: dmFkZTGf099nM2Uoe/+0Y+gh+ygQ0na0IsUtMAqk+PMxwzP2m8G9Q/hXN7oNPOeSqczmlP
+    GpkzUsJ06wZ8msVagoBN4R+93hsBSsBlJ1Mzsf42vFsKBRDuNEvQ/xrdRAqox3ElghD2xK
+    7E75Bgl/us+1sE3ayKnEWsGXBzJxOfXOLmcvkaqgfW7oOMKIZFEoJAsTcyIm27pC8tWWRg
+    vMw4lrmP9zxfk/yl0kVbQIOjqSqcjImNQKY2rPt/hBfr36bijDlsMpbo+Stu3NNd/S4gjY
+    uCKCg4lwJoIn45T0q6O9Xzvwq4TaNxaYnU+dkVnb3jF0Ptrpkj/ADHdCV79kFomBcL0xEI
+    3VK698brKMUkVzsMMpY7zaTUPx9Ehx2ZTdba2+qawwem/ILOdovw+qTHSJnD6c6nI5zBr6
+    Wb3y9K1X5dQyX5v2k9pLWssqDsHud3lCX5bfKPfjcKXw9gxJn+rJSRpJqf4r9eAG9/3lxF
+    8xv1wH1ng3nFJh/TMN+KHo11r3XXHHU4hlH0ntmPhWU8HekGodQFW5Fj+OXm3jEovUvqmD
+    01wpIf+qr659w2oiKf99rBNIxchbUZw1TF26Mk17DVxsP6NVeNfzk9uMLn/adtUc6hPnnA
+    y0FOYVqutYCh8BKc2Lct6LVjixtvhUkR6Fcz8VS4NmZwDQICL66/wRn48u3g
+X-ME-Proxy: <xmx:pfboanna8wzaIV8ebKY_qzXqC-knuQoxidBmRQmg9q3G7yunYoNylw>
+    <xmx:pfboagkE9SIh0sazd6KgHiEDC4mN-pFBp4unPM27i0VGmhQI--icdQ>
+    <xmx:pfboarscQmZJN9G-ta6XpR2emjQFZRHwKW7fNgIQhCButsziRSkW0w>
+    <xmx:pfboaqIkbp8Bc3ttYGfAYX58n479NGSxncc0hy9Cm29aD4p55-kDGA>
+    <xmx:pfboaogzj7z_G_h1QuQGbdxgrZjixRsIF6HwyO8sXoz9H17_gtrM1eUX>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 2 Nov 2026 15:46:28 -0500 (EST)
+Date: Mon, 2 Nov 2026 21:46:27 +0100
+From: Janne Grunau <j@jannau.net>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: michael.reeves077@gmail.com,
+	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
+	"Franky Lin (Zhenhui)" <frankyl@broadcom.com>,
+	Mathy Vanhoef <vanhoefm@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com, asahi@lists.linux.dev,
+	Hector Martin <marcan@marcan.st>,
+	Daniel Berlin <dberlin@dberlin.org>, linux-kernel@vger.kernel.org,
+	Hante Meuleman <meuleman@broadcom.com>,
+	linux-hardening@vger.kernel.org,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Izabela Bakollari <ibakolla@redhat.com>
+Subject: Re: [PATCH 00/13] wifi: brcmfmac: Add BCM4388 support
+Message-ID: <20261102204627.GB770347@robin.jannau.net>
+References: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
+ <d78cbbd2-601a-4cf1-800f-3be57a2b7de2@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,243 +134,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <d78cbbd2-601a-4cf1-800f-3be57a2b7de2@broadcom.com>
 
-Certain Xiaomi laptops expose extra function keys through a single WMI
-event GUID (B74AF83F-8B2F-4069-ACAC-36D176F62FC0). Unlike the existing
-xiaomi-wmi driver where each key has its own GUID, here all keys share
-one GUID and the event buffer encodes both an event type and a keycode:
+On Sun, Nov 01, 2026 at 08:27:22PM +0100, Arend van Spriel wrote:
+> + Peter, Izabela
+> 
+> On 25/09/2026 15:43, Michael Reeves via B4 Relay wrote:
+> > The Broadcom BCM4388 chipset requires new PCIe initialization and
+> > firmware interfaces. Add support for these interfaces to brcmfmac to
+> > enable basic station operation.
+> > 
+> > This series adds:
+> > - Signed firmware loading and mailbox transport
+> > - Fixes for chip identification and firmware capability matching
+> > - Versioned scan and join requests, and extended PMK payloads
+> > - Updated event mask handling
+> > 
+> > These changes include work by Hector Martin and Daniel Berlin from Asahi
+> > Linux, refactored where needed for upstream inclusion.
+> > 
+> > The series provides basic station support only. 6 GHz support is planned
+> > for a follow-up patchset after this lands. The driver retains legacy
+> > interfaces for older firmware.
+> > 
+> > Tested on an Apple M3 MacBook Air (J613):
+> > - Device boot and network scanning
+> > - 5 GHz WPA2-PSK association and DHCP
+> > - Bidirectional TCP traffic
+> 
+> Finally got some time to get this series tested on my setup. The patches 
+> generally look good. So far no regressions observed. It would be good if 
+> some more people could test this series on their equipment. I will do 
+> some more testing and wait some days.
 
-  buffer[1] = event type
-    0x01: keyboard backlight level (EC handled)
-    0x02: press/release keys (5 keys with abstract icons)
-    0x03: firmware-handled toggles (touchpad, Fn lock)
-  buffer[2] = keycode within that type
+Tested series on top of v7.3 + commit 7ed5dce55fa8 ("wifi: brcmfmac: map
+msgbuf RX packet IDs bidirectional") in wireless/main with resolving the
+conflict by dropping the conflicting hunk of this series.
 
-The keys with abstract icons are mapped to programmable macro keys for
-userspace to bind. The backlight and toggle events are handled by the
-firmware and are ignored.
+Tested on Mac mini (M1, BCM4378) and Macbook Pro 14-inch (M1 Max,
+BCM4387) without regressions (except for the resolved RX msgbuf
+mapping).
 
-Link: https://lore.kernel.org/platform-driver-x86/20260601151404.93049-1-lucywong2778@gmail.com/
-Signed-off-by: Lucy Wong <lucywong2778@gmail.com>
----
-Changes in v3:
-- Add a mutex to serialize sparse_keymap_report_event() calls
-- Document event types 0x01 and 0x03 with named defines
-- Use dev_notice() for unknown key indices
-- Fix reverse XMAS tree ordering of the notify() locals
-- Set .probe_type = PROBE_PREFER_ASYNCHRONOUS
+Tested-by: Janne Grunau <j@jannau.net>
 
-Changes in v2:
-- Convert to .notify_new and set .min_event_size
-- Ignore firmware-handled backlight and toggle events, which removes the
-  toggle deduplication state
-- Add the missing select INPUT_SPARSEKMAP
-- Name the event codes and align the defines
-- Add the dev_printk.h include
+thanks,
 
-Re: BMOF data -- the WMI device does not expose embedded BMOF data; there
-is no bmof sysfs attribute for B74AF83F-8B2F-4069-ACAC-36D176F62FC0.
----
- MAINTAINERS                            |   6 ++
- drivers/platform/x86/Kconfig           |  12 +++
- drivers/platform/x86/Makefile          |   1 +
- drivers/platform/x86/xiaomi-wmi-keys.c | 134 +++++++++++++++++++++++++
- 4 files changed, 153 insertions(+)
- create mode 100644 drivers/platform/x86/xiaomi-wmi-keys.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 748ce4d1c6a2..0a280e6773a7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -30546,6 +30546,12 @@ F:	fs/xfs/
- F:	include/uapi/linux/dqblk_xfs.h
- F:	include/uapi/linux/fsmap.h
- 
-+XIAOMI WMI KEYS DRIVER
-+M:	Lucy Wong <lucywong2778@gmail.com>
-+L:	platform-driver-x86@vger.kernel.org
-+S:	Maintained
-+F:	drivers/platform/x86/xiaomi-wmi-keys.c
-+
- XILINX AMS DRIVER
- M:	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
- M:	Conall O'Griofa <conall.ogriofa@amd.com>
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index 9ce384e0475e..efebf9e55b98 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -78,6 +78,18 @@ config XIAOMI_WMI
- 	  To compile this driver as a module, choose M here: the module will
- 	  be called xiaomi-wmi.
- 
-+config XIAOMI_WMI_KEYS
-+	tristate "Xiaomi WMI key events driver"
-+	depends on ACPI_WMI
-+	depends on INPUT
-+	select INPUT_SPARSEKMAP
-+	help
-+	  Say Y here if you want to support WMI-based hotkey events on certain
-+	  Xiaomi laptops.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called xiaomi-wmi-keys.
-+
- config REDMI_WMI
- 	tristate "Redmibook WMI key driver"
- 	depends on ACPI_WMI
-diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
-index 229057234d00..e77959052776 100644
---- a/drivers/platform/x86/Makefile
-+++ b/drivers/platform/x86/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_HUAWEI_WMI)		+= huawei-wmi.o
- obj-$(CONFIG_MXM_WMI)			+= mxm-wmi.o
- obj-$(CONFIG_NVIDIA_WMI_EC_BACKLIGHT)	+= nvidia-wmi-ec-backlight.o
- obj-$(CONFIG_XIAOMI_WMI)		+= xiaomi-wmi.o
-+obj-$(CONFIG_XIAOMI_WMI_KEYS)		+= xiaomi-wmi-keys.o
- obj-$(CONFIG_REDMI_WMI)			+= redmi-wmi.o
- obj-$(CONFIG_GIGABYTE_WMI)		+= gigabyte-wmi.o
- obj-$(CONFIG_BITLAND_MIFS_WMI)		+= bitland-mifs-wmi.o
-diff --git a/drivers/platform/x86/xiaomi-wmi-keys.c b/drivers/platform/x86/xiaomi-wmi-keys.c
-new file mode 100644
-index 000000000000..7452c6eb8eca
---- /dev/null
-+++ b/drivers/platform/x86/xiaomi-wmi-keys.c
-@@ -0,0 +1,134 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Xiaomi laptop WMI hotkey driver
-+ *
-+ * Copyright (C) 2026 Lucy Wong <lucywong2778@gmail.com>
-+ */
-+
-+#include <linux/device.h>
-+#include <linux/dev_printk.h>
-+#include <linux/input.h>
-+#include <linux/input/sparse-keymap.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/wmi.h>
-+
-+#define XIAOMI_WMI_EVENT_GUID	"B74AF83F-8B2F-4069-ACAC-36D176F62FC0"
-+
-+#define XIAOMI_EVENT_TYPE_BACKLIGHT	0x01 /* keyboard backlight (EC handled) */
-+#define XIAOMI_EVENT_TYPE_KEY		0x02 /* press/release keys */
-+#define XIAOMI_EVENT_TYPE_TOGGLE	0x03 /* touchpad/Fn-lock toggles (EC handled) */
-+
-+#define XIAOMI_KEY_PRESS_FIRST	0x01
-+#define XIAOMI_KEY_COUNT	5
-+#define XIAOMI_KEY_RELEASE_FIRST	\
-+	(XIAOMI_KEY_PRESS_FIRST + XIAOMI_KEY_COUNT)
-+
-+struct xiaomi_wmi_keys_event {
-+	u8 reserved;
-+	u8 type;
-+	u8 code;
-+};
-+
-+struct xiaomi_wmi_keys {
-+	struct input_dev *input_dev;
-+	struct mutex key_lock;	/* Serializes sparse_keymap_report_event() */
-+};
-+
-+static const struct key_entry xiaomi_wmi_keys_keymap[] = {
-+	/* programmable keys with abstract icons */
-+	{ KE_KEY, 0x01, { KEY_MACRO1 } },
-+	{ KE_KEY, 0x02, { KEY_MACRO2 } },
-+	{ KE_KEY, 0x03, { KEY_MACRO3 } },
-+	{ KE_KEY, 0x04, { KEY_MACRO4 } },
-+	{ KE_KEY, 0x05, { KEY_MACRO5 } },
-+	{ KE_END, 0 },
-+};
-+
-+static int xiaomi_wmi_keys_probe(struct wmi_device *wdev, const void *context)
-+{
-+	struct xiaomi_wmi_keys *data;
-+	int ret;
-+
-+	data = devm_kzalloc(&wdev->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+	dev_set_drvdata(&wdev->dev, data);
-+
-+	ret = devm_mutex_init(&wdev->dev, &data->key_lock);
-+	if (ret)
-+		return ret;
-+
-+	data->input_dev = devm_input_allocate_device(&wdev->dev);
-+	if (!data->input_dev)
-+		return -ENOMEM;
-+
-+	data->input_dev->name = "Xiaomi WMI keys";
-+	data->input_dev->phys = "wmi/input0";
-+	data->input_dev->id.bustype = BUS_HOST;
-+
-+	ret = sparse_keymap_setup(data->input_dev, xiaomi_wmi_keys_keymap, NULL);
-+	if (ret)
-+		return ret;
-+
-+	return input_register_device(data->input_dev);
-+}
-+
-+static void xiaomi_wmi_keys_notify(struct wmi_device *wdev,
-+				   const struct wmi_buffer *buffer)
-+{
-+	struct xiaomi_wmi_keys *data = dev_get_drvdata(&wdev->dev);
-+	const struct xiaomi_wmi_keys_event *event = buffer->data;
-+	unsigned int code;
-+	bool pressed;
-+
-+	/*
-+	 * Only the press/release keys are reported. Event types 0x01
-+	 * (backlight) and 0x03 (touchpad and Fn-lock toggles) are handled by
-+	 * the firmware and need no action from the driver.
-+	 */
-+	if (event->type != XIAOMI_EVENT_TYPE_KEY) {
-+		dev_dbg(&wdev->dev, "ignoring event type 0x%02x\n", event->type);
-+		return;
-+	}
-+
-+	if (event->code >= XIAOMI_KEY_PRESS_FIRST &&
-+	    event->code < XIAOMI_KEY_PRESS_FIRST + XIAOMI_KEY_COUNT) {
-+		code = event->code;
-+		pressed = true;
-+	} else if (event->code >= XIAOMI_KEY_RELEASE_FIRST &&
-+		   event->code < XIAOMI_KEY_RELEASE_FIRST + XIAOMI_KEY_COUNT) {
-+		code = event->code - XIAOMI_KEY_COUNT;
-+		pressed = false;
-+	} else {
-+		dev_notice(&wdev->dev, "unknown key index 0x%02x\n", event->code);
-+		return;
-+	}
-+
-+	mutex_lock(&data->key_lock);
-+	sparse_keymap_report_event(data->input_dev, code, pressed, false);
-+	mutex_unlock(&data->key_lock);
-+}
-+
-+static const struct wmi_device_id xiaomi_wmi_keys_id_table[] = {
-+	{ .guid_string = XIAOMI_WMI_EVENT_GUID },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(wmi, xiaomi_wmi_keys_id_table);
-+
-+static struct wmi_driver xiaomi_wmi_keys_driver = {
-+	.driver = {
-+		.name = "xiaomi-wmi-keys",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+	},
-+	.id_table = xiaomi_wmi_keys_id_table,
-+	.min_event_size = sizeof(struct xiaomi_wmi_keys_event),
-+	.probe = xiaomi_wmi_keys_probe,
-+	.notify_new = xiaomi_wmi_keys_notify,
-+	.no_singleton = true,
-+};
-+module_wmi_driver(xiaomi_wmi_keys_driver);
-+
-+MODULE_AUTHOR("Lucy Wong <lucywong2778@gmail.com>");
-+MODULE_DESCRIPTION("Xiaomi laptop WMI hotkey driver");
-+MODULE_LICENSE("GPL");
--- 
-2.56.0
-
+Janne
