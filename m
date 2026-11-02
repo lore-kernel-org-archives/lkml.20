@@ -1,65 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603480;
-	b=4vP8qKjk5Lk8IB06CxjWbchKMsgEeNMwbAt05bQ53eM59jpsmoMRfppcBZBj22VnI//R
-	 we7abKnF2NCDYhta3LXnNpVRhM+xoW8BRopQWQoSGsDbhMlrrlXKcLLgI4zDtG9ocMuTj
-	 BjKeTkKmYnLXqm0agAOXXXpYeeYmdrGWLUrSWHCUFzsng8IDh9SrP55M9xKTTerj+G2Dz
-	 NTI/k+tFMHYr9xbZLJsxrhLpCF3hOX0dg+pyJ6eVfsCt9tWwhf0IPmwkRBhumKjYTIBna
-	 KAiBVX9u2R5JgYjMtvbgbppGbAmYITHrSohz4rtXH98id/LqmZNHKp2YvRkvlbiCCQQ==
+	t=1793603485;
+	b=2suwRNHXIQyn7r41k68FC0NFuWoDrujxBcj317XUEtZDL9+xb3+JGdk6Ea/oJKflbkWN
+	 i48j6XlcTXpRHaZolm8Z5sGC7O6ZVr9kLTx/0Fq1dX959ynaMhEBjQ9IzySTd2zqn66aV
+	 gtmS99Xz/hFUWiV1g7hh1g/9KCmn+1PFZ+tSEqxFvhbzaVQ+UF+KYu6kRvOCob3rL5NtS
+	 IhiheDuJ46CELFMsCRnGU0RP6EPujC9LAEnC9hK8deRm3Hjf0qsOSxJNGEF99ln6DowdU
+	 KZ3Qq8lSdjio0jBKb1kl/39ksdU/bpa/sj7k2HKO7IGwia0hQL4e8MC5k58gDmb22YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603480;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603485;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=vdJ+DRR1faeDX0v1ueX7wcbZbUYELAr7oYz44rJN8Lo=;
-	b=CWM63uInek8kxyMzayulTm0SKIzvmO/rgjj0FexVt0x89AwB+wKos42KJPiVE1PhN/OA
-	 Z2293518nFGGbMYwy7oOnCfRnNB0bbuk1MQYVObdznW3vLrsxST6PxlLpQlKh8RFI6JqQ
-	 ujfiBZY9K/odgM7hGZNZSKRYGLirfVJ7/d5rOXfsT3S8iOVWyhbikeELkiPEIykOyk4TK
-	 g1d/uYTiLvfIxZc9aawXem1DhhTXp1ok8o73fwysDP2DFVjqwl2zuHZg19rWtbU2lrwCd
-	 G/emeUIfse+F2Cq2JjT+WEvq5fHtuUwD8+R/biS7OShHJohSeyJpmD3tdrJ5kydj7Pg==
+	bh=CtRFjMNFkycltbDQSBe6mjghdVPgzyjFuuR6JFPrfYE=;
+	b=ZlfzjxLOlAFGDKvJO+66JYq7Yl7ms8Sb0KRiH2anCnXaCVtlEYiKISLHshL1vplqPOWl
+	 mhT8c2tv00MVUFaJJ7D03CKa9ar47LwepGSN20omJ0BsU6aBiEk3IDRKXGT7ozMwpMA83
+	 mWbtNU0S3yRTh1I9CUBKzN5S4Curo7Spa3h0AcwdArLQ2Q2OypWcVOKFDYGsq/cRz2N+k
+	 P4oHlsnBxBk8AdDc2JaU4TOPHorZ59UTLUwW1SR9T+lJP3w8DsX4hkX8skAjw1nUdAL0p
+	 s22w6bSrWtg+aq/gRfonuAzabu68Bo1y+XXsP7p2bixHuP6Fq7WAB3IzlCt+58RWDpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PAmcE8te;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=QeS4Sr8R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BD2606A326;
-	Mon,  2 Nov 2026 07:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBAD606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:11:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PAmcE8te
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31B5C1F000C1;
-	Mon,  2 Nov 2026 07:11:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793603479;
-	bh=vdJ+DRR1faeDX0v1ueX7wcbZbUYELAr7oYz44rJN8Lo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PAmcE8teEI5/r9lpAn92elD6CCPy5HQA1EENzUvMLrx9h4QpWTPRrvh3Qr2ysL1ND
-	 2rx9LSOUusnFOklhFvhmP1wwjIJsRbidJ+wZhvggsFYFnEGyfrErVtngHlNlgNS309
-	 v5GpNJnZO5ZIakjkIfiZQ4330b4wW4Buzjpnua6sB22gAnkja90hYun7d3PPR1Y9Qt
-	 0l21iPPbcmR7Est63UlCoqALta9SUG0BExp1FyIiE6WJA5EvjpM1uGxDY5esXb/OuJ
-	 8OR8wZRFcHAzL3hc4QCx+X4A0C9jTzLvinpgVW77q6V17sv6Y6il59qP/4RmzwEFSw
-	 kily4Ig3ZOy+Q==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 2/3] samples/fprobe: Use trace_printk() and trace_dump_stack()
-Date: Mon,  2 Nov 2026 16:11:15 +0900
-Message-ID: <179360347512.115681.7201999490892291449.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179360345418.115681.193455787480210412.stgit@devnote2>
-References: <179360345418.115681.193455787480210412.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=QeS4Sr8R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291B51F000C1;
+	Mon,  2 Nov 2026 07:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793603484;
+	bh=CtRFjMNFkycltbDQSBe6mjghdVPgzyjFuuR6JFPrfYE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=QeS4Sr8R57MXnLyGnjzHxTFPdNuY//IlNr1Qcr2xjFpC1lEzVcNYrMPiPMqheHwWZ
+	 N6UV+g0eeNcdMCIUSBur7x/BtlK+vs/Z3gipyVnctAL9EKvwP4rd4H1xJs5a3cJLFp
+	 FsZZkWgN/pvg0plCTwoLMJL6NnzA7s5xsYReeM9w=
+Date: Sun, 1 Nov 2026 23:11:21 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Brendan
+ Jackman <brendan.jackman@linux.dev>, Byungchul Park <byungchul@sk.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
+ David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>, Dev
+ Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, Hao Li
+ <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Hugh Dickins
+ <hughd@google.com>, Jann Horn <jannh@google.com>, Johannes Weiner
+ <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>, Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>, Kemeng Shi
+ <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo
+ Stoakes <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Miaohe
+ Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Nick Piggin
+ <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>, Oscar Salvador
+ <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>, Peter Xu
+ <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Qi Zheng
+ <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, Rik van Riel
+ <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, Ryan Roberts
+ <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, Suren
+ Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, Uladzislau
+ Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>, Vlastimil
+ Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, Xu Xin
+ <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>, Youngjun
+ Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, Jason Gunthorpe
+ <jgg@ziepe.ca>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
+Message-Id: <20261101231121.1c2be902d925dc2e67388000@linux-foundation.org>
+In-Reply-To: <1b4d0299-4232-43eb-9229-7d2a2a7ce2fc@kernel.org>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+	<1c46e678-1da8-473d-960e-5aa22d4d7e73@kernel.org>
+	<20261101123025.4d8133d5321820f2202c8f1a@linux-foundation.org>
+	<1b4d0299-4232-43eb-9229-7d2a2a7ce2fc@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,137 +86,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Mon, 2 Nov 2026 07:47:46 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-Fprobe entry and exit callbacks execute in atomic context with
-preemption disabled under ftrace recursion protection. Calling
-printk() directly inside handlers can lead to deadlocks if console
-or scheduler locks are already held by the probed or interrupted context.
+> > -ZSWAP COMPRESSED SWAP CACHING
+> > +MEMORY MANAGEMENT - ZSWAP COMPRESSED SWAP CACHING
+> >  M:	Johannes Weiner <hannes@cmpxchg.org>
+> >  M:	Yosry Ahmed <yosry@kernel.org>
+> >  M:	Nhat Pham <nphamcs@gmail.com>
+> > _
+> > 
+> 
+> What's up with things like KASAN, KFENCE, KMEMLEAK, KMSAN?
+> 
+> I don't have a good question for that.
 
-Drop the use_trace module parameter and always use trace_printk()
-for handler logging. In addition, replace stack_trace_print() (which
-uses printk()) with trace_dump_stack(0) to output backtraces safely
-to the ftrace buffer. Also update the module header comment to
-reference /sys/kernel/tracing/trace.
+I've made the executive decision to bring all of those under "MEMORY
+MANAGEMENT - ".
 
-Additionally, update CONFIG_SAMPLE_FPROBE in samples/Kconfig to
-depend on EVENT_TRACING so that the tracing subsystem is enabled
-when building the sample.
+Less obviously, did the same with XARRAY and MAPLE_TREE, on the grounds
+they were originally written for and used by MM, MM remains the most
+significant user and the maintainers of those things are members of the
+MM team.  All subject to review and alteration, of course!
 
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- samples/Kconfig                 |    2 +-
- samples/fprobe/fprobe_example.c |   49 ++++++++-------------------------------
- 2 files changed, 11 insertions(+), 40 deletions(-)
+Damn series is 12 patches long, has been iterated about 25 times and
+I'm kinda afraid to send it out!
 
-diff --git a/samples/Kconfig b/samples/Kconfig
-index 54414e57ff75..744d991ea620 100644
---- a/samples/Kconfig
-+++ b/samples/Kconfig
-@@ -88,7 +88,7 @@ config SAMPLE_HW_BREAKPOINT
- 
- config SAMPLE_FPROBE
- 	tristate "Build fprobe examples -- loadable modules only"
--	depends on FPROBE && m
-+	depends on FPROBE && EVENT_TRACING && m
- 	help
- 	  This builds a fprobe example module. This module has an option 'symbol'.
- 	  You can specify a probed symbol or symbols separated with ','.
-diff --git a/samples/fprobe/fprobe_example.c b/samples/fprobe/fprobe_example.c
-index bfe98ce826f3..3b94839b3199 100644
---- a/samples/fprobe/fprobe_example.c
-+++ b/samples/fprobe/fprobe_example.c
-@@ -1,12 +1,12 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-  * Here's a sample kernel module showing the use of fprobe to dump a
-- * stack trace and selected registers when kernel_clone() is called.
-+ * stack trace and function entry/exit when kernel_clone() is called.
-  *
-- * For more information on theory of operation of kprobes, see
-- * Documentation/trace/kprobes.rst
-+ * For more information on theory of operation of fprobe, see
-+ * Documentation/trace/fprobe.rst
-  *
-- * You will see the trace data in /var/log/messages and on the console
-+ * You will see the trace data in /sys/kernel/tracing/trace
-  * whenever kernel_clone() is invoked to create a new process.
-  */
- 
-@@ -15,10 +15,9 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/fprobe.h>
--#include <linux/sched/debug.h>
- #include <linux/slab.h>
-+#include <linux/trace_printk.h>
- 
--#define BACKTRACE_DEPTH 16
- #define MAX_SYMBOL_LEN 4096
- static struct fprobe sample_probe;
- static unsigned long nhit;
-@@ -35,34 +34,14 @@ static bool stackdump = true;
- module_param(stackdump, bool, 0644);
- MODULE_PARM_DESC(stackdump, "Enable stackdump.");
- 
--static bool use_trace = false;
--module_param(use_trace, bool, 0644);
--MODULE_PARM_DESC(use_trace, "Use trace_printk instead of printk. This is only for debugging.");
--
--static void show_backtrace(void)
--{
--	unsigned long stacks[BACKTRACE_DEPTH];
--	unsigned int len;
--
--	len = stack_trace_save(stacks, BACKTRACE_DEPTH, 2);
--	stack_trace_print(stacks, len, 24);
--}
--
- static int sample_entry_handler(struct fprobe *fp, unsigned long ip,
- 				unsigned long ret_ip,
- 				struct ftrace_regs *fregs, void *data)
- {
--	if (use_trace)
--		/*
--		 * This is just an example, no kernel code should call
--		 * trace_printk() except when actively debugging.
--		 */
--		trace_printk("Enter <%pS> ip = 0x%p\n", (void *)ip, (void *)ip);
--	else
--		pr_info("Enter <%pS> ip = 0x%p\n", (void *)ip, (void *)ip);
-+	trace_printk("Enter <%pS> ip = 0x%p\n", (void *)ip, (void *)ip);
- 	nhit++;
- 	if (stackdump)
--		show_backtrace();
-+		trace_dump_stack(0);
- 	return 0;
- }
- 
-@@ -72,19 +51,11 @@ static void sample_exit_handler(struct fprobe *fp, unsigned long ip,
- {
- 	unsigned long rip = ret_ip;
- 
--	if (use_trace)
--		/*
--		 * This is just an example, no kernel code should call
--		 * trace_printk() except when actively debugging.
--		 */
--		trace_printk("Return from <%pS> ip = 0x%p to rip = 0x%p (%pS)\n",
--			(void *)ip, (void *)ip, (void *)rip, (void *)rip);
--	else
--		pr_info("Return from <%pS> ip = 0x%p to rip = 0x%p (%pS)\n",
--			(void *)ip, (void *)ip, (void *)rip, (void *)rip);
-+	trace_printk("Return from <%pS> ip = 0x%p to rip = 0x%p (%pS)\n",
-+		     (void *)ip, (void *)ip, (void *)rip, (void *)rip);
- 	nhit++;
- 	if (stackdump)
--		show_backtrace();
-+		trace_dump_stack(0);
- }
- 
- static int __init fprobe_init(void)
+The result is presumably not perfect, but much better than before.  Now
+all MM components are contiguous, all mm/ files are accounted for and
+all obviously-mm include/linux files are accounted for.
 
+Quite a lot of mm/ files are still under CORE and MISC, which is a copout. 
+Ideally I'd like to eventually get all of them under one or more
+components.
+
+I added one more component: "USER ACCESS", bringing the total to 49.  I
+expect a new CMA will need to be added.
+
+There are quite a lot of files under include/linux which are shared
+between MM and other subsystems.  Many of these should gain a
+co-listing under the relevant MM component(s).  Haven't addressed this
+yet.
+
+
+ MAINTAINERS |  215 ++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 148 insertions(+), 67 deletions(-)
+
+
+I spose I'll do a few more passes at it and send it out later.
