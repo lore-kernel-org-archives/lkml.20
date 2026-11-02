@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628752;
-	b=DCNeABVYhMp0oJEbGUaFRHvDQf1EudBANDoDOYzIP7Hi+o1ctYO/wzMpof3f/mV9xrgo
-	 J12t/JSeD0K275/GrgtuSvSMp52p4BX0zRrWUrudJJKwjON/zfdYiLRq2gyHDMAGv3JXp
-	 FyTq1v5nzDRLSSEdrw3cNucPL70pHl3wzLCnxcWgWC+WmbDnS4R5CiMPj32Y4RSezqkFX
-	 BnGUwSxfF4nsDVDxXWe5vbWCf6XjAFJg0O4SLPMu48n6Tvt8KZU4od9wgqfKGL5bMdAkE
-	 7SHXwS0LveTOzQVFjgYHl9oIZ5FGxiJYQY0/kEaxnKn1S7o9c30Wg0aHP1rWmz3yQGw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628752;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793628772;
+	b=A4f/gop0ST58yz6XLtiJfIiWnOMl5ZXlpfnc9hTjTGlBsPCSccpf4r7PkVp+NL9StR/4
+	 oXbT1SLQdMRwqig1dRivqp7fQeTm/ukFJ+15uZhwLTD8vW4aaNKG2T+R+m+1KQfu9Biso
+	 LrKaNAmtYxcj1rSQ3/DeSNUrf0wTqpMZRblAzAzgVChxvGMazKIw1rD9DUUOxMOP/CIQz
+	 1OclDM6tC0Cpy2gWHeu1/7ugSH9XrrC+E+K1nHJcyM/4BiYq5u2TyVjTyJIxmkSZT23Am
+	 D3X8r4fhyg1d0LBxFkk5ifKA2nZGkITpurngXNC2GNutxjD4rQALdImcOk3YaA/VbJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628772;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=D/s/xAEdSfZnDwTpORRC9ZOWyUJ6URsuayyvBKPDTOE=;
+	b=G9ctUu7SEPuaafG36oMwYXDPc45uV/6VJ/rcD7Aw+kHCwedfRMiiYewVCOkWEY48iFpB
+	 bmR/ugAXnoviX2tvsbipGTX9NizGOgD/FYzuuMBF0Rah2LTHOmUiNj+ueDPWhd0GVAA3G
+	 NJZKKzqVeJ3nwYC2j5g1gM7RB6xWOkDH2t3tq6OwSnyE619YgbyB9Tc3Cx705w5fkHieQ
+	 a0h8Md1jJ6u7VjI4gaTl+3Y7N71QvuoSwEF5qBKs5YLj6EDvrOW+CmoTObNQQBql1tNeU
+	 JC1oK31YZN1h2oOkT39O+VC8DWmMjNUfhCrY9YHDxIKpIBogb4HY0PoxJ1H7Tq98mFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3JNmNZw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD334606A324;
+	Mon,  2 Nov 2026 14:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3JNmNZw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793628771;
+	b=eEZAX9Ttz2wwWwo9eHii6lQUxATqUdV24TYpBfMmnMPlg2JwYSozUnOLOm05HdOS9NWb
+	 pxSC9XZ3E4bBjqNS656kYaD2Kb3jLtcMjXKnsvskUmda5WpTyO5UA9FPEyUipj9r00I8z
+	 5SQ7p1o5P07gtm3SWeypM+aWE4hEfkR6THNqRT3BbkKQG6ILMfzRUcW77RW05n/gNwwzQ
+	 VgogA1bNr8m4Iq0oCvUKus2wMSDIPuameJIqyj6wUSTMAsPeOnN5Z3IlNNe116lhQ+Alk
+	 YbCHGhoXn4NVFX+6LrsaAs2nFbnXhXIxNIjTe9Sxz3rfvkte6SLMC6SpX8PSK5ItXsw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793628771;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=Zbt90t1wgRfp0YpX0T9Ft+WXbhZP3kkNCP+Z5PBV6hk=;
-	b=lMzw713hOD30tf0dhmt51jhVDaQr2lzZ20rlcVsqDRSm4eYe6K1I2sDEx9Rr3AqBlNB0
-	 91MCd3L6NSUReDd9z1sObuXfBhny9vsD5lXqY4Y6iguJjQhEFGGnzYWWIyIzobpD8Ki/Y
-	 7qkhqiNgFu9p1ROHgFhwA+t5Ks2N1g5RfMTHkKxK3t76KblKcd2od6QKgglLND8BNYvr2
-	 rrq8d2TAvCciH/tMH3l8t2o0djHQ3SmaPsJQiu3BYSovfQvWVkxHCo9fSOIANwWxDeYFR
-	 NCckwaVIJ5s2tompt0ro3ixUymSgWYtZvML/6DMQaEF5n9AFhPkxvr6KEWFtspO8ihA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MjBr1QvG;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=D/s/xAEdSfZnDwTpORRC9ZOWyUJ6URsuayyvBKPDTOE=;
+	b=tf5s65H9m+wD4lmi0yzmLg+AiJLhjfEJcwkALG3emXaLbgxg/GpjLQgCawSmF6r9BBaD
+	 SmDMlBK2kjWKUub9x0FTBl/vkt8mk+g7R1LHUZenxX/gNJYIN1fnLx6dJ6ygvU/H+Pamn
+	 k3KRgJKrdHVSqrROWoMR7HudZev0iPGpwiF+LnU9wbdtpfr8TJMlJ1t3b91S0AIYdU6lY
+	 FVXDGQ63NMgsHLhxbYg/D9x8JIHDwsZZq+SZB8ECXUPF0qAz6Rmi4V2QNo5eKCiG+uRdc
+	 6/5qrzIbR1AA9YbPXKxTeyIAzGnprpySmeNqgWM6kNbnAsqBu0lZDMSSZPs9slsL+og==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC1A606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:12:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFC1A606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MjBr1QvG
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so29229305e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:12:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793628750; x=1794233550; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zbt90t1wgRfp0YpX0T9Ft+WXbhZP3kkNCP+Z5PBV6hk=;
-        b=MjBr1QvGw/hSP+7fmOIv/+UqxRzouqXeL5Rc9wi0vwXc8Gw9jT1k2KvqwvZbrNlecV
-         Gn90XCo0DxTXIB7ea1vWy2ah0C2kr0/DVWldbk7wpllypNV8yb+tAPOO6fY08CJjfQmF
-         vJv3IYocml4n39C4eO471IR/h31593CfU9WeDKMzLQxsK8Q4xOQJvNDejx0zPLfb1i2c
-         /kSgh3XzidqVz511zR9applROIlHNDWHsDfrAZm7hHjdDkEEeeGWNS9vj2R3FYe+BQ24
-         PNCpiNzs9NDyL9BrHWMqg9kkQ8Mng7u7jGKtB8/DQ/Qc46f5XkUgpGXfrsBbgy2UvkLi
-         pfgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793628750; x=1794233550;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zbt90t1wgRfp0YpX0T9Ft+WXbhZP3kkNCP+Z5PBV6hk=;
-        b=yWNCnBnOiUNPlaW0sfKkho+XRApK97xhmSTEqDjh4w6o9DIeH2AAhxzNW8JrQWaI5d
-         rIt4+0idwOTHkjeukl8V2KwzWi7FZhKHuXBDHebqY3dXSc9Ia0vWAhC0v1SWVD1BQdoS
-         EoOf8pziPFcQu5K/71sfPByqfFALg7LNgCNzNmSra0o3qgfhHrYswlvfAJU2K5RiayjA
-         GDuZsygS7S2o6Ij5Z+CZK0pjxJsc/RnctCi2YJNRxHIqy34YNaWGFyHiGs9QIQg7ZvEb
-         82iAKgryrt8H6TCf0mLkvexoIHTa949DmCSMioMO5/Ie1FRnAHVZzX9zkbVKuzyGU99F
-         /1Jw==
-X-Forwarded-Encrypted: i=1; AKwUvBxOBgtwwphNNA5tOyMgOnQn74WNUNdL2dellKfebR0Q2lPyLWfB2l+19p3rvyNRV3bW+X1Nnbu8pnu7YJo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjMbyqx58s2If3YT5cCvlIGvFN1i1sZTYMu79c7JUvvwLYUUoh
-	rI5VisvlUlhNqvQBaB2WqQhQbusIpeqxKBNtJTjCJ2mjo7O5pkxCdS29WZB8oDp5
-X-Gm-Gg: AYBFou0jZk9UGfuXywpk10ln5Fl8QIlhlKrfQnerHBUS8f1yk+eq29bIGF4iz1TFP8X
-	jsZ0asPugikwDpohNNeSTk5Z8CufXevZTaTVef/8Gtq4HW+Ok9i0oF8LXIhc5lmtkEpq1AsDfPO
-	mueQNdwCv/EN0JNw/a/g3bFy597SK+B69VmKK+hARGVIWYR4RVCB1oVz20IsxCIso01rcx8rNGu
-	Wy3Fl+XhKawaesTCC+BcSUZWStID1Gc+vZXWepWWNzNFUht0ZtJThF7DrVE03P3RtPHoFWmQaD1
-	2vLPJcKEMrK39eCVt/cynjBIyeiOvKOefONQhqH6V7bxgV+y2N7QDLJP6cROp97tA0YYWyuN2Mt
-	D7StMO8Tc1gVMtQppESaAvFNDqTghwTe9QrqyL/Nc9VSsg6hAtrRJVP0FY8T72UPVlikibhN00x
-	tZUFSmByMh5FmHqv0VwZUxdF6ioT1Q/AH2uwAt7P2Rceg1AjGKH9zkM0zwrDQByqgn/zWzw2lbe
-	bR9ZHil8SUuVboPWW0GeclOlnyuZnrnsiBv5CMK2T4RMutn4KsnFuDQYthysd/z5bKS2NRBq40C
-	zvb8m2BLrmD2bAPzfLrIxLuyPc9+lZTX2ztZVmBlC3kBxMtO5g/QN1FJdFZ7/YHb7/ugcgyadeM
-	WVTrfjWOaO3NS+CVbIt4ZxqcJ2JfTNngs9xRj
-X-Received: by 2002:a05:600c:4e02:b0:4a3:59c9:a758 with SMTP id 5b1f17b1804b1-4ac19705e02mr219933115e9.32.1793628749862;
-        Mon, 02 Nov 2026 06:12:29 -0800 (PST)
-Received: from x1e ([196.189.89.249])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf751c2d2sm301441565e9.15.2026.11.02.06.12.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:12:29 -0800 (PST)
-From: Maritu Hone <marehone12@gmail.com>
-To: vireshk@kernel.org
-Cc: johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	outreachy@lists.linux.dev,
-	Maritu Hone <marehone12@gmail.com>
-Subject: [PATCH] staging: greybus: fw-management: validate firmware_tag is NUL-terminated
-Date: Mon,  2 Nov 2026 17:12:21 +0300
-Message-ID: <20261102141221.87646-1-marehone12@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id D84BA1F00A16;
+	Mon,  2 Nov 2026 14:12:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793628771;
+	bh=D/s/xAEdSfZnDwTpORRC9ZOWyUJ6URsuayyvBKPDTOE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=f3JNmNZwLkDGwt9N81tnnN+iXXr+Zd/ceba9muRmc/gVSGMF9i2qfuQDTZncTKAVR
+	 IVqv4SHAbxGRERalRrhNgIYA94kgDoqpj8DRMX9hzxks9jdA04jrEAcSEpTf4uLQV6
+	 BSsuOjbaUatyLf4QUADAARPvJWqzHKHbjwyaxD5tGmyoun0NUw01IhyaM70S1iWjkl
+	 TYlmBUXzTv7MpcHKsvHOdzhsCXbQ3JOnz52peSXcp4jSrofDLeepN7QWi9uloYxNkg
+	 NyuKb1w6HojhMaIIERDbCxK1ZdxTjRf+pr7iNrQcrJgjFp9XntcbbeaXmM+ghcs2oS
+	 vATb3iTRFJeyA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 37B3B4653F;
+	Mon,  2 Nov 2026 14:12:50 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Mon, 02 Nov 2026 15:12:47 +0100
+Subject: [PATCH v2] arm64: dts: freescale: lx2160a-nbxv3: fix the TCA9539
+ and 1588 line names
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,85 +83,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-for-upstream-nbxv3-dts-line-names-v2-1-58f234e478fb@free.fr>
+X-B4-Tracking: v=1; b=H4sIAF6a6GoC/5WNSw6CMBBAr0K6dgxT8IMr72FYtDCVJtKSGWwwh
+ LtbuYHL9xbvrUqIPYm6FatiSl58DBn0oVDdYMKTwPeZlS71GbFEcJHhPcnMZEYIdkkV9LPAywe
+ CYEYSaCqLGs3J1nWpcmdicn7ZH4828+BljvzZlwl/9p96QkC4dFeizureNO7umOjoWLXbtn0Bv
+ fftTdAAAAA=
+To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Vincent Jardin <vjardin@free.fr>
+Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793628769; l=2803;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=hHUsd9bJRSMGNR0btcyRpbeMGj6quxgOVoYnLHWHvS8=;
+ b=XVxrGbzLj2cVry+PSQYRRhZG1x8x3UrZVxwbTaBtdBhzXNMFdnb2kVkOfErzEd2FTDTgnz4HE
+ yIovGfitqAKBx9UEb24BZjbAVkxYLcdVO+RCqW6EsWheUXFhTFYmLR2
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-fw_mgmt_ioctl() copies struct fw_mgmt_ioc_get_backend_version,
-struct fw_mgmt_ioc_intf_load_and_validate and
-struct fw_mgmt_ioc_backend_fw_update directly from userspace via
-copy_from_user(). Each of these contains a fixed-size
-firmware_tag[GB_FIRMWARE_U_TAG_MAX_SIZE] array that is never checked
-for NUL-termination before being used.
+From: Vincent Jardin <vjardin@free.fr>
 
-While the array is eventually copied into a Greybus request via
-strscpy_pad(), which safely bounds its read and always NUL-terminates
-its destination, three error paths print the original, unterminated
-userspace buffer directly with "%s":
+Some gpio-line-names do not properly describe the board.
 
-  fw_mgmt_backend_fw_version_operation():
-    dev_err(..., "failed to get version of %s backend firmware (%d)\n",
-            fw_info->firmware_tag, ret);
-    dev_err(..., "Firmware with tag %s is not supported by Interface\n",
-            fw_info->firmware_tag);
+The board CPU's RCW sets EC2_PMUX = 2, which gives two GPIO4 pads to
+the 1588 timer, so they are not GPIOs anymore. Name them using
+lx2160 function with the altfn: prefix this file uses for every pad
+muxed to another function:
 
-  fw_mgmt_backend_fw_update_operation():
-    dev_err(..., "backend %s firmware update request failed (%d)\n",
-            tag, ret);
+- GPIO4[14] (ball M3, EC2_TXD1) is TSEC_1588_CLK_OUT, the CPU's 1588
+  clock output to the DPLL's reference input.
+- GPIO4[23] (ball P1, EC2_RX_DV) is TSEC_1588_TRIG_IN1, the CPU's 1588
+  trigger input, driven by the DPLL's 1PPS.
 
-If a caller supplies exactly GB_FIRMWARE_U_TAG_MAX_SIZE non-NUL bytes,
-"%s" has no terminator inside the array and reads past it into
-adjacent kernel stack memory until it happens to find a zero byte,
-leaking that memory into dmesg.
+The board-ID TCA9539 is a read-only 8 bit register:
+ - P00..P07
+ - a test point
+ - P11..P17 are wired to GND
+There is no 16-bit board ID.
 
-Reject the ioctl up front when firmware_tag is not NUL-terminated,
-mirroring the existing check already used for the equivalent
-Greybus-module-supplied field in fw_download_find_firmware().
+Only the names are updated: the 1588 timer is already described by
+the CPU's dtsi then the CPU's RCW muxes those at CPU reset.
 
-Fixes: 013e66537273 ("greybus: fw-management: Add firmware-management protocol driver")
-Signed-off-by: Maritu Hone <marehone12@gmail.com>
+Fixes: 565b6713a460 ("arm64: dts: freescale: add Nodebox v3 CPU Module")
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
- drivers/staging/greybus/fw-management.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Changes in v2:
+- Better explain changes (Sashiko).
+- Link to v1: https://lore.kernel.org/r/20261101-for-upstream-nbxv3-dts-line-names-v1-1-7c8eecb2da9f@free.fr
+---
+ arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/staging/greybus/fw-management.c b/drivers/staging/greybus/fw-management.c
-index 5d01da6b6eb9..2ee609dd67fb 100644
---- a/drivers/staging/greybus/fw-management.c
-+++ b/drivers/staging/greybus/fw-management.c
-@@ -419,6 +419,11 @@ static int fw_mgmt_ioctl(struct fw_mgmt *fw_mgmt, unsigned int cmd,
- 				   sizeof(backend_fw_info)))
- 			return -EFAULT;
+diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
+index 9c5588a75cdd..34e02102c214 100644
+--- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
++++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
+@@ -206,9 +206,9 @@ &gpio3 {
+ 		"altfn:ec1-rxd1", "altfn:ec1-rxd0",
+ 		"altfn:ec1-rx-clk", "altfn:ec1-rx-dv",
+ 		"", "",
+-		"ptp-refclk-in",
++		"altfn:tsec1588-clk-out",
+ 		"", "", "", "", "", "", "", "",
+-		"u1700-zl30733-pps-out",
++		"altfn:tsec1588-trig-in1",
+ 		"",
+ 		"ethsw-mdio-en",
+ 		"usb1-oc#",	/* USB1_PWRFAULT and USB2_PWRFAULT pads: one wired-OR net */
+@@ -254,14 +254,14 @@ gpio@74 {
+ 		#gpio-cells = <2>;
+ 		gpio-controller;
+ 		gpio-line-names =
+-			"boardid-0x0001", "boardid-0x0002",
+-			"boardid-0x0004", "boardid-0x0008",
+-			"boardid-0x0010", "boardid-0x0020",
+-			"boardid-0x0040", "boardid-0x0080",
+-			"boardid-0x0100", "boardid-0x0200",
+-			"boardid-0x0400", "boardid-0x0800",
+-			"boardid-0x1000", "boardid-0x2000",
+-			"boardid-0x4000", "boardid-0x8000";
++			"boardid-0x01", "boardid-0x02",
++			"boardid-0x04", "boardid-0x08",
++			"boardid-0x10", "boardid-0x20",
++			"boardid-0x40", "boardid-0x80",
++			"test-mode-tp1500",
++			"gnd-p11", "gnd-p12", "gnd-p13",
++			"gnd-p14", "gnd-p15", "gnd-p16",
++			"gnd-p17";
+ 	};
  
-+		if (strnlen(backend_fw_info.firmware_tag,
-+			    GB_FIRMWARE_U_TAG_MAX_SIZE) ==
-+		    GB_FIRMWARE_U_TAG_MAX_SIZE)
-+			return -EINVAL;
-+
- 		ret = fw_mgmt_backend_fw_version_operation(fw_mgmt,
- 							   &backend_fw_info);
- 		if (ret)
-@@ -433,6 +438,11 @@ static int fw_mgmt_ioctl(struct fw_mgmt *fw_mgmt, unsigned int cmd,
- 		if (copy_from_user(&intf_load, buf, sizeof(intf_load)))
- 			return -EFAULT;
- 
-+		if (strnlen(intf_load.firmware_tag,
-+			    GB_FIRMWARE_U_TAG_MAX_SIZE) ==
-+		    GB_FIRMWARE_U_TAG_MAX_SIZE)
-+			return -EINVAL;
-+
- 		ret = fw_mgmt_load_and_validate_operation(fw_mgmt,
- 				intf_load.load_method, intf_load.firmware_tag);
- 		if (ret)
-@@ -457,6 +467,11 @@ static int fw_mgmt_ioctl(struct fw_mgmt *fw_mgmt, unsigned int cmd,
- 				   sizeof(backend_update)))
- 			return -EFAULT;
- 
-+		if (strnlen(backend_update.firmware_tag,
-+			    GB_FIRMWARE_U_TAG_MAX_SIZE) ==
-+		    GB_FIRMWARE_U_TAG_MAX_SIZE)
-+			return -EINVAL;
-+
- 		ret = fw_mgmt_backend_fw_update_operation(fw_mgmt,
- 							  backend_update.firmware_tag);
- 		if (ret)
+ 	u800: gpio@75 {
+
+---
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+change-id: 20261101-for-upstream-nbxv3-dts-line-names-93b121a5b440
+
+Best regards,
 -- 
-2.43.0
+Vincent Jardin <vjardin@free.fr>
+
 
