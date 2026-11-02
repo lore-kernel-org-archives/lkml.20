@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.188
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607160;
-	b=TSi0tNhUrWGoH4kpGxpkXI2+PxbN6NrS1azS3liaasePmTTvrJ/ha6T15zTXDdByyU+Z
-	 AK2kIARCvo308+QA4eCVn/4kF8rNZlrIaK/9NmpEVyJ9+Ok3rHw0k49GszykHjgrFA1TW
-	 QIOXPbsmWRUg/FbAXFHATCvniN22sApjqBpeWoWwtzpC2UQ5uItyvAC5wk6rRd3LFTqUT
-	 jg0p8MqsPtOvj1NQ5+qJAgxZKMQ/+nASCVnHC75ELPX/JnB82F3nN9v40Ll8JrSX++nu9
-	 basz4HEmfgWgmUSGN4zBZcoK2evy+FyBDdUNpggTxf7g5Wm2gDL/7dO/Ep4niNoRWQQ==
+	t=1793607196;
+	b=Skc7BTOCIOaew4KqhpI21RGGs6PXaA9LJzYxwZbQebSCviL3eM+j9cec1bBMyOsVdIXF
+	 ztnPKhe3NgZ4UqMdk1hVSKJ2Ht4l+b2QlQHBFnVY2C3HdUTIvLvfcPZZY/XmLpeEm5ohw
+	 gosvkIfl23q+SyeCHt46I3ehfcDUqPcukJZojkvX8xedm5SXZDSk72QRHX7i0OwwEizFU
+	 XpiMqVl45p/1Zoc5zp4wS/xZ1HkuYI4IrN5DsPzp6FeR1nmcT0hjz0ufe9CLXLTaRrzm6
+	 HSfsgChukw6IlPJH2ARZFExOXmXcnYo9YEWq26ay3A8rxPPfuUrnwSDxz3iLU8szmZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607160;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=rgA3jQowehsD4IDuk6EokEntcsXv8fWxLKITDX8CbVQ=;
-	b=EckocJhaPLREmVcC/U0Tb1nyvDXJ17iwjA8cAq11BBCBD1Xp7KUQCZW5NH7VxzMEYZpP
-	 ALNr7q2ngYNv4bj0kfSbpK5sPO30EGm9REAJt9a5w8ZakVATMnrGkQiBkk/Fo8ws2X3g/
-	 6YJkiLvRncnKbTbHHfSyqUBaGj6RMODUb0S1TvDRHUPz400ZOg6zsT8YOjKKeAqfVLCzs
-	 YcGr8j1o9NkwudwO6GfJ3yAQFlqCeUh2bTfzBRt1pm4v4F8xAQpsCq2j6EXIzGzuansqW
-	 MgNvm3KSuGqAAApAJB7kS6Fvk5twx1tdltLTvPkSXM9wWhSK1zSIMsEzMLRBMgoYjuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607196;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NR2DG4to3DrgMNw96bT2GuCZ0TZVPXbJYqsaTD914z0=;
+	b=LomaF+kuVuC+ZeOIU5clc8I3Jml+rf1RSqPYf2BWgd9TGoFjwKeboEGxYHuhWNcOoIFX
+	 eKDtYqhLeggJfRXf0QCmA9iu2ALNuO09E0ID41kZQbzSusgBs3ru5cto58JgKhV4n++/A
+	 nXNCt7M7zev9lm2nfCkJ5AT0R472HaMHp4Mc3Jo//Jj9wbvL+hz3diVkDWqjt6Kqw/84x
+	 h+bXzSZts7zAjhK4th3oeBbDwmUpfAoP6QadvXbyoWYaBmjfRBSzUHgUfUqdp9yp59DXg
+	 dCT3lGz8AUlHYKeAGpZat5vjfKljd6ugMgZvQEp5nJ5MqDUF2f1lRyZkqa1bk3JdUnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB80B606A32E;
-	Mon,  2 Nov 2026 08:12:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB80B606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxD9PyRehqTngbAA--.13991S3;
-	Mon, 02 Nov 2026 16:12:34 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJAx3c7vRehq5cwxAA--.37701S3;
-	Mon, 02 Nov 2026 16:12:33 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: bpf@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v1 1/2] selftests/bpf: Handle EOPNOTSUPP gracefully in test_loader
-Date: Mon,  2 Nov 2026 16:12:29 +0800
-Message-ID: <20261102081230.7063-2-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20261102081230.7063-1-yangtiezhu@loongson.cn>
-References: <20261102081230.7063-1-yangtiezhu@loongson.cn>
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oDr4wuMZ;
+	arc=none smtp.remote-ip=91.218.175.188
+Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EB6606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3EB6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oDr4wuMZ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JQs5O3d34CnsWeVGB2NdzABlZw7PWL1Nim0bgD3pMKQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793607193; v=1; x=1794211993;
+ b=oDr4wuMZMH5849UzJ1/G4QumPUQjvw/U32C1N5y/WbL9FgfQSCOux6E4MqPojonTH5G4EwN5
+ Q7jAWb74cHew43NTnG2p3yerHs4ulDpIQsZDV1Pb2ATTBYplEveMm7082vQGo9iqbY2ZgEE7SC6
+ hGpLM14yZZOB5QUvvi6p5KPg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e2abdf9b3fa2c5ff;
+	Mon, 02 Nov 2026 08:13:13 +0000
+X-Mizu-Trace-ID: e2abdf9b3fa2c5ff
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b8595ed2-6e7a-48f1-8240-3d522776e378@linux.dev>
+Date: Mon, 2 Nov 2026 16:13:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +58,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] tcp: initialize send sequence numbers before
+ deferring TFO
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Yuchung Cheng <ycheng@google.com>, Wei Wang <weiwan@google.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261102035943.9700-1-qingfang.deng@linux.dev>
+ <bfbc4b3c-fe19-4070-97b4-4ff8ded06011@linux.dev>
+ <d6ba5426-fbee-49da-b18b-1419fd84fa0f@linux.dev>
+ <CAL4Wiio9VXUtGg4UrFFU1kG2JENYL8xi0DzsDmhOp=zXs0DiUg@mail.gmail.com>
+From: Qingfang Deng <qingfang.deng@linux.dev>
+In-Reply-To: <CAL4Wiio9VXUtGg4UrFFU1kG2JENYL8xi0DzsDmhOp=zXs0DiUg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx3c7vRehq5cwxAA--.37701S3
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7KFW3Aw4DXr1rtr4xJFy7Jwc_yoW8ury7pa
-	92gF4jkrZ2q3WS9a1UXa1DGFWFyF4kGFy3Kr1rWrs5Ars8JFn3tr1fta4agFn5GFZ3Z3Wr
-	uasFyF4rZF17JFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Fb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v2
-	6r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
-	CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF
-	0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
-	AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
-	KfnxnUUI43ZEXa7IU8XyCJUUUUU==
 
-When loading a BPF skeleton program via test_loader, certain test cases
-such as jit_insns/cast_to_user may fail if the underlying hardware lacks
-specific execution extensions required by newer features like BPF Arena.
+On 2026/11/2 16:00, Eric Dumazet wrote:
+> Le lun. 2 nov. 2026 à 08:41, Qingfang Deng <qingfang.deng@linux.dev> a écrit :
+>> On 2026/11/2 14:11, Jiayuan Chen wrote:
+>>> On 11/2/26 11:59 AM, Qingfang Deng wrote:
+>>>> TCP_FASTOPEN_CONNECT can return from connect() before tcp_connect_init()
+>>>> when a cached cookie or cookieless Fast Open allows deferring the SYN.
+>>>> At this point write_seq contains the initial sequence number, while
+>>>> snd_una and snd_nxt have not been initialized to that sequence number.
+>>>>
+>>>> Consequently, inet_diag and /proc/net/tcp{,6} report the initial
+>>>> sequence number as the send queue length despite no SYN or payload being
+>>>> queued.
+>>>>
+>>>> Initialize snd_una and snd_nxt to write_seq before marking the
+>>>> connection as deferred. Both sequence-based queue lengths then remain
+>>>> zero until the first write starts the connection and runs
+>>>> tcp_connect_init().
+>>> This patch looks good to me. But idiag_wqueue can still go negative
+>>> on the normal connect path, since the socket is already hashed and
+>>> diag does not take the socket lock. We always set write_seq first,
+>>> then init snd_una later:
+>>>
+>>>     tcp_v4_connect
+>>>       WRITE_ONCE(tp->write_seq, st.seq)
+>>>       tcp_connect
+>>>         tcp_connect_init
+>>>           WRITE_ONCE(tp->snd_una, tp->write_seq)
+>>>
+>>> Can you try this instead?
+>>>
+>>>     r->idiag_wqueue = READ_ONCE(sk->sk_wmem_queued) ?
+>>>                       READ_ONCE(tp->write_seq) - READ_ONCE(tp->snd_una) : 0;
+>> This does not guarantee the load order on a weakly-ordered CPU. LLM
+>> suggests using this load-acquire/store-release sequence:
+>>
+>> r->idiag_wqueue = smp_load_acquire(&sk->sk_wmem_queued) ?
+>> READ_ONCE(tp->write_seq) - READ_ONCE(tp->snd_una) : 0;
+>>
+>> Then in tcp_connect_queue_skb(), replace sk_wmem_queued_add()
+>> with smp_store_release():
+>>
+>> /* Paired with smp_load_acquire() in tcp_diag_get_info(). */
+>> smp_store_release(&sk->sk_wmem_queued, sk->sk_wmem_queued + skb->truesize);
+>>
+>> What do you think?
+> Please do not do this.
+>
+> /proc/net/tcp and inet_diag dump sockets without holding the socket
+> lock. They provide a best effort snapshot, and transient inconsistent
+> values are expected (see the comment about rx_queue in get_tcp4_sock()).
+>
+> The window in tcp_v4_connect()/tcp_v6_connect() is a few usec, with the
+> socket lock held by the caller. Adding memory barriers in the TCP stack,
+> on a field updated in many places, to cover this is not worth it.
 
-Now that arch-specific JIT backends can dynamically report these missing
-hardware extensions by returning -EOPNOTSUPP during object loading, the
-user-space testing should handle this gracefully rather than treating it
-as a generic loading failure.
+tcp_connect_queue_skb(), as the name suggests, only queues the 
+connecting SYN. So this adds a small setup cost on weakly-ordered CPUs 
+(on x86, smp_store_release degrades to a compiler barrier).
 
-Check the errno of bpf_object__load() to evaluate whether a load failure
-originates from an unsupported platform capability (errno == EOPNOTSUPP).
-If true, cleanly detour execution via test__skip() and branch to cleanup.
-This allows test_progs to mark the test status as SKIPPED rather than
-logging a false-alarm failure if the feature is not supported.
+If strong memory ordering is not required, do you prefer Jiayuan's approach?
 
-Before:
-  $ sudo ./test_progs -a jit_insns/cast_to_user
-  ...
-  libbpf: map 'arena': failed to create: -EOPNOTSUPP
-  run_subtest:FAIL:unexpected_load_failure unexpected error: -95 (errno 95)
-  ...
-  #193/2   jit_insns/cast_to_user:FAIL
-  #193     jit_insns:FAIL
-  Summary: 0/0 PASSED, 0 SKIPPED, 1/1 FAILED
-
-After:
-  $ sudo ./test_progs -a jit_insns/cast_to_user
-  #193/2   jit_insns/cast_to_user:SKIP
-  #193     jit_insns:OK (SKIP: 1/33)
-  Summary: 1/0 PASSED, 1 SKIPPED, 0/0 FAILED
-
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
- tools/testing/selftests/bpf/test_loader.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/tools/testing/selftests/bpf/test_loader.c b/tools/testing/selftests/bpf/test_loader.c
-index d24e4fedae46..021818afbd3b 100644
---- a/tools/testing/selftests/bpf/test_loader.c
-+++ b/tools/testing/selftests/bpf/test_loader.c
-@@ -1474,6 +1474,10 @@ void run_subtest(struct test_loader *tester,
- 			goto tobj_cleanup;
- 		}
- 	} else {
-+		if (err < 0 && errno == EOPNOTSUPP) {
-+			test__skip();
-+			goto tobj_cleanup;
-+		}
- 		if (!ASSERT_OK(err, "unexpected_load_failure")) {
- 			emit_verifier_log(tester->log_buf, true /*force*/);
- 			goto tobj_cleanup;
--- 
-2.42.0
-
+>
+> The bug you found is different: with deferred TFO, the bogus values stay
+> forever, until the application calls sendmsg(). Your v1 fixes this.
+>
+> Note that tcpi_notsent_bytes (tcp_get_info()) is also fixed by your
+> patch, you might mention this in the changelog. Not a big deal if you
+> do not want to send a v2.
+>
+> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
