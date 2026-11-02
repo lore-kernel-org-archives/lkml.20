@@ -1,54 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793610931;
-	b=ui0ZwU+9f2+yLah0b1nrud1EF+bKgK799r5SjMnSWJ1WqExg502wwVUESSyuxhbJxy9C
-	 jiEyZVICh0JbKKkmYyLWcupIOInoAnBGdgy1ZCXdexv9G/rvCweUuVVGdgMjcfkt64qDP
-	 XzcyN8PkhuYlEw/2lL5VcOuYoVWAKK6flCIY47AqJBXSb4XZloP8U53Buha3NNn87cNZ0
-	 ClnF8i8Kfuhj9tO2HVAf7xlwPYP+O1bP+ccv+jPJEmLlsZHshS0qVL3uKQGYlRPEAkKRx
-	 RoLU04cE10THIDKzCUWe1J5MSir07wFctCRo/I/r5/7bC98dTaJFoGkK35Ts2JiByGw==
+	t=1793610933;
+	b=pQgHHjvMDYXjLbbvgg2UX7GGJLlBxNceizqj/mLEY7I03IbeKNB7A34IIGw6WN8V7ayj
+	 NwgKu4WDumKi2bPF5GCJkJHmksNqifke4WIMaPzORuPbEAqtyzFAVv9APaZee6wBIW0lL
+	 LAGnDnziUpKJ3FN+nOjQNAqRz25+vhLxQ887/6WPCvgB+NdW8GqXwdaFpKV1kEMD1lRWh
+	 wSrZpV2BnX5LkKZRjG58xOwtCVUAQ6ae3Wtg1V+6kKEGEu5QN71rtYdf6UvjyktzsH8B9
+	 LG3T3Fg9l3hZII8QTw6G+pO0JTCl0HsYZGqwnWj0qnQbWADibsuufq9yEZLWcaGypbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793610931;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=BsXw+czBIaD5ahRcLhBvUcJXLDKn9snEMWTHOIglfVg=;
-	b=GOmpzJmWMcphfTM6Y27r+ig11/PpehSSRBZfHVho88PlOofhUfqvKW2WBA32Fr2Osog0
-	 5D18QmzjfjjDKK34MHmpTemRml8CGUNEKicyfZ4I9PczZnI07guLHd8O/0TV/q29KGE4l
-	 jb5kc6ixazGbOegSgQOtAMDGCQ3HTZTxvUQ0dHbwXSxlkQP+thrc/606hjPshDHB2z9ii
-	 IzDGBPKYAFLQ8BVRB165Rb9dqDNYFg4FpSb9bhVP7yc7qpSWkB6pHET78wuG469MVRbVd
-	 MkIg7V1tYdt5i3fbytq6BINdD+8EKLUd8R5q4XToLMzo3ImfGmhhucG9cg865lEMRzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793610933;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=ac+xpJrvd6zfAE97WIurl+pYtHzF00Lzr1WG7VTrgAw=;
+	b=AHIORMVg3Um5sGwZMAtrfY4F9K8Zv76ZofAM/wsVg1TFTUdL88xNZ1cHtq5RStfoL9Jo
+	 4VbqUTVcywOHYzxnBIl+OCQiHlrDwEg48bap7RDXZLnMPagt/IZ4O2+Riz4cdQDRmHqL4
+	 61mO8PlIWFsd3X6WgL8LS+5axZrnG/MiozfnFVPsYn4mxvVNzmzs3ffnl9UF1NSOVf6FF
+	 o/FrBxOhcxx23KvCyyOUOqJgpUGiHNU+HxIah8W3+4SLlbJ2flkS9QWA/Ji5WctFVdy4G
+	 tNB8OMRyNWmLKG/lPeXV5vAAagHSRpGT2kd+AgnQVoFgC0WYE/IrVLzUL5lgYtzDwYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=N3zh5s1o;
-	arc=none smtp.remote-ip=95.215.58.134
-Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.219.43
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1A2606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:15:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A1A2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=N3zh5s1o
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=E9eY0rmbdkTqFFfuwggONOMkeaiFYztsdlVJOi00Sbw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793610928; v=1; x=1794215728;
- b=N3zh5s1oYmiFhYt2aLg1o0jd/05WJ0tXLnmb1UBCQoEWyPkD2uOpj2rj+q/vQk1s4W8+r0ZN
- C5nTXmMzbwRM6BuEfk33j5WyCbguczy3cZRah0Zgm2wbwX9i8GHpW22i188PSVxcd024d+qHdfw
- GgtLIjA9fLi0LbC4pgt2puB8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id c8e4aa2d386a5ce6;
-	Mon, 02 Nov 2026 09:15:25 +0000
-X-Mizu-Trace-ID: c8e4aa2d386a5ce6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <be048b16-c286-4d1c-9539-7ae4a322f0d7@linux.dev>
-Date: Mon, 2 Nov 2026 09:15:24 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25D0606A337
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:15:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E25D0606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91c79a9a739so45586036d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:15:32 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793610932; x=1794215732;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ac+xpJrvd6zfAE97WIurl+pYtHzF00Lzr1WG7VTrgAw=;
+        b=AmkmzURFUqsvblMmhyBQDrrAdTJRASwcddfOG6hUrXW5Qgs/meUuo2QRZiLzsfl7wI
+         02mYGJPu/8n0GfvIVskJMNDW452hX24Q7fMrU0bNKbWxNOTHwmt2M3AW43tZon4Tg8CI
+         raLTQi6GN70A+ocoRHKQewRADNKseM9LjCc5k4mdt676+x6ZXqZDIgubi6M7bFooOYn5
+         wA6pShC6QP5FMZC7r6VTzkdjz4myQ8raUfuJYkp19Z7FQVhNrcVuIdo2AOmV+TTAVPF9
+         MKxrqtzPKOUPbaBp17L3HJOORfpZ2uwVoNxCgYv/Qv+RElI5F+wr8vYlNHlnLmVfe8Zy
+         IDwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKccUXmZ7w6N47M/rpZ6Bw2BiimruRfcAF7PgmpBBLhNzaUTXle9s0kXqcpeEw6kjmul38zU7Dq3a403w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+30iDOZ3i3pZkvnv5abNfDLJ9GP+SyWrBAoJF0sU5Vg/px6Alt
+	SZdOan0e+xT/5wTzSk73DGgnVHRpnLCheZymt2LHskKW9y0FesXN38dp1vCIriVI
+X-Gm-Gg: AYBFou0Hys2SXR2pwX6Wbqhb0ImBXHd4LYpczl336J5DMCxsCwp1KhJ7SA5RT9hWgu4
+	Ua4DO/ybyPd5q7yjA2MBCaaZlWkJRjsUsGylqdgCjvRjRPFQ3p9gidDwtIdI/yN8fZU433CMWVm
+	oj3aKH7SHV0yo4n5DYhyPyzysaq4sNCh9mE5r+Pnrti4cIRmEQRS5/E+pCZrxL3zi6tg68vKYLv
+	6FDr8BYnlBe68Ayp9LNwDgAQ3d0KTUMGhZvPX+5R6DU4SQpMt4MiCikiQ9wi8yzTYiouYnhBOa4
+	GHfg6OdQT93a9KssJHmJnsunwfFg4mqhY2UnDs9cW1amr27TiroDNV3pynEkwq9lwNjn0iWW9TW
+	iwgNUUIiwHT8LD02VFWSvetz/ZXFzSaMwD35sIZIvDOBlLtJtXHKS3q+4Vf73aTcV3XuNUhzk/T
+	0pI8xi1Op0owF5nZUKdrthrMmLuafAOcaIBS6KtUcyW0Fiu1X1vVmXSZzy+CL7cJePo9S6gHId1
+	UzM2Du7dyLhAAyWTXRq14LuK44H7GjpTIt5AgSYg2a6wvQPQfNkp4BLJCbPuhnvGs4877W2b8Mj
+	e1efccCY83+OIINoBF75/JCdLZ9dhDkGJ+T+NGV1xi7QegLSvaVk/UWRcbUVIcR25oppPg==
+X-Received: by 2002:a05:6214:4403:b0:91c:8a64:d0ce with SMTP id 6a1803df08f44-91ca4b2f483mr144465126d6.33.1793610931776;
+        Mon, 02 Nov 2026 01:15:31 -0800 (PST)
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com. [209.85.160.172])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f47685sm87556356d6.18.2026.11.02.01.15.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 01:15:31 -0800 (PST)
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-533778ab0bdso41476951cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:15:31 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzO3DDXA+f4ert3lCq1kobOSwrDFKzSsqiEuDfauohjqvimupCNbT/7h9ra2z4B9X7QRpQ06bUsPrIUAYs=@vger.kernel.org
+X-Received: by 2002:a67:f403:0:b0:7d0:9587:1b90 with SMTP id
+ ada2fe7eead31-7d0958732b2mr1205111137.13.1793610463593; Mon, 02 Nov 2026
+ 01:07:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,165 +80,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme: Do not drop the cdev reference twice when
- cdev_device_add() fails
-To: Yuqiang Sun <izaiahsun@gmail.com>, kbusch@kernel.org, hch@lst.de,
- sagi@grimberg.me, axboe@kernel.dk
-Cc: nilay@linux.ibm.com, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261101173400.98931-1-izaiahsun@gmail.com>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20261101173400.98931-1-izaiahsun@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+ <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-3-e052903a3832@ideasonboard.com> <20261030220549.GH3178046@killaraus.ideasonboard.com>
+In-Reply-To: <20261030220549.GH3178046@killaraus.ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 2 Nov 2026 10:07:31 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdX1czCW_KTW8Z+_jb3egLxqBu7bOUmqyXy3PqYhmUfLNg@mail.gmail.com>
+X-Gm-Features: AclHuK-1v1dRSgyK1HeeK29l-3g4aKIGNPop6k2nHA1eLryORdmauRDpRhHjRsM
+Message-ID: <CAMuHMdX1czCW_KTW8Z+_jb3egLxqBu7bOUmqyXy3PqYhmUfLNg@mail.gmail.com>
+Subject: Re: [PATCH DNI v3 03/15] pmdomain: renesas: r8a78000: Add maps for
+ VIO for SCP FW SDKv4.36
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Paul Elder <paul.elder+renesas@ideasonboard.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/1/26 17:34, Yuqiang Sun wrote:
-> Since commit 9952f3882ecb ("nvme: fix cdev lifetime"),
-> nvme_add_ns_cdev() and nvme_add_ns_head_cdev() take a reference to the
-> namespace (or namespace head) before calling nvme_cdev_add(), to be
-> dropped by the char device's release, nvme_cdev_rel(), and drop it
-> themselves when nvme_cdev_add() fails.  But when cdev_device_add()
-> fails, nvme_cdev_add() has already put the device, and nvme_cdev_rel()
-> has already dropped that reference: the caller drops it a second time.
-> 
-> The namespace (or head) is then freed while it is still in use.  With
-> one allocation failure injected into cdev_device_add() for a namespace
-> on an NVMe over loop controller, deleting the controller gives, with
-> native multipath:
-> 
->    BUG: KASAN: slab-use-after-free in nvme_put_ns_head+0x21/0x140
->    Write of size 4 at addr ff1100000a4ea078 by task init/1
->     nvme_put_ns_head
->     nvme_put_ns
->     nvme_remove_namespaces
->     nvme_do_delete_ctrl
->     nvme_delete_ctrl_sync
->     nvme_sysfs_delete
->    Freed by task 1:
->     kfree
->     nvme_ns_remove
->     nvme_remove_namespaces
->    refcount_t: underflow; use-after-free.
-> 
-> and without it, a use-after-free of the namespace in
-> nvme_mpath_clear_ctrl_paths(), the namespace having been freed by the
-> last close of its block device, followed by a general protection fault.
-> 
-> Take the reference in nvme_cdev_add() instead, right before
-> cdev_device_add(), so that it is held exactly while the device can be
-> released, and let the callers neither take nor drop it.  The earlier
-> failures in nvme_cdev_add(), ida_alloc() and dev_set_name(), return
-> before the device is initialized and so before the reference is taken.
-> 
-> The problem was found with kbound, a static analysis prototype that
-> checks whether callers rely on an object after a callee returns a value
-> for which the callee may have released it, on v7.2.12; it is present
-> in mainline.
-> 
-> Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
-> warnings.  Run-tested on QEMU (x86_64, KVM) with KASAN: a loop target
-> exporting a null_blk device, connected through /dev/nvme-fabrics, with
-> failslab failing each allocation under nvme_cdev_add() in turn, with
-> nvme_core.multipath=N and Y.  Before this patch, every failure in
-> cdev_device_add() (7 of 7 with each setting) gives the reports above;
-> with it nothing is reported, also with lockdep and kmemleak, which
-> finds no leak either.  A failure in dev_set_name() gives no report,
-> before and after.
+On Fri, 30 Oct 2026 at 23:05, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Thu, Oct 15, 2026 at 04:51:43PM +0900, Paul Elder wrote:
+> > Add maps for VIO for the VSP and FCP power domains and reset domains.
+>
+> s/reset domains/module control/ as its not just reset (and there's no
+> "reset domain") but also module control clock ?
 
-Please ensure that you test my original issue reported. I am not sure if 
-I added a blktests case for that...
+FTR, SCMI calls it "reset domain", but I agree "module controle" fits
+better here.
 
-BTW, I think that the most of the text after the KASAN stackframe, 
-above, is unnecessary.
+Gr{oetje,eeting}s,
 
-> 
-> Fixes: 9952f3882ecb ("nvme: fix cdev lifetime")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
+                        Geert
 
-Apart from small comments:
-Reviewed-by: John Garry <john.garry@linux.dev>
 
-> ---
-> 
-> Notes:
->      The bug was found with kbound, a research static analysis prototype.
->      The patch, the changelog and the test setup were written with the help
->      of an AI coding assistant (Claude); I have reviewed and tested them as
->      described above.
->      
->      The runs were on next-20261030; the code this patch touches is the same
->      there and in mainline, which it is based on.
-> 
->   drivers/nvme/host/core.c      | 13 +++++++++++--
->   drivers/nvme/host/multipath.c |  2 --
->   2 files changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index af71d02b8476..f9d23e9d35ec 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -3978,6 +3978,17 @@ int nvme_cdev_add(struct cdev *cdev, struct device *cdev_device,
->   	device_initialize(cdev_device);
->   	cdev_init(cdev, fops);
->   	cdev->owner = owner;
-> +	/*
-> +	 * Held for the lifetime of the cdev and dropped in nvme_cdev_rel(),
-> +	 * which also runs when cdev_device_add() fails.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-I think that "which also runs when cdev_device_add() fails" becomes too 
-verbose.
-
-> +	 */
-> +	if (cdev_device->parent->class == &nvme_class)
-
-We have this check twice now. You could put this in a helper at this 
-point, named like nvme_is_ns_cdev(). This would make the check clearer.
-
-> +		nvme_get_ns(container_of(cdev_device, struct nvme_ns,
-> +					 cdev_device));
-> +	else
-> +		nvme_get_ns_head(container_of(cdev_device,
-> +					      struct nvme_ns_head,
-> +					      cdev_device));
->   	ret = cdev_device_add(cdev, cdev_device);
->   	if (ret)
->   		put_device(cdev_device);
-> @@ -4010,13 +4021,11 @@ static void nvme_add_ns_cdev(struct nvme_ns *ns)
->   {
->   	ns->cdev_device.parent = ns->ctrl->device;
->   
-> -	nvme_get_ns(ns); /* Undone in nvme_cdev_rel() */
->   	if (nvme_cdev_add(&ns->cdev, &ns->cdev_device,
->   			&nvme_ns_chr_fops, ns->ctrl->ops->module,
->   			ns->ctrl->instance, ns->head->instance)) {
->   		dev_err(ns->ctrl->device, "Unable to create the ng%dn%d device\n",
->   			ns->ctrl->instance, ns->head->instance);
-> -		nvme_put_ns(ns);
->   		return;
->   	}
->   	set_bit(NVME_NS_CDEV_LIVE, &ns->flags);
-> diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-> index 9e0a0fd77c56..ae8059366b57 100644
-> --- a/drivers/nvme/host/multipath.c
-> +++ b/drivers/nvme/host/multipath.c
-> @@ -681,14 +681,12 @@ static void nvme_add_ns_head_cdev(struct nvme_ns_head *head)
->   {
->   	head->cdev_device.parent = &head->subsys->dev;
->   
-> -	nvme_get_ns_head(head); /* Undone in nvme_cdev_rel() */
->   	if (nvme_cdev_add(&head->cdev, &head->cdev_device,
->   			&nvme_ns_head_chr_fops, THIS_MODULE,
->   			head->subsys->instance, head->instance)) {
->   		dev_err(disk_to_dev(head->disk),
->   			"Unable to create the ng%dn%d device\n",
->   			head->subsys->instance, head->instance);
-> -		nvme_put_ns_head(head);
->   		return;
->   	}
->   	set_bit(NVME_NSHEAD_CDEV_LIVE, &head->flags);
-> 
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
