@@ -1,55 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793659927;
-	b=KcxLyA90VN1H7V2+jwZA/BmYXeF1YzeJe5hgs8SdJ4aFYD92rQlnS3VoHqC0JhIdGuGy
-	 jZWcFFANxH6uDre6e16Dvfr0eRAMCAsvzUE5CQWE0BGyZL7A/5S1VR19phK3q6wdhi3Ep
-	 y/83sOFXcxsn4lAc2jsfVKG1/XCZD9QlV+DVCbCNbSX8F4ciK3Cc6NRHFPgOWsUuF8TSh
-	 2svHpYXrgTJpBkUkvhCsdTjG0TH3RgKH11Z+CbIwuf++9bZNtE6LLDqKrgMjG6MAdUCa/
-	 ex6TGwsKloLlMgujQz6yh3eu5Bx3vlpel+ZZu2O3BiMN7VhoAQuwfeIgQ0iEwqY4mTg==
+	t=1793659938;
+	b=Un4pRJWArI1WWSebSCqToH5NxZMOK4KFJcvz87bQqBnkHWsoCB6Obs/D7R5rkz4BGhUw
+	 S9y1OdwNKrEX+qHr9S1zcoewW1ISEMI6RGsXrWg0Jj5NIIlRV0F57svbuNUTXy5KC16P4
+	 T9uSWm4IqX6yq5eVCv5OYEG9TPWAfnxnEzlb4NanZRwzB+Rq6Cf8hUbwKT8UkeU8O6qhZ
+	 rRmR7UO0+oaKZBC5mOqIiHMZQQaCz+hvoho2H26WK470saWNB0jLKg4rCAxgEBpmV496v
+	 Z2G2ooovNxDm23vjQPeq0urfPBJqEtAs1Cnl5BR0y9jO8yACIYliYSVCOZWTcQ88IjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793659927;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OtNEE3ZW3uw4w0YqrDkfOK6Bbaypb22ED6pu823ifGQ=;
-	b=PN1MEPcQJH4sK5bfBcL91BIadA/2lEn9NCWJcqAhDI7CeE1flfR1OBi+fzomXbJjwIfO
-	 u4wvv6UxaQc+1TzriSpWCByhUk7bSB0LFAkjoguPzJ2DG+KsVBLjJNS7J4HsN4/jnahfx
-	 qJx6KTFtpjAa5RTQtaSjHWyzysx+u9iUlRdLknhwSVJrbHWlJprP8z5vLt1mP8CKfBIEJ
-	 BZ62IV5HCyKCeow0AVe4V3dyiA69WVLK6HV8R1caNvNLqZTm5YdQ57dVLk0Y/07Hcdq8l
-	 4b5ChYtN582j4QpOZLCtS3q+j3pSrdMQqHd6m9MZGQwIFDxgbP+9ZumnOS6R3srDyhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793659938;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4lfvLxZU2+QNlhQ5TIQ/WB48GBF4osf/Z52ednXK17E=;
+	b=pVPwrz+uI5XlCQLIIhsW3CfD4zZUDOnxhJ8Rm8tgDhfmqoJOFy8qu5g7pjdWeKgsgD6y
+	 UN2S9JfyQ7tzYhSIEC9ZLfhbjkHwX0rg+pgvnbK67QklRlgf6CCJQJdJjYXIDuvdzI1N4
+	 ZiAxh2m+ODNFjDZJ7Ui3RVfs7u5vHpnZgRpLezcgHee/7fyNW3wwtK9fHLwLsyziHiCcQ
+	 xXJ0vgraf+r87puZFoDbkgmsoDgAjsWSePQAyS8cPp0sia34mG/f0COkc+g5Hu0aDpRyt
+	 G2L6DlNTkhfiyBZg457lINJ2gbgXrtu1zxZVfgyPZ+Y8coSIBVfPyvCVyZVtNuSU6QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STricPRH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=justthetip.ca;
+	spf=pass smtp.mailfrom=justthetip.ca;
+	dkim=pass header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=AiL0PcZc;
+	arc=none smtp.remote-ip=91.218.175.48
+Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AC5606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:52:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2978606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2978606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STricPRH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A162B1F00A1E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793659926;
-	bh=OtNEE3ZW3uw4w0YqrDkfOK6Bbaypb22ED6pu823ifGQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=STricPRHGSs6TitDw728rcmtjh69ZjP6E5Jr8WXLVTfCoZ61sFNPSl5kjiue5hO3j
-	 2Ot32N42otnZkA5nfc+yblJB+h/UMJCYUqqFsa7CzWMyQV2xDG0UNm6WVi736B3qm7
-	 xXDRIY0+AkxINmGcMPazhWG9Nl8ay0PIDqMCvSrXidTI6URt9zLvMU5THdtBpl0qOC
-	 PcCtwdr7vD1i/UwgdGeskZ+rnIFe8BuY/akgMlY6kxHqL4YMJymQ6HxTO7Pydeqolv
-	 lWJ2PHLZk4lBsW9dKcxPzINM809nTR/bWCznGU/8o7kk9cj0dGw7id2aC9t8dQDsRZ
-	 Eb1A8iDQQM3AA==
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so4916157a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:52:06 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwVjv8BdvkkThaAtTrxAib7bz4K/VdQrr7GbDiIdyixtrvH9Go6hz0rp7JbOUSy5ReW2UxpEWMyZWpZdrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLat+u0Azy/i1IEr38C5I0VFv04aQ4nR5KKnLPu1a3kzj6A3qoO
-	FLLi7EvPuPCtuuMHVqKXy+S5uI6mGlkhntYkWhUWCxyEp0JJ85YiBehRt/CORvzun3zRClXXtbu
-	iR3OxFIiXehPt30zY1NzentQxEOX+dTM=
-X-Received: by 2002:a17:906:ee8b:b0:c3e:f39b:2286 with SMTP id
- a640c23a62f3a-c4ca740be5fmr894588966b.0.1793659925605; Mon, 02 Nov 2026
- 14:52:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=AiL0PcZc
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pUTCvzdg+v4gmfitrml4BUgXdrrwNA7eRDpocfMXH+k=;
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793659927; v=1; x=1794264727;
+ b=AiL0PcZcCt5LpvrEo90hbXS/TKY20LkKyIlTeeck6SyRpgx1hrwE1hLS4Gkl76Fw6aFOctyc
+ qH3h/4VjvQ9hQSrc6MdDBKkHrGn2DdL8ETM8EL93d+NFj0PMgcFYHZ4iqG9Cb5bDGW2dIJPId4b
+ RsXTjniZpXDCdh4aFvSGgtkeySfXN4KVG5TvDr9LWPDrwqGcf6zD+KMvEaTjLC21fjR1XX280i9
+ +m8VW7hBEnqwgziQuaaNfAc8KgeE02GobIo4vDEaDh2H7w6SH19aFaztr8eTJ2wzcZPX87vyJsU
+ GgkQUaZCdoa5/W9LvLwuqYqijAbliFc3b50oPbWIEhklQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d92317b42c0e722c;
+	Mon, 02 Nov 2026 22:52:07 +0000
+X-Mizu-Trace-ID: d92317b42c0e722c
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Cc: Deren Wu <deren.wu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	JB Tsai <jb.tsai@mediatek.com>,
+	Xiong <xiong.huang@mediatek.com>,
+	Charlie-cy Wu <charlie-cy.wu@mediatek.corp-partner.google.com>,
+	Quan Zhou <quan.zhou@mediatek.com>,
+	Eason Lai <eason.lai@mediatek.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless] wifi: mt76: mt7921e: fix unregister deadlock
+Date: Mon,  2 Nov 2026 15:52:00 -0700
+Message-ID: <20261102225200.16172-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <aujjJPq-Qth7UyMp@casper.infradead.org>
+References: <aujjJPq-Qth7UyMp@casper.infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,157 +80,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-12-zide.chen@intel.com>
- <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
- <auUQgRVFASkWtkoK@google.com> <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
- <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
- <6c9a13c9-e6c1-4540-a8ca-1f0e800f3571@intel.com> <CAO9r8zOWzr61pkkF01AvEp+YSOo6bA1N=L91RYiM=ETtK5+D9w@mail.gmail.com>
- <69c428d7-239a-485e-9494-32b8aa82da05@intel.com> <CALMp9eRsR8xaUmQyVu5QmYx1cZ2qFGGk+31bMymhmN9_iaPuMg@mail.gmail.com>
- <f7213eba-5b61-4514-a315-bce64823fad5@intel.com>
-In-Reply-To: <f7213eba-5b61-4514-a315-bce64823fad5@intel.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 2 Nov 2026 14:51:54 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
-X-Gm-Features: AclHuK_2rBhHLL0tYLOP9nLQiYxSAqJwaA8XVvekSHYFiqb69UryMmLey5Dw9Ps
-Message-ID: <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-To: "Chen, Zide" <zide.chen@intel.com>
-Cc: Jim Mattson <jmattson@google.com>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 2, 2026 at 2:48=E2=80=AFPM Chen, Zide <zide.chen@intel.com> wro=
-te:
->
->
->
-> On 11/2/2026 4:25 PM, Jim Mattson wrote:
-> > On Mon, Nov 2, 2026 at 2:13=E2=80=AFPM Chen, Zide <zide.chen@intel.com>=
- wrote:
-> >>
-> >>
-> >> On 11/2/2026 3:36 PM, Yosry Ahmed wrote:
-> >>>>>>> 1. GLOBAL_STATUS_TRACE_TOPAPMI_BIT can leak from the host into th=
-e
-> >>>>>>> guest. If a host PT PMI arrives while the guest context is loaded=
-, bit
-> >>>>>>> 55 will be set for the guest, and the guest won't be able to clea=
-r it if
-> >>>>>>> OVF_CTRL is intercepted (it will #GP as it is reserved for the gu=
-est).
-> >>>>>>> Similarly, the value can't be restored through KVM_SET_MSRS.
-> >>>>>> I think mediated vPMU assumes that no host PMIs can be generated w=
-hile
-> >>>>>> guest PMU state is loaded.
-> >>>>>>
-> >>>>>> If PT state can leak into the guest via bit 55, similar leakage ca=
-n also
-> >>>>>> occur for other status bits, e.g. when the guest exposes fewer
-> >>>>>> general-purpose or fixed counters than the host.
-> >>>>>>
-> >>>>>> The scenario where both host and guest can be active simultaneousl=
-y is
-> >>>>>> handled by the perfmon_mask case, where intel_mediated_pmu_{load,p=
-ut}()
-> >>>>>> filter guest-owned status bits.
-> >>>>> Looking at the code:
-> >>>>>
-> >>>>> kvm_mediated_pmu_load() -> perf_load_guest_context() ->
-> >>>>> perf_ctx_disable() will iterate PMUs with for_each_epc() and disabl=
-e
-> >>>>> them, which skips PMUs without PERF_PMU_CAP_MEDIATED_VPMU.
-> >>>>>
-> >>>>> Same for kvm_mediated_pmu_load() -> perf_load_guest_context()
-> >>>>> ->ctx_sched_out(), it also uses for_each_epc() to iterate PMUs and
-> >>>>> schedule them out.
-> >>>>>
-> >>>>> pt_init() does not set PERF_PMU_CAP_MEDIATED_VPMU on pt_pmu.pmu.cap=
-abilities
-> >>>>>
-> >>>>> Please correct me if I am wrong.
-> >>>> My apologies, this bug is indeed real because pt_pmu lacks the
-> >>>> PERF_PMU_CAP_MEDIATED_VPMU capability.
-> >>>>
-> >>>> Adding this capability to pt_pmu seems intuitive, but unlike
-> >>>>
-> >>>>                        the core PMU (which merely toggles enable bit=
-s),
-> >>>> Intel PT is an AUX-based PMU. Stopping and restarting it on every VM
-> >>>> transition is heavier, and I'm not sure whether it could introduce a
-> >>>> noticeable performance penalty.
-> >>>>
-> >>>> However, whether the solution is adding PERF_PMU_CAP_MEDIATED_VPMU o=
-r
-> >>>> some other mechanism to enforce mutual exclusion between pt_pmu and
-> >>>> mediated vPMU, we can address that in a separate patch.
-> >>>>
-> >>>> To immediately protect guest state and live migration in this series=
-,
-> >>>> I'm thinking of adding the following defensive filter in
-> >>>> intel_mediated_pmu_put():
-> >>>>
-> >>>> + /*
-> >>>> +  * Scrub bits that are not virtualized for the guest to prevent
-> >>>> +  * possible host state from leaking into guest state and breaking
-> >>>> +  * live migration.
-> >>>> +  */
-> >>>> +  pmu->global_status &=3D ~pmu->global_status_rsvd;
-> >>> This doesn't prevent the leakage, it just clears it on the guest->hos=
-t
-> >>> switch. So it helps live migration but I am not sure if it's better o=
-r
-> >>> worse if the guest sees the bit unexpectedly appear AND then
-> >>> unexpectedly disappear.
-> >> Right, as long as the GLOBAL_STATUS is passthru, the leak can't be
-> >> prevented.
-> >>> We can clear it when the MSR is read by userspace, which should fix
-> >>> live migration, but the guest will still see the bit, and it will
-> >>> still disappear unexpectedly but only during live migration.
-> >>>
-> >>> The guest still won't be able to clear it when OVF_CTRL is intercepte=
-d.
-> >> GLOBAL_STATUS and OVF_CTRL share the same interception policy. If they
-> >> are passed through, the guest can see the bit and clear it; if both ar=
-e
-> >> intercepted, then bit 55 can't leak to the guest.
-> >>
-> >> It's not perfect, but at least the guest won't observe bit 55 and then
-> >> get an unexpected #GP when attempting to clear it.
-> > I'm not sure what imperfect solution you are referring to, but Yosry's
-> > proposal that the bit gets cleared on a guest->host switch is a
-> > non-starter. MSR bits must not vanish unpredictably.
+Removing the driver can hang forever when the chip stops answering.
 
-I don't think I proposed this? :)
+Removal disables NAPI and only then waits for the reset work, which a
+failing chip keeps queuing. That reset disables NAPI again and never
+returns.
 
->
-> Agree, then maybe Yosry's suggestion is what we can do for now: filter
-> out unsupported bits when the MSR is read by userspace.
+Do what mt7925e does: mark the device removed once it is unregistered,
+so no new reset is queued, and cancel the reset work before disabling
+NAPI.
 
-This I did propose, but I also noted that the MSR bit will still
-vanish unpredictable, just on save/restore instead of guest->host
-switch, which should be better.
+Fixes: 3d78c46423c6 ("wifi: mt76: mt7921e: stop chip reset worker in unregister hook")
+Reported-by: Matthew Wilcox <willy@infradead.org>
+Closes: https://lore.kernel.org/all/aujjJPq-Qth7UyMp@casper.infradead.org/
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+---
+Reproduced on an MT7922 by putting the chip in D3hot under the driver:
+the same driver own and chip reset failures, then rmmod waiting in the
+same stack while the reset work is stuck disabling NAPI.
 
->
-> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-> index 38c7a4fa1007..3849b3f5234a 100644
-> --- a/arch/x86/kvm/pmu.c
-> +++ b/arch/x86/kvm/pmu.c
-> @@ -862,6 +862,8 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct
-> msr_data *msr_info)
->         switch (msr) {
->         case MSR_CORE_PERF_GLOBAL_STATUS:
->         case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS:
-> +               if (msr_info->host_initiated)
-> +                       pmu->global_status &=3D ~pmu->global_status_rsvd;
->
-> The underlying issue still requires proper mutual exclusion between
-> Intel PT and mediated vPMU, which I think can be addressed separately.
+  dead chip, rmmod                  result
+  6.18.52, in-tree                  hangs
+  mt76 03dd150dbd36                 returns
+    with this patch                 returns
+    75673ab3c0e4 reverted           hangs
+    reverted, with this patch       returns, 3 of 3
 
-Or maybe handle the host PT while the guest is running? Not sure if
-that would be correct.
+Since 75673ab3c0e4 the reset stops early when driver own fails, so
+current mt76 gets through a fully dead chip. That commit is not in
+v7.3, and any reset that gets as far as NAPI still hangs.
+
+This needs the removed check in the reset helper from 79941e85f4b3. A
+normal rmmod and a debugfs chip reset work as before.
+
+Matthew, thanks for the stack trace.
+
+ drivers/net/wireless/mediatek/mt76/mt7921/pci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/pci.c b/drivers/net/wireless/mediatek/mt76/mt7921/pci.c
+index f87c44f2a8b6..1ff219005d14 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/pci.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/pci.c
+@@ -52,11 +52,12 @@ static void mt7921e_unregister_device(struct mt792x_dev *dev)
+ 
+ 	cancel_work_sync(&dev->init_work);
+ 	mt76_unregister_device(&dev->mt76);
++	set_bit(MT76_REMOVED, &dev->mphy.state);
++	cancel_work_sync(&dev->reset_work);
+ 	mt76_for_each_q_rx(&dev->mt76, i)
+ 		napi_disable(&dev->mt76.napi[i]);
+ 	cancel_delayed_work_sync(&pm->ps_work);
+ 	cancel_work_sync(&pm->wake_work);
+-	cancel_work_sync(&dev->reset_work);
+ 
+ 	mt76_connac2_tx_token_put(&dev->mt76);
+ 	__mt792x_mcu_drv_pmctrl(dev);
+@@ -460,7 +461,6 @@ static void mt7921_pci_remove(struct pci_dev *pdev)
+ 		device_init_wakeup(dev->mt76.dev, false);
+ 
+ 	mt7921e_unregister_device(dev);
+-	set_bit(MT76_REMOVED, &mdev->phy.state);
+ 	devm_free_irq(&pdev->dev, pdev->irq, dev);
+ 	mt76_free_device(&dev->mt76);
+ 	pci_free_irq_vectors(pdev);
+-- 
+2.56.0
+
