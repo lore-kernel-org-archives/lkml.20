@@ -1,54 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606866;
-	b=GhRZ8iVlIwMC5JTzvpCXSf8ElzIZoyhEKC7XZ6UrKAPcJ9bajt9Mg7SMwLhowlYWSIQ6
-	 /JaKyKSCigSxnXR2nvAvCkzNfWRXXvpWczsPeq9tbjT5LaVFbu8BuihiH2FlaCOrz+79e
-	 65wv9WacMJJQ5U315aP6BfggDnGST3AmISPtOtICwG09ddx0bgOqLdjCYJa9ILRzmWPCB
-	 FFfQ73iIJ7iknrACeYbIYxUX2RF6o1NnT2x5IR+GJym6iSskaKoHxC7iOamqcwUVcMnUX
-	 PMqqn9S79XlWxlKsnVACCOTedbsm50Doz2HBCL6/uyhyEzRYGETerxB/Vg5vzzPVy4Q==
+	t=1793606920;
+	b=nHCJgVp3ILypK62ul49ieTgTlg2XmKyU9I6/8z3oxh1EJwsGGeG9QeB1FqcZeSKYhF2/
+	 o+yZ7Lzma3KGxzQ/o/nJLhu6pse9+ihsGbiokEdc39X3GX+WPzHTz/Pdf+7IihMdA6/w9
+	 XN54MKYKhXV/sTIzhr9gqgd4DNZDQMt9s6ealnMNq4ylvgke1R1NAm1smNF1yyWdllf12
+	 Mqejw9Glw4Vv+7soXTw2KKctHzT3cjLtgnFne8czw5l1xRn+mN24EehVWJdGtMxSyIMho
+	 9fobwmLKlvzuppDoX0mO1lOTGJ7qytm9W/qZiBsRD9iHUF8zaF5R3Y/q5+ZzKt3su9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606866;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606920;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RmW9W+b2NUCMbTNqn6LeM8cKiTUqHkz3gaeuB+SxxjQ=;
-	b=uqv17UACnoLhSXxz+UlXLtN6ZQHnLMVuqIE950KvVbTfmR3IV00wapqDKY69zkQrRonm
-	 TnHQFKkqUejWn5C7Yn9bI4ivzyMwlR+e1lgvOEVWJeaW60+NGWe8kQ4wn7OuCKgpnq9Je
-	 ssV6R3xp5ovPzkIY/01LnSkjBj2Eh0tfC1lcbL1OL6kCPf68plh/m53bzcabyVD5LY6Zj
-	 H2ajRvaalU2ZsfZJNBAu64kiwDth43p8RuzXdBnc8xktkCSiMn0mV67Iwi+mgnMgrfPSt
-	 B24we/J6MaHv0UI8BaY4f4El/v1/dKvfWG5UCHsg24TEDwXRVuCLLb6is2vBUy5dP7w==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=jPSyxXcjXQWggNaZrZPuVmJwfE2uHWt70X9U8lGvWyg=;
+	b=b4nPl4vygophaXzV7Q5N1KG3PCfdnu6prTJwxed4f84BQdnrz4HDXiFH2E70RfKLWtlX
+	 FzmevaqQvv8jObTognPcEHJkxdP/hoKJ085k8d6e367pk0rft5jXyfINGquvZY4JWFkYC
+	 VVKp9W6M+4BpGkAFWg2vw+MLpQgk46Phm6OyxvoZPV/yG7KbEmyWwbpuLaP3G6QtpadX8
+	 B4LHF/iwDQVpg/xN7hou35O1VKjAlZ0X53n8Q6/H6j4f4x8TMjP8iLhLVqMgYxJBCLSck
+	 qMHV9Un3vvU7HqbBiTmEpyhvBNdp09nX32WIEz4zlQHpE6itWJUIiIbV6eC+cQwGipw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tnmzTSqr;
-	arc=none smtp.remote-ip=95.215.58.45
-Received: from mta1.migadu.com (out-45.mta1.migadu.com [95.215.58.45])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ghFKnmPQ;
+	arc=none smtp.remote-ip=91.218.175.10
+Received: from mta0.migadu.com (out-10.mta0.migadu.com [91.218.175.10])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6CE9606A33D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:07:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6CE9606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D775D606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:08:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D775D606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tnmzTSqr
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ghFKnmPQ
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VFK7vMxbPR50n7fFLwXWLZ6ZPyv6K4TCi+2Re4RLgtA=;
+DKIM-Signature: a=rsa-sha256; bh=jPSyxXcjXQWggNaZrZPuVmJwfE2uHWt70X9U8lGvWyg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793606862; v=1; x=1794211662;
- b=tnmzTSqrsxUQkb2Ygb/cunZg4/OUqK6lMcAvJ0bQ7Es69dTB9ZtIaSWepDAbbVg70L7cpC6f
- V1JdH5YEhU0YdyJOo/OdoN6Kk3QzYgnGNo5mWmNFybxDGnbMDNC8TevzmkvMqfTctpYJT0lpmgr
- g9XjIsaSGBn+f1SHLI0M2a+k=
+ t=1793606917; v=1; x=1794211717;
+ b=ghFKnmPQjfuWJaBWvRduNQ2bqaEAnVRVqs4PFP3dxohse1cOrMu8JxRIOKMxfud9Ao3bDR18
+ 56bTaf6wkor7MGiGlPHz2A7Qcbu+PNM1l0gBDm29RX1ZWPyGJoc6gEPSwwaaICL6KIaYV5PTTSj
+ ZFkSX41Ib9HvfQ6o0rYGpwXE=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ab74e95e87cc3cd0;
-	Mon, 02 Nov 2026 08:07:42 +0000
-X-Mizu-Trace-ID: ab74e95e87cc3cd0
+Received: by smtp.migadu.com with ESMTPS id 6835a011e88f04d1;
+	Mon, 02 Nov 2026 08:08:36 +0000
+X-Mizu-Trace-ID: 6835a011e88f04d1
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <a857f808-1988-43bf-9300-86e24a01436b@linux.dev>
-Date: Mon, 2 Nov 2026 16:07:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,67 +56,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] mm/hugetlb: Preserve persistent flags when
- returning folios to the pool
-To: Kaitao Cheng <kaitao.cheng@linux.dev>, Muchun Song
- <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Mani Tofigh <mt4022@columbia.edu>, Zi Yan <ziy@nvidia.com>,
- Mike Kravetz <mike.kravetz@oracle.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Frank van der Linden <fvdl@google.com>,
- Chris Down <chris@chrisdown.name>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-References: <20261102024910.31486-1-kaitao.cheng@linux.dev>
- <20261102024910.31486-3-kaitao.cheng@linux.dev>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261102024910.31486-3-kaitao.cheng@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Mon, 02 Nov 2026 08:08:36 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <32fc50aea1cb1bc7029177093913dc08a890f9fb@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v2] wifi: rtw88: usb: stop RX work before unregistering
+ hardware
+To: "Zhao Li" <enderaoelyther@gmail.com>, "Ping-Ke Shih" <pkshih@realtek.com>
+Cc: "neo_jou" <neo_jou@realtek.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Kalle Valo" <kvalo@kernel.org>, "Hans Ulli Kroll" <linux@ulli-kroll.de>,
+ "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+In-Reply-To: <20261101134314.39340-2-enderaoelyther@gmail.com>
+References: <20261101134314.39340-2-enderaoelyther@gmail.com>
 
+November 1, 2026 at 2:43 PM, "Zhao Li" <enderaoelyther@gmail.com> wrote:
 
-
-On 11/2/26 10:49 AM, Kaitao Cheng wrote:
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> 
-> add_hugetlb_folio() returns a folio to the HugeTLB pool when vmemmap
-> restoration fails. It clears folio->private and restores only
-> HPG_vmemmap_optimized, losing other flags that must survive the rollback.
-> 
-> Clearing HPG_cma causes a later free to bypass the CMA release path,
-> leaving the CMA allocation bitmap set. Clearing HPG_raw_hwp_unreliable
-> loses the indication that the locations of poisoned subpages are unknown,
-> undermining the checks that prevent freeing or unpoisoning such folios.
-> 
-> Preserve the existing flags instead of resetting folio->private. Callers
-> already clear HPG_restore_reserve, HPG_migratable and HPG_freed before
-> returning a folio to the pool. Clear HPG_temporary in free_huge_folio()
-> before attempting to free a temporary folio, so a failed vmemmap restore
-> does not leave that flag set on a folio returned as surplus.
-> 
-> Add a VM_WARN_ON_ONCE_FOLIO() check for flags other than
-> HPG_vmemmap_optimized, HPG_raw_hwp_unreliable and HPG_cma to detect
-> incomplete transient flag cleanup.
-> 
-> Fixes: 161df60e9e89 ("mm, hwpoison, hugetlb: support saving mechanism of raw error pages")
-> Fixes: d2d786714080 ("mm/hugetlb: enable bootmem allocation from CMA areas")
-> Closes: https://sashiko.dev/#/bug/linux-5363eb09-9c3c-4f8b-9f3c-a998a8c4b258
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Suggested-by: Muchun Song <muchun.song@linux.dev>
-> Suggested-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+>=20
+>=20Disconnecting an rtw88 USB device while RX traffic is active can leav=
+e
+> the RX worker running after mac80211 hardware is unregistered. A firmwa=
+re
+> event can then queue C2H work onto a destroyed workqueue.
+>=20
+>=20rtw_usb_disconnect() kills the RX URBs but does not cancel rx_work,
+> which their completions may already have queued. rxwq is destroyed only
+> after rtw_unregister_hw().
+>=20
+>=20Cancel rx_work synchronously after killing the RX URBs. Only a
+> successful RX completion queues rx_work, and no RX URB can be
+> resubmitted at this point: rtw88 does not set soft_unbind, so the USB
+> core disables the endpoints before it calls rtw_usb_disconnect().
+>=20
+>=20LLM assistance was used to find the bug and review.
+>=20
+>=20Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 > ---
->   mm/hugetlb.c | 10 +++++++---
->   1 file changed, 7 insertions(+), 3 deletions(-)
 
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Looking good to me.
 
-Thanks,
-Qi
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+
+Best regards,
+Luka Gejak
