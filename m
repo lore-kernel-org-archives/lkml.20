@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646939;
-	b=zS0clcaLstSKCv+q5HHmvSaeFznbEgTNlCQDmoXZlBkKQoeIb+IrkqQzw7bd6p76Pt5I
-	 yvH16oK7Az7lmhMWqLo2gAlmqY07xnwslEvALSLA5TfTP6JNXzieHKmQRREH+HbI/Ip8z
-	 DIVAEgjuzg4ApF8qF5KN2dSfwRpBx3IbBV1ZmP8m5n++MPai4h3fxogOGkfdO/fWcm2Fx
-	 kT/zaJPR/6fDiene0v1ZHcPrALUav5FYA/caMugHCuX3cn62ObPlozn6vRgqephyAZqEt
-	 jlsCsEa0xhR2kNBVQV3bT01AzTB1qGm3oes/GRTCSUqRmnd6ogH6Hi4Jn3zaEB6sr+A==
+	t=1793646956;
+	b=GN9EOudwMApcJRS6Sa4gpSCmfr2ofZkSaKkHTQR8ioVoGDYo1bSJUAs+kGXKgttisY+j
+	 REBk3aAPZdWbGvfbnSGzxti4NYsA13YDJbUbneYvxo3byw9wgaPBMsYiXYwU4W8vIN9At
+	 30bbNuICWwf7lxNLFq954o05w5UeXU8Ruxz23g5gmVW8K0ou9DWoe5b8m0FJzkWRkyv/K
+	 lSNAthT4CRMzF9fi/MhJ1dzFDC/KjtphbI9OAGgcjGQ4zfQXVj65nCUMeMH4umEhMN6OQ
+	 7uheBi4O2y9UR1NtgISFAwpWq4zbFS3iFc4asWud8k5ZgptjIZJjgfA6VKzhDk9DiEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646939;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=DIPqP7gi47CnCUVbaUeSaa4AKRfzLYhpSnAXGZmxHTE=;
-	b=yrdAo+8W1KFWy1Sd5sA1JbxXODX/w2LkcRSYcae7DHQxFNTwfkeEwadTg1pzfKCJA63U
-	 Ju5NeHsc1qmsdFk+aXMC5P0oDnJ+WtQG2xK5VQ86G6tmflmvS6Kwc4tX2TrZ8+zKorMBg
-	 Po/lrDeZVYmoyrWgjHeyKkscjtySOTJ236OwEbeEmV6kY2pOCFP+p9gdKXP+gVp3M8eft
-	 BQKWtJSkATSxdkztFLPLtEjtde/gQ2VXBT5vXp43OriK7MtWvPQMSiNPThlZf3J9UidHJ
-	 YTp/VoM+jCwOJY4cdnGxfgbVKgWkpe4qcDX1NPf7R2ww8oWLAUVZKazMYJV35wRWaFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646956;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PcbHN39bNWWbkdcjeJxDmeD0qc1zW2q+oJX1vCZ0XVI=;
+	b=0ImarpoBpZVyIlZlVKoZVzINdHN15g8pNertIjOMmJyduXNY7LXL3XkknFTqX1KOUMtL
+	 NakEAKGNJe+kckXsSZDG9+Jq64W19mMcO482Swsz1FD03tGoJ5OhVbTwLWXHEO/HHoYkJ
+	 R5/BupI8LaDB4Xf3BWxgzR2hFovZz8lBlIIXmVIfZfPYRbbsbxIffjWdUzTvZ1lDIntGG
+	 BV0lRqjA64jkil67YeXn++/O2GqwPuDXVs/bbEz8tgWs2NwMRUapOd40HFExgwQNA8l+d
+	 WmmueEcmr/+1a6nGFoL3uA5gThf6qDhkyK+y14e/FRx7Sjx8AxoHlM5DOwhasD+gZrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=NAR7jFb0;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=p4EEjsWU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5A2606A337;
-	Mon,  2 Nov 2026 19:15:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C5A2606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C91606A324;
+	Mon,  2 Nov 2026 19:15:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=NAR7jFb0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793646936;
-	bh=Nbbszuc4cqTH/2OVCKA2NFWpdZdIw/mf+sQeosPEgAg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=NAR7jFb0YSYZB3cRjXDhpxMO1Q2KD/+YsrtGxk/8lKcWYbYESKuPGuCpYe0fUBPxt
-	 gdSC9Mp74jAp0pb5tGFBkmaMD3DhwCpHdlN75ZLQrq+9lL4vTGYbfzTXFL+L2Ystq7
-	 SYxKYD1hShaNNcjR0iQJlZjSj/MTk1VI2qzo3J/g4lyalFdrWVl4/idLW4gSsvdaxi
-	 3ds7OeZhMZ8DssMy+OvpL+oR7Jm7p9yTMpb/wHtYatjO85fLSEXlsIWoS/UkmPH0kK
-	 EoVEmpBDO3xcUj6w7QYjP/vESDKt+HjxUOX2kS/Nvp5LRfWANkOSbrQxze6AV6BoO7
-	 IazNtMY6BV9XQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CD33E17E003A;
-	Mon, 02 Nov 2026 20:15:34 +0100 (CET)
-Message-ID: <a52aacb2e0475d5d4a248acb0d385e8d7f5ef019.camel@collabora.com>
-Subject: Re: [PATCH 10/10] staging: media: cedrus: vp8: support frames wider
- than 2048 pixels
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
- <paulk@sys-base.io>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 14:15:33 -0500
-In-Reply-To: <20261102170303.1973892-11-jernej.skrabec@gmail.com>
-References: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
-	 <20261102170303.1973892-11-jernej.skrabec@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-al3UBxtaGnl/gweWbDkj"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=p4EEjsWU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CBA91F00A16;
+	Mon,  2 Nov 2026 19:15:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793646955;
+	bh=PcbHN39bNWWbkdcjeJxDmeD0qc1zW2q+oJX1vCZ0XVI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=p4EEjsWUt3MhEpUIjyLqzo7WSphxnduiMFMxPf2nUtQftKt6+8J2muQ+NicZohSCO
+	 F7rbgElz8NIWQMbuaBTSQHD/+sq7+IXuDa1D72zQJ4SAXGDcu5zQqO0OPtSvf/5kMw
+	 DCvQui3dtzvkQFZhE9fFZkIbsc3sqjkQRUJVSAZ4=
+Date: Mon, 2 Nov 2026 11:15:54 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: daejun7.park@samsung.com
+Cc: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Ryan Roberts <ryan.roberts@arm.com>, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/readahead: keep at least half of the async window
+ when aligning it
+Message-Id: <20261102111554.535bd2c6d0520877ea3342bb@linux-foundation.org>
+In-Reply-To: <20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com>
+References: <20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,154 +58,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-
-
---=-al3UBxtaGnl/gweWbDkj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le lundi 02 novembre 2026 =C3=A0 18:03 +0100, Jernej Skrabec a =C3=A9crit=
-=C2=A0:
-> Above 2048 pixels, the deblocking and intra prediction row buffers don't
-> fit into the internal SRAM anymore. Put them into DRAM like H.264 does.
-> The vendor library sizes the deblocking buffer as 24 bytes per column.
->=20
-> Tested on H616 with 2560x1440 and 3840x2160 libvpx streams, which are
-> bit-exact with the FFmpeg software decoder.
->=20
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> ---
->  drivers/staging/media/sunxi/cedrus/cedrus.h   |  7 ++
->  .../staging/media/sunxi/cedrus/cedrus_vp8.c   | 64 +++++++++++++++++++
->  2 files changed, 71 insertions(+)
->=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.h b/drivers/stagin=
-g/media/sunxi/cedrus/cedrus.h
-> index d28fe91562d1..ca4efa9302fc 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus.h
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.h
-> @@ -156,6 +156,13 @@ struct cedrus_ctx {
-> =20
->  			u8		*entropy_probs_buf;
->  			dma_addr_t	entropy_probs_buf_dma;
-> +
-> +			void		*deblk_buf;
-> +			dma_addr_t	deblk_buf_dma;
-> +			ssize_t		deblk_buf_size;
-> +			void		*intra_pred_buf;
-> +			dma_addr_t	intra_pred_buf_dma;
-> +			ssize_t		intra_pred_buf_size;
->  		} vp8;
->  	} codec;
->  };
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c b/drivers/st=
-aging/media/sunxi/cedrus/cedrus_vp8.c
-> index 6b00efa77c22..954c0ceb98ed 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
-> @@ -666,6 +666,20 @@ static int cedrus_vp8_setup(struct cedrus_ctx *ctx, =
-struct cedrus_run *run)
-> =20
->  	cedrus_write(dev, VE_H264_CTRL, VE_H264_CTRL_VP8);
-> =20
-> +	if (ctx->codec.vp8.deblk_buf_size) {
-> +		cedrus_write(dev, VE_BUF_CTRL,
-> +			     VE_BUF_CTRL_INTRAPRED_MIXED_RAM |
-> +			     VE_BUF_CTRL_DBLK_MIXED_RAM);
-> +		cedrus_write(dev, VE_DBLK_DRAM_BUF_ADDR,
-> +			     ctx->codec.vp8.deblk_buf_dma);
-> +		cedrus_write(dev, VE_INTRAPRED_DRAM_BUF_ADDR,
-> +			     ctx->codec.vp8.intra_pred_buf_dma);
-> +	} else {
-> +		cedrus_write(dev, VE_BUF_CTRL,
-> +			     VE_BUF_CTRL_INTRAPRED_INT_SRAM |
-> +			     VE_BUF_CTRL_DBLK_INT_SRAM);
-> +	}
-> +
->  	cedrus_vp8_update_probs(slice, ctx->codec.vp8.entropy_probs_buf);
-> =20
->  	reg =3D slice->first_part_size * 8;
-> @@ -849,7 +863,44 @@ static int cedrus_vp8_start(struct cedrus_ctx *ctx)
->  	memcpy(&ctx->codec.vp8.entropy_probs_buf[2048],
->  	       prob_table_init, sizeof(prob_table_init));
-> =20
-> +	/*
-> +	 * Above 2048 pixels the deblocking and intra prediction row buffers
-> +	 * no longer fit into the internal SRAM. The vendor library sizes the
-> +	 * deblocking buffer as 24 bytes per (32 aligned) column.
-> +	 */
-> +	if (ctx->src_fmt.width > 2048) {
-> +		ctx->codec.vp8.deblk_buf_size =3D
-> +			ALIGN(ctx->src_fmt.width, 32) * 24;
-> +		ctx->codec.vp8.deblk_buf =3D
-> +			dma_alloc_attrs(dev->dev, ctx->codec.vp8.deblk_buf_size,
-> +					&ctx->codec.vp8.deblk_buf_dma,
-> +					GFP_KERNEL, DMA_ATTR_NO_KERNEL_MAPPING);
-> +		if (!ctx->codec.vp8.deblk_buf)
-> +			goto err_probs;
-> +
-> +		ctx->codec.vp8.intra_pred_buf_size =3D
-> +			ALIGN(ctx->src_fmt.width, 64) * 5 * 2;
-> +		ctx->codec.vp8.intra_pred_buf =3D
-> +			dma_alloc_attrs(dev->dev,
-> +					ctx->codec.vp8.intra_pred_buf_size,
-> +					&ctx->codec.vp8.intra_pred_buf_dma,
-> +					GFP_KERNEL, DMA_ATTR_NO_KERNEL_MAPPING);
-> +		if (!ctx->codec.vp8.intra_pred_buf)
-> +			goto err_deblk;
-> +	}
-> +
->  	return 0;
-> +
-> +err_deblk:
-> +	dma_free_attrs(dev->dev, ctx->codec.vp8.deblk_buf_size,
-> +		       ctx->codec.vp8.deblk_buf, ctx->codec.vp8.deblk_buf_dma,
-> +		       DMA_ATTR_NO_KERNEL_MAPPING);
-> +	ctx->codec.vp8.deblk_buf_size =3D 0;
-> +err_probs:
-> +	dma_free_coherent(dev->dev, CEDRUS_ENTROPY_PROBS_SIZE,
-> +			  ctx->codec.vp8.entropy_probs_buf,
-> +			  ctx->codec.vp8.entropy_probs_buf_dma);
-> +	return -ENOMEM;
->  }
-> =20
->  static void cedrus_vp8_stop(struct cedrus_ctx *ctx)
-> @@ -861,6 +912,19 @@ static void cedrus_vp8_stop(struct cedrus_ctx *ctx)
->  	dma_free_coherent(dev->dev, CEDRUS_ENTROPY_PROBS_SIZE,
->  			  ctx->codec.vp8.entropy_probs_buf,
->  			  ctx->codec.vp8.entropy_probs_buf_dma);
-> +
-> +	if (ctx->codec.vp8.deblk_buf_size) {
-> +		dma_free_attrs(dev->dev, ctx->codec.vp8.deblk_buf_size,
-> +			       ctx->codec.vp8.deblk_buf,
-> +			       ctx->codec.vp8.deblk_buf_dma,
-> +			       DMA_ATTR_NO_KERNEL_MAPPING);
-> +		dma_free_attrs(dev->dev, ctx->codec.vp8.intra_pred_buf_size,
-> +			       ctx->codec.vp8.intra_pred_buf,
-> +			       ctx->codec.vp8.intra_pred_buf_dma,
-> +			       DMA_ATTR_NO_KERNEL_MAPPING);
-> +		ctx->codec.vp8.deblk_buf_size =3D 0;
-> +		ctx->codec.vp8.intra_pred_buf_size =3D 0;
-> +	}
->  }
-> =20
->  static void cedrus_vp8_trigger(struct cedrus_ctx *ctx)
-
---=-al3UBxtaGnl/gweWbDkj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+On Fri, 30 Oct 2026 12:52:57 +0900 Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org> wrote:
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujhVQAKCRDZQZRRKWBy
-9KdyAQDZU0e4+bmf99HvWpWSNByerV75EjcL3AWAST8ccZA4JwD7B9t/sUhUPZM7
-rf9dHqLu6L2gtkyaySdnQ7Cn2ljdzwc=
-=fR3M
------END PGP SIGNATURE-----
+> From: Daejun Park <daejun7.park@samsung.com>
+> 
+> page_cache_async_ra() trims the end of each new window to a multiple of
+> 1 << ra->order pages. A window that starts just below such a boundary
+> keeps only a few pages. With read_ahead_kb=128 and max_sectors_kb=512,
+> 1 MiB reads after a 4 KiB read at offset 0 hit this on about one window
+> in three. They issue three times as many device reads.
+> 
+> Halve the alignment until the trim keeps at least half of the window.
+> 
 
---=-al3UBxtaGnl/gweWbDkj--
+Thanks, but...
+
+> ---
+> Tested on mm-new in a QEMU guest with XFS on an emulated NVMe,
+> read_ahead_kb 128 and a cold cache.
+> 
+> - max_sectors_kb 512, median of 5 runs: reading a 512 MiB file this
+>   way takes 0.247 s before and 0.180 s after. The device sees 3329 and
+>   1032 reads.
+> 
+> - Other reads with max_sectors_kb 512: without the 4 KiB read, and with
+>   64 KiB reads, the times do not change. Random 4 KiB and 64 KiB reads,
+>   two interleaved streams on one file, and 2 MiB reads at random
+>   offsets also take the same time. They read the same amount from the
+>   device, within 0.3%.
+> 
+> With the device's transfer limit at 2 MiB:
+> 
+> - max_sectors_kb 256: 512 KiB reads after the 4 KiB read take 0.626 s
+>   before and 0.322 s after. The device sees 6147 and 2056 reads.
+> 
+> - max_sectors_kb 1024 or 2048: 1 MiB reads are not trimmed.
+> 
+> - max_sectors_kb 2048, 3 MiB reads: the device sees 343 instead of 271
+>   reads. The time is 0.120 s instead of 0.118 s, the median of 40 runs.
+>   The interquartile range is about 0.10 to 0.13 s for both. The window
+>   stays at 3/4 of the maximum, off the 2 MiB boundary. mm-new reaches
+>   that boundary by trimming deeply.
+
+The whole objective of the patch is "speed things up".  So a description
+of how much the patch sped things up is essential changelog material!
+
+IOW, please summarize it heavily and include the performance testing
+results in the actual changelog.  Low-level testing details can be
+retained below the ---.
+
