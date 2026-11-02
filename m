@@ -1,54 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634053;
-	b=YquWJOjQVOgIkNmO1KEZo+tbV0xCMJLDnLZ/SN+/9wmP3QaQAptb5hvNLcvI/tO8BTv+
-	 hpw3BpaCntlavT8mZmFxVMpPJxi+EOzQf/Hu8P425QVVejVhGP77GwJfgteNyZYxUm+Cj
-	 lsI2nLjDUpUmigsrHwbnpXAXyaHFwTc6dZSp3jJNHprzcXGUYUTb0uiuJjj04kAVyAj7Z
-	 0W1M2AoffjAKRs9HOBw7ByHJ+rGIo7dvoJwZgd+Un2UPx6xa4qOuHlNVFnlyOJtY4HXSC
-	 pR2Q89yZgyEB7XjXRDQfB6CAJFq6c8xD4nq4pt7DCn6I9uqxPdpQB490FSg/r1uFrvA==
+	t=1793634067;
+	b=kw81uC49NdrCRxdMZaKmjK9m0VOn8ood0dH6rKR/ypN8MeqlSqHgxMTiP6dHktGKAUFo
+	 n4k1t76MSkZ5bHF0ZTsKLksnnWkT0gtIhkUEhJBPWNNF2QruQcSR4Fg11VjOHAGKeod6I
+	 tDv5kavqP01T8q7KcF2cmPwG9Vwx0sjJ5BfncjeddnBIJvVyagIj22c0YoSJOs+wnOOm0
+	 /0QMz/cs8YZL+8FPtKDBH8/DlP4UQcOp/6rjf8gYNnhoPcWlaHFNctzji5nt/HIH/X5kd
+	 LTRc4HAdzKZgu9yFBg2Boq67Op+P/4aOcwTfYAflOcaLa6b5Ci1LKw+wxh4n5a+hG6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634053;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=C+xl5OHF774uZtOPJCxbupJhSCVj7T1aesHy1KgIPVQ=;
-	b=DbQBdtEm1FD935Aedxq08uorwZeInmXQCwSqXL7VRAPK1LrKPcc/hyAzZXh7I9LllOis
-	 SjeSGHQ2KektdVnQ/Neg9DuR+wG3dC7OrcHEN7owbx5k0LFNmbGxGJRA5l/+C9NTuzhJj
-	 rri9bu/9Srrs4LjNpk0M1fgbAxJJp+/1O4ZwrR5HwOelSBVzoAKO7QXp2Szdy6no3WFRB
-	 e0TOJO4g4o2xmk2yZgQG1NoncqY73A6E6Bgkvdlr58grL3hp+ptI7Ec4CldZnfR1pSMSq
-	 dh5HC5KHBXToyQ+X9WAbhxSG/w7oX8BLdE/0N+GXgCHXRXBaFR8d01yZxCFnkGCPqKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634067;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=KSM0LPJ/twbzspCAfiN0Ld78WI3u57X0mIKF6RhiQ68=;
+	b=XuW2m2qiDwxwoCB+XOflkPnvbofS0roR2NE5tPIvCgv+pDP0IMauiAUHNOXFSZiHIQgC
+	 +QD4qAUwKIYdMaJSgAxJFMymDXjhjiq7JvlbKt2KUrfvpVs/PDf/GzyAUtRzPg4X3UzRj
+	 VnmrdXI95HTBVAm0OnUepxDL0DGlFGQBuOpIfHJuUz2xKoUKpKtY3StXjRjPU7ohnHMIr
+	 R5wR005RhaRdNylqtQ8/lNJJaM+91vrD2ygkKBGKEDO8vkzgaDBGyISs3Mh+uZapnj8zN
+	 eHx1zXWP4ONsXa+69WjqCyKOC+T5eZF/LrpzuwAEBxmgmBtC4CAT/oz+QyBch4P1k3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Befe4p1s;
-	arc=none smtp.remote-ip=91.218.175.229
-Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LMVBN3gn;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Frz/jIoP";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68F5606B91D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:40:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B68F5606B91D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05746072C71
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:41:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B05746072C71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Befe4p1s
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2RxZ1Fiv8HmDPeSkPRWplPA67yOwGmzkE3Pmd5fIgAI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793634049; v=1; x=1794238849;
- b=Befe4p1s1dPV5wEiiN8VWowjJohaMdYgChQo2iReBi/0naWhjWv1f/cMbznBmFtJkfGK3zaW
- sg/iS4v9W3nC582Nm2KLjQqbGjoDmAyxg9QyG2N59s/+ESRN9/yn1H2/vz34Id+oUutKCQeOXuA
- JvvTAheFKUgnF0fsy75lHPxI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2e5b9646824930c3;
-	Mon, 02 Nov 2026 15:40:49 +0000
-X-Mizu-Trace-ID: 2e5b9646824930c3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <0316f664-d98c-43be-92af-13c30436727a@linux.dev>
-Date: Mon, 2 Nov 2026 23:40:40 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LMVBN3gn;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Frz/jIoP
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DpITO3102577
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 15:41:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KSM0LPJ/twbzspCAfiN0Ld78WI3u57X0mIKF6RhiQ68=; b=LMVBN3gniK+oKSaj
+	8Xe12UZ6/m3EG2h7l3iypzlJP0ERKiJSCUZHi0Q9i5ohZwbTwuSlamv621hqQkEk
+	vTM7JvYpY0z3jj82lIbfc07Lu6OXQBAKsb1+b74FLVCQMI1d8NEmimlDgq5lR+kM
+	WPf9F/8Mgui5us3FLRxAK9QqyXJoaH1YsT/7ElNtX8zTfJ08/bRnRAcW724Ll/zx
+	bNkRKQlzrUp71VtlWy1LFZNdPxyU58XnI5NiZ0ETa4JMnGGAg1SBH/oSJLfCi0vc
+	eDziGlzs7F9x0yh75wHQisu35ZUb+6pyBWl6QGIbF6UGqqzCSoTHpLBJylLrocwz
+	jgHIig==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpk9rjkq1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:41:05 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36637676140so4358048eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:41:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793634065; x=1794238865; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KSM0LPJ/twbzspCAfiN0Ld78WI3u57X0mIKF6RhiQ68=;
+        b=Frz/jIoPcvowYrQr4gnVw8Pac2Q/a9vn0ZEW8ljO/2PO8b4+0LwDDE78vlYxp+TJCd
+         fmXHaVGc/xVcdRyWg6ARtasiOtwn/bxtIXTZ1jFqf0RKk8d637C6cMpFhqHdbVyWdLu0
+         +QYld7Nu7PUyRNdq24+TozSMIDL9WVb5XWdrGTlE05Xs0dqc0nsJ4ea2xTyLrDcILQUG
+         aaGN85kqKolD4/kgD4hXwRNHBZV+O0tzF7ZnyCGi+1wngJ2lSe/fF3NUG3u46yKOq+/K
+         9VI6zl6ukMD/UyEcU9/c9FBR12XG+BpX2XWfLiiNj5/F5cdznnsXeUintiTfgMgEsxHG
+         aUJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793634065; x=1794238865;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KSM0LPJ/twbzspCAfiN0Ld78WI3u57X0mIKF6RhiQ68=;
+        b=GIpLhrqysn28juEi1IpjfdenYSWf9ZywLqPvlZWhg1GqldHKtRe3aqEWYkcEJTasq8
+         FGkFyicG5k09C47Yy7UiEZVlWXNBAbRB74y7R3GlD4tD05/5bR9rgxzPtXoTyFBGJfHZ
+         5m1Mf/OZKpbSa0acyOBrNw93tScE1ykq8g1B5Oz0lgHocKFmkjRL+1GVUd+VOO1rJugV
+         S6DglubfTATEfG3gMS32MTuHC9qbHaufkq+njTXxH//+wQDxR3APqnbRfKfrH2+OMqMJ
+         eoCCRcNnV0kqky5oNrDgaW6DN8iOLgjKxgH+TJ+fktcrfh2MN+LMC8ABBicoiwJsqvy6
+         JT9g==
+X-Forwarded-Encrypted: i=1; AKwUvByjJuZ71vX2kRRJMQQKZjXmEcQnB97FYe5p6V2+lPZSls7hNaAmtj646GtdK4X+UOI3+MvTE/1nN2qNuSE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hZsTTc3XnD9giLqMXVvOhuLZbvLUHetkyqiZPteQ1KbCETdlJ
+	wCRS8WMQzLMxfnkbqUINRTlXdhzAi985NTlhIQ9stjSD6dzNHF4ZXu6DoE0iX79my/+UVZm3l8C
+	NT4LuOsegCUw7WE4qOf4B24Gn5yviRoHQKBqnWNg78hbosBnPjl5Db0JM/5qR7g06l/3N/goumf
+	8=
+X-Gm-Gg: AYBFou1kJaLXBuQJKoSam6OqUdbQb9zeRpl8rQ+umG1gXBtNzn1FF1nAOtfc6t8ve/8
+	RETB/9HHaYNQdDiHhsjdXu9Se4rhXb2kvDmgNQSD/luoMgiBML9oYKxlAX+keWQ5R9s7E6lTkKr
+	eRQZulRDhOga5ar4blV6QyMfvOhFUaGSVAQdw5OrPUvqC8ugK3scLLLIpXMCaCL3yn1LxBcq00y
+	6bRNJECXioKCGsynki2dFAPnYBlNMIjqmKOMOpcSeA23f3yK1C41z1LFwtc94FgGQYuaNJ6SPJu
+	JUjqiZeX/RK+10CT0gJM7/4dk62702smaZiulgRjO9xeNsU/6BraDhCsErndtg31Syk2aa5jGhw
+	DbmaZ46WRE3i91CY1uOoP/FvLnblvWAZxXJM+AvhIHtzrcxVEwffzeVI4MBrF1kKbJmYN3McDyr
+	bnOceAIQIlByV1Rl0Ls86qpxdnYBJfqg==
+X-Received: by 2002:a05:7300:e9d3:20b0:369:fe81:a575 with SMTP id 5a478bee46e88-36a4243ab94mr18693235eec.35.1793634064906;
+        Mon, 02 Nov 2026 07:41:04 -0800 (PST)
+X-Received: by 2002:a05:7300:e9d3:20b0:369:fe81:a575 with SMTP id 5a478bee46e88-36a4243ab94mr18693184eec.35.1793634064211;
+        Mon, 02 Nov 2026 07:41:04 -0800 (PST)
+Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a5fb97sm42243509eec.23.2026.11.02.07.41.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 07:41:03 -0800 (PST)
+Message-ID: <936d7fdc-fd79-4869-b39a-7219d2ce4979@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 07:41:02 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,237 +116,69 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
- typed bounds and context
-To: David Laight <david.laight.linux@gmail.com>,
- Joel Granados <joel.granados@kernel.org>
-Cc: Joel Granados <joel.granados@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793204511.git.wen.yang@linux.dev>
- <20261029105837.2f8bee67@pumpkin>
+Subject: Re: [PATCH 1/2] mac80211: move static function from header to
+ referenced file
+To: Omer El Idrissi <omer.e.idrissi@gmail.com>, johannes@sipsolutions.net
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261017155509.128114-1-omer.e.idrissi@gmail.com>
+ <20261017155509.128114-2-omer.e.idrissi@gmail.com>
+ <b60d12eb-dad1-4482-89ca-155dfcb410b9@oss.qualcomm.com>
+ <2070cf87-bc38-4237-a58b-6554572a8842@gmail.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 Content-Language: en-US
-From: Wen Yang <wen.yang@linux.dev>
-In-Reply-To: <20261029105837.2f8bee67@pumpkin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <2070cf87-bc38-4237-a58b-6554572a8842@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: MbT2x9ocfmD1MG24lRF9I9npx7K6-JA2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MiBTYWx0ZWRfX4cfdkNWsEaOI
+ p/kAEaX3jX2zuJ4GBiCh9ZBgGf34EEHSiR0bIRGeHfdpHySyjAaLV7UdBrqCTvmKiYJo2RGH8bx
+ 6AderaQjB+i1sC+EaBdL7x0OuOE8to0QMzi+wdxT2Be8wGYCcuIqhG7FDNMLHX5VYjnvUUtZR+1
+ 0WC5sfh+SoBY7fsoanmC90Hm3NaQd0uBANfHXgiIe4Tb+KsWtCgDI3cLNl+TfTCAVhkmIuP4t4S
+ aCRaYOAjt2Yl030lJiR0sQDddLQqtwsGHkvNlHw/R47+7lhkYAK/hB6nwGDm5E9sOFSQv2lWr1l
+ eCTDsEV5rzWT9QGw6ecSWdpH3xg6s1AK0WRvxHSWUNugrRRIyb8Si7MXrtGSzMf6ny9+3qH4FJF
+ /SBc8sOm8ERcKzU93WkgLbPpuO3/vyoUSWGj+6ryG6J7AH/5xdwuleoZYjeBiFUvZllsksZvQOu
+ esLUBSunQu87GOGBoQg==
+X-Proofpoint-GUID: MbT2x9ocfmD1MG24lRF9I9npx7K6-JA2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MiBTYWx0ZWRfX08cTLGgCTuuf
+ u+7B8ozsbQkP+gcdPhCaMhVDcjpN5dSUwunWiPb5tTUrMmImZH7kRgNVrs4eF/ZfU+Sbi+S5/n2
+ bl0yzuS5ajgx71F+sGubw6mM5uJmegg=
+X-Authority-Analysis: v=2.4 cv=LvwHWXdc c=1 sm=1 tr=0 ts=6ae8af11 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=Jp9NQ60Tfon72AT0SvoA:9 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020062
 
-
-
-On 10/29/26 18:58, David Laight wrote:
-> On Thu, 29 Oct 2026 00:34:39 +0800
-> wen.yang@linux.dev wrote:
+On 10/30/2026 6:21 AM, Omer El Idrissi wrote:
+>>> Move static function from header file to only c file it's used in.
+>> why? all the drv_ inlines are in driver-ops.h
+>>
+>> first rule of commit text is to describe the problem you are tying to solve.
+>>
+>> don't add unnecessary churn to the wireless code.
 > 
->> From: Wen Yang <wen.yang@linux.dev>
->>
->> struct ctl_table describes an entry with data, maxlen and, until this
->> series, two untyped misc pointers in extra1 and extra2. Those two pointers
->> have accumulated at least seven unrelated jobs: a fixed bound, a bound read
->> through a pointer on every call, an object or namespace pointer, a small
->> integer cookie encoded into the pointer, a lock signal, NULL standing for
->> "no bound", and a value the core itself casts to unsigned int while
->> validating a u8 range. Nothing in the entry says which job applies, so
->> readers infer it from the handler, and the core gets it wrong where it
->> treats extra1 as an unsigned int.
->>
->> The numeric half of this change is the direction Eric Biederman asked for:
->>
->>    You can still save a lot more by turning .extra1 and .extra2
->>    into longs instead of keeping them as pointers and needing
->>    constants to be pointed at somewhere.
->>
->>    [...] I don't see any reason why you want shared
->>    constants for such a handful of things.  Especially when
->>    it has proven to be error prone in the past.
->>
->> min/max are plain unsigned long members, so the comparisons are ordinary
->> C and cannot be confused with a pointer. The shared const arrays that only
->> existed to give those pointers an address (sysctl_vals and
->> sysctl_long_vals) are removed as well.
->>
->> The tree already records this direction. fs/proc/proc_sysctl.c documents
->> extra1/extra2 as "extra pointers usable by the proc handler routines" and
->> carries:
->>
->>    XXX: we should eventually modify these to use long min / max [0]
->>    [0] https://lkml.kernel.org/87zgpte9o4.fsf@email.froward.int.ebiederm.org
->>
->> This series completes that TODO and removes the comment.
->>
->> priv is this series' addition: the same pair of fields also hides handler
->> context, which a numeric bound cannot express, and keeping it out of data
->> is what removes the restore-before-delegate pattern.
->>
->> The overloading is also a memory-safety hazard. The obvious alternative --
->> keep handler context in data and restore the value pointer in each handler
->> -- needs an original_data field in nine addrconf and two devinet handlers;
->> one missed restore turns a user-supplied integer into a write over a kernel
->> pointer. nf_log reaches the same problem from the other side: it replaces
->> data with a local buffer inside a single handler, so data means two things
->> within one function. This revision removes that temptation instead of
->> managing it.
->>
->> The core is not exempt. sysctl_check_table_array() reads
->> *(unsigned int *)table->extra1 to validate a u8 range. That is only correct
->> while every u8 entry happens to point extra1/extra2 at an int or unsigned
->> int; a long bound, a context pointer or an encoded integer would be read as
->> four bytes of the wrong object. No such entry exists today, so this is a
->> latent class rather than a live bug, but the invariant is untyped and
->> unchecked, and nf_log already encodes an integer into extra1.
->>
->> The refactor is the first five patches; they define the replacement
->> contract and prove it covers every entry shape the tree uses today.
->>
->>    1. min/max hold numeric bounds by value, and priv holds handler context.
->>       The range converters read min/max whenever extra1 and extra2 are
->>       clear and keep reading the pointers while they are set, so existing
->>       callers keep working while they migrate and no parallel handler API or
->>       renamed symbol is introduced. Signed handlers read the bounds as
->>       signed longs, an absent endpoint is the type limit rather than NULL so
->>       zero stays a real bound, and a run-time range is refreshed before
->>       every call. Registration rejects priv on a standard handler.
->>
->>    2. The debug test module is converted to numeric bounds as the first
->>       user.
->>
->>    3. KUnit coverage for numeric bounds and the handlers that consume them:
->>       full type ranges, one-sided and zero bounds, entries without backing
->>       storage, explicit handlers for arrays and members, and rejection of
->>       writes that would partially commit.
->>
->>    4. KUnit coverage for run-time ranges across the scalar widths and
->>       jiffies, run-time bound pointers, sibling bounds, typed context, owner
->>       derivation, bool, registration lifecycles, and simulated per-net
->>       duplication.
->>
->>    5. KUnit coverage for priv: a standard handler must ignore it,
->>       registration must reject it with a standard handler, and
->>       re-registration must keep both the value pointer and the context. The
->>       same patch moves the debug module's dynamic-value entry to the
->>       data/priv shape.
->>
->> On the CTLTBL_ENTRY_* constructors: I kept the naming and argument order you
->> suggested while reworking the series. As it turned out, no production table
->> needed them -- the converted entries read naturally as designated
->> initializers -- so I have not introduced them as a public API in this
->> version; the KUnit file keeps an equivalent constructor privately, so the
->> tests stay readable. I still think the public version is worth doing, and I
->> would be happy to send it as a follow-up once there are real users, so the
->> API and its callers can be reviewed together.
->>
->> Everything after patch 5 is migration and adds no new contract. Patches
->> 6-32 convert the remaining users and derive owners from their backing
->> storage. Patches 33-38 move handler context onto priv, one subsystem per
->> patch; each of those files is touched exactly once and goes straight from
->> the old pointer field to priv, with no intermediate data-as-context step.
->> Patch 39 removes the extra pointers and the compatibility read.
->>
->> The parport conversion illustrates a concrete problem with the overloaded
->> fields. In the base tree, registration overwrites the spintime minimum
->> pointer in vars[0].extra1 with a port pointer. The range handler can then
->> check a write against data from struct parport instead of the intended
->> minimum. Moving the port context to priv and using numeric bounds also
->> corrects this existing bug. A separate fix can address it independently;
->> this RFC does not depend on that fix.
->>
->> Entries that used a *_minmax handler with neither extra pointer relied on
->> NULL meaning "no bound". They now state their type limits explicitly to
->> preserve that behaviour when the pointer path disappears. These include
->> aio-max-nr, acpi_video_flags and nmi_wd_lpm_factor.
->>
->> Owners that can still be recovered from data are deliberately left alone:
->> ipvs, neighbour, the fragment reassembly handlers, vsock, mptcp, rds and
->> smc keep using container_of() on their backing storage. priv is only for
->> entries where no such derivation exists. Mixed placement in data and priv
->> was considered and rejected because it recreates the guessing problem this
->> series removes.
->>
->> Relative to the base tree, the final state removes all 841 extra1/extra2
->> assignments across 123 files, removes the shared sysctl_vals and
->> sysctl_long_vals arrays (21 references), and states bounds at each entry
->> (~574 new min/max initializers) instead of pointing at constants. The
->> sysctl ABI is unchanged; the parport spintime minimum is corrected as
->> described above.
->>
->> The cost is 8 bytes per ctl_table entry on 64-bit (56 -> 64) and 4 bytes on
->> 32-bit, because priv is appended; the range read path gains no indirection
->> and the migrated entries no longer dereference a bound pointer.
+> i moved it because multiple files include the header and when those are 
+> compiled they don't see the tracepoint definition because the next patch 
+> ifdef guards it under the same config that enables the only file the 
+> static function that uses the tracepoint is called from.
 > 
-> Can you remove the little-used 'priv' parameter by making the extra
-> information just follow the table entry (nested structure) and have
-> the relevant functions use container_of() to get the outer structure
-> and extra values?
+> this static function was only used in that file and i didn't see any 
+> obvious reason for it's existance in that header so i moved it to the 
+> file where it's used.
 > 
+> commit messages are kept in the git history. should i send a v2 with a 
+> better commit message? or is the patch series problematic otherwise?
 
+I can't speak for Johannes (wireless maintainer) but I would not accept these
+patches. There are thousands of patches active in wireless, many of which
+solve real problems, so the maintainers usually don't have time for "noise"
+patches. I have over 400 patches in my ath.git queue alone.
 
-Hi David, Hi Joel,
-
-I reworked the context side of the series so that priv is gone entirely;
-and the final tree has no per-entry context pointer.
-A small helper recovers the enclosing object, but it needs the slot
-index from the caller:
-
-   #define sysctl_table_container(entry, type, member, index) ({       \
-           static_assert(__same_type(*(entry),                         \
-                                     typeof_member(type, member[0])),  \
-                         "pointer type mismatch");                     \
-           (type *)((void *)(entry) - offsetof(type, member) -         \
-                    (size_t)(index) * sizeof(*(entry)));               \
-   })
-
-The reason plain container_of() is not enough is that the core keeps the
-table as a contiguous array.  For
-
-   struct addrconf_sysctl_table {
-           struct addrconf_sysctl_ctx context;
-           struct ctl_table table[];
-   };
-
-the handler receives an interior entry, and
-
-   container_of(ctl, struct addrconf_sysctl_table, table)
-       == (char *)outer + index * sizeof(struct ctl_table)
-
-for ctl == &outer->table[index].  It only returns the outer object for
-index 0.  Passing the index explicitly keeps the original registered
-entry usable:
-
-   static int addrconf_sysctl_forward(const struct ctl_table *ctl, ...)
-   {
-           struct addrconf_sysctl_table *t =
-                   sysctl_table_container(ctl, struct addrconf_sysctl_table,
-                                          table, 
-ADDRCONF_SYSCTL_FORWARDING);
-           const struct addrconf_sysctl_ctx *ctx = &t->context;
-           ...
-   }
-
-Shared handlers get one wrapper per slot; the common body does not need
-to know its position:
-
-   #define DEVINET_CONF_WRAPPER(attr)                                  \
-   static int devinet_conf_##attr(const struct ctl_table *ctl, ...)    \
-   {                                                                   \
-           struct devinet_sysctl_table *t =                            \
-                   sysctl_table_container(ctl,                         \
-                           struct devinet_sysctl_table, devinet_vars,  \
-                           IPV4_DEVCONF_##attr - 1);                   \
-           return devinet_conf_proc_common(ctl, &t->context, ...);     \
-   }
-
-Single-entry tables simply use slot 0:
-
-   struct devinet_forward_table *t =
-           sysctl_table_container(ctl, struct devinet_forward_table, 
-table, 0);
-
-
-The series is 20 commits over 134 files, with no priv at any point.  If
-you would prefer a different shape for the helper or the wrappers, I am
-happy to adjust it.
-
-
-Thanks,
-Wen
-
-> David
-> 
+/jeff
