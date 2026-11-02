@@ -1,65 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621756;
-	b=Ay36z5SeJhuHLDzG9M4XYVUyyTBVhEGbugvQicRCprNWiyQle8GWWEuXdnpXWiDGhsVG
-	 ZB9YvGzIJyPRCozGOS7f+u8i0TFywqXGUqnvrMQ8izIPw1HTe/+MEHmE+XjsEoW/UgzDF
-	 0LCHQmSTxT10jGYTkC4oI+mclb6oaPZnqrRCCBJL9H5P148kYJNqu3XbGJRH9UYEn2dd6
-	 rONCnnD/gqTuyjUZlshgrXzjlnqeeKceBLqrJxoXUw7eG6Vrjg8yoVqp/2CRmm0To2t2+
-	 jy6lCyCZ1STda82NxplIllysyjNkXl8LOr/MvmuSdm2ztd3sTtRxpWytUKdGo7IepQg==
+	t=1793621767;
+	b=es1yX6krCzcAui5XdV58JZgjRiSUJSyvHYBNQ08PGaLNkbxa8TnqipIhowwxeZMNVNzU
+	 OEBVjQHkVoIqvYXP32mg7Bb5DcB9NithsfFCvJxmu66Q8YJ7yeopVWw5bGL9MPtoG2ja1
+	 D4MZKVxLQknWG1iBw+JA6KZyO++YZ94RYZmJQ4+59xbbU3Cp3UWGKNSeiw2xGpmZw17Ak
+	 INK9PIc7oJR00aSHFBag5kJSU5c9qxFRb8DqMqC+KmNaYPtHpf8Rv3BNgiBdmMTIw/ngK
+	 2joO3LFihwpRBtZikElHgxzcbV7mraMJb0n+q1UWK5oDFu4dTPtmsl46qGhKO6yY9fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621756;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ziyeTvPm3BFDyaFh77swtWkSzgaxNwvlyxfo1cDiP4w=;
-	b=Q6EBROV25esrYJsHnt5tq5daISWj22ESS341JUeCiMMPJ9oPJLBWwHTg3o15TCrkJv2l
-	 JqmUpLGGJ0A6h6XhESYqEj8QygfqNxZVsBTV49Frm6N3I22YG1VwoEEL4NlauZqYChLUC
-	 Z7kf7H+zyV5AYWaRVyNT/md8uB+yhKL8fHqeiCbcnC7vKtnAIHM1jjGx93/mo6g5pBZMA
-	 3LuE45Va7BImadL9Dh1jYxVUJBSSs+kLFeBRfT2CKOEcX4eFYKrK+nNPqd0t9P9yUpSxC
-	 10yNGti35ougKpiJ+NoI3t+tUdz9bDuaVcR73OKMeOLfoWzDc/IUluip55MyjGWC+5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621767;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=PwLKLb7Ybxb7dpIE4IVyJShyxd5syhw2GQeVgctsT8s=;
+	b=Ad8+fqZsX36pJkkRMgZQU8qxLrxZK6cX212CLuFTTgWytmIJlcVBGp6TVriydDgZSK2V
+	 46Jef077TDPe/CUOa6e1lwvXfzmC+F9bb6c53grUSUKCNje9QZfLSqMhwFPeDupz2Ec48
+	 Aak8TQ71ysBFODz5CsN2xXwN3MRp/+G5IMs/Aqb3CxjV/ih+qLRuqpabf+0FeNoZmQPh6
+	 4Dlj4g8gmCJceKr1jjxn91GPUQGn3nUKEB5DvbMg6kJ3/vVyIpjQOlWLe19YU4FzeBZML
+	 K9eDXZzZIAxYMJpS9tlB8g7KBrT4DVc2t9M8Rys2N7daGzCStkPwFqHb9fumJLOciPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUDyqcLV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jieUG7Ks;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E0F7860A5BDA;
-	Mon,  2 Nov 2026 12:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6C4606C4C6
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA6C4606C4C6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EUDyqcLV
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EC9D01F01801;
-	Mon,  2 Nov 2026 12:15:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793621755;
-	bh=ziyeTvPm3BFDyaFh77swtWkSzgaxNwvlyxfo1cDiP4w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EUDyqcLVneWyI/GRaGpI5vKfldgN3bHImPXBK0SNPauo0RbIsQ0MGYED0OFvWMUmB
-	 uREcO0fmmQLUiFakfC+Zht3t262Lv3FJ5FClxsZo/f73TgU8VXYDxrLE2b5nnELdPQ
-	 +CerV1ZKEWTMatQUAgZludlWBHtKtSEaU37qAqXWbQXSZSxN7ODykiEiol3atnVQUE
-	 sDsuYFDPgOHV75Y2BiqV1FAoZaeG8ONia2VVJb2llso1yFGdxoxzGh1vHoREBUALqN
-	 5RNcnGYzb2I+HlFxAc77JV2Aw3jRJgzTDfKfelCTjAF3iGsr55VBCwt5h2Y52ScERF
-	 fqPuQZZTfpZ8Q==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	linux-integrity@vger.kernel.org,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	keyrings@vger.kernel.org (open list:KEYS/KEYRINGS),
-	linux-kernel@vger.kernel.org (open list),
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
-Subject: [RFC PATCH 2/4] KEYS: Pin the backing module for struct key_type
-Date: Mon,  2 Nov 2026 14:15:13 +0200
-Message-ID: <20261102121518.1197453-3-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102121518.1197453-1-jarkko@kernel.org>
-References: <20261102121518.1197453-1-jarkko@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jieUG7Ks
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so19311735e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:16:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793621765; x=1794226565; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PwLKLb7Ybxb7dpIE4IVyJShyxd5syhw2GQeVgctsT8s=;
+        b=jieUG7Ks7kdYI+f8jpTkNEJQQ+zYp1cFDMASZ4g6OACLyUF3o7oEQUYMEPKLrU+aDY
+         RdEuIgZpTfNDMfIciRMQ7Xn06H9V00Mz5vAJ1lxsztA/dxQ7iuYTI7rD4zI7WvdlFoIn
+         iyPZQossTRsCPEWZaqf54tCtiYNDm2GLeOalF4JpemLGP18nXWNJ3QAfJEcIzraNNmTl
+         YxSWyruYDOE6GykxA1MFaRo08tPDFWsL7sBf8XQbHTYuh5Avkh0N6vtk+3la2/G38/dZ
+         ifZWPRTQ/qQhPFMMfB/ogczA6vkUgloZOsOKXTvYU6RZQqkSegrKM3g24GnJL+ixF85F
+         b1rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793621765; x=1794226565;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PwLKLb7Ybxb7dpIE4IVyJShyxd5syhw2GQeVgctsT8s=;
+        b=YRsU8ReZPHjZL5JGXtsa7jyCtwrR2wLpArUZ1skb8Y0fhUKaCCcbi3FXBqD5lmd9J0
+         +wv2daQTPz6OOv/NAMdKTEWihiRdey6imA1yNE1/DYkDGkjNLrnqxqtHa1jbJNNLjRNb
+         1yj/mXM77qPCJXYxMVzsp4i6rtSIHR9R8bqJSSs07DZ6gi33tx9+lAn0vjG9i70RqGLv
+         cHZkVK2dpscSV11D62WdWqrpD8MdwHRwEAFemBOxqCjnfgJkju4Im8TUKCJ3oV3YTn9J
+         MueM9xKqiKIkA7NAwWPlegYbG8CmT/Q79jYje8wTrv9lZqt6fJ6l7gK21oTGXBDrJJUv
+         HMIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxximm5h3O/a9NWJYIzGuV97ed5/4FU4Oz+GQF5qLZerLEG+oCIrvx5m67pNTAxMwJnovFkOkBj172QvaI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL09zjO0rGdTlP57bjyPC3q7s9B1QvdQPH+tQTGLXYFVUTlS526
+	Hoakq2oQzzQqLNRDmBRmCohRnHZ0cNa+yvjYc2xeNETq+GKfc+Qu/fx1OUksKG9UoBE=
+X-Gm-Gg: AYBFou2c2oTcKhOzmAAFDfbBz0k814TY16AT2LIBwzhHyiuXyC1jrf63h8z3X/hk6SI
+	kkd/iTOKhDe4iDjxK14/NrnYAKAusbCvUbWgL6WSP50VCwPUgCSDRkt8BVU15a/7sUZO/+944HH
+	5YkvHMqa2lKt/wleuDp86hDOpzcqGhvCaKLy7ROiVWpTXabPP/BoqpBWrL/kZk6rGLL3rC5z2mR
+	XMDvgZjwuLf6q+9lmLc9GQD8t2YvX4a3IjctieXr6z1hKMbUyBB5zH35UTeOQdlyJCWtF8lqdTL
+	KLr2X7BDSL1LxgNnDN+CxUr8cKU1Cmmad++d0T3sP15nm3+dtspI3l5L1gEAbq+x6dgtJH+9bVc
+	/USku5WGEBIjRp0bJQhzK3B8wtzNIlyg25sJXVugjdmYXrN1aJO+Iuu+T0iI20XuCKBAYXMP72r
+	3giPM/QvSp860DF2w9IzPNNIJz8CXkpbBCbd+d2Lv6wHl7NIxKtP1xjd5c4DRXKbK03C4mYceab
+	1Pr181UwBycQOUjZdH8SvFrww4g1mAm4+0WDTqJvCV6bF7g4AmBloPns/1SMWonbbZUEaVwQ3rw
+	qHsJSNNQcy8P8Ymuab7L2Y8zsuPuT79h
+X-Received: by 2002:a05:600c:871a:b0:4a6:44b:2593 with SMTP id 5b1f17b1804b1-4ac18d68babmr201378935e9.29.1793621765487;
+        Mon, 02 Nov 2026 04:16:05 -0800 (PST)
+Received: from pop-os.local ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm434974855e9.3.2026.11.02.04.16.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 04:16:05 -0800 (PST)
+From: James Clark <james.clark@linaro.org>
+Date: Mon, 02 Nov 2026 12:15:31 +0000
+Subject: [PATCH v3 17/18] perf test: cs-etm: Add test for per-thread mode
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,267 +91,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-james-cs-unformatted-per-thread-fix-v3-17-dbcb0c281b9b@linaro.org>
+References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
+In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
+To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
+ Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>, 
+ linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arnaldo Carvalho de Melo <acme@redhat.com>, linux-doc@vger.kernel.org, 
+ James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
+X-Mailer: b4 0.15.2
 
-Add the owner field (populated with THIS_MODULE) to struct key_type.
+Test that per-thread mode works when the process migrates across CPUs
+and that the decode happens in the correct order.
 
-Pin the module in key_alloc() and keyring_restrict(), and release it in
-key_gc_unused_keys() and keyring_destroy(). These functions are the entry
-points for keys and restrictions.
+A TODO is left in for when support for decoding in order with Perf
+records is added.
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- include/linux/key-type.h |  6 +++++-
- security/keys/gc.c       |  3 +++
- security/keys/key.c      | 33 ++++++++++++++++++++++-----------
- security/keys/keyring.c  | 32 +++++++++++++++++++++++++-------
- 4 files changed, 55 insertions(+), 19 deletions(-)
+ tools/perf/tests/shell/coresight/per-thread.sh | 48 ++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
-diff --git a/include/linux/key-type.h b/include/linux/key-type.h
-index c4f329b6ae3f..9ecec31ad571 100644
---- a/include/linux/key-type.h
-+++ b/include/linux/key-type.h
-@@ -10,9 +10,11 @@
- 
- #include <linux/key.h>
- #include <linux/errno.h>
-+#include <linux/init.h>
- 
- #ifdef CONFIG_KEYS
- 
-+struct module;
- struct kernel_pkey_query;
- struct kernel_pkey_params;
- 
-@@ -161,6 +163,7 @@ struct key_type {
- 				     const void *in, const void *in2);
- 
- 	/* internal fields */
-+	struct module		*owner;
- 	atomic64_t		index_id;	/* Opaque keyring index ID */
- 	struct list_head	link;		/* link in types list */
- 	struct lock_class_key	lock_class;	/* key->sem lock class */
-@@ -168,7 +171,8 @@ struct key_type {
- 
- extern struct key_type key_type_keyring;
- 
--extern int register_key_type(struct key_type *ktype);
-+int __register_key_type(struct key_type *ktype, struct module *owner);
-+#define register_key_type(ktype) __register_key_type(ktype, THIS_MODULE)
- extern void unregister_key_type(struct key_type *ktype);
- 
- extern int key_payload_reserve(struct key *key, size_t datalen);
-diff --git a/security/keys/gc.c b/security/keys/gc.c
-index eda445f815d4..df5c614e4d1d 100644
---- a/security/keys/gc.c
-+++ b/security/keys/gc.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/slab.h>
-+#include <linux/module.h>
- #include <linux/security.h>
- #include <keys/keyring-type.h>
- #include "internal.h"
-@@ -137,6 +138,7 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
- 	while (!list_empty(keys)) {
- 		struct key *key =
- 			list_entry(keys->next, struct key, graveyard_link);
-+		struct module *owner = key->type->owner;
- 		short state = key->state;
- 
- 		list_del(&key->graveyard_link);
-@@ -165,6 +167,7 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
- 
- 		memzero_explicit(key, sizeof(*key));
- 		kmem_cache_free(key_jar, key);
-+		module_put(owner);
- 	}
- }
- 
-diff --git a/security/keys/key.c b/security/keys/key.c
-index 3f1f0fc13710..5ba8810f903d 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/export.h>
- #include <linux/init.h>
-+#include <linux/module.h>
- #include <linux/poison.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
-@@ -234,19 +235,24 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 
- 	key = ERR_PTR(-EINVAL);
- 	if (!desc || !*desc)
--		goto error;
-+		goto out;
+diff --git a/tools/perf/tests/shell/coresight/per-thread.sh b/tools/perf/tests/shell/coresight/per-thread.sh
+new file mode 100755
+index 000000000000..8a1ab9d8f1e7
+--- /dev/null
++++ b/tools/perf/tests/shell/coresight/per-thread.sh
+@@ -0,0 +1,48 @@
++#!/bin/bash -e
++# CoreSight per-thread CPU attribution (exclusive)
 +
-+	if (!try_module_get(type->owner)) {
-+		key = ERR_PTR(-ENOENT);
-+		goto out;
-+	}
- 
- 	if (type->vet_description) {
- 		ret = type->vet_description(desc);
- 		if (ret < 0) {
- 			key = ERR_PTR(ret);
--			goto error;
-+			goto out_put_module;
- 		}
- 	}
- 
- 	desclen = strlen(desc);
- 	if (desclen >= KEY_MAX_DESC_SIZE)
--		goto error;
-+		goto out_put_module;
- 	quotalen = desclen + 1 + type->def_datalen;
- 
- 	/* get hold of the key tracking for this user */
-@@ -323,8 +329,6 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	refcount_inc(&key->domain_tag->usage);
- 	atomic_inc(&user->nkeys);
- 	key_alloc_serial(key);
--
--error:
- 	return key;
- 
- security_error:
-@@ -338,7 +342,7 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	}
- 	key_user_put(user);
- 	key = ERR_PTR(ret);
--	goto error;
-+	goto out_put_module;
- 
- no_memory_3:
- 	kmem_cache_free(key_jar, key);
-@@ -352,13 +356,18 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	key_user_put(user);
- no_memory_1:
- 	key = ERR_PTR(-ENOMEM);
--	goto error;
-+	goto out_put_module;
- 
- no_quota:
- 	spin_unlock_irqrestore(&user->lock, irqflags);
- 	key_user_put(user);
- 	key = ERR_PTR(-EDQUOT);
--	goto error;
++# SPDX-License-Identifier: GPL-2.0
 +
-+out_put_module:
-+	module_put(type->owner);
++# If CoreSight is not available, skip the test
++perf list pmu | grep -q cs_etm || exit 2
 +
-+out:
-+	return key;
- }
- EXPORT_SYMBOL(key_alloc);
- 
-@@ -1231,18 +1240,20 @@ int generic_key_instantiate(struct key *key, struct key_preparsed_payload *prep)
- EXPORT_SYMBOL(generic_key_instantiate);
- 
- /**
-- * register_key_type - Register a type of key.
-+ * __register_key_type - Register a type of key.
-  * @ktype: The new key type.
-+ * @owner: Module owning the key type.
-  *
-  * Register a new key type.
-  *
-  * Returns 0 on success or -EEXIST if a type of this name already exists.
-  */
--int register_key_type(struct key_type *ktype)
-+int __register_key_type(struct key_type *ktype, struct module *owner)
- {
- 	struct key_type *p;
- 	int ret;
- 
-+	ktype->owner = owner;
- 	memset(&ktype->lock_class, 0, sizeof(ktype->lock_class));
- 
- 	ret = -EEXIST;
-@@ -1264,7 +1275,7 @@ int register_key_type(struct key_type *ktype)
- 	up_write(&key_types_sem);
- 	return ret;
- }
--EXPORT_SYMBOL(register_key_type);
-+EXPORT_SYMBOL(__register_key_type);
- 
- /**
-  * unregister_key_type - Unregister a type of key.
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 5281da9d5bf7..2061fc2022a5 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/export.h>
- #include <linux/init.h>
-+#include <linux/module.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/security.h>
-@@ -436,6 +437,9 @@ static void keyring_destroy(struct key *keyring)
- 	if (keyring->restrict_link) {
- 		struct key_restriction *keyres = keyring->restrict_link;
- 
-+		if (keyres->keytype)
-+			module_put(keyres->keytype->owner);
++if ! tmpdir=$(mktemp -d /tmp/perf-cs-per-thread-test.XXXXXX); then
++	echo "mktemp failed"
++	exit 1
++fi
 +
- 		key_put(keyres->key);
- 		kfree(keyres);
- 	}
-@@ -1062,7 +1066,7 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
- 
- 		if (!restrict_type->lookup_restriction) {
- 			ret = -ENOENT;
--			goto error;
-+			goto out;
- 		}
- 
- 		restrict_link = restrict_type->lookup_restriction(restriction);
-@@ -1070,7 +1074,13 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
- 
- 	if (IS_ERR(restrict_link)) {
- 		ret = PTR_ERR(restrict_link);
--		goto error;
-+		goto out;
-+	}
++cleanup_files()
++{
++	rm -rf "$tmpdir"
++	trap - EXIT TERM INT
++}
 +
-+	if (restrict_link->keytype &&
-+	    !try_module_get(restrict_link->keytype->owner)) {
-+		ret = -ENOENT;
-+		goto out_free_restriction;
- 	}
- 
- 	down_write(&keyring->sem);
-@@ -1088,12 +1098,20 @@ int keyring_restrict(key_ref_t keyring_ref, const char *type,
- 	up_write(&keyring_serialise_restrict_sem);
- 	up_write(&keyring->sem);
- 
--	if (ret < 0) {
--		key_put(restrict_link->key);
--		kfree(restrict_link);
--	}
-+	if (ret < 0)
-+		goto out_put_module;
- 
--error:
-+	goto out;
++trap cleanup_files EXIT
++trap 'cleanup_files; exit 1' TERM INT
 +
-+out_put_module:
-+	if (restrict_link->keytype)
-+		module_put(restrict_link->keytype->owner);
++echo "Recording..."
++perf record -o "$tmpdir/data" -e cs_etm//u --per-thread -- \
++	taskset --cpu-list 0 taskset --cpu-list 1 taskset --cpu-list 2 true > /dev/null 2>&1
 +
-+out_free_restriction:
-+	key_put(restrict_link->key);
-+	kfree(restrict_link);
++echo "Decoding..."
++perf script -i "$tmpdir/data" --itrace=b -F comm,cpu 2> /dev/null | \
++	grep -Eo '(taskset|true).*(\[[0-9]+\])' | \
++	uniq | tail -n 3 > "$tmpdir/script" 2>/dev/null
 +
-+out:
- 	if (restrict_type)
- 		key_type_put(restrict_type);
- 
++# Check that the decode says it ran on CPU 0, 1, 2, in that order. TODO: The
++# correct result should be "taskset [0,1,2], true 2" but we don't decode trace
++# in order of the Perf events yet, so everything is associated with the last
++# exec.
++cat > "$tmpdir/expected" << EOF
++true [000]
++true [001]
++true [002]
++EOF
++
++if ! diff -q "$tmpdir/script" "$tmpdir/expected"; then
++	echo "FAIL: per-thread output doesn't match expected:"
++	cat "$tmpdir/script"
++	exit 1
++fi
++
++exit 0
+
 -- 
-2.47.3
+2.43.0
 
