@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604046;
-	b=JSvjUgrkjWIFO3bUFiMVxWPRut/P5a9nndx//T0XRVR65NO/qcx/9uTSDp9zUfy6JPqG
-	 KrYKB+zhjdPpynHtGUwLh/3I7J+4uZ/oZT3jK9VOX0I/fV8C7gXVdS+SuP4zdvWxEnKxn
-	 n/3DLO7GaiA7M0DBKliE9sUOKj2jun18rP95LVQEZ4BsXZkj8CCvWBHnpvDSLLMJCJNHc
-	 GMQIjkmJSe0GD66mz8WqDg/5ARAX6/ViYRieBveVAYKZmj/9Ztaa5RHKVuwCDwms+UwJr
-	 PHRSlK6bCQ0w6+PULD0kRxA7iR+Bhbpel3v0CKpc/RqETEdRnjCa+zLCOQmLEiNWyNw==
+	t=1793604103;
+	b=PduKvc4x8RFg4pvOarF8ROY2ArObNOgwqyl0f7Z8ynILruPCDnriDYulxIag3VL3mCko
+	 gx9E/CDI4P/k8ouSeso8pZgyshrj6Dl/btGPslnNFPy2Oja2YG3x1DfpEMRLtuYe3FN75
+	 55hXkpoXvKriOeFYSG/mn184YbBJotGRY9rDeBY4V11aqI2F2taoLKI3uDOikSH6JMNdo
+	 uBpK4AZdlzwKsV693uccMtsMAGJJnq7fj/v2OE/tXOlyVu5EeQvmHjzvbDtexC4l71j8s
+	 CG4tBJQTlQxtFlkoWlB/SJ9j30mzGrQ4f706uZ5eu0DbGsyeI5Hp5BhNajP4NknYAVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604046;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Gd+hGEGM2Vnn8hTbClRMrTy8v2VKZQsmXOh+wQ/G2aw=;
-	b=VhDihSGjvCjtBR8R27cVlbENf50YSwpqTangVkSX62GUS5HKoPcJVAuGQnstusCKrCCX
-	 rlOCTrq+8eC7fPUc9S/fhNsLGMEwOiQVDNVJwPTGP6pRQ08A9TK011MAQsvbjuBBa2qml
-	 au4nVfk2b13DdBoNxqUUvq4XX6Mm0kTD1SsqCFasFp/RcvfxoQwu+E3tav8ZPXDnRt5X0
-	 Muq1ZxTmS7LPtNdqmHGWxZhUrLELjUlSdEyy32uZT+wxzMdPQEOXHEOxa+eF8W1WOmdoX
-	 ggoKuEavjI97Jd4L1ekFW5cCtLjFh/IfnAFyf/58mJrxPOjq9bn+xaxwE7rr1vgdFug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604103;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=vOm77Ol81NHVwbT3TF1koHcO7lNXXEKWGGU10cmiIbo=;
+	b=AKIwtuMDDK3lA2kzP6Uew2ZMahIlQVA6iBRD/0nebQyRCLJ6p6xCj0oazNPjxjMvHaAw
+	 RjuLxxyrLtNETlCKhR9TA8jm+w5Mha5k0K4NACDsWnuD746OMrFGi/fikNl9p0rtJxvRu
+	 9JE1nfp7s4/hbRMZwvmFHi5jqwmJ/IxfFZHLzc1C8XKLz3FLw0hQmWCQ9IqWIsomZAF5l
+	 O1M0R5Mnh7Vc2F/nIe3x7kDe/MG4l9Gkiu1GcYbmuPOczOAG8Lxyu2cnn9Xv7X8FZJ3n8
+	 4tz4yLTdz7QjjKUG2IRALUbjs6dQSkQ7oO96FUkIGyFma0o0I9jgGGM4sUZeRf/5EtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oJOUgkX1;
-	arc=none smtp.remote-ip=95.215.58.29
-Received: from mta1.migadu.com (out-29.mta1.migadu.com [95.215.58.29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3355606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:20:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3355606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oJOUgkX1
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kLN6oli0AthDvizLE+0mZtojUTfv9uqFrmrnHc7+xQM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793604043; v=1; x=1794208843;
- b=oJOUgkX1YY4tIy5pUlS9AKSxgSlTpiVK1kBfoBOGZQKppSRS243293DhYtr0o2YKj6OfcwxS
- C52K+hI8bWHjAzkR8jDDJmnQJvTvUq2dlHh8Cj4/Dsdhp1TyCPNoEXiyxMgQXYRCN3FUeZkVjOf
- awkKfMHMlz8IaKdjTaLK5I9E=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 20128cc2e629c35a;
-	Mon, 02 Nov 2026 07:20:39 +0000
-X-Mizu-Trace-ID: 20128cc2e629c35a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e27b69ed-7444-49ac-99d2-dd78f2ef8b9c@linux.dev>
-Date: Mon, 2 Nov 2026 15:20:28 +0800
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00F0C606A339;
+	Mon,  2 Nov 2026 07:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F0C606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=vOm77Ol81N
+	HVwbT3TF1koHcO7lNXXEKWGGU10cmiIbo=; b=JE1+CGZHHOyym2NaxWLNlgKGQg
+	hM+RYo1MydRPNh0H0pdPEjlOml67/UxP6wDdhRANX5WDQhffI47kxMsK1WAfxsb5
+	zVT047KomgfvX3UIaTreW+nr3dsLkwUKx32L8edfjvdsuLJhjz4MPIWWk0zJgP3z
+	gCfIjW+3HhJF/JeJY=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.55])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkDG5PrwOehqKrgYAQ--.18497S2;
+	Mon, 02 Nov 2026 15:21:21 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Helge Deller <deller@gmx.de>,
+	Steve Glendinning <steve.glendinning@shawell.net>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] fbdev: smscufx: bail out of ufx_set_vid_mode() when the device is gone
+Date: Mon,  2 Nov 2026 15:21:20 +0800
+Message-Id: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,121 +59,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@linux.dev, Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v11 6/6] mmc: core: Add support for resetting an eMMC at
- system resume
-To: Kamal Dasu <kamal.dasu@broadcom.com>, linux-mmc@vger.kernel.org,
- Ulf Hansson <ulfh@kernel.org>
-References: <20261030181034.3811225-1-kamal.dasu@broadcom.com>
- <20261030181034.3811225-7-kamal.dasu@broadcom.com>
-From: Shawn Lin <shawn.lin@linux.dev>
-In-Reply-To: <20261030181034.3811225-7-kamal.dasu@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkDG5PrwOehqKrgYAQ--.18497S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxArW8Wr4kAw48uFW8AFWkJFb_yoW5Wr13pF
+	W5CFW5KrZ5JFWjka1DGw429a4Yv3ZxAay7Gr9rKw13uFn8u3yfurykCF9FgF98Jry7Zw4U
+	Ja4Ut3yj9ayUuaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
+	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
+	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
+	MxkF7I0En4kS14v26r126r1DMxkIecxEwVAFwVW8CwCF04k20xvY0x0EwIxGrwCFx2IqxV
+	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
+	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
+	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_Gr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU8HrW5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2rnWEJ54wAAsA
 
-在 2026/10/31 星期六 2:10, Kamal Dasu 写道:
-> From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> 
-> The DT property reset-card-at-resume specifies that we need to make a reset
-> of an eMMC card at system resume, assuming it also has stayed powered on
-> during system suspend.
-> 
-> To implement support for this, let's start by parsing for the new DT
-> property and set the new bit MMC_CAP2_RESET_AT_RESUME if it's found. Based
-> on the property, we must also set MMC_PM_KEEP_POWER in the pm_flags for the
-> host, to keep the eMMC powered on during system suspend.
-> 
-> Finally, to manage the actual reset during system resume, let's extend
-> mmc_resume() to support the needed behaviour.
-> 
-> The property only makes sense together with keep-power-in-suspend, as the
-> card would otherwise be powered off and system suspend is refused. Warn
-> about that while parsing the DT properties, to flag the misconfiguration
-> upfront. While at it, claim the host around the reset in mmc_resume(), as
-> it sends commands to the card.
-> 
-> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> Co-developed-by: Kamal Dasu <kamal.dasu@broadcom.com>
-> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
-> ---
->   drivers/mmc/core/host.c  | 13 +++++++++++++
->   drivers/mmc/core/mmc.c   |  8 ++++++++
->   include/linux/mmc/host.h |  1 +
->   3 files changed, 22 insertions(+)
-> 
-> diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-> index 8e9e61839198..8b38ff45d20f 100644
-> --- a/drivers/mmc/core/host.c
-> +++ b/drivers/mmc/core/host.c
-> @@ -48,6 +48,14 @@ static int mmc_host_class_prepare(struct device *dev)
->   	if (host->bus_ops->pre_suspend)
->   		return host->bus_ops->pre_suspend(host);
->   
-> +	/*
-> +	 * If it's required to make a reset of the card at system resume, this
-> +	 * indirectly also means that we must keep the card powered on during
-> +	 * system suspend.
-> +	 */
-> +	if (host->caps2 & MMC_CAP2_RESET_AT_RESUME)
-> +		return mmc_set_host_pm_flags(host, MMC_PM_KEEP_POWER);
-> +
->   	return 0;
->   }
->   
-> @@ -375,6 +383,11 @@ int mmc_of_parse(struct mmc_host *host)
->   		host->pm_caps |= MMC_PM_KEEP_POWER;
->   	if (device_property_read_bool(dev, "wakeup-source"))
->   		host->pm_caps |= MMC_PM_WAKE_SDIO_IRQ;
-> +	if (device_property_read_bool(dev, "reset-card-at-resume")) {
-> +		host->caps2 |= MMC_CAP2_RESET_AT_RESUME;
-> +		if (!(host->pm_caps & MMC_PM_KEEP_POWER))
-> +			dev_warn(dev, "reset-card-at-resume without keep-power-in-suspend, system suspend will fail\n");
+ufx_usb_disconnect() marks the device as virtualized and clears
+usb_active, but the fbdev entry points that program the controller are
+not serialized against it.  ufx_handle_damage(), ufx_dpy_deferred_io()
+and ufx_ops_ioctl() all return early while usb_active is clear;
+ufx_set_vid_mode() does not, so a mode set or a blank request that
+races with the disconnect keeps issuing control transfers through
+dev->udev.
 
-No strong opinion on this log, but we set MMC_PM_KEEP_POWER if
-reset-card-at-resume is present anyway, could the suspend fail?
+The usb_device is released once the disconnect callback returns, while
+dev->udev is left pointing at it, so those transfers dereference a
+stale pointer and fault in __create_pipe():
 
-> +	}
->   	if (device_property_read_bool(dev, "mmc-ddr-3_3v"))
->   		host->caps |= MMC_CAP_3_3V_DDR;
->   	if (device_property_read_bool(dev, "mmc-ddr-1_8v"))
-> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-> index 026003ba507d..a9e3cf7ae039 100644
-> --- a/drivers/mmc/core/mmc.c
-> +++ b/drivers/mmc/core/mmc.c
-> @@ -2320,6 +2320,14 @@ static int mmc_resume(struct mmc_host *host)
->   	}
->   
->   	pm_runtime_enable(&host->card->dev);
-> +
-> +	if (mmc_card_keep_power(host) &&
-> +	    host->caps2 & MMC_CAP2_RESET_AT_RESUME) {
-> +		mmc_claim_host(host);
-> +		_mmc_hw_reset(host);
-> +		mmc_release_host(host);
-> +	}
-> +
->   	host->pm_flags &= ~MMC_PM_KEEP_POWER;
->   	return 0;
->   }
-> diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
-> index 032c018650e0..3c0ea74e3e35 100644
-> --- a/include/linux/mmc/host.h
-> +++ b/include/linux/mmc/host.h
-> @@ -430,6 +430,7 @@ struct mmc_host {
->   	u32			caps2;		/* More host capabilities */
->   
->   #define MMC_CAP2_BOOTPART_NOACC	(1 << 0)	/* Boot partition no access */
-> +#define MMC_CAP2_RESET_AT_RESUME BIT(1)	/* Reset the card at system resume */
->   #define MMC_CAP2_FULL_PWR_CYCLE	(1 << 2)	/* Can do full power cycle */
->   #define MMC_CAP2_FULL_PWR_CYCLE_IN_SUSPEND (1 << 3) /* Can do full power cycle in suspend */
->   #define MMC_CAP2_HS200_1_8V_SDR	(1 << 5)        /* can support */
+  general protection fault, probably for non-canonical address
+  0xdffffc0000000006: 0000 [#1] SMP
+  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
+  RIP: 0010:__create_pipe include/linux/usb.h:2031
+  Call Trace:
+   ufx_set_vid_mode
+   ufx_ops_set_par
+   fb_set_var
+   fb_set_var_from_user
+   store_rotate
+
+Return -ENODEV from ufx_set_vid_mode() when the device is no longer
+active, matching the check the other transmit paths already use.  Both
+callers, ufx_ops_set_par() and ufx_ops_blank(), handle the error: the
+former skips the greenscreen fill and keeps the previous mode, the
+latter already ignores the result.
+
+The guard cannot live in ufx_reg_write()/ufx_reg_read() instead, since
+probe programs the controller through ufx_config_ddr2(),
+ufx_i2c_init(), ufx_setup_modes() and ufx_reg_set_bits() before it sets
+usb_active.
+
+Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/video/fbdev/smscufx.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 5704f60e1741..f1b640a5d712 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -661,8 +661,12 @@ static int ufx_set_vid_mode(struct ufx_data *dev, struct fb_var_screeninfo *var)
+ 	u32 temp;
+ 	u16 h_total, h_active, h_blank_start, h_blank_end, h_sync_start, h_sync_end;
+ 	u16 v_total, v_active, v_blank_start, v_blank_end, v_sync_start, v_sync_end;
++	int status;
++
++	if (!atomic_read(&dev->usb_active))
++		return -ENODEV;
+ 
+-	int status = ufx_reg_write(dev, 0x8028, 0);
++	status = ufx_reg_write(dev, 0x8028, 0);
+ 	check_warn_return(status, "ufx_set_vid_mode error disabling RGB pad");
+ 
+ 	status = ufx_reg_write(dev, 0x8024, 0);
+-- 
+2.34.1
 
