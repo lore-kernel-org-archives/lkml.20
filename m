@@ -1,78 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793633707;
-	b=qTH/SEfWA4Vl09d2NByg90njijxzzIZ2c9UlRPC0jQg1dmmsqjuiqR4xRn+2lm5PSDnO
-	 7CvIPa+XtM9qiD0127s7zLq67qBQXCht3DzsOso0leQ7Y2pG/qEjXGlLLVY19GFRG+y0q
-	 RkMY68ovRdPw/EFX1CotDz/dkiOG+OYF6ssnZfIyKh8Mpb4gpTU8hA05IZfa5w0DoNPCG
-	 ExJTIsjVoRzJwyTuolYVlCfGavA7ssVypHrgV18Qi3GvBDYA4j11YrZsr0ZD1hGbGaQbp
-	 LiHfu3d+UrBisBW1u6vOh0ON0HP15ZbXjnWWpSPYDkcPJ9ac1K4xKNA4CzZmLnMVneA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633707;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fF1SbhcxHpMJ2GBrrHPyOXAjtK6MAGq9UAdq9GX7VrU=;
-	b=WzJ8deCNp6VMd5OCYgeCGDi+h9en7wIzzibFNJI05OYZuJz6m239JfPlEr5vDq/kLh+Y
-	 sJTEBXO/vMbinLSQw1lVIS9rJfq17oahg5gXJZw3cx/YfEf5xa/2eUdL+nAlfYkXrbB8K
-	 luGeIi+Rjdx6JpxW9A5SqrVY8CH+Z2FL64L3ECKIln1n0YWCqsY1NZMY6TU2/TpGewuuL
-	 1DDZWCspJaJIuZJ/1IHL2olI1zZCGueTYkRVuJfQAUkCb/WX8qoMYAxU/EWHQSanfeb1u
-	 Eh0mqLPHzeMsxoSPvPqMAoTRkVtyqnUKGlOKAZbuxPjtLb108tAG2AZ65ammfjaBVOA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EnVA4o70;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1AEF60DE982;
-	Mon,  2 Nov 2026 15:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EnVA4o70
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793633706;
-	b=HiiUq9Q+xdEsph0fOV+0+aAaPsuaAtNuWIC2OIGt/eNN92yMSzJMrgRrkQw/q/ZcSCqh
-	 6lt21zuArIkIwkK/qy6ROAYNRXQ3dpBK1kYbyMQqLoBaIfUnoGQPltI645JIIlv7ijYQ3
-	 R8iWp4Y0dxNwFfqGWjDieUKVyaZGYI2/mFCTCntSIya7URgd2w3gkndECXuZPStFBk4EM
-	 savLvF3cX1v6UW0ThNWOsgG44mbGvgBp57tzXl0SFED51Q2VqbUO7/FDxqLV2H1tywhw5
-	 Okhc1IFeZhy39WjPnOAxXf/lJ2HP72h/Y94xWuEaQmdwaSxTuE9WLJGqGp+mgg5fQSw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793633706;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fF1SbhcxHpMJ2GBrrHPyOXAjtK6MAGq9UAdq9GX7VrU=;
-	b=KR1pTOSTKR6v4oKF6Olm0a4nnAOJScazvwL/QjhJv83krO2viEwwboTyrWxTedP9HGBl
-	 P6CuaP1WJlrwUSAm/aMzNmOV1Rmk8Z/5BEsofYPuuw9Avv/jCtLnPheL8y4sxNlZjxpQ6
-	 3AptlcadI3a3mJbQlJrvyi8HBJohL1JURYGoIs+aYuFsrQIt6JAJQXIMfEWRCT+6bg9Gj
-	 TGS7VhFU8ACnimqiKVpTXtBp6MgWUmKWQ/e/rL//qLwE+1oY7HdlY6hiLPCYnCFjR7Cds
-	 7c9fVqPv+FHsCiFXkDZ9nPUR9lbmGmQpI5l5d4XOYi+MQqorZNS12ZYXd7V24tZr/UA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793633719;
+	b=ZVyazMfyaMcjqLDoCk7QYAgqYtGP7FLcemwybY4xE8Fjmb32xVBsJrHzMuMH208EQrh4
+	 PBpFtTLbTMTjkydSChVlVUa/+/hvlir7E1zYpm0OgOxGo3w7KB3TQ4UYN26ImVYmzaBwk
+	 WF9ckDLeoszQgr+K5M5zBELeo6MTM+VSb+9ktXDtePJF9tBv2eKfeDos/2joXAiUvLmZQ
+	 RG2L/S/f4COQBWLN6We4BCNywBWwaWm8sGTxS9mn7hZ84EmG81t64zccQTtU0JYOaZPwT
+	 JVT7o3UW9KN5qAZKZPxVgPMz7Dh3lYpO4/EPerpq0vG6qh/UpFPIjhsEYYH+5abFDLQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633719;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CSiCxUqhbAqe66y/0HULgn+K+b0JD3EtNzUt5xk4rYo=;
+	b=fqpECau2Q/gx+MoE0e/kbfBSu9+ukuqHbdzwMAMUlForHvVepwYBbnebl5vs8DFrUykc
+	 wSFvJMo6secD4wz89nPSQ/2Seupzk1B5nrjMQnxPrOMon2kCWgDUUUCYoNUBdnDyyE92I
+	 Q/oO8s12sm9sFLnxfBLi85YsaUATsFDhyaXJlqrhhHCrH7qT8JDoyIF/XTXHyL6vM8GRe
+	 PA5POEi/qxZhCup5LiMNNOrgJBEq/nC+8XNldqQYPx76SyvhET35l+AmH/HjH3GGVy483
+	 2UaD9RdBK0mxymWKVlUB+1wIP5ywABLsXCfV2IoUL5KMPJiCdcXBBc4MkpRX1s7+57g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dNqMEHSu;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="OFDQ7/MK";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 569731F00A26;
-	Mon,  2 Nov 2026 15:35:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633706;
-	bh=fF1SbhcxHpMJ2GBrrHPyOXAjtK6MAGq9UAdq9GX7VrU=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=EnVA4o70qbFKQUyn/q/aNcQDzUhcJnhsNQj/7Jf7cN1L9azHgmRYHH6L+N6dUxzgg
-	 HJuvv5uKNjix5eBZAN0YJVRhgCcV99WNMlSYlxiBvTN/feygT+1gyKpdcPZ1G6yrLm
-	 +f/5adSEyZskvTijbXvlzllwMx86YNroQfJQEssQbQFe47gbgxbiV/21KRhqLGrAtq
-	 JzHpDIzxj0SzZkzrp+WKljbo4Qateo8ySL3vccPH/S0g+X9TOUoPS7/NoRWyAHcIvy
-	 wHw53ZkNEHvEbD7RPZhuUyb2CV7vkbI4/x5mQUqcn8ltKlAIz3pLQSCDsc0mqImq5K
-	 VL8mQR4rWE00g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AC14A46580;
-	Mon,  2 Nov 2026 15:35:04 +0000 (UTC)
-From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 20:35:04 +0500
-Subject: [PATCH v3] btrfs: zoned: reset leaked zones on read-write mount
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7917160A1880
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:35:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7917160A1880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dNqMEHSu;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=OFDQ7/MK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793633717;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CSiCxUqhbAqe66y/0HULgn+K+b0JD3EtNzUt5xk4rYo=;
+	b=dNqMEHSuCa+KtZOYkIr7/pIy3YO9abWuQiXThEUlelC20AvyNAjGV1MlcNKD/SsKwk/zPj
+	iP2GNUQ1pqZ9Xse4xhi/TltrDTSExBUQDabDMgkQeEN7eInA0CptAIOlSxUc6ihuLeYyCG
+	krQS1/PqUURzIecFikwsBPt/9MYwIKM=
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-657-bfHGrMnaPbudBfcpb1umvg-1; Mon, 02 Nov 2026 10:35:11 -0500
+X-MC-Unique: bfHGrMnaPbudBfcpb1umvg-1
+X-Mimecast-MFC-AGG-ID: bfHGrMnaPbudBfcpb1umvg_1793633711
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ea0fe07201so19623645ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:35:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793633711; x=1794238511; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CSiCxUqhbAqe66y/0HULgn+K+b0JD3EtNzUt5xk4rYo=;
+        b=OFDQ7/MKyG/zh3PU913rwPGjZ43SujDmHTUJfuj6ILBub4bPeLb5W+ZlSILpfz3dhu
+         Jp4IPLRBgURoUdzbSSs2jHECbXQ13TxYS7hRfXvdknAOUa5/jhsIcWaXFUsbfWRiWmkR
+         18ngU3cF5p28y27Cf211gJJ3zCpScmtU5dhn5O4mKprOPXwCZ5H647QPfq7dKKGEJO05
+         /gmp9zv+WAKr0v6KqdDqWC5UObACLTxNK6F0mUeHUUzPD6ED+HjfTgxQLqJPxT9C29d4
+         BqLPDKYkFw8VkCi2UP12xwPOezQXxkEv7BybmYTwpIsZeNUqb8ibaR51CCzmaiwc1sPE
+         G9lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793633711; x=1794238511;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CSiCxUqhbAqe66y/0HULgn+K+b0JD3EtNzUt5xk4rYo=;
+        b=zEJhYAesags+MLEd0BlhFYyZkUTGjCSlvh1Q/60PNPil/rZ5Qa/gfoqyt3VbF4eA8e
+         IVYplE2FE55KlT6hadp/N0jCW7ioQSucbHbyKxrkLXe0nu+HHrYVVM1/RfrojUZc+QhQ
+         ILMlS8hKKk7SkMoBSDnystqhdCoK4F1GOCHi8ysH23UKblW+ZNo+wmQ1WlqVS7NewNIz
+         xKr4i5ZMwD1XNRvki/WI4gP0We4D7zYLcB/5Uq4O4rGGsN8JXqkpd+jmje2U2ENICkGA
+         2V1HvXm8sH+4csBhJFZTu2mNkFj8bYO2dL3UPH9Q11Q13D5eg2gBI4wLjRs57ByTZWuR
+         Jtlw==
+X-Forwarded-Encrypted: i=1; AKwUvBw7urUTBF8P/ZckceKB2cP4lj/1+RWSeB4fg0SyzBuad78omwT+9Yz+2XsfnX/S0lH0KBYdMyx7vYUJ+6s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2kEDlOnrfG7ImMQL4vVLgtTlz39BZMZe2bP/0sYuvU3dmTJ4B
+	a7DGrRa02X/n08fywy4lcMWSlXeOiFLup3gaDAGZDAE3aN4wJgGr9Z3hgMvu6WyuOzToISk6h0Y
+	RnWDVBb0GAaHeOcncuDeYsLpZC8LxtpFDyt+nym6u6ABXS7/EdlCNa8D7aYwwCenciQ==
+X-Gm-Gg: AYBFou07dHuuPOP1cdgNHNfWSniNh9KlAm1q//NxNx0yYhhGfNM+kI7x4PAazwVltUd
+	1V7puYjF/qGV/Msxe0UaqZTT55QRSHtE77cWP+G/j89h3JAsAcWXssBFqcbtEKQqfJArR4OdmEE
+	3MhGkzZsUiX0n//yIwRoOXB26AJWpIjcAxfaTZe0D3w1KIM68HB3EmSGiC+G5L0DVAlma3IAS7W
+	YX9wbYJXYe1HZFD/Jv4xPh4vaDiWWPaHwEgmG4asx+CAwTaRrUTp5LQJi525Qjss1+lbdBN7zGl
+	LR9KLvlREu6MP0mLfIbI5M/yxSU0XJTlLRz0n27knVVCFlkVw05txYGHz4B3qwaiLvt2MCPPcwb
+	KHv0cvSlN+WjnWg9v8pyX+89BWulo0+F6h+GjdrrjnFdLsivnB4FjwiiXzWXezCH8D+2sDJyyVA
+	fvTHfbVjyoglZ9oldjGpu8fu7IcK9sjjkBgT59Z/KE/M8=
+X-Received: by 2002:a17:90b:2691:b0:3ac:aa8d:19f2 with SMTP id 98e67ed59e1d1-3ae8985390bmr7983251a91.62.1793633710862;
+        Mon, 02 Nov 2026 07:35:10 -0800 (PST)
+X-Received: by 2002:a17:90b:2691:b0:3ac:aa8d:19f2 with SMTP id 98e67ed59e1d1-3ae8985390bmr7983225a91.62.1793633710362;
+        Mon, 02 Nov 2026 07:35:10 -0800 (PST)
+Received: from ?IPV6:2401:4900:1cc4:ec63:d913:9793:cfad:cfb8? ([2401:4900:1cc4:ec63:d913:9793:cfad:cfb8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e949077sm19269008a91.9.2026.11.02.07.35.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 07:35:09 -0800 (PST)
+Message-ID: <4c36ffdc-ec1e-4247-9b34-bf7caafd46c7@redhat.com>
+Date: Mon, 2 Nov 2026 21:05:03 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,305 +112,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-b4-btrfs-zoned-reset-leaked-zones-v3-1-7979bda654ff@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NwQ6CMBCE4Vche3aTCk1BX8VwADuVjaaYXUKIh
- He3evz+w8xOBhUYXaudFKuYzLmgOVV0n4b8AEssptrV4ewax6PncdFk/JkzIisMC78wPAt+yfg
- SUuh8iF3rPJWdtyLJ9v+49cfxBYk4Ir9zAAAA
-X-Change-ID: 20261030-b4-btrfs-zoned-reset-leaked-zones-96f6846d8704
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
-Cc: Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
- Naohiro Aota <naohiro.aota@wdc.com>, linux-btrfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Mark Korenberg <socketpair@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793633703; l=11310;
- i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
- bh=SGZbdYOpSOd6VSbPP3PzBj8LyaSlIPUZ/bWhvwvqRSU=;
- b=6F+Ru6OEtfwbW5sjDtI+Z5XLMqB3HBFQ9b43p7hoGqkZLgspwkh3VcSvCeL2hYCNLl2oyCvJr
- ZEDwF8AM6P7AHwhFs1rNgNFHA8vPgi4vR6wuPVtSu71R/X6WSgcKJuv
-X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
- pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
-X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
- auth_id=806
-X-Original-From: Mark Korenberg <socketpair@gmail.com>
-Reply-To: socketpair@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/liveupdate: Preserve VM workspaces with
+ run-vmtests.sh -k
+To: George Guo <dongtai.guo@linux.dev>, pasha.tatashin@soleen.com,
+ rppt@kernel.org, pratyush@kernel.org, shuah@kernel.org
+Cc: guodongtai@kylinos.cn, kexec@lists.infradead.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261029090542.13283-1-dongtai.guo@linux.dev>
+Content-Language: en-US
+From: Mukesh Pilaniya <mpilaniy@redhat.com>
+In-Reply-To: <20261029090542.13283-1-dongtai.guo@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Mark Korenberg <socketpair@gmail.com>
+Hi George,
 
-If a transaction commit is aborted after the zones of a new block group
-were written but before the superblock was, the chunk item and the dev
-extent are never persisted and the zones leak. The chunk allocator skips
-non-empty zones, so they are never reused, open ones keep counting
-against the active zone limit, and btrfs check reports them as
-unreferenced.
+On 29/10/26 2:35 pm, George Guo wrote:
+> From: George Guo <guodongtai@kylinos.cn>
+> 
+> run-vmtests.sh -k keeps the test output logs, but vmtest.sh still
+> removes its workspace and qemu.serial, losing the guest output needed
+> to debug failures.
+> 
+> Forward -k to vmtest.sh when keeping logs and update the help texts to
+> match.
+> 
+> Signed-off-by: George Guo <guodongtai@kylinos.cn>
+Please feel free to use Reviewed-by: Mukesh Pilaniya
+<mpilaniy@redhat.com> for this patch.
 
-On a read-write mount, reset every non-empty sequential zone that is
-neither a superblock log zone nor allocated to a chunk. Commit the
-running transaction under reclaim_bgs_lock first, so that a chunk
-removal is not mistaken for a leak, hold chunk_mutex so that no chunk is
-allocated meanwhile, and skip it all while a device replace is ongoing,
-as no chunk references the replace target yet.
+> ---
+>  tools/testing/selftests/liveupdate/run-vmtests.sh | 7 +++++--
+>  tools/testing/selftests/liveupdate/vmtest.sh      | 2 +-
+>  2 files changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/liveupdate/run-vmtests.sh b/tools/testing/selftests/liveupdate/run-vmtests.sh
+> index d656ce58c5a7..6f592aec0f85 100755
+> --- a/tools/testing/selftests/liveupdate/run-vmtests.sh
+> +++ b/tools/testing/selftests/liveupdate/run-vmtests.sh
+> @@ -26,7 +26,7 @@ function usage() {
+>  	cat <<EOF
+>  $0 [-k] [-o output_dir] [-h]
+>  Options:
+> -	-k)	keep logs
+> +	-k)	keep logs and VM workspaces, including guest serial logs
+>  	-o)	specify output directory
+>  	-h)	display this help
+>  EOF
+> @@ -48,6 +48,8 @@ function fail() {
+>  }
+>  
+>  function main() {
+> +	local -a vmtest_args=()
+> +
+>  	while getopts 'hko:' opt; do
+>  		case $opt in
+>  		k) keep_logs=1 ;;
+> @@ -59,6 +61,7 @@ function main() {
+>  	done
+>  
+>  	if [ -n "$keep_logs" ]; then
+> +		vmtest_args+=(-k)
+>  		if [ -z "$output_dir" ]; then
+>  			output_dir="$SCRIPT_DIR/results_$(date +%Y%m%d_%H%M%S)"
+>  		fi;
+> @@ -74,7 +77,7 @@ function main() {
+>  
+>  			printf "  -> %-8s %-24s ... " "$arch" "$test_name"
+>  
+> -			"$TEST_RUNNER" -t "$arch" -T "$test_name" &> "$log"
+> +			"$TEST_RUNNER" "${vmtest_args[@]}" -t "$arch" -T "$test_name" &> "$log"
+>  			exit_code=$?
+>  
+>  			case $exit_code in
+> diff --git a/tools/testing/selftests/liveupdate/vmtest.sh b/tools/testing/selftests/liveupdate/vmtest.sh
+> index 69beda6c961d..bd7032c4b122 100755
+> --- a/tools/testing/selftests/liveupdate/vmtest.sh
+> +++ b/tools/testing/selftests/liveupdate/vmtest.sh
+> @@ -40,7 +40,7 @@ Options:
+>  	-t)	run test for target_arch (aarch64, x86_64)
+>  	-T)	test name to run (default: luo_kexec_simple)
+>  	-w)	custom workspace directory (default: creates temp dir)
+> -	-k)	keep workspace directory after successful test
+> +	-k)	keep workspace directory
+>  	-h)	display this help
+>  EOF
+>  }
+> 
+> base-commit: 9a6a70aefe77f6fb9ff2b3037dcf87f6dff65c8c
 
-Suggested-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: Mark Korenberg <socketpair@gmail.com>
----
-This follows up on my RFC about stale zones in unallocated device space.
-Johannes replied to it with v1 of this patch and handed it over to me,
-and I posted v2 as an attachment in the same thread. This is v3, now
-tested and posted as a regular patch.
-
-RFC: https://lore.kernel.org/all/CAEmTpZGu5x9PS7vFwgc_dFH80rL3cFD4-geuuL_w8i=vFDo8AA@mail.gmail.com/
-
-Changes in v3:
-- Don't ask the device for the zone condition under chunk_mutex. On
-  virtio-blk a zone report takes vdev_mutex, under which the
-  BLKREPORTZONE ioctl copies to user space, and btrfs_fallocate()
-  allocates chunks under i_mmap_lock, which a write fault takes. Lockdep
-  would report the same kind of cycle as the one fixed by "btrfs: zoned:
-  fix lockdep splat on mount". A zone reset takes no such lock.
-  As a result, offline and read-only zones are no longer skipped:
-  resetting a run that contains one fails, which is logged and
-  otherwise ignored.
-- Link to v2: https://lore.kernel.org/all/CAEmTpZGifFxr+yaKddZcG8UxhntYvZROygi6s-8goAoxuUzqHQ@mail.gmail.com/
-
-Changes in v2:
-- Skip while a device replace is ongoing; v1 reset the data already
-  copied to the replace target.
-- Hold chunk_mutex; v1 raced with chunk allocation in open_ctree().
-- Hold reclaim_bgs_lock and commit first; v1 could reset the zones of a
-  chunk removed by a relocating repair before the removal was committed.
-- Check coverage in device->alloc_state: covers whole stripes, no
-  bitmap allocation, no NULL physical_map case.
-- Walk alloc_list (writeable devices) under chunk_mutex instead of the
-  device list under device_list_mutex, only up to total_bytes.
-- Skip offline and read-only zones, they cannot be reset.
-- Reset adjacent zones in one call and log each reset range.
-- Link to v1: https://lore.kernel.org/all/52925d79-4dce-4621-b9e1-fd062b47e35d@wdc.com/
-
-Testing: virtme-ng VM, zoned null_blk with 64 MiB zones,
-CONFIG_PROVE_LOCKING, this patch plus debug logging of every decision:
-- not zoned filesystem: nothing done
-- fresh filesystem: the first mount resets zone 3, which mkfs.btrfs
-  (btrfs-progs 7.1) leaves written outside any chunk; nothing to do on
-  the next mount, btrfs check clean
-- zones written behind the back of btrfs: reset, data intact
-- a run of leaked zones containing an offline and a read-only zone:
-  the reset fails with -EIO and is logged, the mount goes on, both
-  zones keep their condition, data intact
-- ro mount leaves leaked zones, remount,rw resets them
-- replace interrupted with remount,ro and resumed with remount,rw: the
-  pass is skipped, nothing reset
-- no lockdep report or warning from this patch
-
-Not tested: lockdep on a zoned virtio-blk device, the cycle fixed in v3
-was found by reading the code. A replace interrupted by umount and
-resumed by mount: on master a device replace on this setup aborts the
-transaction with -EAGAIN within seconds (commit from
-scrub_enumerate_chunks()), and the scrub then waits for itself in
-btrfs_scrub_cancel() called from cleanup_transaction(). That is
-unrelated to this patch, I will report it separately.
-
-Reviewed with the help of an AI assistant (Claude), which also drafted
-the v2 and v3 changes and the tests.
----
- fs/btrfs/disk-io.c |   2 +
- fs/btrfs/zoned.c   | 140 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- fs/btrfs/zoned.h   |   3 ++
- 3 files changed, 145 insertions(+)
-
-diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
-index c45cda4290d5..f3e15c575e8a 100644
---- a/fs/btrfs/disk-io.c
-+++ b/fs/btrfs/disk-io.c
-@@ -3059,6 +3059,8 @@ int btrfs_start_pre_rw_mount(struct btrfs_fs_info *fs_info)
- 	int ret;
- 	bool rebuild_free_space_tree = false;
- 
-+	btrfs_reset_unreferenced_zones(fs_info);
-+
- 	if (btrfs_test_opt(fs_info, CLEAR_CACHE) &&
- 	    btrfs_fs_compat_ro(fs_info, FREE_SPACE_TREE)) {
- 		if (btrfs_fs_incompat(fs_info, EXTENT_TREE_V2))
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index 1cda88332284..56940eaf1594 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -3226,6 +3226,146 @@ int btrfs_reset_unused_block_groups(struct btrfs_space_info *space_info, u64 num
- 	return 0;
- }
- 
-+/*
-+ * A zone is leaked if it is a non-empty sequential zone that is neither a
-+ * superblock log zone nor part of any stripe of any chunk. Chunk stripes are
-+ * looked up in the device's alloc_state, which covers every chunk in the
-+ * mapping tree over the whole stripe length.
-+ */
-+static bool is_leaked_zone(struct btrfs_device *device, u32 zno)
-+{
-+	struct btrfs_zoned_device_info *zinfo = device->zone_info;
-+	u64 start = (u64)zno << zinfo->zone_size_shift;
-+
-+	if (!btrfs_dev_is_sequential(device, start))
-+		return false;
-+
-+	if (btrfs_dev_is_empty_zone(device, start))
-+		return false;
-+
-+	if (btrfs_test_range_bit_exists(&device->alloc_state, start,
-+					start + zinfo->zone_size - 1,
-+					CHUNK_ALLOCATED))
-+		return false;
-+
-+	for (int mirror = 0; mirror < BTRFS_SUPER_MIRROR_MAX; mirror++) {
-+		u32 sb_zno = sb_zone_number(zinfo->zone_size_shift, mirror);
-+
-+		if (sb_zno + BTRFS_NR_SB_LOG_ZONES > zinfo->nr_zones)
-+			continue;
-+		if (zno >= sb_zno && zno < sb_zno + BTRFS_NR_SB_LOG_ZONES)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+void btrfs_reset_unreferenced_zones(struct btrfs_fs_info *fs_info)
-+{
-+	struct btrfs_fs_devices *fs_devices = fs_info->fs_devices;
-+	struct btrfs_dev_replace *dev_replace = &fs_info->dev_replace;
-+	struct btrfs_device *device;
-+	bool replace_ongoing;
-+	int ret;
-+
-+	if (!btrfs_is_zoned(fs_info))
-+		return;
-+
-+	/*
-+	 * No chunk stripe points to the target of an interrupted device replace
-+	 * until the replace finishes, so the data already copied to it would
-+	 * look leaked. The replace resumes from the last committed cursor and
-+	 * would never copy that data again.
-+	 *
-+	 * The target is not on alloc_list, which is walked below, so strictly
-+	 * speaking it would be enough to skip only the device that has
-+	 * BTRFS_DEV_STATE_REPLACE_TGT set. Still, do not reset anything at all
-+	 * while a replace is ongoing, the leaked zones can be reclaimed on the
-+	 * next mount after the replace has finished or was canceled.
-+	 *
-+	 * Do not hold the rwsem across the pass, the replace code takes it
-+	 * after chunk_mutex. A replace cannot be started while we are in the
-+	 * (re)mount path.
-+	 */
-+	down_read(&dev_replace->rwsem);
-+	replace_ongoing = btrfs_dev_replace_is_ongoing(dev_replace);
-+	up_read(&dev_replace->rwsem);
-+	if (replace_ongoing) {
-+		btrfs_info(fs_info,
-+			   "zoned: device replace is ongoing, not resetting leaked zones");
-+		return;
-+	}
-+
-+	/*
-+	 * Chunks are only removed under reclaim_bgs_lock, and their zones must
-+	 * not be reset before the removal is committed. A relocating repair,
-+	 * started by a read error during mount, may already have removed one in
-+	 * the running transaction, so commit it before looking for leaked zones.
-+	 */
-+	mutex_lock(&fs_info->reclaim_bgs_lock);
-+	ret = btrfs_commit_current_transaction(fs_info->tree_root);
-+	if (ret) {
-+		btrfs_warn(fs_info,
-+			   "zoned: failed to commit transaction, not resetting leaked zones: %pe",
-+			   ERR_PTR(ret));
-+		goto out;
-+	}
-+
-+	/*
-+	 * Hold chunk_mutex, which also protects alloc_list, so that no chunk can
-+	 * be allocated between checking a zone and resetting it.
-+	 */
-+	mutex_lock(&fs_info->chunk_mutex);
-+	list_for_each_entry(device, &fs_devices->alloc_list, dev_alloc_list) {
-+		struct btrfs_zoned_device_info *zinfo = device->zone_info;
-+		u32 nr_zones;
-+
-+		if (!device->bdev || !zinfo || !bdev_is_zoned(device->bdev))
-+			continue;
-+
-+		/* Nothing is ever allocated beyond total_bytes, leave it alone. */
-+		nr_zones = min_t(u64, zinfo->nr_zones,
-+				 device->total_bytes >> zinfo->zone_size_shift);
-+
-+		for (u32 zno = 0; zno < nr_zones; zno++) {
-+			u32 first = zno;
-+			u64 reset_bytes;
-+
-+			cond_resched();
-+
-+			while (zno < nr_zones && is_leaked_zone(device, zno))
-+				zno++;
-+			if (zno == first)
-+				continue;
-+
-+			ret = btrfs_reset_device_zone(device,
-+						      (u64)first << zinfo->zone_size_shift,
-+						      (u64)(zno - first) << zinfo->zone_size_shift,
-+						      &reset_bytes);
-+			/*
-+			 * Offline and read-only zones look leaked too, as they are
-+			 * never marked empty, but cannot be reset. Don't ask the
-+			 * device for the zone condition here: on virtio-blk a zone
-+			 * report takes a lock that nests outside of chunk_mutex.
-+			 * Just log a failed reset and move on, the run is retried
-+			 * on the next mount.
-+			 */
-+			if (ret)
-+				btrfs_warn(fs_info,
-+					   "zoned: failed to reset leaked zones %u-%u on device %s (devid %llu): %pe",
-+					   first, zno - 1, btrfs_dev_name(device),
-+					   device->devid, ERR_PTR(ret));
-+			else
-+				btrfs_info(fs_info,
-+					   "zoned: reset leaked zones %u-%u on device %s (devid %llu)",
-+					   first, zno - 1, btrfs_dev_name(device), device->devid);
-+		}
-+	}
-+	mutex_unlock(&fs_info->chunk_mutex);
-+out:
-+	mutex_unlock(&fs_info->reclaim_bgs_lock);
-+}
-+
- void btrfs_show_zoned_stats(struct btrfs_fs_info *fs_info, struct seq_file *seq)
- {
- 	struct btrfs_block_group *bg;
-diff --git a/fs/btrfs/zoned.h b/fs/btrfs/zoned.h
-index 8e21a836f858..76b40e81ca32 100644
---- a/fs/btrfs/zoned.h
-+++ b/fs/btrfs/zoned.h
-@@ -97,6 +97,7 @@ int btrfs_zone_finish_one_bg(struct btrfs_fs_info *fs_info);
- int btrfs_zoned_activate_one_bg(struct btrfs_space_info *space_info, bool do_finish);
- void btrfs_check_active_zone_reservation(struct btrfs_fs_info *fs_info);
- int btrfs_reset_unused_block_groups(struct btrfs_space_info *space_info, u64 num_bytes);
-+void btrfs_reset_unreferenced_zones(struct btrfs_fs_info *fs_info);
- void btrfs_show_zoned_stats(struct btrfs_fs_info *fs_info, struct seq_file *seq);
- 
- #ifdef CONFIG_BTRFS_FS_RUN_SANITY_TESTS
-@@ -287,6 +288,8 @@ static inline int btrfs_reset_unused_block_groups(struct btrfs_space_info *space
- 	return 0;
- }
- 
-+static inline void btrfs_reset_unreferenced_zones(struct btrfs_fs_info *fs_info) { }
-+
- static inline int btrfs_show_zoned_stats(struct btrfs_fs_info *fs_info, struct seq_file *seq)
- {
- 	return 0;
-
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261030-b4-btrfs-zoned-reset-leaked-zones-96f6846d8704
-
-Best regards,
 -- 
-Mark Korenberg <socketpair@gmail.com>
-
+Regards,
+Mukesh Pilaniya
 
