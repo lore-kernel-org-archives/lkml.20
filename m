@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793607965;
-	b=ACtBGaT1iGEzk1Cy3fj/dOuyqRzg56Jq8rRtVtooF3hq8TYMCrMcKgQQNFtRsQgRzhLe
-	 5vQTY8DN/8PAhFSvyMxm8gj6Hf9vEdvwUpZ5lP++K0IqHUxAbFhliycyOIzBCiphMyprw
-	 MQhuEVHiI4BosstU40WuUGXOPMfFfDBPoJ1uKKCXKWbAPAIwVoiOwpAiByaEjFlbIH/LD
-	 UMCeNSObUnQz7tq+nAeoPH8WZVkHPcS5dRm6Fk9B0/NLfhCTTBic3kMmofRi306l4WLPQ
-	 uDTxCIAcQHfHO0zQQtar6anKTTIuFSCjg/yOdZoAFXvIbLC8lGvE6YkDOB8WHlcMEXw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607965;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JWDT/px6SWtAvf6LMThBeS0pk1m1hSRjIWm3EaYLFIY=;
-	b=C86M+sA9KnKyqCsJr6FyeYYAg94gINExRUvP08hylt0gCp1O0SmYuJtOszxyksv1IOMq
-	 osHgYNRvqbmzoQ698qHTm0Hd1ThZqIkBpoOJUfswfZqPHdaDI/oN7Rk5Y90NP1zGqJn3P
-	 d9u/Yh33cc4qE+FVBeUqwzliJHMtOhKsiCQneAagpBnb+gGORoCP1dR14GqSh7E787FeC
-	 yAs/qBlDEMm2izxhqIiMYFEX4UepFxyGmgT8i9h3XzYSD/KQu56YmTWv210yFHqIRsQdH
-	 gT+/sO2zI+niiNF46MvfJG9PUmidSIhCQAs8IMFTp+dtKIdB67Xd6Di3fzr67Z5fw8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=URLaw2tw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.25
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012025.outbound.protection.outlook.com [52.101.48.25])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793607973;
+	b=VbRUsZQaL72+WAnFfViwbVSg14O6DAy16w1yd4NCdVdaR1FIbtd/Q5olIUJs2+vLChJG
+	 Bnqw79A0EGZzR9qXdDdx/QfYEVJKHQ+3+0+K5B1ivyWLL7CWEPvGEp1iHi0gA8CkyfE1o
+	 vQqrut+KiUBuiD6wiggXKtQnBcvsLpt4W8C4mcV9lFWxSY6xTeWxS7izbsIM9Hl4UMBsD
+	 LsXbiu7SRm1sORZFvPovOQ+S/V2PpoK8z1OZBQvB08gA/gNlpVUlxVS+AQJS84snOvxyv
+	 QxQ4xKOZrWTFwFNgPdqzdGB8RbcVd4BBn02FQvdC1vy433EC9NbOuH4Yz9SrH8pDuYQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607973;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=LmbTeJEzBzXlcyzTHKFNAOeC+nK3QUSqReZt3QjpQ/E=;
+	b=E/urw7NGn7/MErvYFlmnsJu89CZK5CLkPsBTCJM3XKgH3GtzyH4F85KLIwuHDIhLN3CD
+	 K4jdhoYJaTuHslfPssFyUZ7jwxwICnor5pGztdcwV53lHcsfRl8cp6/sIcWwYjRL0mKCd
+	 DSPa81OeTEyKiCywLHDpe8umBSbKQnQPVlEnJHh2HQG8joM1oPEVSAXTFDHR/lYN9yRwJ
+	 MTNFjosicUcOTPPLY4cZcvx5cshM6LC86iXiXyWgBZWyQ7AvZtxePgT4Y8C8jap8MqHaZ
+	 kiZM6MxSuAWjHg41zM2/o5eLmpwZ0cz2l4DU/cORI6IIwW1feYJqQDbL/yn/BLESLgQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=sVpw3qvF;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1886C606A324;
-	Mon,  2 Nov 2026 08:26:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1886C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FEB606A333;
+	Mon,  2 Nov 2026 08:26:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97FEB606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=URLaw2tw
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yuj2ZQY3ewwLG3lYpalST7d6/mmBuYxN5dBTLNoOWTHKYM401w+kghKHcS2DJ8qeWW7lR0yFTXeM/hpBc3t6+h+40VJ91M4bQSFnh6eun9wNlbFZcNpXqTg2n07opqxd7MuKfsOfHBpa6ZP8NNE2SxdqT7wXOlNeIzhlThjSu8q4cMxKaQrtS/osAZIOH0xkPMYeItHzAiplyj/D0eR8cvKFQBkNaOHvJHcgx7v1hpZecYfUAdBuOivUHzNqy1iUbhE6czWpERoknCtkd6yDbdozF71peHQNJu0VrOyJrmupyXBtcUBtIagR4Yhom2X+tOrfLLb5fPc1mG/l+cqRog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JWDT/px6SWtAvf6LMThBeS0pk1m1hSRjIWm3EaYLFIY=;
- b=umelu7V4P0wsh9JM4tbPvw/qnCH7W/814B7WcZ7Wkbz4danGinMSuL7nOU+2lh4Lgd+pyaBSm8gC6cx1OW30re6iHQnmS/8DT7z1bnD9Sy0bYI8Uw3TlE7Nl04Rdl7yKkDBd4SfwmmenFcrEHVedtiIQaiZVg7sZO7toFp+UIiNUbiB20MC7pxK//Ww3syQm9PpcXApKgRihwhVWX2iyMjlsigw4xOL5d0QCQrayJrIct63G4TBUIRXnLcNIMZrEMa88ohr84xdQEG511WMokglDi00QANFb92cOaRjZavgmTWYHYvY6Yg6t2vlsCWENG71Qrn0v/WWbJ41Yn1rzZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JWDT/px6SWtAvf6LMThBeS0pk1m1hSRjIWm3EaYLFIY=;
- b=URLaw2twVkR1/OcehhxDyh7D27golYI9uIYLggizvx7KhEnsuhcUtZC06iUGjxAfJ3iP/P4/2+ISeDXgIRIisW/bBrqAI7whYMC1i0v16ikNkNvgpTeAWabVqROLeFykzH151UfGyx+1F1us0AUbnZi2aHlu1kaVUb5liW7dN+Vg20aFo88mO3AMDlg+/B3id6P2P1eNY7wfhbY3ReCvuLoKQfjgU2kkZFaQ5ebBvV7M/QjZ3VRtzHO/gOk2/VhKKivEaEi8gED9DL+jPyYe/MIX4gS2hOkk2v6w0/pFEwjTEQNtxWpvcZEwPeszhB7z1S9d7ofKgC2zuIOJ1cN0VA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by BL3PR12MB6377.namprd12.prod.outlook.com (2603:10b6:208:3b0::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 08:26:02 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Mon, 2 Nov 2026
- 08:26:02 +0000
-Date: Mon, 2 Nov 2026 10:25:53 +0200
-From: Ido Schimmel <idosch@nvidia.com>
-To: xiaoblac <teel4res@gmail.com>
-Cc: Nikolay Aleksandrov <razor@blackwall.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	bridge@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] net: bridge: disable MRP ports before the FDB
- flush in del_nbp()
-Message-ID: <20261102082553.GB778610@shredder>
-References: <20261101044840.1595584-1-1020691186@qq.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101044840.1595584-1-1020691186@qq.com>
-X-ClientProxiedBy: MR1P264CA0007.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:2e::12) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=sVpw3qvF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793607969;
+	bh=LmbTeJEzBzXlcyzTHKFNAOeC+nK3QUSqReZt3QjpQ/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sVpw3qvFs8W8j5iDWXkBbgd7Yni7/I3I0l8UUZO+CQwHMzM/k1lk+zigbqZQjwV41
+	 v1MOLEgExHg7JTvdBZrgDopeO//fq0PEE4+PkVQy8VEatTJriDTJgaaIs4KV0356Sr
+	 ihNcYIlAaRVh0NEWEe0ZerqAcPpgyKkEObLRCrr280Q3PVbmFgFoT8gTszUrkEuuuI
+	 iAShe+XeyoT/GikRQVxryKk+632+Jwdi++zby/ikDVzxH3laKPX7pIEq/CqSSEjzan
+	 grK1l6kXC/XfO5Zze74hCu6Q8/ZHGeMBKF+4JW2zfulEdP1PyL/jJe5v28F+zYCC3u
+	 wno2GB77TpJPg==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jJ4Xx3PHlz4w26; Mon, 02 Nov 2026 19:26:09 +1100 (AEDT)
+Date: Mon, 2 Nov 2026 19:25:59 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <auhJAE7kQMk1iSZp@gractus.seuss>
+References: <20260925152157.511dc65c@bootlin.com>
+ <as3ZWBr3wRonkxXF@gractus.seuss>
+ <20261013190347.4f1d9b9d@bootlin.com>
+ <atGzdxETQZ9ovJFh@gractus.seuss>
+ <20261019151121.26d99f30@bootlin.com>
+ <atgi4rMsw5W6kKkS@gractus.seuss>
+ <20261021155923.55e48904@bootlin.com>
+ <20261030010228.34d9daca@bootlin.com>
+ <auQFaTMTTMFZtia3@gractus.seuss>
+ <20261030092717.2039a8b4@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,105 +82,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|BL3PR12MB6377:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f32645f-9d42-479b-d5fa-08df38baedf9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|10067099003|22082099003|18002099003|56012099006|11063799006|5023799004|261021121427099003|261021123027099003|261026140227099003|261022105027099003|261022075727099003|261026121527099003|261009223027099003|261028144727099003|260925021311599003|260925021911599003|260925022911599003;
-X-Microsoft-Antispam-Message-Info:
-	PprgOOF94V4DITFEjEpeCJrwpHH7y/hYrxLWIbq/ZK3YMnCt04pnrKSEEnc+CRPsg7S869j7sdaWyRLgATkGB6VtrmRxdcR8NvAvYAK461YrENi1FJIHZptaWHYjB+p2jX/UmzHwBBpEHGa0Z/vtiyb6tlQI3KCyxJV9GUJw/ThNdAsmBRxUX/g4wb9YMFD/89m/eJ1dOqjFQ2JDbiVBIelnVjjskTzXEMU0iJDv+/fgOfce2MUfy/3IYrV96i8FTqrZaGJn5EzBoOTUWMrz0kkI8zTsH7ilKmcpoQhmYCK+TgEiGr98QgZm6K9ENNSKdJ1FFjucvuabgkU7VfwbNv8dIPdS4ncnCq+GdfcZKWyOkmORRbuij1kMXJ7wVnYf6+z1pnL5ymiOyYRiB3ZNpos6PM4a6shyWl42jStJ0CSAwG1XWKic88vVLBCgbqdZHN59+HzexIWqYhdmcMNLl8fn8Si1zXl0C/OYQ83Sumed/s5Q6QYaPPtWOVNdLOqcSn2A+IL0HoAWBkWcbGsFEY0pwDX2AznovwLCUZrnPcIPqanlcVOf0aWddSee0+YzC/sck+X3u2gxqOzV0k/iJIaCj2KD8oI3OobYSkdlSlVq4ef6uLTLnNptvYJLqaXqyC5dfxwzLHdjFujcNDlrM1n3r2/RjvUNpW0IW6/+rJI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(5023799004)(261021121427099003)(261021123027099003)(261026140227099003)(261022105027099003)(261022075727099003)(261026121527099003)(261009223027099003)(261028144727099003)(260925021311599003)(260925021911599003)(260925022911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?W9tgsUf2f+hUWAuPwcgnzoH2GgE5tu5F3kEeZ4JCXzggeq+blteyBc9aWn6n?=
- =?us-ascii?Q?q8oJwgKKN9VViEcd38fCJZb0LGSs/x/mkkN3uCeQFvjk+vVVzusKxme33N0N?=
- =?us-ascii?Q?ApKp/PgFOk4bRn4edMLBvUu6hfeIbi4lB4yTR7B8w4CNL0B6n86HeS50DEio?=
- =?us-ascii?Q?JasnIahS3Bypeb0Qwt90QgeDipHlmfhdDsAzxc04Kk9aqJD5KOqdikb9FH02?=
- =?us-ascii?Q?zOINUKCIXgX71Sw3acHUCSpTfEcyNS1H5PlNIhCYMxWIokEw5+ma2kZ+2Sq1?=
- =?us-ascii?Q?6bY8IjdfKAE+WmuGdLabNHAseT486R+z5Fz8FloHY8LNhQEgen0Jinh758Jo?=
- =?us-ascii?Q?HQMhAlPnADJfT3zQOU2xmlYex5JpQ+8cXK5YiNfTFjPzhDCh+A538/zn54/b?=
- =?us-ascii?Q?95V96n9ga5RQGvhcGMDRxCK43VxPCl8cMJ8433VBFgqPYWpto5C47w+rnZGk?=
- =?us-ascii?Q?3xuc1uVdTrM59njr/1sVgCJpmSKK9DadobvQkugpvKHtLO25626wcF0hfGxJ?=
- =?us-ascii?Q?dvesOUbX9JVOspXTJwHmCfi56ZKm/J01c7zUax0NoBrix6vu5SAbAdJIk85q?=
- =?us-ascii?Q?kTNtpxlGneLkTLo7d6xFjt1Ktgdl2XNGNr19a/4YLEtZq0uq3+ZeADzZkqXY?=
- =?us-ascii?Q?6HYkvN7Q/4yEnmoPtGDZzkE6j5BdqZ61eTXG7N6iT/+nsFruf3bzU1NSkmhJ?=
- =?us-ascii?Q?TDTtwcczuoqwB0n2y9sAVYy+2J1GITSMZTvbimhOwkevNAgNpIli22etTCbK?=
- =?us-ascii?Q?KD1WoCBPIdX7ejNoIowvswlzk6uvt8EqGMNGj6Yw1jsD6P6OsXJ0rq5nvZBj?=
- =?us-ascii?Q?UExIQZSxwPyGvVPIgoTrfp5gacUVExh/wLDq/5DOTy3V0cdV43YfsS3SbFMt?=
- =?us-ascii?Q?S0BVFvdgbRCtIVKBH4omhwFuhxGMSen9ApU1TnjLICyR9oRbzhL13uV+mL4t?=
- =?us-ascii?Q?4JiEyCif0coJraP7w1IjCxNbG+y1uRNV8iBFHu7+Bn14LfV9maQuuZmrj4BA?=
- =?us-ascii?Q?fcKPspzNq4eRIeGgVsnJI7K3GMBr23yrBW9OawE/OkapxDo5nmXD46iuLGhm?=
- =?us-ascii?Q?h1pN6R0wWxwAUzL5kNqwL8YsmQOVAn6sXU7UTHj99W76iEwRNn98F2nkFV5Z?=
- =?us-ascii?Q?J5cdaoq/YhcpAifqg7dsqy0BEDBXlb3VvO5Ds/0d8kGHhKtJByml+web/vf+?=
- =?us-ascii?Q?HAx1aLHm6PGqa4f1NtMCDyCZXgi/oQkeHZE4CkDvoCuyBI45AC7AWKPHKQbW?=
- =?us-ascii?Q?Xr7vCu/wNNFlaPOhpOLi5kSiVRGbEe8D2o5OHP8SMTyCqyGmyNc7ASUmFzIg?=
- =?us-ascii?Q?9ATd2JWqD6LdrDYehDVEMP5NdDw/H2haXwIzWUS82bd6KrxUdEkmz/hTzLk8?=
- =?us-ascii?Q?3fxwVEC7XW5NQMm2Y3IkmHhJik8ut516mpuRTiKbLw/5viL2RyP7wGV+JDM/?=
- =?us-ascii?Q?PPEohSjG303WArfMYC4xUHJTFDAzR4IhHM4dVBoqk12lyUUeVFGnMt1aPnSS?=
- =?us-ascii?Q?n40bDiiNTyLuM/i9ygQGNoKf4uU8Y+CoWOZGsqTF22EzUw+DoCLtRh0fwc2S?=
- =?us-ascii?Q?LZxzUp/FqhToPKGtKfk2Ie5z41qtaiS7yi7SsbJZ17AqSav3JcQaO/8VGPWU?=
- =?us-ascii?Q?yWiNHlXuFXoi1TyZMUKyX+QtWL2Aluh/x1sa/qVCSVU9t4j+nqVaak5aUgnQ?=
- =?us-ascii?Q?pEIRAs2xOW5i0pX31sUwd3UTaJKgUsTqolaRH5WeRtxB/b7P?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f32645f-9d42-479b-d5fa-08df38baedf9
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:26:01.9444
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JudMi8phkOvHt9getJ7uytsvbYqZz3yUx/UOsld34yDDQCrlA+oMpw0H00zsYI2zi7ZVyxqPMIcATFRXUb1CKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6377
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wGNNPYpwVMLSmE1T"
+Content-Disposition: inline
+In-Reply-To: <20261030092717.2039a8b4@bootlin.com>
 
-On Sat, Oct 31, 2026 at 09:48:40PM -0700, xiaoblac wrote:
-> From: Cheng Yongkang <teel4res@gmail.com>
-> 
-> del_nbp() flushes the port's FDB entries before it unregisters the RX
-> handler. For a normal port, br_stp_disable_port() moves the port to
-> BR_STATE_DISABLED before this cleanup.
-> 
-> That does not hold for an MRP ring port. br_set_state() ignores state
-> changes while BR_MRP_AWARE_BIT is set, so br_stp_disable_port() leaves
-> the port state alone. br_mrp_port_del() then restores forwarding when
-> the bridge is up before clearing the bit. A frame received between
-> br_fdb_cleanup_by_dst() and netdev_rx_handler_unregister() can therefore
-> create a new FDB entry referencing the dying port. Nothing removes that
-> entry before destroy_nbp_rcu() frees the port, so a later frame to the
-> learned MAC can be forwarded through the freed port.
-> 
-> Remove the MRP and CFM instances before disabling the port, so that
-> br_stp_disable_port() actually transitions it to BR_STATE_DISABLED.
-> With CONFIG_BRIDGE_VLAN_FILTERING=y, synchronize_net() in
-> nbp_vlan_group_unpublish() also drains receive paths that could still
-> learn with the old state before the final FDB cleanup.
-> 
-> Found through an LLM-assisted source code analysis workflow and
-> reproduced on net with KASAN and CONFIG_BRIDGE_VLAN_FILTERING=y in QEMU.
-> A diagnostic switchdev module accepts MRP objects and delays the
-> NETDEV_CHANGEUPPER callback for 1.5 s, holding del_nbp() after the FDB
-> cleanup and before RX handler removal. The reproducer floods the MRP
-> port with rotating source MACs, waits for the port's RCU callback
-> through the module's rcu_barrier(), then sends frames to those MACs
-> from another port. The unpatched kernel reports:
-> 
->   BUG: KASAN: slab-use-after-free in br_forward+0xb1/0x820
->   Call Trace:
->    <IRQ>
->    br_forward+0xb1/0x820
->    br_handle_frame_finish+0x148b/0x1e50
->    br_handle_frame+0x90a/0x15c0
-> 
-> With this patch, three runs of six cycles each reach the delay without
-> a KASAN report.
-> 
-> Fixes: 6536993371fa ("bridge: mrp: Integrate MRP into the bridge")
-> Suggested-by: Ido Schimmel <idosch@nvidia.com>
-> Link: https://lore.kernel.org/netdev/20261012123051.GA714215@shredder/
-> Closes: https://lore.kernel.org/netdev/20261022090431.3641707-1-teel4res@gmail.com/
-> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+--wGNNPYpwVMLSmE1T
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+On Fri, Oct 30, 2026 at 09:27:17AM +0100, Herve Codina wrote:
+> Hi David,
+>=20
+> On Fri, 30 Oct 2026 13:48:25 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > On Fri, Oct 30, 2026 at 01:02:28AM +0100, Herve Codina wrote:
+> > > Hi David,
+> > >=20
+> > > I know you are busy but if you could give me your opinion on this last
+> > > message that would be greatly appreciated.
+> > >=20
+> > > I've started to prepare the next iteration of the series adding suppo=
+rt for
+> > > "structured" tags and their definition need to be stable to move forw=
+ard.
+> > >=20
+> > > The question to answer to complete the definition of the "structured"=
+ tag
+> > > format is: Should SAFE_SKIP bit be re-introduced? =20
+> >=20
+> > Sorry, I lost track of this one amongst all the rest of the activity.
+> >=20
+> > > IMHO, it should.
+> > >=20
+> > > Best regards,
+> > > Herv=E9
+> > >=20
+> > > On Wed, 21 Oct 2026 15:59:23 +0200
+> > > Herve Codina <herve.codina@bootlin.com> wrote:
+> > >  =20
+> > > > Hi David,
+> > > >=20
+> > > > On Wed, 21 Oct 2026 13:26:49 +1100
+> > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > >  =20
+> > > > >=20
+> > > > > Correct.  Btw, I know I suggested "skippable tag" as a term, but =
+given
+> > > > > how that gets kind of misleading in the case of writes, I'm comin=
+g to
+> > > > > prefer the orignal "structured tag" term.   =20
+> > > >=20
+> > > > Ok, no problem to switch back to "structured tag". On my side also,=
+ I prefer
+> > > > this term.
+> > > >=20
+> > > > Now I think that the bit indicating if a structured tag can be skip=
+ or not
+> > > > should be kept. I know the we can use "old" tag format when a tag c=
+annot be
+> > > > skipped but I thing that using structured tags for those tags can l=
+ead to some
+> > > > benefit. For instance, in fdt_tag_next() we can benefit of the data=
+ size
+> > > > encoded for structured tags for all king of structured tags (skippa=
+ble and not
+> > > > skippable) and retrieve the next tag without the need for parsing d=
+ata related
+> > > > to a tag. When tag has a string as data, without the length we have=
+ to scan the
+> > > > string to find its end. Of course we can add the length if the tag =
+definition
+> > > > but this is automatically implied if we use a structured tag.
+> > > >=20
+> > > > So for structured tag, I can propose:
+> > > > - bit 31: 1 to identify a structured tag
+> > > > - bit 30: SAFE_SKIP bit (1 if we can skip, O otherwise)
+> > > > - bit 29..24: Data lendth encoding
+> > > >    0b000000: No data
+> > > >    0b000001: 1 32bit word of data
+> > > >    ...
+> > > >    0b111110: 63 x 32bit words data
+> > > >    0b111111: varlen encoding (1 32bit word added after the tag to e=
+ncode the
+> > > >            data length in bytes.
+> > > > - bit 23..0: Tag id
+> > > >
+> > > > Without the SAFE_SKIP bit, all structured tags must be skippable. I=
+MHO, we
+> > > > could regret this limitation in the future.
+> > > >=20
+> > > > The cost of the SAFE_SKIP bit is not a lot. When we check to see if=
+ an
+> > > > unkwown tag can be skipped, we are going to move from
+> > > >   if (tag & 1<31)
+> > > > to
+> > > >   if ((tag & (1<31 | 1<<30)) =3D=3D (1<31 | 1<<30))
+> > > >=20
+> > > > IHMO, this is acceptable.
+> > > >=20
+> > > > Of course, if the SAFE_SKIP bit is re-introduced, I will also re-ad=
+d the test
+> > > > checking that unknown structured tag that cannot be skipped leads
+> > > > to an error. =20
+> >=20
+> > So, I'm not entirely convinced either way.  However, I have a
+> > semi-related thought that might sidestep the question for the time
+> > being.
+> >=20
+> > I think it would be a good idea to leave some bits reserved, in case
+> > there's some more structured information we want to put in later.  One
+> > candidate might be "invalidated-when-X-happens" type bits which we
+> > considered when discussing the versioning.  I think we can spare the
+> > bits, since both tag and especially id fields are pretty generous at
+> > the moment (23 bits when our entire current existing tagset fits in 4
+> > bits with a bunch of spare room).
+>=20
+> Yes, I agree.
+>=20
+> > For reserved bits to be safe to use later we must insist and enforce
+> > that they be 0 for now.  That means setting any reserved bit
+> > effectively makes it a non-skippable tag for the time being.  Or to
+> > put it another way, that means we can amongst other things add an
+> > (inverted) SAFE_SKIP bit in future if we discover we want it.
+> >=20
+>=20
+> Yes indeed.
+>=20
+> The structured tag definition becomes:
+>  - bit 31: 1 to identify a structured tag
+>  - bit 30..24: Reserved (7 bits)
+>                Those bits are reserved for future use. They must be clear=
+ed (0 value).
+>                If any of these bits is set, an error should be reported.
+>  - bit 23..18: Data length encoding (6 bits)
+>      0b000000: No data
+>      0b000001: 1 32bit word of data
+>      ...
+>      0b111110: 62 x 32bit words data
+>      0b111111: varlen encoding (1 32bit word added after the tag to encod=
+e the
+>                data length in bytes).
+>  - bit 17..0: Tag id
+>=20
+> Is this mapping ok on your side?
+
+Sounds good, thanks.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--wGNNPYpwVMLSmE1T
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmroSQAACgkQzQJF27ox
+2GdUfg/+J0RDKs/bqrklL0Tgzf61BXzcBgD2wOhOhviA51paXbMPNqUhWfJnkWGO
+CoE5tsMTN/90JIxKRKIawT5SvbmhUpz6nrOJJiQ/Pjy8UI0bM8UYoyzQ4gs+i2qw
+oyb5k/HEMFuWUY0z339jO3lcdTowIn1VpiZRnttUdQn0QrgfwFQn4gW6FWQMb5+N
+SEaLYBBrrT8sCaNx9TEs+zHVarsnufqpjG1zxytaCpaf7cvpnhxPFMGnw6nxHmzf
+3Xzj742rRUSwttuvpBLZYDyCKJ1cg1xzBqH1wayA8yIVNKFge2zwNlLEXLVCsRV7
+sY+q697P1zF1jwRVqqaAxcW33QX6jGWM6Stfj53WzinQsqd/ckOxgPs1I7M0Fei6
+Nc0sxx408DXQA0hT04uRxG3n/cBNrn7yL2ZL1SSb/YnXt6MDM0q8REC9jLGV35TP
+kl0nRptw89/z+PMbuojapv59Jy1x5KgQ359Tlf4KcyaM/kNgkshV+I1xPuEzG4bU
+IsM06KB3Y42TuX4zW9Zde1MDODU1bWWiVpNaYdoASKJ+EV9eN/4KD6ryUFkcr7G8
+e/Vh7QEmvXPi0MqT5DBkK0Mdi+xg6P2H6de6yMGpuoEpdqi01bqhrl/8teFUis1f
+RFR1KElGoRU+eeNAX2dzGRdI30YkMlozrRL4i7i1KA3aH9iQ2JY=
+=YCLM
+-----END PGP SIGNATURE-----
+
+--wGNNPYpwVMLSmE1T--
