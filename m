@@ -1,111 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632122;
-	b=a9SALqJxf7gYhQZYsi8FUWjdeH7PmewywiNT0v2aecPTpoF7m1cjdlyrBpkBB+cuRgw/
-	 w4UyuMCqkjN2nPr5eRA6Y0C9Zj51Jvj3pueD6NYDLpNMx+szGdbN4Bl7CR57dG/nJrTgU
-	 l+LAoNskaryv2lbfmtaKRuLJ+wmfAZv4C05ziakww2n0nPpkedkay2YNzEg8/FvVt2x4p
-	 xXQ7+QAPScFz1xSx+uEel6Iw0hDZ423Tva6xkQnvwPwoLKT6di0dd/QYnDJnQgCWxmCQc
-	 5Mxhrthr3d7IKuWroBTddPf1BG95h691LQM537KSn2BJ/unTVje1QgGruV78vhh+gNg==
+	t=1793632110;
+	b=nK1gbHGNf98bYIZ/0D+Xouprxmh6K6rYM0jqajoaEvm+oCo51z/7lRZqitZuzzyHoJHK
+	 nZJhV10kKjfWU5WU7itJwOC9JDLnKbOqoCU8jCY8TvU48hrplyJqgm8CkmvEU42KDPwMz
+	 TEPLFfXjqOjqsmW9bt2RWedqyEGjjmFQPhz4zXfcs2Oe6ecml1t2gTaMzxHK4QtHKYM5o
+	 RJ2OAKlMfCLbtTcQlAwEuZ+Z0WVlWcIvOnU//ToPf5jy84dfrnnRuzUl4Zu0mcVcHniee
+	 pkvprCETFY9miKXrlBBSTX/4kDNJF/X1XdzkJc9BGGGQEqcMhXHhfzqI2vIoRLLuOyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632122;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=8oGu3tFtibA4F9MPtu1QvqHowOYqxa/ZoelgOGIY8lo=;
-	b=KHutlKVXNb4qmRd320176peozZWG0RSNF1sCO/zMTJMq7UxOTYu98L/ynurYCvtbDe8k
-	 VRb6CfqE/SKFel7fO/RYLb+mqvZBI7CwUvvTiAze21dubjEpwHFifwvtXOhAgD8fLI9fj
-	 ETMua7rtd4ukHVNmJWiBWWZnwecUeyFmYQtI5PrTUub2eLPKdOEKvNPyJMo6NW5vlapq/
-	 JcQKnFwykSPtp4m6ZSDlDhwi60tTC5cHT4NitdShtCbGSmZlq4V10Lz8u7ccfCtWshiod
-	 wIMefIf1+6NU9zB7YQEw5Axai5fXzTipiQKWird8ZVm3SyR2hF8lfy/jovuce2yJMbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632110;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7Vjo7GooGGeFPFyAChgoItAoFMtiFUpjChD6wbXGdAg=;
+	b=JJucxO+GH6YVJp2tsqRjEfQ3fQUx0S7ylwBMpmfiCNlVreYOnWQKWBdfAn84iL9LbPCd
+	 Gf12TdzridcWkbmbYTOQ9OJX5TljLiH3R8FS6m3PekhneFF4b3ZkfFshkHtJ6aCyCXW2+
+	 KkLO47I4gzDlNU1oXh6WP7OiNTk6rXAfdb34rYCPgKsbbIlfMnL6+T6mi+kT2Z5hORLuV
+	 EjC4es8YWE51K91au109b71arOPflnUcl/icIOx9O2r+mdqLKLwEFjkhJKp9KdbT+mKI6
+	 yXtr01oiuQyyTyngXIcMuvBDjpaqzDTKqJqcj+SBkEMLxZ0QtLKmw75Ltv83qoxMtsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=edyVx3Rl;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X22ALmRm;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dCPmLVM0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32730608B7CB
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:08:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32730608B7CB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C78606B1CD;
+	Mon,  2 Nov 2026 15:08:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=edyVx3Rl;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X22ALmRm
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DpLj02991851
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 15:08:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8oGu3tFtibA4F9MPtu1QvqHowOYqxa/ZoelgOGIY8lo=; b=edyVx3Rl/Gix/vp8
-	fVxiwC8I5X3BwPxqEiE5qvO+NETSFY+0Ml2dTzswfYhKFjNYhxNmH1C/I8azYcy1
-	ffEcu+eW6YjBGz1rC8vRPiXo1BHAcXRiS4I6dmjN52QwzAfpp4gnmGYQhY4f7RoQ
-	2NEh6Oo7mzMD7aLUcT1gZr97osp7UsI7quWnE+frI62Z6cmG2Izv3/AMWWe6MgIN
-	wnhZoykblMkEnP/rZKodILXFBezTdof0LkQ8JpMc9PGN9N78Cy/qBaNMOCGUaFkR
-	5BxulQQmJL9p8OtiEbsirLW48LUyFc/vh02J0GJ98Kup6qkvlJfSvdbz9FMQLw9B
-	tcYVag==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpsavgx8t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:08:39 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eab0ea26afso101823e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:08:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793632119; x=1794236919; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8oGu3tFtibA4F9MPtu1QvqHowOYqxa/ZoelgOGIY8lo=;
-        b=X22ALmRmrQr/oD55jXdHNh0Az2uG+9BA4LWAkZe5KMi6g4ZK+ZE+KiMHDOAqsVuaIr
-         8//EE69oar9gO0Zw4uZol777w7EwPXh+hhlwM+UPN09AvuKNtsEZ9Ddnj9b2Lz9kx6Zt
-         JbeQYIB+8wS3I7IRyIl1EesbgdUKOxw5ApcbLFPkO7I0T0fIWVrapV4TIHExiaqD8a8L
-         AU9r1UhUlEgK6eJAooHYk0zAOCVqX+aXreLaaTSqPFPnnOfTJZulgzbd4HTe4WmI866e
-         PoKszrqRaIe9g9tekEFzlsk9JnXlmS30ou/qpDI54YE/dD59GaQKlcFxUEXOHFKjlCi6
-         osbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793632119; x=1794236919;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8oGu3tFtibA4F9MPtu1QvqHowOYqxa/ZoelgOGIY8lo=;
-        b=tsXvCbZTAKY9suC5JkJLjcJWX0kt7GjzLp3Sq2uhcfSQdXx2kIApdf2wNi22N4RIaq
-         7C/BPSjrfN6pKRA5O6LGIDsrnhoG50ZZJqfZkAp+AjC7+d2L77oldlrZhLYpGfoR0GBw
-         ffNkl5K6MJNbUMcPhYye8STrYGskOjNQYTJ84i+BUQyBhG3n89lpHuTeqlql3vB6mxm+
-         /GfUjHLzoA0Uz9sjZfjoDjZ6ca/PyCDAnPBjovNDm0m5fygsbFM+CeylAH4YMxwA5HOV
-         oDTyvbne3SJ4vvCUs1D9E+ViF2Ur3t5hDWBsTIRCcnfFMzdd5R3czHS0wDIECSL+/e8g
-         xkcw==
-X-Forwarded-Encrypted: i=1; AKwUvBzuXdLK4V7kr5YDqf/C+JzkkuNmBsNlR7DOw/b7vC7YgOgBV0dR7DPAEeKxd2OGf65nY+NqD0YoZe98DJw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/hgA2RGv13UgSK2+3vOATnRShgLAS2CVai195w/zEAYLv4Az8
-	KIBiJnQkVvPXCYeRl3b4LeWgX8zsz0+ckmY07bhkHI0w130pDBOyEXZ4v/60T9alWKEuLVo3jfE
-	7NLaemw0qx/m9rqGfGceyXue7fCE8LV5FarrrLQ5rlxTs1/ZQ9loc5UjaN9NeedLPFlA=
-X-Gm-Gg: AYBFou231mbHBNlEPIhPV+ZVb94JR28NhrnTiw0DzrI4FuNe0jMplLANEKQ5W6WEsUF
-	53p1VzPfIYfQnIWSMRpRa9m1D3G1lkN4qPzz/+FWpeTZmdH1TCOm5KKQjiKFwwIw5qX0z2+FDXy
-	lrQb9V2qew/Lh42itmW0Ez6rYcHw8ZBp3VqZrHPYvRa0nFFWHfHMr8CMA2otPi7cDYqeH4QzwJD
-	lKo9SbaLfTiqn9vo3WNoQothsisNV1q87rh1eJ7UpYVv3rI95fz6oxBihg0qp4OV1dPSfAzY2Pn
-	wIm0luWTZoDMHbrUlxH/6p6OAJCAlq9cEtkUzunnj9aiG013raa0aONqQUjMvp9tS+wv/nwaH+L
-	dbpo3FJaNw3iVge8BhyYQWU2NGGMv/7wo3bILfnsW8KbEwJzeUsqAujeQUJdO/2Bc/I+Vxw==
-X-Received: by 2002:a67:f446:0:b0:7c3:91f5:26d4 with SMTP id ada2fe7eead31-7d072bde34dmr4127829137.3.1793632119253;
-        Mon, 02 Nov 2026 07:08:39 -0800 (PST)
-X-Received: by 2002:a67:f446:0:b0:7c3:91f5:26d4 with SMTP id ada2fe7eead31-7d072bde34dmr4127770137.3.1793632118576;
-        Mon, 02 Nov 2026 07:08:38 -0800 (PST)
-Received: from [192.168.226.93] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b52f3c2934sm444634a12.33.2026.11.02.07.08.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 07:08:37 -0800 (PST)
-Message-ID: <362884cb-71c1-4d12-b315-9923118c8564@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 16:08:33 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dCPmLVM0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66DEB1F00A17;
+	Mon,  2 Nov 2026 15:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793632110;
+	bh=7Vjo7GooGGeFPFyAChgoItAoFMtiFUpjChD6wbXGdAg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dCPmLVM0kVwQHI/jSrtPgrnQS/2KHw+pWiLThc5bRcG0bWd6vLm3LIgIR0eTP9mhP
+	 zcOjYI2ZBACsBE6KwZoJmIGY7NnnrReLl6uAQbt41cFu/KmLEYsxGYGkwwDfzxV+0D
+	 3eF77I6yL32AwD9SkI63U0t2DHFCTIGPpTXcWqhQ64DHwYBj/Dxy/yOsGaIAXIizZ/
+	 h+0h/2W04GWsA/HhqX/s1NWTMVzUr7mXf/asghCt41yhDTKFqh7hRaLaFHkE/GkaDF
+	 wc+pA5PLvPiKO1PLddwzujwTrKb+UjDjxXPHFucr0GgjZHCePxWkOWFCw9ys58rQyF
+	 KgUJDcyrQSNdA==
+Message-ID: <d6e16fc8-b471-485b-a05c-a545adb0a1a2@kernel.org>
+Date: Mon, 2 Nov 2026 09:08:26 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,103 +52,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: clock: qcom: Add bindings for PDM
- GP_MN clock divider
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Richard Cochran
- <richardcochran@gmail.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-gpio@vger.kernel.org, netdev@vger.kernel.org
-References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-0-ff8e4bc8d567@oss.qualcomm.com>
- <20261026-b4-pdm_clk_gp_mnd_v2-v2-1-ff8e4bc8d567@oss.qualcomm.com>
- <20261027-inescapable-rough-viper-6cd56d@quoll>
- <fc2c4943-0482-4c72-b713-5a66c9995c5e@oss.qualcomm.com>
+Subject: Re: [PATCH] platform/x86/amd/pmc: Fix S2D message ID on Rembrandt
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <fc2c4943-0482-4c72-b713-5a66c9995c5e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Hans de Goede <hansg@kernel.org>
+Cc: Sanket Goswami <Sanket.Goswami@amd.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261102053503.102598-1-christian.aurichzm@gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261102053503.102598-1-christian.aurichzm@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfX2QsUQLQn8jcM
- fgMqwI+40y3k7KU9l9uGt5o1VobzVlx+sKU6hjdDmjRKvK+trWqxuOb8c80FLq+uu0DTl6aTIkw
- A2iRXsq3SOD0yup3UoEvJfomnzuaPRXILwRBQRSlHBfCUoynASeYXl2CfUqbSXe1HN3OKHlhSCN
- ZW3OHEvfNM0GN088XVGVQBPftA2YDEMDd23+8pghVSCnBnEPaAx5LjzZG2ImHCiUqh2gkFuaE6y
- w9W7yCC/q3BGYrazcWI4+ownIAZpQBks9/66ykkvYIZsQd48gM7BhtMByHJULRFakaxugoQXOPR
- TArWPGLcwXeF+68FrEb91bKicDA67ICoYDMXts9vySi8lmZ1aPlbuswLC1pVMeJA4uS92hEe8mj
- wOlCYPlroOaj+NJGdhezLFQtPrjIWbrcTqpGrIGQnbbCVPHJZgx/eRDSqT/auKZB1R4wmVHKFod
- xCsIyySJNn414vY1lxQ==
-X-Proofpoint-GUID: I2wVARkOuo9wVvoywjJ5dASSwg6oMPn4
-X-Authority-Analysis: v=2.4 cv=FZmiV5+6 c=1 sm=1 tr=0 ts=6ae8a777 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=fjKjonZ3CYBpfGIA-1YA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MCBTYWx0ZWRfXw9KLaJbw5Scq
- D8V1fS9T1V99q5nZWxOMHDQWdgukdklHLQgvhn/0ESxFfOoByKofptpf3Vb8zCdh7V4tIs5bCh9
- co65yD3xOe/UwtQoVydX7ZT4ANd14gM=
-X-Proofpoint-ORIG-GUID: I2wVARkOuo9wVvoywjJ5dASSwg6oMPn4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0 phishscore=0
- malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020060
 
-On 10/29/26 11:57 AM, Taniya Das wrote:
+
+
+On 11/1/26 23:35, Christian Aurich Zanettini Martins wrote:
+> Commit 382fe403dc31 ("platform/x86/amd/pmc: Add STB support for AMD
+> Desktop variants") added S2D message ID 0x9B for Granite Ridge (family
+> 1Ah, model 44h), but only checks the model. Rembrandt is family 19h,
+> model 44h and goes through the same AMD_CPU_ID_YC case, so it sends 0x9B
+> instead of 0xBE. The firmware then reports a telemetry size of 1 instead
+> of 0x100000 and amd_stb_s2d_init() fails with -EIO.
 > 
+> amd_stb_update_args() already checks for Zen 5 before using the Granite
+> Ridge registers. Do the same for the message ID.
 > 
-> On 10/28/2026 12:17 AM, Krzysztof Kozlowski wrote:
->> On Mon, Oct 26, 2026 at 04:59:27PM +0530, Taniya Das wrote:
->>> Add device tree bindings for the Qualcomm Peripheral Web's PDM GP_MN
->>> clock divider. The hardware generates a fractional output frequency
->>> from a fixed input clock (typically TCXO4) using the relation
->>> Fout = Fin * (M / N), with duty cycle controlled by a separate D
->>> register. The clock output is routed over a gpio controlled pin.
->>>
->>> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
->>> ---
-
-[...]
-
->>> +  assigned-clocks:
->>> +    maxItems: 1
->>> +    description: Parent clock phandle used to set the input frequency.
->>> +
->>> +  assigned-clock-rates:
->>> +    maxItems: 1
->>> +    description: |
->>> +      Rate for the parent clock in Hz.
->>> +      Supported rates: 19200000, 9600000, 6400000, 4800000.
->>
->> Neither assigned-clocks nor assigned-clock-rates should be needed.
->> Parent clock is outside of scope of this binding.
->>
+> Fixes: 382fe403dc31 ("platform/x86/amd/pmc: Add STB support for AMD Desktop variants")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+> ---
 > 
-> Sure I will remove, but the parent clock input is a requirement of the
-> Hardware and the output of this module entirely depends on the above
-> ranges of frequencies mentioned and that is the reason to keep the rates
-> specifically. I will capture it in the description and hope that should
-> be fine.
+> Notes:
+>      Tested on a Lenovo IdeaPad Slim 3 15ARP10 (Ryzen 7 7735HS), with this
+>      driver built out of tree for a 7.0 kernel. The size query returns 1 with
+>      0x9B and 0x100000 with 0xBE. This laptop's firmware then reports S2D
+>      address 0, so init still ends in -ENXIO here and I couldn't test an
+>      actual STB dump.
+>      
+>      Based on v7.4-rc1. Found in my own boot logs.
+> 
+>   drivers/platform/x86/amd/pmc/mp1_stb.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
+> index 8a33e75b71c3..af9ecec532f0 100644
+> --- a/drivers/platform/x86/amd/pmc/mp1_stb.c
+> +++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
+> @@ -266,7 +266,7 @@ static bool amd_is_stb_supported(struct amd_pmc_dev *dev)
+>   	switch (dev->cpu_id) {
+>   	case AMD_CPU_ID_YC:
+>   	case AMD_CPU_ID_CB:
+> -		if (boot_cpu_data.x86_model == 0x44)
+> +		if (cpu_feature_enabled(X86_FEATURE_ZEN5) && boot_cpu_data.x86_model == 0x44)
+>   			dev->stb_arg.s2d_msg_id = 0x9B;
+>   		else
+>   			dev->stb_arg.s2d_msg_id = 0xBE;
 
-So this is essentially xo, xo/2, xo/3, xo/4. The gcc_pdm_xo4_div_clk_src
-you added is defined as a 4-wide divider - do we need to limit that
-divider's range, or would div=0b1111=xo/15 also work?
-
-Konrad
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
