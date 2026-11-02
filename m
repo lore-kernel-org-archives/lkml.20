@@ -1,106 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793628257;
-	b=4lEP11aS4ZBmaULyQmQ897+rVgc8VZsg0ucXkHfpuGSdCZqVeOA7C8tV61WVzqtgEAsr
-	 NWTc2YCg6lBpPRqcYQX4qubR2NrfyTF0dDnSVNRJNPblnUv6KsZdHSg17B+jkz9xjf4AU
-	 qJRwZ/zUH/oXPnOhf0yPSUupUyaDYqSi+ZtoAAJGy7FepVntXVyYlOvBdBD+Tbv/LeY/D
-	 CITOhy6yXZMAPuaCuwasOdU0eVLcidGlCJXqul1oS/x2Y0oN/DklWfE49yicsa3LZh3aN
-	 jHSFluOKMuowpeox5akNILjF7QRXCJmYNw7J1VHowDqEFT6MW3Sd3l/ARe5hTfOXl/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628257;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sMN/UaeR71veVcAeW7H5qqYSU3g7iV+K/16RqOJC0RU=;
-	b=KMzLWPDLivSMfF+/fPFxd9Heo8VKZ6g4DxVTNgRK4gUqWHwLs5YRBrAka0qFWGgXAeKE
-	 hlnRDITw/qvAIqb32NYZqxpH4K2tvj68KwGDGYrgg2lA1cmuVHC+prHV2dW819UZN4SBw
-	 Aj1tkdMTfvxDTpgTlyyqVvhzhQZhmHbSIT2XIlOM/Rs3wVwSw1RTHfhD3e0fzAPawWEKZ
-	 svJQmiFNHwlSq3ii8yWXS7GRlGUasi/AVym/8cLC86CgieQSk4e0H5fqtElWKilSLV/Uv
-	 hacfKIAz5nOAOpobtohpgZ+AhwsburpSaegyHa5xSVr2HZbQdXdg6h9Pslyl0p6gzuA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ff7SDxCY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.62
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011062.outbound.protection.outlook.com [40.107.130.62])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793628259;
+	b=Xnb+/5nCQ+PDmzisvUX7jObnF1HmMZiKRq9CVrzgxZNP3M9UW71ipJ99N/qk0mxqFim9
+	 8vLOj2A4n5Y581vOf+MjRfZEQ7u+7RiYwccUZ97UtljgqFj1LSi23ZWYnxB9+h7Dkx0tB
+	 iKyd8xr0GegHVFDSzV9smsHF4ebSH88zct+MdHyOPOAjFdigI51XM8foIJyq5Al/jkHOK
+	 ytg+28GS03fmdveRJBbbe8RUN1zysQxk54Ua27ATIgDX8kPuojoWlNZ/WGn3XzZvtqM7m
+	 KnPsToIf/cntH29qWuuGhX3zULwb/4wRdnKi9yvvt01L82tM/eOVLAyW/LrqG/e5hAQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628259;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=MM6WPQvZHCORWNa5gBSC182WytjG7gpmpHokMfwajXg=;
+	b=C8ydcp+m0DG2cHtn0o/cgZYyw2uFJPAEvLaKdjNncHPsTk5qF5CJ2ZmQ2LfMxhMemXn8
+	 zbGZExyUwxHrnyjEIoTrN5s379Byf+hvIOjjqXZXwC8xBjCEM1AolbBedPVSFmfwE0axB
+	 NJfeTES6Ipp7i7e9Z5BNnR2aDgDY8rt2/TMMjctaHS4rXEyy75Gbt1PJZ4rhbZwrQ5pRo
+	 +3jBJOGCFW6h1dVRdsXyKcRQTvaXmfUTQHi+5K7nyULIv4mATr8ZZi2/nQxsdduyC7O8z
+	 7BIkoZws2m3uRlGkbthvggyvfBWLvckhYoS8FUiL/yQr9yqyXtUGWEFafMbzsvKsQVQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PMHsexhf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bqtWHwid;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD0F60A381E;
-	Mon,  2 Nov 2026 14:04:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDD0F60A381E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7DF60A2600
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:04:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B7DF60A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ff7SDxCY
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a2tprqOJdQ9R5yFxM3cinTYswT4KxpstXH6JNmXuEFVk7zAT1o9cSWixlFdBN6tew8RXHlzSvlhi93R3uK4kDz/eKodElwIglfTqlVjVvmDL0v3QOm+IRpCvcSDeJcsFDr3d/tjNaWZA4dqfsk9AFUHAXVNd87QWLu0SPjYTD2aYqccHpwVjmrpaDJFkSHRhunbLYBgKztFy9dG/UZBI6/Lr9nZuWPfNxfgl5aFmCQiiS+NfCrNRd+VHQYSypu3j3E+xEhzRnNTJW6J/3SCFbypvbq4vkywNE4YQ3H1uVeX6mxOT308Mq+zHTGLFpbQ1TzoyAd6AfX3BSssHCBRSBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sMN/UaeR71veVcAeW7H5qqYSU3g7iV+K/16RqOJC0RU=;
- b=NdTgraMAKHuZ3KK/eHCeOJC5aiPD1gsM4TzhW5EFrhWWU6RyEuU29ybLFxK3C+zLDm4qyj82QirO7IYvVdaKzFOnxelPA2i6k3lhiT5Trefuk19NHPW4choK4IpJOoJKSE+NkRe5p7+cWPYTypgjzLGrPPVZyqx7/taRXfYWeFnuNNU2VRBiHt9Uc4/Fg4XX0/GKCQG0HdY1Alx3xD/U434Ssy4yfB/p2xIxRpjunv5Hy1eArA/qf7Kco2POD6nyi/Lkt6MAPAwlpGbvGv0fiCQIolGm4PItDuZa611hpMmw0W6HELiq/X9HQq8//4JzlFvRSqbx9f2S/uz2vlrjfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sMN/UaeR71veVcAeW7H5qqYSU3g7iV+K/16RqOJC0RU=;
- b=ff7SDxCY4vL8E9qbt6ZWcYrKLrydIA6qDmL7cN8aCHY6jW1lFj9AFV5iQnJ3/RMo5PsUmnVQXHEV6mjqoxErHcaYnlna/C3YV94IivQ5dqPHYD94OhJeW5K4orEzQck3sH6e/9oGxuLFFwYLOnCznlSI/6UGHDcYkSfYu5aNAQSBWEj780cb73KljtMf0/mImIGQvu4eT8Ss5dDX8ZzYR6ztJJ4c09TDD3mpCcCYHc1lyfysdwB8oOtMeUmu0E8dht+eq3fRjwBy4w2BCFKNTZ+um7iReJI+GFeiNOJDY8/45+pSyMH4TNDE++DXXFIfVUZUhm9QDnLKwYqFGCCjfQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::13) by AMBPR04MB12565.eurprd04.prod.outlook.com
- (2603:10a6:20b:778::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 14:04:14 +0000
-Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
- ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
- ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 14:04:14 +0000
-From: marouene.boubakri@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Anup Patel <anup@brainfault.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Radu Rendec <radu@rendec.net>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Marouene Boubakri <marouene.boubakri@oss.nxp.com>
-Subject: [PATCH 6/8] riscv: add ARCH_OPENHWGROUP Kconfig option
-Date: Mon,  2 Nov 2026 15:17:25 +0100
-Message-Id: <20261102141727.640769-7-marouene.boubakri@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
-References: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH8PR20CA0002.namprd20.prod.outlook.com
- (2603:10b6:510:23c::6) To PA3PR04MB11203.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::13)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PMHsexhf;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bqtWHwid
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2Dpciw846338
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 14:04:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MM6WPQvZHCORWNa5gBSC182WytjG7gpmpHokMfwajXg=; b=PMHsexhfRoZiw1Jp
+	hOovDHYjxEUFNn9NPgdNHGpNAiORq/2dwJiC+9wV70VCWP3fAc0MRmV8jSetIhUB
+	hI/epuixlKhl+2gw23566HJ6rsomcZJVkgfY9eNeJzmxuN3DgQXqTJOkhjBwH2Fn
+	mF1XuoaoesAmrSiYKSQ+e1DI7jOJZ4ym6osZCKcQYuROXtemf01nav2SP3XUlt3s
+	3E7SKsdgHJZaJP23jAXdznL4Xx34lxrIuDroTg2lzngDCeQtl2XGblpR/8uMegRy
+	Bt8fXx7qLg4edSYaRw66CAEu8Cv4DfznRhZU988SQmfHtXmHtfzqDTSXNkwH5iYm
+	FQJz0A==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpmf1sx3w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:04:17 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a05b68f851so3715655b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:04:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793628257; x=1794233057; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MM6WPQvZHCORWNa5gBSC182WytjG7gpmpHokMfwajXg=;
+        b=bqtWHwideMN7zz0WtMHedmiJWRLPLUHF6pmZX5qEHu3P8F9YvJWnpzMwvt0JEdTV/U
+         zuxZqXrNuIoP6DvO5azSE6re+bhzz5Sp4H4hk1CJOk7RzgLQfZP/cDwiPbSZFTuDObCQ
+         m+ghtkfJZC7XtYCVXu5ialhrIcqJG6rqfrmGdLS3ggRk/WnW0zs4xjTNPi8gGk9n21CS
+         zqxm1teD44V7eQ++bzqiUU0uRvrXsVlUAJsCe0VbDOQMgt8di7ytEX7qlL80FLYZG6rY
+         rOf3r9aGRoeJr033TbACvzqcvGUIN9ZxX4Fwxc9AzMPjqgdRXTGKjsYIOKae0+rXMru5
+         Q0dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793628257; x=1794233057;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MM6WPQvZHCORWNa5gBSC182WytjG7gpmpHokMfwajXg=;
+        b=Z8LbDe++vSV106pNR1QitFuR1F6gQgxavc8mR+kIM13xtIbk067Vjc5Xv4JHjVXhav
+         /RCKMwFMvjq6bu6XKn8RT6z7IgI9duLkFxobssmmhOslKAGyOpNBda4cghN4ewNc3Sog
+         XL3H1nFCNyWzGlUsn+5qVq593lH9IRFsve86Tl6L7Kf4l99FqEI22vFGeZcWMP6WZ0Qs
+         rPJGzY9GJOIy6g7mV8m0jo/uciHyJWkijLd3mVNfEUQ1tR/AZl3ZLUGO/eZeLOmAmiJm
+         DjFVuu/lkFllGAsc5fZJc29xJmnU30G2lvAM0mOyW0OHEAymfWyhYQJ+yVCt9+pbwwlo
+         1JvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxF8J5u2iFepPSdPvTsBt7UxwuAAoYTsmAtEjAdoHFNMa0dmGH3qCGiu6GsDdTRH4qHUQkbRasR14MNDd4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/c2Kd8nQWvYqQEPibeyxHD0qtuNpIMaAinyZU0SG6qNjfq0Rdy
+	LaGyApfrE+h9b6TGs+gldTKlcgwjvDhqzbWvgQLgP+sEGkZzM2T3etG0+G0t7NTxJhOAnrteMGg
+	yVFaqY7WOpM5Pgia93HFXJ2gzDJZCN78DGRTMkTkBS7osBVDPsJtyRm/GBfHLWtxwFZk=
+X-Gm-Gg: AYBFou3fKcK7xjvI0sIzESCsoaZMmCFu1MzJaQwE5ttrNDOXCyYPDoLjW9bczW9uJ0P
+	lflcbqmfdwQU3nqEIWsHLEb0AbnBPYe3CCgViUW4R39+b/WR3knr+0cPWqr9ks7e3DGW/AyYVHh
+	82fqe6TyCPoLnjs8x/DouKklGThhv4OyOj7h7i0IDwy3mMDghl90fUBvMJTk05tVi/2zNQe1r5M
+	bFG7QDYeBhWYiUxf+MPu1lbQOWF9dyU7ypz3xNYXcduconZgrUjBrUfFNUkpAdVJfi7Po1Rt1kA
+	eyNVUcAspNM9yh7TiUxxt9dvUSITmb53N4R10PQV2awhtYylwfnc/FKdbAkOZOmvieQxZR9d/W8
+	lpcOY2UozhCgI4p5bf7M/gufYdoy+ZxnY6LVn6ZijC/wU2CxdsbIRTNpcEFx54A0wE0KTKK84pp
+	o=
+X-Received: by 2002:a05:6a00:bd02:b0:8a0:3617:b53a with SMTP id d2e1a72fcca58-8a9bea6af02mr5307516b3a.18.1793628256860;
+        Mon, 02 Nov 2026 06:04:16 -0800 (PST)
+X-Received: by 2002:a05:6a00:bd02:b0:8a0:3617:b53a with SMTP id d2e1a72fcca58-8a9bea6af02mr5307477b3a.18.1793628256260;
+        Mon, 02 Nov 2026 06:04:16 -0800 (PST)
+Received: from hu-ahari-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad77fd956sm2286942b3a.3.2026.11.02.06.04.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 06:04:15 -0800 (PST)
+From: Anjana Hari <anjana.hari@oss.qualcomm.com>
+Date: Mon, 02 Nov 2026 19:33:42 +0530
+Subject: [PATCH 2/2] mmc: sdhci-msm: Add support for firmware-managed
+ resource platforms
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,92 +117,474 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|AMBPR04MB12565:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f4d39c5-30d8-4aae-72dd-08df38ea2d87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|19092799006|261021121427099003|11063799006|56012099006|261022075727099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	9r447PcKjXiGkibtfgBWB85D2zN7c84DufWCVDp/rxo80ffmq5CN0KhGuIxe7V67p9iBzWoB6kenfEXFVIRW6jbofTYhrW28SuHGqWZg9odA+HxczThnCHPsljRmqNSUHbneA/uRt3ddjrCisVHjX/ux7EeAGthv2HFum/Om7HOuBjB8AYOZgKIhYFo/6NnuBz6rdpc4iGuBDAvR+RsUUKKtH5Q6tkSM0W7d4QOwuphw5sm/6kfKiP4MImkQrGEo1GhD1rwpSqJuAk45JY2hC5UVVrj50PCApk07UAILsHuwVuVzluquUvFP/vGyx7CcInXphRfq9jr9u1xKL98riYm3MKe6wI6xouhvtoiIqwdKYPKAo/6omb6ujDa2MvoIBz+biFNMfKqHPMkh4ARpsu6KD4qaEfUUP8eh65VhRm6T9gyPgI9fNl7f1Bc6PEve6zXqRWk9IISmQLFai8cpIRjcivke0D6Nw3R+6Rc7+zxei+o/JfrNtYc2N0Ky/QFBilZRbciotVB7Ay7bVfy4P0eeDlPSO5bM7bteGafK9a26VbZnT/rQxjR9Pws3KK5QNal0ZCHpg/+I1ir0+LtquJEbSaKyQgUUQvzhKc+Ke4DfSU/RPll29OW+4kSA+MDUAJmAQ9gMAjmYuvy60oVcoz+2UHXLZcqOWM4FPk0DDgk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(19092799006)(261021121427099003)(11063799006)(56012099006)(261022075727099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?yxB6IG7yfWl0QUSfsB79qfjpYHORRAwGcPB2pGiPHbEkVxx53Gc2OcS2JrqR?=
- =?us-ascii?Q?sL/WtUkyyrxRcfbejTSei7OsNEKQH9bxRGQ037tdhRoAvVsPvw3CIDQnkFY7?=
- =?us-ascii?Q?DM30qx/hxInyCIQCq5heec/xcoqNboohNrytmQC0KqM1Liosa0VzJWCqUxfo?=
- =?us-ascii?Q?IUFivRwHuezQtT3VjaZT2m/7I7/oC8X3Yy2d5o4AUQe8eiFQCOjSmJ/wTipZ?=
- =?us-ascii?Q?xY5nyQXMuyrbo7AjA6IU9s7d6s2yUednQ2C87Yfz8AcXUfbDFyaSi0HWYF4Y?=
- =?us-ascii?Q?2EEFqQwPBbkKTyNch7fwhj/PARGUmt5VmdZZ5HOpyBfCfcIQBRfjkfeMsoC8?=
- =?us-ascii?Q?JKE/7bztqTZwZnJZAcmTOH8f+J41R0S5Rtu1999ygnh8WFn7M5dAZLqthUec?=
- =?us-ascii?Q?q46Ulg4aKbJtPkQ5ReCQMmNIDCsVedfONjSyo31rnYi4rmaphCfe3+1EjYhf?=
- =?us-ascii?Q?9i/9LCumIZwuW82JjUrVN91FfSZdp2Lovxk45UFNXFkro9/Rs65yibIoGjEk?=
- =?us-ascii?Q?cVH2w1i3HgL3dg9Y83xj25NPA/lQU+0egXb+3ngLawZYhd8Nm5rJeoxtMll6?=
- =?us-ascii?Q?a5Zo50P9O/ItZlXKINNxOeHazHTC5ndR83hmS1Bwn7QxwXOD/iGBadTzwAJe?=
- =?us-ascii?Q?DglefPa1T2XH36nAth6P9m6Al4g9ZpmF6F287B+sdv4KkaHy9Hkaam8t2zYL?=
- =?us-ascii?Q?EIRnjFOZtW8PDYUFr5lIp0n0t3q5US4PNvja4q5nPB8mvniy1+8xDi/i50/r?=
- =?us-ascii?Q?7ATfdX85ibSLE+Hp5x5JrEAx4RWncE+AoAUBiMwB+CQ7tb/WvanxGLKfkDNf?=
- =?us-ascii?Q?0aDu3P/IE/aKyx1V5qK0AbQu+bD9QMS8qfaKI/w+Uhw6kjj1tnR16cczY1bJ?=
- =?us-ascii?Q?OOVGkhX+d4gTV0h5VNaxexVxdN7Oababis22JY7uCsjcRs5C6QLzEnW6ubCX?=
- =?us-ascii?Q?4qOayMJsgtOIoNSa4sXyB+KmlJXa81QBfUH5yuQz7WxMNqyyZfXQ3Q1njXwQ?=
- =?us-ascii?Q?ZGiFMpgsPi9MsqPnz4IBYttxTb6nRfln5rjnOEcoBXwLyaWeO0/NhWntZUXF?=
- =?us-ascii?Q?wBTWZDuLC5fZZWTFSpVRzmKB/XkJ3SXTFMRsFlN0QfMrLHdiAZtxbKQAIstS?=
- =?us-ascii?Q?PJ+b/5iOyCWLk0wVkxptPkoUHDG/1kA9DRVv34YB9q6ydhyeuUZ/ngpwTdRj?=
- =?us-ascii?Q?IQ9KON/6HZ+BGeASjnN/U2oqez7z8ftgsQRd93j4W6SaVZBJCOXKZV3ZUjJl?=
- =?us-ascii?Q?ImwpBSKQQZpBg6J6UbwRLYJHkv5H1DQvio6I+9R0oY5a1UcOZFPq8EsCqz1c?=
- =?us-ascii?Q?ysnIS9PCrSAKmogkMhvUOzduXv0Yw4RkoORNdEjushbZhN/qCasc3pbONxzB?=
- =?us-ascii?Q?MW8voALPS7nKYdLkR8cj/YUtblI1LymDrsXvoOnuxrT8D9gzMt0+5ChEtBuQ?=
- =?us-ascii?Q?i/eB19SWx2fR44ozKt+ejW+qBh1dwL4hH2GlYAYz77DH8zLKQBZF2QB+2lOd?=
- =?us-ascii?Q?ctssAsjr5SMEWI7hzlrLOtOYghs7fls3bjCgaqc6hAWNyzAL29583gJxEq3J?=
- =?us-ascii?Q?HoYRybLP3C6JzM98UK6p0Pa1IZokQjCdgwgkyHOZxlR+6R3rJCawv59mmXDw?=
- =?us-ascii?Q?5hQOVCJBAcNSch4YsupJkt75bKcfzfpJZ8kAYtb9Ync0IhnO81mAqWG5GfNG?=
- =?us-ascii?Q?q0jY/lR17X76k3IRQWjFQBgxGSAKqBujhHDsOS2wX9weqhOcu1PxmecPpzvL?=
- =?us-ascii?Q?73eqBZcKudnvdpvyKBIe2HcSCTFE6O/MEGWOGOtmkmNi0dDPkNUCgnsZK1JP?=
-X-MS-Exchange-AntiSpam-MessageData-1: us3K8fNFoGdoOA==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f4d39c5-30d8-4aae-72dd-08df38ea2d87
-X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 14:04:14.8549
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5KS2ddzFo4joa0bl4wAiLEAAflhiOBec4GyySHSucMPtqLOq09qFb003Bq7i1bx9K+ykKt4vcmKkLR7MftVxCYVzzEDxczfzcPRw+VeH/CkE6uPHz1NKUErwuqFApC27NeMc3FpnFAwawBb37BPQCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB12565
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-sdcc_scmi-v1-2-244dbd893051@oss.qualcomm.com>
+References: <20261102-sdcc_scmi-v1-0-244dbd893051@oss.qualcomm.com>
+In-Reply-To: <20261102-sdcc_scmi-v1-0-244dbd893051@oss.qualcomm.com>
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Anjana Hari <anjana.hari@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Ram Gupta <ram.gupta@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-ORIG-GUID: JyPosz8Z5dBmZa7u8AMo6SLCfX9393qD
+X-Authority-Analysis: v=2.4 cv=bNaDs/+Z c=1 sm=1 tr=0 ts=6ae89861 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=tGE8Z9jcIeqfSwNaEeYA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NSBTYWx0ZWRfXxpV3OA8YbdFA
+ KDWEkJy/DHO+Z4g7Mk1HJzVvGHzxxL07otST2vh/An9/Ipm8ZDCItAGbVRtIa4fM9lcZs663xBf
+ dvqitxSsGUEIjbviP547JJsykvpMRjq6RjbKpevQnLsMbcBRGEohAasu000Bd4yca/KDK1mMk+T
+ INLcvQh7jnodoXwtxQAQ3/BUL2WYTYzeehhfka3KguWfv4FGlZVDLsX/TAdCjwnODfKvcuf+91b
+ +7lIS4Yxfrf6Kdw5VmQ8j8mbGyvuXWIjCMjUvVsKIgFMIj9cSQJTmIdjylLLPoff2+2JQC+f7l4
+ OvfnmbB9EDJLSRITY0nOUuTtrkKdeZHX+qUucQkIY7qsxZw6yRX1pbL/acnH7CjFba8knpGkP+A
+ p+g1+HSGiytN+AVn051FEMEqd19bJ+REumz2GlG4dFLMYh6IhSdZV0YFKfL5APQ3gm+uGgTt2A3
+ 6NHJiPRSCnjLpJgV3QQ==
+X-Proofpoint-GUID: JyPosz8Z5dBmZa7u8AMo6SLCfX9393qD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NSBTYWx0ZWRfX6HtTeVGP8MWR
+ R7ptSj/GtUO8s+E6uUd20rRsp6Qs7cnqzloXmmK4AXrNIC4wsgI9LSxfuIjLANzNWvc8MsocjWW
+ QQIDYaoSdQYp2xNCsQ4HQzb1/sqbjPE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1011 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020055
 
-From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+On certain Qualcomm automotive SoCs such as Nord, platform resources
+including clocks, interconnect bandwidth, resets, and regulators are
+owned and managed by firmware rather than directly by Linux. The
+firmware abstracts these resources behind logical power domains and
+exposes control through the SCMI power protocol.
 
-Add the SoC selection entry for OpenHW Group platforms, which is used
-to build the device trees of the CVA6 APU FPGA platform.
+Introduce a firmware-managed variant of the sdhci-msm driver that
+operates through this abstraction instead of directly programming GCC
+clocks and PMIC regulators.
 
-Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+The firmware-managed model uses two logical power domains, attached at
+probe time via dev_pm_domain_attach_list():
+
+  - "power" domain: governs SDCC rail power state. It is activated at
+    probe and released at remove via pm_runtime_resume_and_get() and
+    pm_runtime_put_sync() on the domain device. These calls are
+    translated by the SCMI power protocol into firmware power-state
+    requests.
+
+  - "perf" domain: the SCMI perf domain driver populates OPPs at probe
+    time by querying the firmware-reported performance levels via
+    perf_ops->device_opps_add(). Clock rate selection uses
+    dev_pm_opp_find_freq_floor() to locate the nearest OPP at or below
+    the requested frequency, then dev_pm_opp_set_opp() to apply it,
+    rather than directly programming the GCC clock tree.
+
+A new variant sdhci_msm_fw_v5_var is introduced with the compatible
+string "qcom,nord-sdhci". Detection is automatic at probe: a non-NULL
+pd_data.pd_names in the variant descriptor marks the platform as
+firmware-managed, causing probe to select firmware-specific platform
+data (sdhci_msm_fw_pdata) and ops (sdhci_msm_fw_ops).
+
+The firmware-managed ops provide:
+  - sdhci_msm_fw_get_max_clock: queries the perf domain OPP table
+    using dev_pm_opp_find_freq_floor() at ULONG_MAX to discover the
+    maximum supported frequency, replacing the direct GCC readout.
+  - sdhci_msm_fw_set_clock: routes clock rate programming through the
+    perf domain OPP path, reusing the existing bus-mode multiplier
+    logic to derive the target rate.
+
+Suspend and resume sequences bypass local clock and regulator management
+for firmware-managed platforms, as firmware handles those transitions
+autonomously in response to SCMI power-state transitions from the
+runtime PM framework.
+
+Co-developed by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+Signed-off-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+Signed-off-by: Anjana Hari <anjana.hari@oss.qualcomm.com>
 ---
- arch/riscv/Kconfig.socs | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/mmc/host/sdhci-msm.c | 213 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 208 insertions(+), 5 deletions(-)
 
-diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-index cecbce0c49..289448e489 100644
---- a/arch/riscv/Kconfig.socs
-+++ b/arch/riscv/Kconfig.socs
-@@ -26,6 +26,15 @@ config ARCH_MICROCHIP
- 	help
- 	  This enables support for Microchip SoC platforms.
+diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
+index aecd425bf095..da52a45203a5 100644
+--- a/drivers/mmc/host/sdhci-msm.c
++++ b/drivers/mmc/host/sdhci-msm.c
+@@ -8,8 +8,9 @@
+ #include <linux/module.h>
+ #include <linux/delay.h>
+ #include <linux/mmc/mmc.h>
+-#include <linux/pm_runtime.h>
++#include <linux/pm_domain.h>
+ #include <linux/pm_opp.h>
++#include <linux/pm_runtime.h>
+ #include <linux/slab.h>
+ #include <linux/iopoll.h>
+ #include <linux/regulator/consumer.h>
+@@ -168,6 +169,9 @@
+ #define ICE_HCI_PARAM_CCI	GENMASK(7, 0)
+ #define ICE_HCI_PARAM_CE	GENMASK(8, 8)
  
-+config ARCH_OPENHWGROUP
-+	bool "OpenHW Group SoCs"
-+	help
-+	  This enables support for OpenHW Group SoC platform hardware.
-+	  Current support is for the CVA6 APU, the FPGA platform built
-+	  around the CVA6 application class core, with the 32-bit (cv32a6)
-+	  and 64-bit (cv64a6) configurations of the core on the Digilent
-+	  Genesys 2 board.
++#define DOMAIN_IDX_POWER	0
++#define DOMAIN_IDX_PERF		1
 +
- config ARCH_RENESAS
- 	bool "Renesas RISC-V SoCs"
- 	help
+ struct sdhci_msm_offset {
+ 	u32 core_hc_mode;
+ 	u32 core_mci_data_cnt;
+@@ -275,6 +279,11 @@ struct sdhci_msm_variant_info {
+ 	bool restore_dll_config;
+ 	const struct sdhci_msm_variant_ops *var_ops;
+ 	const struct sdhci_msm_offset *offset;
++	/*
++	 * pd_names != NULL marks this variant as firmware managed;
++	 * see fw_managed detection in sdhci_msm_probe().
++	 */
++	const struct dev_pm_domain_attach_data pd_data;
+ };
+ 
+ struct sdhci_msm_host {
+@@ -285,6 +294,7 @@ struct sdhci_msm_host {
+ 	struct clk *xo_clk;	/* TCXO clk needed for FLL feature of cm_dll*/
+ 	/* core, iface, cal and sleep clocks */
+ 	struct clk_bulk_data bulk_clks[4];
++	struct dev_pm_domain_list *pd_list;
+ #ifdef CONFIG_MMC_CRYPTO
+ 	struct qcom_ice *ice;
+ #endif
+@@ -302,6 +312,7 @@ struct sdhci_msm_host {
+ 	u32 caps_0;
+ 	bool mci_removed;
+ 	bool restore_dll_config;
++	bool fw_managed;
+ 	const struct sdhci_msm_variant_ops *var_ops;
+ 	const struct sdhci_msm_offset *offset;
+ 	bool use_cdr;
+@@ -414,6 +425,45 @@ static void msm_set_clock_rate_for_bus_mode(struct sdhci_host *host,
+ 		 mmc_hostname(host->mmc), achieved_rate, timing);
+ }
+ 
++static int msm_fw_set_clock_rate_for_bus_mode(struct sdhci_host *host,
++					      unsigned int clock)
++{
++	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
++	struct sdhci_msm_host *msm_host = sdhci_pltfm_priv(pltfm_host);
++	struct device *dev = mmc_dev(host->mmc);
++	struct dev_pm_opp *opp;
++	struct device *perf_dev;
++	struct mmc_ios ios = host->mmc->ios;
++	unsigned long clock_long = (unsigned long)clock;
++	unsigned long desired_rate;
++	unsigned int mult;
++	int ret;
++
++	perf_dev = msm_host->pd_list->pd_devs[DOMAIN_IDX_PERF];
++
++	mult = msm_get_clock_mult_for_bus_mode(host, clock, ios.timing);
++	desired_rate = clock_long * mult;
++
++	/* Find the nearest OPP at or below the requested frequency. */
++	opp = dev_pm_opp_find_freq_floor(perf_dev, &desired_rate);
++	if (IS_ERR(opp)) {
++		dev_err(dev, "Failed to find OPP for freq %lu: %pe\n", clock_long, opp);
++		return PTR_ERR(opp);
++	}
++
++	ret = dev_pm_opp_set_opp(perf_dev, opp);
++	dev_pm_opp_put(opp);
++	if (ret) {
++		dev_err(dev, "Failed to set OPP for freq %lu: %d\n", clock_long, ret);
++		return ret;
++	}
++
++	/* desired_rate was rounded down by find_freq_floor to the actual OPP rate. */
++	host->mmc->actual_clock = mult ? desired_rate / mult : desired_rate;
++	msm_host->clk_rate = desired_rate;
++	return 0;
++}
++
+ /* Platform specific tuning */
+ static inline int msm_dll_poll_ck_out_en(struct sdhci_host *host, u8 poll)
+ {
+@@ -1253,7 +1303,10 @@ static int sdhci_msm_execute_tuning(struct mmc_host *mmc, u32 opcode)
+ 	 */
+ 	if (host->flags & SDHCI_HS400_TUNING) {
+ 		sdhci_msm_hc_select_mode(host);
+-		msm_set_clock_rate_for_bus_mode(host, ios.clock, ios.timing);
++		if (msm_host->fw_managed)
++			msm_fw_set_clock_rate_for_bus_mode(host, ios.clock);
++		else
++			msm_set_clock_rate_for_bus_mode(host, ios.clock, ios.timing);
+ 		host->flags &= ~SDHCI_HS400_TUNING;
+ 	}
+ 
+@@ -1847,6 +1900,28 @@ static unsigned int sdhci_msm_get_min_clock(struct sdhci_host *host)
+ 	return SDHCI_MSM_MIN_CLOCK;
+ }
+ 
++static unsigned int sdhci_msm_fw_get_max_clock(struct sdhci_host *host)
++{
++	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
++	struct sdhci_msm_host *msm_host = sdhci_pltfm_priv(pltfm_host);
++	unsigned long max_freq = ULONG_MAX;
++	struct dev_pm_opp *opp;
++	struct device *perf_dev;
++	struct device *dev = mmc_dev(host->mmc);
++
++	perf_dev = msm_host->pd_list->pd_devs[DOMAIN_IDX_PERF];
++
++	opp = dev_pm_opp_find_freq_floor(perf_dev, &max_freq);
++	if (IS_ERR(opp)) {
++		dev_err(dev, "Failed to find opp for freq %lu\n", max_freq);
++		return SDHCI_MSM_MIN_CLOCK;
++	}
++
++	dev_pm_opp_put(opp);
++
++	return max_freq;
++}
++
+ /*
+  * __sdhci_msm_set_clock - sdhci_msm clock control.
+  *
+@@ -1892,6 +1967,40 @@ static void sdhci_msm_set_clock(struct sdhci_host *host, unsigned int clock)
+ 	__sdhci_msm_set_clock(host, clock);
+ }
+ 
++static void sdhci_msm_fw_set_clock(struct sdhci_host *host, unsigned int clock)
++{
++	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
++	struct sdhci_msm_host *msm_host = sdhci_pltfm_priv(pltfm_host);
++
++	if (!clock) {
++		host->mmc->actual_clock = 0;
++		msm_host->clk_rate = 0;
++		goto out;
++	}
++
++	sdhci_msm_hc_select_mode(host);
++
++	if (msm_fw_set_clock_rate_for_bus_mode(host, clock))
++		return;
++out:
++	__sdhci_msm_set_clock(host, clock);
++}
++
++static int sdhci_msm_fw_power_state(struct device *dev, bool power_on)
++{
++	struct sdhci_host *host = dev_get_drvdata(dev);
++	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
++	struct sdhci_msm_host *msm_host = sdhci_pltfm_priv(pltfm_host);
++	struct device *pwr_dev;
++
++	pwr_dev = msm_host->pd_list->pd_devs[DOMAIN_IDX_POWER];
++
++	if (power_on)
++		return pm_runtime_resume_and_get(pwr_dev);
++	else
++		return pm_runtime_put_sync(pwr_dev);
++}
++
+ /*****************************************************************************\
+  *                                                                           *
+  * Inline Crypto Engine (ICE) support                                        *
+@@ -2550,6 +2659,17 @@ static const struct sdhci_msm_variant_info sdhci_msm_v5_var = {
+ 	.offset = &sdhci_msm_v5_offset,
+ };
+ 
++static const struct sdhci_msm_variant_info sdhci_msm_fw_v5_var = {
++	.mci_removed = true,
++	.var_ops = &v5_var_ops,
++	.offset = &sdhci_msm_v5_offset,
++	.pd_data = {
++		.pd_flags = PD_FLAG_DEV_LINK_ON,
++		.pd_names = (const char * []) { "power", "perf" },
++		.num_pd_names = 2,
++	},
++};
++
+ static const struct sdhci_msm_variant_info sdm845_sdhci_var = {
+ 	.mci_removed = true,
+ 	.restore_dll_config = true,
+@@ -2566,6 +2686,7 @@ static const struct of_device_id sdhci_msm_dt_match[] = {
+ 	{.compatible = "qcom,sdhci-msm-v5", .data = &sdhci_msm_v5_var},
+ 	{.compatible = "qcom,sdm670-sdhci", .data = &sdm845_sdhci_var},
+ 	{.compatible = "qcom,sdm845-sdhci", .data = &sdm845_sdhci_var},
++	{.compatible = "qcom,nord-sdhci", .data = &sdhci_msm_fw_v5_var},
+ 	{.compatible = "qcom,sc7180-sdhci", .data = &sdm845_sdhci_var},
+ 	{},
+ };
+@@ -2587,6 +2708,21 @@ static const struct sdhci_ops sdhci_msm_ops = {
+ 	.set_timeout = sdhci_msm_set_timeout,
+ };
+ 
++static const struct sdhci_ops sdhci_msm_fw_ops = {
++	.reset = sdhci_and_cqhci_reset,
++	.set_clock = sdhci_msm_fw_set_clock,
++	.get_min_clock = sdhci_msm_get_min_clock,
++	.get_max_clock = sdhci_msm_fw_get_max_clock,
++	.set_bus_width = sdhci_set_bus_width,
++	.set_uhs_signaling = sdhci_msm_set_uhs_signaling,
++	.write_w = sdhci_msm_writew,
++	.write_b = sdhci_msm_writeb,
++	.irq	= sdhci_msm_cqe_irq,
++	.dump_vendor_regs = sdhci_msm_dump_vendor_regs,
++	.set_power = sdhci_set_power_noreg,
++	.set_timeout = sdhci_msm_set_timeout,
++};
++
+ static const struct sdhci_pltfm_data sdhci_msm_pdata = {
+ 	.quirks = SDHCI_QUIRK_BROKEN_CARD_DETECTION |
+ 		  SDHCI_QUIRK_SINGLE_POWER_WRITE |
+@@ -2597,6 +2733,16 @@ static const struct sdhci_pltfm_data sdhci_msm_pdata = {
+ 	.ops = &sdhci_msm_ops,
+ };
+ 
++static const struct sdhci_pltfm_data sdhci_msm_fw_pdata = {
++	.quirks = SDHCI_QUIRK_BROKEN_CARD_DETECTION |
++		  SDHCI_QUIRK_SINGLE_POWER_WRITE |
++		  SDHCI_QUIRK_CAP_CLOCK_BASE_BROKEN |
++		  SDHCI_QUIRK_MULTIBLOCK_READ_ACMD12,
++
++	.quirks2 = SDHCI_QUIRK2_PRESET_VALUE_BROKEN,
++	.ops = &sdhci_msm_fw_ops,
++};
++
+ static inline void sdhci_msm_get_of_property(struct platform_device *pdev,
+ 		struct sdhci_host *host)
+ {
+@@ -2665,8 +2811,21 @@ static int sdhci_msm_probe(struct platform_device *pdev)
+ 	const struct sdhci_msm_offset *msm_offset;
+ 	const struct sdhci_msm_variant_info *var_info;
+ 	struct device_node *node = pdev->dev.of_node;
++	bool fw_managed;
+ 
+-	host = sdhci_pltfm_init(pdev, &sdhci_msm_pdata, sizeof(*msm_host));
++	var_info = of_device_get_match_data(&pdev->dev);
++	if (!var_info)
++		return -ENODEV;
++	fw_managed = !!var_info->pd_data.pd_names;
++
++	/*
++	 * Based on variant info, differentiate platform initialization
++	 * for local and remote managed resource platforms.
++	 */
++	if (fw_managed)
++		host = sdhci_pltfm_init(pdev, &sdhci_msm_fw_pdata, sizeof(*msm_host));
++	else
++		host = sdhci_pltfm_init(pdev, &sdhci_msm_pdata, sizeof(*msm_host));
+ 	if (IS_ERR(host))
+ 		return PTR_ERR(host);
+ 
+@@ -2684,12 +2843,11 @@ static int sdhci_msm_probe(struct platform_device *pdev)
+ 	 * Based on the compatible string, load the required msm host info from
+ 	 * the data associated with the version info.
+ 	 */
+-	var_info = of_device_get_match_data(&pdev->dev);
+-
+ 	msm_host->mci_removed = var_info->mci_removed;
+ 	msm_host->restore_dll_config = var_info->restore_dll_config;
+ 	msm_host->var_ops = var_info->var_ops;
+ 	msm_host->offset = var_info->offset;
++	msm_host->fw_managed = fw_managed;
+ 
+ 	msm_offset = msm_host->offset;
+ 
+@@ -2698,6 +2856,32 @@ static int sdhci_msm_probe(struct platform_device *pdev)
+ 
+ 	msm_host->saved_tuning_phase = INVALID_TUNING_PHASE;
+ 
++	if (msm_host->fw_managed) {
++		ret = dev_pm_domain_attach_list(&pdev->dev, &var_info->pd_data,
++						&msm_host->pd_list);
++		if (ret < 0)
++			return dev_err_probe(&pdev->dev, ret,
++					     "Failed to attach power domains\n");
++
++		if (ret != var_info->pd_data.num_pd_names)
++			return dev_err_probe(&pdev->dev, -ENODEV,
++					     "Expected %d power domains, got %d\n",
++					     var_info->pd_data.num_pd_names, ret);
++
++		ret = sdhci_msm_fw_power_state(&pdev->dev, true);
++		if (ret) {
++			dev_pm_domain_detach_list(msm_host->pd_list);
++			return dev_err_probe(&pdev->dev, ret,
++					     "Failed to power on domain\n");
++		}
++
++		/*
++		 * Skip initializing clocks, regulators and reset in kernel
++		 * for firmware managed platforms.
++		 */
++		goto skip_resource_init;
++	}
++
+ 	ret = sdhci_msm_gcc_reset(&pdev->dev, host);
+ 	if (ret)
+ 		return ret;
+@@ -2786,6 +2970,7 @@ static int sdhci_msm_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
++skip_resource_init:
+ 	/* Reset the vendor spec register to power on reset state */
+ 	writel_relaxed(CORE_VENDOR_SPEC_POR_VAL,
+ 			host->ioaddr + msm_offset->core_vendor_spec);
+@@ -2917,6 +3102,12 @@ static int sdhci_msm_probe(struct platform_device *pdev)
+ bus_clk_disable:
+ 	if (!IS_ERR(msm_host->bus_clk))
+ 		clk_disable_unprepare(msm_host->bus_clk);
++fw_detach:
++	if (msm_host->fw_managed) {
++		sdhci_msm_fw_power_state(&pdev->dev, false);
++		dev_pm_domain_detach_list(msm_host->pd_list);
++		msm_host->pd_list = NULL;
++	}
+ 	return ret;
+ }
+ 
+@@ -2930,6 +3121,12 @@ static void sdhci_msm_remove(struct platform_device *pdev)
+ 
+ 	sdhci_remove_host(host, dead);
+ 
++	if (msm_host->fw_managed) {
++		sdhci_msm_fw_power_state(&pdev->dev, false);
++		dev_pm_domain_detach_list(msm_host->pd_list);
++		msm_host->pd_list = NULL;
++	}
++
+ 	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 	pm_runtime_put_noidle(&pdev->dev);
+@@ -2947,6 +3144,9 @@ static int sdhci_msm_runtime_suspend(struct device *dev)
+ 	struct sdhci_msm_host *msm_host = sdhci_pltfm_priv(pltfm_host);
+ 	unsigned long flags;
+ 
++	if (msm_host->fw_managed)
++		return sdhci_msm_fw_power_state(dev, false);
++
+ 	spin_lock_irqsave(&host->lock, flags);
+ 	host->runtime_suspended = true;
+ 	spin_unlock_irqrestore(&host->lock, flags);
+@@ -2967,6 +3167,9 @@ static int sdhci_msm_runtime_resume(struct device *dev)
+ 	unsigned long flags;
+ 	int ret;
+ 
++	if (msm_host->fw_managed)
++		return sdhci_msm_fw_power_state(dev, true);
++
+ 	ret = clk_bulk_prepare_enable(ARRAY_SIZE(msm_host->bulk_clks),
+ 				       msm_host->bulk_clks);
+ 	if (ret)
+
 -- 
-2.43.0
+2.34.1
 
