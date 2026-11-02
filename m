@@ -1,78 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621164;
-	b=JVO9nrLKZ2tGK0bRbl2BS2MxbTp4VVWhkU8F/8WAmRqWgvx47deKt5pLnCzF9636UUzu
-	 eKFBDaKewDa/4D9MFoL4rkO4YbVa/JPxu17Fb9gohRykPbtdhwvsoovIHANrd7wnfnPdd
-	 RyT8yVtW5IAJ52Q1QbK53gpO/7FvHksQCPaXDnIMI0iyCIhozMLdSF5oy7cnaxo1ZgLRR
-	 YyID9zas91jHoFCLoDyFvN59PSi99xmdtnJv388oxgXsCsPqEbVJNmMSX8848qxmvVyWY
-	 NQdo1BVIGeNeUL+1D6ySmSOFwVqkwZ3eGLBK8+ChWwK5aHuE7oEo4z7WV10ed+eGXHw==
+	t=1793621172;
+	b=IMvnxkNWQ9jaYIwpOjSCr1AYuIx6jzaKOQCL0lvTkIQTSsDxUg/IW6gVSmnRx30CM1Iy
+	 IRTk+XjRFJTqrzT8l45C645ByTB26KPEx2MSOpIMAfmrAk9Fo9sfFcxYyGcq7or4Ogq3f
+	 cUm736LtMxPQOZJOsWNqeU6r92ALrDVzHkDuhmmUa36t2OMBxQg8M2mROfmhO+DVIWzhY
+	 hwBOHVG8vfUu68vWAIT//SQyiutl7f3ygwJUxmNaYnd/xPfxmFUdKBf7hCASxpXBUBynf
+	 wcOx++GRaAQKPi8ISWB4n3K2bkNVtS3s3Ycft4uXXVwu3+NTbR+LuYObFs/fb9E2Ihg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621164;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Patchwork-Hint:Organization;
-	bh=Z6vm2PgEAA72YdmGFTnN8V4kyBTWjq0zQHEezeWnIGk=;
-	b=A9G/BW2i0WjEwrFIy07p4jJppSC5slG75NwdSaD2zOiKQMk8ghiJ6iTKgrxFsVNMdyV8
-	 OUSNR6udzCQbEKUdow7UgYqhu1sIv04oDZixu0fxr2kb0CbM4QbM65WTNp5bECS4UiwP8
-	 yUL1hEmUwFFZsJvwlf7KlyoxI+Qo//c06++Iua/h7L393LZl8A8zb6NJDVBB2exdAt1cO
-	 MKtaKDGCuP0ZwNHW4jgNjO9Py0HRv/UPfmlohStS3fK+5K3TyA/QgPNHRMFMeCto0zAZW
-	 RJoYLsT9Sb70NI5VKT47wzhjlpkfpwJjtzxEkx6+jYkCJhpnPStjGXS/q+EaRkvcs+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621172;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=JgQSYzOM8+HGOvzxQgP9NPQLAChpRixPZZ8qdgqKf9Q=;
+	b=sF0YIxsBSU8EorM0lgWqyf+I/k76W8an7YTDllZQmqwK6NSY+4wBdugMaK/cVtya4g+b
+	 hWOM/xXM1bu/hMdPy1LDVl/52avOielBqAneLUPz4UPOz6pJ2A3Ds+ZTEGq+Bvm55F29V
+	 uT9DiFopthpgOXI1ZhAW1ttCSOqSR7Rs2jPqupYTEEXJPk9sCBIRWWS8beNwE0zte/6iJ
+	 ClmsxRLvnFhywjx3kqrmVHblXqpaStU8Xov7Fwwt9bBuleLfsBNzTYR7iTkWWHjLv+05S
+	 qwSweeDlKTpR2uH2IOTwgGtY5HtfMx2B6bFhpRXoMVN4LYwbtJb2LV/JqhfFfTW3clA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FyYwYRJj;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cgwkJYYZ;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB11606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:06:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFB11606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B740606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:06:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B740606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FyYwYRJj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793621163; x=1825157163;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=ncuBlp/vjWSskm6RKhx8Q7dAMfd8B7ZAd2luPtRcmgk=;
-  b=FyYwYRJjgoS22DqmWwCcg42j8EosMTzUSjvlNYyLqr1FfAD0Lnrtsfm8
-   Hkxl6qziz8QqEtBSSSQtyLocakY4BWG7pB7v3DTZB6Nuuj0/f3V0my8yC
-   HVm0GjdrPBNeRb5CpxrS4ZGm/lyQEJ9HxSpRt7n6Pxn6uMjcdEbNiBMUq
-   QOXnk388qoARw+dWYyaE+jNm2VEKHiLyTI6crNUC5+MvIk/vVzYN5p+qq
-   TrngFdnC4+9pEwZKBzyBvYvM8ppbM1yyvrNR+hlqJJJj/zIbbxi8kUa3C
-   GvdqulayfFe9NIqk9x+XfupQupYp279Ky9aY2RGpIl8pHJ7jTmTSMOFf7
-   w==;
-X-CSE-ConnectionGUID: m5CtqY7VRFO6rG73yqtZAg==
-X-CSE-MsgGUID: soHmjMTMRWClboigpVymNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2203695"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2203695"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 04:06:03 -0800
-X-CSE-ConnectionGUID: 9ZWO4pEeTcmgI6T3jsBCsA==
-X-CSE-MsgGUID: 2DVx2ONiT/2bWxje6/1zYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6275782"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 04:05:59 -0800
-Date: Mon, 2 Nov 2026 14:05:57 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Hugo Sales <hugo@hsal.es>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
-	airlied@gmail.com, simona@ffwll.ch, harry.wentland@amd.com,
-	amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/probe-helper: Sort and set crtcinfo before dropping
- the modeset locks
-Message-ID: <auh8pUx_kXUYSdZ8@intel.com>
-References: <20261031161952.660049-1-hugo@hsal.es>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cgwkJYYZ
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso896733a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:06:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793621170; x=1794225970; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JgQSYzOM8+HGOvzxQgP9NPQLAChpRixPZZ8qdgqKf9Q=;
+        b=cgwkJYYZMfE6r66b5I1U11HhPhRT1h5Z9IRfty8MrBMFtBeybupr5di44D2ZNzDFFY
+         edr7PwWChyMhIiWelXpxuVeQ7Syclr1iroFVkXVFwlvkdLAr//z9nWp71ygS2sxJPJnV
+         Dm/iXTK33cGuUrOVs/D2vqXBaqzUykxqixAv4RbTAdZivXCaqTFDswadeGn03j1bcztJ
+         x2aoEUt+YRnvmGcijfgW7iRgLbOpNTIQ5ZWE4ZrSAn0sk1SpxHZeX0jnW47+hqDvequD
+         4aYhn+2Xp9WK27RWS0KfhqXLYlsC1DjmO/ezi4JBNNI+xgMd1j35FsFxeoNoxN2ujND0
+         kpPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793621170; x=1794225970;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JgQSYzOM8+HGOvzxQgP9NPQLAChpRixPZZ8qdgqKf9Q=;
+        b=EtkKRe6hiiGmXVo2NbEUOM1eyl/BjohXGFyUPFi7wtzH7P4rzpIoD5C1vMgCVn771u
+         0ME8LDOBjxUVfMZT8k6T0Tnkt8Qxc7NUDojqnnUS/nIV+oBbjE2+Zrh1uvKBnZQ2blCS
+         ajQHKMSCVgfKYtnePKR62oC9NjqxumUTuQiY/VN+qjOsZBfXkoNP3peZbZONI/4k425r
+         +XGq6QJk6hzMGxuxdirdKIFpwtaoK0UEHOm/S/ICr1OXRjGhHzfXxpF0q2oGNl++h2yp
+         vIPbBmuYyq3uuLRQLwQRsCqaZpZRom1nw3z+ZG5G+EauHsasb4TTjUIxISgRfbiEfgia
+         PMGg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7iyht0D2zlmgIXXTGswX5bbrJJSBbzgN/fC3pWeuXAvGf05vGp1+z2lmXWdy75PLBIbl3u6HUekVTYz0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WS4/bI3Au8yL4mAFYrNC9HPaAfEU/XZ6Q1cVfy8K30R/IbQYC
+	Nnk7y12qYP2wCv8hl8Urd6ihmEfFloBHjrA77SctKE5ZgtCJoZCsvpMs
+X-Gm-Gg: AYBFou36uEz8rJjfKUlP4+HNsdvWRIJOTIjq4n4yS/czhHKelbdqYAUwl48mGIbNSm1
+	ghxAnrPktvF+sb+a5B2EMWmdKmOQ/HrwJQReuH2xOgopVCtsBO8++rqoyxAtsXzi6QS1kzUqaz/
+	QP1M0OKE4egW6UjYjvXTwlpmnTlOpsZMQyzBIw9fJZpP+roguuZ+qO6c4qKmeZRs5/LMr4lO9Nd
+	efB63fA/sc2mn2Q6hHV7m/i21UFsGgaZ2VKNol7xuhj36V7zXP695MtSKsrE4cBAirGN9WVbXYA
+	FPNnnx6N0tkItflWg2B08Is8PzBFjiX2c/z4pUqqtsT6NnczbsPkOW7QDFPoHRCMspxWtTwBEs2
+	iUn+Ks3x+rCpK/OuTOKxwcnBbdAdsVxdh0M+Qee7iwB2b/4TZr1WXn7kJgdEIxmGlf8Vma4zUVE
+	DFyXe/GgNYij3vRA2/1Kw1mwm6wG4SIy0Hx5fmMOxLHq1bNTBLESQtDt2qKg50u/qhjZXAGPqVR
+	tdxShUCpsj5+avlTEtsXqMoiPyiF9tFlMFGitaLD2qq0gckqF6GJ4btSt/07dw6xdkXGSUNdFty
+	ZdHQddMyLoqyDCMsxZXneOnhs4956mNRPu34WX2xSRI9YC1gbTyASFzgLlNGPv63DJ8AYCmb0MG
+	VBsggxM2mSgpDzs7oTSaWRnWpI/XmiyBO5po+VrrFQL1r8BBqbyHCsZ1qZm8w41sE5w==
+X-Received: by 2002:a05:6402:1f45:b0:6b4:59d0:7294 with SMTP id 4fb4d7f45d1cf-6b4d4c6fdd6mr6927817a12.31.1793621170371;
+        Mon, 02 Nov 2026 04:06:10 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9a6f11sm3136954a12.3.2026.11.02.04.06.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 04:06:09 -0800 (PST)
+Date: Mon, 2 Nov 2026 15:06:05 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Maritu Hone <marehone12@gmail.com>
+Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, outreachy-kernel@googlegroups.com
+Subject: Re: [PATCH] staging: axis-fifo: fix integer underflow in TX size
+ check
+Message-ID: <auh8rTgLTGuSUJM9@stanley.mountain>
+References: <20261102114451.54579-1-marehone12@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,101 +98,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261031161952.660049-1-hugo@hsal.es>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <20261102114451.54579-1-marehone12@gmail.com>
 
-On Sat, Oct 31, 2026 at 04:19:52PM +0000, Hugo Sales wrote:
-> Currently, drm_helper_probe_single_connector_modes() holds
-> connection_mutex while it probes and prunes connector->modes, then drops
-> it before sorting the list and filling in the crtc_* fields of each
-> mode. The caller still holds mode_config.mutex at that point, but
-> drm_atomic_check_only() never takes it. The only lock it holds on the
-> connector is connection_mutex, which drm_atomic_get_connector_state()
-> takes for it
+On Mon, Nov 02, 2026 at 02:44:51PM +0300, Maritu Hone wrote:
+> fifo->tx_fifo_depth is an unsigned int parsed from the devicetree
+> property "xlnx,tx-fifo-depth" with no lower-bound validation.
+> The
+> write() packet-size check subtracts 4 from it:
 > 
-> amdgpu walks connector->modes from its atomic_check, in
-
-That is just wrong. connector->modes is protected by mode_config.mutex
-
-The fact that amdgpu apparently uses scaling for external 
-displays is a very odd as well. No other driver does that for
-external displays. That said, I've thought about adding that for
-i915/xe, but I think it should be done via some uapi so that
-userspace retains control over the actual display timings.
-I'd really prefer to do it that way for laptop panels as well,
-but the old uapi is already carved in stone there so can't
-change it :(
-
-> create_stream_for_sink() and amdgpu_dm_get_highest_refresh_rate_mode(),
-> holding only the locks of the atomic acquire context. list_sort()
-> NULL-terminates the list while it runs, so that walk can follow a NULL
-> next pointer or read a mode whose crtc_* fields are being rewritten
+> 	words_to_write > (fifo->tx_fifo_depth - 4)
 > 
-> Sort the list and set crtcinfo before dropping the locks, as the
-> function already does when it probes and prunes the modes. As far as I
-> can tell, the unlock ended up in front of the sort when
-> commit 6c5ed5ae353c ("drm/atomic: Acquire connection_mutex lock in drm_helper_probe_single_connector_modes, v4.")
-> first took connection_mutex here, and that commit gives no reason for
-> the order
+> If tx_fifo_depth is less than 4, this subtraction underflows and
+> wraps around to a value near UINT_MAX, so the check that is supposed
+> to reject oversized writes never triggers, regardless of how large
+> words_to_write actually is.
 > 
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
+> Reject the write up front when tx_fifo_depth is below the minimum
+> required by the hardware, before the subtraction can underflow.
+> 
+> Fixes: 52ff2b840bc7 ("staging: axis-fifo: fix maximum TX packet length check")
+> Signed-off-by: Maritu Hone <marehone12@gmail.com>
 > ---
->  drivers/gpu/drm/drm_probe_helper.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-> index 856b40fdaac4a..2085d93651b21 100644
-> --- a/drivers/gpu/drm/drm_probe_helper.c
-> +++ b/drivers/gpu/drm/drm_probe_helper.c
-> @@ -703,11 +703,10 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
->  	}
->  
->  exit:
-> -	drm_modeset_drop_locks(&ctx);
-> -	drm_modeset_acquire_fini(&ctx);
-> -
-> -	if (list_empty(&connector->modes))
-> -		return 0;
-> +	if (list_empty(&connector->modes)) {
-> +		count = 0;
-> +		goto unlock;
-> +	}
->  
->  	drm_mode_sort(&connector->modes);
->  
-> @@ -720,6 +719,10 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
->  			    DRM_MODE_ARG(mode));
->  	}
->  
-> +unlock:
-> +	drm_modeset_drop_locks(&ctx);
-> +	drm_modeset_acquire_fini(&ctx);
 
-I suppose we aren't moving all that much work under the lock
-here, so maybe fine. Though I kinda hate that we even have
-to hold the lock across the mode validation. But as long as
-we're looking at the connector state in connector.mode_valid()
-I suppose there is no choice :/
+This patch has been rejected many times before.  Best to do a search on
+lore.kernel.org before sending patches.
 
-Any new locking rules would need to be properly documented.
+Device trees are trusted.  I wonder if the AI is actually searching the
+device trees and not finding anything, so it thinks maybe the device
+tree is wrong?
 
-And regardless of changing the locking rules or not, someone
-should probably sprinkle lockdep asserts to bunch of places
-where connector->modes is consulted. Perhaps even introduce
-custom list iterator macros that include the assert...
+$ git grep xlnx,tx-fifo-depth | cat
+drivers/staging/axis-fifo/axis-fifo.c:	ret = of_property_read_u32(node, "xlnx,tx-fifo-depth",
+drivers/staging/axis-fifo/axis-fifo.txt:- xlnx,tx-fifo-depth: Depth of TX FIFO in words
+drivers/staging/axis-fifo/axis-fifo.txt:	xlnx,tx-fifo-depth = <0x8000>;
 
-> +
->  	return count;
->  }
->  EXPORT_SYMBOL(drm_helper_probe_single_connector_modes);
-> -- 
-> 2.56.0
+regards,
+dan carpenter
 
--- 
-Ville Syrjälä
-Intel
