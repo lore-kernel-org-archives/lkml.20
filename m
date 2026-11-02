@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638198;
-	b=GkwgH8lSNueOsXdenVUXnpRBMsj3UeILVFaYBhccUIQkgqBhp1alRzIMwcqDTwPXp8jn
-	 9Y2I10E1yaRI6uv1eOD5PyW+a6Y5szNYp7P5gGFQVFpcz5iSKB3TsVdW/6rKu8K6tNKcf
-	 xF4fy3D1KDNk/bFixVmmxx00fYuDzewtLws4FLJAhCW+TWCp9OwwJuX+4QHkzX0wQbG8w
-	 yb/ff/4lFqQJTpVOQ1vB7oBvw5Y5G9wEDqtRQtyy580u0ZnmMS0fm6zWp9awMp4swYwtj
-	 3jdKtTQIIyRrD4pj8fZ3iJdNmcOHIgmIYrazgy53FBOrv/QJ9PL9mBaZGml6WbSCZaQ==
+	t=1793638195;
+	b=vk8YjCHck9FjmaZF5Vk3FYBsk9WfOc0OCqzEFk8SZM8JFY1bic2+uX4ZQCJg4wzWI0hG
+	 sIi3OkqCrsfWvW/edRJFslBy7ErNU2MVCS88yqYRfuovosjk9iTGG8F+M45PB+1+5lSVk
+	 CcZFn5hXTRhPVfe1I4BDPBywQeKEONq/7UU4ku7TiZ0niKVkKLVnAML+M1UHH6qBBF+3p
+	 1P9uUmRO8sZpMjNJVImoLwtz6oR4PM9HRD4VjhK5gRygfDxqfC9o9/0HsR4LlRjST3CsB
+	 QBUju5DsSiZWPBBYj314bmtZ/4F/cbgqYl9cGfayxQqf5L+J0WKULeGwUyQ44bUZSlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638195;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=NmtGwAXlhFvD+UNjRl7M/VzNaxYayUxKSwqu5orOPA4=;
-	b=tY43YZFe6rusme9gBxgZxrfuDGs6zRtj4/MnKEyRfedWgtJdaHdXkfvF3KqwET32Mc2H
-	 FR9xDKL8nC5+8Z30jczVf+DfziDTOVBva3SvxRcrQUdCrt67kPWWj/mXbF1JpBt0JI1f5
-	 PDz0hm7iOd+65oh4n+0vfggEu2KhUKBX61ImZZ+HrLiUc/b9pytej9gRHoJHzt24rkW0Q
-	 Jj2JlDlcPALAvQfnIrWHVyA3DpHkrj6IfPxH5Kzxioaw21LiU87AmSc9GiHVhmhX020j1
-	 qULwsmk327KKwcWkPJ+7V6iIc1P9nm6MgDKm8WihXdrDVC3N36R6Q68aFhEb4zwfnoA==
+	bh=FPR/Ghg+mbQA5dNcfU/XXlDPhtrJNvT0MIlhCyTMhWk=;
+	b=S2k6PzjEDlcWjOdQmh+Q7NhCO+1Qstf0bHgcGcWCGYKOMF14QHRmQhTf/wKLYj1ZzbFg
+	 Kjxjc/uP3taNiDJP45EbtnmQ0qO12hEC1RMNH1iTU02kWQbHUbNHAM6sgQQmIHFSWVQmu
+	 Ha+apOqMejH+HPFBChUVsjhp7bbMt+JqCvsLEVmmpgX+8X3P8R0gktL5prCjV1EU+2jW/
+	 VEHPU2eamU9EG9vS1wtvN5/YSu2KntU9OZXAwsyAmWp72CWqV7m1Er0zRWZ4jrYbloKd4
+	 dRF3hscRbLmcIeEYdIB0798TIVNOXnyBJkuLV86FDhkdUjro10T2nju0QYsolbkKoag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IyGR+Gwk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/b4hTLF";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2018608C240
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C546606D827
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IyGR+Gwk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81231F00A18;
-	Mon,  2 Nov 2026 16:49:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/b4hTLF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20AA01F01578;
+	Mon,  2 Nov 2026 16:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793638197;
-	bh=NmtGwAXlhFvD+UNjRl7M/VzNaxYayUxKSwqu5orOPA4=;
+	s=k20260515; t=1793638193;
+	bh=FPR/Ghg+mbQA5dNcfU/XXlDPhtrJNvT0MIlhCyTMhWk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=IyGR+GwkGhqjQTLBR/NJwZvOs6FGmvScpW3Rq+7H2H/MHSHy+5roOHnQw60fnorRU
-	 jJl6IYNXjrl+HOLld6xRVY1xcJEGnT3KP4/2XEaSvZYHlh98xxLVUPFi7Hh5fW91du
-	 tRKyKn+2AFyeQWQ8qr/fuJwI5VCQXrZGR2VH7My4YSOKlodD3sfpnK+8UGKVxz1LSe
-	 0dKJBTK6c0eM4pJb5uDs+M8zDstihk00NoRZyy0JLnn9KgC4fFyRumPyd+JY9nn2wI
-	 JDXGqdpXqfSOrVLrg3LFBK5lTLAYwVwa4PSAtQuzjOePQU+EFJdQBzE81OnIT/2WrK
-	 22FbdchWSp4xg==
+	b=M/b4hTLFil05zxZXdOQx4SZVEtBCUUX/YbygJuYYsEIhfhGpWK2FjXjsninOhk8f6
+	 JWZDSKvGwbSER1yxUSbOXHu/UE/2u5L35/9FzLBPA0wuH/vKq0MWtJ5W4VUIXSA36J
+	 YN9g+VHeLOrB0A6DKZnMokcnGC0p2PsVle5cMACRIUJwwqLT/3xT5rSCLruxn4JK/e
+	 jhQCjbDZLbUiAbJht0vfchL98mPc7CRTyW4pbmLojAQk+aytXX86Pw6P4/ugETGCKu
+	 EsKllmGTVplhtfnLVMCnmZHvqhP03dWcq4I6Pt8hEq912alMJBkwFaOjUJAJjxrWRB
+	 /y8zi8X2qGGDg==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:31 -0600
-Subject: [PATCH v10 15/15] drm/solomon: add SSD130x connector luminance
- support
+Date: Mon, 02 Nov 2026 10:49:29 -0600
+Subject: [PATCH v10 13/15] drm/gma500: add connector luminance support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-15-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-13-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -76,210 +75,177 @@ X-Mailer: b4 0.16.0
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Expose SSD130x contrast through the connector LUMINANCE property when
-DRM_LUMINANCE is enabled. Program contrast directly and retain the
-backlight class interface when BACKLIGHT_CLASS_DEVICE is enabled.
+Expose GMA500 panel brightness through the connector LUMINANCE property
+when DRM_LUMINANCE is enabled. Route updates through the existing platform
+backlight operations and preserve legacy registration otherwise.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-v10:
- * Guard the backlight operations and registration with
-   BACKLIGHT_CLASS_DEVICE
- * Fix Kconfig recursive issue
- * Add the Reviewed-by tag
----
- drivers/gpu/drm/solomon/Kconfig   |  2 +-
- drivers/gpu/drm/solomon/ssd130x.c | 79 ++++++++++++++++++++++++++++++---------
- 2 files changed, 62 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/gma500/Kconfig          |  2 +-
+ drivers/gpu/drm/gma500/backlight.c      | 45 +++++++++++++++++++++------------
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c |  2 ++
+ drivers/gpu/drm/gma500/psb_drv.c        |  2 +-
+ drivers/gpu/drm/gma500/psb_drv.h        |  4 ++-
+ drivers/gpu/drm/gma500/psb_intel_lvds.c |  3 ++-
+ 6 files changed, 38 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/solomon/Kconfig b/drivers/gpu/drm/solomon/Kconfig
-index 400a6cab3a671..76852246eb9c2 100644
---- a/drivers/gpu/drm/solomon/Kconfig
-+++ b/drivers/gpu/drm/solomon/Kconfig
-@@ -1,7 +1,7 @@
- config DRM_SSD130X
- 	tristate "DRM support for Solomon SSD13xx OLED displays"
- 	depends on DRM && MMU
--	select BACKLIGHT_CLASS_DEVICE
-+	depends on DRM_LUMINANCE || BACKLIGHT_CLASS_DEVICE = y || !BACKLIGHT_CLASS_DEVICE
- 	select DRM_CLIENT_SELECTION
- 	select DRM_GEM_SHMEM_HELPER
- 	select DRM_KMS_HELPER
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index ee43cf0da8792..aaf2b194273ba 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -1853,7 +1853,8 @@ static void ssd130x_encoder_atomic_enable(struct drm_encoder *encoder,
+diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
+index dc4c566388192..08871a8f6fa22 100644
+--- a/drivers/gpu/drm/gma500/Kconfig
++++ b/drivers/gpu/drm/gma500/Kconfig
+@@ -9,7 +9,7 @@ config DRM_GMA500
+ 	select I2C_ALGOBIT
+ 	# GMA500 depends on ACPI_VIDEO when ACPI is enabled, just like i915
+ 	select ACPI_VIDEO if ACPI
+-	select BACKLIGHT_CLASS_DEVICE if ACPI
++	select BACKLIGHT_CLASS_DEVICE if ACPI && !DRM_LUMINANCE
+ 	select INPUT if ACPI
+ 	select ACPI_WMI if ACPI
+ 	help
+diff --git a/drivers/gpu/drm/gma500/backlight.c b/drivers/gpu/drm/gma500/backlight.c
+index c8f1716a12d52..4bb39fba04539 100644
+--- a/drivers/gpu/drm/gma500/backlight.c
++++ b/drivers/gpu/drm/gma500/backlight.c
+@@ -8,7 +8,6 @@
+  */
  
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
+ #include <linux/backlight.h>
+-
+ #include <acpi/video.h>
  
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1879,7 +1880,8 @@ static void ssd132x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1904,7 +1906,8 @@ static void ssd133x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1929,7 +1932,8 @@ static void ssd135x_encoder_atomic_enable(struct drm_encoder *encoder,
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_ON);
- 
--	backlight_enable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_enable(ssd130x->bl_dev);
- 
- 	return;
- 
-@@ -1943,7 +1947,8 @@ static void ssd130x_encoder_atomic_disable(struct drm_encoder *encoder,
- 	struct drm_device *drm = encoder->dev;
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
- 
--	backlight_disable(ssd130x->bl_dev);
-+	if (ssd130x->bl_dev)
-+		backlight_disable(ssd130x->bl_dev);
- 
- 	ssd130x_write_cmd(ssd130x, 1, SSD13XX_DISPLAY_OFF);
- 
-@@ -1980,8 +1985,44 @@ static int ssd130x_connector_get_modes(struct drm_connector *connector)
- 	return drm_connector_helper_get_modes_fixed(connector, &ssd130x->mode);
- }
- 
-+static int ssd130x_set_luminance_value(struct ssd130x_device *ssd130x,
-+				       unsigned int luminance)
-+{
-+	int ret;
-+
-+	ssd130x->contrast = luminance;
-+
-+	switch (ssd130x->device_info->family_id) {
-+	case SSD133X_FAMILY:
-+		return ssd133x_set_contrast(ssd130x, luminance);
-+	case SSD135X_FAMILY:
-+		return ssd135x_set_contrast(ssd130x, luminance);
-+	default:
-+		ret = ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
-+		if (ret < 0)
-+			return ret;
-+		return ssd130x_write_cmd(ssd130x, 1, luminance);
-+	}
-+}
-+
-+static void ssd130x_connector_set_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
-+
-+	ssd130x_set_luminance_value(ssd130x, conn_state->luminance);
-+}
-+
-+static void ssd130x_connector_disable_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct ssd130x_device *ssd130x = drm_to_ssd130x(conn_state->connector->dev);
-+
-+	ssd130x_set_luminance_value(ssd130x, 0);
-+}
-+
- static const struct drm_connector_helper_funcs ssd130x_connector_helper_funcs = {
- 	.get_modes = ssd130x_connector_get_modes,
-+	.set_luminance = ssd130x_connector_set_luminance,
-+	.disable_luminance = ssd130x_connector_disable_luminance,
+ #include <drm/drm_print.h>
+@@ -73,10 +72,9 @@ static const struct backlight_ops gma_backlight_ops __maybe_unused = {
+ 	.update_status  = gma_backlight_update_status,
  };
  
- static const struct drm_connector_funcs ssd130x_connector_funcs = {
-@@ -2015,23 +2056,13 @@ static const struct drm_driver ssd130x_drm_driver = {
- 	.fops			= &ssd130x_fops,
- };
- 
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
- static int ssd130x_update_bl(struct backlight_device *bdev)
+-int gma_backlight_init(struct drm_device *dev)
++int gma_backlight_init(struct drm_device *dev, struct drm_connector *connector)
  {
- 	struct ssd130x_device *ssd130x = bl_get_data(bdev);
--	int brightness = backlight_get_brightness(bdev);
--	int ret;
--
--	ssd130x->contrast = brightness;
--
--	ret = ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
--	if (ret < 0)
--		return ret;
- 
--	ret = ssd130x_write_cmd(ssd130x, 1, ssd130x->contrast);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return ssd130x_set_luminance_value(ssd130x,
-+					  backlight_get_brightness(bdev));
- }
- 
- static int ssd133x_update_bl(struct backlight_device *bdev)
-@@ -2066,6 +2097,7 @@ static const struct backlight_ops ssd130xfb_bl_ops[] = {
- 		.update_status	= ssd135x_update_bl,
- 	},
- };
-+#endif
- 
- static void ssd130x_parse_properties(struct ssd130x_device *ssd130x)
- {
-@@ -2213,6 +2245,13 @@ static int ssd130x_init_modeset(struct ssd130x_device *ssd130x)
- 	}
- 
- 	drm_connector_helper_add(connector, &ssd130x_connector_helper_funcs);
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+		ret = drm_connector_attach_luminance_property(connector, 0,
-+							      MAX_CONTRAST,
-+							     ssd130x->contrast);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = drm_connector_attach_encoder(connector, encoder);
- 	if (ret) {
-@@ -2245,7 +2284,9 @@ static int ssd130x_get_resources(struct ssd130x_device *ssd130x)
- struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
- {
- 	struct ssd130x_device *ssd130x;
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
- 	struct backlight_device *bl;
-+#endif
- 	struct drm_device *drm;
+ 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
+-	struct backlight_properties props __maybe_unused = {};
  	int ret;
  
-@@ -2270,6 +2311,7 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
- 	if (ret)
- 		return ERR_PTR(ret);
+ 	dev_priv->backlight_enabled = true;
+@@ -92,28 +90,43 @@ int gma_backlight_init(struct drm_device *dev)
+ 		return 0;
+ 	}
  
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
- 	bl = devm_backlight_device_register(dev, dev_name(dev), dev, ssd130x,
- 					    &ssd130xfb_bl_ops[ssd130x->device_info->family_id],
- 					    NULL);
-@@ -2280,6 +2322,7 @@ struct ssd130x_device *ssd130x_probe(struct device *dev, struct regmap *regmap)
- 	bl->props.brightness = ssd130x->contrast;
- 	bl->props.max_brightness = MAX_CONTRAST;
- 	ssd130x->bl_dev = bl;
-+#endif
+-#ifdef CONFIG_BACKLIGHT_CLASS_DEVICE
+-	props.brightness = dev_priv->backlight_level;
+-	props.max_brightness = PSB_MAX_BRIGHTNESS;
+-	props.type = BACKLIGHT_RAW;
++	if (IS_ENABLED(CONFIG_DRM_LUMINANCE))
++		return drm_connector_attach_luminance_property(connector, 0,
++							 PSB_MAX_BRIGHTNESS,
++							 dev_priv->backlight_level);
++
++	{
++		struct backlight_properties props = {};
  
- 	ret = ssd130x_init_modeset(ssd130x);
- 	if (ret)
+-	dev_priv->backlight_device =
+-		backlight_device_register(dev_priv->ops->backlight_name,
+-					  dev->dev, dev,
+-					  &gma_backlight_ops, &props);
+-	if (IS_ERR(dev_priv->backlight_device))
+-		return PTR_ERR(dev_priv->backlight_device);
+-#endif
++		props.brightness = dev_priv->backlight_level;
++		props.max_brightness = PSB_MAX_BRIGHTNESS;
++		props.type = BACKLIGHT_RAW;
++
++		dev_priv->backlight_device =
++			backlight_device_register(dev_priv->ops->backlight_name,
++						  dev->dev, dev,
++						  &gma_backlight_ops, &props);
++		if (IS_ERR(dev_priv->backlight_device))
++			return PTR_ERR(dev_priv->backlight_device);
++	}
+ 
+ 	return 0;
+ }
+ 
++void gma_connector_set_luminance(const struct drm_connector_state *conn_state)
++{
++	gma_backlight_set(conn_state->connector->dev, conn_state->luminance);
++}
++
++void gma_connector_disable_luminance(const struct drm_connector_state *conn_state)
++{
++	gma_backlight_disable(conn_state->connector->dev);
++}
++
+ void gma_backlight_exit(struct drm_device *dev)
+ {
+-#ifdef CONFIG_BACKLIGHT_CLASS_DEVICE
+ 	struct drm_psb_private *dev_priv = to_drm_psb_private(dev);
+ 
+ 	if (dev_priv->backlight_device)
+ 		backlight_device_unregister(dev_priv->backlight_device);
+-#endif
+ }
+diff --git a/drivers/gpu/drm/gma500/cdv_intel_lvds.c b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
+index 336ab411d6995..cef97f1532358 100644
+--- a/drivers/gpu/drm/gma500/cdv_intel_lvds.c
++++ b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
+@@ -412,6 +412,8 @@ static const struct drm_connector_helper_funcs
+ 	.get_modes = cdv_intel_lvds_get_modes,
+ 	.mode_valid = cdv_intel_lvds_mode_valid,
+ 	.best_encoder = gma_best_encoder,
++	.set_luminance = gma_connector_set_luminance,
++	.disable_luminance = gma_connector_disable_luminance,
+ };
+ 
+ static const struct drm_connector_funcs cdv_intel_lvds_connector_funcs = {
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index d17cb5b4a4bf2..5de7af651ac39 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
+@@ -396,7 +396,7 @@ static int psb_driver_load(struct drm_device *dev, unsigned long flags)
+ 
+ 		if (gma_encoder->type == INTEL_OUTPUT_LVDS ||
+ 		    gma_encoder->type == INTEL_OUTPUT_MIPI) {
+-			ret = gma_backlight_init(dev);
++			ret = gma_backlight_init(dev, connector);
+ 			if (ret == 0)
+ 				acpi_video_register_backlight();
+ 			break;
+diff --git a/drivers/gpu/drm/gma500/psb_drv.h b/drivers/gpu/drm/gma500/psb_drv.h
+index db197b865b90a..4fc22c66e6c8f 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.h
++++ b/drivers/gpu/drm/gma500/psb_drv.h
+@@ -604,11 +604,13 @@ int psb_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
+ #endif
+ 
+ /* backlight.c */
+-int gma_backlight_init(struct drm_device *dev);
++int gma_backlight_init(struct drm_device *dev, struct drm_connector *connector);
+ void gma_backlight_exit(struct drm_device *dev);
+ void gma_backlight_disable(struct drm_device *dev);
+ void gma_backlight_enable(struct drm_device *dev);
+ void gma_backlight_set(struct drm_device *dev, int v);
++void gma_connector_set_luminance(const struct drm_connector_state *conn_state);
++void gma_connector_disable_luminance(const struct drm_connector_state *conn_state);
+ 
+ /* oaktrail_crtc.c */
+ extern const struct drm_crtc_helper_funcs oaktrail_helper_funcs;
+diff --git a/drivers/gpu/drm/gma500/psb_intel_lvds.c b/drivers/gpu/drm/gma500/psb_intel_lvds.c
+index cd882786d9461..fa0bc8492ff7f 100644
+--- a/drivers/gpu/drm/gma500/psb_intel_lvds.c
++++ b/drivers/gpu/drm/gma500/psb_intel_lvds.c
+@@ -610,6 +610,8 @@ const struct drm_connector_helper_funcs
+ 	.get_modes = psb_intel_lvds_get_modes,
+ 	.mode_valid = psb_intel_lvds_mode_valid,
+ 	.best_encoder = gma_best_encoder,
++	.set_luminance = gma_connector_set_luminance,
++	.disable_luminance = gma_connector_disable_luminance,
+ };
+ 
+ const struct drm_connector_funcs psb_intel_lvds_connector_funcs = {
+@@ -808,4 +810,3 @@ void psb_intel_lvds_init(struct drm_device *dev,
+ err_free_encoder:
+ 	kfree(gma_encoder);
+ }
+-
 
 -- 
 2.53.0
