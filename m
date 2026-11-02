@@ -1,59 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793589412;
-	b=17dhaTiBrjzL1xCI7LlTifvqfnPKHT/nMnoJpFc22rFK5kDqEFk1UDfe7AjFERq2aWp9
-	 JexsQV3n18A7yKjnTCDdJq675cN1Bu95Hjk0KhmiwepAd/TuGo39CSMOsONR53KUmlSiF
-	 JV3v6tr1feqCWD7iIumPzD2b5rcBPXp+3Pw/IVJIIyct/tGOWiUyaOC7ycVx/WWrzZeKp
-	 CHtWitHy4eTSrXPFNqbEyS9EvYtRRgct4wrhlceTO5sCTE660U1LD3WSmos4X4+lURZsd
-	 YTNP9DhI/o0db9uBPcprYJJsWCSjhb+Q5OoiVb7taNr42/tXSUfxuWcI5zBUppwvjSw==
+	t=1793589534;
+	b=zYLPRXKyVIMOzeMTAquCP3r6HQshh8x1vmoFM88ZuSf7nz/67nGcEMM4mwUHPWzax82p
+	 +u8LDOCCwJ5jZuLO0tv0ZveKg5DO2QrEYwPIxZC0bVtPcWs/cJVFOEaqjll4qP6kKunnJ
+	 vP67zAW7Biobu6yQ2zA4RZeg0FH6W7C5UT1P44AiJwPa4+/1assVsFEv7TmNfoZTMqcv5
+	 BLmZcRa6wNDNBDFyfSEFdbqcWLMYQPjASUrl6YCbmqdHtIwpAwzrVezkRNrn85EF8JwT0
+	 vjum9DdMX024ue1orX2OwzilKisH6GkJBId75bM2mC5fFHJvxjlEiwD4ihP7/HD+zKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793589412;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sJw++RZDG5Vo6fmGQWiIhdzPjPtQUuqigtExKkQsQTg=;
-	b=tz/sIwKm2LVZaLXQ/NnCcwUfNBSfyDfRpREaBX2ItAhafH+uUuRJYRzwJVhc8fEmAJXq
-	 p5UIvZIb+qvkWEsGqKY22E8tOvdHVON1gkhfVLVQphblwO5eMBf8bZvCwrw7r+SFH4sSb
-	 SlDmMh1A3Wz/sESpahFrABbFMvbzgVYUie2fv0AHQokR+D/0BnDn4ACUWxgujSxUW00ma
-	 PdtFAVG8N1tII//5XNufzI8q7GSOPLx4q6S6gFSahVX6W+ipu1yiJtKE9fMK7Sg/lmpw9
-	 jg6jXfeaHqPk8da2UsU0Zx/vBHolCzrNjBf+ZBaPlM9tjwNaW6ffynP2BhkIAB7SCxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793589534;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=nJCnzPlEYPTpiPpNwhFLsc1nTWFuyJzYXd5f4tSr6oQ=;
+	b=GzqfRrPelQ7ay6WNw47CcLX3NBISOV7vl8tWwmZRpT+WGfIQeDoDbi5TVOPqFLYvEK9U
+	 qY9xbnDlKfy68BfjnAtlCOOUVNoAa6W+r2mr0REgrC852HDsATmGwEwW41X80VuOwUjWb
+	 EM22VbUNoDMYfoNDCvrWVsKRfHixHlsNBeKNbtVHgJvPg1CdjQhQZ5nrkkROaXFc6O7ji
+	 P2oQ0Uo1lMplXrtoEsZTXUWikWBer8jVsq9dOxPhoqmsC6b9Egfg0v9PUGNAIdzK3PkMD
+	 W2krfPVw52avkl97bbuOeV10Gk+tvcWUD4zm0lihPDsBHwM3wr/TwGiWfyAsRSbqqbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jtv/+c+R";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HzdV9ohT;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B05606A324;
-	Mon,  2 Nov 2026 03:16:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E845606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:18:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E845606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jtv/+c+R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E081F000C1;
-	Mon,  2 Nov 2026 03:16:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793589412;
-	bh=sJw++RZDG5Vo6fmGQWiIhdzPjPtQUuqigtExKkQsQTg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jtv/+c+RFAu3LrhQcovopmFfBljHcvIFsG+hIpTi+A+gMHE/AC/pPExnzKN5fjnDN
-	 p5kZGs30lBMpun61wEvnp2s4li16mkc7f9to16yX3w7b94zytsU0duS9leQmtmLnPp
-	 QaEt9hHL3tK+ACLt8ad2uCx/Aaq8lrELHN+fn+hYWBDH07F5rjVCuPDMforrX8z7RS
-	 VWhX6trkVIf+oEG03qabfgRTn4ISAbhrl1/z7Ya7EOazoswBqnbV+Qc+yneZiRDVKJ
-	 3asg3aRsNy6nCKkDkUqCgQ/5O0jGQhlbb2Ps49AwHZEMC1SM98Hm0f3ulWXXU07SAQ
-	 SUxqoCGM+d8KA==
-Subject: Re: [PATCH net] netdevsim: delete ports added after a failed reload
-From: netdev-bot+sashiko@kernel.org
-To: joasantonio108@gmail.com
-Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
- syzbot+88435e204734072bf39a@syzkaller.appspotmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 03:16:51 +0000
-Message-ID: <179358941115.3131.11140874817222792270@kernel.org>
-In-Reply-To: <179324296598.34505.11070163314749859668@gmail.com>
-References: <179324296598.34505.11070163314749859668@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HzdV9ohT
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3282db206d3so3838642eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:18:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793589533; x=1794194333; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nJCnzPlEYPTpiPpNwhFLsc1nTWFuyJzYXd5f4tSr6oQ=;
+        b=HzdV9ohTmNFyqmLLsDCqmODyoy6Sx31mv0ijemiLjdQg7hHw0X40I2CBE+mz0w6uWC
+         aNYtC6Yu5CBBGxnEVhvE/Y4P6wEZVejk2WgvWSIhziXfRTXvLOnmEUo9UxTr7iP4XE/3
+         2eEplDFJDBFyraV/0AW3CWGNlYcrVqQIpT2k2nOGcHrMMk5JghogbQjvZYX+UKpoAakp
+         Y1Cxg2O0X+lnxVEt7t0wL7ZtoESdT4GuM4+mampJwV4M+gY1pIlnVR9DJfvSBaw9QIpW
+         NQcWRXEroXcZLMc6vUr7ZvMWPYeFlup5uPOXrbCj0dmNQE52XCFrdmOQbDZhTClfxJTa
+         y+dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793589533; x=1794194333;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nJCnzPlEYPTpiPpNwhFLsc1nTWFuyJzYXd5f4tSr6oQ=;
+        b=mYMQ7750rPT9RVf4sZdSwEMQsVxI6Sq6EA2hzLcfjObEevFfovxL8V9bAFt7EanqJ3
+         pC0/bUCsxKbH4sHoE0UzYLWiGznyP2x0ipdiJStI0dozuzQ+WCB3yTTn/GfVUrao0Dhp
+         3rSzo9zfh1HEqJO695IOWJZLAEmD97Ysk/Xh3rw+cGvF6F1ZmcOBS3x6CWo0D9okAhca
+         r1HcNO/cIgj69RZdK7lZQ0Pe+ujflww4SnwHKpAprwmIDsbnO3TRHmVYXK4+1hEL++de
+         QTcNziVdphzR2y1Y33Mxdgn6gx85F9l+pC2WfADidZzToE87RWhmNjrYShSL5u5StuJd
+         5pYA==
+X-Forwarded-Encrypted: i=1; AKwUvByErqvh9poDM7gfirt1GkOXbXA9fVGuDE3m6yxtVeALmsgQn60qSrns5yjx4h4Wdl9ydjjFsqzUJlsAK0A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+pnXXCKvL5mU1UvblA59tNeGpbP26eayyZHTMmpmpKchCjm376
+	vTjKJhF68WBQAFyuLqOiwwSjdApuFkLaV2TkHhCG9Uu8onIKfMyH9ymHdUsXXw==
+X-Gm-Gg: AYBFou3nrlztg8O1Hk0WJ7EmRnXVsBqo+dvhKd4YXQJOmrZyKMB8lbS3IkdExWxxtgA
+	fVBSUh/E5TEBaPjDWitTIro7aVJdAIfzwlf74I5DKdICoOPexMP+dO+/gl4/SLUipUnOum1s/Lq
+	GrPdRhBbDsfoB93iqWW9nsTeg3Ov2ra8mlvggAfcXniNmdajf9WYehW7e4MXZxiJqYmmlSrd7AU
+	Iv7L3OSZMorb02YHxbXdeBSuqdhZJRDyJ6XfviXtmc6KIoPu+RJ26Z5KJgXRgttTsHJ5WBlnwR6
+	2Fhzl4o59PtwpstQUJdTVt2FAX0JnmibGkTkLfFWMaFPzfMWf+sRv81UGKbEHyj7xqd3dJ3jERS
+	6XyVACjYIw74N4bSeoQHl0JzFIzPuI/5PbJLyc/sXbYeJRcl2NAD0xy0WwJ9ySYm82YMoe1E6Hz
+	gB5Akhh5w+EIdtyxFYatS+huOp2l6oaGK1VOG6fc5p60utw0PGH1OnW09O3F9YSWjBh3O9n5qkl
+	AdKuoWeKskrrnmHGDcyo54SDF2srno6zs5Elmmi28/ybW51Gq3YeCeKLViuKXTGSeZathiuhJ6l
+	6aidkAf4odyDsTjVmAZX7DoRZ2k31hAmB0xlGXI1Hflq6qW93SomhKqHB5f999u5nbFNims=
+X-Received: by 2002:a05:693c:20d0:20b0:36a:112d:fae3 with SMTP id 5a478bee46e88-36a42435927mr13964731eec.40.1793589533040;
+        Sun, 01 Nov 2026 19:18:53 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:d75c:a9d8:6c00:c5c6])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm33411882eec.24.2026.11.01.19.18.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 19:18:52 -0800 (PST)
+Date: Sun, 01 Nov 2026 19:18:51 -0800
+Message-ID: <4590302cb7f26ea6173018f5d7083977@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Henrik Rydberg <rydberg@bitmath.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Petr Hodina <petr.hodina@protonmail.com>,
+	linux-input@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	phone-devel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v8 0/5] Input: support for STM FTS5
+In-Reply-To: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
+References: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,118 +117,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi David,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+On Fri, Sep 25, 2026 at 11:22:18PM +0200, David Heidelberg wrote:
+> Used on various phones. Minimal viable driver.
+>
+> Includes device-tree enabling touchscreen on Pixel 3.
+> Also, tested on Xiaomi Mi 8 (device-tree is not yet inside the mainline).
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I applied patches 1 through 4 (leaving patch 5/5 for the Qualcomm SoC
+tree) with a few small adjustments folded in:
 
-- [Medium] The fix is incomplete, and the claim it rests on is wrong.
+ - In patch 1/5, added a missing trailing newline to the reset timeout
+   error message and fixed a typo in the comment in stmfts_power_on().
+ - In patch 3/5, wrapped "const: st,stmfts5" under "contains:" in the
+   allOf condition so the check keeps working if a fallback compatible
+   is added later.
+ - In patch 4/5:
+   - moved ABS_MT_TOOL_TYPE setup from stmfts_setup_input() to
+     stmfts5_setup_input() since FTS4 does not report tool types;
+   - dropped the undocumented "stylus-enabled" property check so stylus
+     contacts unconditionally report MT_TOOL_PEN;
+   - checked X and Y resolutions independently before applying the
+     10 units/mm fallback;
+   - added a check for !sdata->ops in stmfts_probe();
+   - fixed the GPIO name in the "mode-switch" error message and a couple
+     of minor comment/log formatting nits.
 
---
+I will also send out a few separate follow-up patches shortly: one
+teaching touchscreen_parse_properties() to parse touchscreen-x-mm and
+touchscreen-y-mm directly so drivers do not have to open-code resolution
+handling, plus a few fixes in stmfts (not aborting FIFO parsing early on
+non-touch events, validating the 4-bit slot ID against
+STMFTS_MAX_FINGERS, and switching coordinate reporting to
+touchscreen_report_pos() so axis inversion and swapping properties are
+honored).
 
-netdevsim: delete ports added after a failed reload
-
-This patch makes nsim_dev_reload_destroy() call nsim_dev_port_del_all() on
-the early-return path that is taken after a failed devlink reload. Before
-this, ports added through new_port after the failed reload were never
-deleted, which led to WARNs in devlink_free() and a use-after-free on the
-leftover netdev.
-
-Closes: https://syzkaller.appspot.com/bug?extid=88435e204734072bf39a
-
-> diff --git a/drivers/net/netdevsim/dev.c b/drivers/net/netdevsim/dev.c
-> index feb88ccbbcedb..a8717908cfb83 100644
-> --- a/drivers/net/netdevsim/dev.c
-> +++ b/drivers/net/netdevsim/dev.c
-> @@ -1697,8 +1697,13 @@ static void nsim_dev_reload_destroy(struct nsim_dev *nsim_dev)
->  {
->  	struct devlink *devlink = priv_to_devlink(nsim_dev);
->  
-> -	if (devlink_is_reload_failed(devlink))
-> +	if (devlink_is_reload_failed(devlink)) {
-> +		/* The failed reload already tore everything down, but ports
-> +		 * can still be added through new_port after that.
-> +		 */
-> +		nsim_dev_port_del_all(nsim_dev);
->  		return;
-> +	}
-
-[Severity: Medium]
-Is deleting the ports enough on this path? The commit message says:
-
-  "The ports are the only thing that can be created after the failed
-  reload, so delete them on the early-return path too."
-
-After a failed reload, user space can apparently still set sriov_numvfs,
-switch the eswitch to switchdev mode, and create devlink rate nodes. None
-of these paths check devlink_is_reload_failed():
-
-  nsim_bus_dev_numvfs_store()
-    nsim_drv_configure_vfs()
-      nsim_bus_dev_set_vfs(nsim_bus_dev, num_vfs);
-      nsim_esw_switchdev_enable()
-
-  nsim_devlink_eswitch_mode_set()
-    nsim_esw_switchdev_enable()
-      __nsim_dev_port_add(nsim_dev, NSIM_DEV_PORT_TYPE_VF, i, NULL);
-      nsim_dev->esw_mode = DEVLINK_ESWITCH_MODE_SWITCHDEV;
-
-  devlink_nl_rate_new_doit()
-    nsim_rate_node_new()
-      if (!nsim_esw_mode_is_switchdev(nsim_dev)) {
-          ...
-          return -EOPNOTSUPP;
-      }
-
-Before deleting ports, the normal path further down in
-nsim_dev_reload_destroy() resets the VFs and tears down the eswitch state:
-
-	if (nsim_dev_get_vfs(nsim_dev)) {
-		nsim_bus_dev_set_vfs(nsim_dev->nsim_bus_dev, 0);
-		if (nsim_esw_mode_is_switchdev(nsim_dev))
-			nsim_esw_legacy_enable(nsim_dev, NULL);
-	}
-
-nsim_esw_legacy_enable() is the only caller of devl_rate_nodes_destroy() in
-netdevsim. The new early-return branch never reaches it.
-
-Take this sequence: fail_reload=1, reload fails, set sriov_numvfs, switch to
-switchdev, run "devlink port function rate add <dev>/node1", then
-del_device. The early branch removes the ports but leaves the rate node on
-devlink->rate_list. Would devlink_free() then hit this check:
-
-net/devlink/core.c:devlink_free() {
-    ...
-	WARN_ON(devlink_rates_check(devlink, NULL, NULL));
-    ...
-}
-
-and leak the devlink_rate and the nsim_rate_node?
-
-The commit message also says a successful reload after the failed one is
-fixed. In that case the early branch deletes the VF ports but leaves
-num_vfs set and esw_mode as switchdev. Any remaining rate node would trip
-WARN_ON(devlink_rates_check(...)) in devlink_reload_reinit_sanity_check().
-
-After that, nsim_dev_reload_create() re-adds only the PF ports. The device
-then ends up in switchdev mode with VFs configured but no VF representor
-ports. A normal reload never leaves the device in that state.
-
-Should the failed branch do the same VF reset and nsim_esw_legacy_enable()
-teardown as the normal path before calling nsim_dev_port_del_all()? If not,
-the "only thing that can be created" sentence in the commit message should
-probably be corrected.
-
->  	debugfs_remove(nsim_dev->take_snapshot);
->  
->  	if (nsim_dev_get_vfs(nsim_dev)) {
+Thanks.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179324296598.34505.11070163314749859668%40gmail.com
+Dmitry
