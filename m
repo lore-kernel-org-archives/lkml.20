@@ -1,73 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793582328;
-	b=Vx27OwGuYaPcZOOGHyMMjFS/rpPi8hUwOP1sGdfssb6Wvu//tinecZ1veKYEXYmZliw5
-	 xeIZ9KmN+0yYyeY35FaxIwc3XeN14yJCb6AayyhQfJZYi+I3P/A535JCg9KTHdp82ET1i
-	 rNg1dreCUYjkcAA8Zzys9ixT6vqTZCTV4Cu8b4PcAV4x+u0WbM2cdZj4wfkIrg2BxHCYW
-	 JKPBbwMfocsVWn5NYGDLlOLp5vVfDSbz4d6KfG8EVp5k7AW6HJqJgP/XHpKA46bdj0In6
-	 UZQ9k8zXkmwWcnGRgpQbkeRjm95imLFRnffp0XVTyEdDvvSwhjG1cOSL43eI1z8vhsQ==
+	t=1793582408;
+	b=cajiwdXgj0el2qnnHtv8rhD+KBF1mVqEKJid2DQPNPJaSehfYKRtgBtOVG9q99amgPjK
+	 GyRPAVqOn53sNEytoyi42WE3Dxg8v5Z0Oloxb3tYdwnMeP/HlPezC1GQEkxTasiTrbkJD
+	 ojeMMNwXrcrVaim2XnibxugwzVXAfzu7mo/13V2WeLilOHIJGhnU0c4EK49T1qU8ADA6h
+	 W1pCkQY07ndoams3Jqr1PBYaic42nU7rBY0FKUkCK/ujnpsr4UY0+x5lWO+866ZjGuPav
+	 rkqtmNUCvo5eVXhzGUi45e73Y5uN7SxKFetOs1pbbFmh/TVehgdEtyOrzC832S+U8/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793582328;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=D4Z9hw1h5TRJ5BsgYhWpux1ch96XJn/lw5L3zZBTE5Y=;
-	b=AmyBTl3dxUFM5WYzi+eVy1zBcj9dpfevCsHKfkNsk74AJdlhX8mwokKS7iu6evVJEqjq
-	 QE5m/MXMipl4cDpwdQbHaoZPfHsF+PaUR5FoJTa9nyv7OQfWdjr4rsb1TNVBlXvPFdRvc
-	 tHk1Q6bC6QnJu0fJN0ANOECxOByY1nN1PT5HtLTy2iDc/3zJiEZXYSvTFfBCb3iODi+oj
-	 weqwiHbcr/3Sq3eqINXJPqPacNEe931xkFF7rmKTdfG7F1v+gJRbJLfP1HrFSCcMGExBI
-	 KSa9REfk9pKlIr2rVuOOBzzMeS3pn3jeuvxwdx0oT/8QSFKpY1+e7GPmj3xM6l1t8zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793582408;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=45c0jE9HbkCdxpNTN8bnPDNo8QDvZYgC9R9p9K09uiI=;
+	b=GtQn00umg9+Xy4VW5kU5yGHeL6FkcUfN4Jr+MXUS0K4NkfTki6Y145cEXcMCnfbV7r7S
+	 qWsjgLasP74hol1408mb92SGA5I/JRTAjcK4kVhvkXnftBfnbjfREZejdyA5zgXu/Sqqn
+	 Gr2vkOvSMVBqPjG/CN/MPOcD310pK+beXAc35153HWmOxQAn75Yq2YhOmrZRZayo/fJWI
+	 jA8b2jpqma0a7TvFJ+GQSVKJl4i1JXVCd6auV8YnckeEanVSxhWJwLRzOV+TKSPZml+3k
+	 cjrw53hU1QViopu2WnV2UdT/SJtCaquX3ieCSurVNwHzQdkSrk9z44hbri5IBAFkPig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mUY2svjr;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=TBpEvXw+;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E745606A326;
-	Mon,  2 Nov 2026 01:18:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E745606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E814606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E814606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mUY2svjr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=D4Z9hw1h5TRJ5BsgYhWpux1ch96XJn/lw5L3zZBTE5Y=; b=mUY2svjrv6cMF/GBi8xCxI+qRq
-	L51xEAsDZrS0jWjYBGThddCDMXDmosGglMmggBpSXSuE+BVnYHJ0BOsfYemACYIk/U+a2H1EJgEvi
-	8IWTvE3BWjRO0F8dIO9kFxGubxMkwbXF0KMJ8ZAg7JAsU7iVA/4nXEPqbkhrEbX9a6t8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xNggz-00DiVZ-PE; Mon, 02 Nov 2026 02:18:33 +0100
-Date: Mon, 2 Nov 2026 02:18:33 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/7] dt-bindings: net: amlogic,meson-dwmac: add
- amlogic,t7-dwmac
-Message-ID: <95418d50-a83f-47da-819b-de04eab449e2@lunn.ch>
-References: <20261022200640.3101932-1-tanure@linux.com>
- <20261022200640.3101932-3-tanure@linux.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=TBpEvXw+
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261102011956epoutp04dfdeac7fa3a7906f5c6a5392eb8e84ca~kFa-rUjj91155511555epoutp04u
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:19:56 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261102011956epoutp04dfdeac7fa3a7906f5c6a5392eb8e84ca~kFa-rUjj91155511555epoutp04u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793582396;
+	bh=45c0jE9HbkCdxpNTN8bnPDNo8QDvZYgC9R9p9K09uiI=;
+	h=From:To:In-Reply-To:Subject:Date:References:From;
+	b=TBpEvXw+eQcHTgYbRPLCH7v3jCI+B0Rrm0JynVRSYTaIouxC1sdB1B9vXVr3lYxBB
+	 YIQBIyDMArHp2CkRjDNWxwi5Ipp0zV2rgOjeZAwREoLv1KNtmKIfNB0tXAec8h5qCJ
+	 WthrGvagwle40tS7Wqhn+Y8pHoiag6xdESiLt2W0=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261102011956epcas2p4c07a8d4d77f017588ab97018446033db~kFa-apy1X1402414024epcas2p42;
+	Mon,  2 Nov 2026 01:19:56 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.202]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jHv582yf6z3hhTF; Mon,  2 Nov
+	2026 01:19:56 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261102011955epcas2p1eee400f7f34ac4f375b310edcf5e5472~kFa_teMAf2392223922epcas2p1V;
+	Mon,  2 Nov 2026 01:19:55 +0000 (GMT)
+Received: from KORCO164647 (unknown [12.80.211.160]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261102011955epsmtip2f37bfb1c2eedea39030867a8cfaec312~kFa_oA2UX2236222362epsmtip2A;
+	Mon,  2 Nov 2026 01:19:55 +0000 (GMT)
+From: "Kiwoong Kim" <kwmad.kim@samsung.com>
+To: "'Bean Huo'" <beanhuo@iokpp.de>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <cpgs@samsung.com>
+In-Reply-To: <101b87d76029565d274ae96d66c8a343cab910d3.camel@iokpp.de>
+Subject: RE: [PATCH v3] ufs: mcq: fix dev cmd abort path and add OCS poll
+ after sq cleanup
+Date: Mon, 2 Nov 2026 10:19:55 +0900
+Message-ID: <000601dd6a68$44e7d510$ceb77f30$@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,14 +78,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022200640.3101932-3-tanure@linux.com>
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQHS6DuEV2CopjC7B98uMO/T9TG5nwKNTbBWAxtTbRC3AbkXEA==
+Content-Language: ko
+X-CMS-MailID: 20261102011955epcas2p1eee400f7f34ac4f375b310edcf5e5472
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053
+References: <CGME20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053@epcas2p2.samsung.com>
+	<20261030111045.982094-1-kwmad.kim@samsung.com>
+	<101b87d76029565d274ae96d66c8a343cab910d3.camel@iokpp.de>
 
-> +        rx-internal-delay-ps:
-> +          enum: [200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000,
-> +                 2200, 2400, 2600, 2800, 3000]
+> I think this should be two patches, each needs different fix tag:
+Got it.
 
-Is 0 possible with the hardware? If so, i would accept it.
+> > --
+>=20
+> I didn't understand why here there is =22--=22, this shoudl be =22---=22?
+I just tried to separate two contents, but it seems like I made you confuse=
+d. Let me remove this.
 
-   Andrew
+
+> this is another patch, and OCS poll patch needs a fixes tag too, for the
+> MCQ abort support.
+Got it.
+
+> Kind regards,
+> Bean
+
+Thank you for your comments.
+
+
+Kiwoong
+BR.
+
