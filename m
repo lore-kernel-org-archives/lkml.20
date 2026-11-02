@@ -1,115 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657392;
-	b=GbCEbrpekax8hvJM/6ARY9tEmyV7+my/DDi8Pr+xgoQ9fu61V08q3RteIMLeTHwAm58v
-	 evDqg2V5VqBEyTyq7N0mUPiFvq0r5tV23TNgLGZ2kLhQHM0KnVOjK3YFfpKfsmDuWQvg6
-	 ZeGxJSMd0g4HamqpQNt5HgRvQSNBGu4CBFU/SkwCdKYWooL0rzKOVHzosrD2cch8znXna
-	 79dGFEPtnJYZwhvlnD4f0dYXg5XWbFiTd3nJf97A4D0YelEGXisZLVW2JzRjbxbP4EM9F
-	 +fA08zUpAsuPN4WD1UhYkICfmcVHRnrZ51w1FAI9J63nOEePN2vkAW/WxcMfICrnHMg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657392;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/bwPKqX3Gv7tWV58tpYeJSVI3i/HRCmm3Zim49VKIWM=;
-	b=G3q6oV6P08Cl9KfmlZmRE/HI3kCb3ja+n0yFniKqLg0DzakCIKfJupj0YOwSphXEF4/v
-	 OPVCzeg6HGmLFbfCZnFgv2NDHaI5rp1Ln5k7DoNtDigYeNNm9/+5UDppS0CnTnGF4eV8t
-	 fbojHS4c7o42HLiHNnttAQjbU516XZafwoBxcuk4RJVn+S6NvsUhv9SQBnOC8UQu4kZHA
-	 yu/ElcLUdIRSkzRBaeHI000RdBptab91RzGcoaPo2ViVLHd/8YHCI6ZjPWupUAaFSHhUg
-	 5UsQRYb81m+2uuHbUqnAxWypymm9yVu19tC3gvqikFH11uORjS9jRtxeDfSSN6lPUDA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Zi9t3Ta/";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sUSZFVg5;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793657428;
+	b=a5IJT8BaX5ndVEIjN216NnRRF8jKYhREgPWUfWqWzScrsx2u6PmeEpV9wKs6DkDvCIiG
+	 cdWUqIRbCNdRfj+9mPiLBs4Jz1AI6WRSe3MyjzPRKE5MZPPxhEyENtSuJvs9PyTU1V86U
+	 AcSidZ5J7S+5iqCOlCzcb8gewjgGsiXtsfRgwH355z5H6vbbPoiT92tBBGGgvtrfiz3kb
+	 QDY9WqR4+coWuaX45qFqfjgR6pO1Lr7icipFSOYv7WW9/mYYYvQvvgw9TgPabeZovTmZa
+	 nJDrToYHofqcqJWMsGC7DWvirSEgQNvMj5LHOYd/8rUDE/nD1nJbpo6dXec/OJuFtCg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657428;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TDIvWnwDtKWjPBeSEijuQwbcWng7n4+0E+Frwtf0vvU=;
+	b=hXPYAN534ihcT5MRfUH0jyCmmjjXMJP5BpkSu7nLe9svhh+EN/E2BPqU2iei1O+gIVcY
+	 tSrVCd6uUGzL9j/z+dO/yKu8RkFHu5vIDKYMuc50JKh7b0foQKSKid0D7T/wfoXukD3OU
+	 uEY7CkWCWGCFbT01TUIEDE17V+5Zx4Dl/aPz3TLLD3YsRTDlN4n1YlAad5qcNLt94JLDB
+	 +++R7QPe99qsco9LhojrYxXN+tmIQbEWZ7LJebi+/yAfm3htdqc2bPHjKKHyvksTrzSdn
+	 D6yhFcFYODFwgi3rCbRdYbGa5saoW836433XqGbNlpsHoGTofIXlWfzygx/bk9RieCw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=aHFKuFA1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.2
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013002.outbound.protection.outlook.com [52.101.72.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B65606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0B65606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF564606A335;
+	Mon,  2 Nov 2026 22:10:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF564606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Zi9t3Ta/;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=sUSZFVg5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793657390;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/bwPKqX3Gv7tWV58tpYeJSVI3i/HRCmm3Zim49VKIWM=;
-	b=Zi9t3Ta/286WYIuLbICG4S12UU1PeptyJp4kgXuA/K/8tkb8Qcvq7HFxF+dDQEoBkKY+cP
-	W2nlhuX5Uv6knB3ng9T/z/jQ3V6C5HKFCfgZnow9CO/yKBh7GjvPX09CjamIgDC7baZk9f
-	kP7PWJOS1C/tVLJ/vz53+ILU4GGmhC0=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-235-mC9yBiK4PReuzEApJV2Npg-1; Mon, 02 Nov 2026 17:09:49 -0500
-X-MC-Unique: mC9yBiK4PReuzEApJV2Npg-1
-X-Mimecast-MFC-AGG-ID: mC9yBiK4PReuzEApJV2Npg_1793657388
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a210f93860so16131885e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:09:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793657388; x=1794262188; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/bwPKqX3Gv7tWV58tpYeJSVI3i/HRCmm3Zim49VKIWM=;
-        b=sUSZFVg5XUl3+rzviIOSe7vTCts9mrw2efAzO2c1SB6fCaIPsBYTUxrAbJMwNLXhoD
-         7IVDn/jAQtzEESqMgQgr7EGcvbipwUN08vNkHdvWutKHp1Tye9o7hE/DKvhmUb3I9c3S
-         cuw7//8lX77Fx0sL2hFWa1SgmsJ1JZ42uu5Tcxz3ye6fLN/SoF197Se2JIrx5yxbMfNM
-         9gNL3dfWma5mLoBgGfBMDukK1uqs4cbdcasvtp1TPaxTXwn9cR5B/XyShzAyiwStt3Yv
-         4m8whjhW8uYXKNp96oZ/LsUYEJ/Pd2fJH+JXlJ+tcd6pPhB+HW3ONxnYNtIuPpAqvVrP
-         8Zeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793657388; x=1794262188;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/bwPKqX3Gv7tWV58tpYeJSVI3i/HRCmm3Zim49VKIWM=;
-        b=ddKAuwjNLnRaElQtcOxeogbXYFQfM3MzgQ3XkvSmltD6KOqpbaoydx+dwb+W8OSJd1
-         xjU0Qx2Cchg9K3iG+t5oLvP0XroXk9LPr8k4YjbyPhtmxIacSwLp7+NRl7nCrnuSVDJ6
-         O87086O6QlTyv60y6Eddma7iKftaXuZerRIc5qNteKIQMDLINfgj4o+nChbzrZ9yqD7t
-         c0mm+M/0Yeb2eQsXwp/EL2qIegi++oCJ4iycb+SqHk13405zCgdGE96Wi9qaY6b1xDto
-         VJOihgsPWlWOVz7XHLT5eguAZCxJXIghFjMQUArkXozBqg+vYaTY9Vj4+v0BJuYCqF34
-         ueRw==
-X-Forwarded-Encrypted: i=1; AKwUvByhL++GCaz2r5CgHEC/hm1clKsYDLdeoA8+MYJKOkglblJU4z98AScuW6WswBVHYOCcpwADQRzqhLzTINI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKF2uVKVsjmNDlqhVt2OnPsII1I4T2a9dY9VDLndPoT8P+0WygV
-	FD1KE7TbvGLYs0fHRGenRmM9vM8NXLJpQubgmJbLEmhTVzBW5L6xkHT9Po2jcUACIrPV73t8yWG
-	l+AgttRa2RdfQRNS2iZC9YZ2HkzWi8sRgFZx1V6kav87Q52lEOmHUHLaRJ6d8eHdz5w==
-X-Gm-Gg: AYBFou055zKnfYNKdrXiRNwU0gpLWsvOcpOhaMtXi24f3Obn0fdxRYzWaNXfblT/5RX
-	/2wu9hpiPoPApjX+aGuqIDaotQU/qDUqXm7xJ5EslImkON7IMYarX81/63HBd8+z15wkJxnHzeY
-	RQVBuqBAuK7QyTXls6o/BFMbPN3hz6h8tEfOgZEFyyAa1LcMXDK/waD16Z+IY2iIY/cp6E6qNvx
-	jjv3e/B5PLFeW8PGIMpItMvzr5XJTRCmWflnbgs/xO0g4CXFpW9tPPxHtVyOpCYHrNo7eCynZ12
-	YX/wjNKYFak1urNANjqWiHz8PM7ZOUCk0qVT468bLwL2oMghKVxDc3RYoNTut2CY1G4BxNsqltL
-	TplglHGoXRMHmBIJ8lox1PehHZcSeb8oZjkHHGZTnCg==
-X-Received: by 2002:a05:600c:6384:b0:4a1:702f:c736 with SMTP id 5b1f17b1804b1-4ac150b20famr265865915e9.3.1793657388272;
-        Mon, 02 Nov 2026 14:09:48 -0800 (PST)
-X-Received: by 2002:a05:600c:6384:b0:4a1:702f:c736 with SMTP id 5b1f17b1804b1-4ac150b20famr265865565e9.3.1793657387857;
-        Mon, 02 Nov 2026 14:09:47 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b723bfsm20624049f8f.15.2026.11.02.14.09.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 14:09:46 -0800 (PST)
-Date: Mon, 2 Nov 2026 17:09:42 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Aaron Lu <ziqianlu@bytedance.com>,
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org,
-	virtualization@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] vhost: Run TIF_NOTIFY_RESUME work in the vhost_task loop
-Message-ID: <20261102170928-mutt-send-email-mst@kernel.org>
-References: <AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=aHFKuFA1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vtaedo1MuCDyYftbVBp11tHahPhQsy/CDc35e81vtSXNtegBEoeg1UiInt91+vxVEMGOWkOW88x5zol/TI+mMvwWUUWLT7+gaPzZlwwDa9aj1XyzcVJpkPgwYVWje+rF1Vl/LIWOw6RdllMt2RX3n0KKLHkXWnwesLiJ5B6LNxqNT5p9pi9CMoysVOYJXkpUnTF05gNRqzXeUFZkWzVpiTAR42LqfOfF9BJNEowilRF+9R1KSuBFzzS4hL8YkiIxOL3owSJoDTxkU78ZImg4wB4vg3xv6pLjqHSaivJre91kUWQOHUMaclLqUKcQBiyYY/47rwh+l+hVuQ7TQ9GGBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TDIvWnwDtKWjPBeSEijuQwbcWng7n4+0E+Frwtf0vvU=;
+ b=Cb5vMnqHOKVArDkQDQlNZzgcxuS+tJthUmAWvqH57d71+yawD1VrQ+PQcDTVyIT+keFCnURxb9Aj2RtKpbNEOe4HXtBdzp8b80D92eX76leBpui0lYPBlXmgbZr2GPlE5KhgFtJVuOky3lvRKd1WykC9bk59H5Nl5BGHlqMY6HiLcms6Wk6rvl7Qn2XPaThlh50LLVmmx16MKjZ0CI9UmmUaGqD2yH7RPLuvnLfgtMH9VLjLgfBMjR3LpWuEuxVUqel6Quv8AV3WO8O8Jih1YActGxJwsSqFolGG2tu6rXOyMIx77L6+eUISva2KFnVGKDs/r6j26TBmY/o6/t/NyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TDIvWnwDtKWjPBeSEijuQwbcWng7n4+0E+Frwtf0vvU=;
+ b=aHFKuFA17Y6s4B7C4LR2cekP056CIIOaUSceHcDsYmd9ZL3qdT5/6Pgi9Sp5yflZiiaPqDitRHAXWc2fvHKzw3+LzrrLnBS2mucoDgGqScWZ9+IJX8VbhKxwj9OY9L/twFzBT7SI7RywAxX0P1yi2cUp97XU2RbjnEFMQpGCGQCXy7D9GcsfdyjWBt0ooOcUoyNtuXQtyL14qJipr9JdGfHJryx56sJKcUybxNGmAbt5qImP8e79ZcwK+H8UgX2UXkyFZAcRvBpWrEm/OQ+rNVhyd1bpMWAGuaiKx+/gNu/O+ZWjuEBpfSlSiSLrOGg1Z/KPvyjGZt4ldfFcKo066w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by BR0PR04MB983609.eurprd04.prod.outlook.com (2603:10a6:2c8:60::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 22:10:24 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 22:10:24 +0000
+Date: Mon, 2 Nov 2026 17:10:13 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Junyi Zhao <junyi.zhao@amlogic.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
+	linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
+	Kelvin.Zhang@amlogic.com
+Subject: Re: [PATCH v2 1/2] i3c: master: svc: Add amlogic a9 support
+Message-ID: <aukKRUYfEABgIruC@lizhi-Precision-Tower-5810>
+References: <20261102-a9_i3c-v2-0-0c474bfccffa@amlogic.com>
+ <20261102-a9_i3c-v2-1-0c474bfccffa@amlogic.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-a9_i3c-v2-1-0c474bfccffa@amlogic.com>
+X-ClientProxiedBy: PH7P223CA0010.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:338::19) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,69 +110,390 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|BR0PR04MB983609:EE_
+X-MS-Office365-Filtering-Correlation-Id: 435c2e1b-9bf2-4e0a-e205-08df392e17bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|19092799006|366016|261102123227099003|261021133027099003|56012099006|4143699003|11063799006|261021123027099003|261026135527099003|261009223027099003|261009221227099003|261021135927099003|261028144727099003|261022113327099003|261022075727099003|261021130227099003|261022105027099003|261026140227099003|261026130827099003|261022115727099003|261026121527099003|261021121427099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	c5Uo9WFT2eH9jRlSei8WRsMyrpxbpMWeUPwKj8AubSFzWSjc7E5e49UTrcjvqlK02pF14leeaxh4m+B3jfV4ZTUNZlt36zIHYDNDB3CEVxwFYj5OBX8cwv0yT6r0K56v066VG5aqTpaY4Q0q4q+mkVnmahXpfuYxYGxDLNMOhoXxxcY777CnCBRoTWxmCwxO0w6XjRSOwXfjPPVB713spsK/uNNUEgDy/YQ027bd2T6tapqQ0z+dsz8WnFV/9bh8yM78V/oJaqT82gYbc7/XyEK/bcco6BEHRNldAWeHz/0cvU5Kx0bkREFmcJYFg6wJkUJjn3Ih53+Hgwdd2bSilZXegNt+8Ttv65SdYpGXnTb/9iC9EQXNRbfSv75DNmY+gHjnr94wEQt+Au9cYa+CbVvg6AwAeinthuzkihMa4HlR0b1+1NqSpHYy+ryfHUqjA2VgEzFjdknYjw/FsLp15pv7Bn4PLfhp+ZOpRv1p0VHi9UhROwIczML9lB5+lVjdUMuOBM+EueTucHIf8qW6gg/O278jT9lotaZFdHP/i2ZSxSNtE5VWfEVuh5Cl5XdFFuTVrSQLFNA8ipzLruSZXz07Nwm5c0HHIzHfPXa5f2c9fispIfUY4kJhylp0L+wJmz1dxBsVGBq6D4ATf7C2fpBjGMp7rmOQ6VqaUFANhQs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(19092799006)(366016)(261102123227099003)(261021133027099003)(56012099006)(4143699003)(11063799006)(261021123027099003)(261026135527099003)(261009223027099003)(261009221227099003)(261021135927099003)(261028144727099003)(261022113327099003)(261022075727099003)(261021130227099003)(261022105027099003)(261026140227099003)(261026130827099003)(261022115727099003)(261026121527099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?hWR4Rw97bY5wFdAE4mfvclEewc1ZEx71vXPtSxs+8IzT7Bc8NmCWFXX5ZjQi?=
+ =?us-ascii?Q?GFwIau9wn0hyPL9O8/sfhg5dR2mrY0Gh8TbKMOvtzQqlewa5WyHB5MptpLg/?=
+ =?us-ascii?Q?xwyL8/rYvO67s8FKD0cF7YQRfbGTDmoMNSlgomko369IUyBJtYnBn9ECGfYW?=
+ =?us-ascii?Q?cLGib2OSo+HudfEsADYZeP7HbSdt3wQUIkpVPShoRSDp6xNdy4iZVFW/xU+1?=
+ =?us-ascii?Q?VDS8wdBAaqoGmwICz6iOdavTYkmxT3uMVDSkR9lCnXbDhjDDpUJCo1App77S?=
+ =?us-ascii?Q?aDGdpCMk7F41tt/NI1v0YPeT+l/Fw3Jpo8gBmNoWRNCgRGEZDmEd2uHIoI5i?=
+ =?us-ascii?Q?e9ux2PHa9h43SjFPS9WkbGlX1EZUWwqsYSEGjtecmJ7883d2eNRj8+5HSnHg?=
+ =?us-ascii?Q?+taS9DuKpJ+pGgXJE0hdeTYizu6/a0E+4pedoyrNd9bx6EQI/NCv8qWyQ/D9?=
+ =?us-ascii?Q?lGuFEw6VRpX3vpyC2aUL0BbYU2Bcp+p5aGcuJCTMBKc7GIbQ+LACtlJCOzFM?=
+ =?us-ascii?Q?+9dMrppCZeswx9qGK01bWvhm1yDIoPL30yXNJ+3JqG7067YthzyhvRcmaK4c?=
+ =?us-ascii?Q?MZf83CxawdS1q0l6J5ojQV/WkwLwF0vBfaFjg0fRmM+5BLsjq07+RGKEhpuV?=
+ =?us-ascii?Q?gKOJYdH0w9fIm3krm5m9INJumfZSgEmBwjzRm34lskphlJvDw14mSW+EJD7P?=
+ =?us-ascii?Q?KwInmGL6MnMIxG7WqMA3j+5Ts5VgJYoBY4snT7Rv1glzguYQvsVYVEA+h+2B?=
+ =?us-ascii?Q?ctYxjOvTDyYb8WHWQDlhSjTwO5GkjZckGADR5smXxjAOrzA8ukX483o0fCnl?=
+ =?us-ascii?Q?9ioMLLdJvkNVuf7FqavhiqS63CSAkTlcY2+z8ehWlI/z3Lw78M4GD/Vw/s3Y?=
+ =?us-ascii?Q?SQiCEVrtcKh3xaywp8ZVrEhjDF2F9/xLTMnE79ENC4+QsRmDGwXAuHR4TWx0?=
+ =?us-ascii?Q?D3cj9Z/HDgTfrFots7dprAAEp+bGVn6HXMadAOyx7IjKIlEDWCvMLX3lcDfZ?=
+ =?us-ascii?Q?xJPMQVpi1HVHQlkVHZllbGoZqMe9dOMwzCwwqmhsLD3d/tKgPcuewq9/y1Y8?=
+ =?us-ascii?Q?A/E5AYrLgZsIG7gnmFhBK5l1H7OgU6n1oYAZbxI8iuTOu/lXHknYoNHVMCtN?=
+ =?us-ascii?Q?BuqLcZIeeQb4P0A3S091VznaD/O0arHklvQND9EQl1Mb5+DZCgBUWr49Gz4f?=
+ =?us-ascii?Q?If+9lixfz5YnjhDFG712DdoTmMvENIjXQj8+vTpCB3q9++JHdOEBLe5G7sw7?=
+ =?us-ascii?Q?KnF2f2hlQ4qw/D4wHCqJwDiN3JVECRFflL+3kSDto9aHThzftD3mTEJ6dEZ7?=
+ =?us-ascii?Q?9kth8JaG2eRgcyXRNhjfduUb2OvB+59Fb7D8Z7CAp1RcGkTNJ1F2p+YKxLuR?=
+ =?us-ascii?Q?cgE74f71aydcxnEVtUuKAu2Xzg0c1gs/UGJrOybSlfUdSCwt4XVmkHHx8jDB?=
+ =?us-ascii?Q?rLYEPMc40qLnDWLxLwmhk5/hSMvRYYZd2KwibP9iAHMJ0Znm3R55PJFU7q0s?=
+ =?us-ascii?Q?2Im0mrBl8UxivI2YEnkJL4s3XlyCIjmk6hmTNtWeGP3k0OGaWI4zbdvQ7ah0?=
+ =?us-ascii?Q?SHE2e3DkDnILoq59EQpZQDyuKZfzCcjr+gn6MHFHi5Od91JBmvkvmHzewx6n?=
+ =?us-ascii?Q?jmo6f0laPAsN7sDpYANxMi96YFPc3QzjEDin9q4uVQKh0XLWZeVRr87ddPXw?=
+ =?us-ascii?Q?jF4XiBx/l8++TCatuWHeaiAD0BTjqt1ubcnnwTPK77nHFWfIiOAWWHUvlI78?=
+ =?us-ascii?Q?4/Om9NgLMCqs+ZVm7llpNxJJlfWB9hBNI8MUHbzQXdI38iQDqlyz?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 435c2e1b-9bf2-4e0a-e205-08df392e17bb
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 22:10:24.1529
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tKwz5ZrcW9cQ+clH80lhcaIQGKKbC4gVaOutHLLbM/OibM8McKATTygGX795Z8pKJlwqrVO2SObBTHJGFDHBN4DHKG10XMHdx7LcfKlLegf2KrgruFoEiacMaSvEBDh/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB983609
 
-On Sat, Oct 31, 2026 at 01:33:13AM +0000, Aamir Ahmed wrote:
-> Since commit e1fad12dcb66 ("sched/fair: Switch to task based throttle
-> model"), a throttled task is only dequeued when TWA_RESUME task_work
-> runs on its way back to user mode.
-> 
-> vhost workers never return to user mode, and vhost_task_fn() only runs
-> task_work via get_signal() when a signal is pending. A busy vhost worker
-> therefore ignores its cgroup's cpu.max, while its runtime is still
-> charged to the group, throttling the group's other tasks (typically the
-> VM's vCPUs) harder.
-> 
-> Run pending notify-resume work at the top of the worker loop, as io-wq
-> does in io_run_task_work(). Commit 12013e3d4695 ("KVM: powerpc: Use
-> generic xfer to guest work function") fixed the same problem for KVM.
-> 
-> Fixes: e1fad12dcb66 ("sched/fair: Switch to task based throttle model")
-> Cc: stable@vger.kernel.org # 6.18+
-> Assisted-by: LLM
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-
-Could you pls respond to Sashiko's review?
-
+On Mon, Nov 02, 2026 at 07:05:39PM +0800, Junyi Zhao wrote:
+> Amlogic a9 SoCs integrate the Silvaco I3C IP, and their peripheral
+> clocks vary from the vanilla implementation:
+>
+>   - The EE-domain controller (amlogic,a9-i3c) takes two clocks,
+>     "pclk" and "fast_clk", and the fast clock rate must be
+>     programmed before the controller can be used.
+>
+>   - The AO-domain controller (amlogic,a9-ao-i3c) exposes only "pclk":
+>     its bus clock is generated by an internal divider located in the
+>     controller's own register space.
+>
+> Add a vendor_init callback to handle this clock setup.
+> Add a vendor_quirks field to describe AO-specific behavior.
+>
+> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
 > ---
-> Tested on x86_64 with a vhost_task-based reproducer: in a 0.2-CPU cgroup
-> a busy worker drops from 100% to 19% of a CPU. Reproducer available on
-> request.
-> 
->  kernel/vhost_task.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/kernel/vhost_task.c b/kernel/vhost_task.c
-> index 3717885a599..7fa96e1b85b 100644
-> --- a/kernel/vhost_task.c
-> +++ b/kernel/vhost_task.c
-> @@ -6,6 +6,7 @@
+>  drivers/i3c/master/svc-i3c-master.c | 214 +++++++++++++++++++++++++++++++++++-
+>  1 file changed, 209 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/i3c/master/svc-i3c-master.c b/drivers/i3c/master/svc-i3c-master.c
+> index e700392f0..98aa6eb0f 100644
+> --- a/drivers/i3c/master/svc-i3c-master.c
+> +++ b/drivers/i3c/master/svc-i3c-master.c
+> @@ -9,6 +9,7 @@
+>
+>  #include <linux/bitfield.h>
+>  #include <linux/clk.h>
+> +#include <linux/clk-provider.h>
 >  #include <linux/completion.h>
->  #include <linux/sched/task.h>
->  #include <linux/sched/vhost_task.h>
-> +#include <linux/resume_user_mode.h>
->  #include <linux/sched/signal.h>
->  
->  enum vhost_task_flags {
-> @@ -31,6 +32,14 @@ static int vhost_task_fn(void *data)
->  	for (;;) {
->  		bool did_work;
->  
-> +		/*
-> +		 * We never return to user mode, so TWA_RESUME task_work (e.g. CFS
-> +		 * bandwidth throttling) would otherwise never run. Run it here,
-> +		 * where no locks are held, like io-wq workers do.
-> +		 */
-> +		if (test_thread_flag(TIF_NOTIFY_RESUME))
-> +			resume_user_mode_work(NULL);
+>  #include <linux/errno.h>
+>  #include <linux/i3c/master.h>
+> @@ -166,6 +167,21 @@
+>   */
+>  #define SVC_I3C_QUIRK_DAA_CORRUPT	BIT(2)
+>
+> +/* Amlogic specific registers */
+> +#define AML_AO_I3C_FCLK_DIV_CTRL		0x304
+> +#define AML_AO_I3C_FCLK_DIV_EN_SHIFT		8
+> +#define AML_AO_I3C_FCLK_DIV_SHIFT		0
+> +#define AML_AO_I3C_FCLK_DIV_WIDTH		8
+> +#define AML_AO_I3C_FCLK_EN_SHIFT		9
 > +
->  		if (signal_pending(current)) {
->  			struct ksignal ksig;
->  
-> 
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> -- 
-> 2.43.0
+> +/*
+> + * AML_I3C_QUIRK_AO:
+> + * AO is the Always-On domain on Amlogic SoCs (remains powered in suspend).
+> + * Its clock is generated by an internal divider located in the I3C
+> + * controller own register space.
+> + */
+> +#define AML_I3C_QUIRK_AO	BIT(0)
+> +
 
+There are not much quick now, just put after SVC_I3C_QUIRK_DAA_CORRUPT
+
+#define AML_I3C_QUIRK_AO     BIT(3)
+
+use a unified quirk define.
+
+>  struct svc_i3c_cmd {
+>  	u8 addr;
+>  	union {
+> @@ -195,10 +211,6 @@ struct svc_i3c_regs_save {
+>  	u32 mdynaddr;
+>  };
+>
+> -struct svc_i3c_drvdata {
+> -	u32 quirks;
+> -};
+> -
+>  /**
+>   * struct svc_i3c_master - Silvaco I3C Master structure
+>   * @base: I3C master controller
+> @@ -257,6 +269,12 @@ struct svc_i3c_master {
+>  	u32 mctrl_config;
+>  };
+>
+> +struct svc_i3c_drvdata {
+> +	u32 quirks;
+> +	u32 vendor_quirks;
+
+Needn't this, direct use quirks
+
+> +	int (*vendor_init)(struct svc_i3c_master *master);
+> +};
+> +
+
+why need move this struct
+
+>  /**
+>   * struct svc_i3c_i2c_dev_data - Device specific data
+>   * @index: Index in the master tables corresponding to this device
+> @@ -274,6 +292,11 @@ static inline bool svc_has_quirk(struct svc_i3c_master *master, u32 quirk)
+>  	return (master->drvdata->quirks & quirk);
+>  }
+>
+> +static inline bool vendor_has_quirk(struct svc_i3c_master *master, u32 quirk)
+> +{
+> +	return (master->drvdata->vendor_quirks & quirk);
+> +}
+> +
+
+Needn't this one
+
+>  static inline bool svc_has_daa_corrupt(struct svc_i3c_master *master)
+>  {
+>  	return ((master->drvdata->quirks & SVC_I3C_QUIRK_DAA_CORRUPT) &&
+> @@ -2011,6 +2034,7 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
+>  	if (!master->drvdata)
+>  		return -EINVAL;
+>
+> +	master->dev = dev;
+>  	master->regs = devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(master->regs))
+>  		return PTR_ERR(master->regs);
+> @@ -2019,6 +2043,12 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
+>  	if (master->num_clks < 0)
+>  		return dev_err_probe(dev, -EINVAL, "can't get I3C clocks\n");
+>
+> +	if (master->drvdata->vendor_init) {
+> +		ret = master->drvdata->vendor_init(master);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	for (i = 0; i < master->num_clks; i++) {
+>  		if (!strcmp(master->clks[i].id, "fast_clk"))
+>  			break;
+> @@ -2036,7 +2066,6 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
+>  	if (master->irq < 0)
+>  		return master->irq;
+>
+> -	master->dev = dev;
+>  	ret = clk_bulk_prepare_enable(master->num_clks, master->clks);
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "can't enable I3C clocks\n");
+> @@ -2163,9 +2192,184 @@ static const struct svc_i3c_drvdata npcm845_drvdata = {
+>
+>  static const struct svc_i3c_drvdata svc_default_drvdata = {};
+>
+> +/*
+> + * Container for the tail clocks of the AO domain variant. The clock HW
+> + * structures are registered with the clock framework and must stay alive
+> + * for the whole driver lifetime, so they are kept along with the shared
+> + * lock used by their gate/divider operations.
+> + */
+> +struct aml_i3c_ao_clk {
+> +	struct clk_gate div_en;
+> +	struct clk_divider div;
+> +	struct clk_gate gate;
+> +	spinlock_t lock;
+> +};
+> +
+> +/*
+> + * aml_ao_i3c_tail_clocks - register the internal divider chain that
+> + * produces the AO variant's fast_clk, and append it to the clk bulk
+> + * array as "fast_clk".  @parent must be "pclk", the only clock the AO
+> + * variant exposes (see silvaco,i3c-master.yaml).
+> + */
+
+use kernel doc format.
+
+> +static int aml_ao_i3c_tail_clocks(struct svc_i3c_master *master, struct clk *parent)
+> +{
+> +	struct device *dev = master->dev;
+> +	struct aml_i3c_ao_clk *ao;
+> +	struct clk_init_data init = {};
+> +	char name[64];
+> +	int ret;
+> +	struct clk_bulk_data *new_clks;
+> +	struct clk *fclk;
+
+keep revise Chemistry order
+
+Frank
+
+> +
+> +	ao = devm_kzalloc(dev, sizeof(*ao), GFP_KERNEL);
+> +	if (!ao)
+> +		return -ENOMEM;
+> +
+> +	spin_lock_init(&ao->lock);
+> +
+> +	snprintf(name, sizeof(name), "%s#div_en", dev_name(dev));
+> +	init.name = name;
+> +	init.ops = &clk_gate_ops;
+> +	init.flags = CLK_IGNORE_UNUSED;
+> +	init.parent_data = &(struct clk_parent_data) {
+> +		.index = -1,
+> +		.hw = __clk_get_hw(parent),
+> +	};
+> +	init.num_parents = 1;
+> +
+> +	ao->div_en.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
+> +	ao->div_en.bit_idx = AML_AO_I3C_FCLK_DIV_EN_SHIFT;
+> +	ao->div_en.hw.init = &init;
+> +	ao->div_en.lock = &ao->lock;
+> +
+> +	ret = devm_clk_hw_register(dev, &ao->div_en.hw);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register %s\n", name);
+> +
+> +	snprintf(name, sizeof(name), "%s#div", dev_name(dev));
+> +	init.name = name;
+> +	init.ops = &clk_divider_ops;
+> +	init.flags = 0;
+> +	init.parent_data = &(struct clk_parent_data) {
+> +		.index = -1,
+> +		.hw = &ao->div_en.hw,
+> +	};
+> +	init.num_parents = 1;
+> +
+> +	ao->div.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
+> +	ao->div.shift = AML_AO_I3C_FCLK_DIV_SHIFT;
+> +	ao->div.width = AML_AO_I3C_FCLK_DIV_WIDTH;
+> +	ao->div.hw.init = &init;
+> +	ao->div.lock = &ao->lock;
+> +
+> +	ret = devm_clk_hw_register(dev, &ao->div.hw);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register %s\n", name);
+> +
+> +	snprintf(name, sizeof(name), "%s#gate", dev_name(dev));
+> +	init.name = name;
+> +	init.ops = &clk_gate_ops;
+> +	init.flags = CLK_SET_RATE_PARENT | CLK_IGNORE_UNUSED;
+> +	init.parent_data = &(struct clk_parent_data) {
+> +		.index = -1,
+> +		.hw = &ao->div.hw,
+> +	};
+> +	init.num_parents = 1;
+> +
+> +	ao->gate.reg = master->regs + AML_AO_I3C_FCLK_DIV_CTRL;
+> +	ao->gate.bit_idx = AML_AO_I3C_FCLK_EN_SHIFT;
+> +	ao->gate.hw.init = &init;
+> +	ao->gate.lock = &ao->lock;
+> +
+> +	ret = devm_clk_hw_register(dev, &ao->gate.hw);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register %s\n", name);
+> +
+> +	fclk = devm_clk_hw_get_clk(dev, &ao->gate.hw, NULL);
+> +	if (IS_ERR(fclk))
+> +		return dev_err_probe(dev, PTR_ERR(fclk),
+> +				     "tail i3c fast clock failed\n");
+> +
+> +	new_clks = devm_kcalloc(dev,
+> +				master->num_clks + 1,
+> +				sizeof(*new_clks),
+> +				GFP_KERNEL);
+> +	memcpy(new_clks, master->clks,
+> +			master->num_clks * sizeof(*master->clks));
+> +	new_clks[master->num_clks].id = "fast_clk";
+> +	new_clks[master->num_clks].clk = fclk;
+> +	master->clks = new_clks;
+> +	master->num_clks++;
+> +
+> +	return 0;
+> +}
+> +
+> +static int aml_i3c_init(struct svc_i3c_master *master)
+> +{
+> +	struct device *dev = master->dev;
+> +	long fin_freq;
+> +	int ret, i;
+> +	struct clk *fclk;
+> +
+> +	if (vendor_has_quirk(master, AML_I3C_QUIRK_AO)) {
+> +		/*
+> +		 * clk_bulk_get_all() preserves the DT order, and the
+> +		 * binding restricts the AO variant to exactly one clock,
+> +		 * which is always "pclk".  So clks[0] is the input of the
+> +		 * internal divider chain.
+> +		 */
+> +		ret = aml_ao_i3c_tail_clocks(master, master->clks[0].clk);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	for (i = 0; i < master->num_clks; i++) {
+> +		if (!strcmp(master->clks[i].id, "fast_clk"))
+> +			break;
+> +	}
+> +
+> +	if (i == master->num_clks)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "can't get I3C fast clock\n");
+> +
+> +	fclk = master->clks[i].clk;
+> +	if (IS_ERR(fclk))
+> +		return PTR_ERR(fclk);
+> +
+> +	fin_freq = clk_round_rate(fclk, 25000000);
+> +	if (fin_freq <= 0) {
+> +		dev_err(dev, "invalid fast_clk\n");
+> +		return fin_freq ? fin_freq : -EINVAL;
+> +	}
+> +
+> +	ret = clk_set_rate(fclk, fin_freq);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "setting fast_clk rate failed\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct svc_i3c_drvdata aml_a9_drvdata = {
+> +	.quirks = SVC_I3C_QUIRK_FIFO_EMPTY |
+> +		  SVC_I3C_QUIRK_FALSE_SLVSTART |
+> +		  SVC_I3C_QUIRK_DAA_CORRUPT,
+> +	.vendor_init = aml_i3c_init,
+> +};
+> +
+> +static const struct svc_i3c_drvdata aml_a9_ao_drvdata = {
+> +	.quirks = SVC_I3C_QUIRK_FIFO_EMPTY |
+> +		  SVC_I3C_QUIRK_FALSE_SLVSTART |
+> +		  SVC_I3C_QUIRK_DAA_CORRUPT,
+> +	.vendor_quirks = AML_I3C_QUIRK_AO,
+> +	.vendor_init = aml_i3c_init,
+> +};
+> +
+>  static const struct of_device_id svc_i3c_master_of_match_tbl[] = {
+>  	{ .compatible = "nuvoton,npcm845-i3c", .data = &npcm845_drvdata },
+>  	{ .compatible = "silvaco,i3c-master-v1", .data = &svc_default_drvdata },
+> +	{ .compatible = "amlogic,a9-i3c", .data = &aml_a9_drvdata },
+> +	{ .compatible = "amlogic,a9-ao-i3c", .data = &aml_a9_ao_drvdata },
+>  	{ /* sentinel */ },
+>  };
+>  MODULE_DEVICE_TABLE(of, svc_i3c_master_of_match_tbl);
+>
+> --
+> 2.42.0
+>
