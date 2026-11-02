@@ -1,60 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628852;
-	b=cuKoR4PVdFQ4K2ajWzeM4MmxFbdOxcqK9pvEOrFVtegwzT1hyffZdE4fDnezSOsdZJAg
-	 o7TRI11KEEzkPBZbzNqYN4tqCOGC4jlbO0i8b48At2zTEkS/22hKy4QBkRyPPLJISDWFU
-	 DZrCJ3Ua4bySkGWfs2ZBGcASyCuflljDhWSekCxIdhXu1m9x4YxvZQpyTDjbKPVHP5gex
-	 CjVBACOCWJ3ZO9voXxwYBEJMBEWTSu8KvDWip0d8t//aMzWY4TtnJW+LHKZ34lB9ejXja
-	 7rc4cRgFHee3I6Ef4a76ePi/ZoGsiCseDnFZ1MVP9gYR2p1Yk9BXQ2MQoDpTvQoMehQ==
+	t=1793628854;
+	b=E3jAf0FM8Fx78ukgL4NS4U34PJ9Nvy5vhseLL8q1bNQc+n4AsM8XslezWMtH4D7n2wfv
+	 Q7A7N3CLo3RKd4m5q55CYl5lm2zohbzF0LPcEdz/XNdPOodm9itEy6Y2Tz/LoHV7O7+TH
+	 ga//Jdpk+SLRPfwIkj333H2hfeEjpT09PFWtWyiRDbX9RYKH4X9sR7kL8FK8QRsBic+CI
+	 VISnvTy2jC7wkI43V13M71JxayRDuZvSF78w+Mbpyyop5cB+Ze6ekuwoNd+Sy+jLcTUvM
+	 Na06mWiFhQZluAqR/fU43qvgxsj50ItD4OLGcERsDheGD33r5d9z9r708ZupX6hB4Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628852;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=b54Isd4z7HUSwzET7l6EJGjGARdRgfUq9X9wGohjWZk=;
-	b=4MtZ1Z6v6v8Mg5GzD12RS3cmJELYKZW3naktMJOdp2e+QY5JP44vv9GQU5j7wGGXBL7M
-	 FdrbI7mCYKLD4WlXNcEmxGLBY6Tv/Zq+FKfd9dKGfmN2PhEo6DvwzUhnCV0y4ovZQqu1m
-	 Zvj0SrLRBTIGrdCcK8RTc3umXlMvFsMYEvQ57JNfV2PJk/URiXNHM/pOinkBXdvPl3Ix4
-	 ESZeemZuOg5giAALM7y1FKb4mYpM9BB/V6nFcgyB9GmvL6f8sSC+wAUdJKLkQOKvfigRf
-	 9ZPbYsbe/Ps8GLZONc4zt4uDk3DghZzmTLEozd3itZpRpzsCDXrNukvKBRSFfNGHbyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628854;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Ssw5USA6kTJR2rczz2n//qjSi6PfjV55B6pl9u5yEdU=;
+	b=vq5Q/K/ptb4RLsVHxdSmjRVMhArLL7v2CRI3D/ffGDBaKtXYRsA3BxifjM9oKzjQmOde
+	 61BY8qqGd6Rc907ZfaC+OtAewr/opoJPx5HOEevZFb6py/hhtw8xlHQRwm34B4CM+3uj6
+	 QOk7eyEkmMcjvOymWRwX6chM1mixs1iCsREgs7+p7CSogW1YWMic9E1JLUuWBYwCxiT4z
+	 pmKJ1F92cMgNeO25ATJkgouOD7XkiXZPD4nNJnBNYG+nmwyyoXhHQGKPbeIHxf9eDYivr
+	 MNTsPQQlByeGaV++tECukjpx+P7AlgVuiewN+pRmjlhJMki0kE9PSAh9Ck9+HVN9GeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmlbT6uT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEF860A3801;
-	Mon,  2 Nov 2026 14:14:12 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JECrwoav;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB8FC60A3802;
+	Mon,  2 Nov 2026 14:14:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB8FC60A3802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmlbT6uT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039421F00A17;
-	Mon,  2 Nov 2026 14:14:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793628852;
-	bh=b54Isd4z7HUSwzET7l6EJGjGARdRgfUq9X9wGohjWZk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=dmlbT6uTFil01qFddIyGLjPXVVvzwH/a4loVjk/bCRGYv/aUp3vS7xa6iuwDGNVut
-	 6utXDFf3wuLElnhAkNm9/R3V8dZFDSokO9vhFfk2Css8Hx6CGz8RLBMkqHHG1CiozW
-	 9CIFiNbXlUP2iqOCFSuwZCdrIwLzMJmguRtIMauHQDVNre0T24/W8458bV6Te4DrnH
-	 lesO77GPJJSVqPsyniJM9Y/eLMU/t2/hTWF7jhHZkQQ95n8nsuOhrRRiSsNq9R8F9X
-	 TFxIJqeTlZ2ZHPx+zPl4xdpkXq5LGvqM1EtVXhRBSuG/h7+9D46ISs/VUHC2wmQVlE
-	 E16DQ3838vsZw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 1DC722377C4C;
-	Mon, 02 Nov 2026 14:14:10 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Thorsten Blum <blum@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-In-Reply-To: <20261102113019.265822-2-blum@kernel.org>
-References: <20261102113019.265822-2-blum@kernel.org>
-Subject: Re: [PATCH] regmap: Annotate regmap_access_table members with
- __counted_by_ptr()
-Message-Id: <179361979450.1776482.7254109253538340654.b4-ty@b4>
-Date: Mon, 02 Nov 2026 11:43:14 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JECrwoav
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4F11D1691;
+	Mon,  2 Nov 2026 06:14:10 -0800 (PST)
+Received: from e122027.arm.com (unknown [10.57.58.9])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B2C8D3F59E;
+	Mon,  2 Nov 2026 06:14:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793628853; bh=h6KBkcsp5DeEHH4D4E0W9F9SywHXfnWYy74THEiEa0U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JECrwoavalTBUMpD5iZGLy7KhIDhV9iLSCAITQfYugg5FaFnqZsEqK7N88s7ONT6k
+	 QaqgUlv/kAUKobC95yz2jAvIYsWeU7QyvXWEoy6w3fkSnL2jOTdgKnFk8V+o1duvPx
+	 OjFZflVf90HEDK4mbOx81QYjdnyfGSP3q/ZFVIns=
+From: Steven Price <steven.price@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Oliver Upton <oliver.upton@linux.dev>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Christoffer Dall <christoffer.dall@arm.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-coco@lists.linux.dev,
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Shanker Donthineni <sdonthineni@nvidia.com>,
+	Alper Gun <alpergun@google.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Emi Kisanuki <fj0570is@fujitsu.com>,
+	Vishal Annapurve <vannapurve@google.com>,
+	WeiLin.Chang@arm.com,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Steven Price <steven.price@arm.com>
+Subject: [PATCH 09/11] KVM: arm64: CCA: Prevent memslot modifications after Realm creation
+Date: Mon,  2 Nov 2026 14:13:00 +0000
+Message-ID: <20261102141304.126883-10-steven.price@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102141304.126883-1-steven.price@arm.com>
+References: <20261102141304.126883-1-steven.price@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,46 +84,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1157; i=broonie@kernel.org;
- h=from:subject:message-id; bh=daJyc7XbiXAY0L0DUTR/SE90cGDcxHdL/UE5BJfixA8=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJezNqofsbd96fT96mLurPzTr/JfMPTI5vd5qhi5HZx7
- dRzhUZsHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZhIuQAjw9LnHr9iC9ar7e8x
- PTylc2/9i7jrvRX7nj+7t2jzxaUFTScZ/tkmplycGuuzfca9Iv+Z2zbvrfpYN+WvwRflANaTAWx
- 3vdgA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Mon, 02 Nov 2026 12:30:20 +0100, Thorsten Blum wrote:
-> regmap: Annotate regmap_access_table members with __counted_by_ptr()
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-Applied to
+Once the Realm is created, prevent any changes to guest_memfd backed
+memslots, as the private memory is provided by slots backed by gmem.
+This will also be validated when we handle a fault for Realm Stage2 (in
+a later commit).
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.5
+Additionally, similar to pKVM, we do not support dirty logging or
+read-only memslots.
 
-Thanks!
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Signed-off-by: Steven Price <steven.price@arm.com>
+---
+ arch/arm64/kvm/mmu.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-[1/1] regmap: Annotate regmap_access_table members with __counted_by_ptr()
-      https://git.kernel.org/broonie/regmap/c/acebd8e4f16f
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 51fda7b2ff7f..eb8c5f9e9791 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -2862,13 +2862,28 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
+ 	    (new->flags & (KVM_MEM_LOG_DIRTY_PAGES | KVM_MEM_READONLY)))
+ 		return -EPERM;
+ 
+-	if (kvm->arch.vm_flavor == VM_PROTECTED_PKVM) {
++	switch (kvm->arch.vm_flavor) {
++	case VM_PROTECTED_PKVM:
+ 		/* Cannot modify memslots once a pVM has run. */
+ 		if (pkvm_hyp_vm_is_created(kvm) &&
+-		    (change == KVM_MR_DELETE || change == KVM_MR_MOVE)) {
++		    (change == KVM_MR_DELETE || change == KVM_MR_MOVE))
+ 			return -EPERM;
+-		}
++		break;
++	case VM_REALM:
++		/*
++		 * Once the Realm is created, we cannot modify any slots that
++		 * could be providing private memory. i.e., guest_memfd backed
++		 * slots.
++		 * TODO: Handle trusted device private memory slots
++		 */
++		if (!kvm_realm_is_created(kvm))
++			break;
+ 
++		if (kvm_slot_has_gmem(old) || kvm_slot_has_gmem(new))
++			return -EPERM;
++		break;
++	default:
++		break;
+ 	}
+ 
+ 	if (change != KVM_MR_CREATE && change != KVM_MR_MOVE &&
+-- 
+2.43.0
 
