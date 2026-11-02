@@ -1,48 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.156.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793593499;
-	b=jVlHO3JBQ7SxbD49LV/7E8G5X7DLQQeR4bEdrD7GIdtzeLI4JcKl1coVfYgAH8jAvHKd
-	 wOKochreybGkGxSOrDeMDza2IiM0jDe5cSAukrGqjDRKkMktYgNKHfkrhQIhPKb5Z4uUH
-	 v3fOLoUosBOkHnS/9bYns3uTiUqbdPn6SOh1XgpGFiHwlQQH2ao7mAH/ouLepurd2f5Yu
-	 3gG2nGfiu1OzaCxpJngtkBvbRbMFt9zlqxmhfhmKjugXrP/qKR5eEz5kscfE0aQRPyq0V
-	 hd6dT7x68yLvEQUTIQYrOEBsdnHkkqZaF88Wg2iHN7uiYdgsj83Bg85WuT+N93WqeuA==
+	t=1793593726;
+	b=ZdM+w1SgWTd+MzFa1v87ex9kq+XYrQ3ijR2ob1n1dqqkPxcnE7VvJE3uOatRezd0ST0m
+	 4ezSOLK2xOhU1C4uF1HYti2JaDc3+yArOr63O5J/skzUee8EjY2M94d4awUubFDCri5sO
+	 r34cAJIYf9AUnNGfFXYK4aBJXLCEtFUAiGeStCD+xK0XjfGlbgqx0098rQ+ZjFp0nU6zl
+	 g5bFxKDlMyy9ZPAknKmiKJ4soV38J1TLXkFjA2fe+C0MsZbqV2Hp8hAynt1dTei3YhwA4
+	 Ac6BazfuvXTQVgw7oTHhlNLJVo5tJczUH2WhZEdu8sJ40qxk02DnyExouiR2gA/MMDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793593499;
-	h=DMARC-Filter:DKIM-Signature:Mime-Version:X-Mailer:Cc:From:Date:
-	 Content-Transfer-Encoding:To:Subject:Message-Id:X-Lms-Return-Path:
-	 X-Original-From:Content-Type;
-	bh=1SQYaIK5/066ofaBlaOZi9a4vZOf9xISb8HFkbssnA8=;
-	b=R4cGZfTwWS0NEbW2IWAGY6brcGh+3NUjrqImjEM/924+XTRdGL1IBr/ZrOctWEAUwu6r
-	 7+vIesIXiGgNrRTnXCTCN9cAJP1KD56LoWvjD6CT2aYigH03XZy6/XIjx9nwsh1NB1QNA
-	 daSg+6sA2qQR2nr4MQFqE3g1wZQVz1RYXD3OuTqQwXbtvU6ZcDkBIdCmK0AkS54ylyQ3N
-	 +btEQTE6HIb7xoY5I8LaSYrPpcI0c72LJmP9QPrnheKHwXHkLOBn8wHL9hjWWQxA8OT57
-	 NrxHPIgPcLzmg9hAezfx0gHcbPcqKRLICAYDO33Tv3GQ5y2COX5oL3ghVdJLK3Yp/fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793593726;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=rNOdFqSB48qoUD7rjsdQwyUlggKxho9NtULeg1Q9/7k=;
+	b=0IniHeAXiJBQIGT/Uvc/Gx5BONr3+MdJxAyt0gqHb6/Fk2yY2v8A5lZR5X9LD+++kPmv
+	 2xzHVUH7zNuFkviVmUG1xds3ce9Mm+wwZungTRu0JD3UltXzY8G/Lzw77zKYtEdDRJk3V
+	 nSDIEishZEoIzNdRMAzQjCz1P9BpkA+QsgYV1PPsh1nJsai0xJbQ1/BnLFEdcpG87fhdb
+	 QRJd5cptgG1hOKjWJh4U74DVG/NJEWgxHJgPsSk12i+oHAKpb9A5UZj+HgcYRb7VyxJcy
+	 BW4mMsLV5g+xl9U7BZsGhKyVwujDXA4yU5MFEkoCzIp8p0CTeydgdQR7YlXWgd7+pYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="b07/MHzm";
-	arc=none smtp.remote-ip=209.127.230.111
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=marvell.com;
+	spf=pass smtp.mailfrom=marvell.com;
+	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=ebzzGDHE;
+	arc=none smtp.remote-ip=67.231.156.173
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD944606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:24:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD944606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714BE606A324;
+	Mon,  2 Nov 2026 04:28:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 714BE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=b07/MHzm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793593491; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=1SQYaIK5/066ofaBlaOZi9a4vZOf9xISb8HFkbssnA8=;
- b=b07/MHzmsTvzq2au67LMwlLBJPxHp2RKuik0AUdtCjyqewe82q9iqTHetzbJGfaeC2qeRh
- NqsxJql+GeVVpdGTLigs76WCg9RqXiJ8dMaE0BShVL3WM0ulC1u5vCJCR+kl02QPqgujIh
- siyUHELMVZu2rtKXSB9+ImJANLNN4g6SDc3iMmWFg2ObTIMGf0htcChuFhm2kEjCKcu3Ay
- zyrJOr0cD4/gzNWkFWcKh9G7aBchDVd74uPtJT5ixiWswZfMYe72KDTMRkGJAlrzjpc2jg
- bNqsAz9FUZrJkRuAfgXTRShB6JFHArGS2z7MQ8/8GJoNAWXfptgTAC8n2spliA==
+	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=ebzzGDHE
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2434Sc874854;
+	Sun, 1 Nov 2026 20:28:05 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pfpt0220; bh=rNOdFqSB48qoUD7rjsdQwyUlg
+	gKxho9NtULeg1Q9/7k=; b=ebzzGDHE8XLU25ycXxqo4DQo+M8meWV2/Ab/Htuy3
+	ouWHsB7T2qGON5mHnidLC/jKsU02CyXoU+0PxCQ5C8lgEoY9Yuszv5Lpv3SfvTOs
+	VVlY9PG1DrY4nkU7IQItQZsEmMFesikaeHkYN+0nk+WaEwm3tmpTgZyAQ60RQ5zB
+	OXArQIwuZ9eItsnYwGHkToST1VkKE7pVZVnUktQmOtDiV7lNQQ/TJw6spzv8yGAt
+	rICotwuBB5B8vgtkmnCfrsasOJo/7XQXfUaVQr1Y13dK+dUM2LavuoufNlG9Lbh5
+	KyJJGFljpFrIMK3C4tGA1DXCl+ph4nagnoiRiJVO8uZ2w==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4hnfuh3y2j-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sun, 01 Nov 2026 20:28:05 -0800 (PST)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Sun, 1 Nov 2026 20:28:04 -0800
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Sun, 1 Nov 2026 20:28:04 -0800
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with SMTP id D2BC03F7071;
+	Sun,  1 Nov 2026 20:27:58 -0800 (PST)
+Date: Mon, 2 Nov 2026 09:57:57 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+CC: Sunil Goutham <sgoutham@marvell.com>,
+        Geetha sowjanya
+	<gakula@marvell.com>,
+        Subbaraya Sundeep <sbhatta@marvell.com>,
+        Bharat Bhushan
+	<bbhushan2@marvell.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S.
+ Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>,
+        "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+        "Alexei
+ Starovoitov" <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        "Jesper Dangaard Brouer" <hawk@kernel.org>,
+        John Fastabend
+	<john.fastabend@gmail.com>,
+        Stanislav Fomichev <sdf@fomichev.me>,
+        Suman Ghosh
+	<sumang@marvell.com>, <netdev@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>
+Subject: Re: [PATCH net] octeontx2-pf: fix XDP frames freed as skbs on
+ interface down
+Message-ID: <augRTfa06G9arCkf@rkannoth-OptiPlex-7090>
+References: <20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504@tipi-net.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,166 +99,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Cc: <tytso@mit.edu>, <adilger.kernel@dilger.ca>, 
-	<libaokun@linux.alibaba.com>, <jack@suse.cz>, <ojaswin@linux.ibm.com>, 
-	<ritesh.list@gmail.com>, <yi.zhang@huawei.com>, 
-	<linux-kernel@vger.kernel.org>, "Zhao Gongyi" <zhaogongyi@bytedance.com>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Date: Mon,  2 Nov 2026 12:24:28 +0800
-Content-Transfer-Encoding: 7bit
-To: <linux-ext4@vger.kernel.org>
-Subject: [PATCH] ext4: reject impossible group free cluster counts
-Message-Id: <20261102042428.65204-1-zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26ae81092+dc465e+vger.kernel.org+zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504@tipi-net.de>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAxNyBTYWx0ZWRfX7syc/7COMkEv
+ +iNec+2Eva4Z825Q9RoRtzIp1kH7rRbWL8Y4hD1K8uN0NazVXY8O0OgDOqV/9GJIptl8LbR+XLd
+ cAicIKLwNQBueG0il5S34sQi7U0phgeRvYXP3F97FtuFctevYbWY2POetp6BcoqPWQfviAkBJN0
+ gZQMPCxmTMXCDeMeU2Jk8DgfQuJTpIfdq1PIpUH/045oWCnMJbAB//n0P/SI3cgQxlCLBmzo4OA
+ 36jchcPN9quGKfRAgZW9KHJ838BTlR41l7tF63KNHGRDf04VAwtIuzdtTPiczfULgB6E4ZJogx9
+ Y1EI42Q4xeoJ6ojXQ9yQUvKZtbmU1Yo281ohJzaEN4smg8JIwLcsSWT+fBbrwvoP9VaTDmHqGaN
+ mibyf1Ipm2AWut11UewRqVhM96JXYeWmZlsrPHIzH3q9O+6rrzSryL/QyLpwzJJvS+iO6IVDeXq
+ ZPfYuG9WCZn3y57Aqbw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAxNyBTYWx0ZWRfX95y/vm6cov8k
+ W1Ptup4kZMORp4W1VTSnO0QlL46ncc4DUjSQD0o0DbO3/U4Z5CJokAF2JpI9LYkpwSsnj0Et6o1
+ uLocp03BcI+IZG9NDKCogMdSRBm+EM8=
+X-Authority-Analysis: v=2.4 cv=cLZ1IVeN c=1 sm=1 tr=0 ts=6ae81155 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8
+ a=B5IAThqA1797Ryvvc_AA:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
+ a=u34awES8lKBFzNfVaQUm:22
+X-Proofpoint-GUID: 6ZmvWFl-OUIH5Mi044cphIUM-uD5WBX2
+X-Proofpoint-ORIG-GUID: 6ZmvWFl-OUIH5Mi044cphIUM-uD5WBX2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
 
-ext4_count_free_clusters() initializes global free-space accounting from
-group descriptors. A corrupt bigalloc image advertises 201327130 free
-clusters in a 32-cluster group. The mount succeeds and delayed
-allocation later sees an impossible free-space total.
+On 2026-10-31 at 01:42:03, Nicolai Buchwitz (nb@tipi-net.de) wrote:
+> On interface down, the TX completion cleanup also runs on the XDP
+> queues, but treats the pending xdp_frames as skbs. Freeing them with
+> dev_kfree_skb_any() corrupts page pool memory.
+>
+> This happens when XDP_TX or redirected packets are still in flight on
+> ifdown, or when the XDP program is replaced.
+>
+> Fixes: 94c80f748873 ("octeontx2-pf: use xdp_return_frame() to free xdp buffers")
+> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+> ---
+> Pre-existing bug, flagged by the clashiko review of my ipsec transmit
+> fixes for this driver [1], which seems reasonable (and fixable) to me.
+>
+> The other pre-existing findings there (e.g. the SA lifetime in
+> cn10k_ipsec_del_state()) may be worth fixing too, but I'll leave those
+> to the maintainers.
+>
+Thank you.
 
-Reject counts above the group's cluster capacity during descriptor
-validation. Reuse the existing capacity calculation so bigalloc and
-short final groups use the same bound as the block bitmap.
-
-Journal replay can overwrite a descriptor after the initial check. A
-crafted transaction changes a valid count to 32769 in a 32768-cluster
-group; a pre-replay-only check lets both read-only and read-write mounts
-succeed. Recheck after recovery, before initializing free-space
-counters. Limit the second scan to mounts needing recovery.
-
-Apply the bound to read-only mounts too, since they use the descriptor
-count for in-memory accounting.
-
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
----
- fs/ext4/balloc.c | 10 +++++-----
- fs/ext4/ext4.h   |  2 ++
- fs/ext4/super.c  | 38 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 45 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ext4/balloc.c b/fs/ext4/balloc.c
-index 778fe87..0f36630 100644
---- a/fs/ext4/balloc.c
-+++ b/fs/ext4/balloc.c
-@@ -159,8 +159,8 @@ static unsigned ext4_num_overhead_clusters(struct super_block *sb,
- 	return num_clusters;
- }
- 
--static unsigned int num_clusters_in_group(struct super_block *sb,
--					  ext4_group_t block_group)
-+unsigned int ext4_num_clusters_in_group(struct super_block *sb,
-+					ext4_group_t block_group)
- {
- 	unsigned int blocks;
- 
-@@ -228,7 +228,7 @@ static int ext4_init_block_bitmap(struct super_block *sb,
- 	 * the blocksize * 8 ( which is the size of bitmap ), set rest
- 	 * of the block bitmap to 1
- 	 */
--	ext4_mark_bitmap_end(num_clusters_in_group(sb, block_group),
-+	ext4_mark_bitmap_end(ext4_num_clusters_in_group(sb, block_group),
- 			     sb->s_blocksize * 8, bh->b_data);
- 	return 0;
- }
-@@ -240,7 +240,7 @@ unsigned ext4_free_clusters_after_init(struct super_block *sb,
- 				       ext4_group_t block_group,
- 				       struct ext4_group_desc *gdp)
- {
--	return num_clusters_in_group(sb, block_group) -
-+	return ext4_num_clusters_in_group(sb, block_group) -
- 		ext4_num_overhead_clusters(sb, block_group, gdp);
- }
- 
-@@ -313,7 +313,7 @@ static ext4_fsblk_t ext4_valid_block_bitmap_padding(struct super_block *sb,
- {
- 	ext4_grpblk_t next_zero_bit;
- 	unsigned long bitmap_size = sb->s_blocksize * 8;
--	unsigned int offset = num_clusters_in_group(sb, block_group);
-+	unsigned int offset = ext4_num_clusters_in_group(sb, block_group);
- 
- 	if (bitmap_size <= offset)
- 		return 0;
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 8d3af06..3956545 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -3468,6 +3468,8 @@ extern ext4_fsblk_t ext4_inode_bitmap(struct super_block *sb,
- 				      struct ext4_group_desc *bg);
- extern ext4_fsblk_t ext4_inode_table(struct super_block *sb,
- 				     struct ext4_group_desc *bg);
-+unsigned int ext4_num_clusters_in_group(struct super_block *sb,
-+					ext4_group_t block_group);
- extern __u32 ext4_free_group_clusters(struct super_block *sb,
- 				      struct ext4_group_desc *bg);
- extern __u32 ext4_free_inodes_count(struct super_block *sb,
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 7d8aedf..83e4ef6 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -3355,6 +3355,36 @@ void ext4_group_desc_csum_set(struct super_block *sb, __u32 block_group,
- 	gdp->bg_checksum = ext4_group_desc_csum(sb, block_group, gdp);
- }
- 
-+static bool ext4_check_group_free_clusters(struct super_block *sb,
-+					   ext4_group_t group,
-+					  struct ext4_group_desc *gdp)
-+{
-+	unsigned int free_clusters = ext4_free_group_clusters(sb, gdp);
-+	unsigned int group_clusters = ext4_num_clusters_in_group(sb, group);
-+
-+	if (free_clusters > group_clusters) {
-+		ext4_msg(sb, KERN_ERR,
-+			 "%s: group %u has invalid free clusters count %u > %u",
-+			 __func__, group, free_clusters, group_clusters);
-+		return false;
-+	}
-+	return true;
-+}
-+
-+static int ext4_check_replayed_free_clusters(struct super_block *sb)
-+{
-+	struct ext4_sb_info *sbi = EXT4_SB(sb);
-+	ext4_group_t group;
-+
-+	for (group = 0; group < sbi->s_groups_count; group++) {
-+		struct ext4_group_desc *gdp = ext4_get_group_desc(sb, group, NULL);
-+
-+		if (!ext4_check_group_free_clusters(sb, group, gdp))
-+			return -EFSCORRUPTED;
-+	}
-+	return 0;
-+}
-+
- /* Called at mount-time, super-block is locked */
- static int ext4_check_descriptors(struct super_block *sb,
- 				  ext4_fsblk_t sb_block,
-@@ -3467,6 +3497,8 @@ static int ext4_check_descriptors(struct super_block *sb,
- 			}
- 		}
- 		ext4_unlock_group(sb, i);
-+		if (!ext4_check_group_free_clusters(sb, i, gdp))
-+			return 0;
- 		if (!flexbg_flag)
- 			first_block += EXT4_BLOCKS_PER_GROUP(sb);
- 	}
-@@ -5567,6 +5599,12 @@ static int __ext4_fill_super(struct fs_context *fc, struct super_block *sb)
- 		err = ext4_load_and_init_journal(sb, es, ctx);
- 		if (err)
- 			goto failed_mount3a;
-+		/* Journal replay may change descriptors after the initial check. */
-+		if (needs_recovery) {
-+			err = ext4_check_replayed_free_clusters(sb);
-+			if (err)
-+				goto failed_mount_wq;
-+		}
- 		if (bdev_read_only(sb->s_bdev))
- 		    needs_recovery = 0;
- 	} else if (test_opt(sb, NOLOAD) && !sb_rdonly(sb) &&
-
-base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
--- 
-2.39.5 (Apple Git-154)
+Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
