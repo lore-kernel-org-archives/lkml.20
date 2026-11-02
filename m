@@ -1,54 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.85
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793583025;
-	b=fw8OW4U8tjy/ZPDwABBF/LU0nNxzxLn0ey843gUjM/4PU2DTOHhGPeTdHE8TmDgyOUdb
-	 W7HLdvNs9kAex5rKlY8yNcd4lJJoLC449j2SqMUpkp/ctq8NRaG+ogZbgPR6k1exc1PCz
-	 PtBAqx+KX5wKLRe4RnSdFSAOs2x8ZSF589vl0eIiZN2eEdxshGCsGsG9fY+6kY43jaA0J
-	 HDu0Rt1su7nKHiWVVBnVH1b1QHilbAkBM48m6mVdsjW8IZ2uXh8RKvFHUUSrEWJxYjl5L
-	 GoMt7d7gFjtvE/OmBq4KIwHYtEeNpddQU9lh803EMGUmvYHuwp5pEKzY9pCVyMUv4kA==
+	t=1793583107;
+	b=xSqz5XwQq+u6lbY79ds+HDsfluK5913vBlqLuBS7ksE7ETMJALGD5oI0w2mbReEgLtmR
+	 MJadKoBFSjPO6Y5QBnUA6gmBkwyO9cCyXJ8+GdspqeJxpSbzNlH/pRT5uTdbyHNITr5sS
+	 I7RznvtzUveeF01kkTKJL5UyZes9M+rKEgGOuSWPjQqfOgxz7jckp13TCSzBaNGDd1lJZ
+	 mwfhs0JElcQ+afdZm/Ddz/fD4NvDizmzdl+QAplDvHg4iX1zOoSjbNo1C6dB871H1F2cu
+	 xq5gbYLL3Um+dlYMFPKXQ8RG0RQ9oEyVckzMuAeyE5KX97vC5aEniJDArUcO3F2aGcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793583025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793583107;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5SySUHGvWAaNRa+9l2Aa4RYt/iIP1exv/hf2wqHind8=;
-	b=4i5B5zx69alj3WFOe0Xp0xQ85EKiZID7O2yTDIKuo4iIFs0OgTBzTCo9lFwPiHEw+dXI
-	 IEEoT9nvaQmfsdJZpj4oHG/M7YcoiAdKEpsHLiZfPnUhHBDkOhFzn4+cRqk78D80cyNA3
-	 rAiBzO57HNdubZN5iw1QW36s24mgTeDDYQ1mtxyHbzB8VPdDPrpu/5+jKwHgnj6DPaJLJ
-	 11A05gtXe9tGXzcInnAJ70aPD5oAa8MjlqA0Wag6FRb72dvMigEC9Xwtm2xRJz9LPu4KA
-	 eENGanqkiZc+k264pqB4Hc7BRxvC4hbBRGJ46krCMK3VbFjAhXToVLBOEnQi87LN5Xw==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=L1qln637r4iaxhU6X2qqgXPNtSD5t9x/HzmOPAimvzw=;
+	b=1F4TRiuVvkAsvSbjmS+UfttvJUyvLyEN0bgTMlI5wweJJiAdNz730eBdNoQPJqd+pV98
+	 Wf8cyqnbaLkewlw4R6deEIOKTutwb6LNhqQctKM5XFynkUtYh1wlOq41E5DLd6JEc9Tm1
+	 wpLnFnD0PBJOish5ALtKgSoTcxeoSRqg4kG6JnKsVRqBEYPcVYZyUHHHIgQwTETZpCCrW
+	 vYKGwI4p3V4ASr+cfdYvsmm+KcO4bSomvNuSxXlELJvZvvNTtyCeWHvWIf1IQYqg0ZKNo
+	 gRuxTHoygeBFMLZPJDnSpiRmmj9wKHSfpoH7/EJtG8ET8UOagyK0XLzKtDMRRl4luEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pIZeJu24;
-	arc=none smtp.remote-ip=91.218.175.85
-Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KVXFclE1;
+	arc=none smtp.remote-ip=95.215.58.164
+Received: from mta1.migadu.com (out-164.mta1.migadu.com [95.215.58.164])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0923F606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:30:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0923F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFF4606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:31:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DFF4606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pIZeJu24
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KVXFclE1
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/4x3xaBdJewuJgQAldBK7xykAEYVDrVN8pq+tde6EgA=;
+DKIM-Signature: a=rsa-sha256; bh=p/3iXpZzk7ktrVPH1x7dECGM4TyYW5DHZyEDipf4J6M=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793583023; v=1; x=1794187823;
- b=pIZeJu24CgB1gd5SaP0FDUUJS0uUWYWYXRnDf67q9bV+GJdsWP5HHl8XV48EzXc9Imw9Lhgt
- L5xwTEI710gQc39IAaaanlLHl9rl9aPcS425NSRZalXSDPaQ5uq1HMJf8My8RP5A7asFxQumRFK
- aV0gnC4rLeujxlIxr/FYvvxA=
+ t=1793583105; v=1; x=1794187905;
+ b=KVXFclE1Z7CTQ/NTKVZrjdsDLbu9qZLu7NmzKY9yBSMHXV5T0GIYhLxfcUgLAkhJTkeWWuX2
+ HVjPKgsRUeggtpBT7umyFO0I+3Xa8joYzo+WWg10+oIqr5qTSjQpD7FNQDXVgsmiu+WayUjOyW/
+ Qncq0lHgHeFvFtrKH4uG9Rys=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 02c042eb4f586f3f;
-	Mon, 02 Nov 2026 01:30:10 +0000
-X-Mizu-Trace-ID: 02c042eb4f586f3f
+Received: by mta10.migadu.com with ESMTPS id 3bb2a1c69930a0d5;
+	Mon, 02 Nov 2026 01:31:45 +0000
+X-Mizu-Trace-ID: 3bb2a1c69930a0d5
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <7f98f3d6-07f0-4117-92e7-91d9bb802972@linux.dev>
-Date: Mon, 2 Nov 2026 09:30:05 +0800
+Date: Mon, 2 Nov 2026 09:31:30 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Joel Granados <joel.granados@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Maoyi Xie <maoyi.xie@ntu.edu.sg>,
+	Gerd Rausch <gerd.rausch@oracle.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	Yung Chih Su <yuuchihsu@gmail.com>,
+	Wyatt Feng <bronzed_45_vested@icloud.com>,
+	Hannes Frederic Sowa <hannes@stressinduktion.org>,
+	Flavio Leitner <fbl@redhat.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3 3/5] ipv6: restrict mld_qrv to 255
+Message-ID: <aufn8jMjBc51dKXO@fedora>
+References: <20261101061331.286404-1-jiayuan.chen@linux.dev>
+ <20261101061331.286404-4-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,120 +87,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] cgroup/cpuset: Do housekeeping check when isolated
- child with root parent may get more xcpus
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261030190701.78308-1-longman@redhat.com>
- <20261030190701.78308-4-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261030190701.78308-4-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101061331.286404-4-jiayuan.chen@linux.dev>
 
-
-
-在 2026/10/31 03:07, Waiman Long 写道:
-> It is reported by sashiko and Guopeng that when an isolated child with
-> root parent gets more isolated CPUs from the expansion of the parent's
-> effective_xcpus, it is possible that all the active housekeeping CPUs
-> may be gone. So a prstate_housekeeping_conflict() should be performed
-> when that happens. Add the check to make sure that we can't exhaust
-> all the active housekeeping CPUs.
+On Sun, Nov 01, 2026 at 02:12:01PM +0800, Jiayuan Chen wrote:
+> net.ipv6.mld_qrv only has a lower bound, but ipv6_mc_reset() stores it
+> into the u8 inet6_dev::mc_qrv, so 256 wraps to 0 and the first MLDv2
+> Query received on the interface trips the WARN_ON() in mld_update_qrv():
 > 
-> Test cases are added to the NOHZ_FULL_TEST_MATRIX of test_cpuset_prs.sh
-> to test that.
+> 	WARN_ON(idev->mc_qrv == 0);
 > 
-> Reported-by: Guopeng Zhang <guopeng.zhang@linux.dev>
-> Link: https://lore.kernel.org/lkml/ed6fecb4-38e9-4a73-8c1a-7bdd80175a69@linux.dev
-> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
-> Signed-off-by: Waiman Long <longman@redhat.com>
+>   WARNING: net/ipv6/mcast.c:1327 at mld_query_work+0x1fd2/0x2cb0, CPU#3: kworker/3:1/2688
+>   Workqueue: mld mld_query_work
+>   RIP: 0010:mld_query_work+0x1fd2/0x2cb0
+>   Call Trace:
+>    <TASK>
+>    process_one_work+0x93a/0x1b20
+>    worker_thread+0x6d0/0x11d0
+>    kthread+0x358/0x470
+>    ret_from_fork+0x5b3/0x820
+>    ret_from_fork_asm+0x1a/0x30
+>    </TASK>
+> 
+> Make the sysctl a u8 like mc_qrv and switch to proc_dou8vec_minmax(),
+> which rejects anything above 255, and document it.
+> 
+> Fixes: 2f711939d2ea ("ipv6: add sysctl_mld_qrv to configure query robustness variable")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 > ---
->  kernel/cgroup/cpuset.c                         | 18 +++++++++++++++---
->  .../selftests/cgroup/test_cpuset_prs.sh        | 10 ++++++++--
->  2 files changed, 23 insertions(+), 5 deletions(-)
+> v2: switched to u8 and proc_dou8vec_minmax(), as suggested by Kuniyuki
+> Iwashima.
+> ---
+>  Documentation/networking/ip-sysctl.rst | 2 ++
+>  include/net/ipv6.h                     | 2 +-
+>  net/ipv6/mcast.c                       | 2 +-
+>  net/ipv6/sysctl_net_ipv6.c             | 4 ++--
+>  4 files changed, 6 insertions(+), 4 deletions(-)
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index ed014ecb770c..6e136888fc8e 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2119,10 +2119,22 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  			 * If there is an expansion of parent's effective_xcpus,
->  			 * we may take more xcpus from parent. The parent's
->  			 * effective_cpus should still have active CPUs or nocpu
-> -			 * should have been set.
-> +			 * should have been set. We also need to do a
-> +			 * housekeeping check for an isolated child with root
-> +			 * parent to make sure that it won't exhaust all the
-> +			 * active housekeeping CPUs.
->  			 */
-> -			deleting = cpumask_andnot(tmp->delmask, tmp->delmask,
-> -						  cs->effective_xcpus);
-> +			cpumask_andnot(tmp->addmask, cs->effective_xcpus, tmp->delmask);
-> +			if ((parent_prs == PRS_ROOT) && (old_prs == PRS_ISOLATED) &&
-> +			    prstate_housekeeping_conflict(old_prs, parent_prs,
-> +							  tmp->delmask, tmp->addmask)) {
-> +				adding = cpumask_and(tmp->addmask, cs->effective_xcpus,
-> +						     tmp->delmask);
-> +				part_error = PERR_HKEEPING;
-> +			} else {
-> +				deleting = cpumask_andnot(tmp->delmask, tmp->delmask,
-> +							  cs->effective_xcpus);
-> +			}
->  		} else if (is_partition_invalid(cs)) {
->  			struct cgroup_subsys_state *css;
->  			struct cpuset *child;
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 844efdf029cd..bdca6c471f87 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -137,7 +137,8 @@ LAST_PRESENT_CPU=$(cat /sys/devices/system/cpu/present | sed -e "s/.*[,-]//")
->  # If isolated CPUs have been reserved at boot time (as shown in
->  # /sys/devices/system/cpu/isolated), these isolated CPUs should be outside of
->  # CPUs 0-8 that will be used by this script for testing purpose. If not, some
-> -# of the tests may fail incorrectly.
-> +# of the tests may fail incorrectly. The first boot isolated CPU should be
-> +# 10 or above.
->  #
->  # The current set of isolated CPUs (as shown in cpuset.cpus.isolated) should
->  # be the same as the boot value. If not, wait a bit and retry again just in
-> @@ -156,7 +157,7 @@ TEST_ISOLCPUS=
->  [[ -n "$BOOT_ISOLCPUS" ]] && {
->  	FIRST_ISOLCPUS=$(echo $BOOT_ISOLCPUS | sed -e "s/[,-].*//")
->  	echo "Boot isolated CPUs: $BOOT_ISOLCPUS"
-> -	[[ $FIRST_ISOLCPUS -le 8 ]] &&
-> +	[[ $FIRST_ISOLCPUS -le 9 ]] &&
->  		skip_test "Boot isolated CPUs overlap CPUs to be tested"
->  }
+> diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+> index 4b19c8d3efda7..71f334f27004e 100644
+> --- a/Documentation/networking/ip-sysctl.rst
+> +++ b/Documentation/networking/ip-sysctl.rst
+> @@ -2515,6 +2515,8 @@ mld_qrv - INTEGER
 >  
-> @@ -602,6 +603,7 @@ ISOLCPUS_TEST_MATRIX=(
->  )
+>  	Minimum: 1 (as specified by RFC6636 4.5)
 >  
->  # Test matrix to be run when boot time nohz_full CPUs cover all CPUs except CPUs 0-7
-> +# This also means that CPU 8 is available and is a nohz_full CPU.
->  NOHZ_FULL_TEST_MATRIX=(
->  	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
->  	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
-> @@ -610,6 +612,10 @@ NOHZ_FULL_TEST_MATRIX=(
->  	" C2-7:P2    .      .      .     C0-4    .      .      .     0 A1:0-4 A1:P2 0-4"
->  	" C1-7:P2 C5-7:P2   .      .       .     .      .    C0:P2   0 A1:1-4|A2:5-7|B1:0
->  								       A1:P2|A2:P2|B1:P-2 1-7"
-> +	# An isolated child partition cannot grow to take over the last
-> +	# housekeeping CPU when its parent expands the exclusive CPUs.
-> +	" C0-8:X1-8:P1 CX0-8:P2 .  .     X0-7    .      .      .     0 A1:0-7|A2:0-7 A1:P1|A2:P-2 ."
-> +	" C0-8:X0-6:P1 CX0-8:P2 .  .     X2-8    .      .      .     0 A1:|A2:2-8 A1:P1|A2:P2 2-8"
->  )
+> +	Maximum: 255
+> +
+>  max_dst_opts_number - INTEGER
+>  	Maximum number of non-padding TLVs allowed in a Destination
+>  	options extension header. If this value is less than zero
+> diff --git a/include/net/ipv6.h b/include/net/ipv6.h
+> index 3de07e738538f..4901a92066e61 100644
+> --- a/include/net/ipv6.h
+> +++ b/include/net/ipv6.h
+> @@ -205,7 +205,7 @@ struct sk_buff *ip6_frag_next(struct sk_buff *skb,
 >  
->  #
+>  /* sysctls */
+>  extern int sysctl_mld_max_msf;
+> -extern int sysctl_mld_qrv;
+> +extern u8 sysctl_mld_qrv;
+>  
+>  #define _DEVINC(net, statname, mod, idev, field)			\
+>  ({									\
+> diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
+> index ecef55f261890..13f31132e0f97 100644
+> --- a/net/ipv6/mcast.c
+> +++ b/net/ipv6/mcast.c
+> @@ -106,7 +106,7 @@ static int __ipv6_dev_mc_inc(struct net_device *dev,
+>  #define IPV6_MLD_MAX_MSF	64
+>  
+>  int sysctl_mld_max_msf __read_mostly = IPV6_MLD_MAX_MSF;
+> -int sysctl_mld_qrv __read_mostly = MLD_QRV_DEFAULT;
+> +u8 sysctl_mld_qrv __read_mostly = MLD_QRV_DEFAULT;
+>  
+>  #define mc_assert_locked(idev)			\
+>  	lockdep_assert_held(&(idev)->mc_lock)
+> diff --git a/net/ipv6/sysctl_net_ipv6.c b/net/ipv6/sysctl_net_ipv6.c
+> index 1a0a36dcdabc1..f3ac04dbc71d0 100644
+> --- a/net/ipv6/sysctl_net_ipv6.c
+> +++ b/net/ipv6/sysctl_net_ipv6.c
+> @@ -226,9 +226,9 @@ static struct ctl_table ipv6_rotable[] = {
+>  	{
+>  		.procname	= "mld_qrv",
+>  		.data		= &sysctl_mld_qrv,
+> -		.maxlen		= sizeof(int),
+> +		.maxlen		= sizeof(u8),
+>  		.mode		= 0644,
+> -		.proc_handler	= proc_dointvec_minmax,
+> +		.proc_handler	= proc_dou8vec_minmax,
+>  		.extra1		= SYSCTL_ONE
+>  	},
+>  #ifdef CONFIG_NETLABEL
+> -- 
+> 2.43.0
+> 
 
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Tested-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-
-Thanks,
-Guopeng
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
