@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637769;
-	b=uS+lAem8/TCBexoDosqVRpsci8Lxx7J4JsRNTLcgI89DJzPvEJ3ETccf8dcs4G+i063t
-	 xhyfmcmcS7cWqdp7B3vWRlpW26Yfm1jTjlRRfcAw3KUd1pxkQXhNZVVPrUa3hyXptGBFN
-	 7XejcnJnkee8e0FhwZBSwIpyto2XbPMGugYg+hHeBSFPKGJj86wQPj9ftjgYd45V4NW1B
-	 o+CN7AWzH3x4Tnj8zspQ3AQrbQ6XNUgAbBXoONGwC1KVRf7SNsD+vKqWxikybxNMWRUHC
-	 o/2xx9J6mRsN1koMbx+POuJC3jYY2Fu69vDLIzufTq2Smxh8hiEPh5u7ACrn5HSkT8w==
+	t=1793637775;
+	b=qICWNLUzIB5K6nxXCNqowNTRuYwz26dbcf/J+MTd5Y8MdfjWCRghGiGJUbhdeMRVk4rE
+	 1s5CitxEJEdhkLyLG5vm3kQa4BL+31WO1sUVmPJyb+2OozS45Jb5eay6tyxwCprb3w9QN
+	 ZgjhoVarP32UEXvMhMSv30PmuFxvM4bpTOr5GWMY24X8CSrOONL4zf7ywu2KHlvkl8ZzT
+	 44ZGdsfafG9p1ouTSdR3D27s/40GZ4gLN/BR2wJwlzSod43sX1ZUBqeuradwx1Qlz9Cjg
+	 6x4s7BLgd21uUsuE71NW+IdqIB7tDFgshU4Qm1bgDtT5g8Yvut5n3EToXpKjaWsd/uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637769;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=G+L/X+01awRD9Zn2yY6uBHk6IdsLy18VMtH+UzQPMt8=;
-	b=erIHwea8FzywElguWYZu8bP1n5iZYtktJ/G6y+naa+LEAkEx2HvpUAHCEmDijMXo2yD0
-	 rpuIWUYDGJk1PiPQuicQR+LNkdpSJgSrxFTs6tSK0yuXcL/qTQJ3+jaJghaOEzsmoXnjp
-	 FFgrBPWng6cMpGkiqr3qjrH919shbjTre+QfqyXaQxlC0t5/ztTz/xdomdWmKU9zdbPUZ
-	 gW5PIU8CudP/Pq0hL7Va+YrkQIkxU5lR08mmXfpl+B1RLE6pTuD9dMwZvCMMg/AXDVV6t
-	 0u14LnyEGpRV6q6RLFG1sI3RAYooNQFDqD8N0l1xtsJul40OdH8PvIw14Fcqyp3qFFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637775;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/lr0BMP7asm8lPzTS0i2/1MVYdtwdCx6avO+q5t7f6k=;
+	b=hnB+1DoS8vawxy5pc0+LlvtKIRC76BEKhpLobGoYj3hrtsIhTSxpzXD9W1c1nqvwJ/W7
+	 z6MAsK5e2xESZcb/DdC53CLqXjTfiJ5FGq71Ac10geMcBgVioBJ0eShm9ZSfNI5rJ40dD
+	 uK9rRHuTG4A9SVI1tAR53EtqbNSLFwwlKLanB7r9nWvbBKNSIZCIPzCXzmOEuQXerJPUf
+	 nr7GdWDC6kudP7WoTYlS76un97cA4rnKUt+45VpomZZbYSLM4vpuhAnt76/M+XyhhJ36E
+	 ri7lI0PGdteinZ6lRLKkO+/mODfcMJbfXEBuhCmnDGl8rGcwhJJ/7+lvmM+K1+9CZTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C01D2606CEC1;
-	Mon,  2 Nov 2026 16:42:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C01D2606CEC1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	Content-Transfer-Encoding; bh=G+L/X+01awRD9Zn2yY6uBHk6IdsLy18VMt
-	H+UzQPMt8=; b=FvP3G3nM/YWyb0CUQXAe97VL/z9A23ipl1JBs6K5+zZN5CeHCF
-	PtmlTckYMOhzONXNQMgsW8Cks+BBZs0KyikuQnH4QYIcUA7hmJuugmv8mtpVCxt5
-	FGaE3naehzaYJrM8H0isweH23zus7NLMRwOdjbWYXmN+qlOmdIfQXRFP0=
-Received: from [169.254.33.71] (unknown [223.160.172.231])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDmKwFwvehqzpoaAQ--.55852S2;
-	Tue, 03 Nov 2026 00:42:27 +0800 (CST)
-From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
- UNGLinuxDriver@microchip.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: usb: lan78xx: only stop phylink if the network
- device is running
-Date: Mon, 02 Nov 2026 16:42:25 -0000
-Message-ID: <179363774572.24580.9072793556383429188@stu.xidian.edu.cn>
-In-Reply-To: <auiu2voApMN42KV4@pengutronix.de>
-References: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
- <auiu2voApMN42KV4@pengutronix.de>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQa30JGC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A233360A3833;
+	Mon,  2 Nov 2026 16:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQa30JGC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D51431F00A17;
+	Mon,  2 Nov 2026 16:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793637774;
+	bh=/lr0BMP7asm8lPzTS0i2/1MVYdtwdCx6avO+q5t7f6k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bQa30JGCbgufdumrmaB5sthqhQ7NtR0T0d6XsL/AcDlXXP9So7l9P4GHIayYuKRYn
+	 W9sWsuDrqEXIcuspeWf3ZmSuFwHfu6R1uDmRtzJWmqS7uDQaux+cQ6t15c0GqbXVjl
+	 8jgoeNUj16YHf5cD0d71bBeYrW0+d0dJ/++fCHXCUja4eb2TzqSvRK5vtjeBiEvDz4
+	 idFRU5LXmC8BHxpC5pCRFuqnZCC6oTHlLuOLRAgKEK9gs576P4EjgKnbf4x3+BxJu/
+	 mpWhOOjNZgC47oD+aRvxF1dbEwz+DCNSAsqR4mUEpTWzK2JdMm508xiJrejLZHXtzJ
+	 heoGsOlgK3Ayg==
+Date: Mon, 2 Nov 2026 16:42:52 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Chao Yu <chao@kernel.org>
+Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, lihongbo22@huawei.com,
+	sandeen@redhat.com, linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com,
+	syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] f2fs: free the quota file name that remount drops
+Message-ID: <aui9jHfAfNBMbyvo@google.com>
+References: <20261030072423.197883-1-zhanxusheng1024@gmail.com>
+ <20261030072423.197883-2-zhanxusheng1024@gmail.com>
+ <a096053d-3f01-42aa-a933-50145abb874d@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,59 +61,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-CM-TRANSID:BLQMCkDmKwFwvehqzpoaAQ--.55852S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1fGrWDZF43ZryrAF18Krg_yoW8XF1Upa
-	y3KFsrGF4kJry2v34xZw47ua48Wrs3Jay3ur15G3yrZws09Fy7ZrW8KrWUZFnrCrsavF4f
-	tw13uay0934kC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBSb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxG
-	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r1l42xK82
-	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
-	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
-	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
-	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxiiSUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rop1UQnwAAsx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a096053d-3f01-42aa-a933-50145abb874d@kernel.org>
 
-Oleksij,
+On 11/02, Chao Yu wrote:
+> On 10/30/26 15:24, Zhan Xusheng wrote:
+> > From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> > 
+> > Remounting with an empty journalled quota option such as "usrjquota="
+> > clears the name, but f2fs_apply_quota_options() overwrites the old
+> > string without freeing it, so every such remount leaks it.
+> > 
+> > Free it after a grace period, as f2fs_show_options() may still be
+> > reading it.
+> > 
+> > Fixes: d18535132523 ("f2fs: separate the options parsing and options checking")
+> 
+> BTW, shouldn't it be:
+> 
+> Fixes: ff11d8701b77 ("f2fs: fix to allow removing qf_name")
 
-Thanks for the testing, and for both tags.
+It seems this one is correct. Applied.
 
-One thing to sort out first: they arrived on the v1 posting, and the patch
-changed shape in v2, which I posted separately on 2026-10-31:
-
-  https://lore.kernel.org/netdev/20261031165213.2738-1-25031212351@stu.xidian=
-.edu.cn/
-
-v2 drops the explicit phylink_stop() and moves unregister_netdev() ahead of
-the phylink teardown instead, so that closing the netdev goes through the
-normal lan78xx_stop() path. That removes the netif_running() test; and the
-three cases you reproduced -- never opened, after ifdown, and ifup/ifdown
-during removal -- are all cases where the interface is not running at that
-point, so v2 does not call phylink_stop() there either, same as v1.
-
-The path that does differ is a removal with the interface up: v1 stopped
-phylink directly from lan78xx_disconnect(), v2 gets it from lan78xx_stop()
-via unregister_netdev(). Your "interface open, sending, link up, link down,
-link flapping" runs cover that path in its v1 form only. If you want to
-re-run them against v2 before the tags stand on it, that would be welcome;
-otherwise I will take your Tested-by and Reviewed-by as applying to v2 as
-posted -- tell me which you prefer.
-
-It is also the approach 312c816c6bc3 took for the NAPI teardown, so the
-shape is not new to this driver.
-
-Thanks for checking the pre-phylink kernels too -- that is the direct
-confirmation of the Fixes: tag Andrew asked about, so I think that question
-is settled.
-
-Thanks,
-YuanZhe
-
+> 
+> Thanks,
+> 
+> > Reported-by: syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=6c000dea1a93b4f5905c
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> > ---
+> > Tested in QEMU with KASAN and kmemleak, remounting with "usrjquota="
+> > and "usrjquota=f2fs" in a loop while reading /proc/mounts: nothing is
+> > reported.  A plain kfree() here trips KASAN in f2fs_show_options().
+> > 
+> >   fs/f2fs/super.c | 7 +++++--
+> >   1 file changed, 5 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> > index 510df7998c18..d86ab25fbcc5 100644
+> > --- a/fs/f2fs/super.c
+> > +++ b/fs/f2fs/super.c
+> > @@ -1646,7 +1646,7 @@ static void f2fs_apply_quota_options(struct fs_context *fc,
+> >   	struct f2fs_fs_context *ctx = fc->fs_private;
+> >   	struct f2fs_sb_info *sbi = F2FS_SB(sb);
+> >   	bool quota_feature = f2fs_sb_has_quota_ino(sbi);
+> > -	char *qname;
+> > +	char *qname, *old;
+> >   	int i;
+> >   	if (quota_feature)
+> > @@ -1662,7 +1662,10 @@ static void f2fs_apply_quota_options(struct fs_context *fc,
+> >   					GFP_KERNEL | __GFP_NOFAIL);
+> >   			set_opt(sbi, QUOTA);
+> >   		}
+> > -		F2FS_OPTION(sbi).s_qf_names[i] = qname;
+> > +		old = F2FS_OPTION(sbi).s_qf_names[i];
+> > +		/* Pairs with READ_ONCE() in f2fs_show_quota_options() */
+> > +		smp_store_release(&F2FS_OPTION(sbi).s_qf_names[i], qname);
+> > +		kfree_rcu_mightsleep(old);
+> >   	}
+> >   	if (ctx->spec_mask & F2FS_SPEC_jqfmt)
+> 
