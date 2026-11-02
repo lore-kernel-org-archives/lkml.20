@@ -1,54 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622866;
-	b=07iQdKBI0lLmuQLKVrg2X0XAmsqu0LZ2uoy/Z7dU+e8NG30waDzz3mhTz6P6f9nfpSOb
-	 kGDUQDdJ2Bbkq0eGPbUGqV1cTio4TOlicEs0/6vBrrplzqqb1YDqJ2teR014uFOYO/mXK
-	 ieakMQnnXl3G+7PlJmngXcb+5QvXHnwP9a9AzR9rQzGsS/GcNYXDC+Mo6fWrAlzp5QLUy
-	 XdwdKqoIXCs0IwCRGqL24u6SSa6+62K8+2QSt6kwyYoZz5GcC/5V63haCB2k0XBo+U9YS
-	 eedPpmVBwVLS/h7E48g1YP3CEuMn+ZyjjxU1Ji50UAFZV/Y4iJHwPN0l+nFsydKwfjA==
+	t=1793622875;
+	b=qqtcaOrdJgyFjQaqFq9e3txk4NwgecL7WTc5xZ9BQbBB2Os7kupxPGo1QBuT2s5dimCD
+	 uyOUzON7QVr6C1tnQMRmL/J6kQgkMQo1CYv9YAjqWK88dvSUmVw+/SaefozpTfKcICMlO
+	 ho2/zs4KKYLHYn8cDLbjCocj5I9eSJCuzo347On2ks37P7nPYXBT+SuzfDGLaG/AwjDJu
+	 pDekmHVIVT+QqzfzsICtLPWRPUFxHJQ72JKsAxx96uNWg8k6bUekSGk6bc7tvOytVFcpQ
+	 3XHBWQJYTiwxTi/uXXWbzn4rNYUyNHXzSpFj+ex2u9SdO1xT5A7FQKv9Ii1cjNy6bPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622866;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=VHR2wmYq7evlbOMXxZo7N5sGiKLQtqsE8M9Nv0sAcLQ=;
-	b=vDGbIyIQn5tf9XkWZo6vquIti0K5Lcbp3x9vsoaqLYDmTsz2BTUmmPkU+pDUy0/8DSV+
-	 u0fKzEOAPRbB9kXPmq9pP4cnh4SzyA1+SjShIPxjZtxe+PeuWtcWJdUdLSxCmYvN7G61S
-	 lCy6T0Bz9+wrdH1ClhtDYnLEZgUx1pUCq/LJhy6oYfq5NuMsursGHet5h4hvp4xpsbcX2
-	 jElEfXz75vrDjC6Bqz2IV94fJ4/TTUGIcsJ4vPyFzTPMjhzYopG/SvbQsRhsoymO6Dj1e
-	 Y8sKtHts6U2+Mc8QQUIrZyHU6uuIfnffC9Bl+DvzZfwPDC1NZqn6PITSSBaJB0o7e3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622875;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Swv5UcPabS6E/hCnFYMyFqMC2vY1/PiK8X3IqFBNP6s=;
+	b=vtEj7+dW328o5UKFJP6VPdIWKIUQEP1scg7PvaFOl1xgsr8DCvLiyVYTYoDgC7Ho6erz
+	 ZEcOhlX+02nd/Vwfa6YsGqxW4+zGDHgc/arZBIvj/CCNqHmIeTYTL0BeravYij7+ruKoz
+	 1W5tR7xmDpiexpFnXLl/Px1htmibJObUh/1Xdgke5pT6nD3xDv0EYtx0Y2dIIHH5W8YeI
+	 EceejgiIIqk2TntKezLhnxz6FNIB5+MG9zEVH8FeAbWJ7EKHIfNY9CsO3e/Dg993UP+1J
+	 +Wd+Imc+SK0ap0CHqEQ/5Cr0Y7iqzbXy9wCThFGRMpsFHJ0AVRoxHwfbH38plHoI2CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KfZYqXf9;
-	arc=none smtp.remote-ip=91.218.175.28
-Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hgJFK76F;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE95B606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:34:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE95B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29ECD606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:34:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29ECD606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KfZYqXf9
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nTo7J1ByDV3R803n4yFBSPlPgMm0dVzqitGLHvB5604=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793622863; v=1; x=1794227663;
- b=KfZYqXf9llRLeVn0N8NFxC/MEKZkEp81uwCTw/jQud0fGzxtF0ceZtQPRbsLQEl2V/2LJKe+
- u3lHK1xYDz2BgUhh+5fv3yW40aBcdlJPga6DEQxe2cqjlDqTUbZd8HnvGPLHSwTpF/8tf9mwAvb
- AIaVPgkB/jGGSX0DWebEyZMM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 78ee8f4e54d06351;
-	Mon, 02 Nov 2026 12:34:23 +0000
-X-Mizu-Trace-ID: 78ee8f4e54d06351
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hgJFK76F
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so26135725e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:34:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793622872; x=1794227672; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Swv5UcPabS6E/hCnFYMyFqMC2vY1/PiK8X3IqFBNP6s=;
+        b=hgJFK76Fhm36xxhyzeI19UjhN/oZQigsRWrV+LXDfh8ZK4oS9UheRcAzrtHTeSkRza
+         U0Byj7jhlD6yQRkDuepZBjfML+SEELFp5EGYGQ/4L+xj6j4W4PhuFFaaZCpONxYYOPus
+         jnq2gMFzf0sCVXsf96NDXuKI92p9xaF75mwClvJGsa9lAFFs4GRoZ+Y+i/JZegxxE3rb
+         z1mf+SntcEZGrtgVjxsW6A5HZ3xRBH1EkhwWn00cA23KnjsaslzJmESbnz+RTFaUJIz9
+         UsQt6tUH0LZJxUdQBHjGjBGCrCL3UyAHMrdSVFqyGLddAADBnt4Gi7Yz9lu7mEgaGfY7
+         xH5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793622872; x=1794227672;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Swv5UcPabS6E/hCnFYMyFqMC2vY1/PiK8X3IqFBNP6s=;
+        b=ViGbzSSGmlpk8wCtnuUAnQNji3JZHdND1AhBCrLQplVztiTJAnnxwqLKiYESmV4DJQ
+         VSuQ2vovlArQvyPCbK2WtBZj5d4HdQFGos2qPE2g4NTto4oTziQxWP4s+2AD+pLBxfe2
+         BvG3JUh3qQF5fVqS5cAXCKnGvPd7XTJVhkag022I3aHUUcElBN5lYcg2MvaME3YXx1mD
+         rXj5VM8hQggkHAPyqJgAEh/dQeAl45XU/z5PhdVB8W7ccx3d+LVkCjGBvGByHdapaemk
+         p8l0KW1c2nA5QVGreDO+XeQ28J52Zp+U2OXECkxqGq3vpjAZrizZRE1aQeHgDLjq+uzG
+         05bw==
+X-Forwarded-Encrypted: i=1; AKwUvBzdg01aW8V/F+7HmVYYlJW2+tKMP3vfZBSZbbXSRi1pQy6idEU3FZv7RsmFRtMFYUW2Zhvf1ZFmjn/ENlQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxkLg75mz/OgD21alQuVUnuFxWEFTuCjqT+QDgwZPUsatQcb4U
+	dyQUw8n+iZeuOgOp1c8bDsdCW3hCvZzR4C1dpTTQpF7pj+scTcfcFi8h
+X-Gm-Gg: AYBFou0AaIoxU6k/92WJaz8kmAtdHWOkcfQ5uh2F+Z8V3hSh8q3TnPcWRBhbZPVI5Fz
+	QQDwNpaqas/wg5r2oZzXjEdUF+5Rp2K13IlIiQ0QwVYn5BHbost6UZrkjSYZrQ4OAuQjmtRc0Z7
+	aJETpe80ZCvv02sSMGInnlWwVGlcsfen4EXgUkoK+AnGKYuC9dK3OWGzeKjONAwuz6qQXD5Myx1
+	8vwG7TEACf3OvRdUconix8wNXbhOSgoXCTQKznKUFWZN3KrPN4RuPfPB/McmHT3VYM1AffHvj2G
+	QrT2sIqh4VXXvrmN6/ZJ7rU8tBDVeRtiDFEnBWFraVpJMiS0KgIdfZRLrstL8Hrh9aBLQgq+Xht
+	nIPkNIGCUAy9YH0IcIb5x/OO452z8Lz5zCqQSO4ke4bNYSf2uHE17cnj6uiPayUngdnr/9K7lPB
+	W9kP745FSoF3eYgG9E5FBbcENqXXhN4tJl1QmNgd9e0Gb7sPBUJ/CZZhFUGyvn9bYWfqUyUcNGX
+	RZWOdLgJ2LbNq0zavQH8hIS8P6fTV/4A1hp4E/KSZ4QiQDoJOA3jByZkaIqyMi+DkwIB3DMFWrE
+	jI/kh+tOFx+lTPKMYZzF7e7otUvKut9bcP8=
+X-Received: by 2002:a05:600c:3554:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4ac14ec66d9mr242086245e9.2.1793622872329;
+        Mon, 02 Nov 2026 04:34:32 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80ecbsm20321842f8f.35.2026.11.02.04.34.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 04:34:31 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+Cc: Chun-Yeow Yeoh <yeohchunyeow@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: [PATCH ath-next] wifi: ath9k_htc: do not fetch the beacon of a finished countdown
+Date: Mon,  2 Nov 2026 13:34:30 +0100
+Message-ID: <20261102123430.1136741-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,163 +95,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 04/12] mm: hugetlb_vmemmap: generalize vmemmap page
- allocation
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <179361471104.1337633.3959715900505206111.b4-review@b4>
-Date: Mon, 2 Nov 2026 20:34:03 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Lance Yang <lance.yang@linux.dev>,
- James Houghton <jthoughton@google.com>,
- David Hildenbrand <david@kernel.org>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <09EF0F81-23CA-4F3C-BA0E-41F34A0AA4B2@linux.dev>
-References: <20261102032525.3597743-1-songmuchun@bytedance.com>
- <20261102032525.3597743-5-songmuchun@bytedance.com>
- <179361471104.1337633.3959715900505206111.b4-review@b4>
-To: Mike Rapoport <rppt@kernel.org>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
+ath9k_htc_send_beacon() checks the channel switch countdown only after
+ieee80211_beacon_get(). mac80211 replaces the CSA beacon only after the
+channel change, and ath9k_htc_set_channel() re-enables beaconing before
+that, so an SWBA event can fetch the CSA beacon again on the new channel
+and mac80211 reports "beacon TX faster than countdown".
 
-> On Nov 2, 2026, at 18:18, Mike Rapoport <rppt@kernel.org> wrote:
->=20
-> Hi Muchun,
+Skip the beacon while the countdown is complete and finish the switch
+from there, as ath9k does for non-EDMA chips. Finishing from the skip
+also covers a count of 2, where the first fetch can complete the
+countdown before csa_vif is set.
 
-Hi,
+Tested on 6.12 with an AR9271 AP and hostapd chan_switch: the CSA beacon
+was fetched again in 3 of 40 switches with a count of 5 before and in
+none after, and all 60 switches with a count of 2 completed.
 
-It's my email client's fault. Let me email it again.
+Fixes: f0e449627e4a ("ath9k_htc: add support of channel switch")
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+---
+ drivers/net/wireless/ath/ath9k/htc_drv_beacon.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
->=20
->> Vmemmap page allocation is currently tied to restoring a virtual =
-range
->> and assumes an empty destination list.  These constraints prevent it =
-from
->> being reused when pages are requested independently of a vmemmap =
-range or
->> appended to an existing list.
->>=20
->> Generalize the allocator and give it an all-or-nothing list contract =
-so
->> the restore and optimization paths can share the same allocation =
-policy.
->> This also allows HVO head-page allocation to fail gracefully under =
-memory
->> pressure without triggering the OOM killer.
->>=20
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Reviewed-by: Lance Yang <lance.yang@linux.dev>
->> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
->> ---
->> v2:
->> - Collect Reviewed-by from Lance Yang and Qi Zheng
->> ---
->> mm/hugetlb_vmemmap.c | 39 ++++++++++++++++++---------------------
->> 1 file changed, 18 insertions(+), 21 deletions(-)
->>=20
->> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
->> index 0e5b2b182d1bf..4b20a8efc0678 100644
->> --- a/mm/hugetlb_vmemmap.c
->> +++ b/mm/hugetlb_vmemmap.c
->> @@ -334,28 +334,26 @@ static int vmemmap_remap_free(unsigned long =
-start, unsigned long end,
->> return ret;
->> }
->>=20
->> -static int alloc_vmemmap_page_list(unsigned long start, unsigned =
-long end,
->> -				    struct list_head *list)
->> +static int alloc_vmemmap_page_list(struct list_head *head, unsigned =
-int nr_pages,
->> +				    int nid)
->=20
-> Please indent with two tabs, like David likes :)
-> Applies throughout the series.
+diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
+index 81fa7cbad892..2b5bf07511bb 100644
+--- a/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
++++ b/drivers/net/wireless/ath/ath9k/htc_drv_beacon.c
+@@ -214,6 +214,13 @@ static void ath9k_htc_send_beacon(struct ath9k_htc_priv *priv,
+ 		return;
+ 	}
+ 
++	if (vif->bss_conf.csa_active &&
++	    ieee80211_beacon_cntdwn_is_complete(vif, 0)) {
++		spin_unlock_bh(&priv->beacon_lock);
++		ath9k_htc_csa_is_finished(priv);
++		return;
++	}
++
+ 	/* Get a new beacon */
+ 	beacon = ieee80211_beacon_get(priv->hw, vif, 0);
+ 	if (!beacon) {
 
-Sure. Should we update scripts/checkpatch.pl in the future for MM,
-since this script seems to favor the alignment approach?
-
->=20
->> {
->> -	gfp_t gfp_mask =3D GFP_KERNEL | __GFP_RETRY_MAYFAIL;
->> -	unsigned long nr_pages =3D (end - start) >> PAGE_SHIFT;
->> -	int nid =3D page_to_nid((struct page *)start);
->> -	struct page *page, *next;
->> -	int i;
->> +	LIST_HEAD(local);
->=20
-> Can we use a better name here please? E.g new_pages?
-
-Yahs, make sense.
-
->=20
->>=20
->> -	for (i =3D 0; i < nr_pages; i++) {
->> -		page =3D alloc_pages_node(nid, gfp_mask, 0);
->> -		if (!page)
->> -			goto out;
->> -		list_add(&page->lru, list);
->> +	for (unsigned int i =3D 0; i < nr_pages; i++) {
->> +		struct page *page;
->> +
->> +		page =3D alloc_pages_node(nid, GFP_KERNEL | =
-__GFP_RETRY_MAYFAIL, 0);
->> +		if (!page) {
->=20
-> I think goto err_do_cleanup is cleaner than ad-hok cleanups
-
-I=E2=80=99ll use goto style, either is OK for me.
-
->=20
->> +			memmap_pages_add(i);
->=20
-> This is confusing. Updating counters only to use
-> free_vmemmap_page_list() seems worse choice than walking the list and
-> __free_page().
-
-I think the memmap accounting should be done right after each successful
-allocation =E2=80=94 that way, using free_vmemmap_page_list() becomes =
-more natural
-and simple.
-
-Somthing like:
-
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index c04f53f708d2..cab9ec14873d 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -207,14 +207,13 @@ static int alloc_vmemmap_page_list(struct =
-list_head *head, unsigned int nr_pages
-=20
-                page =3D alloc_pages_node(nid, GFP_KERNEL | =
-__GFP_RETRY_MAYFAIL, 0);
-                if (!page) {
--                       memmap_pages_add(i);
-                        free_vmemmap_page_list(&local);
-                        return -ENOMEM;
-                }
-+               memmap_pages_add(1);
-                list_add(&page->lru, &local);
-        }
-        list_splice(&local, head);
--       memmap_pages_add(nr_pages);
-=20
-        return 0;
- }
-
-Thanks for your review, Mike.
-
-Muchun
-
->=20
-> --=20
-> Sincerely yours,
-> Mike.
-
+base-commit: a3ddbb45768717b5c9f923489387cf55c838d1ad
+-- 
+2.56.0
 
