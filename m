@@ -1,102 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618904;
-	b=KITzTcBFOHq+qmGA6fXz5AqAKlVX/zeBHDcpPdOMMgcieZG5ydvpGBVdZ8gd4qOLRoLV
-	 WXELl6zuuoJWePchQDhsQvCINJNWF8DvK6i7yFsQVXcwlF5zUg1faAdhPAkHRQFjomKGD
-	 KoM7mwar9fXFQA+5lvEvaP4jATiBvoeYuZR+3w5L3MWctV5/ngt/O09k+1VH0thFyAUJK
-	 szpMH/5RuHoD38k7M1ISnscprJUsHv9KZKCXvQmYzPDJKGMa17elYCOA3btvVOcnv/Zn6
-	 B2YqOcjfnxcDyXbo4yUwvD0N0ZR6j0+NnUwOJMZdQdGjkShQLWx/5njhT2EmVZl5Itg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618904;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CCGsR7LPvkczseIhGcwfOaLZHJqDI04VbeyNAiiWj6g=;
-	b=kFvUzppAm+KXd9gV+xhzgIKCGXW+G3YvBmB/9+5g468UETR+oK1YhzFUeQnRThXU2Fl/
-	 y3AljTFhfXcKvWwUSO79yjzKrdzLHRcVuguhgFg+xlHCVCFAqHGYRupTjZVEKKhXv0oO/
-	 EixRH0EzU5PHMhspgy9rHVELeSfzKXwd50rl3A0J7dbN+7k0R1Xiy+gGGI8rqjnn0/iw3
-	 FMdSiOR4FaqsXkO5ubgxDl/rspbwlfQ4YJqPOPve0FPtrI4HHGXWUnNSt08usYOuXGh77
-	 UsmavqAe/gIz8pP84IR4eABOdBD5HA/tfWlgsUfBVcOb68ByYNhSZjFHkLQW8+kGnXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FGie+iy8;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793618915;
+	b=5I3P1L1CPXKQzMgfpbSU9lwwU32hdM/9syEsTsH17B3XP2mdTy//aUwAqyMpvpNpDaqz
+	 PgsCy2YDW7iDMLvSZ3aJDurCRNC5U83XrHNoKaMX2LuHWJ41cQ7UiQOTx0Z3T9E5OmNsc
+	 TXiUSe4PRODqs1m1DTKGGvJ/kTW/SBPgZ30fzyXHkkZENaBkNqTILtOF6Z4LkYk3eRtyl
+	 h84qokGYyPODuq8UElABM+JtMvi8BqfGv7Ycz4UN4+HzGVDaJA8kaViFnU4pl7iQ9qm31
+	 jbRUtJJpv2mRLmdi9iPjiFvFx5w1Y5MIfHMUCYzrSZ70cmRrkVtI/kc6fQnnu4FTSpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618915;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+3HlSsd3Mkqs0KRzLL4qix961aTroXJ2M8YOk+vDiAc=;
+	b=N3NKJHkJuLmohFAVDUBwEEJCkqr8hSNf/cAfmbkobqCygnw9/BjvcmhMxPrUkPDNkM3o
+	 xNSnPHsuYrI0lozkqcvPBxqP/MwQJ4zWW8l821bizwtPd3brWKCXPJmeN8B6i51kQj/RU
+	 s0UbRHPdiKBSmuBF7Pje2MtHzs5Da4XvD+hpdWuEuv0Yvu3qe45tm58N0OyaDe7v4ok63
+	 Ag6CHxVykyOH48GiGUUWgr9KZ4yFi0Q4+/8w8UmSL91x1wqOZ4nh0UvtmHwbPRWmbpDo9
+	 qxTttI0eK7qaUHfCznN54GrWCqpRS7joJPAanW4Gk4bQaaguwILz10FdtHpFk5ODrMg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="oBx+/IsP";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.32
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010032.outbound.protection.outlook.com [52.101.193.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0210260A263C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:28:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0210260A263C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A97B606A329;
+	Mon,  2 Nov 2026 11:28:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A97B606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FGie+iy8
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so18445015e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:28:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793618902; x=1794223702; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CCGsR7LPvkczseIhGcwfOaLZHJqDI04VbeyNAiiWj6g=;
-        b=FGie+iy8XzXCHED6M7et8j+I7bdF3gCSWfq6WEBHz/sNtdWaX3sWQ4MTFa/B0ikztn
-         wGvNuhAbPzucFxZ2Xyp9ZsNeMyWk1UCgUwcNkMpEwBr6As3t2v7HngwVudOKycHVBVKr
-         SpWT0uQF0Iw8j+NkXMhwdHW8WtRXkSRhj54JpJpAxO74NnE06z2+BzaMf7xK3LNLraTC
-         XuX/lWgoCaeeYYM+R9C9S00amfLt1G1ToQUZeXI+lCpztC5SQG178il+SX5Gn9/llnK7
-         uLJucWJrrl+xT4Zb8/emi2ym+Rp4R51PR0rM6QhYx3OAuYbuBEFaN3zwN87xFp2gY509
-         C7ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793618902; x=1794223702;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CCGsR7LPvkczseIhGcwfOaLZHJqDI04VbeyNAiiWj6g=;
-        b=Ftu1YGoFX1x0CEgLXApkwMJSonzFn+hhxGjQirfQlrA7ElohWLZPU/xHSepfcbOzOj
-         xjFYb3erN4jwCc2J1Is7Wq7zwRTXK1+AIPUHkeWSeilp6Qom05WkktOYiCNxSMHU50XX
-         9g2F8qRGkeJnaBenzM2XEwFVAZfRfcEuY4z77pnrfPHlJOMM6y+pPXeciazokSLQC9rl
-         FzIM/3LcOo2nYQgnG7SfAbt3hiHnilZM/tCKzHasQml7+qivc9ftmsUwQtgzIbziNRs1
-         EaOVkUC4ahX3Tf1fErxRR/Izx+zSDpce4kAOk0+qJZBBT9EfcBHk2iX5pC+bMlYRrHFS
-         MM+w==
-X-Forwarded-Encrypted: i=1; AKwUvByaM2qNKZkWIm7bNtuoeLwfkFFGI+IHzO+LXlg6Xtu4H0XPiTd3GwYvh1csjd1W+g7jt86XjfHS8y5BBnc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3oxNxpTAnbr3SblbecDpXqXeurtlDZlDvOMFjVyJJ4IJMen8J
-	MTWiiAgO5LTt6YGwp6gq20du54uRnFFaJ2iBNfFxkR4G3bQQZ+WTLVnZ
-X-Gm-Gg: AYBFou21iF7zkTmg1IQNa9L7lxHmToAWh12nDTQ96O0kH4sPibB5CeXbxmxal1VZVFR
-	AFz38lO3l5ButZzEVj+CjFkArbt5ReXmTneUuyAucmyUVj32RndrCMwVwV5SVqo/kl1+tRklMAA
-	0wG3uaEEdoxzsCIAdvfJWyhGg2iwrNVDGbBw83NlvGOJK+r63dcE/6zTdhHvTU9kcpyZVgOR/LP
-	abEF37PzeRDQjNQZPZMSyXQwtS5teD8r3shh3GZk4i3NFUBZO2IUmmwN380rPPcCZxi4d8VlVOC
-	6fOZ0WH8PPZ/KnCz7lUYeUTm+gFKODKWcdfftSTpthCUv7hp1XTTscCECa78MCmPDPNlEnfGbKO
-	NtxsQ9Uxz1gqvwR0CPEtC7wqV6JXQfIj6B8bUbWYQvuGYk2f3BcEvE67Gu83sLmYrxJC8q/btwg
-	sHthjTznK6K10tKs/pjkc54H6pHmY48xLBYniULYJGj/QtbjhYJInwRsob1+uSE2oU9t8akrhrE
-	g+18v29/f1bzT97OZhfGgXJQIyDK8WYhqtZc/KLzWOAOC2I6MlVyNOsXHU61f8I4CqGdvrytTNC
-	f4wqg1fVdoYLH4xwI2Z6r+LLzzZ5THbPe67w4geq9bdfgG7efPDdGQ/IMMK0v9/lsa0th4QXhY1
-	Mzgq55it702PcBR/a2mWfxl4gYPdbGdVSZeAaA1kyDfPFX7+4jfnk0YhlU75CFTSTnkHt8smZDG
-	15Tji/hXLGCuTeycuiriXLvyAymCj+m5JYlPgSZo6QSU9QunThGXFIhw==
-X-Received: by 2002:a05:600c:8b2c:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4ac150b3dbfmr233776465e9.4.1793618902177;
-        Mon, 02 Nov 2026 03:28:22 -0800 (PST)
-Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-f91d-46ab-c9c7-94fc.ipv6.o2.cz. [2a00:1028:8388:a84e:f91d:46ab:c9c7:94fc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab61d8b9f4sm311382215e9.12.2026.11.02.03.28.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 02 Nov 2026 03:28:21 -0800 (PST)
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-To: netdev@vger.kernel.org
-Cc: marcin.s.wojtas@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	maxime.chevallier@bootlin.com,
-	w@1wt.eu,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 2/3] net: mvneta: fix the removal of the mqprio offload
-Date: Mon,  2 Nov 2026 12:28:15 +0100
-Message-ID: <20261102112816.12322-3-pepe.schlehofer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261102112816.12322-1-pepe.schlehofer@gmail.com>
-References: <20261102112816.12322-1-pepe.schlehofer@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oBx+/IsP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dQHAgiDi0IG5rLPmSVjlyj3cG4DvFSv7R1TlPr5ZcDUnn7qIaKyqOrsDctxxqmHiE5ZhCmKB40ITvEbEG1kD++oCkBX1zaJfarC3eushqW7umTpanc8bwXTB4ddzQUxVnQUsysop1rNUxm0ssNH9oInf19PEu7VzZefRfTOODR+kmYbLtfEfMgJhiN8FguUxL1tXtDkJpTfia1hOj6Mj72KygbPQJM3gZX5KOYpXAJT/JsCm406fn8aEqxsrHjVpbi2pJTeTNR2dPnmT3+jSE/vKIekURBuGDLJSNkBqoXCW5RxlT7wJ/9u/WkuljaGo0dcpfuZKKwOEOWtAcjqlXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+3HlSsd3Mkqs0KRzLL4qix961aTroXJ2M8YOk+vDiAc=;
+ b=l+rK1FFukXl65m3YbaiZgJd+YhivMWVwEZltk4XIJvViV6vZBa3RJpTlyA05Jv/Vw3OMjgd/d3Am46t0M6CJM6p1b6J0v0TeA6JQCOMOSHhHl6B48xyVPn2EEo3Pj9tQ/fbkUx1YRLEzA60vI1FtVj7FODCmTXgy0N7YSYgm3Pw0zoIEmMn47JAzktfHigvBzshFJiv6VIymyri9JGjH7qYdVBcNdTYn3m933GUBV7snXEFtgxXTRFZVzO0VhwqJhLFrYV3Y0ffvwCSWAnS6ZkI0KFPyrvOGIs5YEs9jc4MQUYYI9+yOPsV9m7RDocmkqKA3VYH5pjFoY1MszErCdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+3HlSsd3Mkqs0KRzLL4qix961aTroXJ2M8YOk+vDiAc=;
+ b=oBx+/IsPeyLrYnzuQMuTnDnMQh+nUcDgSWHCbD+o2EXctwB616uU6D5RKXb97zfvwHgmw0sBq3r+F1J6j/SLhm9PnxD0FRcSlMQON6jAK0jP8pnZf7w7jaD1RRCi5Logp2uUEttSOwqLOa6r7HG0/WtlvspOmnvL9cXYRrnu1P7Ka1OiGRa5/8be90TRu8elkSxJrfqGGXPF11NwLfPdiSL8MO7oRGMYaDUNaQulbB6L3adyIEYMXpl8CZNCyaAvsITcuzc4bJOEtMn8WO8lM4Qn8ggGNu7XNxpyn4W9sPtrn2oNsfi4kc9I5FwUS8gXTGl5JfG40Lle8CViCGSWpA==
+Received: from BN9PR03CA0901.namprd03.prod.outlook.com (2603:10b6:408:107::6)
+ by MW4PR12MB7141.namprd12.prod.outlook.com (2603:10b6:303:213::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 11:28:30 +0000
+Received: from BN2PEPF0000A890.namprd04.prod.outlook.com
+ (2603:10b6:408:107:cafe::98) by BN9PR03CA0901.outlook.office365.com
+ (2603:10b6:408:107::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon, 2
+ Nov 2026 11:28:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN2PEPF0000A890.mail.protection.outlook.com (10.167.248.182) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 11:28:29 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
+ 2026 03:28:12 -0800
+Received: from mmaddireddy-ubuntu.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 03:28:06 -0800
+From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+To: <lpieralisi@kernel.org>, <kwilczynski@kernel.org>, <mani@kernel.org>,
+	<bhelgaas@google.com>, <linux-pci@vger.kernel.org>
+CC: <robh@kernel.org>, <thierry.reding@kernel.org>, <jonathanh@nvidia.com>,
+	<kishon@kernel.org>, <Frank.Li@kernel.org>, <vidyas@nvidia.com>,
+	<cassel@kernel.org>, <den@valinux.co.jp>, <marco.crivellari@suse.com>,
+	<andriy.shevchenko@linux.intel.com>, <linux-tegra@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <mmaddireddy@nvidia.com>, Frank Li
+	<Frank.Li@nxp.com>
+Subject: [PATCH v3 06/10] PCI: tegra194: Check for L1SS capability before programming
+Date: Mon, 2 Nov 2026 16:57:15 +0530
+Message-ID: <20261102112719.4022633-7-mmaddireddy@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102112719.4022633-1-mmaddireddy@nvidia.com>
+References: <20261102112719.4022633-1-mmaddireddy@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,48 +117,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A890:EE_|MW4PR12MB7141:EE_
+X-MS-Office365-Filtering-Correlation-Id: a110edd4-d81b-4b1f-238a-08df38d46bb2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|36860700016|82310400026|11063799006|56012099006|261009223027099003|261028144727099003|261021123027099003|261021121427099003|261026121527099003|261022075727099003|261022105027099003|261026140227099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	aj0SQxxR5YKio2OyIWE0LiiiyMORS0Gmt5ChbpT6bBEktmVLTbmaWB2jhYuY658YGnS9L9HCcPE7D7zmeNJj7osBXOvDrCnahqTdCeMFpW9eVyfHOSLoEAYh2tgTemndjxEtmc1vrl0e85eb1Icic9ABsa/JZTnlNLywrU33Z32yw/22JXF/UHaf9TRma4mtYIp2yQ09D8VaUH4fL/nwMXmyfRvWjYrdoXMKBfFHBfYwlJz/A4SHXS6Ob5MChN+y+lASv1QqIdfDmHJ6R1JBadAUKN/zWhv/F5qX47LKtjBkwxGl3nmL/c8xtgEFeCp1mCszeJ1Z1Ve3uKJ+EmypS8SCv5+wzzkPtoVfxWe8Cy4f9I5igofKoCTCYKDhu4FGUBi4YgNAXyyFfzJUn/uuHIPur/yMedIPIg7gNa8rS/lXgJGyzMn9guJs87xX3IPL3gfNqpo+B2l0hku+0i3dRcrscyhgce7rG39GyEixXNNeqQ9Xczt83zSm4CMnGg99NtpJCX81YHVjbG7yL1534+HvvZSoGGPs2dpdmJ3TjvByRN8DwYVmJASPH0RsTqB+p6IxEqT6eTpf9FT7PQRzwrSCX5DYAmxYjApjhOzBVuFlTB/ETmwIA2QyVlREw0w9xZhZt2AOy3XZJbMyeGmL+SXhOR9nkHMBcUgWkTcQO6q2U1yFJNwPugcoSmQnDBrSRTQ922bqtZOvFpxMjfIrlQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021123027099003)(261021121427099003)(261026121527099003)(261022075727099003)(261022105027099003)(261026140227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WREGhbA8HJViyVLdLMJai9RR8TH4RA+uws0NG9Ak6A5vpHM5Mj+ZlQiwER3pKQ725PJMQDBZE0PBHQNQhm5nyvRs+HUt2Ue7mYyz0/ZXewra0cNO3wmY24eZUbHvV8OgWzzXag00xbbe8oARca31iaTxur5roXA8LywVhRjFIq0RSk/ypVF1Zm8GSTycACMnbstavYXT5EbvqUwRUts21+PaaqEe+/EXKlKEGKP+KLB93ax3dpSc8UsnC++R/Dfe5erd0QnxA07ztxjFCZpwMreNSWKLQJqUUZ1w/UwkvDI/n9dc0lfSYYiu29DxsFF2QQcy1IGKK7BXPa+DRbl5DvRrnrRxdVnFKBfsrfCidQLU2tXpK/9+i2frroinYh06JWV0/n9GRP0k4bcrdt9WGMyZ7OUvQGjlhhCtClMPtizRA+IJVFMljRCr1EaBvcfZ
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:28:29.9173
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a110edd4-d81b-4b1f-238a-08df38d46bb2
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A890.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7141
 
-Deleting an offloaded mqprio qdisc leaves its traffic classes and
-per-queue rate limits in place.
+init_host_aspm() programs the L1 PM Substates capability without checking
+whether the controller advertises it. If the capability is absent, the
+code writes offsets from zero instead of L1SS registers.
 
-mqprio_disable_offload() passes an all-zero configuration, so qopt.hw
-is 0 and mvneta_setup_mqprio() returns before it reaches the teardown
-code.
+Check for the L1SS capability before programming L1SS-specific fields.
+Keep RAS-DES discovery, ASPM counter enablement and AFR latency
+programming outside that guard because they do not depend on L1SS.
+Only create the ASPM counter debugfs file when the RAS-DES capability is
+present.
 
-Check qopt.hw only when traffic classes are set up.
-
-Tested on a Turris Omnia (Armada 385) with 10 Mbit/s limits on a
-100 Mbit/s link. After the qdisc was deleted, only TX queues 0-3 were
-used and the link carried 19 Mbit/s. With this patch and the previous
-one, the queues above 3 are used again and the link reaches 94 Mbit/s.
-
-Fixes: e7ca75fe6662 ("net: mvneta: Don't force-set the offloading flag")
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Fixes: 56e15a238d92 ("PCI: tegra: Add Tegra194 PCIe support")
+Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
- drivers/net/ethernet/marvell/mvneta.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Changes V2 -> V3: None apart from rebasing.
 
-diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
-index 9b9efac2846e..79711a117c39 100644
---- a/drivers/net/ethernet/marvell/mvneta.c
-+++ b/drivers/net/ethernet/marvell/mvneta.c
-@@ -5251,11 +5251,12 @@ static int mvneta_setup_mqprio(struct net_device *dev,
- 	int rxq, txq, tc, ret;
- 	u8 num_tc;
+Changes V1 -> V2:
+- Use RAS_DES_EVENT_COUNTER_CONTROL to match the preceding DWC register
+  renames. No functional changes.
+
+ drivers/pci/controller/dwc/pcie-tegra194.c | 72 ++++++++++++----------
+ 1 file changed, 41 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+index 4926fea2ee05..c1b666833754 100644
+--- a/drivers/pci/controller/dwc/pcie-tegra194.c
++++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+@@ -674,37 +674,46 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
  
--	if (mqprio->qopt.hw != TC_MQPRIO_HW_OFFLOAD_TCS)
--		return 0;
+ 	pcie->ras_des_cap = dw_pcie_find_ext_capability(&pcie->pci,
+ 							PCI_EXT_CAP_ID_VNDR);
 -
- 	num_tc = mqprio->qopt.num_tc;
- 
-+	/* On removal the qdisc passes an all-zero qopt, with hw 0 */
-+	if (num_tc && mqprio->qopt.hw != TC_MQPRIO_HW_OFFLOAD_TCS)
-+		return 0;
+-	/* Enable ASPM counters */
+-	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
+-	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
+-	dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
+-			   RAS_DES_EVENT_COUNTER_CONTROL, val);
+-
+-	/* Program T_cmrt and T_pwr_on values */
+-	val = dw_pcie_readl_dbi(pci, l1ss + PCI_L1SS_CAP);
+-	FIELD_MODIFY(PCI_L1SS_CAP_CM_RESTORE_TIME, &val, pcie->aspm_cmrt);
+-	FIELD_MODIFY(PCI_L1SS_CAP_P_PWR_ON_VALUE, &val, pcie->aspm_pwr_on_t);
+-	dw_pcie_writel_dbi(pci, l1ss + PCI_L1SS_CAP, val);
+-
+-	if (pcie->supports_clkreq)
+-		pci->l1ss_support = true;
+-
+-	/*
+-	 * Disable L1.2 capability advertisement for Tegra234 Endpoint mode.
+-	 * Tegra234 has a hardware bug where during L1.2 exit, the UPHY PLL is
+-	 * powered up immediately without waiting for REFCLK to stabilize. This
+-	 * causes the PLL to fail to lock to the correct frequency, resulting in
+-	 * PCIe link loss. Since there is no hardware fix available, we prevent
+-	 * the Endpoint from advertising L1.2 support by clearing the L1.2 bits
+-	 * in the L1 PM Substates Capabilities register. This ensures the host
+-	 * will not attempt to enter L1.2 state with this Endpoint.
+-	 */
+-	if (pcie->of_data->disable_l1_2 &&
+-	    pcie->of_data->mode == DW_PCIE_EP_TYPE) {
++	if (pcie->ras_des_cap) {
++		/* Enable ASPM counters */
++		val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK,
++				 EVENT_COUNTER_ENABLE_ALL);
++		val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK,
++				  EVENT_COUNTER_GROUP_5);
++		dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
++				   RAS_DES_EVENT_COUNTER_CONTROL, val);
++	}
 +
- 	if (num_tc > rxq_number)
- 		return -EINVAL;
++	if (l1ss) {
++		/* Program T_cmrt and T_pwr_on values */
+ 		val = dw_pcie_readl_dbi(pci, l1ss + PCI_L1SS_CAP);
+-		val &= ~(PCI_L1SS_CAP_PCIPM_L1_2 | PCI_L1SS_CAP_ASPM_L1_2);
++		FIELD_MODIFY(PCI_L1SS_CAP_CM_RESTORE_TIME, &val,
++			     pcie->aspm_cmrt);
++		FIELD_MODIFY(PCI_L1SS_CAP_P_PWR_ON_VALUE, &val,
++			     pcie->aspm_pwr_on_t);
+ 		dw_pcie_writel_dbi(pci, l1ss + PCI_L1SS_CAP, val);
++
++		if (pcie->supports_clkreq)
++			pci->l1ss_support = true;
++
++		/*
++		 * Disable L1.2 capability advertisement for Tegra234 Endpoint
++		 * mode. Tegra234 has a hardware bug where during L1.2 exit,
++		 * the UPHY PLL is powered up immediately without waiting for
++		 * REFCLK to stabilize. This causes the PLL to fail to lock to
++		 * the correct frequency, resulting in PCIe link loss. Since
++		 * there is no hardware fix available, prevent the Endpoint
++		 * from advertising L1.2 support by clearing the L1.2 bits in
++		 * the L1 PM Substates Capabilities register. This ensures the
++		 * host will not attempt to enter L1.2 with this Endpoint.
++		 */
++		if (pcie->of_data->disable_l1_2 &&
++		    pcie->of_data->mode == DW_PCIE_EP_TYPE) {
++			val = dw_pcie_readl_dbi(pci, l1ss + PCI_L1SS_CAP);
++			val &= ~(PCI_L1SS_CAP_PCIPM_L1_2 |
++				 PCI_L1SS_CAP_ASPM_L1_2);
++			dw_pcie_writel_dbi(pci, l1ss + PCI_L1SS_CAP, val);
++		}
+ 	}
  
+ 	/* Program L0s and L1 entrance latencies */
+@@ -728,8 +737,9 @@ static void init_debugfs(struct tegra_pcie_dw *pcie)
+ 
+ 	pcie->debugfs = debugfs_create_dir(name, NULL);
+ 
+-	debugfs_create_devm_seqfile(dev, "aspm_state_cnt", pcie->debugfs,
+-				    aspm_state_cnt);
++	if (pcie->ras_des_cap)
++		debugfs_create_devm_seqfile(dev, "aspm_state_cnt", pcie->debugfs,
++					    aspm_state_cnt);
+ }
+ #else
+ static inline void init_host_aspm(struct tegra_pcie_dw *pcie) { return; }
 -- 
-2.54.0 (Apple Git-157)
+2.34.1
 
