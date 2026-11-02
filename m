@@ -1,45 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606012;
-	b=hRnv1DLyBvhgy5bdyJt0xqYKxP5nByFJGIb2fNOJ+PSlfq8TcFmzOcgyB3jzJX0Tlk2Q
-	 +4J4RWRPslZIoO9d6U/aE7tuNqGeSHHkXbtkyWxjJ0icUFDqLne2bz7znCVYQC4Li7JhA
-	 kCvr46yfShIsXTX4io1BDJ7N8QAQjafvHX3XLl/F/f53woLm5TqDwL7OaNHrE91mpzVkt
-	 0XjGW0UnyZv/2HnkxIFVpNSxOndePdGo2jTbxWQMjv4H7fY/8TeDWXENl0fChbS8lnU3J
-	 AUfj/ZNxX5Z+sLCwSB68bA1q7/tdbStl2yscIh9bi8Hv61BntLzW0RJJWMrNb17ymNw==
+	t=1793606055;
+	b=1ClbNM/pQ6npHtHDLS/uV2S434uuVcetQtZ9GgnFYiV1PtWU3mQryTMu3TauwNyQoyqO
+	 g0CFY57lrP6mK8Ggh3aKSgLi4vFCNMloUPPSUeGYzJIFr0MYQgGlSxtG/nh9Yb0Kl2p2r
+	 OLZuLNfe2lskGT4JzDktIDKcGjnDM9PQCOLGk0yqP4SAewdDB7JSxNsSuAS3p9xdHSPq9
+	 csZQDiuFmdVvIe+iwZDI/lkjFClhjm8cvF5aRK4K/Zk94iRVXCiPSULPdzsmmIIZsY6a9
+	 VW8Rr8VWxoQVGnFsZdYh9i8xgtkM5+8MFXRFHA0Oyf2tV2wLlWm3656J61Nv/sMxabw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606012;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=Luo2bAX7yeRQwp4e4M++8eGqx6UvBaGXA7aY4b+XOzk=;
-	b=HGwtGGKTV0Pqa6YaGDFYdApQnr96JbUrGT5WhSwypkcAZVGkjXpqGIrxjs/tnIpEdt/l
-	 M/2fDRdHmPEagp3A26vRLnbVCfBx6TRHOFnFX99VudnIE3gLM+Y9Ie4ZRG67z1TnACUv4
-	 jUOLN+16le3nK8FncaACQ717TYog1bIga7gzGJpoD13ck6KameUySXNPjyxtbxmSncuGv
-	 p6C5QGV5st/090WrilsOU3EizX3wX6Mu26VRQ9XAPq6BiqpaFskrd4Y3q9o/8vKocUr2m
-	 EbMxmieG2hlNgeBWLjj2pJzywGYydyY0xhIp6oouQPgJHraI4R03Y+g41rFA2NarXXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606055;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=uG7fhzN12tKnMsVMVFuJ5vI38xwZjGLr+R0JNhRW+dM=;
+	b=jRdE4YEv+rDhhgbovrC+UWzsnm2NG/DiV6HzKZqFJUlsr4m28+Jrg8msWzKR2vVDsFs1
+	 6ei6zlyN6vk88wKHzTbXijYDBc/yTB4LHw9RGJLBc+g1QkKcWhtEQW9pxjeK3cMf8aY2m
+	 SJP9G5ibkA9U2LojvTmn5JhKy8WMmWAmYOP6Is5AVJb0nIuwAkS3VxvWyW8IjcA+whO+8
+	 0hnkeijOot9MH1acQAseeRuQJMOpsyD21j3P3xHy0RAdPCoSDZl1g2lC0qL51ZqaCzNxK
+	 VU/2o0ie/UDkf42tpJ0dG9L2PepJb9gW/jg9FaXGV/CcalDvw2mDA8Sswd6jNXWarjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c1a/i3zB";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=3a8F3w6N;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A20606A324;
-	Mon,  2 Nov 2026 07:53:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD2C606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:54:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CD2C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1a/i3zB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC321F000C1;
-	Mon,  2 Nov 2026 07:53:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793606011;
-	bh=Luo2bAX7yeRQwp4e4M++8eGqx6UvBaGXA7aY4b+XOzk=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=c1a/i3zBzv4fFytx2Tkk706g1Ui2r7930b7gIIWifBBmlR+NYx18RTi8xwlcYw/I0
-	 jGBaBi+etZyNUchMDySNWG6Rl0ZIHFLgAhd/qWC2JmTBO73CXGH68/vDsFBVb36XGp
-	 qv6O4hPpOJGzc5tSUNMDvu5nPNqATwzqqTq35iIPAZtjTGu9J+128wLGpYu17DB6ro
-	 4O2n0FfrkEjRXewQzHQKmqFsaRQxGdqAxb8B9++ZKe+OBmFTZBzGKrJy/XkVlIOMva
-	 AuXEflVxPhYGProcLaqF9dmsPhXbv9zoS7U6fYWjRCY6Qz4M//m/Ca7azm73lrNb4+
-	 80tctmXBuZnyQ==
-Content-Type: multipart/mixed; boundary="===============8188945401036519252=="
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=3a8F3w6N
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=uG7fhzN12tKnMsVMVFuJ5vI38xwZjGLr+R0JNhRW+dM=;
+	b=3a8F3w6NpIH15K4K3mbUbYPitJbvxRFftH7WHbNUu4Z0X5Cc70S+nSiTTnC552Gt7OoVsWRKw
+	73TCW6ghLhCTvrs/IRQw+pNPSGVGrk5JlkRtUgPVOaDfKlBhOxcq45O3XojCa093YwCoBLhyvn4
+	xrE+MbEYm4p7CuHwx5MplWc=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jJ3qY4GrQzcb0L;
+	Mon,  2 Nov 2026 15:53:45 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 889014058F;
+	Mon,  2 Nov 2026 15:54:08 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 2 Nov
+ 2026 15:54:07 +0800
+Message-ID: <d8aced38-fb7a-4359-b3ab-c625faae5023@huawei.com>
+Date: Mon, 2 Nov 2026 15:54:07 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,93 +62,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <c3b8e6ae47164ab1a643a1730f0600993de03c8a30e35122a9812ac73d807697@mail.kernel.org>
-In-Reply-To: <20261102072808.23080-3-yangtiezhu@loongson.cn>
-References: <20261102072808.23080-3-yangtiezhu@loongson.cn>
-Subject: Re: [PATCH v1 2/2] LoongArch: BPF: Use beqz and bnez instructions for trampoline
-From: bot+bpf-ci@kernel.org
-To: yangtiezhu@loongson.cn,chenhuacai@kernel.org,hengqi.chen@gmail.com
-Cc: loongarch@lists.linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Mon,  2 Nov 2026 07:53:31 +0000 (UTC)
-
---===============8188945401036519252==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-> LoongArch: BPF: Use beqz and bnez instructions for trampoline
-
-TL;DR: Commit message only: the claimed branch-overflow risk looks impossible,
-since trampolines fit in one page and the old code behaved identically, so the
-Fixes: and Cc: stable tags may not be justified.
-
-> LoongArch: BPF: Use beqz and bnez instructions for trampoline
->
-> Currently, the implementation for BPF trampoline branches does not match
-> the existing technical comments. The code uses larch_insn_gen_beq, where
-> the comment indicates beqz should be used.
->
-> Moreover, the beq instruction belongs to the reg2i16 format which limits
-> the jump offset to 16 bits (+/-128KB). After using the beqz instruction
-> which belongs to the reg1i21 format, the jump range will be extended to
-> 21 bits (+/-4MB). This mitigates potential branch overflow risks in the
-> complex BPF trampolines.
->
-> While at it, also apply the same optimization to the bne instruction by
-> replacing it with bnez and adding a corresponding comment.
->
-> Fixes: f9b6b41f0cf3 ("LoongArch: BPF: Add basic bpf trampoline support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-
-The commit message says the new instructions "mitigate potential branch
-overflow risks in the complex BPF trampolines", and the patch carries a
-Fixes: tag and Cc: stable.  Can a beq/bne inside a LoongArch BPF trampoline
-actually go out of range?
-
-bpf_trampoline_update() in kernel/bpf/trampoline.c rejects any trampoline
-larger than one page:
-
-    size = arch_bpf_trampoline_size(&tr->func.model, tr->flags, tnodes,
-                                    tr->func.addr);
-    ...
-    if (size > PAGE_SIZE) {
-        err = -E2BIG;
-        goto out;
-    }
-
-On LoongArch PAGE_SIZE is at most 64KB (the 64KB_2LEVEL and 64KB_3LEVEL
-configs), while the beq/bne reg2i16 range is +/-128KB.  So no branch inside
-a trampoline can get near that limit.
-
-bpf_struct_ops_prepare_trampoline() puts a single node in
-tnodes[BPF_TRAMP_FENTRY] and has no fmod_ret branches, so its only
-conditional branch skips one call sequence.
-
-Even if the range were exceeded, larch_insn_gen_beq() and
-larch_insn_gen_bne() return INSN_BREAK, and validate_code() in
-arch_prepare_bpf_trampoline() would then fail the trampoline with -EINVAL.
-The old code could not silently emit a wrong branch.
-
-The old and new instructions also test the same condition:
-
-    larch_insn_gen_beq(LOONGARCH_GPR_A0, LOONGARCH_GPR_ZERO, offset)
-        -> beq $zero, $a0
-    larch_insn_gen_beqz(LOONGARCH_GPR_A0, offset)
-        -> beqz $a0
-
-and likewise bne $zero, $t1 versus bnez $t1, each replacing the same single
-nop slot.  So the patch appears to change no behavior and only makes the
-code match the existing "update branch with beqz" comment.
-
-Could the changelog drop the overflow-risk wording, or describe the change
-as a cleanup, and could the Fixes: and Cc: stable tags be reconsidered given
-that stable-kernel-rules requires a fix for a real bug?
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a
+ group-stop
+To: Catalin Marinas <catalin.marinas@arm.com>, Zhao Gongyi
+	<zhaogongyi@bytedance.com>
+CC: <will@kernel.org>, <mark.rutland@arm.com>, <oleg@redhat.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20261023110710.10145-1-zhaogongyi@bytedance.com>
+ <at-czRUYRPRxi9dy@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <at-czRUYRPRxi9dy@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41407991756
---===============8188945401036519252==--
+在 2026/10/27 2:32, Catalin Marinas 写道:
+> On Fri, Oct 23, 2026 at 07:07:10PM +0800, Zhao Gongyi wrote:
+>> PTRACE_ATTACH to a group-stopped child can enter do_jobctl_trap(),
+>> which calls ptrace_stop() without siginfo. If the tracer writes
+>> NT_ARM_SYSTEM_CALL, system_call_set() can change syscallno from
+>> NO_SYSCALL before calling update_syscall_orig_x0_after_ptrace(). The
+>> WARN_ON_ONCE(!info) then fires, although this is a valid ptrace stop.
+>>
+>> Remove the warning and guard the syscall-exit-stop check against a
+>> missing siginfo. Keep recognizing both SIGTRAP and SIGTRAP | 0x80:
+>> syscall-exit-stops use either value depending on whether the tracer
+>> enabled PTRACE_O_TRACESYSGOOD. With no siginfo, allow the final
+>> assignment to synchronize orig_x0 from x0.
+>>
+>> Fixes: 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on syscall entry")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+>> ---
+>> Changes since v1:
+>> - Remove the warning and early return, as suggested by Oleg.
+>> - Keep recognizing syscall-exit-stops with or without PTRACE_O_TRACESYSGOOD.
+>>
+>> v1: https://lore.kernel.org/r/20261016024536.18938-1-zhaogongyi@bytedance.com
+>>
+>> Tested on arm64 KVM at af32da41b032 with this v2 applied.
+>> At a group-stop, PTRACE_GETSIGINFO returned -EINVAL and an
+>> NT_ARM_SYSTEM_CALL write succeeded. Syscall-entry and seccomp
+>> x0 rewrites worked. At syscall-exit-stops, NT_PRSTATUS writes succeeded
+>> with and without PTRACE_O_TRACESYSGOOD (si_code 133 and 5,
+>> respectively). No kernel warnings occurred.
+>>
+>>  arch/arm64/kernel/ptrace.c | 6 +-----
+>>  1 file changed, 1 insertion(+), 5 deletions(-)
+>>
+>> diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
+>> index f743cbec1..22fb9eeed 100644
+>> --- a/arch/arm64/kernel/ptrace.c
+>> +++ b/arch/arm64/kernel/ptrace.c
+>> @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
+>>  	if (regs->syscallno == NO_SYSCALL)
+>>  		return;
+>>  
+>> -	/* We should only be called when target is in a ptrace stop */
+>> -	if (WARN_ON_ONCE(!info))
+>> -		return;
+> 
+> That's a slight semantic change since this function may now update
+> orig_x0 even when !info. However, I think it makes more sense as the aim
+> of commit 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0
+> on syscall entry") was to update orig_x0 in all cases other than
+> syscall-exit-stop. We can't have the latter with !info.
+
+I think maybe we can refer to ptrace_get_syscall_info_op()?
+
+> 
+> I'll wait for a couple of days to see if Will has any comments and queue
+> it.
+> 
+> Thanks.
+> 
+
+-- 
+Best regards,
+Jinjie
+
