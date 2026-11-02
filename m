@@ -1,97 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638462;
-	b=wAN0i9EyGPNTys0jc2Jfug6SxpfJcuMvyU3lOGgzvwElegn4+Ih7Lm2e+iLF7Wb3bqpA
-	 7lWHhZUhHzDZD9fHKx0KRISz0dJT3x/Ix00+geaioRVkKKfoz8vKvXtEgVcR9lGF0MNHi
-	 gx9StXsHYt6dhA9hGY5glk/l4HHSnRz3a0dLjyhsD1aS3VTAGh4fB7Lv0EBBnY1E4UgqP
-	 dVMiNyhVjKFpm/f3e7LFJasIx87uv9l1NfPybUu70sgz4ZvS9xQexcEIjS3lcIgwfDMDv
-	 4KnVK4tW64HXUXdWAwkWlSeFnnEP2dPcDxpZcOAO1UagQ/O8EVIDw7a2YYDw/pbI0ag==
+	t=1793638480;
+	b=kdbwLbaqqE/QpqL8NaUvkJnPxGpfCU4vHwHfAcTB4cozK88ZXpqKPsrox3J+WfhCizMa
+	 KEKgHpxc0jYl+O7O1UsO6h2E6+Lp4Ght6VnW1W2t5U93G1g9zxbSdl1ohnAB4QZB4JOvX
+	 csT1f+sqpnY22CMPGzVzzQbTlIQHm7RJ68HSANjbi+e8lqD/rP/xHm1gJgJkOEGnXwJeB
+	 HzbTsM26PpjQN4rKt3JLl5C0nffurBVHviDEjTql8jDSx1g8mq0otjxbqRKfnXmlhY9ou
+	 fdqOaW6eBhCMr9vTq+pN8ebfzF7PC4TowNJE+JtzrJHjK/FJPdcEPD0qmUwM//Mst8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638462;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cXGpRKvTAGjhS35rMqsnLDspbuP9bTvBPAEuRyBbB1o=;
-	b=kg35ds7PnGJY/Jg+KqGqITYsvaDaAtFleQ9bOZmopHH/FXbDbKw4hG3K1BYKKmg51DrA
-	 ilUQFnrNcQBhb4uWqAT70HT8vBrM8tQSxwmHiHy6eWgB/7Usqd5El2cnbL6DoJ7EzVlXw
-	 s5DkrVALtygawx4kanTBVim4f3e/4ntuuuYfMmaTJHfZZk3+O57DTKkH+yVRuimcJlcsw
-	 0QAgfJ0xVpbd6xulIRaWLaAE2jhcgIgEEXuPUVDkv4pAUHAWfwPXi1pPV44aduKJfI8WS
-	 /fi7lHXXpj5P69a+MHNMD7j3DSrRRJQJIxNcxPkGqocuafL0epLOwfb3ibjB24nXieQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638480;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+J2NYd8ay0QrXgi9qYBw+MMENP6C1nyqElknyPaZSdo=;
+	b=I/v4iPecJkjhOPWEI9SKkhNv5x96KiMM74ae8/2OZiyGyo8oRUskscWwc7r8rAt6N4gn
+	 s94OveVJ7iYqa/xa0rjf4q/3+II7ycOBnJM0wog6bse9RmWFVF0JY/2KpXmc7TDAKU3oa
+	 +BVSSJ1SVnNYzDoiR1vCvhjbFfCYg58aa+WMriwEMO47Sc4bdsC2xQn3Tn2F0wJkmHnGn
+	 ZfgReVL3wxuRzHEbMx1rV5x0XN3hxC3c1Dj2MDwXlT2q+qs2XfLGxIBme2TFRFkTFWvub
+	 WxU3qwKzChy63yMn0hdu/VmrEcDJhtXfskbo2gCZuhu2puYnB9s6jcyHtzHSLQoQ9Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nttAKpmy;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2326079910
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:54:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF2326079910
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VP01+2dU;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3357360913D7;
+	Mon,  2 Nov 2026 16:54:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3357360913D7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nttAKpmy
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so27287635e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:54:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793638460; x=1794243260; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cXGpRKvTAGjhS35rMqsnLDspbuP9bTvBPAEuRyBbB1o=;
-        b=nttAKpmylUtdq9jMTN/wbrVcLpFRXXlqGRnKAcR5A5N0R5njWywda5vUwbtWjv1b7W
-         59xbEJZ2JJxmymRaCR8i06GVZVXBLNiisCoOlUWv7pfttM52v6fh6SIk9AHXpIJDBJyB
-         K1v4TVQgfNPuygiU3b/InKbqYwtBsXcaPIst9yGjC2C3nIMelz+4DaN4UvJ9AbA1SpFL
-         eJWTxBmYCAj1+no02fN+QGay7pGQvw0yOXA2L3jyhVpqN1ayis1XC63DRSotXOW8ULXt
-         yhXK/sGczParDH3XfD0OECKkD2ibrRdl3oz45aoI8olmbtDcsTCeNObmHS0YVdneXQNk
-         9X8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793638460; x=1794243260;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cXGpRKvTAGjhS35rMqsnLDspbuP9bTvBPAEuRyBbB1o=;
-        b=fjBQMpok76/jBdcg2j6fzkqIIISWPSRlBQaonKcxgaiUO+skmI1R6JkPIYb43ZGQGm
-         BXGWOf0+jMJ1NoYQIb023xBNQW8+JdQYcU12mFG867wo/vkTL4CTnz/oTAJSX8Pt4ZYy
-         WclpnlrcdxLwqJ8eYQON275vumtghYaoeILKdlCuKVGj1SFc9krMZIFayG0VJYPX9dkf
-         nTYCyFSatQRxmHYE8oU2o/7aA5S5JRtPENMsl9KNyBazB3Jf72/0Y6LHF1s7UZnBtKHC
-         9QLnYOWHWtQJ7RkZvzAJY62zFSIirilVFdvC9X0HJjarmFPTCivX0n81S/Usz7fWU4jb
-         J6ew==
-X-Forwarded-Encrypted: i=1; AKwUvBxvTrflibvw2ZFd9z3fOcnrjgWgeevLNElA4xROpQPLysI7Rc8Cb357ZjHLh9r/lrZvtgFYrn7H66Mij4k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzdH1gjPlQHV1CvVul5gs29e/iomoreGJAKuNUPMxhInHmAAiq
-	Qz9v4tM6su434M+1qPbL6feg/LP9cbK6E3Ea8j4wy5T1bGO7y29nA7gY
-X-Gm-Gg: AYBFou0MWGJOqBspg9cwE7LPO5U6ONNwyf9l+UgcirjwaOhqy9OvAPg+xZFyVf8RAKa
-	dUU2ke0e1IWuuqG4kbhG6gtiEILEOarqibprNKgA0fEGZ3pO9qACDBn/CR8cKOYYtDyqlkvtX8a
-	3uTQBGQ1eRq3j3q32gGnqI2ry99xbEMV1rDd/Q29Mfr8ed250dFHXo9P8PkkCRHFuA1QS9DC5Tl
-	K5TDgYbDuOS8Bz4pw4uHtNgWSTnKJvbBI2fOAyEYYXisOrqbaIzmCfY8hmizDatx3/GaXS1h+qH
-	1XVaRI7hL9qHBd5n4xZPX2Q1uUhs+mbt69BFxqKEg/qHR3xkb1+NJFwnbnmbyeNjAh15QUwYDeN
-	ZXBZHZBdwwT+8TA5qYdpi0Ms2Pw5JVKqvrH/w8fuAxsKWLKRsMvOH8ogmJ4mgNlyCVJaxeV35py
-	C2/UuJ3/wTRtB1KJ1JRrgfZtGFKcpffMo8Bs5jlaozLHjYx3DvEDdgcm65af+F9zDJMWoAN+dMv
-	eUqjgNRMWZd0ybdBBnEk26SMWSlc4LZ9fYuHnJ9Y7ZuPXxiuvWwpXn3yTzLuwCpFNL/+kCWI7z1
-	lCMQIDWB+MjMNVOulIe1TMPQp0KesOfAISiRB5npPJmzCxyMogbCvN9Iq5mW00S+
-X-Received: by 2002:a05:600c:8b46:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4ac18c73238mr251157985e9.33.1793638459968;
-        Mon, 02 Nov 2026 08:54:19 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba2415sm21483649f8f.50.2026.11.02.08.54.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:54:19 -0800 (PST)
-Date: Mon, 2 Nov 2026 16:54:18 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Wen Yang <wen.yang@linux.dev>
-Cc: Joel Granados <joel.granados@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers
- with typed bounds and context
-Message-ID: <20261102165342.79fc1580@pumpkin>
-In-Reply-To: <0316f664-d98c-43be-92af-13c30436727a@linux.dev>
-References: <cover.1793204511.git.wen.yang@linux.dev>
-	<20261029105837.2f8bee67@pumpkin>
-	<0316f664-d98c-43be-92af-13c30436727a@linux.dev>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VP01+2dU
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7839416F3;
+	Mon,  2 Nov 2026 08:54:36 -0800 (PST)
+Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A662E3F59E;
+	Mon,  2 Nov 2026 08:54:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793638479; bh=TTQVKzHFqone59X5Z0GG6n5IMSWDCJV3150KBk/mdwo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=VP01+2dUP91YuMVH+dmlvlEtYde1uJbEmlN85JBu3P2xflCk3tNBhN2iM6BsG7DA7
+	 75fhDBfs2PanvziITaqsW2jo0+7Sdo4NYRajv2ET60wviP3jn7l/aqaBWtCyACrasi
+	 mPWolg9UHYQ6MFGS9jb3jVvw30tsKKGpwm1n/LxY=
+From: Andre Przywara <andre.przywara@arm.com>
+To: Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Salman Nabi <salman.nabi@arm.com>,
+	Vedashree Vidwans <vvidwans@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	Nirmoy Das <nirmoyd@nvidia.com>,
+	vsethi@nvidia.com,
+	Varun Wadekar <vwadekar@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v5 RESEND 3/6] firmware: smccc: lfa: Register ACPI notification
+Date: Mon,  2 Nov 2026 17:54:17 +0100
+Message-ID: <20261102165421.3651202-4-andre.przywara@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102165421.3651202-1-andre.przywara@arm.com>
+References: <20261102165421.3651202-1-andre.przywara@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,242 +73,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2 Nov 2026 23:40:40 +0800
-Wen Yang <wen.yang@linux.dev> wrote:
+From: Vedashree Vidwans <vvidwans@nvidia.com>
 
-> On 10/29/26 18:58, David Laight wrote:
-> > On Thu, 29 Oct 2026 00:34:39 +0800
-> > wen.yang@linux.dev wrote:
-> >   
-> >> From: Wen Yang <wen.yang@linux.dev>
-> >>
-> >> struct ctl_table describes an entry with data, maxlen and, until this
-> >> series, two untyped misc pointers in extra1 and extra2. Those two pointers
-> >> have accumulated at least seven unrelated jobs: a fixed bound, a bound read
-> >> through a pointer on every call, an object or namespace pointer, a small
-> >> integer cookie encoded into the pointer, a lock signal, NULL standing for
-> >> "no bound", and a value the core itself casts to unsigned int while
-> >> validating a u8 range. Nothing in the entry says which job applies, so
-> >> readers infer it from the handler, and the core gets it wrong where it
-> >> treats extra1 as an unsigned int.
-> >>
-> >> The numeric half of this change is the direction Eric Biederman asked for:
-> >>
-> >>    You can still save a lot more by turning .extra1 and .extra2
-> >>    into longs instead of keeping them as pointers and needing
-> >>    constants to be pointed at somewhere.
-> >>
-> >>    [...] I don't see any reason why you want shared
-> >>    constants for such a handful of things.  Especially when
-> >>    it has proven to be error prone in the past.
-> >>
-> >> min/max are plain unsigned long members, so the comparisons are ordinary
-> >> C and cannot be confused with a pointer. The shared const arrays that only
-> >> existed to give those pointers an address (sysctl_vals and
-> >> sysctl_long_vals) are removed as well.
-> >>
-> >> The tree already records this direction. fs/proc/proc_sysctl.c documents
-> >> extra1/extra2 as "extra pointers usable by the proc handler routines" and
-> >> carries:
-> >>
-> >>    XXX: we should eventually modify these to use long min / max [0]
-> >>    [0] https://lkml.kernel.org/87zgpte9o4.fsf@email.froward.int.ebiederm.org
-> >>
-> >> This series completes that TODO and removes the comment.
-> >>
-> >> priv is this series' addition: the same pair of fields also hides handler
-> >> context, which a numeric bound cannot express, and keeping it out of data
-> >> is what removes the restore-before-delegate pattern.
-> >>
-> >> The overloading is also a memory-safety hazard. The obvious alternative --
-> >> keep handler context in data and restore the value pointer in each handler
-> >> -- needs an original_data field in nine addrconf and two devinet handlers;
-> >> one missed restore turns a user-supplied integer into a write over a kernel
-> >> pointer. nf_log reaches the same problem from the other side: it replaces
-> >> data with a local buffer inside a single handler, so data means two things
-> >> within one function. This revision removes that temptation instead of
-> >> managing it.
-> >>
-> >> The core is not exempt. sysctl_check_table_array() reads
-> >> *(unsigned int *)table->extra1 to validate a u8 range. That is only correct
-> >> while every u8 entry happens to point extra1/extra2 at an int or unsigned
-> >> int; a long bound, a context pointer or an encoded integer would be read as
-> >> four bytes of the wrong object. No such entry exists today, so this is a
-> >> latent class rather than a live bug, but the invariant is untyped and
-> >> unchecked, and nf_log already encodes an integer into extra1.
-> >>
-> >> The refactor is the first five patches; they define the replacement
-> >> contract and prove it covers every entry shape the tree uses today.
-> >>
-> >>    1. min/max hold numeric bounds by value, and priv holds handler context.
-> >>       The range converters read min/max whenever extra1 and extra2 are
-> >>       clear and keep reading the pointers while they are set, so existing
-> >>       callers keep working while they migrate and no parallel handler API or
-> >>       renamed symbol is introduced. Signed handlers read the bounds as
-> >>       signed longs, an absent endpoint is the type limit rather than NULL so
-> >>       zero stays a real bound, and a run-time range is refreshed before
-> >>       every call. Registration rejects priv on a standard handler.
-> >>
-> >>    2. The debug test module is converted to numeric bounds as the first
-> >>       user.
-> >>
-> >>    3. KUnit coverage for numeric bounds and the handlers that consume them:
-> >>       full type ranges, one-sided and zero bounds, entries without backing
-> >>       storage, explicit handlers for arrays and members, and rejection of
-> >>       writes that would partially commit.
-> >>
-> >>    4. KUnit coverage for run-time ranges across the scalar widths and
-> >>       jiffies, run-time bound pointers, sibling bounds, typed context, owner
-> >>       derivation, bool, registration lifecycles, and simulated per-net
-> >>       duplication.
-> >>
-> >>    5. KUnit coverage for priv: a standard handler must ignore it,
-> >>       registration must reject it with a standard handler, and
-> >>       re-registration must keep both the value pointer and the context. The
-> >>       same patch moves the debug module's dynamic-value entry to the
-> >>       data/priv shape.
-> >>
-> >> On the CTLTBL_ENTRY_* constructors: I kept the naming and argument order you
-> >> suggested while reworking the series. As it turned out, no production table
-> >> needed them -- the converted entries read naturally as designated
-> >> initializers -- so I have not introduced them as a public API in this
-> >> version; the KUnit file keeps an equivalent constructor privately, so the
-> >> tests stay readable. I still think the public version is worth doing, and I
-> >> would be happy to send it as a follow-up once there are real users, so the
-> >> API and its callers can be reviewed together.
-> >>
-> >> Everything after patch 5 is migration and adds no new contract. Patches
-> >> 6-32 convert the remaining users and derive owners from their backing
-> >> storage. Patches 33-38 move handler context onto priv, one subsystem per
-> >> patch; each of those files is touched exactly once and goes straight from
-> >> the old pointer field to priv, with no intermediate data-as-context step.
-> >> Patch 39 removes the extra pointers and the compatibility read.
-> >>
-> >> The parport conversion illustrates a concrete problem with the overloaded
-> >> fields. In the base tree, registration overwrites the spintime minimum
-> >> pointer in vars[0].extra1 with a port pointer. The range handler can then
-> >> check a write against data from struct parport instead of the intended
-> >> minimum. Moving the port context to priv and using numeric bounds also
-> >> corrects this existing bug. A separate fix can address it independently;
-> >> this RFC does not depend on that fix.
-> >>
-> >> Entries that used a *_minmax handler with neither extra pointer relied on
-> >> NULL meaning "no bound". They now state their type limits explicitly to
-> >> preserve that behaviour when the pointer path disappears. These include
-> >> aio-max-nr, acpi_video_flags and nmi_wd_lpm_factor.
-> >>
-> >> Owners that can still be recovered from data are deliberately left alone:
-> >> ipvs, neighbour, the fragment reassembly handlers, vsock, mptcp, rds and
-> >> smc keep using container_of() on their backing storage. priv is only for
-> >> entries where no such derivation exists. Mixed placement in data and priv
-> >> was considered and rejected because it recreates the guessing problem this
-> >> series removes.
-> >>
-> >> Relative to the base tree, the final state removes all 841 extra1/extra2
-> >> assignments across 123 files, removes the shared sysctl_vals and
-> >> sysctl_long_vals arrays (21 references), and states bounds at each entry
-> >> (~574 new min/max initializers) instead of pointing at constants. The
-> >> sysctl ABI is unchanged; the parport spintime minimum is corrected as
-> >> described above.
-> >>
-> >> The cost is 8 bytes per ctl_table entry on 64-bit (56 -> 64) and 4 bytes on
-> >> 32-bit, because priv is appended; the range read path gains no indirection
-> >> and the migrated entries no longer dereference a bound pointer.  
-> > 
-> > Can you remove the little-used 'priv' parameter by making the extra
-> > information just follow the table entry (nested structure) and have
-> > the relevant functions use container_of() to get the outer structure
-> > and extra values?
-> >   
-> 
-> 
-> Hi David, Hi Joel,
-> 
-> I reworked the context side of the series so that priv is gone entirely;
-> and the final tree has no per-entry context pointer.
-> A small helper recovers the enclosing object, but it needs the slot
-> index from the caller:
-> 
->    #define sysctl_table_container(entry, type, member, index) ({       \
->            static_assert(__same_type(*(entry),                         \
->                                      typeof_member(type, member[0])),  \
->                          "pointer type mismatch");                     \
->            (type *)((void *)(entry) - offsetof(type, member) -         \
->                     (size_t)(index) * sizeof(*(entry)));               \
->    })
-> 
-> The reason plain container_of() is not enough is that the core keeps the
-> table as a contiguous array.  For
-> 
->    struct addrconf_sysctl_table {
->            struct addrconf_sysctl_ctx context;
->            struct ctl_table table[];
->    };
-> 
-> the handler receives an interior entry, and
-> 
->    container_of(ctl, struct addrconf_sysctl_table, table)
->        == (char *)outer + index * sizeof(struct ctl_table)
-> 
-> for ctl == &outer->table[index].  It only returns the outer object for
-> index 0.  Passing the index explicitly keeps the original registered
-> entry usable:
-> 
->    static int addrconf_sysctl_forward(const struct ctl_table *ctl, ...)
->    {
->            struct addrconf_sysctl_table *t =
->                    sysctl_table_container(ctl, struct addrconf_sysctl_table,
->                                           table, 
-> ADDRCONF_SYSCTL_FORWARDING);
->            const struct addrconf_sysctl_ctx *ctx = &t->context;
->            ...
->    }
-> 
-> Shared handlers get one wrapper per slot; the common body does not need
-> to know its position:
-> 
->    #define DEVINET_CONF_WRAPPER(attr)                                  \
->    static int devinet_conf_##attr(const struct ctl_table *ctl, ...)    \
->    {                                                                   \
->            struct devinet_sysctl_table *t =                            \
->                    sysctl_table_container(ctl,                         \
->                            struct devinet_sysctl_table, devinet_vars,  \
->                            IPV4_DEVCONF_##attr - 1);                   \
->            return devinet_conf_proc_common(ctl, &t->context, ...);     \
->    }
-> 
-> Single-entry tables simply use slot 0:
-> 
->    struct devinet_forward_table *t =
->            sysctl_table_container(ctl, struct devinet_forward_table, 
-> table, 0);
-> 
-> 
-> The series is 20 commits over 134 files, with no priv at any point.  If
-> you would prefer a different shape for the helper or the wrappers, I am
-> happy to adjust it.
+The Arm LFA spec describes an ACPI notification mechanism, where the
+platform (firmware) can notify an LFA client about newly available
+firmware imag updates ("pending images" in LFA terms).
 
-Certainly worth thinking about for a followup patch.
+Add a faux device after discovering the existence of an LFA agent via
+the SMCCC discovery mechnism, and use that device to check for the ACPI
+notification description. Register this when one is provided.
 
-A different option would be to pass the array element size when adding
-the items.
-Most code would just pass an array of 'struct ctl_table' but instead
-you could pass an array of a larger structure that started with a
-struct ctl_table.
-That should let you use container_of().
-That might even make some of these patches shorter/simpler (I just looked
-at #33 (ipv6 addresses) and it is somewhat convoluted.
+The notification just conveys the fact that at least one firmware image
+has now a pending update, it doesn't say which, also there could be more
+than one pending. Loop through all images to find every which needs to
+be activated, and trigger the activation. We need to do this is a loop,
+since an activation might change the number and the status of available
+images.
 
-David
+Signed-off-by: Vedashree Vidwans <vvidwans@nvidia.com>
+[Andre: convert from platform driver to smccc bus]
+Signed-off-by: Andre Przywara <andre.przywar@arm.com>
+---
+ drivers/firmware/smccc/lfa_fw.c | 154 +++++++++++++++++++++++++++++++-
+ 1 file changed, 153 insertions(+), 1 deletion(-)
 
-> 
-> 
-> Thanks,
-> Wen
-> 
-> > David
-> >   
+diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+index db2a7fe344d5d..4b4daf79611bb 100644
+--- a/drivers/firmware/smccc/lfa_fw.c
++++ b/drivers/firmware/smccc/lfa_fw.c
+@@ -33,12 +33,14 @@
+  * skipped by setting the force_cpu_rendezvous sysfs file to false.
+  */
+ 
++#include <linux/acpi.h>
+ #include <linux/arm-smccc.h>
+ #include <linux/arm-smccc-bus.h>
+ #include <linux/array_size.h>
+ #include <linux/delay.h>
+ #include <linux/fs.h>
+ #include <linux/init.h>
++#include <linux/kernel.h>
+ #include <linux/kobject.h>
+ #include <linux/ktime.h>
+ #include <linux/list.h>
+@@ -49,11 +51,13 @@
+ #include <linux/stop_machine.h>
+ #include <linux/string.h>
+ #include <linux/sysfs.h>
++#include <linux/types.h>
+ #include <linux/uuid.h>
+ #include <linux/workqueue.h>
+ 
+ #include <uapi/linux/psci.h>
+ 
++#define DRIVER_NAME	"ARM_LFA"
+ #undef pr_fmt
+ #define pr_fmt(fmt) "Arm LFA: " fmt
+ 
+@@ -753,6 +757,135 @@ static void clean_fw_components_tree(void)
+ 	}
+ }
+ 
++/*
++ * Iterate over all FW components and trigger activation of all activatible and
++ * pending components.
++ * Since we would need to re-enumerate the list of all components after a
++ * successful activation, and this could trigger infinite loops if a firmware
++ * component still appears as pending, we create an array of update candidates
++ * first, then activate each one of them.
++ */
++static void activate_pending_components(void)
++{
++	struct fw_component **all_comps;
++	struct fw_component *comp;
++	struct kobject *kobj;
++	int nr_comps = 0;
++	int ret, i;
++
++	down_read(&smc_lock);
++	spin_lock(&lfa_kset->list_lock);
++	all_comps = kmalloc_array(list_count_nodes(&lfa_kset->list),
++				  sizeof(*all_comps), GFP_NOWAIT);
++	if (!all_comps) {
++		spin_unlock(&lfa_kset->list_lock);
++		up_read(&smc_lock);
++		pr_warn("LFA: automatic activation failed: -ENOMEM\n");
++		return;
++	}
++
++	list_for_each_entry(kobj, &lfa_kset->list, entry) {
++		comp = kobj_to_fw_component(kobj);
++
++		if (comp->fw_seq_id == -1)
++			continue; /* Invalid FW component */
++
++		_update_fw_component_pending(comp);
++		if (comp->activation_capable && comp->activation_pending) {
++			kobject_get(&comp->kobj);
++			all_comps[nr_comps++] = comp;
++		}
++	}
++	spin_unlock(&lfa_kset->list_lock);
++	up_read(&smc_lock);
++
++	for (i = 0; i < nr_comps; i++) {
++		comp = all_comps[i];
++
++		ret = prime_fw_component(comp);
++		if (ret) {
++			pr_warn("LFA: LFA_PRIME failed for component %s\n",
++				kobject_name(&comp->kobj));
++			kobject_put(&comp->kobj);
++			continue;
++		}
++
++		ret = activate_fw_component(comp);
++		if (ret) {
++			pr_warn("LFA: LFA_ACTIVATE failed for component %s\n",
++				kobject_name(&comp->kobj));
++			kobject_put(&comp->kobj);
++			continue;
++		}
++
++		pr_info("%s: automatic activation succeeded\n",
++			kobject_name(&comp->kobj));
++		kobject_put(&comp->kobj);
++	}
++
++	kfree(all_comps);
++}
++
++#ifdef CONFIG_ACPI
++static void lfa_acpi_notify_handler(acpi_handle handle, u32 event, void *data)
++{
++	/* The spec explicitly mentions 0x80 only for the update event. */
++	if (event != 0x80)
++		return;
++
++	activate_pending_components();
++}
++
++static int lfa_register_acpi(struct device *dev)
++{
++	struct acpi_device *acpi_dev;
++	acpi_handle handle;
++	acpi_status status;
++
++	acpi_dev = acpi_dev_get_first_match_dev("ARML0003", NULL, -1);
++	if (!acpi_dev)
++		return -ENODEV;
++	handle = acpi_device_handle(acpi_dev);
++	if (!handle) {
++		acpi_dev_put(acpi_dev);
++		return -ENODEV;
++	}
++
++	/* Register notify handler that indicates LFA updates are available */
++	status = acpi_install_notify_handler(handle, ACPI_DEVICE_NOTIFY,
++					     lfa_acpi_notify_handler, NULL);
++	if (ACPI_FAILURE(status)) {
++		acpi_dev_put(acpi_dev);
++		return -EIO;
++	}
++
++	ACPI_COMPANION_SET(dev, acpi_dev);
++
++	return 0;
++}
++
++static void lfa_remove_acpi(struct device *dev)
++{
++	struct acpi_device *acpi_dev = ACPI_COMPANION(dev);
++	acpi_handle handle = acpi_device_handle(acpi_dev);
++
++	if (handle)
++		acpi_remove_notify_handler(handle,
++					   ACPI_DEVICE_NOTIFY,
++					   lfa_acpi_notify_handler);
++	acpi_dev_put(acpi_dev);
++}
++#else	/* !CONFIG_ACPI */
++static int lfa_register_acpi(struct device *dev)
++{
++	return -ENODEV;
++}
++
++static void lfa_remove_acpi(struct device *dev)
++{
++}
++#endif
++
+ static bool lfa_smccc_has_all_functions(void)
+ {
+ 	struct arm_smccc_1_2_regs regs = { 0 }, res;
+@@ -813,13 +946,32 @@ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+ 	if (err != 0) {
+ 		kset_unregister(lfa_kset);
+ 		destroy_workqueue(fw_comps_update_wq);
++		return err;
++	}
++
++	if (!acpi_disabled) {
++		err = lfa_register_acpi(&sdev->dev);
++		if (!err)
++			pr_info("registered LFA ACPI notification\n");
++	}
++
++	/*
++	 * An ACPI notification or an interrupt are optional, but we must
++	 * handle errors that occurred during their setup.
++	 */
++	if (err != -ENODEV) {
++		kset_unregister(lfa_kset);
++		destroy_workqueue(fw_comps_update_wq);
++		return err;
+ 	}
+ 
+-	return err;
++	return 0;
+ }
+ 
+ static void lfa_smccc_remove(struct arm_smccc_device *sdev)
+ {
++	if (!acpi_disabled)
++		lfa_remove_acpi(&sdev->dev);
+ 	clean_fw_components_tree();
+ 	flush_workqueue(fw_comps_update_wq);
+ 	destroy_workqueue(fw_comps_update_wq);
+-- 
+2.43.0
 
