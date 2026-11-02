@@ -1,135 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793592005;
-	b=q/wIvhuxLUPLmkYTj6ycb9d8D9Fbr524ryqIvZwrGH75tSt82xaCNfl/wc8iYTK61OSU
-	 nND5vwblclGQ1seMKRU+G3Lyhv3F++N6nk5lpCrTKvID5eQNp1+/lEavHaiDVQ46C0jEj
-	 TAeUyknK5guxQ6WIMxeR+eCh6w79gWkP+TJd4BrNBxxHXZly65zOLyp81uch2DusuKcNE
-	 9IQVG2qx6Uqwvzxr9Rr4zK7N6A9GVXu5dEJuVz8JxLU8dHj//GdY7IVlO8T6ATLQ4lUZQ
-	 FIQQLdM96cUdXJv5FwqYyz3yxk5lh31fieFMvkj7f3gEdLsTAB9fA0lxLkF9J0/K8FQ==
+	t=1793591995;
+	b=caDVyiMVoi+WQ4MtfqW6uS2DWZ12uypqBBJXgyH+EXFnRkjBh3jF1cZuYWsoBwmMiHw/
+	 gslcWTG04BZ/i3rDX3Gx+fLIpukxgg4YlrOIzZeHXUafL84kmv0whTaCRUjKr9+4sbpl2
+	 L/juODCHkoLjBIebmr3J+Haxd690Zk8tEaFESAerE7DktR9X+UR4byJ/GLSaJX4mxIPwz
+	 vGVVYTwO6LKHDaYfOl75oV0V2W/htP+FVB3VIHNvg/wvnhQfIIBFkUVJ0GDBVIo4rLkGm
+	 ud9/eAcRsmWjx0l/ny5JpUuCKHaGSGXzlcwie+nttLYhEJLdf9k6rTbxUUpbGGEF4XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793592005;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gncsxwOxdzIxepPD7LeGQpejJVFwj8dCdQz9R4xpCMo=;
-	b=rCF0x99I8fCZ8WVNc1Tdjtm+3lUvmbrl9nCT9ZA7sayh5qROmW9pHAnSAHSXO0i017nZ
-	 eDj7zU6TxtUhlDR7VEw7Wruw9NlBAqtgiZ8huGWdLEImkFplDNQmWltW+xHJHavZ4ZvVI
-	 SsoycA7y8/Vx3GiCTUXeUWE/6VDpOdFaIgfXQ7PITdKEpXhh6Jcdi0X+oDBQ6Kevl5qC7
-	 TjtU6Cp4/3avfZp3WdMiirx1qMX9o5c0hdisdZz92KqEm8toHPTieSBxvgxH+uHKlGqfC
-	 M0PrxBr1JW2C+U67c8XFrw1UEn3PUZk9wSMnkZdHmnl2eG/BPYSqXf4jPqC9uHJ9p0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793591995;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=WUOuof5QyeG4h6zDAvzUQGjyJrapVOdsqODDVpd/AzU=;
+	b=Ga5mU4v0snOIH2M/A+OY5wP/AAWEX3IoUZeLggocOdMx7EN+VXP8VRvvBmgI+EMs6MUT
+	 zgIJHlrrR95aCSZmD/pqmEfi3g/2RnChUfsHyJxu7ZgIi5XlwCcG8Uxe8Q/uI4aAsUSJi
+	 6E8xL6FtOiMpWayUBQ+GJ5K1vAnnoclpY/ksJ6itr3oG16laO9tAWTpMCu8fyplxo6k3e
+	 JrdGmA1myce4FQnqQkhL5x3CiY+weskYxWCVnNpB6+3KmSMojMpc5eoT/d7WWajvRHlp5
+	 gZU5v144qUzAylp1r1+O0hQELgMeeyKn2u+UpkIcKhzgfR1zCWgiF/k1l1gh7LvYHBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=fVX7d3bK;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=rzQqew3y;
-	arc=none smtp.remote-ip=103.168.172.148
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NY32l9RJ;
+	arc=none smtp.remote-ip=91.218.175.173
+Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30585606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30585606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C73606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52C73606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=fVX7d3bK;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=rzQqew3y
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.phl.internal (Postfix) with ESMTP id 6282FEC024A
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:00:03 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Sun, 01 Nov 2026 23:00:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm1; t=1793592003; x=1793678403; bh=gncsxwOxdzIxepPD7LeGQ
-	pejJVFwj8dCdQz9R4xpCMo=; b=fVX7d3bK7lq5sBaKTguvlVI331JEjwKeFwMys
-	1CO9NuB/3aykg87S91/1GsV1WwbWduqL3FwijW6AiOaGTnkWODQVoxabPml5XY/s
-	K0R/UYPBG6ewN4/2mB7R+u8NJN1S+KY1u6wmbxM8T1y1+Qefmboza8f2gI3p7zfB
-	FAXlZ3HG3VDUNDk/X8wjjKsWysXG/lWMWrfqBAy9IRD2r7G0qsHyR+No3dngEdnJ
-	JnrVqJ5+iyS9oj5Oanrba4e1NG/oZbdzuhoWullrhhT3ycj1nj5tzOMd08vYb4+6
-	GigAr+zUI2L+yfyIovDMQy/OGKhE0I5rr4YGYf+PWb8kublFA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793592003; x=1793678403; bh=gncsxwOxdzIxepPD7LeGQpejJVFwj8dCdQz
-	9R4xpCMo=; b=rzQqew3yw1DvxkOiDszkMy//d8C90r5LGDsoi+QVIgEYaGOgyrU
-	1ckK4U8et4g6YMlPfFHj2tW5vhaPdaQmayjKgdLMhknol+mIQGBCD/flnD8JgBql
-	MkWQvk50LAs6Ct//T79U7iGxAYxfuZVk1Xls+q2fesWCvfdmXuKzOglZ7b31u72m
-	5Q2Ig6ETo5W6f84PS70lOflGJr6yFJeaBcAaaE7J42rYKJbKkUgQnFNWW06/MDCm
-	9N/LKyQ7+hTKKRU4Cpt3HTyCmAhlxiN+KE03fkZC5Rej1cn4JBDAyri3M29KziFF
-	fEfAzZA4wvMIxw4JAVdk/zXhAoqLymKyYzQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793592003; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:k4NbojgwQHga6rU73gaRrUWXAS84nIMLJTsACo9jh+UD7Ag
-	t2IGSarkd3EXsdJSPSxhVp/lHjT4WacTFOBmXGwjhOxfeu6dsYD4S5AAmRgz/Pq0
-	HTBqdM2mZvV53Rph+Hsmg+rmTapPbs8T48o6GiTwamPkoO0kU1VctoEaer5MakTx
-	tOJLfUtQGo6V0RxvQYoRBOyyE+XyQoZKY6xHYqPqhc0ewpipE9uBtUHwqE1lmn6l
-	6YtxiqTlU4GeupfG9k8ogaYmE4PsNi1aY8FcMvm40xNMmmeBbd5HtMn63llVDAYx
-	FBtJynQo7AaoW0omDWXl1olWy9sw5xNG6hf2g4Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:+KcfsUXN/YwfNwTjKuT7VWcDsfHqeljGgjLuvNQOzKA=:ZZpd0dsrq1/URa2LFXFA2hu1SK7Q5VhT6gu0H9BpfmA=;
-X-ME-Sender: <xms:wgroagpr3EtdmmaH0mKLjFA8ItrK5R3MhpaJRVR7GNiNzzygVED0Uw>
-    <xme:wgroan9ADkzTcOrtHUe4UCjlM81vEbYQt_wZH612V9mxp0XH7t6uh2I67zuMJzkYD
-    ZtFgAipoX5dnokgSZZfT07YLsJRG_eHdxkCwRFpSVCynEOb81VWyP8>
-X-ME-Received: <xmr:wgroap2URmJPxlHYEHuOTNa0hDHen1tF8An6BVwpHJqx-d8peYnNQ_DlE3C40Op4h__kTUgtkf8xKdgY1v0>
-X-ME-Proxy-Cause: dmFkZTEzRXtRiaTAd4mGyeYqv0SnP4pmBnK31j78JtHP38Kn6jQ6IK4qBMU8wakTI2ax4s
-    1mG1U9J5X2+Dh/br1aF8IoylDS+c4sb2RUAxBKpsldoSnvDbhNHYNTTBNL/zoGmfn/9YT0
-    4NEQbOtLrhOvh3NmjHWq/k4gg41pTmQ0P5UD9YmL9xfuv+jDMZIGfK1ZW0rHCaJeFct/6i
-    RjOfFfbrUZ73ItmB7UYM46Ud68aYdKLDDjo/6H0Vhorg+lqvk4/x1r0FG3pFKbR5nEbbWq
-    vV0T19Vc9iXHFs7HDal9YNhAPHNO613iq+fNFYdjy/Q4V/ZRThJ3F1xUdsOkDw9M2t4atW
-    QrJvu4eBbGt81VwJ4+n99B1gZyOPkuu2TMXmgMPkcmPP+YksG1jrbwdMxxDpZkpX7lS7M2
-    na/S29QtxAPoP8IOJ9BiYs3OTYOFIyslYiVtkMj75nV5hyBCOjEI8MUbc/ILdllNsw/4jY
-    B03zUJuLxFixXfkQ9ArXF6FJbgeZKSlS5n6b1A3eVj++cFaDmsajeJVTVXNfQlN0dMun99
-    Hsc1m+0LgzxveFm6DLNFqkVp/nPSAxBvy2dd3eXYD9zkbaW68VIN1keTnvhW1+kfmZ17lQ
-    z2hvJXDsie8CvsnFP54wzptGlu5WkCgotmyJUOPL096t/L9XGkWr7pckyVAA
-X-ME-Proxy: <xmx:wgroaqn8CRPONngnsXL1mrx5UQNlULbcf1rCvnkCBRoLGviaGO4g8Q>
-    <xmx:wgroam0HMtSCbS5ZPiHqNeV05xwluSAIC_6iNfGFaiSEgTnylapE5Q>
-    <xmx:wgroapje4cUO3eP4KV0floCqMaQSfRaKE9CQG_X9iet0EG7K-dMgIg>
-    <xmx:wgroakWaBgjtZ6rp5RI9NRFZD_nKn85Yw3QMzdMMQnSRUxwR6IqTIw>
-    <xmx:wwroajWmY4vkchsR1J8T1PPlb2dP1QhyL7BufpVsE5n-prIYBghhqhk6>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 22:59:56 -0500 (EST)
-From: FUJITA Tomonori <tomo@flapping.org>
-To: aliceryhl@google.com,
-	arve@android.com,
-	boqun@kernel.org,
-	brauner@kernel.org,
-	cmllamas@google.com,
-	gary@garyguo.net,
-	gregkh@linuxfoundation.org,
-	ojeda@kernel.org,
-	tkjos@android.com
-Cc: a.hindborg@kernel.org,
-	acourbot@nvidia.com,
-	bjorn3_gh@protonmail.com,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	lossin@kernel.org,
-	lyude@redhat.com,
-	tamird@kernel.org,
-	tmgross@umich.edu,
-	work@onurozkan.dev,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>
-Subject: [PATCH v9] rust: sync: condvar: use Delta<Jiffy> for timeout and result
-Date: Mon,  2 Nov 2026 12:59:34 +0900
-Message-ID: <20261102035934.711973-1-tomo@flapping.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NY32l9RJ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=q83PV9k/7H90lkCx+6f3IVbBsobtHrsCWaMNnm1i8fs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793591991; v=1; x=1794196791;
+ b=NY32l9RJ68s2x9k6GR07/i/8hKrmAWD6GObhOLhx/1wMh0G5dUkZLTN90SC4VQdjXLHWvrfy
+ ArYm6qJTNuPmVkkoq2P2VyAPQDPywqjDUeFzsynd/VWU+0V58n7W1eYSKhDZOGnYMkZK9NEgJyJ
+ QHQI8xhG0hIlBnGEdkijL4QA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 72094826e2f7c04a;
+	Mon, 02 Nov 2026 03:59:51 +0000
+X-Mizu-Trace-ID: 72094826e2f7c04a
+X-Migadu-Flow: FLOW_OUT
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Yuchung Cheng <ycheng@google.com>,
+	Wei Wang <weiwan@google.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Qingfang Deng <qingfang.deng@linux.dev>
+Subject: [PATCH net] tcp: initialize send sequence numbers before deferring TFO
+Date: Mon,  2 Nov 2026 11:59:43 +0800
+Message-ID: <20261102035943.9700-1-qingfang.deng@linux.dev>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -140,143 +72,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: FUJITA Tomonori <fujita.tomonori@gmail.com>
+TCP_FASTOPEN_CONNECT can return from connect() before tcp_connect_init()
+when a cached cookie or cookieless Fast Open allows deferring the SYN.
+At this point write_seq contains the initial sequence number, while
+snd_una and snd_nxt have not been initialized to that sequence number.
 
-wait_interruptible_timeout() takes the timeout as a raw Jiffies, and
-CondVarTimeoutResult reports the remaining time as a raw Jiffies. The
-type does not show the unit.
+Consequently, inet_diag and /proc/net/tcp{,6} report the initial
+sequence number as the send queue length despite no SYN or payload being
+queued.
 
-Switch the parameter and the result fields to Delta<Jiffy>.
+Initialize snd_una and snd_nxt to write_seq before marking the
+connection as deferred. Both sequence-based queue lengths then remain
+zero until the first write starts the connection and runs
+tcp_connect_init().
 
-Delta<Jiffy> is signed, but schedule_timeout() prints an error and a
-stack dump for a negative timeout. Clamp a negative timeout to zero, so
-it means an immediate timeout.
-
-Update the only user, binder. It now converts the freeze timeout with
-Delta::to_jiffies_timeout() instead of msecs_to_jiffies(). Both round
-up, so a short timeout does not become zero. They differ only for a
-very long timeout. msecs_to_jiffies() returns MAX_JIFFY_OFFSET for
-2^31 ms (about 24.9 days) or more, which means an infinite
-timeout. to_jiffies_timeout() has no such special case. It converts
-such a value to the matching number of jiffies, so the wait is long
-but finite.
-
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Fixes: 19f6d3f3c842 ("net/tcp-fastopen: Add new API support")
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 ---
-v9:
-- Send as a single patch. Patches 1/4 and 2/4 of v8 are in v7.4-rc1,
-  and the workqueue patch will be sent separately
-- Rebase on v7.4-rc1
-- Drop the comparison with enqueue_delayed() from the commit message
-v8: https://lore.kernel.org/rust-for-linux/20261002050428.2746277-1-tomo@flapping.org/
+Reproducer:
+
+#define _GNU_SOURCE
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <unistd.h>
+
+int main(void)
+{
+	struct sockaddr_in dst = {
+		.sin_family = AF_INET,
+		.sin_port = htons(9),
+		.sin_addr.s_addr = htonl(INADDR_LOOPBACK),
+	};
+	struct tcp_info info = {0};
+	socklen_t len = sizeof(info);
+	int fd = socket(AF_INET, SOCK_STREAM, 0), one = 1;
+
+	if (fd < 0 ||
+	    setsockopt(fd, IPPROTO_TCP, TCP_FASTOPEN_CONNECT, &one, sizeof(one)) < 0 ||
+	    setsockopt(fd, IPPROTO_TCP, TCP_FASTOPEN_NO_COOKIE, &one, sizeof(one)) < 0 ||
+	    connect(fd, (struct sockaddr *)&dst, sizeof(dst)) < 0 ||
+	    getsockopt(fd, IPPROTO_TCP, TCP_INFO, &info, &len) < 0) {
+		perror("TFO setup");
+		return 1;
+	}
+	if (info.tcpi_state != TCP_SYN_SENT) {
+		fprintf(stderr, "Expected SYN_SENT, got state %u\n", info.tcpi_state);
+		return 1;
+	}
+	printf("PID %ld: deferred SYN_SENT; no SYN or payload sent\n", (long)getpid());
+	fflush(stdout);
+	for (;;)
+		pause();
+}
+
+`ss -ntp state syn-sent` will show a bogus Send-Q number, which is the
+initial sequence number interpreted as signed 32-bit:
+
+Recv-Q          Send-Q                        Local Address:Port                      Peer Address:Port          Process
+0               -1405690727                       127.0.0.1:57290                        127.0.0.1:9              users:(("a.out",pid=63363,fd=3))
+
+Diagnosis and implementation were assisted by GPT Codex.
 ---
- drivers/android/binder/process.rs |  7 ++++---
- rust/kernel/sync/condvar.rs       | 31 ++++++++++++++++++++++---------
- 2 files changed, 26 insertions(+), 12 deletions(-)
+ net/ipv4/tcp_fastopen.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
-index 1f4cb43f1de6..edde0ea35687 100644
---- a/drivers/android/binder/process.rs
-+++ b/drivers/android/binder/process.rs
-@@ -35,6 +35,7 @@
-         Arc, ArcBorrow, CondVar, CondVarTimeoutResult, SetOnce, SpinLock, UniqueArc,
-     },
-     task::{Pid, Task},
-+    time::Delta,
-     uaccess::{UserSlice, UserSliceReader},
-     uapi,
-     workqueue::{self, Work},
-@@ -1552,8 +1553,8 @@ pub(crate) fn ioctl_freeze(&self, info: &BinderFreezeInfo) -> Result {
-         inner.is_frozen = IsFrozen::InProgress;
+diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
+index 6dfe40322fb5..ff81e663ac61 100644
+--- a/net/ipv4/tcp_fastopen.c
++++ b/net/ipv4/tcp_fastopen.c
+@@ -545,6 +545,8 @@ bool tcp_fastopen_defer_connect(struct sock *sk, int *err)
  
-         if info.timeout_ms > 0 {
--            let mut jiffies = kernel::time::msecs_to_jiffies(info.timeout_ms);
--            while jiffies > 0 {
-+            let mut jiffies = Delta::from_millis(info.timeout_ms.into()).to_jiffies_timeout();
-+            while jiffies.as_jiffies() > 0 {
-                 if inner.outstanding_txns == 0 {
-                     break;
-                 }
-@@ -1570,7 +1571,7 @@ pub(crate) fn ioctl_freeze(&self, info: &BinderFreezeInfo) -> Result {
-                         jiffies = remaining;
-                     }
-                     CondVarTimeoutResult::Timeout => {
--                        jiffies = 0;
-+                        jiffies = Delta::ZERO;
-                     }
-                 }
-             }
-diff --git a/rust/kernel/sync/condvar.rs b/rust/kernel/sync/condvar.rs
-index 69d58dfbad7b..ae70e91eca94 100644
---- a/rust/kernel/sync/condvar.rs
-+++ b/rust/kernel/sync/condvar.rs
-@@ -12,7 +12,10 @@
-     task::{
-         MAX_SCHEDULE_TIMEOUT, TASK_FREEZABLE, TASK_INTERRUPTIBLE, TASK_NORMAL, TASK_UNINTERRUPTIBLE,
-     },
--    time::Jiffies,
-+    time::{
-+        Delta,
-+        Jiffy, //
-+    },
-     types::Opaque,
- };
- use core::{marker::PhantomPinned, pin::Pin, ptr};
-@@ -182,19 +185,29 @@ pub fn wait_interruptible_freezable<T: ?Sized, B: Backend>(
-     /// Atomically releases the given lock (whose ownership is proven by the guard) and puts the
-     /// thread to sleep. It wakes up when notified by [`CondVar::notify_one`] or
-     /// [`CondVar::notify_all`], or when a timeout occurs, or when the thread receives a signal.
-+    ///
-+    /// A negative timeout is treated as zero.
-     #[must_use = "wait_interruptible_timeout returns if a signal is pending, so the caller must check the return value"]
-     pub fn wait_interruptible_timeout<T: ?Sized, B: Backend>(
-         &self,
-         guard: &mut Guard<'_, T, B>,
--        jiffies: Jiffies,
-+        delta: Delta<Jiffy>,
-     ) -> CondVarTimeoutResult {
--        let jiffies = jiffies.try_into().unwrap_or(MAX_SCHEDULE_TIMEOUT);
--        let res = self.wait_internal(TASK_INTERRUPTIBLE, guard, jiffies);
-+        let jiffies = delta.as_jiffies();
-+        let res = self.wait_internal(
-+            TASK_INTERRUPTIBLE,
-+            guard,
-+            jiffies.clamp(0, MAX_SCHEDULE_TIMEOUT),
-+        );
- 
--        match (res as Jiffies, crate::current!().signal_pending()) {
--            (jiffies, true) => CondVarTimeoutResult::Signal { jiffies },
-+        match (res, crate::current!().signal_pending()) {
-+            (jiffies, true) => CondVarTimeoutResult::Signal {
-+                jiffies: Delta::from_jiffies(jiffies),
-+            },
-             (0, false) => CondVarTimeoutResult::Timeout,
--            (jiffies, false) => CondVarTimeoutResult::Woken { jiffies },
-+            (jiffies, false) => CondVarTimeoutResult::Woken {
-+                jiffies: Delta::from_jiffies(jiffies),
-+            },
-         }
-     }
- 
-@@ -248,11 +261,11 @@ pub enum CondVarTimeoutResult {
-     /// Somebody woke us up.
-     Woken {
-         /// Remaining sleep duration.
--        jiffies: Jiffies,
-+        jiffies: Delta<Jiffy>,
-     },
-     /// A signal occurred.
-     Signal {
-         /// Remaining sleep duration.
--        jiffies: Jiffies,
-+        jiffies: Delta<Jiffy>,
-     },
- }
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+ 	if (tp->fastopen_connect && !tp->fastopen_req) {
+ 		if (tcp_fastopen_cookie_check(sk, &mss, &cookie)) {
++			WRITE_ONCE(tp->snd_una, tp->write_seq);
++			WRITE_ONCE(tp->snd_nxt, tp->write_seq);
+ 			inet_set_bit(DEFER_CONNECT, sk);
+ 			return true;
+ 		}
 -- 
 2.43.0
 
