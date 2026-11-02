@@ -1,73 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793656905;
-	b=x1fiiZGyMvIXS1xRSj3y+eadSuFvYRNJu6IM9j1Tx41zIGFSOZvFPJfbZSkt2KAcNk42
-	 qtoApx8znYJh1SfF91SPN3hHWIcJ5sYNz4uaw6eZVGYwbWg6Rjhac+ADmpOVebDCQ/qhg
-	 +1KCOG7B+ZwhaEMn0YvK/tlz8kbDGEvTMMkIGflJILDITuj2V+xmYkQvBpn9qCGl8pEZw
-	 WNXXKkRFJsgJ2jsLh7zCfvxiV3XH2lRAueIf9k5/+i+PTYmhC7uqeV6WRPiOOsMnPiTWG
-	 FyZ7Mwge7vD9FeVbSyE281J+dbdv/TqZeHqKZLSDVk3qfKwXbP3lEGM21UYaPMQZFYw==
+	t=1793656995;
+	b=JRiC6TLf6Xl1Z5NXe9zgGrF9viGFN0eCGDTw0PZPYXFd0h75I/xE5LwHqiqVmAaVg+NK
+	 PflRYPLwpLXINRsbMtrBtZXm8sWKXYqpO8ujfuIL7ylVWLSyhu0REE8+pZK0KLSLtBFbF
+	 2KS1T3/gPy7Ph+eI8hYzoEarSurz/9AnIyvx3KyLC07wH9v2Lr3xk7Qo8pCIqZbXBVH2o
+	 KWqnDNaLysvnsORcmPhWyYP1zpEMWWTLkxDZWTolJ2lAErldlf8cQJ61nt2AWwXUxjn1u
+	 GZp50J35E2yFHZl2B4WuIdoedhu//7m05v0tZovHbHkhoc8AuLs8W/yiIMWh/iyAWew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793656905;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=5YPyhUMNqUikP+Dpu8lwoaPm7i3mXLT4XpNezIXuTGw=;
-	b=rE1Q9lGjtGj6sy57NHuKoI1LPn6ORw9KzbzoFj0y4fjyJTkJU4aXgyZ7ozrBz0nV7gg8
-	 mYIlXYAfNTzUOXoosIxy72+k815Lyikp6bF8PD1jVp5vatgXPDk1xHjgV/XpgsXxDO9F9
-	 DDcLoyGGjuCLaHBFWci2akjzJrLBlNYqEZDgGjW+fNGvwgeD5wBWUJM2nwKsoWjlaRu45
-	 9jkawI0yydL1nGpO0imgJovuNMnwtbbiYQF/ege7h/NpSOJZTXoInok5/mtwW4vpE5hzF
-	 /uXZPPXXTIhW8BKH2wPSJo83Biuapv11AI3Mm9OTMQEamvER//CvPj2ZYBBCpswVxzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656995;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=B7tvhjLJU3okbL5MoiWuRA1SUKq0KoXzHsZeqZS+QNs=;
+	b=KYYACs+KElsLYRwuKbzGFgmxuxic+YCqmakpOFCJESmpdft+4iCvp2jSuWtgUFljkNmr
+	 gCQIgnyvsZsRdNAcs2u5o8isv3+V0gcJoXrsvNWU5EsXyMz33FwdI2C6lCAKu6+yIqNP7
+	 OizON+oLODnzbaTLNwwajBXngCaoX/aY0dGUFWxoGb8hgm0+/e93unTZML0Aw3PH/3yJr
+	 plXz8qku/wdAzoqtM8lwUwqqA9AQ6+qQ9sPUSThrvXBxLI1g0ah85q3xP9Ul1HS5/J+yz
+	 nyYe12II7rt0u+itSGYSDrHUKoLBLvCiRq/2pZpDR5zgx7MB28nNkgrtvXVbNojQhoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kXs+EV63;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=tuNQekcR;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=QJ6UzNvS;
+	arc=none smtp.remote-ip=209.85.215.228
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADEA606A324;
-	Mon,  2 Nov 2026 22:01:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CADEA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E744E606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:03:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E744E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=kXs+EV63;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=tuNQekcR
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793656902;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5YPyhUMNqUikP+Dpu8lwoaPm7i3mXLT4XpNezIXuTGw=;
-	b=kXs+EV63nmBQt9cForxgH2QSdn/hdKU48lfVQuWctlD2lgoayV/yzm9+RCi+MJg2aemVdc
-	fPQawLkP48FE0V21ZcMl3p6nW+l+3HAEgXMODgynDjP0vm3HqeFabtHWBij10qpjSlnkcU
-	TOOmAG4K5MT/XQXJGpJQRUHhN9HIXBx7LV56P2XRySB4B2cTW1dTbnWogekX9srcXss4Y9
-	J049lsX+j4KKAsUghYX4KnA/7ydMvYubrNmtYdZSgkqjm7Fiu2hp2kTA3wltWuOyR39bzi
-	3bdwM+KIm0+LWgsywf/UBQuNa98n4SpW5ceCuWrcscHdfFRHa78FME/q2VdlOw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793656902;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5YPyhUMNqUikP+Dpu8lwoaPm7i3mXLT4XpNezIXuTGw=;
-	b=tuNQekcR9Vea9SW5HpyvYbzLk5ZCLFFhmkcnO1i7XKifh11f8Pq1jfGznh9n0ZxBB0HOKb
-	9a0Pi6szvwXkpgBQ==
-To: Steven Rostedt <rostedt@goodmis.org>, "Masami Hiramatsu (Google)"
- <mhiramat@kernel.org>, Petr Mladek <pmladek@suse.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Naveen N Rao <naveen@kernel.org>,
- "David S . Miller" <davem@davemloft.net>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Tiezhu Yang
- <yangtiezhu@loongson.cn>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH 0/3] probes: Use trace_printk() in probe handlers
-In-Reply-To: <20261102123408.0fb950bf@gandalf.local.home>
-References: <179360345418.115681.193455787480210412.stgit@devnote2>
- <20261102123408.0fb950bf@gandalf.local.home>
-Date: Mon, 02 Nov 2026 23:07:41 +0106
-Message-ID: <871p9251ve.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=QJ6UzNvS
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so1419462a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:03:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793656993; x=1794261793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B7tvhjLJU3okbL5MoiWuRA1SUKq0KoXzHsZeqZS+QNs=;
+        b=QJ6UzNvS+3Hi0tt2BcNl8f61nIvJQQIENhvp8pGCTHHQ4xP5g+lRhP172YcotzMK8B
+         Z186J+U1t0kYXxJ/KegTyV6yD4BAw46qCaESDptRQ5M7EbwrUJ36RooRcITvdRq46uqL
+         0sklnqAfT7PKwn+bZfAJW8OjdTkGxw3P5DAxVSl0cnd/Rh+bzO6DupO09ts6YW7nrAoK
+         AmexJrGwbwqtqoBezeC4VOvwLnZM5d3pU0f0I4Z4HNRxItsZXyYTWYbno/0VxyISJLAv
+         yqCD03WcKsc+ebQcBQeG4/Cv2V/WN8p4pIISbOQbZxt5h8t3iZY7bLNofawDT6feG/q/
+         GEvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793656993; x=1794261793;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B7tvhjLJU3okbL5MoiWuRA1SUKq0KoXzHsZeqZS+QNs=;
+        b=Hj6E1hZ8uUhtcJ12na1CgAteu0RknMM9+YfysiVF/Qq/GO50zaVksir88Em7a4EiC3
+         qUlEeqF7Gb9CbnCUj0fpMH7eHbItoRLkWlwi2of6XVFWg6UC+U4fu95z9GoWSXP1Enu7
+         gVBtA49TaOaLaHSNcbf4BMgo30SrSdpK3kb/u5c81soyE+2g2nG7Aigid4IbqvUwcG4Q
+         +tiBxFiwkSLmDY0XHkWTwrF+B0JiBe0dfUSWcmtJ1pMrHOBOu9DM18WPmybY/kw+8Li7
+         hidFMHkSTr9vE3AanOr5HDn8RV/F7S8Azf1Qe7DtXDiavs0ehHRd/pDKC1qF2VzdZV1r
+         FXQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxAELtRr7c3a9S9SR3+hrku+OpxqJFBspr5NTiZcZxQ23r/7E/rp7b3g5S38W0CStNSRmZaky7Xfm6hfgs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MnKF1a9Xe0s6o2VmCsQ3Qb9dwWycn1BtRZXI809cJ7UwAomuF
+	BBuyjRT3+SDZ2AA8KCbH1Iy4E1nQidWEuY30q1HkDDDLTlOCPsFgdIf3AWpHoBh7gaakZpFcmvb
+	jhbbjnCuNvS36BE6QPPRk/m9eD8pZ4LoCnUL3Pv8FiyVmDBcXdrEL
+X-Gm-Gg: AYBFou1Zzv5ZU2IH2dhcXwAZ8K1aFy/kxOk+OLonuaVgCeYCyjpN6qB/LwFeIYWDmqX
+	m2tZlmoHEAGYWW6hgJJeISVgEuP5Xq13FLQQCpl2AVj7JCc3XsOJt8Mbn4lbyhBNetpodhafw5M
+	tEc9i2+SRHdd8qX1l/luy/NB5Qf56dr8RtN+5xmxPNOxCPmNbb1MIMlzARwDB71Xg0wRp8DcByv
+	FZbGRPthBHPIqysPSCXhS63VQ2yGXTUqKwd4kexjDzgT92i7WbLAwneuMOR3m2COY0OWrj+rNGi
+	kGVLPBxsbKv3RfV2Poh0fVUQxUBBbBekVsiVLYLiD3nfmY/SW/lze1c+En9p+CI6rWpsfNfqu7Z
+	RQ4IU2LVYR7XV4mei9taQ
+X-Received: by 2002:a17:90b:44:b0:3ac:a11a:7c7f with SMTP id 98e67ed59e1d1-3ae897ab482mr8485137a91.23.1793656993214;
+        Mon, 02 Nov 2026 14:03:13 -0800 (PST)
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae881d509fsm4085327a91.5.2026.11.02.14.03.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 14:03:13 -0800 (PST)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [10.17.2.234])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 0F616436BC;
+	Mon,  2 Nov 2026 15:03:12 -0700 (MST)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 0A2E4DC0CB7; Mon,  2 Nov 2026 15:03:12 -0700 (MST)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	stable@vger.kernel.org,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	syzbot@syzkaller.appspotmail.com,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Hannes Reinecke <hare@suse.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v5] kcm: reject attaching sockets with a ULP, and TLS on KCM sockets
+Date: Mon,  2 Nov 2026 15:03:09 -0700
+Message-ID: <20261102220310.12649-1-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,48 +108,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-[ Cc'ing Petr Mladek ]
+KCM and kTLS RX do not work together, in either order.
 
-On 2026-11-02, Steven Rostedt <rostedt@goodmis.org> wrote:
-> [ Cc'ing John Ogness ]
+KCM's psock_data_ready() is the lower socket's data_ready callback. It
+can run in softirq context under read_lock_bh(&sk->sk_callback_lock),
+and calls strp_data_ready(), which invokes sock->ops->read_sock()
+inline. With kTLS RX, that is tls_sw_read_sock(), which can sleep: it
+allocates with sk->sk_allocation, waits for async crypto, flushes the
+socket backlog, and may wait in tls_rx_reader_acquire().
 
-Thanks.
+Found by code review. On an unmodified kernel with
+CONFIG_DEBUG_ATOMIC_SLEEP, sending TLS records over loopback to a socket
+with software kTLS RX attached to a KCM mux reports:
 
->
-> On Mon,  2 Nov 2026 16:10:54 +0900
-> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
->> Here are patches to update the probe sample code to use trace_printk
->> instead of normal printk. Since the fprobe and kprobe/kretprobe handlers
->> can be called from somewhere where console is locked, using printk() is
->> basically unsafe. Only the unoptimized kprobe on x86 is safe because it
->> is ran with NMI context (in this case, the kernel uses printk_deferred()
->> automatically), but optimized kprobe/kretprobe/fprobe are not.
->
-> I don't think printk() is unsafe in these situations anymore.
+  BUG: sleeping function called from invalid context at include/linux/sched/mm.h:321
+  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 189, name: ksoftirqd/34
+  Call Trace:
+   __might_resched
+   kmem_cache_alloc_node_noprof
+   __alloc_skb
+   alloc_skb_with_frags
+   tls_rx_one_record
+   tls_sw_read_sock
+   strp_read_sock
+   strp_data_ready
+   psock_data_ready [kcm]
 
-Since we still support legacy consoles, it is true that printk() is not
-safe in these contexts when a legacy console is registered.
+Before commit 662fbcec32f4 ("net/tls: implement ->read_sock()"), TLS
+inherited tcp_read_sock(), so KCM parsed the ciphertext in the TCP
+receive queue as messages. HW TLS RX uses the same proto_ops as SW
+RX, so it is affected the same way.
 
-However, the printk_deferred() variant _is_ safe from any context. Once
-we convert the legacy consoles (including boot consoles) to nbcon,
-printk_deferred() can become printk() and still be safe from any
-context.
+The two also stack socket callbacks and neither restores the other's:
+with TLS RX configured after the attach, kcm_unattach() overwrites
+tls_data_ready(), and releasing TLS RX later reinstalls
+psock_data_ready() on a socket no longer attached to KCM. On TX,
+kcm_unattach() restores its saved sk_write_space, dropping
+tls_write_space().
 
-It is misfortunate to add documentation saying printk() is not safe,
-since the problem is converting the remaining legacy consoles. But we
-can cleanup all such documentation later once the legacy consoles are
-gone.
+There is no known user of this combination, so reject it, as was done
+for sockmap in commit 460e6486617c ("tls: reject the combination of TLS
+and sockmap"). KCM takes over read_sock() and the socket callbacks like
+a ULP does, so treat it as one:
 
-John
+ - kcm_attach() refuses sockets that already have any ULP, not only
+   TLS, as sk_psock_init() does for sockmap, with -EOPNOTSUPP like its
+   other refusals;
+ - kcm_attach() then sets icsk_ulp_ops to a dummy, unregistered ULP, so
+   tcp_set_ulp() refuses TLS on an attached socket with -EEXIST and
+   nothing is needed on the TLS side.
 
->> Thus, this series replaces those printk() (pr_*()) with trace_printk()
->> which should be safe to output the result into trace buffer, and use
->> trace_dump_stack() instead of stack_trace_print().
->> 
->> The similar issue had been reported by Tiezhu Yang [1] in 2023, but
->> it was pointed different reason, and not applicable to upstream.
->> I investigated it again.
->> 
->> [1] https://lore.kernel.org/all/d179086d-78d8-d0e3-e113-9072cffa55f4@loongson.cn/
+The dummy is not registered, so TCP_ULP cannot select it by name. Both
+sides run under the lower socket's lock (tcp_set_ulp() asserts this), so
+the check is made at ULP install rather than at key configuration.
+
+The dummy behaves like any other ULP: it pins the kcm module, it is not
+cleared by kcm_unattach(), and tcp_cleanup_ulp() releases it when the
+socket is destroyed. do_tcp_getsockopt(TCP_ULP) and tcp_diag read
+icsk_ulp_ops without the socket lock and rely on it only going from
+NULL to a live ops once. A socket that was attached once can be attached
+to KCM again, but it cannot take another ULP for the rest of its life.
+
+The existing family/protocol check also accepted
+socket(AF_INET{,6}, SOCK_RAW, IPPROTO_TCP), which is not an icsk and
+would have the ULP pointer stored past its raw_sock. Use sk_is_tcp().
+
+Holding a ULP also has visible side effects: getsockopt(TCP_ULP) and
+inet_diag report "kcm" on a socket that was ever attached,
+sk_has_decrypt_user() is true so PSP RX association is refused after the
+attach, and adding an attached socket to a sockmap fails with -EINVAL
+rather than -EBUSY. listen() after a disconnect fails with -EINVAL, as
+the dummy has no .clone, and rmmod kcm waits until such sockets are
+destroyed.
+
+This is a user-visible change that will also reach stable kernels:
+attaching a socket with a ULP, or a raw socket, now fails with
+-EOPNOTSUPP, and installing a ULP on a socket that was ever attached
+fails with -EEXIST (espintcp previously failed with -EBUSY on an
+attached socket, and installing TLS after SIOCKCMUNATTACH used to work).
+Every refused TLS setup was already broken as described above, except
+one where only kTLS TX is configured. Such a socket still passes data,
+because read_sock() stays tcp_read_sock() until kTLS RX is configured,
+and KCM transmits with sock_sendmsg(), so records reach TLS's sendmsg().
+It is still wrong: if TLS was armed before the attach,
+psock_write_space() shadows tls_write_space() and does not chain to it,
+so a record deferred on a full send buffer waits for the next send; if
+TLS was armed after the attach, the chain works until kcm_unattach()
+drops tls_write_space(), as above. The direction is not known at ULP
+install, so refusing it keeps one rule for both orders and matches
+sk_psock_init().
+
+Tested with CONFIG_DEBUG_ATOMIC_SLEEP: both orders are now rejected,
+plain KCM still delivers messages, a socket can be attached again after
+SIOCKCMUNATTACH but not given TLS, a raw IPPROTO_TCP socket is refused,
+and the module reference is dropped when the socket is destroyed.
+
+Fixes: 662fbcec32f4 ("net/tls: implement ->read_sock()")
+Cc: stable@vger.kernel.org
+Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Link: https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55@linux.dev/
+Tested-by: syzbot@syzkaller.appspotmail.com
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+---
+ net/kcm/kcmsock.c | 38 +++++++++++++++++++++++++++++++++++---
+ 1 file changed, 35 insertions(+), 3 deletions(-)
+
+diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
+index a7f94d42036f..1f8bcbb8b9c3 100644
+--- a/net/kcm/kcmsock.c
++++ b/net/kcm/kcmsock.c
+@@ -30,11 +30,26 @@
+ #include <net/kcm.h>
+ #include <net/netns/generic.h>
+ #include <net/sock.h>
++#include <net/tcp.h>
+ #include <uapi/linux/kcm.h>
+ #include <trace/events/sock.h>
+ 
+ unsigned int kcm_net_id;
+ 
++/* Not registered, so TCP_ULP can't select it. It only holds
++ * icsk_ulp_ops so tcp_set_ulp() refuses other ULPs like kTLS. Like any
++ * ULP it stays until the socket is destroyed, pinning this module, and
++ * tcp_cleanup_ulp() releases it. Clearing it on a live socket would race
++ * with lockless readers such as do_tcp_getsockopt() and tcp_diag.
++ *
++ * No .clone: children copy icsk_ulp_ops without a module reference, so
++ * a socket that was once attached must not listen().
++ */
++static const struct tcp_ulp_ops kcm_ulp_ops = {
++	.name = "kcm",
++	.owner = THIS_MODULE,
++};
++
+ static struct kmem_cache *kcm_psockp __read_mostly;
+ static struct kmem_cache *kcm_muxp __read_mostly;
+ static struct workqueue_struct *kcm_wq;
+@@ -1242,6 +1257,7 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
+ {
+ 	struct kcm_sock *kcm = kcm_sk(sock->sk);
+ 	struct kcm_mux *mux = kcm->mux;
++	struct inet_connection_sock *icsk;
+ 	struct sock *csk;
+ 	struct kcm_psock *psock = NULL, *tpsock;
+ 	struct list_head *head;
+@@ -1259,12 +1275,14 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
+ 
+ 	lock_sock(csk);
+ 
+-	/* Only allow TCP sockets to be attached for now */
+-	if ((csk->sk_family != AF_INET && csk->sk_family != AF_INET6) ||
+-	    csk->sk_protocol != IPPROTO_TCP) {
++	/* Only allow TCP sockets to be attached for now. A raw socket
++	 * created with IPPROTO_TCP has that sk_protocol but no icsk.
++	 */
++	if (!sk_is_tcp(csk)) {
+ 		err = -EOPNOTSUPP;
+ 		goto out;
+ 	}
++	icsk = inet_csk(csk);
+ 
+ 	/* Don't allow listeners or closed sockets */
+ 	if (csk->sk_state == TCP_LISTEN || csk->sk_state == TCP_CLOSE) {
+@@ -1272,6 +1290,15 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
+ 		goto out;
+ 	}
+ 
++	/* KCM takes over read_sock() and the socket callbacks like a ULP
++	 * does, the two can't stack. Our own marker left by an earlier
++	 * attach is fine, a concurrent attach is caught by sk_user_data.
++	 */
++	if (icsk->icsk_ulp_ops && icsk->icsk_ulp_ops != &kcm_ulp_ops) {
++		err = -EOPNOTSUPP;
++		goto out;
++	}
++
+ 	psock = kmem_cache_zalloc(kcm_psockp, GFP_KERNEL);
+ 	if (!psock) {
+ 		err = -ENOMEM;
+@@ -1305,6 +1332,11 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
+ 	psock->save_write_space = csk->sk_write_space;
+ 	psock->save_state_change = csk->sk_state_change;
+ 	csk->sk_user_data = psock;
++	if (!icsk->icsk_ulp_ops) {
++		/* Paired with module_put() in tcp_cleanup_ulp() */
++		__module_get(THIS_MODULE);
++		icsk->icsk_ulp_ops = &kcm_ulp_ops;
++	}
+ 	WRITE_ONCE(csk->sk_data_ready, psock_data_ready);
+ 	WRITE_ONCE(csk->sk_write_space, psock_write_space);
+ 	csk->sk_state_change = psock_state_change;
+-- 
+2.50.1
+
