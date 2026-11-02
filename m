@@ -1,74 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613430;
-	b=Qijgq7VvWGgIaINFq9Wi8byRw/O6myxBBpRLZ9bIqNRxuSrh87dTPBGzR80wDAioIfrR
-	 UyTdEve8nRuBrL+PLR/xicqDWc829nNE8gh+/V9YjFb92ZFnd+f26GCBEeHbqvMXKZLX5
-	 bR2g/gbhS1nKCbnyucXB3qZpfd32+Ei41Uwb4k9vUi2/bGe3zxyzKcbGkNwXlpZ85GQLS
-	 L9LGn/rpzLS+f80jSY4unCy3GPEmQa8q0efzQDmy37U+yy8tQpCbECqMjRHKzB7m1XuEa
-	 c8+tJbgIF0Gvu/ZHsiBod0Pucuz0NzLiLJAM++rXOLeRT4V70H7utXrq1LSyVrDggWA==
+	t=1793613434;
+	b=4FqJ4QlLzMoe6YCiEWOmIiWqWa/06DWy3nOF6vRpADWR4WqagEWySM2UFvNXYygm9vg+
+	 gHX2kfEkQXycIzX/4MwDTH+20BqtdOele+9ltKtK3xHqMkRMXXoUfQERvmUmADrHGqpGT
+	 26rdJOuYeZj2hSNdVpfNUL2ksLrYSPgnCGZTcb5OR2dY+tWEp89xGeDo1mRyomgVysE8f
+	 dH90u/EzA2zUGMyZ30kCAYdOd/5G+y8T96DnPAVh8Z3wpw6i/+TmfUdZCsYConAqPkIsd
+	 WzY5Fs/MMCgQ5JOkFG9wA9q9B4iVW7FdYow7vzCRdO6+0IMHSrW1+toC39XBkQ1OBGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613430;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=NF4sUbvPyij751VvJLGiH1sFVHF1zynFqu0g0nQ5mO8=;
-	b=mR8sPPXntTS/1BGyx8a3jfFCpHhl/z7+Z5H2nXWrnmE/upZuKasARZzx9MpSnWZYDiPC
-	 6K+Ey0vn6Rcg/5Vf9fY9m5Wy42WtA9I9NiuDF8aDMyf8sGmjDhycZeysASUy8Nlk0gjWf
-	 SKg5PRRjpD746UhtFNNhYkWih1cd7NOdkqLkEGh29JolivbTA796gOidOQnnQkU+OeFiJ
-	 KTHkq2yzlqB8CCucfvGr8lzZ5ZZv9HX9N9LEvyEbmWPMLuF/BdQVTgh2UgIpsYjVdLEWb
-	 jg3/pbgGTu+r8jLShsTblNQ5/Tci2GF/OOhs7SQpojc3smYoFHFJ+r7RSujoSnRyvxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613434;
+	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2cQyf8sKC1F7loKuPDRIdjy/GzV9dwagAXHv9zwCcFs=;
+	b=iHXNYl+20oYMPEh2+P6DuAOYjXizZUi1lr5bQ0KaDUTOEQ559ouKgsJ6k+45SeltipZ9
+	 Bi6W+xl5X23k3Or9smlM3rEPmNtbE0SodOJKfC7WkUEms0wRqjhPPRmyzivvTi4Sixf/8
+	 S89PNcGIsRpbCawNlxHwZGdBOuppqglCDcQAPZJTTsWjlXw01LmKdK9CXmGXlOYFfUKNY
+	 50MqYpXWtaQHgzRxZRYFcUN8Xav4+eiERcJR/cQEzzCI09NMnOCUzVwaVHUrV6e3I4BSp
+	 cK0iflO+6J9txw+6NITA196l4P2pYbSATCb4ZoAHxu4v6LoNPKXtKb32ZT0ktS6SU+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QwDMTVXy;
-	arc=none smtp.remote-ip=91.218.175.20
-Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kiff0D1h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DCA606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30DCA606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 122BB606A326;
+	Mon,  2 Nov 2026 09:57:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QwDMTVXy
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AHRF3WdW4TVnGF5J3qplS9mbVl+JWJar5CHhjFr/pmc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793613422; v=1; x=1794218222;
- b=QwDMTVXyG4+edckaGs8PJEvZ4txfbLY/qFE+oWo3YQaTIg6B2AzD91ixYwZMsPGj8qKFldYu
- lQYltrp81oMhLR2ED1H44Pp+m4RPU1fl80g+TVTQYBKVMyQ3makPFhQzPrgRtGM+KETUWy1fo7w
- dD/5aJ1ZtrzdDn6fM+T1RI4o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 484bc338bd20a5e5;
-	Mon, 02 Nov 2026 09:57:01 +0000
-X-Mizu-Trace-ID: 484bc338bd20a5e5
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: James Morse <james.morse@arm.com>,
-	Ben Horgan <ben.horgan@arm.com>,
-	Xi Ruoyao <xry111@xry111.site>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Gavin Shan <gshan@redhat.com>,
-	Yuan Yao <yaoyuan@linux.alibaba.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
-Date: Mon,  2 Nov 2026 09:56:56 +0000
-Message-ID: <20261102095656.2948964-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kiff0D1h
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EC15A1F00919;
+	Mon,  2 Nov 2026 09:57:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793613433;
+	bh=2cQyf8sKC1F7loKuPDRIdjy/GzV9dwagAXHv9zwCcFs=;
+	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
+	b=Kiff0D1hzOFg0lPBzARDrDswtvyheTKFPGRY6Dhk1IRrG+fJRs6MIhAgBNie8TxNo
+	 qv8Z2dIwsyL8p5KE3l85iESoMFUAhJlhQlQWLtQiv++Un14uePj29XUH/YqwG5y3nw
+	 yq4MClM8NBo8OSpPr30z4+ifmZpvWgMR67iDRhk3NWrLlAs2/kh9eups5HmEK02ces
+	 TIDTvzqBeBrNGYkz41UlqS/iD6OwK9WcP4KupAZHLmfVLEUDgYpGbtgw6c0O7yCqB+
+	 kbxRhViJ7R1uvMokm8gHO5p2SSeaCAoq97d2tuDdOjy/A+Xt18Xl3Ks6QOF2ytMGw+
+	 FPEND+fBTxj9w==
+Date: Mon, 2 Nov 2026 10:57:10 +0100
+From: "ukleinek@kernel.org" <ukleinek@kernel.org>
+To: Hal Feng <hal.feng@starfivetech.com>
+Cc: "patchwork-bot+linux-riscv@kernel.org" <patchwork-bot+linux-riscv@kernel.org>, 
+	"conor@kernel.org" <conor@kernel.org>, 
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"emil.renner.berthing@canonical.com" <emil.renner.berthing@canonical.com>, "palmer@dabbelt.com" <palmer@dabbelt.com>, 
+	"pjw@kernel.org" <pjw@kernel.org>, "aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>, 
+	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
+Message-ID: <auheO4sRs4P36jgw@monoceros>
+References: <20260810030714.48100-1-hal.feng@starfivetech.com>
+ <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
+ <NT0PR01MB11026FD52BC4266EFFEACBD5E66A2@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,132 +64,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="g7uwo5ayfmhz32zt"
+Content-Disposition: inline
+In-Reply-To: <NT0PR01MB11026FD52BC4266EFFEACBD5E66A2@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
 
-finalise_el2_state() clears the EL2 MPAM traps on every CPU whose ID
-registers advertise MPAM once the arm64.nompam override is applied.
-KVM sets them again on guest entry only when ARM64_MPAM is set, a
-capability that also requires MPAM1_EL1.MPAMEN. Without EL3, only
-MPAM2_EL2.MPAMEN is writable, and the kernel never sets it, so
-ARM64_MPAM stays clear and so do the traps. A guest can then access
-MPAM0_EL1, MPAM1_EL1, MPAMSM_EL1 and MPAMIDR_EL1 while its
-ID_AA64PFR0_EL1.MPAM reads 0.
 
-Record two per-CPU flags at KVM's CPU init: whether MPAM is
-implemented as finalise_el2_state() tests it, and whether
-MPAMIDR_EL1.HAS_HCR is set (MPAMHCR_EL2 is UNDEFINED without it).
-Read ID_AA64PFR0_EL1, ID_AA64PFR1_EL1 and MPAMIDR_EL1 from cpu_data,
-which holds them with the overrides applied since commit 342e62ded77c6
-("arm64: cpufeature: Read MPAMIDR_EL1 in __cpuinfo_store_cpu()"). Set
-the traps from those flags. MPAMEN isn't part of any MPAM trap
-condition, so the traps take effect whether or not it is set.
+--g7uwo5ayfmhz32zt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
+MIME-Version: 1.0
 
-Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
+Hello,
 
-Notes:
-    Changes since v4:
-     - Take ID_AA64PFR0_EL1, ID_AA64PFR1_EL1 and MPAMIDR_EL1 from cpu_data
-       (was __read_sysreg_by_encoding() and read_sysreg_s()).
-     - Commit message tightened, and the TIDR comment no longer
-       rewritten.
-     - Ben's Reviewed-by dropped, since the probe changed.
-     - Rebased on 7.4-rc1.
-    
-    Based on Linux 7.4-rc1 (6628e7d4c6b25).
-    
-    v4: https://lore.kernel.org/all/20260924165329.1684155-1-fuad.tabba@linux.dev/
-    v3: https://lore.kernel.org/all/20260911104715.307500-1-fuad.tabba@linux.dev/
-    v2: https://lore.kernel.org/all/20260908145651.2828597-1-fuad.tabba@linux.dev/
-    v1: https://lore.kernel.org/all/20260903160819.831518-1-fuad.tabba@linux.dev/
+On Mon, Nov 02, 2026 at 02:11:46AM +0000, Hal Feng wrote:
+> > On 26.11.2 06:17, patchwork-bot+linux-riscv wrote:
+> > This series was applied to riscv/linux.git (fixes) by Conor Dooley
+> > <conor.dooley@microchip.com>:
+> >=20
+> > On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
+> > > Add OpenCores PTC PWM driver which is used in StarFive
+> > > JH7100/JH7110/JHB100 SoC.
+> > >
+> > > I will maintain this pwm module in place of William.
+> > >
+> > > Changes since v21:
+> > > - Allow non-zero duty cycles shorter than one clock tick to round dow=
+n to
+> > >   zero.
+> > > - Drop the .free() callback to preserve the PWM hardware state after
+> > >   pwm_put().
+> > > - Update the comment.
+> > >
+> > > [...]
+> >=20
+> > Here is the summary with links:
+> >   - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update compatibles,
+> > examples and maintainers
+> >     (no matching commit)
+> >   - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
+> >     https://git.kernel.org/riscv/c/2186ec5f59c2
+> >   - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
+> >     (no matching commit)
+> >=20
+> > You are awesome, thank you!
+> > --
+> > Deet-doot-dot, I am a bot.
+> > https://korg.docs.kernel.org/patchwork/pwbot.html
+>=20
+> Has this patch series been applied? I've sent out the updated v23 patch s=
+eries, but
+> Krzysztof pointed out the Tested-by tag should not be added in the dt-bin=
+dings patch.
+> Should I send a v24 to drop the Tested-by tag tag, or should I make the c=
+hanges on top
+> of v22 if it has already been applied?
 
- arch/arm64/include/asm/kvm_host.h       |  2 ++
- arch/arm64/kvm/arm.c                    | 12 ++++++++++++
- arch/arm64/kvm/hyp/include/hyp/switch.h |  8 ++++----
- 3 files changed, 18 insertions(+), 4 deletions(-)
+The way I read it, only patch 2/3 "riscv: dts: starfive: Correct pwm
+nodes" was applied.
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 97332ffcb1300..d6b9538cbec36 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -839,6 +839,8 @@ struct kvm_host_data {
- #define KVM_HOST_DATA_FLAG_VCPU_IN_HYP_CONTEXT		4
- #define KVM_HOST_DATA_FLAG_L1_VNCR_MAPPED		5
- #define KVM_HOST_DATA_FLAG_HAS_BRBE			6
-+#define KVM_HOST_DATA_FLAG_HAS_MPAM			7
-+#define KVM_HOST_DATA_FLAG_HAS_MPAM_HCR			8
- 	unsigned long flags;
- 
- 	struct kvm_cpu_context host_ctxt;
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 157bf4b812020..5bab4833c9d33 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -32,6 +32,7 @@
- #include <asm/mman.h>
- #include <asm/tlbflush.h>
- #include <asm/cacheflush.h>
-+#include <asm/cpu.h>
- #include <asm/cpufeature.h>
- #include <asm/virt.h>
- #include <asm/kvm_arm.h>
-@@ -2496,9 +2497,20 @@ static void cpu_set_hyp_vector(void)
- 
- static void cpu_hyp_init_context(void)
- {
-+	struct cpuinfo_arm64 *info = this_cpu_ptr(&cpu_data);
-+	u64 pfr0 = info->reg_id_aa64pfr0;
-+	u64 pfr1 = info->reg_id_aa64pfr1;
-+
- 	kvm_init_host_cpu_context(host_data_ptr(host_ctxt));
- 	kvm_init_host_debug_data();
- 
-+	/* cpu_data has the overrides applied, as finalise_el2_state() does. */
-+	if (id_aa64pfr0_mpam(pfr0) || id_aa64pfr1_mpamfrac(pfr1)) {
-+		host_data_set_flag(HAS_MPAM);
-+		if (info->reg_mpamidr & MPAMIDR_EL1_HAS_HCR)
-+			host_data_set_flag(HAS_MPAM_HCR);
-+	}
-+
- 	if (!is_kernel_in_hyp_mode())
- 		cpu_init_hyp_mode();
- }
-diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
-index e0c55644224cb..f487d3a93fe27 100644
---- a/arch/arm64/kvm/hyp/include/hyp/switch.h
-+++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
-@@ -298,11 +298,11 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
- 	u64 clr = MPAM2_EL2_EnMPAMSM;
- 	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
- 
--	if (!system_supports_mpam())
-+	if (!host_data_test_flag(HAS_MPAM))
- 		return;
- 
- 	/* trap guest access to MPAMIDR_EL1 */
--	if (system_supports_mpam_hcr()) {
-+	if (host_data_test_flag(HAS_MPAM_HCR)) {
- 		write_sysreg_s(MPAMHCR_EL2_TRAP_MPAMIDR_EL1, SYS_MPAMHCR_EL2);
- 	} else {
- 		/* From v1.1 TIDR can trap MPAMIDR, set it unconditionally */
-@@ -317,12 +317,12 @@ static inline void __deactivate_traps_mpam(void)
- 	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
- 	u64 set = MPAM2_EL2_EnMPAMSM;
- 
--	if (!system_supports_mpam())
-+	if (!host_data_test_flag(HAS_MPAM))
- 		return;
- 
- 	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
- 
--	if (system_supports_mpam_hcr())
-+	if (host_data_test_flag(HAS_MPAM_HCR))
- 		write_sysreg_s(MPAMHCR_HOST_FLAGS, SYS_MPAMHCR_EL2);
- }
- 
+Best regards
+Uwe
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.47.3
+--g7uwo5ayfmhz32zt
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmroXnQACgkQj4D7WH0S
+/k5t+ggAj8/tZvnqb0XSSo59bIxsRnNZ0QQf80PHn3F4h0SvL1vMUD08nW3IUOmf
+n9mHe2fe0MQpH9Ay0uqyPUuMi/f1hyVyB0KtPruGqifQ/x2xknefeArHlRAZvGkR
+r0SztUC5fIfUioGJfnynVl9rrIFi2HCfOMCRAnyP1YBvEALhHw/MpCQRbdZd7XKE
+5LCVDb3aJBee7nktDXrsMYvbbLYHzAd43pU61W79zMhBQg/0SoiRZAJtmFRq90M6
+QOQ43RbQj7cZLZ3xlIjhoXG18tvoJFZhFYqEf7bsAtSagCOe13mH/TKfiKxs3NZv
+vj+/Csw3/gObvGnq1adib1xuZMwu6A==
+=cSrd
+-----END PGP SIGNATURE-----
+
+--g7uwo5ayfmhz32zt--
