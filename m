@@ -1,111 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619691;
-	b=vSSYHEdhm9bI2HhkR1E/7AxLLbVWDclPYq6XUl9IA//duTGu0iCgrFaJDA9ZcViIxunn
-	 P2/byWSCFUPDn5rGdQYfjXiZONnIHsqy9w7BJQdRbhtV3V0Qb06NmJLLCsnt7ibhla+iq
-	 /53ww+8R4oSsqkBx8ygtp4ZdFOCbTqnEg+sARWXjmJm89Ce+lsmO1fB0XGtAvSRkveF/9
-	 0LLto4+2AzhyAcNK8x6OpG/p+WmwcCWDeBgtxU5jP7LljqQo3CcgZBe5S7QHrt/b+Hmin
-	 vbXSJHqIhbgkwCyrSzB9RYz1DvZikfLCs+H3kH6Fup5SciDYxsXm75VayL4Ec/pyrPQ==
+	t=1793619702;
+	b=A6LMz9Tt5oDVUjWpLTAnQmcThQy84QvReMQq5XnCLTrxxz17lirQgCkWJBXUstFjZhqf
+	 Zf6rROcZtPZpv1EqwI5kQsHEalFxdg1+SJIqwse2M3L7dI2pCp19ckXii3FXB+CfYh39B
+	 MZnR54BMYxmFAeSykAIr0ObG0lzWJAZUuS7JYCJZypcvS7te5sEqXIAcGmA4E9lKm58Z5
+	 alU11y5mmvgIwbhdmxQGKJf8xXGJjUgEdSboIpqgvc8pJlrlrTYQ9nljeRIykQ4vk4BXh
+	 iyznOe6Ys2ICR1OFHgzI6e71X/KCbumroPFbfVQkyiLxcyBxGMY7wrVU4EQCJyTn91A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619691;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=DfILuvUDP/rD7AiORGLKXm/sfLDG2w5A0n5tcVIlud8=;
-	b=27LjH43jBKx4ic7oM8F/f8aTosjf/uc7otf4kHQHHKFJN6JsGcF2VAEm+M+MCSP3rTbd
-	 n8CrEWRgKT2OuYmaIe1GQieJsNCIhcRA1Zl/3/4WszfLiXBEaFHC1LjdbBpywPNqOJB9t
-	 LdpJWS4Q5Ef07bYUaWjt2IuCtrMBpSPfanUk+Xy/wYWLAYvtJBzr1xDAKDqrmOCGpWFlk
-	 KhNuBSQOQjQnGEllmafOBLj0eMv/OJLRXi7GF2DRVI/DFAwX6frKfQ7EK9xeKPOQIkgUi
-	 xaU0hQVpnIORYEjoZisFdqe59Xjw6QDUtT2ZnzrCZ7vP3GerrFh0Gn1rSUYpb/aqEqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619702;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=5rqHvwjECQWToFtKKOyTtpPoZY/7s6Eyj9/c7r3hJ48=;
+	b=U8PCLMD4T2LRTGthup7rs27J/FbCfJJ2tQBVVYTkVEbF0JjB5DcSdYlO0GrCN0UxeilV
+	 UQXhZTNbRT0cP4ZWcfGeDYziiop1SnsOksbRIPq9QH0jU3WkZi9ibVhLdIDHF4tBdUDcL
+	 30nN1/5NHAGpLD/z0L6rt74TI9DrtoM3ctSnqlO/IOKMCKjvheCu8ermtJAp/HJ4UBAnN
+	 I4vUpyeMBXANT/1RAqGISGjjosEBqCC11qQqe4G3RlBoMJ5aXvT+iyiqgqtoCCzaEGKk9
+	 EopgZISVqRWwYB64KpOPSc9g5IG7mOoNRh8Mn7pUeLDZqR6BUUxUIXWthn5NNDyDmOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jQOd2vIc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OEY7hCov;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f26lkpmY;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C47606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:41:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C47606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AB6606A339
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:41:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78AB6606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jQOd2vIc;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OEY7hCov
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2B4MIs2616191
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 11:41:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=DfILuvUDP/rD7AiORGLKXm
-	/sfLDG2w5A0n5tcVIlud8=; b=jQOd2vIc0qSvFzdlIoWJFtraM0Wj2KSCXgKGds
-	Xb879iAh6AtMO/ZtVvJNO6VM/g/Lb4mo+xbiUIM8MqpZgujL1FA0L3ZLxNDN9wsA
-	RTsN9cO9hQSLGgk/n5nKM8cJquLI6LJvHkOnJZSwQESoGLK4nbP2kCzOIiSuEJL2
-	1mQBRZ2hjreRZq6xFh829XNwbn0THf4vT8oD4Iui0mrzhMRAiMqgDmEBsqfdWxVv
-	UQt+nvikhQi1W1HaowRU8H/fGLTnGaN+RysSsdi4P3To91dGN5UVVvQksmISSBnL
-	x2TJFqDlNZXxo2sg6Y2+e4MG/GwKiLzUmsVLVlfTfXCQ2KMA==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpsavg450-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:41:29 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-98f0cae5b9cso311070241.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:41:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f26lkpmY
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso28461155e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:41:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793619689; x=1794224489; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793619701; x=1794224501; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=DfILuvUDP/rD7AiORGLKXm/sfLDG2w5A0n5tcVIlud8=;
-        b=OEY7hCovYWTKdNqHJmzc2O0JAXc9FTPYxagmtf1XQGjSg/koaOkJKfZFvGaCL7oWYV
-         5r1FN4ZP8IQNv3IhCrA1t7T0DMzaWoqPY7v1brYq+MUfNQyPnrpAEtg/Yb1HVkIgafmi
-         PV8FC3K59CSXStrGkD98vOONyDPvCyilVE6Swj1HPgsm615sGHcbHj3NADGDMJn9qoW2
-         nBQSibwe/s0t1+ixlCLnefBJ6uXClLDEywcVeFtD1fD8oINf2jfEnap1JeD+cdnZdX/q
-         2SXu20xY2OMlOdBRxInqSt6MMCBokKB9660ZT/5zTkZRGehaDNDjtOedIB+gX5u7mVtI
-         gBUA==
+        bh=5rqHvwjECQWToFtKKOyTtpPoZY/7s6Eyj9/c7r3hJ48=;
+        b=f26lkpmY0bcRZByb9+jmyOVykROupuOBO7lLJc6spGn8gTo8j5ah844BYtC64zvq0V
+         e+ZJB1J5DGNp0BhgOZrtfdzJCbfqe1yTsdy6/VXXh00eQTKkqlwSiMgYieJAwicKM/11
+         rzgqRUCeGb9eKsBqybZiSeEejZWmyIYkUh+EzNeGiJoIruVaAzO58y/WIIkj0EnIuquc
+         uIICp8C+O+oaMylBbgdLuJt+IX0hFZdQP9aEHbFxOClRloGDcSnw553W6csnprfSvjuz
+         MMdQf3BcaGSU2x2qxxLRV9RDIk5IVRDOWs5q+A4mUbNjjW3vbPuBQBmACYJsHJs+JXSi
+         jwgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793619689; x=1794224489;
+        d=1e100.net; s=20260707; t=1793619701; x=1794224501;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=DfILuvUDP/rD7AiORGLKXm/sfLDG2w5A0n5tcVIlud8=;
-        b=hEtz3WCI3PCPtXapC/XsxKp3yGvCeP8WggMhhyImAWvqODOheL3SZaaVQ+C5HpRI9p
-         qnsvlHOaTDebB4KGkkeTPNdjH6erVDcQUTYuTA9EkAxhKcvJCJJIu1iTEi/n07cv0GhZ
-         0UoLQFX2n2LYp9/3snr+2Wjscaxb+fFJM2sRuJAmtIrxFeUW9jMFCB6huKQV6n+QvQzJ
-         Mg+gt5eObquiBIYhvHeOD0GHCvwgAT9ZnjdDSFMYLZDWCbHuFvI7s6oPTzS6LNyXhUTT
-         1MXqqtfSUXlAFArOuxsjIlLlMEXDcDpSnjwf+fZBJzxrRoy7YKHdYOE6iZIqVpUwXV7A
-         WJUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAaT0o5SNJg31LGZ4eN+dlN7Y41TjtEgARarITebXallgC5oYKacp+JW1Bkranu7c2av5S/hRS15qyRwA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ta6CwdAlp5HQneqrTXxbbDSniSiHl/TRKfJBSTLTlEDlM2KdA
-	Hgt6iYZ1V4g+hdJkuQshdXjGfNpjes9J4+Fqv4MJBTyz/Kr2TkKwQUiUs2n72NChTtkvOrmJ26t
-	b5mOAGdwkZLPDda0uOIcgToikR8OCSONNBkCVKl3Vo384alzCAA4/RuDRq+XXebkRoQQ0GvKQJ0
-	DUyg==
-X-Gm-Gg: AYBFou2uK577+bEgxRwTMybMflvxsd/WigFqO5duoEyUGuwUBy/DKmChoQEA0JQypMK
-	nkI/gurPSdUtKpCwOFsElPtzQ1dr6dswsOPtlnzMkjjIxmADoR+cysFMSHACjCF97+iDyc8vjEK
-	7AkE3nD96yGzhPK3Tz5IxSumFjKSkHa089s1JC9TeAI+A9uAycccMj9AVkkMhovIzOiZeC7HCC9
-	8D6XUMd37WzhjcKpNeIznpp1sHWQtu1pD/rFNXQlR0WrSZoQEZkZNdc/+Qn7KUWBbju5of257SO
-	jM6XvQ/HJq33CZIsxTENIgGS62vTGgxMI/j7Q8xKYUhhQKf0l6TxTPjDPvDJrK8GwIlWvXU2upu
-	MD7o3kmqDX45mYlm5qi42NDoziDWlez4UhR3OJ3uFHlXAxs3l/6zSEprP9g==
-X-Received: by 2002:a05:6102:5487:b0:7c1:75c5:c4c with SMTP id ada2fe7eead31-7d072605206mr2815185137.25.1793619688626;
-        Mon, 02 Nov 2026 03:41:28 -0800 (PST)
-X-Received: by 2002:a05:6102:5487:b0:7c1:75c5:c4c with SMTP id ada2fe7eead31-7d072605206mr2815175137.25.1793619687806;
-        Mon, 02 Nov 2026 03:41:27 -0800 (PST)
-Received: from [127.0.1.1] ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d511sm19275953f8f.8.2026.11.02.03.41.26
+        bh=5rqHvwjECQWToFtKKOyTtpPoZY/7s6Eyj9/c7r3hJ48=;
+        b=LQfAl34AMImwCQ9Nx5iokX+hA2CEJYgRP4KcXi+fFvy7OMFAqS72jjHDbE9z6KyWhm
+         HGsW5gjF+6Ffy5c2B1/B95ZysOHcBWLK+bMlU699DSznvYDaFz+UqKbboIGIK04Y/jow
+         +YXm/w5xKwH/Ppc2EZj0HVfNNdWSAGxGqRAFHGmw7cnYKPKcjXT1meb60QdeTlKgpyRf
+         kn5LePO9XFepLDHs3m3X/V3nhgnO7a/wnqrwNiDdKSY100G37j104y9Tgn9g/MtahEdf
+         llA4AEzzJOPmsxwztxB/xkAdT99AdsuEsZMHcHG/OrEV2/Hkjihir1MyKPPIxUb9dwSn
+         ZHgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxR9ezNwsV0IH7oVnfIOXfpJeX7CNE4e0a41yciqyfOiE64PqIknfoGSOnMD0zebm+uU2xPVuo71+FEy6A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5Jhv2QLBQWTPjpdXjUC+oXXmWVUqVAyrfA98Guj5i03DAeKnO
+	J5YyWgLanLDnJn/w1KL0kJNwPYiS4xp6aJWhHYvgdJoFSonHwXxa2WnY3sigWucPxkY=
+X-Gm-Gg: AYBFou2yGi9AjB6jPjxc6OLuuA/kIbcq1kuNWDmUgJMlA1wr1xDytUOIDRR+kXpm804
+	Otwk2wmV/wQyzUuXXEmj1kLPJZmtYy2JTMaNVlhIaFtKqTHO5E8hGjVZk2wEWOZLARSkqexCvP8
+	9C/p/7cwzKb4oFfcXiZQ3qc9qWtJmznrZS+XaX62FVbmPaCt2SaurUyO/XKtm8EMoP/NcdL0enf
+	UOIl9ePMG/lc7yMWS66am8OqUxIITn1AZKFv9BPSCZjB16oUhdOTa0w9s+DdZFH4oNYWY7Roiqq
+	p5vac3pDb/DctZY9sGBWTz61/Rl2Rb5DZ/ZpfRrWP6ySkNAS3XVxZYZNL74C2KN+TKq3xmfKb75
+	Nzk6Oe7pVSXhEtI6uflnTtwxuCB51S7RySoLKtApJZqxdQVwbMbvBgxJy1T/PPsikOjamEEjfna
+	iM1tzx4N92+mG49NM1kHfjQjNRdLZ9/NjqBtcTnF+GL+iEJbQUTYDJ9PAypjkQfb9MOjQJ/tJsE
+	iDhktgUqU6cKWAkuZ15RMKDkukqL4K+niAXRtIPsqlBvzdn4V7VeFnFoS5T/P0eD7yIPutLCQOm
+	mgK2zUI70L85VNVbPKImuofE0ZiyUBPooJUZi4OjSjHT9xJ8hXdyrbyI4Q7FnRFCtYyJaKidwzu
+	zjp6VP/GFH7ORlMc8UZLuJjCOlbwf1deCSuda19mfTojidYSjFcA=
+X-Received: by 2002:a05:600c:6215:b0:4aa:1527:659 with SMTP id 5b1f17b1804b1-4ac17a366c0mr231375965e9.17.1793619700722;
+        Mon, 02 Nov 2026 03:41:40 -0800 (PST)
+Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at. [80.108.121.211])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3f9sm21715781f8f.4.2026.11.02.03.41.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 03:41:27 -0800 (PST)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 13:41:17 +0200
-Subject: [PATCH] power: supply: qcom_battmgr: Fix pmic_glink client
- use-after-free on unbind
+        Mon, 02 Nov 2026 03:41:40 -0800 (PST)
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Mon, 02 Nov 2026 12:41:33 +0100
+Subject: [PATCH] drm/etnaviv: Keep busy jobs alive in the hangcheck
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,197 +93,136 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-battmgr-client-teardown-uaf-v1-1-972fc5a5e0c9@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIANx26GoC/yXMMQ7CMAwAwK9UnrHUhMDAVxBD6jjFCFLkuAWp6
- t8JMN5yK1RW4QqnbgXlRapMpcHtOqBrLCOjpGbwvT8613scotljVKS7cDE0jpqmV8E5ZsyHvc+
- JQiAK0Iancpb3bz9f/q7zcGOybwnb9gFbkk3sfwAAAA==
-X-Change-ID: 20261102-battmgr-client-teardown-uaf-f532fdc44cc4
-To: Sebastian Reichel <sre@kernel.org>, Fan Wu <fanwu01@zju.edu.cn>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4946;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=x4fAiWwCWzADg3m0fRd4Wwzu9DytOUqrL7kGuWcpYQQ=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq6Hbleob7tW6ZrMlRVyafq9Zo2qBIBRsM3WdQH
- +kJcv40kJCJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCauh25QAKCRAbX0TJAJUV
- VlFpD/414DQ0ZY+4lpuTbLvFvdOUtv1fxWzc8zIF3CvpB2iQHchcbcLUDWmXA3LkmVOgWYqPtKA
- iJJTfht9oYaFJ7bKqbLKCcY0Mi2KPGxfvLW0wEvtFMBzZDT7lbG0c3ldAKIkmxa/ZuxSrdpXdAS
- 9JsFRnzxfn0t6k/rRs+3jAGzTbmH3tdtozTzWJflktYMx74Mj1I1dmKcKYHI5FvfxK9qwt8gDQg
- HQzZxteuhyQ3cOKEpB9ZowIopN1B21XXSLqusz3pD3xOjOzXqJABlxN7YCMhUr0/YxSK8yfydZs
- DezFnJhgYZ20y6uS7heAY8aQQp/IOR2Ob7s3BjogGYaZhPf/0LeG5v/VIwu8rt5EcGeR6xC030J
- UrVhqHEK4ls3/D/u7fvE732ltK3r/SvfOitB+dpIVSXbYr9o9SpQqstE4akBDwrCtkcXIDK4OtY
- T2Mm4cWFjrhP2f3KK55IZL+yYCaMboNeaPwkG5nJm3Z/aiAqI/fuk2B/Jm27owzE1uazXgGCCpz
- ln/ZLWtm2/RebgxP9F94eKP655xBD6YncNnOgJS5P54zPCqBnNbUEuu5/H7s3HAvS4M+aq+hFty
- O+gj3T5UWzmZouOL5ocpJVf0nujT8f/ygirJYAAvuWBTq0k6yUCc2JD0ZP5WUn9obSoOA86xpJs
- OMeR84AMnxg9BzA==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0NiBTYWx0ZWRfX/eKffqNA/Ccm
- DuxFXcxYrfjHDAhqBdE0OY9gpOmcOVTQX4bPLr0InPs9VKf2afI22pWK9BgfNPM6eiz4iVmvSts
- oMNI/GQ57skHkgFZTdnxF3hqf0wnRYzqUu1qkHf6KhPjUqhX17r899J/Qk+1RxgX5mqUUisDkbg
- 1kbs/a3Aww4/87wEq7GO6WvW6fiUZqTbf/PLPbnTe7CcUQP+3shd0UGhypLT3Kw14baX+43jGk2
- LcNoXR8ob6IUCX0SKkexMFsuto9Rp5hdaUD5fcfU8+5dw8RM37JYXDXQDcsSp7csgvxHBhdVXQy
- D02L7P+irhuLi9NGe0VHbubkGI2EBWAfnPjyk0SFanlWKHxNyKaWS0IZ/4IYK6uHKkgiwixB4kY
- 4YgOkEn5UL5v/tJToDI0ro3suKOghzzxtcPHarU40kC9G3FqLMXSJBY6p9/xIvBUDltOUBDcXYS
- rHbvayqo/VYiB6b94BA==
-X-Proofpoint-GUID: lbtQM17lAXOlNuH3WoQldVDAebYHQf46
-X-Authority-Analysis: v=2.4 cv=FZmiV5+6 c=1 sm=1 tr=0 ts=6ae876e9 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ehDivE5OXch7XbvYWcoA:9 a=QEXdDO2ut3YA:10
- a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0NiBTYWx0ZWRfXxYKeckE0fq16
- 2p5b+ZbJ1bkC/30d7X7va++jSCdHYXpPWUm5jIkntzqHXaefAALzFP6drlhj4U7+t8IT1aDL4QV
- LYG2cr+LyCI7936Z2EyAxSDEwmwcCgY=
-X-Proofpoint-ORIG-GUID: lbtQM17lAXOlNuH3WoQldVDAebYHQf46
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0 phishscore=0
- malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020046
+Message-Id: <20261102-etnaviv-compute-hangcheck-v1-1-1f81dd1806a2@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MwQqDMBAFf0X23AWTQxR/pfSQri+6SKMkNgjiv
+ 5v2ODAzJ2UkRaahOSmhaNY1VjCPhmT2cQLrWJlsa50xrWXs0RctLOtn++7gnyQzZGF596NB54P
+ rA9V+Swh6/N/P13Xd8WktyGsAAAA=
+X-Change-ID: 20261102-etnaviv-compute-hangcheck-cb8d1e7af68f
+To: Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>
+X-Mailer: b4 0.14.3
 
-Since commit 4e40befedfc8 ("power: supply: qcom_battmgr: fix
-use-after-free"), enable_work is cancelled by a devres action registered
-before the pmic_glink client, so that on unbind the client is released
-first and can no longer requeue it. But a worker that is pending or
-running at that point still goes on to use the released client in
-pmic_glink_send().
+From: Christian Gmeiner <cgmeiner@igalia.com>
 
-The power supplies have the same problem: they are registered before
-the client too, so they are unregistered only after it is released,
-and a property access in between sends a request through the freed
-client.
+A compute dispatch consists of a single FE command. The FE DMA address
+does not change while the kernel is running, so the hangcheck kills any
+dispatch that takes longer than about one second. Long-running OpenCL
+kernels never finish.
 
-Fix both with a devres action registered right after the client is
-allocated, which runs first on unbind. It disables enable_work using
-disable_work_sync(), which waits for a running worker and turns any
-later queueing from the client callbacks into a no-op, and then marks
-the client as gone under the lock that serializes the requests, so the
-power supplies fail any later request with -ENODEV instead of using it.
+Read VIVS_HI_IDLE_STATE at each timeout tick. If any unit other than FE
+and MC is busy, the job is still executing, so give it more time.
+If all units are idle for two consecutive ticks, the FE is waiting for
+something that will never come, and the job is killed as before.
 
-Fixes: 4e40befedfc8 ("power: supply: qcom_battmgr: fix use-after-free")
-Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
-Cc: stable@vger.kernel.org # 6.10
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+A job that stays busy without FE progress for longer than the new
+hang_max_ms module parameter (default 30 seconds) is killed anyway.
+This also catches kernels that loop forever. Setting it to 0 restores
+the old behaviour.
+
+Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
 ---
-Found while fixing the same class of issue in pmic_glink_altmode. This
-completes commit 4e40befedfc8 ("power: supply: qcom_battmgr: fix
-use-after-free"), which closed the requeueing of enable_work but left
-the client in use after it is released.
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.h   |  3 +++
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c | 39 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 41 insertions(+), 1 deletion(-)
 
-Prepared with help from an LLM-based assistant.
----
- drivers/power/supply/qcom_battmgr.c | 39 +++++++++++++++++++++++++++++++------
- 1 file changed, 33 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 636d6f6acecc..b37b2f665f7f 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -5,7 +5,6 @@
-  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-  */
- #include <linux/auxiliary_bus.h>
--#include <linux/devm-helpers.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/nvmem-consumer.h>
-@@ -339,6 +338,9 @@ struct qcom_battmgr {
- 	 * firmware, as it then stops responding.
- 	 */
- 	struct mutex lock;
-+
-+	/* Set under @lock once @client is about to be released */
-+	bool client_gone;
- };
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
+index e89d591d7404..f871ab7899fd 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.h
+@@ -147,6 +147,9 @@ struct etnaviv_gpu {
+ 	u32 hangcheck_dma_addr;
+ 	u32 hangcheck_primid;
+ 	u32 hangcheck_fence;
++	bool hangcheck_idle;
++	bool hangcheck_busy;
++	unsigned long hangcheck_busy_since;
  
- static int qcom_battmgr_request(struct qcom_battmgr *battmgr, void *data, size_t len)
-@@ -346,6 +348,13 @@ static int qcom_battmgr_request(struct qcom_battmgr *battmgr, void *data, size_t
- 	unsigned long left;
- 	int ret;
+ 	void __iomem *mmio;
+ 	int irq;
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_sched.c b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+index 3cc50d697c89..cef1ed33ff91 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_sched.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_sched.c
+@@ -17,6 +17,9 @@ static int etnaviv_job_hang_limit = 0;
+ module_param_named(job_hang_limit, etnaviv_job_hang_limit, int , 0444);
+ static int etnaviv_hw_jobs_limit = 4;
+ module_param_named(hw_job_limit, etnaviv_hw_jobs_limit, int , 0444);
++static unsigned int etnaviv_hang_max_ms = 30000;
++module_param_named(hang_max_ms, etnaviv_hang_max_ms, uint, 0644);
++MODULE_PARM_DESC(hang_max_ms, "Time a busy job may run without front-end progress (ms, 0 = no extension)");
  
-+	/*
-+	 * Callers hold @lock, except enable_work, which is disabled before
-+	 * client_gone is set.
-+	 */
-+	if (battmgr->client_gone)
-+		return -ENODEV;
-+
- 	reinit_completion(&battmgr->ack);
- 
- 	battmgr->error = 0;
-@@ -1626,6 +1635,17 @@ static void qcom_battmgr_enable_worker(struct work_struct *work)
- 		dev_err(battmgr->dev, "failed to request power notifications\n");
- }
- 
-+static void qcom_battmgr_release_client(void *data)
-+{
-+	struct qcom_battmgr *battmgr = data;
-+
-+	disable_work_sync(&battmgr->enable_work);
-+
-+	mutex_lock(&battmgr->lock);
-+	battmgr->client_gone = true;
-+	mutex_unlock(&battmgr->lock);
-+}
-+
- static void qcom_battmgr_pdr_notify(void *priv, int state)
+ static struct dma_fence *etnaviv_sched_run_job(struct drm_sched_job *sched_job)
  {
- 	struct qcom_battmgr *battmgr = priv;
-@@ -1676,6 +1696,7 @@ static int qcom_battmgr_probe(struct auxiliary_device *adev,
- 	psy_cfg_supply.supplied_to = qcom_battmgr_battery;
- 	psy_cfg_supply.num_supplicants = 1;
+@@ -36,7 +39,8 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
+ {
+ 	struct etnaviv_gem_submit *submit = to_etnaviv_submit(sched_job);
+ 	struct etnaviv_gpu *gpu = submit->gpu;
+-	u32 dma_addr, primid = 0;
++	u32 dma_addr, primid = 0, mask;
++	bool idle, was_idle;
+ 	int change;
  
-+	INIT_WORK(&battmgr->enable_work, qcom_battmgr_enable_worker);
- 	mutex_init(&battmgr->lock);
- 	init_completion(&battmgr->ack);
- 
-@@ -1738,11 +1759,6 @@ static int qcom_battmgr_probe(struct auxiliary_device *adev,
- 					     "failed to register wireless charing power supply\n");
+ 	/*
+@@ -62,6 +66,12 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
+ 		primid = gpu_read(gpu, VIVS_MC_PROFILE_FE_READ);
+ 		mutex_unlock(&gpu->lock);
+ 	}
++
++	mask = gpu->idle_mask & ~(VIVS_HI_IDLE_STATE_FE | VIVS_HI_IDLE_STATE_MC);
++	idle = (gpu_read(gpu, VIVS_HI_IDLE_STATE) & mask) == mask;
++	was_idle = gpu->hangcheck_idle;
++	gpu->hangcheck_idle = idle;
++
+ 	if (gpu->state == ETNA_GPU_STATE_RUNNING &&
+ 	    (gpu->completed_fence != gpu->hangcheck_fence ||
+ 	     change < 0 || change > 16 ||
+@@ -70,9 +80,36 @@ static enum drm_gpu_sched_stat etnaviv_sched_timedout_job(struct drm_sched_job
+ 		gpu->hangcheck_dma_addr = dma_addr;
+ 		gpu->hangcheck_primid = primid;
+ 		gpu->hangcheck_fence = gpu->completed_fence;
++		gpu->hangcheck_busy = false;
+ 		return DRM_GPU_SCHED_STAT_NO_HANG;
  	}
  
--	ret = devm_work_autocancel(dev, &battmgr->enable_work,
--				   qcom_battmgr_enable_worker);
--	if (ret)
--		return ret;
--
- 	battmgr->client = devm_pmic_glink_client_alloc(dev, PMIC_GLINK_OWNER_BATTMGR,
- 						       qcom_battmgr_callback,
- 						       qcom_battmgr_pdr_notify,
-@@ -1750,6 +1766,17 @@ static int qcom_battmgr_probe(struct auxiliary_device *adev,
- 	if (IS_ERR(battmgr->client))
- 		return PTR_ERR(battmgr->client);
- 
 +	/*
-+	 * Registered after the client, so that on unbind it runs before the
-+	 * client is released. The client callbacks may fire until then, so
-+	 * disable rather than cancel enable_work to keep it from being
-+	 * requeued, and stop the power supplies, which are unregistered only
-+	 * after the client is gone, from using it.
++	 * A compute dispatch is a single FE command, so the FE does not move
++	 * while a long kernel runs. Keep the job alive as long as some unit
++	 * other than FE and MC is busy, up to hang_max_ms. All of them idle at
++	 * two ticks in a row means the FE waits for something that never
++	 * comes.
 +	 */
-+	ret = devm_add_action_or_reset(dev, qcom_battmgr_release_client, battmgr);
-+	if (ret)
-+		return ret;
++	if (gpu->state == ETNA_GPU_STATE_RUNNING && !(idle && was_idle)) {
++		unsigned long max = msecs_to_jiffies(READ_ONCE(etnaviv_hang_max_ms));
 +
- 	pmic_glink_client_register(battmgr->client);
++		if (!gpu->hangcheck_busy) {
++			gpu->hangcheck_busy = true;
++			gpu->hangcheck_busy_since = jiffies;
++		}
++
++		if (time_before(jiffies, gpu->hangcheck_busy_since + max))
++			return DRM_GPU_SCHED_STAT_NO_HANG;
++
++		if (max)
++			dev_err(gpu->dev, "job busy for more than %u ms without FE progress\n",
++				jiffies_to_msecs(max));
++	}
++
++	gpu->hangcheck_idle = false;
++	gpu->hangcheck_busy = false;
++
+ 	/* block scheduler */
+ 	drm_sched_stop(&gpu->sched, sched_job);
  
- 	return 0;
 
 ---
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-battmgr-client-teardown-uaf-f532fdc44cc4
+change-id: 20261102-etnaviv-compute-hangcheck-cb8d1e7af68f
 
 Best regards,
---  
-
-Abel
+-- 
+Christian Gmeiner <cgmeiner@igalia.com>
 
