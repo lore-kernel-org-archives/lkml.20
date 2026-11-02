@@ -1,91 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602555;
-	b=rZLi+NKsszmSKrlIJs/hdxPT7gBb2m50bCc2TctlTX8g9qIy/Rkk78Z/t5yTwSESVppk
-	 UOViduLAT76QAV/cGpQWwCUcuE/FN053ZrExXPVeS2oqsTyI0kpDKQtQia0GqDOVy06Yy
-	 G5QwqI+ud5r6r97uUEleGppYEwKpiKmcO/Ss23Gn8srebiI9QbUWqgEXj1qcWIRHzFLJE
-	 J05ah5cf6q2q+mQvQZVGtpZhzwDGLCmzZ/EmaVBwpOi9ZCBB1pCS/Pe+tQE1wwbqt7swy
-	 GW3MQazIkLeZhPQygbxwLCGOBNHllZI8lsmsKZENGLJiutQrEVK80LNa9+k8EAymVcg==
+	t=1793602593;
+	b=qoLyFA21HRBe8T0UMC9UsyLrDkkLu9wIl6Ecp5wcjSjZl3UbQd0y76qka3PFG8BWOe1N
+	 pPA7OtG4mPJ9PCxrKFhsqRyNw9ebQE7wEWye+on7jJh+Bs5JhFB3RX5CScmoUcWPNNxaX
+	 S1Nkw+mWFLnBU7p3Jp23zlhiDkkeCI3GUJsjTKnuXPPfvYRWb3UykgH+GkoHv+1iMYDEF
+	 PvhS6XPAL7shJ18bcqd4HyJoRsaCF7qjTlN/NUGJMX7uSlYF/m5APON08RDHEgObFH5tD
+	 HvR/CuLV8pOVXnavCrS1vylaNWT8Gb4rRajNVTSkzVMBbbXI3zuO00SUgt5GciD99lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602555;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kUEp7xcckn2qvmIvpQkkjMCZNbl4CYX1Cj+7Vm+f2qE=;
-	b=45OdyRikDUTysIvrJVTDc+paqxbwZiPEu/lZmfcgfSZF2E7zMGae3QAiZE8cyBXSZNBT
-	 bHGFMEz+dUuasq9mw2G9WM3Wd489ZzUDzyItvJNwQmeJ9hrXF5gs3fd8XCaFl6kHAeZb2
-	 eINaPcHJN1PLnh4E2SxfIanitoGwP7tg32zU9uZ6Md1jU2+uAQNmtpZX3k7rkcKVtjMqf
-	 OBshx+1KeZRyYPicIIIkx96Vrcr61lZFO9oT2cU1S1UVhzME3g5PqBiUWLvbeWTzLmGQ/
-	 PHf30VyPKXXMaTfUmezyvBoeDWzvshhNBzxDntnEmA3hW+/JFF/j51dWhwjmro1Wwjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602593;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bCDf4ZW3rE+CGNZfOsXMT1wgJaQq6SHV/zB4PxcXzws=;
+	b=RUMdinw6k4zt64zoF8Ahps4g7QHSQsg0X6+bb8IL9cpamc9YSmCD+npsUfPWZPu4jnc7
+	 wEwA2bSr+otF4gEzuMBgLjLVCAT9BbtYjRkgGFGBv20kq8gCpeTUkfgYyrMZveSPSpuxD
+	 +/3Qrksyp0MlSOP+FkNjy5WH6YM6Gcr6QoPvSppDdXs/nbTmcw+7yo+z6gAOaOXaxvMCo
+	 rZYKgdG0CziAtusgSMev50sE+VgC0vD8AjYEVtIFehUXisk2c8rLhgl0dQ1yOq1EKms9X
+	 /lehbhLEAz2uo7+UXjUJyfG19dNG3JJmwv7n0JOaSq8GWO+Oiwh3nA7Vl6yi7x2dYEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OBO4vWCY;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSuGB1Vz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA9B606A329
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:55:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAA9B606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DAF606A324;
+	Mon,  2 Nov 2026 06:56:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OBO4vWCY
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-19305bcb72cso1804663c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:55:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793602554; x=1794207354; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kUEp7xcckn2qvmIvpQkkjMCZNbl4CYX1Cj+7Vm+f2qE=;
-        b=OBO4vWCY/t9c3qd9fiPwYs6VYMsoSOjfVCpcr9GEbZhiV9XGu3LUiem/yKCG4pPTvZ
-         86+zXLL2LONr5jAv7aXyGfWwVYxswFQop/mqHq8dIo+kBHmWCTiGDn0sdlneTU5Xd7PA
-         pmeCp6FxFEOC5NwV+iop1PresX7ChZvFliKeW5h+KgNP1/BnL2wyRsJse29BIX7sSx0g
-         R1TrBAmXx2jhbBwl8mqxoXyCG23CaQrs4X9YC3svAy2HP1/6xUB1je+CpPFBs32Y9+eG
-         F/Er5lSWKGtdeKWZbSlTuUzkyTabLerDnFcSg/dy1RPUF1MuCDGVeoPg6x0rOrPMj4EQ
-         IZ1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793602554; x=1794207354;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kUEp7xcckn2qvmIvpQkkjMCZNbl4CYX1Cj+7Vm+f2qE=;
-        b=nIP1fkol7eyKxQDYSjow+vH44N8EziGmQyn8euqGfFpqISeLGmX4WFBjb0Tgc4IEQw
-         ut+AzPNxsl+642exaG2A7aqdqSPJPXqAKngg64oyEj1OJNMJ5R/muRIvLr5ThCj7q6Or
-         UHdz5VGy6Z1LNCf+U6n5xGnEiDfWwTzdZUr3SoUgixOO4RVifIJQQDh6+jgEUdgmPk53
-         APmitvOYGA5zVi8GaMGOI+bXkrGv0gbk7ch5SlvjPy81ZAt+yMEeYVpPQ/R5J0mfsEDB
-         Hxwh+QL12j6ZXT2T1lINFlXyUJmiHK5NFZpFvxfIMCzrFmRKZTOBZB7LIWokhpDbMBY5
-         gOnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwp4PMk9eWrMY27cux6U9U6FTTWo/zjQsXQM6ZMMFAUF0Q5jq5JspP2CrKCiyT4vidgQnhohOrojYi0kPI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIP4HBabaFdHyLslcQmF3Ig7beeplWGIzeJatMhD79KoRy79FaV
-	fOEzKtl+2p1oyyuFSO0j6wdRH7fvZM+dft5aeP+RoSHSltkWJpUbZCJQ
-X-Gm-Gg: AYBFou0F9epG/ZG6G5HpiXhqIOod349gZ3K3sZx7qwFdJq5gRyEioGOhUHSM6HoWzHD
-	T2AxwhcKjawEXV5NoniEu3/oIwG72+NjszlnpoJ23In1U5kG0o8nLQxoOzUv7owgtrvGUZDMHnw
-	iB0CPS5NWodWS5ionokbVxVSh+qPxJvZa2hLXrE1xba4/fXV5TpoKls3nIrn2uIMiuV+ihpNxC+
-	LcXDCtcarN7WXFxmxka4P4Tx5GzcPn1Ul6dJDJn/hKRO5fcSsafrVhweByiSdMP4ulp/5v5Wcwc
-	8xq6/hVRtvTjQUOj7HEggB2iffqc0WCLR/QChAEvRTHTUlvGhS+9UQvjkL9bkCv9GyjYPQn6h0D
-	1T5GN0qT4MMoaNrT3WAqspMf0aO+4dkqxSBfIGW4T1GH/z68pfDzbc1EDpLV/apnZEeDOYnU/F9
-	1bueAMXOmOONZMZitvsx1R9ErO/PNG52sFo5ThaYSRpgQ4wyUS1vQacCYqpef2Gg+1GkttHSNVT
-	SkZVYCOKwYnIzhZyvKKdoykwDiEa7WGj+Qx2ddhj0acRa4xKL8e9fYtYh6wDu19obT0+w2zJpmG
-	7KnZFWkzHQjC7l9cKZBtCnMdBjG1Mt7tu3eV1rvkvAaMm4HFQXPAiS6SjozbPpk+OqoheO1m
-X-Received: by 2002:a05:701b:240f:b0:15e:6541:3099 with SMTP id a92af1059eb24-1ac5a0b8b3amr12928681c88.7.1793602553702;
-        Sun, 01 Nov 2026 22:55:53 -0800 (PST)
-Received: from localhost.localdomain ([103.178.205.93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4b08bsm35819029c88.16.2026.11.01.22.55.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:55:53 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: o-takashi@sakamocchi.jp
-Cc: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH] firewire: Fix out-of-bounds access in CSR iterator
-Date: Mon,  2 Nov 2026 06:53:34 +0000
-Message-ID: <20261102065334.3087-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSuGB1Vz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C08C1F000C1;
+	Mon,  2 Nov 2026 06:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793602592;
+	bh=bCDf4ZW3rE+CGNZfOsXMT1wgJaQq6SHV/zB4PxcXzws=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iSuGB1Vz47JLVuaefZLVIZbkKz4UmxB7ofSbm1uICkj4KSw6wznxNSxosbBdF/Myj
+	 1172MZCKJE+mCnBhjE0+n392O0Xy17f1ZRp1kugIyZiNlEFqdCZlnm41tX9BtY8YMw
+	 g4kKoG9kky/Cjzl9ygn5On1pV7zLTQFlUOq22z8XU++r5vbcPVlEt2Oxi9SmnBIJWF
+	 dKMjleveJCPhmc5m5J/2X63qnk+rY9WZk9P4wRRG+hPV9jXlncLZL74wcu/wbmPGNg
+	 sg4Yfxwd4ivD2/RW9Qh7dpXCxMg8aLA0gM3MipHCDq+udFLRKarizzHSIf+43c6z3L
+	 vthFWNjBRaSHA==
+Message-ID: <1b6a6d13-8a01-414b-9bbe-cd194af1f539@kernel.org>
+Date: Mon, 2 Nov 2026 07:56:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,42 +51,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/memory_hotplug: don't offline a hwpoisoned page still
+ in the page cache
+To: mt4022@columbia.edu, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>,
+ linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The fw_csr_iterator_next() function reads ci->p before
-checking if it has reached the end.
+On 11/1/26 20:40, Mani Tofigh via B4 Relay wrote:
+> From: Mani Tofigh <mt4022@columbia.edu>
+> 
+> Memory offline skips hwpoisoned pages, assuming nobody uses them
+> anymore.  memory_failure() however sets PG_hwpoison before it takes the
+> page, and taking it waits on pcp_batch_high_lock, which offline_pages()
+> holds for the whole offline.  A memory error during the offline thus
+> marks the page and then waits while the offline skips it:
+> 
+>   Task A (offline_pages)               Task B (memory_failure)
+>   zone_pcp_disable()
+>                                        TestSetPageHWPoison(P)
+>                                        get_hwpoison_page()
+>                                          /* waits for Task A */
+>   do_migrate_range()
+>     /* P is poisoned (not migrated) */
+>   test_pages_isolated()
+>     /* P is poisoned (accepted) */
+>   zone_pcp_enable()
+>                                        /* P is off the LRU (Ignored) */
+> 
+> The block goes offline while the file still points to P, and the next
+> walk of the file's pages (here drop_caches on ext4) crashes on a struct
+> page of offlined memory:
+> 
+>   [   11.710348] Memory failure: 0x24224: unhandlable page.
+>   [   11.710372] Memory failure: 0x24224: recovery action for get hwpoison page: Ignored
+>   [   11.765371] page:000000008c304eee is uninitialized and poisoned
+>   [   11.765389] page dumped because: VM_BUG_ON_PAGE(page_ref_count(page) == 0)
+>   [   11.765440] kernel BUG at include/linux/mm.h:1990!
+>   [   11.765458] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   [   11.772284] CPU: 3 UID: 0 PID: 85 Comm: mfoffline Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+>   [   11.777970] RIP: 0010:find_lock_entries+0x8ee/0xad0
+>   [   11.798761] Call Trace:
+>   [   11.799297]  <TASK>
+>   [   11.803284]  mapping_try_invalidate+0xfd/0x2c0
+>   [   11.810571]  drop_pagecache_sb+0x111/0x330
+>   [   11.811572]  __iterate_supers+0x2e2/0x370
+>   [   11.815863]  drop_caches_sysctl_handler+0x74/0xb0
+>   [   11.816994]  proc_sys_call_handler+0x2ec/0x440
+>   [   11.821360]  vfs_write+0x545/0x1250
+>   [   11.825220]  ksys_write+0xfa/0x200
+>   [   11.830202]  do_syscall_64+0xfb/0x590
+>   [   11.832084]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   [   11.848423]  </TASK>
+> 
+> Once the memory is also removed it's a use-after-free of the memory map.
+> tmpfs and the swap cache can end up the same way without the race.
+> Since commit a76054266661 ("mm: shmem: don't truncate page if memory
+> failure happens"), memory_failure() leaves a poisoned tmpfs folio in the
+> page cache on purpose, and it does the same for a dirty folio in the
+> swap cache.
+> 
+> Treat a hwpoisoned page whose folio is still in a page cache or swap
+> cache as busy in scan_movable_pages() and
+> __test_page_isolated_in_pageblock() so that the offline fails and a
+> waiting memory_failure() can go on.  A later offline succeeds once the
+> page is out of the cache.  With the fix, the offline fails with -EBUSY
+> and the file doesn't point to offlined memory anymore.
+> 
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within about 10s.
+> 
+> Fixes: b023f46813cd ("memory-hotplug: skip HWPoisoned page when offlining pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> Taking get_online_mems() in memory_failure(), as in Gregory's series
+> [1], would close only the race and not the tmpfs or swap cache case.
+> 
+> [1] https://lore.kernel.org/all/20261027042204.3741307-4-gourry@gourry.net/
+> 
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/mfoffline.c
+> ---
+>  mm/internal.h       | 9 +++++++++
+>  mm/memory_hotplug.c | 2 ++
+>  mm/page_isolation.c | 2 +-
+>  3 files changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/internal.h b/mm/internal.h
+> index aeebb3e49ed1..ba7b1650a5ca 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1195,6 +1195,15 @@ static inline int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, b
+>  }
+>  #endif
+>  
+> +/*
+> + * A hwpoisoned page can be skipped by memory offline only once no page
+> + * cache or swap cache can find it anymore.
+> + */
+> +static inline bool hwpoison_page_offlineable(const struct page *page)
+> +{
+> +	return !folio_mapping(page_folio(page));
+> +}
+> +
+>  extern unsigned long  __must_check vm_mmap_pgoff(struct file *, unsigned long,
+>          unsigned long, unsigned long,
+>          unsigned long, unsigned long);
+> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+> index c9cc42e54f05..3d36f7f2e04b 100644
+> --- a/mm/memory_hotplug.c
+> +++ b/mm/memory_hotplug.c
+> @@ -1820,6 +1820,8 @@ static int scan_movable_pages(unsigned long start, unsigned long end,
+>  		struct folio *folio;
+>  
+>  		page = pfn_to_page(pfn);
+> +		if (PageHWPoison(page) && !hwpoison_page_offlineable(page))
+> +			return -EBUSY;
+>  		if (PageLRU(page) || page_has_movable_ops(page))
+>  			goto found;
+>  
+> diff --git a/mm/page_isolation.c b/mm/page_isolation.c
+> index 5aaad037384e..beb09ef345ee 100644
+> --- a/mm/page_isolation.c
+> +++ b/mm/page_isolation.c
+> @@ -593,7 +593,7 @@ __test_page_isolated_in_pageblock(unsigned long pfn, unsigned long end_pfn,
+>  			 */
+>  			pfn += 1 << buddy_order(page);
+>  		else if ((mode == PB_ISOLATE_MODE_MEM_OFFLINE) &&
+> -			 PageHWPoison(page))
+> +			 PageHWPoison(page) && hwpoison_page_offlineable(page))
 
-This can cause an out-of-bounds read when the iterator
-has no more entries.
+I was recently wondering about that one as well.
 
-Check the iterator position before reading the entry.
-Move the pointer forward only after reading a valid entry.
+What if we still have the page pinned somehow? (vmscplice etc).
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/firewire/core-device.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Wouldn't it be better to make sure that poisoning code holds exactly one
+reference (whoever set hwpoison) and check here that the refcount is 1 ?
 
-diff --git a/drivers/firewire/core-device.c b/drivers/firewire/core-device.c
-index a68100d3da0b..36667841ca3c 100644
---- a/drivers/firewire/core-device.c
-+++ b/drivers/firewire/core-device.c
-@@ -40,10 +40,14 @@ EXPORT_SYMBOL(fw_csr_iterator_init);
- 
- int fw_csr_iterator_next(struct fw_csr_iterator *ci, int *key, int *value)
- {
-+	if (ci->p >= ci->end)
-+		return 0;
-+
- 	*key = *ci->p >> 24;
- 	*value = *ci->p & 0xffffff;
- 
--	return ci->p++ < ci->end;
-+	ci->p++;
-+	return 1;
- }
- EXPORT_SYMBOL(fw_csr_iterator_next);
- 
+Pagecache references would turn it > 1.
+
+A note that I consider this here extremely low priority.
+
 -- 
-2.55.0
+Cheers,
 
+David
