@@ -1,73 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585584;
-	b=Z/KuDVaZGqYY8EI2imSc05tLAL0GljW3DkDEuoi/wS1saZR4q4CUOn/q5hDAApaLlXKi
-	 6Qkws+ib2zFVXNjBJ59eckDAotQRHrauK6a2fT7vm7pLf/nLiQyeCfmPoHqZXKGklJ7m+
-	 9GgEQVU11XT3q3r3St6poLZLPG4UDVQanPS+2R3pIamUkHU1+ffXJNpTejPiGfai8S+79
-	 eeXh2heMS62rr/wF8wRBLmdjGvMuzK9SkQf3ArclCfFsSxMtrukT19QzQZM2CiN0cFYQr
-	 AK/dza0lYhNgNj7ZAH3frEaEaobV5mcE+bdNflxWNRvIr5nhaPHY1Ne1vBjPR1bwY7w==
+	t=1793585638;
+	b=o+mtoQtP1I+vwgp9yOle9ThzZ5RxV0VusQxaMaQ14ff9cn1UVKJYmU2GB2rQEOHkNzKP
+	 jmtsPomYejdLL98UOpy5zIAAP2oXfwiR5SIoUGOet1JrU3AfOZameih9coKrInmU86j5R
+	 x9HTVjuemVH0otvqFVFTcy8caqSJgeEtAQDCFXRSNhII7quBbOhsti/GnCY1+ovhoDloF
+	 mRf/tyEUp9nOZ6p4IZea18tsjpa/KOFUHH2FYr19BYDHewKr4s2xSd7KmiX6ebf8pzvMB
+	 FX1/PSEH56CNsYlgvzeBI96x+g8C8IyVamuwvOiTnTedUzc13x6E3TTmlrLSphfQzOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585584;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TkvIJtT2uYGtfsA/9mgNPYvW+4raY7xxarpE4GskwG4=;
-	b=A7hwYP3S0Q+nzfVXlQdmZN2ojNyj9FFxS6lyKnVDLVGZos0ZST6w+rl/FJQMy199w9JX
-	 XeWOFLUhVAO1uhrYzaKMzOW4gJIoCsI7JvqDFp/q8JkFp4hWCdaHkVOK2vYbW0z0i1/Qw
-	 EwMtt95FKCeVzXxhR37jkA8BdoKYd3G9yD/+kwWovfICWJfezjKs5VinZ9xVPRImPB/kg
-	 PV84zz8xlBq9y3FTG1fDaaiNWAU3U4nUJHS+tnco01ot94lEX+MddEVeaZBG32e9eKItR
-	 pe1O0ggrB//UP/nhl7uYOiTqfMM36NWb2qaFZdWvitW8K3/x1vxZRM4d566+zIbF/WQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585638;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=qgE8n7yW5SC6aLalyjWlKIFFYYtc4u+TIhJY+ne9Wfg=;
+	b=tOktxv8nzrEzEYFjworzYLjWuJT7S2kZiRbFRLTVAeHsUXcFw4h/7MrTH03jajf2f+Jd
+	 pK5TEHZD7nChJ+KgRQ9Z91sGocq0ZIejoZwxR9PhedELr5gx6uIecI9u0KgWvdeARwzFd
+	 rgFEoCSxmFCaNjayjxPOeaVkBJ/3e9bUGo5e1OF/xUOpFExaBnmxfHWirbmbUOUtt1qLa
+	 ficSPFmwV0mkUJTu2uI8pnwFBs+NI7WPDw1UoZsns8EtenIvl/TDuwjUoh6kNuEONco7P
+	 8VjGYcuJjN1AnKTg77jInneXsr9PPj6QaexYWwFeFVbt9FsIWYdn+CczBegvkqrAjCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpH+uFkT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UGaQpPDT;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B7F60A260D;
-	Mon,  2 Nov 2026 02:13:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F2B606A333;
+	Mon,  2 Nov 2026 02:13:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F2B606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lpH+uFkT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695711F00A21;
-	Mon,  2 Nov 2026 02:13:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793585583;
-	bh=TkvIJtT2uYGtfsA/9mgNPYvW+4raY7xxarpE4GskwG4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lpH+uFkTQZFHTxIMxofFzG+AROrhUVNLOExV6ySbiMHI24I7Y060fxAfg+HZ2inkC
-	 Ba3BGA6FbhitxRQvhDptUgrWBZuVHH6EkOGt4oLu5Zr3uVBs1VTz0aROT/4O59nkD2
-	 a9vRwkLtdFahndvcZ0SGpEFqTitzz8RDSwmgaCyxOq2QcCTX2R/uCMLU9GJU7PgIXR
-	 ttMgq7pxEgMDwVKcbS5POWsck/TF8esO1TkXlx7Orcpp3q3Sltz2z8OH+g3aGdGZq5
-	 eCVVITT1pI4LRKHYenL0Ft4sQtODz7p6UPyWiMf5IAhqT7JlfeaJY830rW1M4on/Av
-	 Q0KnQgoxmfYAA==
-From: Sasha Levin <sashal@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	linux-kbuild@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v3 3/7] perf build: Add MINIMAL=1 to build without optional features
-Date: Sun,  1 Nov 2026 21:12:49 -0500
-Message-ID: <20261102021253.2545235-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102021253.2545235-1-sashal@kernel.org>
-References: <20261102021253.2545235-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UGaQpPDT
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=qgE8n7yW5SC6aLalyjWlKIFFYYtc4u+TIhJY+ne9Wfg=;
+	b=UGaQpPDTVn/Gntfv6VeHIZqORc3iLrXrsQihIgp0OXr0k6kZu3NI1d2LhMu5L4f0mmNSc+6h8
+	M2952QJCQoDDTaVA/zf2kR4nXy4aO3GtZGirt+vmrjAFFvqAUl5DNu5BBGiDY/BspJmCzOcM/NG
+	ycLF2AkPWxgxJDeZD3v8m6s=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jHwH85S29zRhST;
+	Mon,  2 Nov 2026 10:13:40 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id 9A91F4057D;
+	Mon,  2 Nov 2026 10:13:45 +0800 (CST)
+Received: from octopus.huawei.com (10.67.174.191) by
+ whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 2 Nov 2026 10:13:44 +0800
+From: Cai Xinchen <caixinchen1@huawei.com>
+To: <zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
+	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
+	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
+	<amir73il@gmail.com>, <caixinchen1@huawei.com>
+CC: <linux-integrity@vger.kernel.org>,
+	<linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <lujialin4@huawei.com>
+Subject: [PATCH] ima: initialize the real inode attributes of the iint cache
+Date: Mon, 2 Nov 2026 10:47:03 +0800
+Message-ID: <20261102024703.816178-1-caixinchen1@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,154 +71,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-Turning off every optional feature takes a long list of NO_* variables,
-and the list has to follow features as they are added and renamed. The
-one in tests/make for make_minimal has fallen behind: it leaves
-libtraceevent, jevents, slang, AIO, LZMA, zlib, libLLVM and Rust to be
-detected, so a make_minimal build still needs libtraceevent and python.
+ima_iint_cache objects are allocated with kmem_cache_alloc() from a
+dedicated slab whose constructor only runs once, when the slab is first
+created; the constructor does not run again when a freed object is
+reallocated.  ima_iint_init_always() resets all iint fields except
+real_inode.ino and real_inode.dev, which therefore keep the values of
+the previously freed iint.
 
-Add MINIMAL=1, which turns off every optional feature, the BPF
-skeletons, and the shellcheck, mypy and pylint runs. perf then builds,
-natively or cross, with no library beyond the C library and without
-python, pkg-config, clang or rustc, and the result does not depend on
-what is installed on the build machine.
+integrity_inode_attrs_changed() reads those fields in
+process_measurement() to detect changes to the backing file on stacked
+filesystems.  The fields are normally written by
+integrity_inode_attrs_store() from ima_collect_measurement(), but the
+IMA_HASH path sets IMA_HASHED without calling it, so on the next file
+open the stale, uninitialized ino and dev are read.  Depending on the
+residual values, IMA may skip re-evaluating a file whose backing data
+or metadata changed, or needlessly re-evaluate it.
 
-A MINIMAL=1 build also leaves out the notices that post unwind and
-python support are disabled, which it asked for, and the one about the
-pkg-config search path for cross builds, as pkg-config is not needed
-then.
+Initialize real_inode.ino and real_inode.dev with the identification
+of the inode the iint is being associated with at allocation time.
+On stacked filesystems the first comparison against the underlying
+real inode will then fail until ima_collect_measurement() stores the
+real inode's attributes, which is the safe, conservative direction.
 
-It is handled in Makefile.perf rather than Makefile.config, as
-Makefile.config is included after the pkg-config, shellcheck, mypy and
-pylint setup.
-
-Use it for make_minimal in tests/make.
-
-Suggested-by: Ian Rogers <irogers@google.com>
-Link: https://lore.kernel.org/r/CAP-5=fWFY-tpJz2vcBZvurwdZY5gwd8cuTemE9q1rtZ0Vi0dng@mail.gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Acked-by: Namhyung Kim <namhyung@kernel.org>
-Acked-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Fixes: b836c4d29f27 ("ima: detect changes to the backing overlay file")
+Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
 ---
- tools/perf/Makefile.config |  8 ++++++--
- tools/perf/Makefile.perf   | 42 ++++++++++++++++++++++++++++++++++++--
- tools/perf/tests/make      |  8 +-------
- 3 files changed, 47 insertions(+), 11 deletions(-)
+ security/integrity/ima/ima_iint.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-index b4764f69f47f4..4af7934887539 100644
---- a/tools/perf/Makefile.config
-+++ b/tools/perf/Makefile.config
-@@ -753,7 +753,9 @@ dwarf-post-unwind-text := BUG
- # setup DWARF post unwinder
- ifdef NO_LIBUNWIND
-   ifdef NO_LIBDW
--    $(warning Disabling post unwind, no support found.)
-+    ifneq ($(MINIMAL),1)
-+      $(warning Disabling post unwind, no support found.)
-+    endif
-     dwarf-post-unwind := 0
-   else
-     dwarf-post-unwind-text := libdw
-@@ -828,7 +830,9 @@ endif
- 
- PYTHON_EXTENSION_SUFFIX := '.so'
- ifdef NO_PYTHON_MODULE
--  $(call disable-python,Python support disabled by user)
-+  ifneq ($(MINIMAL),1)
-+    $(call disable-python,Python support disabled by user)
-+  endif
- else
- 
-   ifndef PYTHON
-diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index b74b534e1153f..c178c3976d154 100644
---- a/tools/perf/Makefile.perf
-+++ b/tools/perf/Makefile.perf
-@@ -129,6 +129,9 @@ include ../scripts/utilities.mak
- # Define NO_MYPY if you do not want to run mypy during build
- #
- # Define NO_PYLINT if you do not want to run pylint during build
-+#
-+# Define MINIMAL=1 to build without any optional feature, needing only a C
-+# compiler and library, flex and bison
- 
- # As per kernel Makefile, avoid funny character set dependencies
- unexport LC_ALL
-@@ -174,6 +177,39 @@ endef
- 
- LD += $(EXTRA_LDFLAGS)
- 
-+# MINIMAL=1 is handled here rather than in Makefile.config, which is included
-+# after the pkg-config, shellcheck, mypy and pylint setup below
-+ifeq ($(MINIMAL),1)
-+  NO_LIBELF := 1
-+  NO_LIBDW := 1
-+  NO_LIBTRACEEVENT := 1
-+  NO_JEVENTS := 1
-+  NO_PYTHON_MODULE := 1
-+  NO_LIBBPF := 1
-+  BUILD_BPF_SKEL := 0
-+  NO_SLANG := 1
-+  NO_DEMANGLE := 1
-+  NO_BACKTRACE := 1
-+  NO_AIO := 1
-+  NO_ZLIB := 1
-+  NO_LZMA := 1
-+  NO_LIBZSTD := 1
-+  NO_LIBNUMA := 1
-+  NO_LIBLLVM := 1
-+  NO_CAPSTONE := 1
-+  NO_LIBPFM4 := 1
-+  NO_LIBDEBUGINFOD := 1
-+  NO_BABELTRACE2 := 1
-+  NO_SDT := 1
-+  NO_JVMTI := 1
-+  NO_RUST := 1
-+  NO_PERF_READ_VDSO32 := 1
-+  NO_PERF_READ_VDSOX32 := 1
-+  NO_SHELLCHECK := 1
-+  NO_MYPY := 1
-+  NO_PYLINT := 1
-+endif
-+
- # Some distros provide the command $(CROSS_COMPILE)pkg-config for
- # searching packges installed with Multiarch. Use it for cross
- # compilation if it is existed.
-@@ -195,8 +231,10 @@ else
-       PKG_CONFIG_LIBDIR := $(PKG_CONFIG_LIBDIR):/usr/local/share/pkgconfig/
-       PKG_CONFIG_LIBDIR := $(PKG_CONFIG_LIBDIR):/usr/share/pkgconfig/
-       export PKG_CONFIG_LIBDIR
--      $(warning Missing PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH and PKG_CONFIG_SYSROOT_DIR for cross compilation,)
--      $(warning set PKG_CONFIG_LIBDIR for using Multiarch libs.)
-+      ifneq ($(MINIMAL),1)
-+        $(warning Missing PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH and PKG_CONFIG_SYSROOT_DIR for cross compilation,)
-+        $(warning set PKG_CONFIG_LIBDIR for using Multiarch libs.)
-+      endif
-     endif
-   endif
- endif
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index 7524de5228029..bef5599b95d6f 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -119,13 +119,7 @@ make_install_prefix       := install prefix=/tmp/krava
- make_install_prefix_slash := install prefix=/tmp/krava/
- make_static         := LDFLAGS=-static NO_PERF_READ_VDSO32=1 NO_PERF_READ_VDSOX32=1 NO_JVMTI=1 NO_LIBTRACEEVENT=1 NO_LIBELF=1
- 
--# all the NO_* variable combined
--make_minimal        := NO_PYTHON_MODULE=1
--make_minimal        += NO_DEMANGLE=1 NO_LIBELF=1 NO_BACKTRACE=1
--make_minimal        += NO_LIBNUMA=1 NO_LIBBIONIC=1 NO_LIBDW=1
--make_minimal        += NO_LIBBPF=1
--make_minimal        += NO_SDT=1 NO_JVMTI=1 NO_LIBZSTD=1
--make_minimal        += NO_CAPSTONE=1
-+make_minimal        := MINIMAL=1
- 
- # binutils 2_42 and newer have bfd_thread_init()
- new_libbfd := $(shell echo '#include <bfd.h>' | $(CC) -E -x c - | grep bfd_thread_init)
+diff --git a/security/integrity/ima/ima_iint.c b/security/integrity/ima/ima_iint.c
+index 00b249101f98..02efa8eef28e 100644
+--- a/security/integrity/ima/ima_iint.c
++++ b/security/integrity/ima/ima_iint.c
+@@ -59,7 +59,7 @@ static void ima_iint_init_always(struct ima_iint_cache *iint,
+ 				 struct inode *inode)
+ {
+ 	iint->ima_hash = NULL;
+-	iint->real_inode.version = 0;
++	integrity_inode_attrs_store(&iint->real_inode, 0, inode);
+ 	iint->flags = 0UL;
+ 	iint->atomic_flags = 0UL;
+ 	iint->ima_file_status = INTEGRITY_UNKNOWN;
 -- 
-2.53.0
+2.18.0.huawei.25
 
