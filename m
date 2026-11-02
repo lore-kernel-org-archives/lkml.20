@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793649211;
-	b=hJfONGvCnxDrhD8NXumereJD5qdtzGn9LS8EMA4ynS3rqtvz9AeELlHmDddMAjRjLBK/
-	 TrtoRIBtluRuc4wHIMEOfpjmw+wB89BqSzdn6pQstkMafYr91ItftAbRbCyZnbEEywUpY
-	 BlHsVjEjpni12Iw7DiFkRBGl+AFu+/KaXuNoxx36CsOhYzowHpgY8rNdF6dm4a2onK37L
-	 iayS//8xYhVLbC+qihzZb7KgIusgO1vUpy9lAfA+1Q5sQLKlt0HDb5xST4AtBD9IzY4fh
-	 ZLQsSJvp0WiimZxrkzJft09W7lBrgQpC0/rdfgLgqIyy7h/inmX4G2bK/yNevQN3n/Q==
+	t=1793649212;
+	b=yLBkf6/EmL8ZgEdbl5LtO2PhcEbJBs5rHQIie9c/uok3k7svw60Zna8/HHrw36utZvFS
+	 dsa361vM1BFmYNS8Q5C/s3q2UWt119c4ZtmcTZiIzlLKfoBP62A90kkHDaXcCGW3O61OQ
+	 W5eyA8wREE32q/cO8yL+lmbf25et9hAhzR/AJvggGSPHcQe6uKu6WasZuo2mGVZNJi52w
+	 66BF2tpVtzpaxnd0KQySyg0Ct9MfP4p6cYaBWjvPZCR9mLweoEuae9/gX/EAZTGxKUjLo
+	 aOZoq9m0NQ8PXRHnnfluDDLYw26PpqJou8+Pup4W0jwlVHnygzIOzwKVDCVqD4sbq5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793649211;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649212;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=EPAaZGGNqSI21QfU7ABn/z/SpscZtlkI0gz7OCGQWww=;
-	b=uvrlmdVLdLKFxQPb98eeKLKhbK7CcTHdnMofiu57LcQ9l57FSaPJO1CIRg56SRBdM2YC
-	 +QczDnVa9Erc75wYQGtlhanUiToaaImutVPcxVDPkBJ72zpNkGuKCn36+N4fUzGwPDLTa
-	 a9b/rVY+GtdVohyJ4DExGz0raYatkZ9YmgC0HLIXSBPXl0bBlHanH0g9k77Y2wsTP8FX1
-	 Ov8OqLL/QSZxzE94GynE+JlJ2F7WuxP39jNNFBrjuw+9lx0BZ6FKETZ8il/ouu5qNa5XM
-	 meUzTDy0VPUdyr1QWmkfmBsqOb1Gq+yLxsGkTxv++xf4pkQWkBT9AMXRAAjK1c0NOZg==
+	bh=7d0shAOVJ1K7372dJ2kGybXJI56xuJHqHu/gSqF4j54=;
+	b=Nu5q4fx5R9mlRUsbmvR9f+VFCot54ArPU4DU3jpeW+i+YxduYWBp5slRKB2nAHRdOS2Q
+	 KGk4qUjAO1waPZ4pCUzYmAsduyLcXi26uMfaw6j4UWCZ1lxhVKx/yElUd0Oi9HbvERQqJ
+	 cQe05GGyCEm/Z26uORK4fPYGQWWpp36ixrekV8KL7knGWsiNnVNEbWU34lLV8NYGkPc7x
+	 0yW28qmlfCjI/7Wa+SodYevZtGj9Q5qVggM93+HcjUsBsIV4blZj82Nmy1ZkH9pfFXkOK
+	 50UW2yhsVPJa6jflRwvYZeQbdLCjqvwIXJKOyZcL15etnbQK2waN2DizOQTDas1yzlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=agc3Jpo5;
-	arc=none smtp.remote-ip=74.125.225.65
-Received: from mail-wr2-f1.google.com (mail-wr2-f1.google.com [74.125.225.65])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tm6dYXLV;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A897606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:53:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A897606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2F2606A32E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:53:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC2F2606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=agc3Jpo5
-Received: by mail-wr2-f1.google.com with SMTP id ffacd0b85a97d-48e293ecaa7so1001963f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:53:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tm6dYXLV
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso27057035e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:53:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793649209; x=1794254009; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EPAaZGGNqSI21QfU7ABn/z/SpscZtlkI0gz7OCGQWww=;
-        b=agc3Jpo58I2Ixi+BIEmWgYoFinqVJUJ4O/KwM72mfQz3ih5s+ae9tfOY4C+cPH19ep
-         xSFvRGf0BpJmP1P/MWDCxt/f/P8KHkLMEPVzw74V0wWgVwaHeeY2eoRRytvgcWX8n3Fw
-         zqumVZ0jwTwUmO/MhmDXIll46z7z9wZBMaF1BC3oJpuDHdrRhLQhjBpyygO8M3RxEpil
-         2sT36+Uus9pnD8uMJsvC6kTvngkhL32fuDmdtly9fip66iaITsrrCTFgH1/EIsMDSAW/
-         cWjPE5Ct86G4KBjVmvfMov7shc7/kwVT42RPFEWFDlu9d3D3E/9zyomY9YNoc/laPRie
-         Rw7A==
+        d=linaro.org; s=google; t=1793649210; x=1794254010; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7d0shAOVJ1K7372dJ2kGybXJI56xuJHqHu/gSqF4j54=;
+        b=tm6dYXLVklLHH8myqEweMrC1yiCYroQQ5l03wfAaG02x7dzD+jtd/XZapAvC2BFtJ8
+         oQKoFx3G19wa62a2RwsVi5jsWyr2Jax+qIMfK6L+04bPtIu0oKzFgd9KMOwp8ZRo3FE8
+         i+Zul6/QX0RHTvIICVFfbfR/HfGUCOtvdob7QRvRHgeCpQIJRvAx5gUM575WHu0WnrGk
+         3OoYDXH2pt1Nt8E7Cvw6kfiV/WJ2QYrVMzXg51b/M9F7HpYu1Hoi3mKwC80R/YJdsWaj
+         wqaE8oznYOjf/ZdPiSdYcuuY7y2cRq/i6ZVG06to2hDjrENA3bGCDmWIv80/nLEZqlI8
+         3jEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793649209; x=1794254009;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EPAaZGGNqSI21QfU7ABn/z/SpscZtlkI0gz7OCGQWww=;
-        b=qZ5aqN+azjxs1DSIsjJjU1NhqZ9oG4xL6HQIOGf2WB8sYo48wNGNRctSEiBJQQ499M
-         krnsx4OjQPTLGb4b75+kGypXdpqOTFgZlLPFJK73ZpkvZVzoDARJvlmQv/IXeDe4hcsD
-         hIkvRySfjI2YOPcpCcATECfNFVEbQTb4uMGn0cso7dQoWNMTKSOMnMbyOyAuw5FqkCTw
-         EgwzsUEfWJRq2PpMkoDc6tW1Db5Clus+BUT3HhyT9nDgKyVQ/Rsbx3ekKZkaQOD0GsZO
-         ELrHcG7UGyQRfGhtDiD8musbGa3eEsWr3w1ILV08N4hK0T3P+sBLl028SXfOiyCaXKA9
-         zDfA==
-X-Forwarded-Encrypted: i=1; AKwUvBxh1G36iKekUur1xPLcQQ8Zv5Ojrz0IdBKUJSa8cgLS4aUeH60cG8I5NwShnPKbbtPeum10fOpquzEM6VE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8p5ZhstNSH81tZamWdmIqEfUv+N0X8tZT1qbUoMIMk8c2m+viZ
-	NheHMR8ZkjZiu6pywVmb1EGPFMg7wwh1b/GkO6Lp4QeCeB6aBObaRm7kjj28ufF99Es=
-X-Gm-Gg: AYBFou1sF7TxkQoMExkcNemQe3Gg5H0K0wz2gPAgvV7P4S1X0BfL40unFwyu6/NGsPX
-	G6ySzCKovBXwEuyCYWZ4D00Zk2TA4AJXU7ZbyzME3980hJiY4AUnm6jj/IoakJPA8zs8p7ivThJ
-	udbah8ldHMU28ETUHWM7dU/RE1CuAjLpzIafXVfC9iZSZQdOsZerP6Hxe1apJT8Rhl/uhzIZJ9B
-	wgYMbGGppMnd3O7yebLJj+748U3pbb77voDsGeXmUqgPJ1WTAaYpxMRT/sKoE7fg6JnP0cEdXld
-	iUb9oMPGXilz7f1OVub1fNqssE15Grt81wOXIbNBJD36qOZ79AGdOPxFT4JCaDsCnWZybxkORPi
-	8nYbTwDJiPY8BV7oFNaH3ZMkd5Py8DksXNG88d03OLMQibuHljkMUes0ihcadwv6G/rK88dPNrw
-	DJ9N/5rodkDMTlmQfymo0n7w809Uy8RfiHrc59kq9jmZ334xtZb5kj8i2madUDK9mZZGhS4VWy/
-	1X7qGNzjbbCLzt7/xCrgbOv+nSsgMEHqTy6Ik9mtn5ZnLxNxwyt4Cdes+0Fh2FiNN4lXsExpshi
-	pUhYAGrDboKwWnHApXlaqP27lq4/uQS+NuR++BooXczhv29nAWE5QvFQicnxKZiVzJfm8/RJ70Y
-	S2aBvsXGsKoLAaQMo8paOB5zzl74=
-X-Received: by 2002:a5d:44c6:0:b0:487:a15:b4cc with SMTP id ffacd0b85a97d-48e6e4fad74mr19327972f8f.23.1793649209253;
-        Mon, 02 Nov 2026 11:53:29 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793649210; x=1794254010;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7d0shAOVJ1K7372dJ2kGybXJI56xuJHqHu/gSqF4j54=;
+        b=zBq9X56dMxY9/0Cg7AO4ymprekPEbI1eSCz1oDuaMVfJf2B36iz4nIzB16tSWVNAul
+         GSsh1ukh+WncdhzVuJ4DMsPmxzKu2TnwrxM8ujEif0Treo3pPhHZjR29ZfTAnEuSWI0E
+         1lvaUOuVFdE2gfPAF2cnYbaNqaPJ9a0baZ7WA95rTsMZ5MFF8ymJ01LXzp7U0ENAH2M8
+         8UZ2/zuLEvNoMskcDJxW0qu3BqY3P3Oq+ekTb2JhLxRQR7HrDek36bhuOYpIrAm38O98
+         P0Evs+9jMmJLH/hUzk8FEXlSxoKihUvpTg7AfZHyl/i83MdiEPD9O893ixrzBaEk8gPQ
+         xsLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxOpBSshIEiER+SFVld4N4udN3oB9mpE1zA3UYRAa+SEueyAYun2bEmmpo7HjJ+30S/SLmELDc8x0TK8OU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIA0jqp+fRwR4AR9EEmUpZixEhtAPBfQa87FsjLevj+K5qlSKet
+	8ZAtnca2c/oKVvVCZKWTU3m1z3vf39f8l44S16TCPyeJOeteWSI6xvpDhSEJ9dKQ7RM=
+X-Gm-Gg: AYBFou2Wa7gJ8ITTFa9FaCKxksrBhwNlg+V2j4a2PWGp9Ib0WHMEBzpwGVBxo3bIoXT
+	lLTJfZHgvbMuTH2STDJUVgjaConCeheUubXYf2uEPNQGkurCM0YRPV0byYrO7sju/aXR0y6ZhbY
+	Yt+dvu+TFqE61U9E03ZHyNPYKyWKk2Wolzy7vEkkqs6k2IvaCFGEIGsX5wcjp5bHycWojkd6N/I
+	DkdsHWyU04pFWXsgYhj4UTVwSsLdxrJRFExar35mR0w9XMpIwlmYsXM3/jzyMVqzsqRVxB25bNb
+	df9vKG+8bYoF6NKifC9cszM4s1fpzd3oNZGh3StLYbZinEJ0ov/F5ke7BiyO5Ga9DjZ7vSVF4nS
+	armeiEtYloAPsyU/ZMJK2R7odH7X+HolVhzIP2SVaaw1iOvmQnFJ7fvsMgPOfiw86SC92zbq0Pc
+	1PB1vuc/i6KG/MB+Dq4HPU7AC5Xn2Y8t8W7RSKA7E51EGOJrgza+4j1dMBKpvk0iM3UAKLtKX5N
+	wFVuxRDZaIYankael/2REnyUFvPxWL4wFFVKIWZobtYLUuGo/kkNVrzrZGxZWMiRIsFr6qjnHj4
+	kdCeX0I6XQarkO5xrn0yti8+MgDkRIqb6smW+sg2fQ6CO+2ep8Rp2sB0xXWOzOY6M6KVMgRVOFh
+	ywiaxM/d+BjxgsIIRwvSH3oCdbg==
+X-Received: by 2002:a05:600c:1f94:b0:4a8:f2ad:a9e5 with SMTP id 5b1f17b1804b1-4ac1548f591mr254361025e9.3.1793649210359;
+        Mon, 02 Nov 2026 11:53:30 -0800 (PST)
 Received: from z13-ek5.local ([151.40.161.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3cesm24039784f8f.7.2026.11.02.11.53.28
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3cesm24039784f8f.7.2026.11.02.11.53.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 11:53:28 -0800 (PST)
+        Mon, 02 Nov 2026 11:53:30 -0800 (PST)
 From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Subject: [PATCH v3 0/9] ARM: dts: omap: dm816x: fixes and peripheral
- updates for DM8168 SoC
-Date: Mon, 02 Nov 2026 20:52:46 +0100
-Message-Id: <20261102-patch-ektor5-dm8168-dts-v3-0-9bd6d1d128f2@linaro.org>
+Date: Mon, 02 Nov 2026 20:52:47 +0100
+Subject: [PATCH v3 1/9] ARM: dts: omap: dm816x: Add specific pinctrl config
+ defines
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,11 +96,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ6CMBCG4auYrq1ph7YWV97DuIAyQP2hpMVGQ
- 7i7BWOiC5ZfMvO8IwnoLQZy2IzEY7TBui6NbLshpi26Bqmt0ibAQHHGJe2LwbQUr4PzklZ3zZW
- m1RAoiDKTRjOe14qk795jbZ+LfDp/dniUFzTDzM0XrQ0JeS3pyOe7b0WtViKnjJbCYMaA7xno4
- 812hXc75xsyZyL8QKDXIUiQkEIIyEFyhD9omqY3MYyDOxoBAAA=
-X-Change-ID: 20261015-patch-ektor5-dm8168-dts-24b35c8019f6
+Message-Id: <20261102-patch-ektor5-dm8168-dts-v3-1-9bd6d1d128f2@linaro.org>
+References: <20261102-patch-ektor5-dm8168-dts-v3-0-9bd6d1d128f2@linaro.org>
+In-Reply-To: <20261102-patch-ektor5-dm8168-dts-v3-0-9bd6d1d128f2@linaro.org>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
  Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
  Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
@@ -112,81 +110,53 @@ To: Aaro Koskinen <aaro.koskinen@iki.fi>,
  Rouven Czerwinski <rouven.czerwinski@linaro.org>
 Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Ettore Chimenti <ettore.chimenti@linaro.org>, 
- Christopher Obbard <chris.obbard@oss.qualcomm.com>
+ Ettore Chimenti <ettore.chimenti@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793649208; l=2941;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793649208; l=1087;
  i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=/zToKwQTm1t+VyPJvHbpStnNft3Pne07RC2dktu4oxk=;
- b=G0KWPNDEdZFaQJ1h9rp2gNIuq5r/X6WNHQpFFKlZFbFyWDTVZqmxnjbGt4Z4C2+kJeiZr6TcZ
- C/pGNRbhFcuCtpX9ipEFYMG5d03ldaCXX/ODi1VObVVP1auFfkjOCrI
+ bh=pNEg8PM8cIp8ox2y+p3fYgoghPcp69Vhurs3Xww0fMA=;
+ b=7FEE9qKpkZS4TmJ0ng4j0OyfENMQ/VSbQvaLIHzr2DP8dPlCjEE33M8B+fZIJoj3KWBfvUBSq
+ 4UVr7SVq73QC7TRJsvkn9TnNlTt03EMZoDO3ZrKgov02XeVPMcF8afM
 X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
  pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
 
-This patch series collects several fixes and peripheral enhancements for TI
-DM816x SoCs and the DM8168-EVM board:
+Add pinctrl config defines for TI DM816x SoC pinctrl configuration.
+Using same definition as OMAP2/3 except pullup/down enable macros, which
+are inverted for this SoC.
 
-- Pinctrl: add correct pullup/down enable defines for DM816X SoCs, which
-  they appear to be inverted respect to OMAP2/3.
-- SD: explicit pullup disable in DM8168-EVM SD card pinmuxing.
-- Storage (MMC): Update MMC node settings, dropped mmc1 hwmod.
-- USB: Update MUSB node, enable multipoint mode, dropped usb-otg hwmod.
-
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
 ---
-Without upcoming Andreas's patch (not yet on the list) that silences the
-WARN() for the missing hwmod from DT, commits in between the hwmod DT
-and the code removal will get a harmless WARN() during boot.
+ arch/arm/boot/dts/ti/omap/dm816x-pinctrl.h | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-Tested NAND on DM8168-EVM, seems the pinmuxing is working fine.
-GPMC_WAIT is left with the pull-down enabled where a pull-up would be
-preferable, and GPMC_WPn is not muxed (reset default). Neither causes a
-functional problem.
+diff --git a/arch/arm/boot/dts/ti/omap/dm816x-pinctrl.h b/arch/arm/boot/dts/ti/omap/dm816x-pinctrl.h
+new file mode 100644
+index 000000000000..b93f971cbe95
+--- /dev/null
++++ b/arch/arm/boot/dts/ti/omap/dm816x-pinctrl.h
+@@ -0,0 +1,20 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * This header provides constants specific to DM816X pinctrl defines.
++ */
++
++#ifndef _PINCTRL_DM816X_H
++#define _PINCTRL_DM816X_H
++
++#include <dt-bindings/pinctrl/omap.h>
++
++#undef PULL_UP
++#undef PULL_ENA
++
++/* DM816x mux bit defines */
++#define PULL_ENA		(0 << 3)
++#define PULL_DIS		(1 << 3)
++#define PULL_DN			(0 << 4)
++#define PULL_UP			(1 << 4)
++
++#endif
 
-Changes in v3:
-- Collected R-b tag from Andreas.
-- Split "Update USB node" to have separated hwmod and DT edits.
-- Removed mmc1 hwmod, splitted in the same way as USB.
-- Reorder USB reg/reg-names to match the binding, rename nodes to the mc base address.
-- Dropped patch "dm816x: Correct speed for sysclk5", it requires more
-  investigation.
-- Link to v2: https://patch.msgid.link/20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org
-
-Changes in v2:
-- Removed useless "Prevent USB being put into idle" patch.
-- Dropped "Match up capability flags for USB" patch.
-- Refactored USB node patch to use ti-sysc instead of usb_otg_hs.
-- Added "Remove hwmod code for USB" patch to complete the ti-sysc
-  porting.
-- Using DT include instead of dt-bindings header, dropped patch.
-- Link to v1: https://patch.msgid.link/20261016-patch-ektor5-dm8168-dts-v1-0-b4ce30217028@linaro.org
-
----
-Andrew Goodbody (5):
-      ARM: dts: omap: dm816x: Fix pinctrl range
-      ARM: dts: omap: dm816x: refactor and align MMC node
-      ARM: dts: omap: dm816x: Update USB node
-      ARM: OMAP2+: ti816x: Remove hwmod code for USB
-      ARM: dts: omap: dm8168-evm: Correct SD card pinmux
-
-Christopher Obbard (1):
-      ARM: dts: omap: dm8168-evm: enable MUSB multipoint support
-
-Ettore Chimenti (3):
-      ARM: dts: omap: dm816x: Add specific pinctrl config defines
-      ARM: dts: omap: dm816x: use dedicated SoC pinctrl
-      ARM: OMAP2+: ti816x: Remove mmc1 hwmod
-
- arch/arm/boot/dts/ti/omap/dm8168-evm.dts   | 17 +++----
- arch/arm/boot/dts/ti/omap/dm816x-pinctrl.h | 20 ++++++++
- arch/arm/boot/dts/ti/omap/dm816x.dtsi      | 78 ++++++++++++++++++++----------
- arch/arm/mach-omap2/omap_hwmod_81xx_data.c | 46 ------------------
- 4 files changed, 80 insertions(+), 81 deletions(-)
----
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-change-id: 20261015-patch-ektor5-dm8168-dts-24b35c8019f6
-
-Best regards,
---  
-Ettore Chimenti <ettore.chimenti@linaro.org>
+-- 
+2.56.0
 
