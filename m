@@ -1,123 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793590338;
-	b=CAJnnMzGxzSMnI5Xriae0INslJ35G/XIOXGfTiES4V9H3lnrgd6nCMxIo7+HPExKZeer
-	 afl+wzl0KMWotAD/YeOY/vOD+SfbxcJPA23Ukg47hBAw1oqRLfxUArgTqApeXQxca7JMM
-	 TQCmGtAyVTqlC5m61a0yV1d46gJirDI/PBjKZxAH9xfioiPrRCi1BxT11Es86oVS+4qFV
-	 a0QAtyolnZq5aHRZi4GcfHc9yaElLJc2Kd4ZLLNJNkVyoDMs8Nn9jZQZRJuUWI6t/BZr4
-	 0AtWxkbNxjI43vXJ8vcov+a+ZajVzeSmrt2JyYX1eS6hl84i1/yEwxPZs5r5Y593/Bg==
+	t=1793590375;
+	b=OVIc7ZWVPibfNhGOMD9raDSYncycvmwsWJfuzQBmI64x4q5sKI4fYJrzORpBCcJU243v
+	 DZImUgJjvwYBa5Hrj2CdlLz6ZIVDNyaxGUR9yt3vPMAN43/GzfGWtAa4NA59Xdf4VoTsb
+	 oL0pkdBjADaoApAWgVcOj8RJ390EKndE330j+0sI776zoAOPnRWZyve8mDG8lU6ZtXNl9
+	 eIEyoO2s9EcN3zD+GvrxwmxTiGruXdm+kOW+ds5/By/5eUg0hg+NwH3jmMFdmbdS0TSbf
+	 bGHtAqFweZp/TfNhQyowCG+MkEAzq7Fx/p71l/Y/bTVQqvo/F8AF8M5WM1mrKowdXsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793590338;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=V4Vra6fQtcjS2bOHJ4vISu/T87zL26GOtMaue5+rq5I=;
-	b=ERtNlok7Umxd4IIdxSlerFyGomsx90nPS9sCR0OCJJpYVReTFjgNHgMPTs2o2Bt0Q93o
-	 bbRqx1BABBL9btvwsuDSh/TZee7U2tpORqCqOPdxkzVUZZPIrvhZZP9kLJUYoMKe855dJ
-	 9zL6kB6MDONUO39kImR61FSgPL8/ghJ0XF/rnEet3homMFMGYYkpzQEJ6ToRIZ+Kq0gO0
-	 H4VW8/P7EFeKhnnHcmtb3JyvhuWe9QaaQShRot/uizqgxox6AF5tyQ8vnp+Sg/UEhfzcc
-	 rR9jDBkCgwGEl0Uj93Lk8v/v6jslpQhBgjqoS05m8j0rvBXYRkyrt5QQZ/aZGrytM+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793590375;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=m/8uEgVZBiGs6GhX+EaixTcEV6WwGEnxdOq6kuEraE8=;
+	b=Iyaeima7uVW9t+eO500OmLkEuoh6IPp5R7lscbL7tdMrXpAF/yUNh/gpejDkD3XW2wAv
+	 lew31slNFDlfU31sJu9dC4v3cxkFVKjS2PO8P/M10E7at2JvHwfsODC4KVhUoJGQt/s9j
+	 cgQVXpvbqSCnIDqHBFA+lTFe3f3rRIK+QbOj0Vlu8oqrFjk0HjtGB0Csi+s4CCHrewRE7
+	 nCFyTAqNZLslS2A9fEEfAmbpk569pntuUKkzM6ZtpuHi+In1r7DU//83Bx0O5Uovd0PJH
+	 Ter+Tlth1JNALpFD2ZLEQ7SAaA92GyiPdwTjjMRSzpwSSflJ3xcSrj3jEObUm7KLrrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Jtub3uo/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=V1WkYBda;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G3nhFDKM;
+	arc=none smtp.remote-ip=95.215.58.43
+Received: from mta1.migadu.com (out-43.mta1.migadu.com [95.215.58.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB487606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:32:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB487606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021C1606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:32:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 021C1606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jtub3uo/;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=V1WkYBda
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A20Jwxv2256299
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 03:32:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=V4Vra6fQtcjS2bOHJ4vISu/T
-	87zL26GOtMaue5+rq5I=; b=Jtub3uo/eIAoGU4zHgJ4tpO6pWa9BHZJ3HCrlOg1
-	fp6ewqqjBikhw41zxoPNCazflbBMTq4AH2vnklMiDWwINzfxU4Uorj2luR+LbfFl
-	ppjzUfXNNLtukv4mkqkg5KDPoqktKpsPVAilXnXi2CtdYjBlxoq+wJR4bE5ZvAis
-	0v6jgKmBqE+fM43oZOh5hIBfcr1ihqICwbwHxdTPhZiUr/YNtU9Mp3Nsz0dGML1r
-	uAilxBiM/x3DBuMaIs9o7WFQfc9zvYjIwGe/B3CZn8/pkZNz1WAh7/o0+ajILbGv
-	pdC0KLKfg5EIkFZRvnL61a4mDZBshPskz21YDAh9qUGaug==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8j2w0de-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:32:16 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a1e2485fdso7089508eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:32:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793590336; x=1794195136; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V4Vra6fQtcjS2bOHJ4vISu/T87zL26GOtMaue5+rq5I=;
-        b=V1WkYBdaGilv8yNeBa9rm0X9T9yFa6coXaVXwf1bdOOz5ZMYyYsX5cfQeY+BMVQkHl
-         iQJZKoLMnl5Se2L6/9qynHRI1y1OpvrF0Hcc/yfAuuuqXI1v3oYqKpX2iuS9iKUhdMVh
-         ETSD8q1OUuZmDfzVgqitQp8uujwSWfgirzjxyoWXFME4JhOxlDGQrBjZBMN8iTW6eUE4
-         b+PHgLNJhzK7OW110pllHVMgnNUfW9iYSzunDmAxtCWblG5kzo9O2gaeSUP65DVZd/kE
-         1jZxRRMyBunMSqlwD7Veo7/GpVipNj221llzSQNc3Jm3bAlVkX4on8v+U1hvYbHZCrmR
-         lhpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793590336; x=1794195136;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V4Vra6fQtcjS2bOHJ4vISu/T87zL26GOtMaue5+rq5I=;
-        b=vzRtm38YIDYGltdLSslQlJktFzUwJqxR3Th3Nr8yoj/feqaZRNiWQRqI+lM8moFeEn
-         9IZD6RCMpDorchqkaCLOgkE5IO8UfXYJtq37bdLsyXqGMt6P+OK79vImpTycIAmJ4Mhg
-         /xXrENaQRmkIPERFoFonZC36uHffDP/yNW60LzFEiBKyY2p7H/yACeIPS8IvTcR1ol4V
-         DepBoyOKlSw/m433wqyBuiCS741pIEX3KKxoZMkRlNLuOSvM1YAZko6JvdWF/kEJum4w
-         tvH1wCaJsb6M4VnBA8fxoBjhRwD7Vk/MlpCtmFmyzMCg8a5wJF9I/Re/y9dni5sFdSNw
-         /Cow==
-X-Forwarded-Encrypted: i=1; AKwUvBzVg+DFrXROxYxDCCrOYIexsIg46JOVIntdCx9jCbhH732yeSLUSZG3KnMNNSO2mMn0UVwF6EDIffwwxWQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9jBDs1G7e1g/MXJkrvBpPvUSgk05NR9MFxMxK+wB1Lggl6Q0f
-	J3Bl5BOMsVyO46v8o7XqqR3PUQuOMdC5VhC9z0w7X6e9BzvJT5gddeCbbzfONmVYSlC07uSUHZ2
-	nEJ8ANDpG+wUEPOzvKHSnOD8O6SDh27WsGpeDbF/+ip2gImEVMomskRGu/v7MHiD9Af3b2nWukN
-	yItQ==
-X-Gm-Gg: AYBFou0i3bhLao52lesNyHOfmiVC+dHOjm1utGvH3+cmH3D9wuvehMP39Bs2oh9x41w
-	wBEStwUJRDoySClHArE3z6yrsNjYDMRYFvE/p1rWDLSFqAoiYEqcq93sdfWYzKnpVBfkeXwmJPO
-	mhKAC+mxGMJMjV/Gd5FRGNUvGkIgjJDtAerm5TwlR3Li5d/GdlzmH/fbAbFUjRNpEXdv4Mo293A
-	SxXtIj0PWW2nbIz8wFzu/bMbcWOMCW67Kq+mvh4pZw++VMXLHpqd5WzgTxnPpA4eff8ylbL6CFM
-	TDWjlFIQx628p42/I2IPonAOfLJNEoaxKSNVJHkzD/tn+4wvahD3WzN81rxdSUZtj0yX4Bc+o+U
-	BaXz4w/b5yKDmJrTJkHFhrW1zY7mcqsqPh56+A6HLaLQQuMiMCe4btcoW6RZRx5uypJZYb96AFc
-	wM3T6Hc7/LPPVmqcxlhlAh
-X-Received: by 2002:a05:7022:1108:b0:199:4f68:7710 with SMTP id a92af1059eb24-1ac55774becmr11915337c88.2.1793590335774;
-        Sun, 01 Nov 2026 19:32:15 -0800 (PST)
-X-Received: by 2002:a05:7022:1108:b0:199:4f68:7710 with SMTP id a92af1059eb24-1ac55774becmr11915309c88.2.1793590335163;
-        Sun, 01 Nov 2026 19:32:15 -0800 (PST)
-Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1aed79b3dfcsm27427782c88.12.2026.11.01.19.32.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 19:32:14 -0800 (PST)
-Date: Sun, 1 Nov 2026 19:32:12 -0800
-From: Peter Chen <peter.chen@oss.qualcomm.com>
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Cc: linux-usb@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Sriram Dash <sriram.dash@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v4 5/7] usb: dwc3: qcom: Support broken suspend for
- SA8255P
-Message-ID: <augEPIcTyepgTxFW@hu-petche-lv.qualcomm.com>
-References: <cover.1793212717.git.faisal.hassan@oss.qualcomm.com>
- <3a4bdffa9101fa81e4511d84c5a3ddd0b972efe2.1793212717.git.faisal.hassan@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G3nhFDKM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nNlyAiB0N622Wf4HwaxQyqQjcvp12NITnvjasTRHZ0c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793590372; v=1; x=1794195172;
+ b=G3nhFDKMWIE7AKZx4ckudlwRejG9HG2FRVh9P/6SFJu7sIvMUo2yJB+SF8+tTU/HuPyHRDUy
+ RwxsYecrmTpIdK+6S0G4Nm8uxKCjJmQuNH8UW166d/IUYtVr+Q/lKxufAOPg4aR7jetkKEDtpUJ
+ kPubV+BA0P79DmaYzj8lAjIs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id d0263b54e1afad11;
+	Mon, 02 Nov 2026 03:32:51 +0000
+X-Mizu-Trace-ID: d0263b54e1afad11
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 2 Nov 2026 11:32:36 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+	Joel Granados <joel.granados@kernel.org>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	Thomas Gleixner <tglx@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Maoyi Xie <maoyi.xie@ntu.edu.sg>,
+	Zhan Xusheng <zhanxusheng1024@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	Yung Chih Su <yuuchihsu@gmail.com>,
+	Wyatt Feng <bronzed_45_vested@icloud.com>,
+	Hannes Frederic Sowa <hannes@stressinduktion.org>,
+	Flavio Leitner <fbl@redhat.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3 5/5] net: restrict message_cost and message_burst
+ to non-negative values
+Message-ID: <augEVIHANesq7xkO@fedora>
+References: <20261101061331.286404-1-jiayuan.chen@linux.dev>
+ <20261101061331.286404-6-jiayuan.chen@linux.dev>
+ <auftqzpuuNFiScrb@fedora>
+ <2fd1dc53-ae46-4163-90a4-f916c9dce29b@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,128 +91,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3a4bdffa9101fa81e4511d84c5a3ddd0b972efe2.1793212717.git.faisal.hassan@oss.qualcomm.com>
-X-Proofpoint-GUID: GUasoA5hDsLR1IkV7TA4UN6PCg8LAjNq
-X-Proofpoint-ORIG-GUID: GUasoA5hDsLR1IkV7TA4UN6PCg8LAjNq
-X-Authority-Analysis: v=2.4 cv=S5RMU4sP c=1 sm=1 tr=0 ts=6ae80440 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=PcBk4QqV-VHVs7bFY3sA:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAxMyBTYWx0ZWRfXz0wL1dzp4rs3
- 8jkJ0kIFfJmlEMuMChL0FSzICJL+4u2ZC8fRGBRinCxCZAjjqENGbe+7HQPPaIw8ad/SwuJma3t
- 9QK+oVgq5l4buZ4LA8Fw0YxO/aDRmOQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAxMyBTYWx0ZWRfX41niAoUmmub0
- zWCwUDWJxp+WiRlaXrqnqrDaofQLlwdtc/ePh/vaIltK1Ut3fZjo4+WuGpjigHDx7d/wCsUra40
- vctBDGB+wc8vjcR9bPpqeALRbm/uWlZGSBUIkziNfDtsJ2Po/2BHiWfyzOh+D7DjrQkIwYgNNTJ
- VnXHkYwgEbjiz6CutzccxTvNs0qRslwNViqCAr9Y0/RwCEPyO5Ai9QX9CtA4GaLd7wawaGkQ9UM
- UquWYgZEwEPwhnH03UgCg6loaZPQ+o1EdSmaMIe21N4qeHme1+9DT9po3HH3jaGFPx8i4YMHJXM
- evmaUHUQtmT/WIrLPJE3/JRlJTCkqCPYspF5x588kfz+IplYUoufnRxpUaE5HUlf+ffp+TAJo5X
- ZqaRJIy+X8s1g70ON8cXoGyzOEssoJhxdrdDZ1yGes+2esf64ME8kZL5aocMMse2PYe4NCDIrsW
- eypXrGNx4FuPPSOH2Ew==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
- malwarescore=0 phishscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020013
+In-Reply-To: <2fd1dc53-ae46-4163-90a4-f916c9dce29b@linux.dev>
 
-On 26-10-29 00:29:35, Faisal Hassan wrote:
-> During APPS Suspend, the clock controller unit disables all clocks
-> to the CPU and subsystems, causing the controller to enter the
-> Power-On Reset (POR) state. This results in the loss of
-> Qscratch programming.
+Hi Jiayuan,
+On Mon, Nov 02, 2026 at 10:23:30AM +0800, Jiayuan Chen wrote:
 > 
-> Upon APPS Resume, the USB controller does not have the proper
-> PIPE_UTMI_CLK_SEL or VBUS_VALID. Hence, if only the High-Speed
-> PHY is used for a controller capable of SuperSpeed operations,
-> the controller will assume it should use the USB3 PHY and not
-> the HS PHY as configured before APPS Suspend. This behavior
-> disrupts the normal operation of the USB controller. Similarly,
-> if the controller was operating in device mode prior to
-> APPS suspend, and VBUS_VALID signal is not set after APPS resume,
-> this will cause the PHYs to transition into the suspend state.
-> This behavior disrupts the normal operation of the USB controller.
+> On 11/2/26 9:55 AM, Hangbin Liu wrote:
+> > Hi Jiayuan,
+> > On Sun, Nov 01, 2026 at 02:12:03PM +0800, Jiayuan Chen wrote:
+> >> net.core.message_cost and net.core.message_burst feed the interval and
+> >> burst of net_ratelimit_state, but neither rejects negative values:
+> >> message_burst uses plain proc_dointvec, and message_cost uses
+> >> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
+> >>
+> >> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
+> >> negative"), ___ratelimit() splats on such values, so the next
+> >> net_ratelimit() caller warns, e.g. a martian source log:
+> >>
+> >>   Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
+> >>   WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
+> >>   RIP: 0010:___ratelimit+0x578/0x960
+> >>   Call Trace:
+> >>    <IRQ>
+> >>    net_ratelimit+0x1c/0x30
+> >>    ip_handle_martian_source+0x1bb/0x340
+> >>    ip_route_input_slow+0x1057/0x3650
+> >>    ip_route_input_noref+0x104/0x260
+> >>    arp_process+0x109b/0x2510
+> >>    arp_rcv+0x381/0x460
+> >>    __netif_receive_skb_one_core+0x173/0x1c0
+> >>    __netif_receive_skb+0x21/0x150
+> >>    process_backlog+0x37e/0x1200
+> >>    __napi_poll.constprop.0+0xa5/0x5e0
+> >>    net_rx_action+0x4c0/0xf70
+> >>    handle_softirqs+0x204/0x9b0
+> >>    __do_softirq+0x10/0x18
+> >>    do_softirq.part.0+0x49/0xd0
+> >>    </IRQ>
+> >>
+> >> Negative values never meant anything here: 0 already expresses both
+> >> "no limit" (interval) and "suppress everything" (burst).
+> > Will this limit breaks the UAPI on old kernels that supports negative values?
 > 
-> Address the issues by ensuring that the PIPE_UTMI_CLK_SEL and
-> VBUS_VALID are handled properly after the system resumes from
-> APPS Suspend. This is crucial for maintaining the correct
-> operational state of the USB controller and preventing
-> unintended suspensions of the PHYs.
-> 
-> Also, as the controller is starting from POR state, make
-> sure the controller Reset is performed.
-> 
-> Because the controller is reset on every system resume, the
-> Qscratch restore is done whether or not wakeup was enabled, and
-> dwc3 core is told via needs_full_reinit to fully re-initialize the
-> core on system resume even in host mode with wakeup enabled. Wakeup
-> on this platform comes from the PHY interrupts routed through PDC,
-> not from the controller staying powered. VBUS_VALID is only forced
-> outside host mode, matching what probe does.
-> 
-> The XHCI controller is reset by the same event, so also set the
-> xhci_reset_on_resume dwc3 property. dwc3 passes it on to the xhci-plat
-> device as xhci-reset-on-resume-quirk, which makes xhci-plat set
-> XHCI_RESET_ON_RESUME.
-> 
-> Also make the .prepare callback return 0 on these platforms. A
-> runtime-suspended device in device mode would otherwise be left in
-> place across system sleep (direct_complete), skipping the system
-> resume callback and with it the reset and Qscratch restore.
+> All commits in this series restrict config values, and every one of them
+> changes the old behavior to some degree; the question is whether the
 
-Faisal, there are several issues in this patch, would you try to split them?
-- XHCI_RESET_ON_RESUME quirk support for dwc3
-- PIPE_UTMI_CLK_SEL restore after system resume, there is a similar submission recently [1]
-- VBUS override restore after system resume
-- The improvement for system resume dues to HW POR or lost of power.
+The other patches fix shift-out-of-bounds or incorrect behaviors.
+> 
+> change is reasonable.
+> 
+> 
+> For this one, negative values never did anything that 0 doesn't, and
+> since a940d145cc38 setting one already triggers the WARN_ONCE().
 
-[1]: https://lore.kernel.org/all/20261027-dwc3-utmi-resume-v1-1-ca9f0aa65783@gmail.com/
+While this one doesn't improve anything other than the WARN_ONCE.
+The previous kernel works good with negative values.
 
 > 
->  struct dwc3_qcom {
->  	struct device		*dev;
->  	void __iomem		*qscratch_base;
-> @@ -86,6 +90,13 @@ struct dwc3_qcom {
->  	struct icc_path		*icc_path_apps;
->  
->  	enum usb_role		current_role;
-> +
-> +	bool			broken_suspend;
-> +	bool			ignore_pipe_clk;
-> +};
-> +
-> +static const struct dwc3_qcom_priv_data sa8255p_dwc3_qcom_priv_data = {
-> +	.broken_suspend		= true,
->  };
+> 
+> > As the comment in ___ratelimit() says:
+> >
+> >         /*
+> >          * Zero interval says never limit, otherwise, non-positive burst
+> >          * says always limit.
+> >          */
+> >
+> > If all others agree to set the limit in this patch. I think the comment
+> 
+> 
+> The comment and the WARN_ONCE() are about ratelimit_state in general, not
+> net only. There are still other ways to set a negative value,
+> printk_ratelimit for example, so updating them is not this net patch's
+> job.
 
-Why you consider it is "broken", or is it a normal resume recovery due to lost of status
-for controller and PHY? Why other SoCs don't need it?
+printk_ratelimit is not recommend anymore.
 
->  static int dwc3_qcom_prepare(struct device *dev)
->  {
->  	struct dwc3 *dwc = dev_get_drvdata(dev);
-> +	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
-> +
-> +	/*
-> +	 * The controller loses power across system suspend, so the system
-> +	 * resume callback must always run to reset and reprogram it. Don't
-> +	 * let the PM core leave a runtime-suspended device as-is.
-> +	 */
-> +	if (qcom->broken_suspend)
-> +		return 0;
+/*
+ * Please don't use printk_ratelimit(), because it shares ratelimiting state
+ * with all other unrelated printk_ratelimit() callsites.  Instead use
+ * printk_ratelimited() or plain old __ratelimit().
+ */
+extern int __printk_ratelimit(const char *func);
+#define printk_ratelimit() __printk_ratelimit(__func__)
 
-Why we need this? I see dwc3 core do dwc3_core_init_for_resume at device mode
-during the resume.
+> 
+> > and the WARN_ONCE() , and the admin-guide/sysctl/net.rst all need to be updated.
+> 
+> 
+> 
+> net.rst never documented a range or even the unit for these two, which is
+> why I didn't touch it. No strong preference though.
 
->  
->  	return dwc3_pm_prepare(dwc);
->  }
+I think a doc need to be updated if you set a range limit.
 
--- 
-
-Thanks,
-Peter Chen
+Thanks
+Hangbin
