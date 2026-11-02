@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612547;
-	b=X4RtrqQKUX3c16XxPNbOgPTdVXgxHyQlXKWXYyIJ2Mj/VrCAc7VhCNKKAgKCHKMfh2aZ
-	 tz8vk4QNAcbSBpOhsiRsCOIvgiuyEl3MCdEFqzpRFeqyn6mIyMOv5y6iSJxQiz7NqMq5+
-	 OcCT54YxilvIDeBG+699/J4PZ8P0p0TlxkPTO+xCBHAhM/e5EyOcxyLjAza9gVbxnDVlF
-	 dzmX/WK41dCKnGd+3wzBQDELTq2YCxjrnpkLSzD+I1szf0R6Qd8EDL2Kn2KXTgXR3UP/D
-	 WfFy9N2CTtLdQUUVEj/BTjH0doCG+q+lgGybLDrNobc5Z/5zDY38RsNU9Q2SO3viB6w==
+	t=1793612565;
+	b=vZV8IPzLea5CQz8Vr+Th+xcq1I/iDG4ZmFZF0WFdNVNTWjcCUeVhI6Dpqdy5LQsPpiD3
+	 uHE5pGDaB8csUcK+d6A2+Z2sLJhnwpCbyAA/mDhNs3pGflZ8kb2d8DEElAY934we+TUXB
+	 XFWwJilRUIbuInb8xnA26r0KMQmVtSBNfVlqxMJ9RwaWR+tYy85Z2fiMs9TCN7FjSYWLF
+	 1mmiJqGVx2IhQ1+8xj4wx68loazPcg+pApCt6BwTqTuTm5rzoOQuqszv/4mUI68UozF02
+	 3seeCdwsImBZVI+EZ9Le7uEBqnBtr+XeJYOD+wWJkrBsF5dIwJ0wm9kTQkwBktpfU/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612547;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1Jv2HSfsFmShe1KbpG+Ifb4gaTqXBdvVkT/A02E3Ako=;
-	b=YBQ3s/0Pu+8bRHfBQhckQcfZOjiMRSeL7FJy0MPlS6hytPEZznpjPr7YbIXNVouM/Wkd
-	 n0ti3MtONzmyQDVmcshXuP6iyDBhDom/R6p1wBL0m6WPbLtswnG3AW9vPqtnaqThSX9qr
-	 aYp+VyA09TfUU3MBfDTsPxnD079TRHXXhM9pG12N7ISFv1gU9EBIYPW3X3QZ0+am0Ft3Q
-	 7GME3eaAnR3gjKhKCXzODM+ZazACNMwTuojLhMDj2pHudNr69E+9mBUKJ2YToPidZpvqs
-	 KzTkawhpWK5uWp/UXjzbA6rlSHh0ZCzdp46imd6SUlwh7NJmZgmIL+2HMRvR1RX99ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=fS3fd1kxqIasLSOLsWPb3nWgBbFcJfSOZ+BlIh18+/s=;
+	b=3tDpG2/nzbIgt/fieqdGb6kTB4EB2zyt2W4PUfGOlByotg/D6fp/o5HmdzLyKts1Ltm7
+	 ghK/uw5xTHGEI+uP99K98WucUQLeMrPez9DzSDzo0akXsa0sea3hHjuiifxQWnqxUII/i
+	 oB/EHOJya1YVDqRMtx8+1dFVlSfdcvT3foCMFNlNj3+p37Sfc59Mc3lT0fSVlVEdL6+oa
+	 LBvyuY9sE2CHF6aHrkp8J8URk43tGYZCYvnVQZr9nIy95cbdh6UUy4/+H8PHjxbeU3Y3o
+	 RDg+pJm597QFEZxyXoAHYSBV+KhiGM/T38Dd5nORLY/qdFWjkokmtkj3DXxeVUt/UEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfcRnVGe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rPn4Rwu0;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB441606A32D;
-	Mon,  2 Nov 2026 09:42:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2778D606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2778D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfcRnVGe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB5AF1F00919;
-	Mon,  2 Nov 2026 09:42:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793612546;
-	bh=1Jv2HSfsFmShe1KbpG+Ifb4gaTqXBdvVkT/A02E3Ako=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NfcRnVGeFksUegJI5AICG04e5BkrIhVS/MeX0ZnXeC0bDuci1/mm3lSxsMK9ag0+c
-	 1RDEPGqvcvqCMXD1jdCUVCC07kz1AFZro9QtQ2BlVwsaa6iceCAnZSU8odBWzZuAek
-	 ARGg6e5ZyL5auQ3NWYw2mkyHUPoBuiR5iNA4xa1GpdsquKl54KznfJ11Aiu0VdbQfW
-	 pj4wl9nTrGG/YmzVlQcE9l3ZUf2QiiBsIdJhAblQUQs/y72wXh0QdDN27UYWIbZojH
-	 M+xlLA9+zVl3SXrpqVPKtIgJCIeZ9DZUxUacjVFQiy1m+HXx1cZ0X+hkqt4O/Jmwnb
-	 FuJtfkPib4Zng==
-From: Imre Kaloz <kaloz@kernel.org>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	mfd@lists.linux.dev
-Subject: [PATCH v2 2/2] MIPS: SGI-IP30: shut down cleanly on a power button press
-Date: Mon,  2 Nov 2026 10:41:05 +0100
-Message-ID: <20261102094106.21300-3-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102094106.21300-1-kaloz@kernel.org>
-References: <20261102094106.21300-1-kaloz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rPn4Rwu0
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2eb5251724bso4786755ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:42:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793612564; x=1794217364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fS3fd1kxqIasLSOLsWPb3nWgBbFcJfSOZ+BlIh18+/s=;
+        b=rPn4Rwu0Vgqc/6zBN1tVshjp1vVSo1gdqhSeah4zllTWNSzF8xxackwM9mpQ7g2+fR
+         AFV/5cQj79z8HBZDXUhMo/bihmMsx6e6WMJUeOhfFoqXfIYh/UA5tp0rmWYmLdFawW9p
+         5tMIM6sV7BT+OIDo76se6qqVpy4vLh6GWuvg8g3zBRFp8JfbA68yWMd4pE5uPd4lKgky
+         Fax4onG7hA7tXc7xUZDMk3VYcLuAwrUQ2hdtHm1erRfREK3xLSMrRBGAQdXFpZa5i0/p
+         OAXPIGmElic2kDNDrnC6kcj0r8XfxIRG7fudtZ5n5Q+K7psK6wGAZvX1a0Vu30B3o0la
+         Hhsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793612564; x=1794217364;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fS3fd1kxqIasLSOLsWPb3nWgBbFcJfSOZ+BlIh18+/s=;
+        b=WKiBqNM65LfK8nnqouckZuxtxV6fU3s7fHg+83WnKXI1VBQ4HhVFVi/HyrBIxzsTKT
+         8hFeSjVYFK/gLefARiNwZe2Z5aA/q7p/vUdH4Ks4rI7iXFH5e063hrs4dvyKePHPm6Ul
+         iUge5xRupgl2E+ayGdzfcl90GIMLgMWek2Tqi53EVh984Dnk40ZqchTO6qBo+vxfVU7m
+         on4WTv3Rs1RgTjnwYjcqyvaqsoHO8cG8DIOhwLanBpYZAM3dYMPNwdsXZs+hS4VlO6gh
+         NKYozyBesxFcLaQgkf28m1cmWCXFIkuDZmRwsvrCdT5sVUCfjFiUmUnbg8oeJNV/XUHq
+         UEZg==
+X-Forwarded-Encrypted: i=1; AKwUvBxwX2VIpB5qPcgbAQLnUM/r4zqlURt6V2r22Faev6BgI9AQYeyodt1fCIFvqfV/0aGKc+rIATc0A4ifqdw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VKJuTXIUYUH8iwsHKIERW+s5ZTWEcF5rGmjtJCVCmAiuq6tWg
+	d4LtXTgVW2xdHYuohFOZYRL8ExzD7oU3fxd5graL2g5rwAbf7uLHM+nW
+X-Gm-Gg: AYBFou12e6gQszFk5uIcvLg173WoKedsej6M89LSSD8jlEsXSzn5OK/rw4snJUdNO7J
+	W4ol9JAnavygCQpaFvZ1flI8OdwvI4CHdb//gNi+qKzJhUivo94xhfLKl2rfDcWZtqFJUEAzv/q
+	2rEOS7mmYolFsGveN0cEk7Xvrto8WYFLy5bjVecjP5YFSkT+pIrLqLd4Su4vv7kVlE1AdtZEW6O
+	l485TOp9JxQscKEbbIVma9uQMefmcmrrwCvdY5nwqsURCOjXSKK/SA+5k2Ij+8zasYu8RJvD6ef
+	Lx1FVA1TlyB879cIaLvPOqvm73xyXnIsFaD9c2MCg8GhARul8xohLcQIhdZNwRyW5iLF3ZGvcTn
+	y38x089bWs1JviN+xUlV0Ret9qIl0CAkdCQN+dTpaubuzsHO4HXOtnnztWp6BSjBXM552wgck0O
+	3BUXWkRTmV0Exdk87IjKCd/gxrJwGkSOXXJ57TODsEvt0swKWXTQCBc/XF+SgfygPmZprx5LbaI
+	92/sviWl3jYlzwSWgNY5ERu19aZx3SLy+6IAxRsEffTajjoV/xks+0/Kob3RH3m8/IXb2eo4i2w
+	Bed6y50pmhTILnUa+zlwxu7WaUf9TdklLA4XivXwWlsp7fBLC6keOVs=
+X-Received: by 2002:a17:903:13cf:b0:2ea:7180:3a82 with SMTP id d9443c01a7336-2eb36402562mr93347925ad.1.1793612564355;
+        Mon, 02 Nov 2026 01:42:44 -0800 (PST)
+Received: from localhost.localdomain ([155.69.168.11])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb77df90casm70975ad.0.2026.11.02.01.42.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 02 Nov 2026 01:42:43 -0800 (PST)
+From: Yuqiang Sun <izaiahsun@gmail.com>
+To: sashiko-reviews@lists.linux.dev,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: amit.kumar-mahapatra@amd.com,
+	luca.ceresoli@bootlin.com,
+	harshit.m.mogalapalli@oracle.com,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mtd: virt-concat: Tear the concat down when its master goes away
+Date: Mon,  2 Nov 2026 17:42:35 +0800
+Message-ID: <20261102094235.34511-1-izaiahsun@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <sashiko-outbox-193135@kernel.org>
+References: <sashiko-outbox-193135@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,161 +105,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The power button raises a kickstart interrupt on the DS1687, and
-rtc-ds1685 cuts power at once unless the platform supplies a
-prepare_poweroff hook. Supply one that starts an orderly power-off,
-cutting power directly on a second press or after 120 seconds.
+On Mon, Nov 02, 2026 at 08:45:12AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [Critical] mtd: virt-concat: partition order corrupted on rebind after partial teardown
+> - [Critical] mtd: virt-concat: use-after-free when master unbinds with concat held open
+> - [High] mtd: virt-concat: double free of eraseregions after add_mtd_device() failure
 
-Power-off drives the RTC's index/data register pair, so only the first
-of several concurrent callers proceeds and the rest wait. The timeout
-holds the device lock against an unbind of rtc-ds1685.
+Thanks, all three are right. I reproduced the reordering with a concat
+across two flash devices (it comes back as kbb-kba-concat after the
+first one is bound again), and the held-open case.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-169717@kernel.org/
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
- arch/mips/include/asm/sgi/heart.h |  2 ++
- arch/mips/sgi-ip30/ip30-power.c   | 60 +++++++++++++++++++++++++++++++
- drivers/mfd/ioc3.c                |  6 ++++
- 3 files changed, 68 insertions(+)
+v2 will keep each part in the slot of its DT node, register the device
+that mtd_concat_create() returns instead of a copy in the item (which
+also removes the double free of the erase regions after a failed
+add_mtd_device()), and keep the concat, its name and the parts of the
+master that went away until its last user puts it.
 
-diff --git a/arch/mips/include/asm/sgi/heart.h b/arch/mips/include/asm/sgi/heart.h
-index c224c2e3575a..736cabb7fdbb 100644
---- a/arch/mips/include/asm/sgi/heart.h
-+++ b/arch/mips/include/asm/sgi/heart.h
-@@ -317,6 +317,8 @@ struct ip30_heart_regs {		/* 0x0ff00000 */
- 
- extern struct ip30_heart_regs __iomem *heart_regs;
- 
-+void ip30_prepare_poweroff(void);
-+
- #define heart_read	____raw_readq
- #define heart_write	____raw_writeq
- 
-diff --git a/arch/mips/sgi-ip30/ip30-power.c b/arch/mips/sgi-ip30/ip30-power.c
-index b1b33c9cfd76..cff8f4875429 100644
---- a/arch/mips/sgi-ip30/ip30-power.c
-+++ b/arch/mips/sgi-ip30/ip30-power.c
-@@ -7,6 +7,7 @@
-  *               2009 Johannes Dickgreber <tanzy@gmx.de>
-  */
- 
-+#include <linux/console.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -17,6 +18,8 @@
- #include <linux/interrupt.h>
- #include <linux/platform_device.h>
- #include <linux/pm.h>
-+#include <linux/reboot.h>
-+#include <linux/workqueue.h>
- 
- #include <asm/reboot.h>
- #include <asm/sgi/heart.h>
-@@ -32,6 +35,8 @@ static void __noreturn ip30_machine_restart(char *cmd)
- 	unreachable();
- }
- 
-+static atomic_t ip30_power_off_claimed = ATOMIC_INIT(0);
-+
- static void ip30_machine_power_off(void)
- {
- 	struct device *dev;
-@@ -48,14 +53,69 @@ static void ip30_machine_power_off(void)
- 		return;
- 	}
- 
-+	/*
-+	 * The RTC registers are reached through an index/data pair, so one
-+	 * CPU at a time may drive them, and a second button press, the
-+	 * timeout and pm_power_off can arrive together.  Interrupts go off
-+	 * first so the claimant cannot be preempted by a waiter on its CPU;
-+	 * the waiters spin until the power drops.
-+	 */
-+	local_irq_disable();
-+	if (atomic_xchg(&ip30_power_off_claimed, 1))
-+		for (;;)
-+			cpu_relax();
-+
- 	/* Devices losing power may still interrupt; keep their handlers out. */
- 	for (cpu = 0; cpu < HEART_MAX_CPUS; cpu++)
- 		heart_write(HEART_CLR_ALL_MASK, &heart_regs->imr[cpu]);
- 	heart_write(HEART_ACK_ALL_MASK, &heart_regs->clear_isr);
- 
-+	/*
-+	 * Nothing schedules before the power drops, so the RTC's message must
-+	 * be printed from this context, not left to the console thread.  The
-+	 * emergency section is never left.
-+	 */
-+	nbcon_cpu_emergency_enter();
- 	ds1685_rtc_poweroff(to_platform_device(dev));
- }
- 
-+#define IP30_POWERDOWN_TIMEOUT	120	/* seconds */
-+
-+static bool ip30_shutting_down;
-+
-+static void ip30_power_timeout(struct work_struct *work)
-+{
-+	struct device *dev;
-+
-+	dev = bus_find_device_by_name(&platform_bus_type, NULL, "rtc-ds1685");
-+	if (!dev)
-+		return;
-+
-+	/*
-+	 * Unbinding rtc-ds1685 frees the RTC under the device lock, so hold
-+	 * it across the drvdata check and the power-off.
-+	 */
-+	device_lock(dev);
-+	ip30_machine_power_off();
-+	device_unlock(dev);
-+	put_device(dev);
-+}
-+
-+static DECLARE_DELAYED_WORK(ip30_power_work, ip30_power_timeout);
-+
-+/* Called by the RTC driver when the power button is pressed. */
-+void ip30_prepare_poweroff(void)
-+{
-+	/* A second press powers off at once. */
-+	if (ip30_shutting_down)
-+		ip30_machine_power_off();
-+
-+	/* Shut down through userspace, powering off anyway if it stalls. */
-+	ip30_shutting_down = true;
-+	orderly_poweroff(true);
-+	schedule_delayed_work(&ip30_power_work, IP30_POWERDOWN_TIMEOUT * HZ);
-+}
-+
- static int __init ip30_reboot_setup(void)
- {
- 	_machine_restart = ip30_machine_restart;
-diff --git a/drivers/mfd/ioc3.c b/drivers/mfd/ioc3.c
-index 5f8ac364b610..8f603651cc8e 100644
---- a/drivers/mfd/ioc3.c
-+++ b/drivers/mfd/ioc3.c
-@@ -24,6 +24,9 @@
- 
- #include <asm/pci/bridge.h>
- #include <asm/sn/ioc3.h>
-+#ifdef CONFIG_SGI_IP30
-+#include <asm/sgi/heart.h>
-+#endif
- 
- #define IOC3_IRQ_SERIAL_A	6
- #define IOC3_IRQ_SERIAL_B	15
-@@ -321,6 +324,9 @@ static struct ds1685_rtc_platform_data ip30_rtc_platform_data = {
- 	.no_irq = false,
- 	.uie_unsupported = true,
- 	.access_type = ds1685_reg_indirect,
-+#ifdef CONFIG_SGI_IP30
-+	.plat_prepare_poweroff = ip30_prepare_poweroff,
-+#endif
- };
- 
- static const struct resource ioc3_rtc_ds1685_resources[] = {
--- 
-2.47.3
+One note on the held-open case: a plain partition held open while its
+flash driver is unbound also gives use-after-free reports in the MTD
+core and the CFI driver, since the driver frees the master while the
+open device is still around. So v2 makes a held-open concat no worse
+than a partition there, but does not fix that part.
 
+I will send v2 tomorrow, to leave time for comments on v1.
