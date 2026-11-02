@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628904;
-	b=QA3ga4TLj3Rsa4zfh1FfHXDaZ6/sN9pfHYipraywYvWk25pa2ta2FKIk/Jg469hbfeCt
-	 XscnUTOlr9LKIiOE3RPDYXAm0egcTukPygR9U+UOiYb0VpUQpruM8BAQHUN5sagBIAHOF
-	 2fer9B7ojnGp+E/WR2quoa7hDe2RAEKoOcX4NHDN/ncL387ndttnZIrYMD2zThd6TTdZe
-	 ooYO/j1/sg1HgmI5zfFNGX+DF47shpVTzivaYiOwR+aC/XcOeUoEia79DyaaMZYh7I0rS
-	 QQn1Z6ymPgPxk+xiZm28qjUujOaBku0CgW1WPWkyhQo1KQplHoWH01wtZHEmOVPPWuw==
+	t=1793628920;
+	b=pgchbRNUlb2a0h+3XkOpefBsGgjtWy2gDdJftQKCEcMKVRWGda39i0I5cAQGZwDHpsbb
+	 7eSehDEm+1TNd04Vo0mIO9E6chAVJltkUvmZ5oLih3pTQzm7K8fQzfBdRdyy8IZrmbQrx
+	 ngGA3FE90IbdRdl+LuB0yy2yoQkyKU6lAd0mqhZL7lCLz+dje9TyHazZaSO9QIzfxuM84
+	 wPE3h7J39xQX/Sd16xIkPmV45mnWyuY2KyfSfbNpU+egXmEY3UDbsh32Ahfz479QGZnxg
+	 4UqIKvbyzdfbduW+XjD5oBHVmTYPRZmr/2EZ+pc5I4fl6Zn/3SFSbblX1sfTybVs1KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628904;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628920;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fFdoADdkdxRr75FQJBJurymI/Hlb9VRlM6nlg9L/Oyk=;
-	b=tNlOf/pW8Vlc6EhWGwnBUG4NQlEHyvxNCdEDz/ayzwcAbyimHYsPQjitdAOS0ulpZEaK
-	 ztYhhdAICStaGbwUeHFD9FhrzHenkC4a+sxsG8rNoYmiSIMa3KaySdML4eXrS1hbUYcfl
-	 n1REJwUykC6ZlSZsyQAqA5SIdch5D7aNy/JiEVMiI7qV1nCwAWjD+RrscR3gFElYgkDRd
-	 i1k6/RfJzjQ9qHypKOq4zKY/sy9ZgfMI0RcM7LW1wC98DWF3mTZy6kf3Tf4IaKHp2G/E1
-	 87wIBf481x9ObBiFEU3eRebqxm/S9yP7Zhk8Jk8DLKO8cWQlR03CrKoBWTcIRBplfDg==
+	bh=dJnJAQ1J2840u9KECjcYuFBU8CaqLFZXy5w57Y9rz80=;
+	b=H7rK2c84Sek0EfEh2bcOqe3jl7HxXj8yj9fug6XCpVX5tgBpaFrhlfCkPXKgMUQZu+7a
+	 EUHl8nKS0LZVrpkzieHChhMg+JUtIqho5eMhwr6RDVVrxR8TB/ZFydLpa1Du3uaDhA1W0
+	 ADnlkhkwIwFZmsfMJYq58uhWj/T+9ECpUZP1jUFRreSJpkeEr2QQxB4YC1DYdQ05oNBcR
+	 q/uMcfsJs2U5LwdVHcFrgEWebvEs4VrnyPUTKbI4zQo88AfcdJHiy6Vaawej1fxK7Ikr7
+	 prUezj59r+rwCbH4nqPKP+VIQsrmTSQi/XI5HvGQQ9oYbiQoU0hjXFvNuBS2jcc0FzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ffq66S3b;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GeW8WrUu;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE32606B5CF
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:15:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AE32606B5CF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B632B60A5BDF
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:15:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B632B60A5BDF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ffq66S3b
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33fb4680717so4738182eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:15:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GeW8WrUu
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-369f33df08eso6060445eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:15:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793628903; x=1794233703; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793628919; x=1794233719; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fFdoADdkdxRr75FQJBJurymI/Hlb9VRlM6nlg9L/Oyk=;
-        b=ffq66S3bMi4CNLYwXNHWjxzDPa40s2nFxTfX+qSjFTubPxW4qTDL6YzMdIA5HuzMtW
-         I3JUDikrgEXXkk/lZAZ5Blq3jxrfcnUUB0ZNdRo5h6sJ51TGk7zbfHxXcubeOTo1FfIs
-         ID1LN0ajhOYBWqjMXtsyuTPPrp9VX0tToxioFGDMiKg5zj6gwzc83lEUEY4YOiyljkLx
-         4doI26Go6XwPjRHXB/hrSQOzoV7abkHcJDiMUIt/w+l0+uI+/DEcj9wKDnQCCUZ3thtr
-         LsuYhbPY9+jdedMTwns+ezO3dyKVLu7vCYLGLKSFi/hCSqgFEgQU5loFe5uPIg+2L6Q5
-         IbGA==
+        bh=dJnJAQ1J2840u9KECjcYuFBU8CaqLFZXy5w57Y9rz80=;
+        b=GeW8WrUujR59h00XP6jNTP+Wt0lM56WwyHsMC3BFEQTbNiclg6QXY+aB1ec6M/knRP
+         UryPPYSl+I+hMAJBIlYiRfueEX9cMTn/3FZsM3TaZOVLiGlurR92qNXQ3iBQqjG8aHmd
+         FEGWr2LW7n/vy/5TStf3UVecyBw/rpPLAIXmmwF42qQgRPozqOBPwA5C5s8adMHoHq8A
+         v1p75IzDXdUn5W46wZmNe81GOCu6BRdFoUXb1llsAaP2ElDqunp31BhTaoDG/65Y20ww
+         PPus7XtRfJda9yGBNpyRJroFWM7A7+afqgiBlXaqxzFCwTgDEFq8ZG0z87b2Tl+Qfef7
+         ZpMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793628903; x=1794233703;
+        d=1e100.net; s=20260707; t=1793628919; x=1794233719;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fFdoADdkdxRr75FQJBJurymI/Hlb9VRlM6nlg9L/Oyk=;
-        b=PX7J7w/ce1kBO3WHSGCuUdhnWF4aaBPKkNnevcJkM9O9MkdiSOlStAyQpuwEcfmjrd
-         F4ZRsWiLtkmHxoCcvJP2fDFk8kSX6MhPP+Gs0mvSMh0NKMCy0nm/UpbinBiHhu6qHPN0
-         +oGUwpIjL7u48mra/a6loA5v/Jbu0rY8nxVlHd7aeMmu+D+LtX1Kr8tRMSA+KvwXJgkS
-         XKKoHT+eKZGvDbg37P8XPIfFyKWk8PcpIVBt42gQkyDxuFICkSS9LHccZhgy/1oOjDi5
-         euqp86wjvMEV02EXC8IWLmd2Lsd5Lp4EJpwLse2D3F3bdJgBZkMJZeTIdCMZ4TW/AioZ
-         jKMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0xV7sMjCK2LyguRa3NQqhQtcOagWhStKnbOu7vgCZuwB8VjdNcVWsUsD5e+GiIAhuFNTscPAavkXLTyY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tVBT7+gPX7crPZNkfb/zonS7i6oTPLjO4pLFAUSTKODu2VzNq
-	T95tFC8aKJKGvJX19rL+znb+yMKptbUIGJ58q3IJ5W0Hc/fmMMyIaheH
-X-Gm-Gg: AYBFou1no9wwGf9VcfKTZW6FZ2nip3V37acghPZkj2cq6MO/PAO7dUFytosZ94N6Kal
-	SsTTo2qVAPCO+QNtg2zANXdkzc3gcfLMEs6yRpWuOAp2fRN98ita/OvBf8B/Kc8hyd2FWq0RF4d
-	2S42WIi2UK4EMa5zkUekuj3p99zkgXWPLJIo7ClRRo6ONnJvvLriLDwuENWUbE2cjljAxNWhMHX
-	OKNUun3e7IMPyfZn5W3t9l/Rc55efdo/3eL/VGRBzxRp78Z6FSZFCTCnMXuQ8BpQaf48nZol3e8
-	URNyaz5XXPIAC+f2pa1IEws9RbnwivrCsURcZ1j+indi5h6BQ9FG6hC3tyywlhGWVyC/In1jem/
-	IpoiUD9r7rmaVYngnuXvShQPH4Y63NfzB2MwiG1GCDRMXXFVSQBhIv4H6v7aXoVsLgpo+KD7qxg
-	JY8WXRFAUhtJmD1YKQFR64hDumQ//vZtn4CFdwbmG1k7XuDFGE4jAwlPWOZrFLbj7CIMIwX8vsp
-	1IXp9pc6c5/bkBGGFfB/zwPGEu1Rrhq0jUJiVp2FHDUlcWGwVYKApGQxA8uHe5nlcfC5UQYF0Rx
-	mFoKnkY/0c3sFLjV+UicPJWrAdJNGFms6eNIquhUF3rL/G/XkYWR7cg+mrp+0iRbj/g46K7wpPt
-	WtV14Pv4NnXKlb4pLa/lc05xyu/MWHqaKlcXty1T3COAf4gYqjW9FjRQWSo/ph3e7dgQaGW1Dag
-	DP
-X-Received: by 2002:a05:7300:fb88:b0:36a:437a:4c00 with SMTP id 5a478bee46e88-36a437a4eeemr22442050eec.24.1793628903178;
-        Mon, 02 Nov 2026 06:15:03 -0800 (PST)
+        bh=dJnJAQ1J2840u9KECjcYuFBU8CaqLFZXy5w57Y9rz80=;
+        b=stH4La8n2goDa9pZIzRM2Ys+58cgjjC823gdzy5N9/nuCzaWIRlwet/Xx+VSbdtxsP
+         JdfmPPBagDSy83wwFkjtnRTJBwb64JiPJmpvo9bygw94q/5hFuhd1ee4kW482xioet1e
+         jFS4FuWBpF0Ka4QHS5YNCFp6MvK3awXr7BiL8ZPp405W09pI92KPUOg94iUIF5Dfsz4n
+         teGX5rptWzIUm9xxU/hZxhUgq6xuzNJcXrE+HnrRuFD6r0+jb+X/3EkcnVKb+9qxWUeQ
+         esLqrCsgleefYTQeYojQ14qmpkNz8qvJAayBpEBTQ3fGBaJlxyaoe9CspvumgBLZWxzC
+         712Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzBdsjpzW2/2nGjAWKFjEj20qMZqMjwhNSn28IaQIF/B9hzqaXYJzgRfbtM5/5zA2ALjNPulppnCQch+es=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8jrZTNehN2h9SrENUqkP6Qt70eINdbFIzOBu3h4u6KmgvaIPh
+	RMhujNdLYt1LT8SczDtS+ZFgEJ0mDiiTHEgcwekkX22No9Ppz6C6sXib
+X-Gm-Gg: AYBFou0dvBZatp7g6yG0BWrBT56ytSfOl1LRveiNUyNBW7vYTSrVkCCetVDw7SH94Wl
+	glCkQKEsNX177fnDHm2uCPul6UX9qDr7ave7hRtYuzDW1q+Phgt9aNNQKdgQa40jukGYby3ieQP
+	l4Yu+xvg4joE+wAxDPXwrQ+avNNrWSwgsiKNvWI3N5ub7nh9xsx6LHGRMEXEz6T3GLLG1U1UNjv
+	dUe2AxU1hgzDlpzysR2oxsg5sQxqn/dCnP3LtVMxDpGJH6JWpvtj3cRuCUqpGjv2U3fwaB4/3vI
+	SH0l09HTN07jedr8iQ/4CVulHnUE4ZZk9pQBjY9WOaoa+TFZ8sSg6A0ckYX7s/Rb6LCCR0YnuJx
+	mkZdpRU58dqEDNy7spAWWj3zzqyP1U78WxomtC7lobX7OzvmTXPpRmaU+ZyXd/ocsiH4M6ONK05
+	CPA8iikL6xBz/pYRhpBupeFrSoHw79DzpLiqKrHH6GdcLjvigD+Wwzs2GX30LLzq9LAuw6QWo4F
+	Vt8Mp4HvvH2HavFaBCwRhcnMZz97OMTnfKM+At7A5d1u1ffqdD98llfvd18j/auCPHCbZ2wUUYH
+	WqFUZz+48jHpzd827RBSdgchFs2Cq1nY2hBhCf7G5gZRcVR8I9hmes2CcngJdn3Jg5MY3s34Hb9
+	wIMAUBpgT2NyltYcKtFESU4yjTYB1KVTVYkEBzeBri9tVnjCv/7j31wDUfm4LZJh9UBjR8K3I4G
+	Xn
+X-Received: by 2002:a05:7301:1a01:b0:369:f85c:787c with SMTP id 5a478bee46e88-36a4236a1d9mr16692157eec.10.1793628918760;
+        Mon, 02 Nov 2026 06:15:18 -0800 (PST)
 Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:9626:1a7c:c4cf:3e3b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm33556442eec.10.2026.11.02.06.14.58
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm33556442eec.10.2026.11.02.06.15.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:15:02 -0800 (PST)
+        Mon, 02 Nov 2026 06:15:18 -0800 (PST)
 From: Deepanshu Kartikey <kartikey406@gmail.com>
 To: mchehab@kernel.org,
 	sakari.ailus@linux.intel.com,
@@ -88,10 +88,10 @@ To: mchehab@kernel.org,
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com
-Subject: [PATCH 1/2] media: em28xx: clear dev->v4l2 on v4l2 init failure
-Date: Mon,  2 Nov 2026 19:44:38 +0530
-Message-ID: <20261102141439.13505-2-kartikey406@gmail.com>
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] media: mc: fix race in media_device_unregister_entity()
+Date: Mon,  2 Nov 2026 19:44:39 +0530
+Message-ID: <20261102141439.13505-3-kartikey406@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102141439.13505-1-kartikey406@gmail.com>
 References: <20261102141439.13505-1-kartikey406@gmail.com>
@@ -106,43 +106,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If em28xx_v4l2_init() fails after registering the video devices (for
-example in v4l2_mc_create_media_graph()), the unregister_dev error path
-drops the initial v4l2_device reference but leaves dev->v4l2 set.
+media_device_unregister_entity() checks entity->graph_obj.mdev for NULL
+before taking mdev->graph_mutex, but does not check again afterwards.
+If media_device_unregister() runs concurrently (for example on USB
+disconnect), it unregisters every entity and clears graph_obj.mdev while
+this function waits for the mutex. The waiter then calls
+__media_device_unregister_entity() with a NULL mdev and faults in
+ida_free(&mdev->entity_internal_idx, ...):
 
-If userspace still holds an open file handle to a video node, the
-structure stays alive. On USB disconnect, em28xx_v4l2_fini() sees the
-non-NULL dev->v4l2 and drops the initial reference a second time. The
-refcount underflows, em28xx_free_v4l2() frees struct em28xx_v4l2, and
-the later close() makes v4l2_device_release() touch a media entity in
-freed memory:
+  Oops: general protection fault, KASAN: null-ptr-deref in range
+  [0x00000000000000c8-0x00000000000000cf]
+   ida_free
+   __media_device_unregister_entity
+   media_device_unregister_entity
+   v4l2_device_release
+   v4l2_open
 
-  BUG: KASAN: slab-use-after-free in dev_dbg_obj+0x630/0x830
-  Read of size 4 at addr ffff888023601bd0 by task v4l_id/6384
+Re-check graph_obj.mdev under the lock and skip the unregister if the
+entity is already gone.
 
-Clear dev->v4l2 in the error path after dropping the initial reference,
-so that em28xx_v4l2_fini() returns early and does not put it again.
+Found while testing the fix for the syzbot report at
+https://syzkaller.appspot.com/bug?extid=54648a6c1187a7ef46a6
 
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-Reported-by: syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=54648a6c1187a7ef46a6
+Fixes: e2c91d4d78ee ("[media] media-device: get rid of the spinlock")
+Cc: stable@vger.kernel.org
 Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 ---
- drivers/media/usb/em28xx/em28xx-video.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/mc/mc-device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d486..ec4ed2b0e5fd 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -3137,6 +3137,7 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 	 * v4l2_device refcount to zero.
- 	 */
- 	v4l2_device_put(&v4l2->v4l2_dev);
-+	dev->v4l2 = NULL;
- 	return ret;
- }
+diff --git a/drivers/media/mc/mc-device.c b/drivers/media/mc/mc-device.c
+index f8ea7cfe10b2..039ef7d04ac7 100644
+--- a/drivers/media/mc/mc-device.c
++++ b/drivers/media/mc/mc-device.c
+@@ -674,7 +674,8 @@ void media_device_unregister_entity(struct media_entity *entity)
+ 		return;
  
+ 	mutex_lock(&mdev->graph_mutex);
+-	__media_device_unregister_entity(entity);
++	if (entity->graph_obj.mdev)
++		__media_device_unregister_entity(entity);
+ 	mutex_unlock(&mdev->graph_mutex);
+ }
+ EXPORT_SYMBOL_GPL(media_device_unregister_entity);
 -- 
 2.43.0
 
