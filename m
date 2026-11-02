@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793625403;
-	b=NvztehRLGbziOujCs76AtOgKZVpnX9N4y+bBCM+AznMkWGULNar/mCF3O2mtoS7INZT9
-	 fL9SZYHc8U/9SukeZlgwXJz4vzG/oWCxoaqLZMC9tuG/h24L2BBrKNTRS+aEAcGh2nQKw
-	 CrBpJA0Guv18Y9xxsKtB/1AekVgnigycWKoeDVlobq6GJ5iCrLjVoiJ2N2B7NCRWpYTlM
-	 Jqn4p1I1z4BX5pqMC2i8JKT7vztTHaHsS/nKBl93IU6Pu1v9rEyMK4gdagkdw7ZrHru+a
-	 G3vdyN8r+sPT14Q5o5B6ZHPB/7wiIwH7ObEFwQbFX5y2RbgtlDVO7Y0D5pdqxbFGYrw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625403;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793625412;
+	b=BiEZ13Mzj8W3UI50QgDLQfuQZHwtWDTAZi/ati+ZAZtJr0Q2zG0aQOtnx4ssZ3eTeS/J
+	 s3h8Ccs0i8UKahwYYEFbK1sfYoImamCsqq7Ub5eJ8yi0HT1MS45qgzS2o+PIEuoQklWv5
+	 r06c/Qn4qQc5YyY4Rm001kCqovzDeokP8eds3jAoA7mrTCmgUhfkZlAjbX1nF5APsFJo1
+	 TWlFhPd9BxRQ/TXrWyTlc7TpAOBvAWjkDF57eZxiF1po+min111ZqMzHtEeHjtoesZuQI
+	 OsBGCHrI32dHGLcpgkZKC41eWVLMShDiTWyBSMAWJ62bTv4uHAk4oa0FZMoi0RMDbqg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625412;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=+Oc6jTzV6cd//BNmZjbVeL349QlJ2qzTv71gr8ZXho8=;
-	b=Yq28RugzxqlaGgBuF5Q2F6TbYq0NTvZXDd+A/qZeP/map/WB/bdYVrG3Hr73FrbIesmu
-	 T1QlboRR0nAioBY4VglGhz5dGSOm19L9fhspSs1IANLbuuyM/w0hT0Ht+yr+h+VQOQyiy
-	 P8w2upmjGZH4mhJOPuO+eXTRTDy0a9090mkc8QPGjHh6raPsEuq34WCEUBJKKg5Ai9ysG
-	 Wxn3YO23e36d9NPHW8mTcXSrqXBFyUDB+5fpvT5PdSXVMlg9Uf5M938+ErXXqYvxQ0rSy
-	 7+lZn5IcqmYYOuzMsVvOFZAkH1u61aWgSh7AjpN/DjF8a+27w2KO66WdCouXRc5Palw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uy0Iz1pE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Nu0UBnRlzBjlTsD7Xnyon69xqlQ0MnOsBtNCGwjj4wU=;
+	b=m2Hwtf5+mR2PintGCIRgdnIVehzsiUjQ4OkmU/RfNVUJ9gZDRQAr7YtR5d64T8zhTB0Q
+	 n4NdpHpoiHKSkQ36rYLZ0/vDXC6BiabgZWWRkkzy4KZNy13jucZueyISnaNtXyx3tbjE+
+	 FMXMUvivXnD/J/BXyCfBcknCVSlC90yWhkiiIbbYYbhzAh4ZXFBXHsyb39slmKxfBquFx
+	 nuBjwsDZtWoL+vKf8k4ohfN29C5ZEjPPLfwg/B9snNtQ1Ce8j56CHxAhJ6nHVsa7wQIYV
+	 IgLTS+C7ljO8uPjhwtNEf8J6hOYIHYegey8uPok/PxdolbN0lKsjqDgbLBdzWJmTdFw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CNjKDcC1;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26AE606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:16:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C26AE606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423D9606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:16:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 423D9606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uy0Iz1pE
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ad787e0593so1396935a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:16:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793625402; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c8kzv2A6GahqV0upyg3gmZkLGlVqoo/v3php/6RmW0x4aRLlMRWtwE/KMEbY/whevg
-         wqDoi6byHKWnEfyOfMBh1tYaseXRkCSjyFo0fZ1XRaawQFQ5TBmlZeMrJoBOeAR8afzr
-         wltCyqrqWnRiCYkFHvuGI7gAwJa7aAj2XoIsnlNDC15xzdM0c51nNoAx/oAYqpHzEOaj
-         ASyM4CX/maidTw62rBmzZNh3B0ife7LOEeXi3y3Cg9K7yxrGMRF47uMCNaCtqx49GE03
-         CPGAHkKGWGZ4FDzJstqExY4DVKv9cI8cujQQeLD7e3nSyl0o8oe5QVOoaoSCmWid7Z02
-         5dbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+Oc6jTzV6cd//BNmZjbVeL349QlJ2qzTv71gr8ZXho8=;
-        fh=WDkF04rlED/mVSpq9ePVWIQcNLEXJXMX+JOAqwmUETQ=;
-        b=EIY7i93Lc2qDPdxjj6Ock8Hafn/rzbZYTG//NmQzxjs9bzSGSzQiasRbYUEmW7+c1V
-         Sm9FyGP44/KiV/AUIkP0kXfC4KLD0BdTEVoydeKHSzK90/cry/luL28nMc4tkPYq1Wcs
-         l1Xnic3JHkxd52t3KNxFv+tqPzEw14E4U/KB/pLSuICBTnBxXnIFk0SLr2fA/bfVXkKR
-         vMfJOxZAhZU3ITRMIgTKvZ2syKixxYru25pvtwMdbIzDZnSmp1KIRn+MdCU6LrLAh+ma
-         ngKBGTVmnJWTUQMMKWVBBK3Ci33AZc0Poh511upsGXI1IiLNldcPL8Vhze99whCp2KEu
-         rh4A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CNjKDcC1
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so22875225e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:16:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793625402; x=1794230202; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Oc6jTzV6cd//BNmZjbVeL349QlJ2qzTv71gr8ZXho8=;
-        b=uy0Iz1pEC0eUzpEdQgMeHeMmK5OS3w7cIZbWv9fE9oLf5OIXdSxaqsNpQ+xastIoLE
-         LPeZ6CNQtd6XMk1oGnPDmARJHJVI/iH+2tE9UQHsGhdrhIjkfP0TPQ/hXndxj6u154Mr
-         UuEHlNHuw247o5KfXxwO8d9KPK2ZqyomxScCKKaISJvbhxLl8L/5ndz1kSE92Ig2gAqB
-         enjyLrRhcK0AXPb7rlhZS+I//73RYnacNK8s80zZovf1Q2Thac3GCo24g3d29PSuidMT
-         5VYVuLkSULDIWS0VqgOEBKGxShHhTNZ4rIFjFpNinRx8Fg5C263vY4AqoS0+WKh3ktS/
-         vinA==
+        d=linaro.org; s=google; t=1793625411; x=1794230211; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nu0UBnRlzBjlTsD7Xnyon69xqlQ0MnOsBtNCGwjj4wU=;
+        b=CNjKDcC1vcob1Yw0x51FCYwzXMhIJwqcfHwCboC30T8iIZH6Dh52y6HFV1UY1wRygk
+         7tHiPu4mesMgtDfrhzRNXA3a4PpP88fKTjkl4FxPj5YPmCNOkfBiryqv1bjicJfmvLaP
+         bChXjd/qCIfmyLJL4DFwf5bRPP+n4p5kPCNOMF2s1ytYnLXdyhNC4iOqrjQQyOBslGW7
+         Od0RmsIUb9I+/f3u8/hWWzWfAHLvMwFBSt5X104OmdO9ry5wI8+33oBAAidwztLoPIQM
+         w3I4OAIRDs29VvIoxn/SKkiklIOQNWQxK2T41zI31CAXNuljqvTZM1TorOmZjKnngC77
+         eddA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793625402; x=1794230202;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+Oc6jTzV6cd//BNmZjbVeL349QlJ2qzTv71gr8ZXho8=;
-        b=coex+z+e8MG4SOcDO/gGAfMCik2sVlMCbmAN4aQE8SxUiaky3bHg1bDPiTHzfwURBz
-         j8Wf1pC0pKIFq2EuJXmxflbcTQh1tF5znm5VL1J7CkVJXGdI8O1NwCIOEZfe1wKGP58F
-         QuHmxSK1sw3EpyxZHVj+NjAb8tV9JdDv77mzAtGu3FO0F0wUkBppU1x/nwG8h4pf5AUm
-         1QDCnyND3W1hlOTHwvWwk81gbkRdmZbz5Ii3tI6wx1v4xUEHcsTZC4QpKKvjbRAFIpV9
-         yVLopNlMAxPSnQkZu4wlMHfTlKPN+57A+q3neqO0fhIKiQfNQAcR8zEKraU0MS+C3mk8
-         22bQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVVAzFPuiV3Xl+UhFD/sVcXDeVPT913Z1ruZzocqCyld7nKerXtT8YGWscI8pK7puLMCfTqb5KZ7mvL10=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yE2FMjuALeHce+4YMt6nRMPD2qXsQ5aqLcNWprFBp22Gyad8S
-	NzBg0XuWCH+/Qhu3LfTZuI2UxFIYzdvy/8x5VNwBAXQ4D0YFNE+K7Z7eAfPS5VsgrSVF10oCpMq
-	+MHwjzf5o/WWVCa+G+vrjCZFjbHfirA==
-X-Gm-Gg: AYBFou2OEwOVdPXcY3d0TECmK8bysST/lSkRwJM6jqQtW1q7LYCJSsCIfGJoIzzk+Se
-	oqjrOCAt41NMtVnS/PsEmGE7xVvs7wfEnTcTdNM0A2pBM4gmVe+vSK6GNo8ObO5wE8KS9T+aa0N
-	qy5njrhi2O5WFijk2xZ96Dux0rxec3PWg9h4TRPGbKX9JuhR0skg4kddOh6Kz1sNP1/zC2mtAwc
-	ofHkjnG2RIpoxJIjP9rq9NHHfxME24IODhjRUl+J2h3IM4SME1GF9VfULLJ8sgGuOG7llF0amSx
-	SwHw376sNUhg9LbTbvJOeA6CeO1H+gcdjZv7AvOyEc0SVsxK6zirHzHUlJSLYJOsgTHQJ9HikUr
-	ZeILrO/2OSoFO9zEan5zNHZ0B6F0yTJWrD1S1
-X-Received: by 2002:a17:90b:3d8b:b0:3ac:aa8d:19eb with SMTP id
- 98e67ed59e1d1-3ae89573c91mr7474736a91.3.1793625402141; Mon, 02 Nov 2026
- 05:16:42 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793625411; x=1794230211;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nu0UBnRlzBjlTsD7Xnyon69xqlQ0MnOsBtNCGwjj4wU=;
+        b=dVl5a8G9Y7lHykTL9FEoLL6ohFmNBmZobGgCie54dVBiLlLJppz4+GrYap7jW4+NZa
+         B2A06cdhL5w6Q9DJWuxEEbqX6k507vojlIY/k+JAP+JpS8EdwvQKiyzNw9vi1Qcbaj8S
+         994bFs4BpIz23LcHYh7eXJzlLqjH1x59BMvHAkChFGzVgj4/6MOSgaWOE/i4uKgjgUCE
+         Cv7rLk5syy/ar503EjrB5Ucz1losUTfcYy9pnLoC791ofxvSVjVuPdacYrjnFGNdR4E1
+         tPN9zC/HqEMR0NvFRvu6p4XlvXH8IYexxEfvJiPqjOI5hylS/qSm/WhcEIXluHxbwJ97
+         lcWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzzXrmHyQwhc7qRgjqjsr5IX5jIEBCpyPMhkOF9pP5dp/BlFRNiULcUtJm2KuzDHXJQX2esokALW7CcW0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfnLI9zM0Obexc87tUrGq5B4EoD+a1l2NufTMHiEmClpfNwYPa
+	30s9kcN0v/nTWAIpOVI/3xdKIg8F2BMED5cv8mlvHdrASuHVYeezPOTIsfwZ1w2x1FI=
+X-Gm-Gg: AYBFou05TLRSYX7A1ojLRahiE3Uj7csTNXSX1lr9cvaF5HRl6GjnGSL9pcb2VZ2gR/2
+	bEsKMVf481W27gy4ID8yxjvHihR4b3Mip74GLR7PepdS6O6SHK3Gi2BWE192UYl93oyK7v7+4eo
+	gl2Asbvui1Ac3gVWYIIpkYDRDr3m45XtratuytQFlmz1z0aSHQGnNV25HdR7P+fQvobyjLhbclI
+	ij7ArZAzwpyVkQyDtCjiUnBWS99whHz7IumXEaALyUExefwW859JAp/pTaBLHwWT5CzArbQHyTV
+	a00uCvXPhOtYJCTzrPCU+W9d6RgP4TqpX5rsp/UeBUcRx8I48EZ5ByGVOhaZX4jCTMgSS6rZTUS
+	om2vXFeJI4ovllh8aOIgEnKZs7g7MvwWdO297Qtzscu95XDRcPW2D8hIsZl1FcuIlPivrLx5VHD
+	vmlpTVVjVwgONRzyOIb8gXua9JKpbMnn0IjQk6VI2sgK0RtNqZ3K5rtz3oTw59aYYNMyHCtzF+Y
+	4efMDq28Ewmu7B2c9MyZJh38MC8oW1eg3S44+p7pUtPpCAyhen1ZCEt1BwisoK9j0gHgv2guAP0
+	qYHMx9rg463pzvoRg9qgaA2jE3FoGKvbiTrwnRwulMJ60u2qhqzgPC3oLAst5jAEAUlwV39egf4
+	6dsL9OQ==
+X-Received: by 2002:a05:600c:8b0a:b0:4a1:777b:8a12 with SMTP id 5b1f17b1804b1-4ac1709ae4emr246187665e9.14.1793625410523;
+        Mon, 02 Nov 2026 05:16:50 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f322c46sm331607645e9.2.2026.11.02.05.16.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 05:16:50 -0800 (PST)
+Message-ID: <fbf54a00-33c6-4b5f-a9d9-3f6c23744ae9@linaro.org>
+Date: Mon, 2 Nov 2026 14:16:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,50 +93,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102003607.341651-1-korryasdlerto@gmail.com> <bc9e2b99be871ef8c7e74a5ee7d573082cf61545.camel@mediatek.com>
-In-Reply-To: <bc9e2b99be871ef8c7e74a5ee7d573082cf61545.camel@mediatek.com>
-From: Asdlerto Korry <korryasdlerto@gmail.com>
-Date: Mon, 2 Nov 2026 15:16:30 +0200
-X-Gm-Features: AclHuK94KlhySgh0x-kcv11s1LNVnedbguG09GxxTbahbyWbf5_kpbfzXgsG3DA
-Message-ID: <CAARotkefEP3aVTvHJn8d5JgWR7ra5y8_8K4msnA4Q8cg-HV3bQ@mail.gmail.com>
-Subject: Re: [RFC PATCH] scsi: ufs: core: Allow error recovery before the
- device W-LUN exists
-To: Peter Wang <peter.wang@mediatek.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 3/7] drm/panel: simple: Add Waiken WKS101WX001-WCT
+ panel support
+To: Frank.Li@oss.nxp.com, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, Robert Chiras <robert.chiras@nxp.com>,
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
+References: <20261027-dxl_lcdif-v5-0-3a974e4b94b2@nxp.com>
+ <20261027-dxl_lcdif-v5-3-3a974e4b94b2@nxp.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261027-dxl_lcdif-v5-3-3a974e4b94b2@nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> I'm a bit curious why the first link startup fails, while
-> the link startup after a reset and restore doesn't.
-> Shouldn't these two flows be identical?
-> I think the driver is designed on the assumption that the
-> basic init must succeed, and that only a re-init can make
-> recovery possible.
+On 10/27/26 16:00, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Add support for the Waiken WKS101WX001-WCT, an industrial-grade 10.1-inch
+> IPS TFT LCD panel with a capacitive touchscreen.
+> 
+> Although the module advertises LVDS support, enabling LVDS operation
+> requires hardware modification, including the removal of several on-board
+> resistors. As there are currently no known users of the LVDS configuration,
+> only the default interface mode is supported.
+> 
+> Acked-by: Liu Ying <victor.liu@nxp.com>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> change in v5
+> - drop "If LVDS..." in commit message (Liu ying).
+> 
+> change in v4
+> - s/LDB/DPI
+> - variable use 101wx001_wct
+> 
+> change in v3
+> - add wct surfix and change to use MEDIA_BUS_FMT_RGB888_1X24
+> - Add information about lvds support plan.
+> 
+> change in v2
+> - update height to 135 from 136 (sashiko)
+> ---
+>   drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
+>   1 file changed, 31 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+> index d7dbd7442919b..5ef6a79f0de95 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -5252,6 +5252,34 @@ static const struct panel_desc vl050_8048nt_c01 = {
+>   	.bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE,
+>   };
+>   
+> +static const struct drm_display_mode waiken_101wx001_wct_mode = {
+> +	.clock = 71100,
+> +	.hdisplay = 1280,
+> +	.hsync_start = 1280 + 70,
+> +	.hsync_end = 1280 + 70 + 10,
+> +	.htotal = 1280 + 70 + 10 + 80,
+> +	.vdisplay = 800,
+> +	.vsync_start = 800 + 10,
+> +	.vsync_end = 800 + 10 + 3,
+> +	.vtotal = 800 + 10 + 3 + 10,
+> +	.width_mm = 217,
+> +	.height_mm = 135,
+> +	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
+> +};
+> +
+> +static const struct panel_desc waiken_101wx001_wct_panel = {
+> +	.modes = &waiken_101wx001_wct_mode,
+> +	.num_modes = 1,
+> +	.bpc = 8,
+> +	.size = {
+> +		.width = 217,
+> +		.height = 135,
+> +	},
+> +	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
+> +	.connector_type = DRM_MODE_CONNECTOR_DPI,
+> +	.bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE,
+> +};
+> +
+>   static const struct drm_display_mode waveshare_28_lcd_mode = {
+>   	.clock = 50000,
+>   	.hdisplay = 480,
+> @@ -6248,6 +6276,9 @@ static const struct of_device_id platform_of_match[] = {
+>   	}, {
+>   		.compatible = "vxt,vl050-8048nt-c01",
+>   		.data = &vl050_8048nt_c01,
+> +	}, {
+> +		.compatible = "waiken,101wx001-wct",
+> +		.data = &waiken_101wx001_wct_panel,
+>   	}, {
+>   		.compatible = "waveshare,2.8inch-panel",
+>   		.data = &waveshare_28_lcd_panel
+> 
 
-Hi Peter,
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Thanks for the question, you are right. I went back to my notes:
-the first init failure was caused by the board, not by the core.
-
-The vendor device tree of this phone has the UFS VCC and VCCQ
-supplies (PM7325 LDO7 and LDO9) without regulator-allow-set-load,
-so regulator_set_load() from the UFS driver is a no-op and both LDOs
-stay in low-power mode. Under the load of the first transfers the
-device does not answer the NOP OUT, the host sees
-TCx_REPLAY_TIMER_EXPIRED, and the PA error / LINERESET storm I
-described only starts after that. With regulator-allow-set-load and
-an HPM initial mode on those regulators, the first init succeeds
-and the error handler is never needed.
-
-Also, my claim that the device always comes up after the reset was
-too strong: in my tests the second link startup succeeded, but
-ufshcd_device_init() did not always complete.
-
-So please drop this RFC. The races Sashiko pointed out are another
-reason not to remove that check. Sorry for the noise, and thanks
-for the review.
-
-Asdlerto
+Thanks,
+Neil
