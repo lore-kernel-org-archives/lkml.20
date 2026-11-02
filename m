@@ -1,45 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793586164;
-	b=X4taJ7LA8fUnKquAiiMTH3I0cufx3ZFwSqHBLRlfGtELBRfnAih77OtPWde1tQq3CcRc
-	 +AYSrsUazLWEtxRBLwth8vEbhhEBUT2S8p1tdTfADAMgZdQOGILPLSHlbNNV0L9pJD6k5
-	 WH5yk2D31asgfyNTdWBIFzY0t1HQYY0LGqD575xxvtQ74HG0Zu59o+azjIyHXtRYrdc6u
-	 3RDANWc5laiXfig5pj6AFIuAXT3RuZFLYKGFs58kHbjF582MJrvTB86OpwWESuEQMRWGU
-	 FvjqEnXDDY7Fd/AGYrxwskzPtT2hbQRhye2Os2uwIovdHn6JWQUc9tXW3AP6TeYu/gg==
+	t=1793586224;
+	b=dLEMPH85KEdpC+ZRtHy9yrGzSR6OCtFwvn9cBQAlycP9XplvPTVl9bYP5oVASdfErCf3
+	 QmTy5AhnvZ3Tcx2T1ipgUVOxMnbrYP6H1FKtc3yXX4YNMDi3YzJTuqEceLhrAWjJWl5MP
+	 4uDNKwhu+11NG3tkLLPwzpivsB9zvEPsNAFOOhltCC4s+qoL+NSsi6RFlV0xYTc9dq9TN
+	 wpUxBmkBfH84uc8hbGNd97RZZkdyhAAIKtgWShhhyaRHqmqqmQI2nLXLSpnLa1iyhmO4R
+	 G0Xgy2gRiA59WMX0NJYwd0t2ocHqIfutUeL7H2VT68YuvjSO2FthKs/okSh7Dk0SV6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793586164;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ps/qs5CWGADuVYzfGEn+VGQnXcRANVXhnQ5CyJ+SbKc=;
-	b=lPG1ONx+WHWOUR2VdTYvnGlX1W3uwJ4E+2Ycuea0JQpU4z0ZPc7NMsdH8z2W54cqrC78
-	 qESMJFG5SKnQRjmt3ixagix+1Wma6NSlZTRTNx5dXSA9/Uy6OsHFNOdhhIbdNLxJ7o5aa
-	 2oKV5ReSSz7ALpZyUvQt576JXmP0GOwE81qD4FIZzoYLJWnz9UQo6xu/h2gE/8CN8AmV/
-	 JiB1bHeGydCfzEHDheMP+38s9pASJJvjDxtOZoVPV0RF9yP4IkoRUdwDSKKcIWEwLJeCU
-	 7L/P3ZPsU8ppvB2Dzk1FURQgN9SxThtQnKWYpPWlv1NRQm1ej+Nnp3rXFSxGCrHbl5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793586224;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=o4fSDnmtmbZ30jH6553LXpXrsXHng0trnMhwaBC+PZs=;
+	b=H6kC5IeqBRoLrgXr9krS7pZ9UkBad2CE40jMNr4f1prhyQwIP2b5T6F9+5VAR24SQpbE
+	 jwV2O3ayi8olQ93C21bWX2QYLRTA2YUnefOd2g7VTPLzPTnYgntad7DigooKnzWG0lB9x
+	 Vurtn1HSiBowKv3GsN8S79tCEKDQNP5cveqdMITcOx0+TwjK/I+wKJDpDsZDFLL9kKOkR
+	 9WJCsVN4CQzueoo46TGTrAEnWa0wGHEAhfmc5ff7k9WbvpKlLT6aKsLf06mD+hW1RNfwb
+	 oSTLUxEYlp6AXTaajG7mKHA8HUfhIMIYRTPUkJNkCTo39iR2fLE3e//Dl5hMS261XKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BdldPLyI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UzVmFMsW;
+	arc=none smtp.remote-ip=91.218.175.72
+Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1748606A324;
-	Mon,  2 Nov 2026 02:22:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2B4606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC2B4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BdldPLyI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6411F000C1;
-	Mon,  2 Nov 2026 02:22:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793586163;
-	bh=ps/qs5CWGADuVYzfGEn+VGQnXcRANVXhnQ5CyJ+SbKc=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=BdldPLyI7rsUgAobFIathWTmBtP/I9JyKZxIjN+58RQf2UVMmdkEHiQOTIx2To7mr
-	 JmzGq3vAdJoOlCAlrScAv3TfXOWXoBnxNSAitEuG0Y5UOcPFq2RcwwcCemeFgfpbo9
-	 Z1/U6psSFy+YCoIrbD+kgUaNyOKEAfttvym3B91TtgC7Iy3uCnYyhz4+K9itr2TV9p
-	 RB4vSr3cRaibBc69qLWEKv/3ug281NcbnJ/GqjlWDgkgY++rf5LG4qzcAGFlkizx+O
-	 X3+j9fZP+6WEIFUJDkLonnzuaKQCSmBvX73LKfDDUnH8pwjUdep7MKHNweo19iXpmK
-	 AgSLG2y+rKu5g==
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UzVmFMsW
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ALr5TsAEjuwt2pIJ/IP8K7713x8kUZX1icwbiFIInMI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793586221; v=1; x=1794191021;
+ b=UzVmFMsW6M/a5wt8MmqdXYtGGzIHYJ0jgFsl7fqN3Q2XvfMi72Rrp7jjjyvcyraUes5S54y3
+ z9DK4vuj3cIMnegtiRg3dW+6Y7i61TMzSWHcPN5Ksw3gJtFYK7EIaKcrTpiy0H3jiHYjMIC5xer
+ reoaTbMB8X4P8pIDw8Rz6hYc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 74277f5059ada402;
+	Mon, 02 Nov 2026 02:23:40 +0000
+X-Mizu-Trace-ID: 74277f5059ada402
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2fd1dc53-ae46-4163-90a4-f916c9dce29b@linux.dev>
+Date: Mon, 2 Nov 2026 10:23:30 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,61 +58,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 5/5] net: restrict message_cost and message_burst
+ to non-negative values
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+ Joel Granados <joel.granados@kernel.org>,
+ Fernando Fernandez Mancera <fmancera@suse.de>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, Thomas Gleixner <tglx@kernel.org>,
+ Petr Pavlu <petr.pavlu@suse.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Maoyi Xie <maoyi.xie@ntu.edu.sg>, Zhan Xusheng <zhanxusheng1024@gmail.com>,
+ Oleg Nesterov <oleg@redhat.com>, Neal Cardwell <ncardwell@google.com>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Yung Chih Su <yuuchihsu@gmail.com>, Wyatt Feng
+ <bronzed_45_vested@icloud.com>,
+ Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Flavio Leitner <fbl@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261101061331.286404-1-jiayuan.chen@linux.dev>
+ <20261101061331.286404-6-jiayuan.chen@linux.dev> <auftqzpuuNFiScrb@fedora>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <auftqzpuuNFiScrb@fedora>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] clk: stm32: add support for reset_control_reset()
-From: Brian Masney <masneyb@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261019-ups_reset_control_reset-v2-1-be4ccf511cbb@foss.st.com>
-References: <20261019-ups_reset_control_reset-v2-1-be4ccf511cbb@foss.st.com>
-Date: Sun, 01 Nov 2026 21:22:31 -0500
-Message-Id: <179358615196.355577.6979239007950304521.b4-review@b4>
-X-Mailer: b4 0.17-dev-5d8fe
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1001; i=masneyb@kernel.org;
- s=20250903; h=from:subject:message-id;
- bh=b4zZE+9DrZ8HWU79r7L/+S6e/F34MgSto3ilXCnyf4k=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLKef37rumDRDxsh1ZOJ6wzPafFd4VTZX/izTenplteaO
- /MzjkxL6ihlYRDjYpAVU2RZkmtUEJG6yvbeHU0WmDmsTCBDGLg4BWAiT/IZGY4HhOvtsJI5ubnv
- 1Fmmk7o31js5XbksHKXToP35Lauq4WGGv5LdQhXL/8xfucCBeYeU6q5FFuvuFsassW4yjmvY8Ne
- WlQMA
-X-Developer-Key: i=masneyb@kernel.org; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-Hi Gabriel,
 
-> The STM32 RCC reset controller currently implements only .assert(),
-> .deassert(), and .status().
-> 
-> As a result, reset_control_reset() returns -ENOTSUPP, forcing consumers
-> to open-code the assert / delay / deassert sequence.
-> rs.
+On 11/2/26 9:55 AM, Hangbin Liu wrote:
+> Hi Jiayuan,
+> On Sun, Nov 01, 2026 at 02:12:03PM +0800, Jiayuan Chen wrote:
+>> net.core.message_cost and net.core.message_burst feed the interval and
+>> burst of net_ratelimit_state, but neither rejects negative values:
+>> message_burst uses plain proc_dointvec, and message_cost uses
+>> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
+>>
+>> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
+>> negative"), ___ratelimit() splats on such values, so the next
+>> net_ratelimit() caller warns, e.g. a martian source log:
+>>
+>>   Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
+>>   WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
+>>   RIP: 0010:___ratelimit+0x578/0x960
+>>   Call Trace:
+>>    <IRQ>
+>>    net_ratelimit+0x1c/0x30
+>>    ip_handle_martian_source+0x1bb/0x340
+>>    ip_route_input_slow+0x1057/0x3650
+>>    ip_route_input_noref+0x104/0x260
+>>    arp_process+0x109b/0x2510
+>>    arp_rcv+0x381/0x460
+>>    __netif_receive_skb_one_core+0x173/0x1c0
+>>    __netif_receive_skb+0x21/0x150
+>>    process_backlog+0x37e/0x1200
+>>    __napi_poll.constprop.0+0xa5/0x5e0
+>>    net_rx_action+0x4c0/0xf70
+>>    handle_softirqs+0x204/0x9b0
+>>    __do_softirq+0x10/0x18
+>>    do_softirq.part.0+0x49/0xd0
+>>    </IRQ>
+>>
+>> Negative values never meant anything here: 0 already expresses both
+>> "no limit" (interval) and "suppress everything" (burst).
+> Will this limit breaks the UAPI on old kernels that supports negative values?
 
-There's an extra 'rs.' here.
+All commits in this series restrict config values, and every one of them
+changes the old behavior to some degree; the question is whether the
 
-It looks like there's at least two in-tree consumers (stm32mp25_vpu_hw.c
-and stm32-dma3.c) that call reset_control_reset() without checking the
-result. Would it be worthwhile to call out in the commit message that
-this will actually invoke the reset in those cases? I think that would
-be useful information to have for someone deciding whether or not to
-backport this to a downstream kernel.
+change is reasonable.
 
-> 
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
-> Changes in v2:
-> - Increase the assert delay from 2 us to 50 us, a value that suits all
->   STM32 IPs
 
-I think this would be useful to also include in the commit message.
+For this one, negative values never did anything that 0 doesn't, and
+since a940d145cc38 setting one already triggers the WARN_ONCE().
 
-Brian
 
--- 
-Brian Masney <masneyb@kernel.org>
+> As the comment in ___ratelimit() says:
+>
+>         /*
+>          * Zero interval says never limit, otherwise, non-positive burst
+>          * says always limit.
+>          */
+>
+> If all others agree to set the limit in this patch. I think the comment
+
+
+The comment and the WARN_ONCE() are about ratelimit_state in general, not
+net only. There are still other ways to set a negative value,
+printk_ratelimit for example, so updating them is not this net patch's
+job.
+
+> and the WARN_ONCE() , and the admin-guide/sysctl/net.rst all need to be updated.
+
+
+
+net.rst never documented a range or even the unit for these two, which is
+why I didn't touch it. No strong preference though.
+
+> Thanks
+> Hangbin
