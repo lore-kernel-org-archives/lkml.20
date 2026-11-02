@@ -1,100 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793619891;
-	b=bP3V+MxK4n5HccozAiAXuFPkHW3VGCzGJ3YdFRb5t6e0rglekzuUD7llXeSCsVqMJor7
-	 NSTYhNFFgmFuTXbQeuJvmR4mztUN3nO6JYXMeU02M8AF5jW25wqfKJgQain55KwCLmokV
-	 q6S37aLQItO4j2HLv57+q0cj6LtBjSSZG0tq0pox7wFEnbkfpqOghGntSdmwZP9ZgP+k8
-	 EXaAq/HpFADVM//YSD2fJv0znMnMK2hDIl/PC5HxSXPOLvfrwTIgM/fHbUwthSq3cphpf
-	 EIbdylrfO3dKqV2f9+0cyaoKRd5uiqtObvgVv+QqUxe37mAXXS/ks2c5DonFftbhGKw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619891;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4lCaHcGUCMu2QTUG/7Oh7CJPypRTIX/8Km/fNlYAggk=;
-	b=GvLwjXoKxbL3agAnQVwZ2U55HvbP+nX/qkAivmIBsqvcAg5K4jlQ1gEsLU/W9SmgIfZi
-	 VFNRUqYpH7WBsz520TzdyA+IR854V339HsWhGyOI1INmJrv6gGmfVyoTaN9KrRY8Le78I
-	 fKYe4OVS+OUH4j+X7WopgOeY3/HUH9sJ/+mM9bDB0LkLaTD9UOJFgcfrPf9wFMbc7YZQd
-	 6uwxmqDmt6WymtI+/tbr1ScJWQnSdvOsbaQoTZXoILHwfUxgCGJOERxx5qVh6b1Wsxxyw
-	 7x3jr4YDHzKAyMDr6Mg1DCM9GomA/jnxrOtqz7/QWig2k3S7lSDhCUrXkj4BtoGUuBw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZAz0NaP1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.209
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793619893;
+	b=zzf0X+n0BX8W4dzozvrPHTSS7qIS6/X59jOHoYNWOeUh4H8zYeBgEZEjihT/nj1jV6p0
+	 Ei34hg1yF0F/xfw97k+n7PWMCpXSI7RNShbxGxRRu+60slfzoboM0b7FUBnYZSC7JAUXO
+	 hteR0szRWu6Dk+RTHzLIL1/+kGxjWD0FPxu4q5K+I3oqx0qH1gmvOB51k3sDRyBteGsvF
+	 xlgL+pO1WC0JcOsk9f+MLV4fJ6pP3fg07edDGGE41xtpu14RpYBJCvkc3yPBK4qofzHsG
+	 GeR5SyBK78Fq8XntAFbgTQrMnmk4Z4CQODsdNVDKjV01TD4V0BJEGEi0G3xTno1Y6UQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619893;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=who8ZKKpx/jTygdDf46XygrUGTNQ5Ti9QGrea7MK2kQ=;
+	b=U1OUDmI1qIbwG7izTI/QCWEGcjQPoZZA0ty9rCQVsifVC+lIF024GMNbzjfZrl19AplZ
+	 6HgmiqwhuNd91UTl3VsqD4JM/TKV3o4ESsGwoWBYKSr7FfSZ0GUSH0JCa88+5x0mgK7jB
+	 FU9rHTg9jkfp8W9FyaXCp6nqJdSKn1daizVrbCdVtKShJfJVBCC6MPpzoDb99CEyT4BIc
+	 OaLpXEJwnDDGUuExbNvy4jDiPm4Ap3ZqvfpqKqBBnEEuPS7ns+p1Dhj0Qp15iU0hWjeyq
+	 qH2s7w3Xu98YpRx5+eKowXc5eK09OZygUpStGpNxq6RK6HdmSdFBeDz6QKqa4BVhU2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Zb1GeGbo;
+	arc=none smtp.remote-ip=91.218.175.209
+Received: from mta0.migadu.com (out-209.mta0.migadu.com [91.218.175.209])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1101606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:44:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1101606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D551606A339
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D551606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZAz0NaP1
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so3732413a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:44:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793619889; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CsSuvUpJQ9I6e1iqdZhFFY/2cYP0bfD9AU/VY8eiX3bTHeSpMD9K3HkEEtP15Rm0nt
-         L1UPoth3Yxn3IKXQy2CgFcwiAodwK5XW000awH6tv2hEQm2fUcFUN+KqD5Bj3/3uXT9/
-         vNuBwYy5s9Ff/LjTu8GskfvEsK82xDUwvHEYytZsuuyYsshY/eYBlKrq1FDvl+rTuc8r
-         bLNOPDUZfLouSPcCqXfJj/fxQwr4+e70ngwHykceHXh8q14w1S8Udesick0lF/1eOeqo
-         gmVCLGnONJ9Qwsb19YH4spjYZGWqA3gAUXvTojGQudsTgGNv7M+r7trJe0H1UVhOSVv0
-         HRlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4lCaHcGUCMu2QTUG/7Oh7CJPypRTIX/8Km/fNlYAggk=;
-        fh=Zz0AbD2VKgEDGSQHuX4zxiPpAgKJQxgRCVNCax6JlZQ=;
-        b=M82IH6rIlQA+b2EHrHRGfeF4Ou9t/nKUn9aGz7fRzqg+KwoKpRhPIjgDzHzctJsNcR
-         CiRDxb7NQ8l6uydxQBbo11kx8e5JdBLAopdpFWqkxxWg0RKsAokmXhxgMIGPztlggdvc
-         ajJkXU4aGP7lopOeb5AagCun8uK+A6FLbc/hQ37jl3Z+4lgRnQ4UpUYdMLFFc+3q0u0f
-         q2BR9hBe1N+fUZ995BlDDUARWj10u/5pj5sZNIXVgM0J49IqwUms1blA2FKjeFXZRS8c
-         cocI16zD5rXoyrhnj5efXaXzgBmb2WcfQtivDJgZUCJkNzz3K/YmThMbLdr0Q/y3tfxc
-         Idiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793619889; x=1794224689; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4lCaHcGUCMu2QTUG/7Oh7CJPypRTIX/8Km/fNlYAggk=;
-        b=ZAz0NaP18BX0ezun9oHz1murpqQrqgi9yo4eVAGEKkk3vMCeq9Cy6q5CSOtDLtu2IJ
-         fDzUrgJ2soNSFlQ0OTe9SwMFlf8JFoxlhLHs+CYO3eh/Xtii/WG4BYyOJXIMh2+pCAGh
-         5Ke5dUfMCBUsxPpTY+wRJhk+gf0KOAqwN2Bc4+M0r9nCGOC2wQm1ojrN8iX3J+gt2W+h
-         vUn1CMEEUq+qYU/DPduQne9UFk3Ja2vBTJ3bdoBt2KOtesn/TEvD8DIo1VZGjx92k/2o
-         DCGyXov6w2ruhQ3UxvBsUvYFjTbQWJW8OubzqNFF3eWwgpvzqBjPn7BKxlmZBdaK0qSN
-         bqVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793619889; x=1794224689;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4lCaHcGUCMu2QTUG/7Oh7CJPypRTIX/8Km/fNlYAggk=;
-        b=O5mxD4bTwXXqnZSde+gjANkYmPoBcOEt/T7MLSInNA+DI0W367QL/HO5Ck5EwPH2iV
-         wtLweZRzmMJPxem/uCPtPaKoW5iBoMZW6oMsYP85wM0kK6k7zlNnzNqidA3KREUatBaF
-         BW+fPr6gBD8+92DtbnXMWgS24nb5SG0Q/EMQNQUfZ+TvAWvEGDUULrJf6oSTjDQoOvvP
-         s4c9ABaWqZJtrk9r1EBoyfixSbgA+KrGiCZeoBNd8Bu+d+973vGixVVqFGK+xjQu6ugR
-         khLLtonb4wIG4A8p9rJNwVbx3tVMPQvEhKpzVhOX2tHPB6S1HACvN4NVDRk+qwenuM1g
-         7giA==
-X-Forwarded-Encrypted: i=1; AKwUvBwYFRjqY0ZRlFx2wK9eCIwGelbS6OcRnJKU5/av4288HcP80r3HDPRTz9W43gOSKHaInsPc8wNZC08Rjjo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8EgdMMuAFj4jqtrr7sdzlNy3eyCe+MOu58Fvs9kFg1B3s7D892
-	cFIxMXazf26yNB4LRxWQEcPzdTZZlHZHnmAm0cWuUVnfh0aVZBmFRBz+Jxg8igzGS3IQIVPmeNm
-	IUmHBelGzufkbxMe92pbqNsCwPR/C2sI=
-X-Gm-Gg: AYBFou2Vqc8yiPziEuZWGL6H2tx9GdrsgKDri2kBj3rySbmZaMzFDNMwiBDqbmMALbf
-	slVwAjN3PS4F5iiJp4On41va0+VU7aEknq9cYi+71YKhypkM4sKTgqJy+Rx4w1OYpTslNq0ztaz
-	Fa4ENjpkofSxzt9qZ7Ox1iRuUkKSSSYpVEtfWX0kXLj/+RPBkVWOH9lcIdQrktnzNrIIcIVjofz
-	4QS9bQZTO/Ic7p5rnb4mXfhnl9U9OjZWhN/wy8XOF+fhyaZboijyLdhs4sAFOUaXFDRx3nuAYFM
-	lBeOzef+a+IOUBIy3w5mCz9K6iUVvtYSf8sCAKTtiglXMpg5YeoviKdKIOIdsVAeXQ/9PC1U6m5
-	odTYR3hQOaxb+H6sH8gWrgFBnjpOCB+yI5et4C7o2RCFT3tnX/E+xC8Irf6gAbFecnRLjOKE=
-X-Received: by 2002:aa7:c1cc:0:b0:6b3:f840:59b5 with SMTP id
- 4fb4d7f45d1cf-6b4d4c71d29mr4850911a12.27.1793619889068; Mon, 02 Nov 2026
- 03:44:49 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Zb1GeGbo
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fgRhZQDSEmJFZyIgGkSRYKnhjZ4Z1l5m8LV8w/ZXnHw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793619890; v=1; x=1794224690;
+ b=Zb1GeGbojxXveT3cZxDPn//4R8A7h+RMO72HLl435m67FVvM9SHf44yaVVp55n3SAPWWoirq
+ Hz8XE56QJlzs5IpeJmF7MvIRESwEWtyXzDq/oA5mLYy34SDIJOr+HdZ4EG3OGTtz9aHGD3cJfWY
+ yqj/TBZodxsUUHX+M5Y8plAE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6ed161f8dd0a3c59;
+	Mon, 02 Nov 2026 11:44:49 +0000
+X-Mizu-Trace-ID: 6ed161f8dd0a3c59
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	kees@kernel.org,
+	peterz@infradead.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hughd@google.com,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	lance.yang@linux.dev,
+	riel@surriel.com,
+	harry@kernel.org,
+	apopple@nvidia.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	minchan@kernel.org,
+	muchun.song@linux.dev,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	youngjun.park@lge.com,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	jgg@ziepe.ca,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com
+Subject: Re: [PATCH v3 30/47] mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
+Date: Mon,  2 Nov 2026 19:44:42 +0800
+Message-ID: <20261102114442.65682-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261031-fixes_core-v3-30-d6437171ecc3@kernel.org>
+References: <20261031-fixes_core-v3-30-d6437171ecc3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,41 +129,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260927131838.6774-1-demyansh@gmail.com> <20260927184414.6c0c8867@pumpkin>
- <CAOLeWCt+yFs29yWg6DrRH42HD9ConLgTEbW=wMKtEoTW5ROHvw@mail.gmail.com>
-In-Reply-To: <CAOLeWCt+yFs29yWg6DrRH42HD9ConLgTEbW=wMKtEoTW5ROHvw@mail.gmail.com>
-From: saeed bishara <saeed.bishara.os@gmail.com>
-Date: Mon, 2 Nov 2026 13:44:37 +0200
-X-Gm-Features: AclHuK9z8jjLcwsnJfsDSIZ0apXZZySDKKpQ7s2Xoes3fbuqIuVEpNRNi2DB1ZE
-Message-ID: <CAHfVqdX4AmqXs_oD5OCjU8R5ts=98=RmgCmJ3D5gLyk=Xtrfkw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] arm64: csum: Add fused copy and Internet checksum
-To: Demian Shulhan <demyansh@gmail.com>
-Cc: David Laight <david.laight.linux@gmail.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Eric Biggers <ebiggers@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Marco Elver <elver@google.com>, Ard Biesheuvel <ardb@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	David Gow <davidgow@google.com>, Brendan Higgins <brendan.higgins@linux.dev>, 
-	Nathan Chancellor <nathan@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kunit-dev@googlegroups.com, 
-	netdev@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 1, 2026 at 3:34=E2=80=AFPM Demian Shulhan <demyansh@gmail.com> =
-wrote:
+
+On Sat, Oct 31, 2026 at 10:39:59AM +0100, David Hildenbrand (Arm) wrote:
+>move_huge_pud() reads the old PUD and clears it in separate operations.
+>Hardware accessed or dirty updates between those operations can be lost
+>when the saved entry is installed at the new address.
+
+Yep. HW can still update the A/D bits while the PUD lock is held :)
+
+>The raw pud_clear() also bypasses page_table_check_pud_clear(), while
+>set_pud_at() accounts for the destination mapping. This leaves the
+>checker counts unbalanced for mappings tracked by page table checking.
 >
-> I would prefer to keep only the scalar version of the fused copy+csum.
-> It reads the data once instead of twice, and on real Armv9 hardware it
-> cuts end-to-end cycles/byte for bulk TCP over WireGuard by 3-12%
-> depending on the core (+6-8% throughput). It uses only general-purpose
-> registers, so there is no FPSIMD state to save and it is safe in any
-> context.
+>To fix it, simply use pudp_huge_get_and_clear().
 >
-> If you are OK with the scalar path, I can send v2 with NEON dropped,
-> the scalar path only, and the KUnit fix for the x86 zero-length case
-> Jakub reported.
+>Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
+>Cc: stable@vger.kernel.org
+>Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+>Reviewed-by: Dev Jain <dev.jain@arm.com>
+>Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
+> mm/mremap.c | 3 +--
+> 1 file changed, 1 insertion(+), 2 deletions(-)
 >
-The scalar path seems like generic C code and not restricted to arm64,
-curious how that performs against existing (e.g. x86) assembly
-optimized implementation.
-saeed
+>diff --git a/mm/mremap.c b/mm/mremap.c
+>index 0d06d7f37f19a..16e736c72d9cb 100644
+>--- a/mm/mremap.c
+>+++ b/mm/mremap.c
+>@@ -509,8 +509,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
+> 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
+> 
+> 	/* Clear the pud */
+>-	pud = *old_pud;
+>-	pud_clear(old_pud);
+>+	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+> 
+> 	VM_BUG_ON(!pud_none(*new_pud));
+> 
+>
+>-- 
+>2.43.0
+>
+>
