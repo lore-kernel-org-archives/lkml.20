@@ -1,79 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.27.248.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641273;
-	b=pzsm1r060Km0jjBHLzh4bPDms/BWykenBsUqEr6fYlUSWp40SqtuWix8dQ1NO6RAw3qZ
-	 x84tNFVv6m+0lqPXwM2ndRxjLcBpTzJCtEpLWrJFdk/0c2h1UCXrUDwfxB4NtqSvWkNbq
-	 5un/h5G3jiC95FElBpFe2W4O1MvYSBm3iBbbba156m53NuzAhUkP2q68GuoctaVRE12C6
-	 9luwGcV6X1W4Os27V4Xe2PLZi2k/lSd4GiTUiw5X2yrTcih/8sv1F57fYH6vPvAtZIqlx
-	 TwyuH5BYQ8YkXcRMi1nl1tqDPd6wYn/VjiCBR6AbqB2ZTy/7jdXAy9TaEFZh563wCOA==
+	t=1793641298;
+	b=plsCN+hj91X0yIsyaVoLMdLks8ru8KOMWGUt6GIk+iAnB+zsYeX/qnqWseCD+QvLXQ2R
+	 1qVgvAVG43nOG1adF/dzOMXGOdI+wtWv3t6a7kzmZznTyVNiT3xuDFGFGc/2zp8bLGIXy
+	 ErXeFLIPvliIOPfHAK27GKWsB38ybVFuBIO95zgyjQC51GreT/yKi526OfO9bDdYrD457
+	 L6RwttmfGm2TqZtGty05ROwfsSQ7C+LUz7G/MPHs1gfZ5ED6KAKHWWUILYnAsqT/CkAdL
+	 H8JAeGgMrizkX9p889jw4RsL+viGsnGR/84yOGi6PIejAL3Vvn0wmmt3ny/dbomv5qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641273;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-PPP-Vhost:
-	 X-Virus-Scanned:X-Virus-Status;
-	bh=kkOH7iuJae2q55d0aoiLBhkj/PtC9AgD5/0vO+Wsnl8=;
-	b=pj0CohseBGdlobSv4STMwZgomeYfYjl0GY8B8K7OlRVIPxTU8Dg4dbd4Bxhw95hkqTbN
-	 1GVAJYghT9fdR+GnpdIpeeXR4co3sNzrJn08ROCko+88PDOTvcyKiPORZhIYRKdzd7m+D
-	 l//SY5DqyMDrIuF0Pr9PC3Nd9/jVfwG/yXipWeNd6dNUzoszj/g7EjueLRxQiALxfyvbl
-	 SW8NPY9xt8Im9xGOWYe+jqAm1PaI9FnniS3K32XlJ7JN1efYBgowDaQ88kmyve1Nt7xWY
-	 btoEHGyOTo3W3MqN2tcuMw/q1nglkdYspr4MN8bk/GlajmHy+Qe1VdZY9bWwwdC1IGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641298;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=p3IG+nUKXuxbgUw7WUKWXDkB6yF68LxYxq24wEK1Vhs=;
+	b=pWdj8MaMj7BZDtbu060ON3AERpwcMwbzGHwxL029w3JSVCjyyVZrjKQWX3rsDo2qfgaP
+	 3LxcBZQwU60daZfSRa12PNktTkpdgS3Exx+uwDM6PBf4PC0OXFfkr6t1txHcNJXWzvPNp
+	 dMXcvjakbI8s3vJtq5SDiyT+NIqK2RcztQH3mV/aDU+PEH6Gs9e9DCYuHK5j+z8WMffsE
+	 EU1/V3rBgJLY9DcLzJ/xovbke5BnqcIPMumYoRBXX8TFUUQVZU085lmIz5JLJPUFsIViz
+	 H61KR/NKREMc/1aTX9tRchGsX8SBkdYmk8FHfWOt+VNCMbz08oqnqCL+6YRwwa7pYOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=antheas.dev;
-	spf=pass smtp.mailfrom=antheas.dev;
-	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=LAMccuq8;
-	arc=none smtp.remote-ip=37.27.248.198
-Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jNw2w6+9;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57EC1606B0CA;
-	Mon,  2 Nov 2026 17:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57EC1606B0CA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9756070CA9
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED9756070CA9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=LAMccuq8
-Received: from relay10 (localhost.localdomain [127.0.0.1])
-	by relay10.grserver.gr (Proxmox) with ESMTP id 6201D43F7F;
-	Mon,  2 Nov 2026 19:41:05 +0200 (EET)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jNw2w6+9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793641297;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=p3IG+nUKXuxbgUw7WUKWXDkB6yF68LxYxq24wEK1Vhs=;
+	b=jNw2w6+9+G+MKwNaOURzWcFQAKU1jWB8f3j9hl2c/V744/nsoGP2/kFuNjmkMzA7ACnoyN
+	XR5gUel1oBg0D2hScgZPpJZujn3TOObJw9LukWQDFF8F9WYmgK8s3p/xlGzyUjm97xg936
+	PjvlF/4tSQpHLMKYIb0tSWOntB02lBY=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-31-v6qnrRePOlq3c2cpy7KUCQ-1; Mon,
+ 02 Nov 2026 12:41:34 -0500
+X-MC-Unique: v6qnrRePOlq3c2cpy7KUCQ-1
+X-Mimecast-MFC-AGG-ID: v6qnrRePOlq3c2cpy7KUCQ_1793641293
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by relay10.grserver.gr (Proxmox) with ESMTPS id 6159441D13;
-	Mon,  2 Nov 2026 19:41:04 +0200 (EET)
-Received: from localhost.localdomain (unknown [IPv6:2a05:f6c5:43c3:0:addf:9aff:bff3:4b66])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 87A191FD956;
-	Mon,  2 Nov 2026 19:41:02 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1793641263;
-	bh=kkOH7iuJae2q55d0aoiLBhkj/PtC9AgD5/0vO+Wsnl8=; h=From:To:Subject;
-	b=LAMccuq83FMMzeSRh44evNrezHV3hIrxwxM6ZKsopEPCPio7nAGJeVehOdYfg++8a
-	 9Tb7R850AeJ+i4Y6eF0SNmwZShGhDiaJOtGkH1GlBLoWgCGThFcZX0ieUAq7K4LxqB
-	 +ObV+D0Kvs9lrUVK2X7cnMV80Xh1t0GslET5+F06U2k8nFybIjB4lkk4ZuNQC3+imB
-	 epHHGF/IDtkoIDwqbZxVKteq7+9X0Iy012F1gU5HxAKWdbIMBK3WMweeBtCMiKh79C
-	 np+9wIz1y7PuXX9lXC9AKSF1B5kULEZEQ4YW7tfmtWn6b4tcTV5KQ6vooVPh49MQvd
-	 b1eM0h3MqQ3OQ==
-Authentication-Results: linux3247.grserver.gr;
-	spf=pass (sender IP is 2a05:f6c5:43c3:0:addf:9aff:bff3:4b66) smtp.mailfrom=lkml@antheas.dev smtp.helo=localhost.localdomain
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-From: Antheas Kapenekakis <lkml@antheas.dev>
-To: tiwai@suse.com
-Cc: Shenghao Ding <shenghao-ding@ti.com>,
-	perex@perex.cz,
-	baojun.xu@ti.com,
-	kevin-lu@ti.com,
-	sen@ti.com,
-	matthew.schwartz@linux.dev,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antheas Kapenekakis <lkml@antheas.dev>
-Subject: [PATCH v2] ALSA: hda/tas2781: Prevent throwing away custom
- calibration addresses
-Date: Mon,  2 Nov 2026 18:40:52 +0100
-Message-ID: <20261102174052.1216670-1-lkml@antheas.dev>
-X-Mailer: git-send-email 2.56.0
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F35A41955DE8;
+	Mon,  2 Nov 2026 17:41:32 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 95D3A30000E3;
+	Mon,  2 Nov 2026 17:41:32 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: [PATCH 03/45] KVM: x86: apply nGPA->GPA translation to KVM_HC_CLOCK_PAIRING
+Date: Mon,  2 Nov 2026 12:40:47 -0500
+Message-ID: <20261102174130.8779-4-pbonzini@redhat.com>
+In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
+References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,83 +77,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <179364126331.221749.8026019414900587865@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-The V2 UEFI spec for per-device calibration data in TAS allows for
-manufacturers to specify up to five custom calibration register
-addresses and values to optimize per-device in factory.
+KVM_HC_CLOCK_PAIRING writes to a guest physical addresses.  Treat it
+as an L2 address when running nested, which is consistent with the
+Hyper-V TLB flush hypercalls for example.
 
-A basic description of the spec is found in a comment in function
-tas2781_apply_calib(). However, currently, for the condition of
-p->dspbin_typ != TASDEV_BASIC, if custom calibration addresses have been
-provided by the manufacturer, they are ignored and the ones listed in
-firmware are used.
+This is technically backwards incompatible, but it should be extremely
+unlikely to happen in the wild and thus we can treat it as a bugfix, I think.
 
-In case the manufacturer chose to change different registers other than
-the default ones (r0, invr0, r0_low, pow, tlimit), this causes the
-UEFI calibration data to scratch different registers and cause the
-firmware to misbehave. This is true in the Xbox ROG Ally X, for one of
-the firmwares, where it pops and has audio dropouts after the
-calibration data is applied.
-
-Therefore, add a new bool to indicate that UEFI supplied custom
-calibration addresses, and if so, use them regardless of dspbin_typ.
-
-Closes: https://lore.kernel.org/all/179122346529.6.9250312386131579603.1671009695@8alias.com/
-Co-developed-by: Matthew Schwartz <matthew.schwartz@linux.dev>
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
-Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Link: https://patch.msgid.link/20260918135030.171564-6-pbonzini@redhat.com
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
-Different laptop this time. This bug was valid, just not present on the
-Xbox Ally X. assembledev is not a real name, so assembledev if you want
-a reported by provide a legal name and email address. You may test this
-patch and add Tested-by: real-name <real-email> or omit it.
+ arch/x86/kvm/x86.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-Technically the V1:
-https://lore.kernel.org/all/20260107093134.583873-1-lkml@antheas.dev/
-
-No functionality change, just the commit message.
----
- sound/hda/codecs/side-codecs/tas2781_hda.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda.c b/sound/hda/codecs/side-codecs/tas2781_hda.c
-index e0da299df780..70e5118a17a1 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda.c
-@@ -64,6 +64,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
- 		TASDEVICE_REG(0, 0x18, 0x7c),
- 	};
- 	unsigned int crc, oft, node_num;
-+	bool custom_addr = false;
- 	unsigned char *buf;
- 	int i, j, k, l;
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 32563a91fba9..ec151374ca9e 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -7256,8 +7256,8 @@ static int kvm_pv_clock_pairing(struct kvm_vcpu *vcpu, gpa_t paddr,
+ {
+ 	struct kvm_clock_pairing clock_pairing;
+ 	struct timespec64 ts;
++	size_t offset = 0;
+ 	u64 cycle;
+-	int ret;
  
-@@ -104,6 +105,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
- 		for (j = 0, k = 0; j < node_num; j++) {
- 			oft = j * 6 + 3;
- 			if (tmp_val[oft] == TASDEV_UEFI_CALI_REG_ADDR_FLG) {
-+				custom_addr = true;
- 				for (i = 0; i < TASDEV_CALIB_N; i++) {
- 					buf = &data[(oft + i + 1) * 4];
- 					cali_reg[i] = TASDEVICE_REG(buf[1],
-@@ -163,7 +165,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
- 		}
- 	}
+ 	if (clock_type != KVM_CLOCK_PAIRING_WALLCLOCK)
+ 		return -KVM_EOPNOTSUPP;
+@@ -7278,12 +7278,20 @@ static int kvm_pv_clock_pairing(struct kvm_vcpu *vcpu, gpa_t paddr,
+ 	clock_pairing.flags = 0;
+ 	memset(&clock_pairing.pad, 0, sizeof(clock_pairing.pad));
  
--	if (p->dspbin_typ == TASDEV_BASIC) {
-+	if (custom_addr || p->dspbin_typ == TASDEV_BASIC) {
- 		r->r0_reg = cali_reg[0];
- 		r->invr0_reg = cali_reg[1];
- 		r->r0_low_reg = cali_reg[2];
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-	ret = 0;
+-	if (kvm_write_guest(vcpu->kvm, paddr, &clock_pairing,
+-			    sizeof(struct kvm_clock_pairing)))
+-		ret = -KVM_EFAULT;
++	while (offset < sizeof(clock_pairing)) {
++		gpa_t gpa = kvm_translate_gpa(vcpu, &vcpu->arch.gva_walk, paddr + offset,
++					      PFERR_WRITE_MASK | PFERR_GUEST_FINAL_MASK, NULL, 0);
++		size_t len = min_t(size_t, sizeof(clock_pairing) - offset,
++				   PAGE_SIZE - offset_in_page(gpa));
+ 
+-	return ret;
++		if (gpa == INVALID_GPA)
++			return -KVM_EFAULT;
++		if (kvm_write_guest(vcpu->kvm, gpa, (u8 *)&clock_pairing + offset, len))
++			return -KVM_EFAULT;
++
++		offset += len;
++	}
++	return 0;
+ }
+ #endif
+ 
 -- 
-2.56.0
+2.52.0
 
 
