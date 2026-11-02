@@ -1,113 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608287;
-	b=oxxyqETCS2+mNgIAxaCVUzgn8z/nHduVS/yx6j7sXtOFWjEnIGpjgrO/MyX5PMc1R420
-	 UAZuYsoCyuxzjkmg8yVBhWFqafBXPf+6lsm94nN38K2IwZags2gOw1EEjvqrNgIKrZhZx
-	 WQbc+sUiM5ukQXdtMxXIXm93VHu5BGMeR2jLN2nAhsMmV/lm3wHh5hLX2Symk0qU7ORVS
-	 DfPLYBOVM52kIOUlc2WLquyC61QyCl+aO2mycnjFxcGrIsnPmikdV/WmJjpgBth4tRUvG
-	 FM3fSONXrfrWlbty5PoU7HwObE+dY1pVZrJkwRGOr6XSOgi19hgwQixc5vx8JQYQjmg==
+	t=1793608297;
+	b=UkGXJQIl9crUQf2EG1PZxgcZTMjAfAYiF/h6pE4dzYjgNuVDHtiIlkuTU7NSpBGQs93R
+	 Cx1X7z6ry9oww75KDHOY8q2uyZ9sLAJsQ1Km75rGB8Rw186ocgQBofQmr2zxl/7mgObql
+	 cRoGPkpLbXfpQ/Z3WRnH3ocASwJTrq9gLndDecMEEjXmZ+NAnsmNDo9mAGOP2IbTVjVbC
+	 kX98/WQWaDpWX/fc6wOY2mJwOqh5IE4FaPoGFaQJBhU1y1ZBTyfnFrSXQTHZ5EteDNaLc
+	 LcBaGh/DFOLOhSKwW2NVYGW4eC3o0e9Ol3X1udsX5HCCjrXyXT9v8z03MWY8FkvgvCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608287;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uNk7UoVUCyaNPvkUt39ka4U3PEtGKbZzHSnhMCo9iP0=;
-	b=M52ATYQbPeax1lDdhgdWJOImZhG6PZ91Y1KqItC8SddcadEpjuDPri16oSzUpPG6eEVe
-	 cSlI7cdjnCtTY9MpnHFo7kD2M/jN8wjCmyAzVmqU/EN0wGrHO+142QB7kk8bGnJO0Xpz3
-	 oSczrAlcVm+5IXI4gvrWIaPaQmqD8cC/4Yr8tLJutytBcZL+OTBfoMXRYaTCDBqbO2FkG
-	 tulFbMce+n2DKp2dHYuVgVESaDj6jxpjzX0P36XW5i1HlAjlErbLHtrFNmdsc+SPXCC+2
-	 ki3HdZF5pmdOfBUaw6/14tuEHzhx6hrp0enXlbtNEKghVrMKAOTT6UJWHk2QBi8q/dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608297;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
+	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=EpaU1t3dIx306p0GEmGy8yQ19rVx6yMhrealjHqi+yU=;
+	b=kl+QogtAo5SARnUuGd74AmyvdbL2mXYIaayzrCmArGKxP1zA2zlMl6sMmYuaaLNOPUig
+	 l22qlX6w51HMUsGMzSrrY/CltAq8emzuq2HqzNRhmeJyFwmFSirGxk/N4A6yuGx+bbE0T
+	 jDdpnv2O0CrCvZ8KY5SnbcHbIP98uFbigkdPg7nhbbrVrLg4iGsKbp3+U+BK8vAB98j21
+	 plFWyFmFv22GCzr8VcdzANSTBO8VABWpqLEATmU7GMBoIZQKFsXNyaVkVLpHmsnFiQMzn
+	 IyyIGLZ9fArhAw0++74/lb5xdCL2fXwGnNVYWUCulUoLNIo+VW3/Bt3BoQKfdGrF7gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BuNTRnhH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JSFDDtVZ;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A381606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:31:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A381606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BuNTRnhH;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JSFDDtVZ
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A23vAAE3768720
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 08:31:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uNk7UoVUCyaNPvkUt39ka4U3PEtGKbZzHSnhMCo9iP0=; b=BuNTRnhHCPpJt44k
-	cp9W6DTyT+uE2Udvr6puPtOgVvkoupoQ35hDyGF4qK8l3CNm0gS9gBpJeCNd1C9K
-	rYzSewasozAkQkcCVyJGaf5edwVr/QCqvSKmlqI10jg254oKzpYQIWS5KdwH1qrs
-	R0WGCTwKGa/mO1VSQn4XKaApzDvazbiBrSKyTCzv3WaryibN8hLWSr4Zl05LVbWB
-	pVlMZeQgirHbrRz4KdJXptq2he/B39pa+jUwPDeUBnLo/TkrYV1dBSZsaRVZ1Nve
-	+FHKoo7XCeErpWjPYea6zoYvWeYEphKTC4Dcd7ThggIx43IdtWGaahJWadlZUHkh
-	R1xhKQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn79rx1pc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:31:25 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0688a43d3so1964153b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:31:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793608285; x=1794213085; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uNk7UoVUCyaNPvkUt39ka4U3PEtGKbZzHSnhMCo9iP0=;
-        b=JSFDDtVZpTUqVySV993gjeSDjP1z5rMJFqgVRBe+0wVfXxO8pG27G3rThfPPnypVbv
-         oq+g721m5JyMTPmNmbFfv2hPbT/xcWvM5II+bFh6Mwa7+N6nnGL1SfSmhR6WJilHOCny
-         o6DamF1Nu4V61J2KY80cVGhklZEIohSFVhEbJyYZzcBbWXx5VajC72bvvcSzqAn1+NtX
-         ZRfvwitInKfIYkkEY3ObrjTa+7cIfphSxov9EXX8cdDHOvlS8G2+uF/Yvx0vMWh95cvX
-         0+wwug6qsCWMTBaigwy7oLGA2nNEl0y92QoRch8DFWKc7D295rylvGAIJXmsEbEULuTF
-         q3tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793608285; x=1794213085;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uNk7UoVUCyaNPvkUt39ka4U3PEtGKbZzHSnhMCo9iP0=;
-        b=dq9mDNH2h2iAD/G5xARWZ0AHdCnI7G2dIE8zn5Mu/3HbQs9MI2eJHTj/bpJLeeX+eT
-         Z6ihwiLDpvkxFTWcFGmmfxA6Ebhk3mOJJHo0006WD6rdtmXsTC7FDcD8koXGI4y8SBvj
-         dSh1eKC2bntKwjSX0SL5JINd1GKIVmu1HhM1UWlugyEUO4v1GqsWYDvE0Byuby96MpMI
-         dBBBPLhxKy3SXLD/MOmeZZez7T4W02n8cXlPEdMc4t/cjCLVQ18P6Yg4Hf7+GckRtyJA
-         d3j6MtIqP+MxnPNPrrIjfVYYe1abcNkYqxBj/ooeFAgeOuSlDJZsHNoBgQk1+JxiqZ8E
-         InuA==
-X-Forwarded-Encrypted: i=1; AKwUvBwzjmbTCeyETiqHOzwB0x0mtPRCmdQmrRcgGlXbR4JJzaSjSr3m4UD8zRbnY6q/FwbskTYGxkEarwPk6I4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xzd+KIbPs1gcG1xJSb3XGNPfA70GxkFGLMQHFbeLlG3gNzhb3
-	PSEkBpkwzDC/K1qBK2CTFTIXp6dl6KCIVT9DqcKwsDNz3SaCyfJDo8Iwhbzx5FJXWaMBjsurK62
-	LrLiBHC0AeMpaz+mwfGSNG3vpUApbN1YDScKlHinqQAkV57QI+v9CCIRqMN6Z1+SEC0c=
-X-Gm-Gg: AYBFou2k5tFzmD/nbtkpsHmX9PAYoK5qf1XIwENqJW1y/YQYOKF47p2nohAbO43bB/V
-	Fw7YDhocWEVwE1vdyxXcmLB44GfQANwD5znHlVehjD7/6WUWJQoHhQfB3Wt4lfeUeqjLzk3oNu8
-	Nfvz+t3HIqXhQroQAe+53dr7uogCKrRYOe81UcWOYBMYM6sLmJh/u1cZZ8kW9ZwzZOMg9L9SWGP
-	VS5AF/e1+CMRGm9NGjyqiCNiNsaBQ0eR6ZL9SI47jj2wNx/aOtx/+HcPcnLoCYnyX7weyqQr3Ds
-	cvC3kJrCqu4ZI/TvpTBpmWHjpaoMmtzdClZexXF7C/LvrE/jac8Tjue+hcInbtrX0rwwe0RHGCS
-	W3ikEqEAtzQ3rrkf2YHPma9VLeboLyywFvHhMzCt/3ns+4KmS3vOWVnmd2DfJpBIqVqTVTE/PNP
-	2YIg/XdA==
-X-Received: by 2002:a05:6a00:ab05:b0:893:12e5:c07c with SMTP id d2e1a72fcca58-8a9be965277mr7867718b3a.27.1793608285079;
-        Mon, 02 Nov 2026 00:31:25 -0800 (PST)
-X-Received: by 2002:a05:6a00:ab05:b0:893:12e5:c07c with SMTP id d2e1a72fcca58-8a9be965277mr7867678b3a.27.1793608284451;
-        Mon, 02 Nov 2026 00:31:24 -0800 (PST)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d03be0sm1674680b3a.27.2026.11.02.00.31.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 00:31:23 -0800 (PST)
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 14:01:02 +0530
-Subject: [PATCH v7 1/3] misc: fastrpc: iterate CB nodes manually instead of
- of_platform_populate
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9773D606A333;
+	Mon,  2 Nov 2026 08:31:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9773D606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJ4g45BvZz5B0rf;
+	Mon, 02 Nov 2026 16:31:28 +0800 (CST)
+Received: from szxlzmapp03.zte.com.cn ([10.5.231.207])
+	by mse-fl1.zte.com.cn with SMTP id 6A28VDmS099660;
+	Mon, 2 Nov 2026 16:31:13 +0800 (+08)
+	(envelope-from zhang.yanze@zte.com.cn)
+Received: from localhost.localdomain (unknown [192.168.6.15])
+	by smtp (Zmail) with SMTP;
+	Mon, 2 Nov 2026 16:31:16 +0800
+X-Zmail-TransId: 3e816ae84a53028-fc610
+X-Zmail-LocalSMTP: 1
+X-Zmail-RealSender: zhang.yanze@zte.com.cn
+From: Yanze Zhang <zhang.yanze@zte.com.cn>
+To: jgg@ziepe.ca, leon@kernel.org, julianbraha@gmail.com,
+        huangjunxian6@hisilicon.com, yanjun.zhu@linux.dev,
+        Markus.Elfring@web.de
+Cc: lkp@intel.com, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+        wei.quan@zte.com.cn, han.junyang@zte.com.cn, ran.ming@zte.com.cn,
+        han.chengfei@zte.com.cn, zhang.yanze@zte.com.cn
+Subject: [PATCH rdma v8 2/7] RDMA/zrdma: Add core data structures and ABI definitions
+Date: Mon,  2 Nov 2026 16:20:21 +0800
+Message-ID: <20261102082026.2645777-3-zhang.yanze@zte.com.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102082026.2645777-1-zhang.yanze@zte.com.cn>
+References: <20261102082026.2645777-1-zhang.yanze@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,285 +71,301 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-dup-sessions-v7-1-03f06c014e78@oss.qualcomm.com>
-References: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
-In-Reply-To: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Amol Maheshwari <amahesh@qti.qualcomm.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        devicetree@vger.kernel.org,
-        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793608273; l=7646;
- i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=1ZCjKkuEklA9dqtgrXzcHhTQLVOklfUh4hr7qs27ZYI=;
- b=Avy1J3E49Dc36+bGc1BPg1IiqDzb4s/n4DFoCSABSKVHfa86jc0nGXFdVAD7YvROrQ+mFq6oK
- 35f+phSWQktD8JK2sYAVz7jmgm2WMkPMu5K3UMvQ1qS2BFZvB+vcOVU
-X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
- pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-ORIG-GUID: rKMRaAHV5fwqqtBESprkkqIISg4ykJt-
-X-Authority-Analysis: v=2.4 cv=Wtq+otfv c=1 sm=1 tr=0 ts=6ae84a5d cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=uxAdCuZb9_mwF1n_fQcA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzMyBTYWx0ZWRfX1eKMTPrrYrcR
- UHgTmn18cwIae/9+mCMvaYz+u8MmN71RshDmn1ZAxGlDsxBrSSh+vKeb8z3+ShOqEMj7CaNti5Y
- PG7OlyjZBE3ph1yxdmNZYd4W7EcDy7E=
-X-Proofpoint-GUID: rKMRaAHV5fwqqtBESprkkqIISg4ykJt-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzMyBTYWx0ZWRfX4R9mKRJcFZf/
- /wSH8M+U6Kd0ckca/1rTA/8+iJY6gQD8KKwMGlXjWH6bBtzuPVtMhUXXFEvdStM/6l1zE3ytoWb
- oDgYuxMTDunndKft2/Ts6EOzaSGbyxnPXQYGNoZYOJcPsgUmK+gC4I07srVokBfSDPawFQmHQjl
- 4F7Ew1+LaE3OTNtf0UqU5l7htxk7JSi6gMrEVqi3x665Mgi+JFgblMW+xsXzs+C42FouqCp/LM7
- /tLF2idbLgQax+TUs8OsK4AU7k+TYSg/yLajrw52W28pTD0YtUaTpJafjfW5n42kIolAsuilrLx
- MRLHRSrx7DauZ7FFZEfK+10Mn2hzw8wEztB05MAKE1gOLrNz5odcZ37S3tbEphNUFDSipP5N/uw
- UP5bYl9j7NpFQ1jhoAecVIwoZ6rtiFRB/Bpuaefj/Nz8Uwm2YnDOH8mukZDTC8hxvQpYm2qWjUR
- kka+Z/uus1TU+39XRTw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020033
+X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
+Content-Transfer-Encoding: 8bit
+X-MAIL:mse-fl1.zte.com.cn 6A28VDmS099660
+X-TLS: YES
+X-ENVELOPE-SENDER: zhang.yanze@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 02 Nov 2026 16:31:28 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE84A60.002/4jJ4g45BvZz5B0rf
 
-of_platform_populate() only guarantees that child devices are registered,
-not that their probes have completed before it returns. This creates a
-window where fastrpc_cb_init() may not have run for all context bank
-nodes, leaving the channel context partially initialised.
+Add fundamental data structures, hardware control structures, and
+user-space ABI definitions required by the driver. These headers
+provide the type definitions for the subsequent implementation patches.
 
-Introduce fastrpc_cb_devices_create() to iterate over child DT nodes
-directly and call fastrpc_cb_init() synchronously for each
-qcom,fastrpc-compute-cb node. This ensures all context banks are fully
-initialised before fastrpc_rpmsg_probe() returns.
+The UAPI header is installed to userspace, so it carries the
+Linux-syscall-note SPDX tag that headers_install requires for a
+GPL-licensed UAPI header.
 
-Since no driver binds to the CB devices any more, the driver core no
-longer runs dma_configure() for them. Call of_dma_configure() for each
-CB so that dma-coherent, dma-ranges and the IOMMU group are set up
-before the session is used. If a CB cannot be configured (or has
-"iommus" but no IOMMU group), log it, destroy that CB device and carry
-on with the remaining ones, rather than leaving a half-configured
-device behind for a later IOMMU registration to trip over, or failing
-the whole channel probe. -EPROBE_DEFER still fails the probe so that it
-is retried once the SMMU is available.
-
-Introduce fastrpc_cb_devices_destroy() as the symmetric counterpart.
-Before destroying the CB platform devices, invalidate all sessions under
-the channel lock so that any fastrpc_user still holding a reference to
-the channel context cannot acquire a new session backed by a destroyed
-device.
-
-Since fastrpc_cb_driver is no longer needed as an independent platform
-driver, remove it along with its match table and remove callback. Use
-module_rpmsg_driver() now that only a single driver registration remains.
-
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Signed-off-by: Yanze Zhang <zhang.yanze@zte.com.cn>
 ---
- drivers/misc/fastrpc.c | 120 +++++++++++++++++++++++++++----------------------
- 1 file changed, 66 insertions(+), 54 deletions(-)
+ drivers/infiniband/hw/zrdma/zrdma_ctrl.h |  22 +++++
+ drivers/infiniband/hw/zrdma/zrdma_defs.h |  19 ++++
+ drivers/infiniband/hw/zrdma/zrdma_type.h |  86 +++++++++++++++++
+ include/uapi/rdma/zrdma_abi.h            | 114 +++++++++++++++++++++++
+ 4 files changed, 241 insertions(+)
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_ctrl.h
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_defs.h
+ create mode 100644 drivers/infiniband/hw/zrdma/zrdma_type.h
+ create mode 100644 include/uapi/rdma/zrdma_abi.h
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index af18ff1992ee..7441e9b8940d 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -13,6 +13,7 @@
- #include <linux/module.h>
- #include <linux/of_address.h>
- #include <linux/of.h>
-+#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/sort.h>
- #include <linux/of_platform.h>
-@@ -2333,7 +2334,7 @@ static const struct file_operations fastrpc_fops = {
- 	.compat_ioctl = fastrpc_device_ioctl,
- };
- 
--static int fastrpc_cb_probe(struct platform_device *pdev)
-+static int fastrpc_cb_init(struct platform_device *pdev)
- {
- 	struct fastrpc_channel_ctx *cctx;
- 	struct fastrpc_session_ctx *sess;
-@@ -2355,7 +2356,7 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	if (cctx->sesscount >= FASTRPC_MAX_SESSIONS) {
- 		spin_unlock_irqrestore(&cctx->lock, flags);
--		dev_err(&pdev->dev, "too many sessions\n");
-+		dev_err(dev, "too many sessions\n");
- 		return -ENOSPC;
- 	}
- 	dma_bits = cctx->soc_data->dma_addr_bits_default;
-@@ -2363,7 +2364,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	sess->used = false;
- 	sess->valid = true;
- 	sess->dev = dev;
--	dev_set_drvdata(dev, sess);
- 	sess->sid = sid;
- 
- 	if (cctx->domain_id == CDSP_DOMAIN_ID)
-@@ -2389,37 +2389,75 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
--static void fastrpc_cb_remove(struct platform_device *pdev)
-+static void fastrpc_cb_devices_destroy(struct rpmsg_device *rpdev)
- {
--	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(pdev->dev.parent);
--	struct fastrpc_session_ctx *sess = dev_get_drvdata(&pdev->dev);
-+	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(&rpdev->dev);
-+	struct device *rdev = &rpdev->dev;
- 	unsigned long flags;
- 	int i;
- 
- 	spin_lock_irqsave(&cctx->lock, flags);
--	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
--		if (cctx->session[i].sid == sess->sid) {
--			cctx->session[i].valid = false;
--			cctx->sesscount--;
--		}
--	}
-+	for (i = 0; i < cctx->sesscount; i++)
-+		cctx->session[i].valid = false;
- 	spin_unlock_irqrestore(&cctx->lock, flags);
+diff --git a/drivers/infiniband/hw/zrdma/zrdma_ctrl.h b/drivers/infiniband/hw/zrdma/zrdma_ctrl.h
+new file mode 100644
+index 0000000000000..d25570683b614
+--- /dev/null
++++ b/drivers/infiniband/hw/zrdma/zrdma_ctrl.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
++ *
++ * ZTE DingHai Rdma driver
++ * Copyright (c) 2022-2026, ZTE Corporation
++ */
 +
-+	device_for_each_child_reverse(rdev, NULL, of_platform_device_destroy);
- }
- 
--static const struct of_device_id fastrpc_match_table[] = {
--	{ .compatible = "qcom,fastrpc-compute-cb" },
--	{ }
--};
-+static int fastrpc_cb_devices_create(struct rpmsg_device *rpdev)
-+{
-+	struct device *rdev = &rpdev->dev;
-+	struct platform_device *pdev;
-+	struct device_node *np;
-+	int err;
- 
--static struct platform_driver fastrpc_cb_driver = {
--	.probe = fastrpc_cb_probe,
--	.remove = fastrpc_cb_remove,
--	.driver = {
--		.name = "qcom,fastrpc-cb",
--		.of_match_table = fastrpc_match_table,
--		.suppress_bind_attrs = true,
--	},
--};
-+	for_each_available_child_of_node(rdev->of_node, np) {
-+		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb"))
-+			continue;
++#ifndef ZRDMA_CTRL_H
++#define ZRDMA_CTRL_H
 +
-+		pdev = of_platform_device_create(np, NULL, rdev);
-+		if (!pdev) {
-+			of_node_put(np);
-+			fastrpc_cb_devices_destroy(rpdev);
-+			return -ENODEV;
-+		}
++struct zxdh_hw {
++	u8 __iomem *hw_addr;
++	struct device *device;
++};
 +
-+		/*
-+		 * No driver binds to the CB devices, so the driver core never
-+		 * runs dma_configure for them. Do it here so that dma-coherent,
-+		 * dma-ranges and the IOMMU link are set up before the session
-+		 * is used. A CB whose IOMMU setup failed is destroyed now,
-+		 * instead of being left for the next IOMMU registration to
-+		 * retry (and fail on), but does not fail the whole channel:
-+		 * failing the probe makes the DSP reopen the channel in a loop.
-+		 */
-+		err = of_dma_configure(&pdev->dev, np, true);
-+		if (!err && of_property_present(np, "iommus") &&
-+		    !device_iommu_mapped(&pdev->dev))
-+			err = -ENODEV;
-+		if (err) {
-+			if (err == -EPROBE_DEFER) {
-+				of_node_put(np);
-+				fastrpc_cb_devices_destroy(rpdev);
-+				return err;
-+			}
++struct zxdh_sc_dev {
++	struct zxdh_hw *hw;
++	u32 max_ceqs;
++	u8 ep_id;
++	u8 driver_load;
++};
 +
-+			dev_err(rdev, "skipping %pOF: failed to configure DMA/IOMMU: %d\n",
-+				np, err);
-+			of_platform_device_destroy(&pdev->dev, NULL);
-+			continue;
-+		}
++#endif
+diff --git a/drivers/infiniband/hw/zrdma/zrdma_defs.h b/drivers/infiniband/hw/zrdma/zrdma_defs.h
+new file mode 100644
+index 0000000000000..208f1f60bbaee
+--- /dev/null
++++ b/drivers/infiniband/hw/zrdma/zrdma_defs.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
++ *
++ * ZTE DingHai Rdma driver
++ * Copyright (c) 2022-2026, ZTE Corporation
++ */
 +
-+		err = fastrpc_cb_init(pdev);
-+		if (err) {
-+			of_node_put(np);
-+			fastrpc_cb_devices_destroy(rpdev);
-+			return err;
-+		}
-+	}
++#ifndef ZRDMA_DEFS_H
++#define ZRDMA_DEFS_H
 +
-+	return 0;
-+}
- 
- static int fastrpc_device_register(struct device *dev, struct fastrpc_channel_ctx *cctx,
- 				   bool is_secured, const char *domain)
-@@ -2639,7 +2677,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	data->rpdev = rpdev;
- 	dev_set_drvdata(&rpdev->dev, data);
- 
--	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
-+	err = fastrpc_cb_devices_create(rpdev);
- 	if (err)
- 		goto err_deregister_fdev;
- 
-@@ -2711,7 +2749,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
- 	}
- 
--	of_platform_depopulate(&rpdev->dev);
-+	fastrpc_cb_devices_destroy(rpdev);
- 
- 	fastrpc_channel_ctx_put(cctx);
- }
-@@ -2798,33 +2836,7 @@ static struct rpmsg_driver fastrpc_driver = {
- 	},
- };
- 
--static int fastrpc_init(void)
--{
--	int ret;
--
--	ret = platform_driver_register(&fastrpc_cb_driver);
--	if (ret < 0) {
--		pr_err("fastrpc: failed to register cb driver\n");
--		return ret;
--	}
--
--	ret = register_rpmsg_driver(&fastrpc_driver);
--	if (ret < 0) {
--		pr_err("fastrpc: failed to register rpmsg driver\n");
--		platform_driver_unregister(&fastrpc_cb_driver);
--		return ret;
--	}
--
--	return 0;
--}
--module_init(fastrpc_init);
--
--static void fastrpc_exit(void)
--{
--	platform_driver_unregister(&fastrpc_cb_driver);
--	unregister_rpmsg_driver(&fastrpc_driver);
--}
--module_exit(fastrpc_exit);
-+module_rpmsg_driver(fastrpc_driver);
- 
- MODULE_DESCRIPTION("Qualcomm FastRPC");
- MODULE_LICENSE("GPL v2");
-
++#include <linux/bitfield.h>
++#include <rdma/ib_verbs.h>
++
++#define ZXDH_FEATURE_RTS_AE 1ULL
++#define ZXDH_FEATURE_CQ_RESIZE 2ULL
++#define ZXDH_FEATURE_64_BYTE_CQE 128ULL
++
++#define ZXDH_MAX_USER_PRIORITY 8
++
++#endif /* ZRDMA_DEFS_H */
+diff --git a/drivers/infiniband/hw/zrdma/zrdma_type.h b/drivers/infiniband/hw/zrdma/zrdma_type.h
+new file mode 100644
+index 0000000000000..ded4052453455
+--- /dev/null
++++ b/drivers/infiniband/hw/zrdma/zrdma_type.h
+@@ -0,0 +1,86 @@
++/* SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
++ *
++ * ZTE DingHai Rdma driver
++ * Copyright (c) 2022-2026, ZTE Corporation
++ */
++
++#ifndef ZRDMA_TYPE_H
++#define ZRDMA_TYPE_H
++
++#include <linux/auxiliary_bus.h>
++#include <linux/msi.h>
++
++enum zxdh_rdma_reset_type {
++	ZXDH_RDMA_PFR,
++	ZXDH_RDMA_CORER,
++	ZXDH_RDMA_GLOBR,
++};
++
++enum zxdh_function_type {
++	ZXDH_FUNCTION_TYPE_PF,
++	ZXDH_FUNCTION_TYPE_VF,
++};
++
++struct zxdh_rdma_core_dev;
++
++struct zxdh_rdma_core_ops {
++	int (*request_reset)(struct zxdh_rdma_core_dev *cdev,
++			     enum zxdh_rdma_reset_type reset_type);
++	int (*zxdh_common_func)(void *in_param, void *out_param, u32 opcode);
++};
++
++struct zxdh_rdma_ver_info {
++	u16 major;
++	u16 minor;
++	u64 support; /* 0~7:net_major,8~15:net_minor,16~23:rdma_minor,24~63:rscv */
++};
++
++enum zxdh_rdma_protocol {
++	ZXDH_RDMA_PROTOCOL_IWARP = BIT(0),
++	ZXDH_RDMA_PROTOCOL_ROCEV2 = BIT(1),
++};
++
++struct zxdh_qos_params {
++	u8 num_tc;
++};
++
++struct zxdh_rdma_core_dev {
++	struct pci_dev *pdev;
++	struct auxiliary_device *adev;
++	u8 __iomem *hw_addr;
++	int zdev_info_id;
++	struct zxdh_rdma_ver_info ver;
++	void *auxiliary_priv;
++	enum zxdh_function_type ftype;
++	u16 vport_id;
++	u16 slot_id;
++	enum zxdh_rdma_protocol rdma_protocol;
++
++	struct zxdh_qos_params qos_info;
++	struct msix_entry *msix_entries;
++	u16 msix_count;
++	const struct zxdh_rdma_core_ops *ops;
++	void *dh_dev;
++};
++
++struct zxdh_rdma_if {
++	void *(*get_rdma_netdev)(void *dh_dev);
++};
++
++struct zxdh_auxiliary_dev {
++	struct auxiliary_device adev;
++	struct zxdh_rdma_core_dev *zxdh_info;
++	struct zxdh_rdma_if *rdma_ops;
++	void *ops;
++	void *parent;
++	s32 aux_id;
++	void *auxiliary_ops[18];
++};
++
++struct zxdh_sc_pd {
++	struct zxdh_sc_dev *dev;
++	u32 pd_id;
++	int abi_ver;
++};
++
++#endif /* ZRDMA_TYPE_H */
+diff --git a/include/uapi/rdma/zrdma_abi.h b/include/uapi/rdma/zrdma_abi.h
+new file mode 100644
+index 0000000000000..53f15591f894e
+--- /dev/null
++++ b/include/uapi/rdma/zrdma_abi.h
+@@ -0,0 +1,114 @@
++/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR Linux-OpenIB)
++ *
++ * ZTE DingHai Rdma driver
++ * Copyright (c) 2022-2026, ZTE Corporation
++ */
++
++#ifndef ZRDMA_ABI_H
++#define ZRDMA_ABI_H
++
++#include <linux/types.h>
++
++/* The version of the user space ABI that this driver implements. It is
++ * reported to the core as the uverbs ABI version of the device.
++ */
++#define ZXDH_ABI_VER 5
++
++/* The versions of the context that the user space can ask for with
++ * struct zxdh_alloc_ucontext_req.userspace_ver. A version tells the
++ * driver which features of the user space are available.
++ */
++#define ZXDH_CONTEXT_VER_V1 5
++#define ZXDH_CONTEXT_VER_V2 6
++#define ZXDH_CONTEXT_VER_V3 7
++
++enum zxdh_rdma_tool_flags {
++	ZXDH_QP_EXTEND_OP = 1 << 0,
++	ZXDH_CAPTURE = 1 << 1,
++	ZXDH_GET_HW_DATA = 1 << 2,
++	ZXDH_GET_HW_OBJECT_DATA = 1 << 3,
++	ZXDH_CHECK_HW_HEALTH = 1 << 4,
++	ZXDH_RDMA_TOOL_CFG_DEV_PARAM = 1 << 5,
++	ZXDH_RDMA_TOOL_READ_RAM = 1 << 6,
++	ZXDH_RDMA_TOOL_DEVX_MODIFY_CQ = 1 << 7,
++	ZXDH_RDMA_SET_CREDIT_CAP = 1 << 8,
++	ZXDH_RDMA_SWITCH = 1 << 9,
++	ZXDH_RDMA_TOOL_DEVX_EXT_MEM = 1 << 10,
++	ZXDH_RDMA_TOOL_PRIV_EXT = 1 << 11,
++	ZXDH_RDMA_TOOL_IOVA_CAP = 1 << 12,
++};
++
++enum zxdh_db_addr_type {
++	ZXDH_DB_ADDR_PHY = 0,
++	ZXDH_DB_ADDR_BAR = 1,
++};
++
++/* Request of the uverbs command INFINIBAND_UVERBS_CMD_ALLOC_CONTEXT. */
++struct zxdh_alloc_ucontext_req {
++	__u32 rsvd32;
++	/* Version of the user space, one of the ZXDH_CONTEXT_VER_*. */
++	__u8 userspace_ver;
++	__u8 rsvd8[3];
++};
++
++/* Response of the uverbs command INFINIBAND_UVERBS_CMD_ALLOC_CONTEXT. */
++struct zxdh_alloc_ucontext_resp {
++	/* Number of protection domains that the user space can create. */
++	__u32 max_pds;
++	/* Number of queue pairs that the user space can create. */
++	__u32 max_qps;
++	/* Size of the work queues (SQ+RQ) in the mmaped area. */
++	__u32 wq_size;
++	/* Version of the driver that created the context. */
++	__u8 kernel_ver;
++	/* Type of the address that a doorbell is written to, one of the
++	 * enum zxdh_db_addr_type.
++	 */
++	__u8 db_addr_type;
++	/* The RDMA tool features that the driver supports, one of the
++	 * enum zxdh_rdma_tool_flags.
++	 */
++	__u16 rdma_tool_flags;
++	/* The features that the driver supports. */
++	__aligned_u64 feature_flags;
++	/* The keys of the mappings of the doorbell areas. The user space
++	 * passes a key to mmap() to get the address of a doorbell.
++	 */
++	__aligned_u64 sq_db_mmap_key;
++	__aligned_u64 cq_db_mmap_key;
++	/* The limits of the work queue entries. */
++	__u32 max_hw_wq_frags;
++	__u32 max_hw_read_sges;
++	__u32 max_hw_inline;
++	__u32 max_hw_rq_quanta;
++	__u32 max_hw_srq_quanta;
++	__u32 max_hw_wq_quanta;
++	__u32 max_hw_srq_wr;
++	__u32 min_hw_cq_size;
++	__u32 max_hw_cq_size;
++	__u16 max_hw_sq_chunk;
++	/* The revision of the hardware and of the chip. */
++	__u8 hw_rev;
++	__u8 chip_rev;
++	__aligned_u64 srq_db_mmap_key;
++	/* The offset of the doorbell area in the page that is mapped. */
++	__aligned_u64 sq_db_bar_off;
++	__aligned_u64 cq_db_bar_off;
++	__aligned_u64 srq_db_bar_off;
++	/*
++	 * Size of the mapped SRQ doorbell area. The V1 and V2 contexts do
++	 * not have this field, so only the first page of the area is mapped
++	 * for them and they must not access beyond it.
++	 */
++	__u32 srq_db_mmap_size;
++	__u16 rsv[6];
++};
++
++/* Response of the uverbs command INFINIBAND_UVERBS_CMD_ALLOC_PD. */
++struct zxdh_alloc_pd_resp {
++	/* The identifier of the protection domain. */
++	__u32 pd_id;
++	__u8 rsvd[4];
++};
++
++#endif /* ZRDMA_ABI_H */
 -- 
-2.34.1
+2.43.5
 
