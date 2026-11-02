@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793624187;
-	b=dzCe6BNZbhWZEO8rPHmeuvvZ9l8YBhzUUrj4gydP/73NA+7qWZEc2EFj6/xoByPn5IQM
-	 LeggE47LkTcKu5RL0EP3BbGxixwZuEVPFv++z7oK6foU7NdWnG/PbTNRDiabbDgYc58q9
-	 +EVsFfuqGa/se6SLjX1URnsN2kxA+hSnIUtfzAZmVqQ2RHBwUbQcNashNh94Y6QFb6Qov
-	 Uf39GpUQ7bu2JzYb240bLpU2nO7NOt5gHfzNeBsokBmjqx13AUu1cAxBfUrMQFZY8Rt9E
-	 3qc/rKEqzjLeyTabgq1Uyv8nnKp1e9tKjZQhJ3XF0Y0WBMwh7n1acgymRv9m5YTFuUQ==
+	t=1793624193;
+	b=AA5l5cYT10xYi1Esb5VbNYsFi4HbIIoaqiVxY7ukk3inlnS1+rfLViDSUqssJEWnfaY/
+	 xRmKBFVQd7KOGyn4v1YamL0O5bnw8tlb5gUwPopIr4JFEuQpJWQ64qNNRVJhJr0MqetmG
+	 bAjD0dINuHCPcZ2dlcp6lYS4annD6iQi4uGGItZ0BL2p6N4WCj81X9OAw1diM/gQKVwSW
+	 hfaxVGXKajvdV7HVpDEQz5aQUFr/Z8IYLTz2ckFae5FjdIRYY3TDzb4gYc1D3gjdpPwcE
+	 9Ur1rPPor0cI2YGEMbZXRBxFyTE6U3i7g2yWGEI+ZmzT+HIeY9E7itUmijZQ+sBl2NQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624193;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wY2lxSBOT5vrFfsC6nW4WFwo3U7fyupwQAGbfep51T8=;
-	b=B8j6rBsZ5jK5Og5qzF4uINoctoknKEjDfhZzztTekt9UwC430cnjtpXswkw1EKoEP59B
-	 v2s+SOSX/eyV9fYEGiSVgjjV3NVTNtIm1osWi2xaKjZGcuAMxPexD90bR2pUYUGB1Cv/O
-	 PstzY/yPGfqQCeeBZHM0K/g1n5d5h2ukdA9bSLZ7i1PO/FjfuJb8EWfDonTkQb/kjZTTE
-	 omo/6qLzNMFRsqa67oSLdouEzDAK9w8/SdZaITo6bDgMz+kMK2lTjqnaEXHuTPdN52JDp
-	 unYg6RulZlX29VDSY5T0iVez5B6R6pvNjWf8JYRzxWSNNlaqFa5KbockZyf6ilc72/w==
+	bh=XYeVSQrMQh5GQlHFrfRlPa7r3niYCPk6ssF2GHu7Wr4=;
+	b=GYooKapeWLhKBFWA4N6jaJNeFdxQIfxvdoCUj/BLkXVLXxDg3lh1/xt1plSm1lZab1lK
+	 tEQqmrZd105ShdQS8JQ5OxSx4j+zaX+2cK+mVl+RaUyuyhzaIEd7Bk2V+iPiZ/5CBpsdZ
+	 CG7/3jdgHHDO9iT0RFzJBmzxJ232yZrFqVWRYE3Erxy+2rjL5gbU4u83c593k5WqrVcHq
+	 u0aHzXkQ8+ydFjvAZ9mOB+7nBkA/HPOYgcFnX4aLTN/WpAecWBiEt9ap9NL50+P/xy0ng
+	 oNi0WG5cUzwhHo6svItzoN2YPompnxK6xm4JLFC0dOseaF5N4jgfUuAgphWSE6pGFuA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEkMkzSW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nDE00e6/";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771B5606A32C;
-	Mon,  2 Nov 2026 12:56:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629BA606A324;
+	Mon,  2 Nov 2026 12:56:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEkMkzSW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDE00e6/
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793624186;
-	b=CQHqpHoV8sJsVZyjuTBbEdRxzkBTZIhJYcakFbaS4xSke5CSIzA3opxCDuxwRho9B0U/
-	 RhTFIDLdgczEej4Wd96tzJGMS4F627xdOfZ6Zm2gS8dLiIbK5TnFZBoVrb1oIe/iZafbV
-	 tIT3UmImS0floZ+vTKThAjIYFizTzqak3vuQM6cXzMAYNxV5Ge1Iune9aL+O5ev6ijJ0B
-	 UC6K5azNfz2B4B4o0IC7/bsh9xt71rgBrfeRA3xibEjKOMg1IcGMndBf0JlcgL2HUc0lr
-	 8wb4/JbtUefWWyHpMm07R9mdDfQAztmIKWiIwY9YWXeZzO0u9JkqDxehVlid+HTccNA==
+	t=1793624192;
+	b=YFdIcScwlNBOtMO7pWWv/Mvlpy+scwFibeK/ASA4K7PIoAZd789YDnnlTbkB9U7jRAhg
+	 ChqI0XtaRCrg31u4xMA3KlBlITCYn9N8Ek9DfF1SHujW9N61xHQzJp0h83YHUhsL3F+H+
+	 drhRL5UJ12TvVmzskqIQTz1GH349jGgxbeNIIBn7ym8pSeGs69bjHCiHfUOO4jTV1dzrw
+	 OChKEiCcxM2ujVxPCzhTDuyTgLB937ux+TNrwS7tba8DaqylWvoQ98Y81q2A4QmPAKkiJ
+	 z93WOyag854SK5wm7VEsKD7xZTw+uVUcsX+4InT4hVSlz/Gc8oQIxoGyA4qhaglyJMA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793624186;
+	c=relaxed/relaxed; t=1793624192;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=wY2lxSBOT5vrFfsC6nW4WFwo3U7fyupwQAGbfep51T8=;
-	b=DXx/o/2dZ68+ui7fcmlI4cRwltQYMiV7UADxiJu/5iIH9mXTG4c96PR7kWcqwxVV9Z+J
-	 XZRUeOvou/ugBNsh30GJzVE4tq6F78jFDfLdDi7gBEHnagfHpkJCkmhVXW7e15a6fwIcn
-	 r2vqMGHteZRHjn5xCnUbqS5XAf3ba1whoqbM6JTfNAjqR+0mdkhrBdpuKvpUTnToGqHCG
-	 w1bkabICZv/rKulf+3D1U28Yvh11fz4vVg9j/X2y3TipyCoMoCulhvzVmqg7//oXEDWm8
-	 0qZuLSWZcz+99aZdXyrG22/AgpRizKtcT/hILC06JHn5TZ+bwvhGJj0N+UqxwnrIGVQ==
+	bh=XYeVSQrMQh5GQlHFrfRlPa7r3niYCPk6ssF2GHu7Wr4=;
+	b=WnSkvUBpjNTGq1kbs8CND1Zsc77Mf/YIlzvaNVA8rmocBobJb51ibRb+f7fE4QTXgBEK
+	 dgpDAq+eFJ7ihtSFa/CfyWcr7F/qS4+tElWaLYAVE3T5OEUvPoOvBGS53qiipoVspAr4o
+	 lpmqMxwzzMvrgxExj0Hbb0JuzqDo4raVtBdQ7bKQQ3jGRZGAZyCpbBsFF5/3nHjfO0Mp3
+	 7LJceJAllTGwzVdc+Q6O8Pay/im9CmXal+Ri2SKNUuTgjKON5TSTbFZ3GOVB1snPjY+dF
+	 QrYFF7AgWB+FYfo4LdcbeXJX5LcUWoeNG/AyxnAzjzzuLX6Fr9Li4M6Yv7mzRtuKdQg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BA2311F00A16;
-	Mon,  2 Nov 2026 12:56:25 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 367841F00A16;
+	Mon,  2 Nov 2026 12:56:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793624186;
-	bh=wY2lxSBOT5vrFfsC6nW4WFwo3U7fyupwQAGbfep51T8=;
+	s=k20260515; t=1793624192;
+	bh=XYeVSQrMQh5GQlHFrfRlPa7r3niYCPk6ssF2GHu7Wr4=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=DEkMkzSW52v5w57J3ryR8frfFUlO/titOAmyt+f3DJMs8BWJdqFL1VGzuntrSF1wA
-	 IsM4efMUFLGs9yTrJe48jZpzDAGavhbhbC5x98jKtMGVJStcyc23SPlC9tdZSnVIah
-	 8DdWmDudUMQk2VleCaHabjiwx7sOa97+Exn2wtA6nOD/+lIpB4wwvknNpiRqT0YkxG
-	 Pemxp9oyq40bd4vJiHyhvLlvjDw5Pk+NsqvoG6k0Ym4w9cix8OrAUCwQSWkDzoXipp
-	 m2e4kMr/niuDnFDGGpXZdpCPDh1eVhuEtn5WzvaflrUKlHkdjhj0/HxWLjuj5iEsi8
-	 d0bR8Wz1KiiHw==
+	b=nDE00e6/DifO1qJBkIuvzJrvHz0sdW5e6hklXCmp/17vKAw2ADrbPK5wVGr9dCSC/
+	 CRVPmuLtJLBwoiXE9utP8ZWCphhsWIB6NCc97nhYR5FoGcsgoY2wctTRI7yDI0/7x0
+	 kfaovLnfNyllGlp8na6YQp+U9xLgaYVRp/31WDemut/LRAMOmiLETKXGgZwy/hhBVo
+	 eKvYhf4PHOSoKPb508/Zjod/hXc145iEajjqqw7UUZlwvgywcgTHk9ckNbYxQhIJaq
+	 fbtjztJwMJs6ZK8CzS3KbA5kWpAtsjJNWrGqgO0iGXr3FnzeXTf5F0R9mHgDdym8Ns
+	 os93g33AJPdBQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1C91C464E1;
-	Mon,  2 Nov 2026 12:56:25 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id BBB32464E1;
+	Mon,  2 Nov 2026 12:56:31 +0000 (UTC)
 From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 12:56:25 +0000
-Subject: [PATCH] fuse: ignore FUSE_ATTR_DAX unless a dax backing is
- possible
+Date: Mon, 02 Nov 2026 12:56:32 +0000
+Subject: [PATCH wireless] wifi: mac80211: check for a NULL link in the MLD
+ station RX loop
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,20 +84,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-fuse-attr-dax-v1-1-36f7b859b034@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAHiI6GoC/x3MTQqAIBBA4avErBvwD4OuEi1Ex5qNhVYE4t2Tl
- t/ivQqFMlOBeaiQ6eHCR+qQ4wB+d2kj5NANSigrpVAY70LoritjcC96qe0UrNcmGujNmSny+/+
- WtbUPrInlzF8AAAA=
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Miklos Szeredi <mszeredi@redhat.com>, fuse-devel@lists.linux.dev, 
- linux-kernel@vger.kernel.org, 
+Message-Id: <20261102-mac80211-rx-null-link-v1-1-3330b6b18c76@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAH+I6GoC/x3MQQrCQAxA0auUrA0kAQfxKuKiUzMaHEdJUAuld
+ +/Q5Vv8v0ComwachwVcfxb2bh18GGB6jO2uaLduEJLETIKvcTqRMKPP2L61YrX2xFREKR+ppJy
+ htx/XYvP+vcDfXKtGwHVdNwu+bA1xAAAA
+To: Johannes Berg <johannes@sipsolutions.net>, 
+ Benjamin Berg <benjamin.berg@intel.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Joas Antonio dos Santos <joasantonio108@gmail.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793624184; l=3369;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793624191; l=2170;
  i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=m4kc2zrIGru9miJ8HcufOYYEsonQia+fldC1h5teqrA=;
- b=FUjn2InbGAOhJkic3l8cIBqSwFOfOIPtATzqgu8Nf6MdMv9gjJW02YiPtIvwEBnXee7S0p3l3
- Sei5/UYz88zCfquXH7GRgA++ev+vPoczULuaOIg/0P2hPf7AAmJ0Jo9
+ bh=XTRyGFYezIX8XrXbmaW7af1M5K6Q2UNq4aXZjXe6+lc=;
+ b=zK9lhxaAkTI3Deh5VzHJDZ4i1czdHDMM4w8vO6TkNcF4e8iAFKNvlur21Wn9+nkPXnUyZzH4Y
+ qWboneJfTE4C2X3sPfJqDyBmCAuVDsTviobqSnXXcgKuOeIfCcYrrak
 X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
  pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
 X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
@@ -108,82 +108,52 @@ Content-Transfer-Encoding: 7bit
 
 From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-fuse_init_inode() trusts FUSE_ATTR_DAX from any server: it sets S_DAX and
-switches the mapping to fuse_dax_aops, which has no ->read_folio and no
-->readahead.  The open path only refuses such an inode without
-FOPEN_PASSTHROUGH through an IS_DAX() check in fuse_file_io_open().
+Since commit 6d531b9af16e ("wifi: mac80211: rework RX packet handling"),
+__ieee80211_rx_handle_packet() looks up the link of each MLD station
+that matches addr2 and passes it straight to ieee80211_rx_valid_freq(),
+which dereferences link->sdata and link->conf whenever status->freq is
+set.  The non-MLD loop and the interface loop below it check the link,
+this one does not.
 
-With CONFIG_FS_DAX=n, S_DAX is 0, so IS_DAX() is always false and that
-check compiles away.  The file is opened for normal cached I/O on a
-mapping without ->read_folio, and the first read() calls a NULL
-function pointer from read_pages():
+The link can be NULL there.  ieee80211_vif_update_links() clears
+sdata->link[link_id] for a removed link first, and only later, after
+ieee80211_tear_down_links() (including its synchronize_rcu()) and
+drv_change_vif_links(), calls ieee80211_sta_remove_link(), which takes
+the link station out of the hash.  RX runs under RCU only, so a data
+frame from that link's address arriving in this window finds the link
+station but a NULL link, and the kernel oopses in softirq context.  A
+link is removed this way for example when an associated AP announces
+removal of one of its links (ieee80211_ml_reconf_work()), and the
+frames only need a matching transmitter address, before any crypto.
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-  pc : 0x0
-  lr : read_pages+0x5b4/0x830
-   page_cache_ra_order
-   page_cache_sync_ra
-   filemap_get_pages
-   filemap_read
-   generic_file_read_iter
-   fuse_file_read_iter
+Before the rework, ieee80211_rx_data_set_link() returned false for a
+NULL link and the frame was skipped.  Skip it again.
 
-Any server can do this, including an unprivileged one mounted through
-fusermount3 or in a user namespace: answer LOOKUP of a regular file with
-FUSE_ATTR_DAX set and a normal OPEN.  mmap() of the file reaches the same
-NULL ->read_folio through filemap_fault().
-
-As the commit adding it says, FUSE_ATTR_DAX is only meant to be used
-with FUSE_PASSTHROUGH_V2 and a dax device backing, which needs FS_DAX.
-Only honour it in that case.
-
-Fixes: 2fbe4586cff3 ("fuse: add support for opening dax device as backing")
+Fixes: 6d531b9af16e ("wifi: mac80211: rework RX packet handling")
 Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
-Found by reviewing the v7.4-rc1 fs/fuse changes with an LLM-based
-assistant, following up on the Sashiko review of the dax backing series
-that pointed out the missing ->read_folio; the IS_DAX() check added for
-it does not cover CONFIG_FS_DAX=n.
-
-Tested on arm64 QEMU, v7.4-rc1 with CONFIG_FS_DAX=n and KASAN, with a
-FUSE server running as uid 65534 in a user namespace that replies
-INIT with no flags, LOOKUP with FUSE_ATTR_DAX and a plain OPEN:
-before, read() oopses as above; after, the read returns the file data
-and unmount is clean.  The FUSE_ATTR_DAX=0 control is unchanged.
-
-This also keeps an unprivileged server from getting S_DAX on
-CONFIG_FS_DAX=y kernels without FUSE_PASSTHROUGH_V2, which is where
-"fuse: refuse FUSE_NOTIFY_STORE for DAX inodes" (sent 2026-10-31)
-applies; that patch is still useful for servers that do negotiate
-FUSE_PASSTHROUGH_V2.
+wifi: mac80211: check for a NULL link in the MLD station RX loop
 ---
- fs/fuse/inode.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ net/mac80211/rx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
-index 1341b681d0ed..7195e4d0852c 100644
---- a/fs/fuse/inode.c
-+++ b/fs/fuse/inode.c
-@@ -418,7 +418,14 @@ static void fuse_init_inode(struct inode *inode, struct fuse_attr *attr,
- 		fuse_init_common(inode);
- 		fuse_init_file_inode(inode, attr->flags);
+diff --git a/net/mac80211/rx.c b/net/mac80211/rx.c
+index ecee9348c70d..038bca60a7c7 100644
+--- a/net/mac80211/rx.c
++++ b/net/mac80211/rx.c
+@@ -5469,7 +5469,7 @@ static void __ieee80211_rx_handle_packet(struct ieee80211_hw *hw,
+ 			sdata =	sta->sdata;
+ 			link = rcu_dereference(sdata->link[link_sta->link_id]);
  
--		if ((attr->flags & FUSE_ATTR_DAX) && !fuse_inode_vdax(inode)) {
-+		/*
-+		 * FUSE_ATTR_DAX is only meaningful for a dax device backing,
-+		 * which needs FS_DAX and FUSE_PASSTHROUGH_V2.  Without FS_DAX
-+		 * S_DAX is 0 and the inode would be left with fuse_dax_aops
-+		 * on the page cache I/O paths.
-+		 */
-+		if (IS_ENABLED(CONFIG_FS_DAX) && fc->backing_id_64 &&
-+		    (attr->flags & FUSE_ATTR_DAX) && !fuse_inode_vdax(inode)) {
- 			inode->i_flags |= S_DAX;
- 			inode->i_data.a_ops = &fuse_dax_aops;
- 		}
+-			if (!ieee80211_rx_valid_freq(status->freq, link))
++			if (!link || !ieee80211_rx_valid_freq(status->freq, link))
+ 				continue;
+ 
+ 			if (rx_data_pending) {
 
 ---
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-fuse-attr-dax-c1367d6c34f4
+change-id: 20261102-mac80211-rx-null-link-6f2e0b50f6bb
 
 Best regards,
 -- 
