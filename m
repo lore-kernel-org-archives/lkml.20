@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606260;
-	b=C8yg/6Skcf3cHmRL3ZRp6bOzyjtkajgiVncFynJiWs68CJ5PG5yKSGWWkfZA/O5FKTm8
-	 NIWhUjkT5JMZYZ/9KHcykOR3qYBM9NKQP5NtOU2ugo/ftePepS/D+NtrUqD4+E83LxQ9e
-	 zpgXOLyrJs69OnW8Bjci+NcJFA8l7i1kpVvTX0SIFa1DEArhNbLAgxUz5FEJmRJrgd+7P
-	 8WdCt/VHrq2W2L1B6Cs9MMTMsKNH/pRxsGd0G9HO492AB10qvOJWX/e4qVPnj2ghzYcZs
-	 Gc9BAyqgY9JySbGD5MLvdKZXNEN5LioSWHLFeECgezsm8gB5T+AKN2RITJwZQLHjWJA==
+	t=1793606259;
+	b=q/XLMVYwBTFUfj1tnnzsPNHSEt4pvBP5R1viK5XkK9WExjMs0WBHRCg0MqI/A+OQJcdg
+	 5kPHZScAjy6H6VOLEgE91A3Dk7GYm1/+V0eTCMQI5RZYPNtZ9BVVLNMlvQJz2qwH4Nu6s
+	 XTbPVfbqzQH4AtH2VoDpEOuyxpRvN4cD/tQ4grik1PO9tdBVoKOuy5ypVHrehLz2mY8GF
+	 kHXia7U0P82FV+zBXtrvkYlsYEAtmh0vneJKOfKkuQuLlVsMK1hm4/+DnYrnHulhad5rS
+	 aai9Bz7uMjXdZa7r6kfsFMEfU2jvb3pedmYD7gqGzGXD/iTZ06uZa02RhdbUiKehrEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606260;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606259;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=/jMfdfLCHlRH4C1PinsJL4z+TD3A4n3qKojXHajA4QE=;
-	b=CBSP+lkgs1F3IcpKVCV618M8CMNQFDBia2uoN4mXMqsktkD3S5XNI88GAFJORSBLiZjO
-	 owH2zjW3iV/Tl9z66oMdySm0aqHtQ9j10xKco4ani9Jh1fhHWSDWEniQ+m6nOcEqeSTaB
-	 aeRLdhJzHok6wfC/v0bdYw/ztbx7plZmjgBc0uKSxxnyfmkY8C1xMXO+S32o4o4LqPz4d
-	 2SiEfU9sGFTFMGSwt4e7HHJGKq/3O45PCr7u8gNH/kNMhdCA8mHqgzOBIF90jTLuSfyev
-	 WbVZ0rXsMZXAAEnE0GiGjfOWXbsis5voJfPKTvb+FAcRLFUtFdMMhbsUK9R+G1GGdEg==
+	bh=mo6zQ+d5gi81t+VsvqFGKcoAp05AmiPPeEZktM7erws=;
+	b=ZOe/jxIyonqoXlhuvOwfSkQL7Eub2Y9S0bYACXO3hhuwmrjcKZ8OJJ9lIEW2iVomTyHs
+	 Dbkmpm9DPetPPo2MnQThAifjtX/ypBusPVT4rAJb9Kr7XK2sTit9jiVY6TQMXna8ajXQ0
+	 mUmwG0F2ZQe/LHVsW07wuW78O3FWiAZRVOFHxya7hX4YDHxM7YYB/PwWqBslA4/U6THW3
+	 MCWwSiSrA5jVItoOnmEK/z8mVfcIUBnyY8oV8BBRTaMB4ceS5E9iJP8yujn58Ybpqubfy
+	 yOBdBxWsMGlkBztnvO/AeXvbKNsmdeP1mQGafZPYpkr2v/4T7BpKxbweIYs0Dx6TPBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,14 +25,14 @@ Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD572606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:57:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD572606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3785606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3785606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-01 (Coremail) with SMTP id qwCowADH8PpcQuhqxn0oAA--.14870S6;
-	Mon, 02 Nov 2026 15:57:25 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowADH8PpcQuhqxn0oAA--.14870S3;
+	Mon, 02 Nov 2026 15:57:19 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -46,9 +46,9 @@ Cc: David Airlie <airlied@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Icenowy Zheng <uwu@icenowy.me>,
 	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH v2 4/4] drm/verisilicon: check old state CRTC in plane atomic_disable
-Date: Mon,  2 Nov 2026 15:57:10 +0800
-Message-ID: <20261102075710.1286456-5-zhengxingda@iscas.ac.cn>
+Subject: [PATCH v2 1/4] drm/verisilicon: disable the output before enabling it
+Date: Mon,  2 Nov 2026 15:57:07 +0800
+Message-ID: <20261102075710.1286456-2-zhengxingda@iscas.ac.cn>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
 References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
@@ -62,89 +62,60 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADH8PpcQuhqxn0oAA--.14870S6
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw1ktr45WFyUuw4UWF13XFb_yoW5GrW7pr
-	4DAFyxKr4kJan5Xr9rJr4vqay3C3WfJa4Igrs3GwsIvrn8tw4Uua1rAry3ua1DJr9rWayf
-	KFn2krn8Cr1IvFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
-	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
-	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
-	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
-	kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
-	AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI
-	42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
-	CI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnI
-	WIevJa73UjIFyTuYvjfUOyIUUUUUU
+X-CM-TRANSID:qwCowADH8PpcQuhqxn0oAA--.14870S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxJr1xtr4rWF1xtF15Ar1DKFg_yoW8XF4fpr
+	4v9w4I9F4DJ34a9rZrCr4jgFyYq3WvgF4fGw1kuwsY9F12qr1DuFWUJ340vFZ8tFnrXr1a
+	yr4xJrWxAr4kZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUm014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+	A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+	xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+	kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
+	6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
+	vEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
+	vjDU0xZFpf9x0JU2dgAUUUUU=
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-As atomic_update hooks of both planes would utilize atomic_disable
-functions to disable the plane when it's set to invisible (even when
-technically enabled), the atomic_disable functions need to check whether
-the plane is really enabled before.
+When either of the RUNNING bits are set, change to some timing
+parameters won't take effect.
 
-Add such a check to prevent NULL dereference.
+This will lead to failure of the first modeset done by the kernel, if
+the bootloader sets a different mode and keeps the display running
+before it.
+
+Flip these RUNNING bits off before setting it on to fix this problem.
 
 Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon display controllers")
-Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor planes")
 Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- drivers/gpu/drm/verisilicon/vs_cursor_plane.c  | 13 ++++++++++---
- drivers/gpu/drm/verisilicon/vs_primary_plane.c | 13 ++++++++++---
- 2 files changed, 20 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/verisilicon/vs_bridge.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-index 5295dc2f9ee2e..bee19b65b9a4e 100644
---- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-+++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-@@ -104,9 +104,16 @@ static void vs_cursor_plane_atomic_disable(struct drm_plane *plane,
- 	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
- 								       plane);
- 	struct drm_crtc *crtc = state->crtc;
--	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
--	unsigned int output = vcrtc->id;
--	struct vs_dc *dc = vcrtc->dc;
-+	struct vs_crtc *vcrtc;
-+	unsigned int output;
-+	struct vs_dc *dc;
+diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c b/drivers/gpu/drm/verisilicon/vs_bridge.c
+index dc7c85b07fe32..a095b20e81c00 100644
+--- a/drivers/gpu/drm/verisilicon/vs_bridge.c
++++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+@@ -162,6 +162,14 @@ static void vs_bridge_enable_common(struct vs_crtc *crtc,
+ 			VSDC_DISP_PANEL_CONFIG_DE_EN |
+ 			VSDC_DISP_PANEL_CONFIG_DAT_EN |
+ 			VSDC_DISP_PANEL_CONFIG_CLK_EN);
 +
-+	if (!crtc)
-+		return;
++	/* Disable it first to prevent stale hardware state */
++	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
++			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
++			  VSDC_DISP_PANEL_START_RUNNING(output));
++	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
++			  VSDC_DISP_PANEL_CONFIG_RUNNING);
 +
-+	vcrtc = drm_crtc_to_vs_crtc(crtc);
-+	output = vcrtc->id;
-+	dc = vcrtc->dc;
- 
- 	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
- 			   VSDC_CURSOR_CONFIG_FMT_MASK,
-diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-index e687313d6f057..01725e60e5fbd 100644
---- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-+++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-@@ -65,9 +65,16 @@ static void vs_primary_plane_atomic_disable(struct drm_plane *plane,
- 	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
- 								       plane);
- 	struct drm_crtc *crtc = state->crtc;
--	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
--	unsigned int output = vcrtc->id;
--	struct vs_dc *dc = vcrtc->dc;
-+	struct vs_crtc *vcrtc;
-+	unsigned int output;
-+	struct vs_dc *dc;
-+
-+	if (!crtc)
-+		return;
-+
-+	vcrtc = drm_crtc_to_vs_crtc(crtc);
-+	output = vcrtc->id;
-+	dc = vcrtc->dc;
- 
- 	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
- 			  VSDC_FB_CONFIG_EX_FB_EN);
+ 	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+ 			VSDC_DISP_PANEL_CONFIG_RUNNING);
+ 	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
 -- 
 2.56.0
 
