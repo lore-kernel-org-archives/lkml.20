@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793579222;
-	b=q812fQYbV/xDte/VdpUqJWmQDb4if6qKfp2mYuZxPu2f7xzpKFRv97oKGzrJiV24d7GH
-	 Qsa6+y4NIveDG/eqkIeB9hVU0o0Q/JFlD5kviuSaxnAN6iLC51l3ZqsSYYwyxFrrewES8
-	 zM4Rm++HQSCmFYx4wnnc2870I9pcd5NjiN0S3VdyoO7agbQF563tc9r5nX5+sQN3IHyRO
-	 xpvKx1P1DqpORMT3m9Di8pBrghle3kT5PgmKSKQYAR6ngY6RwOSxWk06yHTO/t0tTTgjc
-	 BNnoiW4QpXbz+rxWh6JZ/aP7tWPUJdHwN5nQxReFOGKSOSc6WbJN1hRT0bDPeSogkwA==
+	t=1793579286;
+	b=uQ1HRFuQ+B7qv3Iviizdjp8Y8G6rJpFY5QL40aPKU6gFjvc0N0kXo/qqlT6P/ApWA0w/
+	 Aq5ucalcMQf8hZB7xWi/6ZJGw37MzuynumiemKaHKQbygRHoYq0xt1qTaADn7ljR0M3Jp
+	 /J4BhnRD1+z0UnZFnAE/dmTECE2+8F18DfDaMuPbKqZ6jNlUITzKhCbX6vMiEv+799Jkx
+	 FFiSfS2kMnhr1y1aeZ7mQXKjHnk2ADZVCWRkTY/V9HWtLIfeujKTbxAJKHVg1CwjSWsp+
+	 4YNZPJJ1dRkVGlw50Ln15xTR5DwuR8qjdw2wPQ4YZUzeJdspR54YtEPtdkEYkpQtKyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793579222;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=f/m1FnPhiZFAB54M83Ro2OYMqIc5CunLUhnYvOj2PqI=;
-	b=mpVppOYlb1WLf240igT4oq8U7ZzzUZGG/+/FP3uVS+u4o02jf9Zf9s2l+Zqfk9VZrTMM
-	 EG8Jz0xpnpyqrT1Xe5C0vuubO4Oj8rfMdLPvH7kyagJUuWiGhA6JDQoOCj9jXqU7lmUFa
-	 Mzm0rg8UeQimKvFmsZ2kjHVhilgrVrNu2XuBQunAX31SY3ffVsrVVr/LZ0MSa5q5qaW2X
-	 iFIov9EV8eqt/PvNGkTDKO8zrSQ0HT0kCgamJTwBc8YjVdRqng9YUffGxRPivrgJaF7F1
-	 TRYVJXSQHw4IGvAEJODWCWnHdoMNdob8bdiJWHbUxarh5VTOT5ormU1LYkKmZrA15JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793579286;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bdwDl6M8HEFuMP6JuRDefHyTG2RwyEVFFLdnE2+FDnQ=;
+	b=kODjlvVHXfcBsx9B07wMu0iZ0JGnIO21kFBNYRv7dAyloTHDogcMlAJsxk3yOp7SQ+B4
+	 OjOOgZyb9zp9xyH3+8X1AaQwyAY8SCUQHL/tWyhWtEGXfSWxkK2tMxiT0LpZB17KYiwTm
+	 nFiIyzFfdO1sS8QWVNRW9nKs2f4yl0YAwFIM4ni66vnBXaWW/o4jxBlFYkmgyg4TJhHTL
+	 RmRxK36XHrlepgEh0mOPRPWJPm+Jw0ozcbZpt1gZU1oRWEGhggQ9u+5Vi3SnrWrGdiHBr
+	 QlG6CpLpk61TqfIjLmP1wCn8hbcDo0XkCVSeg+eV134/NhW7ZUZQ3WvLmQDZ6S85yng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VWzPIUWz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADAE606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 00:27:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8ADAE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab260600easo5207643b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 16:27:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793579221; x=1794184021;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=f/m1FnPhiZFAB54M83Ro2OYMqIc5CunLUhnYvOj2PqI=;
-        b=JiomvjOA9q3xP7KSqqTFk6iChhPBqTTuRLawjZoXoHxElPlp19C2TKRFwwrIhc3W3T
-         kZsGcCLM9U0fR1QA0dUo+KxsQ2CYuv/vwggmZquXQfxhmXbaa5o2B/QDF/3S64iAB50k
-         YTWs72SjZgMpA5jZG1bgbhmeobsNM3czOJ9azk8jN7pYco3I7FVUC8UcY3PVRZPKLlhV
-         vks+z2cK7EDoxbNnkLgp3yohNTg7sEEOV0OPjLctic+8dxO3zpc3QbkSwROjb7/7cwhx
-         WAKfbN3IqLYFNz6OGsJnDPYeZNV2zQPZ2HlMAtunN4+As4nRkyFGn/IYWSoQNNGyuKuI
-         iJpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx3C7jNf2BNvQPqxKl37GygrQooC4b7pQe0YgYLoXMn+Yt7mDz1ze5khzXnmfY7EH0UNkA70cYE+s8BTRI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIi4scTRFffMq6agCsmrl9DHBfzpTNCyyhg4FEy+iZrYJ3Epp1G
-	puwx6mMYaldtS/gk6emzlpYlGpT+Blh0D5Qr+lUPHpbJv+mlN0RnEeP/3UZ57I0WSiRjCTKnvzA
-	WvnfuP1aa1TvD/6mvVJMtcAOMDNGZo2bC614jmyL790GSK9OmgR3aMfaWGkM=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2EE606A324;
+	Mon,  2 Nov 2026 00:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VWzPIUWz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419291F000C1;
+	Mon,  2 Nov 2026 00:28:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793579285;
+	bh=bdwDl6M8HEFuMP6JuRDefHyTG2RwyEVFFLdnE2+FDnQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VWzPIUWz3S7oErit9QLDUxRjgiGZuxXVo/8r0OlX6RZz7RnFapcebksP/Xs+J7Xpb
+	 lsZXSfMFP/mT2wqMZNmUAYe4kGp8I6UPkzsAKn5nEUuVSCaB8NrP0h+StZqjVz6uiY
+	 H+g6BZ5579A7/mmLhQw8jAqKeHwqG36WF3lrhoMjWTQEAFGtq0ebbCV2X7ULI4bLKS
+	 m1TYv8TQirHQPbdcBO27VNGE3+NGg4x0tAUNL7fAVIFEuj0LsJ9Q+BppxjP3DJBUSi
+	 wgAWjRNasMhF+MjEwO3fHaXgN25tYtkpYrk5Y+j2ctSwvXHzUa9eHWgsl6Y0y80i9A
+	 tB2i0bkXbDVtg==
+Date: Mon, 2 Nov 2026 00:27:59 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux@analog.com>, <nuno.sa@analog.com>,
+ <dlechner@baylibre.com>, <andy@kernel.org>, <Michael.Hennerich@analog.com>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <corbet@lwn.net>, <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
+Subject: Re: [PATCH v6 00/16] iio: adc: ad4134: Enable greater sample rate
+ data capture
+Message-ID: <20261102002759.7be64317@jic23-hlaptop>
+In-Reply-To: <20261024025421.5c612c54@jic23-hlaptop>
+References: <cover.1792792325.git.marcelo.schmitt@analog.com>
+	<20261024025421.5c612c54@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +64,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6f92:b0:4b8:4703:db91 with SMTP id
- 5614622812f47-563ef9cd728mr5525776b6e.26.1793579221640; Sun, 01 Nov 2026
- 16:27:01 -0800 (PST)
-Date: Sun, 01 Nov 2026 16:27:01 -0800
-In-Reply-To: <20261101203949.184-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae7d8d5.67782f90.13afb0.00b3.GAE@google.com>
-Subject: Re: [syzbot] [media?] [usb?] kernel BUG in v4l2_device_put
-From: syzbot <syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com>
-To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Sat, 24 Oct 2026 02:54:21 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+> On Fri, 23 Oct 2026 19:32:58 -0300
+> Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
+> 
+> > Extend AD4134 support to enable greater sample rate data capture. To achieve
+> > that, provide control of digital filter type selection. The default filter
+> > type on device power up only supports sample rates up to 374 kSPS. In addition
+> > to that, enable interfacing with AD4134 in SPI 4-wire mode that can support
+> > reading ADC sample data through multiple wires. Finally, use SPI offloading
+> > to speed up data transfers at up to 1.49 MSPS.
+> >   
+> 
+> Hi Marcelo,
+> 
+> Series looks fine to me. I'll not pick it up just yet though
+> as want to give some time for others to take a look.
 
-Reported-by: syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
-Tested-by: syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
+Applied. Still a narrow window for last minute feedback if
+anyone is looking at this given I need to rebase on rc1 anyway
+and then let 0-day have a few days of fun with it.
 
-Tested on:
+thanks,
 
-commit:         7649ba73 Add linux-next specific files for 20261030
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=13384f95580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=32200e8f6f745e79
-dashboard link: https://syzkaller.appspot.com/bug?extid=809dfc586f33fc44b6ac
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1603b5e1580000
+Jonathan
 
-Note: testing is done by a robot and is best-effort only.
+> 
+> Thanks
+> 
+> Jonathan
+> 
+
