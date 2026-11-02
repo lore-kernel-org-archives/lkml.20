@@ -1,60 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793656219;
-	b=G3zYNCIu1Fr1wO/wnULRrTTENPvw0WaUP3+XIlbnjrK3VXMOYAd+/bc6mjnphygNyC12
-	 CMZSG0UydYfqetNNfkHxCRJ6+TS4RNhGwfysg2FmYSISWeS7Ekyn4lrca9mnAlae6yo2L
-	 4n6EDiumPs7dLAhdjL5qzA43vMOeyVh/qa5SIIoKmOzv3dLf9FpZO7W2OT/Nihfq+xVvD
-	 RMSMbBetZmKWZah0XDqVs/7cIs4ngUoz3fgUXoj5HbeRiMfMEE8GtbGpgnm2IS67xUs0e
-	 NZzjZ4Oy/YGs8qIGc9ZkBroWWsWi0wkqX5rvZ5ztsmDJN9gkH516MlHIo3wGLG4L+PA==
+	t=1793656283;
+	b=s4fqVc6e/tqdDk0HUP2heN+1iN8ts8zwGYt64+QrC5cxMpiMxjlJvsuigFFZtxivjOKX
+	 N34oReZKrHkcD9/oAtCeyxSiBTC8JZgxCVOn1afwBWNMF1t4baeWkhyF5kZxtrykLYRoS
+	 vDPMC53Vu5anmmLkeHCpodtald2+06p7c+Quh/iiL++K6CVhfbjjdC8zmq130p5pxgel/
+	 ifU4r0ZX9z+hR7vrmJI6iwz2d7uTvR2T3UOD7UvKwEulIQn1IS+M1DC2Y8uWKxOd7xZYs
+	 sEDgJOVtSHdId4y39iyydrJzCqhiL1kbGuEEeRLFJxKX86xXr+VDGqpK6QB6YtG3+cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793656219;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sVJ7WQ6Nb1Qj5W711R3RnpPciF9EixP+LpBJt68TLao=;
-	b=meageSFfqulTJO2FW7QWMOFQpY9BE5A0UDzbu9eP3aiag03JcXxtW5D+ZottGiWEP9I3
-	 Uug1dRW8A669UkXFkisG32MPm0h92NEAC4o6klltKZv1MIoupcSlEPHBkvlDmiK8ctsnN
-	 l18ref5v8gAzEJcFWBU8Bq3zZ/5l+GHaoHNL6W2U7/pkuq8PZGeIvcpPm2jat2AOlbeSM
-	 PiipuG3uJZKgy5Xmi2ITx74FyBvrLDY/MIEQMG2XbQTIX49XTOAbQoCLSlbdxpcMRulS/
-	 uqn7+j2jx7hHVFwf4jS49mlqMCIeTGUhLaNOZXytwEBeWDKh9Ye4GsECLUI5yscGoKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656283;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R0nY1ks3pmMRcLszXh/y7KBDidGoFViijWHtZfB9PJk=;
+	b=TKd8AL1vz7p6YPU9OC1NWRcu6KBky4kEFAanaPJnRcw9+8FgsEeQa4uB+j3NDSL0jlJx
+	 YqaT6QIsAOlaZD/wHDHJo4u0VMN0YROg7WrITc2fhiu5o8Z0KroZsQZoPENWz0wHM1mQT
+	 QPh+olPEu2he02PR5P2jTdVBqF1FXnsd2sMAxkzromZdXUb71axBzQDUDEkgAYLzdSx66
+	 8f+yzWjfI9tvwMd5KesRevE1MMG42JfpjM364fQh39NOlX2PvZwVNKoRdzB63Cszylcd9
+	 9j54FUiAcMoP3pKYTdiTn/vZmGRdcK37KHKVKoJMz+aTF2fV+duj5fsIwO8gZXLCnTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AnC0z/Cy";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yIPSgz9S;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BCF606A32F;
-	Mon,  2 Nov 2026 21:50:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0F0606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:51:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F0F0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AnC0z/Cy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049251F00A16;
-	Mon,  2 Nov 2026 21:50:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793656218;
-	bh=sVJ7WQ6Nb1Qj5W711R3RnpPciF9EixP+LpBJt68TLao=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AnC0z/CyuZbIP8MYOTXbguTVy9YBlMQBArUUwFZ8kdhoVUnnqvQBJI1R/01FU+K1t
-	 e75wJHVCWsDXSFXEODrxzW655AUiJ0bTP1YNf+niMc/GY4BJyh3zIwKIJGxaYKgXGo
-	 WqfHMDVuQvMdASbx6Gi9PsV3iijmoThaUM7rBSnl+ZXX2xD3V57yBAK40Ew+v/3g6x
-	 uUGGdsvsv+z7BY4jNQI7DeURJd35DwRKjG2ym21biplFmfkXfSMVp2/Uz1EWwFm/BG
-	 OUuBvvwVwR0baHIwKN0IrZgthjXhHCujbG6kNO/hBf3bQIbC8czjLEJdQ3ggRk+l7W
-	 CGfnVsAixxtyQ==
-Subject:
- Re: [PATCH net v4 2/2] net: dsa: b53: restore the NSP IMP port 2 Gbps mode
-From: netdev-bot+sashiko@kernel.org
-To: florian.fainelli@broadcom.com
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, rafal@milecki.pl, bcm-kernel-feedback-list@broadcom.com,
- jon.mason@broadcom.com, arnd@arndb.de, linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 21:50:17 +0000
-Message-ID: <179365621756.3131.9531361745901719210@kernel.org>
-In-Reply-To: <20261029211540.4123250-3-florian.fainelli@broadcom.com>
-References: <20261029211540.4123250-3-florian.fainelli@broadcom.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yIPSgz9S
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-353804b591eso6194057eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:51:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793656282; x=1794261082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R0nY1ks3pmMRcLszXh/y7KBDidGoFViijWHtZfB9PJk=;
+        b=yIPSgz9SFEJv+rp6JQbEYIKq+1PnYQTT4rlAaYvSXk6jJdxshzZ1sZrTrYPV+R/RQA
+         n+bwivnn7eEmfNZnfcn5ztN1xZWK1sG5xmBEPIl91L52ClHTvFmfUWO1ebGKl8Zj6hzr
+         cOE2zX4+78r9Zd0GPPg+gRk4eeUJfytVjb+PuxIo47pb7r77ckvWfj2S7G9ByfTlKPlL
+         mjGzmMr29v/2OZPtVBV3L4hYXb/IYPfKs+dz8omiIFYp0tZoHWXRxSU9UI6hj6dLYpdH
+         fAiCnsezSH5mF8kujYuK0CbQDiIjK+12anPhBuGoIT6t9huA0iKcF0klvr0bcQ/ZLSw9
+         YlNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793656282; x=1794261082;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R0nY1ks3pmMRcLszXh/y7KBDidGoFViijWHtZfB9PJk=;
+        b=AB1+4biyL4Dg/9y2Bjh3HmOu+fAuAFnMbW1n2uoqwCuI/96MqfTOMzsE5M4nsKaKOV
+         ysJrB6XcztipU8Gm82InEQ48Hl3CZ40yMlEOgdgRQw9CUIJvAAUUY7qXKTbwFpZa1+wc
+         VEIbDYPaUiWMTS+Nj8FNVWd9hEW0r5KJkEp4p8AB7gTCmwXXjr4dNKK3DREmu/3y0Rfz
+         vJYBMYdFrsnEUEEyAhytnUIuaNaH8grirp/eWnDL5LwCfz+AvHFYSzhr8mkNLWqItK8r
+         f1D+Wh/LxX3bWhiG7iUXF9IBLpvp7H7HckPQKY8EHaxgNq/NVrxH/g3ERUagTgOC5RgA
+         LeWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxELXw4ZgGyf6UI6btzTASFao2cXORsym+DASkNE4khxDau86AeOsBZrOwwD1pZifLvIOqDdSeBMl1uHWU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8FcEVt1YhgQsbksh4BEascWQKil4e/HEfY6Q5TdCcPowY2XfN
+	KtthTSAay83MIwX5oYdPC76aVajZE/njMNv0mYCO63G0tXvvZpMaX6ho
+X-Gm-Gg: AYBFou0EqTl3J1/Um42q/7d0RZvXnpzRX3w+mbG65+MLN1+ro87g8RDS4a66pKM2DAh
+	oLM/KxwK1Ezh4N1pZ1IIoQDV9tI9GkZiVJcBmwHUW8ObFIk5deZN0FB55M/9LKLAGQDvVbR0w1d
+	qdzyETMZcw7ib96lC5OgYbmd36TAbOx+imnevIPWoObJoEmDrEsLJ7ReBm/uoYe3zBq8nlMZD/h
+	mzjfUdWfpeNXzLGyOefhmd5ahJRLIWjI42ggptVVT2ngill5xfD+2QNICrProt598UqFx4G/l3V
+	JdPGIH2mH7Y+WbfkOCjy/XJUNo1qcTCJ6DS/KZy2X489GC2DBpGdRV7/E8+I3KgdNhAwsPdrsKd
+	OPmXvpSb6aLuXnz0ffNMv6ldtVgPvn0OtpKKeujS4o61p3tLyInk5HY1ulblY0fqMObo2/LxwSz
+	a2GHd4PnaY4tE08k/gvGJ98/+S85nG/mQuhLeBiBtrO23otbqACSEEhyMexP97qat6pkq/ssOPh
+	Ju7sEL1hDeFWwrJKwO/e/8y812N8BNlYsRsZ60INeveU+pOScfY1Ln0xlDYbqsw0ng4frdjtYmu
+	UEdj3mz2sCPqMfTkOeLls4XvjkDsb6p5kBdFNFLG0PZ6iw==
+X-Received: by 2002:a05:7301:e105:b0:36a:15cb:30bf with SMTP id 5a478bee46e88-36a42345851mr16471850eec.13.1793656282280;
+        Mon, 02 Nov 2026 13:51:22 -0800 (PST)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm54710712eec.16.2026.11.02.13.51.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 13:51:21 -0800 (PST)
+From: Joonhoe Kim <26rote@gmail.com>
+To: gregkh@linuxfoundation.org,
+	Thinh.Nguyen@synopsys.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: abelvesa@kernel.org,
+	wesley.cheng@oss.qualcomm.com,
+	krishna.kurapati@oss.qualcomm.com,
+	konrad.dybcio@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	neil.armstrong@linaro.org,
+	val@packett.cool,
+	balaji.kalkonda@oss.qualcomm.com,
+	tvlad744@gmail.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] usb: dwc3: qcom: Keep USB 2.0 working in DisplayPort-only modes
+Date: Tue,  3 Nov 2026 06:51:17 +0900
+Message-ID: <20261102215121.738-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,102 +111,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+With a USB-C monitor in DisplayPort pin assignment C or E, the QMP
+USB3-DP combo PHY gives all four lanes to DisplayPort and keeps its USB
+PCS powered down. The USB 2.0 pair still works, and such monitors often
+have a USB 2.0 hub behind them, but the dwc3 controller keeps depending on
+the USB3 PIPE clock: on Kaanapali the next xHCI reset in this state
+times out ("Host halt failed, -110") and USB is gone until the cable is
+replugged. Commit f546912bcac6 ("phy: qcom: qmp-combo: Move pipe_clk
+on/off to common") keeps the pipe clock branch enabled, which is not
+enough here.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+This series lets the controller be a Type-C mode switch next to the PHY
+and moves it to the UTMI clock, the way "qcom,select-utmi-as-pipe-clk"
+does statically, before the PHY switches to DP-only mode.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Kaanapali the PHY becomes a mode switch with Balaji Kalkonda's
+DisplayPort series [1]; patch 3 is the controller side for the same
+SoC. Other SoCs whose PHY is already a mode switch (e.g. SM8650,
+SM8750) may need the same property on their controller node (not
+tested).
 
-- [Medium] The new code in b53_phylink_mac_link_up()
-  (drivers/net/dsa/b53/b53_common.c) sets speed = 2000 on every…
+Related fixes sent separately: "phy: qcom: qmp-combo: Leave the USB PCS
+alone in DP-only mode" (suspend in DP-only mode) [2] and "usb: typec:
+mux: fsa4480: Keep the USB 2.0 switch on in DP-only modes" (boards with
+an FSA4480 on the USB 2.0 pair) [3].
 
---
+Patch 2 conflicts with Vladyslav Tymoshchuk's "usb: dwc3: qcom: Defer
+VBUS override update during system suspend" [4] in struct dwc3_qcom and
+dwc3_qcom_set_role_notifier(). On top of [4], the
+dwc3_qcom_update_pipe_clk() call goes after its pm_suspended check, as
+it also writes QSCRATCH.
 
-net: dsa: b53: restore the NSP IMP port 2 Gbps mode
+Patches 1-2 are for the USB tree. Patch 3 must not be applied before
+patch 2: with "mode-switch" on the controller and no mux registered by
+dwc3-qcom, pmic_glink_altmode defers its probe indefinitely.
 
-On BCM5301x and NSP, fixed-link CPU ports now get forced flow control and a
-2 Gbps speed in b53_phylink_mac_link_up(). The goal is to restore the
-proprietary 2 Gbps mode on the IMP port. That mode was lost because the
-fixed-link description reports 1 Gbps.
+Tested on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with a USB-C
+monitor over 4-lane HBR3: the monitor's USB 2.0 hub works at boot,
+after replugs and across s2idle (tested on v7.3 with these patches,
+[2] and [3]).
 
-> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-> index 0880310c9ce3f..743fc04da0a48 100644
-> --- a/drivers/net/dsa/b53/b53_common.c
-> +++ b/drivers/net/dsa/b53/b53_common.c
-> @@ -1663,9 +1663,15 @@ static void b53_phylink_mac_link_up(struct phylink_config *config,
->  	}
->  
->  	if (mode == MLO_AN_FIXED) {
-> -		/* Force flow control on BCM5301x's CPU port */
-> -		if (is5301x(dev) && dsa_is_cpu_port(ds, port))
-> -			tx_pause = rx_pause = true;
-> +		/* Force flow control and 2Gbits/sec on BCM5301x and NSP CPU
-> +		 * ports
-> +		 */
-> +		if ((is5301x(dev) || dev->chip_id == BCM58XX_DEVICE_ID) &&
-> +		    dsa_is_cpu_port(ds, port)) {
-> +			tx_pause = true;
-> +			rx_pause = true;
-> +			speed = 2000;
-> +		}
+[1] https://lore.kernel.org/all/20261022-kaanapali_dp-v3-0-b5ae8e6083c3@oss.qualcomm.com/
+[2] https://lore.kernel.org/all/20261023123512.1912-1-26rote@gmail.com/
+[3] https://lore.kernel.org/all/20261022165143.1327-1-26rote@gmail.com/
+[4] https://lore.kernel.org/all/20261018143126.3978-1-tvlad744@gmail.com/
 
-[Severity: Medium]
-Does this set up 2 Gbps correctly when the CPU port is not the IMP port?
+Joonhoe Kim (3):
+  dt-bindings: usb: qcom,snps-dwc3: Add mode-switch
+  usb: dwc3: qcom: Use the UTMI clock as PIPE clock in DisplayPort-only
+    modes
+  arm64: dts: qcom: kaanapali: Mark the USB controller as a Type-C mode
+    switch
 
-The check is dsa_is_cpu_port() rather than port == dev->imp_port, so a
-fixed-link CPU port on port 5 or 7 also gets speed = 2000. Those ports go
-through the GMII override register in b53_force_port_config():
+ .../bindings/usb/qcom,snps-dwc3.yaml          |  7 ++
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi       |  1 +
+ drivers/usb/dwc3/dwc3-qcom.c                  | 94 +++++++++++++++++--
+ 3 files changed, 94 insertions(+), 8 deletions(-)
 
-drivers/net/dsa/b53/b53_common.c:b53_force_port_config() {
-    ...
-	} else {
-		off = B53_GMII_PORT_OVERRIDE_CTRL(port);
-		val = GMII_PO_EN;
-	}
-    ...
-	reg &= ~(0x3 << GMII_PO_SPEED_S);
-	if (is5301x(dev) || is58xx(dev))
-		reg &= ~PORT_OVERRIDE_SPEED_2000M;
 
-	switch (speed) {
-	case 2000:
-		reg |= PORT_OVERRIDE_SPEED_2000M;
-		fallthrough;
-    ...
-}
-
-The two registers use different bit layouts in b53_regs.h:
-
-#define   PORT_OVERRIDE_SPEED_2000M	BIT(6)
-#define   PORT_OVERRIDE_EN		BIT(7)
-...
-#define   GMII_PO_EN			BIT(6)
-#define   GMII_PO_SPEED_2000M		BIT(7)
-
-So on the GMII register, the 2000 case sets and clears BIT(6), which is
-GMII_PO_EN. GMII_PO_SPEED_2000M (BIT(7)) is never written. The port ends up
-at 1 Gbps, and its 2 Gbps bit keeps whatever value it already had.
-
-Some upstream 5301x device trees use port 5 as a fixed-link CPU port, for
-example bcm53015-meraki-mr26.dts and bcm53016-meraki-mr32.dts. bgmac-bcma
-sets BGMAC_FEAT_FORCE_SPEED_2500 for these GMACs, so the speed mismatch the
-commit message describes would remain on those links.
-
-The new comment and the commit message both say 2 Gbps is forced on
-"BCM5301x and NSP CPU ports". Should this either be limited to
-port == dev->imp_port, with the comment updated to match, or should
-b53_force_port_config() use GMII_PO_SPEED_2000M for the GMII override
-register?
-
->  
->  		b53_force_port_config(dev, port, speed, duplex,
->  				      tx_pause, rx_pause);
-
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029211540.4123250-1-florian.fainelli%40broadcom.com
+2.43.0
+
