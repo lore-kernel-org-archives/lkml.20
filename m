@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657260;
-	b=MN14WfMttjim74H2LrhYFN+nKpyqD49bw/7mJ3VmMG7puR/KALehrxkE3ktPt0XywOw9
-	 phsrEnUDvjWUcKJWAfGdxWOlyd0sPVZDn70MzYDRlykr5qoNeVpEbXZEboaY4zVAoL9p5
-	 vNSAE1Ljyya6ONEuKGXq93+MwFrVdyCRuyl6D0Bu+IQv7W3m5iBLQb5Of9/HZef5qXvGO
-	 pREqShxPdPtjdP/bJrnHJEwzQTPIO2zPaBH9L0BQVdUA5hrpiO68rac6bh3PaRjcv87P5
-	 EFhCFqS/UJ19TAQDjo8TA1cJCoz+BsbUQqoNFu3o2QVGpRlb//v645hxkD2HeF+1N+Q==
+	t=1793657272;
+	b=RCgjLF6AWXGtQ23G0zOtLvMawwJTO66HCS09OdU8iUL/X/bEOeFwJlJj989wDpSdc0ED
+	 6eChpY5uLFtyw3mwN+SLwGvs2PWdUmafp+YyZ4Rprda3l7NVara1Z0UhD/iGoDcej3uYo
+	 SdTyIY93eHgEnoIvRadpAMtRH9JJou25Fymk8FvgE/edATn2koY8XK15A8jdAm/fieXMi
+	 ZXxvvH2k7p7PJyVynbf3koKjjCmgVKjd3BCM7Wn6R7xeS2HRNgeQ4/+vcpLQnEa1/4qaP
+	 V+AfvmnIB+V1pr7V9t9yxvnmbvliOz/16ftfOCndbcY4nwImbOUVIzmm6K2xk+uKqaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657260;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657272;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=alDcra3w3Tj4hHB+IMSFMePf6yuAIBKMhq01J4FcsdQ=;
-	b=aMRkBlLQbBe2PQjtLnZo6xQVsq6t/B5TMuWobnwUlnxWH+F2GoJScHUQwHOe+qsCCrEY
-	 YQawm5/zPJiyN8JC6FLGOCyPFuURSMZkYfx1MCJAewzaF10CHIV08vq15msZQbFfLq9vd
-	 DAPKnTbotsl/+pZqodDXaroG7jFCMRb2ztis2j55ay7ehS9BWKhfEVk9Zvl6vOY/mOzD5
-	 BE5YkDh0ygouea3d/mBIuSjtcNVYnwzH+NpNNutciNb6cYqr4kBCooZSFgY/oBBoye3ai
-	 p2kNTGxltEQs1g+mikUUUh+Pf0Jx2KNdkpMpDAOcervbphW+LjELTxf0UMa174NltkA==
+	bh=qkG9AZrB9otknb3x+lqWx/DYaJ+beLGiJ2aE9sTzze8=;
+	b=wOv5EQWEa0p8sxV5GECW8hpewVuPA3iyHHucYODXa8+DbKdFuMqtAjzlE9Tk0J3dLpTL
+	 L1qiXel36zodnzGEBCl8F16ZGAimS6x17NzC8MOI0bKy8zz2EEVdxSkIfWn1vQCFpmdKv
+	 sU329SMiITzVprH6XIqfqc4w0rNCbbP1bMATIwKLpiGHzJKWaofpsRt+o0Qmgw9d/OM4i
+	 GZ9NrU5xO6/AeDxX6QKFrH0invVKoSUFXa/WkXNefvsjw5ES/yCj7k2a5OKvFT9wKr4re
+	 v1vm9vnLNSQN1XnbmahYLFsYDYyQFva8HNolms6Z2bpX7qSxZ4kJIQS+nMQ+qK4d+Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Z2j9c/MF";
-	arc=none smtp.remote-ip=95.215.58.179
-Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ciX1ibIu;
+	arc=none smtp.remote-ip=91.218.175.175
+Received: from mta0.migadu.com (out-175.mta0.migadu.com [91.218.175.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634C6606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:07:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 634C6606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08DA1606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:07:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08DA1606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Z2j9c/MF
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ciX1ibIu
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=r1vvkItYp0dYXtEa2bRLbOBZn/jhwa9VVsin4lnXi3o=;
+DKIM-Signature: a=rsa-sha256; bh=c8sb4EVJLfEmmqwqm5Jv2dluzAQaG63a3/ahLPxWZGA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793657257; v=1; x=1794262057;
- b=Z2j9c/MFdYjdjLxwn+dAxFRy+U7OhFnvEf/PH55yWrwSYFoBc5MB5zLl8CggwR54S7PeRsqm
- imWqhZw7UlpTUPlCu3P7z0wpR4GTnByDElHDI9tjWGVBAio2z9vTt4jKSfhpg4VB3qgzPg+HXMc
- rcMnlDFY12cur/WQmLnnK2jk=
+ t=1793657269; v=1; x=1794262069;
+ b=ciX1ibIu1mNv9oYxXBEIIGYQLZRU9GhH9DqYWQ2kRKvocaBiGnQBq4OsznlQ9t3fQIdEM1u7
+ lR+7EKyQcf/zySzPDYtViBXaYZqrzQ7r5ZT3SLVOSYoFst64HlVtbjp2l0O9nyQfvXpmA3B7U+A
+ 1AQK3nv7u8+PZR5P8bnBVdYU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 92917c669be6866a;
-	Mon, 02 Nov 2026 22:07:37 +0000
-X-Mizu-Trace-ID: 92917c669be6866a
+Received: by smtp.migadu.com with ESMTPS id 7c46c2c072e57a77;
+	Mon, 02 Nov 2026 22:07:48 +0000
+X-Mizu-Trace-ID: 7c46c2c072e57a77
 X-Migadu-Flow: FLOW_OUT
 From: Vineet Gupta <vineet.gupta@linux.dev>
 To: bpf@vger.kernel.org
@@ -67,9 +67,9 @@ Cc: ast@kernel.org,
 	jose.marchesi@oracle.com,
 	david.faust@oss.qualcomm.com,
 	Vineet Gupta <vineet.gupta@linux.dev>
-Subject: [PATCH bpf-next v3 1/8] selftests/bpf: Build callx tests with GCC that defines __BPF_FEATURE_CALLX
-Date: Mon,  2 Nov 2026 14:07:10 -0800
-Message-ID: <20261102220717.4079739-2-vineet.gupta@linux.dev>
+Subject: [PATCH bpf-next v3 3/8] selftests/bpf: report SKIP for arena tests a compiler cannot build
+Date: Mon,  2 Nov 2026 14:07:12 -0800
+Message-ID: <20261102220717.4079739-4-vineet.gupta@linux.dev>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102220717.4079739-1-vineet.gupta@linux.dev>
 References: <20261102220717.4079739-1-vineet.gupta@linux.dev>
@@ -84,139 +84,220 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 7cd1f73b37ea ("selftests/bpf: Fix build of callx tests with GCC")
-gated the callx progs on __clang__. GCC had indirect call support which was
-recently refurbished along with a __BPF_FEATURE_CALLX macro [1], so gate
-on that as well so once this GCC is released, the tests start passing.
+Tests guarded by __BPF_FEATURE_ADDR_SPACE_CAST don't have a dummy fall back
+when the compiler doesn't support the feature: so they are absent from such
+a report entirely.
+Every subtest inside one of those guards is invisible: 24 across seven
+files, plus the five in stream_arena_fault_address, which has no guard
+and fails to load instead (addressed separately, later in this series).
 
-Put the arch and compiler conditions in a CAN_USE_CALLX macro in
-bpf_misc.h, and use it in all the test programs.
+Give each guard an #else with a dummy marked __skip(), so the skip gap is
+reported rather than invisible.  Add __skip_without_arena for it, which
+expands to __skip() with a fixed reason when the compiler cannot do arena.
 
-While at it, mark the placeholder programs left for unsupported
-toolchains and arches with __skip(), so they report SKIP rather than OK.
+Measured on bpf-next with a stock bpf-gcc, test_progs before and after:
+seven subtests appear that were previously absent from the report
+altogether, and arena_kfunc_jit goes OK -> SKIP because every subtest
+it has is now one of them.
 
-[1] https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=ffe3ead4a8ad704b557b0cfa4f823df647c65a0d
-
-Measured on bpf-next with a stock bpf-gcc that defines
-__BPF_FEATURE_CALLX, test_progs before and after: 79 subtests run that
-previously did not exist in the report, 78 OK and one @unpriv SKIP,
-with no failures.  The two dummy placeholders retire and
-callx_rodata_lskel goes SKIP -> OK.
+  arena_kfunc_jit/arena_unsupported          SKIP
+  compute_live_registers/arena_unsupported   SKIP
+  jit_insns/arena_unsupported                SKIP
+  verifier_arena/arena_unsupported           SKIP
+  verifier_arena_large/arena_unsupported     SKIP
+  verifier_ldsx/arena_unsupported            SKIP
+  verifier_zext/arena_unsupported            SKIP
+jit_insns_arena.c needs the same treatment and is easy to miss: both
+of its programs are inside the guard, so without arena support the
+object has none at all and RUN_TESTS(jit_insns_arena) runs zero
+subtests without saying so.
 
 Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 ---
- .../testing/selftests/bpf/prog_tests/callx_rodata_lskel.c  | 2 +-
- tools/testing/selftests/bpf/progs/bpf_misc.h               | 7 +++++++
- tools/testing/selftests/bpf/progs/callx_rodata.c           | 4 ++--
- tools/testing/selftests/bpf/progs/verifier_callx.c         | 5 ++---
- tools/testing/selftests/bpf/progs/verifier_callx_rodata.c  | 5 ++---
- 5 files changed, 14 insertions(+), 9 deletions(-)
+ .../testing/selftests/bpf/progs/arena_kfunc_jit.c  |  9 +++++++++
+ tools/testing/selftests/bpf/progs/bpf_misc.h       | 14 ++++++++++++++
+ .../selftests/bpf/progs/compute_live_registers.c   | 10 ++++++++++
+ .../testing/selftests/bpf/progs/jit_insns_arena.c  | 10 ++++++++++
+ tools/testing/selftests/bpf/progs/verifier_arena.c |  9 +++++++++
+ .../selftests/bpf/progs/verifier_arena_large.c     | 10 ++++++++++
+ tools/testing/selftests/bpf/progs/verifier_ldsx.c  |  9 +++++++++
+ tools/testing/selftests/bpf/progs/verifier_zext.c  |  9 +++++++++
+ 8 files changed, 80 insertions(+)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/callx_rodata_lskel.c b/tools/testing/selftests/bpf/prog_tests/callx_rodata_lskel.c
-index f6ef67c3141e..acd821fb568f 100644
---- a/tools/testing/selftests/bpf/prog_tests/callx_rodata_lskel.c
-+++ b/tools/testing/selftests/bpf/prog_tests/callx_rodata_lskel.c
-@@ -36,7 +36,7 @@ static void __test_callx_rodata_lskel(void)
- 	if (!ASSERT_OK_PTR(skel, "open"))
- 		return;
+diff --git a/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c b/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
+index b5a01cbc33a7..97912a7b6b5e 100644
+--- a/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
++++ b/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
+@@ -112,6 +112,15 @@ int arena_arg_jit_args5(void *ctx)
+ 				   (u64 *)&val[4]);
+ 	return 0;
+ }
++#else
++
++SEC("socket")
++__skip_without_arena
++__success
++int arena_unsupported(void)
++{
++	return 0;
++}
  
--	/* gcc doesn't support indirect calls */
-+	/* toolchain or JIT can't do callx */
- 	if (skel->rodata->skip) {
- 		test__skip();
- 		goto out;
+ #endif /* __BPF_FEATURE_ADDR_SPACE_CAST */
+ 
 diff --git a/tools/testing/selftests/bpf/progs/bpf_misc.h b/tools/testing/selftests/bpf/progs/bpf_misc.h
-index d7f706c3bc4a..1b264480e128 100644
+index 1b264480e128..ed1ed1b5bd09 100644
 --- a/tools/testing/selftests/bpf/progs/bpf_misc.h
 +++ b/tools/testing/selftests/bpf/progs/bpf_misc.h
-@@ -295,6 +295,13 @@
- #define CAN_USE_LOAD_ACQ_STORE_REL
- #endif
- 
-+/* clang always emits callx, gcc only when it defines __BPF_FEATURE_CALLX */
-+#if (defined(__TARGET_ARCH_arm64) || defined(__TARGET_ARCH_x86) ||	\
-+     (defined(__TARGET_ARCH_riscv) && __riscv_xlen == 64)) &&		\
-+	(defined(__clang__) || defined(__BPF_FEATURE_CALLX))
-+#define CAN_USE_CALLX
-+#endif
+@@ -116,6 +116,10 @@
+  *                   feature the toolchain or JIT cannot provide, so a run does
+  *                   not report OK for coverage it never executed.
+  *
++ * __skip_without_arena
++ *                   __skip() with a fixed reason when the compiler cannot do
++ *                   the arena address space, nothing otherwise.
++ *
+  * __log_level       Log level to use for the program, numeric value expected.
+  *
+  * __flag            Adds one flag use for the program, the following values are valid:
+@@ -156,6 +160,16 @@
+ #define __success		__test_tag("test_expect_success")
+ #define __description(desc)	__test_tag("test_description=" desc)
+ #define __skip(reason)		__test_tag("test_skip=" reason)
 +
- #if defined(__TARGET_ARCH_arm64) || defined(__TARGET_ARCH_x86)
- #define SPEC_V1
++/*
++ * Without compiler arena support, report the test as SKIP rather than let it
++ * pass vacuously or fail to load.
++ */
++#ifdef __BPF_FEATURE_ADDR_SPACE_CAST
++#define __skip_without_arena
++#else
++#define __skip_without_arena	__skip("compiler does not support the arena address space")
++#endif
+ #define __msg_unpriv(msg)	__test_tag("test_expect_msg_unpriv=" msg)
+ #define __not_msg_unpriv(msg)	__test_tag("test_expect_not_msg_unpriv=" msg)
+ #define __msg_next_unpriv(msg)	__test_tag("test_expect_msg_next_unpriv=" msg)
+diff --git a/tools/testing/selftests/bpf/progs/compute_live_registers.c b/tools/testing/selftests/bpf/progs/compute_live_registers.c
+index 1ff24bbc7beb..e05431600358 100644
+--- a/tools/testing/selftests/bpf/progs/compute_live_registers.c
++++ b/tools/testing/selftests/bpf/progs/compute_live_registers.c
+@@ -403,6 +403,16 @@ __naked void addr_space_cast(void)
+ 		  __imm_addr(arena)
+ 		: __clobber_all);
+ }
++#else
++
++SEC("socket")
++__skip_without_arena
++__success
++int arena_unsupported(void)
++{
++	return 0;
++}
++
  #endif
-diff --git a/tools/testing/selftests/bpf/progs/callx_rodata.c b/tools/testing/selftests/bpf/progs/callx_rodata.c
-index e3f8335f80f8..8c28f01b7113 100644
---- a/tools/testing/selftests/bpf/progs/callx_rodata.c
-+++ b/tools/testing/selftests/bpf/progs/callx_rodata.c
-@@ -4,13 +4,14 @@
- #include <stdbool.h>
- #include <linux/bpf.h>
- #include <bpf/bpf_helpers.h>
-+#include "bpf_misc.h"
  
- /* set by user space before the programs are loaded, it's in .rodata too */
- const volatile int bias = 1;
+ static __used __naked int aux1(void)
+diff --git a/tools/testing/selftests/bpf/progs/jit_insns_arena.c b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
+index 95736eae2a58..ccda60e96524 100644
+--- a/tools/testing/selftests/bpf/progs/jit_insns_arena.c
++++ b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
+@@ -106,6 +106,16 @@ int cast_to_user(void *ctx)
+ 	: "r1", "r2", "r7", "r9");
+ 	return res != 0;
+ }
++#else
++
++SEC("socket")
++__skip_without_arena
++__success
++int arena_unsupported(void)
++{
++	return 0;
++}
++
+ #endif
  
- int op_idx;
+ char _license[] SEC("license") = "GPL";
+diff --git a/tools/testing/selftests/bpf/progs/verifier_arena.c b/tools/testing/selftests/bpf/progs/verifier_arena.c
+index b17a6dfc100d..121f8cea8c25 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_arena.c
++++ b/tools/testing/selftests/bpf/progs/verifier_arena.c
+@@ -728,6 +728,15 @@ __naked void mixed_arena_stack_atomic(void)
+ 	  __imm(bpf_get_prandom_u32)
+ 	: __clobber_all);
+ }
++#else
++
++SEC("socket")
++__skip_without_arena
++__success
++int arena_unsupported(void)
++{
++	return 0;
++}
  
--#ifdef __clang__
-+#ifdef CAN_USE_CALLX
+ #endif /* defined(__BPF_FEATURE_ADDR_SPACE_CAST) */
  
- const volatile bool skip = false;
- 
-@@ -48,7 +49,6 @@ int both_ops(void *ctx)
- 
- #else
- 
--/* gcc doesn't support indirect calls */
- const volatile bool skip = true;
- 
- SEC("socket")
-diff --git a/tools/testing/selftests/bpf/progs/verifier_callx.c b/tools/testing/selftests/bpf/progs/verifier_callx.c
-index 7e59188d9fca..ca1aef34ab72 100644
---- a/tools/testing/selftests/bpf/progs/verifier_callx.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_callx.c
-@@ -6,9 +6,7 @@
- #include "bpf_misc.h"
- #include "../../../include/linux/filter.h"
- 
--/* gcc doesn't support indirect calls */
--#if defined(__clang__) && (defined(__TARGET_ARCH_x86) || defined(__TARGET_ARCH_arm64) || \
--    (defined(__TARGET_ARCH_riscv) && __riscv_xlen == 64))
-+#ifdef CAN_USE_CALLX
- 
- #define CALLX_INSN(DST, SRC, OFF, IMM) \
- 	BPF_RAW_INSN(BPF_JMP | BPF_CALL | BPF_X, DST, SRC, OFF, IMM)
-@@ -1075,6 +1073,7 @@ int callx_c_ops_on_stack(void *ctx)
- #else
- 
- SEC("socket")
-+__skip("callx needs arch JIT and compiler support")
- __success
- int dummy(void *ctx)
+diff --git a/tools/testing/selftests/bpf/progs/verifier_arena_large.c b/tools/testing/selftests/bpf/progs/verifier_arena_large.c
+index dbdea14ca76f..34f0a0f88e12 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_arena_large.c
++++ b/tools/testing/selftests/bpf/progs/verifier_arena_large.c
+@@ -348,5 +348,15 @@ int big_alloc4(void *ctx)
+ #endif
+ 	return 0;
+ }
++#else
++
++SEC("socket")
++__skip_without_arena
++__success
++int arena_unsupported(void)
++{
++	return 0;
++}
++
+ #endif
+ char _license[] SEC("license") = "GPL";
+diff --git a/tools/testing/selftests/bpf/progs/verifier_ldsx.c b/tools/testing/selftests/bpf/progs/verifier_ldsx.c
+index 49e8cd4bb4f9..35b20d0796db 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_ldsx.c
++++ b/tools/testing/selftests/bpf/progs/verifier_ldsx.c
+@@ -450,6 +450,15 @@ void kfunc_root(void)
  {
-diff --git a/tools/testing/selftests/bpf/progs/verifier_callx_rodata.c b/tools/testing/selftests/bpf/progs/verifier_callx_rodata.c
-index b2ee0c8e042b..642071fa7498 100644
---- a/tools/testing/selftests/bpf/progs/verifier_callx_rodata.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_callx_rodata.c
-@@ -6,9 +6,7 @@
- #include "bpf_misc.h"
- #include "../../../include/linux/filter.h"
+ 	bpf_arena_alloc_pages(0, 0, 0, 0, 0);
+ }
++#else
++
++SEC("socket")
++__skip_without_arena
++__success
++int arena_unsupported(void)
++{
++	return 0;
++}
  
--/* gcc doesn't support indirect calls */
--#if defined(__clang__) && (defined(__TARGET_ARCH_x86) || defined(__TARGET_ARCH_arm64) || \
--    (defined(__TARGET_ARCH_riscv) && __riscv_xlen == 64))
-+#ifdef CAN_USE_CALLX
+ #endif /* __BPF_FEATURE_ADDR_SPACE_CAST */
  
- /*
-  * Read-only data with pointers to functions, where the compiler puts tables
-@@ -992,6 +990,7 @@ int callx_c_packed_struct(void *ctx)
- #else
+diff --git a/tools/testing/selftests/bpf/progs/verifier_zext.c b/tools/testing/selftests/bpf/progs/verifier_zext.c
+index 572017fe28fb..dbfeeea4cf9f 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_zext.c
++++ b/tools/testing/selftests/bpf/progs/verifier_zext.c
+@@ -381,6 +381,15 @@ __naked void zext_arena_cmpxchg32(void)
+ 		     BPF_ATOMIC_OP(BPF_W, BPF_CMPXCHG, BPF_REG_1, BPF_REG_2, 0))
+ 	: __clobber_all);
+ }
++#else
++
++SEC("socket")
++__skip_without_arena
++__success
++int arena_unsupported(void)
++{
++	return 0;
++}
  
- SEC("socket")
-+__skip("callx needs arch JIT and compiler support")
- __success
- int dummy(void *ctx)
- {
+ #endif
+ 
 -- 
 2.53.0-Meta
 
