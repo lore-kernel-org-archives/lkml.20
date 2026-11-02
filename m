@@ -1,91 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.143.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657719;
-	b=z0/tkd1JnDqs2/NpWU7cznzlOfbpBcxVo9j5HvAJWEBH9Cyv3s5S329GJRyePNcttZQX
-	 UZfPchDKToqIOlpdxQM2KpsVyxByDfhje7eT/P7RU8WbSVMHy3DQIZyM15m7n3WsRFTGF
-	 pAKy3BZC4MO2IuD4oqFzj0FwRlOQovAQVTEZJrNfZCK2/8zeqfALnLfNoh/v+gh6WQlqU
-	 /kBXbxN9fozZsARCNT7TJefTWM1A1Q9ZD+SO95fo0JJ5OlJwL2wNVHI8FdaorKk4RXSzc
-	 VSNJJCRGZPsmZZA8AIug7FiUkudBbkWtPZgPulNro0rLQm9yAEqD+rIHgSf45I2uiHQ==
+	t=1793657718;
+	b=TtFjaE3Tpo4J5S7Z86UWJYn9w02Zl8soy5+WXzoIOJC/KwrNfbLeZu9U4EZvCfM/hIaH
+	 QJtkag9iqTHb0Hq3ICo+1q0kguF+alxQ7aeqGScKIukZ6+VXaDVIeXDLsVzRazgOXT+rn
+	 PXENfMi24dwNa0Ixw8zQmv5+olcPtcTELRTL73OjBZHmGHbpRjp4r+IPrFRu++uEru0KH
+	 z4JqWwVt1Yc0+ZodhhQpg7ufecrxCFdxTRk9x16LMyCT2bQgaCmKCuJKNYnUArwJ8ySYA
+	 v+grLTlQkzY2qxeqi2KE9pIKHky6lKiwC+tfLfPKxORyn9POUBRVOxrx4/1DDVWqJCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657719;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-HPE-SCL:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=E/ynh4EodQA+X86STXJXehCMjJo0iq64YJ+PfIXXxfk=;
-	b=v8TfORae0FDR1D9/407ib7LJeVDctqL937lVIubHImIa0JnF+BPBo2+xEeUhSLjhlXCn
-	 cUFvI/SscMtFYTE7NBxN/Vvp/Fmd4hadPCSatokHF99YQ/48hviKfNrOrbsXH98YzzYB2
-	 GNxQbG+Lmk9VSOsYXp+6j/k9tMzmfh9IkBxkJk2KXZrLpgkhdtdqNH7b2hqnOMCtGEGw3
-	 LhsTBXcy9Ew5FR/dubuhXdB57EwnHhWdHpqqgQvB7oBcLNBllsGb0Bz9LSxE0B8Afap5d
-	 Hz8ZLm7idzUWthFjjEn4am17ofQ6Llb9thtE416pCTuDnyhgtBhMARobL4pzpJYe3gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657718;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
+	b=e4tCG93ajYOp47kVuNLmsenJpgsxZA/9bWBXJSlJOTLkvLga/HrYreOHSls5rMPkonVP
+	 WogKgrRxr6lo90MKZui+Bz4yd4wNQc/tpDAEx3dcgYybxf0kX0gQuYr2tJzkvvSsU2DjO
+	 kfevbvbxIuMmywMcWu+59R68M7+pJaqC6XimRH+mbUrtA4bYESkdvtTlidoRSv5Werwud
+	 lmHwi+clX5vuIB7861SiSvFmS7kPqX7JPjAdt2ZbFnvxuFbe0+FQKSBk0WvLcQotQd2KY
+	 fB+lifKgoIrUvVDyV48vnHLjQJT00eSMY8ym2uY1tt7jH7ptsQDVhsbes+7pu8H+tkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hpe.com;
-	spf=pass smtp.mailfrom=hpe.com;
-	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=Jet6+nXf;
-	arc=none smtp.remote-ip=148.163.143.35
-Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com [148.163.143.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
+	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBDA606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:15:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EBDA606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=Jet6+nXf
-Received: from pps.filterd (m0134423.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2K7hQK1609565;
-	Mon, 2 Nov 2026 22:14:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps0720; bh=E/ynh4EodQA+X86STXJXehCMjJ
-	o0iq64YJ+PfIXXxfk=; b=Jet6+nXfGDO7lmovFc5JjghnQUijSOtTZjR4o3N10R
-	IpU70jdiVn9GV96lx5/nkgeNHI0gXODzvdDtgGf1YWDXwAkL7SnXA+iP2Ti7Tvkw
-	mK1eaoQAcYmLqf90yyzYvQqBu31dlkEPXcr4RUUZeKm4+NNmxoYtwZdaabrf3eD7
-	Ns37eg5x9ezN9qBHXk604/B0Dtl5F6bjCuRgrQ3wyA+0B2qy+efFA5qj1zJJRXjL
-	YgVwp9G6qRbv6nYbuKsTCQ/etpkJf7MVO9eO2belXLeFLmuW9k9mqLgK1dBSXDyh
-	7vcLW2bX8JGylg/LxVqUEKmCTJ49zROnxcYDkBZwC0HQ==
-Received: from p1lg14878.it.hpe.com (p1lg14878.it.hpe.com [16.230.97.204])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hq072t6vp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 22:14:51 +0000 (GMT)
-Received: from p1lg14886.dc01.its.hpecorp.net (unknown [10.119.18.237])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by p1lg14878.it.hpe.com (Postfix) with ESMTPS id AE20CD2A1;
-	Mon,  2 Nov 2026 22:14:50 +0000 (UTC)
-Received: from fedora (unknown [16.231.227.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by p1lg14886.dc01.its.hpecorp.net (Postfix) with ESMTPS id 68FFB808E98;
-	Mon,  2 Nov 2026 22:14:48 +0000 (UTC)
-Date: Mon, 2 Nov 2026 16:14:46 -0600
-From: Steve Wahl <steve.wahl@hpe.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Steve Wahl <steve.wahl@hpe.com>, Peter Zijlstra <peterz@infradead.org>,
-        Dave Hansen <dave.hansen@intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
-        x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, justin.ernst@hpe.com, kyle.meyer@hpe.com,
-        dimitri.sivanich@hpe.com, russ.anderson@hpe.com,
-        linux-kernel@vger.kernel.org, mhiramat@kernel.org,
-        Matt Mullins <mmullins@fb.com>
-Subject: Re: [PATCH] x86: Drop KGDB support
-Message-ID: <aukLVl_22lVd9Auh@fedora>
-References: <20261028122124.GJ2668804@noisy.programming.kicks-ass.net>
- <28F95BAB-6D5B-4C70-A9F2-14B752EBF022@zytor.com>
- <20261028142625.GU2668564@noisy.programming.kicks-ass.net>
- <27a7b4b6-23da-4469-9161-2ce44e8ac2a9@intel.com>
- <auJT1Ld3urbqaeA0@swahl-home.5wahls.com>
- <20261029105121.39a4c74f@pumpkin>
- <auNnKmfx_2Dp0IxH@swahl-home.5wahls.com>
- <20261030162841.23ffeb6b@pumpkin>
- <auUEkBg5P4AZdjLe@swahl-home.5wahls.com>
- <20261030223146.0fae9291@pumpkin>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC41606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:15:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EC41606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdb15cd8558so864834a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:15:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=is.s.u-tokyo.ac.jp; s=google; t=1793657711; x=1794262511; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
+        b=TokvcMKc+KYIST87Mai260x4nopeORdiWMi79Bv4kzPWRQ+VEYVkBgKM7J7ubgfMct
+         EAUHAd4PTv1r8+90sVT307xC2pRCL993JZJfQlLMk2O6IzZh1NLpuneUl+BUTtg8XxYx
+         /QTo1JyjHQrs21R11/IBFyP5jg0n9Iy6VouHwlbd7HPaMecsZ/Wd/mOSzz0t9MTSXdHE
+         aLOuN4vTnqJnwHQIzjkLQ3OlWd9efODyiNk9U0HJfXWPInLzKqDV8kugDOiez/o1io2s
+         hF/KO9aruPizc94q+0RDxqUUSB5RHH4v19BLqwrotuv1CHCNEUPHBmPNWoT2ul3T99/0
+         V06g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793657711; x=1794262511;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
+        b=TiqYJF2D2jf6fQEc2ZPe8ehUAi9Y2ue6nWfSpgeM0VTBbnBSv2HFAGcskClvEsZYpm
+         W8osInv8G7h7lyeO7h/C21CtO+BivYWaMzjffX9DEt9V80D45wGy06oKW11NexD+iW51
+         3DZnZxxwPTYWYf08/OvkOAvz20BN2mFN6cBPfBTnsz8v/ojYXie/l3E7gdh3xbXg5zEP
+         SEQSwyRkSZSzKv2tdDUpt1svEU6gx9Oh8zhcyyivMLyj2OP/8+eZZ09VlrzERBJDfTVi
+         IBtJrYCu01F3dDpWB9X0VfPuJs//elr2jUFPdIOhLQDqwl5XboBakOJRdSGRuYgjuVcm
+         4CaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFRDhs9T92T0gRK/KNlqGmW3e7bk6uhDryGMoGuphGmaVA3Mcb2Ky5IOewRKckJ0VylWookQhM44/W5hc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nL5AdjeVUsWYcOofRhEa+myVDxY9xfAGU6sAjLMAQStyncc83
+	VYDYnJGy+P2GhpcGmSimPCxyehvWHXA+BddM8jJ6exHdAz6ijmw4P0S78oPZBqwKnA==
+X-Gm-Gg: AYBFou0bdIaYiRHjxI4IEZbVquq7aQyFRGVxYx3Bh3ZaLZrixMESP1kPXtcAXLK9PNx
+	gzH2Xaid5rgihb67P/vvqAUvQfPyegAz2lFPldWRTfsXVGsYwgO7bPHth+K78KL8VCwfi/oAqHJ
+	9OH/AaIFJvg9T96nLZvUPDemZTsCq5DPhZ+ddzvpZ29IVi7CkEAgqLlNwOlwLG8sk+4QkNre4ZR
+	1KndZS3JPOejLgNpa6SaknNTFSvQE5QD8/44cyKBOuoJybwdSKrzfIHIFuKtfpVlDB/GmWWxwia
+	wQ4MEKrk4WUC7zXwxnZlFjBRAsBCTcl9K+B+xdrknccd97V1sAPWOMbn20XClL3MsoWs76AQcB5
+	4jWS5Mwp36A2CGvXh8qRxncMxJAlo5wDqJfSkr+V/++D5/cHICxradXJaQojABiZxp9JNy9JciU
+	DMy1LQsJV1jUPmFu1boWfr9KDYZOpIg4hUbXcKAe5DDZyCL0dpvGCE5SDvvUTW5vcilRLejaOoV
+	rwAp/s/gL2XKun3hXB+egoMu72qNiBW+ThEzayl3TBzYnG9MPCKdBYeBKil3vJ5LeEpmLieCNBm
+	yGYrh011DVFUux9QIDqNXmLhMa4Df7OXg6gLWAE=
+X-Received: by 2002:a17:90a:fc4b:b0:3ab:b64:5893 with SMTP id 98e67ed59e1d1-3ae8981bf35mr8240104a91.53.1793657711239;
+        Mon, 02 Nov 2026 14:15:11 -0800 (PST)
+Received: from wang0.localdomain ([133.11.33.33])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c8b1913sm984336a91.10.2026.11.02.14.15.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 14:15:10 -0800 (PST)
+From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
+	Ohad Ben-Cohen <ohad@wizery.com>,
+	linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
+	stable@vger.kernel.org
+Subject: [PATCH] rpmsg: virtio: Reject a message shorter than its header
+Date: Tue,  3 Nov 2026 07:15:04 +0900
+Message-ID: <20261102221504.175116-1-lian@is.s.u-tokyo.ac.jp>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,185 +96,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030223146.0fae9291@pumpkin>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA4NyBTYWx0ZWRfX4rI83r9Cifkh
- XRNnxCswJ9cvyPyTEs3Qrcp5LONNFLsQAjUqngeOWd1WuxBDiYnOLpolS8EZwoSxlaiaPjdd0UX
- WEj7yKLfMLZUVW7DfbT6zwJIiLnSAM+JAZBnQE7EEqJVTVivwNCOEJ/evee7L42/9OrrtOVISP/
- Txsc7Bbxexm75Di+fdY5E/psiqmayqBjKRs++6Hw5dJU2rZZkFpdBXZL0dhQDQpV5PXO/zL46kq
- 7oHFcC910CPQzuvGc5BUUzaaso/h0S7pXgDZjTSNFlI6DnXU3GzIIrmZl6u96cXSb5FEQ/IF+AX
- NRvVWYsPkJyK18leO3SpqGUyWkqcOauyYoHMTnmf4rj3ROIwRHJtonhEcPF/qMgt127m27Ui17b
- iwkdZ1FiaGESPEJq6IbPXyP1rJU7nv0STfqTqa4qMGMBZ1V35T0t55c79zFF+ZOcWAyXNt0Q5n8
- HZR+IHagWGoEGogrqqw==
-X-Proofpoint-ORIG-GUID: 0zca97v6IB0SPzJy3R3b49hY9UwOscKD
-X-Proofpoint-GUID: 0zca97v6IB0SPzJy3R3b49hY9UwOscKD
-X-Authority-Analysis: v=2.4 cv=S+dMU4sP c=1 sm=1 tr=0 ts=6ae90b5b cx=c_pps
- a=UObrlqRbTUrrdMEdGJ+KZA==:117 a=UObrlqRbTUrrdMEdGJ+KZA==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=gQcMVamqm3wCPoSYhaRC:22 a=g3u0LPWLDYfGfufhFw6-:22 a=MvuuwTCpAAAA:8
- a=FmTkwmyTustmW8AJi84A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA4NyBTYWx0ZWRfX7UW7/Sb7NqPd
- Jm1aT5lb34YXyKQvuLLT52VgIpA+kb17YzCOLylXzrKdLpb1E6adXFAfiFS3JcDUx59v/sEVL6D
- 1yjiPXwRCMdH76tpvID6OSrPa7hzSyU=
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_06,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0 impostorscore=0
- bulkscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020087
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 10:31:46PM +0000, David Laight wrote:
-> On Fri, 30 Oct 2026 15:56:48 -0500
-> Steve Wahl <steve.wahl@hpe.com> wrote:
-> 
-> > On Fri, Oct 30, 2026 at 04:28:41PM +0000, David Laight wrote:
-> > > On Thu, 29 Oct 2026 10:32:58 -0500
-> > > Steve Wahl <steve.wahl@hpe.com> wrote:
-> > >   
-> > > > On Thu, Oct 29, 2026 at 10:51:21AM +0000, David Laight wrote:  
-> > > > > On Wed, 28 Oct 2026 14:58:12 -0500
-> > > > > Steve Wahl <steve.wahl@hpe.com> wrote:
-> > > > >     
-> > > > > > On Wed, Oct 28, 2026 at 08:10:54AM -0700, Dave Hansen wrote:    
-> > > > > ...    
-> > > > > > 
-> > > > > > For an example, I recently used this method to discover that at
-> > > > > > least one version of Intel's MPI library likes to read up
-> > > > > > /proc/kallsyms from each of the processes it starts, and somewhere
-> > > > > > north of 1000's of processors the atomic increment on opening
-> > > > > > kallsyms, implemented with a compare-exchange, becomes a hot lock
-> > > > > > and initialization that takes little time on a smaller number of
-> > > > > > processors, suddenly balloons to half an hour.    
-> > > > > 
-> > > > > I'm guessing that was pre-ARMv8.1 ??    
-> > > > 
-> > > > x86, not arm.  And it was on a distro kernel, I didn't check the
-> > > > current community kernel because it was a situation where it was
-> > > > enough to understand what's going on in the distro kernel, and avoid
-> > > > the behavior in the application.   
-> > > 
-> > > x86 shouldn't have an exponential issue with cas.
-> > > Something else must have been going on.  
-> > 
-> > Well, the large majority of some 2000+ cpus were all stuck in
-> > use_pde() in inode.c, which is
-> > 
-> > 	return likely(atomic_inc_unless_negative(&pde->in_use));
-> 
-> There will be one of those per read system call.
-> If the code is using a sane buffer length that isn't really that many at all
-> (unless you are running an 'allyesconfig' kernel).
-> Provided the library isn't doing something really silly like 1 byte reads!
+rpmsg_recv_single() rejects a message whose msg_len exceeds len -
+sizeof(struct rpmsg_hdr), where len is the used length the device
+reported. Since len is an unsigned int, a used length shorter than the
+header wraps the difference, and every msg_len passes. The endpoint
+callback receives up to 65535 bytes from a receive buffer of 512 bytes
+by default, and rpmsg_char copies them into an skb that userspace reads.
+The receive and transmit buffers share one DMA allocation, so the copy
+can run through the following buffers and, with small vrings, past the
+end of the allocation. With vrings of 16 buffers and a header claiming
+65535 bytes, KASAN reports:
 
-I don't have the backtraces saved.  For whatever reason, I'm left with
-the impression that the processes I examined closely were all in the
-open call, not the read call.  But you're correct, it looks like reads
-would sit on this too.  That makes even more sense that it got stuck
-as long as it did.
+  BUG: KASAN: slab-out-of-bounds in rpmsg_ept_cb+0x4d/0xb0
+  Read of size 65535 at addr ffff888002484010 by task rpmsg_echo/140
+  Call Trace:
+   rpmsg_ept_cb+0x4d/0xb0
+   rpmsg_recv_done+0x29f/0x840
+   vring_interrupt+0x32a/0x540
+   vp_interrupt+0x146/0x180
 
-> It is possible that /proc/kallsyms could be marked PROC_ENTRY_PERMANENT
-> and so avoid that atomic operation.
+Compare the sum of the header size and msg_len with len. The sum cannot
+overflow, since msg_len has 16 bits. Move the check ahead of the debug
+output, since dynamic_hex_dump() reads sizeof(*msg) + msg_len bytes
+when its dynamic debug site is enabled.
 
-Maybe.  That seems like a specific solution to a general problem.
-Even if /proc/kallsyms is fixed, there will be others that are not.
+This patch is assisted by Claude Opus 5.5.
 
-And the right place to fix this is much in question.  Is there a good
-reason to read /proc/kallsyms 1000s of times?  I doubt it.  We
-switched to a different MPI library that does not have this problem.
+Fixes: 9648224e564a ("rpmsg: validate incoming message length before propagating")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+---
+ drivers/rpmsg/virtio_rpmsg_bus.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-(I did not take this to the community for a number of reasons.  I
-didn't have time to make sure I could reproduce with the latest
-version of the library, with the community kernel instead of the
-distro kernel. I don't have a good explanation of why the library
-would want to do it in the first place.  We have a workaround for the
-time being.)
+diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+index 23ff6c8b7a20b..a9125e81cb150 100644
+--- a/drivers/rpmsg/virtio_rpmsg_bus.c
++++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+@@ -661,6 +661,16 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+ 	unsigned int msg_len = __rpmsg16_to_cpu(little_endian, msg->len);
+ 	int err;
+ 
++	/*
++	 * We currently use fixed-sized buffers, so trivially sanitize
++	 * the reported payload length.
++	 */
++	if (len > vrp->rx_buf_size ||
++	    sizeof(struct rpmsg_hdr) + msg_len > len) {
++		dev_warn(dev, "inbound msg too big: (%d, %d)\n", len, msg_len);
++		return -EINVAL;
++	}
++
+ 	dev_dbg(dev, "From: 0x%x, To: 0x%x, Len: %d, Flags: %d, Reserved: %d\n",
+ 		__rpmsg32_to_cpu(little_endian, msg->src),
+ 		__rpmsg32_to_cpu(little_endian, msg->dst), msg_len,
+@@ -671,16 +681,6 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+ 			 msg, sizeof(*msg) + msg_len, true);
+ #endif
+ 
+-	/*
+-	 * We currently use fixed-sized buffers, so trivially sanitize
+-	 * the reported payload length.
+-	 */
+-	if (len > vrp->rx_buf_size ||
+-	    msg_len > (len - sizeof(struct rpmsg_hdr))) {
+-		dev_warn(dev, "inbound msg too big: (%d, %d)\n", len, msg_len);
+-		return -EINVAL;
+-	}
+-
+ 	/* use the dst addr to fetch the callback of the appropriate user */
+ 	mutex_lock(&vrp->endpoints_lock);
+ 
 
-My point was more that they're taking away the tool that I used to
-figure this out.
-
-> > 
-> > atomic_inc_unless_negative() has alternates, but I think there's no
-> > arch version for x86, so comes down to this:
-> > 
-> > static __always_inline bool
-> > raw_atomic_inc_unless_negative(atomic_t *v)
-> > {
-> > 	int c = raw_atomic_read(v);
-> > 
-> > 	do {
-> > 		if (unlikely(c < 0))
-> > 			return false;
-> > 	} while (!raw_atomic_try_cmpxchg(v, &c, c + 1));
-> > 
-> > 	return true;
-> > }
-> > 
-> > If you manage to synchronize thousands of processors among many NUMA
-> > nodes all trying to do that same thing, how can that not create a
-> > horrible cache coherency protocol traffic jam?
-> 
-> On x86, in order for the cmpxchg to fail it must have succeeded for
-> a different cpu (as far as I understand things...).
-> So yes, you get a lot of cache coherency traffic but progress should
-> be made - probably with a maximum total rate of increments that you
-> hit well before 1000 cpu hit the code path.
-> 
-> It might just be that with the large NUMA memory system the required number
-> of cache line bounces (one for each successful CAS) just takes that length
-> of time - but that is linear in the number of applications/cpus. 
-
-I think I disagree with the "one bounce for each successful CAS"
-assertion; I think it's one bounce for each CAS, successful or not.
-
-If there's any mechanism like a short term hold on the cache line
-before it will relinquish ownership after a failure, perhaps in this
-case the extra "unless negative" instructions are making the loop too
-long?  I don't know.
-
-Thanks for your insight,
-
---> Steve Wahl
-
-> OTOH an LL/SC loop loses the cache when another cpu does the LL (aka read)
-> bit. So when heavily contended no cpu manages to do a successful write
-> and overall absolutely no progress is made.
-> The more instructions between the LL and SC the worse it gets.
-> 
-> David
-> 
-> > 
-> > Thanks for your thoughts on this; if our hardware is supposed to be
-> > doing something to alleviate this and it's not, I / we want to know!
-> > 
-> > --> Steve  
-> > 
-> > > David
-> > >   
-> > > >   
-> > > > > The LL/SC retry loops for atomics are completely broken for contended
-> > > > > operations.
-> > > > > The kernel needs to patch them to use the LSE (single instruction
-> > > > > atomics) for ARMv8.1 which guarantee that some progress is made.
-> > > > > A CAS loop can still get starved on a single CPU, but some CPU
-> > > > > do proceed.
-> > > > > You really don't want to use LL/LC on a system with hraair CPU.
-> > > > > 
-> > > > > One CPU (not arm) that implements LL/SC locks the cache line for a
-> > > > > few clocks after LL to give a reasonable chance of the associated SC
-> > > > > actually succeeding before the cache line is 'stolen' by another CPU
-> > > > > doing an LL.    
-> > > > 
-> > > > Thanks,
-> > > >   
-> > > > --> Steve    
-> > > >   
-> > >   
-> > 
-> 
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Steve Wahl, Hewlett Packard Enterprise
+2.56.0
+
