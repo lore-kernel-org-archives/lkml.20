@@ -1,63 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657151;
-	b=RH63KtdKLkxDbSwicwTXDbDsl2HzpeASFb2LKad2833ihurqBB+TeA+CJfrl3GIVqhvg
-	 nfSwnaIbuJtVz7ZO+o/4+AgDqF//FxG8yqK/V4bsvbRosmyWMx2jQpIiHWjWhhKP62tGK
-	 Jl+DDycdQ5yOIPkk+8BXiv9oIaoiX6Ky+vIy9bJwSGT8/Dmu3Ktq6yEhFSIyZ3SH/Ejye
-	 vo0tHX1b7xwaIE+CWpAFTKJ/7o6tz8ys7bWAzZIlb4UqRrqJS1VnjsEC55dbmHn758DOg
-	 R1oBXfRlC+hSm8bHSh2q7s5/C65KRMm6wlByO1njJNBsml9BkICBnZL/f42E5avAXgQ==
+	t=1793657186;
+	b=shm5gj1hTIOWhZCCjxGXrOugaZMSPhQ/bWmykUyChquBuaOTAmq2fkwn3eu0N0xMRZw7
+	 ZmaHrGIlzxDTi6XjsbH0iMUyWoIJfGbohunpm8lUTrlW07dAUk5Odn3obAIVewfLV9nXB
+	 B92f6bv+pziCvlhKWRUBzSPQqrsjT6BkqvpYgsdAwPmQp1SNuxp0UD8bxn4h4gDOuNWRO
+	 BzFSP2mxG2swho0ZTxvK+r8HYTjjGqtyDQIqHs+6Isxore5qnbIEpJbrquCGXo87Uy6Rs
+	 1qDUug9QYVK+Fp94NMwPCybC98T3ABXR4pSFOm3I+q5g40bjoM6LbtwlphHOufAjVMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657151;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WbO27fB9MCHWgmwd8K9aWTFM4mLncfhM2klGB0+xjUE=;
-	b=LirLmHdJ3Oxv0jD4gn12Xr7tp+7HhAe0dEFX7iew5aEmM7G9SDNALoEkVtmgzxJfdG48
-	 LK+vnP4cAxx3QFyKZO0gDnaptkmJqMbIau1OTVsoS6Rl/0Tc/4E2pjWmwh0Y8GdpKwdNp
-	 SYxIvxkcGUbUDKgZLKKt5OgIQh8H4XVprQbx18XviGy4y4DurwTjjj4bmbp9GcdgxxDyB
-	 l1r3u6XWtmAHh6gAgvaEG9KQ1FprG3D6Q8bF86Kqhs7pFzk49mcEaFDpPPqYsZe1CwN8H
-	 NyhuxqzC5kCfQpjSFEXUOjztaTVTDLTeWZzj0ajZU66tAqTO/E06epzd45MP2OGXuGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657186;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NH6jz3WPUJHIT+J12ydGYZK6J+d3CqEgAa315HjW4cw=;
+	b=OECZPS6FXBYwEJKm6Ojoh8fWn4yH8c0AbAc7Co7mHoVi6Wc2AuY3F8DF13mkUMntF82m
+	 EZYFWhbH/LUz8hIVOuQkgnDbtsyntNa3DOVO1rM9OJJCpJJ7MMXt/xweDLdaSU6I5tHdX
+	 6hpU9OaNNCYfkhGk33XzY0hNdOkQX9CmK8u9XB6XVeP/EZl4Yhmg79uEssnHdx196ka/4
+	 BsU65jjfZEH44lfrGNiuBVqucccfR+pIAsKFCifif6sfzS15Qq4+vquIPt1ugVS6/u4fa
+	 oPXVewjP72mWvfATW/WkQjXL3AmXO17zrYiIceQlT7Os4A7+jPoc/HrLPUD/+9wMAEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjR47HKY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B1AD7UqS;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A87B606A32C;
-	Mon,  2 Nov 2026 22:05:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CC9606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:06:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01CC9606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjR47HKY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA941F00A16;
-	Mon,  2 Nov 2026 22:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793657151;
-	bh=WbO27fB9MCHWgmwd8K9aWTFM4mLncfhM2klGB0+xjUE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IjR47HKYx7+3vt6N7O/fs0Hbtsx2Hrzt+gv6lOk1k6l7sXW0sgUAtjV0QX2XejiXU
-	 5GpFhU/HfpQ/DHWoPYn/OCyWGOQZxjDnW6a1p39+OgXiEjg1xijv66dLPPklsNOhCM
-	 mUrJIGw2mMYtkxSKVupQL5NtNQPLzFbFGVQhTEVVyYwaw5/+TqUZgvdpqh0h6CJ8nW
-	 KLadvIpU9jA0bIgLaR8UTFW/nSqbt/J4RiuuaZSlhq2+hAhzJcmivrcCw65cGIyxXy
-	 oToZrKsH3Ycp/seNs5VWHnZCerfYdlKZMWULrlY4P0y4MXkGRpSsEi2+iYGR6LGRHH
-	 E1QqqEn07ftdQ==
-Date: Mon, 2 Nov 2026 22:05:46 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: Brian Norris <briannorris@chromium.org>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Rafael J. Wysocki"	 <rafael@kernel.org>, Ulf Hansson
- <ulfh@kernel.org>, linux-pm@vger.kernel.org, Andy Shevchenko	
- <andy@kernel.org>, David Lechner <dlechner@baylibre.com>,
- linux-iio@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>,
- linux-kernel@vger.kernel.org, Jiri Kosina <jikos@kernel.org>
-Subject: Re: [PATCH v2 09/17] iio: hid-sensors: Discard
- pm_runtime_put_autosuspend() return values
-Message-ID: <20261102220546.6fa5c62d@jic23-hlaptop>
-In-Reply-To: <84d712c6aa3df7df8fdb6cb85b85d720bdab5840.camel@linux.intel.com>
-References: <20261021235818.3059519-1-briannorris@chromium.org>
-	<20261021165858.v2.9.Idbac8a0f9ecdd345191130e256e8d881d991bfc7@changeid>
-	<20261102015255.487bd1bd@jic23-hlaptop>
-	<84d712c6aa3df7df8fdb6cb85b85d720bdab5840.camel@linux.intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B1AD7UqS
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ea759cc9b6so14472325ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:06:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793657185; x=1794261985; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NH6jz3WPUJHIT+J12ydGYZK6J+d3CqEgAa315HjW4cw=;
+        b=B1AD7UqSqrGX1/VZ9OPSvRwQQaY1cQeTHUa+6qKksae8nAaFO6w3T01WQxSAS5F9pr
+         3p3mBtKjiUnZw4iKOK+uwGkSkRA8Rx/rlSVfvuv1XSvkvMyiLlzoHOE2DOHXpivjkpHO
+         htLEikQv31Jn0Hyi6pbSQKcJQTV+ZlUcssFRrd7PJLhdXlbVw84gu2Z4D/xFcfnKNiDm
+         MlrIHQvplxHQEgqxKc+vHzBp0zIEgNH2xDIAARXoQmgTFLQ0X9PlbjR1qsFkCsL4LAoe
+         OQI33JJnV+fdOJz0LxWGRphXSw8FC4m5WltrkCBeEsddhd/jdWDedF4pmEKRg+SPdhTa
+         uafw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793657185; x=1794261985;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NH6jz3WPUJHIT+J12ydGYZK6J+d3CqEgAa315HjW4cw=;
+        b=lZpXNBd0M0939ENjhaSXU9RD47wv8IvrEInW+8gCMBBQvfPWYONcpGIGcRelpTXEIW
+         fYmcwj+rQL+cIS1c6PrHF8rdD22gQLCFBCulSqQXQSNva5WZKRobUqZbT2RiuKFKqPeA
+         1X59FInRQq/d0TMkcJ7iXjphQzcRd4Qk4MwAtVwJfvtctRS2W7ewNYdKmelzd5UOvz0b
+         +PsFAIKd5HH7FTHA3FMSUmUsWbvwR+6LKDU9F56EK/TDngwQ2rgQLJ8Ut4doknuamzVY
+         N2cYp96dzZUkQOq4f4y/+uFYaZ/kXsyhXFq9Z4OmSh1dHsFZzFEV27KCCnCFxQLrsh2D
+         0AhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwz0/MVusmg+R+/BdCcBD0Mm1ujJuR3hJVRpEWBTliux4m548ucyZjKK1i77MOwS+I0Z5B4tSVUSnh+eTg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//VF72CZE1fqfrPk91o/xnrGE96LmkEdVl5CEWXaLaUuBPBYIF
+	h7YDD39ISkeT26EgmNt88Ny3kA1qv+28PgX9qxbfHFLEnRxsy23I8JY3TxM7mWjB3A==
+X-Gm-Gg: AYBFou20otvYYQHnqqQvwB+v23//2gWrblGa2CLlH2AuHsJgSfBXaQf7FACdkW7MZga
+	zJaC+djSn+Um3u+71ek+OQM3ThA2rIFqEoOWFVkQtydM9Cn8tVODGp5fekaTT5+08L6DkvfixZQ
+	Xccbf6kNxWIU2KD/fBkc24wPyqcsbHCkt4UrNAz8aEQCfJHswnLimc1TVx+I4dcJJT9JYgAGffU
+	KhxdmrH1mdzaH4pvqim1yNCsHkx5LIuCG0STp/QqcrmAAzyjdRj6YB975jKPOFL63Un0fqfw6ZJ
+	Zquk+M3sS1nsWgw4Pq0zdA+o1eoCrRp7oaONIMkML+I1mufh0nIQRAY+2jUy0WCvjf34TugXn6w
+	sGVqNdFEXswPRGJcvI63IomOrrT4HHxltqbBoq01KNd0vwJNLSBlEQgS50EDDgEN3sFWHc7msbN
+	VSgKIxrCUPbfIJaWbtdAH+AdIoCItp2dUHKRUj1yMWVowiq3OH7J2Ru7AQzSsFx+iUmpDyjP4mD
+	yCG1RsbtulptYJb0EGMzb15JZ2ul/3UWv89maEHL2FxDv34/hXS3eA9gi5eSL5ttFVnUnoYHs4v
+	VjxtJtX8cAWdyvTz9W6AqSgmIYeMT2KqMj/vYQA/5sffDc+tu3JWtCr1V4daG9U2CCgeO6bXg6A
+	PuehJaeN9WQ==
+X-Received: by 2002:a17:902:e54b:b0:2eb:250a:f4c0 with SMTP id d9443c01a7336-2eb364b121dmr103721415ad.33.1793657184617;
+        Mon, 02 Nov 2026 14:06:24 -0800 (PST)
+Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39248909sm32370385ad.33.2026.11.02.14.06.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 14:06:22 -0800 (PST)
+Date: Mon, 2 Nov 2026 22:06:19 +0000
+From: David Matlack <dmatlack@google.com>
+To: Samiullah Khawaja <skhawaja@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] vfio: selftests: Remove libuuid dependency
+Message-ID: <aukJW-svGhlH4Jut@google.com>
+References: <20261102200624.1570562-1-skhawaja@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,127 +98,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102200624.1570562-1-skhawaja@google.com>
 
-On Mon, 02 Nov 2026 08:55:44 -0800
-srinivas pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
+On 2026-11-02 08:06 PM, Samiullah Khawaja wrote:
+> Libvfio depends on an external dependency libuuid for parsing vf_tokens.
+> Building it in cross compilation environments gives the following error,
+> 
+>  ld: cannot find -luuid: No such file or directory
+> 
+> It also complicates building with glibc alternatives like musl, see
+> https://lore.kernel.org/kvm/c2f7e904-2646-4b01-864d-d185221c7f56@gmail.com/
+> 
+> As it is only used for parsing vf_tokens, remove the dependency by
+> adding a minimal uuid_t and uuid_parse() to libvfio.
+> 
+> Tested by running vfio_pci_sriov_uapi_test selftest.
+> 
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
 
-> On Mon, 2026-11-02 at 01:52 +0000, Jonathan Cameron wrote:
-> > On Wed, 21 Oct 2026 16:57:10 -0700
-> > Brian Norris <briannorris@chromium.org> wrote:
-> >  =20
-> > > The hid-sensors driver propagates the return value of
-> > > pm_runtime_put_autosuspend(), which is not particularly useful.
-> > >=20
-> > > Returning an error code from pm_runtime_put_autosuspend() merely
-> > > means
-> > > that it has not queued up a timer or work item to check whether or
-> > > not
-> > > the device can be suspended and there are many perfectly valid
-> > > situations in which that can happen, like after writing "on" to the
-> > > device's runtime PM "control" attribute in sysfs for one example.
-> > >=20
-> > > For this reason, modify this driver to simply discard the
-> > > pm_runtime_put_autosuspend() return value.
-> > >=20
-> > > This will facilitate a planned change of the
-> > > pm_runtime_put_autosuspend() return type to void in the future,
-> > > similar
-> > > to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put()
-> > > return
-> > > type to void").
-> > >=20
-> > > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com> =20
-> > +CC the various hid-sensors maintainers.
-> >  =20
->=20
->     Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
->=20
->=20
-> > Anyone remember why this does
-> > pm_runtime_use_autosuspend(&st->pdev->dev);
-> > in this code?
-> >=20
-> > That is unusual...=C2=A0 My immediate instinct is to
-> > get rid of it, but maybe there is something subtle
-> > going on. =20
->=20
-> When reading sensor via raw interface, you need to power-up, read and
-> power-down (This is done via runtime PM). To avoid repeating this
-> sequence of power up and power down for consecutive fast reads, auto
-> suspend is used. If there are reads with in 3 seconds, the sensor will
-> keep power up.
->=20
-Ah. I was too vague in that query.  Why is it enabled only the power
-state interface rather than at the start when runtime pm is enabled?
+Please lead the commit message with what the patch does, and then follow
+up with the background and motivation. The VFIO selftests documentation
+(merged for 7.4-rc1) asks contributors to follow the KVM x86 guidelines
+for changelogs:
 
-That seems to be done via a slightly unusually on first turning on
-of the trigger rather than more generally.  Normally we'd expect
-it to be enabled in driver probe and all paths that need the power
-on to do a pm_runtime_resume_and_get().
+  https://docs.kernel.org/driver-api/vfio-selftests.html#contribution-guidelines
+  https://docs.kernel.org/process/maintainer-kvm-x86.html#changelog
 
-I'm not seeing why it is in this particularly location which doesn't
-seem to be particularly sensible to me.
+Also please drop the "Tested by ..." line. Details about how you tested
+the patch are useful to reviewers, but they do not belong in the commit
+message. Put them below the "---" line (e.g. next to the v2 changelog)
+instead.
 
-Jonathan
+How about something like this:
 
+  vfio: selftests: Remove libuuid dependency
 
- =20
+  Replace libuuid with a minimal uuid_t and uuid_parse() in libvfio, and
+  drop -luuid from the build. libvfio only uses libuuid to parse VF
+  tokens, so pulling in an external library is not worth it.
 
+  libuuid is often missing from cross-compilation sysroots, which causes
+  the VFIO selftests to fail to link:
 
+    ld: cannot find -luuid: No such file or directory
 
-> Thanks,
-> Srinivas
->=20
-> >  =20
-> > > ---
-> > >=20
-> > > Changes in v2:
-> > > =C2=A0* Split iio patch into per-driver patches
-> > >=20
-> > > =C2=A0.../iio/common/hid-sensors/hid-sensor-trigger.c=C2=A0=C2=A0=C2=
-=A0 | 14 +++++-----
-> > > ----
-> > > =C2=A01 file changed, 5 insertions(+), 9 deletions(-)
-> > >=20
-> > > diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-> > > b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-> > > index 60808e2430ca..d76a6d9f04f6 100644
-> > > --- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-> > > +++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-> > > @@ -154,21 +154,17 @@ int hid_sensor_power_state(struct
-> > > hid_sensor_common *st, bool state)
-> > > =C2=A0{
-> > > =C2=A0
-> > > =C2=A0#ifdef CONFIG_PM
-> > > -	int ret;
-> > > -
-> > > =C2=A0	if (atomic_add_unless(&st->runtime_pm_enable, 1, 1))
-> > > =C2=A0		pm_runtime_enable(&st->pdev->dev);
-> > > =C2=A0
-> > > =C2=A0	if (state) {
-> > > =C2=A0		atomic_inc(&st->user_requested_state);
-> > > -		ret =3D pm_runtime_resume_and_get(&st->pdev->dev);
-> > > -	} else {
-> > > -		atomic_dec(&st->user_requested_state);
-> > > -		pm_runtime_use_autosuspend(&st->pdev->dev);
-> > > -		ret =3D pm_runtime_put_autosuspend(&st->pdev->dev);
-> > > +		return pm_runtime_resume_and_get(&st->pdev->dev);
-> > > =C2=A0	}
-> > > -	if (ret < 0)
-> > > -		return ret;
-> > > +
-> > > +	atomic_dec(&st->user_requested_state);
-> > > +	pm_runtime_use_autosuspend(&st->pdev->dev); =20
-> > This is odd enough to make me nervous even though the patch is
-> > obviously a no-op change.
-> >=20
-> >  =20
-> > > +	pm_runtime_put_autosuspend(&st->pdev->dev);
-> > > =C2=A0
-> > > =C2=A0	return 0;
-> > > =C2=A0#else =20
-> >  =20
+  It also complicates building against glibc alternatives such as musl,
+  see https://lore.kernel.org/kvm/c2f7e904-2646-4b01-864d-d185221c7f56@gmail.com/
 
+  Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+
+Other than the commit message and the minor comment nit below, the patch
+looks good. Feel free to add my R-b tag in v3.
+
+Reviewed-by: David Matlack <dmatlack@google.com>
+
+> ---
+> v2:
+> - Move the parser to lib/uuid.c and lib/include/libvfio/uuid.h (David)
+> - Drop the vfio_ prefixes and add a uuid_t (David)
+> - Mention musl in the commit message (David)
+> 
+> v1: https://lore.kernel.org/all/20260925013110.3447626-1-skhawaja@google.com/
+> ---
+>  .../selftests/vfio/lib/include/libvfio.h      |  1 +
+>  .../selftests/vfio/lib/include/libvfio/uuid.h | 11 +++++
+>  tools/testing/selftests/vfio/lib/libvfio.mk   |  3 +-
+>  tools/testing/selftests/vfio/lib/uuid.c       | 47 +++++++++++++++++++
+>  .../selftests/vfio/lib/vfio_pci_device.c      |  2 -
+>  5 files changed, 60 insertions(+), 4 deletions(-)
+>  create mode 100644 tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
+>  create mode 100644 tools/testing/selftests/vfio/lib/uuid.c
+> 
+> diff --git a/tools/testing/selftests/vfio/lib/include/libvfio.h b/tools/testing/selftests/vfio/lib/include/libvfio.h
+> index 07862b470777..e9d513c3a08e 100644
+> --- a/tools/testing/selftests/vfio/lib/include/libvfio.h
+> +++ b/tools/testing/selftests/vfio/lib/include/libvfio.h
+> @@ -6,6 +6,7 @@
+>  #include <libvfio/iommu.h>
+>  #include <libvfio/iova_allocator.h>
+>  #include <libvfio/sysfs.h>
+> +#include <libvfio/uuid.h>
+>  #include <libvfio/vfio_pci_device.h>
+>  #include <libvfio/vfio_pci_driver.h>
+>  
+> diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h b/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
+> new file mode 100644
+> index 000000000000..52406f3409b7
+> --- /dev/null
+> +++ b/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
+> @@ -0,0 +1,11 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H
+> +#define SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H
+> +
+> +#define UUID_SIZE	16
+> +
+> +typedef unsigned char uuid_t[UUID_SIZE];
+> +
+> +int uuid_parse(const char *in, uuid_t uu);
+
+Note that this differs from the kernel's uuid_t, which is a struct, and
+the kernel's uuid_parse(), which takes a uuid_t *. I think matching the
+libuuid API is the right call since this is userspace code (and it keeps
+the callers unchanged), but it would be good to call that out here. The
+"Minimal replacement for libuuid's uuid_parse()" comment in uuid.c could
+move to this header and mention that uuid_t and uuid_parse() mirror
+libuuid, so readers familiar with the kernel API aren't surprised that
+uu is not a pointer.
+
+> +
+> +#endif /* SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H */
+> diff --git a/tools/testing/selftests/vfio/lib/libvfio.mk b/tools/testing/selftests/vfio/lib/libvfio.mk
+> index eff95828719e..d1d1b2b05af1 100644
+> --- a/tools/testing/selftests/vfio/lib/libvfio.mk
+> +++ b/tools/testing/selftests/vfio/lib/libvfio.mk
+> @@ -7,6 +7,7 @@ LIBVFIO_C := iommu.c
+>  LIBVFIO_C += iova_allocator.c
+>  LIBVFIO_C += libvfio.c
+>  LIBVFIO_C += sysfs.c
+> +LIBVFIO_C += uuid.c
+>  LIBVFIO_C += vfio_pci_device.c
+>  LIBVFIO_C += vfio_pci_driver.c
+>  
+> @@ -30,8 +31,6 @@ $(LIBVFIO_O_DIRS):
+>  
+>  CFLAGS += -I$(LIBVFIO_SRCDIR)/include
+>  
+> -LDLIBS += -luuid
+> -
+>  $(LIBVFIO_O): $(LIBVFIO_OUTPUT)/%.o : $(LIBVFIO_SRCDIR)/%.c | $(LIBVFIO_O_DIRS)
+>  	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+>  
+> diff --git a/tools/testing/selftests/vfio/lib/uuid.c b/tools/testing/selftests/vfio/lib/uuid.c
+> new file mode 100644
+> index 000000000000..378904d9340a
+> --- /dev/null
+> +++ b/tools/testing/selftests/vfio/lib/uuid.c
+> @@ -0,0 +1,47 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +#include <string.h>
+> +
+> +#include <libvfio.h>
+> +
+> +/*
+> + * Minimal replacement for libuuid's uuid_parse(). libuuid is part of
+> + * util-linux and is routinely absent from cross-compilation sysroots, which
+> + * makes the vfio selftests unbuildable for non-native architectures.
+> + */
+> +#define UUID_STRING_LEN	36
+> +
+> +static int hexval(char c)
+> +{
+> +	if (c >= '0' && c <= '9')
+> +		return c - '0';
+> +	if (c >= 'a' && c <= 'f')
+> +		return c - 'a' + 10;
+> +	if (c >= 'A' && c <= 'F')
+> +		return c - 'A' + 10;
+> +	return -1;
+> +}
+> +
+> +int uuid_parse(const char *in, uuid_t uu)
+> +{
+> +	const char *p = in;
+> +	int i, hi, lo;
+> +
+> +	if (strlen(in) != UUID_STRING_LEN)
+> +		return -1;
+> +
+> +	for (i = 0; i < UUID_SIZE; i++) {
+> +		if (i == 4 || i == 6 || i == 8 || i == 10) {
+> +			if (*p++ != '-')
+> +				return -1;
+> +		}
+> +
+> +		hi = hexval(*p++);
+> +		lo = hexval(*p++);
+> +		if (hi < 0 || lo < 0)
+> +			return -1;
+> +
+> +		uu[i] = (hi << 4) | lo;
+> +	}
+> +
+> +	return 0;
+> +}
+> diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_device.c b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+> index 4063a0e2b3df..4ae6ac1f8ed8 100644
+> --- a/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+> +++ b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+> @@ -23,8 +23,6 @@
+>  #include <linux/types.h>
+>  #include <linux/vfio.h>
+>  
+> -#include <uuid/uuid.h>
+> -
+>  #include "kselftest.h"
+>  #include <libvfio.h>
+>  
+> 
+> base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
+> -- 
+> 2.56.0.385.gac671c819a-goog
+> 
