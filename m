@@ -1,48 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628032;
-	b=fTCG6qu4o8NL8jJuDb4ohWd7B9oqBAeGe98pDO9efNLdBVfSdajt9VKYrlgLtoe4hhku
-	 lNnk+tOH4MynMBtqNlNi8+/uEi4iEe4B7OX7oxUIiqjwMeY1Fjp0eWyqE0rvZxBcvSCbh
-	 Rmd8QdYkCNh7qIcNrvzF89DZY3bYIaAWvczdwwj0ITl8wCzhx/jjKrm4fWlBNFueaDy4Q
-	 +UJbGRxxrMhHHMev5f5DWLCm+9wsjdZzmuvKqg4Vtmm4ezbrcN3yl8HsVRUxVDd0IZIf4
-	 qM/GBGpizGaOM25zAlU6hs0xGp3Sbw1bk8BaRGzUWviZqmWfhoMdT8cXFXxESA8lgTQ==
+	t=1793628028;
+	b=A+t79mEI8v9jthhAuClVgdQTV4Zp0sgp4wUmGGCKUCa5qPEpvAA+qOukdNkAiwb+qISa
+	 /wjxP4Lmvr479XT5ddL9qETg7xzpoMwMN6zcIEyY6KoQSKoKPgGYDbL5uRHNEH7u9k1V5
+	 EY3bc47NXmBAmwFtFsw5I02O1Dd7gan5aTZGB/dWUON14ILklEtVfw0WfuGVAe97NuMnG
+	 Mbbm5TqJvn9XmctTGjkwhulgTyjPD8gPkvwnlaAPuATx5O2Zaiz9T3tEeV9+cvm1kBBPL
+	 Z7l+GVf+dIDt/2DN1KWrVxc6qtaQu6JhgsFFibSCVmBwRR4VRx93ySty3yVapo3lauA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628032;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=oYwhC4L2VlkW9t3srn9FHiQv9I+/AirtFZE3Wipxt0s=;
-	b=fqwITfMsXwBNOZaFeRxjWOSTwzDwAIjZHfAPfVZ9EPdMlqffHwSctUpSBSg8vLQovroc
-	 KH/OYBe4adPF0/7I6Xh1jIqkpIkjDHQt6dhCqKJ1lSV+voJljYHGuRUBTxDS+AVvN6LqO
-	 Un44of2nry3ayNXclLaVUP+O3dJOQABJ4Y2VWXUoCWjX6hIRRAl1K2dK/qOPLnyv96F5Q
-	 M4CTGHdCxhIH5qXHNsUq+qB2PJmj9cJcniTVNAxBBI7K8IouPy8LiJ5kYVe4eObWQ0Jdm
-	 NlwMNaQYlJrJ0FBULmkGv6iL64o2zTc7/OSwdTiAABFs5ndmKhiZm54/80hLsLTKUGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628028;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=2pMvQgzqKW4JHpA5fJ7fTyK99AJQvYuqkYywOmupdlI=;
+	b=WwHgrCI8PeloCe891rRuVMUitYiOOLUMFnLVCZmu54fyujt25HEFxWa3GdGk1AC0lplj
+	 Xe5Xd5WCvAAyHKxWFRY/GzEi+8pDH7LF+8ziA1cFzX8VXxXCsrcldO3oULvMTlxddP9ay
+	 2Ou7sOHunkqIMZ03j03A+Tr28TteNYYLsnXV9fh4lqshb7DDnscfrfJiZEG32HWNi0vvP
+	 Z4TjBM9+F/Wems44D849gVDG2W91/fLBdKYrvVG2XXKucHgZyAC2RK/FBIpLwZeggVKIY
+	 rgh0Xp/hVzdixmoCfjRswWRBoR4Sv03xQ0ApBc0xiF9rs6BXTcuvjDUU0kwGp8hw7SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4ZfUDDd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QzSZVLpB;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5D860A2636;
-	Mon,  2 Nov 2026 14:00:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CCE606A32F;
+	Mon,  2 Nov 2026 14:00:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CCE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4ZfUDDd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC98C1F00A1A;
-	Mon,  2 Nov 2026 14:00:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793628031;
-	bh=oYwhC4L2VlkW9t3srn9FHiQv9I+/AirtFZE3Wipxt0s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=G4ZfUDDdwIBVKoEFgSVFYtza9E9SK4027vrfL+AovTJ5tCGfp9oSl7ZnTIiCqJl9Y
-	 xIl/nqzLDM7p+1GpmI15ChOeLvU4eIzo3F+IvSR7jTDp9u8SeMFiCAsE8Ljt2BLLdp
-	 I5rSMjMygkL3ABqLGZm7fjP8CypERxaKUeJNAC5edVirJT2SQjIVYon4sSDfdhWeXs
-	 uwai46A0keDZ9SgMw+E0YIvNbar/I+P4+pCJC1TaC7aTZswAy4DjcFTgOkjs724tVF
-	 xmeD0q4es57HFLQzxb8Tj79TzazbhH27MrLfPF0joTGPjLsHNlR6G4qCLnju/34iQ/
-	 0uDPQqgUbS5vQ==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 08:00:25 -0600
-Subject: [PATCH 1/2] iommu: Add iommu_is_available() API
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QzSZVLpB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=2pMvQgzqKW4JHpA5fJ7fTyK99AJQvYuqkYywOmupdlI=; b=QzSZVLpBZ+yBBFUabsSXv7RsM3
+	lC1XiEmly6EqfPxp77xnAF9C7vRLCMkcYwJZdX8cDftwTetzlIw8HTV3VPR9xsTRXzjEMO8prDBp5
+	U3E14cQTmztTvFGei7hyNLSYGAuVrbPgeQvJKZMsrpMVKq2JZiCx84JpBRf28fcEVlYs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xNsa3-00Dnuc-14; Mon, 02 Nov 2026 15:00:11 +0100
+Date: Mon, 2 Nov 2026 15:00:11 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kalpesh Solanki <skalpesh942@gmail.com>
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: nl-mac: validate device pointers before
+ dereference
+Message-ID: <3eba5c55-e1ec-4301-ae09-a3982090d8b0@lunn.ch>
+References: <20261101092219.1278751-1-skalpesh942@gmail.com>
+ <20261102024721.28129-1-skalpesh942@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,139 +68,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-lockdown-iommu-v1-1-00f3c2be4c9f@kernel.org>
-References: <20261102-lockdown-iommu-v1-0-00f3c2be4c9f@kernel.org>
-In-Reply-To: <20261102-lockdown-iommu-v1-0-00f3c2be4c9f@kernel.org>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>, 
- Xiu Jianfeng <xiujianfeng@huawei.com>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-security-module@vger.kernel.org, 
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102024721.28129-1-skalpesh942@gmail.com>
 
-Add a generic API to query whether IOMMU subsystem is available on the
-platform. This returns true if at least one IOMMU driver has been
-registered and successfully probed, meaning hardware IOMMU support is
-available on the platform.
+On Mon, Nov 02, 2026 at 08:17:21AM +0530, Kalpesh Solanki wrote:
+> On Mon, Nov 02, 2026 at 01:13:xx +0100, Andrew Lunn wrote:
+> > Did you consider the other fix? Is there a use case for setting a TUN
+> > interface to ARPHRD_IEEE802154? If not, maybe return EOPNOTSUPP, or
+> > EINVAL?
+> > 
+> > Andrew
+> 
+> Hi Andrew,
+> 
+> Thanks for reviewing and raising this point!
+> 
+> Regarding whether there is a use case for setting a TUN interface to
+> ARPHRD_IEEE802154:
+> In real hardware/subsystem usage, virtual 802.15.4 interfaces are typically
+> handled via mac802154_hwsim or fakelb (which properly allocate wpan_phy and
+> dev->ieee802154_ptr), rather than raw TUN. However, tun.c explicitly recognizes
+> ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR in tun_get_addr_len():
+> 
+> 	case ARPHRD_IEEE802154:
+> 	case ARPHRD_IEEE802154_MONITOR:
+> 		return IEEE802154_EXTENDED_ADDR_LEN;
 
-The iommu_set_available() function is called from iommu_device_register()
-when an IOMMU driver successfully registers, marking IOMMU as available.
+I looked at the history. Those two were added along with a bunch of
+other ARPHRD_ values. There is nothing i could see to indicate
+IEEE802154 was a deliberate choice. So i think you need the IEEE802154
+Maintainers to comment on if this is useful or not.
 
-This will be used by security subsystems (e.g. lockdown) that require
-IOMMU isolation to provide meaningful security guarantees. Without IOMMU,
-PCI/PCIe devices can perform DMA to arbitrary physical memory, bypassing
-all software-level security protections.
+> 1. Subsystem robustness / Defense-in-depth:
+>    ieee802154_llsec_dump_table(), ieee802154_dump_iface(), and
+>    ieee802154_nl_get_dev() assumed that any netdevice in the namespace
+>    with dev->type == ARPHRD_IEEE802154 has valid ieee802154_ptr and
+>    mlme_ops. When that assumption fails, it triggers a NULL dereference
+>    while holding genl_mutex, leaving the mutex permanently locked and
+>    deadlocking generic netlink system-wide for unprivileged users.
 
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
- drivers/iommu/iommu.c | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
- include/linux/iommu.h | 14 ++++++++++++++
- 2 files changed, 62 insertions(+)
+Which is good. An Opps with a splat makes it clear there is a bug. If
+anybody cares, it will get reported and fixed.
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index b486b8bbd1fcd..d042944713ab4 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -309,6 +309,13 @@ int iommu_device_register(struct iommu_device *iommu,
- 		iommu_device_unregister(iommu);
- 	else
- 		WRITE_ONCE(iommu->ready, true);
-+	/*
-+	 * Mark IOMMU as available if registration succeeded and bus probing
-+	 * succeeded. This enables security checks (e.g. lockdown IOMMU check)
-+	 * that depend on knowing whether hardware IOMMU isolation is present.
-+	 */
-+	if (!err)
-+		iommu_set_available();
- 	return err;
- }
- EXPORT_SYMBOL_GPL(iommu_device_register);
-@@ -2961,6 +2968,47 @@ static int __init iommu_init(void)
- }
- core_initcall(iommu_init);
- 
-+static bool iommu_available __read_mostly;
-+
-+/**
-+ * iommu_is_available() - Check if IOMMU subsystem is available
-+ *
-+ * Returns true if at least one IOMMU driver has been registered and
-+ * successfully probed, meaning hardware IOMMU support is available on
-+ * the platform. Returns false if no IOMMU driver is available.
-+ *
-+ * This function is intended for use by security subsystems that require
-+ * IOMMU isolation to provide meaningful security guarantees (e.g. lockdown).
-+ *
-+ * Note: This function only reports on whether IOMMU drivers are present,
-+ * not whether specific devices are covered. Use device_iommu_capable() or
-+ * iommu_group_get() to check per-device IOMMU coverage.
-+ *
-+ * Context: Can be called at any time after module initialization has begun.
-+ * Returns a snapshot of the IOMMU availability state.
-+ *
-+ * Return: True if IOMMU is available, false otherwise.
-+ */
-+bool iommu_is_available(void)
-+{
-+	return iommu_available;
-+}
-+EXPORT_SYMBOL_GPL(iommu_is_available);
-+
-+/**
-+ * iommu_set_available() - Mark IOMMU as available
-+ *
-+ * Called by IOMMU drivers during probe to indicate that hardware IOMMU
-+ * support is functional on this platform.
-+ *
-+ * Context: Called from driver probe paths.
-+ */
-+void iommu_set_available(void)
-+{
-+	iommu_available = true;
-+}
-+EXPORT_SYMBOL_GPL(iommu_set_available);
-+
- int iommu_set_pgtable_quirks(struct iommu_domain *domain,
- 		unsigned long quirk)
- {
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index ef5043752a365..d77237fc880ae 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -1222,6 +1222,13 @@ void iommu_detach_device_pasid(struct iommu_domain *domain,
- ioasid_t iommu_alloc_global_pasid(struct device *dev);
- void iommu_free_global_pasid(ioasid_t pasid);
- 
-+/*
-+ * IOMMU availability API - for use by subsystems that require IOMMU
-+ * isolation to provide security guarantees.
-+ */
-+bool iommu_is_available(void);
-+void iommu_set_available(void);
-+
- /* PCI device reset functions */
- int pci_dev_reset_iommu_prepare(struct pci_dev *pdev);
- void pci_dev_reset_iommu_done(struct pci_dev *pdev);
-@@ -1557,6 +1564,13 @@ static inline int pci_dev_reset_iommu_prepare(struct pci_dev *pdev)
- static inline void pci_dev_reset_iommu_done(struct pci_dev *pdev)
- {
- }
-+
-+static inline bool iommu_is_available(void)
-+{
-+	return false;
-+}
-+static inline void iommu_set_available(void) {}
-+
- #endif /* CONFIG_IOMMU_API */
- 
- #ifdef CONFIG_IRQ_MSI_IOMMU
+Subsystem robustness / Defense-in-depth generally results in bugs
+being hidden, rather than exposed.
 
--- 
-2.53.0
+The fact ieee802154 has ieee802154_ptr and the code unconditionally
+accesses it suggests it is actually needed. So the commit message in
+your change needs to argue why TUN is special and does not need
+it. The commit message is all about "Why?". Why did you decided to fix
+it this way, rather than some other way.
 
+Is the correct fix to actually set ieee802154_ptr to something?
+
+>    Other parts of the ieee802154 subsystem already make this defensive check:
+>    - net/ieee802154/6lowpan/core.c (lowpan_newlink):
+>        if (wdev->type != ARPHRD_IEEE802154 || !wdev->ieee802154_ptr)
+>    - net/ieee802154/socket.c:
+>        if (dev->type == ARPHRD_IEEE802154 && dev->ieee802154_ptr && ...)
+> 
+>    Guarding nl-mac.c ensures the IEEE 802.15.4 netlink handlers are safe
+>    regardless of how an ARPHRD_IEEE802154 device was created or modified.
+
+Now look at the history of this. Does the commit message adding this
+code suggest why these checks are there?
+
+I also wondered if IEEE802154 is special? struct net_device has:
+
+#if IS_ENABLED(CONFIG_VLAN_8021Q)
+        struct vlan_info __rcu  *vlan_info;
+#endif
+#if IS_ENABLED(CONFIG_NET_DSA)
+        struct dsa_port         *dsa_ptr;
+#endif
+#if IS_ENABLED(CONFIG_TIPC)
+        struct tipc_bearer __rcu *tipc_ptr;
+#endif
+#if IS_ENABLED(CONFIG_CFG80211)
+        struct wireless_dev     *ieee80211_ptr;
+#endif
+#if IS_ENABLED(CONFIG_IEEE802154) || IS_ENABLED(CONFIG_6LOWPAN)
+        struct wpan_dev         *ieee802154_ptr;
+#endif
+#if IS_ENABLED(CONFIG_MPLS_ROUTING)
+        struct mpls_dev __rcu   *mpls_ptr;
+#endif
+#if IS_ENABLED(CONFIG_MCTP)
+        struct mctp_dev __rcu   *mctp_ptr;
+#endif
+#if IS_ENABLED(CONFIG_INET_PSP)
+        struct psp_dev __rcu    *psp_dev;
+#endif
+
+Did you look at all of these? Can any of them cause issues in the same
+way as ieee802154_ptr?
+
+Something you learn after a while. If you find a bug, look around and
+see if the same bug exists close by, because it often does.
+
+	Andrew
