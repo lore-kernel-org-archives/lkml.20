@@ -1,79 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793585583;
-	b=KssHU03/isxi0DmHQYJLaimQrYPNm8YddWXo56XgUSrNlCrO9VcT+Nheip5a2f+Nxnvv
-	 OSWGyCVh+CixDYK3G+ep6ECZ9jZPBU+Ai3c5lWSXAuvfdBoyksgLdPMXp8I4tFtxRIy6t
-	 qBemiXrYbr3RCfii75cgHyxVNk8hvlc69s3URApAgruYp0qC1CuPdmgzu4GWVZupxOX/4
-	 hrVxiV/q/Qa9e18hOoBZtdwd5sJFoZQYp/rI4UxuQE8IQsIxMv0KjLwKTYkiPxAQ/zPbe
-	 LaBJY0SQqOBKB1jYWXpmqpfB5RGGLCWXMVXLNeVwGXwuMBwJy2hqpjydDE37n1GuAAQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585583;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=e7faZ4zHoj+LWmeEHc89fWpnoDlQ1eH9taJo6V1MAGE=;
-	b=ntQhVSLv4LmzWFi3xShrUmq21/cx2uSg9FTq5SvHopFX0+VZF6f95x6NiKUofD7VQUpk
-	 SSF0areBVtDuwoNsGh4RWqTHJ5O7+HtwPIx+Io60VAwVaX2YBO1kJiA7snRN9bgKC1H7d
-	 Zira3JJPows1j/Vqzai8CrhZPbXaa7zWTOK0kVqYz1e3V61+HYuscyFiveEqmJPxYB9e5
-	 vtAThFgnDBf18Htl1THOUGL6F1EHL+8OcRWFNF4qdQie7iIE9jIt8dNyI0yvtvF7Inxlo
-	 ILlI483j9jPPKUwwHl8lbYpfVZ/37ocQqcT2/dD9Kwn0XSaoBO5KBshI828U3kLFTRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9G91mHk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793585589;
+	b=J302dEcJh7pxZKrpi7XH4enIlU2Urr68SN8HDJ5YUjdccHS/RrnQH6I5MVVuf3eKOLIb
+	 EFaP5puuX7QV3KqfWqgiqp+kPAeCZGKvI3HesK39CQtTslrBx9qI3PePGgWqXb2vMHxUm
+	 lPjrqvDRrYv0QKpJpT9seNOpN1DyJwj8WCx7n06TFSXUfGoKtkeunh6bdZPlidHMpogxe
+	 Q1iGWIBz0l6N9OarrtRsDMLtM8ezEzInKFeHWKaonawluI4JrfQ9wG1w7RdqCWz+DhNNj
+	 lGuDlZPsoSNjJQxyJINGgWrGmJF10F2KRPVMW4Q4vUCOByjypqQOckfB18mFxFJ0XDw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585589;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=+hcqaI3fakm5IofpIQuDxhisUvijHzChUJ+piqLdU4k=;
+	b=Bk2FSkw8uIBy9O84OPAwwmojFL/M2ylZpsJl7flFTebpwBLMJ5whGaNKzFrSATZ/sgkt
+	 RnVcmGSJqpBhrYdmCLqQuImRM5OCbdlAvVSxAPMSNiFaq/CH/TfO739m35SdUR3lLcn+/
+	 WZqPYipYCHisaQlNnytEvAj4h4+MQeNWOVrGjAKnik/uDBdzFGAvDDKOcBalrUu0T9KgA
+	 LyTpj/rnrPiURyCTdER9WzhO8dITf6u99IDBCRyFgYenz2JU12R9wL/WGRtyKp0fQloxl
+	 nnfwy17kpyFIjyOSkCC37X4ZHi5408d9cEqb0/D+hbvYPH5JhnUIpSRQkNLlAlMPHuw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q/t+99Ln";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA4B606A32C;
-	Mon,  2 Nov 2026 02:13:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08A2606A334;
+	Mon,  2 Nov 2026 02:13:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9G91mHk
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793585582;
-	b=VQRzFtNPUljv1YzEqK9TyUgyG/1VY8qW/lraXOtjF8KkW7SAv6sOjC3e2v7nej6GI2Zq
-	 5HZRtQqBO1W2Ulygc20ws98rjgaeOfoT9lqN4KqrAX53SuaLk7kjaHSVlv2ZyrzZU6BrR
-	 a1dJXwsujeHiDhZnl/pmLxJFQKttxcyChMOPt7L0KiPxW2FIF7xZDDo6E9PD424Ue+bFQ
-	 Zzd/5XNX1LOqx+0AiCbik+LfPhq3Ze6KK9AjmMkmcG2gt8cTya6GQXU92YO0KnimkRyJ9
-	 3AmLj7TWIIbBg9r5el90ex/UpeCV/uWinyWAhfB+9rGmkpAy0+qUHWhAKL6cX6D2gfA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793585582;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=e7faZ4zHoj+LWmeEHc89fWpnoDlQ1eH9taJo6V1MAGE=;
-	b=E6KSYKJzzx2a3xNF8C0C/INfSpYg7oxnE+dtJKMLRx2eEUp2touUEdvBnZKjmOLRFsO5
-	 lPJWl8/lWi//1ltLnyuP+Bzw4nmvOxwx3gOLG7bh0tnb4xFLfNifja0rviEE5edcum7jP
-	 Ut2Kb7Ofgqzi4rmZGA8dI7hUCrKK4edpoWjmWNwWi0/9zbMI/uJ6gYpPZ1xvJHjq1fE3c
-	 0UwhAwrlHsE2fNZlqNu9EDU+VDby0jttO/0uVrr5bkv3Zot1LmxOXvYyswm4bqgoVq76I
-	 sf+AODKXiVB9sSSvK2FsJ3QMwfBZ52xk+3idrTV+SdKo5+PSDFf7JFfwrs9gA7KoV1Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8097E1F00A28;
-	Mon,  2 Nov 2026 02:13:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q/t+99Ln
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BF911F000C1;
+	Mon,  2 Nov 2026 02:13:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793585582;
-	bh=e7faZ4zHoj+LWmeEHc89fWpnoDlQ1eH9taJo6V1MAGE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=I9G91mHkf8klDoG6oW9AL/ocsuk6HnhuuM0sjwIZOm82agbfDgbbixpfw+zpeiGRi
-	 rJSzWScBeiE7MZeaXQ+UpGIGMN7Zf/O7YdXkSsLd1WZ/onMSl3s726S3eAAQcUuP/Q
-	 f4WIpGiovpuv3QYZfroABW8mp/tSh/T3VwZDTKxEvGFMc6xo1fhoZHZkFU9zGXOcBa
-	 SYjc2p1p3Iej5w0lRlC1y2ANaKQ/km5p7emAO3KDxd4inJGZHh+C5ArqWwHy3PGV4E
-	 TQg4ggQ6A68DHtQY8fEbGxLEkyj2Emegd34L5v3JiGaONO2IL4rJzCiRIEnXjQfuas
-	 4mpuYPlXed6lQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F0CC54631A;
-	Mon,  2 Nov 2026 02:13:00 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Sun, 01 Nov 2026 21:12:28 -0500
-Subject: [PATCH 04/10] leds: rgb: ktd202x: Fix a division by zero with long
- blinks
+	s=k20260515; t=1793585588;
+	bh=+hcqaI3fakm5IofpIQuDxhisUvijHzChUJ+piqLdU4k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Q/t+99Ln2qDjyd4z6aTeJyv0fTBkdovu6/REyUDs5IPVFKyfrToFa2i0OIksFAdKx
+	 8FtTDb0pe52nbrIMcd5HGCOKxaBb1FEx7CHkJbdopXUX4w7SHowKqWvwjpC2L3Adz7
+	 fe9yDVGwaNp17oB2wmoOgmADU9eju2sOaVd78geMhLP5gDeo2g42xrUWg4HACJW6V3
+	 DW8fUO6/xX6tdvlRreRfaXuK+05KyIwWpsUXO9ZVbwQsDbFa3Ebq2zwKau45Ovqf+L
+	 +DZ0PpJPoNYTqP0w6mCX1GhWLKwtxj4CyXiLfoauN3bHL9Usefo4fsTJ+vwDloajGW
+	 oBBqtPBjrWnAw==
+From: Sasha Levin <sashal@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	linux-kernel@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: [PATCH v3 5/7] tools: build kernel selftests in tools_build
+Date: Sun,  1 Nov 2026 21:12:51 -0500
+Message-ID: <20261102021253.2545235-6-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261102021253.2545235-1-sashal@kernel.org>
+References: <20261102021253.2545235-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,100 +77,446 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-ktd202x-et6326-v1-4-eb51eddad08c@telaak.dev>
-References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
-In-Reply-To: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-doc@vger.kernel.org, stable@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793585580; l=2525;
- i=joseph@telaak.dev; s=20261102; h=from:subject:message-id;
- bh=9khUpnVIznb+BmjNA8t95846XXlyL+YUn/unSSiwMvA=;
- b=+v/pi1hd59t8tQZRnI+2mCmQeAbFBuA4fP+f05pYeOYX35rBONWO9BfO+TzygzG61YjMRx5qw
- 2+r+z3S4ynQDpkf7kxMOjNTDAuCkGCN3BieP/OhjzVP0Wbyj4QrhG7R
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=OmwSusdK4grZpiuZVfCZAvYyqz9FBkNemsV1EnHyVr4=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261102 with
- auth_id=1382
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joseph Telaak <joseph@telaak.dev>
+Add a "Kernel selftests" sub-menu with one entry per selftests directory
+that builds with only a C library and does not write into the source
+tree. Each is built as "make kselftest-all" builds it, with KHDR_INCLUDES
+pointing at the UAPI headers installed in the object tree, but by its own
+make, so the selected ones build in parallel. Selftests whose Makefile
+does not use KHDR_INCLUDES still build against the C library's copy of
+the UAPI headers.
 
-blink_set() works out the on time as delay_on * 256 / (delay_on +
-delay_off) in unsigned long, with delays straight from the timer
-trigger's sysfs files:
+As with "make kselftest-all", a selftest that fails to build does not
+fail the build unless FORCE_TARGETS is set. kselftest_deps.sh then lists
+the libraries the selftest needs that the compiler cannot link with.
 
-- when the two delays add up to exactly 2^32 on 32 bit, or 2^64 on
-  64 bit, the sum wraps to 0 and the kernel divides by zero, for
-  example with "echo 2147483648" into both delay_on and delay_off.
-  That oopses on x86 and gives an arbitrary result on MIPS and arm64.
-- on 32 bit the product already overflows once delay_on is above about
-  4.6 hours, and a sum that wraps sets the wrong period, so long blinks
-  get an arbitrary duty cycle
+The selftests do not track header dependencies, so a selftest is built
+again from scratch when its own directory, a header or makefile any
+selftest may share, or the kernel sources and headers it includes (the
+vDSO test includes the architecture's vDSO code) are newer than its last
+build.
 
-Saturate the sum, and compute the on time with mul_u64_u64_div_u64().
+Selftests that need libraries beyond the C library, a vmlinux with BTF,
+or a sanitizer runtime are left out for now.
 
-Fixes: 0ebdb7210943 ("leds: Add ktd202x driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Shuah Khan <skhan@linuxfoundation.org>
 ---
- drivers/leds/rgb/leds-ktd202x.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ tools/Kconfig         | 253 ++++++++++++++++++++++++++++++++++++++++++
+ tools/Makefile.kbuild | 122 +++++++++++++++++++-
+ 2 files changed, 371 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
-index 8c890ea5a..feea33b7e 100644
---- a/drivers/leds/rgb/leds-ktd202x.c
-+++ b/drivers/leds/rgb/leds-ktd202x.c
-@@ -9,10 +9,12 @@
+diff --git a/tools/Kconfig b/tools/Kconfig
+index 4f13e3b104377..aaeac9d86ba4e 100644
+--- a/tools/Kconfig
++++ b/tools/Kconfig
+@@ -86,4 +86,257 @@ config TOOLS_BUILD_USB
+ 	help
+ 	  Build tools/usb (testusb, ffs-test).
  
- #include <linux/i2c.h>
- #include <linux/led-class-multicolor.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
-+#include <linux/overflow.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
++menuconfig TOOLS_BUILD_SELFTESTS
++	bool "Kernel selftests"
++	help
++	  Build the selected targets under tools/testing/selftests, as
++	  "make kselftest-all" would, without running them. As there, a
++	  selftest that fails to build does not fail the build unless
++	  FORCE_TARGETS=1 is passed to make.
++
++if TOOLS_BUILD_SELFTESTS
++
++config TOOLS_BUILD_SELFTESTS_ACCT
++	bool "acct"
++
++config TOOLS_BUILD_SELFTESTS_ALLOC_TAG
++	bool "alloc_tag"
++
++config TOOLS_BUILD_SELFTESTS_BREAKPOINTS
++	bool "breakpoints"
++
++config TOOLS_BUILD_SELFTESTS_CACHESTAT
++	bool "cachestat"
++
++config TOOLS_BUILD_SELFTESTS_CGROUP
++	bool "cgroup"
++
++config TOOLS_BUILD_SELFTESTS_CONNECTOR
++	bool "connector"
++
++config TOOLS_BUILD_SELFTESTS_CORE
++	bool "core"
++
++config TOOLS_BUILD_SELFTESTS_COREDUMP
++	bool "coredump"
++
++config TOOLS_BUILD_SELFTESTS_DAMON
++	bool "damon"
++
++config TOOLS_BUILD_SELFTESTS_DMABUF_HEAPS
++	bool "dmabuf-heaps"
++
++config TOOLS_BUILD_SELFTESTS_DRIVERS_DMA_BUF
++	bool "drivers/dma-buf"
++
++config TOOLS_BUILD_SELFTESTS_DRIVERS_NTSYNC
++	bool "drivers/ntsync"
++
++config TOOLS_BUILD_SELFTESTS_EFIVARFS
++	bool "efivarfs"
++
++config TOOLS_BUILD_SELFTESTS_FILELOCK
++	bool "filelock"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_BINDERFS
++	bool "filesystems/binderfs"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_CONFIGFS
++	bool "filesystems/configfs"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_EPOLL
++	bool "filesystems/epoll"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_EVENTFD
++	bool "filesystems/eventfd"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_FAILFS
++	bool "filesystems/failfs"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_FAT
++	bool "filesystems/fat"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_FILE_STRESSOR
++	bool "filesystems/file_stressor"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_FREEZE
++	bool "filesystems/freeze"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_MNTNS_UNBINDABLE
++	bool "filesystems/mntns_unbindable"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_MOUNT_CYCLE
++	bool "filesystems/mount_cycle"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_NSFS
++	bool "filesystems/nsfs"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_UMOUNT_PROPAGATION
++	bool "filesystems/umount_propagation"
++
++config TOOLS_BUILD_SELFTESTS_FILESYSTEMS_XATTR
++	bool "filesystems/xattr"
++
++config TOOLS_BUILD_SELFTESTS_FIRMWARE
++	bool "firmware"
++
++config TOOLS_BUILD_SELFTESTS_FPU
++	bool "fpu"
++
++config TOOLS_BUILD_SELFTESTS_FTRACE
++	bool "ftrace"
++
++config TOOLS_BUILD_SELFTESTS_GPIO
++	bool "gpio"
++
++config TOOLS_BUILD_SELFTESTS_INTEL_PSTATE
++	bool "intel_pstate"
++	depends on X86
++
++config TOOLS_BUILD_SELFTESTS_IPC
++	bool "ipc"
++
++config TOOLS_BUILD_SELFTESTS_IR
++	bool "ir"
++
++config TOOLS_BUILD_SELFTESTS_KCMP
++	bool "kcmp"
++
++config TOOLS_BUILD_SELFTESTS_KEXEC
++	bool "kexec"
++	depends on X86_64
++
++config TOOLS_BUILD_SELFTESTS_KSELFTEST_HARNESS
++	bool "kselftest_harness"
++
++config TOOLS_BUILD_SELFTESTS_LSM
++	bool "lsm"
++
++config TOOLS_BUILD_SELFTESTS_MEDIA_TESTS
++	bool "media_tests"
++
++config TOOLS_BUILD_SELFTESTS_MEMBARRIER
++	bool "membarrier"
++
++config TOOLS_BUILD_SELFTESTS_MINCORE
++	bool "mincore"
++
++config TOOLS_BUILD_SELFTESTS_MOUNT
++	bool "mount"
++
++config TOOLS_BUILD_SELFTESTS_MOUNT_SETATTR
++	bool "mount_setattr"
++
++config TOOLS_BUILD_SELFTESTS_MOVE_MOUNT_SET_GROUP
++	bool "move_mount_set_group"
++
++config TOOLS_BUILD_SELFTESTS_MSEAL_SYSTEM_MAPPINGS
++	bool "mseal_system_mappings"
++
++config TOOLS_BUILD_SELFTESTS_NCI
++	bool "nci"
++
++config TOOLS_BUILD_SELFTESTS_NET_CAN
++	bool "net/can"
++
++config TOOLS_BUILD_SELFTESTS_NET_FORWARDING
++	bool "net/forwarding"
++
++config TOOLS_BUILD_SELFTESTS_NET_MPTCP
++	bool "net/mptcp"
++
++config TOOLS_BUILD_SELFTESTS_NFSD
++	bool "nfsd"
++
++config TOOLS_BUILD_SELFTESTS_PCI_ENDPOINT
++	bool "pci_endpoint"
++
++config TOOLS_BUILD_SELFTESTS_PERF_EVENTS
++	bool "perf_events"
++
++config TOOLS_BUILD_SELFTESTS_PID_NAMESPACE
++	bool "pid_namespace"
++
++config TOOLS_BUILD_SELFTESTS_PIDFD
++	bool "pidfd"
++
++config TOOLS_BUILD_SELFTESTS_PIPE
++	bool "pipe"
++
++config TOOLS_BUILD_SELFTESTS_PROC
++	bool "proc"
++
++config TOOLS_BUILD_SELFTESTS_PTP
++	bool "ptp"
++
++config TOOLS_BUILD_SELFTESTS_PTRACE
++	bool "ptrace"
++
++config TOOLS_BUILD_SELFTESTS_RESCTRL
++	bool "resctrl"
++	depends on X86
++
++config TOOLS_BUILD_SELFTESTS_RING_BUFFER
++	bool "ring-buffer"
++
++config TOOLS_BUILD_SELFTESTS_RLIMITS
++	bool "rlimits"
++
++config TOOLS_BUILD_SELFTESTS_RSEQ
++	bool "rseq"
++
++config TOOLS_BUILD_SELFTESTS_RTC
++	bool "rtc"
++
++config TOOLS_BUILD_SELFTESTS_SCHED
++	bool "sched"
++
++config TOOLS_BUILD_SELFTESTS_SIGNAL
++	bool "signal"
++
++config TOOLS_BUILD_SELFTESTS_SIZE
++	bool "size"
++
++config TOOLS_BUILD_SELFTESTS_SPLICE
++	bool "splice"
++
++config TOOLS_BUILD_SELFTESTS_SYNC
++	bool "sync"
++
++config TOOLS_BUILD_SELFTESTS_SYSCALL_USER_DISPATCH
++	bool "syscall_user_dispatch"
++
++config TOOLS_BUILD_SELFTESTS_TDX
++	bool "tdx"
++	depends on X86
++
++config TOOLS_BUILD_SELFTESTS_THERMAL_INTEL_POWER_FLOOR
++	bool "thermal/intel/power_floor"
++	depends on X86
++
++config TOOLS_BUILD_SELFTESTS_THERMAL_INTEL_WORKLOAD_HINT
++	bool "thermal/intel/workload_hint"
++	depends on X86
++
++config TOOLS_BUILD_SELFTESTS_TIMENS
++	bool "timens"
++
++config TOOLS_BUILD_SELFTESTS_TMPFS
++	bool "tmpfs"
++
++config TOOLS_BUILD_SELFTESTS_USER_EVENTS
++	bool "user_events"
++
++config TOOLS_BUILD_SELFTESTS_VDSO
++	bool "vDSO"
++
++config TOOLS_BUILD_SELFTESTS_WATCHDOG
++	bool "watchdog"
++
++config TOOLS_BUILD_SELFTESTS_X86
++	bool "x86"
++	depends on X86
++
++endif # TOOLS_BUILD_SELFTESTS
++
+ endif # TOOLS_BUILD
+diff --git a/tools/Makefile.kbuild b/tools/Makefile.kbuild
+index 4b3ea73bc8ab9..590440121c8c9 100644
+--- a/tools/Makefile.kbuild
++++ b/tools/Makefile.kbuild
+@@ -44,10 +44,11 @@ endif
+ squote := '
+ escsq = $(subst $(squote),'\$(squote)',$1)
  
-@@ -296,7 +298,8 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
- 	/* Convert into values the HW will understand. */
+-# $(call build,<output directory>,<make arguments>,<files to check>,<CONFIG_ symbol>)
++# $(call build,<output directory>,<make arguments>,<files to check>,<CONFIG_ symbol>[,<on failure>])
+ # Builds in an empty directory when the make arguments or LDFLAGS changed, or
+-# when one of the files is newer than the last build. "make -n" only shows
+-# the build.
++# when one of the files is newer than the last build. A failure fails the
++# build, unless commands to run instead are given. "make -n" only shows the
++# build.
+ build-key = $(call escsq,$(2) LDFLAGS=$(USERLDFLAGS))
+ dry-run := $(findstring n,$(firstword -$(MAKEFLAGS)))
  
- 	/* Integer representation of time of flash period */
--	delay_total_ms = *delay_on + *delay_off;
-+	if (check_add_overflow(*delay_on, *delay_off, &delay_total_ms))
-+		delay_total_ms = ULONG_MAX;
- 	if (delay_total_ms < KTD202X_FLASH_PERIOD_MIN_MS)
- 		num_steps = 0;
- 	else
-@@ -308,8 +311,8 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
- 	 * Integer representation of percentage of LED ON time. A value of 0
- 	 * keeps the LED dark, so use the shortest on time instead.
- 	 */
--	on = (*delay_on * KTD202X_FLASH_ON_MAX) / (*delay_on + *delay_off);
--	on = max(on, 1);
-+	on = mul_u64_u64_div_u64(*delay_on, KTD202X_FLASH_ON_MAX, delay_total_ms);
-+	on = clamp(on, 1, KTD202X_FLASH_ON_MAX - 1);
+@@ -58,7 +59,7 @@ define build
+ 	fi;) \
+ 	mkdir -p $(1) && $(MAKE) $(2) && \
+ 	$(if $(dry-run),:,printf '%s' '$(build-key)' > $(1)/.tools_build) || \
+-	{ echo >&2 "tools_build: $(patsubst $(outdir)/%,%,$(1)) failed to build; set CONFIG_$(4)=n to skip it"; false; }
++	{ echo >&2 "tools_build: $(patsubst $(outdir)/%,%,$(1)) failed to build; set CONFIG_$(4)=n to skip it"; $(or $(5),false); }
+ endef
  
- 	/* Actually used delay_{on,off} values */
- 	delay_total_ms = num_steps * KTD202X_FLASH_PERIOD_STEP_MS + KTD202X_FLASH_PERIOD_MIN_MS;
-
+ # Programs in tools/<name>, which track their own header dependencies
+@@ -89,6 +90,119 @@ PHONY += perf
+ perf: FORCE
+ 	$(call build,$(outdir)/perf,-C $(toolsdir)/perf -f Makefile.perf O=$(outdir)/perf $(perf-flags) $(perf-flags-y),,TOOLS_BUILD_PERF)
+ 
++# Selftests in tools/testing/selftests/<name>
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_ACCT)	+= acct
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_ALLOC_TAG)	+= alloc_tag
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_BREAKPOINTS)	+= breakpoints
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_CACHESTAT)	+= cachestat
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_CGROUP)	+= cgroup
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_CONNECTOR)	+= connector
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_CORE)	+= core
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_COREDUMP)	+= coredump
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_DAMON)	+= damon
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_DMABUF_HEAPS)	+= dmabuf-heaps
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_DRIVERS_DMA_BUF)	+= drivers/dma-buf
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_DRIVERS_NTSYNC)	+= drivers/ntsync
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_EFIVARFS)	+= efivarfs
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILELOCK)	+= filelock
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_BINDERFS)	+= filesystems/binderfs
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_CONFIGFS)	+= filesystems/configfs
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_EPOLL)	+= filesystems/epoll
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_EVENTFD)	+= filesystems/eventfd
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_FAILFS)	+= filesystems/failfs
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_FAT)	+= filesystems/fat
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_FILE_STRESSOR)	+= filesystems/file_stressor
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_FREEZE)	+= filesystems/freeze
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_MNTNS_UNBINDABLE)	+= filesystems/mntns_unbindable
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_MOUNT_CYCLE)	+= filesystems/mount_cycle
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_NSFS)	+= filesystems/nsfs
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_UMOUNT_PROPAGATION)	+= filesystems/umount_propagation
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FILESYSTEMS_XATTR)	+= filesystems/xattr
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FIRMWARE)	+= firmware
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FPU)	+= fpu
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_FTRACE)	+= ftrace
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_GPIO)	+= gpio
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_INTEL_PSTATE)	+= intel_pstate
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_IPC)	+= ipc
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_IR)	+= ir
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_KCMP)	+= kcmp
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_KEXEC)	+= kexec
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_KSELFTEST_HARNESS)	+= kselftest_harness
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_LSM)	+= lsm
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_MEDIA_TESTS)	+= media_tests
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_MEMBARRIER)	+= membarrier
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_MINCORE)	+= mincore
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_MOUNT)	+= mount
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_MOUNT_SETATTR)	+= mount_setattr
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_MOVE_MOUNT_SET_GROUP)	+= move_mount_set_group
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_MSEAL_SYSTEM_MAPPINGS)	+= mseal_system_mappings
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_NCI)	+= nci
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_NET_CAN)	+= net/can
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_NET_FORWARDING)	+= net/forwarding
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_NET_MPTCP)	+= net/mptcp
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_NFSD)	+= nfsd
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_PCI_ENDPOINT)	+= pci_endpoint
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_PERF_EVENTS)	+= perf_events
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_PID_NAMESPACE)	+= pid_namespace
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_PIDFD)	+= pidfd
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_PIPE)	+= pipe
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_PROC)	+= proc
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_PTP)	+= ptp
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_PTRACE)	+= ptrace
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_RESCTRL)	+= resctrl
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_RING_BUFFER)	+= ring-buffer
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_RLIMITS)	+= rlimits
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_RSEQ)	+= rseq
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_RTC)	+= rtc
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_SCHED)	+= sched
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_SIGNAL)	+= signal
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_SIZE)	+= size
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_SPLICE)	+= splice
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_SYNC)	+= sync
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_SYSCALL_USER_DISPATCH)	+= syscall_user_dispatch
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_TDX)	+= tdx
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_THERMAL_INTEL_POWER_FLOOR)	+= thermal/intel/power_floor
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_THERMAL_INTEL_WORKLOAD_HINT)	+= thermal/intel/workload_hint
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_TIMENS)	+= timens
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_TMPFS)	+= tmpfs
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_USER_EVENTS)	+= user_events
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_VDSO)	+= vDSO
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_WATCHDOG)	+= watchdog
++selftests-$(CONFIG_TOOLS_BUILD_SELFTESTS_X86)	+= x86
++
++selftest-flags := CC='$(call escsq,$(tools-cc))' KHDR_INCLUDES='-isystem $(CURDIR)/usr/include'
++
++# Unlike tools/build, the selftests do not track header dependencies. A
++# selftest is built again from scratch when its own directory, a header or
++# makefile any selftest may share, or the kernel sources and headers it
++# includes are newer than its last build.
++selftest-shared := $(outdir)/selftests/.shared
++selftest-extra-vDSO := $(abs_srctree)/arch/$(SRCARCH) $(abs_srctree)/include
++selftest-extra-x86 := $(abs_srctree)/arch/x86/include
++
++$(selftest-shared): FORCE
++	$(Q)mkdir -p $(@D); \
++	newest=$$(find $(CURDIR)/usr/include $(toolsdir)/include $(toolsdir)/arch $(toolsdir)/testing/selftests \
++		-type f \( -name '*.h' -o -name '*.mk' -o -name Makefile \) -printf '%T@\n' | \
++		sort -n | tail -n 1); \
++	touch -d "@$${newest:-0}" $@
++
++# As with "make kselftest-all", a selftest that fails to build does not fail
++# the build unless FORCE_TARGETS is set. kselftest_deps.sh lists the libraries
++# it needs that the compiler cannot link with. It leaves files behind in
++# TMPDIR, so it gets one of its own.
++selftest-failed = (cd $(toolsdir)/testing/selftests && tmp=$$(mktemp -d) && \
++	TMPDIR=$$tmp ./kselftest_deps.sh '$(call escsq,$(tools-cc))' $(1) | grep '^FAIL' >&2; \
++	rm -rf "$$tmp"); $(if $(FORCE_TARGETS),false,:)
++
++selftest-targets := $(addprefix selftest-,$(selftests-y))
++
++__tools_build: $(selftest-targets)
++
++PHONY += $(selftest-targets)
++$(selftest-targets): selftest-%: $(selftest-shared) FORCE
++	$(call build,$(outdir)/selftests/$*,-C $(toolsdir)/testing/selftests/$* OUTPUT=$(outdir)/selftests/$* $(selftest-flags),$(selftest-shared) $(toolsdir)/testing/selftests/$* $(selftest-extra-$*),TOOLS_BUILD_SELFTESTS_$(shell echo $* | tr a-z/- A-Z__),$(call selftest-failed,$*))
++
+ PHONY += FORCE
+ FORCE:
+ 
 -- 
-Git-155)
-
+2.53.0
 
