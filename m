@@ -1,86 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622352;
-	b=qks6OZ8ssnR81n4zW6BMiQRf8rYRNUFD8mws29TfzmMInw/GM55LlfuckQN+VhtVOo/c
-	 +VPEK8mc2kjsmcoeJrHFwZNeqPdstzoWH1/N5SM1CZcIAo7+3GkMJGVFGjNXjIQfRCN1r
-	 LWaC4QwwGsF8xSFk97JSJtx3yRrLVA2Mg3+arLBzNQucrl/okzY6sf83vIyYl2kJfqcfM
-	 +Qq2HER3VivQt7KkN3OmcO2vftGoOn4PhFKrKBM9nG8gB5GNFr4JnzOPayuScXgGLtBST
-	 qmlHeFCKVzpA42+lEUgLapIFwbhPzcwm0f3zs3i0uKUVfzkoRdyCbz7nZIxlckicpvQ==
+	t=1793622383;
+	b=zC2hRjQNvftVHSmF57r036SngHbLOXGH2tDMV4na3ABqRXhsftsnWgJKhu3pW7JICVo3
+	 wURkf3tv9cWOvwQaXuRO857kCEVgYlMxSmPgfK7EsYBcXE5OPuyXL9wf+eTpAFlsJSfnc
+	 9EFeK9SCTuURaOij6qqSYYVD5cyFvi+CNJeWvxdGzWUEGt0/I/IGahTPqb6bhvlE+7PJ6
+	 91Z8/ai3ayqyRMVC/q568ocMDkq+/ap5Do831S0sJDx8Ic3G4xbgzVsNdJgqQLmwTMIEw
+	 96ZNcCyLTllnd91rAlxpvPwyoharSvHkpWyIHZVVa2IhoO/EeOnxZQDQurJ7oWOe9GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622352;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nhXQ2Ame5+daf54wfwzPP3l2P6rp0yUdRpVe3pvTfes=;
-	b=iIWyWcgm+dSKJ/1mo+FD/jF5ONsOU97XbHzitw+e3n9UafjAT/vs/3bjPGRadIDjlcAZ
-	 MrOsnVlg7Xhvvm9HqXNElty6HYas8yqKeHy4e+b6zythVD1Ld/KgaVpPV19P/l78Gm5vH
-	 SFJti/ojMfk5Jr60REbDem3vG44k2YhMVTXKW+9LxGrunEf6XMVsala0nw6hxiJ2NgFlv
-	 /CqestyrmNN+M6rrZZN2prUO5PVlJ86xjM3juOhbkyLtAZ/GVLDBb3yEJlcEYrRtCIqqM
-	 4pPl9cobEYbYID7mmFn62RLhf3g5zCKaTaQ90HkMXjVMViLy7aaK2dlQIqxqw1Gd4OQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622383;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=kYoEHv1yJWT5CYnv9W1t01akAHdAj5zwmImIgwGqYBU=;
+	b=xruonbtZ8lCWAiP14uImJJVWVHEQkBTzz5qepOVvQM9QWRFh5u+SjG46aFV/S1Ek76+q
+	 Y1859BgBGeqm/QCRYrvGq7MLVMM1uPdA5QfHBvOWtYsOOXUFlAyyK1z2UOGfCltB1Kh8J
+	 uzWAa3W4YKLwjmE7FUWf7Q7GLmxK//fI8funPiIA0KRZ5tKQ+eMdjZ9btqUtA2zlWSTcB
+	 0p9Zobtdy0ICJZH415fViKX6AXEm8sbmN+Zz8KhTjdqKcrqXMOgHdorWxoC9G4ze8efNv
+	 txt3xky9VAMDRWqbTBbPb1rSb6lxMysF2yX3HcPORX4OBL41zGaNR2vwAcYNlBaiW5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=FjuC4ywp;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731EF606A785;
-	Mon,  2 Nov 2026 12:25:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 731EF606A785
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 836a81b8d6b811f19a56ed5b684f684d-20261102
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, SA_TRUSTED, SA_EXISTED, SN_TRUSTED, SN_EXISTED
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD
-	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:ea2e17f3-a9d6-4002-8a3c-1a5447129d31,IP:10,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:10
-X-CID-INFO: VERSION:1.3.19,REQID:ea2e17f3-a9d6-4002-8a3c-1a5447129d31,IP:10,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:10
-X-CID-META: VersionHash:7db8b62,CLOUDID:639da65dbf4e7f0356cae5a58ab4b3f1,BulkI
-	D:261102202544SBVQ7N2X,BulkQuantity:0,SF:17|19|38|66|78|102|127|153|865|89
-	8,TC:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS
-	:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,A
-	RC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 836a81b8d6b811f19a56ed5b684f684d-20261102
-X-User: husong@kylinos.cn
-Received: from ctao-book [(114.244.3.119)] by mailgw.kylinos.cn
-	(envelope-from <husong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 721082814; Mon, 02 Nov 2026 20:25:39 +0800
-From: Song Hu <husong@kylinos.cn>
-To: hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	roman.gushchin@linux.dev,
-	shakeelb@google.com,
-	muchun.song@linux.dev,
-	akpm@linux-foundation.org
-Cc: tj@kernel.org,
-	tjmercier@google.com,
-	ddrokosov@salutedevices.com,
-	cgroups@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Song Hu <husong@kylinos.cn>
-Subject: [PATCH 0/4] samples/cgroup: fix issues in the event listener samples
-Date: Mon,  2 Nov 2026 20:25:24 +0800
-Message-ID: <20261102122528.1498193-1-husong@kylinos.cn>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317D4606A785
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:26:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 317D4606A785
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=FjuC4ywp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1793622370;
+	bh=kYoEHv1yJWT5CYnv9W1t01akAHdAj5zwmImIgwGqYBU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To;
+	b=FjuC4ywpgmDhy1DVijeU0zlWbRfHWZvmAxDzZDk0A9GiKemI8FT4u43vmPJf+zJiS
+	 fQGYn7a7wZNd/46mESKNy8b8yVEmR554lXCcMWsJAr9MfsLU33zirii8+sRcKzo2oi
+	 LTdgKvaybh+JhC8/AyKPKmcJwfZ1YI6EDNLg8akg=
+X-QQ-mid: zesmtpgz8t1793622369t830130f8
+X-QQ-Originating-IP: tP4k4YoUdrk1slphkEOZp1b+BtaCl0ncYDtGj7CVP4Y=
+Received: from mail-pl1-f175.google.com ( [209.85.214.175])
+	by bizesmtp.qq.com (ESMTP) with SMTP id 0
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 20:26:06 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13417748600079865591
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e987b4a710so21103625ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:26:08 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwtWKQ4L+SQ13sfTuRInjUoc8IFXkOt3PymlB9r9FMU6YBYLhYsxMLGJlvkaBSxf198pG3gpuoBI0OSex8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ryzLx14DN2axOMY8iVdzwzL7zMvgRYPD8w+Vzo1IndRgqwDtr
+	sS+g2eTTMH3AlTFucnqQgRUyFbLEEPB4HERLTmgyojbPqrV/specbBLqi2ivwTwG8y6GxHn3eyF
+	DG6CJViirNH3legQxOCm7mvCogdoOICw=
+X-Received: by 2002:a17:903:1212:b0:2e9:fd49:64a with SMTP id
+ d9443c01a7336-2eb3640f012mr65226725ad.1.1793622366169; Mon, 02 Nov 2026
+ 04:26:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,47 +68,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com>
+ <auYxFRtKWbGAlRTL@aurel32.net> <CAAfSe-shesRwmdKhZojqbZjJejVEtA47NXBwNmrpAsTsk6m5rA@mail.gmail.com>
+ <DMKIFFUY4T1C.TTDVVD0FOSF1@kernel.org>
+In-Reply-To: <DMKIFFUY4T1C.TTDVVD0FOSF1@kernel.org>
+From: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
+Date: Mon, 2 Nov 2026 20:25:29 +0800
+X-Gmail-Original-Message-ID: <648788BF6233AD63+CAAfSe-uMrrX2Y_mzt5-Hhr+ssfwLVhs094PBb-ZTgKFLPwVjgA@mail.gmail.com>
+X-Gm-Features: AclHuK8Nf_Wjx0Fs3iSP6YTyXDr4sshL9mP7vgixNBtorqmmqEdGoXFlzXEdNkY
+Message-ID: <CAAfSe-uMrrX2Y_mzt5-Hhr+ssfwLVhs094PBb-ZTgKFLPwVjgA@mail.gmail.com>
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
+To: Troy Mitchell <troy@kernel.org>
+Cc: Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Aurelien Jarno <aurelien@aurel32.net>, linux-kernel@vger.kernel.org, 
+	spacemit@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, devicetree@vger.kernel.org, 
+	linux-riscv <linux-riscv-bounces@lists.infradead.org>, 
+	Troy Mitchell <troy.mitchell@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OPwCOm/aw9wGRj4dH4gSoQfXH1bSqs37vg84z1cC9RKX5O8Ui4kWmZLT
+	0J6Hu+/tX19EblazNpgyZDFdbXGkD6jTc4R0vN5iWSiLoS8vBaxoMv/kcQwkD0+ahPa6IV3
+	vSgrtRHr+9jzh/noZDe/EHbtqGzlMJA2PyVJk3+JYhcqPG4ngW8hoa0/r9NH428IufbJdUM
+	p+S9fwdQb6hz04mZltGvLGCTVS5vcXuAp2G5dd6f9/AftcK5HhSBUjjf76bdP1Ao4IefC97
+	3DP6G+8Wug2XV/lJNvjb7rnosQh+rFsqFlTN8UrZhSj5szGRn69xuu1E1rPVkIlhf84tCTh
+	9rLn9U5P3Kg8u9P7g71IAPThCcmhYAxw/5BdYHxpUr7J1FlVICYppCRIQyRrwz+2XgH3dd+
+	KDKm3V3Ez5WT1/NoQQnywB40FLicZ/3dMVH+PPmFw87FWoJwQIVGyP6HI31e1sCN20cYf0H
+	76EZkHX/C4mmrIm/sU8froOLxk1HXdEM9S+W9ZpYJAkOgl8m824nZtw59VEDuwtGOeHmDlm
+	FuOa7g9Z3li4SG1NaLO1YgIVSjWa4UnpQrAoOgJnyvnsZmQy+RwEi9zP2NeNPcJ1SdgYQGn
+	kNY7FJ0531lCkUD5RDMhJCuFs4CGLbaqt4ScX5rLiOpO/ddo7X4EjKRhDetMw0u9ABIK616
+	aiDSu99J//YfQ+Ew1RQgtPFU3rdx6Tm3z5cyKhFqkMRw2ODnjugvfmGlKcIzSayte1tImBy
+	57kLYiDCxE4psdmWL/rfyOekPIBoBuKiBOD2zhaIffBuaJbgLki4xXfrSjL5diaDy17TmvB
+	cb3Sjk7RNYhKEXWIbibvfoLehq6n+voQUSE2ZxhjIlogY1G/4mm6ZueBcGn+ffOsHWhLh0+
+	xSenZJvI/irQdu3ShPgm1P3tm96a49Mfm0m8RKTg/shBLdf9bL2fIbzSU3IfUNh1bJF2t7s
+	3qTCbICcH9fZWbyH/GF2QkrotYTj34nTz+yHBhCEHkWJ3mcsSMIxanSdM6I37Q757SUq/2g
+	pouGkEPv/npyJLTxioKmtFqqXe0k4KQr5cjTXOssAIqvltWoQtj3CLPp4qzjplJPdhNOZSc
+	+9lSDu40e7W
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-The two event-listener samples in samples/cgroup mishandle the
-lifetime of the monitored file and poll() errors in several ways.
+Hi Troy,
 
-Patch 1 fixes the poll error guard in memcg_event_listener, which
-tests "errno != EAGAIN", an error poll() never reports, so an
-interrupted poll (EINTR) from a signal exits the listener instead of
-resuming.
+On Mon, 2 Nov 2026 at 14:27, Troy Mitchell <troy@kernel.org> wrote:
+>
+> Hi Chunyan,
+>
+> On Fri Oct 30, 2026 at 5:40 PM +0800, Chunyan Zhang wrote:
+> > Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
+> > of the K3 SoC.
+> >
+> > Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
+> > yet, so the port runs at high-speed (maximum-speed =3D "high-speed").
+> >
+> > Enable USB3 port A with dr_mode =3D "peripheral", so it can be used as
+> > a USB device.
+>
+> Port A is a Type-C port behind a FUSB301, so please note in the commit
+> message that it's device-only until the CC controller is described.
+>
+> Was this tested with a C-to-C cable? That depends on the FUSB301's
+> power-on CC mode, since nothing configures it yet.
 
-Patch 2 makes memcg_event_listener exit cleanly when the monitored
-cgroup is removed.  Since eea5d2bb34ba ("kernfs: Send IN_DELETE_SELF
-and IN_IGNORED") kernfs delivers both events on rmdir; the sample
-warns and keeps polling, so a supervisor still counts it as alive
-while the monitored cgroup is gone.  Verified against a real
-container lifecycle: the unpatched listener stays alive across
-docker rm -f, the patched one exits.
+Just tested,
 
-Patch 3 arms the inotify watch before reading the counter baseline in
-memcg_event_listener, closing the window in which events were lost.
+On K3:
+~ # ls /sys/class/udc
+cad00000.usb
+~ # cat /sys/class/udc/cad00000.usb/state; echo
+configured
+~ # cat /sys/class/udc/cad00000.usb/current_speed; echo
+high-speed
+~ # cat /sys/kernel/config/usb_gadget/g1/idVendor; echo
+0x1d6b
+~ # cat /sys/kernel/config/usb_gadget/g1/idProduct; echo
+0x0104
+~ # ls /sys/kernel/config/usb_gadget/g1/functions
+acm.usb0           ecm.usb0           mass_storage.usb0
+~ #
 
-Patch 4 stops cgroup_event_listener from letting dirname(3) modify
-argv[1] in place, which truncated the path reported in every event
-line and made the two-listener setup taught by
-Documentation/admin-guide/cgroup-v1/memory.rst produce
-indistinguishable output.
+And the host side sees VID_1D6B:0104 with no error. This is not
+guaranteed across all C-to-C host/cable combinations =E2=80=94 will note in
+the commit message that Port A is device-only until the CC controller
+is described, and that C-to-C behavior depends on the FUSB301 power-on
+default.
 
-Patches 1 and 2 were verified against a real container lifecycle
-(docker rm -f) in a QEMU/KVM virtual machine; patch 3 runs on every
-listener start; patch 4 is compile-tested only.
-
-Song Hu (4):
-  samples/cgroup: fix poll error handling in memcg_event_listener
-  samples/cgroup: exit cleanly when the monitored memcg is removed
-  samples/cgroup: arm the inotify watch before reading the baseline
-  samples/cgroup: don't let dirname() clobber the monitored path
-
- samples/cgroup/cgroup_event_listener.c | 18 +++++++---
- samples/cgroup/memcg_event_listener.c  | 50 +++++++++++++++++++-------
- 2 files changed, 51 insertions(+), 17 deletions(-)
-
--- 
-2.53.0
-
+Thanks,
+Chunyan
