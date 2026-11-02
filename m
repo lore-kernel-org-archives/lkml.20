@@ -1,59 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793647073;
-	b=QTh9jDni8ocJfbcYTRXv+AOVtAmpl+bK6q3xTosbEgT54Nbjo0L+AFZoPGM6IaTWjdRU
-	 R7Wcw8DVha2VZge1uOuojqUOJ0UbSulKZyHiglDXm7dSpNFfSaVd8UYaIuKPXbI9cPK/0
-	 5fa54UjmbF3blBo3z0XEHbRozhbxILYfPe9cQn8lsyJmCOTJA81tkME5YJ7n5Jaw5FkBr
-	 MzIK8fbUiAGftA0EPZMJy2Y7tbOl1CcgjL4nc8Wr6mrRSgQXqebkTHmjIsHuwRSt7v905
-	 S99PLeHTz6KQ6Ot2G/aBmntmDhCNfBgqUyMaGlzJ1bgKff4Gl0phYcKOv1UQ7jH08Tw==
+	t=1793647074;
+	b=HeAiDkcU8THpqnlyQ+yoOMLUrARLCLeHOVTo5M2Hu8taan3k2plWpxhexdaeoJWRoCzD
+	 tW4C0BI1xuBSlNW7dtmV+8w5FCMwuiqvrtSbsSeUXnVw0HGHRbfDU5fZ8T1Mp5fGudC+z
+	 qY8WVZT0VoU7EfkReBmd80CBtR96g4jRhlSH2kaDNwIBzKwngTatz3WWJpGYtLFacoBXy
+	 00S9JjRuYxedR3gAd0+Qn7Jl29J353n23UiXT5jT7zOprWRLDkR+BQqttN0kO441a4V+8
+	 T/Yqpsthpl51XfadD8p1NGrspdNyYBzjtgYgY803DCemouyhq9nsVrCUkE1tiNvgs7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793647073;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=/BvsI10eotFI4ccYQ0bO5MbbNbTZEu74xghGdzxZ0bw=;
-	b=gji4XKlHaUpZ7R8RN9nnZnOx90KJig64r21qYOfcmJ1KAPiJoUPtZXICxu+cDoEQaMgj
-	 2MJdbwnEtYk8M5S/UIxRPAU9rnyuXrdJV7FL/EXoq05xF6av9iYITpENQMM+BPQZW/1a5
-	 lpug8eHC2Bxt9Q+sAow1jet/xVIjCaW+dUD8rs0rblInuZ+o7pmY18H4FeIUBEbyCkohD
-	 VO/hBUUcuaOxMJlsc9k5dyqE4zV7AZeTcHVH2fkQi8yaHJiHcVN3jbKlY9dhxoAHj/1l4
-	 FmJY/wHBc5oJjyVT69yhdwdiHIcQsblvTSyA+X7jxlu13nB2OkZa/m2GiyMJcn2xv1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793647074;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aVE8zme1iRyvaHJJXQb1UnPAk3BxoHJBltYK6kSmEUE=;
+	b=uXNe7lc7mTPEbPMjcv9bLaFcBSbMPUi6jaNbFVc4l52QYcEh8PCqXRENd7aFlucHIshe
+	 zNMnCuByHbCjmDdIagUCx3VzTMBSyb1QqetpvYE6c+dFKPF6ajlIBFmtJLKOE65OC/Iym
+	 tFAE8EBOo90E63vDudOg3GLiz/EkSvPrOnpc3+rLTyOuDNPWMovHdqvblXRDqr3Fwx6jx
+	 KeDTEm6YSAUGlZQgh2oBbnFKa7UBZS9chUYWhzu6VFXIIxVji6lHEHq3p/U39pT13A0fa
+	 E4R+eXeri9e9t44aevrCudeZBabN3kt4NUpgfI02W2fgB7GkffaFLrbEkqnK301Pnww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Grf2/mtQ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m3pS5Pyk;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B264606A324;
-	Mon,  2 Nov 2026 19:17:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14BB606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:17:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B14BB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Grf2/mtQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7474B1F00A1B;
-	Mon,  2 Nov 2026 19:17:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793647073;
-	bh=/BvsI10eotFI4ccYQ0bO5MbbNbTZEu74xghGdzxZ0bw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Grf2/mtQ+QROHEH1KzGMtTYTM5qNC/Kou/zB6QXwZxEIwo/xHAra+SIC/iEA9/LCe
-	 P4TiiH1D8U7Nz7+djrPSS7KvVqgHOHzykqMLc1CBClcMSeRkf5uz/iQ1jKauNjAd8C
-	 i+Awp2VwsjRFtZAc+59LF3N7AFa8v01vUqDB59vcm1PWyoKbMIZcmL5vL2JlDDUmhV
-	 EAiSbEmbfjHcQqK2RTTy81NXdxPIfejDtVX+iexGOzvchU/Co6157UB9w7mhMdlFST
-	 wwyA2w1d0hxznZ6pGQvl8enh9PnFO0ZHtpau3IXUWsHWEMN1X9rZQ/PEPTsfWFlAK9
-	 UgUY/S4zlq1hg==
-Date: Mon, 2 Nov 2026 19:17:48 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Greg KH <greg@kroah.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	LiuJunyuan <2058432396@qq.com>, Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: linux-next: manual merge of the staging.current tree with the
- mm-fixes tree
-Message-ID: <2ac173cc-d840-4afe-a9ca-e2197c9be530@sirena.org.uk>
-References: <auib_crbWYfKZw9V@sirena.org.uk>
- <20261102110214.26627fcf298c77b8ceee12b8@linux-foundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m3pS5Pyk
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c4be28b82so3605161f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:17:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793647072; x=1794251872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aVE8zme1iRyvaHJJXQb1UnPAk3BxoHJBltYK6kSmEUE=;
+        b=m3pS5PykhHodyqYuJX7hbI7UnTabwyROLm/nHosoRh1WH8eaYcpdCffqwnGJZ5vlr6
+         J4m2HnK+qSU46GAGHphS0pQUdIaTe5eS4fHma2m1WlWvOIB15TWZ4hydxRUI/f7DrznN
+         ZD3ekvoY6/ZfUGzRvI8oKEcF2VK6+fwODHyj5o4MPrfie8oWYl8BGgz6HWGrbPV0zwxz
+         sBblv4fRnzBuKs4k71fXjtr0z+ahRidzy6ORUFT4YXW5Eu/yBwItKZe4BhpG/LqE6L1x
+         DdYY3GY731RDK5tnmwm3ZYI9Jxd9jb6cCSH0jaU4WJiQqbg2DBg5iGdCap9sblMd2+Yt
+         4ezQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793647072; x=1794251872;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aVE8zme1iRyvaHJJXQb1UnPAk3BxoHJBltYK6kSmEUE=;
+        b=UpOWUX5xZpcAq3ttZ/RDZa+HfkkpeF9pqk1p05XFq4odgHMGDmbK/dLGzO6O/V8L2+
+         /vJxhjLKzyI0PifdbRk6GiiXyJuVyaBPvwi3XX2Bf6DEO3ny60uNZbQBPVAcfG4A/zTW
+         R7mKYPZ5i83hKX0HKfSgXK1tlENsYpLga7tYv7r9GL2ZX+KhXIobZABZXCybBD6NUKe6
+         TBppct+I4eIq8scQrlbI1/nTMejOhmGvyevbFZOu0DKvQNR3HzA73HpEGypU7oC/v7hm
+         MwjOOHrLM+RfeT6xAWrKBpmmK4mItbardewwmnCv+3gg/5PQmIVqQeqoRVZ1eUb/6ycd
+         3fPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwfl58JshXXq85WXdhk9F65yx7oD6mkDMYLqXfhD9TWseM7k2NGJxL4mrr/IkpdhY+FysM60Fnn84tsnPg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbNzHSqMuRuYFtDW3zuovqwxuaXnvyljcnGyk5r/FtNWQdy6v1
+	5Qi0zAbggvxmEUFOpaqM9bNdB6fTQUh2+L0r2NfbKPgJUid6T5HkdLYyjnSq
+X-Gm-Gg: AYBFou2EdnlSHzZTl5NhGL8YcWcpFcm0L0YSjz5WnpBbhYvqsculJlWh/1p9QP3hjoq
+	pbl6Q+EIqkWRKadm5Lod3GHfdd/UY95rdQEcj37DNvuoKAu1QvqGymrVzf78wS/gTx1tXFGTeKJ
+	plCxq7SECmZLhJlabjKq/+ZSfYTSrmW3iGmqNb8bA4DMZqZ7+fsTkueR9d9XGiqWynR8LczooL8
+	hpg+5zfqPnsEgETSmrU79tLbcrZhm0bpSBfBKfd6RnmO4pij+pvujFUivVi4rag5D8pf39qFcfa
+	aZUk+6gjHxLF/vv1WNw0FtDGjCF6DaWGRAdfIsPGDaz+hQ6uVaLeY3ssEEP/kczL4sQXm0md06b
+	9G7pIeYT96UXuu4RQONVo70ntNXyFjnB2etfeooSFsZxPayEj2qsvKfm8i2IDdCStFsCNq4T4R/
+	1Dn7PY6V2S9/Ywnkn8RyJY68DwndIkacZQORsonq0/mBUAHi6epqa8M3PgVB5Zp6rrYqLzFEgkT
+	j0EAkal9uWMmeq7Pe/f6D4itames4XFxOar0D4WSs8kk7YNCWVcyci4dV+r4PL4EHCm/R0OfMoo
+	g3+R8TqtoI4=
+X-Received: by 2002:a05:600c:3b18:b0:4a1:c5eb:b445 with SMTP id 5b1f17b1804b1-4ac1932b542mr261291925e9.35.1793647072092;
+        Mon, 02 Nov 2026 11:17:52 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d4f9sm21801298f8f.2.2026.11.02.11.17.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 11:17:51 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Felix Fietkau <nbd@nbd.name>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH wireless] wifi: mt76: mt7615: cancel coredump delayed work on device unregister
+Date: Mon,  2 Nov 2026 19:17:50 +0000
+Message-ID: <20261102191750.2308294-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,54 +101,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yGUAmS71DtfVhYdd"
-Content-Disposition: inline
-In-Reply-To: <20261102110214.26627fcf298c77b8ceee12b8@linux-foundation.org>
-X-Cookie: Used with permission.
+Content-Transfer-Encoding: 8bit
 
+mt7615_unregister_device() calls mt76_free_device() which destroys the
+workqueue without first cancelling the coredump.work delayed work. If a
+firmware coredump is in progress when the driver is unloaded, the pending
+timer can fire after the workqueue has been freed.
 
---yGUAmS71DtfVhYdd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add cancel_delayed_work_sync() for coredump.work in
+mt7615_unregister_device() before the mt76_free_device() call.
 
-On Mon, Nov 02, 2026 at 11:02:14AM -0800, Andrew Morton wrote:
-> On Mon, 2 Nov 2026 14:19:41 +0000 Mark Brown <broonie@kernel.org> wrote:
+Fixes: d2bf7959d9c0 ("mt76: mt7663: introduce coredump support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> > between commit:
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c b/drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c
+index a9178e077fd6d..c06b0301a4e4a 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/pci_init.c
+@@ -124,5 +124,6 @@ void mt7615_unregister_device(struct mt7615_dev *dev)
+ 	mt7615_dma_cleanup(dev);
+ 	tasklet_disable(&dev->mt76.irq_tasklet);
+ 
++	cancel_delayed_work_sync(&dev->coredump.work);
+ 	mt76_free_device(&dev->mt76);
+ }
+-- 
+2.47.3
 
-> >   88c41b4cb3432 ("MAINTAINERS: sort component entries alphabetically")
-
-> > from the mm-fixes tree and commit:
-
-> >   24934cb6b8cd9 ("staging: vme_user: delete driver")
-
-> > from the staging.current tree, the rare delete/delete conflict.
-
-> > diff --combined MAINTAINERS
-
-> OK, thanks, that's nuts.  I'll make those two patches go away for now.=20
-> It's not exactly important stuff - think about it later.
-
-I wouldn't worry about it - the actual conflict is trivial, the diff
-looks much larger than the actual conflict was due to it being diff -c
-and MAINTAINERS being quite busy.  Just plain diff is empty due to the
-delete/delete.
-
---yGUAmS71DtfVhYdd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmro4dwACgkQJNaLcl1U
-h9Bymgf/X35vzgT9WBb8nR+DXUMMKa6U10lLol0JGB+fuEvRIW9FBdOVFAw5q6SV
-OIfw/CD91VEtCwN6j6JNhPsy1rTNempeejj5wbExpvFGALYOKyqMWG0SjHy/3G/D
-IR3Hhq6dm9U0AQHTUeaievsigKsbSHQgYBE8BnMd+fDDS07G5hDdwwtaxV0TiPfQ
-fYG2IbLt3ZHjtuL1itFoKoqhVSJlyrbUCf2+ht3hf44n/z9IL4NwsuaZ74JLlpxt
-59ZXc+BB0wwCSRUsyFsbGy/0tVriFCwJpNYU6UX0ejt3Qt2vGzHZfGIy3lskjJVm
-A/2HaeJn/yIRuQdNN9wNafDFyPXerA==
-=D86m
------END PGP SIGNATURE-----
-
---yGUAmS71DtfVhYdd--
