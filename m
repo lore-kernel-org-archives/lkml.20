@@ -1,98 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637292;
-	b=K4s/WPniVoUk6PeE4rWduJGHPfM7ZJAALyAprRLsie12v9IZk0eIjgXczZY0LlP9MkRB
-	 KTgBnr10d3X4wSuYhllKWaxFZj6txAIYqHgjlS6BkrPI5/jP2v6peTU8bDPksblxvZDQp
-	 CdaujT0kXuezMvunW4u6TzkUKXBuIgxl94nxVS1cH93hNw0oUxu4A+en3vobRMwiwYw+S
-	 sLWX+ESUK5SZ/XBuDzAU/TNLBvGDjf0gxaN9M/cgJ7f/ThN7k5q2ZW9hZGo2krSmeJidQ
-	 mdydIKNiuQ/DKnux3/nZmSf+2xtj9TmIYwuTRIit5mu4s620TP7la9w6tWBOiz3fe/g==
+	t=1793637345;
+	b=XzhxeRbyUl0hk4fou+7yLRTDXLL97talOrpaM+utffwjcR2ZEH7zvGvEQygwZLmjykYu
+	 i9THBDG48qKrKdpW/fIwIIkFlWBu6X9J/vdlT76r/sT+0sRkcR4XdsYaaaBz8/dTagVBf
+	 rCoF1OCQJ++6fVsCimabTNcoTIYqi+e/0iqRzHEw32Y5xIqpqxi5ioo1UguWeMsiVJnpp
+	 ylTGz5Dkz1OZBA0nI5hm8x5Y+kNb40drusHEfPDQHd0Nanoj3XVk2wX6Dmxp6vur3MCA5
+	 4gOXySrP/HYtI1EZqYd2O9qvPNHFBLT39R8LrIPYnLAmPtXksnARBMuR44AfWsXO1Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637292;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MoheuHlEpuNPoWzdB4Mk7XB0qKShtlyf3pRl0wAuuZ4=;
-	b=NEtheML/foL3/kC1zwoUGMwsjDs9dJ9uJx4Vi/R9kER0ECz5YZVzDEnf/4miIdONCzFj
-	 bLHovBqdjG+X92b1JUWSvG2Plw3MbH3GRKcUefAgiH6A7pMlh2GHRt96vBljD8VRvXKhl
-	 VmS6JYxABI+2uyNQkJn58OI0ADVO3XKZKR97QpaC3/boaENz+Bd9ue3TIidF2t6lJqxg5
-	 CngLkxXO+0HSuYsFRhZ2q8/LAPyI23PCCaWc3rrFG7f+982Mx2z29XGiSTP5ceFXOCUAO
-	 XMMo9VyNEoKWyBBmCU+JhEm/X3rEoHgkplRA4DphJFX7o6IrfF2mDyJukaTpCLpqXAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637345;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=HcwaI3pW/80H6haxw0NcngNpoXS0R7BCzSXcfAhrIDU=;
+	b=a7QAHXL5Y+o6sK9ZyWGHcZItVxmq3YypH17oFzXADwMIrOAgLB5CZ4V5ej9O9Yl8kG5Y
+	 0rR3XA13F2LDuWn1fynf3Qn9xXXrr60XIJhRPLlV/dL5zbVsOzhFp+QJJ7dlY/k0begsO
+	 +V5pf4aNAz5opCcgCXDo4Xryw+mnEBHU2A8cbw5jU+ijfYn7hfJHUCa/h57DxViYMItpT
+	 5B37V1kznVduE6t2KpyOo/06MDr0NXHw4dJ22I12Pq91EykJQ35Z2dsgVifmjsQ2dubUS
+	 YJmKpELBjA/Qsfqvnf5YYQLu4g9gynRrFAquVXpdDHYmKIh4+ls80lRcAvaFZvAtbrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eEHMoZfP;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="xU/AoOCF";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8bnDqeXu;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D6B60A0FCE
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:34:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6D6B60A0FCE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA49606B0F0;
+	Mon,  2 Nov 2026 16:35:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA49606B0F0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eEHMoZfP
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so28961565e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:34:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793637290; x=1794242090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MoheuHlEpuNPoWzdB4Mk7XB0qKShtlyf3pRl0wAuuZ4=;
-        b=eEHMoZfPxt7t8LAl1efVvJZhCQumQ4eJSe9y9i4oiQZY3kQu9FQ0uVm24RoSiwebmH
-         sHGBSZziNi/qKyn4jPgcjqgjN756cfG/XKqyFI6PiRU+cfgRHWyK6Y3WP9Yp5kf27ZWI
-         nzELxJdCacN9o3PwU+T29HirNpAiT7bUj4rkVtnQ8rIdk+WZsHoH7Rh9LPpiV98VE7Xy
-         MyvErbDH8gws4nScN/JoWhHs2PABx/uOUQ7cSZhSTVfMI7S4mTr6ySEYssrPHK6HSe3F
-         2lST/3OOOcTcRqyqdJT+cHVIik7L6Tidsj95Ma3IM7LgB4iA45tGQ+/mUO14YY4ybVt9
-         QHAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793637290; x=1794242090;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MoheuHlEpuNPoWzdB4Mk7XB0qKShtlyf3pRl0wAuuZ4=;
-        b=BVXupbHztxK6JXqzXfzV9ckBjDAzqMi4yA/l8y0X+kjdSahk5S3fmZa1gytPQT9qsE
-         y6M1RnEoQnHv+U+9CyNV6jupm1sAKG8GEEw1krJMjEsexxekwnmBYosLRD8bFDMQPSmj
-         iIlB9xmmMt/Fyypp2FOeucuWDoaiaoT64I3vzpFl1xJnLri+QefrocKO8dW0pqvo/Q8h
-         alNtugEQnVI+1JXm8e0ltUcMxI7PWEYDEv8TN11Dcbe1qHCFI40m96HnieZq36kk7Zgu
-         gavpgf0fQyTtnW/rK6aYWePaiICkS1UTIJjCtv00ayheIiBYrElhx49096PVO5Drasox
-         OPOA==
-X-Forwarded-Encrypted: i=1; AKwUvBzTNyNiEhJDAutKpHEUgvMUuG5CjC31T6tXQFDi5dFYRgi9iVKOhKegDqm++x79Mm1dqyWf9tFsEkdMul4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJqxvgzDReB6UMitcP3PpykemDQtqtLtYuqsB5opyVWizRfdIz
-	kgANfJUHQ4+L33qbJSpRDG+9jW7o0xsm5yfwGGyf4AFS0U0JwauViMmA
-X-Gm-Gg: AYBFou0ys5vGS8Krk5HPayrOrpkdjAzJY2D3p8V5FgCqnBn5bLJq/RgPLyPup4gD4Hp
-	/6lpXrPngloLgk2xdgJC0SXhh6DiBKtpxiL1NRE6ZcgxUE6CLICaZPgorVt5XrC9Z/WJtZsZwlJ
-	MbpdlmrbETYfSiiu6+CDRwE4kD8amxRvBYhM63fsSlM6q83Ir9DCTwwEVTVw5XgtNB5G8HxUmjc
-	sLLoNiL1clVA6g3HjXkg3aCTbDy9cdTXai/7XIQO7tRpmdwkIzuotq5GkXCH+4mEf/lh/8/wrh4
-	TbYzbihXPbG9YOMEWG02xhYYmZgw7JteNPlnqQP5aWrJiKNGp/B5VAMjEB2EYPz3yQO2mQzIHk8
-	oEpPncStVwh0MUrmf+tiwnueW2I3OZzkTE40rDICzSUReTjkZskNiGiWCRjXbSxC5M7rewK01/g
-	xYD8L+aBgmXmBMNJeexxwVy0L3/j7Km+79JTcn518V8TznqygtRU9wCQZAhFREp2JsuebR2yCJ3
-	VqS4prK4N1zXKg4yx5BqEMxD4m4V6dG5MRBtURT3u+n79MHHU9L2+DFZo0nouWCoElltYeroWRD
-	jldSouw5c0N0SGA5/xMhMtcIDasja3FAYi8pB82ASZ290KHrvZC6MGwYWTym08+6
-X-Received: by 2002:a05:600c:46c8:b0:4a2:1a:a120 with SMTP id 5b1f17b1804b1-4ac16acfde1mr258820575e9.6.1793637290279;
-        Mon, 02 Nov 2026 08:34:50 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm362296085e9.12.2026.11.02.08.34.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:34:50 -0800 (PST)
-Date: Mon, 2 Nov 2026 16:34:48 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Jan Engelhardt <ej@inai.de>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, torvalds@linux-foundation.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com, Bradley Morgan
- <brads@mainlining.org>, Arnd Bergmann <arnd@kernel.org>
-Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
-Message-ID: <20261102163448.3956dde3@pumpkin>
-In-Reply-To: <qnrr9sr7-19rq-6rp9-0oq9-5939r07no828@vanv.qr>
-References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop>
-	<4p5316or-75o2-s068-74s3-6q5011o75672@vanv.qr>
-	<6f24126a-7f84-40f8-a297-095b470beb8b@paulmck-laptop>
-	<qnrr9sr7-19rq-6rp9-0oq9-5939r07no828@vanv.qr>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xU/AoOCF;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8bnDqeXu
+Date: Mon, 2 Nov 2026 17:35:40 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793637342;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HcwaI3pW/80H6haxw0NcngNpoXS0R7BCzSXcfAhrIDU=;
+	b=xU/AoOCFrBJ15PVVJBmI69ViObjB++CB/yEAfN1yWlRzwYLhKo7BmRzYNPYBssmxv13M4M
+	gQONHXowsfenN4yxEZLjIYWX0TAWqZnAitz5ReX7ym7kE1Km6VcptYzx80hpSyIfty8S9i
+	Ius+rnm9W/eTYwwP6t/K+JjFpiyGYyHxBqcu+NCFZ0YIPEd3kFlh/1oAi55sWmRLS8A0v6
+	c7IDGEtl1641adTXs3M3m1iuo0kS0JBZDTLdAABvXp5CuzeaoWedLyQTES7epgkaQ3atq0
+	s8kwVSC2gi9p/bk7dQnapTuMZmi9LC5hybWEAXgte0EJjJW0zTRCsFlueGnZKQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793637342;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HcwaI3pW/80H6haxw0NcngNpoXS0R7BCzSXcfAhrIDU=;
+	b=8bnDqeXul1VM/geD8d3muGIQ8dthuMTSJ+51XIR0TeSbW+SjPjz/Ig1lAmFBJ6FUCe9wbH
+	UgrqUvkQG5/89vCQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Tengda Wu <wutengda@huaweicloud.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf/core: Prevent duplicate sigtrap task work enqueue
+Message-ID: <20261102163540.4WF7hhhW@linutronix.de>
+References: <20261031114520.642476-1-wutengda@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,47 +78,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261031114520.642476-1-wutengda@huaweicloud.com>
 
-On Mon, 2 Nov 2026 13:21:04 +0100 (CET)
-Jan Engelhardt <ej@inai.de> wrote:
-
-> On Friday 2026-10-23 18:12, Paul E. McKenney wrote:
-> >> >
-> >> >Add emulation of two-byte cmpxchg()
-> >> >
-> >> >These commits add a cmpxchg_emu_u16() function that emulates two-byte
-> >> >cmpxchg() in terms of four-byte cmpxchg() [...] 
-> >> >namely sh, arc, csky, and xtensa.
-> >> >
-> >> >There is reason to believe that these systems will soon no longer be
-> >> >supported by Linux.  
-> >> 
-> >> riscv64 also only has two exchange operations 
-> >> (lr.w.aqrl/lr.d.aqrl/sc.w.rl/sc.d.rl). 
-> >> (atomic_compare_exchange_strong with uint8/16_t, in userspace, gets 
-> >> replaced by the compiler to a lot more instructions thanks to 
-> >> implied -finline-atomics.)
-> >> 
-> >> Are you saying riscv64 is going to go unsupported too? ;-)  
-> >
-> >Given that the compiler can make it work in userspace, then the riscv64
-> >architecture-specific code should be able to make it work in the Linux
-> >kernel.  At which point there is absolutely no reason that Linux-kernel
-> >support for riscv64 should be dropped.
-> >
-> >Or am I missing something here?  
+On 2026-10-31 11:45:20 [+0000], Tengda Wu wrote:
+> The sigtrap handling in __perf_event_overflow() checks
+> event->pending_work before calling task_work_add(), but only sets
+> pending_work after the task work has been queued.
 > 
-> I can get gcc-17.0.0-20261102 with no further command line options
-> to turn `atomic_compare_exchange_strong`+uint16 into some object code
-> that does not contain a call to libatomic, for sh2, sh3, sh4. Haven't 
-> tried xtensa or the others.
-> Thus, is the patch really needed?
+> This leaves a window where an NMI can interrupt task_work_add()
+> and re-enter __perf_event_overflow() for the same event. Since
+> pending_work is still zero, the nested invocation can enqueue
+> the same pending_task again.
 > 
+> The re-entrant call path is:
+> 
+>   __perf_event_overflow()
+>     task_work_add()
+>       kasan_record_aux_stack()
+>         <NMI>
+>           __perf_event_overflow()
+>             task_work_add()
 
-Won't that need a big jump in the minimum supported compiler version?
-Probably less of a problem than x86 since I guess cross compiles are
-a lot more common?
+How was the issue identified?
 
-David
+Sebastian
