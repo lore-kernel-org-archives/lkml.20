@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793655328;
-	b=c1uFpggwq6dUH3SyWKls7Y7lbtIJi9A6QX6DmuIR8AMJnAy0ibecmmt1Q1kZ4RJZ1JhL
-	 TX92AULWf4mEYKd/8EwuvMPej+c18ZpXPS7T9dX3eK6N8F5/9VIeNfwuy82a07g/WL44/
-	 ErrCR4flARvVU4bDgi0JkNy5o9FTp411ZUymRw3b9dRUfJFbKzBujoOPfvyvHHvKx9jKU
-	 V6/xcn2B4U7zNwC/Zzl6pQz68GUHLmBR9kGFH6EJo29ywAWeoF4/81lDvsF/OO+hiFJLU
-	 JcB8xvYurx+9f6Ih/adwkdWZmjIztOOIhAq2NgyeYds75o0QUDF7Vmc4O1O73/8khOA==
+	t=1793655329;
+	b=WeAAKGZA5rxCH5yLOzkbjpJ4RQmI2Vk4f0f0QncEel3t7AYkyX6RofDil/2z7mRCK6vB
+	 TZF73DNoIvVH95efu7kG67zghEYZIFEaxtqtzs8bgect5OiNRlJ1NO/fjLUzOeJE1GAEL
+	 OtjCGPm0z5DKyxq1Ok7f/05q9Y0drbRAM8DqV2cdk9uvuY6s0uR72969kBFABmN4+QtTZ
+	 eWSQT2yBdZKeYy2QPRUSJLpD1tMisjgcvMRFEwWZygnge1GKIUWEXi4TH33Zp8Ix5RiYy
+	 nQBpdypoiudB4eHlX9Fe6MIH8/igI1ijm20BIh6WtqxOYA3S5tm9/lXEdRApfFOUubA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655329;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=Df1OCOo3/ZQGa3fH6XCHgfxD8+toxxag0Zm0KuDw2/I=;
-	b=YmQb9/x8mudx2P1xxX3wKWppjiCpdSi01gA/3D4H6S80lFRc3BwSk+sWDGQeI440upiG
-	 77V430Y9SbThC+A+9TuClUoo5VTSn4pwVzRRp1IMrvuXJnLNGs7NNaLWbEEllpB7KLzm7
-	 +zfuv77WvO+ObR4ExfvwKfOo40wHOxnwpqH3t05SvLdw0uYsfmcVVyJLEOIs6VS1IVo4U
-	 WA1KWk2Su1TfQ1ZuSMr9eCI6MefDbmbtDaDUW9O0Oc2uQkn2ZmUnoTMnXqxmfJANcVcxh
-	 KTgLMDUET5/iVmnQHZ1nslrkefXybo5J2OQNBikKTWQ0LjozquSDXB1X6/3KLKchP5w==
+	bh=uL4w43FvOhMXHpH83cVcxUnubWROwucUWwUXEs09Kbs=;
+	b=VsvG20kGI/VJ0Gzcy+7UeweI2JnY+JDeHAVP1faMPkOZCjlrpja8eXpSV6STtEvHbR3J
+	 O9sJ4Ohh6+kO5yOKcxZS22+D5ar9aU4f3KAkxgW8FGyKwHS196HX+ya8SWUoApRa1votI
+	 Jb1xZhQgaj+hGBEzL68ZArp+ajccCj5qBf6JkuilDZyGbWVh8sfbPI9Xtu1PsEmiJDFeW
+	 IiYGYttsTtAFkcQbe/yYA0H3N6IHwj5ni1jETtZMHW0NDG/1Cd4Y7tDdxxQtBX5UsVFY7
+	 2W/mbIFFJfhTN5We2Q7/f0Hl0Y1QBrUIhd29GXIw5KWwVFweuh7svsI9HAfIFqOodYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=acm.org;
 	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=FMRwonuJ;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=CWOC9Aou;
 	arc=none smtp.remote-ip=199.89.1.14
 Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA1D606EE8A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6679606EE92
 	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:35:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CA1D606EE8A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6679606EE92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=FMRwonuJ
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=CWOC9Aou
 Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJQ3g5d37z1XLksY;
-	Mon,  2 Nov 2026 21:35:27 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJQ3h37Qgz1XLkq4;
+	Mon,  2 Nov 2026 21:35:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
 	content-transfer-encoding:mime-version:references:in-reply-to
 	:x-mailer:message-id:date:date:subject:subject:from:from
-	:received:received; s=mr01; t=1793655321; x=1796247322; bh=Df1OC
-	Oo3/ZQGa3fH6XCHgfxD8+toxxag0Zm0KuDw2/I=; b=FMRwonuJI+DGKIAyU/X+t
-	IZHUjEEPA5gjpWI39peKHisHjJCvaT2aiNBMDdGe9mbgGN2lCIP/S98vZwz6TPWP
-	7icIqhvLo+yketwDYQdH0CfsPzDZ508QwJAJN6V+uTPhbbggBfSRWcDJ1RFkTUIj
-	CSazutEPA1WVVaRP8QqYUkaXEJJECVZfhC8UNYAxNNFGchRg3B8xWTqj2OF22JXO
-	qOwYx8WM1X2KH+OLPUDoWw5kx0B3d3wgxm2Rbnn7JZDM1fD30cnxYcluIx4f/99l
-	DdXOWbl4zagJc0cUx7bd23EgGuqA4DdvHWkmwhfcIyZFUlGroXSOzr8nxbOb5ggl
+	:received:received; s=mr01; t=1793655325; x=1796247326; bh=uL4w4
+	3FvOhMXHpH83cVcxUnubWROwucUWwUXEs09Kbs=; b=CWOC9AouK0sb+Oq4FJvKG
+	lb4svC5+TCKd/eKwugD+BNp4e8LBYeMbrgH51WsLHJoCQ4lSxCInvOZUrthQOdob
+	9FWjwsSXtiIV3yl1GDvMGueDrS38x8X9trHN/2mUzoPGgykRBXY5edwlmdd3OIgU
+	OBdvk9nFrhomKce+3jdIazVf0D1tewKOn04tgxJ1zRxgA9dKO6Jpu0PMZQU1F+XH
+	8yTp2Gxk6fEvkoQ9f/sjsutfj/9UrlddeFNY0fjXwYLZMHYlJi05StUU8XGHhOsm
+	avro+i2kiBHZaid3E4laKQD3AjG/iJG6+YK7bN7Dvy0wDyunsGbHlkiYI3JFS0jG
 	w==
 X-Virus-Scanned: by MailRoute
 Received: from 011.lax.mailroute.net ([127.0.0.1])
  by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id TuqWvsEW6go1; Mon,  2 Nov 2026 21:35:21 +0000 (UTC)
+ id DJY6a25lEf9n; Mon,  2 Nov 2026 21:35:25 +0000 (UTC)
 Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJQ3W65Lpz1XLksL;
-	Mon,  2 Nov 2026 21:35:19 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJQ3c5gp5z1XLkrq;
+	Mon,  2 Nov 2026 21:35:24 +0000 (UTC)
 From: Bart Van Assche <bvanassche@acm.org>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -68,13 +68,12 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	Marco Elver <elver@google.com>,
 	"Paul E . McKenney" <paulmck@kernel.org>,
 	Bart Van Assche <bvanassche@acm.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Alexander Potapenko <glider@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Nathan Chancellor <nathan@kernel.org>
-Subject: [PATCH 04/14] srcu: Remove check from srcu_dereference_check()
-Date: Mon,  2 Nov 2026 13:34:34 -0800
-Message-ID: <5b3ecec8c995f0aac99f9f6b361027dabe01cb7f.1793654853.git.bvanassche@acm.org>
+Subject: [PATCH 09/14] kfence: Use lockdep_assume_ctx_held() in kfence_report_error()
+Date: Mon,  2 Nov 2026 13:34:39 -0800
+Message-ID: <47e1cdbc0c41e20ed1fca14d958155f9bc21a534.1793654853.git.bvanassche@acm.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <cover.1793654853.git.bvanassche@acm.org>
 References: <cover.1793654853.git.bvanassche@acm.org>
@@ -89,93 +88,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-Users of srcu_dereference_check() must either hold an SRCU reader lock
-or satisfy the lockdep condition 'c', e.g. by holding the update-side
-lock. However, srcu_dereference_check() calls
-__srcu_read_lock_must_hold(), which tells the Clang context analyzer
-that the SRCU reader lock must be held. That requirement is too strict
-for update-side callers. Hence, remove the __srcu_read_lock_must_hold()
-call from srcu_dereference_check() while keeping the fake RCU acquire
-and release around __rcu_dereference_check(). Retain the runtime lockdep
-check in srcu_dereference_check().
+Replace lockdep_assert_held(&meta->lock) with
+lockdep_assume_ctx_held(&meta->lock) in kfence_report_error().
 
-srcu_dereference() and srcu_dereference_notrace() do not accept a
-lockdep condition and hence may only be used by SRCU readers. Call
-__srcu_read_lock_must_hold() from these macros such that Clang context
-analysis keeps verifying at compile time that their callers hold the
-SRCU reader lock.
+kfence_print_object() requires holding &meta->lock. In
+kfence_report_error(), meta is optional (nullable), so the function
+cannot be annotated with __must_hold(&meta->lock). Currently,
+lockdep_assert_held(&meta->lock) implicitly assumes lock ownership for
+Clang context analysis. Prepare for removing the context assumption from
+lockdep_assert_held() by using lockdep_assume_ctx_held(&meta->lock)
+inside the "if (meta)" block. This informs Clang context analysis that
+meta->lock is held and preserves the runtime lockdep check.
 
-Cc: Marco Elver <elver@google.com>
-Fixes: f0b7ce22d718 ("srcu: Support Clang's context analysis")
 Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 ---
- include/linux/srcu.h | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ mm/kfence/report.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index 1a8a465a5650..e72d2e1dfd82 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -242,8 +242,11 @@ static inline int srcu_read_lock_held(const struct s=
-rcu_struct *ssp)
-  * No-op helper to denote that ssp must be held. Because SRCU-protected =
-pointers
-  * should still be marked with __rcu_guarded, and we do not want to mark=
- them
-  * with __guarded_by(ssp) as it would complicate annotations for writers=
-, we
-- * choose the following strategy: srcu_dereference_check() calls this he=
-lper
-- * that checks that the passed ssp is held, and then fake-acquires 'RCU'=
-.
-+ * choose the following strategy: srcu_dereference() and
-+ * srcu_dereference_notrace() call this helper that checks that the pass=
-ed ssp
-+ * is held, and srcu_dereference_check() fake-acquires 'RCU'.
-+ * srcu_dereference_check() does not call this helper because its caller=
-s may
-+ * satisfy the condition @c instead of holding ssp, e.g. on the update s=
-ide.
-  */
- static inline void __srcu_read_lock_must_hold(const struct srcu_struct *=
-ssp) __must_hold_shared(ssp) { }
+diff --git a/mm/kfence/report.c b/mm/kfence/report.c
+index d548536864b1..5b8588d35b77 100644
+--- a/mm/kfence/report.c
++++ b/mm/kfence/report.c
+@@ -286,7 +286,7 @@ kfence_report_error(unsigned long address, bool is_wr=
+ite, struct pt_regs *regs,
+ 	stack_trace_print(stack_entries + skipnr, num_stack_entries - skipnr, 0=
+);
 =20
-@@ -261,7 +264,6 @@ static inline void __srcu_read_lock_must_hold(const s=
-truct srcu_struct *ssp) __m
-  */
- #define srcu_dereference_check(p, ssp, c)					\
- ({										\
--	__srcu_read_lock_must_hold(ssp);					\
- 	__acquire_shared_ctx_lock(RCU);					\
- 	__auto_type __v =3D __rcu_dereference_check((p), __UNIQUE_ID(rcu),	\
- 				(c) || srcu_read_lock_held(ssp), __rcu);	\
-@@ -279,7 +281,11 @@ static inline void __srcu_read_lock_must_hold(const =
-struct srcu_struct *ssp) __m
-  * is enabled, invoking this outside of an RCU read-side critical
-  * section will result in an RCU-lockdep splat.
-  */
--#define srcu_dereference(p, ssp) srcu_dereference_check((p), (ssp), 0)
-+#define srcu_dereference(p, ssp)					\
-+({									\
-+	__srcu_read_lock_must_hold(ssp);				\
-+	srcu_dereference_check((p), (ssp), 0);				\
-+})
-=20
- /**
-  * srcu_dereference_notrace - no tracing and no lockdep calls from here
-@@ -287,7 +293,11 @@ static inline void __srcu_read_lock_must_hold(const =
-struct srcu_struct *ssp) __m
-  * @ssp: pointer to the srcu_struct, which is used to check that we
-  *	really are in an SRCU read-side critical section.
-  */
--#define srcu_dereference_notrace(p, ssp) srcu_dereference_check((p), (ss=
-p), 1)
-+#define srcu_dereference_notrace(p, ssp)				\
-+({									\
-+	__srcu_read_lock_must_hold(ssp);				\
-+	srcu_dereference_check((p), (ssp), 1);				\
-+})
-=20
- /**
-  * srcu_read_lock - register a new reader for an SRCU-protected structur=
-e.
+ 	if (meta) {
+-		lockdep_assert_held(&meta->lock);
++		lockdep_assume_ctx_held(&meta->lock);
+ 		pr_err("\n");
+ 		kfence_print_object(NULL, meta);
+ 	}
