@@ -1,44 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585577;
-	b=ia3W4vn6n7/a+uciQGrshpX/5ktmRuZW9hJLlw30sC8pRrIYEKBp+hpdpWsf/1aSeKmQ
-	 ExbVtcaf/6me5z6c2PqDW4cOa3U90YkmfxdRU5SbAl8kLjqd/8YqK/fPOqpPZHVRexsIA
-	 wtsObsT/uF8mwcmwFoq1wMdP9Oo3eixLPlnQibmLtT1GUA9OlHGFWAVY+mrd4bsGNwy8d
-	 XJjHj48gNw8thnBrF81UvyaX/AAStkR2i/AQSgfrfzs6H0CKfX4ZYK/TyIhEvAgC2/rqf
-	 tT88q0t9B035P9tb0BhoVvoa3Ds9vdOj3br8MNKUTIjSIIqgdFq/CTilz/Ti+R4x2qQ==
+	t=1793585579;
+	b=hUP9LS8pmhCZYVU0o+dMFocCG/ulCdA7XqScM81JOiDC7LoGfXb6D5BAbz+il0KWzbHw
+	 5at9BxSrfRYZGit0VQu3wfD8uVYRcOCie/63gid4OpAWIuETTGhpXtPxEZJgUi9KmJaLT
+	 3rIDR+62CiT4QR/xpV2WU7KfzxT1Ziw+J8TwEPlFbKFfFcky9hQBNVbaFoI/tmjD4wg2r
+	 7Ekc9K6CL+CHrFKsRZDYuXJqhUJ7e3JFuHnY9lokzmuKhP/9vov4rR0jnhtXwZl5uJYhX
+	 GZMMBWG6cAY2nGxNcJ0pCL6T+rIaV9VvbRKKnXbsdg/PtfmMtpXK9f5asBPw7zW/4WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585579;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5rWuDj0zB2njXQ18rBMTysYwavZLXheicVJr1k4BwsM=;
-	b=dGkWjEOqUK1HF0+jgvXGB47CfLUY76wBn+RAOPnTi6AZB4iDw+b9OAaKsaQehhiBrECB
-	 mqXphWUmzYcINWR85pxADsMA6rUnKij/Ar6tuwzPWdQSGZz8DB303rvDjPVeCeo7BeVS7
-	 VItYXRXxSUeIBh0JLK4LF8YFsNivPbe7LEymTJ+cjx1ydmNTtTnOKP4iNIZZ3R60X9VkS
-	 tZU8tfpT2u03hLzlm5BKnnpqxdqluK2FHa+oJx2vZe3wX7kU/5o2SS4APr1M2tVClNtIv
-	 jqr2upV3Tp+IjSPpIRgWcr3+VS5Ch9kK4A5mviwwIwHP0FWyjRMvthUwHGMoxCsis0Q==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=obEsgLblQBIWl8a18cZtDAHySJ503T0PQpQZjZ7IJWo=;
+	b=3e0fFVTZWYzdwmFbi+fbb5S9FNJ54Af6b8Jt/fcoYpzuQKe5aZjof1G92kqKyyMqD+CN
+	 ck32wgfMRJowevNZf6Kg8e4ZDxWEW2+JnpCAFV8kvurpE8ARA4DFgvLvc78734SMmVcu1
+	 TVBxf5M/hJ9q/Xus9yt8svi7apG6tI3+IRrhyWxCdkzdcU+l7ZhUwtuvzYZoRxd5HKfP9
+	 Kr2FYVFsLy3rDrvV8myJ7eqh7MScBcxsQ6s7jSXHSx1YRJprM3ki7SJNpThgvs4asmrgB
+	 JpHETe5NE7E+Xf00Yf9Xk6q/ZJGcRvCZtgM4JJ4WgiE8alAWZ852BP4UJ4Z88j7KXVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mq4EuV4w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBNcj9k1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07366606A338;
-	Mon,  2 Nov 2026 02:12:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6435606A32F;
+	Mon,  2 Nov 2026 02:12:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mq4EuV4w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942841F0093A;
-	Mon,  2 Nov 2026 02:12:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aBNcj9k1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA181F00A02;
+	Mon,  2 Nov 2026 02:12:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793585576;
-	bh=5rWuDj0zB2njXQ18rBMTysYwavZLXheicVJr1k4BwsM=;
-	h=From:To:Cc:Subject:Date;
-	b=Mq4EuV4wR7oIYE6C84+SRWRO5kDzkAv3lqXz+gUj7Yiw4nbtq8PoYj0Wv27rZ6b3H
-	 ICZQ/JlcNdx0dr8hPdDb5AVXREvkWwfpACBZrAZ0pmuwgSK3NTIKTTiXC0DBGFFE/U
-	 FRbClzoLuiE3rtPQPllscVDk7BzdRy/Imod73vVO1YRqvuB3a8fUZ1/d6Cl903eJ2T
-	 4sXqUNmeRKIikdz/d+GMhWxmx98qU+sscJdb0ZRKbMFgVc5pi0YQPLQyaVQNjFWgd6
-	 T6r9BdbgrtH+C5dfVbLTk9ontL8JqgQBxo89IC86zJnDj4NoKPAiBnEWs2PIk9h/dT
-	 nPUxvuSiiNGMA==
+	s=k20260515; t=1793585578;
+	bh=obEsgLblQBIWl8a18cZtDAHySJ503T0PQpQZjZ7IJWo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aBNcj9k1mD/PT4xrixvgEEhQ5VnFDs/YxcBkEwK/YDogizDwyC99eZeL4uqR49uBv
+	 dmWc5gQlLjhuxI1xmkeQimNkgigtV/Z9jX15/oC8CorZQUTzh0N2hP8o2FjRddhOFM
+	 jgNBUKSUctT3yXx1D4keAPQnlKTCSjPwDWOG5zm6kj/FMWr87rfTb2h627Ue74Xive
+	 /iNekqTEzaD8ww9wFJPG4Y9p2oNeSdwWeiTUYXyHMKwme4A7g0HWWw+xy4lNuc/IAl
+	 Pr8bY//poZWnLnGtXJ9/Sdu5uCQTg9KFBQziAgg9J6z4l6l4i0ziSiOYcemhuGDSe6
+	 s3ZkCYmgWef0w==
 From: Sasha Levin <sashal@kernel.org>
 To: Nathan Chancellor <nathan@kernel.org>,
 	Nicolas Schier <nsc@kernel.org>,
@@ -61,10 +62,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Thorsten Leemhuis <linux@leemhuis.info>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/7] kbuild: build the userspace tools in tools/ with the kernel
-Date: Sun,  1 Nov 2026 21:12:46 -0500
-Message-ID: <20261102021253.2545235-1-sashal@kernel.org>
+Subject: [PATCH v3 1/7] kbuild: factor the userspace ABI flags out into KBUILD_USERABI
+Date: Sun,  1 Nov 2026 21:12:47 -0500
+Message-ID: <20261102021253.2545235-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261102021253.2545235-1-sashal@kernel.org>
+References: <20261102021253.2545235-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,120 +80,56 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The userspace programs under tools/ are disconnected from the rest of the
-kernel's build system. Each has its own makefiles and build framework, and
-"make" never builds them: apart from the few host tools the build itself needs,
-such as objtool and resolve_btfids, nothing under tools/ is compiled as part of
-a kernel build.
+KBUILD_USERCFLAGS and KBUILD_USERLDFLAGS pick up the flags that select
+the target ABI for userspace programs: --target= under clang, -m32/-m64,
+or CONFIG_ARCH_USERFLAGS. Collect those in KBUILD_USERABI and export it,
+so programs built outside of kbuild's userprogs can be compiled for the
+same ABI without also inheriting kbuild's warning and language flags.
 
-That makes them easy to break. Most people, and most of the build bots, check a
-change with "make allmodconfig && make", which doesn't cover tools/ at all. A
-change that breaks a tool passes every build check and is only noticed when
-someone happens to build that tool by hand, often much later.
+No functional change: KBUILD_USERCFLAGS and KBUILD_USERLDFLAGS keep the
+same value.
 
-We keep seeing this in tools/testing/: selftests that stop building after a
-change elsewhere in the tree, or after a backport to a stable tree, and stay
-broken until someone tries to build them. Others brought up the same concern at
-LPC.
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ Makefile | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-This series lets the kernel build also build the tools it is configured for:
-
-- tools/Kconfig adds a "Build userspace tools from tools/" menu
-  (CONFIG_TOOLS_BUILD) with one entry per tool and per selftests
-  directory, so .config records what gets built, and a tool that breaks
-  can be turned off on its own.
-
-- "make tools_build" builds the selected tools for the target, each with
-  its own build system as it is built standalone, into tools-build/ in
-  the object tree.
-
-- With CONFIG_TOOLS_BUILD=y, "make all" builds them too. allmodconfig
-  and allyesconfig enable every entry that applies to the target when
-  the compiler can link glibc programs for it (currently x86_64 and
-  arm64), so the usual build test catches tools breakage. Other
-  toolchains are unaffected, as are "make vmlinux", "make modules" and
-  external module builds.
-
-This is useful beyond build testing: the tools are built for the same
-target, from the same tree, as the kernel they go with.
-
-The selftests need "selftests: lib.mk: define LINK.c, COMPILE.S and LINK.S
-when make has none" [1], which is not in mainline yet. Without it, most of
-them fail to build in tools_build.
-
-I used LLM coding assistants to write and review these patches. I reviewed
-and tested every change.
-
-Changes in v3:
-- Rebase onto v7.4-rc1 and drop the RFC prefix.
-- 3/7: The perf-tools-next changes are in mainline now, so MINIMAL=1 sets
-  NO_PYTHON_MODULE instead of NO_LIBPYTHON and also sets NO_MYPY and
-  NO_PYLINT. This is the version that was posted on its own [2]. Add the
-  Acked-by tags from Namhyung and Arnaldo.
-- 4/7: Add Namhyung's Acked-by.
-- 5/7: Add Shuah's Reviewed-by. Add entries for the selftests new in v7.4
-  that build with only a C library: filesystems/configfs,
-  filesystems/file_stressor, filesystems/freeze and nfsd.
-
-Changes in v2:
-- 1/7: Add Thomas's Reviewed-by.
-- 2/7: Put each "depends on" condition on its own line. Allow UML: the
-  tools are built for the architecture UML runs on (HEADER_ARCH), as
-  their build systems do not know ARCH=um. Drop the
-  PYTHONDONTWRITEBYTECODE export, as 5479e1a13b75 ("perf tools: Put
-  Python bytecode in output directory") in perf-tools-next keeps perf's
-  bytecode in its output directory.
-- 3/7: New. Add MINIMAL=1 to perf, which turns off every optional
-  feature, as Ian suggested.
-- 4/7: Build perf with MINIMAL=1 instead of a list of NO_* variables.
-- 5/7: As with "make kselftest-all", a selftest that fails to build no
-  longer fails the build unless FORCE_TARGETS is set, and
-  kselftest_deps.sh lists the libraries it needs that the compiler
-  cannot link with. Also rebuild the selftests when headers under
-  tools/arch change, the vDSO test when kernel headers change, and the
-  x86 tests when the x86 headers they include change.
-
-v2: https://lore.kernel.org/r/20261016143143.3613501-1-sashal@kernel.org
-v1: https://lore.kernel.org/r/20261011233647.2454648-1-sashal@kernel.org
-
-[1] https://lore.kernel.org/r/20261011223358.2327625-6-sashal@kernel.org
-[2] https://lore.kernel.org/r/20261018135321.3986899-1-sashal@kernel.org
-
-Sasha Levin (7):
-  kbuild: factor the userspace ABI flags out into KBUILD_USERABI
-  kbuild: add "make tools_build" to build userspace tools from tools/
-  perf build: Add MINIMAL=1 to build without optional features
-  tools: build perf in tools_build
-  tools: build kernel selftests in tools_build
-  kbuild: build the tools selected in tools/Kconfig as part of "make
-    all"
-  Documentation: describe building tools with the kernel
-
- .gitignore                                 |   5 +
- Documentation/dev-tools/kselftest.rst      |   4 +
- Documentation/kbuild/kbuild.rst            |   4 +-
- Documentation/process/submit-checklist.rst |   5 +
- Makefile                                   |  24 +-
- lib/Kconfig.debug                          |   2 +
- tools/Kconfig                              | 342 +++++++++++++++++++++
- tools/Makefile.kbuild                      | 209 +++++++++++++
- tools/perf/Makefile.config                 |   8 +-
- tools/perf/Makefile.perf                   |  42 ++-
- tools/perf/tests/make                      |   8 +-
- 11 files changed, 635 insertions(+), 18 deletions(-)
- create mode 100644 tools/Kconfig
- create mode 100644 tools/Makefile.kbuild
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-prerequisite-patch-id: 68eb8785244b88ec7e696e716420e2d9b1367dbc
-prerequisite-patch-id: 37c57cf4c2a9700788cd1755912753f363cbb3f9
-prerequisite-patch-id: 5243b7b03f2c12a6e66c353b0c083f7f21fd7ba2
-prerequisite-patch-id: 7153a847ba7b05e49a670caba5d5b8fa2508eff1
-prerequisite-patch-id: 67a995618952454c30eb77960a5bf6f897d22547
-prerequisite-patch-id: bc69d99570e4326ce7736b244838e1e97cc13358
-prerequisite-patch-id: 7a28872d234cdfa7bd5ec851e9dde01a65e91130
-prerequisite-patch-id: a71f47de3fd339d680c9f18e80f5bcde7eae0abf
+diff --git a/Makefile b/Makefile
+index f895752d4b05f..58bc69b4996e1 100644
+--- a/Makefile
++++ b/Makefile
+@@ -656,7 +656,7 @@ export CPP AR NM STRIP OBJCOPY OBJDUMP READELF PAHOLE RESOLVE_BTFIDS LEX YACC AW
+ export PERL PYTHON3 CHECK CHECKFLAGS MAKE UTS_MACHINE HOSTCXX
+ export KGZIP KPGZIP KBZIP2 KLZOP LZMA LZ4 XZ ZSTD TAR
+ export KBUILD_HOSTCXXFLAGS KBUILD_HOSTLDFLAGS KBUILD_HOSTLDLIBS KBUILD_PROCMACROLDFLAGS LDFLAGS_MODULE
+-export KBUILD_USERCFLAGS KBUILD_USERLDFLAGS
++export KBUILD_USERCFLAGS KBUILD_USERLDFLAGS KBUILD_USERABI
+ 
+ export KBUILD_CPPFLAGS NOSTDINC_FLAGS LINUXINCLUDE OBJCOPYFLAGS KBUILD_LDFLAGS
+ export KBUILD_CFLAGS CFLAGS_KERNEL CFLAGS_MODULE
+@@ -1262,15 +1262,17 @@ endif
+ USERFLAGS_FROM_KERNEL := --target=%
+ 
+ ifdef CONFIG_ARCH_USERFLAGS
+-KBUILD_USERCFLAGS += $(CONFIG_ARCH_USERFLAGS)
+-KBUILD_USERLDFLAGS += $(CONFIG_ARCH_USERFLAGS)
++KBUILD_USERABI := $(CONFIG_ARCH_USERFLAGS)
+ else
++KBUILD_USERABI :=
+ # If not overridden also inherit the bit size
+ USERFLAGS_FROM_KERNEL += -m32 -m64
+ endif
+ 
+-KBUILD_USERCFLAGS  += $(filter $(USERFLAGS_FROM_KERNEL), $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS))
+-KBUILD_USERLDFLAGS += $(filter $(USERFLAGS_FROM_KERNEL), $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS))
++KBUILD_USERABI += $(filter $(USERFLAGS_FROM_KERNEL), $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS))
++
++KBUILD_USERCFLAGS  += $(KBUILD_USERABI)
++KBUILD_USERLDFLAGS += $(KBUILD_USERABI)
+ 
+ # userspace programs are linked via the compiler, use the correct linker
+ ifdef CONFIG_CC_IS_CLANG
 -- 
 2.53.0
 
