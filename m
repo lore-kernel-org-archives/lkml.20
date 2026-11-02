@@ -1,54 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621109;
-	b=UQ7zqurRyjBo2LsMPux8MJh/HFojYWtzRzkmTCyp8L3QcHryvWw2LkNU7QIAmg8H2OFX
-	 fEfOdHiJsAeNiT7W71+Rxqk+6oPWCxWHT7FdLKlHHx8U8KYGr/SSzIYPepaQnc/OVLW0A
-	 LpIcDk59cn0S2n23nXJ7AR+7U3Whab7u53yYvRujC7ZyLx68t/friiO73DfzyU1XLFvFv
-	 TffpiehmbnhiTT5GzQGHlLJFStNVQuJcUHjxDJOcwiPj63vgF1vG+a4PXNQm13G3btbXC
-	 7wN05a35q1XJQ0dS4z2mSoWXgZe2Q+OUlmIUF3XMFJh3UvcoxZrD49a24w6hu5gtDxA==
+	t=1793621134;
+	b=AMoCE+cA+t1SrTiQuS4ruge4YxdTfaPq2c18HXx8778p1zu1LAUvpVDXvSygXINHCCdf
+	 DUQKzHYaRvea32u4IiWjW8ziFQgmK7FEKz8JTwPktOBb7PvgG/ZTxKxbH/HQGii/KbTYW
+	 VIoaZXSyc5O7Jt6uFRMxOR/WRjdy7XkVNYUWL2oZhG8wthvLgx5LTRTx4qx2+vXpXBA7x
+	 XfE0kkUfBmvPdCNfBxJ/ib/m3o9m4ZzTJnP565iVPsicRI3W6NONlnOYY5F7tC0ZfH97G
+	 g6rAW/xSXDAg7bZcO6rarb/HdbVWyuf0rF5iibZLyyzADKIkNxVcVyej2Cy6pX4X5JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621109;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hbeE3DAarKR8X1vVzLm4gObAcCpbrHaGz2CUHydJifQ=;
-	b=JJR7k7akZR0ooe6drIGJ2eb3KUpM2LL7yWMVOciWyM4hdN9epTKSAcw1c4Yw40y0UDJt
-	 wtrXA7WNQXb4aap77IisBt/7/VDs5CdR8OkTyHQ79su0T+salQSzZPo2FG1SMIWFV7U4w
-	 iOdfBfDH8en1D5uzGgN8ll90C4KlG2fxPL0dBR260D9m07OuVXAT4ufVALhN7sFi/Niaa
-	 SJngZU8nEMyz6Ojv9sLpiJJ5+IxISZNp7jqueV6FTm3YVmk8+8jTVXgmEbAoPvGkbUIsz
-	 ErQgwQI/4zTbqHQSvivrtTOjF3668XLTY73Tr9mnc/zNPoeVRI2gVoAFaPG3WgOaFlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621134;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QWQ1m2neibp5bAGpRKNHNRra+4fDpL5hqLSr90AaWkA=;
+	b=xmI7MGNG6ltiB6y/S1RfLizazfY5S2efFkAT28PtTNJ9/G8E53PbEhMUWrYOp24+ZbS6
+	 bvLFkutHtWhEbAsmGAAYWNmKgVXTuwMVpd/7JFYwxXpps+6H5st08chlYJFVT+TbfAZGP
+	 3IEKl5bVMgJ37fWDcc3JA9DYWI2wvWgL/w2DngGY/AeQqN19sb5om4zt62SrBIAkDmgYa
+	 aCRpdnmafn4m4B0mipxfAu7mpirkgvOjaobFO/LpdAc1wZ2rXTp/Vv669eDr4h5rk2fcZ
+	 iCBKBloF+AEfhtUICP2nDglRHfmA0XFJtou7WvXnWv3gYhMoYxvkPCwGAFY0BLPaY3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CI4tiV/m";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mjaXVabb;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97A0606A329;
-	Mon,  2 Nov 2026 12:05:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4A3606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:05:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC4A3606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CI4tiV/m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED26E1F00A16;
-	Mon,  2 Nov 2026 12:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793621108;
-	bh=hbeE3DAarKR8X1vVzLm4gObAcCpbrHaGz2CUHydJifQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CI4tiV/m/CL1DJSchDXuai0U/0ncux81CJqiXpACcL0MZCLGMTYrBYLMUljUzRRZ2
-	 naaTp6eYmL4wJqKeSsmdlNKvLL+o3akIjJdyFY3HhCJ1w9TCY9DU3YzBW1IBKXwTzk
-	 gtRHibFYVdrZVVdpPdo5idhN4vls+Pq7fVnzQl6XmRtxrUCYwTrchc/H6sQ8mketwZ
-	 mPiGAm+lyr4JKfxRZm+T83/4RXagFUjX73oeMX+Cj79eYyw5nmQiLywoxuVv1Dh43T
-	 SO2HUs8iTBv9izk82juLaep2/50y4QV0zcJ6gjnrw//xkHNSOft8FlMirHAf/4GSuN
-	 qsTlsmmKLp3XQ==
-Date: Mon, 2 Nov 2026 12:05:04 +0000
-From: Simon Horman <horms@kernel.org>
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: Re: [PATCH net 0/2] devlink: do not dereference a missing param item
- or shared buffer
-Message-ID: <20261102120504.GD257209@horms.kernel.org>
-References: <20261030033332.3685172-1-xiaolinkui@126.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mjaXVabb
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c46bd7a7345so588585466b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:05:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793621132; x=1794225932; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QWQ1m2neibp5bAGpRKNHNRra+4fDpL5hqLSr90AaWkA=;
+        b=mjaXVabbgt9XaUUSvZsFsSipBebHcm86KZoLBNL7zlQ+Z0AfEP/N+jGvBe0a0R2RWi
+         OZjWljCDUUD557GlP38/YQ51YGBJtpMyzQy48fK+zwd11Tdkag0+94IlomwAhmYqd9YF
+         L8SZp4888j/epuMiN82rk9/lh9Mtc08L5CjQ0RJKfNByqD/SyFPR/nfmWQQoG+ek8RzU
+         0jjo8s0rAuA2fq6lOoUVYJizpX1amNY74hRCiI03jS6itq+ZfJ5Rj+ZyHzoIUVhLbras
+         MVwi2lkzx4S00s97/FnF/oXUvBbqkdVjMWr4gCRwty4MkZqYgM5CZHCMG+LCUA/fDNlI
+         RhmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793621132; x=1794225932;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QWQ1m2neibp5bAGpRKNHNRra+4fDpL5hqLSr90AaWkA=;
+        b=gtexd8pE0+sXDyKX+JK+MjEiD9cUSveE/hA79rZfGiF7Y09MCKd1tk8s6v3QzDUEh4
+         kCE9PJomBEEwZgaXRFg1x5YGY4rz+YHlPmytZH1SzQePGo+4Oumb/n8sKJ4wk8aALuU1
+         O8x7BFKtjnNR3ZloFZqKNjm6O74loN075D/jVxM/5IEr1eVYrM/e/4hlRN2XQdfDEcsA
+         rX0zLVy2kcY5GSTdCfND/VZ74CP370sczhXmZWO2+069hzt9U5xUNq/781aiu08XnzPO
+         NfNFtV1E9NS8uRFTe7cCDbMHcj09Kya0OX7vzwi8G2K0a9Ek8mayLvFW1/Vo7hWETvNe
+         9KxQ==
+X-Gm-Message-State: AFq9FYIseWQJSqbCjshwXWuyp0+KRG8RGnwOAGYyaDnBQKKpS6KAUW6P
+	okTaoFMo/RR9RwALTAWw2lYu8eV0i930Ypn5Qg0oXAKL89zqjK87Xq2t
+X-Gm-Gg: AYBFou0EmM/8WS/57pw2o8epO5DhqkXOwEPKrgddF81bSxArcx3hy7sv75eumxEfchO
+	ja4uVLAfIJfGIB9w5H1Kmc3db2mB6jGcKIcvB75nqRIBkYNdh1IYLCPTVcit21bIpViEo/QBQpi
+	q5R/xMKP3xL0MpO0r6XLKuHUCteYedaIVQwXDk2VEeep7aXRAsmaUsfrgr12SGKGsw6pzvuNVyI
+	cmUdaotX5yYPV0yT6WK3Ed3deZeF7a6ldVEN34E1FBtxfQ7Op6FAK4h80mOX0csZNObp3I2Xr4B
+	B2FhV9M6sOA1paySEUqInhILmRhZa3KCjxPDcHcqRqqQ4KM94XS67ioiMbBMKyBD6EUYFOKjiR+
+	sJB3XhzbCdcbomyEdSYga0yVzy7QnPDoTp0ws/mXPs/uqPpjEYFfFDM3hH7GSYg0dbw61qQz2iq
+	SH3kymZqNFOjrFVqAZnFOoqzfFw3fMRKL7YZfcrphx1w3/LitDwohcw9e6yOHh4MHUUcLjZN5Ue
+	qnrPLfEgVIucAYvkL5DiJXu2KDCP/ygbmt1GmM7NvCHg2BLO/Jy6J6OuL6CECO55a2K9s21JTg3
+	hArvDV7WeuAhXLZKKzFGnVbDsslcXgG8XA==
+X-Received: by 2002:a17:907:1c89:b0:c46:d493:47be with SMTP id a640c23a62f3a-c4ca7ac23a0mr868597366b.19.1793621131875;
+        Mon, 02 Nov 2026 04:05:31 -0800 (PST)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe3c449sm379033066b.49.2026.11.02.04.05.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 04:05:31 -0800 (PST)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: ben.horgan@arm.com,
+	james.morse@arm.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com
+Subject: Re: [PATCH] arm_mpam: Only program MATCH_PMG when the monitor supports it
+Date: Mon,  2 Nov 2026 20:05:24 +0800
+Message-Id: <20261102120524.1213679-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
+References: <912dbaa0-0fc0-46fb-819a-6594538b47cd@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,45 +99,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030033332.3685172-1-xiaolinkui@126.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 11:33:30AM +0800, Linkui Xiao wrote:
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> Two devlink helpers look an object up by id or index, warn when the
-> lookup fails, and then pass the NULL result to code that dereferences
-> it. A driver mistake (a param_id that was never registered, an sb_index
-> that was never registered or is unregistered twice) therefore costs an
-> oops instead of a warning.
-> 
->   1/2 param: devl_param_value_changed() hands the missing param item to
->       devlink_param_notify() -> devlink_nl_param_fill(), whose first
->       statement dereferences param_item->param.
-> 
->   2/2 sb: devl_sb_unregister() runs list_del() on the missing shared
->       buffer; list is the first member of struct devlink_sb, so it
->       reads and writes through address 0.
-> 
-> In both cases every other user of the same lookup already returns right
-> after the warning, so the fixes just align the remaining callers; there
-> is no change of behavior beyond avoiding the dereference. The param side
-> follows the example Jiri set for devlink_param_unregister():
-> 
-> Link: https://lore.kernel.org/all/20230126075838.1643665-5-jiri@resnulli.us/
-> 
-> Both Fixes: tags point at the commits that introduced the unguarded
-> WARN_ON pattern; the current devl_() functions are pure renames of those
-> originals. No in-tree caller triggers either path today (the audit is
-> part of a defensive hardening pass), so both are aimed at stopping
-> out-of-tree drivers from turning a driver bug into an oops.
+Hi Ben,
 
-Thanks, both these fixes look good to me.
+Apologies for raising this directly on the list - hardware questions
+like this should go to support@arm.com first.
 
-But I do wonder if the hardening aspect, from an in-tree pov,
-makes them net-next rather than net material.
+To answer your question: our memory controller is still at the FPGA
+stage. It has 32 PARTIDs but no PMG. After talking with our hardware
+team and reading the specification, I had wrongly assumed this design
+was legitimate. Our intended usage was one control group in resctrl
+with no further monitor groups underneath, so the PARTID-only
+monitoring would have been sufficient for us.
 
-I say that, because my understanding is that there is some pressure
-to only push critical bug fixes via net. This is because of the recent
-up-tick in bug fixes driven by AI-related activities.
+I will get our hardware team to review the RTL with Arm support, and
+will drop this patch.
+
+Sorry for the noise, and thanks for the pointers.
+
+Ping
