@@ -1,75 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793591826;
-	b=gQs9cwUQHlXOdpvHjYv8RUO+Bk6xOBo+O/dAJuN6MGHeI/c+EYdmJnypx9M8p6yFQ4IC
-	 iQW1io7uGXsmYOYUnrssZ0v/jk+VQhmmP+8R3Kw+ayPsSdDk9J5r4EPxlnVK/IgaHmZHR
-	 +lBjli+VRcD4tKE7uw3wXDTQ0RiPTyBf5cEFMrg6FVwrZO37CnZe/gq0I2f3l3uYxiQc1
-	 AXx3RUIur734Kzt9Kmn5zLj1TQk8dAaZTX1b/5GqRycvaICqRriQJxlGLKTs03AxtJFlG
-	 D1A4tQGMs8uN1F2CX7Jjxu2NOEFbFt1P+puLFScH4ScGj6lhG3yW0PfrYQYvdBtP9rA==
+	t=1793592005;
+	b=q/wIvhuxLUPLmkYTj6ycb9d8D9Fbr524ryqIvZwrGH75tSt82xaCNfl/wc8iYTK61OSU
+	 nND5vwblclGQ1seMKRU+G3Lyhv3F++N6nk5lpCrTKvID5eQNp1+/lEavHaiDVQ46C0jEj
+	 TAeUyknK5guxQ6WIMxeR+eCh6w79gWkP+TJd4BrNBxxHXZly65zOLyp81uch2DusuKcNE
+	 9IQVG2qx6Uqwvzxr9Rr4zK7N6A9GVXu5dEJuVz8JxLU8dHj//GdY7IVlO8T6ATLQ4lUZQ
+	 FIQQLdM96cUdXJv5FwqYyz3yxk5lh31fieFMvkj7f3gEdLsTAB9fA0lxLkF9J0/K8FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793591826;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=4aMadvHWcaG+rWqMxdBgMYPyvkwqYUTtLbYIkL2zezA=;
-	b=hY9SXG9i46eQ9AfsQHkoSsOZIQBICdycASCf+PVpndKYc8a6Vh0n1SfpT/fJvzuiVeLl
-	 V57uaB0dTplChVqGwPaNr8QDv+PfZUG3ac2Nik+SZxT+mmigvfS2jA5sgj3OAx0jYbVrj
-	 DqVw0nkatZG5pO5V3ofM1wPqeMRQZmtolBp7EJ7+4hWDP0sySy2CjEdYQNARyqMy4pbBY
-	 e4DdYwWPJxtPiOrg2nVjClaj9zwkPbswVIZcNozDfz0sZaW6hIIkUyvm8m+wT0b8uzUdP
-	 0As9ujK1QZtvFfhF6auEXn//4+Ts6PJznRURLkDwSwXaTkrly/jQXzO1f1XyzKkjMlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793592005;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=gncsxwOxdzIxepPD7LeGQpejJVFwj8dCdQz9R4xpCMo=;
+	b=rCF0x99I8fCZ8WVNc1Tdjtm+3lUvmbrl9nCT9ZA7sayh5qROmW9pHAnSAHSXO0i017nZ
+	 eDj7zU6TxtUhlDR7VEw7Wruw9NlBAqtgiZ8huGWdLEImkFplDNQmWltW+xHJHavZ4ZvVI
+	 SsoycA7y8/Vx3GiCTUXeUWE/6VDpOdFaIgfXQ7PITdKEpXhh6Jcdi0X+oDBQ6Kevl5qC7
+	 TjtU6Cp4/3avfZp3WdMiirx1qMX9o5c0hdisdZz92KqEm8toHPTieSBxvgxH+uHKlGqfC
+	 M0PrxBr1JW2C+U67c8XFrw1UEn3PUZk9wSMnkZdHmnl2eG/BPYSqXf4jPqC9uHJ9p0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HSSdECY8;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=leRydCxm;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=fVX7d3bK;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=rzQqew3y;
+	arc=none smtp.remote-ip=103.168.172.148
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18316606A326;
-	Mon,  2 Nov 2026 03:57:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18316606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30585606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:00:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30585606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HSSdECY8;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=leRydCxm
-Date: Mon, 02 Nov 2026 03:56:58 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793591819;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4aMadvHWcaG+rWqMxdBgMYPyvkwqYUTtLbYIkL2zezA=;
-	b=HSSdECY8bydYDHWXq4NWa8mk6jdMd5HeDNCKUXw290Lyo54vgPDC5zrkkGRfPSGTwETISH
-	BW+FM5xwH6YPrdSM+peEdRcXXVwzw6R+3CZEVSsX43CPgxCryEg3o8+v9uj2eF2cm+j9yW
-	NS66BgqciuNMzEfYsOAuYXOO0csTYNGlsWnQh6PjYFmQ+kazp+SSEQWytcjh2+Zuc0Xnee
-	B+4gh4feCh5gUmI5kD9YByM0xbugA1gr82mN0nX/59J4mVt0Zbs183c4cGm64NruFac7zl
-	ZrQxCUHLJHueWKDD7lWr7ykbYVBEZrDsovkP0/pPSxY+UH7J7aoIbQBzAiqUeg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793591819;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4aMadvHWcaG+rWqMxdBgMYPyvkwqYUTtLbYIkL2zezA=;
-	b=leRydCxm9tdjfiRPbqy9NYT4BU70WOBvZkanGE7hxZRIXBiB0F7BdifEFaaqfRD6VTxs7t
-	6hvmxuAKBTv2mVAQ==
-From: "tip-bot2 for Sohil Mehta" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/bugs: Replace RFDS model checks with VFM ones
-Cc: Sohil Mehta <sohil.mehta@intel.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261030195214.1284995-1-sohil.mehta@intel.com>
-References: <20261030195214.1284995-1-sohil.mehta@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=fVX7d3bK;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=rzQqew3y
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.phl.internal (Postfix) with ESMTP id 6282FEC024A
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:00:03 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Sun, 01 Nov 2026 23:00:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm1; t=1793592003; x=1793678403; bh=gncsxwOxdzIxepPD7LeGQ
+	pejJVFwj8dCdQz9R4xpCMo=; b=fVX7d3bK7lq5sBaKTguvlVI331JEjwKeFwMys
+	1CO9NuB/3aykg87S91/1GsV1WwbWduqL3FwijW6AiOaGTnkWODQVoxabPml5XY/s
+	K0R/UYPBG6ewN4/2mB7R+u8NJN1S+KY1u6wmbxM8T1y1+Qefmboza8f2gI3p7zfB
+	FAXlZ3HG3VDUNDk/X8wjjKsWysXG/lWMWrfqBAy9IRD2r7G0qsHyR+No3dngEdnJ
+	JnrVqJ5+iyS9oj5Oanrba4e1NG/oZbdzuhoWullrhhT3ycj1nj5tzOMd08vYb4+6
+	GigAr+zUI2L+yfyIovDMQy/OGKhE0I5rr4YGYf+PWb8kublFA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793592003; x=1793678403; bh=gncsxwOxdzIxepPD7LeGQpejJVFwj8dCdQz
+	9R4xpCMo=; b=rzQqew3yw1DvxkOiDszkMy//d8C90r5LGDsoi+QVIgEYaGOgyrU
+	1ckK4U8et4g6YMlPfFHj2tW5vhaPdaQmayjKgdLMhknol+mIQGBCD/flnD8JgBql
+	MkWQvk50LAs6Ct//T79U7iGxAYxfuZVk1Xls+q2fesWCvfdmXuKzOglZ7b31u72m
+	5Q2Ig6ETo5W6f84PS70lOflGJr6yFJeaBcAaaE7J42rYKJbKkUgQnFNWW06/MDCm
+	9N/LKyQ7+hTKKRU4Cpt3HTyCmAhlxiN+KE03fkZC5Rej1cn4JBDAyri3M29KziFF
+	fEfAzZA4wvMIxw4JAVdk/zXhAoqLymKyYzQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793592003; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:k4NbojgwQHga6rU73gaRrUWXAS84nIMLJTsACo9jh+UD7Ag
+	t2IGSarkd3EXsdJSPSxhVp/lHjT4WacTFOBmXGwjhOxfeu6dsYD4S5AAmRgz/Pq0
+	HTBqdM2mZvV53Rph+Hsmg+rmTapPbs8T48o6GiTwamPkoO0kU1VctoEaer5MakTx
+	tOJLfUtQGo6V0RxvQYoRBOyyE+XyQoZKY6xHYqPqhc0ewpipE9uBtUHwqE1lmn6l
+	6YtxiqTlU4GeupfG9k8ogaYmE4PsNi1aY8FcMvm40xNMmmeBbd5HtMn63llVDAYx
+	FBtJynQo7AaoW0omDWXl1olWy9sw5xNG6hf2g4Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:+KcfsUXN/YwfNwTjKuT7VWcDsfHqeljGgjLuvNQOzKA=:ZZpd0dsrq1/URa2LFXFA2hu1SK7Q5VhT6gu0H9BpfmA=;
+X-ME-Sender: <xms:wgroagpr3EtdmmaH0mKLjFA8ItrK5R3MhpaJRVR7GNiNzzygVED0Uw>
+    <xme:wgroan9ADkzTcOrtHUe4UCjlM81vEbYQt_wZH612V9mxp0XH7t6uh2I67zuMJzkYD
+    ZtFgAipoX5dnokgSZZfT07YLsJRG_eHdxkCwRFpSVCynEOb81VWyP8>
+X-ME-Received: <xmr:wgroap2URmJPxlHYEHuOTNa0hDHen1tF8An6BVwpHJqx-d8peYnNQ_DlE3C40Op4h__kTUgtkf8xKdgY1v0>
+X-ME-Proxy-Cause: dmFkZTEzRXtRiaTAd4mGyeYqv0SnP4pmBnK31j78JtHP38Kn6jQ6IK4qBMU8wakTI2ax4s
+    1mG1U9J5X2+Dh/br1aF8IoylDS+c4sb2RUAxBKpsldoSnvDbhNHYNTTBNL/zoGmfn/9YT0
+    4NEQbOtLrhOvh3NmjHWq/k4gg41pTmQ0P5UD9YmL9xfuv+jDMZIGfK1ZW0rHCaJeFct/6i
+    RjOfFfbrUZ73ItmB7UYM46Ud68aYdKLDDjo/6H0Vhorg+lqvk4/x1r0FG3pFKbR5nEbbWq
+    vV0T19Vc9iXHFs7HDal9YNhAPHNO613iq+fNFYdjy/Q4V/ZRThJ3F1xUdsOkDw9M2t4atW
+    QrJvu4eBbGt81VwJ4+n99B1gZyOPkuu2TMXmgMPkcmPP+YksG1jrbwdMxxDpZkpX7lS7M2
+    na/S29QtxAPoP8IOJ9BiYs3OTYOFIyslYiVtkMj75nV5hyBCOjEI8MUbc/ILdllNsw/4jY
+    B03zUJuLxFixXfkQ9ArXF6FJbgeZKSlS5n6b1A3eVj++cFaDmsajeJVTVXNfQlN0dMun99
+    Hsc1m+0LgzxveFm6DLNFqkVp/nPSAxBvy2dd3eXYD9zkbaW68VIN1keTnvhW1+kfmZ17lQ
+    z2hvJXDsie8CvsnFP54wzptGlu5WkCgotmyJUOPL096t/L9XGkWr7pckyVAA
+X-ME-Proxy: <xmx:wgroaqn8CRPONngnsXL1mrx5UQNlULbcf1rCvnkCBRoLGviaGO4g8Q>
+    <xmx:wgroam0HMtSCbS5ZPiHqNeV05xwluSAIC_6iNfGFaiSEgTnylapE5Q>
+    <xmx:wgroapje4cUO3eP4KV0floCqMaQSfRaKE9CQG_X9iet0EG7K-dMgIg>
+    <xmx:wgroakWaBgjtZ6rp5RI9NRFZD_nKn85Yw3QMzdMMQnSRUxwR6IqTIw>
+    <xmx:wwroajWmY4vkchsR1J8T1PPlb2dP1QhyL7BufpVsE5n-prIYBghhqhk6>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 1 Nov 2026 22:59:56 -0500 (EST)
+From: FUJITA Tomonori <tomo@flapping.org>
+To: aliceryhl@google.com,
+	arve@android.com,
+	boqun@kernel.org,
+	brauner@kernel.org,
+	cmllamas@google.com,
+	gary@garyguo.net,
+	gregkh@linuxfoundation.org,
+	ojeda@kernel.org,
+	tkjos@android.com
+Cc: a.hindborg@kernel.org,
+	acourbot@nvidia.com,
+	bjorn3_gh@protonmail.com,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	lossin@kernel.org,
+	lyude@redhat.com,
+	tamird@kernel.org,
+	tmgross@umich.edu,
+	work@onurozkan.dev,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>
+Subject: [PATCH v9] rust: sync: condvar: use Delta<Jiffy> for timeout and result
+Date: Mon,  2 Nov 2026 12:59:34 +0900
+Message-ID: <20261102035934.711973-1-tomo@flapping.org>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,53 +140,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179359181814.1009794.6961700367236303703.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+From: FUJITA Tomonori <fujita.tomonori@gmail.com>
 
-Commit-ID:     b828d777c292c963aa110c33159a59f81d372ce7
-Gitweb:        https://git.kernel.org/tip/b828d777c292c963aa110c33159a59f81d3=
-72ce7
-Author:        Sohil Mehta <sohil.mehta@intel.com>
-AuthorDate:    Fri, 30 Oct 2026 12:52:14 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sun, 01 Nov 2026 17:42:22 -08:00
+wait_interruptible_timeout() takes the timeout as a raw Jiffies, and
+CondVarTimeoutResult reports the remaining time as a raw Jiffies. The
+type does not show the unit.
 
-x86/bugs: Replace RFDS model checks with VFM ones
+Switch the parameter and the result fields to Delta<Jiffy>.
 
-The RFDS vulnerability check uses raw model numbers to identify Alder
-Lake and Raptor Lake. Most Intel-specific code has already moved away
-from x86_model checks, but this one got added recently.
+Delta<Jiffy> is signed, but schedule_timeout() prints an error and a
+stack dump for a negative timeout. Clamp a negative timeout to zero, so
+it means an immediate timeout.
 
-Replace the x86_model checks with VFM ones to make them more readable.
+Update the only user, binder. It now converts the freeze timeout with
+Delta::to_jiffies_timeout() instead of msecs_to_jiffies(). Both round
+up, so a short timeout does not become zero. They differ only for a
+very long timeout. msecs_to_jiffies() returns MAX_JIFFY_OFFSET for
+2^31 ms (about 24.9 days) or more, which means an infinite
+timeout. to_jiffies_timeout() has no such special case. It converts
+such a value to the matching number of jiffies, so the wait is long
+but finite.
 
-Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-Link: https://patch.msgid.link/20261030195214.1284995-1-sohil.mehta@intel.com
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
 ---
- arch/x86/kernel/cpu/common.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v9:
+- Send as a single patch. Patches 1/4 and 2/4 of v8 are in v7.4-rc1,
+  and the workqueue patch will be sent separately
+- Rebase on v7.4-rc1
+- Drop the comparison with enqueue_delayed() from the commit message
+v8: https://lore.kernel.org/rust-for-linux/20261002050428.2746277-1-tomo@flapping.org/
+---
+ drivers/android/binder/process.rs |  7 ++++---
+ rust/kernel/sync/condvar.rs       | 31 ++++++++++++++++++++++---------
+ 2 files changed, 26 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index 9bd50c6..aba7e99 100644
---- a/arch/x86/kernel/cpu/common.c
-+++ b/arch/x86/kernel/cpu/common.c
-@@ -1391,8 +1391,8 @@ static bool __init vulnerable_to_rfds(u64 x86_arch_cap_=
-msr)
- 	 * both Core and Atom CPUs. Mark unaffected when Atom CPUs are not
- 	 * present.
- 	 */
--	if ((boot_cpu_data.x86_model =3D=3D 0x97 ||
--	     boot_cpu_data.x86_model =3D=3D 0xB7) &&
-+	if ((boot_cpu_data.x86_vfm =3D=3D INTEL_ALDERLAKE ||
-+	     boot_cpu_data.x86_vfm =3D=3D INTEL_RAPTORLAKE) &&
- 	     boot_cpu_data.topo.intel_type !=3D INTEL_CPU_TYPE_ATOM &&
- 	     !boot_cpu_has(X86_FEATURE_HYBRID_CPU))
- 		return false;
+diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
+index 1f4cb43f1de6..edde0ea35687 100644
+--- a/drivers/android/binder/process.rs
++++ b/drivers/android/binder/process.rs
+@@ -35,6 +35,7 @@
+         Arc, ArcBorrow, CondVar, CondVarTimeoutResult, SetOnce, SpinLock, UniqueArc,
+     },
+     task::{Pid, Task},
++    time::Delta,
+     uaccess::{UserSlice, UserSliceReader},
+     uapi,
+     workqueue::{self, Work},
+@@ -1552,8 +1553,8 @@ pub(crate) fn ioctl_freeze(&self, info: &BinderFreezeInfo) -> Result {
+         inner.is_frozen = IsFrozen::InProgress;
+ 
+         if info.timeout_ms > 0 {
+-            let mut jiffies = kernel::time::msecs_to_jiffies(info.timeout_ms);
+-            while jiffies > 0 {
++            let mut jiffies = Delta::from_millis(info.timeout_ms.into()).to_jiffies_timeout();
++            while jiffies.as_jiffies() > 0 {
+                 if inner.outstanding_txns == 0 {
+                     break;
+                 }
+@@ -1570,7 +1571,7 @@ pub(crate) fn ioctl_freeze(&self, info: &BinderFreezeInfo) -> Result {
+                         jiffies = remaining;
+                     }
+                     CondVarTimeoutResult::Timeout => {
+-                        jiffies = 0;
++                        jiffies = Delta::ZERO;
+                     }
+                 }
+             }
+diff --git a/rust/kernel/sync/condvar.rs b/rust/kernel/sync/condvar.rs
+index 69d58dfbad7b..ae70e91eca94 100644
+--- a/rust/kernel/sync/condvar.rs
++++ b/rust/kernel/sync/condvar.rs
+@@ -12,7 +12,10 @@
+     task::{
+         MAX_SCHEDULE_TIMEOUT, TASK_FREEZABLE, TASK_INTERRUPTIBLE, TASK_NORMAL, TASK_UNINTERRUPTIBLE,
+     },
+-    time::Jiffies,
++    time::{
++        Delta,
++        Jiffy, //
++    },
+     types::Opaque,
+ };
+ use core::{marker::PhantomPinned, pin::Pin, ptr};
+@@ -182,19 +185,29 @@ pub fn wait_interruptible_freezable<T: ?Sized, B: Backend>(
+     /// Atomically releases the given lock (whose ownership is proven by the guard) and puts the
+     /// thread to sleep. It wakes up when notified by [`CondVar::notify_one`] or
+     /// [`CondVar::notify_all`], or when a timeout occurs, or when the thread receives a signal.
++    ///
++    /// A negative timeout is treated as zero.
+     #[must_use = "wait_interruptible_timeout returns if a signal is pending, so the caller must check the return value"]
+     pub fn wait_interruptible_timeout<T: ?Sized, B: Backend>(
+         &self,
+         guard: &mut Guard<'_, T, B>,
+-        jiffies: Jiffies,
++        delta: Delta<Jiffy>,
+     ) -> CondVarTimeoutResult {
+-        let jiffies = jiffies.try_into().unwrap_or(MAX_SCHEDULE_TIMEOUT);
+-        let res = self.wait_internal(TASK_INTERRUPTIBLE, guard, jiffies);
++        let jiffies = delta.as_jiffies();
++        let res = self.wait_internal(
++            TASK_INTERRUPTIBLE,
++            guard,
++            jiffies.clamp(0, MAX_SCHEDULE_TIMEOUT),
++        );
+ 
+-        match (res as Jiffies, crate::current!().signal_pending()) {
+-            (jiffies, true) => CondVarTimeoutResult::Signal { jiffies },
++        match (res, crate::current!().signal_pending()) {
++            (jiffies, true) => CondVarTimeoutResult::Signal {
++                jiffies: Delta::from_jiffies(jiffies),
++            },
+             (0, false) => CondVarTimeoutResult::Timeout,
+-            (jiffies, false) => CondVarTimeoutResult::Woken { jiffies },
++            (jiffies, false) => CondVarTimeoutResult::Woken {
++                jiffies: Delta::from_jiffies(jiffies),
++            },
+         }
+     }
+ 
+@@ -248,11 +261,11 @@ pub enum CondVarTimeoutResult {
+     /// Somebody woke us up.
+     Woken {
+         /// Remaining sleep duration.
+-        jiffies: Jiffies,
++        jiffies: Delta<Jiffy>,
+     },
+     /// A signal occurred.
+     Signal {
+         /// Remaining sleep duration.
+-        jiffies: Jiffies,
++        jiffies: Delta<Jiffy>,
+     },
+ }
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
+
