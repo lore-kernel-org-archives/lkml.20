@@ -1,67 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619629;
-	b=y8aWD3n8SCfZF4LpIHONW1KCePBGoTROQ7dG980hEemXc7HoXf//MKwfezjZaCCmgQBo
-	 4fuhXhKWS+A6axQOVdymI0JCZANajf5hc+OTJDcT6vO/QdXlK35dmnPpghvYDRHtfKBpr
-	 RsudLbUKlDY2XBUKfNp9bIc0YSrVwDc0eaUe8lXuxsv1eBMq245BBq3r548OhpqGyn8oo
-	 889eZ7PuiFLVOERRgJYRtR7FePTyDINvI5L8XAnTGZtfgQmBRvSdb2OC9d2KTDz3JyaWj
-	 JaTqUXQAqjcOlwN0QyXwSHuypNLXOhHeya+IoDkss8/SqL8uuXoOffrqeG4hBDloTLg==
+	t=1793619637;
+	b=qwz8OZXt1KxY1XOC/VnK+ugGgms0iMUCrFTzF8rY4S1yQBptWo4J52qpde8kSYIP4JSL
+	 s98g0h9PaV4ypWiqZi3swhkDa6pIunWGw16P8Z50oTuXozbO67q4sAnjodD1FPNt+ulCW
+	 eNFB0kY/nEIJSFU+0uYX6NlqKIbc8pMlgEUTooY27wL/FmCGaca8nolKuz3nzEnS8jvg8
+	 jjN/3Ay0ndYBjCdZa3gQ/dps9iMgY9KkXzfmi2scPS6YJnGesQ3BNad7qx1B65hapE5HU
+	 YAKLx30v0qRpsHGV8XIar+bJIFXExBH33ARGJg4j+FcNmGPqQzF3w33C6MY4MJ/3IzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619629;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:User-Agent:
-	 Date:From:To:Cc:Subject:References:MIME-Version:Content-Type;
-	bh=FtGpq/4OBWVzQmcI3KXphrHgavjsh+kN7JMOIKPIyEg=;
-	b=AHJ6ENM+680halt9V7/20QuN8YxACReMIRt7hbchyYh26QmTmqT4MifrwXbB5iLhMF5S
-	 yAprQVxWOK7oOR0pozrr5sz/V7uTYMUT+bswKprSdhW2oVBOSvv3eacrNZOeLD4VUOkW3
-	 O2e0G5zcF12yPK+/1EbHJuFQmOwDN4/Ai9bXhq2dVfUdrLnJu6Mk7bYXnNRnf4QOex7WV
-	 rq7C/QpHLM6raDDWJ8iahDjHsfIYHMI5vWkscgcLBhwAF28PzXf0ZW2WZJHBkS+XgaU4A
-	 DxXinOeDn/L9QSLdiAoPGJUvLS4HRlzk4UeNeJCeFhcuw23IYwQX9wohP1JznvjoiVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619637;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5smmWE+vGhxqhwgGmPR4F8hVHSCwizeNx+PLtfEMP9Q=;
+	b=K/Brp0okC7MjRFyLn6U1FmAodwtrfF8JHt5Lm2aXoxNYQuDjf7AeAnAeAQkdw46XF0fx
+	 HRuUKJjS1owjcxB/TzmQCixDQmkvd6VE0/AqaU93e+NcpcOTQrPiKYQPzlxGwRN8VxmVE
+	 kDqHcYkyKWZRtTP7AiqNDVC4bnM4uqZqwQzWvgoqbCaujUH1NTIs09iCcfJhYEHQAgKQo
+	 40ihLzAuxgok2bJLPLhwVKZCMgiYLCUyhS0m4IjZeGSy2W0kKtJMVyBrXWelUUBiNZqu3
+	 L5+3iiLNSWWtnMfw1FCjlkJX+2qAvYnqSnPVAVoR7U1VZCyOgt7UquZ8obrl37I8lTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=XmqLDDdq;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iYrOIihm;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FF3606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3FF3606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA0E60A2607
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:40:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAA0E60A2607
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=XmqLDDdq
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
-	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
-	Content-ID:Content-Description:In-Reply-To;
-	bh=FtGpq/4OBWVzQmcI3KXphrHgavjsh+kN7JMOIKPIyEg=; b=XmqLDDdqLo4wepjOg1v/ReHOq2
-	ItZ7lAuwalgNuJsPrdBPaq8qqHbsgnwD28UA5fUzlD293QnGfVYdYgGxY3hbReiRegGoWh2se2Ph8
-	0d5/c/anwCGVrylNNeyiDyt4zxjaAmAAcjoMQ7YsshWlCrOaA4gctJIfqVnRDFlPmtor61M20ANd+
-	+/kBgkY53ixT+8yE2/Ltqnvh5GSj/RiQsYClp5wDbHpZ2ZdtyaTf6E8MMmRmxQVhMmWHpn8XyzCPK
-	5ufjxKV/Z7OZM8XeccpJD+Vs1y7JLwThyD4sS/g+K+1DkUwC8tJNA4qP6sGV28V9us7fhxRPTneD+
-	ptQZxX3Q==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNqOo-00000002K7o-0IaC;
-	Mon, 02 Nov 2026 11:40:26 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
-	id 881CE303154; Mon, 02 Nov 2026 12:40:24 +0100 (CET)
-Message-ID: <20261102114000.887706274@infradead.org>
-User-Agent: quilt/0.68
-Date: Mon, 02 Nov 2026 12:25:54 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: x86@kernel.org
-Cc: linux-kernel@vger.kernel.org,
- peterz@infradead.org,
- jpoimboe@kernel.org,
- leitao@debian.org,
- keescook@chromium.org,
- hpa@zytor.com,
- kernel test robot <lkp@intel.com>
-Subject: [PATCH 5/6] objtool: Allow EXPORT_SYMBOL() of __noendbr functions
-References: <20261102112549.714541309@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iYrOIihm
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2eb0f1b592bso9386285ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:40:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793619636; x=1794224436; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5smmWE+vGhxqhwgGmPR4F8hVHSCwizeNx+PLtfEMP9Q=;
+        b=iYrOIihmmWOs9SPq4jDKL7HzWHnQCHPuGaIb0AnxDCuAklvQaLIIdwSPfsKbbLikb4
+         iVpn1+fae3ccR9Ipe6bW/9aLIbIAV1/jxX5cZRlpT/OT1n/2vZEzNI3ppnTtRdxgqLhT
+         NA/IT5jr6Oq3330YAtpTQX8g1euRnlTjJdNUaylITRB8ks9tEzV7IxNqhDng7LF9koWg
+         OQ3PhiXWzo38nvLiyO+vUT4vSxLK0anAJko1IRxKv4Ii9vFTmExTZ8jflVfce2kSYyFE
+         TCHxubALTrvkXc2hBpFpsG3pIezMuTYBbNMNi9ImFe9wHtMPHKvKQdH+Jq7UteApQJpl
+         vErA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793619636; x=1794224436;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5smmWE+vGhxqhwgGmPR4F8hVHSCwizeNx+PLtfEMP9Q=;
+        b=gRq4HWNsR6MhFP0RwvIYKthZX1n9mz+B6qdEaTC+d8EBCbU8qAVdxTMrqrGSrLHmmm
+         MaLqJswy4EmNb11z+c/NJ5+s0D9H2i+pemiKu8qqS7SpVmh9cr33sp4ua4hesPUynOeo
+         RRLWlqOh4sNnVdb2YF0K+zNBw1qHGy0vt0/RgdCyLly49QWdbfKQwH9Bh4PZTtbdB6CG
+         DJXXaUOTUJR6OjWeaeCq27Y9R7bmYhT7zu8r6/9y5ZL/luyiK9DgxiQ+UMipeSyC+zxc
+         ESytL3d3ok3QRDBWur4wDWY0mEk4IR8PJf78IWcmolOkq61ZV+FXnZyQtp6jS2Wn7NRq
+         jEvg==
+X-Forwarded-Encrypted: i=1; AKwUvBz8f95NZQfEqtt+mDJxCUYbLuW8AEbIfWmQQ0S32Plt/c29BPoPenvtQtU5eW/+3BBuvoEUcKKuExVzvnM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99FBnWqXaz8lSIKLeue+GABEYogzuqjpzOWCJPXevbFQgyXhIA
+	EcjtwO+ibSDKh6IYcFDg5XyuzaHvvdc7L8Ph/FwSzFMQ+pChVUco6OrR
+X-Gm-Gg: AYBFou1YRzfyMxVjaMupEUoS+whkVlsSbXPpwfcYIofmuoNo+wqaZNq/5JIYF8pxKJN
+	F0f1NEuOhhvS6HAb3MPuXXDZ0+niKlb9yu1/+PwFrGUouJthSDkVnneyoZpUyszoQqJdHZS7Lnb
+	TFpHnjUZOVawviK23/L9RajxdmD+xTJzu6VcPul4wbt+OowDjchv3tL4GAED/dxqerc3zYlv4Zf
+	KQAwpEju5TcgL7acVP5+vFfpgk53PyL2A4GCV26Til67yg/vDGkxz+QNd0tE5pc/9EvA7dqiwew
+	D0uBuj4oUdNPq/SGUa/xMb201Bt4FHBtUgsDpHUnpK6cyvTPD2RvcemsQS0xc2rVbasvU6xCaoA
+	RXxLqAdmWjjzY5s7DdOCYjs18UoZK9l1PKHjqvgguxMmlywEPLGE96Mslwox7pttHdB6JOeRbro
+	UuiPwTSsXrrufReYrHbz8rX+ioAlykamxZq5yqaCjmKGQTTJ1JvY8SPz6oMy0iGPrNo/MWE58Am
+	4EDgEf1QneDxt9arLeW43iVMLRF4CNunwSVDY8gKRHQT0r9+Il0egWGh16kgRdp+WADrKmVfVBI
+	hRKnyIrET+0Fj3fjwzKmbn8kTCctj/G5tSk+HK/fptgsVwNlgVd2c292sdGrW7i0WVfn
+X-Received: by 2002:a17:902:f607:b0:2e9:a090:dd69 with SMTP id d9443c01a7336-2eb3646e967mr97761995ad.39.1793619636155;
+        Mon, 02 Nov 2026 03:40:36 -0800 (PST)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39262c47sm26652745ad.38.2026.11.02.03.40.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 03:40:35 -0800 (PST)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: mhocko@suse.com
+Cc: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	penguin-kernel@i-love.sakura.ne.jp,
+	tj@kernel.org,
+	mkoutny@suse.com,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH] mm: memcontrol: don't miss processes whose leader has exited in OOM scans
+Date: Mon,  2 Nov 2026 19:40:29 +0800
+Message-ID: <20261102114029.1259655-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <auhiGqKJeukk7t3P@tiehlicka>
+References: <auhiGqKJeukk7t3P@tiehlicka>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,265 +108,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Objtool IBT validation does two things:
+Hi Michal,
 
- - it checks that all text references have an ENDBR instruction (WARN);
- - it finds all ENDBR instructions that have no references (SEAL).
+This is v1. v2 [1] reworked the check, but your questions apply to
+both.
 
-The first ensures that all function pointers are of functions that have ENDBR,
-since doing indirect calls requires this. The flip side is that you can have
-text references that are not function pointers in the sense of later calling
-them. Eg. ip_within_syscall_gap() will take the address of symbols, but will
-never call them. Any such location that is referenced but does not have ENDBR
-requires an ANNOTATE_NOENDBR.
+On Mon, Nov 02, 2026 at 11:12:42AM +0100, Michal Hocko wrote:
+> Is this a desirable/intended behavior? Shouldn't we move the dead leader
+> along with the rest?
 
-The second is used to create a list of ENDBR instructions to SEAL. That is, at
-boot time the kernel will replace all these ENDBR instructions with a NOP
-instruction, limiting indirect targets.
+Userspace sees it too. After writing the PID of such a process to
+dst/cgroup.procs:
 
-Now, EXPORT_SYMBOL*(sym) is counted as a reference. This is important because
-even if the kernel itself does not reference the symbol, a module still might.
-The flip side is that exporting a __noendbr function needs an ANNOTATE_NOENDBR.
+  src: cgroup.procs = 85       cgroup.threads = (empty)
+  dst: cgroup.procs = (empty)  cgroup.threads = 86 87
 
-Relax this by supressing the objtool-WARN for .export_symbol references. This
-allows exporting of __noendbr without further ANNOTATE_NOENDBR. Remove any such
-now redudant annotation.
+Moving the leader would fix that, and memcg would then need no change,
+as the PROCS walk already returns a dying leader with live threads.
+The catch is that the leader has already gone through
+cgroup_task_dead() and is still accounted by controllers: pids, for
+one, uncharges it through task_css() when it is reaped, so the move
+would also have to transfer its pids charge. Tejun, would that be
+acceptable in the core?
 
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
----
- arch/x86/entry/calling.h             |    1 -
- arch/x86/entry/entry_64.S            |    2 +-
- arch/x86/entry/entry_64_compat.S     |    6 +++---
- arch/x86/lib/clear_page_64.S         |    1 -
- arch/x86/lib/copy_user_64.S          |    1 -
- arch/x86/lib/copy_user_uncached_64.S |    1 -
- arch/x86/lib/getuser.S               |    4 ----
- arch/x86/lib/hweight.S               |    3 ---
- arch/x86/lib/putuser.S               |    4 ----
- tools/objtool/check.c                |   15 ++++++++++++---
- 10 files changed, 16 insertions(+), 22 deletions(-)
+> Should CSS_TASK_ITER_PROCS iteration see all processes
+> regardless leader being alive after or prior the migration?
 
---- a/arch/x86/entry/calling.h
-+++ b/arch/x86/entry/calling.h
-@@ -432,7 +432,6 @@ For 32-bit we have the following convent
- /* rdi:	arg1 ... normal C conventions. rax is saved/restored. */
- .macro THUNK name, func
- SYM_FUNC_START(\name)
--	ANNOTATE_NOENDBR
- 	pushq %rbp
- 	movq %rsp, %rbp
- 
---- a/arch/x86/entry/entry_64.S
-+++ b/arch/x86/entry/entry_64.S
-@@ -95,7 +95,7 @@ SYM_CODE_START(entry_SYSCALL_64)
- 	movq	PER_CPU_VAR(cpu_current_top_of_stack), %rsp
- 
- SYM_INNER_LABEL(entry_SYSCALL_64_safe_stack, SYM_L_GLOBAL)
--	ANNOTATE_NOENDBR
-+	ANNOTATE_NOENDBR // ip_within_syscall_gap
- 
- 	/* Construct struct pt_regs on stack */
- 	pushq	$__USER_DS				/* pt_regs->ss */
---- a/arch/x86/entry/entry_64_compat.S
-+++ b/arch/x86/entry/entry_64_compat.S
-@@ -196,7 +196,7 @@ SYM_CODE_START(entry_SYSCALL_compat)
- 	movq	PER_CPU_VAR(cpu_current_top_of_stack), %rsp
- 
- SYM_INNER_LABEL(entry_SYSCALL_compat_safe_stack, SYM_L_GLOBAL)
--	ANNOTATE_NOENDBR
-+	ANNOTATE_NOENDBR // ip_within_syscall_gap
- 
- 	/* Construct struct pt_regs on stack */
- 	pushq	$__USER_DS		/* pt_regs->ss */
-@@ -260,7 +260,7 @@ SYM_INNER_LABEL(entry_SYSCALL_compat_aft
-          */
- 	movq	RSP-ORIG_RAX(%rsp), %rsp
- SYM_INNER_LABEL(entry_SYSRETL_compat_unsafe_stack, SYM_L_GLOBAL)
--	ANNOTATE_NOENDBR
-+	ANNOTATE_NOENDBR // ip_within_syscall_gap
- 
- 	/*
- 	 * The original userspace %rsp (RSP-ORIG_RAX(%rsp)) is stored
-@@ -280,7 +280,7 @@ SYM_INNER_LABEL(entry_SYSRETL_compat_uns
- 	CLEAR_CPU_BUFFERS
- 	sysretl
- SYM_INNER_LABEL(entry_SYSRETL_compat_end, SYM_L_GLOBAL)
--	ANNOTATE_NOENDBR
-+	ANNOTATE_NOENDBR // ip_within_syscall_gap
- 	int3
- SYM_CODE_END(entry_SYSCALL_compat)
- 
---- a/arch/x86/lib/clear_page_64.S
-+++ b/arch/x86/lib/clear_page_64.S
-@@ -42,7 +42,6 @@ EXPORT_SYMBOL_GPL(__clear_pages_unrolled
-  * rcx: uncleared bytes or 0 if successful.
-  */
- SYM_FUNC_START(rep_stos_alternative)
--	ANNOTATE_NOENDBR
- 	cmpq $64,%rcx
- 	jae .Lunrolled
- 
---- a/arch/x86/lib/copy_user_64.S
-+++ b/arch/x86/lib/copy_user_64.S
-@@ -32,7 +32,6 @@
-  * it simpler for us, we can clobber rsi/rdi and rax freely.
-  */
- SYM_FUNC_START(rep_movs_alternative)
--	ANNOTATE_NOENDBR
- 	cmpq $64,%rcx
- 	jae .Llarge
- 
---- a/arch/x86/lib/copy_user_uncached_64.S
-+++ b/arch/x86/lib/copy_user_uncached_64.S
-@@ -28,7 +28,6 @@
-  * rax uncopied bytes or 0 if successful.
-  */
- SYM_FUNC_START(copy_to_nontemporal)
--	ANNOTATE_NOENDBR
- 	/* If destination is not 7-byte aligned, we'll have to align it */
- 	testb $7,%dil
- 	jne .Lalign
---- a/arch/x86/lib/getuser.S
-+++ b/arch/x86/lib/getuser.S
-@@ -58,7 +58,6 @@
- 
- 	.text
- SYM_FUNC_START(__get_user_1)
--	ANNOTATE_NOENDBR
- 	check_range size=1
- 	ASM_STAC
- 	UACCESS movzbl (%_ASM_AX),%edx
-@@ -69,7 +68,6 @@ SYM_FUNC_END(__get_user_1)
- EXPORT_SYMBOL(__get_user_1)
- 
- SYM_FUNC_START(__get_user_2)
--	ANNOTATE_NOENDBR
- 	check_range size=2
- 	ASM_STAC
- 	UACCESS movzwl (%_ASM_AX),%edx
-@@ -80,7 +78,6 @@ SYM_FUNC_END(__get_user_2)
- EXPORT_SYMBOL(__get_user_2)
- 
- SYM_FUNC_START(__get_user_4)
--	ANNOTATE_NOENDBR
- 	check_range size=4
- 	ASM_STAC
- 	UACCESS movl (%_ASM_AX),%edx
-@@ -91,7 +88,6 @@ SYM_FUNC_END(__get_user_4)
- EXPORT_SYMBOL(__get_user_4)
- 
- SYM_FUNC_START(__get_user_8)
--	ANNOTATE_NOENDBR
- #ifndef CONFIG_X86_64
- 	xor %ecx,%ecx
- #endif
---- a/arch/x86/lib/hweight.S
-+++ b/arch/x86/lib/hweight.S
-@@ -10,8 +10,6 @@
-  * %rdi: w
-  */
- SYM_FUNC_START(__sw_hweight32)
--	ANNOTATE_NOENDBR
--
- #ifdef CONFIG_X86_64
- 	movl %edi, %eax				# w
- #endif
-@@ -44,7 +42,6 @@ EXPORT_SYMBOL(__sw_hweight32)
-  */
- #ifdef CONFIG_X86_64
- SYM_FUNC_START(__sw_hweight64)
--	ANNOTATE_NOENDBR
- 	pushq   %rdi
- 	pushq   %rdx
- 
---- a/arch/x86/lib/putuser.S
-+++ b/arch/x86/lib/putuser.S
-@@ -46,7 +46,6 @@
- 
- .text
- SYM_FUNC_START(__put_user_1)
--	ANNOTATE_NOENDBR
- 	check_range size=1
- 	ASM_STAC
- 1:	movb %al,(%_ASM_CX)
-@@ -57,7 +56,6 @@ SYM_FUNC_END(__put_user_1)
- EXPORT_SYMBOL(__put_user_1)
- 
- SYM_FUNC_START(__put_user_2)
--	ANNOTATE_NOENDBR
- 	check_range size=2
- 	ASM_STAC
- 2:	movw %ax,(%_ASM_CX)
-@@ -68,7 +66,6 @@ SYM_FUNC_END(__put_user_2)
- EXPORT_SYMBOL(__put_user_2)
- 
- SYM_FUNC_START(__put_user_4)
--	ANNOTATE_NOENDBR
- 	check_range size=4
- 	ASM_STAC
- 3:	movl %eax,(%_ASM_CX)
-@@ -79,7 +76,6 @@ SYM_FUNC_END(__put_user_4)
- EXPORT_SYMBOL(__put_user_4)
- 
- SYM_FUNC_START(__put_user_8)
--	ANNOTATE_NOENDBR
- 	check_range size=8
- 	ASM_STAC
- 4:	mov %_ASM_AX,(%_ASM_CX)
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -4597,7 +4597,7 @@ static int validate_ibt_insn(struct objt
- }
- 
- static int validate_ibt_data_reloc(struct objtool_file *file,
--				   struct reloc *reloc)
-+				   struct reloc *reloc, bool warn)
- {
- 	struct instruction *dest;
- 
-@@ -4611,7 +4611,7 @@ static int validate_ibt_data_reloc(struc
- 		return 0;
- 	}
- 
--	if (dest->noendbr)
-+	if (dest->noendbr || !warn)
- 		return 0;
- 
- 	WARN_FUNC(reloc->sec->base, reloc_offset(reloc),
-@@ -4636,6 +4636,7 @@ static int validate_ibt(struct objtool_f
- 		warnings += validate_ibt_insn(file, insn);
- 
- 	for_each_sec(file->elf, sec) {
-+		bool warn = true;
- 
- 		/* Already done by validate_ibt_insn() */
- 		if (is_text_sec(sec))
-@@ -4672,6 +4673,14 @@ static int validate_ibt(struct objtool_f
- 		    !strcmp(sec->name, "__patchable_function_entries"))
- 			continue;
- 
-+		/*
-+		 * EXPORT_SYMBOL() must be counted towards an ENDBR usage,
-+		 * such symbols must not be implicitly sealed. But it is fine
-+		 * to EXPORT an explicitly (__noendbr) sealed function.
-+		 */
-+		if (!strcmp(sec->name, ".export_symbol"))
-+			warn = false;
-+
- 		for_each_reloc(sec->rsec, reloc) {
- 			struct symbol *sym = find_symbol_containing(reloc->sec->base,
- 								    reloc_offset(reloc));
-@@ -4679,7 +4688,7 @@ static int validate_ibt(struct objtool_f
- 			if (sym && !strcmp(sym->name, "sys_call_table"))
- 				continue;
- 
--			warnings += validate_ibt_data_reloc(file, reloc);
-+			warnings += validate_ibt_data_reloc(file, reloc, warn);
- 		}
- 	}
- 
+With the leader moved, it would. Otherwise PROCS would have to pick a
+stand-in thread, which is what this patch does inside memcg.
 
+> Shouldn't this be CSS_TASK_ITER_THREADED instead of 0?
 
+No. Walking a memcg css goes over e_csets[memory], which already
+includes the csets of threaded descendants, as memory is not a
+threaded controller. THREADED also walks each cset's threaded_csets,
+so those would be visited twice. It is meant for walks over
+cgrp->self, like cgroup.procs. 0 is also what this function used
+before f168a9a54ec3.
+
+[1] https://lore.kernel.org/all/20261027144016.2582880-1-zhanxusheng1024@gmail.com/
+
+Thanks,
+Zhan Xusheng
