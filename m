@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623386;
-	b=VmH0hXHw6N9YFNDAnd8lLuXZbr5ZC662LmqTNjBig70C+9zinb3soSjSaW0EmHjN6cYB
-	 Np9MgRe72S738vLlRO83f93uSiTybsaZ/bUV5da8A+7nBnw6U6ModohgidijmXPtkC8ai
-	 f8VnHT+rW2anIPkYRG+UMy92LDUrkdkWEkHiDrQvgiychkg7unsIenGIftYDCWImd24D2
-	 RF/vZ4+U1GhLAqbr07869n0jRm8+TazprSaLQDSacfZc3POb/a2HA6MfTdNBm40I1WkN/
-	 gYzftGmJi1q8jYG4ev0JSf3KWpsTbH+uDyzSBigzTz0eGuBXXBLQxAJlAfHXlmanJsQ==
+	t=1793623392;
+	b=YZgN3V428eLECNEsz9UjU2JVaI+OwUbReZ1QmdjvquJW6oZAtvj7ZLhXfD80aAjd6ciR
+	 TrT9FSjLGIXxNMElkdxgf0osDSh2I7hUSlbr0zmZcFIaUGZi1Qd41sLsordl7hfEuDQRh
+	 QZH/aYMnuNxdtRiHNZt0ZBVBZfFcXhd4V4Fra/6tPVT/G7igihwKLXO14fjaHhK9QtPxj
+	 QLnVpZCJ6h6H2GqbD4/WeKz9k8PfcTAZmHQRoPEx2Tkhh5JHaMpvcvJt2FU0pIiyv51Sw
+	 PYy2gvkcgoflbTzxHj0Sbm1ldGEVNONRkOgwYelfMTzKhDAlPjKg2GD/PomQVR90Elw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623386;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623392;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=1Pv9Wz/6/Mqcf0Mxk5niBDMqlILELai2f37Zx79Mm6w=;
-	b=oPNH0mv/36rJNrm9qVRYLYjuozsRaBJ16eJ71kaRvwnV3FGXnA+8vecB9UvqJs88efz3
-	 gnobczyTqSwhv/OsayWR7ky/CGGM2ZipSsPn37A9YwuXEgLxJy/qZlX9Z/ydvCdoT0SD7
-	 O/dfD9HFm2oajiBmSdcyLpXGzJ6aQKryTMewy4b3BK2KVrHg4MVweylS50BHAgQr+Ttj6
-	 FNuBAwMM/9BwBi314xquH3yH9BwPkvNv8HEVCZqX7qP7bHsdS0zBNErE8fQnkz1Nd1vjk
-	 KKz+jikE8JUPpflW6/d0yiL9pLiueBH7N0A4I0vDYsg9H3a0HPHfDyB/hHL0kk+muwg==
+	bh=qh0+ehsvHE6sZydhz/Lp/6nlkZRPMxmmjl7AynibAx0=;
+	b=MEa0jSLm8fGAMFPsSPtDq7+5bwS4TgZL9nu5fyW9D7fsk2wystGjwdEnu1aO6emXr4Bi
+	 UCupzh8MvVZt1i2OPJJz+GtPPCPVowV7ugy4PSgv1Q5ah0zc/MN9XISlHigWglj8XfGIo
+	 qIiiKZ6/ZPEgMTBYyVMpI6El1Gl3nO5lCjg4Z8NGyb645fsENdHglRXaFPGOfYE3LpAEy
+	 RwkOUYR1BPshx8bg3/F7Vi39i73TpA7YPa3oD31mIx8UYAw9GCc81xNbyiOB1K4nclTuc
+	 4dYZdMwWiwetLsGmWT9XDvWxPSkU9urbyi7tP4RjY137F8ApY8XrIJrCOjYwmJP+dug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW+ccwze;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=au8JYQzv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF62D60A262B;
-	Mon,  2 Nov 2026 12:43:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F0560A3824;
+	Mon,  2 Nov 2026 12:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW+ccwze
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2ABE1F00A17;
-	Mon,  2 Nov 2026 12:43:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=au8JYQzv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADAD1F00A17;
+	Mon,  2 Nov 2026 12:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793623385;
-	bh=1Pv9Wz/6/Mqcf0Mxk5niBDMqlILELai2f37Zx79Mm6w=;
+	s=k20260515; t=1793623391;
+	bh=qh0+ehsvHE6sZydhz/Lp/6nlkZRPMxmmjl7AynibAx0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=OW+ccwzeSyuRix3iC5gkENICZGxYQCm7Qlz0ui129oLUXxIz8ueY2jPo0VAuQu2/L
-	 Jrs42XUc/S2uDmfqToXaZdIbLBiJBhhfU9ghvdTCWaYj9Fo/i5jbJebC96IK4m2esa
-	 QF7vSrdvnbbZsOH26f3/FjhRYbHzVDj4eJK8Shmpr0mLP1rk6oDow+7yHg9chQi9Ab
-	 a8J//eC3BkeFsHFTYzDQoGat6nsgsuPUkzzzktjtVC/G3ZccJzq+auoZnFK8H7QiZJ
-	 I9Ny3Qu8poM/yTOXXkvH8Tcnv1EuxDywKQ4BLeHAv4MTR9zgVwN2ZgS69O7yPTDHNg
-	 nU2GXAPYNP0gg==
+	b=au8JYQzvnX/3dgoimqtxNT6thA3Ing1lgsa9xbB0ei4JV6aPqmMAui4T1i8d8NaPg
+	 aQBFMW35BZZxrQVQKDAXf7VpMjlEeFf+Q4Hg87ssriCTcj4rTqbEmEHraKPxY0EkJZ
+	 7bLPxqyNn51Tv1LXyV1UiGvtBkbprRDztMX/97bkoewVBD6aWeWRlQMLltEV9TGBQ7
+	 hdqdmvCwCxNt1ahRuY+m6SXRU4opMkWd5PKAUx1aKPmZYNU2fbAsPMg9LFd5bQJvCC
+	 Zi6CipFq5zpqSX5rET+ABnZTUwsP4oA2Mn/QiDr5CNk8d3V4hjbN89/UhJMAU73cOs
+	 aAw5QN0a8DKhQ==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id E02732310535;
-	Mon, 02 Nov 2026 12:43:03 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id B781D2310565;
+	Mon, 02 Nov 2026 12:43:09 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: linux-spi@vger.kernel.org, Chunfa Zhang <zcf1810@163.com>
-Cc: linux-kernel@vger.kernel.org
-In-Reply-To: <179334613930.227576.16591083055909656623@163.com>
-References: <179334613930.227576.16591083055909656623@163.com>
-Subject: Re: [PATCH v2] spi: fix zero-length scatterlist entries for
- vmalloc buffers
-Message-Id: <179357789840.1716893.13299052372879866631.b4-ty@b4>
-Date: Mon, 02 Nov 2026 00:04:58 +0000
+To: Gowtham S Bhushan <gowtham398gs@gmail.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
+In-Reply-To: <20261031023942.591298-1-gowtham398gs@gmail.com>
+References: <20261031023942.591298-1-gowtham398gs@gmail.com>
+Subject: Re: [PATCH] spi: core: do not WARN on OOM spi_controller_id_alloc
+Message-Id: <179358012894.1776482.2352256641722105490.b4-ty@b4>
+Date: Mon, 02 Nov 2026 00:42:08 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,26 +65,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1134; i=broonie@kernel.org;
- h=from:subject:message-id; bh=dL0BvO5bJG1Wo9YBWphrOVc/kNJ8BgiID1GqRGqgYBo=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetIYz5O5Z3Zx+fW03f8Thoou8fUdKTYpi5Wu9lwYfW
- 9j6qWdLRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDaEi1MAJsKkxPC/NC/qBd9e2YPztXvf
- 193Krf9juLggiF/Td61wyrvPeSlGjAxn7W+c/85U+TliPXNrTH+8zB7GhQqRP2Y9aQ9Rui42q4c
- NAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1125; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=PmH8KZ0cNk74D5K7ZlZfPgkATno2fj2DnqWIVQ6Ou/c=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetMbendLg9mpynNm7orgNhbfDNdRuJmYt1/v+69q3j
+ 7PNaz8/7ShlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBElKsYGfZJcEk/dKvzcW4P
+ LmW+v4pvZXhirOGGSJbOZpcdW2VetzIyTFPwOPz/uEfh9OqFF1783HF0ynxnW7V8d32nC/ccKo/
+ PYgUA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 30 Oct 2026 15:42:19 +0800, Chunfa Zhang wrote:
-> spi: fix zero-length scatterlist entries for vmalloc buffers
+On Sat, 31 Oct 2026 08:09:42 +0530, Gowtham S Bhushan wrote:
+> spi: core: do not WARN on OOM spi_controller_id_alloc
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
 Thanks!
 
-[1/1] spi: fix zero-length scatterlist entries for vmalloc buffers
-      https://git.kernel.org/broonie/spi/c/daa9bdb942a6
+[1/1] spi: core: do not WARN on OOM spi_controller_id_alloc
+      https://git.kernel.org/broonie/spi/c/d65548129990
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
