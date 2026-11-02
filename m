@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793617772;
-	b=PsHYFraA8K3JmC7YItnpm9+AzsBweBOnP82XVY8+N0Xdb3UJFpElpaJXII64Q6aoNWAU
-	 gb4zHAhfh4f0B1nH9jc/r8BD9gbPGrawjteQ82kXaUNc2yhJRidwW2Y457ybpLR/XpzGp
-	 dmz2Xu3jggJ8ANVzEPIjSVnqVpuQEXD80U2+vOhS3bwVofmPCf2eWUQPbHWtCKHIus2Ys
-	 ODrmsjG4XPgw/tYLxxN13yC13zB51C3c42EwnU+34SXBb/MZP8dnpzBuziAZn8a3DIFnH
-	 sr0pKMHlhUqRmONclEoseVZ9uNL+3CF7iZs9sirN8T/KPGls+LD1JmmAbhZ43NPogXA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617772;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eEksHASZhmi2ifPCrIXC7jHISd0yGjpCfJlRidielrI=;
-	b=2UlS7Gm8SZXJDm7VrrTlfg8ebiA/HS8obFdxZ5KJgYGzMCNrvOdcBzT4wp0t5V+xzSre
-	 3fJCnMcSYWy5LC6WSaitf7Q4KhutaoLXli9eOBhAi/BrcBAADWmogo6dQ1qDr6GQa2fsG
-	 pyYXj1gAtxRCWpkdBzSSRDkKQP3xPd8TN2Dnc6voCLkh9k/V6oodJp3w2gaflQkXhRjEi
-	 bavcc6T7ERMJF/SB1yYawrBxzWO5eTamg+VciTfWcn8GD1CE/dnjSO61Ab/1iRndwP7Kj
-	 Jug2Hz1D4JerQCm9GFBHOrc5w3kr8ulUkKBRu8dkrpusg5zmOOn1039N15GkwiFFw6A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D5omtltr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.20
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011020.outbound.protection.outlook.com [40.93.194.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793617832;
+	b=F4IkUhULaMStE/BbgHhhQZfUO8zthYPbWVb3hUlI75twpJB+zsuK984P3hg4npcEkbro
+	 TM7V6GFrGAeWZWBZZpkeAKLGcAeVQS9pPPDz9anrrAkkNyjg/Es29MfZqKXuldRX4tPcU
+	 9Roskvlqte8fLwPEX/N0sRqmx+KHCsOI0Dhk2ag1RU9El37tMo/x6BVFVkAYsm/278+0p
+	 40NfA1uvK5G+CX0/V0oqKs2usrhkraYNB0vskIWc4RlUlh1iatcsBynvI86HpYaiFJIR5
+	 ZqUQIgFoHJUp8HVegzbDUJObNL6KG6nAryLNICGrK3abdoxMCol+nOno8b76UZzzTXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617832;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Ns2jpBxHnJhEeiIoRDQem4m1lY/zadpTOWX0iiIepSI=;
+	b=IF0QADW499R61h18QgUquG6fUyUoHCeI4c4YKqrL+wNExEaD0P1TaqXWOAXYuQejFCk0
+	 RFUKIPh+Q/B9fMos7lXSV/5E2IUMGp2v4r3wPqClnM2qzLsVk1W6Uunq13BQ3zundeTwi
+	 5UDk49I5qY24XO2Wc7Ni5eopGrsgfbBbTEp2JNiyXFflJmbblGWBlr4PAVAfMmGx+d2Xs
+	 dxrZaG4WloKkav5p19CUFJLqbRzmLA/vdP3Cp+9VpagTITMKuu1fpT3b1+JPhvz9rDvVh
+	 fAkP6qjfny/8qt8fOHNwysHLgNgQ7sSraxfppeyc1hCxea0kM7CZk2WV2KladaX1qLw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b8iyQhzx;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0020E606A333;
-	Mon,  2 Nov 2026 11:09:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0020E606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03DD606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:10:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C03DD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D5omtltr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BYYhPtJUv+uso7b5qgoQij7BDxcU7xCCb8vC+Lq4Rk5+aZUy8x/H4iBoqOcgdd9/kAfZ3WPjdnuhbA0AmHUUu/8A+4HRNZLXZOFLIYwDP89ue/aODsRQnJwPO3XDw4gqrbGMnvTWvmiEi93GnE8Om6nY7KnwtvOpkCb9dGp4D19wHmC6cyhyxt9WiGrNUC14qrjqm2ejiO34xpjXDqVszgLHxe1TCRJmPZre5iIPtzk0VV/GLVcF5M7YSAcufXv9J56GwVMhTKRZm67EfonU2eA8pkdh2WSW2h/uOSHeAwgu3WqEjyJK8eHd9SXzv0Xw15fOmLyb9OyrZvzdZ7SE8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eEksHASZhmi2ifPCrIXC7jHISd0yGjpCfJlRidielrI=;
- b=ctv7suudopkDIdZyFA3mF+CwY9jGY+4NIIQyNB9vz0YZ62355iHkzNJcSL3/KdKuDaxf0s7k5FtKCfCpVK2x+j2pERfa19xPDBj13IYJyBxBHPw7171LvxzpiaLRofF61da2cMYf1CyOS/WKaRxVGFk3cfF+BdEloMWpw5zT+L33AxtJKbFHEnxBVfiMixUHkek9uWYO3crqfvYdzGsz7sCH8j+xpUag0XcMC6BkxhPw4l0vy7PYKoyuGS+IBOSvqaj4vuqykymOxIQPZ00qC34t6gw0WBgMv70MZlfqNAM2vpMph7oWgp85wQ//RgZFWVZz9qriaeRBWdz98No69Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eEksHASZhmi2ifPCrIXC7jHISd0yGjpCfJlRidielrI=;
- b=D5omtltrsTJJTMKAfI1g9+f68zecFcHHAQUKu/1iwVvvNsmfiI5CausIxOqgws78jkCNJ9u9muMAIkZMT3RCPR8aK5w9euknb7TvztnxCmpLkWJ5+ea7qCwEkbQhnDjXuDjblu5EiyVBcKqNVlMQQXXo+tY2x8MZimEbtrZD1BM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB8114.namprd12.prod.outlook.com (2603:10b6:a03:4e8::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 2 Nov
- 2026 11:09:28 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 11:09:28 +0000
-Message-ID: <a10ab532-1e9e-4a85-a79e-b712868889c8@amd.com>
-Date: Mon, 2 Nov 2026 12:09:23 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: system_heap: Reject private mappings in
- system_heap_mmap()
-To: "T.J. Mercier" <tjmercier@google.com>,
- Chris Wiseman <chriswiseman@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: John Stultz <jstultz@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, Philipp Stanner <phasta@kernel.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
- <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0174.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::29) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b8iyQhzx
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3aded3c6103so1311276a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:10:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793617831; x=1794222631; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ns2jpBxHnJhEeiIoRDQem4m1lY/zadpTOWX0iiIepSI=;
+        b=b8iyQhzx11ExCaz0QiBc1bkRDEIz3whLV2+RdANYY3cnLYbkuPqakPzx7Sgc+W3YR2
+         WOUBhqPUlwrJhplfW3XnSc2jUhE4i64nRgEh3CbK6JQzgiP4EVorspSJTh9gV5dJYBXS
+         a88g6q9ZFI+a/L1g9FD78W43ZJrCUtQmCbtqG/C43eNcgNZbZq1Cyh4G3sHbKKZx6KKM
+         fIFEMq5lwz+MEAKF8iPPp5bPPY4WL9UqXorFU/gtDe2SBGSeOtbnDkosou0FO7ZIdEY5
+         UC9sXZ42rxYChxP95o/PBYQFyHXTHh4zUDBVKXi9FmGPjh31Q78y33eAua7wgcKGGV2A
+         ezlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793617831; x=1794222631;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ns2jpBxHnJhEeiIoRDQem4m1lY/zadpTOWX0iiIepSI=;
+        b=bTlwYAEy3AhVkpKK0FSP+/BoMxGLfSFRa4RIRpWh0ctXjCiNR969C/Lg/Us7LUIa6E
+         AgSErgTuKNZ8pFMBRVyuwgAZVXLYiJzYqJEOtI4HVVjeuhxjJznWy1PNEdLegSC/LRpS
+         7+TqIm9xSpP0ut2H5F+Um0vrGS4DahN4h65LGpihxNxXqLKOhwS/3imXvj3BnekBD/Lh
+         mK88CtVWQuVqOcgDtHKG/qr/4zzcJbT1wRUAmfpCdSC9qg1XDlHkte8oXTbQJN5cz8RO
+         nIZNGu0oHJUMQHKZgWdkRo2rW2T8ol8GaZu05liZ1lBvfN6rncHsx5ec6pRqQALEBuKp
+         iUYg==
+X-Forwarded-Encrypted: i=1; AKwUvBwChuStiWpFyI2gSAkghcGiLH6hHmhzQsCIfB2f5NKMSpZcaunsz8NcNC1L4ZoxWyQp8DpnGze8LJsatL0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82bw4dfkx4W8lEZWEyDGUzuS2h16TpO2fSUH3W4vxN/nBX/anm
+	VWhMzQlSqw5r1PxePcV9oJVI6yRm7AC40kQ1hUtpArmxbkzoQrW76R07
+X-Gm-Gg: AYBFou0zoERqSZsCMIqHW7eR2cSL6RHAgtue2RhK0W7HDOe2KYah3DO+yeRRU0dRrgy
+	CuffzLg/e8nKdl7ZNBr0js08jqPJ+8bGvPg6iS1QbSDxFfyMh/74itNT9qdq+xdJrOOOAIGds9f
+	DSIhaoY/NUOS3z3rvC0UXk8qf4eb6Zp9PfsiW7cWFCxQYVPE7M6bv7TkSGY6PX8qNPYolpXqWF+
+	v0p2xcAJ/dRwj4HCNHiLgnPIMeAIUvbduqvWwbLpQw3vlt1f4aSGd2npX/fZQ/XafxZmjVKnjTD
+	+v5ys4rOETuaIWJkoClbL8c2Dd2vtH/q2b1oPKkEABTxWNJUfE1w/pwWEI3VtZgiMkyM10EP2JH
+	exIUoe6I9o9O/toQ/48mjmX7xq3T33JQQZQ0zcncp9+fDTb1Raenr7XWh8p0fnHz9lIXgk1Zkq2
+	ckH+4xDTD+rBF64DP/ANfqM86vpNJUd1f+9bD1w0iuRNR/KxCOVW3slxhGwTaaxLiHkSLJbnKZK
+	eqeXyW3oEmDw6rirHsC2FEv3bHJ6zA7xiP21YQCRg3cfnVFR04rTla4zZwQSbgWUoYEDYcoHIdF
+	nhAjpDCDT+548q0t/KeTyFLdvGjFRD50G8WfLksdTZoYN0rjgE2XLTD+MtpDQlbFCoBY
+X-Received: by 2002:a17:90b:2745:b0:3a4:b0a1:c7ed with SMTP id 98e67ed59e1d1-3ae89776d99mr7744624a91.13.1793617831065;
+        Mon, 02 Nov 2026 03:10:31 -0800 (PST)
+Received: from ?IPV6:2408:8210:2436:950:5bd4:8bc0:479b:e7d0? ([20.89.137.63])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae881c5624sm7342277a91.4.2026.11.02.03.10.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 03:10:30 -0800 (PST)
+Message-ID: <59fe5a60-049f-4e53-bd75-e7b2de3717bd@gmail.com>
+Date: Mon, 2 Nov 2026 19:10:26 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,109 +92,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB8114:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9d1ccca-abca-40b9-ecc3-08df38d1c33e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|261026140227099003|18002099003|22082099003|10067099003|261028144727099003|4143699003|11063799006|261022105027099003|261021121427099003|56012099006|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	nQ5gj8CMbyqcuFZsPeA7BJpFlDQQWKwCMyXyjfossXXldHWUwNYYPoBww90TnwiVvoJ4ZNB0jE3vuVZwOjCHpdB7QiMhWD2/LPSWwd4Na5sK7PkPHFXBVaLQqB56KEbkwUesz1GjfIdlSHoKQgwaOf9saRym0qCkxQQYMltlMzdX2Hnu03mlpf7pww2h3lmX1zZnFKtl3mUfzvOz5NaxbfW6whfpyae5xRx08paBTtrJwKKoVihuqB9acqzsz+r9JZoVXpY35OumDS8rdaUOT5rw5ymWElH8NroXHqOYXOn0j53IryfS8NRuDfyMSlI3Jj7fflYf1C+ZhPopJY6dYtL7QPa2yOmsAobN4DEqeLHBXNyHaYSf/zR1W/U7lcsgUWOv5tDkCECRWnrwEcrTKKYHt9wXGRegNEJVAsiS+0q2yjVRQI0cP6olmMaPxeuIVVdTnO5wlEimdgGLDz1mvtv7GECc7xod4LH3/n8CISulH7J3bTwC8daDSq1oMOJFQD+SqMBZEF5lQr54v9SglrpYrYJUqbZNC6nTOI2hAcb9QL2mUNXrolGFu1Cl8SoUSPzxc1efdBL6jCeNxgzVoSF8eKqgXFRVReZ4EZwlpFwCFmXsWbismvfQXHSMY2OQ+c9QiR4Goi2RRiAe2xylYkgD5xUJ+IKIsA8pFWnLnvo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(261026140227099003)(18002099003)(22082099003)(10067099003)(261028144727099003)(4143699003)(11063799006)(261022105027099003)(261021121427099003)(56012099006)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UjZ3V0xvOWw0YTZwYnZzOVNZRzRieXlWM1VaMWh0eDZtVEpzOWRvcks2akVU?=
- =?utf-8?B?UnlZVVd4MThXVHBPRnhvNzA4RldEV21tbHBqTFB6NkJPRXYyVDJENzhtTkhG?=
- =?utf-8?B?Qjd5NEZybmVWNkNMbXZZNmJIT3ZZVjRTYktaRk9ub3RkN0t0S0dCYmY0RVA5?=
- =?utf-8?B?KzJ3Z05rTU5HNEVBZFdkS2NsdXU1ak9NZ2ZSeEkxOWY3WHQ2MFVEcUlWYlYr?=
- =?utf-8?B?alkzdFpyUGZoVTFDbVNOS3NXb000U1hFVHJ2V1AxeDdoa0U4bFAyOUZRbHVC?=
- =?utf-8?B?R2ZXZGhTQ0RDVlBtY2NYNEduVW9xYjZwWXZycGtxTis2ZzFheVJSNVd5K1F0?=
- =?utf-8?B?dXM1UWppelpYME9FQnF1WTA4MTlhd0dtSDlZUTY3S0pvZXNPNXh0UEY3N1dP?=
- =?utf-8?B?dlZJQXBBUWc2Y2lya2ZMYWVtbFhQelk2blZwYTJ2VkJUc0tITFN6elRjSlg0?=
- =?utf-8?B?NHN0UnllRTJYNmZCelljMTgxNThwRnQrUlpvUlUyTVVUK2VELzRLOStpRFFL?=
- =?utf-8?B?Z0NvQVJYZ2pQNG8rYnhOcUJ3c0VJR2RRRmFGMTBJcksrYTYvVGQvT3FkUGUy?=
- =?utf-8?B?a0JsMmE4MWt6MW0xUjlNVWg5OENBTjREY2N0Ykd1N3doSENLUWZTdU1KeHV1?=
- =?utf-8?B?K21BWVF0QnJIMVUxWjltWnJ3UVdYbDZNbzQ5aklmbHI4dVUwbDN5WU43eEdn?=
- =?utf-8?B?VmVLOXk3ME5mQ2RXbTJUNlVPazEwRVM5bW4vTGEvSjhYeVpEWFNBcXlLT3BV?=
- =?utf-8?B?WnBKWm9pbkw2ZStKcHJWZlF3Wk5lNDg5MWpoazhqdHVxQ3lLcXZFN2tVaC9R?=
- =?utf-8?B?NnptRUZXTGNkdFVWOEwrV0RtbXRqbnBYVDhXLzJtRlpWNWVYc1pKRVYxUXVj?=
- =?utf-8?B?UTBzdkJOckFvS1pQNENwWWtGc1RTYXh3QU8vblFsWFY3eGRRYXluSmV6WWdh?=
- =?utf-8?B?aUZhZUpodnE0MnJ3d2F2UDlzYXNYaWd1eEtlQ3QvL1FqV3VxS3k5QVd6MWd2?=
- =?utf-8?B?ZS9jeUNkMHZIa3BRdEFieHE4elhESW9ZNm9ZWVFCSGxGelJwelY4WExMdjlq?=
- =?utf-8?B?OC9zejk0R1hLRXFNRmNsT3JRWSttZFJtOWVtT0VzREw1OS9RaU5BM25Bd2do?=
- =?utf-8?B?ck1JVEhUL3d1aitQUjU1T05RTXkvaVFaSjhzR2pNanhxZDhRamhLOE9NbmxC?=
- =?utf-8?B?b3NCVks4Z2haTjhMbDQ5TG4rbWJUQmpWTUhOdmttckI1MDRUbTNQTUhVV1Y3?=
- =?utf-8?B?WTV4WGJ0bjVqanhpbEZXdTZHS1ByT1Fnc0c2Qk1ZOWYzM2p2Njhwem5qbFRP?=
- =?utf-8?B?blNUQjh6TjAzOUNWOG5BaTU1TDNYU2dGOGxYTmVIbDRlMEt5M0x4S3RFTEc2?=
- =?utf-8?B?eU1TeEI0ODliN0g0eW4ydmdub0lIYkZrMkROZ2ZNYXZFcWw0azBNc2FHWWlS?=
- =?utf-8?B?ckxxSlo0MnZaa05qdWVaZHk1MEM3YjJDcm1sMldUUHZlZjA1K2tlNlBWN0Q2?=
- =?utf-8?B?QkJiSHA4VkVrWms5VzlOR0Q0QklZNk4zYnArK09oalBNNGxXVGRrNjIyZ1dx?=
- =?utf-8?B?L0hUbHpWaTJyK3IwTmw0dlExQzliVytVbXdEalJ6UDJFbkdWMXBsS1M2aTlP?=
- =?utf-8?B?NFJIYXhQR0EvMUxGKzB3WkFMRlkyakdndTdTdTdZdXNJQ2hjSk5KMC90QWtK?=
- =?utf-8?B?TlJRWTdWUSt0ZnZmZjlhYmorS3hFbHBCKzdhMmsvTVRxQ3B4TEYvd2dHb3pE?=
- =?utf-8?B?b2Q4c0hQRkJ0NHdXVVJtck5SK1NGY1QySHdVYnRYYVI2enFlU3hnWTRIazVh?=
- =?utf-8?B?SFV2b1p5WGZCSC9DQTEydDJncDRjWkFDcGhmWlNXVVBTS0hSdk1ta28vdita?=
- =?utf-8?B?dEtpY3hGdTNWYnI3c0VEQVZQMTdJYTN4MVBBODlLWmVFcE80QUJlblpZc01D?=
- =?utf-8?B?UW1kM05XR1BTRVArVzVjSXVvanMvanhPRWk3MTB1ZjEzejVxcHlqMWQ1a2Ft?=
- =?utf-8?B?Ny80SDYxQm5vam9PWEZIeXlQV3NvUlFBaFFmNWRnb2tQTFIxTTQrWVZPejZV?=
- =?utf-8?B?SWt4YjhXa2tkbUYzUTFTY0lDZWlSMkZ0RFd0NmRIZjhOQXlLZHNwVjJySUtT?=
- =?utf-8?B?UGovQmRGbkFBamFMQkFHWHd0TC9jVkJwUXFIU3hyS1RPLzdjMmx5UStjb042?=
- =?utf-8?B?K3Q2SXdOZ0d5NWt3K05rUkJkSG5wUnBzcWFEc1c3S2pQSWZ2c1lnNzRCd0Jp?=
- =?utf-8?B?aVgzT1pzR21ZbFFsWDhOQnN3Rm0zUWZzUzl3TStXS0dnT3pqVWtiK2d4L3h5?=
- =?utf-8?Q?uXQadAi9pK4ahCKmko?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9d1ccca-abca-40b9-ecc3-08df38d1c33e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:09:28.6895
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oi0Bze0c6AmLcopswZfABFM0+jGj/Hjpg1dKglO/kfihHyYVaDKWh+vhsODL5aOr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8114
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] platform/x86: bitland-mifs-wmi: Cycle the platform
+ profile on Fn+K
+To: Chris Taraszka <chris@miget.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Ilya Gladyshev <ilya.gladyshev@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
+ KentoNion <kento@kekto.ru>, Matias Civadda
+ <matias.civadda2342001@gmail.com>, 7z0423arsenova <7z0423arsenova@proton.me>
+References: <20261101161814.1325847-1-chris@miget.com>
+ <20261101161814.1325847-5-chris@miget.com>
+Content-Language: en-US
+From: Mingyou Chen <qby140326@gmail.com>
+In-Reply-To: <20261101161814.1325847-5-chris@miget.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 10/31/26 02:44, T.J. Mercier wrote:
-> On Fri, Oct 30, 2026 at 1:44 PM Chris Wiseman <chriswiseman@google.com> wrote:
->>
->> When commit 381295758792 ("dma-buf: system_heap: Rework system heap to
->> use sgtables instead of pagelists") stopped using heap_helpers.c and
->> added a custom system_heap_mmap(), the check rejecting private mappings
->> was dropped.
->>
->> Other exporters and buffer allocators reject private or copy-on-write
->> mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf()
->> check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap()
->> and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).
->>
->> However, system_heap_mmap() omits this check and calls remap_pfn_range()
->> even when userspace requests MAP_PRIVATE with PROT_WRITE. As a result,
->> subsequent CPU writes to a MAP_PRIVATE mapping of a system heap buffer
->> fault into do_wp_page() -> wp_page_copy(), silently allocating private
->> anonymous copy-on-write pages whose writes never reach the underlying
->> system heap buffer pages.
->>
->> Reject non-shared mappings in system_heap_mmap() with -EINVAL to match
->> cma_heap_mmap() and mmap_udmabuf().
->>
->> Fixes: 381295758792 ("dma-buf: system_heap: Rework system heap to use sgtables instead of pagelists")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
-> 
-> Reviewed-by: T.J. Mercier <tjmercier@google.com>
-> 
-> I wonder if we should have this in dma_buf_mmap_internal() though. Any
-> thoughts Sumit or Christian?
+On 11/2/26 00:18, Chris Taraszka wrote:
+> On the Xiaomi Book Pro 14 (TM2424), Fn+K sends hotkey event 0x28 and
+> the firmware does not change SystemPerMode itself. The event is a
+> request that the vendor software acts on; without that software Fn+K
+> does nothing on Windows either, and on Linux it is currently logged as
+> an unknown event.
+>
+> Add a quirk for this and call platform_profile_cycle() from the control
+> device when the event arrives, so Fn+K cycles through the profiles that
+> all platform profile handlers support. Models without the quirk keep
+> ignoring the event.
+>
+> Suggested-by: Hans de Goede <hansg@kernel.org>
+> Signed-off-by: Chris Taraszka <chris@miget.com>
+> ---
+>
+> Notes:
+>      Sent on its own earlier today [1]. It is now part of the series since
+>      it changes the TM2424 quirks entry from patch 1. Retested with v3: three
+>      Fn+K presses from balanced step performance (0x04) -> low-power (0x02)
+>      -> balanced (0x09).
+>      
+>      [1] https://lore.kernel.org/all/20261101144100.1043263-1-chris@miget.com/
+>
+>   drivers/platform/x86/bitland-mifs-wmi.c | 20 ++++++++++++++++++++
+>   1 file changed, 20 insertions(+)
+>
+> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+> index 4d02cd9e8a6b..84d1223d0ec6 100644
+> --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> @@ -100,6 +100,9 @@ struct bitland_mifs_quirks {
+>   
+>   	bool return_code_at_end;
+>   	bool skip_ac_type_check;
+> +
+> +	/* Fn+K sends WMI_EVENT_PERFORMANCE_CYCLE and leaves the mode to the OS */
+> +	bool cycle_profile_on_key;
+>   };
+>   
+>   static const struct bitland_profile_entry default_profile_entries[] = {
+> @@ -126,6 +129,7 @@ static const struct bitland_mifs_quirks tm2424_quirks = {
+>   	.profile_entries = tm2424_profile_entries,
+>   	.num_profile_entries = ARRAY_SIZE(tm2424_profile_entries),
+>   	.skip_ac_type_check = true,
+> +	.cycle_profile_on_key = true,
+>   };
+>   
+>   static const struct dmi_system_id bitland_mifs_dmi_table[] = {
+> @@ -169,6 +173,7 @@ enum bitland_mifs_event_id {
+>   	WMI_EVENT_MIC_MUTE		= 33,
+>   	WMI_EVENT_RESERVED_23		= 34,
+>   	WMI_EVENT_OPEN_APP		= 35,
+> +	WMI_EVENT_PERFORMANCE_CYCLE	= 40,
+>   };
+>   
+>   enum bitland_mifs_event_type {
+> @@ -217,6 +222,7 @@ static BLOCKING_NOTIFIER_HEAD(bitland_notifier_list);
+>   enum bitland_notifier_actions {
+>   	BITLAND_NOTIFY_KBD_BRIGHTNESS,
+>   	BITLAND_NOTIFY_PLATFORM_PROFILE,
+> +	BITLAND_NOTIFY_PLATFORM_PROFILE_CYCLE,
+>   	BITLAND_NOTIFY_HWMON,
+>   };
+>   
+> @@ -869,6 +875,10 @@ static int bitland_notifier_callback(struct notifier_block *nb,
+>   	case BITLAND_NOTIFY_PLATFORM_PROFILE:
+>   		platform_profile_notify(data_ctx->pp_dev);
+>   		break;
+> +	case BITLAND_NOTIFY_PLATFORM_PROFILE_CYCLE:
+> +		if (data_ctx->pp_dev)
+> +			platform_profile_cycle();
+> +		break;
+>   	case BITLAND_NOTIFY_HWMON:
+>   		fan_info = data;
+>   
+> @@ -1015,6 +1025,7 @@ static void bitland_mifs_wmi_report_key(struct wmi_device *wdev, u32 payload)
+>   static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
+>   				    const struct wmi_buffer *buffer)
+>   {
+> +	struct bitland_mifs_wmi_data *data = dev_get_drvdata(&wdev->dev);
+>   	const struct bitland_mifs_event *event = buffer->data;
+>   	struct bitland_fan_notify_data fan_data;
+>   	u8 brightness;
+> @@ -1043,6 +1054,15 @@ static void bitland_mifs_wmi_notify(struct wmi_device *wdev,
+>   					     NULL);
+>   		return;
+>   
+> +	case WMI_EVENT_PERFORMANCE_CYCLE:
+> +		if (!data->quirks->cycle_profile_on_key)
+> +			break;
+> +
+> +		blocking_notifier_call_chain(&bitland_notifier_list,
+> +					     BITLAND_NOTIFY_PLATFORM_PROFILE_CYCLE,
+> +					     NULL);
+> +		return;
+> +
 
-I do remember that this was once already discussed with Simona and a couple of others, but I don't remember what the outcome was.
+How about 0x16 (WMI_EVENT_PERFORMANCE_PLAN_ALT)? Some devices report 
+this instead of 0x28 (WMI_EVENT_PERFORMANCE_CYCLE).
 
-On the other hand I can't think of a reason why anybody would want a private mapping with DMA-buf copy on write clearly won't work. Maybe for backward compatibility with broken userspace, not for a real use case.
+https://lore.kernel.org/all/BelDdF5woNEBX6dZ3_zJDEbVkifs1pdxEjtQ1yC-aKyZahijFJCllxm0l_SqZ5Hsj61D8wfJNa7uDSuNKmyyxo2S0tZp9QS5yaafeZUxvxE=@proton.me/
 
-I would say let's push this patch to drm-misc-fixes and apply another patch to drm-misc-next to enforce this for all DMA-bufs and see if anybody complains that this breaks userspace.
-
-Should I push it to drm-misc-fixes or want somebody else take that?
-
-Regards,
-Christian.
+>   	/*
+>   	 * The device has 3 fans (CPU, GPU, SYS),
+>   	 * but there are only the CPU and GPU fan has events
