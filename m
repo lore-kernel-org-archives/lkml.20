@@ -1,79 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793624193;
-	b=AA5l5cYT10xYi1Esb5VbNYsFi4HbIIoaqiVxY7ukk3inlnS1+rfLViDSUqssJEWnfaY/
-	 xRmKBFVQd7KOGyn4v1YamL0O5bnw8tlb5gUwPopIr4JFEuQpJWQ64qNNRVJhJr0MqetmG
-	 bAjD0dINuHCPcZ2dlcp6lYS4annD6iQi4uGGItZ0BL2p6N4WCj81X9OAw1diM/gQKVwSW
-	 hfaxVGXKajvdV7HVpDEQz5aQUFr/Z8IYLTz2ckFae5FjdIRYY3TDzb4gYc1D3gjdpPwcE
-	 9Ur1rPPor0cI2YGEMbZXRBxFyTE6U3i7g2yWGEI+ZmzT+HIeY9E7itUmijZQ+sBl2NQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624193;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XYeVSQrMQh5GQlHFrfRlPa7r3niYCPk6ssF2GHu7Wr4=;
-	b=GYooKapeWLhKBFWA4N6jaJNeFdxQIfxvdoCUj/BLkXVLXxDg3lh1/xt1plSm1lZab1lK
-	 tEQqmrZd105ShdQS8JQ5OxSx4j+zaX+2cK+mVl+RaUyuyhzaIEd7Bk2V+iPiZ/5CBpsdZ
-	 CG7/3jdgHHDO9iT0RFzJBmzxJ232yZrFqVWRYE3Erxy+2rjL5gbU4u83c593k5WqrVcHq
-	 u0aHzXkQ8+ydFjvAZ9mOB+7nBkA/HPOYgcFnX4aLTN/WpAecWBiEt9ap9NL50+P/xy0ng
-	 oNi0WG5cUzwhHo6svItzoN2YPompnxK6xm4JLFC0dOseaF5N4jgfUuAgphWSE6pGFuA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nDE00e6/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629BA606A324;
-	Mon,  2 Nov 2026 12:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDE00e6/
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793624192;
-	b=YFdIcScwlNBOtMO7pWWv/Mvlpy+scwFibeK/ASA4K7PIoAZd789YDnnlTbkB9U7jRAhg
-	 ChqI0XtaRCrg31u4xMA3KlBlITCYn9N8Ek9DfF1SHujW9N61xHQzJp0h83YHUhsL3F+H+
-	 drhRL5UJ12TvVmzskqIQTz1GH349jGgxbeNIIBn7ym8pSeGs69bjHCiHfUOO4jTV1dzrw
-	 OChKEiCcxM2ujVxPCzhTDuyTgLB937ux+TNrwS7tba8DaqylWvoQ98Y81q2A4QmPAKkiJ
-	 z93WOyag854SK5wm7VEsKD7xZTw+uVUcsX+4InT4hVSlz/Gc8oQIxoGyA4qhaglyJMA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793624192;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=XYeVSQrMQh5GQlHFrfRlPa7r3niYCPk6ssF2GHu7Wr4=;
-	b=WnSkvUBpjNTGq1kbs8CND1Zsc77Mf/YIlzvaNVA8rmocBobJb51ibRb+f7fE4QTXgBEK
-	 dgpDAq+eFJ7ihtSFa/CfyWcr7F/qS4+tElWaLYAVE3T5OEUvPoOvBGS53qiipoVspAr4o
-	 lpmqMxwzzMvrgxExj0Hbb0JuzqDo4raVtBdQ7bKQQ3jGRZGAZyCpbBsFF5/3nHjfO0Mp3
-	 7LJceJAllTGwzVdc+Q6O8Pay/im9CmXal+Ri2SKNUuTgjKON5TSTbFZ3GOVB1snPjY+dF
-	 QrYFF7AgWB+FYfo4LdcbeXJX5LcUWoeNG/AyxnAzjzzuLX6Fr9Li4M6Yv7mzRtuKdQg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793624206;
+	b=Xd16elojNE947KXmp1O5slhHrtyp+vQPLbv6r4DD/sXHzakvP5hPKYJ5AqwBeSMk6VJ1
+	 k1wZcVbVY4s7tfo0FKuHRcMURQ+urMq5OTYUc5Uv0P81Mt5FQj6ujxkGS+es/Oi1Gf/ZX
+	 p4Vnbx2YvCR6LbyRvX26IoN0voi7qXGl6kAShnNlBx3Xp+NrKJyZ7K43JrAFNWddLj3GC
+	 CdjORWU3Q3whiVlbimJ5hxYY7+O9m2swyXop497XrEgMd+lgd1jODf83D4w7p8JaF4WAx
+	 nx6C50jdHIQm+0up9OLe8iUmCsIy5tA2a5YdnCQtKGuV2R09nSI60i0IjUYmVBiOQAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624206;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-MIME-Autoconverted;
+	bh=Wo8CPafjrKqXgC1BzSup6dMofFV7FA937tiriyNYXc8=;
+	b=kyJKym6Y8yYTUMo5GsgwV+Y6kn3Bo93tLZHE1zE5FZiouLu6UX5LwT9J6HTPM+lFrZhx
+	 Mpm+GNVr3CcqimaFltOe6ZYZXxNq/EcCgyvXmXKzGOxUWEUJIAmjtzNxAomLNrNykS805
+	 web4x6q8xz5K9zdbRuMKlh7yMkqcWCLxLMNUl/3hJ6GdaIuHxoMvqBNzIEufjBpyk5XkH
+	 oxfn+E97N4R9Qri07fpu2sDlHy0pB5OKk+c72w4ynal3ao4HvRcr4g6KS1LOzaIq2Wcto
+	 pKToN0P8dtlbzVOmbGTedp2IX9zOl7JXyJ/s/V672cDYzJzJkOhI2EG6T4iIKD7zD+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=younes.io;
+	spf=pass smtp.mailfrom=younes.io;
+	dkim=pass header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail2 header.b=kBrMYCW2;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=DfPkpSTd;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 367841F00A16;
-	Mon,  2 Nov 2026 12:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793624192;
-	bh=XYeVSQrMQh5GQlHFrfRlPa7r3niYCPk6ssF2GHu7Wr4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=nDE00e6/DifO1qJBkIuvzJrvHz0sdW5e6hklXCmp/17vKAw2ADrbPK5wVGr9dCSC/
-	 CRVPmuLtJLBwoiXE9utP8ZWCphhsWIB6NCc97nhYR5FoGcsgoY2wctTRI7yDI0/7x0
-	 kfaovLnfNyllGlp8na6YQp+U9xLgaYVRp/31WDemut/LRAMOmiLETKXGgZwy/hhBVo
-	 eKvYhf4PHOSoKPb508/Zjod/hXc145iEajjqqw7UUZlwvgywcgTHk9ckNbYxQhIJaq
-	 fbtjztJwMJs6ZK8CzS3KbA5kWpAtsjJNWrGqgO0iGXr3FnzeXTf5F0R9mHgDdym8Ns
-	 os93g33AJPdBQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BBB32464E1;
-	Mon,  2 Nov 2026 12:56:31 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 12:56:32 +0000
-Subject: [PATCH wireless] wifi: mac80211: check for a NULL link in the MLD
- station RX loop
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07BF606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:56:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A07BF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=younes.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=younes.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail2 header.b=kBrMYCW2;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=DfPkpSTd
+DKIM-Signature: a=rsa-sha256; b=kBrMYCW2sp/2rrd2MEh7Uie0Qmqd6gv7mcZPqhee4ObdrccdKak7eou4KyAw5q/OEv2yCGfKhciBqH84pSq+K/IILT+IW2+Hxfzjs6dQQPDHe23Yc9spUJWfZQdjdPcGNjoCKxYkhNICjQl8P2fa1zXOKAJJODGsgSSjQGEpxig78rS0i5pIm+KF+45QZs6i3W0YZUe4KRHpd6RminNG8wPcbN817SkHkHfIX9c1DwV0vrDYF7sR31230PT42e/vSvUf0oOCCsN6Z4P/psKsD2FHrwx+zZC+rGwK1/4ERfAtb/d7tTWJmX9xg02Nm9IPQ8SbOP0fvFv9VKQbTP/ulA==; s=purelymail2; d=younes.io; v=1; bh=Wo8CPafjrKqXgC1BzSup6dMofFV7FA937tiriyNYXc8=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=DfPkpSTdsFCoZtBnUaBI/xaMSwVYdlCTeXkHvqeFfNScspn77YVZE5mVth8wBxATfwBnPWAsVLZHYfC+CwocG3GNG8/t1dMDydD2CG3Fl+j6+PNEtilQFSYVCtU3HPIOQMCRjtXM2YmLRHma3UkkdBtMwA1T5z3OPw0GM8Otp3HRy0q1IzQoi9RUp0+zRwx+UJmp8gSYAtXsnTJ6MZZIGF5D28MH2JIc9rFY56e0p1acYmB+4ZqTUMk4tZ3vnMIWvWhHWu1+9D9kBKLXzAF1it8IALTeBMk+SIPMC0dkJuy+qvCf5H49+gso42cwtJouvbCgd3dJ4sS0mZqRYseDIQ==; s=purelymail2; d=purelymail.com; v=1; bh=Wo8CPafjrKqXgC1BzSup6dMofFV7FA937tiriyNYXc8=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 1578161:62319:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 171846229;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Mon, 02 Nov 2026 12:55:59 +0000 (UTC)
+From: Younes <git@younes.io>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Shuah Khan <skhan@linuxfoundation.org>, rust-for-linux@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rust: doctest: fix line numbers after crate-level attributes
+Date: Mon, 2 Nov 2026 12:55:59 +0000
+Message-ID: <kw-1793624159.027890950-307523-1@younes.io>
+In-Reply-To: <CANiq72ntn6ThPz9Q6+BxU6w-x2jUQ50xpiy1_gCRi6o0peHi8w@mail.gmail.com>
+References: <20261027-rust-doctest-line-fix-v1-1-0c13185a58b6@younes.io>
+ <CANiq72ntn6ThPz9Q6+BxU6w-x2jUQ50xpiy1_gCRi6o0peHi8w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,80 +76,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-mac80211-rx-null-link-v1-1-3330b6b18c76@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAH+I6GoC/x3MQQrCQAxA0auUrA0kAQfxKuKiUzMaHEdJUAuld
- +/Q5Vv8v0ComwachwVcfxb2bh18GGB6jO2uaLduEJLETIKvcTqRMKPP2L61YrX2xFREKR+ppJy
- htx/XYvP+vcDfXKtGwHVdNwu+bA1xAAAA
-To: Johannes Berg <johannes@sipsolutions.net>, 
- Benjamin Berg <benjamin.berg@intel.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joas Antonio dos Santos <joasantonio108@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793624191; l=2170;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=XTRyGFYezIX8XrXbmaW7af1M5K6Q2UNq4aXZjXe6+lc=;
- b=zK9lhxaAkTI3Deh5VzHJDZ4i1czdHDMM4w8vO6TkNcF4e8iAFKNvlur21Wn9+nkPXnUyZzH4Y
- qWboneJfTE4C2X3sPfJqDyBmCAuVDsTviobqSnXXcgKuOeIfCcYrrak
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+On Wed, 28 Oct 2026 08:30:43 +0100, Miguel Ojeda wrote:
+> On Tue, Oct 27, 2026 at 7:32=E2=80=AFAM Younes Akhouayri via B4 Relay
+> <devnull+git.younes.io@kernel.org> wrote:
 
-Since commit 6d531b9af16e ("wifi: mac80211: rework RX packet handling"),
-__ieee80211_rx_handle_packet() looks up the link of each MLD station
-that matches addr2 and passes it straight to ieee80211_rx_valid_freq(),
-which dereferences link->sdata and link->conf whenever status->freq is
-set.  The non-MLD loop and the interface loop below it check the link,
-this one does not.
+> This looks OK, and I think it fixes all the cases we have currently,
+> but it doesn't cover every case one may write (like a multi-line
+> attribute), i.e. I was wondering whether the complexity of this is
+> worth it or not (especially if later on we try to support every case).
+> But it may be that never happens, or happens way less often than even
+> this case that we may not even care.
 
-The link can be NULL there.  ieee80211_vif_update_links() clears
-sdata->link[link_id] for a removed link first, and only later, after
-ieee80211_tear_down_links() (including its synchronize_rcu()) and
-drv_change_vif_links(), calls ieee80211_sta_remove_link(), which takes
-the link station out of the hash.  RX runs under RCU only, so a data
-frame from that link's address arriving in this window finds the link
-station but a NULL link, and the kernel oopses in softirq context.  A
-link is removed this way for example when an associated AP announces
-removal of one of its links (ieee80211_ml_reconf_work()), and the
-frames only need a matching transmitter address, before any crypto.
+Right. I checked with rustdoc 1.98.1: a multi-line `#![...]` is still
+off, and so is a blank line right after the attribute or an
+`extern crate` line, since rustdoc moves those above `main` too. None
+of these appear in the kernel crate's doctests today; all 12 current
+cases are single-line attributes.
 
-Before the rework, ieee80211_rx_data_set_link() returned false for a
-NULL link and the frame was skipped.  Skip it again.
+Covering them would mean relying on more of rustdoc's output layout,
+e.g. the blank line it inserts after the moved attributes but not after
+`extern crate`. That feels like more than this is worth, so I'd keep
+the simple version and say in the comment that only single-line
+attributes are handled, unless you'd rather drop it.
 
-Fixes: 6d531b9af16e ("wifi: mac80211: rework RX packet handling")
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-wifi: mac80211: check for a NULL link in the MLD station RX loop
----
- net/mac80211/rx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> By the way, why `saturating_sub` in particular? I guess because of
+> underflow, but can that happen? And if it can (perhaps in a future
+> compiler version), wouldn't we want to notice?
 
-diff --git a/net/mac80211/rx.c b/net/mac80211/rx.c
-index ecee9348c70d..038bca60a7c7 100644
---- a/net/mac80211/rx.c
-+++ b/net/mac80211/rx.c
-@@ -5469,7 +5469,7 @@ static void __ieee80211_rx_handle_packet(struct ieee80211_hw *hw,
- 			sdata =	sta->sdata;
- 			link = rcu_dereference(sdata->link[link_sta->link_id]);
- 
--			if (!ieee80211_rx_valid_freq(status->freq, link))
-+			if (!link || !ieee80211_rx_valid_freq(status->freq, link))
- 				continue;
- 
- 			if (rx_data_pending) {
+It can only underflow if rustdoc stops emitting its own
+`#![allow(unused)]`, e.g. in a future version. A related case is a
+crate setting `#![doc(test(attr(...)))]`: rustdoc then emits those
+attributes instead, so the `- 1` can silently become wrong and
+doctests without any attributes get shifted. Either way we'd want to
+notice, so in v2 I'll check that the first line is `#![allow(unused)]`
+and panic otherwise, instead of clamping. What do you think?
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-mac80211-rx-null-link-6f2e0b50f6bb
+Thanks!
 
-Best regards,
--- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+Younes
 
