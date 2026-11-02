@@ -1,75 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633844;
-	b=KogOUmGQmyOgAanHYwZjcL49rSMLQ8EunZ/4QnxaHpxLPb3BoJDbzW0MNTWFHQbkCQ8D
-	 6/MNdK0wCRdBi7XtiDislRKCz2xBrBRrkR+htqngmTYLs0ecD79paNpv5Bx3OXriKy1NY
-	 r3zy3T4WYNzN+VXeexD23yDm6W0Lbry3faSa2IMd66erakQOYrqib1kGAWakFCAHStaN/
-	 TW+9HAnu7PlfksoziTXTbUPUUI72t0yLsPl6ihPZsa7RdZWI1kphkvpntV27ngffWEIUd
-	 E0Uu0UhHvtKghbU9s+ZgQurdNhSUgKW4/0yMkaMHAbIHf8j+XQK1hI+tud2Jke/CfhQ==
+	t=1793633881;
+	b=A0xTK7kgYBLRFbhgoNc+Vhi03Ps5/kn8Zs/VjI/QzB17mo/R46gbYBlR1amkerAXcbUy
+	 /Tj82JwGgXI/xW/qJUiQlhVmEiW+O4b5CzJIIk/k/ih0T0PWOUpkx5IAdZZV8btu0l08N
+	 /tfTlzOfcpRQ23O7F0rrQ7VnLNtCRBw7c3zp0vxmDfZTolWXiG8afRBjPgpB0VnKvYPwk
+	 YuduvHPT2utmUPKnt9XJTjnW0H2oTYMJM5I/9ftNOQG25xWgO8cWKknFcnWk05eIqCT0b
+	 nOS9zXg5WvI3GdJiaEWlCqvxvRVUxoH8Ueot2Mfaf73Tzob/NI3K+yXFlAGNzTLE/7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633844;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=9juNA68D1pfuFQpRVNDQa7dR4Pnf/xhC+K8NWgBMU/E=;
-	b=oe+y+SG2/hW79aHgEb7eRG4ugzXyMpOhhzghYeljxCO8Ze0FCodSTsVxwddedaUscHJ4
-	 NLXIXjVnFvq2ywF2JMzXHN1Vl1v9gtEhewFwmJ2vpm7/m+o43fl/MLwRhWOexyL9HvLcn
-	 ZegO7DzSZhLfdp0cSCpV3gUqypVAbZYPlnsrBZV53ooliMr8CyR29ijGHnJ6tNQy6UTNQ
-	 SANZXTp67LxUCQMtrqbDtbFgQKKfPJZk3Q9kzy42EpISw32brj+tqyL5zrAhRKBEJTqye
-	 xRMCl548zVMvU2ZL0ZYiH1s6WDyqgJEiQcPfj/N9ZrgIKVJSrTZrpGxMkmHPIAqkFWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633881;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=HQ5iEJDd3H6McsliLZtnU2nxiMLxTdJWIHt/2r3Xqjg=;
+	b=bKwxhxLi0Jw0qiea46Qum0RSFlEt90PvB/xqpc/TUsdP4yjYbyZ2VpsortSDcrG5s9II
+	 vZdCkVAfmH6faR4ftoHmI/8WIuVhL5p79YZdbK3uAAT9qigPClzXxo9Tm4RAYrFLHR9HM
+	 JonTPO6d6qjxWPRMsYtNlvZDz0xiMpZhfzHqOvuvPZZDgp+4nTElx2uejt+k30xyc1ZFO
+	 vyqlytWFSm7aucVlTC7p0U8x/+EVv158k01sOi51LO2b2f7jtkhieIDFuvTVibYeI3UQh
+	 ZB9Ll96oDbm6zh2cyJc60U3+Fsc13+VQ5LqHi/gWFK3IL9e+t2LW+GWYXkLGV4mce/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="ne/GrZZB";
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfgQ4f4Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414F260EC3CD
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 414F260EC3CD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D30606B0E7;
+	Mon,  2 Nov 2026 15:38:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ne/GrZZB
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e832c03576so48291315ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793633844; x=1794238644; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9juNA68D1pfuFQpRVNDQa7dR4Pnf/xhC+K8NWgBMU/E=;
-        b=ne/GrZZBB6RQdxM5E5YlzCX2uHuyM90n+ZGH0IzIs+RtSEMzmn90zvFc5wu6L4ndX2
-         UUhYANfqHwY9O0/LpiVnAW59obokAICWZsCfC5WHHR1HIaMtz+dRALHpK3ADpuJceALG
-         fsaZ//B9E3RtbSa8iPpz62QhQ6adoNp+TPCcOkXQEIyVAiQSoyYihqWGqsvnqLJZBIJV
-         Afm6D4Y3dlUWSNqWt5G6WkVgUP7C//FKusN0Z4aTz7GP8GqhyUvlw+Oc/IUJ7byuVaCm
-         41fz1DQe/LHfkRbcy2VviRmHuZ9rbBx7MM6z2thnxzPs3vs3PljyXpUddS/NNIQh9Wm+
-         +tsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793633844; x=1794238644;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9juNA68D1pfuFQpRVNDQa7dR4Pnf/xhC+K8NWgBMU/E=;
-        b=fjLQ+R5sHYSW6L7/J5l7a/QRyDmzJQtuRoiY/wkNi9q1rLHBxG6qzjjISkn71MCp91
-         9EN0FAt4Am9OE7jQYfWBVEoI3QjpHBnXBuLG+iTgx1qxwimMlA8zn0bSr9ymBZe3XUTn
-         p3VNEeCOA+V8wk1p8ERmEubocN8q1RvB5uf4ZWkvzgiZwvC3tqnDV6FjEXXrmBDGfTBi
-         sceGtZtKcsVWPe3Ko6NEBychttOSLXPPC1K2fh8KbZY4xSRL2+zGyMSkEcyILEeKvWEX
-         eQcLTegpH5bS+YI4VqntJu7EDIclgsLmwri6is4fKcyNskJxAkHpt0v+c2UvQ82A8h2U
-         9U1w==
-X-Forwarded-Encrypted: i=1; AKwUvByToooszD3VbeElmKRFOcedWbVZXtEFFCywNKWqwv03hK3+B1K7BvQpwXrlpzVC8tKJ7g1im/3jYqOEWNc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9t1aV/w066tEJ7kW9E65vqhJaeG4C0S9v9crI41Zf/JZY4NQnW
-	pN4vVWyeZh1UtYn5HEjcNc6v9dQXSzfn73T8kVzNymTR/v2+p6qUNaqAKRAwfCCHmZR+Z9+jcVu
-	5xxg04iLbfg==
-X-Received: from plkz4.prod.google.com ([2002:a17:902:7084:b0:2eb:4f47:5748])
- (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f642:b0:2e9:5772:9ab2
- with SMTP id d9443c01a7336-2eb364ec93fmr97906535ad.41.1793633843417; Mon, 02
- Nov 2026 07:37:23 -0800 (PST)
-Date: Mon,  2 Nov 2026 07:36:51 -0800
-In-Reply-To: <20261102153656.1431701-1-vipinsh@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfgQ4f4Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9EE1F00A18;
+	Mon,  2 Nov 2026 15:38:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793633881;
+	bh=HQ5iEJDd3H6McsliLZtnU2nxiMLxTdJWIHt/2r3Xqjg=;
+	h=From:To:Cc:Subject:Date;
+	b=VfgQ4f4YF8xUMeOwRSjd+ce9pq6NJIOWViRmrMp8Jml3Oa7TP8RqCe3Il4g8VUOMw
+	 NIhvAY/UTIowFzMfc0PZIrkpZdnoBpFzLBqYMj6kg/z6uQuM6+yrMfleheyliZMbdm
+	 lBTxwXJm8w/B+qV+j4TThUFnxe8zpQ2CCVcHdsg4gVIZ5pFpzlyH8dKeOKo98SJxeF
+	 p1L1Cpf5lFXA1nUdrojIb9g6+1xwOxeRkpZeLvT3vE1YVgQRDvpOm9roa/ZwNq49/t
+	 /LCpSQH4KcrVWgY8OHnqR23p73R3lUDY801WsAsTcNvBvO5J1oLXwSh+Z7DRd1bBBM
+	 UcK1ofvR63KJA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH v5 0/2] mm/damon/core: iterate over installed probes instead of DAMON_MAX_PROBES
+Date: Mon,  2 Nov 2026 07:37:50 -0800
+Message-ID: <20261102153753.97769-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,188 +57,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261102153656.1431701-1-vipinsh@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261102153656.1431701-23-vipinsh@google.com>
-Subject: [PATCH v6 22/27] vfio: selftests: Add helpers for Live Update DMA
- memory and sysfs state
-From: Vipin Sharma <vipinsh@google.com>
-To: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, linux-pci@vger.kernel.org
-Cc: ajayachandra@nvidia.com, alex@shazbot.org, amastro@fb.com, 
-	ankita@nvidia.com, apopple@nvidia.com, bhelgaas@google.com, chrisl@kernel.org, 
-	christian.koenig@amd.com, corbet@lwn.net, dmatlack@google.com, 
-	graf@amazon.com, jacob.pan@linux.microsoft.com, jgg@nvidia.com, jgg@ziepe.ca, 
-	jrhilke@google.com, julianr@linux.ibm.com, kees@kernel.org, 
-	kevin.tian@intel.com, leon@kernel.org, leonro@nvidia.com, lukas@wunner.de, 
-	mattev@meta.com, michal.winiarski@intel.com, parav@nvidia.com, 
-	pasha.tatashin@soleen.com, praan@google.com, pratyush@kernel.org, 
-	rananta@google.com, rdunlap@infradead.org, rientjes@google.com, 
-	rodrigo.vivi@intel.com, rppt@kernel.org, saeedm@nvidia.com, 
-	schnelle@linux.ibm.com, skhan@linuxfoundation.org, skhawaja@google.com, 
-	vipinsh@google.com, vivek.kasireddy@intel.com, witu@nvidia.com, 
-	yanjun.zhu@linux.dev, yi.l.liu@intel.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add shared libvfio helpers used by the Live Update kexec selftest:
+From: Suhaas Joshi <suhaas@s-joshi.in>
 
- - vfio_thp_memfd_alloc() and vfio_memfd_mmap_aligned() to allocate a
-   shmem memfd, map it at a 2MB-aligned virtual address, and back it
-   with 2MB THP folios via MADV_HUGEPAGE, write-fault population, and
-   MADV_COLLAPSE.
- - __sysfs_iommu_group_get(), a variant of sysfs_iommu_group_get() that
-   returns an error instead of asserting when the device has no IOMMU
-   group.
+There were two "todo: " items of the same nature in mm/damon/core.c.
+Both of these suggested that we should iterate over only installed
+probes while updating (last_)probe_hits[] during merging/splitting
+regions, instead of iterating over the entire array, which may have
+empty/unused indices.
 
-Signed-off-by: Vipin Sharma <vipinsh@google.com>
----
- .../selftests/vfio/lib/include/libvfio.h      |  3 ++
- .../vfio/lib/include/libvfio/sysfs.h          |  1 +
- tools/testing/selftests/vfio/lib/libvfio.c    | 54 +++++++++++++++++++
- tools/testing/selftests/vfio/lib/sysfs.c      | 22 ++++++--
- 4 files changed, 77 insertions(+), 3 deletions(-)
+So this patch series does exactly that. It replaces the for-loop over
+[0, DAMON_MAX_PROBES) with a damon_for_each_probe() over the probe list
+of the context.
 
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio.h b/tools/testing/selftests/vfio/lib/include/libvfio.h
-index 07862b470777..1c245962525b 100644
---- a/tools/testing/selftests/vfio/lib/include/libvfio.h
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio.h
-@@ -33,4 +33,7 @@ char **vfio_selftests_get_bdfs(int *argc, char *argv[], int *nr_bdfs);
-  */
- void *mmap_reserve(size_t size, size_t align, size_t offset);
- 
-+int vfio_thp_memfd_alloc(size_t size, void **vaddr_out);
-+void *vfio_memfd_mmap_aligned(int fd, size_t size, size_t align);
-+
- #endif /* SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_H */
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/sysfs.h b/tools/testing/selftests/vfio/lib/include/libvfio/sysfs.h
-index c9ab1ea8f5a9..b9d6f6f69f88 100644
---- a/tools/testing/selftests/vfio/lib/include/libvfio/sysfs.h
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio/sysfs.h
-@@ -6,6 +6,7 @@ int sysfs_sriov_totalvfs_get(const char *bdf);
- int sysfs_sriov_numvfs_get(const char *bdf);
- void sysfs_sriov_numvfs_set(const char *bdf, int numvfs);
- char *sysfs_sriov_vf_bdf_get(const char *pf_bdf, int i);
-+int __sysfs_iommu_group_get(const char *bdf, int *group);
- int sysfs_iommu_group_get(const char *bdf);
- char *sysfs_driver_get(const char *bdf);
- 
-diff --git a/tools/testing/selftests/vfio/lib/libvfio.c b/tools/testing/selftests/vfio/lib/libvfio.c
-index 3a3d1ed635c1..00369fe7d074 100644
---- a/tools/testing/selftests/vfio/lib/libvfio.c
-+++ b/tools/testing/selftests/vfio/lib/libvfio.c
-@@ -1,14 +1,23 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
-+#include <errno.h>
- #include <stdio.h>
- #include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
- #include <sys/mman.h>
- 
- #include <linux/align.h>
-+#include <linux/mman.h>
-+#include <linux/sizes.h>
- 
- #include "../../../kselftest.h"
- #include <libvfio.h>
- 
-+#ifndef MADV_COLLAPSE
-+#define MADV_COLLAPSE 25
-+#endif
-+
- static bool is_bdf(const char *str)
- {
- 	unsigned int s, b, d, f;
-@@ -101,3 +110,48 @@ void *mmap_reserve(size_t size, size_t align, size_t offset)
- 
- 	return map_align;
- }
-+
-+void *vfio_memfd_mmap_aligned(int fd, size_t size, size_t align)
-+{
-+	void *vaddr;
-+
-+	vaddr = mmap_reserve(size, align, 0);
-+	vaddr = mmap(vaddr, size, PROT_READ | PROT_WRITE,
-+		     MAP_SHARED | MAP_FIXED, fd, 0);
-+	VFIO_ASSERT_NE(vaddr, MAP_FAILED);
-+
-+	return vaddr;
-+}
-+
-+int vfio_thp_memfd_alloc(size_t size, void **vaddr_out)
-+{
-+	void *vaddr;
-+	int fd;
-+
-+	VFIO_ASSERT_TRUE(IS_ALIGNED(size, SZ_2M));
-+
-+	fd = memfd_create("vfio-lu-dma", 0);
-+	VFIO_ASSERT_GE(fd, 0);
-+
-+	VFIO_ASSERT_EQ(ftruncate(fd, size), 0);
-+
-+	vaddr = vfio_memfd_mmap_aligned(fd, size, SZ_2M);
-+
-+	if (madvise(vaddr, size, MADV_HUGEPAGE))
-+		ksft_exit_skip("madvise(MADV_HUGEPAGE) failed: %s\n",
-+			       strerror(errno));
-+
-+	/*
-+	 * Write-fault the mapping rather than using fallocate() so that shmem
-+	 * allocates PMD-sized THP folios when shmem_enabled is always,
-+	 * within_size, or advise, then collapse in case shmem_enabled is never.
-+	 */
-+	memset(vaddr, 0, size);
-+
-+	if (madvise(vaddr, size, MADV_COLLAPSE))
-+		ksft_exit_skip("madvise(MADV_COLLAPSE) failed: %s\n",
-+			       strerror(errno));
-+
-+	*vaddr_out = vaddr;
-+	return fd;
-+}
-diff --git a/tools/testing/selftests/vfio/lib/sysfs.c b/tools/testing/selftests/vfio/lib/sysfs.c
-index 98a46a2543cd..219db6aaa101 100644
---- a/tools/testing/selftests/vfio/lib/sysfs.c
-+++ b/tools/testing/selftests/vfio/lib/sysfs.c
-@@ -115,14 +115,30 @@ char *sysfs_sriov_vf_bdf_get(const char *pf_bdf, int i)
- 	return out_vf_bdf;
- }
- 
--int sysfs_iommu_group_get(const char *bdf)
-+int __sysfs_iommu_group_get(const char *bdf, int *group)
- {
-+	char rl_path[PATH_MAX];
- 	char path[PATH_MAX];
--	int group;
-+	char *end;
-+	int ret;
- 
- 	snprintf_assert(path, PATH_MAX, "/sys/bus/pci/devices/%s/iommu_group", bdf);
--	readlink_base(path, "%d", &group);
-+	ret = readlink_safe(path, rl_path);
-+	if (ret == -1)
-+		return -errno;
-+
-+	errno = 0;
-+	*group = strtol(basename(rl_path), &end, 10);
-+	VFIO_ASSERT_EQ(errno, 0);
-+	VFIO_ASSERT_EQ(*end, '\0');
-+	return 0;
-+}
-+
-+int sysfs_iommu_group_get(const char *bdf)
-+{
-+	int group;
- 
-+	VFIO_ASSERT_EQ(__sysfs_iommu_group_get(bdf, &group), 0);
- 	return group;
- }
- 
+Reviewer note.
+
+These patches are based off mm-new. They pass all KUnit tests related to
+damon. I have boot tested (but nothing beyond) on qemu-x86_64. Please do
+let me know if I should do any specific tests and link the logs here.
+
+The series has been tested with mm-new fetched on Oct 14, 2026.
+
+Changes from v4
+- v4: https://lore.kernel.org/20261015135533.18761-1-suhaas@s-joshi.in
+- Collect R-b: from SJ.
+- Remove/separate messages in cover letter that not suitable for commit
+  message.
+- Wrap cover letter for 75 columns length.
+- Rebase to latest mm-new.
+
+Changes v3 -> v4:
+1. In some places, kunit_skip() was being called before freeing
+   resources.  This is correctly ordered now.
+2. In some places, regions were not being freed. In v4, they are being
+   freed.
+Link to v3: https://lore.kernel.org/damon/20261012145636.168436-1-suhaas@s-joshi.in/T/#t
+
+Changes v2 -> v3:
+1. In test functions, new probe and context allocations happen after
+   target, region etc have been allocated. Further, target is added to
+   the context.  These 2 changes help in reducing allocation code and
+   improving simplicity and readability of the patches. This change is
+   true for both patches.  (on SJ suggestion)
+2. Earlier, if a function's argument list required multiple lines, I was
+   aligning these lines to the opening paranthesis of the function. In
+   v3, these begin after 2 tab spaces. (On SJ suggestion)
+3. damon_test_last_region_quota_reset() uses the older version of
+   damos_skip_charged_region().  Make it use the new version.
+Link to v2: https://lore.kernel.org/damon/20261008151944.113714-1-suhaas@s-joshi.in/
+
+Changes v1 -> v2:
+1. simplified commit message of patch 1 (on Liew's suggestion)
+2. wrapped all lines at 80 characters (on SJ's suggestion)
+3. added comments for new argument in function (on SJ's suggestion)
+4. added damon_ctx_destroy() in r2 failure case in
+   damon_test_merge_two() (on SJ/Sashiko/Liew suggestion)
+Link to v1: https://lore.kernel.org/damon/20261007154851.45368-1-suhaas@s-joshi.in/
+
+SJ Park (1):
+  mm/damon/core: copy only installed probe in damon_split_region_at()
+
+Suhaas Joshi (1):
+  mm/damon/core: use only installed probe in damon_merge_two_regions()
+
+ mm/damon/core.c             | 57 +++++++++++++++----------
+ mm/damon/tests/core-kunit.h | 84 +++++++++++++++++++++++++++++++------
+ 2 files changed, 106 insertions(+), 35 deletions(-)
+
+
+base-commit: 79e2e91bd5a4b213cf40819c2711a9364b2c0f86
 -- 
-2.56.0.317.g454f8302e1-goog
-
+2.47.3
