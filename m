@@ -1,121 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625211;
-	b=sCLGYop/aLI0q0wDrC5vSRudabtPB4FOhqFThiMOpt8T/c4X1+NGVNlDVzHKZouG23/c
-	 9X398IXRAWoOGoeMKi8YcUzlRrU6Tojceuh/3VkMsKXxnv6HO0+aie4JffkJ1zUCpLNjX
-	 yKffocjN7lTy5AMsthgbOINvCWHr6j/7/xgyZ3fbRaXq6U6jaBQVIluFBGuslD6ivMg9k
-	 Sl3HVHni1HB2zA+PbzmmtVaJ6f/6KBj75h2e9r6ecx1NrtZrUOOLw+4ZRVIAJYznNdXgN
-	 wV7Yn3JFnpG1pcdZzGokSMTFAMwW9aSBgfk2tdmi8lxEdcxgm3vxLXME5oJihxyVuWQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625211;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Wp+lhaUnMTSGPW1szcEhAQq0bMP12m/9abUxOwHRyG4=;
-	b=zOJrnVKJnDKYRa5evGoQc0T0pO1mbs3Zn8sJHMH//caFkDy2IVd29kbUhILZo6rCyVCa
-	 sC7wXS5YHqf1QPFFkuPDuz2cxfMKes9igjX+g96Qk1AFzfvFj1fX1x/edZIRBfD8auvAZ
-	 tqtxvcsHe9slndRcIieavAyuGv8e6lq+zV78K9TOJcenzB0uynFR2YcpC5yFiCmKNEQJ1
-	 naXsOlOisUoY0yTUz1L6rlJlaQ5OcgsUq+T37YY9dMUyG7IA0YISwsIWI6I8avlDNaBem
-	 EzQamn+tj52LWqxgkJXEp7Q+NzOH8fQHt5RWvgFpwotqcHuVcZTjW8gPsm7JivNTIaA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I3RD+cyc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=D4oz5r7H;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793625221;
+	b=T46bmYr6tMP1IsntbooKesMXPNBBNy38S/ANyCv//rb7cYr2tWxpmWR/iLXIFhhLywh+
+	 9C0Rn+tCIU99ukT62K7pfU27Bwx7YY2bYtVubS1zLI6HvQjfSIXtA6mjGM9P7NzE5qcvV
+	 Ae0SN2Xy8SQb1OOPzKJoKv2H8gfZseJeavKwaXqb1erFvOtK2a5zsNzqFAk1ztgs2PeDP
+	 KVZwpZ9LQSy2ZjmpkXL/WqcADqjPJIOEioyjMSwgeQE2QdCXsLYBEXidJUcQk2U1BwMbn
+	 IRCSMYjHoSgH77f5+xcpDvvP9/1orvDdhSP2vieT3G8ulyHB1nmqvGJrbtk4+B1L93g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625221;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rC8xVMt0ftVC1MA0/AxMx0dm+YERO32RQqLOxWhbSdM=;
+	b=qWPVT/BLBbVoeMM+9ZfGGr+n1qPW7EugGky8DMKIswErBpwIDQYo22YU7kJxEB8GQga+
+	 AtDDHfco0TsE9ly3/q8QVhF7ih1Sd9MaIoWoUQGhIqyU5zZGihiUg1ogDeE0IHlwEeYQI
+	 1NYsThR9HglTgm2odrBIxuDJz0eAHaum2T2BvBwsNl6UW35E3h1tpHoLZ0RNPodhPH19q
+	 37o/SrTJ4I9+rjvLnNVQTCqdgJZs4e0v/D+szjWTlhhW45skXM8b2x6N9rXC/d9f8q8n8
+	 7q1XiE29C0NYlRD8S6HJ5aHEDexSbhHMM/ZZT6NDl8ZhSLnfqK+ukr+ANUAvQyG4e2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o9Bv0lrt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4FD606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:13:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC4FD606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A097606A339
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:13:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A097606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I3RD+cyc;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=D4oz5r7H
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAVfB3627179
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 13:13:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Wp+lhaUnMTSGPW1szcEhAQq0
-	bMP12m/9abUxOwHRyG4=; b=I3RD+cycL3qy/LFE+BsqgbT71D/EuBIQn1kBU/nM
-	X5Tk5DvC98AtPQckTevOlH8myLqVvwrzyhOkF7CYj+tVGct3U21o4QDsZjDrLiu0
-	CU5mwSjfHwPgs8VndJZHVfJAhbK4f8L9Xntv6oN3l93WuXXYer66qJDZs2K5uSS0
-	IaQ8BlrYKXHhOCzQ8OLIVMbl3f9/Brsp+FYnkgUQaFz3m5IldySuJcugIICeR2aT
-	ysT13DZDdhxyWOvDt6vd6gR14ye1ptZsTf67VM7S+tWCqEY7hg6O8c8hiDX3KmMg
-	VD+Zen/BnI8yqqWecEochHcNucnKjDYTe0MkDFqCY/Utlw==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka61xeu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:13:29 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-98c6374b678so2875769241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:13:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o9Bv0lrt
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15ea896ddc8so5071091c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:13:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793625220; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Kb6fkJQWkYIpvBKcD3CVdGOyFNkLq4HRdPizBPxWAu4zGZ88rAAVmrlbZOSqJN9vqK
+         oKVTBn061fY1lokMWGGaAd/GyK2dDOmiH30U0qRLM9N7VxqidZ9BiJ+gYNm/EMD2QwDY
+         T9y/6cLvONXDentq0uuinCikgDPeLzcB8cNg2SSnvWZ0VIsCbodKj/2dQo4Ja8wImUxE
+         Gw7XSoiNsaJxFGizrsgiGc34eDiIQOp9SO75uY5Z9xxJR9hbyPQehar2DZigksTD39Cs
+         p6u21EwKdFOTuyNu5vT08cf2Kw7kpBO8PWxdSuZuVxuhODoE9/jwgI+DW96j9uggdKBc
+         Yb3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rC8xVMt0ftVC1MA0/AxMx0dm+YERO32RQqLOxWhbSdM=;
+        fh=2WqzrQTcs7Vj/cXQuzT/kyps1jjuZRYBm8fbZodZytc=;
+        b=LxXjx0pE6Zoc/1rACwc96RntZwQEdo9La+nOsKJPXrc5YUw0en9PBjtbAkPbXm6Xtf
+         p1ZZ+mBcehTcicrsH0E/s5b69V+w9i9Nrqt8UAojckQ97+w6PgQ5n+imUCl2nRQoUc+B
+         9TTRbGpY3KrNPyfC0JQj8QX//jE73LG87wAZYvrPWwbZVCTXD0x+4I0q00kArE1FxQl2
+         R187E2Fhw1i6vnPepIK96/4nroDcRUnd5n8Nli7FBpFzRLeL6YYkRyz5a7RdbWIHPGGT
+         Fqz7/md6L7i9YaNARrZ4FhbzQh4AoD14mBL8LNpNu80ooTtQrCbFotBvaf0SeMqXx0xz
+         IWkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793625209; x=1794230009; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793625220; x=1794230020; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Wp+lhaUnMTSGPW1szcEhAQq0bMP12m/9abUxOwHRyG4=;
-        b=D4oz5r7H1iEBqmXjwmB83YBWfm6dl/7ovO7D7BUGZUSxA5jwmVDEtjNESZheUwL7cM
-         mY33xsUyGkm/2ohlkxsaiboBYBkJQba6rsMJ2I8lmiBDWrZk0dPCm28Esq28RNjpew37
-         vVoFKhnDKGgJtw7gqbB3pCNpFB8FbCmpffE9WSGiJGiGRVqPIxTvHXNJNA8XGtq/eB0q
-         BI3IxsCdRbeM9GgcrYrS3liu8ag/XfQ9TsqF5AR0mpEwPAw5KMw3LIBmhW+W0bHwvuHu
-         BSeGtBHaXLj+vjSFpsMYnOWv4JoHgUlHC3aw4ZkB9Xi77j47ulWXu6j7pQfJnJPPS/Tz
-         rgnw==
+        bh=rC8xVMt0ftVC1MA0/AxMx0dm+YERO32RQqLOxWhbSdM=;
+        b=o9Bv0lrtHh2cwTJJVMUH4k06fPh+ZUF1Xl51YCyt5LSal/HMFyjV6eP5ndcJg+7iVj
+         WTAY3phbzSA8x/6rfLnLvb4bDnZ8Y4PG1EA0o2RPOfRyLwq6jcyjm/QiNRIf9j5AQQsJ
+         l2LCkDlG//3sWy/odK1wwz5yKvgETNvSW47fduZrW/zlPZQm2Hr6OF9occ90dnwda9pH
+         15peHnhylM0gwl1DeCkmpBva8CbqeJR2lmvPc9gUGtCRkIGAVwQC32c4UK+T3jOODMWv
+         8UTKrgc631symoPetFblG9qRPrnzh0NbDQA57q01cYj3VhCGGF8OfpP+shjngzwAm22m
+         UCwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793625209; x=1794230009;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793625220; x=1794230020;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wp+lhaUnMTSGPW1szcEhAQq0bMP12m/9abUxOwHRyG4=;
-        b=0gh/kFhFp3JncXXXf5Ov8vMmxr323NTk706aOnsStgDaLlodscPty9+OBfy6CK+Lbm
-         z5aPbQDHnbMwsmx0X7S3fR0Gxx7bhLsP8RsmRISre4JMYpNMWcULGAOkYyGRfv8Pw/ps
-         RM3ogTTnoKCVKnsEimMZLUp6CM7k/Cl8qjEMpdVVnQdjbc8gg1y3qwr5Jv0p99yxOCOm
-         p5tqEfGYlsaqzrDw9VSrQds05wAsLMwYt0qnM/cxg4AbIiz9OuI3D/EPqTmCKXpRkwPN
-         8oy0G4uypEmbmnayYBsOQSh38TynkjOpuVAw9j2Quj3f+UCe3HFqxxeGcjXtYL53XqWq
-         5h2w==
-X-Forwarded-Encrypted: i=1; AKwUvBxO7h0wkvJfz8mM0jw8doCgypZC+fLDJ1BWvQQrW1Yl5Wkv2ENm2tn1i0F/1xiaDL0Im+bM0Zh3TlerV4Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qUhWkNzBk8Xuc8z9QsSAdAQmq8hcx9kEGn4QiheHe8sgf/ncN
-	IVwC18Y3+K9hWIfsE4GoL+LYPpdYZGZ4+XhmTDFpeP6XWvt5TVvG/jfZybIrJy/6lYVyMTajxLy
-	EYglG308Wo3wzJaE2MOd4QL+ltO4rdQQHJRBX25QFlWE0xIISUQO5g98kq5Yl0f+RXQM=
-X-Gm-Gg: AYBFou2hqRT5WYOt/uAsx7nebr2Tq+zFbKqR4lEv5Eu3L7OylTcjp7NygXto48qy9Hr
-	kWg+6xbf/AlPxWSeI13pP9oieJ1X3EQlOiYsH5Sl6c9H8LV1gOyO6Vjw65IT+BlITqb6jFI2yXd
-	aMr+OpGbOOQXhIIyJH9WYOCE5z++hy4MQOikQC9U72EeEMEmlJtVe/BiJg1baZXxvYqmI/gKceg
-	fNtLavE5EFf9ptSxErQmvfdEqn1mpoGZ89JL6cN5p7jDREh8A1clIYEtkEULkrRUNzqmGwk1dp8
-	jLn9BRg0OuJZ4F6if2Y5R7tS/I6iyaNO62W96aeetgj/n0teaBgAlklg2y5ptPcwLbk23MPHnNN
-	HAZiA8Mx8H+U8fn/PtDx/5cPFZ1oysQR3LKgjfhLGSH3WspQFxDs8W1J79KiaEi8=
-X-Received: by 2002:a05:6102:e10:b0:7cc:26e4:193e with SMTP id ada2fe7eead31-7d07274b90amr4160966137.29.1793625208732;
-        Mon, 02 Nov 2026 05:13:28 -0800 (PST)
-X-Received: by 2002:a05:6102:e10:b0:7cc:26e4:193e with SMTP id ada2fe7eead31-7d07274b90amr4160950137.29.1793625208162;
-        Mon, 02 Nov 2026 05:13:28 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a6bsm19665390f8f.27.2026.11.02.05.13.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:13:27 -0800 (PST)
-Date: Mon, 2 Nov 2026 15:13:25 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc-glymur: Use PWRSTS_RET_ON flag for USB
- GDSCs
-Message-ID: <udepf5n4d4by4b7nqlbvybmyszyoks2xeppgx4xlfbkpclifoy@xocxifqsthfp>
-References: <20261016-glymur-usb-ret-on-v1-1-1790a523fd9c@oss.qualcomm.com>
+        bh=rC8xVMt0ftVC1MA0/AxMx0dm+YERO32RQqLOxWhbSdM=;
+        b=yZWiGa3QB9dFjggjaCPvx7to0v/UyCOaAY4GCkVe0R5WY9cwsM+oR2VJRBT9Au96d7
+         sMI/MPjVF8/uHy1wqbbDfb8s0epDOnEfxhitb2KmZpCx1Z4aBOVRloFuK9xjY3x0demW
+         k+blPZrt0FGTwa2Er6ieHb2WIo/PfIbRU+zanQBiCEzyjLvkEKG6QLFQlR3O1YYr1kjF
+         3gVk8s71yCrHOKaar91IRcYGVlZWaC4L9Pj8N5LzAaq6tmKPZEnuPWf4d3T/5l1xC6R2
+         46H5g/4IttWCGzkgCK6I2GyTIw11YuIlU3AdCJpjUzHwNp17DDKE9ia/zsEFbSgn7Opy
+         7Ehg==
+X-Forwarded-Encrypted: i=1; AKwUvBxe6AlF2ZzKdocgmZ3rgQpqAjq7lV2IIR/FNASaq/2wWoTsCvhobbfF0wiowDr8AlBVT0Y1HyIAmHDIlEA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBSMaugt9uxQfFr21FbuJdm6ZzrpJPUpG7M/wMiM9eVQc0Xg5p
+	A7yNsosVcPwA6JTm4ZVme/NIpF7BP/GB8+kVud4qezhpzo/udsUIUtkq4XRmd922W/C8raqVwx/
+	nthEDc72b4MLl7a18IySzUTLjuy9oe8k=
+X-Gm-Gg: AYBFou1rhR1gyypKQ08vYBlbkWcXUN0prHoYU5H70lWpa8iL2J7nXMxNVvAAFQtNSwq
+	vzOaTAuQrE/zSTVsRTKeG6L/Ft971GUfDABNpwG/b+SZ/6k9+EyWw+epx87wMXy462gnE+TLnq9
+	MUJLbQJQWhCOrNtdBxTcvMSPH3z04wQ/A4D6apmFyXj5fUevHMMRLSHZhlA2dziILaFJvoKbcar
+	D5lA4L5ErSlr+zs6tHW8SJD5jR8kh9TlPTd3ZhUqHTlWu8c/CEoc+x/x5VfuSykTbalBmBGlmF6
+	JeySgVtehHjyTcMfMUv0tktfQwWx7b6F5ZXSVlLw1u84xLBymVIDC/v6Z6aR1oha2QVDGJEoV7P
+	r9t/BlcjW/FCqznXt1mTK6eCYBFvUqdDga8NQcE2WnYICsxQn85eDl/MRlX3vJxqS6QYf
+X-Received: by 2002:a05:701b:230e:b0:14a:8cff:fbb8 with SMTP id
+ a92af1059eb24-1ac5bbb5053mr14722111c88.28.1793625220279; Mon, 02 Nov 2026
+ 05:13:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,49 +104,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-glymur-usb-ret-on-v1-1-1790a523fd9c@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: oLZzeuuS-5eJPzIOm5C28CUR4H281oTV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MiBTYWx0ZWRfX+T69s2LudAQJ
- eassVzLAlJaHeA04rymsZmj6s+KsofHtaUHxAxuao3PfRDUkCqklHXXyd84im6O2mUEjocZTst4
- bXPkHi0T5EsLnEmXBv9+iXy1IEhisPA=
-X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae88c79 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=8GfOtjjHQN1rPwiWMjMA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MiBTYWx0ZWRfX7aDKXiTCNY9Z
- MKxqvxNpCYbO9gHmHO9sjQ/O7XFL95lC4IvHAp103yw464bRqZNHF2zqGlitOBzs/l2ljk5jUcM
- eyQbfWrxChAMsHjDzpNjnCA6ju6Nn6zZfmsx9wM68TSce45Uc8f7XwDYS49ouKTiIhLlNMsTK5N
- nRYRIG91s6ZbTEZ3uuHO7rsZDRU8diBeo3hU582bGLuUQ8Cl4iJMOFuneHW9WE8ysZ1FbOCeIcK
- ERbZCb2EYMxRJGf03/MB3JtxdXMsBqmjr10c6z6h2DZSjqq1Y8ZILWpF2PpfKXrjEtidVLoWZvQ
- 4wStX/TLvb4uXLgfviV4s8hdn0X+J81wIA8hxIld8zkwfIoQSd1bvQ3LUcjidDS/SPHvp5MGRvW
- FT52rwu91aqmOjsLcy4cIDlw/zUOX74LJbglGhzGS+gAgmJ7N+F/0wj9khLgAT5XnbuZsRIc4SR
- El6fyuMHZEo7qD+LTHg==
-X-Proofpoint-GUID: oLZzeuuS-5eJPzIOm5C28CUR4H281oTV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020052
+References: <20261102130540.252894-1-omosnacek@gmail.com>
+In-Reply-To: <20261102130540.252894-1-omosnacek@gmail.com>
+From: =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>
+Date: Mon, 2 Nov 2026 14:13:28 +0100
+X-Gm-Features: AclHuK9Lk_3jmZnqSr1tjOillycrUr-WcgCLTZN6r2TRwhWtp1BoaHKbHJvYD28
+Message-ID: <CAAUqJDvsDi5ceO3ri5cJP4WJbZeUdpJe9F4cv8OU4=wBzVeBAw@mail.gmail.com>
+Subject: Re: [RFC PATCH] af_unix: introduce MSG_CMSG_SEALED
+To: Eric Dumazet <edumazet@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, Jakub Kicinski <kuba@kernel.org>
+Cc: Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Simon Horman <horms@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, netdev@vger.kernel.org, selinux@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, io-uring@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-10-16 11:58:44, Jagadeesh Kona wrote:
-> The USB GDSCs on Glymur are currently configured with PWRSTS_OFF_ON,
-> which allows the GDSC framework to fully collapse these power domains
-> during gdsc_disable(). When these GDSCs collapse, the corresponding USB
-> configurations are not retained in USB host mode use-cases and this breaks
-> the resume of USB controller from suspend.
-> 
-> To avoid this, configure the USB GDSC power states to PWRSTS_RET_ON. This
-> prevents the GDSC from powering off during gdsc_disable(), and allows
-> hardware to retain the USB configurations across USB host mode use-cases.
-> 
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+On Mon, 2 Nov 2026 at 14:05, Ondrej Mosn=C3=A1=C4=8Dek <omosnacek@gmail.com=
+> wrote:
+>
+> Currently, when a process receives a file through AF_UNIX's SCM_RIGHTS
+> mechanism, the security_file_receive() LSM hook is calledto allow LSMs
+> like SELinux to validate the receiver's access to the received file
+> (similarly to a process inheriting file descriptors through execve(2)).
+>
+> However, there are cases (such as dbus daemon/dbus-broker) where the
+> receiver doesn't intend to access the received file and merely wants to
+> forward it to a third process. In this case the forwarding process would
+> need to have the appropriate r/w access to the file in order to receive
+> it, even though it will never actually acess it. That leads to the
+> security policy having to grant the forwarder access to a potentially
+> wide range of files (in case of dbus-broker basically all files), which
+> is not ideal.
+>
+> This patch adds a new CMSG flag MSG_CMSG_SEALED that, when passed to
+> recvmsg(2), wraps any received files into an opaque anonymous inode with
+> the name "[envelope]", skipping the security_file_receive() LSM check.
+> The returned "[envelope]" file descriptor can't be used in any
+> meaningful way other than being passed forward via sendmsg(2) with the
+> MSG_CMSG_SEALED flag. In that case the original file is unwrapped and
+> sent via SCM_RIGHTS to the receiver. The receiver can then either
+> receive the file as normal (subject to the LSM check) or again "sealed"
+> in the "[envelope]" anon inode for further forwarding.
+>
+> Note that sending the "[envelope]" file is only allowed with the
+> MSG_CMSG_SEALED flag set, to make the unsealing explicit and avoid
+> unexpected behavior. Attempting to send it without this flag will fail
+> with an error. This also avoids recursive nesting of "[envelope]" files,
+> which would only make this feature harder to audit for possible issues.
+>
+> This patch also adds a simple read-only sockopt for UNIX sockets that
+> allows userspace to determine if this feature is present (passing
+> unknown CMSG flags unfortunately doesn't lead to an error currently).
+> The minimal code to do so can look like this:
+>
+>     #ifndef SO_RIGHTS_SEALED_SUPPORTED
+>     #define SO_RIGHTS_SEALED_SUPPORTED 88
+>     #endif
+>
+>     #include <sys/socket.h>
+>     #include <unistd.h>
+>     #include <stdbool.h>
+>
+>     bool MSG_CMSG_SEALED_supported(void)
+>     {
+>         int sock, ret;
+>         socklen_t optlen =3D 0;
+>
+>         sock =3D socket(AF_UNIX, SOCK_STREAM, 0);
+>         if (sock < 0) {
+>             /* handle error */
+>             /* ... */
+>         }
+>
+>         ret =3D getsockopt(sock, SOL_SOCKET, SO_RIGHTS_SEALED_SUPPORTED,
+>                          NULL, &optlen);
+>         close(sock);
+>
+>         return ret =3D=3D 0;
+>     }
+>
+> Related: https://github.com/fedora-selinux/selinux-policy/issues/3286
+> Related: https://github.com/fedora-selinux/selinux-policy/issues/3287
+> Signed-off-by: Ondrej Mosn=C3=A1=C4=8Dek <omosnacek@gmail.com>
+> ---
+>  arch/alpha/include/uapi/asm/socket.h    |  2 +
+>  arch/mips/include/uapi/asm/socket.h     |  2 +
+>  arch/parisc/include/uapi/asm/socket.h   |  2 +
+>  arch/sparc/include/uapi/asm/socket.h    |  2 +
+>  include/linux/socket.h                  |  4 +-
+>  include/net/scm.h                       |  2 +-
+>  include/uapi/asm-generic/socket.h       |  2 +
+>  io_uring/net.c                          |  2 +-
+>  net/compat.c                            |  3 +-
+>  net/core/scm.c                          | 81 +++++++++++++++++++++----
+>  net/core/sock.c                         |  9 +++
+>  net/socket.c                            |  2 +-
+>  tools/include/uapi/asm-generic/socket.h |  2 +
+>  13 files changed, 97 insertions(+), 18 deletions(-)
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+See also this RFC patch for selinux-testsuite
+(https://github.com/SELinuxProject/selinux-testsuite) that I used to
+test this patch:
+https://lore.kernel.org/selinux/20261102130834.253605-1-omosnacek@gmail.com=
+/
