@@ -1,111 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619452;
-	b=LOhwcSsAUAa/d5gXGQIP+h1/NeI6XJVRxcVUv8SqouWyUPOFVUPKcTJwDW0e54KGUvc7
-	 BssSsKDo6YNZCWqt7XvsPPItC9OEcJYt9cOl3GY49Zk5ZbXRLFRYn1HurFmB0Mz4w4aN3
-	 Sxfc36o+ElTvfjoULy1tomen0jZNYKvg5EC6+SukVnD1hcKmeUaX8cF8rzBqCdphvUuOm
-	 VI7ddbynjrUT8vmJWlPgybhVLXJOTmuRX/kwLRz/agj1jjptJnaUNUOAP0KGThBqC9kln
-	 cswsNVZ5XIJR3tcXnnyGFJJkpqknKKCAkOBNQBll0zCkL2Ma+p1MtRosMXRDLBjEMBQ==
+	t=1793619502;
+	b=F/18XGZnfXZHcWQrG5XYp/VBaOnb4Taa+2G0U6cHdJ/SNd8cinmdlldpo9kA4gNKWM9b
+	 DMg/TdLLDgm5XZ7dLU8M5bkgcgxAKSSCZxcyWTfHPGMqi0k/Mya8fZqgQr+HQoBDwpMJV
+	 y1atcyh+oT1POSoL6/LpG+/qSUET1oBpg/qqy2l/NAluUul8mUSuk9+L7KQBYbAVvC/Ec
+	 PFpdZOaF82XdPT3sE9/ezmHUiYAz6YEMHiFl9HjBIarFPHPHKzmTGoYb7iLVIdSfCHxLP
+	 MD3/WeIt0EmDp+LGHD+c8JoswhdcRBBIJMbiaTVTRhSgZuMAQYEMmRl5dhC00RQKJJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619452;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=6c+cSECcs+et9sk6TFDNZhsmC/63A8z1age2GpVsHLs=;
-	b=vVTx7SMVF4RgpNHHtzrwyvH+oDFvbItXi3cvcklV+P+4YE1jSQKYO5AM/NO75mAHqs9e
-	 IygPprVsE/+blIyq+UgAsSzwFwEBV4K0x+/+wAZ55S7z0JJnLmUysR8PlvqKshzU2PGAU
-	 GcnkQQI6pZ1MXe9DQlBdynoPM2ksgEkHh3O0c9zXdVSJEtjAlkAEqqbiUdWuoq3Jh7TaL
-	 iCprUCk6dKiCKguMgLj1Nqc9XM5K8PHGMpb5qdmLselVFl8W4is3+rfNS853ZhSEyUY36
-	 NQKTcJcI7McpFCiqueAPbYNcWFQg7rE1rgp6O28wLz/Wq568km55o+sWtqGUJDKWf+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619502;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9DBFTMIot2cwwSYfu5MRPGxuErjCZSPIwbglllnAUJ4=;
+	b=Ji6nZAbZwWrPg7l7aD23rEkP5/j2Z6zr3wTb35Twi4L2RnhvawHdFduQ35zwsvoVOIC4
+	 6HlEWu7fam6SS7p6K9wyjz81dsa8HEsXSwDG9wDKry7FJOjVuxGiluIYtGE4ApKKzgwM/
+	 7OSySf4rVT9QOVpuhGN6XKuao9awCDE8BTU+htvHDpdIhlYwTO6PJ2ah6n4lSI8TMZAIW
+	 qpFinC+RN5Hu6JOgOU6YIE8H00cagoEdfOhGKMtubzmoSvqfHjKP/bzhdn9Zm+etGX3pe
+	 8aC2nmBnbd8zhLB/v+9HcPkKhiTKpHCNS6ZhdSqgXWqxNOeVCx6x8YbB9+jVZcCWlwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="FOHN0Jo/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ggj04WYg;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Osvph428;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53BF606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:37:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B53BF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C42606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:38:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FOHN0Jo/;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ggj04WYg
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2B2t3V076883
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 11:37:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6c+cSECcs+et9sk6TFDNZhsmC/63A8z1age2GpVsHLs=; b=FOHN0Jo/PPK4bIMZ
-	8ckz8jaPw64Bt/NYZ5hr6Vqm9EXJQX3hi49V98CCSiVnEzYlaNbn8uqQlBfL8wQG
-	6NiI2Yq6NZDrECUimUKIRzfF+qB+WavE5yfEE533hKZZZ2uNT8tYmN3qFNmn/o/7
-	qIXmokyr8r7n6iM+9Wo25RlFB9Tb+ZcWy5mAPwMmDrwCeijBqm567M+KSduQMwf7
-	+QTurWTUrHxW1Tn4bmcm1qBSPRwc/Fheu3cZ4tDlrCkNMrlvsgLRtXzp7kuQb8Yi
-	/jxmJGjjkgXL1XF3o0iczOMKPpntywZjNc2lGqQJep7KQVGZvTJghg3vYlGSzTf5
-	9zntRQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpsa6r3vk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:37:30 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ea8a9cfe6so49559585a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:37:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793619450; x=1794224250; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6c+cSECcs+et9sk6TFDNZhsmC/63A8z1age2GpVsHLs=;
-        b=ggj04WYgJzqmPAev88g0BRuCuvwKSPAxl1gJr/jASV07q3snaUSDCn22kwabFRPvKT
-         lT78Q3Cm/kpt5d0SVAwhZCM7a3HZQM6DTPZKNxv8B5oWWKJNGmdrrRDhmXGpdN4aDECx
-         NuHLYoj8MM6hRP5bgv2wVUoqWymC+ZDoBkxoCxcDqWtCID3kf2xOqoPPHzTqnri9K2z7
-         6NNKEwORzwjgWwnExPPM/tWUtr97x93deCwqZFWzkTJLF3IfVuWCKzGzrr5KqamMHeJ0
-         /RooypBSxZbhhIqHgqb9/Mu09JcL+dA/ZvZD1Nmb5/X7WGyZGGposYF4WXmVer8Y9+hu
-         6Bbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793619450; x=1794224250;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6c+cSECcs+et9sk6TFDNZhsmC/63A8z1age2GpVsHLs=;
-        b=cWKZZnCmcoKw7tMX6THpGQ3KKl97WE4M2CiR/MIoReHarJCX0zgyIhDXliVbZEInHJ
-         l5dAF2fhfGIlmvi1FKfcGT5xh/pg/oRVFDJIVU5J5E1Gu8oy8e3GaLsiRbK6zSdaNqXN
-         B2qrYuJptppH/9sq8VohH3hfIrcigO/GwmOxNKWbxq79YIZvsvnm5htXYh1tHB1j1HpB
-         pQSPU7WIHWcuwz5Ypu6/mY6EjvKBytSpvjllCMx7/5n+l4GQqQNbLLyrXpWOFTvdSH3O
-         F3YoPJkHmZbGhpoZgFNaLJ1JFTMLAsQ6dQdld29PlVjFA58TeWcYRJ3DGmzbZliwdbnc
-         bGNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzyNqE0X+xOUi6yMShGoMyZdIqCmWwcF+X1JuVd++rVKa5smCllod32LcdUbn2F+3/I1I58fGnbsI+pKlI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgyg24sJowjrdz+aIjg9t0GtTQTTkoRNzUSLwnYpJwlRaPSysb
-	M6N6cPys83+yg4Ho3pLN6m7G7lZrUFWUyF91LYgSrKWESCe1L9qE480sMI4k3XKnDUNzYwhcFUX
-	fIr/QQMY4BJUZs2344T+RRn+o3usSf0GADTRwPl5UZczefN54uq6ux6uzqznMiUo1Hqs=
-X-Gm-Gg: AYBFou0cBm5ExKl7gyn/1m22hFqMjhdqHBjO9aXbufnqxAjT6Tou55OY1Mo+5QDGUoT
-	LbkSVtAa4MV80nb+edlZVP/eCj2FY+QUp0baUNpR6jjg/3ch5h8Jfod3d/a9NEtJipl7DSzaaSf
-	CALT0NqrHeduqe6qC7sMAcTbV7QKTSpqFxP7BgpUVUh/Jb3C4V/YxlDJp5GOxS5RkY6S5kRlFJK
-	k2FcmSjGVhAA0qtH06JaHWScAjLML4fbnoLysILGCB8ExPbyR2CQJm9HljFNiIruJrGgSnBgw97
-	pxEi28RVQwkQpRWPixp3MX0fqfYl5Ll/+YuQXOP6DDSRithRxOTg2nxvfpHZJT7I8neUk23466A
-	kIu7GFn4sLbgucl30DaEPtx13bbE+ohv+If34ncWj8WeJpsLmGFXXDkaK5fIFxDWn+5nQxxc=
-X-Received: by 2002:a05:620a:72cf:10b0:93e:e111:2771 with SMTP id af79cd13be357-94421619197mr1571834585a.2.1793619449799;
-        Mon, 02 Nov 2026 03:37:29 -0800 (PST)
-X-Received: by 2002:a05:620a:72cf:10b0:93e:e111:2771 with SMTP id af79cd13be357-94421619197mr1571829085a.2.1793619449327;
-        Mon, 02 Nov 2026 03:37:29 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabcfd22bsm372126866b.28.2026.11.02.03.37.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 03:37:28 -0800 (PST)
-Message-ID: <b967b192-b34c-4def-b7d7-35c0a21cddd2@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 12:37:25 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Osvph428
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A9581F00A16;
+	Mon,  2 Nov 2026 11:38:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793619502;
+	bh=9DBFTMIot2cwwSYfu5MRPGxuErjCZSPIwbglllnAUJ4=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=Osvph428MW/b1Sc9Yuxfb9YkyflEmJHYgWdnH41JQye0hIG97CvAZ0d56BQDrP9OA
+	 2M9Gvbz+A4VS+dITQthzN0Pc3leOTGYRqd7ZBcGEVkXpLY7EnmtVTw4YHsG8q6CspP
+	 OdK65Ux6+uJcYILCXxp1YPwUSfnlEttU7P3I/pPDym1dT0lhs0GqMcM6BxfUvY7Q/l
+	 i4mJfoDzhG2cHISPcWMryuOVJeEsqR4/1Tbp5EYnX/B9dzL0+k9vbI7KLjNw+40cz3
+	 +wiV8JNSW31VG1vr1+cArzRQPJGFSLeCMizKN1j7+xWBhm2DRtMaMRbNwStnCdEmG0
+	 aSF8J1nD8S/QQ==
+Message-ID: <d7f31be3-04ad-49d9-8a78-4813dec11ddb@kernel.org>
+Date: Mon, 2 Nov 2026 19:38:17 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,72 +52,309 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] drm/msm: Keep DRM private data separate from GPU
- drvdata
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        Akisaira <akisaira@outlook.com>,
-        Vladyslav Tymoshchuk <tvlad744@gmail.com>,
-        Val Packett <val@packett.cool>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20261030-gmu-sync-state-fix-v2-0-89d3082d97af@oss.qualcomm.com>
- <20261030-gmu-sync-state-fix-v2-3-89d3082d97af@oss.qualcomm.com>
+Cc: chao@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com,
+ Daeho Jeong <daehojeong@google.com>
+Subject: Re: [PATCH v2] f2fs: reserve space to be shrunk during resize_fs
+To: Daeho Jeong <daeho43@gmail.com>
+References: <20261022165526.1539629-1-daeho43@gmail.com>
+ <6fd5d995-776b-4e25-9ea4-e3cc018efda0@kernel.org>
+ <CACOAw_xz-P+=pOavuwRzF+GriUG-vti3PZC25bOU9YX_AbsiUw@mail.gmail.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261030-gmu-sync-state-fix-v2-3-89d3082d97af@oss.qualcomm.com>
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <CACOAw_xz-P+=pOavuwRzF+GriUG-vti3PZC25bOU9YX_AbsiUw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0NiBTYWx0ZWRfX1HncLzCzwwgQ
- GnRp82g1ecZT1IVs46q6vRQvuwJwB0I0Be9njkxC7cWHuzmacRq24XiFFYL3ZEDj5EG3FH5Ns1W
- mthz6f6NKyd8JwQj/5Ko+kw+1e9YPuoqg0EpCPwehsO/pxdCsP4bNeuKVOnIjIbZG4L0GynmwIS
- 4Rp3mwx1BJy2mSR+m89IqYe3Lx2jRq2kM4bOJfTZCSgjlIlKfavhqNVnfun7U9E7z6apMctMqa1
- OsclilFFLEAQWxVVaTVY//WOat8hYygarD35Yubwldbq3B1EYxFTzcGzsN52iEOdlP6a/V3C6Re
- tmmhcSLlPBXSUg3Ai/Up0L3ilY5HfpdHNBSpptaTEIMXmG+uPG9/DIONREv8NIMa6E9Nrdt/Fdc
- V42OXnsG69sSbh7K7n5n86kXr9DTOZEES+ACICLwD7WwMwH8udHIceryDV5yl8C1BdKqjdiVhNh
- P80fIVHXsPdofrJyZLQ==
-X-Proofpoint-GUID: _EgbQp6EPIYrJqRgp2uiRu3hCVURSDx-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0NiBTYWx0ZWRfX7EHFV2bb0YPV
- KL2tKkNCvrac9ra0n5/S6f5Nq7iXe9TrHhj//F2e+CUUkci/BgM8JdYn6KJHBOFoHH8nrMtynte
- YNH8nfVim5tMya9NCe0BPHRCqc//MVw=
-X-Proofpoint-ORIG-GUID: _EgbQp6EPIYrJqRgp2uiRu3hCVURSDx-
-X-Authority-Analysis: v=2.4 cv=I9fw19gg c=1 sm=1 tr=0 ts=6ae875fa cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=ifS9znPv-Fj3RtktaGwA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020046
+Content-Transfer-Encoding: 8bit
 
-On 10/30/26 6:09 PM, Akhil P Oommen wrote:
-> In separate GPU/KMS mode, the GPU device is also the DRM component
-> master. msm_drv_probe() stores priv in its drvdata, but msm_gpu_init()
-> overwrites it with &gpu->adreno_smmu. So, it is better to avoid using
-> drm priv data in the master's dev->drvdata.
+On 10/31/26 05:21, Daeho Jeong wrote:
+> On Fri, Oct 30, 2026 at 5:58 AM Chao Yu <chao@kernel.org> wrote:
+>>
+>> Daeho, sorry for the delay.
+>>
+>> On 10/23/26 00:55, Daeho Jeong wrote:
+>>> From: Daeho Jeong <daehojeong@google.com>
+>>>
+>>> f2fs_resize_fs() drops gc_lock and the cp lock between the free space
+>>> check and freeze_super(). In that window, others can allocate the free
+>>> space, so the second check after freeze_super() fails with -ENOSPC.
+>>> This is easy to hit on a busy filesystem, e.g. at OTA install time.
+>>>
+>>> Reserve the space to be shrunk via resize_reserved_blocks once the
+>>> first check passes, and deduct it in __get_available_block_count() like
+>>> alias_reserved_blocks. Release it on success or on error.
+>>>
+>>> With the reservation, the second check should not fail anymore, so:
+>>> - allow root reserved blocks, which root may use in the meantime,
+>>> - recheck DISABLE_CHECKPOINT, which remount may set in the meantime,
+>>>    since freeze_super() fails only when the fs is still dirty,
+>>> - keep the check only as a WARN_ON_ONCE() safety net.
+>>>
+>>> Also exclude the alias/resize reservations when updating
+>>> current_reserved_blocks via sysfs, otherwise it can underflow
+>>> __get_available_block_count().
+>>>
+>>> Suggested-by: Chao Yu <chao@kernel.org>
+>>> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+>>> ---
+>>> Changes in v2:
+>>> - Exclude alias/resize reservations from current_reserved_blocks.
+>>> - Allow root reserved blocks in the second check, with WARN_ON_ONCE().
+>>> - Recheck DISABLE_CHECKPOINT after freeze_super().
+>>> ---
+>>>   fs/f2fs/f2fs.h  | 18 +++++++++++++----
+>>>   fs/f2fs/gc.c    | 54 ++++++++++++++++++++++++++++++++++++++-----------
+>>>   fs/f2fs/super.c |  1 +
+>>>   fs/f2fs/sysfs.c | 12 ++++++++++-
+>>>   4 files changed, 68 insertions(+), 17 deletions(-)
+>>>
+>>> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+>>> index 089a62c054e..6b9e1d0e71c 100644
+>>> --- a/fs/f2fs/f2fs.h
+>>> +++ b/fs/f2fs/f2fs.h
+>>> @@ -1897,6 +1897,7 @@ struct f2fs_sb_info {
+>>>       block_t reserved_blocks;                /* configurable reserved blocks */
+>>>       block_t current_reserved_blocks;        /* current reserved blocks */
+>>>       block_t alias_reserved_blocks;          /* reserved blocks for device alias */
+>>> +     block_t resize_reserved_blocks;         /* reserved blocks for resize_fs */
+>>>
+>>>       /* Additional tracking for no checkpoint mode */
+>>>       block_t unusable_block_count;           /* # of blocks saved by last cp */
+>>> @@ -2666,16 +2667,18 @@ static inline bool __allow_reserved_root(struct f2fs_sb_info *sbi,
+>>>       return false;
+>>>   }
+>>>
+>>> -static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
+>>> -                                             struct inode *inode, bool cap)
+>>> +static inline unsigned int __get_available_block_count(
+>>> +                                     struct f2fs_sb_info *sbi,
+>>> +                                     bool allow_root)
+>>>   {
+>>>       block_t avail_user_block_count;
+>>>
+>>>       avail_user_block_count = sbi->user_block_count -
+>>>                                       sbi->current_reserved_blocks -
+>>> -                                     sbi->alias_reserved_blocks;
+>>> +                                     sbi->alias_reserved_blocks -
+>>> +                                     sbi->resize_reserved_blocks;
+>>
+>> Can you please take a look at comments from sashiko? it seems valid:
+>>
+>> https://sashiko.dev/#/patchset/20261022165526.1539629-1-daeho43%40gmail.com
+>>
+>> __get_available_block_count() can underflow here: avail in __sbi_store() doesn't
+>> exclude root_reserved_blocks, so once valid_user_blocks() < root_reserved_blocks,
+>> current_reserved_blocks can overlap with root reserved space, and the unguarded
+>> "avail_user_block_count -= root_reserved_blocks" wraps block_t.
+>>
+>> e.g.
+>> user_block_count = 1000, root_reserved_blocks = 100, valid = 30,
+>> reserved_blocks = current_reserved_blocks = alias_reserved_blocks = 0
+>>
+>> Thread A                        Thread B (root)
+>> - f2fs_resize_fs(shrunk_blocks = 500)
+>>   - 500 + 30 <= avail(false) = 900, ok
+>>   - resize_reserved_blocks = 500
+>>   - drop gc_lock/cp lock
+>>                                 - echo 500 > /sys/fs/f2fs/<dev>/reserved_blocks
+>>                                  - 500 <= 1000 - 100, ok
+>>                                  - avail = 1000 - 500 = 500
+>>                                  - current_reserved_blocks =
+>>                                    min(500, 500 - 30) = 470
+>>
+>> Now for a non-root user:
+>> __get_available_block_count(sbi, false)
+>>    = 1000 - 470 - 0 - 500 = 30, then 30 - 100 => 0xFFFFFFBA
+>>
+>> Thanks,
+>>
 > 
-> As an alternative, store priv in a devres entry of the drm master and
-> retrieve it from there during component bind. Update all component
-> drivers to use the new helpers.
+> Hi Chao,
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
+> Thanks, it's valid. Actually, the same underflow already exists with
+> device aliasing: f2fs_ioc_reserve_dev_alias() checks the space with
+> root reserved blocks allowed, so alias_reserved_blocks can eat into the
+> root reserved space, e.g. user_block_count = 1000, root_reserved = 100,
+> valid = 30, reserving an alias of 950 blocks passes the check, and then
+> 1000 - 950 - 100 wraps for non-root users.
+> 
+> Clamping current_reserved_blocks in sysfs by root_reserved_blocks is not
+> enough either, since dec_valid_{block,node}_count() grows
+> current_reserved_blocks back up to reserved_blocks without considering
+> alias/resize reservations.
+> 
+> So, I'll make __get_available_block_count() saturate at 0, like what we
+> already do for unusable_block_count, as a separate fix for
+> device aliasing, and rebase this patch on top of it in v3.
+> 
+> WDYT?
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Seems fine, please go ahead. :)
 
-Konrad
+> 
+> Thanks,
+> 
+>>>
+>>> -     if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
+>>> +     if (test_opt(sbi, RESERVE_ROOT) && !allow_root)
+>>>               avail_user_block_count -= F2FS_OPTION(sbi).root_reserved_blocks;
+>>>
+>>>       if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+>>> @@ -2688,6 +2691,13 @@ static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
+>>>       return avail_user_block_count;
+>>>   }
+>>>
+>>> +static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
+>>> +                                             struct inode *inode, bool cap)
+>>> +{
+>>> +     return __get_available_block_count(sbi,
+>>> +                             __allow_reserved_root(sbi, inode, cap));
+>>> +}
+>>> +
+>>>   static inline void f2fs_i_blocks_write(struct inode *, block_t, bool, bool);
+>>>   static inline int inc_valid_block_count(struct f2fs_sb_info *sbi,
+>>>                                struct inode *inode, blkcnt_t *count,
+>>> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+>>> index 926e6976bc2..955224f4166 100644
+>>> --- a/fs/f2fs/gc.c
+>>> +++ b/fs/f2fs/gc.c
+>>> @@ -2374,6 +2374,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
+>>>       struct f2fs_lock_context glc;
+>>>       struct f2fs_lock_context clc;
+>>>       unsigned int secs;
+>>> +     bool reserved = false;
+>>>       int err = 0;
+>>>       __u32 rem;
+>>>
+>>> @@ -2425,10 +2426,17 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
+>>>       f2fs_lock_op(sbi, &lc);
+>>>
+>>>       spin_lock(&sbi->stat_lock);
+>>> -     if (shrunk_blocks + valid_user_blocks(sbi) +
+>>> -             sbi->current_reserved_blocks + sbi->unusable_block_count +
+>>> -             F2FS_OPTION(sbi).root_reserved_blocks > sbi->user_block_count)
+>>> +     if (shrunk_blocks + valid_user_blocks(sbi) >
+>>> +                     __get_available_block_count(sbi, false)) {
+>>>               err = -ENOSPC;
+>>> +     } else {
+>>> +             /*
+>>> +              * Reserve the space to be shrunk so that no one, including
+>>> +              * root, can allocate it until the shrink is done.
+>>> +              */
+>>> +             sbi->resize_reserved_blocks += shrunk_blocks;
+>>> +             reserved = true;
+>>> +     }
+>>>       spin_unlock(&sbi->stat_lock);
+>>>
+>>>       if (err)
+>>> @@ -2442,29 +2450,45 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
+>>>   out_drop_write:
+>>>       mnt_drop_write_file(filp);
+>>>       if (err)
+>>> -             return err;
+>>> +             goto out_release;
+>>>
+>>>       err = freeze_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
+>>>       if (err)
+>>> -             return err;
+>>> +             goto out_release;
+>>>
+>>>       if (f2fs_readonly(sbi->sb)) {
+>>>               err = thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
+>>> -             if (err)
+>>> -                     return err;
+>>> -             return -EROFS;
+>>> +             if (!err)
+>>> +                     err = -EROFS;
+>>> +             goto out_release;
+>>> +     }
+>>> +
+>>> +     /* checkpoint can be disabled by remount before freeze_super() */
+>>> +     if (test_opt(sbi, DISABLE_CHECKPOINT)) {
+>>> +             f2fs_err(sbi, "Checkpoint should be enabled.");
+>>> +             err = thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
+>>> +             if (!err)
+>>> +                     err = -EINVAL;
+>>> +             goto out_release;
+>>>       }
+>>>
+>>>       f2fs_down_write_trace(&sbi->gc_lock, &glc);
+>>>       f2fs_down_write_trace(&sbi->cp_global_sem, &clc);
+>>>
+>>>       spin_lock(&sbi->stat_lock);
+>>> -     if (shrunk_blocks + valid_user_blocks(sbi) +
+>>> -             sbi->current_reserved_blocks + sbi->unusable_block_count +
+>>> -             F2FS_OPTION(sbi).root_reserved_blocks > sbi->user_block_count)
+>>> +     /*
+>>> +      * shrunk_blocks is already accounted in resize_reserved_blocks, so
+>>> +      * this should not fail. Allow root reserved blocks here since root
+>>> +      * may have used them after the first check, regardless of resize.
+>>> +      */
+>>> +     if (WARN_ON_ONCE(valid_user_blocks(sbi) >
+>>> +                     __get_available_block_count(sbi, true))) {
+>>>               err = -ENOSPC;
+>>> -     else
+>>> +     } else {
+>>>               sbi->user_block_count -= shrunk_blocks;
+>>> +             sbi->resize_reserved_blocks -= shrunk_blocks;
+>>> +             reserved = false;
+>>> +     }
+>>>       spin_unlock(&sbi->stat_lock);
+>>>       if (err)
+>>>               goto out_err;
+>>> @@ -2510,5 +2534,11 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
+>>>       f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
+>>>       f2fs_up_write_trace(&sbi->gc_lock, &glc);
+>>>       thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
+>>> +out_release:
+>>> +     if (reserved) {
+>>> +             spin_lock(&sbi->stat_lock);
+>>> +             sbi->resize_reserved_blocks -= shrunk_blocks;
+>>> +             spin_unlock(&sbi->stat_lock);
+>>> +     }
+>>>       return err;
+>>>   }
+>>> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+>>> index d683240040f..28e49e8d71e 100644
+>>> --- a/fs/f2fs/super.c
+>>> +++ b/fs/f2fs/super.c
+>>> @@ -5345,6 +5345,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+>>>       sbi->reserved_blocks = 0;
+>>>       sbi->current_reserved_blocks = 0;
+>>>       sbi->alias_reserved_blocks = 0;
+>>> +     sbi->resize_reserved_blocks = 0;
+>>>       limit_reserve_root(sbi);
+>>>       adjust_unusable_cap_perc(sbi);
+>>>
+>>> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+>>> index 9749da70089..ce70d81eba3 100644
+>>> --- a/fs/f2fs/sysfs.c
+>>> +++ b/fs/f2fs/sysfs.c
+>>> @@ -594,6 +594,8 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
+>>>       }
+>>>   #endif
+>>>       if (a->struct_type == RESERVED_BLOCKS) {
+>>> +             block_t avail, valid;
+>>> +
+>>>               spin_lock(&sbi->stat_lock);
+>>>               if (t > (unsigned long)(sbi->user_block_count -
+>>>                               F2FS_OPTION(sbi).root_reserved_blocks)) {
+>>> @@ -601,8 +603,16 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
+>>>                       return -EINVAL;
+>>>               }
+>>>               *ui = t;
+>>> +             /*
+>>> +              * Exclude the space reserved for device aliasing and resize_fs,
+>>> +              * otherwise the reserved blocks can overlap with them and
+>>> +              * __get_available_block_count() can underflow.
+>>> +              */
+>>> +             avail = sbi->user_block_count - sbi->alias_reserved_blocks -
+>>> +                                     sbi->resize_reserved_blocks;
+>>> +             valid = valid_user_blocks(sbi);
+>>>               sbi->current_reserved_blocks = min(sbi->reserved_blocks,
+>>> -                             sbi->user_block_count - valid_user_blocks(sbi));
+>>> +                             avail > valid ? avail - valid : 0);
+>>>               spin_unlock(&sbi->stat_lock);
+>>>               return count;
+>>>       }
+>>
+
