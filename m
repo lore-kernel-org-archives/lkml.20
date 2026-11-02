@@ -1,74 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643537;
-	b=xxptpXS+J+6QpKb9lMX0NKoTbKodMETUtyMbQT0xVrLM6DgZrAuuOG9lNosL19vxZhyW
-	 7SB3TtiX3Q1s4ZoPraRv3T5NG5oJN5VcrideYJTM8yYTz5wYXjMB0Xx8h/Stu8vX9ru+8
-	 sbAvzYG1Wpqy00Vmd889HYqoTWnXCEp2LKtCNz5Xzor7EkkxRmMCvp+Sv7jWe058vCzCZ
-	 XKP4gfcb97KPhWE9Xy5dqgFg3zolACO/V7ziow+fYMtPVqmxz2Z+DUFAqTEq7Yl1DAYQL
-	 N1g0d7J/dU5o1kiQM/oubw9u51FyiDKItZC09z/shb0IzU18f/GM2WvLFje5A6aA7Mg==
+	t=1793643552;
+	b=HcIK8Qj/od/5JZ0v/mLtORKURJBBXN/xrR/3keRT/1qk0srQ8nb6fUDQdHXkzDrmAzhZ
+	 SaWSlv8DrnxZfpQkQBVSEkKd/PL9M8BzEJR+ilgmGecb7pwctHWyD+0I9E/2Wz+WcNosV
+	 2ESYgKwZ5Y+sZSNCL0fWDRCQHOZKJcYp3n9CpMgwX3RGVHo4GBzIcu2fvMfefEWjFyxNu
+	 bru6wc13kFjBHSJi6jOkw97+jE8b1WdKS4P+R9/kEIvJAmyUpiQgInHRQMAHddz4DqRd+
+	 7Vb7nuX0Fobapgd+XPLStsXz0wVogoLJtmi7wPn+Gv/ggmZJ1EnwMyGDD5RkLmM3NOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643537;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
-	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=o4fnmGuYE2qLagLLz4EmxxYZ3imDPsAHaJFgN5jWSiE=;
-	b=1o374XjJeAbsKUBaO4V8LqPpeHS3ucratq+5hl1iQ20Ig9FLotj/x7tr+N5JrPXmlo89
-	 55OHY64s6Lwnlo0bK3d43QIrxs/kqhyURDUMQpbdEOffdl2XztJ+KXaJvLuwYuJ6pbo1w
-	 serZCnvVxKds2gUaA3oGy27lz6biahzpb2mXsXi8OzxfBtnURlbc0c2DzRY+LFgxcvuda
-	 YBWNB50KdLdh7oUkjxgnIkzD0Wy1awLTkJtHFd+0xrTiPgVNrgVZrp4FNnQGxc+/NVJSN
-	 p7ZXmm+Vm3/Zq4PxUUVZ3pct1MgJJEEwYoCIejeHrS/nVTrIeoTR2pBgHP/WcHY96ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643552;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KRAZu3JCVy3K/N5J6Xu/hsBjf5fNF/+1FwKA7rCYiX4=;
+	b=o/7rg1sNbjLRvQ+BBaxBJVMMqJrqSdtdvkAkalhr0ajZbZQte37mjki+fb/wAcMG1zp9
+	 0ttOFI4c2vELID28ZwFQdbKSBzGmKSbfYmT9FCTNggzVRvv4oPBD7EdzB76c+snqJdpZW
+	 44uUBXKzTg0SlC4J2orJ0kpgyyeefdfkaSjlPSmnWFsUMeOsvLqgJa+8FSTa5+7DyfcmV
+	 HmvZ440K93lViZEOHrz8UBMAlZzSl4WUtoPnkXl6VXiduxfy6hViDuMWbR54TlrP18x1d
+	 zfQh3it6tGaYD6SVVXUtIE1jmODIjYroL+C2b01un2ii5KtqYLmvRzVwMHT7E0DLnWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=younes.io;
-	spf=pass smtp.mailfrom=younes.io;
-	dkim=pass header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail2 header.b=IfF1ease;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=vYWSPGJ+;
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjhtO+aB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D83606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:18:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54D83606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=younes.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=younes.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E344606A326;
+	Mon,  2 Nov 2026 18:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail2 header.b=IfF1ease;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=vYWSPGJ+
-DKIM-Signature: a=rsa-sha256; b=IfF1easev/Ee2YVPBiTxxFyUeVOpwPyg7AtV5wA9t1zybRzNu74YDPlVCqmhnuiMOlxU/618TmPjvTF2zWcgqe4AQw1PvYSy2GiQDgPgcdy0P6PIoDYOrQgLow5HZnwWkw5zQeWix0cv2eaTz1iGlvizsUzWTjYRNUeGQXPDoVbNtBqkI5bror6WXto0D87a0PTz52TpDarLTXwN7tbISiutVWyPBd3NpYVTayArJ7urvKg51D8f4AMR6IcsJ3itAYz25LTAvzvnVD7Z5wrGlgo2//75w23EniYyEcFD+R4Oa9Jl1gUIZtgtqQSqiL6lqFpr4yWOLgZW4qra0rDddw==; s=purelymail2; d=younes.io; v=1; bh=o4fnmGuYE2qLagLLz4EmxxYZ3imDPsAHaJFgN5jWSiE=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=vYWSPGJ+XF++FZqXhv68N8DXNOgOur1+ajGn94jx2GrOw6jqMZD+b1NeP2E1pMkWLK9IB1StvUhHRRsrJeZ3lhBOV4PHHrPABwZ6/9pahde8WFVZEa5bpX3NJkzaUX3T8nSkeDQuYUtuEe1dY47VvqzZBHmPksbB02BkubEO9+RZ7eAg+145wat8+B7BoS9leuALbiJX7kOx4ROBgB3DZwGrKqIP7g8072yiBCm/YyhZ8zRURP9r4VkvlGdm7u3KLIvp+aBLl+50Gsi9uw1BAAu+RHO//dUgcZ7I3MlASOtvLltu9YCHpWcO3WzJdRL05PDDcf1ShhJgv3RGrqByZQ==; s=purelymail2; d=purelymail.com; v=1; bh=o4fnmGuYE2qLagLLz4EmxxYZ3imDPsAHaJFgN5jWSiE=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1578161:62319:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1704967885;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 02 Nov 2026 18:18:12 +0000 (UTC)
-From: Younes Akhouayri <git@younes.io>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Shuah Khan <skhan@linuxfoundation.org>, rust-for-linux@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rust: doctest: fix line numbers after crate-level attributes
-Date: Mon, 2 Nov 2026 18:18:12 +0000
-Message-ID: <kw-1793643492.088831861-665782-0@younes.io>
-In-Reply-To: <CANiq72k=Ru3QsiUjrXOtFqVuA-D+w8fJ2fUOTAL2cKFS0EhLDQ@mail.gmail.com>
-References: <20261027-rust-doctest-line-fix-v1-1-0c13185a58b6@younes.io>
- <CANiq72ntn6ThPz9Q6+BxU6w-x2jUQ50xpiy1_gCRi6o0peHi8w@mail.gmail.com>
- <kw-1793624159.027890950-307523-1@younes.io>
- <CANiq72k=Ru3QsiUjrXOtFqVuA-D+w8fJ2fUOTAL2cKFS0EhLDQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjhtO+aB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ADB51F00A16;
+	Mon,  2 Nov 2026 18:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793643552;
+	bh=KRAZu3JCVy3K/N5J6Xu/hsBjf5fNF/+1FwKA7rCYiX4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kjhtO+aBK0SVFpbcZMuaTFZTd0zHhYTniqeS7XOPHfDpPnM8HZOsBv1RjJrUYNfc/
+	 subTsdh9zgbo0OFwCoeDB4A2xVIbsQq0EWsTvhayDloqIviWI/NgZROLJ5wm3Bmjur
+	 PPWzbAzXd1jsIz/e+yvoA//9j4KAUQLiB4CUoFXRQRsdspD5c7EyGmcax28n5E7r6p
+	 /4A/4IYfn1wGeCrlvnFOulYLebnRntR9wLN4mECPZUIoUo45P/wbT74rzfY8AfGQWq
+	 kkNa8YN2xcMzYxM2FJd+Oc8OEsDgD4a0Y4XrDQLW8Ty7Ov5f+LdQOHqhGRJWOIrNEd
+	 upejaDxbbdltw==
+Date: Mon, 2 Nov 2026 12:19:10 -0600
+From: Rob Herring <robh@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: saravanak@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] of: unittest: Remove refcount underflow tests
+Message-ID: <20261102181910.GF1232511-robh@kernel.org>
+References: <20261101122128.2124348-1-dakr@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,33 +56,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101122128.2124348-1-dakr@kernel.org>
 
-On Mon, 2 Nov 2026 15:26:29 +0100, Miguel Ojeda wrote:
-> If what we want is for people to simply notice, then I was thinking of
-> just `unwrap()`ping like others we have around there.
->
-> Having said that, it can be annoying and confusing if someone writes a
-> doctest and has to figure out what to change in these scripts (scripts
-> that they may not even know they exist...).
->
-> Ideally, I think we would have a "warning" somehow, i.e. something
-> that doesn't stop people from working but that will get noticed.
+On Sun, Nov 01, 2026 at 01:19:29PM +0100, Danilo Krummrich wrote:
+> With CONFIG_OF_UNITTEST=y and CONFIG_BUG_ON_DATA_CORRUPTION=y, the
+> machine no longer boots after commit 5b5224220747 ("refcount: Use
+> CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors").
+> 
+> of_unittest_lifecycle() deliberately calls of_node_put() after the
+> node's reference count has reached zero. The test expects a warning and
+> continues to check that a subsequent put does not produce another
+> warning. With BUG_ON_DATA_CORRUPTION enabled, refcount underflow now
+> triggers BUG() instead. This panics the kernel during boot:
+> 
+> 	kernel BUG at lib/refcount.c:37!
+> 	Oops: invalid opcode: 0000 [#1] SMP NOPTI
+> 	CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                 N  7.3.0+ #14 PREEMPT(full)
+> 	RIP: 0010:refcount_warn_saturate+0x89/0x90
+> 	Call Trace:
+> 	 of_unittest_lifecycle+0x158/0x310
+> 	 of_unittest+0x105/0x130
+> 	 do_one_initcall+0x127/0x350
+> 	 do_initcall_level+0x7c/0xe0
+> 	 do_initcalls+0x59/0xa0
+> 	 kernel_init_freeable+0x118/0x1a0
+> 	 kernel_init+0x1f/0x140
+> 	Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+> 
+> Remove the refcount underflow tests, which exercise the refcount
+> implementation rather than OF-specific behavior.
+> 
+> Fixes: 5b5224220747 ("refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors")
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/of/unittest.c | 43 -------------------------------------------
+>  1 file changed, 43 deletions(-)
 
-Makes sense.
+Applied, thanks.
 
-Note that a doctest author cannot really trigger this check: it only
-looks at the first line of rustdoc's output, which rustdoc writes
-itself, so in practice only a toolchain change would hit it.
-
-The generator's stderr already ends up in the build log (only rustdoc's
-stdout is sent to /dev/null in rust/Makefile), so for v2 I'll do: if the
-output starts with `#![allow(unused)]`, subtract the moved lines with a
-plain `- 1`; otherwise print a single warning naming the test and the
-script, and apply no adjustment, so things keep working as today with
-possibly wrong line numbers. I'll also note in the comment that only
-single-line attributes are handled.
-
-Best regards,
-Younes
+Rob
