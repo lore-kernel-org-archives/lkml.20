@@ -1,108 +1,141 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793654206;
-	b=G3vGd4kV9AswSi2aX49h/7CRTLJLutr6E3jxRCsmBB+UCEuozwCF+AkAcB+YfOK/OBqT
-	 U7aWysk5j/ufbuC70xuC7YtKow4Te9WODSqZfQNX8a63XLBR6bZ7mrPKgQI+Ja2KXZGpu
-	 Srgolbk+6sFcVbEVDgZKsBmxGCG6gopbDEYlOZ4fsGZHZVFwszsTJHlygoXbQ9wek7f8Q
-	 GX6qKBw6avaJlljvj/hOGBh7FMBDddjKtZRv++kfBXAr654SuVHL+hh+mmbifc26FKnzh
-	 8gbOReX2L93lxpWGjEpgULmZzXVRJcmYMwI5M40vws0r1E4TMLmCLg4RmlLs7OHN+tA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=4s8xj2d9PPJcTdoV5FYvFtqR6/D2SDRV6LFKwgSIPfTtzUp6dIhpUn4xQTFGjV1sB8NK
+	 Osi7oMUxBp/+eOgcDY4WVyFKNJ9AsDfuK9hk5gKA6L+gXkTb5XRJG8Mxu5A7oySwjdsyR
+	 ImuKIkpbwykvBfqEA1jgQMuujyzKeIqv24r6vVJmVa/LyhV8zoxU/L6scYxLEiQb/As2c
+	 YvsuA4udhAcEQN9WusH55N1wq82HPp5ZAsTE7rUu3jyI0Gy9yDPM4/MB/97LydSH5Yb8Q
+	 Kj4CHPyaJZKWK4rcUZxhQ9e+zZ+rbmFVPt3HzgdZvaNfWZ8w6J8FDreWLnsFjmOT3+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793654206;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=NVNdZHoQPN+JOSE1vDDpIyMY0YkiFmXQ5S2CPq/BOTY=;
-	b=c9+GhkxEOgquiGnLZCExw6yLp/UjV9s+tLwRR7EeXLe760N0eYMkiXnt7k2Fk3eSne3Y
-	 JerZB5JkAKRnpen4i9pKKJTdUv+nUzrflr/smbcMU83xwWUNT9/oVR9+Pa8Gr1knXBj7S
-	 CvDp1MdbT5diBJm6CxDv5FT7TXrxP14dPP5+ulMaTghABh4y+B2mrvE10vl4qDC9fRRDw
-	 UL8XYcQ3ycpv2k8Kuj44VOOr6iHOSPTOmU43IBTOpxxaGX/mHZKOwHdekXs9xR36JCMz/
-	 LiQ3+rpabz5tmCBbF527KJmmHWIMjSjHh5q6skpjcuLq0bxQfH74SqgNPaNv+BOdTWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IJaT6FAI;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Oy2sd2j+;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=4cZsv1APFUd9S6y78p+pmSJaPwPYQn2DcAy4Pvz7MuQ=;
+	b=iBnn/Rqk/8bwDAJEzb18EapTKIaKsVrdVICmAYfR6WG/saN7/41y/Rtzd6HpemE3LhKj
+	 aErFuImYjDwgHcEmmrqu1F/G5A7O9E69hLftakMIBSY8v2nyvGXLDwg/vp2yeAUDsFTx7
+	 ZoNJ0Lbun7FzEH01Ox28OllbXWCyeVVpO8oDnsSTRtQcIt2XhbPYYgdf38IcG9e61c1ay
+	 gsdA5CYMFmZzXyat1im+cTM6kEtETCgpkRsaUzWrHj111W3QjJw2QRUGhPs7BQNeNhb8g
+	 EgkaQfVerBAypcQduhOupWHlOeHZfM0lFR00lUbxqX8DiYBnnM8t1IUAecPpy2IArRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=hM3oiHZx;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=RjGmGyTx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C61606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:16:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90C61606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF0C606D806;
+	Mon,  2 Nov 2026 21:16:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CF0C606D806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IJaT6FAI;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Oy2sd2j+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793654204;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NVNdZHoQPN+JOSE1vDDpIyMY0YkiFmXQ5S2CPq/BOTY=;
-	b=IJaT6FAIa7aTamcsy2QZJQ7pscJm/akdUTH+7dQDeb0SBrfwOzPt5XmZA1kaZRaIZaiDZp
-	7ZOBPUCWwzLGVxQx4949H1s2JtQVydW5woPXK782wtphS5xbBHPT5/C+8MmiqJMH7CzKHk
-	Vxm1Op3S7VCBNAaXEBjAyrWj5DVupNU=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-213-owBLxOemMPmepnR5WOtglw-1; Mon, 02 Nov 2026 16:16:43 -0500
-X-MC-Unique: owBLxOemMPmepnR5WOtglw-1
-X-Mimecast-MFC-AGG-ID: owBLxOemMPmepnR5WOtglw_1793654202
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4aa7a73b799so4907895e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:16:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=hM3oiHZx;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=RjGmGyTx
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2K7r5u1872527;
+	Mon, 2 Nov 2026 15:16:39 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=4cZsv1APFUd9S
+	6y78p+pmSJaPwPYQn2DcAy4Pvz7MuQ=; b=hM3oiHZxMIXu8dnmb0wwRTLaYXMWZ
+	/BX3hPL1aoTTD4fmpR3FE3/BbphvkhkzAV0b/b9SEfMvxYm3UVE5UYLemgAmjAez
+	cvXZUxduP3ekcJnizWzhmOvLiwMvKl1XWWOIJuaUxUR9sBOwDXiFuaWNmBycOsIK
+	ZH8vz2pDyDLTFZbSZyhyD1LFK6vcdHg5Xwx1qn5ZLzILg43KVj0hhPzgJRjln/Y9
+	IOdedQbZ8SEnrIHx9tXLRXjDjr28WzzkeSMOSSALuK6zLFC2tedcgR/r+i+UUZcB
+	TZoY/tBTZbf5q9peU9f07KOPoyAE8AM3WZNovs2gIpyEieKueyr7ph2kg==
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012012.outbound.protection.outlook.com [52.101.48.12])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hq19kraqj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 15:16:39 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JQtY3odu//ar9NXuvi30ELKl0qMz277UDfSzEnAcwoxPqh64ZGq2xafM2kpgUtjFDT8X4yuM6eJ3mVeiAAQiaOY/F0NImM/dW1OoCpFbOYmIKl1XK6gBT2jtjimE+piHe6BXg52UWpjCJMzxm6oXPecqkk3axUv5ipL0jz9yqKBPRVZ3hWrGzngo6bXDz61HPU4xplTb689lSdUoRKQVIsX9/uR0ZZrh1+NZE4ZTxeyzcNM5WbV3UJSV/amy6V52qT2PAT+fUgNZ1cmM8wiOuqsZAcVbmw37cX5/7aaw6DXMzZN+pZ52ETha1wcEZkiIJtcsORAfK65K322VkdqiZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4cZsv1APFUd9S6y78p+pmSJaPwPYQn2DcAy4Pvz7MuQ=;
+ b=Uad/k5/Nlrv/zq/LZbMsaPgWLI95RridWXXbS9DugM3np4KW2pGerJrO70/oq2OJOeLz7QLv4t0GLou9InMmopwxJH1XFQI8Y74TCNr+mXen6wP34qGWhPzRxUiKF56RVggFiYKXneux07BDVyRsFZmSTQQb1vZl7cCBMQ+HXAYUDHS5TPumUQ6Q8oubIuACnu9xplXuV1VZZ0efG8mN2Lho0oJHw89bqrOepBRWXevnMSEvAdUNk7i7MwMastGe6n0P2xycTuTrIThimnEjULivqRP2LpGR9GY9cGlOpdThpZhJHJWKMaG9pMqVmMU7GD1Q21ekB2Acy8YN7XN6Aw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793654202; x=1794259002; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NVNdZHoQPN+JOSE1vDDpIyMY0YkiFmXQ5S2CPq/BOTY=;
-        b=Oy2sd2j+V2rQ/PnlaP4UzDtHk4NudnB44qal76nw2rMOcG9Rd3yD3trmnEfxkIKnpY
-         eDDabyEI95SLIelAJwBGzroxFr3zPtrxITbTVPd0AQ9/Wpkg0DlOH6iUgEcJ6yGFsZZX
-         2PEyQ6WHzUS9aHMbbPcWvLVuX9gmcuaIO3UMUhT2EYpSefo7+WHE4lBQpy6U0z5++DGt
-         bVZH7E3/P1A6jUceH+jB7aVQptyWl+HzS8LunSM/VrMbqrcdEhpPPZcAljpaFAx+XF9v
-         R90553uqIsTK1fZn7MxAmrvGMjnGHtP3CE5+iPDOtzWa80jHgw2LYau0U38ywbPsE/wG
-         emeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793654202; x=1794259002;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NVNdZHoQPN+JOSE1vDDpIyMY0YkiFmXQ5S2CPq/BOTY=;
-        b=BhBa9+E0vN6qrHoFUPd46DICz+eNpQdwiGENSdkTojeot1lSTjrWbi3K3MzdizOiok
-         M9K/bJhIXB+h2brQBdgzfVEeSQPnq8F6YSBG/hHFQ1lu9UiQvA2v5OSTjgGyZRZCXCSJ
-         Xmb1m/EXQBS4hMN6DYkzY/DeqYEIHjfsNX5YXnrQBn7rf6WjIZLveUsOAc9vTxZxKqB+
-         nkeajVJoyu/rVI/1a9hdmGjJsYyvi7cg9Hf4c6U4F9XT+51JLYdZBqMw8NYKua/cU75Z
-         OI5qO3rgY8C/KhWkfNmvfz2mwPgPlzC8/wUEFC6SZE+qld3R0MxFMRcB/cgHN6MuUKfj
-         Bt7w==
-X-Gm-Message-State: AFq9FYKvRZDj/a9onJQCS3IL1BY9JuTqCeIRb5nUag8XuwQ+cbv3hytv
-	hpQniofs06ur2Ze73JkRUi/sCE9TcxogwbUWx2rfBxqs1uL+jkS+pxYmxIaV4BmlwcQ5fCFCRY9
-	3HFLUHL7hb+V+GnHi63pTDoCqsAzUDKMJpg7HOj4vRvSTmifVnbwyNZKTQDRzPCJrQQ==
-X-Gm-Gg: AYBFou2hOjEZQF/ywk2BJb1VZyBOAj6KRWJ7KrP/aPmZLt1gwRoQUg7a622CqVKWPKZ
-	nRx401QgcYfvqnqrBqTfSPvb/ZnhHgF5/L1sOk2jMBUIoRlyefWcuD0QJuSt1V9Dux0xuhh2uiR
-	0s6xfNHLONW91zpRfrFg36iTnabmKO1bPJmcgcUn+FmTUBt/pQxMDqqYOMAYI7YiK/Z1jmd+UQf
-	a10aEoFeLAejfcC1f59n36WsJv5uk5aK1nZmhEwtoo5oaod539Z7UMv7N3oUoTzXh7bwQrwUnT9
-	5U+coYtDHhIAd9SG+pvBOj+0ilMCF4gGzN6sv/dO8rVN1r5szF0XILcq/oa2b7lfXO4EfrH/YVx
-	C7j7ZFSrQTOrnWbfIH+h61K5VWSYU+8EAvh9elZ8ENVwsSOLbCVTSVNnPG0Rdy2KJPL2l82olRd
-	KIpykWYqxv3jDtsg==
-X-Received: by 2002:a05:600c:c08c:b0:4a0:1e9f:64f6 with SMTP id 5b1f17b1804b1-4ac12193b17mr209123905e9.0.1793654202101;
-        Mon, 02 Nov 2026 13:16:42 -0800 (PST)
-X-Received: by 2002:a05:600c:c08c:b0:4a0:1e9f:64f6 with SMTP id 5b1f17b1804b1-4ac12193b17mr209123535e9.0.1793654201707;
-        Mon, 02 Nov 2026 13:16:41 -0800 (PST)
-Received: from localhost (119.red-83-42-172.dynamicip.rima-tde.net. [83.42.172.119])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9fafe08sm17123535e9.3.2026.11.02.13.16.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 13:16:38 -0800 (PST)
-From: Enric Balletbo i Serra <eballetb@redhat.com>
-Date: Mon, 02 Nov 2026 22:16:21 +0100
-Subject: [PATCH v2 2/3] clocksource/drivers/nxp-stm: Fix missed comparator
- match in set_next_event
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4cZsv1APFUd9S6y78p+pmSJaPwPYQn2DcAy4Pvz7MuQ=;
+ b=RjGmGyTxzVei/C1WRZbpbuWKLbmZUtECsuQ5T0sjtawWB+c8s9rF1nP/pAZ7qha/yvXLSUuBAgPDRY+tiwdxaR12VU6maAo/+9Itq1Y98tAwlQWXNGLoxD+wCoyk0abj/HL3/DW2mjqMNNzYiTaJfil7Ege8go1HIKVMZrn+H6Y=
+Received: from PH8P221CA0055.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::8)
+ by CO6PR10MB5618.namprd10.prod.outlook.com (2603:10b6:303:149::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 21:16:35 +0000
+Received: from CY7PEPF000000EC.namprd04.prod.outlook.com
+ (2603:10b6:510:349:cafe::97) by PH8P221CA0055.outlook.office365.com
+ (2603:10b6:510:349::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
+ Nov 2026 21:16:34 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CY7PEPF000000EC.mail.protection.outlook.com (10.167.247.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 21:16:33 +0000
+Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 2 Nov
+ 2026 15:15:51 -0600
+Received: from DFLE204.ent.ti.com (10.64.6.62) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 2 Nov
+ 2026 15:15:51 -0600
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 2 Nov 2026 15:15:51 -0600
+Received: from udba0500997.dhcp.ti.com (udba0500997.dhcp.ti.com [128.247.75.222])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6A2LFpZY2832661;
+	Mon, 2 Nov 2026 15:15:51 -0600
+From: Thorsten Lannynd <t-lannynd@ti.com>
+To: <linux-arm-kernel@lists.infradead.org>
+CC: <b-brnich@ti.com>, <praneeth@ti.com>, <r-donadkar@ti.com>,
+        <devarsht@ti.com>, Nishanth Menon <nm@ti.com>,
+        Vignesh Raghavendra
+	<vigneshr@ti.com>,
+        Tero Kristo <kristo@kernel.org>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH] arm64: dts: ti: k3-am62x-sk: Add orientation to IMX219 sensor node
+Date: Mon, 2 Nov 2026 15:15:49 -0600
+Message-ID: <20261102211549.1011388-1-t-lannynd@ti.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,92 +145,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-nxp-stm-fixes-v2-2-8ca2706f30ef@redhat.com>
-References: <20261102-nxp-stm-fixes-v2-0-8ca2706f30ef@redhat.com>
-In-Reply-To: <20261102-nxp-stm-fixes-v2-0-8ca2706f30ef@redhat.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, 
- NXP S32 Linux Team <s32@nxp.com>, stable@vger.kernel.org, 
- Enric Balletbo i Serra <eballetb@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793654192; l=2807;
- i=eballetb@redhat.com; s=20261026; h=from:subject:message-id;
- bh=kUWoWgTvYPenE4IKiBrz1IwM+AB6oxN1Q/yu3Rn0P74=;
- b=IpqG5whRDSxl3Gemnzq/I3tMvPQOsvjl6i/rI0ZXL9gB1z0N/7it4tFHtVRUPlAyMQCeZQxH7
- xIRxFfg7tweD7qacyfG/703TsKhVCLMA+IC05ckAZvQ9CwLerQxPFso
-X-Developer-Key: i=eballetb@redhat.com; a=ed25519;
- pk=5zh6xuAxTiQwglL2NXQFqWuyRPmCE8T5KPXLbNXhnKI=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY7PEPF000000EC:EE_|CO6PR10MB5618:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17a2f1e2-9870-4395-701d-08df3926925b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|56012099006|261009223027099003|261028144727099003|261021121427099003|261022105027099003|261026140227099003|261022075727099003|10067099003|18002099003|261102123227099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	0bcdGRju1SwKHpkC+67Em/dLEppH34g1kC/dq6ZkDnbBwHLHRKfSNan+9Hs2nrjEH3eFB1KF0IjlPe3BD7ZTQu+s+0uBJUAD3QfJ/wUYU4EROaQKk2E8njBiC4lSL8PopNAaiz+Oz22mYCyGAVL3srXoyFP2yXfwn3+sL+bWrvXM6UWGf5vjAaYJsP8n/5x+4cxUbK/1OkdnhzN5mCKZqaFuEYR/03rG7qlcEBfiXJW+8JNaMwWz+SRy9Xl+NkRE2b2ejnetCimVEIWlsVJUWIj+mqwOYMaUQZ6oeCrwYI9OvEKzoH2VvlA1R8SqeP+iMjfBmduHrwwgEydEYcz1RGUxGaEhH6YxcEJ6g/sLTpe1sSIKe4y+QynADFezKVDUnFR8cnO1WUuM05WQ2jsvOb0pOOY5ZD2OCh9jObviLMLGzqSPFsJmLp8vNDukXgXsqOs78hNTI21law3fqjDbB4Wig308YwWVmP8k7+ZyfbVX9VJBy2t8bStwY3nvxuo1Fv8X1Xwh172Ovc0WWhpicN5su7ADxDyzK1NtZNf233pAHY1AwVNJ+tsjJg90gT0R+ABGE1t7FC2OkPWZ2dAV+5G6Kulpri5k7NZIZKpWq+pxcp7tgAU+yP2+FMEfPeUMCGtCdHQ20gTILRuFe4O5t1EAfScSfFQc+X5BMdu119Jvati3Yw8m6fbrSioVIQ19JGlmnKCfm261i5iUzQJv8A==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261022105027099003)(261026140227099003)(261022075727099003)(10067099003)(18002099003)(261102123227099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/vfP7YitxaF8JqtIIR+pP68wFJefkBxcthPe+huyebTH5ROOH7cDn0IJUnlKtibQbzSXvdzeHC0dSQCLWRJRNXWANrhntHDkEOCQQCudVByYlh/U6G9lJEzMJyhlUrMIZdgR+Rw7PupwpKN408aXUz2yVL/l0iN6+Os/ycInSDSkWBq4NthOE6n0+BFS6LrPTq4nBUsDuLi30ay/opsOS7drdAN3IC1aeSXjG9GnOev5hC5y1zlIS0b9bMP1VniezJU2zrOGxRwbkW/6e0da1ItPnUs68EFgBR0ntXlwpkGMm6dONUAAg9WJ1XUDYUKqkafgW2yfwg+gxHDlzFMoKs8mzkodB/sB/z0UVUpNoJ+8tDFvcgUMkFTpN1Oak49kJs2TwNE3a/CdvvmXegjpUAQ+IBGm0ZliC7kBxCDx/Bkl95mmkoKoiAht9uzDygmD
+X-Exchange-RoutingPolicyChecked:
+	yuMOBBSmE8sYvZxX2utmwaoJw7rAQq8xOjsOenILOyBX/NCkfYaxu1rs5MDTFmyIjRs3wamC/0/z5vSxQJEVI+TUwuOCJP1oK7UIeTEaDTOJ23yw1Z1bece/NhUB0K177gLtbw7dTp+0akGLZsftRKHFA054649ZfYPo3k48WqFs+ePeeXmHLEIAsXqVrQQUvOyVkGbjJFInR/z17d9MV0f84EIT9X1UP7b7MtOKJB/takkM+I1cKKsQErbWQIabi/Q+XCPgNhjAeChPmwV6GB6H3yVaMuMpySMTYRcXsO+x+y+sZ89wVFJzBogPgUCqHuS3ZizfpPS192HGMHa7wg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 21:16:33.5989
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17a2f1e2-9870-4395-701d-08df3926925b
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY7PEPF000000EC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR10MB5618
+X-Authority-Analysis: v=2.4 cv=c8s+0h9l c=1 sm=1 tr=0 ts=6ae8fdb7 cx=c_pps
+ a=TVJYqPbIpBJCeYGeirASbA==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=AlMIdn_sM9wA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22
+ a=sozttTNsAAAA:8 a=umez5S7xkfU_bUzRr-0A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA4NCBTYWx0ZWRfX98SBbETNBcXL
+ rCmHa9WBhbflT5TUtpfE3HFSUZ+9EhEXHBu/FGZ2AmBE2AkGuDuTWauNkoOAN4y9IoenloZs2N9
+ 7h3mqYJFU0IFtk7hmOEms1gg/TjJzAjII+Id9+ZdT4evTMKWMs+l7YrnwjJNJhUwM5d890U+hBN
+ DuolWUMsJExAywCd0HgQY5k6fZ8dlpOvsaSecIIQFawQokB4NXa3ANV6CmRGODyJ0qfIZPw7U4k
+ bGCdZhMbncXRCAHLZwnBDbE9Y0Qs26NbUlExCMilQCeGOC+RydD+zgehYhOxrmIDw5qwgjmywlR
+ TqtBOzPCHzQaUpHbUkLLHM8/H+PSfJ6i8vB8lpKidOWvo7aPZescK2vv3iIBjVDlZMpYHmdGrLP
+ xpO2KYBukDQhvN5BeE2Q41wznhj6sOAyAmqCNKT59PCf8FwHmk4SAl+p0TzZHSNvxDBq3Vqq2F7
+ uhksS1r9MUnWAoXtbAg==
+X-Proofpoint-ORIG-GUID: ReqiQCjjb1fo_g-7Ehl6uk2ZBrH4_RsP
+X-Proofpoint-GUID: ReqiQCjjb1fo_g-7Ehl6uk2ZBrH4_RsP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA4NCBTYWx0ZWRfX1agkJwdDoDZ4
+ PNuCeG20/9arEmAPdVg55qkIGI93RpvdxL3DcoanrewLkB3c1joSPg+UY5AlsssKiGIF4lOsvPY
+ FM+k7B5M9PJ6UBdAKUAchC1ydg4pyuU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_06,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 clxscore=1011 impostorscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020084
 
-The NXP STM generates an interrupt only on exact match between STM_CNT
-and STM_CMP0. If the counter passes the comparator value before the
-overshoot check runs, the match is missed and the hardware must count
-through all 2^32 ticks (~32.2s at 133 MHz) before firing, causing soft
-lockups.
+The IMX219 CSI2 expansion module is externally attached. Without the
+orientation property, V4L2_CID_CAMERA_ORIENTATION (0x009a0922) is not
+exposed and libcamera fails with:
 
-The existing overshoot check:
-    if (val > nxp_stm_clockevent_read_counter(stm_timer) + delta)
-simplifies to checking if counter_before > counter_after, which only
-detects a 32-bit counter wrap and misses the normal overshoot case where
-the counter advances past val.
+  ERROR CameraSensor camera_sensor_raw.cpp:465 'imx219 4-0010':
+  Mandatory V4L2 control 0x009a0922 not available
 
-Use a signed comparison on the difference between the target and current
-counter values instead, following the established pattern in
-timer-imx-gpt. If the counter has reached or passed val, the signed
-difference goes to zero or negative and we return -ETIME so the
-clockevents layer retries immediately.
+Set orientation = <2> (V4L2_CAMERA_ORIENTATION_EXTERNAL) to fix this.
 
-Fixes: cec32ac75827 ("clocksource/drivers/nxp-timer: Add the System Timer Module for the s32gx platforms")
-
-Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
+Signed-off-by: Thorsten Lannynd <t-lannynd@ti.com>
 ---
- drivers/clocksource/timer-nxp-stm.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/timer-nxp-stm.c
-index ee249fed1b91..ed7662a4e2bc 100644
---- a/drivers/clocksource/timer-nxp-stm.c
-+++ b/drivers/clocksource/timer-nxp-stm.c
-@@ -247,7 +247,7 @@ static int nxp_stm_clockevent_shutdown(struct clock_event_device *ced)
- static int nxp_stm_clockevent_set_next_event(unsigned long delta, struct clock_event_device *ced)
- {
- 	struct stm_timer *stm_timer = ced_to_stm(ced);
--	u32 val;
-+	u32 val, now;
+diff --git a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso b/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+index 149c59c07182..829ed98345dd 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
++++ b/arch/arm64/boot/dts/ti/k3-am62x-sk-csi2-imx219.dtso
+@@ -72,6 +72,7 @@ ov5640: camera@10 {
+ 				VDDL-supply = <&reg_1p2v>;
  
- 	nxp_stm_clockevent_disable(stm_timer);
+ 				reset-gpios = <&exp1 13 GPIO_ACTIVE_HIGH>;
++				orientation = <2>;
  
-@@ -258,16 +258,12 @@ static int nxp_stm_clockevent_set_next_event(unsigned long delta, struct clock_e
- 	writel(val, STM_CMP0(stm_timer->base));
- 
- 	/*
--	 * The counter is shared across the channels and can not be
--	 * stopped while we are setting the next event. If the delta
--	 * is very small it is possible the counter increases above
--	 * the computed 'val'. The min_delta value specified when
--	 * registering the clockevent will prevent that. The second
--	 * case is if the counter wraps while we compute the 'val' and
--	 * before writing the comparator register. We read the counter,
--	 * check if we are back in time and abort the timer with -ETIME.
-+	 * If the counter reached or passed 'val' during or before the
-+	 * write to the comparator, the hardware match will be missed,
-+	 * resulting in a full 32-bit (32.2s) wraparound lockup.
- 	 */
--	if (val > nxp_stm_clockevent_read_counter(stm_timer) + delta)
-+	now = nxp_stm_clockevent_read_counter(stm_timer);
-+	if ((int)(val - now) <= 0)
- 		return -ETIME;
- 
- 	nxp_stm_clockevent_enable(stm_timer);
-
+ 				port {
+ 					csi2_cam0: endpoint {
 -- 
-2.56.0
+2.34.1
 
