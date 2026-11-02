@@ -1,53 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626393;
-	b=2EM4WS4qxbonPlttLKg+FcnnCvPUQprC7CSm+LA3rwI1dIHzuUqK75AHfAwnzIstE87T
-	 1/D6mfbW81uWWHN6g+Oix3WaS9TLWrdPc36IzCF3bXCIWmofv7L1Stb2ZifdEpgjTnMHt
-	 1pPlSNM2PcabF6l11FaQzTQQJjlD6aYprBbhTPy9kpvAn3M8X4fd035yIjGllG+UeNVGe
-	 Nk4ol1Gn0IXH39NQd1qAuYUdtfc9cF1LjGPYixOSG6tAOCfU97DNoD+DGTLWaVeK5e9fR
-	 /EuP1qRGGhKH7JZ+MsCni0WStIbMlreUaSoHw9Fv7aZN+PIs4PVqR38jiIYhqLIYobg==
+	t=1793626424;
+	b=Zmdx0Siihw6MEMZLRLO+ikj1XWN6CYKlq6L02KUna2hDvskEchVrNNB3TgUPiHSVF46w
+	 5WTiU4xnW1l99P4mN4vHvM0jtLoKKJsPwHW/s2do395wTRlAEeNrFUJuNTCXwJkcPqcdf
+	 DNKgPIq7kYnwULn3wFCjsfDKPNh/BvFT0j3sMZyWvfa1Y6u8nnqCZ3qV2xicH3xWgNr1E
+	 0YlehspiqTSWmB+ulmEUzN2wce+1vR/tmB8dHud3Rmfhf+RGAeg6gTPagC1j9X8uUcsbA
+	 zMpTy6UU20palxM+3IHdIUGQ62A13nmMMnN5KZa2zIuuXnsLDwJG7x+2KV0/mNYanDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626393;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hAziCjBKJ1SNEkdmXajn5/U751Y1KrQeNWYi7A07S5Q=;
-	b=t+pFMw9+b+nAzuCHrZgNRB3VnaUkjYcdUgFT9/btBEQqUc28Cz4BQcCWIw+RoroeaEON
-	 2eFWyYRyN1FyhuMOQ3l6KxoBmHKrJq+kZA1grKqeRFcrL3cR/gRhGKrQuXHXjc4C+X8ft
-	 WlWol6Ii8p7FIv3biDQdiZhPOoqf2sJT8bUn74p/zl/ZxOSZXv7gIaU0Cslkx2uuLkO4W
-	 NdFNo3nN7m8Pw4B6FL3C2GyfuquXuD8AZzHqrx6/wKu9uyNjCVa1vtjjJTOPcapm5NmM2
-	 PfHYrR2+lWPEhY2Ae6jb6fmaiLBedZzTYUqhRa1siR1kGGKSFWaMxqWyA7zZBfGwMlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626424;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=DB+JdwCkQJDdbmqEBm13F/PLEFpOBew80JeNxQJjjmk=;
+	b=g1oe8ULb3zhZBiQhMosgCjohfmAU0uIG6SGtFMmNgerJczVezEEcEinXozU/mEeqZDEX
+	 MvztwLp7trx/esflqrjzgckHXHOW1JFDQDU9XKaucim+ij5Rjeijf7QfnEj6/b1/uDS7Z
+	 531qTtsBwYmwrjRmlkXLz6wEbo4BVPBf68gcTRcm0EvqAPOibvWkceyezLAp8BD2J6pMU
+	 WchJiLLa6JfNn2rL6/iGQvoRaCKHJizkALigK9XUeC7uabQJkhbOYtz5HgpAH+gYyksfy
+	 8WkUH7aTDqrVJXjAUZMvY+aSpVpj4XDHBSH6VtnhqGvvWIIxtq2BWcNksb4zKyi/vJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNycARcY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=T9NFJfTi;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4112B606A326;
-	Mon,  2 Nov 2026 13:33:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E0C606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:33:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54E0C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNycARcY
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 07D031F00A16;
-	Mon,  2 Nov 2026 13:33:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793626392;
-	bh=hAziCjBKJ1SNEkdmXajn5/U751Y1KrQeNWYi7A07S5Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nNycARcYpMixoGYRsTaFVHjXPmsuh3YpeRGT6dJ1ybjgj8XPnfgkftA7mrRE23lWP
-	 fGsQypeGA/LB8JdhB2sb63LBlW/Ep6UCtTCzJBlu8Q7q8jrsi/KAqKzk3zPet6KFeC
-	 TB2zj5w/xghQgqRa3313y3ryJ7eStfMtfA6lkvCJGSshmtTBEbOyKkRrDGX479qqi/
-	 wrAvNXZvNk9zqOL4PlLi1QHI0di/CkEayU4DD93kBsc85BOhu4gx88B+SreCL8WFLq
-	 xO6rgCryfbcCUmCFJZ59yv6OCcdn0LiI1DpLC+c1pAev2m5crqq4ncqu0VZ8BsZcnK
-	 CeRpshELVoeNg==
-Date: Mon, 2 Nov 2026 14:33:09 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Felix Gu <ustc.gu@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI/pwrctrl: generic: Fix leak on clock error path
-Message-ID: <2q3obuvuoingldhprjfmpq4oabfwfqqj5nwecn7zghqkapnnuy@vcsvziqmqky7>
-References: <20261031-pwrctrl-v1-1-405af11c5662@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=T9NFJfTi
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=DB+JdwCkQJDdbmqEBm13F/PLEFpOBew80JeNxQJjjmk=; b=T9NFJfTin38mo/MebrQC42vNWc
+	w+qQ/FAqMgJRcU8t4dt7LDx5xu8nrW0yeFyJnb7Q9CqHwJFsqDmlrOKkkJbf21hR6GukDWwSPEOPl
+	EDMpJVpQrRP0V7vepkmrdFlmX+/yRBzXJVugi4GNuCcFNJUqp+GN7eYPEt1/J2rDjd1yNr1o0qHC6
+	LBcJa8nEAktcHQrr3x7YdjETVLck/e1tTcGSBxy8VX3Zjsvxqc5foQ2/8hvGU7kkMAjGRhMgwvG/E
+	Kz1iuPt4uB+YzkKmVNzazjXa0f5lzTRGY12c5Uc36b2VA5L8/8zcoZz9GP8yDfI9lGeq0Usr2d6Ka
+	m+Uu7TJA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xNsA4-006BsB-0y;
+	Mon, 02 Nov 2026 13:33:20 +0000
+Date: Mon, 2 Nov 2026 05:33:15 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, hpa@zytor.com, steve.wahl@hpe.com, justin.ernst@hpe.com, 
+	kyle.meyer@hpe.com, dimitri.sivanich@hpe.com, russ.anderson@hpe.com, 
+	linux-kernel@vger.kernel.org, mhiramat@kernel.org
+Subject: Re: [PATCH] x86: Drop KGDB support
+Message-ID: <auiQKR6IhdyOCiex@gmail.com>
+References: <20261028122124.GJ2668804@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,19 +70,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261031-pwrctrl-v1-1-405af11c5662@gmail.com>
+In-Reply-To: <20261028122124.GJ2668804@noisy.programming.kicks-ass.net>
+X-Debian-User: leitao
 
-On Sat, Oct 31, 2026 at 01:49:08AM +0800, Felix Gu wrote:
-> The devm release action for the slot supplies is registered after
-> devm_clk_get_optional().  If clock acquisition fails, probe returns
-> immediately, so the resources eallocated by of_regulator_bulk_get_all()
-> is never freed.
+On Wed, Oct 28, 2026 at 01:21:24PM +0100, Peter Zijlstra wrote:
 > 
-> Register the devm action right after of_regulator_bulk_get_all()
-> succeeds, so the resources are released on any subsequent probe failure.
-> 
-> Fixes: 9cb64f61ec7a9 ("PCI/pwrctrl: Add PCIe M.2 connector support")
-> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
-> ---
- 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> KGDB does some horrible things, and with everybody having access to
+> virtualization these days, there is really no reason to use it over
+> Qemu's gdb-server.
+
+kgdb_panic() also adds a different code flow on the crash/kexec path,
+which makes things more complex. See a recent discussion about this:
+
+https://lore.kernel.org/all/auiO_x_Am8ZmZcmw@gmail.com/
+
+> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+
+Acked-by: Breno Leitao <leitao@debian.org>
