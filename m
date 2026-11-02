@@ -1,114 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609870;
-	b=nzvuvFobuMLw44sjlELhbgAD3uBB84s3YkxHGtNfccUKrV8BAxOB+IVaEAgJj/iTd9FB
-	 bx6j+7y4m1JwX6jHF5yBnbqhsxP8/uHLnUi9JyoqxAmB3v+y5HH8B7hdG7osq3w60pvKw
-	 nqFOwQz9B2NB3ANDnS2K9zvmME4DbEBdOI2cNs0lsDL0AfE4vczXlj7aO9nVF38x0MSlQ
-	 ck4B3NxwRgYC/k8EyB9SvakTzBhNyfOdYjpzYCUEBM9Wj4C9ClajhI3M0lft3Sw9O5G3t
-	 DUI9kcn/AMxvbMppj76xuOZl23x2FnSJ54CeY6jf78bgjQYBtkndy6xmh0smlve7PKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609870;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
-	b=CyfmQRWR+9CKqMv5JHFEWQBEuXXzRfaXF3fLLLYBY2Htmh/ito6WW49pVJgmmDdmNhU3
-	 y+tl+osIPCweq8rkEOMmFUgDy/Uii8p3HwLz8CU6YpnYHyDKoY2vic80mlu5o9EB1lg1b
-	 vy4sbyh0Poxqj3YjwFolHRop6ZmUzlNS12N+nt9yjZrcYLzjLB9EeVSmX0hwOWLT3Q91V
-	 /S3GFuQJ2xb9f2tYhH828YsR3TFq44lpEL8o2/n/PoxqXltbF0B9i2U2WEmM1b97J+X9Z
-	 0C0ykNxBN5SV2T30wC3/PZfbZbHgAcEPqgCRfN54tKxZjapgFHLz4FfRyayp/SiC4EA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Z7Oj74UK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cIiyNdLY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Z7Oj74UK;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cIiyNdLY;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793609956;
+	b=fJXM+PlyvBzWiIBmWbz0T3lGgEJQggNDJtvDOAlKuFd4wvEEDKiq15f7fQk1uj3yENlL
+	 4ZfCP/lnU1DGx+f5hyuxx4VLMxustwf0pVaoAT8taIFUK/XkVFskcRpiaJUvSpFL9lC8L
+	 mh+hzXhu3ZMLMVw8PzIm5PzuZ8jq/LPKVPRSssuvHzNH9u/IXFdrhwrcBoCCaEUQ7k0zr
+	 mUrpBW0EUiIrSPxkfsiAtM+4kgjB/UKYXAiyMLFhWqa7Cur7aoiq+7cY/X1IKeFwos3u4
+	 hn6ED1IGI+c3CgRWg4bHFO50iYXlkrDQMlI9UrgP8Zj07PD68zfVn8wVYD7YhAfbf8w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609956;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=wH0pYginndFNXKmHWtZ9RkHg4TaTelF4VIgtZlMHbgE=;
+	b=CYYkcLIevOJiOYNYawT3YIKlXZsu7DtjhSwTldq0Z7grynqE/gN0LhP3TTndVqWRo4si
+	 wfqoiKpLK63l0b6GHh5DwUJ7sfIi308k9T0m3GtTaomp88RER8O6WNjkG3sjmBym4uWdC
+	 FXgIBSzuT7KQX1dqFoKAZTNBlR8OA2KRsBbCrqkFc4Hn65GIuE9LmGzc16XZNQ3rLwnaP
+	 p0eMcd+327CfSvVNLBfrXvPq1NKfbrdahZiImndR50K7h3Cig5PHAfobkLoUFPEiSv/2n
+	 qPTbgCxIbJA9uNDwJN7NIvvBgwETvgko2hj2IsCYVcHgZuk1uJJJsIhmBt8mTHJqOtA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Sc9Xoyrj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kk52tOc3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D05606A327;
-	Mon,  2 Nov 2026 08:57:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D05606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C65606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:59:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43C65606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Z7Oj74UK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cIiyNdLY;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Z7Oj74UK;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cIiyNdLY
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 91F7E21EB8;
-	Mon,  2 Nov 2026 08:57:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793609867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
-	b=Z7Oj74UKbtdUkAKOLh+GKY5N/GfaHCWXDYMHK2ntHPbTqbdaImIRuM5fFvbspPEFKBIoSo
-	QXlE+NdSCLUsLYZxRPskM6kgT8NveBaWIUg7wHGla+smbkcnKISSYCHlNXTO8e/nqIVhvU
-	JRbXWoKve1rKi/neB2bjPwNzegsVQLw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793609867;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
-	b=cIiyNdLYVOhJHW590PBqD2l5SlhN/37+jP940ns8cA/lCEkQXvnQfHWbX3MPmCc0j3oqXa
-	MO+nbwpWekP8rXDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793609867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
-	b=Z7Oj74UKbtdUkAKOLh+GKY5N/GfaHCWXDYMHK2ntHPbTqbdaImIRuM5fFvbspPEFKBIoSo
-	QXlE+NdSCLUsLYZxRPskM6kgT8NveBaWIUg7wHGla+smbkcnKISSYCHlNXTO8e/nqIVhvU
-	JRbXWoKve1rKi/neB2bjPwNzegsVQLw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793609867;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
-	b=cIiyNdLYVOhJHW590PBqD2l5SlhN/37+jP940ns8cA/lCEkQXvnQfHWbX3MPmCc0j3oqXa
-	MO+nbwpWekP8rXDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 11900134B8;
-	Mon,  2 Nov 2026 08:57:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id xSa6NYZQ6GrYUAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 08:57:43 +0000
-Date: Mon, 02 Nov 2026 09:57:42 +0100
-Message-ID: <87ecd34nll.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Joonho Lee <mynameisjune111@gmail.com>
-Cc: linux-sound@vger.kernel.org,
-	tiwai@suse.de,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v11 00/14] ALSA: virtio: staged capture recovery and PCM RESET synchronization
-In-Reply-To: <20261031020855.2402-1-mynameisjune111@gmail.com>
-References: <20261031020855.2402-1-mynameisjune111@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Sc9Xoyrj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kk52tOc3
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A24DIdx2433742
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 08:59:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wH0pYginndFNXKmHWtZ9RkHg4TaTelF4VIgtZlMHbgE=; b=Sc9Xoyrjm/M2Hzci
+	KWUdEyuJd+F5CrlengSQ0+5xWNpiH74flcMumwoJDyM96aSc+onN+U0LHlTDJo+w
+	pVKahq9ZLo9nyfgPV3jGqlW3Hsj9zYMVHRGnU68bSdxTPLc1ZGj+QEBDXX+CgFMB
+	tNDWOVteg/OatLrnIrq6Wjsi45ABRKt3juUpKl6KadxmQg1FB4h+gI6DPQdcMlRZ
+	1JCT1sLrPAa3iSPJRJZ7fQRf9SsVseLdzhedxYq7SsVdccZGXLEyswP6BVHOUH+y
+	TY2mEKJYMIvsUhgH8iTRHisbaZzwKLEJTLokoY82dyxgCfoX7QLAAjqIw0nCFcEx
+	isi7cw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka60ysp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:59:15 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f26dd2165so259305885a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:59:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793609950; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rH98x509IOw+fchHkyN0m8l2ryw9mOx9oyfvcwH2V3sDa3wqscy3I7A+J47vzLEdAS
+         5o4GG00A8gNFROI3mMZvkW1aJYwXuy5PAa3vFFiQNMITHqQIVV4PZzzpv5lgwwEI5jeH
+         cwdWmZgWxMMVF00GC8X9nyPY4KJmMXnspgMZO3dGn6GmZW2W3EcOzqvC1sHEn6/do2u3
+         3/RQHhbkwojM/VYSJbi7WPfCw/PQ10JPeihVbqCv2AP6WyHF1CMawuXxYW89baI3bwRh
+         +1Cb1nZ8J+9YFT5bS977169Ux1TOkK62a2rRlXwNxBxt8NpljXqE/Dhl/CRUjqMXHGHx
+         3vkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wH0pYginndFNXKmHWtZ9RkHg4TaTelF4VIgtZlMHbgE=;
+        fh=4UnJavCmbQBK/+X/95UrLswx4fhKwX1NachIK4tKVM8=;
+        b=k6+X05ROZD9ooKeGYKc+JXRieh2hxQQH1YP8uedszPwhFns0ItUIMODObnsOvyV4N/
+         8cph7OhVrGj3q1DaZ7fQ4juCeb1lL6txnLX5ksZlCcWK2RnKHIgLf7b8ouvEM0masGM8
+         /4Wy4iZmMXa2hRbHRPCSACKNEEYwgWMrJhcul0qKkVEtlduw5iIZdsSr7+5M70gfqVsZ
+         QRBfBpEQ5i8rRz9eXTS1D7KTbIS1LfC+18GZln6XNfGtT97ImCw42ja2nljKtqjTjlBe
+         uIU2gvqE8g0T/rkUbiVJ3iCtHuQhCDFs+rlQZ4n+f/KpV2ourJ04bGD3dSLG6wXATqD5
+         qNMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793609950; x=1794214750; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wH0pYginndFNXKmHWtZ9RkHg4TaTelF4VIgtZlMHbgE=;
+        b=kk52tOc3BapLxezU4CtQuPsz+s1kr6x4Z+J0UjG237B6UGwmitkG6jC6C8Cw2/uZxz
+         c8bKvMdltv8F+Zw4sqU4yKp9r1i7vbDLOQ2IhAUTIWee60Xgwxbo1S9b1Nr644RwC8Qo
+         Rvm7QJLoFEzR8rYHScBLxKb5JaLqZLsxT1Lp/c//VpLCJ1jJYMGOuCXQyiPwdNIizISI
+         y5r9Or+iJPzccsGY5Wy8ZHCjmY93EXHOLauCx0bhKNM6I0kFdS4DyU/6k97ESpYHJiJt
+         68zhiwi6O9CWvNh5XcbxALAljfGgGwgR46kAanBVsu+icJW5YCYGpzc6r9EMHI0PEDS4
+         b0eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793609950; x=1794214750;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wH0pYginndFNXKmHWtZ9RkHg4TaTelF4VIgtZlMHbgE=;
+        b=mo6cuip7bD7G1fU+O4VbmCFyYCbNHs2/VoVJS0i920IIl00VoczBP4qrjxLodlAQea
+         NiB/24k9VQie+xunDJkrYnLJJVc1sEyLH3/2rc+AleDyetAOyG2ZUFo5680arJUevVA6
+         Oekj+S4NsSIkeyhyNLQmy19zHna/UrOXl+e7QhRUehiP0H/DU96zpOgv3KZOJ1EU+IFw
+         Tb4n0ui4XbaiDipGu5vOlXC2WLOQyhcyarItjgfScEfU0M1WovlRI4q5x/t7TRfZT66O
+         ctghm+RpmMgoXZxmBjLmbbOdmyPR4xdZmBVAxGNjNWVbju7NztaHBXDDaH1R0mek9GEm
+         QWhg==
+X-Forwarded-Encrypted: i=1; AKwUvBxsT70B67y8hkV9Yvd4fR61wQoMIw/fH3n4kEn2jhmg7osjcoOow0TSj2me2Ec0/icDHN1ly5MZyJ/Jyu4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKgnqNzgKPkuIHDERglFQRNPTceKaKMHVQHFgJlGkPk9CEbfi9
+	WoWhxFkowcKPFG4PmexNm2NhyDhMBJ4vngLIXoT9cdQDOaBVeWJ3f2Z+uxFX3q37kcgpRXLFvlH
+	9AVxxcUsXMIcybw5u6s4vpgMsLnjgwaGbnfI4LiHHdzXMNm53n1AzA7FgOFJ90LhYIHJyBwYcA0
+	OwZdgXhMWU/WSIT801OVwOTXiAYG6V/Yfe+ZW/AjB24g==
+X-Gm-Gg: AYBFou3YKhHT5qLtElhXgwBYQTuOCPZmUUilugoRb/8S5BgxSkPXI9I1zGcIV4TMJcw
+	a7XfY9eKphtiZ0IVtzIMTMKSK4iS/hdW3Mhd1nh+b55cA7OGE3umdZENmCJphHa9yKdjHAcLjcu
+	vEPyo7NVWd5uBSJiFb6SBNqUd821qiKSZN5AktcSufzmw7SiNzaRpCRmyktBbRdt0ODOPLpHWuR
+	yCvCPwkghXJdrC62bjwQvU7c4VHnBkqYMoW96oRVm7GDFI8KF6Wi4WSQyKQa4z+Xt8UNO3r5MM=
+X-Received: by 2002:a05:620a:4153:b0:93e:f9ba:690f with SMTP id af79cd13be357-94421737147mr1533812785a.73.1793609950275;
+        Mon, 02 Nov 2026 00:59:10 -0800 (PST)
+X-Received: by 2002:a05:620a:4153:b0:93e:f9ba:690f with SMTP id
+ af79cd13be357-94421737147mr1533810485a.73.1793609949729; Mon, 02 Nov 2026
+ 00:59:09 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,167 +127,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
+MIME-Version: 1.0
+References: <20261102081920.50288-1-fangxy@xiaopeng.com>
+In-Reply-To: <20261102081920.50288-1-fangxy@xiaopeng.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 09:58:58 +0100
+X-Gm-Features: AclHuK-sllA9dS0XNIfV1bAcZUW7oqBp3VabvOVBggv578_nS6KaXfjT9KFUlYk
+Message-ID: <CAFEp6-1JqRXuXQgaoCRDivHyu668d-5Sb-gY+rWbn1aEBqTV3w@mail.gmail.com>
+Subject: Re: [PATCH] net: wwan: iosm: fix potential skb leak in MUX DL decode
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Johannes Berg <johannes@sipsolutions.net>,
+        M Chetan Kumar <m.chetan.kumar@intel.com>,
+        Guanglei Zhu <zhugl3@xiaopeng.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: mjNeU2umMgEX-pfiPy1qVQ3gCiAD0rG-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzNSBTYWx0ZWRfXx6/mtYPOEIKU
+ NGLiGPQW2jFzSnVDGLu0QxH1IzaGyQ7OD2TyQadHM4Vv/9kufDKQ5XhMg6phf0af4BAnPESCjmr
+ Nglcl0sSVrsbTCj00G6GwsEcss+bz3E=
+X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae850e3 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=EgahoUkMAAAA:8 a=JYyk8ZF4ti7sTYY4iAsA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=D2SkTF70-_n5gOfERQdM:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzNSBTYWx0ZWRfX5NN28Rk02YhQ
+ RSdVNl0Jkk/8TTB5aZTp9jZzLXwIfQRldRukYGOajl5Q/a+1y+C3ZQoAZZsoEh9e3UEqgdA4v+Y
+ /FVFcXqu5wGcnncWa7K5Li+KihwgliqTI0bF8bN9f4I0b7pXrYKVf6OAgb57IiRapD5qsjUP8OT
+ 4loLch7NMb2+sUCCHbjAwFiCXrCBTBa6j7q1JaeJSdM+K7nVk7Bo4kibobLPQIbarrxyFU/zg/D
+ FDSdY10tDw/0FyCRfADnotn9Wa4+uYriVM0SdxDLpqMIyzYgw5Ew3cWPQr7pAS2SI+ZHPSgAvE/
+ a/mFaha9saPq5Ro+bIiVSuVWFQKm0aP+ulsaRw9sa4QzzR1LQwVfNopyYetg6FPHbO66sFhf4Jt
+ A+Wwu6EmSVmo1jk/oVWiiMdDYrCYQymDJvyYaHOhF5ro+e4J3wLWTCoTf3Qm1rwU2VTu5KQi1qe
+ Itx52qEJJCosOmLCuLw==
+X-Proofpoint-GUID: mjNeU2umMgEX-pfiPy1qVQ3gCiAD0rG-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020035
 
-On Sat, 31 Oct 2026 03:08:41 +0100,
-Joonho Lee wrote:
-> 
-> Hi Takashi,
-> 
-> This revision supersedes v10 and includes the unmerged prerequisites.
-> Apply patches 1-14 to sound.git for-next at
-> a4311e9447bbb219044db38897f95be112f46a8a. Targeting 7.5 or later still
-> works for me.
-> 
-> Previous revision:
-> https://lore.kernel.org/linux-sound/20261030052629.27742-1-mynameisjune111@gmail.com/T/
-> 
-> The series adds staged capture accounting for shared clients such as
-> dsnoop, lifecycle recovery, and synchronized PCM RESET accounting. The
-> capture compatibility options remain opt-in and disabled by default.
-> 
-> Changes since v10
-> 
-> Sashiko raised nine findings in patches 4, 9, 12 and 14. This revision
-> folds the corrections into the relevant patches and carries the queue
-> retirement checks from patch 3.
-> 
-> Patch 4 seeds ordinary RX once per prepare. Native STOP leaves requests
-> and unread samples owned by the current ring, so resume preserves them.
-> Consumed or discarded space returns through ACK and RESET. This avoids
-> inflated pending lengths and resubmission of unread DMA slots.
-> 
-> Patch 9 restores notifications after rejected native pause and handles
-> both success and failure on the already-running START path. Ordinary
-> capture now honors the XRUN latch in ACK. Its monotonic completion count
-> also detects a whole unobserved ring and reports XRUN for prepare
-> recovery. Capture completions preserve the latch from this patch onward.
-> 
-> A first version of the recovery notification exposed an old ring of
-> samples after paused RESET. Passing every wakeup through period_elapsed
-> let ALSA infer a wrap without a newly completed period. The worker now
-> uses the partial-progress helper for synthetic wakeups and retains PCM
-> timer notifications for actual new periods. The sample comparison and
-> a periodic PCM timer test both reproduce the candidate regression and
-> pass with this separation.
-> 
-> Patch 12 removes the second appl_ptr assignment after a callback member
-> has completed prepare. A linked member's prepare can sleep while the
-> first member accepts SYNC_PTR. The callback path now preserves that
-> acknowledgment under its PCM lock. Explicit RESET retains playback
-> silence handling; prepare leaves filling to the normal START path.
-> 
-> Patch 14 checks the existing XRUN and lifecycle state before mutating
-> paused indirect accounting. The RX queue and substream locks cover its
-> pointer observation, temporary accounting and refill. The notification
-> floor follows the RESET observation. Refill failure retains the existing
-> zero-return policy while the worker reports XRUN and prepare recovers it.
-> 
-> Patch 3 retires each queue wrapper under the detach lock and checks queue
-> identity in PCM, control and event callbacks. The proposed detached-ring
-> IRQ failure was not reproduced on the tested PCI transport: forced
-> callback tests passed on both versions. This part strengthens teardown
-> ownership boundaries; the transport reset callback synchronization
-> contract still applies.
-> 
-> Patch layout
-> 
->   1-6: ACK errors, START/RELEASE recovery and request/DMA lifetime.
->   7:   Core stop-threshold accesses used by capture policy sampling.
->   8:   Partial-progress notification under the PCM stream lock.
->   9:   Staged capture, shared capture policy and lifecycle recovery.
->   10:  Staged capture work priority.
->   11:  Capture compatibility option documentation.
->   12:  Optional PCM reset operation under the stream lock.
->   13:  Staged capture RESET accounting.
->   14:  Ordinary capture RESET accounting.
-> 
-> The core API additions remain separate from their driver users. Drivers
-> without a reset callback retain the ioctl path. Linked RESET and prepare
-> retain their first-error, partial-completion contract. A zero RESET
-> return allows the core rebase to finish; later I/O can report -EPIPE and
-> require prepare or reopen. The internal snd_pcm_ops addition requires
-> out-of-tree modules using it to be rebuilt.
-> 
-> Validation
-> 
-> The functional candidate passed 23 ARM64 QEMU runs with KASAN and lockdep,
-> covering error injection, recovery, reopen and compatibility tests.
-> The core fixtures covered 72 atomic/nonatomic, callback/legacy and linked
-> failure cases, including playback silence. snd-dummy and virtio-snd each
-> passed three playback/capture cycles. Additional timer comparisons kept
-> real period ticks and removed the synthetic resume tick.
-> 
-> For both ordinary and staged capture, an uninstrumented kernel recorded
-> 70 seconds through RW and another 70 seconds through MMAP after
-> PAUSE, RESET and resume, followed by reopen. All 14 segments,
-> 14,208,000 S16 mono frames at 48 kHz, matched independently generated
-> SHA-256 values from QEMU sequence metadata. The oracle includes the
-> intended RESET discard and backend epoch boundaries. The earlier failing
-> candidate and its sample comparison remain in the local evidence.
-> 
-> The paused interleaving test verifies the new atomic observation
-> boundary; it does not establish sample loss in the original code.
-> ARM64 W=1 Image/modules and ARM32 LLVM object builds passed. Test hooks
-> remain separate from the submitted code. Each mail patch is applied to
-> the pinned baseline and compared with its expected intermediate source.
-> 
-> Fresh v11 postimages at stages 3-14 built without compiler warnings.
-> Nine additional stage VMs passed, including eight injected recovery cases
-> at patch 9, staged native and pause-restart capture, and paused RESET at
-> patches 13 and 14. All six additional MMAP segments matched the sequence
-> oracle. Neighboring patches have refreshed contexts where earlier changes
-> moved their code.
-> 
-> Packaging also adds braces to one existing staged if arm. The new module's
-> executable, relocation, data and symbol sections match the tested module
-> byte for byte. The fresh stage tests above use this formatted source.
-> 
-> These results cover QEMU synthetic input. Physical VZ/MOTU acceptance,
-> an independent KCSAN run and broader format/multichannel and ARM32
-> runtime testing remain pending. The high-load TCG scheduling results
-> from earlier revisions still limit performance conclusions. The new
-> ordinary full-ring check reports -EPIPE where the modulo-only path could
-> wait indefinitely. The core progress helper and linked RESET contract
-> still need maintainer review.
-> 
-> Coding assistance was used for analysis, implementation, fixtures and
-> this explanation. The patches carry Assisted-by: LLM.
-> 
-> Thanks,
-> Joonho
+Hi Fang,
 
-Sashiko reported still a few issues.  As they seem to be rather minor
-issues, I can work v11 now and you can fix incrementally.  Or you can
-resubmit v12, if any.  Let me know which way you prefer.
+On Mon, Nov 2, 2026 at 9:19=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> wr=
+ote:
+>
+> ipc_mux_dl_decode() owns the received skb and frees it after
+> decoding. However, the early return when skb->data is NULL
+> bypasses the skb cleanup.
+>
+> Free the skb through ipc_pcie_kfree_skb() before returning
+> to ensure that both the DMA mapping and skb are released.
+>
+> Fixes: 3670970dd8c6 ("net: iosm: shared memory IPC interface")
+> Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+> ---
+>  drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwa=
+n/iosm/iosm_ipc_mux_codec.c
+> index 0bbd41263cc2..61700688eac9 100644
+> --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
+> @@ -693,8 +693,10 @@ void ipc_mux_dl_decode(struct iosm_mux *ipc_mux, str=
+uct sk_buff *skb)
+>  {
+>         u32 signature;
+>
+> -       if (!skb->data)
+> +       if (!skb->data) {
 
+Can skb->data ever be NULL in the first place? This looks rather
+unusual. If it can happen, please describe what leads to that
+situation. Otherwise, the check should simply be removed.
 
-thanks,
-
-Takashi
-
+> +               ipc_pcie_kfree_skb(ipc_mux->pcie, skb);
+>                 return;
+> +       }
+>
+>         /* Decode the MUX header type. */
+>         signature =3D le32_to_cpup((__le32 *)skb->data);
+> --
+> 2.50.1
+>
