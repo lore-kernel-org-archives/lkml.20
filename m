@@ -1,62 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612590;
-	b=RnpMEhAJ7hxoYMHEjIdf8QkgE8U59SkNZ10JFYzVNHZpQ0wPYGSkZWT5nRF7iTHHzLQb
-	 EyWOtpL9Vk0/0yKZipwVytl4MK0y8qmIbTtCRJ+K4wnIMMOqJoq3Y5CT0wUkCdWTPYaer
-	 1SrLjfE/DPSvN2k3KZl1Dm/7ayst+2Pgea6SOYUN+yYtg3trzSGPn8fojEkBpjnNx8e7d
-	 wx6q90PQ163lfFAckNexRLwMbuYXJbwoPMSv4gGJWc/GL4SY0lg+iHoazTZzFEgsJtreg
-	 pjN4A6CQ/KYmTDXy8XkB+kVfhw4ZJmtBPFIiBgygcY/0bRPqBgBuRChMc9bdv9BerdA==
+	t=1793612601;
+	b=DEdcW7TJOt19hgrqrbJKKD2oBTQSANcuuyQmxLdMUSvoJ8cGxnSaLx+sR0uyGn3mLbF2
+	 BBSZftw9Fhz9prjwd5034DWYzbOkyyYrJdLJCy7u0Kdfm0z0zEI6h8ju60JXA4c4CEDrt
+	 Mjt7uk8NhQAWK9mjtDqVTKPYLX/RMG+eztFAAFN4ma3+Yc45hOiXM4c+2KsPWSloC/Ht1
+	 1AHtoIQca8kR8j7W2VeaNThatX+47CsSbJR3qQi9hGhaGP70HoMA2Rfxy5+ALvOM3rwfZ
+	 /kmQzqCkACIJReK9qA+R3QNKE+3x7JZyu9JlseYQyQGPf3uZssqwza1y4gJzQgdzlbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612590;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=7WhTA0Y8V6vZp2rorlhZwrgj9nL0x892/MR/HRLGhZE=;
-	b=FIPGae+eJHZUBfNrV65GBVM5wS35jqamrXXzFpFNRkiEr3afj902rp9tcrvj+7ZqdTHY
-	 aXj9X3Awk2MpswDBSk8CjuwRQTKRa1rdI4aZg37zkeRj5NQRHwoM+QRXFUyuH66axRG9m
-	 aWrbOY1HSw3n4+Rz2clFzLzFU0tQwtxyjeAeYjnbgvjG3YWSGj15u+NF8CagOLR8YVaiT
-	 Wyni0T4I1x1lpDmYAK/KuprXItkS1ZxtkS2doJ2lorcImj+grnKrHvwr7/vQny71KB9qb
-	 wUfByPzPWOFGtFlW7zUfBaug6/HZGmBFPVvafRGm0f4XpcR7BK7OO/8OVu2w6wooz7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612601;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0zuRXRGdsCMZO3tCr5/uvz2iu/+zzw+UAMTABxMn/ko=;
+	b=Nz0vb9eZcu8yyJxPjnPu7hc3upXe4v7mwZwN6Dzi2CO8VKXHmIIPvxXbJv6cFASnJu/E
+	 3RI+YoFSghh33MJShBgsWU8SoXVPdB3gt96g/GKa6d9H6lsPAOpxQYx7Lld+kHM5s9rf4
+	 OYvygm09VtcQL9teIYuBjv8klI+A/XiXtiyX9IR9fDE2hLbhcozEDKXIUK5uLLGSFKWXL
+	 ONWpby7A0rr3V8fX2jFLGz3zfoTQet+zLxfA/8v2mU3QMHGSnEX4qE+awcU28neDeVJpH
+	 U1s5n5jwXLJAg8DjXnI8kahJ4HkjeWhcDyagIouuphFPckUx0dlzPmhmPDstwv3s0cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fuW6aCje;
-	arc=none smtp.remote-ip=91.218.175.19
-Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QUxj6C4j;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DB3606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:43:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92DB3606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6875606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:43:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6875606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fuW6aCje
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R0ifyYqy3IXOuNSpfX4Jz2GTYZxqEkqpRu+RTCJxyeU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793612587; v=1; x=1794217387;
- b=fuW6aCje7A8bAWJ+vlCrtup/dDEDN+sWSZP40auZkJmHLcpv4Aek9dUqhBu4PFO97cVFiyu/
- I1UtbFg3UHs9lGHPsdO0e1+iI/ieiEwy90n39NCLRGxIdhmo3i4m5SepxgUEpG2QK0T1qZtq9QO
- 93lNL146Yc+LOgecBQuw3ZJM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8ad982b8e88db3d6;
-	Mon, 02 Nov 2026 09:43:06 +0000
-X-Mizu-Trace-ID: 8ad982b8e88db3d6
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be58ad9600so10157e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:43:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx2Y2F0jSMnEAnPbPImvX8XtjQ0TFZi/eiEx21bxLAe41Pov4Bf4VL+pi8WK4PCo2kl3Bkrwhqbodack8I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Gh/WGH5vLqwJzT/7yLbZbbo7UPwtTckgyCfceRb68JX1ZUaU7
-	qXw9zl7LaC2fJguxhoALH47IAmYBnp9wY/mPpNgBQ31SK+0YhILO0WFVV7vINJuK7u73nthK32Z
-	l/AR1vc38bo44wF0YB5lskSaGyAQyvD4dwmhFC1JY
-X-Received: by 2002:a05:6512:3353:b0:5b4:74e2:4171 with SMTP id
- 2adb3069b0e04-5bfd13fc8d8mr558803e87.4.1793612581038; Mon, 02 Nov 2026
- 01:43:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QUxj6C4j
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so16118405e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:43:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793612599; x=1794217399; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0zuRXRGdsCMZO3tCr5/uvz2iu/+zzw+UAMTABxMn/ko=;
+        b=QUxj6C4jTM/fpGKIKda/EfSvaVA+WfxDvnfJ8ApU2q+sPhgkcjL3WCqJnb4Z5aeKkG
+         u/pmR6IxF+7oUZum3xg5iQCWDok3opBaYeOM65wUBxk4Nb1cBMqKlteQZrL64PadhglF
+         VFOzZTNzH3zmrsNOXhkZ13Xsmo+HafXbmIWMAGqGzNI31Zpig9AXlym/PSz9MoU8/LlH
+         PCLBbwa1kQOmNySPS+O7NXp2pHNueGByp6fRFriLm/bsZ78eb1xKGFqu3hJnxGZzRItn
+         66zHKFbteK3zlwFOvfsWUDE3E1V/Uk2HSSluTsz3m3NKkOLDxhyIUakH8d2lGPAd7gVg
+         84fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793612599; x=1794217399;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0zuRXRGdsCMZO3tCr5/uvz2iu/+zzw+UAMTABxMn/ko=;
+        b=Fx7BpdD+t6z0CbPb8gN7/l/IkhLXIDBFZed93DOyqY9POnfnD7ZkEXuT657ZVDwR2T
+         22EE4EOKZcNJNehhHCEcgfRi0s2WCBYBrXI4b9XY+sjDZULVXQ4IJxgsnhEOBQojGWix
+         N+uhn2DoFDjIG3ma4xTcPJ+OdYxGKPbI0LFc0eO+CLAbM5T2aXcJUfq7cvY/LcTKOG0P
+         IZHlF/hF05imPFvAYwyRhPopoxcaOoGTYpEKVj810No88EmGxTlwZuKXnbNpilx/3ZGC
+         hqVoIQkDBdASv8+gGqWN9UCwuzUbA4JD9iqzmM/6mxm/ZqDFVx+YskoKpZba/AXF2Kav
+         /oow==
+X-Forwarded-Encrypted: i=1; AKwUvBxVJlm16FORqxSDduZhuXoux6LM3rFsiLP49tERUXHQ2Xssuu7sdP2yDNg0w6+rI3OkumohjoRpbNzqKdo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyW5LdKZjibZuOOsjkryUnxJ3rRT7SkAAjIImPIgqS0bVs7s6U
+	c/UEafJw6cHE2/gbU546NN6V69LK/u51uEp+AyF4lnLhYVAS80iwOwez
+X-Gm-Gg: AYBFou04ERj2bKQL8fMznUzNtJxi29c++ES0NFrMGGi8LYtPHZ+GEA7gHtRsg3uUUv2
+	Lv7bQSCKXdRVShXUggChicGvGRo7KbrNY2lCZBGRlYQxXmFJLma6QJ49Wb7qem8TgVeL6Eu1nJ3
+	BlAgcXqbzc7iOMCk8Pd4gJICAOVfJgo9v6IKmNbMYEpXjdV50fO6DYDrNXpAFM3PY5jR9wxmg2W
+	8Ou11bqHXNbF6rd6OecmP7a7in9z3anpoFLmHTsiDXZ/CFMzugTUGnahv0tVySRfbQn6a0XsNIL
+	+oVw/d/m0Smusz7x0sWImD/nBXuecTtOo22oH3dJthm1jpCHtUAwKfSg6hxsrEcL90bAbgHvccI
+	aLVD1ojT+DW80XRLLDZ91i/g0d0iEeO1pqQuvLiMQKemDWlzTv6ErwyJldkIEDvVGPFuA86Pn+1
+	yAMf5dDMDycPW6XLy4Y0RWQjtU6O2BVMH3qRnoY+/ME2891DX3Hhp8akpUGObimcBWxV61ApU/B
+	kXhYpfDjMhgA73CyjWoOfBRf+lMzVsjXYuJu74h85EOEX2Ehd6o65lrC9OpYTReZCxlii0Ejx4h
+	HvyeeaGowYTgFHDkCejZhMid5CFpJnPLPI0lxZ8=
+X-Received: by 2002:a05:600c:8b2c:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4ac150b3dbfmr227970295e9.4.1793612599312;
+        Mon, 02 Nov 2026 01:43:19 -0800 (PST)
+Received: from fedora ([154.183.179.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d295csm332507285e9.7.2026.11.02.01.43.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 01:43:18 -0800 (PST)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joshua Crofts <crofts@kernel.org>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v3 1/2] staging: iio: addac: adt7316: sort headers alphabetically
+Date: Mon,  2 Nov 2026 11:42:35 +0200
+Message-ID: <20261102094236.57757-2-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
+References: <20261102094236.57757-1-abdelnasserhussein11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,47 +106,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102075843.2556018-1-fuad.tabba@linux.dev>
- <20261102075843.2556018-2-fuad.tabba@linux.dev> <07d0afa8-1b9a-4991-a419-9840cf629d57@arm.com>
-In-Reply-To: <07d0afa8-1b9a-4991-a419-9840cf629d57@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 2 Nov 2026 09:42:24 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTwNSxBa8-_0Q6zmgqW0RGyVhpUU3xnFg3-sqqmsdL4s8A@mail.gmail.com>
-X-Gm-Features: AclHuK8-iGCZpGhNLfgi22ISGBTFMIXgkMtlm2Ix60vIMu408Jz2-z6XjUn9gQI
-Message-ID: <CA+EHjTwNSxBa8-_0Q6zmgqW0RGyVhpUU3xnFg3-sqqmsdL4s8A@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] KVM: arm64: Clear the VM's feature bitmap when
- kvm_setup_vcpu() fails
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Will Deacon <will@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Jack Thomson <jackabt@amazon.com>, 
-	Congkai Tan <congkai@amazon.com>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Suzuki,
+Sort included headers alphabetically without altering the list of
+inclusions. Keep the <linux/iio/*> subsystem headers separated from
+the <linux/*> group, and add a blank line before the local "adt7316.h"
+header.
 
-On Mon, 02 Nov 2026 09:24:15 +0000, Suzuki K Poulose
-<suzuki.poulose@arm.com> wrote:
-[...]
-> > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-[...]
-> > @@ -1856,8 +1856,13 @@ static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
-> >          bitmap_copy(kvm->arch.vcpu_features, &features, KVM_VCPU_MAX_FEATURES);
-> >
-> >          ret = kvm_setup_vcpu(vcpu);
-> > -        if (ret)
-> > +        if (ret) {
-> > +                /* Clear the bitmap if setup fails on the first vCPU to be initialized. */
-> > +                if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags))
->
-> Is this check necessary ? We go into kvm_setup_vcpu() only if the bit is
-> cleared and we do this under the config_lock mutex. The flag is only set
-> after we have finished the kvm_setup_vcpu() successfully, later down.
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+---
+v3:
+ - New patch in v3: sort existing headers alphabetically without
+   additions or removals, as suggested by Joshua Crofts.
 
-It is. An INIT on a second vCPU with the same features also calls
-kvm_setup_vcpu(), with the flag already set, and
-kvm_vcpu_init_nested() can return -ENOMEM there.
+ drivers/staging/iio/addac/adt7316.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-Thanks,
-/fuad
+diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
+index 20f6052cc7fb..515f1fdae46b 100644
+--- a/drivers/staging/iio/addac/adt7316.c
++++ b/drivers/staging/iio/addac/adt7316.c
+@@ -5,22 +5,23 @@
+  * Copyright 2010 Analog Devices Inc.
+  */
+ 
+-#include <linux/interrupt.h>
++#include <linux/device.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
+ #include <linux/irq.h>
+-#include <linux/workqueue.h>
+-#include <linux/device.h>
+ #include <linux/kernel.h>
+-#include <linux/slab.h>
+-#include <linux/sysfs.h>
+ #include <linux/list.h>
+-#include <linux/i2c.h>
+-#include <linux/rtc.h>
+ #include <linux/module.h>
++#include <linux/rtc.h>
++#include <linux/slab.h>
++#include <linux/sysfs.h>
++#include <linux/workqueue.h>
+ 
+-#include <linux/iio/iio.h>
+ #include <linux/iio/events.h>
++#include <linux/iio/iio.h>
+ #include <linux/iio/sysfs.h>
++
+ #include "adt7316.h"
+ 
+ /*
+-- 
+2.56.0
+
