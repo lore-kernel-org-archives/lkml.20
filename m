@@ -1,54 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793589076;
-	b=vHP/yBSjxXP/uyy7TG1D7sWp+NLu0VV4EY3gY+s8+dkERkS8t26zExs30OktvFTThKhh
-	 EcfSbOzIHeDndKGknxb9yLMdLgPY3iHFLf+aUG41hpzMP5nqduDspBuSKlqsNevEsitPb
-	 0ucE8riAThkA7Fo98Ek521XctVpvaONK4pO0KENFXeh3zrgKcADe0ckxl0hhsvfPw7ZH0
-	 HNGSQfZOK3Ap7gFQSL33lDPxB/EyNel0ea74OYJBcT/bMBzW1mD1PSuwD/uBbEv4BlMiG
-	 8iubEWB25ArHA5sddrl5vXgls5v1v1v6xfk4Xhet/exzerHDscR+bKldJMuXESNi3BA==
+	t=1793589143;
+	b=I1D3QIb2FJNt57q3PUtlDIU3nDQvt9S6tNC8bVaSQZfvlOnCbawy4wCBJesYuKB8YLUG
+	 M5jEvehUsxLHvCRwVS0GNzcrGb4BMP82P6NFkYxAiH0HwkfVG4i18voh0DYxPXoGj6rWT
+	 4mcLMBNAr0ZSoSL06QKOyFgF1ppQIsc20Azc6nAUeYgjJ3Mk/wH+rDg+ipWYyyHitKApX
+	 meT3v8BUIHaQbqerntYVtbNfxtKJ+MkMuPqUwcew+J390AzAQ6s42Sn6tFxkaHGkgoAng
+	 MAFxbQgCwa0n5GBJkQQtrCg7Z9M11/DJ7NJrRzxZen8WiMOGrIgcBn07oogiOjB/eXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793589076;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=HDhZoiU2k7hzH5EQ8QltiF8pnal5BaZYHkxarnC+U5E=;
-	b=uZ/Xp0VEbcIAn1appi8S2Kulpi7q/GNp9nI1oITqcCF7uZ3PoStY6o+yhq8buGw6vroP
-	 Yp5v5b/dKVPHdpxxNz8WyhqXLG+1YrqfaamK6L79SxwmFbS2UfXq3krxOy+cVMLLn5ANi
-	 gBUfkRgctjAgVCHRhwBT3d0ekrLpRastbuAevQXBp/AaGY6zu/NXNDoMYGdGDeUHAhBBB
-	 r31tWzo16/92QTEfTFK4de22GIa2Rl4zHAvJ8vr8cm5D2T43nIrYav4bxqnVARo55vUhh
-	 nAG+INo0vIZWt4xLKPfaKbjHw9tgY9EUmpn4AfJxlGCLyK517sRp5wzDcqvojZOCgEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793589143;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=AYBKL9XjsmurixfqmHMoWMsCCZogboJCU1l9zngJ7v4=;
+	b=Wi7vCoUX56c/hQWguCIdWWpLl8YZNh0YHlns3p4GW8KOl/9criv6J0a4NGKrYZK2qMuV
+	 MPMQ9zExy6ZpKXxxayO8GN2/ePtm8ZIHbZWI2MawtkAqEiTR5zEDyZSehg9xKfxZSgEH9
+	 VumKw1iLqnx3m7sdp8ZFYvLvABG+x8KfxaEwRSjaN+SNHWT51y5W7FfGjy3CtASJwVXdP
+	 RNuLjhCHSI0T2rlNhdRD2nz+K2Yuy2xwJED82qPyd1tA3yN7j9cyu9Rb49mEV456Q2bHh
+	 MNiSrbrPfkKPtEcwycfB40UNXnTjKkH0Gq6FTTUM/1HkXWO5h8fuEKhYNfDAa0okoaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n0k3Hqlr;
-	arc=none smtp.remote-ip=95.215.58.121
-Received: from mta1.migadu.com (out-121.mta1.migadu.com [95.215.58.121])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="lKjMeM7/";
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483C0606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:11:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483C0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E76606A324;
+	Mon,  2 Nov 2026 03:12:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2E76606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n0k3Hqlr
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2ep7chL4yiYBSxOtKkATYD7E9Kan5MnJyt74PbsbY2s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793589067; v=1; x=1794193867;
- b=n0k3HqlrjwV2Tsu/afxxjlV4pD44YtWJfaVfNxqkf9f5BRb34TxDBhYIPNPv3UVWsbdtWpzv
- nDY1ZRbtXmCXX/EiHWE91drrqkdYXLA1t2WmPrqsfw75Lx6z5Vd+3cOAqiCXrqIBDsAChjqAXdA
- 0N4xoivwgBDZlGU5lKOUjChM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 13887cf09f90baa8;
-	Mon, 02 Nov 2026 03:11:07 +0000
-X-Mizu-Trace-ID: 13887cf09f90baa8
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lKjMeM7/
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A23C09v81812815, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1793589120; bh=AYBKL9XjsmurixfqmHMoWMsCCZogboJCU1l9zngJ7v4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=lKjMeM7/GLif4Nt210Sb+NbN4t5oXjUjBwvbQt3ZDouqAU3DCJ/ib8xWpLfaPiWgL
+	 mFJONnrKrl5rNinlxBhM5uIw24H2cTFeJJiVZ+YjZgLD1f8cqosGw5DuYwe5PirVKy
+	 5dIIkYYELYkzc0InwC1MkrhKUgQB1ftY6jXxRkyV0LPyk/w1XtSkLLelwcuG2A6/jd
+	 VmqhJZPfxYqWudnXeAJgAQepZ9R5pmATxKXqNOBbCLFnLvqmerFQkkzqH4tM85Q7tS
+	 tA/wFzujSO13CRpB9sAZaC6plz0tdv77ihJXvH8/No64vuXymM1PybjbI6ZyoE2hG0
+	 71QKzeCbIyv9A==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A23C09v81812815
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 2 Nov 2026 11:12:00 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 11:12:01 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 11:11:57 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Mon, 2 Nov 2026 11:11:57 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Jie Feng <hjf3108@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, "Kalle
+ Valo" <kvalo@kernel.org>, neo_jou <neo_jou@realtek.com>, Hans Ulli Kroll
+	<linux@ulli-kroll.de>, Sascha Hauer <s.hauer@pengutronix.de>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the
+ aggregation buffer as a frame
+Thread-Topic: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the
+ aggregation buffer as a frame
+Thread-Index: AQHdaI9vizk2vXuz70+nFp0lnrRycrcYkErAgAD4DwCAAJUpAA==
+Date: Mon, 2 Nov 2026 03:11:57 +0000
+Message-ID: <8006a4a9ca30478aa6c2946df5ee02e5@realtek.com>
+References: <20261030165451.365591-1-hjf3108@gmail.com>
+ <2d53d5420be945fc9bdfbea5542b61db@realtek.com>
+ <CABOQOSWOqGEu7xHH1ap=MYqFd_oH7oAhQqCq6Ch622ipHdF5Nw@mail.gmail.com>
+In-Reply-To: <CABOQOSWOqGEu7xHH1ap=MYqFd_oH7oAhQqCq6Ch622ipHdF5Nw@mail.gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,135 +89,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 2/3] mm/hugetlb: Preserve persistent flags when
- returning folios to the pool
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261102024910.31486-3-kaitao.cheng@linux.dev>
-Date: Mon, 2 Nov 2026 11:10:47 +0800
-Cc: Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Mani Tofigh <mt4022@columbia.edu>,
- Zi Yan <ziy@nvidia.com>,
- Mike Kravetz <mike.kravetz@oracle.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Frank van der Linden <fvdl@google.com>,
- Chris Down <chris@chrisdown.name>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- cgroups@vger.kernel.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <80F17A68-8C3B-4BA5-9E70-838846BFAAB2@linux.dev>
-References: <20261102024910.31486-1-kaitao.cheng@linux.dev>
- <20261102024910.31486-3-kaitao.cheng@linux.dev>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
 
-
-
-> On Nov 2, 2026, at 10:49, Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
->=20
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
->=20
-> add_hugetlb_folio() returns a folio to the HugeTLB pool when vmemmap
-> restoration fails. It clears folio->private and restores only
-> HPG_vmemmap_optimized, losing other flags that must survive the =
-rollback.
->=20
-> Clearing HPG_cma causes a later free to bypass the CMA release path,
-> leaving the CMA allocation bitmap set. Clearing HPG_raw_hwp_unreliable
-> loses the indication that the locations of poisoned subpages are =
-unknown,
-> undermining the checks that prevent freeing or unpoisoning such =
-folios.
->=20
-> Preserve the existing flags instead of resetting folio->private. =
-Callers
-> already clear HPG_restore_reserve, HPG_migratable and HPG_freed before
-> returning a folio to the pool. Clear HPG_temporary in =
-free_huge_folio()
-> before attempting to free a temporary folio, so a failed vmemmap =
-restore
-> does not leave that flag set on a folio returned as surplus.
->=20
-> Add a VM_WARN_ON_ONCE_FOLIO() check for flags other than
-> HPG_vmemmap_optimized, HPG_raw_hwp_unreliable and HPG_cma to detect
-> incomplete transient flag cleanup.
->=20
-> Fixes: 161df60e9e89 ("mm, hwpoison, hugetlb: support saving mechanism =
-of raw error pages")
-> Fixes: d2d786714080 ("mm/hugetlb: enable bootmem allocation from CMA =
-areas")
-> Closes: =
-https://sashiko.dev/#/bug/linux-5363eb09-9c3c-4f8b-9f3c-a998a8c4b258
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Suggested-by: Muchun Song <muchun.song@linux.dev>
-> Suggested-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
-
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-But,
-
-> ---
-> mm/hugetlb.c | 10 +++++++---
-> 1 file changed, 7 insertions(+), 3 deletions(-)
->=20
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index 4a008afaedf9..931ca3a30773 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -1443,6 +1443,12 @@ void add_hugetlb_folio(struct hstate *h, struct =
-folio *folio,
->=20
-> 	lockdep_assert_held(&hugetlb_lock);
->=20
-> +	/* Callers must clear transient flags before returning to the =
-pool. */
-> +	VM_WARN_ON_ONCE_FOLIO((unsigned long)folio->private &
-> +			     ~(BIT(HPG_vmemmap_optimized) |
-
-It looks like the parameters aren't aligned. A space missing before "~"?
-
-Thanks.
-
-> +			       BIT(HPG_raw_hwp_unreliable) |
-> +			       BIT(HPG_cma)), folio);
-> +
-> 	INIT_LIST_HEAD(&folio->lru);
-> 	h->nr_huge_pages++;
-> 	h->nr_huge_pages_node[nid]++;
-> @@ -1453,9 +1459,6 @@ void add_hugetlb_folio(struct hstate *h, struct =
-folio *folio,
-> 	}
->=20
-> 	__folio_set_hugetlb(folio);
-> -	/* Clear all folio->private flags except =
-hugetlb_vmemmap_optimized. */
-> -	folio->private =3D NULL;
-> -	folio_set_hugetlb_vmemmap_optimized(folio);
->=20
-> 	arch_clear_hugetlb_flags(folio);
-> 	enqueue_hugetlb_folio(h, folio);
-> @@ -1743,6 +1746,7 @@ void free_huge_folio(struct folio *folio)
-> 		h->resv_huge_pages++;
->=20
-> 	if (folio_test_hugetlb_temporary(folio)) {
-> +		folio_clear_hugetlb_temporary(folio);
-> 		remove_hugetlb_folio(h, folio, false);
-> 		spin_unlock_irqrestore(&hugetlb_lock, flags);
-> 		update_and_free_hugetlb_folio(h, folio, true);
-> --=20
-> 2.54.0 (Apple Git-157)
->=20
-
+DQpKaWUgRmVuZyA8aGpmMzEwOEBnbWFpbC5jb20+IHdyb3RlOg0KPiBPbiBTdW4sIDEgTm92IDIw
+MjYgYXQgMTE6NDQsIFBpbmctS2UgU2hpaCA8cGtzaGloQHJlYWx0ZWsuY29tPiB3cm90ZToNCj4g
+Pg0KPiA+IEhvIEppZSBGZW5nIDxoamYzMTA4QGdtYWlsLmNvbT4gd3JvdGU6DQo+ID4gPiBXaGVu
+IHJ0d191c2JfdHhfYWdnX3NrYigpIGhhcyBtb3JlIHRoYW4gb25lIGZyYW1lIHF1ZXVlZCwgaXQg
+Y29waWVzIHRoZW0NCj4gPiA+IGludG8gYSBuZXcgYnVmZmVyLiBUaGF0IGJ1ZmZlciB3YXMgYWxz
+byBoYW5kZWQgdG8gbWFjODAyMTEsIGFzIG9uZQ0KPiA+ID4gYWRkaXRpb25hbCBUWCBjb21wbGV0
+aW9uLg0KPiA+ID4NCj4gPiA+IFJlcG9ydCBUWCBzdGF0dXMgb25seSBmb3IgdGhlIG9yaWdpbmFs
+IGZyYW1lcywgYW5kIGZyZWUgdGhlIGFnZ3JlZ2F0ZQ0KPiA+ID4gYnVmZmVyIHdpdGhvdXQgcGFz
+c2luZyBpdCB0byBtYWM4MDIxMS4NCj4gPg0KPiA+IFRoZSBydHdfdXNiX3dyaXRlX3BvcnQoKSBt
+aWdodCBiZSBmYWlsZWQgYW5kIGNhbGwgaWVlZTgwMjExX3B1cmdlX3R4X3F1ZXVlKCkNCj4gPiB0
+byBwdXJnZSB0eGNiLT50eF9hY2tfcXVldWUgbGlzdC4gU2hvdWxkIHdlIGNoZWNrIGlmIHRoZSB0
+YWlsIHNrYiBvZg0KPiA+IHR4Y2ItPnR4X2Fja19xdWV1ZSAob3IganVzdCBjaGVjayBza2JfaGVh
+ZCkgaXMgZHJ2X2ZyYW1lPXRydWU/DQo+IEkgdHJhY2VkIGllZWU4MDIxMV9wdXJnZV90eF9xdWV1
+ZSB0byBpZWVlODAyMTFfcmVwb3J0X3VzZWRfc2tiLCBhbmQNCj4gYmFzZWQgb24gdGhlIGNvZGUg
+aGVyZToNCj4gaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjcuMy9zb3VyY2UvbmV0
+L21hYzgwMjExL3N0YXR1cy5jI0w3NTkNCj4gDQo+IEkgZG9uJ3QgdGhpbmsgaXQgZnVsZmlsbHMg
+YW55IG9mIHRoZSBjb25kaXRpb25zLCBzbyBkcnZfZnJhbWU9dHJ1ZSBlbnRyaWVzDQo+IHNob3Vs
+ZCBqdXN0IGdvIHRocm91Z2ggYSBub3JtYWwgc2tiIGZyZWUgcGF0aC4NCg0KQ2FuIHlvdSBhZGQg
+YSBkZXNjcmlwdGlvbiBpbiBjb21taXQgbWVzc2FnZSBhYm91dCB0aGlzPw0KDQo+IA0KPiA+ID4g
+QEAgLTQzMSw2ICs0MzYsOSBAQCBzdGF0aWMgYm9vbCBydHdfdXNiX3R4X2FnZ19za2Ioc3RydWN0
+IHJ0d191c2IgKnJ0d3VzYiwgc3RydWN0IHNrX2J1ZmZfaGVhZCAqbGlzdA0KPiA+ID4gICAgICAg
+ICAgICAgICAgIGdvdG8gcXVldWU7DQo+ID4gPiAgICAgICAgIH0NCj4gPiA+DQo+ID4gPiArICAg
+ICAgIC8qIHJlcG9ydCBUWCBzdGF0dXMgb25seSBmb3IgdGhlIG9yaWdpbmFsIGZyYW1lcyAqLw0K
+PiA+ID4gKyAgICAgICBydHdfdXNiX2dldF90eF9kYXRhKHNrYl9oZWFkKS0+ZHJ2X2ZyYW1lID0g
+dHJ1ZTsNCj4gPg0KPiA+IElmIHdlIGNhbiBqdXN0IGNoZWNrIGRydl9mcmFtZSBieSBza2JfaGVh
+ZCwganVzdCBkZWNsYXJlIGEgbG9jYWwNCj4gPiAgICBzdHJ1Y3QgcnR3X3VzYl90eF9kYXRhICpz
+a2JfaGVhZF90eF9kYXRhLg0KPiBJcyB0aGlzIHN0aWxsIG5lZWRlZCBpZiBpZWVlODAyMTFfcHVy
+Z2VfdHhfcXVldWUgd29ya3M/DQoNCm5vIG5lZWQuIA0KDQoNCg==
