@@ -1,75 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637276;
-	b=P4PvQhAVo3bzyoooJp66ZCy51JkwUL2a53D+QcM5dWDZ5iqjg02KLEu4PTmG2dz3QBrk
-	 9PcvvDCj3HNmmP+83R/C41QO5N8dWooYJJIgSzcg/W1D4rsyLfRy9Xwx0NEgzq0iww3Kp
-	 h9yVUjQd4rbfwx1wjhpIPgAsLnqzFjdxZ4MEwCHXjAoPvcwCW6HiQYrHiPqlYETBdrCre
-	 sEp0zCtQYRPJdfYb2W6Z/8BKKmzLrWEcwwO5cNdlPt2e3NrrKxHV0PLy+OTGsWF4ozV+E
-	 1kPC2I0SbVhcaBBh4XsUofnrKubkD45hi34XAwshxeyW/noSM/WJ8uUYPnDu6mPPWuQ==
+	t=1793637292;
+	b=K4s/WPniVoUk6PeE4rWduJGHPfM7ZJAALyAprRLsie12v9IZk0eIjgXczZY0LlP9MkRB
+	 KTgBnr10d3X4wSuYhllKWaxFZj6txAIYqHgjlS6BkrPI5/jP2v6peTU8bDPksblxvZDQp
+	 CdaujT0kXuezMvunW4u6TzkUKXBuIgxl94nxVS1cH93hNw0oUxu4A+en3vobRMwiwYw+S
+	 sLWX+ESUK5SZ/XBuDzAU/TNLBvGDjf0gxaN9M/cgJ7f/ThN7k5q2ZW9hZGo2krSmeJidQ
+	 mdydIKNiuQ/DKnux3/nZmSf+2xtj9TmIYwuTRIit5mu4s620TP7la9w6tWBOiz3fe/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637276;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=xLdqkEXbr821eUwEevYaKavqiARQLpJjtFlplh7xwMM=;
-	b=szlrZ0i8ZyMKREGu14vd7i8oQjfoc7IznuXa0lWot8q+Kjf3lXcuo9mlwUv/y2qoBX5O
-	 blkAw0HgRlfW/a0Lheg3UNTzj465l1DyPY7frbYnOTqGvWiDazPYrScWJKDFQ/2/DkLEA
-	 6cp/KRszhkPT5ZK8YFq20sbw5N3Ds7E4r+xfAkSt2hRBFioUNpRVqlo3S5GXUZtsB7Wje
-	 6+lxbh1hwi9tpPWkeNzo6Db7wqUksniXOdidi21iWu9ITi/Em5hHz0Ufm4rccUqmNWu5D
-	 5M9mmZ3Rbte4+A0TaJcvdK65sF6dHcuo6PY5aUimeuqxXxnYd6QEt3oiF7cke/d7MeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637292;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=MoheuHlEpuNPoWzdB4Mk7XB0qKShtlyf3pRl0wAuuZ4=;
+	b=NEtheML/foL3/kC1zwoUGMwsjDs9dJ9uJx4Vi/R9kER0ECz5YZVzDEnf/4miIdONCzFj
+	 bLHovBqdjG+X92b1JUWSvG2Plw3MbH3GRKcUefAgiH6A7pMlh2GHRt96vBljD8VRvXKhl
+	 VmS6JYxABI+2uyNQkJn58OI0ADVO3XKZKR97QpaC3/boaENz+Bd9ue3TIidF2t6lJqxg5
+	 CngLkxXO+0HSuYsFRhZ2q8/LAPyI23PCCaWc3rrFG7f+982Mx2z29XGiSTP5ceFXOCUAO
+	 XMMo9VyNEoKWyBBmCU+JhEm/X3rEoHgkplRA4DphJFX7o6IrfF2mDyJukaTpCLpqXAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=VH8TW2Ve;
-	arc=none smtp.remote-ip=203.205.221.233
-Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com [203.205.221.233])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eEHMoZfP;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21110606A91D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:34:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21110606A91D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D6B60A0FCE
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:34:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6D6B60A0FCE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=VH8TW2Ve
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793637272; bh=xLdqkEXbr821eUwEevYaKavqiARQLpJjtFlplh7xwMM=;
-	h=From:To:Cc:Subject:Date;
-	b=VH8TW2Vei8DDZnRmlRhA/bvGIPdEL6iApND5xOYRLuMgQ8WIDZxP4qxDSUnWXzd6K
-	 w5Q/5XWcdg7fYxI0IGFc/6vz3xQp6M04p/mOpN7jUwJxv8RyNghRtu7IKcYmTWx38I
-	 tyvoYOqs1vAbUB3+/8u9qC80nPHl3x5Z96rP4zWw=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:3bd5:e9be:8454:44da])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 89E356E4; Tue, 03 Nov 2026 00:34:30 +0800
-X-QQ-mid: xmsmtpt1793637270t9okhx66p
-Message-ID: <tencent_3607215AB97AF610D95DD29F80FEEB7D8E0A@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoeZOwKN5FEjzUV5xhSOYliEbQ6zyr6HqCCn47vNqEMssYVaNsNlS
-	 GnmdvCpiJTpUN9J9ertC9HmAoQF/N/WKAUbEkTIH/OGqCkKEpHuErWOzaaOPoFn/kQiKJIAt4VMK
-	 Y1YxUKg6SPd9niR5bpNqi245+mBt4INrZf4FPigK4mOIWTgBHYJcAZQw0C06482mK6r+Knv2y1SY
-	 wftPd7MgEE2QyqrhTtCtLhj2SE3jFRe9tg6MTVvKRfkSR79kOS1JWbe88+zUkrzwuGnfaSiIG81y
-	 hBzena0QeuOyb5OoHqZMqkkQ89LKpzAVPzIquBmInv5MuPj5+cWAabLB/GhUjM8n1IFEe+hcURcw
-	 roIPMcPXceygJCXvgoiSSzMbFK63aYm7iKsLGY5UbtPIJFTD23dguhD8MODxuy8lHBE8IMGNFQda
-	 a7Oz/qJYrrqI+ktny4iDxP3BkARlTAsPC0+F5wIULjD1tmq/J5MhMr0e9Bhr3wNMKsQUyWT+kDyY
-	 GlCmZjVWaM9dYPB3jSTuh4CCT5wVhl/j0wCVEz4RPzUJDNht7hTX6NHwLmwdG9eEhYOe2THNrWK4
-	 QdBtCKaCWKeIFmWZmGcznmzZ6JZhK+Tt8RHzoD/FSrjEiGl5hkOm+Y7nwbbKQggdQ+V2/CzalTgd
-	 3aU8WmXeeZl4x0Qf2dk9fH5jjKLG76wUgPd2CFlTpPQ7FW33zjpFdP884Wuf4JrSWrx+l3NGEo48
-	 CVcMZGF3Q2oMegTO3ymPhNY7n9eQQwDMwH5ynx58PlDBhuMINieikgo+ihgx5lfpeA63VfWxQgr2
-	 OPQ89QGhC5kf1r+1qen2v/5KJT22luFziqhBL15hdSC5U4kp7BktbCa+IXMaJhiPcm2QMkCku4q3
-	 rUQykw3FO2YUN7vPf/wvuevhlc25trCyGosRlW0fMStOikn0vEZcq5LWmgGaimWPee0PtTZR2Jf7
-	 rt0nTNCd8tNaItS3tiuVtW8uBO5kWwp62RkRP1GoV5UGA6IWvHNUdARN+tXbReMyIWSZ4qnheruF
-	 j3oQLRlsJktwrBZkS+mYMOAviLe6VoK3XmUZSvyQ==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Yingjie Wang <1075151112@qq.com>
-To: dm-devel@lists.linux.dev
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Alasdair Kergon <agk@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dm thin: avoid wrapping no_space_timeout
-Date: Tue,  3 Nov 2026 00:34:29 +0800
-X-OQ-MSGID: <20712bf55592c216a17f6e63bd5e843ef37bf5e1.1793637263.git.1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eEHMoZfP
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so28961565e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:34:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793637290; x=1794242090; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MoheuHlEpuNPoWzdB4Mk7XB0qKShtlyf3pRl0wAuuZ4=;
+        b=eEHMoZfPxt7t8LAl1efVvJZhCQumQ4eJSe9y9i4oiQZY3kQu9FQ0uVm24RoSiwebmH
+         sHGBSZziNi/qKyn4jPgcjqgjN756cfG/XKqyFI6PiRU+cfgRHWyK6Y3WP9Yp5kf27ZWI
+         nzELxJdCacN9o3PwU+T29HirNpAiT7bUj4rkVtnQ8rIdk+WZsHoH7Rh9LPpiV98VE7Xy
+         MyvErbDH8gws4nScN/JoWhHs2PABx/uOUQ7cSZhSTVfMI7S4mTr6ySEYssrPHK6HSe3F
+         2lST/3OOOcTcRqyqdJT+cHVIik7L6Tidsj95Ma3IM7LgB4iA45tGQ+/mUO14YY4ybVt9
+         QHAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793637290; x=1794242090;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MoheuHlEpuNPoWzdB4Mk7XB0qKShtlyf3pRl0wAuuZ4=;
+        b=BVXupbHztxK6JXqzXfzV9ckBjDAzqMi4yA/l8y0X+kjdSahk5S3fmZa1gytPQT9qsE
+         y6M1RnEoQnHv+U+9CyNV6jupm1sAKG8GEEw1krJMjEsexxekwnmBYosLRD8bFDMQPSmj
+         iIlB9xmmMt/Fyypp2FOeucuWDoaiaoT64I3vzpFl1xJnLri+QefrocKO8dW0pqvo/Q8h
+         alNtugEQnVI+1JXm8e0ltUcMxI7PWEYDEv8TN11Dcbe1qHCFI40m96HnieZq36kk7Zgu
+         gavpgf0fQyTtnW/rK6aYWePaiICkS1UTIJjCtv00ayheIiBYrElhx49096PVO5Drasox
+         OPOA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTNyNiEhJDAutKpHEUgvMUuG5CjC31T6tXQFDi5dFYRgi9iVKOhKegDqm++x79Mm1dqyWf9tFsEkdMul4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJqxvgzDReB6UMitcP3PpykemDQtqtLtYuqsB5opyVWizRfdIz
+	kgANfJUHQ4+L33qbJSpRDG+9jW7o0xsm5yfwGGyf4AFS0U0JwauViMmA
+X-Gm-Gg: AYBFou0ys5vGS8Krk5HPayrOrpkdjAzJY2D3p8V5FgCqnBn5bLJq/RgPLyPup4gD4Hp
+	/6lpXrPngloLgk2xdgJC0SXhh6DiBKtpxiL1NRE6ZcgxUE6CLICaZPgorVt5XrC9Z/WJtZsZwlJ
+	MbpdlmrbETYfSiiu6+CDRwE4kD8amxRvBYhM63fsSlM6q83Ir9DCTwwEVTVw5XgtNB5G8HxUmjc
+	sLLoNiL1clVA6g3HjXkg3aCTbDy9cdTXai/7XIQO7tRpmdwkIzuotq5GkXCH+4mEf/lh/8/wrh4
+	TbYzbihXPbG9YOMEWG02xhYYmZgw7JteNPlnqQP5aWrJiKNGp/B5VAMjEB2EYPz3yQO2mQzIHk8
+	oEpPncStVwh0MUrmf+tiwnueW2I3OZzkTE40rDICzSUReTjkZskNiGiWCRjXbSxC5M7rewK01/g
+	xYD8L+aBgmXmBMNJeexxwVy0L3/j7Km+79JTcn518V8TznqygtRU9wCQZAhFREp2JsuebR2yCJ3
+	VqS4prK4N1zXKg4yx5BqEMxD4m4V6dG5MRBtURT3u+n79MHHU9L2+DFZo0nouWCoElltYeroWRD
+	jldSouw5c0N0SGA5/xMhMtcIDasja3FAYi8pB82ASZ290KHrvZC6MGwYWTym08+6
+X-Received: by 2002:a05:600c:46c8:b0:4a2:1a:a120 with SMTP id 5b1f17b1804b1-4ac16acfde1mr258820575e9.6.1793637290279;
+        Mon, 02 Nov 2026 08:34:50 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm362296085e9.12.2026.11.02.08.34.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 08:34:50 -0800 (PST)
+Date: Mon, 2 Nov 2026 16:34:48 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Jan Engelhardt <ej@inai.de>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, torvalds@linux-foundation.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, Bradley Morgan
+ <brads@mainlining.org>, Arnd Bergmann <arnd@kernel.org>
+Subject: Re: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
+Message-ID: <20261102163448.3956dde3@pumpkin>
+In-Reply-To: <qnrr9sr7-19rq-6rp9-0oq9-5939r07no828@vanv.qr>
+References: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop>
+	<4p5316or-75o2-s068-74s3-6q5011o75672@vanv.qr>
+	<6f24126a-7f84-40f8-a297-095b470beb8b@paulmck-laptop>
+	<qnrr9sr7-19rq-6rp9-0oq9-5939r07no828@vanv.qr>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,56 +102,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-set_pool_mode() converts the no_space_timeout module parameter with
-READ_ONCE(no_space_timeout_secs) * HZ. The usual arithmetic conversions
-evaluate the product as unsigned int, so it can wrap before being stored
-in the unsigned long delay. With HZ=1000, 4294968 seconds becomes 704
-jiffies: a pool that runs out of data space switches to
-error_if_no_space and fails queued writes with -ENOSPC after about 0.7
-seconds.
+On Mon, 2 Nov 2026 13:21:04 +0100 (CET)
+Jan Engelhardt <ej@inai.de> wrote:
 
-Widen the value before the multiplication and cap it at
-MAX_JIFFY_OFFSET / HZ, so large timeouts no longer wrap into short
-delays. On 32-bit kernels, values beyond the supported jiffies range
-saturate at the largest whole-second delay not exceeding
-MAX_JIFFY_OFFSET. The timer wheel's existing handling of very long
-delays is unchanged.
+> On Friday 2026-10-23 18:12, Paul E. McKenney wrote:
+> >> >
+> >> >Add emulation of two-byte cmpxchg()
+> >> >
+> >> >These commits add a cmpxchg_emu_u16() function that emulates two-byte
+> >> >cmpxchg() in terms of four-byte cmpxchg() [...] 
+> >> >namely sh, arc, csky, and xtensa.
+> >> >
+> >> >There is reason to believe that these systems will soon no longer be
+> >> >supported by Linux.  
+> >> 
+> >> riscv64 also only has two exchange operations 
+> >> (lr.w.aqrl/lr.d.aqrl/sc.w.rl/sc.d.rl). 
+> >> (atomic_compare_exchange_strong with uint8/16_t, in userspace, gets 
+> >> replaced by the compiler to a lot more instructions thanks to 
+> >> implied -finline-atomics.)
+> >> 
+> >> Are you saying riscv64 is going to go unsupported too? ;-)  
+> >
+> >Given that the compiler can make it work in userspace, then the riscv64
+> >architecture-specific code should be able to make it work in the Linux
+> >kernel.  At which point there is absolutely no reason that Linux-kernel
+> >support for riscv64 should be dropped.
+> >
+> >Or am I missing something here?  
+> 
+> I can get gcc-17.0.0-20261102 with no further command line options
+> to turn `atomic_compare_exchange_strong`+uint16 into some object code
+> that does not contain a call to libatomic, for sh2, sh3, sh4. Haven't 
+> tried xtensa or the others.
+> Thus, is the patch really needed?
+> 
 
-Fixes: 80c578930ce7 ("dm thin: add 'no_space_timeout' dm-thin-pool module param")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
----
+Won't that need a big jump in the minimum supported compiler version?
+Probably less of a problem than x86 since I guess cross compiles are
+a lot more common?
 
-Notes:
-    Tested on x86-64 (HZ=1000) in QEMU with a four-block thin pool whose
-    fifth write runs out of data space. The base kernel switched to
-    error_if_no_space and failed the write after 804 ms with 4294968
-    seconds; with the patch the write was still queued after 4.6 s in three
-    boots. 4294967 seconds queued and a 1-second control failed after
-    about 1.1 s on both kernels. Also built for i386 with W=1.
-
- drivers/md/dm-thin.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index 358ed77ffb2b..9287ee5c00a4 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -2542,7 +2542,9 @@ static void set_pool_mode(struct pool *pool, enum pool_mode new_mode)
- 	struct pool_c *pt = pool->ti->private;
- 	bool needs_check = dm_pool_metadata_needs_check(pool->pmd);
- 	enum pool_mode old_mode = get_pool_mode(pool);
--	unsigned long no_space_timeout = READ_ONCE(no_space_timeout_secs) * HZ;
-+	unsigned long no_space_timeout =
-+		min_t(unsigned long, READ_ONCE(no_space_timeout_secs),
-+		      MAX_JIFFY_OFFSET / HZ) * HZ;
- 
- 	/*
- 	 * Never allow the pool to transition to PM_WRITE mode if user
-
-base-commit: 334714e4bdf8868c17a7650a7502ba1c90a8721f
--- 
-2.43.0
-
+David
