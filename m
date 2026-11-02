@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638484;
-	b=0zbHI+n95qd+G+37mFF4ZCJuyJYpeUM0ozmgwloiJrKieoCsMZM4RYZUc+tR0J+q/7zT
-	 8+QS3VW90tPLXVPaAPiSWzEbE/RXfYTmfPz4MPbeg7PArI+WJqezZR71P4/a6NrhuoAB1
-	 tZ0N15Z+IcdW3RdpFodtiyfGJsbqauTsPrv41lvaqUlAX4J/k7PRx0HmfnvwqroKKMOXD
-	 KQIidmaOsUWVfS4rgTcZ/bl5pzD3ufIuNlamYcIMuQ+DfmSSbZXS597hytLJsIU7djIJN
-	 /bJC1fphOvpGSEeWmFthzbzj3uCVRcjolWI8V7kn9d39cVCIOf0TwW9iDjdloPpDl7Q==
+	t=1793638490;
+	b=ZNjO0aZUjoHLgRFKFSEtBSr021gmNmjovzxxqLRPw1xvTxMs8DLgoApkW36Qzn5qa5eb
+	 OsCYmau5YiRejTbnBT+gIZeFA9nxYQ5XFtsvyD4NlI9pxxLuZkcC0SQ+B37AiY/DcB7RG
+	 ZVf0AOgqCtn1SXSZMFbuYTHVcM+fuUMQ8Xv9JytuiGFB1J3Cp+WKMBw+XwlGc35E/3ktL
+	 cDTrZKI5Id3fg//DuoVTVadMgiX6x6Ft/j84WQZXA1nth0AIKst6qQetogUY/nOpSBrV4
+	 Li2rfrlEnAxzJT1KTskw/m44SLmNY9m13k6yb3d18wfM6lQsYpMYw3NACSFA0iaIhVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638490;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=o3AVB0ETkxpZ0HvtZ+8EoQbSH8m8RIduh4Tc2fWtLHw=;
-	b=2KaD0VNdhA774ytxKqgIE2LcD9h/oWFLcQOgbbKTXD3eR/PRNcwgL7SlLvPOzKh8xn9Y
-	 7YnWdzkUhLszv15ZW/JROJ19r0m8GK5NC5FvoI2awoGTMPcmCD0kzt0PsST4Z7BJA44Yo
-	 U6ZSQstePx02zAIvuj4V0ybV5i23x1S9ClURYeIu14qxEasBJ2NfI4faYUz4MtsysfBt7
-	 N0/IUYOyaTLzwNJLf9Bj+z1LPq3M9jZKROfNaoXTG37MSEqGVnDGzoJ7GjCSRA6ZlLDXg
-	 /dMgoIf0GppvPKfe/WiYXlkqR883oQRkKbdUoMe4USiHk3u134aZ5IIy5a+YEgqW4IQ==
+	bh=ymID8oqHCFAIWyYfqk6ucVD1Jsgmc6jMBtt8WzDyRFw=;
+	b=05Ix2MUN3B0Br75CVtgmFriDbwDB9+5Eyp0PHG7n1QHYfss8+73JkHwbIXjL3EhFcQnp
+	 hqifzhtrAgJ9qp8xnRsfK7qUHvGThUO6H7A/WOxxC/AwU0ItR6CbTLqW515NO5E/tqgOk
+	 4D+oVePAr68vBc39yUeiMSLz8edVt5Xy9Gwtq2ATphdGYseR3GaU2bFkGs9fQStiKleLu
+	 mLP+joKXMgIiWRMANmiCvkYqynExKAa/PrCwQOqXX86eihluXV/hcbBmiDa1Qp7rSsUNm
+	 +6bYz2YOLUcnQFRl9dbuV15UEcq2FwErSOybdpJHcrgqUs1hxslzv05iP9UgiJSX4gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GeZjq+us;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CkMNFUcL;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4FD1460913F1;
-	Mon,  2 Nov 2026 16:54:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FD1460913F1
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 113436093D6A;
+	Mon,  2 Nov 2026 16:54:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 113436093D6A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GeZjq+us
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CkMNFUcL
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C798516F3;
-	Mon,  2 Nov 2026 08:54:39 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6DC3016F3;
+	Mon,  2 Nov 2026 08:54:46 -0800 (PST)
 Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F2C353F59E;
-	Mon,  2 Nov 2026 08:54:39 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 98CEA3F871;
+	Mon,  2 Nov 2026 08:54:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793638482; bh=vU8cAQb+W+3Jz4MqGi0aLi6f8A4ixtLOHyc/TKPt4lE=;
+	t=1793638489; bh=eXLo4l00IuxcldPkqFxylRH7Wps8yF41ZAkJADgaRHA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GeZjq+us5BurZjRNIT43c+NM3rS/JX04fMY8YozO0IdnAEjZENp8O85dkUWlG43UG
-	 8129T8eHv2pbUJRWKUpVl6MX3HyKdiiaowbmhagkwP19HFh2G1Qt9Cxb6NSXh/3j3S
-	 39FjGXkosqQ4MHo0As+JkH7VriuoPQBROtmFXonQ=
+	b=CkMNFUcLyKKS7hFmChYHo7hyq6fTPx4zFHYNUemvl3FwrUGKiLuSknrczYGFwkSHd
+	 kLGyZ//v5qh4KUF7Tk0KhNKCc6WK+DYHpiO73M7NIY4xy8/xDfGqXF9KlgjwQRl0EP
+	 az4/kOSU9iShP6Gn8aHHc3YvDIiPm3pPbKEukSuI=
 From: Andre Przywara <andre.przywara@arm.com>
 To: Mark Rutland <mark.rutland@arm.com>,
 	Lorenzo Pieralisi <lpieralisi@kernel.org>,
@@ -58,9 +58,9 @@ Cc: Salman Nabi <salman.nabi@arm.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH v5 RESEND 4/6] firmware: smccc: lfa: Add auto_activate sysfs file
-Date: Mon,  2 Nov 2026 17:54:18 +0100
-Message-ID: <20261102165421.3651202-5-andre.przywara@arm.com>
+Subject: [PATCH v5 RESEND 6/6] firmware: smccc: lfa: add sysfs ABI documentation
+Date: Mon,  2 Nov 2026 17:54:20 +0100
+Message-ID: <20261102165421.3651202-7-andre.przywara@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102165421.3651202-1-andre.przywara@arm.com>
 References: <20261102165421.3651202-1-andre.przywara@arm.com>
@@ -75,116 +75,126 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Arm LFA spec places control over the actual activation process in
-the hands of the non-secure host OS. An platform initiated interrupt or
-notification signals the availability of an updateable firmware image,
-but does not necessarily need to trigger it automatically.
-
-Add a sysfs control file that guards such automatic activation. If an
-administrator wants to allow automatic platform initiated updates, they
-can activate that by echoing a "1" into the auto_activate file in the
-respective sysfs directory. Any incoming notification would then result
-in the activation triggered.
+Document the sysfs attribute files as exported by the LFA driver.
 
 Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 ---
- drivers/firmware/smccc/lfa_fw.c | 41 +++++++++++++++++++++++++++------
- 1 file changed, 34 insertions(+), 7 deletions(-)
+ Documentation/ABI/testing/sysfs-firmware-lfa | 106 +++++++++++++++++++
+ 1 file changed, 106 insertions(+)
+ create mode 100644 Documentation/ABI/testing/sysfs-firmware-lfa
 
-diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
-index 4b4daf79611bb..65f28ffc9d108 100644
---- a/drivers/firmware/smccc/lfa_fw.c
-+++ b/drivers/firmware/smccc/lfa_fw.c
-@@ -148,6 +148,7 @@ enum component_attr_names {
- 	LFA_ATTR_FORCE_CPU_RENDEZVOUS,
- 	LFA_ATTR_ACTIVATE,
- 	LFA_ATTR_CANCEL,
-+	LFA_ATTR_AUTO_ACTIVATE,
- 	LFA_ATTR_NR_IMAGES
- };
- 
-@@ -162,6 +163,7 @@ struct fw_component {
- 	bool cpu_rendezvous;
- 	bool cpu_rendezvous_forced;
- 	bool use_cpu_rendezvous;
-+	bool auto_activate;
- 	struct kobj_attribute comp_attrs[LFA_ATTR_NR_IMAGES];
- };
- 
-@@ -306,6 +308,7 @@ static int update_fw_components_node(char *fw_uuid, int seq_id,
- 
- 	comp->kobj.kset = lfa_kset;
- 	comp->cpu_rendezvous_forced = true;
-+	comp->auto_activate = false;
- 	set_component_flags(comp, seq_id, comp_flags, reg_current_ver,
- 			    reg_pending_ver);
- 	if (kobject_init_and_add(&comp->kobj, &component_ktype, NULL,
-@@ -718,6 +721,28 @@ static ssize_t cancel_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	return count;
- }
- 
-+static ssize_t auto_activate_store(struct kobject *kobj,
-+				   struct kobj_attribute *attr,
-+				   const char *buf, size_t count)
-+{
-+	struct fw_component *comp = kobj_to_fw_component(kobj);
-+	int ret;
+diff --git a/Documentation/ABI/testing/sysfs-firmware-lfa b/Documentation/ABI/testing/sysfs-firmware-lfa
+new file mode 100644
+index 0000000000000..4e93a1aea91f7
+--- /dev/null
++++ b/Documentation/ABI/testing/sysfs-firmware-lfa
+@@ -0,0 +1,106 @@
++What:		/sys/firmware/lfa
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		The Arm Live Firmware Activation (LFA) spec describes an
++		interface between platform firmware (an agent) and any user
++		on the non-secure side (like the Linux kernel) to activate
++		pending firmware updates at runtime. The actual firmware
++		update would be provided independently (out-of-band, or
++		via any existing explicit firmware update mechanism), then,
++		if supported, can be activated immediately, without rebooting
++		the system.
++		This directory contains one subdirectory for each of the LFA
++		capable firmware components supported by the agent, identified
++		by its UUID. Within each directory, the same set of sysfs files
++		provides access to the properties and actions for this
++		particular firmware component.
 +
-+	ret = kstrtobool(buf, &comp->auto_activate);
-+	if (ret)
-+		return ret;
++What:		/sys/firmware/lfa/<UUID>/activate
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(WO) Write a boolean 'true' value to trigger the
++		activation of that firmware component. An update must be
++		pending for this to be successful.
 +
-+	return count;
-+}
++What:		/sys/firmware/lfa/<UUID>/activation_capable
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(RO) A boolean value to show whether this firmware component is
++		capable of being activated.
 +
-+static ssize_t auto_activate_show(struct kobject *kobj,
-+				  struct kobj_attribute *attr, char *buf)
-+{
-+	struct fw_component *comp = kobj_to_fw_component(kobj);
++What:		/sys/firmware/lfa/<UUID>/activation_pending
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(RO) A boolean value to show whether this firmware component
++		has an updated image ready to be activated.
 +
-+	return sysfs_emit(buf, "%d\n", comp->auto_activate);
-+}
++What:		/sys/firmware/lfa/<UUID>/auto_activate
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(RW) Write a boolean 'true' value to allow this firmware
++		component to be automatically activated once a new firmware
++		update becomes available ("pending"). This depends on a working
++		notification scheme, for instance via an ACPI notification
++		or an interrupt to notify the kernel.
 +
- static struct kobj_attribute comp_attrs_group[LFA_ATTR_NR_IMAGES] = {
- 	[LFA_ATTR_CURRENT_VERSION]	= __ATTR_RO(current_version),
- 	[LFA_ATTR_PENDING_VERSION]	= __ATTR_RO(pending_version),
-@@ -727,7 +752,8 @@ static struct kobj_attribute comp_attrs_group[LFA_ATTR_NR_IMAGES] = {
- 	[LFA_ATTR_CPU_RENDEZVOUS]	= __ATTR_RO(cpu_rendezvous),
- 	[LFA_ATTR_FORCE_CPU_RENDEZVOUS]	= __ATTR_RW(force_cpu_rendezvous),
- 	[LFA_ATTR_ACTIVATE]		= __ATTR_WO(activate),
--	[LFA_ATTR_CANCEL]		= __ATTR_WO(cancel)
-+	[LFA_ATTR_CANCEL]		= __ATTR_WO(cancel),
-+	[LFA_ATTR_AUTO_ACTIVATE]	= __ATTR_RW(auto_activate),
- };
- 
- static void init_component_default_attrs(void)
-@@ -759,11 +785,11 @@ static void clean_fw_components_tree(void)
- 
- /*
-  * Iterate over all FW components and trigger activation of all activatible and
-- * pending components.
-- * Since we would need to re-enumerate the list of all components after a
-- * successful activation, and this could trigger infinite loops if a firmware
-- * component still appears as pending, we create an array of update candidates
-- * first, then activate each one of them.
-+ * pending components, but only if automatic activation for that component is
-+ * allowed. Since we would need to re-enumerate the list of all components
-+ * after a successful activation, and this could trigger infinite loops if a
-+ * firmware component still appears as pending, we create an array of update
-+ * candidates first, then activate each one of them.
-  */
- static void activate_pending_components(void)
- {
-@@ -791,7 +817,8 @@ static void activate_pending_components(void)
- 			continue; /* Invalid FW component */
- 
- 		_update_fw_component_pending(comp);
--		if (comp->activation_capable && comp->activation_pending) {
-+		if (comp->activation_capable && comp->activation_pending &&
-+		    comp->auto_activate) {
- 			kobject_get(&comp->kobj);
- 			all_comps[nr_comps++] = comp;
- 		}
++What:		/sys/firmware/lfa/<UUID>/cancel
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(WO) Write a boolean 'true' value to cancel a recently
++		triggered activation, if that has not finished yet.
++
++What:		/sys/firmware/lfa/<UUID>/cpu_rendezvous
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(RO) A boolean value to show whether this component requires
++		a CPU rendezvous in firmware to be activated. If true, this
++		means all CPUs will enter the firmware during the activation
++		process, so will not be able to execute kernel code or
++		handle interrupts for a brief moment.
++
++What:		/sys/firmware/lfa/<UUID>/current_version
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(RO) Shows the currently running version of that firmware
++		component, as reported by the agent (if supported).
++
++What:		/sys/firmware/lfa/<UUID>/force_cpu_rendezvous
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(RW) Write a boolean 'true' value to force whether the kernel
++		will perform a CPU rendezvous during activation. This has no
++		effect if the firmware already *requires* a CPU rendezvous.
++		Firmware components might provide services to the kernel, at
++		which point is might be unsafe to continue running the kernel
++		while the activation is performed. Sending all CPUs into
++		firmware provides the safest option for the kernel. If you know
++		for certain that there are no services provides by that
++		component or the firmware component can handle requests during
++		the activation, you can write a 0 in here to avoid the brief
++		kernel downtime.
++
++What:		/sys/firmware/lfa/<UUID>/may_reset_cpu
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(RO) A boolean value to show whether this firmware component
++		requires a CPU reset during the activation.
++		Currently this type of firmware component is not supported by
++		the kernel driver, as we cannot handle a CPU reset.
++
++What:		/sys/firmware/lfa/<UUID>/pending_version
++Date:		May 2026
++Contact:	Andre Przywara <andre.przywara@arm.com>
++Description:
++		(RO) Shows the version number of a pending firmware update
++		image, as reported by the LFA agent (if supported).
++		If not update image is provided, this returns zero bytes.
 -- 
 2.43.0
 
