@@ -1,87 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793631819;
-	b=Dw3VSi5FC6lxTDp+Mk0/tLPCErfwNob0TR/GprW69sMKTKAeqcOfN90nwzE6oOKaPOGH
-	 HQC2ERwjYrf17TN/WofrTrVZTgnHXNJY9osKuapXsqCfVHSh1JeUoPt4pyvzR6ki0EYKd
-	 iMlRqdjJgqBxXQ+GkDOTDhhPHDEQAE1duErG0fsst70gGpuP7PYFSoUqZE+ZaVHGfWXCS
-	 PKlbF0SW3GpyTpTbGJbfgWdMxEDJnapoJPBcubYptSTcgcOhrLhwVLFVSxtNbQcksuWUo
-	 fdHFr00/PkHWDO7xMnM8D5hOB1DpM8A/lG65kJohmMb18nNLCe5agEaWANqygYNYVPQ==
+	b=OixtwmrnimVRuchd+RraU6v3dS/bpBECUhz3oSmQEYwLPWFsn8XsCzVlSOxHfc3xILLY
+	 qbwMwvZkzrccH0nylv7eGBr/NjsDg2RsWlCzJCsYYlx6ek1f98CMXJ3h/pF5Je8rkgxpO
+	 c+hxV6QpYNHfUV2hCKBk0ZlkY/UVbYn5Q5g8Yu8vYAMU8wOjL1OSkNAdubDHcSwkzi7oQ
+	 SWv8aKulYVZZ8EabpTxgUjhPLm/JOdyGFvEW1wfkxzbUDdF2ZGvU/lC/hi3B0cUNGiZkJ
+	 gKNrABIq4hl2tHW22oJSQkb1my83Es2exNPF1h9811TazTeOQOox7khQl94RyID9gqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793631819;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=vmeP5yEnqnkyVoHBFqgCtuQIbq8hDW1r9WecfwOSwuQ=;
-	b=FTbyFzPDVu9rpXSzqadmueCW3qQRFOsWdk3qcDHGqp4QsUJmCssJoJHIDctN8VFCGbR3
-	 Ixdg9tgQqafkzwzZucmXB68LwV4tbalyfIogw7uw0mkhCMzxG5a91q3oxkhAaoFMg5hff
-	 rzOeuVer3O6KexnLxxauI/Ws3KQDe1/Reh32fD6CrYybGxvULVq2YxdXn4cy+2YNb7h1L
-	 5sqDporHS7QsgjNMdrarSdoqkQeLKrI4rON4D6v3JfVIN9hSn9gECO2Vtj4VrgY4aEiFO
-	 tiUMNzgMJdkDdsgPw8XDoaXMfa5FV3Qkp89xsMmnd4o45RgwyIUveSl5QCXSoQ0B/Tw==
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=F/vQzTFayyFkCRmqJbg1f47qlyovwSCO1GLJCd5nXcw=;
+	b=g9NgF/OVA97yONUWm12ZNzgEabXWAtIFMPI3uy90T03Zl+rhuvnWwwN7UQvkwe52ilYH
+	 KRZDJmwaV1B8iOaEssBW01oQodDopmSo46XLI+NI82ruWf1YtibqS6XacUoglaN9oQp3g
+	 KTT5Uqh7kHBGKrKQAtvnisWrsSTSFsoYWTF5n/yGJZFkNPDVeYWHNeEVyJB6jzZzGXBG0
+	 uMEhmlzSfnemj59td/j6Ynx/3a1CUaSCQjyAVeK9W5tvidO0ZDdlcyAJ1SCB4iuOx0VrL
+	 UUX83tYpkL4ZB8A+EeHgC8kJXlDydjKu6QYBxXghto7opLn1s3Zb0RZWHrcBTeB5NfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UO6wl9m7;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cjq+t5yW;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=22zsud3j;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BB16085550;
-	Mon,  2 Nov 2026 15:03:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71BB16085550
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E666099971
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:03:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34E666099971
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UO6wl9m7;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cjq+t5yW
-Date: Mon, 2 Nov 2026 16:03:34 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793631816;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vmeP5yEnqnkyVoHBFqgCtuQIbq8hDW1r9WecfwOSwuQ=;
-	b=UO6wl9m7RBHrJieOiZZvN4brHRib9ZtQyiwmHyHaWuAYRG64DM5WGvmVptZLI4u3WKDJnF
-	M71KpRdCjGEYRQ0ZNyuUrg2MBf6G/0h8AtNOtxhd609crQRWsn9ULFz1c0bdVFLsOo+Ghl
-	MxtJ5voXI2MjoMbwE0/348BYH4kSOiCqUbcKQKAueZveDDZ/i81+/UswGenDgvc4Hrk7ho
-	0OGIHcI9bOYmI2VW1SPwAumWkw28Y5/C1tLPFAGAX+/wylYCKe8tauPeEQB4FvI/4TGv85
-	vD/54DUZTKSuMkHRKk5V75A01BIW35D4ajgKmrXW7lzY0S8uv9iWtC9sayWk8Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793631816;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vmeP5yEnqnkyVoHBFqgCtuQIbq8hDW1r9WecfwOSwuQ=;
-	b=cjq+t5yW0qbGlmcj6omOC7sdr5+cqnKu1szT+dy1lmE74Kt1pDmVGyuE1tjvvm6Sp7AedD
-	0pwVWf/K/m4EnjCQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Mark Brown <broonie@kernel.org>,
-	Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Sean Wang <sean.wang@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Yingjoe Chen <yingjoe.chen@mediatek.com>,
-	Chaotian Jing <chaotian.jing@mediatek.com>,
-	Hongzhou Yang <hongzhou.yang@mediatek.com>,
-	linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rt-devel@lists.linux.dev, mfd@lists.linux.dev
-Subject: Re: [PATCH] pinctrl: mediatek: common-v1: Use a raw spinlock for the
- pinctrl regmap
-Message-ID: <20261102150334.9q83qkpM@linutronix.de>
-References: <20260929-rbrue-suez-upstreaming-mtk-pinctrl-raw-regmap-v1-1-db92943f42cb@gmail.com>
- <20260930080609.dnK1-Uta@linutronix.de>
- <CAGXv+5FssQL3Go3VDFbLAT6HP12RS3U3OgxhYOeapzs64QTdUw@mail.gmail.com>
- <d3d3e7b3-eb8b-456d-9a2c-116334e86c14@gmail.com>
- <20261020073236.dDVmd3BW@linutronix.de>
- <7981f7c6-c949-42e6-ad53-15e6530588cb@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=22zsud3j
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id NsqRxXMfYLvgbNtZSxhr3N; Mon, 02 Nov 2026 15:03:38 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id NtZRxBtkALr2uNtZRx2MsS; Mon, 02 Nov 2026 15:03:37 +0000
+X-Authority-Analysis: v=2.4 cv=UudjN/wB c=1 sm=1 tr=0 ts=6ae8a64a
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=Bq6zwJu1AAAA:8
+ a=QyXUC8HyAAAA:8 a=DlIQwTXsA3Kt32vZTR0A:9 a=CjuIK1q_8ugA:10
+ a=KQ6X2bKhxX7Fj2iT9C4S:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=F/vQzTFayyFkCRmqJbg1f47qlyovwSCO1GLJCd5nXcw=; b=22zsud3jyKjuE8iSOkWioVFvS2
+	oPNLzxJBKdep+4vN+CFlmj6Zbz8dUR3FC89euC0/4oRtxMZI2xaFFbHWTojlkBKkxV4aAVBgM4Uru
+	RtP8qmvMhLCBa+C3XAOH8Xx2k/AOIc8PLIfFhTCYzRet4QV7qVpr56BcD00Fo0VpMpJHH7huU0Ge/
+	c3yH1gS1tTeBhzCxU2ZAy/qTOylpS0B2IIyHCiv2v+7oyLX1+EuafcmqSD0zZRyoNTZB4Bv8IQg0z
+	xVLm4jvliPtHDfAuyEg4vHF4MJX+oSVdPWEPXCQQBWCb6doM0kj1wpuZi+dhw4khtl46OHHNHmXuM
+	yW/UJ0PQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54142 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xNtZQ-00000003q96-4333;
+	Mon, 02 Nov 2026 20:33:37 +0530
+Date: Mon, 2 Nov 2026 07:03:36 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Iwona Winiarska <iwona.winiarska@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH v4 5/6] hwmon: (peci/cputemp) Add support for Granite
+ Rapids (GNR)
+Message-ID: <35bba1af-7ed5-41c2-8608-3c81fc823345@roeck-us.net>
+References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
+ <20261019114502.55307-6-changhuang.liang@starfivetech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,58 +88,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <7981f7c6-c949-42e6-ad53-15e6530588cb@gmail.com>
+In-Reply-To: <20261019114502.55307-6-changhuang.liang@starfivetech.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xNtZQ-00000003q96-4333
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:54142
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 4
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfP+XrEXNs3or9dCmGk8MDbUTTuLwPsh8D1m/+m3l2tkHD2/ljXdUkRoBc1MY7HE74bwZcXcWPm0c5yRCx60QY/NTTRU3bfHpo60f2If3X0+pZ67ZlWzR
+ Sr8RAt/ji1dr1cGDtP02GCxX1bEVsWUajyqyuvDtP4DcKkrc4s7/iC9eMhyZboDfplPLvmdkeskw3LalJ0skaVcS1VJfoiNdxT/qV4zd8UxXRQpsYhGqr9fR
 
-On 2026-10-28 15:30:38 [-0500], Ryan Brue wrote:
-> On 10/20/26 2:32 AM, Sebastian Andrzej Siewior wrote:
-> > bulk writes could be a concern. The 40us delay is within the lock
-> > acquired? If so, could this be done without the lock? I assume this is
-> > part of the init sequence so nothing should use the HW so the writes
-> > should not be interrupted by other writes to the device.
->=20
-> Yes, it's under the lock. regmap_multi_reg_write() holds the regmap lock =
-for
-> the whole sequence, and since an MMIO syscon's regmap can't sleep, the
-> delays are udelay()s. The PLL's enable runs that sequence (13 writes, 40 =
-us
-> of delays) whenever the PLL goes from off to on, retrying up to 10 times
-> until it locks.
+On Mon, Oct 19, 2026 at 04:45:01AM -0700, Changhuang Liang wrote:
+> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver.
+> 
+> For Granite Rapids, the resolved cores mask must be collected from each
+> compute core. This implementation is relatively complex. Since we do not
+> use the resolved cores information for these CPUs, we can explicitly
+> state in the driver that the core mask is not supported for this model.
+> 
+> Define new cpu_info structure for GNR with minimum PECI revision 0x42 and
+> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Reviewed-by: Iwona Winiarska <iwona.winiarska@intel.com>
 
-If this is only at boot-up then it is less of a problem. It would be
-more of a problem if a driver, such as SPI, would use this to fill its
-entire FIFO during a regular transfer. This would then spike up during
-the transfer.
+Applied.
 
-> In practice it's init-time, though. The G12A USB3/PCIe PHY takes the PLL
-> with devm_clk_get_enabled() at probe and keeps it on, so it runs only onc=
-e.
-> Nothing else writes the PLL then, but the lock is the HHI syscon's, so on=
- RT
-> the other clocks in that block would wait it out. Running it without the
-> lock would mean changing how the meson PLL code writes its init sequence,
-> which I wouldn't want to take on in a pinctrl fix (unless that were
-> preferred).
-
-Okay.
-
-> > So it would be safe for now=E2=80=A6
-> Yes, that's the trade-off with the second option, which relies on the DIN
-> never being written in a multi-step sequence. Nothing enforces that thoug=
-h.
->=20
-> I'd like to send a v2 after -rc1, but I don't know the best option for the
-> fix. Still waiting on Lee, Arnd, and Mark to pitch in if they have a
-> preference, or any option I've missed.
-
-This is (I think) the second time the syscon mapping becomes a problem.
-I would be a bit worried if the same mapping/ regs could be accessed by
-different drivers under different locks.
-But yeah=E2=80=A6
-
-> Best regards,
-> Ryan Brue
-
-Sebastian
+Thanks,
+Guenter
