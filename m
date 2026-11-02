@@ -1,94 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793641845;
-	b=DfI70HBCZ/HP7zoN2rNTZVs6yVRV157ASUo6X4fE3v7K49BS/CpLgfWLd7ti9joNZ7Vr
-	 SL7EGUykqjyTWEE7MTx+pwAeZf+cPzHLKMekpk6lB148SPVt3Xd3Osgo09BOOmII1xwi5
-	 fP371/3ymQNOKnBK9lwwLZyjenEUT6e+ZItfhUGMDBg5/6fUElt6Rt1R2dpI1UBBNd2sI
-	 wPmLp491Zxhd5bNS42wwXED8rEiE4EVjiQ4XDV7zi7MsgNDmnVILUeftMGdIqhKGMqpVx
-	 T1Ta0rS/o+AEl2q8il7A7Saq+mG5fzTAsRY4VBTb57XbGXElvy6DPBLn3cBWBLpN32Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641845;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=w6DqD+7S4w2N93TbZ0eFAw5qJOUPfLrfJDXy8sDxQMc=;
-	b=z55qYyJM+Ocm27mIantpp3YwJg/NYPXISKdPCfux2ECWdkpv9S8p7TX4bovJ1dEssprS
-	 +7ru2w3TMrk37TXW6T5atESbhvzCDScn4H8fFnDA4RJi/FXEOUosejACkA7AOexp5f0aP
-	 bCamwtpKHzgx8FPLQctH1n2zx3OD9Q1tqqK6PwbGjwe6QAB4fDGet3IE1btV4MOpl8E7Q
-	 fPESnuXoyMZZF016fzBmXVRHEeRbKh+vEHckM3fYCwdB0LFL6/HVcloxV4DtbUTHt1UFN
-	 nMDc5fGfPmICn+aGhekpMEIFLwuYToD0+pnd8jGzMWdlfnoAO0Z2D3WnjKF7UBwy0/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=t5nwlo06;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793641880;
+	b=2DiMajiBoRk+HEqkKWyo810M27Ooo5FXroaSyNJq1C60178TyIuxUMwdTQdcJY2XfFjb
+	 ray58h3n0Ggrzn0vmPSyRljxUeLkpVJ7F0uQzH1dOd4/mhCc/E2+hj8uSPakrg1GlvKzr
+	 3skWGyV21SNFLrM9tLO5FuRusiqV5wI7h81O7Byg9ztFcxQEyLHwexJpqmXEoR188kIHH
+	 mGfRegoglhO32GDE9Mbplw2Iw6IfLEC07D/xWhTb/vPdxqjOCK1B6CvxFgrBKBC35dZzx
+	 33OjvX/GwsjgZvozxiOexZ7MBXc8PE/sGUa8p3ZhNmszX1mIizijAyJerMq9n4iPxFQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641880;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=choUeHLrZ0l70fGRma7inaLcbb9ci6361nxZE/8bH7k=;
+	b=ygpgYm/meErvpFEd1GerpN2bPDxo/XkQUK+8c4wqyIqM9HpCxQBTqhxB2DiPlnlXi7X3
+	 mBLWVJOQcbq59jm7HiaEEh537OWy3yfBNr1nk7slTOuFNRjoLQ3mjONzX7i/vmUybJQno
+	 i65m4r1xtH9hiC7Ud9IYK6Lsmy7c8THX1h2yzG3DXSQonBJZSaVXOzT/poKMkX6dxoC/z
+	 b/CGujj4ZVYh6AbQoWJY29oFryArniayvFML/lExmgifoJEzZ/eEkNKLqiupAIg7AadHo
+	 boejZhBZY8+y9QDfj0KRkMLYgTuZJ7/yU7ELIrfWhy2Vv7vVd9+PAB9jQxoLIIP347Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FSrcA6BS;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="HdZ0g5/K";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6073606A337;
-	Mon,  2 Nov 2026 17:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6073606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB59606AE9F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:51:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBB59606AE9F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=t5nwlo06
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=In3xMZkfG1IUXVbcM1/ZGkVyui8Bo7WMFhCbTis2yM9JIPbSCAjWV8P5OWntMZ50QvkSKOhbvNq/t3s9PH2ezx3dZ4GoU/CQNBPBVZ9FbK+uMODk9lKG7+gHV1fPLdbeXSDSqCpXJ3ztcNV+rP/ffH7t35RinB53vEskT59XWCKNBui0KvDR6c370hMJyeM5723DRjlp87bCpFyXFmpucsSe2KI5Ft9n2ObQQqQL2M5SyZAi/8+8gqUANB6RexCFJtGe1FrlQd6Z1sGVp9NAFjxN3+K7OCn/3jsT5mbGVptWmdFBQmeLLW5R4T0Uow0Pglcehj2GD1phbtG9WgLi/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w6DqD+7S4w2N93TbZ0eFAw5qJOUPfLrfJDXy8sDxQMc=;
- b=Lq3+C6qZ1u1HJC8cIhmJKJ4rAkvXyLDiyd/3OSh8SzZkfw1DEumUPzXCxpIo3sGVi8GYY3buI9eHQZw0UaFqJHHOGpwsA5HMYUUgoScHAwF03jRSY+6PNzlFCKf4IlOalO8gs38sn32r1Ir0n/VfHqLFkS84+e9S+iNic0zbKKcsZmzBsbhetAmdv3AYVEYAGWSc2+wgA6qG5nl3qlxxIKP+YHVV3u45gvKEl3gvCyfjMZ+8DPr10OWUcBHuevWdzxi6AZbgLZ9OMc8rdEJAFZjmsAjWwnvpkCpE+WfMc5fXTw6AYUd2NbhyXQzwqcKyUNR4gCyIy0soDkIIrTtZAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w6DqD+7S4w2N93TbZ0eFAw5qJOUPfLrfJDXy8sDxQMc=;
- b=t5nwlo06pojJFzdWoMhe5f1t1e1dJCxO+mDGJ+7SmfoJ1cCZ6k9LYCQGMplw8j63dUaDMsSBaICjkMgMAKbeX9/w0k27hKFC+5sO3BcR49FAadSnma9ZnsGmJz8mdFYqmzB+3PtySEsT0RmUOJU//lxpnwNJKJGVseXkSM89PwDyGSkFrtRY3DciwUXv2XcpgmWcUj0fRoX+MxfuHXohZ+7l22QNiKjeI/VCzW/IKTySqc77oLZiG/W7HFalKYSXwbhlHy25u4/zQrVDkhtn6n9o41xNn9vdMJX6Dbt7WrkwL98TGtQ1iIW6NyG7J8IWBs6uE0TcPY+Am9RZrz7jSw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA2PR04MB10237.eurprd04.prod.outlook.com (2603:10a6:102:401::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 17:50:42 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 17:50:40 +0000
-From: Frank.Li@oss.nxp.com
-To: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	linux-tegra@vger.kernel.org (open list:TEGRA ARCHITECTURE SUPPORT),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	vkoul@kernel.org
-Subject: [PATCH 1/1] soc: tegra: use dmaengine_desc_set_callback()
-Date: Mon,  2 Nov 2026 12:50:30 -0500
-Message-ID: <20261102175034.3944745-1-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH5P220CA0002.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FSrcA6BS;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HdZ0g5/K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793641878;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=choUeHLrZ0l70fGRma7inaLcbb9ci6361nxZE/8bH7k=;
+	b=FSrcA6BSJBBMFZarTIuACtm1o1C5BxNbndvbbPJ0/LK08KOgtmMA6JvIdX7I4qgufMn5xZ
+	NyFTEmrwGOs6KYgQTBaBIlQZzatqMOCSayMeI3R0fdrrZm1zJ79ZBAEmWKT7j28h2RFBrY
+	eQDarwBv39rviHPGvBEkTyejJoWAAME=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-661-BsNoOCl7MO6GBH4hPvDd4g-1; Mon, 02 Nov 2026 12:51:17 -0500
+X-MC-Unique: BsNoOCl7MO6GBH4hPvDd4g-1
+X-Mimecast-MFC-AGG-ID: BsNoOCl7MO6GBH4hPvDd4g_1793641876
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48c430f0f01so2903090f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:51:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793641876; x=1794246676; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=choUeHLrZ0l70fGRma7inaLcbb9ci6361nxZE/8bH7k=;
+        b=HdZ0g5/KCUHzPwXu67P9GZCo+tctmaEcvlIMv1uDHhgDzYtmt4MS/CJEwmnaiesbgy
+         xAO7mxIBj9u8j6ZnSn/WbyjAYlmMlbxe6Qh7G5TWt22K8pSv6C7VEchWWp31Dq+ItQtq
+         CKDwNhh0Y+ygFQAa7JMaRSgEfum6lNrhGTAhgU0X+fAPJBLSiJGhYfhLhmPLnx6cChw9
+         6xXXIKzbYor3gcPWTenNyiJv2zdXTiThUWaFtnH0Hsn/D1hjlfOZH2oDVmESHEIFSbNS
+         3whqRMSeyr6soWXPCQ+3TPxnM2GvjhgUVMCgpb8Dg7/ojUhLCbgUbxhIEE6AjDLSRaH6
+         3lFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793641876; x=1794246676;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=choUeHLrZ0l70fGRma7inaLcbb9ci6361nxZE/8bH7k=;
+        b=pqabRTrI/deuntdt1cQcksdRQTD0NJ3PoZN3cc1IM6dbmd/ZyHPzJBcbqtawYDbD6Y
+         7wmoOVRIaJnkK7ZVuWdlqWFsaHBVCU9Kps1Uy326bomaR0Sl+hBZdtdqrkRF6+moNATs
+         Od2XtZQgQPzF5c5vumWE7reKUEgDhJt2NEqQ5fheL4KvdcTYpxCyU5roAWknZ5PY4MV4
+         0fIQuyxgnmRmcivq5KEbf2chcLGcZqsBuqNUN9gEITqEKZJ22Mefrc5pbNAHcAYLgPFM
+         Mvg7p+vOhwG09Yuuj2Uis/FF4RS5yFBTJrUjqTLK4Mqqr2gmhX6KhOmo0ntyvOembIsx
+         Rcqg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5I9qjvsjTIKLCIDYi58fK1ceYIdWlxRshVLSlfrvp3XjgEmD4MA3AHFor8KytlEeAwse5FlW4g1OBjb8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SojKFDN8pRNMRAO76uTr4jhfdcptlDEcqFIse9y8gh5HVkwJu
+	VsZgPyZN6GKvrLUSo3ypqR6g6Udak688nn05QoWOtMzDL9/JMaZfKrSBHpYDIYcasR0RMbhWort
+	AMgdODIh+6Wi4QAVQIXP6EwC5oS8AaaXTrsYkEMNHdNKlwdAr6lzwLGvBjD42Unvj/Q==
+X-Gm-Gg: AYBFou1bCpWjgaW/oCoHyf9YrCxHcRCx/rlpNjzR8CcKgz1UDrUnHHSuduGI9wE2Rqb
+	S/8OzBcE2F+AhFp0+LDT2C7QcWTaepOkdCklu0Litqm/Zth84gtkNA5kWHN/G9a41EZlO50qsBD
+	9QpQVtVVEGKIikfnDw/OCNFCQvEHpR9QfSkw+l2Qv7yh2yin3cZgFWLGSEWSGLIhLlWXv3WMmlq
+	HIIHTTgrqmMXMcgXz51HySw1kH7OyltO6G5zeVs77dKBe6DUP7iFuQevm6qr2pzX/HA27IdNigI
+	HDQeMFJGXVktBdCxmL/dnW8/OTA7kUV8qcJaWC3sVR6tvn986pSgXyTEJ/AvLg0SCWQkueGlUpx
+	mr67XW+ZPccSlSvUARJdbicFvfjvq0Q3UoQfa3RHfdQ==
+X-Received: by 2002:a05:6000:47ca:b0:48c:8126:a260 with SMTP id ffacd0b85a97d-48e6e2bcd18mr15610205f8f.6.1793641876103;
+        Mon, 02 Nov 2026 09:51:16 -0800 (PST)
+X-Received: by 2002:a05:6000:47ca:b0:48c:8126:a260 with SMTP id ffacd0b85a97d-48e6e2bcd18mr15610171f8f.6.1793641875584;
+        Mon, 02 Nov 2026 09:51:15 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e86a06078sm4860064f8f.54.2026.11.02.09.51.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 09:51:14 -0800 (PST)
+Date: Mon, 2 Nov 2026 12:51:12 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
+Cc: eperezma@redhat.com, jasowangio@gmail.com, xuanzhuo@linux.alibaba.com,
+	graf@amazon.com, linux-kernel@vger.kernel.org, trivial@kernel.org
+Subject: Re: [PATCH] virtio_ring: Initialize id field in packed indirect
+ descriptors
+Message-ID: <20261102124927-mutt-send-email-mst@kernel.org>
+References: <20261029072511.851-1-zhangjiao2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,89 +115,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA2PR04MB10237:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e89203c-10d8-49be-72db-08df3909cf59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|1800799024|10067099003|18002099003|261102123227099003|56012099006|11063799006|261022105027099003|261009223027099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	wOYcsdM4JFTAZV6+8y4Cqs8dKFIJZjyF0fgLjPQZGuEMmIeFCXvRIY/BJJOgRkbZy7NCHDW3EpEpgk9sQVsJup7eD+luZ0LkryY6sMGrZSpMwIXvFnAbZ7dn7dXHyE1HVcruMCYkunxm4mDjpBNH2w4hwnr2OrdZDPdxQnPJs1ZJ9QTNVPvdStkK9eXROErsS/nuLAit2mPnwx0E9iZJ1P3G1N6Rh+fDGNQMp0UN8sippONOfYj3DNDCx/AS+ZEQ2TiDX5vuSqLDrUeNkckdnJ3EUTkHJ6XLj1Iv1xrmXQGQq6id17si3YVhs4r998ixV4NLpWvgLH4tj3dCJvq1amovhe+tQMMpWvlGg9iv0LkBVcR3ae094Ts0x8C9QnnfllmW+G4LsaMa8BTNE4bFuFk/hXm6FS9qO0AUiqz+Y5EVxYevFyiqahIL+Xu16pxnAFK5jGJInLxlbFHgbix9cigKEAK7UZa/FPLyMeV73C5ipfkNrSgX/6/0ZFcm+y38jz8ZozH8PtK3UY/KgTu1SqDb7Q3FaoahKLCvIVBjzXYjhTZYu+sR0p0roPEWcQNcMG4i/b78lyNnoBqH5tVRVFkgFi4uhLKm6tr/mfEUzmXxoXV8X3OgVwj38QD9mhyUR3bojgd4+vQAzIbIXsqKP1B7YC59raNzPpj+MS5p8QE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(261102123227099003)(56012099006)(11063799006)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?q+eZ0hrf5wyNfZDWiXrzi75WFU8aTZK9PVNZQFh5sjOmQLFMAmUiIXnaCwPI?=
- =?us-ascii?Q?+0MdU9FIyjeDzygfKqoXSGoI8XaN4OpZD1WG3zBOL47wJuStfpqadL/tAuSF?=
- =?us-ascii?Q?Qm90eDEbE8cEhijXb8bJTPKasV9bE0ph4pgC+TKFWG0GeOcbV1/yDz/38Lyu?=
- =?us-ascii?Q?EzuyT9SeX9Kevv4gMS53d1cMsnLjljUrgvVZui/I4xFpywuEpI3oit5j/4hG?=
- =?us-ascii?Q?OPwBAtpa0wr9TjJk9qcsdhcEU55AQAOZbvzcYLMTFnoxVh1NqdTVO1dMUkAK?=
- =?us-ascii?Q?nTYSBY96J1QHRL3iGyGmL85ioKGlGvdK+Pkgd/lKCBX2fOCl3eV2zql4ljCA?=
- =?us-ascii?Q?HxrAADQFZFzb379arJBfvUEfLuI1cfAuVjb9sG4iE4EfjJkcGUR/0769TX4v?=
- =?us-ascii?Q?bVVoy4OiMSeMqs5K1E2EK4H8XU6FjZE6QmvJvhhk8B32eOCvuZHUGX56Lm6+?=
- =?us-ascii?Q?5gZ3iN7AOAjbm8y/gDe/2euv4bups7jBBSWqBN9suQMmdvUo7iY+38m2aS5h?=
- =?us-ascii?Q?cGAy2m4H7c/7TF1nME1KREKfmj8R8/k7CuA4ydzG3rkt6z1fLMRrYaDQBTlQ?=
- =?us-ascii?Q?hr9c29TzbXOer8P0rRlxokJY+AKMksGMscuX9SwVjdTTA6ykM9wNijz+dF88?=
- =?us-ascii?Q?0fWlkRyTEbO7gQvQomku8rXSKgOa0EGksUQ9IAWvX1lhSoIgak94yOg+OxKB?=
- =?us-ascii?Q?wgo0qAmSMg1XW4z58yIxZC3R/3NkEaKpDOpgdKXW4j/7V4kyl/hIS31mumbT?=
- =?us-ascii?Q?UJRETJxUEMsKOGWkEo+TPHcqTHfP+7O7vK53sVbjr1+ckWiANEp8WD/BRY0f?=
- =?us-ascii?Q?RFjJ7TP3hvP8zP7trK1muGsVmvS+YnHEYdxxmhJRxvXGKCM5uGRvx1GXMeqE?=
- =?us-ascii?Q?9eFedGy1xlOldBKUKN2ZqgqB0UCtYv668xr2X9DmatpXvR1JRFOXIRn+7APw?=
- =?us-ascii?Q?wnyWnO9DNAQr/f1lkxZANdhVYXSEcO8XY4j5EMSQABqxmhrVcU5hZIQmCd46?=
- =?us-ascii?Q?3OoeFbTLvjRrd+YyOclO6t/ntTHCEdY9w8Lr77Bj6J/TUduon5nuRiSm93V8?=
- =?us-ascii?Q?gOPNKLvKlwIaONAytVyNXw+p8KFs8o8e/tsm22ze5xjs+p22XhNR6GeTDKl5?=
- =?us-ascii?Q?wl296X8YWnFOhkrbxvOoNznmf1X4wfM5KoPXDNY5o7G504ca/pUKWIblDRj4?=
- =?us-ascii?Q?66B6a6RTZZ7TCKoiJLwMcZt1XWGB0aoBTwzfAPIbvjFjxcJGluX6KG0+qLky?=
- =?us-ascii?Q?gvCwN3qEIEmVN2cXRG/DR1kx2+sr9VZzZvLX2zNo5GPd2ATV347yDUwvuH3t?=
- =?us-ascii?Q?gryEFpehNmIniDXQobLYe2JmWlCM0UdYzq7uuoIi6TmOx1caIGvIeGCheYtN?=
- =?us-ascii?Q?zfAe6GOjei6UIc5CeNtvm9P0EQ8RGCU1sFq4KsXtt7ZaftcBAgVtfnccGSmp?=
- =?us-ascii?Q?3ITSBV3Z6bAU03IkbudMQtyS4UQ5+SLBX2vwUCLGirQqfPxO6kSUJhWCnMrt?=
- =?us-ascii?Q?yK0d+6pTGoU6XxQXz4tihFufZWu+69CsaHpaR2+CQf7MnUkb0VR5JH/kfaFK?=
- =?us-ascii?Q?BYKTPnvT7aQoV6veHkhhaEMgN5b/q8zOGcsJJKhab8/8Z/zr5ilM8FlUAjT3?=
- =?us-ascii?Q?ePoAaEMdlWtECBKOxr9n5KqqxNmO1laYp0apw5Ogi4Mw9BgKucrzlZJoG6SO?=
- =?us-ascii?Q?c/8nlWAz0VYWRiF5P6q9EyjzSJiBMhhdCDP2uB4t4lN2Z0Z3TK8ZCcm+3BEH?=
- =?us-ascii?Q?uLo31hpM9a+QsMcTlggdWlUSo5jM+w3LXrfUXs6FiA8zLHB7/3dN?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e89203c-10d8-49be-72db-08df3909cf59
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 17:50:40.6772
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lVzzznI19qEg5gd8ohxqen0A6DsAUZjy1tWeXEAVUYKjHxTq3Rksz5fvo8x3CdAzLc9DyZ0r1zv+3Dg9P82Oc1CwSZEt8rFlsiWg3jZbGkiloBu47flXvXe1m1OWzmcR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10237
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029072511.851-1-zhangjiao2@cmss.chinamobile.com>
 
-From: Frank Li <Frank.Li@nxp.com>
+On Thu, Oct 29, 2026 at 03:25:10PM +0800, zhangjiao2 wrote:
+> From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+> 
+> The virtqueue_add_indirect_packed() function fills an indirect
+> descriptor table with addr, len, and flags for each entry, but does
+> not initialize the id field of struct vring_packed_desc. The table is
+> allocated via kmalloc() (not kzalloc) and then DMA-mapped with
+> DMA_TO_DEVICE, making the uninitialized 2-byte id field of each
+> descriptor readable by the device.
+> 
+> This leaks kernel heap memory to the device for every packed indirect
+> descriptor entry. A malicious or compromised device could extract heap
+> contents by reading the id fields from the DMA-mapped indirect
+> descriptor tables. This affects all virtio devices that use packed
+> virtqueues with indirect descriptors, which is the common configuration
+> for modern virtio devices.
+> 
+> Fix this by explicitly initializing desc[i].id to zero in the
+> descriptor filling loop. The id field is unused in indirect descriptor
+> table entries per the virtio specification (only the head descriptor in
+> the main ring uses id for buffer identification), so setting it to zero
+> is semantically correct.
+> 
+> This matches the split ring path where all four fields of struct
+> vring_desc (addr, len, flags, next) are explicitly written in
+> virtqueue_add_desc_split().
+> 
+> Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
 
-Replace open-coded assignments to callback and callback_param fields
-of struct dma_async_tx_descriptor with a call to the
-dmaengine_desc_set_callback() helper.
+This is defnitely not trivial material.
+Pls report to the proper list in the future.
 
-No functional change intended. Prepare make to struct
-dma_async_tx_descriptor private to the DMA engine.
+> ---
+>  drivers/virtio/virtio_ring.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
+> index 5c169fbb418a..42883b01fab0 100644
+> --- a/drivers/virtio/virtio_ring.c
+> +++ b/drivers/virtio/virtio_ring.c
+> @@ -1571,6 +1571,11 @@ static int virtqueue_add_indirect_packed(struct vring_virtqueue *vq,
+>  						0 : VRING_DESC_F_WRITE);
+>  			desc[i].addr = cpu_to_le64(addr);
+>  			desc[i].len = cpu_to_le32(len);
+> +			/* The id field is unused in indirect descriptors but
+> +			 * must be initialized to prevent leaking kernel heap
+> +			 * memory to the device through the DMA-mapped table.
+> +			 */
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- drivers/soc/tegra/fuse/fuse-tegra20.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/soc/tegra/fuse/fuse-tegra20.c b/drivers/soc/tegra/fuse/fuse-tegra20.c
-index fdecf7b7c2466..b98696f551ea8 100644
---- a/drivers/soc/tegra/fuse/fuse-tegra20.c
-+++ b/drivers/soc/tegra/fuse/fuse-tegra20.c
-@@ -66,8 +66,7 @@ static u32 tegra20_fuse_read(struct tegra_fuse *fuse, unsigned int offset)
- 	if (!dma_desc)
- 		goto out;
- 
--	dma_desc->callback = apb_dma_complete;
--	dma_desc->callback_param = fuse;
-+	dmaengine_desc_set_callback(dma_desc, apb_dma_complete, NULL, fuse);
- 
- 	reinit_completion(&fuse->apbdma.wait);
- 
--- 
-2.43.0
+
+> +			desc[i].id = 0;
+>  
+>  			if (unlikely(vq->use_map_api)) {
+>  				extra[i].addr = premapped ? DMA_MAPPING_ERROR : addr;
+> -- 
+> 2.33.0
+> 
+> 
 
