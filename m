@@ -1,50 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619174;
-	b=JEYoEOv3soSpFLY8zMfjdzH12bAOqlNe0xwKaQpSYjuEYeB1Mi9sfoR5zOwvHebQNVBW
-	 A7f6JiKB1g2OGE3Wcoa+f19KJ86ayTFFsf4YN57mPT+gm61i5aJwHXQiOEKJmguotIwZP
-	 IWxVA1CKjoENUMYQhGwbvh+zf76LzjowJxbSDkb8rY68ArQYK8jaI/ZEZvFZ+ZjuyZ+R8
-	 UGm3p7aRiGGP73ih3qv7Mpx8BoJntJikuRlzZnRnjPv/c6yAbqMSHkvyPbs8EHwrwTVHH
-	 9/KNzN6GJKs6p3sq1NJU1u4tjz8loJ0wbphHunlWJvLn6Mk5VY4YzQsH0bS2FJT5Upw==
+	t=1793619177;
+	b=ahKgJbf40QrHDsKrET/HKU1w6FcSw463jrikAu14Q0BxtIqPt/UDAlDWPm4T34BcuduW
+	 XLuw8zpfnVWVksFJwg5YWyXwlMMnQvUuFJSJCN3WOQ0I/wPfL21aGQVaTT0wp5rmwOy5t
+	 Un644tzDEflomYFZ3BkT6J4ff5RyEIIrkWPJ6YN1ji+MBWDddxMsje3VzORQdmmE96zMJ
+	 KNUrKqzYHk9OHtEroCigu2+/7cb2oUGNPRlVI/uffrY7G7mnNe+189r77b0URCAFnfOxZ
+	 r2CUVtj2f5UMampbfDAVef6VMohWuo7gnizUzYYHl8QMFx1IkOztaJ+O6CVz2Vb/EZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619174;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=73xKAjxZ/iUfedvukKH4tAcujSRHdTqC2mzu9O7dGao=;
-	b=zDCanDzENEW9oJp/68E/j3MiH/rz5JnMaSAfnrLId6POjTJfvbHpuR1N/BpR+kmBWM+X
-	 b7l3BAcPRzkmvn8c4NOZpSl+OqH5WL598BioWyQSyhkqi6oFxmRjy1Qu67c1iY/VaOi3G
-	 5Bc2Ye+6kJRoLSmZyCLAWmFJE7LOBsBDfIFn9tE9+Cu25UKD15HwXVgph0/4WsZw6Cgs8
-	 MfBaYvCVMVCnIyXV98jlJL3FrRcnbQcjASMiMIJ6PYOliFq+A1tuNsnQJXdgYlnxM7N/8
-	 uu3RdxWcYwUXTm/WDbOKuIc0QJT4csNfmdDLZAv7/ha8L36BjjfvapEzUSTmuwMWriA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619177;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XfJpU24NB6L3WzchK489NcFec+igVtMIzGuaUsha6Ls=;
+	b=WiN60LU76MAJr+NzWXd3T4bazlY9ho91ST5e1Rvkghsc21PYvGmoF5Sju9mbX18uhNBK
+	 T/LnqBdR/G0FZIyMFRHF3J4/kV7QxqAD6rg1XNHF8Igv5n3pdawiafq1CYHhVRiJ2pRSZ
+	 XcZbbGxxO/xKasocbkox+3zdW9ZH4h5h37bTqqINOh/qQ5B7vs2dD/75Ik5N4uXyzzMOp
+	 ERTyPdjQm7ha2EFlMntV0K/TRyglXaCB8kTiamcJ72/oaQLLIaGAyPozPyPHLOy8QVFEc
+	 d0v8lmwkZ6rLGs8RRho6n1mTSVBKpbS8iKCfOlwAy7zO0qtuFdjyk6EbIGjozwWop+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=QL4hSh4u;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOtAbMoq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC26D606A32D;
-	Mon,  2 Nov 2026 11:32:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC26D606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2D9606A327;
+	Mon,  2 Nov 2026 11:32:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=QL4hSh4u
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D2C12BE;
-	Mon,  2 Nov 2026 12:30:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793619034;
-	bh=6IEb5JlEa93A/QwCVBaWw1bfumGLwlpduvEDjIOXKDw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=QL4hSh4u5MjmKA6IPEaetV2TRD1Bfz/fu29kHrH3Ei57lI8ZR9BTEyvi3QBOI5cro
-	 zyGHnOrJEI36SLW576iOUArg8EemlycCY9cZY9vD4XDBUEj3taOoBM0Uh0okeAX6Fn
-	 gQ3R2ZpdYDvnNb2RvJAlqUspZII2kFZDrwwHX8aE=
-Message-ID: <b3a85767-9cf5-4e28-a6a0-b6695e63601b@ideasonboard.com>
-Date: Mon, 2 Nov 2026 13:32:46 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOtAbMoq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9770D1F00A16;
+	Mon,  2 Nov 2026 11:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793619176;
+	bh=XfJpU24NB6L3WzchK489NcFec+igVtMIzGuaUsha6Ls=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IOtAbMoqAvtp86YSSc7kpLmsuK28FJr7RyvWW2IF9vFgeH6EJZucGWV79+D+TpCVm
+	 OhHy0Y/V8U5fX6Y+SRAkegK4GvHbZ5wBycGsTFml0HYbMZxnWWOebr1KpS4tsiF1yQ
+	 jfJF/fODV4xEYoixBpK47NWNrzmN9RXdZe5gjZkgQa/xJSxeA2xMHCkueLYhA4yqQa
+	 gxfBkvDJQp8bcwG2H+ErDj1yctHZAIGkU+hI3kK9M05N8eoSQUMpI7hPCsM/WeDSCZ
+	 SdZ18aHK9H9jEW2CK/9YQ4GELGF5/8xrR8qEgH4u5bcL9hJtOJLS9MS1j9gLHyt7gP
+	 RYQVYhpvdE3AA==
+Date: Mon, 2 Nov 2026 12:32:53 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: display/msm: dpu: Document SM7250
+Message-ID: <20261102-placid-soft-bee-b5b848@quoll>
+References: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
+ <20261031-dpu-sm7250-v1-2-159f403ec405@brar.si>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,48 +65,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: rp1-cfe: Use IS_ERR() check for
- media_entity_remote_source_pad_unique()
-To: Ingyu Jang <ingyujang25@korea.ac.kr>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Jai Luthra <jai.luthra@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Naushir Patuck <naush@raspberrypi.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, linux-media@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260514193148.2357371-1-ingyujang25@korea.ac.kr>
- <20261101132422.1396104-1-ingyujang25@korea.ac.kr>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20261101132422.1396104-1-ingyujang25@korea.ac.kr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261031-dpu-sm7250-v1-2-159f403ec405@brar.si>
 
-Hi,
-
-On 01/11/2026 15:24, Ingyu Jang wrote:
-> media_entity_remote_source_pad_unique() returns either a valid struct
-> media_pad pointer or an error pointer (ERR_PTR(-ENOTUNIQ) or
-> ERR_PTR(-ENOLINK)); it never returns NULL. The current NULL check
-> therefore never triggers, and the "pad not connected" error path is
-> unreachable.
+On Sat, Oct 31, 2026 at 01:23:38PM +0530, Ishu Brar wrote:
+> The SM7250 DPU node has the same register regions (mdp, vbif) and the
+> same four clocks (iface, bus, core, vsync) as the SM8150 and SM8250
+> ones, so add its compatible to the existing qcom,sm8150-dpu.yaml
+> instead of creating a new schema. qcom,sm7150-dpu.yaml is not a fit, it
+> describes six clocks including rot and lut.
 > 
-> Replace the NULL check with an IS_ERR() check so the validation
-> actually detects malformed media graphs.
-> 
-> Fixes: 6edb685abb2a ("media: raspberrypi: Add support for RP1-CFE")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
-> Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> Signed-off-by: Ishu Brar <patches@brar.si>
+> ---
+>  Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-  Tomi
+Best regards,
+Krzysztof
 
