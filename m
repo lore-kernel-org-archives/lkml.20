@@ -1,82 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643064;
-	b=SO7NZ4h3ecYOcca4ucIgzeQl6XL8Msl1GiYV6uV1G9EwEvrMM/TFrRbJY3vViqf3MAPU
-	 1T5bwkW/9lqyCksBSbfdGGSuVIySam7dOsUzF1lBwBAPVz+kQhp8plBaGjpUmwUbo22ji
-	 cl4+DDydJSUvlGxHL0aRQT0Sv75H2C6HkrIPvQuwCDzv0fDWq9F8OPvS737FwHLWiPnNh
-	 VeJtWdKORpcjwTc9AuQ9Xmt2AGgia9BihNnKP8huiZrwW7ZTIksMCcRUHCDADTjicpxy/
-	 pXOzvFKWcgmGChO+U7IMSYyyDOMhXS/gk+iADE8MiRQ3gC/fm71ntWFUn66qmc1RQuQ==
+	t=1793643074;
+	b=tv9pjBe/tno+yG6Y4OSRqRWHoBTPP/X86+ojB8g2Kqx9Q6iMif8clPWL0thwKwhFhzFa
+	 euRe9Gmp34Tg1Pod1pIjUTvkv+Kjk6OHw5yEJ7aMJ1VLp2/GWvETLBtYNig9in673+6IN
+	 6OXv3INhvPOo3mn0J/ru1MYW5cWblUZOLdC+IRUEYR7AGM7Yvea25YQgVHgOuRfKthJpn
+	 MY/WjDK+amZCdWRu8GZcRkk9xxHKKxWOm4gTwKd1UNObZ7Q9AzBbIGQTW29m7FQhdKmQw
+	 1K7ZyO/k9rbgO0MQEFXFXljjNzSnsBpGG1tlzjvxPcCPPKyG1Ao/EaFmDqMr+tUkJxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643064;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bjvJoJc/GTpSMbKiG3k1l8fW3FUFv6sMHWG+G/+EbEY=;
-	b=y10Jm5Rq0UlNkZfUxphat7JDTfiGAP01QLOoSbTPR1crV18GkhgtcxgRemwKJWKB5W/3
-	 Sb3BGuhcc1mzYvdP+kEvjc+ADZV9vAz3owMM+vxIb/qoUyJJW4Ba19CoSAdnx0CbQeajE
-	 BDIOi1zZT8Z0UHSHbiZklqdhEMspitBlaWxmMLpP0oN4kDYL++YJwRyjRJorDYbfmV4dZ
-	 4C9IA77M7e2K6exEX8iQQ1gTFSW1OQCok2i7Mtei/EVIitbHH9OmdXmAScl3gAmH8d5BG
-	 vmsL4kbyUgjAdTf+Pi7s+NiFNDtq5Sxpy995qbRFVLIVp3MEstmvc/lkPb+6soqN1XQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643074;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=aQruTCC5hEy9EJEA7VtNTy/+BSL1Xc1NZBa6W4LKkR0=;
+	b=KoGIKCde3y0xDIyD13ck8Ys4Jxx5QCvohLqv2QsUVdsw0N+9H35kEci6dt/wBLKschnL
+	 k0YnqgCgcoOEzFVcXMCSwawhOpjG9kQfr8xanxnmbTTit6k0GbDjIBWprJ4arfJaDHKU1
+	 0OLwSHPLaqbRkUxUC6SPfZ8yS8QYK0uA/Odddjf8rbVsvHBCri6JOD8B0v38SL2to1IwF
+	 IPct1ns+phvnaW4qkfJRlImuI1goGDWcmLzvQk9y6WZBHwfEJxaUNEj6x7dCvs7ZiQp4w
+	 MDlNre5GqhEF5vCyit8gDZ8ZatBT1iwy1Z1h5zwyracfndRuyOzWONR8LXp1pZnp5BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kBfzWQNH;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=S7fZGOJn;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F63C606A327;
-	Mon,  2 Nov 2026 18:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F63C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A1D606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05A1D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kBfzWQNH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793643064; x=1825179064;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ARYRBjuRpiAfnJqS9ZxGEd/Hf5DQbR9n3T1V6+4Bh2I=;
-  b=kBfzWQNHFHNp/x+QXK58joP8xlzwETbGvgzYMn/AlFmYP86GGZeepOFa
-   d/LWvwTo+okdjwkouI36pCzKr7YmoLTLgjpSlKi7W1IoICPbhdMkJJaxE
-   t4gEU0W7nVMgl54NftFSCFXpCedalSIUcmsu2EGZc+2TiY9hLGiL8p3F9
-   qtPy9ywsdQulxCK0n6Nh572LoIM7DFlfLuyUtHGSTeF/7qL33gI6YQ0u8
-   iQD3BwFqra1hpA432mcSvl9FS0Nw6jA5rtbESudPLFlnfIn0E6TKjaycT
-   gqVDqqKbAH2hQWywEetL2GYlIMt4//oIT6w5JxGmhvFyjpLR7AYpX1Y3G
-   w==;
-X-CSE-ConnectionGUID: 3I0N0JHXTiCymFquxBbeFw==
-X-CSE-MsgGUID: pTavKk0tSXqMAsY1Xd+pxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2364937"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2364937"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 10:11:04 -0800
-X-CSE-ConnectionGUID: NwbxsqZBTwWoiRPuuqyvpg==
-X-CSE-MsgGUID: pqzIkRSeSW6iLT9RKtxPaA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6184129"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa002.jf.intel.com with ESMTP; 02 Nov 2026 10:11:01 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNwUk-00000000hcC-0SV1;
-	Mon, 02 Nov 2026 18:10:58 +0000
-Date: Tue, 3 Nov 2026 02:10:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Binbin Deng <18983559317@163.com>, dsahern@kernel.org,
-	idosch@nvidia.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: Re: [PATCH net v1] igmp: use copy-on-write RCU updates in
- ip_mc_source()
-Message-ID: <202611030211.aklzSdgm-lkp@intel.com>
-References: <20261102095312.47767-1-18983559317@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=S7fZGOJn
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so25592075e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:11:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793643072; x=1794247872; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aQruTCC5hEy9EJEA7VtNTy/+BSL1Xc1NZBa6W4LKkR0=;
+        b=S7fZGOJn+iw6rZCKUziMBDNX5mLSfgdLS/L1NKTMKwQ6NhlhF85qAINiVQ0JBrYun9
+         LYubZizvwAujb1n0IT5qjIGOy26KpHahFuQDanB/1WX3pCn11z02F8gLHbUmG85g0QnV
+         Y+RLPLcpcsLzQZETsbrkjsxNiZrkpqVV1wIFFGSPrYdMLal3u0BWWfk6+hN+GLk6f4ZB
+         EzWsqPYeOC2jGYUKpON0Cp19myXk8x7nu2fa31Mwn+IdzMEwCfsSxf5ibbMNu2CvW53d
+         x4bOa13B18BMt1F3qrloJtNHav0ELfxzVQnktiu7iXFL5ZHvGv2vvc2KhDF8viO6A89q
+         7pqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793643072; x=1794247872;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aQruTCC5hEy9EJEA7VtNTy/+BSL1Xc1NZBa6W4LKkR0=;
+        b=1xum7cvy15tRIXISie2O8S3A5TNqmdRfyES3rzbtOOJ7TH8mBk3AOW9Xp5e47uxRwI
+         sHWvjg9lvrrzMQ2qaN1ioDLwXsFFOWGNzh9GvCh9wlb114NtbyTYje9HZhX70BfNAvop
+         1nrbLQnEmQ9Sb+6prHwu3gxHPdX4W8QMnRl6riEFStdZ+Y7exo3DM2U3l8ZUYDEi7QtE
+         lzqLI1m/hqaoqEhaR83iPb0R4jxjsrrJWwyTsQaIR0zgrxX9MX8SdmipS/y4KAMR+qkb
+         PDaO31SDlIrluBC2SnCR6StunfvC7n2AFP2yogdttU3Fn09sYPdjf1UDB7uZVPL23qTd
+         aIzw==
+X-Forwarded-Encrypted: i=1; AKwUvBzKFvuqWxNoNnRawl2zBF1IfdtE+xjnpGYYjlyPUXQFsVq8G97HTrCUq90ul84vBEk1MrJArJHsoWQDcTw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJexWF4wAVaABi5y/mt16KLYFoOIlrti0gCCEmdLhC1GNx2JRZC
+	Fynb7WPPEdWzoC7vBbqXkqjbIvzo+L5eXxl2XvjPOTue6WOuGngG3ClhR0yshNIpKkg=
+X-Gm-Gg: AYBFou0V9o0KSKmwKGD03CPWCi6NdINGXgewfrdhj6l2sUr0Vxw+9xdxmdSKmlsleCn
+	9ISRC4n+WgmD7Wj6kuAEy+GPx3ogy37K9n1hRC13Q2+3Il2+OE9AomVNIXA0kVat/BfIejFaK5y
+	Ww+sq7Y8/az67fcxvcGPi6nlFcKRGWKAYO1uRw77Twvw1KugbeKc21Ajv4YgjSGK1v6FkHATfYa
+	UTv7ghj4zjlg5iFIKuOuJoLnIc8aJuYVUV2bXUKfOSrdOLFcbzUBEM5zSZr4aLaTXP1DlkB0FOr
+	TaXz4qg07QxGHMiX+Qhr8NW7nn5WDLs+ezT8znksNwZLt1f9vgLV2X1i1PQI4HJolDsYuzaRLTX
+	WfoR++OCSddlA/w1ZXSBnsq2OpaSGmXV2L/sST8ZopWWMUQtBbtTCowjAn4KbWjGIJvhC9icLya
+	L62xi5EOIQDLnrW4G7Bl+xeQf1mwZkHbL7BT6eQW9Ul5NMLMJ0HDNXRExhHUb5rz44pTOzP+XYO
+	Z9NFpc/Z7NUj7P6By7iuX3OqADzZVghS5CdexXlY5L4D6u9b+bR8rG4Yx70MQW23YRaZBVJPj+n
+	CF0K+sa2KyuKyujBkU2UPVVSYMxFUOt/Uuuh2UE=
+X-Received: by 2002:a05:600c:1c0f:b0:4a2:150f:1601 with SMTP id 5b1f17b1804b1-4ac1709a7bdmr254417725e9.12.1793643072380;
+        Mon, 02 Nov 2026 10:11:12 -0800 (PST)
+Received: from localhost (109-81-32-81.rct.o2.cz. [109.81.32.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a82cebc1sm5836795e9.1.2026.11.02.10.11.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 10:11:12 -0800 (PST)
+Date: Mon, 2 Nov 2026 19:11:11 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Maxime Ripard <mripard@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,
+	Michal Koutny <mkoutny@suse.com>,
+	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH v7 0/5] mm/page_counter: move stock from mem_cgroup to
+ page_counter
+Message-ID: <aujSP_sfbasQaKu7@tiehlicka>
+References: <aui3TJqadHUv-4RW@tiehlicka>
+ <20261102163014.237806-1-joshua.hahnjy@gmail.com>
+ <aujCcqKKyio7oZ0x@tiehlicka>
+ <CAN+CAwOwRJUDXHj0RMr4p2+sdA1V9bX-OgOH1PpER+u_cB2fAg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,100 +118,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102095312.47767-1-18983559317@163.com>
+In-Reply-To: <CAN+CAwOwRJUDXHj0RMr4p2+sdA1V9bX-OgOH1PpER+u_cB2fAg@mail.gmail.com>
 
-Hi Binbin,
+On Mon 02-11-26 12:40:33, Joshua Hahn wrote:
+> > > > > Personally I am a big fan of how try_charge_memcg looks after this
+> > > > > series, what do you think?
+> > > > >
+> > > > > > Quite honestly I am still not convinced this move
+> > > > > > is the right thing but I would like to fully understand the mechanics
+> > > > > > first. Having discrepancies among different counters just sounds like a
+> > > > > > potential source of future problems.
+> > > > >
+> > > > > I hope that I can present a good argument for why this is not as
+> > > > > concern as it may seem initially.
+> > > > >
+> > > > > My first point is that the memory usage counters were always fuzzy, as
+> > > > > specified in the memcg v1 documentation too:
+> > > > >
+> > > > > usage_in_bytes ... doesn't show 'exact' value of memory (and swap)
+> > > > > usage, it's a fuzz value for efficient access.
+> > > > >
+> > > > > Secondly, the raw value of the usage is actually always accurate. It is
+> > > > > just the stock portion that overcharge the memory at times, making it
+> > > > > seem like there is a discrepancy. Flushing the memcg stock immediately
+> > > > > bring the counters to their real values (like what happens right now).
+> > > > >
+> > > > > Finally, this is a change that is only limited to cgroup v1 users.
+> > > >
+> > > > Right but is there any actual point in adding caching for memsw charges
+> > > > now? If you have a way to opt-in to caching then you can simply disabled
+> > > > that for memsw counter altogether. Fewer problems to deal with, explain
+> > > > etc...
+> > >
+> > > I think the problem actually still exists, unfortunately. In fact I
+> > > think the issue becomes bigger if you remove stocking for memsw.
+> >
+> > Yes, you are right. We do actually cache memsw through the charging path
+> > which charges both mem and memsw with the batch.
+> 
+> Thanks, Michal! So it seems like we are in alignment on everything
+> except the cgroup v1 implications for fuzziness. FWIW I think nothing
+> really changes from the userspace POV. memsw and memory usage has
+> always been fuzzy due to stocking, so all this series does is to
+> change "why" and "when" the stocking becomes fuzzy.
 
-kernel test robot noticed the following build errors:
+Right. The discrepancy was not so obvious but I agree that this change
+doesn't fundamentally change the picture.
 
-[auto build test ERROR on net/main]
+> What do you think about this? The other alternative would be to remove
+> stocking for cgroup v1 users completely. But I am not sure that is a
+> good solution either. For the record, I tried making the stock tied
+> together so that they refill together, but that was a nightmare in
+> terms of added complexity.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Binbin-Deng/igmp-use-copy-on-write-RCU-updates-in-ip_mc_source/20261102-175312
-base:   net/main
-patch link:    https://lore.kernel.org/r/20261102095312.47767-1-18983559317%40163.com
-patch subject: [PATCH net v1] igmp: use copy-on-write RCU updates in ip_mc_source()
-config: sparc64-randconfig-1001-20261102 (https://download.01.org/0day-ci/archive/20261103/202611030211.aklzSdgm-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611030211.aklzSdgm-lkp@intel.com/reproduce)
+Nah, that seems overreaching without much added value. While we do not
+support new features in v1 we shouldn't cripple performance for those
+users unless there is no other way around.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611030211.aklzSdgm-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   net/ipv4/igmp.c:2646:1: error: function definition is not allowed here
-    2646 | {
-         | ^
-   net/ipv4/igmp.c:2737:1: error: function definition is not allowed here
-    2737 | {
-         | ^
-   net/ipv4/igmp.c:2802:1: error: function definition is not allowed here
-    2802 | {
-         | ^
-   net/ipv4/igmp.c:2851:1: error: function definition is not allowed here
-    2851 | {
-         | ^
-   net/ipv4/igmp.c:2898:1: error: function definition is not allowed here
-    2898 | {
-         | ^
-   net/ipv4/igmp.c:2924:1: error: function definition is not allowed here
-    2924 | {
-         | ^
-   net/ipv4/igmp.c:3277:1: error: function definition is not allowed here
-    3277 | {
-         | ^
->> net/ipv4/igmp.c:3294:19: error: use of undeclared identifier 'igmp_netdev_event'; did you mean 'igmp_ifc_event'?
-    3294 |         .notifier_call = igmp_netdev_event,
-         |                          ^~~~~~~~~~~~~~~~~
-         |                          igmp_ifc_event
-   net/ipv4/igmp.c:884:13: note: 'igmp_ifc_event' declared here
-     884 | static void igmp_ifc_event(struct in_device *in_dev)
-         |             ^
->> net/ipv4/igmp.c:3294:19: error: incompatible function pointer types initializing 'notifier_fn_t' (aka 'int (*)(struct notifier_block *, unsigned long, void *)') with an expression of type 'void (struct in_device *)' [-Wincompatible-function-pointer-types]
-    3294 |         .notifier_call = igmp_netdev_event,
-         |                          ^~~~~~~~~~~~~~~~~
-   net/ipv4/igmp.c:3298:1: error: function definition is not allowed here
-    3298 | {
-         | ^
->> net/ipv4/igmp.c:3316:2: error: expected '}'
-    3316 | }
-         |  ^
-   net/ipv4/igmp.c:2485:1: note: to match this '{'
-    2485 | {
-         | ^
-   11 errors generated.
-
-
-vim +3294 net/ipv4/igmp.c
-
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3292  
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3293  static struct notifier_block igmp_notifier = {
-4aa5dee4d99978 Jiri Pirko      2013-07-20 @3294  	.notifier_call = igmp_netdev_event,
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3295  };
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3296  
-72c1d3bdd5bf10 WANG Cong       2014-01-10  3297  int __init igmp_mc_init(void)
-7091e728c57015 Alexey Dobriyan 2008-12-25  3298  {
-72c1d3bdd5bf10 WANG Cong       2014-01-10  3299  #if defined(CONFIG_PROC_FS)
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3300  	int err;
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3301  
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3302  	err = register_pernet_subsys(&igmp_net_ops);
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3303  	if (err)
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3304  		return err;
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3305  	err = register_netdevice_notifier(&igmp_notifier);
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3306  	if (err)
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3307  		goto reg_notif_fail;
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3308  	return 0;
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3309  
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3310  reg_notif_fail:
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3311  	unregister_pernet_subsys(&igmp_net_ops);
-4aa5dee4d99978 Jiri Pirko      2013-07-20  3312  	return err;
-72c1d3bdd5bf10 WANG Cong       2014-01-10  3313  #else
-72c1d3bdd5bf10 WANG Cong       2014-01-10  3314  	return register_netdevice_notifier(&igmp_notifier);
-^1da177e4c3f41 Linus Torvalds  2005-04-16  3315  #endif
-72c1d3bdd5bf10 WANG Cong       2014-01-10 @3316  }
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+Michal Hocko
+SUSE Labs
