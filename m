@@ -1,110 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636175;
-	b=la01aSR1t7UYOPtMvkiAoMKTiiS5zDNvm4ehlhpJNcjWB3+xnsdrnNseOafRujpIf965
-	 nf5ZFpkWMTKywXEZT8d8C2lKFZjX755W8tUtGdTdO/8OPEy7YZal5VQzBnJViBB9krvt7
-	 g3xNnGerDDs8HjDKK/TqUZ3+hS3vN/To2dSdPGNYm/MYaAsPWGB45aI9UYRwz/1dGTTeh
-	 H0ECE7qBEbRNXjr+p3EQe84iAHllwZXpuFmKNynu+BW+pseFwlinkAn7mKGbGyYTdt/1T
-	 oFBE1l02hB+XeiyVdMyZ1tTafsTsheVDxny/gQKnkdreAxbUkOcZ/WnKbT2eDDFWWQg==
+	t=1793636248;
+	b=TWrvCR4R6kO1w0m2MW/A/z9uYmrzZext8DX0x9W/QmbX/i/orCs9pjFEGm4SVLQiE2AA
+	 nuMheRzJEaqkAuvAh8qZ1iprG45a8Z2hHSiXlK0T4HySEgPSr/ZlieKOAupYWePQbwa8G
+	 8h03UsssWqe2y3T5h05KmP8zZBOOY9JCtAodlwPrJj8aotTTlS+d7BU+karHl6kg1kbzQ
+	 uGn7Q24T15q2bjjYQJ3U5aVByVoA52hyYelQeM/fjsESjU9HSdP9mud8Am5b8DGOebg/p
+	 AGp9/+4jX9/OY8ErdtVt2V+Yuecx4Vs+MijrwgJ7id6tgwC09vRmI3aAZ0ejyCa8BVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636175;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ypRec8Xh5wIqvkQ4ITkAuTU3Yz1Vsg+897P5Sxky53s=;
-	b=e3xG5T6J5o2ADASUDJw+SM5OhBuRSetOuQ2MyqTip2qiRP+wljLwecxSDbBMdN+EurYf
-	 ICTe3u3/ixBl4b5J7kA+0AaRTqqUVBUdEYBDSvYyGg3m61d00QfDO9h0yyj5B9Rd4hnuQ
-	 1e+tWaTNTo5+Jt0MYI7jdIzZOx4xe03nM/c8Me/UruvkWqrLLz9PtuarNUG+lKICivee5
-	 IoEj9BmC+QMnrLIfaBFNCV1WjKhz3NOR0qU5VHqJh+AV7+TVmSxeSA/sIk8SMZDZz/RXd
-	 H+MGr+rg6WEWnRhihlLvo1MWRTBGZ/fRmz+mGHtg2BPDNIWt2J6m1rO4Kr+tIpU/Qdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636248;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sQ4T+b16Ti6+mg2ejejZKdmeCXOYlBVVk4FdYTSpBjg=;
+	b=Sq9glSCmogqx2PMPRPowjqaY76U1Mt94IAhI7iplb100AnE+TbkmwKn9liPW0a2fJc7n
+	 NV+ReiddYzFawCYD4s9ScZybp2Z7zS+b956S1lQTQpiMY9Zk48K57PwYOMPQMBTS6WX7N
+	 KGuTU75ZomrORAS7or3ZIme06te+CQTmYrYWWRTy1Xdji2ikwYHlX4Ns5rqcT4MIjykdV
+	 X9tTnSD226/8hEFnUaM+UMFOIOcW/7E7xzsnA31gd8w1QOjlGJ+BCCzByHEblYEMJfyyC
+	 Zl2LBUM7LMuv3FhAgGDIcSBWDWKvGxEoIk6hnaEQUP2F0ksNAGKQy/omVREOdiLVMVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="cgehWPX/";
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChoCscwv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BEA6082BC4
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13BEA6082BC4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FAA606AB88;
+	Mon,  2 Nov 2026 16:17:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cgehWPX/
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso25316125e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:16:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793636173; x=1794240973; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ypRec8Xh5wIqvkQ4ITkAuTU3Yz1Vsg+897P5Sxky53s=;
-        b=cgehWPX/0I2I7Bd8Uywop/KMe4ySqOEdVFTorvOlE9dsNtUAVEkuVBSWfnaX+WzniO
-         22m/zZIJ5brtbMJhGtjiIAD4lxpl30x2/39jAknuhIeakhp1PwIy+kPKY0MMeiriSSQn
-         QZlGetED3fMBXhFAgc+RSB1fC2kwQxRLNGA+LE1WVnjRV/2r65wOC2G4QWi9VTiCJXfK
-         cF1VZJpK3DZjikEVbmlZeO1UWMYS3cbO6LlT2N5pTBtr9EhCMQqqGB+fkhwm6tmTWgjV
-         YbiQueSZMxAg690AyYQKc5oNjZPqI8k7hT9peh1aUZbp3JwcwoZ2eTnCRfXhyasTXVLS
-         kwxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793636173; x=1794240973;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ypRec8Xh5wIqvkQ4ITkAuTU3Yz1Vsg+897P5Sxky53s=;
-        b=HAO15JIbKDxRtGQDT8APPwLqlx79ib5HtadrP9Mdod7X2JfgmaqrSS0zoyG6lyfqS5
-         up6iJ9NQqxe4y85ONiZ95NTZgUDLA0qPe8kUZUU4rxm4FXMhiw7RA0JPNrvX3JNiZHu/
-         qepEdXFcQ1GMbw+cKV0kAJrIUZjP3lJtLEeY5CsdpHOeipCd5CgM0E2BtOTohZ46l337
-         7u3UfYQSt/jEAbb66p5fmDSLXvzD0ub0KF9oGl/DLEW/0cScg620AMWrDoeVeMSvhKGt
-         qm3MG5k5uYgkm7VtyNBXIbqXHBhay5EKbQ/Oo3F9Ih727JCByUlVXXc+8ULbGxEtqlEo
-         Jj3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzzHzBqWobiqENWl6gA0T3M2wtZisNLm38i3IIsuFlLY9BxrZdkPrw41qLgS90nTJmWjfMvlJ1YpVGQzQU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNc2scGM8lz2RSfG7mI56VxAp64SuXCEo9exWdmZ/0tHziSDtX
-	3A8aBWIL/0JXt2gEkYzRrjQRfiM/pO95P7bVA9Z0hdnMfAkERu/9/4zXDSx+yZVCORQ=
-X-Gm-Gg: AYBFou230hDwo/Wa8PBAWpmHy1dHapbeJ9aGfoM1LBTYdbJzvDYfOTIbeBNfEkWsFhl
-	rGYeJFn0kABN436bEI0MDaDJNOgg1lvd0roLnQnhysMAoaxPHmxttRqRnsC9QGhpnqz9zFQaEMa
-	AEtJmanj9FySvBysFCX9GzYInnJIGDVHWm61ktfO+srT+sNESWxKKzUDeb2z7b9oaVeWp2QHczd
-	0+MyVqWDv/bMHiLHwciLCd9QxubpdUt/abyArBShyfaCRYU3d0KBNNFK9k21h9tidh11hwd15f3
-	5Gtw7vhq9m6/rTLvCx9+lLgw3XAEpHgewPxrAL/8qbQhJFBy9C+AYmveEZSr/LuUT4JV5pHqTLh
-	JOKCD4oXEIEMDKzMYq0Lk0q+Ajgsj/SdpiqEHrBXgVOQfoJmREGdY+sn9a2nBrqV1TaM+SAa9w7
-	iNCK82PiB3x4sm3TIF4xkyFd9Bqp9RRKRoTbjaMkl6i/J3WnCgMLx2BpD1/mQ3tz30q2O3N0XeO
-	LN/Cs2+xnoAS+cD/7JIWtgsU5d13yYY4a3yACNX8+t/rE1wX+FD6Kk/ep/luBgeoZEJd5OkOcNu
-	tOzi4SxBggjVFxSTQlQmfNLzFwcgCUj5VRk7OlU=
-X-Received: by 2002:a05:600c:b8a:b0:4ab:c447:49df with SMTP id 5b1f17b1804b1-4ac182dca8emr234675195e9.23.1793636173515;
-        Mon, 02 Nov 2026 08:16:13 -0800 (PST)
-Received: from localhost (109-81-32-81.rct.o2.cz. [109.81.32.81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9a3b1sm22666963f8f.44.2026.11.02.08.16.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:16:13 -0800 (PST)
-Date: Mon, 2 Nov 2026 17:16:12 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Maarten Lankhorst <dev@lankhorst.se>,
-	Maxime Ripard <mripard@kernel.org>,
-	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,
-	Michal Koutny <mkoutny@suse.com>,
-	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v7 0/5] mm/page_counter: move stock from mem_cgroup to
- page_counter
-Message-ID: <aui3TJqadHUv-4RW@tiehlicka>
-References: <auiBOBfRIiup8Aob@tiehlicka>
- <20261102152018.2773572-1-joshua.hahnjy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ChoCscwv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D27C1F00A20;
+	Mon,  2 Nov 2026 16:17:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793636247;
+	bh=sQ4T+b16Ti6+mg2ejejZKdmeCXOYlBVVk4FdYTSpBjg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ChoCscwvUb8H/au752uRMGege38AvkMz6RfCL3trMS1vzmjN5ZndvlpGp21zQqNQo
+	 yfWp15FOL/ZEcVaABLMIIv9pnxj5Z0QE5OHLUne+GB/AwB6c7KOBw+iUBwJ0jXbtst
+	 COMxk0Qa1Gsuiw8oM898imohkLzN5Ojri21/0RD/IGnusGAOOdpvl69fRV9kXimg0y
+	 bBMXrGYlQ1rwCWxu6N15Uwpbji7hnOR/zvEKdIqamums7r2PgMryeZ6mQYiMFAkEGe
+	 Py/bhAgugemPc+grIhnnUMnjmzEMnaqwX82HpVMzJoizLwUrpyDTIFDbj4PQn6NsOp
+	 QP3qvFEm0KWUQ==
+Subject: Re: [PATCH net] openvswitch: advance by the real header length in
+ get_ipv6_ext_hdrs()
+From: netdev-bot+sashiko@kernel.org
+To: joasantonio108@gmail.com
+Cc: aconole@redhat.com, echaudro@redhat.com, i.maximets@ovn.org,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, cpp.code.lv@gmail.com, netdev@vger.kernel.org,
+ dev@openvswitch.org, linux-kernel@vger.kernel.org
+Date: Mon, 02 Nov 2026 16:17:26 +0000
+Message-ID: <179363624604.3131.17678557171151335962@kernel.org>
+In-Reply-To: <179328922134.76862.10417963652853801970@gmail.com>
+References: <179328922134.76862.10417963652853801970@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,113 +64,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102152018.2773572-1-joshua.hahnjy@gmail.com>
 
-On Mon 02-11-26 07:20:17, Joshua Hahn wrote:
-> On Mon, 2 Nov 2026 13:25:28 +0100 Michal Hocko <mhocko@suse.com> wrote:
-> 
-> > On Mon 26-10-26 08:59:37, Joshua Hahn wrote:
-> > I guess I still do not understand what you mean by opting-in to the
-> > caching.
-> 
-> Reading my original cover letter again, yeah. It does feel a bit strange
-> to call it "opt-in"... I guess I just meant that not all page_coutners
-> will be getting it, it would only really be the memory page_counter
-> (and memsw page_counter for cgroup v2). I'll change the wording in the
-> next version.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-OK, that makes it clear to me now.
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0 (2)
 
-[...]
-> > > > > We get an added benefit of simplifying try_charge_memcg(), which now
-> > > > > has all the stock management handled transparently within the
-> > > > > page_counter layer.
-> > > > 
-> > > > This is quite a large change and I believe it will be really benefitial
-> > > > to have some high level design overview in the cover rather than trying to
-> > > > chase it in respective patches.
-> > > 
-> > > Sounds good with me. I can add the call traces above which should
-> > > explain my thought process a bit more. Hopefully the problem I am
-> > > trying to solve is evident there.
-> > 
-> > I believe I follow where you are heading. I am not sure this is the
-> > right path but that is a separate discussion. I would focus on whether
-> > moving cache to the counter makes sense on its own (without that future
-> > work) at this stage.
-> 
-> If I'm being honest, most of the generic benefits that exist beyond that
-> work were in the other part of this series that I got rid of to scale
-> down the scope of this version. But to explicitly name the generic
-> benefits, it would be unbounded memcg stock caching per-cpu, eliminating
-> random evictions, (like you mentioned above as well) limiting stocks
-> to leaf memcgs only, etc.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-limiting cache to leaf memcgs makes a lot of sense and addresses a big
-concern I had. How exactly does this work?
- 
-> I think there was a proposal to make the number of memcg stocks per cpu
-> even lower than it already is, because the author wanted to include
-> additional fields into the stock that would make 7 no longer fit into
-> a single cacheline. I feel like we are reaching some limits with that
-> side as well, so the "unbounded" portion seems to be quite opportune.
-> 
-> But I believe those benefits that we would like to see are made better
-> by this series, which makes the stocking transparent such that the new
-> optimizations don't make the existing memcg charging code any more
-> complex than it is. By abstracting away this mechanism, we can make sure
-> that memcg just handles the logical charging semantics, and page_counter
-> handles the implementation-level details of stock management.
+- [High] The fix is incomplete for non-first fragments.
 
-Yes, these are all good arguments. Especially when clarified that this
-leaf only feature. I have to say I was struggling to see how caching on
-all levels of the hierarchy would work in practice.
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but OFPIEH12_ESP
+  is never set.
+- [Low] This problem wasn't introduced by this patch, but a single
+  Destination Options header in the final-destination position is…
+- [Low] This problem wasn't introduced by this patch, but repeated Hop-
+  by-Hop headers are not reported as OFPIEH12_UNREP when the first one…
 
-> Personally I am a big fan of how try_charge_memcg looks after this
-> series, what do you think? 
-> 
-> > Quite honestly I am still not convinced this move
-> > is the right thing but I would like to fully understand the mechanics
-> > first. Having discrepancies among different counters just sounds like a
-> > potential source of future problems.
-> 
-> I hope that I can present a good argument for why this is not as
-> concern as it may seem initially.
-> 
-> My first point is that the memory usage counters were always fuzzy, as
-> specified in the memcg v1 documentation too: 
-> 
-> usage_in_bytes ... doesn't show 'exact' value of memory (and swap)
-> usage, it's a fuzz value for efficient access.
-> 
-> Secondly, the raw value of the usage is actually always accurate. It is
-> just the stock portion that overcharge the memory at times, making it
-> seem like there is a discrepancy. Flushing the memcg stock immediately
-> bring the counters to their real values (like what happens right now).
-> 
-> Finally, this is a change that is only limited to cgroup v1 users.
+--
 
-Right but is there any actual point in adding caching for memsw charges
-now? If you have a way to opt-in to caching then you can simply disabled
-that for memsw counter altogether. Fewer problems to deal with, explain
-etc...
+openvswitch: advance by the real header length in get_ipv6_ext_hdrs()
 
-> This entire series actually has no effect at all on cgroup v2 users,
-> which I think is a nice perk. Obviously I'm not out here trying to
-> make cgroup v1 unusable, but I wonder if anyone is still using the
-> legacy feature.
-> 
-> I hope this wasn't too much of a brain dump on you. Thanks for your
-> feedback Michal. Please let me know if there is anything I can do to
-> clarify my intent.
-> 
-> Would you prefer if we continud the discussion here, or if I sent out
-> a new series with just the cover letter changed? (I don't anticipate
-> any code changes, based on sashiko review or anything else that I see).
+get_ipv6_ext_hdrs() used to move past every extension header with
+ipv6_optlen(). That length is wrong for AH and Fragment headers. This
+patch advances by sizeof(struct frag_hdr) for Fragment headers and by
+ipv6_authlen() for AH, so the OFPIEH12_* bits come from the headers that
+are actually present.
 
-Let's just iron out things first.
+Link: https://lore.kernel.org/all/178905555085.219967.6617611783437228045@kernel.org/
+
+> diff --git a/net/openvswitch/flow.c b/net/openvswitch/flow.c
+> index 1c4f3a0790443..a1c60d2f552cf 100644
+> --- a/net/openvswitch/flow.c
+> +++ b/net/openvswitch/flow.c
+> @@ -372,8 +372,13 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
+>  		hp = skb_header_pointer(skb, start, sizeof(_hdr), &_hdr);
+>  		if (!hp)
+>  			break;
+> +		if (next_type == IPPROTO_FRAGMENT)
+> +			start += sizeof(struct frag_hdr);
+> +		else if (next_type == IPPROTO_AH)
+> +			start += ipv6_authlen(hp);
+> +		else
+> +			start += ipv6_optlen(hp);
+> +		next_type = hp->nexthdr;
+
+[Severity: High]
+Can payload bytes still set the exthdrs bits when the packet is a
+non-first fragment?
+
+The IPPROTO_FRAGMENT case in get_ipv6_ext_hdrs() sets OFPIEH12_FRAG and
+never reads frag_off. This branch then always advances 8 bytes and
+follows hp->nexthdr.
+
+RFC 8200 says every fragment carries the Next Header value of the first
+header in the Fragmentable Part. Take IPsec AH transport mode with
+fragmentation as an example. A later fragment shows up as
+FRAG(offset != 0, nexthdr = AH).
+
+The bytes after that Fragment header are payload from the middle of the
+packet. The next loop iteration still parses them as an ipv6_opt_hdr:
+payload[0] is taken as the next type and payload[1] as the length.
+Payload bytes such as 0, 43, 44, 51 or 59 would then set HOP/UNSEQ,
+ROUTER, FRAG/UNREP, AUTH/UNREP or NONEXT for headers that are not there.
+
+The commit message says the walk now advances "as ipv6_find_hdr() does".
+However, ipv6_find_hdr() stops at non-first fragments:
+
+net/ipv6/exthdrs_core.c:ipv6_find_hdr() {
+    ...
+			_frag_off = ntohs(*fp) & ~0x7;
+			if (_frag_off) {
+				if (target < 0 &&
+				    ((!ipv6_ext_hdr(hp->nexthdr)) ||
+				     hp->nexthdr == NEXTHDR_NONE)) {
+					if (fragoff)
+						*fragoff = _frag_off;
+					return hp->nexthdr;
+				}
+				if (!found)
+					return -ENOENT;
+    ...
+}
+
+The wrong bits also seem to reach the flow key. parse_ipv6hdr() calls
+get_ipv6_ext_hdrs() before ipv6_find_hdr(). In the
+FRAG(offset != 0, nexthdr = extension header) case, ipv6_find_hdr()
+returns -ENOENT and leaves frag_off at 0. parse_ipv6hdr() therefore
+sets OVS_FRAG_TYPE_FIRST and returns -EPROTO. key_extract_l3l4() then
+treats that as success:
+
+net/openvswitch/flow.c:key_extract_l3l4() {
+    ...
+			case -EPROTO:
+				skb->transport_header = skb->network_header;
+				error = 0;
+				break;
+    ...
+}
+
+key->ipv6.exthdrs is never cleared on this path. Flows that match on
+OVS_KEY_ATTR_IPV6_EXTHDRS would still misclassify these packets. The
+tests in the changelog only cover Fragment headers with offset 0.
+
+Would it make sense for the IPPROTO_FRAGMENT case to read frag_off with
+skb_header_pointer() and stop the walk when ntohs(frag_off) & ~0x7 is
+non-zero?
+
+>  	}
+>  }
+>
+
+[Severity: Medium]
+This is a pre-existing issue and the patch doesn't introduce it, but is
+OFPIEH12_ESP ever set? The loop in get_ipv6_ext_hdrs() is guarded by:
+
+	while (ipv6_ext_hdr(next_type)) {
+
+ipv6_ext_hdr() returns true only for HOP, ROUTING, FRAGMENT, AUTH, NONE
+and DEST:
+
+net/ipv6/exthdrs_core.c:ipv6_ext_hdr() {
+	return   (nexthdr == NEXTHDR_HOP)	||
+		 (nexthdr == NEXTHDR_ROUTING)	||
+		 (nexthdr == NEXTHDR_FRAGMENT)	||
+		 (nexthdr == NEXTHDR_AUTH)	||
+		 (nexthdr == NEXTHDR_NONE)	||
+		 (nexthdr == NEXTHDR_DEST);
+}
+
+NEXTHDR_ESP is not in that list, so the loop exits before case
+IPPROTO_ESP can run. flow.h documents OFPIEH12_ESP as "Encrypted Sec
+Payload header present", and the bit is exported through
+OVS_KEY_ATTR_IPV6_EXTHDRS. A flow matching ESP=1 can never match, and a
+flow matching ESP=0 matches every ESP packet. The OFPIEH12_ESP check in
+the second DSTOPTS mask is dead code for the same reason.
+
+If the loop guard is ever changed to include ESP, the new length
+dispatch in this patch would send ESP to ipv6_optlen(hp). That reads SPI
+bytes as a length, so ESP would need an explicit stop there.
+
+This patch does not change ESP behaviour. Before the patch, an AH
+followed by ESP also reached next_type == ESP, because next_type comes
+from the AH header's own nexthdr field.
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but should a single
+Destination Options header in the final-destination position really get
+OFPIEH12_UNSEQ? The first DSTOPTS seen in get_ipv6_ext_hdrs() is only
+accepted if it comes after HOP:
+
+		case IPPROTO_DSTOPTS:
+			if (dest_options_header_count == 0) {
+				if (*ext_hdrs &
+				    ~(OFPIEH12_HOP | OFPIEH12_UNREP))
+					*ext_hdrs |= OFPIEH12_UNSEQ;
+
+Take IPv6 -> Routing -> DSTOPTS -> TCP, or AH -> DSTOPTS. ROUTER or AUTH
+is already set by then, so UNSEQ is set. The changelog's own test result
+shows this: "AUTH DEST UNSEQ".
+
+The comment above the function lists the preferred order as Hop, Dest,
+Routing, Fragment, AH, ESP, Dest, upper-layer. Routing -> Dest and
+AH -> Dest both follow that order. The count of DSTOPTS headers seen so
+far is being used as if it were the header's position.
+
+[Severity: Low]
+This is a pre-existing issue, but are repeated Hop-by-Hop headers missed
+when the first one is out of sequence? In get_ipv6_ext_hdrs():
+
+		case IPPROTO_HOPOPTS:
+			if (*ext_hdrs & OFPIEH12_HOP)
+				*ext_hdrs |= OFPIEH12_UNREP;
+			...
+			if (*ext_hdrs == 0)
+				*ext_hdrs |= OFPIEH12_HOP;
+			else
+				*ext_hdrs |= OFPIEH12_UNSEQ;
+
+OFPIEH12_HOP is only set when HOP is the first header. Take
+IPv6 -> Routing -> HOP -> HOP -> TCP. The first HOP sees ROUTER already
+set, so it sets UNSEQ but not HOP. The second HOP finds HOP clear and
+also sets only UNSEQ.
+
+UNREP stays clear even though two HOP headers are present.
+ipv6_find_hdr() checks neither order nor repetition, so a short chain
+like this passes and the missing bit stays in the flow key.
+
 -- 
-Michal Hocko
-SUSE Labs
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179328922134.76862.10417963652853801970%40gmail.com
