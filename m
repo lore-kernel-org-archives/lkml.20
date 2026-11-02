@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614984;
-	b=V0XI4s8NNcyRN1XYFdHTPh01/502KnO3Zd64MPiNoqEN3fbyGZVhCmCQmsZ9mY6iuQXE
-	 KiQe3yPNss5esBrqR9f6HkqbZmHZNIBUOzKgHiZcRmhZ4VXm8dWtDz77v8WPGC6ekUZXw
-	 GXbWTZ4idCwHLhhTp51wmd10zr+PaGfZ7StZ5kuWfgjOhyJV9/Sd3ugnlPLCUPLZtItV6
-	 i58pjY0tujNbNk8VjkuP8SzFYnC324UCttZ3ZZ2PDHTcLkd3sU1m1GxqkPdmRcqWlWzIU
-	 iv1DpaqLWnZB/h74S7xuAkyYC4s5bLdUgQJ1sCvvxPZ0B9nAIanyyHNHCfANqhuwqaw==
+	t=1793615018;
+	b=VlaKoLSqrKflJh7k9uX/4l5+Bvz1qalDyutc97i1FB0sp7CZGWBIMVkaRHNU/ajzI79x
+	 EVWlGm3azMmzCHTffzGPt5vsW2jhs34Zc/LPP3xaJAZAARGHBy++PVvFrFG0YB3yVVsR8
+	 D9XV7vAFDaPwHbeay+J7xmJue/DxTeF5pqTg/48zWLTaeVzbJvH6FAUiOgQNH5u02uiSJ
+	 RrbdeohZ+DG6+5z0DyYYu5wa/R/FxLCYAU736dKWRNUeB3lBRo9UFeO3MPSJH15ipznEQ
+	 nc/KsjC1ttpoQmg6K67RyE02DsHpsn/B+1/516jmSYvW3qbzdkTF4gpzcrWyMjtOZbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614984;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uHmEJGXHxdyRRkaTDdUcwnltGXq6VvTgNHAfkKWQvLU=;
-	b=wJ6uSKjpqnpnNsxgNxEdb4o+IcQSnCxmMYCHVBjdRNnVbsIMbAED4VY2yGxqYq5ADvRd
-	 dW8apsRvvmFAqjb3RwtnPpVHDAS4NqkgX0r522biLYMMRsSCpI6XIxRh9jN3Ok5hVtrba
-	 UOp+mQX3hGVEFHFeWGZt7h4dUevqCVjv0FeJJB141EdSBmorBPM2y6RxYj7axRyD55d2W
-	 yv3zTAbxiGtI7g0ai60zA2XqLugUQ+ZQmUXP1569oSXMa70You1+ElJacRfkLtsZ/BtbX
-	 sYXBcyfxZnXiu5s7xaO7sqqD8m0Vqne/ZEKqaw412bg0QlPjrLtV5LIRuE6XmlrW0nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615018;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=J/S/PMjySOVg3mp3rDG7gRScpBRoHnWrd++xQO2/Poc=;
+	b=XrmPm8AMMJj6GJBu2VSbtLe2+GRxAUfDnxV5cCwdif9zGPqqal+VTWeX47v1KYBHj8+5
+	 ST3R6GtKrWo9hFM6JJphczvdw+uaTyEEhCt9Al48FkaxwdwM5vJhRmfrccjsk386HarBs
+	 gKtIvpXFh8dBqxi46rglqV2bRnEnqVFfP+xcgoKPfSIRkQ++fhaHZ/a8SgbIldE6+tsqL
+	 AvgSvdTv035ai9hRhkrYPiBHukmDA0oqhuiyEP6MsW1YgVglKCu3fhYhV84QnI/3Qoe3K
+	 ZyjV7dMvc5EGv2SuSn+Yq3CB00f8AQXGkaHSHxdN+iBkyRxpPPqNlbBmPogpYe01nmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T8/tG+f2";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhi9Vp0T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524B0606A326;
-	Mon,  2 Nov 2026 10:23:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1B9606A324;
+	Mon,  2 Nov 2026 10:23:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8/tG+f2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB00A1F000C1;
-	Mon,  2 Nov 2026 10:23:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhi9Vp0T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57AF1F000C1;
+	Mon,  2 Nov 2026 10:23:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793614983;
-	bh=uHmEJGXHxdyRRkaTDdUcwnltGXq6VvTgNHAfkKWQvLU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T8/tG+f2YOeF3Mw6lDP3Rlz3rKXh0XcxjQBkjwJU63oWJkC3/pGxwQp4uikgaJuwl
-	 riR9/w0M6+ikY2O0XID1ErYUwNzm/Nc8NTk7RxiTM1csM696sQbkZgszxhW7VXleWV
-	 CozLsa3w7aWvJqp6Mj62ToDJaewuakYSzZ9E1IJscKPFLxLjoS4JKDAH6fHczHYy8a
-	 DbsgpGBbadsMrG1b3a2vc1qqa2V+yVAy3G9cyCc86Qx5tm/WbLs24h0v82TG4SSqha
-	 +CRolsMrwLOPgedT8mnqxeE+TIPYVZbwObIUZ1TrE5pokx424gB66ZCnm2DbiKDnl8
-	 SQywWiF2hMCKg==
-Date: Mon, 2 Nov 2026 11:22:59 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/7] clk: stm32mp25: define the number of clocks in
- the driver
-Message-ID: <20261102-righteous-visionary-smilodon-10b72d@quoll>
-References: <20261023-ups_mp25_clk_update-v2-0-398d348ea8fd@foss.st.com>
- <20261023-ups_mp25_clk_update-v2-1-398d348ea8fd@foss.st.com>
+	s=k20260515; t=1793615018;
+	bh=J/S/PMjySOVg3mp3rDG7gRScpBRoHnWrd++xQO2/Poc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hhi9Vp0Toqsw1cn/iY+H8NpQHL+IwAhdRbmavcNwgNixrOt2kTl35wYiOw7ZFv/+H
+	 M6UzJ22zsUldxvtQjR+CArBekeBPuqJ8lRnoTsb7NxAEFODYsphXbdu2xjYqVxe/0g
+	 CO/Gk1PgU/DKNgUF9FUf9wHtGXIW0xyn/Fz7nTQK1cvct0rAJD2ntyAJNw7ltrzkER
+	 YNAOZolhnniremtbpG1YF56DFKA6cJk6bVf7j+wTmUFlEhewNXgegJq0FO8DZ+KLbQ
+	 1qw7UeQWdwvjIiqmgCMU3idEONey3bnBgNyA8FT99efeDDSuuvWGGegA+9Z1GMlDzz
+	 ur6WPsmezojNA==
+From: Niklas Cassel <cassel@kernel.org>
+To: linux-ide@vger.kernel.org, dlemoal@kernel.org, shao.mingyin@zte.com.cn
+Cc: linux-kernel@vger.kernel.org, yang.tao172@zte.com.cn, 
+ zhang.yue5@zte.com.cn
+In-Reply-To: <20261020160101007xAtLUWDrReLsKCbDsa5eu@zte.com.cn>
+References: <20261020160101007xAtLUWDrReLsKCbDsa5eu@zte.com.cn>
+Subject: Re: [PATCH] ata: libata-eh: drop redundant ata_tag_valid() check
+ in ata_eh_maybe_retry_flush()
+Message-Id: <179361501652.1158579.1072798638583086666.b4-ty@kernel.org>
+Date: Mon, 02 Nov 2026 11:23:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,30 +59,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261023-ups_mp25_clk_update-v2-1-398d348ea8fd@foss.st.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On Fri, Oct 23, 2026 at 06:43:17PM +0200, Gabriel Fernandez wrote:
-> The size of the clock provider is given by STM32MP25_LAST_CLK, defined in
-> the binding header. This is not part of the binding ABI: it has to be
-> updated each time an ID is added, and the number of clocks handled by a
-> given driver does not belong to a binding.
+On Tue, 20 Oct 2026 16:01:01 +0800, shao.mingyin@zte.com.cn wrote:
+> ata_eh_maybe_retry_flush() validates link->active_tag with ata_tag_valid()
+> before calling __ata_qc_from_tag(), which itself evaluates ata_tag_valid()
+> on the same tag and returns NULL when the tag is invalid.
 > 
-> Define the number of clocks in the driver instead, as done for the
-> STM32MP21 driver, and drop it from the binding header. Both are done in
-> the same patch as the macro has the same name in the two places.
+> Since the NULL return value of __ata_qc_from_tag() is the single source of
+> truth for tag validity, drop the redundant explicit ata_tag_valid() check
+> and simply return early when qc is NULL.  This mirrors the style already
+> used in ata_eh_get_non_ncq_success_sense().
 > 
-> No functional change, the value is unchanged (344).
-> 
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  drivers/clk/stm32/clk-stm32mp25.c            | 3 +++
->  include/dt-bindings/clock/st,stm32mp25-rcc.h | 2 --
->  2 files changed, 3 insertions(+), 2 deletions(-)
+> [...]
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Applied to libata/linux.git (for-7.5), thanks!
 
-Best regards,
-Krzysztof
+[1/1] ata: libata-eh: drop redundant ata_tag_valid() check in ata_eh_maybe_retry_flush()
+      https://git.kernel.org/libata/linux/c/267accfa
+
+Kind regards,
+Niklas
 
