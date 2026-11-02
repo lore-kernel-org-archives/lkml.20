@@ -1,61 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641133;
-	b=0dcW0hYWcn7kJG1qsCM7kCoRoFYBacCdJzRfUneqWm4Ga5XZylQklbxvafsSo92zbrjM
-	 besQiPr9w+ue9hFEhezj5L8NlgK7IIjLYraNdINslz/IIfHZz3LmYiu+4Fbgxgqj3bAi9
-	 I+e+2TPpuh4ke/yHSTmwlqdb7MutWg8BuOAEd/0OLQSKwAY8CnEoA0H9TM1DUPUZDetZ2
-	 jtcu1xW5yUQylkgcW5jyYN1ptNvCpSGTTIAqx1Uyn7SPSmLqFeT/ZXrNfaz3gO3sI3J8U
-	 AyBj577AnyVT6QS/D/8LAN+coKhKXsl+VXC/96x61hcCwd4rZBbr8ab3yfhpMYMbL4Q==
+	t=1793641178;
+	b=i7lp6PlsGEeXO0GY5ikRMMMzR944hWS3ABlLIuOseta6CrFjdk7r/6/AdswZcpEKnFBC
+	 ELCmYyAkmKjP2pj9ijcct5yEa22ERjup05WEh9ZWr98tubWelwiExvUroPZDQHrr+vafw
+	 74nbXkcqWeiotgrmWX7Oly/kSgiwXGkrCq5RjzIX1sDj9Vc2WElc7Z0ruTfVZ6dp3Pvi1
+	 h61rkQDpXN59J8LucBQ7Dm6tdaJKchualXLS39Yu6Re+zwgffilLhkPF5hcRvQ53HQkqW
+	 fVB5waLP0fRSqj22osu9igA3crTIlbZAXfCwpTwLnnqv+Sex0Nu5RcVhI8+/o3iZixg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641133;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=870eKMajB2DYx6K/7FSEPbIv9AYfZpTly12wWbb1oM4=;
-	b=ML0g+nKNE+xT9Vrn0Rkxez3qFh9xm/H4HOAhJ1N7tsNfwyjmlCJH0MWEVRPPIabnPId8
-	 J+8ZTJOj6ku+LAuU0OCSnQydjxN3bTi1eK35neoPh2LHW0vF26fIv2pI1zi1bWKFvPje3
-	 tDokhzNx50Ybm31X+WyVK2lY1dMGB+BSNVLaqKW8bYZm5fhKRAPu92bmgGJQHombnJcWv
-	 db51hFEdp8vXuI39f9EQD8Iscs+ACKhTgULPnYo6hrQnzObFt3iHb1jiW9QK1CHTbAkcz
-	 eQ20ZPVyAbLzZOS+7uGF+W7NcZUixKj/qNuJbYyE/2bithoJF1HuyyT/9AlrWbyJqaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641178;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=M46t8w35UxmCjuKGOfV083QezXATTtv2L3yE3JiuDI8=;
+	b=uU+Q97Y4G376BR/LolJ87/K9nmZx1e7FjLfem/eWKLx5B1i4SRa8+4fJ67zSFv0pXxKx
+	 PrS7/xdQpJMbSwTpmw+jJ9kfHRX+g1lOJqcK4Z4PhltvgWPXL4bsmuZkgVbCtKblea0l9
+	 H/Zehhdf+ri4pEJ4GIsKP4l6xnHoL7u/8H11b+ZIt81+il+QC3qnNe5F4MO9Sk/7mFLz3
+	 8/hvJRFgN+GwLTapLhrUx/4SzKcK79yPG15rGJYTw9kvsdPQFDlp5mlmajhKxRuUaqVzN
+	 9ONUOruBGpKgFtM5UlwBrANnksYswaWixQ2W6OcW8+W49rPw2wt1qxBw4F1wWUGZ+GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=S0ADRpOH;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=O4pF9ElD;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D575E606A90B;
-	Mon,  2 Nov 2026 17:38:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D575E606A90B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF313606A90B;
+	Mon,  2 Nov 2026 17:39:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF313606A90B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=S0ADRpOH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=870eKMajB2DYx6K/7FSEPbIv9AYfZpTly12wWbb1oM4=; b=S0ADRpOHweom0GvuJE4YabJH8D
-	9G6hlvYYPRmBZuM3yDl2p4Q215EabzEhUkcw0IRmKxQp6vH+1p3mTKsLc8fivHX8o3bN4NQ4Ukrrv
-	VFlwDQmzxT6DAFh7LQnQcxSQX07tMbNK3fVtJSrLzVZIF7DeBxN2Osky829fPz5izt1upo9CUuqUm
-	5zcif4eqEeu3Wgj1MC9SRsjabmqfR9Q84rMY83Jkeminnw4PX1NOlBHy49McUBm5HtRXDMwU5pKh0
-	tqpJVnwZWZK/5RvJXTdQHhmDprMDbSJ34RciBgts+sAgjbHj+1OnTFScGek6kfQpTZWXDnH2XKMIL
-	XCAf8PpA==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNvzg-0000000HUL3-1178;
-	Mon, 02 Nov 2026 17:38:52 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-arch@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH v4] asm-generic/io.h: fix grammar typos
-Date: Mon,  2 Nov 2026 09:38:51 -0800
-Message-ID: <20261102173851.2232734-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=O4pF9ElD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=M46t8w35UxmCjuKGOfV083QezXATTtv2L3yE3JiuDI8=; b=O4pF9ElDREeZJBt2Twdm9bHx3p
+	RvII/Jl/3ovHIH8t28+GJelDonfwvf549+iV18nBRWLoOfVJeR7EyBScHJ8WVjAOUjBsZVx6dTgtH
+	G8s39MPwWuLKoYTllh8W3tR/UKI1cKV7V/h0GCS1hzakcQ4+afF38zEtzSo/92qgHlWM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xNw08-00DqNp-QN; Mon, 02 Nov 2026 18:39:20 +0100
+Date: Mon, 2 Nov 2026 18:39:20 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Doug Ledford <doug.ledford@hpe.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Jakub Kicinski <kuba@kernel.org>,
+	Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, Sandeep Bhoot <sandeep.bhoot@hpe.com>,
+	Iraimani P <iraimani.pavadai@hpe.com>,
+	Mamila Santosh <santosh-kumar.mamila@hpe.com>
+Subject: Re: [PATCH 00/23] Subject: [PATCH net-next 00/23] net/hpe: add HPE
+ Slingshot NIC drivers
+Message-ID: <a5ed91f4-7d53-41fb-9661-ecb4507089b7@lunn.ch>
+References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
+ <20261030151121.1f232b50@kernel.org>
+ <7d4583c2-e8dc-4ffb-bc45-e2121f824b14@lunn.ch>
+ <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
+ <71e3083f-c845-4953-80b7-38682a4cd84a@roeck-us.net>
+ <f235dd80-477a-44ea-955e-93252ae4e7dc@hpe.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,37 +79,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f235dd80-477a-44ea-955e-93252ae4e7dc@hpe.com>
 
-Correct grammar mistakes.
+> Our only allowed AI inside HPE is Github CoPilot.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-v2: rebase & resend
-v3: rebase & resend; add Andrew to Cc: list
-v4: rebase & resend
+Now think about that you are posting the driver to a public mailing
+list, to be archive forever. All your customers have the driver, there
+is nothing secret in the driver. It is GPL licensed code.
 
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: linux-arch@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>
+Does this policy make any sense, in this case?
 
- include/asm-generic/io.h |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
---- linext-2026-1007.orig/include/asm-generic/io.h
-+++ linext-2026-1007/include/asm-generic/io.h
-@@ -1113,12 +1113,12 @@ static inline void *phys_to_virt(unsigne
-  *
-  * Architectures with an MMU are expected to provide ioremap() and iounmap()
-  * themselves or rely on GENERIC_IOREMAP.  For NOMMU architectures we provide
-- * a default nop-op implementation that expect that the physical address used
-+ * a default nop-op implementation that expects that the physical addresses used
-  * for MMIO are already marked as uncached, and can be used as kernel virtual
-  * addresses.
-  *
-  * ioremap_wc() and ioremap_wt() can provide more relaxed caching attributes
-- * for specific drivers if the architecture choses to implement them.  If they
-+ * for specific drivers if the architecture chooses to implement them.  If they
-  * are not implemented we fall back to plain ioremap. Conversely, ioremap_np()
-  * can provide stricter non-posted write semantics if the architecture
-  * implements them.
+     Andrew
