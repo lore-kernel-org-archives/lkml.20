@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793653656;
-	b=C0cpub3kf8BM28/mNgcePEE7VtIC+qb/szZMhFww8UpE47ZR8GehoTMph6AfOW+fnyks
-	 zi9qKw2GmTN6HDhcfJE3rtIX2aCyoSLM+mPXZnCVRfy831xoCvp4pz6emb9owdjRX1TuB
-	 bZ5wbs5tpdXJpJOjlO/M+7HK1xHCkrLTdC1XN8TO1VK6LsweGfKD0ulbXCDks/X6lvo9r
-	 pV9IrFADe+FWDwOQFK20zOV0fUBLfnn0s4Y0L+upRRVcKD2D17cdAhs0XfUTIlWMPmwx0
-	 NM/Ll9ZMKNJxJWdKuidVrkx3wEnCU9JMWURjN/jl1/XIGe8ixj9hGqB9Zai8RJm3Fqg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793653656;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793653737;
+	b=R9+OUDhMHkx8LR9akVxk04BocorX6CmPM8cjQ0I3SKUdhMJcrCMxO+ELyVGt3GxSu/68
+	 JDyfj2J9RzuVWJtt9oMr9+tfYS5g5BEK/3iCvRsOoOhNkn9Qs8JmXq8U/1RGJJKl1zO1L
+	 phK7JV8q86Hpfm5fp9UEyTZIwk/fAGhRanjbwzrua8XCR+k8yk4ObtmkRLl6SjEHnZ/Iq
+	 TM/jR79/oguD7u2+DVrMkXSMBgtR4NgKz6TkI0r1X9TVH58ULSaA1lpdzzluIiwn+y3lL
+	 Ll8Dynr21NwoF6u2ocOrYYWqQ26crf56kdHN5JvYEaAjDfSE4zYEPot9i18HkjGAc1g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793653737;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=b2vLF9RcVkN6cfLMLh4ULuVTknCF3Xevt20oONWX7/g=;
-	b=Fpr56nh5Flb3KO2i3Y7Ureu+kY264ImR3Rvwo2L0qiZy201l5QdN2ZmjqTnWupehqQca
-	 tuLqQ4cyA4hKPvXlv/K4mN7zgo2LbfzYvF8hnC/hM3eGw6QaKM3KEEBzxTFR+QP5XbMBS
-	 IkXYIY3XcipZArjJbNTE82W4/qcGsH6lQQpFBeGtgJFh4VeUKuvnUaggY7o+itBOAKFL2
-	 dk3GSUi0ArRdvz+HGhurtDFLk+XOPin0qGcwQYPi8PO5+cBks1pPa3t5eqheomDOysKSi
-	 oJNOSvrSJ1fdhIodzxJIpoVkTeGDlrUa7k5c37nLuxsbSdMuP0QUsXTTld7aeV6F/gQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=J95iuE1e;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QGD7MhFVk1bv3I3FAIE488QygLRtUHvj1HzdJadYoHA=;
+	b=RR/Jc/qBwwU+HS9fe9HuBCv/31byuzCSeFsSrAVii22691QZockNRRPmF7RjJ/b1gGLk
+	 x6CFnduSK1RjUQWpUlJe96XRTnAvY2XIZeSUC/pm20kahBOzvdW9ROfGvOxOmoac72/Tc
+	 zZF5rtFRlBzIILNkxXROwttXamgm9Yhk1IlZnv/RJZ44dWTHs/KqxMNSRAnvkWsfY1eQT
+	 ZFAFLk96BToUVWp+S0mP2Ljnjyxhhfl9LRDIwTZm1mtumrSwPGRnwiVyGrlgYrFC3Lwsd
+	 DzyjwGJbgnMj3bmt2IZ0FXXA0CAHVy39YXLK5Dwrr80VYVImjYTq2KJb26pkY8xq03A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Je2WuyDY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.42
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A383E606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:07:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A383E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1287606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:08:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1287606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=J95iuE1e
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso3105256f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:07:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Je2WuyDY
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7ce6cb4c6faso2045039137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:08:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793653736; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XgKnzzw0DDhkvJh5H1Cz89tf1q0xIMSHyWywoW0q0muD66p58z5b6Y0GoLkNFsfNM0
+         quLAFAxpZ3go3gjExccFD+fS2qk64y83OE16m3xSmPRgfmaTgJhV6PrTUr1VbG29VqM2
+         uCJavAG3pjyu+CVLqKj1iwkTRpAr3iUwz7ZkwoLOMqR9aBND0atb3kCuOJ/86VgRb3kz
+         hgQ6MoNa/KXAH6bBM1Y14PhxkteWk5GQl0kN5sM3RDSBk1G/x6COatP4ZD8bVZnpMJzW
+         S46Hk64nLxI/yNmeNJAOfYi9V1GUkoY61gyF1KHF4bZQx0/ZeuPXwOR20jIwgYoktzjy
+         qbsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QGD7MhFVk1bv3I3FAIE488QygLRtUHvj1HzdJadYoHA=;
+        fh=oO8SiXtbJ+FXcPT0mUtRShmxjMWUptzRH7Rrtp76Kxs=;
+        b=ZXJzqo0o72jv5NVGYXyuTox+G2lylMd9F9SzRVWGYI8QSIZt52BbS+IptFadIB/5Fz
+         J/LCDPsTld5cTtHZTgrBcJ4LfrOVoRyiM4kYiAQz4xCAzzVvRoiCOgSY2K/vpuRxUVnT
+         t6QcCYe1L8Guxurh4qtQchPB1hrkoTSnuoWNO02MWh2dP7eAE8dDBF9ZEXbsCjxmQsT6
+         Os08pnvWfcuplhqo/dvn2iEXvThCApkvkgsGP3sExDk5kRQnLM4UZ2H5CoJoT8auk6Sk
+         +5MNEyHmbFAk6WJD/pxccs0TKdb0wB6pvONWjCr4AZBAacjQaZp+YFKXFI+JYz/YepVy
+         Yprw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793653653; x=1794258453; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=b2vLF9RcVkN6cfLMLh4ULuVTknCF3Xevt20oONWX7/g=;
-        b=J95iuE1emN4u67AhxNrJ+MCVmsKuzIrXYeEv3Wa877KjUoe+996S3nBs9dUqHMaPfB
-         KTBLowvPiSgDYDMUWynCYxaslvP4szcoaYDTCUoV33GMZ29iarRkkFWpAQC46fARh5jE
-         0F+FVIPzGfQqP9qWmFI/ZdSNsoAQF1NQGg37Mtcm7gAdEsRyT5BrQXnk869p44jQCrPc
-         5G66BLQu/WZZd9rCyf8iHVfTE1WW8S+5nVVCbwoWfp4wjBnnB4S+JphXe4q4V9+LE6dm
-         fsx2XGECKokho+XUwB8g3vphxpgCF3l+lEqcPT22fZOLW91s10TJCS3UX1LRSPwfwOFR
-         5AfA==
+        d=gmail.com; s=20260707; t=1793653736; x=1794258536; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QGD7MhFVk1bv3I3FAIE488QygLRtUHvj1HzdJadYoHA=;
+        b=Je2WuyDYanAdaei3Z5xuc+nZGwnpXpv4gtbnKDQvC6+EFqCMGjJGyb5sgtLcg9luLx
+         3wXA6QEMykjZcOPbssGQuAJ37FHrDPX8/mvyUctntwQt6buhIx4n0o4qSN8hyqX/SFIj
+         HEtdvcVrSOAWfnPIv2uxn5MlDz34wTVmtbki7Gl5TKHAo0UhGDZBFuJIU5Bu4+NDCDtW
+         a1CEA8LZ04DxNRmmywtPCIJhWZcHqf8vBOgDeSNC0BABBzk5ojhjBU9Xcp4Rv8IheR5N
+         yyh4G+hQwBpJy4HE/viMR4TOeBHlcQu5qgTbwFfsYalQ3cskOxMUzMjOYAwgHSlWLxpF
+         rtXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793653653; x=1794258453;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=b2vLF9RcVkN6cfLMLh4ULuVTknCF3Xevt20oONWX7/g=;
-        b=Tvje0mPMv946ZlBlNgf8k42CU86+fdWd7zP2zvhjhbXK/pMwyKpQddDabs1rdyIF2B
-         oZJHgjNt85owSwmqWa2WTyyCfTLHFguWUYAoyx6xhNOkvWgF0KiV6dqUUUbS5q5Bjvbt
-         lpl6OC9rQKq43NFiIvg2UJLg/K9MfIfjfnOvbPFgcaOsEuhxmcRxnTV3cd3wFL/dOfvr
-         6gP0XTfk2qjhh0j4rcRfqygfS9h2y0XkZOjvaJ7e3qV9r81NwXodcowq8iddIubqmuKF
-         jny64O9VjvcOEMJ9nw7FlC2jtZMsknEMKUPScvdOjr30xQKP+wlU8EQHFSQQkB/jxE/O
-         HD4A==
-X-Forwarded-Encrypted: i=1; AKwUvBwVpnQW/q/+Ako0xGuW+dZkD3PsnCEHFdaebt1sXe/XZUBBHLrkYEsoQ9qYSQV3Vhj6JxsX+ARZ8FRMqK4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/HNSNnS5UF+EyYxY/8wvtrRVFOT8+BtG9Eswgb0AU5f1Jr1/p+
-	GrKd3TPQrxL63l7x5T/jTOTECcW+AuIGZ1fOlbomuoi8pi0VlZL2+QNRHEHff4//fR8=
-X-Gm-Gg: AYBFou0BpYPhzmNYqEl9390FMThfQwJF3tXqXIQ9ctRW6NCuVN63O1oPIuaC1wjoEJd
-	70aebEJNNBa5hWz7eNOJ2FCBPvB4St5GdQ439gfsr+mbxdh3w49zcup5ksj4G7H8fcRwWwU9jCq
-	9q/vdsyXkMgnfUNLBRKkgzDpUWx2qCy7hkL/ZV558YS3Y3N6KppZw4N1E6hL4iujno0q+TIGvFo
-	41g4Ee/Xgzf+MmsiFP978UJO+jZqvC1AH5+tvvkkQXw0BD8szbZ9gtcRrpC+838P6c/bf+Kn6P3
-	VooI1Y7Ut/J6Au6YzRbUnNK9aL6iHC5MLQRchv2CG32MfMK9qJuhRwu7+YHa8NsSBqqV39FJhG8
-	X/ip5EoQL49WhtEnA1WBdadfnE9FUrg0+5TCsHzDvItAWF9VM2yL3sUWAL2P8SaIVGdDbKLGYYH
-	Nb1xWuYKIHcnmX69VqAW7AaFsaZzfAcJ9RqzSsF0KgKiYFk3PsaN1Jw/tOuEfd2LGCUisNrfKA3
-	lNMQGbRoNS8psPPezNre7Re5a2i20CHTPx+MLYb9BJpFgHs/EnQd+6leB4MI6NUdVuOG9gHRdTV
-	traqTD51E4Y4G6K8YNB45XVh3e0XLvbkjrFahRZuQTulMl2cWUaPJqSq4CowyLsOw1IWEwB5dkg
-	I3dJjtKCSG7K9PbO8jA==
-X-Received: by 2002:a05:6000:41c3:b0:48c:4658:602b with SMTP id ffacd0b85a97d-48e6e4f5605mr24195118f8f.10.1793653653017;
-        Mon, 02 Nov 2026 13:07:33 -0800 (PST)
-Received: from [127.0.0.1] (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8a7d1sm21765308f8f.38.2026.11.02.13.07.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 13:07:31 -0800 (PST)
-From: Carlo Caione <ccaione@baylibre.com>
-Subject: [PATCH 0/2] Fix clk-divider rates above 4.29 GHz on 64-bit
-Date: Mon, 02 Nov 2026 22:07:19 +0100
-Message-Id: <20261102-upstream-clk-divider-large-rates-v1-0-eb17035bfad2@baylibre.com>
+        d=1e100.net; s=20260707; t=1793653736; x=1794258536;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QGD7MhFVk1bv3I3FAIE488QygLRtUHvj1HzdJadYoHA=;
+        b=QJrTziLevK+FEXYvrkdgPimP49BeSDOBB1pPUY8j6FJPPKMX6RCKBFd/+jBBf/tWVi
+         dqK9hvm+2tDWKx3oKJdwmd9CfYT+z03BOuKkxVa1zTzX9tp1sfSRfW5UUwP/ayI8AQKc
+         FK67lx5LkamYIra1e7B3pK8bUvcvPQa3Q0SY3QbT4f6zmjDhmIqmq/sgto2rYW3ATl6w
+         kpricp2uvhTimoeG+ZDaBJZdycffUYpS1LGzG24JnZwdkLj2JA0WqPisSLzzML37PxF5
+         +J3bFqkjzxCL4tL6UyaPcZ7Tq/K65uCi8beMxNIHXJTDAy8ixcQJWGgxWrFYyEGgSKIP
+         g9/A==
+X-Forwarded-Encrypted: i=1; AKwUvBySVkNJ0LpzqIJ63dqK9VQEvWoz65Q9W+8wlB8CK/V5aA3YDhnxcpwYYm23cPadYlG7yPrB0xl51l1/B+4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+d+3XWWVptybXCseNYR3tDg/dr/UHCUDQ8QeyR+8LG22RTX/nS
+	gTu46IKlXAIJQHeqXX5jKuKUz/uUMpLEk2BsbPixTqj1meb73kAcSBpZyMmVyGJ7hx4U2OkMb2W
+	Ieka90BANVn+XeOEhBdmLteI/6rYCxZ0=
+X-Gm-Gg: AYBFou1cH9Sd5xBy44xnzywF42Vj2JmQ4b1KjWp577ddbVgJEb5+2rXynZZOFhiE2sS
+	Eq2fPOFJpL7pQCePxk3IYx8hWPCV1TKg+NdMgGSNCdBLVBAHvuJpAJufnm+DAuP0lYJ2xZXKnTI
+	DdWcYWAx/7G7U/WiULFS5TaVRhBL9TxX7QHkU2pUAQ3y+MVeoILQTRqeLms7yhafQslgm3S1mVV
+	hhwLILlOL/3XsEE9XMFOVX0ZXyBITFhQC10S97+/c9s6pxX8tIIyVm0uGJP6eUUJ0aUwtasT8bQ
+	mGbGUrg3zsg/JUDVXAEk2b6EOpMT2P+mA2xLLQwKBlY9153qYJm31P7sXq2H8aDy9X/wWgPBVuz
+	qTezaf9m27p/y1IbHK1eJD0fQDaZLW8zp4eTDo8EYH8jnI3Yq103CyQ4yxViYAVapZk7iWQNHxp
+	TiPWSo18di8vjl1rV4wg==
+X-Received: by 2002:a05:6102:370e:b0:7c3:2168:d603 with SMTP id
+ ada2fe7eead31-7d071f40bc7mr4465939137.0.1793653735698; Mon, 02 Nov 2026
+ 13:08:55 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,50 +105,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ6CMBCF4auQWTsJraSgVzEsajvqAGIzU4gJ4
- e5WXX7Jy/82UBImhXO1gdDKyq+5wBwqCA8/3wk5FoOtrTOmtrgkzUL+iWEaMfLKkQQnL2UpPpN
- i19rGtZ1r6HiCkklCN37/Li7937pcBwr524V9/wB4Qm7hhAAAAA==
-X-Change-ID: 20261102-upstream-clk-divider-large-rates-872467864e39
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Brian Norris <computersforpeace@gmail.com>
-Cc: Brian Norris <briannorris@chromium.org>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- David Laight <david.laight.linux@gmail.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Stephen Boyd <sboyd@codeaurora.org>, 
- Carlo Caione <ccaione@baylibre.com>
-X-Mailer: b4 0.16.0
+References: <20260910123951.1241279-1-max.kellermann@ionos.com>
+In-Reply-To: <20260910123951.1241279-1-max.kellermann@ionos.com>
+From: Ilya Dryomov <idryomov@gmail.com>
+Date: Mon, 2 Nov 2026 22:08:43 +0100
+X-Gm-Features: AclHuK_PiPKWF4q2Nwn7LD0p5r5C2AXzqyrRzuUqyoEaVhZH22H5uFHAPxl8LHk
+Message-ID: <CAOi1vP9mrDMaABV=KtLRwrGVkBrPrGGBU8mUUnfm6wpdn_rM7Q@mail.gmail.com>
+Subject: Re: [PATCH] net/ceph/messenger: print TCP connect error
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: amarkuze@redhat.com, xiubo.li@clyso.com, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 64-bit platforms, the clk-divider truncates requested rates above
-4.29 GHz when computing a divisor. Fix it and add KUnit tests.
+On Thu, Sep 10, 2026 at 2:39=E2=80=AFPM Max Kellermann <max.kellermann@iono=
+s.com> wrote:
+>
+> A non-blocking connect() usually returns `-EINPROGRESS` and fails
+> later, asynchronously; the actual error is then only visible as
+> `sk->sk_err` in the sk_state_change() callback and was silently
+> dropped.  All the user got was:
+>
+>  libceph: mon4 (1)192.168.1.42:6789 socket closed (con state V1_BANNER)
+>
+> Save the error in the new field `ceph_connection.error_code` and let
+> con_fault() print it next to `error_msg`:
 
-Sebastian Reichel fixed this in 2023 [1], but later versions moved to a
-new generic macro and were never applied. Patch 1 resends his v1 with a
-new commit message. It uses the existing DIV64_U64_ROUND_UP(), as
-Stephen asked for then [2]. On 32-bit, the rate fits in 32 bits, so
-div64_u64() does the same 64/32 division as today [3].
+Hi Max,
 
-[1] https://lore.kernel.org/linux-clk/20230519190522.194729-3-sebastian.reichel@collabora.com/
-[2] https://lore.kernel.org/linux-clk/5e9e776db6628d02d7081292b81ab102.sboyd@kernel.org/
-[3] https://lore.kernel.org/linux-clk/1b74d2ea2c3a458694c4c74f2381fcab@AcuMS.aculab.com/
+I wonder if saving the error that way is actually needed.  Can
+con_fault() just reap it with sock_error() at the time it runs?
 
----
-Carlo Caione (1):
-      clk: divider: test: Add tests for rates above 4.29 GHz
+Thanks,
 
-Sebastian Reichel (1):
-      clk: divider: Fix the divisor for rates above 4.29 GHz
+                Ilya
 
- drivers/clk/clk-divider.c      |   6 +--
- drivers/clk/clk-divider_test.c | 117 ++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 118 insertions(+), 5 deletions(-)
----
-base-commit: ab94dbf302331eed3679e262e1d8d1a73f308640
-change-id: 20261102-upstream-clk-divider-large-rates-872467864e39
-
-Best regards,
---  
-Carlo Caione <ccaione@baylibre.com>
-
+>
+>  libceph: mon4 (1)192.168.1.42:6789 socket closed (con state V1_BANNER) (=
+-ECONNREFUSED)
+>
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+> ---
+>  include/linux/ceph/messenger.h |  1 +
+>  net/ceph/messenger.c           | 23 ++++++++++++++++++-----
+>  2 files changed, 19 insertions(+), 5 deletions(-)
+>
+> diff --git a/include/linux/ceph/messenger.h b/include/linux/ceph/messenge=
+r.h
+> index 6aa4c6478c9f..f3aa977d7886 100644
+> --- a/include/linux/ceph/messenger.h
+> +++ b/include/linux/ceph/messenger.h
+> @@ -482,6 +482,7 @@ struct ceph_connection {
+>
+>         unsigned long flags;  /* CEPH_CON_F_* */
+>         const char *error_msg;  /* error message, if any */
+> +       int error_code;  /* errno (negative), if any */
+>
+>         struct ceph_entity_name peer_name; /* peer name */
+>         struct ceph_entity_addr peer_addr; /* peer address */
+> diff --git a/net/ceph/messenger.c b/net/ceph/messenger.c
+> index 212e7797f9e4..f989e043686d 100644
+> --- a/net/ceph/messenger.c
+> +++ b/net/ceph/messenger.c
+> @@ -398,6 +398,7 @@ static void ceph_sock_state_change(struct sock *sk)
+>         case TCP_CLOSE_WAIT:
+>                 dout("%s TCP_CLOSE_WAIT\n", __func__);
+>                 con_sock_state_closing(con);
+> +               WRITE_ONCE(con->error_code, -READ_ONCE(sk->sk_err));
+>                 ceph_con_flag_set(con, CEPH_CON_F_SOCK_CLOSED);
+>                 queue_con(con);
+>                 break;
+> @@ -448,8 +449,10 @@ int ceph_tcp_connect(struct ceph_connection *con)
+>         ret =3D sock_create_kern(read_pnet(&con->msgr->net), ss.ss_family=
+,
+>                                SOCK_STREAM, IPPROTO_TCP, &sock);
+>         memalloc_noio_restore(noio_flag);
+> -       if (ret)
+> +       if (ret) {
+> +               con->error_code =3D ret;
+>                 return ret;
+> +       }
+>         sock->sk->sk_allocation =3D GFP_NOFS;
+>         sock->sk->sk_use_task_frag =3D false;
+>
+> @@ -467,9 +470,9 @@ int ceph_tcp_connect(struct ceph_connection *con)
+>                      ceph_pr_addr(&con->peer_addr),
+>                      sock->sk->sk_state);
+>         } else if (ret < 0) {
+> -               pr_err("connect %s error %d\n",
+> -                      ceph_pr_addr(&con->peer_addr), ret);
+>                 sock_release(sock);
+> +               /* reported by con_fault() */
+> +               con->error_code =3D ret;
+>                 return ret;
+>         }
+>
+> @@ -501,6 +504,7 @@ int ceph_con_close_socket(struct ceph_connection *con=
+)
+>          * shut the socket down.
+>          */
+>         ceph_con_flag_clear(con, CEPH_CON_F_SOCK_CLOSED);
+> +       con->error_code =3D 0;
+>
+>         con_sock_state_closed(con);
+>         return rc;
+> @@ -1613,12 +1617,21 @@ static void ceph_con_workfn(struct work_struct *w=
+ork)
+>   */
+>  static void con_fault(struct ceph_connection *con)
+>  {
+> +       int error_code;
+> +
+>         dout("fault %p state %d to peer %s\n",
+>              con, con->state, ceph_pr_addr(&con->peer_addr));
+>
+> -       pr_warn("%s%lld %s %s\n", ENTITY_NAME(con->peer_name),
+> -               ceph_pr_addr(&con->peer_addr), con->error_msg);
+> +       error_code =3D READ_ONCE(con->error_code);
+> +       if (error_code)
+> +               pr_warn("%s%lld %s %s (%pe)\n", ENTITY_NAME(con->peer_nam=
+e),
+> +                       ceph_pr_addr(&con->peer_addr), con->error_msg,
+> +                       ERR_PTR(error_code));
+> +       else
+> +               pr_warn("%s%lld %s %s\n", ENTITY_NAME(con->peer_name),
+> +                       ceph_pr_addr(&con->peer_addr), con->error_msg);
+>         con->error_msg =3D NULL;
+> +       con->error_code =3D 0;
+>
+>         WARN_ON(con->state =3D=3D CEPH_CON_S_STANDBY ||
+>                 con->state =3D=3D CEPH_CON_S_CLOSED);
+> --
+> 2.47.3
+>
