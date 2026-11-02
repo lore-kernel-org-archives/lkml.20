@@ -1,125 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793649487;
-	b=g6NENbpPXzZSmAV30crW2ldQDbpaM7IIhklygwsFnMeNQAbWyHwMPYYvb0dOQikpmmLB
-	 aT5A+GI5f/vQk59uwbqlU3ALo30KIUVGLtY2w+eit+EJx90aGhJVwFGgYZBvgSHQSRTL7
-	 k2ji9au0LuFDYtwI8Oz6832v74l2NYtV0Os00hhXllPtKgNKWgy+TETVejMZBCmaR1Lct
-	 Yh0lLZtQqIZT/C833DR78b7IBP8DkirvlHG4qGWSKT5crBcAKsWKW5zllpPVr/8Cz7DAB
-	 ChwPR/fFZZtEJJTJJJgpQJbvwoEXUg3vG74/PRFV4HDRqQgG0CwjiuoDsOjkCfcfdjQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793649487;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Gs8th4SEozRoaQAfmCE6xTxW3o2poAMT5v1gu4UQZJE=;
-	b=RyiDDgMfmzaaS1eeNLltlGSzvW+4j1o/Vp58JwJe0dS1AhCsw640SWXVlEiczF7XwzuE
-	 ippUZnZ9Bk/9J5WrY2rDAqVXVLwaboMwm8TNtkTK/dm1oMDsKYVJ9+yE3ffiBbDW7Yu05
-	 utjlCkzbqZLLkSBBKM/QvPvxkBeh0XzisBUY23ecqEglLFskckGSbHj1uKZUda7Lx/yXM
-	 RdN8EU55pzQ4y1fpnk9Qj+pEYGhK0kl21HRAuvM6bLVHnw6K1gO//QLIaJ1nKM3u6HgnB
-	 F4g8bf4ggRPx0GHVTGB6Z94Mev3XPN7pZDVyZIowlJR+uKkLH+LtPlSFhyCyfdPmDHQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lK1UUgMM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S+bgoDWt;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793649532;
+	b=140TqW4rcOKiOjrHcnrQkXVahbCSSvKYNtEbzf3v4oEzpDqZUA3KrFSXv9ZaK0C/0HLr
+	 QT81LGiQsX8MW+JRgBPnZxiEsriIto5DY1e49WKdAQb+4ZZSm/A0Odk9KjnCnKeRguY25
+	 hx78AWcTBeBzRjCPUb/FNSz8L1RTQWR14yaY38EcrEVJteXxGupPjkVfSbP4NDSeV++cw
+	 5lcnrSP11Sc9SVarkppHlkCdjPWPCTFwq9NGn+xclSSRAFO205DE2INtR68fHwiSSCG9F
+	 Egx4jHt1hxh8pMRA/syzRAB3xJdJnfwxnpo2XeLzzD9NuoYm/Ola6mxmCQdB/hDcKtA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649532;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tl39y8nasyQK5FeLS5mRCJiOpnc6BjfLdfWfcIW374g=;
+	b=ToOSxT2FRBKXgvbGWFQXJzPgLdGqxL3ld06zWdJi5V3+paqACsNcOGHPHk7/aTUWEpFf
+	 q32oe9XcqvOtJBujfTfO7SS71M2pGfCD/X+XbdTqbqc6WD9lPRwaPrv4IeAZAZkTLKPc/
+	 +Wc9dwCtWIQK0QDyRahtAlJ2nVWwe8uKiZPouq7AJDZBJMNtcf/wY7/TtTKkjvTrlFh6I
+	 aPEueSCwgZg8mzNTY6OdkrK0NC0qW5A5DW3uezKZiHK8FrTqPFhoCDMn0FBTUB7XKHDRd
+	 RuAcNCMdyhkKigS8OviOYQcCaXo4oJcn6rh8s8s18FqeBTX8A5oLtEXvZiPK2Dhi30g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkCbJN4J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C462606A32E;
+	Mon,  2 Nov 2026 19:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkCbJN4J
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793649532;
+	b=1yfj6yOzWbjWHmQevQNleTN/TxzUMJX+z6RTtyJ7XARzgQ6ffrfWXK14oDuF1Ca+sVJ5
+	 /DrjRt6SwSTcePeXzKKYM/x9wQD3UNQa+yFAiQ8QVKruPCsjeYuCIQssnSeezP2j8y9Z1
+	 ac23B/q3K5QBo0VBcql2J5/fc6ZKhl5lbvjVMcy6CG40rgIYdCZXxj4CpMSAeqW+WrBb3
+	 7PvwIMThUKE3aXbHRZsi2v8/7wQTXOR4Z6q74bASMijCAd/2K4VCNXhYnLO/LkekynpbZ
+	 X9AotJceaWpecJAXkfHeOhOVVLp8Xu4QUubqZ2bbHaT06NA+V+SUK3WqM8o3F6UDPUQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793649532;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=tl39y8nasyQK5FeLS5mRCJiOpnc6BjfLdfWfcIW374g=;
+	b=V/T98xXWvDi5fjtML9XsndCOresG+SStRY6/GOYurk1lMrk7V2WIyucH1lurTDyICVVC
+	 Fn65RyfXAJrAHcNae2vnOhJ3iHs5af2U3P5YyvhVs5K6ZtTA9EfdqjfAEWGSjrV12NSU2
+	 c/hhPyLZ8RuZdbrhj8mJMzHL8v5dy+TXAOM+brxET5z2JBDnoUlCF6DkzsIrKLhjTeSdt
+	 4vtyjfTA2xLe/PqSRevRnb3w7xj8KfGHNbqg/h+soJohRmpZIpPw562nDVZfOTpcBWBz0
+	 Z3rQCG46phJpjp0f2yADHK8lvNnxo1MKiVyGGvWp5a8i58oJFwVE+rLl1qB/0tkkfLA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55F7606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D55F7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lK1UUgMM;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S+bgoDWt
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2HPFId1383144
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 19:58:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Gs8th4SEozRoaQAfmCE6xTxW3o2poAMT5v1gu4UQZJE=; b=lK1UUgMMQ4M+nSdm
-	jUtNwcV5tUBSKR6VI2R4h7mhNBNlagdmdy+T5VFiGgfsxWwW9WmoEAi06aev/fp7
-	DwlALsquMaMk+4vq0QEGuo4DovwMQcJ1vOTfzJDPuaeDoQJvZSe5yMiGDnygDQFm
-	5wgXz77DMcZ+2/QP1iNQskQVWiSdE0xa8iktbl/N59BeMM4mETI/ieHpHjHzzTPT
-	zGaR32W4qFzp11ouwiyk6C8xUCa+68anUg7SnvqT/wqjqiHlxcxmMHG4U5PVR5h0
-	oDkbpKnLfSxwsCrEy88R0PEqhaGRQLOCokS7Bpvm2XjOlV6L0fXx0East22/lbKR
-	sbYoLQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqmvtpa3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:58:05 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35cbea41088so4691531eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:58:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793649485; x=1794254285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Gs8th4SEozRoaQAfmCE6xTxW3o2poAMT5v1gu4UQZJE=;
-        b=S+bgoDWtqdZduWFKiJh9PmQHV0MQVG6us4LM69nImM0I+snLk+16FdBCZF1tqPVY5i
-         FDsAtUcBd+PARiu7JBS21L7ap2pS70bHDMHlwxL55D45AObWO+gro/1J8JOVznxzhjm7
-         qv/X/5S88NEemwITAIhECF9qhtrvb2THLor2Ue32YmbsVuBkYKzQHomrpqeoW8ZhujqN
-         Q7ahp0LjHMqBXuw2bxqEhKNAeb/Dkck2gvgpnWZyPnBvuSdskp6ukp0H+RTCtiuUmM9l
-         O4d4DIa1tc/FGmMNSVsVyJ845cPXiRJJ9m2a/78pC7EdkduhBMoTWEWFswSrQOpiVvKC
-         Gimg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793649485; x=1794254285;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gs8th4SEozRoaQAfmCE6xTxW3o2poAMT5v1gu4UQZJE=;
-        b=Amoiu87pXDMxilzsOGUVFF7MYEqtVweEF09t/grqi2TcQSTI8OnjrUNsAmfiNcZ9Dn
-         eTv+N7YU5uOzFzC+BSQV6lmHJLxIFo8KxdKC928PHQPevKNTG2G35pniCB1CUTEB1p99
-         A5jVF1jiUGverQhUByiT6bAXhq7HhgBoAQ3UiYnaWeWE10u5BqmaAsr4uWIpwEQDjuB4
-         Uer0ycUqIW8A8LHUxlW3IQLvZzPKJ6hvUC+LHyB4ZbOnQOGURPHOxrIj+N2nUp/Y7XCX
-         NkLMzi2m935/LUBlRAZGOMZGD3eY4GwPY/Z80AL/+N+wM5m+fDSDUkxQOcEjccEvSeqj
-         KcRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznFEAx6lPqcBKTYQ20m2QcTBGDCF5nVf2kWSzEWU8mXoN+RaE6GAEz34D24N628RPvVx4OzQj4ggTHRZo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpbFUm7M17AvdFKrNkV4e6ttttps43aOMcDtzVGwHauvNLpCVU
-	V0o+waKre7jtKI+kBQnikm+TmhCXLwuiEbtNLl/hobvdXrPIsfDKrroAItqRBf0OBt6CqaAVIYf
-	QM1dLvTx7SGg4PvZajNj+wywkCUa9AzGXJk+mfaCtjfTuAnI9yGm9cTCAFTm3h1LTW0s=
-X-Gm-Gg: AYBFou081fVCk10wo2BqTotrQlJFhP5OJTgIiNkaXnWaSF84D7OopRHX8cEb9TAoXA8
-	IG2jpUDe09/EevpHTKXXYZjHltAhvzZ9SlrEb3NTLMZgkLaLzsvu9dqkxplkj3fTKmGICCHy2w9
-	yebJqO4naux7uYe2Sx8eCnFDeSa67GOsJDKL9KsUznBRnlzka2+y6QMmryQ8jXjZpFSrhvvQbQN
-	wtsKD6x5kKZNyoSmooyFkSVUsQLtzxQ0ZKjsQwvLTbN+rXpGeueSxLbjUZEOfKo2Q+ffYLg2v7C
-	964+WrBZtz3QN5bnvXGTc+hkri9eRt9KcbHNGBsvwI62kyhY3V/4OtOQNJBcKW5pKEv1GxrjPeP
-	ObCfiI3OU+b+BsqwEIz+GihPkWTxbzugYf/hNXHkA41XrLth5aAtcX1o8wR83CghREq52+/OBQL
-	PA2XTdq+txHsl33aKrDgQmFwIf0g==
-X-Received: by 2002:a05:7300:7a83:b0:35e:2c6:d46c with SMTP id 5a478bee46e88-36a42362460mr15804684eec.10.1793649485219;
-        Mon, 02 Nov 2026 11:58:05 -0800 (PST)
-X-Received: by 2002:a05:7300:7a83:b0:35e:2c6:d46c with SMTP id 5a478bee46e88-36a42362460mr15804647eec.10.1793649484607;
-        Mon, 02 Nov 2026 11:58:04 -0800 (PST)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6f7f9sm46910086eec.25.2026.11.02.11.58.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 11:58:04 -0800 (PST)
-Date: Mon, 2 Nov 2026 11:57:58 -0800
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: "santino.wang" <santino.wang@mediatek.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>,
-        <linux-mediatek@lists.infradead.org>,
-        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <light.chen@mediatek.com>, <Fred-WY.Chen@mediatek.com>,
-        <arnab.layek@mediatek.com>
-Subject: Re: [RFC PATCH 03/11] soc: mediatek: dram-ecc: add tracepoints
-Message-ID: <20261102115758.00005a16@oss.qualcomm.com>
-In-Reply-To: <20261102092334.138759-4-santino.wang@mediatek.com>
-References: <20261102092334.138759-1-santino.wang@mediatek.com>
-	<20261102092334.138759-4-santino.wang@mediatek.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	by smtp.kernel.org (Postfix) with ESMTPS id BB7941F00A17;
+	Mon,  2 Nov 2026 19:58:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793649532;
+	bh=tl39y8nasyQK5FeLS5mRCJiOpnc6BjfLdfWfcIW374g=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=WkCbJN4JMjvIzOrtDXvNc+6dXg7451RHXlD3Rk2fCVGghqBGQD2cGCwUVBlOQXDcx
+	 lCIyhtfTftWkUxSdcZ0D0UIKnpHpm7I5oNFvtN6BR+CiLDIvoXcCwLxop22l5HT1FY
+	 z5czKCVcah4O0sqkHmaM4wSkMzVwdCCFSJ6+KhKHjy+nfl5kbQ8KJf/XRArHod25Jl
+	 lFjprdbj5PymOUtsnU/VEuT2mLlWC7acdUT46aSZmFRjNvAQo3cGOAL8ptviHdkybU
+	 94J6T7tEQIxm7qbDL71GFVhOuhomlxrjNndBZdtruaTqzM1WHb9x9YzlqBsAejiMAw
+	 VdVOQvwYHA7cQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3B62C46621;
+	Mon,  2 Nov 2026 19:58:50 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Mon, 02 Nov 2026 21:58:49 +0200
+Subject: [PATCH 2/2] backlight: add ktd3137 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,144 +82,360 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-6768-ktd3137-v1-2-b5b4f903c56e@protonmail.com>
+References: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
+In-Reply-To: <20261102-6768-ktd3137-v1-0-b5b4f903c56e@protonmail.com>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793649528; l=10271;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=bd49c6i0vG9Qo3Fa7Sy1aX36q0KV2KecDmkckt4D0Yo=;
+ b=EfGo5r+00OE9bn4Q8FtA7p4MMvHcZ6V5GaH56T795djzPhl7RGGov7yapqAoflAQUPmD8de2P
+ vf0gYzdGRpeBc9p/eDhk1PjLqSZ0duAl0coWGNyh7JP08fs/ts6KtCK
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TMDQ2Fla c=1 sm=1 tr=0 ts=6ae8eb4d cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=sXLBpHRKkfUpVznMtjYA:9 a=CjuIK1q_8ugA:10 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: n-YPxvhkc0xa_IPasnJ07HTAQ22XBpxh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA3OSBTYWx0ZWRfX5T0QB+sMhNcn
- abiE03GqOMowzmjEUfIDiyGkmalgdK69FsqdrA89BvlbfyVe6h85rkd+r/Amojlv5YH2mqX0I0T
- FLjj5L17GbHqUabFDFLatDgt0ZdKRAg=
-X-Proofpoint-ORIG-GUID: n-YPxvhkc0xa_IPasnJ07HTAQ22XBpxh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA3OSBTYWx0ZWRfX9ZKpvks0XafN
- JHGaoCaKXKWi8u6REm7VsVD6FO9Mk4iFdPxcXm725LkdKRnmkTjGOCK2koiSPZGYNpF8oZVFhU3
- uza7S5jWIoOmaJbDYSdYFneu6vbr6VAtAdfVCcQuOEYAt1mGISThnOSsFMm3LN+dIQ3mNlarCx2
- PMb/JasKaq5bgprRcLAmBJc5lab9EsFBz5k3gtkwKA/CzMvcpLGctMbCQd3s4Yai8ZzOqrInFFE
- vVjTpDHj42ehLcmp5PrbJrov+7TQWQFueXLoGghWQTPZ7ym1YdRASHTIu5eigxtwrzDTL4bL+oR
- GUYqH7049bBSPqVBXSzSsKw09oH9bzSZBYSWgAOeX+UvrjatRVE1YAriNVkwctupEpLmNaCPs34
- buDCATh9tmMP95oXKkbrL9oM71Amh/w+x+KHzSmlbnjviVSmPNj1Ixapl+1m7/tqUrucjkstZz7
- HtF731XDWMhIKyN86mA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_05,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020079
 
+From: Roman Vivchar <rva333@protonmail.com>
 
-> diff --git a/drivers/soc/mediatek/dram-ecc/core/trace.c b/drivers/soc/mediatek/dram-ecc/core/trace.c
-> new file mode 100644
-> index 000000000000..9a8b20e48069
-> --- /dev/null
-> +++ b/drivers/soc/mediatek/dram-ecc/core/trace.c
-> @@ -0,0 +1,6 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2026 MediaTek Inc.
-> + */
-> +#define CREATE_TRACE_POINTS
-> +#include "trace.h"
-> diff --git a/drivers/soc/mediatek/dram-ecc/core/trace.h b/drivers/soc/mediatek/dram-ecc/core/trace.h
-> new file mode 100644
-> index 000000000000..d603fc38f0a7
-> --- /dev/null
-> +++ b/drivers/soc/mediatek/dram-ecc/core/trace.h
-> @@ -0,0 +1,119 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (c) 2026 MediaTek Inc.
-> + */
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM mtk_dram_ecc
-> +
-> +#if !defined(_TRACE_MTK_DRAM_ECC_H) || defined(TRACE_HEADER_MULTI_READ)
-> +#define _TRACE_MTK_DRAM_ECC_H
-> +
-> +#include <linux/tracepoint.h>
-> +
-> +/* driver lifecycle - state: 0=init, 1=exit */
-> +
-> +TRACE_EVENT(mtk_dram_ecc_lifecycle,
-> +	TP_PROTO(int state),
-> +	TP_ARGS(state),
-> +	TP_STRUCT__entry(
-> +		__field(int, state)
-> +	),
-> +	TP_fast_assign(
-> +		__entry->state = state;
-> +	),
-> +	TP_printk("%s", __entry->state ? "driver removed" : "driver initialized")
-> +);
-> +
-> +/*
-> + * ECC events - spa/channel/subchannel/rank/bank/row/column decoded from the
-> + * ECCERR_INFO0/1 entry that determined severity (see ghes_notifier.c),
-> + * mirroring ATF dram_ecc/mt8992/fiq.c's decode. No agent/master ID: ATF's
-> + * GHES vendor section doesn't compute them (see mtk_dram_ecc_event.h).
-> + */
-> +
-> +TRACE_EVENT(mtk_dram_ecc_ce,
+Add support for the KTD3137 display backlight IC. It's used in various
+Xiaomi phones, such as Xiaomi Redmi Note 9.
 
-Why push these through a custom tracepoint?  This look very similar to what
-is in the Memory Error Section 2 CPER.
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+ MAINTAINERS                       |   1 +
+ drivers/video/backlight/Kconfig   |  11 ++
+ drivers/video/backlight/Makefile  |   1 +
+ drivers/video/backlight/ktd3137.c | 262 ++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 275 insertions(+)
 
-> +	TP_PROTO(u64 spa, u8 channel, u8 subch, u16 rank, u16 bank, u32 row,
-> +		 u16 column),
-> +	TP_ARGS(spa, channel, subch, rank, bank, row, column),
-> +	TP_STRUCT__entry(
-> +		__field(u64, spa)
-> +		__field(u8, channel)
-> +		__field(u8, subch)
-> +		__field(u16, rank)
-> +		__field(u16, bank)
-> +		__field(u32, row)
-> +		__field(u16, column)
-> +	),
-> +	TP_fast_assign(
-> +		__entry->spa     = spa;
-> +		__entry->channel = channel;
-> +		__entry->subch   = subch;
-> +		__entry->rank    = rank;
-> +		__entry->bank    = bank;
-> +		__entry->row     = row;
-> +		__entry->column  = column;
-> +	),
-> +	TP_printk("spa=0x%016llx ch=%u subch=%u rank=%u bank=%u row=%u column=%u",
-> +		  __entry->spa, __entry->channel, __entry->subch,
-> +		  __entry->rank, __entry->bank, __entry->row,
-> +		  __entry->column)
-> +);
-> +
-> +TRACE_EVENT(mtk_dram_ecc_uce,
-> +	TP_PROTO(u64 spa, u8 channel, u8 subch, u16 rank, u16 bank, u32 row,
-> +		 u16 column),
-> +	TP_ARGS(spa, channel, subch, rank, bank, row, column),
-> +	TP_STRUCT__entry(
-> +		__field(u64, spa)
-> +		__field(u8, channel)
-> +		__field(u8, subch)
-> +		__field(u16, rank)
-> +		__field(u16, bank)
-> +		__field(u32, row)
-> +		__field(u16, column)
-> +	),
-> +	TP_fast_assign(
-> +		__entry->spa     = spa;
-> +		__entry->channel = channel;
-> +		__entry->subch   = subch;
-> +		__entry->rank    = rank;
-> +		__entry->bank    = bank;
-> +		__entry->row     = row;
-> +		__entry->column  = column;
-> +	),
-> +	TP_printk("spa=0x%016llx ch=%u subch=%u rank=%u bank=%u row=%u column=%u",
-> +		  __entry->spa, __entry->channel, __entry->subch,
-> +		  __entry->rank, __entry->bank, __entry->row,
-> +		  __entry->column)
-> +);
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 24dd5b43f167..23114fd09445 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -14622,6 +14622,7 @@ KTD3137 BACKLIGHT DRIVER
+ M:	Roman Vivchar <rva333@protonmail.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/leds/backlight/kinetic,ktd3137.yaml
++F:	drivers/video/backlight/ktd3137.c
+ 
+ KTEST
+ M:	Steven Rostedt <rostedt@goodmis.org>
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index 7c66b8840d88..0196b8597367 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -199,6 +199,17 @@ config BACKLIGHT_KTD2801
+ 	  Say Y to enable the backlight driver for the Kinetic KTD2801 1-wire
+ 	  GPIO-controlled backlight found in Samsung Galaxy Core Prime VE LTE.
+ 
++config BACKLIGHT_KTD3137
++	tristate "Backlight Driver for Kinetic KTD3137"
++	depends on I2C
++	select REGMAP_I2C
++	help
++	  Say Y to enable the backlight driver for the Kinetic KTD3137
++	  found in various Xiaomi smartphones.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called ktd3137.
++
+ config BACKLIGHT_KTZ8866
+ 	tristate "Backlight Driver for Kinetic KTZ8866"
+ 	depends on I2C
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index 34469711c6cd..b2d3b69e9e32 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -38,6 +38,7 @@ obj-$(CONFIG_BACKLIGHT_HP700)		+= jornada720_bl.o
+ obj-$(CONFIG_BACKLIGHT_IPAQ_MICRO)	+= ipaq_micro_bl.o
+ obj-$(CONFIG_BACKLIGHT_KTD253)		+= ktd253-backlight.o
+ obj-$(CONFIG_BACKLIGHT_KTD2801)		+= ktd2801-backlight.o
++obj-$(CONFIG_BACKLIGHT_KTD3137)		+= ktd3137.o
+ obj-$(CONFIG_BACKLIGHT_KTZ8866)		+= ktz8866.o
+ obj-$(CONFIG_BACKLIGHT_LM3509)		+= lm3509_bl.o
+ obj-$(CONFIG_BACKLIGHT_LM3533)		+= lm3533_bl.o
+diff --git a/drivers/video/backlight/ktd3137.c b/drivers/video/backlight/ktd3137.c
+new file mode 100644
+index 000000000000..a3ff334b8d46
+--- /dev/null
++++ b/drivers/video/backlight/ktd3137.c
+@@ -0,0 +1,262 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright (c) 2025-2026 Roman Vivchar <rva333@protonmail.com>
++ *
++ * Backlight driver for the Kinetic KTD3137
++ */
++
++#include <linux/backlight.h>
++#include <linux/bitfield.h>
++#include <linux/delay.h>
++#include <linux/err.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/property.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++
++#define KTD3137_REG_DEV_ID		0x00
++#define KTD3137_REG_SW_RESET		0x01
++#define KTD3137_REG_MODE		0x02
++#define KTD3137_REG_CONTROL		0x03
++#define KTD3137_REG_RATIO_LSB		0x04
++#define KTD3137_REG_RATIO_MSB		0x05
++#define KTD3137_REG_PWM			0x06
++#define KTD3137_REG_RAMP_ON		0x07
++#define KTD3137_REG_TRANS_RAMP		0x08
++#define KTD3137_REG_FLASH_SETTING	0x09
++#define KTD3137_REG_STATUS		0x0a
++#define KTD3137_REG_MAX			0x0a
++
++/* KTD3137_REG_DEV_ID */
++#define KTD3137_DEV_ID_A		0x12
++#define KTD3137_DEV_ID_B		0x18
++
++/* KTD3137_REG_MODE */
++#define KTD3137_MODE_BL_EN		BIT(0)
++#define KTD3137_MODE_CURRENT_MASK	GENMASK(7, 3)
++
++/* KTD3137_REG_CONTROL */
++#define KTD3137_CONTROL_LINEAR		(BIT(1) | BIT(2))
++#define KTD3137_CONTROL_IND_2P6A	BIT(3)
++#define KTD3137_CONTROL_OVP_32V		BIT(5)
++#define KTD3137_CONTROL_FREQ_1000KHZ	BIT(6)
++#define KTD3137_CONTROL_DEFAULT		(KTD3137_CONTROL_IND_2P6A | \
++					 KTD3137_CONTROL_OVP_32V | \
++					 KTD3137_CONTROL_FREQ_1000KHZ)
++
++/* KTD3137_REG_RATIO_LSB */
++#define KTD3137_RATIO_LSB_MASK		GENMASK(2, 0)
++
++/* KTD3137_REG_PWM */
++#define KTD3137_PWM_CH1_EN		BIT(0)
++#define KTD3137_PWM_CH2_EN		BIT(1)
++#define KTD3137_PWM_FILTER_6LSB		(BIT(3) | BIT(4))
++#define KTD3137_PWM_DISABLE		BIT(7)
++#define KTD3137_PWM_DEFAULT		(KTD3137_PWM_CH1_EN | \
++					 KTD3137_PWM_CH2_EN | \
++					 KTD3137_PWM_FILTER_6LSB | \
++					 KTD3137_PWM_DISABLE)
++
++/* KTD3137_REG_RAMP_ON */
++#define KTD3137_RAMP_ON_MASK		GENMASK(7, 4)
++#define KTD3137_RAMP_OFF_MASK		GENMASK(3, 0)
++/* Ramp ON: 2ms, OFF: 8ms */
++#define KTD3137_RAMP_DEFAULT		(FIELD_PREP(KTD3137_RAMP_ON_MASK, 4) | \
++					 FIELD_PREP(KTD3137_RAMP_OFF_MASK, 4))
++
++#define KTD3137_DEFAULT_BRIGHTNESS	2047
++#define KTD3137_MAX_BRIGHTNESS		2047
++
++#define KTD3137_I_MIN_UA		5000
++#define KTD3137_I_MAX_UA		29800
++#define KTD3137_I_STEP_UA		800
++#define KTD3137_I_DEFAULT_UA		20200
++
++struct ktd3137 {
++	struct device *dev;
++	struct regmap *regmap;
++	struct gpio_desc *enable_gpio;
++	u32 led_current;
++};
++
++static const struct regmap_config ktd3137_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = KTD3137_REG_MAX,
++};
++
++static int ktd3137_init(struct ktd3137 *ktd)
++{
++	u32 val = KTD3137_CONTROL_DEFAULT | KTD3137_CONTROL_LINEAR;
++	int ret;
++
++	ret = regmap_write(ktd->regmap, KTD3137_REG_CONTROL, val);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(ktd->regmap, KTD3137_REG_PWM, KTD3137_PWM_DEFAULT);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(ktd->regmap, KTD3137_REG_RAMP_ON, KTD3137_RAMP_DEFAULT);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(ktd->regmap, KTD3137_REG_TRANS_RAMP, 0x00);
++	if (ret)
++		return ret;
++
++	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
++				  KTD3137_MODE_CURRENT_MASK, ktd->led_current);
++}
++
++static int ktd3137_backlight_update_status(struct backlight_device *backlight_dev)
++{
++	struct ktd3137 *ktd = bl_get_data(backlight_dev);
++	unsigned int brightness = backlight_get_brightness(backlight_dev);
++	int ret;
++
++	if (brightness > 0) {
++		ret = regmap_write(ktd->regmap, KTD3137_REG_RATIO_LSB,
++				   brightness & KTD3137_RATIO_LSB_MASK);
++		if (ret)
++			return ret;
++
++		ret = regmap_write(ktd->regmap, KTD3137_REG_RATIO_MSB,
++				   brightness >> 3);
++		if (ret)
++			return ret;
++	}
++
++	return regmap_update_bits(ktd->regmap, KTD3137_REG_MODE,
++				  KTD3137_MODE_BL_EN,
++				  brightness ? KTD3137_MODE_BL_EN : 0);
++}
++
++static const struct backlight_ops ktd3137_backlight_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.update_status = ktd3137_backlight_update_status,
++};
++
++static int ktd3137_parse_dt(struct ktd3137 *ktd)
++{
++	u32 max_ua = KTD3137_I_DEFAULT_UA;
++	u32 val;
++
++	device_property_read_u32(ktd->dev, "led-max-microamp", &max_ua);
++
++	if (max_ua < KTD3137_I_MIN_UA || max_ua > KTD3137_I_MAX_UA)
++		return dev_err_probe(ktd->dev, -EINVAL,
++				     "led-max-microamp (%u) out of range\n", max_ua);
++
++	val = (max_ua - KTD3137_I_MIN_UA) / KTD3137_I_STEP_UA;
++	ktd->led_current = FIELD_PREP(KTD3137_MODE_CURRENT_MASK, val);
++
++	return 0;
++}
++
++static int ktd3137_probe(struct i2c_client *client)
++{
++	struct backlight_device *backlight_dev;
++	struct backlight_properties props = { };
++	struct ktd3137 *ktd;
++	u32 val;
++	int ret;
++
++	ktd = devm_kzalloc(&client->dev, sizeof(*ktd), GFP_KERNEL);
++	if (!ktd)
++		return -ENOMEM;
++
++	ktd->dev = &client->dev;
++
++	ret = devm_regulator_get_enable(ktd->dev, "vin");
++	if (ret)
++		return dev_err_probe(ktd->dev, ret, "failed to power up\n");
++
++	ktd->enable_gpio = devm_gpiod_get_optional(ktd->dev, "enable",
++						   GPIOD_OUT_HIGH);
++	if (IS_ERR(ktd->enable_gpio))
++		return dev_err_probe(ktd->dev, PTR_ERR(ktd->enable_gpio),
++				     "failed to get enable gpio\n");
++
++	/* HWEN should stay HIGH for at least 150us before I2C can be used */
++	fsleep(150);
++
++	ktd->regmap = devm_regmap_init_i2c(client, &ktd3137_regmap_config);
++	if (IS_ERR(ktd->regmap))
++		return dev_err_probe(ktd->dev, PTR_ERR(ktd->regmap),
++				     "failed to init regmap\n");
++
++	ret = regmap_read(ktd->regmap, KTD3137_REG_DEV_ID, &val);
++	if (ret)
++		return dev_err_probe(ktd->dev, ret, "failed to read chip id\n");
++
++	if (val != KTD3137_DEV_ID_A && val != KTD3137_DEV_ID_B)
++		return dev_err_probe(ktd->dev, -ENODEV,
++				     "unsupported chip id: 0x%02x\n", val);
++
++	ret = ktd3137_parse_dt(ktd);
++	if (ret)
++		return ret;
++
++	ret = ktd3137_init(ktd);
++	if (ret)
++		return dev_err_probe(ktd->dev, ret, "failed to init chip\n");
++
++	props.type = BACKLIGHT_RAW;
++	props.max_brightness = KTD3137_MAX_BRIGHTNESS;
++	props.brightness = KTD3137_DEFAULT_BRIGHTNESS;
++	props.scale = BACKLIGHT_SCALE_LINEAR;
++	device_property_read_u32(ktd->dev, "default-brightness", &props.brightness);
++
++	backlight_dev = devm_backlight_device_register(ktd->dev,
++						       "ktd3137-backlight",
++						       ktd->dev, ktd,
++						       &ktd3137_backlight_ops,
++						       &props);
++	if (IS_ERR(backlight_dev))
++		return dev_err_probe(ktd->dev, PTR_ERR(backlight_dev),
++				     "failed to register backlight device\n");
++
++	i2c_set_clientdata(client, backlight_dev);
++	return backlight_update_status(backlight_dev);
++}
++
++static void ktd3137_remove(struct i2c_client *client)
++{
++	struct backlight_device *backlight_dev = i2c_get_clientdata(client);
++	struct ktd3137 *ktd = bl_get_data(backlight_dev);
++
++	backlight_dev->props.brightness = 0;
++	backlight_update_status(backlight_dev);
++
++	gpiod_set_value_cansleep(ktd->enable_gpio, 0);
++}
++
++static const struct i2c_device_id ktd3137_ids[] = {
++	{ "ktd3137" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, ktd3137_ids);
++
++static const struct of_device_id ktd3137_match_table[] = {
++	{ .compatible = "kinetic,ktd3137" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ktd3137_match_table);
++
++static struct i2c_driver ktd3137_driver = {
++	.driver = {
++		.name = "ktd3137",
++		.of_match_table = ktd3137_match_table,
++	},
++	.probe = ktd3137_probe,
++	.remove = ktd3137_remove,
++	.id_table = ktd3137_ids,
++};
++module_i2c_driver(ktd3137_driver);
++
++MODULE_DESCRIPTION("Kinetic KTD3137 Backlight Driver");
++MODULE_LICENSE("GPL");
+
+-- 
+2.56.0
+
 
