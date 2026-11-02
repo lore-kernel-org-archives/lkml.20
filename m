@@ -1,69 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.128.243.59
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643514;
-	b=pn1QhoeIUa1rwr/RXygaqB+yZCOMK0ErdOuzxuvzeGAM483qqPEGZCyPseni/yIz4lLO
-	 lc/LVb+bY6AW2UEIYY8+riwuBgxN+H6KOjKwrSSiA8ZcZY0iZUzsnV58x9eB51CD3mkHo
-	 shxzA6nLiZsbZ9++yb2gQ5Pz/r6FEs2pefrv3layiujMJbZLunwzCCx/g2Wr1JR1ueBjU
-	 iq7Ci8vViv1R7K/erSEk+BjVuPFMWQDhLJyRQC8vfT85pN5h9O91vXSbq/faPwgUWYjv8
-	 0mVskezFouSjXJH1G1gYAMOu/SyMF5t7wKOHo1gkg+TlkDAxyqrEUYmk7NPtXEG48Fw==
+	t=1793643537;
+	b=xxptpXS+J+6QpKb9lMX0NKoTbKodMETUtyMbQT0xVrLM6DgZrAuuOG9lNosL19vxZhyW
+	 7SB3TtiX3Q1s4ZoPraRv3T5NG5oJN5VcrideYJTM8yYTz5wYXjMB0Xx8h/Stu8vX9ru+8
+	 sbAvzYG1Wpqy00Vmd889HYqoTWnXCEp2LKtCNz5Xzor7EkkxRmMCvp+Sv7jWe058vCzCZ
+	 XKP4gfcb97KPhWE9Xy5dqgFg3zolACO/V7ziow+fYMtPVqmxz2Z+DUFAqTEq7Yl1DAYQL
+	 N1g0d7J/dU5o1kiQM/oubw9u51FyiDKItZC09z/shb0IzU18f/GM2WvLFje5A6aA7Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643514;
-	h=DMARC-Filter:X-Virus-Scanned:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Status:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643537;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=pmADqantKKJ+lCbzXOd4rolz9NT0djZUcZtny+ZZ3UE=;
-	b=n6uGxb0VkreXHhpiIMJSQvRvo5XtxGO5Mxg52G/76gWrdxDpjMEluHH7L7B/qHOSqhMw
-	 l3ZiSetnXbKSjJ7UKIYIrsjDevNpLCDde/l8qzAgUQ67tPOi1i+A7o8j1hOWkh7YdWJ7g
-	 cZDp70HSSVZoL3xjL/bWPhMN8uDIhKhiRVFPAK9pNOlgrEhr7tdMKlPDr887Cz32zKKjA
-	 rJUrCF2A8qBAtVM6zJYD1ltr4c54VzECD4Otxqszj61qwqw3cgeTRGnSa8f7lOvg1n053
-	 AIbmAJeEPJUjhjtqJI1kixxWX6OFFY9AlUQ4KliJR+uNNQjXcdFNdexN5lK1R2FhSNQ==
+	bh=o4fnmGuYE2qLagLLz4EmxxYZ3imDPsAHaJFgN5jWSiE=;
+	b=1o374XjJeAbsKUBaO4V8LqPpeHS3ucratq+5hl1iQ20Ig9FLotj/x7tr+N5JrPXmlo89
+	 55OHY64s6Lwnlo0bK3d43QIrxs/kqhyURDUMQpbdEOffdl2XztJ+KXaJvLuwYuJ6pbo1w
+	 serZCnvVxKds2gUaA3oGy27lz6biahzpb2mXsXi8OzxfBtnURlbc0c2DzRY+LFgxcvuda
+	 YBWNB50KdLdh7oUkjxgnIkzD0Wy1awLTkJtHFd+0xrTiPgVNrgVZrp4FNnQGxc+/NVJSN
+	 p7ZXmm+Vm3/Zq4PxUUVZ3pct1MgJJEEwYoCIejeHrS/nVTrIeoTR2pBgHP/WcHY96ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asmblr.net;
-	spf=pass smtp.mailfrom=asmblr.net;
-	dkim=pass header.d=asmblr.net header.i=@asmblr.net header.a=rsa-sha256 header.s=1706450368.internal header.b=borr9l7p;
-	arc=none smtp.remote-ip=85.128.243.59
-Received: from shared-aoh59.rev.nazwa.pl (shared-aoh59.rev.nazwa.pl [85.128.243.59])
+	dmarc=pass header.from=younes.io;
+	spf=pass smtp.mailfrom=younes.io;
+	dkim=pass header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail2 header.b=IfF1ease;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=vYWSPGJ+;
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915BD606A336;
-	Mon,  2 Nov 2026 18:18:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 915BD606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=asmblr.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmblr.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D83606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54D83606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=younes.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=younes.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asmblr.net header.i=@asmblr.net header.a=rsa-sha256 header.s=1706450368.internal header.b=borr9l7p
-X-Virus-Scanned: by amavisd-new using ClamAV (3)
-X-Spam-Flag: NO
-X-Spam-Score: -0.625
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asmblr.net;
-	s=1706450368.internal; t=1793643504;
-	bh=pmADqantKKJ+lCbzXOd4rolz9NT0djZUcZtny+ZZ3UE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=borr9l7p2DcretBQTXYOGOoNLcq5+eV5PxlXlQamc4Vu8CpDhHYcxga2CrYFoKq+p
-	 EOqbH/fIvX6rwmSsKYcwho2L2/Hi4mpt//z19qS+TcycMzcE2d7J0zWmFIx590zyWn
-	 8VrsnYUs0PDCqFzYiI1GHenYrmtlm8BAmEa1wJiv44Yq0ODcjpLD5mdp10Uen4ucXW
-	 g1TcsQcrR6+/DlAmUYJQjSVBD/Y9A/W3T0PmBIpgMBoyvRKPtJgSryqrhf3vdROIMB
-	 pnzSZwXAf2BAZG8VZJgYNmOCcSUKFOEiS6ClCSXTNMTG/Rngdz/GZHPRIbgicR3/8s
-	 FOH5wCHo7FQlA==
-Received: from milkyway (91-150-220-230.dynamic.play.pl [91.150.220.230])
-	by server753313.nazwa.pl (Postfix) with ESMTP id C0E671BE233;
-	Mon, 02 Nov 2026 19:18:23 +0100 (CET)
-Date: Mon, 2 Nov 2026 19:18:23 +0100
-From: Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?= <amade@asmblr.net>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: linux-sound@vger.kernel.org, broonie@kernel.org, tiwai@suse.com,
- perex@perex.cz, linux-kernel@vger.kernel.org,
- yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
- vkoul@kernel.org
-Subject: Re: [PATCH 6/7] ASoC: Intel: avs: Expose common PCM functions
-Message-ID: <20261102191823.117f3a58@milkyway>
-In-Reply-To: <20261102181042.1922005-7-cezary.rojewski@intel.com>
-References: <20261102181042.1922005-1-cezary.rojewski@intel.com>
-	<20261102181042.1922005-7-cezary.rojewski@intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail2 header.b=IfF1ease;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=vYWSPGJ+
+DKIM-Signature: a=rsa-sha256; b=IfF1easev/Ee2YVPBiTxxFyUeVOpwPyg7AtV5wA9t1zybRzNu74YDPlVCqmhnuiMOlxU/618TmPjvTF2zWcgqe4AQw1PvYSy2GiQDgPgcdy0P6PIoDYOrQgLow5HZnwWkw5zQeWix0cv2eaTz1iGlvizsUzWTjYRNUeGQXPDoVbNtBqkI5bror6WXto0D87a0PTz52TpDarLTXwN7tbISiutVWyPBd3NpYVTayArJ7urvKg51D8f4AMR6IcsJ3itAYz25LTAvzvnVD7Z5wrGlgo2//75w23EniYyEcFD+R4Oa9Jl1gUIZtgtqQSqiL6lqFpr4yWOLgZW4qra0rDddw==; s=purelymail2; d=younes.io; v=1; bh=o4fnmGuYE2qLagLLz4EmxxYZ3imDPsAHaJFgN5jWSiE=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=vYWSPGJ+XF++FZqXhv68N8DXNOgOur1+ajGn94jx2GrOw6jqMZD+b1NeP2E1pMkWLK9IB1StvUhHRRsrJeZ3lhBOV4PHHrPABwZ6/9pahde8WFVZEa5bpX3NJkzaUX3T8nSkeDQuYUtuEe1dY47VvqzZBHmPksbB02BkubEO9+RZ7eAg+145wat8+B7BoS9leuALbiJX7kOx4ROBgB3DZwGrKqIP7g8072yiBCm/YyhZ8zRURP9r4VkvlGdm7u3KLIvp+aBLl+50Gsi9uw1BAAu+RHO//dUgcZ7I3MlASOtvLltu9YCHpWcO3WzJdRL05PDDcf1ShhJgv3RGrqByZQ==; s=purelymail2; d=purelymail.com; v=1; bh=o4fnmGuYE2qLagLLz4EmxxYZ3imDPsAHaJFgN5jWSiE=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 1578161:62319:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1704967885;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Mon, 02 Nov 2026 18:18:12 +0000 (UTC)
+From: Younes Akhouayri <git@younes.io>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Shuah Khan <skhan@linuxfoundation.org>, rust-for-linux@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rust: doctest: fix line numbers after crate-level attributes
+Date: Mon, 2 Nov 2026 18:18:12 +0000
+Message-ID: <kw-1793643492.088831861-665782-0@younes.io>
+In-Reply-To: <CANiq72k=Ru3QsiUjrXOtFqVuA-D+w8fJ2fUOTAL2cKFS0EhLDQ@mail.gmail.com>
+References: <20261027-rust-doctest-line-fix-v1-1-0c13185a58b6@younes.io>
+ <CANiq72ntn6ThPz9Q6+BxU6w-x2jUQ50xpiy1_gCRi6o0peHi8w@mail.gmail.com>
+ <kw-1793624159.027890950-307523-1@younes.io>
+ <CANiq72k=Ru3QsiUjrXOtFqVuA-D+w8fJ2fUOTAL2cKFS0EhLDQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,31 +78,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon,  2 Nov 2026 19:10:41 +0100
-Cezary Rojewski <cezary.rojewski@intel.com> wrote:
+On Mon, 2 Nov 2026 15:26:29 +0100, Miguel Ojeda wrote:
+> If what we want is for people to simply notice, then I was thinking of
+> just `unwrap()`ping like others we have around there.
+>
+> Having said that, it can be annoying and confusing if someone writes a
+> doctest and has to figure out what to change in these scripts (scripts
+> that they may not even know they exist...).
+>
+> Ideally, I think we would have a "warning" somehow, i.e. something
+> that doesn't stop people from working but that will get noticed.
 
-> diff --git a/sound/soc/intel/avs/pcm.h b/sound/soc/intel/avs/pcm.h
-> index 0f3615c90398..ac127ade4ca1 100644
-> --- a/sound/soc/intel/avs/pcm.h
-> +++ b/sound/soc/intel/avs/pcm.h
-> @@ -9,8 +9,57 @@
->  #ifndef __SOUND_SOC_INTEL_AVS_PCM_H
->  #define __SOUND_SOC_INTEL_AVS_PCM_H
->  
-> +#include <linux/device.h>
-> +#include <sound/hdaudio_ext.h>
->  #include <sound/pcm.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/soc-acpi.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/soc-acpi.h>
-> +#include <sound/soc-acpi-intel-match.h>
-> +#include <sound/soc-component.h>
-> +#include <sound/soc-dai.h>
+Makes sense.
 
-Some headers are included twice?
+Note that a doctest author cannot really trigger this check: it only
+looks at the first line of rustdoc's output, which rustdoc writes
+itself, so in practice only a toolchain change would hit it.
 
+The generator's stderr already ends up in the build log (only rustdoc's
+stdout is sent to /dev/null in rust/Makefile), so for v2 I'll do: if the
+output starts with `#![allow(unused)]`, subtract the moved lines with a
+plain `- 1`; otherwise print a single warning naming the test and the
+script, and apply no adjustment, so things keep working as today with
+possibly wrong line numbers. I'll also note in the comment that only
+single-line attributes are handled.
 
+Best regards,
+Younes
