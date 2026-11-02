@@ -1,97 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793600210;
-	b=dTbKTPM2rGc5YOl05R/8KTvn7mM6C70CkK7AD0qbEdP50CBVit207QecqbYTYad+Jort
-	 ccXydHPXxdBI8fWS+jNf50TwJKnDWGoPwxon4fpeZcuStV/26ZOz96cKc9XAaaXoJiUci
-	 FkyDMd4vy6B9Nm6Ou6f9efJDLdIRAEGZIq8jR+AXdJ8U7wLYn3M38l2urUkZR7BlgSkm/
-	 jmKswnLEP8UYDOyeWL0yGNt3lYkVnXaiZTVkocY9dsO7b/e+I1ahOqMQDp0p07VA+eZ9X
-	 NvttHbTVmeBd1i+bfsNYsA4TR3YD4NWeyqH5tk5ig69grqZiIBa3iOhLQkiwlFZgFiQ==
+	t=1793600225;
+	b=2CTnRFJcF8sxsX4Egx3RpI6jP8GMx7uDYpPISgO1XYPNGYaaOUKF+/CAAf7FCsgU0MVW
+	 Q2Gy7zVNf6xfkxPgavPi0O8S+VHp0IQFq42jTLwewNuIXsDIP/RxX+wNzH+JxLrmi9c6D
+	 I037VQqmZkzFE5QFLOeuLmHxejg5mfNTbp3ZT1LbEJswXgBTv5+1cP2NUhWDMo97CC5Y7
+	 tiiS5XCHo7aFmjE02oAZRI3CkeaM/HxMPyDNU1eNRD+UwZx1SJtTZIh0th9EMveJ4L2Xl
+	 IwMwt4iVDN6ETJV9L5E6HUikrT2+kgwqERxs3jxiaQsreMNiYM2A2VKrSp9Evs+lNxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793600210;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600225;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8sxqxZ/tFXcG65LJjLwgkRyGP3NtvdBgfC4fFF1s2qo=;
-	b=dOvYjbJbRyhTEoetwyEp/yixJUQdeN9ZqwMKXNQLuerKxQcrCdI6PErHRuZdalevjdgk
-	 V59jTIedr5En4cw6u2btvELmSyjewi0LY6dhacHW9hmC6MzT9xtZl7kt9p2mq/ImJdNFZ
-	 Krep1A0aLLS3V6YwNrqaR7T6AhEVUGPKDKuZwuUIMW6XrALPOkYmxIUqiob3cZEIaZPFf
-	 vWRL/O7gFQw5tL3WVEe9pLnxN62BqPqd+My1uM/pGCzUVNU40t5A9B68HoP0wb3hINfzX
-	 a6qF0DN4pDUezCMfv1rXJMXY5Ss3S/EPOpOFMiyEO0f7fQut6gamoFq3F0xKSXvxc1Q==
+	bh=JIuVYhzDr7tBsDpbhyh1CCeaiWBRpMDlHv7fDLl13QY=;
+	b=Xi22t7Fb3Sw995xkoMTlxRhsvYLgmn3dbon4mgDcHYnoVnfE8n7PMHMuCxrCFuBrXOUW
+	 YWhFfgbOgyI3JLX+KIaw6HYl1IMy8mR5ToMw9wTl+I4p7FfKyzLMSMHjIrzd6ed9bMSs6
+	 LW+PDVG4LQpzLf7gWgcHw5oT2agg8rXaPshjU2KGHTvn+sjmceANlq4ylnwam0pgN1akG
+	 1Ktq1jcBnwhHI2r0etqAjdKI6n7ROXIDoKKE8o/JGoEqPGd3haZf9SkmW+7J3BreQvzJ2
+	 fuBpZAE9uhubOCjPC26t6oRhOKMiMA/8mxRw3wt7M+pvXuLBGiLPdcqrPWSLYxnExUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nC0e+Cq4;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mAr9hJBE;
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1C4606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:16:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD1C4606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04C8606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A04C8606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nC0e+Cq4
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a058f74a54so788555b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:16:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mAr9hJBE
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-369fd8abd71so2907799eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:17:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793600208; x=1794205008; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793600224; x=1794205024; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8sxqxZ/tFXcG65LJjLwgkRyGP3NtvdBgfC4fFF1s2qo=;
-        b=nC0e+Cq45eM+HVVdGpNmmpZS/oyYsZ9qFW2MtwXPsfRdNKHsSDsZiLackYQQRAUDSf
-         ML5QADHEVcWWGrvMsTEaKFP311norQwlD9GKA23Xzv85tGYAeN89IK6QTbC6tVqstn4o
-         yR5EGAZftrHLYT1VDsW4agAbXj1wK9R3Jh4aOZOm+f3jnIjdCu0OqPHwZFVYsXLRG+8N
-         GgZ/L+X3r7pDpZEXBQ+IixNJEC/f2iabWC/ZQhj23ultZEnFSUx2Ws5rbwoWdemRFoFS
-         IZvS6KR7T4h/yTa9FJ22p8Oioq1wIaKYXiI7DhuWTtpIohriIlXU8jUB/9c0VVp3rv0e
-         wItg==
+        bh=JIuVYhzDr7tBsDpbhyh1CCeaiWBRpMDlHv7fDLl13QY=;
+        b=mAr9hJBEtrch/cLsG+l8iSEMx4rie4Rq4wlLYZk8IblWD+idnG+d8AlYE8h1J/sL3d
+         /LjNBZa6flPW/Y6ma7ooi8LTW7ZzlIICfQYKXRnuVi7zPSQwFYRkFdwvRZIjKI9BzuGn
+         Wt/shzDTFefyt/XpNgduVodd2GE4fL86Jmbsz+eOod0tKtp0YIqLY77loE/asc9gimx2
+         bIqcYL3qmBQM8E+30KuNspN3diiprMKamCjuXBneBj5zDNedznko9Cbv60tQNuFAYRKH
+         rXsW2ZPccAGZp6LU0u6lr7T+YMmtWyyYUsLBHF/BUUtDL2cdqONMsY9rw2F9KLfK9hr6
+         SQzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793600208; x=1794205008;
+        d=1e100.net; s=20260707; t=1793600224; x=1794205024;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8sxqxZ/tFXcG65LJjLwgkRyGP3NtvdBgfC4fFF1s2qo=;
-        b=Mcet3JbzoriQo/2AJdtIKJHe4DTtZDK21I0tfMkroyCxAPjLBLiMSfP9Lylv62ynFi
-         xsf876tLXpRsKRVsZrLn4FMmIWSSpm/RG03LeyWzfVe8+A3jGE3JJjvdbwsOkmEOSEYV
-         BPkYh8YHZmMmXRR76DQsAQqZkVI/vMLp5HD9+GgD6mRggGp/rGNaURq+iJaXBNV8YWV8
-         nrfzNgEqhMZXSX8VS9kdcZqmi90/orYj+rLgyHF16OG8/7jrxG7k9Llgcg3k/47+X74G
-         UWEkkl2K0DQ91btncJdRj/NdBuM63uXPcfpnftMRLFfSppMOiAvDY78jykBQpsz+6Lcf
-         hf0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByEPKm9MGXaccdZWBFssEVhCnZOfGdKwW/Zrjx5xkZKJ3q14TdVPgovzZX1i7YihiiigmsVvBI1/AjmN9A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0qV1/bcXAiSRr3+tiUWCb2irRciUR92gd7qkmj/jCWU+bonK7
-	JlDBHDZW/CkksgEGwWclzOuHYC5Jio28XTWiGwIeB3K6O/gxpMMnwxNGKwas9p0zLWk=
-X-Gm-Gg: AYBFou09rlVY7gexijx5G/PisQhpmoreOupbzV7CJcue5CkOmr1ENp/VgTW718vVyHS
-	Rk9LvbsOn9I6TZVdH9qbGQsxMZHP8e9EaSY39xAHv2sNSh3oWAFfR6lPL/oL2HJrQbqpS9W8xeB
-	KKGFYZQljPg4LhgxLwz3LPftokO3s0M1ETXm05ga6yQ6W+P4y3+MpnFiuEOvT2Rbz3oGl01J+7d
-	hlk79Y6chRDf75B3kYsdgajT3f/MQHnKVxKNZnpeulLyeQ+XglLng9gkFgnfCYBULHtTP82dPwW
-	edb3dsp//PPaDbVpbyh8qneU8VFVB73EnC2b65SMv0hdYSMHahA2UeTa15ym8BJSkFdYbU2XBw5
-	jEokAEaWpsfLMbWCF9P/YgOKiTt3gleoKjqEa9xwapbrRnt/5JOpEQ/YiidDHGeohJWky50t/Qo
-	tieQeLd+wYs05TKL8i52DioOYe1I9cH1M1kzZJIZr+R+gnRxpTLgwiHu1rTy8T9KaREmH6Ss+3p
-	d2daEuhnQyQ/JXtf/zxhtk6z3nf3PZLLlG1PIGsjNvb2NMBjsaUqOBAESMo2cTWLtjmBfPJVXqJ
-	CPRVfke0Xu/Stl7PCVqq7gPEs26rZfA5X8jzxGvLP0bn0m/OC29kh/1S3WDD6yxthiYFvA+18WC
-	r3FWHkcBxlQKKn1atV7lHzQaZ1ft/ZT9lqrbQ1EvWdtOyAUAdIuyD0B8FFpU=
-X-Received: by 2002:a05:6300:6301:b0:3eb:3b69:77d2 with SMTP id adf61e73a8af0-3eb3b699956mr2989335637.37.1793600207806;
-        Sun, 01 Nov 2026 22:16:47 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:d115:e4f4:23fd:61df])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d03be0sm1509071b3a.27.2026.11.01.22.16.44
+        bh=JIuVYhzDr7tBsDpbhyh1CCeaiWBRpMDlHv7fDLl13QY=;
+        b=rSJ7P6TrCJfAWC+Ti1teI/JNoPoFqhRX3F+IRHy1xEYb36LHkG+3xkR5a+5s/9gO28
+         hXj9NR8vV1oQmBGA7CU8RYh5+Be2B2G5r1Ec91bHD4YSdeJbRnlU9VZCcJrqlxc5/iP5
+         kkgEsIA09HUPveo8fERNoNVRIWrtqumkr70jAaNWEC6QibqwngxEOH/eiTylGMpl/1Vf
+         c0XH76/mX+dLyiHzqYbm0ZEY3Sxv56Xngl3BZ1XdlBlAn2gP8TVv4wwLVT8C6rcTaCnN
+         qPLatnEZ96VpaECpLaSIEqp6o2zqjAyjWQpkceRCXiAdYv6ICwYVqFT0o7ly74G7EiU0
+         8ZSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzaM91ImSD1CGkVseTQhLKpyZokP5UhbE9iq72qcO4Ft1ctEkRMFCtBnu+J/CL+wDXRmttC9rPwvUh7Eng=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZKjvrLYVi6gCr6VQBpN4D5l6HJRqJG/yQlVRYk+CmmZT9uoNx
+	nx0rdszbx2NBBadkTtI2r+60h18rhunCf9hyaR1z5AO5YQmJxKT5e4k8
+X-Gm-Gg: AYBFou2DxyxeqHiAAxw2PUsXyiASvh2NLyGbV1FwpExc5+zTtCKOzygVJfLS1JcoUL+
+	DF0ad6wB3/KfRmHShYUeUjvNFcGRcYK0wp+6jkO4Wfvtp7I568L8RG0lvuYDJ7KRd/qg5TAsMv8
+	M3zkVMBXnA5mB4Y6LudDrxcATrtaUb68X79VOWbyKxnXAbpAh55a+ZWfPcjWxKhwdx3siR3vMAa
+	FPrcmj9jQvkd6IoARPFAERfU599Ps6WDci7boYW0Es7sx1mirkd7b5cF5mEFQJrtVWQb/eQIqms
+	txsdG/7LBOn0HPC1pStXp0uOYK7+gQDsVCv1Co2JdjigkqBjZMSQOyRzKdGJSSX+eOm7jazAs+v
+	XC89Dt8nC9OeVe/aCJHzCngMTmq2DTLTwhItj7cuu4FhDkpHbYZWrZLKe2wF3QWgqch3LKEazga
+	m35wkBW8dYLotbl6XBY+EYXcqHMpceR+S/ZPCxw4cgwBZCKwdwvAxgK8rFuh3SSxZ6ErH41aXBA
+	tf0Tai6O2L3YZWKIlb1i9mM61DC8bE+Y0vrV6lGaIgnYIiwjcg/6e8b/T1M3QaHoapAv753Q6R4
+	dEdJHOU7o4dRPENHHe71icZVEgtKMMBUElCWDNQuh1yE3HiOPwSAYB4C
+X-Received: by 2002:a05:7300:4353:b0:369:fc93:eda5 with SMTP id 5a478bee46e88-36a42434630mr21125404eec.39.1793600222582;
+        Sun, 01 Nov 2026 22:17:02 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6f7f9sm39820872eec.25.2026.11.01.22.17.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:16:47 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Sagi Grimberg <sagi@grimberg.me>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
-	Mike Christie <michael.christie@oracle.com>,
-	linux-rdma@vger.kernel.org,
-	target-devel@vger.kernel.org,
+        Sun, 01 Nov 2026 22:17:02 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Jan Kara <jack@suse.com>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>,
+	linux-ext4@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Subject: [PATCH v3 0/2] IB/isert: fix the device removal use-after-free
-Date: Mon,  2 Nov 2026 15:16:05 +0900
-Message-ID: <20261102061608.617186-1-yhlee@isslab.korea.ac.kr>
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] ext2: preserve completed DIO bytes when buffered fallback fails
+Date: Mon,  2 Nov 2026 06:15:55 +0000
+Message-ID: <20261102061555.55183-1-dennylin0707@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,90 +99,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RDMA_CM_EVENT_DEVICE_REMOVAL callback in ib_isert waits for the
-connection it was handed to reach ISER_CONN_DOWN and then frees it, which
-is a use-after-free against isert_connect_release(), and the wait itself
-deadlocks against the handler_mutex that rdma_destroy_id() needs.  2/2
-moves the teardown into an ib_client removal callback, the way nvmet-rdma
-did in commit f1d4ef7d8883.
+ext2_dio_write_iter() can complete part of a direct write before
+falling back to buffered I/O for a hole inside i_size. If
+generic_perform_write() then fails, its error overwrites the completed
+direct-I/O byte count.
 
-1/2 is a separate problem that the review of v2 found.  It predates the
-device removal work: isert_free_np() publishes the connections it is about
-to release on a stack-local list without emptying isert_conn->node, so
-isert_handle_unbound_conn() treats them as unclaimed, unlinks them from a
-list it does not own and queues a second release.  It needs to go first
-because 2/2 adds another caller of that path.
+For example, on a full filesystem, an 8 KiB write to a file with an
+allocated 4 KiB prefix and a 4 KiB hole overwrites the prefix but returns
+ENOSPC and leaves the file position unchanged. GNU dd with oflag=direct
+consequently reports zero bytes written.
 
-v2 -> v3
+Preserve a positive direct-I/O result and return the buffered error
+when no bytes were direct-written. This restores the fallback policy of
+generic_file_write_iter(), which ext2 used before its iomap conversion.
 
-v2: https://lore.kernel.org/r/20261026060505.409476-1-yhlee@isslab.korea.ac.kr
+Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/ext2/file.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-The review of v2 raised four problems.  All four were real.
+diff --git a/fs/ext2/file.c b/fs/ext2/file.c
+index 67fe423c3828..8ddc149d4884 100644
+--- a/fs/ext2/file.c
++++ b/fs/ext2/file.c
+@@ -145,7 +145,8 @@ static ssize_t ext2_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		pos = iocb->ki_pos;
+ 		status = generic_perform_write(iocb, from);
+ 		if (unlikely(status < 0)) {
+-			ret = status;
++			if (!ret)
++				ret = status;
+ 			goto out_unlock;
+ 		}
+ 
+-- 
+2.43.0
 
-The race between isert_remove_one() and isert_free_np() on unbound
-connections is 1/2.  Holding isert_np->mutex over the release loop would
-close it and would also bring back the deadlock that commit 691b0480933f
-("IB/isert: Fix dead lock in ib_isert") fixed, so 1/2 takes the
-connections off isert_np one at a time, which empties isert_conn->node
-before the mutex is dropped.
-
-The race between isert_connected_handler() and isert_remove_one() was
-introduced by v2.  Both handlers used to be reached only from
-isert_cma_handler(), which the CM serialises per cm_id, so splitting the
-ISER_CONN_UP store and the move onto isert_np->pending was safe until
-isert_remove_one() started calling the teardown without that mutex.  2/2
-keeps isert_conn->mutex across both.
-
-The hang on an ISER_CONN_INIT connection is closed by marking it in
-isert_teardown_conn() and having isert_connected_handler() release it
-rather than promote it.  A marked connection whose peer never answers
-holds the removal until the CM gives up on max_cm_retries.
-
-The hang on racing connects is closed for the half where a connection the
-walk has passed is promoted afterwards, which the previous item covers.
-For a connect request arriving during the removal I have no measurement,
-because no further RDMA_CM_EVENT_CONNECT_REQUEST arrived on soft-RoCE once
-rdma link delete had started.  While isert_remove_one() is still running,
-2/2 refuses such a request: isert_connect_request() fills isert_conn_list
-and isert_np->accepted in one isert_conn_mutex section and returns -ENODEV
-if the device is already being removed.
-
-One window is left open and 2/2 does not close it.  Once
-isert_remove_one() has returned, the isert_device for that ib_device is
-gone, so a CONNECT_REQUEST that arrives before cma_remove_one() tears the
-listener down makes isert_device_get() create a fresh isert_device, with
-removing clear, and the connection stays in ISER_CONN_INIT.
-cma_process_remove() then raises DEVICE_REMOVAL on that cm_id,
-isert_teardown_conn() only marks the connection, and no further rdma_cm
-event can reach it: cma_send_device_removal_put() has already set the id
-to RDMA_CM_DEVICE_REMOVAL, and cma_ib_handler() drops every non-timewait
-event for an id that is not in RDMA_CM_CONNECT.
-Nothing destroys the cm_id, so the wait_for_completion(&cma_dev->comp) at
-the end of cma_process_remove() does not return.  The unpatched code
-blocks in the same case, in wait_event_interruptible(), so this is not a
-regression, and it is not a memory-safety problem.  I have not reproduced
-it.  A follow-up patch can close it.
-
-One thing changed beyond answering the review.  The branch in
-isert_connected_handler() that releases a connection it refuses to promote
-disconnects and drains the QP first, because the login receive buffer is
-still posted and isert_login_recv_done() dereferences isert_conn.
-
-Measured with soft-RoCE under KASAN, removing the device under 32
-connections: 4 of 12 unpatched runs hit the use-after-free, 76 reports in
-all, and no removal finished within the cutoff; with this patch none did
-and all 12 finished.  A connection held in ISER_CONN_INIT across the walk
-took the removal to 73 seconds, 59 of them waiting for
-RDMA_CM_EVENT_UNREACHABLE with status -110, against 14 seconds without
-that delay.  Login and I/O showed no regression over 12 runs, and a
-PROVE_LOCKING build reported nothing over 6 runs on each side.
-
-Yehyeong Lee (2):
-  IB/isert: do not publish connections being released on a second list
-  IB/isert: tear connections down from an ib_client on device removal
-
- drivers/infiniband/ulp/isert/ib_isert.c | 203 +++++++++++++++++++++++---------
- drivers/infiniband/ulp/isert/ib_isert.h |   5 +-
- 2 files changed, 151 insertions(+), 57 deletions(-)
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
