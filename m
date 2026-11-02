@@ -1,96 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793595180;
-	b=Bju6Vj5aeQTudb61q9uTLim6cbcAszNNPQ54Ym06dpC3tJTRfRmohdGay6d5aQEF9+Qt
-	 Dtw31HfXcs32FWLjBjJlidtFTCS1VhvmemfxVuHu0GGhGwwBfs7tpzSUX43vbPmLx2h+/
-	 +Qr3e8icc2BlmYFubmR1sCo5nvkzDG+qNU/oskXtyQ3NQozGYmsiSjKGcOitIwrAPbv37
-	 ALgeQTJKcbUlRVvBYZLIFuvQNbc8pf/1OfLT5BjpJb13aarCm0bD/Z9SQNnFAlvx5v36o
-	 lct6pArvb31wSdq47KE5nQvS59LX0z1ca2qDZQ/MGcjJb9Bl47lro7TdNlqbM224cxw==
+	t=1793595491;
+	b=eJMGsBVJsxcEmvtm8SIQxYriPJUdGzByDWIaDubhhfXwfDXYcEO3PfnelodaIKy+5g6l
+	 Dt7q0J0JWMbnQ8213DLylHFxYh1MfSXM3eYVSTXjKKARErVQqX8GUV1umUz/cbAIsq7v7
+	 1QrjxHKUsnz+uC/5Z/CQNIz5wDl5lD7D2k+FoGBBxIhtH/gq0KzuW/rpFGg7kf0QyOtaq
+	 SjeODfnYky0AH5hzld6RxCMk107F0gCXHffOkeR/XRKqmZ6MgxYRWomakbmL+De4Jf+gN
+	 BVoV3G2dO3bJHrSiiecYWw5QJRcM7wPfI+vJQWG35dt5sE2dxM/4UdvVqgTYXp07rNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793595180;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6oqpKxk86SD+jV+VPFMFYNzOMC1DXOMLFvPv0KulzKw=;
-	b=Nf1QFgpCnU5aBXb4siJKe8BFP8kX4roSJH/6/DV0m4BbvZP/hRhq8TxwjKkT93jl3HkV
-	 sohB8/suAUWmHmyJxd5RwBwCeWLFzdEUJ+vvb8nQ0aZaooQ3IT+qd9w61pORAjUxxof1F
-	 rk6392C3heVwCZe3mABjTl0bwWhrQWOw+RPRWYM7M8cladJosVCyMIjpGBYPi6Dho51Hx
-	 dN3ot2Q8yu7Q+FKrXSJg0TPDbr0M1rr5zk/lLFPCnXt6i1KfTkokTsV4iZmzWt4qr9lG5
-	 10wOi4BX/Dg2H4RgIXxCbHeg7UBOpUQTqu4uIhGQTt6e67nifunv4CksbOQ4LGROiXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793595491;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VjEa8aUzoMl3SYNFpAhF7zUKPZ6wHLLQaYP9asa0BH0=;
+	b=OTCmnGfpN6se9QpLnqJS+QeMOOcFUur+qJIBItufvEycKU5enLwL/VgLmQu7bj487OIe
+	 uEN+DgjSveFTmZiT6NtX7HxLL48YPx/Irl/GpTakcqQTMpGhXlZBlNC3lKdwld2BdBmIE
+	 wsYf0vDZsf1N6S6OxbxSv3DfbiMaB/C5pYkd6fJHW09gE5O887xhhJf8pFxRsvkFriuJU
+	 Fm+eNDjlzsNf+x8eo0onK0qEjwltD2dqTiwevurUasBGIbjltJCwHsbDGyUmVJMKXm9SC
+	 Ect4UMHS0zQKj5KPNtGPBueJMHiiJC6jXW871xyjgppLtUEPJzi85pJPgiPK7B8fWOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lASZB/KX";
-	arc=none smtp.remote-ip=209.85.217.49
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.198
+Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6A5606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:52:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A6A5606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lASZB/KX
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7c3b75caad1so1828044137.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:52:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793595179; x=1794199979; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6oqpKxk86SD+jV+VPFMFYNzOMC1DXOMLFvPv0KulzKw=;
-        b=lASZB/KX/HqBoVzMYFVffaFpFtLUvyrLFLWMHtQ9badZty8fWTGJJZOdReNMH/qfYU
-         acLgFq9PXR5GoieaLe7SkT1WRk2W6t3DPKDfYtgUUwyBPAzpZYy1vuPTu3o7GDITF0PM
-         UcYWpK6YaFOhyojkVEhD9oppgC1GkIrCB58SAWs04mvlhQC5qBd0Ztama49MRXbdKovN
-         BdLHT6UuQFmKv/YpT0WQOaClEzsQfe145oEh3NCT8SSg9gkhVdH4dp5v1J5VtWbGzTnX
-         48pH+FrVW1kVXsoVXiUO24IXbGJPa5ZLZmAcS38rSOd7W8sF+M+wJDvId9cEro/UNLx9
-         hbEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793595179; x=1794199979;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6oqpKxk86SD+jV+VPFMFYNzOMC1DXOMLFvPv0KulzKw=;
-        b=YwrXgtLbaNY63f9/LfJ3o/e5vNBG1S0EeWcl5NZkt6I73X5wdwe8bAN42Yfng4STsc
-         +pTKl4mM7hrvqBPftjWV/3meUVQylZvbARTvaQIt1IDlJwzP7tpbxZzA1Hua5eOVPn6+
-         K+UVMh/EOBhyTWNeFSObFkdSLXX4o1LPzqP92pJY8quqJ0ixk0mJdNOjAaaWXfWENdtB
-         aFMLv90+6xy9xUGsbkNbHy6j/xzJAix6yZ3jo6nro/RNkDloxO3irhwwgr+5VRoUE+Jq
-         COtIL16hnJOKVnAe27GhL75uoYyvwN7J6Ij3LFdS8hiRb7sif2eATV+2zK4Ori+pxDk/
-         PVSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzypa+32zFEQ+iTW892EiSvfyxYg1PFVgXUQKbiTW8qGyLJpRW60zIFU5NWdTR4oJM0gh6IMNJAlKhM3uc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UfcAvKDIiY8UYgmLlMIuQxnvvwzWFngY/d25ugM/H8pWFjf3M
-	vxyBktx0USX28XlDkEUggfCyTutmhK8cTdvgmG0BOVnaEw6GDcW0Qdq+
-X-Gm-Gg: AYBFou2F4thX10mbVggsHA7NaWRmrGn6USkCKybKBavyxq9WgWUgs3QOWiRefYsNW6s
-	p0GQv7/frpijMct+wfwUDX1gmxG2J8N/MKfdE8NSIyUxkzbvor/snsAktjog+HMOmI9LS+jjEy2
-	7UF+Oqk1tPU9eD5ou4PPJVTfPRDYvS2FHFsBzRxg0T0skvJG/NaOd1fN/GP/od8X/pwS4rck2zd
-	PltP6Ka7bUlcaKQ93v0H46SWcK0HdqmOvqgQIpT1s9b+1FeBhPhB7xNpy35EAgNZjiaoxJ6mi6X
-	7tKaHy2OigCDOyvqzYyzmEuEMSwHPrzAUukp0ZMIMfaACf7WFQ/MPzhG3GgAzTCgqV1Rbvvp/CD
-	oQ+QiLo/wRuMLevRdpOHaBeQYMak85wONPquyBDZXLv+Xj2fhQOgpLgNfgsL7N88pDeUjGXi7pU
-	pLKNoISjzBscpxs959LxSWG8TKEhPP4baRYH32iU92J1jB+LY/USXy2f5Li36sZx39aooDbowxQ
-	hAiI3kpdTxB2NoYtPCWNbWaiYZdk1E+dKlgmceyARjZVH5pI+7aHabl8wqS2+bYGPn5Od1Dj1t4
-	HfivbFH/XvxiuNkI4EMK1pKSdg2/SaIT17M9q4rNJyEnH6cZjtnk0PhgGhc=
-X-Received: by 2002:a67:e102:0:b0:7cc:2086:34e0 with SMTP id ada2fe7eead31-7d0728b1cffmr2728316137.4.1793595179009;
-        Sun, 01 Nov 2026 20:52:59 -0800 (PST)
-Received: from bridge.. ([2804:14d:ba6b:8339:72cc:e44:b5d6:98cb])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-992ee4c1603sm10652171241.10.2026.11.01.20.52.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 20:52:57 -0800 (PST)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9FD606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:58:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F9FD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VjEa8aUzoMl3SYNFpAhF7zUKPZ6wHLLQaYP9asa0BH0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793595483; v=1; x=1794200283;
+ b=Hd5/4EfZTqDJhoJQj3RsxtDVnqKy1aamG9WHQGlhuYDbiUFMRMuVUh4U5WZxWeDr/5mCNBgn
+ FHjhJk19Z2BSSg+yJ71g766NnsgHdRSQLGkOUEsKwe+DVjg5v3ia4eonJn1QqSAdzJyZEe1pud3
+ zdEAiA5fQmMfolu9HsRAjM9w=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 36faa33dfd74c51c;
+	Mon, 02 Nov 2026 04:58:02 +0000
+X-Mizu-Trace-ID: 36faa33dfd74c51c
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	kees@kernel.org,
+	peterz@infradead.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hughd@google.com,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	lance.yang@linux.dev,
+	riel@surriel.com,
+	harry@kernel.org,
+	apopple@nvidia.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	minchan@kernel.org,
+	muchun.song@linux.dev,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	youngjun.park@lge.com,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	jgg@ziepe.ca,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	yun.zhou@windriver.com,
-	syzbot+5c0ed4f2974a8b100ed4@syzkaller.appspotmail.com,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-Subject: Re: [PATCH v2] fs/ntfs3: fix double ni_unlock() in ntfs_readdir()
-Date: Mon,  2 Nov 2026 01:52:33 -0300
-Message-ID: <20261102045233.16718-1-christian.aurichzm@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029052102.1585462-1-christian.aurichzm@gmail.com>
-References: <20261029052102.1585462-1-christian.aurichzm@gmail.com>
+	kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	josef@toxicpanda.com,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com
+Subject: Re: [PATCH v3 15/47] mm/khugepaged: always recheck the pmd in try_collapse_pte_mapped_thp()
+Date: Mon,  2 Nov 2026 12:57:53 +0800
+Message-ID: <20261102045753.34901-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261031-fixes_core-v3-15-d6437171ecc3@kernel.org>
+References: <20261031-fixes_core-v3-15-d6437171ecc3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,9 +127,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Konstantin,
 
-Any update on this? The bug is in 7.4-rc1 now and syzbot is still
-hitting it. v2 still applies.
+On Sat, Oct 31, 2026 at 10:39:44AM +0100, David Hildenbrand (Arm) wrote:
+>From: Josef Bacik <josef@toxicpanda.com>
+>
+>try_collapse_pte_mapped_thp() drops the PTE lock after it has cleared the
+>page table, and takes the PMD lock and the PTE lock to remove it.
+>
+>In between, MADV_DONTNEED with CONFIG_PT_RECLAIM can reclaim the
+>page table. The pmd_same() check is supposed to handle this, but it is
+>only done with CONFIG_SPLIT_PTE_PTLOCKS.
+>
+>Fix it by performing the check unconditionally.
+>
+>Fix generated by an LLM and sent by Josef Bacik in private.
+>
+>Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>[ david: adjust description ]
+>Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+>Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
+
+Nothing jumped out at me, so:
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
