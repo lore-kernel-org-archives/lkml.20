@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605263;
-	b=Je7jagys92fkng+hNeosZz2FiFEQDThoB4hASX6l/7lFyn2T26E9xtpMQDXFLOca+H9v
-	 s1D0IuaA7R8NufmDlpm7FjaT6dAhUzdmP3g921CyU617hqRGjLcmI1JZ7LuHTRMm3pv/2
-	 1oUNZBsoyZNu7PIo2mDN+5JbwZ9wQIri0DtKa+dYQw/RHViDBK2pGk29HTW2N0U8YLM0F
-	 nQ2lfVlMkEv7L4xIREICjotHG+z0KEwSjnggE7Q5aED/f1E4eV4O6153BguMtd//CqorR
-	 iHCm+I1MURb8pLGCBr0VkUd1Pyrs/59w3WSoSKcXQTBmpnMQddtN2bruWKmTgWZHQvw==
+	t=1793605278;
+	b=ylWPUQ+UhxqPKMif/k2t5hgOdk7Chx36mkqIkNzpVZWt9aOcs1m/MpS2NpSvW96gSkFm
+	 6DkBUxYspFk/69/5EmkCOp65lnZeKEHzKY9zK4NTP5DzCBdBRcy/hJuWajNvclC0jwqF7
+	 YceHNgluN/v0zwyb107gYAw7jnNANrWuE/SVmnnDvKqJh0d3CqbuSiCM4PLb2HlN048qs
+	 eIMO0+9QWFw2kdp4rzxLUbTTZZSDLUb2hU8hDD70+CO/YDLi1hL3MxiGVb0EaBl3yGP/s
+	 Gd/cipJqqH/uIu3STVPM88ym3+hAnMlQp7o/eLlD+MpR9riyeAz7Jw2UHg9XwBz3Jbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605263;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605278;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Organization:Content-Transfer-Encoding;
-	bh=RH2Hnu2Dti7Q+9NWgAUZ00h2CN2wYvdC3cQQu5a/rL0=;
-	b=GXUue+gLQspploKka+1erBAhLNZUtQXY2w+8dNlyH5pmBFvWPgSknVBA+EwUsPkwEA+n
-	 ncY+F6ZGbvl/FfhI91RPgvEzjQUONJipR7lFuub2lkjoQKx3x9sgZt/QODILbkukdn/90
-	 Z6Sp0fMuyYUbyZTKEwC0FmzDwhmaxvrq/6CyPWsg/8J7oAFNj5sBWJC4UqsdD8McHLNAm
-	 3nHyJv/mN7Lr1+FCEBrF4uKdQBXFDXfkfIbZeZ6sNzHsO1V/Lcz3jBXilNOl0T3o9PJa9
-	 J9DcLRqmK9C1JzcKT4nV/ELl0xGVh1gDIK9y/wOkXlTbx9Zd9sINsf9/3222PDBDcNQ==
+	bh=Y+JrBrvv9TALMnKkcDN+SfJ03veLpPfW6QH2UWl2NCs=;
+	b=mtc/HaQ/bQ0dHOshP4KRkzWi1GGbsFox9JdkLBQ38Lrj8D1QbF5s9ygo3hNeEgwv3nfF
+	 /ER6xaQFXT+KDeGBFiejJX7S2yheuV8596OGvMoJaDzux7K2OCUWyhAW/6Dn7Rp9aePrQ
+	 Td0DtKrsubL5QcZtzWNN4cM5dGESRUuhVTPGQ0QFb6fSfkqyS0hKsGq55phiC7ogZ5M/0
+	 AUCwA9YL1tKz2G5CLkiQswJCiQcuy4cB5BBk3z8cqfaCL1to5lJqrA0Hgakub7gHht83M
+	 0F7nUNe8T0oZalpo7rIHXf8r+pQsUNX83bieYgx6lDirQCoFkDnn4kA6F3aEmOotR+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YyFmMJkE;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yoi9rA88;
 	arc=none smtp.remote-ip=198.175.65.17
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182B4606A32F;
-	Mon,  2 Nov 2026 07:41:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 182B4606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D82606A339;
+	Mon,  2 Nov 2026 07:41:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D82606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YyFmMJkE
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yoi9rA88
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793605262; x=1825141262;
+  t=1793605276; x=1825141276;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=VLW4mh7uPKNWjdbDLVnZfcxQmi3GS6EFtxsZW3S4z0o=;
-  b=YyFmMJkEu9RuVXKMWLAKhbjRVepCfTLuFjDtsjVS4ryvGaRGCt1kV+aF
-   NZYeqWV+uOg58P3zc4wKPu3t8OvXs0W+SHlYUEtW5evDyoCg63OA1kIIK
-   f5ftbaB0j/A66XbYObxchZIi/Blm87CZx4n7R4eoCuFq1p3ycOESzblFd
-   R4qG05FxlUI7QQ3XHqZYfrfulu7XysSLiQJgVUqatoOeZPbW9Rz8JeClJ
-   NPmhlCPaIrFg/LLj5x4mebXCn5hLtSrYio7B8Jdmu6348F9I8axU2dA49
-   fS3EDpj287HVARZJFL2Xrh4/yk/v6IR1rGqv3Jy48jJsgp6fi0NkNl9B8
-   g==;
-X-CSE-ConnectionGUID: Ju91IQszT3+wHbiXPGHimQ==
-X-CSE-MsgGUID: uofL19KHTGO53fHNXNHL2Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2300085"
+  bh=8RB3Mt1NVY7U7NGufMY5kpN1ZGENSSimSaTe0EXkvqQ=;
+  b=Yoi9rA88Tr2C4od4G4XagKacRnB3QyL6x53pil2m9agObucLTUXjGR7J
+   i5c5MF8Bkn9QSKB1Izn/jw7zFVUamxx94gO+lICx2Y9GhLXSjZKdUcnbl
+   n77T/bvVJiKo5QuEfyhUgtb35aX/+AqcVOjp4XYftYlPv0vmkqOP13kf/
+   OW8BDvefcVKgGq3uXQTA7Pp1y8CbbgJ1HQkdOYa1QIj7wSXqKl6TYt4Ji
+   kQ1c+GsFIDctOdlUxzwF/5oCSJ7MfINXrl1QIGRnb8NWV+OxInSepLp5E
+   gy01so6IfI8p9gdDied8ujIdEVpvZP9+Zn/EZ7ICtzqrfYT7uwsLKNUHr
+   w==;
+X-CSE-ConnectionGUID: rv4dcg2HSZOGdCnIW4582Q==
+X-CSE-MsgGUID: 1mv0yOysQXuLatETV8/v4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2300147"
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2300085"
+   d="scan'208";a="2300147"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:41:01 -0800
-X-CSE-ConnectionGUID: TvauPCT9SgK8LZuoeFMPeg==
-X-CSE-MsgGUID: 0BAGtZxmT1i4ETFx8WYYgg==
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:41:15 -0800
+X-CSE-ConnectionGUID: h3ql/C8oTna0vbi90nTK9Q==
+X-CSE-MsgGUID: pDzw3HqxR9+EzSyKL1oNlg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6182151"
+   d="scan'208";a="6182240"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO ahunter6-desk) ([10.245.244.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:40:54 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:41:08 -0800
 From: Adrian Hunter <adrian.hunter@intel.com>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -92,9 +92,9 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	driver-core@lists.linux.dev
-Subject: [PATCH 1/6] irq_work: Re-raise pending irq_work after system resume
-Date: Mon,  2 Nov 2026 09:40:34 +0200
-Message-ID: <20261102074039.26983-2-adrian.hunter@intel.com>
+Subject: [PATCH 3/6] perf/x86/intel/pt: Stop tracing at syscore shutdown
+Date: Mon,  2 Nov 2026 09:40:36 +0200
+Message-ID: <20261102074039.26983-4-adrian.hunter@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261102074039.26983-1-adrian.hunter@intel.com>
 References: <20261102074039.26983-1-adrian.hunter@intel.com>
@@ -110,157 +110,162 @@ MIME-Version: 1.0
 Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 - 4, Domiciled in Helsinki
 Content-Transfer-Encoding: 8bit
 
-irq_work_queue() raises the irq_work self-interrupt only when adding
-work to an empty raised_list.  Once raised_list is non-empty, further
-queueing assumes the interrupt is already pending and will eventually
-process the list.
+Intel PT tracing can survive a shutdown sequence and continue into a
+kexec'ed kernel.
 
-That assumption can fail across system suspend.  irq_work queued after
-arch_suspend_disable_irqs() and before the interrupt controller is
-suspended, for example from NMI context, may leave its self-interrupt
-pending in hardware.  If that pending interrupt state is lost during
-suspend, hibernation restore, or kexec jump, raised_list remains
-non-empty after resume but nothing will process it.
+The perf reboot notifier removes only per-CPU events, so per-task
+events can remain active, for example:
 
-Subsequent irq_work added to raised_list will not raise another
-interrupt because the list is already non-empty.  Architectures that use
-an irq_work interrupt and do not process raised_list from the tick can
-therefore leave irq_work pending indefinitely.  A caller waiting in
-irq_work_sync() may then spin forever, for example when closing a perf
-event whose pending irq_work never executes.
+        perf record -e intel_pt// -- kexec -e
 
-For suspend, hibernation, and kexec jump, only the CPU that remains
-online is affected.  The other CPUs are taken offline beforehand, and
-smpcfd_dying_cpu() runs irq_work_run() on each CPU before it is removed,
-so checking the local raised_list is sufficient.
+Tracing can also remain enabled on CPUs running traced tasks when
+stop_other_cpus() halts them.  On systems where Intel PT is unavailable
+in VMX operation (IA32_VMX_MISC[14] = 0), VMXOFF during KVM shutdown can
+re-enable TraceEn via intel_pt_handle_vmx(0) if a tracing event is
+still active.
 
-Add irq_work_resend(), which re-raises the irq_work self-interrupt when
-raised_list is non-empty, and invoke it from syscore_resume() after
-interrupt controllers have been restored.  Also invoke it from the
-syscore_suspend() failure path, after the already-suspended callbacks
-have been resumed, because callers do not call syscore_resume() in that
-case.  This restores a lost irq_work interrupt on the CPU that remains
-online for suspend-to-RAM, hibernation, and kexec jump.
+As a result, the new kernel may inherit TraceEn set and Intel PT can
+continue writing into buffers allocated by the old kernel.  Those pages
+may subsequently be reused for unrelated purposes.  In addition,
+pt_init() detects TraceEn already enabled and refuses to register the
+PMU.
 
-If the original interrupt was not lost, the extra self-interrupt is
-harmless.
+Stopping events from a shutdown callback is not sufficient because they
+may be scheduled back in until interrupts are finally disabled.
+Instead, add a syscore shutdown handler that:
 
-Example S3 with perf record that always loses a self-IPI:
+  - prevents TraceEn from being enabled again, and
+  - clears TraceEn on every CPU.
 
- # echo deep > /sys/power/mem_sleep
- # cat /sys/power/mem_sleep
- s2idle [deep]
- # perf record -e power:suspend_resume --no-buffering -C 0 -o /tmp/s3.data &
- [2] 2147
- # rtcwake -m mem -s 10
- rtcwake: wakeup from "mem" using /dev/rtc0
- # kill -INT %2
- [ perf record: Woken up 1 times to write data ]
- [ perf record: Captured and wrote 0.892 MB /tmp/s3.data ]
+syscore_shutdown() is executed for kexec, reboot, halt and poweroff,
+and still runs while CPUs can service IPIs.
 
- Now perf record is stuck in irq_work_sync() which spins forever:
+To block tracing from restarting, introduce a shutdown flag checked by
+both pt_config_start() and intel_pt_handle_vmx(), the only places that
+can enable TraceEn.  After shutdown begins, events remain in a
+self-consistent perf state but no longer generate trace data, matching
+the existing VMX-on handling.
 
- # perf record -C 0 -- sleep 1 | perf report --stdio
- # Overhead  Command  Shared Object      Symbol
- # ........  .......  .................  ................................
- #
-     99.98%  perf     [kernel.kallsyms]  [k] irq_work_sync
-      0.02%  perf     [kernel.kallsyms]  [k] ktime_get_update_offsets_now
+Clear TraceEn by reading IA32_RTIT_CTL on each CPU and updating the
+hardware state directly rather than relying on aux_config, ensuring
+tracing is disabled regardless of perf's software state.  Once the
+shutdown flag is set, no racing path can re-enable TraceEn.
 
- Eventually resulting in hung tasks:
+kexec jump (KEXEC_PRESERVE_CONTEXT) is not covered because it does not
+execute syscore shutdown.  kdump continues to rely on
+cpu_emergency_stop_pt().
 
- INFO: task kworker/u8:1:35 blocked for more than 122 seconds.
-       Not tainted 7.3.0 #2
- task:kworker/u8:1    state:D stack:0     pid:35    tgid:35    ppid:2      task_flags:0x4208060 flags:0x00080000
- Workqueue: events_unbound fsnotify_mark_destroy_workfn
+Example:
 
-Fixes: 76a33061b932 ("irq_work: Force raised irq work to run on irq work interrupt")
+    On first kernel:
+
+	perf record -e intel_pt// -- kexec -e
+
+    On second kernel:
+
+	# Without the fix, PT is enabled at boot
+	dmesg | grep -i 'PT is enabled at boot time'
+	[    2.065889] pt: PT is enabled at boot time, doing nothing
+
+Fixes: 52ca9ced3f70 ("perf/x86/intel/pt: Add Intel PT PMU driver")
 Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
 Cc: stable@vger.kernel.org
 ---
- drivers/base/syscore.c   | 10 ++++++++++
- include/linux/irq_work.h |  2 ++
- kernel/irq_work.c        | 12 ++++++++++++
- 3 files changed, 24 insertions(+)
+ arch/x86/events/intel/pt.c | 46 +++++++++++++++++++++++++++++++++++---
+ 1 file changed, 43 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/base/syscore.c b/drivers/base/syscore.c
-index 483adb796654..3f645da46e77 100644
---- a/drivers/base/syscore.c
-+++ b/drivers/base/syscore.c
-@@ -6,6 +6,7 @@
-  */
+diff --git a/arch/x86/events/intel/pt.c b/arch/x86/events/intel/pt.c
+index 36bf039668d7..7453e9880b25 100644
+--- a/arch/x86/events/intel/pt.c
++++ b/arch/x86/events/intel/pt.c
+@@ -18,6 +18,7 @@
+ #include <linux/slab.h>
+ #include <linux/device.h>
+ #include <linux/kvm_types.h>
++#include <linux/syscore_ops.h>
  
- #include <linux/syscore_ops.h>
-+#include <linux/irq_work.h>
- #include <linux/mutex.h>
- #include <linux/module.h>
- #include <linux/suspend.h>
-@@ -81,6 +82,8 @@ int syscore_suspend(void)
- 		if (syscore->ops->resume)
- 			syscore->ops->resume(syscore->data);
+ #include <asm/cpuid/api.h>
+ #include <asm/perf_event.h>
+@@ -34,6 +35,9 @@ static DEFINE_PER_CPU(struct pt, pt_ctx);
  
-+	irq_work_resend();
+ static struct pt_pmu pt_pmu;
+ 
++/* Set at shutdown, after which TraceEn must not be set */
++static bool pt_shutdown;
 +
- 	return ret;
+ /*
+  * Capabilities of Intel PT hardware, such as number of address bits or
+  * supported output schemes, are cached and exported to userspace as "caps"
+@@ -425,7 +429,7 @@ static void pt_config_start(struct perf_event *event)
+ 		return;
+ 
+ 	ctl |= RTIT_CTL_TRACEEN;
+-	if (READ_ONCE(pt->vmx_on))
++	if (READ_ONCE(pt->vmx_on) || READ_ONCE(pt_shutdown))
+ 		perf_aux_output_flag(&pt->handle, PERF_AUX_FLAG_PARTIAL);
+ 	else
+ 		wrmsrq(MSR_IA32_RTIT_CTL, ctl);
+@@ -1609,7 +1613,7 @@ void intel_pt_handle_vmx(int on)
+ 		                     PERF_AUX_FLAG_PARTIAL);
+ 
+ 	/* Turn PTs back on */
+-	if (!on && event)
++	if (!on && event && !READ_ONCE(pt_shutdown))
+ 		wrmsrq(MSR_IA32_RTIT_CTL, event->hw.aux_config);
+ 
+ 	local_irq_restore(flags);
+@@ -1860,6 +1864,38 @@ static int pt_event_init(struct perf_event *event)
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(syscore_suspend);
-@@ -106,6 +109,13 @@ void syscore_resume(void)
- 				"Interrupts enabled after %pS\n",
- 				syscore->ops->resume);
- 		}
+ 
++static void pt_shutdown_cpu(void *info)
++{
++	u64 ctl;
 +
 +	/*
-+	 * A pending irq_work self-interrupt may have been lost while suspended.
-+	 * Resend it now that interrupt controllers have been restored.
++	 * After VMXON on CPUs without PT support in VMX operation,
++	 * TraceEn is already clear and RTIT_CTL must not be written.
 +	 */
-+	irq_work_resend();
-+
- 	trace_suspend_resume(TPS("syscore_resume"), 0, false);
- }
- EXPORT_SYMBOL_GPL(syscore_resume);
-diff --git a/include/linux/irq_work.h b/include/linux/irq_work.h
-index 7184e1273965..0040ea94a4fe 100644
---- a/include/linux/irq_work.h
-+++ b/include/linux/irq_work.h
-@@ -62,6 +62,7 @@ void irq_work_run(void);
- void irq_work_run_cpu(unsigned int cpu);
- bool irq_work_needs_cpu(void);
- void irq_work_single(void *arg);
-+void irq_work_resend(void);
- 
- void arch_irq_work_raise(void);
- 
-@@ -70,6 +71,7 @@ static inline bool irq_work_needs_cpu(void) { return false; }
- static inline void irq_work_run(void) { }
- static inline void irq_work_run_cpu(unsigned int cpu) { }
- static inline void irq_work_single(void *arg) { }
-+static inline void irq_work_resend(void) { }
- #endif
- 
- #endif /* _LINUX_IRQ_WORK_H */
-diff --git a/kernel/irq_work.c b/kernel/irq_work.c
-index 73eabcbdcd50..5d186ec35770 100644
---- a/kernel/irq_work.c
-+++ b/kernel/irq_work.c
-@@ -274,6 +274,18 @@ void irq_work_run_cpu(unsigned int cpu)
- 	irq_work_run_list(per_cpu_ptr(&lazy_list, cpu));
- }
- 
-+/*
-+ * Raise the self-interrupt again if irq_work is queued, because it may have
-+ * been lost across system suspend.
-+ */
-+void irq_work_resend(void)
-+{
-+	lockdep_assert_preemption_disabled();
-+
-+	if (!llist_empty(this_cpu_ptr(&raised_list)))
-+		arch_irq_work_raise();
++	rdmsrq(MSR_IA32_RTIT_CTL, ctl);
++	if (ctl & RTIT_CTL_TRACEEN)
++		wrmsrq(MSR_IA32_RTIT_CTL, ctl & ~RTIT_CTL_TRACEEN);
 +}
 +
- void irq_work_tick(void)
++/*
++ * Tracing must not continue into a kexec'ed kernel, which may reuse the
++ * trace buffer memory, so stop tracing on all CPUs and prevent it from
++ * being started again. Events are left in place, but record nothing more.
++ */
++static void pt_syscore_shutdown(void *data)
++{
++	WRITE_ONCE(pt_shutdown, true);
++	on_each_cpu(pt_shutdown_cpu, NULL, 1);
++}
++
++static const struct syscore_ops pt_syscore_ops = {
++	.shutdown	= pt_syscore_shutdown,
++};
++
++static struct syscore pt_syscore = {
++	.ops = &pt_syscore_ops,
++};
++
+ void cpu_emergency_stop_pt(void)
  {
- 	struct llist_head *raised = this_cpu_ptr(&raised_list);
+ 	struct pt *pt = this_cpu_ptr(&pt_ctx);
+@@ -1933,7 +1969,11 @@ static __init int pt_init(void)
+ 		intel_pt_validate_hw_cap(PT_CAP_num_address_ranges);
+ 
+ 	ret = perf_pmu_register(&pt_pmu.pmu, "intel_pt", -1);
++	if (ret)
++		return ret;
+ 
+-	return ret;
++	register_syscore(&pt_syscore);
++
++	return 0;
+ }
+ arch_initcall(pt_init);
 -- 
 2.53.0
 
