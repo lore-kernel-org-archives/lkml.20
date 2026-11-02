@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606728;
-	b=AfdzXl74FNZTdhoULaUtM1a6CfXDfB/rEPhLW9RJtIyBW1OGIfZtjJQf8c9R1yzjp36N
-	 4Eai/JKkKGuS8hvaGCDEJfhXnLa445kV8nVs6f6SwwUdp2Z2fnJxZ1+I14l4S/3hi+E76
-	 rUO2P+oHFDW2rEJIyoR3LoVA4urjijwNIV9TvS8rBNuQbImtefsJfTPEb9Dt90byHk8mM
-	 NXYTI1mSwSoEW47qZgy9jymmCtLixmNPDyOqd4lcujf5uwZBDGtgywLgAIblppcDQ/BB6
-	 j7LGPGZiCIgFf4LyuMUj0xbpTxopRCMFgk0wqC0a5eEzHlExjglQ4nWHwr6VbdZehuw==
+	t=1793606751;
+	b=pGW8l970Q1AcBYyXzPuFjecKq1rAz40CiLXqxGeXvzqsW/Zq7aeLlFwT1gEb3qrdCvhQ
+	 lA5EKfIjOB9PzcwY8JEGgsCebTlVYza3sPnXu0zUAFXG1GAGDYDlaEh9kb4JRl9tpPS0B
+	 iqDYdR8tGYr2Xiex6KqG3crUgYjt48fwMVYRtwD3erfVO2CtqdfIgyN4aX9G1W980A6n9
+	 bNxRTqQvDb6VhZuOBUNisvabNed3OZ/bq8FG6X45jmGO/UqnRoKJHjcElBb+C2dcrqLi3
+	 7H1kNqjENgOyFM//k0mxtYnMj1hW8x7QR2ooETKpPRnyMYxd8bYrR+DbRhVcqk+AEew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606728;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=s3MVvxzGnSWvttHCkz12dBX/2TzSeRqwx2B+vBpsohA=;
-	b=dzbrT7mwtF0AvQelfAEUNWkbjP6y6NV3pA+VwOhjtF9JFBrSFh4kcW0SCcQV2lWGLbLW
-	 WNiAzB0ibHVrTUI9lBaGbUllOa43MOzM4/07S/GgXg/n0y3Jr16dXGJ4kTeoG113PEBUY
-	 xavJXSZWeDsym2SpNDmmKgZusHenr19liRyNUMuQluQcHdnd0kkdIdaSuhckwuKuvAQKO
-	 IEJXi355fK+LBD0swS6d33k0NC9b4AEL3ZwGHxhw9PrzVxY2K9DAcCzML5bSgRrSvgnWK
-	 o/ZFp5B8YR48WrxLcgq/I5BAP88bZFDLcGN0uZFkPVn/1QRfR8z7SjJo3v5yYz2PrBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606751;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=hnPzEBlbfALOVfgiCaCYUKj4V2ux/K3gdALbZ/Npi54=;
+	b=dKAgKZSW1tD12S1X4n5RnfG6n+XySmbJ/Nshb7t2RyIff7ZhK6o3PziXWBcPjMIRPp38
+	 ZSKR/1DI0vcTQF8uLx3oy4V/+rQqGPYpMWSu+fMgnHWDI58t3C8ibrY6PhjFWTnQvCq/t
+	 BwDpyQjy9tg7WOaGKmDi0z4swbx5COO4mOCfKwP9knRj7Xsgo7sVgwWZjPHSpjSEGWaNS
+	 ovL50Z/7z9e/B/dRkPat67f8KBGXMWMBiZ4o4qD10nHGv4+WK7zPIv4EzSx1QVq40rTlM
+	 fkcYIZD8iq5AriznS8pQxeq3tv33Gf9CMroVodo0HbS8LkLFgaKPxxGjV3eqcatDryQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AR6KG4f6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=1wt.eu;
+	spf=pass smtp.mailfrom=1wt.eu;
+	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=io6cX5MB;
+	arc=none smtp.remote-ip=51.159.59.229
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717C9606A326;
-	Mon,  2 Nov 2026 08:05:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53C3606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:05:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E53C3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AR6KG4f6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 047321F000C1;
-	Mon,  2 Nov 2026 08:05:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793606728;
-	bh=s3MVvxzGnSWvttHCkz12dBX/2TzSeRqwx2B+vBpsohA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AR6KG4f6xIXaHUlSombXmoSQ3IvLm0GY8dPAquP6rdFe+3aO/0eJ/SyIZX18LyxEA
-	 oPhCDuI8dM4a1KeoQdYB8PpxAL50hgODsXNIG5Ym19gtekg3Yr3cZWWe+RhYohzB9g
-	 7OSHewDoFxYPaUJUPLsxc4k1knuZiHL55xm0f72hKmfloHJMrwybTLcK45oIprHLyb
-	 my/qQh3w5ZW21XTNdKICi8B6RQtTl8BlwIdkMVE8ZOIT4+sL0ef/Vf0bdxZ1oIwKY2
-	 zSit37Mkx1ls5d6VKOIZJFa0RXAuERrEocaENfN9F1FY0asgN8o3rYYEJpE9dl0xqs
-	 zs4zSuOmYeSHA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xNn2j-00000009iDv-2tka;
-	Mon, 02 Nov 2026 08:05:25 +0000
-Date: Mon, 02 Nov 2026 08:05:25 +0000
-Message-ID: <86ik2f3bga.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Matthias Goergens <matthias.goergens@gmail.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu
- <yuzenghui@huawei.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	workflows@vger.kernel.org
-Subject: Re: [PATCH v2] Documentation/process: Add a maintainer entry profile for KVM/arm64
-In-Reply-To: <8ffc41d7-b032-481c-9643-a87847b8452b@kernel.org>
-References: <20261030083351.3040604-1-matthias.goergens@gmail.com>
-	<8ffc41d7-b032-481c-9643-a87847b8452b@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key, unprotected) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=io6cX5MB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1793606748; bh=hnPzEBlbfALOVfgiCaCYUKj4V2ux/K3gdALbZ/Npi54=;
+	h=From:Message-ID:From;
+	b=io6cX5MBmf1Hwy3RoAFENj18yyAqVM+muZtJbd3eK93OWG1nE+bWGpSRk9iRw9Hb7
+	 bBUG6DIFZUHOdVdR7wHp6gH8ZrjvF6kYFEnfo3rGEqzTO+JHdUPPtLBkRTTNeLDZzl
+	 qZRqOMt8iDErlVl6qGY3n26hic0GrWuR+rNDT+GI=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id A35CFC06B9;
+	Mon, 02 Nov 2026 09:05:48 +0100 (CET)
+Date: Mon, 2 Nov 2026 09:05:48 +0100
+From: Willy Tarreau <w@1wt.eu>
+To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/nolibc: drop readdir_r() override
+Message-ID: <auhEXIPuSZknxJQQ@1wt.eu>
+References: <20261102-nolibc-selftests-readdir_r-v1-1-58fd2205f1c6@weissschuh.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,51 +57,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: krzk@kernel.org, matthias.goergens@gmail.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, corbet@lwn.net, skhan@linuxfoundation.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, rdunlap@infradead.org, linux-kernel@vger.kernel.org, workflows@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261102-nolibc-selftests-readdir_r-v1-1-58fd2205f1c6@weissschuh.net>
 
-On Mon, 02 Nov 2026 07:16:47 +0000,
-Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Mon, Nov 02, 2026 at 03:27:35AM +0000, Thomas Weiﬂschuh wrote:
+> Running the testcases using readdir_r() on regular libcs is useful to
+> detect mismatching behavior of nolibc. The deprecation warnings can be
+> avoided with a compiler pragma instead.
 > 
-> On 30/10/2026 09:33, Matthias Goergens wrote:
-> > +
-> > +If your series depends on something else that is not yet in mainline, such as
-> > +another series under review, say so in the cover letter and name exactly what
-> > +it applies on top of.
-> > +
-> > +Use ``git format-patch --base`` so that the base commit is recorded in the
-> > +patches.
+> Drop the override and enable the testcases relying on the function for
+> regular libcs.
 > 
-> You should rather encourage usage of b4, which does above for you.
-
-No. People use whatever they want to use, and we don't have to be
-prescriptive.
-
->
-> ...
+> Signed-off-by: Thomas Weiﬂschuh <linux@weissschuh.net>
+> ---
+>  tools/testing/selftests/nolibc/nolibc-test.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
 > 
-> > +
-> > +Security issues
-> > +---------------
-> > +
-> > +Bugs that let a guest attack its host, or a nested guest attack its guest
-> > +hypervisor, should be reported as described in
-> > +Documentation/process/security-bugs.rst.
+> diff --git a/tools/testing/selftests/nolibc/nolibc-test.c b/tools/testing/selftests/nolibc/nolibc-test.c
+> index 048c2d2850a9..1157b521e65b 100644
+> --- a/tools/testing/selftests/nolibc/nolibc-test.c
+> +++ b/tools/testing/selftests/nolibc/nolibc-test.c
+> @@ -50,6 +50,7 @@
+>  #include <alloca.h>
+>  
+>  #pragma GCC diagnostic ignored "-Wmissing-prototypes"
+> +#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+>  
+>  #include "nolibc-test-linkage.h"
+>  
+> @@ -99,10 +100,6 @@ static const int is_glibc =
+>  #define strlcat(d, s, l) 0
+>  #define strlcpy(d, s, l) 0
+>  
+> -/* readdir_r() is likely to be marked deprecated */
+> -#undef readdir_r
+> -#define readdir_r(dir, dirent, result) ((errno = EINVAL), -1)
+> -
+>  #define _syscall(...) 0
+>  #endif
+>  
+> @@ -1802,8 +1799,8 @@ int run_syscall(int min, int max)
+>  		CASE_TEST(ftruncate);         EXPECT_SYSZR(1, test_ftruncate()); break;
+>  		CASE_TEST(getdents64_root);   EXPECT_SYSNE(1, test_getdents64("/"), -1); break;
+>  		CASE_TEST(getdents64_null);   EXPECT_SYSER(1, test_getdents64("/dev/null"), -1, ENOTDIR); break;
+> -		CASE_TEST(directories);       EXPECT_SYSZR(is_nolibc && proc, test_dirent()); break;
+> -		CASE_TEST(dirfd);             EXPECT_SYSZR(is_nolibc && has_working_64bit_syscall_arg, test_dirfd()); break;
+> +		CASE_TEST(directories);       EXPECT_SYSZR(proc, test_dirent()); break;
+> +		CASE_TEST(dirfd);             EXPECT_SYSZR(has_working_64bit_syscall_arg, test_dirfd()); break;
+>  		CASE_TEST(getrandom);         EXPECT_SYSZR(1, test_getrandom()); break;
+>  		CASE_TEST(gettimeofday_tv);   EXPECT_SYSZR(1, gettimeofday(&tv, NULL)); break;
+>  		CASE_TEST(gettimeofday_tv_tz);EXPECT_SYSZR(1, gettimeofday(&tv, &tz)); break;
 > 
-> Do we need to repeat standard stuff in every maintainer profile? Above
-> is quite obvious, so maybe skip it which would make the document shorter
-> increasing the chances anyone will read it.
+> ---
+> base-commit: 228a318052869ab08f01f53b5cedfae0e930f6dd
+> change-id: 20261102-nolibc-selftests-readdir_r-1dab2edffb12
 
-I'm perfectly happy to have this here. Most people will only read the
-one document they need to (if any). And I really doubt that the
-mention of a nested guest escape is that common (as a basic grep would
-have shown you).
+Oh nice, I wasn't aware this one was possible. Nice to learn something
+in the morning ;-)
 
-	M.
+Reviewed-by: Willy Tarreau <w@1wt.eu>
 
--- 
-Without deviation from the norm, progress is not possible.
+thanks,
+Willy
