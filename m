@@ -1,89 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793658249;
-	b=LVu15ydifo2nq8mpJIqQuhSkUA7xAH9x7MhdTRo7kkuZGN6sQkXPBHuAIw6OIdI/PIqB
-	 w81EDsO4wE4CkUdF3sI8wz/YzwDswR8zBgVTR7DSz/zgGDgTUy6AiwBbKfM+J/t1iayXQ
-	 LlErc/wnRYinF5n96sLqZwicSz5awxFrchWVk7FfzIvyqP9uMxzTrZ82C6dU4ydl907TW
-	 lVOTFeKumBUtJW9dYgqVy9S/DusNq16/CRYO2KdGiADkhlEAcEHOIMVWaSwXM3Sqjslv8
-	 UcvEia+aHqu3j4JD1D6RX5UsjCj60BS3T/5lEtJcE6RjnVOifcKibbgIpt9w+VtpNEw==
+	t=1793658266;
+	b=oxiCJTAWf/Lc8jFiq76paLQfrbnlbQXiblBP7t/wGF+aOtc+p31JULhf1qrVvleGIktp
+	 bvPlJZvNltX/orx84FAz1APXve6HSyK6zAo20KdyJTOyGrolkpRNlEg0TjwsdzUWy2jab
+	 KAwH8rkKKzRxn+IhS8h1JTWekVYyLn7I76+92pPK42fxQ/gJXKFONkj5rJIns92tCSuHn
+	 USfQZ4McdKF9I/+bn/68XE5rU8WLBD8voPK4IgiIDQXiKiJpr0JhhbxkgAhhtxQbEQIa9
+	 8+wT1PhQNKF04dCnS2KZyeBNwiRtuRQjIc/w0QTK/yWyeEoEzl/5bNc+/p9HeGMdSxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793658249;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793658266;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=reaxEXsLj9NUOWBS9g4Qr6UImQi4WW0JbOt84oAruTc=;
-	b=N7pzSC9OiXBm9EAEPDH009xM2VRMrOPlau/yc90gA1aUa/ofs1MJ+PfEy5KAQMS4MK2N
-	 jEuUKpOMPmhxckmFv6qIXkSVqdpOpt3X32bLDpQiYZhNJm0HLc0Lj1F6IYqcB5lAzDRiP
-	 ZBwhbzogybmhpFNpMEbKTth6ZWegm/cGKRLsxVl6zXuhsj/EDvB12sv3HQgpQqiTd/k/H
-	 5ghLFfDjIR3LZ7GSQSUXLUncNujiGnLQZhQZ+sZPMSH7hcM+/3mDcNaO37sE+64KakiW1
-	 Rqm9kpLxW7VeQvtUcKa/C9+kF27iq5hvxZpne858/sPnpMNH/Efy70MUsYdw0AKX65Q==
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=UovCA83FNsPuBSnfAJd4uLUjnukL3oT2mIC2wyc1NfU=;
+	b=EMZZSxMnA38acpsS6D28bCVAcX/PHAh0ItC4y/JuUKPPi2oUB0fCC8KQ0bVzjp3aMFoJ
+	 ucipZrvK27xotoM6FwUoe5wIsfAK6v1xgNIJTccjH07oVonGivlj3GM4K03cl23eKhMb/
+	 TvX9GXCZeGoumxILkrzKT/u3YapNWN9j7RY1MS0xAOQu5hvXstXorWqUNq+m7typGEPef
+	 P0P3kx8GT4e5l/9pDTFKDYoHs9LsQRS5ucQMnZmfcUYWyE4zJS/8z4QMONRuO6XzrjMHQ
+	 BWBjTPaMuTNi1z/hKFi3+bHHdH2ZOquA5l8FwP/7K0hzqx758ajldf+1oVlAFVVolog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lJtTLPmt;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Q3+J7aud;
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B57606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:24:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5B57606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9AB606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:24:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF9AB606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lJtTLPmt
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1adbf62dd31so3781482c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:24:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Q3+J7aud
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0d91601bdso894847b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:24:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793658248; x=1794263048; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=reaxEXsLj9NUOWBS9g4Qr6UImQi4WW0JbOt84oAruTc=;
-        b=lJtTLPmteFqjcFfjFQ3RgfZhtVv/+0agNfsxccXeZ5zhUV96rjbiMoCrAnmsaOXvPZ
-         IVUXL9ieC8G0FISW5YAju9FmnnxmmcFRQ7Sng5pqlfmez/80ZWg2GvGJEA4WI0HDXPNN
-         UYA+zBMxZtPEJ7W2sVZKMxj6k/IH40z1hcvjykKAE0+mbyFbkyXcepxAs1mwnxsat/fW
-         pQPBrhQgwlkJiY91gJ24Me+ywxC3j7ozpBbGEAwZEpp5xdmEduMGBqSy0jlpuy/UZh+e
-         8Bz5PsPdx3CAbubqMYcE/oybZB4uU2L8wvREJX5XlPcOMGk/Bf52+TWM9sJnI8nSL72y
-         F/SQ==
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1793658265; x=1794263065; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UovCA83FNsPuBSnfAJd4uLUjnukL3oT2mIC2wyc1NfU=;
+        b=Q3+J7audqHGERTCoLWp73gLhy/VhNKpid7iSdpb1t2D1mF9aigw4KjOj4TaPv+hgeB
+         1ubVS6ejmoV103JciLCg5KksBaF510SmLhkxcepRbJHz9gv7sAvwEL+LC2O+6ggCKyTo
+         uPYh7gu9bAoTdIAfpCazhuZcWb+XDQN79gA9cxDDqP0dBhtw5fc5ADlbpdkkpoo2ahoj
+         1W6/JugBLkzvQ9MsVTFvLlBtFta28rwdjOlpAlxrmafqTKvlUX9EvrYE4kmSvW2GzFLL
+         GaCDPzOUqtGuYBBML/v2kJD5KWpLF0sea2cccxvLYH1BeiupWraZlK2nhx1jE6akh5Hy
+         ipug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793658248; x=1794263048;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=reaxEXsLj9NUOWBS9g4Qr6UImQi4WW0JbOt84oAruTc=;
-        b=BN81COGkjMLcMZ9pFjefuwhdZwrd1nkRepgdVumrGTdxqsum88K10IWHhDU9WbbDEU
-         cc9Q4weoR8O/lUIzm/uwCN8RnDSoLGuQnCRCsqxr6xUwZgdyJ1FGE+pERPBHIWlUGcpa
-         tOkyfA2SPHBwRW9dcoTrPvucS4vCemw5lFDGFYSY5cDQrSuglR6CPojEkVrluwze257R
-         mLa5bwNDONPwZNmSRbMEOj78EaC/ILTUHBXy9ijmL0x+asEHAJxzMrDOp+YEQi8opH99
-         JOAZo5erADDAHcM8trvqebhkQ+RjUaphZ4VK7u/8Mcx3LLbk1exYKe0envv+08BNRHzK
-         l06g==
-X-Forwarded-Encrypted: i=1; AKwUvBwuknCIPmDLutEcaIGuZC4lscGF2r9cFR9TW0I5PMpcDDnISwzFjA4P4EoAdrw+Qg9Dw9MtvMHqsXTWcV4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDRQN8d4tk+cB8gFn/JCP8dMTdcRN9kYjHIy2trd3RghiDkTRu
-	KYth87pCgQVfn+UTBs7/erWQi4c0AaXIO1TxIyrrrUMUIoL8JG9P4FZrKXcP5fqJxg==
-X-Gm-Gg: AYBFou3h4RgwSWFPnWqlWaEuPjZpdp6pFnKlOFCTCWdCX02kPGKsFFolnCluJ7SaW2r
-	DWxdDA26Tt51eBPJbEShtNJwmIkL3/53PbwFfOnyn1hRBv2C87Q/HSMGfiuUrPl0yvP80CrE60m
-	EHjy2A321K/gWDRsW50ZtyeNS/OwkRSjrNGRxVBQVwp2oyI7e4a/j0lDzYo5blu5R7Gv2NQqc/B
-	AikzG54afMQS4aMGRleaxtAtOplEsYn9G1zMarnT56vzYP9iZO+MiLSlxB2DbNju+uvdGleqd7y
-	qi+Q4M//M1nk1mNG6Xpgy1CNcRNq7Fqac0xLhX/58gwYURhuPFbQ/g9YIjkHtW/TMzVmsfdHQiK
-	VH0Oa29rplb7btxnftpGmxP7bAC6tYwqNhUfOMVeK7nsoMrwPRCjTsR5qss70YJf/SErjeaCc0M
-	RLoxYCqziRKzri4HLOXNrs3Tqp9Cls/4LiPppMAXPHDsGT6YadC62lWS7UR4FtzMN7AHax12bcu
-	9cSAxpker0f5WEcNQ7HeGsDm1EI+tPehhCeaY6JRC1mK0+DTzLRCc5a0vjgfQHDeyU8dWHK9Y2J
-	q5Vhku5VaPpT+dFwaU5ZJ1fxPw+v2QfHDxrhsG9PCsYKDSlnoAVHCQD/ye8Czh2mClN/Mpnn8AY
-	myATOvcPPr2b+M/pmbjjntpZWmqIRwekDvTUTJkugMaKLVUUlb4sedWDPHA==
-X-Received: by 2002:a05:7022:3b81:b0:1ae:59d6:91cd with SMTP id a92af1059eb24-1ae59d694e9mr14880576c88.38.1793658246813;
-        Mon, 02 Nov 2026 14:24:06 -0800 (PST)
-Received: from ?IPV6:2a00:79e0:2e7c:8:ae8:2e7e:208a:acdc? ([2a00:79e0:2e7c:8:ae8:2e7e:208a:acdc])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b23f20d36csm154843c88.11.2026.11.02.14.24.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 14:24:05 -0800 (PST)
-Message-ID: <d1557c0a-e82a-4eb6-bc91-d8106e1961f2@google.com>
-Date: Mon, 2 Nov 2026 14:23:57 -0800
+        d=1e100.net; s=20260707; t=1793658265; x=1794263065;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UovCA83FNsPuBSnfAJd4uLUjnukL3oT2mIC2wyc1NfU=;
+        b=CbfnvJVYmzZz2gKXMEAyCNaWOsCzYoJtbQ7w8KcyY2XhEO1rSQ+fbBoWc36G7BLCux
+         easZ8ntOkmV5+SMHT+Ipa+M0ELxGCq0fy/+4AG9MGATQvLfXpjY82ADnAOVT3nMVjdtq
+         nca3lnMhzpm1ELoUUuDj3vsVIKtgCfESC9fVuYX9uWqhSScmYce+9drGvIrH4vAIJXu9
+         J+J9ykHfTlZ/nn7/YbnhcbDMehmn76zHWB1fvrgqvxwOeaqu4FEjgoldTbhxpDkPWfeZ
+         kaiGulDE1HCUdDX7sgN0oCe4AqsW+ly1ZL8sjWFoWaNKif31cOFFaIdLezyWYfaKOCPW
+         xm+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwPD/rekOZpLzKrrxe2urD6fH9WVq2vMzxMVAVPe01rZ5eo9u9fFECecVfxOUPNqv0SWjpS5lvTV5kN6QQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uiKfw+9/JAKOBPFRXlaxE7okzPq9zXEcM3POizOQ8l47zS5aN
+	Vnl0Kj7RJxB7HfyZfPYP0/THvEB5OQf449xinkOX6CPvZd+U3bzqDmYUut5wf5NLyTHY2jVLc1w
+	Y6XJY6Qg=
+X-Gm-Gg: AYBFou1HcceH7/aOOeF5F85li23HAG9Qc99OlUQ2m1AV8AH0D4d0ZEoWCQjwYEcsIoa
+	gNvzd1yhiQiSRZUyHN+qP/Lltvbwx+ncYd6w1jhvHerGZpoNWyhKB56y1og9AhKmnVB1a5Z/zjC
+	WAGpLk2V8QiKx1QrvRgbH7oSgmVG2gJBYLAF4RlafUWmA4/m8fqE7S51m4bfzRYOtUybSmM7LP8
+	0BCZIRzsLeTq2OZ60q6c4NnX4U5WetCuiu/NMFAMGri5eSQxlPvDPK+LE7/PiHyPseVyMvf7QY4
+	VwgsG/kBSeUd7TQ3f2dDUBE8XWAySCaylfK9nj0ePLmMutFfkp1chzchQxvK6iJ5LiuMwuQXMpj
+	AarXRRlasg7y2FOmxbKGWeZaGxWXkUoD0MEtBONFUf/0IdU/1Jwno6AUkUrut8542N/fl5a8+/o
+	ZJh0WMeXl4bNHT4QJS/RTmt+XTtGatrVGqlkoNSWGUqw1bsX1ccROR3KjMCPTIPr6iinQx95uS8
+	lZouHTwT7zEC18VU5c31DK2sAidYlUilCR7MmVzDuY3wiK8AU28kzVISlBGT7IwqhdE87NrfHio
+	EO3ok0NTfoMNP+XBnGa4MjYJ+z/7C7uyGNezvgvVz4NcKvHxKZ5r6G5Q+KdMhyeAF4UTTtdMEEy
+	HS+K/2iYGU3RMvpTFT3jax+8cQIbCw/eD5oYH6nrF0O8hHQCSCP1CgA0A7RxEPqbIgfA/7NeipL
+	A6s0jfviIsHhN5TAwj
+X-Received: by 2002:a05:690c:113:b0:8b1:567c:e7d3 with SMTP id 00721157ae682-8b2b66cc93amr82163457b3.7.1793658264800;
+        Mon, 02 Nov 2026 14:24:24 -0800 (PST)
+Received: from ?IPv6:2600:1700:6476:1430:2f9f:a96f:bcb:6021? ([2600:1700:6476:1430:2f9f:a96f:bcb:6021])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b714bdafsm60869707b3.19.2026.11.02.14.24.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 14:24:24 -0800 (PST)
+Message-ID: <bf9e6dd5ba33b10187d6db47b0a361e34a0d04d6.camel@dubeyko.com>
+Subject: Re: [PATCH 0/2] hfs: fall back to buffered I/O for direct writes
+ past phys_size
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 02 Nov 2026 14:24:23 -0800
+In-Reply-To: <20261030042903.4160506-1-hengyul@cs.unc.edu>
+References: <20261030042903.4160506-1-hengyul@cs.unc.edu>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,182 +148,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/19] usb: typec: tcpci: don't act on unread alerts
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org,
- Badhri Jagan Sridharan <badhri@google.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>,
- linux-usb@vger.kernel.org
-References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
- <20261027-llm-usb-v1-12-b9751ddb9c7c@linuxfoundation.org>
-Content-Language: en-US
-From: Amit Sunil Dhamne <amitsd@google.com>
-In-Reply-To: <20261027-llm-usb-v1-12-b9751ddb9c7c@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+On Fri, 2026-10-30 at 00:29 -0400, Hengyu Liang wrote:
+> Hi Slava,
+>=20
+> As discussed in the setattr thread [1], a direct write that ends past
+> phys_size loses data at the last close, because hfs_file_truncate()
+> zeroes the file from phys_size up to i_size. Patch 1 makes such
+> writes
+> fall back to buffered I/O, as FAT does. Patch 2 is the
+> hfs_file_truncate() cleanup you suggested.
+>=20
+> The series applies on top of "hfs: report errors when extending files
+> with setattr" v2 [2], which patch 2 needs. The HFS+ fix is sent
+> separately.
+>=20
+> Tested in KVM with KASAN, all 805 fstests on HFS with that v2
+> applied:
+> 26 failures without the series, 14 with patch 1 and 15 with both, no
+> new failures. The extra one, generic/589, fails on and off on all
+> three
+> kernels with "invalid MDB drNxtCNID", the next CNID issue from the
+> CNID
+> thread.
+>=20
+> [1]
+> https://lore.kernel.org/linux-fsdevel/161fab786f919adb384fbf22dc19f3289bf=
+5f24d.camel@dubeyko.com/
+> [2]
+> https://lore.kernel.org/linux-fsdevel/20261021145627.288953-1-hengyul@cs.=
+unc.edu/
+>=20
+> Hengyu Liang (2):
+> =C2=A0 hfs: fall back to buffered I/O for direct writes past phys_size
+> =C2=A0 hfs: remove the dead grow path from hfs_file_truncate()
+>=20
+> =C2=A0fs/hfs/extent.c | 18 ++----------------
+> =C2=A0fs/hfs/inode.c=C2=A0 | 10 ++++++++++
+> =C2=A02 files changed, 12 insertions(+), 16 deletions(-)
+>=20
+>=20
+> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+> prerequisite-patch-id: 737ea6125c4a7fa08a4deb38cf33d27fb791a812
 
-On 10/27/26 7:57 AM, Greg Kroah-Hartman wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> tcpci_irq() ignores the result of nearly all its register reads.
-> 
-> If the first read of TCPC_ALERT fails, "status" is an unwritten variable,
-> and its bits decide which events are reported to the port manager: among
-> them a hard reset, which drops VBUS. If the read at the end of the function
-> fails, "status" keeps the alerts which have just been handled: they are
-> handled again, for as long as the read fails.
-> 
-> In the receive branch the byte count, the header and the payload are not
-> checked: a count made of stack content trips the WARN_ON(), and a message
-> made of stack content is handed to tcpm_pd_receive(). A failed read of the
-> frame type returns a negative errno as irqreturn_t, with RX_STATUS still
-> set.
-> 
-> The handler must not simply return in these cases. Nine in-tree boards
-> connect ALERT# to an edge triggered interrupt: as long as an alert is
-> pending the line stays low, and there is no further edge. That is what the
-> read at the end is for.
-> 
-> So read the alert register through a helper which tries three times and
-> reports "no alert" if that fails: after a failed first read the function
-> falls through to the read at the end. Drop a message which cannot be read,
-> but clear RX_STATUS, to release the line. Don't take an unread power status
-> mask for a reset of the TCPC. Return IRQ_HANDLED if any round has found an
-> alert, not only the first one.
-> 
+The main plan is to rework as HFS+ as HFS code to remove the
+hfsplus_direct_IO(), hfs_direct_IO(). I am already working in HFS+ code
+[1]. If you like I can suggest to you to do the same on HFS side. But,
+unfortunately, this modification will be completely wiped out in the
+future. Would you like to take the task of reworking HFS code by
+removing hfs_direct_IO()? You can follow by HFS+ pattern (if it works).
 
-nit: This commit is quite verbose. It would be better if it were more 
-succinct and to the point. For example, the last paragraph narrates the 
-code rather than stating the intent.
+Thanks,
+Slava.
 
-
-> Fixes: 74e656d6b055 ("staging: typec: Type-C Port Controller Interface driver (tcpci)")
-> Fixes: 77e85107a771 ("usb: typec: tcpci: support edge irq")
-> Fixes: b691a07c5f64 ("usb: typec: tcpci: pass correct rx_type to tcpm_pd_receive()")
-> Cc: Badhri Jagan Sridharan <badhri@google.com>
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Cc: stable <stable@kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->   drivers/usb/typec/tcpm/tcpci.c | 64 +++++++++++++++++++++++++++++++-----------
->   1 file changed, 47 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/tcpm/tcpci.c b/drivers/usb/typec/tcpm/tcpci.c
-> index 6717ac914c6a..26c62216a813 100644
-> --- a/drivers/usb/typec/tcpm/tcpci.c
-> +++ b/drivers/usb/typec/tcpm/tcpci.c
-> @@ -715,17 +715,34 @@ static int tcpci_init(struct tcpc_dev *tcpc)
->   	return 0;
->   }
->   
-> +/*
-> + * An edge triggered ALERT# does not fire again while an alert is pending, so
-> + * don't give up after one failed transfer. No alert if it cannot be read.
-> + */
-> +static u16 tcpci_read_alert(struct tcpci *tcpci)
-> +{
-> +	u16 status;
-> +	int i;
-> +
-> +	for (i = 0; i < 3; i++)
-> +		if (!tcpci_read16(tcpci, TCPC_ALERT, &status))
-> +			return status;
-
-Retrying immediately on a transient bus failure is unlikely to help. Add 
-a small delay before retrying. Please keep in mind the Type-C/PD 
-deadlines when selecting a delay value.
-
-> +
-
-Please add some error log here to indicate consecutive alert read failures.
-
-> +	return 0;
-> +}
-> +
->   irqreturn_t tcpci_irq(struct tcpci *tcpci)
->   {
->   	u16 status;
->   	int ret;
-> -	int irq_ret;
-> +	int irq_ret = 0;
->   	unsigned int raw;
->   
-> -	tcpci_read16(tcpci, TCPC_ALERT, &status);
-> -	irq_ret = status & tcpci->alert_mask;
-> +	status = tcpci_read_alert(tcpci);
->   
->   process_status:
-> +	irq_ret |= status & tcpci->alert_mask;
-> +
->   	/*
->   	 * Clear alert status for everything except RX_STATUS, which shouldn't
->   	 * be cleared until we have successfully retrieved message.
-> @@ -738,12 +755,12 @@ irqreturn_t tcpci_irq(struct tcpci *tcpci)
->   		tcpm_cc_change(tcpci->port);
->   
->   	if (status & TCPC_ALERT_POWER_STATUS) {
-> -		regmap_read(tcpci->regmap, TCPC_POWER_STATUS_MASK, &raw);
-> +		ret = regmap_read(tcpci->regmap, TCPC_POWER_STATUS_MASK, &raw);
->   		/*
->   		 * If power status mask has been reset, then the TCPC
->   		 * has reset.
->   		 */
-> -		if (raw == 0xff)
-> +		if (!ret && raw == 0xff)
->   			tcpm_tcpc_reset(tcpci->port);
->   		else
->   			tcpm_vbus_change(tcpci->port);
-> @@ -755,7 +772,10 @@ irqreturn_t tcpci_irq(struct tcpci *tcpci)
->   		enum tcpm_transmit_type rx_type;
->   		u16 header;
->   
-> -		regmap_read(tcpci->regmap, TCPC_RX_BYTE_CNT, &cnt);
-> +		ret = regmap_read(tcpci->regmap, TCPC_RX_BYTE_CNT, &cnt);
-> +		if (ret)
-> +			goto rx_done;
-> +
->   		/*
->   		 * 'cnt' corresponds to READABLE_BYTE_COUNT in section 4.4.14
->   		 * of the TCPCI spec [Rev 2.0 Ver 1.0 October 2017] and is
-> @@ -767,26 +787,36 @@ irqreturn_t tcpci_irq(struct tcpci *tcpci)
->   		else
->   			payload_cnt = 0;
->   
-> -		tcpci_read16(tcpci, TCPC_RX_HDR, &header);
-> +		ret = tcpci_read16(tcpci, TCPC_RX_HDR, &header);
-> +		if (ret)
-> +			goto rx_done;
-> +
->   		msg.header = cpu_to_le16(header);
->   
->   		if (WARN_ON(payload_cnt > sizeof(msg.payload)))
->   			payload_cnt = sizeof(msg.payload);
->   
-> -		if (payload_cnt > 0)
-> -			regmap_raw_read(tcpci->regmap, TCPC_RX_DATA,
-> -					&msg.payload, payload_cnt);
-> +		if (payload_cnt > 0) {
-> +			ret = regmap_raw_read(tcpci->regmap, TCPC_RX_DATA,
-> +					      &msg.payload, payload_cnt);
-> +			if (ret)
-> +				goto rx_done;
-> +		}
->   
->   		ret = regmap_read(tcpci->regmap, TCPC_RX_BUF_FRAME_TYPE, &rx_type);
-> -		if (ret)
-> -			return ret;
->   
-> -		/* Read complete, clear RX status alert bit */
-> +rx_done:
-
-Worth logging when you're dropping RX packets (due to ret!=0) given that 
-the tcpc has already sent a GoodCRC.
-
-Regards,
-Amit
+[1]
+https://lore.kernel.org/linux-fsdevel/20260914233941.2966421-1-slava@dubeyk=
+o.com/
 
