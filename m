@@ -1,87 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622780;
-	b=hpKsGMnCkbv57+Xb7OJM+dVL0FVXuEBKX+lhOF8ehdhBATNygErmr773vQLo+QrtMwNR
-	 D2XARsBRtuqFZiiE3SdGoI72hopZ/FqNDF4TPL2DGf6aJFJqU4rEawe0za6oJgiu8FmH6
-	 vf5y1SI7YHZ88VL9XCZlt3BMjMUuR9yDIjkEUOaBAudqlbP45ixfP1naoDjCOGfVWCP/n
-	 pt7kgDs7dBX+KvehnPBCmMF3YH/h13UaPEv0M8CV6SH2Qq/MGJd0nyLBsA66oSymvNgdF
-	 acKtKNHZHAgRwyCGovZn022IZva1axi0veZarTL5TRG//Y6Vn5ktxNCysIXOp3odS8Q==
+	t=1793622827;
+	b=gnscnCeRUtc87vjCw4Ze7VcUEti8hmYMYFRBF76q5XNXNh7JQJP0zRQ1oXP3d7+lLwhr
+	 WulYBSHrE5+dRGHoxLh6exn2jyzM87klAQWrdZzpOeVOlwZ5AtI3Km6F0xecZLJRcNBCh
+	 Fwj5/v7JwdH1w8KzBz/rjseccKON06kB6CTL3qvkBYV3zXOJLmhRsh67C9VpRSxp90y4Z
+	 3o4vrZEECu6zlUkDnOlRFJNoJ7QgVRBXDDCP53bSa+q/efv69B044aqZWELT05uHfH70c
+	 spkFlYPlpyMvjaxneamOA86/iNtUXe9kEuOLxTVU36ixOiKTlcr5VKLvLs2hTYeQ7vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622780;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=lu6jKVMmWomkYGOYdMnLmaub6He5lRxtqe+uzz2qc2Q=;
-	b=gVbTdx90coEWtw4ygHHVsIUlhNvHV6hGezcOzq+XcHzsZeYl7gjf93qY9npKfMkEQrTL
-	 0lN/Bc5dEKWxOxB8vySCXawQoetntfl140K1ng31f3mYh0Hr9nWhV2fC59saTHR+zTWkW
-	 /2d94B1wi8RiWVeVd4xkLe8o98xMLeQT7bo9G1syGM6st1oU8hArkw1Fx1sPi0zN7RUpS
-	 D1O675QtOeszjibEZ2Ny+fGi5Vnw8mq5IQeYFY/sWKrRpSringRtrKZ/0dzLYUyrN9LeY
-	 vOduuC1lkkgp2yptQzCE/y5bAbrx7yQRCd4uipSJl7vtNmdqOkoZUBJFnts8bhijKxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622827;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=KNpObkuBl2jxBGzx+klnoZYXHcDTT3YLeykb5RLLCJE=;
+	b=GQtG16aNb/sLIiq61BtSyM63Tg5dGChbuPMKtZzkH3LfiIBRmPVodq83tMrTNUV7y+gt
+	 htuLatmxFIZWBdxDBxA6kqiTJGrM9mfHxRYzaTtK3D/3iB+nwcfKTf6ltuxzPcR76LYim
+	 rwYtNVuu5YcF9k91uN+xH/7UmjFdwg0+53gzvokJGc5IUUY/yvSV1v/+RQY5Uhe1B1Zvl
+	 Kp4774fczmpV/UIuYvE7NwcsXZ1ytLYVk+RyGBHGslREDzZnSIiiqcEV8K4eFjtG53Thy
+	 9zKSFbX7YR8EItPCkLlSU8CPCEVWYWH3K03wfYwIWC7CoxiRwUQJnXMuneVk0NdKCxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=korea.io;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RBd1wnox;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67B060A2613
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A67B060A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.io
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so1144253a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:32:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793622779; x=1794227579;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lu6jKVMmWomkYGOYdMnLmaub6He5lRxtqe+uzz2qc2Q=;
-        b=rgHnI1lo+gInLDiI+EC8wEvyQq/7xwQqKgEHu2grlImZlWJDICqOXTNfE2+qBrH7I9
-         xjAFh5VPTBxt5T/BhT3fUMfsxoBeWKTyY8fKaEQKAx2EwPcEQ1I3YxTGsfeBdadpfULb
-         mUB+tmAwFAybCgCn8vTNAVWdhG7wVobGLQwZlYo7yE4qZrvr8MZpeWusrcWJKH9ae4d8
-         wdg570TqsNdlQJ2N9OyX5uI+2NLqvpQwkQ6L2AmAGVp2B6ydBSuSSqA/0PhssQAx0vGx
-         AluBUfeNyzy4Rh4upSUEiQeaYr9HF1djLsDLZf/8hhVkRyc1y16wNVPd7LTlT9HIBJLP
-         4ncg==
-X-Forwarded-Encrypted: i=1; AKwUvBwixcvv3IDLkCgSmCqRWolA0SqqHkdimq7BYljMTSrIiVf/4vlnUW0oQM/VLOoyNCO6r0/YZRhcqmPxG1k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+k/i2be12V5qRBzt/KyjyMe4NZakAgpOECbwwp03rhbSH6UtID
-	fqPAv9dZRflYKaUbR9NGFk4+GmjcSswUDeBidCYRbh/Nw+7BuFZGp6BqtKqmHEp/oPnl
-X-Gm-Gg: AYBFou1uF+1pIPfL0Mv0VELTY42Hu9KHKWVNwScrAxDtrLK/qHxu63vDwipkBnNJqQ6
-	AYwnPiCdSd9k+Ci4YUxSKe5jgP3xE+d7yGQPOhEiUKutyaL7d1kmHTdEgIm6FtuTZmn6hlPAwFT
-	xcPFPQDNSUjC98czjLiCKkDCLbzWhnR2k1mUbMYiMjyjDk1PHXtQBrzCGqPFPPzEckxaHmA47c8
-	m7mpvBGVIpsXPzjTAnzVGnVXLqOhGnGXUuIfuI89ppnnG9DYDySt3JMG+7lLn4AHB794cnDHFeZ
-	qPSEU54S3pGt46VL5driY6A+YUpgcDbGfk6a1ZuwO2So/JHBruwuiP3EvehKkXf8e3dXqX70Enn
-	RPmB4tOoIFF2GT5v8wuJGEApd/3siIZqgcceDQJcQDVroC0LeyBLkKXYS+v2QwfMIbIkp2lV8xm
-	99yhylaO0j1JjYzXmBoEYx7q22ZteBND9Olv/orMoDiBkbhaemiDn39AEAu/k8ClZasTERUuVVJ
-	DrKanKXYBUc7KA1HKvlegu5Da/hU5tP7yACn+MbeCCP4Pekxn7+lI8LvZfO12MlI6NeTFjdNMBm
-	MZCEVEB1TCxHYPpHfI220R1XwXZg+vlasPZX1B+C3w31Jk4mLHHjLBep/EV7YpUnnQIjft6d73z
-	eXmSw8oiKBjRSHoJpgWZPge1Mwk4YEuCBy9SdRlk=
-X-Received: by 2002:a17:903:2ec3:b0:2ea:7180:3aba with SMTP id d9443c01a7336-2eb364614b8mr88398755ad.39.1793622778961;
-        Mon, 02 Nov 2026 04:32:58 -0800 (PST)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([118.217.70.161])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392492fbsm27101845ad.32.2026.11.02.04.32.56
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 02 Nov 2026 04:32:58 -0800 (PST)
-From: Jongwon Lee <ai@linux.com>
-To: Richard Cheng <icheng@nvidia.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v3 2/2] cxl/edac: Mask DPA flags in the event record cache key
-Date: Mon, 02 Nov 2026 21:32:39 +0900
-Message-ID: <20261102123233.74598-r2-ai@linux.com>
-In-Reply-To: <auhH_eBMYqFznZlM@MWDK4CY14F>
-References: <20261101013418.87326-1-ai@linux.com>
- <20261101013418.87326-3-ai@linux.com> <auhH_eBMYqFznZlM@MWDK4CY14F>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B1F606A324;
+	Mon,  2 Nov 2026 12:33:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B1F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RBd1wnox
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793622826; x=1825158826;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yepd+tvmDkiDLTp+5GcMC3p+4dlbG/hoWgIaEkJprEc=;
+  b=RBd1wnoxrFySEp/pEEULxU916zQk14AxIAOoiKwhlblH+ozEnm//0TFX
+   qeR3j0D9SREgt2NJ971WUiHPayDfSQPwWXBW3qC4zpwV+YPLZyoON4AKg
+   rWrBjZXjmtgVL65wwSIYyLRTN/PcUtSZXFqmf37UBKAXao/RwafWanErA
+   legN+h6XypG8MF9+8MfSDuqYwsRIoDLJWjuVZ3EHUKdXBO0fo/sRY4ZFj
+   Sl5cba7t/ARlctkmXbkoDy5lAN72rPvf7TltOY/+p2AEVEjav8M7Kipp9
+   ZOzOoDExzzYuXsCqiPfBvCb8sJvdxW3u3AXzyI7d2ocZaJ/fKchgeJxWn
+   w==;
+X-CSE-ConnectionGUID: iIJ6t1gcQceutAszcrEbUw==
+X-CSE-MsgGUID: 6ZQbKf8JS22y6eAjqT7hCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2218493"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2218493"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 04:33:45 -0800
+X-CSE-ConnectionGUID: OlPDVIrRTJ+Qg7vqrwfq0Q==
+X-CSE-MsgGUID: Z4lSoMjqS9moHJ/eoYwKSA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="5960872"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.242])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 04:33:40 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 23492121B6E;
+	Mon, 02 Nov 2026 14:33:50 +0200 (EET)
+Date: Mon, 2 Nov 2026 14:33:50 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Tarang Raval <tarang.raval@siliconsignals.io>
+Cc: jai.luthra@ideasonboard.com,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 09/15] media: i2c: os05b10: Add H/V flip support
+Message-ID: <auiDLo73gQgslsvL@kekkonen.localdomain>
+References: <20261030104806.1223991-1-tarang.raval@siliconsignals.io>
+ <20261030104806.1223991-10-tarang.raval@siliconsignals.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,27 +89,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030104806.1223991-10-tarang.raval@siliconsignals.io>
 
-Hi Richard,
+Hi Tarang,
 
-On Mon, Nov 02, 2026 at 04:30:57PM +0800, Richard Cheng wrote:
-> Maybe something like the following to follow the pattern of rb_parent
-> hiding the packed address and metadata encoding ?
->
-> ```
-> #define CXL_EVENT_DPA(hdr) \
->     (le64_to_cpu((hdr)->phys_addr) & CXL_DPA_MASK)
-> ```
->
-> Or at least make it static inline.
+On Fri, Oct 30, 2026 at 04:17:58PM +0530, Tarang Raval wrote:
+> Add HFLIP and VFLIP controls, lock them while streaming, and update
+> the reported Bayer format based on the flip state.
+> 
+> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+> ---
+>  drivers/media/i2c/os05b10.c | 59 ++++++++++++++++++++++++++++++++++---
+>  1 file changed, 55 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
+> index 14046f1c9324..4b87ef60a2a7 100644
+> --- a/drivers/media/i2c/os05b10.c
+> +++ b/drivers/media/i2c/os05b10.c
+> @@ -92,6 +92,10 @@
+>  #define OS05B10_MIRROR			BIT(3)
+>  #define OS05B10_FLIP			GENMASK(5, 4)
+>  
+> +#define OS05B10_REG_ANALOG_FLIP	CCI_REG8(0x3716)
+> +#define OS05B10_FLIP_ENABLE		0x04
+> +#define OS05B10_FLIP_DISABLE		0x24
 
-I'd like to keep it a function so the argument stays type checked, as
-coding-style.rst prefers for function-like macros. I'll make both
-helpers static inline, which is what v4 does.
+I'd use the register name as prefix here, omitting "_REG".
 
-cxl_event_trace_record() in mbox.c open-codes the same mask. If a shared
-helper next to CXL_DPA_MASK in trace.h is wanted, I can do that as a
-separate cleanup so this fix stays small for stable.
+0x4 has nothing to do with flip configuration, so I'd just use another
+macro for that, e.g. OS05B10_ANALOG_FLIP_MAGIC, unless we know more about
+that bit.
 
-Thanks again for the review,
-Jongwon
+> +
+>  #define OS05B10_REG_FORMAT2		CCI_REG8(0x3821)
+>  
+>  #define OS05B10_LINK_FREQ_600MHZ	(600 * HZ_PER_MHZ)
+> @@ -227,7 +231,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
+>  	{ CCI_REG8(0x370f), 0x1c },
+>  	{ CCI_REG8(0x3710), 0x00 },
+>  	{ CCI_REG8(0x3713), 0x00 },
+> -	{ CCI_REG8(0x3716), 0x24 },
+>  	{ CCI_REG8(0x371a), 0x1e },
+>  	{ CCI_REG8(0x3724), 0x09 },
+>  	{ CCI_REG8(0x3725), 0xb2 },
+> @@ -459,6 +462,8 @@ struct os05b10 {
+>  	struct v4l2_ctrl *hblank;
+>  	struct v4l2_ctrl *vblank;
+>  	struct v4l2_ctrl *exposure;
+> +	struct v4l2_ctrl *vflip;
+> +	struct v4l2_ctrl *hflip;
+>  
+>  	u32 link_freq_index;
+>  	u32 data_lanes;
+> @@ -507,6 +512,16 @@ static inline struct os05b10 *to_os05b10(struct v4l2_subdev *sd)
+>  	return container_of_const(sd, struct os05b10, sd);
+>  };
+>  
+> +static u32 os05b10_get_format_code(struct os05b10 *os05b10)
+> +{
+> +	static const u32 codes[2][2] = {
+> +		{ MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10, },
+> +		{ MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10, },
+> +	};
+> +
+> +	return codes[os05b10->vflip->val][os05b10->hflip->val];
+
+Note that accessing the control values requires holding the handler's mutex
+here. That's not the case when called from enum_mbus_code() I think.
+
+> +}
+> +
+>  static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
+>  {
+>  	struct os05b10 *os05b10 = container_of_const(ctrl->handler,
+> @@ -550,6 +565,25 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
+>  		ret = cci_write(os05b10->cci, OS05B10_REG_EXPOSURE,
+>  				ctrl->val, NULL);
+>  		break;
+> +	case V4L2_CID_HFLIP:
+> +	case V4L2_CID_VFLIP:
+> +		ret = 0;
+> +		cci_update_bits(os05b10->cci, OS05B10_REG_FORMAT1,
+> +				OS05B10_MIRROR | OS05B10_FLIP,
+> +				(!os05b10->hflip->val ?
+> +				 OS05B10_MIRROR : 0) |
+> +				(os05b10->vflip->val ?
+> +				 OS05B10_FLIP : 0), &ret);
+> +
+> +		cci_write(os05b10->cci, OS05B10_REG_ANALOG_FLIP,
+> +			 (os05b10->vflip->val == 1) ?
+> +			 OS05B10_FLIP_ENABLE : OS05B10_FLIP_DISABLE,
+> +			 &ret);
+
+Indentation. The last line can also be unwrapped.
+
+> +		if (ret)
+> +			break;
+> +
+> +		fmt->code = os05b10_get_format_code(os05b10);
+> +		break;
+>  	default:
+>  		ret = -EINVAL;
+>  		break;
+> @@ -564,10 +598,12 @@ static int os05b10_enum_mbus_code(struct v4l2_subdev *sd,
+>  				  struct v4l2_subdev_state *sd_state,
+>  				  struct v4l2_subdev_mbus_code_enum *code)
+>  {
+> +	struct os05b10 *os05b10 = to_os05b10(sd);
+> +
+>  	if (code->index >= ARRAY_SIZE(os05b10_mbus_codes))
+>  		return -EINVAL;
+>  
+> -	code->code = os05b10_mbus_codes[code->index];
+> +	code->code = os05b10_get_format_code(os05b10);
+
+If this is the case, then any non-zero value of code->index should yield
+-EINVAL.
+
+>  
+>  	return 0;
+>  }
+> @@ -708,6 +744,9 @@ static int os05b10_enable_streams(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		goto err_rpm_put;
+>  
+> +	__v4l2_ctrl_grab(os05b10->vflip, true);
+> +	__v4l2_ctrl_grab(os05b10->hflip, true);
+> +
+>  	return 0;
+>  
+>  err_rpm_put:
+> @@ -728,6 +767,9 @@ static int os05b10_disable_streams(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		dev_err(os05b10->dev, "failed to set stream off\n");
+>  
+> +	__v4l2_ctrl_grab(os05b10->vflip, false);
+> +	__v4l2_ctrl_grab(os05b10->hflip, false);
+> +
+>  	pm_runtime_put_autosuspend(os05b10->dev);
+>  
+>  	return 0;
+> @@ -736,6 +778,7 @@ static int os05b10_disable_streams(struct v4l2_subdev *sd,
+>  static int os05b10_init_state(struct v4l2_subdev *sd,
+>  			      struct v4l2_subdev_state *state)
+>  {
+> +	struct os05b10 *os05b10 = to_os05b10(sd);
+>  	struct v4l2_mbus_framefmt *format;
+>  	const struct os05b10_mode *mode;
+>  
+> @@ -743,7 +786,7 @@ static int os05b10_init_state(struct v4l2_subdev *sd,
+>  	format = v4l2_subdev_state_get_format(state, 0);
+>  
+>  	mode = &supported_modes_10bit[0];
+> -	format->code = MEDIA_BUS_FMT_SBGGR10_1X10;
+> +	format->code = os05b10_get_format_code(os05b10);
+>  
+>  	/* Update image pad formate */
+>  	format->width = mode->width;
+> @@ -929,7 +972,7 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+>  	        return ret;
+>  
+>  	ctrl_hdlr = &os05b10->handler;
+> -	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
+> +	v4l2_ctrl_handler_init(ctrl_hdlr, 11);
+>  
+>  	pixel_rate = os05b10_pixel_rate(os05b10, mode);
+>  	v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops, V4L2_CID_PIXEL_RATE,
+> @@ -967,6 +1010,12 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+>  	                  OS05B10_DIGITAL_GAIN_MIN, OS05B10_DIGITAL_GAIN_MAX,
+>  	                  OS05B10_DIGITAL_GAIN_STEP, OS05B10_DIGITAL_GAIN_DEFAULT);
+>  
+> +	os05b10->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
+> +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
+> +
+> +	os05b10->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
+> +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
+> +
+>  	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &os05b10_ctrl_ops,
+>  					      &props);
+>  	if (ret) {
+> @@ -976,6 +1025,8 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+>  
+>  	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+>  	os05b10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +	os05b10->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
+> +	os05b10->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
+>  
+>  	os05b10->sd.ctrl_handler = ctrl_hdlr;
+>  
+
+-- 
+Regards,
+
+Sakari Ailus
