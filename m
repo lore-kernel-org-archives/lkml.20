@@ -1,110 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793618629;
-	b=YEIJ/umHzsHwvrDYKBCwhhn4WWYIaH3ZYgtAiN12o70rwmk4dOAWLxLUoTCp5ORsfJ34
-	 08LpVZp743WM/efn7BgEKRB9RsUo0n7H6B401GCjvoo/CCaaREK12SFeL8fPg9jca6Zr7
-	 EeqORaGTdFZEWkdI9xSOmaRw4chmIpehpyvRJJYmiBsqaanUZpsx4OURon8FBf8lr6zQo
-	 Es4++vuV3i7QpR2TyObo9zVCJKeeYK+B7vH/l37XZkWW+ugqAa00d77RaOtNWw2GMDmPa
-	 vvgMFuiggglvbNsXJfMu4RD5VEj0xXwd/G3wiQVl7gNC8TbNYAZOJaAq8JpT+IzlJHA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618629;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=AIQ78XCOci+WwDpJ5h1hIo+JHGAoUkVKQTNEZqf1ETU=;
-	b=1XbfwxTfmU+KVBBaDCT+OVG+9MPPTRfjGyXzXuW1P2ogdkzkq6HHaylbbcrei4mobw1q
-	 K0eh1YJ8S+YyLq+0R37p63BIcsTO+AirJFkkUXiGTPd4kOKzpSGcwhcj600ztYuU3O74p
-	 WZFPY9ZL2BBk9sBR70kzumYhre82Q1S3kF20UB5igAZ5HLJ0W48AlSmGwSadKraxLu2VY
-	 b2ZtclnXJfuT4R1WbBgpVpOMhT4ZZX5AYKGIVzaGzX4h8zl3j6JMQCnZlBw7PrGnc8ei/
-	 XG32e/zy/JiVgXh9zjWOmdX/YxM1+WSNydGzYRhtubTkGVRLWk4YYUz5VqMtWvqvEHw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eijlhy9o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.37
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010037.outbound.protection.outlook.com [52.101.193.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23472606C40F;
-	Mon,  2 Nov 2026 11:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23472606C40F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793618631;
+	b=VtY4b1ZsM7fuWiiGD6jUUXx9cqH9+t2sLOjZPfxj1mP6Boe0yOyMK6UOVd+TuVwNDsvD
+	 e+3us8huX9cAK0yrhmdvO32nSB2OIql4ZW4pgn8uN8wtpKW3OGEJcLUfKOvz2XmTpMY73
+	 1jx70+3kud6psunHnLL0RaViOh0qkiY7fW3839LETMJS072vsU3pxLRZuDFUOiuM5ABC3
+	 +bUYVMvxMYDgBAoeQ32vpeMm2VtyVYZyA3av7GkaCP1hY9Bi7ShhHAC0MqLz+bPVS7vwr
+	 MFKVpjoBmfqrtBdflK2m5Uz1/9iuD3eMtUkRK9XihG+FDv8Jt0uA1oSUkE+mryWVTFA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618631;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=9Ysg6MEwVS7VKLwJjiHL7ib19j0E2bn6/f5G51dOAL0=;
+	b=Ukyt7ODUvcpQxi+C61od70irIaxKrzqeSxp7jJMbgdrjtxL64X0HoNIrqQLc88/c86/l
+	 d9NfKyc+EsDzHovx/1V24NJgrxzgo8eDoLgvESUN/3mj6t+58vs0lz1n9moGjmQQMt852
+	 HheOK/mBDdK8YwJ7bGJR7LCP8pHvZSMHC+C0g9xH2cPhzTRpWJOtkxPPa/PbzkDzvLNcr
+	 bK2xrVYqD5mXpIjVYcymeVpMcdu3A3F92y+Fa39zmd/osqgVmE5VhDRwauvlielWgT+eM
+	 kCVFhqXpcxVYbanHG/4WOPg2M69SVLH4h7AV7NrrCMhuZXWlf70qHJiRFRzbG0tnPIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BrPb0hXu;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FC4C606C42D;
+	Mon,  2 Nov 2026 11:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FC4C606C42D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eijlhy9o
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EW1PUUFU3dXJWVHMGRuYje7//Hb6yKDuQ8TLanZ/YLewcm6b5ALQqYvJhfg9XyuHbHgGiW02SqbZab+V9SRISZGhQrM6d/vCQMdi/h40TvCuFJYYOIMKsiShlXF2KVRpR+qPMChgYkL3XMVX/cWs6E41qNbbH6HsWmjwyRPLj0H/IGZm58qKUF/HJq6DgInxPlPbslKNcPP8IWxPidnh+92ate+aGSZlW5nU6zVF8PfqVVgbCRxa4ZKeW7+/A2OkDtS1be3Srer+VVM0hGACEQl/FjyL3Xub0rV/UYZPNPwaWoarQTNOi9+q0BgJBcQC/QZ/7kuikKNc/tCf3eymgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AIQ78XCOci+WwDpJ5h1hIo+JHGAoUkVKQTNEZqf1ETU=;
- b=KKvTMnN5Pu7ScWIygRBr/dUiVehfuGRLPVKN01w3jdbm7L6j/YhiFXTjjVlg44eZt42TRDPjb1BgNAw78LdvLUg+Klb5WIqpvq44zYlvOjVGMbZriGIH5Z8LOVfZONA0l3dAaiZR5JhleRDS3esiHn2QhQv1CvaS9yODyMjMr9piK4Pm8Qs91GCUll/IU09LpgHmIG6JK7tyUrzjrrhlgzZCZS0vINimIJ/Nu6wpHWhElWJtfLXM+EKR7Z2qgsWzxePGuowffNVKyDQDD+l8+bXAye9/Qr1fS3zopLkql8wJiJNL7GB963b+SVnSur23WPIk+PkBDYvK0bowkI747Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AIQ78XCOci+WwDpJ5h1hIo+JHGAoUkVKQTNEZqf1ETU=;
- b=eijlhy9oS2OhM8gGIUlpResKqiAFllRB92SnDbA5zyqT+qzM3f+Eo9FH00EiOy4x3yUM4Ovj71iZQK0Ya6Yc9ZPCQX0qXs9TcAf8/RVTgeTdPhKtCeKaa5OFfMVH5dbd4TOLl18FYIMVDOsi5GyXelZFFW3tV/UvU5h58BYfLE58dvbjBVpzeVhXqO2eEdUAnERXX4NjkjNhWODhVIijRe3ZIFkbbKF+o+FapjNTFFtJwgVaLXoDDVFxHnKpbaNS/GgID/eJ3OAeqsq9j3mgKDumxSJu6uBKckbqIBtUOmO+fDkqLjdjv5DggvGo1Ga/sds5DdiRLT0bCTgltlrtLg==
-Received: from BN9PR03CA0366.namprd03.prod.outlook.com (2603:10b6:408:f7::11)
- by SA3PR12MB9226.namprd12.prod.outlook.com (2603:10b6:806:396::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 11:23:45 +0000
-Received: from BL02EPF0002992D.namprd02.prod.outlook.com
- (2603:10b6:408:f7:cafe::31) by BN9PR03CA0366.outlook.office365.com
- (2603:10b6:408:f7::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.10 via Frontend Transport; Mon, 2
- Nov 2026 11:23:45 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BL02EPF0002992D.mail.protection.outlook.com (10.167.249.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 11:23:45 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
- 2026 03:23:31 -0800
-Received: from mmaddireddy-ubuntu.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 03:23:27 -0800
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-To: <mani@kernel.org>, <kwilczynski@kernel.org>, <linux-pci@vger.kernel.org>
-CC: <kishon@kernel.org>, <Frank.Li@kernel.org>, <bhelgaas@google.com>,
-	<cassel@kernel.org>, <den@valinux.co.jp>, <thierry.reding@kernel.org>,
-	<jonathanh@nvidia.com>, <vidyas@nvidia.com>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <mmaddireddy@nvidia.com>
-Subject: [PATCH v2 2/2] PCI: endpoint: Clarify only_64bit for reserved BARs
-Date: Mon, 2 Nov 2026 16:53:06 +0530
-Message-ID: <20261102112306.4018464-3-mmaddireddy@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261102112306.4018464-1-mmaddireddy@nvidia.com>
-References: <20261102112306.4018464-1-mmaddireddy@nvidia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BrPb0hXu
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91B02293B;
+	Mon,  2 Nov 2026 03:23:46 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A4ED03F632;
+	Mon,  2 Nov 2026 03:23:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793618629; bh=iiExwLtobXiDRkDzhCd4KbgedHi6eyqTW5J2A3p/GoY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=BrPb0hXuYg5FDqnQoxAoQEPqwy35W9QWkiKSZbg3KsrD0XEabz16DkjubK7JqGSV0
+	 OPWT8B5k/j69iFU4lw32ZN1FbqKVhYkgINnZSpuVpHWynTxUVdsXn3n2gXh0w8vpHx
+	 C1xoy3anV4D+fDsKAX6O+jB+JolHrc1sf7sWdpz8=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Mon, 02 Nov 2026 11:21:34 +0000
+Subject: [PATCH RESEND v2 21/21] Documentation: mm: clarify behaviour of
+ compile-time folded page tables
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,73 +56,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992D:EE_|SA3PR12MB9226:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2383429c-a13d-4b63-7bc6-08df38d3c20d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|7416014|376014|36860700016|261021121427099003|261022105027099003|261022075727099003|261026121527099003|261026140227099003|261028144727099003|11063799006|10067099003|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	bGl/hvpLpjqg5bLh+PwzJsUL/IZ+wnsFytqAJpumf3t4tqsTq3wAsG0kV0zsa7cEThpLlM3WP119iT05jm1KcwHh0//H+1IY93jdDzYFaaGChAqjFCVl8JHYo5wzhiPePm9u4G2pW2AgNMqtVNCBAHoaaEmN2FjCWaEh8WnCbDIYWwQgsDJOafQu5dNIcFnFxEFcqZlG85lOIcucXxpXenERYmbb2cCqm5c5aDeDD+vixixWMwUBNmSvMOby5/bgsnsNTV8++xYEDgSMDIBkpYlVFLoXV8w4yjWglWN1UAKHHo/IHvNuYJ73jxd30t4SYR0VJoH4YngKL0a1IGx/DqU4VWQjSwqx8K+OXKpwxShaoavNh5deqWQRGu2ZUyImfIyOaiuaJBQx53COzb/YvG0Jb3L5LMFUaLbZmkJ54AKU/d4oqlK1rlbz91ENdmvcCZ27P46ZbkCgI5qJnklxNFz1HMndBDodNp1Gf5dA6fBD2/B8uN0hbkaiPniCUTGkLL/dp/2QLiHE2uEATO+ysfX6O/iEN2EpyFNwderR68q5Ew3YDRtphfXQht6XrtT/IhRXyg7oCyvS5Y+aYQHlV6VlXi1VBYZuEYbM3h9AZSlkaF2gdss719SXFMFp1mniP3ulZdGtNkgPu579+omhFQiOj9aXKmZSlNrmcqWTxy+rVf8i1r9ZAFYWE7M50LvKrcDwWp98VIhMIOvtCJRHJw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(7416014)(376014)(36860700016)(261021121427099003)(261022105027099003)(261022075727099003)(261026121527099003)(261026140227099003)(261028144727099003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	0xyzZ+2bhe/UC6iYjcUAXvFCKPRYq0Yk1vDuICwrNUMLxbY5X4mlqqk+luxGIudZPcAKUBEMzPma1BElBVTVzZOzMYLNY7iRBs+LdsBzlXLfnh3BAnNos7qqftfiJP9cqN1qq/OjLDTkeEjtU82OFppUJadMcSOl2n3h+TV5GkK8yVt54hvNOflNCNaB7X3g/KTGrXNrQC/DnfOBnEe+mw3hL0XRls29qhcx05iwp2pijtrGmyboT3Zqhqobp5UKWC9jQHc99sEjSKtylmc9dnqCE9KMV1jJUmj8vrD/DeoQqDOyct4uePw1aV8gK3tGX0FdmLaw8HrlaVFSOm59HsqfEW975yKGB5Typfc/ze0/sSxTwbeouFy4gkEaCB+TSkz0Txfp4UiS7AXtYy2ReuTw5KyT0utibFkqy0oKfKRojiM5djTb40xWjChdC68j
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:23:45.3144
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2383429c-a13d-4b63-7bc6-08df38d3c20d
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0002992D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9226
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-dummy_ptxp3-v2-21-78840b2ec73c@arm.com>
+References: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
+In-Reply-To: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
+To: Russell King <linux@armlinux.org.uk>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
+ Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>, 
+ Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-openrisc@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5250; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=we33pLaWTEXUzxN2eli55cmCuITu+4r4z0c6wIrOlvY=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq6HI5puhw5lGPEsqL2+0oxYQ14ZUvSogy1dQY7
+ mbhixVweFqJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCauhyOQAKCRBt1cPRWsUx
+ M0LeC/9Cq0L+HoSCeEcxKHvRuuTb6eN/i826KAV+hkrcMfVFIULPPvwRKY9kYk3gsbK8opHg/qM
+ eDSlKtSYplqrFvRLwGt/ddDHCU47Hi1VZGw8A2j1HDaCHffEGl6C5FzzdErrZCIBrMIUlrZZARQ
+ u4fy1wwWXQu9IYjXnyF3BI07Y05Is6jHXzw5ApmalBxBp85sr1oFlR45kHuQxi8Ma67ye23pU+i
+ 0ZfEc1HgiqWjEanyJvQQFiIUwn7+lmt+sYCHqncaafdCYo3KHgQaHetYAneCx7X14vidrudgq+u
+ C2LEDT0pu3GVJlMya52voqvBocPv07v+yrOMkc2yrVlibFvy72hf8cXhXucoMOtYi9Ac6p0nTbH
+ UBsr8OB8/MJYoiHCzkYACf6uE2qyNGCqCwApVpfGBocJ8Tm4THZDDTv79sd4Sr7B2Fo2BrLYn9V
+ xgmHiHS71tqPIlx4VRSha2GekLQlQUXLnzYAP7xJLSeoiFrOZwyfxUMXye+TMGvJSDGiQ=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-The only_64bit documentation describes how an EPF driver must configure a
-BAR, but BAR_RESERVED must not be reprogrammed by an EPF driver.
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-Keep the existing configuration requirement and explain that only_64bit
-also describes the hardware width of a reserved BAR. State explicitly
-that its following BAR register holds the upper 32 bits and cannot be
-used independently.
+Compile-time folded page tables are not necessarily easy to understand, and even
+people the were once familiar with the concept might need to refresh their memory.
 
-Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Add proper documentation, including a nice diagram, for the current design.
+Mention details about dummy functions, including the recently changed pXdp_get()
+helpers.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-Changes V1 -> V2:
-- New in v2, following Niklas Cassel's review.
-- Clarify that only_64bit describes the hardware width of BAR_RESERVED
-  and that its upper half cannot be used independently, while retaining
-  the existing EPF configuration wording.
+ Documentation/mm/page_tables.rst | 84 +++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 75 insertions(+), 9 deletions(-)
 
- include/linux/pci-epc.h | 5 +++++
- 1 file changed, 5 insertions(+)
+diff --git a/Documentation/mm/page_tables.rst b/Documentation/mm/page_tables.rst
+index 126c876282509..d4f3e2e343ca2 100644
+--- a/Documentation/mm/page_tables.rst
++++ b/Documentation/mm/page_tables.rst
+@@ -143,15 +143,81 @@ pointers on each level is architecture-defined.::
+ Page Table Folding
+ ==================
+ 
+-If the architecture does not use all the page table levels, they can be *folded*
+-which means skipped, and all operations performed on page tables will be
+-compile-time augmented to just skip a level when accessing the next lower
+-level.
+-
+-Page table handling code that wishes to be architecture-neutral, such as the
+-virtual memory manager, will need to be written so that it traverses all of the
+-currently five levels. This style should also be preferred for
+-architecture-specific code, so as to be robust to future changes.
++Not all architectures support 5-level page tables; while for some of them
++the exact number of supported page table levels is known at compile time,
++others can determine the number of page table levels at runtime based on
++hardware support and address space sizes.
++
++Generic page table walking code always assumes that 5 levels of page table
++exist. To make page table walking code not have to worry about that,
++`compile-time folding` and `runtime folding` of page tables are used.
++Compile-time folding is mostly handled in common code, whereas runtime folding
++is exclusively handled in architecture code.
++
++This description focuses on generic compile-time folded page tables; for
++architecture-specific variants, some details can vary, however, without
++affecting common page table walkers.
++
++When walking folded page tables, all upper page table levels up to the supported
++level are skipped in page table walkers: this is achieved by (a) treating
++entries in upper page table levels as present and pointing at a page table; and
++(b) having page table walkers cast the entry pointer to the next-level entry
++instead of dereferencing that table. From the perspective of a page table
++walker, the entry points at itself.
++
++Assuming compile-time folded 4-level page tables, to achieve (a), pgd_present()
++and pgd_leaf() are hard-coded to indicate a present page table entry that
++points at a page table, and to achieve (b) p4d_offset() and
++p4d_offset_lockless() simply cast the page table entry pointer to the next
++lower level.
++
++In the current design, this is further modeled by having the P4D have a
++single page table entry::
++
++        PGD
++  --> +------+          NOP4D
++      | ptr0 |-------> +------+           PUD
++      | ptr1 |-        | ptr0 |-------> +-----+
++      | ptr2 | \       +------+         | ptr |-------> ...
++      | ptr3 |  \                       | ptr |
++        ...      \                        ..
++                  \        NOP4D
++                   +----> +------+           PUD
++                          | ptr1 |-------> +-----+
++                          +------+         | ptr |-------> ...
++                                           | ptr |
++                                             ...
++
++Note that the arrows from PGD to NOP4D represent page-table-walker
++transitions, not pointers stored in the pgd entries.
++
++Using p4d as an example, `nop4d`/`p4d folded` translates to the following:
++
++- p4d is considered folded into pgd; both are operating on the same page
++  table.
++
++- Most pgd_* helpers are hard-coded dummy functions that ignore the passed
++  pgd_t values entirely. Exceptions are pgd_val() and low-level helpers
++  set_pgd() + pgd_page_vaddr(), which effectively translate to set_p4d()/
++  p4d_pgtable() to keep existing arch code working.
++
++  Architectures must provide p4d_* helpers (unless further common
++  compile-time folding applies).
++
++- PTRS_PER_P4D is hard-coded to 1. Architectures must define PTRS_PER_PGD.
++
++To avoid reading a value that will never be used but cannot be entirely
++optimized out, compile-time folded page table code also makes pXdp_get()
++return a constant dummy value.
++
++In common code, this only affects pXd_val() when used for printing page
++table entries for debugging purposes. As we don't want architecture code
++that uses set_pXd(), pgd_page_vaddr() or pXd_pgtable() to accidentally
++operate on dummy values, the compiler will error out if it detects that the
++helpers are used with dummy values. For a folded level, pXd_page() must not
++be used and unconditionally triggers a compiler error. Architecture code must
++instead call the helpers on the proper first page table level: e.g., set_p4d()
++instead of set_pgd().
+ 
+ 
+ MMU, TLB, and Page Faults
 
-diff --git a/include/linux/pci-epc.h b/include/linux/pci-epc.h
-index f247cf9bcf1a..2223842c372b 100644
---- a/include/linux/pci-epc.h
-+++ b/include/linux/pci-epc.h
-@@ -292,6 +292,11 @@ struct pci_epc_bar_rsvd_region {
-  * @only_64bit: if true, an EPF driver is not allowed to choose if this BAR
-  *		should be configured as 32-bit or 64-bit, the EPF driver must
-  *		configure this BAR as 64-bit.
-+ *
-+ *		For BAR_RESERVED, only_64bit describes the hardware BAR width
-+ *		and does not permit an EPF driver to reprogram the BAR. Set it
-+ *		if the reserved BAR is 64-bit. The following BAR register holds
-+ *		the upper 32 bits and is not independently usable.
-  * @nr_rsvd_regions: number of fixed subregions described for BAR_RESERVED
-  * @rsvd_regions: fixed subregions behind BAR_RESERVED
-  */
 -- 
-2.34.1
+2.43.0
 
