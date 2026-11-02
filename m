@@ -1,49 +1,152 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793663372;
-	b=DpYiO+h34fM6+zWjqYYABxDfY1AdeSV5mZZ0WBdB6PPp4CkPKs9j5VMf6Q3isv1yUnLv
-	 ZBeSE4yxoDqnDMWN/ww2uKarNnioibARb6pyKh2RLOmhDp9ORZ4oBgNF0BJVMByEuOE/e
-	 D36C6lKUJVkx9fAyulxGVG55fKh7ssEgJXpDt64VteJyFDJqwFh9dwX9VMdota76vShjQ
-	 pZ/BONtsqwG2rsjmlPxKdab0O362vfGbvqP7zL5lwp+YMBk4pyMLDsF+Pe9yyxcu6RH9I
-	 Z4P95ie89WmB2sMB5KlQf0X81Cui4k09x8iorw55kNlfgi/6WTs5EEifvFCqFY4fp6Q==
+	t=1793663400;
+	b=sucfSJr2FPrl3BXmdtZAm582ATXaF3t+pNXSo1fXbpRfssnHLFqJcnw08e4wxMHJDQF/
+	 02lJlHsZp7rSiyS/8wDsJj2wVz5tcaNQzTJC+b4SiAp2/5dSMR2ZXZDKzo106kpLRA+6L
+	 XezMhdUz2/KFcxJVnYW/VGh9OE5EumUoA4EL4j5nTxn8B5mC/AGZ+oZ3iRfXKX3RQCjoy
+	 wSiO97JN7ZR2LBn6lxb7zORIiJIz1A8hezAd84zvmh+99p7XrbigQhi7/etkVx9xg48bX
+	 g469KmAn4b6Vc7LrAQWWyNIc20sAVS4LsxoXt4/Zu56stwDOJQlYrQWFHoE2P+LgGVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793663372;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=+5ayfBBADbSXVO+eg5fhbmtgjn7ckRAVi9w3JeSSink=;
-	b=4FDm+nYwYTCSuc5wl5FyfrjJujtPsUhajeqVJxeUlHoP+TtiCjB3nsOGJo0SxMfSVL6c
-	 J/QEYQZ81GLoUEQIbgBKEeHngnE6b44iPwZchE0RduWOjCIfkEjIo0MaXoPZG/1TRQE8k
-	 VzOYfBCYKjjpOrYfK3TR+aycmtYIpu/+C/32M/sabACesOf6ElRNPuv54eKusCaQS/wQn
-	 CzOPzIyIFAoyknLHRxbfVYkKaVeut5Hlp5P/0jTs0o/Cs5zQcwwDg6nKO7bT93DNDTxqq
-	 Bu8dtJ7j4n+9PYNi208Pf97wOaJvkCO0+Zo3Gqw+3OBeR4+JYc8b+6Qbrsulj21cpyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793663400;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=IXU9CQOa1FKGKiuXsLy+IjbxJFQKGgpmyBaeXrYbXeI=;
+	b=llTdFWKC/hZTxemiVe5uxYLIxmFNBsw81tAd89j4fyC8Oo4wW+vnSkpUiiI0osBSWvjT
+	 6+pjII8pqV4YfnSiz+cQJCk5vGCNfQ6at9//Lo762WKloIboqtA5AU6y6NsTQPZfWbe/z
+	 AzBjsAQ3LsQqGqmKVB3claMeD5yybn1tgZyzKQwlOd8tXhmZwLhC+FrVaddbyY06DgDRE
+	 npY9cN039DuzdZ+JY50naoC+PM0LVcVzoU9AasBl0mNY3owpwmUsIwfSKm+xs6M7tPMeN
+	 IHevESMSSX+0wlXF2Ky2GyIeQgCq+XhdI6oczR67j2WwX2U6oypXsFbqNnbxNOvKYuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Ogq7K/NR";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFAC8606A326;
-	Mon,  2 Nov 2026 23:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFAC8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hWmE6q5L;
+	arc=none smtp.remote-ip=209.85.128.169
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7EB606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E7EB606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ogq7K/NR
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B750E16A3;
-	Mon,  2 Nov 2026 15:49:26 -0800 (PST)
-Received: from [10.57.66.79] (unknown [10.57.66.79])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BA063F673;
-	Mon,  2 Nov 2026 15:49:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793663369; bh=alebyCC8ucd9nKIf6KiLwM7p1T8ro5s0+5R+DzxK1x4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Ogq7K/NRj3ZtTzBg6VE+G5KuBv6rnWTie/UUaE8+2mBsG01dhkFc2eV6JorfEeoM3
-	 ZexUIvkA6wXgj/3qwzuC4XW9Imb87Us2ZE8TMKlj9sYG59AroPN00Bs7EJK9nrNAqU
-	 UyZGsJGgN6wHKbjiY22gBO69bbtgEzdTnrhBSNe8=
-Message-ID: <4304d0c7-2220-4add-9c71-e6dc6b4fbc11@arm.com>
-Date: Mon, 2 Nov 2026 23:49:24 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hWmE6q5L
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b09e07e149so29255617b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:49:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1793663399; x=1794268199; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IXU9CQOa1FKGKiuXsLy+IjbxJFQKGgpmyBaeXrYbXeI=;
+        b=hWmE6q5LeJa+kXUPGLyJalIveKRVbt6EOgIs/OJCYvu7SCDbHy8QQ6dVhLxAHsP48z
+         opztfEnNt6RcPwsbrz09eOKA0FnOf1Dl5NwbNr5fsuXkCZuVRwW78wazMWf+zXiP6wpS
+         SibvkvnjyZ4SkDGgspCzxdgDAb8qymfkneuxwsUxEI/cdNygAbq3PFA/bMxMeZTSgxTt
+         YTo/1An18RyYRD0P8CwCBST98tcBkZXxmNCY1uPi8VJwf4UsZ8mtVJS427/nivqCcFOP
+         0b0xhOcmkHPLsE3wGDimqtRY5Ry1bJz2PJ/rh2r4VqUvSRGPft0+hnJW00TLUBK/P9wP
+         7i+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793663399; x=1794268199;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IXU9CQOa1FKGKiuXsLy+IjbxJFQKGgpmyBaeXrYbXeI=;
+        b=Z0MA+WTDG80oKF1rKSMziGDn14r1ZSJrG4N3Cbb+SZulZ0H02F/VwFU632LyacJZVq
+         X+Cpf8nXXTq/bx2nSpvvTSkb299YmDaO6H0rC0nLoJfoAmhuHaQjTGbtvkuGkFEwSya0
+         wt8GeWudAYKT713Pf5RJ/nrUkgw/51RPFrLXTy5KCyG7lSYzF6jbeD2bbRz0XKbZMcst
+         Lv8MCVHO7njEy1/fRcUL8DRSNR1AawxQwV4RUJuLVL3Q8iEx+vo7rdd2mo+hsesjb2c9
+         HXS71r7K3HQTX12xvIpOG3ju7NYADMEyoFjRANitmtYsU+gf1sqjGQV9T0/45LQ/rIoL
+         7a/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwkCIhU99tYpeFkZM2ykQ5EQRYYU+AH9IfHtaKWi0JaziuZV448qwLUsay+LY3keyhGgd760JqXMvi0u2g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XC7GzdrzL0UewF27eYCIGcDWU6glNVcpR6DDXdNe82o5egZ9M
+	Vfo2pK2+XIfT5WNMrmm0qCeO08VDyPT/vVsd1Ssa6O2g53ZxrETV1l+x5QOMnVMNluZDar5Yx9R
+	RcQRJVEc=
+X-Gm-Gg: AYBFou2kFUeV/enNPQtPH/FsByZ5CuFnXXRBFTM+lo7wUYawW8SH5Lf7VhT44NBXniB
+	8RdMJtFudCntue9EaL70/UtapOdyKrRYNHc9wO9MvChpOKVclBE2W+a8lYpOYFK4et4ybNNlQbq
+	szBXoIetKY1AO0EYgw/dlIKzFf0KnYKkbQ/WPOKONWBZiddaa/U33VyeAT7njG0kl05oSdj8zVk
+	kv3HBbFmp3B+r6OxTe/wo08FwoljLD5DODNvq706zrmzuFiXUHV8ZQMF06HTGjXL60LokmsezeW
+	BONCidT1cElwNX0V6kC8vSEWhh1Xy8slOolyKHWrFPQgeWmoaJzGhTqiePa2/KeUbswuu4rf4J8
+	RXf7P/CG6mC3wH4mS8xeIUHeTzKZwLPximnskFQ4IMNNh2AY9A6mVf+qk6wRfbtfN1N4JskTO5y
+	I4WlSQo3s9JQMBiNYyAX+aBd6mvGOdyr9Rd80hET9/TdoMWvEzFtIqxEzXlQsX2x4QSRVloYRGK
+	BcCdxaJQHyht6ejrZ5B/nRrTbpgWcBNmren1lSDwNUxvV0mx/mBpqZRY1U0RICzEvz+p+bvf1CR
+	fMTbgE+lMV8EAli8Gx5sYF/jZt6HjMtz1WQoVY0wh/WBmOwFIgijJZ4Jh7RMXU0UWC/ALZRo8sq
+	E2idWcMAuEnfMtA2LcbEY1oePC02dcMJIIHZ51DZM2HFsEuPWsLswG0ia56bbPPJG76dmZe7hP9
+	+u6THPO4Nz+vzKYJYsdcGULPyHhskm5gpQw98WFg==
+X-Received: by 2002:a05:690c:6605:b0:8b0:76e5:ed0c with SMTP id 00721157ae682-8b2b66f82dbmr68974937b3.39.1793663398847;
+        Mon, 02 Nov 2026 15:49:58 -0800 (PST)
+Received: from ?IPv6:2600:1700:6476:1430:2f9f:a96f:bcb:6021? ([2600:1700:6476:1430:2f9f:a96f:bcb:6021])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf3700b8sm6086486d50.23.2026.11.02.15.49.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 15:49:58 -0800 (PST)
+Message-ID: <ac84b2b863415779536a98a0d0b835e85d2976c7.camel@dubeyko.com>
+Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Mon, 02 Nov 2026 15:49:57 -0800
+In-Reply-To: <20261028035919.733823-1-hengyul@cs.unc.edu>
+References: <20261015110114.1649059-1-hengyul@cs.unc.edu>
+	 <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com>
+	 <20261021153141.311425-1-hengyul@cs.unc.edu>
+	 <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com>
+	 <20261022120658.1328124-1-hengyul@cs.unc.edu>
+	 <cd6cc32dd2aae90b88b4c3d19e1fb35a5be6f4ac.camel@dubeyko.com>
+	 <20261023173259.3275078-1-hengyul@cs.unc.edu>
+	 <e2ee251e8ad47c6f1e2faf9ed1be787eccf5215c.camel@dubeyko.com>
+	 <20261028035919.733823-1-hengyul@cs.unc.edu>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,356 +156,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/11] KVM: arm64: CCA: Add basic infrastructure for
- creating a realm
-Content-Language: en-GB
-To: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Gavin Shan <gshan@redhat.com>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Alper Gun <alpergun@google.com>, "Aneesh Kumar K . V"
- <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>,
- Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>
-References: <20261102141304.126883-1-steven.price@arm.com>
- <20261102141304.126883-7-steven.price@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261102141304.126883-7-steven.price@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Steven
-
-On 02/11/2026 14:12, Steven Price wrote:
-> Introduce the skeleton functions for creating and destroying a realm.
-> The IPA size requested is checked against what the RMM supports.
-> 
-> The actual work of constructing the realm will be added in future
-> patches.
-> 
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> ---
->   arch/arm64/include/asm/kvm_rmi.h | 20 ++++++++++++
->   arch/arm64/kvm/arm.c             |  9 +++++
->   arch/arm64/kvm/mmu.c             | 18 ++++++++--
->   arch/arm64/kvm/rmi.c             | 56 ++++++++++++++++++++++++++++++++
->   4 files changed, 101 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/asm/kvm_rmi.h
-> index 3194daaacf2b..f1a1ed6b91f5 100644
-> --- a/arch/arm64/include/asm/kvm_rmi.h
-> +++ b/arch/arm64/include/asm/kvm_rmi.h
-> @@ -6,6 +6,9 @@
->   #ifndef __ASM_KVM_RMI_H
->   #define __ASM_KVM_RMI_H
->   
-> +#include <linux/arm-smccc-rmi.h>
-> +#include <linux/kvm.h>
-> +
->   /**
->    * enum realm_state - State of a Realm
->    *
-> @@ -50,12 +53,29 @@ enum realm_state {
->   /**
->    * struct realm - Additional per VM data for a Realm
->    *
-> + * @rd: Kernel mapping of the RMM-managed Realm Descriptor (RD) granule
-> + * @sro: Preallocated SRO state context for Realm MMU operations
->    * @state: The lifetime state machine for the realm
-> + * @ia_bits: Number of valid Input Address bits in the IPA
->    */
->   struct realm {
-> +	void *rd;
-> +	/*
-> +	 * Reused by RTT map/unmap SRO commands. Those commands are only
-> +	 * issued from Realm stage-2 map/unmap paths while kvm->mmu_lock is
-> +	 * held for write, including Realm fault handling where
-> +	 * kvm_fault_lock() takes the write side, so concurrent use is
-> +	 * serialized.
-> +	 */
-> +	struct rmi_sro_state *sro;
->   	enum realm_state state;
-> +	unsigned int ia_bits;
->   };
->   
->   void kvm_init_rmi(void);
-> +u32 kvm_rmm_ipa_limit(void);
-> +
-> +int kvm_init_realm(struct kvm *kvm);
-> +void kvm_destroy_realm(struct kvm *kvm);
->   
->   #endif /* __ASM_KVM_RMI_H */
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index c8599fed5902..9a7bbfaf9675 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -303,6 +303,13 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
->   
->   	bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
->   
-> +	/* Initialise the realm bits after the generic bits are enabled */
-> +	if (kvm_vm_is_realm(kvm)) {
-> +		ret = kvm_init_realm(kvm);
-> +		if (ret)
-> +			goto err_uninit_mmu;
-> +	}
-> +
->   	return 0;
->   
->   err_uninit_mmu:
-> @@ -367,6 +374,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
->   
->   	kvm_destroy_nested(kvm);
->   	kvm_arm_teardown_hypercalls(kvm);
-> +	if (kvm_vm_is_realm(kvm))
-> +		kvm_destroy_realm(kvm);
->   }
->   
->   static bool kvm_has_full_ptr_auth(void)
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 1301c563d705..b049ea67d9af 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -981,10 +981,14 @@ static struct kvm_pgtable_mm_ops kvm_s2_mm_ops = {
->   
->   static int kvm_init_ipa_range(struct kvm_s2_mmu *mmu, unsigned long type)
->   {
-> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
->   	u32 kvm_ipa_limit = get_kvm_ipa_limit();
->   	u64 mmfr0, mmfr1;
->   	u32 phys_shift;
->   
-> +	if (kvm_vm_is_realm(kvm))
-> +		kvm_ipa_limit = kvm_rmm_ipa_limit();
-> +
->   	phys_shift = KVM_VM_TYPE_ARM_IPA_SIZE(type);
->   	if (is_protected_kvm_enabled()) {
->   		phys_shift = kvm_ipa_limit;
-> @@ -1034,9 +1038,18 @@ static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
->   
->   static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
->   {
-> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
->   	unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
->   
-> -	stage2_destroy_range(pgt, 0, BIT(ia_bits));
-> +	/*
-> +	 * Realm RTTs are inaccessible to the host and may contain stale data
-> +	 * after the RMM has released them. The non-root RTTs are explicitly
-> +	 * destroyed through RMI before the RD is destroyed; only the root PGD
-> +	 * pages remain to be freed here.
-> +	 */
-> +	if (!kvm_vm_is_realm(kvm))
-> +		stage2_destroy_range(pgt, 0, BIT(ia_bits));
-> +
->   	KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
->   }
-
-This looks like a good candidate for another callback for vm_s2_ops ? 
-Something like (incomplete functionally, but this should work).
-As a bonus, we can remove two instances of KVM_PGT_FN()
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 5e9c2919c509..96685c52fb6e 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1048,35 +1048,52 @@ static int kvm_init_ipa_range(struct kvm_s2_mmu 
-*mmu, unsigned long type)
-   * cond_resched() periodically to prevent hogging the CPU for a long time
-   * and schedule something else, if required.
-   */
--static void stage2_destroy_range(struct kvm_pgtable *pgt, phys_addr_t addr,
--				   phys_addr_t end)
-+static void stage2_destroy_range(struct kvm_pgtable *pgt,
-+				 void (*pgt_destroy_range_fn)(struct kvm_pgtable *pgt,
-+							  u64 addr, u64 size))
-  {
-+	u64 addr = 0;
-+	u64 end = BIT(VTCR_EL2_IPA(pgt->mmu->vtcr));
-  	u64 next;
-
-  	do {
-  		next = stage2_range_addr_end(addr, end);
--		KVM_PGT_FN(kvm_pgtable_stage2_destroy_range)(pgt, addr,
--							     next - addr);
-+		pgt_destroy_range_fn(pgt, addr, next - addr);
-  		if (next != end)
-  			cond_resched();
-  	} while (addr = next, addr != end);
-  }
-
-+static void kvm_vm_stage2_destroy(struct kvm_pgtable *pgt)
-+{
-+	stage2_destroy_range(pgt, kvm_pgtable_stage2_destroy_range);
-+	kvm_pgtable_stage2_destroy_pgd(pgt);
-+}
-+
-+static void pkvm_stage2_destroy(struct kvm_pgtable *pgt)
-+{
-+	stage2_destroy_range(pgt, kvm_pgtable_stage2_destroy_range);
-+	pkvm_pgtable_stage2_destroy_pgd(pgt);
-+}
-+
-+/*
-+* Realm RTTs are inaccessible to the host and may contain stale data
-+* after the RMM has released them. The non-root RTTs are explicitly
-+* destroyed through RMI before the RD is destroyed; only the root PGD
-+* pages remain to be freed here.
-+*/
-+static void realm_stage2_destroy(struct kvm_pgtable *pgt,
-+				 u64 start, u64 end)
-+{
-+	kvm_pgtable_destroy_pgd(pgt);
-+}
-+
-  static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
-  {
-  	struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
-  	unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
-
--	/*
--	 * Realm RTTs are inaccessible to the host and may contain stale data
--	 * after the RMM has released them. The non-root RTTs are explicitly
--	 * destroyed through RMI before the RD is destroyed; only the root PGD
--	 * pages remain to be freed here.
--	 */
--	if (!kvm_vm_is_realm(kvm))
--		stage2_destroy_range(pgt, 0, BIT(ia_bits));
--
--	KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
-+	kvm->arch.vm_s2_ops->stage2_destroy(pgt, 0, BIT(ia_bits));
-  }
+On Tue, 2026-10-27 at 23:59 -0400, Hengyu Liang wrote:
+> Hi Slava,
+>=20
+> On Mon, 2026-10-26 at 10:20 -0700, Viacheslav Dubeyko wrote:
+> > I am not suggesting to change the on-disk format. All modifications
+> > should be in-core metadata structures only.
+>=20
+> Sorry, I misread that.
+>=20
+> > The algorithm only solution will be inefficient and it can hide
+> > bugs,
+> > anyway.
+>=20
+> The table below is about efficiency. On bugs: in both variants below,
+> a lookup or walk error leaves next_id unchanged, so it can only stay
+> too high, never fall onto a CNID in use. Which bugs did you have in
+> mind?
+>=20
+> > I am thinking about adding to the struct hfs_bnode (b-tree node) a
+> > special field: u32 max_cnid. [...] What do you think? Does it make
+> > sense for you?
+>=20
+> Yes, it makes sense, and it works. I wrote a prototype (max_cnid
+> rebuilt when a node is read, raised on insert, rescanned on remove
+> and
+> after a split) and compared it with the unmount walk I suggested last
+> time. Deleting 8000 files in KVM on v7.3 (KASAN):
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unpatched=C2=A0 max_cnid=C2=A0 unmo=
+unt walk
+> =C2=A0=C2=A0=C2=A0 newest first=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 14 s=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 7.0 s=C2=A0=C2=A0=C2=A0=C2=A0 0.4 s
+> =C2=A0=C2=A0=C2=A0 odd ones, then even ones
+> =C2=A0=C2=A0=C2=A0 newest first=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4.1 s=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 3.0 s=C2=A0=C2=A0=C2=A0=C2=A0 0.2 s
+>=20
+> Both are correct: no duplicate CNID in any run, including the
+> threadless case from my last mail.
+>=20
+> > If you believe that this approach will not work, please, explain
+> > your
+> > vision of solution in details.
+>=20
+> The unmount walk, on a delete:
+> (1) do nothing unless cnid =3D=3D next_id - 1 (your step (1));
+> (2) if cnid - 1 has a thread, set next_id =3D cnid;
+> (3) otherwise keep next_id, which is still above all CNIDs in use,
+> and
+> =C2=A0=C2=A0=C2=A0 set a flag.
+> At unmount, if the flag is set, hfs_mdb_close() walks the leaf nodes
+> once and writes max + 1 to drNxtCNID. The walk cannot run in sync_fs:
+> hfs_new_inode() takes a CNID before the catalog records are inserted,
+> so a walk there could miss that CNID and lower next_id onto it.
+>=20
+> Your max_cnid
+> =C2=A0 Pros:
+> =C2=A0 - next_id was exact after every delete in every run, so drNxtCNID
+> =C2=A0=C2=A0=C2=A0 on disk is right even after a crash or remount ro.
+> =C2=A0 - Nothing to do at unmount.
+> =C2=A0 Cons:
+> =C2=A0 - A delete of next_id - 1 still visits every leaf node (about 3000
+> =C2=A0=C2=A0=C2=A0 here); the per-node max only saves parsing their recor=
+ds.
+> =C2=A0=C2=A0=C2=A0 Checking the thread of cnid - 1 first brings the first=
+ row to
+> =C2=A0=C2=A0=C2=A0 0.4 s, but not the second.
 
 
+I think we need to reuse the b-tree mechanics here. Let's use the index
+nodes for the search of biggest CNID. The b-tree has this exact goal to
+speed-up the search. So, we need to keep the max CNID not only in leaf
+nodes but in index nodes too. Do you follow my point?
 
+> =C2=A0 - max_cnid must stay right on insert, remove, split and node read
+> =C2=A0=C2=A0=C2=A0 (hooks in bnode.c and brec.c). A missed update would l=
+et next_id
+> =C2=A0=C2=A0=C2=A0 fall onto a CNID in use.
 
+We should keep the max_cnid always valid. And b-tree operations can
+guarantee it for us.
 
-> @@ -1084,6 +1097,8 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
->   		return -EINVAL;
->   	}
->   
-> +	mmu->arch = &kvm->arch;
-> +
->   	err = kvm_init_ipa_range(mmu, type);
->   	if (err)
->   		return err;
-> @@ -1092,7 +1107,6 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct kvm_s2_mmu *mmu, unsigned long t
->   	if (!pgt)
->   		return -ENOMEM;
->   
-> -	mmu->arch = &kvm->arch;
->   	err = KVM_PGT_FN(kvm_pgtable_stage2_init)(pgt, mmu, &kvm_s2_mm_ops);
->   	if (err)
->   		goto out_free_pgtable;
-> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
-> index 5b07beff8bc9..45ecbaa467d1 100644
-> --- a/arch/arm64/kvm/rmi.c
-> +++ b/arch/arm64/kvm/rmi.c
-> @@ -6,6 +6,8 @@
->   #include <linux/arm-rmi-cmds.h>
->   #include <linux/kvm_host.h>
->   
-> +#include <asm/kvm_emulate.h>
-> +#include <asm/kvm_mmu.h>
->   #include <asm/kvm_pgtable.h>
->   #include <asm/virt.h>
->   
-> @@ -14,6 +16,60 @@ static bool rmi_has_feature(int reg, unsigned long feature)
->   	return !!u64_get_bits(rmi_feat_reg(reg), feature);
->   }
->   
-> +u32 kvm_rmm_ipa_limit(void)
-> +{
-> +	return u64_get_bits(rmi_feat_reg(0), RMI_FEATURE_REGISTER_0_S2SZ);
-> +}
-> +
-> +void kvm_destroy_realm(struct kvm *kvm)
-> +{
-> +	struct realm *realm = &kvm->arch.realm;
-> +	size_t pgd_size = kvm_pgtable_stage2_pgd_size(kvm->arch.mmu.vtcr);
-> +
-> +	if (!kvm_realm_is_created(kvm)) {
-> +		kfree(realm->sro);
-> +		realm->sro = NULL;
-> +		return;
-> +	}
+>=20
+> Unmount walk
+> =C2=A0 Pros:
+> =C2=A0 - A delete never walks the catalog; the one walk at unmount costs
+> =C2=A0=C2=A0=C2=A0 17 ms here (cold cache).
+> =C2=A0 - Only catalog.c and mdb.c change, not the b-tree code.
 
-Do we leak memory of the stage2 PGD if the Realm was never created ?
-Should we have something like on top ?
+It's not about small change. It's about correct and efficient solution.
 
-@@ -1646,11 +1645,8 @@ void kvm_destroy_realm(struct kvm *kvm)
+> =C2=A0 Cons:
+> =C2=A0 - next_id is not lowered during a mount: after deleting all 8000
+> =C2=A0=C2=A0=C2=A0 files oldest first, the next file gets CNID 8016, not =
+16.
+> =C2=A0 - After a crash or remount ro the high value stays on disk. In my
+> =C2=A0=C2=A0=C2=A0 8000-file crash test drNxtCNID stayed at 8015 on the e=
+mpty
+> volume,
+> =C2=A0=C2=A0=C2=A0 more than 4096 above the largest CNID, and fsck.hfs -f=
+n asked for
+> =C2=A0=C2=A0=C2=A0 a minor MDB repair.
 
-         guard(mutex)(&kvm->arch.config_lock);
+We cannot leave file system in corrupted state. We should prevent it by
+any cost.
 
--       if (!kvm_realm_is_created(kvm)) {
--               kfree(realm->sro);
--               realm->sro = NULL;
--               return;
--       }
-+       if (!kvm_realm_is_created(kvm))
-+               goto free_pgd;
+>=20
+> Which do you prefer? I can turn either into the next version.
 
-         kvm_set_realm_state(kvm, REALM_STATE_DYING);
+I prefer to elaborate an approach that will be correct solution. I
+think we need to re-use the b-tree mechanics to improve the efficiency
+and to deliver the correct solution.
 
-@@ -1684,6 +1680,7 @@ void kvm_destroy_realm(struct kvm *kvm)
-
-         kvm_set_realm_state(kvm, REALM_STATE_DEAD);
-
-+free_pgd:
-         /* Now that the realm is destroyed, free the entry-level RTTs. */
-         kvm_free_stage2_pgd(&kvm->arch.mmu);
-
-
-Suzuki
-
-> +
-> +	kvm_set_realm_state(kvm, REALM_STATE_DYING);
-> +
-> +	if (realm->rd) {
-> +		phys_addr_t rd_phys = virt_to_phys(realm->rd);
-> +
-> +		if (WARN_ON(rmi_realm_terminate(rd_phys, realm->sro)))
-> +			return;
-> +
-> +		if (WARN_ON(rmi_realm_destroy(rd_phys, realm->sro)))
-> +			return;
-> +		rmi_free_delegated_page(rd_phys);
-> +		realm->rd = NULL;
-> +	}
-> +
-> +	if (WARN_ON(rmi_undelegate_range(kvm->arch.mmu.pgd_phys,
-> +					 pgd_size)))
-> +		return;
-> +
-> +	kvm_set_realm_state(kvm, REALM_STATE_DEAD);
-> +
-> +	/* Now that the realm is destroyed, free the entry-level RTTs. */
-> +	kvm_free_stage2_pgd(&kvm->arch.mmu);
-> +
-> +	kfree(realm->sro);
-> +	realm->sro = NULL;
-> +}
-> +
-> +int kvm_init_realm(struct kvm *kvm)
-> +{
-> +	struct realm *realm = &kvm->arch.realm;
-> +
-> +	realm->sro = kmalloc_obj(*realm->sro);
-> +	if (!realm->sro)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
->   static int rmm_check_features(void)
->   {
->   	if (kvm_lpa2_is_enabled() &&
+Thanks,
+Slava.
 
