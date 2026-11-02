@@ -1,90 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793648069;
-	b=Oa5tc4BuW/f9TVKDLeCv4W2ePmNAxpbR9TEFTEsryWLRfa2HsHeWu0UuYaZF325tI2I6
-	 MN6GMhJMvfUeZUW/JTLdiw/u+sgkzlJMr+/V722wEn6OsGmSq01bW8hnbCaLpZklS0Qph
-	 ncYV6KFXsGBZ8cuqVcy6oGfJj05iw7QpAR/FWZXJTD/Zp3h3RDHBR40FnekYS298xvlhi
-	 MrBY5buy3bI6t0d8QKSg+kOFu+D0XymmHwn6qtMuVAUHSOY96ZQKOHi2tazo66p2EF4WH
-	 +Jl6TamwUoYSttnHAqgF7gm5uYzeWsRyNVqx5j50tWerGe1oiMeTcu5WG9rWnTkFQag==
+	t=1793648099;
+	b=BGGlEYVaus3rEPZLigtcG9Di2Qyr1f2S9jltWwI/y4cRQIDBzp70iDGumAeNlILvIkMG
+	 LUdiH/bBewuvj2+3kKRcqHAjaYILktCaxGyDWUNWn5efAvjkMsTaMNaCTmrojLroGRlCT
+	 uTFJOOgJBhEbDdASMrIvugETa9aOMHhMd2SyLMwZY/bKIu33BN3nbyZEJCCPKyAP8tFo0
+	 1R7481pfFAwN8XOVo7UHpouLea1B+cZcjRq7GCZbKkU6/V2hC8WNHNry1Cwqf5cFTE/B7
+	 ZjkUH5ZEalRgkFxPxtcAdefFWxslQfqupC7YJTdCMR0Wr9aoSNPya5yag6qEpiy2GWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793648069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793648099;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=E7gBCzFYvmg/wm0ZG+Fa6cYfj054waIZVNwZet2Fyzo=;
-	b=ttxdu8wNEIJIp+a900pQhEDYJT40njy/yryHVajq0APJvxlcOvJfdQAKkq5mi/MKCmzr
-	 HXhi3+9DLRtAsKe9W8x0DBAmOO18/UOWF2IVz7vHw3LIRgFPPJ9+rND51XGc2zkectnMH
-	 t11VJ6j3T0w6R0otk/BfHDAcvO0rzoR2Phtj0eILNfktZRXMUBnzdJbZi1q3zaTeQyb96
-	 FFbeeo7AYhxqtLl5VyAziH8k3L6i1qntVceMpRj8eDVyAAEcCxfunrkihhk5ljFiAF4LL
-	 W6IJtCEuEr7cod7UZM7T5Dp9vSO93bGHUGkg52+lYJra0dzX3cE0JOY0o6hwt9VqFGw==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=gROv1Bjx8N7dYXQ5hjVltmZn1Ef78MU0o9BvgY8hEvw=;
+	b=cdmwpVKHq3JVZrjH/WqfvWMNne3dkoVdvNJf2hfNJM3a6wQCwHmn5ep31uV+IaW2Q5AL
+	 0iAF2sRkfVCGGQMNPX7QYLdW0puPx+JWJOh7rKoAmcvxLeWEn9JVUyHGV2SrhDpX6TSV8
+	 ytvuGaoIWmUDgr1CD1ITydoNozuyHm8qEpWCip9xe7zmtsU8XZith3yMzr/2tFHej/V3K
+	 KU5lmIZhZufR4IdnPebyuYyPwr0ddRX/c66yLoyBqMk9RZUix9j9ftYZZhmB+w9hwST6i
+	 nDT8wK3FoBNelzwMoY49Utxv4b7TnjvKPXWNEP4BgzTgPCX3MxMOF7cwdaTG/tMsPAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XxQzlu+B;
-	arc=none smtp.remote-ip=209.85.160.49
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r9hlJPfH;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC8C6082BD4
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:34:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC8C6082BD4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98832606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:34:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98832606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XxQzlu+B
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-486f013db83so859105fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:34:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r9hlJPfH
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1aefd1bf74aso2194196c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:34:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793648068; x=1794252868; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E7gBCzFYvmg/wm0ZG+Fa6cYfj054waIZVNwZet2Fyzo=;
-        b=XxQzlu+BSk1rbUr3fSK3jJwHiSV/vHO2sI9CexZymuWrVQVZFQ5EgJ8lB+oxsZ5mYI
-         gF4lxzQn6U4UwVH6JjmVsogo/vmycOgclfKwkcy7lJZ6uvB64287SHnhG/a1mAxBKW8e
-         eTjFzmR0CMhp8EtpV7ENV2FNhhlltgGPghxnOcxxQrXs/h+YFYLCljA2Awr/OA7ZxT82
-         OcpOFy+Iyv3HB5m41M2hP6xB8cpbWoO0dVTGBE2D5tk/RXRACcgrkbcVZ2Vb8qLQCI5H
-         Y+5NnRzZfU028nkHnxKO0pre5/Gq/AovnbqE9i4+F7w1YSKc6Beh+0VKrJWiXNAimo2L
-         LHhQ==
+        d=gmail.com; s=20260707; t=1793648098; x=1794252898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gROv1Bjx8N7dYXQ5hjVltmZn1Ef78MU0o9BvgY8hEvw=;
+        b=r9hlJPfHFagpkqRa50MVZnGmqfyy8zNpEdUU5v6KimB7+W78x3VWj9M2wIWqiT2Q4v
+         1qWTXzgMH7yacGKvc9sRrVg6auHXQMmFafESc1SBWw+kyrAnNdYWBoSMLHhta9jdW29j
+         RELlqsrHdhEE2Mzx8og6jU7F0x3t861Q6NEikmiIx6LUPRQyuBxlZH7ooWtpGbbEbBJX
+         p7EJeqbp9YxZDeSbqQXnZmqgKOAViptNSl4dCbH3oSoQEmKq9kOqj6bSVUu40UnEMhwz
+         9XaA7KDy8IJ5QUyuhIWTm2Q9kyzmdxwO4b7Q+eQhT6zp6ir0STxW6u2rbT3QNAUdndkL
+         YYog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793648068; x=1794252868;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E7gBCzFYvmg/wm0ZG+Fa6cYfj054waIZVNwZet2Fyzo=;
-        b=QolwHJceZ8Ynpcis+HbXgo+skFkVeuzgT7OHt/v62p1CC3G6aTZ+iskDsU4YdeUKQs
-         qB7n+qhg4k7YJZyrg7yurYsUd4HkQ75aHdyiKdHEFDudpSzrhnZrcVDr6zIgaCDSIKdk
-         lTSPXMFJd9SdTffv4Nx9qs2tVS4WpsCFpCidnFR7Af2maCl3LLRzYXb4Gkosvv7g6PQ1
-         W6TbitrD/M0KZxoPtUyZSAHOHxhO44xLGDYmr/JauodEEFsIOYPHauGwvEilL+YpzdSa
-         5ybRvW93WqguJqyLJAC911ZcV5Sjvr7uX2r94gkWofWrdM3DqiOVMf/xNz9Hx5BTr2iK
-         911A==
-X-Forwarded-Encrypted: i=1; AKwUvBzE5qTNZeXd+OYmrtWVD925ZCAQ5ms+VJahF/UH2UAmyy64yYeZpKiR2yCPr1SdndXVHOqVaRP7JNKbEmw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYx/ORm5S033rM6R5kF559bm2jtx/mJleaUNAAigezt78eFS4+
-	hJVxwS5nqZDf6/IMfuhAEewlHKapNi0BNhg0PQGSojiehxZkXNEm7QVG
-X-Gm-Gg: AYBFou2x3gKtwknAHsupB3JacbD0m+dKQLTXj8dTL+8N4e2OKq/PmhNYBrbFpiYA6i8
-	ATOJQUebM+LAaIkOsw4bR0FmRvTyBd9qJJQjhaJjuTBd8bdiZVnAs0MxbWF8TnWXoRs2j41VP/s
-	X/7IEH0XPaTBgr5L2VKDOuPiEbSw0io14bOkhSH7FnXmUTzKNQML7Vpmac8ERMT5Mt7n0j/PvqR
-	+XVzNI5ANGw6uoZrS5PR2U0g2w66IfkR2hLYksY8Dzp9WOajFQQe32v6tDCE6I4mF0yCY3bsS2Q
-	Gn5olEUws5R2YvT8y4Yj9hKyuwme2asxBQl98o78H4kJLR+2ux/VCMsjSQdztZoc00jgXHwa/UX
-	lqgv6NUfFViQU8enE5+5MnwIcypptdUx2P+9s60uH7slk0U2x8SCynk+pAb/lQUBI9t9JNYgqdJ
-	zo5JRlMI4VGItpfwOmusi4tNCn8VRBl2NdcjciI/SXc1zTzhy/FTCf7QpZA65uJFDHqvu0umnlq
-	0SWzuCO8DQZI/dDPf5vCgVSqJP93iPb+k+nhVEm1/V8t/8n/rDfIEvFsLbgKV/KB5Ic6mUMLyZ+
-	Hosc8hZDEru4ku2Rm2jVowr666hjKi/5T47FFx4V3fgYUNg1VLECGGkflLWZ+yCSw3k+r5N2toY
-	m3YXBdm7MeXbLVtqNK/6pyLinPET/77s4uM91GMBHLu1JV1Y+6p85wNU94VgkGQp1xCA2H9/96T
-	gDHBGMTWpFsfwYr8CyUJhR+N2DgkBwAk82nfVJE430mj/ykHCzZ/s=
-X-Received: by 2002:a05:6808:f13:b0:4e4:627a:e094 with SMTP id 5614622812f47-5640dc2c8a7mr7309751b6e.11.1793648067810;
-        Mon, 02 Nov 2026 11:34:27 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd93451sm8558249b6e.3.2026.11.02.11.34.26
+        d=1e100.net; s=20260707; t=1793648098; x=1794252898;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gROv1Bjx8N7dYXQ5hjVltmZn1Ef78MU0o9BvgY8hEvw=;
+        b=E3H0mojNHF/T2B3/m0ZDUEG+uC/BOaKmW9z4Tsz9pveE5q6Oga/LELP4ZYEEzEYGvx
+         ExYzyDLzS5MEfsJg2vGyVdLp2ia7zWn22AZZaUyHsEMSAd5UoAhXIoK8oJz+Z3Ph164E
+         GsDjTPCUl+VCEsjUVCGxc58vBy82F2cYgXTteJKMtlWJRz5+mPaKMcMnob/gjb/6ksqI
+         wXNReMp/Wr4bP0iN2kERW0K6sQVH4wadluZFQ7ALNKszUYTY8Hvz9udPbrLErCpKVVgg
+         u65+ZJPtlAOQq1/Wr4oZO2tVkupofFPGChOlj76UIWzlCXIchGh9Tl88htj3V1Y3L5PF
+         2x+Q==
+X-Forwarded-Encrypted: i=1; AKwUvByBfrsU3T6IrZsVYSIgUja6G4x1+g3A9HuHkRmAZTdu8YBnA8vshcPOHJkM1HDk2qHoM+FYfXlS5ocaAb8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAoO823euyYjjXYCUPNpIsvrlsN9HyxZ9H8hiDOinbiKrsbBce
+	NwnuRme0mCxOW/hOrGCkEV2R2i9Cg/WgD9BTTAbivIh871qoS20LS1Pbi+zM/vE9
+X-Gm-Gg: AYBFou0lNQ09NWKB8EiCAl9ckOtZHt4GHBM60Uw63roSzcdrMmOPgcQSSSqdPi9pE0l
+	jUb8HqcmirYGWVRJgiWvSzCkl7L8N8uIpno6cR20JzBJCZ/lXKSG4KCYJzkoWCE3g3e1xCe6efx
+	5NTTW83N2fj4Scb5+m+axu7ILNBdZEUABscnq70vT5csTh5HlGvz0FSlPnUtuQ1rVYhOVtUdkPg
+	HLN5KxkrLK4VkQlHt71HME2otlulenMgvFRIJ3az9w1TZt5x7RimttIIgYVuz05s7449TSR6h0v
+	OQJbshQlkFTPRGxODiXqWtq49438sLkFgQDFWdWrFjTpaknyhDPITuKelvDcfVcNOTTgyUFmVEt
+	49cMmdO1b1dz9/btfCQEncLsx5RpqQjRzm6/sP8p47vbEX7Tr70FdlEu2Edh14ohMe/FIW1Fii5
+	Qg+Ag8pIQmDZyWSaEK+VVJw9dQfcUmN1+jVuRtuoIGHCOBhZstdR/v0MQJSYwl6P7sBohetPYi0
+	ZCUAnGsgbt3Y+ons0G0FA8S6ps+zFDTusvHVoB69ANlpmen+cRc1YqrFe6BDPKpehdvgvs8v0iH
+	Bu63CjS4k6oB3exhSTvVrTTaxEJvrlPCQXE0ZQPD+ExZ35CpvsrjVcGeiULMbhGGZjXC2QTtvPq
+	yzMrHJloUoLxzIyl6NpNHNYXZBOPwN0rC0UPM
+X-Received: by 2002:a05:701b:2511:b0:182:d0a8:d1a9 with SMTP id a92af1059eb24-1a93c6ccfa7mr18096715c88.0.1793648097585;
+        Mon, 02 Nov 2026 11:34:57 -0800 (PST)
+Received: from localhost.localdomain ([103.133.159.191])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac194b5437sm40089164c88.13.2026.11.02.11.34.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 11:34:27 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 02 Nov 2026 12:34:20 -0700
-Subject: [PATCH v5 08/10] dmaengine: dw: drain the tasklet before releasing
- channel resources
+        Mon, 02 Nov 2026 11:34:57 -0800 (PST)
+From: Varun Singh <varun.singh10011@gmail.com>
+To: nkapron@google.com,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Varun Singh <varun.singh10011@gmail.com>,
+	syzbot+39a2135de1558208d3b3@syzkaller.appspotmail.com
+Subject: [PATCH] usb: gadget: u_serial: fix gs_port use-after-free on open/unbind race
+Date: Tue,  3 Nov 2026 01:04:36 +0530
+Message-Id: <20261102193436.6044-1-varun.singh10011@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,78 +98,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-submit-dw-dma-synchronize-v1-v5-8-d3207758fbf9@gmail.com>
-References: <20261102-submit-dw-dma-synchronize-v1-v5-0-d3207758fbf9@gmail.com>
-In-Reply-To: <20261102-submit-dw-dma-synchronize-v1-v5-0-d3207758fbf9@gmail.com>
-To: Viresh Kumar <vireshk@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Dan Williams <djbw@kernel.org>
-Cc: Serge Semin <fancer.lancer@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- dmaengine@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-The controller tasklet invokes callbacks after dropping the channel lock.
-Releasing a channel can therefore clear its configuration and disable the
-controller while that tasklet run is still using them.
+syzbot reports a use-after-free when a USB gadget serial function is
+removed through configfs while /dev/ttyGS* is being opened:
 
-Disable the tasklet before clearing channel resources and re-enable it
-after updating the controller's in-use mask. This waits for an executing
-run while preserving pending schedules for the other channels. Have a
-pending run return before accessing registers when the last channel has
-already been released.
+  BUG: KASAN: slab-use-after-free in check_tty_count+0x134/0x2b0
+   tty_release+0x95/0x1300 drivers/tty/tty_io.c:1728
 
-Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
-Cc: stable@vger.kernel.org
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+gs_port embeds a tty_port, which the TTY core stores in tty->port without
+taking a reference, so the driver must keep it alive. u_serial waited for
+port.count to reach zero in gserial_free_port() and then freed the port.
+That never worked: gs_open() returns -ENODEV without incrementing the
+count once gserial_free_line() has cleared the ports[] slot, so the wait
+completes immediately, the port is freed, and tty_release() reads it.
+
+Use the tty_port kref and move the lookup into .install, which runs before
+the core publishes tty->port. gs_install() takes a reference under
+ports[].lock and stores the port in tty->driver_data, .cleanup drops it,
+.destruct frees the port, and gserial_free_port() drops the allocation
+reference instead of calling kfree(). gs_open() then takes the port from
+tty->driver_data and cannot race gserial_free_line() at all.
+
+Drop the close_wait/gs_closed() handshake: the kref makes it redundant,
+and once the count is correct it blocks rmdir until userspace closes
+/dev/ttyGS*, which shows up as a hung task. Keep the
+cancel_delayed_work_sync(), as cancelling from .destruct instead leaves a
+use-after-free in the work cancellation path. Unregister the tty device
+before freeing the port rather than after.
+
+To reproduce: mount configfs and devtmpfs, create a gadget function that
+uses u_serial such as obex or acm, then repeatedly open /dev/ttyGS0, hold
+some of those opens so they overlap, and remove the function directory
+with rmdir. An unpatched KASAN kernel reports slab-use-after-free within a
+few thousand rounds.
+
+Found with the assistance of Claude Opus 5.
+
+Fixes: 19b10a8828a6 ("usb: gadget: allocate & giveback serial ports instead hard code them")
+Reported-by: syzbot+39a2135de1558208d3b3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=39a2135de1558208d3b3
+Tested-by: syzbot+39a2135de1558208d3b3@syzkaller.appspotmail.com
+Signed-off-by: Varun Singh <varun.singh10011@gmail.com>
 ---
- drivers/dma/dw/core.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/usb/gadget/function/u_serial.c | 88 +++++++++++++++-----------
+ 1 file changed, 52 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-index 0fd49ff9257f..339ca85952fa 100644
---- a/drivers/dma/dw/core.c
-+++ b/drivers/dma/dw/core.c
-@@ -393,6 +393,10 @@ static void dw_dma_tasklet(struct tasklet_struct *t)
- 	u32 status_err;
- 	unsigned int i;
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index cdd1dfc66..906137033 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -125,7 +125,6 @@ struct gs_port {
+ 	struct kfifo		port_write_buf;
+ 	wait_queue_head_t	drain_wait;	/* wait while writes drain */
+ 	bool                    write_busy;
+-	wait_queue_head_t	close_wait;
+ 	bool			suspended;	/* port suspended */
+ 	bool			start_delayed;	/* delay start when suspended */
+ 	struct async_icount	icount;
+@@ -610,17 +609,9 @@ static int gserial_wakeup_host(struct gserial *gser)
+  */
+ static int gs_open(struct tty_struct *tty, struct file *file)
+ {
+-	int		port_num = tty->index;
+-	struct gs_port	*port;
++	struct gs_port	*port = tty->driver_data;
+ 	int		status = 0;
  
-+	/* Channel release may have drained a polled completion before this run. */
-+	if (!dw->in_use)
-+		return;
-+
- 	status_xfer = dma_readl(dw, RAW.XFER);
- 	status_err = dma_readl(dw, RAW.ERROR);
+-	mutex_lock(&ports[port_num].lock);
+-	port = ports[port_num].port;
+-	if (!port) {
+-		status = -ENODEV;
+-		goto out;
+-	}
+-
+ 	spin_lock_irq(&port->port_lock);
  
-@@ -1062,6 +1066,8 @@ static void dwc_free_chan_resources(struct dma_chan *chan)
- 	struct dw_dma		*dw = to_dw_dma(chan->device);
- 	unsigned long		flags;
+ 	/* allocate circular buffer on first open */
+@@ -629,16 +620,17 @@ static int gs_open(struct tty_struct *tty, struct file *file)
+ 		spin_unlock_irq(&port->port_lock);
  
-+	tasklet_disable(&dw->tasklet);
-+
- 	dev_dbg(dmaengine_chan_dev(chan), "%s: descs allocated=%u\n", __func__,
- 			dwc->descs_allocated);
+ 		/*
+-		 * portmaster's mutex still protects from simultaneous open(),
+-		 * and close() can't happen, yet.
++		 * The TTY core holds tty_lock across ->open(), so this is
++		 * serialised against a simultaneous open() or close() of
++		 * the same tty.
+ 		 */
  
-@@ -1087,6 +1093,8 @@ static void dwc_free_chan_resources(struct dma_chan *chan)
- 	if (!dw->in_use)
- 		do_dw_dma_off(dw);
+ 		status = kfifo_alloc(&port->port_write_buf,
+ 				     WRITE_BUF_SIZE, GFP_KERNEL);
+ 		if (status) {
+ 			pr_debug("gs_open: ttyGS%d (%p,%p) no buffer\n",
+-				 port_num, tty, file);
+-			goto out;
++				 port->port_num, tty, file);
++			return status;
+ 		}
  
-+	tasklet_enable(&dw->tasklet);
-+
- 	dev_vdbg(dmaengine_chan_dev(chan), "%s: done\n", __func__);
+ 		spin_lock_irq(&port->port_lock);
+@@ -648,7 +640,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
+ 	if (port->port.count++)
+ 		goto exit_unlock_port;
+ 
+-	tty->driver_data = port;
+ 	port->port.tty = tty;
+ 
+ 	/* if connected, start the I/O stream */
+@@ -672,8 +663,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
+ 
+ exit_unlock_port:
+ 	spin_unlock_irq(&port->port_lock);
+-out:
+-	mutex_unlock(&ports[port_num].lock);
+ 	return status;
  }
  
-
+@@ -693,7 +682,7 @@ static int gs_close_flush_done(struct gs_port *p)
+ static void gs_close(struct tty_struct *tty, struct file *file)
+ {
+ 	struct gs_port *port = tty->driver_data;
+-	struct gserial	*gser;
++	struct gserial *gser;
+ 
+ 	spin_lock_irq(&port->port_lock);
+ 
+@@ -744,7 +733,6 @@ static void gs_close(struct tty_struct *tty, struct file *file)
+ 	pr_debug("gs_close: ttyGS%d (%p,%p) done!\n",
+ 			port->port_num, tty, file);
+ 
+-	wake_up(&port->close_wait);
+ exit:
+ 	spin_unlock_irq(&port->port_lock);
+ }
+@@ -908,7 +896,40 @@ static int gs_get_icount(struct tty_struct *tty,
+ 	return 0;
+ }
+ 
++static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
++{
++	int port_num = tty->index;
++	struct gs_port *port;
++	int status;
++
++	mutex_lock(&ports[port_num].lock);
++	port = ports[port_num].port;
++	if (!port) {
++		mutex_unlock(&ports[port_num].lock);
++		return -ENODEV;
++	}
++	tty_port_get(&port->port);
++	mutex_unlock(&ports[port_num].lock);
++
++	status = tty_port_install(&port->port, driver, tty);
++	if (status) {
++		tty_port_put(&port->port);
++		return status;
++	}
++
++	tty->driver_data = port;
++
++	return 0;
++}
++
++static void gs_cleanup(struct tty_struct *tty)
++{
++	tty_port_put(tty->port);
++}
++
+ static const struct tty_operations gs_tty_ops = {
++	.install =		gs_install,
++	.cleanup =		gs_cleanup,
+ 	.open =			gs_open,
+ 	.close =		gs_close,
+ 	.write =		gs_write,
+@@ -1203,6 +1224,15 @@ static void gs_console_exit(struct gs_port *port)
+ 
+ #endif
+ 
++static void gs_destruct_port(struct tty_port *port)
++{
++	kfree(container_of(port, struct gs_port, port));
++}
++
++static const struct tty_port_operations gs_port_ops = {
++	.destruct = gs_destruct_port,
++};
++
+ static int
+ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+ {
+@@ -1222,9 +1252,9 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+ 	}
+ 
+ 	tty_port_init(&port->port);
++	port->port.ops = &gs_port_ops;
+ 	spin_lock_init(&port->port_lock);
+ 	init_waitqueue_head(&port->drain_wait);
+-	init_waitqueue_head(&port->close_wait);
+ 
+ 	INIT_DELAYED_WORK(&port->push, gs_rx_push);
+ 
+@@ -1241,25 +1271,11 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+ 	return ret;
+ }
+ 
+-static int gs_closed(struct gs_port *port)
+-{
+-	int cond;
+-
+-	spin_lock_irq(&port->port_lock);
+-	cond = port->port.count == 0;
+-	spin_unlock_irq(&port->port_lock);
+-
+-	return cond;
+-}
+-
+ static void gserial_free_port(struct gs_port *port)
+ {
+ 	cancel_delayed_work_sync(&port->push);
+-	/* wait for old opens to finish */
+-	wait_event(port->close_wait, gs_closed(port));
+ 	WARN_ON(port->port_usb != NULL);
+-	tty_port_destroy(&port->port);
+-	kfree(port);
++	tty_port_put(&port->port);
+ }
+ 
+ void gserial_free_line(unsigned char port_num)
+@@ -1276,8 +1292,8 @@ void gserial_free_line(unsigned char port_num)
+ 	ports[port_num].port = NULL;
+ 	mutex_unlock(&ports[port_num].lock);
+ 
+-	gserial_free_port(port);
+ 	tty_unregister_device(gs_tty_driver, port_num);
++	gserial_free_port(port);
+ }
+ EXPORT_SYMBOL_GPL(gserial_free_line);
+ 
 -- 
-2.53.0
+2.34.1
 
