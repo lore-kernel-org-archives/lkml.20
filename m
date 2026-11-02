@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793597718;
-	b=pgrkTjja8iSS+1yw02QoL6u2oyL6Bi8t+re8ZK9QGNzoP8dzzrwOP+vXJHtNb8N2ZlZS
-	 vN9t+opltxe9AkBh41LZ1C2fBKvOVKLzUPL68iwUjcd/Z3Jlyhp58Ajab+OMfmD+kmHto
-	 tc9/LGdSEpzq4OxOM9V7iSDkTP14/f5xDSRxQuTf8FQyphg1gGglhywyfl5fPQEWZPuwy
-	 pGH2RQ4mNnWZGqJ/zNTxFQSD2OlC8RetzJ9pTj2g8h6X7oR2wzRn8nMdAgxniG3TQGvBK
-	 On7OxDA7La3PT0smk8AFyjZM/MPWrivK/PKrCU/mKcShSsnOyCNT5laizti65DesLVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793597718;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793597745;
+	b=VKAEYFxNGeUl5t1GavvYu/PnxGqJUZ4TmVQvlflsIL51POV+nLiDPbughQw4qQtdITVg
+	 iuQ/bDcTRzqgCPwfNfIOo+NlQoCM7BhBEizxmpv3k1y7CFGvVio3/oke2N7/P8V2N6fAR
+	 VTu48kt6/mnqt1JxJ/CewuE3dCqIdLv8FaHwV4XnQ+CXySWlX4xxGXYNh+EuKCvAXy1kD
+	 5nbl+yPY9+xnsI9y98zIYC14QXAhEJhYzfm/0XwoUBP52oQmjlph3VTA5IfWO0Nig9xro
+	 QvP9CRpy4GxFwJgA0RfVRebEHM/65RGnXGoEHuArBOsV9npgdtLmjvWI7RQ30yvxcuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793597745;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=W+hC4F4hAwm9joqKZ+fH9u/y7V0gzk8Wl/nmjTnVbjo=;
-	b=QH1JjJk7L198xlemJfHNLATqIuQZmuMGGI9p9FK+qjOYnDhfSE7lm4tapM4tFec68++Q
-	 2sNM0RigVo2x22YUBR82r38OVZz8hnwTTRUBtPgcvCIEhA6GQXnYisU9lwkPuA8dtXBd5
-	 HeXE9gZlYPtUVW8+0g6JsZi/Rah5kzhtH4xxtIbkv+oMzJeaNwC1PWnciNSJh9AHovQej
-	 Ad5gJt7CdpzFXuaE+1WLGrYR4+Q2PaWbYD8EDkcZFMHVL98MDkvOX/cMjgo7ZN8DXt1Um
-	 wajINEs3jQqGTPW460ZX9QBAyqIca0075O1k36AVs26xtD5b129UVUk5yH0IPEHCEPQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gfRtvORV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zDM85Bt0G9740LbOXzzdtljiTuHAbG1Qc7sd7beOOUU=;
+	b=JBnuqRuG2S/Gtkg34YGfQvMao6fbfSfWsYsB2Jy7FcG4MimSn9J71oVjTEo0wEzUsr5N
+	 +h6nO2zV66XaKJh55G5FXVl2mfiwRPOdXbPVSkaGyEeFUTotM9fsw1KXMRZY0a1bB4vAz
+	 jKjLr4sEdQDKgGGRAJS0YsE8GvdmutOZonU1iJo1WDEsv/MP8GIrG7NeYBBPfxV7+PhLU
+	 GTK6cV4EwgkUjIMVnKz6neDkNGqU/gvyeu0E8dgHzYuka1P4pJMF0YBXvqaYST07m6R1Q
+	 SP8Za2ecMMQqdSwOVcRWMtG2oKjQKmM9fF8YnsnI8dadYOh3lmO02V9HLijNvJUwwEg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="A4N/QRYq";
+	arc=none smtp.remote-ip=209.85.221.175
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B44606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 05:35:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85B44606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14A9606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 05:35:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E14A9606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gfRtvORV
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-194d0c31715so5161c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 21:35:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793597718; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U398Z/6AcxLies6hStxRHi/waSqbSXNQCo7+Kfm96sCf08As1gXUyBREYwc6bNNAQk
-         9SwTazdaqMy1ZNclIq4qvpGbfZG8dEYPW55IbR05Q0MMMZDSEejyIG8xhDcNKbVGAZdb
-         ZMIRAOZbXbuFqUoFtJrc8IfJzZGvDXCCJGXqfwzh9/ejTo17VbC3oyhFFTcFwYPtLyf1
-         QG8oJJXYWvbqHTZ05g4HBR/8QQlVmcowNvYZkl8l1rXdSx/BNKpWKaPAhJS5Hrr3fK6J
-         sHSllREkSEHvJ7X4EeLQzdYIWHLZW3jJbPyW+SNAChscMXavz3f7zlZK98Jc2BK5kHHe
-         K5AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=W+hC4F4hAwm9joqKZ+fH9u/y7V0gzk8Wl/nmjTnVbjo=;
-        fh=iWTbTgkiCYDFHXK5QhTDjkdZCm1wCujpM70qCtVfHms=;
-        b=WfONBn/uR23UHIEFDZkn/D9ttSpyArzAdorJzXCW75U5ssymZ5WUI1wp5d9YIF0/YO
-         BdBeVGBALeghfdc/pv9HPi267EPSVjc7l56utVR8kxVjI/vPaGbWmH05Zo/vURY3Jm3K
-         5WUXqStaIVx2b2qMM7kYA0eAfiAfUmMesCUvjEByFvutDhCeMRaLF/sg2IhYmGJETxMb
-         Kok4Zs+HOojKMhI9BtsNLN/azZuM9nLJwb6+s+AIwUfksc56PXlABl9+tvGi74f56byP
-         M3sJgkBUaejHRZy8e8CEnUd0bXxsTUDMzoRSqEU9sPZ94YjZuGJKTI/J3a+xnfizCM5E
-         DpLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A4N/QRYq
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eafb65e204so678567e0c.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 21:35:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793597718; x=1794202518; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W+hC4F4hAwm9joqKZ+fH9u/y7V0gzk8Wl/nmjTnVbjo=;
-        b=gfRtvORVMla4nCBA+g1KRdGm5xy2G7i82zYfxIC7+MGS0ahIMJw5JiKT9JWIXkC1tg
-         8b/PHZNBpPoZkQ+obXIaft4EJT4wp/aay3pkTQ9lii/Wf89lli9Y8f5kLXCLw2iPKUS0
-         95vLNFULVmA75kI2rXr7AvEtdNCxPnF3OOtvJT3xxUXbFxJgZMzNH1AqrqGXdEmyjXnC
-         5FkLZabGbUxMjxtJtNHu5aQM9j0sa3SpR2wY3XQV94jk/lGlCkYFJfBt2Ag1TUzRzI90
-         xJaf22bOnYtQpulm09ttHnuLwCSXnmbcqtfmY0rkmw5bs8u/pNfZGmvUCH/wcrRWpgYE
-         WSLg==
+        d=gmail.com; s=20260707; t=1793597744; x=1794202544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zDM85Bt0G9740LbOXzzdtljiTuHAbG1Qc7sd7beOOUU=;
+        b=A4N/QRYqxlmQUQM5NgraP6GtrDSTm5Or9yyQBbLE1y0EFL5fmfZFmL4XAsqgixxqOU
+         Ix6w/+ya8D//KuqhA6Fc/4MG5fWXv+bW3mclul2wBczLziXY9BulzeqVH/OfhGUxPdWH
+         JiKpz+q2gzRVgT6i46fwaVTrMOVxcUkksWXdq4XfRR7Wi1k5o9aXp7lzUKjZ0/WUTIQn
+         h1J82d8SRY+jnFXgIywW1GX6Nh7Z3+6j3Dov7SioaLQ0ayeMPzoTQlUrMWtCQR9eQWb8
+         kfZ0oDCAjcaqlQ7mhR/CUM7tRK78EtxJSV9FhpxGkdU1KHjrXUASil3wFLk09Z/oLSOe
+         XWcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793597718; x=1794202518;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W+hC4F4hAwm9joqKZ+fH9u/y7V0gzk8Wl/nmjTnVbjo=;
-        b=0iJaLZ2EMDvxROyshF+URJrWbiN+SEUe+OJu/rs+ofEKF9mXPkWbznlHqVErEJQd7Y
-         pmM26L4mWEVk+ThJF2MOHzVaDnyecpM6cbIzk6Nfbj22H2kk/lNBGGm+hbjq6r2qswR6
-         EwlzIX7SJuR45QNpSeFE23SS77cdOaxUGEDXIviMQuYVk+qnLRO9EN41UzMqCI30krdE
-         dLu2TdWJ9c7l1c4TYHzTL6ANvEy/zy/It2Nl7OSi4FpgOWlIKI87PWbK1GLqtNyCmHFN
-         MmSPZIp7ZVSP7dSG0lnSqk4h3F/7pX5OhUhXxvxA/6ll/+waqxC1LivgQlD/dlndjXoL
-         qHuA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIaxzMlJF0yvIuuTYyWP+ZHktnrp6LOY+cyrQBr1QT4WPjm+51oECndnoQw9onurhyCdXt8vCfmbSyMzU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVyuz1o9NXrcUfPdpoAZOcMFu77oMSs9BDZsyq8PDw1zET8UBc
-	Y3b+3BPpo0ACJ8QkWwH+qBXKduoo3Fporj7ObzE9jMt0KA4zf1h6kDAvaZ/clvmsvt9KrP2pY+9
-	fojJ9fx+eL7y9sUt/JNZCaiVaRn2NVSFV1SmqlslL
-X-Gm-Gg: AYBFou36uWz1iJGk/vc0ns2wJ3Ptvf/L9QCFjhWSdYLzMjdqjp+zCj0e7iyMdD1qmlv
-	pf9OkqqUviKsNR1EhjRlIh0Z/uxiwXcdT57cBgCh2GJ/ndNrJvFnxQv6ieMu9+GxHcWwnHNb4iU
-	iNBButGClD2s6fQMa81urNxEZE+naji2N+A9SJahccIapV7hPfUgfq+AsZI8NcTlMA4/dBft2H7
-	iBLz8eM9uRfQCVj0kb/yzIgwHwRb/jGD/Gc9QWlB3syGYsOW9ydfHZ2sg07LouzNq84a4x/Ddwr
-	0w83IKkPOOn/UCPZ14hKwC7B7usyjNwfdMRGzyh+e2I++BRaPBHOQqmwRoAld1ZrdHLk8AVLmJD
-	iVCEsuFHy4P7SJZfwnP8WJzljo5WMaFC5pPzwOZ+hhIg6EVQo4iJGxFjV8DLromQnG8tgY1Y=
-X-Received: by 2002:a05:7022:7f0a:b0:149:8916:defc with SMTP id
- a92af1059eb24-1a9546390a4mr1658978c88.0.1793597716672; Sun, 01 Nov 2026
- 21:35:16 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793597744; x=1794202544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zDM85Bt0G9740LbOXzzdtljiTuHAbG1Qc7sd7beOOUU=;
+        b=vI9nVVTNA5jIDKiBtmlX9cQEmPej40D1U20+WsnMdRXTZOOca4q5r/4wFs44BKA+re
+         oTVjBEHQHUmjz3l7gsh0dDV37m9ChORidvGr0cMKXOfBaIZwlFEBLMe+MvFBhj8/+hSb
+         x6Rbde4le4l7GnQjSP8jU4cngg65TB6w744Wsly65q9o8IRTTocAa0WGabw4jE7XZ83+
+         M2a2G8UYGuaP702jZfZwmvtvJAJezwPsHtwPq7sRyhUDaOVy3PYdwFEdq3jfkUtuTNIE
+         SqI5fIVOJRRGZPnmwI1dn8Xme2Q190yujsLt6r956dtuWT5yBR+bU+ZOpuvHQKkSfxuZ
+         bqwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzGQspdnr+81Wzyvs4UQ1xRnlSNDX/e/wOZkV8GKs9Ztc4e+wh2jp03DrN0HlB0csLXxgaxIKU70q6K4Jw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96allNTTx0LPDCeCJhQH6Z0sCuxRmRxGHjgnpMZJ6UyhYwDi/8
+	7JjZIheT1Z2ouncn8ml/iRLO6V0ZxHriUWDL68eMlHdncGyk5EOezUx3
+X-Gm-Gg: AYBFou3+es+wwi+50VEViLob7h3yk89XtLxCMGOx8ahEWC3WzeGHlkugpXT2qlTckSU
+	BZv6M4fFQuiLXpvHv9G6YNZxSzPhujh9FfommY47ZD3mubT32xYEAoaStU8HtYFAcEAKcQUGdDc
+	Ab4BQI46IZBzM5hEgjLyYqBGSWe+YxLVaRaXLmsjf4L6b2KySXxYNwNZrpOZ5/5UsQxYcXYaC1V
+	J/UfG7Ml9mgXNLW6UDwlW/eaEap1aDDE55W//4I+ySNHKDJ/7aokFNKuBBtLWxqUfOvO+CkMZsN
+	T/cIPavSW8yaY4uapM9L7CuEe0fZ22twBKXf0WgccK9ebzw36u5GTpojcCd5M1WhUvoRvwnyk3K
+	/J4HM+g1vmqgT8BQlemeSYpDwNf9/Yz9UseiTtRsZttMx4lWLZ0lexMTjMxsTbi955qat0lTXbo
+	RO0qcx05L2xI9wqqx5qG+XVRaX3NWSrc6xPAw+sWoKeFUWqP7XSfpzbRr/KnEIzcXFq7GLJ8o0l
+	t6KOEzkBaAx+3VmMLELt55W6oj1QvEmfjTdaKvgdgzGcc23ZSYVSml12i08sQGCDC/ZYGGyZdOi
+	D0/BuQ6MSxxuGAgZmc+75DMq8SdwPSnC4A4oaw==
+X-Received: by 2002:a05:6122:310b:b0:5ea:cd4f:8494 with SMTP id 71dfb90a1353d-5ec6897bcc7mr3560315e0c.16.1793597743759;
+        Sun, 01 Nov 2026 21:35:43 -0800 (PST)
+Received: from bridge.. ([2804:14d:ba6b:8339:72cc:e44:b5d6:98cb])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69c4cbabsm9395668e0c.11.2026.11.01.21.35.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 21:35:42 -0800 (PST)
+From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+	Sanket Goswami <Sanket.Goswami@amd.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86/amd/pmc: Fix S2D message ID on Rembrandt
+Date: Mon,  2 Nov 2026 02:35:02 -0300
+Message-ID: <20261102053503.102598-1-christian.aurichzm@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,37 +100,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101075145.698399-1-sgzhang@google.com> <audwphXNeZhVItS0@google.com>
-In-Reply-To: <audwphXNeZhVItS0@google.com>
-From: Ray Zhang <sgzhang@google.com>
-Date: Sun, 1 Nov 2026 21:35:05 -0800
-X-Gm-Features: AclHuK9nicuZoXvOoxzdD_K3_bDawbdxZQ3_9KfsA-zXkExzJY5UTfRe7i8Lwvw
-Message-ID: <CAPqVEODgo=mr+3viog+bY1XOKHLcrEVhs4CtZ-SiSYT4Hh+gjg@mail.gmail.com>
-Subject: Re: [PATCH net] net: count last skb of each sk_backlog pass in __release_sock()
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
-	David Decotigny <decot@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 1, 2026 at 9:15=E2=80=AFAM Kuniyuki Iwashima <kuniyu@google.com=
-> wrote:
->
-> On Sun, 01 Nov 2026 00:51:45 -0700, Ray Zhang wrote:
-> > Running 500 concurrent TCPv6 streams (neper "tcp_stream -6 -T 1 -F 500"=
-)
-> > on a 2-core Cortex-A53 (CONFIG_PREEMPT_NONE=3Dy, HZ=3D1000, LATENCY_WAR=
-N)
->
-> I guess you tested it on 6.18, but note that CONFIG_PREEMPT_NONE
-> is no longer selectable on arm64 since 7dadeaa6e851.
+Commit 382fe403dc31 ("platform/x86/amd/pmc: Add STB support for AMD
+Desktop variants") added S2D message ID 0x9B for Granite Ridge (family
+1Ah, model 44h), but only checks the model. Rembrandt is family 19h,
+model 44h and goes through the same AMD_CPU_ID_YC case, so it sends 0x9B
+instead of 0xBE. The firmware then reports a telemetry size of 1 instead
+of 0x100000 and amd_stb_s2d_init() fails with -EIO.
 
-Right, we hit and tested this on 6.18 -- thanks for pointing out
-7dadeaa6e851 and for the review!
+amd_stb_update_args() already checks for Zen 5 before using the Granite
+Ridge registers. Do the same for the message ID.
 
-On mainline, cond_resched() in __release_sock() still applies to
-!ARCH_HAS_PREEMPT_LAZY configs (e.g. CONFIG_PREEMPT_VOLUNTARY on
-32-bit arm/mips/sparc, or CONFIG_PREEMPT_NONE with ARCH_NO_PREEMPT),
-and landing it in net lets 6.18.y stable backport it cleanly.
+Fixes: 382fe403dc31 ("platform/x86/amd/pmc: Add STB support for AMD Desktop variants")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+---
+
+Notes:
+    Tested on a Lenovo IdeaPad Slim 3 15ARP10 (Ryzen 7 7735HS), with this
+    driver built out of tree for a 7.0 kernel. The size query returns 1 with
+    0x9B and 0x100000 with 0xBE. This laptop's firmware then reports S2D
+    address 0, so init still ends in -ENXIO here and I couldn't test an
+    actual STB dump.
+    
+    Based on v7.4-rc1. Found in my own boot logs.
+
+ drivers/platform/x86/amd/pmc/mp1_stb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
+index 8a33e75b71c3..af9ecec532f0 100644
+--- a/drivers/platform/x86/amd/pmc/mp1_stb.c
++++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
+@@ -266,7 +266,7 @@ static bool amd_is_stb_supported(struct amd_pmc_dev *dev)
+ 	switch (dev->cpu_id) {
+ 	case AMD_CPU_ID_YC:
+ 	case AMD_CPU_ID_CB:
+-		if (boot_cpu_data.x86_model == 0x44)
++		if (cpu_feature_enabled(X86_FEATURE_ZEN5) && boot_cpu_data.x86_model == 0x44)
+ 			dev->stb_arg.s2d_msg_id = 0x9B;
+ 		else
+ 			dev->stb_arg.s2d_msg_id = 0xBE;
+-- 
+2.43.0
+
