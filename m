@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793653277;
-	b=at0dN6xKziQ0bh4GfdhhphhAtjStMWMXPr2udzzaM1LawlXh7brpdOHFgjsOGCiQz3lm
-	 TWGeDx7OZG7JsDIrQdYADmClFtoS95wsXNFIua/pcNxl047YhTbC8cH99+oA3kcOlvMBt
-	 r0r5+cJHP7+vgzYrTD6lNRf/6KRUM7wLYvLPOl36k/qN6DPGVWpbIvw2cSdl7ikDSDl6d
-	 ClgGt+OPd0+QBj7R3WfpBjAww4Y7U2BC1TFbouwaqVZLYdPVKJPfwvYj72MnbX9AKxMCp
-	 cElikhr0yFCDeefhUzNGgchmXeh6Hi9W1Zgl43Ins3SR2nmz+1prTAYb03i+s+Hg/QQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793653277;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793653401;
+	b=ewgbTkcPdcn1NQJeLnnX2p6OV6e7pbDsz5Mtat49BuvjyGOyQG0UKlZj+95yUPEsbDao
+	 yKEiqfdSB4NBIdqcLnRHuNA0M9n8NZ2s0y7JrKS+Svo98YD/DwSSV1CD0ILzbSGiPgdAS
+	 QOpNGeKO67ib85Su3uul3ivkFRtFkbklaHiVzv/6iWedDYXwBcQj9IGB4+QYDBcha5NlK
+	 hM4u7X4ku+fZu3DDvqlKSGR4G0zesnuTLL7jRwE5GK0WEXzRJkXsaQ11TCoequk2RDdH1
+	 BOygZ3pm3GSyQuruaRhYXzQQew4/yox6rWBKXuKl8IGLK/rfDN4BrvkoRbqK5A1BvTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793653401;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AzGy7urIpGHew7dVJqO61fkpD1EwpGhPhtimR7hndxE=;
-	b=eOJn9ItrZ8PQn0KnlbM1FMPYynKxzHSUtvCV4Uz2RoXEI2b1DuejEwpbsruGz1/83LSQ
-	 ESjI+WEkNoiVaDfeIUmDFHgSiNWJWuVuVfRIF0PH64So/RqVWInUP2d1x+8OY6cP2NUID
-	 Y1kblH1KrxB3q5IizjeIzbkvZvuWpSdFMtyJwc965aCDp7u9vDCHW81n91zHX1eQKg1in
-	 i+Cjl7mfFscvbL/nC3e4Cxl/fOoXYfbLzCIaw9jHyKwyOhS+byoXkohtjEEMSxBqH5ww+
-	 RjeS4qLnGJ7+lewsJhvilMScCWOG3cRG+HyFlb7jWPuiv2xFt/bXIZ1is/IoIu+6o9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="IY+K5/MB";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.49
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=ENsxoMePPaNpj45xMew1J4DNmbZyl2G7RIxxd5drqLY=;
+	b=UUJH4b2392HkPwRubJgJ2v3ZbvRC1Muj+NURyggellUIiICJHQlqAn47ZYsGc/3ICLzf
+	 uN9d33e3T+VoNJ3+YQgeqb9WpUVwixk/3csoi62IxnQFNGjVFs+8AJRoaqwKbWBwYth0X
+	 2Ly6WEgeyXdBbabBPuu4bBnLYjT9g4VsR5HIpoc8x/b0L9MsrzDV5u2lQI1bhUKvHtSBt
+	 vWOYCnzGvwmyYRLfy/ryIYdXp6WKNrCZV4I+QZfDDVzu/QhXkfd+WZsifLGws5GM1UbET
+	 JDGBz8HfPl9Zv1659ItFh8JRNDPxd0YJBXcbLWiDQC/ZDekCYn14bXi1noEswbYPUmQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=truenas.com;
+	spf=pass smtp.mailfrom=truenas.com;
+	dkim=pass header.d=truenas.com header.i=@truenas.com header.a=rsa-sha256 header.s=google header.b=IodGbgUs;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E49606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74E49606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F09A606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:03:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F09A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=truenas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=truenas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IY+K5/MB
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7c03a445cb8so2430352137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:01:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793653276; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EVcgMfbrE6PKYSZwuqABqg82EMpKAceYRQI+NSK1OJl0R1cmCANR8gL/GHzAvLcvnZ
-         PTN4MY/Ac6rIDaf3fCojMPMYAtAo1y9bcCjwVMHoFk7u+SzLVXUZLqxfSZoT3X8Vox6v
-         +b5GLoAUMeHAGxg04VRAVXISyw6rDs4zY1VmXYUwr6ghBxB8005BSlOlJiBw6mDWmL/L
-         dqcM0OQND+xQ2N6Groxd73urLR6Al4MCkOshQjUgS0siqhHVQjnhJ9oyz8BJi9v4GCbb
-         0OeoaHm12/7Ry05bUk/9VaArOB1EAclYOMXhcZVpWRnSCLLoUGMhq8fOypuI9lp9LaPU
-         Xoog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AzGy7urIpGHew7dVJqO61fkpD1EwpGhPhtimR7hndxE=;
-        fh=a/sTS3cMDDv2+OliztRxc1cmfTPWThn2Igr2nSmYnM8=;
-        b=cSVunawyQIJazhG6xy3HHDsTHA5d8Px9WGhVOQN7J4NSULIgDDyfsLdi2gxDJ2/5i8
-         xe4+pXuhGiNZnceJ1AehgfM3U8TXJYXh3Zoki/IdkmxLLZAPkrZvXt5e33NbM/N627up
-         klOLIN0j1T98JuAYPcugLk3D+EOoe1yXkRu6Kelkf6ZFKZjh0izzyi1F0e16HKPypb4r
-         2CWrKNN3cOTi9mTLvGozKUBOHJdM4WV8P3HpJe84MPrSo/V9wTLV/CmXZsd/lowpi5YR
-         uqyJKIr7fCUIx3MOdvKEDCKPPXlJ3uN2savFnJQGxGrpU4k3ZQ6/sZEhZlQ+bCpulgQS
-         pfCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=truenas.com header.i=@truenas.com header.a=rsa-sha256 header.s=google header.b=IodGbgUs
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48bbb06e746so1638900f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:03:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793653276; x=1794258076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AzGy7urIpGHew7dVJqO61fkpD1EwpGhPhtimR7hndxE=;
-        b=IY+K5/MByhAcoYjByg//SwKjCLd7vCyBUD5AVnFYpbtetV6vtXkD4sgYdXY8Wftbfk
-         pKtw1qnW+SQ2farNcqPSdjuclT1D1/IAsjncvY15A462e1+/tPCnqNhRsBemKwY+Duvb
-         z3vle4ycsu6NzurclTI8thxVBhz6OOWt7cxXd7RdUTonNDCZ8bbj33Z0iDOJgQxE5sgL
-         YjP4MtBbY/0WF6rq80r2NIfm8XOJlmu8Jc09xpwIrWmI8DHRfhV/7xx+pCnrJVjpRsdI
-         G7pnyiTzNIJLCItK78PpopvclpqMsppDovbdzrPdD1oUIsE0p1mXQS7hA9yqXlu3ipNg
-         L74Q==
+        d=truenas.com; s=google; t=1793653397; x=1794258197; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ENsxoMePPaNpj45xMew1J4DNmbZyl2G7RIxxd5drqLY=;
+        b=IodGbgUsJu5UggqrylEtwTw9NAiGD3h+xVhLtdiq17ognU25AC/NCU6YmS9ItqBh9b
+         AWY29MfNVxw3nRhep+UzxwSFqjEG9o38902DRnT9yUQcWeNJkmwVkzPA1je8G1BQhpie
+         /u5MUh2HZeofv2yYUJcw9itZgV8zGMySNWx5KnYUVTVZGRxJbsG/HoL6k2wg5nUHANqv
+         mxvAKg/W7tfblQ+xjzNweNIK4MDfb+eltEAgjtQVZP3H+xLXxv0+AQl8iYof4DLsMbmm
+         ca1EuV9qtpwWM7Js8BJIIIzdFUQQAi6tpB34fS1yKhUt6S79Ym3JvmzZArpC92tDYL/B
+         4i+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793653276; x=1794258076;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AzGy7urIpGHew7dVJqO61fkpD1EwpGhPhtimR7hndxE=;
-        b=umUtbJIrNBB8GRTA+C5YsusOUYekf3etabCW21bd1Kuh4hKLLAq9ZKId0uZjFe0SZH
-         UQRSlagYwKgw5NXo34zokF8LujA/WPl4G21pL1aRgoFdGq4N0VLB2W8xgjvqFIRbQoav
-         pO/e+U7KHuAu3nxbW4g6JqSidrekBGf3Mted+nmZ5SYisgIKbvk9jJGT/J8FXSofV2PL
-         4r5X46V6I05XLPULcxm04PstW9ePcxRqOJuXmco8qMzum8Vr7/R8LvcPZhGaWzENCH7E
-         SfzERmbJ5O3d6VCeeeO9tL6YJLSeeew/Ohq02kfkSnrNZrQBKheBumw5vJUERLv6+Yt3
-         ShhA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlzu0e2xYm9Rsx7b0PMwCgTR/L+iarfXYYAOBMqk2dQ9uzeSKToF5WsL+1DktKenS5tX5XiyKLmUlgxA8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/KovMdHC8iaEKRu2pstgndLPEseCull892lYL6ckZZBuXVOwHN
-	nejFIBiWAvoe5V55J56MLpysI+dQNSNX61jAoWMKgjJ/Xvg6MYh8ncQSccn9icEEwwB+h/Uwo3d
-	wR+4E+kvHQU5r3+Dwy3dARpjYM3eVmgw=
-X-Gm-Gg: AYBFou0pZK8V6fNApOxMphd+W4jnRk4XAloE29jyRyUuBwZM+GKiSAt4ijXZIBLAYCL
-	hzyuecVO+2mr0R1Ndmwuvl9Q2RXfcPM7xc5P+iU0fGBjIlZJHY/JUDlfKfqnDxW/OHe44Sk7q5h
-	VjuYsBqNlS7psUuEhIJYeOZOnjFN4EVoXk5u4ojkHH+FnzjsSaCsAOvCM73x7BV+iOAojDY0m5S
-	XGTqQQa74HkU/s5yqiZz7w6VHMMirpugZBQXwroEIAILdf6TDPihBPtlBJcK7IdKiEpi0noZpfl
-	4mvzJxEDgu5AfMAGw135DywYbq2aN2ldkxLDXO1q2bWVvEdnQuZtbf0uRRTxgFnjhS+vQNe1slY
-	C99HcDglKL4MocyoDTN6UlvgLDDM403c94Zowb0mYrVg34qw+RajL7BfJKjIB94s6vP0KEpg=
-X-Received: by 2002:a05:6102:5811:b0:7c3:b15:a981 with SMTP id
- ada2fe7eead31-7d072c305d3mr5019729137.15.1793653276174; Mon, 02 Nov 2026
- 13:01:16 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793653397; x=1794258197;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ENsxoMePPaNpj45xMew1J4DNmbZyl2G7RIxxd5drqLY=;
+        b=mjzr35BPPwh/sxdgilpnjNqEvWHE+PpAvxj9/oWHudfRIDWwvv4N/EghfBlH4YCLgr
+         5eVq1xxM5AeuHYTNYhh+EHbJ4kYVhZxuaQ6QgxjydXoe9scParUKXIDz7YDDmvpdqA+a
+         M+aCNLeZypLMzIlgNKCL2wdayc30CpFeIClawgK+EfIDEj6AonA3xGwvDA4qrtRaZP4o
+         Cy8Wke2u6mki910rikyFAAgWlzqGj6CqtHL1F8BQjWQIOBOqSZQh8fMk+k0Zm7aunXPB
+         7Fm/rfCNVXDpzuDfNE/iDUC0UVDFdAFqzKU2dsngKT3v1XadzpTbhOK2n9MF2wmDM0ow
+         ITbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxR8POSB9NcI3oY/8iGlnnrCzEjMXSsUoH2jXklv0HEI3rOMQsjV6+8mz4tg5DYWx3sv7utMZhTJV9s8rg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hpe3BhVEnSmtC++EkleWhbBfI7/DvwkNiozhsOmnWw8ekEpKN
+	ViNdjWXAPQs9TDSY6OkZoHCr5OgMn03NFRiUNuqkBEzPXoxFWYsP/J0usSVRfQgUvA==
+X-Gm-Gg: AYBFou0W71WEcoUmiKLMz0v2MTBTX6kQWM2qg8yS3foJmSUjyZ4Xp953pFJdnMyczpH
+	gbaDKSGw6ueixS9GWU5N5IkJiK8yo3CFJzB/wAM7zcAfe/EB5QqTQBkwdOj+7KMnjRrbxrROH4a
+	GpvO5S2wTsV7KmWRDGFMwa4XW+O6bpZThXDhYvFL0/Se3kIC8xPDthoaeaOuSidKH/OzRH4VDl2
+	TBGvPMlxegF5SDKjEZaq1iTYiN4DlntGoCvzENj3akq15A7BJ3h/cpxXwMK/WHTtZtZfP2OI+i5
+	kCdUV6vBknh6c8OIBhKrX2oNy6PffLLmsgQnXB1ESHHgXPvpJg/P7X71SFnET0GpKiDGMAjg2gz
+	lQwUKlJB75jb7K0JhoumCodDVZxd0bsOVUzlToJ2ix1GV+mqZy/gDkLc1AOFSdGdW1QeVvbL1iR
+	FcbDH7uRfxsn+F9gYBqdComR+A0Alws8TQpYN+L6gGxzRRo6MJv59iBypP0Q2vpBmeR1rGGiZRl
+	kOQGYZEtpA6O2VOYtxkfbZqowUha7r8uE93wLrto7vlFwNZufdAm1P8QRQuzdxAtbYSVGU43c9h
+	nq85xSM=
+X-Received: by 2002:adf:e68b:0:b0:48d:b940:af7a with SMTP id ffacd0b85a97d-48e6e5016bamr17560067f8f.55.1793653397396;
+        Mon, 02 Nov 2026 13:03:17 -0800 (PST)
+Received: from hamza-PC ([2400:adc1:158:c700::1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c0b6sm20919464f8f.41.2026.11.02.13.03.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 13:03:16 -0800 (PST)
+Date: Tue, 3 Nov 2026 02:03:13 +0500
+From: Ameer Hamza <ameer.hamza@truenas.com>
+To: Alexander Aring <aahringo@redhat.com>
+Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, caleb.stjohn@truenas.com
+Subject: Re: [PATCH] dlm: don't set RSB_MASTER_UNCERTAIN on rsb with no master
+Message-ID: <auj4LE0bq7w7lOF8@hamza-PC>
+References: <20261019151627.3324886-1-ameer.hamza@truenas.com>
+ <CAK-6q+j64=mSzuufOaSGjsC2aSwhb0hs9MKxxaAhbwugdztHZw@mail.gmail.com>
+ <aujr6x9t2gXbXfFw@hamza-PC>
+ <CAK-6q+jBNKN=oSCmm+i011FdhPS+42BZc0iUfbqGiLDBc0Py5A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,81 +100,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260902124026.1774575-1-max.kellermann@ionos.com> <CAOJNxRJ9rUZ4JRwcqEtOPu97D3NNsjwV1mniM6LdNytRYiA54w@mail.gmail.com>
-In-Reply-To: <CAOJNxRJ9rUZ4JRwcqEtOPu97D3NNsjwV1mniM6LdNytRYiA54w@mail.gmail.com>
-From: Ilya Dryomov <idryomov@gmail.com>
-Date: Mon, 2 Nov 2026 22:01:04 +0100
-X-Gm-Features: AclHuK_u-vaHTlw45n1B7ztDg1G2EXvymWObtejqyMF3Kk8CGrlA6DuBbpPPY8o
-Message-ID: <CAOi1vP-yKSeBwA=269uACaXmmfX+Bpjwk_x_uJNOtRtohH=ybQ@mail.gmail.com>
-Subject: Re: [PATCH] ceph: acquire caps for read_folio requests without an rw context
-To: Xiubo Li <xiubo.li@clyso.com>
-Cc: Max Kellermann <max.kellermann@ionos.com>, amarkuze@redhat.com, 
-	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAK-6q+jBNKN=oSCmm+i011FdhPS+42BZc0iUfbqGiLDBc0Py5A@mail.gmail.com>
 
-On Fri, Sep 4, 2026 at 6:55=E2=80=AFAM Xiubo Li <xiubo.li@clyso.com> wrote:
->
-> Hi Max,
->
-> The fix mechanism looks right: a NETFS_READPAGE request issued via
-> read_mapping_folio() with no rw context should acquire caps, blocking,
-> before hitting the OSD, so it can't race a writer that hasn't flushed
-> yet. Two things though:
->
-> There is one existing Ceph-internal caller that now lands in the new
-> blocking branch: ceph_uninline_data() calls
-> read_mapping_folio(inode->i_mapping, 0, file) from ceph_init_file_info()
-> (fs/ceph/file.c:262) at open() time, with no rw context. On an
-> O_WRONLY open of an inline-data file with no recent readers, RD isn't
-> part of the file's wanted caps (__ceph_caps_file_wanted() derives them
-> from the used fmode), so __ceph_get_caps(RD) takes the -EUCLEAN path
-> into ceph_renew_caps(), which raises the wanted set via
-> __ceph_touch_fmode() and issues a synchronous MDS open request. Such an
-> open now pays an extra sync MDS round-trip, and open() can newly fail on
-> MDS errors. This read also doesn't need caps: the OSD object is not
-> created until the uninline CREATE, and this path intentionally relies
-> on the -ENOENT -> zero-fill behavior. Could you handle this internal
-> caller explicitly (e.g. have ceph_uninline_data()'s read bypass the caps
-> check), rather than making every cap-less READPAGE unconditionally
-> block?
->
-> The blocking acquisition now happens with the folio locked
-> (read_folio contract), inverting the usual caps-before-folio-lock order
-> of ceph_read_iter()/ceph_filemap_fault(). I checked the obvious cycles
-> and didn't find one: a folio that reaches read_folio is clean (dirty =3D>
-> uptodate =3D> read_folio is never called, and netfs_read_folio() diverts
-> dirty folios to netfs_read_gaps() before the request is allocated), so
-> the Fb-revoke flush/writeback never needs to lock it, and the truncate
-> path uses folio_trylock. But please document that invariant in a
-> comment, since it's what makes waiting for caps under the folio lock
-> safe.
->
-> Minor: the new branch hardcodes want =3D CEPH_CAP_FILE_CACHE, while the
-> other read paths add CEPH_CAP_FILE_LAZYIO for lazyio files
-> (ceph_filemap_fault(), ceph_splice_read()); it may also be worth
-> aligning.
->
-> It might also help stable reviewers if the commit message notes that
-> current mainline erofs fileio reads via vfs_iocb_iter_read() ->
-> ceph_read_iter(), so the trigger is gone there and the patch mainly
-> matters for stable kernels and future direct read_mapping_folio()
-> callers.
+On Mon, Nov 02, 2026 at 03:38:12PM -0500, Alexander Aring wrote:
+> Hi,
+> 
+> On Mon, Nov 2, 2026 at 3:03 PM Ameer Hamza <ameer.hamza@truenas.com> wrote:
+> >
+> > On Mon, Nov 02, 2026 at 02:49:04PM -0500, Alexander Aring wrote:
+> > > question:
+> > >
+> > > how do you "pause" anything in DLM?
+> >
+> > The nodes are VMs, so I freeze the dir node from the QEMU monitor. It
+> > stays a member but never answers the lookup, and after the cancel I
+> > evict it through configfs. That is what happens on our HA systems when
+> > the peer reboots without leaving the lockspace and a pending request
+> > gets cancelled before the peer is evicted.
+> 
+> Still, do you just randomly freeze it, or do you busy/poll wait on
+> specific struct field changes?
 
-Hi Max,
+I don't poll anything. The peer is frozen before the request is made,
+so the lookup to it can never complete. Then the request is cancelled,
+the peer is evicted and the name is requested again, and it asserts
+every time.
 
-Did you get a chance to follow up on Xiubo's comments?  Particularly on
-whether the data corruption aspect is indeed gone with EROFS switching
-away from read_mapping_folio() in the upcoming release:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3De587a984d332b76ab89fab546f1594f61f73d5f6
-
-If so, I don't think the Fixes tag applies anymore (although it was
-questionable to begin with as this patch is fixing an oversight in
-CephFS, not in EROFS).
-
-Thanks,
-
-                Ilya
+Best Regards,
+Ameer Hamza
