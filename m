@@ -1,90 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627823;
-	b=BuEiHcZNBoXLz4wjjAfu83W7r1oF1BpOTCQ4BlJ4Zw1/cg2Umx0ZWAIReM90r+J9tQQ5
-	 0EsiB7gelqvwcWDVsDHR25qGkMqArKIo3PIoKtgPpkEjhFtA6ZTEznHWTAYw1Rxdxa8pd
-	 lOTNLMMTfILDu4IdcQPgI9nrbkXZfZwbRuzwnmUdPsTB1MET0udCfB0fh+NNbaLoDE86P
-	 VrFWIoPlzde0mVj0gXQWGZGaiUIjIn3s1S7I+K3vgWWKu/wRnU28vGyMM7VfDs2Cp5bVB
-	 zFJrrEFmGsGjwTgVXZ/8CQtJpTS5oj8FXfCMvveLkTULUkENBDhZpgZkhl6qtMWLynQ==
+	t=1793627859;
+	b=nb53Gk9FE8ALGJateLJ/CBTY5g63yRLeML72gNyEZEGWMczZWscyYJwGAuAVHFK+g1PJ
+	 3LKulRjMScRXHOlIul4Kujg81MZdr/pJriMIclVNkPe2W4GKwJidPfEvK8gITSr5PU8Z7
+	 cYvqFGLK0Hvq80m1MrS/FIeMZtT6oNi3aaWjMbmMF6R0e41YN0fBWwOPp+UkyUKx0se1t
+	 S+ucCPuWuj1ppBL1N7FNH+b4gpYY8+9i5HBOCcLLpQJj8W7f7yF5lg5+vo32FdrAmOXDZ
+	 2N85sKtEixIjOdd4Yq32xMgCLsVxmFSAHXldYM9B/MvSZsVP9D+OM5WpJjZ8YjLfB/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627823;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627859;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=35TvIgk5LQeEzcO1qBoj4/zaSsKIVhaoQZrYAuyxSeE=;
-	b=n5i8Rjoap8hEC3RtG4VGEiCYZJ5aKB7AYRNbwIk064Vb0ezbmXIK4hpQw6uoEX8MPo+N
-	 cLbZ0KwLOo36nZWRaehYW3yMPKaKoyzx++7RSeF9lcId7KQmF/G1MoHmt5/xzomcxwxcy
-	 DsHocsYrL6KavE6qq7xaSRQkxcNGZvNySx3xrzoHvXRc+nHIQo391m9ZE9GJugu8awhu9
-	 yiSxR25qRIl1ekXmGPkZAt5t26baW/Uo894uHf8niOAJJ5wFkTEMNnCqLmXYWFRyfviNF
-	 KYwIlKfW2sSGm1owLozkj0Qwj/DjTUC2HId3irPuWbQfJ6iH/Ov6ivp+gy9sv4nwVEw==
+	 X-Mailer;
+	bh=ciKcvrHroXrvoGDXsp5MEAGeUPFNnPeJ9WSkWfsPgEU=;
+	b=xtiRrsatPUjlGYgQxhKmJgbTY4fNpK5FrQ+ZaHtIREDCaru1A5Bw7drmIN1bbkxzY4nB
+	 T3b1QhJ0tudLWH19AHmGuKFAMAJv20+R2sQNQMGmWrFPE+uLzBKgyaOisQbR2dX6svKPv
+	 uh3eGYPYblo+ppGSbnI7t7aSAAJO9+L12bmSpYqnMlSYKEj4BGrBgacn2DxthU9L0lkTA
+	 KgmmD2g3Y8WTMhlUujnhdhiRE/DQWeaOZKWxo9qRfC2Kqk2fj8mfqnq4M+E3msRKt0ezC
+	 MOKTHD3KlLGJTpC4z/WxvkpXj6suBPU4KeKudp2ATzOKATQ/oo5oKohEtYWrMlor5Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CiybWnHD;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jY/Z/luW";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F4060A2631
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F4060A2631
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B74606A33A;
+	Mon,  2 Nov 2026 13:57:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CiybWnHD
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so20043985e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:57:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793627821; x=1794232621; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=35TvIgk5LQeEzcO1qBoj4/zaSsKIVhaoQZrYAuyxSeE=;
-        b=CiybWnHDFQkoe75XpWZpVjuVMlXNSUJBgrGf95tEXBktDpEuez4oRKWqRRAddRD/Vc
-         AqY3vn6NjguW1nx4RCVUvPwYzsBiqk21Xj1SAd4S5JfA2Iq1xDbknHmgtPgZaX53zv35
-         FTz1mm4pCvlIFgtF4YycSk0xr38FEuCCbE/YioUkb7VhvruEC2RzlcUSe435uOuKwTss
-         bnCQuarewNAtx+BfUN/4ns8KIX/gdYY2NDkCe0xeaCYXn8lLeJcSzhOKrzKg4Y0xW6xz
-         Ravwa/SSP1A16A5DdsLjwXgciqSacf8JCfjFvI6ipCYqjoV/GbEU8VSdLiEu9+3PQbSB
-         v/Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793627821; x=1794232621;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=35TvIgk5LQeEzcO1qBoj4/zaSsKIVhaoQZrYAuyxSeE=;
-        b=OcTgF70V2EMMvN1j7CvmjeuWWTQBdvt2L3Av5x2X6wn0i+SUol3T3m8sr50NIeOJmz
-         GK1u2sO6CpSMODA7xz/FyL5A3/5g3JqUzIt23wZxyeJhd87XdqOyV0OVV1HBuk+AUh13
-         LpHoCEFuA4PAZ3XzMtyF7nn2t+vy4F1+bADK8jtVX80sYqrAeEMf0d47vkdxdfm96SRV
-         ry+7X7i0npJ4jlecAd7v1MFZx7CH70hJMoWAw2qyR8n7sPQrd7ctyyaPWxQK2KkPQq/2
-         WbZDWPQ89SeKQ7vRFt/tSWVWbpLf+jo9wy/AfoV4x32GJ60JrOenvMn1e85UkfcT6inz
-         8i2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzBdZORY8WEoCz5WwwMYLlE8nbGU+KAKhrI0TjhW/5OBMNCy57k0u25tvByZu7rfL4mRCYWg0SV0JQGzIE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAi3xJOBXgA/UoNsKz1694Gmwec152BuZFYLn8CEdp81319q/i
-	K/d31EJo6ahK2QVokxt8fHyxDycA7+kim8vWBvpZjDmICjdFLbKlJAGt06JdLHP/6Mg=
-X-Gm-Gg: AYBFou0SxV+mClGE5euFdnAD9J556iGc3YhRjjIJcQiHQQL3P653msIOCufcJbsBTPi
-	/hg1vglURIRKmwHb1rCAjGsAdYTlsZ6kxMXPWUdqjqJBOQfn96tRzx6tBwD90tGeUWJd8xImy/+
-	hb1n7n76JLddz0IsrPWAkGLicB8ZGUf3FIerXYh+4FCkGvFKm/5qqFkaGDBBNSNKM7fmRpZg5sy
-	jOSjF0IfExWP7361YpGlsSu87sfZx7TtvZo223gNqhJs0bfIBkOKBveLhuyHmSrH2HY0wslRl0m
-	hYYqPKR/r3W7rEfaDmxDFMwk2i+B0nfvURf+oyh0pQnV+X8FrqwEdl/OYRy25IFasCgdvpEUqCv
-	eOEV0dntfvV/eFSduLixkeJWUAGfR2isHssdyvFhQuHSm+Oti8dBJ3ndixxcUYJU5C9Qdx3ljLf
-	tAMAkZVwzH6ygBqIgpN9eOCF7pYIU41zBrQYgmFD1tOR6FSlV49sYto492MLBKI1W9ysgVoIw+7
-	J2OvVK2aA1Eg+huxncdq+evUeWGqEA+C+MP+lqxaHmlxAzZ/o+4xo/c1e2UWhL9Ihuc+rZ9D2hL
-	P9kFDbPXRQxSn5FwqA==
-X-Received: by 2002:a05:600c:4fd4:b0:4a1:e250:b191 with SMTP id 5b1f17b1804b1-4ac180f2ff3mr227508685e9.17.1793627821098;
-        Mon, 02 Nov 2026 05:57:01 -0800 (PST)
-Received: from [127.0.0.1] ([64.43.42.35])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe77053fesm126145375e9.0.2026.11.02.05.57.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:57:00 -0800 (PST)
-From: bryan.odonoghue@linaro.org
-X-Google-Original-From: bod@kernel.org
-Date: Mon, 02 Nov 2026 13:56:49 +0000
-Subject: [PATCH v2 3/9] media: qcom: camss: Use SOF sequence tracking for
- vb.sequence
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jY/Z/luW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16361F00A18;
+	Mon,  2 Nov 2026 13:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793627858;
+	bh=ciKcvrHroXrvoGDXsp5MEAGeUPFNnPeJ9WSkWfsPgEU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=jY/Z/luW3qHXt7mZjZVU+9BdpRI5cmsyxA0TDKoYo5fWzLkVuI2gJt5BmRub+lfu7
+	 9LO0ZoqhK0yjyOQIqbUcyzLIPO44QaDZYBZByASLt9cZDe8zpTTpaklHZNomi+Apy2
+	 FAQQC1u/U+Fz3zZegvvXeE7nhdLlrqsUgTB0YiptT1+wFd7tO6EH2eKKyQYbGfhDcR
+	 RMZXLB1LakQazXQvG6Ee3j/f1Kvv8d7Bgu+jwpOAly+cHzFNG5/EGuUwLokD69GN03
+	 xZ/wZjpo2Qn9p1yuB/6VhNGikssA0S873qQt+vtkxHCD/I9XkVUCSNqMWACrAmHqH/
+	 gfDwEOfYjl3tA==
+From: Mario Limonciello <superm1@kernel.org>
+Date: Mon, 02 Nov 2026 07:57:26 -0600
+Subject: [PATCH 1/2] PCI/PM: Disable bridge D3 on Lenovo ThinkCentre M90n-1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,156 +54,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-v4l2-frame-sync-v2-3-25cbed7a772f@kernel.org>
-References: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
-In-Reply-To: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4680; i=bod@kernel.org;
- h=from:subject:message-id; bh=bufVP28tKn3rZTY/gAilL+mmCSo1VexolPFYOZDSE6E=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq6JalPo3tzd6P7pCVbvU92X2ft5op9kKzglOQj
- Wd/xnh00HaJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauiWpQAKCRAicTuzoY3I
- OjLvD/9JPG4584a3LT7W+VeC/2TRjimq2JmuY6Xc/1lWKS068cit36iRPuVhOvXlsQimo3darEq
- ogOpIRcGBWGKDYtXscxqVbTNpmLfW1qJfVSbrkAJsdpKke5XJ1s6VfdITP13J/fYiq09MJ7WGTW
- cdKjazMfSP5qAnk4Dr+/gNCF+kCrGgOeXMIM9jjl7WaCQTDpgogldBdLwmjaAcPw2ztcunvUB1f
- w5vWkRvpvbX1KSPUVnKOrQcKUMA+IqFPAlnpgPR+HP8mxWcsVRMuFjkJgQyeF4N1850plFXWdpR
- 6iTnisk78JMxj6o4kG7a3L3uyUe1Bme6uN1snj1/p/tcBg7vlJMG24jxPdLksbJQV95TQGJHOE0
- VmCWwfP5TPv/dZW5ciRN/UlgtEaB5/CqMZnC7OW1x993Dt7rNvbGo9ym79Z4Br7KmWOdWQhV519
- 7RYHkN+3PMpLwSB5VrEbagbhNmTGAynkXcxs9Zp/cF48jUyqaSsjQ+KP8ENcx1Q2NEWo6Cjesjn
- acQUZ01Xs5a3a85QQcXLGsINa+jDtxf2o1j52j9c8gaiOOZoPyRUNRMfRLtE3250eeAmpdFTKcG
- mNp5tCBEGkh3vCt0z2vv6mvMf99mcAVz9xI0SJHV3UnOY4l4Z//S/eHI4T7kL+suLlHbDJugJBh
- T3JI8Lwa097nMTA==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Message-Id: <20261102-superm1-kbz-222179-v1-1-c91a664ba251@kernel.org>
+References: <20261102-superm1-kbz-222179-v1-0-c91a664ba251@kernel.org>
+In-Reply-To: <20261102-superm1-kbz-222179-v1-0-c91a664ba251@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-pm@vger.kerenl.org, 
+ linux-kernel@vger.kernel.org, Mario Limonciello <superm1@kernel.org>, 
+ Joshua Perry <josh@6bit.com>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+On the Lenovo ThinkCentre M90n-1 (board 314D), suspending the empty
+Root Port 9 turns off a clock needed by the onboard RTL8168 behind
+Root Port 12.  The NIC becomes inaccessible and r8169 fails to probe
+with "Unable to change power state from D3cold to D0".
 
-We want to correlate statistics buffers with data-buffers. To do that we
-will need to have a sequence number driven by the SOF signal.
+The RP09.PXP_._OFF method gates PCH SRC clock 1, which also supplies
+the NIC behind Root Port 12.  Keeping Root Port 9 in D0 preserves
+that clock and allows the NIC to probe.  Commit 4d4c10f763d7 ("PCI:
+Explicitly put devices into D0 when initializing") exposed the firmware
+bug on every boot by ensuring that the first runtime suspend executes
+the power resource's _OFF method.
 
-Rather than incrementing vb.sequence when data arrives, we should increment
-when SOF happens.
+Add the board to bridge_d3_blacklist to prevent bridge D3 transitions.
+Check the blacklist before platform_pci_bridge_d3(), since ACPI allows
+D3 on the affected hotplug port and would otherwise bypass the quirk.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Fixes: 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when initializing")
+Reported-by: Joshua Perry <josh@6bit.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222179
+Cc: stable@vger.kernel.org
+Signed-off-by: Mario Limonciello <superm1@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-csid.c    | 14 ++++++++++++++
- drivers/media/platform/qcom/camss/camss-csid.h    |  9 +++++++++
- drivers/media/platform/qcom/camss/camss-vfe-17x.c |  5 ++++-
- drivers/media/platform/qcom/camss/camss-vfe.c     |  9 ++++++++-
- drivers/media/platform/qcom/camss/camss-vfe.h     |  1 +
- 5 files changed, 36 insertions(+), 2 deletions(-)
+ drivers/pci/pci.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index e9b399fcb9c7a..4f4ed4fa46aac 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -1355,6 +1355,20 @@ static int csid_subscribe_event(struct v4l2_subdev *sd, struct v4l2_fh *fh,
- 	return v4l2_event_subscribe(fh, sub, 0, &csid_frame_sync_ops);
- }
- 
-+atomic_t *csid_get_sof_seq(struct media_pad *pad)
-+{
-+	struct csid_device *csid;
-+
-+	if (!pad || pad->index < MSM_CSID_PAD_FIRST_SRC)
-+		return NULL;
-+
-+	csid = v4l2_get_subdevdata(media_entity_to_v4l2_subdev(pad->entity));
-+	if (!csid->res->frame_sync_en)
-+		return NULL;
-+
-+	return &csid->sof_seq[pad->index - MSM_CSID_PAD_FIRST_SRC];
-+}
-+
- void csid_sof_event(struct csid_device *csid, unsigned int id)
- {
- 	struct v4l2_event event = {
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-index 2e48b08b93592..f3199579e3442 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.h
-+++ b/drivers/media/platform/qcom/camss/camss-csid.h
-@@ -260,4 +260,13 @@ u32 csid_src_pad_code(struct csid_device *csid, u32 sink_code,
-  */
- void csid_sof_event(struct csid_device *csid, unsigned int id);
- 
-+/*
-+ * csid_get_sof_seq - Get a pointer to the SOF frame sequence variable.
-+ * @pad: Remote pad of a consumer's sink pad
-+ *
-+ * Return the counter or NULL if @pad isn't a CSID or the CSID doesn't support
-+ * SOF tracking.
-+ */
-+atomic_t *csid_get_sof_seq(struct media_pad *pad);
-+
- #endif /* QC_MSM_CAMSS_CSID_H */
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-index 62c2405359a06..4972d3ab65078 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-@@ -491,7 +491,10 @@ static void vfe_isr_wm_done(struct vfe_device *vfe, u8 wm)
- 	}
- 
- 	ready_buf->vb.vb2_buf.timestamp = ts;
--	ready_buf->vb.sequence = output->sequence++;
-+	if (line->sof_seq)
-+		ready_buf->vb.sequence = atomic_read(line->sof_seq);
-+	else
-+		ready_buf->vb.sequence = output->sequence++;
- 
- 	index = 0;
- 	output->buf[0] = output->buf[1];
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 2680a9914765f..da373024c847e 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -474,7 +474,10 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
- 	}
- 
- 	ready_buf->vb.vb2_buf.timestamp = ts;
--	ready_buf->vb.sequence = output->sequence++;
-+	if (line->sof_seq)
-+		ready_buf->vb.sequence = atomic_read(line->sof_seq);
-+	else
-+		ready_buf->vb.sequence = output->sequence++;
- 
- 	index = 0;
- 	output->buf[0] = output->buf[1];
-@@ -508,6 +511,7 @@ int vfe_enable_output_v2(struct vfe_line *line)
- 	struct vfe_output *output = &line->output;
- 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
- 	struct media_pad *sensor_pad;
-+	struct media_pad *csid_pad;
- 	unsigned long flags;
- 	unsigned int frame_skip = 0;
- 	unsigned int i;
-@@ -523,6 +527,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
- 			frame_skip = VFE_FRAME_DROP_VAL - 1;
- 	}
- 
-+	csid_pad = media_pad_remote_pad_first(&line->pads[MSM_VFE_PAD_SINK]);
-+	line->sof_seq = csid_get_sof_seq(csid_pad);
-+
- 	spin_lock_irqsave(&vfe->output_lock, flags);
- 
- 	ops->reg_update_clear(vfe, line->id);
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index ae9dad353a378..0e2dfa58421ad 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.h
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -94,6 +94,7 @@ struct vfe_line {
- 	struct vfe_output output;
- 	const struct camss_format_info *formats;
- 	unsigned int nformats;
-+	atomic_t *sof_seq;
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 7c6f2aba81443..17ec7f065682d 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3028,6 +3028,17 @@ static const struct dmi_system_id bridge_d3_blacklist[] = {
+ 			DMI_MATCH(DMI_BOARD_VERSION, "95.33"),
+ 		},
+ 	},
++	{
++		/*
++		 * Suspending Root Port 9 gates a clock used by the onboard
++		 * RTL8168 behind Root Port 12, making the NIC inaccessible.
++		 */
++		.ident = "Lenovo ThinkCentre M90n-1",
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_BOARD_NAME, "314D"),
++		},
++	},
+ #endif
+ 	{ }
  };
+@@ -3073,6 +3084,10 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
+ 		if (bridge->is_thunderbolt)
+ 			return true;
  
- struct vfe_device;
++		/* Firmware D3 support does not override known platform bugs. */
++		if (dmi_check_system(bridge_d3_blacklist))
++			return false;
++
+ 		/* Platform might know better if the bridge supports D3 */
+ 		if (platform_pci_bridge_d3(bridge))
+ 			return true;
+@@ -3085,9 +3100,6 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
+ 		if (IS_ENABLED(CONFIG_X86) && bridge->is_pciehp)
+ 			return false;
+ 
+-		if (dmi_check_system(bridge_d3_blacklist))
+-			return false;
+-
+ 		/*
+ 		 * Out of caution, we only allow PCIe ports from 2015 or newer
+ 		 * into D3 on x86.
 
 -- 
-2.56.0
+2.53.0
 
