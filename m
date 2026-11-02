@@ -1,88 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793645084;
-	b=kfjf0rfzD3F9eLkKJWpBdxnx4XCv6Z9KnWzaYE2JY3LMdQu5Bf2ezja00/PukfynHVRL
-	 2n7VQmul6GCbVGVVLB+PMk4n17X/epabGNLR3iemXKYznK/ehh6bxXCqSyes2iP+OSWL7
-	 anATqQLTYcVSQANS3QpUHxaUyF21U4zGTzsv1ohf4oQj15REyPzEF9ZSrWhL/f3il7z4E
-	 JN0WpiR3fUG5aDeX/PdGBzSh680wJV3UMWqnX2CyWk6B0YOk8N06rPRgYYxAKJswVVXdf
-	 Coca2Iq32QpJKb16pQUS8Mx57WgCQQgrG5psLWMDu3JZwSv0zN3Dk9x533Inp4OjlVg==
+	t=1793645184;
+	b=sWEuTynY+CM6Ooxj70vpauUpJkh76sKrgU60FdOpSdklhS/Ha0ydc/pkrbd6fbneB9Fe
+	 V9RMfyKDF8tfygBPyEj3r0rkO/TDVo/P2JE26vmZW0JTyWNdC5ftQ8FP6q4kl8GxiVADL
+	 kAuZtIt8NJu7NZSG0aGWkqn05NYu91PJ25DGcflmhQq1RqsaAcQ5ZmuTmT5bj/omBfnPB
+	 Ia0u/nWya7WoqUrPfnuIoUglAjyQ0JaCXHj0EFv8tQGlml9c6UVQtlYUI6uArgk/kL/uj
+	 H4Q9eE4BW72idvgz1LffLVCha9++5ke5rihEvBLWc0oUr9nc8BOEP2zFO3Bt+PL6Nkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793645084;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=x6A8HN508TRpSqR/G7vD7jQ2gadLqTKijxxngFC1xs0=;
-	b=0/QTtXA6GkUWo7ax2PCaBeqHYG4WI02rnrdz7RUxGldSftWVuypK/vJryowZ49aljH3o
-	 N7chg2z3Hq/T4I1pIhJNi380aowC8VlYZcu3O+mbzAH5tjECfekPEdUVVbMR4JjWKA72r
-	 Qu83nmLBCz9iN/EYLgmHPcsNTFsXpwNCQDFIB17LK+IE7SkpaZWPTWddCcYqt4Vzb1i2g
-	 mzYeHsFNdccwCQfhYOst11eqrnltm6qBWhzQ+Nm9iZse5E8bcbMl1SHXqoekUQa/fG3TH
-	 3u+3WIdOqnAfAeKHGve3PWG4x7T4xqcsAUIYGkgyDZaz1b4h6+sQq1Rr+ysbcXyfDNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645184;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DQcF0odyCIUlrfVPEjnim+XwFPEmtuNJchmElHw/5yQ=;
+	b=MwrW/rmDBVvXx0J3mvcdg3NxXn8daJte0PZJJtPNxFLkaZvGHaOGf3A6+3wKo/NBLyjV
+	 PO5MN/g1VAy8kUVQ+KceNv9oVLKSUkWNN8yiBNojJkQnbxoCg6df2WtxvtB99mDN/mXMn
+	 Li34edGud8oGM/f3tkea/ro8uLm8+3V2WHKLLDEPsLToiqLEpwgUNGn4wX0GLGH1CO61x
+	 4pVrc6N1hFyCDLB0jVCdRvXz7Z5Z1t/N349rcQ54In841YNlA/zalR9povK0KCf3hr7s3
+	 izdlc992qacauANSXgJxg/QlrT0vOCJ/AbYTWFWxCH8JWWZiT3DYYNI/9yq8XqP6u4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=YgRUXJxT;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kcl+JEKa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11519606A326;
-	Mon,  2 Nov 2026 18:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11519606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFB6606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=YgRUXJxT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793645081;
-	bh=dE/dxAGf/5dlo74VuH1qHMlbasoG0e92NggE0JMisVE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=YgRUXJxTv3VdB2I+rSQZQXq8gviYr5gZq5dOYl+L+oJhaIhWYz2f07KwCk5bgyudu
-	 v4Dnll71qbQrBy+e8HnJK8SkuF4dacci7yg/IxIBWoVSSI9mllPSOv02M7KxtWUb/d
-	 uDHQ74dNQ4DO2yCa2TOKTpi6AsPXhtA7Uuv8NABifPy5731cMxQMvmCpHtzF14GpFl
-	 6WCA5/bf+cr10tkV1SyDSj7yQiiSfNnB57sfdHfQOeyTnonLup/IWP3dvniAVq0nD2
-	 7DuB+iExtOjuPIpy8PKY6FjGNPIVOZdpItFdL1OOITNNqF5j/++u8mxqB743ajRPTD
-	 d3/o739O5+Seg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 77ACA17E07F6;
-	Mon, 02 Nov 2026 19:44:39 +0100 (CET)
-Message-ID: <0cecac8706862ea7410be0553d942539f0d53c06.camel@collabora.com>
-Subject: Re: [PATCH 02/10] staging: media: cedrus: reject too large
- H.264/HEVC SPS
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
- <paulk@sys-base.io>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kcl+JEKa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7C601F00A16;
+	Mon,  2 Nov 2026 18:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793645183;
+	bh=DQcF0odyCIUlrfVPEjnim+XwFPEmtuNJchmElHw/5yQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Kcl+JEKaPVFrx07fMcveGiworBDB7WGqmq+A0TVBZpsEDr17BXTsVxrfg185sNGv9
+	 BeR7Ip0lrwtecW830MaW9Y21d/hzHNaVMnP+hfHrGW7CMLvskc1PF43EbelQw/ZRuD
+	 61HMNgouKww8jc07mplKrjDHRmHxjuysnwRAceYYrFTaF7xcsSNiDHwjKXlYrDFsMA
+	 dp5zNrwu2lUCNPWpF8gmk6kN+1iRUVW2K/G+QMcXk0EAqRjq+LDFlHQPxrzHbjQs3a
+	 5mAm5ivKcO6TX//yPUaTO7QqSxLGwK0qYwuiAYH62PFgPR7nAaxeqhNqoSC4NC6Alq
+	 AdzNWLIC9tVcQ==
+Date: Mon, 2 Nov 2026 18:46:18 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
+	torvalds@linux-foundation.org, olof@lixom.net,
+	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
+	Boqun Feng <boqun@kernel.org>, linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 13:44:38 -0500
-In-Reply-To: <20261102170303.1973892-3-jernej.skrabec@gmail.com>
-References: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
-	 <20261102170303.1973892-3-jernej.skrabec@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Vy+jkNv142A0aYW5E0HP"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+Subject: Re: [PATCH v3 1/2] riscv: build kernel atomics from LR/SC when Zaamo
+ is disabled
+Message-ID: <20261102-persuader-catering-5ed81c35ae0e@spud>
+References: <20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com>
+ <20261026-lrsc-only-v3-1-ec29c8190fb1@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,168 +67,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="74/AMNX5qTZlduSM"
+Content-Disposition: inline
+In-Reply-To: <20261026-lrsc-only-v3-1-ec29c8190fb1@mobileye.com>
 
-
---=-Vy+jkNv142A0aYW5E0HP
-Content-Type: text/plain; charset="UTF-8"
+--74/AMNX5qTZlduSM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Le lundi 02 novembre 2026 =C3=A0 18:02 +0100, Jernej Skrabec a =C3=A9crit=
-=C2=A0:
-> The hardware decodes whatever picture size the SPS describes. An SPS
-> beyond CEDRUS_MAX_WIDTH/HEIGHT, or beyond the capture buffers once they
-> are allocated, makes the hardware overrun memory and hang. On H616, the
-> JCT-VC PICSIZE_A..D streams (1056x8440, 8440x1056, 528x4216 and
-> 4216x528) leave the hardware wedged, so that every following job times
-> out until reboot.
+On Mon, Oct 26, 2026 at 11:20:02AM +0200, Vladimir Kondratiev wrote:
+> The A extension is Zaamo plus Zalrsc. MIPS P8700 implements only
+> Zalrsc, and its AMO instructions trap to SBI. A typical atomic is
+> about 40 cycles with LR/SC and about 600 cycles with an emulated AMO,
+> so keep the existing AMO sequences when the toolchain defines
+> __riscv_zaamo or __riscv_atomic, and use an LR/SC loop otherwise.
 >=20
-> Validate the SPS picture size in try_ctrl. Move the size limits to
-> cedrus_video.h for that.
+> Add RISCV_ISA_ZAAMO and RISCV_ISA_ZALRSC. Both default on, and that
+> selection still passes "a" in -march. Zaamo can be turned off only
+> with CONFIG_NONPORTABLE; Zalrsc remains required because cmpxchg and
+> the conditional atomics are LR/SC sequences. An LR/SC-only build
+> passes _zalrsc instead of "a".
 >=20
-> Fixes: 6eb9b758e307 ("media: cedrus: Add H264 decoding support")
-> Fixes: 86caab29da78 ("media: cedrus: Add HEVC/H.265 decoding support")
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Suggested-by: Chao-ying Fu <cfu@wavecomp.com>
+> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+
+As you can see by the lkp reports, this is not the right way to do this.
+
 > ---
->  drivers/staging/media/sunxi/cedrus/cedrus.c   | 40 ++++++++++++++++++-
->  .../staging/media/sunxi/cedrus/cedrus_video.c |  5 ---
->  .../staging/media/sunxi/cedrus/cedrus_video.h |  5 +++
->  3 files changed, 44 insertions(+), 6 deletions(-)
+>  arch/riscv/Kconfig               | 23 +++++++++++++++++
+>  arch/riscv/Makefile              | 15 ++++++++---
+>  arch/riscv/include/asm/atomic.h  | 56 ++++++++++++++++++++++++++++++++++=
++++++-
+>  arch/riscv/include/asm/bitops.h  | 51 ++++++++++++++++++++++++++++++++++=
+++
+>  arch/riscv/include/asm/cmpxchg.h | 18 +++++++++++++
+>  arch/riscv/include/asm/futex.h   | 53 ++++++++++++++++++++++++++++++++++=
++++
+>  arch/riscv/kernel/entry.S        |  9 +++++++
+>  arch/riscv/kernel/head.S         | 14 ++++++++++
+>  8 files changed, 234 insertions(+), 5 deletions(-)
+> +
+>  config TOOLCHAIN_HAS_ZBB
+>  	bool
+>  	default y
 >=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c b/drivers/stagin=
-g/media/sunxi/cedrus/cedrus.c
-> index c3331b4f3f02..45deebddb630 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
-> @@ -28,10 +28,38 @@
->  #include "cedrus_dec.h"
->  #include "cedrus_hw.h"
+> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> index 5874ca30f4f6..1403445482b9 100644
+> --- a/arch/riscv/Kconfig
+> +++ b/arch/riscv/Kconfig
+> @@ -730,6 +730,29 @@ config RISCV_ISA_ZACAS
 > =20
-> +/*
-> + * The hardware decodes whatever picture size the bitstream headers desc=
-ribe.
-> + * Reject sizes beyond the hardware limits, or beyond the capture buffer=
-s once
-> + * they are allocated, instead of letting the hardware overrun memory an=
-d hang.
-> + */
-> +static int cedrus_check_pic_size(struct cedrus_ctx *ctx, u32 width, u32 =
-height)
-> +{
-> +	struct vb2_queue *vq;
+>  	  If you don't know what to do here, say Y.
+> =20
+> +config RISCV_ISA_ZAAMO
+> +	bool "Zaamo extension support for AMO atomics" if NONPORTABLE
+> +	default y
+> +	help
+> +	  Use AMO instructions for kernel atomic memory operations. When
+> +	  disabled, those operations are built from LR/SC and the kernel
+> +	  is compiled with zalrsc instead of the A extension.
 > +
-> +	if (width > CEDRUS_MAX_WIDTH || height > CEDRUS_MAX_HEIGHT)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * The hardware decodes whole 16x16 macroblocks, and all capture
-> +	 * formats pad the buffers to at least 16 pixels in both directions.
-> +	 */
-> +	vq =3D v4l2_m2m_get_vq(ctx->fh.m2m_ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
-> +	if (vb2_is_busy(vq) &&
-> +	    (width > ALIGN(ctx->src_fmt.width, 16) ||
-> +	     height > ALIGN(ctx->src_fmt.height, 16)))
-> +		return -EINVAL;
+> +	  Disable this only for a hart that implements Zalrsc but not
+> +	  Zaamo, such as the MIPS P8700. The resulting kernel cannot run
+> +	  on a hart without LR/SC.
 
-If my memory is correct, Hans rejected this kind of construct in try_ctrl,
-because if you are only doing try() it shouldn't fail like this. Instead we=
- can
-validate in the real s_ctrl, but I believe the downside is that it makes th=
-e
-error asynchronous when a request is used (perhaps that's actually wanted ?=
-)
-
-Nicolas
+The text here doesn't really make much sense, given it is default
+disabled as it depends on NONPORTABLE that is default disabled.
+If this is retained, it should be default n and the text reworded.
 
 > +
-> +	return 0;
+> +	  If you don't know what to do here, say Y.
+> +
+> +config RISCV_ISA_ZALRSC
+> +	def_bool y
+> +	help
+> +	  Zalrsc provides LR/SC. cmpxchg and the conditional atomics
+> +	  require it, so it is always enabled.
+
+So why have a kconfig option for it then? It's pointless if always
+enabled.
+
+> +
+> +config RISCV_ISA_A
+> +	def_bool RISCV_ISA_ZAAMO && RISCV_ISA_ZALRSC
+
+I think this all needs a redo...
+
+> diff --git a/arch/riscv/include/asm/atomic.h b/arch/riscv/include/asm/ato=
+mic.h
+> index 616b8b332ac5..dc6a8c95c975 100644
+> --- a/arch/riscv/include/asm/atomic.h
+> +++ b/arch/riscv/include/asm/atomic.h
+> @@ -50,6 +50,7 @@ static __always_inline void arch_atomic64_set(atomic64_=
+t *v, s64 i)
+>   * have the AQ or RL bits set.  These don't return anything, so there's =
+only
+>   * one version to worry about.
+>   */
+> +#if defined(__riscv_atomic) || defined(__riscv_zaamo)
+>  #define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)		\
+>  static __always_inline							\
+>  void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
+> @@ -59,7 +60,25 @@ void arch_atomic##prefix##_##op(c_type i, atomic##pref=
+ix##_t *v)	\
+>  		: "+A" (v->counter)					\
+>  		: "r" (I)						\
+>  		: "memory");						\
+> -}									\
 > +}
-> +
->  static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
->  {
-> +	struct cedrus_ctx *ctx =3D container_of(ctrl->handler, struct cedrus_ct=
-x, hdl);
-> +
->  	if (ctrl->id =3D=3D V4L2_CID_STATELESS_H264_SPS) {
->  		const struct v4l2_ctrl_h264_sps *sps =3D ctrl->p_new.p_h264_sps;
-> +		u32 height;
-> =20
->  		if (sps->chroma_format_idc !=3D 1)
->  			/* Only 4:2:0 is supported */
-> @@ -42,9 +70,15 @@ static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
->  		if (sps->bit_depth_luma_minus8 !=3D 0)
->  			/* Only 8-bit is supported */
->  			return -EINVAL;
-> +		height =3D (sps->pic_height_in_map_units_minus1 + 1) * 16;
-> +		if (!(sps->flags & V4L2_H264_SPS_FLAG_FRAME_MBS_ONLY))
-> +			height *=3D 2;
-> +		if (cedrus_check_pic_size(ctx,
-> +					  (sps->pic_width_in_mbs_minus1 + 1) * 16,
-> +					  height))
-> +			return -EINVAL;
->  	} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_HEVC_SPS) {
->  		const struct v4l2_ctrl_hevc_sps *sps =3D ctrl->p_new.p_hevc_sps;
-> -		struct cedrus_ctx *ctx =3D container_of(ctrl->handler, struct cedrus_c=
-tx, hdl);
->  		unsigned int bit_depth, max_depth;
->  		struct vb2_queue *vq;
-> =20
-> @@ -52,6 +86,10 @@ static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
->  			/* Only 4:2:0 is supported */
->  			return -EINVAL;
-> =20
-> +		if (cedrus_check_pic_size(ctx, sps->pic_width_in_luma_samples,
-> +					  sps->pic_height_in_luma_samples))
-> +			return -EINVAL;
-> +
->  		bit_depth =3D max(sps->bit_depth_luma_minus8,
->  				sps->bit_depth_chroma_minus8) + 8;
-> =20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_video.c b/drivers/=
-staging/media/sunxi/cedrus/cedrus_video.c
-> index adc7f255d7cf..2521315abdb7 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_video.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_video.c
-> @@ -29,11 +29,6 @@
->  #define CEDRUS_DECODE_SRC	BIT(0)
->  #define CEDRUS_DECODE_DST	BIT(1)
-> =20
-> -#define CEDRUS_MIN_WIDTH	16U
-> -#define CEDRUS_MIN_HEIGHT	16U
-> -#define CEDRUS_MAX_WIDTH	4096U
-> -#define CEDRUS_MAX_HEIGHT	2304U
-> -
->  static struct cedrus_format cedrus_formats[] =3D {
->  	{
->  		.pixelformat	=3D V4L2_PIX_FMT_MPEG2_SLICE,
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_video.h b/drivers/=
-staging/media/sunxi/cedrus/cedrus_video.h
-> index 8e1afc16a6a1..367e52158f01 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_video.h
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_video.h
-> @@ -22,6 +22,11 @@ struct cedrus_format {
->  	unsigned int	capabilities;
->  };
-> =20
-> +#define CEDRUS_MIN_WIDTH	16U
-> +#define CEDRUS_MIN_HEIGHT	16U
-> +#define CEDRUS_MAX_WIDTH	4096U
-> +#define CEDRUS_MAX_HEIGHT	2304U
-> +
->  extern const struct v4l2_ioctl_ops cedrus_ioctl_ops;
-> =20
->  int cedrus_queue_init(void *priv, struct vb2_queue *src_vq,
+> +#elif defined(__riscv_zalrsc)
 
---=-Vy+jkNv142A0aYW5E0HP
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+=2E..why are we making this a compiletime decision in the first place?
+Why can't this be an alternative, starting with the zalrsc stuff and
+moving to the better implementation if available?
+Is there some zaamo code that gets generated automatically that we lose
+out on by always building the kernel with zalrsc instead of with all of a?
+
+> +#define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)		\
+> +static __always_inline							\
+> +void arch_atomic##prefix##_##op(c_type i, atomic##prefix##_t *v)	\
+> +{									\
+> +	register c_type ret, temp;					\
+> +	__asm__ __volatile__ (						\
+> +		"1:	lr." #asm_type " %1, %0\n"			\
+> +		"	" #asm_op " %2, %1, %3\n"			\
+> +		"	sc." #asm_type " %2, %2, %0\n"			\
+> +		"	bnez %2, 1b\n"					\
+> +		: "+A" (v->counter), "=3D&r" (ret), "=3D&r" (temp)		\
+> +		: "r" (I)						\
+> +		: "memory");						\
+> +}
+> +#else
+> +#error "Need AMO or LR/SC atomics"
+> +#endif
+> =20
+>  #ifdef CONFIG_GENERIC_ATOMIC64
+>  #define ATOMIC_OPS(op, asm_op, I)					\
+> diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
+> index 44f5a439741a..23ecf68a761d 100644
+> --- a/arch/riscv/Makefile
+> +++ b/arch/riscv/Makefile
+> @@ -58,8 +58,9 @@ ifeq ($(CONFIG_SHADOW_CALL_STACK),y)
+>  endif
+> =20
+>  # ISA string setting
+> -riscv-march-$(CONFIG_ARCH_RV32I)	:=3D rv32ima
+> -riscv-march-$(CONFIG_ARCH_RV64I)	:=3D rv64ima
+> +riscv-march-$(CONFIG_ARCH_RV32I)	:=3D rv32im
+> +riscv-march-$(CONFIG_ARCH_RV64I)	:=3D rv64im
+> +riscv-march-$(CONFIG_RISCV_ISA_A)	:=3D $(riscv-march-y)a
+>  riscv-march-$(CONFIG_FPU)		:=3D $(riscv-march-y)fd
+>  riscv-march-$(CONFIG_RISCV_ISA_C)	:=3D $(riscv-march-y)c
+>  riscv-march-$(CONFIG_RISCV_ISA_V)	:=3D $(riscv-march-y)v
+> @@ -75,9 +76,15 @@ else
+>  riscv-march-$(CONFIG_TOOLCHAIN_NEEDS_EXPLICIT_ZICSR_ZIFENCEI) :=3D $(ris=
+cv-march-y)_zicsr_zifencei
+>  endif
+> =20
+> -KBUILD_BASE_ISA =3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(=
+rv32ima|rv64ima)fd([^v_]*)v?/\1\2/')
+> +KBUILD_BASE_ISA =3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(=
+rv32ima?|rv64ima?)fd([^v_]*)v?/\1\2/')
+>  export KBUILD_BASE_ISA
+> =20
+> +# if "A" not supported, toolchain shall support zaamo/zalrsc
+
+Obviously this is not true, disabling some Kconfig option has no bearing
+on what a toolchain is capable of. You cannot put _foo in here without
+checking if the toolchain actually supports it.
+If no zaamo instructions are automatically generated, this dance isn't
+needed, so my suggestions for how to proceed depend on the answer to
+that question.
+
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +ifneq ($(CONFIG_RISCV_ISA_A),y)
+> +riscv-march-$(CONFIG_RISCV_ISA_ZAAMO) :=3D $(riscv-march-y)_zaamo
+> +riscv-march-$(CONFIG_RISCV_ISA_ZALRSC) :=3D $(riscv-march-y)_zalrsc
+> +endif
+> +
+>  # Remove F,D,V from isa string for all. Keep extensions between "fd" and=
+ "v" by
+>  # matching non-v and non-multi-letter extensions out with the filter ([^=
+v_]*)
+>  KBUILD_CFLAGS +=3D $(KBUILD_BASE_ISA)
+> @@ -85,7 +92,7 @@ KBUILD_CFLAGS +=3D $(KBUILD_BASE_ISA)
+>  KBUILD_AFLAGS +=3D -march=3D$(riscv-march-y)
+> =20
+>  # For C code built with floating-point support, exclude V but keep F and=
+ D.
+> -CC_FLAGS_FPU  :=3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(r=
+v32ima|rv64ima)([^v_]*)v?/\1\2/')
+> +CC_FLAGS_FPU  :=3D -march=3D$(shell echo $(riscv-march-y) | sed -E 's/(r=
+v32ima?|rv64ima?)([^v_]*)v?/\1\2/')
+> =20
+>  KBUILD_CFLAGS +=3D -mno-save-restore
+> =20
+
+
+--74/AMNX5qTZlduSM
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujaFgAKCRDZQZRRKWBy
-9GApAP0cwQdda+CAhJmitoR5/UU25ugUyIbeyeggtB4u1qxsSAEA4ttPDgjqzTMX
-nhFkFQM3gNbr3NOjrgd1nDwpzxmOEgo=
-=8N4Q
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujaegAKCRB4tDGHoIJi
+0twEAQDDW6aEG4OTEFj6k3Zk47Dtt0u0/OQa8WYeKCAzHSbaeAD/Zxuo2XAaZ1ga
+snL5+uj2Xkkjkwiv7H8qVuxx5ynvIwc=
+=PfX1
 -----END PGP SIGNATURE-----
 
---=-Vy+jkNv142A0aYW5E0HP--
+--74/AMNX5qTZlduSM--
