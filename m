@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606055;
-	b=1ClbNM/pQ6npHtHDLS/uV2S434uuVcetQtZ9GgnFYiV1PtWU3mQryTMu3TauwNyQoyqO
-	 g0CFY57lrP6mK8Ggh3aKSgLi4vFCNMloUPPSUeGYzJIFr0MYQgGlSxtG/nh9Yb0Kl2p2r
-	 OLZuLNfe2lskGT4JzDktIDKcGjnDM9PQCOLGk0yqP4SAewdDB7JSxNsSuAS3p9xdHSPq9
-	 csZQDiuFmdVvIe+iwZDI/lkjFClhjm8cvF5aRK4K/Zk94iRVXCiPSULPdzsmmIIZsY6a9
-	 VW8Rr8VWxoQVGnFsZdYh9i8xgtkM5+8MFXRFHA0Oyf2tV2wLlWm3656J61Nv/sMxabw==
+	t=1793606080;
+	b=WuYwJpmN0prhg/qo37Eenkq7k77mcJ+/GrmKcicPTKGD68U2AfC1M1FTon5Fvt3iwR7c
+	 YUs35Th1C4GVCcf7OE70LddOG0SdgZar+dymPvdtNei9nq0ryXqnRwH/8mRb8sj7YZxjK
+	 6Kw5K/v7bjfkIxeRx3B8aECouS7VPEokD4aPJ4kmKR4zOYqWdSez/z3ZxJGCj3TlkMQZJ
+	 7/n+gb/yPnUO4EinnUfeCWt3bvPrm4s+N4TkUVNU8iG3/S3wpf/SKtWNv8PYGxPzRH5Pl
+	 t5rhXPghtpNLRp8q5UyE4iGBvSwBywg2pw7/yrIlnNPKnHG+rCLTYfJodRNgEIJAf3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606055;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=uG7fhzN12tKnMsVMVFuJ5vI38xwZjGLr+R0JNhRW+dM=;
-	b=jRdE4YEv+rDhhgbovrC+UWzsnm2NG/DiV6HzKZqFJUlsr4m28+Jrg8msWzKR2vVDsFs1
-	 6ei6zlyN6vk88wKHzTbXijYDBc/yTB4LHw9RGJLBc+g1QkKcWhtEQW9pxjeK3cMf8aY2m
-	 SJP9G5ibkA9U2LojvTmn5JhKy8WMmWAmYOP6Is5AVJb0nIuwAkS3VxvWyW8IjcA+whO+8
-	 0hnkeijOot9MH1acQAseeRuQJMOpsyD21j3P3xHy0RAdPCoSDZl1g2lC0qL51ZqaCzNxK
-	 VU/2o0ie/UDkf42tpJ0dG9L2PepJb9gW/jg9FaXGV/CcalDvw2mDA8Sswd6jNXWarjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606080;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=eTGcAizAcDDrkg1CZrd0OewU+209Qr7WPh/y5C1UCpM=;
+	b=XBZLg72JHtr0mlfUqhJ5PaTVEZVCX8MG2kXLI2guLWmLihNtOpEIs+TEW8Hof8Cum/3s
+	 4/3KRbWBg+nrGdFBATgKTSlD6dUf8ssX3xZNle7lnyr7TQwmEhajqtTPidVQ8YAbSCUn0
+	 JN+JUQbdvnyVJxmI73ygmRjhKqvkzoIOBIqIJ2dNmA9JNYQybstvcyWF2TAOLaYU6lC2T
+	 IFjEThWDmEp4lP8/34GF+00R+3ti6vRU0TBFqGNkoXTdHHr7mdR972ok2DM9yMIlP1WiT
+	 DHdcI8tp6mbIU6KajNlrblvvaAiRjOoC7aOKLpbdz37M7TfY88to06D1UtqYhVivOZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=3a8F3w6N;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	dmarc=none header.from=nebula-matrix.com;
+	spf=pass smtp.mailfrom=nebula-matrix.com;
+	arc=none smtp.remote-ip=115.124.28.53
+Received: from out28-53.mail.aliyun.com (out28-53.mail.aliyun.com [115.124.28.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD2C606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:54:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CD2C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=3a8F3w6N
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=uG7fhzN12tKnMsVMVFuJ5vI38xwZjGLr+R0JNhRW+dM=;
-	b=3a8F3w6NpIH15K4K3mbUbYPitJbvxRFftH7WHbNUu4Z0X5Cc70S+nSiTTnC552Gt7OoVsWRKw
-	73TCW6ghLhCTvrs/IRQw+pNPSGVGrk5JlkRtUgPVOaDfKlBhOxcq45O3XojCa093YwCoBLhyvn4
-	xrE+MbEYm4p7CuHwx5MplWc=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jJ3qY4GrQzcb0L;
-	Mon,  2 Nov 2026 15:53:45 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 889014058F;
-	Mon,  2 Nov 2026 15:54:08 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 2 Nov
- 2026 15:54:07 +0800
-Message-ID: <d8aced38-fb7a-4359-b3ab-c625faae5023@huawei.com>
-Date: Mon, 2 Nov 2026 15:54:07 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DFE606A324;
+	Mon,  2 Nov 2026 07:54:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10DFE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nebula-matrix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebula-matrix.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.4052481|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.135047-0.0138827-0.85107;FP=16596272992148291472|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=illusion.wang@nebula-matrix.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jumCpT0_1793606067;
+Received: from localhost.localdomain(mailfrom:illusion.wang@nebula-matrix.com fp:SMTPD_---.jumCpT0_1793606067 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 15:54:27 +0800
+From: "illusion.wang" <illusion.wang@nebula-matrix.com>
+To: dimon.zhao@nebula-matrix.com,
+	illusion.wang@nebula-matrix.com,
+	alvin.wang@nebula-matrix.com,
+	sam.chen@nebula-matrix.com,
+	netdev@vger.kernel.org
+Cc: kuba@kernel.org,
+	andrew+netdev@lunn.ch,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v33 net-next 0/8] nbl driver for Nebulamatrix NICs
+Date: Mon,  2 Nov 2026 15:54:01 +0800
+Message-ID: <20261102075424.2165-1-illusion.wang@nebula-matrix.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,86 +58,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a
- group-stop
-To: Catalin Marinas <catalin.marinas@arm.com>, Zhao Gongyi
-	<zhaogongyi@bytedance.com>
-CC: <will@kernel.org>, <mark.rutland@arm.com>, <oleg@redhat.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20261023110710.10145-1-zhaogongyi@bytedance.com>
- <at-czRUYRPRxi9dy@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <at-czRUYRPRxi9dy@arm.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+This series continues and refines the previous v28 NBL NIC driver patch
+set for Nebula-matrix m18110/m18000 (SNIC s1000) Ethernet adapters.
 
+The first two foundational patches of v28 have been merged into net-next
+main branch:
+- net/nebula-matrix: add minimum nbl build framework (cffde9e49e86)
+- net/nebula-matrix: add core driver architecture and HW layer
+  initialization (825e6d230163)
 
-在 2026/10/27 2:32, Catalin Marinas 写道:
-> On Fri, Oct 23, 2026 at 07:07:10PM +0800, Zhao Gongyi wrote:
->> PTRACE_ATTACH to a group-stopped child can enter do_jobctl_trap(),
->> which calls ptrace_stop() without siginfo. If the tracer writes
->> NT_ARM_SYSTEM_CALL, system_call_set() can change syscallno from
->> NO_SYSCALL before calling update_syscall_orig_x0_after_ptrace(). The
->> WARN_ON_ONCE(!info) then fires, although this is a valid ptrace stop.
->>
->> Remove the warning and guard the syscall-exit-stop check against a
->> missing siginfo. Keep recognizing both SIGTRAP and SIGTRAP | 0x80:
->> syscall-exit-stops use either value depending on whether the tracer
->> enabled PTRACE_O_TRACESYSGOOD. With no siginfo, allow the final
->> assignment to synchronize orig_x0 from x0.
->>
->> Fixes: 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0 on syscall entry")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
->> ---
->> Changes since v1:
->> - Remove the warning and early return, as suggested by Oleg.
->> - Keep recognizing syscall-exit-stops with or without PTRACE_O_TRACESYSGOOD.
->>
->> v1: https://lore.kernel.org/r/20261016024536.18938-1-zhaogongyi@bytedance.com
->>
->> Tested on arm64 KVM at af32da41b032 with this v2 applied.
->> At a group-stop, PTRACE_GETSIGINFO returned -EINVAL and an
->> NT_ARM_SYSTEM_CALL write succeeded. Syscall-entry and seccomp
->> x0 rewrites worked. At syscall-exit-stops, NT_PRSTATUS writes succeeded
->> with and without PTRACE_O_TRACESYSGOOD (si_code 133 and 5,
->> respectively). No kernel warnings occurred.
->>
->>  arch/arm64/kernel/ptrace.c | 6 +-----
->>  1 file changed, 1 insertion(+), 5 deletions(-)
->>
->> diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
->> index f743cbec1..22fb9eeed 100644
->> --- a/arch/arm64/kernel/ptrace.c
->> +++ b/arch/arm64/kernel/ptrace.c
->> @@ -573,10 +573,6 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
->>  	if (regs->syscallno == NO_SYSCALL)
->>  		return;
->>  
->> -	/* We should only be called when target is in a ptrace stop */
->> -	if (WARN_ON_ONCE(!info))
->> -		return;
-> 
-> That's a slight semantic change since this function may now update
-> orig_x0 even when !info. However, I think it makes more sense as the aim
-> of commit 88b839ce497c ("arm64: ptrace: Keep 'orig_x0' in-sync with x0
-> on syscall entry") was to update orig_x0 in all cases other than
-> syscall-exit-stop. We can't have the latter with !info.
+Following maintainer feedback to shorten the patch series, this
+iteration drops the two merged commits, reorganizes and polishes the
+remaining functionality into a standalone 8-patch sequence. No new
+features are added; this series only completes the pending core
+infrastructure.
 
-I think maybe we can refer to ptrace_get_syscall_info_op()?
+The overall driver development plan remains consistent with the v28
+two-phase roadmap:
+1) Complete hardware initialization, mailbox/channel communication and
+   control-plane infrastructure (this series)
+2) Implement netdev registration and TX/RX data-path functionality
+   (follow-up series)
 
-> 
-> I'll wait for a couple of days to see if Will has any comments and queue
-> it.
-> 
-> Thanks.
-> 
+This patch set supplements the merged foundational code, covering
+channel layer abstraction, resource management, interrupt handling,
+chip-level initialization, control dispatch routing, channel RPC
+framework, and device lifecycle init/remove/start/stop logic.
+
+changes v32->v33
+Link to v32:https://lore.kernel.org/netdev/20261021062113.2158-1-illusion.wang@nebula-matrix.com/
+changes v31->v32
+Link to v31:https://lore.kernel.org/netdev/20261010095939.2230-1-illusion.wang@nebula-matrix.com/
+changes v30->v31
+Link to v30:https://lore.kernel.org/netdev/20260928123237.88994-1-illusion.wang@nebula-matrix.com/
+1.AI review issues
+changes v29->v30
+Link to v29:https://lore.kernel.org/netdev/20260922120311.86593-1-illusion.wang@nebula-matrix.com/
+1.AI review issues
+changes v28->v29
+Link to v28:https://lore.kernel.org/netdev/20260914123429.56596-1-illusion.wang@nebula-matrix.com/
+1.AI review issues
+2.remove the hash table implementation 
+
+illusion wang (8):
+  net/nebula-matrix: add channel layer
+  net/nebula-matrix: add common resource implementation
+  net/nebula-matrix: add intr resource implementation
+  net/nebula-matrix: add chip-wide hardware init/deinit implementation
+  net/nebula-matrix: dispatch: add control-level routing core
+    infrastructure
+  net/nebula-matrix: dispatch: implement channel RPC framework and
+    serialize hardware ops
+  net/nebula-matrix: add common/ctrl dev init/remove operation
+  net/nebula-matrix: add common dev start/stop operation
+
+ .../net/ethernet/nebula-matrix/nbl/Makefile   |   10 +-
+ .../nbl/nbl_channel/nbl_channel.c             | 1528 +++++++++++++++++
+ .../nbl/nbl_channel/nbl_channel.h             |  196 +++
+ .../nebula-matrix/nbl/nbl_common/nbl_common.c |   52 +
+ .../nebula-matrix/nbl/nbl_common/nbl_common.h |   14 +
+ .../net/ethernet/nebula-matrix/nbl/nbl_core.h |   20 +
+ .../nebula-matrix/nbl/nbl_core/nbl_dev.c      |  727 ++++++++
+ .../nebula-matrix/nbl/nbl_core/nbl_dev.h      |   55 +
+ .../nebula-matrix/nbl/nbl_core/nbl_dispatch.c |  671 ++++++++
+ .../nebula-matrix/nbl/nbl_core/nbl_dispatch.h |   23 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_chip.c       |   32 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_chip.h       |   12 +
+ .../nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c  | 1286 +++++++++++++-
+ .../nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h  |  342 ++++
+ .../nbl_hw_leonis/nbl_resource_leonis.c       |  370 ++++
+ .../nbl_hw_leonis/nbl_resource_leonis.h       |   12 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_hw_reg.h     |   33 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_interrupt.c  |  851 +++++++++
+ .../nebula-matrix/nbl/nbl_hw/nbl_interrupt.h  |   21 +
+ .../nebula-matrix/nbl/nbl_hw/nbl_resource.c   |  157 ++
+ .../nebula-matrix/nbl/nbl_hw/nbl_resource.h   |  159 ++
+ .../nbl/nbl_include/nbl_def_channel.h         |  175 ++
+ .../nbl/nbl_include/nbl_def_common.h          |   23 +
+ .../nbl/nbl_include/nbl_def_dev.h             |   16 +
+ .../nbl/nbl_include/nbl_def_dispatch.h        |   83 +
+ .../nbl/nbl_include/nbl_def_hw.h              |   80 +
+ .../nbl/nbl_include/nbl_def_resource.h        |   38 +
+ .../nbl/nbl_include/nbl_include.h             |   28 +
+ .../net/ethernet/nebula-matrix/nbl/nbl_main.c |  289 +++-
+ 29 files changed, 7280 insertions(+), 23 deletions(-)
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_common/nbl_common.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dev.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_chip.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_chip.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.c
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_resource.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_channel.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dev.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
+ create mode 100644 drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_resource.h
 
 -- 
-Best regards,
-Jinjie
+2.51.0.windows.1
 
