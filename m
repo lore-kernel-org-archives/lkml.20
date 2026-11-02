@@ -1,69 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635868;
-	b=Pj4vqlskuiexuXrKfELOQo6GZOAtBoFt+4Fb3bPYkPxux8r7EDrkVXCmGMJfQbztBZq/
-	 EvalJlizGr7ml4VLNxCQQEqOraNY9xeuk2OEgCLAfz69ReqD9RlRJWz4EFGgVkqXPeaUs
-	 FTk8lof2peflTURSUcvwVEEhYL/91TGDVx7oqTtqolvJRL5QRDSNlOIFCJSCIqmHVl7hQ
-	 kNaiPw7YfJ41sJf86BCXA7Rt7wvSFE2h3iJKv5ZAjzv7RYg3v24bLVSAnCkxSkJXRGF/w
-	 t+UQUPgcjJh0DQSVWvzoOjQKRGR6YMRiTlWif5tGstHnoq20WAvRu1nrMvjxeDKI8xQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635868;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=X28oczi+F+vGEpsz5GVItgUa0wPWN4NmUVCpkERcWI4=;
-	b=IMYWKLCFmEoEruFwVVOuM0+LqmqcK5eneaVYWcEticgPdyxppqXLulqpY084p9y3LkKm
-	 wA1uRMc+qoymBb8vTFUHp8/J6l8ONPt8cWKseXAefDI6SyJEhutM6ws7D1kj0C6fGtkd/
-	 Yu9Egv6yYp6XOX6j5dqDaYD4dAadbDQiZw/zaw2+t/l7NvJJQccbBv5uqsKvcqugpDp6J
-	 PS8KgQIsQsgr6ieaLH6h9dUtlvRIGy9UIO0AJAsyap6q9CHLK5tVt5mRYH7WLlI/0T//t
-	 6CZG/i+w/pW9lL9QuyCc4sIPF9sdkHTU/r+EfyFH0gOvPBwEXlon5iw1tsh1a0X3+Wg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.13
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793635902;
+	b=I+FyGIDN1PekGzjhaSN7hZcmmQa9eikUIi2yCarycL+xlwTO9lvX8bZotNZ6wSa7QsVN
+	 JO3Ut2I5MhP0bIZSQf9PLJlkMDsPv4QOk9IEbGzwC06g9XyF0oD75UT7EGS/zv0nECDK7
+	 CfgPzH5Oaa2LfghNSaHSpqA8uxUZKT7reo3EWoglXiFVZTF6OKeKzOL/yaZwkgXML1lrL
+	 3SCbPR91qVGYAmf92XVE09tZWp8mFQThoTj20dBgSa/zLnjTc9vkilviileGC4c/k1O6u
+	 /EEbs1ltYBXKfbLPDoRORtnfp+Y3haHeDfZeEuQvinYmCY+KR7tzFprt25XURyJ/vRw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635902;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QrJw+lkmXdlr2rkeyObnD9Bf7t1jpUUa0j+yv8MRcbQ=;
+	b=Qm97ppqhmVblHhDC/QQ9AhyCll6cEERpechef+yKJhw2gludTVCA5Wy8NEaeiuLhHnfH
+	 tDE07uN3wj6KWjAF2+f1geO4ftDOmEggqNckVQXnIjtGXkv+s9azhxgo7Y7VIgWU+askf
+	 mqE1syTE+SQk3q1UZ0JN8X7KOF/N3q48SjHv7YNTY16AlyTs1EzcadSYUJRGkPVyPp8ok
+	 OJvhZdadp72OZoPXyBu9rns0a4Sbkllr5Z/QSRah7/UZ780k4ZOgdNo02CvzYDWuhYn1J
+	 HfjCerFUUG7f75jhHLyHsR3JGZ8+/v1RKc8O0EeDRAiaSIwOaQMJ2BR37n2cbBOpbHA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UVShwcRQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEBF6070D9B;
-	Mon,  2 Nov 2026 16:11:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CEBF6070D9B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id E850A40196;
-	Mon,  2 Nov 2026 16:11:03 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf03.hostedemail.com (Postfix) with ESMTPA id 4C42D60010;
-	Mon,  2 Nov 2026 16:10:58 +0000 (UTC)
-Message-ID: <762ca14700309938ddd1b8ecb1a8767fb07b719c.camel@perches.com>
-Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
-From: Joe Perches <joe@perches.com>
-To: Jonathan Corbet <corbet@lwn.net>, David Laight
-	 <david.laight.linux@gmail.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Konstantin Ryabitsev	
- <konstantin@linuxfoundation.org>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- users@kernel.org, Federico Vaga	 <federico.vaga@vaga.pv.it>, Akira Yokosawa
- <akiyks@gmail.com>, Carlos Bilbao	 <carlos.bilbao@kernel.org>, Avadhut Naik
- <avadhut.naik@amd.com>, Alex Shi	 <alexs@kernel.org>, Yanteng Si
- <si.yanteng@linux.dev>, Dongliang Mu	 <dzm91@hust.edu.cn>, Chen-Yu Yeh
- <chenyou910331@gmail.com>, Weijie Yuan	 <wy@wyuan.org>,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org, Petr Pavlu	
- <petr.pavlu@suse.com>
-Date: Mon, 02 Nov 2026 08:10:57 -0800
-In-Reply-To: <87wlqvdylf.fsf@trenco.lwn.net>
-References: 
-	<20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
-	 <20261102093206.50b6c9ad@pumpkin>
-	 <20261102-smiling-binturong-of-gaiety-f64c1f@meerkat>
-	 <CAJZ5v0iOJ1r1OvYhV_KJSnHOJL+oVUrbOXizLk0kbGNiep7a6w@mail.gmail.com>
-	 <87a4nrfgjm.fsf@trenco.lwn.net> <20261102150535.6c5689f6@pumpkin>
-	 <87wlqvdylf.fsf@trenco.lwn.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7435D6070C8F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:11:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7435D6070C8F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UVShwcRQ
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-54492d8a988so460011cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:11:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793635901; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZFGYgEx6IGCzlTcmmDHweEvZvOtCzgu4aq712XYr47936+FvQvVYeVZyA+DP4v56cg
+         LtSc6kwvC+okzNFO0ojo3GJseAgt+vNPag2IS5ZlTkyqXpJaTayTkZvKUvz/A6lLuVAI
+         ISc7Ay2bTLtWuqwFp448GSXTVFoGYaVIA5VIe3euIAYHW0K5lX1tfMxFz18JM0TMFKNo
+         TDg2yELSf4vX96d1/MjhJMv8SNvGIuEw/Fv0ggVklywSbF+9uRN0So0Mo8DRRoimKami
+         H9ntGozlVovGb2GE5ugueEk8NroAWkNaSsOT5FJq980zCsNvxRPb3LUP2w26NO57AFz4
+         ohBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QrJw+lkmXdlr2rkeyObnD9Bf7t1jpUUa0j+yv8MRcbQ=;
+        fh=vmiBD2c+tzLN21vJE6bwSL1tug5NkP3/IJorPEcLlGA=;
+        b=OKK4okP9wiKJ/NXC1xEURqRtlcnk+YCZpZJRtUhk/guXcvWT4Dv5uew/i91lnOW13o
+         y3LgYzLqjxWpvTIV8SE2jLfIuGpLoCOk76zenYxhLLRwURmZw2PHWBrF8whuM1x2l3Fu
+         jCg0qq2IXzirzSFLkm0lJdPw/HvvEnTW/oQjApiWMSh44/g4KZih5Dsb58wkFHZxMmQ8
+         eIaz6qUcIguCXCk5gldN6LkRjYApYqNxpeub3xQS2PcqKjLmN7uuqmNJ5QaaRSm2rJaw
+         /LyLa2AjhiBatPsYNVSPICFMfNmjUlcjc2dQkXm6P17US2Xk4ktAqNjhKXCzANfed+/7
+         GbAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793635901; x=1794240701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QrJw+lkmXdlr2rkeyObnD9Bf7t1jpUUa0j+yv8MRcbQ=;
+        b=UVShwcRQgQcFvI78rGXvjmJNJ5jGiyxdNlYitzKvC90onJMRPN6vJmAdgmfOh56rvV
+         q1LUnlMPBCUk+9GhMncjTbB/QpMn8t8BKt8ENL5qJr7N7+wLA994/gSuKa9SV7uC+G/g
+         xnCOgSLDlLGDlD6RbNJvT6QtObRDeqImMAKSWmrRm9l09RPpQFScFxnPQraGSnK1j9HO
+         BZVP/RiJ/DURRx/QWflVJ788P96U/sUHI+41MWIm8XoVipfjJ/YPFAFdm+gvJLsnAeyE
+         +H+AW5pw1DnZgtL5Cvnrz0vzU4NFO2aQBJLr3mPNmXox40a6nuD6BypvDkP7QF0/wCiq
+         KMJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793635901; x=1794240701;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QrJw+lkmXdlr2rkeyObnD9Bf7t1jpUUa0j+yv8MRcbQ=;
+        b=KtYyGfqOuYwuVa1Hhv8aiIBGJFC61N3LORgEN7XXHh4vxIl43f0+LgGws9/FspPOOm
+         dEwDy1Y3uDWGE52pWPfhimwu4mabOxoh5JEcrpe4bJkUREeLCc+eJlUcH89gPscQW2Cw
+         E2mbmaS1P2udMdEPiWYMX2hYHbrdRm85P00V4a5pEM/sIurgQUfOZrHDKLng6PrPhDpM
+         gxcmrU4KBf/LuaPJpkh1jWpx626ocINngs5t67cE8d3pffpkGaK1vRoISGC9Np8ksJ2f
+         nOxIemaF9flueQBXsqNn2Fd8QnZTTYFirKhjC3JnajpAh0Njm3PZNuIFZN5x2xdWIArZ
+         BQVA==
+X-Forwarded-Encrypted: i=1; AKwUvBwScR+rk/NFgHQUXrAeA+XKy1XlqdWV//YlyN3LoACttsWMN4UympiaAvgycmNmHYzPxUtws+QlZk6qvBw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0nlk+oYrDVI6T4FcaLH1linvpX03sPEKMjWoRIJUMR1EX1lOl
+	IzF+1hA2xTYAxxBR7k5cddnRwYWUUW0EDhGGeqKAHLo566fhkBAcQ9p0Mh/AlzsgLFth/SpBNz8
+	8FvTzCxugW+fEjjENPPdVTP7bCuttVNebEHJ3Wjgs
+X-Gm-Gg: AYBFou3VT4Igxe6Hsoury4nINyZTZluaBPPWyuFSH5pr8akJTlu+S/+s8Kwcxf11QQ9
+	0mv0x7dy0iAz02tehE7bkwD0A8HhOO5KZl45QPoHE7P2OfTDId55Co5/Oah7zGWfM20TVXW7sAQ
+	H+9cB25S2FiPesOp5srnJjz76yhglLtvRVDF4Nwmgvsb4aVds56ZiC+tUHeoiD0m5dOq54LUx/3
+	h5F+Xb8QdRRh8H7dOcPQrt5nSPzOobe6Oa6d4osisK5hpqXer5wL2L2jNcPqbqwQDvPJ7ZRX/nW
+	QTQrh5g697Bg189kWdERIbMFSUaVSrdNr+JRkGEXjZPKJ1LboFsYz//s41/Rz+VGLOUn+Zajpoi
+	k8x6F9n8a7dD1yl8d5D96e/prG6y5/nn3kV0m
+X-Received: by 2002:a05:622a:488d:b0:536:3ee4:81cd with SMTP id
+ d75a77b69052e-5412d50d069mr12637281cf.4.1793635900706; Mon, 02 Nov 2026
+ 08:11:40 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,32 +104,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 4C42D60010
-X-Stat-Signature: c9desiqg1e34kuhmf14u7jfd9aexambj
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX18Cj6feQ99XY7tmbKPJx3vh8h+4f33qIiY=
-X-HE-Tag: 1793635858-467334
-X-HE-Meta: U2FsdGVkX1/9XdC3odTKp74ltKxRmZNqV71GkwUkLjTzqRqcMWFoHgmc+/jzDzVC8VtFojVZ409lCBkL8SNEPpuRp2qN3Zfvfrafe9ATp9NjN7HTL17AiMEHcUSdN/oy7LEd1Kf3luaDMOrQuyDquAaOdkxSgfMouHWmH+hGuD6O2r3288CrNyOPa1zJd9BMOfO3vslDy+cn+v19fmXTsSVW2VB+9LYPwjiQCQV1hvFuoiRue/FYEwC6lq7JrFiqzQTi9zoxtA5LrJX+TT02+wA/KbH2SfChtDazA3T47g4Q+CsxmqVZlcYgs6eIxWvY
+References: <20261101154503.3203036-1-surenb@google.com> <20261101110100.90796bf33ef50307a7698dca@linux-foundation.org>
+ <CAJuCfpGmPLBRhHa_dmyP10QzyRyvcWMYDLU0+J9t-RCLBsTaWA@mail.gmail.com> <20261102080103.6e3f602364747ac6adb13f5c@linux-foundation.org>
+In-Reply-To: <20261102080103.6e3f602364747ac6adb13f5c@linux-foundation.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 2 Nov 2026 08:11:16 -0800
+X-Gm-Features: AclHuK9GAGsiZrN9317-LnzYplCUiian6VttOAS32aZ3eING8-O8jgvJChN1NXY
+Message-ID: <CAJuCfpGmHWiu0Hmob-PgnvWAMn=CD0-xgiyGztP+P=OFrwwfTw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
+ tearing tests
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: david@kernel.org, ljs@kernel.org, jannh@google.com, liam@infradead.org, 
+	willy@infradead.org, paulmck@kernel.org, pfalcato@suse.de, 
+	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
+	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-11-02 at 08:47 -0700, Jonathan Corbet wrote:
-> In truth...public-inbox is quite nice for the searching part of things;
-> I tend to use that rather than going into the email stream directly.
+On Mon, Nov 2, 2026 at 8:01=E2=80=AFAM Andrew Morton <akpm@linux-foundation=
+.org> wrote:
+>
+> On Mon, 2 Nov 2026 07:43:17 -0800 Suren Baghdasaryan <surenb@google.com> =
+wrote:
+>
+> > > :
+> > > : The patched userspace test passed all six cases on an existing
+> > > : x86-64 6.18.57 kernel, with a PID-namespace adjustment. That kernel
+> > > : predates ca5480fb53fa, so this checks selftest behavior, not the
+> > > : intended kernel's procfs changes. Separate syscall tests on that
+> > > : kernel confirmed the EXEC-merging and memlock failure cases.
+> >
+> > I'm guessing your bot was using personality() to make the tests fail.
+> > Again, I'm not sure we should handle such use case. Should we?
+>
+>
+> : The concern is pre-ARMv6 CPUs, where READ_IMPLIES_EXEC is set by
+> : default. Nobody needs to call personality() to encounter this there.
+> :
+> : We already addressed this in 0685630fdccb ("selftests/proc: make
+> : proc-maps-race work with READ_IMPLIES_EXEC"):
+> :
+> : https://lore.kernel.org/r/20260808200312.6326-1-kmehltretter@gmail.com
+> :
+> : That fixed split_vma(). Alternating PROT_EXEC in setup introduces the
+> : same assumption elsewhere: RW and RWX both become RWX, allowing adjacen=
+t
+> : mappings to merge. The parent then cannot find the expected three-page
+> : VMAs and the test fails during setup, before testing procfs tearing.
+> :
+> : Yes, the focused x86-64 check explicitly enabled READ_IMPLIES_EXEC to
+> : exercise this behavior. It wasn't tested on old ARM hardware. But I
+> : think we should preserve the existing support for those machines.
+> : Populating writable, then removing write permission from alternate
+> : mappings, preserves both RSS and the required VMA boundaries.
 
-I gave up on lkml after searching lore became reliable
-several years ago.
+Ah, I see now why handling READ_IMPLIES_EXEC is needed. Then your
+complete fix looks fine. Perhaps we should mention this pre-ARMv6 CPU
+detail in the changelog of your fix to explain why READ_IMPLIES_EXEC
+is important here?
 
-What might be useful is something on lore/vger to be
-able to match keyword searches similar to a finger like
-registry and get forwarded threads that match.
 
-Another possibility might be:
-
-MAINTAINERS/get_maintainers is public and requires
-senders generating the correct mailto: entries.
-
-Maybe undo that and make lore/vger create all the
-to/cc entries using a single kernel mailing address.
-
-And if the received email by lore/vger already
-has the suggested entries, don't duplicate it.
+>
