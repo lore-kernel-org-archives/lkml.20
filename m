@@ -1,101 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793643390;
-	b=GHdr/1yLzibpcM5ESfJd4JIkPn7BU65t83P1NHepUa8fwZ15OuBhdoKi/nS9oXQ4LwlC
-	 9lXcpqlp9QEZnXC+CAuICJr1BRci4lK3f6iJ0tHKBZj8GSq42W64bQbfehgtsg/ymIJ+j
-	 vz28Jc8jDLQ+xwydxj/Vl86awnXQgcM1v1PJNKLmfuydy53pYp8aiXSKDuL9GaFey77J4
-	 VZcc1yLcxXSX0jt9VrHTrsNe7L2L1WUYGeT8C78AJSav5wov2i0muvmfx9gPEjjxPC2xU
-	 PYb5LJ3sSQZPunUO8WsM6fBUmowamI6NrH6CtQYWTaGMQE5eFssq536kteTX7hF14pw==
+	t=1793643405;
+	b=WpZG3E2bebjcM/xZu7o7ohxT04DzHNJ8uybXirhuzzQj2CkcQ97Yni2R9p3RFfbChSNU
+	 M2IJHU3fuYqDCXldmp5awdkF2L5vZZQsFzsZrCSum7zhJxA+zfm22EP1DR0VrkEDQGtwF
+	 EkB+9xuXfrHPo6gGxek2l8nBMoqhFovNy4MGHOTm+8ssXOaLOEofaFqiHN9JtCxzO4ZBm
+	 Ii5MRQdZRZchE3X760qHq5P1LskejJ8U1Bj8abK4WX1zoWCyPlwd96/1ppSxYQWzrV9FM
+	 0/zdoRgLeAl/lRPWCG0TPge2iaVXNsjtHb58GpALLwLi+0+/lvygf8O3DOO12mekwFg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643390;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643405;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=T9ICWzy7eh1ZDcwlW7hKp1lrYbcuv/hAuIABl4o9hxM=;
-	b=boHY6F8J+d6axl/gqjH/tKjj6ZnBwQJZwS1X9k7l1DF3EuftKWz6fb4ixgQUum2U5Lq8
-	 FgtGzc7R0UJ//k60oUXi3xUUv5d6Dro4YsGbkpsSlQDJfNiLt+HPK1q8EjRq/izkEPXhR
-	 4p+hCS5qURGkUTSVuECSFFV1KcZUztPRAkpfTcuebxTU54+I0ugn9sz76zcI8MsVgUa2j
-	 zQreHWnmq6v7ZPo0r4W6JH1N+aMZVxd6MvAE82Byc5nm888tGiwZ1mXBcSTrJ9hj52ByZ
-	 V0iAO2FWvIzunInozTrKMDq/b0pnt74zaddzKSH6lXTBFfXWh+ctuNrLyd0DmVaahng==
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
+	b=Cb8mFZSgOf34M1t3tKfK++k2IyC5yYsJOhdDoZUp1sxHo30DQskPZKHdjOuc+BBUniiM
+	 5hrBN9xnIkM7Mt5yLDzTK6mVk04RVaN37tgFbmzzqaaC4mkw2KfSsVLaAeW1ffEFr90QW
+	 o0pkv9BvwR5Z5LWs9YKMDMYhH1gRh5OqBLeos1MhpUMA3M5eaRKfVtx7eIwaubnRKMIcY
+	 6pzTfAqIf8b+8P06/z7F7uwCWOCQQCvg77Z23ddfNwhdxk5ahfZeIBjxMFOLzg3+bB0zM
+	 sIKa4KoHo4QBQnsliTBk8hfaIOVErufUmCY8593WSzQzGqOmcvLVIopAqSaz45qJQgQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="MV/9PO20";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.42
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aCcvnadP;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RBtItvv9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE88606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:16:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CE88606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FC8606A33C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3FC8606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MV/9PO20
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7cc365db987so2297199137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:16:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793643389; cv=none;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aCcvnadP;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RBtItvv9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793643403;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
+	b=aCcvnadPYRygZFYXkYoYkvZM0ltqCwUvCJaK+J4DNxDtI2P4MgMSruBkMu3gHM4xsTxbxY
+	iCy6LVECpm74FRdJFeLFJC0SasC1s+tk8+cWqoK/OsaESGGmDWRdYHNyyPQf/qttg7Cxxj
+	RkFlx2KTj/ymJzVEGj8IJ+rD1TEP/B4=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-589-s3iVzJVNMvS3aGHnZeyzMA-1; Mon, 02 Nov 2026 13:16:40 -0500
+X-MC-Unique: s3iVzJVNMvS3aGHnZeyzMA-1
+X-Mimecast-MFC-AGG-ID: s3iVzJVNMvS3aGHnZeyzMA_1793643399
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48c46582442so2025572f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:16:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793643399; cv=none;
         d=google.com; s=arc-20260327;
-        b=PenHDcwIvwmf9sj3txi1AUaNX6RzQFe3layuVM1zuBAIiClMrPRMrJxK1no4x4dPyv
-         gaWAOGruKO5u9ELsXdf5HstavjspITfTJ/GKooSFE/k8xcaq1SUSPmg2bx+kBSnYcuRp
-         h9rrSX9SkOtC5PSUWwPQP9O4dpNUfvsvm5+e0sVFsstwYqX6a6yKEGWMS3VesSLQ+atK
-         BNt2I6vu/ECvTMB/VFZXVC9tfL3H+T68LYx0DXCOwp9BGIXVly8IkzIYxpKBnlKDWvwJ
-         Qaz7Hhwo2JYJn3/wT31eFHqXE/C1v3C7TDw1fkAJR8aWufdsKg2d1hu+ToWes/qM32ME
-         ZbVg==
+        b=RJeu3C4hdZ6H9Gpw/AEf6Ww35ktEq9P8nttRRFHR13V9r1+e+/0FELzPcNgDqPfUdL
+         nckJaa7WbAqe2N7aK+dx16QkbPD0Qz91ma+05O2q7ZLE++sT5aJYn7ppPzdu6Ziq90ht
+         HcXp40oLVfzeMJ73YvOm7tOyqNnZFJmY5tQiM2vGnIuYaiYcDuhbLTRYgTjIV4v0M0tQ
+         v6YX4DtqNw0lcnTV5V+8gpic6ALdeW51MEyxNHJkAXMhO8bl/F7VWqwbxUk5kiA++WNt
+         3tEXy/qJBhgpRtUmNizSHBdXxdGRo3ooA5HpDnWyh7nz2/Y3xxUyb2qkGIYJPW12rd7x
+         US9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=T9ICWzy7eh1ZDcwlW7hKp1lrYbcuv/hAuIABl4o9hxM=;
-        fh=zizNbIDFkPmpL2uPv2nCbM30DgG8e3yEqe7WPcisPRI=;
-        b=OWwAs5ezC6Ju3a0GytbjIff/Sxr1Yw8OSV3NEz3jKbvReWCPV3vwGctgRPXfkVVLBx
-         oWaXh+ixsZp+EWYBQzIuBJNFAyyZlj9TVqnbddJj+TY3Ip9iX31RokxUMBq+NcPZy4me
-         YYi2nGVhGYlasTFTZauyaFKH3kWRwyg7Yn4rIz0m1YvXKjMuy8928UBvNeP84tVP+y69
-         NYML07UGSMdl2QCy9g/yBWilvQKwk7vd+eHeUYUXDmFVdZ7p//Mt+XTKHWqyvCQHp1A1
-         82ci24UHsjwxWmXQRZcGuj8a91/ObADNnoLAJfKBzQXHNJGnM4ivaXGVsDxge02/M9uI
-         YFBQ==;
+        bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
+        fh=Mvi51lcOIvwfheqTJUO/ppkDGZHCW79dmed89TbCnCw=;
+        b=C53GtT64WdY7IwSFWgi3AVTRelPOKbb1uibwFg6qrrmHqDjiiBna0d/rAoqeSSFky2
+         7KLVNgewG+Kgbs3eNnauI/xQr/OFCTjDC4Z1n1k730wVnRSJytG192olSZ3C/McrrDwA
+         GZKXdYh+O+1ESRFCyoLX4cpMeEkdhL5FZ8A+lu/aRn1PUGBdbSw9NylyY1xLh8GlixrB
+         kE+l+8+THjMtCgEftcR3hK+oyPiq0PAemMeOEx4UJJg2a5ECA5PiTtooGiQoDJWP2WkM
+         kAlVXXw+utPyn4rle/+pCOsUINTauV4iSCMsAfNxH4irBitTYNhAzUsi4Y5IuErtqGEm
+         5ANg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793643389; x=1794248189; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1793643399; x=1794248199; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=T9ICWzy7eh1ZDcwlW7hKp1lrYbcuv/hAuIABl4o9hxM=;
-        b=MV/9PO20iTv/IbWrD4hFexyIGZZNqdsY5fggwZvmD41h+5Pw2hmnxnCC0ByLAJgOmN
-         L9B2aZFYygwucrR/n9M3yuI10kX6ktGciuq2wBBy96XtooJwnNVogS5PPFM7fafTIUo6
-         V1pwseLy6CyoWnePc+ZsGOA3J/8VsK4n8UzYGxR3S82/QjgxvOdU/RZW6LC5egXqNqjA
-         Lh8F4ut8zlhnnVhU1oTCGiHwjfNoacEt1mZsZ7EsLXWcN10JSgFW34xjytg8gNVlidw+
-         Y4ZkJku7Ka6TZ/LFzB9Ex96ukzXyZaBViOU+gScstg9XcfyoZxFqIasEbJbuaZItVBt/
-         sIrw==
+        bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
+        b=RBtItvv9B31dT2u7K4qBo7ogPBqQBFRekOBj8c2AW1B8qU2YCNuRIjXmM1K8DsfXll
+         lJYoOB4vePKBeQNejFV0l//LOLpiI8BuhWCtMoABEyhiwWuGXY0KVfomlq8Miz1B6eg2
+         9DD7Sg08tmOMONPu9o17SRBvmkerPrUo+/j+Zo80Q5b8hekKMGtK/ioCm9nlT8ofQynJ
+         kpQz56YhxC8SQvzBrPbX/GTJfjWi35GOpmH/LwWJ4zJRFeLPGwk8z5jx8RNovaPSfTVa
+         pwyBqUhHgQoKyfpNGry1Mgf7F5y9xq4GVbLsQam4EsJ+/j5R+GuwHFGqt3vPcTofwCjV
+         PRIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793643389; x=1794248189;
+        d=1e100.net; s=20260707; t=1793643399; x=1794248199;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T9ICWzy7eh1ZDcwlW7hKp1lrYbcuv/hAuIABl4o9hxM=;
-        b=fZlEL3Fb0cjEZP63bonNsTNzQ1ODkdfjLCeL7VHVDxEXNiNSeaNAykBcR1ADzSWlup
-         4BUoPLCBLVHrFQAbA2gFUkI6ROpYrAkwIjQV4ZFlguFBhT4WMbG39qDrnlz5kgZxl6dR
-         G6xEOhuIAkLKbkWKSR3OcxNJWzjUlNefK311lN41oG11IVV2ghGecNo59DHqmWSSNu75
-         JqbPTXHbnAhqV6k2aSB/aTeXez0k1Pvqkjs+b72rkVmblRryxJkyAil0aUIICp7nSJbr
-         WiUZKVoDLT5c1HiCjYhCHcY4ZDGrhZiybsvtaESSLiYUKWGjCVYz5DlhrZ6XnAVW5YUc
-         ECvw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbG8KMOcGS0FbJZ8IulNOfNqd9TRueKI1EkqCeJmD/BarlRhEBjFBy1N8wguoCewBvIA/K8c6zKvLWdsE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AkL9G2YWxVxjASXeb6rI2iPOQ14uoDC/4rKNkl6NuQcj9y6ik
-	YB/O6ZmNKqDFTp1s0QEMKkmKKri+mGxajmMelNfqKSvh9pAAPw7KLQwXFrDtPnkZ6mVzwskJEdE
-	7Q9Ow2GcGsZWcM+5lkWwO/chn1bncFhk=
-X-Gm-Gg: AYBFou0uCbknSo2wUbIfraHruQE7lnrK3Qpiz/eZ7CfHKqTju/Yfb55k5X7yXxUt8T9
-	+aqTtGZL1qq0dSMTwfvBXHuX4I3W4SRaSmt5rPA4/uAoI7qGbJj5vc5aYBSOh56oeAP/6JkggyF
-	UmSVSiITwa2hmtthnxdC2PWgd1DwBL64l4nxo7viFsraMCnMqdThhsn0NBXVyMT3xapmejR03nG
-	2UMkxikbqlYMn2AeS5TRmzpvyhuhrxZS0YMUq4380eWINPgUxzXt7clc1IOWsutotsm9aKaLNS6
-	E8aXzsSao7zmu0lmzX1OnPm7o1hBDyqMFx12rhVh1myf4subWW/Ws064H3U82UUs3HpTi678THR
-	nOaZd2Xq5CYkbNYpJf/mMehv8lk+/FyYsXfU0icxASqBZvsdcl6DOV7XY+0c2lplLROPsBoEi2C
-	Bsgf97+NfL
-X-Received: by 2002:a05:6102:e0c:b0:7cc:2bb7:1335 with SMTP id
- ada2fe7eead31-7d07276121fmr4390550137.33.1793643389113; Mon, 02 Nov 2026
- 10:16:29 -0800 (PST)
+        bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
+        b=tTSB2iWstYAQXLR3V4z/mKuvPrRoy+G/IMKVVrfYFIk13CoG7j/rcs/PMHR0bzVnTR
+         Zuholg5HgBW2ct82OuCTx5G4Se2VvhpHNTarL08SEsbD+i7Io9JGlyatn844wyWaRo6x
+         F9nxP6F8mSTf3T6xWLtO38bWTXodjNDGBnHqvlhGnGo2letOMlY/m18TiusV9Ppkv/gF
+         auyqtAllzR+vbCSBUvoeK46hRzapzs5VcJqYKrzfIRPc/hR0S3mPTQJL1R4ADZcnVrlb
+         LG9gBqxfmsKm1GSJMqZYNX5JmIsegTCQfFd2F1wa9equ/KZOg3ASr3i6b/Iv9MskfaKG
+         +xjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdz2PzmoysXglJHrSQZFuHlaRgELOci8sO0cVNWWu5NkSOrdO6Pe6kR5xXyrgidRT6flIxEXYCtok8rsg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aBVeUiRPvoy8UWsMEP0R5S1pZgQ/Ma+wYAYG5EFQ74K33JDag
+	n/HhaVI4o5f36r+X7FLMo+IQe0UbkaiVdyod5eKh0th5DFEOTMk49G5TJ8SLwnIw+4FWV97psOz
+	V3gsRICAcBY2f1t6dlsvm9U1w4NsmxJZWubqVH1rlhYD6Bh8SR1stng8x7vk+D35CgTOlzLrUe7
+	mtyR/iAfWWV65ZWzI2TI5JlSNADONuVal+JbuxneYq
+X-Gm-Gg: AYBFou022Sj8Ecxj99wzn1wwBkiofkaqFr/fLoXAe42m0FvKCX8pq/Lgo++PGnGdowp
+	JgVgV5ft2qe229lGP5ASq/Vpf7GrrEanDS0GIspNfF9s3iB2s+22vi4SKVZ3ncoMi/cnMJkb0Sm
+	Y99OLSMrynYFeUc1xAUG9zvnKzB0WK4JF/myJ5YYDuDoQgXFhwvKDuvpPvv+zOWS6MYJmUmH72e
+	HgCxsDuOeI/UWeNsKWr6IZ3jtdUutnZHFnq/aAbrscQa2mPaCS/sj5mrnlH
+X-Received: by 2002:adf:e003:0:10b0:48d:ffa3:714 with SMTP id ffacd0b85a97d-48e6e2f2964mr20349189f8f.19.1793643399474;
+        Mon, 02 Nov 2026 10:16:39 -0800 (PST)
+X-Received: by 2002:adf:e003:0:10b0:48d:ffa3:714 with SMTP id
+ ffacd0b85a97d-48e6e2f2964mr20349156f8f.19.1793643399087; Mon, 02 Nov 2026
+ 10:16:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,108 +125,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <aui3TJqadHUv-4RW@tiehlicka> <20261102163014.237806-1-joshua.hahnjy@gmail.com>
- <aujCcqKKyio7oZ0x@tiehlicka> <CAN+CAwOwRJUDXHj0RMr4p2+sdA1V9bX-OgOH1PpER+u_cB2fAg@mail.gmail.com>
- <aujSP_sfbasQaKu7@tiehlicka>
-In-Reply-To: <aujSP_sfbasQaKu7@tiehlicka>
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-Date: Mon, 2 Nov 2026 13:16:16 -0500
-X-Gm-Features: AclHuK9EkEv8FL6xfP3eWXeFQa1t-cPp0lrx5vZ8E-g9cOqfGbbE6u5P1MgVKZ0
-Message-ID: <CAN+CAwNVuxqHxbaEuu2n8BmUtXhuVeX5v-v5Gu7eegyV0sT+=g@mail.gmail.com>
-Subject: Re: [PATCH v7 0/5] mm/page_counter: move stock from mem_cgroup to page_counter
-To: Michal Hocko <mhocko@suse.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
-	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, Michal Koutny <mkoutny@suse.com>, 
-	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <kuph5i8x2d0.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb> <20261031090529.65240-1-amirmohammad.eftekhar@cispa.de>
+In-Reply-To: <20261031090529.65240-1-amirmohammad.eftekhar@cispa.de>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 2 Nov 2026 19:16:27 +0100
+X-Gm-Features: AclHuK_YXcxMZDa_2uVf-DOKYVLREH6PFG-uQQ0h0kF_GFc_0-Dn7EAhewjC8OI
+Message-ID: <CABgObfYZde9RhwbPkq95uy6pNdyPFS48k9HvzCdGPggQ6reHSQ@mail.gmail.com>
+Subject: Re: [PATCH v2] KVM: VMX: Add array_index_nospec() to evmcs_field_offset()
+To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Cc: seanjc@google.com, vkuznets@redhat.com, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, amirmohammadeftekhar@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 1:11=E2=80=AFPM Michal Hocko <mhocko@suse.com> wrote=
-:
+On Sat, Oct 31, 2026 at 10:05=E2=80=AFAM Amirmohammad Eftekhar
+<amirmohammad.eftekhar@cispa.de> wrote:
 >
-> On Mon 02-11-26 12:40:33, Joshua Hahn wrote:
-> > > > > > Personally I am a big fan of how try_charge_memcg looks after t=
-his
-> > > > > > series, what do you think?
-> > > > > >
-> > > > > > > Quite honestly I am still not convinced this move
-> > > > > > > is the right thing but I would like to fully understand the m=
-echanics
-> > > > > > > first. Having discrepancies among different counters just sou=
-nds like a
-> > > > > > > potential source of future problems.
-> > > > > >
-> > > > > > I hope that I can present a good argument for why this is not a=
-s
-> > > > > > concern as it may seem initially.
-> > > > > >
-> > > > > > My first point is that the memory usage counters were always fu=
-zzy, as
-> > > > > > specified in the memcg v1 documentation too:
-> > > > > >
-> > > > > > usage_in_bytes ... doesn't show 'exact' value of memory (and sw=
-ap)
-> > > > > > usage, it's a fuzz value for efficient access.
-> > > > > >
-> > > > > > Secondly, the raw value of the usage is actually always accurat=
-e. It is
-> > > > > > just the stock portion that overcharge the memory at times, mak=
-ing it
-> > > > > > seem like there is a discrepancy. Flushing the memcg stock imme=
-diately
-> > > > > > bring the counters to their real values (like what happens righ=
-t now).
-> > > > > >
-> > > > > > Finally, this is a change that is only limited to cgroup v1 use=
-rs.
-> > > > >
-> > > > > Right but is there any actual point in adding caching for memsw c=
-harges
-> > > > > now? If you have a way to opt-in to caching then you can simply d=
-isabled
-> > > > > that for memsw counter altogether. Fewer problems to deal with, e=
-xplain
-> > > > > etc...
-> > > >
-> > > > I think the problem actually still exists, unfortunately. In fact I
-> > > > think the issue becomes bigger if you remove stocking for memsw.
-> > >
-> > > Yes, you are right. We do actually cache memsw through the charging p=
-ath
-> > > which charges both mem and memsw with the batch.
-> >
-> > Thanks, Michal! So it seems like we are in alignment on everything
-> > except the cgroup v1 implications for fuzziness. FWIW I think nothing
-> > really changes from the userspace POV. memsw and memory usage has
-> > always been fuzzy due to stocking, so all this series does is to
-> > change "why" and "when" the stocking becomes fuzzy.
+> evmcs_field_offset() bounds-checks the guest-supplied field index against
+> nr_evmcs_1_fields and then indexes vmcs_field_to_evmcs_1[] without an
+> array_index_nospec() clamp, unlike its vmcs12 counterpart
+> get_vmcs12_field_offset().
 >
-> Right. The discrepancy was not so obvious but I agree that this change
-> doesn't fundamentally change the picture.
-
-Thanks!
-
-> > What do you think about this? The other alternative would be to remove
-> > stocking for cgroup v1 users completely. But I am not sure that is a
-> > good solution either. For the record, I tried making the stock tied
-> > together so that they refill together, but that was a nightmare in
-> > terms of added complexity.
+> A regular VMREAD instruction is allowed while an enlightened VMCS is acti=
+ve
+> since 6cbbaab60ff3 ("KVM: nVMX: Allow VMREAD when Enlightened VMCS is in
+> use"), and it reaches evmcs_field_offset() with a guest-supplied field
+> encoding. Because the index is not clamped, the guest may be able to
+> speculatively access past the bound check and read out of bounds of
+> vmcs_field_to_evmcs_1[] (Spectre v1). The leaked value is only the u16
+> 'offset', so the exposure is limited.
 >
-> Nah, that seems overreaching without much added value. While we do not
-> support new features in v1 we shouldn't cripple performance for those
-> users unless there is no other way around.
+> The other callers of evmcs_field_offset() are not under direct guest
+> control, but the array_index_nospec() clamp does not hurt them.
+>
+> Clamp the index with array_index_nospec(), mirroring
+> get_vmcs12_field_offset().
+>
+> Fixes: 6cbbaab60ff3 ("KVM: nVMX: Allow VMREAD when Enlightened VMCS is in=
+ use")
+> Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+> ---
 
-Sounds good with me, and I also agree here. OK! I think it seems like
-we are in alignment with everything. Let me spin up a new cover letter
-being more explicit about everything we've covered here and send it
-out soon. This was really helpful for me, thank you for your time
-Michal : -)
+Queued, thanks.
 
-Have a great day!!
-Joshua
+Paolo
+
