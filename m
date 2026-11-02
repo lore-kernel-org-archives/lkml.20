@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793655324;
-	b=s0zeyi1oT0tSUDcvmkv6VCmKhLEWCLdMAFxPAfCgG7ZaktsUN6Oyoqq3o2luetI5taYO
-	 6Jvde1SjTSVUXlk0T64yB/cWB7+H3BxGHh9C96d3fiZaZTFCpKPk0wuOFBtv+Df5sI/xf
-	 LI5Nt1SwQV+ys7rgCKsM5lcTKiGtHRZY68hzx+776adcoag/hPg1f5mv7gXxfKQH10w1p
-	 5wZ3c/ZVNTEsvKydgT3SmSwl1fdMdXFzVAwsS9iDDtiB6MSzWiR1PKJ8sdaw1rwmhjQFY
-	 GcYYG/EE64cs1r1fLTPYBsHgQKmFgQ03SsbJfg4kTMISKq5TGJLCnMyIVb/AKaLGQlA==
+	t=1793655332;
+	b=xeM/cMDNSCJh7X2Jsohnsc2RvyfuIrM1dzTwgBYJCZRZ6sLVvXTnOzycttHeMXvCqhfu
+	 CtFS7nxvUYudjddVQ9/VWUNcusr/WxISc7jo5lhZvSYUClJgZ71THKf49MfXyuhTsLmoe
+	 YcPJnvcrMbbxYWiRa48BbUCK8aVruFiMMpS0XGNhoiE1HZqP5jpLV3CseY7zy/DV08KDx
+	 yjcOPO2aHiz8dQkGl9bL1W+GKeCBbH+3L6ihKTWgRxVVBacdIZxhN0cLQ+XnSqg92xnrk
+	 S/K3Fi+KSCVKrmLfQfEy3dzW6kEUJ5FsoeYkMRINjqm3oH8u5mVMN9q18AO1O0bt9OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655332;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=5QwQx03h+wjrVvTZTSdn9Uhg/gvtzJw9vZpNUdm3/2s=;
-	b=bNzxH5FwdzMgOY+fvMpj+qYI3ZHn2j1+GCnaptzvqO3ej7evq2jq6TpbulsT44bpOMQI
-	 PwBw0Yjm/jXSKf/00u+tGzU59V+UqhUF6s3cmZO9EdZzgvOwJ5C38KS2QycOTMKZpLuya
-	 L5cyAnmwDuHTQSyQNgIvQyjtmsNopg+6nLZKS9Iyi7naA/YQ3DLFlVliXZm1oBc/pvxJO
-	 im+GUBoPmw9wUILrLmupsywkUlzE4gj2764e5eVeXJp3S1ehJIRuE69vN16Occ8Og0jgw
-	 Ebxwzxlg4qtTfpsolIy/FyZVaVSxpDpmogGb+5lQWqR1pFzLUaVMrv83kMtsWRL4ocA==
+	bh=hs56IzoaaG8jKNJFB05xwzwPj+v7gMiUwnsjs2MwYv8=;
+	b=WfYtHMhHH7VpcR5W/rhIRKEZ1iJAHjKxtnThQaQWH7gBq47YjqfLQsWybgcbCqE/V4U5
+	 XPetBzYltW/oTS00da+o+ehJ03z1g8i+mXgmon31DRADzKSmwKoKePv3jePEwKqpHBGxj
+	 lHIZvLtB9oLp0dFkvmVHJfDpiI+lBtVEtQlqA28b5fV11p0FtRWzqX7d0O3hQ1NNXhC7C
+	 zT16sSPg9oyEw6N9JjrVerB9xz8aIiBntHYRd2l5fOzJ82gpiuyEYL2cJukSpuo9HhJ0T
+	 OLkm+xHiIzlM9FHXjAOPoKVTxCan7Gvc7EUkTJSviemBu+EzfG0NdWLVNWKlK1c65TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=acm.org;
 	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=zK0nfpaE;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=lmg7UN04;
 	arc=none smtp.remote-ip=199.89.1.14
 Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50909606D81D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:35:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50909606D81D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D86BB6082BD6
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:35:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D86BB6082BD6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=zK0nfpaE
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=lmg7UN04
 Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJQ3c0Zxbz1XLksb;
-	Mon,  2 Nov 2026 21:35:24 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJQ3l31YQz1XLksM;
+	Mon,  2 Nov 2026 21:35:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
 	content-transfer-encoding:mime-version:references:in-reply-to
 	:x-mailer:message-id:date:date:subject:subject:from:from
-	:received:received; s=mr01; t=1793655321; x=1796247322; bh=5QwQx
-	03h+wjrVvTZTSdn9Uhg/gvtzJw9vZpNUdm3/2s=; b=zK0nfpaEj84RO3KvSC4US
-	6jurkN0iiIPdVW5ob8ffkpASsYgjFqJmevpVCJOriPS+xODmRAjOBkNhpOSwaM+s
-	6a0BQQGE02gN6EM5vXcMWk/W1oCpZoWBEwErJ/qavtK8lCdGz06GfT44vnBoUT6j
-	BSp20BMMFFYVhymUvJ3MR9Y/X8+DSnLwjRlpQP1AAtikI3Ec2Yc8l75bqSga+zjo
-	jdwdI+gJKrIBXKeNV04JIgU3c/onOrXh/J6Jk4h8210eF1GI0BaYp+DtsQRUxZCH
-	UEq515BZEEcr6EORg20ykZk3iTLeCHJwpYSi0Y0XsR0FMAEsNhpbi0kQ+RtLmlw9
+	:received:received; s=mr01; t=1793655324; x=1796247325; bh=hs56I
+	zoaaG8jKNJFB05xwzwPj+v7gMiUwnsjs2MwYv8=; b=lmg7UN04Gz+n3VvYKEHaQ
+	F7bLtcAhGJg+8LQhTAmC6pSs31L02zyWjHsHTQpGUtl10KisDI+IUIXhw+K3d9eP
+	KShrNmWsTXNpX+r3G14KcbwQiZ50GTvGCjI1u/hArTu8w+2THgMe1Ajp9HwFM9Lw
+	hfwH/TqXxAz8mSJcGv2G7thmo1amRiSWeO94YfEpPGp/O4aCT+fgfieY/hNqaYvl
+	JxMEC4ZNdfO9dPiYNrhclxY8vEP2r8NJggdMDUtAY8hoZ5KM22P6/9mp448sidhd
+	NUS20HW3K7vcS4wqsEZJS4nnxQo6trf3up8yaD3Z3vgGQOK5FERIHdfFp6VxrJII
 	Q==
 X-Virus-Scanned: by MailRoute
 Received: from 011.lax.mailroute.net ([127.0.0.1])
  by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id Tdl9OVzV7Xfx; Mon,  2 Nov 2026 21:35:21 +0000 (UTC)
+ id AK_Haj5rvqbN; Mon,  2 Nov 2026 21:35:24 +0000 (UTC)
 Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJQ3V6919z1XLkrq;
-	Mon,  2 Nov 2026 21:35:18 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJQ3b6MvPz1XLksZ;
+	Mon,  2 Nov 2026 21:35:23 +0000 (UTC)
 From: Bart Van Assche <bvanassche@acm.org>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -68,12 +68,11 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	Marco Elver <elver@google.com>,
 	"Paul E . McKenney" <paulmck@kernel.org>,
 	Bart Van Assche <bvanassche@acm.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Nathan Chancellor <nathan@kernel.org>
-Subject: [PATCH 03/14] tracing: Disable branch profiling for COMPILE_TEST builds
-Date: Mon,  2 Nov 2026 13:34:33 -0800
-Message-ID: <10b4ee6816847c61b4de8ba13c6b784577df9aba.1793654853.git.bvanassche@acm.org>
+Subject: [PATCH 08/14] lockdep: Introduce lockdep_assume_ctx_held()
+Date: Mon,  2 Nov 2026 13:34:38 -0800
+Message-ID: <71bc2361d8676f1eea3c945cbf21a0c2542d5b92.1793654853.git.bvanassche@acm.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <cover.1793654853.git.bvanassche@acm.org>
 References: <cover.1793654853.git.bvanassche@acm.org>
@@ -88,36 +87,170 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-WARN_CONTEXT_ANALYSIS depends on !TRACE_BRANCH_PROFILING because branch
-profiling instruments every if-condition and obscures control flow from
-Clang's thread-safety analyzer. Make PROFILE_ANNOTATED_BRANCHES and
-PROFILE_ALL_BRANCHES depend on !COMPILE_TEST so that allmodconfig and
-allyesconfig builds do not enable TRACE_BRANCH_PROFILING and instead
-enable WARN_CONTEXT_ANALYSIS_ALL.
+Introduce lockdep_assume_ctx_held() and lockdep_assume_shared_ctx_held()
+for code that needs to inform Clang's context analysis that a lock is
+held in code paths where lock ownership cannot be proven at compile
+time, e.g. because the lock is accessed through a pointer alias that
+the analysis cannot resolve. These macros call respectively
+__assume_ctx_lock() and __assume_shared_ctx_lock() and also verify at
+runtime with lockdep that the lock is held. Store the macro argument in
+a local variable with a unique name such that it is evaluated only once
+and such that nested use of these macros does not cause shadowing. Rely
+on Clang's context analysis resolving that local variable to the
+expression it has been initialized with. Document both macros with
+kernel-doc comments, including that __assume_ctx_lock() and
+__assume_shared_ctx_lock() must be used for context locks without
+lockdep support, e.g. bit spinlocks and the RCU context tokens.
 
+Convert the lockdep_assert_held() tests in lib/test_context-analysis.c
+into lockdep_assume_ctx_held() tests and add tests for
+lockdep_assume_shared_ctx_held().
+
+This patch prepares for removing the context assumptions from
+lockdep_assert_held*().
+
+Cc: Marco Elver <elver@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
 Signed-off-by: Bart Van Assche <bvanassche@acm.org>
 ---
- kernel/trace/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/linux/lockdep.h     | 59 +++++++++++++++++++++++++++++++++++++
+ lib/test_context-analysis.c | 16 ++++++++--
+ 2 files changed, 73 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
-index 35d043b19332..afbf17099a68 100644
---- a/kernel/trace/Kconfig
-+++ b/kernel/trace/Kconfig
-@@ -687,6 +687,7 @@ config BRANCH_PROFILE_NONE
+diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
+index a6451ecbbe9a..f774b22a35c5 100644
+--- a/include/linux/lockdep.h
++++ b/include/linux/lockdep.h
+@@ -412,6 +412,65 @@ extern int lockdep_is_held(const void *);
 =20
- config PROFILE_ANNOTATED_BRANCHES
- 	bool "Trace likely/unlikely profiler"
-+	depends on !COMPILE_TEST
- 	select TRACE_BRANCH_PROFILING
- 	help
- 	  This tracer profiles all likely and unlikely macros
-@@ -698,7 +699,7 @@ config PROFILE_ANNOTATED_BRANCHES
- 	  on if you need to profile the system's use of these macros.
+ #endif /* !LOCKDEP */
 =20
- config PROFILE_ALL_BRANCHES
--	bool "Profile all if conditionals" if !FORTIFY_SOURCE
-+	bool "Profile all if conditionals" if !FORTIFY_SOURCE && !COMPILE_TEST
- 	select TRACE_BRANCH_PROFILING
- 	help
- 	  This tracer profiles all branch conditions. Every if ()
++#define _lockdep_assume_ctx_held(var, uniq)				\
++	do {								\
++		__auto_type uniq =3D (var);				\
++									\
++		__assume_ctx_lock(uniq);				\
++		lockdep_assert_held(uniq);				\
++	} while (0)
++
++/**
++ * lockdep_assume_ctx_held() - assume and verify that a context lock is =
+held
++ * @var: context lock instance pointer
++ *
++ * Instruct the compiler's context analysis to assume that @var is held
++ * exclusively from this point on and verify at runtime with
++ * lockdep_assert_held() that @var is held. Use this macro in code paths
++ * where lock ownership cannot be proven at compile time, e.g. because t=
+he
++ * lock is accessed through an alias the analysis cannot resolve or beca=
+use
++ * a function does not always require the lock, making __must_hold()
++ * inappropriate. @var is evaluated only once.
++ *
++ * @var must point at a lock object that is tracked by lockdep, i.e. tha=
+t
++ * has a dep_map member. For context locks that are not tracked by lockd=
+ep,
++ * e.g. bit spinlocks and the RCU context tokens, use
++ * __assume_ctx_lock() instead.
++ */
++#define lockdep_assume_ctx_held(var)					\
++	_lockdep_assume_ctx_held(var, __UNIQUE_ID(ctx_lock))
++
++#define _lockdep_assume_shared_ctx_held(var, uniq)			\
++	do {								\
++		__auto_type uniq =3D (var);				\
++									\
++		__assume_shared_ctx_lock(uniq);				\
++		lockdep_assert_held(uniq);				\
++	} while (0)
++
++/**
++ * lockdep_assume_shared_ctx_held() - assume and verify shared lock owne=
+rship
++ * @var: context lock instance pointer
++ *
++ * Instruct the compiler's context analysis to assume that @var is held =
+with
++ * shared access from this point on and verify at runtime with
++ * lockdep_assert_held() that @var is held. Use this macro for reader-wr=
+iter
++ * locks, e.g. rwlock_t and struct rw_semaphore, in code paths where sha=
+red
++ * lock ownership cannot be proven at compile time. @var is evaluated on=
+ly
++ * once.
++ *
++ * Since lockdep_assert_held() is used, no lockdep warning is reported i=
+f
++ * @var is held for writing instead of for reading. Holding a lock
++ * exclusively implies that shared access is allowed. Use
++ * lockdep_assume_ctx_held() if exclusive access is required.
++ *
++ * @var must point at a lock object that is tracked by lockdep, i.e. tha=
+t
++ * has a dep_map member. For context locks that are not tracked by lockd=
+ep,
++ * e.g. the RCU context tokens, use __assume_shared_ctx_lock() instead.
++ */
++#define lockdep_assume_shared_ctx_held(var)				\
++	_lockdep_assume_shared_ctx_held(var, __UNIQUE_ID(ctx_lock))
++
+ #ifdef CONFIG_PROVE_LOCKING
+ void lockdep_set_lock_cmp_fn(struct lockdep_map *, lock_cmp_fn, lock_pri=
+nt_fn);
+=20
+diff --git a/lib/test_context-analysis.c b/lib/test_context-analysis.c
+index 316f4dfcda65..022891999c9c 100644
+--- a/lib/test_context-analysis.c
++++ b/lib/test_context-analysis.c
+@@ -68,7 +68,7 @@ static void __used test_common_helpers(void)
+ 	}											\
+ 	static void __used test_##class##_assert(struct test_##class##_data *d)=
+			\
+ 	{											\
+-		lockdep_assert_held(&d->lock);							\
++		lockdep_assume_ctx_held(&d->lock);						\
+ 		op(d->counter);									\
+ 	}											\
+ 	static void __used test_##class##_guard(struct test_##class##_data *d)	=
+		\
+@@ -156,6 +156,12 @@ TEST_SPINLOCK_COMMON(read_lock,
+ 		     read_trylock,
+ 		     TEST_OP_RO);
+=20
++static void __used test_read_lock_assert_shared(struct test_read_lock_da=
+ta *d)
++{
++	lockdep_assume_shared_ctx_held(&d->lock);
++	TEST_OP_RO(d->counter);
++}
++
+ struct test_mutex_data {
+ 	struct mutex mtx;
+ 	int counter __guarded_by(&mtx);
+@@ -203,7 +209,7 @@ static void __used test_mutex_trylock(struct test_mut=
+ex_data *d, atomic_t *a)
+=20
+ static void __used test_mutex_assert(struct test_mutex_data *d)
+ {
+-	lockdep_assert_held(&d->mtx);
++	lockdep_assume_ctx_held(&d->mtx);
+ 	d->counter++;
+ }
+=20
+@@ -339,6 +345,12 @@ static void __used test_rwsem_assert(struct test_rws=
+em_data *d)
+ 	d->counter++;
+ }
+=20
++static void __used test_rwsem_assert_shared(struct test_rwsem_data *d)
++{
++	lockdep_assume_shared_ctx_held(&d->sem);
++	(void)d->counter;
++}
++
+ static void __used test_rwsem_guard(struct test_rwsem_data *d)
+ {
+ 	{ guard(rwsem_read)(&d->sem); (void)d->counter; }
