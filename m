@@ -1,70 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616417;
-	b=Yq+2jL5VXgOyTYCv0prgBwYWIUqR04XRzrWDOtua23R9YlT0c/5Z0uITNyM31HFt+Xsp
-	 pY3qcf9rlmCcyJgWVI1+na8XAAfAB8a68gOCQBe/KztGHPx2VMiPPwDYhiTxwQPtmMIVI
-	 k7EKGZ0vEVFbsr7/YJszaR1JFkzFh65ed5lr1iruo7ac+AQXjjhMfo57f3S34h7GF4EcS
-	 mrfjiCJl9+0fKsHmOGwtMZauj8oA0Fgh2sDyhsYxkkkgh6ayWz8jUB0w1dRyFRy9bwEfP
-	 F2rCPYsEijaAgOi0c5jl3+zeTyOjJNZKHbAzK4hR9y7oyNAMNudRnNYJua7fJ7dCKRg==
+	t=1793616450;
+	b=qMxphBAUNZhVcyDIy2d48L8Y3ZKaPRFu+MhGlsWjPhivJ10J6IXGD1jhUKFZ2yfOM8oJ
+	 0P67u1rXTf96VvNL/EaOE+JGLd+mVgASqpaE8/OXYX1oIuisSxFEduKNf/6mm2zMKbJ7c
+	 jaFlYtusIR/dkgihUzyQOMEvs6hRME+3SmOMs11Om2ZkQbvxQ0qlXNryzx4QKTvvHE/LD
+	 +tE3CteRv3kDI1AcmLDRHIuQg0tS+PjWwyf6k7AQ3aGlQcx4j6aUUJQrXyC8GZHICLdGS
+	 o7VbyVno7SHOD331nMENPr+pSFKFlLwZWFJS3X22NBOT4b7z3xpR909KQ4O0IkwPeWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616417;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QNbxn5h8QNjJDlO/0mupScqA4MSrl0V3heOJR9Pyfuo=;
-	b=PmyLzPAmntQe8EykoKEW1cuqnQWpX1huFDeIV9sMCpbsnb1YN1sOg24cIuPQmsJ5nxmT
-	 JO6P6iaz345vNMqz/FrxQLTJj6PDGl3+hcx3vjN4mx+6RrjimM+P/XgTmenHIzMcsRrrv
-	 tM9b+TUJHvFJm7SFb847/L1lYYznPVymTDiJ4Rmy56PoiJ21dvpnizNGlbAoGhImk1OR6
-	 RRi1d60iJhRKqw56bU8dnvJqYNx9tvW4VmrDYaCCEXOqnhnQO7zlvUktXD5Ls4OVwzvcQ
-	 8NUX7LjcbgrHduIR972LQel0WokVckmW3nvhn/ZT41HUZSQDROUifoY7i9RwN/aJ98w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616450;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QOTynnEdZ2Qvk7iiRKTKD7BwFl1KZcI80W8gzwB1ql8=;
+	b=fC/UXZPWuHAPek8W3/v+7jjxfJqoVlZPU/GWv1FnGfYNHEzL+5YS9I7frpdTxFMc4an3
+	 TWermvolnNuF1m1K4QzSMnyYXHukpwHjfVA+X3LR9jacoPupV/DAW/SajteJ8V4Sq6pfN
+	 yvmDCcrP+K5NQcNtzcyZvCVpss3ycVP5a7vnCRRNmvOHP6B4giJ3GPmpXGhifKkNTmHx4
+	 k3QrjcYJ3rPpLZBCXml36TLd3dDlmVXafwgI90drSLpFww+ioQbKUKag7rNA3OD6uNGAo
+	 4kUTdvbwDyQ26Xv5/sUXCqjjp3folSr9+NNMW2qmW6W7JJm7qjIUQaJVPl/5D567MAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0478606A329;
-	Mon,  2 Nov 2026 10:46:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0478606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=tYsq9oqLM+7lQixDkQIKNZ9ALsqlBAjVve+XIkTCo+JGrX3FUzK6n+179pwhUDdGT0oMGSFz4bLc4
-	 bovP/6OxE8/bxIetjBHmPVji0o5ySYe9wzVHd2lON7qoLwd+CJlgzJ5vkpOtP2snhJyj7sLFjOnDBD
-	 zz2MW7hnTuYO2W5I=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ae86a0e758-8aa82;
-	Mon, 02 Nov 2026 18:46:45 +0800 (CST)
-X-RM-TRANSID:2ee76ae86a0e758-8aa82
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6ae86a14bfd-7b547;
-	Mon, 02 Nov 2026 18:46:45 +0800 (CST)
-X-RM-TRANSID:2eea6ae86a14bfd-7b547
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH] drm/exynos: scaler: Fix runtime PM reference leak in scaler_commit
-Date: Mon,  2 Nov 2026 18:46:42 +0800
-Message-ID: <20261102104642.925-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lYetf1cE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E998606A326;
+	Mon,  2 Nov 2026 10:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lYetf1cE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2B831F000C1;
+	Mon,  2 Nov 2026 10:47:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793616449;
+	bh=QOTynnEdZ2Qvk7iiRKTKD7BwFl1KZcI80W8gzwB1ql8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lYetf1cEHmfG6nwRTCPYf2lnJ/RBinsmH4Y8o+y3t2jed8bATCjnV5p1XlkYtEj+2
+	 7g1X3bAe6qZ3dE41ijNlsu33FdVd4hIoICeTZ8h5QZC+dueojJZDOnUKbIvMstfzLO
+	 X6tu5UJzBtxA/Q+Tiizx2mculD3KLj5zNH211J/xGJo2YxzOVXHkt77pl+opbmGzPs
+	 KW6Xylxop8/F8ZlljEeGr70fHjfjiwuqd7p4OkfGdGSw5ieDFk1NG4tbOB78jGPfKJ
+	 yk6/WpmTO14F4J1eZ0bmGLP1cJPKfVe1JQbex1dtLOrib0Q8Lv4jA1qHSyTuzL6sc3
+	 P4gpH33oKikPw==
+Date: Mon, 2 Nov 2026 11:47:25 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vidhu Sarwal <vidhu.linux@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v2 2/3] dt-bindings: iio: proximity: Add Benewake TF-Luna
+Message-ID: <20261102-ludicrous-eminent-beluga-b04e31@quoll>
+References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+ <20261031-tf-luna-v2-2-ce403579bb8a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,43 +61,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261031-tf-luna-v2-2-ce403579bb8a@gmail.com>
 
-scaler_commit() calls pm_runtime_resume_and_get(), but when the
-scaler_reset() soft reset does not complete it returns -EIO directly
-without dropping the reference.  On the success path the reference is
-only dropped from the frame-end interrupt handler, and scaler->task
-is not yet assigned on the error path, so the interrupt handler will
-not drop it either.
+On Sat, Oct 31, 2026 at 12:23:29AM +0530, Vidhu Sarwal wrote:
+> Add binding for the Benewake TF-Luna, a single point ToF
+> LiDAR distance sensor with a range of 0.2 m to 8 m.
+> 
+> The sensor talks either UART or I2C, selected by the level of pin 5 at
+> power-up. This binding covers both interfaces. Pin 6 is a data ready
+> output and is described as an interrupt.
+> 
+> Signed-off-by: Vidhu Sarwal <vidhu.linux@gmail.com>
+> ---
 
-Each failed scaler commit therefore leaks one runtime PM reference and
-the scaler can never runtime suspend afterwards.
+What is the base of it? I tried two linux-next and 7 different mainline
+tags (v6.18 and newer - up to current mainline).
 
-This restores the pm_runtime_put() call that was already present in
-the error path before the conversion to
-pm_runtime_resume_and_get().
+All fail.
 
-Fixes: 445d3bed75de ("drm/exynos: use pm_runtime_resume_and_get()")
-Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+b4 diff '20261031-tf-luna-v2-2-ce403579bb8a@gmail.com'
+Using cached copy of the lookup
 ---
- drivers/gpu/drm/exynos/exynos_drm_scaler.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Analyzing 19 messages in the thread
+Preparing fake-am for v1: dt-bindings: vendor-prefixes: Add Benewake
+ERROR: Could not fake-am version v1
+---
+Could not create fake-am range for lower series v1
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_scaler.c b/drivers/gpu/drm/exynos/exynos_drm_scaler.c
-index c8a1b6b0a..dc8189685 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_scaler.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_scaler.c
-@@ -372,8 +372,10 @@ static int scaler_commit(struct exynos_drm_ipp *ipp,
- 	if (ret < 0)
- 		return ret;
- 
--	if (scaler_reset(scaler))
-+	if (scaler_reset(scaler)) {
-+		pm_runtime_put(scaler->dev);
- 		return -EIO;
-+	}
- 
- 	scaler->task = task;
- 
-
+Best regards,
+Krzysztof
 
