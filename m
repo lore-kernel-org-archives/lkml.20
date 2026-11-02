@@ -1,83 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622770;
-	b=oNZmN+EYys2Be9QSrg3PcegfIg6YbcgGoUfpuVfTu7ffneLq8rsEweos1nASNmYqZjgI
-	 XwKVruuo8vDv80vSrFOewGRVHXx8gMdXFkbQlngpXTC1IZpTp5BQz+00DC46nPxErkjlc
-	 GMlCvZS0W05XwFf4rPwmA0ZjyQCGLhQsDUlDM/6bgXBXY4r8xaq3+hiIA4Fmog1TQwQV2
-	 kBQZERAyqd5+GV/ou0zZPkb5dp3MO6LUCR/hdJawUs4Uza6TYw2H2yvuQX4QS8ogQ4pL5
-	 /QIROwF2+Yz339WUSSo6EjVLuPfVTIT4mryYRX2Uh/i/AgYH8Ha/7B+UfoiWUMEoI8g==
+	t=1793622775;
+	b=yQEQfx+boK/z+lAnjSHTZL1vUuqsQIBsLWxpfmfZnOwV1ixy0fXc57QdwIjhZdA73xGo
+	 EaT+BxerrRs+kYu9yj1cX62QfUDfsgwFUPRktxmsH5mOrqMZeHw7ttEodykXxj6rSpFON
+	 xmJnTqjN4Z636BuAz3IyqJ7TSAVrRDgpX1h/76yRSR4CfF45NAIZ1zs3Ac5iprktc3nVI
+	 LDax9BUa3B7P9pz/B9ed4PO+yCPmsLxE5WmPBZZD4haAe8KWuYYf9K4EmrTqy4ETun3Rj
+	 PVrq2DdmsPMWBar1N2UsOhWw0v8KZN7Y16EbBVMC0W7uwqx0OuSQNgyNvEvLNhch+5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622775;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=Fmx+M4AB2hm825WG5Tk2E+M0SAzq97vo8VARk3oiOhs=;
-	b=wsztxOz3xzLkXL4B9wi3Kh/UQXuAGqwboz1L5ydTCRoJw+dX1zaZ8F9OurXLExKlEFPc
-	 Sn6PMJibtrBULUfEaFSZVyYQnELzPYDW7apAy9/U2FApPfufO1vXQTvS/A0m9ztjf4qYS
-	 /+760TQELSwbrcnb0Mp0UJkUqlgnBCz0XeL2E+zU+xoQKVaaRC95hqkQ6ceOLOSsw8Bmf
-	 h4+a5xc4Gp9CxeJcl7d3meoIKwAjLP7TzSAbVFZJVD/2PfjwRyX5gZ5jgK8v2jJ3ygIgB
-	 ACZZYik86J6cA9Xncl8QjkjL/h5BbRZR/zP960ymNsfLy4i/C/hbIhXf6KgMqRjbWYQ==
+	bh=MQ19bcwaq603ARreLcaNlnVPX00FfirjVvY5HRr13fo=;
+	b=ydi4pj/vAYEJwmWRCtQwxJZxDTfjXi3RNRW4zoxd1ARX2wfuJZR9/n0h56Ss5GpgaqYP
+	 h+FKcP6jB1waJJRUKIVBcAtenQ/3KcharDEfazNNueZhmYJpJV3x8vrfJTcvh9VZPlwAm
+	 A0lQiC8dEdML/fzLh+ZdOwbRTErAEh6HfrBvprjLYVf1E+5hE3Ib0a5UPS40sw09Wcq/P
+	 i7XRKHuaAtSPAMMtEr89abKCeQkAJjVj26gg1DHuGuMJNEZxrcDOuVNHEv68mHUqFR+0j
+	 phgBJ9uGSeTBw7oBigl6Kme9MDIZ0+jmzvhJr2vvb5hF8+XjR3NT6Tzwv1n4XfY80BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=linux.com;
 	spf=pass smtp.mailfrom=korea.io;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98095606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:32:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98095606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2F7606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:32:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE2F7606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.io
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ea94541adbso12295425ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:32:49 -0800 (PST)
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e95bd1c14cso26834575ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:32:54 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793622769; x=1794227569;
+        d=1e100.net; s=20260707; t=1793622774; x=1794227574;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Fmx+M4AB2hm825WG5Tk2E+M0SAzq97vo8VARk3oiOhs=;
-        b=FD1OPLT11DpGbX1r33o8L/gB/QaNxljimqw+aLwjmLvAVomtMBiU7hHqLpiIGXBJpk
-         m1wFY+6jIpE2Sng4zwYbkMzzDxB0RLsDz2Ef0Z1eo8MVCl58BAWEfrFQZUYoUos6OOsL
-         DT5B6Cm0jL3DjmJEkQaD938j+9S1edg8lD3GXSwQAcAFfXAcJzB0pMaKX/FhJ84apn/X
-         XVM+flExSj3h9/MvFJ4CEWk0CZmVVOmFUe2h6yK/YYGtd0pCWcsHNKO2PIZNVcCpGAMO
-         s1ntjtqbDYJfMV9ZxVdThkARYqN/Fl9XMLQ/BXq8NHK9r6i/35k3CwLslPq/2NyMqoUp
-         8GPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBziSHTImp3m/EVbb9JWBvNf5/I/XS2vUcp35tSM60l5EeenKLDYJ/O/AZTJsyr3yUhOOTRdQ1mPswhAujg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Pc4cf5UfPeoVQWHJXoNDMoH2hBFyxNHh+MVG/gvrnm8tlzzQp
-	VrLPJF+eO7agBx2B2eevblC1klW6NJCp7xmVn+pMRc+vQZgT3XYX+fGp+D2D+ZlnVyNp
-X-Gm-Gg: AYBFou3Lc4eEG06g8+RzJa27biYRj53K0kx71iSLsT027rDH9kyTaz1/ZWhMbj7tKpt
-	hON9ODL8ZDnSpWEQx6sQGcnanJ2l69x/Q4TyUomTrwr2FTdUt68EiUWsMvkzm1QTw7d0gCUQKOE
-	Gt7R70gDB52Kzb5UfYbzTLHTZ+TPCgC4lS7qRUjqSUoPyppDS3B5/dnK7XABKoijIF053chEB4f
-	xRQytFTSX+SW6M5UYO4PCmlMKXidLAipZEQyfvXwtn1lzcjxTwRcG2RW1xqApMZBaYQbOkXMkcv
-	iNmqKB/rwanBhI+k/uB1U5YomUKSqu5H7TjDScCV1VpvgSAgk2zZt5ov9o5M+R0/bqVUe4gVTTg
-	JXpIFXRvnoRyOLvTCC25k0OmpYpMSuHbsi9Qom2rtsDZFqXpX3kx7CTYvc4mwh85KfCT3Lfc8Mk
-	nKqhc9MvizLA+nDc3dtx/nKbtydrfr5werkcgn4zPGJV+VMYZ0ZYoVTKQkPECiqkNa6m3LrIuCC
-	KpJGqzIoTa2e3AIN+AcdjzkS9K4YfhxHFQJd+glROWik+7ZcABN5XZUlkPvWsZ3BbBu0z0OKL0k
-	v3EfbXvt2qChcVrjCVnHVEbu5WIEpFkRDm2PbAfppPr/YKFb38wWyuWZv0aOo/fTI7PqsV2Cwvf
-	AN0uQwVsjbaG8C7mBwYBqIsOdDmu3+bFZ4izHNoofL7p+QEn9/Q0evLx3iInz
-X-Received: by 2002:a17:903:4683:b0:2dd:b837:48f7 with SMTP id d9443c01a7336-2eb3649f118mr95564035ad.25.1793622768735;
-        Mon, 02 Nov 2026 04:32:48 -0800 (PST)
+        bh=MQ19bcwaq603ARreLcaNlnVPX00FfirjVvY5HRr13fo=;
+        b=rkzJSkgFSeVzYa6c02jLWVnk2sHJGaRiIJhCXfkdzCF2bnHpLnhI7Al0U7xB1kUBIz
+         c1lh5MtbRYe68EbVpUKtPRKiDRvLLhHvHJEPAaXNq/LCXOI1+nHwY2eHWUJI/yUYVMZy
+         zuy5xQZwTXmHoAmOzenfAiObfzF2GexFu0zI48O1xLPs9A9c4HfVzSODeHzYLUNxWpgw
+         hm7qXHqaGumGS7KW5KHLxGt2OmtXuqsWlxWMqBp8hUykExAMNR7QhB6lSaA2mUESSOuj
+         k+3V+NalfRuwPKIpXSO71WN23XhG6a39qV2su4tySTWXkaRibWz0mvI3xOk4LkcWVGGG
+         6TSw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXaxisNU3uF9hI4XCMOoWyEMiLOwJGmEVL5DErjYzWGP5MODKMFs8bO5De8krtndUh6e3b6iyA2PcYD1M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/0ijxTI52U/It8brV+1kOoPNhd5fss6nQgh6sQEAvDg6Bm1lJs
+	bZH3Ji2gFLiRmapDqQsV0dOJspuCKkJ+eTQjNVLYrYCClKYRX5dylON8A19Dh9cqsvfl
+X-Gm-Gg: AYBFou1lPEI4uxvgMSXmG5/Gk5nSS8a8y2cvRrrSoN1LgP15GXr7S1MYcnF9OYuUZMW
+	oFTiUrgs7AWUJVs3ww7vKhSXpJ1D5AA00RoFbrgKaLxgJvMqXT+b8u8h2BrC+REP7wjbTfIeYmM
+	mM1WHf0B/xa8Hwc8IyaFlPVXWRhFBFAozKsqo+QMUTkigkL8ed1eG4ye96qDRnbKTJtrI5jLSuV
+	MOWSdkKfJnSzE9Mi/g/g14M2FGsQujcxls+N4zYjHP0q4b9KM+MY16cUWdyR+h/5qTo+lc2yz+5
+	eI4yLUSe3GaU0OARkuHqMAkFFTmtpsT2+P2CETBClOr82D41W30lvHPJ+koHpZxi8gLsIqCTPqK
+	eKDxZa0h2w6hf6M0qoOGWOEdGZZpQC+c5nQ1n02u2wtjAXz1TdY8pjOXEaLIc8PB2GAsyfEHRfA
+	gP5jyl1xRwsjWgSC1IFL7KlSJbFJGB/VpbUBAk7Qsbnu/qfTfINkbTTc9WmzJvHNHbw/NWBzuuD
+	GaDKAXbPVBLLkn4bQ6AtHIizEEs0N+kU9QxzvBbYt3EwZsKGJx/+AfixLBLMiccml/VgZOZTKQu
+	7iJcyODyAuz8o+nZlMqgJrX6ws89mMTfvJ2CyNmxaIwFv8ptcrwSFBy66rZjHlzwwZzfROsYlLR
+	Wcoq9wrKlkBrd9RTimOoGxcn9jNKdMYRs8VO4p2VOK70pgQV5ZRIyDsivfxWq
+X-Received: by 2002:a17:902:e890:b0:2e5:98d7:821e with SMTP id d9443c01a7336-2eb364026a5mr93260695ad.7.1793622773885;
+        Mon, 02 Nov 2026 04:32:53 -0800 (PST)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([118.217.70.161])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392492fbsm27101845ad.32.2026.11.02.04.32.45
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392492fbsm27101845ad.32.2026.11.02.04.32.51
         (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 02 Nov 2026 04:32:48 -0800 (PST)
+        Mon, 02 Nov 2026 04:32:53 -0800 (PST)
 From: Jongwon Lee <ai@linux.com>
-To: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
+To: Richard Cheng <icheng@nvidia.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
  Dave Jiang <dave.jiang@intel.com>,
  Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
-Cc: Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- Richard Cheng <icheng@nvidia.com>, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] cxl/edac: Mask DPA flags in the event record cache key
-Date: Mon, 02 Nov 2026 21:32:35 +0900
-Message-ID: <20261102123233.74598-3-ai@linux.com>
-In-Reply-To: <20261102123233.74598-1-ai@linux.com>
-References: <20261102123233.74598-1-ai@linux.com>
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
+ Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] cxl/edac: Read cached DRAM event records under the
+ xarray lock
+Date: Mon, 02 Nov 2026 21:32:38 +0900
+Message-ID: <20261102123233.74598-r1-ai@linux.com>
+In-Reply-To: <aug-xbNiSauAAjjx@MWDK4CY14F>
+References: <20261101013418.87326-1-ai@linux.com>
+ <20261101013418.87326-2-ai@linux.com> <aug-xbNiSauAAjjx@MWDK4CY14F>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -90,110 +92,81 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-The low bits of the DPA in a General Media or DRAM event record are
-flags: bit 0 is VOLATILE and bit 1 is NOT_REPAIRABLE. The trace events
-report the DPA with CXL_DPA_MASK applied, but cxl_store_rec_gen_media()
-and cxl_store_rec_dram() use the raw value as the xarray key.
+Hi Richard,
 
-User space reads the DPA from the trace event and writes it to the
-mem_repair dpa attribute. If the record had any flag set, xa_load()
-misses it and the repair fails with -EINVAL. The raw key also lets a
-repair go through for a record the device marked NOT_REPAIRABLE, if the
-DPA is written with bit 1 set.
+Thanks for going through the whole series so carefully. v4 is out
+with all three of your comments addressed:
+https://lore.kernel.org/r/20261102123233.74598-1-ai@linux.com
 
-Key the records by the masked DPA and skip records marked
-NOT_REPAIRABLE. cxl_find_rec_gen_media() now reads the record, so do
-the lookup under the xarray lock as cxl_find_rec_dram() does, and
-return a bool since its only caller tests the result.
+On Mon, Nov 02, 2026 at 03:56:17PM +0800, Richard Cheng wrote:
+> Did the bug actually happened ? if so , can you provide the error log ?
 
-Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
-Signed-off-by: Jongwon Lee <ai@linux.com>
----
- drivers/cxl/core/edac.c | 43 ++++++++++++++++++++++++++---------------
- 1 file changed, 27 insertions(+), 16 deletions(-)
+Only with a test-only delay. Without it, v4 ran for 1800 s and the
+unpatched kernel for 900 s, with four repair loops and the host
+injecting events with no gap, and neither reported anything. With
+mdelay(20) added after xa_load() in cxl_find_rec_dram() and after the
+lookup in the sparing path, the unpatched kernel hit this after 120 s
+(trimmed):
 
-diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
-index c5c8dda20e..a5f198b561 100644
---- a/drivers/cxl/core/edac.c
-+++ b/drivers/cxl/core/edac.c
-@@ -918,24 +918,37 @@ struct cxl_mem_repair_attrbs {
- 	enum cxl_mem_repair_type repair_type;
- };
- 
--static struct cxl_event_gen_media *
--cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
--		       struct cxl_mem_repair_attrbs *attrbs)
-+/*
-+ * The low bits of the event record DPA are flags (VOLATILE, NOT_REPAIRABLE).
-+ * Records are looked up by the DPA user space writes back, which comes from
-+ * the trace event and has the flags masked off, so key them the same way.
-+ */
-+static inline unsigned long cxl_rec_key(const struct cxl_event_media_hdr *hdr)
-+{
-+	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_MASK;
-+}
-+
-+static inline bool cxl_rec_not_repairable(const struct cxl_event_media_hdr *hdr)
-+{
-+	return le64_to_cpu(hdr->phys_addr) & CXL_DPA_NOT_REPAIRABLE;
-+}
-+
-+static bool cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
-+				   struct cxl_mem_repair_attrbs *attrbs)
- {
- 	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
- 	struct cxl_event_gen_media *rec;
-+	bool found;
- 
--	if (!array_rec)
--		return NULL;
-+	if (!array_rec || attrbs->repair_type != CXL_PPR)
-+		return false;
- 
-+	xa_lock(&array_rec->rec_gen_media);
- 	rec = xa_load(&array_rec->rec_gen_media, attrbs->dpa);
--	if (!rec)
--		return NULL;
-+	found = rec && !cxl_rec_not_repairable(&rec->media_hdr);
-+	xa_unlock(&array_rec->rec_gen_media);
- 
--	if (attrbs->repair_type == CXL_PPR)
--		return rec;
--
--	return NULL;
-+	return found;
- }
- 
- /* Caller holds the xarray lock. The record may be freed once it is dropped. */
-@@ -949,7 +962,7 @@ __cxl_find_rec_dram(struct xarray *rec_xarray,
- 	lockdep_assert_held(&rec_xarray->xa_lock);
- 
- 	rec = xa_load(rec_xarray, attrbs->dpa);
--	if (!rec)
-+	if (!rec || cxl_rec_not_repairable(&rec->media_hdr))
- 		return NULL;
- 
- 	validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
-@@ -1130,8 +1143,7 @@ int cxl_store_rec_gen_media(struct cxl_memdev *cxlmd, union cxl_event *evt)
- 		return -ENOMEM;
- 
- 	old_rec = xa_store(&array_rec->rec_gen_media,
--			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
--			   GFP_KERNEL);
-+			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
- 	if (xa_is_err(old_rec)) {
- 		kfree(rec);
- 		return xa_err(old_rec);
-@@ -1160,8 +1172,7 @@ int cxl_store_rec_dram(struct cxl_memdev *cxlmd, union cxl_event *evt)
- 		return -ENOMEM;
- 
- 	old_rec = xa_store(&array_rec->rec_dram,
--			   le64_to_cpu(rec->media_hdr.phys_addr), rec,
--			   GFP_KERNEL);
-+			   cxl_rec_key(&rec->media_hdr), rec, GFP_KERNEL);
- 	if (xa_is_err(old_rec)) {
- 		kfree(rec);
- 		return xa_err(old_rec);
--- 
-2.55.0
+  BUG: KASAN: slab-use-after-free in cxl_do_mem_sparing+0xed9/0x1000
+  Read of size 2 at addr ff1100000670732b by task c1-repair.sh/153
+  Call Trace:
+   cxl_do_mem_sparing+0xed9/0x1000
+   repair_store+0x1d9/0x340
+   kernfs_fop_write_iter+0x337/0x510
+   vfs_write+0x4a2/0xfc0
+   ksys_write+0x111/0x250
+   do_syscall_64+0x10e/0x5e0
+  Allocated by task 68:
+   kmemdup_noprof+0x20/0x40
+   cxl_store_rec_dram+0xb0/0x360
+   cxl_event_trace_record+0x617/0xd40
+   __cxl_event_trace_record+0x14c/0x1d0
+   cxl_mem_get_records_log+0x27d/0x540
+   cxl_event_thread+0x14e/0x1f0
+  Freed by task 68:
+   kfree+0x1e3/0x5e0
+   cxl_store_rec_dram+0x154/0x360
+   cxl_event_trace_record+0x617/0xd40
+   __cxl_event_trace_record+0x14c/0x1d0
+   cxl_mem_get_records_log+0x27d/0x540
+   cxl_event_thread+0x14e/0x1f0
+  The buggy address is located 43 bytes inside of
+   freed 128-byte region [ff11000006707300, ff11000006707380)
 
+Offset 43 is media_hdr.validity_flags, the second read in the sparing
+path, and the record was freed by cxl_store_rec_dram() in the event
+thread. I can send the full log if it helps.
+
+So the window is small in practice. The race was reported by Sashiko
+from reading the code, and the delayed run confirms the free and the
+read can overlap.
+
+> Seems like the root cause is that the cxl's rwsem was only protecting CXL
+> topology and DPA, while leaving memory problem's entry ( those xarray entry )
+> without protection.
+
+Yes, that matches what I found.
+
+> Using xarray lock is fair for me, keeping the access short and the entry
+> already use xarray as bookkeeping, though I'm wonder if there're better
+> alternative for locking mechanism. we might want to discuss abit about that.
+
+The other options I looked at were kfree_rcu(), which needs a wrapper
+struct with an rcu_head around each cached record, and device_lock() in
+the repair path, which can deadlock against unbind. A refcount per
+record would also work, but it adds get/put to the event path for a
+lookup that copies one small struct. I'm happy to switch if you or the
+maintainers prefer one of these.
+
+> What if we copy the whole struct cxl_event_dram ? PPR can continue
+> passing NULL since it only needs matching result.
+
+Agreed, that keeps the signature stable if callers need more fields
+later. In v4 cxl_find_rec_dram() and cxl_mem_get_rec_dram() take a
+struct cxl_event_dram *out, the sparing path reads validity_flags from
+its own copy, and PPR passes NULL. The cover letter now describes
+patch 1 first, as you asked.
+
+Thanks,
+Jongwon
