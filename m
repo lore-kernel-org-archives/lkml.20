@@ -1,94 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793631553;
-	b=nq/ygGZfC31FXL94Y4PMtmcC+p1yYOt/1TTm/OKkTRRYKXjwVF4heNaw0Xyv++F++smk
-	 A1ySnZuLaLJgcx7O49bXL9gWd+orE9SMf5QFL95m0ay5iF1beI/gsqGJRu0I2+ERDC/zm
-	 16d3hipf5b/74SFGwfBBtg1hIhnXsjqlY8WluVBv4v3piB4oyu5bGzNTkKPSMSykZve/e
-	 4KP2YCwGQI2acFYyTROyFVoIvC/u4WzcPyf5XsAq0LWZguCFreq79VCInAVpt5b6jHpy4
-	 2p1su6SyTqJa+1TFzsG29Mck4Ynnelax+qNxRPx/5aRRvYrYpFQLgFGocVlzz7Ql0/A==
+	t=1793631565;
+	b=eSMQzJID5KacTzcySMQf3Vt6G85qNhFnUJi29zFmtIGix4sEQRIF5pcHL9HbmXGjNfl7
+	 kefm+qhDS5C8tyD4Jqm6QyTZO1pNdbxNkx9Q0Qy2G7IzStAJyUzuYV+7DzwvnGNrm/1vG
+	 czsopMQvHMQZPPWe8hahI7YFVzwYVxxy5WbisaEPTzrTw656p6IJypjZv6DDTHhLen9OL
+	 z+IfqNs4C9gzR8BmklYsSdFB6Rgshk6Ozx/HQjxtrp1JgeXhXV8/0H23kqLtlC0Lh3pvH
+	 0XQQAadl6CdNX0tgq9ydDxgOGd8Wa+4ZBI5QXWyE79/Jy0VouLaPg15FWTus3E4zqDA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631553;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LgalObg3lXdbiS3GhXx9FsCoK1ChKU9h1WvsZv5aRsY=;
-	b=hLu1tk4dYUx+ibT0gUXqcaJRiToQxkpN7z2TAPMd7ga45OLWutd2oz3OrJv5Jw6ds8ZC
-	 G6ylDZRd2AIlVsJqchsFUUu6X0D4I23SeTlIyyIywFXcTOfWWvU8Cv36+YmbFlLDj32/0
-	 icTgb9D62y3J34QHhu7NaMxJNWnV8NXyBNk0YIljYR8/iQhjj23PtWa34ynDoCP//TcgC
-	 /v1dEzHmoUnhnJfCH0XOu1c+Ol+19GJPBlkJ6eUH7+uCtqNARxufMMHqD4t82iR31BqO4
-	 DZ1x6iSvqsVKbka7KdEWU3NQlQdDVtBW7Ym9AvxjUNZk0whrlHWRSljVhYpZFForXpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631565;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1KEkRA6BdIYkRC6y2WkEk/iPN+rgR8737tOGIPi/KQg=;
+	b=MiCz2Jr4VDqIOAt6kqXWnvtAwJgktfPTOAJcw3zdpEWO/iJlxrOn7Z25mAnueb4cUSDQ
+	 P6DJMmppxuXrrMyusY9CKkr8WD0V67HKgkhYgg9JCeqEMhIUzW9qRVhvjOEyByn/wwzCC
+	 7eXelxvfWnFStiyGEz/CBFCsZPeWfTHFaXL5e2A6CSi2Clsox/EZkqPQZ+1fibX0ltvRF
+	 nlqVAxtij6KqPEvMibv/Rj3tgcpkkVJG+9QLtUr1B1clRVAbKgnzj6pGzZ8Yile95m2kB
+	 BFtHAxXbLUZOqQmZx4DBFLDAcEHsQOo4bMDckFvoYEvfyFoyM85BkrO7smxZdfhM0AA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rGnps6sR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.28
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010028.outbound.protection.outlook.com [52.101.193.28])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ocQt029N;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C08606C3C5
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:59:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50C08606C3C5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF63606C3F2;
+	Mon,  2 Nov 2026 14:59:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rGnps6sR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dg62RNLh9iXC3ye1B4OnbEOLLTptMQokJo9u0XoAv969pywSSSmN/UZvxqlo0yD3m6MG8Wm5Sou3H5Qk4WDDGBTBbgMLu1JYcvZY29TcZMxzgqJOueRXBgsaXB6vwD1HQ8465B2fpKIFPy/8rKCRhyqPIyzKvsFFeN7br++N0x/h+zv0dDA4KwZUSi/kq/Q0bBzssmCKyGAv0MApM1LLLEt9+oP9nCUqPi6DkkdaombFwqH0DvMA/pSIoxqa4mtITEqU4cufh/sxMOqfqS4gWsgPZuYU96Ns+NSscX6+DTvP3+74n4hmTG3Emyn8VU0gPpiw6ic/vlCWz/Bb+XTdZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LgalObg3lXdbiS3GhXx9FsCoK1ChKU9h1WvsZv5aRsY=;
- b=VI4ABp0HOOt8o011Imoo/vROkcFHHl8E+zi50Yw1mqclMiMG+NGjSK/hCDMZl9xOMX1AgCOxOCi5lRhljB6t09XxnOlbDZ/l47kmehb7f6YtjRQm9KVnx4yu4+rdIwCsBP0DrA7zB1ldlkayV07f+jWzA31ZHbT/al2mZ2BhHWDWyvY0Jw0pqmL/YzFvf5HW7jgWU5KQihk0lDMNAcSXaD8QgPyfcs5Jrw6MYi/0KY5rQE8/A65F8IRyelfSupoD3/TRlLx37A5yJdRtbG3Mp53Dohpyd+K+oFbOtcjQ1oShb4CBHtPX4EL5Pw0L12LpKXAbF6j80XRIzHSDgxfVcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LgalObg3lXdbiS3GhXx9FsCoK1ChKU9h1WvsZv5aRsY=;
- b=rGnps6sRQKHHhHXFXzFyVVawrAeGnWkJOhcIvQkdNoQAwcSoJnnsp74Zdram72O196dhYKyJgjW8dRomSbh3TctP71gZcRwaOm5OfgLzorhqHvkoghVR9aRksvc6R0HanmqNaYQCeclu7E2uVnnRqMMXrE/R8zgkG9Dp2GNA1vU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
- by MN0PR12MB6366.namprd12.prod.outlook.com (2603:10b6:208:3c1::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 14:59:10 +0000
-Received: from BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
- ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 14:59:10 +0000
-Message-ID: <4833783c-158a-4b15-85cd-ed5126f8de23@amd.com>
-Date: Mon, 2 Nov 2026 20:29:02 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu/amd: Clear amd_iommu_snp_en if snp_rmptable_init()
- fails
-To: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>,
- joro@8bytes.org, suravee.suthikulpanit@amd.com, will@kernel.org,
- robin.murphy@arm.com, seanjc@google.com, ashish.kalra@amd.com,
- pbonzini@redhat.com, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261023185041.8685-1-dheerajkumar.srivastava@amd.com>
-Content-Language: en-US
-From: Vasant Hegde <vasant.hegde@amd.com>
-In-Reply-To: <20261023185041.8685-1-dheerajkumar.srivastava@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0085.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ad::16) To BL4PR12MB9505.namprd12.prod.outlook.com
- (2603:10b6:208:591::16)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ocQt029N
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793631564;
+	b=vOnrsNCKXh93EdDE9Oy1MhKnRhLTxQbtUqw/yDxdKFji5IycZDJV3eLt8VMnASoYfYJG
+	 hsBypDeoTlqoWOqNyK/+R1Y605gV8FiIjUxis1tBuoLoztnoNl4RpWgYnX+nt5M7ZVFh3
+	 Dg03nDP58UM3FlhqLosyypWHTMVAi8LVPMxWF80aYTxbjggQYW8ZY1V0YxHRCCsm9Hfdl
+	 AwviY2yBExxoMYcriFpD2/J4KZmj85mHi0yv0BPymmPtwCRoxWMUDfWv/SrJQlNN6hYcy
+	 D9BbDdc/VaXDTUEETuApYRvjuC3MspCeQv04WkwJyi6zP2fcoVH9ERUhwBAm4Q8pibg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793631564;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1KEkRA6BdIYkRC6y2WkEk/iPN+rgR8737tOGIPi/KQg=;
+	b=ghX9W7hMUcIhGRfLBTSyoFI+LYXBlopbNZjt77cbckJ08yf9VkDf2uJ73MVTEJbRpMDm
+	 LUaQ1ryGlJtATSnTwvoWmt0M5LukHUPJKwC/DcANpTLJVZL2IbdXMjbsn54Gbrah0LOXi
+	 fA9EIvo58TFvj8YFPNzfMUVEXqL0sTxC2Hj/7aAxxjydh9BWYINQBKoDyoR7q8VZdLb64
+	 YZx6Z1bHkT9IUaT9FoC/tmKhMRGDQEIKmv8cwRGICjIOhGMExFNMT46x+k5slim24S3ra
+	 lS5T1fhDIu9Qk1QhOZ/QFPg79eiI/F/WyQkKX5yRmmUc7oGlb8hWhRPpVOd/Y0m72vw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 39A151F00A29;
+	Mon,  2 Nov 2026 14:59:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793631564;
+	bh=1KEkRA6BdIYkRC6y2WkEk/iPN+rgR8737tOGIPi/KQg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ocQt029NhiaoQCi0uSVC7D8ZkfHQ81rVXNGeDvPLUMDjpKmuLAHEw/evY+SZQNv9n
+	 uU2R+CQqTOqVPuDG4bfldIuYBL12roPoi0wPZ90NQsD6h7GgSXq7ZMal0t6EdrfWrj
+	 5PCUdpQOEi3dTYvy6oz3vX5QAEYhMWtPpSsDmeTP1b+6WOwq9hLrDbOv+MLKybKfJY
+	 OOX4GNH2cvElWx4EGGW3jj/VJ9RHer8qmLrQkcg94UajaIfjdqkns2hv3BjGBHkCDP
+	 qnzA55vF5dz7y6rjJ3P16At751XA9jtZ+Fz+9LJN92cUNYbpiWSuAdY93E5D5c3RGO
+	 0VFR3Vp0NnkAw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8BFD846557;
+	Mon,  2 Nov 2026 14:59:21 +0000 (UTC)
+From: Jaret Varn via B4 Relay <devnull+jav26122.gmail.com@kernel.org>
+Date: Mon, 02 Nov 2026 09:59:20 -0500
+Subject: [PATCH] HID: steelseries: Add support for Arctis Pro Wireless
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,85 +82,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|MN0PR12MB6366:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cdb566d-690a-4345-45c2-08df38f1d9b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|6133799003|10067099003|261102123227099002|22082099003|18002099003|921020|56012099006|11063799006|261022105027099003|261022075727099003|261026140227099003|261028144727099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	l3jfCHsyRL+I54sHxPyZvg8THluj7dWnhRu6poLXmggOPeEWaN7oqrdCW8v7TbWy1nL5qUOByLDTrfOYvjBOicwE0DcSJONGBdkrMR6QuWK2AFOf2RTGs4P8QaaZCMQ2Syj26QDY8khBLdAM9wMgXNCIto11vlAOksD5QcurYZdbNkQFzNPfnF6mseIETEPn1g5P5M/cMlVMVmDnMw3e79WRBz2uqHisrkBPFsnVElRnKNaTlnADWvtPuVs2ApKPI6VYiAVQakFgdjmtfHsml5OFq8EHBjXxOJHqwbPq8Q2BSHvOPM4h/UOoxdM1+hxTXYOyYBT2cKfULu8XdqEY/TSDlcMbz5ZpkZiE7BZB9zufJanJfiCElIGwtOJ83ai5Vlm04VXb32Qyd1QNCRr6azXggHxgE3Pm05yDSBkFN9w8cQ6xeVt1sEa1aT61pmJRi2qYXJHxh9BvSc+TKHySDrI6Hcuh3+ZRYYShe0Vea5KrVKK4Z5MoLzpWbzgI0PeidnZPRTvBP9GhKtH5Zk4f7sXe5A4WL7AAaV4OqRDc6yK1LYkgQY3L0+PAUnN14mAMxiqe/s76sbFLZ/psIjPTvvDc1tS781wVMvervABe1ZmiNGGx3fSJfkWIq9mXchKC94Qj83Ov4rT2+OBSr8oWv/qPpjnQ9BS+9fD5JQ1iuWHDsI0POlEf5ySIR4M6Bg75puC174keQUGR837YB72SoQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(261102123227099002)(22082099003)(18002099003)(921020)(56012099006)(11063799006)(261022105027099003)(261022075727099003)(261026140227099003)(261028144727099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QUdBdTZQQkJHUDBrSitpZ3UzejBNN3VHQjVTTHJrck5rbEtSRWwyWjJ0K1BX?=
- =?utf-8?B?S252NWcwd0hnV1d6REJmR1A4OUJicXFUUkg2ZjVTeVpyZ2lFRWJpWFY0M0xZ?=
- =?utf-8?B?blpsVmF6NkZVVjFoUnhFbkFQN2NDeVhPMDNzTHlpVFY0azd5QmtpUWJVVlNK?=
- =?utf-8?B?aFpwbklmT0xWd1dobEF6S01zL251K1Y3MFM4SS9OSXNEOE0xc1E0dDdZQTFC?=
- =?utf-8?B?MCtDOVUxaWtlVXJxdkQyVCtRZTNUQ3I5YjB6YUUrR0pSSTZTMzdCdlNpVCt3?=
- =?utf-8?B?M080ekV1MkpQeHkwcFFjellzc3hic2ZEbVdYYndLQnR1cUVYVythcU03ZG0x?=
- =?utf-8?B?Mi9tRU5pOGU3SVBOK09Ka3pqSGZyWVVVR1QrbW9EdVAvcVVpdlE5d1ZPUWtj?=
- =?utf-8?B?Qi9YNmM1eFFnVVJBS3FoQ2xUUXZVOTY5T05aNTI3ZHNrL3FnUmdvKzNUUHU5?=
- =?utf-8?B?VmNrRThFNFZrc2QrNk5nOFRJcTFJY3RWU2VmR2h3K3I0REMrbDlTMmtmb2NV?=
- =?utf-8?B?dnNla0pOOW5oamtFRC9iamFPbW51RjE5WnQ4a1FER1hoTkNwR3ZjN2xtcTA3?=
- =?utf-8?B?eVdvd3AvV1FUc0FwazJHelZTY3dzQjZqZVk4S0tJRk93aS9TQ001TzRIbXRu?=
- =?utf-8?B?SHM5N1NjeWZzSHdyRURPRXl6bTNvcHFRa1FDUXl0azBhbWtqQXRQY1FMeHQz?=
- =?utf-8?B?RUp3U2t0VFBMYnRJV1YxQ1lic2l2YkYzN0ExRzdrRElWMXZxL0N1c0g0aS94?=
- =?utf-8?B?N2ZZeCs0aGhQNkpBb2VsQXpwcVJDWmpwbkZnaFM5THd3c0phUEo2NllyR0s3?=
- =?utf-8?B?OEF4bGI3cDFIYjEyUTRSL2thcWE3VEFoUXpOdVdUaW9aWC9MbW5kdENndExS?=
- =?utf-8?B?MlIvYnBCcGlqbWRCY3kzQmVnVHgzdEE5RWdJbURsZEJGa2x5bnloYWZnamRp?=
- =?utf-8?B?Ni9iSFh6enA4OEhLUW0zdmhHb0NNVXFpZ1BDTDBSaUhLU3Q1c0JrYmVWanNK?=
- =?utf-8?B?MVdmU05lVlBEelgxMUpLMmQxYzhaRStUWkxjZ1p6MDM4VDdwd3pNTEFnNHF4?=
- =?utf-8?B?TG1COVZUemQyUmMxM0lySmY0QXJwQWVma2l3RFlVYUk3L2JUNnZwNHJmeEky?=
- =?utf-8?B?M2QzUS8rSHZ6SE9HSWFhSGhTR04wYlp6NnBaeHQ0WHhqMTRxVVhJWTN5alVx?=
- =?utf-8?B?d3ZsRzFuVkw3b0liOEwzaGlZU2RiTHNUYlU5QnNCSVJzRlpZYjhzSnZuem93?=
- =?utf-8?B?ZGZCaDExWmhOTGlmdFNTVng3Wk9IOVRib1dXWEFCVTB5VWJjS29GbTV3Wlpi?=
- =?utf-8?B?c3pFbnhFVkZZTllLckRxeWcydlE5dGRuZjI0UFRWQ2RoWFh2eFB4UDRXTDVm?=
- =?utf-8?B?c1N4cWFhMnplRXFQWEx1WkpqajhMNDF4Y0lQZjg5UjN6VEtYWHlvN0ROVG9w?=
- =?utf-8?B?ZTg5R3VvV1pxQkh5YnVWc0hKVzhYajJsd0NiUERiREZHenZCRU9VV1paa1dY?=
- =?utf-8?B?NlZMT2lJWC9GOWdkZFFlMU5CU3BsRzdnRnNaT3hzakMvWUxqL29QR1gvTWdX?=
- =?utf-8?B?N2xjVE9Ndk5Hck8xVjUrS3Q5M1ZNcThMSWphUm5tWW8rV3FXZTRTL3R5TXNv?=
- =?utf-8?B?Q1hjRmhWR0VtRUptV04zQ0Z3cUlQb0dHUSs1T29RSXdXdUtJcllPZ09ZODdn?=
- =?utf-8?B?SlFEQTBxQWpaZjk5MkVndEM5RnhzT3RYUmJxS0pBUGxzdEdTNlZmY3d3U2lP?=
- =?utf-8?B?N0hxMEEwNjRtNVQrQ1hEM3V4djlxMGFEYytRdkxWeXR6TkpFS1ZiNTNYaGVq?=
- =?utf-8?B?V2NNanpxbmo2U3FTZFJaTWVJUVFxSGNtUThydW82VDRKWURIU2lCRURsR1Y2?=
- =?utf-8?B?NDhFUjdDUmRWcU5UV1BsOUlyaG9YR0Z0OVpSNnRsbEh3RVptYkNtaEpSZDVS?=
- =?utf-8?B?RDhWYW1EUGQyY05ONkFjcFJMUzliYVhIL2VzTE5UekRMQ0hSVitaMUUrZUdj?=
- =?utf-8?B?bXh6STdkYkR1WjFIVCszc3JYc1ViTXlTQU9WandqTElHNWpMS2R4TkEwVVp2?=
- =?utf-8?B?QkJLeGc5d3lDTnBkdzIrUjFCaVZFU2hmVmp3bE1ESHRNQUN4VWVEU1g2YUdk?=
- =?utf-8?B?Rkh4TWhrN3FOV3Jia3hRYWQwczN5bUlJbEQ4aEwwOURlQ1F0MW9Mcm4wcG5Q?=
- =?utf-8?B?V3QrMmg2MGpwdXFlakhMWW1KN2VnZ2NXTk82Y1hldlVob0xxRldZSG9lRzIv?=
- =?utf-8?B?V1Zsb05Bckd1WHpwMFRpaVEzRE9Ebit1VWpYbjVHdng0elkydzF0S2tRanRv?=
- =?utf-8?Q?halR3PZLcGMq5+Rrwc?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cdb566d-690a-4345-45c2-08df38f1d9b1
-X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 14:59:10.3531
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yUb2sywKb24/kcVYDhwyRkYkp0mGBBX1kFs17f6Tld/ATYyq7J9A69fKKkDhDir2CxaKetmJLzui1jRJ6/x/9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6366
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-hid-arctis-pro-wireless-v1-1-109500e36f5b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEel6GoC/x3MQQqDQAxG4atI1gacmSK0VxEXQ+ZvDRSVRFQQ7
+ 96hy2/x3kUOUzi9mosMu7ouc0VoG5Ipzx+wlmqKXexDFxNPWjibbOq82sKHGr5w5yce0qeQkwi
+ o1qvhref/PIz3/QM7mcF0aQAAAA==
+X-Change-ID: 20261023-hid-arctis-pro-wireless-9e4c631a3cce
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sriman Achanta <srimanachanta@gmail.com>, 
+ =?utf-8?q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>, 
+ Martin Oberleiter <martin.oberleiter@netixx.it>, 
+ Jaret Varn <jav26122@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793631561; l=8406;
+ i=jav26122@gmail.com; s=20261023; h=from:subject:message-id;
+ bh=P8hw5Np1I1fi36O38WKLtuWMlqRxVnApPqW0aD40h3U=;
+ b=9xfBRSpU6RpfbJYb9vQcHniAfpd1vRG2opmRGWad04JcNtBzJlrKFlieIq8yYRIwTtYoIAGWO
+ u//mtApWnQZDFzpZ5L5jxJe+QlOOzc1kHi1l3XvU+MTiTvXSo0mXbre
+X-Developer-Key: i=jav26122@gmail.com; a=ed25519;
+ pk=WqYyslVFlvCd2E/8Og9Rh5VHXXB8A5a1ZhHaqIDzgFE=
+X-Endpoint-Received: by B4 Relay for jav26122@gmail.com/20261023 with
+ auth_id=1300
+X-Original-From: Jaret Varn <jav26122@gmail.com>
+Reply-To: jav26122@gmail.com
+Content-Transfer-Encoding: 7bit
 
+From: Jaret Varn <jav26122@gmail.com>
 
+The Arctis Pro Wireless base station (USB ID 1038:1290) answers status
+queries on HID interface 0, but the driver does not know the device, so
+the headset battery is not reported to userspace.
 
-On 10/24/2026 12:20 AM, Dheeraj Kumar Srivastava wrote:
-> iommu_snp_enable() checks that the IOMMU can support SNP and sets
-> amd_iommu_snp_en, then calls snp_rmptable_init() to map the RMP table.
-> If that call fails, CC_ATTR_HOST_SEV_SNP is cleared but amd_iommu_snp_en
-> is left set. Later IOMMU initialization uses amd_iommu_snp_en to
-> configure the IOMMU for SNP, on the assumption that RMP setup succeeded.
-> 
-> Clear amd_iommu_snp_en along with CC_ATTR_HOST_SEV_SNP.
-> 
-> Fixes: 409f45387c93 ("x86/sev: Fix broken SNP support with KVM module built-in")
-> Signed-off-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
+Sending 0x41 0xaa returns the connection state in the first byte: 0x04
+when the headset is connected and 0x02 when it is switched off. Sending
+0x40 0xaa returns the battery level on a 0-4 scale. The replies do not
+echo the request. The second byte was 0x02 in every connection reply
+and 0x00 in every battery reply, including while swapping the headset
+battery and the spare battery in the base station, so use it to tell
+the two replies apart.
 
-Thanks. Queued for rc.
+The base station keeps reporting the last battery level after the
+headset is switched off, and reports 0 if it powered up with the
+headset off, so only update the level while the headset is connected.
+No unsolicited reports were seen on either HID interface, so rely on
+the existing periodic status polling.
 
--Vasant
+The base station drops a query that arrives while it is still
+answering the previous one: sending the two queries back to back left
+most polls unanswered, and the base station then stopped answering at
+all until it was reset. Wait 100 ms between them. The connection reply
+arrives within 3 ms, and a 50 ms gap was already reliable in testing.
+
+Add USB ID 1038:1290 to the driver's device tables.
+
+Signed-off-by: Jaret Varn <jav26122@gmail.com>
+---
+Tested on an Arctis Pro Wireless in a QEMU VM with the base station
+passed through: connection state, battery level and wireless_status
+are reported, and switching the headset off and on is picked up within
+one poll. Battery levels 4/4 and 3/4 were reported as 100% and 75%,
+matching the base station's own display. The base station's volume
+knob and spare battery charging indicator kept working while the
+driver polled. Builds cleanly with CONFIG_HID_STEELSERIES=y, =m and
+=n, and sparse reports nothing. Suspend and resume were not tested.
+
+The code and changelog were drafted with an AI coding assistant
+(Claude), modelled on the Arctis 7 (2018) support. The protocol bytes
+come from HeadsetControl's documentation of this model and were
+checked on my headset through hidraw. I reviewed and tested the patch.
+
+This touches the same lines as patches still on the list: the Rival 3
+Wireless series [1] (Kconfig help text and hid-ids.h), and the two
+Arctis 7 (2018) request-spacing fixes [2][3]. I'm happy to rebase on
+whichever lands first. If the wait-for-reply approach in [3] is
+preferred over a fixed delay, I can switch this device to it as well.
+
+[1] https://lore.kernel.org/r/20261030-rival3-battery-v1-1-6b1feeaf1f52@netixx.it
+[2] https://lore.kernel.org/r/20261024-feature-arctis7-v1-1-583951aa6583@gmail.com
+[3] https://lore.kernel.org/r/20261029-arctis7-battery-v1-1-599a4554af30@netixx.it
+---
+ drivers/hid/Kconfig                  |  4 +--
+ drivers/hid/hid-ids.h                |  1 +
+ drivers/hid/hid-quirks.c             |  1 +
+ drivers/hid/hid-steelseries-arctis.c | 55 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 59 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index 2481bc01c435b1305aa6666a6f94471635a8f6a0..16d95f948fe8f70ada1c89836b472aef9a40d139 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -1216,8 +1216,8 @@ config HID_STEELSERIES
+ 	depends on USB_HID
+ 	help
+ 	Support for Steelseries SRW-S1 steering wheel, and the Steelseries
+-	Arctis 1 Wireless for XBox, Arctis 7 (2018), Arctis 9, and Arctis
+-	Nova headsets.
++	Arctis 1 Wireless for XBox, Arctis 7 (2018), Arctis 9, Arctis Pro
++	Wireless, and Arctis Nova headsets.
+ 
+ config HID_SUNPLUS
+ 	tristate "Sunplus wireless desktop"
+diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+index 91319aa6516dae89a6d1ace1b2ff089254fb93ae..ae09333566893c5934a09f7a58c0b5b924ad7c6c 100644
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -1435,6 +1435,7 @@
+ #define USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7_X_GEN2	0x2258
+ #define USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7_X_GEN2_2	0x229e
+ #define USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7_X_GEN2_3	0x22ad
++#define USB_DEVICE_ID_STEELSERIES_ARCTIS_PRO_WIRELESS	0x1290
+ #define USB_DEVICE_ID_STEELSERIES_MSI_KLC   0x1122
+ #define USB_DEVICE_ID_STEELSERIES_MSI_ALC   0x1161
+ 
+diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
+index 793db001a62b7ba4ef2da67759a75334750be489..1097fd268bb6b2adc1fbaec3ba0f388931e7eefe 100644
+--- a/drivers/hid/hid-quirks.c
++++ b/drivers/hid/hid-quirks.c
+@@ -772,6 +772,7 @@ static const struct hid_device_id hid_have_special_driver[] = {
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7_X_GEN2) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7_X_GEN2_2) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7_X_GEN2_3) },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES, USB_DEVICE_ID_STEELSERIES_ARCTIS_PRO_WIRELESS) },
+ #endif
+ #if IS_ENABLED(CONFIG_HID_SUNPLUS)
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_SUNPLUS, USB_DEVICE_ID_SUNPLUS_WDESKTOP) },
+diff --git a/drivers/hid/hid-steelseries-arctis.c b/drivers/hid/hid-steelseries-arctis.c
+index df61fa33d4c6876d23c33ec3348d99b169feccb2..aa512342782eccf9062237b2174209dbd4b9b989 100644
+--- a/drivers/hid/hid-steelseries-arctis.c
++++ b/drivers/hid/hid-steelseries-arctis.c
+@@ -6,6 +6,7 @@
+  *  Copyright (c) 2026 Sriman Achanta
+  */
+ 
++#include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/hid.h>
+ #include <linux/kref.h>
+@@ -128,6 +129,25 @@ static int steelseries_arctis_nova_request_status(struct hid_device *hdev)
+ 	return steelseries_send_output_report(hdev, data, sizeof(data));
+ }
+ 
++static int steelseries_arctis_pro_wireless_request_status(struct hid_device *hdev)
++{
++	const u8 connection[] = { 0x00, 0x41, 0xaa };
++	const u8 battery[] = { 0x00, 0x40, 0xaa };
++	int ret;
++
++	ret = steelseries_send_output_report(hdev, connection, sizeof(connection));
++	if (ret)
++		return ret;
++
++	/*
++	 * The base station drops a query that arrives while it is still
++	 * answering the previous one, and may then stop answering at all.
++	 */
++	msleep(100);
++
++	return steelseries_send_output_report(hdev, battery, sizeof(battery));
++}
++
+ /*
+  * Headset battery helpers
+  */
+@@ -255,6 +275,31 @@ static void steelseries_arctis_nova_7_parse_status(struct steelseries_device *sd
+ 	}
+ }
+ 
++static void steelseries_arctis_pro_wireless_parse_status(struct steelseries_device *sd,
++							 u8 *data, int size)
++{
++	if (size < 2)
++		return;
++
++	/*
++	 * Replies do not echo the request. The second byte tells them apart:
++	 * 0x02 for the connection status reply, 0x00 for the battery reply.
++	 */
++	switch (data[1]) {
++	case 0x02:
++		/* 0x04 means that the headset is connected to the base station. */
++		sd->headset_connected = data[0] == 0x04;
++		break;
++	case 0x00:
++		/* The base station reports a stale level while disconnected. */
++		if (!sd->headset_connected)
++			break;
++
++		sd->battery_capacity = steelseries_map_capacity(data[0], 0, 4);
++		break;
++	}
++}
++
+ /*
+  * Device info definitions
+  */
+@@ -296,6 +341,13 @@ static const struct steelseries_device_info arctis_nova_7_info = {
+ 	.parse_status = steelseries_arctis_nova_7_parse_status,
+ };
+ 
++static const struct steelseries_device_info arctis_pro_wireless_info = {
++	.sync_interface = 0,
++	.capabilities = SS_CAP_BATTERY,
++	.request_status = steelseries_arctis_pro_wireless_request_status,
++	.parse_status = steelseries_arctis_pro_wireless_parse_status,
++};
++
+ /*
+  * Headset wireless status and battery infrastructure
+  */
+@@ -742,6 +794,9 @@ static const struct hid_device_id steelseries_arctis_devices[] = {
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES,
+ 			 USB_DEVICE_ID_STEELSERIES_ARCTIS_NOVA_7_X_GEN2_3),
+ 	  .driver_data = (unsigned long)&arctis_nova_info },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_STEELSERIES,
++			 USB_DEVICE_ID_STEELSERIES_ARCTIS_PRO_WIRELESS),
++	  .driver_data = (unsigned long)&arctis_pro_wireless_info },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(hid, steelseries_arctis_devices);
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261023-hid-arctis-pro-wireless-9e4c631a3cce
+
+Best regards,
+-- 
+Jaret Varn <jav26122@gmail.com>
+
 
