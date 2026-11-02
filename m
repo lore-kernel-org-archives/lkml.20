@@ -1,66 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604776;
-	b=zy5hVkar71IUO6CiARjom6HU/Agz97u9+8MKEPKXA6fX26veyPKiPr7K5SljJZFSzotd
-	 7HkDfgTCKGhcYL9YTZ8O1ul+idFpK5AaFSi5oSfNOyD3kVPgg06hjKkz9dgRFyKRbXIVY
-	 rFXptyAOXPYJFnE6xP2+j/qZ06SYTdgP8rtE1+IXARussXEdlqhgdaw6mOdriMrBRGw5K
-	 8/bcGR852nLibVflk425AOlp9enyE+i21H9lNShCQAYb9LrRF/mh6M7WuyEnzvd7Ar+bb
-	 0UgX5Y/eHAepYgXsw3IKAiwf48z5U5gPVTae6+5apVsoJFulUro9hn9hIj+tOHiBmXw==
+	t=1793604781;
+	b=tzRuyrMOBpGD1EIoXOI+ej3EFBaYTlt1kGziqng2uVX3aK6/Rw2Vmxih+VM0XhZX3Ret
+	 umbMzpay8D5M/VghSgurnQjgecWulT4nND1sjh887eaWOZM8F7oLVaOm5GYl/fcT+ve5S
+	 pTBZAfejL4Z6qozrFYIXmk3DcS0VfhvmEWri/5DdSqVaQU2plbCYPUGJzbnbHaAe3cCeB
+	 uUFuwi+Kplu9pWCqj25juKXmOAJEGLYyNj5DVkGmczE9wbXKATwgPJY4FKR8S5Ehbp+ay
+	 RJLG8W4hOQdwaNT9PXJN5AJJWeU0bUCg2I8NnLVf6oG/vMNDvosUPeWSv/ZyCoo/gwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604776;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=AK/SgB0NJhyyMo/+uhJJDQ0snfVmLXzbzA7HTWtNTBs=;
-	b=jXaHYAHAXWenM8oBcMR4DP9SafHtegMu67n1SNUqdHVTlwA5DOQ8uHmWySzcrcRgLV0/
-	 Wp8VoFqc8tIs1m2R59xSuHmQ53b8hYYDSaykvBFH9dDTi9M7N/Q5JgWsheK52OjYaQqjv
-	 7m9j263HpPQZLUMilbEseUg/ac1jYEoTifMwsmY9CVopyca6ZSFM5FrWAmnN2zayyos9q
-	 lkGHmpT+XqU4sbfl0EueKF0nfDYKS8iiStujCvnJ86DmTBXHGpzI3CYaKq0qKIuFVG255
-	 56icrl/qRuPz+rHtajVzfnaC9canTc970px/7R0I0GVeOJ2zj3rgSRf4lbx0c11wLqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604781;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=yjKLHHzS10n4wGDXarJMvF0fOdP5JcGYaK0RuRwho0s=;
+	b=g4XaGdF8552gxNRIAuK0VVEQOPOZvPz3FCSobUi5CgM1x968gWshHDo1j45WvAzH69Wa
+	 G5MGwDDbLYoQLMqCqcbMqw63prwud5Uh5zFBSHLI+Y6aamC/Wq6+jhrneSXBi04Gik3pP
+	 D7TaBtEJeSxZ24H26aZAS3LvZQDha7a2fTocAiz4r3eTcSuHkqoJNWb6EsHWw/rSnAaSo
+	 YX4jiziveONSFipXLpvOlah+fkdSNGQUk3c0PoTEvbwO5ptRzwVPh/erYXLrkUlMwY4me
+	 7su1Dr9eytfaJ03tr3DPfaRDt7ad9lbAHv7FqMeLseq3F/vRy7Tw8aJ1hCadXUq+WfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="z/pehWdh";
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JyBHoWUA;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A9E606A324;
-	Mon,  2 Nov 2026 07:32:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A9E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC82606A326;
+	Mon,  2 Nov 2026 07:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BC82606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=z/pehWdh
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=AK/SgB0NJhyyMo/+uhJJDQ0snfVmLXzbzA7HTWtNTBs=;
-	b=z/pehWdhVRd/ELfMH/gt5hqXy00rS0mSKpMJfKKpoUb95Kz3+hvKZOcvSGcXpUCFCOFyeTo6I
-	O44kGYOmFW4yb8HA+sfsJmWg8arK1dkAdareBWdQ3WJGeKw2j35GImzfqDptOFrUXROU/JdNmN3
-	XSi3f3715y4lEoE7y1XpwCk=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jJ3MD3sbDz1K97l;
-	Mon,  2 Nov 2026 15:32:40 +0800 (CST)
-Received: from whupemk300004.china.huawei.com (unknown [7.152.185.168])
-	by mail.maildlp.com (Postfix) with ESMTPS id 25E554056C;
-	Mon,  2 Nov 2026 15:32:44 +0800 (CST)
-Received: from huawei.com (10.67.174.33) by whupemk300004.china.huawei.com
- (7.152.185.168) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 2 Nov
- 2026 15:32:42 +0800
-From: Gu Bowen <gubowen5@huawei.com>
-To: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>, Ignat
- Korchagin <ignat@linux.win>, Herbert Xu <herbert@gondor.apana.org.au>
-CC: <keyrings@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
-	<kexec@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <lujialin4@huawei.com>
-Subject: [PATCH -next] crypto: asymmetric_keys: verify_pefile: fix integer underflow in pefile_strip_sig_wrapper
-Date: Mon, 2 Nov 2026 15:49:34 +0800
-Message-ID: <20261102074934.2925339-1-gubowen5@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JyBHoWUA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793604781; x=1825140781;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=kCW91QP6kziHBH5nmJbj/L70gH2j0FXLHyWiHf3tiRQ=;
+  b=JyBHoWUAzChv0NkKTa/hyIf+JC9LRVRcCRSiBnNOgru/MSQAGIJj5XMA
+   gdwBDq/Ve4d0sFgg6FwO7LL6LCYPqDV7asDL5LNLcRBf2SkcRAUJwYt2X
+   M9rJMmNaewd1IDOK2mM5Xt3uKFnrtmoaqnv/9qaqy+LBtihiOfUA8dUyN
+   ekxroAOSyHD+DmWAb1gHL7Cpj4/Gk/qN89FNG18gLMjv494OUVP+mvkL2
+   yrtC/H28Fj6Fxt//9wHNntZVtrj44cjl1pTJFA39DReExH2UMHb2h3y8w
+   XNlEZncABipAj/iatYTzyNpgR6ECpZTjt4pIYYg+1lLJ33DqV/NKZmDJi
+   A==;
+X-CSE-ConnectionGUID: Okj9089pRtusxwyj3vpnlA==
+X-CSE-MsgGUID: Uw9imQ2LTamzyQSdlEPkMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2174758"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2174758"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:33:00 -0800
+X-CSE-ConnectionGUID: 4RPUP8gfTXyAuUQuVakVWg==
+X-CSE-MsgGUID: /Tc03w7gTjWtUuHOZbVydQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6368915"
+Received: from unknown (HELO [10.238.2.205]) ([10.238.2.205])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:32:54 -0800
+Message-ID: <14447223-008f-49e1-824b-9f6e8a4aa0c1@linux.intel.com>
+Date: Mon, 2 Nov 2026 15:32:50 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,83 +72,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemk300004.china.huawei.com (7.152.185.168)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 19/28] KVM: x86: Advertise support for FRED
+To: Sohil Mehta <sohil.mehta@intel.com>
+Cc: kvm@vger.kernel.org, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Shivansh Dhiman <shivansh.dhiman@amd.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
+ David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-20-sohil.mehta@intel.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260911213659.2025974-20-sohil.mehta@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The pefile_strip_sig_wrapper() function validates the win_certificate
-wrapper that precedes the PKCS#7 signature in a PE binary.  It checks
-that the wrapper length does not exceed the certificate table size
-(``wrapper.length > ctx->sig_len``) but fails to verify that the
-wrapper length is at least ``sizeof(struct win_certificate)`` (8 bytes).
+On 9/12/2026 5:36 AM, Sohil Mehta wrote:
+> From: "Xin Li (Intel)" <xin@zytor.com>
+> 
+> Advertise support for FRED to userspace after changes required to enable
+> FRED in a KVM guest are in place.
+> 
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+> Reviewed-by: Chao Gao <chao.gao@intel.com>
 
-When a crafted PE image supplies a wrapper with ``length`` in the range
-[1, 7], the subsequent arithmetic::
+The code change itself looks good to me.
+But this patch should be moved after patch 25.
 
-    ctx->sig_len = wrapper.length;      /* e.g. 1 */
-    ctx->sig_offset += sizeof(wrapper);
-    ctx->sig_len -= sizeof(wrapper);    /* 1 - 8 = 0xFFFFFFF9 (unsigned) */
+X86_CR4_FRED is added to nested.msrs.cr4_fixed1 in patch 25, before that
+if the L1 guest enables FRED, it will break the nested case when do VMXON,
+which checks nested_host_cr4_valid() and it will fail during the bisect
+window before patch 25.
 
-underflows the unsigned ``ctx->sig_len`` to a value near UINT_MAX.  The
-following ``sig_len < 4`` sanity check is bypassed because 0xFFFFFFF9 is
-greater than 4.
-
-The underflowed ``sig_len`` is then passed to verify_pkcs7_signature()
-and onwards to asn1_ber_decoder().  The ASN.1 decoder's own
-``datalen > 65535`` entry guard can be satisfied by constructing a
-PKCS#7 length field of exactly 65535 (e.g. ``30 82 ff fb``), allowing
-the decoder to proceed and attempt to read OID octets beyond the
-allocated vmalloc buffer, triggering a page fault in look_up_OID()::
-
-  BUG: unable to handle page fault for address: ffffd1e986cb2000
-  #PF: supervisor read access in kernel mode
-  RIP: 0010:look_up_OID+0x14/0x100
-  Call Trace:
-   pkcs7_note_OID+0x33/0xa0
-   asn1_ber_decoder+0x363/0xbd0
-   pkcs7_parse_message+0xd9/0x1b0
-   verify_pkcs7_signature+0x24/0x80
-   verify_pefile_signature+0x7b/0xf0
-   kexec_kernel_verify_pe_sig+0x1b/0x40
-   kimage_file_alloc_init+0x1d8/0x3f0
-   __se_sys_kexec_file_load+0xc6/0x270
-
-This is reachable through the kexec_file_load syscall on architectures
-that verify PE signatures (x86 bzImage with
-CONFIG_KEXEC_BZIMAGE_VERIFY_SIG, arm64 Image with
-CONFIG_KEXEC_IMAGE_VERIFY_SIG), requiring CAP_SYS_BOOT.
-
-The oops occurs while the caller holds kexec_lock; if the faulting task
-is killed, the lock is never released, leaving all subsequent kexec and
-kdump operations permanently returning -EBUSY until reboot.
-
-Add a lower-bound check on wrapper.length before the subtraction to
-prevent the underflow.
-
-Fixes: 09dacbbda935 ("pefile: Strip the wrapper off of the cert data block")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gu Bowen <gubowen5@huawei.com>
----
- crypto/asymmetric_keys/verify_pefile.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/crypto/asymmetric_keys/verify_pefile.c b/crypto/asymmetric_keys/verify_pefile.c
-index cec99db14129..cfa85ccb1cf7 100644
---- a/crypto/asymmetric_keys/verify_pefile.c
-+++ b/crypto/asymmetric_keys/verify_pefile.c
-@@ -146,6 +146,11 @@ static int pefile_strip_sig_wrapper(const void *pebuf,
- 			ctx->sig_len, wrapper.length);
- 		return -ELIBBAD;
- 	}
-+	if (wrapper.length < sizeof(wrapper)) {
-+		pr_warn("Signature wrapper too small (%x < %zx)\n",
-+			wrapper.length, sizeof(wrapper));
-+		return -ELIBBAD;
-+	}
- 	if (wrapper.revision != WIN_CERT_REVISION_2_0) {
- 		pr_warn("Signature is not revision 2.0\n");
- 		return -ENOTSUPP;
--- 
-2.43.0
+> ---
+> v10:
+>  - kvm_cpu_cap_clear(X86_FEATURE_FRED) in svm_set_cpu_caps() (Chao).
+> ---
+>  arch/x86/kvm/cpuid.c   | 1 +
+>  arch/x86/kvm/svm/svm.c | 3 +++
+>  2 files changed, 4 insertions(+)
+> 
+> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
+> index ddb022cb203a..5682bacdfd32 100644
+> --- a/arch/x86/kvm/cpuid.c
+> +++ b/arch/x86/kvm/cpuid.c
+> @@ -1034,6 +1034,7 @@ void kvm_initialize_cpu_caps(void)
+>  		F(FSRS),
+>  		F(FSRC),
+>  		F(WRMSRNS),
+> +		X86_64_F(FRED),
+>  		X86_64_F(LKGS),
+>  		F(AMX_FP16),
+>  		F(AVX_IFMA),
+> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> index f254a5ff570d..dd19c7b4e904 100644
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -5518,6 +5518,9 @@ static __init void svm_set_cpu_caps(void)
+>  
+>  	kvm_cpu_cap_clear(X86_FEATURE_IBT);
+>  
+> +	/* SVM FRED virtualization not implemented yet */
+> +	kvm_cpu_cap_clear(X86_FEATURE_FRED);
+> +
+>  	/* CPUID 0x80000001 and 0x8000000A (SVM features) */
+>  	if (nested) {
+>  		kvm_cpu_cap_set(X86_FEATURE_SVM);
 
