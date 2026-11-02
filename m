@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606259;
-	b=FaRMCJAnGt0875uNiqzexCgJPHqnxfkL+YKMZrZd4++oFknilshZ+WOb0fFkVURHh+5l
-	 uVlocKsqPPYBF69BEwmOkf/fubK9ZAjGlk6+XrDo1oL61N1lhllNjgnZn3/QpGcVA8726
-	 AgXjx+v2ij9swezqYDx15p7UEJCz+swhNhUGLnSbKN4CAhDfqDR32A8v+wIKeSpdQHBUB
-	 VTcwvw8JwXl5ZkDqvOIqHmINGYgMRb2uOxxfGYrTz6cKopnU7NPYFW34gPjHjKMttN5Bw
-	 wnIUGQoRPvnPR88Q4onnhgMmTaoXkQh1KjeFVT7gfeie9kg8YgEoHw8I2770P8CI77Q==
+	t=1793606260;
+	b=C8yg/6Skcf3cHmRL3ZRp6bOzyjtkajgiVncFynJiWs68CJ5PG5yKSGWWkfZA/O5FKTm8
+	 NIWhUjkT5JMZYZ/9KHcykOR3qYBM9NKQP5NtOU2ugo/ftePepS/D+NtrUqD4+E83LxQ9e
+	 zpgXOLyrJs69OnW8Bjci+NcJFA8l7i1kpVvTX0SIFa1DEArhNbLAgxUz5FEJmRJrgd+7P
+	 8WdCt/VHrq2W2L1B6Cs9MMTMsKNH/pRxsGd0G9HO492AB10qvOJWX/e4qVPnj2ghzYcZs
+	 Gc9BAyqgY9JySbGD5MLvdKZXNEN5LioSWHLFeECgezsm8gB5T+AKN2RITJwZQLHjWJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606260;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=FX98dkh/aqz777z6XZ24w4fvMSWmgg6UCkrKMMTSWtA=;
-	b=ZazhgcZoQjEv9cYsYVdkgHdaynh8jGT8Dlwi3xdSM4LAuOU9X4F0/BAXYzM2RaIMZIc5
-	 9tPeR7jiZK7xxbAdqUlnVHJkti9w8Bi6wznfR/378Of3Y8+IaVOEGprr89/bQPx0E3upO
-	 Vi6gJtP/Kc/3E1YcjgHMkIXWQBi7szTr75H31ssASMKaiQOog5VhqvpbHEHGNTWUIk9to
-	 dE0iC/caIZIzb72r56xs9sk4mdsVGDRwj+J7r2WqQtRb/NmmF3l8xTelPjOEQIgLDZMI4
-	 +2A3QsiR8rl9KDue7gShma5nlg46Dd4IePw52W1J4B9YF0CQXEXwTrXtm2ZNTr01WaA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=/jMfdfLCHlRH4C1PinsJL4z+TD3A4n3qKojXHajA4QE=;
+	b=CBSP+lkgs1F3IcpKVCV618M8CMNQFDBia2uoN4mXMqsktkD3S5XNI88GAFJORSBLiZjO
+	 owH2zjW3iV/Tl9z66oMdySm0aqHtQ9j10xKco4ani9Jh1fhHWSDWEniQ+m6nOcEqeSTaB
+	 aeRLdhJzHok6wfC/v0bdYw/ztbx7plZmjgBc0uKSxxnyfmkY8C1xMXO+S32o4o4LqPz4d
+	 2SiEfU9sGFTFMGSwt4e7HHJGKq/3O45PCr7u8gNH/kNMhdCA8mHqgzOBIF90jTLuSfyev
+	 WbVZ0rXsMZXAAEnE0GiGjfOWXbsis5voJfPKTvb+FAcRLFUtFdMMhbsUK9R+G1GGdEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,14 +25,14 @@ Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37B6606A329
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:57:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D37B6606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD572606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD572606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-01 (Coremail) with SMTP id qwCowADH8PpcQuhqxn0oAA--.14870S2;
-	Mon, 02 Nov 2026 15:57:17 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowADH8PpcQuhqxn0oAA--.14870S6;
+	Mon, 02 Nov 2026 15:57:25 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -46,10 +46,12 @@ Cc: David Airlie <airlied@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Icenowy Zheng <uwu@icenowy.me>,
 	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH v2 0/4] drm/verisilicon: misc fixes
-Date: Mon,  2 Nov 2026 15:57:06 +0800
-Message-ID: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
+Subject: [PATCH v2 4/4] drm/verisilicon: check old state CRTC in plane atomic_disable
+Date: Mon,  2 Nov 2026 15:57:10 +0800
+Message-ID: <20261102075710.1286456-5-zhengxingda@iscas.ac.cn>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
+References: <20261102075710.1286456-1-zhengxingda@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,47 +62,89 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADH8PpcQuhqxn0oAA--.14870S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7JF48JrWxCr1DurWUAw1UZFb_yoWDJrg_CF
-	ykuF9rCw43uF95Za1UGrsF9FW7CFZF9a1rAr48Ga17JrnrGrn8JFWDXrZ8Zw4UWa18tFZ5
-	Gan7u3WfZrsIvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-TRANSID:qwCowADH8PpcQuhqxn0oAA--.14870S6
+X-Coremail-Antispam: 1UD129KBjvJXoWxXw1ktr45WFyUuw4UWF13XFb_yoW5GrW7pr
+	4DAFyxKr4kJan5Xr9rJr4vqay3C3WfJa4Igrs3GwsIvrn8tw4Uua1rAry3ua1DJr9rWayf
+	KFn2krn8Cr1IvFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
+	4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
+	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
+	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
+	kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
+	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
+	AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI
+	42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
+	CI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnI
+	WIevJa73UjIFyTuYvjfUOyIUUUUUU
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-This patchset fixes several problems. The first one fixes a bug when the
-firmware did a modeset with different mode than the one picked by Linux,
-and others are fixing problems pointed by Sashiko.
+As atomic_update hooks of both planes would utilize atomic_disable
+functions to disable the plane when it's set to invisible (even when
+technically enabled), the atomic_disable functions need to check whether
+the plane is really enabled before.
 
-The fixes of atomic_disble NULL dereference is proven to be worse than
-the original, and considering Sashiko points out that clearing FB_EN
-would prevent showing bound-but-invisible planes, this part of fix is
-redone.
+Add such a check to prevent NULL dereference.
 
-Icenowy Zheng (3):
-  drm/verisilicon: disable the output before enabling it
-  drm/verisilicon: nuke planes' atomic_enable hooks
-  drm/verisilicon: check old state CRTC in plane atomic_disable
+Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon display controllers")
+Fixes: 8c4ae2189125 ("drm: verisilicon: add support for cursor planes")
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c  | 13 ++++++++++---
+ drivers/gpu/drm/verisilicon/vs_primary_plane.c | 13 ++++++++++---
+ 2 files changed, 20 insertions(+), 6 deletions(-)
 
-Joey Lu (1):
-  drm/verisilicon: fix DC8200 primary plane disable clearing FB_EN
-
- drivers/gpu/drm/verisilicon/vs_bridge.c       |  8 ++++
- drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 35 ++++++---------
- .../gpu/drm/verisilicon/vs_primary_plane.c    | 43 ++++++++-----------
- 3 files changed, 40 insertions(+), 46 deletions(-)
-
+diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+index 5295dc2f9ee2e..bee19b65b9a4e 100644
+--- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+@@ -104,9 +104,16 @@ static void vs_cursor_plane_atomic_disable(struct drm_plane *plane,
+ 	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
+ 								       plane);
+ 	struct drm_crtc *crtc = state->crtc;
+-	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
+-	unsigned int output = vcrtc->id;
+-	struct vs_dc *dc = vcrtc->dc;
++	struct vs_crtc *vcrtc;
++	unsigned int output;
++	struct vs_dc *dc;
++
++	if (!crtc)
++		return;
++
++	vcrtc = drm_crtc_to_vs_crtc(crtc);
++	output = vcrtc->id;
++	dc = vcrtc->dc;
+ 
+ 	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+ 			   VSDC_CURSOR_CONFIG_FMT_MASK,
+diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+index e687313d6f057..01725e60e5fbd 100644
+--- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+@@ -65,9 +65,16 @@ static void vs_primary_plane_atomic_disable(struct drm_plane *plane,
+ 	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
+ 								       plane);
+ 	struct drm_crtc *crtc = state->crtc;
+-	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
+-	unsigned int output = vcrtc->id;
+-	struct vs_dc *dc = vcrtc->dc;
++	struct vs_crtc *vcrtc;
++	unsigned int output;
++	struct vs_dc *dc;
++
++	if (!crtc)
++		return;
++
++	vcrtc = drm_crtc_to_vs_crtc(crtc);
++	output = vcrtc->id;
++	dc = vcrtc->dc;
+ 
+ 	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+ 			  VSDC_FB_CONFIG_EX_FB_EN);
 -- 
 2.56.0
 
