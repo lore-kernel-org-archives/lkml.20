@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.83
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793608920;
-	b=G+BSG4uz8iWdwEv5VyZNlM7vqrHreJRPKRitAjiTc1uY7rbOLo45xvDAM9bT98jt2FKX
-	 C+/gYaNKe37yCSDv+MsxnEJ+0iEQH6dhE7856X6hD1ZBW2zS0BHrqhajj51NzR/9kiT81
-	 WFRLM/Phqb5wKNH410AwnVxEnWFJNTUWNY0RMfe8FXJXB9psKgcap2LZ1RIh8YfbF4FT4
-	 +KgMnNKD2eDSyCgOKJ6wWvkgvJDZ0jgB0x1xTv7fuaw2MBzJUQJHP5JXmDLrfwssd4Av+
-	 H7/lGpP8jByEcV61AbD1enQPG1AMTbEpNNp9qedamASmcLraqJ+zc0bBw+xP2T0g7rg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608920;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9qzDgUCXrz4JKwbBbc9TcKJRoM2FELG/m/U+XEzH/68=;
-	b=ovR++lPM4gdEjC7hN+0hkFRaIJnnLlcR413J8itQnmbUqOH0tfDOwD35yRINs5PnWk9c
-	 Idno06QPdFD+XJ03yKtbdi8dH7oeK5gz0k4Way7ZwyCTctmvMs9Ltl35WEW5TrJOwM+OO
-	 zhjpSldfO2jF3AeNUe1J9q2uDWXUNpIQ5OfJDkKlKBuqTbnGoDw2M5A5obwZX4ra4mxoM
-	 dvCa7U4YBcjyzu5uKvppgTrR2+I0+VS8W6Mn7ThNBzwMTLUXJKiusg+R43rHbJOUWMEgg
-	 qJHek3La9U7i+Ylh3+joRemnsoRpT4BvIrc4n3T9MryYAT/papwNaPk8U81Fsyu2a3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.83
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022083.outbound.protection.outlook.com [52.101.126.83])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793608968;
+	b=29PgrzjrEfG978qvmH7FA2Nk9m3gEErGpGMTgCgajJPQYhbp+UEgOk/tEMFtF8rstLrm
+	 rK2tkJJnlYYemFyjXs7YQNZRMF3Wo2mgr27rvCZpwSkt3jFQcb/Nietu7mJHkfuZlHx/D
+	 AordgQky6aALmGs68zmRSAqisQRuZU0EgFd7U7JO9WWUx+HImFmShfOPc0Gtp1fD/GKcf
+	 2vXZa/lsCoSu7qJUHXoU4lOaAX6xLfnp2PrlrkYfxOPLRw/iOf1UAB2soDjUN12EGYUL4
+	 zOj+EkOb2dIKFscJQy3fhyosL9yB1wXzdRgoeNOEz038tdZ8Cd/cQ/Rvpo9TTKeDvOQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608968;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Z9N1oUYOfEJ8wrfzt4kRP6+m5ByvucuS9GWjxSVa6Kw=;
+	b=ylG9gmRUreELB8lcm0lssk4JKpUieuEEghDsQPWZ/f6Eb62/36Fgi0XG8cBWvFHQeae+
+	 n/VsmADq3vuGs/nyLQMWVznXX06RUgNEc7MEHENO9Oi5UXh4uEhx0SWXyEg1vUsjfJ8Kf
+	 ipkph8AamV3rvEwDj/flGN6+5sHco4H7JcFs7+OzIJ/kiWIMilEXid9KpgQ70/ZlABDmF
+	 4EmVXEnui8msegeIHABQK9APL11xCqxZi7tG6aV8/dLe7kbrBRGBFSV8W6641GzbxKoe/
+	 u8kXvQZMMSeEJKm0+KHrLrnx/plMysFY2FSVKB0hwcrsEsfVh4UZuELHoKpOkNaY45A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=il+EJqI1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B808606A329;
-	Mon,  2 Nov 2026 08:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B808606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DCVxwcCRaDa+yit29YfRTnvZEKB5Kzzm7867sNHDhzfdJCIKzW+3m+2CGiywfMV9W/omo0gunm6T7VwXLG1Xj5IOqAAQPnWWbFXcH1/nF9vKcELox52OIEGlYmmumt6VRJ9cJr/rzg0ld6656kt7SBSQ0+G4y+oJKTVZ5irmEyMfnJk0gZ1in78BTMkiYCYFhYt3+o5hNRbSYlo0/yaPR0CVoOLBmaDJcokBt/eh/8ONnW6wTb6X2pYcQmU0+gx2UbBBy17iFlKu3T6ODN5wa0AXaAGEnvvmSENJEpTGr65CdW5otbY9FlXyj5iqYF/Wg8s7OX5bItYt6Io7+iV4QQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9qzDgUCXrz4JKwbBbc9TcKJRoM2FELG/m/U+XEzH/68=;
- b=aJ//lECZWI8OzwpiQYqJcRp/E42utB5XKsCKeOIJRYK5p8pWfYzeO8+1sFooaxePaf6fBEZ6OmH2xF+PzEWzcElmhrK/NsIm2ALlxiqrQ04gHGoo5XFnsbsHwxXOYHEA0IsxY1zOw2VfKcXBC9RyYIuMhTosPWabpW/v5Jnt9Nx+P23QS2kiJlB6K/JXO8rb8xzWiyaPOCTPn+XTViYehnWQ6P/nna3S1Eokgn5RhDPs/jYOB2cYH6uyugGQabt+x+EE5tZDfQLlJlr9/Dsfam9iFeO3SeL3E9sK5Sz9wmgUAPbF/5wYSKbLg17IFE86KcWEOfNfFPC8a4jgPHYHLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from MA5PR01CA0018.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a01:177::7)
- by TYSPR06MB7260.apcprd06.prod.outlook.com (2603:1096:405:84::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 2 Nov 2026
- 08:41:56 +0000
-Received: from SG1PEPF000082E4.apcprd02.prod.outlook.com
- (2603:1096:a01:177:cafe::17) by MA5PR01CA0018.outlook.office365.com
- (2603:1096:a01:177::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 08:41:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E4.mail.protection.outlook.com (10.167.240.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 08:41:55 +0000
-Received: from JohnnyFan (unknown [172.21.64.24])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id EA58F40920E5;
-	Mon,  2 Nov 2026 16:41:53 +0800 (CST)
-From: "Johnny.Fan" <johnny.fan@cixtech.com>
-To: will@kernel.org,
-	mark.rutland@arm.com
-Cc: suzuki.poulose@arm.com,
-	leo.yan@arm.com,
-	jeremy.linton@arm.com,
-	maz@kernel.org,
-	mike.leach@arm.com,
-	james.clark@linaro.org,
-	alexander.shishkin@linux.intel.com,
-	coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	jie.fu@cixtech.com,
-	bob.zhang@cixtech.com,
-	"Johnny.Fan" <Johnny.Fan@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>
-Subject: [PATCH v3 2/2] perf: arm_pmu_acpi: Support heterogeneous ACPI systems
-Date: Mon,  2 Nov 2026 16:41:52 +0800
-Message-ID: <20261102084153.3975282-3-johnny.fan@cixtech.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102084153.3975282-1-johnny.fan@cixtech.com>
-References: <20261102084153.3975282-1-johnny.fan@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32E0606A326;
+	Mon,  2 Nov 2026 08:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=il+EJqI1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382971F000C1;
+	Mon,  2 Nov 2026 08:42:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793608967;
+	bh=Z9N1oUYOfEJ8wrfzt4kRP6+m5ByvucuS9GWjxSVa6Kw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=il+EJqI1ya6PSV5bV8nfWpX/VAXmB+PShw94CcxxkVQnd7+SVdCBxSZdF2jtyQYl7
+	 siBwm8xeaYitWaQR8GAy+SgAeqnD29kusfR50WLYcufU+gMRRWLTvy9clpGFa8pLMT
+	 fazRm2zTh7heeVLLjQAt9K2tYkDjk5xpFimmilknBYqFCcfcU5cmw1rHmM2e9PMgT4
+	 wmnVMkSkuFJ2TQk7rBcGRnmGQYC1QuxwVo/32rwrfeLU4OY3sEiAnahCZkSTmYOM1e
+	 wZ1ln5Vssonh3OQ93fK2GQ1DN5ksdRBK2Uwna2Kdl4sLnizyjsWMqBEsmRD6F22f+Q
+	 hx4/++Kr1NpnQ==
+Message-ID: <c4f7b153-feb3-472f-b13c-c7fb0a46f9b6@kernel.org>
+Date: Mon, 2 Nov 2026 09:42:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,370 +51,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E4:EE_|TYSPR06MB7260:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 286e5f08-bee9-4bbf-9c33-08df38bd2686
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|23010399003|10067099003|18002099003|22082099003|56012099006|261021123027099003|261021121427099003|261026140227099003|261022105027099003|261022075727099003|261026121527099003|261009223027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	3VrQenq5cLYNYRwvGw3Xro0ELRLTaceMyFr+6NurjgzFLE8FBntp+NrYLHAWkgZoI32YhiZMXerd0Ab83tTJ9oeO34ehh7V9X0CqDCDntzoetSvE48QpiopQZQNaKKB/MVLOk3gStI6etJAinURmhqJDOXix47fo8f5634N+E/9qmgBDpkC0sISVSKcCvt8Ugqa23yr0dEIRflOyPxajF5fqN1pv4DX7APGPgimNsMVY9KXzyIL60WlmhcKTky9cbbN+4U4huR0KCegQvbljmcoDJFuicFEfccCL1qmGAHMj8ZUiQoPCLpqw++xnEGRla1TprzAt8Hs5cvQMY3G0qEbVPbph2zyKYD0c1XZ7mlwdMc+OVY46crhCNziUFLeSP/W0evYBElFV8Iq96ufLwZEy81i2C7EGnZidw0JKCAvon70NZkWZezr3LwCapOb+5Joh532sr35ZP7qqJTQCW9LaJ5SudRkUuHv2dRkzqQ/bkULwP9khDSsH9hJ4DowQHntooyQ6sl+KVz2cpPknUwkWgjNCswAF9vNifU6qavdxV5/CFmSwZpUUrUNlkNSThxQirhI5zWIhaA9OJpUt5FzpCWzH/jcCWufVI4ucxaMOXrHOBRqmdaNbIME8WW30DgiyAqmTVSBjjyzF4zXpup+sZguPdx0V+/Km9CFqQGAuZVLU+vvCFRj0uFyc+P2hpO/QSkyWvhyeIJSNQ7kTaQ==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(56012099006)(261021123027099003)(261021121427099003)(261026140227099003)(261022105027099003)(261022075727099003)(261026121527099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	JgFOoNqcsRSD35NG5quAYkkdMbvsIn7EW4GqTYc0s1Wfyl1M+/bSWzO/9VKij1TmA91Ucg1CyjH5lAxNzqZqlPEk2WTQOH4yvjjmU986RF2bsswlCW9275YnkzC9BKD/UUVmPzIG4HGl28x6koEYSiYrEZm3EOZUTtMRn9NgqsMAyIWd0stCUOUJoPk0ZkkpYftHjfOTQqtP9/r5ujRA3NsTfffQ0aHPGe1taHYUP6tECfft3veGxWS+DDFDZNab12b5nw0O/Zd8f22K7zT0YBoUiu/rQaorj9FIrMEAHKkMrZY31CDArAIDv6S3yJXIvglNRwA7XvGAQD8NTqqJ7ZvaSIWb3ZeLhsmmFZD46yeCahb+W5BEIdQVBZg/5hXj0UFymh01WuN2XLqCuIAyaCIBa2KJkpG3MK6TrSq5otXCfYQSf7mrNUCdGK2DyGCO
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:41:55.0891
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 286e5f08-bee9-4bbf-9c33-08df38bd2686
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E4.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR06MB7260
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/25] accel/qda: Add initial QDA DRM accelerator
+ driver
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+ andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+ sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Ekansh Gupta <ekangupt@qti.qualcomm.com>
+References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
+On 01/11/2026 23:21, Ekansh Gupta wrote:
+> +
+> +#include "qda_drv.h"
+> +
+> +/*
+> + * Both compatibles the binding defines are matched here. The glymur, hawi,
+> + * maili and nord nodes name "qcom,kaanapali-fastrpc" as their fallback
+> + * compatible and so are matched by that entry. Per-SoC DSP parameters are
+> + * attached as match data by a later patch, once there is something that
 
-On heterogeneous ACPI systems, not all CPUs implement SPE or TRBE, and
-the ones that do may use different PPIs. The MADT describes this per
-GICC entry: a CPU without the feature reports a zero overflow
-interrupt, and the PPTT hetero id identifies CPUs of the same
-implementation.
+So you add empty or non-working code. No, add these once you actually
+have complete and working table.
 
-The current code registers a single platform device and gives up if the
-GICC entries disagree on the hetero id or on the interrupt, so the
-feature is unavailable on such systems even though the firmware
-describes it.
+> + * consumes them.
+> + */
 
-Group the CPUs by (hetero id, interrupt) and register one platform
-device per group. A GSI may be shared between groups with
-non-overlapping CPU masks, so only unregister the GSI mapping once no
-successfully registered device uses it, as the mapping is not reference
-counted.
+Drop comment, redundant. Referencing future patches makes no sense in
+source code, because there is no "patch" when looking at the code.
 
-Entries too short to contain the field mean that the firmware does not
-describe the feature, which is what pre-ACPI 6.3 (SPE) and pre-ACPI 6.5
-(TRBE) tables look like. If only some entries carry the field, the MADT
-is inconsistent: warn and create no device at all.
+> +static const struct of_device_id qda_rpmsg_of_match[] = {
+> +	{ .compatible = "qcom,kaanapali-fastrpc" },
+> +	{ .compatible = "qcom,fastrpc" },
+> +	{ }
 
-Pass the CPU mask to the driver as platform data, as added by the
-previous patch.
 
-Tested on a CIX sky1 SoC with heterogeneous SPE support.
 
-Signed-off-by: Johnny.Fan <Johnny.Fan@cixtech.com>
-Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
----
- drivers/perf/arm_pmu_acpi.c | 238 +++++++++++++++++++++++++-----------
- 1 file changed, 167 insertions(+), 71 deletions(-)
 
-diff --git a/drivers/perf/arm_pmu_acpi.c b/drivers/perf/arm_pmu_acpi.c
-index ca6bf8f86cfe..bffeeb063800 100644
---- a/drivers/perf/arm_pmu_acpi.c
-+++ b/drivers/perf/arm_pmu_acpi.c
-@@ -12,6 +12,8 @@
- #include <linux/irqdesc.h>
- #include <linux/percpu.h>
- #include <linux/perf/arm_pmu.h>
-+#include <linux/platform_device.h>
-+#include <linux/slab.h>
- 
- #include <asm/cpu.h>
- #include <asm/cputype.h>
-@@ -68,91 +70,196 @@ static void arm_pmu_acpi_unregister_irq(int cpu)
- 		acpi_unregister_gsi(gsi);
- }
- 
-+struct arm_pmu_acpi_group {
-+	int hetid;
-+	u16 gsi;
-+	bool registered;
-+	struct cpumask cpus;
-+};
-+
-+static int arm_acpi_find_group(struct arm_pmu_acpi_group **groups,
-+			       int nr_groups, int hetid, u16 gsi)
-+{
-+	int i;
-+
-+	for (i = 0; i < nr_groups; i++) {
-+		if (groups[i]->hetid == hetid && groups[i]->gsi == gsi)
-+			return i;
-+	}
-+
-+	return -1;
-+}
-+
-+static bool arm_acpi_gsi_in_use(struct arm_pmu_acpi_group **groups,
-+				int nr_groups, int idx)
-+{
-+	int i;
-+
-+	for (i = 0; i < nr_groups; i++) {
-+		if (i == idx)
-+			continue;
-+		if (groups[i]->registered && groups[i]->gsi == groups[idx]->gsi)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
-+static int arm_acpi_register_group(struct arm_pmu_acpi_group *group,
-+				   const char *name)
-+{
-+	struct arm_pmu_acpi_dev_data data = { };
-+	struct platform_device *pdev;
-+	struct resource res;
-+	int irq, ret;
-+
-+	irq = acpi_register_gsi(NULL, group->gsi, ACPI_LEVEL_SENSITIVE,
-+				ACPI_ACTIVE_HIGH);
-+	if (irq < 0)
-+		return irq;
-+
-+	pdev = platform_device_alloc(name, PLATFORM_DEVID_AUTO);
-+	if (!pdev)
-+		return -ENOMEM;
-+
-+	res = DEFINE_RES_IRQ(irq);
-+	data.cpus = group->cpus;
-+
-+	ret = platform_device_add_resources(pdev, &res, 1);
-+	if (ret)
-+		goto err_put;
-+
-+	ret = platform_device_add_data(pdev, &data, sizeof(data));
-+	if (ret)
-+		goto err_put;
-+
-+	ret = platform_device_add(pdev);
-+	if (!ret)
-+		return 0;
-+
-+err_put:
-+	platform_device_put(pdev);
-+	return ret;
-+}
-+
- static int __maybe_unused
--arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
--			     u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *))
-+arm_acpi_register_pmu_devices(const char *name, u8 len,
-+			      u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *))
- {
--	int cpu, this_hetid, hetid, irq, ret;
--	u16 this_gsi = 0, gsi = 0;
-+	struct arm_pmu_acpi_group **groups;
-+	int cpu, i, nr_cpus = 0, nr_groups = 0, nr_devices = 0;
-+	int nr_full = 0, nr_short = 0, last_err = 0, ret;
- 
- 	/*
--	 * Ensure that platform device must have IORESOURCE_IRQ
--	 * resource to hold gsi interrupt.
-+	 * The firmware describes the interrupt for every CPU on ACPI 6.3
-+	 * (SPE) or 6.5 (TRBE) and later, and for none of them on earlier
-+	 * revisions, where the field does not exist. A mix means the MADT
-+	 * cannot be trusted, so create no device at all.
- 	 */
--	if (pdev->num_resources != 1)
--		return -ENXIO;
-+	for_each_possible_cpu(cpu) {
-+		struct acpi_madt_generic_interrupt *gicc;
- 
--	if (pdev->resource[0].flags != IORESOURCE_IRQ)
-+		gicc = acpi_cpu_get_madt_gicc(cpu);
-+		if (gicc->header.length < len) {
-+			nr_short++;
-+			continue;
-+		}
-+
-+		nr_full++;
-+		if (parse_gsi(gicc))
-+			nr_cpus++;
-+	}
-+
-+	if (nr_short && nr_full) {
-+		pr_warn("ACPI: %s: inconsistent GICC entries\n", name);
- 		return -ENXIO;
-+	}
-+
-+	if (!nr_cpus)
-+		return 0;
-+
-+	groups = kcalloc(nr_cpus, sizeof(*groups), GFP_KERNEL);
-+	if (!groups)
-+		return -ENOMEM;
- 
--	/*
--	 * Sanity check all the GICC tables for the same interrupt
--	 * number. For now, only support homogeneous ACPI machines.
--	 */
- 	for_each_possible_cpu(cpu) {
-+		struct arm_pmu_acpi_group *group;
- 		struct acpi_madt_generic_interrupt *gicc;
-+		int hetid;
-+		u16 gsi;
- 
- 		gicc = acpi_cpu_get_madt_gicc(cpu);
--		if (gicc->header.length < len)
--			return gsi ? -ENXIO : 0;
--
--		this_gsi = parse_gsi(gicc);
--		this_hetid = find_acpi_cpu_topology_hetero_id(cpu);
--		if (!gsi) {
--			hetid = this_hetid;
--			gsi = this_gsi;
--		} else if (hetid != this_hetid || gsi != this_gsi) {
--			pr_warn("ACPI: %s: must be homogeneous\n", pdev->name);
--			return -ENXIO;
-+		gsi = parse_gsi(gicc);
-+		if (!gsi)
-+			continue;
-+
-+		hetid = find_acpi_cpu_topology_hetero_id(cpu);
-+		i = arm_acpi_find_group(groups, nr_groups, hetid, gsi);
-+		if (i < 0) {
-+			group = kzalloc_obj(*group, GFP_KERNEL);
-+			if (!group) {
-+				ret = -ENOMEM;
-+				goto err_free;
-+			}
-+
-+			group->hetid = hetid;
-+			group->gsi = gsi;
-+			groups[nr_groups] = group;
-+			i = nr_groups++;
- 		}
-+
-+		cpumask_set_cpu(cpu, &groups[i]->cpus);
- 	}
- 
--	if (!this_gsi)
--		return 0;
-+	for (i = 0; i < nr_groups; i++) {
-+		ret = arm_acpi_register_group(groups[i], name);
-+		if (ret) {
-+			pr_warn("ACPI: %s: %*pbl: add device failed (%d)\n",
-+				name, cpumask_pr_args(&groups[i]->cpus), ret);
-+			last_err = ret;
-+			continue;
-+		}
- 
--	irq = acpi_register_gsi(NULL, gsi, ACPI_LEVEL_SENSITIVE, ACPI_ACTIVE_HIGH);
--	if (irq < 0) {
--		pr_warn("ACPI: %s Unable to register interrupt: %d\n", pdev->name, gsi);
--		return -ENXIO;
-+		groups[i]->registered = true;
-+		nr_devices++;
- 	}
- 
--	pdev->resource[0].start = irq;
--	ret = platform_device_register(pdev);
--	if (ret)
--		acpi_unregister_gsi(gsi);
-+	/*
-+	 * acpi_register_gsi() does not reference count the GSI mapping, so
-+	 * release a shared GSI only once no successfully registered device
-+	 * uses it any more.
-+	 */
-+	for (i = 0; i < nr_groups; i++) {
-+		if (groups[i]->registered)
-+			continue;
-+		if (arm_acpi_gsi_in_use(groups, nr_groups, i))
-+			continue;
-+		acpi_unregister_gsi(groups[i]->gsi);
-+	}
-+
-+	ret = nr_devices ? 0 : last_err;
-+
-+err_free:
-+	for (i = 0; i < nr_groups; i++)
-+		kfree(groups[i]);
-+	kfree(groups);
- 
- 	return ret;
- }
- 
- #if IS_ENABLED(CONFIG_ARM_SPE_PMU)
--static struct resource spe_resources[] = {
--	{
--		/* irq */
--		.flags          = IORESOURCE_IRQ,
--	}
--};
--
--static struct platform_device spe_dev = {
--	.name = ARMV8_SPE_PDEV_NAME,
--	.id = -1,
--	.resource = spe_resources,
--	.num_resources = ARRAY_SIZE(spe_resources)
--};
--
- static u16 arm_spe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
- {
- 	return gicc->spe_interrupt;
- }
- 
--/*
-- * For lack of a better place, hook the normal PMU MADT walk
-- * and create a SPE device if we detect a recent MADT with
-- * a homogeneous PPI mapping.
-- */
- static void arm_spe_acpi_register_device(void)
- {
--	int ret = arm_acpi_register_pmu_device(&spe_dev, ACPI_MADT_GICC_SPE,
--					       arm_spe_parse_gsi);
-+	int ret;
-+
-+	ret = arm_acpi_register_pmu_devices(ARMV8_SPE_PDEV_NAME,
-+					    ACPI_MADT_GICC_SPE,
-+					    arm_spe_parse_gsi);
- 	if (ret)
- 		pr_warn("ACPI: SPE: Unable to register device\n");
- }
-@@ -163,20 +270,6 @@ static inline void arm_spe_acpi_register_device(void)
- #endif /* CONFIG_ARM_SPE_PMU */
- 
- #if IS_ENABLED(CONFIG_CORESIGHT_TRBE)
--static struct resource trbe_resources[] = {
--	{
--		/* irq */
--		.flags          = IORESOURCE_IRQ,
--	}
--};
--
--static struct platform_device trbe_dev = {
--	.name = ARMV8_TRBE_PDEV_NAME,
--	.id = -1,
--	.resource = trbe_resources,
--	.num_resources = ARRAY_SIZE(trbe_resources)
--};
--
- static u16 arm_trbe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
- {
- 	return gicc->trbe_interrupt;
-@@ -184,8 +277,11 @@ static u16 arm_trbe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
- 
- static void arm_trbe_acpi_register_device(void)
- {
--	int ret = arm_acpi_register_pmu_device(&trbe_dev, ACPI_MADT_GICC_TRBE,
--					       arm_trbe_parse_gsi);
-+	int ret;
-+
-+	ret = arm_acpi_register_pmu_devices(ARMV8_TRBE_PDEV_NAME,
-+					    ACPI_MADT_GICC_TRBE,
-+					    arm_trbe_parse_gsi);
- 	if (ret)
- 		pr_warn("ACPI: TRBE: Unable to register device\n");
- }
--- 
-2.55.0
-
+Best regards,
+Krzysztof
