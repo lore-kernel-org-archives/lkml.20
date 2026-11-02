@@ -1,61 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605100;
-	b=tYnxsnJus9t2aZZtX1WMJPAlPWR6oX2WGohqn36wWCcQN4ikPC4uXZhdFI7toUctLI3C
-	 ISUqTc06teJpgbXKYey/AWrzvrJO7NePjnW1a/wyblDQ0490Q74pdIOWwuL7S6d2w9Ro6
-	 fSNmEvCrmz0YcUVUZFsnR5L+Qfwmyc1l70qq9k3nyWaSujv85rQ9jfUh3Q625W23oIXDr
-	 84CflSqhE9bUHV+1+lnLeEb9o+Hkyt6k0RHEGC7EqzKOiJDKL4a5FdVQQgpSdsXGhNj2Z
-	 DMICnWR7IunP+zG5rSwhR+XBELNH/vrWb1XCUzDp9iRGiiZoQtJDjOxzwdKp3e5wcFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605100;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=nWTYVyTaCw6s5Ex8WmhedUL3I1XHwqQDSjVn5dV6lLw=;
-	b=u/PXf/lEIIFDFJIoquWNmGIrvZn1eOMHtKokV5tWqGBqDyy2Hm9jurqsHa/DbQhnuvov
-	 lAgsG2c7mpFdTWbcR8u1BAIYiHZDw8J1d7+Dw5ccnoY4KMgpI/HaSGVxeeWSIgnDpu/zf
-	 j+SYEEs29qux2eLXX4m3quTed9jrIuxRUfOoaOEcTGLzggRzLhYTa3x0r5Tb/zZ1+AVB6
-	 crIQ6HyK4w7TINeDPNgUuhArmpJs+VWSEfbMuFFxiA8HkgbjQtmBbseQUqS1G9YKrKHIA
-	 bRq4ML8h8b4OEJNILCTUoW3zm7/Xkv6bsLvEkIFI+C/auhAF8LpdUwedC5cszErN9cw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VZlvBKBi;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793605133;
+	b=nGvkiKGTWXof1jMqnwB2MYKXV7HfLWkmj8g0XJcM/fKBmj97aXf8koDx2Ps2c/8B5c5Q
+	 Hv6DTZ4KDZKqWH/1YHvg2aQUSYAFEGkJPDN8VLsRgLJe15cJDsJ0/C87BahisDjj6DMiQ
+	 1OFVJWC5i4Z183pY3lclzmj0muqqSuIkhpYAA0SYGC6yf5RFfcqmIZOA9pyRkF5mkpQ34
+	 0GZoAtYcOfebHttlIlStiNpkvibc3QbQvB3oLkGQ0a1EAlgi2AfHoX3Gl0XFqndq4Ckee
+	 NzxRgN0AhGpe0W9pyd525cRVR+DT3GQ2+V5DXq8lBCEbcoWPnl9PJ0WBtIogE6dcnRA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605133;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=f6fwxTHOZBGRaM1Qv4quVRO6VZkQuqnxMy6a+ocbSSc=;
+	b=LuC4HhdPjOFMauGAiwXcNt8FtiUFkBQNU2bnnnlDInsi6j1Q57DrsbOCSUNWWr5O7BM7
+	 jr5Ied4InayIQD1bDtJD2v2Fi/nbV92Jz7ledZR8zUcNJK+ryBxOmPMD10NfJcuL7UBIf
+	 Cqz0WxL1HtvRKBSwEzK7TW8ysZKu+pYBaP3LigbdFnGDii+ElDtUXfMwh1AXbopBfLEK4
+	 0RCKahy7/GRG+VoXAdRuxSEy4QsMQTqUW8NuFXgik+c7FaAV23bT4XJ96RwHYJ90Jsv3p
+	 StrFZUQUNJE5tefPOcUqS1F3z3tj1kF1AiQ6VBe5D0vUND6i1jBvKyGIJetXKXCj2fQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vnR5YRSQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.5
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011005.outbound.protection.outlook.com [52.101.57.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103A0606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 103A0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B53606A324;
+	Mon,  2 Nov 2026 07:38:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62B53606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=VZlvBKBi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=nW
-	TYVyTaCw6s5Ex8WmhedUL3I1XHwqQDSjVn5dV6lLw=; b=VZlvBKBi8AT9NYgfNF
-	KlrCg9EPKjGygKikQaRO70CqK4MFwN6YljfEKfl0THGWfWsa8Le+UfrAG2LP82Lf
-	/S+9RdgOs/aBV1vQ8sODOdZXMqYTMdP6x0t7WBqeeaggbyT4PyGBuKQL06oggy3H
-	pRFih3UbuRzQiQAUULvyIbCl4=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3N9rIPehqahKgEw--.3981S5;
-	Mon, 02 Nov 2026 15:37:46 +0800 (CST)
-From: Xuewen Wang <wangxuewen_ky@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: wangxuewen_ky@163.com,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Dandan Wu <wudandan@kylinos.cn>
-Subject: [PATCH v5 19/31] ntfs: report index validation and block I/O errors
-Date: Mon,  2 Nov 2026 15:35:20 +0800
-Message-Id: <20261102073532.98873-20-wangxuewen_ky@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261102073532.98873-1-wangxuewen_ky@163.com>
-References: <20261102073532.98873-1-wangxuewen_ky@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vnR5YRSQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s3WVs5c88jOI5dR9be8/hRvjoWRaWIVcNL1DymD6v9OS96oRDmBxjR7V/o/o2Hft9+WDiphyxiZeoRgRP7gh0zrnsCslQZ2Mfmx7+M02o2mwtb+Hp74oCZ1waWrEgGFYY1uxiwFBXk3DGB7FTwa2qEMOh7YPThRYIl2P0EMaVvynGbW/ywFcdyGHB60yAF7WFe0ZxDp/4B0iGz4eTZtzTt3A3znmUuSSzSElUaeaIYcObc4AwFUvV7LhvDSVGAGK9xWt6odqcl5afWyfWPTPucD1S0H5ie616saFL1NMwYdwfG6lOfMIH7iWlKDo+cK7TwOQw/uOBRoYA2oTQnIoJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f6fwxTHOZBGRaM1Qv4quVRO6VZkQuqnxMy6a+ocbSSc=;
+ b=dPBtQKGw2GVEtdly/J191htoSfDxicrdqcOPq4zFgLNnxC02D/jnRkBF7Hm3lf2do2vGFthIsknNb6n22QEPM2jEWlVmoM48u5sH2+fBuyW1VmOFVue1ExWELVoF5d9cn8QRSQzurSrOIoylgOXz5TJMkj3M3XtYYyBlE5a/k5tful6MnjCJlRlFUi/mdI7OlZ/5ilyFdBJjdmlBZB3Kr9zXQLERl/zrzZTKHx4rBbvdJV/6gmXTxxQa0SxT/gzKgd5O5RfMktPcx5TXHcKZb7goG/dMdbDe60JI4w+CkhK6M7Tg7qzLD8upLuoE/rZ739NbKCaus2mdjn73z5tiOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f6fwxTHOZBGRaM1Qv4quVRO6VZkQuqnxMy6a+ocbSSc=;
+ b=vnR5YRSQUKWYjbxXYHuxVgLIMVvQqiwh+Xcpre9O+jQuYc9DkTYcby/jHN5b4yeS3lLHHRyHeVtEV5XGcbWq7Z03H3USLEuQp3CuueIxIWuFruN4VjzDFVNtnwZtdQHYrrHNcabWsspI+Fi4LnfqF77Jq6bvqbuVPvmw0AzSz3s=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB999319.namprd12.prod.outlook.com
+ (2603:10b6:510:40f::24) by DM4PR12MB6351.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 07:38:46 +0000
+Received: from PH8PR12MB999319.namprd12.prod.outlook.com
+ ([fe80::582a:6d15:9b75:5235]) by PH8PR12MB999319.namprd12.prod.outlook.com
+ ([fe80::582a:6d15:9b75:5235%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 07:38:45 +0000
+Message-ID: <fd6ff4c4-ace3-4e31-8477-d3e4e149490a@amd.com>
+Date: Mon, 2 Nov 2026 13:08:39 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i2c: amd: fix SMBus block header and PEC handling in the
+ RX path
+To: Paritosh Potukuchi <paritoshpotukuchi@gmail.com>, andi.shyti@kernel.org
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Paritosh Potukuchi <paritosh.potukuchi@amd.com>,
+ Sanket Goswami <Sanket.Goswami@amd.com>
+References: <20260627153532.547719-1-paritosh.potukuchi@amd.com>
+Content-Language: en-US
+From: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+In-Reply-To: <20260627153532.547719-1-paritosh.potukuchi@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA1PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:d::12) To PH8PR12MB999319.namprd12.prod.outlook.com
+ (2603:10b6:510:40f::24)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,383 +98,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3N9rIPehqahKgEw--.3981S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW3try7tFyxtF4ftw18Kw18AFb_yoWkCF1rpF
-	nxGwn2ka1UtrySvrnayF98Xr1a9ws7Kr4DtrWUJa1xZa4Skw1jyF1jyr1a9ryfKrWkAry3
-	XF4jqrWUur1UXrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jxTmhUUUUU=
-X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC8ApWP2roPcrkaQAA3r
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB999319:EE_|DM4PR12MB6351:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1f0eb1b-af32-449f-3744-08df38b45389
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|10067099003|56012099006|261009223027099003|261022105027099003|261021123027099003|261021121427099003|11063799006|5023799004|261028144727099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	NNnrn+RwWyobo39P2v5t6Ng/DYkMJv6LShpmMBNm3VjpXXkz7pipcyyOS32OOm4btaSCilRdepH/wwEhLUdoafLfU17pF8b7OZouzJ2A0FdTWSRyYjPHRlDxjx60S0N/jsRDriQvb27gtOqBjrTh5XnDY83RrzoIjUJkZyUQtY8hkRhPu62VDsvQaple+oZaXY1QkU4rTel/WLu+et3LB/Me/q+VQmi2cxUaJSIw4YzEua4tZvsnhUtsf0gbJeIioaMp6KXdWfiCCg6P2I7y+jQQ1lWRH/GxSS1pOhLLnjPf/f1ydut7wtPPwDQO/qA8xAPrgKvUy1ncfpK8z7hGqfUpF5M3MrvLDeLK26wYY7AZMgplDbyMHnWGMETEl09TPZ1iv0HkW+hhmhoHWQzTGL31LQFGNc4+ibtFJ4elS7KPmWa+HLJhBfOJkrL3LsZHwcww+CYNv36PnvsVgB8YOA7L+W8OZnvA3nsNy1qiSccKiMsn1lsL6AIxsDxtTIAfytJQEedCtAyZh3i3m3DoxhRTECihgATZXIXZi6ccIYbJnzM4NnX6vNKQD0WbbYkpDE40/xH6mks2tUPsnBD3ZqPXkO7vu17QClGMcQAv0Q6uTjXNmoZ0APFTEes6yz4LbkgUIX/gyS4qQS2F21AMP1I2Ie5UpihJlSwUzS40QM4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB999319.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(261009223027099003)(261022105027099003)(261021123027099003)(261021121427099003)(11063799006)(5023799004)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Qm14SlpUdXlOa0NIdHJiOGQrQ2lOWWJHV2RxWTdVMk5GV1ZMTFpoTGRDRWV0?=
+ =?utf-8?B?Q3I4VDROWWdnSyt3MS8wdS91MFdGaGd2b3RNMDZYdU9vZTgwYWhVUXNXUldB?=
+ =?utf-8?B?SDJVUWxUSHl2Q2dVM2ZIQ1BUNHpZOXkvaW9tZ1drOWpWTUdUTnFTYWNxTW5I?=
+ =?utf-8?B?ajVwODMvQlBUWVdESzBVbXdLZCs3RXlhUWhVUG5YZ3JXaEZ6RWw5TDNJNE9q?=
+ =?utf-8?B?RlNZQzU4VUI5MFlEQVczM2JKS1hjVGxMZkJwUGZvZlFFNE5EYmlmMUx1ZlRR?=
+ =?utf-8?B?Q2s3aSs0dGF0NjhLVWR6ZmFTU1JFenlRVGhDdmg5UEM2bk9QU1NlWWh5M3ky?=
+ =?utf-8?B?RldOQVQ5Mll6Z0pMV21FS1FlZFNTR3ZWa0NuNmdjdXpWT3hFTGVOY0xlTHc3?=
+ =?utf-8?B?OXFGZGMvZjFBbC9UVnpRd0U1eUlzeWFGNjdMbTY1N01YbW4ydkFybnBaQXc5?=
+ =?utf-8?B?TXJNY2hzUmpQVVBmc0lySkZHYWRjdGFoTHpIRld5N1dGQVg0NzJJdzZyS015?=
+ =?utf-8?B?cTVONUFvcTJOWkNhbkU0U0RJWkdRSkJzZGhWRlhYdWp0OFRUbzNZVnNlTEoy?=
+ =?utf-8?B?c2tiN0RzeGE5VGxPRGNqbGljSDhwdFJRcGc4OWxaamNLSkVSWlV6TSsxMndn?=
+ =?utf-8?B?azh6OVZRdUhZNlIzWE5yK3Axc2FkK0ZvclM4ZE8yN1FRV0gzcTVmSzdmSVZy?=
+ =?utf-8?B?a1lNWnh3cnJrNWUyQjhEMjVObHlxUWNoRHJkQ2wvSUxQU1RDRG13REdBeERJ?=
+ =?utf-8?B?NTZoYVFaTnlUNVAzZjFxZ3Z6R1BRaXJMdkVpcVgrN1I3ZkVUdk5FUzkvYlIw?=
+ =?utf-8?B?Y0RuQzU2K0FMeU4xNE9VSWJYWGFHNG0xTFNuYVIwSEJKOWlhRFhDOEg5aEFO?=
+ =?utf-8?B?emFtSHZqMzZxeUJFMDQwYWhRdTN1RWkvNmdpRGhpbTR1YVBPWHdONGJrUld6?=
+ =?utf-8?B?bzcwajBFQ0x1ODhYck9PNDJ1RU5XNEk3SHFYQmlBOWwyZXJLNnZKeWdkYkwv?=
+ =?utf-8?B?RWVxYUprc3lNVU5TczFTeWpYaUJ2M2c1eThoWXo5eE9ZdGo1dWxNajFkb2tk?=
+ =?utf-8?B?c20xTU84Vk54Z2Vub3BWTWw1MThTN1lkUlBjN0NVSzZseC9FOWdoLzdzWWtL?=
+ =?utf-8?B?c3VlMHdHdDZaRGlKOFE1VGptZmRWYVVwbmVCeVVvOUhCTm05MFpOMVhMc2I0?=
+ =?utf-8?B?cDlOcy9qY2d5d2pLMHQ0SW92bTZYMHVKSFluQUNYQ1hFaU5PNEloWTJXT0I2?=
+ =?utf-8?B?Z3lBdHNzT1dROEdlc2laSWt6bFBQL2p2aWRKaUl6QkJBL25HaytPTXJuelVD?=
+ =?utf-8?B?N2dQeXlnNks1TEdFL2xPQjQwSlFaUFNWWU8wdEtqTENmaUpMUWRsdGpMbk04?=
+ =?utf-8?B?U1FBS2N1QS9scyszeW9ITzlrUXIxY3d4V3NFc1I1a3AxYkUzNzFxMEk0ZXI0?=
+ =?utf-8?B?RU5pV0FyVXFkTzdEZWVudWlvMUh2MzNFTWZWRzlwRmp0T05UVWRtN29wNTd4?=
+ =?utf-8?B?RmlwZUsyL0RKeTEvNExSQ2hvZDdwT1JhR2JzMFJuaGpxSEtGMm00eUlraktW?=
+ =?utf-8?B?Y2dBbHkwQWl5amlUUlpuaWhzUjI2V2c1UUp1a3ZPK2h0aG5rMXdRWE02SzlB?=
+ =?utf-8?B?RW1HVDNjRmFoYks3MUxwMDE2RVFPMkd0WHVlcmlXUStWNm5lSFZoZWlRY2tL?=
+ =?utf-8?B?UmcvNVpkSHNrWnFpNmdrL202SGhPTTh5WnFkNm1waWM2RGNXdzA3TjdJZHJS?=
+ =?utf-8?B?RXd0WU00cjB1ZVZxT2xMMU96Z2NPWEtZVlNNUy9FV2NzZzlpbk1IR3JJRTlH?=
+ =?utf-8?B?OGpZSEZlQkVKZUlyYnNyTzFhRGJYR3VkWGlML2w2dlg0Z3NGUWNvRE80VlNS?=
+ =?utf-8?B?TmRlMWoyb1hEdTA2Y2NJUmJuWmlBYXlGNUZ1OHBEcHJEd05CVWRtdFE2UUI5?=
+ =?utf-8?B?L1BKKzNjQVh2cTVGMFpTdTVQTU80OFUwUEk3VmtTenRJVjhLL09YOUZQWFFX?=
+ =?utf-8?B?K1RkS282SWFJSW8rdzNlVGlCbGFxM3YySGpIWnU4N2JUVUhWVEdiZjEyOGlI?=
+ =?utf-8?B?N1NXSy9ZaHQ1aVE1dm9YTzZyOFZ0VTEybE1qWFl1S1kyU1JrQnNoQWJraGxm?=
+ =?utf-8?B?YXVkVHJwaVFVODNBL2tCakZ3REk0ZC8xaGZXWGNqT3JteElyaDZ2R2Vzb2Yv?=
+ =?utf-8?B?c3BTS2FFZkFXcW1iUS9kQUJ4aWN5bkU1VWpSNnNuQzMvVjJFYXJ5Rzd1WHc3?=
+ =?utf-8?B?eHZaa2VCVElUSDVJRWlNL2MvN3dOSVFRMzZUb3ljSExFemVFL2J0eHZBMGxS?=
+ =?utf-8?Q?5NmHBDfWpxGn0lBgOX?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1f0eb1b-af32-449f-3744-08df38b45389
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB999319.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:38:45.7811
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VWeiU+wfw9dCTuUbFcPeU9hli8bfRSAYWNIXTJt00YH6GhSQqpui2+ZzNfqPTRcO098VnVcCdNDpsjKYfSgxFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6351
 
-From: Dandan Wu <wudandan@kylinos.cn>
+Hi Paritosh,
 
-Index validation and block I/O can detect corrupt entries, MST
-failures and short reads without reporting them. Use EFSCORRUPTED for
-corruption and report failures against the index owner.
+Apologies, I missed this. Comments below.
 
-Preserve block-read errors through index lookup and update its handling
-of corrupt search results. Keep underlying I/O errors distinct and
-normalize short index-block writes to EIO.
+On 27-06-2026 21:05, Paritosh Potukuchi wrote:
+> [You don't often get email from paritoshpotukuchi@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Strip SMBus block header bytes from the received buffer before
+> forwarding the payload to the upper layers.
+> 
+> Handles the optional PEC Byte at the end of the received
+> payload.
 
-Report locally detected block corruption at the common exit, without
-repeating corruption already reported by the attribute-read path.
+Can you say a bit more about why this is needed? Which target backend
+are you using that wants only the payload?
 
-Signed-off-by: Dandan Wu <wudandan@kylinos.cn>
----
-Validation:
-- Thirty combined index/bitmap cases exercise the real attribute reader
-  with the index-block wrapper and bitmap modifier. This set also covers
-  patch 22.
-- Propagated EUCLEAN is reported once on index reads; short reads, invalid
-  positions, MST failures and local block corruption still report.
-- All pass in an extracted-source userspace harness with controlled
-  dependencies under ASan/UBSan; checks cover reporting calls.
+I don't think the bus driver is the right place for this. The target
+interface hands the raw bytes from the wire to the backend, and the
+backend decides what they mean. mctp-i2c, for example, expects to see
+the command code, byte count and PEC, and checks the PEC itself (see
+mctp_i2c_recv()). With this change every MCTP packet would get dropped
+there.
 
- fs/ntfs/index.c | 113 +++++++++++++++++++++++++++++-------------------
- 1 file changed, 69 insertions(+), 44 deletions(-)
+> 
+> Signed-off-by: Paritosh Potukuchi <paritosh.potukuchi@amd.com>
+> ---
+>  drivers/i2c/busses/i2c-amd-asf-plat.c | 34 +++++++++++++++++++++++++--
+>  1 file changed, 32 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-amd-asf-plat.c b/drivers/i2c/busses/i2c-amd-asf-plat.c
+> index e1699da838c2..daf318ce3bbb 100644
+> --- a/drivers/i2c/busses/i2c-amd-asf-plat.c
+> +++ b/drivers/i2c/busses/i2c-amd-asf-plat.c
+> @@ -46,6 +46,8 @@
+>  #define ASF_BLOCK_MAX_BYTES    72
+>  #define ASF_ERROR_STATUS       GENMASK(3, 1)
+> 
+> +#define SMBUS_BLOCK_HEADER_SIZE 2
 
-diff --git a/fs/ntfs/index.c b/fs/ntfs/index.c
-index e719d3afcfb0..cd9f31da5189 100644
---- a/fs/ntfs/index.c
-+++ b/fs/ntfs/index.c
-@@ -37,7 +37,7 @@ static int ntfs_index_entry_inconsistent(const struct ntfs_volume *vol,
- 	     le16_to_cpu(ie->length))) {
- 		ntfs_error(vol->sb, "Overflow from index entry in inode %lld\n",
- 				(long long)inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 
- 	} else {
- 		if (collation_rule == COLLATION_FILE_NAME) {
-@@ -47,7 +47,7 @@ static int ntfs_index_entry_inconsistent(const struct ntfs_volume *vol,
- 				ntfs_error(vol->sb,
- 					"File name overflow from index entry in inode %lld\n",
- 					(long long)inum);
--				return -EIO;
-+				return -EFSCORRUPTED;
- 			}
- 		} else {
- 			if (ie->data.vi.data_length &&
-@@ -57,7 +57,7 @@ static int ntfs_index_entry_inconsistent(const struct ntfs_volume *vol,
- 				ntfs_error(vol->sb,
- 					"Data overflow from index entry in inode %lld\n",
- 					(long long)inum);
--				return -EIO;
-+				return -EFSCORRUPTED;
- 			}
- 		}
- 	}
-@@ -104,8 +104,10 @@ static int ntfs_ib_write(struct ntfs_index_context *icx, struct index_block *ib)
- 	ntfs_debug("vcn: %lld\n", vcn);
- 
- 	ret = pre_write_mst_fixup((struct ntfs_record *)ib, icx->block_size);
--	if (ret)
--		return -EIO;
-+	if (ret) {
-+		ret = -EFSCORRUPTED;
-+		goto out;
-+	}
- 
- 	ret = ntfs_inode_attr_pwrite(VFS_I(icx->ia_ni),
- 			ntfs_ib_vcn_to_pos(icx, vcn), icx->block_size,
-@@ -115,12 +117,18 @@ static int ntfs_ib_write(struct ntfs_index_context *icx, struct index_block *ib)
- 	post_write_mst_fixup((struct ntfs_record *)ib);
- 
- 	if (ret != icx->block_size) {
-+		if (ret >= 0)
-+			ret = -EIO;
- 		ntfs_debug("Failed to write index block %lld, inode %llu",
- 				vcn, (unsigned long long)icx->idx_ni->mft_no);
--		return ret;
-+		goto out;
- 	}
- 
--	return 0;
-+	ret = 0;
-+out:
-+	if (ret)
-+		ntfs_report_file_metadata_error(VFS_I(icx->idx_ni), ret);
-+	return ret;
- }
- 
- static int ntfs_icx_ib_write(struct ntfs_index_context *icx)
-@@ -285,7 +293,7 @@ static int ntfs_index_header_inconsistent(struct ntfs_volume *vol,
- 		ntfs_error(vol->sb,
- 			   "index block in inode %llu is smaller than an index header.",
- 			   (unsigned long long)inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	entries_offset = le32_to_cpu(ih->entries_offset);
-@@ -297,28 +305,28 @@ static int ntfs_index_header_inconsistent(struct ntfs_volume *vol,
- 		ntfs_error(vol->sb,
- 			   "Invalid index entry offset in inode %llu.",
- 			   (unsigned long long)inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	if (index_length <= entries_offset) {
- 		ntfs_error(vol->sb,
- 			   "No space for index entries in inode %llu.",
- 			   (unsigned long long)inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	if (allocated_size < index_length) {
- 		ntfs_error(vol->sb,
- 			   "Index entries overflow in inode %llu.",
- 			   (unsigned long long)inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	if (allocated_size > bytes_available || index_length > bytes_available) {
- 		ntfs_error(vol->sb,
- 			   "Index entries in inode %llu exceed the available buffer.",
- 			   (unsigned long long)inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	return 0;
-@@ -338,25 +346,25 @@ int ntfs_index_entries_inconsistent(const struct ntfs_volume *vol,
- 			ntfs_error(vol->sb,
- 				   "Index entry out of bounds in inode %llu.",
- 				   (unsigned long long)inum);
--			return -EIO;
-+			return -EFSCORRUPTED;
- 		}
- 
- 		if (le16_to_cpu(ie->length) < sizeof(struct index_entry_header)) {
- 			ntfs_error(vol->sb,
- 				   "Index entry too small in inode %llu.",
- 				   inum);
--			return -EIO;
-+			return -EFSCORRUPTED;
- 		}
- 
- 		if (ntfs_ie_end(ie))
- 			break;
- 
- 		if (!ie->key_length)
--			return -EIO;
-+			return -EFSCORRUPTED;
- 
- 		if (ntfs_index_entry_inconsistent(vol, ie,
- 						  collation_rule, inum))
--			return -EIO;
-+			return -EFSCORRUPTED;
- 	}
- 
- 	return 0;
-@@ -504,7 +512,7 @@ static u32 ntfs_ib_canonical_entries_offset(u32 block_size)
-  * The size of block is assumed to have been checked to be what is
-  * defined in the index root.
-  *
-- * Returns 0 if no error was found, -EIO otherwise
-+ * Returns 0 if no error was found, -EFSCORRUPTED otherwise
-  *
-  * |<--->|  offsetof(struct index_block, index)
-  * |     |<--->|  sizeof(struct index_header)
-@@ -533,7 +541,7 @@ int ntfs_index_block_inconsistent(struct ntfs_volume *vol,
- 	if (!ntfs_is_indx_record(ib->magic)) {
- 		ntfs_error(sb, "Corrupt index block signature: vcn %lld inode %llu\n",
- 			   vcn, (unsigned long long)inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	if (le64_to_cpu(ib->index_block_vcn) != vcn) {
-@@ -541,21 +549,21 @@ int ntfs_index_block_inconsistent(struct ntfs_volume *vol,
- 			"Corrupt index block: s64 (%lld) is different from expected s64 (%lld) in inode %llu\n",
- 			(long long)le64_to_cpu(ib->index_block_vcn),
- 			vcn, inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	if (ib_size != block_size) {
- 		ntfs_error(sb,
- 			   "Corrupt index block : s64 (%lld) of inode %llu has a size (%u) differing from the index specified size (%u)\n",
- 			   vcn, inum, ib_size, block_size);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	if (ntfs_index_header_inconsistent(vol, &ib->index,
- 					   block_size -
- 					   offsetof(struct index_block, index),
- 					   inum))
--		return -EIO;
-+		return -EFSCORRUPTED;
- 
- 	if (le32_to_cpu(ib->index.entries_offset) <
- 	    ntfs_ib_canonical_entries_offset(block_size)) {
-@@ -563,11 +571,10 @@ int ntfs_index_block_inconsistent(struct ntfs_volume *vol,
- 			   "Index block: entries offset %u is below the minimum for a %u-byte block: vcn %lld inode %llu\n",
- 			   le32_to_cpu(ib->index.entries_offset), block_size,
- 			   vcn, inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
--
- 	if (ntfs_index_entries_inconsistent(vol, &ib->index, cr, inum))
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	return 0;
- }
- 
-@@ -580,7 +587,7 @@ int ntfs_index_root_inconsistent(struct ntfs_volume *vol,
- 	if (value_length < offsetof(struct index_root, index)) {
- 		ntfs_error(vol->sb, "$INDEX_ROOT in inode %llu is too small.",
- 			   (unsigned long long)inum);
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	}
- 
- 	return ntfs_index_header_inconsistent(vol, &ir->index,
-@@ -686,7 +693,7 @@ static int ntfs_ie_lookup(const void *key, const u32 key_len,
- 			ntfs_error(icx->idx_ni->vol->sb,
- 					"Index entry out of bounds in inode %llu.\n",
- 					(unsigned long long)icx->idx_ni->mft_no);
--			return -ERANGE;
-+			goto corrupt;
- 		}
- 
- 		/*
-@@ -705,7 +712,7 @@ static int ntfs_ie_lookup(const void *key, const u32 key_len,
- 		if (rc == -EINVAL) {
- 			ntfs_error(icx->idx_ni->vol->sb,
- 				"Collation error. Perhaps a filename contains invalid characters?\n");
--			return -ERANGE;
-+			goto corrupt;
- 		}
- 		/*
- 		 * If @key collates before the key of the current entry, there
-@@ -739,13 +746,17 @@ static int ntfs_ie_lookup(const void *key, const u32 key_len,
- 	if (*vcn < 0) {
- 		ntfs_error(icx->idx_ni->vol->sb, "Negative vcn in inode %llu\n",
- 				(unsigned long long)icx->idx_ni->mft_no);
--		return -EINVAL;
-+		goto corrupt;
- 	}
- 
- 	ntfs_debug("Parent entry number %d\n", item);
- 	icx->parent_pos[icx->pindex] = item;
- 
- 	return -EAGAIN;
-+
-+corrupt:
-+	ntfs_report_file_metadata_error(VFS_I(icx->idx_ni), -EFSCORRUPTED);
-+	return -EFSCORRUPTED;
- }
- 
- struct ntfs_inode *ntfs_ia_open(struct ntfs_index_context *icx, struct ntfs_inode *ni)
-@@ -765,6 +776,7 @@ struct ntfs_inode *ntfs_ia_open(struct ntfs_index_context *icx, struct ntfs_inod
- 
- static int ntfs_ib_read(struct ntfs_index_context *icx, s64 vcn, struct index_block *dst)
- {
-+	int report_err = 0;
- 	s64 pos, ret;
- 
- 	ntfs_debug("vcn: %lld\n", vcn);
-@@ -773,20 +785,31 @@ static int ntfs_ib_read(struct ntfs_index_context *icx, s64 vcn, struct index_bl
- 
- 	ret = ntfs_inode_attr_pread(VFS_I(icx->ia_ni), pos, icx->block_size, (u8 *)dst);
- 	if (ret != icx->block_size) {
-+		if (ret >= 0 || ret == -EINVAL) {
-+			ret = -EFSCORRUPTED;
-+			report_err = ret;
-+		} else if (ret == -EIO) {
-+			report_err = ret;
-+		}
- 		if (ret == -1)
- 			ntfs_error(icx->idx_ni->vol->sb, "Failed to read index block");
- 		else
- 			ntfs_error(icx->idx_ni->vol->sb,
- 				"Failed to read full index block at %lld\n", pos);
--		return -EIO;
-+		goto out;
- 	}
- 
--	post_read_mst_fixup((struct ntfs_record *)((u8 *)dst), icx->block_size);
--	if (ntfs_index_block_inconsistent(icx->idx_ni->vol, dst,
--					  icx->block_size, vcn, icx->cr,
--					  icx->idx_ni->mft_no))
--		return -EIO;
--	return 0;
-+	ret = post_read_mst_fixup((struct ntfs_record *)dst, icx->block_size);
-+	if (ret || ntfs_index_block_inconsistent(icx->idx_ni->vol, dst,
-+						 icx->block_size, vcn, icx->cr,
-+						 icx->idx_ni->mft_no)) {
-+		ret = -EFSCORRUPTED;
-+		report_err = ret;
-+	}
-+out:
-+	if (report_err)
-+		ntfs_report_file_metadata_error(VFS_I(icx->idx_ni), report_err);
-+	return ret;
- }
- 
- static int ntfs_icx_parent_inc(struct ntfs_index_context *icx)
-@@ -803,8 +826,10 @@ static int ntfs_icx_parent_dec(struct ntfs_index_context *icx)
- {
- 	icx->pindex--;
- 	if (icx->pindex < 0) {
-+		ntfs_report_file_metadata_error(VFS_I(icx->idx_ni),
-+						-EFSCORRUPTED);
- 		ntfs_error(icx->idx_ni->vol->sb, "Corrupt index pointer (%d)", icx->pindex);
--		return -EINVAL;
-+		return -EFSCORRUPTED;
- 	}
- 	return 0;
- }
-@@ -886,7 +911,7 @@ int ntfs_index_lookup(const void *key, const u32 key_len, struct ntfs_index_cont
- 
- 	old_vcn = VCN_INDEX_ROOT_PARENT;
- 	err = ntfs_ie_lookup(key, key_len, icx, &ir->index, &vcn, &ie);
--	if (err == -ERANGE || err == -EINVAL)
-+	if (err == -EFSCORRUPTED)
- 		goto err_out;
- 
- 	icx->ir = ir;
-@@ -911,21 +936,19 @@ int ntfs_index_lookup(const void *key, const u32 key_len, struct ntfs_index_cont
- 
- descend_into_child_node:
- 	icx->parent_vcn[icx->pindex] = old_vcn;
--	if (ntfs_icx_parent_inc(icx)) {
--		err = -EIO;
-+	err = ntfs_icx_parent_inc(icx);
-+	if (err)
- 		goto err_out;
--	}
- 	old_vcn = vcn;
- 
- 	ntfs_debug("Descend into node with s64 %lld.\n", vcn);
- 
--	if (ntfs_ib_read(icx, vcn, ib)) {
--		err = -EIO;
-+	err = ntfs_ib_read(icx, vcn, ib);
-+	if (err)
- 		goto err_out;
--	}
- 	err = ntfs_ie_lookup(key, key_len, icx, &ib->index, &vcn, &ie);
- 	if (err != -EAGAIN) {
--		if (err == -EINVAL || err == -ERANGE)
-+		if (err == -EFSCORRUPTED)
- 			goto err_out;
- 
- 		icx->is_in_root = false;
-@@ -935,6 +958,8 @@ int ntfs_index_lookup(const void *key, const u32 key_len, struct ntfs_index_cont
- 	}
- 
- 	if ((ib->index.flags & NODE_MASK) == LEAF_NODE) {
-+		err = -EFSCORRUPTED;
-+		ntfs_report_file_metadata_error(VFS_I(ni), -EFSCORRUPTED);
- 		ntfs_error(icx->idx_ni->vol->sb,
- 			"Index entry with child node found in a leaf node in inode 0x%llx.\n",
- 			(unsigned long long)ni->mft_no);
+Use a tab here so it lines up with the defines above.
+
+> +
+>  struct amd_asf_dev {
+>         struct i2c_adapter adap;
+>         void __iomem *eoi_base;
+> @@ -61,7 +63,7 @@ static void amd_asf_process_target(struct work_struct *work)
+>         unsigned short piix4_smba = dev->port_addr->start;
+>         u8 data[ASF_BLOCK_MAX_BYTES];
+>         u8 bank, reg, cmd;
+> -       u8 len = 0, idx, val;
+> +       u8 len = 0, idx, val, offset, data_len, payload_len, has_pec;
+
+That line is getting long. has_pec should be a bool, and offset is
+always SMBUS_BLOCK_HEADER_SIZE, so it doesn't need its own variable.
+
+> 
+>         /* Read target status register */
+>         reg = inb_p(ASFSLVSTA);
+> @@ -110,12 +112,40 @@ static void amd_asf_process_target(struct work_struct *work)
+>         if (cmd & BIT(0))
+>                 return;
+> 
+> +
+
+Extra blank line.
+
+> +       /*Below is the SMBus block header received on the wire:
+
+Missing space after "/*". Also, this describes the whole frame, not
+only the header.
+
+> +        *     Command       --  1 Byte
+> +        *     Data Length   --  1 Byte (number of data bytes)
+> +        *     Data          --  N Bytes
+> +        *     PEC           --  optional, 1 Byte
+> +        *
+> +        *     PEC, if present, is the final byte of the transfer
+> +        */
+> +
+> +       offset = SMBUS_BLOCK_HEADER_SIZE;
+> +       if (len < offset)
+> +               return;
+> +
+> +       payload_len = data[1];
+
+This assumes every write is an SMBus block write. Byte/word writes,
+or i2c-slave-eeprom (offset byte followed by data), don't have a
+length in data[1], so they'll fail the checks below and get dropped
+without any message.
+
+> +
+> +       if (payload_len > len - offset)
+> +               return;
+> +
+> +       if (len == offset + payload_len + 1)
+> +               has_pec = 1;
+> +       else if (len == offset + payload_len)
+> +               has_pec = 0;
+> +       else
+> +               return;
+
+PEC is only guessed from the length here, and it's never checked
+before it gets removed. Does the controller check it when
+ASF_PEC_SP is set? If not, a corrupted frame of the right length
+would be passed up as good data.
+
+These silent returns will also be hard to debug in the field. A
+dev_dbg() would help.
+
+> +
+> +       data_len = len - has_pec;
+
+data_len is really the end index, not a length. The name is a bit
+misleading.
+
+> +
+>         /*
+>          * Although i2c_slave_event() returns an appropriate error code, we
+>          * don't check it here because we're operating in the workqueue context.
+>          */
+>         i2c_slave_event(dev->target, I2C_SLAVE_WRITE_REQUESTED, &val);
+> -       for (idx = 0; idx < len; idx++) {
+> +       for (idx = offset; idx < data_len; idx++) {
+>                 val = data[idx];
+>                 i2c_slave_event(dev->target, I2C_SLAVE_WRITE_RECEIVED, &val);
+>         }
+
+If your backend only needs the payload, I'd strip the header and
+handle PEC in the backend and leave this loop as it is.
+
+Also, the subject line should start with "i2c: amd-asf:".
+
+Thanks,
+Shyam
 
