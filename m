@@ -1,79 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793596212;
-	b=lxfZOHtZlRO91gNdObw0AtizGII4HLaDlR1TEzgdXE6htgfijCmlNQjvTGHoA7A4eMlC
-	 l1SoZu/4ci4BtygU3aUvMIQm64QMaJq+enx6Y5LQf1k8dg2g5+iBGl1CgVC7Da0GKMNww
-	 xjyGT43fgM8Au7uhXQ4s8/aydC6piwN/XSScYaMFxrAaNDi4J8RmiTAU4a71G1XH24w3i
-	 oArghQw8X6n6shfJdPlkLtWfElSNj6ZmEneXfvnZSdtCvzCKCly9ANQaGmw6MXhGJ7Avr
-	 eBjfSAx26pF78MErEFMnq2GvQ35sIf1ddzbbiQFyEAX+tOSd21eQAw5xhDUitJG3Hhg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793596212;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pC5b5twFF+SxzkhSXejiKzdM406HFo2duDeDWQZ2ajs=;
-	b=b63TIs796TFCPY8glxNzP2kPQSfDvE3l7qbu7PcjV1DntuuS2Kq8+EwzAnMKTg7+al1L
-	 I6ALOXMIujett0kyZtmphSgaoT6UnvwyaVBont3ZMYVACmDJX8jUVYYureCHSVA96WmVQ
-	 nYCeduol41H/lIHQ5lKUgnsjfiGzvVJ/eF3G64nQQejvnYj21agQUk14Lyd3s+sOcoVl4
-	 Wvtajy51ObvSOD4f1fho252a4JzJFnYhIZaDfgy7+4RKp7ZefidnNu2wF8fvqrKRgwDDr
-	 AtbusH33Zdb3dev6fcVRs0b8qlfA00U9ZUYVpX/8YHpyrEtaSawKOzCaTM5EQYStMqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdUXXzaV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793596309;
+	b=oMSEqqvWyJvA4R+CkdYoFl+jUbYIYM4BgcDl+oZdGSI02NqaFqHFtxJWP2TByNnOlNJc
+	 QYHdrB6o9uI1YwLEHlUPjS6y5zVqnuScfG5QpwbfnpGKldhPhQWdNN7PIjxBR/BQaLVoZ
+	 JEj4hkq2i5BeSLrzrH7qt1u5PPtC+gpzT/U/RWeBC4ypbm3YyOiO10+L+jRuBov7qJRLT
+	 h3k90+rA73+xCfidkwdq8mSL84VnVFvgAyEE0WHoi9FJ2QVb8jqHqkBxThCeKbs9dwvtv
+	 M3lz8zTRO8fEhrzDnFyHzPgDJD9WtuGBQqjqswgIrx3+mNWUgbb4Hpk+wlvf7P/HSrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793596309;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=viwpEca7wJ9qzgawnffjQX4LAK42jrtmu3SV2jw4xK8=;
+	b=joJE3I9t6F+Vgde4mXjyQzJPhZsvswzyr2l8awB2sb/hNlJF15/dr1id9lDW/oP/V3rx
+	 HpJj6JI3xkt47MxNP4u7p5z79wJNVJ644nmRzbPmDlYQG2lfjOYxbQzAUQnZlFatVp0Ye
+	 4c6vQmrJvYbHkVAUyO4RNE9JfaFgukJSIKj3czxb0XTbrdH1AMf3WisPhh2X7HnrwbQGY
+	 AfFUaZTvdgT+RX5ynD0tk5HPWUlqDr79TVmMKjSOOqG0TCmT6UBtZ4OLe36o5z9GaG1uk
+	 aLIdSiKT92GHXgcxrpdQAIxIsJWmYxkOd0WjQPkOpkh+LHZkPQr4+bcqe32QFxUfQOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05430606A324;
-	Mon,  2 Nov 2026 05:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdUXXzaV
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793596211;
-	b=iE5Ld6iqu4tGhrACU7jt7aVb/6EOZSPSCp34QRz2JYiBHdUd7sJ9uG+S68M2rZH7t/Jv
-	 Sb72KJS3xMVLoVfZdgbM18eK3cq8t0gCxocZj3chPckMS6bNCZyfR4C0bN3Jf67qE0lpp
-	 48d2UHyD/5gyI7izokdlT3CLDLRb6z55/ia7GDHhEzfHuRVcFcwXFghZa6LIl7kx8LQ5S
-	 xU0Q7CiaDuPajh4CRnXzo8ZGTbw/AfA0FLFmJY7wPyvNWUlYQYsMW5jiMVjiW+DAf9bXW
-	 orV/kgNPmhDxydVCJ7aeMXvBwPc15A/FUEuh1dGdgAOIed0obs5NWM1Mob291S4layw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793596211;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pC5b5twFF+SxzkhSXejiKzdM406HFo2duDeDWQZ2ajs=;
-	b=l4+aZmyhMdQR9Rcy2SnIYpYz0uDRXuJXxLVujqF1Hd3SmBIb02u/uuutgLdDTzuDZs1C
-	 FeKDIXjoWm7SnezKf2f17czLirbtZalSsiuqBXk88cgrcC+0GGG4lwSw0e++aXMK1FLNo
-	 GtDyDRNQUHJzBZvjPZNyXi7Pkx1nNWx0Ugc6qm6E9SlnGV1UKVjn2SQi1D+LsB+bpkBsS
-	 ywvYfmfhxAAIGiu2EyxTX9YFBuoVJ1QR9lWlW2QqrnatGLvZsKuym3vykCiXUKrLhp9Az
-	 QSoBkPgBxaZuJYohsfmWFJ2EeLxRsGp2xprJL67sypNh36MyDmP0lZH5i+/yqBkNZCg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E140A1F000C1;
-	Mon,  2 Nov 2026 05:10:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793596211;
-	bh=pC5b5twFF+SxzkhSXejiKzdM406HFo2duDeDWQZ2ajs=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=SdUXXzaVaAM6U4RZGDjlZ/y3AbjbHWye6ZX7NQk2kj4+qUh0z38xo4INI47Kbz5MY
-	 5t/E4WqJIeZOrD9yQsCUOHdU+g9sF4LmqGKT/ZgFrj9p9ycvxkcE3D/7zcpHLCq1Ao
-	 WmnVB5/HMLDU0ke66pNUr/+oVs4WrojteISqCsqGIj4awOSh7zAhQG0oVkWlqYFfWB
-	 0yz/m9aMZZay0TjSFAPvzECibMzKr5tmqbbIqidvGFOCr+M6eC8YdEegcvQepLBz3e
-	 H4UyqJe6nvcBTw6FET7BQKcHZVfDh/qfxyqKDatzMeyKQFzWD6emsG9wJ3RRolqfMP
-	 22REGg5KdEPLQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4339F46378;
-	Mon,  2 Nov 2026 05:10:10 +0000 (UTC)
-From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Date: Sun, 01 Nov 2026 23:10:10 -0600
-Subject: [PATCH ath-next] wifi: ath11k: don't report a QCN9074's chan-info
- noise floor
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E85606A326;
+	Mon,  2 Nov 2026 05:11:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2E85606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793596296;
+	bh=viwpEca7wJ9qzgawnffjQX4LAK42jrtmu3SV2jw4xK8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NpzPDrs9qSp9ZUNMs72mjbHr/x9BQcZIv02tAgRVvUC5MWxaYjN43jnaaYxlYlxAM
+	 biyxEWLAbn2MwpXiC6pV3RddmpckKtbDaIrfWCcN4DR1dqqBiSGnQ6haMOrfXKB23j
+	 NN1Je965XQ/x/9qFhQG7kAx3ZZrPe/uOoaT4CzosWMNHOinh6DglYVR1LjHXVCH5bI
+	 IS6RwmWWQG+4C8PWJ78kuHp+mkGR5/wNnrXDkr+0CRgvmUlspK4RVKJhHJYeh8KNQx
+	 z4q8j52S2+fVBhljc77X2m4xHlzOU0N9R3Uc18H0j9/s3poEoxR3SaxX65IcoLmdJJ
+	 tnOsZChfo6Dug==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jJ0DS2Zjmz4wCh; Mon, 02 Nov 2026 16:11:36 +1100 (AEDT)
+Date: Mon, 2 Nov 2026 16:11:23 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Brian Norris <briannorris@chromium.org>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>
+Subject: Re: [PATCH v2 06/10] libfdt: overlay: Update base /__local_fixups__
+ on apply
+Message-ID: <augbYtWXhj5YfFOZ@gractus.seuss>
+References: <20261028215600.1713475-1-dianders@chromium.org>
+ <20261028215600.1713475-7-dianders@chromium.org>
+ <auR-OXOpim7dVTpH@gractus.seuss>
+ <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,107 +73,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-b90-qcn9074-chan-info-nf-v1-1-aa0a99ba7ba6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADEb6GoC/yWMQQ6CMBBFr0Jm7STTKgJexbhoy1TGxaBtNSSEu
- 1t0+fL/eytkTsIZLs0KiT+SZdYK5tBAmJzeGWWsDJbs2Rgy6AfCV9CBuhPuDxSNM2rEsSd3bPu
- 2885C1Z+Joyy/9BVcmVB5KXD7L/ntHxzKXoZt+wKQB4RahgAAAA==
-X-Change-ID: 20261101-b90-qcn9074-chan-info-nf-d80a35857ba2
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Christopher Griffin <christophergriffin05@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793596209; l=3286;
- i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=te6WMy5xu/GQ3oR7I7RbrttS24vmR5JQGlg47fN/BYU=;
- b=5VJ/Pz90aEwcbk5GCIHHTA0lTd2rLG+H8/yyaGQjxH8jG3s125XWb5/pdt+Ikr9i5hnZ/FG5I
- E/fKuVMW4VUBcgkRscdQOdhy2YU0Ctv4CrNFxp0S2iexnDp8zxdOw5v
-X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
- pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
-X-Endpoint-Received: by B4 Relay for
- christophergriffin05@gmail.com/20261024 with auth_id=1309
-X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
-Reply-To: christophergriffin05@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZDUkX/BKqX2zEUMG"
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
 
-From: Christopher Griffin <christophergriffin05@gmail.com>
+--ZDUkX/BKqX2zEUMG
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On a QCN9074 (and the QCN9072, which uses its hw_params) the noise floor
-in WMI_CHAN_INFO_EVENTID's START_RESP is a fixed value, not a
-measurement. On an Arista C-360 the QCN9072 scan radio read -107 dBm
-+-1 on every 2.4, 5 and 6 GHz channel it visited (150 ms dwells), busy or
-quiet: 5540 at 52 % busy read -110, its lowest. The IPQ8074's own radios,
-on the same channels at the same time, read -95 to -98 and followed the
-channel (-96, -97, -96 on 5200/5220/5240; -95 on 5785, -98 on 5885),
-where the QCN9072 read -108, -107, -107, -107 and -106. -107 is also
-below the ~-101 dBm thermal noise of 20 MHz.
+On Sun, Nov 01, 2026 at 02:05:09PM -0800, Doug Anderson wrote:
+> Hi David,
+>=20
+> On Fri, Oct 30, 2026 at 3:24=E2=80=AFAM David Gibson
+> <david@gibson.dropbear.id.au> wrote:
+> >
+> > On Wed, Oct 28, 2026 at 02:55:56PM -0700, Douglas Anderson wrote:
+> > > When `fdt_overlay_apply()` merges an overlay into a base device tree,=
+ it
+> > > updates `/__symbols__` in the base tree if present, but previously le=
+ft
+> > > the base tree's `/__local_fixups__` node untouched.
+> > >
+> > > Add `overlay_local_fixups_update()` so that when the base tree contai=
+ns
+> > > a `/__local_fixups__` node, `fdt_overlay_apply()` updates it to refle=
+ct
+> > > the applied overlay:
+> > > - For each fragment in application order, any local fixup properties =
+in
+> > >   the base tree's `/__local_fixups__` that correspond to properties
+> > >   overwritten by that fragment are cleared first.
+> > > - Local phandle references from that fragment's subtree under the
+> > >   overlay's `/__local_fixups__/<fragment>/__overlay__` are merged into
+> > >   the corresponding target path under the base tree's
+> > >   `/__local_fixups__`.
+> > > - External phandle references for that fragment from the overlay's
+> > >   `/__fixups__` (which are now resolved to local phandles in the merg=
+ed
+> > >   base tree) are added in sorted order to the base tree's
+> > >   `/__local_fixups__`.
+> > > - Any subnodes under the base tree's `/__local_fixups__` that become
+> > >   empty after clearing overwritten properties are pruned.
+> > >
+> > > If the base tree does not have a `/__local_fixups__` node, nothing is
+> > > added.
+> >
+> > So, this turned out to be substantially more involved than I realised.
+> > I wonder if it might be better to make --strip-locals the default, and
+> > only add support for preserving the local fixups as a later extension.
+>=20
+> In v3 I went ahead and addressed all of your and Simon's review comments =
+on
+> this patch (which also trimmed ~80 lines of C from `fdt_overlay.c`).
 
-Leave the noise out of a QCN9074's off-channel survey entries, so that
-nothing takes the placeholder for a noise floor; their time and busy
-counts are unchanged, as is every other chip.
+Oh good :).
 
-Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.5.r4-00683-QCAHKSWPL_SILICONZ-1
+> To address Simon's point about code size in constrained environments like
+> U-Boot SPL, I also gated `/__local_fixups__` handling in
+> `fdt_overlay_apply()` behind a 3-state compile-time
+> `FDT_OVERLAY_LOCAL_FIXUPS` option in `libfdt/libfdt_internal.h`:
+>=20
+> - `0` (`FDT_OVERLAY_LOCAL_FIXUPS_IGNORE`): Leave `/__local_fixups__`
+>   untouched. I made this the `#ifndef` fallback in `libfdt_internal.h` so
+>   that embedded projects that vendor `libfdt` directly get zero code-size
+>   increase and zero behavior change unless they opt in.
+> - `1` (`FDT_OVERLAY_LOCAL_FIXUPS_STRIP`): Delete `/__local_fixups__` from
+>   the base DTB if present (~50 bytes of code), so a stale/half-working
+>   `/__local_fixups__` node isn't left behind in the merged tree.
+> - `2` (`FDT_OVERLAY_LOCAL_FIXUPS_UPDATE`): Fully update `/__local_fixups_=
+_`
+>   in the base DTB. This is enabled by default in `dtc`'s Meson
+>   (`-Doverlay-local-fixups=3D2`) and Make (`OVERLAY_LOCAL_FIXUPS=3D2`) bu=
+ilds
+>   for desktop tools and tests.
+>=20
+> Even when `fdtfactor -S` is used, we actually do need `fdtoverlay` to
+> update `/__local_fixups__` for two reasons:
+>=20
+> 1. **Kernel composite DTBs (`foo-dtbs :=3D base.dtb bar.dtbo`)**: In the
+>    Linux kernel build (`scripts/Makefile.dtbs`), many upstream boards are
+>    built as composite DTBs using `cmd_fdtoverlay` (`fdtoverlay -i base.dtb
+>    -o foo.dtb bar.dtbo`) *before* `fdtfactor` runs on them. As Simon
+>    pointed out on the kernel series [1], if `fdtoverlay` left
+>    `/__local_fixups__` untouched (`IGNORE`), `foo.dtb` would still have
+>    `base.dtb`'s `/__local_fixups__` node (missing all phandle references
+>    from `bar.dtbo` and retaining stale offsets for any overwritten
+>    properties), causing `fdtfactor` to silently miss or corrupt phandle
+>    references when factoring `foo.dtb`. And if `fdtoverlay` stripped
+>    `/__local_fixups__`, `foo.dtb` wouldn't have `/__local_fixups__` at all
+>    and `fdtfactor` wouldn't be able to factor any composite DTB.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
----
- drivers/net/wireless/ath/ath11k/core.c | 1 +
- drivers/net/wireless/ath/ath11k/hw.h   | 2 ++
- drivers/net/wireless/ath/ath11k/wmi.c  | 8 +++++---
- 3 files changed, 8 insertions(+), 3 deletions(-)
+Ah, right.
 
-diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index 766ae27306f43..d6848789dcff4 100644
---- a/drivers/net/wireless/ath/ath11k/core.c
-+++ b/drivers/net/wireless/ath/ath11k/core.c
-@@ -392,6 +392,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 		.cfr_support = false,
- 		.cfr_num_stream_bufs = 0,
- 		.cfr_stream_buf_size = 0,
-+		.chan_info_nf_invalid = true,
- 	},
- 	{
- 		.name = "wcn6855 hw2.0",
-diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
-index 4996536fbd14f..202430fa5b0da 100644
---- a/drivers/net/wireless/ath/ath11k/hw.h
-+++ b/drivers/net/wireless/ath/ath11k/hw.h
-@@ -231,6 +231,8 @@ struct ath11k_hw_params {
- 	bool cfr_support;
- 	u32 cfr_num_stream_bufs;
- 	u32 cfr_stream_buf_size;
-+	/* chan-info's noise floor is a fixed value, not a measurement */
-+	bool chan_info_nf_invalid;
- };
- 
- struct ath11k_hw_ops {
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index 08fd6795ed9e7..7c8b605b622cd 100644
---- a/drivers/net/wireless/ath/ath11k/wmi.c
-+++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -8031,9 +8031,11 @@ static void ath11k_chan_info_event(struct ath11k_base *ab, struct sk_buff *skb)
- 	if (ch_info_ev.cmd_flags == WMI_CHAN_INFO_START_RESP) {
- 		survey = &ar->survey[idx];
- 		memset(survey, 0, sizeof(*survey));
--		survey->noise = ch_info_ev.noise_floor;
--		survey->filled = SURVEY_INFO_NOISE_DBM | SURVEY_INFO_TIME |
--				 SURVEY_INFO_TIME_BUSY;
-+		survey->filled = SURVEY_INFO_TIME | SURVEY_INFO_TIME_BUSY;
-+		if (!ab->hw_params.chan_info_nf_invalid) {
-+			survey->noise = ch_info_ev.noise_floor;
-+			survey->filled |= SURVEY_INFO_NOISE_DBM;
-+		}
- 		survey->time = div_u64(ch_info_ev.cycle_count, cc_freq_hz);
- 		survey->time_busy = div_u64(ch_info_ev.rx_clear_count, cc_freq_hz);
- 	}
+> 2. **`fdtfactor` self-tests**: Since `fdtfactor` inputs are compiled with
+>    `dtc -@ -L`, having `fdtoverlay` update `/__local_fixups__` lets the
+>    test suite directly verify with `dtbs_equal_unordered` that recombining
+>    `base.dtb` + `board.dtbo` produces an exact match for the original inp=
+ut
+>    `.dtb` (including all phandle fixup metadata).
+>=20
+> Let me know if you're happy with this approach (or if you'd prefer a
+> different `FDT_OVERLAY_LOCAL_FIXUPS` default)!
 
----
-base-commit: a3ddbb45768717b5c9f923489387cf55c838d1ad
-change-id: 20261101-b90-qcn9074-chan-info-nf-d80a35857ba2
+I'll bear this in mind when I look at v3 and see what I think.
 
-Best regards,
---  
-Christopher Griffin <christophergriffin05@gmail.com>
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
+--ZDUkX/BKqX2zEUMG
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmroG3QACgkQzQJF27ox
+2GfcVBAAlAx8A72SK9Taiid0lOE2BM3qn7A7WYaUWluSVuaqbjwlloG9YQJ2HsaW
+CR1hIYgDCEbXr/INzNDNkkcGYvMlLKE92fpvG+LvWOeFMgm/klZUEIjbMIaZSXoK
+4zlCYpyYP6UDAF3yf2BqM7txWaJG2GLp6uf3L5lsxSla/3A8N6OmkWDnxQIx8B0t
+UZQrc2V/HgdXctm8SR9Vux2zBwBAE/yQaYZ82817M92ac9gaJxoHfGxbXVqKXADC
+Vbcf8/OUNXv5e4WYEVCD5oWiZX3Buw6m+xqPqcyfT9YhfvouFpFkRsC0u9lJLSC1
+Ud64LQ0aKY1PSpilHEqgAoc3aA+wOVuL9kKdKOSKI8OcBNQVQbhO7zcnnqJfX66v
+iBy5qPwCvFvw94HisODc2h0xsXNj2U7oPF7C8Yzc/QB8k32oXePPOqxfXSTjTEyz
+goQviPU9GuwBfxGzrQpkSxePNVg5pS9q301ZH/ePvsYy+taOOhN4eiSWu3QDpjaW
+HYDcUdLCfGq9IfJZHI/RoNk18uRb6GIxivDGdtsUkZEyC0bDiNQ+tJxj8GJoETAp
+s9PTW8KdYNr73fh96ARzszFTkzDYLQUjDwsswBuOa9IMk1LJ+D6AS7QvxxlLZLbM
+mcV3TwRyIFGQLfhhbBBHKXu9Si7+QmzmEwiYbvanHktbFsiOFUw=
+=eKUp
+-----END PGP SIGNATURE-----
+
+--ZDUkX/BKqX2zEUMG--
