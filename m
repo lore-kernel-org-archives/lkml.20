@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637791;
-	b=avsYKl3D/ePrb6ZEdjKqmqzWR4jff9gJhsGsydd+totb32Pr2Ss+TdJ5C1oHt83s0sHp
-	 gdKWaeRRSOrHhBUfGaA8QLVVDEKEFNFeemAa8BUt5agqrSalFLTO0n0a63LhIXCsMf/nD
-	 mdXBqYWY20TXQ94Q/3WpAgnUVHGX/SEuwRcqzdfxONi2KH/ocavAo39VL/J/qVmtTWoKK
-	 eFbqTuNZrJ1dcCDaotDEbL88DHXWa1xIKToJp2gDcKjewjQOFa4bdpWjaNJfYYYqgYgES
-	 q81MSIqksIvY6Ngsnp78lE+UwMvS8pG80l/bg076XTsobOmBfnjA081kGW8msBd64+Q==
+	t=1793637783;
+	b=N+9P3cf6UwLVkQD0+WktIybK8Gjhf/pw41aWslz8IGpz692ogko7zJc13/JplD0sh7/3
+	 Q57sNI206JWHBUfoCoyd/AgTSyycKPAeoispV85mgSQklslSfG475yX3RupbJQ5ZJ/z32
+	 sAq7LC/cJRcYumflcCu22S8euWwxeHLtAsPe2DPTf+14X/P7qaA8KjZJ/a8igFTh79FeC
+	 8rGj2NieTtUUJXP4x4LhuWs1WoyMvZ0a9eSxL44zrkpXW2nohbmB+PDHPcKRNEd0Nyb1Y
+	 5HvYdlmCCvNumtbd5hf5yzayuKYxiKV6GoYLGuipjCdC7bTBC7xqfGXWXCYy6SZ5LSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637791;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637783;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Nf7/alv68IXjWnlt4DekDFFd76Dlk/dK2BFAvWipGHg=;
-	b=ey5BN3nCc6t214gsqZRtWONkC9aPXvA03B+DFtIuqGffQz9Kj+rZBe3N5nZdrwVLPrE2
-	 qCTSzQExqntbFCuJa7rKw6hlaDVMsi+ToBMSxhnvnduQWzD5CurWo1ZOJ6z5t1AACJarv
-	 kCs8HeswtnKXpbl725MGq9G7Bzr/yLT7/sXthIjJTwwLA9qVToWwpRQDMLQHmHALpPq6v
-	 3Ps59Aw5z7IXG4jpa4xc/c+yXS67ab2rjetrqKvwQ45y/RwgnLCvWKdNEAb+YkwHDafek
-	 sV0Mdbwa1rN0TOnNy1MPkW6+0dO+IMb5z0vc6kqC7kmM47idxoAn16Phi0hE26f2ntg==
+	bh=kBxMiRcH/Vi9sqDIcqKSoWnC/0LT576mtSR4HtTbyTU=;
+	b=4HAmH2GB/SHzKc0doYHkcOajHgxClxqpOQBuicgb0yIO+wrFWDJuEpRModiThxrdCwJM
+	 Yi+gOiUCgPkOr8axEJElL/vUKKrBqZ9KbX2dt9kvc63FZ9m78LOivqZvDNpmsn/Wmyc3X
+	 Ystbu1blY/5QdeJhVjY09xs9AHqyHbEatxCiL3T1QgThjULK0y5ZYdIlYsEKMrcGzIiPn
+	 1Nxv06BlVEXADTJyoF50bI0o7fMCmbnJWBRQXY0lRIibNRBXtubsOKZRjjDqulO4qHSGG
+	 XNEbn7SUFW/UOHeig0TqiYWJLRSCYrGSPLaB6L+m0qvryODnpdYceOKkwji95H+bfHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dz59r6xh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnZA2NZL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3DC60A5BEA;
-	Mon,  2 Nov 2026 16:43:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E01360A44F5;
+	Mon,  2 Nov 2026 16:43:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dz59r6xh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081431F00A16;
-	Mon,  2 Nov 2026 16:43:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnZA2NZL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3961F00A18;
+	Mon,  2 Nov 2026 16:43:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793637791;
-	bh=Nf7/alv68IXjWnlt4DekDFFd76Dlk/dK2BFAvWipGHg=;
+	s=k20260515; t=1793637783;
+	bh=kBxMiRcH/Vi9sqDIcqKSoWnC/0LT576mtSR4HtTbyTU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=dz59r6xhqzlIAvYjDfGaSaxSh1h68eApMsKIzNfpYWrTjCFawS4ulBsaUH8rlW1pS
-	 c4ZYKaCHaNz4oDSeuYHU0Who36zxcDBt0iB+p+DYptEMfgSOqRkEOKX1f1gOkfToOS
-	 E01DWv/ckx6VhJsrV0NEDTKdY/9YVQpADjRZM6TpUl9MG529nnG67C8iwUGXvLPou/
-	 imy1gpBcn85Nxo65VCwfC47GZyPVuSgJdvC6UV1Gu82YBZPJsAcZ4LNT1AQv0cZPbr
-	 YbgZVGHhY8qIC/l08AY5GJYvkq8N/Ejijzfa8DGdo6RqQwM78JYNdk4QcGR3AKFx9X
-	 hvtZz1Gj79low==
+	b=BnZA2NZLRHGwxegT467EHH7aDEtrBW51HQ/kWEOmEuKiUcE0FuUHu5PcjOvc4eA37
+	 s8VCuTrXhrrxoSu9bGZ4sjE/HJsZAFbYL6pfxWWC7g2jbMU6kwpnrSdUcPhCSXmGbc
+	 aGx3zHRDhrD/6O89+uk3h+9LQGGRPNlThscmuPrenhyCcWUjpvHl7ky66KHrvlz7Yj
+	 9/LaUnPsOMge/0sb6LF0EJ73wPf1SThca5xPEUWh2wFt+I7KKMrYbte4GG5r37GMRR
+	 o2jzNAoZR4DJJt/ww3MM6ulMtJfsoYhwr7L21CqLBl7y+RhGElBz1QzdWS0URLn3D0
+	 ZQTEHaeZG8nOw==
 From: Mark Brown <broonie@kernel.org>
-Date: Mon, 02 Nov 2026 16:37:46 +0000
-Subject: [PATCH v2 5/7] kunit: tool: Allow several run_kernel() calls to be
- in flight at once
+Date: Mon, 02 Nov 2026 16:37:43 +0000
+Subject: [PATCH v2 2/7] kunit: tool: Combine reports from isolated kernels
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-kunit-parallel-v2-5-8774b558d4b0@kernel.org>
+Message-Id: <20261102-kunit-parallel-v2-2-8774b558d4b0@kernel.org>
 References: <20261102-kunit-parallel-v2-0-8774b558d4b0@kernel.org>
 In-Reply-To: <20261102-kunit-parallel-v2-0-8774b558d4b0@kernel.org>
 To: Brendan Higgins <brendan.higgins@linux.dev>, 
@@ -67,180 +66,203 @@ Cc: linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Mark Brown <broonie@kernel.org>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6673; i=broonie@kernel.org;
- h=from:subject:message-id; bh=o0udMlqUIfAznzMuinvP8zQVnSnw1dlQ3/LfRtrt4IE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJe7O0NV/20+mKd1aou940sblUuQW61lf8kNiovrBUzX
- aU2a65qRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACZyIZmR4dr8w8sMKlZzr5C3
- CvkVssB162H3iYVvFhm98zvY8Sx5zmyGf9o5JVNslNyOfnYv/BqRdXPGvN/CzNqnS3tyLu5LZQr
- YyAYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8638; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=A35L6Q7hsMqUUGIICc26rNTi4oeHr02NhRo80fSwbgE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJe7O3duFTlX0DIIeXcu5fls9N9GcX1It/o79Q/r5LZc
+ X+On9rijlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAExkqTMjw8bUQ/y3dMsctRdW
+ qyc5vbPZ/uds20UPK17LK6//z1/wagUjwzH59lX5x+bv7X4srPZb4d/dGyy6FbFBbgmM24XOHci
+ 6wgAA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-run_kernel() records the kernel it starts in a single self._process
-attribute, which the timeout thread, the cleanup at the end of the
-output and the SIGINT handler all read back. That only works while one
-kernel is running at a time, which rules out running suites in
-parallel guests from multiple threads.
+With --run_isolated, parse_tests() writes the same JSON or JUnit
+destination after every kernel. Only the last kernel survives in a file,
+so an earlier failing suite can disappear from the saved results.
+Stdout similarly receives several independent report documents.
 
-Track running kernels in a list protected by a lock instead, with each
-run_kernel() invocation only adding and removing its own entry. The
-timeout thread and the cleanup code work on a local reference to their
-own process rather than going via self, so one kernel timing out can no
-longer terminate a different one. The SIGINT handler terminates every
-kernel that is still running.
+Separate report writing from parsing. Keep printing each kernel's results
+as they are parsed, accumulate the top-level tests and counts, and write
+one report after execution finishes. Preserve the parsed root for a
+single kernel and continue suppressing reports with --raw_output.
 
-No functional change when a single kernel is run at a time.
+Test JSON and JUnit files with an early failure and suite and test
+isolation. Also check equivalence between single-kernel execution and
+parsing.
 
+Fixes: ff9e09a3762f ("kunit: tool: support running each suite/test separately")
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- tools/testing/kunit/kunit_kernel.py    | 45 ++++++++++++++++++++--------------
- tools/testing/kunit/kunit_tool_test.py | 27 ++++++++++++++++++++
- 2 files changed, 53 insertions(+), 19 deletions(-)
+ tools/testing/kunit/kunit.py           | 35 +++++++++++++++----
+ tools/testing/kunit/kunit_tool_test.py | 61 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 89 insertions(+), 7 deletions(-)
 
-diff --git a/tools/testing/kunit/kunit_kernel.py b/tools/testing/kunit/kunit_kernel.py
-index 2641db9eddba..1d3226f5a136 100644
---- a/tools/testing/kunit/kunit_kernel.py
-+++ b/tools/testing/kunit/kunit_kernel.py
-@@ -277,7 +277,11 @@ class LinuxSourceTree:
- 		if kconfig_add:
- 			kconfig = kunit_config.parse_from_string('\n'.join(kconfig_add))
- 			self._kconfig.merge_in_entries(kconfig)
--		self._process : Optional[subprocess.Popen[Any]] = None
-+		# Kernels currently running. There can be several when
-+		# run_kernel() is called concurrently from multiple threads.
-+		self._processes : List[subprocess.Popen[Any]] = []
-+		# SIGINT can interrupt the main thread while it holds this lock.
-+		self._processes_lock = threading.RLock()
+diff --git a/tools/testing/kunit/kunit.py b/tools/testing/kunit/kunit.py
+index 218ae294ad1b..aea67b6a72c4 100755
+--- a/tools/testing/kunit/kunit.py
++++ b/tools/testing/kunit/kunit.py
+@@ -16,7 +16,7 @@ import time
  
- 	def arch(self) -> str:
- 		return self._arch
-@@ -368,7 +372,9 @@ class LinuxSourceTree:
- 		"""Boots the kernel and yields its console output line by line.
+ assert sys.version_info >= (3, 7), "Python version is too old"
  
- 		The output is also written to `outfile`, which defaults to
--		test.log in the build directory.
-+		test.log in the build directory. This may be called from
-+		several threads at once to run kernels concurrently, in which
-+		case each caller must supply a distinct `outfile`.
- 		"""
- 		# Copy to avoid mutating the caller-supplied list. exec_tests() reuses
- 		# the same args across repeated run_kernel() calls (e.g. --run_isolated),
-@@ -385,37 +391,36 @@ class LinuxSourceTree:
- 		if outfile is None:
- 			outfile = get_outfile_path(build_dir)
+-from dataclasses import dataclass
++from dataclasses import dataclass, replace
+ from enum import Enum, auto
+ from typing import Iterable, List, Optional, Sequence, Tuple
  
--		self._process = self._ops.start(args, build_dir)
--		assert self._process is not None # tell mypy it's set
--		assert self._process.stdout is not None  # tell mypy it's set
-+		process = self._ops.start(args, build_dir)
-+		assert process is not None # tell mypy it's set
-+		assert process.stdout is not None  # tell mypy it's set
-+		with self._processes_lock:
-+			self._processes.append(process)
+@@ -191,6 +191,10 @@ def exec_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -
+ 	metadata = kunit_json.Metadata(arch=linux.arch(), build_dir=request.build_dir, def_config='kunit_defconfig')
  
- 		# Enforce the timeout in a background thread.
- 		def _wait_proc() -> None:
- 			try:
--				if self._process:
--					self._process.wait(timeout=timeout)
-+				process.wait(timeout=timeout)
- 			except Exception as e:
- 				print(e)
--				if self._process:
--					self._process.terminate()
--					self._process.wait()
-+				process.terminate()
-+				process.wait()
- 		waiter = threading.Thread(target=_wait_proc)
- 		waiter.start()
+ 	test_counts = kunit_parser.TestCounts()
++	report = kunit_parser.Test()
++	report.name = 'main'
++	report.counts = test_counts
++	parse_request = replace(request, json=None, junit=None)
+ 	test_failed = False
+ 	exec_time = 0.0
+ 	for i, filter_glob in enumerate(filter_globs):
+@@ -205,7 +209,7 @@ def exec_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -
+ 			filter_action=request.filter_action,
+ 			build_dir=request.build_dir)
  
- 		output = open(outfile, 'w')
- 		try:
- 			# Tee the output to the file and to our caller in real time.
--			for line in self._process.stdout:
-+			for line in process.stdout:
- 				output.write(line)
- 				yield line
- 		# This runs even if our caller doesn't consume every line.
- 		finally:
- 			# Flush any leftover output to the file
--			if self._process:
--				if self._process.stdout:
--					output.write(self._process.stdout.read())
--					self._process.stdout.close()
--				self._process = None
-+			output.write(process.stdout.read())
-+			process.stdout.close()
-+			with self._processes_lock:
-+				self._processes.remove(process)
- 			output.close()
+-		_, test_result = parse_tests(request, metadata, run_result)
++		_, test_result = parse_tests(parse_request, metadata, run_result)
+ 		# run_kernel() doesn't block on the kernel exiting.
+ 		# That only happens after we get the last line of output from `run_result`.
+ 		# So exec_time here actually contains parsing + execution time, which is fine.
+@@ -216,6 +220,19 @@ def exec_tests(linux: kunit_kernel.LinuxSourceTree, request: KunitExecRequest) -
+ 		# A kernel with no results has no failed test counts to aggregate.
+ 		if _map_to_overall_status(test_result.status) != KunitStatus.SUCCESS:
+ 			test_failed = True
++		if request.json or request.junit:
++			if len(filter_globs) == 1:
++				report = test_result
++			else:
++				report.subtests.extend(test_result.subtests)
++				report.log.extend(test_result.log)
++	if len(filter_globs) != 1:
++		report.expected_count = len(report.subtests)
++		report.status = test_counts.get_status()
++		if test_failed and report.ok_status():
++			report.status = kunit_parser.TestStatus.FAILURE_TO_PARSE_TESTS
++	if not request.raw_output:
++		_write_test_results(request, metadata, report)
  
- 			waiter.join()
-@@ -423,7 +428,9 @@ class LinuxSourceTree:
+ 	if len(filter_globs) == 1 and test_counts.crashed > 0:
+ 		bd = request.build_dir
+@@ -264,6 +281,15 @@ def parse_tests(request: KunitParseRequest, metadata: kunit_json.Metadata, input
+ 		kunit_parser.print_test(test, request.failed, stdout)
+ 	kunit_parser.print_summary_line(test, stdout)
  
- 	def signal_handler(self, unused_sig: int, unused_frame: Optional[FrameType]) -> None:
- 		logging.error('Build interruption occurred. Cleaning console.')
--		if self._process:
--				self._process.terminate()
--				self._process.wait()
-+		with self._processes_lock:
-+			processes = list(self._processes)
-+		for process in processes:
-+			process.terminate()
-+			process.wait()
- 		self._restore_terminal_if_tty()
++	_write_test_results(request, metadata, test)
++
++	if test.status != kunit_parser.TestStatus.SUCCESS:
++		return KunitResult(KunitStatus.TEST_FAILURE, parse_time), test
++
++	return KunitResult(KunitStatus.SUCCESS, parse_time), test
++
++def _write_test_results(request: KunitParseRequest, metadata: kunit_json.Metadata,
++			test: kunit_parser.Test) -> None:
+ 	if request.json:
+ 		json_str = kunit_json.get_json_result(
+ 					test=test,
+@@ -283,11 +309,6 @@ def parse_tests(request: KunitParseRequest, metadata: kunit_json.Metadata, input
+ 			kunit_junit.write_junit_result(test=test,filename=request.junit)
+ 			stdout.print_with_timestamp(f"Test results stored in {os.path.abspath(request.junit)}")
+ 
+-	if test.status != kunit_parser.TestStatus.SUCCESS:
+-		return KunitResult(KunitStatus.TEST_FAILURE, parse_time), test
+-
+-	return KunitResult(KunitStatus.SUCCESS, parse_time), test
+-
+ def run_tests(linux: kunit_kernel.LinuxSourceTree,
+ 	      request: KunitRequest) -> KunitResult:
+ 	run_start = time.time()
 diff --git a/tools/testing/kunit/kunit_tool_test.py b/tools/testing/kunit/kunit_tool_test.py
-index 4e8068dce918..c4999273e491 100755
+index ca2dac6651aa..4590108e4306 100755
 --- a/tools/testing/kunit/kunit_tool_test.py
 +++ b/tools/testing/kunit/kunit_tool_test.py
-@@ -18,6 +18,7 @@ import os
- import signal
+@@ -19,6 +19,7 @@ import signal
  import subprocess
  import sys
-+import textwrap
  from typing import Iterable
- import xml.etree.ElementTree as ET
++import xml.etree.ElementTree as ET
  
-@@ -538,6 +539,8 @@ class LinuxSourceTreeTest(unittest.TestCase):
- 			with open(outfile, 'rt') as f:
- 				self.assertEqual(f.read(), 'hi\n')
- 			self.assertFalse(os.path.exists(kunit_kernel.get_outfile_path(build_dir)))
-+			# The kernel has exited so should no longer be tracked.
-+			self.assertEqual(tree._processes, [])
+ import kunit_config
+ import kunit_parser
+@@ -738,6 +739,7 @@ class KUnitMainTest(unittest.TestCase):
  
- 	def test_run_kernel_args_not_mutated(self):
- 		"""Verify run_kernel() copies args so callers can reuse them."""
-@@ -607,6 +610,30 @@ class LinuxSourceTreeTest(unittest.TestCase):
- 			mock_error.assert_called_once()
- 			mock_call.assert_called_once_with(['stty', 'sane'])
+ 		self.mock_linux_init = mock.patch.object(kunit_kernel, 'LinuxSourceTree').start()
+ 		self.linux_source_mock = self.mock_linux_init.return_value
++		self.linux_source_mock.arch.return_value = 'um'
+ 		self.linux_source_mock.build_reconfig.return_value = True
+ 		self.linux_source_mock.build_kernel.return_value = True
+ 		self.linux_source_mock.run_kernel.return_value = all_passed_log
+@@ -1049,6 +1051,65 @@ class KUnitMainTest(unittest.TestCase):
  
-+	def test_signal_handler_during_process_update(self):
-+		# Run in a subprocess so a deadlock fails with a timeout rather
-+		# than hanging the test runner. Deliver a real signal while the
-+		# main thread holds the lock used to update the process list.
-+		code = textwrap.dedent('''\
-+			import os
-+			import signal
-+			from unittest import mock
-+			import kunit_kernel
+ 				kunit.main(['exec', '--run_isolated=suite'])
+ 
++	@mock.patch.object(kunit, '_list_tests')
++	def test_isolated_reports_include_all_kernels(self, mock_tests):
++		def fake_run_kernel(filter_glob, **kwargs):
++			if '.' in filter_glob:
++				suite, case = filter_glob.split('.')
++				failed = case == 'test1'
++			else:
++				suite, case = filter_glob, 'test'
++				failed = suite == 'suite1'
++			status = 'not ok' if failed else 'ok'
++			return ['KTAP version 1', '1..1', '    # Subtest: ' + suite,
++				'    1..1', f'    {status} 1 - {case}', f'{status} 1 - {suite}']
++		self.linux_source_mock.run_kernel.side_effect = fake_run_kernel
 +
-+			tree = kunit_kernel.LinuxSourceTree('', kunitconfig_paths=[os.devnull])
-+			process = mock.Mock()
-+			with tree._processes_lock:
-+				tree._processes.append(process)
-+				os.kill(os.getpid(), signal.SIGINT)
-+			process.terminate.assert_called_once_with()
-+			process.wait.assert_called_once_with()
-+		''')
-+		result = subprocess.run([sys.executable, '-c', code],
-+			cwd=os.path.dirname(os.path.abspath(__file__)),
-+			stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
-+			stderr=subprocess.STDOUT, text=True, timeout=5)
-+		self.assertEqual(result.returncode, 0, msg=result.stdout)
++		for isolation in ('suite', 'test'):
++			with self.subTest(isolation=isolation), \
++			     tempfile.TemporaryDirectory() as output_dir:
++				if isolation == 'suite':
++					mock_tests.return_value = ['suite1.test', 'suite2.test']
++					expected = [('suite1', 'test', 'FAIL'), ('suite2', 'test', 'PASS')]
++				else:
++					mock_tests.return_value = ['suite.test1', 'suite.test2']
++					expected = [('suite', 'test1', 'FAIL'), ('suite', 'test2', 'PASS')]
++				json_path = os.path.join(output_dir, 'results.json')
++				xml_path = os.path.join(output_dir, 'results.xml')
++				with self.assertRaises(SystemExit) as e:
++					kunit.main(['exec', '--run_isolated=' + isolation,
++						    '--json=' + json_path, '--junit=' + xml_path])
++				self.assertEqual(e.exception.code, 1)
 +
- 	def test_build_reconfig_no_config(self):
- 		with tempfile.TemporaryDirectory('') as build_dir:
- 			with open(kunit_kernel.get_kunitconfig_path(build_dir), 'w') as f:
++				with open(json_path) as f:
++					report = json.load(f)
++				self.assertEqual(report['misc']['tests'], 2)
++				self.assertEqual(report['misc']['failed'], 1)
++				self.assertEqual(report['arch'], 'um')
++				self.assertEqual([(suite['name'], case['name'], case['status'])
++					for suite in report['sub_groups'] for case in suite['test_cases']], expected)
++				root = ET.parse(xml_path).getroot()
++				self.assertEqual(root.get('tests'), '2')
++				self.assertEqual(root.get('failures'), '1')
++				self.assertEqual([(suite.get('name'), case.get('name'),
++					'FAIL' if case.find('failure') is not None else 'PASS')
++					for suite in root for case in suite], expected)
++
++	def test_single_kernel_reports_match_parse(self):
++		with tempfile.TemporaryDirectory() as output_dir:
++			json_path = os.path.join(output_dir, 'results.json')
++			xml_path = os.path.join(output_dir, 'results.xml')
++			reports = []
++			for args in (['exec'], ['parse', _test_data_path('test_is_test_passed-all_passed.log')]):
++				kunit.main(args + ['--json=' + json_path, '--junit=' + xml_path])
++				with open(json_path) as f:
++					report = json.load(f)
++				# Execution adds build metadata, which parse cannot know.
++				reports.append((report['misc'],
++					[(s['name'], s['test_cases']) for s in report['sub_groups']],
++					ET.tostring(ET.parse(xml_path).getroot())))
++			self.assertEqual(reports[0], reports[1])
++
+ 	@mock.patch.object(kunit, '_list_tests')
+ 	@mock.patch.object(sys, 'stdout', new_callable=io.StringIO)
+ 	def test_list_suites(self, mock_stdout, mock_tests):
 
 -- 
 2.47.3
