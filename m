@@ -1,52 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618560;
-	b=p61M2zETNQwwhTto3kD0mg3qa6l1kyKudJhVImAnCb9MNjlRDXOQzhT88fHWFAd85N+r
-	 5w4etgZv2I3ck6pz8QyHOb3X9gA5T6Ge3Px5CKOCJ7Ytq89GsUk2Ej1Yd8wjQ3ZuK/PFr
-	 Dm3U8S4ah3GFU0huUL96OUMqAvD8qmle6fhgOKrJ2vOS22CR28VK4AYAPleiEENFRGSdc
-	 NdA/Yy7GOcRKw9FYr1HE6YaKSUSmZrejfoWwM1Uqa2qUnfVWXrr3I1SdpekVWkOTOu97O
-	 Xlp1lgY9aJDONCJ6hVC9uZlObRIH6sfXOu8OPyLaCJP/1JeHRfbyesBe9sNGZFmKgMQ==
+	t=1793618567;
+	b=1LUpZOiN0bmNd4S433oD04iTZU+1+Malf65GWOK38P9CCWmUtccE1+kw+lpmHH1Fnzog
+	 WGCQy0e6TYe4baWWiY0QJOqI6rbH7BfrREVsHCbX/JnXibcWilZo85wBEilsAg6lfLljg
+	 1QwMapjVtPx4eVEBnF7c3c4RqI/Mau40SLewUo/YnzMdOPc56YOgYCMbcCFvTvfRIrgZG
+	 4lqUpEOGXffYFYKG8NGu826S5BX4DFx9F1yza1NFtdYTFosPnlgx/hOM3dXJrzKZORnyY
+	 99P0FMHX7sY0YR2CYwwWYf7xZeQeCMBkk5GYaYmdMlVJyGQiTyT0fJ88NiH/GWR8roA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618560;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=R0uSF5qpsIfEXe0LqMz/VFLuJzJd291vneuC3VxqkSI=;
-	b=c7tdcECgeVIDYVHtLQLU/qkwhhR+zto2PxwS4rpCfSeqsM6OkM5tEtGQIojy4UHxomnX
-	 QcoUE0jk+2TMSxMKAlP6eMciAf083Aaou+HrmVOIqCgASX+zOi+zgJ8SsGF/0bB+KbgYh
-	 A8OtR2ppFDnmQAgN9RkaKSYtVngj0t+dBreU1ZF63RISSmk4cpRXqQu+gT2D4KvaiIiZx
-	 2KC4xNqwL4YAwXFcqNdJ6WHmMbOZbagZKX8OP0LT9aTMi28SbfH5j1AMhuPqC1Q9LqhVv
-	 xCYrZiuJ3iwzQYtgNWA4/PzXmwJMX9KQWBMr7E2bdMQc7aDe+eZ+5HozGk6oGTR1g1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618567;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=X7loASgn+yxCJuZyuGOGYaVSPjNHXEWeXeKmMCLTikE=;
+	b=Z8tk4YbaVgQHsmXCPg5H44q1Cmmcroue2dVv0vXncwHZY0ZfBgfSGIw7Ntwzwt+vGdV/
+	 Mt/uEZKHDfnQJ0hx63agp3ghFgMzuSxIbebvlfbpVh9f5184cAoUUdS3tyz0XDKS5PGfN
+	 GY//5XjnrYlpLHt8yrrX94RbHte4UaFBZiFQAx3rE/K7cfcxSWEmp0yJt3wL0uLmSOHUm
+	 YLqghwqJhiMKU4jCcr0bWIZpU2HMzOlVbogh73Ka5RI93XK7DXZk1C6R+ricFEjo/laeE
+	 TzD2/Hnp+zQ8oA5hQpKsTxu2GOLA5tOaEY3fVs5/uTYf7E5BL61DCMImZOcJHE25eyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ctcgk8m6;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2DBBA60A6F4C;
-	Mon,  2 Nov 2026 11:22:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DBBA60A6F4C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WCOu+cj6;
+	arc=none smtp.remote-ip=95.215.58.154
+Received: from mta1.migadu.com (out-154.mta1.migadu.com [95.215.58.154])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F6060A6F6A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:22:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7F6060A6F6A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ctcgk8m6
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6D25A1691;
-	Mon,  2 Nov 2026 03:22:36 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6474F3F632;
-	Mon,  2 Nov 2026 03:22:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793618559; bh=bDxr5gvFE+Bb+w20GZGn+s22BxRoQqetE+tU52d6PfY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Ctcgk8m6cdw5AgQ2Im/7eFAWIBTpDgXbtAAO8GJUIWWh/YkZBAZaw9T1WzoMpEVS2
-	 9posqID6bDX94oqX9vEed1OT6H8QPauiWj5F4typRunUthD06NqbA4adWOmWErHOFp
-	 ZJmVrpwHNi9xgaTlU68f4MNjQeHKzt2spQZCrMtg=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Mon, 02 Nov 2026 11:21:23 +0000
-Subject: [PATCH RESEND v2 10/21] riscv: kvm: remove stack copy address of
- pXd in pXd_offset()
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WCOu+cj6
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=72Z50eGsX0yBdCzUdD2DRF1kVAo5WdsTx+d6WyLQP4A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793618564; v=1; x=1794223364;
+ b=WCOu+cj6kNM/m98bWxhFmENNuPadN6C2HuhsVN5hVy9dukRiBKNa8k/8PLbFdbj/DXlRF5kM
+ IhFFkIS71wTN8YJ4rJr7SHL38vMi1MqQuSvb6+c8wYtyI1xkIsAstcsyHjJeTILcKR6C0ek4Wsf
+ CQM217qhkiW4oWusR+yozJyQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id aa70f3ab710337ec;
+	Mon, 02 Nov 2026 11:22:43 +0000
+X-Mizu-Trace-ID: aa70f3ab710337ec
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <65edd0da-008a-4c1d-bfd1-7f0b892a76bf@linux.dev>
+Date: Mon, 2 Nov 2026 19:22:28 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,121 +58,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-dummy_ptxp3-v2-10-78840b2ec73c@arm.com>
-References: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
-In-Reply-To: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
-To: Russell King <linux@armlinux.org.uk>, 
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
- Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>, 
- Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>, 
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonas Bonn <jonas@southpole.se>, 
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
- Stafford Horne <shorne@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-openrisc@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2080; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=bDxr5gvFE+Bb+w20GZGn+s22BxRoQqetE+tU52d6PfY=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq6HIznkcwZYOsTE4W01GcU4mYfE39Lhkjeb/kl
- qYNmf69jTeJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCauhyMwAKCRBt1cPRWsUx
- M1nPDACyTxKW0QIf1aki2ILBtcSj+P8SuxY2HQa9GTNUVsd/UcGoLZY6uA/dg7A/Yvuw0TCGbPd
- kcIgBiMNtSZrHn52D6+1EE8BRFSLynEcFOZhgBpTFFw/vtZ6INCLbtKOpOsjDg4DyfpI12y0ZfB
- 6LW3z7kJtoWiIOxcg7yDeqiif4xh2+ukAxnSqDWrIA8XkmLrl0meoz8b/5o0DmW6BjtbNX138z1
- KgMPTeBvji7YOP9l4nxY0uRo11y9BlRHu9pYQE8CO0ghDHcBDVdF9JDf7OaNAFcMMlfAco1VUec
- 5xAY2JevPpbxhhIvzqN/7k9SEa7bJIpRNqP/uwAp4sA0o4LQYqs94OeBxp7lPb5y1agzCGGwynH
- F3F0i1TidoUuvK9RtQr4nVouqnI2kCZ7OD+1YaNGfAelozaDSsnKalZS3jbFtWUTTPcpx6ZrZ74
- yDINCJGTkAAOUpALpC2WLfbfFmJVgwf9O+hkJStfemMtmTCYRBWPE/h7YvjwkvOWcAHD8=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 6/6] mm/mglru: add tracepoint for inc_max_seq()
+To: Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20261031090041.58574-1-ridong.chen@linux.dev>
+ <20261031090041.58574-7-ridong.chen@linux.dev>
+ <CAGsJ_4zUbkFXBhAesVV74-Ndga5f6xEbestK7Qinqddip8xBrw@mail.gmail.com>
+ <aufxuOaKZWMYqEQi@bogon>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <aufxuOaKZWMYqEQi@bogon>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The behaviour of pXdp_get() will change with generic compile-time folded
-page tables. To prepare for that, rework get_hva_mapping_size() to avoid
-use of a stack copy of a pXd and pass it as argument to pXd_offset() so that
-the folded entries value is ignored.
 
-Replace direct uses of stack-based pXd values with pXd_offset_lockless()
-and there should be no functional change.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- arch/riscv/kvm/mmu.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+On 11/2/2026 10:13 AM, Baoquan He wrote:
+> On 11/01/26 at 05:21am, Barry Song wrote:
+>> On Sat, Oct 31, 2026 at 5:02 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>>
+>>> From: Ridong Chen <chenridong@xiaomi.com>
+>>>
+>>> Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
+>>> youngest generation. There is currently no tracepoint on this path, so
+>>> the moment a new generation is created, and how the min_seq of each type
+>>> trails behind it, cannot be observed as it happens.
+>>>
+>>> Add mm_mglru_inc_max_seq, emitted right after max_seq is bumped while
+>>> the lruvec lock is still held, with the node id, memcg id, the new
+>>> max_seq, the anon and file min_seq, and the number of pages in each
+>>> generation for both types, summed over zones and clamped to >= 0 the
+>>> same way the debugfs lru_gen file reports them. The nr_anon/nr_file
+>>> arrays are indexed by generation slot, so the emitted max_seq/min_seq
+>>> say which slot holds which seq. They are printed with __print_array(),
+>>> so the output is hex and its length follows MAX_NR_GENS automatically.
+>>>
+>>> Only the lruvec is passed in; all of the above is collected in
+>>> TP_fast_assign(), so inc_max_seq() does no extra work when the event is
+>>> disabled. Paired with mm_mglru_scan_folios it makes the full
+>>> aging-to-eviction window observable per memcg.
+>>>
+>>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>>> ---
+>>>   mm/trace_vmscan.h | 47 +++++++++++++++++++++++++++++++++++++++++++++++
+>>>   mm/vmscan.c       |  2 ++
+>>>   2 files changed, 49 insertions(+)
+>>>
+>>> diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
+>>> index 8148b8224422..cddf42b5849a 100644
+>>> --- a/mm/trace_vmscan.h
+>>> +++ b/mm/trace_vmscan.h
+>>> @@ -456,6 +456,53 @@ TRACE_EVENT(mm_mglru_scan_folios,
+>>>                  __entry->min_seq)
+>>>   );
+>>>
+>>> +TRACE_EVENT(mm_mglru_inc_max_seq,
+>>> +
+>>> +       TP_PROTO(struct lruvec *lruvec),
+>>> +
+>>> +       TP_ARGS(lruvec),
+>>> +
+>>> +       TP_STRUCT__entry(
+>>> +               __field(u64, memcg_id)
+>>> +               __field(unsigned long, max_seq)
+>>> +               __field(unsigned long, anon_min_seq)
+>>> +               __field(unsigned long, file_min_seq)
+>>> +               __array(unsigned long, nr_anon, MAX_NR_GENS)
+>>> +               __array(unsigned long, nr_file, MAX_NR_GENS)
+>>> +               __field(int, nid)
+>>> +       ),
+>>> +
+>>> +       TP_fast_assign(
+>>> +               struct lru_gen_folio *lrugen = &lruvec->lrugen;
+>>> +               int gen, zone;
+>>> +
+>>> +               __entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
+>>> +               __entry->max_seq = lrugen->max_seq;
+>>> +               __entry->anon_min_seq = lrugen->min_seq[LRU_GEN_ANON];
+>>> +               __entry->file_min_seq = lrugen->min_seq[LRU_GEN_FILE];
+>>> +               /* summed over zones and clamped to >= 0, as debugfs lru_gen does */
+>>> +               for (gen = 0; gen < MAX_NR_GENS; gen++) {
+>>> +                       __entry->nr_anon[gen] = 0;
+>>> +                       __entry->nr_file[gen] = 0;
+>>> +                       for (zone = 0; zone < MAX_NR_ZONES; zone++) {
+>>> +                               __entry->nr_anon[gen] +=
+>>> +                                       max(lrugen->nr_pages[gen][LRU_GEN_ANON][zone], 0L);
+>>> +                               __entry->nr_file[gen] +=
+>>> +                                       max(lrugen->nr_pages[gen][LRU_GEN_FILE][zone], 0L);
+>>> +                       }
+>>> +               }
+>>
+>> I feel this is wrong. Can we calculate the newest and
+>> oldest generations from seq, then print them in order
+>> from newest to oldest?
+> 
+> Agree, from newest to oldest or oldest to newest makes it clearer.
+> 
+> Printing from lrugen->max_seq - MAX_NR_GENS + 1, or from MAX_NR_GENS,
+> both looks good.
+> 
 
-diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 371fccaf9df08..a062e8508d3f9 100644
---- a/arch/riscv/kvm/mmu.c
-+++ b/arch/riscv/kvm/mmu.c
-@@ -450,10 +450,10 @@ static int get_hva_mapping_size(struct kvm *kvm,
- {
- 	int size = PAGE_SIZE;
- 	unsigned long flags;
--	pgd_t pgd;
--	p4d_t p4d;
--	pud_t pud;
--	pmd_t pmd;
-+	pgd_t *pgdp, pgd;
-+	p4d_t *p4dp, p4d;
-+	pud_t *pudp, pud;
-+	pmd_t *pmdp, pmd;
- 
- 	/*
- 	 * Disable IRQs to prevent concurrent tear down of host page tables,
-@@ -469,15 +469,18 @@ static int get_hva_mapping_size(struct kvm *kvm,
- 	 * value) and then p*d_offset() walks into the target huge page instead
- 	 * of the old page table (sees the new value).
- 	 */
--	pgd = pgdp_get(pgd_offset(kvm->mm, hva));
-+	pgdp = pgd_offset(kvm->mm, hva);
-+	pgd = pgdp_get(pgdp);
- 	if (pgd_none(pgd))
- 		goto out;
- 
--	p4d = p4dp_get(p4d_offset(&pgd, hva));
-+	p4dp = p4d_offset_lockless(pgdp, pgd, hva);
-+	p4d = p4dp_get(p4dp);
- 	if (p4d_none(p4d) || !p4d_present(p4d))
- 		goto out;
- 
--	pud = pudp_get(pud_offset(&p4d, hva));
-+	pudp = pud_offset_lockless(p4dp, p4d, hva);
-+	pud = pudp_get(pudp);
- 	if (pud_none(pud) || !pud_present(pud))
- 		goto out;
- 
-@@ -486,7 +489,8 @@ static int get_hva_mapping_size(struct kvm *kvm,
- 		goto out;
- 	}
- 
--	pmd = pmdp_get(pmd_offset(&pud, hva));
-+	pmdp = pmd_offset_lockless(pudp, pud, hva);
-+	pmd = pmdp_get(pmdp);
- 	if (pmd_none(pmd) || !pmd_present(pmd))
- 		goto out;
- 
+Hi Barry, Baoquan,
+
+You are right, thanks. In v6 the arrays are ordered by seq, from the
+oldest to the newest, i.e. the same order in which the debugfs lru_gen
+file lists the generations from top to bottom.
+
+>>
+>> The nr_pages[] array isn't ordered from newest to
+>> oldest or vice versa, as we have:
+>>
+>> static inline int lru_gen_from_seq(unsigned long seq)
+>> {
+>>          return seq % MAX_NR_GENS;
+>> }
+>>
+>> And I added a helper here:
+>> https://lore.kernel.org/linux-mm/20261022220203.91911-11-baohua@kernel.org/
+>>
+>> +static inline unsigned long lruvec_gen_size(struct lru_gen_folio *lrugen,
+>> + int type, unsigned long seq)
+>> +{
+>> +     int gen = lru_gen_from_seq(seq);
+>> +     unsigned long size = 0;
+>> +
+>> +     for (int zone = 0; zone < MAX_NR_ZONES; zone++)
+>> +          size += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
+>> +     return size;
+>> +}
+>>
+>> Maybe you could port it here as a separate patch so it
+>> can land earlier as part of your tracepoints series. We
+>> could then use it in the next version of the swappiness
+>> series.
+>>
+Sure. I will port lruvec_gen_size() as a separate patch with your Suggested-by, 
+and put it in mm/vmscan.h so the tracepoint can use it.
 
 -- 
-2.43.0
+Best regards
+Ridong
 
