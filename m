@@ -1,116 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793610094;
-	b=4zPx7q+9spfsG2Bv3RWVXua7fWFqSBfMYRkDxfDZzDRpl1kNMHlb4ZvAHmWIiHhw96Dk
-	 6rQnffVw66qh2BkGje5DfzRqf35wSd1ctX7S5E2eyl2HTWqaMjg+I6KpUyGkMrhq3su8A
-	 waQQGema8clZTbnmj8w5LwRP/A3ZpZfVahUzo7OOCbg3hSpHbo0YGAWxPNuqJQHhefhOy
-	 63HXelk/H0EjdGYy6hCKYbxyNZ1uqXRE7yYGJEhip0UhkP4vaHKuMH7zczMoPMmevVBK1
-	 MgnjLsdRNghJ7D2SjbBj06oczI3aqRxtl44+bKemnOX34qOsAAzs7ahXEcCAzgXMPGA==
+	t=1793610103;
+	b=PR70qNBfwvG9X2Z7GAwlJf2DV8fxCpR7bZh9myfMix+QSyfsblJxw/F8xG+zFIcqHXP6
+	 3XSwLMUtVmMvhh6ji6gWySSPNB/icwlIHiNeeRqpWZ4h16sW9kM6eX2cDHmcbZmxpwBbP
+	 txsDCI9vLAZtW6lu/u3fes+isQXfaXXjIK6GzJrfTMsVyGzhS8frQrBN05ixKpgOcBaW4
+	 JS+PvIYHotygMjRVY9yD69jjnfbwkrwntNXb6FjcyeRkhp9R286PR6kGsGcmWI1mSwbDs
+	 3fVFqHpqCRfoDKlCGrTjHfZ0v52xhhdZ+iGRLZ2Nq1TBj6DXfpOSeR1XRz4vR3R2EhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793610094;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=avrdAC3+VaiYhhDXqmosyPWkGp+PfhcvqXebzRIarOA=;
-	b=Jr99y28iOGhWTcwVHFhTDFZWRDYbmqNMeZ/YKSqLLKE2tFu5A61B0grm4YHgu+c7GljP
-	 LN/O/0D+KnBLNvFiFHJdQqW3J3/yyFMYXLCJwQ9yJQGoKAPLcjtq06LwZwJSKPqCG7plz
-	 CK4BKQdPfdI3rPg9J9saYSSBDh/0J1Aey2VugUTdxEgFexaHS89t28qB4Ggz22jI25n3Q
-	 8cM0kiHklkb06YDXNUaKn8Ru81DsZh61M66HDxDqsqL09M4l/+/Il5bdABcxSf/uq3J+d
-	 izNvaF8OGytyU8+t4s48NbHWd9mV5fUu3eewD/QCc4E4+8lwhkVJTOqW/OUKzcs7AIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793610103;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=7ILwAwzu57MKsu2U8qvPn8STc7HTVnKuk72Aio8hCfI=;
+	b=LTl9xb03yfxvl55dl3BEDXHQ094ZZ+kAJv4ocT4sz4ZGQnFVIu/ahuiJ9tGZly+vB9De
+	 3n5aDn7F304DHOodk6YSaIEG3PAoUqSnZCeTvfAE259aEA5Aq9RvsOdf1YPUwlT5O59Zg
+	 DhXB1C+yOYT0DmV/FAB0LxxHLPGj6HnLERjBzJETrwvuOkrKXA+s7PLdp0waK4zHZfIb6
+	 Ny18DZfR5aBlkegSoorab/kfrLQ7FCxXHZ9pwQbjtB1KZ0/ML7sggV4LrE2dWnYgKIIZD
+	 9QtlE/tQ4+C2uPCpAWWVgyrN5OxK/zHRikyMV+tE2CCJBmm9DAeuee+foPJJkgboRgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RETzsQdM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KvYdgRbY;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r5G8ABaj;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1A6606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:01:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B1A6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38560606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38560606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RETzsQdM;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KvYdgRbY
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A23vGPn3768855
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 09:01:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=avrdAC3+VaiYhhDXqmosyPWkGp+PfhcvqXe
-	bzRIarOA=; b=RETzsQdMUr7s9g0NetCcCjXGAgFDr42EJkxjGZGB2q2GrFfyYaW
-	DWDeGdfEbUYQDA8s+QqhFEvP55OcQiANvZGImtyiMi+BpHgL0DFmuOT1A3xleYo4
-	syvA/qCHOPBjqwNMqKZRzAQ6ugpvSyROSSmvTOCqkVrjsBr3M4/bCsDYc+PJoMCC
-	+kWY+pAwq++Miy/Yz0Z8RdBMc2wZUAgC4uldVx4egeqXU64/oMIlMgEkkD98jzIQ
-	sjprm9YmAubyxaHmOEGYEgPX1NsDkZZ+oTK3F5vO+xBGN0lJTkZ1h+6XiRXzmd7g
-	6GEhnGSHMqgW0STiUc6wbTSqbqnbwoeoHiw==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn79rx5xn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:01:33 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-704aee0b7b2so2881512eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:01:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r5G8ABaj
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso3959243a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:01:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793610093; x=1794214893; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=avrdAC3+VaiYhhDXqmosyPWkGp+PfhcvqXebzRIarOA=;
-        b=KvYdgRbY1o7291HRSHvLRZiunk3BaYTSyp4qvEjMnNXoIHfxFUJbq+Q6t23S/Ddc92
-         0k49lKDeAsBvM/zxOLFB8pcBQnrgPSzzFgtSkW+5ceOMJ4JB3SAAnsWQ44MvPPvrnj+K
-         +lW2VXImTvHPbT5iJ/k60O1H6Zr7L7yWdV4MmswL1qyFOg0yd8F7o0ICBLc9NyG6Vr79
-         dKnILdaKKpqm36IO8uP2qZjOOaqvVoTL2CTpRB+TugkWzSQ3UiBMxWw5ruN1drj4tkEd
-         R1MkxAkZLfNzGue/xDmnTDffvCa8hYh2dopOrsUzzQkG6zFmAhHlWD7iYAe8SBdvDFH2
-         xKVg==
+        d=gmail.com; s=20260707; t=1793610101; x=1794214901; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7ILwAwzu57MKsu2U8qvPn8STc7HTVnKuk72Aio8hCfI=;
+        b=r5G8ABajWTPMobPfIBG5jCancplWK4shOqnFdlG1SNxDmV4pC6Fi9TbofcbNEh7hnc
+         kLmnGAyNXh/oR2Oc8CC2q+SL1fiWXczsbQbKZFx2qUflOiHy/G6ylku2B3Z7S/sP7bCx
+         k4jA/kv16ueOmycQEu0Pyfwf1iDk2M0hqP1rgVMXlzEzPDrKd0LoRxsmF2WRGIx53uPt
+         sjS/FtV14/iTgWBw/Z+fKZ2c9TGTj1GlkgFukI9zLRG8XQtTkC+h0KV+unhWB6qVKAoO
+         p/p9Cd9/hfF3UYPWYlZN8f2xtSn0GzvkLPMyit7OyBtFkxuy4onct4YiIareIEYfGsa4
+         WmDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793610093; x=1794214893;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=avrdAC3+VaiYhhDXqmosyPWkGp+PfhcvqXebzRIarOA=;
-        b=n7/IDF+Z85Q1LSoUQjfoyGkXW5Ngzf9uWVEBABEnirGdG8W5Usg9w1Dyp7xxRgfIaj
-         8hMAQ147Im8pxHwvlrR9cozNgq0/7f0Hmu94NkJVJ1rZKnY5THrIBtb5pT+iQ8zkToZm
-         Zp4GljvJ0sIgj2WV9ki42P+AyokVT/+SYKIzX9eQOzeNEJhwKtJFSCqyxL+6tgf+XeiB
-         DSy2CkpwL19uc3Xo9qx5VPHvMQd+U+VJ0OCThWKU0sGN6Dgcte5BHY7GO2tvlmPaYfpm
-         fUOufx7DguqcGc0jeFLMHRd2o3DaHgPBi+WdtbQl409x6oFq1cr0qSoNqjRo/Oz+Min8
-         YIsA==
-X-Forwarded-Encrypted: i=1; AKwUvByHBPMdfOAlQRH2y9ZmMiW/G4AvJ9gO/S3tTrIS4pfNobElPAaseFzXGKL4W4v7YMKtE0NHvvKGtzG0Y3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsRenmkZ1/54IxI57EUBTfTkbcVn3/YEwYXVEavz1AMfUahM9L
-	9Or5yaXWatDG6oVUkgaUvFycr1E1QPlut0mE5G0rcmUVBkN3rI7rykPi3/DkC8tQmHY7VaEMWQj
-	IF7xwhb0iXEciBBC4aanGKxtagjxlLWnDuLd/gz6hnJmj4psLqmXfpdoW7jxU42cldLw=
-X-Gm-Gg: AYBFou1XJsbGsmmxLu5zm6dvT66CAfuJGhV+qYvojBr0mIY5w8idBMrXaKgyq7tVxC9
-	Rbofx4rL+YWU3d+J4bOH91ZsFQyJluslk4qBLTPIQs/HwmWTdOkkJeJFSA48HZ2DLEBOQDmXeQw
-	X4OFafh24tj+diecC/zq/sSfjsSztyP7an6cmaIUY7zqlEOLOXDmcIUvc8siP4gVvB+jXnVcikT
-	5umZOwAV6rlPZZChjgfIxiCr8WaPG72VaYP37xLL+yVHMFVgIgjwdWjwWDVfETFo5xcIybXi6nF
-	KD7Tb5zqrOE/ba+YO6kX6mb4qavuiHr/I3SId/idRCLGfNgljqNkoPskfLSMYiwE9sbhoAOm9fO
-	qMqf5w4otVNdYXV0mAcFlWG/AswSCowpYr7KUNQzwU0OXlDpwlrWuNgoJySKXqU9u4IcwhVHp0w
-	EDZxotZcXDaotuUIcIaVAglZ+DMAax7E4duk+Z
-X-Received: by 2002:a05:6820:607:b0:707:5453:73c5 with SMTP id 006d021491bc7-714f242152fmr5313440eaf.2.1793610092729;
-        Mon, 02 Nov 2026 01:01:32 -0800 (PST)
-X-Received: by 2002:a05:6820:607:b0:707:5453:73c5 with SMTP id 006d021491bc7-714f242152fmr5313426eaf.2.1793610092355;
-        Mon, 02 Nov 2026 01:01:32 -0800 (PST)
-Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d3545bfebsm8473636a34.4.2026.11.02.01.01.31
+        d=1e100.net; s=20260707; t=1793610101; x=1794214901;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7ILwAwzu57MKsu2U8qvPn8STc7HTVnKuk72Aio8hCfI=;
+        b=yuz+gRVnf3UI5KBe/8JA+M4TDbvysmjTVK+JvmCHTRiCi5hBQ5llWBYTrZojl5uyLd
+         xu4/wdo+TWuT4ECZNwlgEaWrLEHOxNdRgSZqJg73uqIqat2fqa9lbNxfUnaEcLXyzyfy
+         fws2txyV8TtFqtRyyTeFUo1LsHWrEToybngM23G7c63AiouNZR4OdxKidIrBNOZ8emSa
+         TxFmCDJjfsOvWvPx4y5jo2mzbGkE5SE0kzMCMG6s1mzG1UupG4c0OEkQm9dNSCEtPzFI
+         BiEs8y36JpQ4CH02+TBxw4BJ2i+gC32TbYvNSTd2OIQ2KC2aj/Yjs16te4GrFq/GX5Tw
+         bvuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNlWEN5eHstmj+ybKVxSikGQoeOBjup43MTWE46xZsdvsHdILAykH6NFwj2J2h0p74S7aAyaUyuduzhPU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKG+ZUxApOvZUo4n/lAsDZIsQZt+rIegQQMieCwkU+Ycnh1QWaW
+	4jhsCXPuyhdM574c5ImwnmadNrvILeGfFBYanDb/RaMlheAgLspZ+K/Zrz30kTfb
+X-Gm-Gg: AYBFou3usOMh6V8VuYEguPJCXTPbwY+whS/p0Lap7//ZhgzactVDfY/tUr8iATyzViZ
+	nyucgyKAYUOhtFjkjjMoujt9Yu6WvY56Qf3hpoMCdW6amB7Ty4GGAIt+q3GE75ZPQxcMaX6eubT
+	IwvZj+psO7ARcal3vKqv75mMiyBahcu84rmGlrTzpjVj4SgM8tDAqngBLEz/MMVVRsEm2m0IpUd
+	n4nZq1s9gTQuGGSKRPqcv5th3GUG0snMTGiLtWVzso0KM5m7FzJkO3VPHQlp3ndTlJF091r/XFJ
+	4TdvTjVTQbhuh7SiaBcZ5IzNJQW26t4V5mzW0jkJCMwzefB+BGJ2ITHbNMWwofZEBTER56S/kQi
+	69iepUuExVbkpT82L3vzgY2N/P1GeRRq2hPWyVdaRU4i+7gXJByYAf3PPVq1p1T/X2yv89L3ynb
+	TI4RqGKIe3YPvOaPZfu/KeZXutAV1nweBxkD/3eW7atUos23Xqdz9HEYxhg10rZo/sIIDH1sp/H
+	1C46yG5rJNgHCpYxQjZcydlIiXMYRK5sld7+K8sCoM8l/WmYzH9/VX6urNURQwGIVMo4OJ3Goz9
+	XnZq7Mg6BH0KSbnv+QsJ5nMKQROFm8t9dstp/LMpGAOEzS6uVUULxhOcl5RTHHgpM69u3J72z/0
+	E+DQ3ZQ==
+X-Received: by 2002:a17:907:9805:b0:c46:723d:600 with SMTP id a640c23a62f3a-c4ca7aa4e06mr708475966b.41.1793610100432;
+        Mon, 02 Nov 2026 01:01:40 -0800 (PST)
+Received: from ptb-02009389.paris.inria.fr (wifi-pro-83-031.paris.inria.fr. [128.93.83.31])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8011csm21082461f8f.31.2026.11.02.01.01.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:01:31 -0800 (PST)
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-To: Maximilian Luz <luzmaximilian@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Subject: [PATCH] platform/surface: aggregator_registry: Add thermal sensors to SL7 group
-Date: Mon,  2 Nov 2026 01:01:28 -0800
-Message-Id: <20261102090128.582927-1-gopikrishna.garmidi@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+        Mon, 02 Nov 2026 01:01:39 -0800 (PST)
+Date: Mon, 2 Nov 2026 10:01:37 +0100
+From: Ella Ma <alansnape3058@gmail.com>
+To: Julia Lawall <julia.lawall@inria.fr>
+Cc: alansnape3058@gmail.com, cocci@inria.fr, linux-kernel@vger.kernel.org,
+	nicolas.palix@imag.fr
+Subject: Re: [PATCH v3] coccinelle: free: add a checker for
+ `__cleanup(kfree)` usage
+Message-ID: <20261102090137.6brrzpq2zohop2il@ptb-02009389.paris.inria.fr>
+References: <ec578f57-a7f5-7afc-ec2-9156c336187@inria.fr>
+ <20261007164316.15102-1-alansnape3058@gmail.com>
+ <f635d9fd-8dd5-47f-7996-239bc74bd828@inria.fr>
+ <20261016135718.ab5322cdyozostuj@ptb-02009389.paris.inria.fr>
+ <cd96489d-e980-c4a-9990-7a96e8b31ea@inria.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,60 +102,237 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: plqkSg2djKONkQhQOzAftRXafMzrmc7D
-X-Authority-Analysis: v=2.4 cv=Wtq+otfv c=1 sm=1 tr=0 ts=6ae8516d cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=UzWXxX9ZMNbWsd0j3ogA:9 a=k4UEASGLJojhI9HsvVT1:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzNSBTYWx0ZWRfX6bVULf3CwSF2
- We7Joygay+ZVcFugv9skC3+oDE+Eq3SU4W9CPgM988zghtCjhGAgbsWZsN3QoH9dFihiOZmO9Ek
- StrU522OMUEf/OQIhoMQx48kI0fKRD8=
-X-Proofpoint-GUID: plqkSg2djKONkQhQOzAftRXafMzrmc7D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzNSBTYWx0ZWRfX93TgKIrkdc/a
- KZwO/fOCU3CXkFnlHz0NZOLK5kp9mN6OKnP7ZlSyi1XkcFUG1YDZlC4EktgekGPGxfYgSBsCbmI
- UFlsrmgdZu/njfPfLBJv+RHfeiCuDn24lK6fz0sa+spxWh+vJ2XOdfStpE+38+ymjtzRBGUxXy+
- cQOMD/168LWq3swTN1xI0lk46+OjBO1vKBIBpleg769DfIgvrmKpjCq8td41iyBsQZiQ78ZGtRv
- 96duA1UZoQOvHwf06ZW+eanW2b6Q5j7UvG9n2RqUqZfKCIwyH0gAy3HvJAO119m4CqebFDm+dwP
- QO0itOX/PVDnJBqJj0y0v6ceCFqNHQwUUzyAobb2ozqvbcz+eUnOzn4sb8pjKl9Bn0Gb9ZG8xFC
- nH6jExknSHbPIJgWwQ82fJm/GXfKEOFZ5JOvt54i8+CW4nTf/JG6SXMNGLJapIoEStAmHHWa/1/
- rwjpUNMOII4z5+8UBMA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020035
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cd96489d-e980-c4a-9990-7a96e8b31ea@inria.fr>
 
-The surface_temp driver is available since v6.12, so add the thermal
-sensor node for the Surface Laptop 7 and Surface Laptop 8th Edition
-and drop the TODO.
+On Mon, Nov 02, 2026 at 12:46:11AM +0100, Julia Lawall wrote:
+> 
+> 
+> On Fri, 16 Oct 2026, Ella Ma wrote:
+> 
+> > On Wed, Oct 07, 2026 at 08:27:33PM +0200, Julia Lawall wrote:
+> > >
+> > >
+> > > On Wed, 7 Oct 2026, Ella Ma wrote:
+> > >
+> > > > Using __cleanup(kfree) will pass the stack address of the annotated
+> > > > local variable to kfree functions. This will lead to invalid
+> > > > deallocation issues. Inspired by CVE-2026-45959 and similar bugs
+> > > > recently detected.
+> > > >
+> > > > Signed-off-by: Ella Ma <alansnape3058@gmail.com>
+> > > > ---
+> > > >
+> > > > Changes in v2:
+> > > > - Add virtual rules `report` and `org` as suggested by Sashiko
+> > > > - Remove `kvfree_sensitive` from rule `cleanup` as suggested by Sashiko
+> > > > - Add `free_percpu` to rule `free`
+> > > > - Add `kfree_const` to rule `cleanup`
+> > > >
+> > > > Changes in v3:
+> > > > - Edit the error messages to clarify the reasons and results
+> 
+> I applied this, but I changed the first error message to:
+> 
+> "ERROR: __cleanup({n}) will cause an invalid free: the stack address of
+> the annotated variable will be passed to {n}; declare the variable using
+> __free({n}) to cause the pointee to be freed"
+> 
+> The original message made it look like one should use __free when calling
+> kfree.
 
-Tested on a Surface Laptop 8th Edition (13.8").
+OK. Thank you for the change.
 
-Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
----
- drivers/platform/surface/surface_aggregator_registry.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> Furthermore, there is one report in the kernel for this case.  It would be
+> worth fixing it or checking whether it is dead code (it's immediately
+> under an ifdef).
 
-diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
-index cf3ae252b1c4..db97a5fc96d4 100644
---- a/drivers/platform/surface/surface_aggregator_registry.c
-+++ b/drivers/platform/surface/surface_aggregator_registry.c
-@@ -296,9 +296,9 @@ static const struct software_node *ssam_node_group_sl6[] = {
- static const struct software_node *ssam_node_group_sl7[] = {
- 	&ssam_node_root,
- 	&ssam_node_tmp_perf_profile_with_fan,
-+	&ssam_node_tmp_sensors,
- 	&ssam_node_fan_speed,
- 	&ssam_node_hid_sam_keyboard,
--	/* TODO: evaluate thermal sensors devices when we get a driver for that */
- 	NULL,
- };
- 
--- 
-2.34.1
+A patch fixing it has been reviewed by Thomas Huth <thuth@redhat.com> in
+https://lore.kernel.org/lkml/ffebbb7b-a4f9-488e-8834-199da3073b96@redhat.com/
+Should I reply something to the thread about this new coccinelle report?
 
+ella
+
+> 
+> julia
+> 
+> 
+> > > >
+> > > >  scripts/coccinelle/free/cleanup-free.cocci | 112 +++++++++++++++++++++
+> > > >  1 file changed, 112 insertions(+)
+> > > >  create mode 100644 scripts/coccinelle/free/cleanup-free.cocci
+> > > >
+> > > > diff --git a/scripts/coccinelle/free/cleanup-free.cocci b/scripts/coccinelle/free/cleanup-free.cocci
+> > > > new file mode 100644
+> > > > index 000000000000..48e47ed2186a
+> > > > --- /dev/null
+> > > > +++ b/scripts/coccinelle/free/cleanup-free.cocci
+> > > > @@ -0,0 +1,112 @@
+> > > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > > +///
+> > > > +/// Find __cleanup(kfree)
+> > > > +/// Using __cleanup(kfree) will pass the stack address of the annotated
+> > > > +/// local variable to kfree, causing an invalid free.
+> > > > +/// I.e., `T v __cleanup(kfree);` --> `kfree(&v);`
+> > > > +/// Such usage is impossible to be correct.
+> > > > +///
+> > > > +// Confidence: High
+> > > > +// Copyright: (C) 2026 Ella Ma
+> > > > +// Options: --no-includes --include-headers
+> > > > +
+> > > > +virtual report
+> > > > +virtual org
+> > > > +
+> > > > +// Suggesting using __free for the functions with a DEFINE_FREE definition.
+> > > > +// Update this list when new DEFINE_FREE definitions are added.
+> > > > +@free@
+> > > > +attribute name __cleanup;
+> > > > +symbol kfree, kfree_sensitive, kvfree, kvfree_atomic, free_percpu;
+> > > > +type T;
+> > > > +identifier v, n;
+> > > > +position p;
+> > > > +@@
+> > > > +
+> > > > +(
+> > > > +  T v __cleanup@p(
+> > > > +(
+> > > > +  n
+> > > > +&
+> > > > +(
+> > > > +  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
+> > > > +)
+> > > > +)
+> > > > +  );
+> > > > +|
+> > > > +  T v __cleanup@p(
+> > > > +(
+> > > > +  n
+> > > > +&
+> > > > +(
+> > > > +  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
+> > > > +)
+> > > > +)
+> > > > +  ) = ...;
+> > > > +)
+> > > > +
+> > > > +@script:python depends on report@
+> > > > +p << free.p;
+> > > > +n << free.n;
+> > > > +@@
+> > > > +
+> > > > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}; use __free({n}) to free the pointee"
+> > > > +coccilib.report.print_report(p[0], msg)
+> > > > +
+> > > > +@script:python depends on org@
+> > > > +p << free.p;
+> > > > +n << free.n;
+> > > > +@@
+> > > > +
+> > > > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}; use __free({n}) to free the pointee"
+> > > > +coccilib.org.print_todo(p[0], msg)
+> > > > +
+> > > > +
+> > > > +// Reporting __cleanup usage for the functions without a DEFINE_FREE definition.
+> > > > +// The following list only contains frequently used functions. Supplement it if
+> > > > +// necessary.
+> > > > +@cleanup@
+> > > > +attribute name __cleanup;
+> > > > +symbol vfree, vfree_atomic, kfree_const;
+> > > > +type T;
+> > > > +identifier v, n;
+> > > > +position p;
+> > > > +@@
+> > > > +
+> > > > +(
+> > > > +  T v __cleanup@p(
+> > > > +(
+> > > > +  n
+> > > > +&
+> > > > +(
+> > > > +  vfree \| vfree_atomic \| kfree_const
+> > > > +)
+> > > > +)
+> > > > +  );
+> > > > +|
+> > > > +  T v __cleanup@p(
+> > > > +(
+> > > > +  n
+> > > > +&
+> > > > +(
+> > > > +  vfree \| vfree_atomic \| kfree_const
+> > > > +)
+> > > > +)
+> > > > +  ) = ...;
+> > > > +)
+> > > > +
+> > > > +@script:python depends on report@
+> > > > +p << cleanup.p;
+> > > > +n << cleanup.n;
+> > > > +@@
+> > > > +
+> > > > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}"
+> > > > +coccilib.report.print_report(p[0], msg)
+> > >
+> > > Hello, this is more words, but is not what I was hoping for.  You explain
+> > > the effect, but not the cause.  And to fix the bug with confidence the
+> > > reader wants to know the cause.  Here I would have expected something like
+> > > "__cleanup usage for a function without a DEFINE_FREE definition. This will cause an invalid free"
+> >
+> > Do you mean only the second rule needs a refinement, or both rules?
+> >
+> > ==> __cleanup vs __free, both rules:
+> >
+> > Using DEFINE_FREE declarer only defines a forwarding function that can
+> > be annotated to a local variable via __free attribute. Defining such a
+> > function with DEFINE_FREE will not automatically make __cleanup correct.
+> > User still need to use __free instead.
+> >
+> > FYI: __cleanup will pass the stack address to the annotated function
+> > directly; while __free will first call the forwarding function defined
+> > with DEFINE_FREE, and then the forwarding function will correctly pass
+> > the pointee address to the annotated function.
+> >
+> > ==> Only the second rule:
+> >
+> > Yes. For the functions without a forwarding function definition, one of
+> > the root cause is lacking the definition. But I am not sure whether this
+> > semantic patch should suggest adding one.  As these free functions are
+> > all those frequently used, perhaps the DEFINE_FREE definition should be
+> > added to the corresponding public header files.  Or, do you mean this
+> > semantic rule only needs to report this missing, and the users will add
+> > them where they think is good?
+> >
+> > Besides, after adding a definition, the current error message will
+> > become misleading, as there are no rules to search for existing
+> > DEFINE_FREE definitions in the code base. Do you think it is necessary
+> > for this semantic patch to search for the corresponding DEFINE_FREE
+> > definitions first and then generate the error message accordingly?
+> >
+> > I.e.,
+> > with DEFINE_FREE:
+> > requiring replacing __cleanup with __free.
+> > without DEFINE_FREE:
+> > reporting missing DEFINE_FREE and also requiring replacing __cleanup
+> > with __free.
+> >
+> > ella
+> >
+> > >
+> > > julia
+> > >
+> > >
+> > > > +
+> > > > +@script:python depends on org@
+> > > > +p << cleanup.p;
+> > > > +n << cleanup.n;
+> > > > +@@
+> > > > +
+> > > > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}"
+> > > > +coccilib.org.print_todo(p[0], msg)
+> > > > --
+> > > > 2.34.1
+> > > >
+> > > >
+> >
