@@ -1,64 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793645953;
-	b=Xu8OAZIzsRpwKUHtC+RbxyF6CsM8dj1T2b7gkwfWQVWELqCyB6NWLgCjiT/AX65DyqyE
-	 lfvmiuxR/VlgkHm8Jxrm2gyUEMciUUsHFYSUYUWWIlsCT65Lfjsr6BNI5t03hzesl7Sdl
-	 cTgiukvwcLLMej6ijcBEHqR/Y2sfaJNX8OWrq5IR3lHaRbzXxCyWYkyDDP5Lixjhxsdrr
-	 Bdg4IbdH3yf+MH7Vu3a1F2kM9WKoxtsBz7TdXEobic66iudf5wy7HKM7K0t5PiIEuhxGR
-	 OjojzJB9qODcQ7HrB89jIF0B7gjRnc1D0lNb6KAGScq7JBpJJu2Zl6qU1EoysjfA8rg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793645953;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp;
-	bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=;
-	b=2vSRC/E7OWpDkhkYtjekf0RLPvwxBqpjj6iPBD9tEFH0snQ+ep2xAu3llBWYAiR29mv0
-	 2RIcOu+5ObHsbUzW1Tbph5oxyuCPtwIt/aTVoqoj9Ujb+yhgrsz2/Fe8bZxkg4jPnwFch
-	 siCM/A/NW0a5EgGSx7O3FyyZjdVomd53KH6hCIj1hv6nUdlcpYT/3KTrIQQ1qmR5CJMEG
-	 mSc6ph4LnBwdegFRKGXpHdrZAQ3diAOUC2XXyKCY6rFJiErnRQqDyh0jEZH6cxfyb4/lO
-	 K8aOieXmAY8KQ+wNJ235+GjFeU3Eaw6jicyl5ssb+mXTJKXiA+hIlg8mH2ZEjwfRaeQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GlFbjFdR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793645952;
+	b=OtspCJU/MjjJQdYsvu25HDPtZNTEYyEpF4IfHPNormfz+uhLpWh/V2NMCKS+Vnut6jkQ
+	 jZxcVSapMveJ7WImyutQbMNFcSqhr9VFLXEwkBg5IJY6vpcfKLdr9hdEkkqbO/aLimESn
+	 3+u7xG35HgFz/OZFOBk/8WahLjKM0Pm4wT/VliIBKKjBOjbYwwtV5QlP53xaJImodJZmT
+	 Y/qwIIYcub1CPsnAmrB8gkBErd61v0swY3cIKP0WxPo2sxDbKikrVT386vgXz2x5xfWjN
+	 zqf1f0mlkueMA0SelXYSVy7EQIqbtJEnbGpM2UOSq2hH5zM6ariv+qNwBhwXLfHTYgg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645952;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=r9JhDIOHPdsZllQyxUB4H0ZlgUBt8v+L3mtCQBDQk2A=;
+	b=R4plFPXdcM2WNVTeAnwqiuRvf9CUlxmGQqVFmH338iiC0E7C9wuJaOR9oAtETQXwlQoq
+	 jj56NKqyAf0SOpRnwdWilpoeKaEiP6jlzZYCJ/ZjJAGmCBW1RrIg2RlY0u6v5COI97XU0
+	 lccvesQ2xgn3zBVizAxRodDY+E1QU47O4JEhbjljQjMWvlYfj7AZfxDzVftpYnG3gtXTV
+	 aCkdn8KPZwyYZHKz8Zo6AIhx7FLVaO5My/0Jjuubqg4ZXvaz16yYGkJKfrcV1KRz1lLRv
+	 yEoZn6xzJuchTVHlRixyl45W1NXhqW34hrwDNredeXib3wvKsq4kE+wWZnwKf6ruszA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jkm0dngw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AC9606A339;
-	Mon,  2 Nov 2026 18:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9AC9606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD756606A326;
+	Mon,  2 Nov 2026 18:59:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GlFbjFdR
-ARC-Seal: i=1; a=rsa-sha256; t=1793645931; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=k+k3BxfmINTBv26V4GK90M+bQkHthaUzYFN6eiJ9zfsSgd+btWnYgbdIXKbFM6y+A2r+iEnX4Ddobs/rQWdHM91FEjhBTMR07HV8dE0ojFOneMLzq72okklP9a74dJXYVeaDWA+GXqqb7H/zY30STkoHf/r/t8f9iIkvUCYYRo4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793645931; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=; 
-	b=CHYZwEnLMtHawOzNr8WKQA6z8PtG53Ud5dUM83zmtdY1qsv4ovPteJnGMMBIPiR13LQHRI565Po7dV4KXkpKOgEuFNcUWYh6grt474Fs1H2WAgkDHIfteEtiAVR7ZDKe8lb/bNJx88oq3u+8cgP6WxFymFnQ65gOJgE9x02t81A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=GlFbjFdRcIs964QhLu3f6OXVJRtFeG+Zgukho7gHBH+WFH+nQCg+jsZWYlwhrL7kLCMAsUjnKJgXdPljL1ig7SvUNXZmj/rpnzrkFwFu5C8Xx61ek91FORfKcsmwMwBuXy9nXTDk0ig+gJTqy/e9Wg1aIMdcDysuu/rU/mRxIAc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793645930423756.5918385363401;
-	Mon, 2 Nov 2026 10:58:50 -0800 (PST)
-Date: Mon, 2 Nov 2026 18:58:45 +0000
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Boris Breyillon <boris.brezillon@collabora.com>, 
-	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panfrost: add missing
- pm_runtime_dont_use_autosuspend() calls
-Message-ID: <aujdLAyik6MT6TxN@sobremesa>
-References: <20260916075051.1353-1-joshua.crofts1@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jkm0dngw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856791F00A1D;
+	Mon,  2 Nov 2026 18:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793645951;
+	bh=r9JhDIOHPdsZllQyxUB4H0ZlgUBt8v+L3mtCQBDQk2A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Jkm0dngwCyiFMAtdq8uZCeoHgOKz40OfTyEqYb7LUTXQ0+gLkMQKeojaUUYQXX5JU
+	 3Mff/Cs1Zffhd9g0Ndcxmuysy4EAL5pVaqyBUpdWX/aWNcjBDz6UDplXA8odNelu8v
+	 UZksY6CPr8r/s4XojB2ygsTFW4rkFxpz3PezpoPlXsTQfQ28uqLLr1LzFJXixPaWAj
+	 uFpABQmYM6DAeIbADgO5INNelNYsXyjJPkmIPIlzK9hGphnmbL7rJTu9oRc6eLiPUq
+	 I5bR3ITar9avmfr3Q+FZgFMX+OUin+2LhaXaKJD4urmdYeDGczbQ88Oe/OPOMHNhrX
+	 qIh4WPeketSsw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xNxFN-0000000A384-0KTo;
+	Mon, 02 Nov 2026 18:59:09 +0000
+Date: Mon, 02 Nov 2026 18:59:08 +0000
+Message-ID: <868q3b2h6r.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: Wei-Lin Chang <weilin.chang@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-kernel@vger.kernel.org,
+	workflows@vger.kernel.org
+Subject: Re: [PATCH v2] Documentation/process: Add a maintainer entry profile for KVM/arm64
+In-Reply-To: <20261102083759.1561867-1-matthias.goergens@gmail.com>
+References: <20261030083351.3040604-1-matthias.goergens@gmail.com>
+	<6urqt376s23fcyr5pchfrrowvjoo6acg5xt4ujkft7gww6sagj@jxz5rqihtkja>
+	<20261102083759.1561867-1-matthias.goergens@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,58 +82,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916075051.1353-1-joshua.crofts1@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.627.56
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: matthias.goergens@gmail.com, weilin.chang@arm.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, corbet@lwn.net, skhan@linuxfoundation.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, rdunlap@infradead.org, linux-kernel@vger.kernel.org, workflows@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi Joshua, thanks for the patch.
-
-However, a fix for the same issue had been in the making for some time. It's already been upstreamed:
-e9672bf9382f ("drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove")
-
-Kind Regards,
-Adrian
-
-On 16.09.2026 07:50, Joshua Crofts wrote:
-> panfrost_remove() and panfrost_probe() disable PM runtime on teardown or
-> failure but don't call the pm_runtime_dont_use_autosuspend() function,
-> causing potential resource leaks.
+On Mon, 02 Nov 2026 08:37:59 +0000,
+Matthias Goergens <matthias.goergens@gmail.com> wrote:
 > 
-> Add the missing function calls.
+> On Sat, 31 Oct 2026 21:03:17 +0000, Wei-Lin Chang wrote:
+> >> +Minor problems are often fixed up by the maintainers when applying; if they
+> >> +say "no need to resend", don't.
+> >
+> > The second half of this is a little silly :P
+> > What about just:
+> >
+> > Minor problems are often fixed up by the maintainers when applying; ask
+> > if you are unsure whether to resend.
 > 
-> Found using Coccinelle.
-> 
-> Fixes: 5c0c825ae4c6 ("drm/panfrost: Replace DRM driver allocation method with newer one")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 36cc2e67a308..74e8e5783f9b 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -1012,6 +1012,7 @@ static int panfrost_probe(struct platform_device *pdev)
->  err_out2:
->  	drm_dev_unregister(&pfdev->base);
->  err_out1:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> @@ -1027,6 +1028,7 @@ static void panfrost_remove(struct platform_device *pdev)
->  	panfrost_gem_shrinker_cleanup(&pfdev->base);
->  
->  	pm_runtime_get_sync(pfdev->base.dev);
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> -- 
-> 2.47.3
+> Agreed, that reads better.  I'll use your wording in v3.
 
+If that's the only change, I'll fix it when applying.
 
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
