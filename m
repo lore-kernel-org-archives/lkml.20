@@ -1,152 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793663400;
-	b=sucfSJr2FPrl3BXmdtZAm582ATXaF3t+pNXSo1fXbpRfssnHLFqJcnw08e4wxMHJDQF/
-	 02lJlHsZp7rSiyS/8wDsJj2wVz5tcaNQzTJC+b4SiAp2/5dSMR2ZXZDKzo106kpLRA+6L
-	 XezMhdUz2/KFcxJVnYW/VGh9OE5EumUoA4EL4j5nTxn8B5mC/AGZ+oZ3iRfXKX3RQCjoy
-	 wSiO97JN7ZR2LBn6lxb7zORIiJIz1A8hezAd84zvmh+99p7XrbigQhi7/etkVx9xg48bX
-	 g469KmAn4b6Vc7LrAQWWyNIc20sAVS4LsxoXt4/Zu56stwDOJQlYrQWFHoE2P+LgGVA==
+	t=1793663406;
+	b=nMIE9/ruIVXALH1jHc7okhz7DB1hiCnKvOF4zLJwIsvJUpMSF7gkVAf7avV2vha/7djL
+	 hrkx23XigM25Fi2FZr5hZF0WOV9sjTZVL7uzNR0qD8bf1Nk6GDfWt3CaR+To49Kl33TMK
+	 NTirK8TPyqfUoRLyzkBhRMjnzTwUyPNp8waTjauIo2yWHYRazbul1qMx7AOSW6GmkIqE+
+	 snm+XqBv63wuaXD9ObcXbJMnFW4a2Scvw26ocKroEx28h5lgwbqgmRDBff1g/aAnFt4/h
+	 tKMCNqGWEnvmG2Jf8PcBkryudrJwCoFYXHqPnQTQ2sClA8hpiQSxD8sJfwlIt4aPjkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793663400;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=IXU9CQOa1FKGKiuXsLy+IjbxJFQKGgpmyBaeXrYbXeI=;
-	b=llTdFWKC/hZTxemiVe5uxYLIxmFNBsw81tAd89j4fyC8Oo4wW+vnSkpUiiI0osBSWvjT
-	 6+pjII8pqV4YfnSiz+cQJCk5vGCNfQ6at9//Lo762WKloIboqtA5AU6y6NsTQPZfWbe/z
-	 AzBjsAQ3LsQqGqmKVB3claMeD5yybn1tgZyzKQwlOd8tXhmZwLhC+FrVaddbyY06DgDRE
-	 npY9cN039DuzdZ+JY50naoC+PM0LVcVzoU9AasBl0mNY3owpwmUsIwfSKm+xs6M7tPMeN
-	 IHevESMSSX+0wlXF2Ky2GyIeQgCq+XhdI6oczR67j2WwX2U6oypXsFbqNnbxNOvKYuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793663406;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=x8AALonpJOO8+rMATsNHAKEXUmen6ctWIIDkyspP570=;
+	b=RCFqm4353iNL9HnOr8vDe+f6ESr2xSsPYvF97y+XSWAHpvtbDWjV0TBCcnpa2lZmaR1c
+	 g58kmPGAiHCsChto6GRxPxGDJa1lUnCzUqCaIFVdUeLatxtSuP7DGvFfxNnwwig0S77qV
+	 KRrqpBX7bs0xem28WD+Zv4wNUMDP2f5oMeNFREXvXoPbnKZv0d4AmYfdE+QaLaaoAkZ6y
+	 UL/OtN1S3iq4Xd8rrvnW7ZaDZYQSOV3vUBN3Dna+gQjyb6K7xuO8YehfPOktgcA/85UIw
+	 Fb/DPOkSovgB1xpC0QwYT1/Vn+JkZ0gVQpz12qB8alPBUlxFS9O7R9p27vVBHY0c0Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hWmE6q5L;
-	arc=none smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ycstuff.net;
+	spf=pass smtp.mailfrom=ycstuff.net;
+	dkim=pass header.d=ycstuff.net header.i=@ycstuff.net header.a=rsa-sha256 header.s=protonmail header.b=eo0JbNgh;
+	arc=none smtp.remote-ip=109.224.244.118
+Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7EB606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:49:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E7EB606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3287B606A33E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:50:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3287B606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ycstuff.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ycstuff.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hWmE6q5L
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b09e07e149so29255617b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:49:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1793663399; x=1794268199; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IXU9CQOa1FKGKiuXsLy+IjbxJFQKGgpmyBaeXrYbXeI=;
-        b=hWmE6q5LeJa+kXUPGLyJalIveKRVbt6EOgIs/OJCYvu7SCDbHy8QQ6dVhLxAHsP48z
-         opztfEnNt6RcPwsbrz09eOKA0FnOf1Dl5NwbNr5fsuXkCZuVRwW78wazMWf+zXiP6wpS
-         SibvkvnjyZ4SkDGgspCzxdgDAb8qymfkneuxwsUxEI/cdNygAbq3PFA/bMxMeZTSgxTt
-         YTo/1An18RyYRD0P8CwCBST98tcBkZXxmNCY1uPi8VJwf4UsZ8mtVJS427/nivqCcFOP
-         0b0xhOcmkHPLsE3wGDimqtRY5Ry1bJz2PJ/rh2r4VqUvSRGPft0+hnJW00TLUBK/P9wP
-         7i+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793663399; x=1794268199;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IXU9CQOa1FKGKiuXsLy+IjbxJFQKGgpmyBaeXrYbXeI=;
-        b=Z0MA+WTDG80oKF1rKSMziGDn14r1ZSJrG4N3Cbb+SZulZ0H02F/VwFU632LyacJZVq
-         X+Cpf8nXXTq/bx2nSpvvTSkb299YmDaO6H0rC0nLoJfoAmhuHaQjTGbtvkuGkFEwSya0
-         wt8GeWudAYKT713Pf5RJ/nrUkgw/51RPFrLXTy5KCyG7lSYzF6jbeD2bbRz0XKbZMcst
-         Lv8MCVHO7njEy1/fRcUL8DRSNR1AawxQwV4RUJuLVL3Q8iEx+vo7rdd2mo+hsesjb2c9
-         HXS71r7K3HQTX12xvIpOG3ju7NYADMEyoFjRANitmtYsU+gf1sqjGQV9T0/45LQ/rIoL
-         7a/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwkCIhU99tYpeFkZM2ykQ5EQRYYU+AH9IfHtaKWi0JaziuZV448qwLUsay+LY3keyhGgd760JqXMvi0u2g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XC7GzdrzL0UewF27eYCIGcDWU6glNVcpR6DDXdNe82o5egZ9M
-	Vfo2pK2+XIfT5WNMrmm0qCeO08VDyPT/vVsd1Ssa6O2g53ZxrETV1l+x5QOMnVMNluZDar5Yx9R
-	RcQRJVEc=
-X-Gm-Gg: AYBFou2kFUeV/enNPQtPH/FsByZ5CuFnXXRBFTM+lo7wUYawW8SH5Lf7VhT44NBXniB
-	8RdMJtFudCntue9EaL70/UtapOdyKrRYNHc9wO9MvChpOKVclBE2W+a8lYpOYFK4et4ybNNlQbq
-	szBXoIetKY1AO0EYgw/dlIKzFf0KnYKkbQ/WPOKONWBZiddaa/U33VyeAT7njG0kl05oSdj8zVk
-	kv3HBbFmp3B+r6OxTe/wo08FwoljLD5DODNvq706zrmzuFiXUHV8ZQMF06HTGjXL60LokmsezeW
-	BONCidT1cElwNX0V6kC8vSEWhh1Xy8slOolyKHWrFPQgeWmoaJzGhTqiePa2/KeUbswuu4rf4J8
-	RXf7P/CG6mC3wH4mS8xeIUHeTzKZwLPximnskFQ4IMNNh2AY9A6mVf+qk6wRfbtfN1N4JskTO5y
-	I4WlSQo3s9JQMBiNYyAX+aBd6mvGOdyr9Rd80hET9/TdoMWvEzFtIqxEzXlQsX2x4QSRVloYRGK
-	BcCdxaJQHyht6ejrZ5B/nRrTbpgWcBNmren1lSDwNUxvV0mx/mBpqZRY1U0RICzEvz+p+bvf1CR
-	fMTbgE+lMV8EAli8Gx5sYF/jZt6HjMtz1WQoVY0wh/WBmOwFIgijJZ4Jh7RMXU0UWC/ALZRo8sq
-	E2idWcMAuEnfMtA2LcbEY1oePC02dcMJIIHZ51DZM2HFsEuPWsLswG0ia56bbPPJG76dmZe7hP9
-	+u6THPO4Nz+vzKYJYsdcGULPyHhskm5gpQw98WFg==
-X-Received: by 2002:a05:690c:6605:b0:8b0:76e5:ed0c with SMTP id 00721157ae682-8b2b66f82dbmr68974937b3.39.1793663398847;
-        Mon, 02 Nov 2026 15:49:58 -0800 (PST)
-Received: from ?IPv6:2600:1700:6476:1430:2f9f:a96f:bcb:6021? ([2600:1700:6476:1430:2f9f:a96f:bcb:6021])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf3700b8sm6086486d50.23.2026.11.02.15.49.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 15:49:58 -0800 (PST)
-Message-ID: <ac84b2b863415779536a98a0d0b835e85d2976c7.camel@dubeyko.com>
-Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 15:49:57 -0800
-In-Reply-To: <20261028035919.733823-1-hengyul@cs.unc.edu>
-References: <20261015110114.1649059-1-hengyul@cs.unc.edu>
-	 <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com>
-	 <20261021153141.311425-1-hengyul@cs.unc.edu>
-	 <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com>
-	 <20261022120658.1328124-1-hengyul@cs.unc.edu>
-	 <cd6cc32dd2aae90b88b4c3d19e1fb35a5be6f4ac.camel@dubeyko.com>
-	 <20261023173259.3275078-1-hengyul@cs.unc.edu>
-	 <e2ee251e8ad47c6f1e2faf9ed1be787eccf5215c.camel@dubeyko.com>
-	 <20261028035919.733823-1-hengyul@cs.unc.edu>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key, unprotected) header.d=ycstuff.net header.i=@ycstuff.net header.a=rsa-sha256 header.s=protonmail header.b=eo0JbNgh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ycstuff.net;
+	s=protonmail; t=1793663403; x=1793922603;
+	bh=x8AALonpJOO8+rMATsNHAKEXUmen6ctWIIDkyspP570=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=eo0JbNghHZPef34gDihFNsLw+V9HiX4ilI6DxjetMg926l4I2vzUjPQknDqFV+pZA
+	 m+C9w7ohY8/Eu+pMX2kJ3IXL8A5S0mtD0FT6+Ib0dTiPlkiTJU6OSX9FfCuKllcZK9
+	 Ft0gA/JBV6/HlUBpYn4ZQmWeEQx7kmdNBbNl20Y9CsA/O15wEwWQ26iS+t34cTwVaI
+	 mFnr3IwpU6bIUKgvKd177v4ABod6kZJTt40UlQFqksmCj+rgxsOhM3cthpvYAxeWFj
+	 UNFLKUDGajzvvosi9rGQZfmPvSDUYzgu7XafeIZrFlGPH9zQ6nnL9jibYfCQG+C1Ku
+	 uHOEOm/GOsyMg==
+Date: Mon, 02 Nov 2026 23:50:01 +0000
+To: jikos@kernel.org, bentiss@kernel.org
+From: Yicong Hui <yicong@ycstuff.net>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, yiconghui@gmail.com, Yicong Hui <yicong@ycstuff.net>
+Subject: Re: [PATCH] HID: magicmouse: add pressurepad property to Apple Magic Trackpad 2
+Message-ID: <VleBy-95RcfIfBBZyWiOXi2lAJZ0riUCnWLPZWfNqnBJecUSVDGNl0_eiMQwRA1BlJ2mKCB2q2UYMgLAp1YVWXUznLNInUATgpZCLoiLlIc=@ycstuff.net>
+In-Reply-To: <20261001000659.21747-1-yicong@ycstuff.net>
+References: <20261001000659.21747-1-yicong@ycstuff.net>
+Feedback-ID: 215075056:user:proton
+X-Pm-Message-ID: a8aaba40ffb00fc1044dfe84191c5ef90a615045
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -156,123 +64,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-10-27 at 23:59 -0400, Hengyu Liang wrote:
-> Hi Slava,
->=20
-> On Mon, 2026-10-26 at 10:20 -0700, Viacheslav Dubeyko wrote:
-> > I am not suggesting to change the on-disk format. All modifications
-> > should be in-core metadata structures only.
->=20
-> Sorry, I misread that.
->=20
-> > The algorithm only solution will be inefficient and it can hide
-> > bugs,
-> > anyway.
->=20
-> The table below is about efficiency. On bugs: in both variants below,
-> a lookup or walk error leaves next_id unchanged, so it can only stay
-> too high, never fall onto a CNID in use. Which bugs did you have in
-> mind?
->=20
-> > I am thinking about adding to the struct hfs_bnode (b-tree node) a
-> > special field: u32 max_cnid. [...] What do you think? Does it make
-> > sense for you?
->=20
-> Yes, it makes sense, and it works. I wrote a prototype (max_cnid
-> rebuilt when a node is read, raised on insert, rescanned on remove
-> and
-> after a split) and compared it with the unmount walk I suggested last
-> time. Deleting 8000 files in KVM on v7.3 (KASAN):
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unpatched=C2=A0 max_cnid=C2=A0 unmo=
-unt walk
-> =C2=A0=C2=A0=C2=A0 newest first=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 14 s=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 7.0 s=C2=A0=C2=A0=C2=A0=C2=A0 0.4 s
-> =C2=A0=C2=A0=C2=A0 odd ones, then even ones
-> =C2=A0=C2=A0=C2=A0 newest first=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4.1 s=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 3.0 s=C2=A0=C2=A0=C2=A0=C2=A0 0.2 s
->=20
-> Both are correct: no duplicate CNID in any run, including the
-> threadless case from my last mail.
->=20
-> > If you believe that this approach will not work, please, explain
-> > your
-> > vision of solution in details.
->=20
-> The unmount walk, on a delete:
-> (1) do nothing unless cnid =3D=3D next_id - 1 (your step (1));
-> (2) if cnid - 1 has a thread, set next_id =3D cnid;
-> (3) otherwise keep next_id, which is still above all CNIDs in use,
-> and
-> =C2=A0=C2=A0=C2=A0 set a flag.
-> At unmount, if the flag is set, hfs_mdb_close() walks the leaf nodes
-> once and writes max + 1 to drNxtCNID. The walk cannot run in sync_fs:
-> hfs_new_inode() takes a CNID before the catalog records are inserted,
-> so a walk there could miss that CNID and lower next_id onto it.
->=20
-> Your max_cnid
-> =C2=A0 Pros:
-> =C2=A0 - next_id was exact after every delete in every run, so drNxtCNID
-> =C2=A0=C2=A0=C2=A0 on disk is right even after a crash or remount ro.
-> =C2=A0 - Nothing to do at unmount.
-> =C2=A0 Cons:
-> =C2=A0 - A delete of next_id - 1 still visits every leaf node (about 3000
-> =C2=A0=C2=A0=C2=A0 here); the per-node max only saves parsing their recor=
-ds.
-> =C2=A0=C2=A0=C2=A0 Checking the thread of cnid - 1 first brings the first=
- row to
-> =C2=A0=C2=A0=C2=A0 0.4 s, but not the second.
+On Wednesday, 30 September 2026 at 17:07, Yicong Hui <yicong@ycstuff.net> w=
+rote:
 
+> Userspace programs like libinput will take the pressure value reported
+> by trackpads, and use it as a proxy for contact size unless the
+> INPUT_PROP_PRESSUREPAD property is set, causing libinput to freeze the
+> touch input when pressing too hard.
+>
+> Set the INPUT_PROP_PRESSUREPAD property for the Apple Magic Trackpad
+> 2 indicating that it is a pressurepad reporting pressure measured
+> as a real force, as specified in commit ae8966b7b5bd ("Input: rename
+> INPUT_PROP_HAPTIC_TOUCHPAD to INPUT_PROP_PRESSUREPAD"), and set the
+> INPUT_MT_TOTAL_FORCE bit to allow reporting of the total force across
+> all contacts.
+>
+> Signed-off-by: Yicong Hui <yicong@ycstuff.net>
+> ---
+>  drivers/hid/hid-magicmouse.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/hid/hid-magicmouse.c b/drivers/hid/hid-magicmouse.c
+> index d637c0477379..017e3805557f 100644
+> --- a/drivers/hid/hid-magicmouse.c
+> +++ b/drivers/hid/hid-magicmouse.c
+> @@ -620,10 +620,11 @@ static int magicmouse_setup_input(struct input_dev =
+*input, struct hid_device *hd
+>  =09=09__clear_bit(BTN_MIDDLE, input->keybit);
+>  =09=09__set_bit(BTN_MOUSE, input->keybit);
+>  =09=09__set_bit(INPUT_PROP_BUTTONPAD, input->propbit);
+> +=09=09__set_bit(INPUT_PROP_PRESSUREPAD, input->propbit);
+>  =09=09__set_bit(BTN_TOOL_FINGER, input->keybit);
+>
+>  =09=09mt_flags =3D INPUT_MT_POINTER | INPUT_MT_DROP_UNUSED |
+> -=09=09=09=09INPUT_MT_TRACK;
+> +=09=09=09=09INPUT_MT_TRACK | INPUT_MT_TOTAL_FORCE;
+>  =09} else { /* USB_DEVICE_ID_APPLE_MAGICTRACKPAD */
+>  =09=09/* input->keybit is initialized with incorrect button info
+>  =09=09 * for Magic Trackpad. There really is only one physical
+> --
+> 2.55.0
+>
+>
 
-I think we need to reuse the b-tree mechanics here. Let's use the index
-nodes for the search of biggest CNID. The b-tree has this exact goal to
-speed-up the search. So, we need to keep the max CNID not only in leaf
-nodes but in index nodes too. Do you follow my point?
+Hi! Is there any progress or feedback on this patch?
 
-> =C2=A0 - max_cnid must stay right on insert, remove, split and node read
-> =C2=A0=C2=A0=C2=A0 (hooks in bnode.c and brec.c). A missed update would l=
-et next_id
-> =C2=A0=C2=A0=C2=A0 fall onto a CNID in use.
-
-We should keep the max_cnid always valid. And b-tree operations can
-guarantee it for us.
-
->=20
-> Unmount walk
-> =C2=A0 Pros:
-> =C2=A0 - A delete never walks the catalog; the one walk at unmount costs
-> =C2=A0=C2=A0=C2=A0 17 ms here (cold cache).
-> =C2=A0 - Only catalog.c and mdb.c change, not the b-tree code.
-
-It's not about small change. It's about correct and efficient solution.
-
-> =C2=A0 Cons:
-> =C2=A0 - next_id is not lowered during a mount: after deleting all 8000
-> =C2=A0=C2=A0=C2=A0 files oldest first, the next file gets CNID 8016, not =
-16.
-> =C2=A0 - After a crash or remount ro the high value stays on disk. In my
-> =C2=A0=C2=A0=C2=A0 8000-file crash test drNxtCNID stayed at 8015 on the e=
-mpty
-> volume,
-> =C2=A0=C2=A0=C2=A0 more than 4096 above the largest CNID, and fsck.hfs -f=
-n asked for
-> =C2=A0=C2=A0=C2=A0 a minor MDB repair.
-
-We cannot leave file system in corrupted state. We should prevent it by
-any cost.
-
->=20
-> Which do you prefer? I can turn either into the next version.
-
-I prefer to elaborate an approach that will be correct solution. I
-think we need to re-use the b-tree mechanics to improve the efficiency
-and to deliver the correct solution.
-
-Thanks,
-Slava.
-
+Thanks!
