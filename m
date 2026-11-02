@@ -1,68 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793577853;
-	b=CNsxpCoGEBB9lIabJfvHLuG2KvbmSEGiwkA2qCN8wxB4Iohc4TpQYG6HF22XpLLWzH5A
-	 zUJPwP52MspuH7yS45lnoj7UOhVymMxQ5tuw6TNWdakofFFerDEDJoI0W1k/X5NV+8rBa
-	 aSw3eO3tfVArNbmSyZDIzc4++flxr92zXgxVVovmNty3Z+mgmhjihMOaUpimzxLaAW9Xl
-	 b+X/TerIvLVyfwFqXoTGZgDiyWyr10cRbzR3JT25W2AKyX2jxd+KBKSzfet1107TqjQ8o
-	 5AtvTN1L0fHFgMiR942ZIDym96g/VFi99NkXqskM+nUQ4hIS3Y1uul0VgvStaM62mRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793577853;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KBin+VBb1gehkdGJoG2mdgFia04vBVa3nhreBJaAphI=;
-	b=XRpZfIikv8WrP/BRKjwJiwqc0WqdoCFGwfAC2+3Lvpcm0PMpqfQvQS+i7or6GvQAJ9kc
-	 q+PyD/PuryKwTxX9vEtRhnrsPMIQgucsDN7A3GwH+HjasJnCAuij6W7bnc2K9Kg9QE0/H
-	 wKyv4qX+0WMm8hD4TnwW6jxW5LDsVNFPn9bemVTXmiWobhuATGLzCyA7+FzvZfm0B8l6T
-	 jhyLjCrapFmu0hOb0x4Apx0T0SVY+5fPB4eT8EQ271Mu+2mRh+ymgEPaI1Cwj5UuvMSl7
-	 RKSD0ImTU3ClWMdmUatG/ciq79I9ty4KeFJjX+kdi7k2LHtTcaCPbNRZaiwKik/Hh0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1rgjWhg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.118
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793577879;
+	b=XcCvOqhSPx2z6mS9c7ju+817bygiJz1qyyYjEblotvYF5IjAtVSolyi6cDGfKUZufBAA
+	 FajyiyVvzzpTPIS9d0jRROlTQycx31Z5vqkTvs78AMTzxq2ECUE8OfwBezd4hq4lOyJms
+	 m+OhR6XRLCcUHT5CncQd1w+afuUGDsglCtaWJZMs1WOTbtNEoJb0gN1Io6CYEomXPGhBq
+	 WocOg71loOP5wZR/gWfXNRACaXfn++068DBVKB/7AxoxkIzJqFCUGP0Yx/qr38Wyabx2T
+	 iTIm9wFivpGuoAGtBzHSzkoKDZcZLwd3WKOpnlVy+jgcwazDy4LqwNtPjTb+FIxLvMA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577879;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Z1AGA+lyu+UWpP+ykAZ4hIuMVP9CsM1f4Sqzquj13DU=;
+	b=KF634SunAxYmkew6uvxWtJk7pBJxTQofvMn7V7PsyyDuAs8fWLGeGAPWQoSmpgAe6R5I
+	 CvgdGQAJEYYS1QXRsClBIN0QvLJ3rzwPQYTrD+Bl+DRfy6XIihBr4x1m97b+UxCCzxaq/
+	 fdwf9MeIC10447ipajHw6o9nZcn2Ot+n1JEGJDHNhEqc0BxgRxvP9u29F8jU2Md0b7L3n
+	 bkgRyQ2DS8Hvrr3lRYGTovbDo4BQ6Af6GVCBlNdFRPT1l2CJ66V/zpXU9SzGF7ZqNavdI
+	 tQ0YzKNQU+UN/ZuW4xz3wWz2v1r+4eWQB5Qgc/3+60xtjpO/35ApiLXqqzrMSF6Ylsw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.118
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022118.outbound.protection.outlook.com [52.101.96.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52739606A33C;
-	Mon,  2 Nov 2026 00:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R1rgjWhg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7B01F00919;
-	Mon,  2 Nov 2026 00:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793577852;
-	bh=KBin+VBb1gehkdGJoG2mdgFia04vBVa3nhreBJaAphI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=R1rgjWhggpddPfEwOMveGnQqrUll52v6MaouClMm7/QQ5Gox51xe+oVsjnERB3eap
-	 UZ03fkZRvzQMh56tRlNTBmmHLd/1YuzSaqB5khHFWYRZz0Yqj62rKsuH+KcSCY6fKa
-	 1fPLw5qZS9ynrhA/9ZKrdy8K+OoojoD0nPFoHuGYKxEkQTOX08gUOH0cdoPz3/wOB2
-	 hXRetKTyJMbzxNB3AxLtQML08iakUJMW6OfTsQatrmqPBzTqixlI0AisKtoIOzeAON
-	 cWFhHsG6Ol1br0LpOwuFnVwyQPFqzKj2wFLngX6N1VG8+upU70wb2tFcc/K+iejB+v
-	 hiJjMI6vy0qpQ==
-Date: Mon, 2 Nov 2026 00:04:06 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
-Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
- <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
- Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, linux <linux@analog.com>
-Subject: Re: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
- buffered/triggered capture
-Message-ID: <20261102000406.342657af@jic23-hlaptop>
-In-Reply-To: <20261101235010.79416e15@jic23-hlaptop>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
-	<20261026000910.328f6cd8@jic23-hlaptop>
-	<LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
-	<20261101235010.79416e15@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455DE606A324;
+	Mon,  2 Nov 2026 00:04:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 455DE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S+FS81Dd0UO2H3HRLTJuK4qNkrEIQF7u6dhZm1JVYtONdh0q8jcshxgaX8Z3resC5pOkyB0MyZLsZp88Xr7UqWvX7RkNa/qbFckwltm/ICan2Mhci0id/Ehppafv00ZR60YBilj0LWDdELfrWPyPuEBslgDPCBOIgAkTSBcoOkfffZ4Ka54azUSLVsewrd8A0hQ1cBXFNQh39WoG3qrC9XlIYfp/jPV4CHA9vYvR8XWuEXNMuTf8eug2aCWw8qmxiMyAs7I697/raBvFUPczGBFU+BaqD1xJ0dYdBcyVPraWjGpuSW1PR7ZSQqeni4FNCu5m1+Ur0/lj7BEMDC/Iag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=Z1AGA+lyu+UWpP+ykAZ4hIuMVP9CsM1f4Sqzquj13DU=;
+ b=H00OrepS3mH0ygO2eHsMrYPNPjAtNuPGo/2YidMwUqXgEua6T4xUm5b3VtaPfoxL3ewbn2fwybBMc++/wH5+n0fE6ROrK1aSmlxCuI6jFhrjgRTDiqebmZe+5MC4ExUAIBZNNShlS3pokWuEaiJzU3QIqlFjnqhSVaa0mRg1v8rl8SRisse0ka5E1H2RZ6N5p5Fd/oLhcge1/fOgpXXR0IWbhNRlqNCA3wX8YOjdsx6fSporhOeUogm+EOOegQKWYYoYU3iDseIaQ619h6BcA6+38T4u8jwmPd/BiBLzrZu5jyB6CNyfGVyq+CjqT331hGBHE9YiKVFeXkInTqc8SA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:163::8)
+ by LO9P123MB8484.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:45a::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 00:04:34 +0000
+Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::f71f:a9f:c4de:687a]) by LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::f71f:a9f:c4de:687a%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 00:04:32 +0000
+Date: Sun, 1 Nov 2026 19:04:17 -0500
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
+	irogers@google.com, adrian.hunter@intel.com, chjohnst@mail.com, neelx@suse.com, 
+	sean@ashe.io, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH perf-tools-next v12 05/10] perf ftrace: Support context
+ switch tracking in function graph tracer
+Message-ID: <qavabkz2qznknyttzymkppwz64ho6hvqeooqn4ktsxpw5hq4t3@4jfxdhl6c2mu>
+References: <20261026025735.546101-1-atomlin@atomlin.com>
+ <20261026025735.546101-6-atomlin@atomlin.com>
+ <auZlT1eIOjpTnqHZ@z2>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <auZlT1eIOjpTnqHZ@z2>
+X-ClientProxiedBy: BN9PR03CA0617.namprd03.prod.outlook.com
+ (2603:10b6:408:106::22) To LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:163::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,103 +91,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LO2P123MB4190:EE_|LO9P123MB8484:EE_
+X-MS-Office365-Filtering-Correlation-Id: 240638ca-fc6f-4cc1-54c0-08df3874d8c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|4143699003|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|261022105027099003|261022075727099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	2XVBIGuQ18N6wtEBu4scpFtqaBeDPL2Vbd5HXih1WebfiPkgSG2PfRur6LwplUr8QKBn5faud1m5X9YMx5N2TtsBldKNgN/LMaO2tv/rnlKZ0mzLTXhda/gTBxpleH2NLnZOTU0JxVSdJa2KNi95D98CyRuIEWFLHIzjSbasZdGOA+thyMLHWGu7nsoTAB0+3xIHXYf6wz8OBq/FYoySY4LTShXgIS0Zq8Enbodt9fM56vrXucoskSqgjgUDQD1hq40RDjGKtq88ID4CYI+nhD0bEJcVY75vJesQFqcD6nY5T9M6yb3sEtH428CaW7yiKuUOGNRqB1YTNMTXr1tlB78KB2P/jRzDXyOiKZJsp83M0Aod5LCKF9rswPflCSbMFGLq4jamH7CkafrJPX6V2G0DTCzFXNSrXCPjT7E5eYZrXmRgdDWLOS4GJ/JhGH6oLFqAbyCv6Mfqv4VbuqHDPg+hmAeYZSh4i2BfbkvjBoX/KEzeMvITot7G7SMpGKFkVTLgA5YflF2w/dpa9B2x+T02uhc+qRNtqvFgW6l1ixpkq1BVe4M+txRMpN8ggKTa9dDUAUqlrhHW1Atn8tCbx2HNbP2fwaIdZ8VyQiArs/4fEm802cDPZyUbSF84dLaSocMceZeCjY9UEflLg88aR5B/eexDvNM2yTB3cGRAq4s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(261022105027099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SVhqdGtxZmJwR2JwS05RcE1uMDhaNS9kNUpITzlMNE81QzEydmdEWHlKeHhN?=
+ =?utf-8?B?OTVFWXZXWVhSSUtsTkNBVGNZV3ozck1PWU5reEsvVEQwVHFEdEl1M1dXVFpS?=
+ =?utf-8?B?NXlZRmpOUGIwRDMwQjJhYmNSNjMvcnRpRzUrVEUyZ0pDODBzYy9KVGdJNHE1?=
+ =?utf-8?B?MGNkdmdBSHpkbWJXaENWWWVFam9KdXBDT2RRYXAvRjJkNS9jM1NtUXBSTjV6?=
+ =?utf-8?B?MWJkSU5qMzY5YmtZUGxlcnVkZWNLQXJFWGNkaENDL0NkRHRZQ3VIaWs2VFgr?=
+ =?utf-8?B?Z0RDMTRmbXN5Z0hWMU84YzBqdUw4OThmZmV0UG9MMitGV3kwVVJEYjBIMU9m?=
+ =?utf-8?B?QmZKeDRlSkVxbUpjUWxnakdIaWNwajlMbW9LK2w2cG1INHZCZHlleTFjcVRO?=
+ =?utf-8?B?SWYvRC82RG41Qkt2MEkrZVQrUThnRnh2QkQrZFVPRzN5cXBNbUU3cWI0M2wz?=
+ =?utf-8?B?YVRHTm5hQ0tPeVhMSnJPVUtYK2NCY2h1bkMxMXp0RC8wb2hWUWM2UUNPWkpN?=
+ =?utf-8?B?K2RoUEtjOUlDakZ4Kzg0VTZHb1NubXk4b3RITWdyOGV4N1JmaEF6cjBCZ3Zw?=
+ =?utf-8?B?YWNmU01ERTk2TWM0ZWhRRTdyeWtyZjM3SGM1VkRpNktjd3FGVEtnRjB2V29J?=
+ =?utf-8?B?M0Ixck45Uk50UGNJY2R0bGdZd0RlOEVhbVlnd3Z6eW5KZktSa2pJYWdaNjFX?=
+ =?utf-8?B?Ui9DV25iTnlpbGRiamhLWi84S1pBSSs1MzgzYkJhdGp1d3NNMFdLb3RjQ0w5?=
+ =?utf-8?B?VmkrMUtPZitDSFU3NzBiZC81RERTZktJcDR6L1p3UTZwNFBGV3U3VHByeVll?=
+ =?utf-8?B?OFdKaWk3a3g4OWdTVE5aNXUyTHNNQlJITVdiUzV3czhCcVdObkdtRG00czlB?=
+ =?utf-8?B?UlNyRXM1bDM3blpkcmJFSHd5NUpETGhoL0V3V2loU0hEcmR1dHpockNQSUpx?=
+ =?utf-8?B?RGdwY0JlVjJHNVJQTXRsZTBxSUQ5TkxaYWVZTmVHVnU1WlplWWNYVzV6SEh2?=
+ =?utf-8?B?RmE5d1VmUE1ZQVVPU3A1b1hveE5ZUEg2TlhuWnYyZWYzeU55VU5nSXVxcm05?=
+ =?utf-8?B?U0xFTW1VOVgxdmVzYTdkbzNQRmNvZEkzQWl5SHBxWExOWkEzNlNJZmFPbDA1?=
+ =?utf-8?B?bHRGRStWMjZidjF3b2hEQmpzQXNjZFF0T0c4Y0hWZzZEQ0hlRHZZZVV0VUFx?=
+ =?utf-8?B?TFlEcTY0UDJvY3hnQWVBVzBKVFhpMHpJaUxSb2FWR2JpcVZtSUZ5S0VtUytR?=
+ =?utf-8?B?cGJ3ck9UaTZINndTaThZd3loRUthb0YxWVg5QWF3aXlmZVV5MVRObjRXNi9O?=
+ =?utf-8?B?MGlvSGJOb2tCSVkxUnF5U0J5KzhBM1N1aG1ENGVHcGVOYnUxdEZNZ0ZZOTI2?=
+ =?utf-8?B?cVZCUXJNUUprZ3NQaFBaZzNkVkxMaEIxSUw4VXpzenJ4TU15RXVVTHBWaGdq?=
+ =?utf-8?B?STl2NTRxak5VNWdDajI1dDhicU9GcWUrMjRTK2RDQmR1OVdYZUhDSzh6aGNZ?=
+ =?utf-8?B?eHdrTEFWVXV1SUxOME1jR2tNOCt6M29FNTJKK1Ezb1E3V0QySGc0V09pZWFv?=
+ =?utf-8?B?VFFvMFNTcWM1bU1CaUEwSHUvMjYyOVFRY1VDS1ErWDN1aE5SbklFemVxVEts?=
+ =?utf-8?B?ZGhOcTN6eDc4N2pQMnlOREx0bkYrRW51RHc0WUVGdVVFMzNVTUN2TVgzKzRn?=
+ =?utf-8?B?UzVFQVJQV1pOeWorM1pueVl5N3pVMy9Nb0RFUUVTQ2RwSFhKb1VpMTRUMG16?=
+ =?utf-8?B?NW52VStXR3JIRUR6a0dwcGtxdStUQzRDYXRSU1dDd1ZFUFpZejY4YjdEQlo2?=
+ =?utf-8?B?ZzAxM2U5U28yeVZjUFRESzVtNStEcTQ2ak1Ra25UTEk1Mk5jZk5ibWFHNm1h?=
+ =?utf-8?B?OVlxQmg4TGt2SjhmTkdPeVJpK2lIU2k5L0daY0lTdDY3MElQdDMxZm4rbnJ2?=
+ =?utf-8?B?SFV2dlZsdGVuczBINFVNUWFoU1VLc0Rrc1hkV0trRTBGY1JYMGNsYjJrakQw?=
+ =?utf-8?B?VjNvQ2o2aTdOUlpSTGdPeVpMMTgvNlhXcnNjbW80MklXaW9VbjgzVS8rVjFX?=
+ =?utf-8?B?bk5sSzdsWThkd0xEc2QxTUhiMitGeDFpQXNXRlZGNDRDczRzeE4yd3FyNExL?=
+ =?utf-8?B?aVFkVUl5WXhXRktXRUFVVW5hREU2bFpLTlNZNnU5cG1BLzdXVk5jYnFJTWZw?=
+ =?utf-8?B?YzFYanJDQWZldk9qY1FNWTR5TWt4QXhRUTgvVUxSQzRVTTBqbi9jOHRxcjlE?=
+ =?utf-8?B?aTNEVExDbTNvY21nVkM5K0pqUFY0eGMrazlXa1puSTRVYjBZa3QwTGFLZ0R4?=
+ =?utf-8?B?clAwdXJqQWJyY04wYWxCYnlIMlZ1cWRIUWgyNkRxQnRPcFVUUW81QT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 240638ca-fc6f-4cc1-54c0-08df3874d8c2
+X-MS-Exchange-CrossTenant-AuthSource: LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 00:04:32.3269
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Wu/557jV8ZqqXMwlP0r1DzSLdghOTlclio9NgtBhyo00Om9sPdt3YJT3wpqi4G5luW+bhO9+Ob6oWf/rE8MqMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P123MB8484
 
-On Sun, 1 Nov 2026 23:50:10 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
+On Sat, Oct 31, 2026 at 03:01:51PM -0700, Namhyung Kim wrote:
+> On Sun, Oct 25, 2026 at 10:57:30PM -0400, Aaron Tomlin wrote:
+> > When tracing multiple tasks across multiple CPUs, kernel context switches
+> > cause different threads of execution to interleave on the same CPU. Without
+> > context switch awareness, interleaved function calls corrupt the tracked
+> > call stack.
+> > 
+> > Add context switch detection and per-task state tracking:
+> > 
+> >     1.  Context switch banner parsing
+> > 
+> >         Implement parse_context_switch() to parse context switch banners
+> >         (e.g. " 0) <idle>-0 => migrati-19") in the trace stream, extracting
+> >         the CPU number and both outgoing and incoming task PIDs.
+> > 
+> >     2.  Task state rekeying and migration
+> > 
+> >         Implement ftrace_task_state__rekey() to reassign initial unknown
+> >         task states to real PIDs upon discovering outgoing task identity.
+> 
+> Yeah, it's unfortunate that the default ftrace output doesn't show PIDs. 
 
-> On Tue, 27 Oct 2026 09:36:47 +0000
-> "Sabau, Radu bogdan" <radu.sabau@analog.com> wrote:
-> 
-> > > -----Original Message-----
-> > > From: Jonathan Cameron <jic23@kernel.org>
-> > > Sent: Monday, October 26, 2026 2:09 AM    
-> > 
-> > ...
-> >   
-> > > > +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
-> > > > +				       u8 *fifo_data, s64 timestamp)
-> > > > +{
-> > > > +	struct adis16607 *st = iio_priv(indio_dev);
-> > > > +	u16 msw, lsw;
-> > > > +	s32 val24;
-> > > > +	int bit, offset = 0;
-> > > > +
-> > > > +	memset(st->data, 0, sizeof(st->data));
-> > > > +
-> > > > +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev-
-> > > >masklength) {    
-> > > iio_for_each_active_channel()
-> > > 
-> > > As sashiko notes, masklength is private.
-> > > 
-> > > There are a load of places we need to update to stop accessing these
-> > > directly but please don't add another one.
-> > > 
-> > > It's on my list to throw some LLM tokens ago once I get out from
-> > > under review backlog.
-> > > 
-> > > https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20261023-
-> > > adis16607-v4-0-
-> > > a4d541ebfd13*40analog.com__;IyU!!A3Ni8CS0y2Y!9cguUuIwYMdnmBcoNR
-> > > ye0_U99KUnJt04T6XlSnvS-9rxh5-8Y2fQXC39Mxsw3erc_JwvyFp3ssecZg$
-> > > Check everything else reported.
-> > > 
-> > > FWIW there are also some nasty race conditions around active_scan_mask
-> > > being available when the buffer is being torn down. You might
-> > > want to close those off by claiming buffered mode to prevent
-> > > such a transition.
-> > >     
-> > 
-> > Agreed, I'll switch to iio_for_each_active_channel() and I'll go through the
-> > rest of the Sashiko findings for v5.
-> > 
-> > On the active_scan_mask races, I'd like to check which path you mean.
-> > In this driver the only reader of the mask is the trigger handler
-> > (fifo_push_sample()), which runs as the pollfunc.
-> > As far as I can tell, iio_trigger_detach_poll_func()'s free_irq() waits for it
-> > to finish before iio_disable_buffers() frees the mask, so I couldn't find a
-> > window where the handler sees a stale or NULL mask today.  
-> 
-> Ah. I may have failed to distinguish between cases with a trigger involved
-> and those without.  The bug reports are probably on the ones without.
-> Unfortunately I haven't found time to look at the overall issue
-> in enough detail yet.
-> 
-> > Even so, I'd like to close this off for good, so that a later change to the
-> > driver or to adislib can't introduce the race.
-> > 
-> > Claiming buffer mode inside the handler looks like it would deadlock
-> > against iio_disable_buffers(), which holds mlock while waiting for the
-> > handler in free_irq().  
-> 
-> We'd use a conditional claim in here - only the core code driving the state
-> transitions should take a claim unconditionally (they can just grab the lock).
-> If mlock is held it should fail and we just drop out of the handler having
-> done nothing.  So either disable buffer wins and we drop through the handler
-> quickly or it looses and the attempt to take mlock blocks in
-> iio_disable_buffers()
-> 
-> Or am I missing something worse?
+Hi Namhyung,
 
-I'm indeed being dopey today.  Whilst it is a conditional claim we grab the lock
-unconditionally as part of that.  Which makes sense because we want
-multiple simple read the state calls to block behind each other.
+Thank you for your feedback.
+
+Yes, it is indeed.
+
+> > diff --git a/tools/perf/util/ftrace.c b/tools/perf/util/ftrace.c
+> > index 95db57e70d11..fc385d680911 100644
+> > --- a/tools/perf/util/ftrace.c
+> > +++ b/tools/perf/util/ftrace.c
+> > @@ -13,11 +13,14 @@
+> >  #include <errno.h>
+> >  #include <sys/types.h>
+> >  #include "debug.h"
+> > +#include "evlist.h"
+> >  #include "util/ftrace.h"
+> >  #include "util/string2.h"
+> > +#include <perf/threadmap.h>
+> >  
+> >  static struct hlist_head ftrace_task_hash[FTRACE_PID_HASH_SIZE];
+> >  static struct ftrace_task_state *ftrace_cpu_tasks[FTRACE_MAX_CPUS];
+> > +static u64 ftrace_event_seq;
+> >  
+> >  /**
+> >   * ftrace_cpu_states__clear - Free allocated CPU and task stack states
+> > @@ -36,12 +39,14 @@ void ftrace_cpu_states__clear(void)
+> >  			for (j = 0; j < ts->depth; j++)
+> >  				free(ts->stack[j].name);
+> >  			free(ts->stack);
+> > +			free(ts->watermarks);
+> >  			hlist_del_init(&ts->node);
+> >  			free(ts);
+> >  		}
+> >  	}
+> >  
+> >  	memset(ftrace_cpu_tasks, 0, sizeof(ftrace_cpu_tasks));
+> > +	ftrace_event_seq = 0;
+> >  }
+> >  
+> >  /**
+> > @@ -98,6 +103,119 @@ static struct ftrace_task_state *get_task_state(pid_t pid)
+> >  	return ts;
+> >  }
+> >  
+> > +/**
+> > + * ftrace_task_state__record_indent - Record an indentation watermark for a task
+> > + * @cs: Task state to update
+> 
+> Why is it called 'cs' instead of 'ts'?  Same goes to the later functions
+> too.
+
+Agreed. That is a relic from when the struct was named ftrace_cpu_state.
+I will rename "cs" to "ts" consistently across all functions in the series.
+
+> > +		if (prune) {
+> > +			free(frame->name);
+> > +			frame->name = NULL;
+> 
+> You can use zfree(&frame->name);
+
+Acknowledged. I will switch to zfree(&frame->name).
+
+> > +static struct ftrace_task_state *ftrace_task_state__rekey(struct ftrace_task_state *ts,
+> > +							  pid_t new_pid)
+> > +{
+> > +	struct ftrace_task_state *existing;
+> > +	u32 key;
+> > +	int j, c;
+> > +	int to_copy;
+> > +
+> > +	if (ts->pid == new_pid)
+> > +		return ts;
+> > +
+> > +	hlist_del_init(&ts->node);
+> > +
+> > +	existing = find_task_state(new_pid);
+> > +	if (existing) {
+> 
+> I think it's better to handle the else case first as it's much shorter.
+> You can save an indentation level for the true case then.
+
+Agreed.
 
 > 
-> > 
-> > Would snapshotting the active-channel layout in update_scan_mode()
-> > (called before the pollfunc is attached) and having the handler read
-> > only that copy be an acceptable way to close it?  
-> It would but that feels like we are just papering over a lifetime issue
-> by creating another object rather than fixing it if necessary.
+> > +		int orig_existing_depth;
+> > +		int total_needed;
+> > +
+> > +		for (c = 0; c < FTRACE_MAX_CPUS; c++) {
+> > +			if (ftrace_cpu_tasks[c] == ts)
+> > +				ftrace_cpu_tasks[c] = existing;
+> > +		}
 > 
-> Anyhow, from your first comment this may all be irrelevant anyway.
-> 
-> Jonathan
-> 
-> >   
-> 
-> 
+> I don't this is necessary.  IIUC the rekey function is supposed to be
+> called for a specific CPU and caller will update the CPU state.
 
+Fair. Since ts is keyed to a single CPU's synthetic unknown PID
+(FTRACE_UNKNOWN_PID(cpu)) and parse_context_switch() immediately updates
+ftrace_cpu_tasks[cpu_val], no other CPU slot can reference ts. I will
+remove this loop.
+
+> > +
+> > +		/*
+> > +		 * Prune frames on existing and ts that exited during subsequent
+> > +		 * execution recorded on the other state.
+> > +		 */
+> > +		ftrace_task_state__prune_stack(existing, ts);
+> > +		ftrace_task_state__prune_stack(ts, existing);
+> 
+> I'm not sure about this.  In this context, it knows the 'ts' is uptodate
+> and the 'existing' contains the old state.  Does it need to prune the ts
+> using the existing?
+> 
+> IIUC this code assumes either ts or existing may have uptodate state
+> like in general cases but it would make the code unnecessarily longer.
+
+The reason this handled both directions is due to how trace_pipe merges
+per-CPU buffers when a task starts on CPU 0 (unidentified, tracked in ts
+under FTRACE_UNKNOWN_PID(0)) and migrates to CPU 1:
+
+    1.  Task X starts on CPU 0 before any context switch banner is seen on
+        CPU 0, so its initial frames are recorded in ts.
+
+    2.  Task X migrates to CPU 1. If CPU 1's incoming banner ("1) idle =>
+        X") and subsequent function exits are read from trace_pipe before
+        CPU 0's outgoing banner ("0) X => idle") is flushed, existing is
+        created on CPU 1 first and actually holds the newer state, while
+        ts holds the older pre-migration frames from CPU 0.
+
+    3.  Conversely, if Task X was already known on CPU 1 (existing) and
+        migrated to an unbannered CPU 0 (ts), then ts holds the newer state
+        and existing holds the older state.
+
+That said, I agree that maintaining a dynamic per-task watermarks[] array
+for arbitrary multi-hop migrations before the first banner is superfluous.
+Replacing the dynamic watermarks array with a single scalar minimum-indent
+watermark on struct ftrace_task_state makes this much simpler and removes
+ftrace_task_state__record_indent(), ftrace_task_state__min_indent_after(),
+and the watermark merge loop in ftrace_task_state__rekey().
+
+Thank you!
+
+Kind regards,
+-- 
+Aaron Tomlin
