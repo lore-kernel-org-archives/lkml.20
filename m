@@ -1,81 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793584671;
-	b=m7ix1L8hcH7lKUZ8dsOtkpsTwZ4adDXsTYSn0tj5PQvua+5StIvBTQSp7o/mbaJW4lFV
-	 ofuVeVG3psAwcvBYaYoiC0HZWvILuJK2gNItVB6+aUS47O9YfPIFS2qB8pGosElAAY73P
-	 s61YgzPdRxM3l0aMslyxLBQZ9qMzNzlMwKIW8Y/+7rh9aAHTKiPofkttvUPqnhDWV1PGo
-	 Dt9JwxFX8n8aZnkaZ72+hdVpHGByumw5LUkOsUgfbZ8Q1ualF1WkUeZFAaC9m+Ar1PW4a
-	 7xe2XTn9QIEcwPnR7Z1HARqJKQltVyaDTAnFm6lFZGnHMCqDTFn/vDQ6VDEEq6LHXMA==
+	t=1793584720;
+	b=5OMrXmrs65CToa5orWjHf1GbjnexcEVebLT9JWjLAeBv5kX8NIpR1WxaOsrRU6HK984J
+	 7s3FSZfZzRiDYe6MXVaud1MYiJvQsJYRODHtf6A0UKPxk+CbH3SrR7zrttBrK/fa1p8oY
+	 q7f1waf1L8KvE+hLGSzFyRF817UtFDgjP3u+y6TGhKMMFxem2ILSgSIumhzgMv7n9gm7h
+	 OJVnix51oOUtCGxyLmIvprozME4LbGyNYamH4YpjAz/wB7MaVS+pX1mLMXDxMAGbcuzdY
+	 WQwqcMV7R1tnfOmjraZ2H80ZxL6XVm0WsIKmsKOFx/4O7Dw9+DHhAq0o1aZ7lvSNeWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793584671;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=TvpTzi8L0ZRWR0mVAbSBCUuTyz3j9j00g6UtTPOySZE=;
-	b=S9LfsyoxJ+KEjQTAZyyESF9+cAgjJNFLjC7A5Bkz+UQU1yQtOv//lRTgqEdTkGDXze+7
-	 voLfreZJ3jD3yix2VKsDV3OhjXSXXVTA08msH6zBu9P98vOC+E6sJdDUEmUtV6ey6CoRI
-	 rDeack5Xsrnm1pkojf2SW5TfE2iJuimS5CfzSRFhuuBkT/03JlxymDZDbr1b/ew9To0ME
-	 Qqhl7B4zcgdm9Hng3ZdNcS1T023iPcKPuJz1DBxAPwsEtoMbUgQsKa1KJ+UnDugFejaRH
-	 3gNtY22Bdp+ykjDbLKksqjE9VuttS292V+KQpx3G3ZrPt4GK4I74tvIXcfd6Ued5Khg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793584720;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=mhRVqiYq+ePDA2NvwBd3ChCoiSdjgNpL+sEWmLZjAq0=;
+	b=KYXROPU6g9CgOsI/0P2rTdE/uk4mpts8kO4BSHMLrocV5nJzuKU4agAEzU8s49yXpu1i
+	 MV9WDhF/l6rern4GsBVvAbS/KusAcybcR9QaRx9X+iDRsk65ZxlOhEjSbseL+avQhRlGc
+	 jFUvGbK3W4vsEOXrYkeeuqqH6mUQPbXtXyKIozhmOzSQeCbK2Z5QjQlM3m7YU+MtPN8Oa
+	 EBUCRR58BTNqFrZ1gEqr90n7+B6ihLPLp0zHL39XMLF6N2NOIs6eSqRoYgmqR01U8NJxL
+	 qCrhTwpKMvKxKY1O6l3vf4TcohOcbJMEkeEdvu7oKUvAH/9CrDoPKwMtKTSiqzznsIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=XiufxJuD;
-	arc=none smtp.remote-ip=203.205.221.155
-Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com [203.205.221.155])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A54SXCmm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C3F606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52C3F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A990606A324;
+	Mon,  2 Nov 2026 01:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=XiufxJuD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793584660;
-	bh=TvpTzi8L0ZRWR0mVAbSBCUuTyz3j9j00g6UtTPOySZE=;
-	h=From:To:Cc:Subject:Date;
-	b=XiufxJuD9RBVMxXzCuURboolbfjU2kmL84RSMEVL/ZZKV8smy+0M0FCTrt9GgbGEG
-	 phUMPES+WYSQNLSOszyB8lGYxbTByoLlJFpCTAiqGRXm2Bz4InDDO5cC4XC1ILumip
-	 ALABIKprKcJyqYg4wxT6xLbMp7lwIUxQMAaI5HVE=
-Received: from HAPYCAO-MC1.tencent.com ([61.151.228.151])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id E6531245; Mon, 02 Nov 2026 09:57:37 +0800
-X-QQ-mid: xmsmtpt1793584657ta2b66kj9
-Message-ID: <tencent_0A4B784EEB3D358B09B43AA2B2F13AE44505@qq.com>
-X-QQ-XMAILINFO: N8xf3Kn/xs1HBUfGmattMNB7+yKUBgyS6w9hE05dNpGZAJ7OXBN53xrj/d7j8m
-	 kAtrXYjFbxUYmmy4ZfV3o5Bi5Pf4jXZ8tdxbeoSbqvqFgg5mqQrWD1wkQbkxfEUU0HnS947jrrFS
-	 Oi1NCkyWyFQnMYW6/9wfAxeA7lJHCwcv0wdpOxTflzDyVzhGyxRYZCxzOGaiKJT69BbXaoL+UEzH
-	 IBTU8f4AI795r7ec7eIKB2yh8eXc+jgSvd7ropAWfho2zo0EMYBNMgUo1Rhl/acsRj8VTqcMPnOI
-	 T0DQPeb9ZU4BMBXigfVLvVAwaqNM0eqzwPWmVueAnQXV8KTRfXsB/w22xFKrYYlXhNqOKRdw/LLW
-	 xSIlYMmKt+8vjUAFn6kdBdpKXvK/hVU5+r6OCnwrifggZOB+AayXO947KRTPjF4pUgeazjve15jd
-	 7aB8fqp61dC39dAUx5xdBznQIXvFOadB1XNqRbxLNR6wVsLdR7fFy+D7OGD+0mEzHQykxVTOEzlK
-	 dUUjmdAUhJ/03ireIY2K1fsSjhICoMFb97UWhaI/EFEmvHKXoKsLs+8xZ6bPNW+qIMAo4PBnMnRW
-	 uwNS2Cu7HATj6Ce0MKW1JwRLxLauw/2SlRQp5bsOptoPWo0h/qyVIQDHlg3m1iCoOA4klNbNkp8/
-	 BOLLyog9IWXyNZC4LsxHMHqtOTjd+Xw06Y6CY2tqogXoyF49rV+Ch/CXmeSvd50M9rnUtw3Nzfmz
-	 hWgIk0e0C1iWJ+0nH5tBCQpyvUWbTcYEM3LuwQE8cuueVh9/KzSGhvlETtHyeZxOTcky03HC+B+J
-	 0WdmGGCsn0u1Scc2g/jd5CtKm1Y/CneVb9RtmwTQZDuqNPFOpdk1XxqYN2poY69rogrZeorKNJ+y
-	 vV+PKZjYRh7jo28m+ZDRFM3R6o5bEpJlbdAXrc6ho6fiH+Ti2eA8H1QgBKnTPZf3qlfHfQFin/g9
-	 wEYe7zh7ISYxpdc9jxAs6W8GGgULEtVX3C7HfyjhBGSoDtkn0CohE205XEMe5ehkAAI346AjpadG
-	 +Pu+KO/aYPGzz3n7z+UX18BVEKkQKFn1Inljf511zzzpksorgFIyYj4MN32XaWGgxvMYniZQ==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: bo cao <treebacker@foxmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	dsahern@kernel.org,
-	edumazet@kernel.org,
-	idosch@nvidia.com,
-	horms@kernel.org,
-	willemdebruijn.kernel@gmail.com,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v4] ipv6: fix dead half of the MTU guard in __ip6_append_data()
-Date: Mon,  2 Nov 2026 09:57:36 +0800
-X-OQ-MSGID: <20261102015736.64157-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A54SXCmm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D211F000C1;
+	Mon,  2 Nov 2026 01:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793584719;
+	bh=mhRVqiYq+ePDA2NvwBd3ChCoiSdjgNpL+sEWmLZjAq0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=A54SXCmmrU0CWruUEsp2I/RJfkUrvlGIypr3AmBaVF+YmLZIXSTtUfWkHiK17Cy5n
+	 mxSVdHnKE24IEGhs0yahQE0FuhpwcZCIjSLmCCT03VvBXeA/ar7E3IS50IbnZyC9Z0
+	 JThp1I5URyg1lJXMq/x8yg8mEZe6gv9v/eJrri/xZyWnKnUJntPHz43zH6ed5m7sP0
+	 e9iuij+BegYJEvz2lnZAYGw0mMljsl7ee10s4qmsLZBzhb5Z8kdbzYiluo6+3nxEX/
+	 3prU4pOK4Yuho7MllH3EjPVQpudibbjVwFcen6biudgC3b2b9oQYGKn+ztHz3IPSg4
+	 ABbDkeONkqeRw==
+Date: Mon, 2 Nov 2026 01:58:34 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ linux-pm@vger.kernel.org, Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 04/17] iio: accel: mma955x: Discard
+ pm_runtime_put_autosuspend() return values
+Message-ID: <20261102015834.18155f42@jic23-hlaptop>
+In-Reply-To: <20261021165858.v2.4.Ie9a9de6adbe98d063c6c45b2f59e143303586067@changeid>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+	<20261021165858.v2.4.Ie9a9de6adbe98d063c6c45b2f59e143303586067@changeid>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,132 +64,258 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The second half of the MTU guard in __ip6_append_data() has been dead
-code since the initial git import:
+On Wed, 21 Oct 2026 16:57:05 -0700
+Brian Norris <briannorris@chromium.org> wrote:
 
-	if (mtu <= fragheaderlen ||
-	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
-		goto emsgsize;
+> These drivers propagate the return value of
+> pm_runtime_put_autosuspend(), which is not particularly useful.
+> 
+> Returning an error code from pm_runtime_put_autosuspend() merely means
+> that it has not queued up a timer or work item to check whether or not
+> the device can be suspended and there are many perfectly valid
+> situations in which that can happen, like after writing "on" to the
+> device's runtime PM "control" attribute in sysfs for one example.
+> 
+> For this reason, modify these drivers to simply discard the
+> pm_runtime_put_autosuspend() return value, and inline the pm_runtime
+> helpers now that they behave the same with and without CONFIG_PM.
+> 
+> While at it, I see that mma9553_write_event_config() mismanages the
+> runtime PM reference count. It should only put() a reference after it's
+> done touching the hardware, not before. Resolve this ordering issue.
+> 
+> This will facilitate a planned change of the
+> pm_runtime_put_autosuspend() return type to void in the future, similar
+> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+> type to void").
+> 
+> Signed-off-by: Brian Norris <briannorris@chromium.org>
 
-(x & ~7) is unsigned and >= 0, and fragheaderlen is at least
-sizeof(struct ipv6hdr) = 40 > sizeof(struct frag_hdr) = 8, so the
-second condition can never be true.
+Mostly for my own reference, this looks fine to me, but if there
+is time it would be nice to use some ACQUIRE magic to simplify some error
+handling etc.
 
-For mtu - fragheaderlen in [1,7], (x & ~7) == 0, so
+I'd also ideally like some eyes on the actual functional changes
+were reordering occurs just in case there is something subtle
+going on.
 
-	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen - 8
 
-underflows below fragheaderlen.  Every later bound computed as
-maxfraglen - fragheaderlen then wraps to 0xfffffff8, in particular the
-datalen clamp inside the fragment loop, which never fires and lets
-fraglen = datalen + fragheaderlen escape the MTU constraint.
-
-With MSG_MORE on an egress device without NETIF_F_SG, alloclen = mtu
-while skb_put() is called with the unclamped fraglen, so a single
-sendmsg() on a raw IPv6 socket with a 1240-byte HOPOPTS cmsg and
-IPV6_MTU = fragheaderlen + 1 triggers:
-
-  skbuff: skb_over_panic: len:61280 put:61280 ...
-  kernel BUG at net/core/skbuff.c
-  skb_put __ip6_append_data ip6_append_data rawv6_sendmsg
-
-The same re-lowering exists with a transport-mode xfrm bundle: ESP/AH
-bytes counted in rt->dst.header_len are not part of fragheaderlen
-(ESP lacks XFRM_TYPE_NON_FRAGMENT), and ip6_append_data_mtu()
-subtracts dst.header_len from mtu for the first fragment, so after
-the entry guard passes, the recomputed maxfraglen can be pushed below
-fragheaderlen the same way.
-
-Remove the dead expression and, when the datagram actually has to be
-fragmented, require room for at least one 8-octet payload block after
-the fragment header, matching the minimum ip6_fragment() already
-enforces once skb->len > mtu.  The check is placed after the dontfrag
-and maxnonfragsize handling so that unfragmented datagrams that fit
-within mtu, and the dontfrag PMTU notification path, keep their
-current behaviour.
-
-reserved_headerlen accounts for the first fragment's xfrm header
-space regardless of whether this append is the first one on the cork:
-a subsequent append that pushes an initially unfragmented datagram
-past mtu still fragments, and ip6_append_data_mtu() subtracts
-dst.header_len from mtu for the first fragment.  The check runs
-before any zerocopy uarg is allocated, so the emsgsize path needs no
-cleanup.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Link: https://lore.kernel.org/netdev/willemdebruijn.kernel.22a3131380a8c@gmail.com/
-Signed-off-by: bo cao <treebacker@foxmail.com>
----
-Changes in v2: move the check into ip6_append_data_mtu() (review of v1).
-Changes in v3: collapse the fix into a single entry check, leaving
-ip6_append_data_mtu() unchanged (review of v2).
-Changes in v4: gate the check on fragmentation actually being needed
-and place it after the dontfrag / maxnonfragsize handling, so valid
-unfragmented datagrams and the dontfrag PMTU notification path are not
-affected; include dst.header_len in reserved_headerlen regardless of
-!skb, so a subsequent corked append that fragments still accounts for
-the first fragment's xfrm header space (review of v3).
----
- net/ipv6/ip6_output.c | 28 +++++++++++++++++++++++++---
- 1 file changed, 25 insertions(+), 3 deletions(-)
-
-diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-index 25fe0ba98b1a..4353b154f216 100644
---- a/net/ipv6/ip6_output.c
-+++ b/net/ipv6/ip6_output.c
-@@ -1477,7 +1477,7 @@ static int __ip6_append_data(struct sock *sk,
- 	bool paged, hold_tskey = false, extra_uref = false;
- 	struct ipv6_txoptions *opt = v6_cork->opt;
- 	int csummode = CHECKSUM_NONE;
--	unsigned int maxnonfragsize, headersize;
-+	unsigned int maxnonfragsize, headersize, reserved_headerlen;
- 	unsigned int wmem_alloc_delta = 0;
- 
- 	skb = skb_peek_tail(queue);
-@@ -1499,8 +1499,7 @@ static int __ip6_append_data(struct sock *sk,
- 		     (opt ? opt->opt_flen + opt->opt_nflen : 0) +
- 		     rt->rt6i_nfheader_len;
- 
--	if (mtu <= fragheaderlen ||
--	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
-+	if (mtu <= fragheaderlen)
- 		goto emsgsize;
- 
- 	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen -
-@@ -1533,6 +1532,29 @@ static int __ip6_append_data(struct sock *sk,
- 		return -EMSGSIZE;
- 	}
- 
-+	/*
-+	 * If the datagram has to be fragmented, each non-final fragment
-+	 * must leave room for at least 8 bytes of payload after the
-+	 * fragment header, matching the minimum ip6_fragment() enforces
-+	 * once skb->len > mtu.  This rejects the MTUs that make maxfraglen
-+	 * underflow below fragheaderlen and defeat the datalen clamp,
-+	 * which leads to skb_over_panic() from skb_put().
-+	 *
-+	 * reserved_headerlen accounts for the first fragment's xfrm header
-+	 * space (with a transport-mode xfrm bundle, ESP/AH bytes counted
-+	 * in dst.header_len are not part of fragheaderlen), regardless of
-+	 * whether this append is the first one on the cork: a subsequent
-+	 * append that pushes an initially unfragmented datagram past mtu
-+	 * still fragments, and ip6_append_data_mtu() subtracts
-+	 * dst.header_len from mtu for the first fragment.
-+	 */
-+	reserved_headerlen = fragheaderlen;
-+	if (!(rt->dst.flags & DST_XFRM_TUNNEL))
-+		reserved_headerlen += rt->dst.header_len;
-+	if (reserved_headerlen + cork->length + length > mtu &&
-+	    mtu < reserved_headerlen + sizeof(struct frag_hdr) + 8)
-+		goto emsgsize;
-+
- 	/* CHECKSUM_PARTIAL only with no extension headers and when
- 	 * we are not going to fragment
- 	 */
--- 
-2.39.5 (Apple Git-154)
+> ---
+> 
+> Changes in v2:
+>  * Split iio patch into per-driver patches
+>  * Inlining
+>  * Refcount ordering
+> 
+>  drivers/iio/accel/mma9551.c      | 21 +++++++++--------
+>  drivers/iio/accel/mma9551_core.c | 39 ++++----------------------------
+>  drivers/iio/accel/mma9551_core.h |  1 -
+>  drivers/iio/accel/mma9553.c      | 36 ++++++++++++++++++++---------
+>  4 files changed, 42 insertions(+), 55 deletions(-)
+> 
+> diff --git a/drivers/iio/accel/mma9551.c b/drivers/iio/accel/mma9551.c
+> index 182f488edab1..4c549fb106bc 100644
+> --- a/drivers/iio/accel/mma9551.c
+> +++ b/drivers/iio/accel/mma9551.c
+> @@ -71,9 +71,11 @@ static int mma9551_read_incli_chan(struct i2c_client *client,
+>  		return -EINVAL;
+>  	}
+>  
+> -	ret = mma9551_set_power_state(client, true);
+> -	if (ret < 0)
+> +	ret = pm_runtime_resume_and_get(&client->dev);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "failed to resume: %d\n", ret);
+>  		return ret;
+> +	}
+>  
+>  	ret = mma9551_read_status_byte(client, MMA9551_APPID_TILT,
+>  				       reg_addr, &angle);
+> @@ -96,7 +98,7 @@ static int mma9551_read_incli_chan(struct i2c_client *client,
+>  	ret = IIO_VAL_INT;
+>  
+>  out_poweroff:
+> -	mma9551_set_power_state(client, false);
+> +	pm_runtime_put_autosuspend(&client->dev);
+>  	return ret;
+>  }
+>  
+> @@ -178,9 +180,7 @@ static int mma9551_config_incli_event(struct iio_dev *indio_dev,
+>  		if (ret < 0)
+>  			return ret;
+>  
+> -		ret = mma9551_set_power_state(data->client, false);
+> -		if (ret < 0)
+> -			return ret;
+> +		pm_runtime_put_autosuspend(&data->client->dev);
+>  	} else {
+>  		int bitnum;
+>  
+> @@ -200,15 +200,18 @@ static int mma9551_config_incli_event(struct iio_dev *indio_dev,
+>  		}
+>  
+>  
+> -		ret = mma9551_set_power_state(data->client, true);
+> -		if (ret < 0)
+> +		ret = pm_runtime_resume_and_get(&data->client->dev);
+> +		if (ret < 0) {
+> +			dev_err(&data->client->dev, "failed to resume: %d\n",
+> +				ret);
+>  			return ret;
+> +		}
+>  
+>  		ret = mma9551_gpio_config(data->client,
+>  					  (enum mma9551_gpio_pin)mma_axis,
+>  					  MMA9551_APPID_TILT, bitnum, 0);
+>  		if (ret < 0) {
+> -			mma9551_set_power_state(data->client, false);
+> +			pm_runtime_put_autosuspend(&data->client->dev);
+>  			return ret;
+>  		}
+>  	}
+> diff --git a/drivers/iio/accel/mma9551_core.c b/drivers/iio/accel/mma9551_core.c
+> index 2ccb1fb19b96..68df195d5b24 100644
+> --- a/drivers/iio/accel/mma9551_core.c
+> +++ b/drivers/iio/accel/mma9551_core.c
+> @@ -654,37 +654,6 @@ int mma9551_set_device_state(struct i2c_client *client, bool enable)
+>  }
+>  EXPORT_SYMBOL_NS(mma9551_set_device_state, "IIO_MMA9551");
+>  
+> -/**
+> - * mma9551_set_power_state() - sets runtime PM state
+> - * @client:	I2C client
+> - * @on:		Use true to power on device, false to power off
+> - *
+> - * Resume or suspend the device using Runtime PM.
+> - * The device will suspend after the autosuspend delay.
+> - *
+> - * Returns: 0 on success, negative value on failure.
+> - */
+> -int mma9551_set_power_state(struct i2c_client *client, bool on)
+> -{
+> -#ifdef CONFIG_PM
+> -	int ret;
+> -
+> -	if (on)
+> -		ret = pm_runtime_resume_and_get(&client->dev);
+> -	else
+> -		ret = pm_runtime_put_autosuspend(&client->dev);
+> -	if (ret < 0) {
+> -		dev_err(&client->dev,
+> -			"failed to change power state to %d\n", on);
+> -
+> -		return ret;
+> -	}
+> -#endif
+> -
+> -	return 0;
+> -}
+> -EXPORT_SYMBOL_NS(mma9551_set_power_state, "IIO_MMA9551");
+> -
+>  /**
+>   * mma9551_sleep() - sleep
+>   * @freq:	Application frequency
+> @@ -741,9 +710,11 @@ int mma9551_read_accel_chan(struct i2c_client *client,
+>  		return -EINVAL;
+>  	}
+>  
+> -	ret = mma9551_set_power_state(client, true);
+> -	if (ret < 0)
+> +	ret = pm_runtime_resume_and_get(&client->dev);
+> +	if (ret < 0) {
+> +		dev_err(&client->dev, "failed to resume: %d\n", ret);
+>  		return ret;
+> +	}
+>  
+>  	ret = mma9551_read_status_word(client, MMA9551_APPID_AFE,
+>  				       reg_addr, &raw_accel);
+> @@ -755,7 +726,7 @@ int mma9551_read_accel_chan(struct i2c_client *client,
+>  	ret = IIO_VAL_INT;
+>  
+>  out_poweroff:
+> -	mma9551_set_power_state(client, false);
+> +	pm_runtime_put_autosuspend(&client->dev);
+>  	return ret;
+>  }
+>  EXPORT_SYMBOL_NS(mma9551_read_accel_chan, "IIO_MMA9551");
+> diff --git a/drivers/iio/accel/mma9551_core.h b/drivers/iio/accel/mma9551_core.h
+> index 543454a31dc0..1d55fdfd0a92 100644
+> --- a/drivers/iio/accel/mma9551_core.h
+> +++ b/drivers/iio/accel/mma9551_core.h
+> @@ -62,7 +62,6 @@ int mma9551_gpio_config(struct i2c_client *client, enum mma9551_gpio_pin pin,
+>  			u8 app_id, u8 bitnum, int polarity);
+>  int mma9551_read_version(struct i2c_client *client);
+>  int mma9551_set_device_state(struct i2c_client *client, bool enable);
+> -int mma9551_set_power_state(struct i2c_client *client, bool on);
+>  void mma9551_sleep(int freq);
+>  int mma9551_read_accel_chan(struct i2c_client *client,
+>  			    const struct iio_chan_spec *chan,
+> diff --git a/drivers/iio/accel/mma9553.c b/drivers/iio/accel/mma9553.c
+> index 5a36d415a837..2ccb68dfbcd4 100644
+> --- a/drivers/iio/accel/mma9553.c
+> +++ b/drivers/iio/accel/mma9553.c
+> @@ -610,10 +610,16 @@ static int mma9553_write_raw(struct iio_dev *indio_dev,
+>  		if (data->stepcnt_enabled == !!val)
+>  			return 0;
+>  		mutex_lock(&data->mutex);
+> -		ret = mma9551_set_power_state(data->client, val);
+> -		if (ret < 0) {
+> -			mutex_unlock(&data->mutex);
+> -			return ret;
+> +		if (val) {
+> +			ret = pm_runtime_resume_and_get(&data->client->dev);
+> +			if (ret < 0) {
+> +				dev_err(&data->client->dev,
+> +					"failed to resume: %d\n", ret);
+> +				mutex_unlock(&data->mutex);
+> +				return ret;
+> +			}
+> +		} else {
+> +			pm_runtime_put_autosuspend(&data->client->dev);
+>  		}
+>  		data->stepcnt_enabled = val;
+>  		mutex_unlock(&data->mutex);
+> @@ -737,24 +743,32 @@ static int mma9553_write_event_config(struct iio_dev *indio_dev,
+>  
+>  	mutex_lock(&data->mutex);
+>  
+> -	ret = mma9551_set_power_state(data->client, state);
+> -	if (ret < 0)
+> -		goto err_out;
+> +	if (state) {
+> +		ret = pm_runtime_resume_and_get(&data->client->dev);
+> +		if (ret < 0) {
+> +			dev_err(&data->client->dev, "failed to resume: %d\n",
+> +				ret);
+> +			goto err_out;
+> +		}
+> +	}
+> +
+>  	event->enabled = state;
+>  
+>  	ret = mma9553_conf_gpio(data);
+>  	if (ret < 0)
+>  		goto err_conf_gpio;
+>  
+> +	if (!state)
+> +		pm_runtime_put_autosuspend(&data->client->dev);
+> +
+>  	mutex_unlock(&data->mutex);
+>  
+>  	return 0;
+>  
+>  err_conf_gpio:
+> -	if (state) {
+> -		event->enabled = false;
+> -		mma9551_set_power_state(data->client, false);
+> -	}
+> +	if (state)
+> +		pm_runtime_put_autosuspend(&data->client->dev);
+> +	event->enabled = !state;
+>  err_out:
+>  	mutex_unlock(&data->mutex);
+>  	return ret;
 
