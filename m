@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.108
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793632965;
-	b=QGbzwYJrjzsWuykWu8KSyt9T4pGmK8DSHTZu+Q5ceDO+2m7io25/oLm9/aaUoMc7GsSk
-	 tM5zxV5HWxdQltr7qHf3Hoox2S+jJR2Vr1f/357JQBFJuxS3rhccqDjOTITKd/2q9TKzM
-	 indBPKkuAOi2jAXzt+fOo5BQk1BwqczP+dkFUWaxJB4ff11bIL0sZTkUEE+pa037HZCJW
-	 XMZF45zgUDyPgafF4bWO1x28Oo2y1+h6FY/6tvlEcmPunkcOXcpKDcgXZBIg4RFmEtF2Z
-	 akjkgR2pwuS34LNt57+s8dzEbOv2eyux/f2G9E9N2w1p92DgfDEL/A0x4I+98BWCOfQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632965;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CXM3ckLzCBSxzsIZET65Ko3Hnj+89xVuSnu6VOMlel0=;
-	b=3zbaoIBEC0qUyucvqAfu04RNb1iSQdsUvhJc6ZkNS17uCC0NaZn1//jLN2EVW7axkZzn
-	 jJx54hVkH78m30GDm2w31XJdpbFoKAP6uMi/WSc0LqLb0+ajrLWfGqjV2oBYHd9QPTCcf
-	 5NQXpcI/vWYAZtumRwWJzd4t/drgdrd5nyraBzuOXAVFxw7OvCsCD9sFvP+mQywLBAPSo
-	 +WZNLA9LjrZTnQP0Tb2gIUMLf3YW7EXgF77yHS2tDvSZvvojmdsD1pgMh5lpkndFZ8m5e
-	 ZdvVcmPiuQNPTZ9WMbNvYcm2GPEjLKVR+HLFbtYSSDdwarOmlq3BJu/PYlDRdV1iTBA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=atomlin.com;
-	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.108
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022108.outbound.protection.outlook.com [52.101.96.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793632953;
+	b=pBbNDnwn3qADNtyYXKv7vX5V4IwTcjNUzO1LCiUvvgEkyWrBzpB0SY7KdGzV3UhstZd0
+	 WVhNbkji8tQViirE4+l7LVzfkRUAcn7dHfaj/twR7uTKlyvw8arefShrQn4LVMBtMc1BC
+	 OtAa6PKboIj///+HyfwjPE5ppITK2OCpJAIZy3svln9H+1Xoh49UwtNuiIfb5M6/d1B4V
+	 T07/JpUB0pA1HQaf6wfqvusXjEnYTDWy2TF7/h7gwsFEaLLz8/dLPgOp7/2rbdwAWvB/N
+	 nejZaX1PfItelR/KTDc29h/wS8oRkp/FVC2v/05YlTYDh04biOMToGA3zKvxDz1Td6w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632953;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=lzw2p1lwQVTXGjOVK+O2fRllw6EWFGiyVpP4wwnyOh0=;
+	b=xIlgnUUE6sRo8MIsf4UCALpYHCJLUzpdzfgoCC9Hkcz3ySMhGsld3m/0GRs4dyKb4TXW
+	 gNgfe5U3W8YPKZwLaSQmS2tyN9x5CTWs+vI+CamFOB95IgwuZ/Mae7skRvaiCkKt7HZLf
+	 DgqQ1LaDsGA0ENhS5YFQZp+fRZnckiolU+ihLS0Oa4AyL40KqkR+7I/aN+3sOGpfs/+OQ
+	 5EbctPUHOF3usgcUzyCZ3Ktj5IQYkSchUDtCUONFqSdIipVfcDDSmhK9di3x4LsHEhuNl
+	 WoczQ7qX1svwG76s50gik8kNeMVbmd2L9pX4W04+5HEhSL4UQHiVnvap2+w1CtqueRg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jam/DikG";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EC56082288;
-	Mon,  2 Nov 2026 15:22:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94EC56082288
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=arBBaDLr0uA2sNn+9uroxvNumHb6ldKaaraqdksd9cx4Zkk9m8L+YLyB7xv7CtdVSIEDspzCF/3NZA8xukKOBHMqBWQ4mjWbG0xcty0g4UU5vA8K+xgrLSy09KbHkH6SY0oSIQDtfcaLbGoa+oc+HvY3pSJPKbhguTHFZYRPwyqYWOr7Pvw5D/72B+RUTvRRKuNtiNZzdtszbiuXtINLqbl4FqhguVEuwvdl7EMQOoHwjgRn3vhHCn4fpS+Pe4RcY/IFQHcKdGFDQVD9Aliyy9SPzGhE44BOYEGoewbXrs9seTSBW0ed69s4tk+zslaFGseNAkNj4MZLERevuzpgPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=CXM3ckLzCBSxzsIZET65Ko3Hnj+89xVuSnu6VOMlel0=;
- b=LYuLkgwO3gs/yz+xavuChAHuwUFsbir2Uof58IjZzYSIoXE83NAajE4o+NLYAhww+zandXcvUiNC0hAdJXnevSRDinTybABLhagFthDck1rElbitKgqMhSPkKetktF/jBoLeVvEMbtySvXNcdUTROIz0uSIvBE5WrYXzPEmh7BTDoZ/K3WYKIcZuyYRjx3P+Y2mLFiPNyJQkQJq9OJ8ohUhKuHu/1XaA17izB0ft7YwCjpi0Hmns0wPl6/5uM1Yglad0i9H3s71pQPx3JmLuPaHeu0EwyyqNMpqte7YrEC0qfcf7/CxVQlgNGclxmm9PMhd2+RItQD0AgaFqwRmVHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:163::8)
- by LO0P123MB6367.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:28b::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 15:22:40 +0000
-Received: from LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- ([fe80::f71f:a9f:c4de:687a]) by LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- ([fe80::f71f:a9f:c4de:687a%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 15:22:38 +0000
-Date: Mon, 2 Nov 2026 10:22:33 -0500
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
-	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
-	irogers@google.com, adrian.hunter@intel.com, chjohnst@mail.com, neelx@suse.com, 
-	sean@ashe.io, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH perf-tools-next v12 06/10] perf ftrace: Support display
- of inlined functions in function graph tracer
-Message-ID: <znjf2nob4dw6ajhyzziz3zfxsxr4skomqhkdnp3qj6zubuaomx@6io32swlagmc>
-References: <20261026025735.546101-1-atomlin@atomlin.com>
- <20261026025735.546101-7-atomlin@atomlin.com>
- <auWUpl0toDFpwSYS@z2>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <auWUpl0toDFpwSYS@z2>
-X-ClientProxiedBy: SA0PR11CA0206.namprd11.prod.outlook.com
- (2603:10b6:806:1bc::31) To LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:163::8)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5827A6070DB0;
+	Mon,  2 Nov 2026 15:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jam/DikG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE0491F00A17;
+	Mon,  2 Nov 2026 15:22:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793632953;
+	bh=lzw2p1lwQVTXGjOVK+O2fRllw6EWFGiyVpP4wwnyOh0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=jam/DikGbP3IcdUEgRo2CFdrSnYZ/3MSMU4LaHUHhtBAwB6d0wN4GG1MyQdeaC9Ok
+	 wdJM+b/3RRtjlCv8z3tItr1QxtSmH9BkYdSP+SP67oPniRC+yl3OGovJKbnl6vggYQ
+	 Xw6S0FI/uqQMcc4B28EcQ0DDMaWkGXvvD/9rG4J+o8qpnbTPjubCx61OEoREYP+wT+
+	 n2SYcDkpCjIpsbDnXuLn3gvGvJMSkTaaQcGsDZNp5Sixc2gl8PYMoWuRLivBfr0Eti
+	 JYdHka5rVsIFLmn3fwhKKgzdpuCwWerAtbnpQ53n/tpOZi1eZbO6XiCI8qo1rd8OmY
+	 S9C/ymTqVEc8Q==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:07:18 +0100
+Subject: [PATCH RFC 08/27] smb: client: let procfs own the seq_file of the
+ smbdirect files
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,160 +53,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LO2P123MB4190:EE_|LO0P123MB6367:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1dd048a8-fe75-4f5b-24cc-08df38f52137
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|6133799003|10067099003|18002099003|22082099003|261102123227099003|56012099006|5023799004|4143699003|261022075727099003|261021121427099003|261022105027099003|261022113327099003|261026140227099003|261026121527099003|261009223027099003|261028144727099003|261021135927099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	wJiolTw2ad3T4zZnqvhO/9fE5R8OmYA9Ee67bQqAkaHkqQozoyUmi91vlbILgUQarxXMDwqiDh9EnNul0gbVLCnd8h+HQjpD6puY9CWxkIBlFLYN6mVUgnmCe2mnaUmK0/ze8wMgmACKxGi6Stns8P7CSGVHHQabFMPwfkDPVx3XHE9oZbWXLYFF1ySf0qXsm965v1sKcsDcY5U/N47fwJTQ5hzgVSi0aSCejzQLSx1e+HmMK9yRA601MmK9yRdSm65wnOgmiMwK3URkpngfNSJjvk3nJC9NE672yOPL/bhe0VdFllhFiYeNb0paytUuXsbSY4BMPWN5x87qSqodBCw8ExLvDevflSZV1xDOsFXyjvdhtrOUtPX21oPXtWbxVntSkqVAuagi9Ke8ZbLEa/hGUDrKHW9eBxlWm3YfhjWslW4wFtW4NUA984AuJwWCDI4syZKaEONQ1SNqMSIGfc7QfjE4fGnDnEAYZVNv0jOZIhJoXmDiVsYmUWbrXpZuKb2wVAJSdLypJXlUXBLeJbkTiKvNefE8NbClPT0QbWiCPJzU6tAYOrZ+UtZIuqCtiGM2UswQcEu4D3Wa/xMzVykFwNWTYfLRfErhn97Jloqdd3UyudVUM0HhllpJhdikmVhplY/PLWw+yODtS1KkrBBV4oc82d8I5eHV8sGNKmY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(261102123227099003)(56012099006)(5023799004)(4143699003)(261022075727099003)(261021121427099003)(261022105027099003)(261022113327099003)(261026140227099003)(261026121527099003)(261009223027099003)(261028144727099003)(261021135927099003)(261021123027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d0xRUjVpR0tWM1l0eHkxN0ZyUENQakZOL3JpYzB1a0hsSEx5WEdPVmF1T2Zu?=
- =?utf-8?B?WkVJTG8zalNDVVB2cHUrZEx5Y1pucWZQYmwrV29xVDl6b256UTFqdk9mZkpu?=
- =?utf-8?B?OCsyZ1hxbkp6UWptUE5sWCtLejB6V1VSWFJkSjYwb1Z6My9qTmpIbWh5OFFl?=
- =?utf-8?B?MXBueUJLT24ybFEvZ3hmUEttWmdxdFArdSs4VG8zTjNCamlkMEY0N2w3S1BW?=
- =?utf-8?B?ZVNhdWNXcTZOckcrYkZZSU5mWXJoTkVja3VqWUJZOFF1TXBtaTA2ZktNamRi?=
- =?utf-8?B?dUttSERZcnk0L3BNcUdLUjF4VlFaZjc2WDN5RTZmNGpHSVBoOVJwMW5wTWc1?=
- =?utf-8?B?WGxCc2g0LzQ3emg4VURMa1ZyMkhIR2lxTlBGZTZKR29iS3FZMDlIa0J6bTJI?=
- =?utf-8?B?eUtueXhpVVk2SllHZFFaMXM0Y3lNd0xwaytCRTQycHBzVlc5Y1p5SXo0cStK?=
- =?utf-8?B?eUpJMlB2TWRTYloyU1A1MXB3eSttaUtnTkl1ZzBxNDBnejM5ZEkvMW5VME9T?=
- =?utf-8?B?WWFCUlpUWjlsdEtmbE5YRkRYUW9NMk9aMmR4bVNpV09kYVJLc0diYUtmWHIw?=
- =?utf-8?B?N1Z6UGR6MkZLWndvRlJnQUU3NU9ZWEtVMVR3MExxT3doU0RGd1psVkNOSUhF?=
- =?utf-8?B?S2xzZG8vRzR5NlZNRy9JcHVZNHRtdjhDYXJlVHZsQ0tCbGdqejE1Q0RrSUJo?=
- =?utf-8?B?bzY5eU1MSVNXTTdxYjZQQVdVbXNXbDNlTjFpcGkxMlFaY29idmxjdzhtUloy?=
- =?utf-8?B?SHpITWFhaEJZMDlZOWVWSDEwbEQxeTk3SWlDR002QmdlTHEzTU5jZnJCSnNs?=
- =?utf-8?B?MTlha0p6QWxrczZJQWhkT2s5b1pqQlNQSzF4UGNqZy9LODhHM0tNM29BVEtk?=
- =?utf-8?B?ZEJHYXZoanUxbElBS1g1OG1jYlRkeTdTQWdzK0Mxd0RMVjhtYXB6bis5YTVr?=
- =?utf-8?B?UHNaUFduVVZqOXd4b0YxQ09HUzZ0TXZqdFBBYjVGcEhqZWowMk9aMzk5QWRs?=
- =?utf-8?B?bU9JSjFWYkFoTHlVY1BzOE1QZ0lZZjh3ZTk4dFdQTWl4UkRhK0s4bm5zTzhO?=
- =?utf-8?B?bEJ5YmIxNjhMRk0zWjdJMjN1cXFpOGRXQTNBK1drMGxlVklLeFcxMlR1d2J5?=
- =?utf-8?B?b1hucmFGTG5NaVU3Tzd0Z1U2dzFZWXNSQmNFeXdvM251M3lBODhkL1IxL3Vl?=
- =?utf-8?B?ZkVWcEdqKy9yS1hmbDBIL3JkOVFwYlUrcUpva2R0WGZBSnZqbjBoa2dUeGhn?=
- =?utf-8?B?SGF5a1gwZm9UV1d6WU0rR0xIdk1vZUlUbm9yTXVWUXE0YSs0NVZyNGtHc3oz?=
- =?utf-8?B?VlNCMU83bGZoM3hYaHlQMWdQZTNVR1BjSFdyWFlzNFpaK2pJWnJLVEJNVjBM?=
- =?utf-8?B?YlR5VkpnN3BwU1FGb25SclF0WEF5T1UzT09hck9PWWtuT1NLeXgwTnNwcmc1?=
- =?utf-8?B?SmtnTlFjcmx5Rnd1R3RYMXlJRVJ6eHNSblNCazQ0b09VWlpwcXMwK1p2dmly?=
- =?utf-8?B?TU40bzVqNGkyd2kvLzdzamNJYTZLQS9pa0tic0lLSWI0YU5uNU1zYVIzbkdy?=
- =?utf-8?B?WE8vdjZrODhXUUtibm5mWUpEVU9HYk5JZGljT0FoOGowWnpjbFhnR1JZejlF?=
- =?utf-8?B?Yms2UmpoaW52UFVMWEMzWUEvNXpvNDR1UlpHeGthZlcvc3hYTURFNGprUStv?=
- =?utf-8?B?a2xORDB3Y1BOblBOZEIzYmRIRzUxNCtTMW1VMlptWUMzeCs3TlhFcEl5VFls?=
- =?utf-8?B?cEMyR2VCV2tWa0lVT1docUxINjhRUHlJRndSeHlhd2tGT3NZV3B4OWxXanFE?=
- =?utf-8?B?bmN3QUVaQ0NjcTUxZXF2cUlqdWdQSDRnUzJHc203bjhOUXBzOEt6TExjRHV3?=
- =?utf-8?B?T0tGUi9EWHFUUENiRWhwcjFnTmY1NzlBY1V1bm9IU2R1TDl0cElNT1loNThP?=
- =?utf-8?B?L2dKWFJoVzR4N2JKYkwxNFRheElPQ2ROeVFoaCtQVGI4QlpBRWdNNEkrRHNr?=
- =?utf-8?B?alh1MSt6MTJsb3l6ZG9tN1Q4TGh6aWxuZXlsSHZKTVFaR3ZjVzNrQy9jQnY5?=
- =?utf-8?B?MjEyaEp2aWR0T013UVJFbnVNQnBpOStKYm96RXRSYVMzOWV4cEdkcmp2b1l3?=
- =?utf-8?B?dy95blpoN21ydGE4U3U0WERCZTJrU2R2ZnJ6QXkrR0g1QlIvVGVDQXUzdkhn?=
- =?utf-8?B?bTlRNWlPTlZoZSsvUVIrNHhuZ21LbVQ4dHFaL2h6NHR3YXhlVi9YR3B2MEZl?=
- =?utf-8?B?QXQwTTUwV1Z6bXA0ckFpbnRzOVlhdmNPYktHNWtYb1hnTjVic1c3cjd1d2pV?=
- =?utf-8?B?bEhwNlN5ZE9TQ2tLNE9QVUJ2dFhCQmZaSFVjbGdGK0U4M3loT2ZrZz09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dd048a8-fe75-4f5b-24cc-08df38f52137
-X-MS-Exchange-CrossTenant-AuthSource: LO2P123MB4190.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 15:22:38.8362
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v0oSXDTwle/aCKnxs49fd8XjlKaahMHtnppJ/GCjj/dbmmmepTGkfFZUfHDDo2iR4P6ZcBCLYiw5R4KJQFWGbQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB6367
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-fs-v1-8-d09a996317b3@kernel.org>
+References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
+In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1034; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=RIZYcDqYt7NhFvt2L4C6pTMn3DylkXBLCyRwuGHjm7I=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG6U8n4ug8YGx1uVNoYGj8zfPCt5xX+/1GRB/J/oU
+ N4J1w72dZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExk8ylGhs/Tfi77dN1/hsfq
+ 9zYVab+vKc/ddURfvDWri+u34qLfrzQY/tm3hDFcuBC2pbSmPpAxdem3TZc/mgiqPk5x3Kp2npv
+ flwsA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Sat, Oct 31, 2026 at 12:11:34AM -0700, Namhyung Kim wrote:
-> > @@ -664,11 +834,16 @@ static void extract_exit_func_name(const char *str, char *buf, size_t size)
-> >   * @cpu: Pointer to store the CPU number
-> >   *
-> >   * Locate the context columns that precede the function call column of a
-> > - * function_graph trace record.
-> > + * function_graph trace record. Depending on the funcgraph-* options set
-> > + * up by perf, a record looks like:
-> > + *
-> > + *   [ abstime |]  CPU)  [ comm-pid |]  [ duration |]  func
-> > + *
-> > + * The abstime and comm-pid columns are only present with --graph-opts
-> > + * verbose.
-> >   *
-> >   * Return: A pointer to the last character of the context columns (the final
-> > - * '|' delimiter, or the CPU ')' when no delimiter follows it). Returns NULL
-> > - * if @line is not a trace record.
-> > + * '|' delimiter). Returns NULL if @line is not a trace record.
-> >   */
-> 
-> It'd be nice if you could move the comments to the original commit that
-> introduced the function.
+Declare the show function in PROC_FILE_DEFINE() and let procfs open and
+free the seq_file. That makes the open functions unnecessary.
 
-Agreed. This was an unintended artifact from an earlier rebase. I will move
-the comment to patch 04/10 where find_func_column() is introduced.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/smb/client/cifs_debug.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-> > diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
-> > index 45f5090d0115..7b9e0919ae8d 100644
-> > --- a/tools/perf/util/ftrace.h
-> > +++ b/tools/perf/util/ftrace.h
-> > @@ -42,6 +42,8 @@ struct perf_ftrace {
-> >  	int			graph_verbose;
-> >  	int			graph_thresh;
-> >  	int			graph_tail;
-> > +	bool			use_inline;
-> > +	struct machine		*machine;
-> >  };
-> >  
-> >  struct filter_entry {
-> > @@ -96,44 +98,18 @@ perf_ftrace__latency_cleanup_bpf(struct perf_ftrace *ftrace __maybe_unused)
-> >  
-> >  #endif  /* HAVE_BPF_SKEL */
-> >  
-> > -#define FTRACE_MAX_CPUS 4096
-> > -#define FTRACE_MAX_STACK 256
-> > -#define FTRACE_PID_HASH_BITS 10
-> > -#define FTRACE_PID_HASH_SIZE (1 << FTRACE_PID_HASH_BITS)
-> > +struct machine;
-> >  
-> > -#define FTRACE_IDLE_PID(cpu)       ((pid_t)(-1 - (cpu)))
-> > -#define FTRACE_UNKNOWN_PID(cpu)    ((pid_t)(-1 - FTRACE_MAX_CPUS - (cpu)))
-> > -
-> > -struct ftrace_stack_frame {
-> > -	char *name;
-> > -	bool inlined;
-> > -	int indent;
-> > -	int raw_indent;
-> > -	u64 seq;
-> > -};
-> > -
-> > -struct ftrace_indent_watermark {
-> > -	u64 seq;
-> > -	int raw_indent;
-> > -};
-> > -
-> > -struct ftrace_task_state {
-> > -	struct hlist_node	node;
-> > -	pid_t			pid;
-> > -	struct ftrace_stack_frame *stack;
-> > -	int			max_stack;
-> > -	int			depth;
-> > -	int			inlined_depth;
-> > -	int			overflow_depth;
-> > -	u64			seq;
-> > -	struct ftrace_indent_watermark *watermarks;
-> > -	int			max_watermarks;
-> > -	int			nr_watermarks;
-> > -};
-> 
-> Hmm.. probably better to define the structs in the .c file in the first
-> place?
-> 
-> Thanks,
-> Namhyung
+diff --git a/fs/smb/client/cifs_debug.c b/fs/smb/client/cifs_debug.c
+index dfcd2cdbb2a8..664072ab3342 100644
+--- a/fs/smb/client/cifs_debug.c
++++ b/fs/smb/client/cifs_debug.c
+@@ -873,16 +873,9 @@ static int name##_proc_show(struct seq_file *m, void *v) \
+ 	seq_printf(m, "%d\n", name); \
+ 	return 0; \
+ } \
+-static int name##_open(struct inode *inode, struct file *file) \
+-{ \
+-	return single_open(file, name##_proc_show, NULL); \
+-} \
+ \
+ static const struct proc_ops cifs_##name##_proc_fops = { \
+-	.proc_open	= name##_open, \
+-	.proc_read	= seq_read, \
+-	.proc_lseek	= seq_lseek, \
+-	.proc_release	= single_release, \
++	.proc_show	= name##_proc_show, \
+ 	.proc_write	= name##_write, \
+ }
+ 
 
-Agreed. Since these structures and macros are internal to
-tools/perf/util/ftrace.c, I will define them directly in ftrace.c in patch
-04/10 from the start.
-
-
-Kind regards,
 -- 
-Aaron Tomlin
+2.53.0
+
