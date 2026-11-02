@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634599;
-	b=XscRFdJwmoyU84nLQFHcCLgppnjOim7j1qUzw6tKU4+DKp+AJFD3ytfNFgVaKOGI980K
-	 kFVg1Vn8ROyW7fwPVAGuJy/5rxrUQnWRzEZxaPg9J22R64ZXJwKNoKK0UCU+/L87A/xWY
-	 64/02MxL8WD2U+bUvU6cabNGK7udz7Wh18nctpl30u6gVk1/+JVoY1Uaeft1JkhFehcTz
-	 lveC7vWfOjyiihJ6aDk/1kX9LNlZ7sCKzFePB5SVwFoPPTS+EO0ib7gCvE/oW8xmmm8iW
-	 FfZSO2qT3dUZgNqyluaZNAkgyLPLNYLDvqz582WkSwxOpzoJbjtuLI/oeDeSrqw4zCQ==
+	t=1793634607;
+	b=Guv4gBTjoI5zGOWnvTrQAO+Kd8GdJj0boArVveK1WVaf+Rq8cCzHp3R8QVOj1QCmZbTS
+	 JdSsoTn3G30/coJ0TRsDvhg0UUJZKVXFf3j0S3rLkZXjlR423/qx+ydUrXHBQRoPiUfC4
+	 YtFj876Tbv3UNiFcudTR2hhd8ThLLWfeU11wFhFjis53sK5v0SlNAYe/yCk2QhemOdhgJ
+	 mPKi2W9FeFpmDdKmh3kHnkJmlgxZ0W5VRsKaOj4onVG0KU0wy491HEnGXqfcMpavVZqOa
+	 iYcgB/isPsAPCPh1an68h+84uJ8tPJXbKtMjf9zdmm780iU2gL0IrYXf8zv9VLC4hfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634599;
-	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=GLvfRARAQyBH7Kfm/CaOgMcjzPQSYIC64TNGbeOaKII=;
-	b=KMvELYKV1ay89aTHWqcqM3dQCoElsOs+tea5HDQy+8MENz/7DE84ZxoYuRUYtZYqaiTJ
-	 L4BJn59V2c4wI9BrYgXA5zoIcD3hP93ZF8ROMaF6oadtq8kuYU0/5KgFzZipX2ysB3XQn
-	 2bN9CteiwAe3tqGQw4rQjQlSy9RgR6GD70ZNzpIpPFmZhm7taMTpHBOrAmV98KeFLrc0q
-	 t0yqRAKuXxhOlrAvggK2OHqnJq9lfi5ILr/vsdq6To1rmDmWvnomGAeNTwEZVRQRvTN+N
-	 84l3DVtO686onN8rOC7WeM1C5kpZ0g8kD7nDPEoJz9ayCXaK0BW91PAVSePtjGMFb5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634607;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=R2uyw2KBqv+ypQbVU09qhOx2qFtMrReMIQ4NGIDJpHQ=;
+	b=gnYXsx9kDXvVItsWOIWyNGhECqeKlsZvmLB9FTXJhZPnb2r5ogmhVY5lPpB9cPUQMbPt
+	 geAehUaRcYsVvh/ehVy4f7G09pVhON4dOMYR9u4JSHExN/uWZyUAthZP7hvErDhuAjrqO
+	 +4NTFSVXQuWAIWLQVUZ0wkrg00rXnFixiW6eCZ0aCiGWrXo1xysz9fl+YA2WbVrFVe4xo
+	 zlT3rmZhW2WOXjQAEVIYQmbisHM8sCe8U+h6TlTlGkmEm9gc/XkpV0bWccd0++l1z53uj
+	 kK6HABLxLIcFLNbxIZu8405l0ObeAPkB2a68eFF69G5vGHZ7p8AwY9wcDrvrjlBf8Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lwn.net;
-	spf=pass smtp.mailfrom=lwn.net;
-	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=gsLnwAIP;
-	arc=none smtp.remote-ip=45.79.88.28
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hS35RL8z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC47A606E00B;
-	Mon,  2 Nov 2026 15:49:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC47A606E00B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2690606E00B;
+	Mon,  2 Nov 2026 15:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=gsLnwAIP
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net D915840917
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1793634598; bh=GLvfRARAQyBH7Kfm/CaOgMcjzPQSYIC64TNGbeOaKII=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=gsLnwAIPYx6TPVchIg7NTU4ezpMG5X9+xbfsKY+quZh36ja/szrkg8EWWPp54aIib
-	 XCUgvXU+ubAOp1ZEeL0C63RpMH/jdDLgqyM/bh7+X3fYD9k+lXgwtLuc8EEZ2mBt7g
-	 pXPdvcngpDCzhIEC5cxgQJnhr9HJa5KuJdzn4NyTToH4E7ShBbEg6DQ3V6lLp6O+BZ
-	 oFxhwryNgoeCSgA5+UycL2Lz/OngYgXWuMvovK6hoXT7KxS0ZKxC5G/e1F8Ae9cRqX
-	 PJbHCam1dKkg0HvztentBKe+DYIT/FzlyLSH6jhnS3eXCZYf0H9Z8HbDJnvZIUt86h
-	 EjHRwwxZezVYw==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id D915840917;
-	Mon,  2 Nov 2026 15:49:57 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org, Maurizio Lombardi
- <mlombard@redhat.com>, Daniel Wagner <dwagner@suse.de>, Keith Busch
- <kbusch@kernel.org>
-Subject: Re: [PATCH] docs: kernel-parameters: alphabetize NVME entry
-In-Reply-To: <20261001213229.2399120-1-rdunlap@infradead.org>
-References: <20261001213229.2399120-1-rdunlap@infradead.org>
-Date: Mon, 02 Nov 2026 08:49:57 -0700
-Message-ID: <87se1jdyhm.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hS35RL8z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B32E1F00A17;
+	Mon,  2 Nov 2026 15:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793634606;
+	bh=R2uyw2KBqv+ypQbVU09qhOx2qFtMrReMIQ4NGIDJpHQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=hS35RL8zc3XafEK4uVAAAOr5x3paiuif0AeEiObrgvShqxfPc+iLC8f/T0qFTQvtV
+	 Nf196dqd+BoVhtXUAOMkMIeolLqu/KTJFoAA6M9KPSiMKkY2VvtpbJdrHpxcbY4Skb
+	 YqG28PMVCYC1uUNDh5XIA6uKEnLec60Dmqg97E4uNzbDMF3IhlX4cp7pC8U1NZQnXy
+	 JjywUBDdOfYqnItbOTO9C8JED8uiB9jqpUN+MuEwrnyxBm2h2kuMnAAr+GSpqQwAHC
+	 okNrU53dAn6ZigTY5aCYkJL717hxDBDtqF/diCjBWbpKpfH4K0fK+qLGOgi1ZbGXcx
+	 N3GU6/lxqDwUA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401EC380821F;
+	Mon,  2 Nov 2026 15:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,43 +53,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3] net: qrtr: announce local services again once our
+ HELLO is sent
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179363460505.17619.12560693477467946976.git-patchwork-notify@kernel.org>
+Date: Mon, 02 Nov 2026 15:50:05 +0000
+References: <20261029105142.2503-1-26rote@gmail.com>
+In-Reply-To: <20261029105142.2503-1-26rote@gmail.com>
+To: Joonhoe Kim <26rote@gmail.com>
+Cc: mani@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ christopher.lew@oss.qualcomm.com, deepak.singh@oss.qualcomm.com,
+ pranav.phansalkar@oss.qualcomm.com, andersson@kernel.org,
+ effeffe99@gmail.com, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org
 
-Randy Dunlap <rdunlap@infradead.org> writes:
+Hello:
 
-> The list of kernel build options (or the legends or keys for them)
-> should be kept in alphabetical order. Put the NVME entry in its place.
->
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: linux-doc@vger.kernel.org
-> Cc: Maurizio Lombardi <mlombard@redhat.com>
-> Cc: Daniel Wagner <dwagner@suse.de>
-> Cc: Keith Busch <kbusch@kernel.org>
->
->  Documentation/admin-guide/kernel-parameters.txt |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> --- linux-next-20260930.orig/Documentation/admin-guide/kernel-parameters.txt
-> +++ linux-next-20260930/Documentation/admin-guide/kernel-parameters.txt
-> @@ -44,6 +44,7 @@
->  	NET	Appropriate network support is enabled.
->  	NFS	Appropriate NFS support is enabled.
->  	NUMA	NUMA support is enabled.
-> +	NVME	NVMe support is enabled
->  	OF	Devicetree is enabled.
->  	PARISC	The PA-RISC architecture is enabled.
->  	PCI	PCI bus support is enabled.
-> @@ -74,7 +75,6 @@
->  	TPM	TPM drivers are enabled.
->  	UMS	USB Mass Storage support is enabled.
->  	USB	USB support is enabled.
-> -	NVME	NVMe support is enabled
->  	USBHID	USB Human Interface Device support is enabled.
->  	V4L	Video For Linux support is enabled.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Applied (finally), thanks.
+On Thu, 29 Oct 2026 19:51:42 +0900 you wrote:
+> Since commit 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint
+> register"), qrtr_node_enqueue() drops every packet but HELLO with
+> -EAGAIN until our HELLO has gone out to the node. When the remote's
+> HELLO arrives first, the NEW_SERVER replies from the name service are
+> dropped, and so are the broadcasts for services registered before our
+> HELLO goes out. Nothing announces these services again, so the remote
+> never learns about them.
+> 
+> [...]
 
-jon
+Here is the summary with links:
+  - [net,v3] net: qrtr: announce local services again once our HELLO is sent
+    https://git.kernel.org/netdev/net/c/743b5c86276b
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
