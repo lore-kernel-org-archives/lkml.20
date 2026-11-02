@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646956;
-	b=GN9EOudwMApcJRS6Sa4gpSCmfr2ofZkSaKkHTQR8ioVoGDYo1bSJUAs+kGXKgttisY+j
-	 REBk3aAPZdWbGvfbnSGzxti4NYsA13YDJbUbneYvxo3byw9wgaPBMsYiXYwU4W8vIN9At
-	 30bbNuICWwf7lxNLFq954o05w5UeXU8Ruxz23g5gmVW8K0ou9DWoe5b8m0FJzkWRkyv/K
-	 lSNAthT4CRMzF9fi/MhJ1dzFDC/KjtphbI9OAGgcjGQ4zfQXVj65nCUMeMH4umEhMN6OQ
-	 7uheBi4O2y9UR1NtgISFAwpWq4zbFS3iFc4asWud8k5ZgptjIZJjgfA6VKzhDk9DiEQ==
+	t=1793646969;
+	b=EUaBU9rji8PYAMMWd7gP0YGafk2mLuHcmMzx2a529j0jRV38goOeyFZNmH+0ZzPDYown
+	 oVXuEtjuHdow+sQabGW9laemxYPL/pKxKVEtw2Nb+RZYp5exnoK+k5+Z3j8XXsaMk3vGc
+	 AmBfEfyLo2fQeySCP3p+W2R2HeDnaLhq4uBCtBf45SqSCLm4em7cYG7wUK7bAINjeiZo9
+	 uUDFjYQ8zFKR+wsV7nnYqE9RuSV6e98G1aa47M8Ds7hKh06N2G6cEUpfpeTLtG6DHFRct
+	 XXgyhgwuH/HswToSDDEGtvag0YczZXc6E+uobqQ6IoFlajZ6GbNGlJtCZcx+tK39g8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646956;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PcbHN39bNWWbkdcjeJxDmeD0qc1zW2q+oJX1vCZ0XVI=;
-	b=0ImarpoBpZVyIlZlVKoZVzINdHN15g8pNertIjOMmJyduXNY7LXL3XkknFTqX1KOUMtL
-	 NakEAKGNJe+kckXsSZDG9+Jq64W19mMcO482Swsz1FD03tGoJ5OhVbTwLWXHEO/HHoYkJ
-	 R5/BupI8LaDB4Xf3BWxgzR2hFovZz8lBlIIXmVIfZfPYRbbsbxIffjWdUzTvZ1lDIntGG
-	 BV0lRqjA64jkil67YeXn++/O2GqwPuDXVs/bbEz8tgWs2NwMRUapOd40HFExgwQNA8l+d
-	 WmmueEcmr/+1a6nGFoL3uA5gThf6qDhkyK+y14e/FRx7Sjx8AxoHlM5DOwhasD+gZrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646969;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=xSwUt1ejfmZqGDfLTWVnhEyPBYCa77Ql8jnQXRCQM2M=;
+	b=zoGiqcVWEjvYRDHY2Yd1WaU8HD50n9wRBzp8JjVDqkkAsvXIlXsga+d4fEuJ3Tl1QxFZ
+	 Zw8GLsXW4pvUycAHn4nK0xPbDyoa5Khxae8XOslK1MHwa0uAcPZyW3yFavD7DdRl/I4Eu
+	 FyG267kX2zQi2GpPVd3vrlUAIlVukRzGn6FfHfKa36hbQtPDHCSajxqPKOdHRqbJkhLdL
+	 xylkpeMWoRwob1pWTS5nA6gkgG9UPS3qeeVzAAtT3Jiw1bBKLwxd9QA137DIJJJZJoQ1I
+	 geyvIw4XWj5Hf4+EPZq5UDFbp58ZqsXcda/grse4d7YWXy7w67u+JzjGZxbpzKBc0Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=p4EEjsWU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=UOioP1aR;
+	arc=none smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C91606A324;
-	Mon,  2 Nov 2026 19:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A19606EE84
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:16:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A19606EE84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=p4EEjsWU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CBA91F00A16;
-	Mon,  2 Nov 2026 19:15:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=UOioP1aR
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6790844c9b0so2390067d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:16:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793646955;
-	bh=PcbHN39bNWWbkdcjeJxDmeD0qc1zW2q+oJX1vCZ0XVI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=p4EEjsWUt3MhEpUIjyLqzo7WSphxnduiMFMxPf2nUtQftKt6+8J2muQ+NicZohSCO
-	 F7rbgElz8NIWQMbuaBTSQHD/+sq7+IXuDa1D72zQJ4SAXGDcu5zQqO0OPtSvf/5kMw
-	 DCvQui3dtzvkQFZhE9fFZkIbsc3sqjkQRUJVSAZ4=
-Date: Mon, 2 Nov 2026 11:15:54 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: daejun7.park@samsung.com
-Cc: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Ryan Roberts <ryan.roberts@arm.com>, linux-fsdevel@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/readahead: keep at least half of the async window
- when aligning it
-Message-Id: <20261102111554.535bd2c6d0520877ea3342bb@linux-foundation.org>
-In-Reply-To: <20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com>
-References: <20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=cmpxchg.org; s=google; t=1793646967; x=1794251767; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xSwUt1ejfmZqGDfLTWVnhEyPBYCa77Ql8jnQXRCQM2M=;
+        b=UOioP1aRX+ng7fQt90I3I7lPAuhsKrdkNHsgPY3jQrIPnM1M1whRaCshqEpYerLoVS
+         Vb3sBlSgNgQNmfR2dafkirCXTn2zckbDU4vg4VWf4Bks3VJeQ3KvIq4Ac4ieWAjoC3M9
+         TVHxSZF9g6Z3OAoKOyEoT6wjVd8oUJSylcA7krfbtrnBPMmmMLXFse1Z0MSvXUvGMdBy
+         l09Uco5QfpGgegpgEI++HFOG/x+8gxhhQuEYB6MiwGfWow/nG6hDqWz2Jb0VRNfpOiMu
+         Myq+QrSQeu4fKyiBvaJQdU+754o+ApUDj692D1MAKDanYf2on4+BhkfmAnOKcovO6BX7
+         B1kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793646967; x=1794251767;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xSwUt1ejfmZqGDfLTWVnhEyPBYCa77Ql8jnQXRCQM2M=;
+        b=ANxxV1H8x0tWBEIUKcOng9FsrxZYwfz2TNMfp44t15E4s3WaEPbd3JQFa4sJL2aPyk
+         6oTDvfdXjjI/K7UwgYlqJs4fNQyowaFZL8G/8zRAW9iUmhW6AaVscBI/PuURe8FulKBV
+         RNNyXi1V73JZmxpO1CCwLfByBQMmgt4vWsGaESt0XyljvTOMyc2B5foUKIqIGZKyEaCD
+         TW5FSgXwWuNt7qDuQvJGdSPueTgkWCwDObEvTtkHqu9yD2KjPhWmW69OOXI5kjE8ER9U
+         FCSikdudDRycEZpu2lX3ltQYZxikKXiXZXB6TNPeenpgPcdaHluYk2BldKPwLlWEYYJe
+         OJXw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhUTMDb5L0VvGdLB8f/+TchG1jtVZz4JlGjxp/bmT5uQio5q2TvAeXU7WLc4idsilcbAPiDXtoiaYMnHY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9dgaC26iQW7xFakV0YEdz7ZnPK140jtZ1QuDQOrAh4ASZokuFT
+	cHckYpycuObPrxfBIy+s1IcX6F9rzgEIQ4k8kqYhATOqLVuCspEO2CF4bv/X92ivA5ATEkr9gD4
+	1DkKC
+X-Gm-Gg: AYBFou3VBANPTcQB/FOu++t2p9UIduVlyCsvbf02+0Nf0gJxEJwTkZOkebq2GUvNDw4
+	Y3Ix80J56Beg2ty6QDlAKlihUqEHJNefoB507d/NK5GqzsWLJdSNP26fjjfBhSZXsxbn+lvaP7F
+	I1CsfjYhO+vvlVc+mqFzgxJnROhB/2CN+phZxv8e6heOfVZgxcIPzMEDP9SNaclJxD3qkm1e4o+
+	1gU/G5X7ArUEEXYCRR3PgioKbrAjdrRpciJjdyahLcIXZaNyCHfBXaZtBF/SOUAjycl3V/T1kN/
+	N4v4OwyF+P5v2j0NO4rm+x/Qv57WpYQwCxAqpAl8Pq2ozWEDARpQ62WZB7HJAzNVT1h9NO6X+V4
+	Vln8SaRE7d9sXuMZjAoz6Saf3BuLVvu+DbDGP92YBQTO8VyiIluscSK/ampLnnKY/cvUzOHXyrm
+	h+Jdh52LXSi2e8ky4IwQ2xGeWLIYcgOAdKnqTxPjXtrSOQOND9JxSTIB2dLqk4xqHVZ0qduZ6IA
+	aH8STjLUsZEPUGXPDypRZ7QIsoE3aleD5PGPQqJhqhVExb3T3lBaY4CavVPLFiC4AkqZ7+ZYeu7
+	C/eliBjcpTMamo9ppxP7AB9DsZqVnfBQrP+VI+xFA4BKb/yL
+X-Received: by 2002:a05:690e:191a:b0:67b:9a76:cd0b with SMTP id 956f58d0204a3-67ba4edd88fmr8834059d50.28.1793646966752;
+        Mon, 02 Nov 2026 11:16:06 -0800 (PST)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf147246sm5737296d50.1.2026.11.02.11.15.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 11:16:00 -0800 (PST)
+Date: Mon, 2 Nov 2026 14:15:52 -0500
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Tao Cui <cui.tao@linux.dev>, Michal Hocko <mhocko@suse.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>, muchun.song@linux.dev,
+	cgroups@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [RFC PATCH 0/3] mm, memcg: isolate deprecated v1 state from
+ struct mem_cgroup
+Message-ID: <aujhaEfimB0S5Msu@cmpxchg.org>
+References: <b36ab4a7-b692-49e8-92b5-1dc4d76dee00@linux.dev>
+ <0BEF7489-16EC-44EE-847B-A6AA380BE11F@linux.dev>
+ <32e80536-64e4-4ae3-a7da-4a37ed415f0a@linux.dev>
+ <7ia41p9341lv.fsf@castle.c.googlers.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,56 +103,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7ia41p9341lv.fsf@castle.c.googlers.com>
 
-On Fri, 30 Oct 2026 12:52:57 +0900 Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org> wrote:
+On Mon, Nov 02, 2026 at 04:52:44PM +0000, Roman Gushchin wrote:
+> Tao Cui <cui.tao@linux.dev> writes:
+> 
+> > Hi Roman,
+> >
+> > 在 2026/10/30 14:05, Roman Gushchin 写道:
+> >> I believe we want to delete this code sooner than later, why would we rewrite it before that?
+> >> 
+> >
+> > My assumption was that v1 would still be maintained for some time
+> > before its eventual removal, and the goal was to reduce the coupling
+> > between the remaining v1 code and the shared core structures during
+> > that period, rather than to rewrite the implementation for its own
+> > sake.
+> 
+> I understand. But personally I don't see big issues with the current
+> code caused by the v1 stuff. Maybe I miss something...
+> 
+> The proposed changes on the other hand create difficulties for those
+> who use v1 and maintain some local changes or simple backport upstream
+> fixes. Of course, it's not a reason to not change the upstream code if
+> it's justified, but in this case I'm hardly convinced.
+> 
+> > If the expectation is that the remaining v1 implementation will be
+> > removed in the near future, then I agree this work becomes much harder
+> > to justify.
+> >
+> > Am I being too optimistic about how long the remaining v1 code is
+> > expected to stay around?
+> 
+> Well, Idk, it was considered deprecated for quite some time already,
+> so maybe announcing that it will be deleted in a year is reasonable?
 
-> From: Daejun Park <daejun7.park@samsung.com>
-> 
-> page_cache_async_ra() trims the end of each new window to a multiple of
-> 1 << ra->order pages. A window that starts just below such a boundary
-> keeps only a few pages. With read_ahead_kb=128 and max_sectors_kb=512,
-> 1 MiB reads after a 4 KiB read at offset 0 hit this on about one window
-> in three. They issue three times as many device reads.
-> 
-> Halve the alignment until the trim keeps at least half of the window.
-> 
+That might be tougher for v1 users than the member placement :-)
 
-Thanks, but...
+My understanding is that there are still a few heavy v1 users out
+there. I'm not sure they can move within that timeframe. Personally I
+think the cost of the v1 code now is kind of negligible now?
 
-> ---
-> Tested on mm-new in a QEMU guest with XFS on an emulated NVMe,
-> read_ahead_kb 128 and a cold cache.
-> 
-> - max_sectors_kb 512, median of 5 runs: reading a 512 MiB file this
->   way takes 0.247 s before and 0.180 s after. The device sees 3329 and
->   1032 reads.
-> 
-> - Other reads with max_sectors_kb 512: without the 4 KiB read, and with
->   64 KiB reads, the times do not change. Random 4 KiB and 64 KiB reads,
->   two interleaved streams on one file, and 2 MiB reads at random
->   offsets also take the same time. They read the same amount from the
->   device, within 0.3%.
-> 
-> With the device's transfer limit at 2 MiB:
-> 
-> - max_sectors_kb 256: 512 KiB reads after the 4 KiB read take 0.626 s
->   before and 0.322 s after. The device sees 6147 and 2056 reads.
-> 
-> - max_sectors_kb 1024 or 2048: 1 MiB reads are not trimmed.
-> 
-> - max_sectors_kb 2048, 3 MiB reads: the device sees 343 instead of 271
->   reads. The time is 0.120 s instead of 0.118 s, the median of 40 runs.
->   The interquartile range is about 0.10 to 0.13 s for both. The window
->   stays at 3/4 of the maximum, off the 2 MiB boundary. mm-new reaches
->   that boundary by trimming deeply.
+> Shakeel, Johannes, Michal, wdyt?
 
-The whole objective of the patch is "speed things up".  So a description
-of how much the patch sped things up is essential changelog material!
-
-IOW, please summarize it heavily and include the performance testing
-results in the actual changelog.  Low-level testing details can be
-retained below the ---.
-
+I was a weak yes on Tao's patch. Happy to keep it out with you and
+Michal not being fans of it.
