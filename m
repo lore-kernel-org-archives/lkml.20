@@ -1,76 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609381;
-	b=GH7NOLlYmdunXLGbSJTdwsgKPvJtxkgLGUng06k1ufT6h5XAOi2elTY7qQXAu3ONvWmL
-	 UYMUWIvbrx2Il3pgJDlDFkS5M1knPsU7oYX0Tlm6NduIDn0Xa/gWQg+k/zmbOEbRPWiu+
-	 eG+1n1Zq4uKsGBytNBmFdYaDG30QDsICQeSy8HWGxT3bWgRy+XQFlWb8iXbeolT8lfl7Y
-	 +g3lOwXdamMbhypuKG3ISacHrJyVI+DL7wddK+Zfr0c3UsTEXFDK4XtycBkJYNYKyBoJn
-	 sfOqtqyy92mR0vnqWnNpQYdBXB7MAqT0zD1OvKi9J+W4/vItqJJaamkXKRczv1lI7Lg==
+	t=1793609439;
+	b=vcqj9Uuum23kuseAtVjIfVCzuRl6rgvHUlqZquNJHEXMWneNGTQeqadMZqr+PETdbIke
+	 JPG/pXUF1cEhwrok4r2up9GzjLrTcw9yAill/3x+zCa6OmYBt7YPmbLBtyJPis3b9Fynf
+	 mg9Qfth3uQuSGfdQKhp3KO7hzSm7oWK/OHzh6XJVG/qy9fuzBbBuQKiPfLGHzMYzYuvKU
+	 mdswtKJEiHj+AoCsdghgVgEi1SackwdriLQbsiPhds/YSvMcbVf6chEaW3chhJEMQdC5+
+	 FKL2l5U2NeWWbkd5BL+gSJn+GkJc7M+R0pMIgS004jzOj7J7iRzttmE4CpqK0GqwMzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609381;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=+YEAseZvXPy4rzi3ilmBCswmMdSrruj82r2UTnccKOw=;
-	b=MNeMzx2p4lP9W7IHviQTNYWJ0QQluIjzetG8Ufy4bIZvFhNjKE45knoz9b8uWwHg+Y/z
-	 hbz71nbZPpO8R4AoWzkurREzouTV4+M1lgZBstfF9BRkaYu4344wn3+PRHcfymd70FKk3
-	 UkZNfkoplh2YfvYFpV/49vgjDXbgmnMiXnjpaDK5UithruOBe8FysBXElfF9Cyd0a2mM3
-	 GtEtyocLX2C6voRHbuVa/KZuReTXHfOcNrBBk9/WSFdL73Z38xXKmYyySImETQ4o/Iojv
-	 5H7+l0uV+E8aTtKahWyfOhHbJeWkeJrLu9LgjStlj+JPd9mIihlm/H9TjUD/CSYU+Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609439;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=QaWYWUrLhUfwC4NyrykAqy2T/OO+U82Y2EmtMkUqbZk=;
+	b=Ov9y7qFN4+Psy7dXjanlVxCY78eP8BVBWvZ1k0PU3ZpFfGmLEHcoUQvzLpbBvVgc2KkQ
+	 cvT+SVnT4DFgzxBdIzFDgvaBbL7puJZSjlF+jVhPmfgMZKRdpCxGnrEVYg0jWxyl7G8c2
+	 B2Wb7WCK6f5qlKUVLUJAbDoLQP+IgvvYgFqZGK2Qcxj+mYT3RE5kMIc6PLQ0Bc8gbd6V8
+	 wZ2OKiFxFkaKPnBSY67Iv2xrB6vSuZvcgceAuy4SoLHFtXkRxXzuXw3ldsO5V7SeC+7zI
+	 Bb0L06MxjcIEUfiHfg3dB1ABWTnufm5p2N/q7QxlU87aOyzT22q5KX4sgK8Rojy17Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.178
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eD3vegNV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A0E606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67A0E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5ec690faf85so748871e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:49:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793609380; x=1794214180;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+YEAseZvXPy4rzi3ilmBCswmMdSrruj82r2UTnccKOw=;
-        b=frCHogwCeRAF3BttSKpJ0T/jVlZsLkym7tQR2DhmBMwGO5uVZWNBJTX5+kT+wHKJuW
-         YuXlX+Edsj8RmBMQUUG9gADyQkCyFutB8wdswSmqdu5ba0VKNKJ5Mc/uJIeBzatbt1Ts
-         ZFHJHxnhY8vFi1d3NWYneqI3YaU8fkDhtrJkpSHsLLyq0/61RBfoZ3pkfQ/B10a4ZxlK
-         LidfL3Htm1WjS/XzwSU1PTIqJAovi1e4RedMqCghOWGpABF6HdB5pdjvOmTab2D0TnGS
-         j0n7WZRh+wJPOXq2gbvr035Re6cPZYd8QOzse/O7SVqo1F+r3H4hRczsrahOkjQdLdx5
-         YsSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9rYcT1SsYklhKGmAsfBLkyu614tS7g+kAOzBTFgiRU7VakHpBIJYWJfvs70XnAQ26vz4sMY3rb4gRkJc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81OWa5JE2QtZ4iG5SBylopn+fAKWYW8TkNT54tYTTahVpxB5sg
-	O4LfVMjQgYBDcTPCE1s1hec6MPKGJn5gChkeeCIvZ0QH7/WC2NvQqeQ01H7m5SCO
-X-Gm-Gg: AYBFou1BfCxdExxZAhCDLoz+W0YxFFZDg8sO3+3OnuFJu/1oi1gXKwv3AWsktnIhkEO
-	uCwoa+eECRbHr82qJkY0zRDm/ND4pDK92fr3+oQVtG5rxEZL0Rq1mQA4bcwNePBszIZ6wE3gSpw
-	jg5n0Ejy9R5+b8dgAyrCX56TFZVQIOi7B/It9BGT04yry7QbrMUYbPLEKeGgqRJJr+W3erUMo+u
-	DdyEl8O9+buDxudpwcpDzyXAbzB4OCcyR6pk4onlvZo8PLsPGyaLeOuM0oYZknvHQCJAUjS3zyI
-	mPVDy/JRDV+vD9w5G5S8EvqyYFADeE5Wzg8II4/ZqcWSMsK85mmGhyxzdccoyF+UO8zIvX57cIN
-	Mlp1257GAL30N/P1lJks9fhThqfsLB1b/0BJ339BcWuiCABLh3ULDi6ao8Ru1T85wNORjvwmXZB
-	vqBGfhP2iNzYXOG4Zk7wXn6uz5Ij6y/ef0SwDauk4fyUDIfuvEfXRrkD0MXt5KJMcOEit1Goyzh
-	qLe4sAGvB72eB874W+7p5n4tgPyYM9YFdj1W+Taz83YwB/XN+JlBlJ88kMEbQ7S6b8zWlJNzzJN
-	Fi/qAJf2WnG9f8h8CfMbG+9a/i2tF2N6qZ2O/LL0xV7BBILSFXrjqMQbcalrKZzYgg==
-X-Received: by 2002:a05:6122:210a:b0:5ea:f399:7820 with SMTP id 71dfb90a1353d-5ec6883a5a5mr3708839e0c.10.1793609380288;
-        Mon, 02 Nov 2026 00:49:40 -0800 (PST)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69bf54casm9726255e0c.9.2026.11.02.00.49.39
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 00:49:39 -0800 (PST)
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc0ccc2fddso668922137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:49:39 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByg0UWksgg7cqj6G/QwdhBh/ZABW/5T4cxJOeEdcKmjMzZB+2StwdESHBOop8Ch1QP7c10DY0WX85xyLI4=@vger.kernel.org
-X-Received: by 2002:a67:e10d:0:b0:7b2:b159:98c3 with SMTP id
- ada2fe7eead31-7d072640147mr3163529137.28.1793609379443; Mon, 02 Nov 2026
- 00:49:39 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B797E606A324;
+	Mon,  2 Nov 2026 08:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eD3vegNV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D681F000C1;
+	Mon,  2 Nov 2026 08:50:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793609438;
+	bh=QaWYWUrLhUfwC4NyrykAqy2T/OO+U82Y2EmtMkUqbZk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eD3vegNVhbx15mhQYNYj1Lbl/xaM6BD1eAxTN9bCnpcWXK9J7fCQGKhkq7ad7ZFs2
+	 El6xYwwcjTqrKVhMoICNoQJbGw5b8hbgvFYhZ29g1kujzgTbvK7acgWruYQ/ZITE3g
+	 h5Q5ie2PSEhOzTwirMDCC8SITikqEj90dr5BveB7OLKB41nEyerqOZot9GQZOxNN2U
+	 EdUuyip8aow+qEv+zTiMZK50CZIN4sabSA8i1mnwrHsP5OYaDSC+36Gq68v3r4RhSu
+	 xJA/PH0M4G+Ht2Z1ZcKs+ZZRkayCjgjdwXBNTZSZ7J8DeEP+plHAwkeBSvUmp1UHuy
+	 u7REK5fRtjEVQ==
+Message-ID: <a231be58-d42a-4d16-9e94-625457031d43@kernel.org>
+Date: Mon, 2 Nov 2026 09:50:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,71 +51,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030230646.709687-1-artem122novak@gmail.com>
-In-Reply-To: <20261030230646.709687-1-artem122novak@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 2 Nov 2026 09:49:27 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUacwihjpfJiGY486PT=tu2-jrSQX+ZTGAqk-iaLUzffw@mail.gmail.com>
-X-Gm-Features: AclHuK_7cktGh1g2g1V-jYGT89r8njgV4UvXrWAUVy37X6WOtxJHbkDtb7srpgY
-Message-ID: <CAMuHMdUacwihjpfJiGY486PT=tu2-jrSQX+ZTGAqk-iaLUzffw@mail.gmail.com>
-Subject: Re: [PATCH v2] sh: sh7305: add TMU0 clock support
-To: Artem Novak <artem122novak@gmail.com>
-Cc: glaubitz@physik.fu-berlin.de, dalias@libc.org, geert+renesas@glider.be, 
-	magnus.damm@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-sh@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 21/25] accel/qda: Add Audio protection domain attach
+ and its remote heap
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+ andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+ sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Ekansh Gupta <ekangupt@qti.qualcomm.com>
+References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-21-88f2f24a5f0b@qti.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261102-v4-v4-21-88f2f24a5f0b@qti.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Artem,
+On 01/11/2026 23:21, Ekansh Gupta wrote:
+>  
+> +/*
+> + * The Audio PD keeps the remote heap across daemon restarts, so only the first
+> + * attach on a device hands it to the DSP. The lock is held across the attach
+> + * so that a concurrent one cannot skip the heap while the first is still in
+> + * flight, and the flag is set only once the DSP has accepted it.
+> + */
+> +static int qda_attach_audio_pd(struct qda_session *session, struct drm_qda_remote_attach *args)
+> +{
+> +	struct qda_dev *qdev = session->qda_dev;
+> +	struct qda_static_pd_args sargs = {};
+> +	char *name;
+> +	int err;
+> +
+> +	if (strcmp(qdev->dsp_name, "adsp") || !qdev->remote_heap_size)
 
-On Sat, 31 Oct 2026 at 00:07, Artem Novak <artem122novak@gmail.com> wrote:
-> Register the SH7305 master, peripheral, bus and CPU clocks using
-> the SuperH clock framework. Add the TMU0 module clock gate using
-> MSTPCR0 bit 15.
->
-> Keeping SH7305 clock initialization independent of the legacy CPG
-> initialization framework, which relies on arch_init_clk_ops().
-> Disable SH_CLK_CPG_LEGACY for SH7305.
+That's value from DTB, so where did you document the ABI?
 
-Thanks for your patch!
+I see such undocumented ABI in multiple places. Usually requirement
+would be to document it, but not label. Why label 'ADSP' is not correct?
+Why "Audio DSP" would not be correct?
 
-> update: SH7305 TMU device tree node will use the
-> renesas,tmu-sh7305 compatible.
+Drop all this label dependency, completely (and do not introduce other
+names, like node name).
 
-I don't think this correction should be part of this patch?
 
-> Signed-off-by: Artem Novak <artem122novak@gmail.com>
-> ---
->  arch/sh/Kconfig                        |  2 +-
->  arch/sh/boot/dts/sh7305.dtsi           |  2 +-
->  arch/sh/kernel/cpu/sh4a/clock-sh7305.c | 78 +++++++++++++++++++-------
->  3 files changed, 60 insertions(+), 22 deletions(-)
->
-> diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
-> index 5ce7df11c3ec..315a1d6ee452 100644
-> --- a/arch/sh/Kconfig
-> +++ b/arch/sh/Kconfig
-> @@ -532,7 +532,7 @@ config SH_CLK_CPG
->         def_bool y
->
->  config SH_CLK_CPG_LEGACY
-> -       depends on SH_CLK_CPG
-> +       depends on SH_CLK_CPG && !CPU_SUBTYPE_SH7305
-
-Why not add !CPU_SUBTYPE_SH7305 to the existing list below?
-
->         def_bool y if !CPU_SUBTYPE_SH7785 && !ARCH_SHMOBILE && \
->                       !CPU_SHX3 && !CPU_SUBTYPE_SH7757 && \
->                       !CPU_SUBTYPE_SH7734 && !CPU_SUBTYPE_SH7264 && \
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best regards,
+Krzysztof
