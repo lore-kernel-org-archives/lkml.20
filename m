@@ -1,76 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603155;
-	b=YP1lTozMrSDIA3Ijh7rU2GL8Q+Bhi62US94YHRbqsSxFNgOxZ3g65F3kMZgtExNWZaFk
-	 4h6+mGFgUF6ky4CojJW03CN7ZbG6PNLxSFh1sTU7eLkntzhPzmbdKsd3h5SOKhoxdSkvy
-	 5ER/hO0OvXh8tXTa0lxixweJgnNy3qvT9bULXH++64DQYIVS+STgoAx3pCoedh1sM4qPk
-	 oQgQ7T2BA6530Kri7msIUknqyc/evGTHFcu7aFickVk+Hcv6utbui8XhWFiMi2lsT69c6
-	 tP7+BBM5w4UI6eIsTulC2BsGLUFq4wDhVn5k1iWDa2DpFT6SBaoWEnAp4dCoeN2gDBQ==
+	t=1793603162;
+	b=hvm3/9bqO6g8e5kJlTWngxLFnER2r7AeRadCMb8zt3525DcPNnr+3m8KtVtTD8agKtwv
+	 YPpdXZf5dEJwclSFx05gBk33s2LzyTef1mo7LhxPgLLljebJerFaFCHT5+ZkivlymOXSw
+	 c9zzZ47upz72D2VkyWDa9380R54Ff1WQc/nvPgehdGNwNQO780yZkmANIAzttpBnekHaW
+	 pEK4IEqswOfdcA+SF5Ii1EfmTtbpc2Rujorc0DPeLUkCHyJTSNBYz65YDolf/TbNJQXTz
+	 Z6nXkjz6sDkan1OhswVupJ1UcsJIEIQBJ7vaz77BAmvpWoexNSct7IKigq/94rzF/Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603155;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=S2dXtgoINO4jETLhwlkbR6oePZjzayLB0KbxKdo2N4Y=;
-	b=ClJPPjUrreopLzKufz4ZOjVMMAHv+TTlgVDh9fwqKGULEwjwihA3CXLD3dYD13uxicMm
-	 aFF+SHq5hLhzqXr0GZ6ejPkEP2wvtkZJ2kaOm4LIArcRyUfHB0pUIlMnNQry4B3xQRkGF
-	 yCwGIyYtkWQdGNvZ4nRQhwS9+dmunh3/ujFlFyb4QTXMAbies4dWEcnchXSnrp2Q2ilfD
-	 Z7fIC+mQVJcBzGm1wmLrtWOs1mY+bhdy2s26QmILN+S0hgCY8vJI1mnxWawvnzn2RGNLY
-	 M+xJL2ay/+FswvSP1+EP84yC3S2szaALVAVNF5EyoHKcDUzRE0sjtcyNXmqcfDbVqJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603162;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
+	 X-Spam-Checker-Version;
+	bh=fxvxOyfeL3TyWM0HpEr1pEAAoVWbYQM/Qjo+Zf2T8og=;
+	b=orVsQvxyX3W0z1J3YHM1rB70W0JJ50nNg69igFUqkpXNUMJC+dCGBpwyASsaZQJo8r1g
+	 3D88Ot3e1DMw7fUOew9uZmUNpfG+lIgW4o2BgOJOaenYLYrrnx89TqtnRHNFWz1Sn4er7
+	 uSto6ciMWJpSkoGe8sAbWNXwtAeyV3U41l36jKOg4y28DldpUtuvxOPyn8jebrn3Zu5Mr
+	 EnPDC53cQCI2YBPEKWXcFHd8E/7/SXFTBkocH1rqJHwVkYwduVyygBIDdv2CX4OwdZUHf
+	 s5a8zwJYDbRabA8aneVUE8n9teUcPRWdfhyhXb1Yo9KtGVnCy5nlyLl2bfCdfwA26dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--starchang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FAEspZHC;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77971606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:05:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77971606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--starchang.bounces.google.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=sGnJcCUZ;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3B563606A326;
+	Mon,  2 Nov 2026 07:06:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B563606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FAEspZHC
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so1615442a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:05:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793603155; x=1794207955; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=S2dXtgoINO4jETLhwlkbR6oePZjzayLB0KbxKdo2N4Y=;
-        b=FAEspZHCbWAm785Gemg9wThR+t7q2ZPqZP2E9PPj43Uu0kn7vvjNsV9wRCBPy8RPe9
-         0gnetozoKglOKincqWsuisrthjYnwO2uFIG24LFxV6lLtOw/jkaSszjaQJDxb3nSrSYr
-         2DnOex+n7K9VwpQgI4+JjCMJ6XjAztLeRg7Aj1FMnVUP/1xe7fVzgfyXt2Ri/eNinN6d
-         6tQCIKYrCPRCG7m/+FzaYT8KM+ZFdi8YJxeIZbrCaa1m1LEgGkG0wOHqlUDH3eB+mhwu
-         b/NAVdUIvQcOZi5JTezWC0j6q6AlZXj/BZB7o3Q2XoL3pNnucK2A6FiWzVtLRYfuy3fA
-         JwFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793603155; x=1794207955;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S2dXtgoINO4jETLhwlkbR6oePZjzayLB0KbxKdo2N4Y=;
-        b=MAcnIRMBFHu9uqTpbebXGmcR7xpx4miZvr9emHXEdBWS7YctG345CPZXpoKMAkEC3d
-         OzSwv288HV6uAzgdPMcELqIRkCCUcVXV1f++/Zp3ehiXGMjOaihgHDY7uqRjDmXQQ1/C
-         Ds7UiBm6hM7ky1pyIiKVvURfrk45SNdQHM99u06hcoEaO9QZ13uIP/XjqoOynelOVhfK
-         wC3RaUdE34SCU9/HJqqIqjHmuaCaGkRDe3jJq9vq8EecZaTAUT8vC6HbOaG+cCGkmeZ+
-         QV1dlC1OvvhmVjx4ay2tMgVM9klw8NdmsN3nmVLp0eVLGhnKCaK/hdOvu95gexVvOhWo
-         w1VA==
-X-Forwarded-Encrypted: i=1; AKwUvByzL0X5bF+4eZVRQEb1P4FJC1pCpv1+X67fx+SXkJZPJEYRqKiYqjaeyaDLOl3CeqEXwr1/D5lCvN5PLDU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb3IUqvOeQhMjdVBuVNYCOIJOYA1WKafI9TTsM0QHNk1SW++tV
-	hqu/ZOX4aL+OOPFp1xSlhzY8836/TdFqvUSyJjCQqiWkzaRBPvQnvoZ7s5y+4B7l4lsU3k0BaTu
-	lY/vHuXWH5I2R0mYnnw==
-X-Received: from pfbgq43.prod.google.com ([2002:a05:6a00:3beb:b0:8ac:3a52:2231])
- (user=starchang job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:9148:b0:3e2:ad7d:382b with SMTP id adf61e73a8af0-3e929019698mr7099554637.83.1793603154652;
- Sun, 01 Nov 2026 23:05:54 -0800 (PST)
-Date: Mon,  2 Nov 2026 07:05:52 +0000
-In-Reply-To: <c2780bb291244cf32c1dbda63f0dcf594d22da30.camel@sipsolutions.net>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=sGnJcCUZ
+Received: from [10.94.176.45] (unknown [4.194.122.136])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 9BF4320B7166;
+	Sun,  1 Nov 2026 23:05:43 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9BF4320B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793603147;
+	bh=fxvxOyfeL3TyWM0HpEr1pEAAoVWbYQM/Qjo+Zf2T8og=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sGnJcCUZ7VkX7g3iow3/Sb4W7WNHZyE49vUZRRluiUCM+SPVRuMjClxkOeHYwnnLD
+	 jrRADyKYJy+kZmeK2iB5TMCBG/Ii1zQsx8T1UeyxJ0+7BLiWviPvVQKMk1MFedE8oW
+	 DR/4wYzsxJu/29ngx1zV4inNQ3vAo0znXUSs0hnI=
+Message-ID: <133548dd-21de-4400-9acb-a424df75c90c@linux.microsoft.com>
+Date: Mon, 2 Nov 2026 12:35:55 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,63 +52,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026150539.1357037-1-starchang@google.com>
- <20261027015619.1745984-1-starchang@google.com> <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg>
- <20261028061644.2997812-1-starchang@google.com> <f631e178-d9ec-f335-9163-c44a9e6c58af@ssi.bg>
- <20261030030715.604215-1-starchang@google.com> <65cf2338-7bb4-3151-f3b1-ef171bb5723b@ssi.bg>
- <c2780bb291244cf32c1dbda63f0dcf594d22da30.camel@sipsolutions.net>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261102070552.3516567-1-starchang@google.com>
-Subject: Re: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping
- unicast ARP/IP in L2 BMC
-From: Star Chang <starchang@google.com>
-To: ja@ssi.bg, johannes@sipsolutions.net
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	horms@kernel.org, linux-kernel@vger.kernel.org, wangroger@google.com, 
-	starchang@google.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: edac: xlnx,versal-ddrmc: Add
+ xlnx,versal-xilsem compatible
+To: Borislav Petkov <bp@alien8.de>, Michal Simek <michal.simek@amd.com>
+Cc: "Veggalam, Rama Devi" <rama.devi.veggalam@amd.com>,
+ "Ghannam, Yazen" <Yazen.Ghannam@amd.com>, Rob Herring <robh@kernel.org>,
+ "tony.luck@intel.com" <tony.luck@intel.com>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "james.morse@arm.com" <james.morse@arm.com>,
+ "mchehab@kernel.org" <mchehab@kernel.org>, "rric@kernel.org"
+ <rric@kernel.org>, "git (AMD-Xilinx)" <git@amd.com>
+References: <1792587442-2794880-1-git-send-email-rama.devi.veggalam@amd.com>
+ <1792587442-2794880-2-git-send-email-rama.devi.veggalam@amd.com>
+ <20261022143730.GA1287910-robh@kernel.org>
+ <20261026203920.GA696395@yaz-khff2.amd.com>
+ <PH0PR12MB8125B27A7814A3818739C4B9CE6F2@PH0PR12MB8125.namprd12.prod.outlook.com>
+ <b683fcbd-ae5b-416c-96e1-7b0d7146c468@amd.com>
+ <20261029152549.GBauNlfeOlTwktwjYs@fat_crate.local>
+Content-Language: en-US
+From: Prasanna Kumar T S M <ptsm@linux.microsoft.com>
+In-Reply-To: <20261029152549.GBauNlfeOlTwktwjYs@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Julian, Johannes,
+Hi Rama Devi,
+>> XILSEM edac device is present on Versal and Versal NET SOCs.
+>> https://docs.amd.com/r/en-US/oslib_rm/Tool-Configuration-for-XilSEM
+>> (Actually also on Versal Gen 2 but firmware interface is going to be different).
+>>
+>> I don't think we should try to integrate EDAC memory controller with EDAC
+>> device because their usage is independent of each other.
+> 
+> Are you saying that you will have this XILSEM hw in different platforms?
+> 
+> IOW, you will have a Versal or Versalnet thing and then something else, and
+> then XILSEM will be in all of them?
+> 
+> Then perhaps it is better to have it as a separate EDAC "driver". In air
+> quotes because this is not really a driver but simply a wrapper so that it can
+> be called an EDAC driver.
+> 
+> It all depends on what hw configurations will be built.
 
-Thank you both for the great discussion and perspectives!
+The v2 [1] had a separate XilSEM EDAC driver. Are you planning to revive 
+this?
+> But if you have XILSEM *only* with Versal, then I don't want a separate EDAC,
+> hm, driver.
+> 
+1. 
+https://lore.kernel.org/lkml/20250722160315.2979294-1-rama.devi.veggalam@amd.com/
 
-Putting the two points together gives a very clear and coherent picture:
-
-1. Julian correctly pointed out the real security risk with Hole-196:
-   Attackers can abuse not only unicast ARP replies, but also broadcast GAR=
-P
-   announcements (sip =3D=3D tip =3D=3D gateway_ip) to poison peer caches i=
-n a
-   shared-key network.
-
-2. At the same time, as Johannes reminded, Linux already has a dedicated kn=
-ob
-   for that specific broadcast behavior: `drop_gratuitous_arp`.
-
-Looking at the existing architecture, the two knobs complement each other
-naturally:
-- `drop_unicast_in_l2_multicast`: strictly enforces the L3/L2 boundary by
-  dropping unicast IP and unicast ARP replies (sip !=3D tip) inside L2 BMC.
-- `drop_gratuitous_arp`: drops broadcast GARP (sip =3D=3D tip) without tang=
-ling
-  broadcast filtering logic into the unicast knob.
-
-This means users defending against Hole-196 can achieve complete coverage
-by enabling both knobs on the wireless interface, without needing to overlo=
-ad
-`drop_unicast_in_l2_multicast` or change core neighbor learning behavior.
-
-This also means [PATCH net v5] (which dropped IP changes and strictly filte=
-red
-non-GARP replies) is architecturally aligned. We can document this dual-kno=
-b
-recommendation in ip-sysctl.rst so administrators know how to fully secure
-shared wireless links.
-
-Julian, Johannes =E2=80=94 what do you think about this unified direction?
-
-Best regards,
-Star Chang
+Thanks,
+Prasanna
