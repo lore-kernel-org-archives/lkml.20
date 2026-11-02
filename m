@@ -1,55 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793662659;
-	b=UgfddwIYQHYuh8qlPqaxieSKv4fdgnsRaDOkFNl0d2hIMC5tDSFi+hzNFfuiVRv+KI08
-	 jyiL73EMx6FvBUm6NgzDFYWScMClnAiJY2XRWTSDTF/SIhP6UB8rP1JePJXfWzgld/qFO
-	 BnmVU+LoGeJ9uf73sm9AEPSkg4xFPxuSN4m4gZODjIfoGtz8rtcPG0rR7K8gTl8M8oxPt
-	 4YPW9o80buhaSOIRaMptY/oKFSwiPkPlgE7qMoizrBRliETZbE96913GmofAqN1OcuR3p
-	 g7NFiM54FawkHAkUdIHw2K4PM+WAoAjsq3+myHAgu57ZOVMph1hGC72xnJKkW6JFr9g==
+	t=1793662685;
+	b=QlhwoUBqBhBDYNRoKIjjvvjKVcTtYRhCEmOjtl+d7xBiz12DDFUXAGN3swFfn9bztK7/
+	 9wptJBJcHJ9uNA6/rBq4OOhm4xT0Z5iMTh0slizxYll1wveX3QIfBVGMkjVEvAhYAoXhk
+	 Tg8eVPnQLa6kQ2dbhMx+yllY4WsxMOVqO23AaYuaPLp759PteeRQYz+2CJwf6yvfXYjCq
+	 CHDWINyUk30roOhK2oSzqH2dhVWZNoJyniBRBCbKyrKwiepj06ItuKJTUaiokUfHlvDJ/
+	 bEJIKcDppg2ocJbVEDtNHHUZw4lBWeH2Jp7ir1lHveoM4bja6BLUMY+tz/z8C1PmA2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793662659;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=oBbOwdv7HQAsh6m0z82QEjFn2nZEMVYTw6CIehV5US8=;
-	b=EXq5I+ZNZ+XfcGRHohkpHO0JnT4WIhBpp0oVIjgzhDwtTf+ZmSql5BdaT6lC+o1vbbko
-	 qUJyTi+JZEBVc22b6LmQM9aM9xe4oDKdKF+iiJJ0oJLJYFEJP6KeF6R0DBTgzz5XZlsA8
-	 d/x+YEr9RVYrBRYct6GJZpH3vDusJECl57K4ptQAS9NWI9oxl4ttqhe1cnM/1+ia94DA1
-	 Ab2YtOKy/KqHDCZRoZkRJAVDLWfpyntojKgArOKI8MJMRGu3n0VU2Bp6SmJm4zUjPaxA/
-	 gd4Q+IFT5AzaFFOk/9/guY+PeKkdDjGhYpIIgecVkCgQlCrJQv8Hha+OlqDnRiu6Mpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793662685;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=ajTKbCVfUpvl1PRge5ZE4DWrvmI1TQg3QGvcmd035B4=;
+	b=r1dbwPkZjwgt2x99Zt+ogiQeOPYQMwAbXliIPHeX6NNnruhKuhkJNqufECwLTrgrZPL7
+	 pDzTuQCIdJbZo95D8++uQSs30O36is+/2V///HkGBrWgXX4TcxyOpd2sxFkjrCFAdi5GG
+	 IaMR5c9JiT/fNmvzxi60wW6AJPXd4PGKKPZBCH0SIbqg897qq3RjA2XDd0RHCFMPnP3jI
+	 xZCXEJIFwb7xPmkxU80Z9ehIZZgJgq0jLRIurz1G0U1naNBbYXvxWUzFOIvk21brvuK97
+	 1hy3g7ieddCqVDmMlC5WxKtt+Aoss8INvPrEvels65XFYyfg2wDI6ivNNJePAQbb2vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mk1Cjqsd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eZcRAdFi;
+	arc=none smtp.remote-ip=74.125.229.137
+Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785ED606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:37:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436CD606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:38:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 436CD606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mk1Cjqsd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 242A61F00A23
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:37:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793662659;
-	bh=oBbOwdv7HQAsh6m0z82QEjFn2nZEMVYTw6CIehV5US8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Mk1CjqsdB5MHIBfkvJAnrnLbWPw1mcXNGh18LyKHVNCWARR2ZuM9QifSTS2FL2M1K
-	 3gOx+MDAblO6LMyrMmCD5SMsyZ9184ru/m56WKcOC0U+3D4UeMIWSYR/2fPiUCKb2C
-	 Y1wbc3nQ84HFQwA1cAHAzKu+cqnr9NoTo1eHzEMMIQVIRdDwq7UoiX9L1uGqDLeErG
-	 oP71RYNGLLTe9Xb1uqsf0ZaacqIH3kROq0mfyieMBkylFpQe7qkxVq7FHr4U3l/GxM
-	 7PxiRRJwQU4IZXc7QtjhRCdDIDiYv5IEv4PN/ABemcOgVz12UEaxL6U2Mpx1TCo+TM
-	 Jw8+NqsxKTayA==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c423b145922so492820366b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:37:39 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBysogg0mj1tgLyCljtVWQ9ADkHkb9IPC7XK5FhOf9SrYIaOari2/jQ/6LUWWVui4qFZyQmQACjgyQKhL/4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+O/FyKHjoAmTD/uA/vovGxVox9CZPMEl+5DlpQ8LnRyKxaFjJr
-	SjbpbHwEidJveF1/yw5PPnc9UDJwp1qPh5LO2OZL+a/AVcUZPkYscR1hKGPThehyY6fo9N2+3IL
-	B1e2l2aZEqtra2FzzCan/mzJgK4rWtBQ=
-X-Received: by 2002:a17:906:ef0b:b0:c25:91bc:ff55 with SMTP id
- a640c23a62f3a-c4ca7a878bamr1000724766b.23.1793662658028; Mon, 02 Nov 2026
- 15:37:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eZcRAdFi
+Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-164f08a9e84so813796c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:38:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793662684; x=1794267484; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ajTKbCVfUpvl1PRge5ZE4DWrvmI1TQg3QGvcmd035B4=;
+        b=eZcRAdFir/tOfKhPPQaXb6mUvOPizNEbwDyFtkl3vKeIKU9Co8R0LPR3N7E8YyU+0G
+         2EdC+Hi7HYUfRQP/PCKsIm9h8tS8eEbpeWjCtKW5O49DuznCRmny/sHaglVMRcQjk1XW
+         wZt8hlBXazvlT3+G+BQ3Bmz9IyCxfZiYOF/RVxubvZmHO0sNkpaX5eNVfAoQpCQUlI5l
+         2QeIfN1za7Fyo1Y5LFedwCSm+BskmtaBZmZEv/AWmFxszO3hxsuhm+PC8SWdRra5+cJc
+         WZBdVfPBmr8WSta2fMLe085t0LYYVIzsbbeoSfFqPtbxZ27fS5V/opLjzid1gkFKzQ8Y
+         foCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793662684; x=1794267484;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ajTKbCVfUpvl1PRge5ZE4DWrvmI1TQg3QGvcmd035B4=;
+        b=my3PBwmzcaSiDVTFpQjBsFEeZyLg7Nm22OYgLsI94ngIDUD/ZsNuDTTHTt3g5szfJR
+         pZ7HFmJlomdS+MYCcZmtTwAAkm9T0Mdb3ElSokrE6XDx6IqTLCnnMkvscSM2Yr6tdaBe
+         HCM7VaigmGBj1BSrkoOKFiYLKyDs0nNr6ro+9DB7KXl+jtxFDriYi964OhxK5FUx0mDu
+         WTPFSEkRefGqL55fDVWKvI0xBTiNiAt9oLXNcLJep1XMkqJEBAR17gp4bMpz/qzHL59o
+         YodqCG1VV4SDTNUvxrGUjsLZZzxRfDD26A98ZpwuWN4wf2mWJnnnM/BX7n4jbUczzdwi
+         w/9w==
+X-Forwarded-Encrypted: i=1; AKwUvByD0+0ELepQL92F2en7Uvp6/F9jgnIdFGV+hoRYJVNhqTQjqmbEnPSuLYMAk5I9/JIxSdm32THTZnWm/AE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITXNdNo7ylz3dFgHcQ36fx2wP4NQq78RhmRMGq5tgqgl9JOjTn
+	no4Rut554F70qXXeC8qvf7Ww6jpTXJTb+s4IaanEL+lPn6dDY+KlInNW
+X-Gm-Gg: AYBFou2CoYist7lkpZMOyGBRx8H7Gfv50WdbZ2m9YYa1+sLCTOUb5pFUCqCvcRq59Ih
+	PnF9r6bAtylMeEJGLPU5AAHj4Q4J/hgrcv8xu7yoZFR9drIB+0fkjPa7U23YR4B7+eg4QfYxvE8
+	DmUByKRCGDQLldqWd0DGLo7ZgRl0QoZlq3UvyI4vzU2I/ME5GX0kXAmr0RAjjXJyy63Opwjruvc
+	t95jfBXER43seBETNc4SVg4f5yBDfcJouY6YMN7jYN72n15qdH+MdmM1e/4HK1jenK5eINGdR8E
+	2mTWgakcW8EPaKYO9t1+oWJhNnP2yVzWpcSoBx3zWGychpxmimQifJq4iC/xv0TNWLpOiv2MMdY
+	fRXMpA2FeCNrk4/d6KgV9smTijwPWxd7NCfcj60RlLT/tYTA2qjAEWQ6j1tTXLgTeaOqCGROJ9a
+	rsZ2LcJ9QLP3mWRpxetaNWsnkW42aLIT2GsveK/BZnk8cfBm2tGvJWxwHxMaC47gHyHotECOdYd
+	D8UGHZUbmZVKlvq7kpYFmmamW336ED+ip+e5qcito653w7cmxq/7ghJTwBeVF20r6KwY0aVziMZ
+	oCFZN+juF7AhRX7YE/XuzQ==
+X-Received: by 2002:a05:7022:68a4:b0:147:8a40:cdf3 with SMTP id a92af1059eb24-1ac5d1d155amr22814754c88.24.1793662684121;
+        Mon, 02 Nov 2026 15:38:04 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:60::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a136537sm36897502c88.18.2026.11.02.15.38.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 15:38:03 -0800 (PST)
+Date: Mon, 2 Nov 2026 15:23:26 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, edumazet@kernel.org, 
+	horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	michael.chan@broadcom.com, pavan.chebbi@broadcom.com, sdf@fomichev.me, 
+	bobbyeshleman@meta.com, asml.silence@gmail.com, daniel@iogearbox.net, 
+	razor@blackwall.org, leitao@debian.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net-next 2/7] net: devmem: charge the frag length to TX
+ skb truesize
+Message-ID: <aukaiHZJcYsRCpr0@devvm16445.scu0.facebook.com>
+References: <20261102191438.1059771-1-sdf@fomichev.me>
+ <20261102191438.1059771-3-sdf@fomichev.me>
+ <CAHS8izPefhGytGNeDWZzgZOi=gLeigZ63nFnkq1ERXXGwrNkeg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,58 +105,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-12-zide.chen@intel.com>
- <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
- <auUQgRVFASkWtkoK@google.com> <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
- <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
- <6c9a13c9-e6c1-4540-a8ca-1f0e800f3571@intel.com> <CAO9r8zOWzr61pkkF01AvEp+YSOo6bA1N=L91RYiM=ETtK5+D9w@mail.gmail.com>
- <69c428d7-239a-485e-9494-32b8aa82da05@intel.com> <CALMp9eRsR8xaUmQyVu5QmYx1cZ2qFGGk+31bMymhmN9_iaPuMg@mail.gmail.com>
- <f7213eba-5b61-4514-a315-bce64823fad5@intel.com> <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
- <6d84ab57-a702-4ac0-9e29-579449b3d826@intel.com>
-In-Reply-To: <6d84ab57-a702-4ac0-9e29-579449b3d826@intel.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 2 Nov 2026 15:37:26 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zMvkGzxUR7jBPVFWK+Fry4wk49J3WdwFqa22bSgGaS4YQ@mail.gmail.com>
-X-Gm-Features: AclHuK_Ks2MMA5FQP6XHgCe9LxJ4b9bkprLfwSiy6MqT83PaLeo4sR9HyA3cRUY
-Message-ID: <CAO9r8zMvkGzxUR7jBPVFWK+Fry4wk49J3WdwFqa22bSgGaS4YQ@mail.gmail.com>
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-To: "Chen, Zide" <zide.chen@intel.com>
-Cc: Jim Mattson <jmattson@google.com>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHS8izPefhGytGNeDWZzgZOi=gLeigZ63nFnkq1ERXXGwrNkeg@mail.gmail.com>
 
-> >> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-> >> index 38c7a4fa1007..3849b3f5234a 100644
-> >> --- a/arch/x86/kvm/pmu.c
-> >> +++ b/arch/x86/kvm/pmu.c
-> >> @@ -862,6 +862,8 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct
-> >> msr_data *msr_info)
-> >>         switch (msr) {
-> >>         case MSR_CORE_PERF_GLOBAL_STATUS:
-> >>         case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS:
-> >> +               if (msr_info->host_initiated)
-> >> +                       pmu->global_status &= ~pmu->global_status_rsvd;
-> >>
-> >> The underlying issue still requires proper mutual exclusion between
-> >> Intel PT and mediated vPMU, which I think can be addressed separately.
+On 11/02, Mina Almasry wrote:
+> On Mon, Nov 2, 2026 at 11:14 AM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
 > >
-> > Or maybe handle the host PT while the guest is running? Not sure if
-> > that would be correct.
->
-> Since KVM switches APIC LVTPC in guest context, it seems difficult to
-> correctly handle host PT PMIs while the guest is running.
+> > truesize isn't well defined for devmem TX frags: they point into a
+> > dmabuf which stays mapped for the lifetime of the binding, and freeing
+> > the skb releases no memory. The charge only feeds sk_sndbuf and TSQ,
+> > which limit queued bytes.
+> >
+> > Charge the frag length instead of PAGE_SIZE:
+> > - TCP uncharges in bytes (tcp_trim_head(), tcp_fragment(),
+> >   tso_fragment()), so the charge must not be smaller than the frag.
+> >   PAGE_SIZE only guarantees that while net_iovs are PAGE_SIZE.
+> > - Frags shorter than a page now count their length, not a page.
+> >
+> 
+> I don't know about this patch. The justification reads a bit like.
+> "net-iov charging is weird and broken anyway, so we can do whatever we
+> want. Charge size instead of PAGE_SIZE for no reason."
+> 
+> I agree that charging for net-iov is extremely weird. Neither of
+> today's net-iov types actually allocates any memory. Of course when I
+> was developing the original infra, I took every shortcut I could and
+> just charged net-iov as regular memory, but that doesn't mean we can
+> do whatever we want.
+> 
+> I think either:
+> 
+> 1. say net-iovs are not really occupied memory, so do a global cleanup
+> that charges 0 for all net-iovs (optionally making it conditional on
+> the net-iov type, so in the future someone can easily add a net-iov
+> that actually can be charged)", or
+> 2. change the net-iov size to be actually size instead of PAGE_SIZE,
+> and keep the current 'we charge net-iovs even though they're not
+> really memory', and then this patch makes sense.
 
-One hacky way to do it is to make perf_guest_handle_mediated_pmi()
-handle host PT before calling into KVM. This doesn't completely stop
-the guest from seeing the bit tho. Also, I think we may have no way of
-finding out if we still need to inject a PMI into the guest for a
-different reason or not :/
-
->
-> I guess Intel PT virtualization could be re-enabled sooner or later, and
-> addressing the exclusion issue would be a must at that point anyway.
+SG, let me try to explain it better in the commit msg. I don't think
+we can charge 0 because the uncharge path is non-zero. It currently
+works ok because skb frag uncharges the small error that can accumulate.
