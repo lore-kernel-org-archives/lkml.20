@@ -1,53 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627136;
-	b=xlb4LV6NFQyOBTXs8Dnxek1tPopVpFL5EpAPjAvxlP2XskOrbvHOELA9Gm9od6AalBze
-	 x5DTH66vaRa+x2Qkj3ToxrSMyy9qVH5w1o8MHDV86QoRAjgBlDE9APxRAY/jkiba/OHCR
-	 TTfEibQNxBN4uOp35iyssRFGBPPVq7p2w2m9fDPw6OXFadshG62A1ewcRYK4MV6v1Dc0/
-	 h/vSuoZsmpk5hye8rjVBfLBNFW6p63lTwDypJrU5aBt4kzHSsZIlFPDuqK44icRyO76Pz
-	 AJqdg5JrdNkkGH/ObfaipxxkYTdEPkGEqQcY5mM93lHbMJPY2oH6y93To2xqW2sZhfA==
+	t=1793627145;
+	b=ulzHJMYOBy4I9fv5f4SJjQckf5WsApR9oK7P21X9kqCS49QWZTzzQjSuWaX9cr/bql+T
+	 kHQNYiEspYItgn/T3BIqaQYHd++Up3pXbTMFTzzjbgw1bhGOXUrmWSA4QlH0wf7GGd9Il
+	 k+G2r87aFKxSaZrYSG6gmPWqrpMRDHyWyh9Dg07zgvX7Hh3n/vbD3jqyJSfo1b/BDV8B4
+	 CkLNtfsPQDRyDkkqOQ83htUXVEcGLD0SlsdemPkmBuEXNBlrjFyiYcnhWZXF/ezSqZMNm
+	 vOTCHl6afzxIeJib2QyIHEEw4pgpS/rc+ispljRW+HE1Dr03h7bebqmvscc1wV0hvsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627136;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=pVXNoWjABdU5RPs5u+4FyGSTCEAB3njAGPbzu/Xpj+o=;
-	b=Es9DC1u7zfjmkQcDrIlZozekjsAXKh0shw8WAwguL2gI+VJgKJzopde9iT/vRHXEPfHw
-	 4zEIyixPo45Bwl/xMocbw6gklHLMdbq0NKlNCtkjRdejlMB3JD7lTcfpR5buTW3lmCDkR
-	 vJ08nTsRRU7WLbjbqSXnLLRMcGCkSUMGGgvgXeXogaAoOYjXoYp1TVJ0Mg/UvAyA8CI62
-	 5VPeH9c3zdCNsfd01mczSbLSAhlA0GSkRKAWrZPOecWUWUjG0hef1eFNDJyje7O5kDtBr
-	 22vq3TaSeWrBsZBHYNIFwOY8pAljLvakNI3x//e+AMfdeE5dpZqyX7HRyGbBKelofzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627145;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=wAjHvNUqvta+sdWtgkRMRvCccI4IjDkWJMkgjZPZg3I=;
+	b=XBPWSKT+jaPwdzA3YlIhhOTExgH7Z21SfjEwUlO0Txv9nbNU0fc/a852HDz8+5SifjTV
+	 J5TIfOfFcPo4zX+ivatGhleSJwDDREi2EFpfJo9zmGnKNlb0mixL8vxCnPf5RvOd6Zsa8
+	 94wnR5gpnLNWTI+9Ri9EG+FHzQIru+el/XhwGE1+MrU3O2tcSNwbHhhQezbzXI7VZyeBD
+	 heG+7sM3+ouIsgez7bJAlrO8/GLgzTCy8sI/WZI18UBvmEEcDsu6QGa2cZdzib9DBNlFF
+	 aJrE+UJRAxywXqki14yvugdg0AJjnAQPmSufxX+rp5OYGj7Q+onObNZrMZNYlUmBkLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62A7606A327;
-	Mon,  2 Nov 2026 13:45:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C62A7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJCdS11NSz8XrrJ;
-	Mon, 02 Nov 2026 21:45:32 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6A2DjS7c084264;
-	Mon, 2 Nov 2026 21:45:28 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Mon, 2 Nov 2026 21:45:31 +0800 (CST)
-X-Zmail-TransId: 2af96ae893fbe0f-10c10
-X-Mailer: Zmail v1.0
-Message-ID: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
-Date: Mon, 2 Nov 2026 21:45:31 +0800 (CST)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAC33606A327;
+	Mon,  2 Nov 2026 13:45:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAC33606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=wAjHvNUqvt
+	a+sdWtgkRMRvCccI4IjDkWJMkgjZPZg3I=; b=4rM3iPsDSb9boXQ6brm7+db4tg
+	PHVq8i1cborxOF9RPrTxKkFecZcykXFwPEd3HIx+Ua9wzmvx2LwJmgBBXqh35fRk
+	nPEJAA4Rf+Vz2tAKF4WDLnb9R0NKw2s14GysDlvBkK3oCkkRnqvqMmYIVhLcO59m
+	+WshH5hKes0PLF45c=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWnAH3k+hqs8kZAQ--.13514S2;
+	Mon, 02 Nov 2026 21:45:29 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: au0828: hold the vb2 queue lock when releasing the queue on close
+Date: Mon,  2 Nov 2026 21:45:27 +0800
+Message-Id: <20261102134527.14486-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,80 +59,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDAvNV0gdWJpZnM6IGhhcmRlbiB2YWxpZGF0aW9uIG9mIG9uLWRpc2sgaW5vZGUgYW5kIG5vZGUgbWV0YWRhdGE=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A2DjS7c084264
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Mon, 02 Nov 2026 21:45:32 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE893FC.000/4jJCdS11NSz8XrrJ
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkBWnAH3k+hqs8kZAQ--.13514S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1kCrWrCFW3AFyfAw43KFg_yoW8ur1Dpa
+	95KrWjk395Xr4UWwsrXa1293Wru3Z8uFW0kry7ta1Svr1rZFyIvr1Fyw4jvrWUZ3s7Aw4j
+	qayDtrWakrWUZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
+	1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_Xr4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxU4zBTUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdS+DAAAsw
 
-This series tightens the checks ubifs performs on the metadata it reads
-from flash.  All five patches are about size and accounting fields that
-are taken from the image and later used without a range check; an image
-whose CRCs and node tags are intact can therefore drive the code into
-state it never expects.
+au0828_v4l2_close() releases the vb2 queue with _vb2_fop_release(filp,
+NULL) while holding dev->lock. The video and VBI queues have their own
+locks (vb_queue_lock and vb_vbi_queue_lock), and v4l2_ioctl_get_lock()
+serializes the queue ioctls with those instead of dev->lock. The queue
+can therefore be released on close while another file handle is in the
+middle of VIDIOC_REQBUFS or read().
 
-Patch 1 rejects inodes whose size does not fit the signed loff_t the size
-is stored in.  A 64-bit value with the top bit set becomes negative and
-passes the max_inode_sz check, and the read paths then do size arithmetic
-with it, for example (i_size + UBIFS_BLOCK_SIZE - 1) >> UBIFS_BLOCK_SHIFT
-in do_readpage() and (i_size - 1) >> PAGE_SHIFT in populate_page().
+__vb2_queue_alloc() adds each buffer to the queue before allocating its
+planes, so the release can find an MMAP buffer whose mem_priv is still
+NULL and hand it to vb2_vmalloc_put():
 
-Patch 2 rejects xattr inodes whose i_size does not match data_len.  ubifs
-keeps the two equal for attribute inodes, and ubifs_xattr_get() and
-remove_xattr() assert on the invariant; with assert=read-only or
-assert=panic a plain getxattr() or removexattr() turns the file system
-read-only or panics the kernel.
+  BUG: KASAN: null-ptr-deref in vb2_vmalloc_put
+  Write of size 4 at addr 0000000000000020
+  Call Trace:
+   vb2_vmalloc_put
+   __vb2_buf_mem_free
+   __vb2_queue_free
+   vb2_core_queue_release
+   _vb2_fop_release
+   au0828_v4l2_close
 
-Patch 3 checks the lower bound of the master node's highest_inum.  Today
-only the upper bound is validated, so a value below UBIFS_FIRST_INO is
-accepted and ubifs_new_inode() allocates numbers from the range reserved
-for special inodes.  With highest_inum == 0 the first new inode gets
-number 1, which is UBIFS_ROOT_INO and already in use, and the index ends
-up with two inodes sharing a number.
+Pass the queue lock to _vb2_fop_release(). Taking it while holding
+dev->lock matches the lock order the driver already uses in its
+unregister path, where vb2_video_unregister_device() takes the same
+queue lock.
 
-Patch 4 validates inode and data node sizes during replay.  replay_bud()
-trusts them, and ubifs_recover_size() may then extend an inode to a bogus
-size.  The normal read paths already reject such nodes, and truncation
-nodes are checked in replay_bud() as well; do the same here.  The data
-node end offset is also computed in 64 bits so that a large block number
-cannot wrap.
-
-Patch 5 refuses xattr accounting that cannot be decremented.  On an image
-whose counters are already zero or smaller than the entry being removed,
-the unsigned counters wrap and ubifs_jnl_delete_xattr() writes the bogus
-values back to flash; the next mount then rejects the inode because
-xattr_names + xattr_cnt exceeds XATTR_LIST_MAX, so a single removexattr()
-makes the image unmountable.
-
-To keep the severity claims honest: mounting such an image needs
-CAP_SYS_ADMIN in the mounting namespace (or access to the flash), so none
-of these is a non-root attack.  Patch 2 only turns into read-only or panic
-with the assert= option; the default action is to report.  Patch 5 is the
-one with a persistent effect.  Patches 1-3 are mount-time validation,
-patch 4 is in replay, patch 5 is runtime accounting.
-
-The patches are independent, have no inter-patch dependencies and can be
-applied in any order or as a subset.  All five carry Fixes: and
-Cc: stable.
-
-Testing: each patch applies to next-20261030, passes checkpatch.pl
---strict with 0 errors/0 warnings/0 checks, and fs/ubifs/ builds with
-CONFIG_UBIFS_FS_AUTHENTICATION, CONFIG_UBIFS_FS_XATTR and
-CONFIG_UBIFS_FS_SECURITY enabled and W=1 without new warnings.  I did not
-mount crafted images: this machine has no mkfs.ubifs/ubi tools and no
-mtdram or nandsim setup.  I can put together an image for any of the five
-if a runtime check would help the review.
-
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Fixes: 05439b1a3693 ("[media] media: au0828 - convert to use videobuf2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+ drivers/media/usb/au0828/au0828-video.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/au0828/au0828-video.c b/drivers/media/usb/au0828/au0828-video.c
+index 3c53105f3d2b..e3f894d67d7c 100644
+--- a/drivers/media/usb/au0828/au0828-video.c
++++ b/drivers/media/usb/au0828/au0828-video.c
+@@ -1094,7 +1094,7 @@ static int au0828_v4l2_close(struct file *filp)
+ 			pr_info("Au0828 can't set alternate to 0!\n");
+ 	}
+ end:
+-	_vb2_fop_release(filp, NULL);
++	_vb2_fop_release(filp, vdev->queue->lock);
+ 	dev->users--;
+ 	mutex_unlock(&dev->lock);
+ 	return 0;
+-- 
+2.34.1
+
