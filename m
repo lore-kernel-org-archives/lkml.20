@@ -1,50 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614377;
-	b=p/a9tyjKAeU2ULq9GJ1gmCOCZzkPmtz338jrBHbErUWf0WrmQf5pHOzw+Hto0wlqFzYt
-	 3KWbwOVxCvbHKkMRS+gaVBSqLnq+GVBMtq6cUGyR7/RNdLnFOd9zd38170D+PZW3LsShU
-	 G1fn2J2etJEaIu6pnA7v9wTxtT4XXeysEFt359aHzf7u1Y8zXUwVfYxuXqzmPR1HeFefU
-	 oZeanZw9W8qmnZ8YL3FXQI3sjrCMgqxFSZ21APdj8aItD8+8yw2qTLgCYAHbfHsl2EmTX
-	 LfpROyT2IWuDNCnUmpBrGtawRmki74d3uab/6nQnNlJszHEV8UkZOXUTCVdYtWtcxdw==
+	t=1793614385;
+	b=R3Rrgnd4HveH/nUkjAA4aMhKtTAV9ga4yRGK7UcyQ9g1UyBaUq882jW5dkP9u2NDtWyF
+	 3vooysxv7pokNjaHXBz13KvwnELfPYa/hIJ+n3DzDesjPXnr5X8AUlrGcEPyHSbjyQCSl
+	 M9a25bitaFHYs6jSf/DwldsEt0BDC6fF7jmgxCFYRZ/nwvvuubuM3hwJo1blp/oZZ9oQk
+	 QU8e6KFC8n95BMcK+kMwEeJYhfpT+A/WKV8V1wsuP9G7lzTD2t18ec2H/1E7C7+9lGkXx
+	 QCLPEwYLdpYqC83Gl19T3oVdOvz1VJ/C+DOBq1M2hTPa0mWiUzT8pcXUtfqrqlmyizA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614377;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=AIUHPAAXt1s3tQmTRgQTWCI8t2dy2mHDfBJvoW1CIRU=;
-	b=NKnUrNJ+ZrU8c9k1+trR9xSRJUKJ4/8UIjV7joqCWm6y7CVBaWQpgX5iphCGsnR08AUy
-	 m1dYrtDi/WAIzN2X16PZP/unBXTA3Z4khfHilwgb3/v0SwuzJcvDG9xaq22F4eZXG7Ewk
-	 26XF2vhRHo6RfTR/H0AIPGcms7+AAE6Xzbs0xnvoX+BDN+XJeZOCm6EENdL/Dmh3ICu+c
-	 E+MKfdldhQSklaCV/kRKWaqfUV5g7Xjm0r0jBKv19AG4jUH5FW33oCiDEFQpDaKlDNSDQ
-	 GEPRS1quYsS/vJTTKWSA/fLuNZV0A9o0YYGZWGk4wIkP/Uzm2ONiswkOCTFVJj0Vyug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614385;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=C/rEuinMCfbUrXPWZJGbZBm6SE6/AvXvnmCXC2u+vkI=;
+	b=MTopGyR1Pm2QNshT5Cu5/pTyMPPP8o8BOAOVUQZW2Sl19/HquTv6YzE2X0zWzVOMSbC0
+	 kGZ8kTARw+pATWDLq/IrO/Ua5upr+fLThcTemlrGxo6+7hiUJftsdATh9SsMfEYhQupg6
+	 duAT4wHhCMRilHfc4Hz78fLgihoiYUbz5EnDmlE61UtJdvju0vtkpXtwImNp0lLyJGsV9
+	 uSqmHV4/8InFV1QuWXtVZbWRT5QNMJrpFyfZhxLuQ5xJK54BZplLjfCJrUcvrp3YUqE8y
+	 pUjH9ZAoOmIIOiwAi9umaHqVHFiMaTzA9uaF3MetQZd8/Q9aFRPdlLDAIv0nhdE4WAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=gNFkVet7;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asncqXBl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C9C606A324;
-	Mon,  2 Nov 2026 10:12:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9C9C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C420E606A334;
+	Mon,  2 Nov 2026 10:13:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=gNFkVet7
-Received: from [192.168.1.71] (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6D7E04DC;
-	Mon,  2 Nov 2026 11:10:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793614231;
-	bh=Pbr7FqwHE7e4DKrbewizP5BIUnE5HZeSzQe6zlBuXgc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gNFkVet7a8YNgqKKfUattiD324ptZXZOwCs2ElXrPuQU7AEkmyGg5A9iUdpWCq4Zw
-	 n3Ag9IzEx8qDyTSIvwUgNi6XIZEQ9M9OPU17+kQcdYSQC8OD5QURTc/RfUc8aM907v
-	 EzbRU+ChlB6Zx8WxwMUhohSq1WiSg+C9Ivq9Tk/I=
-Message-ID: <4898b6a7-1824-412a-aef0-ae6bde021e38@ideasonboard.com>
-Date: Mon, 2 Nov 2026 10:12:42 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asncqXBl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9AA81F0093A;
+	Mon,  2 Nov 2026 10:13:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793614384;
+	bh=C/rEuinMCfbUrXPWZJGbZBm6SE6/AvXvnmCXC2u+vkI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=asncqXBlegDWEwCbD6PaXtPtQsNKAqjrkIKsLqMX1ZfPlLb3jdvIMYu0cPqXvrAWn
+	 sA5KZfFiXMSq2iWOkKDZyMFzttewzenYvU90UP5v4vhFSYWDSBOCYa5U/+RM049UWv
+	 k9kd3MvD7vsB3ke8BVj9bv4C6msCZ1OoR4h9lY5teE56xDECXWpjwskSV9URXtyaQU
+	 lk/i3okYymeZqrLG63RsvOhaqR+uyhYhm/KVBZMuoKGmDP0Ycs01qf3gRJPj2Gqpkg
+	 Xw94ilnGWvUhozS3k/aackHEZ4JUorHGVEBOEZItoPeEp+HLR5/DrScbwpXnDd6HJt
+	 WySZphCC5fwHA==
+Date: Mon, 2 Nov 2026 10:13:01 +0000
+From: Lee Jones <lee@kernel.org>
+To: Pavel Skripkin <paskripkin@gmail.com>
+Cc: ejona86@gmail.com, mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mfd/rk8xx: fix sleep during RCU read side critical
+ section
+Message-ID: <20261102101301.GC13023@google.com>
+References: <20261029192223.462367-1-paskripkin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,122 +56,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 17/26] mm/fbatch: no lru_cache_disable() in
- __alloc_contig_migrate_range()
-To: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Ackerley Tng <ackerleytng@google.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>,
- Binbin Wu <binbin.wu@linux.intel.com>, Christian Brauner
- <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Christoph Lameter <cl@gentwo.org>, Claudio Imbrenda
- <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>,
- JP Kobryn <jp.kobryn@linux.dev>, Jan Kara <jack@suse.cz>,
- Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
- Kairui Song <ryncsn@gmail.com>, Kiryl Shutsemau <kas@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>,
- Matthew Wilcox <willy@infradead.org>,
- Mel Gorman <mgorman@techsingularity.net>, Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>, Minchan Kim <minchan@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan
- <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
- Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>,
- Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>,
- linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
- <84ed3bf8-da32-3447-0577-052c5d1a56b2@google.com>
-Content-Language: en-GB
-From: Alen Karnil <alen.karnil@ideasonboard.com>
-Autocrypt: addr=alen.karnil@ideasonboard.com; keydata=
- xjMEafxhCxYJKwYBBAHaRw8BAQdAXswEEnvxYiHXb8Q8GsSAuaLuXqJFs3kmsMI7EWF9EuDN
- NUFsZW4gS2FybmlsIChXb3JrIElvQikgPGFsZW4ua2FybmlsQGlkZWFzb25ib2FyZC5jb20+
- wpkEExYKAEEWIQT0whyXpTyoVtApVAlRzoJ78NRPngUCagGrrgIbAwUJBaOagAULCQgHAgIi
- AgYVCgkICwIEFgIDAQIeBwIXgAAKCRBRzoJ78NRPnkpDAP4kmtHsMfTtV6BC1z7GTb86BL2g
- 9FC1EarGJDDzcafMGQEA6clsoXvRYjHPJexVebjmkI4bq1QM0X/L9Ffe0PfpdQbOOARp/GEL
- EgorBgEEAZdVAQUBAQdAsVoGZ4IK0EgJ8HU05PQKzK15jaCi/IEA/7Cw9ZzcBmwDAQgHwn4E
- GBYKACYWIQT0whyXpTyoVtApVAlRzoJ78NRPngUCafxhCwIbDAUJBaOagAAKCRBRzoJ78NRP
- nqYcAP0eh3LahCDsfNa8zsiK+8QzeujWPKhc5zDcIqrDI6xufwD+Mu9e202It54rNZb8UWEy
- V5OzTEy0JlsQfO6DYWIORwI=
-In-Reply-To: <84ed3bf8-da32-3447-0577-052c5d1a56b2@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029192223.462367-1-paskripkin@gmail.com>
 
-Hi Hugh,
+Nit for when you resubmit this.
 
-I've come across your series because of a usecase I have, namely this patch.
+The subject line does not match the expected format for the subsystem.
 
-Not to bore you with details, I got an IMX8MPlus with some cameras.
-Due to the cameras (and other associated HW), it ends up allocating 
-multiple framebuffers using CMA (currently 16 per camera)
-which is quite slow (~200ms for a single camera).
+<end>
 
-I've spent some time profiling and found that the biggest
-stall is when lru_cache_disable() is called. Just applying the patch on 
-its own, I saw greatly improved performance (cutting the delay almost 5x).
+On Thu, 29 Oct 2026, Pavel Skripkin wrote:
 
-This is on a 7.2 kernel.
-
-On 09/09/2026 11:16, Hugh Dickins wrote:
-> Remove lru_cache_disable() from __alloc_contig_migrate_range(). It does
-> not now benefit from lru_add_drain_all() first; and gains little benefit
-> from invalidating buffer head LRUs first, since 5.0 commit 80409c65e2c6
-> ("mm: migrate: make buffer_migrate_page_norefs() actually succeed").
+> SPI does not support atomic transfers, so it's dangerous to call from
+> atomic notif chains, since it can cause stall during reboot on
+> orangepi5 (see trace below).
 > 
-> This will be more controversial. lru_cache_disable()+lru_cache_enable()
-> were brought in for CMA page migration, see 5.13 commit d479960e44f2
-> ("mm: disable LRU pagevec during the migration temporarily") through
-> 8cc621d2f45d ("mm: fs: invalidate BH LRU during page migration") - I
-> guess the testing there must have been on a 4.19-based Android kernel,
-> without 5.0's buffer_migrate_page_norefs().
+> Commit 128115b520c6 ("mfd: rk8xx: Register poweroff handler in atomic phase")
+> moved shutdown methods to atomic notif chain, since i2c transfer didn't
+> work during PREPARE step. I don't have an access to rk3288 based boards and
+> patch reasoning is not completely clear.
 > 
-> It's possible that invalidating BH LRUs perhaps 0 times, perhaps N
-> times, will average out worse than invalidating 1 time and stopping
-> everyone else; or that folio_test_clear_lru() failures manifest more
-> than before (note how folio migration has retries on raised refcount,
-> but isolate_migratepages_block() no retry on failed test_clear_lru).
-> But let's give this a try and look out for regressions.
+> That's why this patch hacks notifier registration only for SPI based
+> PMICs.
 > 
-> Don't delete lru_cache_disable() yet: leaving stale folio pointers in
-> the per-cpu fbatches, with folio_try_get() yet to come on them, would be
-> bad for memory hotremoval: the lru_cache_disable() in offline_pages()
-> protects from that.
->
-Can the patch stand on its own?> Signed-off-by: Hugh Dickins 
-<hughd@google.com>
+> 66.145226] reboot: Power down
+> [  266.145581] ------------[ cut here ]------------
+> [  266.145986] Voluntary context switch within RCU read-side critical section!
+> [  266.146007] WARNING: kernel/rcu/tree_plugin.h:330 at rcu_note_context_switch+0x3dc/0x5d8, CPU#0: systemd-shutdow/1
+> [  266.147525] Modules linked in:
+> [  266.147800] CPU: 0 UID: 0 PID: 1 Comm: systemd-shutdow Not tainted 7.3.0-opi5-test+ #2 PREEMPT
+> [  266.148560] Hardware name: Xunlong Orange Pi 5 (DT)
+> [  266.148987] pstate: 604000c9 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [  266.149596] pc : rcu_note_context_switch+0x3dc/0x5d8
+> [  266.150034] lr : rcu_note_context_switch+0x3dc/0x5d8
+> [  266.150472] sp : ffff80008005b4e0
+> [  266.150764] x29: ffff80008005b4e0 x28: ffff000100903000 x27: ffffc7018d616000
+> [  266.151393] x26: 0000c4fe4deb68c0 x25: ffffc7018d639260 x24: 0000000000000000
+> [  266.152021] x23: ffff000100903000 x22: ffff0002fee4ef80 x21: ffffc7018d616f80
+> [  266.152649] x20: 0000000000000000 x19: ffff000100903000 x18: 0000000000000000
+> [  266.153277] x17: ffff80008005b8b8 x16: 0000000000000000 x15: 0000000000000000
+> [  266.153904] x14: 0000000000000a37 x13: ffffc7018d82a478 x12: ffff390171838000
+> [  266.154532] x11: ffff0002fee3a198 x10: 0000000000000001 x9 : ffffc7018d6642d0
+> [  266.155161] x8 : 0000000100000001 x7 : 0000000000000000 x6 : 7261746e756c6f56
+> [  266.155789] x5 : ffffc7018d93e807 x4 : ffffc7018cd48369 x3 : ffff80008005b058
+> [  266.156416] x2 : 00000000000002a8 x1 : 0000000000000001 x0 : 000000000000003f
+> [  266.157044] Call trace:
+> [  266.157262]  rcu_note_context_switch+0x3dc/0x5d8 (P)
+> [  266.157703]  __schedule+0x80/0x1540
+> [  266.158015]  schedule+0x5c/0xe0
+> [  266.158296]  schedule_timeout+0x7c/0xe8
+> [  266.158636]  wait_for_common+0xbc/0x188
+> [  266.158977]  wait_for_completion_timeout+0x1c/0x30
+> [  266.159401]  spi_transfer_one_message+0x2c0/0x838
+> [  266.159819]  __spi_pump_transfer_message+0x1f0/0x448
+> [  266.160258]  __spi_sync+0x224/0x450
+> [  266.160569]  spi_write_then_read+0x134/0x1b8
+> [  266.160947]  rk806_spi_bus_read+0x4c/0x70
+> [  266.161304]  _regmap_raw_read+0x1a0/0x368
+> [  266.161661]  _regmap_bus_read+0x48/0x88
+> [  266.162001]  _regmap_read+0x17c/0x260
+> [  266.162326]  _regmap_update_bits+0x7c/0x138
+> [  266.162696]  regmap_update_bits_base+0x6c/0xa8
+> [  266.163089]  rk808_power_off+0xec/0x120
+> [  266.163429]  sys_off_notify+0x34/0x50
+> [  266.163756]  atomic_notifier_call_chain+0x78/0x170
+> [  266.164178]  do_kernel_power_off+0xf0/0x170
+> [  266.164549]  machine_power_off+0x20/0x38
+> [  266.164900]  kernel_power_off+0xf4/0x110
+> [  266.165248]  __arm64_sys_reboot+0x27c/0x290
+> [  266.165619]  invoke_syscall+0x4c/0xf8
+> [  266.165944]  el0_svc_common+0x94/0xe8
+> [  266.166268]  do_el0_svc+0x24/0x38
+> [  266.166562]  el0_svc+0x34/0x90
+> [  266.166833]  el0t_64_sync_handler+0x68/0xe0
+> [  266.167203]  el0t_64_sync+0x17c/0x180
+> [  266.167528] ---[ end trace 0000000000000000 ]---
+> 
+> CC: Eric Anderson <ejona86@gmail.com>
+> Fixes: 128115b520c6 ("mfd: rk8xx: Register poweroff handler in atomic phase")
+> Signed-off-by: Pavel Skripkin <paskripkin@gmail.com>
 > ---
->   mm/page_alloc.c | 3 ---
->   1 file changed, 3 deletions(-)
 > 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 12fac9084c48..3e085a25a776 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -7147,8 +7147,6 @@ static int __alloc_contig_migrate_range(struct compact_control *cc,
->   		.reason = MR_CONTIG_RANGE,
->   	};
->   
-> -	lru_cache_disable();
-> -
->   	while (pfn < end || !list_empty(&cc->migratepages)) {
->   		if (fatal_signal_pending(current)) {
->   			ret = -EINTR;
-> @@ -7182,7 +7180,6 @@ static int __alloc_contig_migrate_range(struct compact_control *cc,
->   			break;
->   	}
->   
-> -	lru_cache_enable();
->   	if (ret < 0) {
->   		if (!(cc->gfp_mask & __GFP_NOWARN) && ret == -EBUSY)
->   			alloc_contig_dump_pages(&cc->migratepages);
+> Hey Eric!
+> 
+> I don't have rk3288 board to test. However, I strongly suspect that
+> patch does not affect your case.
+> 
+> I've tried to track down root cause of i2c hung, but no luck. Based on
+> FDT i2c is directly connected to GIC, so IRQs must be enabled during
+> PREPARE step.
+> 
+> Would be great if you test that patch.
+> 
+> ---
+>  drivers/mfd/rk8xx-core.c  | 19 ++++++++++++++++---
+>  drivers/mfd/rk8xx-i2c.c   |  2 +-
+>  drivers/mfd/rk8xx-spi.c   |  2 +-
+>  include/linux/mfd/rk808.h |  2 +-
+>  4 files changed, 19 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
+> index 21182df45d1b..c4c5907c9fcd 100644
+> --- a/drivers/mfd/rk8xx-core.c
+> +++ b/drivers/mfd/rk8xx-core.c
+> @@ -761,7 +761,7 @@ void rk8xx_shutdown(struct device *dev)
+>  }
+>  EXPORT_SYMBOL_GPL(rk8xx_shutdown);
+>  
+> -int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap *regmap)
+> +int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap *regmap, bool spi)
+>  {
+>  	struct rk808 *rk808;
+>  	const struct rk808_reg_data *pre_init_reg;
+> @@ -874,8 +874,21 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+>  
+>  	if (device_property_read_bool(dev, "system-power-controller") ||
+>  	    device_property_read_bool(dev, "rockchip,system-power-controller")) {
+> +		/* There is no support for atomic SPI transfers (yet?). Thus it's not possible to
+> +		 * perform SPI i/o during atomic notify handler.
+> +		 *
+> +		 * Patch 128115b520c6 claims that i2c does not work during _PREPARE state, so be
+> +		 * extra careful while changing modes here.
+> +		 */
+> +		enum sys_off_mode off_mode =
+> +			spi ? SYS_OFF_MODE_POWER_OFF_PREPARE :
+> +			      SYS_OFF_MODE_POWER_OFF;
+> +		enum sys_off_mode restart_mode =
+> +			spi ? SYS_OFF_MODE_RESTART_PREPARE :
+> +			      SYS_OFF_MODE_RESTART;
+> +
+>  		ret = devm_register_sys_off_handler(dev,
+> -				    SYS_OFF_MODE_POWER_OFF, SYS_OFF_PRIO_HIGH,
+> +				    off_mode, SYS_OFF_PRIO_HIGH,
+>  				    &rk808_power_off, rk808);
+>  		if (ret)
+>  			return dev_err_probe(dev, ret,
+> @@ -885,7 +898,7 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+>  		case RK809_ID:
+>  		case RK817_ID:
+>  			ret = devm_register_sys_off_handler(dev,
+> -							    SYS_OFF_MODE_RESTART, SYS_OFF_PRIO_HIGH,
+> +							    restart_mode, SYS_OFF_PRIO_HIGH,
+>  							    &rk808_restart, rk808);
+>  			if (ret)
+>  				dev_warn(dev, "failed to register rst handler, %d\n", ret);
+> diff --git a/drivers/mfd/rk8xx-i2c.c b/drivers/mfd/rk8xx-i2c.c
+> index 161b25fbe146..f6e137ba394f 100644
+> --- a/drivers/mfd/rk8xx-i2c.c
+> +++ b/drivers/mfd/rk8xx-i2c.c
+> @@ -243,7 +243,7 @@ static int rk8xx_i2c_probe(struct i2c_client *client)
+>  		return dev_err_probe(&client->dev, PTR_ERR(regmap),
+>  				     "regmap initialization failed\n");
+>  
+> -	return rk8xx_probe(&client->dev, data->variant, client->irq, regmap);
+> +	return rk8xx_probe(&client->dev, data->variant, client->irq, regmap, false);
+>  }
+>  
+>  static void rk8xx_i2c_shutdown(struct i2c_client *client)
+> diff --git a/drivers/mfd/rk8xx-spi.c b/drivers/mfd/rk8xx-spi.c
+> index bb85fe60518f..fba4b0582c8b 100644
+> --- a/drivers/mfd/rk8xx-spi.c
+> +++ b/drivers/mfd/rk8xx-spi.c
+> @@ -94,7 +94,7 @@ static int rk8xx_spi_probe(struct spi_device *spi)
+>  		return dev_err_probe(&spi->dev, PTR_ERR(regmap),
+>  				     "Failed to init regmap\n");
+>  
+> -	return rk8xx_probe(&spi->dev, RK806_ID, spi->irq, regmap);
+> +	return rk8xx_probe(&spi->dev, RK806_ID, spi->irq, regmap, true);
+>  }
+>  
+>  static const struct of_device_id rk8xx_spi_of_match[] = {
+> diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
+> index 7ffc904c864c..c55aa2effd18 100644
+> --- a/include/linux/mfd/rk808.h
+> +++ b/include/linux/mfd/rk808.h
+> @@ -1469,7 +1469,7 @@ struct rk808 {
+>  };
+>  
+>  void rk8xx_shutdown(struct device *dev);
+> -int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap *regmap);
+> +int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap *regmap, bool spi);
+>  int rk8xx_suspend(struct device *dev);
+>  int rk8xx_resume(struct device *dev);
+>  
+> -- 
+> 2.55.0
+> 
 
 -- 
-Thanks,
-Alen Karnil
-
+Lee Jones
