@@ -1,84 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793593951;
-	b=ucpcg4f43VEcVawL8HIIXYaeh0xWVPjD7cevb6Szx80a6j7B/vq1gQWB/gx0koLbdFDm
-	 3lpLI70gVky7kQ2mHY85OsGI52Tv21GpVBMBInZOZSeNIfcG1S0+H/3930BviCKzxdRS6
-	 Yq2RGuVac3J6CGX3+QIzJ36SZCjOunP5117arzEuZhBMCabc30w8vn9zgC9jOPSdTPq5c
-	 bxPdye7VYtkDHKz7C/1pfrzFb0b+L9ZZ/8h48GJaomFG0+orPaKX5auszPhDSo7wJpZzM
-	 aEqOg19L7gurJt1hl4HsslMKhrYZth7cLTXvBW0nnyJTgGZr8uZDoE1wBi3+ywx15Hw==
+	t=1793593954;
+	b=LWH5gtisALUfxwLa3PLn+dhv5R6+6DfFNr5EqJWhW/sCzrnqrAsD6BgoAkS/DOPM4NcO
+	 md1o3orpvHjR9NZlGirZKU9cVZE6nRanTaRFFhyJId056cTyns5CsxaVM2qPh7Q2zkA9j
+	 BxRYRWBrCmg5TkhQ6Lmo646eA1bAQ2N7EIOwxPTK7cma94ZqsHqj19XR82I08dZbqJV0x
+	 O0ZFt1FICfAT7LoO33rxmarCuYPXAkjqADT0WWN/V+B0pAArOjb+nzOQY8US9P5EQ1jJ3
+	 ABFS8LSkCApscNhOfAfJFE1CCjQcysqFm01dZm83Oan7ha7KSb9FdVMKvjI2GedAijw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793593951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793593954;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DlXdMLkjEmJpYFky7r1GU2us5l+hwiPBAYsVgOOCBHI=;
-	b=r1yfc+35hjVrxE3aOwhBQsBvcdvIUt1IGQ/EEa8DoGvGyjcSVaJJgaa0MdtrjvK+el6o
-	 cgUfy78qVTXd0p79kWlJeHws7YdNuqTzOSY0UGySGHFZMN73n8pfoVa4jxSmt1fXjEwcB
-	 R5y4fRHr3ld05Aekcc7nOFzMj/KN0o70SYIBSu+DVVMPFrDwRgZtGFMGbhNJy1r6/N0Yb
-	 5y7GajcEbVbu08mroRWOxBW4YODLqQauTosiYNem0rIlWJFIsmeGRHdjOv4BSSf4BhLlW
-	 7vihLW55FYll4vwPikEQX0bLos3YREl5tJxM/p1rEzps5E7EREQDULlz2YESiCpb83w==
+	bh=urssvPG3HxZMZLTOqJI/oNPuF6G5AsBo3NCrXStBrUE=;
+	b=MFVUob7kQT7bdFaCdD8f4IxMU34eh9IycKWyMgwYZSYyIVM+pAhek0qMAGyZJSy6uAWR
+	 p/VQoSgqArytex74xKV//exacKHmgsiIdEo9jkqfIlMeG47G7kHMjJfW0Xz9X6vffWxGA
+	 c51I3ALTyegn/GP1szbpOZqpMHpb4sHgnKuMidvBNo+kMwtyLN1pXkaomNy2vOIBBtKWK
+	 LwoQawPsk3qhaOW9vZ3wsgAKP1ZxTSU4S5BFAKx9bp4KuEKP3t/8JOTv4SPFjob939Amr
+	 SsGkKSBYm/+MWmLPamcoeiQGKcxO/w1vx2eP0yUDWQcgwGGQH0tLA26vaZIl8cIsgcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dKL9LJuW;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CgHQUxbf;
 	arc=none smtp.remote-ip=74.125.82.169
 Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B578606A335
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:32:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B578606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1097D606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:32:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1097D606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dKL9LJuW
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35829219da8so4250187eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:32:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CgHQUxbf
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso4564541eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:32:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793593950; x=1794198750; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793593953; x=1794198753; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DlXdMLkjEmJpYFky7r1GU2us5l+hwiPBAYsVgOOCBHI=;
-        b=dKL9LJuWhFXmzdDRj2UHtPkPOz4qCqpwVk610eB0lS9womuUUIEpx1pOs5WobIFeDY
-         Y5tnxRNze2ddcse61v7QG13uzcCOqky5RCVsH7Y7ahd1RPFRrjHNV1LzizP621X5GH35
-         PHZQY9DgLnzg3yppqbaJTx62AHvKyd8U5DlnmVVmDRhvc6j7WqBp0SvyF1hQnvSpRgq8
-         dmbe77h4+iqnPt0v73mA/lTOIw1p5EasjGAsgD7RM6g41ZfUdAnW9sbcMkfb7RhVD0HT
-         9naMECFIBE6y9fQA7uejnipd1amQhVvpTUMSuFGNf69KaYMBbWn+jO9YXb6PI8tbV54U
-         OsCg==
+        bh=urssvPG3HxZMZLTOqJI/oNPuF6G5AsBo3NCrXStBrUE=;
+        b=CgHQUxbfWNRPTMxJhQJKO1pMtzjN18ZvowBLSruKL6kayXJ+K+59BUCN9Bq+JlkO1W
+         vTlUcECRIlm+GLOFRN/rQxYR2OQHTfGkQnWRxMdwRiEXFArJmR8cojJa6xwFroyp2h+C
+         ZtHUZv7Mu3oA07z6/pNsiORWMQRztm8eioYp6IjiujDeUWUYv9QhvhQCwA4mjKqMeiqI
+         2BrFelmp8CYCu0MS6O/aBNwu0/xhA/JizKzsyx9iVti6tq608JjYsAtQ69WZpAN48vpN
+         TlDY2X0ZKBwU7Pr0wr8qU+danOAcYaKv4ZSij9ROKQn6eIeQZ2pzYnsEP2lUUEhadlYm
+         gAiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793593950; x=1794198750;
+        d=1e100.net; s=20260707; t=1793593953; x=1794198753;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DlXdMLkjEmJpYFky7r1GU2us5l+hwiPBAYsVgOOCBHI=;
-        b=S8KSX4e+oRZzhlwQHAdq1Jte0WbtgLpzLtrUV5YEQK1jLIUQgN33Uu+OhnqyBY12+U
-         bTf7JgFvKfuQcsWEJKBcguTubKBJGFaJDxNNIIntRFcY0lLm3rUdNWaClQ6PvbNwkh/n
-         lDRDklrIcllnZO8IXVzYvVoyHKy2E7fR2yQEQD1xhCuJZXubL1Nui58jw9EvqIoVYTgS
-         wp3Wnb2OIBDhgUhCe/l22wlhwPiFmmmRlv1Oz0BvYYKAydHZU5p2TQO7eWtDT4bdNP2e
-         UFtC4vixxl1C742iaS5dvYaYR6hDW0XYbSGHvOCK8jJORDDKaif7FSS5xtqzUnYZC7+r
-         gb+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy8B+7n3wDyWB3gyjX6tfsEeBln78XKRAjRofLtAtAWqdrfGF6QtQFE8P4+IgkgwTl6qfO/tru1wByDdAk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NuhQi62dznzEehQkwa09CANHpdLybOAYv1ZtzFriMF3RbyQ6K
-	f9gDoYXuk3hVPIv+tzCU3pNKvux1cab40ItyXBStm7Z9VkNrgF764HwX
-X-Gm-Gg: AYBFou2dglmy2rz56ieqbkKEGkMxETtYM7GviksuKkHk7SU0pG6xVyPrS0Ybbj/ZSW0
-	wPtggRItdPjR5Bj4yc391BTl6mErCDxugcQ2pnR2AhCuX27SfRdIXZYt17NUZmuPR1hL3x4OVJR
-	7Esa5zG5uOOA6xE7GQbi+Yc4tMSxDKXUXPvvG3YahXFFs3FrX8cfl+PN3U515o/D29DO/N9YQ7r
-	hAEEVVlJDJVFnkSh4EqRpmIegQkKtzDm7N7WvezvYBRYGfQqEWenGal9/9+2UdfF1t144oC8lP1
-	w25/0C0+RHZNKzO3TIaB1H5DAvbaZqNA76dn5XKyYMPzVePrmcK7UwmricxpIHS4PQqVbC3SDQg
-	djfd4/tDvlzvXsNntKA2PsCWcwg7y/RWW3K32UfcEvLBts+9Lec4vef6gK7T/sSZ0s+RyekDxMJ
-	hxFFboFKlYUDi69YgWFRzoSW6EDMeFpZlTLy0b+KIMqIjZJdZW7tOC1kCrJAY7gfzzJ/YwaxfUr
-	34VUrP99MIqKdt/GOG5scXGyi947e4j0+fYbKMJROW/4/oMIj2Tq6tKQIh06rRjT09j9qjVDAww
-	FKbFGqYfzVnI0O9Pjf2H1QMr9xeHIKmRuhCNyLWALIJqxb1UJBCD25nHoFP7wYEiUcSvFR4lXXk
-	zJFGvbO2XnztcCIHaYvQZrRNWjEkcf2O5R1McUgDAiLiSAXO1G4+ZPeD73UsM6A==
-X-Received: by 2002:a05:693c:415a:10b0:36a:647b:2d7a with SMTP id 5a478bee46e88-36a647b3661mr4922339eec.0.1793593950041;
-        Sun, 01 Nov 2026 20:32:30 -0800 (PST)
+        bh=urssvPG3HxZMZLTOqJI/oNPuF6G5AsBo3NCrXStBrUE=;
+        b=cmjvGuyw+OHUf2Q3pCjLar0txk40yOUeDUeFkwJ6bR7Z1X29XD6yMLgktcfPLno4tc
+         MKSK+M7GH7iSWi9ZEM4d5ytjQMCbALzPB6ym9Dei8EN5JrTHZdT3Z/wyLmiQH6pTP2Uz
+         UObxEk0HKIAt9J+Eqal1dmyNzDY2m8NmeaiMA9or2TOZQTlUGvYB3kk5sEn3495stvx/
+         Kd5309R79jISxW/vaMgH7Z3jIxCVhGqahPsk7p3oynohCX9BjKeQFZA5RcqQHzRWPzOE
+         TWUeadTyEqGVNOtSD9T74WPWB1llHdSHDP1JmFH6qOrKqLFvILB6yn9H45FHYxmKcNFo
+         J0Uw==
+X-Forwarded-Encrypted: i=1; AKwUvBzMniOgaqQTgkQW4xqiItbcRw0GNqg2S75wUyP5FEsRt4/dAsxkVhdEoalqz70fQKshz6YwvyLb9qB/AJc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AMb+Rnj3Pz3fZkuWjxlWLsXH/A3ZChsPnJSe8B/5stp54Ss2r
+	5JXhoR+5rXbMFikv+lYRNMReKVQl4zpvJAumdN4n/KSZ5AzfrgoEQREm
+X-Gm-Gg: AYBFou2JJ0U0Ep4BiA54nL3Y8gex61zxOO6wgzsE0uq9yXpfcHEYg4m2/Sd/RYmQi+v
+	zpk7ks37S0yGNUsm+PVD/OeRkwWwRLLOtbwAGDwm4cHDJ6SL+0fKJGzRfJwtGIkzp4oMPEv43XR
+	TxOBRGNoTHzqSzH0TVoWtgxVFdY3jjm9B1TgfMRT9lbmerT+F5zX+88PWpeIMoNiz3t+gzAQq2d
+	b76yenZElVUSYGUxtQyhsV0z997pIn/J9n2qvvyXsAZ3lRYc5fW7NJmHA000LuVdbIl/l/A2Lky
+	yygyvjwv3RT26p+Aknw2wHv4Azy/2yrBJFg0NTp1ozzvrj/OQ61ONOndW/s6oSKmLm98JrxnAOo
+	rACl2TrJb3ZbCvkHYQHvZfKFQnji5GidpA+6jSRJxR3wiaWrIZHFfRJqES64TiJcDZ48xDKSyk1
+	V5CfNmp+i5LLxJ6vDGlz0DxcVtQ32G7LkvHOzfFGJEkn9yo7CFBn7Mglw/HM4pVJEN6paL/ZIdX
+	XEtPNMlqd1VZfKsOwHj/tJdG7pSlAaDGeyJJvP2dqyzaO5kNspD2ZD19/foQlCVuPCg0B4Suwht
+	WjfR5DHnDFq2WaJuYTVS1auhQJvFJ+llSpwK3jnFfUgzX2wnJQheG7IBuUSk+Zg4cePnCS/nepw
+	g4d/MAwD/ZWLytB75J8B3AMLcLrcDeUbEGg92zUg=
+X-Received: by 2002:a05:7300:c00e:20b0:36a:2289:c599 with SMTP id 5a478bee46e88-36a4243a674mr17385958eec.29.1793593952793;
+        Sun, 01 Nov 2026 20:32:32 -0800 (PST)
 Received: from NB150512.ADVANTECH.CORP (118-163-147-185.hinet-ip.hinet.net. [118.163.147.185])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm38581063eec.26.2026.11.01.20.32.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm38581063eec.26.2026.11.01.20.32.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 20:32:29 -0800 (PST)
+        Sun, 01 Nov 2026 20:32:32 -0800 (PST)
 From: Hsieh Hung-En <hungen3108@gmail.com>
 To: dianders@chromium.org,
 	neil.armstrong@linaro.org,
@@ -92,11 +92,10 @@ Cc: jagan@amarulasolutions.com,
 	tzimmermann@suse.de,
 	airlied@gmail.com,
 	simona@ffwll.ch,
-	Hsieh Hung-En <hungen3108@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2 2/5] drm/panel: raydium-rm68200: Fix prepare error cleanup
-Date: Mon,  2 Nov 2026 12:32:12 +0800
-Message-ID: <20261102043215.990351-3-hungen3108@gmail.com>
+	Hsieh Hung-En <hungen3108@gmail.com>
+Subject: [PATCH v2 3/5] drm/panel: feiyang-fy07024di26a30d: Use mipi_dsi_*_multi() functions
+Date: Mon,  2 Nov 2026 12:32:13 +0800
+Message-ID: <20261102043215.990351-4-hungen3108@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102043215.990351-1-hungen3108@gmail.com>
 References: <20261102043215.990351-1-hungen3108@gmail.com>
@@ -111,70 +110,165 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rm68200_prepare() returns without disabling the supply regulator if
-EXIT_SLEEP_MODE or SET_DISPLAY_ON fails. Since drm_panel_prepare() does
-not mark the panel as prepared on failure, drm_panel_unprepare() does
-not call the driver's unprepare() callback, leaving the regulator
-enable count elevated even after subsequent successful
-prepare/unprepare cycles.
+Replace the deprecated MIPI DSI DCS helpers with their _multi variants,
+as suggested in Documentation/gpu/todo.rst.
 
-On failure, restore the reset GPIO to its unprepared state, following
-the existing reset sequence in unprepare(), and disable the supply
-regulator before returning the original error.
+Replace the initialization command table and loop with seven direct
+mipi_dsi_dcs_write_seq_multi() calls. Preserve the original command
+order and values, using lowercase hexadecimal literals.
 
-Fixes: 2b7ed18bed1a ("drm/panel: Add support for Raydium RM68200 panel driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-171393@kernel.org
+In prepare(), the first failed DCS write prevents subsequent transfers
+and its error is propagated through the cleanup path added by the
+preceding patch. The helpers also log command failures.
+
+In unprepare(), clear accum_err between commands so that ENTER_SLEEP_MODE
+is still attempted if SET_DISPLAY_OFF fails, preserving the original
+error handling behavior.
+
+In disable(), ignore SET_DISPLAY_OFF errors to allow drm_panel_disable()
+to clear panel->enabled, avoiding a stale enabled state after the panel
+is powered off. This follows commit 00efe8a68565 ("drm/panel:
+ronbo-rb070d30: Ignore DCS errors in disable()"). Command failures
+remain logged by the helper.
+
 Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
 ---
 
 Notes:
-    In this patch, rm68200_init_sequence() still returns void and only
-    logs DCS write failures. These failures do not cause prepare() to
-    return early. A later patch in this series will propagate
-    initialization errors through prepare(), where this cleanup path
-    will also handle them.
+    Changes in v2:
+    - Replace the initialization command table with direct
+      mipi_dsi_dcs_write_seq_multi() calls, as suggested by Doug.
+    - Route initialization errors through the cleanup path added in 1/5.
+    - Convert initialization command values to lowercase hex.
+    - Drop the previous Reviewed-by tag due to the initialization rework.
     
-    The error path does not send SET_DISPLAY_OFF or ENTER_SLEEP_MODE,
-    as DCS communication may already have failed. Instead, it follows
-    the existing reset and regulator shutdown sequence in unprepare().
+    The seven initialization commands were checked against the original
+    table; their order and values are unchanged.
 
- drivers/gpu/drm/panel/panel-raydium-rm68200.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ .../drm/panel/panel-feiyang-fy07024di26a30d.c | 68 +++++++++----------
+ 1 file changed, 33 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-index c535dc931903..3a59eb00274d 100644
---- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
-@@ -277,17 +277,26 @@ static int rm68200_prepare(struct drm_panel *panel)
+diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+index bb4cc1ea2ece..fa304eb7453b 100644
+--- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
++++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+@@ -13,8 +13,6 @@
+ #include <linux/module.h>
+ #include <linux/regulator/consumer.h>
  
- 	ret = mipi_dsi_dcs_exit_sleep_mode(dsi);
- 	if (ret)
--		return ret;
-+		goto assert_reset;
- 
- 	msleep(125);
- 
- 	ret = mipi_dsi_dcs_set_display_on(dsi);
- 	if (ret)
--		return ret;
-+		goto assert_reset;
- 
- 	msleep(20);
- 
- 	return 0;
-+
-+assert_reset:
-+	if (ctx->reset_gpio) {
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		msleep(20);
-+	}
-+	/* Balance the regulator enable count on prepare failure. */
-+	regulator_disable(ctx->supply);
-+	return ret;
+-#define FEIYANG_INIT_CMD_LEN	2
+-
+ struct feiyang {
+ 	struct drm_panel	panel;
+ 	struct mipi_dsi_device	*dsi;
+@@ -29,25 +27,21 @@ static inline struct feiyang *panel_to_feiyang(struct drm_panel *panel)
+ 	return container_of(panel, struct feiyang, panel);
  }
  
- static int rm68200_get_modes(struct drm_panel *panel,
+-struct feiyang_init_cmd {
+-	u8 data[FEIYANG_INIT_CMD_LEN];
+-};
+-
+-static const struct feiyang_init_cmd feiyang_init_cmds[] = {
+-	{ .data = { 0x80, 0x58 } },
+-	{ .data = { 0x81, 0x47 } },
+-	{ .data = { 0x82, 0xD4 } },
+-	{ .data = { 0x83, 0x88 } },
+-	{ .data = { 0x84, 0xA9 } },
+-	{ .data = { 0x85, 0xC3 } },
+-	{ .data = { 0x86, 0x82 } },
+-};
++static void feiyang_init(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x58);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0x47);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0xd4);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x88);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0xa9);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0xc3);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x82);
++}
+ 
+ static int feiyang_prepare(struct drm_panel *panel)
+ {
+ 	struct feiyang *ctx = panel_to_feiyang(panel);
+-	struct mipi_dsi_device *dsi = ctx->dsi;
+-	unsigned int i;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+ 	int ret;
+ 
+ 	ret = regulator_enable(ctx->dvdd);
+@@ -77,15 +71,10 @@ static int feiyang_prepare(struct drm_panel *panel)
+ 	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
+ 	msleep(200);
+ 
+-	for (i = 0; i < ARRAY_SIZE(feiyang_init_cmds); i++) {
+-		const struct feiyang_init_cmd *cmd =
+-						&feiyang_init_cmds[i];
+-
+-		ret = mipi_dsi_dcs_write_buffer(dsi, cmd->data,
+-						FEIYANG_INIT_CMD_LEN);
+-		if (ret < 0)
+-			goto assert_reset;
+-	}
++	feiyang_init(&dsi_ctx);
++	ret = dsi_ctx.accum_err;
++	if (ret < 0)
++		goto assert_reset;
+ 
+ 	return 0;
+ 
+@@ -104,32 +93,41 @@ static int feiyang_prepare(struct drm_panel *panel)
+ static int feiyang_enable(struct drm_panel *panel)
+ {
+ 	struct feiyang *ctx = panel_to_feiyang(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+ 
+ 	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
+ 	msleep(200);
+ 
+-	return mipi_dsi_dcs_set_display_on(ctx->dsi);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int feiyang_disable(struct drm_panel *panel)
+ {
+ 	struct feiyang *ctx = panel_to_feiyang(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+ 
+-	return mipi_dsi_dcs_set_display_off(ctx->dsi);
++	/*
++	 * Returning an error would leave panel->enabled set, causing the
++	 * next enable to be skipped even after unprepare powers off the panel.
++	 * The helper above already logs any command failure.
++	 */
++	return 0;
+ }
+ 
+ static int feiyang_unprepare(struct drm_panel *panel)
+ {
+ 	struct feiyang *ctx = panel_to_feiyang(panel);
+-	int ret;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+ 
+-	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
+-	if (ret < 0)
+-		dev_err(panel->dev, "failed to set display off: %d\n", ret);
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+ 
+-	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
+-	if (ret < 0)
+-		dev_err(panel->dev, "failed to enter sleep mode: %d\n", ret);
++	/* Attempt to enter sleep mode even if display off failed. */
++	dsi_ctx.accum_err = 0;
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+ 
+ 	/* T13 (backlight fall + video & logic signal fall) T13 >= 200ms */
+ 	msleep(200);
 -- 
 2.43.0
 
