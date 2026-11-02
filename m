@@ -1,82 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639696;
-	b=NHW0v2zUDnzDOG6qD14iP8z7HkqD7mtWfCXRKxVg7T5vDvr2Lfwl4Ln9eVBQ2HbN+OMb
-	 VAlLfCuq2TK1JNh8jxdlBZP51gCvplz7KgdABvtP+DDWi/VddZzL0XYToFhbfkWPH8uFA
-	 FAthV9DiEa4G9kIOLzBx4IVKT1hoCu7kejtd/y+BSnYly+E07XuFDAMWP94BzuSy+Jf3f
-	 P1WFMGvi4dpVkuvCNwgP6Rpy7gF0YjakfBQyGjEsJfCpEiVvzv1vlL4X2mZfBtpSSI3hm
-	 JHrl7E3AtinkKo+fbewTcv240Yer4jywko5nt5GogIGWyhbw26paCRrAAN1I1BO5EeA==
+	t=1793639703;
+	b=XPGauZlwKWKzGreXA2pwAm5NnhG4jlNtT9N4IQFIxiHu76/ZDhfD5EqIrZ5wu/rC5fiB
+	 wy6Uo78BufHWCZWqs9yyfAB8gdq8YCf2CJht0ihes0g9IJYmuALuP41lhCrK8SeqDXWNV
+	 LcRtFGpZOH6rVhUpOaOrWdIdDBmoIYhH0HQWuvMfVEEIQwz6x6bDKLO8O3GYL/njszh2v
+	 j2wRNNSQqj80yjI4Ll0WlJGrULiYoOkpjxxdbKWbu73wYv8vRLZq7tzR7Vn9sYtYnVYmL
+	 BCBQutxk84YXtlaLzXgXpfBah4Y/QvpBkYuvc8DL5Mdrn/AwFwf9vdxFOUCbxzhiCXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639696;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=VfgSp3cgsfqtOO3clcrfty+qD2Zy4jlWdWJ9kVouLvk=;
-	b=A/Y8itGT+wPJZQWFMLOOOcAwncQiAaZ+hg6fQJ5FJrjTZ+eK3L0a6wnekLC8onlhetze
-	 zr4rEGWFQaOy3a63Fj8U20ojXxRg+9GFPd0Ls6/ucqAmD/flzLV9hruMmUZd6nwyReOcI
-	 onF2s8/AJPTUnE8twCFtClpz9gd0cqc66IucaFzh7U8sjGXT+7dxw8QZxv7zjuM2Eq7Ty
-	 iXySoIdDceNQNFbwi09nj+cIA93rmVFnypwYAA5RlACaTHmETG3Jhcqn7bnF0U0EvV3QT
-	 CzLksQdzW+OjZLOygLE6/pPviiGaKpSRa9LhQ3QLQnRsYCh7eJMl2mQoiuTzsQW6ilQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793639703;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CyOa6Yxm6Bk3EDjTqUxDBcTk56bz4sW1WrhYk3lu8Rk=;
+	b=AarQ1DYw8NAQqY9aKbBFVgmGDCzLEp9jVbdeRucMqglOSMOdOP0DQR6xdLPjXey78/G4
+	 550C6zk3YPojEQQvDdDLU+44qhD0FBAFcrom7R6ZXEygRmWPZOn493ZFHIloL+fQ9vLPU
+	 01fjBb4fqaRaOONwV+B29kARhEDPaT0mtvCYR2en6GpAdWCY+46xJIMbsFR2pTFZrNk+m
+	 PbK+UriKNg/uaCFhdOPpa+AGxuqSSBru897riYK6HomIaDndJUV03CmAYEMg7dB/wH2qZ
+	 0cL/w6ojEgfzAmijfM7HqGbPdJOLS7CJgd28BbvMBTzVhHVb2zvs5r8zTe+fp8b+5KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=neXz4T74;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lVw2hdJ7;
+	arc=none smtp.remote-ip=209.85.215.197
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD568606AB87;
-	Mon,  2 Nov 2026 17:14:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD568606AB87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724306070CB4
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:15:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 724306070CB4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=neXz4T74
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793639695; x=1825175695;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nqQzviCw5HLUlkzPdxIrNo2VwlVDrJt0aA/SRwJ9iM0=;
-  b=neXz4T74KxmIE582rk9cxiAfniaxgwSeYPS2lWldPNXH+p1gN+jkRN11
-   oeDMhMHhGYqFNWhjmcGz7WWGcQv3gobuka3i4QxVm7YUPxDdmQUKnVw5k
-   8rgLQVZNA4HiNVAZ6n/5qK+ga0CIbQMypwc64gh9qyUz/8dIAIqRT2D6N
-   3mG8+nMTHNR8LFGxKuzUH21PRHpkYGOIMBlQG3hZQXk/j3O9Mj/Pt/MSH
-   8dAPNXboaUq5yCbnp1V8U/E8iQ9vA2qIGwhCBXFr+9nznmFnArdHX1MfZ
-   TIi07miO3GTVNlkch95xuRnGHN1fkze7vLg6BTq9GD/92+lZWPvfWoufE
-   A==;
-X-CSE-ConnectionGUID: qDbPvk8FTUatX8LC9KPPYw==
-X-CSE-MsgGUID: FHM28KRgSNi7LsuMtfelEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2225038"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2225038"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:14:54 -0800
-X-CSE-ConnectionGUID: TEisa5mfRCas7EY00UyDFA==
-X-CSE-MsgGUID: K8D+DgofRzKhGujlSLaQqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6055091"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 02 Nov 2026 09:14:52 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNvcP-00000000hYa-2VbF;
-	Mon, 02 Nov 2026 17:14:49 +0000
-Date: Tue, 3 Nov 2026 01:14:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Baorui.Liu" <baorliu@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Len Brown <lenb@kernel.org>,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	acpica-devel@lists.linuxfoundation.org,
-	kernel test robot <lkp@intel.com>, "Baorui . Liu" <baorliu@amd.com>
-Subject: Re: [PATCH v6] ACPI: button: Report wakeup key only for power button
- wakeups
-Message-ID: <202611030112.cVsBZFFE-lkp@intel.com>
-References: <20261102091049.856-1-baorliu@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lVw2hdJ7
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd67e98f68fso3525511a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:15:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793639703; x=1794244503; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CyOa6Yxm6Bk3EDjTqUxDBcTk56bz4sW1WrhYk3lu8Rk=;
+        b=lVw2hdJ7qQLXteU91SozDPhlOzjbMw6EJzgSr+UeMLO4nB5+/ENixgH5FU0NIqLS5F
+         CebTtnVgUPR+4vs6BOGMvCrepu5JF6LuKrEm1v4DU1RbL6AiASZxR+SIJh60nFSax3m7
+         OyzWvYHbDo3l8HRDBJ1m0bVCdA/EqwaHJ6DimVxJMCEgJmnI/pHbCUQPkCIpPhfzjrBR
+         HORjsL1SoSF3Hzs8qJKBfuvbQulr5pHgYCOSoJjlW1dCwP8pv7YBNGUfewZxj5lHbY8T
+         VhdROJGjQ6i73RMoFgWMIGbQopRCC+lTmRRqqss9XZasD4UrtdmmSULUUC8J/blDzX86
+         jPNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793639703; x=1794244503;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CyOa6Yxm6Bk3EDjTqUxDBcTk56bz4sW1WrhYk3lu8Rk=;
+        b=QG8MblcGSvfxxhLx+ICQKXXHoPaqI3tDjmbP139rg1t2jjbJ4Z35pizhFXdK5tEPwF
+         Y6HHXQWDjExt7fSU/SZml94/EzebnuS9NyyY7kpdlY5MsT1Nv0J5iKhmsuos/P8Y6Dd2
+         +Uwm2U0xHqsB42K4GfRSO5R+wZ/JxwOU5zW5mgBNxU81iOZquQcH2LiyozFgKm3r62fs
+         aE5ivgvwZPQdvQAdwjO1+MX7a0aWvYlsNTVrWCxEQPps1epfuwm1GIPtZsaNxLkKLDK1
+         v9kmlgxOW2/nA8BFcxVoHFLeFoalAxsyk/nWdyaiqv/wOX6qkDPmgyXWMKOfS/esAzDS
+         DG/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwpbnw7TfCb2aobuR6RBbLIUSNDSO4BvTVxjmOzf1fPFKi8j+hGCOoLnyucuENYcu9TZsXBpbPePyp+s8M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbIzPjgpgw4P4NdY/AZB7nb0vnnrADvvybsec6Wn/3OsDTcWrP
+	CDb5YQVoXFYxbnW3O5NFELweboDxe3yKjIDLCQmHK6hjz7cS+kHqRr37TLofM483X4zOhnu7lLU
+	i90R5dg==
+X-Received: from pgvf6.prod.google.com ([2002:a65:6286:0:b0:cc7:d071:a17f])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9145:b0:3e2:1160:6d20
+ with SMTP id adf61e73a8af0-3e928a80f31mr10111167637.3.1793639702622; Mon, 02
+ Nov 2026 09:15:02 -0800 (PST)
+Date: Mon, 2 Nov 2026 09:15:01 -0800
+In-Reply-To: <CAJZ5v0hDHcN9RN743sGhhDNESz0zwVDfBOJYvfTDwQv_STq4rA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,71 +79,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102091049.856-1-baorliu@amd.com>
+Mime-Version: 1.0
+References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+ <20261102093206.50b6c9ad@pumpkin> <20261102-smiling-binturong-of-gaiety-f64c1f@meerkat>
+ <CAJZ5v0iOJ1r1OvYhV_KJSnHOJL+oVUrbOXizLk0kbGNiep7a6w@mail.gmail.com>
+ <87a4nrfgjm.fsf@trenco.lwn.net> <CAJZ5v0hDHcN9RN743sGhhDNESz0zwVDfBOJYvfTDwQv_STq4rA@mail.gmail.com>
+Message-ID: <aujFFczvri8ME1Jy@google.com>
+Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
+From: Sean Christopherson <seanjc@google.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
+	David Laight <david.laight.linux@gmail.com>, Joe Perches <joe@perches.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-kernel@vger.kernel.org, users@kernel.org, 
+	Federico Vaga <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, 
+	Carlos Bilbao <carlos.bilbao@kernel.org>, Avadhut Naik <avadhut.naik@amd.com>, 
+	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
+	Dongliang Mu <dzm91@hust.edu.cn>, Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>, 
+	workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Petr Pavlu <petr.pavlu@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Baorui.Liu,
+On Mon, Nov 02, 2026, Rafael J. Wysocki (Intel) wrote:
+> On Mon, Nov 2, 2026 at 3:34=E2=80=AFPM Jonathan Corbet <corbet@lwn.net> w=
+rote:
+> >
+> > "Rafael J. Wysocki (Intel)" <rafael@kernel.org> writes:
+> >
+> > > So it occurred to me that it might be actually better to stop sending
+> > > messages directly to LKML subscribers and only make it available for
+> > > download somewhere and as a Lore archive.
+> > >
+> > > Is there really anyone depending on receiving all of the LKML traffic=
+ every day?
+> >
+> > * raises hand
+> >
+> > Some of us crazy people really do depend on it, yes.
 
-kernel test robot noticed the following build errors:
++1, e.g. it's how I found out about this proposed change.  FWIW, I don't ac=
+tually
+need (or want) to receive *all* LKML traffic; I probably only truly consume=
+ less
+than 1% of the mails, via heavy filtering.  But AFAIK, there isn't an alter=
+native
+way to arbitrarily choose what traffic is important to me.
 
-[auto build test ERROR on rafael-pm/linux-next]
-[also build test ERROR on rafael-pm/bleeding-edge linus/master v7.3 next-20261030]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> Exceptions would be straightforward to make though I suppose.
+>=20
+> So really my question would be how many people there are who depend on
+> receiving all of the LKML traffic every day via SMTP.  And I honestly
+> think that not everybody subscribed to it.  Probably not even 10% of
+> those people.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Baorui-Liu/ACPI-button-Report-wakeup-key-only-for-power-button-wakeups/20261102-171049
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git linux-next
-patch link:    https://lore.kernel.org/r/20261102091049.856-1-baorliu%40amd.com
-patch subject: [PATCH v6] ACPI: button: Report wakeup key only for power button wakeups
-config: parisc64-defconfig (https://download.01.org/0day-ci/archive/20261103/202611030112.cVsBZFFE-lkp@intel.com/config)
-compiler: hppa64-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611030112.cVsBZFFE-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611030112.cVsBZFFE-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/gpu/drm/nouveau/nouveau_connector.c:27:
->> include/acpi/button.h:28:15: error: unknown type name 'bool'
-      28 | static inline bool acpi_sleep_pwr_btn_wakeup_pending(void)
-         |               ^~~~
-   include/acpi/button.h:1:1: note: 'bool' is defined in header '<stdbool.h>'; this is probably fixable by adding '#include <stdbool.h>'
-     +++ |+#include <stdbool.h>
-       1 | /* SPDX-License-Identifier: GPL-2.0 */
-   include/acpi/button.h: In function 'acpi_sleep_pwr_btn_wakeup_pending':
->> include/acpi/button.h:30:16: error: 'false' undeclared (first use in this function)
-      30 |         return false;
-         |                ^~~~~
-   include/acpi/button.h:30:16: note: 'false' is defined in header '<stdbool.h>'; this is probably fixable by adding '#include <stdbool.h>'
-   include/acpi/button.h:30:16: note: each undeclared identifier is reported only once for each function it appears in
-
-
-vim +/bool +28 include/acpi/button.h
-
-    17	
-    18	/*
-    19	 * Set in acpi_suspend_enter() when the fixed power-button status bit is
-    20	 * observed (IRQ-disabled context). Consumed by the button driver on resume
-    21	 * so KEY_WAKEUP can be reported without calling into the button driver from
-    22	 * that early path. Implemented in sleep.c (built-in); safe when
-    23	 * CONFIG_ACPI_BUTTON=m.
-    24	 */
-    25	#ifdef CONFIG_ACPI_SYSTEM_POWER_STATES_SUPPORT
-    26	bool acpi_sleep_pwr_btn_wakeup_pending(void);
-    27	#else
-  > 28	static inline bool acpi_sleep_pwr_btn_wakeup_pending(void)
-    29	{
-  > 30		return false;
-    31	}
-    32	#endif
-    33	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+There are quite a few subsystems that use linux-kernel@vger.kernel.org as t=
+heir
+one and only list, including (almost?) all of the subsystems that are route=
+d through
+the tip tree (x86@ isn't a subscribable mailing list).
