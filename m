@@ -1,59 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793640855;
-	b=VL/YN2YrHTi/fma+DEtvjyQZ7a3mfXG2BPRjtmxec2cIaMNsny0vc0d8kyfe2qhGgli2
-	 1tEAFCwqePxpnSwFmWRyhfdu8VWOV0S9hq5ar67utUIcH6/9ELOd83QqET/wtel4tmVGT
-	 56TIwuJWPsTbjVr6YLRHPfCTX/zYHYztNYfjznezdgwmkFr9QRzVt35HUXY7jGj2npKo8
-	 jC7zCCtYQG0I4ALwQykreMWIWTOi74Y5Pz6AXV7vt0+oxexXYtRe8ujsyFvNgObMaH6g7
-	 EgM5kAARzDbgFGQtZU4yU/yVtqy8sU5HpUjNnyTlMKJsNIQGeEgNYAbHlrKloqawKJg==
+	b=U30MNV6SFjnEcZ2mqDy1gOxWZjkwW13T8vuhQJCu6oGE9Ls85jrXW9aFLejMUyBTRqcp
+	 UllFCf92xzr7TxBMuhjhecEzo1F6bjrszH83mOkaIMCCvWaTsl6uhUvylcDLExcACEUty
+	 0hMQQALSI86hCcKdD4zdWU2UWOd3hhAV9LDAgP9Dk/1mjkipS7tJpf8K5OSbiH7FE8AKr
+	 4gVzS4i88beoQrWZq8pr1DrJ2Sj/WhKTJ51U4GgcKjKwZwNM6F7dFm3KFYiR+awlExQhc
+	 YJUphhFipOe7ByE9oEDxU8uzyw4Wx5h3+VT5zL6E6FxKGxaOKXIrb5nOyPL8qNFp1wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793640855;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=qpq7lIG5/HRt+2swVzeYdkDxOzJtStedVh4a/jEaJD8=;
-	b=r+UuV+ZhMj5cq9iq8ilybG35DgCOvRbr3w5HvM2vI9tFt/hVGGWv3demUNGm0aRIFqWe
-	 KKOFsR7z7iKSsghC2hLfr3Eoth+drl3fl6zj+jgIZ3iMb1HntT+9+3TVDqt9l5tMFgH67
-	 b8zvikm1BelGWukH6GRRPmKZ0TNDwNobVecFsUpMaDFMOaIC+ylK0ZDVHc1MtIXKfkVuQ
-	 R+uVn6AZhBJSJehw1j9kk/MWDTSmHQxMA68oB1Z+h1rVKhzJjOzetlOuhuYSTNVsppXmO
-	 C9V2svxwpgAXkLZ3puG5iJ7V1wpETKc7u9R+jslIobNgyUQxLyQXnLY5b1q6u9KGaWQ==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XSPCp+WIcHbdpqO5iyoSucAVoJTXBn3u+PbDuncVOEI=;
+	b=mlNLLqkSB/7ER61UcMasp2s4A1oE7sEj5bRWjHQbCnwLT1fWH/8FuC8jv/SPz4JgjZa6
+	 S05Kxb+vJaqKq77NaltJUSDKT5sMuzfyplvsRhAVu3SHPio/OtILRjg/OPLBh+9MYr2wr
+	 MeEsxnnN86+Ytn7klp2HR1f0wxUkf7O55wiD1PpwrxrfJvGJrC4foLbwxcDIJ4QYFasAS
+	 53nRSnN/a3/VlxosHlrr5BWtlbL65//WPD5jUrk1tW4Y3E/N6bK7pSfBZZcDPGooBKJhf
+	 gBhWl4LJ7eLt142d1KQrOYKWyygHk5DfbbSmoZfutoEbmP7ZhOblbt8fnAqYXomT8fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=5KCmrODy;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="boGGx8/S";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468FB606C3FE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2593606C3FB;
 	Mon,  2 Nov 2026 17:34:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 468FB606C3FE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=5KCmrODy
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id D48011C0B81;
-	Mon,  2 Nov 2026 17:34:11 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 3FAA72002D;
-	Mon,  2 Nov 2026 17:34:09 +0000 (UTC)
-Date: Mon, 2 Nov 2026 12:34:08 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Naveen N Rao <naveen@kernel.org>,
- "David S . Miller" <davem@davemloft.net>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Tiezhu Yang <yangtiezhu@loongson.cn>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, John Ogness <john.ogness@linutronix.de>
-Subject: Re: [PATCH 0/3] probes: Use trace_printk() in probe handlers
-Message-ID: <20261102123408.0fb950bf@gandalf.local.home>
-In-Reply-To: <179360345418.115681.193455787480210412.stgit@devnote2>
-References: <179360345418.115681.193455787480210412.stgit@devnote2>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=boGGx8/S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E52571F00A16;
+	Mon,  2 Nov 2026 17:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793640854;
+	bh=XSPCp+WIcHbdpqO5iyoSucAVoJTXBn3u+PbDuncVOEI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=boGGx8/SSCrZHnJH6HokzRuuYeNmfCfWN6e7hNmfmHRo0cfCQb+W5zOEJ3PoC2dSy
+	 3wTaRM1IRiygAzVdUoIb+/L1wZ8lkaKAZ/gmNIuiKUePK8+6FOyfAvjbKJbWiUllct
+	 MvJTD4zwtcDkwREOWFWBk1rR4p6zrFov4skl6TlvbkTq6Bjepcx4FlkYFiyBQxzRtW
+	 vlUOgz1Zf5EH+chkGPr4uCb4oJTR+SizKci10BmQ09OR+ImPTrfLFdIJ4fckAJRXza
+	 UrnHrZTNXd9VS1+cQHSFFzBYFn8R27tGVDe4VhGU6SwuVqbuECKLhMaaC0B7xy8kYG
+	 XbY7HjMPxEzyg==
+Date: Mon, 2 Nov 2026 18:34:05 +0100
+From: Thorsten Blum <blum@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jia Jie Ho <jiajie.ho@starfivetech.com>,
+	William Qiu <william.qiu@starfivetech.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	T Pratham <t-pratham@ti.com>, Frank Li <Frank.Li@nxp.com>,
+	Pan Chuang <panchuang@vivo.com>,
+	Maxime =?iso-8859-1?Q?M=E9r=E9?= <maxime.mere@foss.st.com>,
+	"open list:CRYPTO API" <linux-crypto@vger.kernel.org>,
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:QUALCOMM CRYPTO DRIVERS" <linux-arm-msm@vger.kernel.org>,
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+	imx@lists.linux.dev, vkoul@kernel.org
+Subject: Re: [PATCH 1/1] crypto: use dmaengine_desc_set_callback()
+Message-ID: <aujJjW1ploEzmcZ4@kernel.org>
+References: <20261102164538.3834039-1-Frank.Li@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,67 +73,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 3FAA72002D
-X-Stat-Signature: 7ckdacpycu7hbqk64obfj93p47cit5qh
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/guh2Tz/bFMPzEWGFSiw4+Tr0ihxK2MSI=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=qpq7lIG5/HRt+2swVzeYdkDxOzJtStedVh4a/jEaJD8=; b=5KCmrODyWfBoGvRe+QqlpeXT4OKDHJN4t1gtVIqx8xdkV5NbI6dAilJx6THR4qE1j6TUNYDbOGrFJP0WGwxxGx+5lzY2itfP6QSu8zhR9fC7FtQJR/b9p6iYzZRifBh2Babe05GQHXzDzROooiY7HCWc7pNeTvcx8rl99a/rjoI=
-X-HE-Tag: 1793640849-471523
-X-HE-Meta: U2FsdGVkX1/cHMCQNDM9YHYra2VrVZpn3rMXZqoKFr9Um4okpo1JBddl+5jKSfjOfD/U3u1uTSMtWsIw4eIzu5a2PgP1iExl08tr+3AstoqZe5Abx/0FEXbrxyRBo0CgKe5QEu4ncFHJ9Z1wGTBzT6aFAEG/4xQ/1RR8fC1mnRelRlfiqk98d/eiRj71r5dMK+s4OPx+LmWDL9ItUrdit09lihy2DbuZWTsGvAIX3+AGIYr767O6K7EEJ6qnZIcZW9XsMjx9or50Q/d1nkfPHy9XJBmqBgk4gmgUwpOjx+RGbq/LuKvJN9/Raiwtlf5/0AkVI77Zl5Pe5HBkwmJpkB8q3B2t47kA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102164538.3834039-1-Frank.Li@oss.nxp.com>
 
+Hi Frank,
 
-[ Cc'ing John Ogness ]
-
-On Mon,  2 Nov 2026 16:10:54 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-
-> Hi,
+On Mon, Nov 02, 2026 at 11:45:30AM -0500, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> Here are patches to update the probe sample code to use trace_printk
-> instead of normal printk. Since the fprobe and kprobe/kretprobe handlers
-> can be called from somewhere where console is locked, using printk() is
-> basically unsafe. Only the unoptimized kprobe on x86 is safe because it
-> is ran with NMI context (in this case, the kernel uses printk_deferred()
-> automatically), but optimized kprobe/kretprobe/fprobe are not.
-
-I don't think printk() is unsafe in these situations anymore.
-
-John?
-
--- Steve
-
+> Replace open-coded assignments to callback and callback_param fields
+> of struct dma_async_tx_descriptor with calls to the
+> dmaengine_desc_set_callback() helper across various crypto drivers.
 > 
-> Thus, this series replaces those printk() (pr_*()) with trace_printk()
-> which should be safe to output the result into trace buffer, and use
-> trace_dump_stack() instead of stack_trace_print().
+> No functional change intended. Prepare make to struct
+                                         ^^^^^^^ to make?
+
+> dma_async_tx_descriptor private to the DMA engine.
 > 
-> The similar issue had been reported by Tiezhu Yang [1] in 2023, but
-> it was pointed different reason, and not applicable to upstream.
-> I investigated it again.
-> 
-> [1] https://lore.kernel.org/all/d179086d-78d8-d0e3-e113-9072cffa55f4@loongson.cn/
-> 
-> Thank you,
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 > ---
-> base-commit: bc71431221f5ba8bb33918399552636e059c2c45
-> 
-> Masami Hiramatsu (Google) (3):
->       samples/kprobes: Use trace_printk() in probe handlers
->       samples/fprobe: Use trace_printk() and trace_dump_stack()
->       docs: trace: Warn against using printk() in probe handlers
-> 
-> 
->  Documentation/trace/fprobe.rst      |    5 +++
->  Documentation/trace/kprobes.rst     |   11 +++++-
->  samples/Kconfig                     |    4 +-
->  samples/fprobe/fprobe_example.c     |   49 +++++--------------------
->  samples/kprobes/kprobe_example.c    |   69 ++++++++++++++++++-----------------
->  samples/kprobes/kretprobe_example.c |   10 +++--
->  6 files changed, 66 insertions(+), 82 deletions(-)
-> 
-> --
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+>  drivers/crypto/atmel-aes.c            | 3 +--
+>  drivers/crypto/atmel-sha.c            | 6 ++----
+>  drivers/crypto/atmel-tdes.c           | 3 +--
+>  drivers/crypto/img-hash.c             | 3 +--
+>  drivers/crypto/omap-aes.c             | 8 +++-----
+>  drivers/crypto/omap-des.c             | 5 ++---
+>  drivers/crypto/omap-sham.c            | 3 +--
+>  drivers/crypto/qce/dma.c              | 3 +--
+>  drivers/crypto/sa2ul.c                | 3 +--
+>  drivers/crypto/starfive/jh7110-aes.c  | 3 +--
+>  drivers/crypto/starfive/jh7110-hash.c | 3 +--
+>  drivers/crypto/stm32/stm32-cryp.c     | 9 +++------
+>  drivers/crypto/stm32/stm32-hash.c     | 3 +--
+>  drivers/crypto/ti/dthev2-aes.c        | 9 +++------
+>  14 files changed, 22 insertions(+), 42 deletions(-)
 
+Reviewed-by: Thorsten Blum <blum@kernel.org>
