@@ -1,61 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627486;
-	b=qQEVX5GRcZY/S96LhVmOLgaKqWANh5bVli8jfcCoTZmK+paQ7jye25AwEiBnsAyMbaSy
-	 gYEIyTjILr+df5pvWjI3HgiMlQktcSnU2qUm40yD0IO0hqQAnxg2/204P2LOR2SXUlyrO
-	 R91wekruMU/cDj4tH0YNYOscaQ6ycoJNGkhKjtBA73NgaToC1yYMsU6W7BdvHkGVQGE0p
-	 6urosVECBbgQlmRPBJg34e02qAwkW2n7+TwhR9wMy4WPizx21ZhgaUuUw2ycrnP4HY8zc
-	 m7e4d4SfVSIl5QAbkfsN4hWRbaUe7Edp4xz61j3clHSGm7sE2xq8VuN52t2jFutU8OQ==
+	t=1793627482;
+	b=D7hWa1f3U9Q0eZl6WEhs4O4aGjcqj3iB/Dp+b9kBGSHwTSaXmhUf8NXKlB/KGslDNKgm
+	 CophxGPbG5Wfwmj5OGEjz1OFgUEmMjSp2fpHzlycMpWmj97eItTezkKpIRUeMZfJV3DGb
+	 jqCLmtYZ0ABLowtDybdCmqMtWfKIFKi3k6tURMCrpD85nQkZY7i79xm9FzWpqBVVff4lz
+	 +Myb6IOvEyUHc/dRLG4b3wxbBSmQTHuHYEcyaDSrEP1bIemqzx2T1s9gVbvZmoJYcz1gZ
+	 fqDayqhtR1nRoXedbAZ2A8h8LeSfdoTo1HRttBoXuNQy/85RkNEq+v09ifZgl6WaH3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627486;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627482;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=LNXVihKSU/0J5Uk6NC8qqFVodyaTPDhxD+ZTMY26u2k=;
-	b=pYBfPmh+5RpeTlngJqDZxKJdduihvMV8Yzjp2HzH9WrXRyhK3hCo22kzoRRbL5n+xbV9
-	 vOdNI+U6CDgd52/U1uEdqGglD/lPccJWbxlVyyPPJoubIocqUK5WFjrJn7K4QwIFTrx1O
-	 dMNMP8cyURx/EmaQcsfn4TR2TM2LbCacfqFNqRY731jvtJ0ZCrWUYH3D8a4ztTbIbIXpT
-	 aZmHUFcJqrOUHjDSMfHUljI+5/+maN1WRsrjMaApBzM2FuySeUdO587AdeQ7CNF4au4hn
-	 9tnqKbQOCPPb9g0sCvO/P0sB7JULQbk3VxmrIvsEMxIyhyijffhGLO0Lxzwmk44tpXA==
+	bh=xn1TtuKDeZZB9pUoWm6FQt6Du063VQMOmhSj/mKvSMw=;
+	b=qhiySME1eohSdM3HJ5+SjQVlZzCpEEEzH4U1Msu1vWYgytqIE2ihaovVx6gtrVrEqkoK
+	 nspsA9j0sWqos9qrO0jx/VsA/6pd2PDsaZy3CXiP5KdGvjbiBdEBAjlkXGrdk02LK2SvG
+	 GtsfeXVANmabgc6HI7V/EAQhqhPR3VuGqf/g6X5KKVRrzq9f9GZVYo7ZsNmdl852oxc6T
+	 lZsU2f8nDcUxtDfv7hht4SawlcuGZcaBU1XpfxvfEow7jlxuRv7SJrGEm+U7YocZX+dTo
+	 2tg1XReRLrEDN2bCqTUxTFtyj9tbZdYuplmQkcKoqMeoT1Vp+krt0Ff+yRy6W+H7zyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVN+ktJb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQ4MOUQj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5459560A3804;
-	Mon,  2 Nov 2026 13:51:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2B560A2603;
+	Mon,  2 Nov 2026 13:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVN+ktJb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD06C1F00A28;
-	Mon,  2 Nov 2026 13:51:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GQ4MOUQj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCEC21F00A1C;
+	Mon,  2 Nov 2026 13:51:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793627485;
-	bh=LNXVihKSU/0J5Uk6NC8qqFVodyaTPDhxD+ZTMY26u2k=;
+	s=k20260515; t=1793627482;
+	bh=xn1TtuKDeZZB9pUoWm6FQt6Du063VQMOmhSj/mKvSMw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=nVN+ktJb+16Wnc2z6jft3QiVKvoY8RlASP5Puj2TsImE+JLFEMl+LTWAYVjttTuH9
-	 e+Vf1OlR75TOlcGkpGpHouLNybyFHIkrYKdzAoYCEc+KSZcO6afyMEQR9SoN8Zluyd
-	 bSQoz0m/pihmpclKqjXVMXA0LPV4Gazj70OIwjwbpB/pb0HBYLST+hOz8sOjrKLGoe
-	 xuiwhCHqOvXib68dtzSErx18M/79mcbgEcQxPhlL3vwFJ66OPBO/xHQFzq6ylqe3yf
-	 ZxA3oTs/4vSS8HBAlbRBDYOtF6R22MvaUvAKoRUtU+dWeIT5+V+GTk3imq/h2Vaq/D
-	 BZMF+o9TsZiCg==
+	b=GQ4MOUQjoCfsNCI7k7FAApjZ1DOcaBm3nrhDwLU3+jx8C5ggDeA0f9I5W71rpMtgb
+	 YBtOEeLfJznCCAUufRzV7uwOC5jRMwcP2wXsdDhKVT7SVE7o4OZhYvn1yCFJ3j5XqB
+	 fl0TRBP0VXercMkxAjVO1vsEUIk0upcosjUK0TH7ci4cDlzzeqATyz3P/hiqwRsVuw
+	 TWMaJzmp4cKQ8GqfDQ03nWl6zl4wQ9EKgA/8BdM5wF9QhEjRrSXNz+oIp2Em9EvI6a
+	 FbVhk3aFkxFNSZfnkJDdrxnB6JMhXRZIu2HWrahOrXGpeoQpk877AF83pr3F80RwuF
+	 t/Kg/jsHrVLuw==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 22E9B2344CF7;
-	Mon, 02 Nov 2026 13:51:24 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 261AA2344CAD;
+	Mon, 02 Nov 2026 13:51:20 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261027104417.7150-1-phucduc.bui@gmail.com>
-References: <20261027104417.7150-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH 0/2] ASoC: img: Fix double clock disable on probe
- failure
-Message-Id: <179357883120.1716893.14576659532783606777.b4-ty@b4>
-Date: Mon, 02 Nov 2026 00:20:31 +0000
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Peng Fan <peng.fan@nxp.com>, 
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+In-Reply-To: <20261027-twl4030-extmute-v2-0-c7e0c90509a1@gmail.com>
+References: <20261027-twl4030-extmute-v2-0-c7e0c90509a1@gmail.com>
+Subject: Re: [PATCH v2 0/2] ASoC: codecs: twl4030: external mute GPIO
+ lookup fix and binding update
+Message-Id: <179357887855.1716893.1892265929428497615.b4-ty@b4>
+Date: Mon, 02 Nov 2026 00:21:18 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,25 +72,28 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1562; i=broonie@kernel.org;
- h=from:subject:message-id; bh=6MIWTTSzxXYGpqB79gSGRjmIgPLGETw2EF8+tMjr8C4=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeTI058HjWHYG2z9MqeE5I6LruEp9yosCaO8Gu6n/pj
- O6F879JdJSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAipSkM/ysXLvQ73N/Y9Vrv
- rbPSHQ63p/4L5h1lWrk2TCGyy8RniQwjw7Nl5bPPtAbxe7Ird5ok7ph1K1zuZNr3kreCyivOlye
- aMAEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1930; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=NaYM3suoQ1Mq2ydfMZzihLSG7Mgadl8/jPapPAn3I1U=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeTI1QNb773zxWpULIo3r9nKg3az6trL1xyPpSke2ci
+ 0+3S97q7ihlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBENkkw/BW7t+Ih5ze1330v
+ lA/1xvwPbDA4JuMl8Ofw5y/flm/Yrt3F8JutSPCdSFdz2TSNqi63otULDp++6hfmX3hQ8jxfO+P
+ fmfwA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 27 Oct 2026 17:44:15 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: img: Fix double clock disable on probe failure
+On Tue, 27 Oct 2026 14:32:07 -0700, Dmitry Torokhov wrote:
+> ASoC: codecs: twl4030: external mute GPIO lookup fix and binding update
 > 
-> From: bui duc phuc <phucduc.bui@gmail.com>
+> This series fixes external mute GPIO lookup for the TWL4030 codec driver
+> and updates the corresponding device tree binding.
 > 
-> Hi all,
-> 
-> These patches fix double clock disable on probe failure in the IMG I2S
-> and SPDIF output drivers by disabling runtime PM before checking
-> the device's suspended state and manually suspending it.
+> The twl4030-codec platform device created by the twl4030-audio MFD does
+> not have its own of_node or fwnode assigned, as its DT properties reside
+> in the "codec" child node of the parent MFD device. Consequently,
+> standard devm_gpiod_get_optional() calls on the codec device never
+> succeed. Fix this by looking up the GPIO descriptor directly from the
+> codec child firmware node. Also update the device tree binding to
+> document the standard "ti,hs_extmute-gpios" property name.
 > 
 > [...]
 
@@ -96,10 +103,10 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: img: img-i2s-out: Fix double clock disable on probe failure
-      https://git.kernel.org/broonie/sound/c/b57bf0ede3ca
-[2/2] ASoC: img: img-spdif-out: Fix double clock disable on probe failure
-      https://git.kernel.org/broonie/sound/c/52937c91c844
+[1/2] ASoC: codecs: twl4030: fix external mute GPIO lookup
+      https://git.kernel.org/broonie/sound/c/5c23fe26f116
+[2/2] dt-bindings: mfd: twl4030-audio: document preferred name for external mute
+      https://git.kernel.org/broonie/sound/c/7c0dc66f7cdc
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
