@@ -1,64 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793582299;
-	b=2+BxkvsPjHKIJS5C2IC0ZRZhOTa+Brsa8F8DJjgfi8nS5YhS6npxnb7WnTU5O6/sM7T2
-	 pjYgG7IWOc9yUY/aIJrO8YvFO3uvPWlslB+XvctU5ch247r24LvBbSne1acHbxaM3Bw21
-	 gTULJRrIZJJpJyHI8fKqVqPMMyFaxDaI1O+XMrOjDWOB7TLmr2fpRSlrAHXx+KttV9Yxm
-	 5tWS4L93oT/o3hB+JLxaUG9EGlY6EVwCiZ1YXfuUfWhThCHZ11hhmNhfgx/UnPoNtV8Tj
-	 wBZiJLSg5Nar7wfHpSXJbyw5IznESN6xcZsKjlLNyLqUg+SeFn6NrRcp60fFYXhNwIQ==
+	t=1793582331;
+	b=p8DmnhAFQfQWfvHoZGSbScYtg5ndF25EAJFwaIBdo48TXmkC/ad9yiN5bazFE9j+h8dr
+	 3WQPRSCLPunZTlKhuhok3Ebkcd3WXw+Z9lJhtnf5j/dhEkv70TK65dkYvnbq8N7OGTvZP
+	 ztWC9U/oVjjG3/AY1AGpeaq8jufl2PxD9sVhvmfotT9hWVa2lSsiUWSZvnYTJszgyASB8
+	 qzixf5/dDW5Uj1v2smPMd9oio8kzEd+XigqP0HV8DLEA9IJ/GskWvy8U6cyJL/4HHBQhy
+	 hm9F7E7d+8ZGwrY8VfKuClf7JGSbmuH+bWYhdEvqxJjoIvWBLOK1xWD1wDwjtn7g9yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793582299;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=8tIm04Oja/SW4T8u6sczsnBdJ7I+/QcEMyTu0oj4EaQ=;
-	b=HhfNVhsG3PHaUtZjZYryWQYTj0MldJFK1LgD8juK004ha+2aPneNmFGJFvfNWPzu3+EJ
-	 /kQV6pxBTdi1jjOEANEWCPjNPMkNHzzrxAvcKAMAVF1zoLCl+QesDdWTNWAPp266m5bT/
-	 ftczOe5EBG11HrftgaU2mNvZ3QF+6qq4CCoEN08XTCugL1JYXZmIu9Y8IuJmo1bGuqMte
-	 4/mVuQx9+pHfzL5zEFkiZ7g0yNQBVElU1lwKKrMTNsC7bBmPaekR7xhxUBECqF3BkmK+a
-	 fqT9zhAbCdNWu4yO+vtSIpblhbfzH2p8xG8IPldBaRZMmRf1Hezdq032e+lxL4GH6SA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793582331;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=B9YH79KCTKiv4AlQ7uID8Gx4ChFaDTlswpBafBUCc1o=;
+	b=cDje4dn3Gb+5DDhkuVRdM1OJUva31DM56sYjtT1qBTZ9HgTvzW8zieq+Ob32LbGdZC9+
+	 KXR0FzN099gXk2gfrC+V0NEAkf3MrgrPMFT7qnKphly/vdZUthvArtCEKTp0mhFSAXIqH
+	 BtmF5KUBKl45qTXiTYRmOo3OcEOHE1NQxKDiuY9Obh+X88lB6GETYzF2GzVi6WRGIV+q7
+	 1axH5WlH0hHPb8SIu/fnZUgnxtrjMbqUnpFvhlhorL5+giRZPiNoD9mYuO/fYHY8Yps3s
+	 Bhnxxwf27ED8KgyVn0D32luiY6b8IQ54xOzg/im9QNna+S+PGdlIbRo2Z65qNp0+AbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rbox.co;
-	spf=pass smtp.mailfrom=rbox.co;
-	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=SMdZ9D9x;
-	arc=none smtp.remote-ip=185.226.149.38
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOkKpls5;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02C9606A32C;
-	Mon,  2 Nov 2026 01:18:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B02C9606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B5C606A338;
+	Mon,  2 Nov 2026 01:18:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0B5C606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=SMdZ9D9x
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1xNggX-00AGXc-6s; Mon, 02 Nov 2026 02:18:05 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From;
-	bh=8tIm04Oja/SW4T8u6sczsnBdJ7I+/QcEMyTu0oj4EaQ=; b=SMdZ9D9xVKQXZPhSoZ6UThEiwR
-	FJY2FadAoyT3s3OfVkbW1bRfZw7FQnWVRs8muTJkeMl1iy8AyCJvCTQSrCaW6mKHwNa2TjaSuaRIn
-	y6kifW7E+iweoHXJsMBPFS0nRp+xESj7P9OjvszqltwpmchHOuAdSybYDO8P06H/zPgy3lRWWrVgr
-	Ufh0mAXQR+e9tLHP31SkLRZhLLApNSQFFHX7wkSG72TThhL452dNHnQCT3qfG+U5CEI2prKyC0HKB
-	Zre7fSOF9GDf04NozlwgR0JiBIvV2LyiC6IP6LFmczy8Si+ae3FZaVpiX+q7sNoPfyBOim4jK9T10
-	IbpqsDqA==;
-Received: from [10.9.9.72] (helo=submission01.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1xNggR-0005sB-H8; Mon, 02 Nov 2026 02:17:59 +0100
-Received: by submission01.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xNggK-008JiF-9p;
-	Mon, 02 Nov 2026 02:17:52 +0100
-From: Michal Luczaj <mhal@rbox.co>
-Date: Mon, 02 Nov 2026 02:15:59 +0100
-Subject: [PATCH RFC v2 2/4] bpf, sockmap: Restrict iter-context sockmap
- updates to iter/sockmap
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOkKpls5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793582318; x=1825118318;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=ilBh4wTVpcjqcX0IWQJ5k45bfq2sai2jB8UvSpiIr9E=;
+  b=MOkKpls5YTjmIjxrEj10ADjZ3E97r/T0N5+3Hmjors3qPuxi5waNxVGK
+   yORIQH12QLbyFJ5EGBVPxnJHqig6/+Kb/5uPW2E2GPJtO9rhewYdjbbBJ
+   saeZTE8SQ7feH/GdWsYj/ahYWfk8A5vsththi1qRBJMWdeAa2Zc1s80ys
+   bvsSK14ab4GS4wultI2+Y+DCcfBR7I0t6J9O8ivBMupNhgIZX6uu1KDvY
+   p5U9zdNloh0UWgfjxJVylDJ6kA6N3n+2LOKhZithQ84xjE/zQBQ3NhypN
+   SdWxcZzGckLA+TrOlp6u0WyZss31C5McC3V4xvKnHEke/za3d5ztQz4IE
+   w==;
+X-CSE-ConnectionGUID: VZ7s/grvTkSiSd0bloNVAQ==
+X-CSE-MsgGUID: LsRzfbtvS1ubygsMXfUcYA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2148318"
+X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
+   d="scan'208";a="2148318"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 17:18:37 -0800
+X-CSE-ConnectionGUID: e2mMyKrhTD67Fda/B9mYJw==
+X-CSE-MsgGUID: zvPNtv3GS2Cuvp1Ltvb2TA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
+   d="scan'208";a="6077675"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 17:18:35 -0800
+Date: Mon, 2 Nov 2026 09:18:32 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Karl Mehltretter <kmehltretter@gmail.com>, io-uring@vger.kernel.org,
+	yi1.lai@intel.com
+Subject: [linus:master] [io_uring/sqpoll]  22d9db9fd6:
+ WARNING:at_io_uring/sqpoll.c:#io_sq_thread_stop
+Message-ID: <202611020832.6be281-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,73 +77,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-sockmap-update-limit-iter-v2-2-e96a63c43b39@rbox.co>
-References: <20261102-sockmap-update-limit-iter-v2-0-e96a63c43b39@rbox.co>
-In-Reply-To: <20261102-sockmap-update-limit-iter-v2-0-e96a63c43b39@rbox.co>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Lorenz Bauer <lmb@cloudflare.com>, Eric Dumazet <edumazet@kernel.org>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Willem de Bruijn <willemb@google.com>, 
- Jakub Sitnicki <jakub@cloudflare.com>, 
- Jiayuan Chen <jiayuan.chen@linux.dev>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Simon Horman <horms@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Michal Luczaj <mhal@rbox.co>, 
- netdev@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Among tracing progs, allow only iter/sockmap to update sockmaps and
-sockhashes. Previously, any BPF_TRACE_ITER program could perform these
-updates, which caused locking issues in specific scenarios [1][2][3]. This
-tightening is part of the broader effort to lock down the BPF API [4].
 
-[1]: commit 4d328dd69538 ("bpf, sockmap: Fix af_unix iter deadlock")
-[2]: commit 64c2f93fc325 ("bpf, sockmap: Take state lock for af_unix iter")
-[3]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
-[4]: https://msgid.link/akRZ_e7DJh2aP-2i@john-p8
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
-Suggested-by: Jakub Sitnicki <jakub@cloudflare.com>
-Signed-off-by: Michal Luczaj <mhal@rbox.co>
----
- kernel/bpf/verifier.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Hello,
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 1b6c0674ff6a..4dadfe9505a2 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -10487,6 +10487,7 @@ static bool may_update_sockmap(struct bpf_verifier_env *env, int func_id)
- {
- 	enum bpf_attach_type eatype = env->prog->expected_attach_type;
- 	enum bpf_prog_type type = resolve_prog_type(env->prog);
-+	const char *afname = env->prog->aux->attach_func_name;
- 
- 	if (func_id != BPF_FUNC_map_update_elem &&
- 	    func_id != BPF_FUNC_map_delete_elem)
-@@ -10497,7 +10498,8 @@ static bool may_update_sockmap(struct bpf_verifier_env *env, int func_id)
- 	 */
- 	switch (type) {
- 	case BPF_PROG_TYPE_TRACING:
--		if (eatype == BPF_TRACE_ITER)
-+		if (eatype == BPF_TRACE_ITER &&
-+		    !strcmp(afname + strlen(BPF_ITER_FUNC_PREFIX), "sockmap"))
- 			return true;
- 		break;
- 	case BPF_PROG_TYPE_SOCK_OPS:
+kernel test robot noticed "WARNING:at_io_uring/sqpoll.c:#io_sq_thread_stop" on:
 
--- 
-2.56.0
+commit: 22d9db9fd64a493525d692b32c556875b7254665 ("io_uring/sqpoll: don't attach to a thread that is canceling") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+in testcase: trinity
+version: trinity-x86_64-24d3003cd-1_20261026
+with following parameters:
+
+	runtime: 600s
+
+config: x86_64-kexec
+compiler: clang-22
+test machine: qemu-system-x86_64 -enable-kvm -cpu SandyBridge -smp 4 -m 16G
+
+(please refer to attached dmesg/kmsg for entire log/backtrace)
+
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <yi1.lai@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202611020832.6be281-lkp@intel.com
+
+
+[   26.587414][   T45] ------------[ cut here ]------------
+[   26.589928][   T45] WARNING: io_uring/sqpoll.c:88 at io_sq_thread_stop+0x51/0x70, CPU#2: kworker/u16:1/45
+[   26.594244][   T45] Modules linked in: cn scsi_transport_iscsi can tun sr_mod cdrom sg ata_generic fuse
+[   26.598751][   T45] CPU: 2 UID: 0 PID: 45 Comm: kworker/u16:1 Not tainted 7.3.0-16149-g22d9db9fd64a #1 PREEMPTLAZY
+[   26.603843][   T45] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   26.609058][   T45] Workqueue: iou_exit io_ring_exit_work
+[   26.611968][   T45] RIP: 0010:io_sq_thread_stop+0x51/0x70
+[   26.614851][   T45] Code: d5 9f a0 00 49 8b 7e 38 48 85 ff 74 12 65 48 8b 05 bc 67 1b 02 48 39 c7 74 14 e8 7a 5e 97 ff 48 89 df 5b 41 5e e9 2f a0 a0 00 <0f> 0b eb c4 0f 0b eb e8 66 66 66 66 66 66 2e 0f 1f 84 00 00 00 00
+[   26.649711][   T45] RSP: 0018:ffffc90000197d88 EFLAGS: 00010202
+[   26.653681][   T45] RAX: 0000000000000001 RBX: ffff88811dd85b80 RCX: 0000000000000000
+[   26.662253][   T45] RDX: 0000000000000001 RSI: 0000000000000246 RDI: ffff88811dd85b80
+[   26.668755][   T45] RBP: ffff888113d26c00 R08: 0000000000000000 R09: 0000000840670f01
+[   26.674920][   T45] R10: 0000000000000000 R11: ffffffff81311c10 R12: ffff888113d26be0
+[   26.681428][   T45] R13: ffff888113d26bd0 R14: ffff88811dd85b80 R15: ffff888113d26ac0
+[   26.686241][   T45] FS:  0000000000000000(0000) GS:ffff8884ac1d0000(0000) knlGS:0000000000000000
+[   26.690638][   T45] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   26.693882][   T45] CR2: 00007fc4f47f2748 CR3: 0000000166ff4000 CR4: 00000000000406f0
+[   26.697813][   T45] Call Trace:
+[   26.699320][   T45]  <TASK>
+[   26.701367][   T45]  io_put_sq_data+0x29/0x70
+[   26.703371][   T45]  io_sq_thread_finish+0x82/0xb0
+[   26.706484][   T45]  io_ring_ctx_free+0x10/0x270
+[   26.708922][   T45]  io_ring_exit_work+0x131/0x230
+[   26.711067][   T45]  ? __pfx_io_tctx_exit_cb+0x10/0x10
+[   26.714184][   T45]  process_scheduled_works+0x200/0x430
+[   26.717583][   T45]  worker_thread+0x1bd/0x2b0
+[   26.722123][   T45]  ? __pfx_worker_thread+0x10/0x10
+[   26.732821][   T45]  kthread+0xfe/0x130
+[   26.740731][   T45]  ? __pfx_kthread+0x10/0x10
+[   26.744642][   T45]  ret_from_fork+0xe0/0x1f0
+[   26.747511][   T45]  ? __pfx_kthread+0x10/0x10
+[   26.754281][   T45]  ret_from_fork_asm+0x1a/0x30
+[   26.757373][   T45]  </TASK>
+[   26.765995][   T45] ---[ end trace 0000000000000000 ]---
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261102/202611020832.6be281-lkp@intel.com
+
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
 
