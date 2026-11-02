@@ -1,102 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604421;
-	b=ZxavdFSB9CyLCVAkE41PzTuGpef4R32wADIiDZOUeEiQEPpm9WLsrHQ72H48FRL7Z/Rn
-	 w2ml174xQ7F5vBxpcAzCaNvUe6t/YZZXZOWSlsHabMp4x3U0cpC+aZUFZiH/pu9/quEV1
-	 g/QUkLV6U+PU51j/oNyS5EzJuZROoZ9pACbNWjw12HEXaIyZhWYYUtWtAeLSj4O3G4rOB
-	 waokUnxe+FLe2ej0GrnvotuCIR+R8VcWIvyze2/AJjVYoB30t3AsSI3DprTw6A4uJwv5j
-	 XVvZbAD65gOiqtix0F0QnWExzXudKWcZIgCnsCDaTNhXvgmR1IqeZWJ+yrgbBp/sEtw==
+	t=1793604443;
+	b=WiDJUUJnmuzbSu2teryzD/KIaMX3vE+D/xFp9WaTrC8qdUcDR81vk8yCEX9OHClUGrNp
+	 v0kvYklXCm0kQInx/EbODPPQF0e4OYqANaA3fWXa4hUVjkhs9lk2DfEQl6XtLeV/3DVb7
+	 5zQAJhITkBMyQICehhgFII8PgVVg62koE285sfEdqSKQD3g1E4cW/ahsbmaGtDSE3iHzh
+	 1vgpPQ13QPH8xIaSPWb6cZG28MqHjpCkEs4pUsFCYyRFBRxt2Q/r0rSYtaXl8Bc1XMz4c
+	 RQnDcNCVREqvH6mA4X9vnfyir25NepInpVEPKvQkB1hRt5LVYfNw9ebtZw6O9kqtpUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604421;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
-	b=niVKfKGMJajn1QCLUQ+zCFe/OI3DBmDpsp7OHxA2kaBJtsuVHyBUFPwBBJG0rEPXa7x0
-	 qUCyBpmGssyNM8F/cRM16E9hS7tW7Que1FVTp9am9zcrcRuj/icE8NFW+ng18U3DgaX9O
-	 RHkFHq5mRVduL5Dsf+B+sjEJhpxHHjkEc3gG71DQveVgSPv/W4Mj/RyUNWoCcfQQLAXdM
-	 4bhWNxNnUjrZXDQY8JRq5YzKsuTw+fZvjhhvN9ltXs7epOEmJ67vT6y3qqUJReTH2oWW6
-	 nq8oTByWjsyyMqunZDKaXmT2sLibGZSvvwiFiEk9dwD5rVZ9vAbljQsYmhts2zQBzcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604443;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=U5d/OqMUU7ujcPTUgqYcdum+/mhJbuAtN1Av5v/OUNY=;
+	b=Vc1VRZKTaRrZgHcEKCqekRXc6W12E3YpggKMVOlVlywuONjwZtFl8O4pzopdDOUulHwk
+	 C6e4/ob48r1BOQUaRtm5XffLhgLQ+MKCNPoDteQN21b7TeImgSxFbQat4AqBttD6WQGsV
+	 KI2eH7CWo/7VrUF58Xsv/5bbU7fsU/QBEdJjY8bFCKw37+B393s5eOr7vQvkvS6ZAie9p
+	 xtu2bZ+It10LI771bI0lg3IBI00BSB2bMBdKCAx76ANcbINipGIxdttfB3b7QAMEUEJJf
+	 GbKA6be2LWq7hwsG8EuK7j/5BPYk+ekaHpC5NhLxgx3SwQRcTaFmHt0zBO3xfkylC+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nMt8BHjk;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="tg47q/4A";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nMt8BHjk;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="tg47q/4A";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HlL86neP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8876F606A324;
-	Mon,  2 Nov 2026 07:27:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8876F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D4F606A324;
+	Mon,  2 Nov 2026 07:27:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nMt8BHjk;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tg47q/4A;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nMt8BHjk;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=tg47q/4A
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B0D541F788;
-	Mon,  2 Nov 2026 07:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793604418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
-	b=nMt8BHjky/1S3YlOjl184PVLOw65SCzlu4n73GFxSTVyupFfIGsS3VqtuQJWBGZ6gyI0NT
-	XVEHCJKEzsW0pz4z1z3NuWBLYtg+8+UQETgXeqwb7OEiJEWe/hPuK9S/zj9F7bYG08G77O
-	Q+ysKX66LokrFu0L6P09u4g8D3/wsUA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793604418;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
-	b=tg47q/4AJwq592NmqX2E0MwXUjLzXsl+/I0fHmMcZNh0cuTBsSi0NUXMPOEbfufoYhKzRh
-	vNp4CMc0n7chf0Ag==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793604418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
-	b=nMt8BHjky/1S3YlOjl184PVLOw65SCzlu4n73GFxSTVyupFfIGsS3VqtuQJWBGZ6gyI0NT
-	XVEHCJKEzsW0pz4z1z3NuWBLYtg+8+UQETgXeqwb7OEiJEWe/hPuK9S/zj9F7bYG08G77O
-	Q+ysKX66LokrFu0L6P09u4g8D3/wsUA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793604418;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TH0IBD57jKAGJCpKPw6WuC+ywmk1dUAZkICAD3tTpTk=;
-	b=tg47q/4AJwq592NmqX2E0MwXUjLzXsl+/I0fHmMcZNh0cuTBsSi0NUXMPOEbfufoYhKzRh
-	vNp4CMc0n7chf0Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4371E134B3;
-	Mon,  2 Nov 2026 07:26:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id UBfCAEI76GpfbQAAD6G6ig
-	(envelope-from <hare@suse.de>); Mon, 02 Nov 2026 07:26:58 +0000
-Message-ID: <6e9e6f78-4bd7-46f0-bf57-5c227a65a69e@suse.de>
-Date: Mon, 2 Nov 2026 08:26:57 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HlL86neP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F071F00919;
+	Mon,  2 Nov 2026 07:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793604442;
+	bh=U5d/OqMUU7ujcPTUgqYcdum+/mhJbuAtN1Av5v/OUNY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HlL86nePf0jHe0zn+0px/ON2Il/o4udZUPkHGO25OEZqJ+AfJbmbfod1gfQ1ukRy+
+	 hhh1hGgLcItTPW9hDMDnSEK6wOPDbNP8WWIEskTgv526Mf08EyZSyEi/Y2TPYd60r6
+	 ODZuIm2chaI6wklBuNtoPxowEDmK6PVTxvSrFu+yyhLNO68bKRMz7Xg+bF9X6CqhlA
+	 P3DjlU/QISuzW5yUtzvQY7ALU+GS60s4MpTGPg7vQeBPB66brcPcPNiT2CwniHNB5+
+	 Mn48Tj6lbJKJkAjl9MXi86BljI+u0VRou5/1RWNBg4R+wS9RW3rg2NOMOGBUVi5Cmv
+	 zQrpHLzFCbmVg==
+Date: Mon, 2 Nov 2026 08:27:19 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Enzo Adriano <enzo.adriano.code@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, linux-mmc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Andre Przywara <andre.przywara@arm.com>, Junhui Liu <junhui.liu@pigmoral.tech>
+Subject: Re: [PATCH] dt-bindings: mmc: describe the Allwinner A733 eMMC
+ controller
+Message-ID: <20261102-steady-grateful-chimera-e2363a@quoll>
+References: <20261031020640-263f7b05-a7s-mmc-binding@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,131 +62,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] nvme: remove namespaces in parallel
-To: Qiliang Yuan <odys.yuan@gmail.com>, Keith Busch <kbusch@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, Ming Lei <tom.leiming@gmail.com>,
- Nilay Shroff <nilay@linux.ibm.com>,
- Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
- Stuart Hayes <stuart.w.hayes@gmail.com>
-References: <20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com>
- <20261102-bug-nvme-remove-ns-async-v1-1-61780fee111c@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261102-bug-nvme-remove-ns-async-v1-1-61780fee111c@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-11.79 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,kernel.dk,lst.de,grimberg.me];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.infradead.org,vger.kernel.org,gmail.com,linux.ibm.com,wdc.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	TAGGED_RCPT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -11.79
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261031020640-263f7b05-a7s-mmc-binding@gmail.com>
 
-On 11/2/26 7:14 AM, Qiliang Yuan wrote:
-> nvme_remove_namespaces() removes the namespaces of a controller one
-> after another. Each removal waits for RCU grace periods in
-> del_gendisk() for the namespace and for its multipath head, about
-> 20 ms in all.
+On Fri, Oct 30, 2026 at 10:26:47PM -0400, Enzo Adriano wrote:
+> SMHC3 uses a different DMA descriptor format from SMHC0/2: the length
+> field is 12 bits and the ownership/control word carries different
+> control and high-address fields. An older A100/D1 fallback would claim
+> unsupported programming compatibility with the existing sunxi-mmc
+> descriptor builder.
 > 
-But that isn't changed by calling async_schedule_domain, isn't it?
+> Give SMHC3 a distinct compatible and describe its register range,
+> interrupt, bus/module/storage-MBUS/MSI-Lite1 clocks and bus reset. This
+> binding permits an accurate disabled hardware description; no
+> operational driver match or eMMC functionality is claimed here.
+> 
+> AI assistance: Codex:gpt-6-astra.
 
-> Deleting a controller, such as disconnecting from a fabrics target,
-> thus takes time proportional to its namespace count, over a second for
-> 64 namespaces. Scanning had the same problem until commit 4e893ca81170
-> ("nvme_core: scan namespaces asynchronously") made it add namespaces
-> in parallel.
+Drop, we do not advertise slop companies anymore.
+
 > 
-> Remove the namespaces through an async domain the same way, and wait
-> for all of them before returning.
-> 
-> Disconnect time from a target on the same host, over tcp to 127.0.0.1
-> and over nvme-loop, with 4 I/O queues, median of 3 runs on each of two
-> boots per kernel:
-> 
->    namespaces  transport  before              after
->             8  tcp         170 /  171 ms        85 /   91 ms
->            32  tcp         628 /  628 ms       294 /  293 ms
->            64  tcp        1201 / 1308 ms       533 /  550 ms
->            64  loop       1988 / 1913 ms      1283 / 1200 ms
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> Assisted-by: LLM
+Drop
+
+> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
 > ---
->   drivers/nvme/host/core.c | 13 ++++++++++++-
->   1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index a7a4d09644c13..18948c2ba218d 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -4716,6 +4716,11 @@ static void nvme_scan_work(struct work_struct *work)
->   #endif
->   }
->   
-> +static void nvme_ns_remove_async(void *data, async_cookie_t cookie)
-> +{
-> +	nvme_ns_remove(data);
-> +}
-> +
->   /*
->    * This function iterates the namespace list unlocked to allow recovery from
->    * controller failure. It is up to the caller to ensure the namespace list is
-> @@ -4725,6 +4730,7 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
->   {
->   	struct nvme_ns *ns, *next;
->   	LIST_HEAD(ns_list);
-> +	ASYNC_DOMAIN(domain);
->   
->   	/*
->   	 * make sure to requeue I/O to all namespaces as these
-> @@ -4759,8 +4765,13 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
->   	mutex_unlock(&ctrl->namespaces_lock);
->   	synchronize_srcu(&ctrl->srcu);
->   
-> +	/*
-> +	 * Remove the namespaces in parallel, as each removal waits for several
-> +	 * RCU grace periods.
-> +	 */
->   	list_for_each_entry_safe(ns, next, &ns_list, list)
-> -		nvme_ns_remove(ns);
-> +		async_schedule_domain(nvme_ns_remove_async, ns, &domain);
-> +	async_synchronize_full_domain(&domain);
->   }
->   EXPORT_SYMBOL_GPL(nvme_remove_namespaces);
->   
-> 
-Other than that it looks fine.
+> This binding is a separate prerequisite for the disabled MMC3 node in
 
-Cheers,
+How this can be a separate prerequisite? Binding without user is not a
+prerequisite.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+> the A733 DT v2. It does not add a sunxi-mmc driver match or claim an
+> operational eMMC path.
+
+Hm? Why?
+
+> 
+> The original A733 manual and public vendor implementation distinguish
+> SMHC3's descriptor control/high-address fields and 12-bit buffer
+> length from SMHC0-2. Its resources are the 0x04023000/0x1000 register
+> window, SPI 164, AHB/module/storage-MBUS/MSI-Lite1 clocks and AHB reset.
+> The generic A733/D1 MMC0-2 compatible already in the base is unchanged.
+> 
+> The example uses the public A733 CCU header IDs. The tested standalone
+> base is official commit d89e1d186ec9271bf78e62771779e9fc03bf0fc3 plus
+> the clock helpers and CCU v6:
+> https://lore.kernel.org/r/20260906-sunxi-clk-no-p-v1-0-cbde21c9fe69@pigmoral.tech
+> https://lore.kernel.org/r/20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech
+
+...
+
+> 
+> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+> prerequisite-patch-id: 0df2ae41836b86fd868dfa01ddfde57f888f761a
+> prerequisite-patch-id: 88f3a431e7c551a9fa732f062188f10fdd362eeb
+> prerequisite-patch-id: 3e88bc873c909059d1199f82cda4013765e7a5e5
+> prerequisite-patch-id: 0dbc27cd7417352319a0705a051dff35085e8922
+> prerequisite-patch-id: 0ed6b92774b5b794761c7ce34db653a5435dc833
+> prerequisite-patch-id: 27ed3814dbd0c7ad830532ff125625917c873b4b
+> prerequisite-patch-id: 74d03898c5ce14763f4e89fb73e021de59f0fb9f
+> prerequisite-patch-id: 9225cb094cf6cbb338b14ac63711d68bed12d24d
+> prerequisite-patch-id: 568dae1c91a0d7318d6eb14a18054343b84b603a
+> prerequisite-patch-id: ff3806332e741f0e2c8dac1c11f4c71449c16c8c
+> prerequisite-patch-id: 39461e0543aefb5c40184664625cbab19ac8408a
+> prerequisite-patch-id: 6fc03bfbd343042dd3b660938fcc09c5e7d48314
+
+So this cannot really be tested.
+
+Best regards,
+Krzysztof
+
