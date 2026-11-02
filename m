@@ -1,53 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793620727;
-	b=SuOLoz2/xszleT7TxGQupYLdz2BjSHt8Ed005mN7z6LHp60Hj4z17D/hB6g/w+lSEO0G
-	 TnWO59QEkQT13aJY6FeECyRofRllmHWHCHtxbiZLI4dUPXzwD06rwvnVkJ2ywxtnnTEPv
-	 rk8CiVCXTBTa7wSjfMafxEBWOPDZxySjs7HlxvCx7ee3AmfRve6J49Eleb3WslJNq4y2T
-	 z2sr6nUtmdhxE3fwLgX+gRcZW47QUqhV0o3VInUjOcbqodVcK6C3/HHQEaKknRrLusmJK
-	 RfY1LDlLBpnmk8LP9BpEZEnBcBl3WcJN8IOjkEPUkT6zBRJgJp+JXKm4x/dWXTORZsw==
+	t=1793620733;
+	b=BtBO+fvQkzUTxlp79juvN7xK8vlqOgmIfKJ40I+hT5KAzuxFS5o4I8SYhe64fkEKfk1g
+	 Rt/sgr9TpzlLAeqGMjijDsCTsRuQoNPAGNsJHQ6bm01etoEUcaj8YQX66qWprN++sZRXz
+	 w3u9yBv8tVwIczFdDSn/2bJRdn4o1OMV2eMuE8Z367AOHgPBSRiJuxnbRBj4M705N5IwY
+	 H0ofULfg8KY9JF3LkcXIfGIlVYf/qr4tPAVP4q/PL5eEKKlEMVOswHc0VUVKJL37pDEO0
+	 PJXHaBDSElk0JUjzXe1D/+Z9MrX4cxLVA0F8ooveYdRYTf6vGK8u2aHZGYY0nmPVQMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793620727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620733;
 	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
 	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
 	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=/uJJ7yIf1ZulPlcjHC1h8QagLgkGqnFozm17to6Gfk8=;
-	b=nGL4eVzP1kipIAQHuolLDbPsVu7miaThhoJ0XgXijlC8RW4ZvcZfxOKbcrBxoQ/82BhM
-	 Cn3rTWykPHEAGykamkUIVlxImLGrkIHqSJ3RYFH+VUQj9zED1588ZN82QFdHvpCT69ByY
-	 ICQ1Cei94IJdn0o3Trfj664GBnG1k8Tmj+axN2JWNoqdNPban9n8hgBulrv75oaS4b3zk
-	 aAdnNMeCNSWDvxNXRi/EUd2BXhNXaTLRmyWT+7Cf6bdy9lZaVne3HqcOF3G0LU+qJ3Ign
-	 MJjFQ0TqFFd74KrLjs2wgregIDY/fNyzmDEIKJ7hLILEpojHsmRBgc5X4Rx/9XOIUPQ==
+	bh=NuXE4tOkwqOxwupDOtttrp0r4Jp94NWgATIQW3W8F3c=;
+	b=tQwrK282ZaDKzv0TqDg9uH5k9Jka8cA0+D90bkdVj1tMYIHZch/mAJz89avbLe9xc7w5
+	 HrWgVVggh01CwpFIlm1/gc2G+a+782vCa7GyBArikOLQOeFX8moer8GTZaGNDT4+lPCFP
+	 5TlcVUclnJwhS8pGuiD5rXEuDQeXjRdUMUHXP0mtEaPKJqh3dpR2Vh0G73ejRhrIPNbi0
+	 yNDluxlrLzzHOCuHK27eOj1qBMOCZAkv9DPDrfzZAJbQSSWrAV1weJ0QH0qPyhUn2gV3s
+	 oo6ejAFEBtrNBgoxJEqM18/Dv/k5nlDmFhQ8eFbH9C2Hbfc9UiPonyOwxV5OVcz79Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.pku.edu.cn;
 	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=epC1oruA;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=ZCVbGVgB;
+	arc=none smtp.remote-ip=45.254.49.198
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5D2606A334;
-	Mon,  2 Nov 2026 11:58:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB5D2606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D882060A3827;
+	Mon,  2 Nov 2026 11:58:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D882060A3827
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=epC1oruA
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=ZCVbGVgB
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [1.202.162.49])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b234c;
-	Mon, 2 Nov 2026 19:58:42 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b234e;
+	Mon, 2 Nov 2026 19:58:43 +0800 (GMT+08:00)
 From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- linux-input@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alexei Starovoitov <ast@kernel.org>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
+To: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Beau Belgrave <beaub@linux.microsoft.com>, linux-kernel@vger.kernel.org
 Date: Mon, 02 Nov 2026 19:58:37 +0800
-Message-ID: <179362071771.29269.9450789504034226345@stu.pku.edu.cn>
-Subject: [PATCH 2/2] HID: bpf: reject struct_ops registration during device
- destruction
-In-Reply-To: <179362071770.29269.16022650793604369465@stu.pku.edu.cn>
-References: <179362071770.29269.16022650793604369465@stu.pku.edu.cn>
+Message-ID: <179362071771.29269.12274333629550524596@stu.pku.edu.cn>
+Subject: [PATCH 1/2] tracing/user_events: validate dynamic cpumask size
+In-Reply-To: <179362071771.29269.15129360535376085397@stu.pku.edu.cn>
+References: <179362071771.29269.15129360535376085397@stu.pku.edu.cn>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,64 +57,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa19c20429303a2kunmab045f0fe84e0
+X-HM-Tid: 0aa19c2047a703a2kunmab045f0fe84e5
 X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSUgaVkgZHhpKQh1PTxhMS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
-	xVSktLVUtZBg++
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSktCVkpIGUoYTU0fGBhKHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZS1VLVUtVS1kG
 DKIM-Signature: a=rsa-sha256;
-	b=epC1oruAgbc7809zi58uXEDYrQFMRITmEETxQfW4w5rS8Dp/bB1RQ/tC6RoArwY91HjHImOKkrQxjbAnJKY4l0HSjFlY7RFXoqxwWh6KxB5e6OzpKwdgrQkS0Hb9J04pZutQPu4rg8SMIrwGMOh2KCJQat2/7m7fXodMEMatX4c=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=/uJJ7yIf1ZulPlcjHC1h8QagLgkGqnFozm17to6Gfk8=;
+	b=ZCVbGVgBMoWhuKqRiv+PwEcBJO0otvEmV/L3NilBzZEq2DIv7DGVIHQ83wr0iw3d6QcV/7uvPxmxY9ZSZyq4tpmVjBampefZVfGS3cyM591TY34E6l9jjnCOAPK84mFJCCKv96bxSKQ0oYcQDEcGqohUoGRn4mQ4yp7K/NCyzSs=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=NuXE4tOkwqOxwupDOtttrp0r4Jp94NWgATIQW3W8F3c=;
 	h=date:mime-version:subject:message-id:from;
 
-hid_bpf_reg() can obtain a device reference before hid_destroy_device()
-removes the device from the bus, then block on prog_list_lock while HID-BPF
-destruction cleans the device's SRCU state.  The registration path does not
-check the destroyed flag after taking the lock, so it can publish a new
-struct_ops entry and call synchronize_srcu() on the cleaned SRCU object.
+user_event_validate() checks that a dynamic field lies inside the event but
+does not verify the minimum size required by its filter type.  A one-byte
+dynamic cpumask can therefore reach filter_pred_cpumask(), which consumes
+cpumask_size() bytes beyond the event buffer.
 
 KASAN reports:
 
-  BUG: KASAN: slab-use-after-free in check_init_srcu_struct
+  BUG: KASAN: slab-use-after-free in filter_match_preds
   Read of size 8
-  check_init_srcu_struct
-  synchronize_srcu
-  hid_bpf_reg
-  bpf_struct_ops_link_create
+  filter_match_preds
+  trace_event_buffer_commit
+  user_event_ftrace
+  user_events_write_core
 
-Check destroyed while holding prog_list_lock.  The preceding teardown
-serialization change sets the flag while holding the same lock, so either a
-registration completes before destruction starts or it fails with -ENODEV
-without accessing SRCU.
+Mark dynamic cpumask fields and reject locations shorter than
+cpumask_size().
 
-The reproducer no longer triggers a KASAN report with this change.
+The patched kernel rejects the short event and accepts a full-size control
+event without a KASAN report.
 
-Fixes: ebc0d8093e8c ("HID: bpf: implement HID-BPF through bpf_struct_ops")
-Closes: https://lore.kernel.org/linux-input/179317460937.87455.17990170930834=
-67190@stu.pku.edu.cn/
+Fixes: 2467cda1b5c9 ("user_events: Validate user payloads for size and null t=
+ermination")
 Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
 ---
- drivers/hid/bpf/hid_bpf_struct_ops.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ kernel/trace/trace_events_user.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/hid/bpf/hid_bpf_struct_ops.c b/drivers/hid/bpf/hid_bpf_s=
-truct_ops.c
-index c90b68956cb3b..4c433f419c85e 100644
---- a/drivers/hid/bpf/hid_bpf_struct_ops.c
-+++ b/drivers/hid/bpf/hid_bpf_struct_ops.c
-@@ -201,6 +201,11 @@ static int hid_bpf_reg(void *kdata, struct bpf_link *lin=
-k)
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_use=
+r.c
+index f658c3a77aa7a..85938b45b7618 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -170,6 +170,7 @@ struct user_event_file_info {
 =20
- 	mutex_lock(&hdev->bpf.prog_list_lock);
+ #define VALIDATOR_ENSURE_NULL (1 << 0)
+ #define VALIDATOR_REL (1 << 1)
++#define VALIDATOR_CPUMASK BIT(2)
 =20
-+	if (READ_ONCE(hdev->bpf.destroyed)) {
-+		err =3D -ENODEV;
-+		goto out_unlock;
-+	}
+ struct user_event_validator {
+ 	struct list_head	user_event_link;
+@@ -1159,6 +1160,9 @@ add_validator:
+ 	if (strstr(type, "char") !=3D NULL)
+ 		validator_flags |=3D VALIDATOR_ENSURE_NULL;
+=20
++	if (strstr(type, "cpumask_t"))
++		validator_flags |=3D VALIDATOR_CPUMASK;
 +
- 	count =3D list_count_nodes(&hdev->bpf.prog_list);
- 	if (count >=3D HID_BPF_MAX_PROGS_PER_DEV) {
- 		err =3D -E2BIG;
+ 	validator =3D kmalloc_obj(*validator, GFP_KERNEL_ACCOUNT);
+=20
+ 	if (!validator) {
+@@ -1598,6 +1602,10 @@ static int user_event_validate(struct user_event *user=
+, void *data, int len)
+ 		offset =3D loc & 0xffff;
+ 		size =3D loc >> 16;
+=20
++		if (unlikely((validator->flags & VALIDATOR_CPUMASK) &&
++			     size < cpumask_size()))
++			return -EFAULT;
++
+ 		if (likely(validator->flags & VALIDATOR_REL))
+ 			pos +=3D offset + sizeof(loc);
+ 		else
 --=20
 2.39.5 (Apple Git-154)
