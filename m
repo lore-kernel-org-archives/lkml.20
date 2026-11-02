@@ -1,109 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621879;
-	b=mIU4cxBfq2NAz30tRvwl0ar64seerNPP6YwxGv+gqZ1LkgZNJaosWSgl4PpNe48eYZkC
-	 sotSTtOG2gQcOm6RsyF2ouq+MlT6mzj/KDAun61DXP2oQocWM1doRjFWqFU9n/kBceJ5B
-	 MPFqDA1tSuR4+6rs8Mgbc4bdxai4tg1gZGDKlvgbPIOMdFliQ7cgcQFCGUsdAHmXGJlsf
-	 WtBPS05vAVDNH29JUvGnpL/p7cIoYKcN3yfvGIn+3ohTN0Ju0xbo3nvajTKq6qPv4Stas
-	 Bef1L8uMaASnRsbVQgyc0XGaF55lPgAlxLJOoIwMDzQAxj/he8T/5Qg1cp3KCQEDhKA==
+	t=1793621891;
+	b=V+8V1PEaLCAWEz+JrcqNuM++xdPbsVqdNAhj8xxqdFLB3SgbkMZfqiAw5JVmgLS1lkU7
+	 vnrdRD94iftGNgUkCTGxOiocFN5rrqh97ZtcpSh7UOFYthoUC2PPNMQ2uqmDIM5VeZqs5
+	 R/U4s2HlO5AXZJ3X7blz4V0qAWK0M88s7Lc0/B8phTxqr73sWWqzdZZK35BSTEeUItqZP
+	 rM7r1UMNxsgGmamlN8mnqNA+GwVRd6Ic8bzIqYNc4cMGRuOrFaBgW7/eXdO/+vx95lP9t
+	 a3k2yHlLJx6VmiDAftEiLCA8tMsFblBXzLsDaycycLH3ipOIQ0eyGPDKsHyxUhPbAfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621879;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=WrbMrv0h6y/iikQNp1GRWO4ASKxkJC9TURHwVPkxEk4=;
-	b=BOjCZXrAiM0IW+L7A4uMkqUmNdCnJQyEDifEjZj/39mqpeSf3KEJzEcf33EPhaxo1EFg
-	 feY/xK86e2dfpJ7B9Nh16adf/RapeNd68i5H9p3KaiuPGBwEBQuud4ogPfcAWuV/U/Hn/
-	 wBs8igtreewopu11HSJNP8aPnj/iXbWhdHWd434c34HPJo5VoMorTvdI/Zywfo67GRdly
-	 Gnyb1gnUgJopNQfZOtGf3391qIdjoiddj8MOuIH3xf0nGFU2JLzo4qBo+rfIO+W/95L+l
-	 hOr43K55aTtxr9xmN2SsyI9MLfsiVlC7dSWW9lzMl6cAeDQ+AA+0uImQgxUpceIV0Uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621891;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4PzZZAWMkHLIiI0SGi4R95lv/0ZHkf1CuWgcaAhKuFA=;
+	b=wJXARf4Rq7VR8z2cGo1h3yoDq2LHABHsHGAROHteizoNSf5QlVSnH4D8KMbYcDF4xYjP
+	 oqNUur/tLwLZQDt++ehBnqEefei9Hma4U9sePNrYLB/7rypW6HAlTTXersXRFegSHKoN5
+	 6ToGkz3wIiKlnWeaYvvFKK3ULcF6XvyV7ETMxRDOwfUVaZM7RaToVFcK0Xf6lwMWbn36n
+	 AoHXAel4nwNozelITZR8C3u5EXy8JpnYsONH9DnW4kFHbBZX6x74CA1O1T8o6+cu7nNkq
+	 mrYl36zLZbX7oIs93QmlMcXMSgkSvUT3QIalJx8Iv+wArvdu86rWPlsFcGM50DXaz4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U5Lq7Ly5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KZwpU0+u;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEJHsAW1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830C5606A84D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:17:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 830C5606A84D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6926E606A33C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:18:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U5Lq7Ly5;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KZwpU0+u
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AOc33086530
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 12:17:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=WrbMrv0h6y/iikQNp1GRWO
-	4ASKxkJC9TURHwVPkxEk4=; b=U5Lq7Ly5xFxWL+cIljkjN98MuEPW78NYsmnZI3
-	/M4LbzRAdAmfrwX39Bqpi7dSRQZHF8EA/aoYH+iJ7LcBZYSih4gNjF4jIWtTrLEk
-	ZgVLWK3CN6F+4CePanIodAtSRmu/Vj+BXjzgZAqGrbqK+yyiqGMzrs/6HMuljmKb
-	fwyWWpN7Zlo9ojzSabjOmPlRFI3fcTPe56vs4sx2SSIbpMYzWwovy+LxEcLJwd6/
-	vV7BT2Cg/sqjuXQLudP1HC1PtoNa4GwxDzUpBQsz3Pq4a/oO2ppfyQcbshbucGV0
-	KUJxftfWBFbsfTcQfWe0TG4Jg7nsBCNNYU5Z+VUZ9H9Jou/A==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka61ra2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:17:57 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f13c143c8so539014785a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:17:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793621877; x=1794226677; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WrbMrv0h6y/iikQNp1GRWO4ASKxkJC9TURHwVPkxEk4=;
-        b=KZwpU0+uG7NLMrYJ7o8HkUC8WeqsWOkW7kj9pdvolC0paxnsxI33UFVkldRFGt+li9
-         V8ww8HZO/XgZ/u3EaFxjbFsCG2drGyu8CgWp/ylXr0tdzZBpSxB2S+ealRRzsV9Ymyzo
-         r7B5hl2xIMVeBcVnvjlq384PwbyNogUbyqpOcsYyikEGOCgkN3h5mp+TVldqyPqV1EKq
-         ZKermpMv/eusYZPfhVKPqEU7wVVyU3/BFcgLlT5LQMdI7ZRQDR3V7Dlmzf0odMe8qeAI
-         SxEkK6q7p2VR1K7npOw7ZGG4uPL4hTcJrf9bduBZIDZvAIuj69u2RTmczilEZqgYkdMm
-         RnCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793621877; x=1794226677;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=WrbMrv0h6y/iikQNp1GRWO4ASKxkJC9TURHwVPkxEk4=;
-        b=unMuFMZvq5KfitcRWSoZYMl1vm7Fj0ET+6w8e7cRCCKkk85TMIAumIQBlUWnfOZ1Mw
-         N55F8KkZ9RVQS9briIhAFOnWqGdpQ5HMf5nu4PKP8kA/WNScnO9+dDQ1YxlsrErnADMf
-         JpTVPxIFMTg3fhXSwDD/9aLq7aXl3swT2wz6cUXB+Vu6P+S8LtLMa0Mbfso9JH4Huz5Y
-         eXCpxAbPCtVm83d76qvTEp7AuCJxDJXAuE3OdDWudQWmHvwE3Lpz9X7vx9kitZXhOyT3
-         J6Apk+cdO26zZHBECqKcwHj3jbnUDb+n7gp2wMSgEeazXk5j7dQSUh+iA25H328IfFSH
-         3WsA==
-X-Forwarded-Encrypted: i=1; AKwUvByzl5GS+23I2/9T1d28YQh5nAL8Zoe4YC/bzbl61qEpOkWkenrlLwk7nQb2HbthlMPcAyj5OchR3NLkt3w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLV2s6UIIYLO64LmyQ9RR8xXO5IxdrhFD0seA0blOYWICLuhvx6
-	7rS+1zseYRkiodADqXqSnXcgX3QK9dnRUB6qlAEyrKuVhdFh42+IN/Xu9X+aYt1x6TCiiQD/oC7
-	PRXixAcKZqC/Gb4tyObHktwjgKO/JcqEeOQrWuSfrck+1n9rcvGdzwGZDT7Qq8NuIG08=
-X-Gm-Gg: AYBFou2ZRm0Srhcuii0G1TcMciyxiapgqJv66GwS6CSBv+LGBVi+ChnKe5GN8EkXYMb
-	WyQfQOr9DF5jMdq8V4jf/T9maEmUfCBDmKu5b079mgO1Qyr62mw6JGZyK7ya2KHP5r7ZoSC2dkk
-	M8xDdFVOolAl40KDnNp3w+vjfxeIofpmUCUfvYKBvhewExB/AYDqZ534jAlUDa1YMYAV//HbII2
-	yB/Tual0s4qYEB4hj7HLqOmvgUSJg6Tx+cTN0wj0xdeNKIdOBgEIFEO8LwxLMyPInw83GraF2wc
-	wkV0/JwWDZP4AAewfz8Mbvoejppi9FS2T9MQ4GFCgPRRN+AXOA/N1UlEknQoxfdJmWuFMd1W3F4
-	5J4Q5Z79SdIyzYs9/AxgQZD9zn37NJVfkalczFlGAwAxx1M/MCqOC3KXfGA==
-X-Received: by 2002:a05:620a:a51c:b0:945:b967:475f with SMTP id af79cd13be357-945b967477fmr324820985a.16.1793621876723;
-        Mon, 02 Nov 2026 04:17:56 -0800 (PST)
-X-Received: by 2002:a05:620a:a51c:b0:945:b967:475f with SMTP id af79cd13be357-945b967477fmr324815685a.16.1793621875938;
-        Mon, 02 Nov 2026 04:17:55 -0800 (PST)
-Received: from [127.0.1.1] ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aab10sm262583425e9.9.2026.11.02.04.17.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:17:55 -0800 (PST)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 14:17:52 +0200
-Subject: [PATCH v5] arm64: dts: qcom: eliza: Add FastRPC support
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEJHsAW1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 312C51F00A18;
+	Mon,  2 Nov 2026 12:18:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793621891;
+	bh=4PzZZAWMkHLIiI0SGi4R95lv/0ZHkf1CuWgcaAhKuFA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XEJHsAW1xpBykSI0RPL3s9XyHVb0H5VsOHu/pA4sj6i5fJX/eDJWXfOMeFVuzMoxm
+	 e6cZnyTkCI5eySacLKDSXsP7xdfrNIfw8CnjxwKd/MiUhMg4qlqXjZfalJM0nFyh53
+	 XK8XMVX25H7E7QA62r9/OFURzkKRulUqRdl2HXK0622lT8ox4Q8QOPQcMAxVlbL6JK
+	 qRrt9minS3iWUYi7KOfMXV/I2L1G4ZrNi+0ygGT1c/9IvEyCPGc7uwKE8UNocxksda
+	 SDvlYXK/OSMiFAf1BrOnAE3ijyx+uMz292+yLAgbIUOFYwtQL+QhucNrjaw0Eh2SFs
+	 CwZ2HQ+PTuFMg==
+Message-ID: <5feb82ef-a9bc-4ef3-b056-9732563e6225@kernel.org>
+Date: Mon, 2 Nov 2026 13:18:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,303 +51,277 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mm: gup: introduce gup_unshared_pages()
+To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Rik van Riel <riel@surriel.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>
+References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
+ <20261102-refactor_gup_fast-v2-1-bc1ac018c834@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261102-refactor_gup_fast-v2-1-bc1ac018c834@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-dts-qcom-eliza-add-fastrpc-v5-1-27ad8db4a47d@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAG9/6GoC/43PTU7DMBAF4KtUXjOVfxLXYcU9EIuxPaZGbdPYT
- gRUuTtOQZQFpWwsPevpm5kTy5QiZXa/OrFEU8yxP9TQ3q2Y2+LhmSD6mpnkUvONFOBLhsH1e6B
- dfEdA7yFgLunowHGjDRK6zgVWgWOiEF/P+OPTZ86jfSFXFvGrkWgY69RyqW1jLn16O680ieX3X
- 9MnAQKcJdTGG+LCPvQ5r4cRd7W/X9eHLfokL2In9J+irGLXkt/wJgSpzRVRfYuC3xBVFRtSwWo
- lFefXdmx+iDeubhbRK2VU563F9hdxnucP/L/9QOgBAAA=
-X-Change-ID: 20260721-dts-qcom-eliza-add-fastrpc-c0868aeac9cf
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6335;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=MUaSkQuBi8mCm8TvMJjh5957pvL7KrOsrIXVhFbgVAs=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq6H9x8+/TuHL1Ro9pQ8PZx69E8s6QXwzhH33cS
- jyfOfGm792JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCauh/cQAKCRAbX0TJAJUV
- VvHyD/4/9AwOUdNjYxXbMDUPI2rA8/gqPYDPUxPPnt4wIJY685BrDJugkqhLAsub/BKtc8UzLVU
- wLQ96uc5Sk6LrRBQ3d6zHAWfMgNgGyRHsMLqyBxInlGrz9+jKUZxtyQoGZH5A41BwGXL1YWSRoQ
- QvP4PHQrcuWWLqM1g+R/V1m+vsINLFeQ9I7+YWit3sQ394OL3Zav8OcfzYMp5xn5hmyllGZq53/
- J1U1ly9ZlCbqIC0vxH9PnVmVT0aSlyT59SWXwfe2TD0u79QY1X/4Gl73GFZvBayQ/5nKjfT2YQ8
- shg7yhp/sU8ntBdtPu3iODTR+9NvZmexXrPPS31OdTGVCRMWUpxNVlU/w8e+CXJRmkuuASZW2i3
- JsXfXaDCaOxRuUaqEgq7PxgQREuuKQ2Zi/fwR/YYinjyqRNuYSor7icjozhM45J2yUCOzutPgXu
- ANPVlQdA8ojZqGs8kReXAoiRtXr8d5kGUhS7RTnO0gU9y3qchmcbdniUnXe1yn/KA6s73aP1APL
- RcqfxaK0LhOXkt6ZJzkwiF9ENeQLfpb+yMQ4TMf7rNPcuccVtN51Z22OsBqyf8hBAEzrMXzqHfP
- bnud+oIfVRYmApMTsqDmd4+BTBaE190+oN4Bb7v/Ve2DDsvWMUhKJtrV0+0rTOGlbqZknMzs8WD
- r2WB+eLPUlAhJ9Q==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-ORIG-GUID: jULBMTGa4jMdJ9qpuoxpsmWlexBpcUyK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0OCBTYWx0ZWRfX2/HgWW92XhuA
- prtFoVkiFIKwPmsPcQaGlI6yDNVu2vqaQgCbrXrk2pi4yntzYsKMRZwYToJ4r160qvfsintBufd
- vavZ4FDjRHCUPjG1nIRwHaReRvHbzUQ=
-X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae87f75 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=l4Guf6AkNLRG3ev-55kA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0OCBTYWx0ZWRfX3mzfIvDHhL9A
- UQgMcc0HDsBhTFXpa+kBAjff/JEYiStBL8jQLto2xmuyQvL7a5NEAlcS2Kqk0kaHawkVoYbC1OA
- eRrklxCd4L5UZT4DIxlvfXzql8BJBZIPNoc+sW6syqDA3HtUVe2avaIPB0PxijzpNINS99KzH+c
- 6Z2aeLU8ousymzxC3AWIkUZAZiSJOyvRpHB1gaGz/NmPTav2LMLnOGqFcH0RbAZg30XAystCjXQ
- Qc0xM0hy4gIcI1rNX4OI3YajxV49qfKOCWTK2mFwVybimLqO5suKwXBZqk26XBd79NxK9uMxk0j
- YTda5K9lN1E/9hzkQGVC+JvxLhT5iqxWJEcTzNLMsqAMqBwKvNuZ28YFy6HT1EduGtW0iK8Klry
- NXyyw3quwbjzK4CLvjKvG0w+Xs75QnlDYi7AqYDfod7t4idzmPARODMRHRGZ8uXfj7Zvaj6fu5F
- sn7Tz/QKVhTqa6fr4cg==
-X-Proofpoint-GUID: jULBMTGa4jMdJ9qpuoxpsmWlexBpcUyK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020048
 
-Describe the FastRPC nodes for both ADSP and CDSP remoteprocs, along with
-the ADSP remote heap memory region needed by the Audio PD.
+On 11/2/26 12:30, Yeoreum Yun wrote:
+> This is preparatory patch to make gup_fast_pte_range() batchable.
+> 
+> Introduce gup_unshared_pages() to count consecutive pages within a folio
+> that do not require unsharing, and use it to implement gup_must_unshare().
+> 
+> Also add a folio argument to gup_must_unshare() so callers can reuse an
+> existing folio and avoid the compound_head() call implicit in PageAnon().
+> 
+> There is no functional change.
+> 
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
+>  mm/gup.c      | 69 +++++++++++++++++++++++++++++++++++++++++++++++++++++------
+>  mm/internal.h | 49 ++++++------------------------------------
+>  2 files changed, 70 insertions(+), 48 deletions(-)
+> 
+> diff --git a/mm/gup.c b/mm/gup.c
+> index 7d43ce717b246..49681f63950ec 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -633,6 +633,59 @@ static struct page *no_page_table(struct vm_area_struct *vma,
+>  	return NULL;
+>  }
+>  
+> +unsigned long gup_unshared_pages(struct vm_area_struct *vma, unsigned int flags,
+> +				 struct folio *folio, struct page *page,
+> +				 unsigned long nr_pages)
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
-Changes in v5:
-- Rebase on v7.4-rc1.
-- Link to v4: https://patch.msgid.link/20261021-dts-qcom-eliza-add-fastrpc-v4-1-4d33839dbba5@oss.qualcomm.com
+Two tab indent.
 
-Changes in v4:
-- Fix the off-by-one in the remote heap alloc-ranges size so that
-  0xffffffff is also a valid address (Konrad).
-- Link to v3: https://patch.msgid.link/20261016-dts-qcom-eliza-add-fastrpc-v3-1-4e3fb632300b@oss.qualcomm.com
 
-Changes in v3:
-- Rebase onto next-20261015.
-- Add the ADSP remote heap memory region (no-map) and VMIDs.
-- Link to v2: https://patch.msgid.link/20260916-dts-qcom-eliza-add-fastrpc-v2-1-95ed704ff268@oss.qualcomm.com
+This function should be static.
 
-Changes in v2:
-- Rebase onto next-20260915.
-- Drop the CDSP glink-edge description, as it was merged with the
-  CDSP remoteproc support.
-- Use the documented 0x1063-0x1067 secondary ADSP SID values.
-- Drop the undocumented tertiary ADSP CB7 stream (0x1087).
-- Link to v1: https://patch.msgid.link/20260721-dts-qcom-eliza-add-fastrpc-v1-1-cbea68d8e01b@oss.qualcomm.com
+As a prerequisite patch you should move gup_unshared_pages() into this file.
 
-Prepared with help from an LLM-based assistant.
----
- arch/arm64/boot/dts/qcom/eliza.dtsi | 160 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 160 insertions(+)
+$ git grep gup_must_unshare
+include/linux/rmap.h:    * gup_must_unshare().
+include/linux/rmap.h:    * gup_must_unshare().
+mm/gup.c:       if (!pud_write(pud) && gup_must_unshare(vma, flags, page))
+mm/gup.c:       if (!pmd_write(pmdval) && gup_must_unshare(vma, flags, page))
+mm/gup.c:       if (!pte_write(pte) && gup_must_unshare(vma, flags, page)) {
+mm/gup.c:               if (!pte_write(pte) && gup_must_unshare(NULL, flags, page)) {
+mm/gup.c:       if (!pmd_write(orig) && gup_must_unshare(NULL, flags, &folio->page)) {
+mm/gup.c:       if (!pud_write(orig) && gup_must_unshare(NULL, flags, &folio->page)) {
+mm/internal.h:static inline bool gup_must_unshare(struct vm_area_struct *vma,
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
-index a8042291bd07..93e922de53cb 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -13,6 +13,7 @@
- #include <dt-bindings/clock/qcom,eliza-videocc.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
- #include <dt-bindings/dma/qcom-gpi.h>
-+#include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interconnect/qcom,eliza-rpmh.h>
- #include <dt-bindings/interconnect/qcom,icc.h>
-@@ -615,6 +616,14 @@ llcc_lpi_mem: llcc-lpi@ff800000 {
- 			reg = <0x0 0xff800000 0x0 0x180000>;
- 			no-map;
- 		};
-+
-+		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0x0 0x00000000 0x1 0x00000000>;
-+			alignment = <0x0 0x400000>;
-+			size = <0x0 0xc00000>;
-+			no-map;
-+		};
- 	};
- 
- 	smp2p-adsp {
-@@ -2432,6 +2441,69 @@ IPCC_MPROC_SIGNAL_GLINK_QMP
- 				label = "lpass";
- 				qcom,remote-pid = <2>;
- 
-+				fastrpc {
-+					compatible = "qcom,fastrpc";
-+
-+					qcom,glink-channels = "fastrpcglink-apps-dsp";
-+
-+					label = "adsp";
-+
-+					memory-region = <&adsp_rpc_remote_heap_mem>;
-+
-+					qcom,vmids = <QCOM_SCM_VMID_LPASS
-+						      QCOM_SCM_VMID_ADSP_HEAP>;
-+
-+					qcom,non-secure-domain;
-+
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					compute-cb@3 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <3>;
-+
-+						iommus = <&apps_smmu 0x1003 0x80>,
-+							 <&apps_smmu 0x1063 0x20>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@4 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <4>;
-+
-+						iommus = <&apps_smmu 0x1004 0x80>,
-+							 <&apps_smmu 0x1064 0x20>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@5 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <5>;
-+
-+						iommus = <&apps_smmu 0x1005 0x80>,
-+							 <&apps_smmu 0x1065 0x20>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@6 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <6>;
-+
-+						iommus = <&apps_smmu 0x1006 0x80>,
-+							 <&apps_smmu 0x1066 0x20>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@7 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <7>;
-+
-+						iommus = <&apps_smmu 0x1007 0x40>,
-+							 <&apps_smmu 0x1067 0x0>;
-+						dma-coherent;
-+					};
-+				};
-+
- 				gpr {
- 					compatible = "qcom,gpr";
- 					qcom,glink-channels = "adsp_apps";
-@@ -4571,6 +4643,94 @@ IPCC_MPROC_SIGNAL_GLINK_QMP
- 
- 				label = "cdsp";
- 				qcom,remote-pid = <5>;
-+
-+				fastrpc {
-+					compatible = "qcom,fastrpc";
-+					qcom,glink-channels = "fastrpcglink-apps-dsp";
-+					label = "cdsp";
-+					qcom,non-secure-domain;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					compute-cb@1 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <1>;
-+						iommus = <&apps_smmu 0x0c01 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@2 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <2>;
-+						iommus = <&apps_smmu 0x0c02 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@3 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <3>;
-+						iommus = <&apps_smmu 0x0c03 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@4 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <4>;
-+						iommus = <&apps_smmu 0x0c04 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@5 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <5>;
-+						iommus = <&apps_smmu 0x0c05 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@6 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <6>;
-+						iommus = <&apps_smmu 0x0c06 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@7 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <7>;
-+						iommus = <&apps_smmu 0x0c07 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@8 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <8>;
-+						iommus = <&apps_smmu 0x0c08 0x0>;
-+						dma-coherent;
-+					};
-+
-+					/* note: secure cb9 in downstream */
-+
-+					compute-cb@12 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <12>;
-+						iommus = <&apps_smmu 0x0c0c 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@13 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <13>;
-+						iommus = <&apps_smmu 0x0c0d 0x0>;
-+						dma-coherent;
-+					};
-+
-+					compute-cb@14 {
-+						compatible = "qcom,fastrpc-compute-cb";
-+						reg = <14>;
-+						iommus = <&apps_smmu 0x0c0e 0x0>;
-+						dma-coherent;
-+					};
-+				};
- 			};
- 		};
- 
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20260721-dts-qcom-eliza-add-fastrpc-c0868aeac9cf
+I'm not 100% happy about the function name due to the !folio_test_anon()+!FOLL_LONGTERM
+path, but cannot think of something better.
 
-Best regards,
---  
+> +{
+> +	unsigned int i;
+> +
+> +	/*
+> +	 * FOLL_WRITE is implicitly handled correctly as the page table entry
+> +	 * has to be writable -- and if it references (part of) an anonymous
+> +	 * folio, that part is required to be marked exclusive.
+> +	 */
+> +	if ((flags & (FOLL_WRITE | FOLL_PIN)) != FOLL_PIN)
+> +		return nr_pages;
+> +	/*
+> +	 * Note: PageAnon(page) is stable until the page is actually getting
 
-Abel
+You are not calling PageAnon() anymore.
 
+/* folio_test_anon(folio) is stable until folio gets freed. */
+
+> +	 * freed.
+> +	 */
+> +	if (!folio_test_anon(folio)) {
+> +		/*
+> +		 * We only care about R/O long-term pining: R/O short-term
+> +		 * pinning does not have the semantics to observe successive
+> +		 * changes through the process page tables.
+> +		 */
+> +		if (!(flags & FOLL_LONGTERM))
+> +			return nr_pages;
+> +
+> +		/* We really need the vma ... */
+> +		if (!vma || vma_is_cow_mapping(vma))
+> +			return 0;
+> +
+> +		/*
+> +		 * ... because we only care about writable private ("COW")
+> +		 * mappings where we have to break COW early.
+> +		 */
+> +		return nr_pages;
+> +	}
+> +
+> +	/* Paired with a memory barrier in folio_try_share_anon_rmap_*(). */
+> +	if (IS_ENABLED(CONFIG_HAVE_GUP_FAST))
+> +		smp_rmb();
+> +
+> +	/*
+> +	 * Note that KSM pages cannot be exclusive, and consequently,
+> +	 * cannot get pinned.
+> +	 */
+> +	for (i = 0; i < nr_pages; i++) {
+> +		if (!PageAnonExclusive(page + i))
+> +			return i;
+> +	}
+> +
+> +	return nr_pages;
+> +}
+> +
+>  #ifdef CONFIG_PGTABLE_HAS_HUGE_LEAVES
+>  /* FOLL_FORCE can write to even unwritable PUDs in COW mappings. */
+>  static inline bool can_follow_write_pud(pud_t pud, struct page *page,
+> @@ -668,7 +721,8 @@ static struct page *follow_huge_pud(struct vm_area_struct *vma,
+>  	pfn += (addr & ~PUD_MASK) >> PAGE_SHIFT;
+>  	page = pfn_to_page(pfn);
+>  
+> -	if (!pud_write(pud) && gup_must_unshare(vma, flags, page))
+> +	if (!pud_write(pud) &&
+> +	    gup_must_unshare(vma, flags, page_folio(page), page))
+>  		return ERR_PTR(-EMLINK);
+
+There is already another instance of page_folio(page) int his file. Use a local
+variable and have one folio lookup. (that's the whole reason for passing a folio)
+
+>  
+>  	ret = try_grab_folio(page_folio(page), 1, flags);
+> @@ -722,7 +776,8 @@ static struct page *follow_huge_pmd(struct vm_area_struct *vma,
+>  	if (pmd_protnone(*pmd) && !gup_can_follow_protnone(vma, flags))
+>  		return NULL;
+>  
+> -	if (!pmd_write(pmdval) && gup_must_unshare(vma, flags, page))
+> +	if (!pmd_write(pmdval) &&
+> +	    gup_must_unshare(vma, flags, page_folio(page), page))
+>  		return ERR_PTR(-EMLINK);
+
+Dito.
+
+>  
+>  	VM_WARN_ON_ONCE_PAGE((flags & FOLL_PIN) && PageAnon(page) &&
+> @@ -846,7 +901,7 @@ static struct page *follow_page_pte(struct vm_area_struct *vma,
+>  	}
+>  	folio = page_folio(page);
+>  
+> -	if (!pte_write(pte) && gup_must_unshare(vma, flags, page)) {
+> +	if (!pte_write(pte) && gup_must_unshare(vma, flags, folio, page)) {
+>  		page = ERR_PTR(-EMLINK);
+>  		goto out;
+>  	}
+> @@ -2892,7 +2947,7 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
+>  			goto pte_unmap;
+>  		}
+>  
+> -		if (!pte_write(pte) && gup_must_unshare(NULL, flags, page)) {
+> +		if (!pte_write(pte) && gup_must_unshare(NULL, flags, folio, page)) {
+>  			gup_put_folio(folio, 1, flags);
+>  			goto pte_unmap;
+>  		}
+> @@ -2969,7 +3024,8 @@ static unsigned long gup_fast_pmd_leaf(pmd_t orig, pmd_t *pmdp,
+>  		gup_put_folio(folio, nr_pages, flags);
+>  		return 0;
+>  	}
+> -	if (!pmd_write(orig) && gup_must_unshare(NULL, flags, &folio->page)) {
+> +	if (!pmd_write(orig) &&
+> +	    gup_must_unshare(NULL, flags, folio, &folio->page)) {
+
+
+This only works because we don't have PMD mappings of things that are larger than PMDs.
+
+While at it, pass the proper page.
+
+>  		gup_put_folio(folio, nr_pages, flags);
+>  		return 0;
+>  	}
+> @@ -3011,7 +3067,8 @@ static unsigned long gup_fast_pud_leaf(pud_t orig, pud_t *pudp,
+>  		return 0;
+>  	}
+>  
+> -	if (!pud_write(orig) && gup_must_unshare(NULL, flags, &folio->page)) {
+> +	if (!pud_write(orig) &&
+> +	    gup_must_unshare(NULL, flags, folio, &folio->page)) {
+
+Dito.
+
+>  		gup_put_folio(folio, nr_pages, flags);
+>  		return 0;
+>  	}
+> diff --git a/mm/internal.h b/mm/internal.h
+> index c53c369bf8b5d..35016b1afc8bf 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1282,6 +1282,10 @@ int migrate_device_coherent_folio(struct folio *folio);
+>  int __must_check try_grab_folio(struct folio *folio, int refs,
+>  				unsigned int flags);
+>  
+> +unsigned long gup_unshared_pages(struct vm_area_struct *vma, unsigned int flags,
+> +				 struct folio *folio, struct page *page,
+> +				 unsigned long nr_pages);
+> +
+>  /*
+>   * mm/huge_memory.c
+>   */
+> @@ -1354,51 +1358,12 @@ enum {
+>   * to fallback to the slow path just to lookup the vma.
+>   */
+>  static inline bool gup_must_unshare(struct vm_area_struct *vma,
+> -				    unsigned int flags, struct page *page)
+> +				    unsigned int flags,
+> +				    struct folio *folio, struct page *page)
+
+Whatever you touch, please also convert to two-tab indent.
+
+-- 
+Cheers,
+
+David
