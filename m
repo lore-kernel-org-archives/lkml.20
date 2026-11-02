@@ -1,110 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793656067;
-	b=wjwFt/IHeGBamgwg/yfV5fteZNELp9LWyQOlVtf0jbJMVO/6q/DuYL+ZonpeHhyTTQfp
-	 4LiBKn6k7iSztlFEIYTijxMZHZcPqNiXwYpOIU3nxBYWTb9dGCbqUun0osYdJ9W6SUKF2
-	 GzCFCyeg5x9+UP8LqO1Oijxg+TpJqQMpoPK99Lum0mThzGfqhXBaPuoQ2vaOo8gieeb/Z
-	 oYoj5o6MZlj9VULxTmHdY6Fkr8Mszg7+BILZuSDYJBDo59ML2+2QM+albU6wNzMsKDsVg
-	 PoCMH9+Yrus/nXCBJsBpSHt5cRCHV7H6NJQxxxhqQMGDkEzPKvERj78kvyYspwMqf7w==
+	t=1793656070;
+	b=46YPGTQeBGwzk3uQEP68BiG5v8e0FfYzer9a5c/Ty9zdewaj7Tm5u/FNp/XStKYM33fK
+	 eQ9mNkTjxXGXsxEsEQ1Y9QMQM0kSZpuft3RtiG5I6+oOKyX4HGekYtCT50Rgo0Pz5RYav
+	 GArA98YHD24Y+JOQgyPF6UnbSsT4OpwgUWfCM6M3kLJ35+cbI6chku61D9d9teX4oxHlk
+	 qCgTcgtus++B1ygicy2sAIaw4fSATVYcCxzgnJQrcXf8Orh2GdIDIAR9G0aNfPm1RNGDp
+	 +NWsJ/eESCddLpZVjkwbCheFJQZQG8lr7bvVI0pZeZmJ80AAFhtgy/obHVcZs3nDFzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793656067;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=fRFHM8TclHjxH4d7yOHc55XDbOFrIcVzquq+tWhmmutbitoIpEVWrHYtZmduryP06COO
-	 q0e+h+pwUmmv3kiTVzO4H2Gsjuj3eGrn/Opgn1wZ+CGQ59fG1ICkM5VfI3tK4G3/jqoRt
-	 4ikuroZvI5x4dPzYc5I8nPmTAEdHsG35zts3M2VuW5Le7vsMA22kOFKgAbvoqmpdr2Sqw
-	 jFUFFTa5I4EvDG66OiBohFsEg9tQxqhSsGDk7u5Wvlsuq220+Q7wgX8oEmEd/dOANBxJe
-	 0mvU1H1RRWtA5cAHEOq8SjXUslSydLyRTKpO6c1RR/oODFGVvbm9TD5P6akDqBsz3zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656070;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cd5wWNullUB7y6awi0QqpF0THbdju3RxqFPzvSH65a0=;
+	b=HBElAmJG2+LNtFRHlYzGC+j1a6IDs710kAg2olyU9wgwgYrB+PCE00yoplnEAy7O6FgR
+	 dlQqYztSFTgvpJQCuTmPRE1SQJjBONXZkxRjN/9YxUTgM5mcwdunw09X5fSOwxawEDEcN
+	 glX/hwE/KsGFf5gfRBPWq+4pzYt1KNcby8ycyM07f7BBf79YcoovNM4HSWXBY62s/ciiB
+	 R3Dn1pr3qgP1cOQjCRotHNE9Y4dfvdm3T4VOjZBrJ6jTGkG0W2gmnAw+MLcPxY9Hom5Tw
+	 UE+c536eESW3jjt671hXQN3DtO6cTsrZ6J3O1K8kp3VA2sP5TiAekpXdlYE9QzTC6LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KVNiJYe5;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KVNiJYe5;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="BVJr3/NB";
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835CA606D82D;
-	Mon,  2 Nov 2026 21:47:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 835CA606D82D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9850606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:47:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9850606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KVNiJYe5;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KVNiJYe5
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 66BC021FAA;
-	Mon,  2 Nov 2026 21:47:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793656064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=fUzE4Beyy/9uaHzBHgm0a/0E9WDXX2YUGoq3mmbuxpzbD76cPpX00HGegTJTQvIUeu3aSX
-	9QaCFiOtAFIK+PsS3+jgF4iHKXlM3uWZtzXjDVna3uRaFKqtH1Tm2I8CDtW2ZPP8mRHMOw
-	wnRnssT1EZOqce3XIy2EwC4Riq8usXQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793656064;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=KVNiJYe5dBXqQS0Zoj5dO/MULZaRCLCLai/0Rde7pMHM3IPbvZnP6m6jmT1uffD6SNnlxa
-	omPZYJIG1NVqnFCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=KVNiJYe5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793656064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=fUzE4Beyy/9uaHzBHgm0a/0E9WDXX2YUGoq3mmbuxpzbD76cPpX00HGegTJTQvIUeu3aSX
-	9QaCFiOtAFIK+PsS3+jgF4iHKXlM3uWZtzXjDVna3uRaFKqtH1Tm2I8CDtW2ZPP8mRHMOw
-	wnRnssT1EZOqce3XIy2EwC4Riq8usXQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793656064;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=KVNiJYe5dBXqQS0Zoj5dO/MULZaRCLCLai/0Rde7pMHM3IPbvZnP6m6jmT1uffD6SNnlxa
-	omPZYJIG1NVqnFCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DDF1134B3;
-	Mon,  2 Nov 2026 21:47:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vkdUCQAF6WplAgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:47:44 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id E6688B17D; Mon, 02 Nov 2026 22:47:39 +0100 (CET)
-Date: Mon, 2 Nov 2026 22:47:39 +0100
-From: Jan Kara <jack@suse.cz>
-To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/filemap: stop fault-around when the walk steps back
-Message-ID: <kppowwph3bjl6qnbzmoq5zdjplt5eebiuweuvrm7wa7dqfhgt7@sj7kyq2ja3nh>
-References: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BVJr3/NB
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a06c60065fso2437617b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:47:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793656069; x=1794260869; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cd5wWNullUB7y6awi0QqpF0THbdju3RxqFPzvSH65a0=;
+        b=BVJr3/NBC9SuLuasSslZeQLV+Y+8lCvDd/W53fZu/MgVJTrlXnrW5EoruW/yd2ALUp
+         J64A7sfkFWWV4id6iyFgzXRTu+T1uWvyQrvUv9FOSyBW2lncIgzJD6NhSL0/w7gBMo3z
+         CqxKvaehsA1+7tfDZDtGz5UWK3NO2pjOhPc6zFyJxL/B3NR+g9MxXXpugQxbHFD/MgCP
+         KuzUXbkvODwj38V+VdDywQjBK6zFLUP6nSDIe2Q3JEkNs/t+EjDvFygVhAhs5I1TyYsD
+         Z9dhvBs5Ui/NiYCXzxZ8kPkxTvjdqEO/sVEl2nSD0KaaTleYovwRt0RknSgm1QDxRP+P
+         gwSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793656069; x=1794260869;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cd5wWNullUB7y6awi0QqpF0THbdju3RxqFPzvSH65a0=;
+        b=2IsoY2K3/15aKCLSV345LmSSSYtShpNNGjRDhtUV+b8tpreIIZqoR23ZZjlXEoCwPO
+         beYU/noPBj7C8NAzmDD0NdOPqj6FtxzuhLiRr8TD+Yylaa88l4bANdLsnw7xR6QYu5CH
+         +CjZ22ppQFNAHEzN8AoxUl0jgGwlOlxmH0mJCOUicNAgPijIFXdTVEsf28ggB2xmDeaj
+         CCVmNB7QN0M3jfFpt9Vx7eXtePRrsO7sGGTFextyD9rSJ0Bvkyshyg+xbkQMYnVot/M4
+         6HJ+GSqifKegycUmg68lfgOZp16+xtGlF3eaNXSFWO4srKq3BTFKxN0ZfCkRkf5yUege
+         J7eA==
+X-Forwarded-Encrypted: i=1; AKwUvBwnu9VJO3yCBIEtvAu/w1mcgs6AGsmQ2dLKgRScXMxSfHtjozvH0fd3eR8MpLXEICNvMU+DNC8hbmFz5JY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+YmTpGHNggTOrRkM0BJQcwfwdj39cK5GVcTmAzOgSdJEQ1zsbv
+	wgiRn1wMy5BpEglHBJ9aaY9JZZEFaAV6Tff7UoKIT3XpviV5kT/N8Td8T2SZfw==
+X-Gm-Gg: AYBFou3CrjtD8RCYMMvIOsv30ALsKqwI+dTO5Z7BHymsoRPRPzMdUPOLcs47mZqwnOT
+	qAvCrQVT+Lq6qz9qipOMMEzts1//ewt9iTOnWgPOPt3Gw5ZbGprVNQnIS2qrpoo8FZNf8UZzshG
+	c4X12IfasmDqpEWwMoDyu7t8Cm1aZLXnLRJDJ2c0OOsRrZ1aYcyK9CYtBZzeMTuHoBd4kywdAdH
+	/E32l1YXUgaYBs9uKQzOBZC79KfV+cvDrTwsGsULPrtzCVXtXDC1IT2IG6U724lRTtKR8nTMiUQ
+	vRoNdc4821NPToX8vfM4gs07pVhVwT9QdvwzzhOSgZ3z7Mu5mykSrPze8ODsVcCt4nuQByuUgqB
+	ey6ATNB7tyFw0r7bz2pSbDhynQfqAimUSkTYVxM0r6sr2VZkfBOUS76+X98i3n3AZr0o0z6nai+
+	mMoUTJ6V5fou1iurZF+1J/EOaeBPD5KF8rE4LhbIqQhK8pEutdObjnutfeOQ/o5FJDd5KpqyyYG
+	GnUY6YN3JVtp7dpeg6AynPtgkt4PnJH8TSoujbrZOdEut6iMXA5E3YYCZO816mfhlmGl50JMlCp
+	Max4AiN4lIHBDmqeMFJsxt9SzfoVNcsivVKT9m5TNT7IU8309akSAwZMWpqT81m6x/z1Uk+042N
+	W6tbem7GAM8PccVpXuzgaysxA86vF30DcLyaaB46CbpVacxnQVGBDocaboLSgJhmPFtSm9pdonL
+	aHaw==
+X-Received: by 2002:a17:90b:1644:b0:3ac:17c:6e85 with SMTP id 98e67ed59e1d1-3ae897c94ddmr9363563a91.47.1793656069127;
+        Mon, 02 Nov 2026 13:47:49 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c6b3493sm990553a91.13.2026.11.02.13.47.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 13:47:48 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net] net: bgmac: keep the maximum RX frame within one RX buffer
+Date: Mon,  2 Nov 2026 13:47:46 -0800
+Message-ID: <20261102214746.9274-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,106 +104,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,linux.dev:email,msgid.link:url];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,kernel.org,vger.kernel.org,kvack.org,gmail.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,linux.dev:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,msgid.link:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 66BC021FAA
+Content-Transfer-Encoding: 8bit
 
-On Sat 31-10-26 04:33:59, Jose Fernandez (Anthropic) wrote:
-> filemap_map_pages() can dereference a PTE pointer outside the page table
-> it locked. KASAN has reported this as a use-after-free read [1]. The
-> same path can also write out of bounds. When the stray entry reads as
-> none, the fault-around loop maps a page there with set_pte_range().
-> 
-> Its fault-around loop walks the page cache and moves vmf->pte by the
-> change in index. A lower index moves it back. xas_find() can step back
-> to a lower index when a multi-index entry is split during the walk.
-> 
-> [1] fixes xas_find(), but the loop still relies on the walk never
-> stepping back. Stop the fault-around when the walk steps back. ->fault()
-> maps the faulting page if the loop did not.
-> 
-> Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com [1]
-> Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+Each RX descriptor holds at most BGMAC_RX_MAX_FRAME_SIZE (1536) bytes of
+frame data. The MAC, however, is programmed to accept up to
+32 + ETHER_MAX_LEN = 1550 bytes in bgmac_chip_init(), and up to
+32 + mtu = 1564 bytes after bgmac_change_mtu(). max_mtu is set to
+BGMAC_RX_MAX_FRAME_SIZE - ETH_FCS_LEN, which leaves out the Ethernet
+header and any VLAN tag, so a frame at max_mtu does not fit in one buffer
+either.
 
-Looks good. Feel free to add:
+The DMA engine is the same dma64 engine used by b43 and brcmsmac, which
+continue a frame that does not fit into the next descriptor's buffer.
+bgmac_dma_rx_read() does not handle that: it consumes only the first
+descriptor and parses the continuation buffer as a new frame, taking its
+RX header from frame data the sender controls.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Program UMAC_MAX_FRAME_LEN from the MTU plus a VLAN tagged Ethernet header
+and the FCS, as bcmgenet does for the same UniMAC register, and limit
+max_mtu so that the resulting frame fits in one RX buffer. At the default
+MTU of 1500 this gives 1522 bytes. A DSA conduit carrying a 4 byte
+Broadcom tag (MTU 1504) gives 1526 bytes. max_mtu drops from 1532 to 1514.
 
-								Honza
+bgmac_chip_init() runs on every ndo_open and used to reset the limit to
+the fixed default. Use the current MTU instead.
 
-> ---
-> Changes in v2:
-> - Add Fixes: and Cc: stable tags, and say in the message that the loop
->   can also write out of bounds (David Hildenbrand).
->   https://patch.msgid.link/0a1ad7d2-ff0e-4248-8f03-2a64a9134aae@kernel.org
-> - Link to v1: https://patch.msgid.link/20261028-jf-mm-filemap-map-pages-lower-bound-v1-1-0bf126e876d4@linux.dev
-> ---
->  mm/filemap.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index b74bc1e5015c..1df776907140 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -3968,6 +3968,13 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
->  		unsigned long end;
->  		vm_fault_t map_ret;
->  
-> +		/* A lower index could move vmf->pte out of its page table. */
-> +		if (unlikely(xas.xa_index < last_pgoff)) {
-> +			folio_unlock(folio);
-> +			folio_put(folio);
-> +			break;
-> +		}
-> +
->  		addr += (xas.xa_index - last_pgoff) << PAGE_SHIFT;
->  		vmf->pte += xas.xa_index - last_pgoff;
->  		last_pgoff = xas.xa_index;
-> 
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-jf-mm-filemap-map-pages-lower-bound-a623ed8a81c9
-> 
-> Best regards,
-> --  
-> Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-> 
+bgmac_change_mtu() also never updated net_dev->mtu. When a driver
+provides ndo_change_mtu, the core leaves that to the driver, so the MTU
+seen by the stack never changed. Set it.
+
+Only compile tested. Not tested on hardware. Found with a review on a
+different commit by Sashiko.
+
+Fixes: dd4544f05469 ("bgmac: driver for GBit MAC core on BCMA bus")
+Fixes: 752e5fcc2e77 ("bgmac: reduce max frame size to support just MTU 1500")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/ethernet/broadcom/bgmac.c | 15 +++++++++++----
+ drivers/net/ethernet/broadcom/bgmac.h |  6 ++++--
+ 2 files changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+index 669eb7ce7d40..f29568a4190a 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.c
++++ b/drivers/net/ethernet/broadcom/bgmac.c
+@@ -1110,6 +1110,13 @@ static void bgmac_enable(struct bgmac *bgmac)
+ 	}
+ }
+ 
++/* The MAC counts the FCS in the maximum frame length. */
++static void bgmac_set_max_frame_len(struct bgmac *bgmac, int mtu)
++{
++	bgmac_umac_write(bgmac, UMAC_MAX_FRAME_LEN,
++			 mtu + VLAN_ETH_HLEN + ETH_FCS_LEN);
++}
++
+ /* http://bcm-v4.sipsolutions.net/mac-gbit/gmac/chipinit */
+ static void bgmac_chip_init(struct bgmac *bgmac)
+ {
+@@ -1131,7 +1138,7 @@ static void bgmac_chip_init(struct bgmac *bgmac)
+ 	else
+ 		bgmac_umac_cmd_maskset(bgmac, ~CMD_LCL_LOOP_EN, 0, false);
+ 
+-	bgmac_umac_write(bgmac, UMAC_MAX_FRAME_LEN, 32 + ETHER_MAX_LEN);
++	bgmac_set_max_frame_len(bgmac, bgmac->net_dev->mtu);
+ 
+ 	bgmac_chip_intrs_on(bgmac);
+ 
+@@ -1267,7 +1274,8 @@ static int bgmac_change_mtu(struct net_device *net_dev, int mtu)
+ {
+ 	struct bgmac *bgmac = netdev_priv(net_dev);
+ 
+-	bgmac_umac_write(bgmac, UMAC_MAX_FRAME_LEN, 32 + mtu);
++	bgmac_set_max_frame_len(bgmac, mtu);
++	WRITE_ONCE(net_dev->mtu, mtu);
+ 	return 0;
+ }
+ 
+@@ -1555,8 +1563,7 @@ int bgmac_enet_probe(struct bgmac *bgmac)
+ 	net_dev->hw_features = net_dev->features;
+ 	net_dev->vlan_features = net_dev->features;
+ 
+-	/* Omit FCS from max MTU size */
+-	net_dev->max_mtu = BGMAC_RX_MAX_FRAME_SIZE - ETH_FCS_LEN;
++	net_dev->max_mtu = BGMAC_RX_MAX_MTU;
+ 
+ 	bgmac->in_init = false;
+ 
+diff --git a/drivers/net/ethernet/broadcom/bgmac.h b/drivers/net/ethernet/broadcom/bgmac.h
+index 6fee9a41839c..ace65789289f 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.h
++++ b/drivers/net/ethernet/broadcom/bgmac.h
+@@ -2,6 +2,7 @@
+ #ifndef _BGMAC_H
+ #define _BGMAC_H
+ 
++#include <linux/if_vlan.h>
+ #include <linux/netdevice.h>
+ 
+ #include "unimac.h"
+@@ -330,6 +331,9 @@
+ 						 BGMAC_RX_FRAME_OFFSET)
+ #define BGMAC_RX_MAX_FRAME_SIZE			1536
+ #define BGMAC_RX_BUF_SIZE			(BGMAC_RX_FRAME_OFFSET + BGMAC_RX_MAX_FRAME_SIZE)
++/* Largest MTU whose VLAN tagged frames, FCS included, fit in one RX buffer */
++#define BGMAC_RX_MAX_MTU			(BGMAC_RX_MAX_FRAME_SIZE - VLAN_ETH_HLEN - \
++						 ETH_FCS_LEN)
+ #define BGMAC_RX_ALLOC_SIZE			(SKB_DATA_ALIGN(BGMAC_RX_BUF_SIZE + BGMAC_RX_BUF_OFFSET) + \
+ 						 SKB_DATA_ALIGN(sizeof(struct skb_shared_info)))
+ 
+@@ -363,8 +367,6 @@
+ #define BGMAC_CHIPCTL_7_IF_TYPE_MII		0x00000040
+ #define BGMAC_CHIPCTL_7_IF_TYPE_RGMII		0x00000080
+ 
+-#define ETHER_MAX_LEN	(ETH_FRAME_LEN + ETH_FCS_LEN)
+-
+ /* Feature Flags */
+ #define BGMAC_FEAT_TX_MASK_SETUP	BIT(0)
+ #define BGMAC_FEAT_RX_MASK_SETUP	BIT(1)
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.56.0
+
