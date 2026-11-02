@@ -1,52 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.1
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629053;
-	b=4XD8S0DTdaZnV//ISY65Kw6S9CRqwwgSM/1BoTjHfcbqHvTiG0bo2V8b8VcvY+I4+lIW
-	 qjlmjbNmR+yLwdv7bUuRcWKPIh62gc1vXaT0Pd33ot+CJCRqPdstPkkRsSXD6cXIbeqbt
-	 O1pwtRd3rwvS5lJ1I4U4f67j4YxgvYkNWG/WwFQZ5spGkoUokDZPaK/c+yntW94Ok/Ahv
-	 hZhfcbrYl1Edtxbw2Sq2hb4Xao+I610IAlj2Jg8EhpC2QzockXiCJ4Zpvr4Nhiba72mJh
-	 Ts8zfVeOTe3nRhOTdqx3i0HlYL/45a0zB5pMwvk01oMYIHugNmNcNa6Vy9J1shzzibw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629053;
-	h=DMARC-Filter:DKIM-Signature:Received:Content-Transfer-Encoding:
-	 Subject:Date:Mime-Version:X-B4-Tracking:Cc:X-Change-Id:X-Mailer:
-	 X-Lms-Return-Path:X-Original-From:Content-Type:To:From:Message-Id;
-	bh=UETLk1dQekRKIibLsMQYa9UEIKc8XT6x173PcXv7ydk=;
-	b=35s/W1Sf8AJ9U2xnGTUKsp4/Eht5UvnPhx5+YLtlETZEg/PP8P/9n0yrGP8KFWSNt+bs
-	 pau9nimZEwkJqsxToYAlXEmRI6Vxf4ygcfZu32W3LcvTxsG+Wae43nbAyYRrLiylI7biu
-	 e+hjsKi1h2ujgf+mh3USzBTLm2CpzVRfCQQXklPASDAEsgTGyhJ9BBGyQD2tFbXzKlmVc
-	 v7n9kKTbtI4xDDzQxRiD9xQOCg9tPqH9dmY4Oh0J4mRv01NCb6Fva53Py+MVST5ogkMKR
-	 wA9UJi4cfUltxMuScQLos+qNvLi5utQiFD+8KeL50NGmPIGuyw7sCl8qAPGwsYlVd+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=JY0Q4JGk;
-	arc=none smtp.remote-ip=71.18.227.1
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793629044;
+	b=ZOvzr+QYlc+0ZY1DO0aSfyjKxjY64PkhlLOn/AOMCXr9oZU5PgkmlNN4/+5VpJtAHQ7h
+	 kpqEEewUNUvid9SaPZj0Gs/0CjkWs4LGLO7k7Tne3Oe+UOH0gxgOtvi/U0QBl56TbFdvt
+	 XMn/nZOZBBJDuGbAGNINaZ9mcEVEWOy83wXSJSna7JUJ+NI+mhyEuEuS0ULw0kahEQE9o
+	 XE9apZQeIXoxdmjzfNE4wznH34jkzul/nFuOj9rvfFmZQeg56EiCw1JQgKl1OllpVRSo5
+	 8hM8toNqWa55a9j5XTuY0Lo+561wJZn/D1hOh0GzSPgPIkwFDV6aHjZMbpgy1ChIC8A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629044;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=72eIKdcoHcSjaeNfWyReTenXL5eyw3RcNYR1V1ALc0s=;
+	b=DLLjdovlgpbjjpYTlW4QdJG+yw85ZMN1mB+oMLHqBgLYgxjdB4KOG+D5G81TMaxTuUfi
+	 VbeB39SfzZRVhZ4XbOf25DvP0T/NuRHZkqgWQtMFCuThpll7TeneGIgXAm9rPeHw/Kpmv
+	 RCFRBfrUmYNg1bPc9ITzHmcz1yVNseidFEmNtZwXc1jUNi4lnMYfo0i0xEeFPvaC4PANi
+	 iZSz6SG5JMGxlZSRRksXDDUpJjGbDTiqA1pND2lXB6zu60y+4P7QKQ7fyluoxijylf3Ru
+	 Y96AwBjtuhs88SJ4K6VGDYd+7z+OBI3fws+5zm7lo3EmC42ZJZ/ghk9PSvVX3/zBliQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pinc-software.de;
+	spf=pass smtp.mailfrom=pinc-software.de;
+	dkim=pass header.d=pinc-software.de header.i=@pinc-software.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=NVhScJVg;
+	dkim=pass header.d=pinc-software.de header.i=@pinc-software.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=rO6QbZtT;
+	arc=fail smtp.remote-ip=85.215.255.52
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD74606B5C9
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:17:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DD74606B5C9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C119A606A33B;
+	Mon,  2 Nov 2026 14:17:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C119A606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinc-software.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinc-software.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=JY0Q4JGk
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793629040; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=UETLk1dQekRKIibLsMQYa9UEIKc8XT6x173PcXv7ydk=;
- b=JY0Q4JGkbzEoqaB5iqiyXIOHU6WLKEi2rncgK0ZIGJ7nGHZMghZxKeE7nVBtbdfrXkOjqK
- QlR+QRx0S2zaOkj9VfN5oIhpoJ4q11o09bYiUGjseJsMbhavExaRch6aMjRF5Tx1POtdLD
- +C6ggqPkXOuTu0mAEV0kJgj+qXxULtivKXfk0vPzcapaGh0VOmMKPeg5b6T/Fhkdmt0I+3
- /Qvd8IDzsQqS1NcoUKfdkkX08xXJQsmbOSzqCTCUgKpOm+MVd/fjbHCvvSj/jb/wCvj78/
- YuFbki68SXI9EuNOJhJDgB9l3C9cJcmfxg52qeUhB3YYATUdEwrd5j3kvDwBoQ==
-Received: from [127.0.1.1] ([111.42.148.145]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 22:17:18 +0800
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH v2] HID: pidff: fix undefined shift for infinite duration
-Date: Mon, 02 Nov 2026 22:17:11 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=pinc-software.de header.i=@pinc-software.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=NVhScJVg;
+	dkim=pass header.d=pinc-software.de header.i=@pinc-software.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=rO6QbZtT
+ARC-Seal: i=1; a=rsa-sha256; t=1793629035; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=i6RpYNOmT+OwQSCmAWoX2gw2XUBHcmMPi3skdJoxxZMpJYfd4EgyxeIbzuBOdM0Bkx
+    +JBfDWyMJuTClTOLic0p0bweWqUk0f7lBxBiGj1N0HQ+QbI3eQhCtrPkBW8fxQDkQ+it
+    W1hzmadEc5vVR7w0uVW+mck3afWuFOb8zdGUQ4u9nqoyjs/ubEu76fKFDqhn5SPbPLVz
+    nSdvdyc2bixRcmarQLeJJspdgJMg0pLxjPx5tU14hWegEC4NigNpn+f9pz/TX09/e5ZT
+    djYW3KbM0BTMGRyQ2Krkcjf0+gxM8QEclU82ERIqJ2pySR83WA2R4tmADtTqYXv78Hdr
+    x2hQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793629035;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=72eIKdcoHcSjaeNfWyReTenXL5eyw3RcNYR1V1ALc0s=;
+    b=Tef7ZWXo3w/u+iJg5euY+Qa5Qeu2zTQjrTSERtaVqTmpZaqc8ZESs8uFhd6tN9T4kK
+    yPR7PctXl+gaoH/TMV5L1xi3TtCdZz9xNH9ytZaBvMYC2L6by6cTFOvJWJNH8jYmg0/0
+    co5JKWqoM4ppKkc+ZbFRSV28VSDYMlwz/dimN5Hh06b9BXM2JGMnxTBRHYdSpkRbwbaa
+    cYMSknhyNsIny6IOupgQj1mLNlYWK5OCzEq8gwWUk5ZO+SUieBpXvuBBK5n4F7TgkdAB
+    mA22UdpZDMBRSTu7ql13a6c5K8WyGzZW4L1FpFQ6zUEvRSFqDfCXydIvjNZmJdJFoYQi
+    4xOA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793629035;
+    s=strato-dkim-0002; d=pinc-software.de;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=72eIKdcoHcSjaeNfWyReTenXL5eyw3RcNYR1V1ALc0s=;
+    b=NVhScJVgjXceXEb6RNEwZGV+6p6ZDoL/Ci+jVDasvGM6PnlXW031yDwNWs+OZDKyOH
+    QcnT/no/xJctCgCdQ8y1yYrPaCF7FDm+CVAec//Osp/VrEBi4lPZ4wLe0NiiD2a65ds6
+    Fy8BAdIJvzoBbb35fPr4gMoA37bfMD8w8RTlSVH1IQVBKyIh6kBNUssAGbCfjXW9SuHo
+    N9/Vl+tLjHJlaiKVgIjzczSEtEp3spQj3gfLS4eYQjYZ8Gp/ABFSXQgrEFCdUv/cnRCo
+    Ldqm5Q6EFNmTSnKVeM7N3/m9/mRhmM7YdDBrWatAdQ7aetYzZG/sQgBq4G8J1qEA4sB8
+    XQiw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793629035;
+    s=strato-dkim-0003; d=pinc-software.de;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=72eIKdcoHcSjaeNfWyReTenXL5eyw3RcNYR1V1ALc0s=;
+    b=rO6QbZtTR7dDjkD7He5NHtlwnlMi83zcythRLlbcRs/XwhLK2zkKBzAhoNuEAIxgs2
+    gs22R7RRgO55VpwKkeBg==
+X-RZG-AUTH: ":LXQBeUSIa/ZoedDIRs9YOPxY4/Y41LMYtYgA+S704E62CSg2BLG6dk+k8/0cpS1xrQjovw=="
+Received: from phoenix.fritz.box
+    by smtp.strato.de (RZmta 55.6.3 DYNA|AUTH)
+    with ESMTPSA id a2f6e42A2EHEALJ
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 2 Nov 2026 15:17:14 +0100 (CET)
+From: =?UTF-8?q?Axel=20D=C3=B6rfler?= <axeld@pinc-software.de>
+To: Luis de Bethencourt <luisbg@kernel.org>,
+	Salah Triki <salah.triki@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/2] befs: Fix allocation group consistency check
+Date: Mon,  2 Nov 2026 15:17:13 +0100
+Message-ID: <20261102141714.306719-3-axeld@pinc-software.de>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102141714.306719-1-axeld@pinc-software.de>
+References: <20261102141714.306719-1-axeld@pinc-software.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,65 +103,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAGab6GoC/yXMQQqDQAyF4atI1gZ0iDJ4leLCcZIaF1YmYymId +/ULj947z/BOCkbDNUJid9q+toKXF3BvEzbk1FjMbjG9W3jPAbCXaMIxiNNuazRFpWMPgpJT11 L5KG898Sin7v8GP+2I6w8518OrusLASO2RHsAAAA=
-Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-X-Change-Id: 20261028-b4-pidff-duration-shift-8df4f6451448
-X-Mailer: b4 0.16.0
-X-Lms-Return-Path: <lba+26ae89b6f+73fd85+vger.kernel.org+me@cherr.cc>
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
-	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Message-Id: <20261102-b4-pidff-duration-shift-v2-1-83c5f8c67484@cherr.cc>
+Content-Transfer-Encoding: 8bit
 
-pidff_set_duration() computes the infinite duration as
-(1U << report_size) - 1, but report_size comes from the device's
-report descriptor and can be 32 or greater. This causes an undefined
-shift. A UHID test on x86-64 triggers UBSAN and programs a 32-bit
-duration field as zero instead of 0xffffffff.
+befs_check_sb() complains if (1 << ag_shift) != blocks_per_ag, but the
+two fields do not describe the same thing: ag_shift is the log2 of the
+number of blocks in an allocation group (which is also how befs uses it
+to convert between inode addresses and block numbers), while
+blocks_per_ag is the number of bitmap blocks per allocation group.
 
-For report sizes of 32 or more, store -1 in the s32 field value to
-set all 32 bits without shifting. Keep the existing calculation for
-smaller fields.
+As a result, the check triggers on basically every valid volume.
 
-Fixes: 1a575044d516 ("HID: pidff: Compute INFINITE value instead of using hardcoded 0xffff")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Replace it with the check the BFS reference implementation uses: the
+number of allocation groups must match the number of blocks divided by
+the allocation group size, rounded up. Also reject ag_shift values
+larger than 16: the start of a block_run within an allocation group is
+only 16 bits wide, so larger allocation groups cannot be addressed, and
+such values could otherwise make the shifts in iaddr2blockno() and
+blockno2iaddr(), and the division in the new check, misbehave.
+
+Like the other structural checks in befs_check_sb(), a mismatch now
+fails the mount instead of only printing an error.
+
+Signed-off-by: Axel Dörfler <axeld@pinc-software.de>
 ---
-Changes in v2:
-- Swap the branch order so the default operation is unguarded,
-  as suggested by Tomasz in review.
 
-v1: https://lore.kernel.org/r/20261028-b4-pidff-duration-shift-v1-1-65028c6b4a37@cherr.cc
----
- drivers/hid/usbhid/hid-pidff.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Notes:
+    v2:
+    - Replace the incorrect check with the one from the BFS reference
+      implementation instead of just removing it, and limit ag_shift to
+      what a block_run can address.
+    - Explain what ag_shift and blocks_per_ag actually mean.
 
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 22951b7ecd17..50906890fdad 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -394,7 +394,9 @@ static void pidff_set_duration(struct pidff_usage *usage, u16 duration)
- {
- 	/* PID defines INFINITE as the max possible value for duration field */
- 	if (pidff_is_duration_infinite(duration)) {
--		usage->value[0] = (1U << usage->field->report_size) - 1;
-+		usage->value[0] = -1;
-+		if (usage->field->report_size < 32)
-+			usage->value[0] = (1U << usage->field->report_size) - 1;
- 		return;
+ fs/befs/super.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/fs/befs/super.c b/fs/befs/super.c
+index 7c50025c99d8..6496b4d9338c 100644
+--- a/fs/befs/super.c
++++ b/fs/befs/super.c
+@@ -99,12 +99,24 @@ befs_check_sb(struct super_block *sb)
+ 		return BEFS_ERR;
  	}
  
+-
+-	/* ag_shift also encodes the same information as blocks_per_ag in a
+-	 * different way, non-fatal consistency check
++	/*
++	 * ag_shift is the log2 of the number of blocks in an allocation
++	 * group, so it determines how many allocation groups are needed to
++	 * cover all blocks of the file system. Since the start of a block
++	 * run within an allocation group is only 16 bits wide, an allocation
++	 * group cannot have more than 65536 blocks.
+ 	 */
+-	if ((1 << befs_sb->ag_shift) != befs_sb->blocks_per_ag)
+-		befs_error(sb, "ag_shift disagrees with blocks_per_ag.");
++
++	if (befs_sb->ag_shift < 1 || befs_sb->ag_shift > 16) {
++		befs_error(sb, "invalid ag_shift: %u", befs_sb->ag_shift);
++		return BEFS_ERR;
++	}
++
++	if (DIV_ROUND_UP_ULL(befs_sb->num_blocks, 1ULL << befs_sb->ag_shift) !=
++	    befs_sb->num_ags) {
++		befs_error(sb, "num_ags disagrees with num_blocks and ag_shift");
++		return BEFS_ERR;
++	}
+ 
+ 	if (befs_sb->log_start != befs_sb->log_end ||
+ 	    befs_sb->flags == BEFS_DIRTY) {
+-- 
+2.56.0
 
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261028-b4-pidff-duration-shift-8df4f6451448
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
