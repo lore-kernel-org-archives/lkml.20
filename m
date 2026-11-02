@@ -1,96 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=63.250.43.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630270;
-	b=UC60KrzOjOl4QsmEG68F27HYrcRJ5uop/U1nWGAcM0bVSbV4O6f0LCFnqTsAmotx53PJ
-	 GeW68Gm/6J+24nSEIdK+pPrNbwS+TLeu2F5rapkH6lBDfJU1J1ZCgWcg8eOSQLxs1turk
-	 Ro4FaQ8Sfc4x7ako3lExZ4VeT2btFbYCv8UFlbXPMCc424mFAcSvuVf22Bau1OU6HhAJF
-	 4g3Id9mZrfLnUCPr3YF16U1JN0j/NIVBMQ1Z0bx5DEnQin8z85kjFElR1trtSkGs5y0Ka
-	 6Fgr1HLgDLu1keIQp1qR9fqImTlBl8l1DHGmLmnDbtbFbNu3XlWCLEKnw6nbXJrMXWA==
+	t=1793630276;
+	b=jSIHQuEFpGR9ZVbPAtkb1yzlOHR6orYlMVdHG0BEFh4cfl6HiuGNFIvLY7eCYP8SKUbP
+	 Jc/LkUUNgsSFi5glWrNxOQZwRKxQNF5IcbSu+P983xyeb4wUzbkiX1bdqlvz0+1zV/Pi/
+	 EOv7W8XriPSQv54WRfGQLffSnIvVGI/8ENUYSP0Htv2MerDlgCiF7SFnJaJ5/yl+HERKh
+	 xWngSngclNUtyKaKZJHxegzEqP4oTqAEG1vfw5JCIX31CBjqjGPDkW5c4D7CkvM++2PPc
+	 HI1VPzTuoM7A9l7rsmg9qTofCreb9tgDXCXq73z4pCzaEyAXb2mjbEM65U6PuyhCA5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630270;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0+KnKlr9xPjJpW+GH/q0yJUebUnS2gk/U45PnsNsRe8=;
-	b=TxGJsPjudUUiMLenhM6aMH/tecCqsjpxtAdJ1CuXTH+p2L2wBvB7p9WYULrLAcCJ9WcB
-	 qUWXPWbUfav7n4zARf9u7LaysjesZAD+I0w7wWJt5ofYTpE7H7Bl4ArEtWI8H+8d3ClsD
-	 N2A0HEJYbuKO3wSLc1AAoTpzragtMBsQehoVlcAd14bZcxMBJHy4D144rOp2Gde1XDuka
-	 xdBeD+kn8LwTTnfeLsLvssIJYPavGLlxsNFO13pyZskXP4PKb66bj6IQWDg6BTcnybE3P
-	 qvJgjj3wo/zbTf1C9Kc79LOaqgVBlJJgQHWisUj3y3s8u5Tn90/67g717QxtE9Y5IAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630276;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Envelope-From;
+	bh=KkZEDMc9TV7vIke2IgqAteHrPzpueQVEpD8e48hwjuY=;
+	b=nqDvBSQglHCcgPkJ+u9hEt8ovrhvGSs1weFuHVe9KBvlq6Vh1M4W7MRn39F5mQiuiI20
+	 zcH5LAu1WKfzxfxAw0bGumerMsLZdniq1yLEidytA26hjelqro3zYNIlJr+XSUUSCJ9fY
+	 ehihnaW7JIJ1Rq75O/+0tCGoHvt4B1d5k8fCsT3jqVaIhGDOTfSYnnS6r8NcAC691qS13
+	 rLHc7yUFkKEdjPidxbNAj1+cjXpTa+2OJ0fkTrtLMAP6PFyHlUOjGx9GK2W5oqaHO74sM
+	 iyob+ZQFsWynEZf4JW2yIIbak8kPbFsigfHd5eNgGlxfhIq4M2HOmyqdFHxeZVq+CTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I8aW0oqy;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=elliotjb.com;
+	spf=pass smtp.mailfrom=elliotjb.com;
+	dkim=pass header.d=elliotjb.com header.i=@elliotjb.com header.a=rsa-sha256 header.s=default header.b=Lucy0rYA;
+	arc=none smtp.remote-ip=63.250.43.117
+Received: from out-2uec-a117.jellyfish.systems (out-2uec-a117.jellyfish.systems [63.250.43.117])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7AC606E03D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:37:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD7AC606E03D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5402607827D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:37:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5402607827D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=elliotjb.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=elliotjb.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I8aW0oqy
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535a54bed9so4646613eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:37:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793630269; x=1794235069; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0+KnKlr9xPjJpW+GH/q0yJUebUnS2gk/U45PnsNsRe8=;
-        b=I8aW0oqyxUauKugpGS87StTJqhuknb13hxjl70I2wRsjnhcTLFU1XQgi5nfliR9hie
-         PT0EY6i1134C8w5Idz+Vk+xhQgJASlsV3EDY/ITRxQaAstBdoaosYCVVPnjv7JmBkoYJ
-         CZZJr04Z9vrWfU6XqbtSifELdILX0jKYUGtlPg3oa6o8vbsz/bG/5GeCzdusIR60aGK2
-         eubk5pyFyFGc4qg/27vBslv3GkOMcJdsMymAIKCInQuRrflHjSosJWom4tnq5GNSZChc
-         YTYpoK8JxH/p2W6S9M/ip/DvG4/ViLRtXKklh+gmLfdkGIyDnHNn9xKSnKe1/FfxW8/t
-         +vhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793630269; x=1794235069;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0+KnKlr9xPjJpW+GH/q0yJUebUnS2gk/U45PnsNsRe8=;
-        b=n5KIT+qGd4rzE0ls7dIxT5RzDivvAh+Aa4s1Qw0mT+Y2S057fB6+x76abWtR5N+EvQ
-         t2EPWnaOGMU1IbekDae7geWiwTyqxo5qyuI7dBGVbQi5S6XPiFqUOQ8qYTjV8gWPDCTx
-         le1HROIgT+Rm5PTbSemKgcBfOQzzE0/t8IrY9/CFky6v14Z4cIHrmMi3zwhlBtoHJli2
-         35huVcHRtjlcGTV1cQLo3ro54/5qb9MdWGWk857mvkbsVrbbYuLKn/S8MqBCkQVtpOU1
-         +Re0fdnssH0UAYtilhyMiysb+UKpjYE/g5ggpn351XUm+OZn8BffobooZ9esqOsLj2YT
-         7ydw==
-X-Forwarded-Encrypted: i=1; AKwUvBx/2wL7DihIzNCpqGantGeBaNDS3cYHmrImD341eu8lWGY5VGjSndCJ9iXq1cdJvFXcmkewyc3phWrIoMo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWQR7DXJXm7AQcU3PawmIgiLAqQxp1JJYIen4jgs/P4p9F1gR4
-	CJSMqBjqIq0qqMvKZgoqRYiyk0hwUBIPDudYS2uXxu3tJGN+osKf7gC6G/8vC94u
-X-Gm-Gg: AYBFou2YvTEES+cffc7SvpcNmvTx9UGbTocugzDD/2xJX1VsPFepJPbGQWlOwW7DFLm
-	KlE7C83XdC2aurKC4KgIip16wwU7RzaFPW4iIlXccAZeirOG8jnQUTtgAbLVmJzflTT0UEXxHtB
-	QWbuIGS4eY6OQrxjYApdjD0IsJX0A7nRJGUtShCcwj/4UXoOIke20HQb4UwkpGmuR58n2CKz/NT
-	4TcYTxWhHAFsLRadIicI7CJE5xxHxNp7prXgAMZ9IAlrd6psuFabTe6/zGhqhDSMyZIpepyKQ2w
-	DiEVEaB9n8Yk1dZnOJdZG6r19WGGJvkiu0RrSDS50lMwDs+KY/JC8ga11/jhhb8peANELuEDmMk
-	7CbWu/fa8d3sV7UioLPAO9yiNiWhkI5fOWEQDacMh+kZycNwGgBGIpaXPX42dPXtmJp/JRpFZVW
-	maBuGkl98TOcR5EIMwZrxnsmoqpeZxfeizIEO18/VcxmC/bO36e7KsDXDDxIx9zXw8j5lqQa1ad
-	Xz4FzFdLLjWNwfi9fFj8CfXYEzMR7pa96dl30d95zgnXJG53b/fnalW91MNpJXguEWlnqZpwg0Y
-	yW0wAM9EGiK0TskBAUsTDFULiNjB
-X-Received: by 2002:a05:7301:6187:10b0:35b:cb8a:8d0e with SMTP id 5a478bee46e88-36a4242f5c3mr16363420eec.16.1793630268636;
-        Mon, 02 Nov 2026 06:37:48 -0800 (PST)
-Received: from ubuntu.. ([2405:201:8026:213e:82cc:4587:6dbe:2fdf])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428fa380sm35247518eec.12.2026.11.02.06.37.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:37:47 -0800 (PST)
-From: mdshahid03@gmail.com
-To: maddy@linux.ibm.com
-Cc: mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Mohammad Shahid <mdshahid03@gmail.com>
-Subject: [PATCH] powerpc/perf/vpa-dtl: use GFP_ATOMIC for DTL buffer allocation
-Date: Mon,  2 Nov 2026 20:07:19 +0530
-Message-ID: <20261102143719.165508-1-mdshahid03@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=elliotjb.com header.i=@elliotjb.com header.a=rsa-sha256 header.s=default header.b=Lucy0rYA
+Received: from mail.privateemail.com (unknown [77.233.63.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4jJDnb6wCZz8sWR;
+	Mon, 02 Nov 2026 14:37:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=elliotjb.com;
+	s=default; t=1793630261;
+	bh=KkZEDMc9TV7vIke2IgqAteHrPzpueQVEpD8e48hwjuY=;
+	h=From:Subject:Date:To:Cc:From;
+	b=Lucy0rYAla2d7RoATI04kJj5bIZJlfOotWlUwswr2HfsfFXFgUpeFleOqoUpxdkpJ
+	 53LtC3faDdcMCljr/Odo+kYpLmIFCrVTklr0LtubDj6ZyJI5JtOfYOT5NMcglHJnsP
+	 rjFCpYI5r4RxnEK9gMxVnGsK/z0RnP0cMIsCDPxjLEI5IV/rlss9DyVdqNU0mdLXl1
+	 hBpqOyeMvczEC90aLF9y2KMiwkv/pbYMfQ8mGshfTcSJ/qGaqWW8bFZln8ZcKLXWUh
+	 pnWKpn+Y1tRjx8CaUU4M9qZye5RN3gl1GhMzKvul0kmIUEbRfuW13TAXeKJacU0ahG
+	 mzdU1GUMlgROA==
+From: Elliot Berman <elliotjb@elliotjb.com>
+Subject: [PATCH 6.1.y 0/2] Fix NULL folio dereferences from IS_ERR() checks
+ in 6.1.191
+Date: Mon, 02 Nov 2026 06:37:02 -0800
+Message-Id: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,39 +63,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA6g6GoC/yWMQQrCMBAAv1L27JYkDQH9iniozUZXQiLZVCqlf
+ zetxxmYWUGoMAlcuhUKfVg4pwb61MH0HNODkH1jMMo4rZVGWqrFVIMMmOYYMeTIGc3gR6e8PVt
+ F0Np3ocDL8b2C63X/hdtfy3x/0VT3J2zbD/H2EFaAAAAA
+X-Change-ID: 20261101-ext4-ntfs3-null-folio-23da60d4940e
+To: Theodore Ts'o <tytso@mit.edu>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Sasha Levin <sashal@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Yongjian Sun <sunyongjian1@huawei.com>, Jan Kara <jack@suse.cz>
+Cc: stable@vger.kernel.org, regressions@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ ntfs3@lists.linux.dev, Tom Bereknyei <tomberek@gmail.com>, 
+ Elliot Berman <elliotjb@elliotjb.com>
+X-Mailer: b4 0.15.2
+X-Envelope-From: elliotjb@elliotjb.com
 
-From: Mohammad Shahid <mdshahid03@gmail.com>
+We hit a kernel oops in 6.1.191 in ext4_mb_regular_allocator(), When
+ext4's s_buddy_cache pages are evicted, the next block allocation
+dereferences a NULL folio.
 
-The DTL buffer is allocated while holding dtl_global_lock, which
-is spinlock.
+$ echo 3 > /proc/sys/vm/drop_caches
+$ dd if=/dev/zero of=/mnt/b0 bs=1M count=4 conv=fsync
+BUG: kernel NULL pointer dereference, address: 0000000000000000
 
-GFP_KERNEL allow direct memory reclaim and may sleep. Combining
-GFP_KERNEL with GFP_ATOMIC does not remove the direct reclaim.
+PGD 5f19067 P4D 0
+Oops: 0000 [#1] PREEMPT SMP NOPTI
+CPU: 0 PID: 908 Comm: dd Not tainted 6.1.191 #1-NixOS
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+RIP: 0010:ext4_mb_load_buddy_gfp (fs/ext4/mballoc.c:1536 (discriminator 1)) ext4
+Call Trace:
+ <TASK>
+ext4_mb_regular_allocator (fs/ext4/mballoc.c:1641 fs/ext4/mballoc.c:2798) ext4
+ext4_mb_new_blocks (fs/ext4/mballoc.c:5793) ext4
+ ? ext4_find_extent (fs/ext4/extents.c:925) ext4
+ext4_ext_map_blocks (fs/ext4/extents.c:4369) ext4
+   ...
 
-Use GFP_ATOMIC alone to ensure the allocation does not sleep
-while the spinlock is held.
+The cause is a mismatch in these backports first released in 6.1.191:
+    d34e4fd4e73f ("ext4: convert bd_bitmap_page to bd_bitmap_folio")
+    862483175d3d ("ext4: convert bd_buddy_page to bd_buddy_folio")
 
-The issue is reported by script coccinelle call_kern.cocci.
+The ext4 mballoc folio conversions were written for v6.4 and later, where
+__filemap_get_folio() returns ERR_PTR() on failure. 6.1 does not have 
+commit 66dabbb65d67 ("mm: return an ERR_PTR from __filemap_get_folio") and
+returns NULL instead. The backports should check for NULL and not IS_ERR.
 
-Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
+These came in as dependencies of a3a7d360252c ("ext4: fix e4b bitmap
+inconsistency reports"), also new in 6.1.191. We could revert all 3
+patches and translate Yongjian's patch from `folio_test_locked(folio)`
+-> `PageLocked(page)` instead. I suspect backporting 66dabbb65d67 ("mm:
+return an ERR_PTR from __filemap_get_folio") is too heavy for stable,
+since it requires updating all callers.
+
+Since the same mistake could exist elsewhere, I ran a Coccinelle script
+over the tree to flag similar missed backports. Besides ext4, I found one
+more case in ntfs3:
+    95b917a14b15 ("ntfs: Do not overwrite uptodate pages")
+
+That one needs a folio allocation failure while reading a compressed
+file, so it required crafting a fault injection in __filemap_add_folio to
+reproduce. I've fixed this one as well.
+
+Reported-by: Tom Bereknyei <tomberek@gmail.com>
+Signed-off-by: Elliot Berman <elliotjb@elliotjb.com>
 ---
- arch/powerpc/perf/vpa-dtl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Elliot Berman (2):
+      ext4: fix NULL folio dereference in mballoc
+      bs/ntfs3: fix NULL folio dereference in ntfs_lock_new_page()
 
-diff --git a/arch/powerpc/perf/vpa-dtl.c b/arch/powerpc/perf/vpa-dtl.c
-index 3e3d65b6c796..3d34417e6aae 100644
---- a/arch/powerpc/perf/vpa-dtl.c
-+++ b/arch/powerpc/perf/vpa-dtl.c
-@@ -338,7 +338,7 @@ static int vpa_dtl_mem_alloc(int cpu)
- 	if (!dtl_cache)
- 		return -ENOMEM;
- 
--	buf = kmem_cache_alloc_node(dtl_cache, GFP_KERNEL | GFP_ATOMIC, cpu_to_node(cpu));
-+	buf = kmem_cache_alloc_node(dtl_cache, GFP_ATOMIC, cpu_to_node(cpu));
- 	if (!buf) {
- 		pr_warn("buffer allocation failed for cpu %d\n", cpu);
- 		return -ENOMEM;
--- 
-2.43.0
+ fs/ext4/mballoc.c  | 28 ++++++++++++++--------------
+ fs/ntfs3/frecord.c |  4 ++--
+ 2 files changed, 16 insertions(+), 16 deletions(-)
+---
+base-commit: 08889840163ebcdb7e24bf7ec311bc2e6fc3aaea
+change-id: 20261101-ext4-ntfs3-null-folio-23da60d4940e
+
+Best regards,
+--  
+Elliot Berman <elliotjb@elliotjb.com>
 
