@@ -1,112 +1,201 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646462;
-	b=5l3NEGTJj9xTrM2CI30v9EkW6u5f/k6OsuP/EQncUkWSYt0rUPGcY0rul5E2X9HFVrkV
-	 qqqbfubn7McLR/rJnhi0Jfo8PS4dD61WyzQvd6H+YaK/gydE8sfznwAUKBn2mjCl7sKrh
-	 A3e8PDoCuOTVZKJ4FHFAoFHS7eifnEn5HPG6HP9ipc3bwjusuyYfKU0jMlRlfSvWmGe5r
-	 RH8hOUvfjau8a6/vWWYw/AYiI2Q6SVsAnymN68SIBS0/pb6kGE45VJFrRgPZDVQLl3FGJ
-	 NX++ipK1X9RhisdTZ460uuKsG2/nL9Cud8Ow9jLZVH8kqNDwmLfiJRi8VUQ8hHI1Otg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646462;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ec1L3fOkUw96fmBt7XeQgMFxmxwUUekyLxlS3pXawYU=;
-	b=NPXC4TEbu5scv3hf/TTpy4R0YQFtWVRoBOVp7+zOzkT8itu1J4puLpbFH5ZMcGX7CGwk
-	 5FRGevWeZNWy8DRYQ2giQGKjhPr88cSahjiZXqoAo0KjgPL8g5Fi1kUSalB/Ss5Chbg84
-	 4YzND6wObPtLLgHgYh8yTNxqb3io7EfVQXsXTvsnY65m11mZuZPCdhsXNPJYonT6cqssL
-	 TomAa6wQNFokspNLl5CJSsnw8zKlAjFOq2akq3AqZibeYgsy7VR4Y4AfBO68C32qAk4e0
-	 EnrNjY+AYuImUzcslaV8S+k49nPjvw4niQQFL/IIcD0uZnjwMGT8b3nRrCnKxGYeN1g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=HlOY4F6A;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793646491;
+	b=qUuw905Wp/JIUteVxNohjofeR7KqCsQUinQ1EzNXD4XA2uHJQDqjzg0eLMsjXQYSkG0a
+	 U4ejq+mw/GhFOmkAyHzADvyyAemYpNCsqXF8PVaB/qvPyJnr2u6mjjMMzLk8yBqJBAT1w
+	 3bMyEnP6npiKDMn4NJ1GQqDpVNmIeeii069Ap8RAOgrhUhd50C0MLKg0Jx34gP/h15GRt
+	 bTznqZFa/hFvldAuusMc+FyJO4PU11t4To0h8ANfJBwOVrRIKlFL2ndQHZZkdz3NovC3t
+	 eaLOZGxHyeCmQWam/UUOlh3//1E0I6aiERTpDNg8bk6WNeVi7H1dD1uIiDBIqrvf83w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646491;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=9SGSRKHcj4K4ufrM+1BViMC3DIUO28ayyCTPvcgAIFE=;
+	b=nKMM70OdcIBrmB2BNHtSG7E8OoWHSutb/OE1iw1Hb0rOZxmdoMJ3UxEbdrVlkXamONAz
+	 smzogUnYUUSPJFhHFfp0LQVKnYh54R3HtpFUbbdPsoj7NM15z14pO8yWZhy6Io52lshYF
+	 2YMiiK1PcI6c+NXr7fLGk5OI6vtNZEF3MiPMkr4Wzf4uf0oiYl8jKLmW4BEvhaMI3JN2n
+	 wt6i4iuweQuZ361aPVEGTLlUg4NOe6oAnj4SDbTT1/09+NVYy7bfIa9GbVs3Eu4FiwQ10
+	 Rmygm8k36gm+tp/dNb/z1p3scsYcQNzKxuSmhmX8SJgoUOZ7FtC3kEM5sfak3OMOdQw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=glra0gYy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948B9606D820;
-	Mon,  2 Nov 2026 19:07:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 948B9606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBF8606EE96
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:08:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EBF8606EE96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=HlOY4F6A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1793646453;
-	bh=ec1L3fOkUw96fmBt7XeQgMFxmxwUUekyLxlS3pXawYU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HlOY4F6AwvMpIVf6uziYZAeVwQDAJeR5P6z1PpbE8bS5DrE6VU/wH94MIcPWXGiWu
-	 h/EYNOU6I9rIyfhgWu6d163DB4D5H14Y1WM7DNLPivNnc9cjsr7XQkO5meDNQF5rzG
-	 ddbGOBZZSi4fC2PEB0kuNIxwGPz2cg1Dhovsempnh/82evzEzgzJDnhqONXeWZjJ3J
-	 Widn7SzYenSJVS97N/tHVgKp6hLXdZ9n2rWugY/J6IJ5itOIcuXrOiqCFSmNfyJNA1
-	 4wA5eEKCrLzhqZgw2OMHby1pjV2+H01oEKLHrWkjeL6i75/kwZyvZOFOOJaBPor5n7
-	 GhJ+sRq6gSDww==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jJLn06f1SzKGR;
-	Mon, 02 Nov 2026 14:07:32 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: David Hildenbrand <david@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Martin Liu <liumartin@google.com>,
-	David Rientjes <rientjes@google.com>,
-	christian.koenig@amd.com,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	SeongJae Park <sj@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Yu Zhao <yuzhao@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Aboorva Devarajan <aboorvad@linux.ibm.com>,
-	David Carlier <devnexen@gmail.com>,
-	Josh Law <objecting@objecting.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	linux-trace-kernel@vger.kernel.org,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	Oleg Nesterov <oleg@redhat.com>
-Subject: [RFC PATCH v23 06/10] lib: percpu_counter_tree: add lazy tree activation
-Date: Mon,  2 Nov 2026 14:07:04 -0500
-Message-Id: <20261102190708.1287100-7-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261102190708.1287100-1-mathieu.desnoyers@efficios.com>
-References: <20261102190708.1287100-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=glra0gYy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793646490; x=1825182490;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=9SGSRKHcj4K4ufrM+1BViMC3DIUO28ayyCTPvcgAIFE=;
+  b=glra0gYyW/FpZTkS9pYylMSDsmiSn1J+t41T2iK0EvQYgI+1G8c/GYCl
+   p7k0cbZCi8RS0IxGmT6bWqDrgO6akAIUdxbrg+4tfq9ZMN/zwiKMS+7Ir
+   pBbbwWVtSreRE57QLSKHzgMBWYFi+9HIsvpoYBxVSBK1VaxCcja3OfLLN
+   m58w4QYFaRa/Yh2B8asC1IpYhyeEQKS5C/C8B+4XNNjO2s/bOBUbnjnx/
+   P7aCSxl/E+96K29y238RQ6hZn7BYTFR0kb05IYcjwU+n8D1b0MQdbBTth
+   EMxc++OO8BCTe29P7ZqdLjbxMkaDrefG87Zc93kov6Z59U/1oNrqCo9bD
+   Q==;
+X-CSE-ConnectionGUID: T2NTgj/iR7GRxuzsZBOb3g==
+X-CSE-MsgGUID: Z/ousQ8pTzmLOG8JBLymbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2262100"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2262100"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 11:07:44 -0800
+X-CSE-ConnectionGUID: iLeEuOUpS/iqUA3XGx40Gw==
+X-CSE-MsgGUID: X5QKoLSeT0+ygO9I3/SX7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6327297"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 11:07:42 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 11:07:41 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 11:07:41 -0800
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.27) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 11:07:41 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j8PFpZ2vQahviOwxjkX+M0GQbvWe3XwijW2ufrhBP3YUBpDMu3mAebX5oN3D21kcnUqy8uttvLkzCdwhQsE3ggoF6WCFv3zdIUQzyJXwOIL27hpgtqCLCN+IYXoofA2+Cy2wDnsDecWljy+hEBm6YdHShKEyvMM+t1Ls8ce3YonBrSl7V1fHpQZ0n6s5HoLN54/ZpJpeTk7ubLGNq0+xRaNbHdHiHTcQyOvNb14QVS1u6Q/I/ucVv65xwBs7KEA4AsqQSgMuaiXFaCF/7Ety7vmhIK82iRfny7fDuumSEdauHM3mE7RRy4rpb3ErPYZ8YDQompL1tYLUOBXN4jKVHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9SGSRKHcj4K4ufrM+1BViMC3DIUO28ayyCTPvcgAIFE=;
+ b=DxYyBX4kaEJ7z2Yy8XSbDdcRNi7flq7EeiREIr16XeLpJ4//YuDb6gX70ad2E66mFXPabxmXwEKAziWFe2ZPWFNc4qFkUYEhUqX7ojjXFpkqyAHXYUvBkgHpFbaKbH5djoPcZQwtZihUuxNCUCZjwG8UoCXNmrX9Ros0+6UE7FIOal3EzB1o+EpQoj58Naxgd9mOfUWyyyJTvyhT3fL/EVbfY6owQCW0YI1KOK3s+577z1PJXUULTo3e/Dtut9RYV67uz1ZxnmVDLM9za64ZN91LFRvDmki6QD/Ts87p1WARUxrtbTvfH1qkmrP0D1tPCa5Qth+63QdTwKTFoCzy3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB634048.namprd11.prod.outlook.com
+ (2603:10b6:208:549::23) by SJ0PR11MB5039.namprd11.prod.outlook.com
+ (2603:10b6:a03:2da::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 19:07:37 +0000
+Received: from IA3PR11MB634048.namprd11.prod.outlook.com
+ ([fe80::760f:f0a4:7417:6e57]) by IA3PR11MB634048.namprd11.prod.outlook.com
+ ([fe80::760f:f0a4:7417:6e57%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 19:07:36 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "kas@kernel.org" <kas@kernel.org>
+CC: "andrew+kernel@donnellan.id.au" <andrew+kernel@donnellan.id.au>,
+	"luto@kernel.org" <luto@kernel.org>, "pasha.tatashin@soleen.com"
+	<pasha.tatashin@soleen.com>, "kernel-team@meta.com" <kernel-team@meta.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"rppt@kernel.org" <rppt@kernel.org>, "akpm@linux-foundation.org"
+	<akpm@linux-foundation.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+	"david@kernel.org" <david@kernel.org>, "linux-mm@kvack.org"
+	<linux-mm@kvack.org>, "peterx@redhat.com" <peterx@redhat.com>,
+	"azpijr@gmail.com" <azpijr@gmail.com>, "tj@kernel.org" <tj@kernel.org>,
+	"hpa@zytor.com" <hpa@zytor.com>, "peterz@infradead.org"
+	<peterz@infradead.org>, "baolin.wang@linux.alibaba.com"
+	<baolin.wang@linux.alibaba.com>, "rmclure@linux.ibm.com"
+	<rmclure@linux.ibm.com>, "tglx@kernel.org" <tglx@kernel.org>, "bp@alien8.de"
+	<bp@alien8.de>, "x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCH] x86/mm: Define the zapped-entry checks only with
+ CONFIG_DEBUG_VM
+Thread-Topic: [PATCH] x86/mm: Define the zapped-entry checks only with
+ CONFIG_DEBUG_VM
+Thread-Index: AQHdatgdOWG1gcUTjkG6z8ShoYs60bca/56AgAALFgCAABpygA==
+Date: Mon, 2 Nov 2026 19:07:36 +0000
+Message-ID: <dc8912d37bf7cc3f286af8dd59070ab63c579909.camel@intel.com>
+References: <20261102144001.342837-1-kas@kernel.org>
+	 <f20b6d4f4e9368885e187e208453f21a9b0a2140.camel@intel.com>
+	 <aujIo3W5yVZdZaf7@thinkstation>
+In-Reply-To: <aujIo3W5yVZdZaf7@thinkstation>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.52.3-0ubuntu1.1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB634048:EE_|SJ0PR11MB5039:EE_
+x-ms-office365-filtering-correlation-id: bd432286-29f3-4d77-971a-08df39148e7c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|38070700021|11063799006|4143699003|56012099006|261028144727099003|261022075727099003|261026140227099003|261026121527099003|261022105027099003|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: J2Nj4oL3YAlFf7PgUjoyftGq2/TFOUnmdGn4gldnTg1fDdRF4P91o7/o2CqIDmAUxUFAoQY08xpKNKje0Qy6+QHptNohCEbqiRXNmW2mma6zOz0wyI6VgQKiRb6xIPAWOYaBzNsVhlnRc0h7H84a/hd3GziELRijICX60ChI1/KuMwMtWHs6f2lZguvGulDJahXARZ8cTpIaFlZATf2PnIzBnJieR/D7J7EgX/9NokYXibsTblQpvJwkfl8pAH1aaXMjhmT0AAqcMrsIbzz0VzjqsyB3+sPcXR89uAF5iwRWsppoGzthElSa6YbnirBvr3N7MukAzBQaeWeR5sIDDB+vyrr1L2QMEY2JAehZraRL58DjLu0eKvo8SDrcZqS1gbG5eVsSkKIzga6SJrRL6UW1qXUTeLR9uZ0D/8qJVYQixrCA7JY27rhbuc1pm4bSWwbzQ2QnFJeFMyAG1ViOOJCfz/9f3ZFT8RXtXn96QzzqT6cAysU08UYWoHjiGsobICm+/D6XBvrvZPMTQZ5bPz9PGtBBqpVOlb1cKs+GnYVM6XAXKIYlJUKwU+QNz2kozNmVMRXyeg4yxILdYG9U8S8kIreBv+y+M3cay/DRDlGlIAQ6RBwVIzqAQWDbdpLEQT2Bvzh0OHsWjleH8PNagULXZuCx7TrIcinuMXEPOzQM26HU1a4mGnu73L0yv3PHoXA2SruWKEHB7+lyabnWd845r7slBQi2AftbXdSERkk=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB634048.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(38070700021)(11063799006)(4143699003)(56012099006)(261028144727099003)(261022075727099003)(261026140227099003)(261026121527099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QUlkYUZVMDFXa2dDVWRYdUI1bEVNQlkzK0V3ZUxZTUdiUC9MV3kxWHArWkFY?=
+ =?utf-8?B?WXpibjRSWUFWdi9JQ3BxeWN1VjdjdHJjTlBhUWphSjJDVHlQTVBoQlEycXBV?=
+ =?utf-8?B?RUdZM3pxNkIzQ2JMOWRQbkgvVnlWaHRKaGtOOHJtRHllVTFWbUh1QUt2TXli?=
+ =?utf-8?B?MHdoNU9KbFJwMmVkcDl1SzRTdFpYeThZUXlpQ25kd2V0dEhISFNNbloxUXJX?=
+ =?utf-8?B?cWlvczhtbG9KRWJSTXMxVkx4OVJMaFkrTHZWb3pKSWdVeDJtNEZhUmNXVkJE?=
+ =?utf-8?B?cWVLcHRQR2lsNjV1c1oxUkVFbURxTjBnNE55WXpINGRUZkR5TmVoSXM4czZE?=
+ =?utf-8?B?ZndLYXpKdTRKU2ZVZ0l2NDVDcG4yMnR1cFlTQmQ3RXpTQ3R2U1ltS3RTdXV1?=
+ =?utf-8?B?eC9aVEFCa291Zy9Qcmllc01qaGFXcWdubHFLNzkraiswalVzdnpwbWd4dHRj?=
+ =?utf-8?B?RFhNMHU1VTFNWGFRSXR2SlBQcmFYbHJRWVh6ZWtvTHVJOVF5ajJvV2JsSWx2?=
+ =?utf-8?B?TlRWaERDeHRKUFVsVlpTRmxMemkxZTAzenhlZVQwSU9mbmhoc2JOQ0ZoSzJy?=
+ =?utf-8?B?clIzOHlwSWdHTjZPalZrOW9VWU9OMi9NNFFMYXlVdjhEMTdUekUzU0NiUVlE?=
+ =?utf-8?B?WlBPdUkrSGxDS1VocUlYL0Q4THQxdFo0cGdtVUZOb1JGcm5TS1Y5RTBUSVN1?=
+ =?utf-8?B?OGx3VTA2NjlvaEZ0a1liRHE1L291MFpmT1ZOcENPZS9VbU9PZWNhV3FtNGZa?=
+ =?utf-8?B?SThGQ2ZuQ0R3TElmUWY2UVRYQ3ArRjVDdGhUTGlLclNTbzgwK2lxREpqRFZ3?=
+ =?utf-8?B?Vjh2cytlRW14QzVZVkdUdm1QZlpXYTBVK01MdHFLQXVNdXZLRTI0bjFvb1Vz?=
+ =?utf-8?B?akdMWlBKaWFCR0FzMFB4VUFEbW9STXNla2p6eW9WN2RjNjl3NjM0LzJ3bEg4?=
+ =?utf-8?B?RDdVRGkva1JXVTM2QU9Sd0lnMzlHT1l5SkZvWW00SnhQYmZld2dOYWxYbGVu?=
+ =?utf-8?B?NHZ6UmlHc3F1Z0VLV1Z3NWpIcktnQnlMTjZYaVQrNFNnY1IwTGo1em9HK1ZF?=
+ =?utf-8?B?WlRFR3lpWTRGeVVqUzFrdDFPN21GcGYvMlp5c3VIMytvY2wrTEZBcHpiUEFN?=
+ =?utf-8?B?bkdVZVRXdjNBUVBlSHBCdHVOSElEYThiWlJPNDNYZ3BHMnN3S09XWi9QMzZS?=
+ =?utf-8?B?aE1OU3ZleVVra1VSdGd1NjhPWEZrV0piNy9KbHhkMXZjOEJaMnFMcGw0aUpK?=
+ =?utf-8?B?K1RCNGpoNWNnbUpaQ0lTMFJwMVRnNFJzUWdhdlA5eGdMd3RwZ2ZidGdmVk5F?=
+ =?utf-8?B?MDZ6VG9yRFZVMitmVVd0TWt0TUZsTnhDNXQydXM2TzJKL0ZrNm9ld1NvTmwv?=
+ =?utf-8?B?TklzMkJ3ZW9CcjJLWEF3cWQ2STlETlJmUEtsZ2NORHR0akJJNG56cDVSMHNr?=
+ =?utf-8?B?dEVJanE5NFBhd3p2d2RCTU9WeStLRWdYUllQMVErWTJ5cEhkc1l3V1R6YU5C?=
+ =?utf-8?B?OTBpckFWaHdUZXdVb2o5R1c5YnYvRktNZ1ZJV08xQk9ZM3hhTEViZEJrekdZ?=
+ =?utf-8?B?YnRxc0ZZVlBRL01rVVY1VGJsc3hZTjFjOWkzSm1tbnN6am1Tcm5oaWxtbDdt?=
+ =?utf-8?B?UE9OS2NWT05HaHhzZWRVMmxCNUZUa2RvTnhvcjlkWTVWSlVzSXdmMjQvcjV6?=
+ =?utf-8?B?b0NrakRwNS96YUptOUcvZllsV3BKS0VhODlvSmhZU0I4VStKM1ZTM1JKWS83?=
+ =?utf-8?B?SW85dWhSWUNvV2d1VUpoSU4wcjlFSEJ6T0ZFRkdtZ2J3WUlFcTZKbDNGREJh?=
+ =?utf-8?B?YnNDTVQybjlHWmJwYnZ6YUJPYUNTWHhIekRXb2YvdjMxTkpWR25EMjRSUnBQ?=
+ =?utf-8?B?dVpQTUJRZWJuVTI5dnlEdlplN3kxM1ZJY3N5RzJyL1hLSFJkZnNQQXlNdEZ4?=
+ =?utf-8?B?Rks1V1pGN3Y4N3ZCZksrMjhWam94RTFVUjJWMmlTZ3g5WmpvVzZQSXFMVDBO?=
+ =?utf-8?B?anpnSW5zaGgvOUt3VWNXa2tPa0Y3amNLQnY3bVFxSjl1d1JnUWN5Y2lGSVMx?=
+ =?utf-8?B?STZydi82WVNFa21PMDJYWXZPZnpFdnlTc3A1SldiZVZBcmZCeE9ZbDl5UFBp?=
+ =?utf-8?B?UU1NT2lzeUpTTjUrNEkwcDU0bmVXQVdmUmZQZlNhTEN6OWpRVUpjT2hNZXRm?=
+ =?utf-8?B?cUEvbzBIQm9PNWxkN0JyNDkxc3pTZ3hIRkx3WTFxSWlUN09FMlpFY1lmaXRk?=
+ =?utf-8?B?bVNjK3hGRVBWTGNaa3R1UmhoK1EwSHZHVVdiOHpJZmdacVR3dXdYak1jOWFL?=
+ =?utf-8?B?Nm1saWNVNlMzZm5BRHl1dDdwd0hoc3RsSktPbGtnbFYrdzZ0UE12OFdRTXg0?=
+ =?utf-8?Q?+Fw9sZwQCsxqF8iA=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <3A4B8BA4D520E24C8D81F0F72DEB5F0B@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,1111 +205,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: Sw0ZsuEACdccuS0dxpN7Al9pmbnWuwLE4bn7AkTurN0cJZrPGNfezXY/Rj8rRQc+5788rR0t7XvA2N2QkdyVcPSebbbYJYXH7coyqdIiRQxLsXdE5k3RhOCJTo3vwuo1boe1F5wOqImvn1ZFDp7Ud7eEKbH/cl38x0aZhV+eUnDBsiM82RQ+8fOVQWR4wVhiZTpc+BMekg46RT9Ge3zPBY7GRIQsZc4qFX41wX9LU4+mZ497hMDYn7tpbx4VPGhYAWxTSxk79iRlW+Ok9Q7wPdRivW5yPPkcI1V21s4TNENEEfxk0QrSRii0m7ejPX7bgU4BZgyu++LG3iVwWE24dQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB634048.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd432286-29f3-4d77-971a-08df39148e7c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 19:07:36.2078
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LqTwRPr2CbpyHUNvy4oT/ESrRo2so6A2bw/R0r/w/5LCPLWuqVhDbNgYz9PcnhcvyK4mPbL8j4YkkyvLzf0p7Qx38Z0GrPQec0iahgxJMtU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5039
+X-OriginatorOrg: intel.com
 
-Add counters which start without their tree, for counters which may
-never need its scalability, such as the RSS counters of a
-single-threaded process.
-
-percpu_counter_tree_init_many_lazy() initializes counters without
-allocating their per-cpu counters and tree items.  Until
-percpu_counter_tree_activate_many() allocates and publishes them, the
-counters are exact:
-
-- percpu_counter_tree_add_owner() adds to the bias of the counter,
-  without atomic instruction.  Its calls for a given counter must not
-  run concurrently with each other: they come from a single context,
-  the owner chosen by the user of the counters, such as a task.
-- percpu_counter_tree_add() adds atomically to a new atomic bias of the
-  counter, for any other updater.
-
-The precise and approximate sums read both biases, in O(1).  The
-activation does not move these values: the sums keep reading them along
-with the tree, so updates racing with the activation are not lost,
-whichever side of it they land on.  The bias only has the owner as
-writer, and the atomic bias only receives atomic additions, before and
-after the activation.  After the activation, both update functions add
-to the tree, and percpu_counter_tree_active() reports it, so a user can
-skip selecting between them.  The accuracy range of a lazily initialized
-counter is the range of its tree, even before activation, which keeps
-the comparison functions correct across an activation.
-
-The activations of the same counters must be serialized by the caller,
-for instance with a mutex: a concurrent activation would publish a
-second tree.  The activation publishes the root, then the per-cpu
-counters, of each counter in order, with release ordering.  Once the
-last counter is active, the activation is complete, so a caller which
-sees it active can skip the activation and its serialization; it may not
-observe the other counters active yet, which only delays their updates
-going to the tree.  The update functions only reach the per-cpu counters
-through their published pointer, which orders their initialization
-before their use by address dependency, as for rcu_dereference(),
-without an acquire on the fast path.  The approximate sum reaches the
-root the same way.  The carry path reads the root pointer after the
-per-cpu counters pointer with a read barrier between them, and the
-precise sum reads the per-cpu counters pointer with an acquire.
-
-struct percpu_counter_tree grows from 32 to 40 bytes with the atomic
-bias, the size of struct percpu_counter.
-
-Test the lazy counters:
-
-- KUnit: exact sums before activation with owner and atomic updates,
-  set(), idempotent activation, destruction without activation, and an
-  activation racing with an owner and remote updaters on other CPUs,
-  which also activate the tree when released, serialized by a mutex,
-  checking that the counter is exact while they pause, that the tree is
-  active once an activation returns, and that no update is lost across
-  the activations.
-- Userspace test: random owner and atomic updates from random CPUs,
-  exact before the tree is activated halfway, with the accuracy and
-  comparison checks after each update.  The test checks that the
-  activation allocates one tree, that activating again allocates
-  nothing, and that destroying the counter frees the tree.  The shim
-  provides the ordering primitives as plain accesses.
-
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
----
- .../core-api/percpu-counter-tree.rst          |  28 ++
- include/linux/percpu_counter_tree.h           |  81 ++++-
- lib/percpu_counter_tree.c                     | 315 ++++++++++++++++--
- lib/tests/percpu_counter_tree_kunit.c         | 218 ++++++++++++
- tools/testing/hpcc/include/hpcc_shim.h        |  28 +-
- tools/testing/hpcc/main.c                     |  47 +++
- 6 files changed, 674 insertions(+), 43 deletions(-)
-
-diff --git a/Documentation/core-api/percpu-counter-tree.rst b/Documentation/core-api/percpu-counter-tree.rst
-index 6b381deacd83..138e9b74b0c8 100644
---- a/Documentation/core-api/percpu-counter-tree.rst
-+++ b/Documentation/core-api/percpu-counter-tree.rst
-@@ -74,6 +74,34 @@ takes no lock: an update which carries from the per-cpu counter to the
- upper levels can be counted in part, the residual it left below read and
- its carry missed on the way up.
- 
-+Lazy Tree Activation
-+====================
-+
-+Counters initialized with percpu_counter_tree_init_many_lazy() start
-+without their per-cpu counters and tree items, for counters which may
-+never need the scalability of the tree. Until
-+percpu_counter_tree_activate_many() allocates and publishes the tree,
-+the counters are exact:
-+
-+ * percpu_counter_tree_add_owner() adds to the bias of the counter,
-+   written only by its owner, a single context chosen by the user of the
-+   counters, such as a task, without atomic instruction.
-+
-+ * percpu_counter_tree_add() adds to the atomic bias of the counter, for
-+   any other updater.
-+
-+The precise and approximate sums read both, in O(1), and count each
-+update whole. The activation does not move these values: the sums keep
-+reading them along with the tree, so updates racing with the activation
-+are not lost, whichever side of it they land on. The bias only has the
-+owner as writer, and the atomic bias only receives atomic additions,
-+before and after the activation. After activation, both update functions
-+add to the tree, and the approximation has the accuracy of the tree.
-+
-+The activations of the same counters must be serialized by the caller:
-+a concurrent activation would publish a second tree and lose the
-+updates made to the first.
-+
- Use Cases
- =========
- 
-diff --git a/include/linux/percpu_counter_tree.h b/include/linux/percpu_counter_tree.h
-index 741a6877aa99..60ef1da22bd3 100644
---- a/include/linux/percpu_counter_tree.h
-+++ b/include/linux/percpu_counter_tree.h
-@@ -32,10 +32,22 @@ struct percpu_counter_tree {
- 	unsigned int items_stride;	/* Distance between this counter's consecutive items. */
- 	/*
- 	 * Approximate sum: this counter's item of the root, in the tree
--	 * items allocated with the per-CPU counters.
-+	 * items allocated with the per-CPU counters. NULL until the tree of a
-+	 * counter initialized by percpu_counter_tree_init_many_lazy() is
-+	 * activated.
- 	 */
- 	atomic_long_t *approx_sum;
--	long bias;	/* Bias to apply to counter precise and approximate values. */
-+	/*
-+	 * Bias to apply to counter precise and approximate values. Before the
-+	 * tree is activated, it also accumulates the updates of
-+	 * percpu_counter_tree_add_owner(), written only by the owner.
-+	 */
-+	long bias;
-+	/*
-+	 * Updates of percpu_counter_tree_add() made before the tree is
-+	 * activated, also applied to the precise and approximate values.
-+	 */
-+	atomic_long_t atomic_bias;
- };
- 
- int percpu_counter_tree_init_many(struct percpu_counter_tree *counters,
-@@ -43,10 +55,15 @@ int percpu_counter_tree_init_many(struct percpu_counter_tree *counters,
- 				  gfp_t gfp_flags);
- int percpu_counter_tree_init(struct percpu_counter_tree *counter,
- 			     unsigned long batch_size, gfp_t gfp_flags);
-+int percpu_counter_tree_init_many_lazy(struct percpu_counter_tree *counters,
-+				       unsigned int nr_counters, unsigned long batch_size);
-+int percpu_counter_tree_activate_many(struct percpu_counter_tree *counters,
-+				      unsigned int nr_counters, gfp_t gfp_flags);
- void percpu_counter_tree_destroy_many(struct percpu_counter_tree *counters,
- 				      unsigned int nr_counters);
- void percpu_counter_tree_destroy(struct percpu_counter_tree *counter);
- void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc);
-+void percpu_counter_tree_add_owner(struct percpu_counter_tree *counter, long inc);
- long percpu_counter_tree_precise_sum(struct percpu_counter_tree *counter);
- int percpu_counter_tree_approximate_compare(struct percpu_counter_tree *a,
- 					    struct percpu_counter_tree *b);
-@@ -57,6 +74,26 @@ int percpu_counter_tree_precise_compare_value(struct percpu_counter_tree *counte
- void percpu_counter_tree_set(struct percpu_counter_tree *counter, long v);
- int percpu_counter_tree_subsystem_init(void);
- 
-+/**
-+ * percpu_counter_tree_active() - Query whether the tree of a counter is active.
-+ * @counter: The counter to query.
-+ *
-+ * A counter initialized by percpu_counter_tree_init_many() is active. A
-+ * counter initialized by percpu_counter_tree_init_many_lazy() becomes
-+ * active when percpu_counter_tree_activate_many() publishes its tree, and
-+ * stays active. Once active, percpu_counter_tree_add() and
-+ * percpu_counter_tree_add_owner() both add to the tree, so a user can skip
-+ * selecting between them.
-+ *
-+ * Return: true if the updates of @counter go to its tree.
-+ */
-+static inline
-+bool percpu_counter_tree_active(struct percpu_counter_tree *counter)
-+{
-+	/* No ordering: the update functions and the sums read level0 again. */
-+	return !!READ_ONCE(counter->level0);
-+}
-+
- /**
-  * percpu_counter_tree_approximate_sum() - Return approximate counter sum.
-  * @counter: The counter to sum.
-@@ -70,9 +107,19 @@ int percpu_counter_tree_subsystem_init(void);
- static inline
- long percpu_counter_tree_approximate_sum(struct percpu_counter_tree *counter)
- {
--	unsigned long v = atomic_long_read(counter->approx_sum);
-+	/*
-+	 * Pairs with the release of approx_sum in
-+	 * percpu_counter_tree_activate_many(): the root is zeroed before its
-+	 * pointer, and the address dependency orders the read of the root
-+	 * after it, as for rcu_dereference().
-+	 */
-+	atomic_long_t *approx_sum = READ_ONCE(counter->approx_sum);
-+	unsigned long v = (unsigned long)READ_ONCE(counter->bias) +
-+			  (unsigned long)atomic_long_read(&counter->atomic_bias);
- 
--	return (long)(v + (unsigned long)READ_ONCE(counter->bias));
-+	if (approx_sum)
-+		v += (unsigned long)atomic_long_read(approx_sum);
-+	return (long)v;
- }
- 
- unsigned long percpu_counter_tree_approximate_accuracy(struct percpu_counter_tree *counter);
-@@ -115,6 +162,26 @@ int percpu_counter_tree_init(struct percpu_counter_tree *counter,
- 	return percpu_counter_tree_init_many(counter, 1, batch_size, gfp_flags);
- }
- 
-+static inline
-+int percpu_counter_tree_init_many_lazy(struct percpu_counter_tree *counters,
-+				       unsigned int nr_counters, unsigned long batch_size)
-+{
-+	return percpu_counter_tree_init_many(counters, nr_counters, batch_size, 0);
-+}
-+
-+static inline
-+int percpu_counter_tree_activate_many(struct percpu_counter_tree *counters,
-+				      unsigned int nr_counters, gfp_t gfp_flags)
-+{
-+	return 0;
-+}
-+
-+static inline
-+bool percpu_counter_tree_active(struct percpu_counter_tree *counter)
-+{
-+	return true;
-+}
-+
- static inline
- void percpu_counter_tree_destroy_many(struct percpu_counter_tree *counters,
- 				      unsigned int nr_counters)
-@@ -192,6 +259,12 @@ void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc)
- 	atomic_long_add(inc, &counter->count);
- }
- 
-+static inline
-+void percpu_counter_tree_add_owner(struct percpu_counter_tree *counter, long inc)
-+{
-+	percpu_counter_tree_add(counter, inc);
-+}
-+
- static inline
- long percpu_counter_tree_approximate_sum(struct percpu_counter_tree *counter)
- {
-diff --git a/lib/percpu_counter_tree.c b/lib/percpu_counter_tree.c
-index 67cdb22c3786..32c4f05d7d7d 100644
---- a/lib/percpu_counter_tree.c
-+++ b/lib/percpu_counter_tree.c
-@@ -328,10 +328,12 @@ int __percpu_counter_tree_init(struct percpu_counter_tree *counter,
- 		return -EINVAL;
- 	counter->batch_order = ilog2(batch_size);
- 	counter->bias = 0;
-+	atomic_long_set(&counter->atomic_bias, 0);
- 	counter->level0 = level0;
- 	counter->items_stride = items_stride;
--	/* The root is the last item. */
--	counter->approx_sum = &items[(tree_topology.nr_items - 1) * items_stride];
-+	/* The root is the last item, allocated by the activation if lazy. */
-+	counter->approx_sum = items ?
-+		&items[(tree_topology.nr_items - 1) * items_stride] : NULL;
- 	return 0;
- }
- 
-@@ -364,6 +366,26 @@ unsigned long percpu_counter_tree_accuracy(struct percpu_counter_tree *counter)
- 	return batch_size * tree_topology.accuracy_multiplier - nr_cpu_ids;
- }
- 
-+/* Initialize @nr_counters counters, with their per-CPU counters and tree items, or NULL if lazy. */
-+static
-+int __percpu_counter_tree_init_many(struct percpu_counter_tree *counters,
-+				    unsigned int nr_counters, unsigned long batch_size,
-+				    s8 __percpu *level0, atomic_long_t *items)
-+{
-+	unsigned int items_stride = percpu_counter_tree_items_stride(nr_counters);
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < nr_counters; i++) {
-+		ret = __percpu_counter_tree_init(&counters[i], batch_size,
-+						 level0 ? level0 + i : NULL,
-+						 items ? items + i : NULL, items_stride);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
- /**
-  * percpu_counter_tree_init_many() - Initialize many per-CPU counter trees.
-  * @counters: An array of @nr_counters counters to initialize.
-@@ -392,10 +414,8 @@ int percpu_counter_tree_init_many(struct percpu_counter_tree *counters,
- 				  unsigned int nr_counters, unsigned long batch_size,
- 				  gfp_t gfp_flags)
- {
--	unsigned int items_stride = percpu_counter_tree_items_stride(nr_counters);
- 	s8 __percpu *level0;
- 	atomic_long_t *items;
--	unsigned int i;
- 	int ret;
- 
- 	/* The tree shape is selected by percpu_counter_tree_subsystem_init() at boot. */
-@@ -410,15 +430,9 @@ int percpu_counter_tree_init_many(struct percpu_counter_tree *counters,
- 		ret = -ENOMEM;
- 		goto free_level0;
- 	}
--	for (i = 0; i < nr_counters; i++) {
--		ret = __percpu_counter_tree_init(&counters[i], batch_size, level0 + i,
--						 items + i, items_stride);
--		if (ret)
--			goto free_items;
--	}
--	return 0;
--
--free_items:
-+	ret = __percpu_counter_tree_init_many(counters, nr_counters, batch_size, level0, items);
-+	if (!ret)
-+		return 0;
- 	percpu_counter_tree_free_items(items, nr_counters);
- free_level0:
- 	free_percpu(level0);
-@@ -450,6 +464,163 @@ int percpu_counter_tree_init(struct percpu_counter_tree *counter,
- }
- EXPORT_SYMBOL_GPL(percpu_counter_tree_init);
- 
-+/**
-+ * percpu_counter_tree_init_many_lazy() - Initialize many counters, without their tree.
-+ * @counters: An array of @nr_counters counters to initialize.
-+ *	      Their memory is provided by the caller.
-+ * @nr_counters: The number of counter trees to initialize
-+ * @batch_size: The batch size, as for percpu_counter_tree_init_many().
-+ *
-+ * Initialize counters without allocating their per-CPU counters and tree
-+ * items, for counters which may never need the scalability of the tree,
-+ * such as the RSS counters of a single-threaded process. Until
-+ * percpu_counter_tree_activate_many() allocates the tree, the counters
-+ * are exact: percpu_counter_tree_add_owner() adds to the bias, written
-+ * only by the owner, percpu_counter_tree_add() adds to the atomic bias,
-+ * and the precise and approximate sums read both in O(1).
-+ * percpu_counter_tree_destroy_many() and percpu_counter_tree_set() work on
-+ * counters which were never activated. The accuracy range of a lazily
-+ * initialized counter is the range of its tree, even before activation,
-+ * which keeps the comparison functions correct across an activation.
-+ * The batch size is fixed here: the activation only publishes the per-CPU
-+ * counters and the tree, so updaters read the batch size without ordering.
-+ *
-+ * Return:
-+ * * %0: Success
-+ * * %-EINVAL:		- Invalid @batch_size argument
-+ */
-+int percpu_counter_tree_init_many_lazy(struct percpu_counter_tree *counters,
-+				       unsigned int nr_counters, unsigned long batch_size)
-+{
-+	/* The tree shape is selected by percpu_counter_tree_subsystem_init() at boot. */
-+	if (WARN_ON_ONCE(tree_topology.nr_items == UINT_MAX))
-+		return -EINVAL;
-+	return __percpu_counter_tree_init_many(counters, nr_counters, batch_size, NULL, NULL);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_init_many_lazy);
-+
-+/*
-+ * Publication of the tree
-+ *
-+ * The updaters and the readers of a counter take no lock, and may run
-+ * while percpu_counter_tree_activate_many() publishes its tree. The
-+ * activation allocates the per-CPU counters and the tree items zeroed,
-+ * then publishes two pointers per counter, each with a store-release:
-+ *
-+ * - the release of approx_sum: the root is zeroed before its pointer,
-+ * - the release of level0, after it: the per-CPU counters, the tree items
-+ *   and approx_sum are set before level0.
-+ *
-+ * level0 opens the tree to updates: until it is published, the tree is
-+ * empty. Each load of a published pointer pairs with one of the releases:
-+ *
-+ * - Update fast path, percpu_counter_tree_add() and
-+ *   percpu_counter_tree_add_owner(): READ_ONCE(level0), then the per-CPU
-+ *   counters through it. The address dependency pairs with the release of
-+ *   level0, as for rcu_dereference().
-+ * - Carry slow path: smp_rmb() after the read of level0, then
-+ *   READ_ONCE(approx_sum). Pairs with the release of level0, which
-+ *   follows the store of approx_sum.
-+ * - Precise sum: smp_load_acquire(level0), then approx_sum, the tree items
-+ *   and the per-CPU counters. Pairs with the release of level0.
-+ * - Approximate sum: READ_ONCE(approx_sum), then the root through it. The
-+ *   address dependency pairs with the release of approx_sum.
-+ * - percpu_counter_tree_active(): READ_ONCE(level0), without ordering. It
-+ *   only selects the update function, which reads level0 again, or lets
-+ *   the caller skip an activation which is complete.
-+ * - Activations: serialized by the caller, for instance with a mutex,
-+ *   which orders a complete activation before the check of level0 at the
-+ *   start of the next one.
-+ *
-+ * The update fast path has no acquire. smp_load_acquire() is free on
-+ * strongly ordered architectures such as x86, but on weakly ordered ones,
-+ * such as arm64, powerpc and RISC-V, it costs an ordering load or a barrier
-+ * on every update, to order a publication which happens at most once in
-+ * the life of a counter. The address dependency orders the per-CPU
-+ * counters, reached through level0, at no cost. It does not order
-+ * approx_sum, a separate field: the carry slow path, taken only when an
-+ * update carries, pays an smp_rmb() to read it, and the precise sum, which
-+ * reads the whole tree, reads level0 with an acquire.
-+ *
-+ * Missing the publication is harmless. An updater which reads level0 as
-+ * NULL adds to the bias (owner) or to the atomic bias (others), and a
-+ * reader which reads a NULL pointer sums the bias and the atomic bias:
-+ * the sums keep reading both after the activation, and the tree receives
-+ * no update before level0 is published.
-+ *
-+ * The read barriers between the levels of the precise sum are unrelated
-+ * to the publication: they order carries, see
-+ * percpu_counter_tree_precise_sum_unbiased().
-+ */
-+
-+/**
-+ * percpu_counter_tree_activate_many() - Activate the tree of lazily initialized counters.
-+ * @counters: The array of @nr_counters counters passed to
-+ *	      percpu_counter_tree_init_many_lazy().
-+ * @nr_counters: The number of counters.
-+ * @gfp_flags: gfp flags to pass to the per-CPU and tree item allocators.
-+ *
-+ * Allocate the per-CPU counters and the tree items, and publish them:
-+ * later updates go to the tree, and the approximation then has the
-+ * accuracy of the tree. The updates made before activation stay in the
-+ * bias and the atomic bias, which the sums keep reading, so updates racing
-+ * with the activation are not lost: the bias only has the owner as writer,
-+ * and the atomic bias only receives atomic additions. Activating active
-+ * counters does nothing. @counters and @nr_counters must be those passed
-+ * to percpu_counter_tree_init_many_lazy().
-+ *
-+ * The activations of the same counters must be serialized by the caller,
-+ * for instance with a mutex: a concurrent activation would publish a second
-+ * tree and lose the updates made to the first. The counters are published
-+ * in order: once percpu_counter_tree_active() reports the last one active,
-+ * the activation is complete, and a caller can skip it and its
-+ * serialization. The caller may not observe the other counters active yet,
-+ * which only delays their updates going to the tree.
-+ *
-+ * Return:
-+ * * %0: Success
-+ * * %-EINVAL:		- @nr_counters differs from percpu_counter_tree_init_many_lazy()
-+ * * %-ENOMEM:		- Out of memory
-+ */
-+int percpu_counter_tree_activate_many(struct percpu_counter_tree *counters,
-+				      unsigned int nr_counters, gfp_t gfp_flags)
-+{
-+	s8 __percpu *level0;
-+	atomic_long_t *items, *root;
-+	unsigned int i;
-+
-+	/* Serialized by the caller: a previous activation is complete. */
-+	if (counters[0].level0)
-+		return 0;
-+	/* The tree items are sized for @nr_counters, at the stride set by the initialization. */
-+	if (WARN_ON_ONCE(counters[0].items_stride !=
-+			 percpu_counter_tree_items_stride(nr_counters)))
-+		return -EINVAL;
-+	level0 = __alloc_percpu_gfp(nr_counters * sizeof(*level0),
-+				    __alignof__(*counters->level0), gfp_flags);
-+	if (!level0)
-+		return -ENOMEM;
-+	items = percpu_counter_tree_alloc_items(nr_counters, gfp_flags);
-+	if (!items) {
-+		free_percpu(level0);
-+		return -ENOMEM;
-+	}
-+	root = &items[(tree_topology.nr_items - 1) * counters[0].items_stride];
-+	/* See "Publication of the tree" above. */
-+	for (i = 0; i < nr_counters; i++) {
-+		/* Release of approx_sum: the root is zeroed before its pointer. */
-+		smp_store_release(&counters[i].approx_sum, root + i);
-+		/*
-+		 * Release of level0: the per-CPU counters, the tree items and
-+		 * approx_sum are set before level0, which opens the tree to
-+		 * updates.
-+		 */
-+		smp_store_release(&counters[i].level0, level0 + i);
-+	}
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_activate_many);
-+
- /**
-  * percpu_counter_tree_destroy_many() - Destroy many per-CPU counter trees.
-  * @counters: Array of counters trees to destroy.
-@@ -457,7 +628,7 @@ EXPORT_SYMBOL_GPL(percpu_counter_tree_init);
-  *
-  * Release internal resources allocated for @nr_counters per-CPU counter trees.
-  * @counters and @nr_counters must be those passed to
-- * percpu_counter_tree_init_many().
-+ * percpu_counter_tree_init_many() or percpu_counter_tree_init_many_lazy().
-  */
- void percpu_counter_tree_destroy_many(struct percpu_counter_tree *counters,
- 				      unsigned int nr_counters)
-@@ -470,8 +641,9 @@ void percpu_counter_tree_destroy_many(struct percpu_counter_tree *counters,
- 	if (WARN_ON_ONCE(counters->items_stride !=
- 			 percpu_counter_tree_items_stride(nr_counters)))
- 		return;
--	/* The first item of the first counter is the base of the tree items. */
--	percpu_counter_tree_free_items(percpu_counter_tree_items(counters), nr_counters);
-+	/* The first item of the first counter is the base of the tree items, if allocated. */
-+	if (counters->approx_sum)
-+		percpu_counter_tree_free_items(percpu_counter_tree_items(counters), nr_counters);
- }
- EXPORT_SYMBOL_GPL(percpu_counter_tree_destroy_many);
- 
-@@ -511,9 +683,19 @@ void percpu_counter_tree_add_slowpath(struct percpu_counter_tree *counter, long
- 		     level, n_arity_order;
- 	unsigned long bit_mask;
- 	unsigned int stride = counter->items_stride;
--	atomic_long_t *item = percpu_counter_tree_items(counter);
- 	unsigned int cpu = raw_smp_processor_id();
-+	atomic_long_t *root, *item;
- 
-+	/*
-+	 * Pairs with the release of level0 in
-+	 * percpu_counter_tree_activate_many(), which follows the store of
-+	 * approx_sum. The caller read level0, but approx_sum is a separate
-+	 * field, which the address dependency of that read does not order:
-+	 * read it after level0.
-+	 */
-+	smp_rmb();
-+	root = READ_ONCE(counter->approx_sum);
-+	item = root - (tree_topology.nr_items - 1) * stride;
- 	n_arity_order = tree_topology.config->n_arity_order[0];
- 	bit_mask = percpu_counter_tree_batch_size(counter) << n_arity_order;
- 	level_items = 1U << (tree_topology.nr_cpus_order - n_arity_order);
-@@ -571,19 +753,14 @@ void percpu_counter_tree_add_slowpath(struct percpu_counter_tree *counter, long
- 		level_items >>= n_arity_order;
- 		bit_mask <<= n_arity_order;
- 	}
--	atomic_long_add_return_release(inc, counter->approx_sum);
-+	/* The atomic API has no add with release ordering without a return value. */
-+	atomic_long_add_return_release(inc, root);
- }
- 
--/**
-- * percpu_counter_tree_add() - Add to a per-CPU counter tree.
-- * @counter: Counter added to.
-- * @inc: Increment value (either positive or negative).
-- *
-- * Add @inc to a per-CPU counter tree. This is a fast-path which will
-- * typically increment per-CPU counters as long as there is no carry
-- * greater or equal to the counter tree batch size.
-- */
--void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc)
-+/* Add @inc to the per-CPU counters @level0 of an activated tree. */
-+static inline
-+void percpu_counter_tree_add_tree(struct percpu_counter_tree *counter,
-+				  s8 __percpu *level0, long inc)
- {
- 	unsigned long bit_mask = percpu_counter_tree_batch_size(counter);
- 	s8 old, new;
-@@ -605,18 +782,69 @@ void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc)
- 	 * interrupts, and the carry may propagate from any CPU, see
- 	 * percpu_counter_tree_add_slowpath().
- 	 */
--	old = this_cpu_read(*counter->level0);
-+	old = this_cpu_read(*level0);
- 	do {
- 		v = old + inc;
- 		carry = percpu_counter_tree_item_carry(v, bit_mask);
- 		new = (s8)(v - carry);
--	} while (!this_cpu_try_cmpxchg(*counter->level0, &old, new));
-+	} while (!this_cpu_try_cmpxchg(*level0, &old, new));
- 	if (likely(!carry))
- 		return;
- 	percpu_counter_tree_add_slowpath(counter, carry);
- }
-+
-+/**
-+ * percpu_counter_tree_add() - Add to a per-CPU counter tree.
-+ * @counter: Counter added to.
-+ * @inc: Increment value (either positive or negative).
-+ *
-+ * Add @inc to a per-CPU counter tree. This is a fast-path which will
-+ * typically increment per-CPU counters as long as there is no carry
-+ * greater or equal to the counter tree batch size. Before the tree is
-+ * activated, add to the atomic bias.
-+ */
-+void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc)
-+{
-+	/*
-+	 * Pairs with the release of level0 in
-+	 * percpu_counter_tree_activate_many(): the per-CPU counters are only
-+	 * reached through this pointer, and the address dependency orders
-+	 * their initialization before their use, as for rcu_dereference().
-+	 * No acquire, see "Publication of the tree".
-+	 */
-+	s8 __percpu *level0 = READ_ONCE(counter->level0);
-+
-+	if (!level0) {
-+		atomic_long_add(inc, &counter->atomic_bias);
-+		return;
-+	}
-+	percpu_counter_tree_add_tree(counter, level0, inc);
-+}
- EXPORT_SYMBOL_GPL(percpu_counter_tree_add);
- 
-+/**
-+ * percpu_counter_tree_add_owner() - Add to a per-CPU counter tree as its owner.
-+ * @counter: Counter added to.
-+ * @inc: Increment value (either positive or negative).
-+ *
-+ * Like percpu_counter_tree_add(), but before the tree is activated, add
-+ * to the bias without atomic instruction. The calls for a given counter
-+ * must not run concurrently with each other: they come from a single
-+ * context, the owner chosen by the user of the counter, such as a task.
-+ */
-+void percpu_counter_tree_add_owner(struct percpu_counter_tree *counter, long inc)
-+{
-+	/* Address dependency, as in percpu_counter_tree_add(). */
-+	s8 __percpu *level0 = READ_ONCE(counter->level0);
-+
-+	if (!level0) {
-+		WRITE_ONCE(counter->bias, (long)((unsigned long)READ_ONCE(counter->bias) + inc));
-+		return;
-+	}
-+	percpu_counter_tree_add_tree(counter, level0, inc);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_add_owner);
-+
- /*
-  * The precise sum is the sum of the residuals of all tree levels. A carry
-  * leaves a level before reaching a higher level, and the release ordering
-@@ -630,19 +858,29 @@ long percpu_counter_tree_precise_sum_unbiased(struct percpu_counter_tree *counte
- {
- 	unsigned int nr_levels = tree_topology.config->nr_levels, i,
- 		     level_items[MAX_NR_LEVELS], stride = counter->items_stride;
-+	/*
-+	 * Pairs with the release of level0 in
-+	 * percpu_counter_tree_activate_many(): approx_sum, the tree items and
-+	 * the per-CPU counters read below are set before level0.
-+	 */
-+	s8 __percpu *level0 = smp_load_acquire(&counter->level0);
-+	unsigned long sum = atomic_long_read(&counter->atomic_bias);
- 	atomic_long_t *item;
--	unsigned long sum;
- 	int level, cpu;
- 
-+	/* Before activation, the atomic bias holds the whole unbiased sum. */
-+	if (!level0)
-+		return (long)sum;
- 	/* Number of items of each level above level 0. */
- 	level_items[0] = 1U << tree_topology.nr_cpus_order;
- 	for (level = 1; level < (int)nr_levels; level++)
- 		level_items[level] = level_items[level - 1] >>
- 				     tree_topology.config->n_arity_order[level - 1];
--	sum = atomic_long_read(counter->approx_sum);
-+	/* Published before level0, so ordered by its acquire. */
-+	item = READ_ONCE(counter->approx_sum);
-+	sum += atomic_long_read(item);
- 	smp_rmb();	/* Read each level before the level below it. */
- 	/* The items of each level precede those of the level above it. */
--	item = counter->approx_sum;
- 	for (level = (int)nr_levels - 1; level >= 1; level--) {
- 		item -= level_items[level] * stride;
- 		for (i = 0; i < level_items[level]; i++)
-@@ -650,7 +888,7 @@ long percpu_counter_tree_precise_sum_unbiased(struct percpu_counter_tree *counte
- 		smp_rmb();	/* Read this level before the level below it. */
- 	}
- 	for_each_possible_cpu(cpu)
--		sum += (long)READ_ONCE(*per_cpu_ptr(counter->level0, cpu));
-+		sum += (long)READ_ONCE(*per_cpu_ptr(level0, cpu));
- 	return (long)sum;
- }
- 
-@@ -1013,6 +1251,7 @@ EXPORT_SYMBOL_IF_KUNIT(percpu_counter_tree_check_config);
-  * - a counter at level N, above level 0, holds a multiple of
-  *   BATCH(level N - 1) within (-BATCH(level N), +BATCH(level N)),
-  * - the root holds a multiple of the batch of the last level.
-+ * Before activation, a lazily initialized counter has no tree to check.
-  *
-  * Return: The number of violated invariants.
-  */
-@@ -1020,11 +1259,14 @@ unsigned int percpu_counter_tree_check_residuals(struct percpu_counter_tree *cou
- {
- 	unsigned int nr_levels = tree_topology.config->nr_levels, level, level_items,
- 		     nr_errors = 0, stride = counter->items_stride;
--	atomic_long_t *item = percpu_counter_tree_items(counter);
- 	unsigned long lo = percpu_counter_tree_batch_size(counter);
-+	atomic_long_t *item;
- 	long root;
- 	int cpu;
- 
-+	if (!counter->level0)
-+		return 0;
-+	item = percpu_counter_tree_items(counter);
- 	for_each_possible_cpu(cpu) {
- 		long v = READ_ONCE(*per_cpu_ptr(counter->level0, cpu));
- 
-@@ -1063,7 +1305,7 @@ EXPORT_SYMBOL_IF_KUNIT(percpu_counter_tree_check_residuals);
- /*
-  * Copy the state of counter @src into counter @dst, initialized with the
-  * same batch size and without concurrent updates: their per-CPU counters,
-- * tree items and bias.
-+ * tree items and biases. Both trees are active.
-  */
- void percpu_counter_tree_copy_state(struct percpu_counter_tree *dst,
- 				    struct percpu_counter_tree *src)
-@@ -1079,6 +1321,7 @@ void percpu_counter_tree_copy_state(struct percpu_counter_tree *dst,
- 		atomic_long_set(&dst_items[pos * dst->items_stride],
- 				atomic_long_read(&src_items[pos * src->items_stride]));
- 	dst->bias = src->bias;
-+	atomic_long_set(&dst->atomic_bias, atomic_long_read(&src->atomic_bias));
- }
- EXPORT_SYMBOL_IF_KUNIT(percpu_counter_tree_copy_state);
- #endif
-diff --git a/lib/tests/percpu_counter_tree_kunit.c b/lib/tests/percpu_counter_tree_kunit.c
-index 58b2e488e3c6..2f5852b1f521 100644
---- a/lib/tests/percpu_counter_tree_kunit.c
-+++ b/lib/tests/percpu_counter_tree_kunit.c
-@@ -2,6 +2,8 @@
- // SPDX-FileCopyrightText: 2026 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
- 
- #include <kunit/test.h>
-+#include <linux/delay.h>
-+#include <linux/mutex.h>
- #include <linux/percpu_counter_tree.h>
- #include <linux/kthread.h>
- #include <linux/wait.h>
-@@ -783,6 +785,220 @@ static void hpcc_test_saturated_compare(struct kunit *test)
- 	}
- }
- 
-+/* Check a counter against its expected sum: exact before activation, within range after. */
-+static void check_lazy_counter(struct kunit *test, struct percpu_counter_tree *c, long v)
-+{
-+	long approx_sum = percpu_counter_tree_approximate_sum(c);
-+	unsigned long accuracy;
-+
-+	KUNIT_EXPECT_EQ(test, percpu_counter_tree_precise_sum(c), v);
-+	KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_precise_compare_value(c, v));
-+	KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_approximate_compare_value(c, v));
-+	check_residuals(test, c);
-+#ifdef CONFIG_SMP
-+	if (!READ_ONCE(c->level0)) {
-+		KUNIT_EXPECT_EQ(test, approx_sum, v);
-+		return;
-+	}
-+#endif
-+	accuracy = percpu_counter_tree_approximate_accuracy(c);
-+	KUNIT_EXPECT_GE(test, (long)(approx_sum - (v - accuracy)), 0);
-+	KUNIT_EXPECT_LE(test, (long)(approx_sum - (v + accuracy)), 0);
-+}
-+
-+/*
-+ * Lazily initialized counters: exact sums before the tree is activated,
-+ * with owner and atomic updates, set(), idempotent activation, updates
-+ * after activation, and destruction of counters never activated.
-+ */
-+static void hpcc_test_lazy(struct kunit *test)
-+{
-+	struct percpu_counter_tree pct[2];
-+	long expect[2] = { 0, 0 };
-+	int i, j;
-+
-+	KUNIT_ASSERT_EQ(test, 0, percpu_counter_tree_init_many_lazy(pct, 2, 32));
-+#ifdef CONFIG_SMP
-+	KUNIT_EXPECT_FALSE(test, percpu_counter_tree_active(&pct[0]));
-+	KUNIT_EXPECT_FALSE(test, percpu_counter_tree_active(&pct[1]));
-+	/* The level 0 counters are __percpu pointers: compare them as booleans. */
-+	KUNIT_EXPECT_TRUE(test, !pct[0].level0);
-+	KUNIT_EXPECT_TRUE(test, !pct[1].level0);
-+	KUNIT_EXPECT_NULL(test, pct[0].approx_sum);
-+	KUNIT_EXPECT_NULL(test, pct[1].approx_sum);
-+#endif
-+	for (j = 0; j < 2; j++) {
-+		/* j == 0: before activation; j == 1: after activation. */
-+		for (i = 0; i < 10000; i++) {
-+			long inc = (long)(get_random_u32() % 1025) - 512;
-+
-+			if (get_random_u32() & 1)
-+				percpu_counter_tree_add_owner(&pct[0], inc);
-+			else
-+				percpu_counter_tree_add(&pct[0], inc);
-+			expect[0] += inc;
-+			percpu_counter_tree_add(&pct[1], -inc);
-+			expect[1] -= inc;
-+		}
-+		check_lazy_counter(test, &pct[0], expect[0]);
-+		check_lazy_counter(test, &pct[1], expect[1]);
-+		percpu_counter_tree_set(&pct[1], 12345);
-+		expect[1] = 12345;
-+		check_lazy_counter(test, &pct[1], expect[1]);
-+		if (j)
-+			break;
-+		KUNIT_ASSERT_EQ(test, 0, percpu_counter_tree_activate_many(pct, 2, GFP_KERNEL));
-+		KUNIT_EXPECT_TRUE(test, percpu_counter_tree_active(&pct[0]));
-+		KUNIT_EXPECT_TRUE(test, percpu_counter_tree_active(&pct[1]));
-+#ifdef CONFIG_SMP
-+		{
-+			s8 __percpu *level0 = pct[0].level0;
-+
-+			KUNIT_EXPECT_TRUE(test, level0);
-+			KUNIT_EXPECT_TRUE(test, pct[1].level0 == level0 + 1);
-+			KUNIT_EXPECT_NOT_NULL(test, pct[0].approx_sum);
-+			KUNIT_EXPECT_PTR_EQ(test, pct[1].approx_sum, pct[0].approx_sum + 1);
-+			KUNIT_EXPECT_EQ(test, 0,
-+					percpu_counter_tree_activate_many(pct, 2, GFP_KERNEL));
-+			KUNIT_EXPECT_TRUE(test, pct[0].level0 == level0);
-+		}
-+#endif
-+		/* The sums carry the updates made before activation. */
-+		check_lazy_counter(test, &pct[0], expect[0]);
-+		check_lazy_counter(test, &pct[1], expect[1]);
-+	}
-+	percpu_counter_tree_destroy_many(pct, 2);
-+
-+	/* Destroy counters which were never activated. */
-+	KUNIT_ASSERT_EQ(test, 0, percpu_counter_tree_init_many_lazy(pct, 2, 32));
-+	percpu_counter_tree_add_owner(&pct[0], 7);
-+	percpu_counter_tree_add(&pct[1], -7);
-+	check_lazy_counter(test, &pct[0], 7);
-+	check_lazy_counter(test, &pct[1], -7);
-+	percpu_counter_tree_destroy_many(pct, 2);
-+}
-+
-+/*
-+ * Activation racing with updates: one owner and updaters on other CPUs add
-+ * to a lazily initialized counter. Each worker makes a first part of its
-+ * updates, reports their sum and waits. The test checks that the counter
-+ * is exact, then releases the workers and activates the tree while they
-+ * make the rest of their updates. The remote updaters also activate the
-+ * tree when released, serialized with the test and with each other by a
-+ * mutex, and check that the tree is active once their activation returns.
-+ * No update may be lost, whichever side of the activation it lands on.
-+ */
-+#define LAZY_RACE_NR_INC	200000
-+#define LAZY_RACE_NR_FIRST	(LAZY_RACE_NR_INC / 8)
-+#define LAZY_RACE_MAX_REMOTE	8
-+
-+struct lazy_race_shared {
-+	struct percpu_counter_tree *c;
-+	atomic_long_t first_sum;	/* Sum of the updates made before the release. */
-+	atomic_long_t expect;		/* Sum of all updates. */
-+	struct mutex activate_lock;	/* Serializes the activations. */
-+	atomic_t paused;		/* Workers waiting for the release. */
-+	atomic_t activate_errors;	/* Failed activations of the workers. */
-+	bool go;			/* Releases the workers. */
-+};
-+
-+struct lazy_race_work {
-+	struct work_struct work;
-+	struct lazy_race_shared *sh;
-+	bool owner;
-+};
-+
-+static void lazy_race_fn(struct work_struct *work)
-+{
-+	struct lazy_race_work *w = container_of(work, struct lazy_race_work, work);
-+	struct lazy_race_shared *sh = w->sh;
-+	long sum = 0;
-+	int i;
-+
-+	for (i = 0; i < LAZY_RACE_NR_INC; i++) {
-+		long inc = (long)(get_random_u32() % 65) - 32;
-+
-+		if (i == LAZY_RACE_NR_FIRST) {
-+			/* Fully ordered: the first updates are visible before the pause. */
-+			atomic_long_add_return(sum, &sh->first_sum);
-+			atomic_inc_return(&sh->paused);
-+			while (!READ_ONCE(sh->go))
-+				cond_resched();
-+			if (!w->owner) {
-+				mutex_lock(&sh->activate_lock);
-+				if (percpu_counter_tree_activate_many(sh->c, 1, GFP_KERNEL) ||
-+				    !percpu_counter_tree_active(sh->c))
-+					atomic_inc(&sh->activate_errors);
-+				mutex_unlock(&sh->activate_lock);
-+			}
-+		}
-+		if (w->owner)
-+			percpu_counter_tree_add_owner(sh->c, inc);
-+		else
-+			percpu_counter_tree_add(sh->c, inc);
-+		sum += inc;
-+		if (!(i & 1023))
-+			cond_resched();
-+	}
-+	atomic_long_add(sum, &sh->expect);
-+	kfree(w);
-+	complete_work();
-+}
-+
-+static void hpcc_test_lazy_activation_race(struct kunit *test)
-+{
-+	struct percpu_counter_tree pct;
-+	int round;
-+
-+	if (num_online_cpus() < 2)
-+		kunit_skip(test, "needs at least 2 online CPUs");
-+	for (round = 0; round < 4; round++) {
-+		struct lazy_race_shared sh = { .c = &pct };
-+		unsigned long timeout = jiffies + 10 * HZ;
-+		int cpu, nr_workers = 0;
-+
-+		KUNIT_ASSERT_EQ(test, 0, percpu_counter_tree_init_many_lazy(&pct, 1, 32));
-+		mutex_init(&sh.activate_lock);
-+		init_kthreads();
-+		cpus_read_lock();
-+		for_each_online_cpu(cpu) {
-+			struct lazy_race_work *w;
-+
-+			if (nr_workers > LAZY_RACE_MAX_REMOTE)
-+				break;
-+			w = kzalloc_obj(*w);
-+			KUNIT_EXPECT_NOT_NULL(test, w);
-+			if (!w)
-+				break;
-+			INIT_WORK(&w->work, lazy_race_fn);
-+			w->sh = &sh;
-+			/* The first worker is the owner, the others update remotely. */
-+			w->owner = !nr_workers;
-+			atomic_inc(&kernel_threads_to_run);
-+			queue_work_on(cpu, hpcc_test_wq, &w->work);
-+			nr_workers++;
-+		}
-+		cpus_read_unlock();
-+		while (atomic_read(&sh.paused) < nr_workers && time_before(jiffies, timeout))
-+			usleep_range(100, 200);
-+		smp_mb();	/* Read the counter after the first updates of the workers. */
-+		/* Every worker, the owner included, has updates left for after the activation. */
-+		KUNIT_EXPECT_EQ(test, atomic_read(&sh.paused), nr_workers);
-+		/* Before activation, the owner and atomic updates are exact. */
-+		check_lazy_counter(test, &pct, atomic_long_read(&sh.first_sum));
-+		WRITE_ONCE(sh.go, true);
-+		mutex_lock(&sh.activate_lock);
-+		KUNIT_EXPECT_EQ(test, 0, percpu_counter_tree_activate_many(&pct, 1, GFP_KERNEL));
-+		KUNIT_EXPECT_TRUE(test, percpu_counter_tree_active(&pct));
-+		mutex_unlock(&sh.activate_lock);
-+		fini_kthreads();
-+		mutex_destroy(&sh.activate_lock);
-+		KUNIT_EXPECT_EQ(test, 0, atomic_read(&sh.activate_errors));
-+		check_lazy_counter(test, &pct, atomic_long_read(&sh.expect));
-+		percpu_counter_tree_destroy_many(&pct, 1);
-+	}
-+}
-+
- static void hpcc_test_check_config(struct kunit *test)
- {
- #ifdef CONFIG_SMP
-@@ -804,6 +1020,8 @@ static struct kunit_case hpcc_test_cases[] = {
- 	KUNIT_CASE(hpcc_test_set),
- 	KUNIT_CASE(hpcc_test_saturated_compare),
- 	KUNIT_CASE(hpcc_test_contended_carries),
-+	KUNIT_CASE(hpcc_test_lazy),
-+	KUNIT_CASE(hpcc_test_lazy_activation_race),
- 	{}
- };
- 
-diff --git a/tools/testing/hpcc/include/hpcc_shim.h b/tools/testing/hpcc/include/hpcc_shim.h
-index 7e268de984c6..d321c8363b0b 100644
---- a/tools/testing/hpcc/include/hpcc_shim.h
-+++ b/tools/testing/hpcc/include/hpcc_shim.h
-@@ -68,6 +68,9 @@ static inline int get_count_order(unsigned int count)
- #define atomic_long_add_return_relaxed(i, v)	((v)->counter += (i))
- #define atomic_long_add_return_release(i, v)	((v)->counter += (i))
- #define smp_rmb()				barrier()
-+/* The harness runs on one thread: ordering primitives are plain accesses. */
-+#define smp_load_acquire(p)			READ_ONCE(*(p))
-+#define smp_store_release(p, v)			WRITE_ONCE(*(p), (v))
- 
- static inline bool atomic_long_try_cmpxchg_relaxed(atomic_long_t *v, long *old, long new)
- {
-@@ -92,15 +95,32 @@ extern unsigned int hpcc_current_cpu;
-  */
- #define HPCC_PCPU_UNIT	64
- 
-+/* Outstanding allocations, to check for leaks. */
-+extern long hpcc_nr_allocs;
-+
-+static inline void *hpcc_alloc_account(void *p)
-+{
-+	if (p)
-+		hpcc_nr_allocs++;
-+	return p;
-+}
-+
-+static inline void hpcc_free_account(void *p)
-+{
-+	if (p)
-+		hpcc_nr_allocs--;
-+}
-+
- static inline void *__alloc_percpu_gfp(size_t size, size_t align, gfp_t gfp)
- {
- 	if (size > HPCC_PCPU_UNIT || align > HPCC_PCPU_UNIT)
- 		return NULL;
--	return calloc(nr_cpu_ids, HPCC_PCPU_UNIT);
-+	return hpcc_alloc_account(calloc(nr_cpu_ids, HPCC_PCPU_UNIT));
- }
- 
- static inline void free_percpu(void *ptr)
- {
-+	hpcc_free_account(ptr);
- 	free(ptr);
- }
- 
-@@ -136,21 +156,23 @@ static inline void *kmem_cache_zalloc(struct kmem_cache *s, gfp_t gfp)
- 
- 	if (p)
- 		memset(p, 0, s->size);
--	return p;
-+	return hpcc_alloc_account(p);
- }
- 
- static inline void kmem_cache_free(struct kmem_cache *s, void *p)
- {
-+	hpcc_free_account(p);
- 	free(p);
- }
- 
- static inline void *kzalloc(size_t size, gfp_t gfp)
- {
--	return calloc(1, size);
-+	return hpcc_alloc_account(calloc(1, size));
- }
- 
- static inline void kfree(void *p)
- {
-+	hpcc_free_account(p);
- 	free(p);
- }
- 
-diff --git a/tools/testing/hpcc/main.c b/tools/testing/hpcc/main.c
-index b707754aab0a..c3583a287cdd 100644
---- a/tools/testing/hpcc/main.c
-+++ b/tools/testing/hpcc/main.c
-@@ -19,6 +19,10 @@
-  *   and check the accuracy range contract and the comparison functions
-  *   against shadow sums after each increment.
-  *
-+ * - Lazy counter: random owner and atomic updates of a lazily initialized
-+ *   counter, exact before its tree is activated halfway, with the same
-+ *   checks after each increment.
-+ *
-  * The test is single-threaded, so it only covers settled counters.
-  */
- 
-@@ -28,6 +32,7 @@
- unsigned int nr_cpu_ids;
- unsigned int hpcc_current_cpu;
- unsigned long hpcc_nr_warnings;
-+long hpcc_nr_allocs;
- 
- #include "../../../lib/percpu_counter_tree.c"
- 
-@@ -329,6 +334,47 @@ static void test_random_walk(unsigned long batch_size, unsigned long nr_steps)
- 	test_counter_destroy(&c[1]);
- }
- 
-+static void test_lazy(unsigned long batch_size, unsigned long nr_steps)
-+{
-+	long nr_allocs = hpcc_nr_allocs;
-+	struct test_counter c;
-+	unsigned long step;
-+
-+	if (percpu_counter_tree_init_many_lazy(&c.tree, 1, batch_size)) {
-+		CHECK(0);
-+		return;
-+	}
-+	c.shadow = 0;
-+	CHECK(!c.tree.level0);
-+	CHECK(!c.tree.approx_sum);
-+	CHECK(!percpu_counter_tree_active(&c.tree));
-+	for (step = 0; step < nr_steps; step++) {
-+		long inc = random_increment(batch_size);
-+
-+		hpcc_current_cpu = rnd() % nr_cpu_ids;
-+		if (rnd() & 1)
-+			percpu_counter_tree_add_owner(&c.tree, inc);
-+		else
-+			percpu_counter_tree_add(&c.tree, inc);
-+		c.shadow += inc;
-+		if (!c.tree.level0)
-+			CHECK(percpu_counter_tree_approximate_sum(&c.tree) == c.shadow);
-+		check_counter(&c);
-+		if (step == nr_steps / 2) {
-+			CHECK(!percpu_counter_tree_activate_many(&c.tree, 1, GFP_KERNEL));
-+			CHECK(c.tree.level0);
-+			CHECK(c.tree.approx_sum);
-+			CHECK(percpu_counter_tree_active(&c.tree));
-+			/* One tree: its per-CPU counters and its tree items. */
-+			CHECK(hpcc_nr_allocs == nr_allocs + 2);
-+			CHECK(!percpu_counter_tree_activate_many(&c.tree, 1, GFP_KERNEL));
-+			CHECK(hpcc_nr_allocs == nr_allocs + 2);
-+		}
-+	}
-+	test_counter_destroy(&c);
-+	CHECK(hpcc_nr_allocs == nr_allocs);
-+}
-+
- static const unsigned int test_nr_cpus[] = {
- 	1, 2, 3, 4, 5, 8, 9, 16, 17, 32, 33, 64, 65, 100, 128, 256, 512,
- 	1000, 1024, 2048, 4096, 8192, 16384, 32768, 65536,
-@@ -359,6 +405,7 @@ static int run_case(unsigned int nr_cpus, unsigned long batch_size)
- 	test_saturated(batch_size, 1);
- 	test_saturated(batch_size, -1);
- 	test_random_walk(batch_size, nr_steps);
-+	test_lazy(batch_size, nr_steps / 2);
- 	CHECK(!hpcc_nr_warnings);
- 	printf("%sok %d - nr_cpus=%u batch_size=%lu\n", nr_case_failures ? "not " : "",
- 	       ++test_num, nr_cpus, batch_size);
--- 
-2.47.3
-
+T24gTW9uLCAyMDI2LTExLTAyIGF0IDE3OjMyICswMDAwLCBLaXJ5bCBTaHV0c2VtYXUgd3JvdGU6
+DQo+IE9uIE1vbiwgTm92IDAyLCAyMDI2IGF0IDA0OjUzOjE3UE0gKzAwMDAsIEVkZ2Vjb21iZSwg
+UmljayBQIHdyb3RlOg0KPiA+IERvIHlvdSBoYXBwZW4gdG8ga25vdyBpZiB0aGlzIHBlcmZvcm1h
+bmNlIGltcGFjdCBpcyByZWxldmFudCBhdCBhbGwgaW4gdGhlDQo+ID4gbm9uIFNhZmUgUkVUIGNh
+c2U/DQo+IA0KPiBZZXMsIGJvdGggc2lkZXMgb2YgdGhlIGNvbXBhcmlzb24gYXJlIHRoZSBzYW1l
+IGtlcm5lbCB3aXRoIFNhZmUgUkVUIG9uLA0KPiB3aXRoIGFuZCB3aXRob3V0IHRoZSBwYXRjaC4N
+Cj4gDQo+IFdpdGhvdXQgU2FmZSBSRVQgKHNwZWNfcnN0YWNrX292ZXJmbG93PW9mZiwgc2FtZSB0
+d28ga2VybmVscykgdGhlIGNhbGwNCj4gYW5kIHJldHVybiBwcmVkaWN0IGZpbmU6IGJyYW5jaCBt
+aXNzZXMgYXJlIHRoZSBzYW1lIHdpdGggYW5kIHdpdGhvdXQgdGhlDQo+IHBhdGNoLCBhbmQgdGhl
+IGdhaW4gaXMgdW5kZXIgMiUsIHdpdGhpbiBub2lzZS4NCg0KSG1tLCBJJ2Qgd29uZGVyIGlmIHRo
+ZSBmaXhlcyB0YWcgaXMgYXBwcm9wcmlhdGUgdGhlbi4gU2hvdWxkIGl0IGJlIHRoZSBzYWZlIHJl
+dA0KY29tbWl0cz8NCg0KPiANCj4gPiA+IGRpZmYgLS1naXQgYS9hcmNoL3g4Ni9tbS9wZ3RhYmxl
+LmMgYi9hcmNoL3g4Ni9tbS9wZ3RhYmxlLmMNCj4gPiA+IGluZGV4IDRhMTA1ZjI4M2NmYi4uMzM1
+MmJjNjkwNGYzIDEwMDY0NA0KPiA+ID4gLS0tIGEvYXJjaC94ODYvbW0vcGd0YWJsZS5jDQo+ID4g
+PiArKysgYi9hcmNoL3g4Ni9tbS9wZ3RhYmxlLmMNCj4gPiA+IEBAIC03OTgsNiArNzk4LDcgQEAg
+cG1kX3QgcG1kX21rd3JpdGUocG1kX3QgcG1kLCBzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QNCj4gPiA+
+ICp2bWEpDQo+ID4gPiDCoAlyZXR1cm4gcG1kX2NsZWFyX3NhdmVkZGlydHkocG1kKTsNCj4gPiA+
+IMKgfQ0KPiA+ID4gwqANCj4gPiA+ICsjaWZkZWYgQ09ORklHX0RFQlVHX1ZNDQo+ID4gPiDCoHZv
+aWQgYXJjaF9jaGVja196YXBwZWRfcHRlKHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hLCBwdGVf
+dCBwdGUpDQo+ID4gPiDCoHsNCj4gPiA+IMKgCS8qDQo+ID4gPiBAQCAtODIzLDMgKzgyNCw0IEBA
+IHZvaWQgYXJjaF9jaGVja196YXBwZWRfcHVkKHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hLA0K
+PiA+ID4gcHVkX3QgcHVkKQ0KPiA+ID4gwqAJLyogU2VlIG5vdGUgaW4gYXJjaF9jaGVja196YXBw
+ZWRfcHRlKCkgKi8NCj4gPiA+IMKgCVZNX1dBUk5fT05fT05DRSghKHZtYS0+dm1fZmxhZ3MgJiBW
+TV9TSEFET1dfU1RBQ0spICYmDQo+ID4gPiBwdWRfc2hzdGsocHVkKSk7DQo+ID4gDQo+ID4gSSBn
+dWVzcyBhbGwgb2YgdGhlc2UgZG9uJ3QgbmVlZCB0byBiZSB0aGUgIlZNX1dBUk5fIiB2YXJpZXRp
+ZXMgaWYgdGhleSBhcmUNCj4gPiBjb21waWxlZCBvdXQgaW4gdGhlIG90aGVyIGNhc2UuDQo+IA0K
+PiBJIGNhbiBkbyBlaXRoZXIgd2F5LiBJdCBpcyBmdW5jdGlvbmFsbHkgZXF1aXZhbGVudC4NCg0K
+T3RoZXJ3aXNlIGl0J3MgZWZmZWN0aXZlbHkgYSBkdXBsaWNhdGUgY2hlY2suDQoNCg==
