@@ -1,104 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793614104;
-	b=1vzr+fQ5ED5fTHFfr/gZ2MNyMpvUfx6f6p/ZXvhMJBrAkH5S9XBHgjSflowptE97T02W
-	 vcYxFiNKM3jl/tBoXZ6rwuv2BF2pIYIE+rvvezf8l7aL3m86ADhqcxC9FzfB8UcYFQly9
-	 ck+69PAvJSBJIOieXAolPX9UHYpc+1d305pS1CWpQ87PsbbqvgOfrSdR6jzpKA22hw/5l
-	 ACJduQSc2u2rOEmXo8bGVR7P4egRW4NYdjAMpMquEHfvC3KBndMemI7PnMePU1ZtH5e0u
-	 vxiTbThKIWNv6a2oozGPMc0YYyjUVgKNLpwMh9Sndaic/2FKGjeVk0qaE86BaEyNNJA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614104;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UHy4xw/YrRn7e1F1lebr/G5xZ48d+LU6Svs5fao00Fs=;
-	b=cANlTBYzvhp2/aUzim30aXA2s0hG7Z1DOrLY1Lze225le9WJnX64KiyYJP9BMaP8gX+f
-	 wh2lGWSUQcy5gBDen9M5XHNjufS5/O+KmVRLniVVu9ta+y4+7bw+ZkXPINEo6w+KYeoie
-	 o4gpjgtcXXK/lg3HD6LGcXb8q2DWA4p2xWcycil0PxKQr7Ww3PAVom31XmT3S/YJ9UMwh
-	 Y/AKNzklG1hJCVqqTNRdx8MOqtoezJXlSfqf5k1iZALLmF5Q+lo06SQB7KQ/NR+PMd0k1
-	 Aqvq9BgD+MLPxAfUV6B/RLcwyRmG52d6WJu9GZHxFjJlwdYwnKTufABQ/UtaAJpTChA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5XzzrzKr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.12
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011012.outbound.protection.outlook.com [40.107.208.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793614155;
+	b=tujkSaafVUTuQOQeAPB+1d0p6LWsSzOvaMP2VpYzE+raXgmzeLiBDv9Y3fWG/aLSc3AO
+	 utwrrhgbQTv7gIQaR7lZsAB1n7BkCzV41y5qMk0WSisT6m5HNAo8704WT0G9DmiyQ9tCy
+	 g1E3f/qZfzoZ9yyTF6As5OYKaoXlH8uDeKvweZ92eF8BekrP8LSB2yQSvw4WwJv6gUhJ4
+	 qDYnW6uwnOo+RLcJlFCzDxFA9p+0Ta6pPT2f8SPjHKZd+Apo+OiIahWYvELIzw4ucQrsR
+	 O1YlFZ6BBUQZlIVItul6N0vAAKiDKyXb3qqH++afCnBBmwlH6MYQAYGvavtogDjD8Ng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614155;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=xm99b92EcvQYiFo2BERFkDMWH8ztgzfeHS78pLE5VUs=;
+	b=aiSM5VRS1xneoXICfMTzptYepZoY2VAaLIjsRC4Bjc9hr6ormMEKfXvh53K6nzrV6M9a
+	 pgwp3meU3isz38xi+AhL+OlN6BWXmebTQjrEpwvcdyUO7I0pfC/Dzydtt767muiaH9SsS
+	 e8PxXQ0NwBKp6DcyDNOnlWvjuoDFxz1Er7MjgwVx+99HGnEW9vx9qTO2C3hYvMG2/M6aF
+	 wHTAjzok7q7HxxMpwlbhH7xtvG93ESRIJSB9UK2WxLIgiWJwRQ7U22TwOsAh5A4/NpN72
+	 HV/626yDSu99K1fFKs0cHgQblECNNjDAl1Xs5A7muCbcgA/scM3xFiq6m+U9ixw6NIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Fcooxj1/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="NpAs/XiK";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E98606A32D;
-	Mon,  2 Nov 2026 10:08:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94E98606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE29C606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:09:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE29C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=5XzzrzKr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uOSlmYUj0v0ExRXHJlvoN96nPEpbIztL2WJZCuWazFzId8fupPDOkfmVpWxS9HRQuJckE3FpoxrZVEyixDlvf5ndXt3Ys2EiNLyvZw1bC3PYVlFfHim0kQryNuIStjWBK1MSpesFtYNLOh0hJhJRsC9aAh404FcAl5sxel/nuhEoKSglZBhn4tsqndWT4SgBHBGGKTZCMBMy/v73expUJ108WBTYxbJASH1iaDr6hmuRgSqaW3zkw5PXVFs3qIfae1t21uhqVT7rhfSGd4NSzNVuEgviteqcg4hzZ1YtdaQpiN4MNSUVsAuUKXeAru943UatNHU5p/Hi/xQctq452g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UHy4xw/YrRn7e1F1lebr/G5xZ48d+LU6Svs5fao00Fs=;
- b=c34j13N8dNY+dLhPcIo67HR+CAPDcMdXFVBkzSSJk0FcWtDXWMmaXAYUrA09sLdciTEvlugsLd4Uo3LGKfaqfNckUkmj/Uu9uftYke5AZZR4HRdAR4+xqwYdz30riuyj4p2hsu/CwYQnCNhlCdJ4LKDOylHVDI+cRfYzExSFwfiZiucS3i24jXE5TPLvPNyPAlDFEMKnelj7H7MmAgxhsfx7kKOEdASoqCTw3xrTqw8zkmgfBfk1Zv30F0XOJEG2XY8K0RG4JnodI38l5KnPf3T9RooTx21FisU1xF+Gh4Tf+xPvFJWPFyrbIzadXwmhlLK+pyB6nQ5FeUtNTP7xaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UHy4xw/YrRn7e1F1lebr/G5xZ48d+LU6Svs5fao00Fs=;
- b=5XzzrzKrGNDniK3FtEEF1Y+R0YCo9wsLDWDnDlof4TtuDDssSehjYHjDLOXqyL8bARVbTe5ZC1XlUYhrFDh97jtwYn6Ex9DwB0AYhsM5MotvChmhC0Ei3OnVeibbm00O7WR7yMoWcoblH8oHxaBEa5S2dTlBrZKcFAAG2BbkjME=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB5713.namprd12.prod.outlook.com (2603:10b6:208:370::18)
- by CH4PR12MB093331.namprd12.prod.outlook.com (2603:10b6:610:507::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 10:08:18 +0000
-Received: from MN0PR12MB5713.namprd12.prod.outlook.com
- ([fe80::cab0:6260:dd96:3fd8]) by MN0PR12MB5713.namprd12.prod.outlook.com
- ([fe80::cab0:6260:dd96:3fd8%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 10:08:18 +0000
-Message-ID: <317a989b-c79a-41a3-8c0a-7e952bdae6d0@amd.com>
-Date: Mon, 2 Nov 2026 15:38:07 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] perf/x86/amd/lbr: Freeze LBR on PMI only when kernel
- branches are recorded
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>,
- Puranjay Mohan <puranjay@kernel.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Andrii Nakryiko <andrii@kernel.org>
-References: <20261023124157.75524-1-puranjay@kernel.org>
- <CAEf4Bzb2jEjqpZrmtTk_+YCW3_jU8fcVzk26CBZnxkpYJ8kCbQ@mail.gmail.com>
-Content-Language: en-US
-From: Sandipan Das <sandipan.das@amd.com>
-In-Reply-To: <CAEf4Bzb2jEjqpZrmtTk_+YCW3_jU8fcVzk26CBZnxkpYJ8kCbQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PNYPR01CA0075.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:2b4::17) To DM4PR12MB5721.namprd12.prod.outlook.com
- (2603:10b6:8:5c::10)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Fcooxj1/;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NpAs/XiK
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29B1XB4015003
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 10:09:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xm99b92EcvQYiFo2BERFkDMWH8ztgzfeHS78pLE5VUs=; b=Fcooxj1/EnfnyTwT
+	//vHKn83TDfpot7hVAY+bwYIcrYfAleant7bpT89zR1ne1GFlGdUmcQ1dE8WxGtT
+	yzF+QX72fTvEX03D3r5nPmYKKOMLldpeuaD+NM6VM4G4VtMNQr5Ie5ZM/99IWOH+
+	7WFnVcfA3cyDMmYaSHAMrpoGOHvzgoLxMCPFzRI+4VRJJ6FWqYVbS+K5q5iMLLWt
+	irMjg9i5uOI80dz94zuM5alzkZfHUHBh2kCdG/G64IUiDN9v26DDI42eFU2j+l1V
+	+sGC6c9/0ZEyDIFBsPgdz+wqferiq6K7sJ1W4NPtLQJDg3I0Q+OTwybI34zbJgRX
+	4HGtIA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7b6pgga-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:09:13 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d5dbso2218237a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:09:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793614153; x=1794218953; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xm99b92EcvQYiFo2BERFkDMWH8ztgzfeHS78pLE5VUs=;
+        b=NpAs/XiKl6lbjdDJWFdf5mIeq8d9kl0N94W9AOHOE8IxHcF5P0TJEQ7iaXQtgQtxp4
+         vNZkq2oCJU/UzkKMz6aW4j0mvqV4O45UUWsKocASaMQrE6sWhDy9620DBiJt+FiGixrK
+         U7JaNDm0uCSG1h7J0JQb/DBaiIZZw7ILffkhzBmFBxs1MAwR0FN+h59+5uNg7nmwKlIa
+         aYD9cUOGqJzyjv1k9zHgVlxS+HFGrEoBbXFsyQllQLkbGKVStqwRe3SDXPZGoCuglsir
+         INEZB3DN3W52DFrD6UjEKu6zuWsZYq/rA/q0U1z2CAIEv1vPF4Cq8xasGnZBOdIOtu9t
+         OUZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793614153; x=1794218953;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xm99b92EcvQYiFo2BERFkDMWH8ztgzfeHS78pLE5VUs=;
+        b=VUvwuydCfjcSplGeFSTEMI8o6ZShT60UkRl9dGaZhBEY8QpIozYUCXMO7adBn2AKvv
+         UgncTJtfwAju/XV9MIsEBRDgAPiDWzAwJ0cSEJQv6i5IsX1S7Kas9fIEUdZzcCSfgK1B
+         jug+a+pHUiHIMA0l9+E57Oc52EENNXeE2W//iHI4GtIFQ5+U6ZPj4smDcFixMXiTVSTq
+         6WcvuS2UcQHPSvK7vR5E3kfaVF/S/MKiozgpdkBfn5adZI9JYUWI/IeDqq+eKrRB1ddu
+         v2pHeEppslBmXduMjfbXtKULfCD/1uVDwuF9DMqgDsLfMQQzI133F0KKfYP4vVpgoHkG
+         prew==
+X-Forwarded-Encrypted: i=1; AKwUvBwt+EsQzq+LVen7L9en4nBc0RtPk6cAlhz7N1JsC2INONkeYFuJXvRozc+Axx4hSoFJ3XnkRmYVZ4DkGlc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9xye6IrqEXHfwqXIEHZ3wjD+2AkRlO9DkA4O8NMGpZ5RyKlJW
+	JEB/8HZoQh8pSd3dFFrKgbG1uzeGUvKfdnDEFzICZGnk9jXeq1x18Ke5xELEBDtyNMERU66Me0H
+	4yVyrJq/AlIGwQYFuqg689FXBh3BNtI8hdCLWMIhmSbKqo9SuwM1jHaoKOtVP1HmkXlM=
+X-Gm-Gg: AYBFou2UdeH89eA9xbwb4lM9OiLob2ie+KjCJFlYVrlr4tY+H5ad8A5QCJu39eyU3TA
+	J8MWjgQjctbkWzSYMVu+J92ZJEwXIZlqO1fquphtIefZS0aR8J0aJ5g5sXwQLN/aFW6lGq2/Lf7
+	r3zdTYaZydMyUG3gybBX6H9ofxFQP3QJEvJ5b+NInl42ZJPbcwqadwKk5E9gyeR3ckn16VnoUJp
+	BBoyZjRgnfGf5CkgNd8VpkC9sHmgvfO2StbuN4cdVc14nsHZ1LoIZCVSZwUO8bElLLHQ+awzKc1
+	gAsyvmRAxbI3E1NgUJKKbekWV0FShwun7UIhxDyVlefOx7JFjtlcHScQNr508H1y6WFIPlPGvuN
+	vaMdymjTxVLSqO11etYZUhLGCJtbeCiYq7RjnISeCuyeqw3CeUU1PjQGx4xdUglK0ddxzfIsFah
+	tiZw==
+X-Received: by 2002:a17:90b:4b8a:b0:3ac:9259:122c with SMTP id 98e67ed59e1d1-3ae8977737emr7207177a91.40.1793614152660;
+        Mon, 02 Nov 2026 02:09:12 -0800 (PST)
+X-Received: by 2002:a17:90b:4b8a:b0:3ac:9259:122c with SMTP id 98e67ed59e1d1-3ae8977737emr7207161a91.40.1793614151969;
+        Mon, 02 Nov 2026 02:09:11 -0800 (PST)
+Received: from [10.219.57.104] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e98f888sm18169303a91.13.2026.11.02.02.09.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 02:09:10 -0800 (PST)
+Message-ID: <26ca5c66-a2ff-4aaf-9c9d-724ac66480eb@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 15:38:58 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,158 +116,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5713:EE_|CH4PR12MB093331:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7233b9a7-325b-4359-faf5-08df38c936e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|4143699003|11063799006|56012099006|261021121427099003|261009223027099003|261028144727099003|261026121527099003|261021123027099003|261022105027099003|261026140227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	rWtsvogyM8Ds8CYzdrWQ7U2VRK2YpPdczFPDHb12JOfWpjINZeqTtxrO67wj7LyuwYuRSXGGKrCMEojJMVneQhaVzh+cpI34ggavpkNJBFySmv1bvnUGDEyB4BjEuJOaRFYj6Z2Imok/064Qsikwe3Qn7AkfipfSAW/bJ7wpjO6XNVxnBZ+UlsYBHDRukSf25628vrUr7Vmyxl2+ZwTLvKXFIzC1tjcsOsoHuy3BdgvX36CKPWrDeTW6Ukju7It6sOa33cPy2aHWSw3LWi8GgSKKhvkah/nh2diKUxgeosdVrYPmxNDgDqHu+MDRnkRZ58oSNLCDNAwtO6NVmilP/3NzpNrDTiGXuAXiYwSD9thElwmcaXJj6loDqIACW/64EybdXP0VERfTKO/NW7aemEEt7MoKSRqnoJWYg4AhGRimFlHIXmOn7AowqNVx2i28WMFHK8elUI+7RYtkkPdAzpMfxqqOu5uI0OlkfEHJM8bfEdONDPO8Rk1zgloi5KyhBfPIIjyr2A77mFxamGAVw5aGGtZFx2gTgDb2Mm+h5tZ06bHepUDjrGP1t/+rTiSiMv0vRVKSIcLLyRObbvEuYomS73MZN2AiMEtk0bS5UHKNrfkxCIi0HFRPkxFfxqArJULeWmWeT8yHGblsAWzRKW3+iIqkV6vFn835bt50lrs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5713.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(4143699003)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261028144727099003)(261026121527099003)(261021123027099003)(261022105027099003)(261026140227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aEVqd2MzVVRnbUdBdXViRkY4Y0pYWlV1cUpENnZHTnpQbjVqR1BRMTNtdllZ?=
- =?utf-8?B?MWJKRVQ2Vk5Kc0hWQW9zQVZvakJkaFdCek5uNmx1RmR0MGhzQVhaTjFybURD?=
- =?utf-8?B?ajRjb2hzRW9EenpjMndvbUFxcmRMaWNmRUdRUmFQbmhNdExGVzlzQ21KUG5p?=
- =?utf-8?B?T1c3eVBkNUVRY3lscVJuRlRYTndGNFExU09xc29iTEw5T1VMekJjU1JaaThX?=
- =?utf-8?B?WVBlUzJaWFVDc01jYVk2ZnREbUxZUUo1SDF6Yzd6UW9EdStlK1NUeFoxcVl2?=
- =?utf-8?B?TUFNZDMvdlVVdHdmMmtucHdINmh6SzlGMEtCZXdocWN2d0NFOStBWnVQM2h5?=
- =?utf-8?B?bHZ1VHJqMk9sNVRhaHlVcEtGTHBCenRsZGxnVVQ1TUcxNjFjOTlDMmdpSFJS?=
- =?utf-8?B?NGtDNG42VE0yMEo4T3NSMEdBMVlLeThTNGt5MVJjeGRHNmFzNlJHejlaVlda?=
- =?utf-8?B?VXBwN09sVjJJSXpoV0U4akV3eFlWeGpIcjNyNkprNUdDaDVLL1ZZb0djblQ4?=
- =?utf-8?B?VHk1TGUySmE0TUNMWVNyL1d1Z0twaWg2djM4bkVtUXZKNnFOcHNyOVppS25m?=
- =?utf-8?B?ay8zL21vSUY2VU83YzVtQkVSSkZiVzk4NWJjMEczalVvWHFlUVV4YUpmUTNE?=
- =?utf-8?B?NEtEaGYzSWNkU3FvMHIrbk9qMWRPbmh6MkRYRUZPR1hBWnZiNWpSci9xQmdi?=
- =?utf-8?B?U25uUXEyYi9lWlQxYlBrZ3YyUGpNbExOTG1od0ppNFZydmR3L1BJbUFMOE5a?=
- =?utf-8?B?T0JhQ0VFb3owTDdQZ0V5RWpCUWQzR0d6VVh6UTlaWHQ1Ujd2RzR2Qmx1c0tC?=
- =?utf-8?B?WTBRS3pGRXpUbk43bHhNU1VBbk0wYmhVdWl1NXkvSklUaW0ycW5OSHJwVFJN?=
- =?utf-8?B?akxHaXVLbk5DaXJtSytXR0pmSlhFSGhndXVvYm9uS3VhdHdSNWNZb0dmVEth?=
- =?utf-8?B?Tm0ydDc1OHlDYTlaNFF6NHlkUEs5dWRkaFJSK2Z6RXFtdDF0VXI5TmVHWE8v?=
- =?utf-8?B?UW1ZWUcxYVYyM2FYOUFDSmRTVUNScHpKUkw3SlJwL2ZBaE4vTUljYUJENDRX?=
- =?utf-8?B?VGJ2NG5vV01LMTdKQm1rclI0YkczMHlFTU1QZWFGVkRQMW9BKytYdDB2VjVR?=
- =?utf-8?B?YWdSVFlhMTVsNVJTRTdES0RXUDZPTXFPV3ExL0FkNVFXVDNsZ3kyaEU3QkxK?=
- =?utf-8?B?eFB4SXBteGFLeUdXdW1YbEdEOEp2S0ZlQWNvZTN4SGZnSCs3RksrMFZ3SHVa?=
- =?utf-8?B?TU5QbGlWWWJCUXdPeGJoZ09vM25wNURIeTVzZzUwQjNWRmZiekFjd0V5VGxW?=
- =?utf-8?B?VTlIZTFNMlJQU0VocHlTNlVERjM3Mm4zekk5ZzlkLzV0elptbG1FMzB0SlEz?=
- =?utf-8?B?WVRHQndheVJaS3cvNVZ6TGxCQlR6NnYrVWRRRVBTT2NTQ0E0NytPWVUyYjFj?=
- =?utf-8?B?MlpGZXBvd1phMUEvbTQvQUZ4OElUNjdFVG5Ja0UzdGJ0d3dsYzBLT0Zab0hK?=
- =?utf-8?B?cE15VVI3aUFNeGxnWVJiZC9Ibzk4NVVveHN6MzNwc3o0YS8vRS9hZC9iTnMx?=
- =?utf-8?B?TVNvZVMyR2pYOEdielVsVTV3akFKdXlBclZ2M2JBOVBxdkRsWkhHdW5oaTkr?=
- =?utf-8?B?ZTdESjVLMnZBWHA3czBkZVZaQnZ6NDZlWXBZUUxRMDd0aytiUTYySEV0MHVp?=
- =?utf-8?B?N3BSV3hxT2Job2lJd1BFL2tFbHk1RFNHaCt2dkVQSFlrbk1aV0RId1JCSnhm?=
- =?utf-8?B?TitFRVdGVVBjNk9PVWVyME15a0dwUktqVmNEdWV0RXpxNmtzdU9CQ0NsZjVF?=
- =?utf-8?B?OFhPZ1FPSUJIcnJXc1ROYUMxQXNyTVI4ZUNmclRmWVFPUk5QdVg0cldXNG00?=
- =?utf-8?B?aVl0UjI5N252aitGZVFHSzlxQjBhOFdxV1NqcG9Ba3JVTEFXVDY1a0ZLNEp2?=
- =?utf-8?B?WUpWZkk3NGxEaHlMV1lmczl6a0pHU2VqS2ovQ0s3bUwwWWdRZ2pZcmRDZE5W?=
- =?utf-8?B?OWwvVUhEMDNUcjZWbEp3blVpQjdzUjNWYUNOaUszMFFCMFZOYWxNckNOZjJj?=
- =?utf-8?B?c1VoRVdJZi9VTGFGczFzeVRHYmk5bytPSFBjNUtXWHlBZFpWdWNUL1p0bm1P?=
- =?utf-8?B?cWRIRjlQU1U4SGMreXBmZEtYK25oTUREQ05aWGZHdjlCVjdsNXN0Y3BPNlBy?=
- =?utf-8?B?cHFvODVINlltZTFIWkNibGRiMDJ4akkwcGw3MEZaY2hqV3ZaT1Zqb0J0RmhV?=
- =?utf-8?B?NDNoWDF0NW5ENExkYXlUYmtkMXZPWlF2SUdFRU9mK0Rkem43cEFNbmNYRXBW?=
- =?utf-8?Q?esvYwKd8whUMz8Z3/q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7233b9a7-325b-4359-faf5-08df38c936e7
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5721.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 10:08:18.2140
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pOPuvsIT4he/7q3hgU1jEYky7oGvozlrJ9mbMuvvF71voiyuaRZm9bSHKrLhMiNEpw+YgjOvwvK6gTK5Ls75TA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB093331
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
+To: Krzysztof Kozlowski <krzk@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Srinivas Kandagatla
+ <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+        andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+        sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        Ekansh Gupta <ekangupt@qti.qualcomm.com>
+References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+ <a97fb0b0-e4e1-4b25-a5ac-60777941c574@kernel.org>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <a97fb0b0-e4e1-4b25-a5ac-60777941c574@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: uGbtYsc0-gMHRTWQVI6cKm84VSq_R74j
+X-Authority-Analysis: v=2.4 cv=QuvLTlyd c=1 sm=1 tr=0 ts=6ae86149 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=PkZpfZOK-p4hLHj_r-EA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: uGbtYsc0-gMHRTWQVI6cKm84VSq_R74j
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfXzTfqh9J6gC61
+ TqnxUG6RTfMk0A3rYroWCJBHapeqszMIvmYZqMgCUYAZUyK+pQd2hAiIr3LMsWhhbO5eg8of+/g
+ zmmvYWHxZtjAqJOdBZk9HrlnpHUpVvY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX2Lic3N/kfxXZ
+ Sg8bGMDqAeqDtqOgUMgsVPunk4ertoHn/HI9Y3w+OSvYdiOh1QLEvyT8XsxHNP1ohRlojbyI5A6
+ d5N6byPZdzYq0vmtYhM5l29W38UYz2gsJOxvZfFDXjVZyDEk0jCA2nvxs1eQESnt4+6kDyssySA
+ LlnHcP1anS8m5wH5J5wshlm17W0cUj2CrbQRXsnmPF0VF2kZFqdQg4ZeMAt4zaiD9+JqrkoVRVT
+ TGU6wsb5oyMBEaAeYiyBfgd+AvYDT0gdFQaeEtbhaa7i5ZvpAz2e1hw7yo9+ngg2uM7c+jh9UaQ
+ W7Z3sUVdWlFUbgh8nwhpWjITPv7/r1tdVYOzBCjIZYe4pwjPlZb3TeCHKEq7hweo9ZaPW/n+Mc0
+ km6MY2ZcXxQZAPdmvCARg098FlqzoiKwc6HuF7HhboI/WhwVgCDd/t2KfJWcHEWlaHycEwHV0Mo
+ xIOeHa7PXDoHPBAhI5A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020040
 
-On 30-10-2026 01:42, Andrii Nakryiko wrote:
-> On Fri, Oct 23, 2026 at 5:42 AM Puranjay Mohan <puranjay@kernel.org> wrote:
->>
->> On CPUs with X86_FEATURE_AMD_LBR_PMC_FREEZE the LBR is always frozen on
->> PMI, so the branch stack ends before the IP and callchain, which are
->> taken when the NMI is delivered. IBS rejects branch-stack events, so
->> there is no precise alternative.
->>
->> The freeze only keeps the PMI handler's branches out of the stack, which
->> matters only when branches into the kernel are recorded; without it the
->> stack fills with the handler's own branches. A user-only filter does not
->> record them, and parts without the feature are never frozen (see commit
->> 598c2fafc06f ("perf/x86/amd/lbr: Use freeze based on availability")).
->>
->> Freeze unless the value written to LBR_SELECT, which is shared by all
->> events on the CPU, suppresses branches into the kernel.
->>
->> With perf record -e ex_ret_brn_tkn:u -j any,u on a Zen 5 part running
->> CPython, the function of the sampled IP differs from the function of
->> LBR[0].to in 84.3% of samples with the freeze and in 0.1% without it.
->>
->> Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
+On 02-11-2026 14:23, Krzysztof Kozlowski wrote:
+> On 01/11/2026 23:21, Ekansh Gupta wrote:
+>>  drivers/accel/qda/qda_soc.c            |   66 ++
+>>  drivers/accel/qda/qda_soc.h            |   61 ++
+>>  drivers/misc/Kconfig                   |    1 +
+>>  include/uapi/drm/qda_accel.h           |  282 +++++++
+>>  33 files changed, 5877 insertions(+), 1 deletion(-)
 >> ---
->>  arch/x86/events/amd/lbr.c | 9 +++++++--
->>  1 file changed, 7 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
->> index a55646fcb8465..7ec50380ac81d 100644
->> --- a/arch/x86/events/amd/lbr.c
->> +++ b/arch/x86/events/amd/lbr.c
->> @@ -392,7 +392,7 @@ void amd_pmu_lbr_sched_task(struct perf_event_pmu_context *pmu_ctx,
->>  void amd_pmu_lbr_enable_all(void)
->>  {
->>         struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
->> -       u64 lbr_select, dbg_ctl, dbg_extn_cfg;
->> +       u64 lbr_select = 0, dbg_ctl, dbg_extn_cfg;
->>
->>         if (!cpuc->lbr_users || !x86_pmu.lbr_nr)
->>                 return;
->> @@ -405,7 +405,12 @@ void amd_pmu_lbr_enable_all(void)
->>
->>         if (cpu_feature_enabled(X86_FEATURE_AMD_LBR_PMC_FREEZE)) {
->>                 rdmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
->> -               wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl | DEBUGCTLMSR_FREEZE_LBRS_ON_PMI);
->> +               /* Freeze unless the filter suppresses branches into the kernel */
->> +               if (lbr_select & LBR_KERNEL)
+>> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+>> change-id: 20261102-v4-e8feb321263f
 > 
-> On Intel CPU side, we reset this FREEZE bit in
-> __intel_pmu_lbr_enable() if is_lbr_call_stack_bit_set(), with the
-> comment "LBR callstack does not work well with FREEZE_LBRS_ON_PMI.".
-> So this is not *exactly* what Intel side of things is doing, and I'm
-> not sure I fully understand the differences, so hopefully someone more
-> knowledgeable can help.
+> What is happening here? How are we supposed to work with this?
 > 
-> But what Puranjay is trying to do here is to at least make a
-> user-mode-only LBR and IP + callstack to be coherent (for PGO data
-> collection, which we then use for user space app compilation), by
-> disabling freezing for LBR.
+> v1: 20260223-qda-firstpost-4ab05249e2cc
+> v2: 20260519-qda-series-78c2bf0ed78b
+> v2 again: 20260817-qda-v2-78e2d1f10529
 > 
-> It doesn't seem like there is anything we can do on AMD hardware for
-> when we want kernel-side LBR and precise IP to be in sync,
-> unfortunately, but at least for user-space only case it would allow us
-> to not plain disable freezing altogether at kernel boot time.
+> And now completely different one?
 > 
-> Does this approach make sense?
+> This makes the change id completely unusable. b4 diff obviously does not
+> work. Any tracking of this does not work.
 > 
+> NAK, really, I already complained internally months ago about such
+> practice, so apparently not enough.
+> 
+> Best regards,
+> Krzysztof
 
-Yes, the intent to keep the LBR and IP coherent is clear. However, my
-concern is that this may end up dropping the branches preceding the
-hotspots since a CPU might keep executing in userspace until the PMI
-handler runs. I'm not sure about the effect that this is going to have
-on PGO but what if we rely on a mechanism (UAPI + tool flags) to let
-users explicitly request freeze?
+Sorry about this. I lost the original b4 branch and re-enrolled the
+series for v4, which generated a new change-id. I should have carried
+the existing one over.
 
-If there is an use-case where freeze helps, then the facility can be
-explicitly requested.
+I have restored the v3 change-id (20260817-qda-v2-78e2d1f10529) on the
+branch, and it will stay fixed for all future revisions of this series.
+v5 will use it.
 
-> 
->> +                       dbg_ctl &= ~DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
->> +               else
->> +                       dbg_ctl |= DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
->> +               wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
->>         }
->>
->>         rdmsrq(MSR_AMD_DBG_EXTN_CFG, dbg_extn_cfg);
->>
->> base-commit: 0f443787a7f6ae907975742680aac2600483eaf1
->> --
->> 2.53.0-Meta
->>
+Note that v4 is a substantial rework of v3 (the custom bus and iommu
+patches are gone, the legacy shim is new and the series is reordered),
+so a range-diff against v3 would be of limited use; the "Changes in v4"
+section in the cover letter lists what changed and why.
 
+//Ekansh
