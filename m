@@ -1,57 +1,166 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793598079;
-	b=4gG7dWbrhuAz6YCF4ihiYi1u1x0PqMH6SJ52lCNJYs8Tt0c2TAsg/hEukuCFgB4E4vjA
-	 aIdP8YHfSNEX3JlR8unfEXuxHq1MqPnbaPeg9Hh3CooCObsn4M8MXWgXli2U69mTWl8C0
-	 6QEf2m1vXVJgu5Qr/ESg6lWvtaEfxJi58lfB1QPcpD7TiXf/POWo0YCxdQOEWklCt/x9x
-	 8XGBYGPzpy540ak7qiI8Rbr7XsbQuTgn6l9KMGp1u98rNPxaTmx4vSX5/PVt4M/HZOjwt
-	 FoWr5PZ1Smy8D0sqhaaUURubVnZ+7+p/OzrDIP4XBqFq2WXtZy4hjo+/0xWHQhe03dQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793598079;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=bPiM5fOHv/cN9XqEKHSnEn2FGdxgPwtP/JfOgehsQYU=;
-	b=hMhxG4pZE4il8JBm7MjdzvSDARJVssHHeQ7tnz8Aci3m6lSEgi0NTFWjyRxh9oL4F4wM
-	 I8kc45y7nY50aW9mMFMI0iAmnh5URN7WPi9puCuqRkCXPA3GqOIuVR42LKlMZwN0DktY7
-	 AkHhAq/JVSEaD4HEaWZp71b94R4E2JV1wFSenrN1yEtAzbxzm+KSisnSfW87erWXu4oJs
-	 wEWwfvSVOU8UAESUqFt+JEM6fSAhWjM/XcxwR+vN4M+qLbCWkN0kfUblFR3iucf3EEe+C
-	 dIhpKGuRAY9o1eAAQcE5y0JVeJNisrOOEeuiCljHYdDLzaz7prb39AhgvBIBetQ5rJA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=uJtgeaJE;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1977C606A331;
-	Mon,  2 Nov 2026 05:41:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1977C606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793598108;
+	b=1P9Rty3Qmg0Xc04ebZuKctapmwBRmHiUfKcEdZdQzvxnGP61VFDzN7L0KTSt0MEw7IJI
+	 NPIcnKcWmw5KxxOeTOjGYDBy0P13nN+fSJ2J18NgeitmrGLK47YoRA2OSc9jCHZ0IzIuQ
+	 ///LsU0MZ+DnGPl6brk06tb+eElrvARsD0sFVn5tKEG+l35LgsSpJGThOiqY2kKI4SJPZ
+	 fCLEKzv0oR7jJ1ZxxAUS4idl1PfQtzHlkjhwlc877E/U8lnFYX4v5MG5Bia1vLICbrkOZ
+	 lPNjyY32RcQ34hSwOFfPkCdOftXDbL1AzmyxBCTWyarSDDQxhw87Zox7jpMhATZTGiw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793598108;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uxoaB0oXPxOohgw6ObJfwgDwkfHcSJ4uP3TcyXX+8kQ=;
+	b=pmhn3MjijgTgoRHJDfADorPpMolDRTK3/Pw5Pfht8BVbdmsZvSqypR0caOcjp5JEwRff
+	 51pdvRXZehQmdXwickXGkIU6zNFuWGiqmJAE6hHdN4xrMd2a0Xqk0TeBaPwjt9cf2RbVJ
+	 Bu9zsfVnkDhNkVPl3VUj6+33h/jgUN1K55DSAbbfGl5c5Qj33BtUCT+eIk5ET2z9hZTKr
+	 dUMSV+uXzFunIZ6qEP5QTEP/O17oJsZC0mwR0O1Ar/5uC4ddK9f7QbJ6PTqDYfdMqrhgO
+	 QotU8nV0uyd/ukzSoG8wn5zJTYAWaJRQG4A3euJpf6B7tH0PZOVnJR1Kn3F3+RZ9cVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fujitsu.com;
+	spf=pass smtp.mailfrom=fujitsu.com;
+	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=selector1 header.b=TJ4coB+6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.40
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010040.outbound.protection.outlook.com [52.101.229.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488AF606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 05:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 488AF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=uJtgeaJE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=bPiM5fOHv/cN9XqEKHSnEn2FGdxgPwtP/JfOgehsQYU=; b=uJtgeaJEHcUGd
-	GYBysmyGkkSpiykALsbTzEFMsLwHgSy8XCRkIfxMKPiQyxUpkAYfDiXjuQM06Irh
-	jS0oTtdh3/fH2GSzytlu68levBfujO4qrzzLJq+jasAX+LmvX+pydWru8JEgALm2
-	pEORWH2/+8UGmGY67NRDSYw83fZyFY=
-Received: from [127.0.1.1] (unknown [114.214.182.90])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAHgDR1IuhqJ9x1AA--.3849S2;
-	Mon, 02 Nov 2026 13:41:09 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: devicetree@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 1/2] dt-bindings: usb: snps,dwc3: tighten the two-connector
- shared HS bus
-Date: Mon, 02 Nov 2026 13:41:09 +0800
-Message-ID: <179359806935.413510.7108025505776923330@mail.ustc.edu.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=selector1 header.b=TJ4coB+6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t6cC9Re79A+fCh8X64HePcVl6nE9r+kT6SHVCb9ybBAauKotZii3VVJwzE4OaSHNLAsM/sQieEtzjDQP4vYoPj/AHiu1csIr0AuEgTc8wXPLupbqXywiGMCnc1vfhQq1NoVnZ+2E5aoaiVu603+Fd4x4jfgqm2fLGvB/yeCL6NhVQKQwmwO6mn/vUhtzKgR63rcGOILvLyVcnrFUJcMx8xJlH9LYwS/OPVh/geCLl7wQkRF5AJfTqycDDh/TkhW70hFrLdC4+P7J3wVP3NtX0QlyeXGI0P9FD3DLXpeX/+JDWINhs2LHXEfdsp2jIaNuwCXcIzahQtZUClH99b0Kzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uxoaB0oXPxOohgw6ObJfwgDwkfHcSJ4uP3TcyXX+8kQ=;
+ b=TOvIHA3yIIqHKx5c56rq8jgLuBtQ8uVK1e1N1JVeHsM0a1oj6FXQDfjmALTibIVVWQdEIXARlG7QDrpL20iHmnYEXblmIjibvrS7F2npBKOptPlfGA7i50nZl1uj7dzbfDqs97kOKlWoH/bqgZouFRqzUNck44Z/3u28Swlj2OnzwLsS2qWYB+FVblrFWWUkiySeYKUPdO9w4pzukL8OWTLHeiEK0jBjNM8UqA6JyTW/InuFukGCghUHfRiM79umf9g0JoFEeH5LzR7KxjLmIG9tN0TCquUe7w+hixH+hWavYeXTTW9VnYO7E9NRN4TqJqj8g29jcI+ptVPnVybnDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uxoaB0oXPxOohgw6ObJfwgDwkfHcSJ4uP3TcyXX+8kQ=;
+ b=TJ4coB+6niNRkko737dBWdAmt7SSiU46MYQVgYLlDhl1ru40x1klIea/uFm+xHoA70rOWu2jkOB0hKd7xzPpYCx7OPoQThr6I/nYhADZ7W4VnOye4C9hQVw9r9WR7zsnolkKySmdryosyceY5M1pXnDathxH1h5CT4Wd6hQXEHAhGAXJz4BiVVlxCo+oJh7ZATXacwKMzLFlEupDMkqOedoxPjTpI+zWCN1n2Tr9ZjJwEIquAk7FqjeR9A0I9DPULNYNzMgs6XHr0nMDpxiNO5bvkQcwn86odkD9Yj9g3AiYIrZ8vNz/tdkTNI83lNr7y7cqGbUHdIUu3VqeVpSUjw==
+Received: from TY4PR01MB16930.jpnprd01.prod.outlook.com
+ (2603:1096:405:338::19) by TY4PR01MB12924.jpnprd01.prod.outlook.com
+ (2603:1096:405:1e8::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 05:41:41 +0000
+Received: from TY4PR01MB16930.jpnprd01.prod.outlook.com
+ ([fe80::38bc:7870:6f23:a957]) by TY4PR01MB16930.jpnprd01.prod.outlook.com
+ ([fe80::38bc:7870:6f23:a957%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 05:41:40 +0000
+From: "Shaopeng Tan (Fujitsu)" <tan.shaopeng@fujitsu.com>
+To: "Reinette Chatre <reinette.chatre@intel.com>" <reinette.chatre@intel.com>,
+	"ben.horgan@arm.com" <ben.horgan@arm.com>, "james.morse@arm.com"
+	<james.morse@arm.com>, "Dave.Martin@arm.com" <Dave.Martin@arm.com>,
+	"fenghuay@nvidia.com" <fenghuay@nvidia.com>
+CC: "tony.luck@intel.com" <tony.luck@intel.com>, "yu.c.chen@intel.com"
+	<yu.c.chen@intel.com>, "babu.moger@amd.com" <babu.moger@amd.com>,
+	"fustini@kernel.org" <fustini@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "patches@lists.linux.dev"
+	<patches@lists.linux.dev>
+Subject: Re: [RFC PATCH v2 04/10] arm_mpam: resctrl: Split control and
+ monitoring domain setup into helpers
+Thread-Topic: [RFC PATCH v2 04/10] arm_mpam: resctrl: Split control and
+ monitoring domain setup into helpers
+Thread-Index: AQHdaou8Q0HmZhjcaUKgr1ImmrYbJLcaQ2u4
+Date: Mon, 2 Nov 2026 05:41:40 +0000
+Message-ID:
+ <TY4PR01MB16930DAEC61D558A935F8C27E8B6A2@TY4PR01MB16930.jpnprd01.prod.outlook.com>
+References:
+ <20621c28067916be2709fc4437473f1ccad7e334.1792443633.git.reinette.chatre@intel.com>
+In-Reply-To:
+ <20621c28067916be2709fc4437473f1ccad7e334.1792443633.git.reinette.chatre@intel.com>
+Accept-Language: ja-JP, en-US
+Content-Language: ja-JP
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Enabled=True;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SiteId=a19f121d-81e1-4858-a9d8-736e267fd4c7;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SetDate=2026-11-02T05:41:18.613Z;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Name=FUJITSU-RESTRICTED;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ContentBits=1;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Method=Standard;
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=fujitsu.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY4PR01MB16930:EE_|TY4PR01MB12924:EE_
+x-ms-office365-filtering-correlation-id: 22e7ca71-8ecc-4f6c-6d0b-08df38a3f872
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|38070700021|11063799006|5023799004|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|18002099003|22082099003|6133799003|1580799027;
+x-microsoft-antispam-message-info:
+ OBmJ4ivryJNA3CgpNmblKgPVCgYyeFJ/ss248okbjrUz8zuw1A/GHBV2VJlI+x5UVMIX2EFJKn4Rg3N/OHbUmV5ppnqmUpPupfYO5rXfkNF82K09FeHj6h1fYwOrQC/9m+UdVLhLTCydaDui3ekO5XgOdeBDtULXTD6k393bvUmQvsWfmvMW/9/jhVlHDSG1BhQ9O7Mee5Z0GiZEp2gGfMyiFpXbkRsjssLbPwp3Q/FDwYNvwCn/8S6+9WJQfQGfW5KTV9IrYa7xQCYkp72IQ0QXIxWulLTZUbc4SUyREVGSc5cjV8441ul8oh+fspqH1v/yChuNvhUA+9dMVKOT4WSXFLebhLAtr3IeEAyLhDRbwoNVgtn+jMtHmdy8P+zn9l13BdVnufRtjL/J4qqRKrllo2xjAZEmeVsGtsXvnH8m2zzYoaGgeIJ2s6A5vPnb+IDKvQbtA62VfbiCdEPqaOBlJG0ipP3XnRo6EhhBnejuGRnF8NY5H+jPH9TBvxYE2cZN0LAf9UEwqJJ5deSXHpIcfhb7wrvfNxv3MZnBaFqZ99UfKpv9LQwQvqoCMxUs0SWtUmsYY1zdfa+mLBgRqRROhDyPUvJdPY6kYn4kxjWykp6ncVaEwWNbZD17bykOOf121tUNleB/uRXzNMgY+vuoB1rS1kZIKgN2gq2GVbGp45ZfdvUQlKHgvwAwtKZevw36B1HqZcvjSzFl1uk1yNtvxIemUrMliZIfLKaDr/3obu7085BrhLtKGGfpibmA
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY4PR01MB16930.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(38070700021)(11063799006)(5023799004)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003)(1580799027);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-2022-jp?B?K3RKMC9JSDIreW5mYndkY1VtNTZOUUpBc0hiUTNYcFAwVzJjWFVvR3V3?=
+ =?iso-2022-jp?B?T3FlOTBRM295YnVFWG51SGRMd3V5aXRLVTZ6VEdZU0ZwMUZ3V05GK3hi?=
+ =?iso-2022-jp?B?MWZGRDF6Yyt1cVp0NFJtV1JZeWliNmwzUnU3NnlOVGtacVRtUDVURnJ3?=
+ =?iso-2022-jp?B?a0xQL2p6dTV4cGZzRFFOdU56U3c2MUl2Ynh2MHZjbkQ3YklCVFlrcis3?=
+ =?iso-2022-jp?B?QldlVkhUWnRUMTBUaUZvNkZNMHI2SGlCOHEzUkE1M0FHejMrdHZsNTJ0?=
+ =?iso-2022-jp?B?VEhmTzJDYktQL3pWNFM0cnBWWVlhMUtTQWFvZVZFemE2MEs0RWhkZkpj?=
+ =?iso-2022-jp?B?VDJBNWh1cEkwNmkvb0VsUGFwWHpIR2xsdm1wKy8xaDFXcGxnbUpWdm83?=
+ =?iso-2022-jp?B?VHRtRnZ4OWF6OUlkdWtobGVTbEVsUnl3dElTUlRQY0MrdjE5TXNFZjh6?=
+ =?iso-2022-jp?B?V1BiY1NGbVEyYjUyNjZyR0FiYVJqcTZLZzVuWnpDV1dwOEhkb0xkMnZ5?=
+ =?iso-2022-jp?B?MmYxay9mS3lYbk5XbVFlOG1ab2E4VTZPbHVwcWNxaW4rcFlFTDFuOEs0?=
+ =?iso-2022-jp?B?RDQzRGRSSW9hNU1ZY3FkSDFjS3c3b3d5ZGEvejJNSG1rMFFXZWxUTW85?=
+ =?iso-2022-jp?B?UlRvdCtsQURMcUh6Q1k4ODIzR29lWWhiVzZZUnVmVUxZTElSYW9xSERW?=
+ =?iso-2022-jp?B?TTJLMVVPbnpyN2w0dE1jajk4Q1VFWXZZMlF3b0F4M3cwRWlEcXI5UzRu?=
+ =?iso-2022-jp?B?S0JtVHRsY25Yb3FXM1NvbkNWUm5MZXp5MUhDSkI4K1VWbHN3UnpPTytw?=
+ =?iso-2022-jp?B?dTF3cTYyZG0wWDZvWUJqYVVkQmJZYlBoRkFXR3BvV0ZpMEQxSXYvUDBl?=
+ =?iso-2022-jp?B?eHQxc3IrR2MvaWFUU01wWDNqQkkxeSt4TklFYzlTdmhJNVIwbFZiUWNL?=
+ =?iso-2022-jp?B?Ym8rNGRDL2hUR2JISi82QmtVZ0tOaDBXaSswNVg5ckZ5VStrNkNYWnpO?=
+ =?iso-2022-jp?B?TFlhelFSVlJ2bHFxMnd6WmVqMC9GTDRFdm9iaFZyRmhjUUNFVFcza29h?=
+ =?iso-2022-jp?B?cTdFTHdTanBqUnFsdUEwT0xsODhPY0NIajJoYVpEZWFycmhDeGRIMjk0?=
+ =?iso-2022-jp?B?S1NDM3FPSFJNOEY2L050bjlHNkpiV1p0T0doMHRPZlpoQ1REQXV0LzdG?=
+ =?iso-2022-jp?B?Um00ZFR2T0VGTkF3SUNSZ3MwbE9EZzlaQXkrWGM5cUF5TWg2SHZwL1hs?=
+ =?iso-2022-jp?B?RWEralJKU29XeEtmekxEbFYvbHg1bUJZVGlVT2oxTXV6SmZCOUQ0VlFj?=
+ =?iso-2022-jp?B?ZHNObkJ5ekUyMnJSb0YxVzg3c0lXNlZTdFQ0OExkWlhJMHVBSXZxaWRN?=
+ =?iso-2022-jp?B?TGpIbUJDc0N4cWEvQmxtNkVPRDNtKzNKaHdZWXZvMDQ3b2FsSnhqaDJh?=
+ =?iso-2022-jp?B?YlZObWlTS1paT3JGUmFCVXhKSnRKUFMwbFJKWVNzbEgyOEFXRXpPUnFC?=
+ =?iso-2022-jp?B?VkJsbTkrMzQxWmg4Snp5Rkg0UldJVml1TmcrWW1hUGZ3U1B3eUNxZnFx?=
+ =?iso-2022-jp?B?OUkzVWlSQzVVQXFxejl2dWtWOWYrTnNSL0VyV3FwWkhiS04rcmcyekkw?=
+ =?iso-2022-jp?B?SW5SazZ2YnhPR1NWMVVtWG5FTzFpUExxVzNWMzQrVlZPUFlibjVkWnBx?=
+ =?iso-2022-jp?B?Tm1Hd3BNMUFsby96Tnp6aE84dDJ0Sjg3ZWxKM3hHdmZTcURFekg2UkVW?=
+ =?iso-2022-jp?B?aTVZUFBXYWF0cjZDTnYrT0lDRHdWZHpPNXQ2UTRwd0NzMnQ0Z005NWt2?=
+ =?iso-2022-jp?B?aG9GMnZGRzA5OE0rYm45L2hjNHhaUkNGOFhqWGRuYUJ3Nk1mMU9QNjBH?=
+ =?iso-2022-jp?B?LzlkSGJUSTEwZ3FDN3J2ZlNrd0ZrUTZ2QUkxSm5nRjR5RWhESWI1am14?=
+ =?iso-2022-jp?B?ZHZPYWNNekFReitBT0d5NGIyemtubmkyTUhkYXQ5RTZlTGxXWHJraEhz?=
+ =?iso-2022-jp?B?bkVDWlFyYVVGUGJmOGZuMXMwamVtaE5aYkoydklsYnExRlpFQWhybjNF?=
+ =?iso-2022-jp?B?RVR2ck9EdGtLUGg5YlpJMWpnangyYXhQZ3BPMkcxMjlMUUk4NUM2UmQv?=
+ =?iso-2022-jp?B?WldjZkF3Qy9nZWFvWFdzMjNSMFJyejdXcXUwaUxQRjFyaUQySEZJN29s?=
+ =?iso-2022-jp?B?Y3hVNHRGVlNDVHJZRW80ME1XWDVFaGYxbXhtT0xMMEIwdzJqWjN0TjZv?=
+ =?iso-2022-jp?B?TkxDVVAvd2k2WnhueDROSXRwMTF2U3NGMDVtYXArcFVURWd0V2R2SHFQ?=
+ =?iso-2022-jp?B?by9qMmtCSU9PMFViWlJWa3VGcU52NUJKYlVTWlZ0S2E3ZS9pN0RXU3ZC?=
+ =?iso-2022-jp?B?VGl3cWZvMlJEa2UwMUNmZE5VMkpPSzJrSGhXQmJEcHMzN1EySFV5TDg2?=
+ =?iso-2022-jp?B?TTYxdDVDamkrbkVDUDVRM1NnTUxVa1VkbUZ6WjdCclUzaGxiRHZGbmhE?=
+ =?iso-2022-jp?B?Z29VNUJNdElDbzJBVjhLT0MvOFNMQ3NtZWtXZz09?=
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,223 +170,250 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgAHgDR1IuhqJ9x1AA--.3849S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuFyxCF47Cry5CF18CF4fuFg_yoW7tw18pF
-	sIyF4rJFWkK34fZ347AF18Cw1kGrWDZrnrJF18Cw1Uuan8WF4rXa13KwnaqFWUCF92vasI
-	krykWFn8X3WxWw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xS
-	Y4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
-	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
-	6T5tUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARESB2rnk1cDXgBGsX
+X-Exchange-RoutingPolicyChecked:
+	lv8eoXJw+J8dq/MRyINTXFKvkrX3ohbbBclbnDnI6JVczz79hIJ77dLvOPcIJLlLNAi7ISMVKyHoDaaKA5W788HoA1R0voANQd9ncwc/rkiA7/t+uA+KUYdMtl1cb5a8bXO+PLbh4Slf9uLu1F64Rn+m4KFh6czcHsILh/jEIsf56QLGJ1aXWXtoBvl2apTmCW3B2e/d6ExcPTRlm4QwSzLJjWmlOD7vbs6jPV9Exfw5N6zc7C5daakAAi39UtvMXiz7HSzT6c5eTvMtKlFJDGaAZRQp0ReuSarVSP7xPiy7t8OVD8NVnp/+yuprmDgBLBwx3SAKlOBYrEpXv0bwPw==
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY4PR01MB16930.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22e7ca71-8ecc-4f6c-6d0b-08df38a3f872
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 05:41:40.8811
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HHgAcTdhT84ULez34cutat+E1W3IIK8NBC7cSKLgQKQtlM4GTIKWq84L0xGBfGjbK/VeXmI41IZgcLocI4G/hQ+/z6DSl2s7lSsUOtw6UOQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB12924
 
-Resending only 1/2 of this series.
-
-The earlier post of this patch (Message-ID
-<20261031150154.1106455-2-xiaqinghuan@mail.ustc.edu.cn>, 0/2 cover
-<20261031150154.1106455-1-xiaqinghuan@mail.ustc.edu.cn>, 2026-10-31) used the
-wrong device-tree list address: it was sent to
-linux-devicetree@vger.kernel.org, which vger rejects with
-
-  550 5.1.1 <linux-devicetree@vger.kernel.org>: Recipient address rejected:
-  User unknown in virtual alias table
-
-so it never reached devicetree@vger.kernel.org.  The patch text below is
-unchanged, byte for byte, and is the same text as in the 0/2 cover.  The
-sibling 2/2 went to linux-usb and linux-arm-msm and is archived there; this
-resend is only about putting 1/2 into the devicetree archive.  The subject is
-kept as "[PATCH v5 1/2]" so it still lines up with that cover.
-
-AI-assistance disclosure: this patch is drafted with an AI assistant and
-edited by me; the author reviewed, built and tested it, and the content and
-the measurements are the author's own.
-
-Two connectors behind one controller only take the mux path when the
-controller node itself carries "usb-role-switch": dwc3_get_dr_mode()
-otherwise forces dr_mode back to peripheral, dwc3_get_extcon() skips the
-role-switch branch and dwc3_drd_init() never calls dwc3_role_mux_init().
-The binding accepted such a DT, so a DT that passed the schema check did
-not describe a DT the driver could act on.  Require the property whenever
-port-select-gpios is present.
-
-Two more holes in the endpoint schema are fixed at the same time:
-
-  - the hs-port patternProperties only covered endpoint@0 and endpoint@1,
-    so an unnumbered endpoint or endpoint@2+ escaped the
-    unevaluatedProperties: false rule of the graph endpoint.  Use the same
-    endpoint name pattern as graph.yaml so every endpoint is validated.
-
-  - the mux-state complementarity was expressed with two independent "if
-    const: 0" blocks, which only rejected two zeroes; two endpoints both
-    claiming mux-state = <1> passed validation.  Express the pair as oneOf
-    so exactly one of the two assignments is accepted.
-
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../bindings/usb/snps,dwc3-common.yaml        | 105 +++++++++---------
- 1 file changed, 55 insertions(+), 50 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-index 6b06b0027b..b23d5d8d74 100644
---- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-+++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-@@ -31,7 +31,9 @@ $defs:
-         enum: [0, 1]
-         description:
-           Logical level of the port-select GPIO which connects this
--          connector to the shared High Speed data bus.
-+          connector to the shared High Speed data bus.  The two connectors of
-+          one controller must use different levels; the driver rejects a
-+          device tree where two connectors claim the same one.
- 
-     dependentRequired:
-       usb-role-switch: [mux-state]
-@@ -42,7 +44,7 @@ $defs:
-     unevaluatedProperties: false
- 
-     patternProperties:
--      '^endpoint@[01]$':
-+      '^endpoint(@[0-9a-f]+)?$':
-         $ref: '#/$defs/hs-endpoint'
- 
- allOf:
-@@ -61,70 +63,74 @@ allOf:
-   - if:
-       required: [port-select-gpios]
-     then:
--      required: [dr_mode, ports]
-+      # The mux path is only taken when the controller itself carries
-+      # "usb-role-switch": dwc3_get_dr_mode() forces dr_mode back to
-+      # peripheral, dwc3_get_extcon() skips the role-switch branch and
-+      # dwc3_drd_init() never calls dwc3_role_mux_init() without it.
-+      required: [dr_mode, ports, usb-role-switch]
-       properties:
-         dr_mode:
-           const: otg
-         ports:
--          required: [port@0]
-+          # Each connector is one port with a single endpoint: the mux-state
-+          # property on that endpoint says which level of the port-select GPIO
-+          # reaches it, so two connectors are two ports, not two endpoints of
-+          # one port.  port@1 is the SuperSpeed lane of the PHY and is already
-+          # described by snps,dwc3.yaml, so the second High Speed connector
-+          # lands on port@2.
-+          required: [port@0, port@2]
-           properties:
-             port@0:
--              required: ['#address-cells', '#size-cells', endpoint@0, endpoint@1]
-+              $ref: '#/$defs/hs-port'
-+            port@2:
-+              $ref: '#/$defs/hs-port'
-+
-+          # The two connectors must claim opposite levels of the port-select
-+          # GPIO; requiring both ports in every branch is what makes the two
-+          # cases mutually exclusive for oneOf.
-+          oneOf:
-+            - required: [port@0, port@2]
-               properties:
--                endpoint@0:
--                  required: [usb-role-switch, mux-state]
--                endpoint@1:
--                  required: [usb-role-switch, mux-state]
--    else:
--      properties:
--        ports:
--          properties:
--            port@0:
--              patternProperties:
--                '^endpoint@[01]$':
-+                port@0:
-+                  $ref: '#/$defs/hs-port'
-                   properties:
--                    usb-role-switch: false
--                    mux-state: false
--  - if:
--      properties:
--        ports:
--          properties:
--            port@0:
--              properties:
--                endpoint@0:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 0
-+                port@2:
-+                  $ref: '#/$defs/hs-port'
-                   properties:
--                    mux-state:
--                      const: 0
--    then:
--      properties:
--        ports:
--          properties:
--            port@0:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 1
-+            - required: [port@0, port@2]
-               properties:
--                endpoint@1:
-+                port@0:
-+                  $ref: '#/$defs/hs-port'
-                   properties:
--                    mux-state:
--                      const: 1
--  - if:
--      properties:
--        ports:
--          properties:
--            port@0:
--              properties:
--                endpoint@1:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 1
-+                port@2:
-+                  $ref: '#/$defs/hs-port'
-                   properties:
--                    mux-state:
--                      const: 0
--    then:
-+                    endpoint:
-+                      properties:
-+                        mux-state:
-+                          const: 0
-+    else:
-       properties:
-         ports:
-           properties:
-             port@0:
--              properties:
--                endpoint@0:
-+              patternProperties:
-+                '^endpoint(@[0-9a-f]+)?$':
-                   properties:
--                    mux-state:
--                      const: 1
-+                    usb-role-switch: false
-+                    mux-state: false
- 
- properties:
-   port-select-gpios:
-@@ -536,4 +542,3 @@ required:
- 
- additionalProperties: true
- ...
--
-base-commit: fd69bd54e328c407b1853378b25d15803d3453fa
--- 
-2.53.0
-
+Hello Ben, Reinette=0A=
+=0A=
+> mpam_resctrl_alloc_domain() allocates one structure that holds both the=
+=0A=
+> control domain and the monitoring domain of a resource. It sets up=0A=
+> whichever of the two domains the resource supports, with the setup of=0A=
+> both open coded in the function, and undoes the control domain if=0A=
+> setting up the monitoring domain fails.=0A=
+> =0A=
+> Apart from the code that manages domains, every user of the structure=0A=
+> accesses only one of its two domains, so the monitoring domain can be=0A=
+> given a structure of its own. Doing so starts with separating its setup=
+=0A=
+> from that of the control domain.=0A=
+> =0A=
+> Move the setup of each domain into its own helper in preparation for=0A=
+> giving the monitoring domain its own structure as part of supporting=0A=
+> multiple controls per resource. Keep the allocation and the error=0A=
+> handling in mpam_resctrl_alloc_domain() so that a failure to set up the=
+=0A=
+> monitoring domain still undoes the control domain.=0A=
+> =0A=
+> No functional change intended.=0A=
+> =0A=
+> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>=0A=
+> ---=0A=
+>  drivers/resctrl/mpam_resctrl.c | 116 ++++++++++++++++++++-------------=
+=0A=
+>  1 file changed, 70 insertions(+), 46 deletions(-)=0A=
+> =0A=
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctr=
+l.c=0A=
+> index dc442851fd7e..246560247a28 100644=0A=
+> --- a/drivers/resctrl/mpam_resctrl.c=0A=
+> +++ b/drivers/resctrl/mpam_resctrl.c=0A=
+> @@ -1615,13 +1615,77 @@ static struct mpam_component *find_component(stru=
+ct mpam_class *class, int cpu)=0A=
+>          return NULL;=0A=
+>  }=0A=
+>  =0A=
+> +static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,=0A=
+> +                                         struct rdt_resource *r,=0A=
+> +                                         struct mpam_component *comp,=0A=
+> +                                         struct mpam_resctrl_dom *dom)=
+=0A=
+> +{=0A=
+> +       struct rdt_ctrl_domain *ctrl_d =3D &dom->resctrl_ctrl_dom;=0A=
+> +       int err;=0A=
+> +=0A=
+> +       dom->ctrl_comp =3D comp;=0A=
+> +=0A=
+> +       mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);=0A=
+> +       ctrl_d->hdr.type =3D RESCTRL_CTRL_DOMAIN;=0A=
+> +       err =3D resctrl_online_ctrl_domain(r, ctrl_d);=0A=
+> +       if (err)=0A=
+> +               return err;=0A=
+> +=0A=
+> +       mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);=0A=
+> +=0A=
+> +       return 0;=0A=
+> +}=0A=
+> +=0A=
+> +static int mpam_resctrl_setup_mon_domain(unsigned int cpu,=0A=
+> +                                        struct rdt_resource *r,=0A=
+> +                                        struct mpam_resctrl_dom *dom)=0A=
+> +{=0A=
+> +       struct rdt_l3_mon_domain *mon_d =3D &dom->resctrl_mon_dom;=0A=
+> +       struct mpam_component *any_mon_comp =3D NULL;=0A=
+> +       enum resctrl_event_id eventid;=0A=
+> +       struct mpam_resctrl_mon *mon;=0A=
+> +       int err;=0A=
+> +=0A=
+> +       /*=0A=
+> +        * Even if the monitor domain is backed by a different=0A=
+> +        * component, the L3 component IDs need to be used... only=0A=
+> +        * there may be no ctrl_comp for the L3.=0A=
+> +        * Search each event's class list for a component with=0A=
+> +        * overlapping CPUs and set up the dom->mon_comp array.=0A=
+> +        */=0A=
+> +=0A=
+> +       for_each_mpam_resctrl_mon(mon, eventid) {=0A=
+> +               struct mpam_component *mon_comp;=0A=
+> +=0A=
+> +               if (!mon->class)=0A=
+> +                       continue;       // dummy resource=0A=
+> +=0A=
+> +               mon_comp =3D find_component(mon->class, cpu);=0A=
+> +               dom->mon_comp[eventid] =3D mon_comp;=0A=
+> +               if (mon_comp)=0A=
+> +                       any_mon_comp =3D mon_comp;=0A=
+> +       }=0A=
+> +       if (!any_mon_comp) {=0A=
+> +               WARN_ON_ONCE(0);=0A=
+> +               return -EFAULT;=0A=
+> +       }=0A=
+> +=0A=
+> +       mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->h=
+dr);=0A=
+> +       mon_d->hdr.type =3D RESCTRL_MON_DOMAIN;=0A=
+> +       err =3D resctrl_online_mon_domain(r, &mon_d->hdr);=0A=
+> +       if (err)=0A=
+> +               return err;=0A=
+> +=0A=
+> +       mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);=0A=
+> +=0A=
+> +       return 0;=0A=
+> +}=0A=
+> +=0A=
+=0A=
+Currently, it returns success even when the domain fails to be inserted. Is=
+ there a specific reason for this design?=0A=
+I believe it would be safer if mpam_resctrl_domain_insert() returned an int=
+ to indicate success or failure. =0A=
+=0A=
+For example:=0A=
+	static int mpam_resctrl_domain_insert(struct list_head *list,=0A=
+					       struct rdt_domain_hdr *new)=0A=
+	{=0A=
+		struct rdt_domain_hdr *err;=0A=
+		struct list_head *pos =3D NULL;=0A=
+=0A=
+		lockdep_assert_held(&domain_list_lock);=0A=
+=0A=
+		err =3D resctrl_find_domain(list, new->id, &pos);=0A=
+		if (WARN_ON_ONCE(err))=0A=
+			return -EEXIST;=0A=
+=0A=
+		list_add_tail_rcu(&new->list, pos);=0A=
+		=0A=
+		return 0;=0A=
+	}=0A=
+=0A=
+Wouldn't this be a more robust approach for error handling?=0A=
+=0A=
+Best regards,=0A=
+Shaopeng TAN=0A=
+=0A=
+>  static void mpam_resctrl_alloc_domain(unsigned int cpu,=0A=
+>                                        struct mpam_resctrl_res *res)=0A=
+>  {=0A=
+>          int err;=0A=
+>          struct mpam_resctrl_dom *dom;=0A=
+> -       struct rdt_l3_mon_domain *mon_d;=0A=
+> -       struct rdt_ctrl_domain *ctrl_d;=0A=
+>          struct mpam_class *class =3D res->class;=0A=
+>          struct mpam_component *comp;=0A=
+>          struct rdt_resource *r =3D &res->resctrl_res;=0A=
+> @@ -1638,57 +1702,17 @@ static void mpam_resctrl_alloc_domain(unsigned in=
+t cpu,=0A=
+>                  return;=0A=
+>  =0A=
+>          if (r->alloc_capable) {=0A=
+> -               dom->ctrl_comp =3D comp;=0A=
+> -=0A=
+> -               ctrl_d =3D &dom->resctrl_ctrl_dom;=0A=
+> -               mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->=
+hdr);=0A=
+> -               ctrl_d->hdr.type =3D RESCTRL_CTRL_DOMAIN;=0A=
+> -               err =3D resctrl_online_ctrl_domain(r, ctrl_d);=0A=
+> +               err =3D mpam_resctrl_setup_ctrl_domain(cpu, r, comp, dom)=
+;=0A=
+>                  if (err)=0A=
+>                          goto free_domain;=0A=
+> -=0A=
+> -               mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr=
+);=0A=
+>          } else {=0A=
+>                  pr_debug("Skipped control domain online - no controls\n"=
+);=0A=
+>          }=0A=
+>  =0A=
+>          if (r->mon_capable) {=0A=
+> -               struct mpam_component *any_mon_comp =3D NULL;=0A=
+> -               struct mpam_resctrl_mon *mon;=0A=
+> -               enum resctrl_event_id eventid;=0A=
+> -=0A=
+> -               /*=0A=
+> -                * Even if the monitor domain is backed by a different=0A=
+> -                * component, the L3 component IDs need to be used... onl=
+y=0A=
+> -                * there may be no ctrl_comp for the L3.=0A=
+> -                * Search each event's class list for a component with=0A=
+> -                * overlapping CPUs and set up the dom->mon_comp array.=
+=0A=
+> -                */=0A=
+> -=0A=
+> -               for_each_mpam_resctrl_mon(mon, eventid) {=0A=
+> -                       struct mpam_component *mon_comp;=0A=
+> -=0A=
+> -                       if (!mon->class)=0A=
+> -                               continue;       // dummy resource=0A=
+> -=0A=
+> -                       mon_comp =3D find_component(mon->class, cpu);=0A=
+> -                       dom->mon_comp[eventid] =3D mon_comp;=0A=
+> -                       if (mon_comp)=0A=
+> -                               any_mon_comp =3D mon_comp;=0A=
+> -               }=0A=
+> -               if (!any_mon_comp) {=0A=
+> -                       WARN_ON_ONCE(0);=0A=
+> -                       goto offline_ctrl_domain;=0A=
+> -               }=0A=
+> -=0A=
+> -               mon_d =3D &dom->resctrl_mon_dom;=0A=
+> -               mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &=
+mon_d->hdr);=0A=
+> -               mon_d->hdr.type =3D RESCTRL_MON_DOMAIN;=0A=
+> -               err =3D resctrl_online_mon_domain(r, &mon_d->hdr);=0A=
+> +               err =3D mpam_resctrl_setup_mon_domain(cpu, r, dom);=0A=
+>                  if (err)=0A=
+>                          goto offline_ctrl_domain;=0A=
+> -=0A=
+> -               mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);=
+=0A=
+>          } else {=0A=
+>                  pr_debug("Skipped monitor domain online - no monitors\n"=
+);=0A=
+>          }=0A=
+> @@ -1697,8 +1721,8 @@ static void mpam_resctrl_alloc_domain(unsigned int =
+cpu,=0A=
+>  =0A=
+>  offline_ctrl_domain:=0A=
+>          if (r->alloc_capable) {=0A=
+> -               mpam_resctrl_offline_domain_hdr(cpu, &ctrl_d->hdr);=0A=
+> -               resctrl_offline_ctrl_domain(r, ctrl_d);=0A=
+> +               mpam_resctrl_offline_domain_hdr(cpu, &dom->resctrl_ctrl_d=
+om.hdr);=0A=
+> +               resctrl_offline_ctrl_domain(r, &dom->resctrl_ctrl_dom);=
+=0A=
+>          }=0A=
+>  free_domain:=0A=
+>          kfree(dom);=0A=
+> --=0A=
+> 2.55.0=0A=
