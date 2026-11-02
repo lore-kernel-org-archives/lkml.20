@@ -1,82 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617911;
-	b=yf7zI+WAAGn7Oa/DQGHC+F18nFGtPG2f/m2B72gw9X5xP4yDdeXOhKTfRIocW1fUDRhD
-	 OLOrrq+qXxoCyCGAz82WvVHj9wlhUSMqISR1G0lrCK5980t9za71IdW1qurPgGtJNUwdS
-	 fr9YFhJCT1Egk4EkBBYJXvHdG3Os7P0nubDnifG0RKSOA3vpS7ROzlJ2Xcij2kx0IDnix
-	 A5WbW+vQHK7qnsPWU743goG3WIyV4THPPEX29TfoeXI2ohStifTo7Fyuo4+h5s1mL2W/c
-	 AH7w7W+v7Yos8vap3k6nImeSMsai37JiI6QATQvc52g4zZfGZR8JdWqPJOxD+XAjo8Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617911;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=tQierFXrtdBxsv90Wvr5GLl7ZIg6QP9xO7JbeTEr+Xw=;
-	b=HnBfSPT70SB/9hpZsEjhvrFjufETCQhqS+U8wRL/TraExoso8dj0vjQJW6vVDs8K77pu
-	 CglUynjwDp4N7D1Zl4vsoiHf3s7PS9rT6SXjk3g+pjOt+xqPkhdgNbrcUAZDUm/MmsRfI
-	 QzPSckBQ/NMvrs/UBwVYbSwoe05dRVqLwsEObyIJ3qY25zj4mj52fZVP8uXd3PozjHKYT
-	 9Kx4mKhfgOXZJaWjPpfd36h34lZajbWEWXUu1GZ6WnIE0AaVLrVrnuhKFLM65ilkWgm4x
-	 pnKHKNINfR7Nv1geq93KU2+JioaQaOYyvQbxrfXKWOzBGcGzJ3VgXPK1Nf8z8TdtIpg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BFAwBKbw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.35
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793617931;
+	b=cHxpRTExhDhpFDgGkNJYi3dNny2s1e8+UbrYnOgo+Astk5Wuu7ILIvSf516aofysX5or
+	 mjoIiMt488Y9m//qsIi0+JWCIX7BmEl99mCjSMIyknC4EFqU082lGQBcGxZVPmGhmch33
+	 GR7GuvXEUPe6tp26SoUf0TIpJ99zpJ4S8NBvXHAwtrAuenIT+ByPG3o/Ogv6QZ/P+ZseE
+	 UGW19up6CR2dcZg0REt8etUxnjfp+sE4pX5pD6LGqAEHQ/hZqFBX6n0E5hSNMiIYnFqag
+	 LbNGb7j3+PQDdtYiuhUSZekONMEnEc72PkMo4JS9ZQyg6mgo0oqlP0fXdJeTnOoaEdg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617931;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=8pDTjSsxM5U6Ulfu0iqVLLFejr/vVLquSQNs6jlRCNI=;
+	b=lPM/F8F6vDQ0nr3semLg2EKQ/A0EGos3jcqcSLus6qfF7drYEWltxY/MYb951eY41T2X
+	 uH0u2isUxHkNrfaPdeI+cCf31fuVFJHaByx4hfazWV5hgQhcfkXl1Xe430uLF2d6ZhemW
+	 lQ3TaAaGEHmrTP6ivtR1qTcdzAES3EcG0zKLZ4UHgcTyftjsREkJHk/zuwDbB+8HCVO6k
+	 9IxSLK9L3VcuwDiKaDmPIhPA4KI5E5UkbK4imqW7ji+Nn/U2MJsv0fCL6nRQIlfE97fhX
+	 tXYO09G2RSaubb4vNaAU5DZtarEZsUdAnqjXqkwEO6oUTViPHO/R++7pjiQAXuhGNig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TqUsZKRz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.35
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011035.outbound.protection.outlook.com [40.93.194.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6F6606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:11:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E771A606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:12:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E771A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BFAwBKbw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CC871F00A26;
-	Mon,  2 Nov 2026 11:11:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793617911;
-	bh=tQierFXrtdBxsv90Wvr5GLl7ZIg6QP9xO7JbeTEr+Xw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BFAwBKbwGTlz0Mn4enaQSgX8dTUg8pp7VJO7rtcJP9h8ODPemnCLR2eNJMPd38/pI
-	 o3ypw45HPEIawjkPWwjC7vpedMr/rhrB556WMYHevVOUGn2DSZqM3XyTdvy9xaafGs
-	 d+/SQtsBFnDZzf2np20BbCeTeaBHQValygZuXcE0jqxRoGvyrwoaqpftP2ml8O9MU/
-	 0HATVm85QPYzXDyRzMncrpNRNw91wJIj2+fA+lGi97MgKvO2KPKjh0YegXTGOM4QlH
-	 zeFv0Pn0ofxsDPqODF/sKmuouK59j9ZhHiStG+T3gwfGMbUvELpg99pmqo5mqiQtDr
-	 OUMAd/jT7HUPw==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7A9A5198003A;
-	Mon,  2 Nov 2026 06:11:47 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Mon, 02 Nov 2026 06:11:48 -0500
-X-ME-Sender: <xms:8m_oap1pn22irz7gCc14BXj8OEqUpwx3JaQztnNOC7KHO2BMy333Eg>
-    <xme:8m_oao2hpwX1d8FZPJSOjgh5MInTWJxHlbjIquzEsa5ouO7aByPoj37Jp-SCbE9ou
-    Nx7vfKB-Oa4pHtVAHO_eH4WUmfTl6goBh_HywHjHO3FzyOQfPRy7n98>
-X-ME-Received: <xmr:8m_oaomWH4ItRcaBeR3WStFTWfJK0mu8lLjdJPwJHfA2OBb4biLzLTw2OPw>
-X-ME-Proxy-Cause: dmFkZTEK1+02a4zp88u4Tj7j1xR++eJHRcOeZsjArkkCuSqZTrG8QN3et3PJ5Yhpp8JgOy
-    tSOq45tZMVN3zAAAPAjPYdiYp4+PM3U5Ilw/Pvtw7Ftx3GpE/TzxD++/NwBVjZwRlAofk7
-    pgG6siSuYHP+MNHzb/HomkI1yVPL+oawmIR9pZi9gWP0otMusCPkQ232d0l/98yOZyjaO8
-    HCSiHgy4dMxZTYLPkGusk7UMm8k5Wt2nCqc9q31PZ/V6ihq/eUyqlvPexGPv0hMZ1E+YGx
-    sYu7Zoyhe+tajg6s4E3RIIUMBh/H9WcY7aPjBvRgJ+f/iJ4hRlMvNuh74OMKCJAds2lDaw
-    LuHKwEP2phflf9q4kE1iwNJtNjh7Mpe/RdmadkWMkn6nU+Wb0hAdhkVdLAVbDQIOIPTSkB
-    lKxK3Thu7rQlxOUPlh1jbY0wFMZNQpWVLZO8yoh/UobjpsE+YBH8Gm+QCT+dRaiS+FcvdP
-    zkcv0QSHR1X6YeFjlgRImzCdCwdeFLmZAWzMlz59bkHguqNYREG58mLEZ2yCI5P0Fx7ld7
-    0oN+qmyXHVQTlWvextupVYS/txj5aUgCi95wcxQcH7qyY2K7M8bHoBgwfMTdb5Rjozx/jc
-    qNE9yUW3AJqwqBNA5BKKdk/cxyRYVf8/3eXZjLEoHkP9zWRSitoidzhZiOeA
-X-ME-Proxy: <xmx:8m_oapPFGL__hvcoMqMzBnRZ-INyOEygljbY6EiycThk6Y0F6l6DsQ>
-    <xmx:8m_oav7wSNhrP83Arz50u-l3HyYq7VbGbdKXaWdvfmj4GLR7kpXEOg>
-    <xmx:8m_oas2GsREdtezfri6lt-3yakSD4672zKA1Jdet-JKU7ZBgwJBZWQ>
-    <xmx:8m_oatqcVCgLulftk8UoOuP943tkcFU81X7byj4o9pPXmFkdhPVZtQ>
-    <xmx:82_oamkCzupz1ocn0mSfB1WUaZPNn8heBXCkh_JvDXLF73A7bEu48WfY>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 06:11:46 -0500 (EST)
-Date: Mon, 2 Nov 2026 11:11:45 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, shuah@kernel.org, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	yeoreum.yun@arm.com, ziy@nvidia.com
-Subject: Re: [PATCH] selftests/mm: handle child status safely in khugepaged
-Message-ID: <auhvkuDO8cP9Pip4@thinkstation>
-References: <20261030215841.229969-1-ampr.mhd@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=TqUsZKRz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OXTWCdc88CijbBwsR1SbGDTOBDndFfrXdO4zlFWchh/mTenfracbjQ9jqwNO5IJIEdJQU9S+Qfvgd66tRK+fLjvaPN9lxpU3+GnJkjG8nHMIZ0XhHZ//dLfZy6Mo7RoJNMdtsXmk+aTOvrBsasOZ1dTjdhGE6CuK+IGy6k1m0ZDE5OqUiBWTpp4YIkHhHHilcInO2zgSTfyXTShm7ekNoyvgdRAsi8B2a0y8imyUk41t2JD3HtzkfO+Hl4I9Jqnnp4xTxnjkTL6efK0/joLsrW0U8bFD+3aQhb9ZGpKsDXb8mmYC4LAw+VmpD7NgV00z8Sk8MQvigW/FZ93oz+OvIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8pDTjSsxM5U6Ulfu0iqVLLFejr/vVLquSQNs6jlRCNI=;
+ b=uXYN7kV9dGqiB9JbpgHzphC4HJ+r/ib+jaezReEJoT2+bgaSd8IqJb0YazhFE1iIjXP68Vtp0TwPFaC2vTegqolTI6V8rBcM5AYHpVyaErH7Jsg99hgDaes3GNQoRdJ7uDWsIVWSqNumureS90mBXWHJrN7c6zc0CwQh0BFFVKDmc+HIRT3Lj7Cm0sjhXFOXIBzela9D/e7TWJqZBODN4PV4vZB6Fb7C4BqRqnLWpPwMsjYb1HDeCFRAGIzQ5EayIPKNMVqaCTDzaczLbSAKDWcJv8U619MET8T4ETAhDjeDi4ZMCB++lx7J+ALC8Y0JoUitT/Dh7djeIwve32oJ5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8pDTjSsxM5U6Ulfu0iqVLLFejr/vVLquSQNs6jlRCNI=;
+ b=TqUsZKRzQyjb4j8E/BRgpnVWVzfmvd3bb9lJcRHK9XesfJ/UbkZhkE1LObHyGF5jRy8Xsh1E5twI0ZcC8tbNitgsdKQ2jqUNzuQ6ewLkXMIFMzKYiWjgko7K6Kwid/qS3TsJNU7DSnroYjUYpOq6k8nE2hGBgoZOZKFDHpkzPjjI6V7NSMnswJWSVl0afsWJoB/5jhfBsMIdh3LNXsyRq8YUFFO+8a67cWOKr/7yJvyDtZSckdrG6TCqxKusniOZW2RKPe2dWI3BuofYJjD1lZSV+DWfDTbF0MplVkswJIsTLcMqN4oCks7euf9vR6/a+wevCxh16zzczt3yhUkZTw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by DS0PR12MB9400.namprd12.prod.outlook.com (2603:10b6:8:1b6::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 11:12:06 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 11:12:05 +0000
+Date: Mon, 2 Nov 2026 12:11:56 +0100
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCHSET sched_ext/for-7.4-fixes] sched_ext: Fix
+ ops.enqueue/dispatch() calls before ops.cpu_online()
+Message-ID: <auhv_Jdir0wpi3fw@gpd4>
+References: <20261031170541.710939-1-tj@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031170541.710939-1-tj@kernel.org>
+X-ClientProxiedBy: MI0P293CA0003.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:44::9) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,64 +98,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030215841.229969-1-ampr.mhd@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DS0PR12MB9400:EE_
+X-MS-Office365-Filtering-Correlation-Id: ccb664a1-b591-4651-4116-08df38d220b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|11063799006|56012099006|261009223027099003|261028144727099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	rgtZ3HgvpUg6GKBSHA0mNH8FoUO3Yp2NpztHaW0mCD18Ic0hTdNZZsoF3sCM1Ol5R5/RPUlrMwB+JqjNbGhLJEDdtwMMteOY+HLiilAN8wAt6cww/DNU3IZaH07orC+UxpJ/xiMTMP1bp3eOer9W5/ZIrR79FgIpISjFbwvzddJ9514ujflfRXDb3GGVbpFKKPP8Dks72SS4sSrBBcvrMfKAqChkQgHVKgO0WqFc1Dzn5YR1nLgxJ28t5TH7dDd7vJmWTeOQ0jOV9bmqzn2HtPcvMF+/28Gbo8Aov4+uX9le6TgHdAVsEYyiCz0QLkNHNk++2ffGrW7PQI9MPOytFyCOPLYtOL38+0BXWYJVbGUpwgsowZVnrAbpReT0WlQrHei3yxPvBMYuEw+N5rnQtAcIe8BRSM6zfSUsPtDwIBm8xc1I5T76Nk9DpNAszQn0/ysueUxSKQ6lcJh95u+84MGayuiWthj8jBtYLWLaqvOes1BUB6eR3y2fQGYZfH2th0lDGawG9zf8sINABEJt5jbqNUPtGronM69DDjbIozUAicLRRTrI1jYsZT9YJ4t7VuIee75y/GwIL2Q7t+OP3yUarqbK/OL9EScZUe+0I/etcnpfASPegFca0g87wc+Cw+WNne/6zHl63iv2MmFfCG4gWCMnxJ55spGO1H+6flM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?omMzqY5KAWiai6/RoH418vIB3Q1s4XUMPIyq5JYW9lzDqFhwA3j9H53g7vqD?=
+ =?us-ascii?Q?azdnEDrj9q/xDAc+dBUkQ91VAnkYKyrdOVZrMmEr+JGReqETEQNlctUlWiyE?=
+ =?us-ascii?Q?eW1qw/L3jDNAKHYtQzsSyiuv/4r/f4unb1ED8LSC33ZP+G2QAQ/CJXvGG741?=
+ =?us-ascii?Q?XiyX77OeVExIiazGKqG7sAT+6KniuZjyip4qT3rN2kuAGD4zB7Smy91agtRg?=
+ =?us-ascii?Q?sTopuQEmF8DqfhXvXK9fupYtrDBFuz0HP8xWp1U59rrFtXHdjOS6TZhiUQxx?=
+ =?us-ascii?Q?G0VaP3HjDWgjJ+QsyojIN4r5OnBQOzeM5SFiF9jC1nsoLJAV45gJ0422+MYm?=
+ =?us-ascii?Q?11MFQTWzyXpop8qTiWCYVHEzV0JHhxhf5SGXJFyJSf8E4VNO+JCPdaI4kxWM?=
+ =?us-ascii?Q?Sb6WdDEmoHhx+KD5RKbCV0+Aso0Y6uhtt/JHJ1mxJ4Lda9VNQjLpWFdhVcRz?=
+ =?us-ascii?Q?FqKEu2pFvOm7ScmZJ3aLiGzLpRsDhCPAcG2eTlL+lMxWIdtgq1aUBHALiMad?=
+ =?us-ascii?Q?YOugx4vV3gviw+yCN+r0ym1d6z7xvAYqmSFyuTIyxTp/8m1FiRXvQ0pPgGS8?=
+ =?us-ascii?Q?fgcKNDSHfh+HRyb1f0CT5bCQrRyN6dDlt1cWCuV3Q+9qL7Mg2JnOuacGcI8Q?=
+ =?us-ascii?Q?jLfW4P6BZgX+vDCg2e8DYJYeuAVN50hNrC+mrCEjR/Z/GyZ5hmSeKHbo1DVz?=
+ =?us-ascii?Q?6CSIeitkbrDhFm4ih0uBQkr/1Fmaam1cFeZYDCRJzCiCCwf31UFeBn+DTzAP?=
+ =?us-ascii?Q?Z71b6OCk6EnPliLpzQJrN8g5QEDcLzWvVnyWOQl2A7Sd5QHhsksdGvuN2J7j?=
+ =?us-ascii?Q?SvxYzQ74H8x+AX7+MClf0WMhiidI/lXKr4E5UqtN6La7RjAizV88HTuFc8S6?=
+ =?us-ascii?Q?7x+WLvIUcUyX9ulZlbrdqQLQCngJ9wlJFtvOvtU3ARAw3O8IlpylpDV7UGYm?=
+ =?us-ascii?Q?5yajuBwEcU27ygk2xi0OppNKYT1s4OgjwPUHUAA0HW3FiK2tyBusSbKAavOe?=
+ =?us-ascii?Q?Hwvd37d0g9PKX2dcyvP1cWOCFsqu/2aPk9r7kxYR3tJ7HRLAWxHJYUySfFK3?=
+ =?us-ascii?Q?h+gxLv5zZevFUAYu2BD2M+z3UWfV3hDrJXXsvH5TDYljy80joUHjDtDRkwpA?=
+ =?us-ascii?Q?Atqr9Kd6rcxrZoeoQ3SbE2Hcebu2Y9qcnVAgtIqVc8QaMx3/py9FCAfNz7At?=
+ =?us-ascii?Q?2ymGhQ2vA67qgMFTX0zR7L1Ua1PlxPT26477bfaIUvWLIb//CnLdTEogUpf1?=
+ =?us-ascii?Q?OXv0QE05UmrO5LpFyeEbG0sSwh+0OButTseQwpcfe3Y+oSPIanBlDB3kZpUC?=
+ =?us-ascii?Q?CyQrNZ6n5njlQGyKutLPXlWbMCHEj1LSIDJKtCdXHsR7aTdttUE2UGtRxccG?=
+ =?us-ascii?Q?VU76IkSrxOrmLG/0IMqzBwcMLzaKeWcnxFWCMAcem+NMvndeS+ATyrwFXq+i?=
+ =?us-ascii?Q?s7liJEqEyv+bPfzuEWz/G5U7USR6s5NXJmZrGYhK3uI5YRD4nKg2jlqbIPY2?=
+ =?us-ascii?Q?GdtmCxc8aFKThBafmI/jiLblJZxoBYFHDTNLtuzr+r76bkNJFU3P3V7v5PsX?=
+ =?us-ascii?Q?qpqCmZvbM4oEkv5bZ0jiHikbR8N+2f4vf9yDh7qkTbPRH6Dj3o1zNvYcSSO9?=
+ =?us-ascii?Q?c4eqOd3/HnWLCCAg9pOu+ITXjQed/2dOks9w3NTl5Ez/FF6Vx+NZRuAt1/J0?=
+ =?us-ascii?Q?Z5p70bK23582m9t0N70gB6zNHKKSg5nmnGe4O3+2wvK1yBP0kvfOnWI/bHsW?=
+ =?us-ascii?Q?NtQdObXDuQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccb664a1-b591-4651-4116-08df38d220b5
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:12:05.8424
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C9k4fHlE58tefWQVchzaaw9R+pjwRp9YiLTDC+tQdRHIrX3TL5gsLqOXyG9rBjy6VsI8ZkHDogkqPPq6CaP6Ng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9400
 
-On Sat, Oct 31, 2026 at 01:28:41AM +0330, Muhammad Mahdi Amirpour wrote:
-> The khugepaged selftest reports child exit status through a shared
-> variable without checking that the child actually ran to completion.
-> When fork() fails or the child is killed by a signal, the status is
-> undefined and the test can report a false pass.
+Hi Tejun,
+
+On Sat, Oct 31, 2026 at 07:05:39AM -1000, Tejun Heo wrote:
+> Hello,
 > 
-> Capture the waitpid() result and distinguish normal exit, signal
-> death, and fork failure before interpreting the status. Report the
-> child's actual termination cause in the TAP output so failures are
-> visible rather than silently masked.
+> This patchset fixes ops.enqueue/dispatch() calls for a cpu before the root's
+> ops.cpu_online(). Both ops are gated on SCX_RQ_ONLINE, which follows the
+> core's rq online state, and on a runtime cpu up the sched domain rebuild in
+> sched_cpu_activate() puts the rq online before scx_rq_activate() calls
+> ops.cpu_online().
 
-The bug is real: for a child killed by a signal WEXITSTATUS() is 0,
-which is KSFT_PASS. The parent goes on with its own checks and reports
-ok, so a child that crashes in the middle of the collapse goes unnoticed.
+Both patches look good to me, I haven't found any issues.
 
-The description doesn't match it, though. The status comes from wait(),
-not from a shared variable. For a killed child it is not undefined, it
-is a pass. And the patch doesn't report the termination cause anywhere.
-Maybe something like:
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
 
-  collapse_fork(), collapse_fork_compound() and
-  collapse_max_ptes_shared() take the child's result from WEXITSTATUS()
-  without checking WIFEXITED(). For a child killed by a signal
-  WEXITSTATUS() is 0, which is KSFT_PASS: the parent runs its own checks
-  and the test reports ok even though the child crashed.
+Thanks,
+-Andrea
 
-  Fail the test when the child did not exit normally, and print the
-  signal that killed it. Also fail it when fork() fails, instead of
-  reading an uninitialised status.
-
-It came with bd212a7dbdb1 ("kselftest: mm: return fail when child test
-result is fail in khugepaged"), so a Fixes: tag would be good.
-
-> +     exit_status = WIFEXITED(wstatus) ? WEXITSTATUS(wstatus) : KSFT_FAIL;
-
-A child that dies in the middle of a step leaves the progress line open,
-and the "not ok" line ends up on the "# ..." comment. Could you call
-fail() with the signal number here?
-
-> +     while (waitpid(pid, &wstatus, 0) == -1) {
-> +             if (errno == EINTR)
-> +                     continue;
-> +
-> +             fail("waitpid() failed");
-> +             goto out;
-> +     }
-
-The test installs no signal handlers, so waitpid() cannot return EINTR,
-and it has no other way to fail for our own child. A plain waitpid() is
-enough.
-
-The same check is now open-coded three times, four with
-collapse_fork_cow_race(). A helper that takes wstatus, prints the signal
-and returns the KSFT status would cover all of them.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> 
+> 0002 tracks the flag in handle_hotplug() instead, set right after
+> ops.cpu_online() and cleared when the cpu goes down. 0001 is preparation.
+> 
+> Based on sched_ext/for-7.4-fixes (0aba89317f38).
+> 
+> This patchset contains the following 2 patches.
+> 
+>  0001 sched_ext: Factor out drain_offline_rq()
+>  0002 sched_ext: Fix ops.enqueue/dispatch() calls before ops.cpu_online()
+> 
+> The patchset is also available in the following git branch:
+> 
+>  git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git cpu-online-order
+> 
+> diffstat follows. Thanks.
+> 
+>  kernel/sched/ext/ext.c     | 93 ++++++++++++++++++++++++++--------------------
+>  kernel/sched/ext/inlines.h |  2 +-
+>  kernel/sched/ext/sub.c     |  9 +++--
+>  kernel/sched/sched.h       | 17 +++++----
+>  4 files changed, 68 insertions(+), 53 deletions(-)
+> 
+> --
+> tejun
