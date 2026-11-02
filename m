@@ -1,63 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633603;
-	b=j4XLY3LfFXzynFu1mEtbosHLhmJ1YFmx8WxaHLTYEzjL08BHV/HKtLvlGyF1SvW6CqQz
-	 J6Oexlg2bM7mmKd8og0zzBFVAbntV5HhjVR392S7d2GAOtYh5m6feAIUljYlja4tOy7pA
-	 f2uWdKp6WJUB8kUbdrvyUbjCDAABuL5+bYKC7pU2ySNM77END42DPWabLxHWRHKYWxLE9
-	 iW3/gtvf3EJBDTnTcd8gtINX7cBEsHXrcJDMn3P2/Qghb36yXlAjqUt3N1OyNhBnzEu/D
-	 IvgrUZWSX2eHaDfJqpbbAIm6ikryPzIcsA+L3iQZUXwXrqM2wYeCB9kxH2t0ux5s0Lw==
+	t=1793633635;
+	b=Tm0CF/YOZFUaYvTfba7eNZdkM0uee2mbPLUtK4HPyq0x0JOiF/hkgQls8Na/cF7qo6T9
+	 Mx8fvpiNx05UnbyZPU/s/5ZTWFm4szLYTUp27zgoXz+cWzxNSTDN/O8/vq7r0hWhgjspV
+	 PnH1BUBKRin+1rJkzSqy8YrRx9ef3+79mZhj3lg1UTmWdjZnc3I2TIifMQdIiGBawU9SV
+	 z8v2mEUcI1gZULVgVcM0cnmszi8WesWlLw+ztG98jrCkNrk3cWeXm1LY/EZltYKgBrQ8r
+	 hyGQTk8XP1IsVAsNJOJ6Pia1cuzlHBmlGdwgY2JWaUsbQxOuOHWwcAn0uzcdK8rNlfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633603;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=OWA2XPF4LToFYnO4yT1hL4MsaiF9uOHmMKnDy9Fz0JI=;
-	b=gcASnf3TXP2Oc2KoJvlx8Oor7cr+fEPRy0nWEs0WYJU9aPpBKICXzcSMrdW2h+Fa2dht
-	 XaM0OzcVS8OEZP6GoplLB7yADFepyMq4xmnc9u8t3zXWXcaQXBYn+b6HaJzVADaCaitNr
-	 U6+a8rZDZLI5ZOyBcXNZlX613ROx47EeLPkscaKNCLa0MD/oqQHrlp5zM6nXDGJxy+mpX
-	 +4mbqYG5RzyRWEpyzCcBEumQcbmmHfXrNYUf58NezwQz7DX69yE5KIhJxj/HBjyX0Tojg
-	 AePLupAVrBdboLN7eAU4zBOshbdA7Ai99G4kZi0MPJrap4XIfBCpiQQ1SsOo0pZybCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633635;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=TK360Q0J9loLLBJN1fCdf93Od8lfv7JQwcxqeqOSWBU=;
+	b=JPYGDcJi/N0G7z2K7vrhSnIvJWfL4CZJRgrmqCZnhhS4cPipWWi8vipnK56LcOzZlEAH
+	 IZOWHLHbz+WGLCKs1QTl+S1gUfc1M8PiW1Ub+XGGCPWxLW/dsvaGtKJAyH7u4LX2SmJw5
+	 SJTMQ83IWm6gxE1M6xnTP//2DaxmtyfYrae5CvNE7gAefSxN1sxMui3yKZepUSTEos8kv
+	 BhSNNn+j12fya0OdPUjK5Kz+Na8Dc/VE6ZQDfxVtd0gLo+ef8EqkxD7JMZhBSQTMBNRoV
+	 tqEK/6YuW8wJMWDJ7103K55+DKVoQvGBqIply4khiCdD3GaEVxoCHm31cbOdKSdd0tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=runbox.com;
-	spf=pass smtp.mailfrom=runbox.com;
-	dkim=pass header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=YVqdIVIj;
-	arc=none smtp.remote-ip=185.226.149.37
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdcZ4QFp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8522609FAA2;
-	Mon,  2 Nov 2026 15:33:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8522609FAA2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runbox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93AA6606A92A;
+	Mon,  2 Nov 2026 15:33:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=YVqdIVIj
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <m.v.b@runbox.com>)
-	id 1xNu1j-009s2A-HV; Mon, 02 Nov 2026 16:32:51 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector1; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From;
-	bh=OWA2XPF4LToFYnO4yT1hL4MsaiF9uOHmMKnDy9Fz0JI=; b=YVqdIVIjvx3mLyxidi6v4t9gMc
-	Z8oB/yZeWggp5/Vm+IVTnA1L0Hgp3ZQXarF40oYHbjfIL0yhFPZyEk7lAHIda3o2Ece8Q5Yzm1JYb
-	gi2D8lNfKPHPz4KX5In5+waa+NbQo8xqbh2f7wLNZW++DJbUvB6EqnlorPG0XAoStia2xw22Fj+BO
-	YaCqoo5ehX/op6UET2f3vWf/bFziVO4cfiwp6vklC10p4QRSE2HITX1eVDGCQ50PnRyxTU/Mu48Tp
-	tYaq+Sl+Pu6hNgTtfHicMBx0Xo4MJ4BK3vhOuhjYDPeA8dQo7VCcSkPm0c0sz94oYelvRmIkEBX4t
-	8ADz1CLg==;
-Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <m.v.b@runbox.com>)
-	id 1xNu1L-0006cC-C6; Mon, 02 Nov 2026 16:32:27 +0100
-Received: by submission03.runbox with esmtpsa  [Authenticated ID (536975)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xNu1I-00CPK3-46;
-	Mon, 02 Nov 2026 16:32:24 +0100
-From: "M. Vefa Bicakci" <m.v.b@runbox.com>
-Date: Mon, 02 Nov 2026 07:31:55 -0800
-Subject: [PATCH] x86/xen: Fix lazy MMU pause count wrap-around
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdcZ4QFp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9631F00A16;
+	Mon,  2 Nov 2026 15:33:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793633635;
+	bh=TK360Q0J9loLLBJN1fCdf93Od8lfv7JQwcxqeqOSWBU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=VdcZ4QFphvz/aGivrbf7iePh6qXVUBStibznajyzqusVWBsrxcy0EcezsqqdXFTgw
+	 Tanj+pajzFQT1IcSiQwVY9ZF32/NB815X1E8niHSCQtrMcNmSJQoGopcmRQr+jm8Dc
+	 NY/X4yfjkgL9TTITZYZF8R43x6PS/zn9kAuwDXlY7N/+LREL5IIRSKVjJW+ZhgtZG+
+	 WKgH663rZrJFecmgkbpS0lrCfO660Tnz1keC9/Yr7gjUpWjGAkhB373EqJvMziyRLj
+	 5XaMNzWmZ65VAMr81aqdlEc9zjG/IDnaQuV+YpuDedYYCoO87rGXyvGaa3yJtqO2s6
+	 RolUHV3j7QlLw==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:07:22 +0100
+Subject: [PATCH RFC 08/11] SUNRPC: let procfs copy out reads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,171 +54,277 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-xen-lazy-mmu-v1-1-d99a3050b76d@runbox.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyNz3YrUPN2cxKpK3dzcUl1zi0RjM4vkxGRjQ1MloJaCotS0zAqwcdG
- xEH5xaVJWanIJyAyl2loABmMaTXAAAAA=
-X-Change-ID: 20261027-xen-lazy-mmu-78a368cac315
-To: Juergen Gross <jgross@suse.com>, 
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, "M. Vefa Bicakci" <m.v.b@runbox.com>
-X-Mailer: b4 0.16.0
+Message-Id: <20261102-work-procfs-net-v1-8-982104a4f592@kernel.org>
+References: <20261102-work-procfs-net-v1-0-982104a4f592@kernel.org>
+In-Reply-To: <20261102-work-procfs-net-v1-0-982104a4f592@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8375; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=a9MpcCErAr+XLynuyr8Lv5es65Jw33sURzMgM9R8Toc=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG4i+70iJeNx8lGhqrxO33iFhgsTlQPuhnOvMPwd3
+ rh//YcNHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPxO8/I8NR7wk6vqDbZy/ku
+ XlenMv+62MaQHdmwTUfhc+08KaEjxxn+lxik7rhoK8Z4eLFcQ+KD1ZsiV5WdCOGP0rh+MF5JWsW
+ OEwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Commit bec6f41a6fe5 ("x86/xen: Get rid of last XEN_LAZY_MMU uses")
-unintentionally prevents the activation of lazy MMU mode for most tasks
-running on Xen PV VMs (including dom0).
+Implement ->proc_read_buf() for the procfs channel, flush,
+use-gss-proxy and gss_krb5_enctypes files so procfs copies what is read
+to userspace after it unpinned the entry.
 
-That commit made xen_end_context_switch() call
-__task_lazy_mmu_mode_resume() with the task being switched to. However,
-the latter function decrements the pause_count field of the task without
-checking whether that task's lazy MMU mode was paused or not. A task
-being switched to for the first time has never been switched from, so
-attempting to resume lazy MMU mode can wrap-around (underflow) the
-pause_count from 0 to 255 (U8_MAX).
+cache_read() takes an iov_iter now. The rpc_pipefs channel file passes
+one for the user buffer and behaves like before. The procfs one passes
+one for procfs' buffer, and a read still hands out at most one request.
+A reader of the procfs channel file whose copy out fails, a readv()
+with a bad later segment included, loses what was handed out, since the
+request moves on before procfs copies it out. If that was only part of
+a request the next read returns the rest of it. Both flush files share
+flush_time_text().
 
-Furthermore, the non-zero pause_count is copied to child tasks at fork,
-so all descendants (including the idle tasks of the non-boot CPUs)
-inherit the non-zero pause_count. This prevents enabling lazy MMU mode
-for them, because lazy_mmu_mode_enable() does not do anything when
-pause_count is non-zero.
+The procfs files are removed when the network namespace goes away and
+that no longer waits for a reader that faults on its buffer.
 
-Hence, call __task_lazy_mmu_mode_resume() from xen_end_context_switch()
-only if lazy MMU mode was paused.
-
-This issue was discovered with CONFIG_DEBUG_VM=y, which enables
-pause_count underflow and overflow warnings. In the examples quoted
-below, the first warning shows the underflow with PID 1. The second
-warning shows the overflow from 255 (U8_MAX) to 0, also for PID 1, as
-indicated by the same RDI register value.
-
-Example pause_count underflow warning:
-
-  WARNING: include/linux/pgtable.h:362 at xen_end_context_switch+0x4e/0x60, CPU#0: swapper/0/0
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.4-1 #2 PREEMPT(full)
-  RIP: e030:xen_end_context_switch+0x4e/0x60
-  ...
-  RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff888004930000
-
-Note: The PID is shown as 0 above, because current_task is updated in
-__switch_to() after arch_end_context_switch(). arch_end_context_switch()
-calls xen_end_context_switch() indirectly.
-
-Example pause_count overflow warning:
-
-  WARNING: include/linux/pgtable.h:319 at xen_start_context_switch+0x64/0x70, CPU#0: swapper/0/1
-  CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Tainted: G        W  7.2.4-1 #2 PREEMPT(full)
-  ...
-  RIP: e030:xen_start_context_switch+0x64/0x70
-  ...
-  RDX: 0000000000000000 RSI: 0000000013f7894d RDI: ffff888004930000
-  ...
-  Call Trace:
-   <TASK>
-   __schedule+0x36a/0x1a90
-   schedule+0x27/0xa0
-   schedule_timeout+0xbd/0x100
-   __wait_for_common+0x97/0x1b0
-   wait_for_completion_killable+0x24/0x40
-   __kthread_create_on_node+0x13e/0x240
-   kthread_create_worker_on_node+0xee/0x1c0
-   workqueue_init+0x26/0x420
-   kernel_init_freeable+0x101/0x360
-   kernel_init+0x1a/0x130
-   ret_from_fork+0x2b0/0x340
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-
-Fixes: bec6f41a6fe5 ("x86/xen: Get rid of last XEN_LAZY_MMU uses")
-Cc: stable@vger.kernel.org # 7.2.x
-Signed-off-by: M. Vefa Bicakci <m.v.b@runbox.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-=== Testing notes ===
-This commit was tested with kernel v7.3-16755-gd135ab453a74 and v7.4-rc1
-with a domU PV VM, and versions from v7.2.4 to v7.2.14 with dom0 and
-domU PV VMs running on Xen v4.19.5. CONFIG_DEBUG_VM=y was set for all
-tests, and no warnings were observed.
+ net/sunrpc/auth_gss/svcauth_gss.c | 24 ++++++-------------
+ net/sunrpc/cache.c                | 50 +++++++++++++++++++++++----------------
+ 2 files changed, 36 insertions(+), 38 deletions(-)
 
-=== Debugging notes ===
-For debugging, I instrumented xen_start_context_switch(),
-xen_end_context_switch() and copy_process(), and I confirmed that the
-inherited pause_count value is decremented for each level of the process
-tree, starting from 255.
-
-=== Credits ===
-The patch was hand-written, but the commit message was polished with a
-few rounds of LLM review.
----
- arch/x86/xen/enlighten_pv.c | 10 +++++++++-
- include/linux/sched.h       | 19 +++++++++++++++++++
- 2 files changed, 28 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index c5117a7730d6..68f8a977999b 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -431,7 +431,15 @@ static void xen_end_context_switch(struct task_struct *next)
- 
- 	xen_mc_flush();
- 	this_cpu_write(xen_cpu_lazy_mode, false);
--	__task_lazy_mmu_mode_resume(next);
-+
-+	/*
-+	 * A newly created task can be switched to without ever having been
-+	 * switched from, so it will not have a prior lazy MMU pause to undo
-+	 * from xen_start_context_switch(). Hence, resume lazy MMU only if it
-+	 * was paused.
-+	 */
-+	if (__task_lazy_mmu_mode_paused(next))
-+		__task_lazy_mmu_mode_resume(next);
+diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
+index 8d105cd900d4..67e086a7127c 100644
+--- a/net/sunrpc/auth_gss/svcauth_gss.c
++++ b/net/sunrpc/auth_gss/svcauth_gss.c
+@@ -1442,32 +1442,22 @@ static ssize_t write_gssp(struct file *file, char *buf, size_t count,
+ 	return count;
  }
  
- static unsigned long xen_store_tr(void)
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 1c93da75226e..3f9341f1f827 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1791,6 +1791,25 @@ static inline bool is_lazy_mmu_mode_active(void)
+-static ssize_t read_gssp(struct file *file, char __user *buf,
++static ssize_t read_gssp(struct file *file, char *buf,
+ 			 size_t count, loff_t *ppos)
+ {
+ 	struct net *net = pde_data(file_inode(file));
+ 	struct sunrpc_net *sn = net_generic(net, sunrpc_net_id);
+-	unsigned long p = *ppos;
+ 	char tbuf[10];
+ 	size_t len;
  
- 	return __task_lazy_mmu_mode_active(current);
+-	snprintf(tbuf, sizeof(tbuf), "%d\n", sn->use_gss_proxy);
+-	len = strlen(tbuf);
+-	if (p >= len)
+-		return 0;
+-	len -= p;
+-	if (len > count)
+-		len = count;
+-	if (copy_to_user(buf, (void *)(tbuf+p), len))
+-		return -EFAULT;
+-	*ppos += len;
+-	return len;
++	len = snprintf(tbuf, sizeof(tbuf), "%d\n", sn->use_gss_proxy);
++	return memory_read_from_buffer(buf, count, ppos, tbuf, len);
  }
-+
-+/**
-+ * __task_lazy_mmu_mode_paused() - Return a task's lazy MMU mode pause state
-+ * @tsk: The task to check.
-+ *
-+ * Test whether @tsk has its lazy MMU mode state set to paused
-+ * (i.e., pause_count > 0).
-+ *
-+ * This function is intended for architectures that implement the lazy MMU
-+ * mode; it must not be called from generic code.
-+ *
-+ * Return: Whether task @tsk has paused lazy MMU mode.
-+ */
-+static inline bool __task_lazy_mmu_mode_paused(struct task_struct *tsk)
-+{
-+	struct lazy_mmu_state *state = &tsk->lazy_mmu_state;
-+
-+	return state->pause_count > 0;
-+}
- #endif
  
- extern struct pid __rcu *cad_pid;
+ static const struct proc_ops use_gss_proxy_proc_ops = {
+ 	.proc_open	= nonseekable_open,
+ 	.proc_write_buf	= write_gssp,
+-	.proc_read	= read_gssp,
++	.proc_read_buf	= read_gssp,
+ };
+ 
+ static int create_use_gss_proxy_proc_entry(struct net *net)
+@@ -1494,7 +1484,7 @@ static void destroy_use_gss_proxy_proc_entry(struct net *net)
+ 	}
+ }
+ 
+-static ssize_t read_gss_krb5_enctypes(struct file *file, char __user *buf,
++static ssize_t read_gss_krb5_enctypes(struct file *file, char *buf,
+ 				      size_t count, loff_t *ppos)
+ {
+ 	struct rpcsec_gss_oid oid = {
+@@ -1512,7 +1502,7 @@ static ssize_t read_gss_krb5_enctypes(struct file *file, char __user *buf,
+ 		return 0;
+ 	}
+ 
+-	ret = simple_read_from_buffer(buf, count, ppos,
++	ret = memory_read_from_buffer(buf, count, ppos,
+ 				      mech->gm_upcall_enctypes,
+ 				      strlen(mech->gm_upcall_enctypes));
+ 	gss_mech_put(mech);
+@@ -1521,7 +1511,7 @@ static ssize_t read_gss_krb5_enctypes(struct file *file, char __user *buf,
+ 
+ static const struct proc_ops gss_krb5_enctypes_proc_ops = {
+ 	.proc_open	= nonseekable_open,
+-	.proc_read	= read_gss_krb5_enctypes,
++	.proc_read_buf	= read_gss_krb5_enctypes,
+ };
+ 
+ static int create_krb5_enctypes_proc_entry(struct net *net)
+diff --git a/net/sunrpc/cache.c b/net/sunrpc/cache.c
+index a257598768fa..81a3f0068f36 100644
+--- a/net/sunrpc/cache.c
++++ b/net/sunrpc/cache.c
+@@ -28,6 +28,7 @@
+ #include <linux/workqueue.h>
+ #include <linux/mutex.h>
+ #include <linux/pagemap.h>
++#include <linux/uio.h>
+ #include <asm/ioctls.h>
+ #include <linux/sunrpc/types.h>
+ #include <linux/sunrpc/cache.h>
+@@ -837,9 +838,10 @@ cache_next_request(struct cache_detail *cd, u64 seqno)
+ 	return NULL;
+ }
+ 
+-static ssize_t cache_read(struct file *filp, char __user *buf, size_t count,
+-			  loff_t *ppos, struct cache_detail *cd)
++static ssize_t cache_read(struct file *filp, struct iov_iter *to,
++			  struct cache_detail *cd)
+ {
++	size_t count = iov_iter_count(to);
+ 	struct cache_reader *rp = filp->private_data;
+ 	struct cache_request *rq;
+ 	struct inode *inode = file_inode(filp);
+@@ -878,7 +880,7 @@ static ssize_t cache_read(struct file *filp, char __user *buf, size_t count,
+ 		if (rp->offset + count > rq->len)
+ 			count = rq->len - rp->offset;
+ 		err = -EFAULT;
+-		if (copy_to_user(buf, rq->buf + rp->offset, count))
++		if (copy_to_iter(rq->buf + rp->offset, count, to) != count)
+ 			goto out;
+ 		rp->offset += count;
+ 		if (rp->offset >= rq->len) {
+@@ -1499,16 +1501,11 @@ static int release_flush(struct inode *inode, struct file *file,
+ 	return 0;
+ }
+ 
+-static ssize_t read_flush(struct file *file, char __user *buf,
+-			  size_t count, loff_t *ppos,
+-			  struct cache_detail *cd)
++/* what reading the flush files returns */
++static size_t flush_time_text(struct cache_detail *cd, char *tbuf, size_t size)
+ {
+-	char tbuf[22];
+-	size_t len;
+-
+-	len = snprintf(tbuf, sizeof(tbuf), "%llu\n",
++	return snprintf(tbuf, size, "%llu\n",
+ 			convert_to_wallclock(cd->flush_time));
+-	return simple_read_from_buffer(buf, count, ppos, tbuf, len);
+ }
+ 
+ /* longest number the flush files take */
+@@ -1564,12 +1561,15 @@ static ssize_t write_flush(struct file *file, const char __user *buf,
+ 	return do_write_flush(tbuf, count, ppos, cd);
+ }
+ 
+-static ssize_t cache_read_procfs(struct file *filp, char __user *buf,
+-				 size_t count, loff_t *ppos)
++static ssize_t cache_read_procfs(struct file *filp, char *buf, size_t count,
++				 loff_t *ppos)
+ {
+ 	struct cache_detail *cd = pde_data(file_inode(filp));
++	struct kvec kvec = { .iov_base = buf, .iov_len = count };
++	struct iov_iter to;
+ 
+-	return cache_read(filp, buf, count, ppos, cd);
++	iov_iter_kvec(&to, ITER_DEST, &kvec, 1, count);
++	return cache_read(filp, &to, cd);
+ }
+ 
+ /* procfs copied in what was written */
+@@ -1620,7 +1620,7 @@ static int cache_release_procfs(struct inode *inode, struct file *filp)
+ }
+ 
+ static const struct proc_ops cache_channel_proc_ops = {
+-	.proc_read	= cache_read_procfs,
++	.proc_read_buf	= cache_read_procfs,
+ 	.proc_write_buf	= cache_write_procfs,
+ 	.proc_write_size = CACHE_DOWNCALL_MAX,
+ 	.proc_poll	= cache_poll_procfs,
+@@ -1668,12 +1668,15 @@ static int release_flush_procfs(struct inode *inode, struct file *filp)
+ 	return release_flush(inode, filp, cd);
+ }
+ 
+-static ssize_t read_flush_procfs(struct file *filp, char __user *buf,
+-			    size_t count, loff_t *ppos)
++static ssize_t read_flush_procfs(struct file *filp, char *buf, size_t count,
++				 loff_t *ppos)
+ {
+ 	struct cache_detail *cd = pde_data(file_inode(filp));
++	char tbuf[22];
++	size_t len;
+ 
+-	return read_flush(filp, buf, count, ppos, cd);
++	len = flush_time_text(cd, tbuf, sizeof(tbuf));
++	return memory_read_from_buffer(buf, count, ppos, tbuf, len);
+ }
+ 
+ static ssize_t write_flush_procfs(struct file *filp, char *buf, size_t count,
+@@ -1688,7 +1691,7 @@ static ssize_t write_flush_procfs(struct file *filp, char *buf, size_t count,
+ 
+ static const struct proc_ops cache_flush_proc_ops = {
+ 	.proc_open	= open_flush_procfs,
+-	.proc_read	= read_flush_procfs,
++	.proc_read_buf	= read_flush_procfs,
+ 	.proc_write_buf	= write_flush_procfs,
+ 	.proc_write_size = CACHE_FLUSH_MAX,
+ 	.proc_release	= release_flush_procfs,
+@@ -1795,8 +1798,10 @@ static ssize_t cache_read_pipefs(struct file *filp, char __user *buf,
+ 				 size_t count, loff_t *ppos)
+ {
+ 	struct cache_detail *cd = RPC_I(file_inode(filp))->private;
++	struct iov_iter to;
+ 
+-	return cache_read(filp, buf, count, ppos, cd);
++	iov_iter_ubuf(&to, ITER_DEST, buf, count);
++	return cache_read(filp, &to, cd);
+ }
+ 
+ static ssize_t cache_write_pipefs(struct file *filp, const char __user *buf,
+@@ -1886,8 +1891,11 @@ static ssize_t read_flush_pipefs(struct file *filp, char __user *buf,
+ 			    size_t count, loff_t *ppos)
+ {
+ 	struct cache_detail *cd = RPC_I(file_inode(filp))->private;
++	char tbuf[22];
++	size_t len;
+ 
+-	return read_flush(filp, buf, count, ppos, cd);
++	len = flush_time_text(cd, tbuf, sizeof(tbuf));
++	return simple_read_from_buffer(buf, count, ppos, tbuf, len);
+ }
+ 
+ static ssize_t write_flush_pipefs(struct file *filp,
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261027-xen-lazy-mmu-78a368cac315
-
-Best regards,
---  
-M. Vefa Bicakci <m.v.b@runbox.com>
+-- 
+2.53.0
 
