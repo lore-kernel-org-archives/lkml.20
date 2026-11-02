@@ -1,103 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.92
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.4
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793607677;
-	b=PFHn1wc5Szo4d61/acSJ0DXexBgniVPe1A5zBfuMjDDD1lvxGZitKfS06yilbdutoqn2
-	 3FBEe93i2ZRQUovsT3ImcfOc7lYPT3q/EbZ8Qfy5p/o+gflnp4gi5tbGQfsn/eU1DWLpm
-	 X1saG0IkbP8noxJ1TkgTq8d9ZZu6RgvH2OS1eXfP85lGKRt4omzMEj6AXY3xE3K8AtMzK
-	 N1YdvwS5fIM3dDKgtqALMipl/BOSCLLetxqv9QH57GkN4jUi6vFxKai6bhb5YoOrkx8/a
-	 1RGgqJdfUw0DtQH8XHpfewULutD7/jfMjTbuTakAe4/EGxc4JnG1xJRD13RZFSnR+Gg==
+	t=1793607692;
+	b=GZiTZl/zmqNvF3eIw4Ad03fkAq4l3qpBj18PY40y1FprTiy3DHEeYHPBammd+jetEYQf
+	 q0uGDPM5srrbna7ryQ5Xn6EetJPWGTUGoZ65egFRbVrVUARhk9yoqwpf2j5DBxT96nxTR
+	 FJYs5Y6Y2k2Oymk/2p26VFGrNJsO1xs+J0RweuZjo3SBtOotemQFLphU9U+x9XYlXibkM
+	 CtBIGb6bDND1c91mNi20WGM5rZJ+Gt2Xc1lEgpkt0lVJfdIWbvwD2VCbmLvruGoUgl8gq
+	 u6q8jXG1ARj8XkDuD5CCHnfFF3LnjNQBRSk6XFy7uo2UAXqjTAKo964a0DTcGuDeeXQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607677;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607692;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:Date:
+	 Message-Id:Cc:Subject:From:To:Content-Transfer-Encoding:References:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Z4fC9HpkQH9uy9WJbcsy7NyRTVzN4duiCLV71TQ/6SQ=;
-	b=4PZhU7eFBJ/e71uzGTw0TCLG9ZTLcallxvrWsPGqgHvcNxy/qA7/3/dSdlBaxIprlFv7
-	 zkP/12bwmb9bI6ehLvRU4mK5N+Zt0bekvBsEM0WQYiy/Q4nvpnxVvS7krC0XxzCh753Dp
-	 su4osuvplCwFo0w0Ya4McCllD2SCeVB0UVVwMcs65q635gv5RKelo9+VLiBOaHEmbyDhh
-	 /jSvT7p1zB/VJj7eizNCPsG+lk3/O9BH3ebCw2XOyRS0eXCy/3mKAa3JbvMHFXcd4Xof1
-	 Lwx61pH6UvYxbDcvZOlpY5mQLWjdpJX+uKIML+9be81ysdi39UPnZdGvRpMBpOXsdZA==
+	bh=MSIMijlFfmkf9i3w/gR7aI59H2oYyDKzDzHlA/2dZnc=;
+	b=QO+KW/MYsprp9b8fBygq+M6gKvpGnHhhM9U2hY5z3OzzHppnVVAT1dLWMW4gCfe3BpkA
+	 aBy6DDvYoileDRXLXc3K5X4GaEOmhIIDy6ic8/FTL8cPepYDOP+9sf39NuKdoGEf6vbTy
+	 1QCiVK9bzSIjpzU2WQQWeoQEc+Y8er/GTQ96FHtuXAHaKUoNRIx1CTONK+8N5IbUyWP20
+	 Y1QAvPkvXb3ztmTdU5BR2TBmZiaj4/PTT5UbbdLZ6/DNdW7VT39PlblzEanQZuPQgfNYo
+	 YBqugbkdY8mWYgSOyc0hAs6P997EZzLM/lUFpitBGosJ1JYqZdxZqdDW+EpcUHzL87Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.92
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022092.outbound.protection.outlook.com [40.107.75.92])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=NPjgMK4Z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.4
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012004.outbound.protection.outlook.com [52.101.48.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31068606A333;
-	Mon,  2 Nov 2026 08:21:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31068606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDBE606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:21:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEDBE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=NPjgMK4Z
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zB1s92lexyHwqX8KWdVAsdsCDPkwY9Bw4MziC0OGr70KJ5Ze+pfAw7UXJCDKrnkSpgq8Y2WAeG5L+k9m1ESwYAg5Y4eTbxy8y7/L+1d111BxQeCOIMkGAamwE7sZ8E/j58YOcetCPVSPdgY6uqDk+fwKBUmQ4Tmw0Pz4Ll9gKpz2lRsUJdrN4Hc2LzVBh2IAbacU5Cffam/SGuNAJb4gRVp1DYDcDQxGgHYokfg1QyOgekTDhsOwf+KZdWlsdRL0cAPdIz4nhF6wVOryqcMpZZqwjKlNLYZtyMW9FovZCvziGFIpue6ycl7Bn4GEwr58Qmy7gVGbLlmNWaSHWyeYjw==
+ b=Ksf2urz5mhI2eDBBHIpsJ3MeSePBEz1nbZ94xAbJbBN7g6/o7bxjesuKZvLNZTbkErpxrd4DDQ+GMnuiyE1kU/S5Ylgr0DgczqQf3k2crrHSNloAlgXyPoANg/0mCsQf12NtND2gse2QDltzUG+KWJJ/BzBhiMHsyggzsTPAXmVVDaShzexkhBokW7MDpZqbC4iuM1Uh+MsUzX2OJkcRK+sOk6ltELr+z6UqSQOpTQkhex/oUoE5xnSa10zdama8aIBTJ4UUSoCsIpNlQqY7aFtOQ24uOEMVNx6kzlGRaJ5NVC6r3sVXnSIZRYH7tBaG4DK5ohePQZJBZwlVFjSnPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z4fC9HpkQH9uy9WJbcsy7NyRTVzN4duiCLV71TQ/6SQ=;
- b=qauVCzgc41EBFjzB52C9cicJ30LG5iT6VjmzR5gtXGq2DPSRKVBewN9VZHg2ufpT7AZmJ7VeZeELlGvlet2HbwjRkQmlFirVpjrGAOD7InN+vOZmm6P2sMg1QNQUnowBveL5bbVU25DMaryflyBAIRzE9+J57AXgGE7cU9g9J64Bw3T+OP3wp4QvA6o/EVvx1FC6mOSsjoGiiLB19LlfVkaPGr6iTyCujk3YIj4lDnNnAeSmVrXOn90rN/3lHsR6uYDj1WA1kcs7kwdAUnICif7mIEPMuJ/4a7K9fLkZ5TlkVhR6T6x7FSi0c7Fq/aXs4iSH7A1s8cpBm99Z7uINsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from TYWPR01CA0020.jpnprd01.prod.outlook.com (2603:1096:400:aa::7)
- by SE3PR06MB8014.apcprd06.prod.outlook.com (2603:1096:101:2de::8) with
+ bh=MSIMijlFfmkf9i3w/gR7aI59H2oYyDKzDzHlA/2dZnc=;
+ b=Lphkhu6dmW2oUBlRsBueokP7hJSF6iarXuxsifPs0eH3H4WGcQzjy5WSJmSFqylNpezVqCEZNUDe69BCpS4VqLbXpi7JAaGfsMxZDe6RUAsB5DfSo/V2b/2wnaas38w7J+5gMNI7GJGkAE0fEVplS25UOUU6Y8tRMYrtHJKaWoN2SEwxN/38mOrD5Zx6LL0WhwP9NZwhpsa+UmxbsYSBTyGInLr5MPo2k3ZxDf3pdPeBJUTLT675dzLYVgCmY+EBQQ+qa7ou1Ii6yBg3b6zc8Bc0eEVlrsPlP7KupKotiwauARBw8TXXBfEyCjTrXWIIiL1q6SNW1StYas0tH2vVEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MSIMijlFfmkf9i3w/gR7aI59H2oYyDKzDzHlA/2dZnc=;
+ b=NPjgMK4Z1XVRxkZRpkJyTAS8i02A2u0vEakDOtndxhMUbiZeFxSwgshPzMCY1F80nymYMLsvzFdrLtNoRIw69uF94GHaN8vse0yHQMizHr1c6os/D+EWJ71RA1W6jZ3ywyDkodqun45CMa/2EhwObBhI3Vbuc7mQlQu3tE0wMrFB/RHqdOi634ev3DqQ6RwuupFHJCe4iZCm3NfFvZkyZR56zQ0Om9lx2MevSLUFaopu/Ya3CF/KfUfZwmHmQFS601GiZj68slzcX+gkCkM1i5tN+yUb84t1z8qo2EejcYm8KjTCFZnAozrRs09A+iiyM1ZXrpXIIhrT3ajyYGJ2qg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA0PPFB6B4D32F9.namprd12.prod.outlook.com (2603:10b6:20f:fc04::be3) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 2 Nov 2026
- 08:21:14 +0000
-Received: from TY2PEPF0000AB87.apcprd03.prod.outlook.com
- (2603:1096:400:aa:cafe::26) by TYWPR01CA0020.outlook.office365.com
- (2603:1096:400:aa::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 08:21:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB87.mail.protection.outlook.com (10.167.253.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 08:21:13 +0000
-Received: from gary-System-Product-Name (unknown [172.16.64.55])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 8B33D4102B63;
-	Mon,  2 Nov 2026 16:21:12 +0800 (CST)
-From: Gary Yang <gary.yang@cixtech.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fugang Duan <fugang.duan@cixtech.com>
-Cc: CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gary Yang <gary.yang@cixtech.com>
-Subject: [PATCH 1/3] dt-bindings: phy: add CIX Sky1 USB/DP combo PHY
-Date: Mon,  2 Nov 2026 16:21:10 +0800
-Message-ID: <20261102082112.2306326-2-gary.yang@cixtech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261102082112.2306326-1-gary.yang@cixtech.com>
-References: <20261102082112.2306326-1-gary.yang@cixtech.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 08:21:28 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 08:21:27 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 Nov 2026 17:21:23 +0900
+Message-Id: <DMKKUYPSESMS.10KUP2YTWFAF9@nvidia.com>
+Cc: <dakr@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <joelagnelf@nvidia.com>,
+ <apopple@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <zhiwang@kernel.org>
+Subject: Re: [PATCH v2 1/1] gpu: nova-core: populate GSP_VF_INFO when vGPU
+ is enabled
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Zhi Wang" <zhiw@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260804170045.902069-1-zhiw@nvidia.com>
+ <20260804170045.902069-2-zhiw@nvidia.com>
+In-Reply-To: <20260804170045.902069-2-zhiw@nvidia.com>
+X-ClientProxiedBy: OS7PR01CA0060.jpnprd01.prod.outlook.com
+ (2603:1096:604:254::19) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,222 +106,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB87:EE_|SE3PR06MB8014:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 42703adf-a733-4fcd-05a1-08df38ba424a
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PPFB6B4D32F9:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58da2fa9-4533-4b59-4b0e-08df38ba4a4d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|56012099006|261009223027099003|261028144727099003|261021121427099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|20046099003|18002099003|22082099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|10070799003|366016|4143699003|11063799006|56012099006|261009223027099003|261021121427099003|261026121527099003|261022075727099003|10067099003|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	W5svLIo2eVYjgs4iEaAlFHrn7Y/CAWxUSLapeIGLmVUmsZA9vV4mAx9MwXwLJu99cDjrsAYehObSRjNZCh14pFeLrHE1XpFguIcNtsxv1OHCuJv9DZmhukqiwNIYOTf6dnDs+xYNQwGSPtqGRkDRiFoKDKq/yv+B11dZkWBHxfTyzbmsb5GCPm+sJkEKolzmEBfx2ZEiSpLnr3JABd262lEGKdQ3mdz7XQfMf8MtQy6AgN+JawkvMzQaU8f4vMAZAnwDrz9rngEZa2aSiCXNW/FRxKBvAIS2bPT9/OhoaKvXethvcLM7U+Vq82RSepoChnnwY2N/6Lw5gHNKDfGPMmibpI1BNCMg8T0cTdrOqzVBNY7ELHaPJzMMIYbUW+suPzJMY0jwKiA9Dr94R2d86GjGuF6F7mpU9IUSUStnV5itL8YXLAl72y8gsPxpOsQgpZuCDrgBfGInFbNkEZiDI9oRdUCHYDGeKjy0WOTgDbZHZQdx2ZYitHyVii0/HhvIGCekvR8zK1moLNP6jiCiBzcgc7MQGt8EdqM2EpoW131IxxvRE6vdYkbttpMSUQg3GKEQJfBVo5pi6UbmBksIUyy3DIMb9VeP5cWm0pi0wxmfGuaQZdEmKSFOOvh3wAKavpT/tWWsbRxlCLOlFdm7ig==
+	aaXKkuWzRRKBJo5wk7h3B/OxHlNXy30cNRnn03ezzSHHvi6XvHMotyfrNCTev6fnH1pC4dd3i9donz5GawMilt9tcvuy2z9gbSChkp/Ud2QYYH8O8AjA7+0gkZbuxxYXC1wGZRp4K+jinssJxDhY9hd0gXTGx41iby93REJncL1n3ybUA/bRtxyZDLZNGhfPIdI7sGsfkSu7/uKHe3nf2FXbkDBSI7dOy7IlWTTpWwOYjCH2kTgyqjmqq/WaHkohETAQqBTghEEH25bpWWP5BJunoPh5lGGE+M8QbjetgxjRG1SbZY64Z6OWylYUQl1QX8fgUF+ZEK66ghPNe0v3Wqq2qiZLjdorGgGousx/H4k/gwC/oA78WoEbsEy6BY7somK2CdalRovKunJq8qJRjFmx4JDOuidQNWZZanoBjwG+1na/w7j5PRPvvdNaMUGf/f4qLPPz3Tq+rgRpEhENtyz+MVJM/Fz4az7TuHks9BfHPm+uOgJG1X98RQpFSzlQdJUIxacHevnVtuuTTipoWYPSXc0qc0xKia7zClZvU4p9hvG1h4MKTRpXHCXzt8qACHLpB9OUMQeAZ4ECOvZRUj4mWUVD2SFSN3xpl0jrmbPrKOvBeiVNEYs3VaonX2zqyHcOk7IKrPBu7k6+a9zPMQ4yocYVUTkWTnc/rHYSIFM=
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(20046099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(10070799003)(366016)(4143699003)(11063799006)(56012099006)(261009223027099003)(261021121427099003)(261026121527099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	b529ACyQnog803z8fBE7pZO7kFiP5xEl9uVwsRd+xC5e3+atkQBVjDbVZTfeixqjOFtp7cjdh/kKCsIhChY37iTWBdDYzKdgv2AyKDi0gzOwsfFei9eipZLs0arFRRnj0FzSIUAOTTskAhzZke+q80nDu3Xeg24K56fNX+cdvKK/GLvzUTOpUM/6G2BrcGEha9GIeYjvKhqn81GxP25RKc/252R55Gv4Cx9wCmQuF+GHZIww2E+FHfy1Kx0ucxbS3e/hHsL7peiQiUio1zU2mRbkMCgy9N7UzqAe9Ye+vCp8w36PhLpZpGzFtVrqWGR4YcR2LWVCLDcTE7sp5zc6BZKSfQzk9Jqo8vAvnjtFpUqVsrEpFu8UKaXbjDxTpjrEObUrofWDbdqmDpIy1h0tFVl3HwgOwprFr1WrTS8PZhOl9Wo0EbUCpjTJ6hH0cymD
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:21:13.3957
+	=?utf-8?B?dXZQbjh1Qk9RVnV3cDdHK3gzb1hMZW4wZXZ2aWUvM3lFdHROazM3d0EzUmx2?=
+ =?utf-8?B?MkUxNjFLMm55bFRHalFWTnpwVFhpOFJJZzhETHVia2QxYzZJdE9HNVZUUndB?=
+ =?utf-8?B?ajV4V01FZFgrM242TmZGYzhsNVRIVzRNaUs1UGlWOXQ0dnI4ZkVLV2FVUlEy?=
+ =?utf-8?B?djg0a09pSnU5dWtieDJBMGxvTUJNdWpDYlpMRXAzSDRKNG92ZEhueWd2VVpD?=
+ =?utf-8?B?M2pmTjdTY3IyYlVCM0lrU3ZxMGdUeXNhU0Jkc0pDTTh0c3dlODc2N3NTVnA3?=
+ =?utf-8?B?cmVJU1JNdUViMEpvakdHQ3hGMVc4MjJuTnFUZHNGUytjQnFab2ZVZWZPNkpi?=
+ =?utf-8?B?TTFpY09MMjg4K0l4SitvaTgzZXhtaFJ3dVUwNnJCNGlhZnZWdTV6aWVFZE5x?=
+ =?utf-8?B?MngzU1V1STU4bEF4ZC9SY01vR3J4d2FpVlNDUVdkazZrQk0rWkdzSGNWczBn?=
+ =?utf-8?B?bEYzWlRTaUR0S2V4eno0ZzJ1aGN1amZ2ZVJyMGlldDRBbVZuWTAybTVyNTlW?=
+ =?utf-8?B?NFQzcXJLZFF2MXl1OWVaa3Z4UzFSZE4xZEJCdGhtVG9VRHc5UXcvRVNwQWw0?=
+ =?utf-8?B?WEI0WHQ5UFZ6RXJGT3R6U2hTZUV3WUVmV0FjdkkyWVFQK0RtSDduZEJocDRJ?=
+ =?utf-8?B?QTd2bzROZFNqcFhCN3NiOXVYNTNpd1phK3NwcThYaCtGYUNrTjIzeGEwK0JM?=
+ =?utf-8?B?NGpnSms3Mk05R1hMa2NONFM4YUVXT0V4OU5IN2JoMHB1dHMzNXl1VXdnb2tk?=
+ =?utf-8?B?OHh3aTF5YkhkRTJGakJGQ3FSSy9LYkFQUTJpbXJ2T1hrVDliWXlybmtTM3F5?=
+ =?utf-8?B?OHByUWxyaXJuWkhlcytXKy9KMWlpbllkNEduenJSSXRYSFQwRGNoc0k5ZUpu?=
+ =?utf-8?B?RmxFU2tvUmk1eXBjR2JnSUNTZ0Z5eisrSm0xdkhwSzczb25SUFpFZlhwMnBE?=
+ =?utf-8?B?U2RndDB4RnM0VzcyTkdWMzBnUnowTjhJcWg5OGNQSHR2ajJveHRPZS9yYm5v?=
+ =?utf-8?B?QUpxdno0NTg4dWZBUGJSekxTVHF2R3p5Wis0U3lIZkg3SlN3NTFoWlQyTXhB?=
+ =?utf-8?B?WDZPNkxzUGExTlRCLzlmT1Z0WHVoY0V0WE8zRjdudFJsNkxIeGVmZFprcmox?=
+ =?utf-8?B?bTJTWVhUNS9sWUY5ajQ4UU03eFlmTEphVk0vVGh4aUYzOWFDV1VBbXJUU2lL?=
+ =?utf-8?B?ZVlaanM0cUg5cXh3VTRNTGJjMDhqVjRicVF2SWRLS05wbC94OUNmekthOHB4?=
+ =?utf-8?B?UW95Z1dKdWh2MTd2SGRoTXJGeWo3UHZwRENGYzRHVkRtNzJobzdERkpCaWNo?=
+ =?utf-8?B?amp3V0xGbFM1SGFYaU9zWGI4UytlMXIwVHFaeWdLem5KU3N2MUZadmM4ZkZP?=
+ =?utf-8?B?Vjg4d01iSllqSkwxRVVvSitLeFF6bEkrdmZiRUpqdTBDN3l2ZGhzTHE0Zy9r?=
+ =?utf-8?B?MERQdDQyTUFKcGZtZWZVLzE2TWhwcTJjT2hXV3JHMnpEdWFRVlZyYW9RYWl4?=
+ =?utf-8?B?akQ1cmtJZGd5N2hOMHByUHo3SzEzdEpBazhmSEM5c1NKV2oyTmZsb0NsTGtW?=
+ =?utf-8?B?OWZaYUc4VDFNSVV2enRUTmJhM1hpemhCSGJxRTR6NDFRQ2FQMm1NaDBuLy9q?=
+ =?utf-8?B?Z2ZHalNNR09OT2tkcUpCQWRMVzQ0TmtSYzJqT29lTnB1bHpVaVBKQkJKY21V?=
+ =?utf-8?B?TlVmNy8wUFlVZ2VaMkFuOFlUWDZHdjN3QnRqa2hKVWN3b282bVZ5WXE1YXJv?=
+ =?utf-8?B?MldYV3BVQ0hsU0twMml2OXBreGlGc0s0L2hpWGs3alJlVWdhV0hwTmFNYTdI?=
+ =?utf-8?B?SXZ5UUdvNzE0YjRRelNKMjVzNTZjZHBzVjBVVlpmRHRMazJmbFNUOHZ2RXI5?=
+ =?utf-8?B?MG0reWtmaTM5NFA3aXhyb3lSTzN2K1kwbW9NLytTNjg4R20zNURpT3lFbWk5?=
+ =?utf-8?B?ODZqOGVuT1E3OTAxT3QxTDNtZUtPUXV6SEZQcmw0Ulh3SWpBMERoUGlyNVdz?=
+ =?utf-8?B?MVdxRkpIVlFCdENxYU1iTjBOWXU3RExiSXB6aFI2T2Z4MU80eFg3ZUprMWh6?=
+ =?utf-8?B?VnVUcDk1U3plQng0V2ZOTUZMQ0U0ZUV1aThscEFiYWFBd08rVVFFYkkwM2lE?=
+ =?utf-8?B?OC9pbUtzbzJpWURLZVg1SEZ2dUdNbU1yZEFBMFI5bXRjSXpCRy9LcUhCWE9S?=
+ =?utf-8?B?Qld4eVRyMW5sOVU5dDJBTWh4QmF2czNoSDd2U256dTlWakhIVis0NGtPdytw?=
+ =?utf-8?B?cHRLa1QyNmhSa3JiNXRMTEFSYnVSQ3ZEakJsS3BnOXBlZjBuKzNpaWlSWXE1?=
+ =?utf-8?B?VUZOdTR4LzZFSGx1ZXc1MW9YOHhnTWdVdHNhakpGSXMyM2o2RE0zNmxJVkpL?=
+ =?utf-8?Q?XTRS/Xlf5gJdd/CAlje0CBrtedYfRT8IIJ2x255K3MjRx?=
+X-MS-Exchange-AntiSpam-MessageData-1: lCyBfNnwrMNdHA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58da2fa9-4533-4b59-4b0e-08df38ba4a4d
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:21:27.3619
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42703adf-a733-4fcd-05a1-08df38ba424a
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB87.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8014
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n5sTX/R70vxVS62VC1dLgJYOMWYSacZZaanEjR/3Yra8/fPIC2Tpnn0lpmGNaXn4Hu3dvVL9wE28OMlzURRwKQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFB6B4D32F9
 
-Document the USB/DP combo PHY of the CIX Sky1 SoC. Each PHY instance
-exposes one SuperSpeedPlus USB lane and one DisplayPort lane as child
-nodes, so that the USB and DP consumers can each reference the lane
-they use.
+On Wed Aug 5, 2026 at 2:00 AM JST, Zhi Wang wrote:
+> GSP firmware requires VF BAR layout information to correctly route
+> interrupts and doorbell events to individual virtual functions.
+> Without this data the firmware cannot set up per-VF event routing.
+>
+> When vGPU mode is enabled, read the VF topology from the typed PCI
+> SR-IOV extended capability and populate the GSP_VF_INFO embedded in
+> the GSP_SYSTEM_INFO command. Keep the VF information builder associated
+> with GspSetSystemInfo since it is only used to construct that command.
+>
+> Link: https://lore.kernel.org/nova-gpu/20260730181404.776028-2-zhiw@nvidi=
+a.com/
+> Signed-off-by: Zhi Wang <zhiw@nvidia.com>
 
-The PHY performs Type-C plug orientation switching and USB/DP lane
-muxing in hardware and is therefore described with the
-"orientation-switch" and "mode-switch" properties. Lane muxing is
-programmed through the S5 system controller, identified by the
-"cix,usbphy-syscon" phandle followed by the PHY instance index.
-
-Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
-Signed-off-by: Gary Yang <gary.yang@cixtech.com>
----
- .../bindings/phy/cix,sky1-usbdp-phy.yaml      | 150 ++++++++++++++++++
- MAINTAINERS                                   |   1 +
- 2 files changed, 151 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml
-
-diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml
-new file mode 100644
-index 000000000000..a5b6943f84eb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml
-@@ -0,0 +1,150 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/cix,sky1-usbdp-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: CIX Sky1 USB/DP Combo PHY
-+
-+maintainers:
-+  - Gary Yang <gary.yang@cixtech.com>
-+
-+description:
-+  The CIX Sky1 USB/DP combo PHY provides one SuperSpeedPlus USB lane
-+  and one DisplayPort lane for a USB3C Type-C port. The USB and DP
-+  lanes are represented as child nodes of the PHY controller.
-+
-+properties:
-+  compatible:
-+    const: cix,sky1-usbdp-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+  clocks:
-+    maxItems: 1
-+    description: PHY APB clock.
-+
-+  resets:
-+    items:
-+      - description: PHY core reset
-+      - description: PHY APB preset
-+
-+  reset-names:
-+    items:
-+      - const: core
-+      - const: apb
-+
-+  orientation-switch:
-+    description:
-+      The PHY handles Type-C plug orientation switching.
-+    type: boolean
-+
-+  mode-switch:
-+    description:
-+      The PHY handles multiplexing of the USB and DisplayPort lanes.
-+    type: boolean
-+
-+  cix,usbphy-syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    items:
-+      - items:
-+          - description: phandle to the S5 system controller
-+          - description: PHY instance index within the system controller
-+    description:
-+      Phandle to the system controller used for lane muxing and
-+      Type-C orientation control, followed by the PHY instance index.
-+
-+  cix,default-conf:
-+    $ref: /schemas/types.yaml#/definitions/uint8
-+    enum: [0, 1, 2, 3]
-+    default: 3
-+    description: |
-+      Lane mode the PHY is put in until a consumer changes it through the
-+      Type-C mux. The value is a bit mask: 0 = none, 1 = USB, 2 = DP,
-+      3 = USB and DP.
-+
-+patternProperties:
-+  "^usb-port@[0-9a-f]+$":
-+    type: object
-+    description:
-+      The USB lane of the combo PHY.
-+
-+    properties:
-+      reg:
-+        maxItems: 1
-+
-+      "#phy-cells":
-+        const: 0
-+
-+    required:
-+      - reg
-+      - "#phy-cells"
-+
-+    additionalProperties: false
-+
-+  "^dp-port@[0-9a-f]+$":
-+    type: object
-+    description:
-+      The DisplayPort lane of the combo PHY.
-+
-+    properties:
-+      reg:
-+        maxItems: 1
-+
-+      "#phy-cells":
-+        const: 0
-+
-+    required:
-+      - reg
-+      - "#phy-cells"
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+  - clocks
-+  - resets
-+  - reset-names
-+  - cix,usbphy-syscon
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/cix,sky1.h>
-+    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-+
-+    usbc_phy0: usb-phy@9030000 {
-+        compatible = "cix,sky1-usbdp-phy";
-+        reg = <0x09030000 0x40000>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        clocks = <&scmi_clk CLK_TREE_USB3C_DRD_PHY3_GATE>;
-+        resets = <&s5_syscon SKY1_USB_DP_PHY0_RST_N>,
-+                 <&s5_syscon SKY1_USB_DP_PHY0_PRST_N>;
-+        reset-names = "core", "apb";
-+        cix,usbphy-syscon = <&s5_syscon 0>;
-+        cix,default-conf = /bits/ 8 <0x03>;
-+        orientation-switch;
-+        mode-switch;
-+
-+        usb-port@0 {
-+            reg = <0>;
-+            #phy-cells = <0>;
-+        };
-+
-+        dp-port@1 {
-+            reg = <1>;
-+            #phy-cells = <0>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 93abbb315065..8fb940a3ea3b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2903,6 +2903,7 @@ S:	Maintained
- T:	git https://github.com/cixtech/linux-mainline.git
- F:	Documentation/devicetree/bindings/arm/cix.yaml
- F:	Documentation/devicetree/bindings/mailbox/cix,sky1-mbox.yaml
-+F:	Documentation/devicetree/bindings/phy/cix,sky1-usbdp-phy.yaml
- F:	arch/arm64/boot/dts/cix/
- F:	drivers/mailbox/cix-mailbox.c
- K:	\bcix\b
--- 
-2.50.1
-
+Pushed to drm-rust-next, thanks!
