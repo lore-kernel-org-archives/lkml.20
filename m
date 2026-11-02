@@ -1,109 +1,106 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793656020;
-	b=C5Cm6zZ01gjRq1nSVYPpQzptQPzJb7n4ve6oiovwEUxq32UC3wr0Oad4WCDmd0mrkGsc
-	 juL2WkQ5VNaozccp2SOZnonFSh+Z6iTnyuNzFcSsejujog7zbSP0AI1WhPgYu70F82e2Q
-	 SSz3F2gmZrt2IwPiES1w+RTQv845Ulu/ZF3AJ/D5xMe3BkbkPL+wYftMceQ5jmLiCPO+x
-	 k3kMiTDHb6+l6kCFQtY3Nn/X9NNkZBYukr4dcydZtnecY7Q+V/f9dM67dq16n32egqbma
-	 +FIDfjOlC/6zIzVmP1t3BPGx5iWQHqgwIFD+k5iJ2k8epMI5sRWKMUq1VFjqtnOVX8A==
+	t=1793656025;
+	b=oWijSuWVLiO9nF1pZsvNZJ78gCp01hY3jc6xAiCoGeHTYljyMoMiElQYFmPwjVTJex7v
+	 ljwxKEyxk5tsVa77bS1JA0FsQsjlMQ/CfoFSA4AgIsb85dVbhZyiUpZbcnLVin5fZQyan
+	 naCA8Ph1v7gMlkis7rhkAN6Tw9i6fKLKYlXPPZoLBL98c1+xjgtsbkwjVpk3F6Wo8ZQGh
+	 7lkcCSzSSadhrKmJh/8sbJLe0FfjkeUte9QA6PBm0jaZXvU2PXlAluQgsq2Vyu+sws68K
+	 KH4KzXqIw9AK7F4v9MmSVwgHKdDn85TCuCerxdLaxIkODGIUatMDmzzfw8oUAUI8/PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793656020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656025;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
 	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=xqTp4LSWoKogSLXQV1jsC4CAleeL27EeFUzHSOi+Tkg=;
-	b=Qjrh/+68SbR2D+AmJCa+Q/+u8yBPGiBVLiAAYpQTKNR5Bh1j6zFNAuUGMvBz0Ok6Q9l5
-	 1tRzk7AWwHu4IbcyXJbbNxYwpctFtTTbMHqRRobQRbejlY6CxZNXbiatBrYrbbKvq6G78
-	 MCxhYIS+XBcWeF3KDfWtBlaa9VQ1YpZeC/FO7VG2zRUlHMmKjnfghzaYMO8eNqhpFEIai
-	 whV5BYSJj++6d7kCyOo6QVap35AyfoEYfU6wHt0DvZGfj889EWXJptVD80haLc8grN0kY
-	 N8zAsD7vTOemV34DeWO/wHC7ffGgIxrjluIxxtq4ASt8EdBCxGKa6Lq9qcB9y/1d/eA==
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=eryNLBdB+9u2OMDHvVsk50PIGXu+I13jRpOSwM//8IU=;
+	b=RwoE1rudiIgUPeFMpLXGaRJZMQtIT9jxbbhonc/2pHwuKgZEedzmLmayOrJ79I+qy4xJ
+	 zfBdwnGwDkeICEba78GPKzrWLR6LxN+TZB+gKF0iQ+zuxV9sko+OSMbBpamX3foHFK5is
+	 tSsZXAh3IVro8zWUjL02wM4xq3scsbBBAi0aDO++2u/IWscLU6PrtaRPNvoiP0jE7hmr7
+	 6kgyOQFtI35wRqIT10EglK3hxWbdV3kjyReV3+DQ9fPq/tLyJQVMJ+PteaZIht39Fp2OF
+	 6jdolL6Rsq7rX152mv4w2DSZg1ZDmVWoI63gDtRyqEc849NgrO+FA8hcySGf0TTJDpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=suse.cz;
 	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=lAoHfyq2;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9N+2PTBS;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=lAoHfyq2;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9N+2PTBS;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SQeKXy+q;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yzYijHmJ;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=2PHZxyL7;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Yp4LXDCH;
 	arc=none smtp.remote-ip=195.135.223.130
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F01606A330;
-	Mon,  2 Nov 2026 21:46:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75F01606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64976606D823;
+	Mon,  2 Nov 2026 21:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64976606D823
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=lAoHfyq2;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9N+2PTBS;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=lAoHfyq2;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9N+2PTBS
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SQeKXy+q;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=yzYijHmJ;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=2PHZxyL7;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Yp4LXDCH
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 99A0721F8E;
-	Mon,  2 Nov 2026 21:46:57 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DFC7021F8E;
+	Mon,  2 Nov 2026 21:47:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793656017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793656024; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xqTp4LSWoKogSLXQV1jsC4CAleeL27EeFUzHSOi+Tkg=;
-	b=lAoHfyq2YEWUia7YxQQobuDYwLg2VBOPGnIkdJZWeK6RLGQBYdE9i9p1mY89wd30XI88hL
-	Iu6DjvsLIQps/2WZ9hsFEp8hXDVdMHfiUeZj+NjqmSY+C00PYTvcayX8OgcFPMHuwGhkYU
-	ULMHtgBAaa47J6c0eTzYAmV+UdFwzwU=
+	bh=eryNLBdB+9u2OMDHvVsk50PIGXu+I13jRpOSwM//8IU=;
+	b=SQeKXy+qzGsdG96mI4gh14ny/OOdlK2hTdsnLfvW2H9iAVjGuWFMrQQR+cPW1fuR+y8emf
+	z39hCC28VQfPLljw1ZxZkjdEN9351tkxhqZcWt2/08SsJZkW7UKzzooWzCYYyQ1RGOSdVS
+	UdfhFzTL5HZVaiJccs+JNoxYIH8mw7k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793656017;
+	s=susede2_ed25519; t=1793656024;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xqTp4LSWoKogSLXQV1jsC4CAleeL27EeFUzHSOi+Tkg=;
-	b=9N+2PTBSCsTMROOcsHH7pk6wxwSC+Lge5ZM6Z9MOo14iVbHCPxrR3BTfDi/D3VqfUMzxv9
-	rLnddyXEVM+DKrDQ==
+	bh=eryNLBdB+9u2OMDHvVsk50PIGXu+I13jRpOSwM//8IU=;
+	b=yzYijHmJH/Aj36OlYzbq6pb+mM4VaojS6jMRE89Pg1cN2scxo4ZRhBfxH5RUsOLnOeQqJ7
+	ii+fiyUNpQRgYDCw==
 Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=lAoHfyq2;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=9N+2PTBS
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793656017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793656023; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xqTp4LSWoKogSLXQV1jsC4CAleeL27EeFUzHSOi+Tkg=;
-	b=lAoHfyq2YEWUia7YxQQobuDYwLg2VBOPGnIkdJZWeK6RLGQBYdE9i9p1mY89wd30XI88hL
-	Iu6DjvsLIQps/2WZ9hsFEp8hXDVdMHfiUeZj+NjqmSY+C00PYTvcayX8OgcFPMHuwGhkYU
-	ULMHtgBAaa47J6c0eTzYAmV+UdFwzwU=
+	bh=eryNLBdB+9u2OMDHvVsk50PIGXu+I13jRpOSwM//8IU=;
+	b=2PHZxyL7oHeWpIo2ukq9oBPB5XPYzs854BU0dn6UmvmDBomxJfVY8auLpwGCxRxOrf0JMV
+	5rCsdJ31yucilI4RMZSwG16ZDkRbGFHhgprkvZ2jSlUfdObVwgbO9UvlHmhv66DKcRX30N
+	VhcwcIJaNOE/wsrI2YJ/YAeUmEs9MdA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793656017;
+	s=susede2_ed25519; t=1793656023;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xqTp4LSWoKogSLXQV1jsC4CAleeL27EeFUzHSOi+Tkg=;
-	b=9N+2PTBSCsTMROOcsHH7pk6wxwSC+Lge5ZM6Z9MOo14iVbHCPxrR3BTfDi/D3VqfUMzxv9
-	rLnddyXEVM+DKrDQ==
+	bh=eryNLBdB+9u2OMDHvVsk50PIGXu+I13jRpOSwM//8IU=;
+	b=Yp4LXDCHKLSJwAu/iZdkNC4p02WFmG1/giR/XUZzV80ueWF7udizasyKTB6H5EeG5/SyRX
+	5M7Oqw+fapVB3YCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7134C134B3;
-	Mon,  2 Nov 2026 21:46:57 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C1ADD134B3;
+	Mon,  2 Nov 2026 21:47:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ns86E9EE6WqEAQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:46:57 +0000
+	id ZFf/KNcE6WqSAQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:47:03 +0000
 Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 17FACB16D; Mon, 02 Nov 2026 22:46:53 +0100 (CET)
-Date: Mon, 2 Nov 2026 22:46:53 +0100
+	id 6DF03B171; Mon, 02 Nov 2026 22:46:59 +0100 (CET)
+Date: Mon, 2 Nov 2026 22:46:59 +0100
 From: Jan Kara <jack@suse.cz>
-To: daejun7.park@samsung.com
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Ryan Roberts <ryan.roberts@arm.com>, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/readahead: keep at least half of the async window
- when aligning it
-Message-ID: <747jhqta3plrrx3bfikceoltsewshdpejdei2qjpn3onnvtu3p@cptmb4phbn54>
-References: <20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-api@vger.kernel.org
+Subject: Re: [PATCH] statx: add STATX_ATTR_MULTIGRAIN_TIMESTAMP
+Message-ID: <vf6shjsmysanedmphb4dpsn6nk3ka47nm5qv2pt7togoha4yrz@cckxyxmzmgtq>
+References: <20261029-mgtime-statx-v1-1-175b5afdf2fb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,135 +112,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030-mm-readahead-async-align-v1-1-109dea6851fc@samsung.com>
-X-Rspamd-Queue-Id: 99A0721F8E
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+In-Reply-To: <20261029-mgtime-statx-v1-1-175b5afdf2fb@kernel.org>
 X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.01 / 50.00];
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	MISSING_XM_UA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[samsung.com:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Score: -13.01
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email,lst.de:email]
+X-Spam-Score: -12.80
 
-On Fri 30-10-26 12:52:57, Daejun Park via B4 Relay wrote:
-> From: Daejun Park <daejun7.park@samsung.com>
+On Thu 29-10-26 12:28:16, Jeff Layton wrote:
+> Userland has no way to tell whether a file's timestamps are multigrain,
+> i.e. whether successive changes after a query are guaranteed to yield
+> distinct timestamps.
 > 
-> page_cache_async_ra() trims the end of each new window to a multiple of
-> 1 << ra->order pages. A window that starts just below such a boundary
-> keeps only a few pages. With read_ahead_kb=128 and max_sectors_kb=512,
-> 1 MiB reads after a 4 KiB read at offset 0 hit this on about one window
-> in three. They issue three times as many device reads.
+> Add STATX_ATTR_MULTIGRAIN_TIMESTAMP and set it in vfs_getattr_nosec()
+> when is_mgtime() is true (IOP_MGTIME is set from FS_MGTIME at inode
+> init). Always advertise it in attributes_mask.
 > 
-> Halve the alignment until the trim keeps at least half of the window.
-> 
-> Fixes: 18ebe55a9236 ("mm/readahead: terminate async readahead on natural boundary")
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-> ---
-> Tested on mm-new in a QEMU guest with XFS on an emulated NVMe,
-> read_ahead_kb 128 and a cold cache.
-> 
-> - max_sectors_kb 512, median of 5 runs: reading a 512 MiB file this
->   way takes 0.247 s before and 0.180 s after. The device sees 3329 and
->   1032 reads.
-> 
-> - Other reads with max_sectors_kb 512: without the 4 KiB read, and with
->   64 KiB reads, the times do not change. Random 4 KiB and 64 KiB reads,
->   two interleaved streams on one file, and 2 MiB reads at random
->   offsets also take the same time. They read the same amount from the
->   device, within 0.3%.
-> 
-> With the device's transfer limit at 2 MiB:
-> 
-> - max_sectors_kb 256: 512 KiB reads after the 4 KiB read take 0.626 s
->   before and 0.322 s after. The device sees 6147 and 2056 reads.
-> 
-> - max_sectors_kb 1024 or 2048: 1 MiB reads are not trimmed.
-> 
-> - max_sectors_kb 2048, 3 MiB reads: the device sees 343 instead of 271
->   reads. The time is 0.120 s instead of 0.118 s, the median of 40 runs.
->   The interquartile range is about 0.10 to 0.13 s for both. The window
->   stays at 3/4 of the maximum, off the 2 MiB boundary. mm-new reaches
->   that boundary by trimming deeply.
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
-OK, I can see how it easily happens once that we trim the readahead
-significantly due to alignment. I'm not fully clear how it happens
-periodically. Is it that you do 1 MiB misaligned reads and so we
-periodically end up triggering async readahead from positions that are not
-aligned to the current value of ra->order?
+Makes sense to me. Feel free to add:
 
-Anyway, what we want is to align the readahead so that we avoid creating
-folios of unnecessarily small order at the end of the readahead window (and
-I actually miss evaluation how order of folios changed after your change
-because that's also an important metric for this logic). I think the
-problem might be that the attempt to align in page_cache_async_ra() is
-actually not reflecting what page_cache_ra_order() will end up doing 
-(it may reduce ra->order based on readahead size, starting index, etc.) so
-the alignment we do in page_cache_async_ra() may be unnecessarily large.
-Instead of trying to second-guess the logic of page_cache_ra_order() in
-page_cache_async_ra() I think we could pass a flag to it in ractl telling
-it it's allowed to shrink the window instead of allocating small folios
-and then handle the alignment in page_cache_ra_order(). Hum?
+Reviewed-by: Jan Kara <jack@suse.cz>
 
 								Honza
 
 > ---
->  mm/readahead.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
+> HCH suggested this when I posted the fstest for multigrain timestamps. I
+> think it makes sense. If this looks good, I'll plan to send a manpage
+> update for statx(2).
+> ---
+>  fs/stat.c                 | 6 +++++-
+>  include/uapi/linux/stat.h | 1 +
+>  2 files changed, 6 insertions(+), 1 deletion(-)
 > 
-> diff --git a/mm/readahead.c b/mm/readahead.c
-> index 6e55632902..f4da9b4606 100644
-> --- a/mm/readahead.c
-> +++ b/mm/readahead.c
-> @@ -713,6 +713,17 @@ void page_cache_async_ra(struct readahead_control *ractl,
->  	align = 1UL << min(ra->order, ffs(max_pages) - 1);
->  	end = ra->start + ra->size;
->  	aligned_end = round_down(end, align);
-> +	/*
-> +	 * Keep at least half of the window when aligning its end. A
-> +	 * window that starts just below a large boundary would otherwise
-> +	 * shrink to a few pages and cap the folio order. Use a smaller
-> +	 * alignment instead.
-> +	 */
-> +	while (aligned_end > ra->start &&
-> +	       2 * (aligned_end - ra->start) < ra->size) {
-> +		align >>= 1;
-> +		aligned_end = round_down(end, align);
-> +	}
->  	if (aligned_end > ra->start)
->  		ra->size -= end - aligned_end;
->  	ra->async_size = ra->size;
+> diff --git a/fs/stat.c b/fs/stat.c
+> index a2e63c6c45b7..67b9f1784b23 100644
+> --- a/fs/stat.c
+> +++ b/fs/stat.c
+> @@ -206,9 +206,13 @@ int vfs_getattr_nosec(const struct path *path, struct kstat *stat,
+>  	if (IS_VERITY(inode))
+>  		stat->attributes |= STATX_ATTR_VERITY;
+>  
+> +	if (is_mgtime(inode))
+> +		stat->attributes |= STATX_ATTR_MULTIGRAIN_TIMESTAMP;
+> +
+>  	stat->attributes_mask |= (STATX_ATTR_AUTOMOUNT |
+>  				  STATX_ATTR_DAX |
+> -				  STATX_ATTR_VERITY);
+> +				  STATX_ATTR_VERITY |
+> +				  STATX_ATTR_MULTIGRAIN_TIMESTAMP);
+>  
+>  	idmap = mnt_idmap(path->mnt);
+>  	if (inode->i_op->getattr) {
+> diff --git a/include/uapi/linux/stat.h b/include/uapi/linux/stat.h
+> index 1686861aae20..b978860590b1 100644
+> --- a/include/uapi/linux/stat.h
+> +++ b/include/uapi/linux/stat.h
+> @@ -255,6 +255,7 @@ struct statx {
+>  #define STATX_ATTR_VERITY		0x00100000 /* [I] Verity protected file */
+>  #define STATX_ATTR_DAX			0x00200000 /* File is currently in DAX state */
+>  #define STATX_ATTR_WRITE_ATOMIC		0x00400000 /* File supports atomic write operations */
+> +#define STATX_ATTR_MULTIGRAIN_TIMESTAMP	0x00800000 /* File uses multigrain timestamps */
+>  
+>  
+>  #endif /* _UAPI_LINUX_STAT_H */
 > 
 > ---
-> base-commit: 9c449f885765cf8d80b2c60b1971e774bba51a3f
-> change-id: 20261029-mm-readahead-async-align-e491b3dc16a6
+> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+> change-id: 20261029-mgtime-statx-26a229f9c3b4
 > 
 > Best regards,
 > -- 
-> Daejun Park <daejun7.park@samsung.com>
-> 
+> Jeff Layton <jlayton@kernel.org>
 > 
 -- 
 Jan Kara <jack@suse.com>
