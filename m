@@ -1,84 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793652797;
-	b=O8f64iSsRhgr+cUA7f67MHUpuw6Z9QxvKw9OrXfETIESG+RZmV6ZP+3zGP16Vobyugeh
-	 +VMmskOCvhGaNAYLrUfOmq2+p8fNzXcTL4K7M8jhEJevJnVMSTnvIkVo/zlsF5l5qZvMX
-	 hiCCf3fpWiYJ9zDgmoWUgH4aBaavCn/lLkeziyv2XRSobWA94m1VLP6MYdECHKbKgJXDX
-	 zwEtiR7cjRiwsdigrjdtS37u6ANt22Z6Yd/kxzrkBdvkiWM0/UEWnb4L1g1ZYkrJythOL
-	 VFzct6fUVUeSjxu1Th0k49qLR4ZUQ0Ep4LZ6EUADEWadQCUgUHG5EnefeBUSQITtPzQ==
+	t=1793652825;
+	b=JA1FYN0Q6W0lw0VGRIxwDkiuSgYm57AbShTdkr6yVyFxmDYi/cPWRajm63eHK5WXgqly
+	 PTaTUbK6+Qk1PE/JEKIQkSb541k1uXWY+EZoMj5bb6kj3LE0LR+ZwqQFtG13eaBHsdrGa
+	 h/Pgnh5RdDThRGCNQ5oMwiyyMV3THOi/X7NX8M9STdZ3u62P0dABa3/AdSVkAdyixMmsq
+	 iKrjn2/m//EMkQagwRV+T5OdD9PpE+M7iA7pnRd4qrEvGOXoKqB9LzchSNJQ/LZ9pvhip
+	 ItHzQgBibY2PBNgk6cf7qrwd3v3S6Ep8ILWHIeMpex+x9/d5DYeVqfB+tom/LoIIOiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793652797;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=e2uq0IAsarHDTLXqFZ/CFLC17YQu7mmJAfgLDCf/Xbw=;
-	b=Dmp7/SkgVaxMq9B9M2NSsk1LjqVHRXD/YO/I975zIrDMCQKoqHovaxSzg88eJP6Hpaqz
-	 RiScK0SrXOOgZVh52tDcMDm38sg5YiAGMzb49sBhPcQ+PboKTS69x8Ei692uLhwMgdeJp
-	 S+Zq+tO2A5Xc0288dbIg7mFovaQZeVUnkj7slBDg9I3Sp+jg/riXtxNjQUESManjC6Gsy
-	 nm8M+yNFHx4tDq1EzPycFY7AzlOaRR8ud1wCWc50CMcmAd+94Go2GGt8B+g23ni9nnRm5
-	 1VbGd9SZ6kKtEzaIPpRKZ13htY2sQygabG180bc49TAo2etcuifIw1618rX/lazL5Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793652825;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=Ur3NviQueuDZp/pCVj/27L9uAAV8y8uuySZxoytmQug=;
+	b=VsiF64sgMSa/KDkD04PIJN0HzytX06zrhe6yGJL6RIMaCQ2vN4i7fa77S9VA8T5nLDPw
+	 cFmZUPLxvjsO3dhwB49lEPdqx5AaZc3LC4n5TKH7LBTJIynWWVOT/kOnk6B3NxK8v6BVQ
+	 dSRTt3GKq05Mgd98w3+Y/zDGkzmJv/vtH8u6hb9T3X/bVfvb4Z3gKMccXQvFvzDhAhX1p
+	 eFE5CR0763J2LXZTUuNlbZgS0Bs2chuxZFJX7gzUcuMJTgl8ZqlP2AnrBIRxazmzQep/U
+	 Y1dSFzDdCzCBi9lp3UWDXWPtSbWnN9b9+ZsqfvJf/ztC43cMXDq+l2puscsuoasg3GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qy4/nMyO";
-	arc=none smtp.remote-ip=209.85.221.177
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YawTYY8D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B750A606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B750A606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 659A4606A324;
+	Mon,  2 Nov 2026 20:53:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qy4/nMyO
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eac01ff101so1271787e0c.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:53:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793652796; x=1794257596; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=e2uq0IAsarHDTLXqFZ/CFLC17YQu7mmJAfgLDCf/Xbw=;
-        b=qy4/nMyOD2tvlZ+lCMFZXzwX1bR7Z92mNyX9ed8vsHjy7D8YOFf4wJCD3irRABXwuv
-         tRnRQ3a07FzomD3HdEtcyU9aC01aB3cnxpkSjm5itPFUZkohG6yNZnbuaiU/rJpHVsMH
-         m2t0ECWmneskImGe5GHRozAhoak3QNDdWYS7K/0BH7eYUz4VPR6UEAoO8o2zPh30ifYY
-         O3TPOYxgDVLaHuCN1vNAVUUFoLoi7/h+/28kcDEzunmUFPeTaQQkx4nx7Jk+zhfor3Ql
-         EnO+FXOs+ry3iOjWASHJ0AssEdooqmV81e5NQPjjQ5WLjSZ7mnqlG90WrETa5W7j05BE
-         86/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793652796; x=1794257596;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e2uq0IAsarHDTLXqFZ/CFLC17YQu7mmJAfgLDCf/Xbw=;
-        b=VLuTCnumB3oXhL1j4PX9V3PMdydHjZX9vj6A6i80W/gTe/IhZYDTcIuZm81thh4D8B
-         /dH6zGGtpKhFiO9fjph0RqU8ysLLr0hLxoCpQHk3+Q4pr9+wWKD3aIdf7lVQsiW/vWDZ
-         VRhDJpKpfeC68gkuxOabLFXfaUxC6qSX0AR3bjgZ730fQi7xCmBBAmpqzDuWRYEDxyEc
-         5yiWxqmfZ75o+6ny+mLXUb/5+SgGNXpETo9+eJBqmv36D/XR4LzbFR9bwoXHb93cSkxP
-         /yckdEkwQw2GuWkalBRAbN3uBZNHAhYRm3enkzlAeywFibkq4e6ziyNtYtjIEkC/xTZ8
-         wmVg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0yljtwTaDhFluLJTUzdY4kfUv/zU9rE+Ix0/U0OiUZQt8UT+8yfO1MxEIquuk2n1KytuW8QorE0qYJSA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HVIrI/IgT+NlsCrbX7baFklTv6F0iFbPSU7H9PI6pYcNGFi5l
-	1JuriDNQLOs2eW+q1u9anucWijAqPawWSdHwCxKtYekRD/0TQKU1cuQ=
-X-Gm-Gg: AYBFou3RIMBJngyQU5TXz3HyNFAEFkUqhB2WaOdhspBpoMtTQOSrIgb66AuBMSROFu2
-	vQTpZcERntZV2LIZD8tblL+uxeRY6I7/RSOliPtdlcLO3aFg3LpPfxCQpMGMH+rRCmcNoZ5/jqO
-	XBkbOxQpGh6lBq3mCdiVlAB2uBMxnHe8slUJpwzcNeh7wVWFtcvuEf+cnfRgjyxbeo7nCjDq36O
-	dHKznEvpBSUjTL8xPYRcHz7ExS5u0LodS80D/g140r2HH0Dz5ZshqRLTF/qa8Rq6QU61T9uk1wp
-	mxW00W2WpWBmD5eTv7uXrF1yvXczKUjfttxnyg4pgV8TzgGhF75wyFMVqli3Oaxu/4z/hWs2Yud
-	RI25LvzPOOT0TqEzYN31UTaMDuCTnVku/A5p7x+hhnSWWAlf5ITZL5/bRJ6jLOlVVw4UpkO39Le
-	PyiK2XmHI0TwKkL57rM00OFPOYC7bryyw7rxrGv9/DeBI3vKAfz45ONpbbYFlTKOycYmYX/Zl2V
-	i6IbJtyxchKdCJdjb7BmpH+RlIJ7Q2Ju65IAYheFBLWLOm5PJmLZQoT58dKAwqOmr4lWEFRJTCC
-	o6tJGM81sMk7u72PbcDiXvAtWav7JifzBWWEcfdEXKarhBUmjCoVpEKuBRE1WBC/sA==
-X-Received: by 2002:a05:6122:d2a:b0:5ea:d14a:ef8f with SMTP id 71dfb90a1353d-5ec6870c5d1mr4724163e0c.4.1793652795618;
-        Mon, 02 Nov 2026 12:53:15 -0800 (PST)
-Received: from localhost ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69caeccdsm10740493e0c.16.2026.11.02.12.53.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 12:53:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YawTYY8D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C93BD1F00A17;
+	Mon,  2 Nov 2026 20:53:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793652825;
+	bh=Ur3NviQueuDZp/pCVj/27L9uAAV8y8uuySZxoytmQug=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=YawTYY8D5b3yE1kRxar+UxdPKKLK7m2Qlq2UkleFubA5YRIVyrbF3vaqOhSO1rVrY
+	 YmsE2hYf7jBbo8z9M+zJyurDskyyAhMTQIMsQQrPFFdFKOKYV0OMexg0GMcJ5oCFuY
+	 3wDB2mtzXXgvYDj+NbzYOoA7QyqHJ7JBE0+DHpKmWBufGY7ohTRFIwr7c8T621NmUf
+	 gbNoIpOUveaN9TQMwdj54OeDdzLNq2Moy58f/3LEmHEjcvEacS4bMPDtArP6o7SnNf
+	 3ASkCrGzZ7mJC1thuM62j+IJ102VKjk7ZFTaS66m4oWu5wvGT4dwEmMY2ujZ3o6bYQ
+	 0m5FmmN5DTZOQ==
+Content-Type: multipart/mixed; boundary="===============0323927478722233340=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,149 +48,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Nov 2026 17:53:05 -0300
-Message-Id: <DML0UIHJNE2R.3JDG4HTEN6U0S@gmail.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Benno Lossin" <lossin@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Brendan Higgins"
- <brendan.higgins@linux.dev>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "David Gow" <david@davidgow.net>, "Gary Guo" <gary@garyguo.net>, "Miguel
- Ojeda" <ojeda@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Burak Emir" <burak.emir@gmail.com>, "Rae Moar"
- <raemoar63@gmail.com>, "Tamir Duberstein" <tamird@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Yury Norov" <yury.norov@gmail.com>,
- <kunit-dev@googlegroups.com>, <linux-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 1/3] rust: kunit: add #[should_panic] support
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
-X-Mailer: aerc 0.20.0
-References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
- <20261029-rust_kunit_v6_send-v2-1-5ce551efc48e@gmail.com>
- <DMKTARY7GF4B.27HUM6XMDTQNV@gmail.com>
- <CANiq72n3YfMpWndR06B0s1Mj_PjAR8MJ+0nP4XXPkaFh3zX7pA@mail.gmail.com>
-In-Reply-To: <CANiq72n3YfMpWndR06B0s1Mj_PjAR8MJ+0nP4XXPkaFh3zX7pA@mail.gmail.com>
+MIME-Version: 1.0
+Message-Id: <a6b2025486dd16d90b6f292f136f07d3ffa73cb194a07ef5687e583275594b48@mail.kernel.org>
+In-Reply-To: <20261102202922.2515317-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261102202922.2515317-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH] bpf: netns: require CAP_NET_ADMIN for link targets
+From: bot+bpf-ci@kernel.org
+To: Jeremy.Jean@oss.cyber.gouv.fr,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,Jeremy.Jean@oss.cyber.gouv.fr,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon,  2 Nov 2026 20:53:44 +0000 (UTC)
 
-On Mon Nov 2, 2026 at 12:51 PM -03, Miguel Ojeda wrote:
-> On Mon, Nov 2, 2026 at 3:58=E2=80=AFPM Nicol=C3=A1s Antinori
-> <nico.antinori.7@gmail.com> wrote:
->>
->> To solve this I created a new config "RUST_KUNIT_SHOULD_PANIC_ATTRIBUTE"
->> that depends on !UML && !PANIC_ON_OOPS && BUG. If the test is annotated
->> with `#[should_panic]` and CONFIG_RUST_KUNIT_SHOULD_PANIC_ATTRIBUTE=3Dn,
->> the test won't run and won't show up in the summary.
+--===============0323927478722233340==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> bpf: netns: require CAP_NET_ADMIN for link targets
+
+TL;DR:
+- Flow dissector BPF_PROG_ATTACH may still bypass the new netns capability
+  check, unverified
+- Check may wrongly reject CAP_SYS_ADMIN-only and sk_lookup users; the commit
+  message doesn't say so
+
+> diff --git a/kernel/bpf/net_namespace.c b/kernel/bpf/net_namespace.c
+> index 81006a242618..0ca29c20ba85 100644
+> --- a/kernel/bpf/net_namespace.c
+> +++ b/kernel/bpf/net_namespace.c
+
+[ ... ]
+
+> @@ -488,6 +489,10 @@ int netns_bpf_link_create(const union bpf_attr *attr, struct bpf_prog *prog)
+>  	net = get_net_ns_by_fd(attr->link_create.target_fd);
+>  	if (IS_ERR(net))
+>  		return PTR_ERR(net);
+> +	if (!ns_capable(net->user_ns, CAP_NET_ADMIN)) {
+> +		err = -EPERM;
+> +		goto out_put_net;
+> +	}
 >
-> I was wondering if we needed the flexibility, i.e. if we could just
-> simply disable them when the conditions are not satisfied, but I guess
-> given `CONFIG_KUNIT_FAULT_TEST`'s existing description, it may make
-> sense to have a new Kconfig symbol=20
+>  	net_link = kzalloc_obj(*net_link, GFP_USER);
+>  	if (!net_link) {
 
-I first thought of disabling `#[should_panic]` tests by directly
-checking the conditions in the macro code. I ended up creating a new
-config because I thought it would be cleaner codewise, if a new
-constraint arises in the future, we just have to add it to the=20
-`depends on` clause instead of modifying the macro code.
+Does this close the token-versus-netns hole for BPF_PROG_TYPE_FLOW_DISSECTOR?
 
-> -- do the ones added here look
-> similar in the kernel log to those fault ones?
+Flow dissector programs can be attached through both BPF_LINK_CREATE and
+BPF_PROG_ATTACH, and the BPF_PROG_ATTACH path does not go through this
+function:
 
-Yes! they are pretty similar, for `KUNIT_FAULT_TEST`:
+bpf_prog_attach()
+  netns_bpf_prog_attach()
+    net = current->nsproxy->net_ns;
+    ...
 
-KTAP version 1
-1..1
-    KTAP version 1
-    # Subtest: kunit_fault
-    # module: kunit_test
-    1..1
-BUG: kernel NULL pointer dereference, address: 0000000000000000
-#PF: supervisor write access in kernel mode
-#PF: error_code(0x0002) - not-present page
-PGD 0 P4D 0
-Oops: Oops: 0002 [#1] SMP NOPTI
-CPU: 0 UID: 0 PID: 30 Comm: kunit_try_catch Tainted: G                 N   =
-7.3.0-18137-ga2943ba718b4-dirty #357 PREEMPT(lazy)
-Tainted: [N]=3DTEST
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 0.1 11/11/2019
+bpf_prog_attach_check_attach_type() has no FLOW_DISSECTOR case, and
+netns_bpf_prog_attach() and netns_bpf_prog_detach() have no ns_capable()
+check on net->user_ns.
 
-... <Registers and stack trace> ...
+A task that is root in a userns, and so passes bpf_token_capable(token,
+CAP_NET_ADMIN) at BPF_PROG_LOAD time through a delegated token, but is still
+a member of a netns owned by a different userns (for example init_net after
+unshare -U), could load a flow dissector program with the token and call
+BPF_PROG_ATTACH(BPF_FLOW_DISSECTOR).  That appears to succeed without
+CAP_NET_ADMIN over that netns, which is the outcome the commit message says
+this patch prevents:
 
-note: kunit_try_catch[30] exited with irqs disabled
-    # kunit_test_fault_null_dereference: try faulted: last line seen lib/ku=
-nit/kunit-test.c:100
-    ok 1 kunit_test_fault_null_dereference
-ok 1 kunit_fault
+> a token can be used to attach a BPF program to a netns it does not
+> control.
 
-For `RUST_KUNIT_TESTS` (left only one that panics to shrink the log, but
-they are all pretty much the same):
+This is pre-existing code rather than something this patch breaks, but given
+the Fixes: and Cc: stable framing, should the userns check live in a shared
+helper that netns_bpf_prog_attach() and netns_bpf_prog_detach() also use, or
+should the changelog state that limitation?  (SK_LOOKUP is link-only and is
+covered by this check.)
 
-KTAP version 1
-1..1
-    KTAP version 1
-    # Subtest: rust_kernel_kunit
-    # speed: normal
-    1..1
-rust_kernel: panicked at ../rust/kernel/kunit.rs:399:9:
-This test should panic and pass
-------------[ cut here ]------------
-kernel BUG at rust/helpers/bug.c:7!
-Oops: invalid opcode: 0000 [#1] SMP NOPTI
-CPU: 0 UID: 0 PID: 29 Comm: kunit_try_catch Tainted: G                 N   =
-7.3.0-18137-ga2943ba718b4-dirty #357 PREEMPT(lazy)
-Tainted: [N]=3DTEST
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 0.1 11/11/2019
+Also, should this check mirror bpf_ns_capable()?
 
-... <Registers and stack trace> ...
+The new check is a bare ns_capable(net->user_ns, CAP_NET_ADMIN), but the
+token code treats CAP_SYS_ADMIN as satisfying a CAP_NET_ADMIN requirement:
 
-    # rust_test_kunit_panic_in_kunit_test.speed: normal
-    ok 1 rust_test_kunit_panic_in_kunit_test
-ok 1 rust_kernel_kunit
-
-The only one that is different in `RUST_KUNIT_TESTS` is:
-
-#[test]
-#[should_panic]
-fn rust_test_assert_false_success_with_should_panic() {
-    assert!(false)
+kernel/bpf/token.c:bpf_ns_capable() {
+	return ns_capable(ns, cap) || (cap != CAP_SYS_ADMIN && ns_capable(ns, CAP_SYS_ADMIN));
 }
 
-That logs:
+and other attach-time checks use that convention, for example in
+bpf_prog_attach_check_attach_type():
 
-KTAP version 1
-1..1
-    KTAP version 1
-    # Subtest: rust_kernel_kunit
-    # speed: normal
-    1..1
-    # rust_test_assert_false_success_with_should_panic.speed: normal
-    ok 1 rust_test_assert_false_success_with_should_panic
-ok 1 rust_kernel_kunit
+	if (!bpf_token_capable(prog->aux->token, CAP_NET_ADMIN))
+		return -EPERM;
 
-Because a BUG() is never called, the failed assertion is catched in the
-`kunit_assert!` macro and, if the test should panic, the KUnit thread is
-aborted without throwing a failed asssertion.
+With the patch, a caller that has CAP_SYS_ADMIN but not CAP_NET_ADMIN can
+still BPF_PROG_LOAD a flow dissector program, but BPF_LINK_CREATE now fails
+with -EPERM, while BPF_PROG_ATTACH of a flow dissector still works for the
+same caller.  The same applies to a CAP_BPF-only caller loading an sk_lookup
+program, since BPF_PROG_TYPE_SK_LOOKUP is not in is_net_admin_prog_type().
 
->
-> (And I was wondering because, in general, adding Kconfig symbols has a
-> price: users may get confused etc.).
+The commit message does not mention this user-visible narrowing, and the
+patch is tagged Cc: stable.  If the change for CAP_BPF-only sk_lookup users
+is intended, could the commit message say so?  For the CAP_SYS_ADMIN case,
+would falling back to CAP_SYS_ADMIN in net->user_ns keep the permission
+model consistent with load time?
 
-On top of the reasons I gave above, I tried to follow the same as
-`CONFIG_RUST_BUG_KUNIT_TEST` or `CONFIG_KUNIT_FAULT_TEST` are doing, but
-in this case in particular, the config is not for enabling a test suite
-but for enabling a feature that can affect multiple suites (in this
-patch series the ones behind `CONFIG_RUST_KUNIT_TESTS` and
-`CONFIG_RUST_BITMAP_KUNIT_TESTS`).
 
-If this is prone to causing confusion, I think I am going to check the
-contraints direclty in the code.=20
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Thank you for the feedback!
-
->
-> Cheers,
-> Miguel
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41521741043
+--===============0323927478722233340==--
