@@ -1,96 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793658917;
-	b=mUfnYUu1S7t+kPZoeViEMPfxtEHTczRsNvMQgPP1kTdIyu/+ZJcdHHwIMUPBv8Ilf5SG
-	 nG0EKgEoJvdMuATAx6tLWbPLvHtZaRIbbWIMVCqQJeX+1dye5FpFh7VGoCZL8ryj5LTXG
-	 fspxNDNFFLmXNDY2SdK7yVJ/jJf1iohd8QpZDnPBIUU5eu+y2ZiHx11VxuG/bDeiKSTOX
-	 DL8X7PfgCpiHnPjoRNHLnI6CJqYDprKqzYj52CyoOeWSHUtIvQugbEJeY5tgtap4Z8lgr
-	 kgcAfnnFBFKl92PgMu+7aC3+Q5nRGXgfp9UMd45VHy5hUfIDvKbShUfNy6cnu92I7fQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793658917;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ulv3xklO2h98FxBMuyZ/DlHaQL7bjI0f5FpPYIu1bsc=;
-	b=K9Y143/pBwgyjXkbQkoF5EmM1ktM5JJUNVmuznqUUDYYGNGph568MQ41DHiWdIYFeufH
-	 7afbj0+zrdrpK2XnzefwjlnhSt5WUb3rmB4amVMbdVBPNyTAsEH4dh+dF/MGbehiqb809
-	 M5sS7x6eEUNBJHgTtFI5ePBDvBKi64+8s133saAlbTI9gvKb6sFtbN8bsPnWKuEGRT1pV
-	 /c3WZbiwI+KsaeYPq8HPy5+3ERDEWF1zNP6abIZLbP1wRbC5hc+FnJNeItTXh7Hld+nSa
-	 AfWjKSdD/liOx3k8cxG23Q0rqjNkvoak5dNpnbYY6bHrvgbG8CFsY0+abuMt++HRuPQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aJRyLhey;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.58
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013058.outbound.protection.outlook.com [40.107.201.58])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793658944;
+	b=WBeqKhVOhZY59AMb8caBRX3+gJJu4E3ritDi2MOFNT41vcvNksqsBaBcICWRt6d/nvYc
+	 PQ6qwx/J3QmTcWJE00oz7mWcx33rL4DTbIOIeYAsWA85DPih8PUpJKvBl1zHEZnk2uGai
+	 RgGLCpXsycP+OJ0gENnufziqoLsKXyqKvrpxHVaNp7wydl21xEfjK6U39AdyHRTr7v/xF
+	 nnrBbPXLpiShQA4ncikXuxjqcuQUbDi5gkw5Ttqwx2sKynLNpW2V0VR8wKHkFKo6o3PHa
+	 Gqw93LojUe83ez/jbG0W4VED/HGWwMPbN4BfRm8UKGC6oc9oxBD/97pHlIYAnwYu7Ew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793658944;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=WB/3GQG/invUH430kybLJVqhzDKHnUACPSywPsPFm2Q=;
+	b=MnXw2CAoNNE1Da2FbZBKY8ea3TYXfL8KBtwhM4rDNL0PxFGCGayu8enwPy3o3BGj9J1e
+	 lEDeU0urw8eIaj3sTtQJLSfqZDfpXzVuhSt8Oyq9rBYspXJkrI+yHFmlnt8dPhc57eSjk
+	 pWeLxzZkJy3wDtR2To2me3oW0GzpySxcJN+rpWbxpcgJZ6wAJ/2N87g4u8HRvEo7k3dip
+	 /njUVLYoA4HhjboQv+OI9K4e8GZA40DwEcf0cVaCrC9z+C7WXDvLW2Edzytti293rmSFZ
+	 yii60sMzrfEKLSn4nUEV7xGQoZOfVqecaduZvbOB3TFrFNgVIYEZxI32df3wclR1zuA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IyZOLzv8;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F4E606A329;
-	Mon,  2 Nov 2026 22:35:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07F4E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B84606A324;
+	Mon,  2 Nov 2026 22:35:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15B84606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aJRyLhey
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QTCKasD25zgBZMkuOEtDRXPdAJ5rzYdhCjx7UUP2T4nFH4u/DJWo3oaCfq8pJ+h3EcfOjb4kKbZEvfKV1tLDrdVWv6I9STUeRQtcJ28jZLKAl9Gw1HKC+wsrt+AG805crE7GLze36HNbbRpXJ/sYuLZZvpvg7hqtW64xVtZM7RfC+dEl1tNkilHv+1OWWXv6+3bjSLLeRgl4FLFVCFclXeTedN6Fy4DzgWC8Y32mERbkk+6XgP9X2NJLhkvFU1vhhoTGE6cWvUMdZ2twbWWdRSqCAM66Ke/hg8D+nI78IZ6Rc7pR1Q/UFSzrPiq9YYX8TZSPezVeUh/a2GrtB83sBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ulv3xklO2h98FxBMuyZ/DlHaQL7bjI0f5FpPYIu1bsc=;
- b=F2QRK9Fh2EpGChE5yHnOhfmpntB4oBgpE3POKZLdNwQ/4qquZDeM+ejGftDtKlV+sXOpEvLVKkolBMaOeHxKbb3YjKUHDjSnr6jzxHbUyIkrYTfmBsBFy6bQ4hImOOOFyKULBeXP/BphZsYaFmGWw9QKi8FwWzWrit6nQq2e5eb6epkciDgR2ZXyVzEf92ot6TE6+vkSvy+quLAwLl4MpELjSrPRxj0+TKjCCuu8TpsUlxxqM/zdPrDtAjRFc3Ndgacn2ZJRX004/9On4+4TXbicd37nc6lx21aid3eop8QQSkkbdZGWPWPWUhuX7Wwba7s58avcGnyw3DKjj76/2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ulv3xklO2h98FxBMuyZ/DlHaQL7bjI0f5FpPYIu1bsc=;
- b=aJRyLheyt8ywYo/xRxPDQ2fU6q1mLQiXan7HC4kwIIfMlhujYKlihYZQFk8mKBnxmXxZHV3LWRc/novlAjcEm/uhXD4XKEn8yG9slF+EIhex4/35AZmUAb1cQDQhpuT1poF5Uw3MngxieMQfuHGK/gfjRLbawdBBFsg6Rm/seTvqZ71aCiOeUT/3UktvoZCGbaqVjqVirAA+Q0wDBkDbVnhdAw/iCoJO6f3A6JufNgUzmsVA8tkb8UW4j81W61mZY0WW4Kd2th0biLtU/hrO+6ERo1xFP43hCGFg5E0BPbJij4sTSi8Xfl19Q0xRLxUZ2I/IX9h7jJSeEDEsDyh91w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY5PR12MB6478.namprd12.prod.outlook.com (2603:10b6:930:35::19)
- by SA1PR12MB7038.namprd12.prod.outlook.com (2603:10b6:806:24d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 22:35:11 +0000
-Received: from CY5PR12MB6478.namprd12.prod.outlook.com
- ([fe80::51f:ab92:7d1a:441b]) by CY5PR12MB6478.namprd12.prod.outlook.com
- ([fe80::51f:ab92:7d1a:441b%2]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 22:35:11 +0000
-From: Michael Gur <michaelgur@nvidia.com>
-To: jgg@ziepe.ca,
-	leon@kernel.org,
-	linux-rdma@vger.kernel.org
-Cc: Edward Srouji <edwards@nvidia.com>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Michael Gur <michaelgur@nvidia.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH rdma-next v2 15/15] RDMA/mlx5: Enforce relaxed ordering when HW requires it
-Date: Tue,  3 Nov 2026 00:33:08 +0200
-Message-ID: <20261102223325.2115128-16-michaelgur@nvidia.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261102223325.2115128-1-michaelgur@nvidia.com>
-References: <20261102223325.2115128-1-michaelgur@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MR1P264CA0002.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:2e::7) To CY5PR12MB6478.namprd12.prod.outlook.com
- (2603:10b6:930:35::19)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IyZOLzv8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793658944; x=1825194944;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=taGbRzqe3xus4DwQuds9A8WTMnWUJ2/NU/L5ww7heq0=;
+  b=IyZOLzv809qj4Cc5WiPsw/Nn2jZiidUxIn8et0VButqh1Pa+KLyQuab+
+   onXSYNOG/Xv9MCAtafPBA7yuA/m5tWaQyOtUW5bob6g+x4q/9SFb+iNOK
+   LU9Gfdt8aX3eEGUBgqqPVPQ2fLTerQXr82ITwFjwjKi9za5068DKfktpR
+   IW7IlztiS5m9B60TKyPGSMl9IZZGprSWGIF10enP97gWAF3HvdEqMY9FZ
+   FBWevK06927fv0cO7tzqFL8Cw7P7My0ilHrml0OyfJrjkViQCyueeqJqA
+   9WGB1oJxcdRMwrBxqaHtZPtYPFrkBDBEHIR3MA9N+e9SdvNfBZEntAZ04
+   w==;
+X-CSE-ConnectionGUID: TqcD3gLpQBavIu5EoXtN4w==
+X-CSE-MsgGUID: Oa1dL0lDSBuMvn+YSH+FOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2400766"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2400766"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 14:35:43 -0800
+X-CSE-ConnectionGUID: 78N5Ry7URtq/fpdfkq8w4w==
+X-CSE-MsgGUID: aWBABTg9R6mGLnptiYovJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6563581"
+Received: from bradocaj-mobl.ger.corp.intel.com (HELO [10.125.109.189]) ([10.125.109.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 14:35:43 -0800
+Message-ID: <cb38e8c40a4f2af26ee87dc37eea9c0cf4398075.camel@linux.intel.com>
+Subject: Re: [PATCH v2 09/17] iio: hid-sensors: Discard
+ pm_runtime_put_autosuspend() return values
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Brian Norris <briannorris@chromium.org>, Nuno =?ISO-8859-1?Q?S=E1?=	
+ <nuno.sa@analog.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Ulf Hansson	
+ <ulfh@kernel.org>, linux-pm@vger.kernel.org, Andy Shevchenko
+ <andy@kernel.org>,  David Lechner <dlechner@baylibre.com>,
+ linux-iio@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	linux-kernel@vger.kernel.org, Jiri Kosina <jikos@kernel.org>
+Date: Mon, 02 Nov 2026 14:35:42 -0800
+In-Reply-To: <20261102220546.6fa5c62d@jic23-hlaptop>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
+		<20261021165858.v2.9.Idbac8a0f9ecdd345191130e256e8d881d991bfc7@changeid>
+		<20261102015255.487bd1bd@jic23-hlaptop>
+		<84d712c6aa3df7df8fdb6cb85b85d720bdab5840.camel@linux.intel.com>
+	 <20261102220546.6fa5c62d@jic23-hlaptop>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,165 +91,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6478:EE_|SA1PR12MB7038:EE_
-X-MS-Office365-Filtering-Correlation-Id: 376728ca-d824-4a9f-105f-08df39318e0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|6133799003|18002099003|22082099003|56012099006|261102123227099003|10067099003|261009223027099003|261022105027099003|261021121427099003|261021123027099003|5023799004|11063799006|261028144727099003|261026140227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	B424IdEyuekn5TZkq2bCHLnXORNZZ5YayBHFs69Gsn2FNV8/E5lrFCC0h/jSl+b0fLWFhJoDr/hnEInBFw7yDGlDHusZL5pugSUfj77ezPE8g+s49mC2H6ZwqJDEIhOZCnYPtQnxpa5aGeWf4dTo/qfqqkABfUFIWjRQOvUnLP99NcEnnwMBkWWVAv0ogce8O5NMrIhjezPfrpuGx8YyHQzj9TfEeq4aKtFYuL5sKxBU95BggUq0ZLmgiYRWgLbpKi+fVDQhqgE4Pk3hRWuNkjZy1bdNXAORTUH0SccEWScUFaDdGEs568xJwymhEy/Mlg5ycYU+TnqyzC3pj91qMNSJG3+EWvS2X6rbyD0GG+tRhT62sfJeesQ1X88JfDDebvSrA+Yv+PE8TDeChunItghHcRs1gsYJbQV+4oGcL8crwYrCm6PcxwupHBRUtRU1Vtiqu7EoE8sRizFM9YqJCOnyM2Czm+W6CdPt83iNXjHkV0TyUp07wv1l/mjVISieuxWN9DXy3v2HwfdV4/PgAZQlDHqL1oZLh9slsLhVQs18MQ0NTGUVgY1YJNf/RqlVCqjRr/8uE/Jnq9sFN7mtovZtmd4+QuMJ1KhfLylHf5py8UW95UVbphNn8ADcVwX3WywXvpEHv/a4D9Kn4ekCvKkx58vluLhERYnZVL38czE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6478.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(56012099006)(261102123227099003)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(5023799004)(11063799006)(261028144727099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WcU2c+BoOJLBB2Nw8DTbWAUOILi7gh2ylIdneRpyt0jdcgY+f+zIs/sah75D?=
- =?us-ascii?Q?HTMpAUqOsUT8yZo+nzeRTYcBCmjQuZpX/Ea0tpghXMdT6UEQ2IcfQugaUJCn?=
- =?us-ascii?Q?j22b1XAsXk5FiA8hk2nREMRo8G9Ilt+EsgQ89tdDzNbRX/APwTwNPHW0EM/Q?=
- =?us-ascii?Q?FSCKWZQ3D31l5rzOsvM4xBP1KGSrktv+eKjscrTE4qo8Fbs41w1IwwxBtaMb?=
- =?us-ascii?Q?Gzvz02dF+7HmQM9XHElIQEFy1mGZqmQiMOipBEPaAypT+haQBhffbQksPHVo?=
- =?us-ascii?Q?N2H30I9hJTKmJ+RlrmJdt6agOkYUWnBWOjdT2apSkuOSRDQK2+fDMDYe2R2Q?=
- =?us-ascii?Q?3s2egJUgQvYrQrGMCFEV067oe0oB3TtETc5qteIRorOYyvsW4NCqCwhAJSn2?=
- =?us-ascii?Q?fOw4U4MqGdmXrbNml6JEcaVgCYEY1usiOzNLqivo99Oxy+ZkZSaw7JUnvORc?=
- =?us-ascii?Q?N7dqUJbBiWJEq8XUazcqNgeJG1vLxFPna5x3FsVSxZ/MRxssO/JWpfISuXP7?=
- =?us-ascii?Q?6r26/4ORHYKedoiUPymxXGytofspTLmxaI10S95Xowtsf7/h0NFYhdpJKPED?=
- =?us-ascii?Q?z/4ivLjE5t4BnrLMGZh2DOt6PeJ3rDpvBQ9WyxuxSfzxH+3k1d1dbf9DmaYQ?=
- =?us-ascii?Q?NLxJ9XdtXg8gYuTJ3alkd0edf3aQ3ryToLEbuCPmBw9f7Pwlzy4Qe7nXYm+x?=
- =?us-ascii?Q?oMvsmRYrz7kjrcvyprI5hwmi6xHmf786e8B0kVISdHjQQKBsYb/vKwCP20Y6?=
- =?us-ascii?Q?jZFqs4dxDSUELmo2Yr+PvGHuyho/QDatzEDbE0RfrJkKhoMRorYisbz1j/ep?=
- =?us-ascii?Q?jfVOMtGvP7+4udNWXj/JKhM8U1t9ZaAWyEpmJnKb8XRAkRqs2TD9BmnXmx4i?=
- =?us-ascii?Q?uLjH1sk/CMVrT5ytlk9VlEoFDMoswodWcN07QML1P6z2rG+TGyPYW9zdy2Tw?=
- =?us-ascii?Q?zZepV3Oi2fjUDC7TVOs5mYRFWVgRF6VZciRc5O8bjIUPyyGatAHQePMNIm+0?=
- =?us-ascii?Q?gGJ6z9rp/df7kN73zvRSkRmliYIonukuuZFwYoMieSx/9X13OqGLBVRmBXHJ?=
- =?us-ascii?Q?mezTP/dzR4Ip9tvTcDXe9OomoAganHGE9pOi1t1Gegp2OI4P7IAdpJw22xNA?=
- =?us-ascii?Q?POFjTUmUZi1OMnby9gv+uQIPE4uqn1kqZBspjEqMBmWrhQ3Un7DthB6bK6RQ?=
- =?us-ascii?Q?F1IZeGSxcgoqAORBTtKnsCc9urwOMy4035pPao3B4+NXcx6w7AF8AmunxgXW?=
- =?us-ascii?Q?A3HtR0fN2zhkjRCgYGahKOOb7pb4Zqy70Xv0bA85jFSzsOdHwYidLXtCg2aE?=
- =?us-ascii?Q?1BwZpOJiKytpvjlA7TPWoU9cPbxXT6YaW1k8Myxd6ABx7sSKHhixn135cUtf?=
- =?us-ascii?Q?1wZyrbOWHHM9uen56p0dKlv0DScLxKi44ac9Cf3QRNoOwjTRWilqSjcLl5Om?=
- =?us-ascii?Q?52G3atAF/ree+kd0hAEOHnW+84oZK6tVpFux2WAuAMNTfFik42UQYPgDbazw?=
- =?us-ascii?Q?mbM9ZRy4oOvCEEMsumLmoMhM7JpFrEMrHU10/h9qI726tYCk/T7Hx4aGx9DG?=
- =?us-ascii?Q?1i5mB3bPswdruQzIpGQsiJCWjihxhBoz6FOA69fB4aMGXAAYG3XTpsFaIAop?=
- =?us-ascii?Q?yk7m45MyGaoogh9ovVQwj/JxPVuEEa2h6CweLZ77NoRLdSqRflOw/eIkJ09K?=
- =?us-ascii?Q?Itodnur3LutAaE3uZgsU2XHYE8yN79larsGNlmgnTMexzpRuNiZwdLBFwtU7?=
- =?us-ascii?Q?gm+2N3jjpQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 376728ca-d824-4a9f-105f-08df39318e0d
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6478.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 22:35:11.2144
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e/BFV1IuqY7FrO6nytJIqwvyLs3YGzfEw2MsVriev2v4VibDAbEhw6l7XWIP8oq9ggFMRQ/lQWRtfUQjxdwf/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7038
 
-Add relaxed ordering validation (relaxed or unordered) to enforce no
-strong ordered mkeys are created when the HW disallows it.
-Reject MR registrations that do not request IB_ACCESS_RELAXED_ORDERING
-or IB_ACCESS_UNORDERED.
+On Mon, 2026-11-02 at 22:05 +0000, Jonathan Cameron wrote:
+> On Mon, 02 Nov 2026 08:55:44 -0800
+> srinivas pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
+>=20
+> > On Mon, 2026-11-02 at 01:52 +0000, Jonathan Cameron wrote:
+> > > On Wed, 21 Oct 2026 16:57:10 -0700
+> > > Brian Norris <briannorris@chromium.org> wrote:
+> > > =C2=A0=20
+> > > > The hid-sensors driver propagates the return value of
+> > > > pm_runtime_put_autosuspend(), which is not particularly useful.
+> > > >=20
+> > > > Returning an error code from pm_runtime_put_autosuspend()
+> > > > merely
+> > > > means
+> > > > that it has not queued up a timer or work item to check whether
+> > > > or
+> > > > not
+> > > > the device can be suspended and there are many perfectly valid
+> > > > situations in which that can happen, like after writing "on" to
+> > > > the
+> > > > device's runtime PM "control" attribute in sysfs for one
+> > > > example.
+> > > >=20
+> > > > For this reason, modify this driver to simply discard the
+> > > > pm_runtime_put_autosuspend() return value.
+> > > >=20
+> > > > This will facilitate a planned change of the
+> > > > pm_runtime_put_autosuspend() return type to void in the future,
+> > > > similar
+> > > > to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put()
+> > > > return
+> > > > type to void").
+> > > >=20
+> > > > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>=C2=A0=
+=20
+> > > +CC the various hid-sensors maintainers.
+> > > =C2=A0=20
+> >=20
+> > =C2=A0=C2=A0=C2=A0 Acked-by: Srinivas Pandruvada
+> > <srinivas.pandruvada@linux.intel.com>
+> >=20
+> >=20
+> > > Anyone remember why this does
+> > > pm_runtime_use_autosuspend(&st->pdev->dev);
+> > > in this code?
+> > >=20
+> > > That is unusual...=C2=A0 My immediate instinct is to
+> > > get rid of it, but maybe there is something subtle
+> > > going on.=C2=A0=20
+> >=20
+> > When reading sensor via raw interface, you need to power-up, read
+> > and
+> > power-down (This is done via runtime PM). To avoid repeating this
+> > sequence of power up and power down for consecutive fast reads,
+> > auto
+> > suspend is used. If there are reads with in 3 seconds, the sensor
+> > will
+> > keep power up.
+> >=20
+> Ah. I was too vague in that query.=C2=A0 Why is it enabled only the power
+> state interface rather than at the start when runtime pm is enabled?
+>=20
+> That seems to be done via a slightly unusually on first turning on
+> of the trigger rather than more generally.=C2=A0 Normally we'd expect
+> it to be enabled in driver probe and all paths that need the power
+> on to do a pm_runtime_resume_and_get().
+>=20
 
-Invoke the validator from all user-facing MR registration paths,
-including the Device Memory path (mlx5_ib_reg_dm_mr), and from the
-FRMR pool build_key callback, so that an admin request to pin a pool
-with strong ordered access fails up front rather than on mkey creation.
+This function is called from probe() of each sensor instead of calling
+in each driver. I agree this can be different function than this
+particular one. This happen to be a common function.
 
-Reviewed-by: Yishai Hadas <yishaih@nvidia.com>
-Signed-off-by: Michael Gur <michaelgur@nvidia.com>
----
- drivers/infiniband/hw/mlx5/mr.c | 34 ++++++++++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+We can separate the function in a follow up patch.
 
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
-index 6848515e06d7..7952d80349dc 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -78,6 +78,16 @@ static void set_mkc_access_pd_addr_fields(void *mkc, int acc, u64 start_addr,
- 	MLX5_SET64(mkc, mkc, start_addr, start_addr);
- }
- 
-+static int validate_ordering_access(struct mlx5_ib_dev *dev, int acc)
-+{
-+	/* If HW disallows Strong Ordered writes, RO/UNORDERED must be set */
-+	if (MLX5_CAP_GEN(dev->mdev, mkc_order_write_after_write_ro_only)) {
-+		if (!(acc & (IB_ACCESS_RELAXED_ORDERING | IB_ACCESS_UNORDERED)))
-+			return -EOPNOTSUPP;
-+	}
-+	return 0;
-+}
-+
- static void assign_mkey_variant(struct mlx5_ib_dev *dev, u32 *mkey, u32 *in)
- {
- 	u8 key = atomic_inc_return(&dev->mkey_var);
-@@ -288,6 +298,7 @@ static int mlx5r_build_frmr_key(struct ib_device *device,
- 				struct ib_frmr_key *out)
- {
- 	struct mlx5_ib_dev *dev = to_mdev(device);
-+	int err;
- 
- 	/* check HW capabilities of users requested frmr key */
- 	if ((in->ats && !MLX5_CAP_GEN(dev->mdev, ats)) ||
-@@ -297,6 +308,10 @@ static int mlx5r_build_frmr_key(struct ib_device *device,
- 	if (in->vendor_key & ~MLX5_FRMR_POOLS_KEY_VENDOR_KEY_SUPPORTED)
- 		return -EOPNOTSUPP;
- 
-+	err = validate_ordering_access(dev, in->access_flags);
-+	if (err)
-+		return err;
-+
- 	out->ats = in->ats;
- 	out->access_flags =
- 		mlx5r_umr_get_unchangeable_access_flags(dev, in->access_flags);
-@@ -673,8 +688,13 @@ struct ib_mr *mlx5_ib_reg_dm_mr(struct ib_pd *pd, struct ib_dm *dm,
- {
- 	struct mlx5_ib_dm *mdm = to_mdm(dm);
- 	struct mlx5_core_dev *dev = to_mdev(dm->device)->mdev;
-+	struct mlx5_ib_dev *ib_dev = to_mdev(dm->device);
- 	u64 start_addr = mdm->dev_addr + attr->offset;
--	int mode;
-+	int mode, err;
-+
-+	err = validate_ordering_access(ib_dev, attr->access_flags);
-+	if (err)
-+		return ERR_PTR(err);
- 
- 	switch (mdm->type) {
- 	case MLX5_IB_UAPI_DM_TYPE_MEMIC:
-@@ -837,6 +857,10 @@ struct ib_mr *mlx5_ib_reg_user_mr(struct ib_pd *pd, u64 start, u64 length,
- 	mlx5_ib_dbg(dev, "start 0x%llx, iova 0x%llx, length 0x%llx, access_flags 0x%x\n",
- 		    start, iova, length, access_flags);
- 
-+	err = validate_ordering_access(dev, access_flags);
-+	if (err)
-+		return ERR_PTR(err);
-+
- 	err = mlx5r_umr_resource_init(dev);
- 	if (err)
- 		return ERR_PTR(err);
-@@ -1028,6 +1052,10 @@ struct ib_mr *mlx5_ib_reg_user_mr_dmabuf(struct ib_pd *pd, u64 offset,
- 		    "offset 0x%llx, virt_addr 0x%llx, length 0x%llx, fd %d, access_flags 0x%x, mlx5_access_flags 0x%x\n",
- 		    offset, virt_addr, length, fd, access_flags, mlx5_access_flags);
- 
-+	err = validate_ordering_access(dev, access_flags);
-+	if (err)
-+		return ERR_PTR(err);
-+
- 	/* dmabuf requires xlt update via umr to work. */
- 	if (!mlx5r_umr_can_load_pas(dev, length))
- 		return ERR_PTR(-EINVAL);
-@@ -1161,6 +1189,10 @@ struct ib_mr *mlx5_ib_rereg_user_mr(struct ib_mr *ib_mr, int flags, u64 start,
- 	if (!(flags & IB_MR_REREG_PD))
- 		new_pd = ib_mr->pd;
- 
-+	err = validate_ordering_access(dev, new_access_flags);
-+	if (err)
-+		return ERR_PTR(err);
-+
- 	if (mr->is_odp_implicit && !(flags & IB_MR_REREG_TRANS)) {
- 		if (!(new_access_flags & IB_ACCESS_ON_DEMAND))
- 			return ERR_PTR(-EOPNOTSUPP);
--- 
-2.52.0
+Thanks,
+Srinivas
 
+
+> I'm not seeing why it is in this particularly location which doesn't
+> seem to be particularly sensible to me.
+>=20
+> Jonathan
+>=20
+>=20
+> =C2=A0=20
+>=20
+>=20
+>=20
+> > Thanks,
+> > Srinivas
+> >=20
+> > > =C2=A0=20
+> > > > ---
+> > > >=20
+> > > > Changes in v2:
+> > > > =C2=A0* Split iio patch into per-driver patches
+> > > >=20
+> > > > =C2=A0.../iio/common/hid-sensors/hid-sensor-trigger.c=C2=A0=C2=A0=
+=C2=A0 | 14 +++++-
+> > > > ----
+> > > > ----
+> > > > =C2=A01 file changed, 5 insertions(+), 9 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/iio/common/hid-sensors/hid-sensor-
+> > > > trigger.c
+> > > > b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > > > index 60808e2430ca..d76a6d9f04f6 100644
+> > > > --- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > > > +++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+> > > > @@ -154,21 +154,17 @@ int hid_sensor_power_state(struct
+> > > > hid_sensor_common *st, bool state)
+> > > > =C2=A0{
+> > > > =C2=A0
+> > > > =C2=A0#ifdef CONFIG_PM
+> > > > -	int ret;
+> > > > -
+> > > > =C2=A0	if (atomic_add_unless(&st->runtime_pm_enable, 1, 1))
+> > > > =C2=A0		pm_runtime_enable(&st->pdev->dev);
+> > > > =C2=A0
+> > > > =C2=A0	if (state) {
+> > > > =C2=A0		atomic_inc(&st->user_requested_state);
+> > > > -		ret =3D pm_runtime_resume_and_get(&st->pdev-
+> > > > >dev);
+> > > > -	} else {
+> > > > -		atomic_dec(&st->user_requested_state);
+> > > > -		pm_runtime_use_autosuspend(&st->pdev->dev);
+> > > > -		ret =3D pm_runtime_put_autosuspend(&st->pdev-
+> > > > >dev);
+> > > > +		return pm_runtime_resume_and_get(&st->pdev-
+> > > > >dev);
+> > > > =C2=A0	}
+> > > > -	if (ret < 0)
+> > > > -		return ret;
+> > > > +
+> > > > +	atomic_dec(&st->user_requested_state);
+> > > > +	pm_runtime_use_autosuspend(&st->pdev->dev);=C2=A0=20
+> > > This is odd enough to make me nervous even though the patch is
+> > > obviously a no-op change.
+> > >=20
+> > > =C2=A0=20
+> > > > +	pm_runtime_put_autosuspend(&st->pdev->dev);
+> > > > =C2=A0
+> > > > =C2=A0	return 0;
+> > > > =C2=A0#else=C2=A0=20
+> > > =C2=A0=20
+>=20
