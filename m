@@ -1,97 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614368;
-	b=PJVcmFiadgHeuMZDEunoN0wnCBoYBL/4LVBIzvgeKYoc8HUO7ZSR6RY1FB48by6hPGsq
-	 +b7Ibv3cqFwFM+40RyMhv2d6/FWca0ql78CX0cY1QUG7DIWM/vljWPy/C9UqmNCzoSlM7
-	 dij/jYKd9AVe/3KFjcyYEIkKrnW67PRFSsu5K/1zesvB2iZVWzX11TJYRI0ZbUItJTnh7
-	 KgdWgHM3YcIMPgdJV8MZhgGXHzvprZAED/3L/V/VrT4z8HDdn5nT8Exfba4k0A/4J5PaK
-	 HERWYG6Qg347LEPzwo7x4XSn3WDBwo5kMCDNy2mhB6qHzNahZcmoCLF9Gp4Y+PzNk9g==
+	t=1793614377;
+	b=p/a9tyjKAeU2ULq9GJ1gmCOCZzkPmtz338jrBHbErUWf0WrmQf5pHOzw+Hto0wlqFzYt
+	 3KWbwOVxCvbHKkMRS+gaVBSqLnq+GVBMtq6cUGyR7/RNdLnFOd9zd38170D+PZW3LsShU
+	 G1fn2J2etJEaIu6pnA7v9wTxtT4XXeysEFt359aHzf7u1Y8zXUwVfYxuXqzmPR1HeFefU
+	 oZeanZw9W8qmnZ8YL3FXQI3sjrCMgqxFSZ21APdj8aItD8+8yw2qTLgCYAHbfHsl2EmTX
+	 LfpROyT2IWuDNCnUmpBrGtawRmki74d3uab/6nQnNlJszHEV8UkZOXUTCVdYtWtcxdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614368;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=zhAJG7RoUXOoz7M+qXiobMg1MbFShww69uh/kTjgH68=;
-	b=APmENAx6il6ylARg4FImhzY4iY6m/+xy8DKkuQIzv2JSSDZo6735FDZcox5o+/o06taA
-	 JEPI3sQvkb35AtuyJQ/52B0nwRZ9tPk9lTzIRU2lzmLCJfmo+QiVANlTkFg46/AayI3Os
-	 cneaqMla+9/RCC/O1l5Em/aetadgCxFK6j0YRB5kRUIDmbske1AoXF0qohFBqF2VXNrMN
-	 Ow+GguG6nyIfA3aLVdJXs+TRVS9Q5XOC4HiiwqIyCenj+PL0tX5iGAb1hwS+++8cSj5K3
-	 mLmyZP96vZln0qV62u8HMYNNvGojbRqJntXpvtyh/XjfHWaelgyBIqSKXhELqv5AuTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614377;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=AIUHPAAXt1s3tQmTRgQTWCI8t2dy2mHDfBJvoW1CIRU=;
+	b=NKnUrNJ+ZrU8c9k1+trR9xSRJUKJ4/8UIjV7joqCWm6y7CVBaWQpgX5iphCGsnR08AUy
+	 m1dYrtDi/WAIzN2X16PZP/unBXTA3Z4khfHilwgb3/v0SwuzJcvDG9xaq22F4eZXG7Ewk
+	 26XF2vhRHo6RfTR/H0AIPGcms7+AAE6Xzbs0xnvoX+BDN+XJeZOCm6EENdL/Dmh3ICu+c
+	 E+MKfdldhQSklaCV/kRKWaqfUV5g7Xjm0r0jBKv19AG4jUH5FW33oCiDEFQpDaKlDNSDQ
+	 GEPRS1quYsS/vJTTKWSA/fLuNZV0A9o0YYGZWGk4wIkP/Uzm2ONiswkOCTFVJj0Vyug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VmuCN7+4;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=gNFkVet7;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B08606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:12:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87B08606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C9C606A324;
+	Mon,  2 Nov 2026 10:12:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9C9C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VmuCN7+4
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so25923595e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:12:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793614366; x=1794219166; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zhAJG7RoUXOoz7M+qXiobMg1MbFShww69uh/kTjgH68=;
-        b=VmuCN7+4AZROpo0l32qa7fIa38GzCV9C5RE7VWKIVqzBzIm8UL5G2FotGfej9c1OcM
-         d+100dYvuuHHZ0DjCCpo9jjJ2fVhZzrXeM4uIDsoYltVvF9/YOv3EYWquqtbS5eJqSwf
-         4dv4PJB4Xr1nR6H4EBRh9oQzkDrntLwyEKVPhMGGLx8ydJK9mxEIeRSbishj8frkFwWP
-         k5J5B3xN93hnv5gX1ouoySBr3tjvb5zuCkTRlySP9nv6oRR79H5I+cyM5FoRwlU2yY4w
-         rt65w5HFcdZi3Sp7dCrV+bT6avv1cp1nXwNTOgr71kCtFEzB4pSYcFq7AO47cM9DxB+i
-         SqzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793614366; x=1794219166;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zhAJG7RoUXOoz7M+qXiobMg1MbFShww69uh/kTjgH68=;
-        b=mtsx/xgvRijxJpk/I1UT/ZCTRq+xAgJte/P+RkcasTXBEJe9D9bJQRqfJXaS4Pjdhl
-         RXbtrCIeAYnk9Wj3exgDwI1tnJVt337A+Ypirz+FSZhktL6OS/ixOjyl9X5XHSWGHxZb
-         fHslyh9rfv+kjryplc5/oAEEEjqxgvZXPgO0lJKFAawCxBizldMasb7AjagJ2AmHmylh
-         ViP/4qDJLcF6oRcYo9RTl6fs066ZoEaowQ506wj/+cIsesAwrmg557lQPfCEAG3nhl8a
-         aZZ7Bw4Tsh4fsYVhdXQF+tLWNXss3FyRZYlmomwEdq1vSQWm2HBnzKz0RWx3dBxkC2cs
-         HoWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwafIWpzXcoNNReqVy8IpiJ1o3cSsl+LjCFa4FvKeioPPYzU5uWZJfCxn8Ar9L+vCSgZmoSP7+8YlXimeE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJibWmQl7Pz4h2DGXRYyJOix+xUS2jpL4xSihksWHLwntKvSbnG
-	wQmr+Sn3/1sTUX0CzPLolOZuXdqQrHFyRGMz9Wn+KS6XlbWVOWJXZ2iaRrJT8vTXWtI=
-X-Gm-Gg: AYBFou1R4JreO9jpt2QCGDjzQwyzUPblioB6rTTuWAsJN9mpDhC/hBme6D3eyLZMIGr
-	jWfTTdfReYJE2PKjnLYpmnJ9zf7YFOaGnMCRVZfTF0NbFWNE/czqV2SMl2/l875vlnrY6YsGWVt
-	Vk34tmMQrbySfw1zrzLcZ71faZ4WOkSyWIGcp66hoWggBVzmY/jUv6IU52kojDhNGw21fVPDOdc
-	3/1OiKJbSnjOj4DKtvALMV3WSV6zw6zIPkHb0bGBBNoitRf/Np1qImed410K1aSIg8T0PK5Y7KT
-	WyELbXmZkvXz+3BfWtwQsO1JJxaMUHpeYSewsvzvcjQWko7/18u6o/R8Mj7kziAruk4OL5dSgJL
-	sb02W2Dgqf5TTAMjN+c4QmVE1qqALtrsAOnN4u8GZq8RGk1ILu6KL2wSQtw+NbuS/kYYANsTrw2
-	+x3vBmhuqPSuyT6ssfH1GX4TAz5OhLhKtNCoQmWERYFPpz4154U4FbBX1+TKnF0AfHsE/+9ZKty
-	srKdximBACBMlkAsPAA/M9RU2Q5jgd46Ujkuw6CkIkx6agrQ0DtYEX3fI5lqCgL8hkpCeJLhdKB
-	QdqPcwMl1JTHO3g3FJlJDbVIjkLcJeqsVtuN8lQ=
-X-Received: by 2002:a05:600c:19d1:b0:4a2:677:ad8e with SMTP id 5b1f17b1804b1-4ac1970b9f7mr217205325e9.34.1793614365911;
-        Mon, 02 Nov 2026 02:12:45 -0800 (PST)
-Received: from localhost (109-81-32-81.rct.o2.cz. [109.81.32.81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9a3b1sm20935867f8f.44.2026.11.02.02.12.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:12:45 -0800 (PST)
-Date: Mon, 2 Nov 2026 11:12:42 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev, muchun.song@linux.dev,
-	penguin-kernel@i-love.sakura.ne.jp, tj@kernel.org, mkoutny@suse.com,
-	cgroups@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm: memcontrol: don't miss processes whose leader has
- exited in OOM scans
-Message-ID: <auhiGqKJeukk7t3P@tiehlicka>
-References: <20261026120248.2188024-1-zhanxusheng1024@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=gNFkVet7
+Received: from [192.168.1.71] (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6D7E04DC;
+	Mon,  2 Nov 2026 11:10:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793614231;
+	bh=Pbr7FqwHE7e4DKrbewizP5BIUnE5HZeSzQe6zlBuXgc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gNFkVet7a8YNgqKKfUattiD324ptZXZOwCs2ElXrPuQU7AEkmyGg5A9iUdpWCq4Zw
+	 n3Ag9IzEx8qDyTSIvwUgNi6XIZEQ9M9OPU17+kQcdYSQC8OD5QURTc/RfUc8aM907v
+	 EzbRU+ChlB6Zx8WxwMUhohSq1WiSg+C9Ivq9Tk/I=
+Message-ID: <4898b6a7-1824-412a-aef0-ae6bde021e38@ideasonboard.com>
+Date: Mon, 2 Nov 2026 10:12:42 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,57 +54,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026120248.2188024-1-zhanxusheng1024@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 17/26] mm/fbatch: no lru_cache_disable() in
+ __alloc_contig_migrate_range()
+To: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Ackerley Tng <ackerleytng@google.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>,
+ Binbin Wu <binbin.wu@linux.intel.com>, Christian Brauner
+ <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Christoph Lameter <cl@gentwo.org>, Claudio Imbrenda
+ <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>,
+ JP Kobryn <jp.kobryn@linux.dev>, Jan Kara <jack@suse.cz>,
+ Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
+ Kairui Song <ryncsn@gmail.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>,
+ Matthew Wilcox <willy@infradead.org>,
+ Mel Gorman <mgorman@techsingularity.net>, Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@suse.com>, Minchan Kim <minchan@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Rik van Riel <riel@surriel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan
+ <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>,
+ Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>,
+ linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+ <84ed3bf8-da32-3447-0577-052c5d1a56b2@google.com>
+Content-Language: en-GB
+From: Alen Karnil <alen.karnil@ideasonboard.com>
+Autocrypt: addr=alen.karnil@ideasonboard.com; keydata=
+ xjMEafxhCxYJKwYBBAHaRw8BAQdAXswEEnvxYiHXb8Q8GsSAuaLuXqJFs3kmsMI7EWF9EuDN
+ NUFsZW4gS2FybmlsIChXb3JrIElvQikgPGFsZW4ua2FybmlsQGlkZWFzb25ib2FyZC5jb20+
+ wpkEExYKAEEWIQT0whyXpTyoVtApVAlRzoJ78NRPngUCagGrrgIbAwUJBaOagAULCQgHAgIi
+ AgYVCgkICwIEFgIDAQIeBwIXgAAKCRBRzoJ78NRPnkpDAP4kmtHsMfTtV6BC1z7GTb86BL2g
+ 9FC1EarGJDDzcafMGQEA6clsoXvRYjHPJexVebjmkI4bq1QM0X/L9Ffe0PfpdQbOOARp/GEL
+ EgorBgEEAZdVAQUBAQdAsVoGZ4IK0EgJ8HU05PQKzK15jaCi/IEA/7Cw9ZzcBmwDAQgHwn4E
+ GBYKACYWIQT0whyXpTyoVtApVAlRzoJ78NRPngUCafxhCwIbDAUJBaOagAAKCRBRzoJ78NRP
+ nqYcAP0eh3LahCDsfNa8zsiK+8QzeujWPKhc5zDcIqrDI6xufwD+Mu9e202It54rNZb8UWEy
+ V5OzTEy0JlsQfO6DYWIORwI=
+In-Reply-To: <84ed3bf8-da32-3447-0577-052c5d1a56b2@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon 26-10-26 20:02:48, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Hi Hugh,
+
+I've come across your series because of a usecase I have, namely this patch.
+
+Not to bore you with details, I got an IMX8MPlus with some cameras.
+Due to the cameras (and other associated HW), it ends up allocating 
+multiple framebuffers using CMA (currently 16 per camera)
+which is quite slow (~200ms for a single camera).
+
+I've spent some time profiling and found that the biggest
+stall is when lru_cache_disable() is called. Just applying the patch on 
+its own, I saw greatly improved performance (cutting the delay almost 5x).
+
+This is on a 7.2 kernel.
+
+On 09/09/2026 11:16, Hugh Dickins wrote:
+> Remove lru_cache_disable() from __alloc_contig_migrate_range(). It does
+> not now benefit from lru_add_drain_all() first; and gains little benefit
+> from invalidating buffer head LRUs first, since 5.0 commit 80409c65e2c6
+> ("mm: migrate: make buffer_migrate_page_norefs() actually succeed").
 > 
-> mem_cgroup_scan_tasks() walks with CSS_TASK_ITER_PROCS, so it sees only
-> thread group leaders, plus a dying leader that still has live threads.
-> Moving a process whose leader has exited, by writing its PID to
-> cgroup.procs, moves the live threads but leaves the leader behind, as
-> cgroup_migrate_add_task() skips exiting tasks.
-
-Is this a desirable/intended behavior? Shouldn't we move the dead leader
-along with the rest?
-
-> The destination's OOM killer then cannot see the process.  If it is
-> alone there, every attempt ends with "Out of memory and no killable
-> processes..." and the charge is retried indefinitely, and
-> memory.oom.group kills nothing; otherwise another process is killed in
-> its place.  The source's OOM killer still finds the leader, reaches the
-> moved threads' mm through find_lock_task_mm(), and kills a process that
-> has left the memcg.
-
-While you patch works around this seems like something to address in the
-cgroup core. Should CSS_TASK_ITER_PROCS iteration see all processes
-regardless leader being alive after or prior the migration? AFAIU the
-thread group belongs to the new cgroup in both cases.
-
+> This will be more controversial. lru_cache_disable()+lru_cache_enable()
+> were brought in for CMA page migration, see 5.13 commit d479960e44f2
+> ("mm: disable LRU pagevec during the migration temporarily") through
+> 8cc621d2f45d ("mm: fs: invalidate BH LRU during page migration") - I
+> guess the testing there must have been on a 4.19-based Android kernel,
+> without 5.0's buffer_migrate_page_norefs().
 > 
-> @@ -1452,9 +1482,10 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
->  		struct css_task_iter it;
->  		struct task_struct *task;
->  
-> -		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS, &it);
-> +		css_task_iter_start(&iter->css, 0, &it);
-
-Shouldn't this be CSS_TASK_ITER_THREADED instead of 0?
-
->  		while (!ret && (task = css_task_iter_next(&it))) {
-> -			ret = fn(task, arg);
-> +			if (!mem_cgroup_scan_skip(task))
-> +				ret = fn(task, arg);
->  			/* Avoid potential softlockup warning */
->  			cond_resched();
->  		}
+> It's possible that invalidating BH LRUs perhaps 0 times, perhaps N
+> times, will average out worse than invalidating 1 time and stopping
+> everyone else; or that folio_test_clear_lru() failures manifest more
+> than before (note how folio migration has retries on raised refcount,
+> but isolate_migratepages_block() no retry on failed test_clear_lru).
+> But let's give this a try and look out for regressions.
 > 
-> base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
-> -- 
-> 2.43.0
+> Don't delete lru_cache_disable() yet: leaving stale folio pointers in
+> the per-cpu fbatches, with folio_try_get() yet to come on them, would be
+> bad for memory hotremoval: the lru_cache_disable() in offline_pages()
+> protects from that.
+>
+Can the patch stand on its own?> Signed-off-by: Hugh Dickins 
+<hughd@google.com>
+> ---
+>   mm/page_alloc.c | 3 ---
+>   1 file changed, 3 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 12fac9084c48..3e085a25a776 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -7147,8 +7147,6 @@ static int __alloc_contig_migrate_range(struct compact_control *cc,
+>   		.reason = MR_CONTIG_RANGE,
+>   	};
+>   
+> -	lru_cache_disable();
+> -
+>   	while (pfn < end || !list_empty(&cc->migratepages)) {
+>   		if (fatal_signal_pending(current)) {
+>   			ret = -EINTR;
+> @@ -7182,7 +7180,6 @@ static int __alloc_contig_migrate_range(struct compact_control *cc,
+>   			break;
+>   	}
+>   
+> -	lru_cache_enable();
+>   	if (ret < 0) {
+>   		if (!(cc->gfp_mask & __GFP_NOWARN) && ret == -EBUSY)
+>   			alloc_contig_dump_pages(&cc->migratepages);
 
 -- 
-Michal Hocko
-SUSE Labs
+Thanks,
+Alen Karnil
+
