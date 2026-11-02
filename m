@@ -1,47 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621891;
-	b=V+8V1PEaLCAWEz+JrcqNuM++xdPbsVqdNAhj8xxqdFLB3SgbkMZfqiAw5JVmgLS1lkU7
-	 vnrdRD94iftGNgUkCTGxOiocFN5rrqh97ZtcpSh7UOFYthoUC2PPNMQ2uqmDIM5VeZqs5
-	 R/U4s2HlO5AXZJ3X7blz4V0qAWK0M88s7Lc0/B8phTxqr73sWWqzdZZK35BSTEeUItqZP
-	 rM7r1UMNxsgGmamlN8mnqNA+GwVRd6Ic8bzIqYNc4cMGRuOrFaBgW7/eXdO/+vx95lP9t
-	 a3k2yHlLJx6VmiDAftEiLCA8tMsFblBXzLsDaycycLH3ipOIQ0eyGPDKsHyxUhPbAfg==
+	t=1793621942;
+	b=twAyoT8RSSc4pcIaLSoPi3HZlOa1rSKf0cL99SnktfHYzkfD4ZcrqGR2gw4Xq55Iy9fq
+	 gA6cqu9mWxCzk+6ZSsw7T5jb1F3SHljuafSJz8GGe7QofRTLJRCDTgvlC/TgAZh5j6tW9
+	 cIzhZWI9YFYmp//G1XKXSF3Wk+2XHA1YG6D7wRUMStcaXiR3E2Vw7u6MrJcyWz3IBP2XX
+	 Vt8lsuoMjWkDWL33gNWe3+N81IUB6mT13f1j7DC0NAzHtQ5bhSfYkm8i7fehUdnQ1Vsc6
+	 WRd3k97hbuC+eY/IcAuS0OLY3bB2SEbCyxG4/S76uLP9QQPN4auKuw38iMxaHRBruAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621891;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4PzZZAWMkHLIiI0SGi4R95lv/0ZHkf1CuWgcaAhKuFA=;
-	b=wJXARf4Rq7VR8z2cGo1h3yoDq2LHABHsHGAROHteizoNSf5QlVSnH4D8KMbYcDF4xYjP
-	 oqNUur/tLwLZQDt++ehBnqEefei9Hma4U9sePNrYLB/7rypW6HAlTTXersXRFegSHKoN5
-	 6ToGkz3wIiKlnWeaYvvFKK3ULcF6XvyV7ETMxRDOwfUVaZM7RaToVFcK0Xf6lwMWbn36n
-	 AoHXAel4nwNozelITZR8C3u5EXy8JpnYsONH9DnW4kFHbBZX6x74CA1O1T8o6+cu7nNkq
-	 mrYl36zLZbX7oIs93QmlMcXMSgkSvUT3QIalJx8Iv+wArvdu86rWPlsFcGM50DXaz4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621942;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ezbpBo/Df5RXTILcrA43k0R/PKSOtGb0Z1SJrrOr0RY=;
+	b=3pA0Jw05gVoqVJCx2rixP6/1eWmPrDma9imV7gR1HEXRdT6WngwBeu7LEUfCwsu+TNbY
+	 N78gLX+n8MnhowpLv0ohQV4BPElqHnO+cHKSsqoTrmFDBUeJJBeDla6qFuSiIkTykRANC
+	 hoifNMW6RTXoXeBCIC0ndY2Wd/e/AGyU6to5aXWaewuKqR688rH/FFwayNhKvKzsBosQX
+	 pWU+5ToQVcjupBw05VxLDDXafytLvLHu4fhX/bwPeKVHr/LEMFtLAvep1NECpeKGYBzmO
+	 s9ZpV9T4X2eBfea7w5ZiTcwsYU5+GI5Q4csF5L+yBXc2tn9SvApgh4eEmO4D+GdJ8Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEJHsAW1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cPeNrzlg;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=muxRvgEI;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6926E606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:18:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8118606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:19:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8118606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEJHsAW1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 312C51F00A18;
-	Mon,  2 Nov 2026 12:18:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793621891;
-	bh=4PzZZAWMkHLIiI0SGi4R95lv/0ZHkf1CuWgcaAhKuFA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XEJHsAW1xpBykSI0RPL3s9XyHVb0H5VsOHu/pA4sj6i5fJX/eDJWXfOMeFVuzMoxm
-	 e6cZnyTkCI5eySacLKDSXsP7xdfrNIfw8CnjxwKd/MiUhMg4qlqXjZfalJM0nFyh53
-	 XK8XMVX25H7E7QA62r9/OFURzkKRulUqRdl2HXK0622lT8ox4Q8QOPQcMAxVlbL6JK
-	 qRrt9minS3iWUYi7KOfMXV/I2L1G4ZrNi+0ygGT1c/9IvEyCPGc7uwKE8UNocxksda
-	 SDvlYXK/OSMiFAf1BrOnAE3ijyx+uMz292+yLAgbIUOFYwtQL+QhucNrjaw0Eh2SFs
-	 CwZ2HQ+PTuFMg==
-Message-ID: <5feb82ef-a9bc-4ef3-b056-9732563e6225@kernel.org>
-Date: Mon, 2 Nov 2026 13:18:05 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cPeNrzlg;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=muxRvgEI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793621941;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ezbpBo/Df5RXTILcrA43k0R/PKSOtGb0Z1SJrrOr0RY=;
+	b=cPeNrzlgq1Q/J4RgFF+eUwG4G7kN9OVYgOqOSQWHYiAxyMzLSBcSxzB83zQfBB6Zg2voQY
+	gBKf+lb9xAmqbJ88tK/f3cNWc78mBNs3MGA88TeWQL7oTG7aaZHvXlvx3LaPNqYpAm1oLN
+	qJe1eNMahlD526b6bh/HJ/lsBm19tps=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-275-CDJP8BlwNhaM4Ybrk7wWqg-1; Mon, 02 Nov 2026 07:18:59 -0500
+X-MC-Unique: CDJP8BlwNhaM4Ybrk7wWqg-1
+X-Mimecast-MFC-AGG-ID: CDJP8BlwNhaM4Ybrk7wWqg_1793621939
+Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6b1d818b501so1040958a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:18:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793621938; x=1794226738; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ezbpBo/Df5RXTILcrA43k0R/PKSOtGb0Z1SJrrOr0RY=;
+        b=muxRvgEI1s8h2zXXULZwzI/3XpicjK0kmbxlDECs7rKlTB1yV417AeqCjWgbpgMPHo
+         HaZDvQbbIp8Z9pm++PmPre6CDAOjXSvgLL2PTbyanJsw2PSpd2/Tez5W6NLvLMBHsBuv
+         NTRIpvhZHtiAaGj4AfwZubouJ8NmlF/fcU2U9VP6C9ZNxoO9BUo3RuY7LBL877l0+sW3
+         erVGbHIbFa0qo6s9N4vntGzH5HUU8un+SikGAnSUunIV+aR6G0QHZnLcCTY0DhwG9Y4+
+         GIxr/OqeijdBgYRIPusUguFRwANmziqyeJYXNPhzIHn5dhsFd+/ihq7X22q95wzwc8kW
+         g8fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793621938; x=1794226738;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ezbpBo/Df5RXTILcrA43k0R/PKSOtGb0Z1SJrrOr0RY=;
+        b=aXhQz7eDN9hAM5CtmJJCHl7aFM0Y8vcilGzsNBSGNmfmtY9m2SN7C+TEwN4tN2pHsm
+         MX4J1iq4tfIdrEKxBc2YrCSH0SRCVX0pfe09t4hbgUyZkNo3eMUaThGL+0F4NUW0Lkrp
+         P2Fa8nMkmq4/fyNeSQ7JySXNCeTpZa3P6vB67oYa2p6ivF9eiS9d5fCU0PWWAzQwa5Ls
+         bVwBv2NhXdYDam1i+JkZxASeGdKCiEqew8gEDjt4SXNbqrHwWz9LKLsWF1TBkI7zfI8N
+         HR/m9beNo1OvxZw9QVvq/7/rGVIxtTZHs9ZP6tx4CapsRSKyMyTk/0RweN1BS2+bHx8O
+         yOJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwbUbKAgOFXMaB7ZBOk/jzp7lRP0m/eMPC7YxJClMaiUxH8claA9JQ8PdvdMsk2uTwdFHpLTHhn43FsqUs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XPP1diQCUqgTaYpK/2Z4U3b3VurrVcEosVL3KLNKzC5bcWsfh
+	1unzK3HqSdtc+2jAxAMIZjsyV1SXvii1FqtzH4XRI2yxgWo0UcSR5ThAi7VCFzSNezu1rPgJnMj
+	ROu8W7Lh5UFV0/qyaWI1SYqVnS7LHvzqHPkZ3Lys1mzffmg4ZjcN1q+i1cuhGFjsD+Q==
+X-Gm-Gg: AYBFou0iw9M+xALy3IdyfX2z1O+zXBrrI4vQ29SpeeD3kiHmynqZZOmitZjCtErBl7Q
+	uOGf6aiBaYDCdRXEtwOKGIevwT7LGHXVJ4WWm5DjduyI8J8lbnzZHc1qHLaiEXj4OHt9UdIdE5i
+	82yXLf0TFM/TT5bXF9txMPe5C6I+t195cG7Awrqapd248lb+zO7tPDT+RsQ7vxQaKBLUjDeDOTP
+	zuW/V/XZHVbOFYaedGQ9leHdqyEnkUPOSX12k6wzwcvGXzsEKS8ONnbHARxPg9ykNvZYkLqw6gt
+	cMjCjx7uhMx3sgbeq3afQUjunjGhujFZUGOGyFHFzCzNDCow1Sp0CV0agXZ2VP0+mgEHcRszXec
+	nrxmAuU1kLQAJyCmHnmREFaZ2G2iQIXin3kRSquEr7e01bfc1E56vC4OQfQZoW3bY2Ceu2scRQ9
+	fC7i5FLLtevfEuKHgoMPc0ujq+QpfEgAi1mp+NbWg+VqM=
+X-Received: by 2002:aa7:d518:0:b0:6ac:7868:b690 with SMTP id 4fb4d7f45d1cf-6b4d438916amr5355712a12.8.1793621938404;
+        Mon, 02 Nov 2026 04:18:58 -0800 (PST)
+X-Received: by 2002:aa7:d518:0:b0:6ac:7868:b690 with SMTP id 4fb4d7f45d1cf-6b4d438916amr5355695a12.8.1793621937879;
+        Mon, 02 Nov 2026 04:18:57 -0800 (PST)
+Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9fb9a3sm3166256a12.14.2026.11.02.04.18.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 04:18:57 -0800 (PST)
+Message-ID: <836982e0-b733-44d4-ae2b-20276589f867@redhat.com>
+Date: Mon, 2 Nov 2026 13:18:55 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,276 +113,87 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] mm: gup: introduce gup_unshared_pages()
-To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Rik van Riel <riel@surriel.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>
-References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
- <20261102-refactor_gup_fast-v2-1-bc1ac018c834@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH net v4 2/3] sfc: ptp: serialize host and MC
+ synchronization transactions
+To: netdev-bot+sashiko@kernel.org, alex.austin@amd.com
+Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, richardcochran@gmail.com,
+ alucerop@amd.com, pieter.jansen-van-vuuren@amd.com, netdev@vger.kernel.org,
+ linux-net-drivers@amd.com, linux-kernel@vger.kernel.org
+References: <20261026123023.3566549-3-alex.austin@amd.com>
+ <179336481081.3134.5405870739856758840@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20261102-refactor_gup_fast-v2-1-bc1ac018c834@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <179336481081.3134.5405870739856758840@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 11/2/26 12:30, Yeoreum Yun wrote:
-> This is preparatory patch to make gup_fast_pte_range() batchable.
+On 10/30/26 13:53, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
 > 
-> Introduce gup_unshared_pages() to count consecutive pages within a folio
-> that do not require unsharing, and use it to implement gup_must_unshare().
+> Low priority / nit picks for your consideration:
 > 
-> Also add a folio argument to gup_must_unshare() so callers can reuse an
-> existing folio and avoid the compound_head() call implicit in PageAnon().
+> - [Low] The new kernel-doc for `@phc_lock` in struct efx_ptp_data
+>    (drivers/net/ethernet/sfc/ptp.c:275-276) says the lock "Serializes PHC…
 > 
-> There is no functional change.
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but
+>    `_efx_phc_adjtime()` in drivers/net/ethernet/sfc/ptp.c (line 2144)…
+> - [Medium] Baseline decision: not a defect of this patch (pre-existing,
+>    Medium, in a driver the patch does not touch).
+> - [Low] Baseline decision: false positive, fixed later in the series.
+
+Note you can usually ignore pre-existing issues. Exceptions are
+e.g. when the solution for the pre-existing issue will require
+a significant rework of the patch at hand or impact is drammatic.
+
+BTW I agree comments WRT problems still existing on siena are
+unrelated and should be addressed separately.
+
+> sfc: ptp: serialize host and MC synchronization transactions
 > 
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->  mm/gup.c      | 69 +++++++++++++++++++++++++++++++++++++++++++++++++++++------
->  mm/internal.h | 49 ++++++------------------------------------
->  2 files changed, 70 insertions(+), 48 deletions(-)
+> This adds a phc_lock mutex to struct efx_ptp_data. The mutex is held
+> across the whole efx_ptp_synchronize() transaction and around the PHC
+> adjfine/adjtime/settime operations, so the PPS worker and the hwtstamp
+> enable path no longer clobber each other's handshake flag and timesets.
+> It also bails out of efx_ptp_synchronize() when efx_mcdi_rpc_start()
+> fails.
 > 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 7d43ce717b246..49681f63950ec 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -633,6 +633,59 @@ static struct page *no_page_table(struct vm_area_struct *vma,
->  	return NULL;
->  }
->  
-> +unsigned long gup_unshared_pages(struct vm_area_struct *vma, unsigned int flags,
-> +				 struct folio *folio, struct page *page,
-> +				 unsigned long nr_pages)
+>> diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
+>> index 957ca08092e7f..e26269fae38d6 100644
+>> --- a/drivers/net/ethernet/sfc/ptp.c
+>> +++ b/drivers/net/ethernet/sfc/ptp.c
+> 
+> [ ... ]
+> 
+>> @@ -271,6 +272,8 @@ struct efx_ptp_rxfilter {
+>>    * frequency adjustment into a fixed point fractional nanosecond format.
+>>    * @current_adjfreq: Current ppb adjustment.
+>>    * @phc_clock: Pointer to registered phc device (if primary function)
+>> + * @phc_lock: Serializes PHC commands and synchronization, and protects
+>> + *	      @current_adjfreq
+> 
+> [Severity: Low]
+> Does this comment claim more coverage than the code gives? Two of the
+> callbacks in the PHC ops table don't take phc_lock. efx_phc_gettime()
+> (.gettime64) sends MC_CMD_PTP_OP_READ_NIC_TIME, and efx_phc_enable()
+> (.enable) flips nic_ts_enabled. A standalone clock_gettime() on the PHC
+> therefore runs without phc_lock.
+> 
+> Making the comment true by adding the lock to efx_phc_gettime() would
+> self-deadlock, because efx_phc_settime() now calls it with phc_lock
+> already held:
+> 
+> 	mutex_lock(&ptp_data->phc_lock);
+> 	rc = efx_phc_gettime(ptp, &time_now);
+> 
+> Nothing breaks today, since the MCDI interface lock already serializes
+> the RPCs. Could the comment instead list what phc_lock actually covers
+> (synchronize, adjfine, adjtime and settime)?
+You forgot to comment on this one. My reading is that this is just a
+slightly misleading comment.
 
-Two tab indent.
+/P
 
-
-This function should be static.
-
-As a prerequisite patch you should move gup_unshared_pages() into this file.
-
-$ git grep gup_must_unshare
-include/linux/rmap.h:    * gup_must_unshare().
-include/linux/rmap.h:    * gup_must_unshare().
-mm/gup.c:       if (!pud_write(pud) && gup_must_unshare(vma, flags, page))
-mm/gup.c:       if (!pmd_write(pmdval) && gup_must_unshare(vma, flags, page))
-mm/gup.c:       if (!pte_write(pte) && gup_must_unshare(vma, flags, page)) {
-mm/gup.c:               if (!pte_write(pte) && gup_must_unshare(NULL, flags, page)) {
-mm/gup.c:       if (!pmd_write(orig) && gup_must_unshare(NULL, flags, &folio->page)) {
-mm/gup.c:       if (!pud_write(orig) && gup_must_unshare(NULL, flags, &folio->page)) {
-mm/internal.h:static inline bool gup_must_unshare(struct vm_area_struct *vma,
-
-
-I'm not 100% happy about the function name due to the !folio_test_anon()+!FOLL_LONGTERM
-path, but cannot think of something better.
-
-> +{
-> +	unsigned int i;
-> +
-> +	/*
-> +	 * FOLL_WRITE is implicitly handled correctly as the page table entry
-> +	 * has to be writable -- and if it references (part of) an anonymous
-> +	 * folio, that part is required to be marked exclusive.
-> +	 */
-> +	if ((flags & (FOLL_WRITE | FOLL_PIN)) != FOLL_PIN)
-> +		return nr_pages;
-> +	/*
-> +	 * Note: PageAnon(page) is stable until the page is actually getting
-
-You are not calling PageAnon() anymore.
-
-/* folio_test_anon(folio) is stable until folio gets freed. */
-
-> +	 * freed.
-> +	 */
-> +	if (!folio_test_anon(folio)) {
-> +		/*
-> +		 * We only care about R/O long-term pining: R/O short-term
-> +		 * pinning does not have the semantics to observe successive
-> +		 * changes through the process page tables.
-> +		 */
-> +		if (!(flags & FOLL_LONGTERM))
-> +			return nr_pages;
-> +
-> +		/* We really need the vma ... */
-> +		if (!vma || vma_is_cow_mapping(vma))
-> +			return 0;
-> +
-> +		/*
-> +		 * ... because we only care about writable private ("COW")
-> +		 * mappings where we have to break COW early.
-> +		 */
-> +		return nr_pages;
-> +	}
-> +
-> +	/* Paired with a memory barrier in folio_try_share_anon_rmap_*(). */
-> +	if (IS_ENABLED(CONFIG_HAVE_GUP_FAST))
-> +		smp_rmb();
-> +
-> +	/*
-> +	 * Note that KSM pages cannot be exclusive, and consequently,
-> +	 * cannot get pinned.
-> +	 */
-> +	for (i = 0; i < nr_pages; i++) {
-> +		if (!PageAnonExclusive(page + i))
-> +			return i;
-> +	}
-> +
-> +	return nr_pages;
-> +}
-> +
->  #ifdef CONFIG_PGTABLE_HAS_HUGE_LEAVES
->  /* FOLL_FORCE can write to even unwritable PUDs in COW mappings. */
->  static inline bool can_follow_write_pud(pud_t pud, struct page *page,
-> @@ -668,7 +721,8 @@ static struct page *follow_huge_pud(struct vm_area_struct *vma,
->  	pfn += (addr & ~PUD_MASK) >> PAGE_SHIFT;
->  	page = pfn_to_page(pfn);
->  
-> -	if (!pud_write(pud) && gup_must_unshare(vma, flags, page))
-> +	if (!pud_write(pud) &&
-> +	    gup_must_unshare(vma, flags, page_folio(page), page))
->  		return ERR_PTR(-EMLINK);
-
-There is already another instance of page_folio(page) int his file. Use a local
-variable and have one folio lookup. (that's the whole reason for passing a folio)
-
->  
->  	ret = try_grab_folio(page_folio(page), 1, flags);
-> @@ -722,7 +776,8 @@ static struct page *follow_huge_pmd(struct vm_area_struct *vma,
->  	if (pmd_protnone(*pmd) && !gup_can_follow_protnone(vma, flags))
->  		return NULL;
->  
-> -	if (!pmd_write(pmdval) && gup_must_unshare(vma, flags, page))
-> +	if (!pmd_write(pmdval) &&
-> +	    gup_must_unshare(vma, flags, page_folio(page), page))
->  		return ERR_PTR(-EMLINK);
-
-Dito.
-
->  
->  	VM_WARN_ON_ONCE_PAGE((flags & FOLL_PIN) && PageAnon(page) &&
-> @@ -846,7 +901,7 @@ static struct page *follow_page_pte(struct vm_area_struct *vma,
->  	}
->  	folio = page_folio(page);
->  
-> -	if (!pte_write(pte) && gup_must_unshare(vma, flags, page)) {
-> +	if (!pte_write(pte) && gup_must_unshare(vma, flags, folio, page)) {
->  		page = ERR_PTR(-EMLINK);
->  		goto out;
->  	}
-> @@ -2892,7 +2947,7 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
->  			goto pte_unmap;
->  		}
->  
-> -		if (!pte_write(pte) && gup_must_unshare(NULL, flags, page)) {
-> +		if (!pte_write(pte) && gup_must_unshare(NULL, flags, folio, page)) {
->  			gup_put_folio(folio, 1, flags);
->  			goto pte_unmap;
->  		}
-> @@ -2969,7 +3024,8 @@ static unsigned long gup_fast_pmd_leaf(pmd_t orig, pmd_t *pmdp,
->  		gup_put_folio(folio, nr_pages, flags);
->  		return 0;
->  	}
-> -	if (!pmd_write(orig) && gup_must_unshare(NULL, flags, &folio->page)) {
-> +	if (!pmd_write(orig) &&
-> +	    gup_must_unshare(NULL, flags, folio, &folio->page)) {
-
-
-This only works because we don't have PMD mappings of things that are larger than PMDs.
-
-While at it, pass the proper page.
-
->  		gup_put_folio(folio, nr_pages, flags);
->  		return 0;
->  	}
-> @@ -3011,7 +3067,8 @@ static unsigned long gup_fast_pud_leaf(pud_t orig, pud_t *pudp,
->  		return 0;
->  	}
->  
-> -	if (!pud_write(orig) && gup_must_unshare(NULL, flags, &folio->page)) {
-> +	if (!pud_write(orig) &&
-> +	    gup_must_unshare(NULL, flags, folio, &folio->page)) {
-
-Dito.
-
->  		gup_put_folio(folio, nr_pages, flags);
->  		return 0;
->  	}
-> diff --git a/mm/internal.h b/mm/internal.h
-> index c53c369bf8b5d..35016b1afc8bf 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -1282,6 +1282,10 @@ int migrate_device_coherent_folio(struct folio *folio);
->  int __must_check try_grab_folio(struct folio *folio, int refs,
->  				unsigned int flags);
->  
-> +unsigned long gup_unshared_pages(struct vm_area_struct *vma, unsigned int flags,
-> +				 struct folio *folio, struct page *page,
-> +				 unsigned long nr_pages);
-> +
->  /*
->   * mm/huge_memory.c
->   */
-> @@ -1354,51 +1358,12 @@ enum {
->   * to fallback to the slow path just to lookup the vma.
->   */
->  static inline bool gup_must_unshare(struct vm_area_struct *vma,
-> -				    unsigned int flags, struct page *page)
-> +				    unsigned int flags,
-> +				    struct folio *folio, struct page *page)
-
-Whatever you touch, please also convert to two-tab indent.
-
--- 
-Cheers,
-
-David
