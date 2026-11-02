@@ -1,113 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793618908;
-	b=JI7JRQQhhr9T8q1dflfOMCceLazmHwJsrQiBYNyUiwUwIfTfb+LZUp3hPrQnFHlpaG8l
-	 1rTM2tMK32Fh/shw3g1BgVKdhpJ5m22Z9R7PbXoI8/xDYW6sM96g9zFLGBuhJDVH73IVB
-	 7Oemv/Uuh4rw1Dt+vSIUsLxGLkA7bxqwLNcUFZtg2hhys9dY374It1QkIhooj2yQVKFUb
-	 xwLeaCizCG9s75vqukE4xG/LpTZ43O716XfmOwOtk3ZGHu9PCOtrfDA31ss3gvAkMv3Vy
-	 rTIUv2I7SUREidERgd9DWmBWUlj44FI2qr6nWugypV37J3qLk3+HB88Fx0uIxV3JzXw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618908;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5UvgJnx1g3WxnrjcRxRKhgaM3Dpz7dx55IJm7gGXH1E=;
-	b=ZyYgRe442+YakQ9jCWTXOVq21CXcZF5LwYDL4xdwjQbKecfXTcj7z3dY5UJ4EPwVadjy
-	 Ce0zuGr2veckmRxG6CaGpGcTe0e4O9CRrS7xdufgcFL7FqIISYPhJrz+t+hMTm1SZ4J/F
-	 BSF7R1fESffx3Q/Avf18hIkeoalCE7NbmvYqfSLsmopBVl+web7Oy4fWuEVCSRXy/w9ua
-	 A9R5DXp1tTT7OTcMzDfLsl3rqoD12NvuKSBR2OepcWfRe/8gEjfv4wSbdTAa5t62AVFyG
-	 kowTbqOXBk2dJPKpI8JPuWDMY/VGPVHs0M450B1fvi7/X2ueCpTR0V5rRNvuD027Xcg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mG45urqq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.58
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012058.outbound.protection.outlook.com [52.101.43.58])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793618905;
+	b=hBUIYtB38yHDaaUKhvEy8vKZv0FohUmQAJqvW0EsR3c3VOBh8YE2DvkVmcqd0IGWRE4z
+	 74FKAUOPVSUJ4q9ajjAcVyhl4z5idUWwrAPJvf0+7+1+nFZhux+5/xtvT492xt1iSCTCd
+	 9tSyeoS5SM+y8lrvhQ4SFrzaD9aTTxfEwsTn7njuikH4iwMh7qLAl5/abHGeJxCjar7bC
+	 io1ND+8hS/g4gUOTfsGIBhYlRkECsJ7d4MP8A6CxClzxlaoo1qRqZf5Rqj3hAIGpofU4L
+	 0U4uZqWVwXhIIhw3jGhHP4wlZogq8J9maB7ggafiYnkzuPgRS5Q8hwXIocNZh8w9PJQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618905;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FzucKFRc/0FsGEtKvweQO1wEmVDqjPM+A+iwpDIaZJQ=;
+	b=gE3M1GLz7Llqe74yBJ/2trGxLZVl7nSf8sZnxqi1U8d2NEZyL42g0Q5mAqYmJSvoYNgk
+	 RfSymG/9sGTwXuOjhKfbEQJveCPScBR+HSGlW8D4qL3hQYvXKLZ253Q4m1Hn+3vqsj5fE
+	 dZeNRaw23Th5RBt/wrAYzAZuECqOoJbC052g3RrpFJyPyS/33w0z0jB+b/JZcYslW97PF
+	 epanD/6JGJlQjoXpFbAiVcRVHDW9iT3asWim7xIVifJ7p227Q9VfPTUiz9sHk1H0AJ4bl
+	 +ZkTei2mYEeVMaRUkk/lQ2lyIhexwFjHwOgVz6DcxcyiSKR4nsVdkAq9LJXbgFGkqug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vFkFVvXH;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3F360A260F;
-	Mon,  2 Nov 2026 11:28:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED3F360A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98B560A3813
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:28:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98B560A3813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mG45urqq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VhSGIj1y96MU8+0cK8A8H4q1CGxMC19kuDBIVJPonkFcMBFIV18/nbkAjzvX3reJliFMmaGgyzjoJzV54BKqi8ANf3R0NSHcowPHS0bnfoBwbhDPbaKQ1tM/RCpqCfr8q0MweTzIKdaloGz/dS+qKvJRbtM4dog2G+cZ2LmwLDckU/UcJlYZU7/xuMQXbjQE9LVtqMSO2sivCOqIFfIhXlAtN6V4PmBaLppf692V2OYIwdUDeISN0VI3eQ7WF4+hyJS/zG4ESIQIVAC7OL2HHLVtWeFOJb9gtoniSyEveha0vEIDCKgx9nZZGg/uC1wq5JDJH1fnO8fv5CFnG7KTBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5UvgJnx1g3WxnrjcRxRKhgaM3Dpz7dx55IJm7gGXH1E=;
- b=obBTvrRDuRS3uy2/YUd4n48h3315GDwvjg+1/4cNW3uqFwP+pGH8Qvrq47s2bEnPZ0dX6uibCMs/uzKZdGTAZyGph6k2g55RsXA3HaMbqNfu8/NaQNcfrcpZjo5oGj+8pBF3esYwP+kM6IawgWcxHZbryiyVrpRR9ZV+aFB+gtSEzHPtkz5e0qzaXkiC9rq7SXNJ4ax/VMogwHynita3jHsTV/blHxJCmvuSsw85KyrqwZda3hK747nPyVmpQ5Hv1Yvi7IRe5bkEgiIM1adZA5y+PJ1Nz5BmGiWCpl8Y+4gBANVEFcOpzzAGk8VX4DY249bxxhwO5s8pNVXS2vWOxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5UvgJnx1g3WxnrjcRxRKhgaM3Dpz7dx55IJm7gGXH1E=;
- b=mG45urqqxCcPrc2LzgeY2gR9DJfOOln1AdMuLlPrM2SywSpS+k3N7afRfmI4gjYcZxqlAhM+BgkqhMZVW0+s2I2cDcqdnXGIlbRiOd0/aLiKaMFf2Wd+yZUh8Ed0MovFDvxiFHn7jBgkVPaBigFI0ZQCZzyLjAXAm4u4rRTR63dxWWa81WmisFOoSFBK9LZ+bMLvUItGOE1Jj+Gk9sUdojLnCBTu/PUaBkEsiYcuzB2D7oDk88xLhlT8qOHiI13VjcOLWU1vTLCfKakiyrtgj5HY7/15SmcqynRPoA1VxWlkZvRKZcDd3L8HjqdPrzkHAwuoG+F4S5cmRIyAFMkTFA==
-Received: from BN9PR03CA0169.namprd03.prod.outlook.com (2603:10b6:408:f4::24)
- by DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 11:28:21 +0000
-Received: from BN2PEPF0000A893.namprd04.prod.outlook.com
- (2603:10b6:408:f4:cafe::2a) by BN9PR03CA0169.outlook.office365.com
- (2603:10b6:408:f4::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.11 via Frontend Transport; Mon, 2
- Nov 2026 11:28:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF0000A893.mail.protection.outlook.com (10.167.248.185) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 11:28:21 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
- 2026 03:28:06 -0800
-Received: from mmaddireddy-ubuntu.nvidia.com (10.126.230.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 03:28:00 -0800
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-To: <lpieralisi@kernel.org>, <kwilczynski@kernel.org>, <mani@kernel.org>,
-	<bhelgaas@google.com>, <linux-pci@vger.kernel.org>
-CC: <robh@kernel.org>, <thierry.reding@kernel.org>, <jonathanh@nvidia.com>,
-	<kishon@kernel.org>, <Frank.Li@kernel.org>, <vidyas@nvidia.com>,
-	<cassel@kernel.org>, <den@valinux.co.jp>, <marco.crivellari@suse.com>,
-	<andriy.shevchenko@linux.intel.com>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <mmaddireddy@nvidia.com>, Frank Li
-	<Frank.Li@nxp.com>
-Subject: [PATCH v3 05/10] PCI: tegra194: Check for 16 GT/s capability before programming
-Date: Mon, 2 Nov 2026 16:57:14 +0530
-Message-ID: <20261102112719.4022633-6-mmaddireddy@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261102112719.4022633-1-mmaddireddy@nvidia.com>
-References: <20261102112719.4022633-1-mmaddireddy@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vFkFVvXH
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so23660945e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:28:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793618903; x=1794223703; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FzucKFRc/0FsGEtKvweQO1wEmVDqjPM+A+iwpDIaZJQ=;
+        b=vFkFVvXHi0NlYuN6jVG30IWszK9gUAmUNh0/1hALC1T/quF1SbmqrGtCxB7YyixTOf
+         u291iALbYmhcwvQpFkAd3TSDdhLdu4ySRK3/wjwHQNT6SKdAMKppB/XlCeEwfePdVvUI
+         YQvNSf+5Wv+nINeL//seMqGlM5+iBQM49hQniBWAmKhKTBp8FiQJuo6I1Zt2CVLEYe3a
+         IxmSeiY5ZzUbu1v+B7TvxmAyA7exBSdjmr0metJIrqlWwufqs2lKBAU52PDM6d8IUjDh
+         ZKdVFsWH5+4aHp5touEE+HPj9Xi/dVR0dp+BSPF7O1ya0wvLVHK/qX2CdzSB4f9vnLVA
+         6xEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793618903; x=1794223703;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FzucKFRc/0FsGEtKvweQO1wEmVDqjPM+A+iwpDIaZJQ=;
+        b=TKEjQUIMnxRZtqXQTzBZweKDon8EAfsUIux6/fcVBGcJYBEfXp9SQe+yIYIB7BQ6GG
+         u3PNlKNCX133+bLXO6qxEdFnHQWvIyMfEASsGCj46kXDN4QSHGVtC3sCvWiUmSyR1DLd
+         0uCOWPxejYvi5fG8kpYlTCTzmvucYwna4Pom9TPlZZhvpyhl1P5ABxteNDWFRr39pJRv
+         blMfu/1kgZ0hbowxuk4yyJZ2Zyt2s82CkPxgX7pfIs2zE3Xq1LkpMazKeDfDCrv7acRX
+         q5FP7yYwzhJQiWXP+hPIbOgdn+f5o9YDFHld/igiJ0pLtT9sH30Ctcdg/FSSiT7MIcMv
+         zPqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzIhJ/xlh//Utg9NxyLG27wCv/uwLhFyTYbgq6ABOEwbi9aLvRu9KDYnHQ1fwkJkUDDiRGPnFaNUEqcD+4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8ClnrmmO5kqlYMbjTMeBabT7wCafFoHFU96XQPbRhqR3eOk+R
+	LSInKf9m7pO6omb35MCkCXgEev2egZeC8uZd1nIGMxRd6dOZkd3NCFBX
+X-Gm-Gg: AYBFou1UMuwI1sElvOW5dOMw1m1hyrB68vSYYmcfPI2WqXkDU14PZWF99axRnx/Oxtj
+	XOu/ik0XeBH+kGlBuHUJwunQoFvyThZzch2Rq1vpvtyF1YPNggHxTta4/0XXgmSF+MIgwwgl3hE
+	f/3YnFoc/B3Zwy8sItMCEW1Dg1XqDBn6+khkzUnPSSCr8cE6Azg/takM/UlwBIebi91Ct8Z83Ib
+	jgyA2vBOXUmj+NjKleNQ+psJmJGm8xJ9nqYOwsSdrgkSW3Er5akTKIP8bGNzKb+z0VJW/vnqF8Y
+	tlRE8EjBcyMc32Xdo9i7IMcYHMFvfdArFhcyZmGZfV8rYCmvpl28GRZB+GTxnHq3cqMGdO+qpcr
+	Dgk0YZp0C2ysI8MdxWPPBqiGDD9+yHaR7N1ht4/ItlGdORH0dgP2Xxg/pmW+POiHMWb7cAiih4F
+	gjTsLfdabf5fHV1B00NEa0LDq1H5OhL6Eg6cg1cYa1id9BKQOAxXaOt13gCtohXcqoxoy5C8ifD
+	vJTT0Rof7FBDAsCrvjD+ufypBcgi+S6HPyb8Mh3WXqR6/5R04V8sJ35Un/qGTVYf8FkCRA3BSen
+	18UTpnYNCOF3/n2shZF2JyF4d0RmP01+2WIz4l4llF/tLNOtUqWgQbM3mSyzDIh9hVE8wbLp+Fo
+	RClxaQFDxyrWUoO4iN3v/PFjgJxnkWggCpJZgo/emL7H4k0MiPl5o7dAfYzpImNV7d7Sxn1kDU4
+	n0pxWuZByXFRKeLQ1y4VK1qcbvTV5jMcG0xdgKaW4B8afh+Nv5huEq3w==
+X-Received: by 2002:a05:600d:e:b0:4ad:181a:4350 with SMTP id 5b1f17b1804b1-4ad181a44a0mr141947245e9.21.1793618903221;
+        Mon, 02 Nov 2026 03:28:23 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-f91d-46ab-c9c7-94fc.ipv6.o2.cz. [2a00:1028:8388:a84e:f91d:46ab:c9c7:94fc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab61d8b9f4sm311382215e9.12.2026.11.02.03.28.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 02 Nov 2026 03:28:22 -0800 (PST)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: netdev@vger.kernel.org
+Cc: marcin.s.wojtas@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	maxime.chevallier@bootlin.com,
+	w@1wt.eu,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net 3/3] net: mvneta: serve the TX queues in weighted round robin
+Date: Mon,  2 Nov 2026 12:28:16 +0100
+Message-ID: <20261102112816.12322-4-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261102112816.12322-1-pepe.schlehofer@gmail.com>
+References: <20261102112816.12322-1-pepe.schlehofer@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,95 +106,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A893:EE_|DS7PR12MB6071:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30f4790c-cb31-4868-92e0-08df38d4669b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|11063799006|56012099006|261009223027099003|261021123027099003|261021121427099003|261022075727099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	HnWiutA3j2i7GnKSo/mdzHFLJMrbx0eTphcEjp1GSEfKjx9iqnAgSVumm5UDEIYufAgraJ7gS5mm4ywyJ9Xp06uFAyqHBgh87MF+zACqX+dcWwWFiGO4GgirwuWh6fLBN1h77SZ5hU1KMgbNBgbBJY5DD447zaE0s5DdHpy206taiAf4uLJudkD9QMVJlAOCblF/9HU5Ql8JVnk93ENpeqTjRT1h6ETuG0XhGw4sb6rF2BQ64XyNEUHDsS4h2ZznDQMJkXMdkvcI+tAdiIEJaZ3RQcNubIA3s9sp4GqlFBFNIkSPNYSp3ICGD0dtTSCb6WVwy2wiDIV9FzSL4f/UeHMa/n7CK5Yz7G2Dil/QR/oWg4HkU2zaJmMXmt/wYS2fJKePxyaY1mhoj529uupzNVEu0T3isFEDn5ijBqipgc9MtqjDte3DzieFqf2sHW1OADnfuiZStZdFRRkVSsvPitqe/IICJYC1dPozgr1aDotf/+JFAOuFP3jWp4RToV7R8UNnj4LL+rmlOBUdIav95PzRuBkbSWKvv6AgEukbU3n1ev3KMWrs+SkUzZoLWF6bYaStcWJlLzK4odxrWdaz1R/kUP/OGviC7OOOd1lyw/5ZGnsbYyhghHHLvuOVX6E3vcrUyF+PupvqH9X8nzm1KVDhf8j07CyrN8PhzbeNaaVoZmNNu6rqZ9E9Bh/QpYXQSHGEQs7m9R+1q2FhW9rDHQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(11063799006)(56012099006)(261009223027099003)(261021123027099003)(261021121427099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ZMdRDFx0TskqO+5bBSfRrS6Ui418wmo9+M8GAvkmazt26aHf7NAC5iPkLlH6FZJR4M1z6tV5IFCZLDSBOBGEB5Fn7iGHxrYu1Xkg/voCuNQDf9r3RU5F4N0w4ocxwOgxwDWGJehhjcGM1rQxj8T2fEHZ8WuGbvw3EPbze7hF6LFzMJ4Wm+l8OdnX2aHQkdG57z3MhHMN5cCSV9Pdsl1EJxpalQnxPj30krynXtTr0UL61dCuMNUO4VGudry+zqo9hRn8tKMW7MZZ67BsZbIyXzZXLHOT3ZRPNwq7vEgga6RGxoRl72H4MyoG24DdSJe0x5YFkOABmWNQUXqqD4/joUFFe6CWHK7DMShiiqBU37wae/skil4O4FXS4Y4SKcU5f0MhXr7/aHwXu9u+0BbQ4XYXSTPaVVEDSSAT4Yd9lU5OO386RHFnSF6k7pgB2uaF
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:28:21.3895
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30f4790c-cb31-4868-92e0-08df38d4669b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A893.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6071
 
-config_gen3_gen4_eq_presets() added PCI_PL_16GT_LE_CTRL to the result of
-dw_pcie_find_ext_capability() without checking whether the 16 GT/s
-capability exists. If the capability is absent, the code writes lane
-presets at an unrelated configuration offset.
+Under load, some TX queues get no service at all. With four TCP streams
+on a 100 Mbit/s link, up to three streams sent nothing for 20 seconds.
 
-Look up the capability once before the lane loop and skip the 16 GT/s lane
-equivalent control programming when it is absent.
+The TX queue arbiter is left at its reset default, which serves all
+queues in fixed priority. The stack spreads the flows over the queues,
+so a busy queue starves the others.
 
-Fixes: 56e15a238d92 ("PCI: tegra: Add Tegra194 PCIe support")
-Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Give the TX queues the same WRR weight and clear the fixed priority.
+Like the Marvell reference driver, use the smallest weight that is
+larger than the largest packet.
+The mqprio offload never configured the TX scheduling, so its traffic
+classes lose the fixed priority of the reset default as well.
+
+Tested on a Turris Omnia (Armada 385). With this patch each busy TX
+queue gets an equal share of the link and no stream stalls.
+
+Fixes: ee40a116ebf1 ("net: mvneta: fix improper tx queue usage in mvneta_tx()")
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 ---
-Changes V2 -> V3: None apart from rebasing.
+ drivers/net/ethernet/marvell/mvneta.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-Changes V1 -> V2: None
-
- drivers/pci/controller/dwc/pcie-tegra194.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-index 0027c0adc7a1..4926fea2ee05 100644
---- a/drivers/pci/controller/dwc/pcie-tegra194.c
-+++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-@@ -841,7 +841,11 @@ static void tegra_pcie_enable_interrupts(struct dw_pcie_rp *pp)
- static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
- {
- 	struct dw_pcie *pci = &pcie->pci;
--	u32 val, offset, i;
-+	u32 pl16g, val, i;
-+
-+	pl16g = dw_pcie_find_ext_capability(pci, PCI_EXT_CAP_ID_PL_16GT);
-+	if (pl16g)
-+		pl16g += PCI_PL_16GT_LE_CTRL;
+diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
+index 79711a117c39..75d46349df37 100644
+--- a/drivers/net/ethernet/marvell/mvneta.c
++++ b/drivers/net/ethernet/marvell/mvneta.c
+@@ -253,6 +253,7 @@
+ #define MVNETA_TXQ_CMD1_REG			 0x3e00
+ #define      MVNETA_TXQ_CMD1_BW_LIM_SEL_V1	 BIT(3)
+ #define      MVNETA_TXQ_CMD1_BW_LIM_EN		 BIT(0)
++#define MVNETA_TXQ_FIXED_PRIO_REG		 0x3e04
+ #define MVNETA_REFILL_NUM_CLK_REG		 0x3e08
+ #define      MVNETA_REFILL_MAX_NUM_CLK		 0x0000ffff
+ #define MVNETA_TX_MTU                            0x3e0c
+@@ -264,6 +265,8 @@
+ #define      MVNETA_TXQ_BUCKET_REFILL_VALUE_MAX	 0x0007ffff
+ #define MVNETA_TXQ_TOKEN_SIZE_REG(q)             (0x3e40 + ((q) << 2))
+ #define      MVNETA_TXQ_TOKEN_SIZE_MAX           0x7fffffff
++#define MVNETA_TXQ_WRR_ARB_REG(q)		 (0x3e80 + ((q) << 2))
++#define      MVNETA_TXQ_WRR_WEIGHT_MASK		 0xff
  
- 	/* Program init preset */
- 	for (i = 0; i < pcie->num_lanes; i++) {
-@@ -852,15 +856,15 @@ static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
- 			     GEN3_GEN4_EQ_PRESET_INIT);
- 		dw_pcie_writew_dbi(pci, CAP_SPCIE_CAP_OFF + (i * 2), val);
- 
--		offset = dw_pcie_find_ext_capability(pci,
--						     PCI_EXT_CAP_ID_PL_16GT) +
--				PCI_PL_16GT_LE_CTRL;
--		val = dw_pcie_readb_dbi(pci, offset + i);
-+		if (!pl16g)
-+			continue;
-+
-+		val = dw_pcie_readb_dbi(pci, pl16g + i);
- 		FIELD_MODIFY(PCI_PL_16GT_LE_CTRL_DSP_TX_PRESET_MASK, &val,
- 			     GEN3_GEN4_EQ_PRESET_INIT);
- 		FIELD_MODIFY(PCI_PL_16GT_LE_CTRL_USP_TX_PRESET_MASK, &val,
- 			     GEN3_GEN4_EQ_PRESET_INIT);
--		dw_pcie_writeb_dbi(pci, offset + i, val);
-+		dw_pcie_writeb_dbi(pci, pl16g + i, val);
+ /* The values of the bucket refill base period and refill period are taken from
+  * the reference manual, and adds up to a base resolution of 10Kbps. This allows
+@@ -1629,6 +1632,24 @@ static void mvneta_txq_max_tx_size_set(struct mvneta_port *pp, int max_tx_size)
  	}
+ }
  
- 	val = dw_pcie_readl_dbi(pci, GEN3_CTRL);
++/* With the default fixed priority, a busy queue starves the others */
++static void mvneta_txq_wrr_set(struct mvneta_port *pp, int max_tx_size)
++{
++	/* In units of 256 bytes, must exceed the largest packet */
++	u32 weight = max_tx_size / 256 + 1;
++	int queue;
++	u32 val;
++
++	for (queue = 0; queue < txq_number; queue++) {
++		val = mvreg_read(pp, MVNETA_TXQ_WRR_ARB_REG(queue));
++		val &= ~MVNETA_TXQ_WRR_WEIGHT_MASK;
++		val |= weight;
++		mvreg_write(pp, MVNETA_TXQ_WRR_ARB_REG(queue), val);
++	}
++
++	mvreg_write(pp, MVNETA_TXQ_FIXED_PRIO_REG, 0);
++}
++
+ /* Set unicast address */
+ static void mvneta_set_ucast_addr(struct mvneta_port *pp, u8 last_nibble,
+ 				  int queue)
+@@ -3760,6 +3781,7 @@ static void mvneta_start_dev(struct mvneta_port *pp)
+ 
+ 	mvneta_max_rx_size_set(pp, pp->pkt_size);
+ 	mvneta_txq_max_tx_size_set(pp, pp->pkt_size);
++	mvneta_txq_wrr_set(pp, pp->pkt_size);
+ 
+ 	/* start the Rx/Tx activity */
+ 	mvneta_port_enable(pp);
 -- 
-2.34.1
+2.54.0 (Apple Git-157)
 
