@@ -1,67 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608298;
-	b=Xcs90UwQHn4TlbwcQNpZtVrrskzkrcz4AYN9W3p21C7Bwcc2XSdpXBvIV9yjZibrbsyT
-	 U4FLDpjeMEjG2+iGAqVXFtbyE735NFaRISsgBAA7W+rjQYPw3CNm/1t9kZWSSv+UznB+5
-	 6W+u4Cv7JEls3x9nHUDPMcl85dJZk87VDabQFSMofqI8aXdWytHip3+2j0VX7sNmJuS0w
-	 kRsARr9mh4uegfjkoOViZ9N50qiVW6hzxo7LSxBXtGfbGpN53oeN9mcHLUiaVVkiGgEVr
-	 fJU/ZMPJu8D6Ol80HSH9JxZReLngSGKkjAYDJtf5cAg+NnY2lM+MGQdjWHklU221nFA==
+	t=1793608293;
+	b=uVlx+bmKc+dZUfA9a6dTdXx25ketEc1vMuw7NLih56Gr/Z/Mf2cEKm4sgr/6+O+VbiU8
+	 bucm7gwscKgLmxse5Jcbq0Zsygr4IdI2prTJtj2+MrCKcyi/9a5P3a3KfJxfo5PaWM7+g
+	 PWybme6qjNSQL/4xs4CYNyzlsRhZwb0tn/Q6EduQ2pOyHS8F5PuUOOrzUAchkDJYrl5Ee
+	 PrjBYU/c2f+DGVVTJAbVCy2tkgDeYvOCuYKfmRl/o6GUxO2snW544Zcv3vnYu87igiLKh
+	 DZ9Cv3WmZe21H9n8x2q5rbAnDP8nI4e6nbk15vOh7rsC2Btx0NFK5qQlgosdUujSrCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608298;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:
-	 X-Zmail-LocalSMTP:X-Zmail-RealSender:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-ZMAIL-USEORIGINALEMLTOOUTBOUND:Content-Transfer-Encoding:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=5BmDnZukl6XTD6FDjqjao8Nbmw5xmn8qfWV5l5vHd8w=;
-	b=XV/jKDtMaFK3/IIiBACLQHsXG9wr6KjULBp2fE6V0cyk+PbTmYtKTBACTOLWdkXnzFiV
-	 I32B36fmk5eP3zT4Yzh8r8l9+SgOCqphpnEk0LDvbiEqe8PlJRi3HyuDB47Rbcdbut+bH
-	 yLtsaCYHqJiOmTMrF2i5ggWSQjAUwBa3m2SdwW48fY327jDEC1WnUaFJYyD61kYeHtdB4
-	 IJoVL0RsBl1/0XjPg9cmNy0jdhRDjHT3JbZyr6fPrTOa2Q9p0kfbXtxnuDP4oMXRkNfb0
-	 62FMpsABD0oz3KCNRy+R+sRQREBpiFJreybuhs0k1x8eXS5YR4IM9OGeLznCXqcScSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608293;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=sl/C0ue7XKBR5JLbZ/3q4Bcos5iFaHn+Kv1/3l6xjqY=;
+	b=bSqhSxuquz1MIoqpyU97FGSYe1QuGxQLm+aJYtVVQ7qKxuiAi9fIHS8kekTe3qaYswPn
+	 bjzK9m0OwchlA7rq3i9QV5YR5gFHzRuo94/AyQVJ3iAq5VfMFwmJuCWqRd4tLBTtytSYd
+	 yZbPYOEySnA+TUvPqLVcPPd2lWQ2UIRK5y0FpJBaAA57CItsY0NRUEFGPEvTVOy3Nv4Kd
+	 MmHy8oSdZiQiavEKdhdvRiNt0hMxp1G+aE/slYBVUmXn6zNgqycvZlR+a9avyQeVuMqcT
+	 c5RiJyn/PdCsbLpg8/qKbj/1SHzC84PRWR9Y307+ZGacxxhLNMROUoteh0RVsxmHirg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kKMtXU4Q;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=haXUhwS0;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF82606A33B;
-	Mon,  2 Nov 2026 08:31:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF82606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJ4gB3Tkvz5B0rj;
-	Mon, 02 Nov 2026 16:31:34 +0800 (CST)
-Received: from szxl2zmapp07.zte.com.cn ([10.1.32.52])
-	by mse-fl2.zte.com.cn with SMTP id 6A28VGWn034529;
-	Mon, 2 Nov 2026 16:31:16 +0800 (+08)
-	(envelope-from zhang.yanze@zte.com.cn)
-Received: from localhost.localdomain (unknown [192.168.6.15])
-	by smtp (Zmail) with SMTP;
-	Mon, 2 Nov 2026 16:31:18 +0800
-X-Zmail-TransId: 3e816ae84a56028-fc64b
-X-Zmail-LocalSMTP: 1
-X-Zmail-RealSender: zhang.yanze@zte.com.cn
-From: Yanze Zhang <zhang.yanze@zte.com.cn>
-To: jgg@ziepe.ca, leon@kernel.org, julianbraha@gmail.com,
-        huangjunxian6@hisilicon.com, yanjun.zhu@linux.dev,
-        Markus.Elfring@web.de
-Cc: lkp@intel.com, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
-        wei.quan@zte.com.cn, han.junyang@zte.com.cn, ran.ming@zte.com.cn,
-        han.chengfei@zte.com.cn, zhang.yanze@zte.com.cn
-Subject: [PATCH rdma v8 7/7] RDMA/zrdma: Implement context, PD, and mmap operations
-Date: Mon,  2 Nov 2026 16:20:26 +0800
-Message-ID: <20261102082026.2645777-8-zhang.yanze@zte.com.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102082026.2645777-1-zhang.yanze@zte.com.cn>
-References: <20261102082026.2645777-1-zhang.yanze@zte.com.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9D3606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:31:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D9D3606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kKMtXU4Q;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=haXUhwS0
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A26pgcZ3121054
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 08:31:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sl/C0ue7XKBR5JLbZ/3q4Bcos5iFaHn+Kv1/3l6xjqY=; b=kKMtXU4QPRmZmwTs
+	8yi9pLSXsl4/YLmX1A6kg2U6IKKBVqC+B9bNiJ2G3N3Y/+aexXEXSgjTO1cJNBqT
+	gkEG8SdOhLKWmhEuK2mz5k05SrtSTbCvdODmN/2Le3oWWEgJIq88iCMlmyD403I5
+	xm2RPm68r9Hs29soP0GQgM2Xgk9I7qJcSfXaqOZesfo32VxGgRAt8e2LQIIlJshf
+	D/3xRT1KKGdUaCv9JCuYcrLHAvHDRxV5dj/G123eKmp0SGOTnzRwsLM1Kc8NWYtj
+	1FdXcgyqYMqsUxlDblBW3Antk1IpA4lIedUQP9xwQoUZa+jX3aNyk1VgCsWslwSH
+	BROLug==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpnmerbuf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:31:31 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a08903566dso2724418b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:31:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793608290; x=1794213090; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sl/C0ue7XKBR5JLbZ/3q4Bcos5iFaHn+Kv1/3l6xjqY=;
+        b=haXUhwS0BdPJmZ0kE6ygB2NDAUDzbDqmhPZSJZUjIsG59fTSI5/dQB5qD3czhiliyX
+         ABTd7VCE8NzBCKdIxKtjFkudJ+Nq3mk+P53EbSlPGOnl+D9t3wYBPZoKq9tLvEGNTuip
+         YWK2Ve+sQQaEo85g2pvemxPPOy+asuZE/R6kc4t9lpmZfVFawez6UHpxrEopWIVCmnUM
+         idGeTJxgA1e4+NPBgRmjEThXAgQqxU4I0vhKZ5VDvC1btTFX4lqTa3FCNoozDRqlRSu6
+         /7C6p+aj2BrS59Lcq1ADliwLJNLfnRYProT+qbFN9HZs36yrNeT4fcODR6PKUVUFGFJ7
+         Q6yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793608290; x=1794213090;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sl/C0ue7XKBR5JLbZ/3q4Bcos5iFaHn+Kv1/3l6xjqY=;
+        b=cAax+kcyI/Luo8w8QO05ydeNvzgpiVabyaNBrmkAV8T4tkJ3YpQKahgrnnJTzLd1LH
+         IU8yeCHhqKmB4Zr4tTzOQJAt1JvIa6VdI0m+x3NYP4TKKrvo5pbI1KvriekwIforv4uI
+         fSKriRauf7bQL+7+h7tegW2nu4HVTygHu+bFr9lV92cdortnOon/shX+VPr2dN0wfbXl
+         k1xQvQ5j0mtHZVj+CUwOOBrY7Fu99I4pkrI0UKTKd1mVADEtlTjvuLjq9LXYXn+ZXwRI
+         kXBmxwNTJ9PHP4/R3yAZMZgXnT5Ga6CY5aQWFgrxxKrRMInQEhRC5AHGbCRsiVEhFlyZ
+         o2Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbDNeOKcfDJeJSC4lzVL6+stBX4OWVW95GBP5AE9g+I+kP0JweSMxQiynnratZBLbq9uD2tbxtJBiF+hc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8iGc5lkzz7zZkC+4B5zuEi70U3JNWt9xkOkDHujb+G+tmxj7J7
+	zHPyal+NdDO+1pTuxMHWKoewR7mJ824QcUKcOr/19PsqgXylutwGqbVEkCl2hGyy5Y2QCEpDc0q
+	dINWtqRqMZdThiHitOtL6X0dn0M7hEAWiD1tFfiXwnZ4s+MfD3gV6dadPAPRCSW5AYBo=
+X-Gm-Gg: AYBFou17p47XOZusQ/jyVXHuUvhoR6QFCqzWuSH7Ndh9mOXkeZ/mTILmr/A75EYtJH5
+	ulQ81pB0FiCZW/PDpaUekOHqGO4MhTy0nuCGX2qfyhCj+AAMV+gM0ZC3+1U4vpNaacbuyr9z1EG
+	J9VINBbDVC8QAI1bbSngR+HWpWvEGHyid9k2gcZvlnbyugY4MnOWdPXcCLBwQfvLJ9vx+L5krTe
+	n6iEcOe8oMoIh6thXw8FoWDIjV2/njO3mgq63M72hmdjNpGGgiHR7XLwjjt+Yt8wHbofJBcWKbA
+	aBDokOfPN4cbiGvj5Ypcyjw/LaW01eatvDq9XhY7a9SwhuS2xl9kuQzweX1ljPLTj8bkhYb71EZ
+	PaCUyJ/EwtPblSxYnTUSSy8QozzQAR8CabQ9LDTNcSnhLwioiyNb0roukw5xP8NdoQ0uPh0MR/w
+	9gYY9p3g==
+X-Received: by 2002:a05:6a00:2e24:b0:8a0:3d98:6901 with SMTP id d2e1a72fcca58-8a8317dd9b0mr7526915b3a.16.1793608290173;
+        Mon, 02 Nov 2026 00:31:30 -0800 (PST)
+X-Received: by 2002:a05:6a00:2e24:b0:8a0:3d98:6901 with SMTP id d2e1a72fcca58-8a8317dd9b0mr7526892b3a.16.1793608289571;
+        Mon, 02 Nov 2026 00:31:29 -0800 (PST)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d03be0sm1674680b3a.27.2026.11.02.00.31.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 00:31:29 -0800 (PST)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Date: Mon, 02 Nov 2026 14:01:03 +0530
+Subject: [PATCH v7 2/3] misc: fastrpc: move ADSP duplicate session creation
+ to the driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,386 +117,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZMAIL-USEORIGINALEMLTOOUTBOUND: 1
-Content-Transfer-Encoding: 8bit
-X-MAIL:mse-fl2.zte.com.cn 6A28VGWn034529
-X-TLS: YES
-X-ENVELOPE-SENDER: zhang.yanze@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Mon, 02 Nov 2026 16:31:34 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE84A66.000/4jJ4gB3Tkvz5B0rj
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-dup-sessions-v7-2-03f06c014e78@oss.qualcomm.com>
+References: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
+In-Reply-To: <20261102-dup-sessions-v7-0-03f06c014e78@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Amol Maheshwari <amahesh@qti.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        devicetree@vger.kernel.org,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793608273; l=3389;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=GzcRHbNO2LaB8PuGTjCYn9dNPlPk5e9cggwn9DNEpK0=;
+ b=yg1+cd5W5+ps5gLLwfz1IOCzeKnefgGcJpN8uae6dE3CkNoxSlHbgaZ8tfUKjoBUh/R5+Xpyw
+ zITO6NzG3Y6CDPt2wrqK+XTiILEQ5FQ3hr3OU8hYTcSYkoz5mA4pkcp
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Authority-Analysis: v=2.4 cv=KZ1HIgYD c=1 sm=1 tr=0 ts=6ae84a63 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=_Cnv2d4ds2Bg63dH_xgA:9 a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19
+ a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzMyBTYWx0ZWRfX8EULEJm7fOnE
+ 78h2sRFHLGfn5DfvHNLTECt+Xb0iui5uMpHQHiWFCNr1MdSB/HhbI6ZK4Mg+No91eT33FkkpN0k
+ AVVAjp6Uoe5J8RWaUD1UEAIwoyNbYpZfSUvDmtuStSIr3JIVhMqpNqQ1YnhI33kNuBaCGzUSj8g
+ EvTppoMhtXGe493D69ie7J48Bq/M8u41iW4miX1Haq2Xxh2BWuail5xWCBe8KuV/VR4o5SwiGEu
+ woJcYivcP6WltQVZxiohZeC0PKMIUNTwfEkriWVjo5G1UDTvGQRKv3OvAIcO/hWBOC1s6YJVDxU
+ 3nQjf8+gESatIdHPT6wT7f/FmzR82osHofT73YtnEqRzfPAp+TRCwKeQWzw0PmnAHmNR3jc9Zzm
+ BUpY6G4Oj6ONW8ufSf8tF07CjwDiOXZ94llRNSMVd/pCwazeGtC2LPBwjmawin78AWocKU59XKx
+ VLGROLyj6E9jzVIsvcw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzMyBTYWx0ZWRfXw4nbvG3uvQ+r
+ 8zDJp/SB6VkJ+SJPe43ff/5qN4E4RrwezOhh9++z47Gyg5sfyb+3k65hgUnNoJIEFz2NUgzY17x
+ fVUAPfQs9k9cyfBfZ4K31hIEiI3vcfA=
+X-Proofpoint-ORIG-GUID: LS8huuTdfKWwV631lds9Tw2fzuGiI6dj
+X-Proofpoint-GUID: LS8huuTdfKWwV631lds9Tw2fzuGiI6dj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020033
 
-Add implementation for allocation/deallocation of Protection Domains (PD),
-User Contexts, and memory mapping (mmap) for doorbells.
+For ADSP, only a limited number of FastRPC context banks (CBs) are
+available. Each CB supports a single session, which means only a few
+processes can run on ADSP simultaneously. If all sessions are consumed
+by fastrpc daemons, no session remains available when a user application
+starts, causing the application to fail.
 
-The SRQ doorbell area is not page aligned on 16K and 64K page systems, so
-the mapping length is extended to the page boundary and the size
-reported to userspace is the very same length. The V1 and V2 contexts do
-not know the size of the SRQ doorbell area, so only the first page is
-mapped for them.
+To work around this, qcom,nsessions = <5> was set in DT to duplicate
+sessions inline during fastrpc_cb_init(). This policy does not belong
+in DT and should be handled at the driver level instead.
 
-Signed-off-by: Yanze Zhang <zhang.yanze@zte.com.cn>
+Remove the qcom,nsessions DT property read and the per-CB duplication
+logic from fastrpc_cb_init(). After all context banks have been
+initialised in fastrpc_rpmsg_probe(), append FASTRPC_DUP_SESSIONS (4)
+copies of the last successfully initialised session for the ADSP
+domain.
+
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 ---
- drivers/infiniband/hw/zrdma/zrdma_verbs.c | 329 ++++++++++++++++++++++
- 1 file changed, 329 insertions(+)
+ drivers/misc/fastrpc.c | 33 +++++++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/infiniband/hw/zrdma/zrdma_verbs.c b/drivers/infiniband/hw/zrdma/zrdma_verbs.c
-index 821ccbc2054ea..239d607f7d182 100644
---- a/drivers/infiniband/hw/zrdma/zrdma_verbs.c
-+++ b/drivers/infiniband/hw/zrdma/zrdma_verbs.c
-@@ -10,6 +10,7 @@
- #include <linux/ctype.h>
- #include <linux/etherdevice.h>
- #include <linux/rtnetlink.h>
-+#include <rdma/ib_user_verbs.h>
- 
- /* Release everything the probe path may have allocated. The hook is
-  * called from ib_dealloc_device(), so it must tolerate a partially
-@@ -392,15 +393,343 @@ int zxdh_ib_register_device(struct zxdh_device *zdev)
- 	return ret;
- }
- 
-+static void zxdh_sc_pd_init(struct zxdh_sc_dev *dev, struct zxdh_sc_pd *pd,
-+			    u32 pd_id, int abi_ver)
-+{
-+	pd->pd_id = pd_id;
-+	pd->abi_ver = abi_ver;
-+	pd->dev = dev;
-+}
-+
-+static int zxdh_alloc_pd(struct ib_pd *pd, struct ib_udata *udata)
-+{
-+	struct zxdh_device *zdev = to_zdev(pd->device);
-+	struct zxdh_sc_dev *dev = &zdev->rf->sc_dev;
-+	struct zxdh_alloc_pd_resp uresp = {};
-+	struct zxdh_pd *zpd = to_zpd(pd);
-+	struct zxdh_pci_f *rf = zdev->rf;
-+	struct zxdh_sc_pd *sc_pd;
-+	u32 pd_id;
-+	int err;
-+
-+	/* The user has to provide a buffer for the whole response. A short
-+	 * buffer is reported instead of being silently truncated, and no
-+	 * resource is taken for it.
-+	 */
-+	if (udata && udata->outlen < sizeof(uresp))
-+		return -ENOSPC;
-+
-+	err = zxdh_alloc_rsrc(rf, rf->allocated_pds, rf->max_pd, &pd_id,
-+			      &rf->next_pd, "PD");
-+	if (err) {
-+		pr_warn_ratelimited("zrdma: PD allocation failed err=%d\n",
-+				    err);
-+		return err;
-+	}
-+
-+	sc_pd = &zpd->sc_pd;
-+	if (udata) {
-+		struct zxdh_ucontext *ucontext;
-+
-+		ucontext = rdma_udata_to_drv_context(udata,
-+						     struct zxdh_ucontext,
-+						     ibucontext);
-+
-+		zxdh_sc_pd_init(dev, sc_pd, pd_id, ucontext->abi_ver);
-+		uresp.pd_id = pd_id;
-+		if (ib_copy_to_udata(udata, &uresp, sizeof(uresp))) {
-+			err = -EFAULT;
-+			goto error;
-+		}
-+	} else {
-+		/* A protection domain that the kernel allocates has no user
-+		 * context, it uses the default ABI version.
-+		 */
-+		zxdh_sc_pd_init(dev, sc_pd, pd_id, ZXDH_ABI_VER);
-+	}
-+
-+	return 0;
-+
-+error:
-+	zxdh_free_rsrc(rf, rf->allocated_pds, pd_id);
-+
-+	return err;
-+}
-+
-+static struct rdma_user_mmap_entry *
-+zxdh_mmap_entry_insert(struct zxdh_ucontext *ucontext, u64 bar_offset,
-+		       size_t length, enum zxdh_mmap_flag mmap_flag,
-+		       u64 *mmap_offset)
-+{
-+	struct zxdh_user_mmap_entry *entry =
-+		kzalloc(sizeof(*entry), GFP_KERNEL);
-+	int ret;
-+
-+	if (!entry)
-+		return NULL;
-+
-+	entry->bar_offset = bar_offset;
-+	entry->mmap_flag = mmap_flag;
-+
-+	ret = rdma_user_mmap_entry_insert(&ucontext->ibucontext,
-+					  &entry->rdma_entry, length);
-+	if (ret) {
-+		kfree(entry);
-+		return NULL;
-+	}
-+	*mmap_offset = rdma_user_mmap_get_offset(&entry->rdma_entry);
-+
-+	return &entry->rdma_entry;
-+}
-+
-+/* The SRQ doorbell area starts at SRQ_DB_BAR_OFF, which is not page
-+ * aligned once the page size is 16K or 64K. The mapping therefore has to
-+ * start at the page holding the doorbell and has to be large enough to
-+ * cover the whole doorbell area.
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 7441e9b8940d..b4be0ee2bc18 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -35,6 +35,11 @@
+ #define CDSP_DOMAIN_ID (3)
+ #define GDSP_DOMAIN_ID (4)
+ #define FASTRPC_MAX_SESSIONS	14
++/*
++ * Extra ADSP sessions duplicated from the last CB, as each CB supports
++ * only one session.
 + */
-+static u64 zxdh_get_srq_db_mmap_size(void)
-+{
-+	return round_up((SRQ_DB_BAR_OFF & ZXDH_PAGE_OFFSET_NUM) +
-+			SRQ_DB_MMAP_SIZE, PAGE_SIZE);
-+}
++#define FASTRPC_DUP_SESSIONS	4
+ #define FASTRPC_MAX_VMIDS	16
+ #define FASTRPC_ALIGN		128
+ #define FASTRPC_MAX_FDLIST	16
+@@ -2339,7 +2344,6 @@ static int fastrpc_cb_init(struct platform_device *pdev)
+ 	struct fastrpc_channel_ctx *cctx;
+ 	struct fastrpc_session_ctx *sess;
+ 	struct device *dev = &pdev->dev;
+-	int i, sessions = 0;
+ 	unsigned long flags;
+ 	u32 dma_bits;
+ 	u32 sid = 0;
+@@ -2349,7 +2353,6 @@ static int fastrpc_cb_init(struct platform_device *pdev)
+ 	if (!cctx)
+ 		return -EINVAL;
+ 
+-	of_property_read_u32(dev->of_node, "qcom,nsessions", &sessions);
+ 	if (of_property_read_u32(dev->of_node, "reg", &sid))
+ 		dev_info(dev, "FastRPC Session ID not specified in DT\n");
+ 
+@@ -2369,16 +2372,6 @@ static int fastrpc_cb_init(struct platform_device *pdev)
+ 	if (cctx->domain_id == CDSP_DOMAIN_ID)
+ 		dma_bits = cctx->soc_data->dma_addr_bits_cdsp;
+ 
+-	if (sessions > 0) {
+-		struct fastrpc_session_ctx *dup_sess;
+-
+-		for (i = 1; i < sessions; i++) {
+-			if (cctx->sesscount >= FASTRPC_MAX_SESSIONS)
+-				break;
+-			dup_sess = &cctx->session[cctx->sesscount++];
+-			memcpy(dup_sess, sess, sizeof(*dup_sess));
+-		}
+-	}
+ 	spin_unlock_irqrestore(&cctx->lock, flags);
+ 	rc = dma_set_mask(dev, DMA_BIT_MASK(dma_bits));
+ 	if (rc) {
+@@ -2681,6 +2674,22 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 	if (err)
+ 		goto err_deregister_fdev;
+ 
++	if (data->domain_id == ADSP_DOMAIN_ID && data->sesscount > 0) {
++		struct fastrpc_session_ctx *last_sess;
++		struct fastrpc_session_ctx *dup_sess;
++		unsigned long flags;
 +
-+static int zxdh_alloc_ucontext(struct ib_ucontext *uctx, struct ib_udata *udata)
-+{
-+	struct zxdh_ucontext *ucontext = to_ucontext(uctx);
-+	struct zxdh_alloc_ucontext_resp uresp = {};
-+	struct ib_device *ibdev = uctx->device;
-+	struct zxdh_device *zdev = to_zdev(ibdev);
-+	struct zxdh_alloc_ucontext_req req = {};
-+	u64 srq_db_mmap_size;
-+
-+	if (ib_copy_from_udata(&req, udata, min(sizeof(req), udata->inlen)))
-+		return -EINVAL;
-+
-+	if (req.userspace_ver != ZXDH_CONTEXT_VER_V1 &&
-+	    req.userspace_ver != ZXDH_CONTEXT_VER_V2 &&
-+	    req.userspace_ver != ZXDH_CONTEXT_VER_V3) {
-+		pr_err("zrdma: Invalid userspace_ver%d\n", req.userspace_ver);
-+		return -EINVAL;
++		spin_lock_irqsave(&data->lock, flags);
++		last_sess = &data->session[data->sesscount - 1];
++		for (i = 0; i < FASTRPC_DUP_SESSIONS; i++) {
++			if (data->sesscount >= FASTRPC_MAX_SESSIONS)
++				break;
++			dup_sess = &data->session[data->sesscount++];
++			memcpy(dup_sess, last_sess, sizeof(*dup_sess));
++		}
++		spin_unlock_irqrestore(&data->lock, flags);
 +	}
 +
-+	/* The response carries the keys of the doorbell mappings, so the
-+	 * user has to provide a buffer for the whole of it. A short buffer
-+	 * is reported instead of being silently truncated.
-+	 */
-+	if (udata->outlen < sizeof(uresp))
-+		return -ENOSPC;
-+
-+	ucontext->zdev = zdev;
-+	ucontext->abi_ver = req.userspace_ver;
-+
-+	uresp.srq_db_bar_off = SRQ_DB_BAR_OFF & ZXDH_PAGE_OFFSET_NUM;
-+
-+	ucontext->sq_db_mmap_entry =
-+		zxdh_mmap_entry_insert(ucontext, SQ_DB_BAR_OFF, PAGE_SIZE,
-+				       ZXDH_MMAP_IO_NC,
-+				       &uresp.sq_db_mmap_key);
-+	if (!ucontext->sq_db_mmap_entry)
-+		return -ENOMEM;
-+
-+	ucontext->cq_db_mmap_entry =
-+		zxdh_mmap_entry_insert(ucontext, CQ_DB_BAR_OFF, PAGE_SIZE,
-+				       ZXDH_MMAP_IO_NC,
-+				       &uresp.cq_db_mmap_key);
-+	if (!ucontext->cq_db_mmap_entry) {
-+		rdma_user_mmap_entry_remove(ucontext->sq_db_mmap_entry);
-+		ucontext->sq_db_mmap_entry = NULL;
-+		return -ENOMEM;
-+	}
-+
-+	/* The mapping length and the size reported to userspace have to
-+	 * match, otherwise rdma_user_mmap_entry_get() rejects the mmap.
-+	 *
-+	 * The V1 and V2 contexts do not know the size of the SRQ doorbell
-+	 * area, so only the first page is mapped for them. The V3 context
-+	 * gets the size of the whole area in the response.
-+	 */
-+	if (ucontext->abi_ver == ZXDH_CONTEXT_VER_V1 ||
-+	    ucontext->abi_ver == ZXDH_CONTEXT_VER_V2)
-+		srq_db_mmap_size = PAGE_SIZE;
-+	else
-+		srq_db_mmap_size = zxdh_get_srq_db_mmap_size();
-+
-+	ucontext->srq_db_mmap_entry =
-+		zxdh_mmap_entry_insert(ucontext, SRQ_DB_BAR_OFF,
-+				       srq_db_mmap_size,
-+				       ZXDH_MMAP_IO_NC_BY_SIZE,
-+				       &uresp.srq_db_mmap_key);
-+	if (!ucontext->srq_db_mmap_entry) {
-+		rdma_user_mmap_entry_remove(ucontext->sq_db_mmap_entry);
-+		ucontext->sq_db_mmap_entry = NULL;
-+		rdma_user_mmap_entry_remove(ucontext->cq_db_mmap_entry);
-+		ucontext->cq_db_mmap_entry = NULL;
-+		pr_err("zrdma: srq_db_mmap_entry is NULL!\n");
-+		return -ENOMEM;
-+	}
-+
-+	uresp.srq_db_mmap_size = srq_db_mmap_size;
-+	uresp.kernel_ver = ZXDH_CONTEXT_VER_V3;
-+	uresp.hw_rev = ZXDH_GEN_2;
-+	uresp.chip_rev = CHIP_VERSION;
-+	uresp.rdma_tool_flags =
-+		ZXDH_QP_EXTEND_OP | ZXDH_CAPTURE | ZXDH_GET_HW_DATA |
-+		ZXDH_GET_HW_OBJECT_DATA | ZXDH_CHECK_HW_HEALTH |
-+		ZXDH_RDMA_TOOL_CFG_DEV_PARAM | ZXDH_RDMA_TOOL_READ_RAM |
-+		ZXDH_RDMA_TOOL_DEVX_MODIFY_CQ | ZXDH_RDMA_SET_CREDIT_CAP |
-+		ZXDH_RDMA_SWITCH | ZXDH_RDMA_TOOL_DEVX_EXT_MEM |
-+		ZXDH_RDMA_TOOL_PRIV_EXT |
-+		ZXDH_RDMA_TOOL_IOVA_CAP;
-+
-+	uresp.feature_flags = ZXDH_FEATURE_RTS_AE | ZXDH_FEATURE_CQ_RESIZE |
-+			      ZXDH_FEATURE_64_BYTE_CQE;
-+	uresp.max_hw_wq_frags = MAX_HW_WQ_FRAGS;
-+	uresp.max_hw_read_sges = MAX_HW_READ_SGES;
-+	uresp.max_hw_inline = MAX_HW_INLINE;
-+	uresp.max_hw_srq_wr = MAX_HW_SRQ_WR;
-+	uresp.max_hw_rq_quanta = MAX_HW_RQ_QUANTA;
-+	uresp.max_hw_srq_quanta = MAX_HW_SRQ_QUANTA;
-+	uresp.max_hw_wq_quanta = MAX_HW_WQ_QUANTA;
-+	uresp.max_hw_sq_chunk = MAX_HW_SQ_CHUNK;
-+	uresp.max_hw_cq_size = MAX_HW_CQ_SIZE;
-+	uresp.min_hw_cq_size = MIN_HW_CQ_SIZE;
-+	uresp.db_addr_type = ZXDH_DB_ADDR_BAR;
-+	uresp.sq_db_bar_off = SQ_DB_BAR_OFF & ZXDH_PAGE_OFFSET_NUM;
-+	uresp.cq_db_bar_off = CQ_DB_BAR_OFF & ZXDH_PAGE_OFFSET_NUM;
-+
-+	if (ib_copy_to_udata(udata, &uresp, sizeof(uresp))) {
-+		rdma_user_mmap_entry_remove(ucontext->sq_db_mmap_entry);
-+		ucontext->sq_db_mmap_entry = NULL;
-+		rdma_user_mmap_entry_remove(ucontext->cq_db_mmap_entry);
-+		ucontext->cq_db_mmap_entry = NULL;
-+		rdma_user_mmap_entry_remove(ucontext->srq_db_mmap_entry);
-+		ucontext->srq_db_mmap_entry = NULL;
-+		return -EFAULT;
-+	}
-+
-+	atomic_set(&ucontext->tx_port_affinity,
-+		   atomic_add_return(1, &zdev->tx_port_affinity));
-+
-+	INIT_LIST_HEAD(&ucontext->cq_reg_mem_list);
-+	spin_lock_init(&ucontext->cq_reg_mem_list_lock);
-+	INIT_LIST_HEAD(&ucontext->qp_reg_mem_list);
-+	spin_lock_init(&ucontext->qp_reg_mem_list_lock);
-+	INIT_LIST_HEAD(&ucontext->srq_reg_mem_list);
-+	spin_lock_init(&ucontext->srq_reg_mem_list_lock);
-+
-+	return 0;
-+}
-+
-+static int zxdh_dealloc_pd(struct ib_pd *ibpd, struct ib_udata *udata)
-+{
-+	struct zxdh_pd *zpd = to_zpd(ibpd);
-+	struct zxdh_device *zdev = to_zdev(ibpd->device);
-+
-+	zxdh_free_rsrc(zdev->rf, zdev->rf->allocated_pds, zpd->sc_pd.pd_id);
-+	return 0;
-+}
-+
-+static void zxdh_dealloc_ucontext(struct ib_ucontext *context)
-+{
-+	struct zxdh_ucontext *ucontext = to_ucontext(context);
-+
-+	if (!ucontext)
-+		return;
-+
-+	if (ucontext->sq_db_mmap_entry) {
-+		rdma_user_mmap_entry_remove(ucontext->sq_db_mmap_entry);
-+		ucontext->sq_db_mmap_entry = NULL;
-+	}
-+	if (ucontext->cq_db_mmap_entry) {
-+		rdma_user_mmap_entry_remove(ucontext->cq_db_mmap_entry);
-+		ucontext->cq_db_mmap_entry = NULL;
-+	}
-+	if (ucontext->srq_db_mmap_entry) {
-+		rdma_user_mmap_entry_remove(ucontext->srq_db_mmap_entry);
-+		ucontext->srq_db_mmap_entry = NULL;
-+	}
-+}
-+
-+static void zxdh_mmap_free(struct rdma_user_mmap_entry *entry)
-+{
-+	struct zxdh_user_mmap_entry *zentry = to_zxdh_mmap_entry(entry);
-+
-+	kfree(zentry);
-+}
-+
-+static int zxdh_mmap(struct ib_ucontext *context, struct vm_area_struct *vma)
-+{
-+	struct rdma_user_mmap_entry *rdma_entry;
-+	struct zxdh_user_mmap_entry *entry;
-+	struct zxdh_ucontext *ucontext;
-+	u64 pfn;
-+	int ret;
-+
-+	ucontext = to_ucontext(context);
-+
-+	rdma_entry = rdma_user_mmap_entry_get(&ucontext->ibucontext, vma);
-+	if (!rdma_entry) {
-+		pr_err("zrdma: pgoff[0x%lx] does not have valid entry\n",
-+		       vma->vm_pgoff);
-+		return -EINVAL;
-+	}
-+
-+	entry = to_zxdh_mmap_entry(rdma_entry);
-+
-+	pfn = (entry->bar_offset +
-+	       pci_resource_start(ucontext->zdev->rf->pcidev, 0)) >>
-+	      PAGE_SHIFT;
-+
-+	switch (entry->mmap_flag) {
-+	case ZXDH_MMAP_IO_NC:
-+		ret = rdma_user_mmap_io(context, vma, pfn, PAGE_SIZE,
-+					pgprot_noncached(vma->vm_page_prot),
-+					rdma_entry);
-+		break;
-+	case ZXDH_MMAP_IO_NC_BY_SIZE:
-+		ret = rdma_user_mmap_io(context, vma, pfn,
-+					vma->vm_end - vma->vm_start,
-+					pgprot_noncached(vma->vm_page_prot),
-+					rdma_entry);
-+		break;
-+	case ZXDH_MMAP_IO_WC:
-+		ret = rdma_user_mmap_io(context, vma, pfn, PAGE_SIZE,
-+					pgprot_writecombine(vma->vm_page_prot),
-+					rdma_entry);
-+		break;
-+	default:
-+		pr_err("zrdma: unsupported mmap_flag[%d]\n",
-+		       entry->mmap_flag);
-+		ret = -EINVAL;
-+	}
-+
-+	if (ret)
-+		pr_err("zrdma: bar_offset [0x%llx] mmap_flag[%d] err[%d]\n",
-+		       entry->bar_offset, entry->mmap_flag, ret);
-+
-+	rdma_user_mmap_entry_put(rdma_entry);
-+
-+	return ret;
-+}
-+
- const struct ib_device_ops zxdh_dev_ops = {
- 	.owner = THIS_MODULE,
- 	.driver_id = RDMA_DRIVER_ZRDMA,
- 	.uverbs_abi_ver = ZXDH_ABI_VER,
- 	.dealloc_driver = zxdh_ib_dealloc_device,
-+	.alloc_pd = zxdh_alloc_pd,
-+	.alloc_ucontext = zxdh_alloc_ucontext,
-+	.dealloc_pd = zxdh_dealloc_pd,
-+	.dealloc_ucontext = zxdh_dealloc_ucontext,
- 	.query_device = zxdh_query_device,
- 	.query_port = zxdh_query_port,
- 	.query_pkey = zxdh_query_pkey,
- 	.get_link_layer = zxdh_get_link_layer,
- 	.get_port_immutable = zxdh_roce_port_immutable,
- 	.get_dev_fw_str = zxdh_get_dev_fw_str,
-+	.mmap = zxdh_mmap,
-+	.mmap_free = zxdh_mmap_free,
-+
-+	INIT_RDMA_OBJ_SIZE(ib_pd, zxdh_pd, ibpd),
-+	INIT_RDMA_OBJ_SIZE(ib_ucontext, zxdh_ucontext, ibucontext),
- };
+ 	return 0;
+ 
+ err_deregister_fdev:
+
 -- 
-2.43.5
+2.34.1
 
