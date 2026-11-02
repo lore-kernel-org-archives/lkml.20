@@ -1,55 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604103;
-	b=PduKvc4x8RFg4pvOarF8ROY2ArObNOgwqyl0f7Z8ynILruPCDnriDYulxIag3VL3mCko
-	 gx9E/CDI4P/k8ouSeso8pZgyshrj6Dl/btGPslnNFPy2Oja2YG3x1DfpEMRLtuYe3FN75
-	 55hXkpoXvKriOeFYSG/mn184YbBJotGRY9rDeBY4V11aqI2F2taoLKI3uDOikSH6JMNdo
-	 uBpK4AZdlzwKsV693uccMtsMAGJJnq7fj/v2OE/tXOlyVu5EeQvmHjzvbDtexC4l71j8s
-	 CG4tBJQTlQxtFlkoWlB/SJ9j30mzGrQ4f706uZ5eu0DbGsyeI5Hp5BhNajP4NknYAVg==
+	t=1793604139;
+	b=J4xAGZIdBkQ8UVbW3AvVimmCaKETVptxd69iadQIeA/Pqe+1+GhC5M1OE09x0ds+HQb2
+	 mBeWEtpyXSvcop5y6FR5P0xoRBFpH3U+nUd46Yj9plF0STKTLKFsK8YXrm7bjX7tOJ7er
+	 Nn7iVUJ9BwY121H7MmKtHvtjTzFi1lt8RAIVUWHrteRGwTI+gn9/Nyr3Flxl+l9ZasPDE
+	 3wDBoizbvJtQXcyRLaUUfFsSxVTKcbmt95FfQa5xhrLYbH2AEXM/5FTMTt31CZVqEGG+4
+	 KHuWCFDjRH5bm7Y4TOq+NKcNow5+RqjmGmlQrqEnNcKoiQwRmoBFHhxXrQb484gRq1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604103;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=vOm77Ol81NHVwbT3TF1koHcO7lNXXEKWGGU10cmiIbo=;
-	b=AKIwtuMDDK3lA2kzP6Uew2ZMahIlQVA6iBRD/0nebQyRCLJ6p6xCj0oazNPjxjMvHaAw
-	 RjuLxxyrLtNETlCKhR9TA8jm+w5Mha5k0K4NACDsWnuD746OMrFGi/fikNl9p0rtJxvRu
-	 9JE1nfp7s4/hbRMZwvmFHi5jqwmJ/IxfFZHLzc1C8XKLz3FLw0hQmWCQ9IqWIsomZAF5l
-	 O1M0R5Mnh7Vc2F/nIe3x7kDe/MG4l9Gkiu1GcYbmuPOczOAG8Lxyu2cnn9Xv7X8FZJ3n8
-	 4tz4yLTdz7QjjKUG2IRALUbjs6dQSkQ7oO96FUkIGyFma0o0I9jgGGM4sUZeRf/5EtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604139;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=YxYTF91G0F1lBThpqealjixyREmPnBACasG4sOFttPk=;
+	b=Df9x+5rh4mMDFAMn/uyBhLb8EtWhEVFJiqCcughHIJKqf/Uj36lGiEEQHRxrjWK2usv4
+	 El0W0Kl2KACN4ZyeRMuSYoAPAloKJ/62mWduaJ0Htt9WH4jLetlLuhn3MUxnseXLk9Ov9
+	 2y02BWARSJRdW68QL98O/+xQ02Y+CU9fX++libr3tyrrnw+FphZnZWvt7ULK5wLBOkcgy
+	 rQlbq+vV2VSMVHjzBsVLcgb305tJRSEBL4zMMSeevJ3DdghHqQ3fOCMfU4LI5ihcKub3o
+	 9JMjsdph0YZq7PnC+cxd9l1c5eCZsgnL/JTWvPvNeeu/gODxlfmOZ8XbYG0DmDKJOng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00F0C606A339;
-	Mon,  2 Nov 2026 07:21:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F0C606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=vOm77Ol81N
-	HVwbT3TF1koHcO7lNXXEKWGGU10cmiIbo=; b=JE1+CGZHHOyym2NaxWLNlgKGQg
-	hM+RYo1MydRPNh0H0pdPEjlOml67/UxP6wDdhRANX5WDQhffI47kxMsK1WAfxsb5
-	zVT047KomgfvX3UIaTreW+nr3dsLkwUKx32L8edfjvdsuLJhjz4MPIWWk0zJgP3z
-	gCfIjW+3HhJF/JeJY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.55])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkDG5PrwOehqKrgYAQ--.18497S2;
-	Mon, 02 Nov 2026 15:21:21 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Helge Deller <deller@gmx.de>,
-	Steve Glendinning <steve.glendinning@shawell.net>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] fbdev: smscufx: bail out of ufx_set_vid_mode() when the device is gone
-Date: Mon,  2 Nov 2026 15:21:20 +0800
-Message-Id: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=siemens-energy.com;
+	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
+	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=dKvu6EqV;
+	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=bSfWfPqd;
+	arc=none smtp.remote-ip=185.136.64.133
+Received: from mta-64-133.flowmailer.net (mta-64-133.flowmailer.net [185.136.64.133])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BD0606A33A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:22:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3BD0606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=dKvu6EqV;
+	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=bSfWfPqd
+Received: by mta-64-133.flowmailer.net with ESMTPSA id 2026110207220404ae1bc9db0019fd8a
+        for <linux-kernel@vger.kernel.org>;
+        Mon, 02 Nov 2026 08:22:04 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
+ d=flowmailer.net;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=YxYTF91G0F1lBThpqealjixyREmPnBACasG4sOFttPk=;
+ b=dKvu6EqVfSnsJbr1DYEMjQGKG08K0ycQRSmZDbjHQ0wmiEUVroiHDsR71k2L9GxtosNpUg
+ hI4nCzr1GZkb9FBjoGy8fY2S/cVqwm1dVXhY9WTEx8yv2k9bofoHwExDt7TKt2953ZJI5FL8
+ Q7Q1PmgD/16OV1B5H/u99P5C7fuZ4=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
+ d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=YxYTF91G0F1lBThpqealjixyREmPnBACasG4sOFttPk=;
+ b=bSfWfPqdM+oB6qQiyE5obxHU0/LKsL5LXG9G41UDyAlpzS7u/vvcE99C+WwEvUYX1g2Vfk
+ JDhEBHYxyLIS/S9DQo54lxUFFNPQwgCAVsD6ROrofTYoXqJ2nmGp77sEcRaZqgtY9RvojQ4B
+ z8IuppUMQdHxD/brkp5OMHl0YYx+Js9sUuccqD0xalrkIDDleQJXazFTp8/QNPRHNIEF2+tA
+ QGcuWhV/W/Aj8QTmPZLmN/MI1cZfUDU9lacTeO7AFx4muoDlDGVu+RjdXoAs5fUZqIUN+Xol
+ W3tgoMpA1UZCrVeo3VSjMLIUYquAL6HCJ7mzRxwRHYrAuvblmFyJmkMQ==;
+Date: Mon, 2 Nov 2026 08:22:02 +0100
+From: Simon Schuster <schuster.simon@siemens-energy.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Vineet Gupta <vgupta@kernel.org>,
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Dinh Nguyen <dinguyen@kernel.org>, Ley Foon Tan <lftan@altera.com>,
+	linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
+	linux-snps-arc@lists.infradead.org, linux-parisc@vger.kernel.org,
+	"linux-openrisc@vger.kernel.org" <linux-openrisc@vger.kernel.org>
+Subject: Re: [PATCH] nios2: ksyms: Declare __mulsi3 export
+Message-ID: <20261102072202.hpcrob7xknqwx4a4@dev-vm-schuster>
+References: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
+ <47eb6b48-d664-440f-84b6-ba09f34d5e08@app.fastmail.com>
+ <3175caa0-9f49-465d-959e-6b6c9bbb4f01@kernel.org>
+ <e9f9ac85-442a-4bcc-8ec6-a03a6519178d@kernel.org>
+ <cf2a83ea-5e5a-42c2-905b-199a43b6341a@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,89 +78,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkDG5PrwOehqKrgYAQ--.18497S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxArW8Wr4kAw48uFW8AFWkJFb_yoW5Wr13pF
-	W5CFW5KrZ5JFWjka1DGw429a4Yv3ZxAay7Gr9rKw13uFn8u3yfurykCF9FgF98Jry7Zw4U
-	Ja4Ut3yj9ayUuaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
-	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
-	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
-	MxkF7I0En4kS14v26r126r1DMxkIecxEwVAFwVW8CwCF04k20xvY0x0EwIxGrwCFx2IqxV
-	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
-	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
-	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_Gr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU8HrW5UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2rnWEJ54wAAsA
+In-Reply-To: <cf2a83ea-5e5a-42c2-905b-199a43b6341a@app.fastmail.com>
 
-ufx_usb_disconnect() marks the device as virtualized and clears
-usb_active, but the fbdev entry points that program the controller are
-not serialized against it.  ufx_handle_damage(), ufx_dpy_deferred_io()
-and ufx_ops_ioctl() all return early while usb_active is clear;
-ufx_set_vid_mode() does not, so a mode set or a blank request that
-races with the disconnect keeps issuing control transfers through
-dev->udev.
+On Sun, Nov 01, 2026 at 12:19:34PM +0100, Arnd Bergmann wrote:
+> On Sun, Nov 1, 2026, at 01:26, Vineet Gupta wrote:
+> > On 10/31/26 16:57, Vineet Gupta wrote:
+> 
+> >>
+> >> ┌───────────┬───────┬───────────┐
+> >> │  routine  │ calls │ functions │
+> >> ├───────────┼───────┼───────────┤
+> >> │ __udivsi3 │ 415   │ 238       │
+> >> ├───────────┼───────┼───────────┤
+> >> │ __umodsi3 │ 203   │ 131       │
+> >> ├───────────┼───────┼───────────┤
+> >> │ __divsi3  │ 77    │ 57        │
+> >> ├───────────┼───────┼───────────┤
+> >> │ __modsi3  │ 41    │ 33        │
+> >> └───────────┴───────┴───────────┘
+> >>
+> >> I can take a stab at providing the generic libgcc implementation in
+> >> lib/* but I only expect the arches using libgcc version to switch.
+> >
+> > It seems there 4 are always needed together or not at all.
+> > Do we want 4 Kconfig gates or just one will suffice ?
+> 
+> Either way is fine for me. Simon did separate symbols in his
+> nios2 patch[1], and I don't mind staying with that version
+> unless someone else feels strongly about it.
 
-The usb_device is released once the disconnect callback returns, while
-dev->udev is left pointing at it, so those transfers dereference a
-stale pointer and fault in __create_pipe():
+So the implementation of these four in the series is indeed coupled and
+all resolve back to a common base implementation. It got separate
+symbols as I assumed that one could potentially provide optimised
+assembly routines for one of them but not the others in an individual
+arch; but admittedly, I did not think too much about that point (one
+would indeed probably provide a specialised instance of the common base
+routine?) as it was easy enough to do.
 
-  general protection fault, probably for non-canonical address
-  0xdffffc0000000006: 0000 [#1] SMP
-  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
-  RIP: 0010:__create_pipe include/linux/usb.h:2031
-  Call Trace:
-   ufx_set_vid_mode
-   ufx_ops_set_par
-   fb_set_var
-   fb_set_var_from_user
-   store_rotate
+> I would however like to have separate patches to add lib/divmul.c
+> and lib/mulsi3.c, and then patches on top that start using these
+> from nios2 and arc.
 
-Return -ENODEV from ufx_set_vid_mode() when the device is no longer
-active, matching the check the other transmit paths already use.  Both
-callers, ufx_ops_set_par() and ufx_ops_blank(), handle the error: the
-former skips the greenscreen fill and keeps the previous mode, the
-latter already ignores the result.
+I can split up Patch 3 in my series and pull out the nios2-KConfig
+selects of the generic symbols, so that nios2 enabling them is a
+separate patch.
 
-The guard cannot live in ufx_reg_write()/ufx_reg_read() instead, since
-probe programs the controller through ufx_config_ddr2(),
-ufx_i2c_init(), ufx_setup_modes() and ufx_reg_set_bits() before it sets
-usb_active.
-
-Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/video/fbdev/smscufx.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
-index 5704f60e1741..f1b640a5d712 100644
---- a/drivers/video/fbdev/smscufx.c
-+++ b/drivers/video/fbdev/smscufx.c
-@@ -661,8 +661,12 @@ static int ufx_set_vid_mode(struct ufx_data *dev, struct fb_var_screeninfo *var)
- 	u32 temp;
- 	u16 h_total, h_active, h_blank_start, h_blank_end, h_sync_start, h_sync_end;
- 	u16 v_total, v_active, v_blank_start, v_blank_end, v_sync_start, v_sync_end;
-+	int status;
-+
-+	if (!atomic_read(&dev->usb_active))
-+		return -ENODEV;
- 
--	int status = ufx_reg_write(dev, 0x8028, 0);
-+	status = ufx_reg_write(dev, 0x8028, 0);
- 	check_warn_return(status, "ufx_set_vid_mode error disabling RGB pad");
- 
- 	status = ufx_reg_write(dev, 0x8024, 0);
--- 
-2.34.1
-
+Best regards
+Simon
