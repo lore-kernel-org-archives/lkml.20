@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793591260;
-	b=fYbgT0CgO6QcsANqFvCE6XLfRZs/dBO32WQkmT2D1uezMsBoeDobg0Gd4xZRa0BflLLM
-	 WW40KaNXNKxbeTmiXJ/daVYz6UUeE2aO8wgz2ygJkY/m4NkYsWFtF7j+4y0C9geiqeyUX
-	 9rd5+POTArZJgM7B2dgglhy4rpRsPR8fRBrbZVZa14hj4ewXqbd9g8rVJQh1gTNa7to4T
-	 ywNMIYIFqIpxtBBLC8LPYSf/V1WItN6Bs7fdtRYEtDxOOlymVyZ6/b69yLnpmtrqWJCe4
-	 Xsq0c4t+3hWAT0q9y4SGd/uOYNC1w2/tkRhYAdjszT+ygCtGka/bamznP1HTYk5bYCw==
+	b=elVdhrqRNe3yIG6eBn5N25KBfRug0aCuP/6Yjcu82VZS89zdcDdkDW5TJXY50rqKX9Ea
+	 +oOfJ9ABk6eEInRhPw2BolpLVoNwI+p3XiG2veRg8lfivgo2zc0p6WrKFRDd4tO67RpZb
+	 phEEts1YDV7T1Nszs53NE+1JMS5UpJtkM8KMCVFhMrAKSsuwV3YHdyoVOlMTfEuDT2zrt
+	 Wy5CvhrSIjuQPX2ND95C+DCbVQDr/N5bVWXc+BseBCUJdQVEeyzHHJUed2nuLq71bTys+
+	 wEDeCimYMTS+k322Z56zMi6ZGl95Be8gnWOQYFm81tzW8epqMlfxd8b3R9wxcmd62MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793591260;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:MIME-Version:X-Received:Date:
 	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
 	 Subject:From:To:Content-Type;
-	bh=w3YWNQ9e9fM+0YHmB+mpWJhWC4zaBYJmDguwktfIzxs=;
-	b=GH4FKzCJ/6Cm86Fd+MxeTCTHzEAhEEOl8/0BL2qe38fUCZitqPaKLqJMHZQ3d79bXD9p
-	 C+0KBKVwGgLZAAI36kr4oevb64vwrHVNop42jAXLN8siRrWOPPGrbA2/5seAL9+CNHcBA
-	 w2rcoMDZOm2bekC11YEJVEuD+kk/Ijb2KqhM4BLCyhDxICDae3ypBzHcD+dS3Dg0uN/mU
-	 qoCbo4eQ2ja7DLLShwPSJRyYDqT99zfjMR49x7VulB6bKXXXhXSwpl4NL7cCjP0nJ4kew
-	 hfqXhUGDkN5FhdFgsiWDi8kDUZI5tdDWY8mHR2Ae0Q8Ipbckb74oV37t+IJ1pjHyxXA==
+	bh=vNXXOctCbKVjtXQCaCxPHHgqQCrdz1BMmTa7T1T11Tc=;
+	b=3R9tqnzUxVesS+pbMyBh4B3+EbG2jQ9PkNTuKYrarLWhr6aCUwnvgVDGzcanbM1ACCXz
+	 7VdGqsLlpiBXa6cY8YlqrbgurbBNoBb6GAZjwdrEkvO2PY0dlLSqF0aANBVMobZiyStlR
+	 GyWaPFI9r8NRc6gfxQOWCBPH9zUihEiqJQ1bli7/myAk+6GFiZn8KuN2J9Lc/13F00ydg
+	 VvOvl7uC/opkvvTeKx08YQvp+j+Wwxu4Djir8izSUBgYah1YV2BIFtXqsbVbn0/dRlbdC
+	 1ZzSQ1vbWiP6MzXG9PyHuCnzjFBa0YrAZh8fPrWsTveJB5WI6JG5HZuK0lPCWoS7/JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.161.71
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BCE606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E7B606A32D
 	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6BCE606A329
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04E7B606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-706eded47cfso2930542eaf.0
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4fb73e868aaso4344763b6e.0
         for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:47:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793591259; x=1794196059;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w3YWNQ9e9fM+0YHmB+mpWJhWC4zaBYJmDguwktfIzxs=;
-        b=f4gVYf7Caxdt3J63nx9r5GhCgUXK/osqzKdhbEXg/u5FXE7Dqhw7lKpotanozynRwQ
-         nMSrrrTPSrqhp4ZNhgoHeHMPScbS/2HdW+b7oi0gq48YBf5wRXSd6EOoQbIqUPwbhjK3
-         SIjJ4FIhjqsFR9wByHeEdkYrzpIxg3nY1ilnbUUm3cCr7nV9IRbJNd2soBrLhkQPrxIb
-         92fCCAPcFslivog9on1yvrCXxIV1nvCToazwaxguyII1VnaDzKkiIU7AoaSqo6r7eRDa
-         N4KFK6TJQ5/fn9VJduml8rx9mdVdBQxIqf8Ah7iMKqm/JALKn9EFIOI2bsvSl8S0s2ti
-         WXaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwIWLii0IKuJMoPqvFao54Ei3Akx3fwB63z2JZHQ2Cujzjq+dD8sqYMrUsyLiuWILMQ1WzOjvNxHqgz3Jo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIoPxiLI5XuV3K/Y+Bzx3PL6/kjqkqNAvbrRzK1iFYlnmXvOY1d
-	9NSOXtrzriu9xy6NolK+B5tsYTk1wQoqSsaWp7jp0nNB4nZTIt/UdycZSrjLdc0m9X869qhTOHI
-	vVmdbNrdfrKOxKfACc34UYGnegY4/NRD6yOHow/cKujU90MWozo2BvlpUlQ8=
+        bh=vNXXOctCbKVjtXQCaCxPHHgqQCrdz1BMmTa7T1T11Tc=;
+        b=BM/Q/zhtcptkBAA68Ee+6NEIN5ZxSh4RZzschShMRrIZYH9XPtI5RyPGTr3tWAwAZw
+         cMWQaGGiKsmxcpJ5WI8FYfdsb+xdYmuSa+bX5WwJ81aQluYeTIUZBg7mdJnyhyT8rM5e
+         8BkF/IG44QRWm7y4WoNb2vxJJxo4Xvqln4Tq8aTDROiafe+hHvpSfbhIiKbFhK3p25QL
+         akoEgKd+t49ZxwvsrDLJlDvHhGHH6YHXZ8VdOf9f4d1Jf+Ih7G4P0QTtyFvoICnlZE7m
+         erO3I4y6hfsH1u8D+Nnse8zuVU9njgZzLSr55jVCaB1Ft7MSi7AsBKlr6oGD8QKYbj5S
+         aUuA==
+X-Forwarded-Encrypted: i=1; AKwUvBzsqn8DwYbgUhc8tOQ/C8n6E8m8uUCD6Or+hfadHXvebg/gDePxBkk+nGPYIpIR+qRwvbqqN8BPJlUl020=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBnmtIHYa/jmUfOb057AXoXVkrsRGpPJOmOE+IQUinDnZ5aiRa
+	XwbsJQv3FpeieRf/yf67t+kUPt6aFIYeGoGstLjETFSrLNlrXzDaBZOWv656AAfg7I58aPhI7ui
+	MsnluygtAGBm2l51i9BRxrLIcDx5fCf8GfOfOh69dDvHgAEtFaW5VMF0UPvw=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,124 +58,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c2d0:10b0:70a:4053:52e7 with SMTP id
- 006d021491bc7-714f1f8157amr3592158eaf.8.1793591258811; Sun, 01 Nov 2026
- 19:47:38 -0800 (PST)
-Date: Sun, 01 Nov 2026 19:47:38 -0800
+X-Received: by 2002:a05:6808:120b:b0:4e6:6079:c33d with SMTP id
+ 5614622812f47-5640dcf25f8mr5584715b6e.10.1793591259061; Sun, 01 Nov 2026
+ 19:47:39 -0800 (PST)
+Date: Sun, 01 Nov 2026 19:47:39 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae807da.c8ffc79a.e3697.002c.GAE@google.com>
-Subject: [syzbot] [block?] [ext4?] BUG: unable to handle kernel paging request
- in blk_mq_exit_hctx
-From: syzbot <syzbot+5307e3bcacec2ce4c2f0@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Message-ID: <6ae807db.c8ffc79a.e3697.002d.GAE@google.com>
+Subject: [syzbot] [pci?] WARNING in pci_add_new_bus
+From: syzbot <syzbot+ea7278bdcb20a491495b@syzkaller.appspotmail.com>
+To: bhelgaas@google.com, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=17bddc8d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6602d83d2f34eb80
-dashboard link: https://syzkaller.appspot.com/bug?extid=5307e3bcacec2ce4c2f0
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=169be5a5580000
+HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1501662d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=37ec6334ca3b8e94
+dashboard link: https://syzkaller.appspot.com/bug?extid=ea7278bdcb20a491495b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=127a2cb1580000
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/26f2e4202da9/disk-7a19f0cc.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/1e23a9081d19/vmlinux-7a19f0cc.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/b51f551829ee/Image-7a19f0cc.gz.xz
-mounted in repro #1: https://storage.googleapis.com/syzbot-assets/f7427d1d35bc/mount_4.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=15bddc8d580000)
-mounted in repro #2: https://storage.googleapis.com/syzbot-assets/22e8d60714f9/mount_5.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=11dc1d29580000)
-mounted in repro #3: https://storage.googleapis.com/syzbot-assets/f50f15fd78d0/mount_20.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=13ab1795580000)
-mounted in repro #4: https://storage.googleapis.com/syzbot-assets/3cdc94810dc2/mount_21.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=13bddc8d580000)
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-36aad21d.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d729f75149c3/vmlinux-36aad21d.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/f2cbf16f3d26/bzImage-36aad21d.xz
 
 AI-generated root cause summary:
-When dm_setup_md_queue() fails after add_disk() (for instance during
-bd_link_disk_holder() or dm_sysfs_init()), the error path invokes del_gendisk(),
-which calls blk_mq_exit_queue() -> blk_mq_exit_hctx(), freeing each hardware
-context flush queue and setting hctx->fq = NULL. However, md->type remains
-DM_TYPE_NONE and the mapped device is not torn down. When userspace retries
-table_load on the device, dm_setup_md_queue() and dm_mq_init_request_queue() run
-again, invoking blk_mq_init_allocated_queue() on the existing queue. During
-__blk_mq_realloc_hw_ctxs(), blk_mq_exit_hctx() is called on the existing
-hardware contexts, unconditionally dereferencing hctx->fq->flush_rq (offset
-0x78) when hctx->fq is NULL, causing a kernel null-pointer dereference crash.
+In drivers/pci/probe.c:pci_alloc_child_bus(), device_register(&child->dev)
+failure is checked using WARN_ON(ret < 0). When device_register() fails due to
+normal runtime resource exhaustion (such as -ENOMEM, triggered in syzkaller by
+fault injection via /proc/thread-self/fail-nth), this check emits a spurious
+kernel WARNING. Furthermore, pci_alloc_child_bus() assigns bridge->subordinate =
+child and updates bridge->resource[...].name before calling device_register();
+when device_register() fails, put_device(&child->dev) frees the child bus via
+release_pcibus_dev(), but bridge->subordinate and bridge->resource names are not
+reset to NULL, leaving dangling pointers to freed memory.
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=5307e3bcacec2ce4c2f0
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=ea7278bdcb20a491495b
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+5307e3bcacec2ce4c2f0@syzkaller.appspotmail.com
+Reported-by: syzbot+ea7278bdcb20a491495b@syzkaller.appspotmail.com
 
-Unable to handle kernel paging request at virtual address dfff80000000000f
-KASAN: null-ptr-deref in range [0x0000000000000078-0x000000000000007f]
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-[dfff80000000000f] address between user and kernel address ranges
-Internal error: Oops: 0000000096000005 [#1]  SMP
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fc139c26038 R14: 00007fc139c25fa0 R15: 00007ffe91ac8be8
+ </TASK>
+------------[ cut here ]------------
+ret < 0
+WARNING: drivers/pci/probe.c:1272 at pci_alloc_child_bus drivers/pci/probe.c:1272 [inline], CPU#2: syz.3.21/6134
+WARNING: drivers/pci/probe.c:1272 at pci_add_new_bus+0xda4/0x12e0 drivers/pci/probe.c:1293, CPU#2: syz.3.21/6134
 Modules linked in:
-CPU: 0 UID: 0 PID: 9108 Comm: syz.5.600 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : blk_mq_exit_hctx+0x64/0x494 block/blk-mq.c:3957
-lr : blk_mq_exit_hctx+0x40/0x494 block/blk-mq.c:3956
-sp : ffff8000984475d0
-x29: ffff8000984475e0 x28: 0000000000000000 x27: 1fffe0001b03332a
-x26: dfff800000000000 x25: ffff0000d8199950 x24: ffff0000c3aeffc0
-x23: 0000000000000078 x22: 0000000000000000 x21: ffff0000d3857000
-x20: ffff0000d8199800 x19: ffff0000eabc5388 x18: ffff8001237ae000
-x17: ffff0001acf6ce07 x16: ffff0000dad68014 x15: 0000000000000001
-x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: ffff0000eabc53bc x9 : 0000000000000000
-x8 : 000000000000000f x7 : 0000000000000000 x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000003 x3 : 0000000000000000
-x2 : ffff0000d8199800 x1 : ffff0000dad68000 x0 : 0000000000000000
-Call trace:
- blk_mq_exit_hctx+0x64/0x494 block/blk-mq.c:3957 (P)
- __blk_mq_realloc_hw_ctxs+0x1f0/0x548 block/blk-mq.c:4583
- blk_mq_realloc_hw_ctxs block/blk-mq.c:4623 [inline]
- blk_mq_init_allocated_queue+0x2a8/0xc44 block/blk-mq.c:4653
- dm_mq_init_request_queue+0x2d8/0x474 drivers/md/dm-rq.c:573
- dm_setup_md_queue+0x134/0x434 drivers/md/dm.c:2611
- table_load+0x3d4/0x764 drivers/md/dm-ioctl.c:1661
- ctl_ioctl drivers/md/dm-ioctl.c:2221 [inline]
- dm_ctl_ioctl+0x884/0xbbc drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __arm64_sys_ioctl+0x154/0x1cc fs/ioctl.c:583
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-Code: 97cfdb27 f9400328 9101e117 d343fee8 (387a6908) 
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	97cfdb27 	bl	0xffffffffff3f6c9c
-   4:	f9400328 	ldr	x8, [x25]
-   8:	9101e117 	add	x23, x8, #0x78
-   c:	d343fee8 	lsr	x8, x23, #3
-* 10:	387a6908 	ldrb	w8, [x8, x26] <-- trapping instruction
+CPU: 2 UID: 0 PID: 6134 Comm: syz.3.21 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:pci_alloc_child_bus drivers/pci/probe.c:1272 [inline]
+RIP: 0010:pci_add_new_bus+0xda4/0x12e0 drivers/pci/probe.c:1293
+Code: fd ff ff e8 1e 5e 95 fc 44 8b 74 24 18 31 ff 44 89 f6 e8 7f 58 95 fc 45 85 f6 74 dc 45 31 f6 e9 71 fd ff ff e8 fd 5d 95 fc 90 <0f> 0b 90 48 8b 3c 24 e8 c0 c6 03 01 31 db e9 92 fb ff ff e8 e4 5d
+RSP: 0018:ffffc90003e3f988 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff888050413000 RCX: 0000000000000000
+RDX: ffff88802e362580 RSI: ffffffff8578e803 RDI: 0000000000000005
+RBP: 00000000fffffff4 R08: 0000000000000000 R09: 00000000fffffff4
+R10: ffff888050413153 R11: 0000000000000001 R12: ffff888024497000
+R13: 1ffff920007c7f36 R14: ffff8880504130dc R15: ffff8880565849a0
+FS:  00007fc13a9046c0(0000) GS:ffff8880d467f000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fc1399ecc40 CR3: 0000000035790000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ pci_scan_bridge_extend+0x9e3/0xb70 drivers/pci/probe.c:1473
+ pci_scan_child_bus_extend+0x449/0x7b0 drivers/pci/probe.c:3138
+ pci_scan_child_bus drivers/pci/probe.c:3216 [inline]
+ pci_rescan_bus+0x18/0x40 drivers/pci/probe.c:3507
+ rescan_store+0xfb/0x130 drivers/pci/pci-sysfs.c:474
+ bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fc13999f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fc13a904028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fc139c25fa0 RCX: 00007fc13999f559
+RDX: 000000000000001e RSI: 0000200000000280 RDI: 0000000000000004
+RBP: 00007fc139a36b50 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fc139c26038 R14: 00007fc139c25fa0 R15: 00007ffe91ac8be8
+ </TASK>
 
 
 ---
