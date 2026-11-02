@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628524;
-	b=Aag1idvWTIpT6nto5IHFUtO2snB7MvpZ3n/OWe5wGpWevxqSFCsaCaWRndit3QFIBN/A
-	 hIa31nsBJ+I2aSSpmRFXE3xRa35WUP4AbTSJOjGxlpO3gqUDdEAgwoBnaku0YJwep61l5
-	 0ALXrE/bSoNy2NoZ7BDyCbR4JzjhSSFMWgOKOwTnkhWdv8aVB5xKIbYQR4uqO0EmjVEFI
-	 9H9JIJQPJPcx3IZIdOIAUREqshT86puibzyN1wU29UVDSo6s+8alTcCPabta61b6QU/fr
-	 P5IimFElbM6llG3IhIacBUoPBFaAmVIJCEe+n5x//6CN36RR//UuFsouTJR4hil38fg==
+	t=1793628520;
+	b=uev5ROoWPnYSwaVqUanWyIbic0i0x/BkC68clgXy7z+8FN8ySbROI47b/eDnX9QWQnt7
+	 2p79W/5oZJle3yHfyNgyYa5usqJm2Ja2GmfjITgjMO2Nrojn1pQYf3pUsCrkNlm6vep7a
+	 NuTbuDp1sJ89Uc+4sZrUPBJtpZJnQHQG0BX7R6kunFNd0nnP33hTEEyv1aEFxTpdbuzXq
+	 /uAIrFfRbrFg6O8Qt61S+vTXygGL6WT9F0YUFtiNguN5WLXQiwrdgTf5YEH27vb8rBw6T
+	 CggmtnKA1uBXmoEcptao62gKTDn+oJqQFAvcjsWgivVdve7feL0vHu7iYNs3xuezrww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628524;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gFg/Tdvcadu+bbQIpwDGp1z4MOgwjS63ACXXbVbRR4U=;
-	b=jirWXJne3cPu16HpsJdJdxwEDt9886MtdnfubHKvKnqASWeuyT2P55TrYEyp5vqk6sAQ
-	 yp67Vv343zVkP/pRm6/dyTt8LIeb/BIu5lZCL752X17t+X4YRToHWvZb7lZggcCj+yDIS
-	 MtzA8GyIjm2xr56NTOUgeN4Dz3Xo8bNkgTs1we1Bupkk6u0GHgmMO7vgZPUJPXyug7UFL
-	 3OfCQP42etDGHOmyRM5hhqcSEyWmtgjXt8NkSB/5nz7CcR3ps72qmj7IaGLxDkXEESGiF
-	 0mVCsaaf7GZ1wUL5tIQAbs/Rmr+QFxli4DgtxRMcgyoJnMFkRyMAjNrH7o3gMPLUVpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628520;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=+aBypL6dTRQngXP8lrpR9n29mZ+faRZiRjbSPzxb8tI=;
+	b=S1sczNdI78qe3ZpAgqdvBwAZNA5hzciZPVOj8NFpcuDJZjdtrbQfgATglqnNXQeMr2f2
+	 bjCbFA6atjN5u3TRiuwJiYQYHeXcoeV6E3x7XokSqo5gFBqfJUZb6PbGAT9XZGLgGs2SZ
+	 DTOnKzNKyEwQ6NgfBMFtuBuhzwTuSSifSO8V2EV8RmawD/TRDO7Cuo6UkeVoSCSg1BWXG
+	 dEF/es8syIxz+BVwzTU/Chelrs+VK+P3c3jhaFj6emIb82i1diHb3IHr75WUyoRozm0bS
+	 7LCOVfvJ0a2qakabe8qB1NufdMz4rhXA+P1HW9fGIJrp0saJwa/79tUKrHgI5GaMExQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCtOhPVF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbHYCId8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E080606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:08:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB649606A326;
+	Mon,  2 Nov 2026 14:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCtOhPVF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53CD51F00A16;
-	Mon,  2 Nov 2026 14:08:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbHYCId8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3781F00A17;
+	Mon,  2 Nov 2026 14:08:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793628524;
-	bh=gFg/Tdvcadu+bbQIpwDGp1z4MOgwjS63ACXXbVbRR4U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NCtOhPVFEwSBtJaSBNfCfpGnqt+/ADTCt3Ao8FMbknvMwL7pSjoPXdy04Uis1zz02
-	 j/nws3s+kshXJiofBqenjemLGmEZdTahf7F+HYUR1YCiNfQzQYPC07EtmWMleofsSi
-	 4on0Xf9nRBY1Z0K4ggEcstabIDDetsuVcgjEMJVtOqQgEu2FOhRw/DsG8CKsEBUTul
-	 2/mYYlO9OoOyj/17lI/RVQ/HUMOoCzJ2gLD1PM0qhoLBWOAuv8JXqGjJCFc49gLNr1
-	 6+6TK6xoGj+T/0NmcjU6tgW/Ct46eDO+ayxHWVzXl7Rd9RrMkfMpkOWMsA8HlftSQS
-	 vlkD8+1bgnOKw==
-Message-ID: <d70b6ac2-a8b2-4c34-acc4-ee421eb70aac@kernel.org>
-Date: Mon, 2 Nov 2026 15:08:38 +0100
+	s=k20260515; t=1793628519;
+	bh=+aBypL6dTRQngXP8lrpR9n29mZ+faRZiRjbSPzxb8tI=;
+	h=Date:From:To:Cc:Subject;
+	b=LbHYCId87toupimJ8yFIvEarDNau0+Wm1mF6kFtse0IbY3lxPpHd/yI9g2T31jDqt
+	 ITaRT481SJ9gF+PlnDxcyatjcUmOikTato42J5c2hfSi5qeha1GB/2Smm015D3OjVn
+	 oAVQFNdjdaj+j9Thr5erVAE51vLHHmL2w5R07TdyA91Tt+cSKi0ubQ2Aihsgg6kbel
+	 xhPtX4G8faR5EXc153I7NNQ0OxHNqiEk8/l0wlCOME3MAri8TIeBnHc4XsFSLZkH0Z
+	 m1fVAidGovsR/yPO89Iy4Afw5m1gwBjGCl3kG3tsBrBF6ItpvSzJHEjnelGluCq7eD
+	 vFREkqqHXPJ9A==
+Date: Mon, 2 Nov 2026 14:08:34 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>, bpf <bpf@vger.kernel.org>,
+	Networking <netdev@vger.kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Fixes tags need work in the bpf-next tree
+Message-ID: <auiZYnNYLEgcR6TT@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,94 +59,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] mm: internal: fix inconsistent in
- folio_pte_batch_flags() for shadow stack
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Lorenzo Stoakes <ljs@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>,
- Rik van Riel <riel@surriel.com>, Yuan-Hao Hsu <aa9736195201@gmail.com>
-References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
- <20261102-refactor_gup_fast-v2-2-bc1ac018c834@arm.com>
- <85c4a87b-2c8b-4ef5-bb30-6518080f8be0@kernel.org>
- <auiI8jzumVHmmSV9@e129823.arm.com>
- <9a67e7f6-0ec6-414d-8689-c70eeed6100c@kernel.org>
- <auiZFJ7Bb6cQnqtX@e129823.arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <auiZFJ7Bb6cQnqtX@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wkwjSDYh2aF5NlZk"
+Content-Disposition: inline
 
-On 11/2/26 15:07, Yeoreum Yun wrote:
->>>
->>> Sorry. But I couldn't follow. If we accumalate with any_unwritable
->>> and check it out of loop once only, we couldn't properly nr value or
->>> Am I missing something?
->>
->> Ah. The idea was to simply reject the batch entirely if that happens. It would
->> only matter if some folio PTEs are writable while others are not ... well, ok,
->> there are some cases where that can happen, but it's not really the common case.
->>
->> I think we should simply disallow ever getting large folios into shadow stack
->> VMAs for now. So I'd prefer the fix below.
->>
->> Thoughts?
-> 
-> That's my preference too and we've discussed :)
-> I'll repost with below unless anyone has any strong comment.
 
-Yes, best to wait a couple of days for people to catch up.
+--wkwjSDYh2aF5NlZk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
--- 
-Cheers,
+In commit
 
-David
+  b73855c31c7be ("libbpf: Enforce program limit only for loaded programs")
+
+Fixes tag
+
+  Fixes: c9b2a0975c39 ("libbpf: Reject excessive program counts in generated loaders")
+
+has these problem(s):
+
+  - Subject does not match target commit subject
+    Just use
+	git log -1 --format='Fixes: %h ("%s")'
+
+--wkwjSDYh2aF5NlZk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmromWIACgkQJNaLcl1U
+h9BxSwf7BzEHGD35ZV1PCUyFainmKf9svpXDsXx+SaiU8mYWORbWGurMf6iRWMQI
+5LTkwFrl9/mRoKBxcZTo8qJtEmt7xyIFEHcooQoQaDc2M6sYgR2Alja+0l7n2nT4
+HFJgL4ANd23gRf5qoDugHxNxcc6K4GOKiKnprqX1sVhR7NcDGY9N1ldVrBNviyuE
+M8VOZ0A1o3sxwDWpIH4r5X57lJIjm0wCMbw7iNlgzA7q8PlGr6w6QFReYCo9yhmN
+kTtdNXJmmtGTzwVLpV86Q4KxOq7qiDaZ7XiOm3agNeqZIuqQO/Ljcc9AuR/8TnuR
+XaRIC4KVRzfryR7yH/lgNjgl7H7ciA==
+=3PmE
+-----END PGP SIGNATURE-----
+
+--wkwjSDYh2aF5NlZk--
