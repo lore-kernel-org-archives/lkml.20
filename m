@@ -1,92 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793588223;
-	b=lY5UFaoSATm1/8IDWoO2BXfLM59gh/oq5fQWQENzMKZS8hojoemjiB6U02nVSndNyCXP
-	 cyVYV0jOxCuaI3ToUwt6RHIG7nZ0XH8GYpYfOIxxsr2ExcdWO5ig5anqE8KwJ+65m5iAQ
-	 twikrX5Lr50XUXaM7nqt1KpFoqT4S7flTF4MtnCPxvTSyAE4I/9/S896/QFu3VtlVIUNo
-	 OoB7CzN9yeH4MfSEVUHxLALkQNlUQnuA9YnxiKznaVUuyCmuup1uI74xGvsSEg/5XXiCD
-	 QywSp8e1Nj4Faz56WrGy+EgckHod3r6ExUEcDEehM8Em1TXmreHF5yPM4kvJZhtlChA==
+	t=1793588273;
+	b=3MXtXkixIZm+ei1h95bmTNXbrs4TXHsDxzL1PjBNXruBRnOtlGqcogh6sP5uXU4rwkWp
+	 0nYRMMogid2aKy7YLVBZTjVHTUq1TEHCL1f8nHg0qZgD8f0mJOTppd3beq9z6pgHFOeos
+	 yLOLeHKbS+WE2xNuEA4NtKJm+8NODYTO8rJPLqd0Q6KSM3TF830L+sAyTxz4vElGAXeEL
+	 tPlohcsgmyBRcN2lebiud49HB4VAjGKcyiS+UscFKSaKLNvY2U0qb20Zvoz0CLivaZimb
+	 RpqrpTmaShz6qkfDx2k0hY8y+PHpZK6afvf65lKpy5U8Gc2idLsMuS0CPrIeRCEVuAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793588223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793588273;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=JZ2K+Osj5CGwdFpoUsq3gGFL7dbV984RRFXoZaP0g58=;
-	b=vTh0uH5F2X8BBZOeegbyeHiirB8EEG1HM2t5sRHnAzw5ulIv6DVJ26M9Gq0VL3WJo/gM
-	 HCsBz+dSYElBjoLIfULapM21RqMqigwhEaPY6devhtF6DrJPZ4kELl/GS7831Rv9MS/5E
-	 CAFZxBVoL4Yh9e89mR07ZpjCVrzYNyA/2Lyzk9uK8CP97V/rePJRVF6lQp1+tst3MIH0y
-	 MyC2HWbRxTbJseOEQAdGAmxxsPLKJi2/YlRiX0XWfCax6yotW8OWsk9XO6T82clF0/20K
-	 0BZTtKwdeoGEDfuoqA9N3Rhc9aGAhqKPcy63+5egZozMqMgcl5TfC4KFmHqsijOohAA==
+	bh=7KF0SQZHj3GlobQfzzP0SE9FYagXDcGBM8Sc59D2mtA=;
+	b=IhTXNQAdnZw8MgJaU1uCeFChDBBWlihclXMMHMvZEp0d6piC4bYjbleSBpVLJEjiikPx
+	 iRH3RZSKzMYg8zzbMJ5FgEm/oSFN9h58ZcBxAliP52Xp2QEegVf/xSELS+obiunV7LgFX
+	 oRbEFJBHGKqW8w6ZKNVxi2lK6Xlf5L5iIgKHKB/lr6ORFIKVSiSZXPuPUf9DaJeQ2ZcDc
+	 2q2QnDniW5t4LTzyIBU0FXeMlilr3WflOEzqK02Eiz/FRt1nvfCeumNm5OlWLJXmwg5FE
+	 Z5b79lHV8nX2l6vkzkjXW7nWGVd541d0N/pf6/3HiQiVbgms0llufDtDTnD/qbjYbsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="BVQI/exg";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fuT5OllO;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5307E606A329
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5307E606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7555E606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:57:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7555E606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BVQI/exg
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acd21ba21aso1772535a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:57:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fuT5OllO
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-170135e43c7so83415c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:57:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793588223; x=1794193023; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793588272; x=1794193072; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JZ2K+Osj5CGwdFpoUsq3gGFL7dbV984RRFXoZaP0g58=;
-        b=BVQI/exgTIjj0BMukq+7/lRjZCXiHFbiDMk9cu4WWF8wVDNd1EWn8ihLBNuuMlDIZA
-         2+bSgyy82iLtkUmfJ4toiMoPS+efvSM4PpOBX5eboRjj3a6AiLgeMR0eKS8huFByhNHO
-         RMUKQokAXy//KsWH5cqt2NtdmOLmnhrW2qQkfie30J7gfTHqyo4mhmtHzCOksDkPRS56
-         2KIe9cyC9DLncRgr/Eh7M/430tLR4iHQUU8TexqW/X9OfNNWgrmOKruJZdaqWvMpx+hM
-         8RmqCfXIjt57BueKM/0t3SCl5J3XnR7GLC5iBUX5uo4bkVewlZYvg4XGShzYnmHNCzQI
-         xrgw==
+        bh=7KF0SQZHj3GlobQfzzP0SE9FYagXDcGBM8Sc59D2mtA=;
+        b=fuT5OllO9iF+e9hgedaNZBW2dnfTIWEAf/mnPWP+vkGKm6E1VLwIQsTG3b1tTipASp
+         fGqsgPEnho5ZsqhgwuJOkThm66DVH8uGnh34EIRnZJycn5EfzURp1mVOLt5dl8Rg4IpJ
+         73ca0uNEgxrUgYYbwOoIiKr/6/X91PaSHDcDEQ2rEh5VlvIKblDdewVXbeCtK9mez0tt
+         QALW+s10+y6wqPnQLFwK+oIl6+ncqUtxKYQcgjP1qRtuvJEnHslCVCHEDmY78Fh2a6ej
+         kBMxjWXLP7qT0K5gzc7x70MF+wvsRNYeDzTGIL4+YjpbOeTyUnGpKY18G5Lp5wo5q/c5
+         G04g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793588223; x=1794193023;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JZ2K+Osj5CGwdFpoUsq3gGFL7dbV984RRFXoZaP0g58=;
-        b=uFj2W0WDAtxGvpd2vhmUxst9Mt9GB4V4Bakx2rOTtQihoveH52oiYYAs+V+S44Dbbb
-         1pqIOKMVg0N4ioLblLlB9ci3K1M4S5tmnfYB+WIZ5LfRkzaWqFaWvwi5rqPoOVqBhFPS
-         IN6YHXl5aBNMcywBVIyz09oe6aVMZYstdx6IVL9GFwX6KPlkBstMnl9xOuidiC+MG7no
-         kt5XmVYIwFAbfE7T0+vwqGPQ1uuk1cMuPkElB6mq4lNAlE7WKrlRIm6BydbmY1nRdxzt
-         7rVa6u7tpwqI/FCuDvytX684RfWIaU3tc73owqu/8MQuPJRlIRFjGFvHkUE80ucV3/+f
-         Lx2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxwbhR1zqNlKXvOIWSLPnPdpGUs7PEuARBu/2pONBu8aMYSrN+W70O230/ip373F8cH/GkMqqHNLybFsM4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hpCyXoNcimnXdY4FdVUskMsIc5/EdaTTcZlDnc6vsvQJdf4XE
-	4nyJ97DAV5azBCNKZXdejm8D3T1M+WssYqhH4mr8+Ew3HGkPqdePuBM=
-X-Gm-Gg: AYBFou2st1SEOV455Mv+/8eZV98nCAbpOlOtJkvtxas7i+EqzpBoI3JDCSyRF+GtK6p
-	8crKDRY8MjpjYB2v4slhuwS7tbeyLNrBZ+/Bai/RkjxUXQ3HyWEvnwY5cVdqLcHKQo1SQi0bExf
-	4QNyP8OcDktL3vreZoRKdvNznK30mMbSBIryBVM132XcXZdTq5syvwaeyXh9eB2WG6ouDYofgv6
-	v5GgECQChBdf1rBLYgIS2JI+qPDJeXFxPgceIlw36FZZae/iau+mFXYFaccpr13vRXVJqtHX5Iy
-	7UhswXhyuxtD1rTtMOn5O3dY6xgYsJvVAIOZGLVBFS07KB1ZMYyd9hDWN5WpPXLcjGQBEAaX467
-	eFXjzyHvP12ciDGuxlEM5dp+6UKrVAqbKPcd0kytAm2rvXsW4YvjO+0H2KJ5M2CfLx5m4uQeh+w
-	Q6mpXgz0COXd1DiG0UEqP6Hm1HdLggvGh4kxntTJh7R9NQgry6f5x3x4uCQkYp/vh1ZESV5KkLD
-	BSkvCzOU2Mq1i6EZzlCRXj2IKRL9lsKRl+CwJrq3w60hdgGIc/HFmhM3XYL/qrJl4bRdWpcy6WN
-	2RYBwSB8O4OZBJn1eu/Sh3iyQ6E=
-X-Received: by 2002:a17:90b:1c88:b0:3aa:6b5d:a00a with SMTP id 98e67ed59e1d1-3ae898510b3mr7446929a91.53.1793588222609;
-        Sun, 01 Nov 2026 18:57:02 -0800 (PST)
-Received: from [127.0.1.1] ([185.220.238.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9bc6f7sm15882317a91.16.2026.11.01.18.57.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 18:57:02 -0800 (PST)
-From: Wang Yibo <szwyb123@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Gow <david@davidgow.net>,
- linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] lib/tests: convert test_memcat_p module to KUnit
-Date: Sun, 01 Nov 2026 13:49:39 +0800
-Message-ID: <20261101134939.32-1-szwyb123@gmail.com>
+        d=1e100.net; s=20260707; t=1793588272; x=1794193072;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7KF0SQZHj3GlobQfzzP0SE9FYagXDcGBM8Sc59D2mtA=;
+        b=Ci6femBHAoHhKrnhrCNELAzqJFAyQVXagC4G/eIeZTiphhaMbWUKVWW+T42F1p5Xqw
+         gGlhWYtNUG0PKYrBIJuxnzjoUo4L7mvpaX9kYDEOfHMDWuYMY4/IvAcoZgdAZtdJZlis
+         mM4NBlOZMovJxp34pdILCeAbZO1fkOLKL+WTlVZL5pEUQeuGFFkNAaem3Ti82RQRbjoe
+         lV92aOSJXG/+lt4Z189LGKs5BGLXdAgmvuU0QTw6obm6Y0wphsrzVxL3WZYn/vInOKJ9
+         S8hUOfkSAAMcOSH48zaLuMfV5PDt3PiB3HabaX9ss2ZhpGOHPeKVfbB4jTZip6NpfJQR
+         MZCQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLpiG+UzK3499rwopivrOLT0UyUqiWBhVSn/pM1wtV6ciYmLQPAKZH1oRv3PDEndR+6Y26TfJx8JFK6MU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5xFmtNSX0CGC/7v3CE9uyD/KL1VwKvBx3RUbD7r6i12u4igOa
+	i2fLjrsw9UjROLJvkwT2MIz2oGgyMETP3/OAe2WTJE11jcksNbrK+gkG
+X-Gm-Gg: AYBFou3PXR9kRg01Oj2JkyiW5Fw0n8xwDRo+xAQTLnZhUGraDTtVgRoyS2sNOqO6NIC
+	trOp8HKgh5s9AFPr9zHzmStiPKqvtdNNYOvcCtFPzBHkX5cEXDbyNQOs8YXKr1krnQA8LEibC4o
+	mPQ2xotY3bpKEd2GcC0afjedElk9bWEATNkdfE0qYhQoqqmiwZsKO5vOt0C0yDYbkHJZq3uLbvy
+	SozCvx4XYEzA86OllB3KWUAE2LRSpjX1EFAQa7gZfFjTmNCHXBtE0cvI74r1N1E/0XstiYjTe6g
+	uYcbVQbJWFdZ12SuZUNybuNauuoJaf/JdgoQoHabv61dAYqs3tTrSBWVxeG4D8XEitMTcJ34yPD
+	IxoZ5AaL3ez5K3/l+QxewtKahSmmNqIHNgUooKUiNfjhWiBBGPE2atoEouqYXZ5uRjsC97gj7Ik
+	atsiN1vPhBZVb2GocSeOG02YeeLeQeEz1biwwSA0eTYK6KzLuSXFt6Qkj16K1Y3f+0de2K4MtjG
+	iW6UeK12EDBa5MB9u166diTNPXay+kTIOBlfOLx0xcq460eP2HfhGvsPouA+i4zqSiNRRwvtE6l
+	K7RC9Oiq9ncHHScPGEA+E4G1FkUpDBuLM7XHX3HqR60v4Q==
+X-Received: by 2002:a05:7022:1507:b0:17e:ee5f:6715 with SMTP id a92af1059eb24-1ac5d4b1972mr14072691c88.27.1793588272400;
+        Sun, 01 Nov 2026 18:57:52 -0800 (PST)
+Received: from [192.168.86.23] ([136.25.189.61])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a9e2ed3sm28264858c88.19.2026.11.01.18.57.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 18:57:51 -0800 (PST)
+Message-ID: <73b9c9a8-479d-4a5f-9321-2e095f11951d@gmail.com>
+Date: Sun, 1 Nov 2026 18:57:50 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,326 +92,277 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] platform/x86/amd/hsmp: Add /sys/devices/amd_hsmp
+ socket devices
+To: Erwan Velu <erwanaliasr1@gmail.com>, platform-driver-x86@vger.kernel.org
+Cc: Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>,
+ Carlos Bilbao <carlos.bilbao@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-kernel@vger.kernel.org
+References: <20261007125908.321186-1-erwanaliasr1@gmail.com>
+ <20261007125908.321186-3-erwanaliasr1@gmail.com>
+Content-Language: en-US
+From: Carlos Bilbao <carlos.bilbao.osdev@gmail.com>
+In-Reply-To: <20261007125908.321186-3-erwanaliasr1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Both AI review questions are addressed; the changes are described
-below the --- in the patch.
+Hello,
 
-From 4ebf2dfe3e71066a3af1d6f53b85e3ce3ca3ed4d Mon Sep 17 00:00:00 2001
-From: Wang Yibo <szwyb123@gmail.com>
-Date: Tue, 13 Oct 2026 22:21:49 +0800
-Subject: [PATCH v2] lib/tests: convert test_memcat_p module to KUnit
+On 10/7/26 05:59, Erwan Velu wrote:
+> From: Erwan Velu <e.velu@criteo.com>
+>
+> The per-socket attributes live under /sys/devices/platform/AMDI0097:0X
+> with the ACPI driver, while the platform driver uses
+> /sys/devices/platform/amd_hsmp/socketN. Userspace has to know which
+> driver probed to find them.
+>
+> Add a driver-independent /sys/devices/amd_hsmp/socketN device per
+> socket carrying hsmp_sock_groups, and register it from the ACPI driver.
+> The AMDI0097:0X attributes are kept, as they are documented ABI.
+>
+> The socket device is unregistered before remove takes hsmp_sock_rwsem:
+> device_unregister() waits for in-flight sysfs reads, which take the
+> rwsem for read.
 
-Move lib/test_memcat_p.c to lib/tests/memcat_p_kunit.c and convert it to
-use KUnit.
 
-This change switches the ad-hoc test code to standard KUnit test cases.
-The test data remains the same, but the verification logic is updated to
-use KUNIT_EXPECT_* macros, so a failure now reports which element
-mismatched instead of a single pr_err() message.  The input arrays and
-their elements are allocated with the kunit_kmalloc() family, which lets
-the manual error unwinding paths and the empty module exit hook go away.
+Is this over-engineering it? The platform driver already creates
+/sys/devices/platform/amd_hsmp/socket0/, socket1/, etc. they're just dumb
+dirs with only metrics_bin inside. This patch series ignores those and
+builds a whole new /sys/devices/amd_hsmp/socket0/ tree from scratch with
+root_device_register(), manual refcounting, etc. instead of building a
+parallel tree, upgrade what's already there. Turn those existing socketN
+directories from bare sysfs dirs into proper struct device objects?
 
-Three things are spelled out differently, because a KUnit assertion can
-abandon the test half way through:
 
-  - The array returned by memcat_p() is allocated with kmalloc_array()
-    inside the function under test, so kunit_kfree() does not know about
-    it and does nothing.  It is freed with kfree() through a registered
-    test action instead, so that it is released even when a later
-    assertion fails the test.
+> Assisted-by: claude-opus-5-5
+> Signed-off-by: Erwan Velu <e.velu@criteo.com>
+> ---
+>   Documentation/arch/x86/amd_hsmp.rst   |   8 +-
+>   drivers/platform/x86/amd/hsmp/acpi.c  |   6 ++
+>   drivers/platform/x86/amd/hsmp/hsmp.h  |   5 ++
+>   drivers/platform/x86/amd/hsmp/sysfs.c | 112 +++++++++++++++++++++++++-
+>   4 files changed, 129 insertions(+), 2 deletions(-)
+>
+> diff --git a/Documentation/arch/x86/amd_hsmp.rst b/Documentation/arch/x86/amd_hsmp.rst
+> index fa1fc240e212..aba4a009bd8d 100644
+> --- a/Documentation/arch/x86/amd_hsmp.rst
+> +++ b/Documentation/arch/x86/amd_hsmp.rst
+> @@ -57,6 +57,12 @@ In-kernel integration:
+>   HSMP sysfs interface
+>   ====================
+>   
+> +The ACPI driver exposes its per socket sysfs files in a per socket
+> +directory created at /sys/devices/amd_hsmp/socket%d/.
+> +
+> +For backward compatibility, the files are also available under
+> +/sys/devices/platform/AMDI0097:0X/.
+> +
+>   1. Metrics table binary sysfs
+>   
+>   AMD MI300A MCM provides GET_METRICS_TABLE message to retrieve
+> @@ -80,7 +86,7 @@ The same is defined in the amd_hsmp.h header.
+>   
+>   2. HSMP telemetry sysfs files
+>   
+> -Following sysfs files are available at /sys/devices/platform/AMDI0097:0X/.
+> +Following sysfs files are available at /sys/devices/amd_hsmp/socket%d/.
+>   
+>   * c0_residency_input: Percentage of cores in C0 state.
+>   * prochot_status: Reports 1 if the processor is at thermal threshold value,
+> diff --git a/drivers/platform/x86/amd/hsmp/acpi.c b/drivers/platform/x86/amd/hsmp/acpi.c
+> index d76979baffa8..468d4b1515db 100644
+> --- a/drivers/platform/x86/amd/hsmp/acpi.c
+> +++ b/drivers/platform/x86/amd/hsmp/acpi.c
+> @@ -441,6 +441,10 @@ static int hsmp_acpi_probe(struct platform_device *pdev)
+>   		dev_dbg(&pdev->dev, "AMD HSMP ACPI misc device registered\n");
+>   	}
+>   
+> +	ret = hsmp_sock_dev_register(dev_get_drvdata(&pdev->dev));
+> +	if (ret)
+> +		dev_warn(&pdev->dev, "Failed to register HSMP socket device: %d\n", ret);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -448,6 +452,8 @@ static void hsmp_acpi_remove(struct platform_device *pdev)
+>   {
+>   	struct hsmp_socket *sock = dev_get_drvdata(&pdev->dev);
+>   
+> +	hsmp_sock_dev_unregister(sock);
+> +
+>   	/*
+>   	 * Serialize the kref_put() and any release it triggers against a
+>   	 * concurrent probe, and drain the data plane for the whole
+> diff --git a/drivers/platform/x86/amd/hsmp/hsmp.h b/drivers/platform/x86/amd/hsmp/hsmp.h
+> index 692721e2e6d3..f638edd7768b 100644
+> --- a/drivers/platform/x86/amd/hsmp/hsmp.h
+> +++ b/drivers/platform/x86/amd/hsmp/hsmp.h
+> @@ -28,6 +28,7 @@
+>   
+>   #define HSMP_CDEV_NAME		"hsmp_cdev"
+>   #define HSMP_DEVNODE_NAME	"hsmp"
+> +#define HSMP_ROOT_DEV_NAME	"amd_hsmp"
+>   #define ACPI_HSMP_DEVICE_HID    "AMDI0097"
+>   
+>   #define DRIVER_VERSION		"2.6"
+> @@ -47,6 +48,7 @@ struct hsmp_socket {
+>   	/* Size of the region mapped at @metric_tbl_addr, as reported by SMU */
+>   	size_t metric_tbl_size;
+>   	void __iomem *virt_base_addr;
+> +	struct device *sysfs_dev;
+>   	struct semaphore hsmp_sem;
+>   	/* Serializes HSMP_GET_METRIC_TABLE fill-and-copy for this socket */
+>   	struct mutex metric_read_lock;
+> @@ -80,6 +82,9 @@ int hsmp_create_sensor(struct device *dev, u16 sock_ind);
+>   static inline int hsmp_create_sensor(struct device *dev, u16 sock_ind) { return 0; }
+>   #endif
+>   int hsmp_msg_get_nargs(u16 sock_ind, u32 msg_id, u32 *data, u8 num_args);
+> +int hsmp_sock_dev_register(struct hsmp_socket *sock);
+> +void hsmp_sock_dev_unregister(struct hsmp_socket *sock);
+> +
+>   extern const struct attribute_group *hsmp_sock_groups[];
+>   
+>   /*
+> diff --git a/drivers/platform/x86/amd/hsmp/sysfs.c b/drivers/platform/x86/amd/hsmp/sysfs.c
+> index b1db3b4d77b9..e9e91b640b2a 100644
+> --- a/drivers/platform/x86/amd/hsmp/sysfs.c
+> +++ b/drivers/platform/x86/amd/hsmp/sysfs.c
+> @@ -4,7 +4,8 @@
+>    * Copyright (c) 2024, AMD.
+>    * All Rights Reserved.
+>    *
+> - * This file provides the per-socket sysfs attributes of the HSMP interface.
+> + * This file provides the per-socket sysfs attributes of the HSMP interface
+> + * and the /sys/devices/amd_hsmp/socket%u devices carrying them.
+>    */
+>   
+>   #include <asm/amd/hsmp.h>
+> @@ -12,7 +13,12 @@
+>   #include <linux/array_size.h>
+>   #include <linux/bitfield.h>
+>   #include <linux/bits.h>
+> +#include <linux/cleanup.h>
+>   #include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/lockdep.h>
+> +#include <linux/mutex.h>
+> +#include <linux/slab.h>
+>   #include <linux/sysfs.h>
+>   
+>   #include "hsmp.h"
+> @@ -336,3 +342,107 @@ const struct attribute_group *hsmp_sock_groups[] = {
+>   	NULL
+>   };
+>   EXPORT_SYMBOL_NS_GPL(hsmp_sock_groups, "AMD_HSMP");
+> +
+> +/*
+> + * /sys/devices/amd_hsmp is created when the first socket device is registered
+> + * and removed with the last one. hsmp_root_lock serializes that against the
+> + * per-socket register/unregister calls.
+> + */
+> +static DEFINE_MUTEX(hsmp_root_lock);
+> +static struct device *hsmp_root_dev;
+> +static unsigned int hsmp_root_users;
+> +
+> +static void hsmp_sock_dev_release(struct device *dev)
+> +{
+> +	kfree(dev);
+> +}
+> +
+> +/**
+> + * hsmp_sock_dev_register() - Create /sys/devices/amd_hsmp/socket%u for @sock.
+> + * @sock: fully probed HSMP socket.
+> + *
+> + * The device carries hsmp_sock_groups with @sock as its drvdata, so @sock must
+> + * stay valid until hsmp_sock_dev_unregister() returns.
+> + *
+> + * Return: 0 on success, a negative error code otherwise.
+> + */
+> +int hsmp_sock_dev_register(struct hsmp_socket *sock)
+> +{
+> +	struct device *dev;
+> +	int ret;
+> +
+> +	guard(mutex)(&hsmp_root_lock);
+> +
+> +	if (!hsmp_root_users) {
+> +		hsmp_root_dev = root_device_register(HSMP_ROOT_DEV_NAME);
+> +		if (IS_ERR(hsmp_root_dev)) {
+> +			ret = PTR_ERR(hsmp_root_dev);
+> +			hsmp_root_dev = NULL;
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * Built by hand rather than with device_create_with_groups(), which
+> +	 * rejects a NULL class: these devices belong to no class or bus.
+> +	 */
+> +	dev = kzalloc_obj(*dev);
+> +	if (!dev) {
+> +		ret = -ENOMEM;
+> +		goto err_root;
+> +	}
+> +
+> +	device_initialize(dev);
+> +	dev->parent = hsmp_root_dev;
+> +	dev->groups = hsmp_sock_groups;
+> +	dev->release = hsmp_sock_dev_release;
+> +	dev_set_drvdata(dev, sock);
+> +
+> +	ret = dev_set_name(dev, "socket%u", sock->sock_ind);
+> +	if (!ret)
+> +		ret = device_add(dev);
+> +	if (ret) {
+> +		put_device(dev);
+> +		goto err_root;
+> +	}
+> +
+> +	sock->sysfs_dev = dev;
+> +	hsmp_root_users++;
+> +
+> +	return 0;
+> +
+> +err_root:
+> +	if (!hsmp_root_users) {
+> +		root_device_unregister(hsmp_root_dev);
+> +		hsmp_root_dev = NULL;
+> +	}
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(hsmp_sock_dev_register, "AMD_HSMP");
+> +
+> +/**
+> + * hsmp_sock_dev_unregister() - Remove /sys/devices/amd_hsmp/socket%u for @sock.
+> + * @sock: HSMP socket; a no-op if its device was never registered.
+> + *
+> + * device_unregister() waits for in-flight show/read handlers, which take
+> + * hsmp_sock_rwsem for read. The caller must therefore not hold it, or a
+> + * concurrent sysfs read would deadlock the teardown.
+> + */
+> +void hsmp_sock_dev_unregister(struct hsmp_socket *sock)
+> +{
+> +	lockdep_assert_not_held(&hsmp_sock_rwsem);
+> +
+> +	guard(mutex)(&hsmp_root_lock);
+> +
+> +	if (!sock->sysfs_dev)
+> +		return;
+> +
+> +	device_unregister(sock->sysfs_dev);
+> +	sock->sysfs_dev = NULL;
+> +
+> +	if (!--hsmp_root_users) {
+> +		root_device_unregister(hsmp_root_dev);
+> +		hsmp_root_dev = NULL;
+> +	}
+> +}
+> +EXPORT_SYMBOL_NS_GPL(hsmp_sock_dev_unregister, "AMD_HSMP");
 
-  - The check on the number of merged elements is a KUNIT_ASSERT_EQ():
-    the element order loop that follows indexes out[] up to
-    2 * INPUT_MAX - 3 without any bound check, so a shorter than expected
-    array has to stop the test there rather than be walked off the end.
 
-  - The counting loop compares against its limit before dereferencing, so
-    that a missing terminator cannot be read past the last element.
+Thanks,
 
-CONFIG_TEST_MEMCAT_P keeps its name so that the defconfigs enabling it
-stay valid; it now depends on KUNIT and defaults to KUNIT_ALL_TESTS, like
-the other lib KUnit tests.  Those defconfigs already select KUNIT and
-KUNIT_ALL_TESTS, so they keep turning the test on unchanged.
-
-Signed-off-by: Wang Yibo <szwyb123@gmail.com>
----
-v2: address the AI review questions: free the memcat_p() result with
-    kfree() (through a test action) instead of kunit_kfree(), which
-    silently ignores memory KUnit does not own; and make the element
-    count check fatal, so a short array cannot lead to an out-of-bounds
-    read in the element order loop.  While at it, move the limit check in
-    the counting loop before the dereference.
----
- lib/Kconfig.debug          |   4 +-
- lib/Makefile               |   1 -
- lib/test_memcat_p.c        | 116 -------------------------------------
- lib/tests/Makefile         |   1 +
- lib/tests/memcat_p_kunit.c |  91 +++++++++++++++++++++++++++++
- 5 files changed, 95 insertions(+), 118 deletions(-)
- delete mode 100644 lib/test_memcat_p.c
- create mode 100644 lib/tests/memcat_p_kunit.c
-
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index f754a24acd2c..65edbbabf075 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -3364,7 +3364,9 @@ config TEST_DEBUG_VIRTUAL
- 	  If unsure, say N.
- 
- config TEST_MEMCAT_P
--	tristate "Test memcat_p() helper function"
-+	tristate "KUnit test for memcat_p() helper function" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
- 	help
- 	  Test the memcat_p() helper for correctly merging two
- 	  pointer arrays together.
-diff --git a/lib/Makefile b/lib/Makefile
-index 3104710e1e68..f385888b1d50 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -97,7 +97,6 @@ obj-$(CONFIG_TEST_MAPLE_TREE) += test_maple_tree.o
- obj-$(CONFIG_TEST_PARMAN) += test_parman.o
- obj-$(CONFIG_TEST_KMOD) += test_kmod.o
- obj-$(CONFIG_TEST_DEBUG_VIRTUAL) += test_debug_virtual.o
--obj-$(CONFIG_TEST_MEMCAT_P) += test_memcat_p.o
- obj-$(CONFIG_TEST_OBJAGG) += test_objagg.o
- obj-$(CONFIG_TEST_MEMINIT) += test_meminit.o
- obj-$(CONFIG_TEST_CSD_LOCK) += test_csd_lock.o
-diff --git a/lib/test_memcat_p.c b/lib/test_memcat_p.c
-deleted file mode 100644
-index 62f1633b30f8..000000000000
---- a/lib/test_memcat_p.c
-+++ /dev/null
-@@ -1,116 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * Test cases for memcat_p() in lib/memcat_p.c
-- */
--#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
--
--#include <linux/string.h>
--#include <linux/slab.h>
--#include <linux/module.h>
--
--struct test_struct {
--	int		num;
--	unsigned int	magic;
--};
--
--#define MAGIC		0xf00ff00f
--/* Size of each of the NULL-terminated input arrays */
--#define INPUT_MAX	128
--/* Expected number of non-NULL elements in the output array */
--#define EXPECT		(INPUT_MAX * 2 - 2)
--
--static int __init test_memcat_p_init(void)
--{
--	struct test_struct **in0, **in1, **out, **p;
--	int err = -ENOMEM, i, r, total = 0;
--
--	in0 = kzalloc_objs(*in0, INPUT_MAX);
--	if (!in0)
--		return err;
--
--	in1 = kzalloc_objs(*in1, INPUT_MAX);
--	if (!in1)
--		goto err_free_in0;
--
--	for (i = 0, r = 1; i < INPUT_MAX - 1; i++) {
--		in0[i] = kmalloc_obj(**in0);
--		if (!in0[i])
--			goto err_free_elements;
--
--		in1[i] = kmalloc_obj(**in1);
--		if (!in1[i]) {
--			kfree(in0[i]);
--			goto err_free_elements;
--		}
--
--		/* lifted from test_sort.c */
--		r = (r * 725861) % 6599;
--		in0[i]->num = r;
--		in1[i]->num = -r;
--		in0[i]->magic = MAGIC;
--		in1[i]->magic = MAGIC;
--	}
--
--	in0[i] = in1[i] = NULL;
--
--	out = memcat_p(in0, in1);
--	if (!out)
--		goto err_free_all_elements;
--
--	err = -EINVAL;
--	for (i = 0, p = out; *p && (i < INPUT_MAX * 2 - 1); p++, i++) {
--		total += (*p)->num;
--
--		if ((*p)->magic != MAGIC) {
--			pr_err("test failed: wrong magic at %d: %u\n", i,
--			       (*p)->magic);
--			goto err_free_out;
--		}
--	}
--
--	if (total) {
--		pr_err("test failed: expected zero total, got %d\n", total);
--		goto err_free_out;
--	}
--
--	if (i != EXPECT) {
--		pr_err("test failed: expected output size %d, got %d\n",
--		       EXPECT, i);
--		goto err_free_out;
--	}
--
--	for (i = 0; i < INPUT_MAX - 1; i++)
--		if (out[i] != in0[i] || out[i + INPUT_MAX - 1] != in1[i]) {
--			pr_err("test failed: wrong element order at %d\n", i);
--			goto err_free_out;
--		}
--
--	err = 0;
--	pr_info("test passed\n");
--
--err_free_out:
--	kfree(out);
--err_free_all_elements:
--	i = INPUT_MAX;
--err_free_elements:
--	for (i--; i >= 0; i--) {
--		kfree(in1[i]);
--		kfree(in0[i]);
--	}
--
--	kfree(in1);
--err_free_in0:
--	kfree(in0);
--
--	return err;
--}
--
--static void __exit test_memcat_p_exit(void)
--{
--}
--
--module_init(test_memcat_p_init);
--module_exit(test_memcat_p_exit);
--
--MODULE_DESCRIPTION("Test cases for memcat_p() in lib/memcat_p.c");
--MODULE_LICENSE("GPL");
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index df0537e1b91f..d44baa280126 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -40,6 +40,7 @@ CFLAGS_longest_symbol_kunit.o += $(call cc-disable-warning, missing-prototypes)
- obj-$(CONFIG_LONGEST_SYM_KUNIT_TEST) += longest_symbol_kunit.o
- 
- obj-$(CONFIG_MEMCPY_KUNIT_TEST) += memcpy_kunit.o
-+obj-$(CONFIG_TEST_MEMCAT_P) += memcat_p_kunit.o
- obj-$(CONFIG_MIN_HEAP_KUNIT_TEST) += min_heap_kunit.o
- CFLAGS_overflow_kunit.o = $(call cc-disable-warning, tautological-constant-out-of-range-compare)
- obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
-diff --git a/lib/tests/memcat_p_kunit.c b/lib/tests/memcat_p_kunit.c
-new file mode 100644
-index 000000000000..5fe2ac97c95e
---- /dev/null
-+++ b/lib/tests/memcat_p_kunit.c
-@@ -0,0 +1,91 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Test cases for memcat_p() in lib/memcat_p.c
-+ */
-+
-+#include <kunit/test.h>
-+
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+
-+struct test_struct {
-+	int		num;
-+	unsigned int	magic;
-+};
-+
-+#define MAGIC		0xf00ff00f
-+/* Size of each of the NULL-terminated input arrays */
-+#define INPUT_MAX	128
-+/* Expected number of non-NULL elements in the output array */
-+#define EXPECT		(INPUT_MAX * 2 - 2)
-+
-+KUNIT_DEFINE_ACTION_WRAPPER(kfree_wrapper, kfree, const void *);
-+
-+static void memcat_p_test(struct kunit *test)
-+{
-+	struct test_struct **in0, **in1, **out, **p;
-+	int i, r, total = 0;
-+
-+	in0 = kunit_kcalloc(test, INPUT_MAX, sizeof(*in0), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, in0);
-+
-+	in1 = kunit_kcalloc(test, INPUT_MAX, sizeof(*in1), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, in1);
-+
-+	for (i = 0, r = 1; i < INPUT_MAX - 1; i++) {
-+		in0[i] = kunit_kmalloc(test, sizeof(**in0), GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, in0[i]);
-+
-+		in1[i] = kunit_kmalloc(test, sizeof(**in1), GFP_KERNEL);
-+		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, in1[i]);
-+
-+		/* lifted from test_sort.c */
-+		r = (r * 725861) % 6599;
-+		in0[i]->num = r;
-+		in1[i]->num = -r;
-+		in0[i]->magic = MAGIC;
-+		in1[i]->magic = MAGIC;
-+	}
-+
-+	in0[i] = NULL;
-+	in1[i] = NULL;
-+
-+	out = memcat_p(in0, in1);
-+	KUNIT_ASSERT_NOT_NULL(test, out);
-+	/*
-+	 * memcat_p() allocates the result with kmalloc_array(), so it is not
-+	 * known to kunit_kfree().  Register it by hand, so that an assertion
-+	 * aborting the test cannot leak it.
-+	 */
-+	KUNIT_ASSERT_EQ(test, kunit_add_action(test, kfree_wrapper, out), 0);
-+
-+	/* Bound first, so a missing terminator is not dereferenced. */
-+	for (i = 0, p = out; i < INPUT_MAX * 2 - 1 && *p; p++, i++) {
-+		total += (*p)->num;
-+		KUNIT_EXPECT_EQ(test, (*p)->magic, MAGIC);
-+	}
-+
-+	KUNIT_EXPECT_EQ(test, total, 0);
-+	/* The loop below indexes out[] up to 2 * INPUT_MAX - 3. */
-+	KUNIT_ASSERT_EQ(test, i, EXPECT);
-+
-+	for (i = 0; i < INPUT_MAX - 1; i++) {
-+		KUNIT_EXPECT_PTR_EQ(test, out[i], in0[i]);
-+		KUNIT_EXPECT_PTR_EQ(test, out[i + INPUT_MAX - 1], in1[i]);
-+	}
-+}
-+
-+static struct kunit_case memcat_p_test_cases[] = {
-+	KUNIT_CASE(memcat_p_test),
-+	{}
-+};
-+
-+static struct kunit_suite memcat_p_test_suite = {
-+	.name = "memcat_p",
-+	.test_cases = memcat_p_test_cases,
-+};
-+
-+kunit_test_suite(memcat_p_test_suite);
-+
-+MODULE_DESCRIPTION("Test cases for memcat_p() in lib/memcat_p.c");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
-
+Carlos
 
