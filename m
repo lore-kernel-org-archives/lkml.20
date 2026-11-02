@@ -1,62 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793599330;
-	b=U3zo7wgUyB2I/J49yonnEUJu8T2yA9zUBpKeAKx7p+exqjZCxiEHsWEhFq4J3i7EkQuB
-	 eBy4gxAIWWZuFqkolauWLBddun6/3W1x2EDUEIoYlgBUKZZ5/5OpoWgydvTjEM+rI9IB2
-	 tikBe4BWwQv0sdkFZQMMmKC1d4loY25HEaMcbPL5vMgURSPELBFjINrci5p0zXydH/NgY
-	 KZ04Hk9YN0QUAn+HT4ubI00tKW0WCtvArI/AdRJO4n5BRjBWfy5rxW6w3nQdehcu7pWQ+
-	 WhIP7S/RJjy8f+xd9vMdmtsXJHFbEqaso5mZPoc75BjT7i6X0IiVvLwZ7q7IQ2r2hsA==
+	t=1793599349;
+	b=yR/ql/NPICpFHAk53qpl2Ccfl0v5wFj1gcQ1QbLhQoE28fdg/XIWJQ93qoemvYJBJ8q3
+	 Ca8MOd60mpJYaz2LfZq1xy/rgRb5FxN05T7rznQLxYFefGhyEmbCi3G6k5o5luUgFwBuY
+	 JMUyQKsQFA+UuGMNVc7OC9aCw4FM+5SKYywUJUwarOHl7nRxMB4DEs/C/lqyeAS40/W+x
+	 xJB9OXF3rWO6PE0LRwyJTZfF3tWyj65nBh9T44IP7linFCvAwobrONS9ST89mz+v4+Ht0
+	 oK8L/OytqdTjxXh0dSxQJ+HUAna9TosooXRYin8RbC/SYFTLtBD9YyQk2lj5KIgnvYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599330;
-	h=DMARC-Filter:DKIM-Signature:Cc:Received:X-Lms-Return-Path:To:
-	 X-Original-From:Mime-Version:Subject:Date:Message-Id:
-	 Content-Transfer-Encoding:References:From:In-Reply-To:Content-Type:
-	 X-Mailer;
-	bh=quTJ/XxVKV0teBm3OuTXvbxjmUOvYB55/JlNClrvCTY=;
-	b=eEa8YE29vILgvxqnmCwRhj+n19/Lu1ENGqem3Jsmyu0X99jVHS9G34UaW4XVEjMjrf08
-	 sVBL5Hvs6f8n1FUk8YIXcA98KaGkEhO/t9UFsNOpOX1oWe6SVyP8/MTRP6pTuQbBYGBRn
-	 J5k4eZ8ylZFxPIBrEmkduOTBT3AI3L20n0t+Fg0rRh8EWT4yjCteQEsaieI8otD7+qNbZ
-	 2E3QQXpToH4T4cBc1xTcgg0c351oVbR3wJgGJ/Jn/r4xpQ2UavmKkhC9qVUWavzBl4M7d
-	 X7F9w5sS4RTws77zlUBToHYMG6JGD58d5NaypHf0ALrRctWx7Acq6qAgXLxS9t0ipTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793599349;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RYeg0ZcGTZBufOOnOYC/CzC0AaACWriIHjWoefd30tQ=;
+	b=yjBJUdLWG1C6K6dlbmDXaRTRm1dt9ZfY1noj2Di2uHizvJJ5u8TneKpUwtV0wPMEVfRY
+	 7Or2a2L3RTArTtMzn3OVP+286mGunMgLxvgxf/7ULY1y/OMs7V/9591WhADTe9eFHobvd
+	 Mu5ypJBJqBnvwiVMoboYiXj5Tu/RYvpxFAxt8LVPKO1pF1XLNvxyaFLf8C36e+N0zEKsr
+	 tvf9chjnUFxWvaWnhzSWVef2x9JxzJ1wLtWzLEoisv9JbouGUfnxR2x9bagexRC5ezR51
+	 3MFi4yL49n5iqQjUEVPiexyOQ5TZ374moqsY9Xe9hPeylP91CKG1mY9lSnrtEiq8IrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deepcomputing.io;
-	spf=pass smtp.mailfrom=deepcomputing.io;
-	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=VdQqk5Np;
-	arc=none smtp.remote-ip=209.127.231.27
-Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lAFhuhxa;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AA3606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:02:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43AA3606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E74606A324;
+	Mon,  2 Nov 2026 06:02:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21E74606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=VdQqk5Np
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1793599324;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=quTJ/XxVKV0teBm3OuTXvbxjmUOvYB55/JlNClrvCTY=;
- b=VdQqk5NpP+hMW+NVY/qJxCGrBcAIJqMGJSiGU2FYyU841PWHPy6IqYwur4ZCKXqJV7HauP
- LmVgqBTDsmy8YhOBF4RX8pLxfiRKNgFqm5GNJ3zV0CCfYfst5GgzWBj+TCp6XNAxcqJMVr
- 2Es+9kkj1cnwKJhHnFB5E697nMX0fOdt4TENXjE07DcSEFb233oR9uVJLGnxCqiL6uQ+jT
- dGTNm5TxiyAXDS9p3Ais3YDwvICbhArQ4hPbGm0cWn6ww+m1Ze+IcOr8QSChZ6WGg0V7em
- nO0Kg+Y/47IoHXfjzbffQJfP4BqJKC6odZ9l5pih9EWZ0mIZ3jhW9IGogI9baw==
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([113.80.9.210]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 14:02:01 +0800
-X-Lms-Return-Path: <lba+26ae8275a+1c6b87+vger.kernel.org+sandie.cao@deepcomputing.io>
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lAFhuhxa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793599342; bh=RYeg0ZcGTZBufOOnOYC/CzC0AaACWriIHjWoefd30tQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lAFhuhxakPo++JnydJXTUS0MKXWRLKXiNLURbQpHmiEmvcO/h6ztEShHftkJm/kCs
+	 JQQiQV7PfmC6ZOcwa0ReYVHhliJkWV6sy/9nymQgpDv6lag4elCnExrmPvDbi17qGI
+	 yTTbOSuKD/kRwBEukd46+sy4MMly/F5a7WEMl5js=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 942C6AF; Mon, 02 Nov 2026 14:02:20 +0800
+X-QQ-mid: xmsmtpt1793599340td8gs8q0d
+Message-ID: <tencent_2A5F482BB0F8C8773425E14A8B3D4C70BA0A@qq.com>
+X-QQ-XMAILINFO: MDbayGdXPuoehrNTBV4XsphP+DqFvEIB8+ApIkXkPnQo3tibbq1V8CHwkbUaf+
+	 hZVKN83bHkc6da7VGD6vDrL7+9zAD845JUMiBgCuySIKI6z1ZEDKhMXgJENYvgzfKcQQJ93pafVA
+	 VY8sRbYFJV2e/d736cZyrqIJLgFhRjWl8VNO0oYFGSFcAuPesQJ8CfewN5d0wpJnBBExSjdlQW/g
+	 wKBFHasPXsERdegmZOBHx4KwjbS9b46kJBbIuk8S3HmloooE8b/ybgB5esG4VXJnCHYeEzk4u11x
+	 48+saYe0769CK+3/8xgYiecWUHG37baj7eB9Au99TBUnyWJ3Rkz1uzLFHyk1rPpWyG1dewmfzSuQ
+	 SLvDZ4RxH8WhhbO5tddeAsouxVmOV4TVypSs6fzSxNO8tbp4Qwx+dipRkh2KoLxcWo/lIo4PdPSD
+	 Uz1IVtJVWULXtsxTxRvuEag/SFKq3BCSWSpT+T3XyRJsNLcmWL88qKOSRM5QEWc+uj1+ycplPiCZ
+	 QOs09F/zYYZC8lui6HEj4aaANYgbRprZ8FIyGPw+k0GcZsvut/15RkhiXAIxE1OyPTWXPPgtpOrJ
+	 VeubF9rdtxyiKFSl1rNNcWHT8bPdQ/FyITKwslE7dtEUecpT/PAXOKQrRsO5sLBNXEaAChnZEWvK
+	 IHjwvhyfNOdyxGgUML4hXMoUwgI7AGapSzWuOqs2MTKmwYY9mx0uAqnoOB2yg0h8qPYKzemHbA2w
+	 687NN2tAUcaDk4Ib/y5fKNQRrdC3BgDdHQc1vNLCPpTZba4zN6vJhPoCiFXmSRPy6psAXojwhOc+
+	 4l5/zkq2ureh05LbFVgFWflq0fqYJ29Hrk4oIPQ7uenBdJ4kxaWX5SYLgsslRmrOXpH8ofISqCUb
+	 UVW4XB2EqJhFdDsdDHUK3p9ChuQ8azp/WLfaQm/F/8znuPb/z88lKEd0xy+J1yMAmaKUz81KPFBF
+	 77IyFTfELkHRM/TyxyYnBWjrnN0Ir0dpy8B8Y2vq1TH3E3FGnCPkuykL7jCrD5HSchiCCp7/+nsH
+	 +tWp8jiFEGCLJYgk5KfVhCbILMOc/Rocts0B4HGoBjJt92L5Am9thE4k5b1yxF6JioQ5wHYA==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Shuai Liu <847807867@qq.com>
+To: Kwanghoon Son <asdfkwang@gmail.com>
+Cc: Shuai Liu <847807867@qq.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	rust-for-linux@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 06/12] rust: serial: Add minimal serial-core polling console support
+Date: Mon,  2 Nov 2026 14:02:20 +0800
+X-OQ-MSGID: <20261102060220.6221-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <auSGbrP19XfI3S5N@debian>
+References: <20261029-rust-bl808-console-v1-6-b736ee920078@gmail.com> <tencent_12B82162741365EE49D2A22CCDF2A04D6908@qq.com> <auSGbrP19XfI3S5N@debian>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,56 +81,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: [PATCH v3 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
-Date: Mon,  2 Nov 2026 14:01:55 +0800
-Message-Id: <20261102060155.100679-1-sandie.cao@deepcomputing.io>
-Content-Transfer-Encoding: 7bit
-References: <20261102060012.100623-1-sandie.cao@deepcomputing.io>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-In-Reply-To: <20261102060012.100623-1-sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add the device tree node SDHCI-0 controller for onboard Micro SD card slot.
+Hi Kwanghoon,
 
-Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
----
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+On Fri, Oct 30, 2026 at 07:58:38AM -0400, Kwanghoon Son <asdfkwang@gmail.com> wrote:
+> I don't understand for now, COMMON_CLK not possible on x86?
+> or you mean CI not supported?
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-index 84f66dd8f962..4471338a9774 100644
---- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
-@@ -184,6 +184,28 @@ &combophy {
- 	status = "okay";
- };
- 
-+/*
-+ * Onboard SD card slot:
-+ * Plugin/Plugout the SD card before power-on the board for secure.
-+ * It works as a boot media. so set it to non-removable.
-+ */
-+&sdhci0 {
-+	pinctrl-names = "default","uhs";
-+	pinctrl-0 = <&mmc1_cfg>;
-+	pinctrl-1 = <&mmc1_uhs_cfg>;
-+	bus-width = <4>;
-+	non-removable;
-+	no-mmc;
-+	no-sdio;
-+	disable-wp;
-+	cap-sd-highspeed;
-+	vqmmc-supply = <&aldo1>;
-+	sd-uhs-sdr25;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	status = "okay";
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_0_cfg>;
--- 
-2.43.0
+You are right to question this -- my comment was incorrect, sorry for
+the confusion.
+
+COMMON_CLK is not restricted away on x86. It only depends on
+!HAVE_LEGACY_CLK, which x86 does not select, and several x86 platform
+options (e.g. X86_INTEL_LPSS, X86_AMD_PLATFORM_DEVICE) select it
+themselves. I verified that "make ARCH=x86 allmodconfig" results in
+CONFIG_OF=y and CONFIG_COMMON_CLK=y, so with Rust enabled, as in the
+Rust CI, all of the dependencies of SERIAL_BFLB_RUST (RUST, OF,
+COMMON_CLK, HAS_IOMEM) are satisfiable on x86 and the driver is
+eligible for build coverage from allmodconfig there.
+
+To back this up, I also build-tested the series on x86 (LLVM=1,
+allmodconfig-based configuration with Rust enabled): the serial-core
+abstractions, the C helper glue and SERIAL_BFLB_RUST all compile
+cleanly, and a full x86-64 vmlinux links with the driver built in.
+
+What happened is that I conflated COMMON_CLK with arch-scoped
+dependencies I had been looking at in other drivers (e.g. RISCV- or
+OF-scoped Kconfig entries) and stated it without verifying it first.
+It also means my suggestion of "depends on RISCV || COMPILE_TEST" in
+that mail was unnecessary; the Kconfig as it stands is fine.
+
+Thanks for catching this and for the question.
+
+Best regards,
+Shuai Liu
+
