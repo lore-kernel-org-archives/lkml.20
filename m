@@ -1,82 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641804;
-	b=MTtWeM5GfAyh6o6q7xrjH/u5GzENDVjS5Ps4lhglwbYMm8ktCu2BuExbFaMBS2ugwg3d
-	 vesMS+CVCuwPvgBY0SWbAyBuqwBPUKvoOKLR/O9VegwtPEbvs9l09+4mhKf2C9qpsm0cJ
-	 ob4XwIX5i05REfHAIgc6c/WvFQgk/pWOFs/AzBqGBGE2GtfKAGMzMHkBSdLjY4lzJ8hkc
-	 zc2lNev7crVc0T/Ne/Bx9Uo/kAbiTCBmIR15dmG4ojf6kEKfsi9sg9uNY++hbKIodOjj4
-	 3ET3i+qzVBqPT7WABfkG/aVGTuTVMJnNrTjynupeE117zBmptInN9oAnirzPILeBhSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641804;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=T1ticfJydrYA1SjDeUoJpfnM83pkS1wa5V7oY625kH4=;
-	b=P3f7E+7G9ElRPdllenLztoe0kF8nebibHTlLhZJPH+iyAqKaRGtSFu0n0ITjssiiVtYN
-	 sCg36wXMm/tjdZdEdPk8zeDQOB13jPynDVudIw67RDJSG3ESzcXWyDmUNYecyeUqhFloG
-	 LtK06++fwgxmzY6zOyNvRVJ/SkW98oG14GJE4sORWdj6HiJvJW+f6R0Qehp8oL/+GNm7V
-	 +lYdi/B/wPS7tdLIZ53A6cr9rq49QT57i+4i8xBY0irR1ju8BRWQuLwo8ZTAmwlwhpRM+
-	 EGlMOan6i7qGjtJeYuUnPoT//E6J+FD8982H4j6LRZjGpQyZk4WHQvFC0PIjA0wAXrw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Se0Vj9l7;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793641845;
+	b=DfI70HBCZ/HP7zoN2rNTZVs6yVRV157ASUo6X4fE3v7K49BS/CpLgfWLd7ti9joNZ7Vr
+	 SL7EGUykqjyTWEE7MTx+pwAeZf+cPzHLKMekpk6lB148SPVt3Xd3Osgo09BOOmII1xwi5
+	 fP371/3ymQNOKnBK9lwwLZyjenEUT6e+ZItfhUGMDBg5/6fUElt6Rt1R2dpI1UBBNd2sI
+	 wPmLp491Zxhd5bNS42wwXED8rEiE4EVjiQ4XDV7zi7MsgNDmnVILUeftMGdIqhKGMqpVx
+	 T1Ta0rS/o+AEl2q8il7A7Saq+mG5fzTAsRY4VBTb57XbGXElvy6DPBLn3cBWBLpN32Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641845;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=w6DqD+7S4w2N93TbZ0eFAw5qJOUPfLrfJDXy8sDxQMc=;
+	b=z55qYyJM+Ocm27mIantpp3YwJg/NYPXISKdPCfux2ECWdkpv9S8p7TX4bovJ1dEssprS
+	 +7ru2w3TMrk37TXW6T5atESbhvzCDScn4H8fFnDA4RJi/FXEOUosejACkA7AOexp5f0aP
+	 bCamwtpKHzgx8FPLQctH1n2zx3OD9Q1tqqK6PwbGjwe6QAB4fDGet3IE1btV4MOpl8E7Q
+	 fPESnuXoyMZZF016fzBmXVRHEeRbKh+vEHckM3fYCwdB0LFL6/HVcloxV4DtbUTHt1UFN
+	 nMDc5fGfPmICn+aGhekpMEIFLwuYToD0+pnd8jGzMWdlfnoAO0Z2D3WnjKF7UBwy0/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=t5nwlo06;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.66
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010066.outbound.protection.outlook.com [52.101.69.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E929606A337;
-	Mon,  2 Nov 2026 17:50:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E929606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6073606A337;
+	Mon,  2 Nov 2026 17:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6073606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Se0Vj9l7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793641804; x=1825177804;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TSCF7zBSudjiGOzT24V0nGQydsXVadvfVgF/yDTTR6Q=;
-  b=Se0Vj9l7F6NZ5RRMbW9cSVpJTIk32iuaOoiO12kclXmKNDSx6UB2XYnN
-   mDthGNKO+usEvtFS4h2RaET6HNWgGnKlHvsQUdllokW8V+z/lOSZGmO5N
-   vlNcfdyvt+Q7sjAgzw7w80L7IzM1llkm/ZbGQvD9Ue9g7zxjXUi3M6ywi
-   mqHWjxXFDymKxMgmL0pbeyL6DHvGZTaYqYR4BP9veojWeI7yTfTzoiUfX
-   eYa16YQJiUF8ofb0AuYxeTHj7s0Cq44NUbWDiYSYpiEFsHIgPhuO/RxKz
-   3wOUs8RT1yehybgVB1SqpULepb3Z2Juz7Zonz0NVqruqr7+HPXmqLAgBJ
-   w==;
-X-CSE-ConnectionGUID: OYkVfngXSJCnP+VDIoDzkQ==
-X-CSE-MsgGUID: bJ1z0YkKTxCB5vyy+wk2gQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2375148"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2375148"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:50:03 -0800
-X-CSE-ConnectionGUID: vAvJJhCZStKaIHnfZCdEXw==
-X-CSE-MsgGUID: GN9Lo8r8RTaqWIvzavueyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6094170"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 02 Nov 2026 09:49:59 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNwAO-00000000hbQ-46TU;
-	Mon, 02 Nov 2026 17:49:56 +0000
-Date: Tue, 3 Nov 2026 01:49:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: Binbin Deng <18983559317@163.com>, dsahern@kernel.org,
-	idosch@nvidia.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: Re: [PATCH net v1] igmp: use copy-on-write RCU updates in
- ip_mc_source()
-Message-ID: <202611030103.U23Q9Kyn-lkp@intel.com>
-References: <20261102095312.47767-1-18983559317@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=t5nwlo06
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=In3xMZkfG1IUXVbcM1/ZGkVyui8Bo7WMFhCbTis2yM9JIPbSCAjWV8P5OWntMZ50QvkSKOhbvNq/t3s9PH2ezx3dZ4GoU/CQNBPBVZ9FbK+uMODk9lKG7+gHV1fPLdbeXSDSqCpXJ3ztcNV+rP/ffH7t35RinB53vEskT59XWCKNBui0KvDR6c370hMJyeM5723DRjlp87bCpFyXFmpucsSe2KI5Ft9n2ObQQqQL2M5SyZAi/8+8gqUANB6RexCFJtGe1FrlQd6Z1sGVp9NAFjxN3+K7OCn/3jsT5mbGVptWmdFBQmeLLW5R4T0Uow0Pglcehj2GD1phbtG9WgLi/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w6DqD+7S4w2N93TbZ0eFAw5qJOUPfLrfJDXy8sDxQMc=;
+ b=Lq3+C6qZ1u1HJC8cIhmJKJ4rAkvXyLDiyd/3OSh8SzZkfw1DEumUPzXCxpIo3sGVi8GYY3buI9eHQZw0UaFqJHHOGpwsA5HMYUUgoScHAwF03jRSY+6PNzlFCKf4IlOalO8gs38sn32r1Ir0n/VfHqLFkS84+e9S+iNic0zbKKcsZmzBsbhetAmdv3AYVEYAGWSc2+wgA6qG5nl3qlxxIKP+YHVV3u45gvKEl3gvCyfjMZ+8DPr10OWUcBHuevWdzxi6AZbgLZ9OMc8rdEJAFZjmsAjWwnvpkCpE+WfMc5fXTw6AYUd2NbhyXQzwqcKyUNR4gCyIy0soDkIIrTtZAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w6DqD+7S4w2N93TbZ0eFAw5qJOUPfLrfJDXy8sDxQMc=;
+ b=t5nwlo06pojJFzdWoMhe5f1t1e1dJCxO+mDGJ+7SmfoJ1cCZ6k9LYCQGMplw8j63dUaDMsSBaICjkMgMAKbeX9/w0k27hKFC+5sO3BcR49FAadSnma9ZnsGmJz8mdFYqmzB+3PtySEsT0RmUOJU//lxpnwNJKJGVseXkSM89PwDyGSkFrtRY3DciwUXv2XcpgmWcUj0fRoX+MxfuHXohZ+7l22QNiKjeI/VCzW/IKTySqc77oLZiG/W7HFalKYSXwbhlHy25u4/zQrVDkhtn6n9o41xNn9vdMJX6Dbt7WrkwL98TGtQ1iIW6NyG7J8IWBs6uE0TcPY+Am9RZrz7jSw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PA2PR04MB10237.eurprd04.prod.outlook.com (2603:10a6:102:401::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 17:50:42 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 17:50:40 +0000
+From: Frank.Li@oss.nxp.com
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-tegra@vger.kernel.org (open list:TEGRA ARCHITECTURE SUPPORT),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	vkoul@kernel.org
+Subject: [PATCH 1/1] soc: tegra: use dmaengine_desc_set_callback()
+Date: Mon,  2 Nov 2026 12:50:30 -0500
+Message-ID: <20261102175034.3944745-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH5P220CA0002.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:34a::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,206 +98,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102095312.47767-1-18983559317@163.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA2PR04MB10237:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e89203c-10d8-49be-72db-08df3909cf59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|1800799024|10067099003|18002099003|261102123227099003|56012099006|11063799006|261022105027099003|261009223027099003|261026140227099003|261028144727099003|261021121427099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	wOYcsdM4JFTAZV6+8y4Cqs8dKFIJZjyF0fgLjPQZGuEMmIeFCXvRIY/BJJOgRkbZy7NCHDW3EpEpgk9sQVsJup7eD+luZ0LkryY6sMGrZSpMwIXvFnAbZ7dn7dXHyE1HVcruMCYkunxm4mDjpBNH2w4hwnr2OrdZDPdxQnPJs1ZJ9QTNVPvdStkK9eXROErsS/nuLAit2mPnwx0E9iZJ1P3G1N6Rh+fDGNQMp0UN8sippONOfYj3DNDCx/AS+ZEQ2TiDX5vuSqLDrUeNkckdnJ3EUTkHJ6XLj1Iv1xrmXQGQq6id17si3YVhs4r998ixV4NLpWvgLH4tj3dCJvq1amovhe+tQMMpWvlGg9iv0LkBVcR3ae094Ts0x8C9QnnfllmW+G4LsaMa8BTNE4bFuFk/hXm6FS9qO0AUiqz+Y5EVxYevFyiqahIL+Xu16pxnAFK5jGJInLxlbFHgbix9cigKEAK7UZa/FPLyMeV73C5ipfkNrSgX/6/0ZFcm+y38jz8ZozH8PtK3UY/KgTu1SqDb7Q3FaoahKLCvIVBjzXYjhTZYu+sR0p0roPEWcQNcMG4i/b78lyNnoBqH5tVRVFkgFi4uhLKm6tr/mfEUzmXxoXV8X3OgVwj38QD9mhyUR3bojgd4+vQAzIbIXsqKP1B7YC59raNzPpj+MS5p8QE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(261102123227099003)(56012099006)(11063799006)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?q+eZ0hrf5wyNfZDWiXrzi75WFU8aTZK9PVNZQFh5sjOmQLFMAmUiIXnaCwPI?=
+ =?us-ascii?Q?+0MdU9FIyjeDzygfKqoXSGoI8XaN4OpZD1WG3zBOL47wJuStfpqadL/tAuSF?=
+ =?us-ascii?Q?Qm90eDEbE8cEhijXb8bJTPKasV9bE0ph4pgC+TKFWG0GeOcbV1/yDz/38Lyu?=
+ =?us-ascii?Q?EzuyT9SeX9Kevv4gMS53d1cMsnLjljUrgvVZui/I4xFpywuEpI3oit5j/4hG?=
+ =?us-ascii?Q?OPwBAtpa0wr9TjJk9qcsdhcEU55AQAOZbvzcYLMTFnoxVh1NqdTVO1dMUkAK?=
+ =?us-ascii?Q?nTYSBY96J1QHRL3iGyGmL85ioKGlGvdK+Pkgd/lKCBX2fOCl3eV2zql4ljCA?=
+ =?us-ascii?Q?HxrAADQFZFzb379arJBfvUEfLuI1cfAuVjb9sG4iE4EfjJkcGUR/0769TX4v?=
+ =?us-ascii?Q?bVVoy4OiMSeMqs5K1E2EK4H8XU6FjZE6QmvJvhhk8B32eOCvuZHUGX56Lm6+?=
+ =?us-ascii?Q?5gZ3iN7AOAjbm8y/gDe/2euv4bups7jBBSWqBN9suQMmdvUo7iY+38m2aS5h?=
+ =?us-ascii?Q?cGAy2m4H7c/7TF1nME1KREKfmj8R8/k7CuA4ydzG3rkt6z1fLMRrYaDQBTlQ?=
+ =?us-ascii?Q?hr9c29TzbXOer8P0rRlxokJY+AKMksGMscuX9SwVjdTTA6ykM9wNijz+dF88?=
+ =?us-ascii?Q?0fWlkRyTEbO7gQvQomku8rXSKgOa0EGksUQ9IAWvX1lhSoIgak94yOg+OxKB?=
+ =?us-ascii?Q?wgo0qAmSMg1XW4z58yIxZC3R/3NkEaKpDOpgdKXW4j/7V4kyl/hIS31mumbT?=
+ =?us-ascii?Q?UJRETJxUEMsKOGWkEo+TPHcqTHfP+7O7vK53sVbjr1+ckWiANEp8WD/BRY0f?=
+ =?us-ascii?Q?RFjJ7TP3hvP8zP7trK1muGsVmvS+YnHEYdxxmhJRxvXGKCM5uGRvx1GXMeqE?=
+ =?us-ascii?Q?9eFedGy1xlOldBKUKN2ZqgqB0UCtYv668xr2X9DmatpXvR1JRFOXIRn+7APw?=
+ =?us-ascii?Q?wnyWnO9DNAQr/f1lkxZANdhVYXSEcO8XY4j5EMSQABqxmhrVcU5hZIQmCd46?=
+ =?us-ascii?Q?3OoeFbTLvjRrd+YyOclO6t/ntTHCEdY9w8Lr77Bj6J/TUduon5nuRiSm93V8?=
+ =?us-ascii?Q?gOPNKLvKlwIaONAytVyNXw+p8KFs8o8e/tsm22ze5xjs+p22XhNR6GeTDKl5?=
+ =?us-ascii?Q?wl296X8YWnFOhkrbxvOoNznmf1X4wfM5KoPXDNY5o7G504ca/pUKWIblDRj4?=
+ =?us-ascii?Q?66B6a6RTZZ7TCKoiJLwMcZt1XWGB0aoBTwzfAPIbvjFjxcJGluX6KG0+qLky?=
+ =?us-ascii?Q?gvCwN3qEIEmVN2cXRG/DR1kx2+sr9VZzZvLX2zNo5GPd2ATV347yDUwvuH3t?=
+ =?us-ascii?Q?gryEFpehNmIniDXQobLYe2JmWlCM0UdYzq7uuoIi6TmOx1caIGvIeGCheYtN?=
+ =?us-ascii?Q?zfAe6GOjei6UIc5CeNtvm9P0EQ8RGCU1sFq4KsXtt7ZaftcBAgVtfnccGSmp?=
+ =?us-ascii?Q?3ITSBV3Z6bAU03IkbudMQtyS4UQ5+SLBX2vwUCLGirQqfPxO6kSUJhWCnMrt?=
+ =?us-ascii?Q?yK0d+6pTGoU6XxQXz4tihFufZWu+69CsaHpaR2+CQf7MnUkb0VR5JH/kfaFK?=
+ =?us-ascii?Q?BYKTPnvT7aQoV6veHkhhaEMgN5b/q8zOGcsJJKhab8/8Z/zr5ilM8FlUAjT3?=
+ =?us-ascii?Q?ePoAaEMdlWtECBKOxr9n5KqqxNmO1laYp0apw5Ogi4Mw9BgKucrzlZJoG6SO?=
+ =?us-ascii?Q?c/8nlWAz0VYWRiF5P6q9EyjzSJiBMhhdCDP2uB4t4lN2Z0Z3TK8ZCcm+3BEH?=
+ =?us-ascii?Q?uLo31hpM9a+QsMcTlggdWlUSo5jM+w3LXrfUXs6FiA8zLHB7/3dN?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e89203c-10d8-49be-72db-08df3909cf59
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 17:50:40.6772
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lVzzznI19qEg5gd8ohxqen0A6DsAUZjy1tWeXEAVUYKjHxTq3Rksz5fvo8x3CdAzLc9DyZ0r1zv+3Dg9P82Oc1CwSZEt8rFlsiWg3jZbGkiloBu47flXvXe1m1OWzmcR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10237
 
-Hi Binbin,
+From: Frank Li <Frank.Li@nxp.com>
 
-kernel test robot noticed the following build errors:
+Replace open-coded assignments to callback and callback_param fields
+of struct dma_async_tx_descriptor with a call to the
+dmaengine_desc_set_callback() helper.
 
-[auto build test ERROR on net/main]
+No functional change intended. Prepare make to struct
+dma_async_tx_descriptor private to the DMA engine.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Binbin-Deng/igmp-use-copy-on-write-RCU-updates-in-ip_mc_source/20261102-175312
-base:   net/main
-patch link:    https://lore.kernel.org/r/20261102095312.47767-1-18983559317%40163.com
-patch subject: [PATCH net v1] igmp: use copy-on-write RCU updates in ip_mc_source()
-config: hexagon-defconfig (https://download.01.org/0day-ci/archive/20261103/202611030103.U23Q9Kyn-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 65303e81f481bbfe386b8596423f94c43198ba94)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611030103.U23Q9Kyn-lkp@intel.com/reproduce)
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/soc/tegra/fuse/fuse-tegra20.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611030103.U23Q9Kyn-lkp@intel.com/
+diff --git a/drivers/soc/tegra/fuse/fuse-tegra20.c b/drivers/soc/tegra/fuse/fuse-tegra20.c
+index fdecf7b7c2466..b98696f551ea8 100644
+--- a/drivers/soc/tegra/fuse/fuse-tegra20.c
++++ b/drivers/soc/tegra/fuse/fuse-tegra20.c
+@@ -66,8 +66,7 @@ static u32 tegra20_fuse_read(struct tegra_fuse *fuse, unsigned int offset)
+ 	if (!dma_desc)
+ 		goto out;
+ 
+-	dma_desc->callback = apb_dma_complete;
+-	dma_desc->callback_param = fuse;
++	dmaengine_desc_set_callback(dma_desc, apb_dma_complete, NULL, fuse);
+ 
+ 	reinit_completion(&fuse->apbdma.wait);
+ 
+-- 
+2.43.0
 
-All errors (new ones prefixed by >>):
-
-   net/ipv4/igmp.c:2084:6: warning: variable 'changerec' set but not used [-Wunused-but-set-variable]
-    2084 |         int     changerec = 0;
-         |                 ^
->> net/ipv4/igmp.c:2646:1: error: function definition is not allowed here
-    2646 | {
-         | ^
-   net/ipv4/igmp.c:2737:1: error: function definition is not allowed here
-    2737 | {
-         | ^
-   net/ipv4/igmp.c:2802:1: error: function definition is not allowed here
-    2802 | {
-         | ^
-   net/ipv4/igmp.c:2851:1: error: function definition is not allowed here
-    2851 | {
-         | ^
-   net/ipv4/igmp.c:2898:1: error: function definition is not allowed here
-    2898 | {
-         | ^
-   net/ipv4/igmp.c:2924:1: error: function definition is not allowed here
-    2924 | {
-         | ^
-   net/ipv4/igmp.c:2977:1: error: function definition is not allowed here
-    2977 | {
-         | ^
-   net/ipv4/igmp.c:2999:1: error: function definition is not allowed here
-    2999 | {
-         | ^
-   net/ipv4/igmp.c:3018:1: error: function definition is not allowed here
-    3018 | {
-         | ^
-   net/ipv4/igmp.c:3028:1: error: function definition is not allowed here
-    3028 | {
-         | ^
-   net/ipv4/igmp.c:3034:1: error: function definition is not allowed here
-    3034 | {
-         | ^
-   net/ipv4/igmp.c:3046:1: error: function definition is not allowed here
-    3046 | {
-         | ^
-   net/ipv4/igmp.c:3055:1: error: function definition is not allowed here
-    3055 | {
-         | ^
->> net/ipv4/igmp.c:3094:11: error: use of undeclared identifier 'igmp_mc_seq_start'; did you mean 'igmp_mc_seq_ops'?
-    3094 |         .start  =       igmp_mc_seq_start,
-         |                         ^~~~~~~~~~~~~~~~~
-         |                         igmp_mc_seq_ops
-   net/ipv4/igmp.c:3093:36: note: 'igmp_mc_seq_ops' declared here
-    3093 | static const struct seq_operations igmp_mc_seq_ops = {
-         |                                    ^
->> net/ipv4/igmp.c:3095:10: error: use of undeclared identifier 'igmp_mc_seq_next'; did you mean 'igmp_mc_seq_ops'?
-    3095 |         .next   =       igmp_mc_seq_next,
-         |                         ^~~~~~~~~~~~~~~~
-         |                         igmp_mc_seq_ops
-   net/ipv4/igmp.c:3093:36: note: 'igmp_mc_seq_ops' declared here
-    3093 | static const struct seq_operations igmp_mc_seq_ops = {
-         |                                    ^
->> net/ipv4/igmp.c:3096:10: error: use of undeclared identifier 'igmp_mc_seq_stop'; did you mean 'igmp_mc_seq_ops'?
-    3096 |         .stop   =       igmp_mc_seq_stop,
-         |                         ^~~~~~~~~~~~~~~~
-         |                         igmp_mc_seq_ops
-   net/ipv4/igmp.c:3093:36: note: 'igmp_mc_seq_ops' declared here
-    3093 | static const struct seq_operations igmp_mc_seq_ops = {
-         |                                    ^
->> net/ipv4/igmp.c:3097:10: error: use of undeclared identifier 'igmp_mc_seq_show'; did you mean 'igmp_mc_seq_ops'?
-    3097 |         .show   =       igmp_mc_seq_show,
-         |                         ^~~~~~~~~~~~~~~~
-         |                         igmp_mc_seq_ops
-   net/ipv4/igmp.c:3093:36: note: 'igmp_mc_seq_ops' declared here
-    3093 | static const struct seq_operations igmp_mc_seq_ops = {
-         |                                    ^
->> net/ipv4/igmp.c:3094:11: error: initializing 'void *(*)(struct seq_file *, loff_t *)' (aka 'void *(*)(struct seq_file *, long long *)') with an expression of incompatible type 'const struct seq_operations'
-    3094 |         .start  =       igmp_mc_seq_start,
-         |                         ^~~~~~~~~~~~~~~~~
->> net/ipv4/igmp.c:3095:10: error: initializing 'void *(*)(struct seq_file *, void *, loff_t *)' (aka 'void *(*)(struct seq_file *, void *, long long *)') with an expression of incompatible type 'const struct seq_operations'
-    3095 |         .next   =       igmp_mc_seq_next,
-         |                         ^~~~~~~~~~~~~~~~
-   fatal error: too many errors emitted, stopping now [-ferror-limit=]
-   1 warning and 20 errors generated.
-
-
-vim +2646 net/ipv4/igmp.c
-
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2644  
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2645  int ip_mc_msfilter(struct sock *sk, struct ip_msfilter *msf, int ifindex)
-^1da177e4c3f41 Linus Torvalds          2005-04-16 @2646  {
-9951f036fe8a4e David L Stevens         2005-07-08  2647  	int err = 0;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2648  	struct ip_mreqn	imr;
-63007727e0bb09 Al Viro                 2006-09-27  2649  	__be32 addr = msf->imsf_multiaddr;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2650  	struct ip_mc_socklist *pmc;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2651  	struct in_device *in_dev;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2652  	struct inet_sock *inet = inet_sk(sk);
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2653  	struct ip_sf_socklist *newpsl, *psl;
-877acedc0d3ea0 Daniel Lezcano          2008-08-13  2654  	struct net *net = sock_net(sk);
-9951f036fe8a4e David L Stevens         2005-07-08  2655  	int leavegroup = 0;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2656  
-f97c1e0c6ebdb6 Joe Perches             2007-12-16  2657  	if (!ipv4_is_multicast(addr))
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2658  		return -EINVAL;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2659  	if (msf->imsf_fmode != MCAST_INCLUDE &&
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2660  	    msf->imsf_fmode != MCAST_EXCLUDE)
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2661  		return -EINVAL;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2662  
-54ff9ef36bdf84 Marcelo Ricardo Leitner 2015-03-18  2663  	ASSERT_RTNL();
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2664  
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2665  	imr.imr_multiaddr.s_addr = msf->imsf_multiaddr;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2666  	imr.imr_address.s_addr = msf->imsf_interface;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2667  	imr.imr_ifindex = ifindex;
-877acedc0d3ea0 Daniel Lezcano          2008-08-13  2668  	in_dev = ip_mc_find_dev(net, &imr);
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2669  
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2670  	if (!in_dev) {
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2671  		err = -ENODEV;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2672  		goto done;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2673  	}
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2674  
-9951f036fe8a4e David L Stevens         2005-07-08  2675  	/* special case - (INCLUDE, empty) == LEAVE_GROUP */
-9951f036fe8a4e David L Stevens         2005-07-08  2676  	if (msf->imsf_fmode == MCAST_INCLUDE && msf->imsf_numsrc == 0) {
-9951f036fe8a4e David L Stevens         2005-07-08  2677  		leavegroup = 1;
-9951f036fe8a4e David L Stevens         2005-07-08  2678  		goto done;
-9951f036fe8a4e David L Stevens         2005-07-08  2679  	}
-9951f036fe8a4e David L Stevens         2005-07-08  2680  
-1d7138de878d1d Eric Dumazet            2010-11-12  2681  	for_each_pmc_rtnl(inet, pmc) {
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2682  		if (pmc->multi.imr_multiaddr.s_addr == msf->imsf_multiaddr &&
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2683  		    pmc->multi.imr_ifindex == imr.imr_ifindex)
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2684  			break;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2685  	}
-917f2f105ea4bb David L Stevens         2005-07-08  2686  	if (!pmc) {		/* must have a prior join */
-917f2f105ea4bb David L Stevens         2005-07-08  2687  		err = -EINVAL;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2688  		goto done;
-917f2f105ea4bb David L Stevens         2005-07-08  2689  	}
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2690  	if (msf->imsf_numsrc) {
-e6a1f7e0b0fe59 Gustavo A. R. Silva     2021-08-04  2691  		newpsl = sock_kmalloc(sk, struct_size(newpsl, sl_addr,
-e6a1f7e0b0fe59 Gustavo A. R. Silva     2021-08-04  2692  						      msf->imsf_numsrc),
-8b3a70058bfe71 Kris Katterjohn         2006-01-11  2693  				      GFP_KERNEL);
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2694  		if (!newpsl) {
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2695  			err = -ENOBUFS;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2696  			goto done;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2697  		}
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2698  		newpsl->sl_max = newpsl->sl_count = msf->imsf_numsrc;
-2d3e5caf96b944 Gustavo A. R. Silva     2021-07-31  2699  		memcpy(newpsl->sl_addr, msf->imsf_slist_flex,
-2d3e5caf96b944 Gustavo A. R. Silva     2021-07-31  2700  		       flex_array_size(msf, imsf_slist_flex, msf->imsf_numsrc));
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2701  		err = ip_mc_add_src(in_dev, &msf->imsf_multiaddr,
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2702  			msf->imsf_fmode, newpsl->sl_count, newpsl->sl_addr, 0);
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2703  		if (err) {
-e6a1f7e0b0fe59 Gustavo A. R. Silva     2021-08-04  2704  			sock_kfree_s(sk, newpsl,
-e6a1f7e0b0fe59 Gustavo A. R. Silva     2021-08-04  2705  				     struct_size(newpsl, sl_addr,
-e6a1f7e0b0fe59 Gustavo A. R. Silva     2021-08-04  2706  						 newpsl->sl_max));
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2707  			goto done;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2708  		}
-8713dbf05754aa Yan Zheng               2005-10-28  2709  	} else {
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2710  		newpsl = NULL;
-8713dbf05754aa Yan Zheng               2005-10-28  2711  		(void) ip_mc_add_src(in_dev, &msf->imsf_multiaddr,
-8713dbf05754aa Yan Zheng               2005-10-28  2712  				     msf->imsf_fmode, 0, NULL, 0);
-8713dbf05754aa Yan Zheng               2005-10-28  2713  	}
-1d7138de878d1d Eric Dumazet            2010-11-12  2714  	psl = rtnl_dereference(pmc->sflist);
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2715  	if (psl) {
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2716  		(void) ip_mc_del_src(in_dev, &msf->imsf_multiaddr, pmc->sfmode,
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2717  			psl->sl_count, psl->sl_addr, 0);
-c85bb41e93184b Flavio Leitner          2010-02-02  2718  		/* decrease mem now to avoid the memleak warning */
-e6a1f7e0b0fe59 Gustavo A. R. Silva     2021-08-04  2719  		atomic_sub(struct_size(psl, sl_addr, psl->sl_max),
-e6a1f7e0b0fe59 Gustavo A. R. Silva     2021-08-04  2720  			   &sk->sk_omem_alloc);
-dba5bdd57bea58 Eric Dumazet            2022-04-29  2721  	} else {
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2722  		(void) ip_mc_del_src(in_dev, &msf->imsf_multiaddr, pmc->sfmode,
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2723  			0, NULL, 0);
-dba5bdd57bea58 Eric Dumazet            2022-04-29  2724  	}
-cf778b00e96df6 Eric Dumazet            2012-01-12  2725  	rcu_assign_pointer(pmc->sflist, newpsl);
-dba5bdd57bea58 Eric Dumazet            2022-04-29  2726  	if (psl)
-dba5bdd57bea58 Eric Dumazet            2022-04-29  2727  		kfree_rcu(psl, rcu);
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2728  	pmc->sfmode = msf->imsf_fmode;
-917f2f105ea4bb David L Stevens         2005-07-08  2729  	err = 0;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2730  done:
-9951f036fe8a4e David L Stevens         2005-07-08  2731  	if (leavegroup)
-9951f036fe8a4e David L Stevens         2005-07-08  2732  		err = ip_mc_leave_group(sk, &imr);
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2733  	return err;
-^1da177e4c3f41 Linus Torvalds          2005-04-16  2734  }
-e12e04f5ab54cd Breno Leitao            2026-09-14  2735  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
