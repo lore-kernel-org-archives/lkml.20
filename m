@@ -1,71 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641297;
-	b=V7cQnjLQfV+OXXfsiowfF80qfvWNE3XFVqAx8KLNKmNwlfd3sGW7FNCdbX7UtkIttDn9
-	 OKerCfJMaBRrE4j7wNaPuYCA+8X2zZKzs0CtWHoHp8MQyJpKrkXDb8uAJpz/Y2Z4zVyEv
-	 tuPOOAy3VmtILLvYyjrJ+qHFLojGaq6ZyS36qfOGnLQOGzQnUqmWMABxLuV7/RiahxZDH
-	 Kb+7RzxTdVMwubGpvUz7BQzmEitsZiS4PSjwGQ29IOX4IbWAJlEbPn/bafhdtK6NL7BDc
-	 Qv36+XWlguCKWFr3DljWu0GgILj41nUci91E3KGq9B5CdI7yQfxgsRUOIgS0/LdzjwA==
+	t=1793641304;
+	b=UDJY2M1Bpt52UjfAEqRgOuWyrvfmmdFiE1aKMe1JMMmBwrJhUYK+FZR+/41ZUvy9eic+
+	 wg4UOWlIHzFIjGFG9LKx8cZZiPKuQx2wnl90KzR0aLp7X5BDFnfv0UAgFtSmWtqR+XtPa
+	 4xHSUY5WnwzdHsNvHwSlzYU74+iHAy+yTbfF6FV3OZZiYBcuY8xYYo6u0qARzq84fSpqa
+	 mcUPVOhuhcj5I0L4XkqyuGlpLUH4Z6bKTAQZC7A3nfeVV8hKwgiwNl42NYbQtBhnWQx7i
+	 NkQpt1U1S/7vOLQTNz4SPxJffb5W1YyTltW96F8GG2YnFK+eVz/7n+El4hy+0+1xqBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641297;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641304;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Subject:Date:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=UMANxSC73tO0YEmg0ke+8t+NbPcvHz8AyBEapv8SX8c=;
-	b=ERXGvRSwVb16IVnZVcxVnaOsemLUMjA+xUiXaKCtivxUjTF+lgDpCb6d3EhJoo8VKUf0
-	 FDVGwGmcoTctDrNTppJNC0X+cmGk3MdRVyRLgADVoTOw1iZVZY6cscbYX7brhhqpR1SfI
-	 YVjV8OWUOlKXO+6TcwvaKohUBLaOBk1pajy4h+t10iTR0ElVkXBwAzsTlnbsp7iC0dB7m
-	 j1BNatgySaqwg5oZURcj/LiJdmGNoFXgni254hVIQ9jbKfiT5kvRefWiED0eCuLNKcRRJ
-	 BnSFc1KW/NDFDxYnmU6J7Gr76I/HRj+ZMGdKy7EcbpiDzhwWqrbU2OcZ7t5AlCyxNYw==
+	bh=4oGyQJIGrjAzOl+0UALxZK2pDMzcNkZQ7rZmMKDmU7s=;
+	b=cJE51wXQv7JoZvHKNZnPLwjvuHJ9NcTlLHGmeg5TsbHAAkKzSHxMrm4hdN75XIJQxjgz
+	 33hiz9FNR0vxe1CN+0/prITDkbdk1yfa7ELMEZqGUCxJ8Xw9SpfFtoPcUlx5ePvCRMpH2
+	 +Lorb6IS5o3+ZVFfZuB9zBTne8r49OS4pd4WwSO6DLnO5yBigNtCmw0RY5nhMbJmc5kzL
+	 q8IwiMDAkMKrEdr8FEGfecRg3huQONwam8Hh8yh7CWpNELx/mNKIJfCFYYg+n+8r+dX/6
+	 XUmknvjLjn230zKcHWli1uHLsXIdUBL+QiKD83PZayMp9Ou5+rbJPM2obE0B0Up5r1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N6kKG2lN;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fu4+ORxB;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E8460703B5
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82E8460703B5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E065660752A4
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E065660752A4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N6kKG2lN
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fu4+ORxB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641295;
+	s=mimecast20190719; t=1793641303;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UMANxSC73tO0YEmg0ke+8t+NbPcvHz8AyBEapv8SX8c=;
-	b=N6kKG2lN6EhzgaGTkENdMoAhJtP1b7jXRHkydKK6RZq24PCXgf7u0DdyyT8Q3Ylk+z0W9g
-	ft4bPDxQpCGXV+HK5UwVh8tbcpiUacdcvlkj8zCrelrhXOxN53NFWbnsT6m6dP+ENGRlfZ
-	jKPBRZAFoBf2R7vz8MaoSVcavibt1zQ=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+	bh=4oGyQJIGrjAzOl+0UALxZK2pDMzcNkZQ7rZmMKDmU7s=;
+	b=fu4+ORxBxEnFPxxoMsHW0q2ytBBX4jY9ACC55oKWN1HAqzVJaFuPpwGabKSTnS/9hhV7yF
+	39vDBNBS0eLs1SgHCLvRidkcCNQVplyiUMSKQ8TGv6aBHHxf8P92w7RG262ICyDJszi+Vo
+	mxlDoNMgqEL+mxXgTJnH+BLIEqQYkeY=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-113-jZD9R2wwOI-FZar1kA1WRg-1; Mon,
- 02 Nov 2026 12:41:34 -0500
-X-MC-Unique: jZD9R2wwOI-FZar1kA1WRg-1
-X-Mimecast-MFC-AGG-ID: jZD9R2wwOI-FZar1kA1WRg_1793641293
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-52-Sm3UEA2YOruSafd4Dykh_w-1; Mon,
+ 02 Nov 2026 12:41:37 -0500
+X-MC-Unique: Sm3UEA2YOruSafd4Dykh_w-1
+X-Mimecast-MFC-AGG-ID: Sm3UEA2YOruSafd4Dykh_w_1793641296
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8515D195605A;
-	Mon,  2 Nov 2026 17:41:33 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 97B831956051;
+	Mon,  2 Nov 2026 17:41:36 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2666A30000E3;
-	Mon,  2 Nov 2026 17:41:33 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EC12B30000E3;
+	Mon,  2 Nov 2026 17:41:35 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
-Subject: [PATCH 04/45] KVM: x86/emulate: Check TSS busy-bit writes during task switches
-Date: Mon,  2 Nov 2026 12:40:48 -0500
-Message-ID: <20261102174130.8779-5-pbonzini@redhat.com>
+Cc: Anish Moorthy <amoorthy@google.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Nicolas Saenz Julienne <nsaenz@amazon.com>
+Subject: [PATCH 09/45] KVM: Define and communicate KVM_EXIT_MEMORY_FAULT RWX flags to userspace
+Date: Mon,  2 Nov 2026 12:40:53 -0500
+Message-ID: <20261102174130.8779-10-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,45 +84,84 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Task switching ignores failures when clearing the old TSS descriptor's
-busy bit and setting the new descriptor's busy bit.  A memory attribute
-restriction can therefore drop either write while the task switch
-continues with inconsistent descriptor state.
+From: Anish Moorthy <amoorthy@google.com>
 
-Check both writes and stop the task switch on failure.  Memory attribute
-faults reach the existing emulation-failure exit in kvm_task_switch().
+kvm_prepare_memory_fault_exit() already takes parameters describing the
+RWX-ness of the relevant access but doesn't actually do anything with
+them. Define and use the flags necessary to pass this information on to
+userspace.
 
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Link: https://lore.kernel.org/kvm/ZR4N8cwzTMDanPUY@google.com/
+Signed-off-by: Anish Moorthy <amoorthy@google.com>
+Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Link: https://patch.msgid.link/20260918135030.171564-4-pbonzini@redhat.com
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/emulate.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ Documentation/virt/kvm/api.rst | 5 +++++
+ include/linux/kvm_host.h       | 9 ++++++++-
+ include/uapi/linux/kvm.h       | 3 +++
+ 3 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
-index c1b21282187f..711794592c2c 100644
---- a/arch/x86/kvm/emulate.c
-+++ b/arch/x86/kvm/emulate.c
-@@ -2925,7 +2925,9 @@ static int emulator_do_task_switch(struct x86_emulate_ctxt *ctxt,
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index e95c9cda085d..7123d021bdbb 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -7481,6 +7481,9 @@ spec refer, https://github.com/riscv/riscv-sbi-doc.
  
- 	if (reason == TASK_SWITCH_IRET || reason == TASK_SWITCH_JMP) {
- 		curr_tss_desc.type &= ~(1 << 1); /* clear busy flag */
--		write_segment_descriptor(ctxt, old_tss_sel, &curr_tss_desc);
-+		ret = write_segment_descriptor(ctxt, old_tss_sel, &curr_tss_desc);
-+		if (ret != X86EMUL_CONTINUE)
-+			return ret;
- 	}
+ 		/* KVM_EXIT_MEMORY_FAULT */
+ 		struct {
++  #define KVM_MEMORY_EXIT_FLAG_READ     (1ULL << 0)
++  #define KVM_MEMORY_EXIT_FLAG_WRITE    (1ULL << 1)
++  #define KVM_MEMORY_EXIT_FLAG_EXEC     (1ULL << 2)
+   #define KVM_MEMORY_EXIT_FLAG_PRIVATE	(1ULL << 3)
+ 			__u64 flags;
+ 			__u64 gpa;
+@@ -7492,6 +7495,8 @@ could not be resolved by KVM.  The 'gpa' and 'size' (in bytes) describe the
+ guest physical address range [gpa, gpa + size) of the fault.  The 'flags' field
+ describes properties of the faulting access that are likely pertinent:
  
- 	if (reason == TASK_SWITCH_IRET)
-@@ -2949,7 +2951,9 @@ static int emulator_do_task_switch(struct x86_emulate_ctxt *ctxt,
++ - KVM_MEMORY_EXIT_FLAG_READ/WRITE/EXEC - When set, indicates that the memory
++   fault occurred on a read/write/exec access respectively.
+  - KVM_MEMORY_EXIT_FLAG_PRIVATE - When set, indicates the memory fault occurred
+    on a private memory access.  When clear, indicates the fault occurred on a
+    shared access.
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index e7fc94e2910a..5e386c3d2495 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2556,8 +2556,15 @@ static inline void kvm_prepare_memory_fault_exit(struct kvm_vcpu *vcpu,
+ 	vcpu->run->memory_fault.gpa = gpa;
+ 	vcpu->run->memory_fault.size = size;
  
- 	if (reason != TASK_SWITCH_IRET) {
- 		next_tss_desc.type |= (1 << 1); /* set busy flag */
--		write_segment_descriptor(ctxt, tss_selector, &next_tss_desc);
-+		ret = write_segment_descriptor(ctxt, tss_selector, &next_tss_desc);
-+		if (ret != X86EMUL_CONTINUE)
-+			return ret;
- 	}
- 
- 	ops->set_cr(ctxt, 0,  ops->get_cr(ctxt, 0) | X86_CR0_TS);
+-	/* RWX flags are not (yet) defined or communicated to userspace. */
+ 	vcpu->run->memory_fault.flags = 0;
++
++	if (is_write)
++		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_WRITE;
++	else if (is_exec)
++		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_EXEC;
++	else
++		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_READ;
++
+ 	if (is_private)
+ 		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_PRIVATE;
+ }
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index 8dff2fc1972e..229b3bdb7aed 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -457,6 +457,9 @@ struct kvm_run {
+ 		} notify;
+ 		/* KVM_EXIT_MEMORY_FAULT */
+ 		struct {
++#define KVM_MEMORY_EXIT_FLAG_READ       (1ULL << 0)
++#define KVM_MEMORY_EXIT_FLAG_WRITE      (1ULL << 1)
++#define KVM_MEMORY_EXIT_FLAG_EXEC       (1ULL << 2)
+ #define KVM_MEMORY_EXIT_FLAG_PRIVATE	(1ULL << 3)
+ 			__u64 flags;
+ 			__u64 gpa;
 -- 
 2.52.0
 
