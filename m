@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.67
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793634215;
-	b=i5VdxOMZ1GsdR7CsjVSBe8ITuHUicv+zm4rgRf+f2lZ5VxCOG7DAociQOpNkPtcHaqzF
-	 2Wl+9qeppuG1DnX5tSPoswrjM1LjcinOyxz7oZdJ22g42/ovivAuLTkiXQWqlAYgBRzTH
-	 luBkwz23ifGaQlQPrXYXk1XcAXvbQI8oXPtt4vVu3fadv7A7RIHoz3+s/NPstAVtwfuoG
-	 lnV+aU9BYMRaLzNdQBBEDamXHOaNJiuC46dIjJJz4jG8q5tWhxisbU8eFFEkfRZ98mhqw
-	 ZoPSMGcBDUXSYXHAM5JFtA1hJqx8rEbcqVDedqtNlOcwR4Hd2CFQNvD1ZfTk4WOYYDQ==
+	t=1793634296;
+	b=gO8e+OjxrrVeoewqrNhUcuIoZ7sH+am4sWmcXIiMkNoUutQKSkDsk9nX3l7NLVGBeQ4f
+	 1CIIt8M7j3jNOpRiN5VYr/qmvzuuTK2QFKUryDj2EgSlyQWNxnAyCGqovnEqEDZPToQRh
+	 kpNBFHAdvSYQG7asZ3TTMA6wEHiGGnKy724xgjkgs1J64qnrFvlpQIQmlZ3sViteSJTi0
+	 b4R63Lk3aCO2640FmgIWzD9SwxSz1AI7pnKoUUAXpmiNsqfN8Mc0C90MvGEEX0ow1SUgO
+	 YnMPASLljzEvJElHeA1KHVMaFJ+ThHHGRTMgJHRCg8d3wSycc6a2YWxS5QZ7jjsdHUg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634215;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HK8ZrL+fL3c5ivUA8S9idB+tb4oTBF9gPah3Mf4G/bY=;
-	b=V2VmLRDnTbN2eomySLURXzthnD5PnjT+KONM5rLWCu4u0qrZvAHN04Und8yjVFA8p/im
-	 cixf3E17Hp34pSMaB2kKEG6fVft0zbxQwzpo7RLtAl8BOoLsOLivJfKGVe8Y8x4l5QpnL
-	 wLbXDwG4OLiQcVdWuD1Lx6RFL7Pycyjhnbs9OB05KzkP82BLYVdYSDwdT33JHSb2uFUXC
-	 LRMnbmzFyEsSRbaxxP+2pcPJfQFamJuMSaeyVKIIxZSj6pdYxkzUXSNY8k4UaRWhE15ae
-	 2QYMx4EhQZ1EDg2aFGCV0Sw3u5k2dhvy5fFDeM/98Dly5sJc3OYbRNT8D0d6QngQRAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634296;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=r2vskZVrRT2Sr/MQJ84kEYXVZRCD9WXu2rQ7RBiiXEQ=;
+	b=Vf4oRYlDAUIBF1D8ThCS0I/pr4mp2VU/Ptl5IRpbmvIKXIiDFvDa+jjaca6zTp6qkpbt
+	 5SBEoBpxg0XUbvobmW+f0K+zfS/DRw3xOkqIZaxqhXxAmPAy1MjP6tfzmV2jP0SVi0XGm
+	 biy3Pt/FeDIw0bJMkVxBmm0rUnFBj6468TShMy8c8P1z8ts499BP1baC5zWyCe52nmWHq
+	 xsfkZsVTXmUSyuJRgqVpC2LkkXMg10inchm31w46UAlW7M8y0nNzUr1XRLvgb5dJoDbvN
+	 kFM+6ZD+e9QvT956Wo1AXSTH9t2wMQi7EwDdM0B5eUk3wY0Xbv3GVBzGlWV34QwTjCQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=R9j+jwxG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tQqpJ+h5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.67
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010067.outbound.protection.outlook.com [52.101.85.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FAC8606D82A
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FAC8606D82A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B49606B93F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:44:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B49606B93F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=R9j+jwxG
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-54492d8a988so446661cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:43:35 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793634214; cv=none;
-        d=google.com; s=arc-20260327;
-        b=S7Xm6FXk+Oxe7hSvcmFdE2Sf1NflTgHMJaTnY5HyWe4Nst30OVp53rfIAnAYpg8AYv
-         y6VcDUuo/Ir/+fuTwzP3fRnfbCCRdkkgAFFGzzSy+IOxoj38vY5kHVIHjxrr60Z35NYE
-         N526djAxFeeIwQX3Q+StkVzSRcH7FrMLVbU/GJ1mGIJaPUs1eqyUC9ZtTEba5f4jFFlP
-         +NF2R3nawX3ZKMhqbaAqbrRXeV90gCZP26xRE5F0IOEIen3nujIGv9ZzF3whDIL616LR
-         GNs0HIYvMkGepTTMt7+9B9Mghdjml10zn8AbM4TioJULrbmrG5wh7abc1aHbtQNJqKeR
-         NtbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HK8ZrL+fL3c5ivUA8S9idB+tb4oTBF9gPah3Mf4G/bY=;
-        fh=4gFQykmBmQHqNquFDT0tSPwXwPp0U+3wD7NhEIb0EcQ=;
-        b=Ig9RA8CYcqFRVfkf8EKsBHM0OoLKQzjv8XUSj+fONRQBplnhOIPu3Q8GjTdzEdEa3m
-         UgeLGksQg4aM5+dpL7pf0sW9NNQEFEG9sQAWqS8DZDIf3/iFEduU3AdHQzC2uTE7MAzM
-         yxYFovEWviqdOvVIZpkrauPsC3f5V8vXO9BB2JsZ92lScMLgsVJFd+TYm6LdxnV0Mzl2
-         VBfBIaDsHaMKf7WPH2mN6Ocpakxld7pyoWZvC4ksM1UeHHYddk7UfL8q/Rhkm9UPK7w4
-         MRYwT78ZmkX/eUDtIDa/b3SzUTMAgVG/XbbNPCwtzIzxvsD+cXNU4Dcf5wvB5CcIwlD5
-         4L2A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793634214; x=1794239014; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HK8ZrL+fL3c5ivUA8S9idB+tb4oTBF9gPah3Mf4G/bY=;
-        b=R9j+jwxGcRL6XdsG2JWiq2a64G7IoWEkfdsReSzCWmy68LqttG+ZpDz356XNZ0BE5G
-         TiHv/vLz6oXwQhiKyDA10leH9Asnjacp2C88iOazs9HMe6omqyd/LuvDsfvaF/LhkmXu
-         jJIh768DemfC3BPoFeTnacA5QUfKQCX0ifEEBWXCTbZfNF2R7zu/bCRQhLwYip77HQAV
-         mDvcOTT7kSHBakijnXYkRDqCPCvEsBMSLeuJNm64FWC2Z+ffwG1thHZ/9/hMWUofZP+f
-         8OLJsnD2d1bJBx8Mjf+vc0a5VwK5BDnXxWVDX9muRqCVRMiNMTcvbzjSKFEgLBhi2YIe
-         8dYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793634214; x=1794239014;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HK8ZrL+fL3c5ivUA8S9idB+tb4oTBF9gPah3Mf4G/bY=;
-        b=AtGYPy4xB9EqEwQgJ7PXuENwAy1AY/FZDsoureGrZtsJk4sYbWYGoyPSjmHut/y9Ag
-         7iWMZDvcus9EDx5D9NiKdbTSrtvYk1P9mJgouysPveR1my/G3IjAliPqRf5PVVC3giAx
-         fRnd93klahWBdHSfHGejXx5Vh8pC1aIu2tuN21X2M+Ja8/fUUr4/9N2jpI4rY8qKCHct
-         GS5fWUWbki3yJa6/sBmPhUuqYdDMAN03EYjLG+2QZtimpaC9F7BqRtsbrgclvyIrLetA
-         qpLXmAQY9Ek0T0lJDOCWZ5r47+X8o5xUksc5L5jZZpUWV2Xp0QTZAyCSotg7KEQu7QMh
-         JGlw==
-X-Forwarded-Encrypted: i=1; AKwUvBzjIgimGIT/X9VkIKAmB+Z+hKQgVwv41h4jurYyi8rJd0M2m6L3TDCXjvW5lucHolatZ3iyFYVIafhHHkM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/mF0D+1K3ECPLAB9OYcgfv3/E82xihyapU0b2+kpahzW35qnit
-	eDJy6PXYe7DNdBOkHOveS3R4vW/U4MVXdCVjp9WrOeqqLlA902f25z4doErdZKovAa0r29waH4W
-	QJWBadejVgIIxitoBqCG2HPmIfSAp9+VYN/+6HxLh
-X-Gm-Gg: AYBFou1JP6uly3w6VCJaUXtHLpSjEGry5j1I29Jvj1tLn0RMvQDgNIBLi+tsNfuCBpj
-	/VckJaojXai5chjfgPXbYQxuj15zxKWC6YzP70q3sQz3OG2UY7kLSgwZlAXpkFUBeIBo2c9O9Dm
-	rDKVE2MQdjEWiM0xz+981wLl2tREM1pJ3A/+84sljFDMEKiiwWpPXn9e3bIxGtiR7vY80rwbBTi
-	t0jQclZmWSVPAxgI0reBUU/UpdkTAWcvxJCeqq6PU7+eR63U9DVJXlNCvQzaTdnTCMUDe2zXKf3
-	Y4w3CNFRt0RRJlc21dLvmMryE5+fwMo2BqiUDRr6XyqYrN1xfLaG7Iv0aidyqAHuwovnhizl0Oe
-	ZoS9jEjuzYKfH+/VVAX57eGVd3479+DSfApPB
-X-Received: by 2002:a05:622a:5148:b0:535:9aa3:5ebb with SMTP id
- d75a77b69052e-5414de19e54mr81585421cf.8.1793634213512; Mon, 02 Nov 2026
- 07:43:33 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tQqpJ+h5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jkWJGP3WG5Ot2liWeFpq2RrX27bUBJthyqvFoI+8SMu8pg4r+5LG76+7at5C71KJ9zP8nwQp9sBP8aamr5E5qYmJEj0H2rD3W8eELcH8jXGgd28BzP/4RnUtAUAXQm5Jcq6KbkmuJ+Vt+hlalT1h/TFCi+IuzhvA3bwGY7xS/Hs5fGjdQAdxmLRMJoelkgw1/N4Q8ZAgDkYjCj8k459H1cRB68RKRypx0b2emwKwhg/vt2fVfHBLkePJzAXu/5KVosTy89Cj28omKkbFfe/djhY+cfCcgKeZ2jPSMpwB6HyB4wvPF6xFXlLv8Eq8kQ342RLVTIK+Airzz97oFSWK0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r2vskZVrRT2Sr/MQJ84kEYXVZRCD9WXu2rQ7RBiiXEQ=;
+ b=YgeRccgBfCUDUVdAEWKkdgfAGWGd9xHgVGKogJQKmLQG0kLx+E3+aVRRdRTfM5NOU0ZJ2oBrjoyDw5LAaZlF1moPcYe7c8rok5PoU495vZjYGW1PZ8We9aMjMa3uDGAwjQ0iIafxN4PZItvcYiweozHVC1xMfywS1qhoRL1B9Oi9+c315AVdKgVHgaQT+YclJliiJR7a8YGUECgqAijqOomdEokctLzoWPAFKRqlWKWCpDMpg7jhxxxxpfHYkG4qF8DrfVh06vLE8FNCb4wHF6J2QE+NYCGBsNq0/1H5vZJAR00HnPZmgxdvqGzt2eUWla2OQlvGzN1/J+ezvOzqsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r2vskZVrRT2Sr/MQJ84kEYXVZRCD9WXu2rQ7RBiiXEQ=;
+ b=tQqpJ+h5Mpvd5hjCMlbkatHvEdx6rMudyzvdndhzOHAplV5Na52ckUyesNsdZUYdutKRkOfJS7DS4qMmNlAYwl/jmpxro4IjUD4tQK0/iiGDXS7rsuvUvy0wzkLIBNpf/iP2lXKjKlxsXs3z4w6gyHMV+Vn/NbWgj/JxcHIhQ28=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB6704.namprd12.prod.outlook.com (2603:10b6:806:254::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 15:44:52 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 15:44:52 +0000
+Message-ID: <0c8f89c5-b02b-491b-99a5-f881ea82a804@amd.com>
+Date: Mon, 2 Nov 2026 16:44:48 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
+ <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0178.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,275 +99,357 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101154503.3203036-1-surenb@google.com> <20261101110100.90796bf33ef50307a7698dca@linux-foundation.org>
-In-Reply-To: <20261101110100.90796bf33ef50307a7698dca@linux-foundation.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Mon, 2 Nov 2026 07:43:17 -0800
-X-Gm-Features: AclHuK9i5oa7VVhckAQGYTCIvZrhSt3SBl_wIVecLZ9aaFaoBEyuGC4XsLqeGFo
-Message-ID: <CAJuCfpGmPLBRhHa_dmyP10QzyRyvcWMYDLU0+J9t-RCLBsTaWA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
- tearing tests
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: david@kernel.org, ljs@kernel.org, jannh@google.com, liam@infradead.org, 
-	willy@infradead.org, paulmck@kernel.org, pfalcato@suse.de, 
-	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
-	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6704:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1bb6cf61-0630-4fe3-a4d9-08df38f83bd7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|6133799003|10067099003|22082099003|261102123227099003|18002099003|56012099006|11063799006|4143699003|261022105027099003|261021123027099003|261021121427099003|261022075727099003|261026140227099003|261026121527099003|261009221227099003|261009223027099003|261028144727099003|260925022911599003|260925021911599003|260925021311599003;
+X-Microsoft-Antispam-Message-Info:
+	dsbcli2N9+maDsT4UYETgPU9RJpdq4u+Tf2sod3K1W004JIh89ayHYS7ceRaWKkpqZOEZIsuQ3BKEZ07mYhzq0dkx84tWEdYlPeiZLXI3jfv2L0CsxeI9AL7JGP5vZNhCavbNp53adqzJ5UL8+R/wotDZOZAEjxf0jlsrEdqwcrkGjGHzpJl93PIdscJajLNBlJ5qRNo0lMUXE0JFxbhEU2zQMUfMyeiiY8szQgbepx8DLY9ZVq1NA6K9EFatj9aXVqUQLN6oynLpIMutYulATyS0PqUPOv020nKHbS7Yc0XNZoHfPeMO+3fDcj7w1tKNHoogC22BQBJLrevSNRqWeKaKgNsFy8a/Spg2F5jCFtb9k/Rv2k6b3DliEB8DohYJY7AgDrlCNds0Vw6uJeCeeLtwVauk0755B0f2b9twl2sj+Z56OaCeYI0eLTGNfmweAOeqWZiEPpOqe3kBRXx+GWVQOsEy1kA/KlU6cdosbKtSYICtNAgaIm16CtqkbC+xHZ/QheUPKzcwrTQuub7gULdSvsLD2rUvITgbqFRTgln4e7t1VpOdhScfWlH1A03h+7cQA5QjoCCs2gppJnIurb5QvDGyYwmSZxm/P9pXNVlfWPYpxbopghDIDotAIBZ+QoOCXgf5/ZoyvDDdsDhzR/xrZHDVEaPhUvZufi89KQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(56012099006)(11063799006)(4143699003)(261022105027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261026121527099003)(261009221227099003)(261009223027099003)(261028144727099003)(260925022911599003)(260925021911599003)(260925021311599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NzlqSUJPalJOK3BjU2RSNy9TUEVtZC9jQ2VaaVFHY25OdloxUHRlYktQd1Vn?=
+ =?utf-8?B?S1lpUytOeWh1OGpmUXd5a2RwM0hxaUtNelBRcURIcFQ0Z0duOGpHVFNlZzNk?=
+ =?utf-8?B?ODE1VU8wWlZCZ2VsbmN0Y054dXF3TExsWVp0dkhTcFRSd3l0RTVrWlZMN0Ev?=
+ =?utf-8?B?ZjZpbGQwb0x6Y2gzWllKRkVya2tmeHMrbDdSZXdub21uVVBaQ0pteHh1RHlw?=
+ =?utf-8?B?Z3Q2SEZuMVFPcFdKeWgwbWZvc2RFWXJGUU5UY1RaVVRVQjFsUGk0TlRpYjl6?=
+ =?utf-8?B?amZMSlhYYmZXcXk3QnYva3FjSVU0OXd3RmszRGExcXlzSUw4a2JCVlJwTU9J?=
+ =?utf-8?B?VnBFeElsZW1xY28zRDJ4eWo2TTV3Q3IyanNCRU5CQkJickp0Qm9yaGFDc1Nk?=
+ =?utf-8?B?S2I5SlpkZ3BBT1FKTmNBU3J3U0VOTzBWRXdnL3FZS1FsVDZCNXVpcVN6Mm5a?=
+ =?utf-8?B?TFVhek9NRk5VczZvdmlhbzlBbGs3UWtVQUwydzZXSFNjQXRya1AxVkNsUTJQ?=
+ =?utf-8?B?SDBWKzZVQ01BcjNIZjE1T25sZWluM0Fsc3VvVGJXdEMzZHdkQlNLcDk2YnNh?=
+ =?utf-8?B?T2F3Ym16ajFCY0pCWVpoMFl0cTNwLytnVmxlSFZZZ09rRENGa2ZYa1JzK1VE?=
+ =?utf-8?B?bEZFTDcxY0lGN2lqTXBxODN0azNVdWhsNHRwa2FZR0pCRTFob1hhaE9WQTdD?=
+ =?utf-8?B?VjlFK1pOWko0VTlxQ3lJSE5GUDN2c2NVelFzTnpob2VBdm1BYUZISGZkb0RM?=
+ =?utf-8?B?V2RiZEJ0dWJ0ZldrS2dISG9CZTVWNVJEdVVpK0w2SS9HYXN3LzNzaWJVQTYw?=
+ =?utf-8?B?d3d0L0dlZ1NOK2ZXenFnSUZXN0xQSXVhalBWcXE1aUdIaXdxNXpxSHFqTzhu?=
+ =?utf-8?B?SGwvZjgrUjNBaDlnSG5oZVM3MWdSeEtzeUlhWk1FWGNwN2N5LzNIeXBtODYz?=
+ =?utf-8?B?dWRZNmZTV3o4UDJwNGhqbldvaG1DTmRJNEpTdmFXa0FuaXpNSm9nR0cwdWZG?=
+ =?utf-8?B?TTVBTGNxb0xXd0VFK3Qzd0VGUlE1N3dPaGRvQjliWlF5UDk2L1hic1JBZzJK?=
+ =?utf-8?B?UkNzekF4cWxBdzQ2YzdubWlUdFNpUzV5U2dmdnNYYmdzUnFiaU85OFVhaG5Y?=
+ =?utf-8?B?c0VmRkJ5eEZPdUdCWUhPOC93NHNYOUFiV2hhOHJ6SlVpNStpT3ZFeWJBd3Ez?=
+ =?utf-8?B?eFJ4RHF0MWpieEd4Qm1zNk9mQ09LdFZxQ050emUwTElXYWgyWFdNZVZ2L0hT?=
+ =?utf-8?B?aStwZVlweThwWnlIcUFnRERCby9yRUVzNURMWkdJUVJmei9Bb1EwU0pCeFlL?=
+ =?utf-8?B?NzFYakptOUtCbUdFNHB0OG82WGJQb2F0UjhNaGlzKzBkQjgvS3BSelR1MzRq?=
+ =?utf-8?B?cXRJWFZ5cTdvVXhTeFpZb01pUnFsTHFyZzk5UUVldDFzc003aGVvVENDUkMw?=
+ =?utf-8?B?SG9zZ3dxWkt2WWhRaGp0YXIwS0t1MmVBV1d6NnliSWV0TnhSWk9rL3NzNm00?=
+ =?utf-8?B?NmVBS3FsS2l5RHdjZitnYUMrREdlOTJFWHlqR0Y1NkxBcldPYmRXYWlDNVZT?=
+ =?utf-8?B?U0VlU0RIc21MdFhteGp4NUQ0SUNTUlBabGtHek5obWF1eENXUUJZbVlUNzdN?=
+ =?utf-8?B?Yjd3Z3NCOGJFWWVvQkhXamZrWXBiVW41dzduNExxZis1dGpTcXcvSHdSSkk4?=
+ =?utf-8?B?bUQ4R3RiOXdpblZhRVFBdjltZWNSNGFjbXdtOFNNZ3pFOVF6RHJPeGFpOTlV?=
+ =?utf-8?B?L2dHcFVla2pwU2JqdWF1bHhFdXBiUzRhemRhWWIrcTh1Z0dtUitMZzM3Yld4?=
+ =?utf-8?B?UVE2dkFxWUpQRHZ0WnZacVg1Uy95RThlODlmMm95WHRmTjJUVERIN0tkVXha?=
+ =?utf-8?B?RTZtL0wycCt6ZWorUzczZmlaRGhqQ3FjUEtFbDBmMDhJQkp3T3lVQmNqU1Nn?=
+ =?utf-8?B?RWhDeHRMN2ZKTWNjUDRLRWlRVlhOdmFZNEdNeGZHYUgxdVYyMWdaMjc3Y0lQ?=
+ =?utf-8?B?dHVOU1NOeHBHS20zMG1MYVV3WG5pMVVFVGhSMVJyZ0dpU21tOHY3TFk3cmJv?=
+ =?utf-8?B?ZlRNc3dNcTd4ekxHM1F1Z3JuQVVFNElqSkM0aXh1OHhxVWlQQ2dwVUFhUlpw?=
+ =?utf-8?B?Nyt0c0xlTHdWcWp3Qm04eUVyVXBaS2ZEQmNVUHJaREZmSFhuN2pUSTlSOGVz?=
+ =?utf-8?B?NTFDSDBncHg5YVZYTk12KytFYkNCUGx1Z0RsbzhWVldPQ2JrL2tQVC9oYXdx?=
+ =?utf-8?B?WnJmcHd1SGY2MWgra2V3SDZXWG5wTVhnUnpPVmdQb2JERWdKamJSSHBYVmFp?=
+ =?utf-8?Q?UHsN+O1mP79uFW4/lo?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1bb6cf61-0630-4fe3-a4d9-08df38f83bd7
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 15:44:52.0277
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TKQQGKjat5NwwIWoTsdEBLS+up9CeGKaytwS/R2InSCKrLNs6/xKTKeAY5h2qhIy
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6704
 
-On Sun, Nov 1, 2026 at 11:01=E2=80=AFAM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Sun,  1 Nov 2026 07:45:03 -0800 Suren Baghdasaryan <surenb@google.com>=
- wrote:
->
-> > Pss metrics can be affected by map count even if VMA tree stays unchang=
-ed,
-> > therefore tests checking VMA tree integrity can't use them. Use Rss ins=
-tead
-> > and pre-populate the VMAs so that Rss changes if a VMA gets skipped or
-> > double-counted.
-> >
-> > To ensure all test VMAs are populated with anonymous pages, remain
-> > mergeable across VMA operations, and do not have their Rss changed by
-> > memory reclaim:
-> > - Toggle PROT_EXEC instead of PROT_WRITE between adjacent test VMAs so
-> >   all test VMAs remain writable and MAP_POPULATE faults in anonymous pa=
-ges
-> >   (rather than the shared zero page, which is not accounted in Rss).
-> > - Use mprotect() instead of mmap(..., MAP_FIXED) in split_vma() and
-> >   merge_vma() so the first page of the split VMA stays resident.
-> >   mprotect(..., PROT_NONE) splits the VMA without unmapping the first p=
-age
-> >   (pte_present() remains true for PAGE_NONE PTEs), and
-> >   mprotect(..., self->mod_info->prot) merges it back. Both parts of the
-> >   split VMA retain their non-zero Rss.
-> > - Lock all present pages in the child with mlockall(MCL_CURRENT |
-> >   MCL_FUTURE | MCL_ONFAULT) so memory pressure cannot reclaim pages and
-> >   alter Rss during the test.
-> > - In remap_vma(), unlock next_addr before mremap(..., MREMAP_DONTUNMAP)
-> >   so next_addr is not split, use mmap(..., MAP_FIXED) in patch_vma() to
-> >   merge the middle VMA back into addr, and exclude smaps_rollup tests
-> >   from test_maps_tearing_from_remap since remapping moves and unmaps th=
-e
-> >   page from next_addr.
->
-> Thanks.  This is proving tricky.
->
-> My evolving reviewbot still isn't happy:
->
-> : This fixes the v1 RSS issues, but two things remain.
-> :
-> : Alternating PROT_EXEC breaks with READ_IMPLIES_EXEC: both mappings
-> : become RWX and can merge. A syscall test produced two VMAs instead
-> : of 16. Could we populate everything writable, then mprotect the odd
-> : mappings read-only? That preserved all 16 VMAs and avoids zero pages.
-> :
-> : Also, MCL_ONFAULT doesn't bypass RLIMIT_MEMLOCK. If mlockall() fails,
-> : the child asserts before CHILD_READY and the parent waits until
-> : timeout. Please arrange a coordinated skip for insufficient allowance.
+On 10/29/26 16:19, Pierre-Eric Pelloux-Prayer wrote:
+> When a job times out the kernel tries to reset the GPU to get
+> the system back to a normal state.
+> Sometimes it's useful to disable this process - for instance to
+> be able to inspect the hardware state at the time of the hang.
+> Since leaving fence unsignalled might affect the system's
+> stability, this commit enables the drm wedge framework for amdgpu.
+> 
+> When a hang condition is detected, the GPU isn't reset but all
+> the pending fences are signalled and the hung GPU cannot receive
+> new work. For KFD it's implemented by making
+> kfd_process_device_data_by_id return NULL if the requested GPU
+> is wedged.
+> 
+> When the user is done, it's possible to trigger a GPU
+> reset.
+> 
+> The auto-recovery is still enabled by default, and to use this
+> feature one has to either:
+> * boot with amdgpu.gpu_recovery=0: not recommended as it disables
+>   recovery for all GPUs
+> * write 0 to /sys/kernel/debug/dri/X/amdgpu_gpu_recover to disable
+>   auto-recovery for one GPU only
+> 
+> Runtime power management is disabled when the device is wedged
+> (because we can't submit any work to the GPU).
+> 
+> Assisted-by: LLM
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-Good point. That part of your fix looks good to me.
+Looks mostly reasonable to me. 
 
-> :
-> : The patched userspace test passed all six cases on an existing
-> : x86-64 6.18.57 kernel, with a PID-namespace adjustment. That kernel
-> : predates ca5480fb53fa, so this checks selftest behavior, not the
-> : intended kernel's procfs changes. Separate syscall tests on that
-> : kernel confirmed the EXEC-merging and memlock failure cases.
-
-I'm guessing your bot was using personality() to make the tests fail.
-Again, I'm not sure we should handle such use case. Should we?
-
->
-> I said "no, do it yourself" and it came up with the below.
->
->
->
->
-> From: Andrew Morton <akpm@linux-foundation.org>
-> Subject: selftests/proc: handle personality and memlock constraints
-> Date: Sun, 01 Nov 2026 10:55:37 -0800
->
-> Alternating PROT_EXEC does not keep the test mappings distinct when
-> READ_IMPLIES_EXEC is set: both protection combinations become RWX and
-> adjacent mappings can merge, breaking the fixture's layout assumptions.
->
-> Populate each mapping writable, then make odd mappings read-only.  This
-> retains anonymous pages accounted in RSS while keeping adjacent VMAs
-> distinct regardless of READ_IMPLIES_EXEC.  Restore the corresponding
-> WRITE-based protection selection in the parent.
->
-> Restore the whole three-page destination after remapping, rather than
-> replacing only its middle page and relying on the remaining anonymous VMA=
-s
-> to merge.  The remap test no longer compares RSS.
->
-> mlockall(MCL_CURRENT) checks the whole virtual size against the locked
-> memory allowance even with MCL_ONFAULT.  An insufficient allowance makes
-> the child exit before CHILD_READY, leaving the parent waiting until the
-> test times out.
->
-> Pass the locking error through the existing shared state and signal
-> CHILD_READY on failure.  The parent reaps the child and releases the
-> shared state before skipping resource or permission failures.  Check this
-> status before opening the child's proc files, as it may already have
-> exited.  Unexpected locking errors remain test failures.
->
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Suren Baghdasaryan <surenb@google.com>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Jann Horn <jannh@google.com>
-> Cc: kernel test robot <yi1.lai@intel.com>
-> Cc: Liam R. Howlett <liam@infradead.org>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-> Cc: Paul E. McKenney <paulmck@kernel.org>
-> Cc: Pedro Falcato <pfalcato@suse.de>
-> Cc: Usama Arif <usama.arif@linux.dev>
-> Cc: Vlastimil Babka <vbabka@kernel.org>
 > ---
-> On top of Suren's v2 "selftests/proc: use RSS in
-> /proc/pid/smaps_rollup tearing tests".
->
-> Tested the userspace test on an existing x86-64 Linux 6.18.57 kernel,
-> using a separate PID-namespace adaptation which is not in this patch:
-> - All six cases passed normally and with READ_IMPLIES_EXEC enabled,
->   using DURATION=3D1.
-> - All six cases skipped promptly with RLIMIT_MEMLOCK set to 64KiB or
->   zero, exercising ENOMEM and EPERM respectively.
-> This does not validate the intended kernel's procfs changes.
->
->  tools/testing/selftests/proc/proc-maps-race.c |   49 +++++++++++-----
->  1 file changed, 36 insertions(+), 13 deletions(-)
->
-> --- a/tools/testing/selftests/proc/proc-maps-race.c~proc-maps-race-follow=
-up
-> +++ a/tools/testing/selftests/proc/proc-maps-race.c
-> @@ -174,6 +174,7 @@ typedef bool (*vma_mod_result_check_op)(
->                                         struct line_content *restored_fir=
-st_line);
->
->  struct vma_modifier_info {
-> +       int mlock_error;
->         int vma_count;
->         void *addr;
->         int prot;
-> @@ -696,7 +697,8 @@ static inline bool remap_vma(FIXTURE_DAT
->
->  static inline bool patch_vma(FIXTURE_DATA(proc_maps_race) *self)
->  {
-> -       return mmap(self->mod_info->addr + self->page_size, self->page_si=
-ze,
-> +       /* Replace all three pieces without relying on anon_vma merging. =
-*/
-> +       return mmap(self->mod_info->addr, self->page_size * 3,
->                     self->mod_info->prot,
->                     MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0) !=3D =
-MAP_FAILED;
->  }
-> @@ -757,22 +759,31 @@ FIXTURE_SETUP(proc_maps_race)
->         self->pid =3D fork();
->         if (!self->pid) {
->                 /* Child process modifying the address space */
-> -               int prot =3D PROT_READ | PROT_WRITE;
->                 int i;
->
->                 for (i =3D 0; i < mod_info->vma_count; i++) {
-> -                       mod_info->child_mapped_addr[i] =3D mmap(NULL, sel=
-f->page_size * 3, prot,
-> +                       mod_info->child_mapped_addr[i] =3D mmap(NULL, sel=
-f->page_size * 3,
-> +                                       PROT_READ | PROT_WRITE,
->                                         MAP_PRIVATE | MAP_ANONYMOUS | MAP=
-_POPULATE, -1, 0);
->                         ASSERT_NE(mod_info->child_mapped_addr[i], MAP_FAI=
-LED);
-> -                       /* change protection in adjacent maps to prevent =
-merging */
-> -                       prot ^=3D PROT_EXEC;
-> +                       /*
-> +                        * Populate writable to get anonymous pages, then=
- alternate
-> +                        * write permission even with READ_IMPLIES_EXEC e=
-nabled.
-> +                        */
-> +                       if (i % 2)
-> +                               ASSERT_EQ(mprotect(mod_info->child_mapped=
-_addr[i],
-> +                                                  self->page_size * 3, P=
-ROT_READ), 0);
->                 }
->                 /*
->                  * Lock all present pages in memory so memory reclaim can=
-not
->                  * change RSS during the test, and use MCL_ONFAULT so
->                  * mremap() expansion does not populate new pages.
->                  */
-> -               ASSERT_EQ(mlockall(MCL_CURRENT | MCL_FUTURE | MCL_ONFAULT=
-), 0);
-> +               if (mlockall(MCL_CURRENT | MCL_FUTURE | MCL_ONFAULT)) {
-> +                       mod_info->mlock_error =3D errno;
-> +                       signal_state(mod_info, CHILD_READY);
-> +                       _exit(0);
-> +               }
->                 signal_state(mod_info, CHILD_READY);
->                 wait_for_state(mod_info, PARENT_READY);
->                 while (true) {
-> @@ -799,6 +810,21 @@ FIXTURE_SETUP(proc_maps_race)
->                 exit(0);
->         }
->
-> +       /* Check setup before opening proc files: the child may have exit=
-ed. */
-> +       wait_for_state(mod_info, CHILD_READY);
-> +       if (mod_info->mlock_error) {
-> +               int error =3D mod_info->mlock_error;
-> +               int status;
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 13 +++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  8 +++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  8 +++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 34 ++++++++++++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 12 ++++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  6 +++-
+>  8 files changed, 83 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 34bbb30b6f0c..cd4959486c94 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -989,6 +989,13 @@ struct amdgpu_device {
+>  	 */
+>  	bool gpu_recovery_enabled;
+>  
+> +	/* Set to 1 when the device has been declared wedged following a
+> +	 * hang: it no longer accepts new work and pending fences have been
+> +	 * force-signalled. Reset to 0 once the device is reset back to a
+> +	 * working state.
+> +	 */
+> +	atomic_t wedge_status;
 > +
-> +               ASSERT_EQ(waitpid(self->pid, &status, 0), self->pid);
-> +               pthread_cond_destroy(&mod_info->sync_cond);
-> +               pthread_mutex_destroy(&mod_info->sync_lock);
-> +               munmap(mod_info, self->shared_mem_size);
-> +               if (error =3D=3D ENOMEM || error =3D=3D EPERM || error =
-=3D=3D EAGAIN)
-> +                       SKIP(return, "Cannot lock test mappings: %s", str=
-error(error));
-> +               ASSERT_EQ(error, 0);
-> +       }
+>  	/* KFD
+>  	 * Must be last --ends in a flexible-array member.
+>  	 */
+> @@ -1374,4 +1381,10 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+>  			   uint64_t uid);
+>  uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+>  			       enum amdgpu_uid_type type, uint8_t inst);
 > +
->         switch (self->maps_file) {
->         case MAPS:
->                 sprintf(fname, "/proc/%d/maps", self->pid);
-> @@ -815,9 +841,6 @@ FIXTURE_SETUP(proc_maps_race)
->         self->maps_fd =3D open(fname, O_RDONLY);
->         ASSERT_NE(self->maps_fd, -1);
->
-> -       /* Wait for the child to map the VMAs */
-> -       wait_for_state(mod_info, CHILD_READY);
-> -
->         /* Read first two pages */
->         self->page1.data =3D malloc(self->page_size);
->         ASSERT_NE(self->page1.data, NULL);
-> @@ -842,10 +865,10 @@ FIXTURE_SETUP(proc_maps_race)
->         for (int i =3D 0; i < mod_info->vma_count; i++) {
->                 if (mod_info->child_mapped_addr[i] =3D=3D (void *)self->l=
-ast_line.start_addr) {
->                         mod_info->addr =3D mod_info->child_mapped_addr[i]=
-;
-> -                       mod_info->prot =3D PROT_READ | PROT_WRITE;
-> -                       /* Odd VMAs have exec permission */
-> -                       if ((i % 2) !=3D 0)
-> -                               mod_info->prot |=3D PROT_EXEC;
-> +                       mod_info->prot =3D PROT_READ;
-> +                       /* Even VMAs have write permission. */
-> +                       if ((i % 2) =3D=3D 0)
-> +                               mod_info->prot |=3D PROT_WRITE;
->                 } else if (mod_info->child_mapped_addr[i] =3D=3D (void *)=
-self->first_line.start_addr) {
->                         mod_info->next_addr =3D mod_info->child_mapped_ad=
-dr[i];
->                 }
-> _
->
+> +static inline bool amdgpu_device_is_wedged(struct amdgpu_device *adev)
+> +{
+> +	return atomic_read(&adev->wedge_status);
+> +}
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index fa301c71b782..d119de477284 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1465,6 +1465,9 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  	if (!adev->accel_working)
+>  		return -EBUSY;
+>  
+> +	if (amdgpu_device_is_wedged(adev))
+> +		return -ENODEV;
+> +
+>  	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+>  
+>  	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index ec2514079919..641b7fe24951 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4110,6 +4110,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>  	}
+>  
+>  	adev->gpu_recovery_enabled = true;
+> +	atomic_set(&adev->wedge_status, 0);
+>  
+>  fence_driver_init:
+>  	/* Fence driver */
+> @@ -4362,6 +4363,9 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+>  		amdgpu_sync_free(&adev->isolation[i].prev);
+>  	}
+>  
+> +	if (atomic_xchg(&adev->wedge_status, 0))
+> +		pm_runtime_put_autosuspend(adev->dev);
+> +
+>  	amdgpu_reset_fini(adev);
+>  
+>  	/* free i2c buses */
+> @@ -5155,6 +5159,10 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
+>  	r = 0;
+>  	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+>  		amdgpu_set_init_level(tmp_adev, init_level);
+> +
+> +		if (atomic_xchg(&tmp_adev->wedge_status, 0))
+> +			pm_runtime_put_autosuspend(tmp_adev->dev);
+> +
+>  		if (full_reset) {
+>  			/* post card */
+>  			amdgpu_reset_set_dpc_status(tmp_adev, false);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index fb60a99f43c1..617d4eec4e26 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -459,6 +459,9 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+>  	uint32_t handle, initial_domain;
+>  	int r;
+>  
+> +	if (amdgpu_device_is_wedged(adev))
+> +		return -ENODEV;
+> +
+>  	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+>  
+>  	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
+> @@ -961,6 +964,11 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+>  		abo = NULL;
+>  	}
+>  
+> +	if (amdgpu_device_is_wedged(adev)) {
+> +		r = -ENODEV;
+> +		goto error_put_gobj;
+> +	}
+> +
+>  	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+>  
+>  	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 4204c3c750a8..53fa9fa83ae7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -730,6 +730,9 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>  	struct amdgpu_job *job;
+>  	int r;
+>  
+> +	if (amdgpu_device_is_wedged(adev))
+> +		return;
+> +
+>  	ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
+>  
+>  	if (!hub->sdma_invalidation_workaround || vmid ||
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index 0b8d0a79dd45..f72c9c690c3b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -24,6 +24,7 @@
+>  #include <linux/kthread.h>
+>  #include <linux/wait.h>
+>  #include <linux/sched.h>
+> +#include <linux/pm_runtime.h>
+>  
+>  #include <drm/drm_drv.h>
+>  
+> @@ -185,9 +186,35 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+>  		if (r)
+>  			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
+>  	} else {
+> -		drm_sched_suspend_timeout(&ring->sched);
+> -		if (amdgpu_sriov_vf(adev))
+> +		if (amdgpu_sriov_vf(adev)) {
+> +			drm_sched_suspend_timeout(&ring->sched);
+>  			adev->virt.tdr_debug = true;
+
+I think we should just completely drop the tdr_debug approach from the VF handling under SRIOV.
+
+The wedge event approach should be completely sufficient to handle all of that.
+
+Regards,
+Christian.
+
+> +		} else {
+> +			struct drm_gpu_scheduler *sched;
+> +			struct amdgpu_fence *guilty_fence;
+> +
+> +			/* Declare the device as wedged if it's not already. */
+> +			if (!atomic_xchg(&adev->wedge_status, 1)) {
+> +				/* This ref will be dropped in amdgpu_device_reinit_after_reset. */
+> +				pm_runtime_get_noresume(adev->dev);
+> +
+> +				pci_clear_master(adev->pdev);
+> +
+> +				drm_dev_wedged_event(&adev->ddev, DRM_WEDGE_RECOVERY_REBIND, info);
+> +			}
+> +
+> +			guilty_fence = to_amdgpu_job(s_job)->hw_fence;
+> +
+> +			sched = &ring->sched;
+> +
+> +			/* Prevent anybody else from touching the ring buffer. */
+> +			drm_sched_wqueue_stop(sched);
+> +
+> +			amdgpu_fence_driver_force_completion(ring, &guilty_fence->base);
+> +
+> +			/* Start the scheduler again */
+> +			drm_sched_wqueue_start(sched);
+> +		}
+>  	}
+>  
+>  exit:
+> @@ -439,7 +466,8 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+>  
+>  	/* Skip job if VRAM is lost and never resubmit gangs */
+>  	if (job->generation != amdgpu_vm_generation(adev, job->vm) ||
+> -	    (job->job_run_counter && job->gang_submit))
+> +	    (job->job_run_counter && job->gang_submit) ||
+> +	    amdgpu_device_is_wedged(adev))
+>  		dma_fence_set_error(finished, -ECANCELED);
+>  
+>  	if (finished->error < 0) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 14a72a406d37..2393cad36ac0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -781,6 +781,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  		return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
+>  	}
+>  	case AMDGPU_INFO_TIMESTAMP: {
+> +		if (amdgpu_device_is_wedged(adev))
+> +			return -ENODEV;
+> +
+>  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
+>  
+>  		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> @@ -913,6 +916,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  		if (info->read_mmr_reg.count > 128)
+>  			return -EINVAL;
+>  
+> +		if (amdgpu_device_is_wedged(adev))
+> +			return -ENODEV;
+> +
+>  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
+>  
+>  		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> @@ -953,6 +959,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  		uint64_t vm_size;
+>  		uint32_t pcie_gen_mask, pcie_width_mask;
+>  
+> +		if (amdgpu_device_is_wedged(adev))
+> +			return -ENODEV;
+> +
+>  		/* The clock limits are only available while the SMU is up. */
+>  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
+>  
+> @@ -1187,6 +1196,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  		}
+>  	}
+>  	case AMDGPU_INFO_SENSOR: {
+> +		if (amdgpu_device_is_wedged(adev))
+> +			return -ENODEV;
+> +
+>  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
+>  
+>  		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index ac18c2be6ecb..b95dddeaccc5 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -2424,8 +2424,12 @@ struct kfd_process_device *kfd_process_device_data_by_id(struct kfd_process *p,
+>  		for (i = 0; i < p->n_pdds; i++) {
+>  			struct kfd_process_device *pdd = p->pdds[i];
+>  
+> -			if (pdd->user_gpu_id == gpu_id)
+> +			if (pdd->user_gpu_id == gpu_id) {
+> +				if (amdgpu_device_is_wedged(pdd->dev->adev))
+> +					return NULL;
+> +
+>  				return pdd;
+> +			}
+>  		}
+>  	}
+>  	return NULL;
+
