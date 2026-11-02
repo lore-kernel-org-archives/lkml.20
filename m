@@ -1,91 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793610285;
-	b=OJY81m8jNaqfux/y5PEB7dheMKiEvFbdc2ELJ/M7P+rL0PS1F9AVJ/Gqh/HiaFBdso7E
-	 9yD53GybptwXeeTA0kfKFoBTB2MQ8XOTW6yRZmADFDfMQuQ34ANaZXTAIUVZQRzCtB8cc
-	 4iaCxbtW+HxmxcOSyA5I8Vt3KWVzGC29dXWMBymoLny2TAE2F1tjWUVuwtbmO1DJhb8p7
-	 0Pi9hh6NzEhOgajhk3NIOiy+8LAtq8Ehrag4OsGVzgv72DVS/tqB6zTm1adyqZMKdMATW
-	 fN0ESqsTcr2uOz8Q6VcY5m9LBCMiHDEvs04XKiph1KwOh36YIxNshmX7X8l2KexytXQ==
+	t=1793610278;
+	b=AqF3OrPAST4wa1U2VQcEVNm+upZKmvio/E9+SOHzkwFOaFnfOutrO3hWompSKrD1jhB1
+	 /96+s3uPboTpg5q3dwkcXsoejDbsJ+1hs0I0hU5pqlq/3Mk7h1sIG57MZ4ogrtDEI2oqo
+	 ieOmCrCN01okoLgJQ0ujmb6/nIgNDa2wqtJyHBL74O4R9z1Cu/jMac7QSHm8+I62oM6Zd
+	 Nzla78vSQNjYmMLKTozYtT8vyNaroMj8lNtyGNXTcIjT/hgJgNpTo9XSZhS4qtpKD44xR
+	 qcP107SFJS57YnqHL1rRRu64uIqmRvorYbESyldg/giux4ZQiVSREk8usKZ8VpUus2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793610285;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 User-Agent:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=HUY2PGBmTQl+X2D2BoUwfoPeXyROWhfRuAYN7bnM+eo=;
-	b=xANDSNiqIxtKdVPFnZPsVPtdRt0HKiVWamCoDC8S4RF5h7lBPwOJdvSk+Yd6t1u74C6j
-	 E/zuKEzZnGTpVBBq4bys9ZnM4J+0SE1gLkZ+Fv1SmoUgHLWpnuKv604kOYfdHvYiHXo6i
-	 RNK5degccpj5+3NYSm+syCzvTjrYHvR9JmuEK/06W9fStnCSLwR4MQRS22JR4HfsovYzS
-	 whmqY3jHtYC4j9aM9L95kVyNkN4BgvMt09B4bA1HIHn5+2niEUmm+IqrTBhbh+LUOdFnn
-	 DRTMG5QUI14v6Iek0g4Vw37bP/fd00xYKcO2U/VWjkNnt2WH/AUjbbhCMQK4vroLFgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793610278;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=Yev0hfaXosEbpEcqTujskpvy3SSpHx96TzRdJOzYIRY=;
+	b=Yw1TjWpb4YmmU44gAIoDqvP+07AqaV9T3pzdCkqfP09t9mAwJG0Bh9wkNkEbp3wCk7Uw
+	 kA5qa87bE2d7rjQRCzy/zCaLRjTJsVcYRO/kQ9BL4EGoAyAo0Iao/HEgHzMwaBbr6WGp/
+	 XB0dpJovWItfoHB2Zg4Sa1TQYu+cgSD/pP7GT0AxytNArNGlKTAf/Ou+dqXE0lTuhxCj5
+	 pfOKnBQlfudtTvqAUopsdUDnhECIXv4CIQDdZZZiopOpHNP+xLvy836KR5fBJ0lvA5Avk
+	 vzF33eBPEYc921WX4zOsAX96zxYbL4dWwoSm6I1pvfXKN719Kl+NtwRR8WrGiLvdVVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pYbMCmqV;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=NmWwpHqp;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03B7606A32E;
-	Mon,  2 Nov 2026 09:04:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B03B7606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10D8606A324;
+	Mon,  2 Nov 2026 09:04:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F10D8606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pYbMCmqV
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id D3B79C8F446;
-	Mon,  2 Nov 2026 09:05:44 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C9B6060750;
-	Mon,  2 Nov 2026 09:04:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 27B53103280EC;
-	Mon,  2 Nov 2026 10:04:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793610279; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HUY2PGBmTQl+X2D2BoUwfoPeXyROWhfRuAYN7bnM+eo=;
-	b=pYbMCmqVfTGKf3KdjOWu/GvlBsAWwN9oedfFKPfTpeasYb7Auvaya3mBq+bs4MFYkU5zXz
-	EdJ99g22xzG4fbKEPEgxVE7cp1CUDMp+hIDyHk9X4H/mNzbv9fDzvjlkw20mU32jvGkK3u
-	ulaJZ6bfs6UD2pNkckP3J7Z69Lq0BO4Ei3NTgsTse01E0CPd2NQi3Qx9VnuXjzX15+bOf1
-	Gd6MkTOkggoDmbh+a+oDPc5ZKlEsSkWgHed2a8yo8ksQQUjA6+wLhjXpzKF0f+HcUjDV1M
-	KQEnNrNu4pZaIrxFhQ803ZfAwbF/i7UsmWrPfIcjQOymh7W/IC04SDNE7EuFKA==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	Alan Stern <stern@rowland.harvard.edu>,
-	linux-kernel@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>,
-	stable <stable@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Oliver Neukum <oneukum@suse.com>,
-	Johan Hovold <johan@kernel.org>,
-	Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Hongren Zheng <i@zenithal.me>,
-	Peter Chen <peter.chen@kernel.org>,
-	Pawel Laszczak <pawell@cadence.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Neill Kapron <nkapron@google.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Justin Chen <justin.chen@broadcom.com>,
-	Al Cooper <alcooperx@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Xu Yang <xu.yang_2@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Elad Nachman <enachman@marvell.com>,
-	Badhri Jagan Sridharan <badhri@google.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Benson Leung <bleung@chromium.org>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Rui Miguel Silva <rui.silva@linaro.org>,
-	Minas Harutyunyan <hminas@synopsys.com>
-Subject: Re: [PATCH 00/19] USB: a bunch of llm-found fixes
-Date: Mon,  2 Nov 2026 10:04:16 +0100
-Message-ID: <20261102090416.12865-1-romain.gantois@bootlin.com>
-In-Reply-To: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
-References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=NmWwpHqp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1793610275;
+	bh=Yev0hfaXosEbpEcqTujskpvy3SSpHx96TzRdJOzYIRY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NmWwpHqpEIHX6LKkKExcC+gdQkrGjuidbolYONWq6psfQ4W9uxLDvj84Gi5aw/6h5
+	 leaUPF7Al1yr3r/hRYrh0F3VGK+0iD/rAQ6va5iEwBToIXG9NtGwugXT6WQt2O+Pue
+	 uxkVgamw6U4LEioXH8bPUBxjhEM55GfkqJJmSouaTVEEU6O3t7sq3uoMDH5el/UWka
+	 c2OBAqjrTiq11sVLLJiWMqvmxtHw2s30PVchtYDhbnnLbtpy3/f8bsABtXT5Q5buLI
+	 DCZLwHmdofLqtTmkfKnCynN+oKtP0/K+sOejbYC2AwQcj5ICRZNSAAzokfuaFmH6QA
+	 7Xgk4wGATQkLg==
+Received: from [192.168.12.105] (unknown [144.6.157.237])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id C47B1648DC;
+	Mon,  2 Nov 2026 17:04:31 +0800 (AWST)
+Message-ID: <7486b1fc4dbcca755dd2f6b6de54d17919af873a.camel@codeconstruct.com.au>
+Subject: Re: [PATCH net-next v2] mctp i2c: add sysfs control for mux child
+ netdevs
+From: Matt Johnston <matt@codeconstruct.com.au>
+To: Kenny Hsieh <kenny_hsieh@jabil.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, 
+ "jk@codeconstruct.com.au"	 <jk@codeconstruct.com.au>,
+ "andi.shyti@kernel.org" <andi.shyti@kernel.org>,  "peda@lysator.liu.se"	
+ <peda@lysator.liu.se>, "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, 
+ "davem@davemloft.net"	 <davem@davemloft.net>, "edumazet@kernel.org"
+ <edumazet@kernel.org>,  "kuba@kernel.org"	 <kuba@kernel.org>,
+ "pabeni@redhat.com" <pabeni@redhat.com>,  "linux-i2c@vger.kernel.org"	
+ <linux-i2c@vger.kernel.org>, "linux-kernel@vger.kernel.org"	
+ <linux-kernel@vger.kernel.org>
+Date: Mon, 02 Nov 2026 17:04:31 +0800
+In-Reply-To: <DM8PR02MB808768B7D02FF12777B7777E8E602@DM8PR02MB8087.namprd02.prod.outlook.com>
+References: <20261015081341.1262695-1-kenny_hsieh@jabil.com>
+	 <179239912623.3135.11352652156626817288@kernel.org>
+	 <DM8PR02MB808768B7D02FF12777B7777E8E602@DM8PR02MB8087.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,67 +77,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: koshi/0.3.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Tuesday, 27 October 2026 15:57:55 CET Greg Kroah-Hartman wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> typec_set_mode() passes a state without an alternate mode, and the USB
-> and accessory modes (TYPEC_MODE_USB2 ... TYPEC_MODE_DEBUG) start at
-> TYPEC_STATE_MODAL like the states of the alternate modes. TCPM and UCSI
-> set TYPEC_MODE_AUDIO or TYPEC_MODE_DEBUG when such an accessory is
-> attached. tusb1046_mux_set() then reads state->alt->svid: plugging in an
-> analog audio adapter is a NULL pointer dereference.
-> 
-> The numbers must not reach the switch either: TYPEC_MODE_AUDIO has the
-> value of TYPEC_DP_STATE_D. Without an alternate mode connect the
-> SuperSpeed lanes for TYPEC_MODE_USB3 and disconnect them for the rest.
-> 
-> Fixes: 7c561b8c3e83 ("usb: typec: mux: Add support for the TUSB1046
-> crosspoint switch") Cc: stable <stable@kernel.org>
-> Cc: Romain Gantois <romain.gantois@bootlin.com>
-> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  drivers/usb/typec/mux/tusb1046.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/mux/tusb1046.c
-> b/drivers/usb/typec/mux/tusb1046.c index 34ef81f75693..a463ba5f53be 100644
-> --- a/drivers/usb/typec/mux/tusb1046.c
-> +++ b/drivers/usb/typec/mux/tusb1046.c
-> @@ -43,11 +43,17 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
->  	struct tusb1046_priv *priv = typec_mux_get_drvdata(mux);
->  	struct i2c_client *client = priv->client;
->  	struct device *dev = &client->dev;
-> +	unsigned long req = state->mode;
->  	int mode, val, ret = 0;
-> 
-> -	if (state->mode >= TYPEC_STATE_MODAL &&
-> -	    state->alt->svid != USB_TYPEC_DP_SID)
-> -		return -EINVAL;
-> +	if (req >= TYPEC_STATE_MODAL) {
-> +		/* USB and accessory modes: not the DP pin assignments */
-> +		if (!state->alt)
-> +			req = req == TYPEC_MODE_USB3 ? TYPEC_STATE_USB :
-> +						       TYPEC_STATE_SAFE;
-> +		else if (state->alt->svid != USB_TYPEC_DP_SID)
-> +			return -EINVAL;
-> +	}
-> 
->  	dev_dbg(dev, "mux mode requested: %lu\n", state->mode);
-> 
-> @@ -60,7 +66,7 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
->  		goto out_unlock;
->  	}
-> 
-> -	switch (state->mode) {
-> +	switch (req) {
->  	case TYPEC_STATE_USB:
->  		mode = TUSB1046_CTLSEL_USB3;
->  		break;
+Hi Kenny,
 
-Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+On Tue, 2026-10-27 at 08:58 +0000, Kenny Hsieh wrote:
+> Hi Andi, Peter, Matt, Jeremy,
+>=20
+> > - [High] The store-side guard against adapters being deleted does not
+> >   close the race it claims to close.
+>=20
+> > - [High] mctp_i2c_remove() runs mctp_i2c_remove_sysfs_all() while the
+> >   client is still on driver_clients.
+>=20
+> > - [Medium] mctp_i2c_probe() now releases driver_clients_lock after
+> >   list_add() and before i2c_for_each_dev(mcli,...
+>=20
+> > - [Medium] The new ABI lives on i2c adapter devices, which the I2C core
+> >   owns, but the mctp-i2c driver attaches it with sysfs_update_group() o=
+n...
+>=20
+> These races come back to the last point: mctp-i2c bolts the attribute
+> onto adapters the i2c core owns. Before I respin I'd like to check which
+> way to go.
+>=20
+> I can keep it in mctp-i2c and fix the races there, mostly by reordering
+> notify_del() and remove(), and adding the attributes after the probe
+> walk so it can hold driver_clients_lock again. That works, but it's more
+> bookkeeping and there's still no uevent for the attribute.
+>=20
+> The other option is to declare it on i2c_adapter_type in the core and
+> have mctp-i2c register the show/store callbacks. That's cleaner, the
+> driver core handles the lifetime and most of the races go away, but it
+> adds an i2c API with mctp-i2c as its only user.
+>=20
+> I prefer to keep it in mctp-i2c, but happy to go either way.
+
+I agree it would be cleaner to avoid having mctp-i2c create items in i2c co=
+re
+sysfs space.
+
+An alternative could be to create sysfs attributes under the mctp-i2c devic=
+e
+instance itself (the i2c slave).
+
+Mux buses could have mctp-i2c netdevs instantiated with
+
+echo "i2c-6" > /sys/bus/i2c/devices/2-1060/add_mctp_controller
+
+(where i2c-6 is a child mux bus of i2c-2, and i2c-2 0x60 is a mctp-i2c i2c
+device).
+
+"echo i2c-6 > .../2-1060/remove_mctp_controller" would remove the mctp-i2c
+netdev.
+Setting a root node as an mctp controller would involve writing its own nam=
+e
+to the attribute file.
+
+How does that look to you?
+
+Cheers,
+Matt
+
+
+> > - [High] When mctp_register_netdev() fails, mctp_i2c_add_netdev()
+> >   (drivers/net/mctp/mctp-i2c.c) now always sets `midev =3D NULL`, so th=
+e...
+>=20
+> > - [Medium] In the baseline, mctp_i2c_add_netdev() has a real double
+> >   teardown.
+>=20
+> This is the known double free, tracked in a separate patch on net, and
+> v3 drops the midev =3D NULL change:
+> https://lore.kernel.org/netdev/20261027053715.1623087-1-kenny_hsieh@jabil=
+.com/
+>=20
+> > - [Medium] The new ABI document Documentation/ABI/testing/sysfs-
+> >   bus-i2c-devices-mctp says "The attribute appears only on mux child...
+>=20
+> > - [Medium] mctp_i2c_new_client() now calls `write_pnet(&mcli->net,
+> >   get_net(current->nsproxy->net_ns))` before i2c_slave_register().
+>=20
+> > - [Low] The commit message says "a rebind reattaches it reading 0".
+>=20
+> > - [Low] The commit message gives "an adapter that the devicetree cannot
+> >   describe at all, such as a USB-attached one" as a use case.
+>=20
+> Will fix all four in v3.
+>=20
+> > - [Medium] Writing 0 to mctp_controller removes a channel's netdev
+> >   through mctp_i2c_remove_netdev() -> mctp_i2c_unregister() ->...
+>=20
+> The sel reselection on removal isn't new, removing a mux adapter already
+> goes down that path. I'd rather leave that for a separate patch and just
+> fix the ABI wording here.
+>=20
+> pw-bot: cr
