@@ -1,67 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615646;
-	b=h5+4TBreQv+hHsR8dr2t5U/UmrdfSW8dsYQabnA2DRDphnxMrHDqn1El5s86yAIzJY6K
-	 AvMgzTUGgHlVHUJpnJX0FE+x2bloEbhKUtO52pTvarkWJ5VQrUTyOlNtvD+0UsnFVYo5C
-	 wtGYaZ8J+WoLameESoYvgUGZpd35lAPVF1yOST4dARSGd7dAjq04EijfCbXOMaiXV/TzC
-	 VgLZLaT7HlGDPsvCNUb/urjnkQTK02KRyDQWWrvh/kfVF4jybRf5FewJip34MSAEL2n0N
-	 FnI0vq89syP+ffFiZoAAordyAbYMBVHD8ysaGU9Nn1hF97IJntjE/UHpQ1enqJOL1cQ==
+	t=1793615733;
+	b=D4ZhPw7tbSYhm6XXUvJdamli4Cb6E9ZLeU1ZjU0Vy6O+UbW9kIRdMYRwTVKPn6852w5/
+	 KsEP5n3Aj5243nKJTT3R/FAonO8LMYkxTvkV9EfysMtuKiQx2DXFigzqxGlRQWFnxJR7D
+	 IWv8QoVY/P3LX3HhJ9kyAcm3U4i6+1BSpruNY/vQsx1+iL6pnfs46K9RLveTaTyfdIPiO
+	 yjnQSyBWeEgqb55lTAths8wk4z79MXL3jAc1xBww3VBMBbxAKrO9nelb5I4sz1EtE0k/K
+	 Xr7nzP+x6E83zWLSoB6tUREygYg4z6Yr2Tmryx45u+xKDxzqg7r3qklzzm2ccxi6hcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615646;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zOuEJl576VYtRf0K3AP7aY3pIr+oXdhrrj9wOG3kLFg=;
-	b=NImEUXQWrer7YkceL+tBqc06U28OF5MQ+7Y+Vwe3RNJkxo84kzmQm/EGLLLHjQVDJVro
-	 PI7daki5JKKauuzARe/9gME8w7g7W73/9wyx10c+tQzgWyS6Kv3j/TO7tMkpgpn0lEETi
-	 Bg9oO8FMKreTJf56W5mn9OZ9/nmYR7SJWwrMmjYfpuimI3JSKqpBNAjcXzRBnb+JE0R9Y
-	 WZVkwvRLuuLZSVjf5BSJBNwo5nx1QFVAn+pDk1Sbshl3QzTVNXUrY+AXseCFwcjoSH+Gb
-	 TXjv9iFhLmtLF+arrZcnIh5Ms10lLrXmW6V2sp8HDDGwM0SxkM0QIvAXEc9Xw6T5lKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615733;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=ZXbvapQaNImbXR9QF5KkcIq1gPNTKOhj+WrRUaDSC14=;
+	b=uME8DP8IPoh8kwb3Hczv9WDg1f4y7qwHfwBZs7B9qjE0Z2iS1SrCo5y6M+K3BmiPPxGo
+	 GSU125Voz85lVMHHJav12jhXSNBs63GJB5oXeyH+7AhjcjJi7sd6GRYWTDhfCiMxNZjU9
+	 ZNgkYGduTVeCJaVZrr/NknJP4+Erhj03ETH4WWDb8WI9jemtYxJwjYNAldmVswAnLROXL
+	 O72ynusgUwX3rld3Fd+y0NxOnq1SIDjGKyKcEPPNun/PfPzqqW/HXP9+tVTcAbew06YzG
+	 Plr2H6SdBowpcnx5FgmJymTjb8G8xMjqgMALuTTVC4xHcIo10USgjM0uZPID0jnCN/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=hHF4vOIb;
-	arc=none smtp.remote-ip=61.135.153.168
-Received: from smtp153-168.sina.com.cn (smtp153-168.sina.com.cn [61.135.153.168])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=15VaDmhP;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222C7606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:34:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 222C7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49174606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:35:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49174606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=hHF4vOIb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793615641;
-	bh=zOuEJl576VYtRf0K3AP7aY3pIr+oXdhrrj9wOG3kLFg=;
-	h=From:Subject:Date:Message-ID;
-	b=hHF4vOIbK3qINx/hzviPwPT4ByY+ed8tsU6Ukf3zkuous1dvdhQqoNJbs4sWZhcWy
-	 F0vTlezhxM/WFjvBTk/8x9WCjRndyKDCjfSUN2qKoXev51f1NPIAswKpsusOtyZoFb
-	 CauscwCsBpr/+k5eM77WS8NVQxA/Ggi3eRdStRWw=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.33) with ESMTP
-	id 6AE86712000031A4; Mon, 2 Nov 2026 18:33:57 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 4421456685334
-X-SMAIL-UIID: AA9BDDEC5C4B40D699DF352E469666A8-20261102-183357-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+a31cda410a4ccd419712@syzkaller.appspotmail.com
-Cc: axboe@kernel.dk,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH] loop: prohibit the use of sysfs as a backing file
-Date: Mon,  2 Nov 2026 18:33:54 +0800
-Message-ID: <20261102103354.427722-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ae807da.c8ffc79a.e3697.002b.GAE@google.com>
-References: <6ae807da.c8ffc79a.e3697.002b.GAE@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=15VaDmhP
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 90698C8F446;
+	Mon,  2 Nov 2026 10:36:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8363060750;
+	Mon,  2 Nov 2026 10:35:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 56F11103290E8;
+	Mon,  2 Nov 2026 11:35:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793615728; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ZXbvapQaNImbXR9QF5KkcIq1gPNTKOhj+WrRUaDSC14=;
+	b=15VaDmhPbzpFpCxilWGbI42dOv4srUFUJq26JhYFL3LzPcTApz/JsW3mpJ7QYdqnY8m1Oq
+	6VXfb6peEGSTSB1vt3GkfO0CEJWJm8VKegQK3DzGtJCpxzJZ8EQcFMv7wyQ44s5lZ2bu8M
+	/DTsOlT5BCeqbjfd6pLnTVtxmovqJGishKRDO9tZmJqWweH1xAZwaKLZRMRAcKlzuGBRRw
+	YcV0R1vBk/KhcXsdkpnUWNYj0SjhwDon2f9qyfZdkoftBTFjf2t/Kuevlfv1BtAzQrJzY0
+	dlF9Uict4ErdnNT7OztAFl5HIjxa88NOqukg3mfXqhYZ7e26eXOUql2gB7PEoA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Jessica Zhang <jesszhan0024@gmail.com>
+In-Reply-To: <cover.1789994813.git.osama.abdelkader@gmail.com>
+References: <cover.1789994813.git.osama.abdelkader@gmail.com>
+Subject: Re: [PATCH v7 0/3] drm/panel: Use managed helpers in DSI panels
+Message-Id: <179361572393.120902.4850008963645944900.b4-ty@b4>
+Date: Mon, 02 Nov 2026 11:35:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,60 +73,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-The loop driver's backing file validation in loop_validate_file() and
-loop_check_backing_file() only checks for the presence of read_iter/
-write_iter operations, S_ISREG/S_ISBLK inode mode, and direct loop-to-loop
-device recursion. Because sysfs/kernfs attribute files are regular files
-(S_IFREG) and implement read_iter/write_iter, a loop device can be configured
-with its own sysfs queue attribute (such as /sys/block/loop0/queue/scheduler)
-as its backing file. When an I/O request is submitted to the loop device,
-loop_workfn processes the request while holding a reference on the queue's
-q->q_usage_counter and writes to the sysfs file via lo_rw_aio(). The sysfs
-write handler (elv_iosched_store -> elevator_change -> blk_mq_freeze_queue)
-then attempts to freeze the loop device's own queue, waiting indefinitely
-in blk_mq_freeze_queue_wait() for q->q_usage_counter to reach zero, causing
-an unresolvable self-deadlock, potentially hitting:
 
-INFO: task kworker/u8:1:13 blocked for more than 143 seconds.
-Call trace:
- blk_mq_freeze_queue_wait+0xe0/0x160 block/blk-mq.c:191
- blk_mq_freeze_queue_nomemsave+0x28/0x38 block/blk-mq.c:207
- blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
- elevator_change+0x174/0x35c block/elevator.c:668
- elv_iosched_store+0x2a8/0x3bc block/elevator.c:826
- queue_attr_store+0x1c0/0x24c block/blk-sysfs.c:906
- sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
- lo_rw_aio+0xaa0/0xd04 include/linux/percpu-rwsem.h:-1
- do_req_filebacked drivers/block/loop.c:-1 [inline]
- loop_handle_cmd drivers/block/loop.c:1949 [inline]
+On Mon, 21 Sep 2026 15:17:54 +0200, Osama Abdelkader wrote:
+> This series converts straightforward DRM panel drivers to the managed
+> MIPI DSI attach and panel add helpers, dropping the corresponding manual
+> detach/remove calls from remove paths. Split by driver family/vendor to
+> keep the changes reviewable.
+> 
+> Patches 2, 4 and 5 of v4 (Samsung, Himax/Ilitek and display vendor
+> panels) are already in drm-misc-next and are not resent here.
+> 
+> [...]
 
-Add a sysfs file check to prevent loop devices from using such files
-as backing files.
+Applied, thanks!
 
-Reported-by: syzbot+a31cda410a4ccd419712@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a31cda410a4ccd419712
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
- drivers/block/loop.c | 3 +++
- 1 file changed, 3 insertions(+)
+[1/3] drm/panel: Use devm_mipi_dsi_attach in BOE panels
+      commit: f872d4e3a2ae6bdd8d88a4c19844b3ec851f2549
+[2/3] drm/panel: Use managed helpers in Novatek and Raydium panels
+      commit: 9ebe0565cf49ddaaefe136a0513ce31b7bf01c2c
+[3/3] drm/panel: Use managed helpers in assorted panels
+      commit: 525b076e340a9d37abaa1d34141669f96307698d
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index a3325ceab484..71647793a717 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -534,6 +534,9 @@ static int loop_check_backing_file(struct file *file)
- 	if ((file->f_mode & FMODE_WRITE) && !file->f_op->write_iter)
- 		return -EINVAL;
- 
-+	if (file_inode(file)->i_sb->s_magic == SYSFS_MAGIC)
-+		return -EINVAL;
-+
- 	return 0;
- }
- 
+Best regards,
 -- 
-2.43.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
 
