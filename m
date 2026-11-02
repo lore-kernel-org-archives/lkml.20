@@ -1,53 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793593875;
-	b=PedBeR30rD9bPGcWt+SttQ/mOfS3cPRVRRnfgRiUlFCZaGnM23RpfNaDJh9U6zP6I2sE
-	 XdftvZwxOiFQ66QrkNVrt3RdnjKLFHGAW2zIqNHgHOKvxEgWdCU0n6Zipb/WUfmZeJV8v
-	 NImxYZyZZP4seWIPg3SXZU/E+9jAnbcXxnoAGYREswQlR9gLbLZjSWZUSCufGAztOeI5B
-	 bwaFB6hIkHR9VFUXzciop2XBejPxp9kX2O3bBsY2oWJJT3Uy7xqCYOaVhidQOJEYMiHpd
-	 ZD4+3oLWyJw4nqtqURrosJsdkqhp8vRoR9bOoRB1GhL5OXpYwL7LNkXypvV7m/4W2NQ==
+	t=1793593889;
+	b=hrR+rbxCekb+zAx4TEuhtTSnjUPhNPCCW6oPp1uq5uZxgXrGCOXdHRMFcLjsyZBrN3eV
+	 MvavSETq2MsL9+PCVY2q5kgUVH8r9+/0TmiavJSy+NFuc7XM+jyq16GZXkpkHCmUNsVp5
+	 JVhrQ82W8i15eGZGlFfFP12p/A2Wh+eoQnHEkvzUMZ2I3eClnlMx5t/9Ti4QjxmDaYaH8
+	 fuJc5J/gfE3Fj25/lEoukOQRwAN0l2tZfSkDZG9nAgaSbEa0K5VZDPA0Xy93QqVN0VIlC
+	 YRZUqag3vZwbF/ObJ0o6LtIURfITJ+81GoBs2Q6iiXLj25Nj8GoURSOYydJH3S4Yp/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793593875;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=V3m2ZNXA+cWC29f7mK6AOHGojqkL4QaL7wZFtjfryik=;
-	b=XYyGHDagzC1Ie4gYiwRyr/GzZNoszINbvwPTzV+gZvfQ7oAf0kMniDSCoV6dvUj5xkKq
-	 d3ol7qew2Zkjebx6YPvPzHIfb+mVz/vV3jF8jh2J1TNoX3HR6OULujbAcxqRxPKB9v1pT
-	 Z784aczK4AhS3kug/v2eI3xHLTZSBhKX5di1cD+8sCQtcM3riwIjckFckVT+3gUH0Nv/0
-	 CMhTS1CVp2ItUyAOyw5VSHAM/Y4ISJX8NC7DqFSBNcU4TtnwZg0y+Ty3lz2bwTW4QXG78
-	 a0Ch1zDXyNCi/4idARpjRnTKRKf+tkYelk2dx9W04eKSwn0+iz+z/0n8Y5lxu+212gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793593889;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=XkLBIjSbVRCk26R+MupO3H38Tk6gmluoKUeZe16pUQw=;
+	b=lLkDEfAt1SYpzA2gduo5p2BeSvrKxR+8JT+a01R6mxQroHlSr0+cfLh9fgkU5+SNEifd
+	 wO/p1WEeFUHdfpDtpwynBbKBAMjK+h3IvJEGVBwci3BuAESVmy6WYtvnJW+MTgm94MRwg
+	 3RzxXqyasXPo5TDxOKNpG9iiX6SQDSk9P9VR5ju8YOJlTIh/AKoIboX6EdfrEJZcHpAJv
+	 N7MvS/qNG9DFtHs55d05lvm+dbG+LUXS1qP3mNWqy+5DhwiJHkOh1saYZSEOuxWM+INKs
+	 eGOYwY7hg3L+acbSqolMLjUkyDmFUVJKeop+zfL9lG7dkwauHOlxhFgFYK8svOL/+uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=wH8rwnFL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="OMvdirf/";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=yi9ZFYiR;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253AA606A326;
-	Mon,  2 Nov 2026 04:31:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F818606A326;
+	Mon,  2 Nov 2026 04:31:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F818606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=wH8rwnFL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DE71F000C1;
-	Mon,  2 Nov 2026 04:31:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793593874;
-	bh=V3m2ZNXA+cWC29f7mK6AOHGojqkL4QaL7wZFtjfryik=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=wH8rwnFL550O3cYb360HQ+mDxf/UbGTeI1i5ixR7DkekLgY4sBaphFzk93BlNFcEp
-	 WaGsinhxDOkFzK4NcKkDqcM8AkT4Tr87GxuU4ZmlQ64c5bvOJ06dzswmMnckQjoex0
-	 sDvWAQ5Qrl8cGA+onlFrEmZ8CXqmfA9k0l8bJoVg=
-Date: Sun, 1 Nov 2026 20:31:13 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Cc: Alexey Dobriyan <adobriyan@gmail.com>, Shuah Khan <shuah@kernel.org>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/proc: proc-empty-vm: wait for child's SIGSEGV
- instead of sleep(1)
-Message-Id: <20261101203113.74d0204f6d57deb81cdd0dc5@linux-foundation.org>
-In-Reply-To: <20261023183434.9109-1-drifabdelmalekmohamedsaid@gmail.com>
-References: <20261023183434.9109-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=OMvdirf/;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=yi9ZFYiR
+Date: Mon, 02 Nov 2026 04:31:25 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793593887;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XkLBIjSbVRCk26R+MupO3H38Tk6gmluoKUeZe16pUQw=;
+	b=OMvdirf/S8RU3weIllgc6g6kT83cHcXK1IrgVEE9dRstGonH94KR++QtqHhdTyV+bjaNOZ
+	THQSPwxx50WsIct+9XZtMSDAzUny8uVvWajqNY/r7GiYjOqXw3PDh6d8toogeQl28fXPDu
+	Yj929LCGdYoN5cxFgP+snPzVsa05Ecm1GG9zcNd+R0N4kjEbuwk24wz+wj92KYqh6NYyyO
+	0gTiZCrss/A5/SiwIDrAPAeHxjItMQh+DIGiOw3E+pwrS27rqYZqZso0eF7dZ1g/JljxIf
+	NCalDPtK06+Nwj6XomKPYofF25VIQ2q23B/oaclFNiPaUJtv6XUtj1+ecD/7Pw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793593887;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XkLBIjSbVRCk26R+MupO3H38Tk6gmluoKUeZe16pUQw=;
+	b=yi9ZFYiRWQibCf7hHkH4cPUPmVh3cRScQqgEhVzTqqYuf4emhc5jM+grFJeaBxg57l7lcd
+	F3a4qJtf0BanaMAA==
+From: "tip-bot2 for Sohil Mehta" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/cleanups] x86/bugs: Replace RFDS model checks with VFM ones
+Cc: Sohil Mehta <sohil.mehta@intel.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261030195214.1284995-1-sohil.mehta@intel.com>
+References: <20261030195214.1284995-1-sohil.mehta@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,28 +78,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Message-ID: <179359388559.1009794.13162832200073973480.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 23 Oct 2026 19:34:33 +0100 Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com> wrote:
+The following commit has been merged into the x86/cleanups branch of tip:
 
-> The test had a TODO asking for a reliable way to know when the child's
-> munmap() has finished, and used sleep(1) in the meantime.
-> 
-> Unmapping the whole address space leaves the child with no code to run,
-> so it segfaults. Since it is traced, the SIGSEGV stop is reported to
-> the parent through waitpid(), which is exactly the signal the TODO
-> wanted. Wait for it there and drop the sleep and the TODO.
-> 
-> The stop is now consumed up front, so SIGKILL the child before the
-> final reap.
+Commit-ID:     07479e8845c8a3a17d49a707a7178e9fd8360ab1
+Gitweb:        https://git.kernel.org/tip/07479e8845c8a3a17d49a707a7178e9fd83=
+60ab1
+Author:        Sohil Mehta <sohil.mehta@intel.com>
+AuthorDate:    Fri, 30 Oct 2026 12:52:14 -07:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Sun, 01 Nov 2026 20:28:55 -08:00
 
-Thanks, checks out.
+x86/bugs: Replace RFDS model checks with VFM ones
 
-My review toy claims
+The RFDS vulnerability check uses raw model numbers to identify Alder
+Lake and Raptor Lake. Most Intel-specific code has already moved away
+from x86_model checks, but this one got added recently.
 
-: Separately, tools/testing/selftests/ptrace/vmaccess.c has similar
-: sleep-based synchronization. A delayed child can make its attach test
-: fail spuriously, or let its vmaccess test run before the intended
-: blocked-exec state. That deserves a separate fix.
+Replace the x86_model checks with VFM ones to make them more readable.
+
+Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+Link: https://patch.msgid.link/20261030195214.1284995-1-sohil.mehta@intel.com
+---
+ arch/x86/kernel/cpu/common.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+index 9bd50c6..aba7e99 100644
+--- a/arch/x86/kernel/cpu/common.c
++++ b/arch/x86/kernel/cpu/common.c
+@@ -1391,8 +1391,8 @@ static bool __init vulnerable_to_rfds(u64 x86_arch_cap_=
+msr)
+ 	 * both Core and Atom CPUs. Mark unaffected when Atom CPUs are not
+ 	 * present.
+ 	 */
+-	if ((boot_cpu_data.x86_model =3D=3D 0x97 ||
+-	     boot_cpu_data.x86_model =3D=3D 0xB7) &&
++	if ((boot_cpu_data.x86_vfm =3D=3D INTEL_ALDERLAKE ||
++	     boot_cpu_data.x86_vfm =3D=3D INTEL_RAPTORLAKE) &&
+ 	     boot_cpu_data.topo.intel_type !=3D INTEL_CPU_TYPE_ATOM &&
+ 	     !boot_cpu_has(X86_FEATURE_HYBRID_CPU))
+ 		return false;
