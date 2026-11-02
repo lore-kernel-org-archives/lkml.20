@@ -1,67 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793589208;
-	b=R0D/qYNJYCdx3uavV7cCin4Dzplwq825YDRoy2bqWGEL9A0+C92u/UVWZtwSCfJ897Ru
-	 M6FSWp/etDKyZ5r3FpNo+gCZ9JznHdVQWiGoNnbE3Gd3CdXAsLJRsDywBWeKjsi/U8Arm
-	 wI/ltSUj9OIRgtLl1n3lgeTcFHLNuboU/oRRGMSy6e6fIlZ36d9omFwdeCA1Gxwk0DSdx
-	 S+rASEsPopj5IL/R2popUylv4ClrMxhZJlpK5apelYc1aqlMtAe2rrQlXEPmMNkCeUdna
-	 D0LhQl7lQaA48db5KpZp3GgmT/BvxJv/ADy8ZSNciClfES5k7Iov9mIq0CSsovLQc3Q==
+	t=1793589412;
+	b=17dhaTiBrjzL1xCI7LlTifvqfnPKHT/nMnoJpFc22rFK5kDqEFk1UDfe7AjFERq2aWp9
+	 JexsQV3n18A7yKjnTCDdJq675cN1Bu95Hjk0KhmiwepAd/TuGo39CSMOsONR53KUmlSiF
+	 JV3v6tr1feqCWD7iIumPzD2b5rcBPXp+3Pw/IVJIIyct/tGOWiUyaOC7ycVx/WWrzZeKp
+	 CHtWitHy4eTSrXPFNqbEyS9EvYtRRgct4wrhlceTO5sCTE660U1LD3WSmos4X4+lURZsd
+	 YTNP9DhI/o0db9uBPcprYJJsWCSjhb+Q5OoiVb7taNr42/tXSUfxuWcI5zBUppwvjSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793589208;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=al/lX1HsGZpqnSf5dEL9WzmdDUFnJTHtJ4tDgI6XiAw=;
-	b=qm3fSH7/qu6yL8fxIBaDoaQv7kgic9c32eRmryMSp4uTmrltVhI7WzzSXb+rNS2AVZBD
-	 oIOMK8FQBnwPo92f2v9sTFRzSNF+bq2WA18cPKT4PY60TtOfMR1y3bqjb94yNzVhUsndR
-	 jM7i7zAgO5xc72S2d6u8Ok99CKNDUmZfd9/BJkxrArEmKR0MH+cYjgl3wR0e1o1G36nrh
-	 GLRNqJttNdozC1zd6UgPcMSN9L9kXlFKjmoxKjEIj6hGFye8EsOy2n2jFqOPyBmwkUKXr
-	 F537laluXedNf/WZi2IRO0Uetc8D5ShHHFSZ2DqpI5RCOzbWktC/Cf9f3RaWXYNSj4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793589412;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sJw++RZDG5Vo6fmGQWiIhdzPjPtQUuqigtExKkQsQTg=;
+	b=tz/sIwKm2LVZaLXQ/NnCcwUfNBSfyDfRpREaBX2ItAhafH+uUuRJYRzwJVhc8fEmAJXq
+	 p5UIvZIb+qvkWEsGqKY22E8tOvdHVON1gkhfVLVQphblwO5eMBf8bZvCwrw7r+SFH4sSb
+	 SlDmMh1A3Wz/sESpahFrABbFMvbzgVYUie2fv0AHQokR+D/0BnDn4ACUWxgujSxUW00ma
+	 PdtFAVG8N1tII//5XNufzI8q7GSOPLx4q6S6gFSahVX6W+ipu1yiJtKE9fMK7Sg/lmpw9
+	 jg6jXfeaHqPk8da2UsU0Zx/vBHolCzrNjBf+ZBaPlM9tjwNaW6ffynP2BhkIAB7SCxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aKlGuZgd;
-	arc=none smtp.remote-ip=91.218.175.78
-Received: from mta0.migadu.com (out-78.mta0.migadu.com [91.218.175.78])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jtv/+c+R";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48A1606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:13:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E48A1606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B05606A324;
+	Mon,  2 Nov 2026 03:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aKlGuZgd
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gI138F4HwUMp7+lGbqtpS276hdQB5c5uMx5zyKs0VvE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793589205; v=1; x=1794194005;
- b=aKlGuZgdM/4/9jd2QnFcTuKCJ200kJgJKdLDk+jg3vFVN2GVyRom+j2ybn1FQkp2GgbR8Gv0
- m2vgepgxf3BUZjBnzMIIpFSNl99BPSO3xfvsWBbrjmefJsPpIcVwYAlalC1H5AHQdqf5ViPdfx1
- vk/qps6DfxpuqHFpv1MPgL6c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 24d48d207150a1f1;
-	Mon, 02 Nov 2026 03:13:25 +0000
-X-Mizu-Trace-ID: 24d48d207150a1f1
-X-Migadu-Flow: FLOW_OUT
-From: Hui Zhu <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH] mm/memory: use pmdp_get() for the lockless pmd read in do_fault_around()
-Date: Mon,  2 Nov 2026 11:13:08 +0800
-Message-ID: <20261102031308.66177-1-hui.zhu@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jtv/+c+R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E081F000C1;
+	Mon,  2 Nov 2026 03:16:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793589412;
+	bh=sJw++RZDG5Vo6fmGQWiIhdzPjPtQUuqigtExKkQsQTg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jtv/+c+RFAu3LrhQcovopmFfBljHcvIFsG+hIpTi+A+gMHE/AC/pPExnzKN5fjnDN
+	 p5kZGs30lBMpun61wEvnp2s4li16mkc7f9to16yX3w7b94zytsU0duS9leQmtmLnPp
+	 QaEt9hHL3tK+ACLt8ad2uCx/Aaq8lrELHN+fn+hYWBDH07F5rjVCuPDMforrX8z7RS
+	 VWhX6trkVIf+oEG03qabfgRTn4ISAbhrl1/z7Ya7EOazoswBqnbV+Qc+yneZiRDVKJ
+	 3asg3aRsNy6nCKkDkUqCgQ/5O0jGQhlbb2Ps49AwHZEMC1SM98Hm0f3ulWXXU07SAQ
+	 SUxqoCGM+d8KA==
+Subject: Re: [PATCH net] netdevsim: delete ports added after a failed reload
+From: netdev-bot+sashiko@kernel.org
+To: joasantonio108@gmail.com
+Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ syzbot+88435e204734072bf39a@syzkaller.appspotmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 02 Nov 2026 03:16:51 +0000
+Message-ID: <179358941115.3131.11140874817222792270@kernel.org>
+In-Reply-To: <179324296598.34505.11070163314749859668@gmail.com>
+References: <179324296598.34505.11070163314749859668@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,75 +63,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-KCSAN reports a data-race in do_read_fault / pmd_install; the same code
-is in mainline:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-  write (marked) to 0xffff8d52a75fb810 of 8 bytes by task 27487 on cpu 5:
-   native_set_pmd arch/x86/include/asm/pgtable_64.h:83 [inline]
-   pmd_populate arch/x86/include/asm/pgalloc.h:84 [inline]
-   pmd_install+0xe0/0x120 mm/memory.c:444
-   finish_fault+0x5bc/0xb00 mm/memory.c:5204
-   do_cow_fault mm/memory.c:5432 [inline]
-   do_fault+0x5d0/0x6e0 mm/memory.c:5526
-   handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
-   __mm_populate+0x144/0x270 mm/gup.c:2207
-   __do_sys_mlockall+0x2cd/0x380 mm/mlock.c:764
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  read to 0xffff8d52a75fb810 of 8 bytes by task 27527 on cpu 9:
-   do_fault_around mm/memory.c:5341 [inline]
-   do_read_fault+0x162/0x670 mm/memory.c:5381
-   do_fault+0x31a/0x6e0 mm/memory.c:5524
-   handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
-   faultin_page_range+0x227/0x530 mm/gup.c:2156
-   __x64_sys_madvise+0x67/0x80 mm/madvise.c:1479
+- [Medium] The fix is incomplete, and the claim it rests on is wrong.
 
-  value changed: 0x0000000000000000 -> 0x000000001386c067
+--
 
-do_fault_around() reads vmf->pmd without the pmd lock to decide whether
-->map_pages() needs a preallocated PTE page, while pmd_install() publishes
-the entry with WRITE_ONCE() under the pmd lock.  Both paths above only hold
-mmap_lock for read, so they can fault into the same VMA concurrently.
+netdevsim: delete ports added after a failed reload
 
-The race is benign.  The pmd is a naturally aligned 8 byte object, the
-store is a single WRITE_ONCE() and pmd_none() only tests the low word, so
-no torn value is possible.  A stale none pmd only allocates an extra
-prealloc_pte, which pmd_install() leaves unused because it rechecks
-pmd_none() under the pmd lock, and do_fault() frees it on the error path.
-A pmd already seen as populated makes ->map_pages() find no PTE, and
-do_read_fault() then falls back to __do_fault() and finish_fault(), which
-allocate the page table properly.
+This patch makes nsim_dev_reload_destroy() call nsim_dev_port_del_all() on
+the early-return path that is taken after a failed devlink reload. Before
+this, ports added through new_port after the failed reload were never
+deleted, which led to WARNs in devlink_free() and a use-after-free on the
+leftover netdev.
 
-Read the entry with pmdp_get() so that the load becomes a READ_ONCE()
-pairing with the WRITE_ONCE() in pmd_install().
+Closes: https://syzkaller.appspot.com/bug?extid=88435e204734072bf39a
 
-No functional change intended.
+> diff --git a/drivers/net/netdevsim/dev.c b/drivers/net/netdevsim/dev.c
+> index feb88ccbbcedb..a8717908cfb83 100644
+> --- a/drivers/net/netdevsim/dev.c
+> +++ b/drivers/net/netdevsim/dev.c
+> @@ -1697,8 +1697,13 @@ static void nsim_dev_reload_destroy(struct nsim_dev *nsim_dev)
+>  {
+>  	struct devlink *devlink = priv_to_devlink(nsim_dev);
+>  
+> -	if (devlink_is_reload_failed(devlink))
+> +	if (devlink_is_reload_failed(devlink)) {
+> +		/* The failed reload already tore everything down, but ports
+> +		 * can still be added through new_port after that.
+> +		 */
+> +		nsim_dev_port_del_all(nsim_dev);
+>  		return;
+> +	}
 
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
----
- mm/memory.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+[Severity: Medium]
+Is deleting the ports enough on this path? The commit message says:
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 0fb676dd2bd63..90afbd124d503 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -6017,7 +6017,11 @@ static vm_fault_t do_fault_around(struct vm_fault *vmf)
- 	to_pte = min3(from_pte + nr_pages, (pgoff_t)PTRS_PER_PTE,
- 		      pte_off + vma_pages(vmf->vma) - vma_off) - 1;
- 
--	if (pmd_none(*vmf->pmd)) {
-+	/*
-+	 * Lockless hint: pmd_install() may populate this pmd concurrently and
-+	 * rechecks it under the pmd lock, so a stale value is harmless.
-+	 */
-+	if (pmd_none(pmdp_get(vmf->pmd))) {
- 		vmf->prealloc_pte = pte_alloc_one(vmf->vma->vm_mm);
- 		if (!vmf->prealloc_pte)
- 			return VM_FAULT_OOM;
+  "The ports are the only thing that can be created after the failed
+  reload, so delete them on the early-return path too."
+
+After a failed reload, user space can apparently still set sriov_numvfs,
+switch the eswitch to switchdev mode, and create devlink rate nodes. None
+of these paths check devlink_is_reload_failed():
+
+  nsim_bus_dev_numvfs_store()
+    nsim_drv_configure_vfs()
+      nsim_bus_dev_set_vfs(nsim_bus_dev, num_vfs);
+      nsim_esw_switchdev_enable()
+
+  nsim_devlink_eswitch_mode_set()
+    nsim_esw_switchdev_enable()
+      __nsim_dev_port_add(nsim_dev, NSIM_DEV_PORT_TYPE_VF, i, NULL);
+      nsim_dev->esw_mode = DEVLINK_ESWITCH_MODE_SWITCHDEV;
+
+  devlink_nl_rate_new_doit()
+    nsim_rate_node_new()
+      if (!nsim_esw_mode_is_switchdev(nsim_dev)) {
+          ...
+          return -EOPNOTSUPP;
+      }
+
+Before deleting ports, the normal path further down in
+nsim_dev_reload_destroy() resets the VFs and tears down the eswitch state:
+
+	if (nsim_dev_get_vfs(nsim_dev)) {
+		nsim_bus_dev_set_vfs(nsim_dev->nsim_bus_dev, 0);
+		if (nsim_esw_mode_is_switchdev(nsim_dev))
+			nsim_esw_legacy_enable(nsim_dev, NULL);
+	}
+
+nsim_esw_legacy_enable() is the only caller of devl_rate_nodes_destroy() in
+netdevsim. The new early-return branch never reaches it.
+
+Take this sequence: fail_reload=1, reload fails, set sriov_numvfs, switch to
+switchdev, run "devlink port function rate add <dev>/node1", then
+del_device. The early branch removes the ports but leaves the rate node on
+devlink->rate_list. Would devlink_free() then hit this check:
+
+net/devlink/core.c:devlink_free() {
+    ...
+	WARN_ON(devlink_rates_check(devlink, NULL, NULL));
+    ...
+}
+
+and leak the devlink_rate and the nsim_rate_node?
+
+The commit message also says a successful reload after the failed one is
+fixed. In that case the early branch deletes the VF ports but leaves
+num_vfs set and esw_mode as switchdev. Any remaining rate node would trip
+WARN_ON(devlink_rates_check(...)) in devlink_reload_reinit_sanity_check().
+
+After that, nsim_dev_reload_create() re-adds only the PF ports. The device
+then ends up in switchdev mode with VFs configured but no VF representor
+ports. A normal reload never leaves the device in that state.
+
+Should the failed branch do the same VF reset and nsim_esw_legacy_enable()
+teardown as the normal path before calling nsim_dev_port_del_all()? If not,
+the "only thing that can be created" sentence in the commit message should
+probably be corrected.
+
+>  	debugfs_remove(nsim_dev->take_snapshot);
+>  
+>  	if (nsim_dev_get_vfs(nsim_dev)) {
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179324296598.34505.11070163314749859668%40gmail.com
