@@ -1,96 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793593726;
-	b=ZdM+w1SgWTd+MzFa1v87ex9kq+XYrQ3ijR2ob1n1dqqkPxcnE7VvJE3uOatRezd0ST0m
-	 4ezSOLK2xOhU1C4uF1HYti2JaDc3+yArOr63O5J/skzUee8EjY2M94d4awUubFDCri5sO
-	 r34cAJIYf9AUnNGfFXYK4aBJXLCEtFUAiGeStCD+xK0XjfGlbgqx0098rQ+ZjFp0nU6zl
-	 g5bFxKDlMyy9ZPAknKmiKJ4soV38J1TLXkFjA2fe+C0MsZbqV2Hp8hAynt1dTei3YhwA4
-	 Ac6BazfuvXTQVgw7oTHhlNLJVo5tJczUH2WhZEdu8sJ40qxk02DnyExouiR2gA/MMDw==
+	t=1793593757;
+	b=DaVttS/P5vCo3QANmiu83DGHaQD7zaj0AvGrOKWqt5wVKqXdUBMZyb4P7wCa7cKEX5jX
+	 NBN5VEyRR+EUSqSsXtrPB1XmUx/ZeN3b14SEAfKiUQnavrFGXeQiFnpvYzp4EhirvO4An
+	 R9VPB9JiPAFAC+GTdFhs0vJvoyHqDfz0Yp1lonhXO8PFt7B49ChFbY+8kF4XbGWDdhIG2
+	 DU4559lumJXMXhuPF93NXVLsfwvv203QjlwRqraokX3xYcm/mWmVbZDXlWs2EY3zaGF19
+	 e517QTagvDDmEqttlso0qgqwxAXqOIPaGHD864/HzW9EP8CZDXlqnpHUlDk59+DFXDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793593726;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=rNOdFqSB48qoUD7rjsdQwyUlggKxho9NtULeg1Q9/7k=;
-	b=0IniHeAXiJBQIGT/Uvc/Gx5BONr3+MdJxAyt0gqHb6/Fk2yY2v8A5lZR5X9LD+++kPmv
-	 2xzHVUH7zNuFkviVmUG1xds3ce9Mm+wwZungTRu0JD3UltXzY8G/Lzw77zKYtEdDRJk3V
-	 nSDIEishZEoIzNdRMAzQjCz1P9BpkA+QsgYV1PPsh1nJsai0xJbQ1/BnLFEdcpG87fhdb
-	 QRJd5cptgG1hOKjWJh4U74DVG/NJEWgxHJgPsSk12i+oHAKpb9A5UZj+HgcYRb7VyxJcy
-	 BW4mMsLV5g+xl9U7BZsGhKyVwujDXA4yU5MFEkoCzIp8p0CTeydgdQR7YlXWgd7+pYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793593757;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=VvIaen4c4S1OvjCkKBlpA5YHLuK53dkOlAhB00x7RGg=;
+	b=Evl1J7h+3oigjJ6p7/v9lN3b7AuIcdIUel1YaGibw4YcyUTMn395EtWbdUbOWpHhcllL
+	 C7ucu9j9NHG1ZCNPNV3Hc0vVdG8ANtPskILkaaxeAV1jdGLf6gD0y+1OhCKdFoeqDMjU6
+	 A8xF87IwKuCgk+xJvl++ipAI/EaWAGzX3AoYHvczOrgA1bPAvFcxC60WUe3ILLpsnLuHb
+	 QUmOjboyjHSYmf5bj65X/+3QpCDwvJM/cEWLkumpm58dU9FRRIcixTkoiUPRYHKUYtNOB
+	 QtTPaiROX9+9K+bE4lCeDC0tvEIiFBpwWQuHCaOvacpFk8zJIOabbWeEyibKi/Ps5AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marvell.com;
-	spf=pass smtp.mailfrom=marvell.com;
-	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=ebzzGDHE;
-	arc=none smtp.remote-ip=67.231.156.173
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=F4qKAcjW;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714BE606A324;
-	Mon,  2 Nov 2026 04:28:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 714BE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E326606A324;
+	Mon,  2 Nov 2026 04:29:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E326606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=ebzzGDHE
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2434Sc874854;
-	Sun, 1 Nov 2026 20:28:05 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=rNOdFqSB48qoUD7rjsdQwyUlg
-	gKxho9NtULeg1Q9/7k=; b=ebzzGDHE8XLU25ycXxqo4DQo+M8meWV2/Ab/Htuy3
-	ouWHsB7T2qGON5mHnidLC/jKsU02CyXoU+0PxCQ5C8lgEoY9Yuszv5Lpv3SfvTOs
-	VVlY9PG1DrY4nkU7IQItQZsEmMFesikaeHkYN+0nk+WaEwm3tmpTgZyAQ60RQ5zB
-	OXArQIwuZ9eItsnYwGHkToST1VkKE7pVZVnUktQmOtDiV7lNQQ/TJw6spzv8yGAt
-	rICotwuBB5B8vgtkmnCfrsasOJo/7XQXfUaVQr1Y13dK+dUM2LavuoufNlG9Lbh5
-	KyJJGFljpFrIMK3C4tGA1DXCl+ph4nagnoiRiJVO8uZ2w==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4hnfuh3y2j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 01 Nov 2026 20:28:05 -0800 (PST)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Sun, 1 Nov 2026 20:28:04 -0800
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Sun, 1 Nov 2026 20:28:04 -0800
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id D2BC03F7071;
-	Sun,  1 Nov 2026 20:27:58 -0800 (PST)
-Date: Mon, 2 Nov 2026 09:57:57 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-CC: Sunil Goutham <sgoutham@marvell.com>,
-        Geetha sowjanya
-	<gakula@marvell.com>,
-        Subbaraya Sundeep <sbhatta@marvell.com>,
-        Bharat Bhushan
-	<bbhushan2@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S.
- Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>,
-        "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        "Alexei
- Starovoitov" <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        "Jesper Dangaard Brouer" <hawk@kernel.org>,
-        John Fastabend
-	<john.fastabend@gmail.com>,
-        Stanislav Fomichev <sdf@fomichev.me>,
-        Suman Ghosh
-	<sumang@marvell.com>, <netdev@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>
-Subject: Re: [PATCH net] octeontx2-pf: fix XDP frames freed as skbs on
- interface down
-Message-ID: <augRTfa06G9arCkf@rkannoth-OptiPlex-7090>
-References: <20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504@tipi-net.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=F4qKAcjW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793593753;
+	bh=VvIaen4c4S1OvjCkKBlpA5YHLuK53dkOlAhB00x7RGg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=F4qKAcjWVD4kt+wSvblI5Yvq/abIDdDo3RWDo3fH7I6R5wqCVxmAX+pLl7/zBhbvJ
+	 Rf8R1EeT5T9/NVFOcE5JkOB/z3HknHTlwAjfumFOkiKszm+BURzdBdoZASTpZdId/a
+	 qwMrmqYSpqPXSgDtvJzRzZOLEyLnjmEZYf2DtYp5V/ia0kDP40Yo4V0DsKqyi2OIZC
+	 WeihzZnBfJJ6eKFL/oDK0ARin1itzTvm74UCz90qUZKxhLQS4AZtas3huJooBIWgry
+	 M0CRh0xGnL6WiPTBd5bfdWVbOOUHkIx6+wQBl3W82rBVd4ioiEeZTq7qLXuHPZfRSQ
+	 jo2Ed+hjvWTLg==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jHzHY6syKz4w26; Mon, 02 Nov 2026 15:29:13 +1100 (AEDT)
+Date: Mon, 2 Nov 2026 15:29:10 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
+	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Brian Norris <briannorris@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+Subject: Re: [PATCH v3 01/15] libfdt: overlay: Fix out-of-bounds write on bad
+ fixup offset
+Message-ID: <augRiw6Z9CKcwo_w@gractus.seuss>
+References: <20261101220224.1436242-1-dianders@chromium.org>
+ <20261101220224.1436242-2-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,50 +74,247 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5/a458dwjBHr16xH"
 Content-Disposition: inline
-In-Reply-To: <20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504@tipi-net.de>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAxNyBTYWx0ZWRfX7syc/7COMkEv
- +iNec+2Eva4Z825Q9RoRtzIp1kH7rRbWL8Y4hD1K8uN0NazVXY8O0OgDOqV/9GJIptl8LbR+XLd
- cAicIKLwNQBueG0il5S34sQi7U0phgeRvYXP3F97FtuFctevYbWY2POetp6BcoqPWQfviAkBJN0
- gZQMPCxmTMXCDeMeU2Jk8DgfQuJTpIfdq1PIpUH/045oWCnMJbAB//n0P/SI3cgQxlCLBmzo4OA
- 36jchcPN9quGKfRAgZW9KHJ838BTlR41l7tF63KNHGRDf04VAwtIuzdtTPiczfULgB6E4ZJogx9
- Y1EI42Q4xeoJ6ojXQ9yQUvKZtbmU1Yo281ohJzaEN4smg8JIwLcsSWT+fBbrwvoP9VaTDmHqGaN
- mibyf1Ipm2AWut11UewRqVhM96JXYeWmZlsrPHIzH3q9O+6rrzSryL/QyLpwzJJvS+iO6IVDeXq
- ZPfYuG9WCZn3y57Aqbw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAxNyBTYWx0ZWRfX95y/vm6cov8k
- W1Ptup4kZMORp4W1VTSnO0QlL46ncc4DUjSQD0o0DbO3/U4Z5CJokAF2JpI9LYkpwSsnj0Et6o1
- uLocp03BcI+IZG9NDKCogMdSRBm+EM8=
-X-Authority-Analysis: v=2.4 cv=cLZ1IVeN c=1 sm=1 tr=0 ts=6ae81155 cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8
- a=B5IAThqA1797Ryvvc_AA:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
- a=u34awES8lKBFzNfVaQUm:22
-X-Proofpoint-GUID: 6ZmvWFl-OUIH5Mi044cphIUM-uD5WBX2
-X-Proofpoint-ORIG-GUID: 6ZmvWFl-OUIH5Mi044cphIUM-uD5WBX2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+In-Reply-To: <20261101220224.1436242-2-dianders@chromium.org>
 
-On 2026-10-31 at 01:42:03, Nicolai Buchwitz (nb@tipi-net.de) wrote:
-> On interface down, the TX completion cleanup also runs on the XDP
-> queues, but treats the pending xdp_frames as skbs. Freeing them with
-> dev_kfree_skb_any() corrupts page pool memory.
->
-> This happens when XDP_TX or redirected packets are still in flight on
-> ifdown, or when the XDP program is replaced.
->
-> Fixes: 94c80f748873 ("octeontx2-pf: use xdp_return_frame() to free xdp buffers")
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+--5/a458dwjBHr16xH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Nov 01, 2026 at 02:01:08PM -0800, Douglas Anderson wrote:
+> A malformed overlay with a negative or very large fixup offset in
+> /__fixups__ (such as "/fragment@0:target:-4" or
+> "/fragment@0:target:4294967292") can cause an out-of-bounds write during
+> overlay application:
+>=20
+> 1. overlay_fixup_phandle() parses the offset with strtoul(), which
+>    accepts negative numbers and values larger than UINT32_MAX, and
+>    truncates the result into a 32-bit integer.
+> 2. fdt_setprop_inplace_namelen_partial() checks bounds with
+>    `(unsigned)proplen < (len + idx)`, where `len + idx` wraps around to
+>    a small number when `idx` is near UINT32_MAX, bypassing the check and
+>    passing the huge offset to memcpy().
+>=20
+> Tighten the fixup offset parsing in overlay_fixup_phandle(), fix the
+> bounds check in fdt_setprop_inplace_namelen_partial() to avoid unsigned
+> wrap-around, and add test cases covering both negative and overflowing
+> offsets.
+>=20
+> Assisted-by: Gemini:gemini-pro-prerelease
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+
+Reviewed-by: David Gibson <david@gibson.dropbear.id.au>
+
+Thanks for this - this bug has been reported by a couple of people,
+and I hadn't gotten around to making my own fix.
+
 > ---
-> Pre-existing bug, flagged by the clashiko review of my ipsec transmit
-> fixes for this driver [1], which seems reasonable (and fixable) to me.
->
-> The other pre-existing findings there (e.g. the SA lifetime in
-> cn10k_ipsec_del_state()) may be worth fixing too, but I'll leave those
-> to the maintainers.
->
-Thank you.
+>=20
+> Changes in v3:
+> - Split the fixup offset overflow fix and fdt_wip.c bounds check out of
+>   "libfdt: overlay: Prepare fixup and fragment path helpers for reuse"
+>   into a standalone bugfix patch with dedicated tests (Simon Glass)
+> - Add a comment explaining why an initial ASCII digit check is needed
+>   before strtoul() (David Gibson)
+>=20
+>  libfdt/fdt_overlay.c                       | 34 +++++++++++++++++-----
+>  libfdt/fdt_wip.c                           |  7 ++++-
+>  tests/overlay_bad_fixup_negative_index.dts |  9 ++++++
+>  tests/overlay_bad_fixup_overflow_index.dts |  9 ++++++
+>  tests/run_tests.sh                         |  2 ++
+>  tests/setprop_inplace.c                    |  8 +++++
+>  6 files changed, 60 insertions(+), 9 deletions(-)
+>  create mode 100644 tests/overlay_bad_fixup_negative_index.dts
+>  create mode 100644 tests/overlay_bad_fixup_overflow_index.dts
+>=20
+> diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+> index 51a3859620a4..c6dc4774cff3 100644
+> --- a/libfdt/fdt_overlay.c
+> +++ b/libfdt/fdt_overlay.c
+> @@ -330,10 +330,10 @@ static int overlay_update_local_references(void *fd=
+to, uint32_t delta)
+>  static int overlay_fixup_one_phandle(void *fdto, int symbols_off,
+>  				     const char *path, uint32_t path_len,
+>  				     const char *name, uint32_t name_len,
+> -				     int poffset, uint32_t phandle)
+> +				     uint32_t poffset, uint32_t phandle)
+>  {
+>  	fdt32_t phandle_prop;
+> -	int fixup_off;
+> +	int fixup_off, ret;
+> =20
+>  	if (symbols_off < 0)
+>  		return symbols_off;
+> @@ -345,10 +345,20 @@ static int overlay_fixup_one_phandle(void *fdto, in=
+t symbols_off,
+>  		return fixup_off;
+> =20
+>  	phandle_prop =3D cpu_to_fdt32(phandle);
+> -	return fdt_setprop_inplace_namelen_partial(fdto, fixup_off,
+> -						   name, name_len, poffset,
+> -						   &phandle_prop,
+> -						   sizeof(phandle_prop));
+> +	ret =3D fdt_setprop_inplace_namelen_partial(fdto, fixup_off,
+> +						  name, name_len, poffset,
+> +						  &phandle_prop,
+> +						  sizeof(phandle_prop));
+> +	/*
+> +	 * fdt_setprop_inplace_namelen_partial() only returns -FDT_ERR_NOSPACE
+> +	 * when poffset + sizeof(phandle_prop) exceeds the existing property's
+> +	 * length in the overlay, which means the overlay is malformed (not
+> +	 * that the base DTB buffer ran out of space).
+> +	 */
+> +	if (ret =3D=3D -FDT_ERR_NOSPACE)
+> +		return -FDT_ERR_BADOVERLAY;
+> +
+> +	return ret;
+>  }
+> =20
+>  /**
+> @@ -409,7 +419,8 @@ static int overlay_fixup_phandle(void *fdt, void *fdt=
+o, int symbols_off,
+>  		uint32_t fixup_len;
+>  		const char *sep;
+>  		char *endptr;
+> -		int poffset, ret;
+> +		unsigned long poffset;
+> +		int ret;
+> =20
+>  		fixup_end =3D memchr(value, '\0', len);
+>  		if (!fixup_end)
+> @@ -438,8 +449,15 @@ static int overlay_fixup_phandle(void *fdt, void *fd=
+to, int symbols_off,
+>  		if (!name_len)
+>  			return -FDT_ERR_BADOVERLAY;
+> =20
+> +		/*
+> +		 * Require an initial ASCII digit because strtoul() accepts
+> +		 * leading whitespace and '+'/'-' signs (wrapping negative
+> +		 * values to unsigned long).
+> +		 */
+> +		if ((*(sep + 1) < '0') || (*(sep + 1) > '9'))
+> +			return -FDT_ERR_BADOVERLAY;
+>  		poffset =3D strtoul(sep + 1, &endptr, 10);
+> -		if ((*endptr !=3D '\0') || (endptr <=3D (sep + 1)))
+> +		if ((*endptr !=3D '\0') || (poffset > UINT32_MAX))
+>  			return -FDT_ERR_BADOVERLAY;
+> =20
+>  		ret =3D overlay_fixup_one_phandle(fdto, symbols_off,
+> diff --git a/libfdt/fdt_wip.c b/libfdt/fdt_wip.c
+> index c2d7566a67dc..dd163d91498c 100644
+> --- a/libfdt/fdt_wip.c
+> +++ b/libfdt/fdt_wip.c
+> @@ -23,7 +23,12 @@ int fdt_setprop_inplace_namelen_partial(void *fdt, int=
+ nodeoffset,
+>  	if (!propval)
+>  		return proplen;
+> =20
+> -	if ((unsigned)proplen < (len + idx))
+> +	/*
+> +	 * Check that idx + len fits within proplen using subtraction rather
+> +	 * than addition so that a large idx (or negative len) cannot wrap
+> +	 * around 32-bit unsigned arithmetic.
+> +	 */
+> +	if (idx > (unsigned)proplen || (unsigned)len > (unsigned)proplen - idx)
+>  		return -FDT_ERR_NOSPACE;
+> =20
+>  	memcpy((char *)propval + idx, val, len);
+> diff --git a/tests/overlay_bad_fixup_negative_index.dts b/tests/overlay_b=
+ad_fixup_negative_index.dts
+> new file mode 100644
+> index 000000000000..02ccee905e85
+> --- /dev/null
+> +++ b/tests/overlay_bad_fixup_negative_index.dts
+> @@ -0,0 +1,9 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +/include/ "overlay_bad_fixup_base.dtsi"
+> +
+> +/ {
+> +	__fixups__ {
+> +		test =3D "/fragment@0:target:-4";
+> +	};
+> +};
+> diff --git a/tests/overlay_bad_fixup_overflow_index.dts b/tests/overlay_b=
+ad_fixup_overflow_index.dts
+> new file mode 100644
+> index 000000000000..d7d05267d7b3
+> --- /dev/null
+> +++ b/tests/overlay_bad_fixup_overflow_index.dts
+> @@ -0,0 +1,9 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +
+> +/include/ "overlay_bad_fixup_base.dtsi"
+> +
+> +/ {
+> +	__fixups__ {
+> +		test =3D "/fragment@0:target:4294967292";
+> +	};
+> +};
+> diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+> index 5bc7817dd12a..0d815e307909 100755
+> --- a/tests/run_tests.sh
+> +++ b/tests/run_tests.sh
+> @@ -274,6 +274,8 @@ BAD_FIXUP_TREES=3D"bad_index \
+>  		empty \
+>  		empty_index \
+>  		index_trailing \
+> +		negative_index \
+> +		overflow_index \
+>  		path_empty_prop \
+>  		path_only \
+>  		path_only_sep \
+> diff --git a/tests/setprop_inplace.c b/tests/setprop_inplace.c
+> index 61a0da16fce8..48182169fbf6 100644
+> --- a/tests/setprop_inplace.c
+> +++ b/tests/setprop_inplace.c
+> @@ -80,5 +80,13 @@ int main(int argc, char *argv[])
+>  	check_getprop(fdt, 0, "compatible", strlen(TEST_STRING_4_RESULT) + 1,
+>  		      TEST_STRING_4_RESULT);
+> =20
+> +	err =3D fdt_setprop_inplace_namelen_partial(fdt, 0, "compatible",
+> +						  strlen("compatible"),
+> +						  0xfffffffcU,
+> +						  TEST_STRING_4_PARTIAL, 4);
+> +	if (err !=3D -FDT_ERR_NOSPACE)
+> +		FAIL("fdt_setprop_inplace_namelen_partial() with wrapping idx returned=
+ %d instead of -FDT_ERR_NOSPACE\n",
+> +		     err);
+> +
+>  	PASS();
+>  }
+> --=20
+> 2.56.0.317.g454f8302e1-goog
+>=20
+>=20
 
-Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--5/a458dwjBHr16xH
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmroEYsACgkQzQJF27ox
+2Gc6/w//dbNrEKRBLdUR6jeYOFUC6Mbqn2AAljnyioTxxZxKCSyQdTXlNdJcbeZi
+b3fIKX8RQgFe3TI/N3OoD4jEmAcW30s+D/sMGmVriZ4uTpLKDvTGoNTRz7+dK2Qr
+9TTjMxH0/BsTmIuUZlHvyvnJDRQaERHmtG1fe0o2gEN7p3tvoa4VejQAF9Er+eHT
+63p9s8wpWLE8BOQKquG4xs+RI0IsuehzOKeeWynL+skbCz0UcjAJV1Yys3ouRll4
+r8obMrwpZYF+J1hwWQ1zHujJ4h/jlyRaYyuLZ1nyp46dUwDWyHPoyij7ri4NKp6Q
+u9rtBygZvut+B9WAnPIyEc/z1DjVuXX4wm9wSg6nYzdMD7DpmS8v6N/DyXd/UtnM
+BsSIUyAxOKfROEiPIGu77BQGGO3M7mzBPbJa1suh4TqzIhACuR/5iE6fyWdhMv/g
+2lh46vZf0D7kZMoMv/teIBQjhjC5rK8B4VM0b3GYRCTLSm/8hhBmH40ADanTheoE
+LOWGsiUtz/+H2FQooWqVxpTt3gB5GWzhh3KVNOqf1FndHllgAS+YAbg8SMxR2Tts
+sF3LEy10elGtmj2Glor+dB3pbiEvsVCc+Q+MgRbzKeCfKqQtPvktmipqNaIt1RDp
+2eMJQtlKFsYmjZ9SJ/sWQseoe5GjwcMfSJ3m03XJgbbTZL5NPZY=
+=5OsC
+-----END PGP SIGNATURE-----
+
+--5/a458dwjBHr16xH--
