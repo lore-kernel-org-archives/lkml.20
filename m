@@ -1,58 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793632087;
-	b=FuAVqRuxH/R5JRvdMVAvuoasxI/4gDoDt3w/mXODif3z6KHWgIHijbQlgOc+1JamPlUC
-	 9Phbi+iXAM8PD0ymtJ7DCfhd10SP6KWoUJgJkMjgKepTM7cdSQJG6XeTjDgRU83ZxhXS1
-	 hRKZhcOR+KSEG4TA1nKQyfyAyOFVhcOWJFEwVgiE9x2qMqh/1hiuUrfEtOMy3QBVoOeoB
-	 /lcyXGahNtMERmhU2mRIEYrUiZUEd67xG8ICbF2NMoMboFVzPvs/yiW0Tdx85KXPdcwgH
-	 AJEN5Z0rbtHqOudOVJUwrU3VW9lNPCZBs3DOcueOU3VgnLKobfCVLcyZZ1wrbW/Ur7g==
+	b=E8AI46ULjBWcRVaevnky+0rt9v28gi/324/+Sa4XBDNJu11OI3WLqLIrF878/xxrKsx5
+	 SgVWmsYeprWORbX5zRQfZj2tgrQTfTJHnoed0+5dInRHHaAr/C2l3wIVtfvPbUtLciktO
+	 RpQxoIry0w7byhjS9N4vPLNAMYAbvUk7w9cN+eyTzGamKbTdP+myR27u2HGE6m50ges4O
+	 Q50xV2e83oJYz206JbM3EzFObIzrH2Yo/SAxbZjXMxKSunijDah2W7PymuDoYIcI6f93N
+	 Bc1HfgZzZLDAHbKNLiB+3/ShQWe8xyzK200YR8qlg6HNGlLRckOHOaDmZUOCjBZ3Fwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793632087;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+IKR9RbbuGuGx/yVom6rw6BPG5GNPAbNpjwaKg4rCb0=;
-	b=OOo1Z5ETH3kiwWFH3SxV5VoB7knNJqE2oFVotsJS7JPKxyDlp1y6mIGO3f73dFdWNhXV
-	 tngyu6srj0C42+l07lN0kBpWkUgwLTFdBqwTZ0la2HU95jhE1n6IZAvez8Pl+8/oL8e8l
-	 L8USB1wa1LO7fHqVbeJ47WOJ02RZyVH5iwDusvySv9DluUsblJ37bKlLyMlFdaNzquobB
-	 VRhpnjRljDd0fhHnegIYoT1RfrBuyZCrurA2aj6npILdSBupooSWfVjZIYXzQwFS4EjFb
-	 DHChgLHxeqEGOCkJUmpYv7nJOObXlFvRlAXwuRSW+JDLpvhIEIN2L+8dTDYx3sNtu3w==
+	bh=nbIBXMzmQWZlHkVrJLt2el9arFLvMWt8H0pfM2TvZ70=;
+	b=wBk1Tb/eim/PzKntIbGccr5VmtI71VSkZaUXR8l58S/yrc0nvCk8fg7Kle0YIH0DgebR
+	 ljS/OQu8FqCeRNR03IDwlt/IqoHWl1/HKlZM5etL938kB7msiuQqsAYwRIvEbnLlsj0pd
+	 ltlfAgcFjdhpte4EZfJUVgXjXtQ8onKwvBS1Sk4UH43GnEeozk+niW46COLhMm6HQ4rz0
+	 KXQH+ixUwMeg/7WqG12W9w+nlhYOlyGpOLOAWEi6oCyVBZjsCrRvGkOod1nw28bJVKhV/
+	 LJRXNW5zUKS3DvVoNvMkYGAhZANH4caFzJDOtS89nkkYd1uQ7GYBu7mfn1adfcOx29g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cCgQyS4g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQ6AThzL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5550460A34D4;
-	Mon,  2 Nov 2026 15:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cCgQyS4g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5A01F00A26;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B10C60A0FFA;
 	Mon,  2 Nov 2026 15:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQ6AThzL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7178E1F00A16;
+	Mon,  2 Nov 2026 15:08:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632087;
-	bh=+IKR9RbbuGuGx/yVom6rw6BPG5GNPAbNpjwaKg4rCb0=;
+	s=k20260515; t=1793632086;
+	bh=nbIBXMzmQWZlHkVrJLt2el9arFLvMWt8H0pfM2TvZ70=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cCgQyS4gxgKrL6ivpISet83poV/dEhRXOe58Rztq6mhqbAx0PILnDAQbC2eGQZoxz
-	 P5GXEwFJJa5546UnO1Szdjt0UbXAwPhU6BI4rbfKV/ZT6A2ODGnTfq2pa1ZSPjMh+O
-	 QsSdlLfZKb4tHBcBLnViwunT9CLdEgNQyAi3ZqKFIlK/pyhQVZG3g1qFoswzDAHcXQ
-	 bKPLwqxyv7LcL/fttn+G4UzuWC49D85BiOkz6T8McRV06dm5tfNOT6LfwRV1+lQcVm
-	 LWC5uFbIqdpyeg4YzcU2Sup7ATcad4o/WCt/llXv7TDQhx746G4pFg1OkzPRe2ZE6M
-	 IkbLx7R2KynxQ==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Aveline Noir <jm5905938@gmail.com>,
-	Bijan Tabatabai <bijan311@gmail.com>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 5/9] mm/damon/{p,v}addr: skip folios already on the migration target node
-Date: Mon,  2 Nov 2026 07:07:52 -0800
-Message-ID: <20261102150757.93058-6-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102150757.93058-1-sj@kernel.org>
-References: <20261102150757.93058-1-sj@kernel.org>
+	b=fQ6AThzLEEWi7nExBbcCZi3D6tD8DFAWlSnWil2Sv3ZuBdVXKMb5Yb6Jn/K4wmFRw
+	 Hxg4mROQspxZSdJAMA/n5LdG3U7BIzvsmb+Wp6IdgKd4qAuimH3sc7u+aa58oElry5
+	 wgso3TSznifEdtHRUixNcVQ9rcsGsjA2mGIEajrdTfsTUg/MlUEyyvDvRzPWy2m3yH
+	 TKECuA9j+B7z9ZoMlmy7n80Jvv4diaBqjy3LH0bgt95eWoN8xbnE1t3h9BQm+ghqzk
+	 70qPkTHR7ASmJPM3MdoaGpuMskA1J4EAH9dVIvAq7Lj3/USFoSPIkx4fYKgYjkiArX
+	 pJhOHB9D+46Hw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] rust: DmaFence: Don't drop on signal
+Date: Mon,  2 Nov 2026 16:06:17 +0100
+Message-ID: <20261102150617.527772-3-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102150617.527772-2-phasta@kernel.org>
+References: <20261102150617.527772-2-phasta@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,122 +77,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aveline Noir <jm5905938@gmail.com>
+The original design for DmaFence intended to comply as strictly as
+possible with the "dma_fence contract", which, according to some, says
+that a fence must only be signaled once. Thus, the implementation was
+made so that a DriverFence drops on signal.
 
-While measuring DAMOS migration overhead, I found that the target_nid
-path isolates folios already on the target node, then puts them back on
-the LRU without migrating them.
+While extending JobQueue's capabilities, it was discovered that this
+characteristic causes - unnecessary - trouble: fence-data must be
+dropped in an RCU-deferred manner because the C backend demands that.
+However, fences are often signaled in atomic context (e.g., interrupt
+handler) where you don't want to drop, but signal as quickly as
+possible.
 
-Skip them before isolation in vaddr and paddr, as the vaddr explicit
-destinations path already does.
+Actually, there is no real hard reason to enforce that a fence can only
+get signaled once, because the C backend is robust against multiple
+signal attempts.
 
-In a synthetic same-node fvaddr test on a two-node x86-64 KVM guest (8
-interleaved runs per kernel), guest-kernel cycles fell by about 29% with
-4 KiB regions and 90% with 16 MiB regions. Median kdamond CPU time fell
-by about 76% with 16 MiB regions, with no clear change with 4 KiB
-regions.
+What is decisive is that a) all fences signal and b) they only drop no
+earlier than 1 RCU grace period after signaling.
 
-Cc: Bijan Tabatabai <bijan311@gmail.com>
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
-Signed-off-by: SJ Park <sj@kernel.org>
+Don't drop a DriverFence on signal().
+
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
-Changes from v1
-- v1: https://lore.kernel.org/179320218513.2.7432933245840036676.damon-same-node-skip@gmail.com
-- Put performance results in commit message.
-- Use two tabs indentation for second parameter lines.
-- Collect R-b: from SJ.
-- Rebase to latest mm-new.
+ rust/kernel/dma_buf/dma_fence.rs | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
- mm/damon/paddr.c |  2 ++
- mm/damon/vaddr.c | 18 ++++++++++--------
- 2 files changed, 12 insertions(+), 8 deletions(-)
-
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 2cfdc356b4157..5b773012a8764 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -368,6 +368,8 @@ static unsigned long damon_pa_migrate(struct damon_region *r,
- 		else
- 			*sz_filter_passed += folio_size(folio) / addr_unit;
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index a1d851656562..3022bdb5f7c3 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -805,7 +805,7 @@ pub fn as_fence(&self) -> &Fence {
+     }
  
-+		if (folio_nid(folio) == s->target_nid)
-+			goto put_folio;
- 		if (!folio_isolate_lru(folio))
- 			goto put_folio;
- 		node_stat_add_folio(folio, NR_ISOLATED_ANON +
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index b549496ea8e2c..1e65e7651cd98 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -786,14 +786,15 @@ struct damos_va_migrate_private {
-  */
- static void damos_va_migrate_dests_add(struct folio *folio,
- 		struct vm_area_struct *vma, unsigned long addr,
--		struct damos_migrate_dests *dests,
-+		struct damos *s,
- 		struct list_head *migration_lists)
- {
-+	struct damos_migrate_dests *dests = &s->migrate_dests;
- 	pgoff_t ilx;
- 	int order;
- 	unsigned int target;
- 	unsigned int weight_total = 0;
--	int i;
-+	int i, nid;
+     /// Signal the fence. This will invoke all registered callbacks.
+-    pub fn signal(self, res: Result) {
++    pub fn signal(&self, res: Result) {
+         let fence = self.as_fence().lock();
  
- 	/*
- 	 * If dests is empty, there is only one migration list corresponding
-@@ -801,7 +802,8 @@ static void damos_va_migrate_dests_add(struct folio *folio,
- 	 */
- 	if (!dests->nr_dests) {
- 		i = 0;
--		goto isolate;
-+		nid = s->target_nid;
-+		goto check_nid;
- 	}
+         // SAFETY: `fence` is valid because `self` is valid. The lock must be
+@@ -816,14 +816,15 @@ pub fn signal(self, res: Result) {
+                 // must not have been signaled yet, which we check directly above.
+                 unsafe { bindings::dma_fence_set_error(fence.as_raw(), err.to_errno()) };
+             }
++
++            // SAFETY: `self.data` is valid because `self` is valid.
++            let fctx = unsafe { self.data.as_ref().fctx };
++            let _ = fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
++
+             // SAFETY: `fence` is valid because `self` is valid. The lock must
+             // be held, which we acquired above.
+             unsafe { bindings::dma_fence_signal_locked(fence.as_raw()) };
+         }
+-
+-        // SAFETY: `self.data` is valid because `self` is valid.
+-        let fctx = unsafe { self.data.as_ref().fctx };
+-        let _ = fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
+     }
+ }
  
- 	order = folio_order(folio);
-@@ -821,12 +823,13 @@ static void damos_va_migrate_dests_add(struct folio *folio,
- 			break;
- 		target -= dests->weight_arr[i];
- 	}
-+	nid = dests->node_id_arr[i];
- 
-+check_nid:
- 	/* If the folio is already in the right node, don't do anything */
--	if (folio_nid(folio) == dests->node_id_arr[i])
-+	if (folio_nid(folio) == nid)
- 		return;
- 
--isolate:
- 	if (!folio_isolate_lru(folio))
- 		return;
- 	node_stat_add_folio(folio, NR_ISOLATED_ANON +
-@@ -840,7 +843,6 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	struct damos_va_migrate_private *priv = walk->private;
- 	struct list_head *migration_lists = priv->migration_lists;
- 	struct damos *s = priv->scheme;
--	struct damos_migrate_dests *dests = &s->migrate_dests;
- 	struct folio *folio;
- 	spinlock_t *ptl;
- 	pte_t *start_pte, *pte, ptent;
-@@ -858,7 +860,7 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 			goto huge_out;
- 		if (damos_va_filter_out(s, folio, walk->vma, addr, NULL, pmd))
- 			goto huge_out;
--		damos_va_migrate_dests_add(folio, walk->vma, addr, dests,
-+		damos_va_migrate_dests_add(folio, walk->vma, addr, s,
- 				migration_lists);
- huge_out:
- 		spin_unlock(ptl);
-@@ -883,7 +885,7 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 			continue;
- 		if (damos_va_filter_out(s, folio, walk->vma, addr, pte, NULL))
- 			continue;
--		damos_va_migrate_dests_add(folio, walk->vma, addr, dests,
-+		damos_va_migrate_dests_add(folio, walk->vma, addr, s,
- 				migration_lists);
- 		page_idx = folio_page_idx(folio, pte_page(ptent));
- 		nr = folio_nr_pages(folio) - page_idx;
 -- 
-2.47.3
+2.56.0
+
