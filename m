@@ -1,109 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=67.231.153.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793606123;
-	b=w7JVVisMkO5mCtJ/gu+8uMFH5E7uQ2TAfaK77/3UpcC1DJY+47n9eFqsdu7sFO9U8uaW
-	 hD67BGH8YvBsI2UPYWAqzDK+Vvlwp8YVVwNbjwbFWdRoyMNEFJxoRVVIvWSZzUs50LkZH
-	 8Je+X3nxkPOVz3erX4QRf7lf9bW7GbAwFVyB6KYDb+cuQJX8KdjkAR9CXi3obJNfGww/3
-	 F8ZkynRK2ZsWwNDg+oWyiQxAROD8RHoRCxKnaW57Onmgxked7OQFea3mtJGjpQtLGokrC
-	 zHmllpShhgzbPx58CQrg9iPPYA8+pg/ktQCKPN3EEg0IGXww8ptQ9F5uCd4AdtAavvQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793606187;
+	b=RIBfBLw3TEl6drAcsge5DPpZHIx8p2MqjrMhzDdjz4MnDWtA/yoZ+7oj8DhDp06UsyZv
+	 2CA0ub+JLz1T4VUohrhUWeDr3hL8Z6p/X66RtVUvTcbFcXnhFzJSWtx6rrM7uheDsNcEw
+	 9sPu0hE1Q8amYYrCFttSalgD607t268eaEXOR7gAXJp8lLU89OIacGSm93R3JiSLGjwHX
+	 LQbJPKGBkQ3vOx7kHD3vT6TKBWfSHPTeE0rDH2rgIjttKx5jLUMXteo7M0tuhSujWK6ng
+	 ehaVGTO0hJKtOX4JAQn4wlilQUku+lwXXwtq+ZxDKqzXPoKpTbIhd4fqYWjhS3FpjBQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606123;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version;
-	bh=VVESOeH8KV93dptPiWjIINeuJuLkSH8q0hNNGTbvaJs=;
-	b=nKD5srSE2fFajwWqKEDq1VO5xn6WT3Q/XQ8I8j492rGzBMKg6q+AEr9dOlUrRsVkTvsU
-	 Yn/TB40+62UsXIOJIJOdzI7OMVCZ22CPqkAACh/KQIn6MDo+MVfUOPE/pSlRBnCF4X1QV
-	 ZP+dfb6ufAiqzPFOgOXCxXNsvXtBRvn8rzbEslwFSjStHN/mxQdHt12RlpuOaVuFq5FBk
-	 rlu3ZPuFWdFnuuOz5FqUUY1TKkyOjW9ELrkxpqXLHeAACa25mS2W6QPcNr4ib+Uz19RoR
-	 zlBR7ZdiGMYNRGq6R77DaivByBaqxVobeFpN8jukX3CzwsSx9MeXtZPhZ5cem0VMVxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606187;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uFMpAdzfYy3Q6dsd0Zo27g3w+8Yd0tULNqvUE3aFD+M=;
+	b=Y7xvlUP8FlUstv+rlg78hB0IhLr8GW66sQ1/AnBgO7w4suOpU3/wqu4tCdj3B7SxSJSj
+	 5hB1eQdr50zZl2Er/NdN+K3/Ul5X/2VF5JJdg5znyr/MItVzoIxK0DVaC8L/JatqVPaHR
+	 0XYolO3QCB8yJsZqG7BcAkhOWxZuFFSXkS+UVzA/FxDNXjsXG0ZtsHjTBpQ69+wm8UaJK
+	 CCYTKE+D9fPhQYSnEYqgwi52S498hD9GCdj6vj3yUZBhdGUncCH79ikF/fqC2+i7HtzxW
+	 zXWO3xyAqJWSg7PfpguBqL+jwLSZtTzuHYJXJnMRgVcYinawh9S4jK0WQUiCb1na3Cg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=E5NMNEos;
-	arc=fail smtp.remote-ip=67.231.153.30
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=h3AA6baK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.2
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013002.outbound.protection.outlook.com [40.107.201.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66528606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:55:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66528606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3B4606A326;
+	Mon,  2 Nov 2026 07:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B3B4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=E5NMNEos
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
-	by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6A24BD0j508217
-	for <linux-kernel@vger.kernel.org>; Sun, 1 Nov 2026 23:55:21 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=VVESOeH8KV93dptPiWjIINeuJuLkSH8q0hNNG
-	TbvaJs=; b=E5NMNEoscTnD/bxw+Q2JSm3eB/Ick4L9TQL/86Q2iZ1BDTJUL4CrQ
-	2wBOAqIzJbO9ZkJxE+sA7DTGoaytiW5h4ww8XdGT0aAyluMmQ7HJT3m5aw+s5aDd
-	HKguWIR6i8YzwRjYzTB0FvX8dQIJK+9Y/8qOJZlIJ/xnFz4xzLG5pUXWm1Ih31/L
-	ZiqIyb//6yTvSYs9VLmuQFgJ3cLPlNUNsajxCKQ671OnaBstC+jo88o2fJREAYLh
-	d1oPUUxy44eMDFLt7A6Qga7fkOq9i/XVkCiK97Ew8rXph7u2RGfBTdQhK69Autqq
-	h3OLRQTYs3i2TDG8XCjnPdQpUt8FVoXUQ==
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
-	by m0089730.ppops.net (PPS) with ESMTPS id 4hnbtp01np-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:55:20 -0800 (PST)
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b3dc91781fso2269316a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:55:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793606119; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R5Ez0nfNgbcXA2crcB90skb81YQN55KfdglvPlmYL94jMUsWRAH9s1sf98ZRXnoo8Q
-         k+vmfASVRSuA6CXfSqwGsa27OisF37fNp3YTdu/uteZ7xpULekeqnIBj73mVg3HdUOs3
-         fKKU67KfN61AjuSRhAsSW0nE1aRgtksbeuwO5u5p0PO6tK9hUqWM5C8cbh1togIGJ7xi
-         /is61++bH8KCnAHcLfJwCFAK0zRGY2YNsXvlfa6WPYLVuBrrbGYnkDCABeio2v3mqBKw
-         UOlEplE/4dE5As/s8paeLRRTb2IzrbEKrglbvbwWl0oAgju9QDoTAIDf3BiF72dZ39UR
-         9C5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=tJb4lf6fiPg2LPN5JU8WD73ddi6jNhw7+gXQyIOaxMs=;
-        fh=RnhwwjO2G0ZsvS3PNX6H3/nHz+iAmR0cl+85oCVOrG0=;
-        b=jy4sObvpT9+ZKLv/hB6wVzkhxqlLYJgtLVz4LW7/uL+EHN1leHb9WlsEzdKFkJcq8F
-         I3OBMZ2t7NC6E+JVMECj1vpQer0Ml3ekc5BjvfRMTUG942NgKPHXB8WIZbQ0afGnJpME
-         HyCCcUj/yrg/b4Hogb2oA1/+nZ2F2T7K86W/Yznog3g3gXcUOic+Cq2tL4IRWY09HW8y
-         FVqWMds2qJ9lnBT2iWmhXfTDp+A8FOYe9CHHvQDkpjD75QeaTsEKL8Qoaj3Ttl9ixFaL
-         dppotPEFKu/Q9VZ8veCoKZgJDlgrxV5kesX6HyjVSuOIINMvOKubaipkkn/zYMSGj72w
-         z+sg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793606119; x=1794210919;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tJb4lf6fiPg2LPN5JU8WD73ddi6jNhw7+gXQyIOaxMs=;
-        b=r1C/qyDy2MyZQL5DOY9L3ydd4/Yze9xJUm5C4481yGo7y8wIkZSdykhZdg+6CsCFBi
-         dPi2v3/3CiDQVxIF1LCKHQ6nFxQfKiUST2F/vmQwMTRdOBZln8bAQE4cbvfwVWTJQIKs
-         BvCKrlDwXKrXdWdcXXKrcedywlT1FI/dCf1oQ6ty3lplYPoaNrX4bwjPscIzCgpu7Sxm
-         b09iobQ1A3kFq5a8lkgOXiq5o/ZZpcE1FNkstjMFpCS7tObY/A1vNzoSi+NcZpuODd5k
-         gM1bipTuJzKqAf1OncyEBtfs/emjGhM0CRIlxptogdn+LlQcTW6PlvOyKlqThkn/ZAXC
-         i5Sw==
-X-Forwarded-Encrypted: i=1; AKwUvBwGAJT6A8nH6I9DGO1xSXvsJCitGdIN1pZp1ePu6xAkSKmXrM4gJDirk0Tfm18KEPLaO1HGbb5CNjOzo3E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aCi96Jp/666ro2/m0S7hjFTy4QJY/p5i9TrknXinx4vHu8+BT
-	qmWtqXdtQhIXnVQAX+d90a0fhVsJnx0l9YpioANzhi/Q7RgHUlEf9PZl9ZHFdb9wTbI4/zCHGzd
-	be0SlqCOkFfn86PQJqO+OZKZanrHVTDbj83V990hX7fTwtn+kXG0Yx01WlE1sTQgNVszIUbq8vP
-	5GoWumjycnZwFM7gdvPyAzkAzVZ1IZASPe6Ne+D50=
-X-Gm-Gg: AYBFou3PaK49LeyN24deMRD1/Z0eNW60WqKSc4kjjC8nA/XnSblb338/h9Cj73c7Yol
-	tECsPxG4PAlEqaEBP8lsQDF4RdaaU/AKncu71YqRk2F5eAJyVpFYT7bI84jneTzvxJWzSHVcQvW
-	REnqw/J/3t/mWMgIbegk47WuX/qI+lOqemrkUFRllCT1zQL8qiXmLu3Dmy21NFnEiI5N6EhThN2
-	rBdKHW2h6Kve9TNzw==
-X-Received: by 2002:a05:6402:1345:b0:6b4:bf13:b4a3 with SMTP id 4fb4d7f45d1cf-6b4d61ccc7amr4438939a12.43.1793606119531;
-        Sun, 01 Nov 2026 23:55:19 -0800 (PST)
-X-Received: by 2002:a05:6402:1345:b0:6b4:bf13:b4a3 with SMTP id
- 4fb4d7f45d1cf-6b4d61ccc7amr4438916a12.43.1793606119115; Sun, 01 Nov 2026
- 23:55:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=h3AA6baK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F1bBu78yizMTr9zb0RPc7InwFaWApbux4Lbcwv4Fo+j52Ho4LjXj4FJpcezhch+vjoKdXCI6zhd6uZt7VeOH34yn13mGdRyPsc2EXZ0UvvWEDFvTxHWdMAKj6zbANdktrIXnUzOrTaaQc3AoF25QAnTJaFVBfcTbG8dzA7267g84JHairp+1ybrFp4/iGvvDx3sqnRDQOWOxtE7+34U2BKzfx7wgvTpday2YysIOxZEteIcGBoKBKOBBSoJbybuoB4SoJmaJZDy91gV7vyutLVGndTyJnfGsG1mHWRi5MaO2qajHF2kpROgdfwqJ+ascYGWsf1zjx4NxiU/FnCNGGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uFMpAdzfYy3Q6dsd0Zo27g3w+8Yd0tULNqvUE3aFD+M=;
+ b=VOHJM1cM+fE+PeFtoRYXuSfmNpuIcFpNP12nqVUZwaqDc+LAQwaKpiW1wSRdrdMX59NP2P0cvw2YxJ1VTxP0Cn6z/7G76J1Z8iH+svfZkrDbL73AuOLjAKnHP4EfuQxQP3FzlJuLe4P5zdnd7iqC+H2LRrD0+nNW82HYJtMc3W2KIyh9jgZirolEpIFgFhWHvaEtFCm+XuoJVh2QaXJb/Et1g6Yqq5k2mlTrVUkr0yvt05fDuMPhyHFMKsq3CJ3x7n+aHd3jEDKUL75dqFgSmXDLfjh7MqZh6fEdQhzfymH7lUXhnBvTnGbdalKVmQCnQJwLUAhCGnhz+MCx80/83w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uFMpAdzfYy3Q6dsd0Zo27g3w+8Yd0tULNqvUE3aFD+M=;
+ b=h3AA6baKMyKsMtooRNeNK1I1hazAmW/066xduXigi/eP49SZgYyuwKxTPDMI2gnkchTfIuT2T5N4LEC8N485oDIOpFggDWGtLOFCKbIuzmuOkD9Vc634tW7ZyChGRdWV63xD8aChWzC2T0DgONTMYuDUx8DV5VvaoFcz8KasJgItutaZRTo1aFTtHf+6c1weRu+yHTssohwJyRqNla8kQU6v1jToiXbFaMoYUNX8+d3GkcV3IgFULxtzO+aDgXP+PbfSyP0dFOCYtdwrAy4XgfnMaJUa/BPPa38P3pSnwFTQ8mYsc79MLcGyxH7MWolfqFmGS8WcxdNmbqqZ1XXriw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by IA1PR12MB7615.namprd12.prod.outlook.com (2603:10b6:208:428::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 07:56:22 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 07:56:22 +0000
+Date: Mon, 2 Nov 2026 15:56:17 +0800
+From: Richard Cheng <icheng@nvidia.com>
+To: Jongwon Lee <ai@linux.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, 
+	Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>, 
+	Alison Schofield <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, 
+	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, 
+	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] cxl/edac: Read cached DRAM event records under
+ the xarray lock
+Message-ID: <aug-xbNiSauAAjjx@MWDK4CY14F>
+References: <20261101013418.87326-1-ai@linux.com>
+ <20261101013418.87326-2-ai@linux.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101013418.87326-2-ai@linux.com>
+X-ClientProxiedBy: TPYP295CA0006.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:9::16) To BL0PR12MB2370.namprd12.prod.outlook.com
+ (2603:10b6:207:47::27)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,221 +100,289 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261007153915.53429-1-alex@ghiti.fr> <20261023211629.16227-1-baohua@kernel.org>
-In-Reply-To: <20261023211629.16227-1-baohua@kernel.org>
-From: Alexandre Ghiti <alexghiti@meta.com>
-Date: Mon, 2 Nov 2026 08:55:08 +0100
-X-Gm-Features: AclHuK_8krTVTi2LRMKaoOYCwc66AEL2XvylCPgWSL1llLe72wlEvVkXyXpTj5c
-Message-ID: <CAEmasaVgBV+tYg7xDV96qBQ1oEVgUL3F_BnCLJW3LRjZ7ai+Yg@mail.gmail.com>
-Subject: Re: [PATCH v3] mm: bypass swap readahead for zswap
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: alex@ghiti.fr, akpm@linux-foundation.org, baoquan.he@linux.dev,
-        chengming.zhou@linux.dev, chrisl@kernel.org, david@kernel.org,
-        hannes@cmpxchg.org, kasong@tencent.com, liam@infradead.org,
-        linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
-        mhocko@suse.com, nphamcs@gmail.com, rppt@kernel.org, ryncsn@gmail.com,
-        shikemeng@huaweicloud.com, surenb@google.com, usama.arif@linux.dev,
-        vbabka@kernel.org, yosry@kernel.org, youngjun.park@lge.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzMSBTYWx0ZWRfX3+xrNs9+jgnT
- 6HP+M8Lq7F2tcRCd9Nxkx56IS4GvExm2R3GtzfqT2TINZ1UV/Dyl/j6ngxG7AjSenFdqQahF1xp
- 6N7ZrWN3n3+hVOjzIsjXvlyL7aVItbM=
-X-Proofpoint-GUID: 2OKfkyMvf9zWls594U8ugfcVRj_R_DbA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzMSBTYWx0ZWRfX0E832DU7d+xV
- GzSTIYquBI6T0kdINbH9IDWko5TOEX309YNTAa80LTb44d5SA05+9mRv43ydks57PZiySzX70ZU
- f7Zzy+TQGHEkiLJ7i45hjEQdJS3GWx22mn4GASQ/OSu6aB0ceQWwsswLZMNGxqg9TyJw1lp/M8/
- gtO9ZFrlbzwOl+T6ts6F6FHpd9iwnvdyBjkG3SSbGFOKloPlfI0v1whV7vfoJNINFtsX1tdfF+V
- 1U5uUybrV8dXL4fKqKXQDqV9mFhwV7Ed1PZMhsbhCGyALyB2g0AMNj48QdPYTBBX7IvCcEWR87j
- dmEGbiQkzc1EvW2ixn0+0IHks0pEM3T6+qZVLlQFMURadzIT3Jov916j7WtPZR+IJwPMxp4kmga
- 14Wz09PmRQj1iCmZo6Aon6Y173PUiUo1xESBMHwB0+kYEa49voaqFAg7QwaIVuvmXFhxXEbIxIb
- aSjqT2g/6/uiTQprFdg==
-X-Proofpoint-ORIG-GUID: 2OKfkyMvf9zWls594U8ugfcVRj_R_DbA
-X-Authority-Analysis: v=2.4 cv=OqzaWC/t c=1 sm=1 tr=0 ts=6ae841e8 cx=c_pps
- a=9KvDgq78n9V61H3VJbnhTw==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=855S8uPTkML1Oy45N9_h:22
- a=VwQbUJbxAAAA:8 a=JvHM3WmaZCj6HjDewG8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|IA1PR12MB7615:EE_
+X-MS-Office365-Filtering-Correlation-Id: 919c0198-9005-4e7e-a33c-08df38b6c96e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|11063799006|4143699003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	kV+AbFjayG9O5FWaEBtwD5onQkzIZB6zsKyO9oKjz0VPB75DZGH8KME93v3GbqwSgW7ruDa8qhm0oxZa9IvNr4U4cUvz/s7oQ5yQTh/X+t/nJpMHpDD6381jUvXjvycOU0KsN5wbgllKAZ8NJ1pQvVXRK+FMZktctz3scg+D40kAnbga0/JqBL2KKDVMNFmhhPQlHa9896yTZvin/LvLG9dobr8i8q6hNiiqGVi7v+aTTlt/k7s0CqLwBes/HN3JzqKhpuU+SfU+dhK6vhBQ28T6bfMi04CCVjUMikwhE/2fIT9bCB+iU/ae1OiW+eBxbu6JyEFHXzi046VIVdzpMKlsH5IOh/ebtuj/cORwR2VPsmG9hvmBep4K8uUySPQzr/ds9PxeVgLaNufuKL7heYVK+MPYGs7BpuqveWAbqEJp3vQdsKYcH1sUGMHkya8QrG/H8mCwZhHT/ec4JSUlc3UlFq2MZUJbVryNW9sCfpqx0dC4IqBRnCyVv9tDRgrx4gR39AKvAk/hSfuJdplCxOBxHgmrVnw9N+AeAU5CqyxVv9QkNe0fPynn1T8c8/pN3+7PZ2rcPRKdJRmc0S8rJ8B0HmbHZ+YnZBHDo+VYLjZQCARrI5V09zpTnOqIfHKMRHKjVrtrbTdNIr2jwiXaqKJI9YmCZrlkL7yI90MD+oQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(11063799006)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?YCXw0k5FnAMQ3eECjWCmgjr9M7f80DnsDCkJBQIQ7f+FaA1SuZONAeyuSW4o?=
+ =?us-ascii?Q?fCxA32Qnng/6FhF2me3tdgyV2mwK0LwgqAfjsUUDo/cUeEYSmsv5DW/c1iuK?=
+ =?us-ascii?Q?TQViAQp7755/9ZyvqqVmYs+3bqRTxlcEp873KiF3hm3QVfqDaYWszvMK3zUe?=
+ =?us-ascii?Q?xstb9eOu8OL4Bx6DjOCosfNU1sO6CmNeAfK51XLyGpfsLKpF7947+9A1hmZV?=
+ =?us-ascii?Q?XQkHj6SoZZiuy8bgCEuquFPnNXKitIREQVNVqcVscpo/NYpVCKUHbMEM1W84?=
+ =?us-ascii?Q?QfkWqc4AePqxSbK3gGkHVy+IJ+f9pqElSPV6Z55ZKPPwPIeeaP8o32OLGUtg?=
+ =?us-ascii?Q?7EYf9BYmcOER2udVpGahisw5dHnmky+Wdx+bZm6MY3GGtA5Ki7oOCsdmlsza?=
+ =?us-ascii?Q?FqAsrBnjHiMgu+3Vkv+6tcuTJjOaG3hkaGhBL78WDYcWTX3gjY08f7qh2UaN?=
+ =?us-ascii?Q?Ayam4L34TrVfTWwkE/vFFQUv0YOvO3HY6XBktTfu8WNitpFSav+24D2RKnAu?=
+ =?us-ascii?Q?Eg5Ox+Ow0Vn18/5y5dMNckz6GEX0DWqe8WTIUBG5P3qqPjJSkodHxy1qWBXm?=
+ =?us-ascii?Q?8mPLmRIA4HtiqjLztmllaJQi+Vf/5WJtCu8kkKQcGe629nDKlrUFrZi/HZ7p?=
+ =?us-ascii?Q?fCY61vyNdAgqEImiQ2v3Zt95lNMiqk5Ds8JTIpaxJEgq0xVkI5W0ESIMXV7N?=
+ =?us-ascii?Q?lycZO3tmaXg9kc1X/4ctt5ZsPpTmQ9sSJvvtGJVjBm5WrgZJ00ADdi2OLLnE?=
+ =?us-ascii?Q?A3feBWlz4yOh4d4nc0GUYKr/kpP5c9bDn9xnZ44V3FZUAAt75jKz0hEGjq2w?=
+ =?us-ascii?Q?c2IxjToee///5sCJix/SgJBeX97Ai/O2gVf5jukmWC3sbiofav277ZEQRLqb?=
+ =?us-ascii?Q?781PnXxl8ctmic04484CYeR2d71C6he3JHzMkl7V6WuDA5FeptwS+jGVScIq?=
+ =?us-ascii?Q?Crr81esza4kZyKQqoHus5P8ir3JorSobufu02jZv/P2D16Pu3FSihbfSB9pq?=
+ =?us-ascii?Q?mkXdCii4noRxP7muszS+bQEOXPj2bcqaXrKwf3yeq29U4YC83lLGLkPWw8aT?=
+ =?us-ascii?Q?kX9vf3EtQ9/xuYWGo5OKsn///4VFCWImGl/4pQwsuv7z2Ed+haNvkPBm7a8M?=
+ =?us-ascii?Q?0LJFcCpt5qDIBSw7pJMbtyDdbxVcdarAmiYYmU24lLbGRv3EYIMB+I677iRG?=
+ =?us-ascii?Q?s6yaf6FNNOyNjU+zyL3GHoH1a06tZ7mrjCugBfiopkHZlyFdeCkUAYH9WnKO?=
+ =?us-ascii?Q?ItmQGDH9slYSEhslD398HU85MtboKGiqXCtVZwWI5468tHt+bfzzQbbjLvDg?=
+ =?us-ascii?Q?GFFDKSDAeZIGDZfmQookkq0WZC6Pfnm3tSIpyMkbcd7XcdPoF4MbpUE5a0ce?=
+ =?us-ascii?Q?QhmXQhaW7Ba++IVEYpBusL/FJFS1T3lCaOHRAvXNt6QRGLmo75CG2dvR/Tv0?=
+ =?us-ascii?Q?6iuZZcOiVkPK6iP7NmH0SeOACxIsbDWiRg5VH2/3fCcudiQnRlR/PFmCrY3J?=
+ =?us-ascii?Q?7M4C2sDwkmjTkNo1MBdjl7ZpN3AU9ruVrYXikCQtFYZ1wCnNBzrJECEVV21/?=
+ =?us-ascii?Q?rYAEeu8ZgktRUG01VnRVdQDuWq0GSOU2Ikh/SVib20Sev2FNY0ztNBGlud4K?=
+ =?us-ascii?Q?/SSCAa75NXw6aM9JMUqSpniTWKL2AaUGEh+j/hS188lLN7LL4XrTg9x4J5lA?=
+ =?us-ascii?Q?RhnjhQjsRwpWIsYhRZzNistknkl1R1DOkZrDmb85BmMxsvZsfjOmBhl7b2Uc?=
+ =?us-ascii?Q?EWoOwjgGEQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 919c0198-9005-4e7e-a33c-08df38b6c96e
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:56:22.8022
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fxgYlqiSIG1rnqXkjPEKQjT5/QRvJckWdyl0DrR8rsR0yJc1VrfsQrSx1lKmOwaX3pOR0wWPgFRtkf5x8VUjcg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7615
 
-Hi Barry,
+On Sun, Nov 01, 2026 at 10:34:19AM +0800, Jongwon Lee wrote:
+> The event path caches DRAM event records in an xarray and frees a record
+> when xa_store() replaces it, when it expires and when the cache
+> overflows. It runs with device_lock() and cxl_rwsem held for read.
+> 
+> The repair path looks records up with cxl_find_rec_dram() while holding
+> only cxl_rwsem for read, so the two paths can run at the same time.
+> cxl_find_rec_dram() reads the record after xa_load() returns, and
+> cxl_mem_perform_sparing() reads validity_flags from the returned record
+> again later. Both reads can hit a record the event path has just freed.
+> 
+> Move the lookup into __cxl_find_rec_dram(), called with the xarray lock
+> held, and make cxl_find_rec_dram() return whether a record matched and
+> copy out the validity flags the sparing path needs. No caller keeps a
+> pointer to the record after the lock is dropped. The event path frees a
+> record only after xa_store() or xa_erase() has removed it from the
+> xarray, and both take the same lock.
+>
 
-I'm back from holidays, sorry for the late answer.
+Hi Jongwon,
 
-On Fri, Oct 23, 2026 at 11:16=E2=80=AFPM Barry Song (Xiaomi) <baohua@kernel=
-.org> wrote:
->
-> >
-> On Wed, Oct 7, 2026 at 11:39=E2=80=AFPM Alexandre Ghiti <alex@ghiti.fr> w=
-rote:
-> >
-> > Commit 0bcac06f27d7 ("mm, swap: skip swapcache for swapin of synchronous
-> > device") made SWP_SYNCHRONOUS_IO devices (e.g. zram) skip swap readahea=
-d.
-> >
-> > zswap is the same kind of in-memory, synchronous backend as zram, not a
-> > swap device flagged SWP_SYNCHRONOUS_IO so it still goes through
-> > swapin_readahead().
-> >
-> > Here are the results from bypassing readahead for zswap too: it was
-> > measured with a kernel build (make -j16) in a memcg, zswap=3Dzstd, shri=
-nker
-> > off, on Sapphire Rapids and 3 iterations.
-> >
-> >   768M memcg (sustained swap thrash):
-> >     metric                 mm-new    + bypass    delta
-> >     build time (s)          405.0       341.7    -15.6%
-> >     zswap-in (GB)            79.5        53.0     -33%
-> >     zswap-out (GB)          144.8       115.6     -20%
-> >     swap readahead (pages)  6.79M       0.45M     -93%
-> >     swap_ra hit (%)          72.1        89.9     +18pp
-> >
-> >   1G memcg (light pressure, build not memory-bound):
-> >     metric                 mm-new    + bypass    delta
-> >     build time (s)          177.7       176.0    ~same (no regression)
-> >     zswap-in (GB)            10.2         7.5     -26%
-> >     zswap-out (GB)           27.7        25.1      -9%
-> >     swap readahead (pages)  1.07M       0.08M     -93%
-> >     swap_ra hit (%)          68.6        87.2     +19pp
-> >
-> > Similar gains were observed on an AMD EPYC 7D13 host.
-> >
-> > The gain is from no longer prefetching pages that are pointless for an
-> > in-memory backend: readahead inflates anon residency and thrashes the
-> > page cache (file pages get evicted and re-read), lengthens each fault by
-> > synchronously (de)compressing a cluster of neighbours, and adds
-> > compression traffic when those extra pages are reclaimed.
-> >
-> > Bypassing swap readahead for zswap therefore makes sense.
-> >
-> > Suggested-by: Usama Arif <usama.arif@linux.dev>
-> > Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-> > ---
->
-> Hi Alexandre,
->
-> One thing on my mind is that for synchronous devices, we always free
-> the swapcache during swap-in, thus releasing the compressed copy and
-> metadata as well. We could do something similar when a zswap entry
-> is found.
->
-> I wonder if we should do that as well. I don't have time to
-> investigate this further myself, but I wonder if you'd be interested
-> in looking into it.
->
->     mm: free swapcache on zswap hits in do_swap_page()
->
->     We already do this for zram and other synchronous devices. The same
->     should apply to zswap hits. Freeing the swapcache will allow the
->     compressed copy and metadata to be released earlier.
->
->     Suggested-by: Barry Song (Xiaomi) <baohua@kernel.org>
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 55b5a84d1016..d22c779fda93 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -4711,17 +4711,18 @@ static inline bool should_try_to_free_swap(struct=
- swap_info_struct *si,
->                                            struct folio *folio,
->                                            struct vm_area_struct *vma,
->                                            bool exclusive,
-> -                                          unsigned int fault_flags)
-> +                                          unsigned int fault_flags,
-> +                                          bool sync_swap)
+Did the bug actually happened ? if so , can you provide the error log ?
+
+Seems like the root cause is that the cxl's rwsem was only protecting CXL
+topology and DPA, while leaving memory problem's entry ( those xarray entry )
+without protection.
+
+Using xarray lock is fair for me, keeping the access short and the entry
+already use xarray as bookkeeping, though I'm wonder if there're better
+alternative for locking mechanism. we might want to discuss abit about that.
+
+Another thing is about changing cxl_find_rec_dram()'s signature.
+Since the pointer can't be gauranteed valid after the function lifetime ends,
+return a boolean instead of pointer is fine.
+However, copy of the flag doesn't seem like an elegant choice,
+if caller needs other fields in the future or bookkeeping adds more info
+in the future, the signature here will need to be altered again.
+
+What if we copy the whole struct cxl_event_dram ? PPR can continue
+passing NULL since it only needs matching result.
+
+Something like the following
+
+```
+xa_lock(&array_rec->rec_dram);
+rec = __cxl_find_rec_dram(&array_rec->rec_dram, attrbs);
+found = rec;
+if (rec && out)
+	*out = *rec;
+xa_unlock(&array_rec->rec_dram);
+
+The sparing caller uses its own record:
+
+struct cxl_event_dram rec;
+
+rec_found = cxl_mem_get_rec_dram(cxlmd, cxl_sparing_ctx, &rec);
+if (!rec_found)
+	return -EINVAL;
+
+validity_flags = get_unaligned_le16(rec.media_hdr.validity_flags);
+```
+
+What do you think ?
+
+Best regards,
+Richard Cheng.
+
+
+
+
+> Fixes: 0b5ccb0de1e2 ("cxl/edac: Support for finding memory operation attributes from the current boot")
+> Fixes: 588ca944c277 ("cxl/edac: Add CXL memory device memory sparing control feature")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/r/sashiko-outbox-192042@kernel.org
+> Signed-off-by: Jongwon Lee <ai@linux.com>
+> ---
+>  drivers/cxl/core/edac.c | 69 +++++++++++++++++++++++++++--------------
+>  1 file changed, 46 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/cxl/core/edac.c b/drivers/cxl/core/edac.c
+> index 34b81e8dfb..f0c12871bd 100644
+> --- a/drivers/cxl/core/edac.c
+> +++ b/drivers/cxl/core/edac.c
+> @@ -938,18 +938,17 @@ cxl_find_rec_gen_media(struct cxl_memdev *cxlmd,
+>  	return NULL;
+>  }
+>  
+> +/* Caller holds the xarray lock. The record may be freed once it is dropped. */
+>  static struct cxl_event_dram *
+> -cxl_find_rec_dram(struct cxl_memdev *cxlmd,
+> -		  struct cxl_mem_repair_attrbs *attrbs)
+> +__cxl_find_rec_dram(struct xarray *rec_xarray,
+> +		    struct cxl_mem_repair_attrbs *attrbs)
 >  {
->         if (!folio_test_swapcache(folio))
->                 return false;
->         /*
-> -        * Always try to free swap cache for SWP_SYNCHRONOUS_IO devices. =
-Swap
-> +        * Always try to free swap cache for synchronize swap entries. Sw=
-ap
->          * cache can help save some IO or memory overhead, but these devi=
-ces
->          * are fast, and meanwhile, swap cache pinning the slot deferring=
- the
->          * release of metadata or fragmentation is a more critical issue.
->          */
-> -       if (data_race(si->flags & SWP_SYNCHRONOUS_IO))
-> +       if (sync_swap)
->                 return true;
->         if (mem_cgroup_swap_full(folio) || (vma->vm_flags & VM_LOCKED) ||
->             folio_test_mlocked(folio))
-> @@ -4977,6 +4978,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->         rmap_t rmap_flags =3D RMAP_NONE;
->         bool exclusive =3D false;
->         bool rwp_restore =3D false;
-> +       bool sync_swap =3D false;
->         softleaf_t entry;
->         pte_t pte;
->         vm_fault_t ret =3D 0;
-> @@ -5059,7 +5061,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->                 swap_update_readahead(folio, vma, vmf->address);
->         if (!folio) {
->                 /* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devic=
-es and zswap */
-> -               if (swap_entry_synchronous(si, entry))
-> +               sync_swap =3D swap_entry_synchronous(si, entry);
-> +               if (sync_swap)
->                         folio =3D swapin_sync(entry, GFP_HIGHUSER_MOVABLE,
->                                             thp_swapin_suitable_orders(vm=
-f) | BIT(0),
->                                             vmf, NULL, 0);
-> @@ -5325,7 +5328,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->          * Do it after mapping, so raced page faults will likely see the =
-folio
->          * in swap cache and wait on the folio lock.
->          */
-> -       if (should_try_to_free_swap(si, folio, vma, exclusive, vmf->flags=
-))
-> +       if (should_try_to_free_swap(si, folio, vma, exclusive, vmf->flags=
-, sync_swap))
->                 folio_free_swap(folio);
->
->         folio_unlock(folio);
->
-
-zswap already gets rid of the compressed data but indeed keeps the
-metadata on swapin, we discussed that with Nhat 2 weeks ago :)
-
-I have a different patch for that: zswap marks a swapped-in entry as
-dirty (so it gets swapped-out again) so I was thinking we could use
-this property to free swapcache metadata in that case. I'm pasting the
-diff here so you can tell me what you think. Anyway, to answer your
-question, yes I'm taking this over but before I send that upstream, I
-need to test/benchmark this approach. It relates to
-https://lore.kernel.org/linux-mm/20261022145615.2184343-1-alex@ghiti.fr/
-where poking holes in the swap table currently results in inefficient
-IO grouping.
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 2112576a70a2..0c4598326d2f 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -626,10 +626,13 @@ static inline bool
-should_try_to_free_swap(struct swap_info_struct *si,
-                return true;
-
-        /*
--        * Free the swapcache only if we are the exclusive user and
--        * this is a write fault.
-+        * Free the swapcache only if we are the exclusive user and this is=
- a
-+        * write fault, or the folio is dirty: its copy in the swap slot is
-+        * stale then (zswap loads are exclusive and dirty the folio), so t=
-he
-+        * slot only holds swap space.
-         */
--       return (fault_flags & FAULT_FLAG_WRITE) && exclusive;
-+       return exclusive && ((fault_flags & FAULT_FLAG_WRITE) ||
-+                            folio_test_dirty(folio));
- }
-
- void folio_rotate_reclaimable(struct folio *folio);
-
-
-Thanks for your suggestion!
-
-Alex
+> -	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
+>  	struct cxl_event_dram *rec;
+>  	u16 validity_flags;
+>  
+> -	if (!array_rec)
+> -		return NULL;
+> +	lockdep_assert_held(&rec_xarray->xa_lock);
+>  
+> -	rec = xa_load(&array_rec->rec_dram, attrbs->dpa);
+> +	rec = xa_load(rec_xarray, attrbs->dpa);
+>  	if (!rec)
+>  		return NULL;
+>  
+> @@ -1029,6 +1028,32 @@ cxl_find_rec_dram(struct cxl_memdev *cxlmd,
+>  	return NULL;
+>  }
+>  
+> +/*
+> + * cxl_store_rec_dram() replaces and frees records while the repair path only
+> + * holds cxl_rwsem for read, so look the record up and read it under the
+> + * xarray lock, and hand back a copy of what the caller needs.
+> + */
+> +static bool cxl_find_rec_dram(struct cxl_memdev *cxlmd,
+> +			      struct cxl_mem_repair_attrbs *attrbs,
+> +			      u16 *validity_flags)
+> +{
+> +	struct cxl_mem_err_rec *array_rec = cxlmd->err_rec_array;
+> +	struct cxl_event_dram *rec;
+> +	bool found;
+> +
+> +	if (!array_rec)
+> +		return false;
+> +
+> +	xa_lock(&array_rec->rec_dram);
+> +	rec = __cxl_find_rec_dram(&array_rec->rec_dram, attrbs);
+> +	found = rec;
+> +	if (rec && validity_flags)
+> +		*validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
+> +	xa_unlock(&array_rec->rec_dram);
+> +
+> +	return found;
+> +}
+> +
+>  #define CXL_MAX_STORAGE_DAYS 10
+>  #define CXL_MAX_STORAGE_TIME_SECS (CXL_MAX_STORAGE_DAYS * 24 * 60 * 60)
+>  
+> @@ -1298,9 +1323,9 @@ cxl_mem_sparing_get_attrbs(struct cxl_mem_sparing_context *cxl_sparing_ctx)
+>  	return 0;
+>  }
+>  
+> -static struct cxl_event_dram *
+> -cxl_mem_get_rec_dram(struct cxl_memdev *cxlmd,
+> -		     struct cxl_mem_sparing_context *ctx)
+> +static bool cxl_mem_get_rec_dram(struct cxl_memdev *cxlmd,
+> +				 struct cxl_mem_sparing_context *ctx,
+> +				 u16 *validity_flags)
+>  {
+>  	struct cxl_mem_repair_attrbs attrbs = { 0 };
+>  
+> @@ -1332,10 +1357,10 @@ cxl_mem_get_rec_dram(struct cxl_memdev *cxlmd,
+>  		attrbs.repair_type = CXL_RANK_SPARING;
+>  		break;
+>  	default:
+> -		return NULL;
+> +		return false;
+>  	}
+>  
+> -	return cxl_find_rec_dram(cxlmd, &attrbs);
+> +	return cxl_find_rec_dram(cxlmd, &attrbs, validity_flags);
+>  }
+>  
+>  static int
+> @@ -1344,7 +1369,7 @@ cxl_mem_perform_sparing(struct device *dev,
+>  {
+>  	struct cxl_memdev *cxlmd = cxl_sparing_ctx->cxlmd;
+>  	struct cxl_memdev_sparing_in_payload sparing_pi;
+> -	struct cxl_event_dram *rec = NULL;
+> +	bool rec_found = false;
+>  	u16 validity_flags = 0;
+>  	int ret;
+>  
+> @@ -1362,11 +1387,12 @@ cxl_mem_perform_sparing(struct device *dev,
+>  			return -EBUSY;
+>  	} else {
+>  		if (cxl_is_memdev_memory_online(cxlmd)) {
+> -			rec = cxl_mem_get_rec_dram(cxlmd, cxl_sparing_ctx);
+> -			if (!rec)
+> +			rec_found = cxl_mem_get_rec_dram(cxlmd, cxl_sparing_ctx,
+> +							 &validity_flags);
+> +			if (!rec_found)
+>  				return -EINVAL;
+>  
+> -			if (!get_unaligned_le16(rec->media_hdr.validity_flags))
+> +			if (!validity_flags)
+>  				return -EINVAL;
+>  		}
+>  	}
+> @@ -1376,13 +1402,10 @@ cxl_mem_perform_sparing(struct device *dev,
+>  	if (cxl_sparing_ctx->persist_mode)
+>  		sparing_pi.flags |= CXL_SET_HARD_SPARING(1);
+>  
+> -	if (rec)
+> -		validity_flags = get_unaligned_le16(rec->media_hdr.validity_flags);
+> -
+>  	switch (cxl_sparing_ctx->repair_type) {
+>  	case EDAC_REPAIR_CACHELINE_SPARING:
+>  		sparing_pi.column = cpu_to_le16(cxl_sparing_ctx->column);
+> -		if (!rec || (validity_flags & CXL_DER_VALID_SUB_CHANNEL)) {
+> +		if (!rec_found || (validity_flags & CXL_DER_VALID_SUB_CHANNEL)) {
+>  			sparing_pi.flags |= CXL_SET_SPARING_SUB_CHNL_VALID(1);
+>  			sparing_pi.sub_channel = cxl_sparing_ctx->sub_channel;
+>  		}
+> @@ -1399,9 +1422,9 @@ cxl_mem_perform_sparing(struct device *dev,
+>  		fallthrough;
+>  	default:
+>  		sparing_pi.channel = cxl_sparing_ctx->channel;
+> -		if ((rec && (validity_flags & CXL_DER_VALID_NIBBLE)) ||
+> -		    (!rec && (!cxl_sparing_ctx->nibble_mask ||
+> -			     (cxl_sparing_ctx->nibble_mask & 0xFFFFFF)))) {
+> +		if ((rec_found && (validity_flags & CXL_DER_VALID_NIBBLE)) ||
+> +		    (!rec_found && (!cxl_sparing_ctx->nibble_mask ||
+> +				    (cxl_sparing_ctx->nibble_mask & 0xFFFFFF)))) {
+>  			sparing_pi.flags |= CXL_SET_SPARING_NIB_MASK_VALID(1);
+>  			put_unaligned_le24(cxl_sparing_ctx->nibble_mask,
+>  					   sparing_pi.nibble_mask);
+> @@ -1814,7 +1837,7 @@ static int cxl_mem_perform_ppr(struct cxl_ppr_context *cxl_ppr_ctx)
+>  			attrbs.repair_type = CXL_PPR;
+>  			attrbs.dpa = cxl_ppr_ctx->dpa;
+>  			attrbs.nibble_mask = cxl_ppr_ctx->nibble_mask;
+> -			if (!cxl_find_rec_dram(cxlmd, &attrbs) &&
+> +			if (!cxl_find_rec_dram(cxlmd, &attrbs, NULL) &&
+>  			    !cxl_find_rec_gen_media(cxlmd, &attrbs))
+>  				return -EINVAL;
+>  		}
+> -- 
+> 2.55.0
+> 
