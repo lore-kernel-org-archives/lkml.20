@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793621412;
-	b=qTQ7wl4HsBG2mUdbxRo9NWRhpo5PUhae+EwwVvId5diTQ1JACFtRN/96g6KIqOWd4IQl
-	 j+6Ufj28rJt+3RweCBF4VbmWQ9wARHwtpfCORGYdEEoj4oLLuxkobkA7Jej8Z4IdGgNit
-	 qbZ4xEKpx9AK3C2phqhPdJWPWdzhD0ySin+JeTEaQJ8ABUXrJJsrL51s+k2zQnpRATbCZ
-	 j0Ja19TiMykDPinQqoI8AR0SKYfaRUt5QA6S1vJHL2ghV2tOEpAvtDDq/RNZP33Bg7q27
-	 p37ncFxxNcafUouJHEKTW99zUC7O1nJtNFh2q+sxTYjLrVqf+W7NR1k2+Mf65XmWKhQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621412;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EpRXEeBCQBFMPWWum9lfnwwCLDbfGsscHXLSPu94Puw=;
-	b=o2F0MIJGyQL0ZBPSmDvsGq8532ZozEHWxYetIvvr7A2ny+xgI1EilLctPXacfQNi60V7
-	 Rb/bWeejlaBb7MaC2RNp7/NOSAQaprUTUHr1VTpZDTGNKCGPBp8ptVULibCuiTdwILlFp
-	 An+sw/1/V19wjNbS5nFgx2z83Wgyeb83aeBky+lJlLJDIm8BqpqzHjr/Je3MMb8bstiWa
-	 gh0dhYWYAVIx4LL4gMiqlur2fFJast8JomOHKr9tx3D5UK/RTugttMbhZ/mOS6rDF8BtT
-	 fL49Qnk9CpleAIBnPhYbXWrizYtmvg33KqCdslPUaUaWrQoOJfgtpi2Ajr4D75JLyRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=psW0nZ0b;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.22
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013022.outbound.protection.outlook.com [40.107.201.22])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793621427;
+	b=qel7raHYMUtqwn4g4MsS9nbTFDWDRpRqM5NmUeoG2UZOaQK4ukvtDAGlFxjXWiE7AUIl
+	 cvHmjceqndyV92ZoJgfLmsc/NgPRAyFcDC2W0nvKqBzktnaFMdxZGM1/AaSqF0jwPsPts
+	 jEgMrZYZTC8yzqmM/wxBiQcpTORMv/bbWyK3sz19Pqci4Q9Ecz+mFepjadjARuPL8KeK9
+	 F4G9Q2Uj2RHEcD4ydqw4YX1H3dx6CtS9rsrgw6wGXSMADR/H2JgSko7buc4rHWBmXFDZF
+	 Cg1aXN7ny0aDJTwziDi4QYx5AKB9TxGLUjR1056mddmLXtp2FapxTTBgkDqpBcuNrEQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621427;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3utIN8YKJONR4bZfSrqvEFZtlbFS+VytSozFfR8XdPY=;
+	b=fTF0p14uFXaJCIKkIoveza8zRg29r43cOXbb37gedEj32+sB+jLvvi7kXy4Qe/mkSRLu
+	 1rsFp4X8WbBU4DnDpjd58+3b5THYPWk7UEPs4vc7bOIi3Pa6tAnnurNwIh1vDi/y6Krho
+	 NqXO3rHpUH/r5TNQ3JfokIJjsSA3q341l1Ecjo9sI2//P+coLPLHJQPBw/OA3tyWvs/LD
+	 DaozoL2Gg3dPWg36C+Ley7tQPTVmZhyhkYLkXUvFJz/TKAUQij7t3RMydDKukZwbckXE8
+	 NzNzO1zlydptCLCsAFSUzSnFxUS7fc+k8WGk8PrPA6sX8lzMa+V2Zm4KRNLZpAV+mNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTRgtmOz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AAF606A337;
-	Mon,  2 Nov 2026 12:10:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89AAF606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86338606A33D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:10:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=psW0nZ0b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DFrOG49hCzuw8txb9xHEo4xbWsDoT1jyXkQS9BjB2jvgbqwrLkSOliGAaGc2mdbS0QsPSJJby8h87fzbrtzMJv8DFxIQaTJOvAsdjBNfIiRuQXjFzBXCHDZM7mp+obW/m5UZaPLdeLQtZ76HorQmKTTEpyiLxb62UZR8Kngm4Uo74Dlpl8dsYe7+2l3/0W5JRhD5muOQ0ReCurq5Qpn8YOU4doaOBtNy4xmiTaOqnsyYiiYifo3lDfx/5KXysuuWM9Q2nMW6KS3oeiIJmAyiyDGjBcH5RxFWG6UBKNFGpZDN9bDRNIwhx+ZVtIAYtig/Ww4161IcDjfEX1uCaNx02Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EpRXEeBCQBFMPWWum9lfnwwCLDbfGsscHXLSPu94Puw=;
- b=OWHaZDHxOCb515hWkJ1QW6fuDza1CuDEx+VAwa2evHCme/QA2L9Vm2UiqQ1r7VBON/+nsRzBSice9gnrqSEbLGB50uIhJdrRtxTXcgyZ57fjAZ5FKufP4UrZ7YECHO+sWLmR214GeBHV64ysDBB+B3ROAJH7VfB8vXQQCjJxkorJ8vm/mowQ9+VAq56REvK/HC9wKsVLC8Slmzfr2E+UwkVbRNSSPnXR94fqwfVD3dx0lEsg1t5CsWYqzANaJ2FmbhWHFhe11bNMO9BlRQSjOgw8ZAWao92CTINdB26Y6wVku6iHrhJFPyQYpUhde6crtESl0TCs2kFNRY2GYOQ3rw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EpRXEeBCQBFMPWWum9lfnwwCLDbfGsscHXLSPu94Puw=;
- b=psW0nZ0bhumWJKTVeSAOwOsXxgYZ/2ASMbLDHbaKCnRnl6iDJ3De6y7W2JwO4C8wJK8yaWvRVeZdxsdtyG4tZGhCjzJLIaNIfVhbF3mIPSJupRpQAFzXx1IkHu0QZTAF6jxkYCZTeXYWb5lqgFqwXNlBOgrZ668bVddwsxPAfOEGntNA05Jiq7YP+jLiu8mli0AZHcE5OindEhR0wlQF7wA2lRcCgMlENVs98pXQioY3N7Al8brLZIgtQobFR6P6TXas2GxY4CmnGYQz3SNAvEJV5XcldCHqhfrHs0m/cR6FVnT3HlZ04UfViJCt9Pzue7FfE3rT/3+qOCzJtvgAkw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH5PR12MB028906.namprd12.prod.outlook.com (2603:10b6:510:500::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 12:10:09 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 12:10:09 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Mon, 02 Nov 2026 21:09:53 +0900
-Subject: [PATCH v2 2/5] gpu: nova-core: regs: add msgq v2 BAR0 register
- declarations
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-r000-cmdq-prep-v2-2-c2c2b69bdec0@nvidia.com>
-References: <20261102-r000-cmdq-prep-v2-0-c2c2b69bdec0@nvidia.com>
-In-Reply-To: <20261102-r000-cmdq-prep-v2-0-c2c2b69bdec0@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWPR01CA0011.jpnprd01.prod.outlook.com
- (2603:1096:400:a9::16) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTRgtmOz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A701F00A16;
+	Mon,  2 Nov 2026 12:10:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793621427;
+	bh=3utIN8YKJONR4bZfSrqvEFZtlbFS+VytSozFfR8XdPY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aTRgtmOzmbjZMD8o/Yfhau75xpDuPVwSjbUdT9/1ddYs0vxkVN5gfVtfa6AeHugJE
+	 6p0EjfwBz1QCy7cUFXbxSMmd++Zuci3wL9KZY9HkNjNqA6RZ6fWvzK9WWwXPLIt5P+
+	 nTlCWkKdvpHWsmQc6PNH2XYPgh1VnpFf6WTmaREU8N0AM/gEvaSqYRinEK4MoBqs32
+	 1b69rW65aABhTvPO0WcTzb5fPeQCqUqUbgkFL7DkjSLSiw9b8mWGjPm2os0u/kfsHI
+	 PNzZ8QlmuNnlfL0+s7C277kCdDO1OzsZ+sr/ypd7OPV6snYJo7/9p9Iac8Rkb//PrI
+	 n+SfqjJzKjj1w==
+Message-ID: <85c4a87b-2c8b-4ef5-bb30-6518080f8be0@kernel.org>
+Date: Mon, 2 Nov 2026 13:10:21 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,176 +51,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH5PR12MB028906:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ee4bdc1-f1d9-4104-ab6f-08df38da3d27
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|10070799003|1800799024|10067099003|18002099003|22082099003|3023799007|56012099006|261021123027099003|11063799006|261021121427099003|261021135927099003|261022105027099003|261026121527099003|261026140227099003|261009223027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	1w1XzIHx2eYalNeq0PDjksDtLt3nvQbESc/h6Md6WdPcFcpRb3WmVrEHIQhWuYjEnSAYw4OWSuhaAbZiulMBuiQlnVnBut325H5VTbLg4wpBOcRyUoldZAquMjcDEx6zMGHmVtgZfm0ZBSbv6KBdtNagDLLbwcL4Gbter4qc3m+hR4mHN4Tu8WAYtq+cNoOgTbJN7rfcW9gv70WxHxjYuY45thp2NZIhlCiAB4AIsbTvPvS7o9rQVRzOcG3itbrXlot9avob2u16QFUfsqEcdP0PLCWpg+Ka6E1G6CvKYmYBLsNxXPIw4v+2QLS1qEtA8Q4vjvzd/jDr4Y6Jab48yB9qcL4xQLTjJUwgVVqEp5B7o0xItUy7ffPFUbwFY2itUJb27gH+HueuZLcxekqL0Io1ZYkdORlPRJKAN6StF0o90uEB1M3iETSAcuUGvkc7cy3TgzgGvsrZ1o8xyAW4C6odypu93OIXFCWSf4B/QPWqS1RCje9KTlKKRLrBctsSAlDJsaJcY0z6WEVdH50oCmSaORkFfPgE6sWzA9WdG9cJRdtqcwK5BUfj6yemH8wORiFiJiyFAb+MRjUvw5oC/EuDQvf5gjCKFgaAWvBh+fTVywvdLHIee5nHlbZwkxYqOa7+Nxjvq9zq7ed1Ho6asyrVZvghxubDHZiPv8oNI80=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(10070799003)(1800799024)(10067099003)(18002099003)(22082099003)(3023799007)(56012099006)(261021123027099003)(11063799006)(261021121427099003)(261021135927099003)(261022105027099003)(261026121527099003)(261026140227099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bzNSYXNteTBzcFJ3S0NHbzlrZmgwYXdReE9nOXA5WGx5RjNOSHllcUJwRnlE?=
- =?utf-8?B?Q3E2blExbzcyQm1BcXVHQzYvOXl6MCtKTldhOWFUOVFJMm1rakJpa0hzM0dQ?=
- =?utf-8?B?L2wxNkxFaGlJZyt6REJGWXBjMHp4a21ESVUyYnczdnNuY1YzbjlJYTJHVUFa?=
- =?utf-8?B?OXFmZ2kyZDFlWjkxQTFqd1Y2c0lJS3lzY1FQVzNER2xCZnR2RlNyelo3R3B3?=
- =?utf-8?B?dlRicmsvRXNUUk9jOXc0M20vdDVwMmNWTkZEbmkxU28rYWZDNUt1a0dHSndv?=
- =?utf-8?B?b2wvcnl4V3FMK1JLakVHdytiWmY5b3drL2d1U2JLOWFPeWlZcE10dmZZQytl?=
- =?utf-8?B?Kzg0SzlycWphZkRmWDI1TElIS0JoL2JkMDlpc2hzOXhZSUtkK1drOEdKTFlw?=
- =?utf-8?B?S1A2R1plZVYydmJ5K0w1WGxWZ0pueTYwY3ZtckdFMUxHa1ZldExPNVdSd1cy?=
- =?utf-8?B?U0dpMkFxZ0RMeWtmZjJ6S2M1aVhWT0l0dnM2clpaZ0dRV1ZoYlBCZHpjTUhT?=
- =?utf-8?B?a09CSkxMRU5LTzUvdDhFUmxhekxNTXZUcEo2enV5cC9NZFZ1OGV2VjFBWVJF?=
- =?utf-8?B?TW1XNFg4VWtMK3J5VkhqWXcrRUt6SWFKNnZkbk90WXdmYVBRajJYRlo1WUtY?=
- =?utf-8?B?NlBmZmphMXgvVlR5c1FOTlA1OU9XRTBpQU1tdElEbWlwQ2l2Y0ZKN1k2QnJT?=
- =?utf-8?B?ekw1emJvSW5FL1dvV2svNlJzZUpTRHlNWElYTWJwTzZqK2N4d1hzdUFub1Mv?=
- =?utf-8?B?dmduSUVlaHRUT1AyOVV2a2VjRzJuTEF0S2pZMm8zSnFTRzRGTFVKUUtsMzZo?=
- =?utf-8?B?MC9zZ1NITGtGRDQ4eko3ejFhNWZHdWNmRFJBd2V1d2dVbDJFY0QweUJDSDZQ?=
- =?utf-8?B?aDJOSjIyOEppOVQyeWR5MmVWNnhINVg3QUdSdk83Q3oyTmpJTzRDZXNDeDVZ?=
- =?utf-8?B?NVFLcnQrbk5WcU9wUjVISUNQQ2pPbFBuNHJ2a0RmbmlXUUF0dzM4bXl4UDVt?=
- =?utf-8?B?V2JhVjBGT3hYY3lIcjBxWkRmMGs2WVdIa0cyZXhjei9IZGZHQVlDMkZKQys2?=
- =?utf-8?B?TGRoZDAya2x6NWFCOUozdFJZa3RVV1ZWaFFTQWNNR0lta081RlUyQUcrTTdo?=
- =?utf-8?B?WXRuNmE3NVdpTlJ3SUphYmtPSjlHWWFrSG5NNnRaMm4rUS9lWGNTcU9jNmYx?=
- =?utf-8?B?WjdIZXZVeUEyb3gxTS8zNlR2V3BrR2I5aXZpV21GZFlhS0NUQ28yajdqT1Zn?=
- =?utf-8?B?ZU1Yd0ZFVklqMy9SOXZlMHUxMTJhL1hOZ3FwR2tJbWxiSXBJNGVwZHBHdlNl?=
- =?utf-8?B?UGUzRW9nRWZzck84UTJqS3dOb250MEE2R0NBMEZLQmpmR3JMYlZkT2tnMXZB?=
- =?utf-8?B?azlSSHorYnVHamZJVkR1WktlKys1WlBneHI4NmFCcHlWQ3EzUHFmK2hxWHBM?=
- =?utf-8?B?SkdMb0RoTXBvSzZ4T0E1a2c5ZGJHS2dzMzZSZzVIc3JlWWlRZVNFb1pGNXV1?=
- =?utf-8?B?aWZvUTRhYkxHR2ZlSmhvZWlTVjR5Z0poelpEOGlHMjBVVHJvcEJ6S0hyc0F3?=
- =?utf-8?B?WWJXZlRSUjYrQkNIT2VuRTJCOW5RV0Fsem9JTjlnTDh0QzdyQ3pXMkpZZUYw?=
- =?utf-8?B?Qmw4Z1ZkbUZCcksyUmgvQTlYQUY3OUxpY01JMmE4U0xzd0NOV09iWFh4NkdM?=
- =?utf-8?B?M2psVXFNVkNDSHBQVitadXRRb0VYdHdJOUZkZGUzR3ZGQWhqUCtoM29jcW1v?=
- =?utf-8?B?VnVwOEhocnZwRFdXdVlyZXFqU2FIbU5FSEJ6T2NlNzBqYTAvUmlpdnhtOFVB?=
- =?utf-8?B?Z0o4V3RNWENZYW12eGtqVE1OSnRDaERmRGhPbm9KSnlURm9iZjUzcXU5SkJ0?=
- =?utf-8?B?K2dVRzRwUitrc2g4b0pFZnVRSFppZjdhL2xLcSswbmFZMndpWjcxK1VScmNX?=
- =?utf-8?B?Z1ZxNzJRZ1RRNFI5cXBEVWg2aXpCdW1PNDljUHp0QlBncHBGV3hqNkpzbDk2?=
- =?utf-8?B?Vm5USVNxUldNaWllQk03c1g4MERqc2RZYnp3cGJxQUlWdWwzZmNPald2Tkpa?=
- =?utf-8?B?amhEa1N5SjRBU3IrQmZ5eERJaXVqY3pwTVRTMEpiVUR0YjFlakdYRldHcmJW?=
- =?utf-8?B?dGpmdS9vVStHVTV2YmlneGYrM283TmFlTndaaTc4K0FUZXhQbGR4MWUwU3VJ?=
- =?utf-8?B?TXBzQUZ2YXllKzVqQ0ZVcGJvNEY3U202bUVrUVExZGpRUHNFSFRtVzl2N0d0?=
- =?utf-8?B?QWFHWGpGUkxCUXd3V2QxTm04WlJqRWVJZjV1REs5aURBcVg1T1dMQ2xRY0VD?=
- =?utf-8?B?ZmdVSXRDVkQ1SkZBbzQ4QWN5VGFMNGZxSFFzWmpib2pFTGRhV1hrZlBhQ2VU?=
- =?utf-8?Q?IH5Gm9GXaNkdd81X9fy7MP0LYmK5Fk2kRWs9VdsrGjuT3?=
-X-MS-Exchange-AntiSpam-MessageData-1: 3MyfyitJnfCaWQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ee4bdc1-f1d9-4104-ab6f-08df38da3d27
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:10:09.0900
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oqCQq0GQC7cjaxXKLgTYQYPIU98CcW+28Qrejm3d/f3E0bVW8bxuoj/AhZAg/NQE/a96sB8vkoXsiy4z0JjEBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR12MB028906
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] mm: internal: fix inconsistent in
+ folio_pte_batch_flags() for shadow stack
+To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Lorenzo Stoakes <ljs@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Rik van Riel <riel@surriel.com>,
+ Yuan-Hao Hsu <aa9736195201@gmail.com>
+References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
+ <20261102-refactor_gup_fast-v2-2-bc1ac018c834@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261102-refactor_gup_fast-v2-2-bc1ac018c834@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: John Hubbard <jhubbard@nvidia.com>
+On 11/2/26 12:30, Yeoreum Yun wrote:
+> In x86, shadow stack PTE is marked with PAGE_RW=0 and PAGE_DIRTY=1.
+> If the shadow stack pte entry is consequence with the read-only pte
+> like PAGE_RW=0 and PAGE_DIRTY=0, folio_pte_batch_flags()
+> with FPB_RESPECT_WRITE without FPB_RESPECT_DIRTY considers both are
+> the same.
+> 
+> To address this, save the first pte's writable and compare subsequence
+> pte's writablity with pte_write() when FPB_RESPECT_WRITE is set
+> without FPB_RESPECT_DIRTY.
 
-Msgq is the pair of ring buffers in shared memory through which the
-driver and GSP-RM communicate. The command queue carries commands from
-the driver to GSP-RM, and the message queue carries messages from GSP-RM
-to the driver. Each ring buffer has a write pointer and a read pointer.
 
-Msgq v0, which the r570 firmware uses, keeps both pointers of each ring
-buffer in that ring buffer's header, in shared memory. Msgq v2, which
-the r000 firmware uses, keeps the four pointers, two per ring buffer, in
-four BAR0 registers instead:
+I think this should be patch #1 and likely carry a Fixes: tag.
 
-    NV_PGSP_QUEUE_HEAD    command queue write pointer
-    NV_PGSP_QUEUE_TAIL    command queue read pointer
-    NV_PGSP_MSGQ_HEAD     message queue write pointer
-    NV_PGSP_MSGQ_TAIL     message queue read pointer
+I think we can already create an inconsistency by using a mixture of
 
-The GSP numbers its queues 0 through 7, and each numbered queue is one
-such pair of ring buffers with its own four pointer registers. Nova-core
-uses queue 0 only.
+* MADV_HUGEPAGE (overwrite for nohugepage for shadow stack)
+* MADV_DONTFORK + fork() + MADV_DOFORK
+* FPB_RESPECT_WRITE users
 
-A write to NV_PGSP_QUEUE_HEAD also interrupts the GSP. Msgq v0 uses that
-write as the doorbell, so nova-core already declares NV_PGSP_QUEUE_HEAD.
+Not that it would matter in practice.
 
-Declare the other three, NV_PGSP_QUEUE_TAIL, NV_PGSP_MSGQ_HEAD and
-NV_PGSP_MSGQ_TAIL.
+> 
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> ---
+>  mm/internal.h | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 35016b1afc8bf..b4d0df4c35adf 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -418,7 +418,7 @@ static inline unsigned int folio_pte_batch_flags(struct folio *folio,
+>  		struct vm_area_struct *vma, pte_t *ptep, pte_t *ptentp,
+>  		unsigned int max_nr, fpb_t flags)
+>  {
+> -	bool any_writable = false, any_young = false, any_dirty = false;
+> +	bool any_writable = false, any_young = false, any_dirty = false, writable;
+>  	pte_t expected_pte, pte = *ptentp;
+>  	unsigned int nr, cur_nr;
+>  
+> @@ -438,6 +438,7 @@ static inline unsigned int folio_pte_batch_flags(struct folio *folio,
+>  
+>  	nr = pte_batch_hint(ptep, pte);
+>  	expected_pte = __pte_batch_clear_ignored(pte_advance_pfn(pte, nr), flags);
+> +	writable = !!pte_write(pte);
+>  	ptep = ptep + nr;
+>  
+>  	while (nr < max_nr) {
+> @@ -446,6 +447,16 @@ static inline unsigned int folio_pte_batch_flags(struct folio *folio,
+>  		if (!pte_same(__pte_batch_clear_ignored(pte, flags), expected_pte))
+>  			break;
+>  
+> +		/*
+> +		 * x86 shadow-stack PTEs encode writability as RW=0, DIRTY=1.
+> +		 * Without FPB_RESPECT_DIRTY, __pte_batch_clear_ignored()
+> +		 * considers shadow-stack PTE as the same with subsequent
+> +		 * ordinary read-only PTEs. Therefore, check whether pte writable.
+> +		 */
 
-No functional change intended.
+That information doesn't really belong in here in that detail level.
 
-[ acourbot: declare the registers as arrays of 8 with a stride of 8. ]
-[ acourbot: use "val" for the field name of NV_PGSP_MSGQ as per OpenRM. ]
+"/* pte_mkclean() can remove the writable bit in some cases. */"
 
-Assisted-by: LLM
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
----
- drivers/gpu/nova-core/gsp/cmdq.rs |  6 +++++-
- drivers/gpu/nova-core/gsp/regs.rs | 22 +++++++++++++++++++++-
- 2 files changed, 26 insertions(+), 2 deletions(-)
+> +		if (unlikely((flags & (FPB_RESPECT_WRITE | FPB_RESPECT_DIRTY)) == FPB_RESPECT_WRITE &&
+> +			     writable != !!pte_write(pte)))
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 936406004a57..07b21a6f4504 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -15,6 +15,7 @@
-     io::{
-         io_project,
-         poll::read_poll_timeout,
-+        register::Array,
-         Io, //
-     },
-     new_mutex,
-@@ -496,7 +497,10 @@ fn calculate_checksum<T: Iterator<Item = u8>>(it: T) -> u32 {
- 
-     /// Notifies the GSP that we have updated the command queue pointers.
-     fn notify_gsp(bar: Bar0<'_>) {
--        bar.write_reg(regs::NV_PGSP_QUEUE_HEAD::zeroed().with_address(0u32));
-+        bar.write(
-+            Array::at(0),
-+            regs::NV_PGSP_QUEUE_HEAD::zeroed().with_address(0u32),
-+        );
-     }
- 
-     /// Logs and consumes every message the GSP has already posted, and returns without waiting for
-diff --git a/drivers/gpu/nova-core/gsp/regs.rs b/drivers/gpu/nova-core/gsp/regs.rs
-index 3c410d65e8e4..e3fbbf364b7b 100644
---- a/drivers/gpu/nova-core/gsp/regs.rs
-+++ b/drivers/gpu/nova-core/gsp/regs.rs
-@@ -9,12 +9,32 @@
- 
- // PGSP
- 
-+// The GSP has eight numbered queues, each with its own four msgq pointer registers interleaved
-+// at a stride of 8 bytes. nova-core uses queue 0 only.
-+
- register! {
-     base: NovaRegisters;
- 
--    pub(super) NV_PGSP_QUEUE_HEAD(u32) @ 0x00110c00 {
-+    /// Write pointer of the CPU-to-GSP command queue, which the driver advances. A write to this
-+    /// register also interrupts the GSP, which makes it the doorbell.
-+    pub(super) NV_PGSP_QUEUE_HEAD(u32)[8, stride = 8] @ 0x00110c00 {
-         31:0    address;
-     }
-+
-+    /// Read pointer of the CPU-to-GSP command queue, which the GSP advances.
-+    pub(super) NV_PGSP_QUEUE_TAIL(u32)[8, stride = 8] @ 0x00110c04 {
-+        31:0    address;
-+    }
-+
-+    /// Write pointer of the GSP-to-CPU message queue, which the GSP advances.
-+    pub(super) NV_PGSP_MSGQ_HEAD(u32)[8, stride = 8] @ 0x00110c80 {
-+        31:0    val;
-+    }
-+
-+    /// Read pointer of the GSP-to-CPU message queue, which the driver advances.
-+    pub(super) NV_PGSP_MSGQ_TAIL(u32)[8, stride = 8] @ 0x00110c84 {
-+        31:0    val;
-+    }
- }
- 
- // PBUS
+It might be nicer and more efficient to track if any was readonly/not-writable and
+
+	any_unwritable = !pte_write(pte);
+
+And checking once after the loop.
+
+
+I checked and we cannot really fix x86 without an additional sw bit to remember
+"shadow stack PTE".
+
+As discussed, the simpler alternative would be to just disallow large folios in
+shadow stacks entirely for now, given that vm_mmap_shadow_stack() already
+disables large folios explicitly.
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 4b71d010b2aff..9a2dc90ef9690 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -367,6 +367,9 @@ int hugepage_madvise(struct vm_area_struct *vma,
+ {
+        switch (advice) {
+        case MADV_HUGEPAGE:
++               /* PTE batching doesn't work reliably. */
++               if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
++                       break;
+                *vm_flags &= ~VM_NOHUGEPAGE;
+                *vm_flags |= VM_HUGEPAGE;
+                break;
 
 -- 
-2.56.0
+Cheers,
 
+David
