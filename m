@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628876;
-	b=jenoJrGKDHp2PK0PvDHkVXV8t0CkvwsEe9z94nksg+n0cODJVVSF1f2rIC9PXnHckzRV
-	 vkEbuhETflFzW7LAv9c4F309YAex8xtL794usy+2Q5dBNJwdLLDWK8ceYN84XDw4wO/6J
-	 n4nndH1EZRpMkPE4OorVQ+tU9NTCDZTjdlCObtXbE6sM0XpiEwOiq24gaV7eO4bBxa/DI
-	 0y/dIy3vqBhWKU3VKZ/MCLEUnlTKWed8Mopt7RCsGh/fPmo67MBcTmHZYZpLlVqJhAJiY
-	 T9Fll1i2X3AyCo7lytuxRfDHoot0MmyzVgsBttqJ07oc/AUjulohdBGLpffFkdjqW2g==
+	t=1793628889;
+	b=3h6PWb9hv5fob0BqUAgnGmjAZfD7yodw3KjrNmFQ0SKK/RgI3qvp7zTiTwBkVXIvI7IU
+	 +fh/NBj0Z/YyUZOwZz+bABohzwtitP6qfHPmhJvGlZtdhF8sbNb66DEmSmYn22yuv/FvG
+	 q4JtozwK+QIEj0+t5kkifVdcTcqDmvPoZKEJeht+8ELK/6VAlm04AObhwoOT95iBELEkQ
+	 dgAIQcOZB2/R88xdfuxsCFSR9bT5CSTJBbFeMXRKhzJVf516b8Kf9QqHTaR8L3dCeg0SU
+	 IT7MsrKY2wnDtzG/s+aohp+zvdUKti4/EQ6pbNilO7Kqti/JHwrxf6jVmROJcFJkBJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628876;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JAxbuZ/nMtyVx3Id0dCrZWQ+X27krEZ94KZnYOzEcYM=;
-	b=F5FVRMp8p50lRvop2QV2kH+u3MDlAedMU/aPzkEN7VpBviMeUIqw/lY/fSmjoHg0lCps
-	 IL6fyGld6bYNiWB8w6ou27RcTAQGdneIZbXZsnElC62O6RnDo2QuP4t5xUcW/y+kT8C1T
-	 d9gmfPkfPXLXLgcNpZo7ny9CWzmW4V3Qrl3RIW7UXrB120QDjjudFSLx4VfG4dXFMqnKF
-	 +S6FYC8b1aSjsACdTJgGw7PaI54iInl1bbZne/vzwN5lmvaYbAwKciGC32SkHAwGrSRqS
-	 du4uqyh5dCUKRyIEW+OLDKtgvTeJEX039CaRLHzmkoRj9Y3y1ZrPrl1R9vqivH/btrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628889;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=I6wt0qCogvuBKigmh2JCg/spsby2CoXz9wPbiqsiJUk=;
+	b=uRBEJoQVruGyjh+fwsk58AbMjBNCIjCoKPsTzAvzjugBQG1xAdSI6pasJrPjwG+tT1TO
+	 CgLYyLhOJtr2fxnb0w9sNe6z/51mV2nDBVu1V+hyiogac6TtmFV4QuSfItW7v/o+3fzGn
+	 QVVTlcErYlf4KbBP+ab1LKYlIlEQ7/S1G6vymxaEmlU9zAsVhIoX37YuV42jiRzT7hrrT
+	 9jpsBloaDyOMWJwJ1V5xS5NudGOQn0EndotzY9Bv2D2K8e7ahlDIt5JVjORNZ1z4FM2i8
+	 X8Z5rQKBnimjzisQiojFwe+fMnARqz/WYB06701Yb/DCLlRzRkQbcT9cgBrWJlkRz2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GfSE/mUD";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--snehalreddy.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QeNX01qT;
+	arc=none smtp.remote-ip=209.85.128.70
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2FA606A9BF;
-	Mon,  2 Nov 2026 14:14:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1EE60A2610
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:14:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB1EE60A2610
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--snehalreddy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GfSE/mUD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FCE51F00A18;
-	Mon,  2 Nov 2026 14:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793628876;
-	bh=JAxbuZ/nMtyVx3Id0dCrZWQ+X27krEZ94KZnYOzEcYM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GfSE/mUDP2LBawMieQFlGlmhnw3DgxebhTlO7jWmZCZMSiUJpaXld9q8wTIku9ubT
-	 EwMWjvNCL8gly4SGmWHYqkQGMFMv35XzqygOEoWn6ZqqmHm5RrlCbIoNjEPftjKMow
-	 1jqKuS1pDCOUuQ7YnI9Mpph/XYH4G/0jpb2X1YFPs/uC1vxiKTFq39KEigvxcgW17M
-	 s3Zid1deDMZ/dHkLa9Mqu1EhRltW8jkn6Unr/IMAG/ddJfZCOtmDWFkCrkhYm8OOlS
-	 QT3I0pBcjG78xw2Y0iqWGZCCm+oTCVp7i5x2v8TurTmb2Rsd/W09wdiXG3OCPN7vZu
-	 7w2Z4aUYwKW0A==
-From: Chuck Lever <cel@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>,
-	Haruka Kuze <harukak@zohomail.eu>
-Cc: NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nfsd: don't access freed memory when cannot grant a write delegation
-Date: Mon,  2 Nov 2026 09:14:26 -0500
-Message-ID: <179362885856.3023377.13235486966347359157.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261101212135.1231222-1-harukak@zohomail.eu>
-References: <20261101212135.1231222-1-harukak@zohomail.eu>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QeNX01qT
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a20e41008cso21823735e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:14:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793628886; x=1794233686; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I6wt0qCogvuBKigmh2JCg/spsby2CoXz9wPbiqsiJUk=;
+        b=QeNX01qT9/V+ai+/gWSP5RuuklHQ4+vkdQy4JPFBxAh1Ojl/jKnu674CELU+l5Cg2W
+         1yoXt1zLaLPSdE1Enp1kDg/03NAmCkxtRfMvo3wRN2EpqqeZDxJb1DLkTVD0tptfSZHF
+         fa6pwkt28+5sCAsTnLghLDRKxQ/aW+N7kk/yA3p/0CsRQNszLrkXc8coT999oYxnwS+k
+         FFWdODZ3Uzg5Jx0sbldTEwswDWOFMDGGp/fOEPi+ZCvKHnxC4yrYnlb6gPVGFoOn9WZl
+         gx08mMu1hXA8jhnJg9n+6tEyE6i/x00y1/FSKGCNdLquP3Ls1/1btgo1UyI7bgSoPuRU
+         P24g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793628886; x=1794233686;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I6wt0qCogvuBKigmh2JCg/spsby2CoXz9wPbiqsiJUk=;
+        b=Ak8+w4Xv/xzCDbtdv2l/808ShUvTI3p0LXevslOcTcViqMaOFVAgKy0VXXeB4smMOg
+         ubNIoPY6DXQN9FGjejqYOJFde+RR4XyoCIFWQA1J/ij08FQmrx2OPfWH2tWHYJlFrz2S
+         C2ZMd1PHNVrm8CElqqDpvzG5ZqJh7ZoCSt4rtpblTLfifHUlXrgxDq37Zl+jvxrRdb0v
+         UhH5ZO199lwXjgh48wnVbkBouKgm+nnebmyXRjuN1kEUphdLolxixqi1bBjgSv5IaMDo
+         zSdmyRYO5A6fITi2ciWAE86wK6x0P/ippVxgOmmKM+/vOXrO96LLPdrq8HV9cUTbiL5z
+         J5Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBxI1hd2tLo8xkCkd8LlHFW5vPjPwDCGVCEoPFvp+fMXvXZqI7xdXc27b50vpi3IPPlsA0Cfig09C951gJI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXyByHYpvby8DkVmft2U2ppo2NRFlEmOvsti7Rqpq7MKQYfX1U
+	/qS/ZZEQkyJ8/yL7rwuTMZPwkS3bHBn+Qw0ehc43kyAJy9S6NC1C7jksO6HRroC1oYcfpEkXX0o
+	tvm7/howwResK8VS6QHDPb9Bp4A==
+X-Received: from wmbf3.prod.google.com ([2002:a05:600c:5943:b0:4a1:fa1d:83c3])
+ (user=snehalreddy job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:628d:b0:4a1:f7f4:7ced with SMTP id 5b1f17b1804b1-4ac185bd243mr235882325e9.17.1793628886221;
+ Mon, 02 Nov 2026 06:14:46 -0800 (PST)
+Date: Mon,  2 Nov 2026 14:14:42 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,27 +75,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261102141444.1830221-1-snehalreddy@google.com>
+Subject: [PATCH v3 0/2] KVM: arm64: Support FFA_MEM_RECLAIM2 in host handler
+From: Snehal Koukuntla <snehalreddy@google.com>
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Vincent Donnefort <vdonnefort@google.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Sebastian Ene <sebastianene@google.com>, 
+	Mostafa Saleh <smostafa@google.com>, Snehal Koukuntla <snehalreddy@google.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 02 Nov 2026 06:21:35 +0900, Haruka Kuze wrote:
-> nfs4_open_delegation() hashes the delegation before the call to
-> nfsd4_add_rdaccess_to_wrdeleg() and nfs4_delegation_stat(), both of which
-> can sleep, and it calls destroy_delegation() from the error path after
-> dropping the caller's reference.
-> 
-> Moreover, a DELEGRETURN from same client can unhash the delegation and
-> drop the hash reference in this window, so nfs4_put_stid() frees it and
-> destroy_delegation() then reads freed memory.
-> 
-> [...]
+The Arm Firmware Framework for Arm A-profile (FF-A) v1.3 BET0
+specification (DEN0140 rev K) [1] introduces the optional
+FFA_MEM_RECLAIM2 (0xC4000091) ABI.
 
-Applied to nfsd-testing, thanks!
+Reclaiming large memory regions with the existing FFA_MEM_RECLAIM ABI
+can take significant time, or relies on a stateful time-slicing
+mechanism in the Relayer. FFA_MEM_RECLAIM2 allows an Owner to reclaim
+exclusive access to a subset of pages from a shared or lent memory
+region by passing an array of constituent memory region descriptors in
+its TX buffer along with a starting descriptor byte offset and initial
+page index. The Relayer returns the number of 4K pages reclaimed in
+that invocation without maintaining intermediate transaction state.
 
-[1/1] nfsd: don't access freed memory when cannot grant a write delegation
-      commit: 2d3259f652bb0f1d137ccabecac6763da05064ec
+On a Pixel board (pKVM, 16K pages, EL3 SPMC), reclaiming a single 16K
+range drops from 1.3us to 0.7us (~45% faster) by avoiding
+FFA_MEM_RETRIEVE_REQ/RX_RELEASE (~0.6us), and single-call
+FFA_MEM_RECLAIM2 stays faster across small range counts (1.3us vs 1.9us
+at 16 ranges; 2 calls break even). Up to 64MiB (4096 ranges), batching
+256 descriptors/call adds 15 preemption points, capping each EL2/EL3
+call at ~11us while keeping total SMC time within 5%.
 
---
-Chuck Lever
+This series adds the FFA_MEM_RECLAIM2 function ID definition and
+implements host proxy support in the pKVM nVHE FF-A handler, unsharing
+the reclaimed pages in the host stage-2 page tables upon a successful
+reclaim response from EL3/SPMD.
+
+With the FF-A v1.3 specification now at BETA (1.3 BET0), drop the RFC
+tag so the series can be considered for merging.
+
+This series is based on v7.4-rc1.
+
+Changes in v3:
+- Drop RFC tag now that FF-A v1.3 BET0 (DEN0140 rev K) is released
+- Update specification references and links to DEN0140 rev K (1.3 BET0)
+- Add benchmark numbers to the cover letter and Patch 2 commit message
+- Collect Vincent's Reviewed-by on Patch 2
+- Rebase on v7.4-rc1
+- Link to v2: https://lore.kernel.org/r/20261016082341.4030770-1-snehalreddy@google.com
+
+Changes in v2:
+- Mark as RFC until the FF-A v1.3 specification reaches BETA (Sudeep)
+- Rename FFA_FN64_MEM_RECLAIM2 to FFA_MEM_RECLAIM2 (sashiko)
+- Check total_pages against the sum of constituent pg_cnt (Vincent)
+- Simplify the flags and offset alignment checks (Vincent)
+- Rebase on latest kvmarm/next
+- Link to v1: https://lore.kernel.org/r/20260921164748.2958578-1-snehalreddy@google.com
+
+[1] https://support.arm.com/documentation/den0140/k
+
+Snehal Koukuntla (2):
+  firmware: arm_ffa: Add FFA_MEM_RECLAIM2 function ID
+  KVM: arm64: Support FFA_MEM_RECLAIM2 in host handler
+
+ arch/arm64/kvm/hyp/nvhe/ffa.c | 126 ++++++++++++++++++++++++++++++++++
+ include/linux/arm_ffa.h       |   1 +
+ 2 files changed, 127 insertions(+)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0.317.g454f8302e1-goog
 
