@@ -1,113 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612845;
-	b=tWKBmYbmy4v5jHoKg3qN3nOrCwpQgQK2gHM88k4r4E3EA8jUSpMX6bMAiAJnOxqlYOkC
-	 pdW7hbHes6RdiKCnRLrF7QF+YPZzOitYGRRuwqzAyJvKX0Hk4zka1ZfLWi9qZGl90ueqM
-	 Tgcl5mzTdZdcqn/EUpWu4AZTWyIEBgIv7+FC2iWXU246i25Sy01OmUb+gY6vqjJs5QQjs
-	 banwnOeBBulFIahoH5my4QioGyX1c89zntOaSjx9JynqyVOawSxPp2qCr7A9TvUMhFLSA
-	 UD5mojmhe8jR6lv2BmSisi4Pe3gP6zYjMMFOebkZPM9Q0wba6MQHPErqDV2dOLtkkJw==
+	t=1793612850;
+	b=pDze5fx6wQfbqFUF7hVKUW6skIuPki4aKXPysiTP9Iug10Yz6ijiWQhIvaEvcnJUqRND
+	 YhZh2zaV7U0rNXme3h6TFiDsRYJA8G8MMVrh1Y9lmMD7fN0Q6dg5FEsAj4WBl3zIRmOLv
+	 W4O9u+eKNEq55eoG+kXNWkYBKku/Rpj6YncJ9YX1DhzI5J1QQzfLTGUIVYXlQHHhtVMoD
+	 ZkJeYL/gRaygXe3hLg/DZJDgKo2ZTwGU9Xl30X2klwYCGW6AACRLb5Ot5NufxYivVNt6I
+	 +9Zl86FnlvT6VD0UPJPLIpI2ASoRkCv+oZE2tXi/D0bGu3L5ESWnMErraiv7iEVBTlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612845;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=oRHoL0IowPBtdkXq6acf6pO5kP7NbE/jHqMLo/D6VFA=;
-	b=esTSC9Q7fEmFTSKynfog/sJ5EsliaIcZiwckCHsa1z16KeOLegE5cnIGTk/Vmdp5sd0K
-	 2pEojqiYU7ZAtn8wGb0k0tRlNl3+VntDpBuiTtf5e6eM+O8rc2aSkUHzpY5vWQZnTlQpJ
-	 KH+uz97gcB6F+f0C1k6ygyG1H3nscmBi2g8BdxYYZ9Jx0XaQQXpEuQSYq3EJv1bMY60TA
-	 5qWc2VP/pr2WlFaixPywT+hO6B6WzpPOvzhLmop6csZh+EQ1e4lo+q0DLaEEzUKNXibjk
-	 oQKvfppXz22Z199fj5wN6Pdsv//LMSiU3eJABQ3MGPopLExkT5U9PgGmD46W6Z6b0tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612850;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
+	b=nSPl5k2PymMxd+/zJjM02oGBi+YovcketWbYHLUPIC+hZmUC2kqaCJGsoVMqadBWWsAR
+	 ipjLG6Fir7Nq2x/MYExl/Sm3jppoQRZY7aMhyLByWUoqVaogWRXNMOEODozO1aWzpJ9Vy
+	 uuRhUJGe4g28QolmOu1b6HgzG4xD3bXkaG7AsopGUJQclKarpUvTBiMWYSeZHlue6RQjW
+	 k4VJsOxNjITG28TRZV7F8vuimuxuKGjQ2mDXm+cgWEn3U8X76Y4hGSIHYFHjHY5jkcMhb
+	 jXQmc7gvVOfjz9uEloOTAC/qYUUyOEsQogi6Z5lhMFVllIufBqoTb04xpiQxl0MuB7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Wm3QIn4f;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OW7SKwWc;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vo7Xt+fn;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52184606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:47:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52184606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA4F60A263B
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:47:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AA4F60A263B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Wm3QIn4f;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OW7SKwWc
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29A3cd260571
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 09:47:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oRHoL0IowPBtdkXq6acf6pO5kP7NbE/jHqMLo/D6VFA=; b=Wm3QIn4frgFE+1bs
-	qRJ6VpTVrvD6xXIAbqfeIgJYWopTXPhXjjyAQi6QRVMtcZNnvyUtIqYw32N0YG4u
-	Whc4M2Jv3Hl5RqaT7Suh27/0ijSoYWfXWiEqvjBGE+y26E46NS5PyG/+umL3fNzT
-	LT+27sc06bzvGmPdb52W6gnaPWdU/Ii4RanNX77fqAX7WdHY1PrSzzuFmwv3t+PL
-	SF76ka8kLJIFFUuJvV7/4mj32d/K80DOSAyvaNNJEoNMWUh2p9upYTNaC1L3DU2y
-	089/sz8ACIQDnnGkQ1mpFTcT/zPoyTn0YJIHc5LJ3JYNCEMjPq7gdV151HnCQdVw
-	Q9ty5g==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqmvr5j8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:47:24 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so3946627a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:47:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vo7Xt+fn
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so1328228b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:47:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793612844; x=1794217644; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793612850; x=1794217650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oRHoL0IowPBtdkXq6acf6pO5kP7NbE/jHqMLo/D6VFA=;
-        b=OW7SKwWc1GsjjKUtoROXvYMewXz8uUE3dhvyBCwoHqn7hdGQ0A8qSzyJWJsgJwbGTT
-         y5RqGjZlvR94wstcKSVcUca9dmyfVaQFoH6DZpVAFcbuS3teVXOQJkjK/ViH0fGeWZV7
-         1c+wPE51TdzhvcwjFENhENxmmL2DZ+g4xz80fDbZq56fT8gdoNh+l61lrO+oaLHf+RNi
-         PzuG23OCei/9oqXyL++kLfzgxOsg5PhV6BFtl8h9o+lCTO05vtgK64VA1G6YnJ+n9Gug
-         qu9CiyuoXafAHZs2e2Vnlvn07bpxR35IJ+l09ZEP3qYD2Y9Ksx/mHHBFy6B98pp9c23X
-         7Raw==
+        bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
+        b=vo7Xt+fnoxNUCUz05P35hCqGg3AKmJeGDfHucXZuJfJFgH9IDtb1EyvSQpTl0WQoLd
+         N6cp/ctU9DsOheNTssU7iN54dcuAAgtViPr56CfkOWJUfBVWLXRo1SvyYW3KT+/wswlc
+         D/aA1jikdh7IA/+ZWXtAEATGpT0FfHUOJinO3iO6+CbEtpqzr8kw+VZKm5uiqx2t5EWh
+         G6KIUJb1DJKD/0jdIru+Q7V4UR0rmkm/4PuHg08KuYSKgoFafYAEtshjWPoTgIiBO+gL
+         Kds0YiwN4+n3R5ShtLOmYnP9oilhzaiVNh6uOjGzN9P3QpimnSkzweMT4ieiuxQsmxla
+         tUsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793612844; x=1794217644;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oRHoL0IowPBtdkXq6acf6pO5kP7NbE/jHqMLo/D6VFA=;
-        b=SxCT7b6mGEpcGMlyxi5bYkJq6RKCokxlzMEQsVHwwCXJvNz/R8sLkkYLWYyX2Td8M6
-         ShgusIXd/p5ZQ8DJuAxXsYd0Adu7N9JvQoltyRmRJp7B+lLtHdeZT/CIoLptIRxIHzzG
-         31PYIMuixc+tUCVf/3ie1u8j7M3MkRQLjf7xlWc/8lz+RFWPJdthfggZYTpW/FKpVjy5
-         vp30EkF0p3flele4N7FYhNObR+erMOC2GwOxOq9fY9Ab0XaC2QvLAWCFZL9GO86XpJCu
-         J/7RRzBGdVrwQUNM+np8RhyJ0PeIqVHMngHXvzENWrqH29f7U1ZVYFXBmofTTx1cZjBc
-         eqLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw64KyQgESDugu6Bvt9iOyIYODuq7+alyJHBXdfvJD5/juJtoXzI5fxNJ591asn0RKWAKXVeZxh/z14LgY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ju+XF+f3PSii8L6kJI8mxJzIMkhcZI58weQPT30Yc+8I9iwOm
-	ZIOKtbpA/dauA87WwQYblCxFUaQmz7JhcCbn29ZwzxTgcbyS6PG99w7GZvLcHUATrqRb0YhvHtL
-	6R9xwaDBxNN/F3m3Ked3+8uw6Os5N0f1zyOFSHe9ThiOiig+3PZWOl9SsHX2CnG3Y0O0=
-X-Gm-Gg: AYBFou3W5XbwPqXwuueVWEAlqyq/bqW9WFdyYTsx0uGWxEaF8tCaQr+kzY0esY8Sv5s
-	FsOZDSPJ5GJnO8baXnzTV/VDc1tWAYYsDXg0Pzpq8TxNOERoi4NhGlgYjV7aJgYl7M1RAfZFF7J
-	7s/7zM16C4URV/0qbksoG5hgDf0OILihHVf/GKUXCr7ozv/uhIUXFw7ZWcFLuGCgW5itGxozJIg
-	AUNJz5YN/42MLfu4Yt8/UyhNsGTLT1bWunD0M4neseAV9kdLMH385nJvyOvNt20y04XDTX7Zn2A
-	mBvEyOuLMRqwpB5cs89CCFB7ETBpHnOWLPBO7lRF+nU3VI+grCSEqmZ0TxR7w8gS3ejeBD32ZC2
-	3socqnWx4Z8uNOvHT+OYlJ0Lq8PulxDsNJIL1PgYO5XfRMPxYaaeYjcNUEZEQ+8GT9YZi6XjUm3
-	x9gi8nyXbeu46AWvoCYyZKDZYtEm8F8FlsIa4=
-X-Received: by 2002:a17:90b:268d:b0:3ac:762d:79ae with SMTP id 98e67ed59e1d1-3ae895a5c65mr7491753a91.2.1793612843763;
-        Mon, 02 Nov 2026 01:47:23 -0800 (PST)
-X-Received: by 2002:a17:90b:268d:b0:3ac:762d:79ae with SMTP id 98e67ed59e1d1-3ae895a5c65mr7491729a91.2.1793612843324;
-        Mon, 02 Nov 2026 01:47:23 -0800 (PST)
-Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aebaac28c9sm5053234a91.15.2026.11.02.01.47.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:47:22 -0800 (PST)
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 17:46:29 +0800
-Subject: [PATCH v21 1/8] coresight: core: refactor ctcu_get_active_port and
- make it generic
+        d=1e100.net; s=20260707; t=1793612850; x=1794217650;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
+        b=vfxJ0ZmTjuP2Iq5lVYC9/4kgKJJHGCyXCFply4I7igVVDbtq2ksuRucYNE2Y2hflPW
+         APMOsyC0587uOWsa/xrf+DgXOyo+6DxCpDjUSKKnr1ukbA9ds8h0fWDxKawU26Yd0RX0
+         9fhOweGnqHesat7EXGTfn1RfmlzDXE6vymWp2beDH02bKx6HfLMnjkalu6t903+Z6Vsi
+         RQlsvxsAzHxHDG3f9JzzG28xCdYCjd0zwKJgDV+O7jqBY0aKFFXMYNZIvcmqH5thnJyB
+         kvaktfy1ktydJMqTnx9+5xzh00+U6XpTmDqvPXUbPOIrZBXRIF8CeEe4DiPWnta5e76b
+         h8yA==
+X-Forwarded-Encrypted: i=1; AKwUvBw8vT37f5V33mVwia/LZ8JpmlXnuS41DKlfVAQ6GlvVFx/oq0Q3w+oSz2E2/ITD1ItLJa0oTrqM0UVpGKw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/r+yR4vM3Ld26XeJspm5CTIie0W96PzCGhK4m1wbyedqt5cK6n
+	0VxMMpULdD6BHQz4bscUAjuo5Gik7yaOw/+5utYSGu3jGkkJy4TTYFzHYuIXvG8rqcgtag==
+X-Gm-Gg: AYBFou1ZAkZIAOGkgS+poWM8sxvjb8CJdID768WHUUqG8Sh4KTJs2MrX9A+SjaXej//
+	guwhmQCMMboAc2Ru3QAF6n92hSjgV67GYUOmhZFkOs1qUw1KE460Hu99a1++PB6hVN/5fP5stUh
+	ksZrK1AVimn9EoM64mO/XFxXLghwCKg1ZAn4El86W0GseKISK6dy3IODWjlfhjPeNdiYQNvi8n9
+	WT6hlIenciLaYnS863E9kdwczl6+oCaqQPhVEllB0KadHZvSMjo9Mu6fDC+DdhlDOykR5O/upiZ
+	LRw/wo/vj9dz3njrhx+fkix7Oko+Ws05ROLFueQEEMXuufQGmYSNfF9KdfLwDVC4xfIWvvwlS9i
+	HLe/ZV/63jB0VBAR8u3RleYScn9KE/rmlCK+HAJylkZ0qz4V+3uzZqhEuZtSq0jIODv3/tiX0ZD
+	+mPJLwwnj+KE3mxlQNKUyh4oL8OSDNjYv7E3Goeuv4Ty+11MMMVMf3PwEpbY+u/305WMq4U+LZ6
+	IHaW8aAn6GPYpCYg15jLS2rlAo28Anf0amzc32VWc9FoZsKLwdhKGM952lVJv0/dgZLoPhCOFjQ
+	T3FRa0xZLFVz7+wJzpAkFBJCjb05xhylub1vTOkOmukA0kgOZayR6TQ=
+X-Received: by 2002:a05:6a00:3a07:b0:8a0:465d:38ba with SMTP id d2e1a72fcca58-8a8322ac146mr8302901b3a.24.1793612849756;
+        Mon, 02 Nov 2026 01:47:29 -0800 (PST)
+Received: from localhost.localdomain ([155.69.168.11])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada3d479dsm1802116b3a.39.2026.11.02.01.47.26
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 02 Nov 2026 01:47:29 -0800 (PST)
+From: Yuqiang Sun <izaiahsun@gmail.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com
+Cc: mhklinux@outlook.com,
+	stephen@networkplumber.org,
+	linmq006@gmail.com,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] Drivers: hv: vmbus: Keep the channel when vmbus_add_channel_kobj() fails
+Date: Mon,  2 Nov 2026 17:47:18 +0800
+Message-ID: <20261102094719.35760-2-izaiahsun@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261102094719.35760-1-izaiahsun@gmail.com>
+References: <20261102094719.35760-1-izaiahsun@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,169 +103,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-enable-byte-cntr-for-ctcu-v21-1-231e069b7853@oss.qualcomm.com>
-References: <20261102-enable-byte-cntr-for-ctcu-v21-0-231e069b7853@oss.qualcomm.com>
-In-Reply-To: <20261102-enable-byte-cntr-for-ctcu-v21-0-231e069b7853@oss.qualcomm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
-        James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-        Jie Gan <jie.gan@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-        Mao Jinlong <jinlong.mao@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793612828; l=3915;
- i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=+oZshRSJK34bHEGxdoF7ktkVcnA/k42MY2hxHJFiV/4=;
- b=RghL7vHLQ2LLWPeyClO5kOMvn0TiqRKkbIQ8KwYjaEdz6XIdZ5rR8t9NMisjNHMkl6xdUkz9v
- l862wx1cR2IBqXWU77fiZ9kSzs17FnpwmcgZCzxTJNYUQv3jmOCe9N7
-X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
- pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Authority-Analysis: v=2.4 cv=TMDQ2Fla c=1 sm=1 tr=0 ts=6ae85c2c cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=lyq7_Muqgj1vGRpOYO0A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: OeCfraXFkb4QK6FwcCwamUVVhzmsPjcV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfXy4JMqodVKHRU
- 2omWc8Zm6p4rS2fwX0fqRqXcNOlxwoYAoRAocP21mLSHnZEDFOtCZhvc/OwE9awvQtRpcaYaa9q
- jp4hPo2k3BtakFiJYU583St3a5D7yn8=
-X-Proofpoint-ORIG-GUID: OeCfraXFkb4QK6FwcCwamUVVhzmsPjcV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX3rPYqvJpEopE
- 4HrMORyfiJCMhOMBdl3f1jtGeBvCWpl4tfNwHbBeNdKYuNB7+rv69fr/fg92NF5DpbzcIKRFG9G
- ug90vvlXUwuVRgyWiJHzYOOadoa7v1BlfbPdgu5hn7wa/u8oGZ9twM5udLKxsBRfFn8Z3QpWI1F
- ZT8eZy0uA4sjFvAEWdOlfdDiicFduD3WIaxtSQugmpWA/fOOZWFOzjiGWAuSRF4xH/BMJTl8kDd
- yDoBb/CnAQ6p7+g6bMx2wgLwcmGttRpJPGeaZ8G/n1cSX0KpsunsRBaPeMwBM5mZOu7gaTVRzXS
- jzxxCLyD4CyUvMKmbDGnJkMAMQ9OalP89259gzv7pkWh/blcWgHNxYxdidizKEwx/hDC1e1YlXw
- puIr1VmWkRagg7DeV4PrMcNTAEjKIj1C2xXu6+1tuH4AT4EvH1Ywz8F8BGursawSV4blNptHv+N
- BcNVJkb1Nuz8BkDl40w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020038
+Content-Transfer-Encoding: 8bit
 
-Remove ctcu_get_active_port from CTCU module and add it to the core
-framework.
+The channel is freed by the release of its kobject, and free_channel()
+drops that reference. Since commit 8bc69f86328e ("Drivers: hv: vmbus:
+Fix memory leak in vmbus_add_channel_kobj"), vmbus_add_channel_kobj()
+also drops it when it fails, as kobject_init_and_add() asks for. That
+frees the channel, and both callers then go on with it:
+vmbus_add_channel_work() unlinks a sub-channel, unmaps and releases its
+relid and calls free_channel(), a use after free and a second
+kobject_put(); for a primary channel, vmbus_device_register() unwinds
+through vmbus_device_release(), which removes the channel too.
 
-The port number is crucial for the CTCU device to identify which ETR
-it serves. With the port number we can correctly get required parameters
-of the CTCU device in TMC module.
+The kobject is also only initialized in vmbus_add_channel_kobj(), so the
+error paths before it, for instance a vmbus_device_create() failure in
+vmbus_add_channel_work(), call free_channel() on a kobject that was
+never initialized: kobject_put() warns and does nothing, so the channel
+is leaked, and removing the attribute group from a kobject that is not
+in sysfs warns as well.
 
-Reviewed-by: Mike Leach <mike.leach@arm.com>
-Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+Initialize the kobject when the channel is allocated, so that
+free_channel() is the one place that drops its reference on every path.
+vmbus_add_channel_kobj() then only adds it, and leaves the reference to
+its callers when it fails. Remove the attribute group only if the
+kobject was added.
+
+Fixes: c2e5df616e1a ("vmbus: add per-channel sysfs info")
+Fixes: 8bc69f86328e ("Drivers: hv: vmbus: Fix memory leak in vmbus_add_channel_kobj")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
 ---
- drivers/hwtracing/coresight/coresight-core.c      | 27 +++++++++++++++++++++++
- drivers/hwtracing/coresight/coresight-ctcu-core.c | 21 ++----------------
- drivers/hwtracing/coresight/coresight-priv.h      |  2 ++
- 3 files changed, 31 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-index d2f9c1fb77d9..32e8b3e51519 100644
---- a/drivers/hwtracing/coresight/coresight-core.c
-+++ b/drivers/hwtracing/coresight/coresight-core.c
-@@ -773,6 +773,33 @@ struct coresight_device *coresight_get_sink(struct coresight_path *path)
- }
- EXPORT_SYMBOL_GPL(coresight_get_sink);
+Notes:
+    The bug was found with kbound, a research static analysis prototype.
+    The patch, the changelog and the test setup were written with the help
+    of an AI coding assistant (Claude); I have reviewed them and tested them
+    as described in the cover letter.
+
+ drivers/hv/channel_mgmt.c |  5 +++--
+ drivers/hv/hyperv_vmbus.h |  1 +
+ drivers/hv/vmbus_drv.c    | 25 ++++++++++++++++++-------
+ 3 files changed, 22 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
+index c42def04ac41..cb1d8d76928f 100644
+--- a/drivers/hv/channel_mgmt.c
++++ b/drivers/hv/channel_mgmt.c
+@@ -367,6 +367,7 @@ static struct vmbus_channel *alloc_channel(void)
+ 		     vmbus_on_event, (unsigned long)channel);
  
-+/**
-+ * coresight_get_in_port: Find the input port number at @remote where the @csdev
-+ * device is connected to.
-+ *
-+ * @csdev: csdev of the device.
-+ * @remote: csdev of the remote device which is connected to @csdev.
-+ *
-+ * Return: port number upon success or -EINVAL for fail.
+ 	hv_ringbuffer_pre_init(channel);
++	vmbus_init_channel_kobj(channel);
+ 
+ 	return channel;
+ }
+@@ -663,8 +664,8 @@ static void vmbus_process_offer(struct vmbus_channel *newchannel)
+ 			mutex_unlock(&vmbus_connection.channel_mutex);
+ 			cpus_read_unlock();
+ 			/*
+-			 * Don't call free_channel(), because newchannel->kobj
+-			 * is not initialized yet.
++			 * Don't call free_channel(): newchannel was never
++			 * added, and its kobject holds nothing yet.
+ 			 */
+ 			kfree(newchannel);
+ 			WARN_ON_ONCE(1);
+diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
+index 33923621a5a3..7865a519dd7f 100644
+--- a/drivers/hv/hyperv_vmbus.h
++++ b/drivers/hv/hyperv_vmbus.h
+@@ -408,6 +408,7 @@ struct hv_device *vmbus_device_create(const guid_t *type,
+ 
+ int vmbus_device_register(struct hv_device *child_device_obj);
+ void vmbus_device_unregister(struct hv_device *device_obj);
++void vmbus_init_channel_kobj(struct vmbus_channel *channel);
+ int vmbus_add_channel_kobj(struct hv_device *device_obj,
+ 			   struct vmbus_channel *channel);
+ 
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index 4692687cdbf3..fc0f16f51266 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -2084,6 +2084,15 @@ int hv_remove_ring_sysfs(struct vmbus_channel *channel)
+ }
+ EXPORT_SYMBOL_GPL(hv_remove_ring_sysfs);
+ 
++/*
++ * vmbus_init_channel_kobj - initialize the kobject that holds the channel's
++ * lifetime; free_channel() drops its reference
 + */
-+int coresight_get_in_port(struct coresight_device *csdev,
-+			  struct coresight_device *remote)
++void vmbus_init_channel_kobj(struct vmbus_channel *channel)
 +{
-+	struct coresight_platform_data *pdata = remote->pdata;
-+	int i;
-+
-+	for (i = 0; i < pdata->nr_inconns; ++i) {
-+		if (!pdata->in_conns[i])
-+			continue;
-+
-+		if (pdata->in_conns[i]->src_dev == csdev)
-+			return pdata->in_conns[i]->dest_port;
-+	}
-+
-+	return -EINVAL;
++	kobject_init(&channel->kobj, &vmbus_chan_ktype);
 +}
-+EXPORT_SYMBOL_GPL(coresight_get_in_port);
 +
- u32 coresight_get_sink_id(struct coresight_device *csdev)
+ /*
+  * vmbus_add_channel_kobj - setup a sub-directory under device/channels
+  */
+@@ -2094,13 +2103,14 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
+ 	u32 relid = channel->offermsg.child_relid;
+ 	int ret;
+ 
++	/*
++	 * On failure the kobject keeps its reference: the callers' error
++	 * paths drop it in free_channel(), which also frees the channel.
++	 */
+ 	kobj->kset = dev->channels_kset;
+-	ret = kobject_init_and_add(kobj, &vmbus_chan_ktype, NULL,
+-				   "%u", relid);
+-	if (ret) {
+-		kobject_put(kobj);
++	ret = kobject_add(kobj, NULL, "%u", relid);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	ret = sysfs_create_group(kobj, &vmbus_chan_group);
+ 
+@@ -2109,7 +2119,6 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
+ 		 * The calling functions' error handling paths will cleanup the
+ 		 * empty channel directory.
+ 		 */
+-		kobject_put(kobj);
+ 		dev_err(device, "Unable to set up channel sysfs files\n");
+ 		return ret;
+ 	}
+@@ -2124,7 +2133,9 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
+  */
+ void vmbus_remove_channel_attr_group(struct vmbus_channel *channel)
  {
- 	if (!csdev->ea)
-diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-index 9043cad42f01..739105acb0a1 100644
---- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
-+++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-@@ -116,23 +116,6 @@ static int __ctcu_set_etr_traceid(struct coresight_device *csdev, u8 traceid, in
- 	return 0;
+-	sysfs_remove_group(&channel->kobj, &vmbus_chan_group);
++	/* A channel that failed before vmbus_add_channel_kobj() has none */
++	if (channel->kobj.state_in_sysfs)
++		sysfs_remove_group(&channel->kobj, &vmbus_chan_group);
  }
  
--/*
-- * Searching the sink device from helper's view in case there are multiple helper devices
-- * connected to the sink device.
-- */
--static int ctcu_get_active_port(struct coresight_device *sink, struct coresight_device *helper)
--{
--	struct coresight_platform_data *pdata = helper->pdata;
--	int i;
--
--	for (i = 0; i < pdata->nr_inconns; ++i) {
--		if (pdata->in_conns[i]->src_dev == sink)
--			return pdata->in_conns[i]->dest_port;
--	}
--
--	return -EINVAL;
--}
--
- static int ctcu_set_etr_traceid(struct coresight_device *csdev, struct coresight_path *path,
- 				bool enable)
- {
-@@ -145,8 +128,8 @@ static int ctcu_set_etr_traceid(struct coresight_device *csdev, struct coresight
- 		return -EINVAL;
- 	}
- 
--	port_num = ctcu_get_active_port(sink, csdev);
--	if (port_num < 0)
-+	port_num = coresight_get_in_port(sink, csdev);
-+	if (port_num < 0 || port_num >= ETR_MAX_NUM)
- 		return -EINVAL;
- 
- 	dev_dbg(&csdev->dev, "traceid is %d\n", traceid);
-diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-index dddac946659f..854c0a3cb080 100644
---- a/drivers/hwtracing/coresight/coresight-priv.h
-+++ b/drivers/hwtracing/coresight/coresight-priv.h
-@@ -155,6 +155,8 @@ void coresight_remove_links(struct coresight_device *orig,
- u32 coresight_get_sink_id(struct coresight_device *csdev);
- int coresight_path_assign_trace_id(struct coresight_path *path,
- 				   enum cs_mode mode);
-+int coresight_get_in_port(struct coresight_device *csdev,
-+			  struct coresight_device *remote);
- 
- #if IS_ENABLED(CONFIG_CORESIGHT_SOURCE_ETM3X)
- int etm_readl_cp14(u32 off, unsigned int *val);
-
+ /*
 -- 
-2.34.1
+2.53.0
 
