@@ -1,65 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.242
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602304;
-	b=Zt2YD5Qd811rtzZM+88WN1+Hs6GiM9zAah6lbIp96nfP17H/oaIMbXEYiHbkb+PLgHGC
-	 E0gF6svQGJZuYx0PZfdjgXt+aDObVysWlKDA53AN6KFTqquNXQt8C3wrTevPbenupqFkC
-	 x17uH5imY80xLIsm/LPNJjOpU+iJSDiB9R1N51qyG/iN7MghoaILmZ37nmz+Qxwn2wxTw
-	 CMG+k0OEq4zCWnRnC2OfbsfLAnyGfNyOuTY17hV+H9/kboKWy27DL120zflOrnbtS1hNk
-	 uvSLNJ4vv8RZczD0eeonjmI4OTU9TR2cnRqI4v5POg5HYv03W6JOysV24ZXj/EYjqnQ==
+	t=1793602326;
+	b=Y19YYGsOAfwRc1rQJ35Ry9b/sgP5xQysbeZri6dswkMdmKWPvD+PXpKos/WsWb8aCwuL
+	 moNiwWKJz6A6nwULOyROn3F3sOkQY8pcisIrtMeMDGCb2Rs9MYVH0Nhc/XsXK7winceeS
+	 YLz95AOJrRMtLJdukQdIbF1zDuET1IbTAkE8GJQwTnl+O7z5Ny7vo/dBx9Aqkio0fhkjJ
+	 XlGnl5uhsOlxiZR2o6FD9u3QmHdzeUaUXeb9K3vjwaszZw0TyH8zUwhsZwA9gTOUALOXR
+	 I3jTBWz/3mod7AOOZZpcII2xpcToEoDj4to/t2UsDs1Wh5ruI07b8jcbRJJ88gnnFNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602304;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FR3UiyaSHlkxp6xWAqbVQ4BBB6v1t+2E2Jo22ZIjrS4=;
-	b=AV6iAM5qeMYwmHLEs69TbSqnWDOpS2zj+Vp81hGcCne9RyEzkFRmKVqajUf10QCCu4BH
-	 Jfj5DB4kGtTcscutf4OL0R63vcuiR+gD/JYixvC9P7p3y0D7HP+T7e9Km7ircKOW4Dmku
-	 lgorH7TWj3SgbrMgmmrSbTi7OWErq+SMUGNG3BAFq3hxKYxode3byUc1ABBt5+SSFVA5x
-	 uP0T2NYu0aDQiaswt/nQYNUOEk58Y0tXGhwWRk6BqfEPhGyA5oQzP0jvtO5HhPjSUqKAG
-	 gs4xBDb0GFQtxfiQenvVgUBTdyc+A1ZnC7oKQUwFa8oWz3Ry4Cfg8mYtrsV9aN9xV4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602326;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=PTkCharFQmf18BmR+HlsgqRfDjWer5Tuunqxyv1lgvw=;
+	b=P78y9WhmnPVOhlybvfZHFeWp+w+1Qpe5PX8Hp2r4VTsPDccmelcxdKeDUWCm/4mZy0C5
+	 if5w3iTfiPpiwvI2KPikxVdzMU+oRK1n6kAbGDaULXPaTiyGdSC0Pnzq3CnB2NwN5Bwxb
+	 RUdg3kpWe1u2lJQsKaJJOjSUM8NKww5WvADKPuZGMg2NYXE200wECjDKgXDZYISZw8oa7
+	 uPF+L8Pf+i7+mQX7Oo0VLLgso39xCvNnx79mHUlpTQ+LMsNSbZly1GGwIcdcCy3Ifkyxt
+	 QZkvwrwjYvyno9EIc+7ClN+SWz49rDkuWg8Msthp1+2Yl5dxFt7xlc/fJWewYIbjMgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVOks+dI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=bC7DjVmf;
+	arc=none smtp.remote-ip=210.79.60.242
+Received: from mail-m60242.netease.com (mail-m60242.netease.com [210.79.60.242])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5880606A324;
-	Mon,  2 Nov 2026 06:51:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DE0606A324;
+	Mon,  2 Nov 2026 06:52:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5DE0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVOks+dI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 075E91F000C1;
-	Mon,  2 Nov 2026 06:51:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793602303;
-	bh=FR3UiyaSHlkxp6xWAqbVQ4BBB6v1t+2E2Jo22ZIjrS4=;
-	h=From:To:Cc:Subject:Date;
-	b=nVOks+dIwgWZK+5TVKuV1WwNZ85TghKB2OlvPfYUMolT1hAosO31QRcmEOKS/VkrO
-	 5ODqJUYgQQDfhCu2pblvmTccR6sZwJcjlRZWczTlzjAXJuGZqlbQcv8yNudtn6r94i
-	 D9F6cyMhB31VCuGRBfnZjk2iWMq862ptJnVJh/TOHG16mIl2Buqr1+VW1uvhnR/q66
-	 XwH7Yz26DVFU7xkrkEqEn3C7PMVTjbbphKRrfIbkyuZst8wsgU9oQQFyKNQzwPwWbB
-	 7TzLkLwWUwnOaPvoBMJVrg6joMLmzJMyhfHfVniYI7JcoH7d0KlKXNvCYd6cGIpI27
-	 jFIzFTMPv9kQA==
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-To: dave.hansen@linux.intel.com
-Cc: x86@kernel.org,
-	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Nikolay Borisov <nik.borisov@suse.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Chao Gao <chao.gao@intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-kernel@vger.kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org
-Subject: [PATCH v3] x86/virt/tdx: Do not print error message on non-present feature
-Date: Mon,  2 Nov 2026 07:51:38 +0100
-Message-ID: <27b6d824f7aee7078167944ce96d95676eee25cb.1793602266.git.jirislaby@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=bC7DjVmf
+Received: from [172.16.12.11] (gyproxy-mailtls2-entmail-virt217.gy.ntes [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5325ade18;
+	Mon, 2 Nov 2026 14:51:49 +0800 (GMT+08:00)
+Message-ID: <b012a73f-1834-471f-982f-84244b863dce@rock-chips.com>
+Date: Mon, 2 Nov 2026 14:51:49 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,66 +48,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pmdomain: rockchip: do not restore QoS that was never
+ saved
+To: Jiaxing Hu <gahing@gahingwoo.com>, ulfh@kernel.org, heiko@sntech.de
+Cc: sebastian.reichel@collabora.com, shawn.lin@rock-chips.com,
+ zhangqing@rock-chips.com, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261101055633.101309-1-gahing@gahingwoo.com>
+From: Finley Xiao <finley.xiao@rock-chips.com>
+In-Reply-To: <20261101055633.101309-1-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa19b074e4203a8kunm1cd43e6020218b
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGU4fVkpOTxpJGEMeH0xLS1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=bC7DjVmfge6voq7J+27TJQ++JcPO8y+rqy/5dy/AkhYlmSBOLipVPasTo2cW/f5wkVlem1BYf3uSkAFJqo97BisVIUOmbU2hq7ArQLIR0neW+8FAUptzDiVC4yicE2S53tgbbYPuBUK169JCV9CLVu/+mXP+F183i3iknXpAbVU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=PTkCharFQmf18BmR+HlsgqRfDjWer5Tuunqxyv1lgvw=;
+	h=date:mime-version:subject:message-id:from;
 
-Before commit 165e77353831 below, the kernel did not print anything
-during boot if X86_FEATURE_TDX_HOST_PLATFORM was not present, unless TDX
-enablement was explicitly requested via a module parameter.
 
-After the commit, when attempting to load TDX automatically, this is
-emitted to the log:
-  virt/tdx: TDX not supported by the host platform
+在 2026/11/1 13:56, Jiaxing Hu 写道:
+> rockchip_pmu_restore_qos() writes back what rockchip_pmu_save_qos() read
+> on the last power-off. A domain that was off when it was registered has
+> not been powered off by the driver yet, so on its first power-on the
+> restore writes the zeroed save array over the QoS reset values.
+>
+> On RK3576 this is the GPU on every boot. Read back after the restore, its
+> QoS is all zeros; with this patch it keeps the values it powers up with,
+> priority 0x101, mode 3, bandwidth 0x80 and saturation 8.
+>
+> Only restore after a save. Rockchip's own driver does the same with an
+> is_qos_saved flag.
+>
+> Fixes: 074c6a422d86 ("soc: rockchip: power-domain: support qos save and restore")
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>   drivers/pmdomain/rockchip/pm-domains.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+>
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+> index db3879846db6..d1c025bdaa08 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -97,6 +97,7 @@ struct rockchip_pm_domain {
+>   	int num_qos;
+>   	struct regmap **qos_regmap;
+>   	u32 *qos_save_regs[MAX_QOS_REGS_NUM];
+> +	bool qos_saved;
 
-It is emitted with the "error" level, hence it is disturbing. It is not
-an error to run CPUs without the feature.
+The fix itself looks correct. One minor nit: the downstream Rockchip
+kernel implements the same guard with a flag named `is_qos_saved`
+(you already reference it in the commit log). Reusing that exact
+name would make it easier to correlate with the vendor tree when
+debugging or backporting QoS issues like the RK3576 GPU case.
 
-Drop this silent-boot-breaking error message for the automatic
-initialization path.
+Reviewed-by: Finley Xiao <finley.xiao@rock-chips.com>
 
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Fixes: 165e77353831 ("KVM: x86/tdx: Do VMXON and TDX-Module initialization during subsys init")
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-Reviewed-by: Sean Christopherson <seanjc@google.com>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: Dan Williams <dan.j.williams@intel.com>
-Cc: Chao Gao <chao.gao@intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
 
----
+>   	int num_clks;
+>   	struct clk_bulk_data *clks;
+>   	struct device_node *node;
+> @@ -474,6 +475,7 @@ static int rockchip_pmu_save_qos(struct rockchip_pm_domain *pd)
+>   			    QOS_EXTCONTROL,
+>   			    &pd->qos_save_regs[4][i]);
+>   	}
+> +	pd->qos_saved = true;
+>   	return 0;
+>   }
+>   
+> @@ -481,6 +483,14 @@ static int rockchip_pmu_restore_qos(struct rockchip_pm_domain *pd)
+>   {
+>   	int i;
+>   
+> +	/*
+> +	 * A domain that was off when it was registered has nothing saved yet,
+> +	 * and writing the zeroed array would replace the reset values the QoS
+> +	 * registers came up with.
+> +	 */
+> +	if (!pd->qos_saved)
+> +		return 0;
+> +
+>   	for (i = 0; i < pd->num_qos; i++) {
+>   		regmap_write(pd->qos_regmap[i],
+>   			     QOS_PRIORITY,
+>
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
 
-[v3] add reviewed-by tags and resend
-[v2] update the commit message.
-
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-coco@lists.linux.dev
-Cc: kvm@vger.kernel.org
----
- arch/x86/virt/vmx/tdx/tdx.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index 680e5178a86f..d910a290ac50 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -1276,10 +1276,8 @@ static __init int tdx_enable(void)
- 	enum cpuhp_state state;
- 	int ret;
- 
--	if (!cpu_feature_enabled(X86_FEATURE_TDX_HOST_PLATFORM)) {
--		pr_err("TDX not supported by the host platform\n");
-+	if (!cpu_feature_enabled(X86_FEATURE_TDX_HOST_PLATFORM))
- 		return -ENODEV;
--	}
- 
- 	if (!cpu_feature_enabled(X86_FEATURE_XSAVE)) {
- 		pr_err("XSAVE is required for TDX\n");
 -- 
-2.56.0
+Best regards,
+
+底层平台中心 肖锋（Finley Xiao）
+************************************************************************************
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
+福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
+No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
+Tel: 0591-83991906-8602 Mobile: 18506057603
+************************************************************************************
 
