@@ -1,71 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632087;
-	b=E8AI46ULjBWcRVaevnky+0rt9v28gi/324/+Sa4XBDNJu11OI3WLqLIrF878/xxrKsx5
-	 SgVWmsYeprWORbX5zRQfZj2tgrQTfTJHnoed0+5dInRHHaAr/C2l3wIVtfvPbUtLciktO
-	 RpQxoIry0w7byhjS9N4vPLNAMYAbvUk7w9cN+eyTzGamKbTdP+myR27u2HGE6m50ges4O
-	 Q50xV2e83oJYz206JbM3EzFObIzrH2Yo/SAxbZjXMxKSunijDah2W7PymuDoYIcI6f93N
-	 Bc1HfgZzZLDAHbKNLiB+3/ShQWe8xyzK200YR8qlg6HNGlLRckOHOaDmZUOCjBZ3Fwg==
+	t=1793632086;
+	b=fhBEXSYgEh4JUFeOZqY8ErNOlOu2aHNlilc90xLu/8Oh93HhykRKKloF3C7aCmjWcqML
+	 akiKETD7AlQPrYQs4RjlDpiNWboPDz+VN8hVpyeZsc1dFFRuePR2mHXxqDhqhh+XbS9ze
+	 V9qV3Wigq5gKA1p57tI1UiFXVaqd5S98+dSs5ro9dK6REpqIxU8MksRJPsI5/6TTKCFXA
+	 J+Lk2oTsSRYEoHbrzZ7bGRdXjILRkra8W+4TMt0UYj+iHiEieFnY/gWTE5jRRi4nGqH8A
+	 wp/xqEAnHyDzh7TMlnjA92PmFaJVThfphxAh5vCiTuSo4hozBzV2cYVNYIoBDeTzWCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632086;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nbIBXMzmQWZlHkVrJLt2el9arFLvMWt8H0pfM2TvZ70=;
-	b=wBk1Tb/eim/PzKntIbGccr5VmtI71VSkZaUXR8l58S/yrc0nvCk8fg7Kle0YIH0DgebR
-	 ljS/OQu8FqCeRNR03IDwlt/IqoHWl1/HKlZM5etL938kB7msiuQqsAYwRIvEbnLlsj0pd
-	 ltlfAgcFjdhpte4EZfJUVgXjXtQ8onKwvBS1Sk4UH43GnEeozk+niW46COLhMm6HQ4rz0
-	 KXQH+ixUwMeg/7WqG12W9w+nlhYOlyGpOLOAWEi6oCyVBZjsCrRvGkOod1nw28bJVKhV/
-	 LJRXNW5zUKS3DvVoNvMkYGAhZANH4caFzJDOtS89nkkYd1uQ7GYBu7mfn1adfcOx29g==
+	bh=awuxY1FvzsoS1AnamJJIhHpAk0A733zuvxu39gKku+U=;
+	b=Pe9ju3dcR1ni4w49N7vp2EgBd8QkJv/Abc6bA80Eq84aPKVrqNNoclhBXczjEm5LvvzV
+	 cUQb/pcN37TAP8eAzAlJLJuo7wZTlnDBJDWLg6SvtEPomV8K6zqHGoFHfbI+8Gly/Tbi9
+	 4nI7J2Z1o5PVdXcmaMsmd4iHg6awkBeiZKkxGj4FzaR1pDGbyYMYDQhQgpzWcce9yQ1lq
+	 Sp44uuOHrcCcQUKBCu9RtwIdki5bzZvS5+QzftCDSTeoX8tu/Yhyh7aX6pGQWPMvcKpxr
+	 mQIM+9cKioYAWuCpDkll7kYLXMSHB/XDCAcCZIy2owtFRmzqNYX0J9ErhowGkqaGP3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQ6AThzL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ag3K53I0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B10C60A0FFA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F0560A0FE9;
 	Mon,  2 Nov 2026 15:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQ6AThzL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7178E1F00A16;
-	Mon,  2 Nov 2026 15:08:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ag3K53I0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9AF1F00A1D;
+	Mon,  2 Nov 2026 15:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632086;
-	bh=nbIBXMzmQWZlHkVrJLt2el9arFLvMWt8H0pfM2TvZ70=;
+	s=k20260515; t=1793632085;
+	bh=awuxY1FvzsoS1AnamJJIhHpAk0A733zuvxu39gKku+U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fQ6AThzLEEWi7nExBbcCZi3D6tD8DFAWlSnWil2Sv3ZuBdVXKMb5Yb6Jn/K4wmFRw
-	 Hxg4mROQspxZSdJAMA/n5LdG3U7BIzvsmb+Wp6IdgKd4qAuimH3sc7u+aa58oElry5
-	 wgso3TSznifEdtHRUixNcVQ9rcsGsjA2mGIEajrdTfsTUg/MlUEyyvDvRzPWy2m3yH
-	 TKECuA9j+B7z9ZoMlmy7n80Jvv4diaBqjy3LH0bgt95eWoN8xbnE1t3h9BQm+ghqzk
-	 70qPkTHR7ASmJPM3MdoaGpuMskA1J4EAH9dVIvAq7Lj3/USFoSPIkx4fYKgYjkiArX
-	 pJhOHB9D+46Hw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] rust: DmaFence: Don't drop on signal
-Date: Mon,  2 Nov 2026 16:06:17 +0100
-Message-ID: <20261102150617.527772-3-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102150617.527772-2-phasta@kernel.org>
-References: <20261102150617.527772-2-phasta@kernel.org>
+	b=Ag3K53I0Csd3ikdmc6KReqMvi/VyGvfqEHpgseRbEL1brw4iXQitfE5arNES3VbsB
+	 50u+rHAwCPanrp577miARyXu7d0J14BF952So/jncCy8Mhbj8Slb4Zp3jio3RV86J9
+	 KT6Da6cOMPynOo0CwHrzLzWzlkV5G0lkfD0oURrHQFrzocfDppWxqL4fzxf7mfqJ1k
+	 tiYd1ZTjd5hJqzG4DbnOP0+oKwfr3APif41tdiQPYW/8hGFFijtfUpz9/oK37+DQJI
+	 39a6lz78YeIT5IZMmNOwIheYMUhGOg1jPy5GXwM8FcxmHA0e6wjVve3INVygwZ7ckA
+	 qQr3r9LchhW/g==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
+	Fernand Sieber <sieberf@amazon.com>,
+	Leonard Foerster <foersleo@amazon.de>,
+	SJ Park <sj@kernel.org>,
+	SeongJae Park <sjpark@amazon.de>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Aveline Noir <jm5905938@gmail.com>
+Subject: [PATCH 2/9] mm/damon/ops-common: align MMU notifier range when clearing PTE young bit
+Date: Mon,  2 Nov 2026 07:07:49 -0800
+Message-ID: <20261102150757.93058-3-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102150757.93058-1-sj@kernel.org>
+References: <20261102150757.93058-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,65 +68,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The original design for DmaFence intended to comply as strictly as
-possible with the "dma_fence contract", which, according to some, says
-that a fence must only be signaled once. Thus, the implementation was
-made so that a DriverFence drops on signal.
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
 
-While extending JobQueue's capabilities, it was discovered that this
-characteristic causes - unnecessary - trouble: fence-data must be
-dropped in an RCU-deferred manner because the C backend demands that.
-However, fences are often signaled in atomic context (e.g., interrupt
-handler) where you don't want to drop, but signal as quickly as
-possible.
+DAMON selects a byte-granular sampling address.  damon_ptep_mkold()
+clears the young bit of the PTE covering that address, but passes the
+unaligned range [addr, addr + PAGE_SIZE) to MMU notifiers.
 
-Actually, there is no real hard reason to enforce that a fence can only
-get signaled once, because the C backend is robust against multiple
-signal attempts.
+For an unaligned address, that range extends into the following page.
+KVM ages every guest page intersecting the notifier range, so it can age
+a secondary mapping for the following page although DAMON cleared only
+the sampled page's primary PTE.
 
-What is decisive is that a) all fences signal and b) they only drop no
-earlier than 1 RCU grace period after signaling.
+Align the address before both the primary PTE operation and the
+MMU notifier call so that they cover the same page.
 
-Don't drop a DriverFence on signal().
-
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Tested-by: Aveline Noir <jm5905938@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- rust/kernel/dma_buf/dma_fence.rs | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+Changes from v1
+- v1: https://lore.kernel.org/20261021-damon-align-pte-young-notifier-v1-1-d0365ac45b66@gentwo.org
+- Collect R-b: from SJ.
+- Collect R-b: and T-b: from Aveline.
+- Update subject prefix.
+- Rebase to latest mm-new.
 
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index a1d851656562..3022bdb5f7c3 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -805,7 +805,7 @@ pub fn as_fence(&self) -> &Fence {
-     }
+ mm/damon/ops-common.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index 2f3bf86a221be..f88c6fd189fca 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -64,6 +64,8 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
+ 	bool young = false;
+ 	unsigned long pfn;
  
-     /// Signal the fence. This will invoke all registered callbacks.
--    pub fn signal(self, res: Result) {
-+    pub fn signal(&self, res: Result) {
-         let fence = self.as_fence().lock();
- 
-         // SAFETY: `fence` is valid because `self` is valid. The lock must be
-@@ -816,14 +816,15 @@ pub fn signal(self, res: Result) {
-                 // must not have been signaled yet, which we check directly above.
-                 unsafe { bindings::dma_fence_set_error(fence.as_raw(), err.to_errno()) };
-             }
++	addr = PAGE_ALIGN_DOWN(addr);
 +
-+            // SAFETY: `self.data` is valid because `self` is valid.
-+            let fctx = unsafe { self.data.as_ref().fctx };
-+            let _ = fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
-+
-             // SAFETY: `fence` is valid because `self` is valid. The lock must
-             // be held, which we acquired above.
-             unsafe { bindings::dma_fence_signal_locked(fence.as_raw()) };
-         }
--
--        // SAFETY: `self.data` is valid because `self` is valid.
--        let fctx = unsafe { self.data.as_ref().fctx };
--        let _ = fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
-     }
- }
- 
+ 	if (likely(pte_present(pteval)))
+ 		pfn = pte_pfn(pteval);
+ 	else
+@@ -83,8 +85,7 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
+ 		 * Arch implementation of ptep_test_and_clear_young() may
+ 		 * require aligned @addr
+ 		 */
+-		young |= ptep_test_and_clear_young(vma, PAGE_ALIGN_DOWN(addr),
+-				pte);
++		young |= ptep_test_and_clear_young(vma, addr, pte);
+ 	young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + PAGE_SIZE);
+ 	if (young)
+ 		folio_set_young(folio);
 -- 
-2.56.0
-
+2.47.3
