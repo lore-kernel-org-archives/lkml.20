@@ -1,110 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634423;
-	b=QH5gvIsXIn8xZm8fa74/mxDvidFpZR7bw4vdAy8V1ZmK3Np3b//7jZOdixmtK57Bh7EH
-	 BM+Dr06a8OoX17E/hZJca8Oa3Fm8XXlxK6c4GZ6bBhz4yks8OC1ijZP++D+F5hIfztvgi
-	 PUXpOo5v21PJkw5uuhZ7at7p9siK4SrOJlHVuN9WQaCkvdMo3DGyaqLLf2Mwh+ACgBLDf
-	 zIl3dYsW35OIKcw77B2stYTz6aF1hL+riICtmk7uDJ0v2pJs0QLTZxRupe+dGqKc/4DwC
-	 6wfQXV1nu577HOVXkiUVjIAttK6YrtiBJBklmvfhjvLXsK6rxc4n/uRJtzLQNZ8+HSw==
+	t=1793634444;
+	b=wJwIG7f79yOmZGqG70QYftX00sSficv3FNfpG8ftCJ2Flf+uzLg4Hg3JdYhDEI3KORIa
+	 diCY/rj9k6m+RrUhvWmV7xnusgE8F7fTb6KQwmSHyWmYFr21XZHUWKkaX4Xvg8oCw4Wu/
+	 TAK+BhgZlO0s929l+xwleTXOvf7JemCwTvvkCPJx/YJ1hxWiaKBLPRznPCfEVhDS1l7GO
+	 IGbsdOvgxvWtBeuiw7+YVvzsMKdLVyZnf1ukCmI+CQJ5jkFCotUA2LercJA9iHenvRLNJ
+	 WUilzYoLdCARIG+GAzvPt+/x6Rcv4Hd9j5P5CjRGMB/iKg7UozRD1UsPGd7jGvfC+Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634423;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=qvxyFfT+1WtcGMNXj2kJ54v/fT1oTx7k4iipSG48O6Q=;
-	b=D9/6O4WAtROiu/pInPBf/IHSa5tHoTonUqERe/VJgxje3X2XAY1KDqODJngseHYTPX/b
-	 UF7jE3JnP7N7PemuFcKmENzAH7KVCzL51gUpLRSeDB0ot1kKURWJEzpp6smj3dDqBjC3+
-	 HEr0hK6gK+tQMU8H0F14qWYALsFrK7wXtYk0eeT9hR+7QA9Dk9r+ETRH0YWZyMYGdQh+u
-	 roxFc7QhogbR6A3tb6jsKbz8lH37+Zezf5j/T4pDkAWZEGUrX0x3crynS7m5Zi/FA2Axz
-	 X8MBYP+B4SZJdiZTVANnsp0XxQ8527vuh2x1G7pHds3qx1C61fRGWZczq+cru/Eu+Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634444;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=+aPQ/bEuRJE66ZkZ1N1K788ZV0S5XvqiSxNz34MixTk=;
+	b=wA14V/1bXe9mkjQ3Qo5HGuQoJP4wYE/6a48xnD4XmevEb+b8uDUWs3q+onQ3dXq78gvs
+	 r/N5WCpbXMUYcm8M1LOOjZutf/oh75m3idDg4bUHGKJxsi2dCgeV1FKQYwvihXFh4CyOP
+	 nwdVm8D5aWp2cRdLIn4VE/67wSyG0TwVKpuahRpeDA+ItjIg3mvuNCkoq9WT5eCKh7ZDc
+	 ex4n3vmXRjKN/qXMXwQL1dmLYSw0ZBR8lv9NaaN2ziwimp/Xb9jAWFfJhHo5mzLzRvij6
+	 cYkngtqifWFwsQ2t00vZEE9mAetIS/eQrrx3AmC6kWKw1vySmTV5F3hLqQtadAShq3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PvOv0C49;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WYiBPTYR;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KyJSxg6+;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6507606E01C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:47:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6507606E01C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3424D606D82F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:47:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3424D606D82F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PvOv0C49;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WYiBPTYR
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2Dp6pP894117
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 15:47:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=qvxyFfT+1WtcGMNXj2kJ54
-	v/fT1oTx7k4iipSG48O6Q=; b=PvOv0C49IDBAtPciWNGjrm5Uf1qGrFsXMrYQrA
-	vaPBPJY0CnD94OePY3ChK9jQ6QbpX2b8LGzyzb3UzxQZ/DWMYJpwFRsD+Mxlxkon
-	STuU3vReHljBTPoTUpPnnlqP9FK7AcR7/VuRit0ONZI9fLa5U29kaJAG2ABfcIwe
-	qF/nBtOlvbwBUpr2B1Bx5r7CWmc8e5EGiL7CHkpN+k24tv+ssUcFOZ/CGJEASI3p
-	78PpbeKMisrmWdJMEpemmbFp0vqAD5cciSF8huHi9pGNzF6eZ3GzcFjnFEh24LcN
-	XHy2BVZnGW+8vGdG39JkMfdbhmSX+RLWKAUfMfeaAJOSW7lg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqmvsm19-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:47:02 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f559420f3so274224685a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:47:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KyJSxg6+
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4af520023fdso9192085e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:47:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793634421; x=1794239221; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qvxyFfT+1WtcGMNXj2kJ54v/fT1oTx7k4iipSG48O6Q=;
-        b=WYiBPTYRaBZEU1Pfo3wd6dGxK7ocF43/6hpcZ/jvhv2dSSIX83a87zhEnGN5PDY7Db
-         5FXWJUNFnr1GasHqbnRHNgYPZqBcP7IOu9P0jFOSG4EQFEKRTAzBckBOV6sqbXOd9qqT
-         R3+AimkutQbkfu8RVrNEOFG18e5Rm8qciKVsNyhx4IdzCXwrmdpYXD75+Spgv3PELFQS
-         GsSU/nszE0tX9mLBW6Xh1Rt3wIRwyJ2G7K0GTS6pGqm0FA8fEma+BXvx8EimBvYJZDQG
-         SyQCUtVchouha1JEWx8qWWj5cR5GiEjfIoDceGOBfXKFy38ICHe54k2rWY7ni6zLVCDH
-         +YOg==
+        d=gmail.com; s=20260707; t=1793634442; x=1794239242; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+aPQ/bEuRJE66ZkZ1N1K788ZV0S5XvqiSxNz34MixTk=;
+        b=KyJSxg6+cbZeUYpZ1/gu0QLgAa2b3SpCqji3t1b/mopJFdnDcTnb1cqFHQF4PGpHhg
+         BVh/zR6a4PIafIc6QIF5RlOw0ds/EwPMEzTJ9goJoIi7JKlC1AcS645tgjVgaysNY2Tp
+         lJS3ab1iDpYmHbWPFytwWSAkcNHI320RJ2ixf7N5IC6uu06gNH/DY01Hj263wJWO3SkE
+         Ic3F5gQJMppZpjroWxN2nNtaZgnOtqTe0lgSAGyc3zec+OqH+1l95o4n21iUCrD34zBL
+         uBgM5+UuvJdECA/7Esbv4r1nzG1tmmZPdeM5ERfExpFjdzXvrO9Ltm/hU2TFzH76tDl4
+         RnaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793634421; x=1794239221;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=qvxyFfT+1WtcGMNXj2kJ54v/fT1oTx7k4iipSG48O6Q=;
-        b=f5h/tnbXO9Gx79uj9aswpwO+poUPGy07nD0z2rjyVHVg34hX5Sj7YwkAWK4CFOwlzd
-         wG/NzI3gJiIh+sZKABN1LZdoOyk7wl5i6h9y7VhK3wmLlH1YQ5mhA0RXINdo74l6zyid
-         4O8fhoF0m2OfmzcKLBKlxjMQlMCn3xB0QP2l6ge9Rliq9JX5Ew//DWeQiwFMS1pVkVHf
-         o6rD/aML90qYn2tQE03fEO04HNQ4IRypfZYEroOAAD+4iX7mMjyOds9dFSPSYyPVU3mF
-         5TiEy0PlMhTfMFjvQDe4ExbpqRNiNk/Smw/InX3734EkBS4XtVFZJ5R5JazEHh85iVXh
-         L5DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXTN8thmXmb8tOQ0VeAzDTAZ6uEg8+hFubt2/EVynbLfKWrsAEqiuxWJAZGC9y6bB7VemC6D/2WbF9/yM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUipKppG0dGM4m/vDTEi9YLv09v4+gclTx5SRxJHGLdoA+6nmX
-	d7yHjh4U3ZKlojXFUFof7Lngf1b3MOWj2vC+dSatcCiHsa2mbMtrPGpa5nX7+2WgOHIR69/RLyK
-	uy5jWwW88sUEEoR5SXxk2rLwEmNf6ene54+VaTa0RvFQwfOo7/FwOgduodkyXTPtGT1M=
-X-Gm-Gg: AYBFou2B3T7yt3zB9TGeinhEDSqJP/K8RDh5bZpL2yPWhKdA7DhPnOq/Ji9V5B8EEoK
-	lD/FlELsZ9DepYb+xh/RUa0kBE/Fzfk5VFyf8etbQUXGjNPIohnMvxOnliS+MWxbBKZS6vkzh6+
-	rRsQVAzonpe5vV9MQjg/HjeEwY9REF5OBqlXHzTo4Qbkr9MGLGkIjzvnbxDlDdIaMW66hQImMhv
-	SQkj6UtpeX2zwHXku/yGO29Y6C6I7rLyy63tb3c7lixvsNt8YLCFwzrKSFPqDwWt3SYTMPKRksK
-	mI/Kxw7x8nuguIoKuw+5rgPkxo8GTc82tbxwteAv/0izAKj0hDa1jEH/7uNlWtwAVLF25yXkSNx
-	7SYL4rDwCqlNuJXtpE9MhKrl82KjKMuGQ3hJAAvtWugGXfFYMMDySRKLYoA==
-X-Received: by 2002:a05:620a:649a:b0:93f:ca9:3ee7 with SMTP id af79cd13be357-9442174f31dmr1616364085a.57.1793634420974;
-        Mon, 02 Nov 2026 07:47:00 -0800 (PST)
-X-Received: by 2002:a05:620a:649a:b0:93f:ca9:3ee7 with SMTP id af79cd13be357-9442174f31dmr1616358385a.57.1793634420218;
-        Mon, 02 Nov 2026 07:47:00 -0800 (PST)
-Received: from [127.0.1.1] ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81b7fe80sm398196295e9.11.2026.11.02.07.46.58
+        d=1e100.net; s=20260707; t=1793634442; x=1794239242;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+aPQ/bEuRJE66ZkZ1N1K788ZV0S5XvqiSxNz34MixTk=;
+        b=oXonvGJcFnxOX1IMce2qM12ZMOFX/VqO5WmllesvcKTHQWEwIQ/KwejdYoMlw9wgj2
+         5K5EkhEC+qA/K65HKeVB+ZlsBOKHqG9nfYDtsko0oXsvOQ72epShx4AMikRxjAq8PC43
+         auB4KHOB812M0RDPMY5PJKR7yk0bDugJoOm4x7cyD+e5Qp1WnRRNkU9fVe7uUrWQ6EJz
+         RPb2VmiZMTfaVcmWeoG1frojUZ1iDT5/X37eYPabLmgbf98b71bfaiDHEUh+DPg8a/zk
+         eqymIDG9QRur266BJ/QQplWOmKcFlIhAz8S55/MsxguOjh1umjdBx5hyRR5V68jXUzf5
+         1VNg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2udgrDWGeuCyAxG4bcxKoFzdSKKZx203Saox8nLSNiplZ8hE4kJcSCQQnldaXPo9UESPuVY5D18gJgyw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8YEybukQlj81bdRTztNAHE0poXCfyZCWtKUjl+/8x2PcDeFaR
+	4lpOp9lClMSm6ZvbumZoK8PJiEt41q2WNzFyAg+kVcbP0pvRqbZPKHaZ
+X-Gm-Gg: AYBFou3AcYERI0TmFch3apHUzMe2dEgr+XiohFjek6xcVvXUnVjirjxwIaqPWQNaZvw
+	E0wjFDCMKnhUX4hIKNcLiKVV675KLYaHDfPrP/rLkVB4zjc7x3EUhTvs7v9VMx4QJxfDJ0T4H3Q
+	FcozYQyiRRLv9yU5oFyZJj7u3qxrpzoxpv+CMUAVX0U6kAH5MnAS1aPUXrYuJo9RV5Yc9m7+VKV
+	2puOkq+gqiXWjKdQBTQQw/GWwmosXcvq4f+4pgDzZBXR1SgxNKb0KsMecoKlodlaKkfNLIFE9e3
+	s3ZfQAfC6L2Zr7/4ZrjWknmIuj0fAX169WzZElesEizU+UrwKehqwywColnkiC2ddM5uBXNm1PQ
+	lHlWg4NqMZE0nAxHrqqmwJsnLeCIlOxWz/eGY1AyYjlTk/yYOjZHWdulDRmT3rOwGgUvk5DJR1d
+	ickj+daZZwfCShGrQ6NZDzqnhWMVw7zAiqjgJtZUl2JkEhcgHOuWoN8frcnD0IPbYTrKHTAOEXQ
+	PEpmC+3nyM9OLaj/ALqbkZ3Uv9g7ILDpDNYtsm3Nq9paqvriFqi4fSgFURz219Q+BlxYtI/rgZe
+	yX08Y3b0HONaO19dYBvJKNHEuHz7cQXiDiGiTR2s8+TAMZsSmJHgc+HbYlOtOD1yzB7NaigMbvP
+	g
+X-Received: by 2002:a05:600c:c08c:b0:4a2:1a:a115 with SMTP id 5b1f17b1804b1-4ac1209f120mr204038965e9.0.1793634442375;
+        Mon, 02 Nov 2026 07:47:22 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm359259525e9.12.2026.11.02.07.47.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:46:59 -0800 (PST)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 17:46:56 +0200
-Subject: [PATCH] spmi: pmic-arb: Fix the driver data used by non-data
- commands
+        Mon, 02 Nov 2026 07:47:21 -0800 (PST)
+Date: Mon, 2 Nov 2026 18:47:17 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>, Hui Su <sh_def@163.com>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched: Fix cpuset_mutex double unlock in
+ __sched_setscheduler()
+Message-ID: <auimbkttN-iPGtwZ@scheduler.schedules>
+References: <20261102134606.242743-1-parri.andrea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,114 +104,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-spmi-pmic-arb-cmd-drvdata-v1-1-2e5ec8035b85@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAG+w6GoC/yXMQQqDQAyF4atI1gZmRhDtVYqLOBNrBK0kVgri3
- R3bxVt8i/cfYKzCBo/iAOVdTN5Lhi8LiCMtL0ZJ2RBcqL13AW2dBfMikvYY54RJ90Qb4cAtea5
- c4+oK8n9VHuT7az+7v+3TTxy3OwjneQGcIRYPfQAAAA==
-X-Change-ID: 20261102-spmi-pmic-arb-cmd-drvdata-fe9a1e308063
-To: Abel Vesa <abelvesa@kernel.org>,
-        David Collins <david.collins@oss.qualcomm.com>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dan Carpenter <error27@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1907;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=T7kfTC58UyyOEU3z+I6l/tcxF+983zx+bMBW6NyeQFo=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq6LBx6ofZLDC4wtLxTu08yJE+9/KZRYfs2i5tV
- BeyyszFsC6JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCauiwcQAKCRAbX0TJAJUV
- VltHEADHHunqw9s84JXtkoZ70RQ1HUgKC/k4wwLt2i8o572POqM86BX5Y3Yph4m5QjG17c9TGsF
- 6m0nuPyhrzHf25bFoXMWKoHi8Lo6VKqpYjtvNDoU7kcO89P8gpdsGCJ+/73XEXarCHf2FmvmXZV
- 8A81dJ1tY8afP2G0nvCOTdVrsJfhlkvyWwsVxkk3gX+paYLl9ISGpg68qPIeGO9uSXxRWkSmChi
- dpCojTAbm1H9hMeQ6/bmL1zMOc+LWTGkjBTYgs2xSDLy9LjPxmBizZ5TISgvTj7dkYtfw8LERsz
- QGYTqb4qyP3al3jpvcfT2gbVGDLgXsRyH74QBVzdkSV2WcAuDBL4vd+t/bco1gC8hJLxMWx7KjA
- tmRnecQ4dI66M+H/eaD0TILgnuMeRWYIAFdRc/566dkfDSKViw/XiRIJnn265Jpcu0YKNaF4IKI
- Xc+IiAQle9Grj43Gi2W2EgeNi+jIZ/oRS5IcRvNIWT+tDUgkriLbN26w9yEdHhdzDuHfkQs7A2B
- uYfc4uKNDAnvmm5l0hjYnH51lCLuUEKazz7RlTIB8Hck2KOu0phvexIdCM4oj5lsRV4D7tihpXf
- wmQ4kaOwd3CuLd4Orzxe8qeJY9dqi39qx0v8yLrT4jMVWawOVHD3X8BaEKy2b2vc6olxLGCspv1
- pLmOhctgvhScp0A==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Authority-Analysis: v=2.4 cv=TMDQ2Fla c=1 sm=1 tr=0 ts=6ae8b076 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SMQwI9SyXOPf9XZ8ltwA:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: EzOW9BV2I4ZiAnqY0p05RW6LyI75QNm0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA2MiBTYWx0ZWRfX3JFZU3MR5PcF
- KXxXgxlA7ghsDjuNCjj88NJZQsocXfSOI0kFIOjjgS/fIeN9/noYZrMF6TYLPAMSvHS94R25CKW
- 6vzh0i+LLoHp+5JgumUAoRpmYs56FcU=
-X-Proofpoint-ORIG-GUID: EzOW9BV2I4ZiAnqY0p05RW6LyI75QNm0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MiBTYWx0ZWRfX2QTphPWjFInt
- Hs6UYP96i9f7qiLmZ7oTJfTCapTERUOFbKu5/IbY3ILPSgKy9iT0VjYPFHuYigsYGszROJ84UNj
- j4Hayo7JDGCAIY7LsV4mmAwiPRvDB630igW1ld0pg3Wf6SEIuG7gCucMsr7G9TSBe2Ed9QGc5Uo
- MwY3xtWfrVYIajUWzzFj9LZPl3/QkOz8GHq4/jQNmYzPChi/ILLhlLNdc7YbunoEtGY7YEvpDzx
- xg8QYj4aShTsg6Iz4jzbKCz8z+xvQHIENJ3+XWuf7cYmkt7n047b21kzOYNCJto2RFPPCVDs03m
- ohjEW/1++Y0lYgdAxxWHxkiZpnrA7A2CeEQAnHxQe6VJgMtGWjfw/2d755S8K6rhIQNgHnpHrqj
- C8VLSxPkTAZGF6RsREM2gbnxoeb2TTogZKb9j8Xs4iTTWdvpBAXj3tbsiF4lIfNOEBbXQukZaQt
- /T2I2nmaLTiv/4tZB3Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020062
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261102134606.242743-1-parri.andrea@gmail.com>
 
-Since commit 02922ccbb330 ("spmi: pmic-arb: Register controller for bus
-instead of arbiter"), the driver data of each SPMI controller is a
-struct spmi_pmic_arb_bus, which points to the arbiter. pmic_arb_cmd()
-was not converted along with the other controller callbacks and still
-takes the driver data for the arbiter itself, so a non-data command
-reads ver_ops from the wrong structure and calls through a bogus
-pointer.
+On Mon, Nov 02, 2026 at 02:46:05PM +0100, Andrea Parri wrote:
+:
+> A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
+> unlocks cpuset_mutex twice if the task's policy changes concurrently:
 
-No in-tree driver sends non-data commands at the moment, which is why
-this has gone unnoticed, but spmi_command_reset() and friends are
-exported for any SPMI client to use.
+Uh-oh.
 
-Get the arbiter through the bus, like the other callbacks do.
+>  kernel/sched/syscalls.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+> index 45a127deeadd9..2af550f92ac65 100644
+> --- a/kernel/sched/syscalls.c
+> +++ b/kernel/sched/syscalls.c
+> @@ -640,8 +640,10 @@ int __sched_setscheduler(struct task_struct *p,
+>  	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
+>  		policy = oldpolicy = -1;
+>  		task_rq_unlock(rq, p, &rf);
+> -		if (cpuset_locked)
+> +		if (cpuset_locked) {
+>  			cpuset_unlock();
+> +			cpuset_locked = false;
+> +		}
+>  		goto recheck;
+>  	}
+>  
+> -- 
+> 2.53.0
+> 
 
-Fixes: 02922ccbb330 ("spmi: pmic-arb: Register controller for bus instead of arbiter")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-29e1d31a-8d20-42c9-a5b3-41a90553d799
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
-Prepared with help from an LLM-based assistant.
----
- drivers/spmi/spmi-pmic-arb.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+So the issue is that when tasks policy changes before we come to this
+check, we don't clear cpuset_locked while calling cpuset_unlock().
 
-diff --git a/drivers/spmi/spmi-pmic-arb.c b/drivers/spmi/spmi-pmic-arb.c
-index 402ffeaff8e2..9ce404ed5272 100644
---- a/drivers/spmi/spmi-pmic-arb.c
-+++ b/drivers/spmi/spmi-pmic-arb.c
-@@ -448,7 +448,8 @@ pmic_arb_non_data_cmd_v2(struct spmi_controller *ctrl, u8 opc, u8 sid)
- /* Non-data command */
- static int pmic_arb_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid)
- {
--	struct spmi_pmic_arb *pmic_arb = spmi_controller_get_drvdata(ctrl);
-+	struct spmi_pmic_arb_bus *bus = spmi_controller_get_drvdata(ctrl);
-+	struct spmi_pmic_arb *pmic_arb = bus->pmic_arb;
- 
- 	dev_dbg(&ctrl->dev, "cmd op:0x%x sid:%d\n", opc, sid);
- 
+In the other calls of cpuset_unlock() this is not a problem since we
+just return and don't use the local cpuset_locked. But on this one we
+do. And if we don't retake the lock it just stays true. Even if we
+didn't claimed the lock. And that causes bad, bad, bad, bad problems.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-spmi-pmic-arb-cmd-drvdata-fe9a1e308063
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
 
-Best regards,
---  
 
-Abel
+Thanks,
+
+Kayra
 
