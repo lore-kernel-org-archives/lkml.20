@@ -1,60 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793642548;
-	b=nk6HOi3Xhxxm1r1ujtxCw8JfgwmTt9DxrZrj5mEm93XXQsVT82ranvy9aIVjZ/f6bWd0
-	 oBgPkV/JAdpCbMAtTwEEiYWfaCvgX/HVjJggHbQ5iTJD7TktAxTXRmrLfeoa2bSzzdJuZ
-	 roTLQiRqq9E1iWoSVzw9f+Jtz46OpL6rbTfmEQUsGPbqJDhpFYlbTFzHTj39pA4Ia4wnH
-	 +y7J3vLVuoazibCUOv9sKUATksLMxdQNnmFbEof80mzmG9St0nbY2kwu1jZwags9VB2Yt
-	 qkQ3MJKKY5/B6ott08h3q58O04rA2gP34UQJJFuNLwdrxD4ClTEYWzfU0bid0Acz7Dg==
+	t=1793642561;
+	b=vSCzPPplLq+pIReqIj2gmgC63ULezqFaSuk3Jy4iFPbXmXLkU2CywVALZJOrxcyB1XjP
+	 wfCiZz0mamgExWQPrdHREWMTw8GsvjpjL24DshyF9Wz+o8+4gaMLBZxjT6dSOLhhdkuNJ
+	 5/BtE37ixGwUkwO8lXXQachz0r80Wf7+yDc3WxdeF6pTH64zfhCC5gQnanEauzE+Cb0Cu
+	 663mbHyBqI/NUyKwTuYA/k3ZYB1aUtGHm0Pwqg/+O3jh7l7J/WHFrQHR6Cys2hbHrncb1
+	 KcCJjE3Rkn+5N/1W/ItG/vLk3eS398ubpz1iwpWnqzA3oaiHp3GxFfmrQsI2uiKw4sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642548;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Mo9e6zZ7DM0/oaEehTSm0CvIfdfjeAIAz6cCjHE3fzY=;
-	b=Gi3GRMq4UX5dZ/Ggat8HN/Hj2TwwpPe93XCvhkM/M45urf2y87+ga+kNjkMPJovYIBAq
-	 IrpULRXZToI6VkoMbeZrtaMk4YjjaTNlPt2srWJcSf7ody/w3I+KmKQd2L35w6xcxUeN4
-	 cZg78MBjPsi055iwIHxLhVXeYBKuVc4tLVAU8nFFwUvMQGK91MiHMWATc6ebmVbP1k7+b
-	 eVpZ3lq8t6cZy3GC7PuEzGA2oxRAtXYx2BBt1+8n9yPsJvsB3kWlNYZndtSsQ1gRzbcfn
-	 zYgZyMUgGKeBY3h5IB93fukOUDscTq5WN/LD16QmzV6X//3o/2TnWMo5F1994D7WLzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793642561;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=wjUwlJYpmWg4mChaZqQtsUzChcNIv0kOIN66bk7+k2A=;
+	b=N/vEjxvIFItTCe7fsz8+iDxNeJpa7ATxrlPz9nQGYo4sQlFQ2QwSYJ962qo6Gvx2BAU1
+	 o8wbk5jInJpQTPNSKrnr93G/pPUReeP4fVAWpfW/cp3whlluLwvsgplUqXo8IC2WMCe2B
+	 BCINfy51FgJ7buF7IaEk6bm2uPPH2x1kyNiT1Sw6vU26R63hh7lE4tm6HLuGQu06Vn45s
+	 1rw2TksDE4uwk7WDrgSd6jmc6g8Yff6K47SyVS0nSICJPdudiOE+9bvAmTUo+QLQPK0Rx
+	 tP5XbymyRjbpbxfnlkLexQYwCOJMm3jS8nzx0GJchW74UtNawtVRZN3uXX57+zS5XTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQCVDwlk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a5fU4Xwv;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FCD606A324;
-	Mon,  2 Nov 2026 18:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3AD606A909
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B3AD606A909
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQCVDwlk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58E41F00A16;
-	Mon,  2 Nov 2026 18:02:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793642547;
-	bh=Mo9e6zZ7DM0/oaEehTSm0CvIfdfjeAIAz6cCjHE3fzY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bQCVDwlk9TKmXmdDLqAtHKQyLbbnjuD4fRKkqkROq9eHHK4+xGX25nw2EkZqiZ/ii
-	 OmVdRGpNCeHDtTruH79ewwnzF/3ZYYU6Oei7XXhUY4eRO6tWwLPiohQGhjDT5d5OVU
-	 KZC8WaEYhjB0O+OD96hauUxIxdF82EQJ9qhDXQWW2tlsXIeI55XHZ4nqsYsHFx3oNm
-	 Qp8lziR+uP/HIMH+PBxDIIzZkDUW53CmCLET8PjrhYyZVG3s1oPkqbDxPP9VqaOkiw
-	 DRDkZ4f9gTFhj6T/dqV7gxv/4UJ8QuoIA4XNodV0t7J4AXUWx/ZtETwcLTnkjMigYp
-	 TJJrEhDHoTskQ==
-Subject:
- Re: [PATCH net v4 2/2] selftests: net: add TLS 1.2 hardware offload tests
-From: netdev-bot+sashiko@kernel.org
-To: rjethwani@purestorage.com
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, john.fastabend@gmail.com,
- kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org,
- pabeni@redhat.com, horms@kernel.org, ilyal@mellanox.com, borisp@mellanox.com,
- aviadye@mellanox.com, linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 18:02:26 +0000
-Message-ID: <179364254636.3131.4069372250703759332@kernel.org>
-In-Reply-To: <20261029172302.2944955-2-rjethwani@purestorage.com>
-References: <20261029172302.2944955-2-rjethwani@purestorage.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a5fU4Xwv
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ae1b34e0d2so2286585a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:02:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793642560; x=1794247360; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wjUwlJYpmWg4mChaZqQtsUzChcNIv0kOIN66bk7+k2A=;
+        b=a5fU4XwvqBLEQVWzBtl7sWweokwZDlqumDIzuIDOPqp/EpN8QxsLcw/2stAEbMJHoM
+         9m/31vH3SXCIvnf/jEUORyKJC0mA/Q+8tl0gNL9YahNEbTzgqkK4Qvo/JCdvl0klmt6q
+         o+Rab2FxonaCOuLjgcCS9uK2ZoSFW/sjZ2ylCE7Y/dwkqar0ITzSYpF7BdRiXZl4sTrk
+         x2RAekBWDLY/Ku69bIdlTsovVoZYOMxYkMEMqcO3s4FI8xocnu3DenkAoEzg4ptGNlO/
+         xgfo+VafHlh0bNsBYEorT6CrATOOmmtxeXISLe82bCIfcA7aSQ5tazSl88sbvy9cVVMR
+         K22Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793642560; x=1794247360;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wjUwlJYpmWg4mChaZqQtsUzChcNIv0kOIN66bk7+k2A=;
+        b=pkASDghtU97oelWqAsiOnpbzL7/nIcsMM9WDnfUtdd5fpD339nSHRP/bLa+7jmFrrq
+         wMj/T6NQ/+TTdUyvGOiWDqGi9UPNOf1pZKVp2hTypNQiBrqVn+QJeUENBRQv2ySHuwcd
+         gzkiZw3IaygZi/gtWtdn/zKktCSvCSRI0rrfkBNuVS9S3+AzTVD3aJy5gLGSRTQDVi+U
+         wtUAU2dsr2R9IMB730jRdElklL05PR+q8FmDM7duw7X0nZeqDFlIsz4b+u1W63oEET2f
+         CIqOT2GCPvhssCbMXEq+Pib27HL76HQ5XPMwn1ebpoYqR4/DSrrjJK1eeenv7T5A+gKm
+         bDQA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2tMSDxUKX9v9YV4j+FKvH4yYjOgX5tjOmmpGNbK/qoMx7dbofMVDISqa5SfF4u4/ZI5c09RBzXrMREGY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8nr5jMTrYql3zGbpJmE8WZRNwPXb+m1aoGCN8qiK1Kchr5nuUb
+	O4hBed7JFt64C48SHOqMQpNV72T3B9QWnTaLnmfhQsH5lcEveQn/TnDYVkNjmRMnjKU=
+X-Gm-Gg: AYBFou1ndbG0A9tY3G2r86rLEpsSfc52ZofZmYL3SfsUyQk9aS+52D72YKg8pVLUaGJ
+	7vvtqlylxUjO/RfrSsAdhuwrFU9D/qZ+1Fo2tdLwYxv/kvTZr3qy+ndF9ctl89XKyXp3hDATHH+
+	vG6/kVWCtzSLmFgZu7SVicgtMx3RYCII19bSQj9btEte1oynj8rkLjn4ZkBYo16T2mesChkB/Fl
+	hkexj771z3RTW31LHOrIlMKTmXWN+44aKvhHC88CJKaZWBLf9M74n1wkwFK8kSaEJ69SGQkdhQ2
+	tRv2z910K0jxTsvgP6RahmbL6gFYDkgwXZ7PxBSsgU5zcPpVdU8ySEMl1eEvPzsWY3LxUf0ljcJ
+	RNeqA1HcR98VLvNkSv+yfBIoB24TDQAQVcPbJKK7q0x1WhL+Rn1p2O9Nnajv1hKuALYASSJTSxN
+	4PR92PwFe2OH1dqsIqT018GjQUEaWjL9m+D65/DIJvl/8Qvlhf/t1zmblvZv0aSannepXwtkCBr
+	ztfGfnwYlal320qpYA3CQOXd6pd/8JoS9PksCrUJ7J7ayDhT3rHXiV0eKuaSb+z/vTmQYIkQYNa
+	9gl1IgMlwn4seDJsMdEPs0o2xnSlDaA=
+X-Received: by 2002:a17:90b:53c7:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3ae89559e5emr5539384a91.5.1793642558875;
+        Mon, 02 Nov 2026 10:02:38 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:810a:982d:b93e:e497])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85f37e7esm8969537a91.1.2026.11.02.10.02.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 10:02:38 -0800 (PST)
+Date: Mon, 2 Nov 2026 12:02:35 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Frank.Li@oss.nxp.com
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Francesco Valla <francesco@valla.it>
+Subject: Re: [PATCH v9 0/2] remoteproc: imx_rpoc: use memory-region-names to
+ avoid implicit ABI.
+Message-ID: <aujQO2gXhYx8NTwK@p14s>
+References: <20261023-memory-region-name-v9-0-ad597887dfe9@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,182 +106,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-memory-region-name-v9-0-ad597887dfe9@nxp.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Fri, Oct 23, 2026 at 03:52:48PM -0400, Frank.Li@oss.nxp.com wrote:
+> The driver currently derives the memory region type from the referenced
+> memory node name, creating a implicit DT ABI.
+> 
+> rsc_table: rsc-table@90000000
+>            ^^^^^^^^
+> {	ret  = <0x90000000>;
+> 	no-map;
+> }
+> 
+> m4 {
+> 	...
+> 	memory-region = <&rsc_table>;
+> }
+> 
+> Current require node name have to be rsc-table, but no any binding doc
+> to restrict it.
+> 
+> Since memory node names are not constrained by the binding, incorrect names
+> can silently pass DT validation, as seen in examples using "vdevbuffer"
+> instead of "vdev0buffer" ([1] and [2]).
+> 
+> Add optional memory-region-names property to define such ABI. To keep
+> back compactiblity, use "optional".
+>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+Applied.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The tls12_aes256 variant of test_tls_offload
-  (tls_hw_offload.py:280) requires HW offload in every DUT direction…
-- [Low] Two comments say both helpers' stdout pipes are only drained
-  after the helper exits: run_tls_test() in tls_hw_offload.py ("Both…
-- [Low] When 'Rx' is in tls_hw_directions, check_hw_crypto() asserts that
-  rx_tls_decrypted_packets grew by at least 1, but nothing makes the…
-
---
-
-selftests: net: add TLS 1.2 hardware offload tests
-
-This adds a two-node kTLS hardware offload selftest. A C helper installs
-fixed AES-GCM keys on both ends; the DUT runs the client and the peer
-echoes the data back. The test checks the TLS MIB counters and the NIC's
-ethtool -S TLS counters to confirm HW offload was used in each enabled
-DUT direction, and it adds handshake and alert record-type regression
-cases.
-
-> diff --git a/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py b/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py
-> new file mode 100755
-> index 0000000000000..78fa764a6ef3f
-> --- /dev/null
-> +++ b/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py
-> @@ -0,0 +1,321 @@
-
-[ ... ]
-
-> +def check_hw_crypto(cfg, nic_before, nic_after, hw_directions):
-> +    """Check DUT NIC offload-path packet counts and initial key installs."""
-> +    for direction in hw_directions:
-> +        names = HW_NIC_COUNTERS[direction]
-> +
-> +        key = names['crypto']
-> +        if key in nic_after:
-> +            got = stat_diff(nic_before, nic_after, key)
-> +            ksft_ge(got, 1,
-> +                    comment=f"DUT {direction}: NIC reported no TLS "
-> +                            f"offload packets ({key}={got})")
-
-[Severity: Low]
-When Rx is in hw_directions, can rx_tls_decrypted_packets stay at 0 after
-a short run, even with working hardware?
-
-Nothing waits for the device RX context to become active before the
-peer's echoes arrive. On mlx5, mlx5e_ktls_add_rx() bumps rx_tls_ctx
-synchronously and returns after post_rx_param_wqes(). The steering rule
-that sends the flow to the TLS TIR is installed later, from a workqueue:
-
-mlx5e_ktls_handle_ctx_completion()
-  queue_work(rule->priv->tls->rx_wq, &rule->work)
-    accel_rule_handle_work()
-      mlx5e_accel_fs_add_sk()
-
-Until that rule is in place, records are decrypted in SW. TlsRxDevice
-still grows, but mlx5e_ktls_handle_rx_skb() only bumps the counter on
-the HW-decrypted path:
-
-	case CQE_TLS_OFFLOAD_DECRYPTED:
-		skb->decrypted = 1;
-		stats->tls_decrypted_packets++;
-
-If the rule lands mid-stream, a resync is also needed before HW
-decryption starts.
-
-client_connect_tls() starts sending as soon as TLS_RX is installed, and
-cfg.wait_hw_stats_settle() only runs after the traffic has finished.
-Could the small_buf variant (100 round trips of 512 bytes) finish
-entirely inside that window and report a false failure?
-
-This depends on firmware command and workqueue latency, and the commit
-message reports passing runs on ConnectX-6 Dx, so it may only show up as
-an occasional flake.
-
-[ ... ]
-
-> +    # Both helpers run with their stdout captured in a pipe that is only
-> +    # drained once they exit, so the helper keeps its per-connection output
-> +    # small (see the note on verbose in tls_hw_offload.c); do not pass -V.
-
-[Severity: Low]
-Is this comment accurate for the local client?
-
-Only the remote server is started with bkg(), so its ssh pipe is not
-read until bkg.__exit__() calls process().
-
-The client runs in the foreground via cmd(client_cmd). In the non-background
-case cmd.__init__() calls self.process() right away. _process_terminate()
-then uses self.proc.communicate(timeout=timeout), which drains stdout and
-stderr while it waits for the child to exit.
-
-The comment on verbose in tls_hw_offload.c makes the same claim:
-
-  /* Per-iteration progress output (-V). Off by default: the
-   * harness captures stdout in a pipe that is not drained until the helper
-   * exits, ...
-
-The -V restriction still makes sense for the server. Should both comments
-say that only the background server's pipe goes undrained?
-
-> +    #
-> +    # Both helpers exit on their own within HELPER_TIMEOUT_S (see
-> +    # tls_hw_offload.c), so nothing outlives the variant even on failure.
-> +    with bkg(server_cmd, host=cfg.remote, exit_wait=True):
-> +        wait_port_listen(port, host=cfg.remote)
-> +        cmd(client_cmd)
-
-[ ... ]
-
-> +@ksft_variants([
-> +    KsftNamedVariant("tls12_aes128", "128", "1.2", "4"),
-> +    KsftNamedVariant("tls12_aes256", "256", "1.2", "4"),
-
-[Severity: Medium]
-Can the tls12_aes256 variant fail on hardware and a kernel that are both
-working correctly?
-
-check_tls_support() only looks for "tls-hw-tx-offload: on" and
-"tls-hw-rx-offload: on" in ethtool -k. Those flags don't say which
-ciphers the device accepts, and several in-tree drivers only handle
-AES-GCM-128:
-
-  nfp: nfp_net_cipher_supported() returns false for anything except
-  TLS_CIPHER_AES_GCM_128, so nfp_net_tls_add() returns -EOPNOTSUPP
-
-  chcr: chcr_ktls_save_keys() only handles TLS_CIPHER_AES_GCM_128
-
-  funeth: fun_ktls_add() returns -EOPNOTSUPP for anything except 128
-
-  mlx5: mlx5e_ktls_type_check() checks a separate firmware capability
-  for 256:
-
-	case TLS_CIPHER_AES_GCM_256:
-		if (crypto_info->version == TLS_1_2_VERSION)
-			return MLX5_CAP_TLS(mdev,  tls_1_2_aes_gcm_256);
-
-When the driver declines, do_tls_setsockopt_conf() falls back to SW
-without reporting an error:
-
-net/tls/tls_main.c:do_tls_setsockopt_conf() {
-    ...
-		rc = tls_set_device_offload(sk);
-		conf = TLS_HW;
-		if (!rc) {
-			TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSTXDEVICE);
-			TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSCURRTXDEVICE);
-		} else {
-			rc = tls_set_sw_offload(sk, 1,
-						update ? crypto_info : NULL);
-    ...
-				TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSTXSW);
-    ...
-}
-
-check_path() then requires ksft_ge(dev, 1) for that direction and fails
-with "DUT Tx: HW offload not engaged (Device=0, Sw=1)".
-
-Would it make sense to skip this variant when the DUT falls back to SW
-for this cipher, rather than reporting a failure?
-
-> +    KsftNamedVariant("tls12_aes128_ip6", "128", "1.2", "6"),
-> +])
-> +def test_tls_offload(cfg, cipher, tls_version, ipver):
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029172302.2944955-1-rjethwani%40purestorage.com
+Thanks,
+Mathieu
+ 
+> Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
+> Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
+> 
+> Prevous version
+> https://lore.kernel.org/imx/ail0sH1UhnQBPRkr@SMW015318/
+> 
+> ---
+> Changes in v9:
+> - s/hidden/implicit/g, sorry, missed at v8
+> - Link to v8: https://patch.msgid.link/20261022-memory-region-name-v8-0-ce5ce514a550@nxp.com
+> 
+> Changes in v8:
+> - remove dev_warning
+> - remove dts patches
+> - Link to v7: https://patch.msgid.link/20261020-memory-region-name-v7-0-1413d5928340@nxp.com
+> 
+> Changes in v7:
+> - move imx_rproc_rmem_to_resource() close to caller
+> - collect Francesco and peng fan's review tag
+> - Link to v6: https://patch.msgid.link/20261019-memory-region-name-v6-0-2e46b2e7d667@nxp.com
+> 
+> Changes in v6:
+> - collect rob's review-by tags for binding
+> - move imx_rproc_rmem_to_resource to c file
+> - dts move related memory region node into overlay file
+> - Link to v5: https://patch.msgid.link/20261015-memory-region-name-v5-0-abc358b39a96@nxp.com
+> 
+> Changes in v5:
+> - fix binding region-memory-names's pattern
+> - add vdev1vring0 and vdev1vring1 at dts
+> - collect pan peng's review by tags
+> - Link to v4: https://patch.msgid.link/20260917-memory-region-name-v4-0-260755920ebf@nxp.com
+> 
+> Change in v3
+> - rephrase commit message and cover letter to correct descritpion and
+> reasons.
+> 
+> To: Bjorn Andersson <andersson@kernel.org>
+> To: Mathieu Poirier <mathieu.poirier@linaro.org>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Sascha Hauer <s.hauer@pengutronix.de>
+> To: Pengutronix Kernel Team <kernel@pengutronix.de>
+> To: Fabio Estevam <festevam@gmail.com>
+> To: Peng Fan <peng.fan@nxp.com>
+> Cc: linux-remoteproc@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: imx@lists.linux.dev
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> 
+> ---
+> Laurentiu Mihalcea (2):
+>       dt-bindings: remoteproc: imx_rproc: document memory-region-names to avoid implicit ABI
+>       remoteproc: imx_rpoc: use memory-region-names to avoid implicit ABI
+> 
+>  .../bindings/remoteproc/fsl,imx-rproc.yaml         | 11 ++++++++
+>  drivers/remoteproc/imx_rproc.c                     | 29 ++++++++++++++++++++--
+>  2 files changed, 38 insertions(+), 2 deletions(-)
+> ---
+> base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
+> change-id: 20260915-memory-region-name-f950eea2b78d
+> 
+> Best regards,
+> --  
+> Frank Li <Frank.Li@nxp.com>
+> 
