@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.25
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793658969;
-	b=zacZW3qarxoY7tJt/6TPdYbXtOz1f2CB0PAx11EjBbBPBG/iczn6ZYpb7hMpKgr/3r29
-	 ZWQzuAPLfPJqOP3Byx8acPnubkr51b9tNNhbRIK95nupe5OMmzBti0k51Rsp/mkwvcL74
-	 eyRFtPySHFbdnq1h+jj1mhPNkxzy6RN9xLvuBc7oxmwrVXHTUg8lsewX9b49/H+RqewjW
-	 eKYt044GIopRr+KRqOnwvk+4kfVpQHHixyLww5Z29POn8ka1URjOBnVBCss+/34vWIgL0
-	 ZfeSVQ2u4WVE9NTFxiKr2EoX0iyIfwS4nDRKyFmqsx/wFwtxpUyNqSdI6vrXGqE/mIA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793658969;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8ZI4i1XjioIEFgxFENSVZ6Tl9Jmv0AkJ0fEbF1z5CpE=;
-	b=1wQu+yEs2QuYncwQ8gP5atzbkln0b1sGDGdq+rzXSdbsFvyx7wpcuoc+I2EMNja3i0GM
-	 /9hUrlH8d8F9lpdVLpEV8BKssm4yTFln5y98zY9Am52o+4fB+ci4+OSOWLc1oPWaf3Ao/
-	 tE9WAUwc8m81oxah3ikU1vIK0ccIZR6YJPoYLjOoL0YjFJ4IFoLfiZDOukBqPDPRtStTe
-	 rvc4OfuEhI1+D9MVjwNO8f8RRBcTkcqHhA2hwosEQZ1QnpcT62dhW2ihlMv5NhDNLYQVs
-	 bU9ufzGxvlL0+fyv5QDM26gZodJs1ZJjCL6mwvd5u9zQyUXu80CbssjguGhdr/Nzy5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JCuQIV1V;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.25
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011025.outbound.protection.outlook.com [52.101.62.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793658979;
+	b=jAoMAPGwre2RErE+ZMc/pJT9MfMo08B00Nb6lQFCUOF98yLez6kDUkDSCgPA36t8/gTE
+	 zMrSzSN2g6cXcy9vtu9F1Jn9gIxSWnmuqzcNZJCUeiFc3RpIHWLE93tn2O1e5KRc4DwL4
+	 o2dVpJgZZnIMQ9sLqjP/ytmmLEVrOkqK26OT+IBrytsoSTgLu7DikTIZIUuh64BxBJb3O
+	 rkwk2r3G/Gh+bEUOelc2IUFGsHdX/A2LE4vq57OytZZ8/zB17EgXWrv12X0riMjJ3/dVJ
+	 9DmyQpPdlfRGQdKPftNStrlOw3USNV7n95iU8amrFZmoyXpiS2dbPjzsUx/OHJonHwQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793658979;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=+2B62P6pygpI8xDXVCsGnEznvKzC8xpzSm47oWeOBg4=;
+	b=w1kizTDqrGgdp+GuYZWVuqrwllreZxWKuESGiI+WFVlldUe6JWXtHQoqtm8jBf8lDU4v
+	 hHyrc6lSKZURzVQVQ9iKGe3QhPoBI8pVhhwNEhL9B+dlRDwZKxJKHs4zugpaaxHbkEV8Y
+	 /fS6UAJUcsnJRlfePgegq8qtOvJShUFlPs06I6Ysre5k6ov8iFMXZeBw3g5Tf1rGjwoC8
+	 wYc2ht4p1EhXRGle3UFeG2byAwiM2BYWeh63GctOWhLYMKamjM8AE0q7Tu/77jJ4og+80
+	 6hkcHT2Xs2Qwmp3hZT9YjmU/0GUkQa7S2RDYRDLjpR+Rlv7Ko6PkWHkwsJKUGTvW3tA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PRSdtq08;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05A2606A32D;
-	Mon,  2 Nov 2026 22:36:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A05A2606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EF5606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:36:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EF5606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=JCuQIV1V
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xCQLZuRMrVFJC+cZ8Vl/nasHL8BeCZeUpxofYnY3RYscYJppLLQevC9esmWnW8mv2h7t68+muonvwIhUbttc6mhMVV6jOKE2Fl8Va2UnDJDJtWo2dSXH9Ouy1+uYdqCTMm4D8/S6ceHlWrEOsLZABbiGYy38GKBQKAVdwomLXkEjO7l9LZ+O6fdxAXH3doBTzwRPKFGbfgeLcT8Ub6vwk42LekE5u0+j9yK7JK/8kRlSbYHYSbZC4YGjGOUbodnn2qskgAMoyb16yistsZ8U0fuiWuE2JGarr3senSaUd3J0Rplu4iIu00VnBlMxqatgjRc3eUuRLKDgTQj4TKavJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ZI4i1XjioIEFgxFENSVZ6Tl9Jmv0AkJ0fEbF1z5CpE=;
- b=bcHiWPE3M3m1qowvTRIRQ3q7ksj+N195Hj0YhDOQH0epAkM8Obkf2RD87iujzLYzjGyZxVEr1WJXZ13r+4izLMhonVXe87NQQzoFOdeo/2GpO+GidO23FX7ohvIO+j+wF6EiELi9nxZ9zzYO9a2GRiuKmCYOZ2Fp96+A11BFYITZJEC4/n4LQvHpHU9VbzE6yX/XnMjl3wQeK3V75oWx1au4u48KKtHkNr2o+elVBCnwMV9/5e07g1gyqw/OLQ/L38Ho8yLiBFVIN3Mf07UQKbdZNoPcxGdnyje+Ow+SDan4cnnhUYt/cIS5c7i1aGK/lkNAb+8xSnaCT0oXhEj/Iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ZI4i1XjioIEFgxFENSVZ6Tl9Jmv0AkJ0fEbF1z5CpE=;
- b=JCuQIV1VR4EhU/utg45QFn7t8ptcvaulfNikMTMZYceD6Px/VjuuLCCbrd24dGGuVQOfRzeZZD/YL2OoJtMy0K3BS+5SmDW1Wu6Ozdi46bmB5edNDXKQ2lp/5vWzjJpN7WN/b9+fNtnmyMISTGaEGkJKIYckd8EMaQz3Mapyo9/T54y7Gfi9cwQ4KgWsT1EkmDXgqXy/uGOjT/kwtc5rm8a3Ud74GpaCn1Me4BvN+PLu2Wk3zItqKcgNalKKsTL4CpgueH7sdAhKIkODtCcNncSmeMUCTK5wZA39ZG0q3OI0Jy/6VvRkZjTyHHHdng4Pp/02qBxiF12iIBrbrXkXsA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY5PR12MB6478.namprd12.prod.outlook.com (2603:10b6:930:35::19)
- by DS0PR12MB9345.namprd12.prod.outlook.com (2603:10b6:8:1a9::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 22:35:02 +0000
-Received: from CY5PR12MB6478.namprd12.prod.outlook.com
- ([fe80::51f:ab92:7d1a:441b]) by CY5PR12MB6478.namprd12.prod.outlook.com
- ([fe80::51f:ab92:7d1a:441b%2]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 22:35:02 +0000
-From: Michael Gur <michaelgur@nvidia.com>
-To: jgg@ziepe.ca,
-	leon@kernel.org,
-	linux-rdma@vger.kernel.org
-Cc: Edward Srouji <edwards@nvidia.com>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Michael Gur <michaelgur@nvidia.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Li RongQing <lirongqing@baidu.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH rdma-next v2 13/15] RDMA/uverbs: Add new Unordered MR access flag
-Date: Tue,  3 Nov 2026 00:33:06 +0200
-Message-ID: <20261102223325.2115128-14-michaelgur@nvidia.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261102223325.2115128-1-michaelgur@nvidia.com>
-References: <20261102223325.2115128-1-michaelgur@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PRSdtq08
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so2568863b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:36:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793658979; x=1794263779; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+2B62P6pygpI8xDXVCsGnEznvKzC8xpzSm47oWeOBg4=;
+        b=PRSdtq08wl5FtZ7YS71F2pJ+fvUKNonuRqIl/3w069O+LydfKKf3y1lbdaULR1O9y4
+         Ref/0pdN127yUikWeo1tveFpvSxg3gJV6hhnV7pgUse7yY4f3BxnTSGvSgW9UKVsugFu
+         V4t3N9gHX51MYQ3e2qkaG0ai9zUmEckq4VxxtW2ItS+pIbA1aP8kvdqLrCyvjk8csSPL
+         KfDs0FO4R0jDEDbcmYBIHPG3BnjfSuq7BQnGTem7bEam2MREX0VaMcLK7pYU4fjyjnHq
+         nuHokar16KkJJhXoitdL9rkBIbfqr93oTFjFwTDtugRESc0n9V0OgKK6VwYfjgx3VPXw
+         yWgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793658979; x=1794263779;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+2B62P6pygpI8xDXVCsGnEznvKzC8xpzSm47oWeOBg4=;
+        b=QXDg0bwQ0Aa9kv/LfLQKNAMjVK07kaSi2E7GdHkru61txw6kwxXePJFekq8JVTWjch
+         ZKSmwSnjj897HuzqZj3TUDHEQm3fZXeNVXihOh24raW5SgQLG49lYAr8C4+j/cb7mEx6
+         PE4f8Jv5ToDJrjhwkIhaikCktTvZMfjcNFbxJoI3So20BRVSZzWvZsaA4KbNSwbDAoDY
+         Lnm6b62gOpsg4XqS6gGf9FEReU/O4P6ZwVr0dPeSk7GI7dpdTCX6URsBKBEuz/SbTlpM
+         MtG2OPPERruFuKgcZrI7ghZfYvRWIfTG7pjGH+YE5HBpfDCZnEzVy2CWJS2Tb18XFQil
+         AKLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzFovwxSsrc68OVgDTn4ANnFmyv7oE53xR0WD03HT9MKURYK4T0QdWCZgxEM8pUwhgav3ZdbN8OyWeekXs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQnkQ24VW7vwvxeTCgJg/y4EjaqDkvcqTReLNfuo81JporkxUd
+	9umwfAgKqbf23zuZjLShK0fxk5DcHhfSVGjJVN0HxePHAJTXudOsLDiA
+X-Gm-Gg: AYBFou289G7kvymdOGdF0a0DPJntVyRKKDG3jS6j37e0JEbu0MrQIQciVI0YQNWxsny
+	J4zoePm1Knp+D4Q1vk/geYWKRiUAYnN43acLWSFKDwvm/0mdVe+rCOrVgrFwjnWLJLABdf1JbtU
+	jkJUyLRLEQ51yrgPnUttTWZ2yKx+T3S7Js9sNMgCkpzGDzIH/FddHG4bp9ibAbavplRLO3uuRkK
+	bl8tqcH7Qs1CknEv9dWW/0NI7ONv4hPYm00nzIpcvTUgjnpr1W4KhJZDOd9Q8UbPscpjVzVqXve
+	Hcdx3sikx/5x80D0vOxIoI3owjNp3RqN8wmD6EUfPz87+GOUaHQBp7jfFZaDeFUKwp/g3OS/6mz
+	7gFuGepj+thw9q2033sQYQec9LbIqe38sqFbclOa5Hku2SHd0i3hlkULPdccfye71hE7FEpgGbX
+	pt1pO1kULeNq2nbvGcXVbJmZYfk2Crtm/IGVlbwDd1O5iyMK/VQoshocgNPxDMVxZMcwQbJYoFE
+	Ltxl7JeUiO7Sp/iwnYsMydLpmeR7u18AdkaIwANjGhsbWsdsjUPKXxSUkq8N8LU0C8CSpvJS3CV
+	HdwCqKfTPpTlsKPQonWE4r2L1WMORir9yt2WJkCYozVIsL2nH3RXpuJ9u1eFaf2sxZb3+7m9MgM
+	G7EC66gFhS7Y/5BStHRS8Z1HHl+2Vag0oIg==
+X-Received: by 2002:a05:6a00:288c:b0:89e:9c7e:fd5e with SMTP id d2e1a72fcca58-8a9bd1facdbmr9633354b3a.9.1793658978321;
+        Mon, 02 Nov 2026 14:36:18 -0800 (PST)
+Received: from localhost ([153.61.198.245])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada3d479dsm2513387b3a.39.2026.11.02.14.36.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 14:36:17 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 Nov 2026 22:36:17 +0000
+Message-Id: <DML31IUICB7B.2FO0J06WCREC8@gmail.com>
+Cc: <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
+ <memxor@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
+ <yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
+ <ihor.solodrai@linux.dev>, <john.fastabend@gmail.com>, <shuah@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <jose.marchesi@oracle.com>, <david.faust@oss.qualcomm.com>
+Subject: Re: [PATCH bpf-next v3 3/8] selftests/bpf: report SKIP for arena
+ tests a compiler cannot build
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Vineet Gupta" <vineet.gupta@linux.dev>, <bpf@vger.kernel.org>
+In-Reply-To: <20261102220717.4079739-4-vineet.gupta@linux.dev>
+References: <20261102220717.4079739-1-vineet.gupta@linux.dev> <20261102220717.4079739-4-vineet.gupta@linux.dev>
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MR1P264CA0108.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:50::7) To CY5PR12MB6478.namprd12.prod.outlook.com
- (2603:10b6:930:35::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,118 +105,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6478:EE_|DS0PR12MB9345:EE_
-X-MS-Office365-Filtering-Correlation-Id: 187553b6-253e-4db6-f39f-08df393188d8
-X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|22082099003|10067099003|56012099006|261102123227099003|18002099003|261009223027099003|261009221227099003|261009220027099003|261009221727099003|261009223327099003|261022105027099003|261021123027099003|261021121427099003|11063799006|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	/Oh2vZomPz90ok9GaWj5i2tVmxchCDR24afDoup6Qir2avjZ/EhQO3bdCK0ajQCuZ0EwVIGZkRuLloHFi6/geeYLDQJjdWnqeI6/zbBwfs5WG+g1BlkV9KxfryB0p5TYV10jmRBlh0ao73DBOcxKaUBndAVj1ZmFSG2Bfl24oPNQ95fFLRts5WWfYQhdC/4T/B/ZC9e8Kvr2QrORNIFh9/sxkdBOqrE9EF0QEeKtnTeLSyb8bxtZifHu5eoTamN14apPWoUt0I7hqX8QnvroBrzCcyqKvc1WQt2h1mgC3iEp15l8hrMLc5LAOkZQu5ffsvqL+DXBSo54bgWRIm3z736MGzN3AgsGvfPI8IQFuc85QMwemSH7zde9doVaJIM32NKOXQZyTdqCpvnNbKlIHY+svzae9qiuODWv8rba7fzG19n9k6/5CICMCurQia1dwZCDe/h5RKQTGK8UeR5KpJvI095k2IeBac0Erck45F8PS/ffJzJhJcb6HH6yH0+yoRKRt/GHa8Yww2Y7FzLBCP0IEz9shWabchgndzO80s99Yc2wd6XG/UB2i6N5X+bmMgmJdi2yRdMdBkkPIyWhx6YND2CQTsTPmXcTyvwVzHuzQy9Gyejp+xdXW8DHhnQWFKe0xW2iGKKIL6L1nikdW/IlIYPcn1VacqMvWPDKMQM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6478.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(10067099003)(56012099006)(261102123227099003)(18002099003)(261009223027099003)(261009221227099003)(261009220027099003)(261009221727099003)(261009223327099003)(261022105027099003)(261021123027099003)(261021121427099003)(11063799006)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?TlMXaLGTjfN0Ve7pJrHq6qQoyLEamfO6Js0LvQ67YKyfx52DXWmibKXTAwBf?=
- =?us-ascii?Q?QMUk63xC046b9dhfAYPX2mlmNXp5NCYfykznldXS1kdizHNgWO6vU5EhhlcX?=
- =?us-ascii?Q?mrkJ3qeionl9doNBLBGkfIMaLXmMcZmxlfsvDQ0vlDe8vdpz1WfoPgrd/z/O?=
- =?us-ascii?Q?qpL8hIpMw9+EYc6XlqkrwNcoC6/Bzkwdptl//Ak0yHkJHMBaFJumSjqt/83h?=
- =?us-ascii?Q?GKhf/vP/YXYw2xpSURJjnmZIRhu/UmV8Ad4WHrGF6YClADDMhh6ASlWJ6dQi?=
- =?us-ascii?Q?r8lAWI0gKXP8X6Q5NKA2zBDqgxcqdKNGG640YQODpvOZEXNQwppAiCe1Tsjo?=
- =?us-ascii?Q?Q3gzZTTFVQOC8SAusZkqjBacHiH805aTaRkylvp8OurqZBmJz4vhAIJFXGjM?=
- =?us-ascii?Q?G8DN1qQQX6vwADdsb/Aon5jUVzwZ0FfTw/PcqaMRXkcUnDOdOHY1WLMYe+PI?=
- =?us-ascii?Q?WFDZobVQinybvENze8wUsrSc7wnAPhURfhKa1wO/tMYJ/ZEUc36DZe2SfM9x?=
- =?us-ascii?Q?8ijwnd2CMBnyylophiDmLZpwBdrIsLCy5rldX/AkWwgeOuCjHUg8Rr0vgINw?=
- =?us-ascii?Q?0x66dua2z83ju5++v8KxoWAFLgm/29+s2CPwcPfWeofuHMdakGu+Z3Fxzyjf?=
- =?us-ascii?Q?9tqQ8il1sX4HmMqSqVWCu9hOT7ydM5EhAGdfkS92+I6DekkC24E1Cpk0op5D?=
- =?us-ascii?Q?L374JT2tHkpco29DnCtK0DZRTvCNRnlfdFUINnSmJ+/aIyNpyPG0y/YOdOlZ?=
- =?us-ascii?Q?Q6z8lH7ogiRmxHb8tf8W55wq6900E8H79aouJkgswVEeMXkrS1JCbErgESZ/?=
- =?us-ascii?Q?wiwrEMQczijlzj3seNaQQPzuhKhrg3AyDI2LJzkzCFQM2AKu6fuCFqEtFm0F?=
- =?us-ascii?Q?9l3yFGq1FFOyyfp/zpZUpP2hMtvQ6stqOgY8iwsngTT8sSiRmUzznYciKLhG?=
- =?us-ascii?Q?A8TupfL7WauyGpLu4E0sKVkAI5APFI2jdQbKWBd7bJbCY4rBTx4F4j8cayxZ?=
- =?us-ascii?Q?yjhyuz6QxPb54XqX5S0hmhmH+vkzv41PxLQwfoc9u8DU45L7wlbdIzTUIyQV?=
- =?us-ascii?Q?e2t1DXrl+ZqqjGV9hM4ih0ZOy7lUvlJfEFWb2GaNFaxNa2taD5te0QMmi0jt?=
- =?us-ascii?Q?zphNIStpjj681aksuuwh+bRuVQkvpsHvEHND6V3t1jZlDKyyFHEIKOkdbY00?=
- =?us-ascii?Q?dlKxUj+MM9xxIn4HXX0b+KWbHQDcu5BLdkwvr6G3HYILKcwSwUb9/eiuZtSS?=
- =?us-ascii?Q?tXCo6sxz4Tqz0utG7nfp+0L6Z+CdzY1TxVBVLNCOs/U3xwAjODmcYytIDpoZ?=
- =?us-ascii?Q?rYQENvSn9uOW3IVkLiiS3CrTCSk4wSoDLklt8pZX9nQxqb6e1kMkxWciQOio?=
- =?us-ascii?Q?Is1JGtWzXWBEIRW9pFoSdh7nP0bLc8ChEuVyajEznstGBcKCRrFN2a2zEmmn?=
- =?us-ascii?Q?HqrvC8Q+vRcGqyxyD80YXPHU6QnuSXnb9Leynj+9aAwxHIxOcrA8nxhNVhfM?=
- =?us-ascii?Q?O4ESMiocViptklx/hlm6IIsVMT72sGgbPguUBjI6MSoi716Sb66SS07y0uab?=
- =?us-ascii?Q?fUTMq+8herU+tA2OuvSkhXEKudeuiGwQj3vlgQb/vO98OZfU3rYPPp/2ZPb4?=
- =?us-ascii?Q?RVvHuB27UPFfdcMKXNoDagtLjjmXhGLrtGV/sp7/W8jtgADpPVY+fyFtNKNK?=
- =?us-ascii?Q?kQ/jyCSF8lrcq+tXRCrhldeXov0AUtnnzwR3+oeqim99KL66Cbq3jpJ7hN9J?=
- =?us-ascii?Q?AIX8qMS7xw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 187553b6-253e-4db6-f39f-08df393188d8
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6478.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 22:35:02.3302
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r+oVgAVmeGL7dOTQs7Qlm1nYRvuzX6heu+tjeqeBVLHsqR6XuwUjSnT6rtH5D9l1hnkgVqlUgd7wcmVlfuz6Yg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9345
 
-Add a new Unordered access flag for MR registrations.
-This access flag allows additional relaxing of the order of memory
-accesses to the memory region.
-Using this access flag allows for concurrent reads and writes of this MR
-to be reordered.
+On Mon, Nov 02, 2026 at 02:07 PM Vineet Gupta <vineet.gupta@linux.dev> wrote:
+> Give each guard an #else with a dummy marked __skip(), so the skip gap is
+> reported rather than invisible.  Add __skip_without_arena for it, which
+> expands to __skip() with a fixed reason when the compiler cannot do arena.
 
-This access flag is part of the optional access flags range, drivers
-shouldn't fail registration for any value in this range and are expected
-to treat them as best-effort.
+How about the following approach instead...
+looks much simpler to me...
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Yishai Hadas <yishaih@nvidia.com>
-Signed-off-by: Michael Gur <michaelgur@nvidia.com>
----
- drivers/infiniband/core/umem.c          | 2 +-
- include/rdma/ib_verbs.h                 | 1 +
- include/uapi/rdma/ib_user_ioctl_verbs.h | 1 +
- 3 files changed, 3 insertions(+), 1 deletion(-)
+pw-bot: cr
 
-diff --git a/drivers/infiniband/core/umem.c b/drivers/infiniband/core/umem.c
-index b1ab4f0359b0..e07c5d439fbe 100644
---- a/drivers/infiniband/core/umem.c
-+++ b/drivers/infiniband/core/umem.c
-@@ -211,7 +211,7 @@ static struct ib_umem *__ib_umem_get_va(struct ib_device *device,
- 	umem->dma_dir    = dir;
- 	umem->owning_mm = mm = current->mm;
- 	umem->dma_attrs = DMA_ATTR_REQUIRE_COHERENT;
--	if (access & IB_ACCESS_RELAXED_ORDERING)
-+	if (access & (IB_ACCESS_RELAXED_ORDERING | IB_ACCESS_UNORDERED))
- 		umem->dma_attrs |= DMA_ATTR_WEAK_ORDERING;
- 
- 	mmgrab(mm);
-diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
-index d6eaa3fee66e..29228226a236 100644
---- a/include/rdma/ib_verbs.h
-+++ b/include/rdma/ib_verbs.h
-@@ -1505,6 +1505,7 @@ enum ib_access_flags {
- 	IB_ACCESS_ON_DEMAND = IB_UVERBS_ACCESS_ON_DEMAND,
- 	IB_ACCESS_HUGETLB = IB_UVERBS_ACCESS_HUGETLB,
- 	IB_ACCESS_RELAXED_ORDERING = IB_UVERBS_ACCESS_RELAXED_ORDERING,
-+	IB_ACCESS_UNORDERED = IB_UVERBS_ACCESS_UNORDERED,
- 	IB_ACCESS_FLUSH_GLOBAL = IB_UVERBS_ACCESS_FLUSH_GLOBAL,
- 	IB_ACCESS_FLUSH_PERSISTENT = IB_UVERBS_ACCESS_FLUSH_PERSISTENT,
- 
-diff --git a/include/uapi/rdma/ib_user_ioctl_verbs.h b/include/uapi/rdma/ib_user_ioctl_verbs.h
-index 21f86cc7bb1f..ca8b8b8d28f2 100644
---- a/include/uapi/rdma/ib_user_ioctl_verbs.h
-+++ b/include/uapi/rdma/ib_user_ioctl_verbs.h
-@@ -62,6 +62,7 @@ enum ib_uverbs_access_flags {
- 	IB_UVERBS_ACCESS_FLUSH_PERSISTENT = 1 << 9,
- 
- 	IB_UVERBS_ACCESS_RELAXED_ORDERING = IB_UVERBS_ACCESS_OPTIONAL_FIRST,
-+	IB_UVERBS_ACCESS_UNORDERED = IB_UVERBS_ACCESS_OPTIONAL_FIRST << 1,
- 	IB_UVERBS_ACCESS_OPTIONAL_RANGE =
- 		((IB_UVERBS_ACCESS_OPTIONAL_LAST << 1) - 1) &
- 		~(IB_UVERBS_ACCESS_OPTIONAL_FIRST - 1)
--- 
-2.52.0
+diff --git a/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c b/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
+index b5a01cb..16c3dd9 100644
+--- a/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
++++ b/tools/testing/selftests/bpf/progs/arena_kfunc_jit.c
+@@ -23,8 +23,6 @@ struct {
+ /* volatile to force the scalar reloads below */
+ volatile u64 stash;
 
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+-
+ SEC("syscall")
+ __arch_x86_64
+ __jited("...")
+@@ -93,6 +91,7 @@ __jited("	cbz	w4, L0")
+ __jited("	add	x4, x28, w4, uxtw")
+ __jited("L0:	{{.*}}")
+ __success
++__skip_without_arena
+ int arena_arg_jit_args5(void *ctx)
+ {
+ 	u64 __arena *val;
+@@ -113,6 +112,4 @@ int arena_arg_jit_args5(void *ctx)
+ 	return 0;
+ }
+
+-#endif /* __BPF_FEATURE_ADDR_SPACE_CAST */
+-
+ char _license[] SEC("license") = "GPL";
+diff --git a/tools/testing/selftests/bpf/progs/bpf_misc.h b/tools/testing/selftests/bpf/progs/bpf_misc.h
+index d7f706c..4ec840b 100644
+--- a/tools/testing/selftests/bpf/progs/bpf_misc.h
++++ b/tools/testing/selftests/bpf/progs/bpf_misc.h
+@@ -116,6 +116,10 @@
+  *                   feature the toolchain or JIT cannot provide, so a run does
+  *                   not report OK for coverage it never executed.
+  *
++ * __skip_without_arena
++ *                   __skip() when the compiler does not support the arena
++ *                   address space, nothing otherwise.
++ *
+  * __log_level       Log level to use for the program, numeric value expected.
+  *
+  * __flag            Adds one flag use for the program, the following values are valid:
+@@ -156,6 +160,11 @@
+ #define __success		__test_tag("test_expect_success")
+ #define __description(desc)	__test_tag("test_description=" desc)
+ #define __skip(reason)		__test_tag("test_skip=" reason)
++#ifdef __BPF_FEATURE_ADDR_SPACE_CAST
++#define __skip_without_arena
++#else
++#define __skip_without_arena	__skip("compiler does not support the arena address space")
++#endif
+ #define __msg_unpriv(msg)	__test_tag("test_expect_msg_unpriv=" msg)
+ #define __not_msg_unpriv(msg)	__test_tag("test_expect_not_msg_unpriv=" msg)
+ #define __msg_next_unpriv(msg)	__test_tag("test_expect_msg_next_unpriv=" msg)
+diff --git a/tools/testing/selftests/bpf/progs/jit_insns_arena.c b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
+index 95736ea..77d135a 100644
+--- a/tools/testing/selftests/bpf/progs/jit_insns_arena.c
++++ b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
+@@ -106,6 +106,14 @@ int cast_to_user(void *ctx)
+ 	: "r1", "r2", "r7", "r9");
+ 	return res != 0;
+ }
++#else
++SEC("socket")
++__skip_without_arena
++__success
++int arena_unsupported(void)
++{
++	return 0;
++}
+ #endif
+
+ char _license[] SEC("license") = "GPL";
+diff --git a/tools/testing/selftests/bpf/progs/verifier_arena_large.c b/tools/testing/selftests/bpf/progs/verifier_arena_large.c
+index dbdea14..428b984 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_arena_large.c
++++ b/tools/testing/selftests/bpf/progs/verifier_arena_large.c
+@@ -181,7 +181,6 @@ int free_reserved(void *ctx)
+ 	return 0;
+ }
+
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ #define PAGE_CNT 100
+ __u8 __arena * __arena page[PAGE_CNT]; /* occupies the first page */
+ __u8 __arena *base;
+@@ -220,6 +219,7 @@ __noinline int alloc_pages(int page_cnt, int pages_atonce, bool first_pass,
+
+ SEC("syscall")
+ __success __retval(0)
++__skip_without_arena
+ int big_alloc2(void *ctx)
+ {
+ 	__u8 __arena *pg;
+@@ -290,9 +290,9 @@ int big_alloc2(void *ctx)
+ /* Nonsleepable because it binds to a socket program. */
+ SEC("socket")
+ __success __retval(0)
++__skip_without_arena
+ int big_alloc3(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *pages;
+ 	u64 i;
+ 	int err = 0;
+@@ -314,16 +314,14 @@ int big_alloc3(void *ctx)
+
+ 	bpf_arena_free_pages(&arena, pages, LARGE_PAGE_CNT);
+ 	return err;
+-#endif
+-	return 0;
+ }
+
+ /* SYSCALL programs are always sleepable. */
+ SEC("syscall")
+ __success __retval(0)
++__skip_without_arena
+ int big_alloc4(void *ctx)
+ {
+-#if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ 	char __arena *pages;
+ 	u64 i;
+ 	int err = 0;
+@@ -345,8 +343,6 @@ int big_alloc4(void *ctx)
+
+ 	bpf_arena_free_pages(&arena, pages, LARGE_PAGE_CNT);
+ 	return err;
+-#endif
+-	return 0;
+ }
+-#endif
++
+ char _license[] SEC("license") = "GPL";
