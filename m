@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638177;
-	b=MVVit2wLpo8TXuUnwLah/XjHGGdJfbwYFmv7T8sbQAYyTStNLSWGemsF8Uw0DuZ+JDnh
-	 4QrXJn4dOAsCXtZXgFFtxQELE8QK8tNvSE7U0q43fsYbFVqB4G/1TfptUr8Fj73MI7Kep
-	 ZG7kJvpegaoQ1/fig07rbNhQQrHinpFuV7muRw0/WLVg7iySmnc8eCZUTVWmTGY85P7DD
-	 iMyQxDkPc4sjabYYVosVxiY7w15CAuGyvr2AA7ss4fs3KwepzTDaqO9Ts9Am1UQ5gD5yr
-	 dgy9ph7L+Haor3Lf+aka6xVya7QlaQBiHJeTPSSkypuWo4HKzaFPRsXU19aHPoraRrQ==
+	t=1793638184;
+	b=GsgDv3LxTGech9V/kh98ZIuOzZot2Gz4mnyzDnR+flWB476QyHbzGEfEHqu8DUhwPyA0
+	 swCU5PMv8zCBN4KShW75Nwx7/GYrys9vPUhQe9/7xM5dnJlgrJr6DUw1lsok/i1RvEweK
+	 3G1RvV+ZgdERoDRsOjwLaMSS7Doju7YOzduYPk4fsok+aLF7Qt+A+wDZTDq6fX0ipkwhh
+	 dQZwtXPSp5fgXpYWxdA61BS+JQ7WSfQUlIRUjarbYTZfiR/W7JsuIzNvaOHL9j20Yv7ew
+	 jGcbfIzDlC0EqqiM6WD8VyXuGsovvVkGHvHXo8OEAJEbZYJkob5iGOYxamQ7akgLC5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638184;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=zVpHwEi1acfZUiGgbeCPyTxHSVjEFQmQseYO2YcJPk0=;
-	b=4XsgllY1GZQ67VBaikQXYrmToNxQS4vGPZnR23Q3+rwhncGDcSHBDtBysHhxi38F6C+3
-	 /4k4MHTaTwHimvB6svOZ3oC8m7WdMrBqx7ogPkiQXjkCQ8FyuSw3b5vKZbfheEJcXn8hl
-	 HCXniCJhGrVfHcXu29g+CsL7hxUtHAKrFw8Tc9WdOJnQ+ldaIcnljacClQKyBmjOeooZz
-	 63UuQD4yivQxuCkX2lHUe9Z1okGNpmQdPI+4pKfh97k/KKMnlcKjPL8syBLgpHe6jLMjf
-	 3Av2bBOa/Gz08GxmJMurU096Lb+aJGXGH8HcUi4Ow0LYBM+x2NFimup7gw5LmzzZc0w==
+	bh=yeR6qzcw7/AznNLkNn/kuZYVMEdlMEavCIHhHA0hw9k=;
+	b=11bOdr3Z66lO7Nv9WoezCFTm9O/XiqC/Re+Xqs5DgO4jW/Zdpgz/IOJ+pCfhVaGX/idf
+	 kto6ZYG51nW2S7FGgOeBQD9mI5WiOBykquJJbdZH56zeSg1u3fgmGzo3KIrfAGOIE7CfE
+	 PxfrtL0TaUmUSk+Kwx4NDb7TAPnDknfXIAZHZK+iu2eDkQQWH7bfHxnC5dGgBN4Uhx5Oe
+	 dRrPmF+fIZvsxATrse9uBwoBC1WyuGXRoBauoCR3UPYrq4/yfQxVb5jOiGu4Kur07MMrl
+	 JQviCouyVt/nh7qO35PoTJsAB/cG6zTulefVYtmMvOpfc2ZpU4FQX8R2iIrEhBQ/Ojg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGSFp4cg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=km+WsYY6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B081606DE97
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B433607670F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGSFp4cg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6701F00A17;
-	Mon,  2 Nov 2026 16:49:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=km+WsYY6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915CE1F00A22;
+	Mon,  2 Nov 2026 16:49:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793638176;
-	bh=zVpHwEi1acfZUiGgbeCPyTxHSVjEFQmQseYO2YcJPk0=;
+	s=k20260515; t=1793638184;
+	bh=yeR6qzcw7/AznNLkNn/kuZYVMEdlMEavCIHhHA0hw9k=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SGSFp4cgHWsyT1Zwmaoh2VWhsvYgwsCbG4SdEhQTzPWWYfE/MpDzcaEabYmidhImC
-	 YuNMnzT7zBzsTDKJdwC3wLMp6D1v2uGPmPcS00fNymqTPInndUf9JZ1POxg+FHon/H
-	 zfc0/1OWRILSY7zBBMbgtO2PtDt4Qk3b73tj/l+8NFzDzQR1HE712xDnSp/zL/92oX
-	 23bt69U7Y847IwJZv2MJA316+/YVNEjSl1alG4FlbaqO2CbHIZ/87V5oMJSq31qdUk
-	 v8JUayenlZY+t3zWXddlL1DrucZw9rL60wEb2tBePGWMc3ooSWF/Qh2sdJLyoCuRxz
-	 0kl++LKj1UqIA==
+	b=km+WsYY6J3ixPhJEOjVdn/scW5u4CE4Lp+zGdOy8hxj+fe+XjMbPX7mDabVREJtAh
+	 PxpoOmEMiCHAru+8X08KdrZwaRhlHjPWYuFZBs5sSwhb+E+90lYgAJaKbnWytpp2f+
+	 3rbVwz1W7vtYQ4qgdvLAhGSrxsFGu2hnS3HSF1eIKe+RbaRJEezVcy7b4pPBiQwZvj
+	 Mbx/LAfHD6gRXSpZuy0Tpk8p3bDxmva20LjwxFHiTCJ9lWytrINH5SPe6qJl7Ml4J2
+	 AG7dff79aVM5fmvaflfi4uHCMG5F5CemyheCGtXbYZRd3rbrXaGez6UtbHbOMM4Udq
+	 ellSAkLBjCd8Q==
 From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:20 -0600
-Subject: [PATCH v10 04/15] drm/amdgpu: Check bios_scratch_reg_offset in
- backlight level helper
+Date: Mon, 02 Nov 2026 10:49:24 -0600
+Subject: [PATCH v10 08/15] drm/panel: add connector luminance forwarding
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-4-b2a6f24131f5@kernel.org>
+Message-Id: <20261102-superm1-backlight-property-v10-8-b2a6f24131f5@kernel.org>
 References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -70,36 +69,228 @@ Cc: Mario Limonciello <superm1@kernel.org>,
  Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org
+ nouveau@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>
 X-Mailer: b4 0.16.0
 
-Ensure adev->bios_scratch_reg_offset is non-zero before accessing
-scratch registers in amdgpu_atombios_scratch_regs_set_backlight_level()
-to avoid dereferencing unmapped MMIO offsets.
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Add helpers that expose a panel backlight through the connector
+LUMINANCE property and forward connector updates to the backlight
+backend.
+
+Hook the helpers into panel bridges that create their own connector.
+Panels consumed directly, or by a panel bridge attached with
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, remain unchanged.
+
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+v10:
+ * Split panel support out of the combined panel and bridge patch
+ * Limit integration to panel bridges that own their connector
+---
+ drivers/gpu/drm/drm_panel.c | 99 +++++++++++++++++++++++++++++++++++++++++----
+ include/drm/drm_panel.h     | 39 +++---------------
+ 2 files changed, 97 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 27c0dc8f6137a..2d8c2ba04e670 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -1622,7 +1622,12 @@ void amdgpu_atombios_scratch_regs_engine_hung(struct amdgpu_device *adev,
- void amdgpu_atombios_scratch_regs_set_backlight_level(struct amdgpu_device *adev,
- 						      u32 backlight_level)
- {
--	u32 tmp = RREG32(adev->bios_scratch_reg_offset + 2);
-+	u32 tmp;
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index c00529bfb706b..a5706edad9735 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -38,6 +38,19 @@ static LIST_HEAD(panel_list);
+  * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
+  */
+ 
++struct panel_bridge {
++	struct drm_bridge bridge;
++	struct drm_connector connector;
++	struct drm_panel *panel;
++	u32 connector_type;
++};
 +
-+	if (!adev->bios_scratch_reg_offset)
++static inline struct panel_bridge *
++drm_connector_to_panel_bridge(const struct drm_connector *connector)
++{
++	return container_of(connector, struct panel_bridge, connector);
++}
++
+ static inline struct drm_panel *
+ drm_bridge_to_panel(const struct drm_bridge *bridge)
+ {
+@@ -50,13 +63,6 @@ drm_connector_to_panel(const struct drm_connector *connector)
+ 	return container_of(connector, struct drm_panel, connector);
+ }
+ 
+-struct panel_bridge {
+-	struct drm_bridge bridge;
+-	struct drm_connector connector;
+-	struct drm_panel *panel;
+-	u32 connector_type;
+-};
+-
+ static int panel_bridge_connector_get_modes(struct drm_connector *connector)
+ {
+ 	struct drm_panel *panel = drm_connector_to_panel(connector);
+@@ -64,9 +70,29 @@ static int panel_bridge_connector_get_modes(struct drm_connector *connector)
+ 	return drm_panel_get_modes(panel, connector);
+ }
+ 
++static void
++panel_bridge_connector_set_luminance(const struct drm_connector_state *conn_state)
++{
++	struct panel_bridge *panel_bridge =
++		drm_connector_to_panel_bridge(conn_state->connector);
++
++	drm_panel_set_luminance(panel_bridge->panel, conn_state->luminance);
++}
++
++static void
++panel_bridge_connector_disable_luminance(const struct drm_connector_state *conn_state)
++{
++	struct panel_bridge *panel_bridge =
++		drm_connector_to_panel_bridge(conn_state->connector);
++
++	drm_panel_disable_luminance(panel_bridge->panel);
++}
++
+ static const struct drm_connector_helper_funcs
+ panel_bridge_connector_helper_funcs = {
+ 	.get_modes = panel_bridge_connector_get_modes,
++	.set_luminance = panel_bridge_connector_set_luminance,
++	.disable_luminance = panel_bridge_connector_disable_luminance,
+ };
+ 
+ static const struct drm_connector_funcs panel_bridge_connector_funcs = {
+@@ -101,6 +127,10 @@ static int panel_bridge_attach(struct drm_bridge *bridge,
+ 
+ 	drm_panel_bridge_set_orientation(connector, bridge);
+ 
++	ret = drm_panel_attach_luminance_property(panel, connector);
++	if (ret)
++		return ret;
++
+ 	drm_connector_attach_encoder(connector, encoder);
+ 
+ 	if (bridge->dev->registered) {
+@@ -861,6 +891,61 @@ void drm_panel_disable(struct drm_panel *panel)
+ }
+ EXPORT_SYMBOL(drm_panel_disable);
+ 
++/**
++ * drm_panel_attach_luminance_property - expose a panel backlight through DRM
++ * @panel: panel whose backlight is controlled
++ * @connector: connector on which to expose the property
++ *
++ * The backlight class device remains the internal hardware backend. When the
++ * luminance UAPI is enabled, userspace controls that backend through the DRM
++ * connector property instead.
++ *
++ * Return: 0 on success or a negative error code
++ */
++int drm_panel_attach_luminance_property(struct drm_panel *panel,
++					struct drm_connector *connector)
++{
++	struct backlight_device *backlight;
++
++	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE) || !panel)
++		return 0;
++
++	backlight = panel->backlight;
++	if (!backlight)
++		return 0;
++
++	return drm_connector_attach_luminance_property(connector, 0,
++					backlight->props.max_brightness,
++					backlight->props.brightness);
++}
++EXPORT_SYMBOL(drm_panel_attach_luminance_property);
++
++/**
++ * drm_panel_set_luminance - set a panel backlight's relative luminance
++ * @panel: panel whose backlight is controlled
++ * @luminance: relative luminance level
++ */
++void drm_panel_set_luminance(struct drm_panel *panel, unsigned int luminance)
++{
++	if (!panel || !panel->backlight)
 +		return;
 +
-+	tmp = RREG32(adev->bios_scratch_reg_offset + 2);
++	panel->backlight->props.brightness = luminance;
++	backlight_update_status(panel->backlight);
++}
++EXPORT_SYMBOL(drm_panel_set_luminance);
++
++/**
++ * drm_panel_disable_luminance - turn off a panel backlight
++ * @panel: panel whose backlight is controlled
++ */
++void drm_panel_disable_luminance(struct drm_panel *panel)
++{
++	if (panel)
++		backlight_disable(panel->backlight);
++}
++EXPORT_SYMBOL(drm_panel_disable_luminance);
++
+ /**
+  * drm_panel_get_modes - probe the available display modes of a panel
+  * @panel: DRM panel
+diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
+index 58113ea7d63a0..76d49d4485ff0 100644
+--- a/include/drm/drm_panel.h
++++ b/include/drm/drm_panel.h
+@@ -342,6 +342,11 @@ void drm_panel_unprepare(struct drm_panel *panel);
+ void drm_panel_enable(struct drm_panel *panel);
+ void drm_panel_disable(struct drm_panel *panel);
  
- 	tmp &= ~ATOM_S2_CURRENT_BL_LEVEL_MASK;
- 	tmp |= (backlight_level << ATOM_S2_CURRENT_BL_LEVEL_SHIFT) &
++int drm_panel_attach_luminance_property(struct drm_panel *panel,
++					struct drm_connector *connector);
++void drm_panel_set_luminance(struct drm_panel *panel, unsigned int luminance);
++void drm_panel_disable_luminance(struct drm_panel *panel);
++
+ int drm_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector);
+ 
+ #if defined(CONFIG_OF) && IS_ENABLED(CONFIG_DRM_PANEL)
+@@ -418,40 +423,6 @@ struct drm_bridge *devm_drm_panel_bridge_add_typed(struct device *dev,
+ struct drm_bridge *drmm_panel_bridge_add(struct drm_device *drm,
+ 					 struct drm_panel *panel);
+ struct drm_connector *drm_panel_bridge_connector(struct drm_bridge *bridge);
+-#else
+-static inline bool drm_bridge_is_panel(const struct drm_bridge *bridge)
+-{
+-	return false;
+-}
+-
+-static inline int drm_panel_bridge_set_orientation(struct drm_connector *connector,
+-						   struct drm_bridge *bridge)
+-{
+-	return -EINVAL;
+-}
+-#endif
+-
+-#if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL_BRIDGE)
+-struct drm_bridge *devm_drm_of_get_bridge(struct device *dev, struct device_node *node,
+-					  u32 port, u32 endpoint);
+-struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm, struct device_node *node,
+-				      u32 port, u32 endpoint);
+-#else
+-static inline struct drm_bridge *devm_drm_of_get_bridge(struct device *dev,
+-							struct device_node *node,
+-							u32 port,
+-							u32 endpoint)
+-{
+-	return ERR_PTR(-ENODEV);
+-}
+-
+-static inline struct drm_bridge *drmm_of_get_bridge(struct drm_device *drm,
+-						    struct device_node *node,
+-						    u32 port,
+-						    u32 endpoint)
+-{
+-	return ERR_PTR(-ENODEV);
+-}
+ #endif
+ 
+ #endif
 
 -- 
 2.53.0
