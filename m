@@ -1,55 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613799;
-	b=ctbwtlqQuxW430ezLnmCants/8ToKjO7SNrETK4yG+ZlTMyUzd9szSfhlZWz03RrzFba
-	 Y81gI8Bd6GfI0FeViFTVjDjK+TuVhnXpIoVJdJRSYKMvIR5Sfe+o1OPZ1ZEs+5uu4C7yk
-	 VpDqg6mGVfpYwGjZXw6TbTwBAkmZwdp0VWubd1t0fBPiHywSlzCxf6zL4suMZUhkLJsUo
-	 b6qYgcrQIZcrpiA0tGOGqfilQXdjIr+0Z8I3ThF7jt3c398SpOchUfOpJBJ1zw+aWkyNj
-	 ydvxVePyi7/v0UFpxfvPRAyWjsUupueLKAddNZF5lxhZQxk5xTLRTFNpFXpGS+WJUjA==
+	t=1793613807;
+	b=KrPRcLlTug1OrN/6ObfxUkiMpNT7AwauykSFqlJId7pWt1bkZSxdHOI/MpF7TdClk4cN
+	 wS2+gv8tloVIUKKOoJzqlvLEK0HjhQfiiE8Dz5fZD2f5AkZ2sldcoOJIJDqrIbmY0ILLO
+	 0AoTajhNS+lXfAlWwGYtNG4A4XBPuX/mKZGQDcSNrbbkbqquIVS8GX+L0C5qjnaFTCvVJ
+	 YV8KPj3NWAIB94iQQg9fjXMFizzbvJSCJChr7WHxOK6NHwpw2C4HEOi3fWXxkv1Noq4sC
+	 TImhE0eXQiakWwpDx9zwDEaUdk6VcqSNPwCDMoMFhZq/2H9UTLmqLp/jN3A2HkR63tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613799;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2YGEq7yMAkzCJ7AWvTtLlTFsQxxR0DtnZuHVN93H/rY=;
-	b=mupCGKQOB5Nt1tQCm04+uVr6clO1ocWpe2/xZBtlGuczxbl4e1B5i8bIDOnPLINTuZna
-	 o6s3zFoZBt267acVXVudx1QZGgmTuRZc/jkjInasRW5FC3RMis/bUMMIml7FriHgfCsbc
-	 s2i+Tr87pw3OhDWGjivAj1tItHqgZR9hgabZ2cNJFyrt5ZdOl49st2R2llC5hQw/G4AjR
-	 ci7ebNI+7ajThJQfcI9BTMNt6gD/qo16or+ZfSPYX2KmiEB9A6bEUeE22WMFAqKkHb37y
-	 aqmo+6LuaT7wFcPnuHzYkLjKR9/h9uFoimzkOuKcSmNzPIBefh03xgZ95CSd3Q3bR1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613807;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qsWUhK3u8xxsdLOp7S4PeHirDge8KSgZCNYY2BYGink=;
+	b=dmfDeAbRFuScM7WFTaSPpAXFoUPLf7Qd8tT1t4UwFX6IodeCH2uLRKeYw32+kMrKSOmH
+	 0//gGBpNyB5wn0KN/ZwPNCtnGvMmExWKOOI+w+oAEqy5Exf3BMj79aqwF5HNfttn8HHZJ
+	 u6AZ7sSZQ/+OvmvlLGQkGsM9XcGOZ++87h10lmQm101sk+Jthc2jIu4oKXQdSfIH9avrv
+	 41cJTR3cLmYxh3s0L8aH153NHmaH/rVMvmWZizV7porlc4yCAwEhbBhraUwmPJz9/itTm
+	 gztSB9u2BhaxKwx6r4D8pc2576jX+jMiChGNM2sf/qZhqidwvxpek1C1gvejZT9V4iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9ek7HXm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71276606A333;
-	Mon,  2 Nov 2026 10:03:19 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=b8EjWOy3;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7AE17606A330;
+	Mon,  2 Nov 2026 10:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AE17606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9ek7HXm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3491F00A17;
-	Mon,  2 Nov 2026 10:03:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793613799;
-	bh=2YGEq7yMAkzCJ7AWvTtLlTFsQxxR0DtnZuHVN93H/rY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E9ek7HXmlKDrt+9Nsevchyw2AYqqlIabzlTWy0RvTQhcI3BS9M0og+wnlDHDQBe8O
-	 fGj+nuxZSewsoCijUBzEkhxt44uS09gYz4Xhd58RvKajYZ0zEZaRJ/zYDQ7K7yBWJD
-	 Vpx/N5GK55N33cj2mhRnaSIM/6ZMN8tzUkWs2HBg5hgxnn4bs7b6jRtboZo9d84qjt
-	 tAoBWlZ4j/00omnc40MYDhOZh9kobrco975mAl4yIA7+EjGfe06e7XTBF9eVNx64DG
-	 Rx+zjTgTRW7iNt6DlgZNmimTOIKLN9iC3QVAKR462Apqsef7S4aZFZOuY9bBARo4Oa
-	 cZnqlZW8elz4w==
-Date: Mon, 2 Nov 2026 11:03:15 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: Add Nuvoton MA35D1 EADC
-Message-ID: <20261102-bald-mysterious-alpaca-13b8fa@quoll>
-References: <20261030031501.130290-1-cwweng.linux@gmail.com>
- <20261030031501.130290-2-cwweng.linux@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=b8EjWOy3
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED9851762;
+	Mon,  2 Nov 2026 02:03:22 -0800 (PST)
+Received: from a081061.arm.com (unknown [10.163.156.187])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B23643F59E;
+	Mon,  2 Nov 2026 02:03:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793613806; bh=HON1k1mBTpdlmMMiPcmWNkUSmFAOD7DShtnrwNyZsw0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=b8EjWOy34JhDwaDUOj5cn+bmSD3XP+922StiAJYibForPcZSBJV6qentDC7RousFl
+	 JDXcNJrghYZEBK7VGzSDLxw0FtnACrI60F5ocfB/0O0JSuFAx3e0D/KcGRSkGjSJhE
+	 O/qlMSCzMTQZRQJekuUMfSqUKORwnDgl2eeCtt2A=
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Park Tae-sun <ts930@dgu.ac.kr>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: [PATCH RESEND v2 07/12] selftests/mm: mremap_test: fail on data corruption
+Date: Mon,  2 Nov 2026 15:32:06 +0530
+Message-ID: <20261102100211.141831-8-sarthak.sharma@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102100211.141831-1-sarthak.sharma@arm.com>
+References: <20261102100211.141831-1-sarthak.sharma@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,117 +75,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030031501.130290-2-cwweng.linux@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 11:15:00AM +0800, Chi-Wen Weng wrote:
-> From: Chi-Wen Weng <cwweng@nuvoton.com>
-> 
-> Add a devicetree binding for the Enhanced Analog-to-Digital Converter
-> (EADC) found on Nuvoton MA35D1 SoCs.
-> 
-> The controller provides eight external analog inputs which can be used
-> as single-ended channels or as four fixed differential pairs: 0-4,
-> 1-5, 2-6 and 3-7.
-> 
-> Describe the four hardware interrupt outputs, ADINT0 through ADINT3.
-> ADINT0 through ADINT2 are associated with the corresponding conversion
-> interrupt flags, while ADINT3 is shared by the ADIF3 conversion
-> interrupt and the ADCMPF0 through ADCMPF3 result-compare interrupt
-> sources.
-> 
-> Also describe the functional clock, optional reset, optional external
-> reference supply and optional DMA request.
+In mremap_move_multiple_vmas_split(), if data is corrupted
+after mremap, the control jumps to cleanup without marking
+the test as failed.
 
-Don't repeat the patch contents.
+Set success to false before moving to cleanup.
 
-> 
-> Expose the controller as an IIO channel provider through the
-> DT #io-channel-cells property. The cell identifies the logical EADC
-> channel selected by the reg value of the corresponding channel child
-> node.
-> 
-> Restrict the channel binding to features supported by the MA35D1 EADC
-> hardware and use the common single-channel representation for
-> single-ended inputs.
+Fixes: 7d6597dfef11 ("tools/testing/selftests: explicitly test split multi VMA mremap move")
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+---
+ tools/testing/selftests/mm/mremap_test.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-And here even more.
-
-> 
-> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
-> ---
->  .../bindings/iio/adc/nuvoton,ma35d1-eadc.yaml | 175 ++++++++++++++++++
->  1 file changed, 175 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> new file mode 100644
-> index 000000000000..97144a8eeb5c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,ma35d1-eadc.yaml
-> @@ -0,0 +1,175 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/nuvoton,ma35d1-eadc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton MA35D1 Enhanced Analog-to-Digital Converter
-> +
-> +maintainers:
-> +  - Chi-Wen Weng <cwweng@nuvoton.com>
-> +
-> +description: |
-> +  The Nuvoton MA35D1 Enhanced Analog-to-Digital Converter (EADC) is a
-> +  12-bit successive approximation converter with eight external analog
-> +  inputs and one internally connected VBAT input.
-> +
-> +  The external inputs can be used as eight single-ended channels or as
-> +  four fixed differential pairs: 0-4, 1-5, 2-6 and 3-7. The internally
-> +  connected VBAT input is not described by a channel child node.
-> +
-> +  The controller provides four interrupt outputs, ADINT0 through ADINT3.
-> +  ADINT0, ADINT1 and ADINT2 are generated by the corresponding ADIF0,
-> +  ADIF1 and ADIF2 conversion interrupt flags. ADINT3 is shared by the
-> +  ADIF3 conversion interrupt flag and the ADCMPF0 through ADCMPF3 result
-> +  compare flags.
-> +
-> +properties:
-> +  compatible:
-> +    const: nuvoton,ma35d1-eadc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    items:
-> +      - description: ADINT0 conversion interrupt output generated by ADIF0
-> +      - description: ADINT1 conversion interrupt output generated by ADIF1
-> +      - description: ADINT2 conversion interrupt output generated by ADIF2
-> +      - description: >
-
-Drop >
-
-> +          ADINT3 shared interrupt output generated by ADIF3 or by the
-> +          ADCMPF0 through ADCMPF3 result compare flags
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: adint0
-> +      - const: adint1
-> +      - const: adint2
-> +      - const: adint3
-
-"int" is redundant, so honestly names should rather go away completely.
-
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-
-Best regards,
-Krzysztof
+diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
+index 111cc3414073..514d2003b88d 100644
+--- a/tools/testing/selftests/mm/mremap_test.c
++++ b/tools/testing/selftests/mm/mremap_test.c
+@@ -682,6 +682,7 @@ static void mremap_move_multiple_vmas_split(unsigned int pattern_seed,
+ 			if (chr != buf[j]) {
+ 				ksft_print_msg("page %d offset %d corrupted, expected %d got %d\n",
+ 					       i, j, chr, buf[j]);
++				success = false;
+ 				goto out_unmap;
+ 			}
+ 		}
+-- 
+2.53.0
 
