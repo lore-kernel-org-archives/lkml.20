@@ -1,111 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617897;
-	b=ZubgK5HmOLY7JLWmvEI7UZVeJLF402tVdc5LKEww+YF1SOCw+Col9SL/B9OX6ySV170/
-	 lJBQxXheMTOh3Qs5Dx2cA18y/OVlTyrsH474qFLU0mpuoalml0JHjcpQOtfNPF2bF0VTP
-	 wbBMeLgcoL5i5/ySibvWx6373i44JI1BJvU8Qf4gnFQEHEnlL3YJqgDEe3RnbAT/ue3gC
-	 aAlHBv+GF8MYbnpadmwtUekbiqOPQ0HKLhCsx0L88r+rma78LgMbCtJJEZy267WEXQgLs
-	 ADeectK4ENYJcOydAm1HDMZU82m7lWyLiLwTJNwV9Stugwbr6b1HzzlQqCMIhnf0fIQ==
+	t=1793617911;
+	b=yf7zI+WAAGn7Oa/DQGHC+F18nFGtPG2f/m2B72gw9X5xP4yDdeXOhKTfRIocW1fUDRhD
+	 OLOrrq+qXxoCyCGAz82WvVHj9wlhUSMqISR1G0lrCK5980t9za71IdW1qurPgGtJNUwdS
+	 fr9YFhJCT1Egk4EkBBYJXvHdG3Os7P0nubDnifG0RKSOA3vpS7ROzlJ2Xcij2kx0IDnix
+	 A5WbW+vQHK7qnsPWU743goG3WIyV4THPPEX29TfoeXI2ohStifTo7Fyuo4+h5s1mL2W/c
+	 AH7w7W+v7Yos8vap3k6nImeSMsai37JiI6QATQvc52g4zZfGZR8JdWqPJOxD+XAjo8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617897;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=XLIl6X1z8YQm2K5vGZ/P+IEtPgFQw1b2JuxAYXpLPHo=;
-	b=OTvH5zn6oIZIQPq1q63Iejlgn7IaiiOmtbqbM1OsSkHNCE5Q95CCC1jrj3y+lfLb3c+5
-	 l6L/gRMXKjvg2JzrkMB6d9X7zdb9KNL7TLx5TFL07TIppfQoqZ3Do+6zDdY47Hnws8/oo
-	 0TGxFhRIqKHNmvdM59I1KENCbQsnVGHk4Ev8xvM6RAlXGnHyIbTabbkl3bEzlwoQ4e2zR
-	 JPUMM6sIOPEMdseBL0CWAMjXVggSAtW/bfx4+mBYDu/onUy4qw0KmuLqy9MPiKWXrrJMd
-	 uYRfUH/fbcsjSUcQTumIIGWFaenzGA2XLX5Ynr40FnniQk4qdDM2J0frdSUOd5O+I8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617911;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=tQierFXrtdBxsv90Wvr5GLl7ZIg6QP9xO7JbeTEr+Xw=;
+	b=HnBfSPT70SB/9hpZsEjhvrFjufETCQhqS+U8wRL/TraExoso8dj0vjQJW6vVDs8K77pu
+	 CglUynjwDp4N7D1Zl4vsoiHf3s7PS9rT6SXjk3g+pjOt+xqPkhdgNbrcUAZDUm/MmsRfI
+	 QzPSckBQ/NMvrs/UBwVYbSwoe05dRVqLwsEObyIJ3qY25zj4mj52fZVP8uXd3PozjHKYT
+	 9Kx4mKhfgOXZJaWjPpfd36h34lZajbWEWXUu1GZ6WnIE0AaVLrVrnuhKFLM65ilkWgm4x
+	 pnKHKNINfR7Nv1geq93KU2+JioaQaOYyvQbxrfXKWOzBGcGzJ3VgXPK1Nf8z8TdtIpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lW4mUyFm;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="MaMNKK/K";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BFAwBKbw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999AC606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:11:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 999AC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6F6606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lW4mUyFm;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MaMNKK/K
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2B2uEs076996
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 11:11:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XLIl6X1z8YQm2K5vGZ/P+IEtPgFQw1b2JuxAYXpLPHo=; b=lW4mUyFmDfpDprXL
-	1+yZwBOBnNiGFaDsQksfEh/D2SeBY6pv0/9J+i73ZRF8rm3tDDWxxE0irRtbn7Cx
-	E2asNEbg5amG184AArFfyzZLsozgi5khO8fM1W51uXSn4HV2NbyOvLgCXX2fm5p3
-	FYXrhWHvX0OoZQTfqNhBnkgs13GEdDeaX+/5mAqAaPgGmYpwrRqPBQRWnUvkqEdG
-	7fjqKboqI4KKIlquJtOJFaW7cB48rEkyP8p7HvipPm2K5ilavU7HACcd0rPbsu0b
-	ECEyGMt4xOqWRISjTAOROzgnh0QtwJzWf1RB8PqFB//q5kknqF1+wjtCRoObn3BS
-	uaILDQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpsa6r15m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:11:35 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb1091fffso30850285a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:11:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793617895; x=1794222695; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XLIl6X1z8YQm2K5vGZ/P+IEtPgFQw1b2JuxAYXpLPHo=;
-        b=MaMNKK/KEfcAlYrf8JJs0ePuf6ZvlU9FS+gWy3hUmPVXahHZz42S1HXipqbMQxong/
-         g4lTCnBWZVxAaYsC+qhmBP1Dv8whZpJ1K7eRJDuu+U2ctk7UIZZDvp5odWhyFZYQZraT
-         qvzu7Uygk04V2nlAF8vGjBT06JsA0Wtu4KBowCB6e1sgGvNBflh3uxYL3PEcp8KBcBlz
-         dU4P4A+z4ub2vUGmb+YssgmrHDhMNikwAoUaV4EKohZRk5fvhbDgX4A2fSac0OJfRshZ
-         1cD5fJzDNQ2MS/4dB42F+4EplWd0dQn9F4Mi3sDQyFWsz0Vicxh0rtSV93979/oSc3W8
-         XklQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793617895; x=1794222695;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XLIl6X1z8YQm2K5vGZ/P+IEtPgFQw1b2JuxAYXpLPHo=;
-        b=UcFpTLtPNBtuTV/5QGBCN7Kl6Np8Nip3zcqoGUakVPN5AC88koM4VYc9aoaxwNrBnt
-         juXYuMU7PVKbRr4bK0/+Qam2KvIt7DZnBPO4G5Rn+FmtA17bR7I4P6gCkRDd+Q9WprSD
-         UBOvdLSg+QvHgBfk9AqkXXGzB3LDdDDfdaPPGcvMK5ToCvAtqM0AgsL8wY4kQWjHEVvK
-         cmBrNVF9VVdqxkx16YHtLXZgpEFIosg52LB2pf05Ruk3b/y2bWvoBEswgpnd77Grmw4G
-         Xx1Nn2CQCPztN1RJrnPTpRLr2bzW6q+Fn3a9TsxsaQ6mzU1REVOiDGmx5A+5pjbUHxKI
-         zuuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwz0AAXDwU/RMQdFwZSeGoJukzo85PS5tRiopt35eNrdNf1uheilwpI4MbzQ6zZSvxnixv8MWWmLKkgHp4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIms6DslIAFTYPKtgvlGkk7OA0Em8rxpBRlps7AWFBcQwfL+slL
-	UXMrR1ZsDLUoF1Cy97LtW6YVRpyOzLucu93BOocaOVVWJYFtb0vFwsXdDu+jQGL2VsQlHIYod4U
-	e1LC5GnE1YxUX53+BVdj8f4P9TVxmRZezokz/EyCP7zNI0eAMmSdC/KypXvqX1RxtN40=
-X-Gm-Gg: AYBFou2F91gNmfuzoyVJtn1NbNWk2kkE4+J7oGkHQZI4giJoS5iOLJk4czM8Ccu0H+a
-	D9caRCDu5x1gKbZp/38pbU13TwCqPN+43Q82KKa+/5YLtT0g7FUt9ao48A/DpQuAr6aI3QwGO+h
-	+D45MN7Afasd36RJkulFMSm0PKA8bYqOUGvB4GL4gOgigrbmNojtchX1syuKV4P9nrZr2a4rDjU
-	nhglq2FSrrNN3rOsM19yFLINF0gil77BXpbR527ZkezmzTME5aijhrCBDfNG1QUvhfVgGulqCfM
-	F60fC2Ya2k6UQqy+kk6XQv0Im7TwaNBOdVLTMjrAbdUX/ei3As5Ke4U288atJKdE3WayWYWndyz
-	6jjrGGGb8sKLyzH4JJnTtqitFMOdgmq8RCibfrbYaoZBJy161uYo8KRQ1IoIOZTd1Jdckluc=
-X-Received: by 2002:a05:620a:8795:b0:93c:61e0:81ff with SMTP id af79cd13be357-9442155a11fmr1437723585a.1.1793617894699;
-        Mon, 02 Nov 2026 03:11:34 -0800 (PST)
-X-Received: by 2002:a05:620a:8795:b0:93c:61e0:81ff with SMTP id af79cd13be357-9442155a11fmr1437719885a.1.1793617894020;
-        Mon, 02 Nov 2026 03:11:34 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cd291a96csm140778066b.13.2026.11.02.03.11.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 03:11:33 -0800 (PST)
-Message-ID: <a9670d6d-28d1-4fa1-8562-0a23dba74336@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 12:11:30 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BFAwBKbw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CC871F00A26;
+	Mon,  2 Nov 2026 11:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793617911;
+	bh=tQierFXrtdBxsv90Wvr5GLl7ZIg6QP9xO7JbeTEr+Xw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BFAwBKbwGTlz0Mn4enaQSgX8dTUg8pp7VJO7rtcJP9h8ODPemnCLR2eNJMPd38/pI
+	 o3ypw45HPEIawjkPWwjC7vpedMr/rhrB556WMYHevVOUGn2DSZqM3XyTdvy9xaafGs
+	 d+/SQtsBFnDZzf2np20BbCeTeaBHQValygZuXcE0jqxRoGvyrwoaqpftP2ml8O9MU/
+	 0HATVm85QPYzXDyRzMncrpNRNw91wJIj2+fA+lGi97MgKvO2KPKjh0YegXTGOM4QlH
+	 zeFv0Pn0ofxsDPqODF/sKmuouK59j9ZhHiStG+T3gwfGMbUvELpg99pmqo5mqiQtDr
+	 OUMAd/jT7HUPw==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7A9A5198003A;
+	Mon,  2 Nov 2026 06:11:47 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Mon, 02 Nov 2026 06:11:48 -0500
+X-ME-Sender: <xms:8m_oap1pn22irz7gCc14BXj8OEqUpwx3JaQztnNOC7KHO2BMy333Eg>
+    <xme:8m_oao2hpwX1d8FZPJSOjgh5MInTWJxHlbjIquzEsa5ouO7aByPoj37Jp-SCbE9ou
+    Nx7vfKB-Oa4pHtVAHO_eH4WUmfTl6goBh_HywHjHO3FzyOQfPRy7n98>
+X-ME-Received: <xmr:8m_oaomWH4ItRcaBeR3WStFTWfJK0mu8lLjdJPwJHfA2OBb4biLzLTw2OPw>
+X-ME-Proxy-Cause: dmFkZTEK1+02a4zp88u4Tj7j1xR++eJHRcOeZsjArkkCuSqZTrG8QN3et3PJ5Yhpp8JgOy
+    tSOq45tZMVN3zAAAPAjPYdiYp4+PM3U5Ilw/Pvtw7Ftx3GpE/TzxD++/NwBVjZwRlAofk7
+    pgG6siSuYHP+MNHzb/HomkI1yVPL+oawmIR9pZi9gWP0otMusCPkQ232d0l/98yOZyjaO8
+    HCSiHgy4dMxZTYLPkGusk7UMm8k5Wt2nCqc9q31PZ/V6ihq/eUyqlvPexGPv0hMZ1E+YGx
+    sYu7Zoyhe+tajg6s4E3RIIUMBh/H9WcY7aPjBvRgJ+f/iJ4hRlMvNuh74OMKCJAds2lDaw
+    LuHKwEP2phflf9q4kE1iwNJtNjh7Mpe/RdmadkWMkn6nU+Wb0hAdhkVdLAVbDQIOIPTSkB
+    lKxK3Thu7rQlxOUPlh1jbY0wFMZNQpWVLZO8yoh/UobjpsE+YBH8Gm+QCT+dRaiS+FcvdP
+    zkcv0QSHR1X6YeFjlgRImzCdCwdeFLmZAWzMlz59bkHguqNYREG58mLEZ2yCI5P0Fx7ld7
+    0oN+qmyXHVQTlWvextupVYS/txj5aUgCi95wcxQcH7qyY2K7M8bHoBgwfMTdb5Rjozx/jc
+    qNE9yUW3AJqwqBNA5BKKdk/cxyRYVf8/3eXZjLEoHkP9zWRSitoidzhZiOeA
+X-ME-Proxy: <xmx:8m_oapPFGL__hvcoMqMzBnRZ-INyOEygljbY6EiycThk6Y0F6l6DsQ>
+    <xmx:8m_oav7wSNhrP83Arz50u-l3HyYq7VbGbdKXaWdvfmj4GLR7kpXEOg>
+    <xmx:8m_oas2GsREdtezfri6lt-3yakSD4672zKA1Jdet-JKU7ZBgwJBZWQ>
+    <xmx:8m_oatqcVCgLulftk8UoOuP943tkcFU81X7byj4o9pPXmFkdhPVZtQ>
+    <xmx:82_oamkCzupz1ocn0mSfB1WUaZPNn8heBXCkh_JvDXLF73A7bEu48WfY>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 2 Nov 2026 06:11:46 -0500 (EST)
+Date: Mon, 2 Nov 2026 11:11:45 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, shuah@kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	yeoreum.yun@arm.com, ziy@nvidia.com
+Subject: Re: [PATCH] selftests/mm: handle child status safely in khugepaged
+Message-ID: <auhvkuDO8cP9Pip4@thinkstation>
+References: <20261030215841.229969-1-ampr.mhd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,90 +86,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: glymur: Add EC thermal zones
-To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
- <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
- <e77c0255-6299-4718-aaa6-04f4366fe749@oss.qualcomm.com>
- <5d84ee1b-a765-4d6c-ab01-ca1a06a0e3d0@oss.qualcomm.com>
- <c3de7659-726c-4fbe-989e-148bcd13bc49@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <c3de7659-726c-4fbe-989e-148bcd13bc49@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MyBTYWx0ZWRfX9Zj19eRlWLWE
- t4RpYWwOP1kJTJtfAsFIUseWWf+3B3pAcgRbWs2eb74LbHUk6RzyXmEueLlaaaWuljnVvj1L+FS
- NGbuKypjUD/NUMIsulvEv5nRPwZjkFZReTu3Z4yVNtBgQ+DCa0NK/WjBZxcN+QfHldXQQjn9C88
- XUipjY7gkX4RZsoTz0f9jgEuj2j5t05kbm3argUfU82UoZdEch09+x2usFjBe9wCQywkQ/wNIPK
- IiINRkzG7ZYokKR5R7msWtc/1I9WO4k7iS/86BthkbVGEpCP4x4ceVfK4S5JxPqN5XdKAvNSeFS
- y8uGfuZSUvclhWut71fL/qAkIGjZYDxBij85gDXfiqHKQ0cvjQEtA5igWdtkynpY8znDw7hTIF5
- jqIERxh/MPPCpKFaxlzpCqdTnYVTq36jhqZ6UxutGXcWSpZnFDdUmqZhQV+Ue3zXaXXklSYcOLr
- T5C9aU5Ns7IPHViwAaw==
-X-Proofpoint-GUID: jtvOd70QlZLvoTEtJD4NV4tqjx775WCK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MyBTYWx0ZWRfX75DjEx3jOsji
- WANUUTcb+5RgTbx43IVlr+goqdpw9EMsJ8xyDX5PbTN25Y+zj83NFNSreZhNXZE1WIxjOcPjAtK
- CRdJP4DWuJ/ScI0hSy1LDU/o9swm5/Q=
-X-Proofpoint-ORIG-GUID: jtvOd70QlZLvoTEtJD4NV4tqjx775WCK
-X-Authority-Analysis: v=2.4 cv=I9fw19gg c=1 sm=1 tr=0 ts=6ae86fe7 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=58eKMYwWEGuKRL77_XsA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 phishscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020043
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030215841.229969-1-ampr.mhd@gmail.com>
 
-On 11/2/26 12:06 PM, Manaf Meethalavalappu Pallikunhi wrote:
-> Hi Konrad,
+On Sat, Oct 31, 2026 at 01:28:41AM +0330, Muhammad Mahdi Amirpour wrote:
+> The khugepaged selftest reports child exit status through a shared
+> variable without checking that the child actually ran to completion.
+> When fork() fails or the child is killed by a signal, the status is
+> undefined and the test can report a false pass.
 > 
-> On 10/29/2026 2:38 PM, Anvesh Jain P wrote:
+> Capture the waitpid() result and distinguish normal exit, signal
+> death, and fork failure before interpreting the status. Report the
+> child's actual termination cause in the TAP output so failures are
+> visible rather than silently masked.
 
-[...]
+The bug is real: for a child killed by a signal WEXITSTATUS() is 0,
+which is KSFT_PASS. The parent goes on with its own checks and reports
+ok, so a child that crashes in the middle of the collapse goes unnoticed.
 
->>>> +&thermal_zones {
->>>> +    ec-back-cover {
->>>> +        polling-delay = <10000>;
->>>> +        thermal-sensors = <&ec 2>;
->>>> +
->>>> +        trips {
->>>> +            trip-point0 {
->>>> +                temperature = <90000>;
->>> This is *really* hot!
->>>
->>
->> The 90°C trip value was suggested by thermal team(Manaf Meethalavalappu
->> Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>). We are open to using a
->> lower value if this is too high for the keyboard and back-cover sensors.
-> 
-> These sensors are intended to be controlled primarily from userspace by the thermal governor in thermald, through the powercap sysfs interface [1]. We do not plan to add cooling bindings for these thermal zones.
-> 
-> Based on discussions with the tuning team, we agreed on a hot-trip threshold of 90°C for these sensors.
-> 
-> [1] https://github.com/intel/thermal_daemon/pull/614/commits/7f3dd62353e039957e52eeb40c67ec388d543ebe
+The description doesn't match it, though. The status comes from wait(),
+not from a shared variable. For a killed child it is not undefined, it
+is a pass. And the patch doesn't report the termination cause anywhere.
+Maybe something like:
 
-If you never reach the userspace (e.g. because you're stuck in
-initfs) or if the distro doesn't ship thermald, you risk physically
-harming the user by explicitly allowing the (metal) back cover to
-go to 90C.
+  collapse_fork(), collapse_fork_compound() and
+  collapse_max_ptes_shared() take the child's result from WEXITSTATUS()
+  without checking WIFEXITED(). For a child killed by a signal
+  WEXITSTATUS() is 0, which is KSFT_PASS: the parent runs its own checks
+  and the test reports ok even though the child crashed.
 
-Konrad
+  Fail the test when the child did not exit normally, and print the
+  signal that killed it. Also fail it when fork() fails, instead of
+  reading an uninitialised status.
+
+It came with bd212a7dbdb1 ("kselftest: mm: return fail when child test
+result is fail in khugepaged"), so a Fixes: tag would be good.
+
+> +     exit_status = WIFEXITED(wstatus) ? WEXITSTATUS(wstatus) : KSFT_FAIL;
+
+A child that dies in the middle of a step leaves the progress line open,
+and the "not ok" line ends up on the "# ..." comment. Could you call
+fail() with the signal number here?
+
+> +     while (waitpid(pid, &wstatus, 0) == -1) {
+> +             if (errno == EINTR)
+> +                     continue;
+> +
+> +             fail("waitpid() failed");
+> +             goto out;
+> +     }
+
+The test installs no signal handlers, so waitpid() cannot return EINTR,
+and it has no other way to fail for our own child. A plain waitpid() is
+enough.
+
+The same check is now open-coded three times, four with
+collapse_fork_cow_race(). A helper that takes wstatus, prints the signal
+and returns the KSFT status would cover all of them.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
