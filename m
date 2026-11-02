@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613134;
-	b=P2L5vownRLwZ7Ks6139JDECG+fRJJTguiLMjM58aDTaIijC9E2wizG6nxNkKmFnb0QY4
-	 AtdcXZW38yFyWPcwXEDvfcfMUCzykr3CRNhfW7s8D8l2mrt7siky8aOJ+i0noREeXdtLg
-	 HYX09291EgQuJheoRLFYe7cnW/q1wtWurKt2ZZzrJ4x/d/hECi9KMnA+giue5N7LQWIUW
-	 07xf3SRNWKLQr3uB6DYbYtyNKcnE2rRiz1bbuPAaBwvGJsEu3fiXjY6fuTp5tcbjMLnOi
-	 PCBA+XyFSdDApGhrOEZYzu09ZDljFLTIJqdnLVOogtbJhmzlIDT6BbVFppd0/sW1WCA==
+	t=1793613148;
+	b=saNbDYlwYsftzmcI3IdxfkLIC9ZlnS1nF9PvXoLPGr/GO+t5XSUAI7C5iWaGSbx0qITS
+	 /ChO5XHfBvkEluXikq0/kA8A7HMr1C8wkADP8bUdnc24rVD9BlznYFMHXLAQFZCBOvhca
+	 3dNC/4/HoB3PNEmUVX2dvXXdYlLYpdEfuDXWkO3Iu/s4GgeYROw9QtZfWx4p9Yb08TTzO
+	 G3jdZJ6X/PqI5x7ZWFidBcEYL9yYD7dzwXy93TzMpkjjGrECfJFgzTsVOy/Ftu4XGj0k9
+	 aK52axYMKg0l67+ILYcXrlA2HPXd/CfdeEQPQsGZntHTUQTBX74CBhkynGA4iA5n9yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613134;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=hZd39NkOwt0spQ0Fc/i0H3+nue4pIN5LVhWFLWxW1TM=;
-	b=tSOCuk4NZzwc9+3b0+b6xImtf1xuyJpiTaqfg2okJhT+XE8KoU7ZzRi79dKyqjJtJPUv
-	 mW+Ueg7+OYfILTEi4Gktb/UGnHwsPnbsBnJL0kfZS6dWwN/iVt1E2+c9EEFLW+h3ER2I2
-	 Q59mh0lhbmYcV3hLhj24HJ23whYgyqOuRKp5JKjI9e5P+OGCYV4X6xhIx3PZXfCIGgE23
-	 1zFOeXiGcG2YaYBq04sna0MghuHdDmYsyrD09afyn1mnYF3yuk2z8ruA9EcZTorb8CVCC
-	 Kg+qkTcMcfGGPtCVCyyfjjpqKrOxZdgCI1Sg3ueE/6fHAzOymq9NQxmnRR0VH51GXCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613148;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=rZQZ9LD31fveDUvnNj2TrbO5PJhxMz1G61FB7GoabGg=;
+	b=zB1R/+4RWaA/BAkN/q9IDsq9fq3jpkrerJ/NkW6Yv7fJg6Uujbs4pbgDzabGqySAljLH
+	 5M32ABl1OmLWC6oP/8oABHrlNbFMpgcaeIi6/cSWf80yJQ9+kkRSS+jDEWLeeynJjtj8z
+	 iO7lk0AzCkL88ajhnNMn5cBqsFwNJNCgMkM4GgQkWYqRks6Wd0VWua0dZ/RO78HGgZewU
+	 sXVzu5tDU5p6IPKwKnRiOtGeMfN8ez+nUC7258h++UMqW8ZmKaYlrvquJmcDV9YTxfzox
+	 7ILRhIPYjvZtqK1TvyD3+jiNMbcZhObIVAPYdROZgdTmyw4Dg/nzsaIHFhp5ocgwqtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phytium.com.cn;
-	spf=pass smtp.mailfrom=phytium.com.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4E9B8606A332;
-	Mon,  2 Nov 2026 09:52:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9B8606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
-Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
-	by hzbj-icmmx-6 (Coremail) with UTF8SMTP id AQAAfwBHZd5KXehqbkXYAQ--.19645S2;
-	Mon, 02 Nov 2026 17:52:10 +0800 (CST)
-Received: from localhost.localdomain (unknown [218.76.62.144])
-	by mail (Coremail) with SMTP id AQAAf8DwSHU3XehqVDv0AA--.22683S4;
-	Mon, 02 Nov 2026 17:51:57 +0800 (CST)
-From: Cui Chao <cuichao1753@phytium.com.cn>
-To: Will Deacon <will@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Wang Yinfeng <wangyinfeng@phytium.com.cn>,
-	linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] PCI: Allow reusing PCI domain numbers in DT
-Date: Mon,  2 Nov 2026 17:51:50 +0800
-Message-Id: <20261102095150.2370959-3-cuichao1753@phytium.com.cn>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
-References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtTdY4e+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A4F606A336;
+	Mon,  2 Nov 2026 09:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtTdY4e+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC991F000C1;
+	Mon,  2 Nov 2026 09:52:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793613147;
+	bh=rZQZ9LD31fveDUvnNj2TrbO5PJhxMz1G61FB7GoabGg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EtTdY4e+ymjbKQD5SPt0J1THvc5M1fEsC7Bbyi06gWTWFkRHSSlDa+oKSiYau/6kn
+	 wWt3hXKgFeaaR3uU7HzfkJ1D/yqZWxg4Ld5M6YjOCnTTnp8R6nikvuZAzeG7BNDcLg
+	 zytDvA5sJ8klM8Wb82edshgglXaScig0Nq6V6/wg5po8LtaUS8rGPiB5FN+3ldaGg3
+	 8uMi8niOy24D2Yvpye4HBCs6y5uIt9xc1B0oV3b+kxNAv9tN9ttLPgI5ayAuwOfFgO
+	 h0cDoDJxDq1q7pLHGprMAtnQHgVVMktgKAsxIl05pB703z42mix7RFhMfoKOZpHwVX
+	 Dq2dRf8781ZYQ==
+Subject:
+ Re: [PATCH net v4] net/packet: account user-triggered allocations to memcg
+From: netdev-bot+sashiko@kernel.org
+To: ahmadag1001@gmail.com
+Cc: willemdebruijn.kernel@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable+noautosel@kernel.org
+Date: Mon, 02 Nov 2026 09:52:26 +0000
+Message-ID: <179361314688.3131.15505744143383263524@kernel.org>
+In-Reply-To: <20261101094847.664612-1-ahmadag1001@gmail.com>
+References: <20261101094847.664612-1-ahmadag1001@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,111 +64,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAf8DwSHU3XehqVDv0AA--.22683S4
-X-CM-SenderInfo: pfxlux1drrlkut6sx5pwlxzhxfrphubq/1tbiAQAHAGrnk0kE5QACsy
-Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=cuichao175
-	3@phytium.com.cn;
-X-Coremail-Antispam: 1Uk129KBjvJXoWxurWruFyrAF17urW5KFWkXrb_yoW5tFyUpF
-	W7trW5ur4kXF1UXwn8Jr1UWFyYkFZYkFWkJw13Kw1kuFn8tFyqgr18try0gFyUArWUJFyj
-	yFnrJw1Dtr18JaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
-	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
-	UUUUU
 
-In the existing DT path, a uniqueness constraint is imposed on the PCI
-domains of multiple PCIe nodes, which prevents devices under different
-PCIe RCs from reusing the same software domain number.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Add support for the 'linux,pci-domain-reuse' DT property. For a PCI
-node that declares this property, it is allowed to reuse the same
-'linux,pci-domain' number with other nodes. For a PCI node that does
-not declare this property, the original uniqueness check remains in
-place.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Reasonable resource partitioning does not affect the global uniqueness
-of devices. When domains are the same, as long as the physical
-resources of two PCIe nodes (RCs), such as ECAM, bus ranges, mem32,
-mem64, and IO, do not overlap, (domain, bus) remains globally unique,
-and the BDFs of all devices are also globally unique.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Device tree example:
-Each RC node participating in reuse declares 'linux,pci-domain-reuse';
-whether the same number is actually reused is determined by the
-'linux,pci-domain' value. In the example, the ECAM, bus-range, and
-ranges of the two RCs do not overlap.
+- [Medium] The patch only partly closes the PACKET_ADD_MEMBERSHIP memcg
+  bypass.
 
- pcie0: pcie@10000000 {
-        ...
-        linux,pci-domain = <0>;
-        linux,pci-domain-reuse;
-        bus-range = <0x00 0x7f>;
-        ranges = <0x01000000 0x00000000 0x00100000 0x00000000
-                  0x10000000 0x00000000 0x00100000
-                  0x02000000 0x00000000 0x20000000 0x00000000
-                  0x20000000 0x00000000 0x10000000
-                  0x43000000 0x00000200 0x00000000 0x00000200
-                  0x00000000 0x00000100 0x00000000>;
-        ...
- };
+--
 
- pcie1: pcie@20000000 {
-        ...
-        linux,pci-domain = <0>;
-        linux,pci-domain-reuse;
-        bus-range = <0x80 0xff>;
-        ranges = <0x01000000 0x00000000 0x00200000 0x00000000
-                  0x10100000 0x00000000 0x00100000
-                  0x02000000 0x00000000 0x30000000 0x00000000
-                  0x30000000 0x00000000 0x10000000
-                  0x43000000 0x00000300 0x00000000 0x00000300
-                  0x00000000 0x00000100 0x00000000>;
-        ...
- };
+net/packet: account user-triggered allocations to memcg
 
-Co-developed-by: Wang Yinfeng <wangyinfeng@phytium.com.cn>
-Signed-off-by: Wang Yinfeng <wangyinfeng@phytium.com.cn>
-Signed-off-by: Cui Chao <cuichao1753@phytium.com.cn>
----
- drivers/pci/pci.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+This commit changes several AF_PACKET allocations whose size or count is
+chosen by user space to use GFP_KERNEL_ACCOUNT, so they are charged to the
+caller's memory cgroup. It covers the ring blocks and block array, the
+rx_owner_map, the fanout group, and the packet_mclist entries created by
+PACKET_ADD_MEMBERSHIP.
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 7c6f2aba8144..245ffb9d2f74 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -6801,13 +6801,19 @@ static int of_pci_bus_find_domain_nr(struct device *parent)
- 		/*
- 		 * If domain is in DT, allocate it in static IDA.  This
- 		 * prevents duplicate static allocations in case of errors
--		 * in DT.
-+		 * in DT. Platform that legitimately reuse a domain number
-+		 * across host bridges (disjoint ECAM/bus/memory/IO) opt out
-+		 * of this check with "linux,pci-domain-reuse".
- 		 */
- 		domain_nr = of_get_pci_domain_nr(parent->of_node);
--		if (domain_nr >= 0)
-+		if (domain_nr >= 0) {
-+			if (of_property_read_bool(parent->of_node,
-+							"linux,pci-domain-reuse"))
-+				return domain_nr;
- 			return ida_alloc_range(&pci_domain_nr_static_ida,
- 					       domain_nr, domain_nr,
- 					       GFP_KERNEL);
-+		}
- 	}
- 
- 	/*
-@@ -6824,6 +6830,10 @@ static void of_pci_bus_release_domain_nr(struct device *parent, int domain_nr)
- 	if (domain_nr < 0)
- 		return;
- 
-+	/* Reusers never acquire the static slot, so never release it */
-+	if (of_property_read_bool(parent->of_node, "linux,pci-domain-reuse"))
-+		return;
-+
- 	/* Release domain from IDA where it was allocated. */
- 	if (parent && of_get_pci_domain_nr(parent->of_node) == domain_nr)
- 		ida_free(&pci_domain_nr_static_ida, domain_nr);
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index cf6429f094772..ec6ab96c4f87c 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+
+[ ... ]
+
+> @@ -3773,7 +3774,7 @@ static int packet_mc_add(struct sock *sk, struct packet_mreq_max *mreq)
+>  		goto done;
+>  
+>  	err = -ENOBUFS;
+> -	i = kmalloc_obj(*i);
+> +	i = kmalloc_obj(*i, GFP_KERNEL_ACCOUNT);
+>  	if (i == NULL)
+>  		goto done;
+>  
+
+[Severity: Medium]
+Does this fully close the PACKET_ADD_MEMBERSHIP bypass described in the
+commit message?
+
+For PACKET_MR_MULTICAST and PACKET_MR_UNICAST, packet_mc_add() then calls
+packet_dev_mc(), which adds the address to the device list:
+
+packet_mc_add()
+  packet_dev_mc()
+    dev_mc_add() / dev_uc_add()
+      __hw_addr_add_ex()
+        __hw_addr_create()
+
+Each distinct address gets a struct netdev_hw_addr, and that allocation
+is not charged:
+
+net/core/dev_addr_lists.c:__hw_addr_create() {
+    ...
+	ha = kmalloc(alloc_size, GFP_ATOMIC);
+    ...
+}
+
+A struct netdev_hw_addr is about 104 bytes (kmalloc-128). That is larger
+than the packet_mclist that is now charged (about 72 bytes,
+kmalloc-cg-96). Neither packet_mc_add() nor dev_addr_lists.c limits how
+many entries can be added.
+
+On devices with ndo_set_rx_mode_async, netif_addr_lists_snapshot() ->
+__hw_addr_list_snapshot() also makes two more GFP_ATOMIC copies of each
+uc/mc entry. These copies stay in dev->rx_mode_addr_cache, which is only
+flushed in free_netdev().
+
+So a CAP_NET_RAW user in a user namespace can add many distinct
+MR_MULTICAST or MR_UNICAST addresses on lo. Each one still pins more
+uncharged memory than gets charged.
+
+Would it make sense to also add __GFP_ACCOUNT to the allocation in
+__hw_addr_add_ex(), which runs in process context?
+
+The commit message says:
+
+    100 sockets with 2000 PACKET_MR_PROMISC entries each
+    on lo (45220 KB used, 124 KB charged) behave the same. With this change
+    all three are stopped by the cgroup's OOM killer.
+
+PACKET_MR_PROMISC only calls dev_set_promiscuity() and never reaches
+__hw_addr_create(), so the reproducer does not exercise this path.
+Should the commit message be narrowed, or should the device address
+entries be covered as well?
+
 -- 
-2.33.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261101094847.664612-1-ahmadag1001%40gmail.com
