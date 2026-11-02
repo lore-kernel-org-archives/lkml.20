@@ -1,63 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793611447;
-	b=mzT+xwMxKnogEvlXd+L22Yqv6S16Xu+jbpi7s339xlrCj0N5/f491/MGonrdRlAdFGhV
-	 9YR5KpSj6POlS0TtPyldEUiyy11bKhTplAvA1wb1Yh0XvkXb4IGc/HXa5X6yES1S1MWPp
-	 rWPwYab7XGgyv4iliXjQ/8n6GMo29qXvzbciUordTjY7XdsdP4EUoPfCGUs60AAo1C9ix
-	 ZjC21Ruv1mHFaOq8wDecJNUDWbY0dX0ZtOYnIIXnR0n/+eQgdLcAQo6TYcHaY+5f2xD8k
-	 YffpzdnZv8iEin2Rmw9W66QhoXBmejXtMCKQn/twjB+++xY2j9TQYnqMgm2BuQ96HCA==
+	t=1793611462;
+	b=CbovOhE59wysIKKsf3eDurRd/7cYvpbRlma4Anpdj7hO5YJ5Ziy99Sy6O8HJdDGzT52D
+	 9ape5es9o9630dinfcUhdF+QUUGfi5h0R4As4vx847+3fHoCQ9GEhBJRtQWjYQ6YGKnB4
+	 oqBgUAqqbZsTjM7DcSv1D13KZfD/pk72mGGWEn7MYI5CSZsIbrGdrezVjjgla0w4Ss2oC
+	 0d2cbKaK/HfGjDRgu1mo4z7tkYukSaeea5ZwsT8e7FxUDN25qj08OmzlnKbPTt5YOGrG2
+	 MY5pgdXKFzsWeNDESvq6BXSmyXAtbZgWKpwiwX1541JiOHiRjbGAG2AnIWsAnL5116A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793611447;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=f2W5mYDF5OyICWdxbTulTo2Xs0l8NIvi3HpphFNiK5k=;
-	b=kwdVI8/4gMOfh/gu/XVFsgrYvuny+0SPfx8GC8C3Yxqnf7czeqIBEZ4ONhJ9Zta41N6w
-	 OW5wqmOMLstRScCp5fyj7ftmb2GUhd05Bzxv3u/mSd6vNbtajGZ5V1HZAuW9qW2s1WOFk
-	 qsimlZGBDuK6hrYeA62wLbEz7f7SRR/6bM06HR/RA92Qfjvl8f/B+y/LKTovTHso06V/2
-	 pWosvbSzEom+ZD2PHhmMJcLEIZCZ37UdkWdpLE1h1FcrSTJsfZTnOZ9Qy/sD7d9u/mXGG
-	 cf0I4dv9vLDSn7Engvdd77d5Xs3zbpRdueKq6W/GYjARwNkLW14L4cTxCJPL/JtCh4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793611462;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=9h7Gytq9HCPVXq2/X5UCkV4eCMg+CFGh9wukiXakeb0=;
+	b=fnRkfY6ZN7P0mqUSfRTOX8Z7RIzbBaMz2NWl0ySyOyVerY1kKBOxNRs8XqiEjKHTNbM5
+	 146BWfSjyT0e3FNAiA9dtuXTLrV/w9hgvkVDJ4N7kEnBLNVa+o0vHJsk4p+z7a75JJtjR
+	 16iQXsyV5pb+yVFcNCdWQI1a3N2TKNs4edvYxsrqCbe94LdNgsshLam9MR+NCoRq/ADk4
+	 RpookbUZztmLMnlZKYQnZ4sNVpN7CjGPkbh+HRnllXVFw5rum1EaGf5b7e/HXc0pq2Sa+
+	 GEU7aFQsutTilRG0rpAEEUXuS0OuD+q3sKSor/397W+2dpUeyUlJmH+WVCzSK4agIWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBXXKqgE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABB3606A32D;
-	Mon,  2 Nov 2026 09:24:06 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JPCFEXT9;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 814F1606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:24:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 814F1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBXXKqgE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591501F00A02;
-	Mon,  2 Nov 2026 09:24:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793611446;
-	bh=f2W5mYDF5OyICWdxbTulTo2Xs0l8NIvi3HpphFNiK5k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZBXXKqgEs3cSEuo6JJMv4uQVYjwdPeUgKfOBFx3sGgRKSwaV7jr59rwXU6tl4kL1f
-	 UIlGzQEfsGQkHOH/TbbDmLFtZg8Lg5fdSCTziFBdnk6TsVtI5yXd8hryFE0Ipc+XR6
-	 jJwyfimv9DUYz/zcOWn3gUb3rQMyTHBdKf3AE1AilwXPZhOf+ikg0TX9pmlQWbt4p3
-	 ZxklufKeISTuCfcwr1O/n49giKkDK76NYcCUf7r480LRRgWGND519LzVuzJFnKMhbQ
-	 jEx/+S+Q2WxLeS4zw0Vr4+AL7I6IVMMHfFAho+9Ili2hsun175IqIkvSxRP6wDwmZG
-	 02nxh+L9gixOw==
-Date: Mon, 2 Nov 2026 09:23:58 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] mm/compaction: stop repeating failed async
- compaction on every THP fault
-Message-ID: <auhSzBcVE0M23miL@gremlin>
-References: <20261102-bug-mm-thp-async-compact-defer-v2-0-b407e974db54@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JPCFEXT9
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 649281691;
+	Mon,  2 Nov 2026 01:24:16 -0800 (PST)
+Received: from [10.57.66.79] (unknown [10.57.66.79])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6574A3F59E;
+	Mon,  2 Nov 2026 01:24:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793611459; bh=K1Dq/9I09sZWP43Xp3qaEUYCa73+ATXolgz26YaJ1Kg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JPCFEXT9IuhR/bA6QW0TCqOFPie0SNczPkWArQ6j6p0psmc/2iUd7C/NPS16WhaKp
+	 3cc3n6plh2RtDLch0kqOTRqVcBbq/rlqSlLfdjQDTmB6aMkQVzO49B4ttqZOiq+hNn
+	 R5IowOwJBmzGd6XgRc/uRmpDWyYXTDJM4Lx+WMe8=
+Message-ID: <07d0afa8-1b9a-4991-a419-9840cf629d57@arm.com>
+Date: Mon, 2 Nov 2026 09:24:15 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,19 +53,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-bug-mm-thp-async-compact-defer-v2-0-b407e974db54@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] KVM: arm64: Clear the VM's feature bitmap when
+ kvm_setup_vcpu() fails
+To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
+ Oliver Upton <oupton@kernel.org>
+Cc: Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Zenghui Yu <yuzenghui@huawei.com>, Will Deacon <will@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Jack Thomson <jackabt@amazon.com>,
+ Congkai Tan <congkai@amazon.com>, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Fuad Tabba <tabba@google.com>
+References: <20261102075843.2556018-1-fuad.tabba@linux.dev>
+ <20261102075843.2556018-2-fuad.tabba@linux.dev>
+Content-Language: en-GB
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261102075843.2556018-2-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-You had 2 maintainers NAK your v1, why on earth are you sending a v2?
+On 02/11/2026 07:58, Fuad Tabba wrote:
+> KVM_ARM_VCPU_INIT records the requested features in the VM-wide bitmap
+> before kvm_setup_vcpu() runs, and leaves them there when setup fails
+> (e.g., HAS_EL2_E2H0 on a host without FEAT_NV1). The PMU attributes
+> read that bitmap before the vCPU is initialized, so after such a
+> failure with PMU_V3 requested, KVM_SET_DEVICE_ATTR on the PMU group no
+> longer returns -ENODEV.
+> 
+> Until an INIT has succeeded, every INIT that gets past the feature
+> checks rewrites the bitmap. After that, kvm_vcpu_init_changed()
+> requires the requested features to match it, so the copy is a no-op.
+> Clear the bitmap on failure while KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED
+> is clear.
+> 
+> Fixes: 427733579744e ("KVM: arm64: Select default PMU in KVM_ARM_VCPU_INIT handler")
+> Suggested-by: Oliver Upton <oupton@kernel.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>   arch/arm64/kvm/arm.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 157bf4b812020..3e91e01b032c4 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -1856,8 +1856,13 @@ static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
+>   	bitmap_copy(kvm->arch.vcpu_features, &features, KVM_VCPU_MAX_FEATURES);
+>   
+>   	ret = kvm_setup_vcpu(vcpu);
+> -	if (ret)
+> +	if (ret) {
+> +		/* Clear the bitmap if setup fails on the first vCPU to be initialized. */
+> +		if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags))
 
-For avoidance of doubt:
+Is this check necessary ? We go into kvm_setup_vcpu() only if the bit is
+cleared and we do this under the config_lock mutex. The flag is only set
+after we have finished the kvm_setup_vcpu() successfully, later down.
 
-Nacked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Otherwise,
 
-For this and any future revisions. Stop sending it.
+Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-I have no confidence you understand any of this.
 
---
-Cheers, Lorenzo
+> +			bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
+> +
+>   		goto out_unlock;
+> +	}
+>   
+>   	/* Now we know what it is, we can reset it. */
+>   	kvm_reset_vcpu(vcpu);
+
