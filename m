@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793592097;
-	b=ZhhOUz/SJUEOpZ4dS8z6wk+3JcYCbAcyMiFk3sNs7MicEaqo/+/r22yu1ZBw1LY+6FRv
-	 sE0dBarB0dPZnqkanj99K03aOQ/we8+TSJlv/BCmnmqz9tYuc+3RxWH5GcvrM7hDNAMi1
-	 TKMPwVKysnriEBJeZhh8MRIhysJSB9VREXBbU2YFooT0KFIsC3i5pGkHYyYW1W5eI+hYn
-	 vKLf0rhHjaQpVdYikCk/5B8re/ojEiTNtDl2wjuejCHrbTDYyw8b5wvheUKqInKrVMagy
-	 x0nEP1NwQHRjXNK3cnGPZ9iR11uiCe/2eAnYEL+HB1R2uXI/rMP3Qp5nZr17fB75izg==
+	t=1793592102;
+	b=Ul/s914fCP0fBMIXdJH5ns7+u/T0fw8CHVkP9Sy1ouV4cPwSx5usfd0G0AI6XXudgzNS
+	 4nxxgNBLcMXW6OVnHJARtDagBYe1HUuxG+Bh+BDQTZOsf/5dGcJ37vY5sb9MbJL8ydzQV
+	 o4gS6oOqRw7DqfIJ9f1KFEbErjDBwNe9PSeuQNHP7yNTCveJpQj9r8qVfkgyWSazz12PN
+	 /r+K9BBUN6/LzBz1yPjOZ3E0cLzXfHvoOpN34VO4PH3cGqPgoXqqKILJ4yU4UjD1kATW3
+	 759XqmFFhb5/kPLgZeLAgA6ndH/j38ouTJv9G+g4LInDRqR8HoKbJFOYY2n14lPba7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793592097;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=9GuEW49aZUzLgO1IBi6JN1m+bJNtvvMVZK06g6wbN2g=;
-	b=y7vIxV/lyOh8uG2x2XR3cpTPvf9ExdMkZDAEwP/ZM9A7fCav5pz49z13L7zecQOM1dkO
-	 hjfKJOqEkbpC0RzsovJQg7pb4BA/V5fONGbO7HXVA8hI1SIdjQBCKUimu7B1KlHGj/OOj
-	 hXAKbW4ET/hFO6+oymdoSla9TnycBV4vLQI1k/VzGKRBJ8E/yaVOHPR9DqTOmNUJoI5Ub
-	 oxVIaY2TYMdB7m28eh1SM/+LNs00SluLtAb6A8bBeAEMk/jQkHxc6yJF6h7LF7n5FthA0
-	 hXEDdtZfDOElq8iQsHQl+pFFWDolQO9vV1kukSCVRFvH+pm1dO6ckhjtcEVTBPkeqLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793592102;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=rJsujGhmIfg0M1nfxpz1FUwugLAGgTizQiw8oL16hBk=;
+	b=H/9XdoFpu8gTUBIC4p7cUegqzYaOhlVFK3J9eOsejt3cxRvL1J09Sp+oXQVHR5yvaXPg
+	 QFhy9r3ZMxUQ2uWEanXALZipOv3tR+v+kzp7HTuVBzb1MwRw6C3roFX7jO2qVNYvdjA1l
+	 v/TqNKuZGvexmIc0OUkzU2TMgovJ1hqnB5H+P+c2l7LEUwHOoNmG9RDNbDHbdAT0uzYY7
+	 5oImwrstXpIdQ9IEsCBxqFcbzSDtoT033vRXyjbbN4rXIZcgXMRYDVPke8VhjPwRv3wrd
+	 gEtXhwQ3VbaYLlgzn1N5daC2hW2mmTALdY+KApXmrOJZ9ilXYH0/Vi7dbi3gwkvQLtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.161.72
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FpEdMx2I;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE04606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:01:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DE04606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-702f912301aso2583044eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:01:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793592096; x=1794196896;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9GuEW49aZUzLgO1IBi6JN1m+bJNtvvMVZK06g6wbN2g=;
-        b=JbLBvoUUStg/fR1umtRzpIj9rFamnak85TVMtKo/d2mmYvvQVuSplW2EooIgU5KB8K
-         WtkyISOoiyrNQ+xgNkxNnhmP13lS9pQ0okhIhHbPgKsDjKGeTR7AocZ0eHFOpcYz4uAp
-         g8GQNGkPZeN0sTSBd8q3o75dtwi6PtMZ6F/8erWmDfRjKc81cJJjIVHVEWsLRmBzTO1O
-         AV9H/3bB9LENCqjYSYfhm7F1RDNhHeaVijVTlCQB9oUy3Um1RET8nnCyq+yNVZxJH3f+
-         M2kGsliuDyGJxZvaC7HrjD2bzaMAM5WCO8jAgI3VIjLazXlFN/cCMI63VsvIO14NVrJF
-         Z1vA==
-X-Forwarded-Encrypted: i=1; AKwUvByoLfAHpGkNzF+GDIP4i6svtI9+NiGMMGC3/yzcg3qiFvayrjSTT+NupfcwxOcoA2nrz1x1kpJIs2iH+94=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ+DnnRqRiPWU+b0bW6dFMbxoD3sWPzwIcDoMbSQFHEz+yovCe
-	XatnEQ56qL+GzAFVOByrc8W1a1cuEvqC19tezHM3cEkP9H5IDwWmk6Qag7uTK//EfAUas/5P1wZ
-	f4JQz0DIDSNH4583TxN1adVcCmAcwlgRR3c6h+xUa+XegTgFXEyuDQ8cLV2Y=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F93606A324;
+	Mon,  2 Nov 2026 04:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FpEdMx2I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20F81F00A16;
+	Mon,  2 Nov 2026 04:01:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793592101;
+	bh=rJsujGhmIfg0M1nfxpz1FUwugLAGgTizQiw8oL16hBk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FpEdMx2I5+ceu7sBQZLB/B0VWWshjKrDfstmqz7xC22h6jYnF05dMMZMWuyBLp9hm
+	 dKwtS75saOboZ1YXZv1LBfXwOqQ9CfvnnfK6+AwyavQRsofVSqazBAPQ11MqKxOTCx
+	 kheG78D6ucGp0iz6ETMoBgpfHDEYuSph30E3XUUnaaYisJZ2h8Byz7ljM/NkNm5SrW
+	 HhgGt2/DGavTHCP+aPDjmCLWuhS2gUEsMd0d0Cl5eI3bXF8tCRjr5FlQWPnL6HTLyN
+	 AqavkpFFTUXL7U+hzUHZcForUcyMXs7Ha/MO2fjTcu019JWdfqIFAVR/nwHKcuP8IF
+	 LlDLbT/GMQZtQ==
+Date: Mon, 2 Nov 2026 04:01:38 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Satyam Gupta <sgsatyam@google.com>
+Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Scott Collyer <scollyer@google.com>,
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 0/7] platform/chrome: cros_ec_sensorhub: Timestamp
+ wrap and drift filter fixes
+Message-ID: <augLIhP4jcY1CCf0@google.com>
+References: <20261029092846.1567475-1-sgsatyam@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +59,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:a507:20b0:6de:1071:8b18 with SMTP id
- 006d021491bc7-714f29fa7c1mr3121380eaf.75.1793592096008; Sun, 01 Nov 2026
- 20:01:36 -0800 (PST)
-Date: Sun, 01 Nov 2026 20:01:35 -0800
-In-Reply-To: <6ae402bb.0c1d3ab6.e3d48.006d.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae80b1f.c8ffc79a.e3697.002e.GAE@google.com>
-Subject: Re: [syzbot] [iommu?] memory leak in iommu_fwspec_init
-From: syzbot <syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com>
-To: iommu@lists.linux.dev, jgg@ziepe.ca, joro@8bytes.org, kevin.tian@intel.com, 
-	linux-kernel@vger.kernel.org, robin.murphy@arm.com, 
-	syzkaller-bugs@googlegroups.com, will@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029092846.1567475-1-sgsatyam@google.com>
 
-syzbot has found a reproducer for the following issue on:
+On Thu, Oct 29, 2026 at 09:28:39AM +0000, Satyam Gupta wrote:
+> This series fixes how the 32-bit EC timestamps are unwrapped, and
+> several issues in the filter that converts them to the AP timebase. They
+> caused sensor timestamps to be off by a whole overflow period (about 71.6
+> minutes) after long gaps such as suspend, Out Of Order (OOO) timestamps,
+> and large gaps between sensor samples during batching.
+> 
+> Patches 1 and 2 handle the EC timestamp wrap across long gaps. Patch 3
+> fixes an off-by-one in the filter history shift. Patches 4 to 6 make the
+> drift estimate robust to interrupt jitter and to switches between
+> streaming and batching. Patch 7 drops samples whose timestamp goes
+> backward instead of re-timing them.
+> 
+> [...]
 
-HEAD commit:    46fec1c3029b Merge tag 'sched-urgent-2026-11-01' of git://..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1263dc8d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=441b6cc593d83cc4
-dashboard link: https://syzkaller.appspot.com/bug?extid=fe84fc6a684e0beb86e2
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=107b1795580000
+Applied to
 
-AI-generated root cause summary:
-A memory leak of `struct dev_iommu` occurs when `iommu_fwspec_init()` allocates
-`dev->iommu` via `dev_iommu_get()`, but subsequently fails on allocating the
-`iommu_fwspec` structure (e.g. via fault injection) and returns -ENOMEM without
-releasing `dev->iommu`. Furthermore, callers such as `iommu_mock_device_add()`
-do not invoke `dev_iommu_free()` on error from `iommu_fwspec_init()`. When
-device initialization fails and the device is released, `dev->iommu` remains
-allocated, causing an unreferenced object memory leak.
+    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=fe84fc6a684e0beb86e2
+[1/7] platform/chrome: cros_ec_sensorhub: Unwrap sample TS relative to FIFO TS
+      commit: 5d4991976df243d2880e06424c0c91fa05b403d8
+[2/7] platform/chrome: cros_ec_sensorhub: Reset TS filter on EC/AP time mismatch
+      commit: f2d353ccd15d5b12aaffab63539954c8a2a5898e
+[3/7] platform/chrome: cros_ec_sensorhub: Fix TS filter history shift index
+      commit: 19bc5f68e08b6ccaa3682808e46933784db577c9
+[4/7] platform/chrome: cros_ec_sensorhub: Clamp clock drift slope to MAX_DRIFT_PPM
+      commit: 3c127f4fa7b40ebc8a0777f55f1bd992a3668968
+[5/7] platform/chrome: cros_ec_sensorhub: Reset TS filter on ODR or mode changes
+      commit: 2c6a906d46fbd1f2e4a841e6ccf26b2e531fc6d5
+[6/7] platform/chrome: cros_ec_sensorhub: Increase TS_HISTORY_BORED_US to 2s
+      commit: 8ecd9cc825eb111b60372a990217cfaaa1f453ac
+[7/7] platform/chrome: cros_ec_sensorhub: Drop sensor samples with past timestamps
+      commit: f19a0c420750d232fdd4b91848f0e12a2911fa53
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff888129294b00 (size 64):
-  comm "syz.3.20", pid 6865, jiffies 4294946901
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 0):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __kmalloc_cache_noprof+0x35f/0x3f0 mm/slub.c:5676
-    _kmalloc_noprof include/linux/slab.h:991 [inline]
-    _kzalloc_noprof include/linux/slab.h:1312 [inline]
-    dev_iommu_get drivers/iommu/iommu.c:408 [inline]
-    dev_iommu_get drivers/iommu/iommu.c:399 [inline]
-    iommu_fwspec_init+0x20d/0x240 drivers/iommu/iommu.c:3086
-    iommu_mock_device_add+0x29/0x90 drivers/iommu/iommu.c:385
-    mock_dev_create drivers/iommu/iommufd/selftest.c:1026 [inline]
-    iommufd_test_mock_domain drivers/iommu/iommufd/selftest.c:1068 [inline]
-    iommufd_test+0x1a97/0x2ec0 drivers/iommu/iommufd/selftest.c:2104
-    iommufd_fops_ioctl+0x1ed/0x370 drivers/iommu/iommufd/main.c:556
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Thanks!
