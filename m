@@ -1,72 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630642;
-	b=YMq8gN0IBGhrvU3pbZ886m5rMC03JnkHtd0UxNxSssk21nU5/FW6anUqjKZEjm8CZOk5
-	 TRvgRdE0kAiRwmqNNygNWcYY/Vx86QCg42ZDuHudgagclQPC6j0jCGu47tz2VprR+mRjN
-	 3leVYZgu/Tgv1uWtJqQC8eibqBVeAqnUWgY946QDvP2jkuGHSInY+UssLtEU3/OkFl8Km
-	 /kTrG8coqbQk0cDphXkVCG2ky9jMA3LEKPaHehR0lwiUIuqpOiX0775S1X2iZwMspxUJB
-	 FoLP/se1rrLbz27vxQQfHBMNNAa9iyYgXUCozeD2MXmnvkHu3/oNhjud2Q9T9Bvcvhw==
+	t=1793630641;
+	b=3+AFxMudeB/sNrZDRa4zWbY2Z7T9Pq+IzUQ/5ywuvuLl1+FMMu3/mqrekNmKfGSFBNaT
+	 OyaI5NzU+S46ue2rEmIyo/U3DKEYH4PqF8nQ4J0o+GE/Vcop+O6g6HEKuh1ZLg8nRZZ6c
+	 /on/ycf0FEh56PI8q2GqxBQFDjd87uM+35Ox5TiS09AF23XPR2i8GLnqw8Kc0PJiXKnEJ
+	 UBTaf7st5ILu+s/sjQUoLJjuUUMEquwnavT0kbRjRzc+bj+SL8FpZf1Xnn7rvIxU6Rjpt
+	 ZCIPOro+JcScle9pKInLb1E1tErCxjWqUGuzPX6nOyUo3ZB2wcY0kA1jsSn0vt5oAUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630642;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=ttYhK6jUPusJuGaeAGvRsh71O08mbU+bUHnO7XzFxWA=;
-	b=RQU7A82c2ERlO/FPu1eXOGc/TEO+VdhaYorik6H7inOgBH8aQTUAncXFA7TQR7FH+JM4
-	 Y1D3Hxhu+d/dwgX5uwT+/aGYrO8nCpxU6jFVrejBGKqhpgzI4YFD8+TPbb2dDQzl7DG5s
-	 3MTtRERxCV8/49E8eMVJUYdpvpR21WRxbgRTDpaStPf4zSFJHPDpq13AE+iMg1+PFtnDc
-	 EIahiVsdm/bMECMu75OHHAQ2cA2RbVVVYuDC2PluhMYsh8MZFaXOom5MajPxInVpIz70D
-	 A6Bcojpqy16x6hqOhq/0hyJ2V5AaOxBCWTee1nHWqak0gKwc8GW8/yA38htmxYr66Pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630641;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=/Q8B5R3zHYdiDHrLqIglqhgWhN3VLwZyGC1yGSnzz5Q=;
+	b=mi/Kg0o7dZCkrsFrHOgZmqQI1ganeROLLrNbkqY0zpeGFSqp3zrgCh2xRdRyio+s1a9p
+	 nDtImXGNqTxoY3zOpjRzxU/f37+/q1YWRwU0HWKcAIm+Qowv2pqThjeNJo3uGRMrbvbxI
+	 hw1SVZi0CpKCrmpc+QEJeqWACctzZOlmhQashx1iyBjt6lSkWpKajZEZ/sOLGPhgS1D+M
+	 k+EWbtNWku81fBWId5Pz+QH28nq2PHMPmeQEpHVu7mKzgHU8qLSN5p3Ro05CreUThbDv3
+	 hXmhvYioC0Vh+uy0bl/yVezAh9y7bITe30TXUMp0BZfQdRwOrudTv/0MmRNz3oVU1Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=X46vfKoc;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUrhrzC0;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874A2606C3CC
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:44:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 874A2606C3CC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC044607F6F2
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:44:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC044607F6F2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=X46vfKoc
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id Nrdrx1H95JFmFNtGNx6ddi; Mon, 02 Nov 2026 14:43:55 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id NtGMxFReE1fkWNtGMxivDD; Mon, 02 Nov 2026 14:43:55 +0000
-X-Authority-Analysis: v=2.4 cv=CLMqXQrD c=1 sm=1 tr=0 ts=6ae8a1ab
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=UZ1dQ18DKJ-JX__J:21 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=_jlGtV7tAAAA:8 a=pGLkceISAAAA:8 a=2jx2pNJfDimJuxAiNbYA:9 a=QEXdDO2ut3YA:10
- a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=ttYhK6jUPusJuGaeAGvRsh71O08mbU+bUHnO7XzFxWA=; b=X46vfKocOa/t
-	yX4XKr+04sVgdW8VAUVreighqvB9KHy9f40SPozevq8DTWZPdGzoynaI9Qj/zIRFlg3aFxx3Yi5h4
-	cEsYS+rM3Fb8TQ9WpBc1nu79TE13o17a5riTwf/O7vrNj5IFeMeNFLa7Fl/fuN6JreR4UoppM+u14
-	ghOjAXkx0kkOIfee3M9jvNAjS/AD6a6+ZzJPXzzF+PFNAY5ARJuskj1ACiguGYwqlWi+AKIZyZhKa
-	/ChQz0xjfuhPXaFQEX2Gbk2JTrJmwbc5Ft9ooN0v3HamIAp7DY8HiknM1fiNY+WBDTLBL81xChg0L
-	hsstjhQjfKERfPUmYdI3Tw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:57474)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xNtGM-00000003eMA-1WwC;
-	Mon, 02 Nov 2026 20:13:54 +0530
-Message-ID: <54497841-56cd-4a41-9f42-e4e6f9c17b51@roeck-us.net>
-Date: Mon, 2 Nov 2026 06:43:53 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUrhrzC0
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so27599265e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:44:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793630639; x=1794235439; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/Q8B5R3zHYdiDHrLqIglqhgWhN3VLwZyGC1yGSnzz5Q=;
+        b=nUrhrzC0Kz1h9/mSqsJ1C6Fa3xEvYzuGV0ly+ljBU2d61+oiAaua+ahlzSb7Lq3LXA
+         QwWVrH2zfolKBwaLYJyIpxegUF1gVIr29qOTlRb2GvA7pkoy5HKF1/I7xsV91y0B9uXw
+         oUm+79FSNnuBHf5sWa66hv4u6GO0Sun8j9hCVVdoAD/7Y7lOyIpZhISpuyA8dyH7aCz2
+         dQn92ZfegXTD69poDDux3B2tfOldDdDYed+DYaGTJI9qWx5K+eLrHmp4jVSPkGYwl2Vn
+         LGAv87EbMzazKJPxh3Qx26DHByVuIwt/wTlDqJoi0ZK7M30NQtpoyv6tYGrz4liTXr70
+         D3Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793630639; x=1794235439;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/Q8B5R3zHYdiDHrLqIglqhgWhN3VLwZyGC1yGSnzz5Q=;
+        b=tsQTC7cH1bgs7uoxmuuki1EAs/h1+eYPB7wRKju2Rd9lT9HsY52Iyq/ykSlLVThEC8
+         G60s5N5JJSmR/YEedBWX6FpVSQC+Hp7KsDYGi85t/aUbfUwOma0+DQKI3bizQ12cQMM4
+         4P0Swr6SeEa0ZL1xXNKZNIrcrZJGN9u2bdtLroaJU64ydpk7r3kISJ7Ri3Q1SkYTAZ7J
+         uFdSzuvrmpBSFj+pFV6xnwDqTvIIG49mrfVHb0nOBWt0MafiyttGtF5SkJiEOe92ykrO
+         WgGsyDNXduU8uefLFaeiYPmWuPiESJyLzx9E70NPQ3nUpMrsqAobQO1aimSPokY2t7NW
+         NYVA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsWbvN9UHp7gDh2xrE4geKyopIPujEH4t+3THa/8xsqZg7/AHzT1cQgBKsiz/mSpc2/rIjQbyusWgxuqQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8+z0gOSavWUoTKcNYgpKoAWlZGxYYLEBh4yVdLZutmTvpNydG
+	omA7ut23nF+36uZ3CRBrh1PKqjPxnZYmG+puGIUXfIaZfiUu4Y97nPBm
+X-Gm-Gg: AYBFou1UUHV1z1yhQp3zCZILLwl8oVLnMJPi5nYI+kFCC0uu3lWOgNJCiejvhyPUT5n
+	y8r9yIeBA9w0d3gM8eCdsPKMdtRZJNxGCdVxVZ8rpxFOy683bS09CC/3GBcSZ4hoY8OxZyBmj0h
+	gzmCBmLwwFhiN79lw09JnO4ta92RNSGsrnPmTB/dXMn4wLFKhsgw36CPT3Hf3dKHL+DFa+OjDt2
+	Qwctk2rW2pmisEcsRKDLqOTuoVUFDxdG6N4RFLnWxkpd6K7kHi1Pl73OtJvpw297/QI2f12K8WG
+	HE3aN/DW6vEwMAxfl6+xAhOhs6sNGwGIrax3E5vaX2l/8rEJM1mJfmRauLxbTpTRbL9NIHS+LFI
+	52GYmS5fH5IELeeUw91xCQmVCdH6fhl2E9BetqubUvrDm+sBmVsO2w2MqBoFp0zE7YNhDbk96ut
+	Fh9MAqIp2Iu0/eFEr4cfgLJ1Ts/IU3Rj6FNC7+4r/oCCHzxseKW5yHassocD1QnnlxSA7uirviJ
+	gMx4DJPmbJDHqKJK+1jk9QdRZl9iJy4Z4A5o0QfolqCJhhKdY1OtlbzueW3wWzJXdSgyVmdP0Rx
+	SFjtgCV+1LcyzLbnkpcNRAzc+OEmdLkvbZujP4+cO/ibycKgCSCQtihhACYRtvRV0Cndp1cLJ3D
+	tJnS+OgqTHJLueJlXwEIRL7NQaYG67S9D+9EfvSDy8yg48FOlY7Oo1LZ6JS2QHorijw==
+X-Received: by 2002:a05:600c:4e02:b0:4a1:e6a9:4086 with SMTP id 5b1f17b1804b1-4ac1228b10amr249125665e9.0.1793630639118;
+        Mon, 02 Nov 2026 06:43:59 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3f9sm22633147f8f.4.2026.11.02.06.43.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 06:43:58 -0800 (PST)
+Date: Mon, 2 Nov 2026 17:43:55 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Kurmapu Sai Devansh Prasad <btech10487.26@bitmesra.ac.in>
+Cc: johan@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: fix string termination in firmware
+ sample
+Message-ID: <auihq9nm86d6D3MW@stanley.mountain>
+References: <CAPwSj7XvbTR3qtSev-xEtZeewwvSWFXPhK5F12VGzSiQoNudNg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,175 +99,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/7] hwmon: sy7636a: read the temperature only while
- the rails are on
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
- Alistair Francis <alistair@alistair23.me>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261101223125.302001-1-pmazzini@gmail.com>
- <20261101223125.302001-6-pmazzini@gmail.com>
- <2c48d47a-85f5-48e8-a675-239b033eb0ce@roeck-us.net>
- <20261102112522.76e02b83@kemnade.info>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261102112522.76e02b83@kemnade.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xNtGM-00000003eMA-1WwC
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:57474
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 6
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNFxJot6Q0zU5zNV8aw0IFPVqMnLcuAOE2EMNfLaWHYVKawaMXz8+E5qcOrcQQI3xN4z62+ujmoCH7onAXscDENfwAJefTULWqph5g61k92flamRGT9U
- 1q9uTMtAxEMzyxsZJwiE4TDTA43cedy6yy+pg8ujoEBoJ62lL9DJtaVjoPm84dDnYvN0KBBRyh7BhsvuNjcPjveMkhg7G+21yToYxcPMUX23/wLPWvPwdwZD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPwSj7XvbTR3qtSev-xEtZeewwvSWFXPhK5F12VGzSiQoNudNg@mail.gmail.com>
 
-On 11/2/26 02:25, Andreas Kemnade wrote:
-> On Sun, 1 Nov 2026 19:35:16 -0800
-> Guenter Roeck <linux@roeck-us.net> wrote:
+On Mon, Nov 02, 2026 at 07:44:09PM +0530, Kurmapu Sai Devansh Prasad wrote:
+> >From 9114eb9d60f2c4a52f05e3a33b0d6b8ca4856cac Mon Sep 17 00:00:00 2001
+> From: Kurmapu Sai Devansh Prasad <btech10487.26@bitmesra.ac.in>
+> Date: Mon, 2 Nov 2026 19:11:09 +0530
+> Subject: [PATCH] staging: greybus: fix string termination in firmware sample
 > 
->> On 11/1/26 14:31, Pablo Mazzini wrote:
->>> The driver enables VCOM at probe, which keeps the panel's high voltage
->>> rails on for good, and gets a dummy regulator if it probes before the
->>> regulator exists. Read the temperature only while the rails are on, when
->>> the chip samples it, and return -ENODATA otherwise. Read power good with
->>> it in one transfer, so the value can not be from before the first sample
->>> or after the rails went off. Register it under the chip name, as the
->>> TPS65185 and FP9931 drivers do.
->>>
->>> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
->>> ---
->>>    drivers/hwmon/sy7636a-hwmon.c | 25 ++++++++++++++-----------
->>>    1 file changed, 14 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/drivers/hwmon/sy7636a-hwmon.c b/drivers/hwmon/sy7636a-hwmon.c
->>> index f01f368d68e5..475aff997c2d 100644
->>> --- a/drivers/hwmon/sy7636a-hwmon.c
->>> +++ b/drivers/hwmon/sy7636a-hwmon.c
->>> @@ -14,7 +14,6 @@
->>>    #include <linux/module.h>
->>>    #include <linux/platform_device.h>
->>>    #include <linux/regmap.h>
->>> -#include <linux/regulator/machine.h
->>>    
->>>    #include <linux/mfd/sy7636a.h>
->>>    
->>> @@ -22,14 +21,22 @@ static int sy7636a_read(struct device *dev, enum hwmon_sensor_types type,
->>>    			u32 attr, int channel, long *temp)
->>>    {
->>>    	struct regmap *regmap = dev_get_drvdata(dev);
->>> -	int ret, reg_val;
->>> -
->>> -	ret = regmap_read(regmap,
->>> -			  SY7636A_REG_TERMISTOR_READOUT, &reg_val);
->>> +	u8 buf[2];
->>> +	int ret;
->>> +
->>> +	/*
->>> +	 * Read power good and the thermistor in one transfer: the thermistor is
->>> +	 * only sampled while the rails are on, and power good comes after the
->>> +	 * first sample
->>> +	 */
->>> +	ret = regmap_bulk_read(regmap, SY7636A_REG_FAULT_FLAG, buf, sizeof(buf));
->>>    	if (ret)
->>>    		return ret;
->>>    
->>> -	*temp = (s8)reg_val * 1000;
->>> +	if (!(buf[0] & SY7636A_FAULT_FLAG_PG))
->>> +		return -ENODATA;
->>> +
->>
->> I had a look at the datasheet. It does not say anything about the
->> temperature not being measured when PG is not set.
->>
-> That is what I read from there, too. But the PG bit will only
-> be set if the On/Off bit is also set.
+> The firmware_tag string copied via strncpy() is not guaranteed to be
+> NUL-terminated if the source string is exactly the size of the destination
+> buffer. This can lead to a buffer over-read.
 > 
->> The datasheet does suggest that temperatures are only measured
->> if bit 7 of the operation mode register is set, but that is
->> different from the "power good" bit in the fault register.
->>
-> I can confirm from tests that temperature reads zero if regulator
-> was not yet powered on.
-> 
-> I read the datasheet in that way so things happen it that order:
-> 
-> 1. on bit is set
-> 2. ramping up voltages start / temperature sampling starts.
-> 3. after some time (sampling time + conversion time (ADC_SPL+ADC_DEL)?),
->     the first sample is ready and the temperature can be read.
-> 4. after some more time voltage lines stabilize
-> 5. after 1.5 ms PG is asserted
-> 
->> So why the association with the PG bit and not with the On/Off bit
->> of the operation mode register ? That warrants some more explanation.
-> 
-> That should definitively be commented in the code. I have pointed out
-> races earlier. This has of course the drawback that it limits the time
-> frame in which reads are possible a bit. I doubt it is worth dealing with
-> synchronisation code to use that on/off bit (although posssible).
-> 
-As mentioned in the other mail, downside is that the temperature will not
-be reported if EN=1 and PG=0 (for whatever reason), even though
-the temperature may be available. At the very least the reason for
-accepting this limitation will need to be explained in the driver.
+>  Since alternatives like strscpy_pad cannot be used in user space
+> sample code, we can make it  safer by limiting the copy size to
+> MAX_SIZE - 1 and explicitly assigning the last byte to be a NUL
+> terminator. This ensures the string is always
+> safely terminated before being passed to the ioctl.
 
-Guenter
+In user space, using strncpy() is fine.
+
+> 
+> Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings
+> 
+> This is my very first patch to the Linux kernel! I've been learning the
+> process and would deeply appreciate any feedback from the maintainers.
+
+Put this sort of unrelated conversational stuff under the --- cut off
+
+> 
+> Signed-off-by: Kurmapu Sai Devansh Prasad <btech10487.26@bitmesra.ac.in>
+> ---
+  ^^^
+here.  So that it doesn't get saved into the kernel git log.
+
+The patch is pretty badly corrupted and doesn't apply.  Read the first
+two paragraph of Documentation/process/email-clients.rst
+
+regards,
+dan carpenter
 
