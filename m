@@ -1,139 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793640054;
-	b=pn4WQB45k2vkNW+w1+uN0Wc4z8eEQ5D/7x4PNP+vAVaGN/z+QMpftzs5GjO8Y1D5s/MH
-	 2kN/Fr1VCozdmMkYmRG2mc+OSv7G3hDfRNsUMtWObSNINR8wSOzrcs2LlzbnjO3v+8x5H
-	 ALM2QTQGtod9mPQwVdokYhnIgRE9Boi7PS0CT4v0EZSFO/UaPuZMa2ZxBa+oTvMrFAF0O
-	 NVLGl/Ui9GNfTNLkh8cXdECsCRrARr3T2wln3kI4XJfE7jP2Zs7kmPLi/IzCq4qijPqKF
-	 IOd9ed/25EzQQxxni8HEc1TMGgJmCu2xyqfAG9ag/TtOgHwcJp4aywBadKUk7yHxIZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793640054;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793640051;
+	b=w/Vt8oJ2ikoGHSqNTcfdLcv8WS8KfiXnJzyzhFRcqoEkhZrAMNwusL5iRSqvXnXykWou
+	 J78Wln3GQk5+r3zTq7QRC3omKFzVdIanqpyN0OFbykxijyh6q6N4FcVj6s870AS4N09GC
+	 454pKfcCf09pWnr7rtqpnH6Ihh0IDG3pqEitSrUZYlX3RqYdGeNUIyaESddyPLumGYZ9V
+	 mvJ20+seA9MMM7tseypWNXIpLmAiyTxb2JVaV0FXXECLhsulKSVJ+xwAUCstvqjwUJ7L4
+	 XPYTphM4hb/Cc7e3bcHO/8a/Haa36iMvXoBlzwokHai12D1WRqeQYOz+asZquttr1Pw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793640051;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=/dtNOcWWA1xUV4+gfaF8Y6jQTYl2+OJzIWQS1EKXSSw=;
-	b=BORH2YEsrrV34FQn5CFm2nxDBq+NSIIK9FYluce3g9641P+1fUvyEnFLsAglOu5Na54X
-	 wWq7pX8gL+0r5bCWi+xkezKfApxeFR+Cx3PruKK1024gIMIqd9xBpNgRILVUyh5cSJrlg
-	 qwTaJH9eEIE55pvs3dRSV2OFsSekVXVSOvNDXf3wiOTaYJwq7yq8B5/0wcJip5A5c9a7D
-	 LrS990f3p6j6cwwycBLwZUalMxKXtzwweGbMvVK7GKII0HctFv1PuERcnpBv+23LhJbV8
-	 HbFpALjCnA5ti2enhQ/XhD1vcZ46UOgSz+ve2eRsfGyDqVD5knR6O86B7hlxZu6hNOQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=erQhudjB;
-	arc=fail smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=1aKXb+EuzBJyyRntQxoo6xwnn0KfT9e0rpZb4qHmGho=;
+	b=OPRrbzANx8FsfoDDJEPX6bJ8IqqKzwUW4nIhJYjT1WEbz8Ts5DUBFqn5xPJ1klJQe8x+
+	 URbz4Weub+2f5Rx1Qd6Zi/f5iMFoj1DJl4Urzs8pk1j7+PMSGcES9KiwFt6qIh2m/XJUa
+	 5FrPQjtyQ4XXhYUw/xVzctK6wpAplfkuPblurm2NK+r2gdOJlRftKc/JZLyNm4+xoNTJB
+	 +c0WGG+5NQxqy+EG3y+JfmR6BB2Eu0n3uuudXOX5+4xVEbLlTuNwDyG73HsFoFQ1WibF3
+	 ZhBiCPKul3vExAT81pNUnvuAJG0Wocd1Ts3cCZmKESmsKIjTQiS9ePJdvdVk5KXDJ6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bKT1s6RC;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8399E60A34C6
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:20:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8399E60A34C6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA79606BA59;
+	Mon,  2 Nov 2026 17:20:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EA79606BA59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=erQhudjB
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bKT1s6RC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793640053; x=1825176053;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=bFiQbJMI5h0YTn0Q6kpKz8C2yqXPCm/49WOWM45So+E=;
-  b=erQhudjBbRHDVjVgOJO9iKKdnphqxWdMEqzz8PtFKLZLvvVYSJfJfWJe
-   ale62qY00gzvQNbaAa6q1DTIiKmAqTVmaU9g6xHDuF74FxJKXUqZBUHia
-   bL7NBfUPyEHtENeM8IHv8tCZF+2OcY2M8VUgo4NcZpKeheKDyM4CBf+Xl
-   9bBXTEF/nKIQE7Qz6c/qpiVMBnbF3Rgf51UNljWr/Mq3Zfnt9DRR7oceA
-   b+Yvt7Yc2nkhfAzadSkSyWG8TOYF+W0jioGDDSWjvtvQHFs03LGwc78B1
-   kF2vS0bUATQgedldCW77v7h4Dr1QcV/9GbAIvOX9CE1QsjKIZLBCxlOrg
-   w==;
-X-CSE-ConnectionGUID: pj6zC15CTU2o/nn5Ai2bCw==
-X-CSE-MsgGUID: TQr0uOClRLKifJ95WoIC5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2235123"
+  t=1793640052; x=1825176052;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=k/z/OKwLEw15Eu+WNcTtujJU+nBl0LAs7kKK4N/UUq4=;
+  b=bKT1s6RCLHGSYs+EA3hK5x3cTwdlauntZA5IejcdNdHrvtP4XV2h7hD6
+   iWDwVt0cuyHw0b/BdUbUHEPNgWMMUw5YGo5zJnuae852MOOCE+/hLMOcq
+   pBunjUX1P+TQgBwvSTWL0bZC1zIayUqitntnO/vYFHune8lezKxZPym95
+   nr9QOho4M1M+dkFYCAz2MafFhR4C8DzMqOccG9j7gBUZJWxPeEBg/+vH5
+   /ocZLn+aoo29RyTYJjdExXRdNLoYXxDEgVP8lfPmQiqpOuWUT6cFjzNuv
+   2ok6O7iixcCe/Ff1ZJM/ClEDcZjGKBNpk2GItdOf5abwKUUJrmctaZHk+
+   g==;
+X-CSE-ConnectionGUID: lbLdM/0oS92m6Nqci/lWEw==
+X-CSE-MsgGUID: jIYtAIgoQoW6V6aJNfeQwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2346677"
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2235123"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:20:52 -0800
-X-CSE-ConnectionGUID: eIEcnW0bSUu8DPoQyhYeKQ==
-X-CSE-MsgGUID: um+hs1NbS+OmsOwbFdDIrQ==
+   d="scan'208";a="2346677"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:20:51 -0800
+X-CSE-ConnectionGUID: xAT7ntNbQgyDx3mE1OeNnA==
+X-CSE-MsgGUID: 5Egeo+XtSIqlSoM5UqYIew==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6720292"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:20:52 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 09:20:52 -0800
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 09:20:52 -0800
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.33) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 09:20:51 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bXJBCCDMFmC5V3ITNyuuP4jkkK8bqsJbY/nYdQoiGaq7CWPpZhyoBgClNEY52KDJRq3D+qIAGThPFZU2FaVRf4Jb/Az6BkoinoBiA8zMuHVAEI0ZrrhTrRMks/Nw+ILSJaSpmMnNDBeBrrn15Sp+67/dGNZ6vRBbFwswMgavh9mJM/gUedswFNbhYIXf9aI0slu2k5ba+PCmJGJ+iYgH1HeTSjPLvapEx9lR1jDEgtPD4anApy+Ta8bigs2cRgzqjW1jL5IdyGtBY79Ygq4gT6kIihpbX/frlcrWjM5s6AGUtAdAo/Nsyj+bi9JlOkLc0COrkFs5Q8B6pcE0qC8B5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/dtNOcWWA1xUV4+gfaF8Y6jQTYl2+OJzIWQS1EKXSSw=;
- b=QO6e3HuJlJqAl0DB4vkbf77VsmeNPYo31imiLHUrZODLGBboUKjPRpcxuHnB2v5Wg9+IV7hsijRxmzFBXcYS18EEOjQ5NsdVTEDmpmXSefy8DxJ9qbFtTitziHBKAD1XCsS50OGk5SpF3KlZoxn/QGBJyb70eQKoDw+OW+7ALlSQSKflu+gL7zXo0TEiy0r7ivAPW34o1GjEzWgLYypnS50B6o9hQH9fJRwRaMuTu3Cb0zCYgfzSoaJBjyNx8N1cZJ0xeXVmNrbseiRV6/yAofeeC2FhYCIkcxs7Yqn+1GTCx6F80W7vYHGmVpPexu+wfeGHr7IaSFJbjFvJ5fAsbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by SA2PR11MB5163.namprd11.prod.outlook.com (2603:10b6:806:113::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 17:20:44 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 17:20:44 +0000
-Message-ID: <3a06c4c8-51cb-4636-b95e-d6decf33d9a5@intel.com>
-Date: Mon, 2 Nov 2026 09:20:42 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 04/10] arm_mpam: resctrl: Split control and
- monitoring domain setup into helpers
-To: "Shaopeng Tan (Fujitsu)" <tan.shaopeng@fujitsu.com>, "ben.horgan@arm.com"
-	<ben.horgan@arm.com>, "james.morse@arm.com" <james.morse@arm.com>,
-	"Dave.Martin@arm.com" <Dave.Martin@arm.com>, "fenghuay@nvidia.com"
-	<fenghuay@nvidia.com>
-CC: "tony.luck@intel.com" <tony.luck@intel.com>, "yu.c.chen@intel.com"
-	<yu.c.chen@intel.com>, "babu.moger@amd.com" <babu.moger@amd.com>,
-	"fustini@kernel.org" <fustini@kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "patches@lists.linux.dev"
-	<patches@lists.linux.dev>
-References: <20621c28067916be2709fc4437473f1ccad7e334.1792443633.git.reinette.chatre@intel.com>
- <TY4PR01MB16930DAEC61D558A935F8C27E8B6A2@TY4PR01MB16930.jpnprd01.prod.outlook.com>
-Content-Language: en-US
-From: Reinette Chatre <reinette.chatre@intel.com>
-In-Reply-To: <TY4PR01MB16930DAEC61D558A935F8C27E8B6A2@TY4PR01MB16930.jpnprd01.prod.outlook.com>
+   d="scan'208";a="6007501"
+Received: from spandruv-desk2.jf.intel.com ([10.24.80.14])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:20:50 -0800
+Message-ID: <5481cb8e125b76562ee6831cf3e87a09219def02.camel@linux.intel.com>
+Subject: Re: [PATCH v3 2/3] iio: temperature: hid-sensor-temperature: Use
+ per-instance callbacks
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Christopher Hoover <ch@murgatroid.com>, Jonathan Cameron
+ <jic23@kernel.org>,  Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires
+ <bentiss@kernel.org>
+Cc: Lixu Zhang <lixu.zhang@intel.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>,  David Lechner <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko	
+ <andy@kernel.org>, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 02 Nov 2026 09:20:50 -0800
+In-Reply-To: <20261019023420.83976-3-ch@murgatroid.com>
+References: <20261019023420.83976-1-ch@murgatroid.com>
+	 <20261019023420.83976-3-ch@murgatroid.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0008.namprd03.prod.outlook.com
- (2603:10b6:303:8f::13) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,171 +89,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SA2PR11MB5163:EE_
-X-MS-Office365-Filtering-Correlation-Id: 535597d3-c07c-446d-de39-08df3905a088
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|18002099003|56012099006|261102123227099003|22082099003|261009223027099003|261022075727099003|261022105027099003|261021121427099003|11063799006|4143699003|10067099003|261028144727099003|261026121527099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info: DcDUq+pTxMmY7gN7VTY89Y3L7QeVLdryi973bq7Q+jHJ84BqvsX5sKEe+L0ZN5V+BrjWVajROz178HRCZEXXiktLKoiIwjVgElgTgu6wEBWiBNNSXPIvNRpP5xYwcuELPrLGFZ+ccTevxD0+m2i8KZWhdDVCiV9dnUQBWCXJADzn405wkxBn+/Y5Yj38s+aaQZTtATx8cBINYieBH842xs3ui65ic0/enrD34hEFt/9kg9/0PSnFYx4SV5iLyCaRia9un3gIDcSCo072ePY1gL4Eo9jb/KeO4pTeMCZeFHCWGXqhg9SyapEef6yuO8MXuiWPTCAZQ5NocL0zFrW957J2nyf+Eeqy2oCPFM7PO5jyeoFqNINCbaxA7oL206pHDG9o4zpP4iFxRoemqFO6FC7uKWjx8IwtkxotFwc6/hjJnAyEg2ZyuIJ+bXD+LJ1F9SdvhDlH7CwDLagujP0Y8jVzkuDBAf6Gs69qcZS0sOQoBaDp17TLNsR9r/sI9tmfiCuBlj/5XFOBEU/ZAee2zmKD5oT6WfMyGjhblfBv/3TU+cgquPg8DHIY3nwVzm1nE+yiL1hhyeZWXbbZe+0Dg0ssSVkkZ/8m3LQDt51WBMngReYRUxEPQYpA3Dsgha5CNAGH0BbvSpghXDamdsE6wOfiPG+0+cC94yzqrXoh6sI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(18002099003)(56012099006)(261102123227099003)(22082099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(11063799006)(4143699003)(10067099003)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b3NTVlF2b1drZEZKVVVZOFBocjNsSjNUVWJzV1MxUVB4b3Zxb2hTNldGeUtF?=
- =?utf-8?B?cFN6ejJob3Rqa1ZJMFk0VXpyRE5CVGlyMFRRa3phbTgzejhNQmRrY01ndmRq?=
- =?utf-8?B?Rk96cEMrcnVlQm12ZkN1RnBCZ2swelVEck9hNG5YTmt1WXJXc2ZHRklxQ2oz?=
- =?utf-8?B?dlVRd3FBZDU4c3Azam9FdHNlaXdJaU5ES1Mya1oxM1JiMTVRTGxrWVp1WGVH?=
- =?utf-8?B?NGIxOHB2VGU2NTdkcy9DRENkNUxHTEduK2VlT0dkMk0vMitzdXdCenY1dkpI?=
- =?utf-8?B?Y1QveFQrVU1xYzJjTjJhZ2NMYVNMQ2tLUE8zaEs4eVlhWnlocm1JejJlNlVF?=
- =?utf-8?B?YWlZeTBIS2hHU0wwaDVvckdiUGVXV1lORnFtdWF6ZHp3N2ZZUFpBUU9sRmlT?=
- =?utf-8?B?dHdiVVJUQ3dYY1l2cDNkeU93aHhGNUYvbkx2SFJvQXNRZ1B0MHAxcUNsa0gx?=
- =?utf-8?B?M0JCcWRlWlVvd3lhSlRMRE1ibXFQM1FsRklNbDRWTmhNckRxYTk3UzdtZ1BZ?=
- =?utf-8?B?TnNsOXMzcGZaTFV6SDBGM3lJMHBUeC9TRXUvVlRGU2k3ZFJHNFphNnFFZXBM?=
- =?utf-8?B?S3lHdWY0dkNHQzBSTUNZbmdUbXBwU09icEQ3SVlZWnE3OGY5VG1GK3Rpak1D?=
- =?utf-8?B?clpWaDdDeWR2WTNmQ1BYS0lZditxTzBYbkZBTXZPUXNkU1MzTW9Ed0ZtcVR5?=
- =?utf-8?B?TUFDUmJwZXZqUys5dW4rVkw1dytybVRFOHNabktEQklBU1k2RXo0Ym9qeTBC?=
- =?utf-8?B?dXRpc3BIeVJidHk4RjNpY09wNHIyRXJ4WVpxWGtGek5Ga2JjbXAvQi83MEpu?=
- =?utf-8?B?VElhQzZhckVrOXJyeC9Kemc1Yi9MMG5wM0d6QU44bGxoUE9JZ28vN1l0THpE?=
- =?utf-8?B?MHMrMktJWkpCU3RpaWdvc3BqeGN3Q3BxUDdtL2J1QWMrcnFuWnhZbXFieTRU?=
- =?utf-8?B?NDV4SkZXM0ZjcWc3UXY2MUhBcGFJU1RXM2JEcmlncEU2WWNNQVNlTU9Qamho?=
- =?utf-8?B?THI0S3Iwb1FQL3FSWlRNbEtXbHc2UGUydHJJVXlxbzlxbFU0V3Z0ZVlXUEgw?=
- =?utf-8?B?ZmpWNEhBajZWbjlLS0h6Mk9VWVZmVWZtc3J0Z3Z0UTR2azhLVlZKNXdzWE1x?=
- =?utf-8?B?MWJzaVRqN1BiVEgrWDZBSXdxRk04MmhacUJhYTJsYUhwS3FOZW12U25EK1Vl?=
- =?utf-8?B?dmF0Y1NoVzdBNHhva1Z1Mml4MFZNcmRkNk1wRG51T2gyTGovbHNGTnZEK2w1?=
- =?utf-8?B?OUI4ZGluaWs5d1JMSGlTL2FFUzNnWGdQVzRnTzc1a0lyRWlBSXVEUU5xNUh3?=
- =?utf-8?B?N2hqYSt1akpzTkMyU1BXRUdwSDNlU0dyNjdONEszbmtxYklVdTNwVkh6RkpX?=
- =?utf-8?B?R1FCVVBBVHQ4ci82YmYrQlcxVU5pTTR6Y2JDWE1WdUFudjlDdjdIM2FyY2Nq?=
- =?utf-8?B?MEVCNkNxMWhnYlBvT2V2V0d5Q05FTjhmMGVWOHJGMEdZbVZFY0Zmd1l1ajBI?=
- =?utf-8?B?bkFCMmhOWHFLS0FMSGxqMFU3RXlPM3Q3SWYxYXBoQ2Jnbmxlb1ZyaGxuWHFQ?=
- =?utf-8?B?T1FTUEtDQzFueUJtZHlzRk1aK3p5UUR3b0hNL1dEeFZOeWNHS3lXNFRUcE1p?=
- =?utf-8?B?aEpFNXp6Z3F3VVVNTms2SnU2R3AyY0taaG5zUENNQnBUT21xSTFEQkxtQWM0?=
- =?utf-8?B?dTRKbzRWY2pwK3M4S1JRZ3YyL3RIcWJIWlJSR204SUNrbXpvcDNtV2hkQ1g4?=
- =?utf-8?B?RlVzSGhPZXB1UkpCRDZLTm43dm12bVFpdkFQT0drQjdmQWMxeGhwMTJoSXEz?=
- =?utf-8?B?M2xBUzZ3MmJWOCtHZzRRS3lkdjJSVW9ZUkNDNWRodEpBOVpyV29CVDBSUlZN?=
- =?utf-8?B?Qkh4U2g5WTk2ZkwrRXZSZ3Y0andlVmFiSHllZDRxTU5ib2VSU01lY05YWmJ1?=
- =?utf-8?B?WExRaVIxNjN5MUoxVStBMmpqTWp4WkllS295QUlCTkRsd0VkQ1N1dWZHRHVZ?=
- =?utf-8?B?ZHRiL0dZakd4aDJ6S29IcEthSFJSbHJQSnd1bVZjRmtDc2k5ZVpkbnpibTdt?=
- =?utf-8?B?MXppR2NmNm9nQURQNEMzbmhpdFJFOTRQNm1lR2ZxbndDWThsMHQ3ajVNWUJM?=
- =?utf-8?B?TXB0SjNOdkRIajVNOVdFaGZmT1lsL1pjWnRjci9ESWMyVHVGQVVWdnR1ZFlP?=
- =?utf-8?B?TCs1T013ZGV3eE0xbkptUW5ScmlvcnVPbitzbnU1aTVCVyswT3JlQ09mYS9Q?=
- =?utf-8?B?N0N5Zk5BeDJIYWFJLy80am53dno1OWcwSzlqTW5PYWVvT1pHNHFaT3ZrNzh1?=
- =?utf-8?B?aEthU0VQQlVwTDhQdC9jQngvQzl5SmgwMURWNGMxS0Q4UUJCQ3phN3RSSzFj?=
- =?utf-8?Q?mo8vfDI0lh1D5UjY=3D?=
-X-Exchange-RoutingPolicyChecked: twD7gWT2djvzOQ4fqvRgMIQ56T+2/7VW73A0Ll55fyQL+dV6ZXbBTBqM2B0EBKEfzC7ZPzobh1UGflXaIaeZZMS/dyCuPi4Xkz5Wh+DKqorOs2QO7oxyr5p/bapUokCUIeSZoC6fg9a/sfvp9Rw6wNse1287zw40QCIpjnsxLAhyN3mkBdHDr6nHFqg5cyjSJ2xVV0V9jVsLD2N0O8ya3Co4WsxmRnDidMCKBwsNDtRdfGhwQ1HoT8/cSSP6IrY9qGGJURWlYj1hW0ycaZOw++kuerJYVtuc+o3mm7ZZfCeRAAXtspssvPqGyduIYoEPQTyoDJegDj9h/udRlgukLw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 535597d3-c07c-446d-de39-08df3905a088
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 17:20:44.2104
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qPhk/RbCY8IzfYz946Gr/FMZOBrBQqZCGoYBToMm2Xx8vHen146pswPeWNdyYuqqnvakG99xihLVUyQeza08Rscyya4eEhZiz/GITVCP7vk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5163
-X-OriginatorOrg: intel.com
 
-Hi Shaopeng,
+On Sun, 2026-10-18 at 19:34 -0700, Christopher Hoover wrote:
+> hid-sensor-temperature keeps a single static struct
+> hid_sensor_hub_callbacks for all instances and overwrites its pdev in
+> every probe.=C2=A0 With two temperature sensors, input reports for one ar=
+e
+> delivered with the other's platform device; once that device is
+> removed, platform_get_drvdata() returns NULL and
+> temperature_capture_sample() dereferences it:
+>=20
+> =C2=A0 BUG: kernel NULL pointer dereference, address: 00000000000003a8
+> =C2=A0 RIP: 0010:temperature_capture_sample+0xd/0x50
+> [hid_sensor_temperature]
+>=20
+> The oops happens in sensor_hub_raw_event() with the hub's spinlock
+> held, so the hub's removal then hangs.=C2=A0 It reproduces with two uhid
+> devices that each declare a temperature sensor, one destroyed while
+> the other still sends input reports.
+>=20
+> Keep the callbacks in struct temperature_state, as the other HID
+> sensor drivers (accel, gyro, als, ...) do.
+>=20
+> Fixes: 59d0f2da3569 ("iio: hid: Add temperature sensor support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christopher Hoover <ch@murgatroid.com>
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-Thank you very much for taking a look.
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-On 11/1/26 9:41 PM, Shaopeng Tan (Fujitsu) wrote:
-
-...
-
->> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
->> index dc442851fd7e..246560247a28 100644
->> --- a/drivers/resctrl/mpam_resctrl.c
->> +++ b/drivers/resctrl/mpam_resctrl.c
->> @@ -1615,13 +1615,77 @@ static struct mpam_component *find_component(struct mpam_class *class, int cpu)
->>          return NULL;
->>  }
->>  
->> +static int mpam_resctrl_setup_ctrl_domain(unsigned int cpu,
->> +                                         struct rdt_resource *r,
->> +                                         struct mpam_component *comp,
->> +                                         struct mpam_resctrl_dom *dom)
->> +{
->> +       struct rdt_ctrl_domain *ctrl_d = &dom->resctrl_ctrl_dom;
->> +       int err;
->> +
->> +       dom->ctrl_comp = comp;
->> +
->> +       mpam_resctrl_domain_hdr_init(cpu, comp, r->rid, &ctrl_d->hdr);
->> +       ctrl_d->hdr.type = RESCTRL_CTRL_DOMAIN;
->> +       err = resctrl_online_ctrl_domain(r, ctrl_d);
->> +       if (err)
->> +               return err;
->> +
->> +       mpam_resctrl_domain_insert(&r->ctrl_domains, &ctrl_d->hdr);
->> +
->> +       return 0;
->> +}
->> +
->> +static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
->> +                                        struct rdt_resource *r,
->> +                                        struct mpam_resctrl_dom *dom)
->> +{
->> +       struct rdt_l3_mon_domain *mon_d = &dom->resctrl_mon_dom;
->> +       struct mpam_component *any_mon_comp = NULL;
->> +       enum resctrl_event_id eventid;
->> +       struct mpam_resctrl_mon *mon;
->> +       int err;
->> +
->> +       /*
->> +        * Even if the monitor domain is backed by a different
->> +        * component, the L3 component IDs need to be used... only
->> +        * there may be no ctrl_comp for the L3.
->> +        * Search each event's class list for a component with
->> +        * overlapping CPUs and set up the dom->mon_comp array.
->> +        */
->> +
->> +       for_each_mpam_resctrl_mon(mon, eventid) {
->> +               struct mpam_component *mon_comp;
->> +
->> +               if (!mon->class)
->> +                       continue;       // dummy resource
->> +
->> +               mon_comp = find_component(mon->class, cpu);
->> +               dom->mon_comp[eventid] = mon_comp;
->> +               if (mon_comp)
->> +                       any_mon_comp = mon_comp;
->> +       }
->> +       if (!any_mon_comp) {
->> +               WARN_ON_ONCE(0);
->> +               return -EFAULT;
->> +       }
->> +
->> +       mpam_resctrl_domain_hdr_init(cpu, any_mon_comp, r->rid, &mon_d->hdr);
->> +       mon_d->hdr.type = RESCTRL_MON_DOMAIN;
->> +       err = resctrl_online_mon_domain(r, &mon_d->hdr);
->> +       if (err)
->> +               return err;
->> +
->> +       mpam_resctrl_domain_insert(&r->mon_domains, &mon_d->hdr);
->> +
->> +       return 0;
->> +}
->> +
-> 
-> Currently, it returns success even when the domain fails to be inserted. Is there a specific reason for this design?
-> I believe it would be safer if mpam_resctrl_domain_insert() returned an int to indicate success or failure. 
-> 
-> For example:
-> 	static int mpam_resctrl_domain_insert(struct list_head *list,
-> 					       struct rdt_domain_hdr *new)
-
-Could mpam_resctrl_domain_insert() ever fail? A domain is only created
-after the lookup found none for this CPU. For a control domain the lookup is by
-the component's CPU affinity while the insert checks the domain id, but the id
-is the component's id and component affinities within a class do not overlap, so
-absence of one implies absence of the other. For a monitoring domain both are
-the L3 cache id.
-
-For mpam_resctrl_domain_insert() to return a failure an insert would have found
-an existing domain which means a domain appeared _after_ it was found to be absent.
-That would be a driver bug rather than a runtime error. The WARN_ON_ONCE() reports
-it. Handling it would add unwind code for a state that cannot occur.
-
-This is how I understand the flow and believe this is why the existing code
-does not report it. 
-
-Reinette
+> ---
+> =C2=A0drivers/iio/temperature/hid-sensor-temperature.c | 14 +++++++------=
+-
+> =C2=A01 file changed, 7 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/iio/temperature/hid-sensor-temperature.c
+> b/drivers/iio/temperature/hid-sensor-temperature.c
+> index 5e3262e461f4..4bc9d42a0301 100644
+> --- a/drivers/iio/temperature/hid-sensor-temperature.c
+> +++ b/drivers/iio/temperature/hid-sensor-temperature.c
+> @@ -14,6 +14,7 @@
+> =C2=A0
+> =C2=A0struct temperature_state {
+> =C2=A0	struct hid_sensor_common common_attributes;
+> +	struct hid_sensor_hub_callbacks callbacks;
+> =C2=A0	struct hid_sensor_hub_attribute_info temperature_attr;
+> =C2=A0	struct {
+> =C2=A0		s32 temperature_data;
+> @@ -181,11 +182,6 @@ static int temperature_parse_report(struct
+> platform_device *pdev,
+> =C2=A0	return ret;
+> =C2=A0}
+> =C2=A0
+> -static struct hid_sensor_hub_callbacks temperature_callbacks =3D {
+> -	.send_event =3D &temperature_proc_event,
+> -	.capture_sample =3D &temperature_capture_sample,
+> -};
+> -
+> =C2=A0/* Function to initialize the processing for usage id */
+> =C2=A0static int hid_temperature_probe(struct platform_device *pdev)
+> =C2=A0{
+> @@ -237,9 +233,13 @@ static int hid_temperature_probe(struct
+> platform_device *pdev)
+> =C2=A0
+> =C2=A0	platform_set_drvdata(pdev, indio_dev);
+> =C2=A0
+> -	temperature_callbacks.pdev =3D pdev;
+> +	temp_st->callbacks =3D (struct hid_sensor_hub_callbacks) {
+> +		.send_event =3D temperature_proc_event,
+> +		.capture_sample =3D temperature_capture_sample,
+> +		.pdev =3D pdev,
+> +	};
+> =C2=A0	ret =3D sensor_hub_register_callback(hsdev,
+> HID_USAGE_SENSOR_TEMPERATURE,
+> -					=C2=A0=C2=A0 &temperature_callbacks);
+> +					=C2=A0=C2=A0 &temp_st->callbacks);
+> =C2=A0	if (ret)
+> =C2=A0		goto error_remove_trigger;
+> =C2=A0
