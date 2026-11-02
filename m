@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793599700;
-	b=Q4SbtZCXFC4qpQcEkeu+RC76lAYDgjBvFXKa41BhIdyVEO3lkmfySeGWhyPr1KnB+ofr
-	 jswcOPqgPu359QuSqK6ofLVVp+KSwPfcmDq3mZioFQTM0p81yPhL9a6UWlTI+n+IO94wF
-	 4eNOiiA7o1EQwi//nBmJzknY5BxHTYjDU7IZ5pmXzgEnjHF2iQBVU8zkBUGUksCLz4YSb
-	 tZQZTSfYhFQaRawR1ub1Cgq8EmmZmfizdUH3fgFoeNBGLUOiWB5+5vhBkh/EFyHzsP1lU
-	 35Gzc9K/Rd7ckgOfHW3pNF2JfYwjqiA7UNUbzcjP/8QHWdpy41E4nJZ1oa/kFrkuImQ==
+	t=1793599910;
+	b=T5nrfwoTL0lx0JwyFzqv/NYXQG0hcBU6ekzRsCeAjezzc9fK//iwcKl1Yt4Xg4XcxNhI
+	 RVslGtE2R5Q1xSDFteA8Fn75awxxM1l0JoTNIO637IXd2BI/1SyMY3XGVT5YChcHB/fGg
+	 u53pDuAvVVI7EnXIjCgG7F+CsmBcjj9lzzONJBUiux7ervp6LeYkeUpQrvVaDh/9Tm8jF
+	 XukGgVXbpzkhdSJZ/0TKlGgCz/Xjfsbr+cGhsNS8eBs8a2dqIkyY/VHgQF2j/k8WjMco7
+	 USZOoWoJN2m2m7lUYxFJ3b2lLAgscsRpBeNRpNlcPGfIRq7RD7dHqZlc3By9ajnW7Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599700;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=hBHoVDgYosEEjwFENvnqm8RfVk+ydgr5qWMoLpA4mck=;
-	b=WcYG+bUPqhw2fSTdo0n9q3g4Jp9JmrKaeYEufKl/D6ASzCzPFq2VPEsly+e2CvP5Qy6C
-	 zRkIUKgbrmoezIiP+/Hs0TwbNnRynv1gnx+h64BFADZs+1Qg5MxgGfIdVxEv+ubeTtcc/
-	 yPUi2eO5Yei2LogcDSRfpvOwo7bH5Hvy5TdCEeYUC0hq095icRN3uO8Lbi5qIezgS1mpA
-	 CKrdcmrpx77J6/krizEVyCBpqUCaR0c1VPVylr90VR6v5eCAhhtNZOS81DW1twbPD9+Hi
-	 8BAVrlVZP0uV2kxfMxtdm4n9WKHbAiDAyMIiO1Re2zA0+y8XbdSOv7whR1RjFWaffGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793599910;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9/+XZluyuQYuL1PPzJIXmb0wYbMN8JEjNGZtTVHdimI=;
+	b=S33FRIHKffLLYCLKT0jggDNmaCz5gQjcYXqe1tgeAJgvVn2X52Gav3bw/q5CO2AxE/2o
+	 +BtKSsinAX5iE6g82PgIXWNHbOte4XMxOkjrg+bCCNhxgb+67lv4RZnVeCz0Rar3NsEn+
+	 g8KYUGa7NLXpuA1FF9pU6iRyPh8TgyU1Q9uInup3pXB+V5OUJtdRZ/q7X9tYhtBqNx3aT
+	 Y/xUg4h4IqWk0L1KFpgmsQ1kPB+sm8YxnArdxdbYbTCFk/6y6yE/yMFqJBok8qgWCW+UF
+	 Ud3LLCGW4YTRTz9/z+v3ZxdkS81Nmtxtp9oRnE/Or7fxPK8MGBAgLVrRWKg2nWVoebA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QpBWZ7hS;
-	arc=none smtp.remote-ip=115.124.30.132
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NAtJJXle;
+	arc=none smtp.remote-ip=95.215.58.14
+Received: from mta1.migadu.com (out-14.mta1.migadu.com [95.215.58.14])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA6F606A324;
-	Mon,  2 Nov 2026 06:08:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA6F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05C9606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:11:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E05C9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QpBWZ7hS
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793599696; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=hBHoVDgYosEEjwFENvnqm8RfVk+ydgr5qWMoLpA4mck=;
-	b=QpBWZ7hSm+I+U2aCg6L8NDwYV69Hycgk0zL26kk+Qt5J7hlY1w1z82HfB76j5rheOSm5gXgQvydEiA7xgUDL8tfBxYMTnURXdWuKiFc2o0nwkPclSX0ALfOmyTe534rQ7VzsZcwnhGfz5yn0O1htSl3s4+5rbcuBWHVyVFYJV7c=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R801e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=66;SR=0;TI=SMTPD_---0XDuTEnB_1793599690;
-Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDuTEnB_1793599690 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 02 Nov 2026 14:08:12 +0800
-Message-ID: <dda009fe-abda-4745-810c-da02d8440b3c@linux.alibaba.com>
-Date: Mon, 2 Nov 2026 14:08:10 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NAtJJXle
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9/+XZluyuQYuL1PPzJIXmb0wYbMN8JEjNGZtTVHdimI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793599907; v=1; x=1794204707;
+ b=NAtJJXlenW+h0I4eC/Y29Ra0n7wrbkvXBzOBWOM7stgSa/poa+4xZCwdeofPTfBuJj+R6nxF
+ 9iX9AChKcJMQlgdhW3WsxTQ8COMW0XIv23CIR78ixFuucpfp3bC+JAYoHtz2fZMaI5mfCZnzX6N
+ EmJNMqXVeozJu9RapD8eY8xo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0e361a7862659f90;
+	Mon, 02 Nov 2026 06:11:47 +0000
+X-Mizu-Trace-ID: 0e361a7862659f90
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bfbc4b3c-fe19-4070-97b4-4ff8ded06011@linux.dev>
+Date: Mon, 2 Nov 2026 14:11:43 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,83 +59,52 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/47] mm/rmap: handle device-exclusive entries in
- folio_referenced_one()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
- Muhammad Usama Anjum <usama.anjum@arm.com>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
- <20261031-fixes_core-v3-9-d6437171ecc3@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261031-fixes_core-v3-9-d6437171ecc3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH net] tcp: initialize send sequence numbers before
+ deferring TFO
+To: Qingfang Deng <qingfang.deng@linux.dev>,
+ Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Yuchung Cheng <ycheng@google.com>, Wei Wang <weiwan@google.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261102035943.9700-1-qingfang.deng@linux.dev>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261102035943.9700-1-qingfang.deng@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
+On 11/2/26 11:59 AM, Qingfang Deng wrote:
+> TCP_FASTOPEN_CONNECT can return from connect() before tcp_connect_init()
+> when a cached cookie or cookieless Fast Open allows deferring the SYN.
+> At this point write_seq contains the initial sequence number, while
+> snd_una and snd_nxt have not been initialized to that sequence number.
+>
+> Consequently, inet_diag and /proc/net/tcp{,6} report the initial
+> sequence number as the send queue length despite no SYN or payload being
+> queued.
+>
+> Initialize snd_una and snd_nxt to write_seq before marking the
+> connection as deferred. Both sequence-based queue lengths then remain
+> zero until the first write starts the connection and runs
+> tcp_connect_init().
 
-On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
-> page_vma_mapped_walk() can return non-present device-exclusive entries,
-> but folio_referenced_one() passes them to PTE young-bit accessors that
-> require present PTEs.
-> 
-> We must neither call clear_flush_young_ptes_notify() nor
-> folio_pte_batch() with non-present entries. For example, clearing the
-> young bit on non-present PTEs can corrupt the entry: on arm64
-> PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-> entry into an ordinary swap entry.
-> 
-> folio_pte_batch() will VM_WARN_ON_FOLIO.
-> 
-> Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-> treat these entries as old from the CPU's perspective and obtain their
-> young state through the MMU notifier.
-> 
-> Skip PTE batching and MGLRU look-around for non-present entries, and
-> don't modify non-present PTEs.
-> 
-> Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Cc: stable@vger.kernel.org
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> Reviewed-by: Dev Jain <dev.jain@arm.com>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+This patch looks good to me. But idiag_wqueue can still go negative
+on the normal connect path, since the socket is already hashed and
+diag does not take the socket lock. We always set write_seq first,
+then init snd_una later:
+
+  tcp_v4_connect
+    WRITE_ONCE(tp->write_seq, st.seq)
+    tcp_connect
+      tcp_connect_init
+        WRITE_ONCE(tp->snd_una, tp->write_seq)
+
+Can you try this instead?
+
+  r->idiag_wqueue = READ_ONCE(sk->sk_wmem_queued) ?
+                    READ_ONCE(tp->write_seq) - READ_ONCE(tp->snd_una) : 0;
+
+
