@@ -1,59 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631255;
-	b=0etExiFTs6Kgr1VNtgdDzpQLw93FSM5JWHSMHbAhz7PXJfBdhpP5MSATgw+QylwueQNZ
-	 xUd2nCBlns6yR6W+t2pwQ9rTqikrbZ4cEnuG3lmVGgqe96THoexny1f5PQidmZQ84cgRA
-	 GKvc2DYFOu28DYXAM6sxSYX9sKb26o62lPIuV2vjFEdoMPZiInGBitDB/7R5kN1umzLRz
-	 KNSI8gTk0Jx39O9jpwnzU+i7rmWuOYcsAnT0OB9xf9Xfif/8LrrbI/DOBnLxNy56FEmiR
-	 7Rfg2E/FgJKa9prHUcJnjQHhemXoqUx+EZFN1ZpTipeGlp72BJdB9tuG8tXM0/lOnSQ==
+	t=1793631266;
+	b=4+cu+xKSTknYMpmNCiWNDrOLLrLUO7UreUi1LyfHseNzsbCkVFwMmD5mPDoO94DPL32B
+	 S+hsMWlnqyaWIHbyqkv/kF4dk/dFxvohLYFasfggp8n8wyEeKGRyVf5Z3HlV/si3fJxqh
+	 yO+WTq/MWYigRpaWNP6jGGNT13l4AgGjAi9Oqpw8teA1T8GJo4RtIkVu1oBf7AOm23CBi
+	 bS9ycl5wqLMXLeAcwIvVz/uhI9BUtxFdW+NHiDL1gT2YfcxcsDs2bKEaYTLciffrzaSRn
+	 Xhl93u04/eBbR5poWNnrUXa65upzpgdlmPLWRx8+hs5iOwkDUZrqNRRzZshlBgkIaiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631255;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9OYNXyiMp/NC0QRIeIQvA61Kb8/WnJv+aMx46NH/CgM=;
-	b=2fyYsTyIG1fvM/L6c8ukvz7g011wJ6Hrz/dIVzRKnIkkQkI+pBXaN6C7QaeJT7blSTuB
-	 SVQYhLT3ZfkU+hURs5JG+HwgjOuIazA19zNLerJDo1pSHxrIl1LIVcuzu+oSFszWfdgk8
-	 PhxngZD7ry6B00VaEPvcd2FVOjWcZARZ1yjjca5V+r0PMbGtRc3yW8gLQUWMcadSVj/EM
-	 c8/B6o7iYMdBu7s9ApJ8Ydw3obv4AFe3ZNsDrY8cA4ZvQ3JVjLjOff4dlvNYAUegBWCJd
-	 MFXHbXGg+kFzg5HBNTqrjsrsLKhBLpzyA+uv5ZT0y3OLYB66GfZQYVMkJmw7MQI3LMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631266;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=3nu4A7upnl5Om0m7LZNGnD5TdTBPU65hBgFN+c/tzUc=;
+	b=O+MvTh+NY63/JVVbOWHUGS4QUm7HE+3pM6WxolTK7/whNId7MzNb5uTW+Kfk1EQXbStA
+	 xJhuJQR8TFogJwpGhsxcweNopKDjmlN4262i4+KWnapKvjSHudA38tZ0d5VXAUDzjfzyt
+	 pFE5ED/RJ/YTMYkpxO5oyBV/zsq4NU6Rywkho8RxJTCR7LqQtXXN8T9epxOywB9IMAqD3
+	 ho6C3w8LELPb2C08wYswn2IuHu+a1jPkeG8Tj0cd5F/a7p82v+hJYDtO62Bo8ncWNmSe2
+	 x/4Ke2O8oOI3PwAi4Kyi66z+P919O5zuAVzP03zY2IQ3NQvqMeRvWCHItbQFar6JPmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bn6RzhIh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723196079938
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:54:10 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NtQSE6Hg;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B261606A589;
+	Mon,  2 Nov 2026 14:54:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B261606A589
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bn6RzhIh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94B6E1F00A17;
-	Mon,  2 Nov 2026 14:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793631250;
-	bh=9OYNXyiMp/NC0QRIeIQvA61Kb8/WnJv+aMx46NH/CgM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bn6RzhIh4hpXuKH7GJzk4gNKkUiQVGCXQtZ1YIOR4tzWUIYftJVzDT3L0tiQlV2qv
-	 Z+X//2tzu8B5eG3FLO8Eu9eeRXQEgocpW/1HV0pQIgR5pxyI3KrTVEEsbmWwVjejIg
-	 G6OVISi3CRHkSmiyrcaM8j7B8aBFQdzTQ+/35EhJQ4ShcUM+Ff6AGaHUa6WJo8BaWu
-	 IcKWos0NV5mvbnmrvdkzF8KPNgqMc4FaJl4XYJS5pAhvCGxXOAaG+JHVoc80NDu2En
-	 Cv4SwoO1vFtpueKoDN5+Z2Li5zkVN7JtHPROxO/i2E7sYDCtMs+NP6XQIQKAL+OAi1
-	 L3WyPNL7qOKCA==
-Date: Mon, 2 Nov 2026 15:54:05 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Sascha Bischoff <sascha.bischoff@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Timothy Hayes <timothy.hayes@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 10/10] irqchip/gic-v5: Release ITS MMIO region on DT
- probe failure
-Message-ID: <auikDS0RE5E13z8I@red-moon>
-References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
- <20261102-host_gicv5_fixes-v1-10-743b61626fc5@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NtQSE6Hg
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7E35B1576;
+	Mon,  2 Nov 2026 06:54:22 -0800 (PST)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E92D63F871;
+	Mon,  2 Nov 2026 06:54:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793631265; bh=pe+eF55ZtCt9EK50Q3JeMHIuu3r98fGvy4S7dN+6afo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NtQSE6Hg4NZPFXQ1EiNFOU1PmKa4H+Hf6xPJvfcB7KdwuZLbI457GZl+8mrCNBtNo
+	 2PyrOqZhuMSPZNmfOZxZdtkgpZkjgebncw8Do9WE4zg2AeHLkFeYCskOC/ovLTR/p3
+	 5sUzDS++27WFhdVSSUC8oDy0ouhPtxEMyn5zal3U=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 11/15] KVM: arm64: Reserve dirty ring space for the HDBSS buffer
+Date: Mon,  2 Nov 2026 14:54:19 +0000
+Message-ID: <auikG0clmr19sAjh@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260929103655.85107-12-zhengtian10@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-12-zhengtian10@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,63 +91,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102-host_gicv5_fixes-v1-10-743b61626fc5@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 01:33:03PM +0000, Sascha Bischoff wrote:
-> of_io_request_and_map() reserves the ITS configuration frame region.
-> If ITS initialisation fails after mapping it, the error path only
-> unmaps the registers and leaves the region reserved.
+On Tue, Sep 29, 2026 at 06:36:51PM +0800, Tian Zheng wrote:
+> The dirty ring reserves room for CPU-side dirty buffers via
+> kvm_cpu_dirty_log_size(). Report the HDBSS buffer entry count
+> through it, so a full buffer flush always fits in the ring.
 > 
-> Keep the resource description and release the region on that path.
+> Pin the HDBSS buffer size to PAGE_SIZE when dirty-ring is enabled,
+> via kvm_arch_dirty_ring_size_updated(): a larger buffer only
+> shrinks the soft_limit and forces more frequent userspace drains.
 > 
-> Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
-> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
 > ---
->  drivers/irqchip/irq-gic-v5-its.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-
-A minor note on coding style below, other than that:
-
-Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+>  arch/arm64/kvm/arm.c | 8 ++++++++
+>  arch/arm64/kvm/mmu.c | 8 ++++++++
+>  2 files changed, 16 insertions(+)
 > 
-> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
-> index c0f3982229194..91abe63cb5cf9 100644
-> --- a/drivers/irqchip/irq-gic-v5-its.c
-> +++ b/drivers/irqchip/irq-gic-v5-its.c
-> @@ -1188,6 +1188,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
->  
->  static int __init gicv5_its_init(struct device_node *node)
->  {
-> +	struct resource res;
-
-FIR tree ordering.
-
-https://docs.kernel.org/process/maintainer-tip.html
-
->  	void __iomem *its_base;
->  	int ret, idx;
->  
-> @@ -1197,6 +1198,11 @@ static int __init gicv5_its_init(struct device_node *node)
->  		return -ENODEV;
->  	}
->  
-> +	/* Save the region to release if ITS setup fails after mapping it. */
-> +	ret = of_address_to_resource(node, idx, &res);
-> +	if (ret)
-> +		return ret;
-> +
->  	its_base = of_io_request_and_map(node, idx, of_node_full_name(node));
->  	if (IS_ERR(its_base)) {
->  		pr_err("%pOF: unable to map GICv5 ITS_CONFIG_FRAME\n", node);
-> @@ -1213,6 +1219,7 @@ static int __init gicv5_its_init(struct device_node *node)
->  
->  out_unmap:
->  	iounmap(its_base);
-> +	release_mem_region(res.start, resource_size(&res));
->  	return ret;
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 9d7bdece149a..5a7046acb62e 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -215,6 +215,14 @@ static int kvm_arm_default_max_vcpus(void)
+>  	return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
 >  }
->  
 > 
-> -- 
-> 2.34.1
-> 
+> +void kvm_arch_dirty_ring_size_updated(struct kvm *kvm)
+> +{
+> +	if (!system_supports_hdbss())
+> +		return;
+> +
+> +	kvm->arch.hdbss_buffer_size = KVM_ARM_HDBSS_DEFAULT_SIZE;
+> +}
+> +
+
+On the same subject as a previous patch:
+I don't think this is the best approach, on top of adding a new weak 
+function to take care.
+
+Maybe during the dirty-ring allocation, on vcpu creation, we could take 
+into account the requested dirty-ring size, and just allocate the HDBSS 
+buffer taking that into account. That would make it simpler, don't you 
+agree?
+
+Thanks!
+Leo
