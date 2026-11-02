@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607148;
-	b=ptubI4QMsl+AGIMwGEQU6SWO/mkWfLwUwUn459PbsMnVdNMH7OLKAZpBQLR4RJuuXRFR
-	 rP9a551kqDBplX8Zaqb1Geil9nXnRlZZN1IJez2nvF9iSt9ysYODbdCSp6z+8c5x2zjS6
-	 zg3M3k8uyRTbelslCt3M2uytnQOP/nFGXq0hOI0YtPCnwPn1JM61btTYQv06rAYRadgY7
-	 HPQEtpNcln6KMxYQYqDTq2foX8o1qBUBqula/4D+vB1dG5GO1ygQyWv9Ml56Hil8H26Ir
-	 1+LSx+xQTGITNwLZapwFqs2FTf53y+wB7iARLWpDW2awwBZYfzI7bQzsR2vc7Bd0Jpg==
+	t=1793607160;
+	b=RwzbiCAC8FZFhb0uDpcpttrTKFv7LeVj1y1+YHVqPzFSv2v+SuvOzMpzk6WI00509TZo
+	 AnkzXvpzA8wRIG1xVnFmxu1JaLu7rRJPnx8iER/pcYFFTGMEaecVGKR0l5uInn3braCBC
+	 LCdFZ5f2xRV36XmQzgJII8cHjaAOQWxnByXVAj2s2PgDuRYwjS2/VOi+ijRGIS5/hvJfC
+	 Hs7Emrpg2XmaHbQRgrUUydvw/PBsm+1Th+qXl7PmMjRLzmVE4I0Qt74LHo1FF4VeV1z3l
+	 hk68565ZuwuzyH3M9sDrzSk0eNq6jhhChuJif6ambrT747azCF7Ensp6WVLW+x4cdYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607148;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=IMhoSo95gjCjerFnh8p/muOlEhctt3FoP0/R1vEJRHo=;
-	b=taw5Ll7BCdV0y4jsg8PH1+HG82HVzhRKWnBchmZYDJlv2gmnXHHrlupS2N4HE3AojTsM
-	 NYflcxanKhKkuE6V/On08kqSAgokcKOjVL1k2tqCPvmKXKXlAvSoQTOCWCpeVZzl9dc2Z
-	 RQbxKEWQHxUp6SGn6hJRzr6gzZgMHWc9/LuQaY+DZCRlPociAUyJswXslN15Zz5X8rbSv
-	 A4otpSABuVFISW4yDmIQORJxqS1BkMIH63r27APUj1+oxppodLbaLqk+EpzFyvqWBTFcM
-	 OXQ9xKiss08GJcuAvThd3O14gF4sVrgOm5WjX14sMaEXhMb4090WeEE/x9axZwGa2hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607160;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=0XFyu5ohozRsphsglreF2QooKn6bFRpdsO1k5OqAHm8=;
+	b=RF0CMd8PKQB5t6ZRApmMlJhjh8u55PXfklijEF6KK2bq/Rdqq0EfkwWMELw+XpDKODXX
+	 HRndBrL9aLMMjW2+0dCMfSriWgssUShJJeng+kblkgquBL419DUV71DT705GRbk4DSn3A
+	 7RamFV9s4JPC4WKYfWEJStNIry/dBCwoRJP7wRf1o3qqewgiLfU/Tu3ZTdBKADy6Yd88C
+	 aX9cSGWmsf3DPMpSG2MXKvR8DhpiNX20fGGlxFMayNqiNr2x6C/5Msa1jHxacJQ5ZPi9w
+	 +EedZ6D66zqpU8hmv6htO2ZReZvObQ1YOdgZkBl07aDxyDxpaE9V2qNnv2bpTaPHKnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.99
-Received: from dggmsgout11.his.huawei.com (dggmsgout11.his.huawei.com [124.71.93.99])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F702606A327;
-	Mon,  2 Nov 2026 08:12:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F702606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggmsgout11.his.huawei.com (SkyGuard) with ESMTP id 4jJ4DZ22Zvz1c0TF;
-	Mon,  2 Nov 2026 16:11:58 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id EB97C40574;
-	Mon,  2 Nov 2026 16:12:21 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.50.85.155])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgAXTu3kRehqCK4cCw--.15917S4;
-	Mon, 02 Nov 2026 16:12:21 +0800 (CST)
-From: Zizhi Wo <wozizhi@huaweicloud.com>
-To: axboe@kernel.dk,
-	bvanassche@acm.org,
-	hch@lst.de,
-	yukuai@fygo.io,
-	linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	yangerkun@huawei.com,
-	chengzhihao1@huawei.com,
-	wozizhi@huawei.com
-Subject: [PATCH RESEND V2] block: fix BLKSECDISCARD zero-length range causing page cache invalidation
-Date: Mon,  2 Nov 2026 16:04:20 +0800
-Message-ID: <20261102080420.3774409-1-wozizhi@huaweicloud.com>
-X-Mailer: git-send-email 2.52.0
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB6CA606A329;
+	Mon,  2 Nov 2026 08:12:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB6CA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8CxPtPzRehqU3gbAA--.13915S3;
+	Mon, 02 Nov 2026 16:12:35 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAx3c7vRehq5cwxAA--.37701S4;
+	Mon, 02 Nov 2026 16:12:34 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v1 2/2] selftests/bpf: Handle unaligned access failure in fexit_bpf2bpf
+Date: Mon,  2 Nov 2026 16:12:30 +0800
+Message-ID: <20261102081230.7063-3-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20261102081230.7063-1-yangtiezhu@loongson.cn>
+References: <20261102081230.7063-1-yangtiezhu@loongson.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,95 +59,116 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgAXTu3kRehqCK4cCw--.15917S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxWrWUCry3AF4xXr17Xw4xZwb_yoW5GrWfpr
-	y3KFy5Jr4UWr9rWF40k3ZruFWUK3W7Ka1xA345twn3ZrWqvrnFgFyfCrySgFWvqr97Jaya
-	vF4Yva4xKFy7ua7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUyEb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7
-	CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
-	rVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4
-	IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY
-	0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I
-	0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAI
-	cVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcV
-	CF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIE
-	c7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsUUUUUU==
-X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
+X-CM-TRANSID:qMiowJAx3c7vRehq5cwxAA--.37701S4
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxAr1kWF18KF4DCFy5tw1rZrc_yoW5Kryxpa
+	s5Aw1jkryfZFySqw1UJa92gFZ5trWkJr1YkF1Ig398ZwsrArn7Xr1xKFW5WF98WrZYvws5
+	Z3yIkF9xur4UZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Fb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v2
+	6r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
+	CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF
+	0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
+	AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
+	KfnxnUUI43ZEXa7IU8XyCJUUUUU==
 
-From: Zizhi Wo <wozizhi@huawei.com>
+When executing "./test_progs -t fexit_bpf2bpf", there are 5 failures
+with the same log:
 
-Commit 697ba0b6ec4a ("block: fix integer overflow in BLKSECDISCARD") fixed
-the start+len overflow via check_add_overflow() but did not handle the
-start=0, len=0 case. There, start + len = 0, so end = 0 passes all checks,
-and truncate_bdev_range()->truncate_inode_pages_range() is then called with
-lend=UINT64_MAX, whitch is the "truncate to the end of file" sentinel, so
-the entire page cache is invalidated.
+  ; tcp->check++; @ test_pkt_access.c:98
+  226: (69) r1 = *(u16 *)(r2 +16)
+  misaligned packet access off 2+(0x0; 0x3f)+16 size 2
+  ...
+  libbpf: prog 'test_pkt_access': failed to load: -EACCES
+  libbpf: failed to load object './test_pkt_access.bpf.o'
 
-Fix this by replacing the validation with blk_validate_byte_range(), which
-already rejects a zero-length range and is what BLKDISCARD uses. This also
-switches the alignment check from a hardcoded 512 to
-bdev_logical_block_size().
+This is because CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS is not set
+on certain processors that lack hardware unaligned access support.
+In this case, the affected tests should be skipped.
 
-Fixes: 0bd1ed4860d0 ("block: pass inclusive 'lend' parameter to truncate_inode_pages_range")
-Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
-Reviewed-by: Yu Kuai <yukuai@fygo.io>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Add a get_unaligned_access_enabled() helper and use it to skip the
+tests gracefully if the program fails to load with -EACCES.
+
+Before:
+  $ sudo ./test_progs -t fexit_bpf2bpf | tail -1
+  Summary: 0/10 PASSED, 1 SKIPPED, 1/5 FAILED
+
+After:
+  $ sudo ./test_progs -t fexit_bpf2bpf | tail -1
+  Summary: 1/10 PASSED, 6 SKIPPED, 0/0 FAILED
+
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 ---
-v2:
-Add the fixtag.
+ .../testing/selftests/bpf/prog_tests/fexit_bpf2bpf.c  | 11 +++++++++++
+ tools/testing/selftests/bpf/unpriv_helpers.c          |  5 +++++
+ tools/testing/selftests/bpf/unpriv_helpers.h          |  1 +
+ 3 files changed, 17 insertions(+)
 
-v1:
-https://lore.kernel.org/all/20260704073942.3760597-1-wozizhi@huaweicloud.com/
----
- block/ioctl.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
-
-diff --git a/block/ioctl.c b/block/ioctl.c
-index 64b4e6c0f696..53558963d9d7 100644
---- a/block/ioctl.c
-+++ b/block/ioctl.c
-@@ -175,12 +175,11 @@ static int blk_ioctl_discard(struct block_device *bdev, blk_mode_t mode,
- }
+diff --git a/tools/testing/selftests/bpf/prog_tests/fexit_bpf2bpf.c b/tools/testing/selftests/bpf/prog_tests/fexit_bpf2bpf.c
+index d2f2dcc0f2e1..1c0e93dcb3ce 100644
+--- a/tools/testing/selftests/bpf/prog_tests/fexit_bpf2bpf.c
++++ b/tools/testing/selftests/bpf/prog_tests/fexit_bpf2bpf.c
+@@ -3,6 +3,7 @@
+ #include <test_progs.h>
+ #include <network_helpers.h>
+ #include <bpf/btf.h>
++#include <unpriv_helpers.h>
+ #include "bind4_prog.skel.h"
+ #include "freplace_progmap.skel.h"
+ #include "fentry_sleepable.skel.h"
+@@ -76,6 +77,11 @@ static void test_fexit_bpf2bpf_common(const char *obj_file,
  
- static int blk_ioctl_secure_erase(struct block_device *bdev, blk_mode_t mode,
- 		void __user *argp)
+ 	err = bpf_prog_test_load(target_obj_file, BPF_PROG_TYPE_UNSPEC,
+ 			    &tgt_obj, &tgt_fd);
++	if (err < 0 && errno == EACCES && !get_unaligned_access_enabled()) {
++		test__skip();
++		return;
++	}
++
+ 	if (!ASSERT_OK(err, "tgt_prog_load"))
+ 		return;
+ 
+@@ -297,6 +303,11 @@ static void test_fmod_ret_freplace(void)
+ 
+ 	err = bpf_prog_test_load(tgt_name, BPF_PROG_TYPE_UNSPEC,
+ 			    &pkt_obj, &pkt_fd);
++	if (err < 0 && errno == EACCES && !get_unaligned_access_enabled()) {
++		test__skip();
++		return;
++	}
++
+ 	/* the target prog should load fine */
+ 	if (CHECK(err, "tgt_prog_load", "file %s err %d errno %d\n",
+ 		  tgt_name, err, errno))
+diff --git a/tools/testing/selftests/bpf/unpriv_helpers.c b/tools/testing/selftests/bpf/unpriv_helpers.c
+index c8dd5d848584..54ce342b3fe4 100644
+--- a/tools/testing/selftests/bpf/unpriv_helpers.c
++++ b/tools/testing/selftests/bpf/unpriv_helpers.c
+@@ -161,3 +161,8 @@ bool get_kasan_multi_shot_enabled(void)
  {
--	uint64_t start, len, end;
--	uint64_t range[2];
-+	uint64_t range[2], start, len;
- 	int err;
- 
- 	if (!(mode & BLK_OPEN_WRITE))
- 		return -EBADF;
- 	if (!bdev_max_secure_erase_sectors(bdev))
-@@ -188,19 +187,17 @@ static int blk_ioctl_secure_erase(struct block_device *bdev, blk_mode_t mode,
- 	if (copy_from_user(range, argp, sizeof(range)))
- 		return -EFAULT;
- 
- 	start = range[0];
- 	len = range[1];
--	if ((start & 511) || (len & 511))
--		return -EINVAL;
--	if (check_add_overflow(start, len, &end) ||
--	    end > bdev_nr_bytes(bdev))
--		return -EINVAL;
-+	err = blk_validate_byte_range(bdev, start, len);
-+	if (err)
-+		return err;
- 
- 	inode_lock(bdev->bd_mapping->host);
- 	filemap_invalidate_lock(bdev->bd_mapping);
--	err = truncate_bdev_range(bdev, mode, start, end - 1);
-+	err = truncate_bdev_range(bdev, mode, start, start + len - 1);
- 	if (!err)
- 		err = blkdev_issue_secure_erase(bdev, start >> 9, len >> 9,
- 						GFP_KERNEL);
- 	filemap_invalidate_unlock(bdev->bd_mapping);
- 	inode_unlock(bdev->bd_mapping->host);
+ 	return cmdline_contains("kasan_multi_shot");
+ }
++
++bool get_unaligned_access_enabled(void)
++{
++	return config_contains("CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS=y") == 1;
++}
+diff --git a/tools/testing/selftests/bpf/unpriv_helpers.h b/tools/testing/selftests/bpf/unpriv_helpers.h
+index c24d53e14f3a..6e3ad636ea83 100644
+--- a/tools/testing/selftests/bpf/unpriv_helpers.h
++++ b/tools/testing/selftests/bpf/unpriv_helpers.h
+@@ -9,3 +9,4 @@ bool get_unpriv_sysctl_disabled(void);
+ bool get_unpriv_mitigations_disabled(void);
+ bool get_kasan_jit_enabled(void);
+ bool get_kasan_multi_shot_enabled(void);
++bool get_unaligned_access_enabled(void);
 -- 
-2.52.0
+2.42.0
 
