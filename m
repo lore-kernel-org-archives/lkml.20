@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602035;
-	b=JG2LWwL/jBTJ24F4XQ2l+5ol4upSW/rrlVX6j4PgVcymZOS0fcmxFAV79E2Yw1+JUjCo
-	 lXeJ5V6mqxVx9KKhO4U/TlNgMxxCeNWm+xZ6CY8DouYi5gHoZBkBsaQ3V73LyxFtGVm2S
-	 icgLczr72C/wyK+vg60Hc2DEi5/dqsDd43Gx+9YmkzcTYs5/NrUGwrqRK7jPaD1KFhTWK
-	 1gAtNd2wT6PgDBkDnVjg///rDAa6zyiVKGFCabs4EreHciUF0MZGN5oWaNxwobYT7w6iH
-	 5iBqxLhH4ffsoR/m0N+jPKlgfnzJh3T7Sgw03ZgFnplopaktrYOaajciRv4UXGAxOEw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602035;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=TnrMdknEv6+01oL0Xur2PpAkSyjvMCEFKEns63Q5Zd8=;
-	b=UunMFj0L7OJ9zPgtM7UlcwuEGhD//WW9nvHz7363dm5uBcSQ1mb7ZTXfmIkEnqcr278x
-	 9uJGV1H+l4ul+xcQUtLZOv99GDrUG4eg8MCG0Q4Jj0FDgGA7e8mF01vNlO4A2rlkGGUj3
-	 oFWq8FIBYgLLAG/KdQ6703vSKc28c084cX6fX6oC4qvyfsAZtVPTWcU2+8iDuua6/fRBa
-	 BjO/xe1exToGPkfF9qyHdMBdY0MOHkpOkNh1ekLDYTE45dW5hiJcQoZkN4Npz61I9LPXF
-	 CIB5lvMhlUTMNsTpg4fYd3EM1IMQK+5KiV4oMHtRS1SVZJyie/EAOWPF8svnTWRm4Hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793602021;
+	b=IIDjZor5iwiIfc3Evr4maY+7ym70y7G9SIzPdzXl3WU6MVawEzDjq5eq5ZCVy1ctkCr5
+	 onWyWQ6DvRty6JbhbIzNKX6Ohr0bIoyDivs3gZVPD4ZS0Mt0uBT15sTJ99l89XG1qY+z3
+	 t9umTcnFD6lzZibBA4HzFITnsTkhJ3ZsfDKNyXKaPHom1M1lRYj5VJK+cxGaa1SBvH9y6
+	 yVaNSiybYcNdUzOgJleOBsje6AmVz8Bp5P4M8d7AEJXap5eGVeScfljc7XzYG0QxXF7mg
+	 gl6Flr4veY/eI44wgQtiX0Rm3aW9PprZmbKm/AQUclZdPPdWE05yJ5f6SfEJWubca8g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602021;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fP4uhxWrwLj9+SVQejTRux8LxkoTj+venrMY0J0+WCA=;
+	b=OB8mmVeNM+g0GNQO2mBtI+Lc+UNnEss/J0ko0PuMqkZSzwqyQc+PqBYeH/YpafHSdbkX
+	 cdEnazy1HWNiUHUA8qA8Q87J1NYoKELseTFfGpK2XEZhTPnyh3cQ5uyguJROVcSrH0bPJ
+	 04V+616ipr8eR2hCZs2w47UhX5nsFVJUVpnVPdf93nm8HHX0MqhcVJQwkVN7J/+kI/QsI
+	 ftgDfhLhZs4cjdLaMateuJPfNwKdLCT1gv5HgoXkkGw6+Y0fjmOr0dpik8O4eKwwGfnG7
+	 7OZCxGWfE/rSAMUk77QseQv1lyYPKnbw68LGG+ab8fjPPwncHv3cttMUNyV5gyRsfbg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2er9BsL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA60560A263C;
+	Mon,  2 Nov 2026 06:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2er9BsL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793602020;
+	b=I23GCevXIZ6qr4F7WqQA8KObsfeE85AEQNCyCQcvgltYjgJq+L44Gx1RrqkoyU0flRFL
+	 XSaxg5wKw8I+YcfsVvsT41/qH+Gxg8NL/WpkwbOE90KcaZcGrVO4KHkvfnTtSrY6Rp0CQ
+	 6U4m284OlnFDJ0WtlINBFusLC31t9fDlNhgN1FsZwBdvLhvh5GlsPJxx2wW+sdZ0ggapH
+	 7WmNYEDSe8nOykVx9PltkT2zzYcZtSLx6IRk3SpmMNqjteTfP6ANGhFO81tcZMskmElej
+	 UJ54T8qTpJy2T/KPt54q+XPa8LE6JUD+9bTJN+kj9BF56DsVIDGEgSouhHFo1K3Etrw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793602020;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fP4uhxWrwLj9+SVQejTRux8LxkoTj+venrMY0J0+WCA=;
+	b=aKXBIq4xk1csIYkJ3brUz3GzUy9yN6dWP9QaWq1u/zfgtjWzn1e/AQoUAcCmjY5JEaSh
+	 93ipbgnuo5MykW61h6P3DXShCyAGVPW7XKUjiztqnVqRB5vAe6/o8MJbzF+cPans59wFC
+	 n5u+lSlVBhX5OoECb5DkHVztpnWC6wXbdt7TAqMZVz9IpJFJKFihvOAoboOYieBK6jO5G
+	 7moE7o9lA3t3Gvs0lwmTU6yaHCk2pZ2MYuCgRm5xrUlOXM6GSgp5vR0vr2NWPNa2FlayZ
+	 G00ECM1IJJ09EuV9LDwarJQAp47Ca922hco8b8FXwrUGXveg/ntpnSvLkukIwQRHc3g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1281E60A5BE6;
-	Mon,  2 Nov 2026 06:47:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1281E60A5BE6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=TnrMdknEv6+01oL0Xur2PpAkSyjvMCEFKEns63Q5Zd8=;
-	b=nA8/c4knN0gt8OeFroEFYi6VYCKm+HRJnef6DLxi2pyKv8NoGqn8kSLeJeGB8TpwTC69QSWlh
-	xZ/SautLTAPhPSKzGvRbq27Hs1kSi0uu1lTH9mw1X1mKJju+cTh4w9VXqfi8mMOGWTqLahYoyno
-	+B4MyshgB5/XnC2oyboSh10=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jJ2L43mp7zcb0L;
-	Mon,  2 Nov 2026 14:46:36 +0800 (CST)
-Received: from kwepemr200011.china.huawei.com (unknown [7.202.195.32])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5915940575;
-	Mon,  2 Nov 2026 14:46:59 +0800 (CST)
-Received: from localhost (10.50.159.234) by kwepemr200011.china.huawei.com
- (7.202.195.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 2 Nov
- 2026 14:46:58 +0800
-From: <zhangqiuhao@huawei.com>
-To: "Richard Russon (FlatCap)" <ldm@flatcap.org>, Jens Axboe <axboe@kernel.dk>
-CC: <hewenliang4@huawei.com>, <yangyun50@huawei.com>,
-	<chenrenhui1@huawei.com>, <wuguanghao3@h-partners.com>, <wozizhi@huawei.com>,
-	<linux-ntfs-dev@lists.sourceforge.net>, <linux-block@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] block: partitions: ldm: avoid overflow in VMDB size check
-Date: Mon, 2 Nov 2026 14:38:17 +0800
-Message-ID: <179360149774.20265.17257530536010482220@huawei.com>
-X-Mailer: git-send-email-like-python-script
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.kernel.org (Postfix) with ESMTPS id 9AF081F00A15;
+	Mon,  2 Nov 2026 06:46:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793602020;
+	bh=fP4uhxWrwLj9+SVQejTRux8LxkoTj+venrMY0J0+WCA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=l2er9BsLk1bqR4aIVu/pgIkgE0fp5Ko0qwPNZRCWzPn/dlma1lDbr0oJLmsaDtu/B
+	 S2tFr5/7S4XUoUSRJfpCdRvd+qxkBDh8CRodUkCkM5z5ovJltI8GlZ/GKJHuXMUys5
+	 5wpW8wSH64TlNNoAwh0PRnIGOuXm9699DmJxUKUPdS0K/C8Gwg0Pv0TF3ncw0nOY+g
+	 Xna685VN4TX7Mn9G0GQIJJ0qfMVpw3e0cmeLMNsSD8Mr93vYrKNGWEDXntRWFhy10x
+	 bTwn42XeS6PdgYajEH/TngGxFqswcqE4ObGRN3GQWKqx0ZBgAr5YatXqzleipkHoDW
+	 pr55Qw8goo+1Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 14F2F463D3;
+	Mon,  2 Nov 2026 06:46:56 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Mon, 02 Nov 2026 14:46:04 +0800
+Subject: [PATCH v13 11/13] gpio: pl061: add Ambarella register-layout
+ variant
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,58 +83,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemr200011.china.huawei.com (7.202.195.32)
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-cv75-gpio-v13-11-4f93114ea204@ambarella.com>
+References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+In-Reply-To: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Mika Westerberg <westeri@kernel.org>, 
+ linux-acpi@vger.kernel.org, devicetree@vger.kernel.org, 
+ Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793602013; l=4176;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=7PBsQ7BHt0WowwsQlVwR3GG8j78Lnd2HAGKwF7XYLks=;
+ b=IThx7WXR4x138FrhiZfgU2SltHuCvWmzjIDV3T3/mBJzN6DkGGjSn2DzlqmMSVxa61F+Pvqgv
+ vHtxFE9mSZMCCOjx06NguBQigtKkYA1jdvmaOdyLNncxqAIFNK7wGie
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
+Content-Transfer-Encoding: 7bit
 
-ldm_validate_vmdb() can accept a VMDB whose declared VBLK extent
-exceeds the TOCBLOCK configuration bitmap.
+From: Long Zhao <longzhao@ambarella.com>
 
-For example, these fields on a 4 MiB image pass the preceding PRIVHEAD
-and TOCBLOCK bounds checks:
+Add a 32-bit, 32-line layout with DAT/DIR/IS/IBE/IEV/IE/MIS/IC plus
+MASK and ENABLE. Probe unmasks the bank and enables the controller.
+IRQ type changes also clear the pending bit. This derivative does not
+need write-after-direction or system suspend save/restore.
 
-    disk capacity =3D 8192 sectors
-    config_start  =3D 6144 sectors
-    config_size   =3D 2048 sectors
-    bitmap1_start =3D   17 sectors
-    bitmap1_size  =3D 1024 sectors (524288 bytes)
-    vblk_size     =3D  128 bytes
-    last_vblk_seq =3D 0x02000008 (33554440)
+Cache DAT (REGCACHE_FLAT_S, not volatile) so gpio_set() updates one
+bit from the output shadow instead of read-modify-writing the pin
+level across the bank.
 
-The configuration area fits on the disk, and the bitmap ends at sector
-1041 within the 2048-sector area. The VBLK extent is 128 * 33554440 =3D
-4294968320 bytes (4 GiB + 1024 bytes), so the VMDB should be rejected.
-Both multiplicands are u32, however, so the product wraps to 1024 before
-it is promoted to u64 for the comparison. The check evaluates
-1024 > 524288 as false and incorrectly accepts the VMDB.
+Match the part with designer AMBA_VENDOR_AMBARELLA (JEP106 identity
+0x68, bit 7 set) and part number 0x061.
 
-Cast vblk_size to u64 before multiplying. The check then evaluates
-4294968320 > 524288 as true and rejects the out-of-range extent.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: zhangqiuhao <zhangqiuhao@huawei.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
+ drivers/gpio/gpio-pl061.c | 58 +++++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/amba/bus.h  |  1 +
+ 2 files changed, 59 insertions(+)
 
-Based on Jens Axboe's for-next at
-70866cfa169d5ee149364267289e71d50f9a7ae9.
+diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+index cb1ef0f3774c..ff9215447bbb 100644
+--- a/drivers/gpio/gpio-pl061.c
++++ b/drivers/gpio/gpio-pl061.c
+@@ -39,6 +39,18 @@
+ #define PL061_GPIO_NR	8
+ #define PL061_DATA_OFFSET	2
+ 
++#define AMBARELLA_GPIO_NR	32
++#define AMBARELLA_DAT		0x00
++#define AMBARELLA_DIR		0x04
++#define AMBARELLA_IS		0x08
++#define AMBARELLA_IBE		0x0c
++#define AMBARELLA_IEV		0x10
++#define AMBARELLA_IE		0x14
++#define AMBARELLA_MIS		0x20
++#define AMBARELLA_IC		0x24
++#define AMBARELLA_MASK		0x28
++#define AMBARELLA_ENABLE	0x2c
++
+ struct pl061_regs {
+ 	unsigned int dat;
+ 	unsigned int dir;
+@@ -93,6 +105,17 @@ static bool pl061_arm_volatile_reg(struct device *dev, unsigned int reg)
+ 	}
+ }
+ 
++static bool pl061_ambarella_volatile_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case AMBARELLA_MIS:
++	case AMBARELLA_IC:
++		return true;
++	default:
++		return false;
++	}
++}
++
+ static const struct regmap_config pl061_arm_regmap_config = {
+ 	.reg_bits = 16,
+ 	.val_bits = 8,
+@@ -103,6 +126,16 @@ static const struct regmap_config pl061_arm_regmap_config = {
+ 	.use_raw_spinlock = true,
+ };
+ 
++static const struct regmap_config pl061_ambarella_regmap_config = {
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = 4,
++	.max_register = AMBARELLA_ENABLE,
++	.volatile_reg = pl061_ambarella_volatile_reg,
++	.cache_type = REGCACHE_FLAT_S,
++	.use_raw_spinlock = true,
++};
++
+ static unsigned int pl061_line_mask(struct pl061 *pl061, irq_hw_number_t hwirq)
+ {
+ 	return BIT(hwirq % pl061->data->ngpio);
+@@ -336,6 +369,19 @@ static const struct pl061_regs pl061_arm_regs = {
+ 	.ic	= GPIOIC,
+ };
+ 
++static const struct pl061_regs pl061_ambarella_regs = {
++	.dat	= AMBARELLA_DAT,
++	.dir	= AMBARELLA_DIR,
++	.is	= AMBARELLA_IS,
++	.ibe	= AMBARELLA_IBE,
++	.iev	= AMBARELLA_IEV,
++	.ie	= AMBARELLA_IE,
++	.mis	= AMBARELLA_MIS,
++	.ic	= AMBARELLA_IC,
++	.mask	= AMBARELLA_MASK,
++	.enable	= AMBARELLA_ENABLE,
++};
++
+ static const struct pl061_drvdata pl061_arm = {
+ 	.regmap_config		= &pl061_arm_regmap_config,
+ 	.regs			= &pl061_arm_regs,
+@@ -345,6 +391,13 @@ static const struct pl061_drvdata pl061_arm = {
+ 	.reg_mask_xlate		= pl061_arm_reg_mask_xlate,
+ };
+ 
++static const struct pl061_drvdata pl061_ambarella = {
++	.regmap_config		= &pl061_ambarella_regmap_config,
++	.regs			= &pl061_ambarella_regs,
++	.ngpio			= AMBARELLA_GPIO_NR,
++	.clear_irq_on_type	= true,
++};
++
+ static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
+ {
+ 	struct gpio_regmap_config config = {};
+@@ -521,6 +574,11 @@ static const struct amba_id pl061_ids[] = {
+ 		.mask	= 0x000fffff,
+ 		.data	= (void *)&pl061_arm,
+ 	},
++	{
++		.id	= (AMBA_VENDOR_AMBARELLA << 12) | 0x061,
++		.mask	= 0x000fffff,
++		.data	= (void *)&pl061_ambarella,
++	},
+ 	{ 0, 0 },
+ };
+ MODULE_DEVICE_TABLE(amba, pl061_ids);
+diff --git a/include/linux/amba/bus.h b/include/linux/amba/bus.h
+index 80a74cd2da7e..411533bfa61d 100644
+--- a/include/linux/amba/bus.h
++++ b/include/linux/amba/bus.h
+@@ -98,6 +98,7 @@ enum amba_vendor {
+ 	AMBA_VENDOR_ST = 0x80,
+ 	AMBA_VENDOR_QCOM = 0x51,
+ 	AMBA_VENDOR_LSI = 0xb6,
++	AMBA_VENDOR_AMBARELLA = 0xe8,
+ };
+ 
+ extern const struct bus_type amba_bustype;
 
- block/partitions/ldm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+-- 
+2.34.1
 
-diff --git a/block/partitions/ldm.c b/block/partitions/ldm.c
-index c0bdcae58..d5c133a33 100644
---- a/block/partitions/ldm.c
-+++ b/block/partitions/ldm.c
-@@ -458,7 +458,8 @@ static bool ldm_validate_vmdb(struct parsed_partitions *s=
-tate,
- 	 * The last_vblkd_seq can be before the end of the vmdb, just make sure
- 	 * it is not out of bounds.
- 	 */
--	if ((vm->vblk_size * vm->last_vblk_seq) > (toc->bitmap1_size << 9)) {
-+	if (((u64)vm->vblk_size * vm->last_vblk_seq) >
-+	    (toc->bitmap1_size << 9)) {
- 		ldm_crit ("VMDB exceeds allowed size specified by TOCBLOCK.  "
- 				"Database is corrupt.  Aborting.");
- 		goto out;
---=20
-2.33.0
 
