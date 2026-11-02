@@ -1,97 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=40.107.209.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793599941;
-	b=JXaiJNquxK6fFUf4a1LyiYku9n8SlDOUB4OZWeA7rteZL5GNLQ0kpJS9Q+GQBhg4bJj4
-	 /Fr0xxV5ftSAHu6TpfxOWSI+EBVDkNgwOOuRv9zj1Tp2qjhNJ8c/kZdEgVjElryBpxjtE
-	 joVaoZhuJ70iOikiwhMOg3nvn18fNYmikVJOHzzgm+nduQdaYrjBJ+vtnHJUWNSks1X8Q
-	 BeMh4q51USSBDUaF9o8JODGTn8OTdR0I603HttO5Yd0hOj5Xz5S1lnClx5YiZNOX21Ssp
-	 mnuEF3nwaoEYtEVPXbh2do81zBc57IJNt20QLAJ8Yqa+Ok31hyfZl3plKR+1HZWE7qw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599941;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2BkXiysxqpfAtecds8Nir9eSmmd2A//cnazFZ3HDBwA=;
-	b=poE0lWg9u1j34Fv3Qf3d9XqWShQsg/+tFZbTFZr7PJWsLT2eD44ix5xOhZ9KWPumifEu
-	 W2jzGWivhRAq5UmVURgAiNI1hAFLHA94PuzyDNcC9WuLJeEi/3ywcAy1wqGRfoCm3NE6b
-	 I262aRemYw58hJv4wpri1u7Z6tB+RxHtRL4tCnLUv3Xbc07l5LRUa7eDIBEbbJepJW1Li
-	 13RWI7mq3q0Dla+OTyUTDWu8T5ab9qM2PuuaClYIaWlg/taRDBa49OLmuzYYTARCgyn+k
-	 40T23Ya+zmi/9qRbmzxSGCkthcSu1fob+bi6QFzIdn5a8yQqfc67SuwmHXlqFDv+8Lg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ArrFIUSq;
-	arc=fail smtp.remote-ip=40.107.209.59
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012059.outbound.protection.outlook.com [40.107.209.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793599951;
+	b=fAOwrDA21x6Katqzty3xQ57UOvKkwp04ClWPR7QYl5bS2jUhU/ItKRSRd5Hgv+Lu542c
+	 5n9gwYTBTv84/pRw6jYcebtDrQefvEydVkEKeKii4FlPAg03OQxL8cpDNrX6DtslKXY2v
+	 uXRcpYBFkB9DWnnu1AfssGYZzq7H6QizC6rCgNhwiY7OkyaUxymruEWSbMtT5VbTfJ0al
+	 9xKIezmKC+0Zi1gZULRVD0SmFhop/2cktMfRhSkMg6blemybmja8U8BVkd0IVZHfpzGBS
+	 viJQTHG1Buyr4kDYUeDQ/W7j1yUtxTCwKKxRHp6nfp6wM37X4e5JXV0/MWsMXoqXeLw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793599951;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=GK1Tv9cGLqLZXdGnoTaOHiPscILRTL0TQ97U2kfZgBU=;
+	b=YpB37n2H72IsrbKmbVVYdwj1zF2fQw8t/iB0rip168CzIrtM9C5B13S1abb2OU9Vhmbp
+	 U7pMhGP+CX5ChAY4xaqsvBVgkHAW3X3p6aCnfvJKnUBMCMQ3BJgNioPsLJ0Q4OkRA3C9M
+	 ZT62ugYEWgWiPU5G6eTEk9cdeD5viiR0wk2qusCJvtOnYmCNtKzRnNbsvTu763JK5OgiL
+	 D81tUYtLaUTyq1pPl9UmVP/Aj+s0oK+lU/fclYfnEZpYUce6Q31DElD8tv/ZzAY8Olt/R
+	 28RbOiH2zPAnGcA1UzazDYSKTe93wjCa1ZxVgS0BrAAfroJiLzItgmhfmLmaHWDO/Gg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB49A606A326;
-	Mon,  2 Nov 2026 06:12:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB49A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ArrFIUSq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PHy8sxJVWGy5qlCWGJR/hjGtiZDmXmzECR4Tz8CikL7AGW2fh5xWomM8RBk2QZc2Dqma2mtjpxOrF7d4CZsl+maU6z+Y5027V3K8dIDWuU3yAQGgil51wwHnaxh0FtVt+niHOkQhBZiLLKzQZuU5A5J9NO6dNy6ICFD55X5+TLWJFx0NeuPCtZjZ3Lt67UN4+ZidfkSouNhSOI6LMeYFfzlarz8dtisZbHp92pEfeIA3H6+VnmVUA8DvtqQnZ4wxCEwfxK1SHpFhp8pPZ1lz5l5bK7UCXHG2ZiRu9LDLYBQ0NaSqu3FbkQ9aCBNXK9XkMOmjO/GxgKCB6n2r/tlOew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2BkXiysxqpfAtecds8Nir9eSmmd2A//cnazFZ3HDBwA=;
- b=R9jbGZktRxVmzPs6HVNkrG8YArkMXtfMywGKeBmQATnA0VcXavj+T6sjcqWL/Je/oZPp4XrTalsDwPk24BOnha832DqPOQ6NDhG7yNn9QBtBB8wvFapTnO3Ccy7S+8b3vm6VmsnIBSKBlyIFF8h1pQwV/YuRP2/mrH2dLS+U2jkLbMeruOtp0nmr2PLMetHOSqkN5EK2AuG0cTBLNyYsGAcxanmDBmijPWOgdPxSaKgILTLHsK5g7OQdN2KAcMVgvNTg4WLIB5u49Bjss773OH11ukK0rAB5THYBYb0NCiaEvO6sLp6oK9ge2KLk/sxht6W5Fg+NlYEN2v+ooYhUoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2BkXiysxqpfAtecds8Nir9eSmmd2A//cnazFZ3HDBwA=;
- b=ArrFIUSqy8FvTyDAxSYdqj/PvxN9UIHqSxRg6/UNh1pP+BPXy9/jPjfibr9YpGXke3p0JysgCbDBmCxFZxBYj7apKo7fSxqeBisM01YiQlR7QAQoPxZlqf6XLkKzAheZ1WTZLeLwwY6XSduGSGtSlAVgEJJSvTKFtkOdsbClNO8=
-Received: from PH0PR07CA0024.namprd07.prod.outlook.com (2603:10b6:510:5::29)
- by DSSPR12MB999235.namprd12.prod.outlook.com (2603:10b6:8:377::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Mon, 2 Nov
- 2026 06:12:17 +0000
-Received: from PH4PEPF0000B60C.namprd21.prod.outlook.com
- (2603:10b6:510:5:cafe::42) by PH0PR07CA0024.outlook.office365.com
- (2603:10b6:510:5::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 06:12:17 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- PH4PEPF0000B60C.mail.protection.outlook.com (10.167.243.87) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.0 via Frontend Transport; Mon, 2 Nov 2026 06:12:17 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 00:12:16 -0600
-Received: from [10.136.33.166] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 2 Nov 2026 00:12:06 -0600
-Message-ID: <69ed0d93-f96d-4baa-a587-fade5a0a3262@amd.com>
-Date: Mon, 2 Nov 2026 11:42:05 +0530
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22153606A337;
+	Mon,  2 Nov 2026 06:12:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22153606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1793599946;
+	bh=GK1Tv9cGLqLZXdGnoTaOHiPscILRTL0TQ97U2kfZgBU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=t3abexSCyXZS3K0nZ1CyG8tvdzY0Z2jSgnTdjkmddea4VOK95mxOsmoy8/Cv6nOJr
+	 JA9OxOntBkzCeNwodgaUdxDnXz0ddIGKZXOnOJcPzRcsnXBnVZzYk5xyF8iOOcsEYY
+	 2ZkNYB3pwU84av2CNZdriKUVOZK+h2/eVJRHq3Cv5c3tvTAd+XdBJxPcLsVIY7ekxE
+	 i5ZQvjTxkW5HLu4be3k5ZQNZA9rG+5IPeVrAlMZIAB5UQvdnmnDOlZ7sLyQLv0ovpS
+	 XzVEJSFrDBphPaqsmCxwJEyA5j+I/UN7O+sO29ESPLSS46/0z6DDMPw6cb/b22gCLc
+	 cFTKXP/vPawxw==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jJ1Zf0Ld3z4wC6; Mon, 02 Nov 2026 17:12:26 +1100 (AEDT)
+Date: Mon, 2 Nov 2026 17:12:15 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 11/74] Add support for FDT_PROPDATA_PHANDLE_REF
+ dtb tag
+Message-ID: <augpqjHVMq4nYdlr@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+ <20260826094950.1088288-12-herve.codina@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,133 +71,484 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] x86/sev: Clear RMPOPT when segmented RMP is
- disabled by firmware
-To: Borislav Petkov <bp@alien8.de>, Ashish Kalra <Ashish.Kalra@amd.com>
-CC: <tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
-	<x86@kernel.org>, <hpa@zytor.com>, <seanjc@google.com>,
-	<peterz@infradead.org>, <thomas.lendacky@amd.com>,
-	<herbert@gondor.apana.org.au>, <davem@davemloft.net>, <ardb@kernel.org>,
-	<pbonzini@redhat.com>, <aik@amd.com>, <Michael.Roth@amd.com>,
-	<Tycho.Andersen@amd.com>, <Nathan.Fontenot@amd.com>,
-	<ackerleytng@google.com>, <jackyli@google.com>, <pgonda@google.com>,
-	<rientjes@google.com>, <jacobhxu@google.com>, <xin@zytor.com>,
-	<pawan.kumar.gupta@linux.intel.com>, <babu.moger@amd.com>,
-	<dyoung@redhat.com>, <nikunj@amd.com>, <darwi@linutronix.de>,
-	<linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
-	<kvm@vger.kernel.org>, <linux-coco@lists.linux.dev>
-References: <cover.1793216372.git.ashish.kalra@amd.com>
- <56da047d63b22f03a7e709fc172a5543da894d67.1793216372.git.ashish.kalra@amd.com>
- <20261102052841.GBaugfibOXxGorZKgq@fat_crate.local>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261102052841.GBaugfibOXxGorZKgq@fat_crate.local>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH4PEPF0000B60C:EE_|DSSPR12MB999235:EE_
-X-MS-Office365-Filtering-Correlation-Id: d928838a-aeeb-48ee-366c-08df38a83ef7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|7416014|1800799024|6133799003|10067099003|22082099003|18002099003|13003099007|11063799006|4143699003|261021121427099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261009223027099003|261028144727099003|261021123027099003|56012099006|260925022911599003|260925021311599003|260925021911599003;
-X-Microsoft-Antispam-Message-Info:
-	lK2LFxPIeN+thkPQjpA8xUgZGq8QW4naMfBspou7JPYLrwa1mxdR2CxpALFuOdt7MejDpKKCyg6Q0Z9RGhnGUcXhZAxgiyItjVgcl8Fs36EGMcm3B2sZSrnhbLMh0c23bbksSyVKK6DZUSLpRYZTPWOi1RuKQ20TLOTrLZozKxZxu1YRNSeZEMRykzNf0o+Ar7MHVMFgGKr8+9a6I97l/eAdF1JASN7EPzJECBw5EdnzFewZ3ePFxKvbGwxQamjfGnzkNXjPAVpH4eQb6VOu8dzIYhH+p40p9A7ou8aZJtzMGnRIsfvElXuAABkLUl04knPrJ5YjFVlPmkizBxI41xf8ssU7JcofkycX+UeND4+DksLfP0p3EhL835/6w8zi0wHI0/KPXdOZw4Px5hYf6ouIXEuojyZOEbrwoJVN5rQc9LLJYzS/Zlbe3SDMxPFRCBsI3B/cacKFzDwfftksN6BtonOqV8Q5oo4wv28zvWd6YSmjL980kwcP1mODeepSReeutPAML6vsIZY5GtZlGyPjm2htY5RTovGJV/bPHFLBOtRHh2lTw8Z7nLAXFBhStSOUqk8K8/Bp3P2e/NkK7U1A9lDr9YNUHO3RiUPutoFNekiK7eOI346fWN7nLoxgiUpAWW3J7zUGtPI08z/jtmUw++JhZfLA6GacVIOcImI=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(13003099007)(11063799006)(4143699003)(261021121427099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261009223027099003)(261028144727099003)(261021123027099003)(56012099006)(260925022911599003)(260925021311599003)(260925021911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	XXKlp3xhjY7QcrYwhZVHn04RnH9Z8LyMHGKs5EtKCagxxa3lFe4Bo6mfOH58Yuf/7gw9jDippSBaEPDyk+An2mpXVtlXRiztOi6A7l0KaX569SSb2VY8IXin86Xv/JxoVQNPdvFGpAVfwevhalI0ITjXfbsm+OR4qsLlis3xiNyDFL9FZd56EqfehnyHGEr+4KQZtyBQPegABF+iOr7V/tprGcKB/2tnRFR2dY/9LRYnETAP9UFf7Kmw5kS/C75sKplzD+G7kow0hq/x8xMFYer5LX55lN67NcbS8qxr/XQxKgM1C5EXNIG3m1K6VjuOOmIpi3K0JB+r7TdEIptfWcQERdck/tINghxSawF2Dyusj1mnouhMkzwylwFiKuPG3boJcFv12UPgFcBegP7SbOKCrabe6KPop7XocnK+RdiZlSWSOAD2Ot7voPJdh7g2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 06:12:17.0821
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d928838a-aeeb-48ee-366c-08df38a83ef7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH4PEPF0000B60C.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSSPR12MB999235
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qsZ77WCgSEzZDLcX"
+Content-Disposition: inline
+In-Reply-To: <20260826094950.1088288-12-herve.codina@bootlin.com>
 
-Hello Boris,
+--qsZ77WCgSEzZDLcX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 11/2/2026 10:58 AM, Borislav Petkov wrote:
-> Segmented RMP support is advertised via X86_FEATURE_SEGMENTED_RMP, and the
-> firmware enables it via MSR_AMD64_RMP_CFG[SEG_RMP_ENABLED]. The latter can be
-> cleared in platform BIOS by the user, in which case the system runs in
-> contiguous RMP setting.
-
-nit. In the latter case, SNP is disabled entirely in bsp_determine_snp and
-the system won't continue with contiguous RMP.
-
-> snp_probe_rmptable_info() does not clear X86_FEATURE_RMPOPT in the
-> advertised-but-firmware-disabled case.
-> 
-> As a result, this does not prevent snp_enable_rmpopt() from trying to program
-> MSR_AMD64_RMPOPT_BASE, which raises a #GP on the MSR access.
-> 
-> Make sure X86_FEATURE_RMPOPT is cleared in all cases where segmented RMP is
-> not enabled.
-> 
->   [ bp:
->    - Put the commit message on Ozempic
->    - Flip the logic in the function so that the segmented RMP disabled
->      case goes first and the flow gets simpler this way. ]
-> 
-> Fixes: 15d974be0a3b ("x86/sev: Initialize RMPOPT configuration MSRs")
-> Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
-> Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-> Link: https://patch.msgid.link/56da047d63b22f03a7e709fc172a5543da894d67.1793216372.git.ashish.kalra@amd.com
-
-Feel free to include:
-
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-
+On Wed, Aug 26, 2026 at 11:48:40AM +0200, Herve Codina wrote:
+> The FDT_PROPDATA_PHANDLE_REF dtb tag is similar to the
+> FDT_PROPDATA_PHANDLE tag except that it identifies a reference to an
+> external phandle. The node referenced by the phandle is not present in
+> the device-tree blob.
+>=20
+> The FDT_PROPDATA_PHANDLE_REF dtb tag is a meta-data tag attached to a
+> property.
+>=20
+> It indicates that the property defined before this tag (FDT_PROP) uses a
+> phandle value and the node related to this phandle value is not local
+> node (i.e. the node is not present in the device-tree blob). This tag
+> can be available only in overlay or addon device-tree blobs. The phandle
+> value used in the property has to be resolved when the device-tree blob
+> is applied on top of a base device-tree.
+>=20
+> The tag is followed by the length of the data part (structured tag), two
+> values and a possible alignment padding:
+>  - data part length (32bit): 4 + strlen(label) + 1
+>  - offset (32bit):
+>      Offset in the property data where the phandle is available.
+>  - label (string including \0):
+>      The label to use to resolve the phandle value.
+>  - padding:
+>      Padding (0x00) added to have the next tag aligned on 32bit.
+>=20
+> Example:
+>   FDT_PROP 0x00000008 xxxxxxxx 0x00 0x01 0x02 0x03 0xff 0xff 0xff 0xff
+>   FDT_PROPDATA_PHANDLE_REF 9 0x00000004 "foo1" 0x00 0x00 0x00
+>=20
+>   This means that at the offset 4 of the property data, the value
+>   (0xffffffff) is an unresolved phandle value and the related node is
+>   the node referenced by "foo1".
+>=20
+>   This is what is encoded in the dtb when the related dts has a property
+>   with the value set to <0x00010203 &foo1> with 'foo1' a reference
+>   to an non local node.
+>=20
+> If several non local phandles are used in the property data, several
+> FDT_PROPDATA_PHANDLE_REF are present after the FDT_PROP tag. Each of
+> them points with its offset value to the position of one phandle.
+>=20
+> For instance, if a first property with 8 bytes of data has a
+> unresolved phandle value at offset 4 referenced by "foo" and a second
+> property with 16 bytes of data has unresolved phandle values at offset 0
+> and 8 referenced by "bar" and "baz", the following tags sequence is
+> present:
+>   FDT_PROP 0x00000008 xxxxxxxx <data bytes>
+>   FDT_PROPDATA_PHANDLE_REF 8 0x00000004 "foo"
+>   FDT_PROP 0x00000010 xxxxxxxx <data bytes>
+>   FDT_PROPDATA_PHANDLE_REF 8 0x00000000 "bar"
+>   FDT_PROPDATA_PHANDLE_REF 8 0x00000008 "baz"
+>=20
+> Add support for this new dtb tag.
+>=20
+> Suggested-by: David Gibson <david@gibson.dropbear.id.au>
+> Link: https://lore.kernel.org/all/aL-2fmYsbexEtpNp@zatzit/
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 > ---
->  arch/x86/virt/svm/sev.c | 21 ++++++++++-----------
->  1 file changed, 10 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
-> index bd70c4d0b774..ff6d17795054 100644
-> --- a/arch/x86/virt/svm/sev.c
-> +++ b/arch/x86/virt/svm/sev.c
-> @@ -817,21 +817,20 @@ static bool probe_segmented_rmptable_info(void)
->  
->  bool snp_probe_rmptable_info(void)
->  {
-> -	if (cpu_feature_enabled(X86_FEATURE_SEGMENTED_RMP)) {
-> -		rdmsrq(MSR_AMD64_RMP_CFG, rmp_cfg);
-> +	if (!cpu_feature_enabled(X86_FEATURE_SEGMENTED_RMP)) {
-> +		setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
->  
-> -		if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED) {
-> -			if (probe_segmented_rmptable_info())
-> -				return true;
-> +		return probe_contiguous_rmptable_info();
-> +	}
->  
-> -			setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
-> -			return false;
-> -		}
-> -	} else {
-> -		setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
-> +	rdmsrq(MSR_AMD64_RMP_CFG, rmp_cfg);
-> +	if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED) {
-> +		if (probe_segmented_rmptable_info())
-> +			return true;
->  	}
->  
-> -	return probe_contiguous_rmptable_info();
-> +	setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
-> +	return false;
+>  fdtdump.c          | 10 ++++++
+>  flattree.c         | 78 +++++++++++++++++++++++++++++++++++++++++++++-
+>  libfdt/fdt.c       | 30 ++++++++++++++++++
+>  libfdt/fdt.h       | 14 +++++++++
+>  libfdt/fdt_check.c | 34 ++++++++++++++++++++
+>  5 files changed, 165 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/fdtdump.c b/fdtdump.c
+> index 4ee9acc3..2acf3210 100644
+> --- a/fdtdump.c
+> +++ b/fdtdump.c
+> @@ -192,6 +192,16 @@ static void dump_blob(void *blob, bool debug, int du=
+mp_unknown)
+>  			continue;
+>  		}
+> =20
+> +		if (tag =3D=3D FDT_PROPDATA_PHANDLE_REF) {
+> +			p =3D get_structured_tag_data(tag, p, &d, &sz);
+> +			offset =3D fdt32_to_cpu(GET_CELL(d));
+> +			s =3D d;
+> +
+> +			printf("%*s// [FDT_PROPDATA_PHANDLE_REF] %s[%"PRIu32"], ref =3D %s\n",
+> +				depth * shift, "", last_prop_name, offset, s);
+> +			continue;
+> +		}
+> +
+>  		if ((tag & FDT_TAG_STRUCTURED) && (tag & FDT_TAG_SKIP_SAFE)) {
+>  			p =3D get_structured_tag_data(tag, p, &d, &sz);
+> =20
+> diff --git a/flattree.c b/flattree.c
+> index 92d191d5..abc50873 100644
+> --- a/flattree.c
+> +++ b/flattree.c
+> @@ -51,6 +51,7 @@ struct emitter {
+>  	void (*endnode)(void *, struct label *labels);
+>  	void (*property)(void *, struct label *labels);
+>  	void (*propdata_phandle)(void *);
+> +	void (*propdata_phandle_ref)(void *);
+
+As for propdata_phandle, a new hook shouldn't be necessary here.
+
+>  };
+> =20
+>  static void bin_emit_cell(void *e, cell_t val)
+> @@ -105,6 +106,11 @@ static void bin_emit_propdata_phandle(void *e)
+>  	bin_emit_cell(e, FDT_PROPDATA_PHANDLE);
 >  }
->  
->  /*
+> =20
+> +static void bin_emit_propdata_phandle_ref(void *e)
+> +{
+> +	bin_emit_cell(e, FDT_PROPDATA_PHANDLE_REF);
+> +}
+> +
+>  static struct emitter bin_emitter =3D {
+>  	.cell =3D bin_emit_cell,
+>  	.string =3D bin_emit_string,
+> @@ -114,6 +120,7 @@ static struct emitter bin_emitter =3D {
+>  	.endnode =3D bin_emit_endnode,
+>  	.property =3D bin_emit_property,
+>  	.propdata_phandle =3D bin_emit_propdata_phandle,
+> +	.propdata_phandle_ref =3D bin_emit_propdata_phandle_ref,
+>  };
+> =20
+>  static void emit_label(FILE *f, const char *prefix, const char *label)
+> @@ -233,6 +240,14 @@ static void asm_emit_propdata_phandle(void *e)
+>  	asm_emit_cell(e, FDT_PROPDATA_PHANDLE);
+>  }
+> =20
+> +static void asm_emit_propdata_phandle_ref(void *e)
+> +{
+> +	FILE *f =3D e;
+> +
+> +	fprintf(f, "\t/* FDT_PROPDATA_PHANDLE_REF */\n");
+> +	asm_emit_cell(e, FDT_PROPDATA_PHANDLE_REF);
+> +}
+> +
+>  static struct emitter asm_emitter =3D {
+>  	.cell =3D asm_emit_cell,
+>  	.string =3D asm_emit_string,
+> @@ -242,6 +257,7 @@ static struct emitter asm_emitter =3D {
+>  	.endnode =3D asm_emit_endnode,
+>  	.property =3D asm_emit_property,
+>  	.propdata_phandle =3D asm_emit_propdata_phandle,
+> +	.propdata_phandle_ref =3D asm_emit_propdata_phandle_ref,
+>  };
+> =20
+>  static int stringtable_insert(struct data *d, const char *str)
+> @@ -306,6 +322,16 @@ static void flatten_tree(struct node *tree, struct e=
+mitter *emit,
+>  					emit->cell(etarget, m->offset);
+>  					continue;
+>  				}
+> +
+> +				if (m->ref[0] =3D=3D '/')
+> +					die("Phandle uses a non local reference by path (%s)\n",
+> +					    m->ref);
+> +
+> +				emit->propdata_phandle_ref(etarget);
+> +				emit->cell(etarget, sizeof(cell_t) + strlen(m->ref) + 1);
+> +				emit->cell(etarget, m->offset);
+> +				emit->string(etarget, m->ref, 0);
+> +				emit->align(etarget, sizeof(cell_t));
+>  			}
+>  		}
+>  	}
+> @@ -626,6 +652,16 @@ static void inbuf_init(struct inbuf *inb, void *base=
+, void *limit)
+>  	inb->ptr =3D inb->base;
+>  }
+> =20
+> +static void flat_read_subbuf(struct inbuf *inb, struct inbuf *subbuf, in=
+t len)
+> +{
+> +	if ((inb->ptr + len) > inb->limit)
+> +		die("Premature end of data parsing flat device tree\n");
+> +
+> +	inbuf_init(subbuf, inb->ptr, inb->ptr + len);
+> +
+> +	inb->ptr +=3D len;
+> +}
+> +
+>  static void flat_read_chunk(struct inbuf *inb, void *p, int len)
+>  {
+>  	if ((inb->ptr + len) > inb->limit)
+> @@ -704,6 +740,7 @@ static uint32_t flat_read_tag(struct inbuf *inb)
+>  		case FDT_NOP:
+>  		case FDT_END:
+>  		case FDT_PROPDATA_PHANDLE:
+> +		case FDT_PROPDATA_PHANDLE_REF:
+>  			return tag;
+>  		default:
+>  			break;
+> @@ -713,7 +750,7 @@ static uint32_t flat_read_tag(struct inbuf *inb)
+>  	die("Cannot skip unknown tag 0x%08x\n", tag);
+>  }
+> =20
+> -static const char *flat_read_string(struct inbuf *inb)
+> +static const char *flat_read_string_norealign(struct inbuf *inb)
+>  {
+>  	int len =3D 0;
+>  	const char *p =3D inb->ptr;
+> @@ -729,6 +766,15 @@ static const char *flat_read_string(struct inbuf *in=
+b)
+> =20
+>  	inb->ptr +=3D len;
+> =20
+> +	return str;
+> +}
+> +
+> +static const char *flat_read_string(struct inbuf *inb)
+> +{
+> +	const char *str;
+> +
+> +	str =3D flat_read_string_norealign(inb);
+> +
+>  	flat_realign(inb, sizeof(uint32_t));
+> =20
+>  	return str;
+> @@ -844,8 +890,11 @@ static struct node *unflatten_tree(struct inbuf *dtb=
+uf,
+>  	struct property *prop =3D NULL;
+>  	struct node *node;
+>  	const char *flatname;
+> +	struct inbuf subbuf;
+>  	uint32_t val;
+>  	uint32_t offset;
+> +	uint32_t len;
+> +	const char *str;
+> =20
+>  	node =3D build_node(NULL, NULL, NULL);
+> =20
+> @@ -915,6 +964,33 @@ static struct node *unflatten_tree(struct inbuf *dtb=
+uf,
+>  			prop->val =3D data_append_markers(prop->val, m);
+>  			break;
+> =20
+> +		case FDT_PROPDATA_PHANDLE_REF:
+> +			if (!(flags & FTF_PROPDATA_PHANDLE))
+> +				die("PROPDATA_PHANDLE_REF tag found in flat tree"
+> +					" version <20\n");
+> +
+> +			if (!prop)
+> +				die("PROPDATA_PHANDLE_REF tag found without a previous PROP tag");
+> +
+> +			len =3D flat_read_word(dtbuf);
+> +			flat_read_subbuf(dtbuf, &subbuf, len);
+> +			flat_realign(dtbuf, sizeof(uint32_t));
+> +
+> +			offset =3D flat_read_word(&subbuf);
+> +			str =3D flat_read_string_norealign(&subbuf);
+> +
+> +			/*
+> +			 * A reference to a phandle is present in the property
+> +			 * Mark the whole property as TYPE_UINT32.
+> +			 */
+> +			property_add_marker(prop, TYPE_UINT32, 0, NULL);
 
--- 
-Thanks and Regards,
-Prateek
+This isn't correct. There are existing bindings which mix phandle and
+string or other data in a single property.
 
+> +			/* Mark the offset as a external phandle reference */
+> +			m =3D alloc_marker(offset, REF_PHANDLE, xstrdup(str));
+> +			m->is_local =3D false;
+> +			prop->val =3D data_append_markers(prop->val, m);
+> +			break;
+> +
+>  		default:
+>  			die("Invalid opcode word %08x in device tree blob\n",
+>  			    val);
+> diff --git a/libfdt/fdt.c b/libfdt/fdt.c
+> index 3762fbef..d23b886b 100644
+> --- a/libfdt/fdt.c
+> +++ b/libfdt/fdt.c
+> @@ -281,6 +281,33 @@ static uint32_t fdt_next_tag_all(const void *fdt, in=
+t startoffset, int *nextoffs
+>  		offset =3D sum;
+>  		break;
+> =20
+> +	case FDT_PROPDATA_PHANDLE_REF:
+> +		tmp_offset =3D fdt_get_structured_tag_data(tag, fdt, offset, &len);
+> +		if (tmp_offset < 0)
+> +			return FDT_END; /* premature end */
+> +
+> +		sum =3D tmp_offset + len;
+> +
+> +		/* Check offset value */
+> +		tmp32p =3D fdt_offset_ptr(fdt, tmp_offset, sizeof(*tmp32p));
+> +		if (!can_assume(VALID_DTB) && !tmp32p)
+> +			return FDT_END; /* premature end */
+> +		tmp_offset +=3D sizeof(fdt32_t);
+> +
+> +		/* Check ref string */
+> +		do {
+> +			p =3D fdt_offset_ptr(fdt, tmp_offset++, 1);
+> +		} while (p && (*p !=3D '\0'));
+
+Since we have the length from the structured tag, we should be able to
+avoid validating the string bytes one by one.
+
+> +		if (!can_assume(VALID_DTB) && !p)
+> +			return FDT_END; /* premature end */
+> +
+> +		if (!can_assume(VALID_INPUT) && (uint32_t)tmp_offset > sum)
+> +			return FDT_END; /* premature end */
+> +
+> +		/* Skip the whole data bloc */
+
+block
+
+> +		offset =3D sum;
+> +		break;
+> +
+>  	default:
+>  		if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
+>  			return FDT_END;
+> @@ -310,6 +337,7 @@ static bool fdt_tag_is_unknown(uint32_t tag)
+>  	case FDT_NOP:
+>  	case FDT_END:
+>  	case FDT_PROPDATA_PHANDLE:
+> +	case FDT_PROPDATA_PHANDLE_REF:
+>  		return false;
+>  	default:
+>  		break;
+> @@ -364,6 +392,7 @@ bool fdt_tag_filter_skip_metadata(void *data, uint32_=
+t tag)
+>  {
+>  	switch (tag) {
+>  	case FDT_PROPDATA_PHANDLE:
+> +	case FDT_PROPDATA_PHANDLE_REF:
+>  		return true;
+> =20
+>  	default:
+> @@ -377,6 +406,7 @@ bool fdt_tag_is_property_metadata(uint32_t tag)
+>  {
+>  	switch (tag) {
+>  	case FDT_PROPDATA_PHANDLE:
+> +	case FDT_PROPDATA_PHANDLE_REF:
+>  		return true;
+>  	default:
+>  		break;
+> diff --git a/libfdt/fdt.h b/libfdt/fdt.h
+> index 2f681088..c151aa2b 100644
+> --- a/libfdt/fdt.h
+> +++ b/libfdt/fdt.h
+> @@ -95,6 +95,20 @@ struct fdt_property {
+>   */
+>  #define FDT_PROPDATA_PHANDLE   FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0x10=
+00)
+> =20
+> +/*
+> + * external phandle tag (meta-data). varlen: offset, string label
+> + *
+> + * It indicates that the property defined before this tag (FDT_PROP) use=
+s a
+> + * phandle value and the node related to this phandle value is not local
+> + * node (i.e. the node is not present in the device-tree blob). The phan=
+dle
+> + * value used in the property has to be resolved when the device-tree bl=
+ob
+> + * is applied on top of a base device-tree.
+> + *
+> + * offset: Offset in the property data where the phandle is available
+> + * label: The label to use to resolve the phandle value
+> + */
+> +#define FDT_PROPDATA_PHANDLE_REF  FDT_TAG_CAN_SKIP(FDT_TAG_DATA_VARLEN, =
+0x1001)
+> +
+>  #define FDT_V1_SIZE	(7*sizeof(fdt32_t))
+>  #define FDT_V2_SIZE	(FDT_V1_SIZE + sizeof(fdt32_t))
+>  #define FDT_V3_SIZE	(FDT_V2_SIZE + sizeof(fdt32_t))
+> diff --git a/libfdt/fdt_check.c b/libfdt/fdt_check.c
+> index ac297841..96dd7dc0 100644
+> --- a/libfdt/fdt_check.c
+> +++ b/libfdt/fdt_check.c
+> @@ -22,6 +22,7 @@ int fdt_check_full(const void *fdt, size_t bufsize)
+>  	int proplen;
+>  	bool expect_end =3D false;
+>  	const fdt32_t *pfdt32;
+> +	const char *str;
+>  	uint32_t val;
+> =20
+>  	if (can_assume(PERFECT))
+> @@ -129,6 +130,39 @@ int fdt_check_full(const void *fdt, size_t bufsize)
+>  				return tmp;
+>  			break;
+> =20
+> +		case FDT_PROPDATA_PHANDLE_REF:
+> +			/* Be sure that a property is available before this tag */
+> +			if (!prop)
+> +				return -FDT_ERR_BADSTRUCTURE;
+> +
+> +			d =3D fdt_get_structured_tag_data(tag, fdt,
+> +							offset + FDT_TAGSIZE, NULL);
+> +			if (d < 0)
+> +				return d;
+> +
+> +			/* Retrieve the offset of the phandle in the property */
+> +			pfdt32 =3D fdt_offset_ptr(fdt, d, sizeof(*pfdt32));
+> +			if (!pfdt32)
+> +				return -FDT_ERR_BADSTRUCTURE;
+> +			tmp =3D fdt32_to_cpu(*pfdt32);
+> +
+> +			/* Check this offset */
+> +			if (tmp % sizeof(fdt32_t))
+> +				return -FDT_ERR_BADVALUE;
+
+Again, misaligned phandles need to be supported.
+
+> +			if ((uint32_t)proplen < tmp + sizeof(fdt32_t))
+
+Beware overflows.
+
+> +				return -FDT_ERR_BADSTRUCTURE;
+> +
+> +			/* Retrieve the reference */
+> +			d +=3D sizeof(fdt32_t);
+> +			str =3D fdt_offset_ptr(fdt, d, 1);
+> +			if (!str)
+> +				return -FDT_ERR_BADSTRUCTURE;
+> +
+> +			/* Check that the reference is not an empty string */
+> +			if (!strlen(str))
+> +				return -FDT_ERR_BADVALUE;
+
+It might be worth being stricter about the string validation: you
+already know the total length from the structured tag.  So, you can
+require that:
+	1. Every byte of the label except the last is !=3D \0
+	2. The last byte of the label is \0
+	3. Any padding bytes after the tag data are 0
+
+And, come to that we should probably define a valid character set for
+labels and enforce that ('/' needs to be excluded, at least).
+
+
+> +			break;
+> +
+>  		default:
+>  			return -FDT_ERR_INTERNAL;
+>  		}
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--qsZ77WCgSEzZDLcX
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmroKaoACgkQzQJF27ox
+2GckvxAAhQ323kltwGrAjxhSDbGP/MsocIfNfgfy7GwnL2751zbz7Y6RaQoBIpUp
+h1IgLnfR0Ph8zIp3I3FewwN5fpI6xv+85csx8WiMtiWTzKUgsdL1TUEfb7WepKCZ
+I9uJuhwuckgfIPD1uQ6++JKd9Hi4yXSGjyDuSPE1U/ozHMwTy8vMjnkXw5L0N54t
+tynd8wbv794aGsFkswVTlthNbV1yrpIB1PpSmleIm4oWWbfoCptI5V5Fsar98tku
+lccH0UvDDHZECFPlYolShsapmSLxZMipjnFCCKtf8oY8CYkUc01zTFmAqoGB09cV
+6yfKwpdzE6RtzOKvUXFD4WWKiLBLpTrel5YZeNRWTjLQX2uEVX78wUsZQ2p+YRNc
+Fk6iJ+is8gGK9KaEIBRFuEnR0TWxmBEptiFvHhJsIx0Nk/pSIviX7qpUhXWRk5y4
+6867mwUYxnqHoko/3ywc0WI0680XX7UO32X2V7ibFqsA82N/CNX8G7ErZcxEApUz
+wSC/HmffW3/166IR0iqCbwvAPV8X2LPVssIqLZi4D7YwrllEewswGPn+6eMCISdX
+Iu3sdXiFbwMab/YNuf9d+0M6qcOXo7san6i+ua0Xxk0zi8LQlAP1grur8S7twmZ0
+9+lYjn/vCMZPYDW0IHhsGU8ixlC51Lhq5cdcyfva19599VeE5tU=
+=nDga
+-----END PGP SIGNATURE-----
+
+--qsZ77WCgSEzZDLcX--
