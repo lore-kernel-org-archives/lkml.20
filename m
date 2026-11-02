@@ -1,73 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603037;
-	b=mr5xBmmqezRas60X5QJVHDdNUcXpno0s1DHUUvqvxNTd31WfmOCvs+CR/v9TITNZYtYR
-	 r2WsCo12h1TSXuQg93bHjY5WNiYjgAr3acDW6L7F/2APSzLkmpoxAiocwSSZbFELAUEGT
-	 5wKCuBaBCUud135ahdZMQ3uxgkBAiTzGXuIYehPa9xAT6RfbHn8ncOeW8fhLfwtjbzqY/
-	 /n+IN7KdE+Etrct4vS9TRcts5ZXgwe/PwlERUy0bFRPlYhH/tS/jL61PVVszt4jUJOX2S
-	 QR6Ou/N4rYe2D8K2iVwhdVxpMY9SuNZ06MqYj4Wa147GVXnb8GSCDc+hzQ/LZr5rUrA==
+	t=1793603084;
+	b=GEb44zKMNZqlho7B6567TXsrfYxhc/JnERaDLu2d70DR+8kzGtwnaWGVZNg1sDaUS7IO
+	 sjEsBDlnlSYv1CNEIPIAANOoYudZW6q8fx+1F58PzMoS9swZPRcjAw9vB5LslrxUaoHFY
+	 e+NEmsHrdr6/aR90P0INlxksJ+i3jwL9g+mEKmg+mA8h2l7bDruKw4EpK5ifbeUpycvJz
+	 Fxk3pBsjkyCqZ0nA7kelqo1o94uHLcLDCKPpo+v4ohlZn7m0p0FQBYQuStBH3DfUfyKwL
+	 YtnZdq05peioeSo2BdcLv5e0NxWf75cWAh7hgHE92k313wGi9f7tzuLigIMh0h4Vuxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603037;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=rBAy+z1U2lSrZ7cbgDMLtujhlLyfao7o1jAy8Wysb+M=;
-	b=oGu0RprcxospIBi21SisjKNkQBNIKzohszdWjlpv9/uEeMeg6EwOVl6wTynvewFxDUpR
-	 M7tKOrzUYactDsevNBaRzNF8hMjPIY9iHXDOwmKaRsCd1uT+p6Tuc8RnQBm1hARKKxIY3
-	 IEmHbkTqi2/KUkLHdz7EXL4zfzllJU7VlJdFc10IjK1V31bjsOHPo8uJuMNmeZBiaAiev
-	 3tv7SJSeG+TisBrTqEIyEvcj4wz1i34gjA6j9FgBkBngFMNiIezLCtT41P1RaGczdQOr1
-	 XaeG6f4TR3dT/4nAfP+5W2zBOqf1G6kUEkbbk8pbUB55jziQqPq5aXinYzSgSI00Wfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603084;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HKrmzfM/lfs87w6cnTmZ3Teou0HRxUok6ugK+JqAXis=;
+	b=5YtnD+iPX6sVR/2wjTwBxJwjaQUD1JcyBoliiLoCuTJJHmfTuln9GB30thG6U2j/Nn/1
+	 pO9YxGwjiNoEH7o8dMrht1K/16r+MjXxsfMCXWxz1b6KiYP6Bw2oNT/d7h2r5QfNqho37
+	 Wbq+kiFfF3vpmPmDl/PCKSe90FNHH9tRtXkO+J4TUyTznjT7E7NSC3626MBhTQiCx3fgM
+	 n1EX8OqETGuIbczaWYPSvXNdrIks3nW2C+l+HRsTM15nQABL/at1OfvXtq9AxDQ13IEST
+	 a+DbLNymZ/3zP5YlaWLeQGBT1xClJbH2E+bD2RTL+gPJNsb1vayzkcKHm+Yu9bKsiTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JwARkaoW;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QiYgY6HB;
+	arc=none smtp.remote-ip=95.215.58.29
+Received: from mta1.migadu.com (out-29.mta1.migadu.com [95.215.58.29])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC64606A324;
-	Mon,  2 Nov 2026 07:03:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FC64606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375E6606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:04:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 375E6606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JwARkaoW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793603035; x=1825139035;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=Et/xwI+0hz1pZTEbAJCbPDBvGWZIbGKzplMP08i/yGM=;
-  b=JwARkaoWZJMLEo1pn6GEkSZbQ5iX7+ZHRQVQefWEX1gipcemN7VfO8J3
-   4zFEuZbIRAybXLS+pcr5DgzovCLo5P3qKlVZu4NBlUmXlY6o4dGQ+OAVq
-   5+Pl5lZJ5odg0a7wrRIMce/uG9aoeX5jFG4FLw2A3WLefmBFSg9Q+xwOH
-   UaLjfsu5SImP+6/2n727vRforceiM0+ydZlyheoymjxzdecirlw7ZVqsr
-   bIJHkluAU6CN33hSacAfGZq+yvBXpnPHj8x50O20HkNxF5nlJ5r3gBhN0
-   XfMitJDVPC99SAjRpXL2f47PaMsS/i9pNjwdJJwhgWdsWihfcbeOxRXVb
-   A==;
-X-CSE-ConnectionGUID: tLwPOK+fSfmY92ZcB3EMaw==
-X-CSE-MsgGUID: 5SFniPusRCG3lCopyKv4iA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2162050"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2162050"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:03:55 -0800
-X-CSE-ConnectionGUID: Tdcxivi3QtOTSP3f/F97hg==
-X-CSE-MsgGUID: k8ZrO3rhS4ut1lHN9m6I4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6373187"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:03:52 -0800
-Date: Mon, 2 Nov 2026 15:03:49 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
-	dmaengine@vger.kernel.org, yi1.lai@intel.com
-Subject: [linus:master] [dmaengine]  2a93f5747d:
- INFO:task_blocked_for_more_than#seconds
-Message-ID: <202611021447.f9ab47b7-lkp@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QiYgY6HB
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HKrmzfM/lfs87w6cnTmZ3Teou0HRxUok6ugK+JqAXis=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793603076; v=1; x=1794207876;
+ b=QiYgY6HB1mW5E+FEecHdTmLFOegmRB/0Kx7ma4l5h/2qjPvozuRb5Nl7U8kxuJgGo8EsEZWR
+ S5bpb779UuW1wWS0WUl/cAtINpj6P6ikL5UuxKgEg2su2eVSGCz8y+cgiDg7di06ITDFb3kKKxx
+ BUsNdjRhR6pc39oxlYQF3xEk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4b82456d18ca3934;
+	Mon, 02 Nov 2026 07:04:35 +0000
+X-Mizu-Trace-ID: 4b82456d18ca3934
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	kees@kernel.org,
+	peterz@infradead.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hughd@google.com,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	lance.yang@linux.dev,
+	riel@surriel.com,
+	harry@kernel.org,
+	apopple@nvidia.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	minchan@kernel.org,
+	muchun.song@linux.dev,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	youngjun.park@lge.com,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	jgg@ziepe.ca,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	usama.anjum@arm.com
+Subject: Re: [PATCH v3 18/47] mm/khugepaged: check if PTE table is empty in try_collapse_pte_mapped_thp()
+Date: Mon,  2 Nov 2026 15:04:26 +0800
+Message-ID: <20261102070426.45406-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261031-fixes_core-v3-18-d6437171ecc3@kernel.org>
+References: <20261031-fixes_core-v3-18-d6437171ecc3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,103 +128,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
+On Sat, Oct 31, 2026 at 10:39:47AM +0100, David Hildenbrand (Arm) wrote:
+>The existing code is rather horrible and already resulted in bugs in the
+>past: we special-case UFFD inserting anonymous folios by grabbing the PMD
+>lock early, but ignore any other markers (guard, poison through uffd) that
+>could have been inserted into the page table in the meantime, effectively
+>dropping them.
+>
+>Let's just unify and simplify the locking: try to grab the PMD table
+>lock and if that fails, flush the TLB, drop the PTE lock, take PT locks in
+>the right order and check if the page table is still empty.
 
-Hello,
+Yep ;)
 
-kernel test robot noticed "INFO:task_blocked_for_more_than#seconds" on:
+Taking the PMD lock up front would make the locking easier to follow, though
+we'd hold it across all the PTE zapping ;)
 
-commit: 2a93f5747d0eef89a3158c91d185d37d0bca2491 ("dmaengine: idxd: Flush all pending descriptors") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+>We still perform the heavy lifting (zapping the folio ptes) under PTE table
+>lock only.
+>
+>Include <linux/hugetlb.h> for now, as x86's flush_tlb_range() macro
+>depends on hugetlb helpers. This dependency needs a separate cleanup.
+>
+>Both issues this fixes are rather corner cases. Let's not CC stable for
+>now.
+>
+>Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only mappings")
+>Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
+>Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+>Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-[test failed on linux-next/master 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64]
+LGTM!
 
-in testcase: lkvs
-version: lkvs-x86_64-388e0c1-1_20260521
-with following parameters:
-
-	test: dma
-
-config: x86_64-rhel-9.4-func
-compiler: gcc-14
-test machine: 256 threads 2 sockets GENUINE INTEL(R) XEON(R) (Sierra Forest) with 128G memory
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202611021447.f9ab47b7-lkp@intel.com
-
-
-kern  :err   : [ 5423.292137] [   T1658] INFO: task modprobe:11531 blocked for more than 4915 seconds.
-kern  :err   : [ 5423.301474] [   T1658]       Not tainted 7.0.0-rc1+ #1
-kern  :err   : [ 5423.307296] [   T1658] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-kern  :info  : [ 5423.320648] [   T1658] task:modprobe        state:D stack:0     pid:11531 tgid:11531 ppid:11511  task_flags:0x400100 flags:0x00080800
-kern  :info  : [ 5423.334425] [   T1658] Call Trace:
-kern  :info  : [ 5423.338277] [   T1658]  <TASK>
-kern  :info  : [ 5423.345059] [   T1658]  __schedule+0x720/0x10b0
-kern  :info  : [ 5423.350188] [   T1658]  ? _printk+0xb1/0xf0
-kern  :info  : [ 5423.355121] [   T1658]  ? __pfx___schedule+0x10/0x10
-kern  :info  : [ 5423.360748] [   T1658]  ? mutex_unlock+0x81/0xf0
-kern  :info  : [ 5423.365968] [   T1658]  ? prepare_to_wait_event+0x8e/0x730
-kern  :info  : [ 5423.373937] [   T1658]  schedule+0x6b/0x1b0
-kern  :info  : [ 5423.379636] [   T1658]  dmatest_init+0xf5/0xff0 [dmatest]
-kern  :info  : [ 5423.385782] [   T1658]  ? __pfx_dmatest_init+0x10/0x10 [dmatest]
-kern  :info  : [ 5423.392794] [   T1658]  ? __pfx_autoremove_wake_function+0x10/0x10
-kern  :info  : [ 5423.399783] [   T1658]  ? ktime_get+0x61/0x170
-kern  :info  : [ 5423.404977] [   T1658]  ? __pfx_dmatest_init+0x10/0x10 [dmatest]
-kern  :info  : [ 5423.411769] [   T1658]  ? trace_initcall_start_cb+0x5b/0x90
-kern  :info  : [ 5423.421348] [   T1658]  ? __pfx_dmatest_init+0x10/0x10 [dmatest]
-kern  :info  : [ 5423.428106] [   T1658]  do_one_initcall+0x8d/0x3f0
-kern  :info  : [ 5423.436782] [   T1658]  ? __pfx_do_one_initcall+0x10/0x10
-kern  :info  : [ 5423.442848] [   T1658]  ? kasan_unpoison+0x40/0x70
-kern  :info  : [ 5423.448390] [   T1658]  ? __kasan_slab_alloc+0x2f/0x70
-kern  :info  : [ 5423.454178] [   T1658]  ? kasan_unpoison+0x40/0x70
-kern  :info  : [ 5423.462863] [   T1658]  do_init_module+0x281/0x830
-kern  :info  : [ 5423.468228] [   T1658]  ? __pfx_do_init_module+0x10/0x10
-kern  :info  : [ 5423.477456] [   T1658]  ? kfree+0x195/0x430
-kern  :info  : [ 5423.482122] [   T1658]  ? klp_module_coming+0x210/0x2f0
-kern  :info  : [ 5423.488589] [   T1658]  load_module+0x173d/0x2070
-kern  :info  : [ 5423.493917] [   T1658]  ? ima_post_read_file+0x18f/0x230
-kern  :info  : [ 5423.499863] [   T1658]  ? __pfx_load_module+0x10/0x10
-kern  :info  : [ 5423.508681] [   T1658]  ? security_kernel_post_read_file+0x35/0xf0
-kern  :info  : [ 5423.516645] [   T1658]  ? kernel_read_file+0x3d6/0x870
-kern  :info  : [ 5423.522401] [   T1658]  ? __pfx_kernel_read_file+0x10/0x10
-kern  :info  : [ 5423.529212] [   T1658]  ? init_module_from_file+0x157/0x1b0
-kern  :info  : [ 5423.535536] [   T1658]  init_module_from_file+0x157/0x1b0
-kern  :info  : [ 5423.544935] [   T1658]  ? __pfx_init_module_from_file+0x10/0x10
-kern  :info  : [ 5423.552162] [   T1658]  ? fdget+0x54/0x3b0
-kern  :info  : [ 5423.556754] [   T1658]  ? __pfx___x64_sys_openat+0x10/0x10
-kern  :info  : [ 5423.566190] [   T1658]  ? _raw_spin_lock+0x80/0xf0
-kern  :info  : [ 5423.574838] [   T1658]  ? __pfx__raw_spin_lock+0x10/0x10
-kern  :info  : [ 5423.580774] [   T1658]  ? do_syscall_64+0x140/0x5b0
-kern  :info  : [ 5423.586317] [   T1658]  idempotent_init_module+0x21c/0x770
-kern  :info  : [ 5423.592478] [   T1658]  ? __pfx_idempotent_init_module+0x10/0x10
-kern  :info  : [ 5423.599828] [   T1658]  ? fdget+0x54/0x3b0
-kern  :info  : [ 5423.604386] [   T1658]  ? security_capable+0x35/0xf0
-kern  :info  : [ 5423.613239] [   T1658]  __x64_sys_finit_module+0xca/0x170
-kern  :info  : [ 5423.619267] [   T1658]  do_syscall_64+0x108/0x5b0
-kern  :info  : [ 5423.624907] [   T1658]  ? do_syscall_64+0x140/0x5b0
-kern  :info  : [ 5423.630418] [   T1658]  ? irqentry_exit+0x76/0x4f0
-kern  :info  : [ 5423.635766] [   T1658]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-kern  :info  : [ 5423.645649] [   T1658] RIP: 0033:0x7f3663edd7b9
-kern  :info  : [ 5423.650732] [   T1658] RSP: 002b:00007fffe974f718 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-kern  :info  : [ 5423.660773] [   T1658] RAX: ffffffffffffffda RBX: 00005555acf52ac0 RCX: 00007f3663edd7b9
-kern  :info  : [ 5423.670099] [   T1658] RDX: 0000000000000000 RSI: 00005555acf52c40 RDI: 0000000000000004
-kern  :info  : [ 5423.679369] [   T1658] RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-kern  :info  : [ 5423.692029] [   T1658] R10: 0000000000000000 R11: 0000000000000246 R12: 00005555acf52c40
-kern  :info  : [ 5423.701338] [   T1658] R13: 0000000000040000 R14: 00005555acf52be0 R15: 0000000000000000
-kern  :info  : [ 5423.710800] [   T1658]  </TASK>
-kern  :info  : [ 5423.714370] [   T1658] Future hung task reports are suppressed, see sysctl kernel.hung_task_warnings
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261102/202611021447.f9ab47b7-lkp@intel.com
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
