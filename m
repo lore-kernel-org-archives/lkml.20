@@ -1,100 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793594645;
-	b=liStZEHngsaDkQReTzFDJIkjP9j5+7JMzz41bPmXaFv+THC79h/BMdkDU69Qc/6spETu
-	 ATXNxYkWCmEYQMxuLkf66L8fetjjMI82MUYu+i9jUhx9EDzd1COxq8Tu32jM+lehGqHzD
-	 LzDgQ8v4mWoa80BrWDmW4kmgNNfXn3GHhsbPzA4j63N86z5/vbTwHm71K/UCjpBB3Tmw/
-	 hLprnaoSw0yNLrEUrwHVFJrdMHXJCzuOP8YtCMWgr90tDHi2otF4jyNpzt6et47249Wye
-	 teDbVK1zcNtUj3TDN6GJHzOcwy6up3gVBmlQ++qeRrcfGQLQPtguAVAR6aoU+H9uBnQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793594645;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=O6Cwq/TYI20Xap5XXma+Ak7imjQ/5PuMjwKwFGT+f70=;
-	b=eVgUoYzaif07R/i/Du+N5x8AR8yH9HNy9fZu+GzNfYSTRTmaIfboGJVxc8kqvAOfl2Rk
-	 0NCx/Zc8FWfmTr+bmn1uPtYvChJ4hfO6k0JSAVGzUJ6kbjEbQKv9v9y6scGSgtN4zCG27
-	 mhdizM1MKYNAKfFlLgx1RKYEItFSyWo/+c/8VKIlgC8ic2+6QjRiQxy9neqMamwOCfpyF
-	 G2r+TxAoxfgq0tJAMIUQEvv4WmVLoZlfT7vqbH5op0lvTbuqUyY7ARER1Yoh3WEhDFUdx
-	 WdgiXyVbCK56UgYSDfKmjkoulZx0Gt2eAZLBO35OCdWtJJpjBjNgop/3nB+EkcWj+kA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ywOVfQ/8";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.50
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793594681;
+	b=yWFFv8JMOzgXryaCsI7z6kaZlQ6O47vDO1bE6g5aml3fxp/3uqhYzECPW3lEnSFUP0Y4
+	 p70fMz6LnF0i+gERfoq+HqYBuY1vSh1AIrp6UsXuS98pz+asgR+bNx/2oSRNTYaou+Flm
+	 GpZQKxX7N3zHy9ZOyUAgWR6WMY/8xNMB1qBCr8VwIFJ+ZqyT/wYMCHl8GdEnDELg5AWQk
+	 dv8lr6dRVvWrd9UNZvBUviFgMGORgzVlP/WcP9r/AjBvGVFlDt6FHRo8j8SZeDDbMaHZG
+	 rDViFYRTBSVqMAQ0vkZVeHoG7bqgxVlgRsztTdt36I00exHHy6E3KoseX2izBu21T6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793594681;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=BkSoxcvd5hW9k8HoLioIf63ALC/MASIecs8uUE/f8DE=;
+	b=lbpLPQSwZI3k6LVGWnAXLbRluu1YZinVD3N4CF3HagFG19CsIF/3tr5RYXa3/nTOe6DI
+	 QEiV+7qLD9+/uxseBGV2bSBMnSbOWb5DUk40Bpd2lLE/7+4OfQMrrd+Td5lzsPyLPtfeH
+	 zb7o6c8+146R4xmk3Tgynl00sRJO9mYpg0JngeBBuHYxeqnt7SYCzGIhPQDCArjlfHqfc
+	 GIBFcsPkRVonLc5SYllzEudBHLWw3Biu6JJaT1fochBoXPbb7E9sS2PJPzGh5Qpm+S5Fs
+	 jtkYoZNBcGzTKvYdzSSwK6rpGxJEjylfgfgDoMPv05JvIXG7xfQqtQAS5wG0d3ukuuA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=E5azIqpp;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F648606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:44:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F648606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26981606A326;
+	Mon,  2 Nov 2026 04:44:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26981606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ywOVfQ/8
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67b9bd530b7so1680325d50.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:44:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793594644; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Gny/xOL5kw6EwLiGyocKGu+wi9BDLO2/ndt9qKyI0XoWAfK+UdzTzyi78t43JrJxC/
-         fWc/FPcZt7GQaepg44iDDw0OhRsk5fCOJFBeBrqECJypzChCBEK7aTheXErpxptvjGkf
-         5+bLqArdc8833d3c/I+CjuFmhiNUkUvCeifz/tyJVtr1JcrXvdiUHzYrwMSvFDm++6Qy
-         jYHc1Q3VbvjHUGHgBzaC0VL17Tp6v8FxMiNWwNHgeurV3bKGUTE6A/2MH9X2p5lcldQn
-         tiahSiB6m7TJUC1qO0l6ab3TLDArPD7tAz644o4zH2HoHv9B/xm+WnBChhveBLFvuIAj
-         n1qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=O6Cwq/TYI20Xap5XXma+Ak7imjQ/5PuMjwKwFGT+f70=;
-        fh=SkXNNDdjqos8xqv1GzvTeKoHMgScBPvkxX3S7oDWLx4=;
-        b=abEd3Q7FUujILdKSzJUy5VAP4ujBlcRlrRy+o1ULjCZ9ywEDEvjHxeFOo6CTezbTwE
-         1DF1hGamNjv8u+oRaa4p6CW0MA9PHnzAnzmiTF8TbNlYSSSg23UcGvfrUfg2HoZjw9hI
-         pXpADqXsdJqRIfuqevBEeNrsECnRkpIuSzZuqTon74PktTODiEW30bpmDwhxPmh0BHyZ
-         oA4zHIE9QVt3NLinmG3Z5nDNqSDP9jzZ3sQVnPTEOy8GrCBGT5dBGvVRU185iC7OvptQ
-         ZcBx1nLHdylLfbhUmpHGLcg8QUQ8jg21rZVUAco0kfDk31QU4fsaF5hqIcsMoDe/YSKK
-         B9og==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=E5azIqpp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793594644; x=1794199444; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O6Cwq/TYI20Xap5XXma+Ak7imjQ/5PuMjwKwFGT+f70=;
-        b=ywOVfQ/8CpQwC6A2QrKzyJosYRmO1nomFHzMJv31aIs7fCgdDQqdasj6EXUcd4uLYD
-         xEQaTON66QGacskLoEV1x/V5qpsAO3hxANBXnPSI745VxoMVIqlFF7Lq5wxwxd2BDGLo
-         vsD8I6sPqFogDEZJbaY7oxSOnc0kihoYzLM8TlCWyvTHLxC0pXVeUeslpY281Im5aWz2
-         keeglxV50Ad2dT1rK59bwtLhlnCvLsMJa3lbXg98qw3eRqdvVppqynp0Y+wgmyKhNmxz
-         zr1c8p9uzQ7Sc6UypSwLrerLFgE21RNdIMx3aaZOW1YrDdfmxcwIqMl2rmB2ysmU6wK4
-         HaJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793594644; x=1794199444;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O6Cwq/TYI20Xap5XXma+Ak7imjQ/5PuMjwKwFGT+f70=;
-        b=r7I4CmsHgckHeTA6PZV4EMW3T0UtjX+ppA6SQueCi811T7KEVXRZxIAgzdmySeINVe
-         H+Ha+2VfOBqB3RaYnWXZpoJGk0GHjviKmwU0x2RBMBWlcwjAprM9jfEJQ5kq4ggvP131
-         q7hmcKjKFoEdA3tUegwg6jvnq35Rrkj8o+lT74st7Hs8WfIV6gnGzfiIGrqPvVDOW4FV
-         hsGdB6IzSfgbez/L2x+NZBS/+n3syIbEuixxKUN76jCxxi/w0jIk7a+fu1S1d1ATqMW/
-         e6loTgC21HqK1cfB1qTweZ/b/x4QyCeeqU3Fn6FdIa8ji+IErXGf52Ril/p5jpts8EWP
-         sGVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxTT1WP4UI7gdzdgx3+amcnAB+41TUwxZDbIRZrNsjqiecJsuJnEtdqHJTccwjN5Q78v0Dbq2wBpLw1UI4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RjuQoU0m56S8LpFItWs4fqsZpv92iHOyJJxZGEtWcKPBUTAjP
-	bTKTXgteIuOJjuktHm6TJEX62rAhf8M7TMB9s/CF5EDngNacmxDX6x4J6i3Tk0z93y4A/aB94t3
-	JsBNZ4h4ZzAh5OO5ncGL+zx2eo6qr+Yo=
-X-Gm-Gg: AYBFou2OeU54TTizQUjfpQawAHfLTlfCd7kP5nCuCWIiTXEbV9IO4mRjA4V4Kj8LQi3
-	uhx6+cuKXMDR0r+yF2Fkc5Iqgj3uWCO2PdKWNT+7vtBHzFwVHnMqeklBM4Lr7ipasjxq5GRRNYM
-	2j3GSdK0SHS0R1akFFr+sCoeIIdVNZ8sJNk+zyueF1Fo7a1hxP6Gt1dGYCwTkukg9lhs5cb5/IX
-	fDTrDF+GqT9TqvCBChn76evTyGTLHI6XYPy0lWL6VmWFSwcNVxE5HmpwCDGoEBcz6OBsrsflZng
-	wfpg4xLrsKOBQXkJnKYarZ2RV2mZa9x/LQ0qB8zNhK4WASZ8HMZFDcJ7YWKJMoHRZ0BDz3hLsdL
-	mynBDhtK51zv3EBeR3XhnxU/hSChemts2qmBW3szg5xDoRPWU4fvAPtbXBkS9
-X-Received: by 2002:a53:e1a1:0:b0:679:9e0b:dc4a with SMTP id
- 956f58d0204a3-67ba502f05fmr4965690d50.49.1793594644085; Sun, 01 Nov 2026
- 20:44:04 -0800 (PST)
+	d=gibson.dropbear.id.au; s=202610; t=1793594678;
+	bh=BkSoxcvd5hW9k8HoLioIf63ALC/MASIecs8uUE/f8DE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=E5azIqppUb2Azf2yigDBONMmX+BQvrkaSmu0wUNoB8g2LLiJMHSozpCCDAdmL8yEA
+	 /8n4o5w5GRyhhwmntD+7aDohu05QYaWJUGOFlKslEWjCpz3MXLoUyxtxMzxEu11f0D
+	 u392voT5lzszLZjS0NKcO4h87ijH4gImEgZpvpNbiXIX7FEVtKK6++LvK/Yt7Ystjl
+	 Fh1cEX8qZomnYi6/K2P3gSAduAB9sv/hCm4UG0X8wmpiXHprPsxIPnrGZLw0qDS30e
+	 lJNRd23l4qHwdAaH4v/Q96jT9/4Mk4zfIXwujv/Kh+7TtvEbnYKcRqa023Sff5UHXk
+	 We3Sx77BvujrA==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jHzdL4g1vz4w91; Mon, 02 Nov 2026 15:44:38 +1100 (AEDT)
+Date: Mon, 2 Nov 2026 15:44:24 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Saravana Kannan <saravanak@kernel.org>, Devicetree@vger.kernel.org,
+	Simon Glass <sjg@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	Brian Norris <briannorris@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+Subject: Re: [PATCH v3 00/15] fdtfactor: Introduce fdtfactor to auto-factor
+ overlays
+Message-ID: <augVH22aW1uJK4JY@gractus.seuss>
+References: <20261101220224.1436242-1-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,32 +73,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031-tty-dont-use-autosuspend-removal-v1-0-7bdadcadc4dd@kernel.org>
- <20261031-tty-dont-use-autosuspend-removal-v1-3-7bdadcadc4dd@kernel.org>
-In-Reply-To: <20261031-tty-dont-use-autosuspend-removal-v1-3-7bdadcadc4dd@kernel.org>
-From: Shubhrajyoti Datta <shubhrajyoti.datta@gmail.com>
-Date: Mon, 2 Nov 2026 10:13:53 +0530
-X-Gm-Features: AclHuK9vZb9AMAN_Qfd5MGPYCq7hcmIITeMPXc1WAqkUrzre3J9_8OXCQvnjwD4
-Message-ID: <CAKfKVtGHZ5-yQacfzqs_cK7LTb6C6GXCHNrJBk_7ecyNtJkqaQ@mail.gmail.com>
-Subject: Re: [PATCH 3/5] serial: xilinx_uartps: remove redundant
- pm_runtime_dont_use_autosuspend() calls
-To: Joshua Crofts <crofts@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Michal Simek <michal.simek@amd.com>, Peter Korsgaard <jacmet@sunsite.dk>, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="occbpdDnm96rYpxv"
+Content-Disposition: inline
+In-Reply-To: <20261101220224.1436242-1-dianders@chromium.org>
+
+--occbpdDnm96rYpxv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 31, 2026 at 10:40=E2=80=AFPM Joshua Crofts <crofts@kernel.org> =
-wrote:
->
-> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosus=
-pend() on reinit()"),
-> driver core is now responsible for undoing any
-> pm_runtime_use_autosuspend() calls on driver exit.
->
-> Remove the redundant function calls.
->
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-> ---
-Reviewed-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+On Sun, Nov 01, 2026 at 02:01:07PM -0800, Douglas Anderson wrote:
+>=20
+> Devicetree overlays exist at both the source level (via `/include/` and
+> `.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
+> applied to a "base" `.dtb` at runtime to add or modify nodes).
+[...]
+
+Patches 1..6 merged, still looking at the rest.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--occbpdDnm96rYpxv
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmroFR8ACgkQzQJF27ox
+2Gevcg//UgTQO6M60HFSPi1TJZzZ0qv0yYsb/306GyNcwI0lQsoZ18eAdDIm5gfN
+pDrXQsh3ean5nFlKzsFPotm2UtCZzYwzanKJ32Blkumtmr1Oa3/qoUIg8OL83BwH
+pukwTDzwexg9WMvseI7VaQ1OEM25M5O9DMeQ5sS+eGHMN8DsqY4dfj9IH1ph1HLA
+3O65e4DXxzW/+q3aQmONX1eoOMRrPuu1Kj/Hy3jeqFQmuVOiSbYqMqdGMesDduSI
+j/Prx/d5cs/TtRn/BDCd0tTArFIaVJB3No7cwOimFi83tBXxu3N+6KaSwZGw+DXy
+IR/QEomV4hYOilKOS35t8VzGbcgYBhG9Y+9GzVxy5r8no/inBHtuf9nDImks3tUi
+6cAdju2NdDfQxYD9HZBPB5Vs6GVz9Y2gpYBwWkFymtBSeDwM1+ZNEQi5UjhvAQlo
+DfiI3MeA5usn67iU2tfurzFl9lBBarH1h3Hl1EXU2cEMnMnI40Tj9AItNTpijYeS
+9Ek3jw5ivJxs7rtc1cFUzmzFuakURtxUuhmqhXh/dKl0Uv/JnDRYOCsLlB+0Vjlp
+IusOSR3yje4PrCfupaTVcxEOvykGLeJ1xD3rmOI2omyC9aq0jQPJW8JbH1zxN7LD
+InY94EWouulbDuEzwPRjlo4Bj9xpmcl1AMMCBt4glpNth6xOHbo=
+=91A6
+-----END PGP SIGNATURE-----
+
+--occbpdDnm96rYpxv--
