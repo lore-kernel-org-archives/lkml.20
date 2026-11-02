@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585638;
-	b=o+mtoQtP1I+vwgp9yOle9ThzZ5RxV0VusQxaMaQ14ff9cn1UVKJYmU2GB2rQEOHkNzKP
-	 jmtsPomYejdLL98UOpy5zIAAP2oXfwiR5SIoUGOet1JrU3AfOZameih9coKrInmU86j5R
-	 x9HTVjuemVH0otvqFVFTcy8caqSJgeEtAQDCFXRSNhII7quBbOhsti/GnCY1+ovhoDloF
-	 mRf/tyEUp9nOZ6p4IZea18tsjpa/KOFUHH2FYr19BYDHewKr4s2xSd7KmiX6ebf8pzvMB
-	 FX1/PSEH56CNsYlgvzeBI96x+g8C8IyVamuwvOiTnTedUzc13x6E3TTmlrLSphfQzOQ==
+	t=1793585651;
+	b=1TUirNVnYJVPfnDzRqWBR808M8ykJRkb1H00BPrvD9QtwFnEv6fzQRb+bzYlP18cs/16
+	 zkHw4erzsfKNuvJo9KdW9W4fKy9HCY7heUor5Gdcwkka7z0Q3BfjGRI53CMH+f9s63F/v
+	 B7+M2VQn0WO1B0YXSBFdLW6aF/UH+g+/zcdn/+wji9UGAf/IXHohjzXyvIruDzhKAvpHv
+	 WV3mX9hSG+9C8oW6ZNJVw9lSCRYN8W79WYl/3dg+Qwe9AVi749fzwx5MwMqKmFTcMDp/c
+	 flB251lipyHL3In8Pt0AQ7bsegtO92m4wH8dt9tzXs/IcfJCCUbVmhav08ArmIkUvdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585638;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=qgE8n7yW5SC6aLalyjWlKIFFYYtc4u+TIhJY+ne9Wfg=;
-	b=tOktxv8nzrEzEYFjworzYLjWuJT7S2kZiRbFRLTVAeHsUXcFw4h/7MrTH03jajf2f+Jd
-	 pK5TEHZD7nChJ+KgRQ9Z91sGocq0ZIejoZwxR9PhedELr5gx6uIecI9u0KgWvdeARwzFd
-	 rgFEoCSxmFCaNjayjxPOeaVkBJ/3e9bUGo5e1OF/xUOpFExaBnmxfHWirbmbUOUtt1qLa
-	 ficSPFmwV0mkUJTu2uI8pnwFBs+NI7WPDw1UoZsns8EtenIvl/TDuwjUoh6kNuEONco7P
-	 8VjGYcuJjN1AnKTg77jInneXsr9PPj6QaexYWwFeFVbt9FsIWYdn+CczBegvkqrAjCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585651;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=GvRE35XJQ4xUZoV4JwRSxvCslV0vzaJg9Inl/F3vTbs=;
+	b=NuThb8E5RNY/m7Rg6fXFzCzyOdc2SssTwDblEOURSnIPWHmBHAs7Jy2mD7NKzoZ2blEf
+	 EwFHFVEB4tmvSRkOTE/p4Th5wVYiRgzbVF9HaiWAIuzH7STXlrUHnI+pfEqbiYHXUBHn8
+	 OfoS3Ke4xX1usUeZy64tTVfMvTzel8DERSpRsg7aYh4L44vNwqntAC6Wjj28RIVPz+OdU
+	 v4pj1ptAVvx/GNf0S/NPu5GygyKDS782ypHepnpmw1/mWjwxm5mduSjPZ1XhnzCShsR0T
+	 MAPosEy474i2qqFKEnfuixGoM8sOocCVncMwDC2z64cqWLNE4mGUsnhNyqMb/JWMMHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UGaQpPDT;
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F2B606A333;
-	Mon,  2 Nov 2026 02:13:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F2B606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UGaQpPDT
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=qgE8n7yW5SC6aLalyjWlKIFFYYtc4u+TIhJY+ne9Wfg=;
-	b=UGaQpPDTVn/Gntfv6VeHIZqORc3iLrXrsQihIgp0OXr0k6kZu3NI1d2LhMu5L4f0mmNSc+6h8
-	M2952QJCQoDDTaVA/zf2kR4nXy4aO3GtZGirt+vmrjAFFvqAUl5DNu5BBGiDY/BspJmCzOcM/NG
-	ycLF2AkPWxgxJDeZD3v8m6s=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jHwH85S29zRhST;
-	Mon,  2 Nov 2026 10:13:40 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9A91F4057D;
-	Mon,  2 Nov 2026 10:13:45 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 2 Nov 2026 10:13:44 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
-	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
-	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
-	<amir73il@gmail.com>, <caixinchen1@huawei.com>
-CC: <linux-integrity@vger.kernel.org>,
-	<linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <lujialin4@huawei.com>
-Subject: [PATCH] ima: initialize the real inode attributes of the iint cache
-Date: Mon, 2 Nov 2026 10:47:03 +0800
-Message-ID: <20261102024703.816178-1-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8F5606F6CB;
+	Mon,  2 Nov 2026 02:14:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E8F5606F6CB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jHwHC6kb5z1rrK7;
+	Mon,  2 Nov 2026 10:13:43 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.252])
+	by mail.maildlp.com (Postfix) with ESMTP id A782040574;
+	Mon,  2 Nov 2026 10:14:06 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.45])
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgAHDgHn8edqKVXXCg--.2851S2;
+	Mon, 02 Nov 2026 10:14:06 +0800 (CST)
+From: Tengda Wu <wutengda@huaweicloud.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tengda Wu <wutengda@huaweicloud.com>
+Subject: [PATCH v2] perf/core: Prevent duplicate sigtrap task work enqueue
+Date: Mon,  2 Nov 2026 02:13:55 +0000
+Message-Id: <20261102021355.650671-1-wutengda@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,51 +67,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_Ch0CgAHDgHn8edqKVXXCg--.2851S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWr15JFy8AF48XF1fGrW5GFg_yoW5uF1kp3
+	y3trn8ta1UXrnFqryrtws7Ar18Ww40qan8CrWkCa4SvF4YvFyDXay7W3WYqFW5ArnrAa43
+	Zw4jkrW7u34UXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBS14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
+	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY1x0264kExVAvwVAq07x20xyl42xK82
+	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
+	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMI
+	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
+	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
+	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU8c_-DUUUU
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-ima_iint_cache objects are allocated with kmem_cache_alloc() from a
-dedicated slab whose constructor only runs once, when the slab is first
-created; the constructor does not run again when a freed object is
-reallocated.  ima_iint_init_always() resets all iint fields except
-real_inode.ino and real_inode.dev, which therefore keep the values of
-the previously freed iint.
+The sigtrap handling in __perf_event_overflow() checks
+event->pending_work before calling task_work_add(), but only sets
+pending_work after the task work has been queued.
 
-integrity_inode_attrs_changed() reads those fields in
-process_measurement() to detect changes to the backing file on stacked
-filesystems.  The fields are normally written by
-integrity_inode_attrs_store() from ima_collect_measurement(), but the
-IMA_HASH path sets IMA_HASHED without calling it, so on the next file
-open the stale, uninitialized ino and dev are read.  Depending on the
-residual values, IMA may skip re-evaluating a file whose backing data
-or metadata changed, or needlessly re-evaluate it.
+This leaves a window where an NMI can interrupt task_work_add()
+and re-enter __perf_event_overflow() for the same event. Since
+pending_work is still zero, the nested invocation can enqueue
+the same pending_task again.
 
-Initialize real_inode.ino and real_inode.dev with the identification
-of the inode the iint is being associated with at allocation time.
-On stacked filesystems the first comparison against the underlying
-real inode will then fail until ima_collect_measurement() stores the
-real inode's attributes, which is the safe, conservative direction.
+The re-entrant call path is:
 
-Fixes: b836c4d29f27 ("ima: detect changes to the backing overlay file")
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
+  __perf_event_overflow()
+    task_work_add()
+      kasan_record_aux_stack()
+        <NMI>
+          __perf_event_overflow()
+            task_work_add()
+
+The nested invocation can enqueue pending_task before the
+outer invocation does. When the outer invocation resumes, it
+inserts the same task_work entry again, potentially creating
+a cycle in the task work list.
+
+This causes perf_pending_task() to be executed repeatedly
+and leads to unbalanced event reference counting.
+
+Use cmpxchg() to atomically claim pending_work before calling
+task_work_add(). This ensures that only one invocation can
+enqueue the pending_task, even when interrupted by an NMI.
+
+If task_work_add() fails, clear the pending_work claim so that
+a subsequent overflow can retry.
+
+Also use READ_ONCE() when checking pending_work in the
+exclude_kernel warning path to avoid an unsynchronized read.
+
+Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
 ---
- security/integrity/ima/ima_iint.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2: Drop the redundant event->pending_work assignment. (Sashiko)
+v1: https://lore.kernel.org/all/20261031114520.642476-1-wutengda@huaweicloud.com/
 
-diff --git a/security/integrity/ima/ima_iint.c b/security/integrity/ima/ima_iint.c
-index 00b249101f98..02efa8eef28e 100644
---- a/security/integrity/ima/ima_iint.c
-+++ b/security/integrity/ima/ima_iint.c
-@@ -59,7 +59,7 @@ static void ima_iint_init_always(struct ima_iint_cache *iint,
- 				 struct inode *inode)
- {
- 	iint->ima_hash = NULL;
--	iint->real_inode.version = 0;
-+	integrity_inode_attrs_store(&iint->real_inode, 0, inode);
- 	iint->flags = 0UL;
- 	iint->atomic_flags = 0UL;
- 	iint->ima_file_status = INTEGRITY_UNKNOWN;
+ kernel/events/core.c | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
+
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 457d75ea7142..ee5c59158b89 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -10925,16 +10925,17 @@ static int __perf_event_overflow(struct perf_event *event,
+ 
+ 		notify_mode = in_nmi() ? TWA_NMI_CURRENT : TWA_RESUME;
+ 
+-		if (!event->pending_work &&
+-		    !task_work_add(current, &event->pending_task, notify_mode)) {
+-			event->pending_work = pending_id;
+-			local_inc(&event->ctx->nr_no_switch_fast);
+-			WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
+-
+-			event->pending_addr = 0;
+-			if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
+-				event->pending_addr = data->addr;
+-
++		if (cmpxchg(&event->pending_work, 0, pending_id) == 0) {
++			if (!task_work_add(current, &event->pending_task, notify_mode)) {
++				local_inc(&event->ctx->nr_no_switch_fast);
++				WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
++
++				event->pending_addr = 0;
++				if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
++					event->pending_addr = data->addr;
++			} else {
++				cmpxchg(&event->pending_work, pending_id, 0);
++			}
+ 		} else if (event->attr.exclude_kernel && valid_sample) {
+ 			/*
+ 			 * Should not be able to return to user space without
+@@ -10948,7 +10949,7 @@ static int __perf_event_overflow(struct perf_event *event,
+ 			 *     To approximate progress (with false negatives),
+ 			 *     check 32-bit hash of the current IP.
+ 			 */
+-			WARN_ON_ONCE(event->pending_work != pending_id);
++			WARN_ON_ONCE(READ_ONCE(event->pending_work) != pending_id);
+ 		}
+ 	}
+ 
 -- 
-2.18.0.huawei.25
+2.34.1
 
