@@ -1,66 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.68.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635015;
-	b=IGefCnQLnRoCNyDw2MTszE0v2peu+1qsSqfFKgcTOlM+S+7q/+MQKlH2fq0Sk7xJ0F6F
-	 /r7af5tk6U6VSIXP7FulrZLy1rG7EoGznQh/tnS00fPadgEYc4IpsKuTXldI7lhV8rCtC
-	 TODubeDZVpUjW/DrJjCq5osx8CUHOs8amA5dCj6KFjeNxPdiIcOYB3tdPTS2hNenuuM14
-	 59dIxh70NSRLe35+xpcofD+izvQZXZqC7LB2hbzxoRy2EvuPgaHQBgKsLxnm5ZMnV3wk7
-	 DJWVgzC5nw0b5dJBuKbO63KZJPvKCWWsmA0QU7yZlZyORcyLR+nLveKIIHk8CyQ+Whw==
+	t=1793635045;
+	b=gfa8/P4Sn78Z7yrgT2gKQYBiPVzUsf87LoJx3AeaqCvWWQ1whoIn94k6AyCr6wUr8UfA
+	 2KL7czdO2rIp47vhc1YJYccjtokpH1rVB7gs/X6tw1vPRK9jV+iJnGAPob2qbL14GcCY1
+	 oZM+QobW9f9t+lqixldU3TN3aVvM+yuqydRpV4XOH//1tsNxXKDqQaTY02z/GP51QAN7N
+	 yCH04VpOu6SfHKbPKfDiNOa0p3UYfB+GdaxgiRAX+GHAVal9FSM6fbiI66M4VMJ3OjzRv
+	 so0nHDCoPDOlKUilXQ1V2SFFjGGpZ3DAbQttkhkgDM6RfNwXTB08QlCz+yVer0/BQdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635015;
-	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=svdWyrsgF+90eWwYkwJ+BgLca86Hpg504Cs6W86/4gc=;
-	b=LM2vUB733k96WFvqMnRYnNXM4bXNB5hJaBWEJGLajjP4+0s7LZjBLWqS+vwdbyew+2qv
-	 6KBVJIiyw3h4NgnQSfmG+Z/0veTCcV8ZXrSMejfM89I9UHTgT3tT8myN7brlrctDCEiZR
-	 cUhy+AkQeVtJX0bbrwInkH/dV23Y/VB4s4n4OhrXgAIxYeuFZco0PQlo6chwPOu77F5Bn
-	 OdA56S2ZSSUMB5GqdSsA/nvsJg0AMdPnxJFoT1rcpvjCB+OVDUmZ7WvGnukjk/TlEqTfa
-	 8bVSDWB6n8n3ocYY0j/ZWuVNUx2Td8qsPQhNpZHb5qsKwxXugzT97/b86vcWNYIgwTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635045;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Info-Out:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:X-JNJ;
+	bh=2LxqEL0c09YgpVOKrP0D08bRca+IF1yQu3oKxoVysls=;
+	b=nVhaxiicvlXd/HFgod6w6SO5RwmGIy8VsTH7otczp4eqYj9ToUfVEkn37AWEbi2Qf/2n
+	 HV4TtK6IpwpwueL+4Loysn/eyuU0qDv+kvNs3+vwIXyXxBwDfktBXQTPS2ZHaUb+hWAkz
+	 yGkWjmk0DCy7UeTUwS1gAZbp9+SBPu/nhPh9D2kOd7HrVqv/3gq3eiHfZAa+C91K96tIO
+	 XD+RuIlOaUt/0GkDyRO+u8SsNK0b7cmk9c/9QQwciBp2h8EOpuSIwczG++v5Ek4h0ZK4l
+	 IY46XeCnJdbM/cWdriHmNclz+ryTqlZUAH424URHlRUTfFsHJedDEpHPjActDJyy/Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lwn.net;
-	spf=pass smtp.mailfrom=lwn.net;
-	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=QaP9RCUe;
-	arc=none smtp.remote-ip=45.79.88.28
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=ZJmqvu0a;
+	arc=none smtp.remote-ip=57.103.68.181
+Received: from outbound.mr.icloud.com (mr-2002j-snip4-8.eps.apple.com [57.103.68.181])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8622606E032;
-	Mon,  2 Nov 2026 15:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8622606E032
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAD5606A5B2
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:57:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDAD5606A5B2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=QaP9RCUe
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net A1E4C40430
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1793635013; bh=svdWyrsgF+90eWwYkwJ+BgLca86Hpg504Cs6W86/4gc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=QaP9RCUe5ki0aqKAVxXwzM8AvvLCGl+a7hvHW+vW8zAhuTUX6SdY48QO0fk4GB3CM
-	 VVqaWGt7mo7i/XBErrZvqhKtYlpFh95r6QBsc6S+UIt8J6kCKmG8jw0wMxZYuF+s6V
-	 GqfP1bgMI9XfRMA39x93ZHnXUYfZp5iRUH3cCEmwE4zbsXFfOF91a11I/+Gb5cCT6M
-	 TPnq7F/Bjnk/y3tt8eZVeL4/KxpAMRpfQI+T9OKiDVx0U19FnS24hFcsRwGzkaCOxi
-	 UQ9I5jLqdZ5+y8Gb+aMBrUybVGIlx9r2GEY/O/q1ICKOQA3zEkNqew6ooIz6ptf9jP
-	 +sr4zneWhEWDg==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id A1E4C40430;
-	Mon,  2 Nov 2026 15:56:53 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Andrew Morton <akpm@linux-foundation.org>, "Carlos Bilbao (Lambda)"
- <carlos.bilbao@kernel.org>
-Cc: danielmaraboo@gmail.com, skhan@linuxfoundation.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Avadhut Naik
- <avanaik92@gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: remove bouncing reviewer for Spanish
- documentation
-In-Reply-To: <20261101184806.11850a34e2dcfae9c3f55af9@linux-foundation.org>
-References: <20261102022923.686974-1-carlos.bilbao@kernel.org>
- <20261101184806.11850a34e2dcfae9c3f55af9@linux-foundation.org>
-Date: Mon, 02 Nov 2026 08:56:52 -0700
-Message-ID: <87fqxjdy63.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=ZJmqvu0a
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-2a-10-percent-0 (Postfix) with ESMTPS id B02441800103;
+	Mon, 02 Nov 2026 15:57:23 +0000 (UTC)
+X-ICL-RepId: 01a19cfa-c94d-71b1-901e-5ee954807d78
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhOAEMGXAteC0kCQwJYEhVdRVkMVABGEVcfQA53AlEcVg1XQ1QEX1BfHA4EVAddBV1WUAJaS0ATBE0TBVIHXU1WDUcPWB5cFBcVQUNeCF4fTBwdDlgGEgBNCg42BlkFXglWA0MFNhIUXUVaDlsERxQXG1wAFwZbFAREAV0FXQNBCUoCWAJcA0UXTgVeBEYDXVMZUAZDClwXShtzBFQHXQVdVlACWlUSBEAIVlBeCF4fTBw=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793635044; x=1825171044; bh=2LxqEL0c09YgpVOKrP0D08bRca+IF1yQu3oKxoVysls=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=ZJmqvu0amP+RS18BxyzIT8fgt2ogMdjfuQG1PMsJS3OpznfxohtxAqgHqEoWV4tBrJv+AgtsZbFlP9TCQfL/be+GuawDAJ3rnWcM7+5+PQsMMWMZH6orztVYwGfbGqjUAwfBewJEI4V3gsaeU5FqvUntDaysPPY72hHskDjWDHW/MLGebYBG73pyV4VQTyJCqrENLqqF3g/EER92zDYVimPvEMhkVgyEBjA863HXlCGEqngfh1ahhpeY0ed4vvnxLB7OrRvBe0uEQy7aMGnItR6KPHzHOfOU5RyxsFfDBL8fDWAWGj4jC5pkM0bKK/x8rByOsRziHX7PAIcpNU9qrg==
+Received: from localhost.localdomain (unknown [17.156.200.36])
+	by p00-icloudmta-asmtp-us-west-2a-10-percent-0 (Postfix) with ESMTPSA id CA87018000AB;
+	Mon, 02 Nov 2026 15:57:21 +0000 (UTC)
+From: Jack <jacktangsc@icloud.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>
+Cc: driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jack <jacktangsc@icloud.com>
+Subject: [PATCH] kernfs: fix stale comment referencing old @sd
+Date: Mon,  2 Nov 2026 23:57:15 +0800
+Message-ID: <20261102155715.6633-1-jacktangsc@icloud.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,40 +62,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Authority-Info-Out: v=2.4 cv=Qq9THFyd c=1 sm=1 tr=0 ts=6ae8b2e3
+ cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
+ a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
+ a=whGDNnZ4qqUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=v3ZZPjhaAAAA:8
+ a=9tPP0pGvBWh4zwi6mFgA:9
+X-Proofpoint-GUID: OC6IOQq_fGMzM2Hs-VaUcTFJZCNpxcM1
+X-Proofpoint-ORIG-GUID: OC6IOQq_fGMzM2Hs-VaUcTFJZCNpxcM1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA2MyBTYWx0ZWRfX2OVIEZuw4HEA
+ M2HfT1uWB/ngx1Y02qDl38aQrjUd67k8uY5RevTxEf9p3gsxy1eK035uvvm4yPID5knyKCbgbkf
+ K14dEkLWbalQsMYgG0IIIK5d1xb+Rwm9zDxlrKqW4A+hStA9kZEIEkTMLiDYLe11+pYGdps+hzr
+ 6wkH+1qSHcmEyNhnFyuPvNxKsNSe5qEIEfJOQoriclRnHEm6kE6sdo2xNeGjeiKXcrzaPYWA49h
+ D9pDKN91UrLER8/bTP0Ga4FUa9g1ntsjHtineF4eE3GAGbL7Y29X2dOdkXpKdM9Bok3Tq/PiURm
+ y2EozCy+YZBK0xyg6FyRbRGcZQYHHiZr/wEFEj4w4tlg/JObzwpHHNBHMKgIqk=
+X-JNJ: AAAAAAABHoDLA64DKmkuzYE6sIrOmA65anVKc9yEKfUzp2V5bm2sdLRvJKWKi9xpUBLxpn
+ v5s1haI/Q2KMxDaBZezDnHm8/t9LHyU+7GW8tZ+knmkocUQQV4h94Qv7aF7uYunPu06rD8
+ 0W7OwZYFk1sS/rSVz2RqevpHGArK9AIrdsjHuPMvpSVAuIQ+hCV1V8sQj6ATde8FVoVYqq
+ c+9AWY4S88xvOnJj8bhZ9KEsmCayyRUWISgEQlXZ6T6zqM9Vu9iPZvJVrRWtOY3nNFtR4S
+ qBNXPWp2FJ++OzL3tLpaqW4YsX3Y/2kzOJzvsSAJr3h5eNhXlewte1Izx+Ttzs87DAddxS
+ RlNsJb/LL7J1nigfVGX4rPM7Iebh3Xv9H06lVFBzauZZHKZm7f9susljYngiA/0xDBs8JZ
+ iu+oEENaiBl3ednE8gquhZBH4FuWy3hpmmYwvtYnkDLojf/fTyCvdTJquILAItF7IB/5HJ
+ kpQtdwpIALBej6QBhXsTFn2h1xG9+OgtMheht1xxsZkoGCljIo4NdMRWPVNwWSpfCHc6mf
+ 9uy5uAfplyfIwlCIVnSm6MT/sR2Q/3z5/F27DirRqw8gJYovLQXZm34nEInXVWFZ36wxbe
+ 0Sjf1hCTixjpWc3UAKeEsaCKpWGkKFX3VwqozcNDMCQcasFZNe7+6QSKPT7PNGZ/vHDLnY
+ 551ZIYsp5g4d4DBQRA4WNCxugBXFgCFBnbYgnfiwgvvnIjEYKmHX119n+SeZkmbnF171FV
+ RO5PTryfvsy+r4K3C+7wWPIF0cP1NnFUISUCK2EKQxbHhbMh2GCCdsWO3g7DG9E7Xtb0kc
+ OwulJ0r9T2oLcZPukAiRgpjpSsZGoftfUjdOJ4yJuD1JYeArfAiLlhuOAxGdsKZdwNV7+8
+ ZLqK58l4Mm+CyPxXz3rlRrPKq2wNDinGBHErWRfTf/SqsVnfvCrRi81UoEkHJHQLgws23a
+ MtcoxGXuM3rr1ib6nTsTMFddDu3erX9qwu+Kd9vlX6zPMhToV3ELRlKG36q5DNuRZOnxLW
+ Lm+L9GIDyUiDjcGkek0Nzp23WWy+GeDQ0IdYG6XFRe8DVaSZUusPu1EeX7Bv4mtnsp3DUe
+ 324RE+0Kh9476pdh5oZG/20ymCdlo/r3Pxy7qSTyLMKvxui9f1cWzSrHzYZunrccZkJnP0
+ 1T1o/hfU9zHYazBqPiV5qu6xwDgpdCTC0UQu4mmw6+srrsBS8Qrg==
 
-Andrew Morton <akpm@linux-foundation.org> writes:
+The comment still refers to old @sd which was a sysfs_dirent.
+Update it to @kn to match the current function argument.
 
-> On Sun,  1 Nov 2026 18:29:22 -0800 "Carlos Bilbao (Lambda)" <carlos.bilbao@kernel.org> wrote:
->
->> Remove Avadhut Naik as reviewer for Spanish documentation. Mail to
->> avadhut.naik@amd.com bounces with "address not found". Translator credits
->> in the .rst files are left intact as historical attribution.
->> 
->
-> Thanks.
->
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -24843,7 +24843,6 @@ F:	drivers/i2c/busses/i2c-k1.c
->>  
->>  SPANISH DOCUMENTATION
->>  M:	Carlos Bilbao <carlos.bilbao@kernel.org>
->> -R:	Avadhut Naik <avadhut.naik@amd.com>
->>  S:	Maintained
->>  F:	Documentation/translations/sp_SP/
->
-> https://lore.kernel.org/all/20260316125324.396889-1-yazen.ghannam@amd.com/
->
-> suggests a better patch.
+No functional change.
 
-I don't quite see how ...?
+Signed-off-by: Jack <jacktangsc@icloud.com>
+---
+ fs/kernfs/kernfs-internal.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I've gone ahead and applied this one.
+diff --git a/fs/kernfs/kernfs-internal.h b/fs/kernfs/kernfs-internal.h
+index f1e93b09e..0fd8dea0b 100644
+--- a/fs/kernfs/kernfs-internal.h
++++ b/fs/kernfs/kernfs-internal.h
+@@ -72,7 +72,7 @@ struct kernfs_root {
+ static inline struct kernfs_root *kernfs_root(const struct kernfs_node *kn)
+ {
+ 	const struct kernfs_node *knp;
+-	/* if parent exists, it's always a dir; otherwise, @sd is a dir */
++	/* if parent exists, it's always a dir; otherwise, @kn is a dir */
+ 	guard(rcu)();
+ 	knp = rcu_dereference(kn->__parent);
+ 	if (knp)
+-- 
+2.50.1 (Apple Git-155)
 
-Now if we could get that translation active again, that would be even
-better :)
-
-Thanks,
-
-jon
