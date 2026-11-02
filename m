@@ -1,65 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626666;
-	b=g3LdkYlX+Kg9O4Hf2Kq+FbPH+iALCRy3dcMh6mQ+d6eIONeA0QXWEcom+DABPNYZfvu5
-	 famiISXZgs7vhOc7Aop2kDvzvf560wsygFhVtGbEYQBSww6msr4+1BwCjSxswNd6iOa0s
-	 g+IHcoCUznkM99bzWSd11A+xXEnZX/XDT9wzTLjU3OW4LhTUvfYXoql4teJAYpHnvuP5K
-	 i8USBda5QXr9J1ssxahHpCTkQCw00wkWOAOEXTTn5RkJZMEwNJ85kyXwwoKZA/DAEW2dw
-	 +7dmEb0inTq2EtSM6eTHk1XDUO02ZDUHlhgmK65GsICLwsaVvmQLhxv7LPPy0fN9+AA==
+	t=1793626711;
+	b=SZVer63j6hmAhU+E8UgkOvWq/5WuvuLcv2JRhuFY1J+XXxno6ThsxQPK+YbxoGPZofCq
+	 cXVDgCt5Pt2Xyv49hKMRTAxJnpUMOkcBfApXYyL4mfpr+Qz3aL8NGcOqdC+uWnwNcTSrP
+	 +Fy9iK/qMEuLb0vOfgUctACXYrm2gwomjGyypyra90Z1tf8ueHA7KY+SBpDlw7z4s5t0j
+	 2dhWY1pSa6q8EgmrKqDlO1/huHK3krcf23Ah7rFPlgII0k2c/R+3uzinLzhAttBSrJTDe
+	 OzbE1GJEvbRUSN8JD/SXPsA1nyLniTLCISuPymk8zL+Ls9hFX216djpXZ8/XUjmsG3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626666;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=H9bvKZVBxfOysBsVNqIEXqXBCIU+hhH5jtMfTN1q6Ek=;
-	b=cHd1+Y0azjn4ZZlUNdhnq5BbBGhekMx+mTggmPF0zRecG4QpPu6yldrl2zqjQ5NYHH77
-	 DvM99LLpImeNU1U3sBtCbJwg3lQUk08+tBhkKWPgwRV+Qiq2zdVq6G+9AOfWL6rCGtmhi
-	 ep7t41vqTcV2An5HqhkNcindx4tmC+jcnEblb/MKIulqj5w3xcgABdcbcJjcwY9skCfF/
-	 Id0ttfIJvWR4rPvV2b66cPdBi9jvaHlIYc6jv4R6KFFvB97RvoQxwYgQNFiictX3yNCOu
-	 qkh5TU7655iVKZAMkv9DjMmiOvKrxL6UuyNS8Xs85N47AVOH8gd+T9kl4VnN7so/HUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626711;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/f2A5wNOFNtrqG9jwc/qXpyGtWH8hqeuDCg3F2LvLAU=;
+	b=qIlciwaS3uU1Aty4hiy/WjgY5E7jq8T8AewhoGRtfH/clRxZpQl/9/j1EnxHmCXP0+g0
+	 PuRdDb7ODIwnk2r82QsJIRQbaRZ3kpgJ4NpY57E1zhybLj6Bt6XBwtp6vouNW6BOvaw5T
+	 ZvFSexOj8PmUcbzb87Qg6Ioad9gSGrirrWe9AcPET9H/l3cjdGlxO9NWQ0MG2prAYGyyU
+	 BY4aFF1wZryNo0Fbw/Sq3jTOJQtZmJW/R15a+JTt9RthWut906dUgvU81P5H/1UFI9mHX
+	 Xj9N+DIxQLYVWuWBds6wN5v+yzaa+AVzFqNVrwj6/O+6S7wt4xF2s1jybzC5goL52QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Ff3wfV0H;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="KMQLsu/d";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mi7TfXCn;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C119E606A326;
-	Mon,  2 Nov 2026 13:37:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C119E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF1F606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEF1F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Ff3wfV0H
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793626661; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=H9bvKZVBxfOysBsVNqIEXqXBCIU+hhH5jtMfTN1q6Ek=;
-	b=Ff3wfV0HO+wh1xmK7CMrbWSqMifHozw7mlsh05OFelb2nYa1YmZHIs3UL621JSLDs6UpldRWsb+BNxEBHjAuO4w7DR6gD84kqGKE1zmF/+dfbAMS1CrFGspH1/gB+hZRRhDbiVWO0/GYML5fd3WtPf/SJR5Ky+mzEALvqgEjfg0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R601e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=yunye.zhao@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XE-5Cf7_1793626660;
-Received: from j66c13357.sqa.eu95.tbsite.net(mailfrom:yunye.zhao@linux.alibaba.com fp:SMTPD_---0XE-5Cf7_1793626660 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 02 Nov 2026 21:37:41 +0800
-From: Yunye Zhao <yunye.zhao@linux.alibaba.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	virtualization@lists.linux.dev,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Ferry Meng <mengferry@linux.alibaba.com>
-Subject: [PATCH] virtio_blk: freeze the virtqueue layout at probe time
-Date: Mon,  2 Nov 2026 21:37:40 +0800
-Message-Id: <20261102133740.88919-1-yunye.zhao@linux.alibaba.com>
-X-Mailer: git-send-email 2.19.1.6.gb485710b
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KMQLsu/d;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Mi7TfXCn
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAHb82902177
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 13:38:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/f2A5wNOFNtrqG9jwc/qXpyGtWH8hqeuDCg3F2LvLAU=; b=KMQLsu/dZ+9p+xSa
+	RFz1+xEPMEHgJy+HNNzDUcWqwXvco0yHJXy1nCngbWDJo0QZeKwDGdvpBEX0Z7fX
+	4CQLX4pRb/8S90Z1wag9ZwZPlbbpWsPJVsjKNivF1g7aJuP3ySaIQn7ZLigzmoNC
+	hL9HVMok4zlU0HDNwN2C0ed8m6NAzdsuCVqeMEArqGlnmZpwgBdjx+vTO2hRXr3N
+	bqWa4/4u1IzzhhnRwK/ZjFoLjzxU9PxmNVVVFbR57xWMAzZkfnBiYhuQlaObuX3b
+	biaPJ3OBPTBKhwsul0hOS9mzC379i0yNuIL72FklOYCE4puOog7ln6A+dHs+mvRD
+	x7FSuA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpsavghsw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:38:29 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7c10b8abe29so2453169137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:38:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793626709; x=1794231509; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/f2A5wNOFNtrqG9jwc/qXpyGtWH8hqeuDCg3F2LvLAU=;
+        b=Mi7TfXCnwNgz6/urgUY6Pxfug0qftuVxqHF3pJnlxvZJPZMtf049dekM9/DdFqKSOw
+         CaU6nuXzZEn/WDuOXfF8+xnIgY+izpqYLLNaFIUqNVHh7q6POLPPwaBfgOdLLz7gyg9f
+         AngnM3b/bFhSfQF/h8xsKr36YvPbysGBiKax7mN3y4sIOi7IrNpP4b3i0HzIvpDlpeSy
+         emsXgctD9TMDYFgao1JGwZvEKvlFF/YIuRZdseOqTVbccBGylKy6J9bCF1v084KVaNyG
+         cstKDpkKTupMRCZL+IWwvFilEsZMFqcqCuRulhra4LA/QnrpIdZxllJ3YJD1UjmF3ftf
+         ahRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793626709; x=1794231509;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/f2A5wNOFNtrqG9jwc/qXpyGtWH8hqeuDCg3F2LvLAU=;
+        b=Kq7sVVPSK4Zm0koDzcL6ti6WSD7WPFzhtEBFMkOgXoKNg12xuAZvMrpy/qo1eQtQ14
+         pBLSoHcAfcH0PSv2QqgqxNeXXqx+vqdRLsf1sKFfnxBuvg3M33uzQSPmmJFl1D6nA8X9
+         +fIkvQXyDhjckyTn4kY6RnL3/gOP3sxki1IeeC5/Oz5/42eCd1G3fA0Eeg6qEXhr3Fy4
+         tlhzg3gjLDdmQqOWJjAAwAPnyMJOsI17ddXhM309YNukSM1b89S4alVTaBCLlmADGGuT
+         HL5In8ZmCfVNyJEyePPM+TsShJM0+8DNL3cq/C2zJwQEpe0yH2ZDioL7Uz6hfwFo5H64
+         e7lw==
+X-Forwarded-Encrypted: i=1; AKwUvBz9OML+HFRm9y8AFp4Y536xomAGTQAhHpamUvB1KlPtdRj//rrz8gZul32pM+meG2BLPpVCma8XZATOe0o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZZS2SSMDEI6yvtq2o4tpbjwBPmiuJ5HEtLTpLhucXLRMI9I7Y
+	OIY+UyZs7b2hZ/IwwAxbCE2jaJi8NiZFAyBPuqWr6BbJLYP9nw82UfHkKz8k0LDpyyI9RNLc2og
+	GwTmzfQy2Rns7O61pwzC1/s/AtC2NhKGiGNoZpAOSZtey0VOz6pJT8QEwRjEH2Ih8Y3g=
+X-Gm-Gg: AYBFou0NzPF90te7U/JKE9nSN36YO3ApfWq6Tc8vmj9iKFz+OfPKuvOhJyMO5a3xGEv
+	ECxqpcrFPUlu2b7PKocZg/z4419rZJB7iQQ/lGrl6mLabfaizp73Ss54BdAgO+GJorfsWVFpXVG
+	SP8DEeRHj0nCCHkAIvnJSnG+P9ktgdOBg9z1T3xt28R32mg+lM+0xhTm8pUJdASDj2D1NB2JtXM
+	Yt1vKMLvnuagBtYrlf8cel4TkPkraJYmUULpfLMwugZ4+Nek6YssrQqwwpBXz9xC0sCv/pfxDG5
+	O50UzCtoHmgB1oZ0BeL1dDjW+kiWWmGoUVRKl6qBqcpKglE4WuxNw6fwOv+hs2qSrR4RGLtoAP3
+	z6OoqGtIDco6vNU58pwQG2BX46W6/1yWd+0RtI+13IILv0mtZOSnVsPhDP4PMW7OU5VxHWrr5jF
+	gR
+X-Received: by 2002:a05:6102:f88:b0:7cc:1192:5636 with SMTP id ada2fe7eead31-7d07262e924mr3971074137.12.1793626709133;
+        Mon, 02 Nov 2026 05:38:29 -0800 (PST)
+X-Received: by 2002:a05:6102:f88:b0:7cc:1192:5636 with SMTP id ada2fe7eead31-7d07262e924mr3971063137.12.1793626708667;
+        Mon, 02 Nov 2026 05:38:28 -0800 (PST)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e88876946sm1194928f8f.5.2026.11.02.05.38.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 05:38:27 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: mpc8xxx: Fix potential use-after-free of IRQ domain
+Date: Mon,  2 Nov 2026 14:38:25 +0100
+Message-ID: <179362670032.76770.9373132482307036196.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <a4fec7fe970d6fc9135b488f57ba7e145b809359.1793377433.git.liguangshuo@mail.sdu.edu.cn>
+References: <a4fec7fe970d6fc9135b488f57ba7e145b809359.1793377433.git.liguangshuo@mail.sdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,146 +124,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfX4I6K63zvGeHT
+ oUUNpa7kBngpBZrFiw8ydCnGsSKN5tdO7i/BJfgTp9+4aGdG4VxvDXf+5NxTjOuyecH1ZstW3NG
+ fhkOsGRmy+rm5/37ErzsH6AXRuTfwovjXC9SSKsKQCosQFF+MblEqarPqAWulmi614BNlPCgIzm
+ qDJDVT8ABLX0F/+QcAtqe61KJwNhF7J5AticAyRvBIk1caJPQiI0rAR4LOUaiQIdJs0VpH83UOg
+ iFIkHiEw2t2d3DmqGlZC+V40cgErwB1PqO68mdkcsavTgtnYIf9wjdikA7AY9/ZeLLhhT3ZH7zZ
+ Vc6woZqkT8K/gRQ0z82v8+RaNavtjxuFpZ+FehOw8PLWWbMcC3QDxYLIRz92zMooPN5mD4evYBp
+ qOtUNyKSVue7fsa4/fK4qGZWEpay70yQStODId/rsmWfqUph1hjmNcQJJ//c3Mv8FcpjfuJ1189
+ xBeO88YdXMjAoSbQJtA==
+X-Proofpoint-GUID: tngBC2sH8axHs1qj8TKF94XPdsMuqK5p
+X-Authority-Analysis: v=2.4 cv=FZmiV5+6 c=1 sm=1 tr=0 ts=6ae89255 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=iSS-Be4OmSBwA7muS1YA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfXxkqzoUQYPyYM
+ WLo4i7K529HkYwLAyHn89RPh8AyqOf4HKfP9KKWZiSUmGAXYYVRSQFSL3n+3mqH1Ks4PZ2nyJBw
+ nW/xaTW/nW1rViDu5LCP9rTi2dC/8Dk=
+X-Proofpoint-ORIG-GUID: tngBC2sH8axHs1qj8TKF94XPdsMuqK5p
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0 phishscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020054
 
-init_vq() reads the writable num_request_queues and poll_queues module
-parameters both at probe and when recreating virtqueues after suspend
-or reset. However, virtio-blk does not update the blk-mq hardware queue
-count or queue maps on restore.
 
-Increasing poll_queues can therefore remove the completion callback
-from a virtqueue still used for interrupt-driven I/O, leaving requests
-uncompleted. Reducing the effective request queue count through
-num_request_queues can instead leave existing hardware contexts
-indexing beyond the reallocated vblk->vqs array.
+On Sat, 31 Oct 2026 21:05:41 +0800, Guangshuo Li wrote:
+> GPIO chip cleanup can call the to_irq callback while releasing requested
+> GPIOs. Removing the IRQ domain first leaves that callback using a freed
+> domain, both on removal and after an IRQ request failure.
+> 
+> Register domain cleanup before GPIO chip registration so devres removes
+> the chip before freeing the domain.
+> 
+> [...]
 
-Determine the virtqueue count and the split between interrupt-driven
-and polling queues once at probe, and reuse this layout when
-recreating the virtqueues. Changes to these module parameters then
-affect only subsequently probed devices.
+Applied, thanks!
 
-Fixes: 0989c41bed96 ("virtio-blk: add num_request_queues module parameter")
-Signed-off-by: Yunye Zhao <yunye.zhao@linux.alibaba.com>
----
-The functional fix was previously tested with QEMU 8.2.2 on
-7be4bc52fd9e (v7.3-2415), covering:
+[1/1] gpio: mpc8xxx: Fix potential use-after-free of IRQ domain
+      https://git.kernel.org/brgl/c/ede1a6a551d3728165b31b494bfaae73b328354e
 
-- PCI FLR after changing poll_queues from 0 to 1 or num_request_queues
-  from 0 to 1 on a device with four request queues.
-- Normal and polled I/O across FLR with poll_queues=1 at probe,
-  including a subsequent change of poll_queues to 0.
-- Device suspend/resume with pm_test=devices and state=freeze (not a
-  full s2idle cycle), plus full S3 and S4 suspend/resume cycles.
-
- drivers/block/virtio_blk.c | 71 +++++++++++++++++++++++++++-----------------
- 1 file changed, 43 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index c8bfbf8435ac..0df89f381047 100644
---- a/drivers/block/virtio_blk.c
-+++ b/drivers/block/virtio_blk.c
-@@ -958,42 +958,54 @@ static void virtblk_config_changed(struct virtio_device *vdev)
- 	queue_work(virtblk_wq, &vblk->config_work);
- }
- 
-+/* Keep the queue layout unchanged for the lifetime of the tag set. */
-+static int virtblk_init_queue_layout(struct virtio_blk *vblk)
-+{
-+	struct virtio_device *vdev = vblk->vdev;
-+	unsigned short num_vqs;
-+	unsigned short num_poll_vqs;
-+	int err;
-+
-+	err = virtio_cread_feature(vdev, VIRTIO_BLK_F_MQ,
-+				   struct virtio_blk_config, num_queues,
-+				   &num_vqs);
-+	if (err)
-+		num_vqs = 1;
-+
-+	if (!err && !num_vqs) {
-+		dev_err(&vdev->dev, "MQ advertised but zero queues reported\n");
-+		return -EINVAL;
-+	}
-+
-+	num_vqs = blk_mq_num_possible_queues(
-+			min_not_zero(num_request_queues, num_vqs));
-+
-+	num_poll_vqs = min_t(unsigned int, poll_queues, num_vqs - 1);
-+
-+	vblk->num_vqs = num_vqs;
-+	vblk->io_queues[HCTX_TYPE_DEFAULT] = num_vqs - num_poll_vqs;
-+	vblk->io_queues[HCTX_TYPE_READ] = 0;
-+	vblk->io_queues[HCTX_TYPE_POLL] = num_poll_vqs;
-+
-+	dev_info(&vdev->dev, "%d/%d/%d default/read/poll queues\n",
-+				vblk->io_queues[HCTX_TYPE_DEFAULT],
-+				vblk->io_queues[HCTX_TYPE_READ],
-+				vblk->io_queues[HCTX_TYPE_POLL]);
-+
-+	return 0;
-+}
-+
- static int init_vq(struct virtio_blk *vblk)
- {
- 	int err;
- 	unsigned short i;
- 	struct virtqueue_info *vqs_info;
- 	struct virtqueue **vqs;
--	unsigned short num_vqs;
--	unsigned short num_poll_vqs;
-+	unsigned short num_vqs = vblk->num_vqs;
-+	unsigned short num_poll_vqs = vblk->io_queues[HCTX_TYPE_POLL];
- 	struct virtio_device *vdev = vblk->vdev;
- 	struct irq_affinity desc = { 0, };
- 
--	err = virtio_cread_feature(vdev, VIRTIO_BLK_F_MQ,
--				   struct virtio_blk_config, num_queues,
--				   &num_vqs);
--	if (err)
--		num_vqs = 1;
--
--	if (!err && !num_vqs) {
--		dev_err(&vdev->dev, "MQ advertised but zero queues reported\n");
--		return -EINVAL;
--	}
--
--	num_vqs = blk_mq_num_possible_queues(
--			min_not_zero(num_request_queues, num_vqs));
--
--	num_poll_vqs = min_t(unsigned int, poll_queues, num_vqs - 1);
--
--	vblk->io_queues[HCTX_TYPE_DEFAULT] = num_vqs - num_poll_vqs;
--	vblk->io_queues[HCTX_TYPE_READ] = 0;
--	vblk->io_queues[HCTX_TYPE_POLL] = num_poll_vqs;
--
--	dev_info(&vdev->dev, "%d/%d/%d default/read/poll queues\n",
--				vblk->io_queues[HCTX_TYPE_DEFAULT],
--				vblk->io_queues[HCTX_TYPE_READ],
--				vblk->io_queues[HCTX_TYPE_POLL]);
--
- 	vblk->vqs = kmalloc_objs(*vblk->vqs, num_vqs);
- 	if (!vblk->vqs)
- 		return -ENOMEM;
-@@ -1025,7 +1037,6 @@ static int init_vq(struct virtio_blk *vblk)
- 		spin_lock_init(&vblk->vqs[i].lock);
- 		vblk->vqs[i].vq = vqs[i];
- 	}
--	vblk->num_vqs = num_vqs;
- 
- out:
- 	kfree(vqs);
-@@ -1470,6 +1481,10 @@ static int virtblk_probe(struct virtio_device *vdev)
- 
- 	INIT_WORK(&vblk->config_work, virtblk_config_changed_work);
- 
-+	err = virtblk_init_queue_layout(vblk);
-+	if (err)
-+		goto out_free_vblk;
-+
- 	err = init_vq(vblk);
- 	if (err)
- 		goto out_free_vblk;
-
-base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+Best regards,
 -- 
-2.19.1.6.gb485710b
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
