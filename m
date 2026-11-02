@@ -1,74 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604139;
-	b=J4xAGZIdBkQ8UVbW3AvVimmCaKETVptxd69iadQIeA/Pqe+1+GhC5M1OE09x0ds+HQb2
-	 mBeWEtpyXSvcop5y6FR5P0xoRBFpH3U+nUd46Yj9plF0STKTLKFsK8YXrm7bjX7tOJ7er
-	 Nn7iVUJ9BwY121H7MmKtHvtjTzFi1lt8RAIVUWHrteRGwTI+gn9/Nyr3Flxl+l9ZasPDE
-	 3wDBoizbvJtQXcyRLaUUfFsSxVTKcbmt95FfQa5xhrLYbH2AEXM/5FTMTt31CZVqEGG+4
-	 KHuWCFDjRH5bm7Y4TOq+NKcNow5+RqjmGmlQrqEnNcKoiQwRmoBFHhxXrQb484gRq1Q==
+	t=1793604149;
+	b=3dCF1Ewh6CBZsO+FL9ukGJmnYBsCRuCBA3EnaZguq4pYJX8eDUmon4xKngNOPe9sZUVN
+	 vG7uFeVAwtVQX6vlAyiK3Iitrio4U8l4eJkuEFMWRfjkCrjLQcl+PMrlgZH0X/N44Ejsu
+	 u/drN5m2WLoWa2B2Cc0jN9PjN1+IA1ZiS9nw0dJKFY6d6oURYnCGq0Gq004GdeQeK/o+a
+	 aAaiLjVQHA4My0C/sUeSiiaMZ71Ndz5hTF+VEX3/PAhNwgrpCN4QO5wNn4ytuktczfi7G
+	 lNtjceKnNkeer8lFUPnfkEKfQlUsJViQKLmMVNNbiZm2P/V7DJoCrt1OSPjL+npRI5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604139;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=YxYTF91G0F1lBThpqealjixyREmPnBACasG4sOFttPk=;
-	b=Df9x+5rh4mMDFAMn/uyBhLb8EtWhEVFJiqCcughHIJKqf/Uj36lGiEEQHRxrjWK2usv4
-	 El0W0Kl2KACN4ZyeRMuSYoAPAloKJ/62mWduaJ0Htt9WH4jLetlLuhn3MUxnseXLk9Ov9
-	 2y02BWARSJRdW68QL98O/+xQ02Y+CU9fX++libr3tyrrnw+FphZnZWvt7ULK5wLBOkcgy
-	 rQlbq+vV2VSMVHjzBsVLcgb305tJRSEBL4zMMSeevJ3DdghHqQ3fOCMfU4LI5ihcKub3o
-	 9JMjsdph0YZq7PnC+cxd9l1c5eCZsgnL/JTWvPvNeeu/gODxlfmOZ8XbYG0DmDKJOng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604149;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JB/vt8Yqalu6xBIjfgP9QfXpUFDcSpikq6HleBSGoog=;
+	b=iA7qlWyo9/adijRbS85c1VVxhLOh8/oZr/SP6W7HwsuP9M3rx2GYF9jf3TIUC2S/aDaH
+	 ulJwLFqX9Bnx3p60jH0jPnsbNt8rtyorZ/CyxTxArbxUt27GDGi271kVj3PuUSpJNF9x6
+	 xiA8Ss98gcPCX5z7rU8PkCUo/zZClw7nQmq2j/jUq5DHavXMjrgpe9mNqxaEDO/WsB5Y6
+	 ify9MO43celxePJmTQyJZoEFQ/dqick+i4LzJairwkVEAJoVZ/x3oHx9q3l3MmZmaBp+g
+	 hQLGppvullI0nkJW4DrkqeGR/oN3ITLxOp8jUoA71jkVtSJMblkD/f8Z739QqjEdScw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=siemens-energy.com;
-	spf=pass smtp.mailfrom=errorhandling.siemens-energy.com;
-	dkim=pass header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=dKvu6EqV;
-	dkim=pass header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=bSfWfPqd;
-	arc=none smtp.remote-ip=185.136.64.133
-Received: from mta-64-133.flowmailer.net (mta-64-133.flowmailer.net [185.136.64.133])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A40RjiYb;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BD0606A33A
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3BD0606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0AFC606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:22:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0AFC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=flowmailer.net header.i=@flowmailer.net header.a=rsa-sha256 header.s=s1 header.b=dKvu6EqV;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.a=rsa-sha256 header.s=fm4 header.b=bSfWfPqd
-Received: by mta-64-133.flowmailer.net with ESMTPSA id 2026110207220404ae1bc9db0019fd8a
-        for <linux-kernel@vger.kernel.org>;
-        Mon, 02 Nov 2026 08:22:04 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
- d=flowmailer.net;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=YxYTF91G0F1lBThpqealjixyREmPnBACasG4sOFttPk=;
- b=dKvu6EqVfSnsJbr1DYEMjQGKG08K0ycQRSmZDbjHQ0wmiEUVroiHDsR71k2L9GxtosNpUg
- hI4nCzr1GZkb9FBjoGy8fY2S/cVqwm1dVXhY9WTEx8yv2k9bofoHwExDt7TKt2953ZJI5FL8
- Q7Q1PmgD/16OV1B5H/u99P5C7fuZ4=;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm4;
- d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=YxYTF91G0F1lBThpqealjixyREmPnBACasG4sOFttPk=;
- b=bSfWfPqdM+oB6qQiyE5obxHU0/LKsL5LXG9G41UDyAlpzS7u/vvcE99C+WwEvUYX1g2Vfk
- JDhEBHYxyLIS/S9DQo54lxUFFNPQwgCAVsD6ROrofTYoXqJ2nmGp77sEcRaZqgtY9RvojQ4B
- z8IuppUMQdHxD/brkp5OMHl0YYx+Js9sUuccqD0xalrkIDDleQJXazFTp8/QNPRHNIEF2+tA
- QGcuWhV/W/Aj8QTmPZLmN/MI1cZfUDU9lacTeO7AFx4muoDlDGVu+RjdXoAs5fUZqIUN+Xol
- W3tgoMpA1UZCrVeo3VSjMLIUYquAL6HCJ7mzRxwRHYrAuvblmFyJmkMQ==;
-Date: Mon, 2 Nov 2026 08:22:02 +0100
-From: Simon Schuster <schuster.simon@siemens-energy.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Vineet Gupta <vgupta@kernel.org>,
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	Dinh Nguyen <dinguyen@kernel.org>, Ley Foon Tan <lftan@altera.com>,
-	linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
-	linux-snps-arc@lists.infradead.org, linux-parisc@vger.kernel.org,
-	"linux-openrisc@vger.kernel.org" <linux-openrisc@vger.kernel.org>
-Subject: Re: [PATCH] nios2: ksyms: Declare __mulsi3 export
-Message-ID: <20261102072202.hpcrob7xknqwx4a4@dev-vm-schuster>
-References: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
- <47eb6b48-d664-440f-84b6-ba09f34d5e08@app.fastmail.com>
- <3175caa0-9f49-465d-959e-6b6c9bbb4f01@kernel.org>
- <e9f9ac85-442a-4bcc-8ec6-a03a6519178d@kernel.org>
- <cf2a83ea-5e5a-42c2-905b-199a43b6341a@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A40RjiYb
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36a18fc7a38so4476060eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:22:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793604148; x=1794208948; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JB/vt8Yqalu6xBIjfgP9QfXpUFDcSpikq6HleBSGoog=;
+        b=A40RjiYbuQT4l1IZ5KaRxQvTC95Ye1lv5NSYiPaoDeWiq1BHQoUCqvfvCPNBI5+jAb
+         I67alxr5KPEheCAku4fQ0sNt1xSYrRr5xlPET/XtoZ6QAREs+RYz1+Vg1WzqsgQ7gjXA
+         WdXu7f5Ang1sWhFgf6nI1tFRDlSBeg7uRQ3EbZmIRmhIynY1BmD65uy1dkmw8FGplAyS
+         lUJ9SqxRqX3SFV7A/DJ13e9oMJmobinQLALerM/zO3ZE6vo8uqHHFb+wz40hT9I7Sa2J
+         7nM4T6iekwG8ateOPeGbO/Lg8WmvYjp8gz/PR5P+823UAn5pyd8JXtIOjICb34CD+ha5
+         JlyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793604148; x=1794208948;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JB/vt8Yqalu6xBIjfgP9QfXpUFDcSpikq6HleBSGoog=;
+        b=UKaasasXNUdquh0QtxH4jUfGu7ZNhBYdK9k9B/a49Jpl0RQMM8GKxgVYnWrg32XoG1
+         zJ3SDXNlMC2WGJs86QsRSkbl79Buaj+RZeBvnTelZ0g+KvJ/c88DFDelHUtqVGkpr6DJ
+         LuIzsk41Bv3cTNFdyQBD17wZHbOmHeeCWGBe/oq0wkJQyTBcmnFXozx6ggfPq1AWhCuw
+         BFQXC8MmFaLamcnsq0tCpjxLZfX+6l4hKN+4EbPwvdEgsrXvDvJOoAdIjgSowfzYyCH7
+         CW7qyzEadI19xTOitdytxaSJ8u78Tenk41w2qTNnUqhzTkmZSHAFhjEJyq2bc/o8N6wM
+         kbpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxCnpu8wKh4pwAKx7WhPW2AVF739QU0ALBTPGl7abGjv9kN2a1jZIaUObMeGwktrJdWjqdi08C4vTY6ros=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9d/t9xA6wWCW/Oz+lM6NcfhPQgQz2U+C5GiLNhDoM2MgjKBelX
+	8fFeycgAqECYliyZT+7NI/A10EIQPTGf4fe7lfIkEkF5TPXpH0LDApr0
+X-Gm-Gg: AYBFou3otBCCE7YrFzJoXvBovSUR8xGGb494G4fdyRHHe4eM5uBgDETbD9EHUCqGM9g
+	HnBY2sFljIz8rQbUXUeunKe6nYJugts5H+u6p1A9FrJRPn8qmIBYa6JaKmz5Rxo2DPhYj+bxMn1
+	kBxqReMe6GPYrR88ieDDXhd4UTSAMK9vc3EyhavsqNIIh3RwAEtG3s7SyImy6KkEfu+Z3ofYLRo
+	lzCyt/0XIYrz88HYoPkFgd0mCan6nUF07FQzUpnhSD9Z+Rxd4yZL5g7J0sMEN8fhZm+JOS6L6mZ
+	v5r4OwnYsXgOimHi1g6IuZJ5PNh0Q00/GnY6vG17bDyENUzn/26GhGosmB+Mj+wpIAyel68Z39b
+	yblU/3V2Jgg35cA28jX9DVcPNTxjbkHOy46K2hoMWdO9q+XvRsfwS0HzRazot8NR5HpI8TXISlZ
+	gaMlmT7bJk/8OSNh+5CK3Dhe+jV4zAmnuIZ7Nx37oOiW6tLu1rITXWd/lYB1remdvgkzczd2QLx
+	jhKgldorG1OTNLaXoscU21JRqD0QToEtf7gaHQpxn8KsYx1bi3Oe33VLYkbD32EbuYB2YmSyH7e
+	PzuWMnTkN/DW327S779RJl3+PfSLfJ9VLN9G/eF2OkJFi1vNTrw=
+X-Received: by 2002:a05:7301:4706:b0:369:eee6:ee2c with SMTP id 5a478bee46e88-36a4221bc98mr13867197eec.5.1793604147501;
+        Sun, 01 Nov 2026 23:22:27 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.93])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm36376021eec.7.2026.11.01.23.22.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 23:22:27 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: chunkuang.hu@kernel.org,
+	p.zabel@pengutronix.de,
+	vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	mani@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH] phy: mediatek: mt8195: Check PLL driver setting return value
+Date: Mon,  2 Nov 2026 07:21:39 +0000
+Message-ID: <20261102072139.3588-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,53 +103,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <cf2a83ea-5e5a-42c2-905b-199a43b6341a@app.fastmail.com>
 
-On Sun, Nov 01, 2026 at 12:19:34PM +0100, Arnd Bergmann wrote:
-> On Sun, Nov 1, 2026, at 01:26, Vineet Gupta wrote:
-> > On 10/31/26 16:57, Vineet Gupta wrote:
-> 
-> >>
-> >> ┌───────────┬───────┬───────────┐
-> >> │  routine  │ calls │ functions │
-> >> ├───────────┼───────┼───────────┤
-> >> │ __udivsi3 │ 415   │ 238       │
-> >> ├───────────┼───────┼───────────┤
-> >> │ __umodsi3 │ 203   │ 131       │
-> >> ├───────────┼───────┼───────────┤
-> >> │ __divsi3  │ 77    │ 57        │
-> >> ├───────────┼───────┼───────────┤
-> >> │ __modsi3  │ 41    │ 33        │
-> >> └───────────┴───────┴───────────┘
-> >>
-> >> I can take a stab at providing the generic libgcc implementation in
-> >> lib/* but I only expect the arches using libgcc version to switch.
-> >
-> > It seems there 4 are always needed together or not at all.
-> > Do we want 4 Kconfig gates or just one will suffice ?
-> 
-> Either way is fine for me. Simon did separate symbols in his
-> nios2 patch[1], and I don't mind staying with that version
-> unless someone else feels strongly about it.
+The mtk_hdmi_pll_drv_setting() function can return -EINVAL when
+the requested pixel clock is outside its supported range.
 
-So the implementation of these four in the series is indeed coupled and
-all resolve back to a common base implementation. It got separate
-symbols as I assumed that one could potentially provide optimised
-assembly routines for one of them but not the others in an individual
-arch; but admittedly, I did not think too much about that point (one
-would indeed probably provide a specialised instance of the common base
-routine?) as it was easy enough to do.
+Currently, mtk_hdmi_pll_prepare() ignores this return value and
+continues with PLL initialization even when the driver settings
+fail.
 
-> I would however like to have separate patches to add lib/divmul.c
-> and lib/mulsi3.c, and then patches on top that start using these
-> from nios2 and arc.
+Check the return value and abort PLL preparation on failure to
+avoid powering up the PLL with invalid driver settings.
 
-I can split up Patch 3 in my series and pull out the nios2-KConfig
-selects of the generic symbols, so that nios2 enabling them is a
-separate patch.
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Best regards
-Simon
+diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
+index a4bc1268946d..9658781484f1 100644
+--- a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
++++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
+@@ -360,6 +360,7 @@ static int mtk_hdmi_pll_prepare(struct clk_hw *hw)
+ {
+ 	struct mtk_hdmi_phy *hdmi_phy = to_mtk_hdmi_phy(hw);
+ 	void __iomem *regs = hdmi_phy->regs;
++	int ret;
+ 
+ 	mtk_phy_set_bits(regs + HDMI_1_CFG_6, RG_HDMITX21_TX_POSDIV_EN);
+ 
+@@ -374,7 +375,9 @@ static int mtk_hdmi_pll_prepare(struct clk_hw *hw)
+ 	mtk_phy_clear_bits(regs + HDMI_1_CFG_6, RG_HDMITX21_FRL_D2_EN);
+ 	mtk_phy_clear_bits(regs + HDMI_1_CFG_6, RG_HDMITX21_FRL_CK_EN);
+ 
+-	mtk_hdmi_pll_drv_setting(hw);
++	ret = mtk_hdmi_pll_drv_setting(hw);
++	if (ret)
++		return ret;
+ 
+ 	mtk_phy_clear_bits(regs + HDMI_1_CFG_10, RG_HDMITX21_BG_PWD);
+ 	mtk_phy_set_bits(regs + HDMI_1_CFG_6, RG_HDMITX21_BIAS_EN);
+-- 
+2.55.0
+
