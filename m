@@ -1,104 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638431;
-	b=GaWv8ckhTWNdfRKOTr+Acgy1D50b0jxL/XsY7JRSQ43orNY1IQJFFa0aPBWKTE0DjZDc
-	 Uez+Ni3UBrrGzhAbj+MTH/KJPkUec8ixx9zKEitvsX7fg6aqKsF2Ut2oiDqVwn21nCpIu
-	 D7OxsDZ6DGqIYBi6qY8BJdJa+tzs+q+TwT/1erEu0I61rmVEJtOS7bjjdmZau6/dVJ9ik
-	 wRi6OEIW2NP/d8zO6BPbRdiv/90IFYoELJpGVk5OW/QM+n5JoPp8/jI6zM2m4lVAqUE0F
-	 EI16FtKXeZ6P8YKKprorJnap3O6Si/19krZAj+B0WI0cCdXu/7TYHmZHui4RrazduLw==
+	t=1793638462;
+	b=wAN0i9EyGPNTys0jc2Jfug6SxpfJcuMvyU3lOGgzvwElegn4+Ih7Lm2e+iLF7Wb3bqpA
+	 7lWHhZUhHzDZD9fHKx0KRISz0dJT3x/Ix00+geaioRVkKKfoz8vKvXtEgVcR9lGF0MNHi
+	 gx9StXsHYt6dhA9hGY5glk/l4HHSnRz3a0dLjyhsD1aS3VTAGh4fB7Lv0EBBnY1E4UgqP
+	 dVMiNyhVjKFpm/f3e7LFJasIx87uv9l1NfPybUu70sgz4ZvS9xQexcEIjS3lcIgwfDMDv
+	 4KnVK4tW64HXUXdWAwkWlSeFnnEP2dPcDxpZcOAO1UagQ/O8EVIDw7a2YYDw/pbI0ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638431;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638462;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FKqv7bnNQX/8zEXTN67qa4Cr1S0J70BOR+pXSxfvYfo=;
-	b=xMq40ywdoF7DbO3qj3KFeJKpzzQb1NwNECxtMhnQfy68KF9DLx61vDsaRRuA21t02biY
-	 NCxk8K0zt6M+Fz22bUxNHChhgL0FgCxVX00ZyER9kJoJVmPNcTepoMH/cJ7q0WLE1jVU+
-	 GkH6Hk0bo/5CDwSkPCPjOdea9ft8WpcLng/1Aagnx1+SKiwI5re6oHtL1pOXfAVU4d8NS
-	 m4op6YKsKau5HuNxwuSsPJToBFPRTfJwqxHMcTWufHFZ+J+eEXOQo8yCKubjgF/O69Oti
-	 brOV2unFz8vM7JogVfwSbDM7hAR8jhAgri6GlyN/B96+d/rg+bv2Q6asJu+dEPHklug==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=cXGpRKvTAGjhS35rMqsnLDspbuP9bTvBPAEuRyBbB1o=;
+	b=kg35ds7PnGJY/Jg+KqGqITYsvaDaAtFleQ9bOZmopHH/FXbDbKw4hG3K1BYKKmg51DrA
+	 ilUQFnrNcQBhb4uWqAT70HT8vBrM8tQSxwmHiHy6eWgB/7Usqd5El2cnbL6DoJ7EzVlXw
+	 s5DkrVALtygawx4kanTBVim4f3e/4ntuuuYfMmaTJHfZZk3+O57DTKkH+yVRuimcJlcsw
+	 0QAgfJ0xVpbd6xulIRaWLaAE2jhcgIgEEXuPUVDkv4pAUHAWfwPXi1pPV44aduKJfI8WS
+	 /fi7lHXXpj5P69a+MHNMD7j3DSrRRJQJIxNcxPkGqocuafL0epLOwfb3ibjB24nXieQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4kHbyed;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nttAKpmy;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79786079910
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:53:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C79786079910
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2326079910
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:54:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF2326079910
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z4kHbyed
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1476032f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:53:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nttAKpmy
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so27287635e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:54:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793638429; x=1794243229; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FKqv7bnNQX/8zEXTN67qa4Cr1S0J70BOR+pXSxfvYfo=;
-        b=Z4kHbyed13kOoAAH+vY0vunbCucbOvrgv/juqfz5g3DiN/noLQKXsg8JROEDofrtZO
-         i0g/iUlWDLkUcju3Q9Lqs1cVkCGSiMLWZGnfBAIKqz+9kSI1J74KDjUJ4hEsXDOrbF2h
-         /7QlVOX6/NHBhb3EoQ1fo/kPDfuEp40hRmxOkyPveP0fY5zdp0Kz3wn1Hyd9mQH0UKGh
-         7SYOx7H00GPl8pYv0mNBVOTNEIDko8WKW3H/p0Umm02HDbTihxNBS9Hdh9ze+n7+t9+1
-         r+TbMkkdNl7AOphF/uls/joLz+bamY/B4BG/7ld60QPsv9Ph/dDK3k7iQo0r4RbM4f4i
-         LehA==
+        d=gmail.com; s=20260707; t=1793638460; x=1794243260; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cXGpRKvTAGjhS35rMqsnLDspbuP9bTvBPAEuRyBbB1o=;
+        b=nttAKpmylUtdq9jMTN/wbrVcLpFRXXlqGRnKAcR5A5N0R5njWywda5vUwbtWjv1b7W
+         59xbEJZ2JJxmymRaCR8i06GVZVXBLNiisCoOlUWv7pfttM52v6fh6SIk9AHXpIJDBJyB
+         K1v4TVQgfNPuygiU3b/InKbqYwtBsXcaPIst9yGjC2C3nIMelz+4DaN4UvJ9AbA1SpFL
+         eJWTxBmYCAj1+no02fN+QGay7pGQvw0yOXA2L3jyhVpqN1ayis1XC63DRSotXOW8ULXt
+         yhXK/sGczParDH3XfD0OECKkD2ibrRdl3oz45aoI8olmbtDcsTCeNObmHS0YVdneXQNk
+         9X8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793638429; x=1794243229;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FKqv7bnNQX/8zEXTN67qa4Cr1S0J70BOR+pXSxfvYfo=;
-        b=Q0AiALG1K59qFKQO9OsXhlVCxHooIqWU4UA0FoAwmXyRkQLtramBQJMN/ADwz3ssLm
-         or6cGifpWAYmP5w1UPeDpZcWiSbLuHiV19Y6969T91r6lYqkn813x67c16CsB+qFkAZP
-         jjWaxPZy9wxoU6kykuUqo1mnuV6ekOl1eAp6X1qPKGg8n6cr35W39Euo8MjidP1hE23F
-         oQ2//+h+xWMIzt50Z5Y+md0Kg7Fe3Xs3atGHB0+uolyjT6eSpR026DhBF7rUHM8atDSI
-         WSdxcdEM9UNG7Tz4jNErxUi1KGx52/lVlYMokC46UQ3QmqJuyqNjWZaLeYS4dh/49jaG
-         TVdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxaakfnav+MynmXX1u/4kE++TFzKJhEufHLl9sGnVAKJPD+wnwZzDlLzYGy2Yb9Yy3y+K1t3a/oLstrCOU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/AuarXK/nVM2lnZTrGUamlKbSFI1QEdwOLk/yJC0rmMNNS6PSa
-	SxoLobq4KgQ2JDwm3PtBDTGV2R7JXhnFRhqMuqfPYYzZ5UiWam/j0+oc5Chu
-X-Gm-Gg: AYBFou2r7aaovE5MKEreHv6NyP38Otyc2apGTTWNHbyHDYA3U417527MRjhnAu2skao
-	U30FgCs8YpkSWZWE+gBxI3IBuibhB72FA7nBb9VoRVdJwmADXrvzN8Fan6ban2bD+TpPFqJS5CA
-	CIqdc/sZt2x2JBJXRE2+rUkl0ZJKUU4t5zrfFDNXhOSFp73nZa5415CuitRprEblgVoY2KsPQB4
-	mMUx/NEpn+xrEMmPgAkxpitFaExe8oYYv8E6nudD/7eJXKBliCxiHuA1UviCjbgUZ8VhkG2VX3i
-	h4lYpxuBLb87BvmuLWy1EUGhZ57tFTik6/jF0c2vCx7LfAHYNnNtsBdABznMHgPINV8FgVIxlFC
-	Mnw/uMtXvjxPDkfiwfNJxk1ZavptK+2blfXYRMWpu4gbjFMNdxph96D8E2fxJ89HFymO88w0N2Y
-	GiUdiRfGj9A+4LhUhxiTi4UTUp3SII6XcPsRQ7RP2BeoURfNYc/PsPuyql4vDDx5lrTbAEvcPd4
-	132Ca5xb7jVRxZOa4N+JcYa4fXVvOwsuZ5p80u27CjcdUEzmXiR5jQm+vQOrHQm1gzq/QohCg==
-X-Received: by 2002:a5d:5d09:0:b0:48e:76ab:7900 with SMTP id ffacd0b85a97d-48e76ab7eefmr16659618f8f.17.1793638429213;
-        Mon, 02 Nov 2026 08:53:49 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8e5f4sm21479385f8f.40.2026.11.02.08.53.47
+        d=1e100.net; s=20260707; t=1793638460; x=1794243260;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cXGpRKvTAGjhS35rMqsnLDspbuP9bTvBPAEuRyBbB1o=;
+        b=fjBQMpok76/jBdcg2j6fzkqIIISWPSRlBQaonKcxgaiUO+skmI1R6JkPIYb43ZGQGm
+         BXGWOf0+jMJ1NoYQIb023xBNQW8+JdQYcU12mFG867wo/vkTL4CTnz/oTAJSX8Pt4ZYy
+         WclpnlrcdxLwqJ8eYQON275vumtghYaoeILKdlCuKVGj1SFc9krMZIFayG0VJYPX9dkf
+         nTYCyFSatQRxmHYE8oU2o/7aA5S5JRtPENMsl9KNyBazB3Jf72/0Y6LHF1s7UZnBtKHC
+         9QLnYOWHWtQJ7RkZvzAJY62zFSIirilVFdvC9X0HJjarmFPTCivX0n81S/Usz7fWU4jb
+         J6ew==
+X-Forwarded-Encrypted: i=1; AKwUvBxvTrflibvw2ZFd9z3fOcnrjgWgeevLNElA4xROpQPLysI7Rc8Cb357ZjHLh9r/lrZvtgFYrn7H66Mij4k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzdH1gjPlQHV1CvVul5gs29e/iomoreGJAKuNUPMxhInHmAAiq
+	Qz9v4tM6su434M+1qPbL6feg/LP9cbK6E3Ea8j4wy5T1bGO7y29nA7gY
+X-Gm-Gg: AYBFou0MWGJOqBspg9cwE7LPO5U6ONNwyf9l+UgcirjwaOhqy9OvAPg+xZFyVf8RAKa
+	dUU2ke0e1IWuuqG4kbhG6gtiEILEOarqibprNKgA0fEGZ3pO9qACDBn/CR8cKOYYtDyqlkvtX8a
+	3uTQBGQ1eRq3j3q32gGnqI2ry99xbEMV1rDd/Q29Mfr8ed250dFHXo9P8PkkCRHFuA1QS9DC5Tl
+	K5TDgYbDuOS8Bz4pw4uHtNgWSTnKJvbBI2fOAyEYYXisOrqbaIzmCfY8hmizDatx3/GaXS1h+qH
+	1XVaRI7hL9qHBd5n4xZPX2Q1uUhs+mbt69BFxqKEg/qHR3xkb1+NJFwnbnmbyeNjAh15QUwYDeN
+	ZXBZHZBdwwT+8TA5qYdpi0Ms2Pw5JVKqvrH/w8fuAxsKWLKRsMvOH8ogmJ4mgNlyCVJaxeV35py
+	C2/UuJ3/wTRtB1KJ1JRrgfZtGFKcpffMo8Bs5jlaozLHjYx3DvEDdgcm65af+F9zDJMWoAN+dMv
+	eUqjgNRMWZd0ybdBBnEk26SMWSlc4LZ9fYuHnJ9Y7ZuPXxiuvWwpXn3yTzLuwCpFNL/+kCWI7z1
+	lCMQIDWB+MjMNVOulIe1TMPQp0KesOfAISiRB5npPJmzCxyMogbCvN9Iq5mW00S+
+X-Received: by 2002:a05:600c:8b46:b0:4a0:4a8:d444 with SMTP id 5b1f17b1804b1-4ac18c73238mr251157985e9.33.1793638459968;
+        Mon, 02 Nov 2026 08:54:19 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba2415sm21483649f8f.50.2026.11.02.08.54.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:53:48 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	Bard Liao <bardliao@realtek.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jorge Eduardo Candelaria <jorge.candelaria@ti.com>,
-	Margarita Olaya Cabrera <magi.olaya@ti.com>,
-	Misael Lopez Cruz <misael.lopez@ti.com>,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	tristan@talencesecurity.com
-Subject: [PATCH v6 2/4] ASoC: rt5659: cancel jack_detect_work on component removal
-Date: Mon,  2 Nov 2026 16:53:38 +0000
-Message-ID: <20261102165340.1558853-3-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102165340.1558853-1-tristmd@gmail.com>
-References: <20261102165340.1558853-1-tristmd@gmail.com>
+        Mon, 02 Nov 2026 08:54:19 -0800 (PST)
+Date: Mon, 2 Nov 2026 16:54:18 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Wen Yang <wen.yang@linux.dev>
+Cc: Joel Granados <joel.granados@kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers
+ with typed bounds and context
+Message-ID: <20261102165342.79fc1580@pumpkin>
+In-Reply-To: <0316f664-d98c-43be-92af-13c30436727a@linux.dev>
+References: <cover.1793204511.git.wen.yang@linux.dev>
+	<20261029105837.2f8bee67@pumpkin>
+	<0316f664-d98c-43be-92af-13c30436727a@linux.dev>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,111 +101,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On Mon, 2 Nov 2026 23:40:40 +0800
+Wen Yang <wen.yang@linux.dev> wrote:
 
-rt5659_remove() resets the codec via regmap_write() but does not cancel
-the pending jack_detect_work. Since the IRQ is registered with
-devm_request_threaded_irq(), it remains active until after the component
-remove callback returns.  The IRQ handler (rt5659_irq) schedules
-jack_detect_work, so a late interrupt can queue work that runs against a
-reset codec.
+> On 10/29/26 18:58, David Laight wrote:
+> > On Thu, 29 Oct 2026 00:34:39 +0800
+> > wen.yang@linux.dev wrote:
+> >   
+> >> From: Wen Yang <wen.yang@linux.dev>
+> >>
+> >> struct ctl_table describes an entry with data, maxlen and, until this
+> >> series, two untyped misc pointers in extra1 and extra2. Those two pointers
+> >> have accumulated at least seven unrelated jobs: a fixed bound, a bound read
+> >> through a pointer on every call, an object or namespace pointer, a small
+> >> integer cookie encoded into the pointer, a lock signal, NULL standing for
+> >> "no bound", and a value the core itself casts to unsigned int while
+> >> validating a u8 range. Nothing in the entry says which job applies, so
+> >> readers infer it from the handler, and the core gets it wrong where it
+> >> treats extra1 as an unsigned int.
+> >>
+> >> The numeric half of this change is the direction Eric Biederman asked for:
+> >>
+> >>    You can still save a lot more by turning .extra1 and .extra2
+> >>    into longs instead of keeping them as pointers and needing
+> >>    constants to be pointed at somewhere.
+> >>
+> >>    [...] I don't see any reason why you want shared
+> >>    constants for such a handful of things.  Especially when
+> >>    it has proven to be error prone in the past.
+> >>
+> >> min/max are plain unsigned long members, so the comparisons are ordinary
+> >> C and cannot be confused with a pointer. The shared const arrays that only
+> >> existed to give those pointers an address (sysctl_vals and
+> >> sysctl_long_vals) are removed as well.
+> >>
+> >> The tree already records this direction. fs/proc/proc_sysctl.c documents
+> >> extra1/extra2 as "extra pointers usable by the proc handler routines" and
+> >> carries:
+> >>
+> >>    XXX: we should eventually modify these to use long min / max [0]
+> >>    [0] https://lkml.kernel.org/87zgpte9o4.fsf@email.froward.int.ebiederm.org
+> >>
+> >> This series completes that TODO and removes the comment.
+> >>
+> >> priv is this series' addition: the same pair of fields also hides handler
+> >> context, which a numeric bound cannot express, and keeping it out of data
+> >> is what removes the restore-before-delegate pattern.
+> >>
+> >> The overloading is also a memory-safety hazard. The obvious alternative --
+> >> keep handler context in data and restore the value pointer in each handler
+> >> -- needs an original_data field in nine addrconf and two devinet handlers;
+> >> one missed restore turns a user-supplied integer into a write over a kernel
+> >> pointer. nf_log reaches the same problem from the other side: it replaces
+> >> data with a local buffer inside a single handler, so data means two things
+> >> within one function. This revision removes that temptation instead of
+> >> managing it.
+> >>
+> >> The core is not exempt. sysctl_check_table_array() reads
+> >> *(unsigned int *)table->extra1 to validate a u8 range. That is only correct
+> >> while every u8 entry happens to point extra1/extra2 at an int or unsigned
+> >> int; a long bound, a context pointer or an encoded integer would be read as
+> >> four bytes of the wrong object. No such entry exists today, so this is a
+> >> latent class rather than a live bug, but the invariant is untyped and
+> >> unchecked, and nf_log already encodes an integer into extra1.
+> >>
+> >> The refactor is the first five patches; they define the replacement
+> >> contract and prove it covers every entry shape the tree uses today.
+> >>
+> >>    1. min/max hold numeric bounds by value, and priv holds handler context.
+> >>       The range converters read min/max whenever extra1 and extra2 are
+> >>       clear and keep reading the pointers while they are set, so existing
+> >>       callers keep working while they migrate and no parallel handler API or
+> >>       renamed symbol is introduced. Signed handlers read the bounds as
+> >>       signed longs, an absent endpoint is the type limit rather than NULL so
+> >>       zero stays a real bound, and a run-time range is refreshed before
+> >>       every call. Registration rejects priv on a standard handler.
+> >>
+> >>    2. The debug test module is converted to numeric bounds as the first
+> >>       user.
+> >>
+> >>    3. KUnit coverage for numeric bounds and the handlers that consume them:
+> >>       full type ranges, one-sided and zero bounds, entries without backing
+> >>       storage, explicit handlers for arrays and members, and rejection of
+> >>       writes that would partially commit.
+> >>
+> >>    4. KUnit coverage for run-time ranges across the scalar widths and
+> >>       jiffies, run-time bound pointers, sibling bounds, typed context, owner
+> >>       derivation, bool, registration lifecycles, and simulated per-net
+> >>       duplication.
+> >>
+> >>    5. KUnit coverage for priv: a standard handler must ignore it,
+> >>       registration must reject it with a standard handler, and
+> >>       re-registration must keep both the value pointer and the context. The
+> >>       same patch moves the debug module's dynamic-value entry to the
+> >>       data/priv shape.
+> >>
+> >> On the CTLTBL_ENTRY_* constructors: I kept the naming and argument order you
+> >> suggested while reworking the series. As it turned out, no production table
+> >> needed them -- the converted entries read naturally as designated
+> >> initializers -- so I have not introduced them as a public API in this
+> >> version; the KUnit file keeps an equivalent constructor privately, so the
+> >> tests stay readable. I still think the public version is worth doing, and I
+> >> would be happy to send it as a follow-up once there are real users, so the
+> >> API and its callers can be reviewed together.
+> >>
+> >> Everything after patch 5 is migration and adds no new contract. Patches
+> >> 6-32 convert the remaining users and derive owners from their backing
+> >> storage. Patches 33-38 move handler context onto priv, one subsystem per
+> >> patch; each of those files is touched exactly once and goes straight from
+> >> the old pointer field to priv, with no intermediate data-as-context step.
+> >> Patch 39 removes the extra pointers and the compatibility read.
+> >>
+> >> The parport conversion illustrates a concrete problem with the overloaded
+> >> fields. In the base tree, registration overwrites the spintime minimum
+> >> pointer in vars[0].extra1 with a port pointer. The range handler can then
+> >> check a write against data from struct parport instead of the intended
+> >> minimum. Moving the port context to priv and using numeric bounds also
+> >> corrects this existing bug. A separate fix can address it independently;
+> >> this RFC does not depend on that fix.
+> >>
+> >> Entries that used a *_minmax handler with neither extra pointer relied on
+> >> NULL meaning "no bound". They now state their type limits explicitly to
+> >> preserve that behaviour when the pointer path disappears. These include
+> >> aio-max-nr, acpi_video_flags and nmi_wd_lpm_factor.
+> >>
+> >> Owners that can still be recovered from data are deliberately left alone:
+> >> ipvs, neighbour, the fragment reassembly handlers, vsock, mptcp, rds and
+> >> smc keep using container_of() on their backing storage. priv is only for
+> >> entries where no such derivation exists. Mixed placement in data and priv
+> >> was considered and rejected because it recreates the guessing problem this
+> >> series removes.
+> >>
+> >> Relative to the base tree, the final state removes all 841 extra1/extra2
+> >> assignments across 123 files, removes the shared sysctl_vals and
+> >> sysctl_long_vals arrays (21 references), and states bounds at each entry
+> >> (~574 new min/max initializers) instead of pointing at constants. The
+> >> sysctl ABI is unchanged; the parport spintime minimum is corrected as
+> >> described above.
+> >>
+> >> The cost is 8 bytes per ctl_table entry on 64-bit (56 -> 64) and 4 bytes on
+> >> 32-bit, because priv is appended; the range read path gains no indirection
+> >> and the migrated entries no longer dereference a bound pointer.  
+> > 
+> > Can you remove the little-used 'priv' parameter by making the extra
+> > information just follow the table entry (nested structure) and have
+> > the relevant functions use container_of() to get the outer structure
+> > and extra values?
+> >   
+> 
+> 
+> Hi David, Hi Joel,
+> 
+> I reworked the context side of the series so that priv is gone entirely;
+> and the final tree has no per-entry context pointer.
+> A small helper recovers the enclosing object, but it needs the slot
+> index from the caller:
+> 
+>    #define sysctl_table_container(entry, type, member, index) ({       \
+>            static_assert(__same_type(*(entry),                         \
+>                                      typeof_member(type, member[0])),  \
+>                          "pointer type mismatch");                     \
+>            (type *)((void *)(entry) - offsetof(type, member) -         \
+>                     (size_t)(index) * sizeof(*(entry)));               \
+>    })
+> 
+> The reason plain container_of() is not enough is that the core keeps the
+> table as a contiguous array.  For
+> 
+>    struct addrconf_sysctl_table {
+>            struct addrconf_sysctl_ctx context;
+>            struct ctl_table table[];
+>    };
+> 
+> the handler receives an interior entry, and
+> 
+>    container_of(ctl, struct addrconf_sysctl_table, table)
+>        == (char *)outer + index * sizeof(struct ctl_table)
+> 
+> for ctl == &outer->table[index].  It only returns the outer object for
+> index 0.  Passing the index explicitly keeps the original registered
+> entry usable:
+> 
+>    static int addrconf_sysctl_forward(const struct ctl_table *ctl, ...)
+>    {
+>            struct addrconf_sysctl_table *t =
+>                    sysctl_table_container(ctl, struct addrconf_sysctl_table,
+>                                           table, 
+> ADDRCONF_SYSCTL_FORWARDING);
+>            const struct addrconf_sysctl_ctx *ctx = &t->context;
+>            ...
+>    }
+> 
+> Shared handlers get one wrapper per slot; the common body does not need
+> to know its position:
+> 
+>    #define DEVINET_CONF_WRAPPER(attr)                                  \
+>    static int devinet_conf_##attr(const struct ctl_table *ctl, ...)    \
+>    {                                                                   \
+>            struct devinet_sysctl_table *t =                            \
+>                    sysctl_table_container(ctl,                         \
+>                            struct devinet_sysctl_table, devinet_vars,  \
+>                            IPV4_DEVCONF_##attr - 1);                   \
+>            return devinet_conf_proc_common(ctl, &t->context, ...);     \
+>    }
+> 
+> Single-entry tables simply use slot 0:
+> 
+>    struct devinet_forward_table *t =
+>            sysctl_table_container(ctl, struct devinet_forward_table, 
+> table, 0);
+> 
+> 
+> The series is 20 commits over 134 files, with no priv at any point.  If
+> you would prefer a different shape for the helper or the wrappers, I am
+> happy to adjust it.
 
-Track successful IRQ acquisition with a flag so that disable_irq()
-only quiesces a line this driver actually owns.  Guard the
-cancel_delayed_work_sync() call with a flag that tracks whether the
-work was initialized, since INIT_DELAYED_WORK is only called for
-specific jd_src configurations (JD3, JD_HDA_HEADER) and cancelling
-an uninitialized work is undefined behavior.
+Certainly worth thinking about for a followup patch.
 
-On component remove, disable the IRQ to synchronize with any running
-handler and prevent new enqueues, then drain the residual
-jack_detect_work synchronously before resetting the hardware.  On the
-next component probe (card rebind), re-enable the IRQ to restore jack
-detection.
+A different option would be to pass the array element size when adding
+the items.
+Most code would just pass an array of 'struct ctl_table' but instead
+you could pass an array of a larger structure that started with a
+struct ctl_table.
+That should let you use container_of().
+That might even make some of these patches shorter/simpler (I just looked
+at #33 (ipv6 addresses) and it is somewhat convoluted.
 
-Fixes: d3cb2de2479b ("ASoC: rt5659: add rt5659 codec driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- sound/soc/codecs/rt5659.c | 20 +++++++++++++++++++-
- sound/soc/codecs/rt5659.h |  3 +++
- 2 files changed, 22 insertions(+), 1 deletion(-)
+David
 
-diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
-index af8051fa69f89..68f7d5673e190 100644
---- a/sound/soc/codecs/rt5659.c
-+++ b/sound/soc/codecs/rt5659.c
-@@ -3667,6 +3667,11 @@ static int rt5659_probe(struct snd_soc_component *component)
- 
- 	rt5659->component = component;
- 
-+	if (rt5659->irq_disabled) {
-+		enable_irq(to_i2c_client(component->dev)->irq);
-+		rt5659->irq_disabled = false;
-+	}
-+
- 	switch (rt5659->pdata.jd_src) {
- 	case RT5659_JD_HDA_HEADER:
- 		break;
-@@ -3684,6 +3689,15 @@ static int rt5659_probe(struct snd_soc_component *component)
- static void rt5659_remove(struct snd_soc_component *component)
- {
- 	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
-+	struct i2c_client *i2c = to_i2c_client(component->dev);
-+
-+	if (rt5659->irq_acquired) {
-+		disable_irq(i2c->irq);
-+		rt5659->irq_disabled = true;
-+	}
-+
-+	if (rt5659->jack_detect_work_inited)
-+		cancel_delayed_work_sync(&rt5659->jack_detect_work);
- 
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
- }
-@@ -4283,6 +4297,7 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 		regmap_write(rt5659->regmap, RT5659_IRQ_CTRL_2, 0x0040);
- 		INIT_DELAYED_WORK(&rt5659->jack_detect_work,
- 			rt5659_jack_detect_work);
-+		rt5659->jack_detect_work_inited = true;
- 		break;
- 	case RT5659_JD_HDA_HEADER:
- 		regmap_write(rt5659->regmap, RT5659_GPIO_CTRL_3, 0x8000);
-@@ -4292,6 +4307,7 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 		regmap_write(rt5659->regmap, RT5659_IRQ_CTRL_1,  0x0040);
- 		INIT_DELAYED_WORK(&rt5659->jack_detect_work,
- 			rt5659_jack_detect_intel_hd_header);
-+		rt5659->jack_detect_work_inited = true;
- 		rt5659_intel_hd_header_probe_setup(rt5659);
- 		break;
- 	default:
-@@ -4302,7 +4318,9 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 		ret = devm_request_threaded_irq(&i2c->dev, i2c->irq, NULL,
- 			rt5659_irq, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING
- 			| IRQF_ONESHOT, "rt5659", rt5659);
--		if (ret)
-+		if (!ret)
-+			rt5659->irq_acquired = true;
-+		else
- 			dev_err(&i2c->dev, "Failed to request IRQ: %d\n", ret);
- 
- 		/* Enable IRQ output for GPIO1 pin any way */
-diff --git a/sound/soc/codecs/rt5659.h b/sound/soc/codecs/rt5659.h
-index b49fd8baf4e7e..e10b3844501b9 100644
---- a/sound/soc/codecs/rt5659.h
-+++ b/sound/soc/codecs/rt5659.h
-@@ -1813,6 +1813,9 @@ struct rt5659_priv {
- 	int jack_type;
- 	bool hda_hp_plugged;
- 	bool hda_mic_plugged;
-+	bool irq_acquired;
-+	bool irq_disabled;
-+	bool jack_detect_work_inited;
- };
- 
- int rt5659_set_jack_detect(struct snd_soc_component *component,
--- 
-2.47.3
+> 
+> 
+> Thanks,
+> Wen
+> 
+> > David
+> >   
 
