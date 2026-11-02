@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609598;
-	b=aCVgB70TUcOEU4CNYbg11gByO6sQI/5YL7ocY8agWvGU56Wc0Cjxor9Fj0b6PdzF+n4l
-	 zKrwWWMZH7KlHqS06b8oHlyxWUIOmjC6eVLWOniLzd3HFthizYSokEPDAmtcfs8tQ3g45
-	 PVUFEZOKyou+1DGlYSgKYqPEaQTcxTzDePwFHt4IlGGVd3wiMEMBzSI4JxJRV66OZlHjv
-	 CHhasiwPS0yw344QQRF9KnIYqVD1IIGAODCT2ko/lDKCSZWXKlzg+iSaclRCh7ITT06MP
-	 LPzMLdN5H0y9Fvgc8wOdMPHtmGp8SLMuJDPILkcJoh1vr+8pNkv7kiYFL67xi/MvVmA==
+	t=1793609612;
+	b=DcIr1HHqvWX6sPZu7efVlffDHapUUQLnWvr4OuAS97PQMO6lmWJsrLU6MWoZ0WJ91iaW
+	 VKsfhpB3QDLDs5PE+9L3TYJWY7B3RRb6dNWneRaqmIOiaP/NJuEEYbOKRXbgMXoo8Hefz
+	 vRs7dKi8NAR5G4lWWoPkeSbcM33l6036Gvo0vca+1lFiAcKlvifjIaaFUMdTE5oyk9nFB
+	 4cAPtzI3AENc8AbEy/hcfzO5we1l5omxl7rCWeAwZyzXIiD8AuVsaq/91O7NjpE2E1CoW
+	 KXnAGg91gr6lUFSK5n50gU5UaXmg2i2x6c9tnMkNVy09GkgVlHemw65W4aRs6zX4byQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609598;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=GvZTS5lPnaMJgtMGoMxF33+TRZeyDWKHKqBpvw0r9Ic=;
-	b=lUCAkv6xV3mJD49tmnxJVNeUXPFkBmbwzvwjRw+NcX8mBvpUwx1x59cWbDbQgilmdhz2
-	 MQ2ScWpMBSh60+/OyYHOL5zePXe/VQgjgYwG1ZPyBmKKKSJtpwl4KEOJlsLVVIyEk9QPs
-	 CIBLTV0mIj0vHlpNAEf7ReNLN5MAp8k+VBrchRTRiXjhNDim+ecFzp/qafHiv5xAMn4Ww
-	 BhSVpGWqlCcUdR5psvWB8j4meNTvnpJfIEyroVgR8JofoaD6oZMMEteBb/9YO/S1dXWxJ
-	 IzYTDrWthi+2hQv6qSo5yewOkEmmw0bvDCIK3ewzvX7xFG2AE0qyfaCCfNz8p6xTlcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609612;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=oYYP3lK9ndIzshGQaIxwuIG/4WySmOAiuLgTfIPt85E=;
+	b=cayVbkygmddj/UZ5dHDsEvo19zrlpohgcb/RXzcHEOCbW0zNnJrfabLiGxI5HnDF6Y3n
+	 FnXJpGFnbCZGNaFvcNuHtKiPzEHePhWO1lxddPETBDb5BSPHtJqpfMr6mRpj+oBdtw+mr
+	 fUNSE5sdXMPpG+XmzWWg4IcQ3tjwP5yWckmklC/NF5OruS1n9gxjKc1L5zhXQLxUfHATw
+	 DgqXhERz1xwQ057UGMV3d1wJlhrEoh0DFAqat7rPSWLaKzZje9sdllreX+RQV1j5raYn2
+	 hVPod4hh/C0oonU2uKNWw1BODv1qMkTy2RVI9Kw7OqWmygWS01/zWvW4YS0ZQVLMhGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oZDNhgBH;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=buK8cbVl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TVJyWYW1;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RftoE40g;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkgljhrV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5ED606A324;
-	Mon,  2 Nov 2026 08:53:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F5ED606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F48606A329;
+	Mon,  2 Nov 2026 08:53:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oZDNhgBH;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=buK8cbVl;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=TVJyWYW1;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RftoE40g
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 515CB1FB2C;
-	Mon,  2 Nov 2026 08:53:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793609596; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GvZTS5lPnaMJgtMGoMxF33+TRZeyDWKHKqBpvw0r9Ic=;
-	b=oZDNhgBHiWSgsl9HPAW2sJ+4sHVd3iDfwT96T9Zm8CMuPX+m44LAdtYIwwCMaTm9M13oDd
-	0V4ib7hfYqjZHGL8DCeLKW2veRnyYLPXGGG2BvSrmp7tOIZ12BLrYI4MWGl0orXmfl7byO
-	nD475H77cCLiO5GRUQ8RxV8UAzkPAIg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793609596;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GvZTS5lPnaMJgtMGoMxF33+TRZeyDWKHKqBpvw0r9Ic=;
-	b=buK8cbVlUR2yhDENDGcAOPgCpzwr0yjNUG0e7dvU2k4wq0EM3d75BWltu8bry12lZjvM+w
-	TldWC8gP4V62f+Dg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793609595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GvZTS5lPnaMJgtMGoMxF33+TRZeyDWKHKqBpvw0r9Ic=;
-	b=TVJyWYW16zohV9KRwfF4ho0qjOJ2pK1vN/Skud9K9GFlW4ThiF0zWx35HMrF4HL92/GohJ
-	3JJce4uDiWbF/jcoPiFMT64iA2dGBbNkwXHV4vc/QM+MfuAed827v8Aae8SGH/BD2x4k4d
-	kyruy3284QQr04ekHVAUdMLEt8DUlKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793609595;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GvZTS5lPnaMJgtMGoMxF33+TRZeyDWKHKqBpvw0r9Ic=;
-	b=RftoE40gjpEPC2fINJjpHUJKD1r/3zmMDR0ZX1SGBz8Ea9CETR5QhluuICJi1tBfhJtlLk
-	FUmsd3STfiu5pTAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 042FE134B8;
-	Mon,  2 Nov 2026 08:53:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id wx4HMnpP6Gp4SwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 08:53:14 +0000
-Date: Mon, 02 Nov 2026 09:53:14 +0100
-Message-ID: <87jymv4nt1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Rong Zhang <i@rong.moe>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 0/4] ALSA: usb-audio: Add dB scale quirks for AB13X and Xiaomi Speaker Mini
-In-Reply-To: <20261020-b4-uac-ya-audio-v1-0-2d6e053b7f50@rong.moe>
-References: <20261020-b4-uac-ya-audio-v1-0-2d6e053b7f50@rong.moe>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkgljhrV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DDEA1F0093A;
+	Mon,  2 Nov 2026 08:53:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793609611;
+	bh=oYYP3lK9ndIzshGQaIxwuIG/4WySmOAiuLgTfIPt85E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SkgljhrVlMkigM187kml4RIuWzUhCNfNRB1WWapYtJu506IB54itPx4UTX+oAJvZy
+	 EjjyrlyeUK8VnX4ctKLUvacWcKtHyE47aBf8pRTtz6RgaCGnaHrRJ9Lu8mxJZgOxug
+	 3o7xQih30i69llZOKoUtRXiPfS6KmvN1vM9HRotmAP5sTlHgj313FF4AAqsFMHX3aZ
+	 of212pwWwFfrAHNM+HtTPEqxKvxhhNmACICBjBzQhFO3fvLXbSakDgbD46hQY1dhGq
+	 VW2IIF8yX1SEb7NkSKYLLQB2BM1qkXEu99DEhrQZNLUDdKgP4j+y/Tt7LqXldtvkkP
+	 SyooD4lG2mdDw==
+Message-ID: <a97fb0b0-e4e1-4b25-a5ac-60777941c574@kernel.org>
+Date: Mon, 2 Nov 2026 09:53:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,59 +50,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,rong.moe:email]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+ andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+ sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Ekansh Gupta <ekangupt@qti.qualcomm.com>
+References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026 22:18:21 +0200,
-Rong Zhang wrote:
-> 
-> I recently got two devices with insane volume control, so I tried to
-> measure their volume mapping and add dB scale quirks for them.
-> 
-> PATCH 1 collects the code snippets for dB scale override into a helper
-> function, with unified info and warning messages, and also deconflicts
-> playback dB scale quirks of DragonFly.
-> 
-> PATCH 2 applies the MV-SILICON linear volume quirk only to the affected
-> mixers, instead of the whole device.
-> 
-> PATCH 3 adds dB scale quirk for an AB13X variant.
-> 
-> PATCH 4 adds dB scale quirk for the Xiaomi Speaker Mini.
-> 
-> Signed-off-by: Rong Zhang <i@rong.moe>
+On 01/11/2026 23:21, Ekansh Gupta wrote:
+>  drivers/accel/qda/qda_soc.c            |   66 ++
+>  drivers/accel/qda/qda_soc.h            |   61 ++
+>  drivers/misc/Kconfig                   |    1 +
+>  include/uapi/drm/qda_accel.h           |  282 +++++++
+>  33 files changed, 5877 insertions(+), 1 deletion(-)
 > ---
-> Rong Zhang (4):
->       ALSA: usb-audio: Unify dB scale override
->       ALSA: usb-audio: Apply MV-SILICON linear volume quirk per mixer
->       ALSA: usb-audio: Add dB scale quirk for an AB13X variant
->       ALSA: usb-audio: Add dB scale quirk for Xiaomi Speaker Mini
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+> change-id: 20261102-v4-e8feb321263f
 
-Applied to for-next branch now.
+What is happening here? How are we supposed to work with this?
 
+v1: 20260223-qda-firstpost-4ab05249e2cc
+v2: 20260519-qda-series-78c2bf0ed78b
+v2 again: 20260817-qda-v2-78e2d1f10529
 
-thanks,
+And now completely different one?
 
-Takashi
+This makes the change id completely unusable. b4 diff obviously does not
+work. Any tracking of this does not work.
+
+NAK, really, I already complained internally months ago about such
+practice, so apparently not enough.
+
+Best regards,
+Krzysztof
