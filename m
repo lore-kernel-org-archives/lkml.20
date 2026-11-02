@@ -1,100 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628920;
-	b=pgchbRNUlb2a0h+3XkOpefBsGgjtWy2gDdJftQKCEcMKVRWGda39i0I5cAQGZwDHpsbb
-	 7eSehDEm+1TNd04Vo0mIO9E6chAVJltkUvmZ5oLih3pTQzm7K8fQzfBdRdyy8IZrmbQrx
-	 ngGA3FE90IbdRdl+LuB0yy2yoQkyKU6lAd0mqhZL7lCLz+dje9TyHazZaSO9QIzfxuM84
-	 wPE3h7J39xQX/Sd16xIkPmV45mnWyuY2KyfSfbNpU+egXmEY3UDbsh32Ahfz479QGZnxg
-	 4UqIKvbyzdfbduW+XjD5oBHVmTYPRZmr/2EZ+pc5I4fl6Zn/3SFSbblX1sfTybVs1KA==
+	t=1793629000;
+	b=SZD6OU6zA/PLC/nKq83pa/Sq6a21YHH9KdBhQYJBvnOXxxrKYW14UrFgna3WQw7TJqai
+	 CCOjeHUqYutl1Kud2Xj2Xv15K4/6cJdH85VE2tk6uB0vTDFb2+Fr9OdGg13MLlTGT2DpL
+	 C2qxi9mSlP+CXq8OYBVMo0hlrXfblkCgaIduOBowcTK4ezJiuSpa1g/r1w663JjwW+yqi
+	 1INwUIF8fliagjqk8k0DQJWnRbZzYdZ/iWu8I7h4P6+qoXkghczJHKriBhsJauncVmzC2
+	 ik9Qh/B6TZZaaLU43UvKPAaQXshgdkY41xAydj3n9Itwk5II4dIiI3cOMHR4V92u/qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628920;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dJnJAQ1J2840u9KECjcYuFBU8CaqLFZXy5w57Y9rz80=;
-	b=H7rK2c84Sek0EfEh2bcOqe3jl7HxXj8yj9fug6XCpVX5tgBpaFrhlfCkPXKgMUQZu+7a
-	 EUHl8nKS0LZVrpkzieHChhMg+JUtIqho5eMhwr6RDVVrxR8TB/ZFydLpa1Du3uaDhA1W0
-	 ADnlkhkwIwFZmsfMJYq58uhWj/T+9ECpUZP1jUFRreSJpkeEr2QQxB4YC1DYdQ05oNBcR
-	 q/uMcfsJs2U5LwdVHcFrgEWebvEs4VrnyPUTKbI4zQo88AfcdJHiy6Vaawej1fxK7Ikr7
-	 prUezj59r+rwCbH4nqPKP+VIQsrmTSQi/XI5HvGQQ9oYbiQoU0hjXFvNuBS2jcc0FzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629000;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=sl0xAa/SyZWrBp9CL5o2SaCOERZeomQ7Ndnf7a0XFec=;
+	b=bPSbK7nG+enqs1oYndp5klaM+6UVQ3/3AY90yqnRpJLozm3k61xq+mZeFrKeDbiG3NDC
+	 h7avL79ZiMnhmGToHsexNJiLVOzuzUS2+6uYvqvvWGVTeorlm7KybPMqUOvnU5SPSq/Ar
+	 iw1BjN4ZOUGleWtB91nEx+Cdxhi0HvxuEArYx0eHyJm5KgeUXclx2IpGgYrcCpqJPHJAx
+	 seYztLZhVYnuuw2RAFC+aqr2aDBLM3TWbxxZn9rBJ42HJyrJCOaWTh70wTkdjIiGOwU/M
+	 akKh08EuKrl06dlw1we+ZL+dsUAMqmfG5QAP1JzFEOcUX0RzO1WeOe/h0xp9vqJ3aaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GeW8WrUu;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PvBuLG2b;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=doeMgxEf;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B632B60A5BDF
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:15:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B632B60A5BDF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C7D606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:16:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4C7D606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GeW8WrUu
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-369f33df08eso6060445eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:15:19 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PvBuLG2b;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=doeMgxEf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793628998;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sl0xAa/SyZWrBp9CL5o2SaCOERZeomQ7Ndnf7a0XFec=;
+	b=PvBuLG2bQF/cZ/qi8GpW/v2IRJVctisKalowTF3VsY05fjJPKMfzblk0ldq6A/9K9nrUpx
+	q3ZfQ1s3LNJH8ExyxVL4+a5gtyWJdv5Lt5STFNqDxgSHqDckNLeOc+AlCyFXqPByLr0Ivv
+	nXpzqDCI8CZTxr5I9Wk3nU0UiQIJBPQ=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-508-1wn1VoEzM0ujQxz-FcETww-1; Mon, 02 Nov 2026 09:15:10 -0500
+X-MC-Unique: 1wn1VoEzM0ujQxz-FcETww-1
+X-Mimecast-MFC-AGG-ID: 1wn1VoEzM0ujQxz-FcETww_1793628909
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e6d6e780fso1429121f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:15:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793628919; x=1794233719; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dJnJAQ1J2840u9KECjcYuFBU8CaqLFZXy5w57Y9rz80=;
-        b=GeW8WrUujR59h00XP6jNTP+Wt0lM56WwyHsMC3BFEQTbNiclg6QXY+aB1ec6M/knRP
-         UryPPYSl+I+hMAJBIlYiRfueEX9cMTn/3FZsM3TaZOVLiGlurR92qNXQ3iBQqjG8aHmd
-         FEGWr2LW7n/vy/5TStf3UVecyBw/rpPLAIXmmwF42qQgRPozqOBPwA5C5s8adMHoHq8A
-         v1p75IzDXdUn5W46wZmNe81GOCu6BRdFoUXb1llsAaP2ElDqunp31BhTaoDG/65Y20ww
-         PPus7XtRfJda9yGBNpyRJroFWM7A7+afqgiBlXaqxzFCwTgDEFq8ZG0z87b2Tl+Qfef7
-         ZpMg==
+        d=redhat.com; s=google; t=1793628909; x=1794233709; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sl0xAa/SyZWrBp9CL5o2SaCOERZeomQ7Ndnf7a0XFec=;
+        b=doeMgxEfgvWCyLilo9IkAVuAqeF3usowt3Apga80inLVI9yjjcz22i7bj3r+CrAJO8
+         GKh3VCAaCaoJQsGMyQUDUiZWNWz0CgErZ3fnCB3raeEpea/5qdKA5z/ANYIH/Pn7iEs9
+         C5uw8XJwlc6e30a5deJIb3/iSGKyjAdEZvIdgqSpoHtAy+CFyMactuF7Y7ZhowHc1mb4
+         Qb8vJHbA6rRvAVABptP5eSVzdGhDYQ2/Q8pFXLqEGr/sQQhBuTv2s5syXrkOPWXpjppF
+         WNxtuEztch9JEhwEdTK8Vp+ysLwAEYSPiDhMWtPwnDVaA4WuANaJu0LYyUd673mJ82eb
+         Yxwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793628919; x=1794233719;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dJnJAQ1J2840u9KECjcYuFBU8CaqLFZXy5w57Y9rz80=;
-        b=stH4La8n2goDa9pZIzRM2Ys+58cgjjC823gdzy5N9/nuCzaWIRlwet/Xx+VSbdtxsP
-         JdfmPPBagDSy83wwFkjtnRTJBwb64JiPJmpvo9bygw94q/5hFuhd1ee4kW482xioet1e
-         jFS4FuWBpF0Ka4QHS5YNCFp6MvK3awXr7BiL8ZPp405W09pI92KPUOg94iUIF5Dfsz4n
-         teGX5rptWzIUm9xxU/hZxhUgq6xuzNJcXrE+HnrRuFD6r0+jb+X/3EkcnVKb+9qxWUeQ
-         esLqrCsgleefYTQeYojQ14qmpkNz8qvJAayBpEBTQ3fGBaJlxyaoe9CspvumgBLZWxzC
-         712Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzBdsjpzW2/2nGjAWKFjEj20qMZqMjwhNSn28IaQIF/B9hzqaXYJzgRfbtM5/5zA2ALjNPulppnCQch+es=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8jrZTNehN2h9SrENUqkP6Qt70eINdbFIzOBu3h4u6KmgvaIPh
-	RMhujNdLYt1LT8SczDtS+ZFgEJ0mDiiTHEgcwekkX22No9Ppz6C6sXib
-X-Gm-Gg: AYBFou0dvBZatp7g6yG0BWrBT56ytSfOl1LRveiNUyNBW7vYTSrVkCCetVDw7SH94Wl
-	glCkQKEsNX177fnDHm2uCPul6UX9qDr7ave7hRtYuzDW1q+Phgt9aNNQKdgQa40jukGYby3ieQP
-	l4Yu+xvg4joE+wAxDPXwrQ+avNNrWSwgsiKNvWI3N5ub7nh9xsx6LHGRMEXEz6T3GLLG1U1UNjv
-	dUe2AxU1hgzDlpzysR2oxsg5sQxqn/dCnP3LtVMxDpGJH6JWpvtj3cRuCUqpGjv2U3fwaB4/3vI
-	SH0l09HTN07jedr8iQ/4CVulHnUE4ZZk9pQBjY9WOaoa+TFZ8sSg6A0ckYX7s/Rb6LCCR0YnuJx
-	mkZdpRU58dqEDNy7spAWWj3zzqyP1U78WxomtC7lobX7OzvmTXPpRmaU+ZyXd/ocsiH4M6ONK05
-	CPA8iikL6xBz/pYRhpBupeFrSoHw79DzpLiqKrHH6GdcLjvigD+Wwzs2GX30LLzq9LAuw6QWo4F
-	Vt8Mp4HvvH2HavFaBCwRhcnMZz97OMTnfKM+At7A5d1u1ffqdD98llfvd18j/auCPHCbZ2wUUYH
-	WqFUZz+48jHpzd827RBSdgchFs2Cq1nY2hBhCf7G5gZRcVR8I9hmes2CcngJdn3Jg5MY3s34Hb9
-	wIMAUBpgT2NyltYcKtFESU4yjTYB1KVTVYkEBzeBri9tVnjCv/7j31wDUfm4LZJh9UBjR8K3I4G
-	Xn
-X-Received: by 2002:a05:7301:1a01:b0:369:f85c:787c with SMTP id 5a478bee46e88-36a4236a1d9mr16692157eec.10.1793628918760;
-        Mon, 02 Nov 2026 06:15:18 -0800 (PST)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:9626:1a7c:c4cf:3e3b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm33556442eec.10.2026.11.02.06.15.14
+        d=1e100.net; s=20260707; t=1793628909; x=1794233709;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sl0xAa/SyZWrBp9CL5o2SaCOERZeomQ7Ndnf7a0XFec=;
+        b=NP7AwSBQeQhQxxtknfjF6RdtRcwpr91djTXi/+wTugeyLXE9CbwFLciwt0med9GaWf
+         mmrg1GjkV8eY8AmLL6QiBWweg0qK4cOyQyj7BaM1wXMlRxPRcl0YmvPs3iC0CZnxQZiA
+         bbV/FJ6UrugAD5+/18pLUVrxgUIJNByi8bmcF5bis8YgE6aYUs81vUFYgUnU5oWdVbyx
+         lqNpSUsKE1x/vTDhZ/kok+xaFdKcwO1Mjd7M+MYhQDiih6dSP+V92Fga6EXfwVgGo7x9
+         T2F1CqRQCefQrEjy0FenO39MbwHh12rgQXF21Mz1fk5b7KXisFWtmLmm5iCHvj5/WkiK
+         eanA==
+X-Forwarded-Encrypted: i=1; AKwUvBywt9CnyTSLsDNPPrG9/3tEe34EnQk0pNktl8AVswq2z846tSPQVJB0eN9WP4OlqsPinJn2YdoqKXUzfI4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ME9Umdlix9jqY7L125uqF8nbfh7sLiNRb+ONOi2UCSs4vaQcm
+	JYwjD6+hIQ4PBfc9MN+upIJB21rBj8COn357pRFZOsU6Rxdg2ILpwLrjZ5S631+8p83OvTW7HYg
+	9ais6H18/9IM/CsxndbSVXxTC+JfQTtnS/5WRqD+sMgyAyk+sZW2g+XJl2/KIq14VjQ==
+X-Gm-Gg: AYBFou1xu1LHDawyrTcyCzZ90jS6Tb/ZWkX2pI9yi5g4TC6pFOaFeDNOpGqXb6p/8dv
+	077kUEO5DlXrNbitjyJGl9OjaMOGTAYF1ODgnngLpw5/qKf8kcILCj8pqUwj1IQ53EW3mdXm+W4
+	tlex8zJuFJpJkWi+1/VsLR/fL46jKfXGdcbLQQiwWp4it9GVHImJBz6PPSM3gy6itdJjxZY53e6
+	XzaEOKHcXUI3wO89+8NTK2C/ZG8SGCNlapcTyGBGIFyv/7r+Keuz96Ft11i5dYtktAAHeRfJDLY
+	Hn0BYkaWa8lqMPAd7+j97WSWR8oO4S5A0aan+FNvD3rsqSaVIkIEdy+ZYztugjGszZSWKhIehWy
+	1jg/dLLoK+e/LR1Fdzs5zErh2HIuL0tL1Xm85XJFllQ==
+X-Received: by 2002:a05:6000:25c3:b0:48b:db7:86a7 with SMTP id ffacd0b85a97d-48e6e517f2bmr20529286f8f.50.1793628909014;
+        Mon, 02 Nov 2026 06:15:09 -0800 (PST)
+X-Received: by 2002:a05:6000:25c3:b0:48b:db7:86a7 with SMTP id ffacd0b85a97d-48e6e517f2bmr20529177f8f.50.1793628908269;
+        Mon, 02 Nov 2026 06:15:08 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1501:b100:9ea2:fd21:b361:8dab])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d425sm20775864f8f.1.2026.11.02.06.15.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:15:18 -0800 (PST)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	laurent.pinchart@ideasonboard.com,
-	hverkuil@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] media: mc: fix race in media_device_unregister_entity()
-Date: Mon,  2 Nov 2026 19:44:39 +0530
-Message-ID: <20261102141439.13505-3-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102141439.13505-1-kartikey406@gmail.com>
-References: <20261102141439.13505-1-kartikey406@gmail.com>
+        Mon, 02 Nov 2026 06:15:07 -0800 (PST)
+Date: Mon, 2 Nov 2026 09:15:04 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: Jason Wang <jaswangio@gmail.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	Asias He <asias@redhat.com>, virtualization@lists.linux.dev,
+	kvm@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] vhost-scsi: fix event queue iov out-of-bounds
+Message-ID: <20261102091441-mutt-send-email-mst@kernel.org>
+References: <20260904005240.502787-1-physicalmtea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,51 +121,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904005240.502787-1-physicalmtea@gmail.com>
 
-media_device_unregister_entity() checks entity->graph_obj.mdev for NULL
-before taking mdev->graph_mutex, but does not check again afterwards.
-If media_device_unregister() runs concurrently (for example on USB
-disconnect), it unregisters every entity and clears graph_obj.mdev while
-this function waits for the mutex. The waiter then calls
-__media_device_unregister_entity() with a NULL mdev and faults in
-ida_free(&mdev->entity_internal_idx, ...):
+On Fri, Sep 04, 2026 at 08:52:40AM +0800, Jia Jia wrote:
+> vhost_scsi_do_evt_work() uses vq->iov[out] after vhost_get_vq_desc()
+> without checking that the descriptor chain contains an input segment.
+> vq->iov has UIO_MAXIOV entries (1024).  A chain of 1024 output-only
+> descriptors yields out == 1024 and in == 0, so the length check reads
+> one past the end of the array.
+> 
+> With a host-side harness that sets VHOST_SCSI_SET_EVENTS_MISSED and
+> kicks an event queue filled with 1024 OUT descriptors, UBSAN reports:
+> 
+>   UBSAN: array-index-out-of-bounds in drivers/vhost/scsi.c:611:14
+>   index 1024 is out of range for type 'iovec [1024]'
+> 
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x5f/0x90
+>    dump_stack+0x10/0x18
+>    ubsan_epilogue+0x9/0x39
+>    __ubsan_handle_out_of_bounds.cold+0x50/0x55
+>    vhost_scsi_complete_events+0x55f/0x5a0 [vhost_scsi]
+>    vhost_scsi_evt_work+0x17/0x30 [vhost_scsi]
+>    vhost_run_work_list+0x8e/0xd0 [vhost]
+>    vhost_task_fn+0xe1/0x210
+>    ret_from_fork+0x348/0x540
+>    ret_from_fork_asm+0x1a/0x30
+>    </TASK>
+> 
+> Require at least one input descriptor before indexing iov[out], and
+> treat a pure-output chain as a missed event like other invalid event
+> buffers.
+> 
+> Fixes: a6c9af87363c ("tcm_vhost: Add hotplug/hotunplug support")
+> Signed-off-by: Jia Jia <physicalmtea@gmail.com>
 
-  Oops: general protection fault, KASAN: null-ptr-deref in range
-  [0x00000000000000c8-0x00000000000000cf]
-   ida_free
-   __media_device_unregister_entity
-   media_device_unregister_entity
-   v4l2_device_release
-   v4l2_open
+Applied an alternative more comprehensive patch, credited you.
 
-Re-check graph_obj.mdev under the lock and skip the unregister if the
-entity is already gone.
-
-Found while testing the fix for the syzbot report at
-https://syzkaller.appspot.com/bug?extid=54648a6c1187a7ef46a6
-
-Fixes: e2c91d4d78ee ("[media] media-device: get rid of the spinlock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/media/mc/mc-device.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/mc/mc-device.c b/drivers/media/mc/mc-device.c
-index f8ea7cfe10b2..039ef7d04ac7 100644
---- a/drivers/media/mc/mc-device.c
-+++ b/drivers/media/mc/mc-device.c
-@@ -674,7 +674,8 @@ void media_device_unregister_entity(struct media_entity *entity)
- 		return;
- 
- 	mutex_lock(&mdev->graph_mutex);
--	__media_device_unregister_entity(entity);
-+	if (entity->graph_obj.mdev)
-+		__media_device_unregister_entity(entity);
- 	mutex_unlock(&mdev->graph_mutex);
- }
- EXPORT_SYMBOL_GPL(media_device_unregister_entity);
--- 
-2.43.0
+> ---
+>  drivers/vhost/scsi.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
+> index 9a1253b9d8c5..9b5f07f52b0c 100644
+> --- a/drivers/vhost/scsi.c
+> +++ b/drivers/vhost/scsi.c
+> @@ -608,9 +608,10 @@
+>  		return;
+>  	}
+>  
+> -	if ((vq->iov[out].iov_len != sizeof(struct virtio_scsi_event))) {
+> +	if (!in ||
+> +	    vq->iov[out].iov_len != sizeof(struct virtio_scsi_event)) {
+>  		vq_err(vq, "Expecting virtio_scsi_event, got %zu bytes\n",
+> -				vq->iov[out].iov_len);
+> +		       in ? vq->iov[out].iov_len : 0);
+>  		vs->vs_events_missed = true;
+>  		return;
+>  	}
+> -- 
+> 2.43.0
 
