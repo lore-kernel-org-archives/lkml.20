@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632936;
-	b=atJ5keigQee9w/Z4L1LDwBRqTIiegh21gymGiokvYCRBvaCJmXJLbf82YUtdAj9q3JjX
-	 efTrhKzfWDVxY9qJjEf6QfSbi0CexAeu7c4wmsfBkgVzoN8NpOSxN4MbvxU8n3h1Oo1x7
-	 nEbHY9hB3wIV0FzRorTQbXVytLmZZ2LdAP0jk7Mmc4tBw0d14BZrSt9ctPf/7TCXYOgfC
-	 dgxw7ic2ZXTeo7jYQwEh4zYtQTOSl1lxRiFsWAx/Bnzcg+Hae5D/m0icHLx9y9Bjvj8rl
-	 +t5ujvCITFjXosE2OqvmdL9Nx/ttsYyWky9rq9ZnmdZIGQ8yA1eRnfrBDFOUt0EI8vQ==
+	t=1793632954;
+	b=YOPjEwMPUaqkvSzBUaaE4JHspKBChtbeSLDmq/B4LId6HbwpGWk6mnTvlIK6y5ezqvrw
+	 jC/m4SdZlobayrh0VMh0jU20AC2vdTj3ODvXl2QdEEvWaYbafdvry7QgdjogVJpEhmbmg
+	 kwIgQRD0FGBCELgWgRfnzskzRaCW6h8cwGmY++Hdjf3i1iLlNSb6GTVWV1A8NW0NUz8dF
+	 lSA4ToygR3h8ygVk1cr+rMvZxZR88Y/rd0WVCuzr4Q1oVHZR46Ds0fNUUVD0oyFUtiAOA
+	 4KAC0aBSUn8xx5vgkfzy8iFbN8RQSvmJnY2oYLu1duIfvGzZuIMXaVzuemfwBUVTK2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632936;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=C2mBpbnVLemM5L5rEiqeWTkY0TlHmQQvKvlHKTMt9FA=;
-	b=d6B7/0+4zAevF+rnMofVWSJeQXPDIleijb7faf7vWuWlm4WmbtjKDYzwXmnq3smlcafp
-	 u9NaQJSFlrDRxHMvBBt+S4yLTVeOgHHksmOZrlF7gOOn+XDE8MKxqOk9MN0+KSRnvUiUg
-	 klbsVpfTpXgWJYEaB7tckvNjNmR24nMyb0W+IykZzJndb9BIyHSL0at0eTVRk/FoPaCIS
-	 BmcwnlXhnbbDNiOCVnQkFWdLVJGQLTAF044g02hn4MAs+rzW/soEKfaTTzJNYC+5Zte/i
-	 rxLlw/b6F9kFCI/TNgyaUsqidIMuOp/l2F0CWR3h//156BufKClN68r0A0IRmoIO2ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632954;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=f5654+7smVr1CQ7aQob1YSWPvrXVlsZxaqT0g4gybBw=;
+	b=ST4acMT2ka8omrOMB+2rdKcZ+rF0lG7SVGB5SIHuBmGp+4wSbARznmErM4scAtwTwJOE
+	 MwH+LU6dFj1ZZ6pPxaTBgBNBcyTAKPRLviAPcMhR49HoQyT/MZexASVPDKqEF0HaRMATK
+	 DE2eyZ/wRCVR1Km1VfMnVHcwnOBzivZvtAjvlQu/c/kujZT4G4iGjJOPBK2ebKYcVIqVb
+	 kKX42MlCnMoCzxa2jKg27ULO5V8q13/FDPnm5mhorFGzpVF/DvL/qh0ZEE7rav9r0WjfJ
+	 hR7xsAE6xcmpv1HlJttATMfjGrKChqJbzWtfIDoUmR3hoPEg+xTzeVAHmy+jz+R+oig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMsjKUlA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6Wm1xtR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05956070DBB
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:22:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E10A6081CEF;
+	Mon,  2 Nov 2026 15:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMsjKUlA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4BD1F00A16;
-	Mon,  2 Nov 2026 15:22:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6Wm1xtR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1501F00AD9;
+	Mon,  2 Nov 2026 15:22:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632936;
-	bh=C2mBpbnVLemM5L5rEiqeWTkY0TlHmQQvKvlHKTMt9FA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZMsjKUlALHJTXL2C+cLO6xveiEiR41h2heUC87xOvZ90decxtKsVYWOqFBo83XULO
-	 rBx0IxyjLliwHWXscjG2Z/eX+w9W+L8Oqs1IGFtDDtarKW0unQdzrJBKYC0E+7XwRr
-	 jOpzvo8+wFLTUuNTWhk+y6bhViXwQ5r3iOc9zqgxafApxfqyI5Mx9EWELTLkWQauCy
-	 r0bDE+64QMsveuj21znMm8FCo12VY2u2c2Ke37lzWYZqR0AEmuB/aE5SUf42FFnjZu
-	 i/PssNhfVY7H13cP8xc7H3YtUzxIcySbHT01Z0SAANkQd8RiVbLa0bRzkb13M+EGKk
-	 /9Adb5zu7qmkA==
-Message-ID: <991e63e4-4230-40c0-a18f-6c0103bd225f@kernel.org>
-Date: Mon, 2 Nov 2026 09:22:12 -0600
+	s=k20260515; t=1793632954;
+	bh=f5654+7smVr1CQ7aQob1YSWPvrXVlsZxaqT0g4gybBw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e6Wm1xtRAG1e5mMhVVIAzVQ4WKf8zJG2askyQigi8iO9flMS26oahDyQgxR/OzRGp
+	 BB0E4odaNdF4K+4OagVF4vJtGby8De4NdtycOwEERIkErgd7q+bB579XXl4Gmbe2Ya
+	 LekkuZ+rw+DbPKsY50/w4h8s1COCdDDVdQuGO9rLLjb/CPiNhcksjrU9vjMG3oW9s/
+	 Y6X3uBWQF71cVoJV5pXEtJ/O4PpgAD2NbV8j/tVb13S1sbg5bMMWOKgFGyjnIlwEVX
+	 KA2PABVr3pymM0ugB6v03DEGY1rBRTFLvfxN0TcYjICf4UBPZCzeObX1EeSwzIYIza
+	 DiLmLoFw0BAbQ==
+Date: Mon, 2 Nov 2026 16:22:29 +0100
+From: Carlos Maiolino <cem@kernel.org>
+To: jianyungao89@gmail.com
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	"Darrick J. Wong" <djwong@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Kefeng Wang <wangkefeng.wang@huawei.com>, Viktor Malik <vmalik@redhat.com>, 
+	Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>, Bill O'Donnell <billodo@sgi.com>, 
+	David Chinner <david@fromorbit.com>, Lachlan McIlroy <lachlan@sgi.com>, 
+	"open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>
+Subject: Re: [PATCH] xfs: fix temporary cursor leak in btree shift corruption
+ paths
+Message-ID: <auiqHYgyi6_7-EOa@nidhogg.toxiclabs.cc>
+References: <20261102150146.19777-1-jianyungao89@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,75 +61,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Clamp the ATIF backlight curve to its 99
- points
-Content-Language: en-US
-To: Hugo Sales <hugo@hsal.es>, alexander.deucher@amd.com,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org
-Cc: lijo.lazar@amd.com, harry.wentland@amd.com, alex.hung@amd.com,
- kees@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261031153948.127016-1-hugo@hsal.es>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261031153948.127016-1-hugo@hsal.es>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102150146.19777-1-jianyungao89@gmail.com>
 
-On 10/31/26 10:39, Hugo Sales wrote:
-> amdgpu_atif_query_backlight_caps() stores the firmware's number_of_points
-> as data_points but copies only the 99 points that luminance_data[] holds.
-> number_of_points is a u8, so a firmware table that claims more makes the
-> custom curve code in amdgpu_dm index past the array, and
-> dm_query_extended_brightness_caps() copy past the end of the
-> data_points[] buffer it fills
+On Mon, Nov 02, 2026 at 11:01:41PM +0800, jianyungao89@gmail.com wrote:
+> From: Jianyun Gao <jianyungao89@gmail.com>
 > 
-> Clamp the count to ATIF_QBTC_MAX_DATA_POINTS and warn, since a table
-> that claims more is a firmware bug
+> In xfs_btree_lshift and xfs_btree_rshift, when XFS_IS_CORRUPT detects
+> an invalid firstrec/lastrec result after xfs_btree_dup_cursor has
+> successfully allocated a temporary cursor, the error path jumps to
+> error0 which returns without freeing tcur.  This leaks the cursor
+> memory, the xfs_group reference, and the per-level buffer references
+> held by the duplicated cursor.  Jump to error1 instead, which calls
+> xfs_btree_del_cursor(tcur, XFS_BTREE_ERROR) to properly release all
+> resources.
 > 
-> Fixes: f729e63743f0 ("drm/amd: Pass luminance data to amdgpu_dm_backlight_caps")
-> Signed-off-by: Hugo Sales <hugo@hsal.es>
+> Cc: stable@vger.kernel.org
+> Fixes: 9eaead51bed95 ("[XFS] implement generic xfs_btree_rshift")
+> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+
+Yup, that's leaking the duplicated cursor
+
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+
 > ---
-> The other ATIF checks log at debug level because they make the call fail
-> and the driver falls back to its defaults. Here the driver keeps going
-> with a truncated curve, so this one warns
+>  fs/xfs/libxfs/xfs_btree.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
->   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+> diff --git a/fs/xfs/libxfs/xfs_btree.c b/fs/xfs/libxfs/xfs_btree.c
+> index 7effebe297ea..d706f59b0301 100644
+> --- a/fs/xfs/libxfs/xfs_btree.c
+> +++ b/fs/xfs/libxfs/xfs_btree.c
+> @@ -2567,7 +2567,7 @@ xfs_btree_lshift(
+>  		if (XFS_IS_CORRUPT(tcur->bc_mp, i != 1)) {
+>  			xfs_btree_mark_sick(cur);
+>  			error = -EFSCORRUPTED;
+> -			goto error0;
+> +			goto error1;
+>  		}
+>  
+>  		error = xfs_btree_decrement(tcur, level, &i);
+> @@ -2737,7 +2737,7 @@ xfs_btree_rshift(
+>  	if (XFS_IS_CORRUPT(tcur->bc_mp, i != 1)) {
+>  		xfs_btree_mark_sick(cur);
+>  		error = -EFSCORRUPTED;
+> -		goto error0;
+> +		goto error1;
+>  	}
+>  
+>  	error = xfs_btree_increment(tcur, level, &i);
+> -- 
+> 2.34.1
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index 63088c072087a..4874ee864b807 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -406,7 +406,11 @@ int amdgpu_atif_query_backlight_caps(struct amdgpu_atif *atif)
->   			characteristics.max_input_signal;
->   	atif->backlight_caps.ac_level = characteristics.ac_level;
->   	atif->backlight_caps.dc_level = characteristics.dc_level;
-> -	atif->backlight_caps.data_points = characteristics.number_of_points;
-> +	if (characteristics.number_of_points > ATIF_QBTC_MAX_DATA_POINTS)
-> +		pr_warn(FW_BUG "ATIF: backlight curve has %u points, using the first %u\n",
-> +			characteristics.number_of_points, ATIF_QBTC_MAX_DATA_POINTS);
-> +	atif->backlight_caps.data_points = min_t(u8, characteristics.number_of_points,
-> +						 ATIF_QBTC_MAX_DATA_POINTS);
->   	memcpy(atif->backlight_caps.luminance_data,
->   	       characteristics.data_points,
->   	       sizeof(atif->backlight_caps.luminance_data));
-
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-
-Thanks; this makes sense.  I'll get this applied to amd-staging-drm-next.
-
-I would like to know though; did you see this in the wild?  If so I'd 
-like to hear more about the system that had it and the system firmware 
-on it.
-
-What model?
-What APU?
-What system firmware version?
-What AGESA version?
-
-Some systems will publish this to SMBIOS and you'll see it from "dmesg | 
-grep AGESA".
-
-If it's a problem in AMD AGESA I would like to get it fixed for a future 
-AGESA release.
