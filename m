@@ -1,83 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612360;
-	b=IXs5Z+oewAft/fbze4Qdj+OJuGz9bx4zYZz/8M/bUOdJw9Lquflcdyxt4MawS45AY7qu
-	 vkG7sy+Iq+zejFlvxA/9ViZnTaR+uOSlmj9wCv+cPIQtIcguQa6d+Q4abJs+q1+R5Q/C5
-	 ynkF6c4/vI2KRLgWR10upwdwPnp5JzgWoAV6HXqWFENE5JNa+oinENpodnit7OarPpXNm
-	 9hbaq9PpfAWJseeAWLnJEdj1JaqIXNX6EadcOBnmuM/bC64o7HkPatwlggpZu0cCpFyZu
-	 FdpvfQhfzH7UQdRwWiwgtRDDemKoMlFtdiXcS442/pqZOi/Uz5iyAiXTo1Gimd9gf8Q==
+	t=1793612388;
+	b=EAmN8wwO4li1ieCB8OoaxmkQ3gBhOhkLD3tgvCRmgPXY/y9YmELqtgijGzZwtyuzFG90
+	 6P7gliMVbOutHErMArKz6OrttkKbTVegeb8rTz1wSoJQ4+tz6cWhtpKeNI42Q5ynYgA9O
+	 K5QkyMq5s38p55dtkEEhLshaUi8aM4ARMJJt4mGAfTHnm7JM/Pe+ZEc1Ou2OzNejxtBl7
+	 DwhKvOYs31alSPKoGu3wyxldN88gPBT4JJK1Z6WUG4EHFERNbiBR5wxS8sf58C25FSueD
+	 bmPbDS1epJsTadIXOxzhgA+UZ1axK5qPWRvtQm1ADMrTP2NrGFcfsDD2qwlTXkX59kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612360;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=idDGnToHTI8V01eTL1ZKlhBmpecIfWRGMl5+8+8jY9k=;
-	b=BXaavfytdWtYPkZVQp0Wc0K/BRnwy1V/2PYX87kF2FXpH0QVMJGi3haGEMJ1kAoB/Ipa
-	 5bvZpi/aJX5AS9KxYfter1SwfjBVANE1ZFqsR6DdzA4caG3x99Cdut+sURWB9ZsnZ23xp
-	 PlM+U6pqBWCFkUyabeFFHTplv6sjKN86amftI/x3CuEAee/pKHyBfNjU2H9aAtUccxqzV
-	 YUnZ/cY8tjfs58iwWRFBlHW7h0cWtREnNtORhTNURAi1FNUGdWOUpmhhQcQ4uvfzhnxgj
-	 +f5wipnjIJZaHeXbQeWsxqfuz75lvBxmts30eaHV6pFUey9IoOF+JbWSJLirTdm/8yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612388;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Au4Oi0MWceZmpJKV/fPCRNAL50XGi5ZE7tYwaKOfapM=;
+	b=lxFmCEaLolCVYLcx/vEfq+nwCs8oFcM8fJfTCl6uZ2/ueMm0Y2LsvhWn7k9xbttm9y5R
+	 xXLoKvut9a87ly0jxF/MtFl+be0Q/xxNp1hebHbP0WBeionol0LKwZZyshzimN/Y/qvcB
+	 OnV3nu4zrwJWLhk2jcgB+kHMJvGJSCM6oKshQ0WkAh9rzpZ14xYcFPiPl1NC/kZelhY4Z
+	 Rum1ZluEB3vum6aKrIjReD+EMA5CE7YphIy1zO0oWMnRmoeV/jndf4JDMk3oL1PUSIDyQ
+	 AQnSDcfqacIadjECiP98GpVEb8yH5C6p0kMmGDJBd1cu2ipE64r96BYBznApzSJW2Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Bnu5MlPq;
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7oSp3v9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C1E606A326;
-	Mon,  2 Nov 2026 09:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2C1E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41885606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:39:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Bnu5MlPq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793612354; bh=idDGnToHTI8V01eTL1ZKlhBmpecIfWRGMl5+8+8jY9k=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7oSp3v9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D82851F00919;
+	Mon,  2 Nov 2026 09:39:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793612388;
+	bh=Au4Oi0MWceZmpJKV/fPCRNAL50XGi5ZE7tYwaKOfapM=;
 	h=From:To:Cc:Subject:Date;
-	b=Bnu5MlPqMzNbQKrnsOyR40Oe/EfM/kUkpcGT1gyE2rmRCeXsq7+LOkTKv4HoA4ZSf
-	 AqLtnJSVtHCFCEyFP6Lx83AcbP4nShobDzYXI8GOavzPH9GC3dY3q/2uwfz1JOlC1Z
-	 8Npc9vabFLneVlp4c3vujumaqaWNG8qkOAmvm/6I=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:3bd5:e9be:8454:44da])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 9CA0D2E2; Mon, 02 Nov 2026 17:39:10 +0800
-X-QQ-mid: xmsmtpt1793612350twko5wxud
-Message-ID: <tencent_C567615098D5B2A71811CFE5CB09C9FFC406@qq.com>
-X-QQ-XMAILINFO: MpvrJ5NyRx5i+FftzjWdGeZJywDh85miewFWjFJ9YsCv0nyi2QKfczPHfkMWUY
-	 uuVPPwe96DLLr+l2mB4VYGUSzxmf0idoH8lEVKoIoo4qUB+g4YyhqGDMwkcyjBaxiRe8JGVhX7Ee
-	 Z1QRllWMGxPX8ox5lleEE0XVY+SbsiCrkSaLji1Xz+QrgxrnC/BGEcF6ls88u+u4MAm9vp64aNuu
-	 lB7eLJXg9wrG/grdxSYMZ4g1CrFZl21Y18ePF/P79JRKUP27oZWjLp+krpHrEXvIUQmdzm4UvQ2/
-	 KVhjIb4nNskUXglYhFwaCNWNtiGpfMjDh9L/tVqxYmnya3tZFox0yHf+TcPpGlNOAqP/07Ubq45t
-	 jgpF7L7bcY7/mURr4sa07hDm6n/iZebQP2hLgD7Od6pywXccF6Rfk5qXlYWh8S3LPduFdYv+hFJr
-	 ehwBdXL0hRK51YXfALtQSeLBZJ2w6MFeiJiKia/RhveP/Ogzpq9pvnfozaiL4C3n/JjXIxxvWy7H
-	 8P+5DwEEzRZo44hYUismQ3Hk9nW6kyFH2NWFLpRJXlvIA0npB+jYSz/prL7ZxI/W31u8WCgnuJPH
-	 AOlbzpcjPtTA6lHRrJ7/gged1Lp5JwywKEKw1Sa5lA4bMwHGzrzDdiWvNKmhgWDlOm3Apim15VR7
-	 bMb30njK4eJ3L6uwpBkwfUFlpvxnoPN67Z2MV9AOPoTw3wCt2/ha/JUQOMo+TdpeXFIF3cXELoC5
-	 UzLBPxFJycS7OqrRTWY1gXZwE3MBlCe1uxqM+mhYTWnTWd4NyhIhAEmGMcSeuwW8uCMPVAoTVgyv
-	 QhX52O8dkkBL0+rc6rqpgHJfdqmC53X/+tIpj/JR8VN4luAESdCRXQe759CDPIOWiDh8wD5IBGW/
-	 HMZDZ7EJn65KilunvqSV/EtYg4jBzpdJ8f+/PF6lK36kufqie7iCKSxXl3+uZCPPiSLP10GJkBlu
-	 UZW+UdRKBWh1pO2vGfZ01k2IjznXTkXnR91d0u0aGlZdQra2wF92XrqHFoT23Jpp3cSsPycToxdZ
-	 Lb0Bvk1TDaOKz6oNGx1glA08YrbppzEVIB5HLuCCeIEytBAfsf
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Yingjie Wang <1075151112@qq.com>
-To: lvs-devel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: horms@verge.net.au,
-	ja@ssi.bg,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] ipvs: reject negative sync_refresh_period values
-Date: Mon,  2 Nov 2026 17:39:09 +0800
-X-OQ-MSGID: <939bfbcb4fd7692b2fd50515a21b2b9995a5bf1c.1793612333.git.1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
+	b=k7oSp3v9Fos5Z4miGPDrC/wv1d1MnZFnxzpA7s6wtL9+68JlzEo9TCJG7j7nQyQAf
+	 MNTeN0DZtdf067oBOHSfaXnrKtNVzR1BTWd2RUjd4JCrQup6xU/SRax7OPMo2kOhsN
+	 v7Eqdhwk8rO0F0B6WzV+As5+CVkIy+khxXwVbanavoHdIw51M/GLBrXLL7EofECsMA
+	 EP8HcibKkM+mn2bIF3BCvton1IOpHOY2rqbl8MDzoKqoBbEfB0D/KOTtROANb6uQPl
+	 9ik3uBCUTuzLD+bAn/Sf3G35e5mQsKxLNhG1mkq7Brni4jjksnht2eCFSXQMgRIaNR
+	 3pfusIE7IMd0w==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 0B494198004A;
+	Mon,  2 Nov 2026 04:39:42 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Mon, 02 Nov 2026 04:39:45 -0500
+X-ME-Sender: <xms:XlroakDI_7O5jyH8JQCM-udFw2VPaxLG4NbntEt5nqSuBmLOdTh2ng>
+    <xme:Xlroanl6gnTX0opeotuZ6y9-5VLH80cyVSNl6v1xzIv7LZLqMcPPdCRU17bcENO88
+    eKQT_xMJTxDDmZcQkXSj9uq4KsJV0o0PLdR_08g78PR5bdftPlAOLXqlg>
+X-ME-Received: <xmr:XlroaqiwquFLkb6lJTBqpXjiPJRjx7gO23AeV5QvjZuY7eJ-Ir2mkhJdH9I>
+X-ME-Proxy-Cause: dmFkZTEhRarKBtCberBUjce/isjK9PfXutCTgFrSk65KJKrexvZPW1kHnXgqWxfsL477VB
+    0B+PUPaT0e2V6Y1aPEXZVpEDk/+XK3MUho/889EWBmq9dmu8CIuWdZ8d3PoRSIBwOZdAl6
+    FAQq6B3QTX2w0id03oZqWxDy7lBwXWKlG1aBfgfczDUssKofptZoug1l1tH0rTdJNE0frn
+    8/dZfLluhMvsLe5R9E7RvpG6I6eP9Jlue9NB4farYB7LcaiXDNz/+vZ0sD6utgRIgufl9D
+    aC7zZ2u4lnQRU5sqAqppO5dRDB2cw4bonYD/UqVTA3uyFtqvBsNQom54gAR5K0bW51m3no
+    63Ee2F1tTcQBxaWwuBEAKR+cyi9JGCdUEVzz9GRGGU6gqw6hSklUQKltbix/cfAnapKVJy
+    h+8dGc2ZbZdCwOaOBC0SiXE1Neo/HvfeXXxYlKitadtOszma/yeufwYv1+o1gF1nQKwFgQ
+    zNcCXeUFHI72AjTwQF4Q4H1HYvBmUwmAZatgsY4Z7iRl60qtztd1PUTyHWv93mWerhhdEM
+    bXi49E/GP6KLTpWxooA7iENbIjIe30PdDHpSpzlgAwyBoU6jNs+AkHwz1edXfPvOIdivLz
+    Cxae+nqP7Ddo5G7GF2+yqaSWHNskBw7Ks5nJNbPqpVi8A/wX25r0ZabgrirQ
+X-ME-Proxy: <xmx:XlroaodtHk7aGcKr_YzseEk-PrDx4lmjEF7M0d_2UedQdUlm_uB0Ag>
+    <xmx:XlroaiCoIMLIUN064fo2I8hdYC-r7t166mVaDBxD3rvaw5K6s6GJLA>
+    <xmx:Xlroak7uuCaYPSVTKIy6m7h1KUTYf4zBfTLTViUcXPJu4Ff68nSZ3w>
+    <xmx:XlroanzjgyF3US9HUYxyo3oi4xHL-N7EWnRe0OEnGbBVuEtbPdCSJg>
+    <xmx:Xlroaol1N_NYgwFjW88m8VTXlU-xqzSiRp3m0z1UUG6nujWOGoQJI290>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 2 Nov 2026 04:39:41 -0500 (EST)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Harry Yoo <harry@kernel.org>,
+	Usama Arif <usama.arif@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH v2 0/3] mm: make watermark checks honour ALLOC_NOFRAGMENT
+Date: Mon,  2 Nov 2026 09:39:33 +0000
+Message-ID: <20261102093939.3340540-1-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,104 +110,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-net.ipv4.vs.sync_refresh_period is documented as an unsigned number of
-seconds.  proc_dointvec_jiffies() accepts a signed integer and converts
-it to jiffies before storing it in an unsigned int field.  Consequently,
-writing -1 stores UINT_MAX - HZ + 1 jiffies and bypasses the finite
-bound applied to ordinary positive writes.
+With defrag_mode, 64K mTHP faults under memory pressure stall in
+compaction 18 times as often as without it, and get about a third of the
+folios.  Dev Jain reported it [1].
 
-This changes the behavior of ip_vs_sync_conn_needed().  With
-sync_threshold="0 1" (threshold 0, period 1) and
-sync_refresh_period=-1, only the first of twelve packets requests a
-sync message; the zero-refresh control requests all twelve.
+The high-order watermark check counts free pages of every migratetype.
+With defrag_mode, every slowpath allocation is ALLOC_NOFRAGMENT, and a
+request below pageblock_order cannot take free pages from another
+migratetype's pageblock.  Under pressure, that is where the large free
+pages end up.  Two callers act on the wrong answer:
 
-Store the value in seconds, as documented, and convert it at the single
-consumer.  Use proc_douintvec_minmax() to reject negative input.  Cap the
-value at INT_MAX / HZ to preserve the prior jiffies range and avoid
-overflow in secs_to_jiffies().
+  - direct compaction's up-front check returns COMPACT_SUCCESS without
+    compacting, so compaction is never deferred;
+  - direct reclaim for a costly order stops early, having freed little.
 
-The issue was reproduced on an affected 7.0 distribution kernel in a
-temporary network namespace.  A patched target kernel was built with W=1
-and exercised in QEMU; -1 is now rejected with EINVAL, zero and positive
-values retain their behavior, and the HZ=1000 boundary accepts 2147483
-while rejecting 2147484.
+Patches 1-2 give the check the request's migratetype and make it skip
+the free lists the request cannot take.  Patch 3 tells direct reclaim
+that the allocation is ALLOC_NOFRAGMENT.
 
-Fixes: 749c42b620a9 ("ipvs: reduce sync rate with time thresholds")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
----
- include/net/ip_vs.h            | 7 ++++---
- net/netfilter/ipvs/ip_vs_ctl.c | 8 ++++++--
- 2 files changed, 10 insertions(+), 5 deletions(-)
+Dev's benchmark in a 7G VM with only 64K mTHP enabled, medians of 15
+runs:
 
-diff --git a/include/net/ip_vs.h b/include/net/ip_vs.h
-index 9a83bff32569..66f26c3d1f75 100644
---- a/include/net/ip_vs.h
-+++ b/include/net/ip_vs.h
-@@ -19,6 +19,7 @@
- 
- #include <linux/compiler.h>
- #include <linux/timer.h>
-+#include <linux/jiffies.h>
- #include <linux/bug.h>
- 
- #include <net/checksum.h>
-@@ -1267,7 +1268,7 @@ struct netns_ipvs {
- 	int			sysctl_sloppy_sctp;
- 	int			sysctl_expire_quiescent_template;
- 	int			sysctl_sync_threshold[2];
--	unsigned int		sysctl_sync_refresh_period;
-+	unsigned int		sysctl_sync_refresh_period; /* seconds */
- 	int			sysctl_sync_retries;
- 	int			sysctl_nat_icmp_send;
- 	int			sysctl_pmtu_disc;
-@@ -1335,7 +1336,7 @@ struct netns_ipvs {
- #define DEFAULT_SYNC_VER	1
- #define DEFAULT_SLOPPY_TCP	0
- #define DEFAULT_SLOPPY_SCTP	0
--#define DEFAULT_SYNC_REFRESH_PERIOD	(0U * HZ)
-+#define DEFAULT_SYNC_REFRESH_PERIOD	0U
- #define DEFAULT_SYNC_RETRIES		0
- #define IPVS_SYNC_WAKEUP_RATE	8
- #define IPVS_SYNC_QLEN_MAX	(IPVS_SYNC_WAKEUP_RATE * 4)
-@@ -1363,7 +1364,7 @@ static inline int sysctl_sync_period(struct netns_ipvs *ipvs)
- 
- static inline unsigned int sysctl_sync_refresh_period(struct netns_ipvs *ipvs)
- {
--	return READ_ONCE(ipvs->sysctl_sync_refresh_period);
-+	return secs_to_jiffies(READ_ONCE(ipvs->sysctl_sync_refresh_period));
- }
- 
- static inline int sysctl_sync_retries(struct netns_ipvs *ipvs)
-diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-index ce9fe20d6106..82726b6b5e3a 100644
---- a/net/netfilter/ipvs/ip_vs_ctl.c
-+++ b/net/netfilter/ipvs/ip_vs_ctl.c
-@@ -2369,6 +2369,8 @@ static int ip_vs_zero_all(struct netns_ipvs *ipvs)
- 
- #ifdef CONFIG_SYSCTL
- 
-+static unsigned int sync_refresh_period_max = INT_MAX / HZ;
-+
- static int
- proc_do_conn_max(const struct ctl_table *table, int write,
- 		 void *buffer, size_t *lenp, loff_t *ppos)
-@@ -2824,9 +2826,11 @@ static struct ctl_table vs_vars[] = {
- 	},
- 	{
- 		.procname	= "sync_refresh_period",
--		.maxlen		= sizeof(int),
-+		.maxlen		= sizeof(unsigned int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec_jiffies,
-+		.proc_handler	= proc_douintvec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= &sync_refresh_period_max,
- 	},
- 	{
- 		.procname	= "sync_retries",
+                              defrag_mode=0  defrag_mode=1  defrag_mode=1
+                                                            + series
+    compact_stall                      1690          30669          7366
+    64K faults allocated              20750           7391         20129
+    64K faults falling back to 4K       725          13832          1339
 
-base-commit: cb284914e749388eef402938bdb3115fe1f6d337
+defrag_mode=1 still compacts more than defrag_mode=0: by design, it
+keeps 64K faults out of unmovable and reclaimable pageblocks [2].
+defrag_mode=0 is unchanged: 20698 64K faults allocated with the series.
+
+v2:
+ - Patch 2 changelog: describe what the fast path change does to pages
+   on the per-cpu lists (Andrew); drop the should_reclaim_retry()
+   paragraph
+ - Patch 3 changelog: say that the benchmark baseline already has the
+   high-order check honouring ALLOC_NOFRAGMENT (Andrew)
+ - Rebased onto v7.4-rc1
+
+v1: https://lore.kernel.org/all/20261028132638.2560361-1-kirill@shutemov.name/
+
+[1] https://lore.kernel.org/all/4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com/
+[2] https://lore.kernel.org/all/auCDnqJc7fsBpUW2@thinkstation/
+
+
+Kiryl Shutsemau (Meta) (3):
+  mm: page_alloc: add a watermark check that knows the migratetype
+  mm: page_alloc: make the high-order watermark check honour
+    ALLOC_NOFRAGMENT
+  mm: vmscan: tell direct reclaim the allocation is ALLOC_NOFRAGMENT
+
+ include/linux/mmzone.h |  3 --
+ mm/compaction.c        | 16 +++++++----
+ mm/internal.h          | 10 ++++++-
+ mm/page_alloc.c        | 64 +++++++++++++++++++++++++++++++++---------
+ mm/vmscan.c            | 24 ++++++++++++----
+ 5 files changed, 89 insertions(+), 28 deletions(-)
+
+Range-diff against v1:
+1:  c630170105ac = 1:  ed3ef9f9fd13 mm: page_alloc: add a watermark check that knows the migratetype
+2:  918bed282fed ! 2:  3347b0a24b0e mm: page_alloc: make the high-order watermark check honour ALLOC_NOFRAGMENT
+    @@ Commit message
+         __compact_finished() the same rule for its fallback test, so that
+         compaction, once it runs, stops on a page the request can take.
+     
+    -    The allocator fast path gets the same answer.  A zone whose large free
+    -    pages all belong to other migratetypes now fails the watermark check,
+    -    where before rmqueue failed, and the allocator moves on to the next zone.
+    -
+    -    should_reclaim_retry() keeps counting free pages of every migratetype.
+    -    It does not ask whether the allocation can be served now, but whether
+    -    reclaim and compaction can still make progress, and they work across
+    -    migratetypes to free a whole pageblock the allocation can claim.
+    +    zone_watermark_fast() calls __zone_watermark_ok_mt() too.  With
+    +    defrag_mode, an allocation now wakes kswapd and starts reclaim or
+    +    compaction as soon as the free lists hold nothing it can take.  For the
+    +    orders the per-cpu lists serve, that is earlier than before: the check
+    +    does not count their pages, so the allocation no longer uses up the local
+    +    list first.  A request that may not wake kswapd or reclaim, such as an
+    +    mTHP fault with THP defrag=never, falls back to a smaller folio instead.
+     
+         Fixes: e3aa7df331bc ("mm: page_alloc: defrag_mode")
+         Reported-by: Dev Jain <dev.jain@arm.com>
+3:  a7ebde665647 ! 3:  0ecbcc5f5fb0 mm: vmscan: tell direct reclaim the allocation is ALLOC_NOFRAGMENT
+    @@ Commit message
+         and cannot take the free pages left in unmovable and reclaimable
+         pageblocks.  Reclaim stops on them anyway, having freed little.
+     
+    -    In Dev Jain's 64K mTHP benchmark, an order-4 direct reclaim frees 16
+    +    In Dev Jain's 64K mTHP benchmark, with the high-order watermark check
+    +    already honouring ALLOC_NOFRAGMENT, an order-4 direct reclaim frees 16
+         pages on average with defrag_mode and 45 without.  64K faults get a bit
+         over half as many folios as without defrag_mode (medians of 15 runs):
+     
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.43.0
+2.54.0
 
