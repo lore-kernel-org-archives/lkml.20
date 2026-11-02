@@ -1,54 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793582949;
-	b=ewV/GZiPrwvAYYZPy2IWVQVQ5leZTOFjtEeI3j3HFeFtNh38IZaAgM+5ZmKqKlAwsg7k
-	 SEDN/Xn2CPc2mCTmcx4tYc1doZCL9YNLVH5hoaYN/X6bOL2++TLYjlV7/3Urhs56oD0TB
-	 T/uxYTk4Do9hrYs4OBB/xdCs8yQZLj3nJHgeyadh4wZA4LkuisyGu8IGckOLPHNAvH8gM
-	 mmAxx6C5aksr3wxIM5UxkOJdI5Msl3JcitMYd0ID9lTMmtGHP85QzsHzjwcArCdP7eyQB
-	 o/v7ZaPhtp9RipKrZcBl0KQJLcCSBHZefoOHDvec4twBgO08nT+uf2WQMQ2pfhhneEA==
+	t=1793583003;
+	b=zYwpxew0w6eth4j8NEi1L9DkYSfosfWv5SROKQVlvGV6Ad5uq82bCGpEzr7leK2M99DS
+	 kEFtnlfxekfZeWav+E5t4CaHm9YOOzN1qKn1W1zx4chAA0G9h9nvPxAgLCIZBo/D+5aNm
+	 VVPiquYchgOQmbo8NnObrbMDyp0ZCy0fQyl2xF7txEZKdlEDEq5tlSl30su5yvR+Ucx9a
+	 L5lCCuJlyU9IPjW/Xq4pdcGXuoiBCoaQkgph8mGqZn20qqGbBFP10EtE4ZjXGDIUjSSp7
+	 Ds0j8aDhgJTa25nlWO9YFz5c+Cpqs+0c/w+Bj6bEvri/UM2iqeX95reUCrZq5XhjroA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793582949;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793583003;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RfRd34hbQ3fNwbe9mZRyC1FUgyB8k24TDialm2Z8OBI=;
-	b=yifa9/joorLp/1ju4DNSKFGbp9kYEbS9WqK+aBOB5kv9/kTdz1PeaxARWWQBEqkHku7d
-	 kdQQu8RVwG++RuuifmjtW5ozLC5SvmaxYDOE/WMDY5aUym4lT84JlhLk3bUjWJZg6Vxw2
-	 y7GJUcNCqNQ6rdkSW33yo8bGJNhK1P6HemYQ1r3GpFskLjFbF572L8REaxWSjoAPZYeMn
-	 HSePE+4uPgzz2zleRouWLwwWmS4bMetU/anZiB4GlZ6lQYkXnuqtQKpSCANXfupmJDLEW
-	 GC1KxIBHLYL19IsK5Ct9A7U0j+ucAAub60n6HmEuKNmntfMmqaGVXTcBLvxH7LU1zWQ==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kobs1iufd5VuuAjIqrJ+M9JQH6AjaOqsgHCe2QQeXSA=;
+	b=yqd6LxsBJK/bmrQCpsC6HoqMSV0DF4/QTwq+ab5tyBG6udXw3WnBrgUNWrSwtr7gZ/WY
+	 CIjl/3GfVPjtewrva8VXPuzqvueMGiSWC+Wb22FhQ/gSzEMCf8EMKvolMKF3RSksxUJ1f
+	 sSeZLnNRp9KD+fwdb/Rs34y1DfHfX479ZSoqXld8c8OIBYcHq6kpREl0W4NvGAdxUX1EL
+	 Q9jaBOKqry3m0r7vIe2faxSxYS9l9jytpLscIdAYNkF1vHv2O5SAf8L8qBhOivr2rIbyl
+	 YA4dUC5F2gOX6CEL25nYbDBBxduhCR3tkju6ka75aOsIqjmEW4Tqr88CVcOmPEMXB5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pucFvS3W;
-	arc=none smtp.remote-ip=91.218.175.66
-Received: from mta0.migadu.com (out-66.mta0.migadu.com [91.218.175.66])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Y+ygUMwl;
+	arc=none smtp.remote-ip=95.215.58.139
+Received: from mta1.migadu.com (out-139.mta1.migadu.com [95.215.58.139])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5A8606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:29:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB5A8606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D23606A335
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:30:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66D23606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pucFvS3W
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Y+ygUMwl
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sX0hSFxSFmqYm4dEqA48I5gNAB/p57bOI6zGz5tQowQ=;
+DKIM-Signature: a=rsa-sha256; bh=s/F8VxgW4pEwEvLpz2+yms9bPqiVecWY5EikSvOOQsA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793582947; v=1; x=1794187747;
- b=pucFvS3WZDL1fFZohs1EwUhAuYXRaIZxVQAWzRxzXwqAW0ybTBiHF7fHTNQVyvgoPUl6rvje
- YPtmyZTK9Ss/TCcrXG+PC1qOhW+NHqofwkapFGiK9o8SC4rhbenS1yv/gRFBSiMAS0iXIzwGiu1
- jnFK8YanXRXp/5PIftOyJenc=
+ t=1793583000; v=1; x=1794187800;
+ b=Y+ygUMwlqsBzApa0Pe2og5jhWMDu73EArPrXZFiawNlhZjhN2bUxCJDiKt1oBcoxKwxCkgJP
+ Cg0N6U4LQxktv/Reeer+HqH6VgzOgUEF6tJoKPs/6y8aMucC5imzfw67WT/0b/t6NIPDQL4yVmh
+ zFpSBA/H0sSttGaed8C4A23w=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f967bc48abe79d33;
-	Mon, 02 Nov 2026 01:29:07 +0000
-X-Mizu-Trace-ID: f967bc48abe79d33
+Received: by mta12.migadu.com with ESMTPS id f8a2442e0be9f11c;
+	Mon, 02 Nov 2026 01:29:59 +0000
+X-Mizu-Trace-ID: f8a2442e0be9f11c
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <c4b63601-ab06-4ee0-8d15-4c4acfa35f81@linux.dev>
-Date: Mon, 2 Nov 2026 09:28:53 +0800
+Date: Mon, 2 Nov 2026 09:29:43 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Maoyi Xie <maoyi.xie@ntu.edu.sg>, Jiri Wiesner <jwiesner@suse.de>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Gerd Rausch <gerd.rausch@oracle.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	Yung Chih Su <yuuchihsu@gmail.com>,
+	Wyatt Feng <bronzed_45_vested@icloud.com>,
+	Hannes Frederic Sowa <hannes@stressinduktion.org>,
+	Flavio Leitner <fbl@redhat.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3 4/5] ipv4: restrict igmp_qrv to 255
+Message-ID: <aufnh3qqed0uFdfe@fedora>
+References: <20261101061331.286404-1-jiayuan.chen@linux.dev>
+ <20261101061331.286404-5-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,63 +86,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] cgroup/cpuset: Recompute effective cpumask in
- update_cpumasks_hier() after calling update_parent_effective_cpumask()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20261030190701.78308-1-longman@redhat.com>
- <20261030190701.78308-3-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261030190701.78308-3-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101061331.286404-5-jiayuan.chen@linux.dev>
 
-
-
-在 2026/10/31 03:07, Waiman Long 写道:
-> It is reported by sashiko that calling update_parent_effective_cpumask()
-> may clobber tmp->new_cpus when update_sibling_cpumasks() needs to be
-> called due to possible change in the parent's effective_cpus value.
-> Therefore the new effective cpumask has to be recomputed after calling
-> update_parent_effective_cpumask() to get a correct value back into
-> tmp->new_cpus.
+On Sun, Nov 01, 2026 at 02:12:02PM +0800, Jiayuan Chen wrote:
+> net.ipv4.igmp_qrv only has a lower bound, but ip_mc_reset() stores it
+> into the u8 in_device::mr_qrv, and the IGMPv3 retransmit counters filled
+> from it (crcount, sf_crcount) are u8 as well. Anything above 255
+> silently wraps. With 256, mr_qrv becomes 0, every
+> "in_dev->mr_qrv ?: sysctl_igmp_qrv" falls back to 256, which truncates
+> to 0 again in crcount, and igmpv3_send_cr() never puts the state change
+> records for the group into a report. The older version querier present
+> timeout (mr_qrv * mr_qi + mr_qri) also collapses to just mr_qri.
 > 
-> Fixes: f0af1bfc27b5 ("cgroup/cpuset: Relax constraints to partition & cpus changes")
-> Signed-off-by: Waiman Long <longman@redhat.com>
+> Make the sysctl a u8 like mr_qrv and switch to proc_dou8vec_minmax(),
+> which rejects anything above 255, and document it.
+> 
+> Fixes: a9fe8e29945d ("ipv4: implement igmp_qrv sysctl to tune igmp robustness variable")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 > ---
->  kernel/cgroup/cpuset.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+> For AI review: drivers/net/amt.c writing sysctl_igmp_qrv into the 3-bit
+> qrv wire fields is pre-existing and out of scope for this patch.
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 39c81a0a8ab9..ed014ecb770c 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2359,12 +2359,12 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
->  			update_parent_effective_cpumask(cp, partcmd_update, NULL, tmp);
->  			/*
->  			 * Capture current partition_root_state as it may have
-> -			 * changed. Recompute effective cpumask if changed.
-> +			 * changed. Always recompute effective cpumask as tmp->new_cpus
-> +			 * may be clobbered when update_sibling_cpumasks() is called
-> +			 * within update_parent_effective_cpumask().
->  			 */
->  			new_prs = cp->partition_root_state;
-> -			if (new_prs != old_prs) {
-> -				compute_effective_cpumask(tmp->new_cpus, cp, parent);
-> -			}
-> +			compute_effective_cpumask(tmp->new_cpus, cp, parent);
->  		}
+> v2: switched to u8 and proc_dou8vec_minmax(), as suggested by Kuniyuki
+> Iwashima.
+> ---
+>  Documentation/networking/ip-sysctl.rst                        | 2 ++
+>  Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst | 2 +-
+>  include/net/netns/ipv4.h                                      | 2 +-
+>  net/ipv4/sysctl_net_ipv4.c                                    | 4 ++--
+>  4 files changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+> index 71f334f27004e..9e282fb046904 100644
+> --- a/Documentation/networking/ip-sysctl.rst
+> +++ b/Documentation/networking/ip-sysctl.rst
+> @@ -1906,6 +1906,8 @@ igmp_qrv - INTEGER
 >  
->  		spin_lock_irq(&callback_lock);
+>  	Minimum: 1 (as specified by RFC6636 4.5)
+>  
+> +	Maximum: 255
+> +
+>  force_igmp_version - INTEGER
+>  	- 0 - (default) No enforcement of a IGMP version, IGMPv1/v2 fallback
+>  	  allowed. Will back to IGMPv3 mode again if all IGMPv1/v2 Querier
+> diff --git a/Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst b/Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst
+> index 3dc03bff739e4..2833ce6cba1d4 100644
+> --- a/Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst
+> +++ b/Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst
+> @@ -143,9 +143,9 @@ int                             sysctl_udp_rmem_min
+>  u8                              sysctl_fib_notify_on_flag_change
+>  u8                              sysctl_udp_l3mdev_accept
+>  u8                              sysctl_igmp_llm_reports
+> +u8                              sysctl_igmp_qrv
+>  int                             sysctl_igmp_max_memberships
+>  int                             sysctl_igmp_max_msf
+> -int                             sysctl_igmp_qrv
+>  struct_ping_group_range         ping_group_range
+>  atomic_t                        dev_addr_genid
+>  unsigned_int                    sysctl_udp_child_hash_entries
+> diff --git a/include/net/netns/ipv4.h b/include/net/netns/ipv4.h
+> index cb7f8bf15671c..3efbc7f4b4f7d 100644
+> --- a/include/net/netns/ipv4.h
+> +++ b/include/net/netns/ipv4.h
+> @@ -258,9 +258,9 @@ struct netns_ipv4 {
+>  #endif
+>  
+>  	u8 sysctl_igmp_llm_reports;
+> +	u8 sysctl_igmp_qrv;
+>  	int sysctl_igmp_max_memberships;
+>  	int sysctl_igmp_max_msf;
+> -	int sysctl_igmp_qrv;
+>  
+>  	struct ping_group_range ping_group_range;
+>  	u16			ping_port_rover;
+> diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
+> index e3760daa34706..09f7fc6771456 100644
+> --- a/net/ipv4/sysctl_net_ipv4.c
+> +++ b/net/ipv4/sysctl_net_ipv4.c
+> @@ -975,9 +975,9 @@ static const struct ctl_table ipv4_net_table[] = {
+>  	{
+>  		.procname	= "igmp_qrv",
+>  		.data		= &init_net.ipv4.sysctl_igmp_qrv,
+> -		.maxlen		= sizeof(int),
+> +		.maxlen		= sizeof(u8),
+>  		.mode		= 0644,
+> -		.proc_handler	= proc_dointvec_minmax,
+> +		.proc_handler	= proc_dou8vec_minmax,
+>  		.extra1		= SYSCTL_ONE
+>  	},
+>  #endif
+> -- 
+> 2.43.0
+> 
 
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Tested-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-
-Thanks,
-Guopeng
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
