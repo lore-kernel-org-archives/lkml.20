@@ -1,82 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622842;
-	b=ju18jJqnjHTCEnyB6JLdkp58YJu29QM0ba9V77wpJJDGtgKQ8zWwpg0hnsQg1/v9YPdw
-	 Q9YcsG7AehDQlZThhtpsBHTyBth30OUVBJaMJ833GA3uFLfn2ZdGXO6OjXkERoR7amZ9l
-	 VS6GA8y4uYaBSJ1AxycA3d+rX9GfDwR5nb02NzxqnZpcYJnx/voPo5PBuhLmcJ9Ga8ejG
-	 ZYgg5j25scpBCbPYIkePTWuxoUYmWEKOmNsz1pcHjuzTrVftYcstc40IiXIFwk4KmASaf
-	 tfufXhcC4lRED4a3FPPum9jQZBZ1+qgPN78/XZBT8HDwfjT46jAkP2dBS+QPB/gAo4w==
+	t=1793622866;
+	b=07iQdKBI0lLmuQLKVrg2X0XAmsqu0LZ2uoy/Z7dU+e8NG30waDzz3mhTz6P6f9nfpSOb
+	 kGDUQDdJ2Bbkq0eGPbUGqV1cTio4TOlicEs0/6vBrrplzqqb1YDqJ2teR014uFOYO/mXK
+	 ieakMQnnXl3G+7PlJmngXcb+5QvXHnwP9a9AzR9rQzGsS/GcNYXDC+Mo6fWrAlzp5QLUy
+	 XdwdKqoIXCs0IwCRGqL24u6SSa6+62K8+2QSt6kwyYoZz5GcC/5V63haCB2k0XBo+U9YS
+	 eedPpmVBwVLS/h7E48g1YP3CEuMn+ZyjjxU1Ji50UAFZV/Y4iJHwPN0l+nFsydKwfjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622842;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ERFb/4pZagHFCs7MRUpaYMoBff9MSs/0QNXJcVIpqaY=;
-	b=RsXwkztNHLeLfQ4FFeHlRNNvO2ECvUZ8j21PZ6TOvkD7UDBQekdSEHJc96ojp3ZCeHke
-	 e5Y79doHXQj9Mcpvgz2hf0TXHNLIj72y4/hscdKL1KZs1vzcbHGHC8g28Fq2upuD+9gk5
-	 OpjiAlfxZjhVt92t3yDvwojnLZjri8wzCH3n0XBi+8I9fPRxvTWnNsTiVr2SRtXqqrjq9
-	 2LdN3ert2+E4BazPb0MxorJwlz+4aFgtfEP5aCgr9dzWOwvh07DzPgf62EpjyBMBDauKo
-	 qzqZqeoAam6Q0lILw/8Vki/vGORcmmwfzqk2MMCLe6aLQ1zzS2Aj7CYEVijZeegDCUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622866;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=VHR2wmYq7evlbOMXxZo7N5sGiKLQtqsE8M9Nv0sAcLQ=;
+	b=vDGbIyIQn5tf9XkWZo6vquIti0K5Lcbp3x9vsoaqLYDmTsz2BTUmmPkU+pDUy0/8DSV+
+	 u0fKzEOAPRbB9kXPmq9pP4cnh4SzyA1+SjShIPxjZtxe+PeuWtcWJdUdLSxCmYvN7G61S
+	 lCy6T0Bz9+wrdH1ClhtDYnLEZgUx1pUCq/LJhy6oYfq5NuMsursGHet5h4hvp4xpsbcX2
+	 jElEfXz75vrDjC6Bqz2IV94fJ4/TTUGIcsJ4vPyFzTPMjhzYopG/SvbQsRhsoymO6Dj1e
+	 Y8sKtHts6U2+Mc8QQUIrZyHU6uuIfnffC9Bl+DvzZfwPDC1NZqn6PITSSBaJB0o7e3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QdQKeJ5B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KfZYqXf9;
+	arc=none smtp.remote-ip=91.218.175.28
+Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6D4606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:34:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE95B606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:34:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE95B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QdQKeJ5B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB211F00A18;
-	Mon,  2 Nov 2026 12:33:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793622841;
-	bh=ERFb/4pZagHFCs7MRUpaYMoBff9MSs/0QNXJcVIpqaY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QdQKeJ5BsIoDlme6gNWtDqK6f3GwZCgeYN4gIySuQv+cPn7TsIVM5wO7gl+c9Tqo/
-	 fU6buhP8+018nyBI7CmJjMfFZXWX5wKctuoNCDMhxxirKAgJWySavZW73xnQBMvws8
-	 +RDF4uEuX5kTlz8k+zWcxK1UJQ3jgIi6nZlBz+GbEZ/DhdgTzsm53pZL3+lw0E8J3l
-	 HgODW4TTM/U0rQzrzD066C2DqOVsIqEdYQAV1+/WnY25jOsjEP4Cru2iEtYb7CWZE7
-	 0VumMjVk7tcHNAOTch/ScORa7POyfsl35S4dFeRrETxAttBeOGDCuIDIGE4Feig0iN
-	 2UWCeQKC4VL0w==
-Date: Mon, 2 Nov 2026 12:33:47 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Alistair Popple <apopple@nvidia.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Brendan Jackman <brendan.jackman@linux.dev>, 
-	Byungchul Park <byungchul@sk.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	Chris Li <chrisl@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Dave Chinner <david@fromorbit.com>, David Rientjes <rientjes@google.com>, 
-	Dennis Zhou <dennis@kernel.org>, Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, 
-	Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Hugh Dickins <hughd@google.com>, 
-	Jann Horn <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	John Hubbard <jhubbard@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	"Liam R. Howlett" <liam@infradead.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Nick Piggin <npiggin@gmail.com>, 
-	Nico Pache <nico.pache@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, 
-	Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Will Deacon <will@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
-Message-ID: <auiDADcPkGKMf2Sf@gremlin>
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
- <1c46e678-1da8-473d-960e-5aa22d4d7e73@kernel.org>
- <20261101123025.4d8133d5321820f2202c8f1a@linux-foundation.org>
- <1b4d0299-4232-43eb-9229-7d2a2a7ce2fc@kernel.org>
- <auhw4mBAqzKU_-DE@gremlin>
- <4adcc07a-2df9-4d5b-8b0f-6734e336182e@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KfZYqXf9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nTo7J1ByDV3R803n4yFBSPlPgMm0dVzqitGLHvB5604=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793622863; v=1; x=1794227663;
+ b=KfZYqXf9llRLeVn0N8NFxC/MEKZkEp81uwCTw/jQud0fGzxtF0ceZtQPRbsLQEl2V/2LJKe+
+ u3lHK1xYDz2BgUhh+5fv3yW40aBcdlJPga6DEQxe2cqjlDqTUbZd8HnvGPLHSwTpF/8tf9mwAvb
+ AIaVPgkB/jGGSX0DWebEyZMM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 78ee8f4e54d06351;
+	Mon, 02 Nov 2026 12:34:23 +0000
+X-Mizu-Trace-ID: 78ee8f4e54d06351
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,42 +57,163 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4adcc07a-2df9-4d5b-8b0f-6734e336182e@kernel.org>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2 04/12] mm: hugetlb_vmemmap: generalize vmemmap page
+ allocation
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <179361471104.1337633.3959715900505206111.b4-review@b4>
+Date: Mon, 2 Nov 2026 20:34:03 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Lance Yang <lance.yang@linux.dev>,
+ James Houghton <jthoughton@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <09EF0F81-23CA-4F3C-BA0E-41F34A0AA4B2@linux.dev>
+References: <20261102032525.3597743-1-songmuchun@bytedance.com>
+ <20261102032525.3597743-5-songmuchun@bytedance.com>
+ <179361471104.1337633.3959715900505206111.b4-review@b4>
+To: Mike Rapoport <rppt@kernel.org>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-On Mon, Nov 02, 2026 at 01:32:10PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/2/26 12:17, Lorenzo Stoakes (ARM) wrote:
-> > On Mon, Nov 02, 2026 at 07:47:46AM +0100, David Hildenbrand (Arm) wrote:
-> >> On 11/1/26 21:30, Andrew Morton wrote:
-> >>> After that I need to have it whack away at selftests, shudder.
-> >>
-> >> I am not convinced yet that we want that for all tests, which is why I left it
-> >> out. There is too much churn that's not really relevant for a component
-> >> maintainer POV.
-> >>
-> >> I was rather thinking that maybe we'd want a MM selftest component (likely for
-> >> the later MISC maintainer) that picks up the usual selftest churn. Component
-> >> maintainers really only have to be CCed on functional things.
-> >
-> > Hmm, but some of these tests are establishing important invariants. I wouldn't
-> > want somebody fundamentally changing what the guard region tests do for
-> > instance.
-> >
-> > On the one hand the churn (especially now) is annoying, on the other hand I can
-> > just ignore mail I don't care about.
->
-> Well, as a listed maintainer you'd be expected to pick up these things.
->
-> So I'd much rather have a dedicated selftest maintainer that takes care of these
-> things.
->
-> OFC we can still add these tests cases to the relevant sections; we just have to
-> figure out who will pick up most simple changes.
 
-Yup, files can live in >1 sections at once, which should solve it from both
-sides.
 
---
-Cheers, Lorenzo
+> On Nov 2, 2026, at 18:18, Mike Rapoport <rppt@kernel.org> wrote:
+>=20
+> Hi Muchun,
+
+Hi,
+
+It's my email client's fault. Let me email it again.
+
+>=20
+>> Vmemmap page allocation is currently tied to restoring a virtual =
+range
+>> and assumes an empty destination list.  These constraints prevent it =
+from
+>> being reused when pages are requested independently of a vmemmap =
+range or
+>> appended to an existing list.
+>>=20
+>> Generalize the allocator and give it an all-or-nothing list contract =
+so
+>> the restore and optimization paths can share the same allocation =
+policy.
+>> This also allows HVO head-page allocation to fail gracefully under =
+memory
+>> pressure without triggering the OOM killer.
+>>=20
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+>> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+>> ---
+>> v2:
+>> - Collect Reviewed-by from Lance Yang and Qi Zheng
+>> ---
+>> mm/hugetlb_vmemmap.c | 39 ++++++++++++++++++---------------------
+>> 1 file changed, 18 insertions(+), 21 deletions(-)
+>>=20
+>> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+>> index 0e5b2b182d1bf..4b20a8efc0678 100644
+>> --- a/mm/hugetlb_vmemmap.c
+>> +++ b/mm/hugetlb_vmemmap.c
+>> @@ -334,28 +334,26 @@ static int vmemmap_remap_free(unsigned long =
+start, unsigned long end,
+>> return ret;
+>> }
+>>=20
+>> -static int alloc_vmemmap_page_list(unsigned long start, unsigned =
+long end,
+>> -				    struct list_head *list)
+>> +static int alloc_vmemmap_page_list(struct list_head *head, unsigned =
+int nr_pages,
+>> +				    int nid)
+>=20
+> Please indent with two tabs, like David likes :)
+> Applies throughout the series.
+
+Sure. Should we update scripts/checkpatch.pl in the future for MM,
+since this script seems to favor the alignment approach?
+
+>=20
+>> {
+>> -	gfp_t gfp_mask =3D GFP_KERNEL | __GFP_RETRY_MAYFAIL;
+>> -	unsigned long nr_pages =3D (end - start) >> PAGE_SHIFT;
+>> -	int nid =3D page_to_nid((struct page *)start);
+>> -	struct page *page, *next;
+>> -	int i;
+>> +	LIST_HEAD(local);
+>=20
+> Can we use a better name here please? E.g new_pages?
+
+Yahs, make sense.
+
+>=20
+>>=20
+>> -	for (i =3D 0; i < nr_pages; i++) {
+>> -		page =3D alloc_pages_node(nid, gfp_mask, 0);
+>> -		if (!page)
+>> -			goto out;
+>> -		list_add(&page->lru, list);
+>> +	for (unsigned int i =3D 0; i < nr_pages; i++) {
+>> +		struct page *page;
+>> +
+>> +		page =3D alloc_pages_node(nid, GFP_KERNEL | =
+__GFP_RETRY_MAYFAIL, 0);
+>> +		if (!page) {
+>=20
+> I think goto err_do_cleanup is cleaner than ad-hok cleanups
+
+I=E2=80=99ll use goto style, either is OK for me.
+
+>=20
+>> +			memmap_pages_add(i);
+>=20
+> This is confusing. Updating counters only to use
+> free_vmemmap_page_list() seems worse choice than walking the list and
+> __free_page().
+
+I think the memmap accounting should be done right after each successful
+allocation =E2=80=94 that way, using free_vmemmap_page_list() becomes =
+more natural
+and simple.
+
+Somthing like:
+
+diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+index c04f53f708d2..cab9ec14873d 100644
+--- a/mm/hugetlb_vmemmap.c
++++ b/mm/hugetlb_vmemmap.c
+@@ -207,14 +207,13 @@ static int alloc_vmemmap_page_list(struct =
+list_head *head, unsigned int nr_pages
+=20
+                page =3D alloc_pages_node(nid, GFP_KERNEL | =
+__GFP_RETRY_MAYFAIL, 0);
+                if (!page) {
+-                       memmap_pages_add(i);
+                        free_vmemmap_page_list(&local);
+                        return -ENOMEM;
+                }
++               memmap_pages_add(1);
+                list_add(&page->lru, &local);
+        }
+        list_splice(&local, head);
+-       memmap_pages_add(nr_pages);
+=20
+        return 0;
+ }
+
+Thanks for your review, Mike.
+
+Muchun
+
+>=20
+> --=20
+> Sincerely yours,
+> Mike.
+
+
