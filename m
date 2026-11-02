@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633235;
-	b=By/qwp9yZ+KXj2lTbj+EGfU97T/6dGkk400J3TEPXeSF9gGtCS5b0wzJGNEfFwa92gF/
-	 5zNZm+Gy505811BB6ud/qDqzliSx1ykP1cDKnL9VaMyOCOjgJ8DKdCCazezGW90dvTyfc
-	 dH4s/AbQR4Kt5qR3b0D2RCyVzf4QTa8VXm3pFD++es8Cczi9ItcGAnba55hO4PrrcyrpU
-	 mpi2qbUYZ1GgzrvFaVLBQBhykn8K9t6NUnoiREIKrHVgA+uulB6xPxWfRkoI/akqR5pkF
-	 AVrQKnOKMVreExCpZ4ugQP+oHFUplaZwG1aldmy9PHk+8aEBB75MXyfnNI7J6Er+Qaw==
+	t=1793633265;
+	b=d9RY3Zk7l5V+QRAI1c0e1zt69MXo2536l0H80n1lZdcIl9B1dF7IGPbx5E4uM+ThRKZN
+	 MD6OUsbrrKI+2Txe6IElc2oyIQbRfyWG6EmQu5s62aHHXtvEbU2fZS2tt35Rn8mFro1jb
+	 5Lq0DdUzE7wzJ9KRtGGjcNWaUjqgbzjnq/TqR6nKZWMZ4yv8dU597Ma9to2U2VRiPLQNS
+	 5VcJT8R1+uAdI4iUTPImzK944YoETBsrzlvHsyUIxC4F26qTzpI/BJozseJz2PvF/wYun
+	 d651z2HpXtmTiXcYJcMR43WNctp19IvTnofROL13/bPP+CAN5OZl9ROZiw3c8p+6R+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633235;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=XTKgYPXjwGtd+Y2GluPCJ0QXSAilsjtjyt0vuaHdwds=;
-	b=hlbgacfx3xUF1EOGljUeu7ub7TiRH8IL1+2Nk5YBuktN/Hh9/I36qfy/es8LsG0BJwqH
-	 ryu2nXCL8QIIeNYWllxlcuOdZH1gE3D+tjtEiAVpWf3vAbAjOsD6dztzDN4KJDWw5W38z
-	 InCxfyX252pUJ781ZBqBgnUM0DI3Wga/0tKnswYSQbXe8/Wasy20o7RjWbaRLhDNfM0Bq
-	 kbcAi8rF88lk4ICpuV3kLRIhpac8sFYi0H/bFFZI1YsZYfEr6qqKCq21EVWsum1rWeTRs
-	 dWpc6f8ISY3eVqnqoYo7EP+pNCwIyI9pjucNmqBCinyYQOMQ0o2iwB2cDsLD6YZzsAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633265;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=E+WJCb0x545P4FxtH1E2h0wXkiVLDIgDYMHDkPKsf+0=;
+	b=3CIVlpKqFxpEFUw6dYQ+/mALXIt+mcGySkm4+zXqPwIZYMKwhfxZfIkc6nZ/eJkKbQ9G
+	 pqGIHkwJrsov8WNvoRjOtS0Rlq0bRhFfrQkPpmww0jEagFCU7bCXep5yHsrAEuJZdwW9g
+	 5flAyj/QFDYXFT4oXKtJy2qHEBg5MmHSu4WhRyZH4rdOQ0o4IWSsgiiHlC0qowBTBXrck
+	 Pw2bbfgAVnv42jZAAdf97gYZwOpG+NsULKDBpClrEU/wAxXWVQsLN1piuOJMz59sdVgTx
+	 CLdmO+ELI199OGGG2mmPAXOXetFqqdY5jIA5rG32Ddb4PHhypKBH55gAAHsp7DrJPsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kxAPIiB8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1BB60716C5;
-	Mon,  2 Nov 2026 15:27:15 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iUiEmSD4;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC61A6084404;
+	Mon,  2 Nov 2026 15:27:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC61A6084404
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kxAPIiB8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497371F00A16;
-	Mon,  2 Nov 2026 15:26:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633234;
-	bh=XTKgYPXjwGtd+Y2GluPCJ0QXSAilsjtjyt0vuaHdwds=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=kxAPIiB8bZX2oCCzHcBO+Z+9M3+BVX1rvIx7nyXXRvMDmlNh8VaOR2aKmZd2R34hH
-	 Gw7+HXTv7VzusgWsZ9GsA33MUpaeH7qM1+3/U0mI5dpdOtBvO7SVe8UgtTS9zRl74w
-	 zVpSeL4wIOUBkjK4em3j/1wqw6UAi3uG8FIvW3rat4+P86CWAWdzAlWUQvV7vMVEpa
-	 S38kzwkwiuMhgYyorFO1fD6ITanbo/Z9kHp1r8cLKvafivXAqupn5zK/psHYFqdIdf
-	 /8feMEEXHbH1Vr1KKZJEdv5qVbaXwV5kRtN7tZQOORDjsgRAwj5Ih1oUQUGUkibHAd
-	 /P9IyT6izArUA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:31 +0100
-Subject: [PATCH RFC 21/27] dyndbg: let procfs copy in writes to
- /proc/dynamic_debug/control
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iUiEmSD4
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D55611A2D;
+	Mon,  2 Nov 2026 07:27:40 -0800 (PST)
+Received: from [10.57.16.53] (unknown [10.57.16.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 771FF3F673;
+	Mon,  2 Nov 2026 07:27:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793633264; bh=MA0wJktlelkcy3XBNiJpalBEAbq1IO+tK9N/ksbMS1o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iUiEmSD4LfgWJt5/IwGClHilW1CH8h5590EKF8/yhxcYxyISGMw8UBeZneqeq9Wa4
+	 C0nzCQZV2MMrnQqhhw5d3/WSqbJQ3uYxWsrIBNTs6GGL5rfF1w4x0Xy31E/FhNTMT/
+	 HI5P1O9xWjevhZ8DHIjCYidriJwOdbEYnxWNglbk=
+Message-ID: <3ed2a68b-d066-4a3a-b3ed-30a5ca00ae38@arm.com>
+Date: Mon, 2 Nov 2026 15:28:12 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,127 +53,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PM: EM: Rank boost and non-boost frequencies separately
+To: Guo Chen <guo.chen@oss.qualcomm.com>
+Cc: "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Vincent Donnefort <vincent.donnefort@arm.com>, Len Brown <lenb@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, xin.liu@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, tengfei.fan@oss.qualcomm.com,
+ tingwei.zhang@oss.qualcomm.com, Pavel Machek <pavel@kernel.org>
+References: <20261030-em-rank-boost-separately-v1-1-238a6b2bb888@oss.qualcomm.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <20261030-em-rank-boost-separately-v1-1-238a6b2bb888@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-fs-v1-21-d09a996317b3@kernel.org>
-References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2226; i=brauner@kernel.org;
- h=from:subject:message-id; bh=DMKbMmltc6KGAMcxoyJUHD9hv4JrUkNBMnfQsx/+9Q8=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG7ceqHmw/8zQZt7jtfybdlxWv7H8x3cq8MvN69Km
- /uTde1Zq45SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJONky/M//M+f6NIdFl39X
- +W2ZGKtX/Hnx0w8TwmWPzuNxWv/xS38Hw1/hO5kJ4eWe3065F7wIPZknI/zsrm6z8qW9zQ0q7Vs
- 0K5gA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Move the parsing into ddebug_proc_write_buf() and implement
-->proc_write_buf() with it so procfs copies in what is written before
-it pins the entry. The debugfs file keeps copying in itself. Writes
-larger than USER_BUF_PAGE - 1 bytes to the procfs file now fail with
--EINVAL from procfs instead of -E2BIG.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- lib/dynamic_debug.c | 34 ++++++++++++++++++++++------------
- 1 file changed, 22 insertions(+), 12 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 64a211290872..1d6012c9eb41 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1002,11 +1002,28 @@ __setup("dyndbg=", dyndbg_setup);
-  * command text from userspace, parses and executes it.
-  */
- #define USER_BUF_PAGE 4096
-+
-+static ssize_t ddebug_proc_write_buf(struct file *file, char *buf, size_t len,
-+				     loff_t *offp)
-+{
-+	int ret;
-+
-+	if (len == 0)
-+		return 0;
-+	v2pr_info("read %zu bytes from userspace\n", len);
-+
-+	ret = ddebug_exec_queries(buf, NULL);
-+	if (ret < 0)
-+		return ret;
-+
-+	*offp += len;
-+	return len;
-+}
-+
- static ssize_t ddebug_proc_write(struct file *file, const char __user *ubuf,
- 				  size_t len, loff_t *offp)
- {
--	char *tmpbuf;
--	int ret;
-+	char *tmpbuf __free(kfree) = NULL;
- 
- 	if (len == 0)
- 		return 0;
-@@ -1017,15 +1034,7 @@ static ssize_t ddebug_proc_write(struct file *file, const char __user *ubuf,
- 	tmpbuf = memdup_user_nul(ubuf, len);
- 	if (IS_ERR(tmpbuf))
- 		return PTR_ERR(tmpbuf);
--	v2pr_info("read %zu bytes from userspace\n", len);
--
--	ret = ddebug_exec_queries(tmpbuf, NULL);
--	kfree(tmpbuf);
--	if (ret < 0)
--		return ret;
--
--	*offp += len;
--	return len;
-+	return ddebug_proc_write_buf(file, tmpbuf, len, offp);
- }
- 
- /*
-@@ -1196,7 +1205,8 @@ static const struct file_operations ddebug_proc_fops = {
- static const struct proc_ops proc_fops = {
- 	.proc_seq_ops = &ddebug_proc_seqops,
- 	.proc_state_size = sizeof(struct ddebug_iter),
--	.proc_write = ddebug_proc_write
-+	.proc_write_buf = ddebug_proc_write_buf,
-+	.proc_write_size = USER_BUF_PAGE - 1,
- };
- 
- static void ddebug_attach_module_classes(struct ddebug_table *dt,
+On 10/30/26 08:10, Guo Chen wrote:
+> em_compute_costs() ranks all the frequencies of the table, boost ones
+> included. A non-boost frequency can be marked inefficient only because
+> a faster boost frequency has a lower or equal cost, e.g.
+> 
+>    3.9 GHz  4.0 GHz (cost C)  4.1 GHz (boost, cost C)
+> 
+> With boost disabled 4.1 GHz cannot be selected, but 4.0 GHz is still
+> skipped by governors rounding down to efficient frequencies (e.g.
+> ondemand with CPUFREQ_RELATION_HE), which land on 3.9 GHz instead of
+> the best selectable frequency. Several frequencies can be affected.
+> 
+> Rank boost and non-boost frequencies separately in em_compute_costs(),
+> using the highest non-boost frequency of the CPUFreq table, returned by
+> the new helper cpufreq_table_max_nonboost_freq(), as the boundary.
+> 
+> Fixes: c8ed99533dbc ("PM: EM: Mark inefficient states")
+> Signed-off-by: Guo Chen <guo.chen@oss.qualcomm.com>
+> ---
+>   include/linux/cpufreq.h     | 24 ++++++++++++++++++++++++
+>   kernel/power/energy_model.c | 15 +++++++++++++++
+>   2 files changed, 39 insertions(+)
+> 
+> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+> index d3d0d9d02aa4..c93316141a11 100644
+> --- a/include/linux/cpufreq.h
+> +++ b/include/linux/cpufreq.h
+> @@ -1155,6 +1155,24 @@ cpufreq_table_set_inefficient(struct cpufreq_policy *policy,
+>   	return -EINVAL;
+>   }
+>   
+> +static inline unsigned int
+> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
+> +{
+> +	struct cpufreq_frequency_table *pos;
+> +	unsigned int max = 0;
+> +
+> +	if (!policy->freq_table)
+> +		return 0;
+> +
+> +	/* The table may be unsorted, scan all of it for the highest one. */
+> +	cpufreq_for_each_valid_entry(pos, policy->freq_table) {
+> +		if (!(pos->flags & CPUFREQ_BOOST_FREQ) && pos->frequency > max)
+> +			max = pos->frequency;
+> +	}
+> +
+> +	return max;
+> +}
+> +
+>   static inline int parse_perf_domain(int cpu, const char *list_name,
+>   				    const char *cell_name,
+>   				    struct of_phandle_args *args)
+> @@ -1219,6 +1237,12 @@ cpufreq_table_set_inefficient(struct cpufreq_policy *policy,
+>   	return -EINVAL;
+>   }
+>   
+> +static inline unsigned int
+> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
+> +{
+> +	return 0;
+> +}
+> +
+>   static inline int of_perf_domain_get_sharing_cpumask(int pcpu, const char *list_name,
+>   						     const char *cell_name, struct cpumask *cpumask,
+>   						     struct of_phandle_args *pargs)
+> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
+> index d19a65461ae8..253c53ca6a74 100644
+> --- a/kernel/power/energy_model.c
+> +++ b/kernel/power/energy_model.c
+> @@ -255,15 +255,30 @@ static int em_compute_costs(struct device *dev, struct em_perf_state *table,
+>   			    unsigned long flags)
+>   {
+>   	unsigned long prev_cost = ULONG_MAX;
+> +	struct cpufreq_policy *policy;
+> +	unsigned int max_nonboost = 0;
+> +	bool prev_boost = false;
+>   	int i, ret;
+>   
+>   	/* This is needed only for CPUs and EAS skip other devices */
+>   	if (!_is_cpu_device(dev))
+>   		return 0;
+>   
+> +	policy = cpufreq_cpu_get(dev->id);
+> +	if (policy) {
+> +		max_nonboost = cpufreq_table_max_nonboost_freq(policy);
+> +		cpufreq_cpu_put(policy);
+> +	}
+> +
+>   	/* Compute the cost of each performance state. */
+>   	for (i = nr_states - 1; i >= 0; i--) {
+>   		unsigned long power_res, cost;
+> +		bool boost = table[i].frequency > max_nonboost;
+> +
+> +		if (boost != prev_boost) {
 
--- 
-2.53.0
+We expect in EM fwk that the frequencies are sorted ascending
+and we return error during setup if the driver callback fails
+to provide that.
+Therefore, in this code we don't have to deal with random
+'boost' labels with gaps between.
+
+Let's make all OPPs which are 'boost' equally possible
+to reach (at least in theory), so label them as
+'efficient'. I think this is fair in 'boosting' case scenario
+and energy has not that importance in it.
+
+So simply something like, would be enough IMHO:
+
+if (boost)
+	prev_cost = ULONG_MAX;
+
+
+> +			prev_boost = boost;
+> +			prev_cost = ULONG_MAX;
+> +		}
+>   
+>   		if ((flags & EM_PERF_DOMAIN_ARTIFICIAL) && cb->get_cost) {
+>   			ret = cb->get_cost(dev, table[i].frequency, &cost);
+> 
+> ---
+> base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> change-id: 20261029-em-rank-boost-separately-a7e7c7d78058
+> 
+> Best regards,
+> --
+> Guo Chen <guo.chen@oss.qualcomm.com>
 
