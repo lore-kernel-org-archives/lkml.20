@@ -1,114 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631880;
-	b=cP7sVV+daDODS+3DLnVR34OEcPIAbK/PdM6o0iFjf5qf9W2m9wRKU12ovIGCgmu9uCjD
-	 9KOIHprOXNiAgWZZn/muPJWKrXvyWIjatEnpzMwQvGRNoqivmBiZw67I242rMJKf37h1L
-	 mwOXd72JyrzPiLVEr/bJMBO2/incbjwZioY+1ublRcuzN/4WxmeoAWo/W0bO5edviIMG6
-	 FL0oQ6eyhX+dVmVDVovH3RQHxV5rjw2d0hfDrSzRSuRTMZ71k0BWgAAXRvfFnEa//QgNp
-	 A4c8a+hdnZ+PI0f2UtYiRn+VRPOdZ19TCxwQwTNcVQ/Xx/JTk3cb+1gv/f7W239800w==
+	t=1793631915;
+	b=Lo2GAgZvXh0b6vObijxOPVdE8rDbFspFRb/nAHuEBlfm/lJDBXSyZuIWn/ATlMJrSGES
+	 XDULjuLRpjjODx9Jmczh/HnN28i+uHWHWvKSUVAPT20sjUsgTMD204TVfLjICpoVFZ0Ip
+	 LnbUHnj+wr8brTtFsjUZTwhVQli0t0lWRBZqPtd5OAjPAuiuUyNBCl/qzwBViBG+A3w51
+	 TDwAfPvQTILNYBjcVGXv5gEl5OU2lVMqcriRvYcH5VMr8nSByF/tznnGTGwTL/OFKkIK+
+	 KfCZvL/f+thkZjWh9oTu+qAr5a1ezl24lJ5d6bAlZ7Jw16//MbbecBURq0PDz8ingwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631880;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
-	b=NbCpGhq5IWsZ6JehzqC92v1bIOb/x4+GnUtE23I5f7Trn6gPgmkvWVTqQWxC9eXNioq5
-	 n+GNjtGaTpDyj/Kpew24eFqYYZWwpu+hOFQcA2Nns12tPC5hZAsjadzhSBsfFTdaySK9P
-	 qyyMhZwgUyQtnIm0UhmPEMxxyZNdrmqKivKJTmmjHcj9yWCeEjgWMds2FDRHsTMIqGDOW
-	 o5n43rz9KPhPaAS5LvTECXe3qFlQiUrtFTf7wiDH2fdeKWz5FX21bSbPB/T2MHLRu/oNI
-	 gZNGfd9MgaJBxZj0mTfXBRNsrHVcccsIH9b9jn6AW6OR2mZpHp3C97My7TVBCvPML9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631915;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=/usm8OdHJAbA2hfj2koEwGvMkvG3A+8dTBDDaCx7vxs=;
+	b=0f9RNaIkHqHTHXXfNtMVQyXi6HHXBqBXERquCXoUIkndbi6kTFxA38Kj/VbWQvDxUYL5
+	 PKcbaecd/6hJYYVI44RlV6o72pxcdg+OVQEPCw2LFUoeLTb53wWN+C7cppImpgrX7uFRI
+	 M+T2l4ITRFJXEVUvhW3ClpM3ic/M0XyBPh7Oxk3qc35CaJSkatBHDI1n7oSwLiM0y2ZZq
+	 /nVrukbUr8E/fjh26QkpDVpXsZpqGJflvh1fA7j6hkZOFUFOk5MsVef/yeUteqCY34ISW
+	 8x3vsGKhyZitfpWkIphUAkZxk32GoTVG1DceeOZ9PQRl31dghGaIK7v+7SoqlI0jVSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ym0V8ERo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+O1trQrU;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r5HEpL+J;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UPM1v8oD;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwaRh4oG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30E66085088;
-	Mon,  2 Nov 2026 15:04:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E30E66085088
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3D5606AB90;
+	Mon,  2 Nov 2026 15:05:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ym0V8ERo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+O1trQrU;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r5HEpL+J;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UPM1v8oD
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E93311F7FB;
-	Mon,  2 Nov 2026 15:04:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793631878; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
-	b=Ym0V8ERo2TdfCQMjUEy9xrS7WpPPUaaAdSm9ninyrN+n8B586btwkIjKPcCA929cPTP0lb
-	pO+dIGxtP04a9zPiFkaLxhDlV/7RYKZoEG4iBLyCcVfgYU3XpFNGVfbZwAx8Gqip5RlH1z
-	/6X2BJmjJjiDpBEjuzjmUAJ6JG2J8fs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793631878;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
-	b=+O1trQrUxomczyPFDSMFWH25Edfmdc+7LPO2ZXENNC6ihIuz17PMY30TYFbkaLBQ9fTwVv
-	CFPXUHzqfmZ1lrDg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=r5HEpL+J;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UPM1v8oD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793631877; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
-	b=r5HEpL+J9KnvodNqUWGZDJ1OPJVPVmptlF7NJ8er0/r9AV+po1B9Of1b0kY3neIb1NTVLp
-	UMY1NDQHbLscQosV7J/ILpqkQ93R0j7isWzVJxuPC6xxPFzSnZOp6queKpoVxxYluKPbUP
-	2NoENqPWZg5hz7wviLN4SAcU3TKuRP8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793631877;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
-	b=UPM1v8oDLoFr/x0U1TspMjjhgMs0LrSL3/jv4StxTUBckQb/Sr9J7SzCftXRaxU21Gbhlg
-	x1u7cUdo4cRzN+Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 86CE8134B8;
-	Mon,  2 Nov 2026 15:04:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Jr/VFYWm6GouYAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 15:04:37 +0000
-Date: Mon, 02 Nov 2026 16:04:37 +0100
-Message-ID: <87pkwn8ebe.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Cc: tiwai@suse.de,
-	cezary.rojewski@intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	rosenp@gmail.com,
-	tim.bird@sony.com,
-	tiwai@suse.com
-Subject: Re: [PATCH] ALSA: pcm: Fix source frame count calculation
-In-Reply-To: <20261102144736.3679-1-sreekuttan2156239@gmail.com>
-References: <87wlqv8ftw.wl-tiwai@suse.de>
-	<20261102144736.3679-1-sreekuttan2156239@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwaRh4oG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1171F00A1B;
+	Mon,  2 Nov 2026 15:05:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793631915;
+	bh=/usm8OdHJAbA2hfj2koEwGvMkvG3A+8dTBDDaCx7vxs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=GwaRh4oGylUX6g6CEqPXd69Ibpr3KQmakI0Nld+n+JLGApofu8ygx4WwNRI60EvYf
+	 DSOWIV++3VospwIjrvRsrg0mfaY7gRgUeihp43Au6D6HgV7Xv8KolBhRU7xFnfQdC1
+	 T7WNrsjJHzUGFZHB3CY8jnJ95TWdIrLVspjluFdHIKRvTNa2WFPvdVn+u5eXib/14W
+	 9Mf7AL8v6CpiYBfwScgPVzymR7ApEayesBtx54t9q1NbuhjbVtR1b4mKqnuDg4Wxmn
+	 KCXgiDmRsG7or4q0U1UicO9HEaUHCZVEQAI8u1qAq9b4HgJ4PMYdAOqXF8iMKD4/CK
+	 FsxoDOM8JDDag==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 16:01:38 +0100
+Subject: [PATCH RFC 11/22] um: let procfs copy in writes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,60 +51,123 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: E93311F7FB
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.de,intel.com,vger.kernel.org,perex.cz,gmail.com,sony.com,suse.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-arch-v1-11-c9492ab08480@kernel.org>
+References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
 
-On Mon, 02 Nov 2026 15:47:36 +0100,
-Sreeraj S Kurup wrote:
-> 
-> You're right. I checked the callback implementation, and 
-> "snd_pcm_plugin_client_channels()" always returns the input 
-> frame count. All plugins created through "snd_pcm_plugin_build()" 
-> use this callback.
-> 
-> So the condition "err != frames1" is not reached in the normal path. 
-> My patch is unnecessary. Sorry for the noise.
+Implement ->proc_write_buf() for the mconsole and exitcode files so
+procfs copies in what is written before it pins the entry. Writes larger
+than PAGE_SIZE - 1 bytes fail with -EINVAL now.
 
-Well, the logic you described looks still correct, so it's better to
-correct the code even if it's only hypothetical.
+exitcode parses procfs' copy as is, so it no longer stops at the first
+six bytes of what is written.
 
-So I applied your patch now with a bit more explanation.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ arch/um/drivers/mconsole_kern.c | 11 ++---------
+ arch/um/kernel/exitcode.c       | 14 ++++----------
+ 2 files changed, 6 insertions(+), 19 deletions(-)
 
+diff --git a/arch/um/drivers/mconsole_kern.c b/arch/um/drivers/mconsole_kern.c
+index f01b7d8a07bc..a4370470286f 100644
+--- a/arch/um/drivers/mconsole_kern.c
++++ b/arch/um/drivers/mconsole_kern.c
+@@ -769,21 +769,14 @@ static int __init mconsole_init(void)
+ __initcall(mconsole_init);
+ 
+ static ssize_t mconsole_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buf, size_t count, loff_t *pos)
+ {
+-	char *buf;
+-
+-	buf = memdup_user_nul(buffer, count);
+-	if (IS_ERR(buf))
+-		return PTR_ERR(buf);
+-
+ 	mconsole_notify(notify_socket, MCONSOLE_USER_NOTIFY, buf, count);
+-	kfree(buf);
+ 	return count;
+ }
+ 
+ static const struct proc_ops mconsole_proc_ops = {
+-	.proc_write	= mconsole_proc_write,
++	.proc_write_buf	= mconsole_proc_write,
+ 	.proc_lseek	= noop_llseek,
+ };
+ 
+diff --git a/arch/um/kernel/exitcode.c b/arch/um/kernel/exitcode.c
+index c71657df38f5..8f76e3b20c18 100644
+--- a/arch/um/kernel/exitcode.c
++++ b/arch/um/kernel/exitcode.c
+@@ -32,18 +32,12 @@ static int exitcode_proc_show(struct seq_file *m, void *v)
+ }
+ 
+ static ssize_t exitcode_proc_write(struct file *file,
+-		const char __user *buffer, size_t count, loff_t *pos)
++		char *buffer, size_t count, loff_t *pos)
+ {
+-	char *end, buf[sizeof("nnnnn\0")];
+-	size_t size;
++	char *end;
+ 	int tmp;
+ 
+-	size = min(count, sizeof(buf) - 1);
+-	if (copy_from_user(buf, buffer, size))
+-		return -EFAULT;
+-	buf[size] = '\0';
+-
+-	tmp = simple_strtol(buf, &end, 0);
++	tmp = simple_strtol(buffer, &end, 0);
+ 	if ((*end != '\0') && !isspace(*end))
+ 		return -EINVAL;
+ 
+@@ -53,7 +47,7 @@ static ssize_t exitcode_proc_write(struct file *file,
+ 
+ static const struct proc_ops exitcode_proc_ops = {
+ 	.proc_show	= exitcode_proc_show,
+-	.proc_write	= exitcode_proc_write,
++	.proc_write_buf	= exitcode_proc_write,
+ };
+ 
+ static int make_proc_exitcode(void)
 
-thanks,
+-- 
+2.53.0
 
-Takashi
