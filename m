@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628830;
-	b=oZ1ZcD7xKs+PtaKODLk5qd++6HUh2aBhDVClkMnjq1teY8akArH4IT4ixL0k34tkuSZ+
-	 m8o0pzgPCH8/VtYwWP0fcTYFQnxBE5vD8j3hsisQ0Ih8G1/KH3+uZKSeK+foi0ixB1IAT
-	 mBMBghB7Qzf5+ZfPtXU4hHAWU61iQqxv6v7xzbFbwGT/XVnAswFipZMvbnU1NhEPmjAsQ
-	 Y4TspqD2eKjGG+uSJczeUU1e4lpdm5XqcFVK3a9VCJNx7Tv1fsmMZABT2EZLtOP3uO7Yx
-	 caBe/RjeeAR4mzkwKyzwXWgM/YHs4jGw2vtxoyGLO7TuHfF6mRyBr3IIBU+qwRaqcFA==
+	t=1793628864;
+	b=pKpshdswkAvHfvyu56m11Ng4CEbGvFK0eTurzhrrXwPMKa59G1CpKh/vVZe/HJyrEUIQ
+	 UwCyGxHFRQ2HFseqnCrI2xowJzJcASE/qMDvKFsJwamFqKGXprubciPTgZv+wMYA2oj0F
+	 IcJ8DyKGJiwnNLbJdJTdKscaYTxUsZA07H01yfH8NVjQS9ZN13gnctbdu1rLL/KYKwBWa
+	 lmO23cnU2SA6+KRkyMBTBTQX+S4rEgX9oPj/zZiJBLjINB1NcPRdDxZWovy/DDpvnShvl
+	 XOwWF5FTVad67f29w8bFy9qRLDKZb01pMCDwJo9uo1DwtATUl0k4cK3BTRKBmvxWubw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628830;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628864;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ET496Gzwj43x8I7ewRvTn0IIrLk3rzMMwwxV+tD8iR0=;
-	b=y+Q1vPjqQ1ogYf/XmmLbdDZeYNzMdNLzgblIanJZz2NAv4KNSjFiAVdGa+qmJ2ekh1+v
-	 FNHRkkycO2/YUGwlxfPuSvqfgjofFnsA9Hiplvl4ZY/hF0tbYnHDN+FjRqpHr1WMSq2dB
-	 Sh3+NpAEhxLThqe8bis3rlGtEP7sZ8VQvKOv4rk7SHnJ3PU9l14phh3QDHo2wraw7yZUi
-	 Rcri2Nk8lpIdTLIb2svRfabvLVL+lmdrHiAJZC6i4G+yr+S1CLDo9ml2Qya9ixvAxRS8O
-	 OqaQHvd82V85jERdb2y2kN7ULHr6J1deCIRbch5SSUs9rpdU4eL/Q40+i0R5bJKxVZw==
+	bh=O9l6+4J6Q0JAqhCl13z5dKK4aG9ZFyHBKaMA7d29aaA=;
+	b=XXXn6qMPjAkqTuaR2+WARpFSNYFLgKjkrEFFxKN6rc7mVQUkUmW9eIF6l+QSmW1fWNdQ
+	 BWwVIRLqO1Z+5zerCJS+smdc6+MY8nuDKy3Rz8TBmTaasuzjxoBpcCrMpZglvqZQxqgZM
+	 5S3SM0MVBADChASpwte+aeGK4kAd2L9EHgII+9dLBgLFZPKQ/6Ai2lEGzXsRuoBwm9idT
+	 JMfSlBAO9HzcgJfw0ZqP6WXUFnTMEBUbO0MZGYJJqNFxl/Sfaqw5akK7ImOCxDzNXW2LF
+	 xdJQ5ZUPwt9MHlP9GpBRbT74Em/hFAaKIWBU4xCMl8O7SSbdWGaYGofhr3Yjg0mBwRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CxyBiLlf;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ihkfHa+L;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50FB260A2615;
-	Mon,  2 Nov 2026 14:13:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50FB260A2615
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32FB0606A334;
+	Mon,  2 Nov 2026 14:14:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32FB0606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CxyBiLlf
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ihkfHa+L
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9B8342A6B;
-	Mon,  2 Nov 2026 06:13:46 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E0E91691;
+	Mon,  2 Nov 2026 06:14:20 -0800 (PST)
 Received: from e122027.arm.com (unknown [10.57.58.9])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 773743F59E;
-	Mon,  2 Nov 2026 06:13:45 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C848E3F59E;
+	Mon,  2 Nov 2026 06:14:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793628829; bh=5GOUK/m9ms1YU9j5P67FGLqCUA3VCOThOsPuqKea4gU=;
+	t=1793628863; bh=vDEqOjWV7ICBwPmWvU+CuAGa9z+MEe1Eh70c6qnULq4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CxyBiLlfzyRJ7kfsy06U1+1A4KmThWoeNEv+JKzVoTAUt3oZmI+hyYtrXiC+MWG3f
-	 cC1pdZtB4exgq02AEiFOGkhMez/dHZkXiGS7ViY5eH9ZUX3mNngjYYPOdUga3Dz1+k
-	 IdTZBYljvvAR4f1vg5agoAw254aZxWAM7INir6XA=
+	b=ihkfHa+Lf5iT8gcKObEx1DQ/iVmmotF8Tms2upU7MAkdUAQGTjRCYGgXU0JfO+JiF
+	 rt0o702pi4TC78wIFrTYRjLO+Bmm/RatfYYrEytc2szdp7pVQnwvp+UZ70oSKwhNer
+	 8a0UQtJJEX13PV39etg/0aGd0hkrFR6W61rLM9Uw=
 From: Steven Price <steven.price@arm.com>
 To: kvm@vger.kernel.org,
 	kvmarm@lists.linux.dev
-Cc: Steven Price <steven.price@arm.com>,
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Catalin Marinas <catalin.marinas@arm.com>,
 	Marc Zyngier <maz@kernel.org>,
 	Will Deacon <will@kernel.org>,
 	James Morse <james.morse@arm.com>,
 	Oliver Upton <oliver.upton@linux.dev>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
 	Zenghui Yu <yuzenghui@huawei.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
@@ -68,10 +67,11 @@ Cc: Steven Price <steven.price@arm.com>,
 	Emi Kisanuki <fj0570is@fujitsu.com>,
 	Vishal Annapurve <vannapurve@google.com>,
 	WeiLin.Chang@arm.com,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>
-Subject: [PATCH 04/11] KVM: arm64: CCA: Check for LPA2 support and SHA-256
-Date: Mon,  2 Nov 2026 14:12:55 +0000
-Message-ID: <20261102141304.126883-5-steven.price@arm.com>
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Steven Price <steven.price@arm.com>
+Subject: [PATCH 11/11] KVM: arm64: CCA: Add Realm stage-2 MMU operations
+Date: Mon,  2 Nov 2026 14:13:02 +0000
+Message-ID: <20261102141304.126883-12-steven.price@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102141304.126883-1-steven.price@arm.com>
 References: <20261102141304.126883-1-steven.price@arm.com>
@@ -86,63 +86,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If KVM has enabled LPA2 support then check that the RMM also supports
-it. If there is a mismatch then disable support for realm guests as the
-VMM may attempt to create a guest which is incompatible with the RMM.
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-Also check for SHA-256 support in the RMM as to begin with we only
-support SHA-256 based measurements. This can be relaxed in the future.
+Register the Realm stage-2 MMU operations now that the RMM mapping
+and unmapping helpers are available. Route unmapping through the
+RMM, and use the existing fault handler for Realm memory faults.
 
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+The RMM handles TLB invalidation when stage-2 mappings change, so
+the host has no separate TLB flush to perform. Realm stage-2 does
+not support access flags, including for shared IPAs.
+
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 Signed-off-by: Steven Price <steven.price@arm.com>
 ---
- arch/arm64/kvm/rmi.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ arch/arm64/kvm/mmu.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
-index 9d118768550d..5b07beff8bc9 100644
---- a/arch/arm64/kvm/rmi.c
-+++ b/arch/arm64/kvm/rmi.c
-@@ -6,8 +6,30 @@
- #include <linux/arm-rmi-cmds.h>
- #include <linux/kvm_host.h>
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 20aedbe6ec07..bb33c07569e3 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -191,6 +191,12 @@ static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
+ 	return 0;
+ }
  
-+#include <asm/kvm_pgtable.h>
- #include <asm/virt.h>
- 
-+static bool rmi_has_feature(int reg, unsigned long feature)
++static int realm_flush_remote_tlbs(struct kvm *kvm)
 +{
-+	return !!u64_get_bits(rmi_feat_reg(reg), feature);
-+}
-+
-+static int rmm_check_features(void)
-+{
-+	if (kvm_lpa2_is_enabled() &&
-+	    !rmi_has_feature(0, RMI_FEATURE_REGISTER_0_LPA2)) {
-+		kvm_err("RMM doesn't support LPA2\n");
-+		return -ENXIO;
-+	}
-+
-+	if (!rmi_has_feature(1, RMI_FEATURE_REGISTER_1_HASH_SHA_256)) {
-+		kvm_err("RMM doesn't support SHA-256 measurements\n");
-+		return -ENXIO;
-+	}
-+
++	/* Nothing to do here, RMM does the job */
 +	return 0;
 +}
 +
- void kvm_init_rmi(void)
- {
- 	if (kvm_get_mode() != KVM_MODE_RMM)
-@@ -16,5 +38,8 @@ void kvm_init_rmi(void)
- 	if (!is_rmi_available())
- 		return;
- 
-+	if (rmm_check_features())
-+		return;
-+
- 	/* Future patch will enable static branch kvm_rmi_is_available */
+ /**
+  * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
+  * @kvm:	pointer to kvm structure.
+@@ -218,6 +224,13 @@ static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
+ 	return 0;
  }
+ 
++static int realm_flush_remote_tlbs_range(struct kvm *kvm,
++					 gfn_t gfn, u64 nr_pages)
++{
++	/* Nothing to do here, RMM does the job */
++	return 0;
++}
++
+ int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+ 				     gfn_t gfn, u64 nr_pages)
+ {
+@@ -353,6 +366,15 @@ static void no_stage2_unmap_range(struct kvm_s2_mmu *mmu,
+ {
+ }
+ 
++static void realm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
++				     phys_addr_t start, u64 size, bool may_block,
++				     enum kvm_gfn_range_filter filter)
++{
++	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
++
++	kvm_realm_unmap_range_filter(kvm, start, size, may_block, filter);
++}
++
+ /*
+  * Unmapping vs dcache management:
+  *
+@@ -3291,6 +3313,15 @@ static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
+ 	.vm_mem_abort			= kvm_vm_mem_abort,
+ };
+ 
++static const struct kvm_vm_s2_ops realm_vm_s2_ops = {
++	.vm_flush_remote_tlbs		= realm_flush_remote_tlbs,
++	.vm_flush_remote_tlbs_range	= realm_flush_remote_tlbs_range,
++	.vm_age_gfn			= no_age_gfn,
++	.vm_test_age_gfn		= no_age_gfn,
++	.vm_stage2_unmap_range		= realm_stage2_unmap_range,
++	.vm_mem_abort			= kvm_vm_mem_abort,
++};
++
+ #define KVM_VM_S2_OPS(flavor, ops)		\
+ 		[flavor] = &(ops)
+ 
+@@ -3299,7 +3330,7 @@ static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
+ 	KVM_VM_S2_OPS(VM_NVHE, kvm_default_vm_s2_ops),
+ 	KVM_VM_S2_OPS(VM_PKVM, pkvm_vm_s2_ops),
+ 	KVM_VM_S2_OPS(VM_PROTECTED_PKVM, protected_pkvm_vm_s2_ops),
+-	[VM_REALM] = NULL,
++	KVM_VM_S2_OPS(VM_REALM, realm_vm_s2_ops),
+ };
+ 
+ static int kvm_vm_init_vm_s2_ops(struct kvm *kvm)
 -- 
 2.43.0
 
