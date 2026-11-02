@@ -1,73 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793586855;
-	b=PW/HRh1KYU4bukyhNtXlzYHbdAQfYT19bhSf46Zipwn0Jj+l5w3m5M9JMmL7ndgQ/Nga
-	 Rqc6GSYF3PUwjyMspbt7vrjw2GOBag2lgSjtZOMJCvVxJrhNOoNYJIoNzLxIefJ3sFVmL
-	 chqFAG8xTR+c9S3b/kmDOQm1+KrRbEyTlyk+PCrtbSkPiEODpl1J02Un2OFILHxrU/7dx
-	 vDT2uICLsu+en9gLxlkKkiA5v/w0Yd/qOHNagWL+HUpQSrayIxY/TupwImG/m+iX4kxNq
-	 71ho/I8Oe5nmWfnQQOIMrerr19zlOtPgU9OV7T3c/gIot8Uxv1F/5K4DVAzHVX//3Jg==
+	t=1793586865;
+	b=ghnpa+BN6NoqJliAOJWPRESZ1IUw3U5hK3bnwfYH6+HYlTK8P5OnI48WI/3Qq51A1158
+	 wDzqUNsR4k9p9EChujktHz79RqaRvjprVMHMl1wS7Vsxq31aGrlVPHOaYqNflZ+TIFtXI
+	 5FAKAhlEG7Eoq3AG1iadnZRRpe1cgp49TkpWASYBEBQZdxhnEQlqKTnh4Axz4Hh8AWe+N
+	 CwZyw1omz3AOdWWDPWhxwC/XNEGny8OtXg2QOVqGJTCogWh+TVNsTt496lA+9zIXoeZFI
+	 N+COxFwu5RrQiSxgXHqKIeqFG2CmMUi7mcXmivtKA3NoUYazzjzT/ag10EV/WqYcMpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793586855;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=/FXLf+M9BaHu2TxcFoVVCnBDYHhNMW6Wb+4ihYKMxog=;
-	b=cG/sidSwlFBeFdzb+8r4vES84ly74QTxzqVnJ+9PkN4O74uEHWuWjbAjCSYXpCceRFL1
-	 6h1XSp2W1Owc2i8K6vUr1MT53a84qUYsaPhLX6tBHubOX8uvb6LEfuwClLR/jD0ypN4jA
-	 D3XcIl7DiTV14kEtsMBM22mCI9GmvWrGVslTdXC64s178lfWT+8NmtLQ/fNHEwMO1x1cE
-	 gPV/ZingGl2kLKipyYJcW5FUpSf16/xePHAawfb7qf4cIUsddCSFmuhISwVoXatk2A0cQ
-	 ES2z7SQwb5PLc4JryyomqLrYljYzkySNz4EL3Qi/Yxn3BFYuom30bIvjDOQgvYdIPfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793586865;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=jcXZeohxAIFBM+DT+2XS+2Cn8sRbyJyVTv9pyoAeGjc=;
+	b=M4zAM88U0Mb/QGOZHgPfzTuQPnIhviXuB6vD8qrRJOt0litopshOd4hBibA/FkfP3qtu
+	 TaVz8nNPl61Jrc6ANU8g+9u2BFqzZ1O48z7cm1wXmzFXungLTUxZunfHMVVejAFqTOnu9
+	 kWNZ5LeIJzmqBTBU05B09n5f7zbXexNr2Mt92c5IS4c6jpUMk9Kix/6kjeReS4CgTdfQE
+	 43n5vykKi8QbAzrvAKFDG4/DzVJK0wfpyiPJy5FGJRhWMnqUzCsoAIWFSU+WbxzlXRS2F
+	 0yVe9QgRZBUbwi2Zx2YYU7y7hJoJhf/ILo2rm5+wBv7OC6Uq92scwGpZAG2FU6gk7BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fb5Vsf28;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZNbBgyQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D6B606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:34:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75D6B606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080EB606A324;
+	Mon,  2 Nov 2026 02:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fb5Vsf28
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a03834d8ffso3338091b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:34:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793586855; x=1794191655; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/FXLf+M9BaHu2TxcFoVVCnBDYHhNMW6Wb+4ihYKMxog=;
-        b=fb5Vsf28iEf53nz0Hsm5LellK12as1AC6OkkxoWYtFq0TXZv0M+0aCqe5l/9YH6Big
-         cSZEWXcnqtZQG5ODGYcbJTGhJISDto5wU0IQQ+8cJHqmHd6kk914a/jfEUmSNF5Xb2hY
-         IGnSgbXR7aJtqX0LHzI1qodN5YxA3MoYrdaTYDisWc2a/qmmBMZgtAdM+56Tg3SUHA0K
-         BLX+rRt51INYUJMQbqfhXBPMIlxKjBea/W488RIRMhAf6C092HB+ac4MVeqG08wsVPRH
-         tC3WWuJm2CGfRYEnoVNSPrdMpsAYIxv0oFkk7kEDMVO67b1Cv1jmxxOrtt0XOhisMHi5
-         6Y2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793586855; x=1794191655;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/FXLf+M9BaHu2TxcFoVVCnBDYHhNMW6Wb+4ihYKMxog=;
-        b=O+rrihH+jYcTokl27qlt2MeTfF0Nqhg7doCl3N+kGsGbnOqWTdimCyYSkW3vDUwMgl
-         HUjN8+Ddx/xv9xBBf09g2sHz4ioNoM06dWKfjqHjb77z3gH/l+SaAizIsmXSf2XbbgQa
-         vxKGi121H8Lt/oMlDQD6UtVDv0j6RjJg/V+LkEo3LjXZR3Qr0tf52K7JloQFfzIm2zDK
-         51O7fSQFZjC26yF+YXlaE2lG3UnYHKV1mDVe3bCmBUBTu8uKRXGrRXX8gQrhZDnCSlFe
-         d8gk8mUg6YSPdoIZ43GrKy96bvZLvQLhI6lcK08XMvRyjqTHw6FdKNnb5RnR8o4vsrnh
-         F+yg==
-X-Gm-Message-State: AFq9FYI+uogmID2BUoTHQ/NZ0kDEDH08rFwWo7O5sZwtXRCbE61abi1y
-	G3Xo+R5NDBuH1t8VOVe//uwcuOS6rFT+JeyKfmZaYEKImLfa8EhKO8PxgDWmOnsqgzljkiAwhOl
-	SJ1orW99FJiozNlkvdKVO8Q==
-X-Received: from pfbbu14.prod.google.com ([2002:a05:6a00:410e:b0:89e:861c:6b39])
- (user=jenhaochen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:a103:b0:3e2:9126:6128 with SMTP id adf61e73a8af0-3e928784767mr5412874637.9.1793586854500;
- Sun, 01 Nov 2026 18:34:14 -0800 (PST)
-Date: Mon,  2 Nov 2026 02:34:12 +0000
-In-Reply-To: <20261030121633.258612-1-jenhaochen@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZNbBgyQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF23B1F00919;
+	Mon,  2 Nov 2026 02:34:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793586864;
+	bh=jcXZeohxAIFBM+DT+2XS+2Cn8sRbyJyVTv9pyoAeGjc=;
+	h=From:To:Cc:Subject:Date;
+	b=mZNbBgyQBohyGjZP6AUIDgdJ78BGJP3ZgtfLnzOsIV0ovUWGWdYidVgZLpu4b54fU
+	 w9mH4RmfywXwNQnb4hJm+oNgGRXaZyZkvKAqz1h5tfjNZ64xNi+v/g/2mVFZcOAnwL
+	 QqhawVGC2D0rl+eysO/hrErx7vZwV3EAqwPAXXU3w40D3PUFcoLXzQ9ArR45lwdRJF
+	 0fD1sn5XZRCw0YMp3i8LaCxrzJvJnr9zQNDxaIOc8MzdYTszICk1YazVPWwDC4cV7Q
+	 Upxt6SNArZ/cU/mzNC8aqrpbtwBhSGSUAqIN3J8Gm7eNOG9g9QcpbtELvg0JfVWykS
+	 T0WWtgDy+0hbg==
+From: Thorsten Blum <blum@kernel.org>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: Thorsten Blum <blum@kernel.org>,
+	netdev@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] rust: netlink: remove unnecessary bitfield transmutes
+Date: Mon,  2 Nov 2026 03:33:03 +0100
+Message-ID: <20261102023301.206989-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,57 +75,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030121633.258612-1-jenhaochen@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261102023412.701888-1-jenhaochen@google.com>
-Subject: [PATCH v2] zstd: Use shift mask in BIT_getMiddleBits() on arm64
-From: Jenhao Chen <jenhaochen@google.com>
-To: Nick Terrell <terrelln@fb.com>, David Sterba <dsterba@suse.com>
-Cc: linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>, 
-	Martin Liu <liumartin@google.com>, Ben Wei <benwei@google.com>, 
-	Jenhao Chen <jenhaochen@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1470; i=blum@kernel.org; h=from:subject; bh=bRm8U3vpmT6DJ0TbkT6MnWE0+weMgPJUFtHCSGNaBy8=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnPv8WGlvndczVjmL76WdMN94+CV3kF9Jo7apO82L42P Gl/GWPYUcrCIMbFICumyPJg1o8ZvqU1lZtMInbCzGFlAhnCwMUpABNRP8jIcO3b3v1XulKDYiZf 7fyh9rlAvi26fG5lj3xcqvob4YKb3xn+6TRnKL3acdXQ1sPd2XrLdve55ydG/SjazfGcmTFtyel ETgA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-In ZSTD_decodeSequence(), ZSTD_updateFseStateWithDInfo() calls
-BIT_readBits() -> BIT_lookBits() -> BIT_getMiddleBits() three times per
-decoded sequence (for literal length, match length, and offset FSE
-states). However, BIT_getMiddleBits() only enables the branchless
-register shift-and-mask path on x86_64, falling back to a BIT_mask[]
-lookup table load on arm64.
+Use __BindgenBitfieldUnit::new() to build the bitfield.
 
-Enable the shift-and-mask path in BIT_getMiddleBits() on __aarch64__ so
-the mask is computed directly in registers instead of loading from
-BIT_mask[]. On arm64 at -O2, this eliminates three table loads per
-decoded sequence, shrinks zstd decompression .text by 212 bytes, and
-improves decompression throughput by 1-3%.
+Since the generated type implements PartialEq, compare the bitfields
+directly in test_family_flags_bitfield().
 
-Signed-off-by: Jenhao Chen <jenhaochen@google.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
-Changes in v2:
-- Drop the Makefile -O3 change, which triggered an undefined
-  __divsi3_table reference in zstd_compress.ko on nios2-linux-gcc
-  (reported by kernel test robot <lkp@intel.com>) and previously caused
-  stack frame size warnings on parisc (commit 7416cdc9b9c1).
-- Update the commit message with isolated -O2 numbers for the
-  BIT_getMiddleBits() shift-mask change alone.
-- Link to v1: https://lore.kernel.org/r/20261030121633.258612-1-jenhaochen@google.com/
+test_family_flags_bitfield() still passes.
 
- lib/zstd/common/bitstream.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ rust/kernel/net/netlink.rs | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/lib/zstd/common/bitstream.h b/lib/zstd/common/bitstream.h
-index 86439da0eea76..01e69ab7053b4 100644
---- a/lib/zstd/common/bitstream.h
-+++ b/lib/zstd/common/bitstream.h
-@@ -299,7 +299,7 @@ FORCE_INLINE_TEMPLATE BitContainerType BIT_getMiddleBits(BitContainerType bitCon
-      * such cpus old (pre-Haswell, 2013) and their performance is not of that
-      * importance.
-      */
--#if defined(__x86_64__) || defined(_M_X64)
-+#if defined(__x86_64__) || defined(_M_X64) || defined(__aarch64__)
-     return (bitContainer >> (start & regMask)) & ((((U64)1) << nbBits) - 1);
- #else
-     return (bitContainer >> (start & regMask)) & BIT_mask[nbBits];
--- 
-2.56.0.317.g454f8302e1-goog
+diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
+index 2f8733a694a9..d0c79a254f12 100644
+--- a/rust/kernel/net/netlink.rs
++++ b/rust/kernel/net/netlink.rs
+@@ -180,8 +180,7 @@ impl FamilyFlags {
+         }
+         // Convert from little endian to the target's endianness.
+         bits = u8::from_le(bits);
+-        // SAFETY: This bitfield is represented as an u8.
+-        unsafe { core::mem::transmute::<u8, bindings::__BindgenBitfieldUnit<[u8; 1]>>(bits) }
++        bindings::__BindgenBitfieldUnit::new([bits])
+     }
+ }
+ 
+@@ -335,11 +334,7 @@ fn test_family_flags_bitfield() {
+                 }
+                 .into_bitfield();
+ 
+-                // SAFETY: The bit field is stored as u8.
+-                let b_val: u8 = unsafe { core::mem::transmute(b_fam._bitfield_1) };
+-                // SAFETY: The bit field is stored as u8.
+-                let c_val: u8 = unsafe { core::mem::transmute(c_bitfield) };
+-                assert_eq!(b_val, c_val);
++                assert_eq!(b_fam._bitfield_1, c_bitfield);
+             }
+         }
+     }
