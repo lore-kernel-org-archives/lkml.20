@@ -1,82 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605459;
-	b=c0FBzL6yjgTneUuN1Uzuei1G/pQayZqt+eJkNxK9yzP/OY5Btda7k3ho5M7SwxREQ0Tf
-	 FR+M4FFmxph1jNUHQr5HlB+HVyWrhon0UrviSSc8IbUYfVX4+cMqqQoSnIm1oDeVqZ80p
-	 b5BHXS7qmROoQkbdOw/sHjvvyPXU/X/6FtSxKam1M3PZDXspA8eAy3VhKEuTFfNatxjX3
-	 dwUPKPIRFYKZtGE0/n8MHBiVgQRxBkjHEjyUGzsd30sn+wfY110Mrbql1fL1r46t1vbMd
-	 XmMGghtLc34mHyNv1Zcg0ugXt2lzHFrpHUOyySM5C+V6mBEQCFeHO+1rPofoRsoeK3w==
+	t=1793605462;
+	b=LCf5RwxO27zCM3AQcflAieGAf2xaHuh8Du3CQr0jDfW/Cq+nHLYe9k9vrzcVNHBtDvzj
+	 e0O2uzmW6wE8C9sOR82OJFY+lUsnMw9LQvNXgZhXIFT4jAq7LwZO/5qBJbaRnoiAm+Rxq
+	 h8U0QQFsrVZw6zkFigz2nCd44f1qwOSIp9/I2CFObDXpjwpG8EVQWnPUBQ76QCP5bolz/
+	 X1b/r3iMLRSyYeOV+bXwijfXr1HhxqHZs0KRNsCFY617tV5VfQ0whnozfpYSfPVZbdnM8
+	 y9gmZLWVGTIe9KOVAAW1xfp2EW7/2cVLHxZzs9DEddJnoLm1EEN66VhBXdzk7evcibA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605459;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605462;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GMp9mcTTKC9DHoWvLxRWF3MR+m0EkCxt9LMLL8huxSQ=;
-	b=J0OY06PThWXEXFhXcVwENaQ2H0PhvnzzQcjzW5neQttgwj58nJe8B/yiNLOJNKc/IlsY
-	 riFzfb58ocAMAEmbMA6pjDrJJApsiD8yULk0ST1wKB3wbzuCZbvVsTkXrVLZ2QWNIsCfx
-	 8jF+0dC9A6DNn8pFsJOBaKh6bigOdN4xWrcX8C8tBPuBXkak7SPCxhSmrbNeCBRw5VV23
-	 ezf7WL1/x5UXJAJetbqK6WVr5QriRXSweHeGz6355GvmtomXKpZn0hSc3z+HVeFc0X8nP
-	 m1izlnVT8vOJioDdLjf8SA1mxyVWrW6Aw+gtRuBzNjgRqZDTHln+x1k14MKSJoQTScw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KUnvJpVPViW69AF9NkZWmBblFWCE3alugKf4rSddKS0=;
+	b=dUwA8l/UmYzqQ8A7kkuPLsNwPXIoiIUIn5Nkzjeggk7LcTlROhlFncFrpFRbSPAbb3p5
+	 JMXskLN/f6BUAPqjy9J0JA6lBAn9Xw0/rz5puYPPI1tXnBpH6P+4Iw1eURb6Kw3rzzIeG
+	 rurOejU6iPR82YrF+YTAH+VICc2rY+3Dw8uieIBBANFEYubBXfd2uDKMMD+5hufF19dmh
+	 Jd8o9kRLhcK1r7fr1cIS85J0cCxOLSBE8XktrCBfHWBXIXfZXhwtB1J5WhBqQKdO22EJG
+	 MO14s8kz7Vufeh+VBMe2GQ335Q6sgXtsvnl1aqR8pD6tp6oXfP8jfFn6p3w3RCy1lzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OYjCNJ4Y;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QeLZFuY6;
 	arc=none smtp.remote-ip=209.85.221.53
 Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3E0606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C3E0606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6153F606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:44:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6153F606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OYjCNJ4Y
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2790640f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:44:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QeLZFuY6
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e10a70540so1433280f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:44:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793605458; x=1794210258; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GMp9mcTTKC9DHoWvLxRWF3MR+m0EkCxt9LMLL8huxSQ=;
-        b=OYjCNJ4YGN418aOh4vtw14+7AbwL7A3Ew1CDtb+YSuxsqDbyN3W3NuNSwtJa2wrcK+
-         /0DbK6/gccivSLcebaEXKX+PuviBnQdEZl5rWvIUJE0+unubt6dYmDsFeZl5JUyTPfJA
-         eb5cfsbZTdDxFpV9Z2S2YwoHdgZgDyswjQ9g1w13yyKdN9fbW7JBUGkDsTW8DY8T4vrO
-         vxyyS3wp/hibMOyq4jZ+uN+QFFFQYYKjWb/9TtDlU0VZ5kIriHuMnnVNtNup9Q+7OoJQ
-         uGL5ABBYMspVQzy6ukvZB69Smvf1uU8UokxPfb3jSB6aTAWGnHCzZPdyzW+aWE7smNI9
-         qv4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793605458; x=1794210258;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793605461; x=1794210261; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GMp9mcTTKC9DHoWvLxRWF3MR+m0EkCxt9LMLL8huxSQ=;
-        b=XbY/bcRYH7NfCGpZw/dgJcHaGhCXXyyGN+3PTdD/TX3Fz0RJfS+u3JmXCgimvofJnE
-         47irjNLP1zQw1YyA5lJhsWtTHHUIG1/xTIIz30wciquviC5YB9PGH/gr2xSL4QWqQnZu
-         ETFPEZ2xiHY9IICBC9VbAyEQknRFN9xJNCDmHJg9A4+sbydOKI/Q4zojKA3sP0+ntqAm
-         v/ssikwg776wafQIlS7hDNuBAwI0JphOIbfQMyxOpmlSzczrqc2v2i2+2V53A51+ahAk
-         lVbQXHcoNj6bzNCJNZHyf9zauk1/CNunDAqS9d3LPt6XlJhgKb6NQGB9ZBEtO8cZ7H/C
-         qTFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMTXQXyK0TNjFbhpIqKAMzeD87OTkqyBJP88wFF26dRzNSFm/u0SCQ+q9mDJ4fjHfrc+f116/nGuaHchE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tESd7863J9K3fSVqbmXg4CxOQ6X4BCicNOCsQRzT6mufWsQTR
-	QqrFNNXT5IgHUXgBQtbr3kVMHBGk/+mwldJ3gMdITGbwwe5D1+UDkdbB
-X-Gm-Gg: AYBFou0VjgsczYiXPaJ6ihrKQK3Z92OXiiab33Xtg3MDhT6gBLWCFxyke/LVXCxXme0
-	alwHHYwPoBTnXfb7OWfxX1gs64jp4ECaGj+nWGUqE3jJqwBcDsJhkIZbnJbKMKnkuSu5R9mBwXN
-	edRUnodMuem4B8Bn4Xwbq3KP5NmN/D0/JnL46RO0eR4feb7aK0tOSMK+QhPicgv3B3SE9c+88hx
-	/95zJUqrb+U7NwTrWArrmH8J6xHMeKQt12gpoRHwzLD+gjj47mlSa0e2hErSpZ+XG5NlINFoHW+
-	abOQiMoeiddzklfMvSV3ULgHCAziWNx0z/ouUJ7ccznhTE7GuaWc+saRFYYYr5g2427FGIQnLCV
-	F24jmsmC14cv1azPzfPfgOEb6C0dck9jkoo8U+duXZVEq022CKorMfY4DovYbISmmzxa6X5dx4l
-	NBOnHCMj953IX25TXG2SP3tdDPwzrTpGMD2u4trY/BjMzSBcpDSmAGdp3NTZDVGFV+3T88N3Zqw
-	ZFYtQivguZJzefRG/ljoKRT8wLMViZSPzVph5qg2mcmSBM9AwB1z6NtqQmf3zNbBoROEpwIWwWw
-	EWD/cda5UbbMOQ==
-X-Received: by 2002:a05:6000:2387:b0:48e:20f9:8d75 with SMTP id ffacd0b85a97d-48e6e50b79cmr21195080f8f.48.1793605457581;
-        Sun, 01 Nov 2026 23:44:17 -0800 (PST)
+        bh=KUnvJpVPViW69AF9NkZWmBblFWCE3alugKf4rSddKS0=;
+        b=QeLZFuY6mIhG5rzjWO62mDesKo0jmIC+d12Httjn5kyoXafH5D2vvtFeUt40Vry7WS
+         m34GzWAdpIRf8fdu4MqLLqQ4UBO5jbUVcSc5aj6KsNB/tK1vo4ffHQGnPr10MZoMPDiz
+         IOmXiiPcmjbGg+rPF4qbqZvL3WqrdHND3PeC8ZQ8XVVIj2Qe8mFARNngJRFbpzkp4DIz
+         i3oLbHSVB7/AMa2Q+kixbii2k1XlYcnonfs62EueJka30Y+0vJQsmM2lIUWGYYPWxTIS
+         yUY0fqONZh76OqmB2NtlbMiAe+YAQqduPeD3+n5AdqAQb3wDt52BmrOHMkThaZg5S1ac
+         uKbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793605461; x=1794210261;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KUnvJpVPViW69AF9NkZWmBblFWCE3alugKf4rSddKS0=;
+        b=2O6Idi0hM+qEKF8iZevWDkv37Ruvxjb7WTkQ827u2VF398DLAUbS2zK3+PJ7IgEE1a
+         cNpDfHuNp5XK9KI4kQ7UKXxmmRys9+KKxfJs3HrhyC32QQBaO633As3YyNzL+VluHmU+
+         NJtrzQJlR5e5kxQzrWMaKHl2x6HUFWddvKJFXGwI/1nxS0qyT1I6N6/UlyIlU0nD6wvy
+         DezKDxwu8lyxleQAitWwpHyrh2A8ex4zmODomoMWqv/KwgtfY3TJjedHrbUB8cg+s466
+         EXlumhlDa8njAn5UFk0OYayWfNj1n+y3uA9HZ1tQjNsry66bHXuy1Xk1TuGr89abYohf
+         3Wsw==
+X-Forwarded-Encrypted: i=1; AKwUvBx3H/6zdCD+Tb8TZghR3VtY4MiT5UXyKiU6P2CVEWdXuCTcy1sPEN/EnhRm5e0KP5sF3UCMi55CoJJGH1E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FxByDjvXU9a41nW8rnAW9TkSMkoVVpHR5lKkG6nMLRQnpFMbB
+	MIewATSB6p8W/azja1Yodta/tB2BZHWaIshdwYv7gTKnnotGy9Da3kdg
+X-Gm-Gg: AYBFou1Rt9PjE18SYV/itINhQZZ5FNEigQJgcNfYYQ0H4YpmAHXS2NPjCZGQRPLpqV6
+	O+fTFhrvuhIRCSO2dSdV1jkusWkFiBB1tEAU02wjghcJqr65hKr3kd7PMw9uHZ8J1RBQyJBKEjj
+	kY8RHsp9ZHDvWOMMoJI7wsUOZdlFWnIyxUWC3NsGZvsYj+01+2mH3wC36SjRlY/E3hH1lrjpLYx
+	d9iwrKARbxw6oowjHzULvfUJPFFxUD/2XXWUq32aSGpROQsdq5VPBoSlQtg1e/JsoX6UhNRmJR1
+	4UYCnU1qPtJvfJ/mt595W/0gws9O/seDQbJE8O0TuAGs6psSNDtJnfMOYU7HyoFeSIbIkCLZNBM
+	bPJZ3WIuJhNS8EXIajlBjh0nbZBuZFkc2pjMJ+OEqYDe2UoeCn58z+5W3bWQzTY2pQIaYdfyWo/
+	eYqcxKz+sJkUdh30yUy8Buepse9w4RNsJFy0KLt4DaTLxbFRuMLgVu+KvsYXQLoFlbwYJvpX5uD
+	OKin02LbVP+hu/NjqRnkDyQ978NQiGN1mYq38jsD/9ZrtEjj6QMvUn5Bkadb3VCWnAUfGIYq84Y
+	Lr+7We5zD7eeDg==
+X-Received: by 2002:a05:6000:310f:b0:48d:f95e:6e8 with SMTP id ffacd0b85a97d-48e6e2c3586mr19528998f8f.1.1793605460880;
+        Sun, 01 Nov 2026 23:44:20 -0800 (PST)
 Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b81c74sm18050374f8f.36.2026.11.01.23.44.16
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b81c74sm18050374f8f.36.2026.11.01.23.44.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 23:44:16 -0800 (PST)
+        Sun, 01 Nov 2026 23:44:20 -0800 (PST)
 From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	"Liam R. Howlett" <liam@infradead.org>,
@@ -97,10 +98,12 @@ Cc: Vlastimil Babka <vbabka@kernel.org>,
 	linux-api@vger.kernel.org,
 	linux-man@vger.kernel.org,
 	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH RESEND 0/3] mm/mlock: make zero length requests a no-op and reject wrapping ranges
-Date: Mon,  2 Nov 2026 08:43:58 +0100
-Message-ID: <20261102074412.189554-1-azpijr@gmail.com>
+Subject: [PATCH RESEND 1/3] mm/mlock: make a zero length request a no-op whatever the alignment
+Date: Mon,  2 Nov 2026 08:43:59 +0100
+Message-ID: <20261102074412.189554-2-azpijr@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102074412.189554-1-azpijr@gmail.com>
+References: <20261102074412.189554-1-azpijr@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,52 +115,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-No changes, rebased on mm-new, Cc fixed.
+A zero length mlock() or munlock() at an unaligned address is rounded up
+to a page, so mlock(addr + 5, 0) locks a page that was never asked for,
+and munlock(addr + 5, 0) unlocks one the caller may still rely on.  An
+aligned zero length is already a no-op.
 
-Follow-up to Park Tae-sun's patch [1], which was dropped. David asked
-which of the cases it raised can actually be triggered, and for selftests
-that show them. Two can.
+Return early for a zero length, before the rounding and before
+can_do_mlock().  This is a uapi change: with RLIMIT_MEMLOCK=0 and no
+CAP_IPC_LOCK, mlock(addr, 0) returns 0 instead of -EPERM, which is what
+munlock(addr, 0) already returns.  man 2 mlock does not say what a zero
+length should do, and -EINVAL would break callers that pass one today and
+get 0.
 
-Patch 1 makes a zero length mlock()/munlock() a no-op before the address
-is rounded. Today mlock(addr + 5, 0) locks a page and munlock(addr + 5, 0)
-unlocks one.
+Reported-by: Park Tae-sun <ts930@dgu.ac.kr>
+Link: https://lore.kernel.org/all/179066531783.50175.13377521828379196177@dgu.ac.kr/
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+---
+ mm/mlock.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Patch 2 rejects ranges where start + len overflows, or where the end
-overflows when rounded to a page. Today these get a silent success, act
-on a single page, or get -ENOMEM/-EINVAL depending on CAP_IPC_LOCK.
-
-Patch 3 adds both cases to mlock2-tests.
-
-I could not find the commit that introduced either behaviour in the git
-history. Both are already present in the earliest history I could find,
-so they may predate the imported git history. There is therefore no
-commit to use for a Fixes tag. I have not added Cc: stable since these
-changes intentionally alter UAPI-visible behaviour.
-
-The mlock-random-test failure CI reported on [1] came from that patch,
-not the test: it assigned 0 to do_mlock()'s error, which has to stay
--ENOMEM for the over-limit case, so mlock() over RLIMIT_MEMLOCK without
-CAP_IPC_LOCK returned 0 without locking anything. With [1] applied the
-test fails 40 runs out of 40; with error set back to -ENOMEM after the
-check_mlock_range() call it passes all 40, as it does with this series.
-
-Tested on x86_64 (KASAN, lockdep) in QEMU: mlock2-tests 31/31 as root and
-as nobody, 24/31 and 23/31 on mm-unstable; mlock-random-test and
-on-fault-limit pass.
-
-[1] https://lore.kernel.org/all/179066531783.50175.13377521828379196177@dgu.ac.kr/
-
-Jose A. Perez de Azpillaga (3):
-  mm/mlock: make a zero length request a no-op whatever the alignment
-  mm/mlock: reject ranges that cannot be represented
-  selftests/mm: test mlock() and munlock() range normalisation
-
- mm/mlock.c                                |  29 +++-
- tools/testing/selftests/mm/mlock2-tests.c | 191 +++++++++++++++++++++-
- 2 files changed, 215 insertions(+), 5 deletions(-)
-
-
-base-commit: afb4eea28037fa55c4560313ecbd8a1e1da8369a
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 1c70a7829394..673a8433a0a9 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -612,6 +612,9 @@ static __must_check int do_mlock(unsigned long start, size_t len,
+ 
+ 	start = untagged_addr(start);
+ 
++	if (!len)
++		return 0;
++
+ 	if (!can_do_mlock())
+ 		return -EPERM;
+ 
+@@ -678,6 +681,9 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+ 
+ 	start = untagged_addr(start);
+ 
++	if (!len)
++		return 0;
++
+ 	len = PAGE_ALIGN(len + (offset_in_page(start)));
+ 	start &= PAGE_MASK;
+ 
 -- 
 2.56.0
 
