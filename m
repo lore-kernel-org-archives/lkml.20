@@ -1,61 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605167;
-	b=197cZ6J/89wZsbmTtkyX9NRun0IHlM4H1LaD2HO65edIXrj2GggMuh9ihhJVFjH1J5JN
-	 0Bi/WiScAM6i4bJGGeXu43miCzLnznKiKNV47ur+S7dwGXNSedvU0YxBGgcrGYeu9/rAq
-	 mcNaXkiRtt593tGHhOrNypgVVT3EJQF8cHbQgjbrlB7fPt9hl09U4RBLn7ongmey4EOKt
-	 LngbNMYgboSDKa2Q8HMvO8p/w2WbthWCiPJWvqk1yM6fQ5RXrsvRgdfFIu8fqwFYEFG5O
-	 y/AnS/79m0mSGk6K4qUgxOKTCbVw7qWL5Kwt+UrcfpcuN+gPPezqmAUE8X3zp5xicIw==
+	t=1793605229;
+	b=ZCofa6FyHdqodi26jT5ycr7WbF09jGqBk7anPjqLcqTuUyJcI31ZLsCl4KrsJyMa7N+X
+	 TxDK1CIbY2ygCfcKLfUln55SVXm20K66/W1CeY1Y8UPLOfrmCNgNF3hE9e7nr9mLKhico
+	 Kno75NPy25jjeyh8PnC4rcVGIS65/hp9rwJhWHXxlsUMcMbu7f507I4iSrQO1+SkFQZyq
+	 F7jyvkk/NQyF/fTiyA0I8KpAz5Skk+aI+or3GvB5XiOKbj0CG8Ft/nQF/60xcLFnGdVJc
+	 yf15ps3620+gfI8sh+kYW3YB2kNMeN/RI5k0DyHsgY0hUCYHRAJg2rc9zCKkylfYkMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605167;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=A0kDpm3Fq4IPqPv6r7rDrNqAtnYQKwl5OJ653qPszw4=;
-	b=u9v7QRtVUS8BBS+KRuX2uAf6mByA42ZukLe1IET8NFXAG9s7ctxZwvzjEN2TEDKeEoXV
-	 xXbgLrEwTvb/TnbMRmWNrNeHki+5hBgwFye7PswiCWM23mDk1PNeSLUu+JYRe483a+ceE
-	 NHpVrLZK6VqNj2PAZUECSlvmpaYskv72zhvzfpI3FTFoT93WPKQs0p418nOHFlDR44sd6
-	 ZqaTnsIBfm0zyHVAqsAAk26hhIVLGdUBd1QXXG6BxZnH49DhZQs308wbOJEP0R3wPi5h8
-	 LoNaPlFWksiS0+Eu4eoUj9q3hv8xIzWg4k2ipZQ3EvSCRPYVm6VlVKQZ8k2ZICqmBOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605229;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=KcTB0FSdieALLEtzQ3OvHWQhboJsqvbWGd/BgRl3cB8=;
+	b=uyYAe80W+gaOCOAivM4JEpXhzbmrJNhVt846j1pU0feXlIGqLS32+msTgS+A4OxlYLTq
+	 4ZBa2J+xeEoc+tLXzCthdw0OOFV4AVBqjNFjc7eY1WPsbETwrureFtJUjPJsyrXcq6pdL
+	 brm45/uVvCt97/gODv1gSGMmIizTi5uhjlTPehFPPEsAlVm9Gq3zfaFDmcFnGhcOp4wfD
+	 Fzc5VdQs6Cy4NFWt8vVp4a3AnrC+NeysFcSod0HFFf1C+qJqegH/hmEi64agYbt8azspw
+	 FN6l+Gzrg8VdNl6u5TrLTpSG9syAVaHf3sWTlCV0m6TSkGCW8eHEPS/VeCrbISx+qjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="CVV/EDib";
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibYyg+gf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FDC60A261F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:39:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2FDC60A261F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26157606A326;
+	Mon,  2 Nov 2026 07:40:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CVV/EDib
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=A0
-	kDpm3Fq4IPqPv6r7rDrNqAtnYQKwl5OJ653qPszw4=; b=CVV/EDibNJCmfQmBXa
-	3T43oVcj9a8sxqQq6B/B4GpMVN0bVtayzTL+C4XIRP5ZfO+uMZrLhhkPxkN5m//s
-	7EZrPC6PzAlYXW8k0Yug18yIX8VDbgMGBWTYoiMX8nfpciwGG2NwTdq4thf7bBWR
-	8+PK9xRuBMZek8N6vR59o59qw=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nygJPuhqucJHEg--.56690S9;
-	Mon, 02 Nov 2026 15:38:53 +0800 (CST)
-From: Xuewen Wang <wangxuewen_ky@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: wangxuewen_ky@163.com,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v5 31/31] ntfs: report each shutdown transition once
-Date: Mon,  2 Nov 2026 15:35:32 +0800
-Message-Id: <20261102073532.98873-32-wangxuewen_ky@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261102073532.98873-1-wangxuewen_ky@163.com>
-References: <20261102073532.98873-1-wangxuewen_ky@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibYyg+gf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA601F000C1;
+	Mon,  2 Nov 2026 07:40:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793605228;
+	bh=KcTB0FSdieALLEtzQ3OvHWQhboJsqvbWGd/BgRl3cB8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ibYyg+gfiuBYC5XPW6RPIPgSO2rnDRlkxOnjFYYsWj4FGUuiq4Fr24RuJDK1fV8+w
+	 9aasGac12GpzHeufE7vF3WfHtlnjIlkPZFhP7hyDLVhIScDjW1EegSd2irfMyR0ZLv
+	 u+fTY4FwSc/JgCPwFol6vVnwdHFGrSQWsVquhWJiPrC2SPv4/VOWBSu4v9VByBF6EF
+	 YXAJHyCQD/66PH143yj/a+cXmBL0U7semGncKiA3ntbyiZS5qpRgeBjizHGKeGa5KN
+	 W+Ut4MkLVfPkvn6cJ1Kga9WQM9gRVSuZKtFCKdsumDYMse7Bzcc/v7KgJ08Slde/Gt
+	 JIu9nAgQTXm4g==
+Message-ID: <4d021a7f-59cc-4077-9d9b-e4d4cb72dd97@kernel.org>
+Date: Mon, 2 Nov 2026 08:40:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,108 +51,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3nygJPuhqucJHEg--.56690S9
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGr17tr4xAF43Xr4kGryxuFg_yoW5tFW3pF
-	97Ar93K3s2qFy2vwsrtw43AFy0yFn7uw4UKr4UGw12gw1kKrnYqF4kKF1F9FyFgasYgw4U
-	X3Wjgws8ur47ZrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UAnYcUUUUU=
-X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC7w1nUGroPg1c-gAA3G
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] power: supply: max17040: fail probe when requesting
+ the alert IRQ fails
+To: Jianing Li <m13940358460@163.com>, Sebastian Reichel <sre@kernel.org>
+Cc: Iskren Chernev <me@iskren.info>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Matheus Castello <matheus@castello.eng.br>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261102073148.1233-1-m13940358460@163.com>
+ <20261102073148.1233-3-m13940358460@163.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261102073148.1233-3-m13940358460@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+On 02/11/2026 08:31, Jianing Li wrote:
+> MAX17048 and MAX17049 skip polling work initialization when an IRQ is
+> available because SOC alerts replace polling. If requesting that IRQ
+> fails, max17040_probe() clears client->irq and returns success anyway.
+> The driver then has neither an interrupt handler nor a polling worker.
+> 
+> Clearing client->irq also makes the suspend and resume callbacks take
+> the polling path, which operates on an uninitialized delayed work item.
+> 
+> Propagate the IRQ request error instead of registering a device with
+> inconsistent interrupt and polling state. The managed resources unwind
+> the already registered power supply and, for polling models, cancel any
+> queued work.
 
-The existing shutdown sites set NV_Shutdown without notifying filesystem
-error listeners. Add ntfs_report_shutdown() and use it for forced
-shutdown, device removal, EA restoration and named-stream rollback.
+That's LLM commit msg and you are not suppose to use LLM for that.
 
-Use test_and_set_bit(NV_Shutdown, &vol->flags) to set the flag atomically
-and call the generic shutdown reporter only when the bit was previously
-clear. Concurrent callers therefore initiate one report per transition.
-Keep the existing conditions that trigger shutdown.
-
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
- fs/ntfs/ea.c           |  2 +-
- fs/ntfs/named_stream.c |  2 +-
- fs/ntfs/super.c        | 12 +++++++++---
- fs/ntfs/volume.h       |  1 +
- 4 files changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 2fec8bfcdd89..7aa4e7a70efa 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -385,7 +385,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 				ntfs_report_file_metadata_error(inode, ea_err);
- 			if (info_err)
- 				ntfs_report_file_metadata_error(inode, info_err);
--			NVolSetShutdown(ni->vol);
-+			ntfs_report_shutdown(ni->vol);
- 			ntfs_error(inode->i_sb,
- 				   "Failed to restore EAs of inode 0x%llx (%d, %d); shutting down.",
- 				   ni->mft_no, ea_err, info_err);
-diff --git a/fs/ntfs/named_stream.c b/fs/ntfs/named_stream.c
-index 788a581d854b..a66375081684 100644
---- a/fs/ntfs/named_stream.c
-+++ b/fs/ntfs/named_stream.c
-@@ -665,7 +665,7 @@ struct inode *ntfs_create_named_stream(const struct mnt_idmap *idmap,
- 				} else {
- 					ntfs_report_file_metadata_error(base_vi,
- 									rollback_err);
--					NVolSetShutdown(base_ni->vol);
-+					ntfs_report_shutdown(base_ni->vol);
- 					err = -EIO;
- 				}
- 			}
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 481d528884ad..51355ec2b1c4 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -455,6 +455,12 @@ void ntfs_report_file_metadata_error(struct inode *inode, int error)
- 		fserror_report_file_metadata(inode, error, GFP_ATOMIC);
- }
- 
-+void ntfs_report_shutdown(struct ntfs_volume *vol)
-+{
-+	if (!test_and_set_bit(NV_Shutdown, &vol->flags))
-+		fserror_report_shutdown(vol->sb, GFP_ATOMIC);
-+}
-+
- void ntfs_handle_error(struct super_block *sb)
- {
- 	struct ntfs_volume *vol = NTFS_SB(sb);
-@@ -471,7 +477,7 @@ void ntfs_handle_error(struct super_block *sb)
- 		      sb->s_id);
- 	} else if (vol->on_errors == ON_ERRORS_CONTINUE) {
- 		if (errseq_check(&sb->s_wb_err, vol->wb_err) == -ENODEV) {
--			NVolSetShutdown(vol);
-+			ntfs_report_shutdown(vol);
- 			vol->wb_err = sb->s_wb_err;
- 		}
- 	}
-@@ -2369,10 +2375,10 @@ int ntfs_force_shutdown(struct super_block *sb, u32 flags)
- 		if (ret)
- 			return ret;
- 		bdev_thaw(sb->s_bdev);
--		NVolSetShutdown(vol);
-+		ntfs_report_shutdown(vol);
- 		break;
- 	case FS_SHUTDOWN_FLAGS_NOLOGFLUSH:
--		NVolSetShutdown(vol);
-+		ntfs_report_shutdown(vol);
- 		break;
- 	default:
- 		return -EINVAL;
-diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index 27f58beb4b2d..95ca0019906e 100644
---- a/fs/ntfs/volume.h
-+++ b/fs/ntfs/volume.h
-@@ -264,6 +264,7 @@ DEFINE_NVOL_BIT_OPS(StreamsWindows)
- 
- void ntfs_report_metadata_error(struct ntfs_volume *vol, int error);
- void ntfs_report_file_metadata_error(struct inode *inode, int error);
-+void ntfs_report_shutdown(struct ntfs_volume *vol);
- 
- static inline void ntfs_inc_free_clusters(struct ntfs_volume *vol, s64 nr)
- {
-
+Best regards,
+Krzysztof
