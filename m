@@ -1,113 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793622209;
-	b=FBeRZuGg3wdYmk9T74P1L1/ZLnCaNY4fzKeqBEiPzpaddEk6Jg46emg4NECqw2mDnpNj
-	 I/2iJEY4b7b9ZgYSQSSQ0+Qu7b7ifTsF7kImiARD2hHlp3GrlgS+n3C366OJNjWsQ9ZnM
-	 +cn9k/UKAPAA0C3F1Xxv4B+hv/qGiWLYUhoxLnCteZw0v4w91A4YkAXoibhxNELZmjQzx
-	 bigvcNXctgKwEd8IBOETjDpISD6eifLesju0hc9VFSqKfHSgSM15fijDdf2wafukLmi8+
-	 CNcx/3SN/R8Z9BAAD5u1iBQe4E145pXdofgxUyTIcqnC5vOUuCkFRfC0LCEJI+osiEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622209;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mEVijfwQXMGRpkR4jQ7zecnwR3MLBwPWs3hjBzf1iJk=;
-	b=gWE85ImYgAj5zC2r9kHlzm6NWWddgpWFJLhgFwfdF5v/sX+A5UUjOqRr/6TMmg3nzfaS
-	 zb6DSNZtSXiuZHFUJae0LyqZFBA2i60OBJVdsU6048ZlAFdAmV4qF/j/D/HQBPqz7+LsS
-	 KrfmNO9R1iJWbYAM8CpLt8BDMRmdLEfHSbpahFYBu2vietxtQK4Koio1ddQyjEjpMyE37
-	 +hGcKCIg+uJTXKg1x5a3I5h78h6ttkU1w1NF33ADmiTjH8n4fuvIXYXLQ0t3tm8pWMJyU
-	 O32Y7xcYprj/1Owc72SMrAwCPxigidxVzU1/F8+cqBfdORyxC59PnnIiS/aoYLF5tYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=anyJ9zVg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.70
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010070.outbound.protection.outlook.com [52.101.61.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793622236;
+	b=jshfBsioK6NUiEQigQ1DFoLixXlC2A9PdZamQk4F2MV+w9z7SL4N3RCBQZifZSP/zgPT
+	 Y1dK6HxARavnyyagtN8FmsICF3+/WPl/cZBSFzpEj8DZOORQixH34h58QHCGtpLwo/GMn
+	 To6qHIV+KHcrNEkg3c60WZB/IQMIDH0FjIShvVb6BHoJuiCDaoUEQaDCzcHA0IULN1hi9
+	 V8svXWou2rIunK+6hiShR8P9lkESIvl4ym9gZdiJOWtAC7/aotKZwrSunbZIhhqRBvpnX
+	 PEzHFr3FxGcFh+6QxQ4h77c2aibhdmZgvDqb72QavDILOTlFFjTQ9GK4L5qCtjj2xhA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622236;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2QoSKh2R8YzTVuDYsIBEYhU9o8xQeiipmodiv0jofHA=;
+	b=31Sh2vNwUPeZSzJQyXJdJEASx/ud0achbgsaTaJxABqXMaxDXwbKXV2M71lr5NxL6NBw
+	 AEQ5QypdCKeXD94pmpTs9/WiIo/UsJlemi8NpvrBN9Fh+o8bWxmNpl6XjHAWQHFT4NPxE
+	 /eyX+nsvqtZCNgc217f7JRY9rjG9mXXtU9WwRVxkz0LR02tbLZM1cPFs2HbRMFCxea1gy
+	 zLbqLLsUxRTK13wS+yVXXp3PLehCEcOvhFFCwe3hKKeq7BMWtCQDy+2omEvk1y/FEBOI1
+	 ZFrqLRbIQyEK6fQ62iwZbYRDiZocfAO2phavoOt3QDSqBruVxqJFFgBFC/HDw3suVMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="q7ESpj/6";
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B9D606A793;
-	Mon,  2 Nov 2026 12:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7B9D606A793
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42682606A793
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:23:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42682606A793
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=anyJ9zVg
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K0OPO9c8KdJzBZj1cRLR68Jyoudi+hRDlS8hjrqvQd+I73ezi7MNXNsNUVF0YP7H7wbl6xIcGuwrL0lp8V8MqDX2Gy7eg/I3wBHqdZmI4mj/YVW97niUily1nAqSERY6jiyzl1HYF9/FRUFjjY/MpzHzRgRnXnZrK8JwNhawcbTKH9GWT32g1p7MSnA4216HQ22aA9RRmCr0R9lcZ+cAMjCQCWeGAVsQXcCnH0CHbJazSysEIrbbp4dIFNtZonM6xFd8kPdtwx79+6A7W6Ivv7ygmg5xKqF12nqh4dBuWnFV63nT+eVusw/eaagmFRI/Y+bH9wtUlFV775d/CyAJlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mEVijfwQXMGRpkR4jQ7zecnwR3MLBwPWs3hjBzf1iJk=;
- b=L6j6vIEbz3DCJo+JrhfUrPwWXLJ5f9u2uZry9T73L0QFI3azHlN2UiKbKOK9IYRpsz+8dE2mYyqZFAkzLQtKjANRi4cgWy9/rLNNucYQpDvSmfH1ApCfB6eWv2N49X+wRVVQ4XfH4h8Kjt+cB4/jEN1Q8hfCJYHsOjwm7LGiPnT9n0f6kvnX0vYW8MtYhul6eq5iRkderucUlaR3anLWUM2NNo69BgzPk/NC3fkW0EbAfyqCepIz4IDUw9CWqdJqLNNBcKHW8PgxmyjHbS+sCg0Zf51VwCaGnkKjnEU3xvruQAGdL3ecaJAOSqNedtvP49gs9lI4kSUj8qeIWC4Nzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mEVijfwQXMGRpkR4jQ7zecnwR3MLBwPWs3hjBzf1iJk=;
- b=anyJ9zVg5bl/BHq73drqxWudEBZ3H6SiKTzgO6iwk7CD3f50EKPxjE1aJhrlWn93/Diu7RcIC/M2Va00YOj6GtLwDbNqKCBZxTWshtbObkz9PRi2PwGGtUdmXxjVsF6wVb7+fRcCUJ2qS2A6KQisWNXRl5Wp9XZIH1NvuQf8dkw=
-Received: from BN9PR03CA0725.namprd03.prod.outlook.com (2603:10b6:408:110::10)
- by LV9PR12MB9783.namprd12.prod.outlook.com (2603:10b6:408:2e8::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 12:21:20 +0000
-Received: from BN3PEPF00022BC2.namprd05.prod.outlook.com
- (2603:10b6:408:110:cafe::67) by BN9PR03CA0725.outlook.office365.com
- (2603:10b6:408:110::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 2
- Nov 2026 12:21:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF00022BC2.mail.protection.outlook.com (10.167.248.213) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 12:21:20 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 06:21:20 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 06:21:19 -0600
-Received: from xhdakumarma40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 2 Nov 2026 06:21:16 -0600
-From: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-To: Jonathan Cameron <jic23@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<amitrkcian2002@gmail.com>, Amit Kumar Mahapatra
-	<amit.kumar-mahapatra@amd.com>
-Subject: [PATCH 0/6] iio: adc: versal-sysmon: Add OT alarm, shutdown and thermal zone support
-Date: Mon, 2 Nov 2026 17:51:06 +0530
-Message-ID: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
-X-Mailer: git-send-email 2.44.4
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q7ESpj/6
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so30028265e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:23:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793622234; x=1794227034; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2QoSKh2R8YzTVuDYsIBEYhU9o8xQeiipmodiv0jofHA=;
+        b=q7ESpj/6KsDzr7j6XAkPlgRK2hofnMaxPPC2GiXQ7ITo175PoIJfr9ADgdo47qiWYi
+         TvdfGWmfAEpLNmZwsf0QL74yGDboM7evObCV4bhUSvvhihGrzxYVME5MgOViKEbFdRjw
+         4bZiTugSkcSJ0CLzRIrzL8Iwt+1ut4DhmSs58Yc2329wrSRSr29ea+cC4KFcfbFATCJN
+         AjZ1TNct8upx8WTi6vWRPZb88s3WR4Rg7Lmtq4BA+2vQnNc7O8Q9VwY2DfIcXK6bKjYx
+         PnXY+qlU+DFLs/wGZ44UHgFcpUwD6sYwl39JHuUZET/pS7sYvQcFFRZLRgeNfWcWPf9d
+         WDIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793622234; x=1794227034;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2QoSKh2R8YzTVuDYsIBEYhU9o8xQeiipmodiv0jofHA=;
+        b=zugjGLDHfv1Dt3H5zmLMO8Dmxopz/etKra5BlL7jhh3XZCEwPXNQnC8wQZUpdBxQrs
+         cwvEL3N2sHxjeIcmJ3jU2Mldr9BqcTFslEAJvguRoR69l0/WIeIqAw2v9jmoSwJh5l1x
+         iJfayaW/ylKQNzqbpF3gR06AJJmrPAPakqYL5h+Xg/kwbx1FSthOtmDVX9+WF8HGsM0+
+         zzR8imLnGiDGN/gxERnFZZgQKqHjso4MS2MSca3tQWo7MqgROVpI1ueVut5rGKUck1b6
+         hU9llhdUIBEMVBuOmdRZ+1+zDCielNgQuaiNI4PaGDWZCOLesMXw9987F00K7+ACMczc
+         +LLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx7rCAYdMBr0BVy0fj2Jae3cLus9Ckfhlg1bp3YzIuukuIZIz3h+ooy2a/SVCM359yC5qLWyLRf3RInq1w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/8vSfqUYSWA8QO8DNBc13E9Fo24aBKBQtEZheBDFfBpAcXBj9
+	6wFWosbzCGiqML3kDYm0IQ8JCYq6oT/E5r5tDivBd8/3NtDb9SZBQnpY
+X-Gm-Gg: AYBFou3LM4jyAbGaXUEE8oG46FZ0GMefmxwUoE9JFLBNDeKs6QDga0jRrCXzqgJtBbK
+	Ex1ogtXHSRBCeuUIyTZZiEmVc72vVHo9CDEzvKU6I8n9MF66d/w9R1IIDNH72tda5gOHr40/uUv
+	7tSB8qZVetcwLvR41dJJK8KThGWSS3txFe6Dxq9vwX91jsm3g6AJweYcSTmiBZPh8qwoUL1cZ4/
+	KsbcyRr+LSDXLvL8HRNibgqbH0u87pdyWwTlrpk8LZrQ0pgknmrASTk04w6hUHONBYYmbr6sAPt
+	vSJE6UNU6Ui4Kpjl+niKZrjbgjZitcWMqPH1m6q8XvSaLA8O9kKEnvORTvB4lsqtU4jyLruS33f
+	yy4mBmQXk3vzO0f6/oIk604cHsj1sDTorsqMA+OIRpuXZwFg+C9qdn3QSKaeAAXZzSMoteQvhpg
+	610BvsjPqZ4X02OP6MXAKTfONUgnuoo4gvuMumWzwdCGCMtMIkPiWftX1FdfVF2xIldhCdXaj5Q
+	PepUARAhvJzfJDlzsTRkX/7+Q4A2ti0OyDUNF5z8RHL7Ao8K22EhLz7yOP3JTDWAY5XNzKeXTft
+	IxKzm6F9vwfB+/Ka6sSzSWJb67m+IzjfoQ==
+X-Received: by 2002:a05:600c:8183:b0:49f:fdca:c361 with SMTP id 5b1f17b1804b1-4ac180f2ba7mr215223755e9.12.1793622233480;
+        Mon, 02 Nov 2026 04:23:53 -0800 (PST)
+Received: from thinkpad.lan ([2a06:c701:4773:6f00:e7fd:cb78:efe4:a8de])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf723b5dcsm271952215e9.14.2026.11.02.04.23.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 04:23:53 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Richard Cochran <richardcochran@gmail.com>
+Cc: netdev@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] ptp: Report clock removal to poll waiters
+Date: Mon,  2 Nov 2026 14:23:40 +0200
+Message-ID: <20261102122340.1160733-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,66 +99,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC2:EE_|LV9PR12MB9783:EE_
-X-MS-Office365-Filtering-Correlation-Id: 832816ca-70a8-46a4-15fd-08df38dbcd7b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|7416014|1800799024|10067099003|18002099003|56012099006|11063799006|261021121427099003|261026121527099003|261026140227099003|261022105027099003|261009221227099003|261009223027099003|261021123027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	/3vGhk4e1M7K5VZgDgpX/DpWE86Dr039o1Yf7p+nGn6Gd6K7X53mUCYR+v2Uh/VTHA+NHvvnemG+b0zPlWIYU+gLzUEbpVzErRhzE4OjXeW6XB7wDMN+PO3Z7PF1IL9N4lM7w9PSRtgncfADJrZiPx9NO7VLsawn6wzvRUTYEr3B1xTlWnKNyZguLZa8k+wg4ZhOVl58kDwjSFiXU5IqsEF8gdqH6I0MOFG7g4W4A/3zPvOV7XQuBzIdIpC9KPuk8gk8RrOCUyG0HQoHkousR1kjWfxh+L1GPa2YPAHM8AfWMH4w/i69kC5RpEo9gpXE646R+CB3kZjA7mYIW62820Wz0Zigydsw5IYt4Ps+1gwSDgQ2XbEMO7AHOza0yQx8eenQu5Ptym7OFC5N1f6yKRNlbmqbzXqONEmraNM7kOYcEZJ8Y6URHAbA+LCTXq8IXfKfhFeQhMumO5GMd04WN7bcKSXsoYcj9oO2+AAlPe7wfGjSYXRmA5/z1NAXBtmzhQYX4RMVirS3a99UjrTx2gowuk3vU1OC/oQalZZnEUOXXObHK7mzpS28ZOmk5xX3Ycl6RhamtiCV5kS3IAjaYnJRsvC3+/4mHo4UODvb68WiMLwsR2JfORVZHNkesVz2wxpafonILxW889yzesPHlhUF+XfYVzV85g6s6QKQB6GgPCZGkDoytpyMDQTatigXiHAOq5ckt8c0lsU5c24C2g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(7416014)(1800799024)(10067099003)(18002099003)(56012099006)(11063799006)(261021121427099003)(261026121527099003)(261026140227099003)(261022105027099003)(261009221227099003)(261009223027099003)(261021123027099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	eKMEUzSFcTMKtFR8x7JXZvye4TnWJWGAE9rTlMjb3945+4S00eBfi1RlQ+UbahOV+5KXyFoRb74/WJGSJaO/YIfaf82/tF55bl9OxcuhGOJW9jeJMnXtdFf1m4v2f18J+/2j3FfA/2a7HK3kikdeIijF2xBD04Lq2LQsjvOsyBcokWkihv1oVbLPo2SNfDElZfFxVb1zwSKF50aAYviY8639nrjG9ml4tglW5UWS5OfxlHEVf0i2F7OyJcjSjvgKzK3DhnmotkgkyNB6z6JUTq9tQCWQa/2Sh75s6B9RZM8ChRnV1zYGr91OBKnVKOFQk2QSFW9GLlCJBSmHDxQPlAmNRss9F93KSCpUpNoAX+tXMBwf6fNUyeaw7Z7/gRgsCYJhM+idtge4Fx5sOEhBDMDu9fonIHDlNBsV/nLDFV1NQR6uPMnHR7nREKlI0WKJ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:21:20.5860
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 832816ca-70a8-46a4-15fd-08df38dbcd7b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9783
 
-This patch series:
-- Fixes a race between the interrupt teardown and the interrupt handler
-- Validates the temperature hysteresis written by userspace and read
-  from hardware at probe
-- Adds a .shutdown callback so the SysMon alarm interrupts are disabled
-  when the system shuts down or kexecs into another kernel
-- Adds the over-temperature (OT) alarm as an event-only channel labelled
-  "ot", alongside the existing device temperature event
-- Updates the Versal SysMon maintainers: removes Salih Erim, who is no
-  longer with AMD, and adds myself
-- Describes the SysMon in the Versal NET device tree, with a thermal
-  zone on its device temperature
-- Adds thermal zone support for the SysMon using the existing
-  generic-adc-thermal driver
+ptp_clock_unregister() marks the clock defunct and wake
+timestamp waiters before posix_clock_unregister() marks
+it inactive. A poll waiter can consume the removal wakeup
+while the event queue is empty, return no events, and remain
+blocked until timeout after device removal.
 
-Amit Kumar Mahapatra (6):
-  iio: adc: versal-sysmon: fix race in interrupt teardown
-  iio: adc: versal-sysmon: validate temperature hysteresis
-  iio: adc: versal-sysmon: disable interrupts on shutdown
-  iio: adc: versal-sysmon: add over-temperature alarm events
-  arm64: versal-net: Add SysMon and thermal zone
-  MAINTAINERS: update Versal SysMon maintainers
+Identified while reviewing the PTP polling and removal paths.
+Using netdevsim's mock PTP clock in an x86_64 QEMU/KVM guest,
+the unpatched kernel missed 8 of 12 removal notifications,
+while the patched kernel reported all 12. No kernel
+instrumentation or forced fault injection was required.
 
- MAINTAINERS                                |   2 +-
- arch/arm64/boot/dts/xilinx/versal-net.dtsi |  29 ++++
- drivers/iio/adc/versal-sysmon-core.c       | 158 +++++++++++++++++----
- drivers/iio/adc/versal-sysmon.c            |   6 +
- drivers/iio/adc/versal-sysmon.h            |  15 +-
- 5 files changed, 182 insertions(+), 28 deletions(-)
+W=1, ptp_chardev.o compiled under allyesconfig and
+allmodconfig on net/main.
 
+Check the defunct state after registering the poll wait
+queue and return EPOLLERR when the clock is being removed.
 
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+Fixes: d94ba80ebbea ("ptp: Added a brand new class driver for ptp clocks.")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ drivers/ptp/ptp_chardev.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/ptp/ptp_chardev.c b/drivers/ptp/ptp_chardev.c
+index f63b45f5ee6a..01adc70ad97b 100644
+--- a/drivers/ptp/ptp_chardev.c
++++ b/drivers/ptp/ptp_chardev.c
+@@ -593,6 +593,9 @@ __poll_t ptp_poll(struct posix_clock_context *pccontext, struct file *fp,
+ 
+ 	poll_wait(fp, &ptp->tsev_wq, wait);
+ 
++	if (READ_ONCE(ptp->defunct))
++		return EPOLLERR;
++
+ 	return queue_cnt(queue) ? EPOLLIN : 0;
+ }
+ 
+
+base-commit: cb284914e749388eef402938bdb3115fe1f6d337
 -- 
-2.34.1
+2.53.0
 
