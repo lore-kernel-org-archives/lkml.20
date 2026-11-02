@@ -1,87 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621760;
-	b=W++gZur3Zt/fLflYePUI8KoLQPxYGK9NBHMnoxZVOWP4KUy1R4oIbLmnrhoL37nQ4BCR
-	 a/Cc/e8Je8Qc22mo8Vp1vT+WO62vch0ZlPDZVtAEW5c1tDDNabi3wG0xiprn8Ss42fGWu
-	 whdte6vvhXUE/jOvuZRxPzodKjJ6wPttEoMCkb4w4jiPdpLrsqsUMUmQugrrZqfqsIe22
-	 Fn+2PQwx0t4d7HhHHZL6t3kxo8batjT2oP6T+Z19ofW7nqnWO1iW2XGagI6DAG/PU+Hoa
-	 IZCUY25/pzWXnJRzCjLJ/OqEgF6m7RLyWFMOmUa1E9ls1wi8oLkHGxf0bKU4Ny5CJpw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621760;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=ZFE+K6ibkytnijDp2/HAIN0tLVK/PlyfhjsWm9snroY=;
-	b=v77SAW6Ix7K42JopgyKTcawDIzq71s+HHyp4QBkc+Hiq/L+U46o21Teju2nGtQj+4N6/
-	 DAmB4J0GHGRHQg0bdJrxIGC+ImCtjk9zejwrQ4ZXqoWrHEqEBY4ES0f7kklsa1yloDoJT
-	 8a9IHEjQZuF/LkTf2jXLm0xj9SopmN68aYIfbxRf7kTCHSHx0r7zNVqZj210rZQi01ekE
-	 s99YaODoBZDFwhSeRJI6b1stRvEqqDgJtKZROGHnkQgkUHm7ST3qLmtmb7ugPPjwAmoin
-	 jIhU/c2O+GL/mbeisXyN+HACvV9hCWtYiSGw6VaNBULHg0eP7KQfskslvEkJWuK67/Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fXz9aRkJ;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793621814;
+	b=2VYbXPTnuQEDXhFMyx64VWgo0Zh+reBnZvi5Z7f1ecN6mtK/2Grx2Sb10Po7HzKVRerc
+	 PD3bqsRS7Oj543xJLle06IlwYxPXVGBHrsD17+pCv/NXEC/SvDk6AUN9UV+0vI2K1YgA6
+	 k6uUUHRxR9hU5nOkCjzKaCvf67RYEOOFZdtxIA2VB5LwkK8BEy42F75jlgw0DFVJpRY2v
+	 ximMq5BPAdmipkEEBLYlRM+BFPcVgROOxJH8jKqqAentf8rTevx8sDeeim6aOV2qtKatb
+	 5aDx9qLqUkIuKr7PkwrHuAda9Mi64QltwvZjDn0TBqOuNkNVvqJUUFxIpHWbQjgoySQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621814;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WdbxVt6sBbh3ZVVu3wKkZjSItfhtmF4+pE1+g+q0DeE=;
+	b=tVsjcPFMDqX45FJjnVm2EBbWwQeWe1/BroGFk9z6GIdJeTgssqAYw4bwnFHPfo2Q+80r
+	 pnwtwpGjb6iTPIRn5NPgj7feYOOla3+P1JGDvLchJMosIL1pZFL3cSybcVextvqZc23SQ
+	 G3kbTrkcj0NairCfE8PkOf1yjNHBXkt1Hdxe57HWAay03I1PQhS4DSBLQiHtCrxtwqAI+
+	 bX4jxCmCXg6Ni9xsddKuXDRWpjIisP2HsI8FVxAU88RYOXLnLmXSGM9XZLAPW+dCd2sWP
+	 kQBR/Fn+HSoUph35JDzY1DYVE3yvI4b32Z0pHrjg4cgxbtKaNu7GQNcdvkyDt46eVkw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZZGvQlWJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.37
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011037.outbound.protection.outlook.com [52.101.52.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE3260A2622
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:15:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EE3260A2622
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9401606A32C;
+	Mon,  2 Nov 2026 12:16:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9401606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fXz9aRkJ
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a214af2076so22142945e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:15:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793621758; x=1794226558; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZFE+K6ibkytnijDp2/HAIN0tLVK/PlyfhjsWm9snroY=;
-        b=fXz9aRkJLaTjV7AFiNRlStVsxEPcmpqoMgyZdeveE7a+PwAt+A367A7z7367lernMI
-         7He/3xoNkO3bQ6u9QZRG/sL6M+xeYI+IC/F65/mPI+C8y4Izs7n6F0us6MWkE1VNdx44
-         KJBuJISsh7YIz+5l2mvQXRjguygG4/jCLjIE6Jo2Gg6/xoWZ9FzmARLaAnQXJUvxTvcu
-         grFlDfuJoR9vM88vl5BWKr/VqEaOx5rj3Vt7HNOWZJH1cx5apR1S4+gAprj6udNpFXmr
-         N30SZsmyfh0bk4PWnUUfFbgwEMc8zaclRU6RMJQupou5q50bYTXLPAkK6Tfz1glZZ2xn
-         hSWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793621758; x=1794226558;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZFE+K6ibkytnijDp2/HAIN0tLVK/PlyfhjsWm9snroY=;
-        b=P4sKM4WCgzbobc7/4kJHx6D0tJZ6mw7m2sivVF2WU6eDyWru20rKLPGp8bMqcEpRly
-         rDnC95GzXptmAuu282qQ2WGu3GiO8QqixxJJqqbPK5APheeVTGm5QDLDcs9p7vdx3pK0
-         zY1u4abwUJstePmF7G/ZOsTcHyZZ2ARLUfLKmefyb8lnv5mo3YBXcXkI3s4B6IYtPHI2
-         10zyw5we9EvmSQ6ZvcO24pQbqP8kEPS9RRACPWRWiFS/PDhjk8mWej55uZcdkTtqYjMN
-         1x1OG9J3dz84PkDUHm8qHgnNQkcGx6Bye71sJhhIrNCkwqSApZH7JeP5CT1xGYNvYm2B
-         DYxA==
-X-Forwarded-Encrypted: i=1; AKwUvByhNbBDDDj4TVxkYAWuycOFfV5qQ0qj/PELsaJR8HatbZCcYA38uMkQ0inSGb6mrC4F20JqHhKWZlHyZpE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEJelxDNCv38RlgLqptMgogLHzDWrdwb8iOGK8FTCI8Xx/TzSb
-	c2tMZyoHRLgV/lWXqwUXdURbnjxOFTPaytq9CNu1tCLZXrUsUsKmnKex7XVfYS9GBoA=
-X-Gm-Gg: AYBFou0nh9Jn6tRBMvTZ6agBcFw7rYsyWkwqL3CFaTNBBINWFWL6+JxrkqxjoVmmrmF
-	KaJ0AVKfe5cwHXxphXfo2+bMviEvHDR4HVl60wHrkzJvx6AmuIDBPWvYCIe+OevigiemBFQVtny
-	xnifi+9Y4zcFtwQOc8eHwj+/C5aDeiAmAc2ltL9ZG7T6JPzVSlCaXYd+tU79GAfM4qXCUPZVqmq
-	jPaSbskhPMBFHXLEZRDY3JbMeaKLy+9C4S5n/dbTtjmLdxQ8oQGX1LHLdQ/+EpVXuskSXT0OGys
-	4jt8G5I06S+8or9v2WvQhwxD1WZLdok1jgwkNCOs0muLZrPN1gOuAyWqdNBzCiIN4t2of9KXYvT
-	ACkyGFw2WN/8SqC5BzPICKVybdxmft65fOkAZ07DS6v8k/TeCZfzUL22vV6TOnD/HTYRNYWFXoA
-	2D9kzdnIcU/5UNSyFNzZ0S1X39xzGZvtX50m36Id1TN2D/4hvvNnsv43UuBh6p3Jsrd/urXQTEm
-	epz/kdv5f58UGSceGpEIdeARWHEHdWe/KZYeSWZRoOLapCCDFwse4cIAdlc5tdpvnj6xhjPtXJE
-	pmGg/29jzT9at2HlRgF52fnUspVvJqzITRSIKJZI2T9Osw4pMYhqwQ==
-X-Received: by 2002:a05:600c:1d07:b0:4a5:87a:50ba with SMTP id 5b1f17b1804b1-4ac18e5dbaamr222388115e9.33.1793621757770;
-        Mon, 02 Nov 2026 04:15:57 -0800 (PST)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm434974855e9.3.2026.11.02.04.15.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:15:57 -0800 (PST)
-From: James Clark <james.clark@linaro.org>
-Date: Mon, 02 Nov 2026 12:15:25 +0000
-Subject: [PATCH v3 11/18] perf arm-spe: Use generic snapshot search
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZZGvQlWJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h/qTTW/3uplgdZIcmPYltVOni6Pq+bvkq3SBu5tqmIrhA0OHkNyC89xxgUS6O8Hcfd2JMdGpKo0tZ1z5Qx3teSVqq4bEif09eRLjVgSl0qycbftKRjDFZEDYiPZXAWM5GoCtCI+JW4+NjdunA6aMOVvoNCLVQK+PcChhJoW9nwdHfP45N4W+DhqRxNFwuzNzpeELDW5Gd1fQ5Zw/wTBwqNx60gMOQZ8TFFNzCALWC4qLYry2utS3X1GcvWIqlmGcmQaQyQaybuqQZIBjjIJ2jq/icpO28xo2GldI8NRGFyHJH9SOyL4/T1fjwgvB3/a6uuHaqZGaXmEvt4LG7DQqgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WdbxVt6sBbh3ZVVu3wKkZjSItfhtmF4+pE1+g+q0DeE=;
+ b=nYhoKu+n7y5qCrRL5fFLL4x6FEpFnuoxecvHCM90VVUK+ejr2KLFVEYO+rLNASDMgDprQq4pnivB64I+CBh2g+KtxB0MY1RFgH3sFkqaJrwWQHX6UPYUnu3eIa48ZGljlvc5Qy2vf/ZCvUKi+zBLkRTiRp1YzHU5lJf0AJ/JKBGYMGXc3Aq3KdqVmnmAxdByYhIoi4GjjyF2Ok5N6MsBkEAYtymDdZgRzvZ58O7sSHXtaEe7sjLuZctbPQ8pgZF++B1svVVY8QHRbETDydWkwQlgpeCmgNApzh6bT8dOUQlwrIb/Fy+DeU9S/s2TjPNQKae+R/q+nC3NwfvNaKoNOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WdbxVt6sBbh3ZVVu3wKkZjSItfhtmF4+pE1+g+q0DeE=;
+ b=ZZGvQlWJ6RHpU+Irr/lMYEf2cNyXivV/ApHeKDh2X+/ja2kyUKnDw8JDToVncziCnfqp/RsyEjsiFgDiz3prvb6y3CB6w1b9hZOWt2ipJxA9cZsluNAwp7oi86HxvotU7YNXF/8DpZmpw1AsivcgL1eEVviKm7dxaXyR5svhYvCds+ZtU0t1tF0OV+3SElYXHYpsj4fsx3DsbvBUfHM0xf86cljliv8oyLmj+mm8+Tkm1/VboqF7GGxxZWEjruF8gVVEnNzfJQPjIT56uK8evGg7s4XTVV8VHN9UE2jFmLV2o7gwGVr5QRBCYT3CphchsVqRbcscfrr/egq6AhR49w==
+Received: from CH0PR03CA0271.namprd03.prod.outlook.com (2603:10b6:610:e6::6)
+ by SA1PR12MB6918.namprd12.prod.outlook.com (2603:10b6:806:24d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 12:12:44 +0000
+Received: from DM3PEPF000265C1.namprd03.prod.outlook.com
+ (2603:10b6:610:e6:cafe::34) by CH0PR03CA0271.outlook.office365.com
+ (2603:10b6:610:e6::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
+ Nov 2026 12:12:44 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ DM3PEPF000265C1.mail.protection.outlook.com (10.167.23.182) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 12:12:44 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
+ 2026 04:12:25 -0800
+Received: from build-johnliu-noble-20261009.internal (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 2 Nov 2026 04:12:24 -0800
+From: Johnny Liu <johnliu@nvidia.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+	"Prashant Gaikwad" <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+	<jbrunet+clk@baylibre.com>, "Douglas Anderson" <dianders@chromium.org>,
+	Aniruddha Rao <anrao@nvidia.com>, <devicetree@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-clk@vger.kernel.org>
+CC: Johnny Liu <johnliu@nvidia.com>
+Subject: [PATCH v3 3/4] firmware: tegra: bpmp: Add Tegra238 support
+Date: Mon, 2 Nov 2026 12:12:01 +0000
+Message-ID: <20261102121202.2431928-4-johnliu@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102121202.2431928-1-johnliu@nvidia.com>
+References: <20261102121202.2431928-1-johnliu@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,257 +119,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-james-cs-unformatted-per-thread-fix-v3-11-dbcb0c281b9b@linaro.org>
-References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
-In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
-To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
- Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>, 
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arnaldo Carvalho de Melo <acme@redhat.com>, linux-doc@vger.kernel.org, 
- James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
-X-Mailer: b4 0.15.2
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PEPF000265C1:EE_|SA1PR12MB6918:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0277265-7393-42e9-c3a0-08df38da99eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|7416014|376014|261021121427099003|261022075727099003|261009223027099003|921020|11063799006|10067099003|56012099006|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	ItLohWvK0oaw5O0ZRgssQaA/xswGH1xwoJiKpMKMRWdClDl4Fhag5QzAv8iLNL7zsgM8d1axfv+g8DkxEdYXNcxKGd7Xb+m3naMI8OBVVEJ17Pbu6KSsQSv1fFszneLlfyDKckRjGgyPjnWwu5UKwYOJD9c/terq4/h7dY7YzwDRNzBEZS4r6eM5Di6jAoivrPXZe0NGr4X/O+Ku0VNjPCgODFIVrOiPQ8L20S9M6ccA4cFivtZn9GDU2OWtTwZzQ4pzh2iK6zEdSLzoTcDDK9uoWFlFlvTx5zTjSQ3KToMEK8zz9IF+FMLNb62SY1L7E43lkPPbBEtjwJN5LGxhdBcMit86VZlvzA3VplxZBjXG7pwG19fdHG7oqwsgjYNv5JElXJzMUQSBSKT/aJ71krU+KrUP9vFlGaSjqxH7CPtxyTBc8tZgi4H+vDR3n5EbkMjuaevSe4fyiCaCc8DIwvMn3r1FKrUIcFAYNiWqn0Iog7YSd1Exu8WzMMUxAPu4nCS8/W/WICEtdd0G5ieZJR/v4opLsEs7P817fQ+baoo9KqJ0tBidjp8yfb76kG3fLwv2hHCsbB+u4yAk/tHbY03RqW+/6MBiceweaTLLXonAp0Kz7uxd/ZBki8jeO4ADJ5aqP4cebhLvzfDDAXg5B+EAUNvnMrNw73UzD1zqro1VtTLAfg22wUYwhIhoPMXZ9WrZBw4sOpxVbtqkOnRq+2FfLPO5VR8JJLaHF+riyYv6e+ND8QHWiKTwENF+MAZv
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(7416014)(376014)(261021121427099003)(261022075727099003)(261009223027099003)(921020)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NoM305JRoM7wJqwL/UvAiT+mMlgX2Hk/Kfdk+z0z+E5Vjd5RSvcrSFhNAonqmoRUkvnBRvY7wh7VSXONYnCacAXAm0lsG3qdBYd4EloyFP63sBFZ7CSyOPVrdiH2B3f5yR0q1GZwU5M5vS2cgE/Y7Qozqa3T/qYOG6DcFv7cKyrjaBZmwnPop6VzaTVHeyQQ2W1sPkY7HvY2+HsJ++Ypl57Tn/QHj8wyMtmf+Mmcko9XDINpI/+6MkehvMeqNSNtPqINLs0gythjAhOb0BCCesIyUTdiU8t4IKRLaJDIIXQizCxQ/wdyiP1jPrcuZTBOyVBkryqEDKJe2eXNyklQka8w5IBDXDTKfMU7pzfoiiYvzxkzQX0QwdbSVV5QaR9jN6b+KyjDIYhrRQgfRoM5gsdaFPwpHOAc0a0RJYZALhBJDEruj+1jTxme9ymHtVdk
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:12:44.4959
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0277265-7393-42e9-c3a0-08df38da99eb
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3PEPF000265C1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6918
 
-The new generic snapshot search gives a similar result as the
-reimplemented version of it here. One slight difference is in the
-pointer fixup. SPE has:
+Tegra238 has its own BPMP compatible, "nvidia,tegra238-bpmp". Add
+dedicated tegra238_soc data for it, including its EMC clock ID
+(TEGRA238_CLK_EMC=43), and select it through the new compatible.
 
-  *head += mm->len;
-  *old = *head - mm->len;
+Also build bpmp-tegra186.o and the shared match table for
+CONFIG_ARCH_TEGRA_238_SOC, so that a Tegra238-only configuration binds
+the driver.
 
-Which gives exactly the same result but written in reverse order to the
-generic one:
-
-  *old = *head;
-  *head += mm->len;
-
-SPE also had a special fixup cases (if (head >= buffer_size)):
-
- * head > isn't needed because the SPE driver always wraps them, and
-   __auxtrace_mmap__read() handles that anyway.
- * head == buffer_size isn't wrapped by the driver, but it just
-   indicates 'full' which doesn't mean wrapped any more or less than any
-   other index in the buffer.
-
-Both of these cases are covered by the 512 byte search.
-
-It also didn't have the special case for old > head for when the wrap
-heuristic fails but the pointers showed a wrap had happened.
-
-The other feature lost is that this search only looked from head to the
-end of the buffer, rather than always at the last 512 bytes. This was
-flawed because once head is close to the end, it's likely it could
-contain zero padding from actual SPE data and a wrap would be missed.
-It's better to err on the side of caution and mark as a wrap, rather
-than trying to optimize by limiting the search from head onwards. This
-can mistake old data as evidence of a wrap, but for false positives
-[head..mm->len] contains zero data. This should be fine, as zero data
-are treated as PAD packets and discarded during decoding.
-
-Reviewed-by: Leo Yan <leo.yan@arm.com>
-Signed-off-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Johnny Liu <johnliu@nvidia.com>
 ---
- tools/perf/arch/arm64/util/arm-spe.c | 147 +----------------------------------
- 1 file changed, 2 insertions(+), 145 deletions(-)
+ drivers/firmware/tegra/Makefile | 1 +
+ drivers/firmware/tegra/bpmp.c   | 9 +++++++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/tools/perf/arch/arm64/util/arm-spe.c b/tools/perf/arch/arm64/util/arm-spe.c
-index 1ba803a8d9b4..8d6a2bde2892 100644
---- a/tools/perf/arch/arm64/util/arm-spe.c
-+++ b/tools/perf/arch/arm64/util/arm-spe.c
-@@ -26,7 +26,6 @@
- #include "../../../util/record.h"
- #include "../../../util/header.h"
- #include "../../../util/arm-spe.h"
--#include <tools/libc_compat.h> // reallocarray
+diff --git a/drivers/firmware/tegra/Makefile b/drivers/firmware/tegra/Makefile
+index 97f7a5db9d0a..21e87f3afffe 100644
+--- a/drivers/firmware/tegra/Makefile
++++ b/drivers/firmware/tegra/Makefile
+@@ -4,6 +4,7 @@ tegra-bpmp-$(CONFIG_ARCH_TEGRA_210_SOC)	+= bpmp-tegra210.o
+ tegra-bpmp-$(CONFIG_ARCH_TEGRA_186_SOC)	+= bpmp-tegra186.o
+ tegra-bpmp-$(CONFIG_ARCH_TEGRA_194_SOC)	+= bpmp-tegra186.o
+ tegra-bpmp-$(CONFIG_ARCH_TEGRA_234_SOC)	+= bpmp-tegra186.o
++tegra-bpmp-$(CONFIG_ARCH_TEGRA_238_SOC)	+= bpmp-tegra186.o
+ tegra-bpmp-$(CONFIG_ARCH_TEGRA_264_SOC)	+= bpmp-tegra186.o
+ tegra-bpmp-$(CONFIG_DEBUG_FS)	+= bpmp-debugfs.o
+ tegra-bpmp-$(CONFIG_SYSFS)	+= bpmp-sysfs.o
+diff --git a/drivers/firmware/tegra/bpmp.c b/drivers/firmware/tegra/bpmp.c
+index 5d97a8600fd1..06da888535dc 100644
+--- a/drivers/firmware/tegra/bpmp.c
++++ b/drivers/firmware/tegra/bpmp.c
+@@ -21,6 +21,7 @@
+ #include <soc/tegra/bpmp-abi.h>
+ #include <soc/tegra/ivc.h>
  
- #define ARM_SPE_CPU_MAGIC		0x1010101010101010ULL
++#include <dt-bindings/clock/nvidia,tegra238.h>
+ #include <dt-bindings/clock/nvidia,tegra264.h>
+ #include <dt-bindings/clock/tegra234-clock.h>
  
-@@ -37,8 +36,6 @@ struct arm_spe_recording {
- 	struct auxtrace_record		itr;
- 	struct perf_pmu			*arm_spe_pmu;
- 	struct evlist		*evlist;
--	int			wrapped_cnt;
--	bool			*wrapped;
+@@ -1134,6 +1135,7 @@ static const struct dev_pm_ops tegra_bpmp_pm_ops = {
+ #if IS_ENABLED(CONFIG_ARCH_TEGRA_186_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_194_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_234_SOC) || \
++    IS_ENABLED(CONFIG_ARCH_TEGRA_238_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_264_SOC)
+ #define TEGRA186_BPMP_SOC_COMMON					\
+ 	.channels = {							\
+@@ -1163,6 +1165,11 @@ static const struct tegra_bpmp_soc tegra234_soc = {
+ 	.emc_clk_id = TEGRA234_CLK_EMC,
  };
  
- /* Iterate config list to detect if the "freq" parameter is set */
-@@ -497,146 +494,6 @@ static int arm_spe_snapshot_finish(struct auxtrace_record *itr)
- 	return ret;
- }
- 
--static int arm_spe_alloc_wrapped_array(struct arm_spe_recording *ptr, int idx)
--{
--	bool *wrapped;
--	int cnt = ptr->wrapped_cnt, new_cnt, i;
--
--	/*
--	 * No need to allocate, so return early.
--	 */
--	if (idx < cnt)
--		return 0;
--
--	/*
--	 * Make ptr->wrapped as big as idx.
--	 */
--	new_cnt = idx + 1;
--
--	/*
--	 * Free'ed in arm_spe_recording_free().
--	 */
--	wrapped = reallocarray(ptr->wrapped, new_cnt, sizeof(bool));
--	if (!wrapped)
--		return -ENOMEM;
--
--	/*
--	 * init new allocated values.
--	 */
--	for (i = cnt; i < new_cnt; i++)
--		wrapped[i] = false;
--
--	ptr->wrapped_cnt = new_cnt;
--	ptr->wrapped = wrapped;
--
--	return 0;
--}
--
--static bool arm_spe_buffer_has_wrapped(unsigned char *buffer,
--				      size_t buffer_size, u64 head)
--{
--	u64 i, watermark;
--	u64 *buf = (u64 *)buffer;
--	size_t buf_size = buffer_size;
--
--	/*
--	 * Defensively handle the case where head might be continually increasing - if its value is
--	 * equal or greater than the size of the ring buffer, then we can safely determine it has
--	 * wrapped around. Otherwise, continue to detect if head might have wrapped.
--	 */
--	if (head >= buffer_size)
--		return true;
--
--	/*
--	 * We want to look the very last 512 byte (chosen arbitrarily) in the ring buffer.
--	 */
--	watermark = buf_size - 512;
--
--	/*
--	 * The value of head is somewhere within the size of the ring buffer. This can be that there
--	 * hasn't been enough data to fill the ring buffer yet or the trace time was so long that
--	 * head has numerically wrapped around.  To find we need to check if we have data at the
--	 * very end of the ring buffer.  We can reliably do this because mmap'ed pages are zeroed
--	 * out and there is a fresh mapping with every new session.
--	 */
--
--	/*
--	 * head is less than 512 byte from the end of the ring buffer.
--	 */
--	if (head > watermark)
--		watermark = head;
--
--	/*
--	 * Speed things up by using 64 bit transactions (see "u64 *buf" above)
--	 */
--	watermark /= sizeof(u64);
--	buf_size /= sizeof(u64);
--
--	/*
--	 * If we find trace data at the end of the ring buffer, head has been there and has
--	 * numerically wrapped around at least once.
--	 */
--	for (i = watermark; i < buf_size; i++)
--		if (buf[i])
--			return true;
--
--	return false;
--}
--
--static int arm_spe_find_snapshot(struct auxtrace_record *itr, int idx,
--				  struct auxtrace_mmap *mm, unsigned char *data,
--				  u64 *head, u64 *old)
--{
--	int err;
--	bool wrapped;
--	struct arm_spe_recording *ptr =
--			container_of(itr, struct arm_spe_recording, itr);
--
--	/*
--	 * Allocate memory to keep track of wrapping if this is the first
--	 * time we deal with this *mm.
--	 */
--	if (idx >= ptr->wrapped_cnt) {
--		err = arm_spe_alloc_wrapped_array(ptr, idx);
--		if (err)
--			return err;
--	}
--
--	/*
--	 * Check to see if *head has wrapped around.  If it hasn't only the
--	 * amount of data between *head and *old is snapshot'ed to avoid
--	 * bloating the perf.data file with zeros.  But as soon as *head has
--	 * wrapped around the entire size of the AUX ring buffer it taken.
--	 */
--	wrapped = ptr->wrapped[idx];
--	if (!wrapped && arm_spe_buffer_has_wrapped(data, mm->len, *head)) {
--		wrapped = true;
--		ptr->wrapped[idx] = true;
--	}
--
--	pr_debug3("%s: mmap index %d old head %zu new head %zu size %zu\n",
--		  __func__, idx, (size_t)*old, (size_t)*head, mm->len);
--
--	/*
--	 * No wrap has occurred, we can just use *head and *old.
--	 */
--	if (!wrapped)
--		return 0;
--
--	/*
--	 * *head has wrapped around - adjust *head and *old to pickup the
--	 * entire content of the AUX buffer.
--	 */
--	if (*head >= mm->len) {
--		*old = *head - mm->len;
--	} else {
--		*head += mm->len;
--		*old = *head - mm->len;
--	}
--
--	return 0;
--}
--
- static u64 arm_spe_reference(struct auxtrace_record *itr __maybe_unused)
- {
- 	struct timespec ts;
-@@ -651,7 +508,6 @@ static void arm_spe_recording_free(struct auxtrace_record *itr)
- 	struct arm_spe_recording *sper =
- 			container_of(itr, struct arm_spe_recording, itr);
- 
--	zfree(&sper->wrapped);
- 	free(sper);
- }
- 
-@@ -674,7 +530,8 @@ struct auxtrace_record *arm_spe_recording_init(int *err,
- 	sper->arm_spe_pmu = arm_spe_pmu;
- 	sper->itr.snapshot_start = arm_spe_snapshot_start;
- 	sper->itr.snapshot_finish = arm_spe_snapshot_finish;
--	sper->itr.find_snapshot = arm_spe_find_snapshot;
-+	sper->itr.find_snapshot = auxtrace_record__default_find_snapshot;
-+	sper->itr.snapshot_search_bytes = 512;
- 	sper->itr.parse_snapshot_options = arm_spe_parse_snapshot_options;
- 	sper->itr.recording_options = arm_spe_recording_options;
- 	sper->itr.info_priv_size = arm_spe_info_priv_size;
-
++static const struct tegra_bpmp_soc tegra238_soc = {
++	TEGRA186_BPMP_SOC_COMMON,
++	.emc_clk_id = TEGRA238_CLK_EMC,
++};
++
+ static const struct tegra_bpmp_soc tegra264_soc = {
+ 	TEGRA186_BPMP_SOC_COMMON,
+ 	.emc_clk_id = TEGRA264_CLK_EMC,
+@@ -1196,9 +1203,11 @@ static const struct of_device_id tegra_bpmp_match[] = {
+ #if IS_ENABLED(CONFIG_ARCH_TEGRA_186_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_194_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_234_SOC) || \
++    IS_ENABLED(CONFIG_ARCH_TEGRA_238_SOC) || \
+     IS_ENABLED(CONFIG_ARCH_TEGRA_264_SOC)
+ 	{ .compatible = "nvidia,tegra186-bpmp", .data = &tegra186_soc },
+ 	{ .compatible = "nvidia,tegra234-bpmp", .data = &tegra234_soc },
++	{ .compatible = "nvidia,tegra238-bpmp", .data = &tegra238_soc },
+ 	{ .compatible = "nvidia,tegra264-bpmp", .data = &tegra264_soc },
+ #endif
+ #if IS_ENABLED(CONFIG_ARCH_TEGRA_210_SOC)
 -- 
 2.43.0
 
