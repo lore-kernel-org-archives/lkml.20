@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793651916;
-	b=vxmG0B15rny67IUYHz/rMeQaIYPJeSOyfRKoonqEoo2OXFDD2wN3QY0SSQyBrmqbnV7b
-	 4hEpgj5SP0+wumh6jZHfc3g48sdkF8q1u20QUxOfcyWIZkuBUkRAnzqpxsapqT/0U00GI
-	 X1mXqXPffAUjD6yi1XBP+ZBndcvpGxIJLuAUHvB0Ya1s5NM6FWjgvr4LWiqgwdludYhkU
-	 m/H81/Mn8nx2F4AXNgkuZ6xuxKoVasXIUEaXKyalWTBY+1xpQAnSaq0dWjsIrHXG7XhI8
-	 oJF6Jkd5IaqHIQeD1PmDhHtipCTEkgXNSYjl5zLgH4+ubcZOkeX0VWQgOWXEx4Q2w5w==
+	t=1793651915;
+	b=xwhsPXM1mAEmjegVg4DcJf5EnlJLGwmx0oZ0dloVjcIPNR+hWEVjc2wRySJ9ZIHz5EcO
+	 MLxsKOVbY3wHe39W2QGUxzm/leEE7rYcHoHgtVtTGYBJTBPttg8ackdHJLanS6HlsAbau
+	 HeDZSe0nMx4sCoYhJ+Afr9SR8zdSYZLKHQEHNELrj1BKCr0KQuiQKQbtrFtgJZwmsXryD
+	 6VhkAqt/2L2elRYyflHQqYh7K4eF8NDlDcKaE3cMI8EDfYZTvJHHkUWNYoEfzkIiBeM/p
+	 /KBC43AGeZagIzdPdZSgm7gexjkxCIr/ejtHAeI/r9/vbLUMd91D+pWHJc4EuU8W9Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793651916;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=kew4vr9D/lX65hyEZonw0fC/8LUorIYJxt0gwq9n5sA=;
-	b=apNu6+dz/Fwm5RtNowrKlIUqb1SmOxJyuiwv1X9KzMtTAUrxzWLDkkuyUmZlCCgqTqQZ
-	 m5sT/apXznnc/nXfH+Igw8BxIG/UAWH6/QMpOAMkhZxzEOUcaeFix3+7FryGgxOHtXwZG
-	 ++zkmylyjupmJPkH2+Zkv5fVbb6qLRJys2R1W4QTL9bqPM3u0FEe+wRjECJZpYTCQoTte
-	 IuZqhBmBgvs7wqcErgS3dMww4cCglvDLjxvi4heUy2TiQ8PvoPhJKlpke4qTvmDomDrAh
-	 KWSPi8njmTl75dWkMT706TejYOoWma1DJNbnuNnOkWq/jD0c+Dnu8/+l5ImAm4J6p/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651915;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=df9x564ZsWQ1YlCAdFuR+tc6g3AdQ2uglH2tG8Nzp2g=;
+	b=3B/lOO0nBMLWjxyEj5OlJAFKwmkCwQOWjqUV0eA5BSd51ms3A0LRmKb9fVuySsPK0n6+
+	 TfqCSrT/z77y7K2YoftVYC2DW6MKF4fg6SyH/zPgf8xOtfdbty1I9J0VZr30XiiVbeBE9
+	 TXk+j0IOuMN+mT3U7NXnt8RGnSc4g9DOdaGqCwUUhW5OD5OrRIDKe1F9hdHL+LpmvnkjK
+	 FRuNxAvmOtA5epoSe0TwXU2bdT8fbpjHrPApFGE5whG4mfhWsTBo4AwQEjISAr1AygMHH
+	 DvlenbvBCB4MKznOU4MC+lgvj/DRHg0u2MHFiipJCpRZagEhKzPU+aMTXdhwx83SbQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PNjcQpXo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LM3sDaqR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE1B606A32F;
-	Mon,  2 Nov 2026 20:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PNjcQpXo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C000D1F00A23;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E090F606A32D;
 	Mon,  2 Nov 2026 20:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LM3sDaqR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9F9F1F00A16;
+	Mon,  2 Nov 2026 20:38:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793651915;
-	bh=kew4vr9D/lX65hyEZonw0fC/8LUorIYJxt0gwq9n5sA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PNjcQpXo4zGa6xw4YW89dxi/9i8qq/lUFN2rkb2+oNb0lZ5r4gROeOvxhpfTXXDIi
-	 X+u5QEfjeBxybClG9H+CSRy1GmYY2OPn/96Nk3OCZ7BwB4Rs3buw7GNEqaOuT8Vj2C
-	 nuIXGHkHg6KyntbyJZpEUI7r8YNDDPu3AVyaoBETtckA0BfpnvPYwubrWbxRlFK0m6
-	 rt+DBmiNIX8k6EWzK8Qfh9uVE/nC+nMtGHQCxdo4A5slwOMF0vWFwftXoAnGXQJIKa
-	 6U8hiCzOUx0uGKiZ02my588/OUMLGko2He3R5qTT3qpO3zo1xRpkXKF+jK00CCFv/v
-	 IGE6COx3ucL/g==
+	s=k20260515; t=1793651914;
+	bh=df9x564ZsWQ1YlCAdFuR+tc6g3AdQ2uglH2tG8Nzp2g=;
+	h=From:Subject:Date:To:Cc;
+	b=LM3sDaqRE8I2qEmkyJYeBxfLvRw8nV7lmWUScSCm21foYbPvaaUN6fLnk4czVmYT0
+	 7eCUDNjkQOISABXaY018YeQdeYWcVb0zEaxwdxI9nSPbTYVBZ44cb0vv7KRrgpisiw
+	 3XR3YI8QwqepMXCTiX0hU6XskJjlgp1c0RZkIVDZS0yLhXNuJqv6U3dY+h85ZWco2x
+	 3Nl/z+fb+F/nGQr3PRW6Qf9DQ6bxbfjrQ4PVvu7jK/BojIe/uvfAuzuGBzDIj2f8Af
+	 4DI1TtVvsAGtmYYBhHgnpQ2XNWn0MkoThCLOojmVpnWpd0LYGY79oOkvZoBch5/Mk6
+	 uHts09ndfbdaA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Nov 2026 15:38:09 -0500
-Subject: [PATCH 1/2] nfsd: Report vetted delegated timestamps in GETATTR
- replies
+Subject: [PATCH 0/2] nfsd: more delegated timestamp fixes
+Date: Mon, 02 Nov 2026 15:38:08 -0500
+Message-Id: <20261102-deleg-cb-getattr-times-v1-0-ca0326d88623@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,71 +55,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-deleg-cb-getattr-times-v1-1-ca0326d88623@kernel.org>
-References: <20261102-deleg-cb-getattr-times-v1-0-ca0326d88623@kernel.org>
-In-Reply-To: <20261102-deleg-cb-getattr-times-v1-0-ca0326d88623@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqEMBBF0a1IjS1IahBatyIOYnydLmg/JEEEc
+ e8Gh2dw70UZSZGpby5KODTrtlbYtqHw82sE61xNYsRZa4Rn/BE5TBxRfCmJiy7I/PG+E2ekm6y
+ jGu8JXz3f8TDe9wPYL2U5aAAAAA==
+X-Change-ID: 20261102-deleg-cb-getattr-times-8aa926029b16
 To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
  Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
  Tom Talpey <tom@talpey.com>
 Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1486; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=63CvdnJ3D30Wf4u4qYlU9zOOUTNaBtg7jPVJhlMIX/w=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq6PTJInT/j9YFcdhkwdvoNvc68oFFR0c6iLctA
- OmKTkuw0kmJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauj0yQAKCRAADmhBGVaC
- FVODEADORVYgbMP583uAHhqM/u5JZE/BlCk8KpDEoOEZck7fzsHJEMDxKD1IRX2misAKiKb+1Ge
- OEic3UHgxS07TrileSMqdS1wXXyifnZIP/SBwo3slxo7sH2nXAC0DVlyVt2s6low3znjKjdSd9u
- +b77unCDjVc+cLSFMTTmh7uQGZ/Hyk0LXMEcLe34fi0dyVdd699JF0JYXL02o4T5I8Q+HwRCjWd
- FXzYi8FKFPHI31L4qx0RA8ploDvjIsWMA74axjTkSeZOhtkWaY22BDyeS1bnmx+7I1xbUqkcbUL
- qcFmTnxPLemf0+PuddwNjWKiSC0fIBrl0j+sw7MQOFLFarZzB6x7P6aHXBxrYqajhsPKO8pRxMj
- OrUt6kRYaAdJdSuKK5NuSxctCP9MTRTHu6UFexFlT/znFVfi2xS9FtOYnKTz2AJZ3ulujgw/FYp
- Ge656fVhNeQhQxSY2bAGY0Kv5mZBiKzBnVYnDkk2CN+O1RhVzjt/1kV7jidfk+WA2f9cq88+PaC
- vDnXHCWLgaYY4e+dXsdCO2/OUOO/YwnVrdmgW/8bsdxBcogYiDJf1gBhQlzeAyW5aNl45p+4Wwc
- V1FgakL+uGAc+yA7I44tTxV5s4PFHRf1ZzsrW3sgl1rsda44/Q00zhQLorOKPasJ3StBdGM1oGH
- oy+V97Ldoo+QDPA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=680; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=8zSd3J/2kYNwxJPhf/PPw+gedCJ9TUNUnrEoLsz/m5g=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq6PTDeCTPzMEO6jlw6LpqH1m+xVyGa04u/EqDa
+ F32l8lK2GyJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauj0wwAKCRAADmhBGVaC
+ FS/OEAC4WnG4uN5TUmB+QY0cyQcAblkI/eDxBa77Z+PdAkEU2JGxzRPkKSqLtYpchEAYp+PZ8lo
+ QHizWPxUHkVoNw7weGSODQYT+sn+QbX/+q0TBW95rM0Z1fEICxBVtRh7ncgilF8NLSbY6j9Xl0n
+ D6jlE5pHbv8lqhqD2XKyCsv5/9/Kg3XFVKWTYiA20bVSYm4hDITKv1dILEuhAlFvbURGDzppefo
+ 1F/8+gubceC/k3k9epI+RwOiXVIRegz3wq7NolFYKtTWcZdcrtmvX+tNWbFCtTw3UJqNwEq+D/j
+ t9mNsowzWPUJNvv3WdAwWdm4WtuRA7wDXG/ZOoaQthx4k0eHogsgKHS+3UvKyscTnaVchwCjkYS
+ cmvF+pCqFjnCp0LcZPf5jukO3Mg5sThrBIvfR31clrbE1rYv9D50yZS0lTZP9F8tfv6v4EIxNMS
+ 8zwsan08HllRChar6dp1xq/fzxID47p3Z1Fdrn2kO7FKxfUpINSXLQngsWjzDYgUheiDtjeG0Z8
+ kLIx6wDdVNItUKyZRvAwdqTO57juei1JOKW9HiS/yGWVzj1YvZ2Yyf1SdPDU6ZAe2/Gu/9A19Y2
+ xOzsL7zMf28h0yaoqffj3Osb5rYC0owiLNERMM6FnbWjStexujDSc9P755Bgvl84wfpQxBGAKVW
+ K6vEd5L3K6jo1wg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-When a CB_GETATTR reply shows the file modified, nfsd4_encode_fattr4()
-overrides atime and mtime with the raw time_deleg_access and
-time_deleg_modify values from the reply. cb_getattr_update_times() has
-already vetted those values per RFC 9754 section 5 and written the
-result to the inode, so the override undoes that vetting:
+Chuck recently added a new DELEG27 pynfs test that fails against nfsd.
+These patches fix the behavior of delegated timestamps (again), such
+that DELEG27 now passes.
 
-- a time older than at delegation grant, which the server ignores, is
-  still reported to the querying client
-- a time in the future is reported unclamped
-
-vfs_getattr() runs after the update and already returns the vetted
-times. Drop the override.
-
-Fixes: 6ae30d6eb26b ("nfsd: add support for delegated timestamps")
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nfsd/nfs4xdr.c | 6 ------
- 1 file changed, 6 deletions(-)
+Jeff Layton (2):
+      nfsd: Report vetted delegated timestamps in GETATTR replies
+      nfsd: Honor delegated timestamps when change and size match
 
-diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-index 90b44163f886..434b6cfc5741 100644
---- a/fs/nfsd/nfs4xdr.c
-+++ b/fs/nfsd/nfs4xdr.c
-@@ -4098,14 +4098,8 @@ nfsd4_encode_fattr4(struct svc_rqst *rqstp, struct xdr_stream *xdr,
- 		if (ncf->ncf_file_modified) {
- 			++ncf->ncf_initial_cinfo;
- 			args.stat.size = ncf->ncf_cur_fsize;
--			if (!timespec64_is_epoch(&ncf->ncf_cb_mtime))
--				args.stat.mtime = ncf->ncf_cb_mtime;
- 		}
- 		args.change_attr = ncf->ncf_initial_cinfo;
--
--		if (!timespec64_is_epoch(&ncf->ncf_cb_atime))
--			args.stat.atime = ncf->ncf_cb_atime;
--
- 		nfs4_put_stid(&dp->dl_stid);
- 	} else {
- 		args.change_attr = nfsd4_change_attribute(&args.stat);
+ fs/nfsd/nfs4state.c | 15 ++++++++++++++-
+ fs/nfsd/nfs4xdr.c   |  6 ------
+ 2 files changed, 14 insertions(+), 7 deletions(-)
+---
+base-commit: 08f97dfc517b50a00a41ce99f5af7b6ce2814592
+change-id: 20261102-deleg-cb-getattr-times-8aa926029b16
 
+Best regards,
 -- 
-2.56.0
+Jeff Layton <jlayton@kernel.org>
 
