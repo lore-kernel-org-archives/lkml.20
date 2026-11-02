@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793601646;
-	b=hPFYYpQbC65rQWxsSn8v1ix3hLFbYXOqm/HpfwvqrKUuhhNFdi+KJdeMDe8r4UJPuAAS
-	 alaLn+Gli6r0MCfF4nVgcJ0COldrGl0Uq5rjjXJZjdGVHnuQvqKf9sqoZNttbA0wSP7Kj
-	 Dh+yK4l1qivw6OtkBAbBNwJNOuHc1+wwPJWwG8s9L1ml49w8tRy874WvrMBftQhu6m4zB
-	 B/K4A16YnHFV8GMwHQi7ko0vZ07pYhFRhIk3o56+itINgVIXVLuxny3UStcD9/hQHud90
-	 ju/fV/vnMq7XbltkdbvVcSXhhtM325KEs1tU5SviYLXYzIhDzln6g11CwpneEB+z99Q==
+	t=1793601676;
+	b=eFPouQ2R/9Yy4/CJ9yNxGyqwtyeY+awHjs9PpXbhUu468bDkNxBRw7Mo5zvyaZniQldg
+	 gQq0SSwFA4WSWp8hVrubnasvpUZVaVggjDc03eMGu2HF6hGseVoCrZf9UMQmIp4xBf9u7
+	 4NC55aok1zOOZBlNxvca3N6o0D5oqzje8U52FOjEJUbBXsSsD4w7iQfwKjwHN8Fv+JUTF
+	 sMHOv6ygSoBFQJ8ajimewFIfLLShYk+S/Yr0yQm4V0cZN+/s8G+PlaEWjO2mypyBA95Be
+	 o+Y4ryGRRHCCj0QO+pJP1yUDlVJ6uGHNsj2YiKasM7K2BQ6s+kXGGz6cu92DaB3ZLfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793601646;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zX/OOJOMsice6nGvDy+yeA+vQDsuwQqSuMeNkiiRCZ4=;
-	b=t74WvGHSOK6I4MdPDtClvntRu1mqNnGUDsOwoOvFU/QexbGMqkOm1X3hfCfhTsQVfnPl
-	 DR4gPR+MiGCCeHdAhk/PfyNSww5c3y46exq8TSLkkXdE0+JZ77vS6m6hzCdtzTW5NnnXY
-	 p7vQkzwiF2LEsflDMcxO0HM/A5frK/j9Q+6LI8JVj3TOEReXRsSZXkB3s6HyZ1HXE4qlh
-	 O6Vun7H1+MZEXcBHB9wHF76aj19vZDjJW8FWpMZOvXK5ZS6od1sDViTHOIf3ACF6xYjBF
-	 IPSolWTapK0jD6L44y6L+Pk+SBRwKgLYjVuZBWQghySTUyHcEXiZg+6+fhRX1y9c+JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793601676;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=DOpqM1C0HSsP+/x8lk0qRSuGC14OfVRy0/BKZIpySdg=;
+	b=E17HQSgqkAauIy5isneE+u2hjkVSb5bdzYuw9GGc/df98fadw3HYCfrZ7L9mQX/ZIPWy
+	 ytHMIlYcYVwcIhACHrQJlf6GETTY1q8yHRmZFvIU4+cBLPisrqGQRvYCUFMkhksrIYxDE
+	 Fbg8p1mz1yIcKihkc1VFT0ajIrEdFaJqw8JQLsVokyEK+Sb/FCmgUPrwoqW79EPdW1Ete
+	 ZXkaN6s1XxT4AUHERo8AFG1RYJDfi1v8bPnbjgSizzIhOvy7A+MCAsB4/gm1v6T5OMqqt
+	 WyfjD/RwP/ysXt+c9Cf0ebxOaOkTfLhFehp7EZF4zD44NOr/RidjDaPpum0m3fliB/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dlSUSMtY;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ge3QtI8P;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D8D606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:40:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19D8D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD86B606A324;
+	Mon,  2 Nov 2026 06:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD86B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dlSUSMtY
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so2080706a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:40:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793601645; x=1794206445; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:date:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zX/OOJOMsice6nGvDy+yeA+vQDsuwQqSuMeNkiiRCZ4=;
-        b=dlSUSMtYQhiiFD+PIomzjDWkEnRxyVeP2Qzhm+hLE7AGCcrJkvxivQ8FfJXXaHEL2d
-         Iz/gY+HZ3aPRO8Ji+cpp0Odi3+eQxhEYgKMYS1kC5PZboZToKeTY1jcCksOr2kUB9oHi
-         7QysfTZo/30HK3ozndr/7nHW4FnwqsP5X+7Pry/C2ZIlQ8Cq+KtRG05HJ4uDw2n+FpdC
-         Ts14/EhkkSfubC4XiyXCq0yW2GW0RVgjyek0xjlHMT84jJMTFw6wRrHMZ7iSoLfx4VKU
-         Gc6lhdGm/hdiyzAb+OYDzZb2f0nFV9r8gKECpaYXPJF2RBZ06RMOyxWtuSjzKR5M00iG
-         m0EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793601645; x=1794206445;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:date:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zX/OOJOMsice6nGvDy+yeA+vQDsuwQqSuMeNkiiRCZ4=;
-        b=V7VVJauWVxHVWp0PuDN8FkrPk2KdD/T5MabAbjcSG/OCTbJohW9y8ahI8YDvwxmVlV
-         nCjyflmH3jp7fgcx3bw7BCBc6eGh6N5kg6NjbD6IJ5S1K57fGgvW2BN0ZkP5oY7lg4BF
-         6AB/4u6iJ3oiERj5zF6RL/0UD+uLbFcGtnYbmOnFbAG86TavXEZkAQaPRmflpS25EWRo
-         zFkaoQykUMglI+aTBHqjFoNPtHLdfWPiWzea9rDp1eR8ASjUeKCbsYnBI+82kjo2VYxK
-         CZfzXNx/mgQWTklsMP9DNDI3MKqKWfUjkJR5crpI2AM6wPd4/OAnEy+G3UrhWsSsYECS
-         a6TA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGUSbK5zl8Y+v4oyBOmbtNIGk9WgTvAoV2oHqY9UYjXQ6bf08RuJEYFoKiN5RwGAnKi+oldi13HI4YtaM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++QG0g8vjJ4istwpR5/Y7j8Cp7Qs1EOkt46hCPLS78k0svFtlg
-	+8GxnKcbekzj5KkqCleg35R5WdLXmZVbVM2rjjuO13Qhn7lA8/YGwVo=
-X-Gm-Gg: AYBFou3LojF7PZqgAi9ZCZRHIsXzYB1bXqMg2lpflmCiXvzGxMivoXKkmjav211jdY2
-	t9+LKMeJvevqxhn9NtqQsGLKi4sTwCZA0spmntEE574eefRtZtZ13Vzo3feGVlYRQGcKixAFDG1
-	LRihbW3YzQyODNjNp3s0Rvm5NvWfD9S944hhRXvIhKZ0k2pApfKjKhlQ6v1zjwa8Vs5+RKkh9he
-	WWCElsnZS6B/a0X+gSQTp4ELRYCdG9shQyRlq75kEOF6VVSd2xDWgJ6I+I5+bkQx36ylv2YKYmF
-	HzbKQ6fdiqV1EL0BgFlaxBA56k3WUWJyFw2p+tk8n6/c/3G6IYqyrne6TCJJHh0zNfpNXBj2uJR
-	QkTvJ21NGl5O1ed/+kM+V3iyVMkIObHWhWZeIORW5Qw3s05yHItKfs5K+YD98I7OpMLrwsciNLE
-	bPPe6TutitpJrhryet3eWiab+gdM7SJBF3QLtzjCy7s4U3sXaHLkn3+Dp+SaFonI9bSqYaTGADN
-	Pdk1GLSHxihZ6IrqmsEjBJIEmeV9BaIp+97Bx5YFDp0bJ/6goiNYm93s0neZjRoe04fQGtDJyQM
-	7eJk/jkc5aTyQPUpdCkzvWO+Ug==
-X-Received: by 2002:a17:90b:33ce:b0:3ac:8897:7b92 with SMTP id 98e67ed59e1d1-3ae89866572mr7168986a91.57.1793601644988;
-        Sun, 01 Nov 2026 22:40:44 -0800 (PST)
-Received: from [127.0.1.1] ([185.220.238.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae87fc548fsm8008246a91.4.2026.11.01.22.40.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:40:44 -0800 (PST)
-From: Wang Yibo <szwyb123@gmail.com>
-To: Dave Kleikamp <shaggy@kernel.org>
-Cc: jfs-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org,
- syzkaller-bugs@googlegroups.com,
- syzbot+b547ffac63b636628299@syzkaller.appspotmail.com,
- syzbot+ce678add490179a73d5a@syzkaller.appspotmail.com,
- syzbot+fc1d5d9a7ebabbc27458@syzkaller.appspotmail.com,
- syzbot+23d1112901d0870bb3e7@syzkaller.appspotmail.com
-Date: Mon, 02 Nov 2026 14:40:01 +0800
-Subject: [PATCH v3] jfs: fix out-of-bounds write in add_missing_indices()
-Message-ID: <20261102144001.36-1-szwyb123@gmail.com>
-In-Reply-To: <20261102123500.35-1-szwyb123@gmail.com>
-References: <20261102123500.35-1-szwyb123@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ge3QtI8P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=DO
+	pqM1C0HSsP+/x8lk0qRSuGC14OfVRy0/BKZIpySdg=; b=ge3QtI8Prki249+VQh
+	Iirw2wybvR/0kZmEmHYtqQru9BAk/SiWRZPF9NRCYo8RoJIpKTeQD1cj4s8sK06B
+	C/QKYKcQmMst0JjUwd8uxhdV9P6qZa174LtmGEC7Vo1rY54/c5CESCxdN9eEGIgE
+	AHHU94OB8olj4bKjJdoX3ykns=
+Received: from Precision-7960.. (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgDnL4hvMOhqVx58DA--.12846S2;
+	Mon, 02 Nov 2026 14:40:48 +0800 (CST)
+From: Hans Zhang <18255117159@163.com>
+To: bhelgaas@google.com
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hans Zhang <18255117159@163.com>,
+	syzbot+ea7278bdcb20a491495b@syzkaller.appspotmail.com
+Subject: [PATCH] PCI: Fix pci_alloc_child_bus() error path
+Date: Mon,  2 Nov 2026 14:40:35 +0800
+Message-ID: <20261102064035.3833574-1-18255117159@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,103 +61,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgDnL4hvMOhqVx58DA--.12846S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KF1xAw4DAF45uF1xGr43GFg_yoW8Kry7pF
+	WfG3y3trW0qw12kw4ayr1UZFykCFsFyFWF9r4rJw1Sya9F9ry7trW0yFy5ur4DCrs7tF45
+	tF45A3WjgF48JaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRJPExUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7BH8oGroMHE0YQAA33
 
-add_missing_indices() walks the sorted entry table of a directory dtree
-page and rewrites entries whose index is out of range.  The loop
-iterates up to p->header.nextindex (a u8 read from disk, up to 255) and
-indexes p->slot[stbl[i]] with only a lower-bound check (stbl[i] < 0).
+If device_register() fails in pci_alloc_child_bus(), put_device()
+frees the child bus, but bridge->subordinate and the bridge resource
+names still point into the freed child.  Subsequent rescans can then
+dereference dangling pointers.
 
-On a corrupted filesystem stbl[i] can be any byte value, so d->index
-can be written far beyond the end of the dtree page.  For the root
-directory this is worse: the dtree root lives inline in struct
-jfs_inode_info (320 bytes with only 9 slots), so the write lands inside
-the same slab object, corrupting arbitrary fields of the embedded
-struct inode including i_security.  KASAN cannot see it because the
-write stays within the jfs_inode_info allocation.
+Also, WARN_ON(ret < 0) reports device_register() failures as a kernel
+bug even when they are caused by normal runtime resource exhaustion,
+such as fault-injected -ENOMEM.
 
-This is reachable from getdents(2) on a corrupted JFS image and was
-observed as a GPF in bpf_inode_storage_free() reading the garbage
-i_security pointer on inode eviction.
+Defer assigning bridge->subordinate and the bridge resource names until
+after device_register() succeeds, and handle the error without WARN_ON().
 
-Validate stbl[i] against the page's slot count: DTROOTMAXSLOT for the
-inline root page, and min(p->header.maxslot, DTPAGEMAXSLOT) for regular
-pages (maxslot itself comes from disk and cannot be trusted either).
-
-Three other open reports are the same bug rather than separate ones.
-Two of them die in smk_of_inode() on a crafted inode->i_security, with
-only the upper half of the pointer replaced by 0x0000000c:
-
-	general protection fault in smack_inode_getattr
-	general protection fault in smack_inode_permission
-	general protection fault in smack_file_ioctl
-
-That is a single 4-byte store at i_security + 4.  In struct
-jfs_inode_info the _dtroot union sits at offset 728, its slots are 32
-bytes with the index field at offset 28, and the embedded struct inode
-starts at 1048, so i_security is at 1104 and slot[11].index lands
-exactly on i_security + 4.  The value stored there is the directory's
-next_index, 12.  The only code that stores next_index through an
-unchecked slot index is this function.
-
-Checked on a SMACK enabled build with the reproducer from the first
-report: without the patch it dies in smack_inode_permission() called
-from ksys_umount() with i_security = 0x0000000c27a22900, and with the
-patch the invalid entry is rejected with -EIO and the directory scan
-completes.
-
-Reported-by: syzbot+b547ffac63b636628299@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b547ffac63b636628299
-Reported-by: syzbot+ce678add490179a73d5a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ce678add490179a73d5a
-Reported-by: syzbot+fc1d5d9a7ebabbc27458@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fc1d5d9a7ebabbc27458
-Reported-by: syzbot+23d1112901d0870bb3e7@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=23d1112901d0870bb3e7
-Signed-off-by: Wang Yibo <szwyb123@gmail.com>
+Reported-by: syzbot+ea7278bdcb20a491495b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ea7278bdcb20a491495b
+Fixes: 4f535093cf8f6 ("PCI: Put pci_dev in device tree as early as possible")
+Assisted-by: Codex:deepseek-v4-flash
+Signed-off-by: Hans Zhang <18255117159@163.com>
 ---
-v3: drop the Fixes: tag; the out-of-bounds write predates the
-    commit it pointed at, so the reference was misleading.
-    No change to the code.
+ drivers/pci/probe.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
- fs/jfs/jfs_dtree.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/fs/jfs/jfs_dtree.c b/fs/jfs/jfs_dtree.c
-index 8ce6e4458cc2..119d03c410b8 100644
---- a/fs/jfs/jfs_dtree.c
-+++ b/fs/jfs/jfs_dtree.c
-@@ -2623,6 +2623,7 @@ static int add_missing_indices(struct inode *inode, s64 bn)
- 	s8 *stbl;
- 	tid_t tid;
- 	struct tlock *tlck;
-+	int maxslot;
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index 9a178e0e5f7f..0f317d25a32b 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -1259,21 +1259,29 @@ static struct pci_bus *pci_alloc_child_bus(struct pci_bus *parent,
+ 		pci_info(child, "extended config space not accessible\n");
+ 	}
  
- 	tid = txBegin(inode->i_sb, 0);
+-	/* Set up default resource pointers and names */
+-	for (i = 0; i < PCI_BRIDGE_RESOURCE_NUM; i++) {
++	/*
++	 * Set up default resource pointers now, but defer pointing the bridge
++	 * resources at child->name until device_register() succeeds.  On
++	 * failure put_device() frees child, so any references to child would
++	 * otherwise dangle.
++	 */
++	for (i = 0; i < PCI_BRIDGE_RESOURCE_NUM; i++)
+ 		child->resource[i] = &bridge->resource[PCI_BRIDGE_RESOURCES+i];
+-		child->resource[i]->name = child->name;
+-	}
+-	bridge->subordinate = child;
  
-@@ -2636,6 +2637,11 @@ static int add_missing_indices(struct inode *inode, s64 bn)
+ add_dev:
+ 	pci_set_bus_msi_domain(child);
+ 	ret = device_register(&child->dev);
+-	if (WARN_ON(ret < 0)) {
++	if (ret < 0) {
+ 		put_device(&child->dev);
+ 		return NULL;
+ 	}
  
- 	ASSERT(p->header.flag & BT_LEAF);
- 
-+	if (p->header.flag & BT_ROOT)
-+		maxslot = DTROOTMAXSLOT;
-+	else
-+		maxslot = min_t(u8, p->header.maxslot, DTPAGEMAXSLOT);
++	if (bridge) {
++		for (i = 0; i < PCI_BRIDGE_RESOURCE_NUM; i++)
++			child->resource[i]->name = child->name;
++		bridge->subordinate = child;
++	}
 +
- 	tlck = txLock(tid, inode, mp, tlckDTREE | tlckENTRY);
- 	if (BT_IS_ROOT(mp))
- 		tlck->type |= tlckBTROOT;
-@@ -2644,7 +2650,7 @@ static int add_missing_indices(struct inode *inode, s64 bn)
+ 	pcibios_add_bus(child);
  
- 	stbl = DT_GETSTBL(p);
- 	for (i = 0; i < p->header.nextindex; i++) {
--		if (stbl[i] < 0) {
-+		if (stbl[i] < 0 || stbl[i] >= maxslot) {
- 			jfs_err("jfs: add_missing_indices: Invalid stbl[%d] = %d for inode %ld, block = %lld",
- 				i, stbl[i], (long)inode->i_ino, (long long)bn);
- 			rc = -EIO;
--- 
-2.25.1
+ 	if (child->ops->add_bus) {
 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
