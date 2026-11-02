@@ -1,112 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793594847;
-	b=qajBZ2YIriTy0JydBryD5HMlx57Go0bw36T4nbHvd49SpaZ4MDCrAf0drFozto+q2yJM
-	 jYpZktnyC+4W9MDpTFCunPBmlekbRiwV9b/h4SdgvRU4sZQHGA/I5oQ4Ce9YKSHl62lXl
-	 c3UCSi+y378aW1ZZPqAujek1fcrj86MP1QiSJz00vOYp9CJmCebV7Ipdvs2nrHP++OAxK
-	 yVpVUU4NSL/WXEx3GYf5I1hpaQJ1z1GQKsussVeq68ZVQj1V6zXqSqVbqcR/4/Ii66qfh
-	 4DUFrZuRpQ6qfe/lu9MpCBQB/Mg+paq74Wen3wgtV9osLaH5m0rih7borAxpHzVpHpw==
+	t=1793594856;
+	b=wxJFZY614ewNYAGV17w45XK7VT7dbYYj6pIQ+Kc1SwDc2T7sT9jo70FIvfj+uHVkDGcK
+	 9A2ZEw6asryOp/aXV9m11UALw3/qh8Kc6M4+SgpeC5CogVToOXJwuInJ8mlXGl1K19HYp
+	 z8j00bKyR3FXR6bGd7o82QVO8/EfbNPKB51spB7ZjLMoAtqAOD+gm1leTVoIBhhb8YTuo
+	 gpP9GwGk+grmJou8LcG3dy+wxXG/zcVqwtrVSezsW0IeYFitTbOa2VuZaw3y4QsViOai+
+	 HtNb5eYHTim+Axxxv+cIgbjOIq2qaerWMJ91QBCLGvWzGN4IdMTumlLCLmbJ5IZmcjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793594847;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OTJ4X6Nrmp0ExjxQulbaqwTbc3MkC+lc4jxolNuHx1Y=;
-	b=FAcracAYi31wNhoa37AVM0yzjVErZrZ5cN4jdr2vwjstbF+DZa5oUK/PdoxnVhrIsb9P
-	 /LnTa3Fw/Nu6KewJvup11Hr+QeJsqEwSDj+DG1uiJyNSg9+KBcUgmc0h/rJFloEpmB446
-	 BMBCcrwtwht33JNLLd/RzsXKPZTB33BFRsnUsUGEL+rBsaA+weZb5ps9G9CPAZ8TcQCj/
-	 EpZ4hCoi0shSoIEaozv4x5IKTB49Opu54JQONu7UHkFr970c3p+L8RkWaHmTFxQPQZ/ta
-	 k/4zJJL7SAZbDAGCJa74RAg+NIGftzi5Gfloj1bnPoR5YeXmIwcMDzDFTrdTLwRel7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793594856;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=phz6cV4352AYCVoVzl3w++aGmHhAYFGjNLqr6kwT9W4=;
+	b=aWYQ+8VXxcryGqE9wgmiM3ipQaMtf/hlP9O9a/ww8HftrJHzFsk+i7rpre1nmR7gSMDS
+	 OEy9g0QvHCuYN9WxxQCym+db+HYg9csrk3TIdHKfx9eRNSFqC7VHuI7Mz8T66QBvMdLxx
+	 ONEoT/jWiGW9grJqBXdavw4boTQsbXaQ1tfALTz8O1sAhSK0tx7R4PByWG4fQZK2w02YY
+	 fH0ejImeE61UMxPqjuC0RzkBpqouTCoEanoPa6NcAicT4L1UUJ3GwEcLelVamFKie3nQ0
+	 ivdwQzNkmMMrZx99lP60Ed+hFg0rCJd39jHmP6D4QE9zan4sZ7DEq3dnKexnS11T2jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JE7Ckr0G;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5DPAKDs;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lo6lD3Xw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68969606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:47:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68969606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F8C606A324;
+	Mon,  2 Nov 2026 04:47:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JE7Ckr0G;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I5DPAKDs
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A23v82U3768687
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 04:47:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OTJ4X6Nrmp0ExjxQulbaqwTbc3MkC+lc4jxolNuHx1Y=; b=JE7Ckr0GI4Fb3RRv
-	E5BGIb73LcqCdEzu5H2MDxXSTvoC08SDt29RuvCZyck3ppHYChmuA1f4Clqhb3n7
-	cI1fcb2U2Idae8AWOTy9u8ypi0v/G/4IQqOqTiwSTaY6EAA9Fn/I9/Xts+jApgrt
-	j0iZ4+mPpb74oqNU6qZ2RJ0zZYT/g5uSlzR6TWe/o/JArdvKc7v/E5Y6UgQNcflC
-	Wnf6M14Tx086eUTIce5u0AV0HGB5GC01UPumd1vbzAgVxaDyyETCaCom4FKVVAoQ
-	qLBfxLm5jY+Gu8DXDUKuQzZ+1f7LkM4l08V45qvxpnKUPopKPR4A2+u2swn7WLy/
-	1Nwnzw==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn79rw9u7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:47:26 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3698bd5392cso2363138eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:47:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793594846; x=1794199646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OTJ4X6Nrmp0ExjxQulbaqwTbc3MkC+lc4jxolNuHx1Y=;
-        b=I5DPAKDsb0UcO86HAh9LR6rn94Lv/4714tiJClt2R4pmo5qJv2n5tARfvuYbw18m6M
-         8JiAD3nsZAAnRimSlVNTyFpawhtSKxaxkoh8Ib5Wm95r67LV41Ikq4dbjeIARjTJepTd
-         qztfjeDEAfB5Dig+c1igMW/b1eBsnIKxjH5/UEzrcBCr3XTx9xlEjIDMHtZnOWCoQUKP
-         8mHcKY+ZKp4+eFGE0InP4HQaM5eB7G8UpohdJ8fNC8PagRc+BLAa3Ipvng1oWvnRQx0X
-         JvuRQ8/qQK1QqvNboox0d9QoeDnrzcauq6GtxbKZU+B93XwkEB1QwRIDSzpeqx8zx+tS
-         Ym8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793594846; x=1794199646;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OTJ4X6Nrmp0ExjxQulbaqwTbc3MkC+lc4jxolNuHx1Y=;
-        b=CPjuhePCEUqZzRYHW90dcSH/FxIr1DWZD7OhQaew73qu0E76CrXCmarmiSoBrYXdCB
-         oVf3ZCWCAwfSY/K05SebJeAGbzsLIzV11ReELPItFKaOf6+0sVdP0ieH498Ru8xw0RIb
-         SiXcXLsp1micdCHyViPqZWV9tKZtG8PyenPWivEbWwCGxe9xgwuQMCt6fVaa7ygi+GHu
-         VIA5Sti6W0T+fTRSN2qNxI4LwWtNB9d21ivp5tl0Lk1w1SwweRVLbRW6e4bJj6r5MCH8
-         wDVgXOPUrewUDY3PaEAwS3ezPXuXF706Gk5wshYOji5iF6mbuUZIme9lx6BY5i4N5ygO
-         vf3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzO7TlafbmcQa96ecmFgSyL0Mx8KppQRIjjWq4CuWqdPzJ9Ho2dj/xAMoBvzVnwRisfay0mHRbjyedaYOA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JY9pVZFZMZ4jQROaBSz0Kj6IlwfWDZXcOgT3XxVRIiZBceqew
-	uq6W46ERB+gQ5DCn8fbsVNStlWXHEFUgSocA/CLfBXLFAaR+ENlbGTDCBy+lrvCSnaYTrTyTACa
-	kNQQaToXu784j9DsV8pnowhsVjo9U3M/uInrI3cHPuZomJE7G0FnF/QLgmDrRyDkx2Ws=
-X-Gm-Gg: AYBFou2I4mmlx+s7E/HxlufL5QWJm92YjwVNZT4/K9EDexfEfMVh73Ch31jTJwd+L52
-	/XYcDuAZ+KLrZ7M2b82QzLzEc0uA2IOLzkdvZ2XVCbour62klSj/mj9tfgUmAgTGD8EesA+cjSn
-	TcRHoWepCc3Q6AAJ6pAYDNtceO6Sb/KwdS+cx12OK3ZPH6EoshpRk6IeESb9R5erpzDkIzmIHNw
-	3ZS+emNR6527Ft+k9VC1gJNoixNIdtpDLi83soHmZO6UD+k+veEBO44QND+7s6Z7aQhIMok2ygM
-	ahIFn3JqJbrtdeiXrUJNU+MBPQRA9OjEXSUk3D8C7Uy8SWoWa4T/RAAr/lkARCuMFuJYdwWMWE1
-	d8inh6bjPwtnGTfAFdsRjK0KIe1iAiIxa+efaC02rF9vANVAeWrzUEhLrE8ByO0D2gWgGO8SGTX
-	ZDh/iO8peTEuTMid9kFUMd78/+Xn1kk97YUHHW
-X-Received: by 2002:a05:693c:69c2:b0:36a:37:1404 with SMTP id 5a478bee46e88-36a4241b6f4mr1817093eec.13.1793594845525;
-        Sun, 01 Nov 2026 20:47:25 -0800 (PST)
-X-Received: by 2002:a05:693c:69c2:b0:36a:37:1404 with SMTP id 5a478bee46e88-36a4241b6f4mr1817053eec.13.1793594844776;
-        Sun, 01 Nov 2026 20:47:24 -0800 (PST)
-Received: from [10.218.48.51] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a504c6sm33949189eec.21.2026.11.01.20.47.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 20:47:24 -0800 (PST)
-Message-ID: <b31b9ad4-b17c-4dab-9bdc-fc19b1028fd0@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 10:17:18 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lo6lD3Xw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89461F000C1;
+	Mon,  2 Nov 2026 04:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793594855;
+	bh=phz6cV4352AYCVoVzl3w++aGmHhAYFGjNLqr6kwT9W4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lo6lD3XwA4Quunz8AaEeBCfdKC1N1j8raKlpQw1Sp7NintqZfpmtwtkXqLCgaKBXV
+	 tj4duF3MR3pE9z1w5M+IWipCqgRKOWTKRJji19dS8frzIIYsyxn6y4BazCEQZffEQ+
+	 Z1lMtRebqrYwiR6imvMWdThhLzJJ8sJUMEQNKFXXbWe+a8rEBHUprtqP5DxkGvtgX3
+	 B9MhsjcXgGLz2JeNSXzjXensx76fqc8otVhcNyz1BTLjH04hreMmHpTUplSoIKNQI5
+	 kcz3aWz98oTfW0aohuII/uuxhXXJ+lhQaxdQOWiZB2eFZRCGcTY4okRJjzdXHMJl9j
+	 ZOAyz1oK07+sA==
+Subject:
+ Re: [PATCH net v2 1/2] net/iucv: clear hs_dev before dropping its reference
+From: netdev-bot+sashiko@kernel.org
+To: hexlabsecurity@proton.me
+Cc: twinkler@linux.ibm.com, davem@davemloft.net, kuba@kernel.org,
+ wintera@linux.ibm.com, edumazet@kernel.org, pabeni@redhat.com,
+ linux-s390@vger.kernel.org, nagamani@linux.ibm.com,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, hidayath@linux.ibm.com,
+ horms@kernel.org
+Date: Mon, 02 Nov 2026 04:47:34 +0000
+Message-ID: <179359485426.3131.5871050350296378168@kernel.org>
+In-Reply-To: <20261028-b4-disp-dd3e4ebb-v2-1-3747658d59bd@proton.me>
+References: <20261028-b4-disp-dd3e4ebb-v2-1-3747658d59bd@proton.me>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,168 +65,260 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/7] usb: dwc3: qcom: Distinguish PM and runtime
- suspend/resume paths
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Sriram Dash <sriram.dash@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-usb@vger.kernel.org
-References: <cover.1793212717.git.faisal.hassan@oss.qualcomm.com>
- <e39a38d334b5276d8a47b917b1f0fcd0a32bcfe9.1793212717.git.faisal.hassan@oss.qualcomm.com>
-Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <e39a38d334b5276d8a47b917b1f0fcd0a32bcfe9.1793212717.git.faisal.hassan@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: oqi2gr3W0uq0HEHggD83sGPX5kNvxMpF
-X-Authority-Analysis: v=2.4 cv=Wtq+otfv c=1 sm=1 tr=0 ts=6ae815de cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=jIQo8A4GAAAA:8 a=gKCUJ3B0P62vvhmKdnEA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAxOCBTYWx0ZWRfX+17fpur+/xUF
- 8A4WHB+ke2Ykvf/cAfAVTReoua0LHKft8Ea1F038lfCu/TWeMuhroX5hKBjLOmfvKy2qdZVHQX2
- sZY03ANH7+0UVJH77ASRz3eWyiqySkk=
-X-Proofpoint-GUID: oqi2gr3W0uq0HEHggD83sGPX5kNvxMpF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAxOCBTYWx0ZWRfX1hvRmIDHQees
- tOPFyU9ev1WV3qtQdfzK957hyJHs5Cib8mms0qx0VdF1vx6ieQoGW+NEVzkp5eho07V2KZHnc+B
- LiaRa4NWwAU6hTMJYifqhZfE5ehNdW8FuUDpexsKdC8zDBeDbk8vtx6Z5ckhFSoexooDLH5N+3d
- dmiH9EuHvF18slKOeWP9vrsyf9xbdaR59q5Dug0SgjZ+645PlLyeuCLhWi88f3QrZPFC4eV5Dgj
- zECxuzbBX/BabjMmIklqV3K7spTazRAYlfSWVdI1fMlGTxXKEjZi3JennM/NuV/0m+bxGmo9qPW
- qOVE0RbSy45EgSmMbQuRW/Zc3HSqWxbPPDUMooUxr8ACLYECyipGG35zdeK0KxxEAKFFdviHj5l
- Q0sNAQvkiTm/9xt58jrs+ZGHeqq81r2+DZjsZhq6RgVakb2n1Gmyfzq60adFQWzFCn7dCoElawM
- 4lzwQ/kKM3KvHXT6ciw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020018
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 (2) · Medium: 2 (1) · Low: 0
 
-On 10/29/2026 12:29 AM, Faisal Hassan wrote:
-> The dwc3_qcom_suspend() and dwc3_qcom_resume() functions
-> handle both system PM and runtime PM paths but cannot
-> differentiate between them, preventing distinct power
-> management strategies.
-> 
-> Refactor suspend/resume functions to accept pm_message_t
-> instead of boolean wakeup flags. Use PMSG_IS_AUTO()
-> to identify runtime PM (PMSG_AUTO_SUSPEND/RESUME) versus
-> system PM (PMSG_SUSPEND/RESUME) paths.
-> 
-> Preserve existing wakeup behavior: always enable wakeup
-> for runtime suspend, check device_may_wakeup() for system
-> suspend.
-> 
-> Follow dwc3/core.c pattern to enable future per-path
-> strategies like differentiated power states.
-> 
-> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Reviewed-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+- [Medium] The clear-before-put reorder in __iucv_sock_close() does not
+  give the guarantee its new comments describe.
+- [Medium] afiucv_hs_callback_syn() now always takes a device reference
+  from skb->dev (line 1936) instead of copying the listener's hs_dev.
 
-Regards,
-Krishna,
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  afiucv_hs_callback_syn()'s error paths leak the child socket, and on…
+- [High] This problem wasn't introduced by this patch, but
+  afiucv_netdev_event() can dereference a NULL hs_dev.
+- [Medium] afiucv_hs_callback_syn() checks the raw dev_queue_xmit()
+  result with `if (!err)` (lines 1942-1948).
 
-> ---
->   drivers/usb/dwc3/dwc3-qcom.c | 24 ++++++++++++++++--------
->   1 file changed, 16 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index d4fda4dd81f6..508b1ee7cd0f 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
-> @@ -346,14 +346,24 @@ static void dwc3_qcom_enable_interrupts(struct dwc3_qcom *qcom)
->   	qcom->wakeup_irqs_armed = true;
->   }
->   
-> -static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
-> +static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, pm_message_t msg)
->   {
->   	u32 val;
->   	int i, ret;
-> +	bool wakeup;
->   
->   	if (qcom->is_suspended)
->   		return 0;
->   
-> +	/*
-> +	 * For runtime suspend, always enable wakeup.
-> +	 * For system suspend, check device wakeup capability.
-> +	 */
-> +	if (PMSG_IS_AUTO(msg))
-> +		wakeup = true;
-> +	else
-> +		wakeup = device_may_wakeup(qcom->dev);
+--
+
+net/iucv: clear hs_dev before dropping its reference
+
+This patch changes __iucv_sock_close() to clear iucv->hs_dev and
+sk_bound_dev_if before calling dev_put(). It marks the accesses that race
+with the afiucv_hs_rcv() lookup with READ_ONCE()/WRITE_ONCE(). It also
+changes afiucv_hs_callback_syn() to take the child's device and ifindex
+from skb->dev instead of from the listener's fields.
+
+Closes: https://lore.kernel.org/netdev/b3fea2ca-25ff-42c0-812c-f8cc6bb6667e@linux.ibm.com/
+
+> diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
+> index 5ba875798aa41..5bab6aea910e1 100644
+> --- a/net/iucv/af_iucv.c
+> +++ b/net/iucv/af_iucv.c
+> @@ -450,9 +450,16 @@ static void __iucv_sock_close(struct sock *sk)
+>  	}
+>  
+>  	if (iucv->hs_dev) {
+> -		dev_put(iucv->hs_dev);
+> -		iucv->hs_dev = NULL;
+> -		sk->sk_bound_dev_if = 0;
+> +		struct net_device *dev = iucv->hs_dev;
 > +
->   	for (i = 0; i < qcom->num_ports; i++) {
->   		val = readl(qcom->qscratch_base + pwr_evnt_irq_stat_reg[i]);
->   		if (!(val & PWR_EVNT_LPM_IN_L2_MASK))
-> @@ -380,7 +390,7 @@ static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
->   	return 0;
->   }
->   
-> -static int dwc3_qcom_resume(struct dwc3_qcom *qcom, bool wakeup)
-> +static int dwc3_qcom_resume(struct dwc3_qcom *qcom, pm_message_t msg)
->   {
->   	int ret;
->   	int i;
-> @@ -766,14 +776,13 @@ static int dwc3_qcom_pm_suspend(struct device *dev)
->   {
->   	struct dwc3 *dwc = dev_get_drvdata(dev);
->   	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
-> -	bool wakeup = device_may_wakeup(dev);
->   	int ret;
->   
->   	ret = dwc3_pm_suspend(&qcom->dwc);
->   	if (ret)
->   		return ret;
->   
-> -	ret = dwc3_qcom_suspend(qcom, wakeup);
-> +	ret = dwc3_qcom_suspend(qcom, PMSG_SUSPEND);
->   	if (ret)
->   		return ret;
->   
-> @@ -786,10 +795,9 @@ static int dwc3_qcom_pm_resume(struct device *dev)
->   {
->   	struct dwc3 *dwc = dev_get_drvdata(dev);
->   	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
-> -	bool wakeup = device_may_wakeup(dev);
->   	int ret;
->   
-> -	ret = dwc3_qcom_resume(qcom, wakeup);
-> +	ret = dwc3_qcom_resume(qcom, PMSG_RESUME);
->   	if (ret)
->   		return ret;
->   
-> @@ -826,7 +834,7 @@ static int dwc3_qcom_runtime_suspend(struct device *dev)
->   	if (ret)
->   		return ret;
->   
-> -	return dwc3_qcom_suspend(qcom, true);
-> +	return dwc3_qcom_suspend(qcom, PMSG_AUTO_SUSPEND);
->   }
->   
->   static int dwc3_qcom_runtime_resume(struct device *dev)
-> @@ -835,7 +843,7 @@ static int dwc3_qcom_runtime_resume(struct device *dev)
->   	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
->   	int ret;
->   
-> -	ret = dwc3_qcom_resume(qcom, true);
-> +	ret = dwc3_qcom_resume(qcom, PMSG_AUTO_RESUME);
->   	if (ret)
->   		return ret;
->   
+> +		/* afiucv_hs_rcv() matches frames on hs_dev under
+> +		 * iucv_sk_list.lock, not the socket lock: clear it before the
+> +		 * reference goes, so the match can no longer find a device
+> +		 * this socket does not hold.
+> +		 */
+> +		WRITE_ONCE(iucv->hs_dev, NULL);
+> +		WRITE_ONCE(sk->sk_bound_dev_if, 0);
+> +		dev_put(dev);
 
+[Severity: Medium]
+Does this ordering give the guarantee the comment describes? The clear
+and the dev_put() run under lock_sock(sk) only. afiucv_hs_rcv() reads
+hs_dev under read_lock(&iucv_sk_list.lock), which this path never takes,
+so the two sides don't exclude each other:
+
+CPU1 (softirq)                        CPU2 (process context)
+afiucv_hs_rcv()
+  read_lock(&iucv_sk_list.lock)
+  READ_ONCE(iucv_sk(sk)->hs_dev) == dev
+                                      __iucv_sock_close()
+                                        WRITE_ONCE(iucv->hs_dev, NULL);
+                                        dev_put(dev);
+  memcmp() name checks match
+  sock_hold(sk)
+
+In that case the lookup still matches the socket after the device
+reference is gone. That is the situation the commit message describes
+("Between the two it compares a pointer the socket no longer holds"),
+with a smaller window.
+
+The new comment in afiucv_hs_rcv() makes the same claim:
+
+	/* Cleared before iucv_sock_close() drops the reference:
+	 * whichever value is read is a device the socket still
+	 * holds, or NULL.
+	 */
+	if (READ_ONCE(iucv_sk(sk)->hs_dev) != dev)
+
+Under LKMM, dev_put() is also not release-ordered after the WRITE_ONCE().
+The KCSAN report goes away because of the READ_ONCE()/WRITE_ONCE()
+marking. The reorder doesn't add a cross-CPU guarantee.
+
+There's no memory-safety effect today, since the lookup only compares the
+value against the ingress dev. Could these comments lead a later change to
+dereference hs_dev from the lookup, which would then be a use-after-free?
+
+If the guarantee is wanted, would it work to do the clear under
+write_lock_bh(&iucv_sk_list.lock), the way iucv_sock_bind() stores
+hs_dev, and call dev_put() after the unlock? Otherwise, could the comments
+say that the change only annotates the race for KCSAN?
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch, but can
+this NULL store race with afiucv_netdev_event()?
+
+On NETDEV_GOING_DOWN the notifier walks iucv_sk_list holding only RTNL. It
+takes neither the socket lock nor iucv_sk_list.lock, and it holds no
+socket reference:
+
+afiucv_netdev_event() {
+	...
+		if ((iucv->hs_dev == event_dev) &&
+		    (sk->sk_state == IUCV_CONNECTED)) {
+			if (event == NETDEV_GOING_DOWN)
+				iucv_send_ctrl(sk, AF_IUCV_FLAG_FIN);
+	...
+}
+
+iucv_send_ctrl() loads hs_dev again and dereferences it before any NULL
+check:
+
+	blen = sizeof(struct af_iucv_trans_hdr) +
+	       LL_RESERVED_SPACE(iucv->hs_dev);
+
+Suppose close() of a connected HIPER socket runs between the notifier's
+check and that second load. It sends its FIN, goes through
+DISCONN/CLOSING/CLOSED and iucv_sever_path(), then reaches the
+WRITE_ONCE(iucv->hs_dev, NULL) above. Wouldn't LL_RESERVED_SPACE() then
+dereference NULL? The !skb->dev check in afiucv_hs_send() comes too late
+to help.
+
+This can be triggered by a HiperSockets device going down (ip link set
+down, or a qeth recovery or offline event) while a user closes a connected
+socket on it.
+
+The walk holds no socket reference. Can a socket that iucv_sock_kill()
+unlinks and frees during the walk also be used after it is freed?
+
+Neither the clear-before-put order nor marking the notifier's compare
+serializes this check-then-use sequence. The cover letter leaves the
+notifier to Nagamani PV's pending patch.
+
+[ ... ]
+
+> @@ -1920,9 +1927,14 @@ static int afiucv_hs_callback_syn(struct sock *sk, struct sk_buff *skb)
+>  	memcpy(niucv->dst_user_id, trans_hdr->srcUserID, 8);
+>  	memcpy(niucv->src_name, iucv->src_name, 8);
+>  	memcpy(niucv->src_user_id, iucv->src_user_id, 8);
+> -	nsk->sk_bound_dev_if = sk->sk_bound_dev_if;
+> -	niucv->hs_dev = iucv->hs_dev;
+> -	dev_hold(niucv->hs_dev);
+> +	/* skb->dev is the device the lookup matched against the listener's
+> +	 * hs_dev; the listener's own fields are cleared by close() under
+> +	 * lock_sock(), which this softirq does not hold. nsk is in
+> +	 * iucv_sk_list already: hold, then publish.
+> +	 */
+> +	WRITE_ONCE(nsk->sk_bound_dev_if, skb->dev->ifindex);
+> +	dev_hold(skb->dev);
+> +	WRITE_ONCE(niucv->hs_dev, skb->dev);
+
+[Severity: Medium]
+Can this unconditional dev_hold(skb->dev) pin the HiperSockets device when
+the child ends up orphaned?
+
+afiucv_hs_callback_syn() only takes bh_lock_sock(sk) and doesn't check
+sock_owned_by_user(). It can therefore pass its sk_state != IUCV_LISTEN
+check while __iucv_sock_close() holds lock_sock() on the listener.
+iucv_sock_cleanup_listen() drains accept_q only once:
+
+	while ((sk = iucv_accept_dequeue(parent, NULL))) {
+		...
+	}
+
+	parent->sk_state = IUCV_CLOSED;
+
+If iucv_accept_enqueue(sk, nsk) runs after that drain, the child is never
+accepted, closed or killed. Its sk_socket is NULL and SOCK_ZAPPED is never
+set, so it never reaches the dev_put() in __iucv_sock_close().
+
+afiucv_netdev_event() ignores NETDEV_UNREGISTER. Wouldn't unregistering
+the device then wait forever for this reference ("waiting for <dev> to
+become free")?
+
+The orphan race and the pin when the read comes before the clear both
+predate this patch, as the cover letter notes. Before this patch, though,
+an orphan that read iucv->hs_dev after close() cleared it got NULL, and
+dev_hold(NULL) did nothing. With skb->dev that case now holds a reference
+too.
+
+Would it help to refuse the SYN when the listener's hs_dev has already
+been cleared?
+
+>  	afiucv_swap_src_dest(skb);
+>  	trans_hdr->flags = AF_IUCV_FLAG_SYN | AF_IUCV_FLAG_ACK;
+>  	trans_hdr->window = niucv->msglimit;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but do the error paths in
+afiucv_hs_callback_syn() leak nsk?
+
+iucv_sock_alloc() links nsk into iucv_sk_list and clears SOCK_ZAPPED. Two
+error paths call iucv_sock_kill(nsk):
+
+  - the rejection path (listener not in IUCV_LISTEN, or accept queue
+    full)
+  - the dev_queue_xmit() failure path
+
+On a never-closed child, iucv_sock_kill() returns at once:
+
+static void iucv_sock_kill(struct sock *sk)
+{
+	if (!sock_flag(sk, SOCK_ZAPPED) || sk->sk_socket)
+		return;
+	...
+}
+
+Only __iucv_sock_close() sets SOCK_ZAPPED, so nsk is never unlinked or
+freed. On the transmit-failure path the child also keeps the reference
+taken by dev_hold(skb->dev) above. That reference then blocks
+unregistration of the device.
+
+nsk is allocated before the state and backlog checks. Can a peer on the
+HiperSockets LAN send matching SYN frames to a bound but non-listening
+socket, or to a listener with a full backlog, and leak one socket per
+frame?
+
+The leaked sockets stay on iucv_sk_list, so every afiucv_hs_rcv() lookup
+and every bind() name scan gets slower.
+
+The cover letter says Hidayath Khan flagged this in August and that his
+fix is pending.
+
+[Severity: Medium]
+This is also a pre-existing issue, not one introduced by this patch.
+Should the dev_queue_xmit() result below go through net_xmit_eval()?
+
+afiucv_hs_callback_syn() {
+	...
+	err = dev_queue_xmit(skb);
+	if (!err) {
+		iucv_accept_enqueue(sk, nsk);
+		nsk->sk_state = IUCV_CONNECTED;
+	...
+}
+
+__dev_xmit_skb() returns the qdisc enqueue result unchanged.
+fq_codel_enqueue() can return NET_XMIT_CN after it drops packets from the
+head of the same flow, so a SYN-ACK queued at the tail can still be sent.
+
+In that case the peer considers itself connected. Locally, the child is
+never enqueued and stays in IUCV_OPEN, and afiucv_hs_callback_rx() drops
+the peer's data.
+
+afiucv_hs_send() in the same file already uses net_xmit_eval().
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028-b4-disp-dd3e4ebb-v2-0-3747658d59bd%40proton.me
