@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793591114;
-	b=JyGScXR3L3kbaXy0ZEvPNP2ns/iLmgSTm5n/ei0PvOoResxIJEtmxJ5PZyB4+dKYioAg
-	 qFKbYyqYUOpL9XLGvzTOV6L4FgM1YPvK67QMklzprTkJTJqpmvld8dJwJx3q41tbca7wP
-	 uxpOWx2eVypvZ4tQ/8G83xsUs54J3J73VuXP2JXLYmmxq3IxYz5KlDjx+9tG9mhgnSI+5
-	 tJzphzzsO4N2iiS+j7MnnxNriUY8VTvSkb8qqWatUMzwX7jRmvG8x4BY/dm8tkjQdPL5o
-	 TKYlyTrPGdHLxWTaV5uRSmgqh0UPClxCkv4yBdLxipHSl/57xfJbj/n6dt6N+jV3wcA==
+	t=1793591121;
+	b=gZeS1tixjdJFSqPwM2QfxrTJnC96azMNbrI5uq3iBPR/VvjRVrYm/gepWSEpndF5oWR5
+	 iNcYe1zGA/SmIc3DPspH0/ih6Hx9s0iMkf3zdXosY5eobfmxQrXJW5Q2Y4Hq1f47RnIN0
+	 ZFUnPNqTtdiFoSzxrgYgzySI1lKPz8MjgeI3w+4p6uCeCJbqZqBK1a3erJ8FFcQ3PMs9C
+	 02odFiUceygItUurAjsYVRnOQ0RMiXocFqJ5rKXb70a8nz2QPwSLUVvG5uj+cHdob8Vxm
+	 QgSozpcYmiY8eNY1PuiZNpnpkK4aT4iTWNg2L9qI/j2dVOyLiI4pfvr2hrkMXt25QwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793591114;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2wa6GtDXj8hpo+k1EJW2/u0+icSgK15ObOpBbCvF5tw=;
-	b=Z6Uh5j84Jf7mHKV2oiu1MWPfdtQ/XpWPt0HvUrbYDLSbt1hrGnKKQj2JeA4mWFljrcPk
-	 mQ6fpk68wtFDYsCSL1TWuMyiq9hSnwJphA6eQ77chCxj19V2rA/Em4uXg7ZTU53uEuXqw
-	 U0s62WzhAy6xyF0VcZ/lOOqem7Piw//vP0sdPGsjIyv6s4StYCSVEp626TXJNnioj82uq
-	 H0PcTQIWmeZwNSYTOBmk18OufZYZPjmHBdej5hWOqm8DKloVNs8Xi8mLBrL89Om1z9oZZ
-	 9b/1PF7yUJZsXU/jvlHHm8++jpfKWKYBKNidH58CCfRASXKH+EdRJYTRn8Lj+3LkoNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793591121;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=thK/GTnCI6aU4GgyCtkZc/ZGtFI5CEa1YKDFDXhlzew=;
+	b=mBo5L5Qk+agAG41l7wHdru2Q7ATTFqWI0jLsjk1X7MdrEXwQPqkWNGLQScelw9IemSnS
+	 wYMuPcT5TA357TLC/MmzNSU5GIjNK2WgpKYJ+X+zCZtRUEHc17h2JUoLvP9IszMkWXdxX
+	 3mkzvXVGdWJHHHkm73qfqPVZqSXEhfRKd9YfFDo6MQRbemPq1yOX+6sPD6ZrWlx4WBKoP
+	 5yUdUS6DWOqgwt+A/IX0Gem72b5ROeLK2ep2YvxN68SF+aYUM95+efQU4AxP82wfv6xNo
+	 uOJCqffLXW2KVnFDi5JXjF/QrmYR+9DrBlvqdsFhKo1ioV0ccbUSb63/7ybqPsFITAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O1zBGUVO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BVFjeZZS;
+	arc=none smtp.remote-ip=74.125.231.130
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED6C606A326;
-	Mon,  2 Nov 2026 03:45:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143A8606A337
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:45:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 143A8606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O1zBGUVO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4652D1F000C1;
-	Mon,  2 Nov 2026 03:45:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793591113;
-	bh=2wa6GtDXj8hpo+k1EJW2/u0+icSgK15ObOpBbCvF5tw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O1zBGUVOkxmyziSsMVxTQHlu4oZ2ZG2siNU7SLlEoDJ9ZqeDTW4D/B4Bpc1eBW+ZU
-	 tDlIDMQsEanTCE0FkgUjd5Ir22wBg1Hupyg9tPeaWgkIqP5HwwD+D7JBgxEWUPoVi+
-	 OZQIVSPkTh1AsbZ3amRPMSj0GOx8X+nHBTNGnX7t2nd+F2yTfP2mfG1k9cEVo6ZL5A
-	 RjQFBLqMXHjP4yWtLJ4Qnbnd6ru8vrK1NSjb/qrqZEbkoTIxQ5l7hUtj3PQ/JhCcqu
-	 cQkLfpBsfK8EbK3+hcqperMlh72V1ZUr2f4Cq7tNE8QLBbC5LZ8r+B0JVz8d69kvuK
-	 actxuq3cUVI5Q==
-Date: Mon, 2 Nov 2026 03:45:10 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: =?utf-8?Q?=C5=81ukasz?= Bartosik <ukaszb@chromium.org>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Benson Leung <bleung@chromium.org>,
-	Enric Balletbo i Serra <eballetbo@kernel.org>,
-	Prashant Malani <pmalani@chromium.org>,
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] platform/chrome: cros_usbpd_notify: check ACPI
- companion
-Message-ID: <augHRuNZnHwSdQiI@google.com>
-References: <20261028051200.145621-1-yaojiale02@163.com>
- <20261028051200.145621-3-yaojiale02@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BVFjeZZS
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-84abe8ecec8so1130208a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:45:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793591120; x=1794195920; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=thK/GTnCI6aU4GgyCtkZc/ZGtFI5CEa1YKDFDXhlzew=;
+        b=BVFjeZZSYXqx7Gs3BH3l+OE6VwNuHJ0YhCrxJdjSUlj8DcMarADLR8MP9CtIuyIzH7
+         y9hszyzulP98siDw46ft1EZNA0bq4oZa5vTGo6p76D30qf4CCTiloc+1kJnj4QL2EF0j
+         LdAE2xvy3v3ucp7WMqisviL8qW6qiOyPGBDCzxHOSfPoDbWZXIxnPmG+6x9ZNIKnLisJ
+         QCovW6OAzXrG9PTbsHnBUmhD6GQqAmUarvPmPCXJuyZms8fFFLkRm3YalKuATXAZ3mAX
+         nj2GF0xHsytE7hriAqtHZenbORvrF9rXOTXDWkc+vdfH0BS9na0TElO4OI54ID7C0b5Y
+         bZUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793591120; x=1794195920;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=thK/GTnCI6aU4GgyCtkZc/ZGtFI5CEa1YKDFDXhlzew=;
+        b=YtrrJnFAZp4Z4RDIfUJaq4yurUHigaUNRrzl1s8PCKQP7+pXVXOj0j3R9tXsORUBd7
+         KOPppLYbgOsLqHXoQxI1LuaUclorzxYVS+kXWk/yHR7nVtzXCRcYzdidhVJ2w+w0Xmlg
+         j8yPf2d7sR3Bc75xaut7D7l6m75yqzXEIT23mx9VbhlG0jwwW7vs5q5S6xUBsIBIF9wX
+         P3BYUw8Cs/PQF5nhEEQd3ZLn6izy7XeYRkUmsTC8dxa9GTVODiCTLiFBbDsWnGQpvp33
+         LFXhET7b8Uz3Sbwtay91o87lWV6s0jYOkU/ZhtKgGli7Dng3mZIcm51keLZavs+Na0FU
+         jjaw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLKIvK62FHcN0lL2tasHKhVnU7VTvQUN7vU2aKQsW9KVthZfuetPZLQM3SP21DArNBFN1cHp6PLOd+VF8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6W9YzkunYhpf/M58zJxrIoOjrjdWYogezgbh8qlJ+H1nY2jH5
+	NbIYTbM+okU39J41PWWk11Nhnk3D5wu+h2M4R3hN0hVUEewqb5Q6YYVp
+X-Gm-Gg: AYBFou1g7tn6U/RsirefHRlIoW7JUckebZt2suH+7im6Pv6RQ4YlP6SGCK5MUpf4pCy
+	9DNiQhNSbTjGPvkhFEitIjZFl9XsmLjzi/FpXOE2Ax8nTq0X/u2jJ3E3gE5L2uORLdxW+P1PSWN
+	q9k8Yf6f0uxASy0eeDDeP++/KW1nRa6sSbKhdZ75LN0etq8VIWBJscd3Onf6xQBPCjN0WNWa4md
+	/FgSLFkMmbU1N1jR92JndmVM+iW7MzFvFZjTbWWJ7i9ttF6D55BdO0x9lWJjyhawUq6YAnQbFv8
+	trjqHlk1ivAlNBAprdx88eY55TBkIEqrmPMQyt3uZoBASEwxGnfB/HBplQ21eGoky8pQC5qiFtp
+	AMHWglDObMoeDC2AT0fLli7y0k8MswuNzth1mXsocO66ZvYCowWgXhg9pIAbawssQxMlQztOs4m
+	TrDaV6Qg1cxRjAaAGO70ECT4XtHGk7iG2YTHjrW2MarSEqdQkovdq8zZKJQ7Dht5egaQH/u1w97
+	JXVerN8LlOywI1+0HzWntW5l1v3Ozpl8plbr8CjsxDakvJ09XVB8fQijSZrVbHfmQqhEgQDIJkA
+	ehvlrqNKsZjJvnTOFlclR+FuuQ12odu9/Mipwj+HZsRe
+X-Received: by 2002:a05:6830:4116:b0:81a:9522:f007 with SMTP id 46e09a7af769-85d3649508amr6210396a34.5.1793591119902;
+        Sun, 01 Nov 2026 19:45:19 -0800 (PST)
+Received: from ?IPV6:2600:8804:5716:d800::f01a? ([2600:8804:5716:d800::f01a])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354d2059sm8172551a34.18.2026.11.01.19.45.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 19:45:18 -0800 (PST)
+Message-ID: <b0c42b21-6b28-49fd-ac07-7af1456de4b9@gmail.com>
+Date: Sun, 1 Nov 2026 21:45:16 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,25 +92,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028051200.145621-3-yaojiale02@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] usb: mtu3: don't run gadget completion callbacks
+ with interrupts disabled
+To: Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260929-usb-mtu3-gadget-completion-callback-fix-v1-1-8b75b48fab96@gmail.com>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20260929-usb-mtu3-gadget-completion-callback-fix-v1-1-8b75b48fab96@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 28, 2026 at 01:12:00PM +0800, Jiale Yao wrote:
-> The ACPI probe installs a notification handler through the device ACPI
-> companion without checking that the companion exists. A force-bound
-> platform device can therefore cause a NULL pointer dereference.
-> 
-> Return -ENODEV before allocating probe resources when the companion is
-> missing.
-> 
-> [...]
+Hi Greg,
 
-Applied to
+Gentle ping on this one too. Similarly has had no comments since the 
+resend on the 29th of September.
 
-    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next
+It fixes the softirq WARN in the commit message, which any gadget 
+function that reaches netif_rx() (u_ether in this case) hits on mtu3.
 
-[2/2] platform/chrome: cros_usbpd_notify: check ACPI companion
-      commit: 87f74d2b224ae6484628500136a75677766ed52c
-
-Thanks!
+Thanks,
+Ryan Brue
