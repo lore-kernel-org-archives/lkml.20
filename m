@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614293;
-	b=45SkkMmrpMoaMGkkYSKMITVodpa22Zn45t5OiTDbTYFBY2aUhSmy1qIjifARTYJh18Pn
-	 AuWUjAuBm7Wc905LBetQliW7F+D27ueagHdgHpl/aMbRZqtodtrvX4uq8Eoo/ETxaPETg
-	 3ci9BSIUIoaoReWK1THhRR1XtR/Us3y/e7YLSyz61VzCHTtRwZLSfq9FWKagZ6KKA3jzT
-	 2HkCdgsaGzx71w+vAqC+p93izKhBJbywKjeolr17Vc1pk7Pwc1CoAwLgK633uubPwjanR
-	 eHdaMS7MPAnwZH/6MHCpS2YrNSmtAR9NviZa7y/gnbtfTaaEHGYWm9MfhcueWZPeENQ==
+	t=1793614348;
+	b=1aLMQXgHUGpDoA6V2ca6HFpf23B8uhWinUgMUd6IvPOazaKFf46cMZBm7mgYM3fHV/QO
+	 gogDsUnnRteOiKgiZZXCiUyMvkWrYvDLhaQfLPlaGa4a8ZHI6w6vwrTJLZuzV489R2tSv
+	 PcJ9M/UVNsKKxelATG+GXkjxn2QSGEA6q4mpqrN/fSTYcIAA4DIqL4lNqvi5/R3RDqjbc
+	 hzYqnMO1NDjSwPT3lb16Z6dHQE/+Yj3jeR6ptcb5aY9anRfDsnAdv79kfLhhO8cM2LnxP
+	 K8fsPnYacZ3ghiraPZj03Xcju0cPSbXnZWK9RLvdEuE85xuvYX4UYSY06KTqSnQH7Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614293;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2fesLx5j3c6ocneASa5f1jcn6vQE9b0l3vKBizXZuJY=;
-	b=Y5SVSHr+H9PZE5w8izE+nkanRW6r/gt7gC+gaqPyokGR2H203KHt7eBomb9qhrKv4z6M
-	 6o0HUF7zXCDun5EvyozvxLzSkq4YGJ2t9yvZNYX78zSPgndxMWciGrUf0dJEAZmAerhHm
-	 5Kmn60xcv1DkX25xvAlxhC7kTkrHXsjK3g8jLK7kJ0bmslBtI2tSEId2BUZ3DhhLXUhRr
-	 t4QjPQXPStz7iOny68X2kT//y89aWw48Fhy11E6ZmIfIQvCidwaTF8elAwbNaLd0Ou8T2
-	 KT79aGARItVVPUbDj0ppJNIdjvRCsEES6hHYrKi1XDslt8FzPEdwuQlM4JWF5vlj7zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614348;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+GjlHkhujkaa5Lh0R9tDPQz0zrXu0JFIVH0v2fBdKak=;
+	b=yCQ8mO+JeuCP+w27DpxJ3fTWqK+qVWuPKOq4hMU5v+vh4Ry1ess1zb/TqBUYsvoPEDmB
+	 x6hUW4nxYVJZx6NYaUuxqrLAed7v7RMG06sqdcYqO2scVa3dANHbI3pKZUTu84Q05dImk
+	 ndXs6P5yQVGpKf4tqxH+JQvV9j9lsyMidix4qvN7hwdv3zvE4YAxjyyWuWwnOhhsxglf3
+	 jRzTJN5FPPow1bGYNTG0SqzaDK9Y+4f3CqMXiX3lUevXjzcEf1q8MYfg+0fHV1FICFU4D
+	 cHbx8VRC7QpZFUzOAfQLGq3Navk2aGkAyYItBFTwo0MaQuKYJLTxLcjxUvU93Ly+c7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="BS0P/Yey";
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mH0FaKO0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D97D606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:11:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D97D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25583606A324;
+	Mon,  2 Nov 2026 10:12:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BS0P/Yey
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e940d5d2beso10218935ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:11:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793614292; x=1794219092; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2fesLx5j3c6ocneASa5f1jcn6vQE9b0l3vKBizXZuJY=;
-        b=BS0P/YeyM6aG6e5heswCcwQeFFffXjiKuRIcmTIFPii2q+J0iRslffoHni+2Vwm2C8
-         sJMXnOrriGjE6i66pL5WItmUwuoyiifPUABVxfHfnAO9zbZ1OL3G31ViFFhACfdZ4vzB
-         ijMq4mz8WlyRKaTTXBwOYag5C5IAxHZEUcwF0g2NJdtzRFEZVVNGNhrWiQN6Xzysgx0r
-         m8Ts/DrsNGnGQOPg8UxvKFBuEysUICKNyh50ACb/K4HhEDoVpMTiccaHPdXnDzfUKaX8
-         l6p507ZWOC9VXDDIA8fdD4ICMnEBkWuPaW6SHHuPXM872/kWcOviS6qBs56I3piNWy7Z
-         zD6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793614292; x=1794219092;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2fesLx5j3c6ocneASa5f1jcn6vQE9b0l3vKBizXZuJY=;
-        b=kXwcpO9flVt8e94iJiD6LRsCldE9o8iWiq2UNw1+6msp5kmntSMkzA5DFe6+MYU9zo
-         PXzWbe0YYpU30k3FlMMO8g0P/OEjxlBNHGjbpNOiDUBGc0zm+XmANaBg1UA909/IOTKg
-         WrinCEolC46PSA8Yb84SFuSBwP1bjFxlQLMUolZsuhLEEmot61LAMQ3W3u7DybydgFVj
-         SNSd9Mk96dwtQrnYTpD0TOKJLna0yxaWF9/jQKhQc50NB65HBk9reM/DscAITkWR2kd3
-         EprKVI98B9iCesg1DKa1tk9YiBZ8KFIPfDAtm4ypz+Bsm3dE4iqIZRT8sMIor5cWs1BU
-         RzfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfz13BZswDXKVTJAO4qWjVqBY6sfG7I339iMBajdFr0Y52gh/808ol7lfvr9RBPb+mj8PFeltcuMcfrRM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JRIjQvey+OxGZt8CLGvlZ4ybHVShUc/rAt/RXW+wR26IYRyw0
-	aFFs3IVSaVu5Eyq2nJNBlTEax2ltxg36EZF+QCCER0/3xX40NvWXZczgWwlHZw==
-X-Gm-Gg: AYBFou2B5YJJDaNJnOSWJ2QVdTvHsHsoe3SMGGtfTU6RhsBbNWZLmMlukabFL2wxKoY
-	BDv1cI4Mg2kKRCXorrecj8kKo8S7blf6jXslQEVkrfntKiJ/lKzFTFekhiFzAjcD/dekfvrjdij
-	w4rJiLM2N9EEaXI75Him5+wopETVVrxCH/WjgZhPiBizIKHg48JIK2nzo4q/0S1tcHoTkMWlmZT
-	1qhFS/h6xUPe77mwwvvj9JSOX6qezFs0ku0Mh2pR+OVCH6+/+Gj6mLmXKYekL/vrTM60pCr26KU
-	WwXi6X8CG94xKb72nXyylUoG9c1VBRxCAk4VsOwF3ygDRU4ONv/ZaNO4lT7I/wzhuoegM38V8LO
-	3ftnxwamQH8t9JQYfyD4+zP3epVPe0ip0Qz573VPrLgYCp2EbFJ1//kNg95+HvkB3Vyq9kuyaPF
-	Sz15oLVBVzFzNDFJs/hprOPEmy2oWx5OMPteErAmK1z0lrJOwBnTyUQJ0XVuKVQDomToqRNMtfg
-	FJPiPp1MAyy/2qMhrGpAGOA+iXILYvJKDDfzzhWL6FjrP7NQ5QxZdmxr/A7QEzKwtDl8Yl+CU4o
-	YRBvzDPIZ82PTf/T7BsMkGlv96iLIVGOkP0MnImZcKXkqy//C4YH
-X-Received: by 2002:a17:902:d510:b0:2df:8d6a:3548 with SMTP id d9443c01a7336-2eb3646e48amr84625755ad.48.1793614292469;
-        Mon, 02 Nov 2026 02:11:32 -0800 (PST)
-Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392492fbsm25667235ad.32.2026.11.02.02.11.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:11:31 -0800 (PST)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: dsa: motorcomm: Clear the MIB buffer on chip reset
-Date: Mon,  2 Nov 2026 18:11:21 +0800
-Message-ID: <20261102101125.3523835-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mH0FaKO0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22BEB1F000C1;
+	Mon,  2 Nov 2026 10:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793614347;
+	bh=+GjlHkhujkaa5Lh0R9tDPQz0zrXu0JFIVH0v2fBdKak=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mH0FaKO0F912kPbkIqOkAFsPHWHJFtYyhM9ze+Q7n1xqvBuhpVBIT7brBqfQ+13sy
+	 LaFV5LMK8jiI4HKRdAsaQc2TbfysK0jq4ENVnpz+Fsm8CPejhye+ysbKKi2e/uigYZ
+	 6DYbd3kAOJUnPID4afIvcuIX8TdVdeBAj7/Ck4P1LL8riDF9z1RXMj/S2XpyBVtrPu
+	 fuN3h77hDPdd11q5+LLUQcjLoABbJ6I7icaseRSgn5ftNVrkSYVD6KsBFufnCj3/Cw
+	 8XEXcyd3C+DIrAE03C+JzI5o3mRTb0zTo0QcLHlPgOWUDyv3lsHT28Ns4rq3l4ySsJ
+	 E50J383gI9CBQ==
+Message-ID: <da2b5192-a081-4469-92f4-2ecfcf502e4a@kernel.org>
+Date: Mon, 2 Nov 2026 11:12:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,48 +51,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+ andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+ sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Ekansh Gupta <ekangupt@qti.qualcomm.com>
+References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+ <a97fb0b0-e4e1-4b25-a5ac-60777941c574@kernel.org>
+ <26ca5c66-a2ff-4aaf-9c9d-724ac66480eb@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <26ca5c66-a2ff-4aaf-9c9d-724ac66480eb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-.setup() can run again within one registration: removing another switch
-from the tree tears the whole tree down, and re-probing sets every
-member switch up again. The hardware reset at the start of .setup()
-brings the MIB counters back to zero, but a MIB block kept across that
-cycle still holds the old software buffer, so the next yt921x_mib_read()
-treats the small value as a 32-bit wrap and adds 2^32 to every counter
-it extends.
+On 02/11/2026 11:08, Ekansh Gupta wrote:
+> On 02-11-2026 14:23, Krzysztof Kozlowski wrote:
+>> On 01/11/2026 23:21, Ekansh Gupta wrote:
+>>>  drivers/accel/qda/qda_soc.c            |   66 ++
+>>>  drivers/accel/qda/qda_soc.h            |   61 ++
+>>>  drivers/misc/Kconfig                   |    1 +
+>>>  include/uapi/drm/qda_accel.h           |  282 +++++++
+>>>  33 files changed, 5877 insertions(+), 1 deletion(-)
+>>> ---
+>>> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+>>> change-id: 20261102-v4-e8feb321263f
+>>
+>> What is happening here? How are we supposed to work with this?
+>>
+>> v1: 20260223-qda-firstpost-4ab05249e2cc
+>> v2: 20260519-qda-series-78c2bf0ed78b
+>> v2 again: 20260817-qda-v2-78e2d1f10529
+>>
+>> And now completely different one?
+>>
+>> This makes the change id completely unusable. b4 diff obviously does not
+>> work. Any tracking of this does not work.
+>>
+>> NAK, really, I already complained internally months ago about such
+>> practice, so apparently not enough.
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Sorry about this. I lost the original b4 branch and re-enrolled the
 
-.port_teardown() keeps the MIB block on purpose and .port_setup() only
-zeroes a freshly allocated one, so clear the buffer in .setup() together
-with the hardware counters it extends. The published stats need no
-handling; every entry is republished from the buffer.
+You lost original branch four times. It's not a coincidence, it's not
+random data loss because then after first loss you would solve the
+problem. It's a broken workflow.
 
-Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/net/dsa/motorcomm/chip.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index 33e5fc127244..ff17233848a8 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -2458,6 +2458,16 @@ static int yt921x_dsa_setup(struct dsa_switch *ds)
- 		return -ENODEV;
- 	}
- 
-+	for (int port = 0; port < YT921X_PORT_NUM; port++) {
-+		struct yt921x_port *pp = &priv->ports[port];
-+		struct yt921x_mib *pm = pp->mib;
-+
-+		if (!pm)
-+			continue;
-+
-+		memset(&pm->data, 0, sizeof(pm->data));
-+	}
-+
- 	mask = priv->info->serdes_mask;
- 	for_each_set_bit(port, &mask, YT921X_PORT_NUM) {
- 		struct yt921x_port *pp = &priv->ports[port];
--- 
-2.53.0
-
+Best regards,
+Krzysztof
