@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793630171;
-	b=jBOvl/SkTZYc7q85oXHgAh1WqzhRv34lCPuWRRzFLGk/QLzH5xhE4Cw+tbIUtYn60Yj4
-	 ZU79PsqOzhK9NxD3Y8lh73N9/bKoNFHpL+X7Qjxtt04346aV8Vuea6RE/GKCtRh7ppioL
-	 N7o/qgrHsfMTjCljc4UwIp9myMQe1XUoMzbIU0jCDRxJ70PuFLvgTOeg2Bf6GsK8hjkBJ
-	 XoxmsQ5eepADTlSaFuHwSQkImdyxOtArxFIZ9WAFSuS4uJ7PsCL3AoUTjDdUXJTj8gD8+
-	 /KDUYUqcAIhxBOyuaudrmTnJV+BTMpbqimBpS4WX3+F2ZxxRapEtoYhJt6YA3rtrj8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630171;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HZghXhMFCJS70WDNqvvmOeWSzO8R24cAAyoTNl/owqg=;
-	b=KtZl3/xhuaXU1cCMIRxh3ZuP25qvmxj74DChuNVjQ1JnKC6ybqiTsf6kj8m1qVLqy1Ek
-	 UMHOHAkj2tWvBtXEC0TwGSV916wQm/9576T5ShJR8dGoq7q1rKzfKyu2onS2K8gexGqYo
-	 ijisXe34WdJBl2fhHrID9kpi0dns1W+o+jFE3Oaij3VEKXNttPkX97irlpUZ+e9RV8njU
-	 8XJeYq8OhdKtztx0px75HnSnSWTbXOPVyqLeKBL8BKidl+skshgjjIkz7fELmiftshJiq
-	 JBcvYbUju2IwzhMwNep0aM4tx8WN5WbO5yw7xkQZZgvDUFhtScb5UcqizmE5kysdoDA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZqXqd1lH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.191.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793630189;
+	b=slMcODe1ok/t5P7wMOZ6cCtvSHBNkKFzRYPhSpgu+Rl+h9axCCUmqRew4+oKzlOwojSb
+	 5xhjJKjdHJHz7Y6xmliBEdHjztTXVQH52DwlVt0HN8BEyXfW+r38YmR++2pihKx9Sctcl
+	 8fZC7tcsGPik3f67gOBt/9d511AJPnQ+i52u32hSDdnDVvL6GRp7ObmNFAkvXsjIyC/Is
+	 q3/pSgZ0Ly4bBI0xpwCRR7PVlG/DAo7ftGCVibzd/Gn8dt/MBMe+CT/Jen2xkFE1eVtLF
+	 7rtWPdjkx7HIymbQk7oDdAyzCSr5GpQ96Gw48gg7VS1PUjKIIWFTKu6MHpodWBL3tZQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630189;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=HO43C3iEXRa6J85xNlHDELJDyLp/RMlGT8/nfr+lOp0=;
+	b=Sa7RuDdomJiQ6Y3PNVYZjjI+RqC/ExAiJ5wVlKbEMxHZhzn4jVmbmW2ue9+QHrm4Rnmk
+	 WjrrJrmgL3DpVZpX31QdZ5lggt2RhxL3NMAE+HpewU1vaZk1fnk9Bx4tVn5ZAncMjr7cB
+	 ghHI4YBfjjOeKf7PEwCEakgIWuzMQNk0z0h7PAO/tH03gN7Dc5oAXbK6TNY9hzGQ0uB7q
+	 7RSSMWdiPEZCazzEkUosNsPalszQKKxWnFbGH5Sn85LwwM4l5PZGpC4wac7la13tAvSsH
+	 jMsCGlMWTAWA4w4OS/KMPbR/mG0usxn2bdWTgRdMYrmtJ1hz34OVfa40dhr5I05v+Wg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ry3IINMX;
+	arc=none smtp.remote-ip=66.163.191.147
+Received: from sonic304-21.consmr.mail.ne1.yahoo.com (sonic304-21.consmr.mail.ne1.yahoo.com [66.163.191.147])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C40E606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:36:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C40E606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8C4606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:36:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC8C4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZqXqd1lH
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so2901046e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:36:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793630169; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j6s/T6vjr4wttKDmealjCJ4FouWcnY6H6uWFnOMbjl/dI05ElNggXuoqe6ann5LRrY
-         EybuMvfMEAoHK8e3kLbs7SOikIg2SFaGBlejThbX+LNOLi4bNsWMGsJ1mLMgUzInINFm
-         lSivqDdzLEiV3Ec2PvRJHngl0KZNklM5yj/pmZr8+iQpLA+jxTwgxPt8pTrn2wVvMir4
-         VRyq48Ok/8RqnVxaweCKsZ84Qpjpyx+hTu9Y0gpHhPloAAcVwhzqNJAo5KGqBW33GwH7
-         UlmJ9LAioecC4SKU1J4ztQ8GFqnJiaLXRplHuqx7uuVbyt3MR/BQkY5jlRlntsu4wANA
-         OHYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HZghXhMFCJS70WDNqvvmOeWSzO8R24cAAyoTNl/owqg=;
-        fh=PIXokoWwgPWWDcZUE6/yLPF3JjnhxTgWgbLrP+Tgfw8=;
-        b=OkZugifyr6bgRvnPdRtStodRAJCoGifGK5OYmmZAebvOSkLQBLRPycrFsonXx3mM71
-         KQ1Ho2NW0v2SMeho9RKVy4BCzCz57yCZk+zx3rJETHE00b0mWUtBl19v4fS+g854nVs3
-         r8a0nrcpxRHjGal62YGDn47lW0pbjN2fxzp2+bAYTsxQRly3an4F7fYsSlc1cll5++jU
-         eAGdu8ZUEJw8luvKP/RIa6wn7O/V7FVbr+FEEo78+RETlqogtweyu8JSaq0IeuUfFV6W
-         TB9m/SVjGCqL4cXo5F9kDxo6xRrfaexujezBizAj6HGBwATgFw/SJtdoXMTeUePKtKhP
-         c7iQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793630169; x=1794234969; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HZghXhMFCJS70WDNqvvmOeWSzO8R24cAAyoTNl/owqg=;
-        b=ZqXqd1lHkyXB3w898qH/EyuKRgPF8azcBo3ws910pWQOSRQxpHTevDPReJeLi/FVDf
-         x+Q8yuM2jQHToQ8rLjKQ7qWnGjbk/aWwQTSFufi2EGYaswaRVUBtfjcqlzOJ+ZPJ6cF8
-         sB7PEmBPBiisNpFZV+GcDAQYzeKCU+e+AEfy+PJkrMcBOWdBzlVWotauC2d9/iFBh/65
-         VlxYbzJHoniNss28lOiqSJMQI+QbNptxnZRBD/LSTZIV38lAFfCB+0A3RVfQLNi1NhYO
-         FG7LFih+ylIZMFsh2mz6OCmJkS6wGedHMS6ZHIBdGXkYAohAoRcNvzZ7ewHwUwzJqJ5w
-         7kEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793630169; x=1794234969;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HZghXhMFCJS70WDNqvvmOeWSzO8R24cAAyoTNl/owqg=;
-        b=pEaymp+ztWiVYHG1BByINNTJhb1WmuGeT6Ur8ao2sW5cMKCOkfrETMAHfTZ13u+xkO
-         yHh+8c/snF2H6CvEswWvXiGaipXcbdkTIlqFZp2Y1k2H8lY2O1sAT+raW4hkQbKlGVrw
-         f40VsI6H05+GLRFQt1FcB2h+TsfQ8iXF0lxwHNniansrMFWyy9o07SN54+ECVX1FdpJf
-         XDxqeZcgnSFKbLCMc761CZ1ZaLsDgGA1kHn3OODcwrHgEm1QDfh0p/qAlPrjmCW+w0oB
-         547DntwMpkyZma1AgFNUhGgQ9lCSZl+H0DIJQVA/1z37o2qTRa0LunxPTGS51YzP7J2f
-         dkcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwGOZBNfNLvDvrT24mGYR+jzgXPUa1c72R7swAYmXoIIV1i8s4cBECzdx9my5ojiAMZ7C6lG3mYzDsPMNg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DnCJ5ETWPCvQu1PSipHYzdzZk5jQo0pSrTy7tfdBmWB+SquXy
-	hGHQC/HAdEEWlyjs9HHKROTgVrtLZhmlLFed+0Rr7a+6wN3pk7yRzmG2dUQjPwli+Hiu42cTW8o
-	aJEop32/k1PM1aBWHVKZJo2Y8VDVuBEc=
-X-Gm-Gg: AYBFou0G4dFh4Nc7CEyExpmBN2OTZNkTjLOB+rF7z7+t2LH8XeUPDHjIgp3p+zTGzZs
-	OcxeM8PrznDoJb4X+o8WmiqfjiTkwb1XBGms+LJAovSWFB4xXCgJde6XL3XrsudikJ1TKdli+8f
-	Mpqwv9Wy2eQkP5BMYEhUERUPlHoeqw3HRhD5SFn+5AyEUtPKnnfXLhmoFH8lAl2mbcWRPv+/uZo
-	3HDuYEeZbgidApOXn56OtcHDPITjRW15bvJQlIUCwm7RUdVGFewFZy7eJ2qFfo0yut8DNYtN19U
-	Uq6XYukvib/QIP9S4OEEZhnMPH5/5fDaumUYb2rwm34IQi8aJkzcpkgdSKEL6XybkYE2mdbw+Tc
-	bOT5/zMcuBxuRE7yLjpe/HqhCpGzEWnOmPOEo
-X-Received: by 2002:a05:6512:1111:b0:5be:5209:9f1e with SMTP id
- 2adb3069b0e04-5bfd9560832mr3208623e87.19.1793630169203; Mon, 02 Nov 2026
- 06:36:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ry3IINMX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793630187; bh=HO43C3iEXRa6J85xNlHDELJDyLp/RMlGT8/nfr+lOp0=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=ry3IINMXxmNR2JyG7PBIm2xHfDdkwQxDz1Vdg8CeSMzMT/ibSt9QTQKJq8dBsmdsa+5XG9CZ63hDQvI6TzvecKzNhBG0P2fVlDV64K3uaBqdJ9peu56n+UlOb07x4ul02NP456ExwAXLzMIKaEi5OS8IR4rKT6X/yjwJGGh71gJjKr5aDlsWGF+JR1NoVCA+mTFdddJDCZJoaoMIOaqDjuxMiGmlxbneAOWlBrikJrAmC4P2Rrr97K39BonZ8xkwaTQ+2vMKQh7IVFpll+AE4RQWnoy7aA/0YLTlaebrr42KuFZMOgF8iAkLxkYPN0/SbBxTij2sjbtejtsAriEtkw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793630187; bh=BjwOm3KD6Jp3QhRETD7sjkx7zIpwTFyWJ027lRb54o+=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=eU/iqPyh853PVHvlkqLC4ohIKkvvFbEjqbduiNUQwIgm0h74pPUpWJbewDCSUHLh0EMMRjMdtyvBdrT3sr+ZyBd1EiSVjwyyaK3P2EFzlrgDUYrJ2kzf5dkbtYeFVvtwdTJN6KrBtceIr0JPsx2+BeSstVRqOQn78BqNlTcx+1sP81tvrkI9bAXm9ewP4lRft7MkLNh+kUy+C0JKGlMtdiy2lSyBzHkmhTULkswYIpnVlON0f4laWdjh7Ivkviomv8CsUwi7r3BipzOEV+f7WX/oa9gEIA7cM2/Nu4N5XtpC3aAXUC23e1SwbGcGvshpq7X0a6cZA3GNm0v77sMKkw==
+X-YMail-OSG: d2qmvpAVM1keIGt_PHTpaNeDqgjtDr0AytCoOX9UVravvY.YQFwHqZf70qZjsA3
+ J.NKDs1eHMTOhd0CBcZ7x2AH9BsoFqrvV4N2t7ls80MuSHzg2KP6JK4g3vyhE3qwSg89vPw1Fxac
+ M2RIKxAP4fdHxsYCKLUYmSlt_ZgZAvu1geNYQB94MRkbQE_qYfpsQvnH4SDoYcbC_zjpYmVAvfGI
+ waCZ_sNE72tzbvnjpCozeUhxBBGtwn.0U6cZh0x7tFO3ITAbD5AcuBIJT8jxACx25b4cSXRJUVZM
+ Sj6qdB.Xh0I1ChJtNR7qNMe3bwN4iqoQ4sgYUo8Q8isFNox.M7PSrfiH34APBytJa9z9QBzltWp7
+ bu6RPflFmYHy1wrbkglDbeIbPy2S8l0MjPiAxOBQnvgQ8BWDEtuGdBzn9oeVZiLY3vuqD7waXj4x
+ h8izfeb7sFNXyANS1qAxS594GPXiujdNQ8Tdgwc1VeJdvDJQaN065.3tFEJ2w0MTFh8AEj2CszCf
+ 9JLcn7IXHwVYQYREFQn.7rjU.Aqg2K9LhSCURxthghM48Zw9FbRA.U8iWL9sNTg1RYhEg0C4XBlF
+ A2Uen6s4a2Y3YLfQlRgRn_SlnMWr7LiMWisBNNVvuRIeom1fz1QIYFUzWJvCa6SDhKh0Cu5HLPE3
+ 1PlLZch5DLcaf9TTvCzpO8ueHZhGR1bmA4MYu.IFAgTm6jFTIUA4rGBgBfaOs80VI8yc2zRlulan
+ ljxsgwXkwFlnMC1SxCgCmBKw24t9nNj7c1MOujRRvEKvvmj61OZJp66b0.DbW56YZs1kmXz4kkW.
+ PFMJHanC0DuW8.1k20nnTDlreKjTLFkjYV2GYAxCSoQ5LalZ.msYzUkNIiJvJgNaRba4PvzgaPR.
+ 3d7C8la6xTw8hXdJe6fFHq6QENdEciugCbCvd9Bv70ZgsRZIkO3PKf6WEGWQutF5QCSa0TTVlwZm
+ V3TuAPffyQL0MnpPEKWlhQjDry0ERgwS0aOGmpGcr3duQrkgN1AC_3C.c6_k1J85W2ywSpu4eZ94
+ tjWl3cg3.yJERMBxQPt7_b9faPY6VnnQ_zeqF1jKi54Cy7eKlx9jARke1TaSesHqx_2BLxIWhD4S
+ vZfCghG__10ikq.4VfD7xVtyOOYks8lRBjKs4aRo5itwb9v2RjHLLSsUJbmWoA1z.p.BltMi.f4y
+ 16pBk1IwGD5k9UyZL6Et8nxQuQFw2fFRDAW1Zd6bgIwlJuXVOYgrtGy6Q12MmG_AZO2QS7p7wlPz
+ zrqJkkpraENivG1yjP0qffzJOmY9JDVnH5_bOzMPN_POe7OtOdtLxcV5nW_GL2WYo1GnJ3Pk7o8P
+ 3G3XQFtmNziGmiL0YLHXZZ02yDMNnyEUMeRSxpFhhKtFqH3GPUq1hbzasiWt2XbVhaFsSY1B_vRr
+ iMms4478XsGIwEPYfeBC5OrQQovQTpr0zKxPxUptD.ltGBHy5om1F2ZROLxQX5aXt7IDkbakPFca
+ pRUn4vG4p0R9K5clP_ziEKF.oIYHYMhYyIrfIPl_mHlJKz6QB83xSh_94gMMzfphlCrTZ1L4wb9D
+ dt99jZIpnMq1mV3kkaFXIf08IKPko4BPs.nEilR1qJnMctzguI9zarA3pobi.lX8Hb_LlDoVooBd
+ YirHAAmavCeK8jSVEs6N2itwlcQ7XB7v6J4orw.qp6t3BKSVopxRSDlW15la3zzexkNiQaCvKYSF
+ 9cZDlgo9.MQiTQIJyNpyzf6xRqYZ0mr6.wBUiw9tAna9hmPDPGBU7voUYWBnTop_bCDgHX2n3rUu
+ SS2Uc9Y1ayA6cy9OQtQignd.AlOu9jV_zfgw6hLaD9QydniPZxMnLtSEQlZ5m77lS7HaG3Qg1A3x
+ 6RVHj0sk7avSAWZS.y1v8Vi.tPxYIgzjdZJzRR0XgOhNYxsb5AoHiBZ5pWweZGpbIPf3BdPnpAbG
+ 5BXTc0ImqTEt.nJFva3V8SmJtERDQaB2N53ZgIX7ETKq_H8AIhyfeCmfu_SsJSVLwee05slFAjb5
+ lketuq0pBI9snF0msUgn.TqI6bgX_ZVzLl9qWZTaxvMuLld01FYtpieTPm0Og2P7_wjkrANy0j7b
+ phuzYO_33F3vHlBpYAPSUUprM8mJ72slrpBmfu3ZI8klSHz1MneC9UGL4hcwBTav1O8IGxO1zP0y
+ sLPd_el7d1Qew5wf9oYXnrMbyJ5CZed39_2p9I2sCwXcL1M9Bd9vdwL8AlcSeFtb4suFfIR7vUmh
+ bj0i_zNwQQrlVv4Ti2D1aFZzQ15p035FA761Vp4uP1JV7DQFjKh377wdZMTqg81HUHs8n_jLPVwK
+ 69dAI6Q3QzrFqHmcHgeQvU1AWTBKYIQakqJ8N6Is-
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 19855212-b725-44b5-b295-0d4cb403237a
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic304.consmr.mail.ne1.yahoo.com with HTTP; Mon, 2 Nov 2026 14:36:27 +0000
+Received: by hermes--production-ir2-5dd9bf4598-bgsl4 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 09c28c63ade149ff97a4e5c1da845f5a;
+          Mon, 02 Nov 2026 14:36:24 +0000 (UTC)
+Message-ID: <d2e80c06-4fbe-4e59-9e41-d8ff697d8e20@yahoo.com>
+Date: Mon, 2 Nov 2026 15:36:21 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,55 +84,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102120929.4077030-1-anilkaushikwireless@gmail.com>
- <179362163558.3286.5335895869912806815@kernel.org> <CAG0Mgm9t=ag05xgP8f0++x0sNG6nOt9zDWbtoKLtgnhnpgm3Dw@mail.gmail.com>
-In-Reply-To: <CAG0Mgm9t=ag05xgP8f0++x0sNG6nOt9zDWbtoKLtgnhnpgm3Dw@mail.gmail.com>
-From: Anil Kaushik <anilkaushikwireless@gmail.com>
-Date: Mon, 2 Nov 2026 20:05:57 +0530
-X-Gm-Features: AclHuK-Whg2x1OFkVQJyY67gQO23WC_731REREy_bPWfAluMe-tC1psOHzJ0jC4
-Message-ID: <CAG0Mgm-O57x8VqpivQQYXxNFrCqsXkQFmZph58wmHQKq6E0m=Q@mail.gmail.com>
-Subject: Re: [PATCH net] netlink: Do not call the unbind callback with the
- table locked
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Nicolas Dichtel <nicolas.dichtel@6wind.com>, 
-	linux-kernel@vger.kernel.org, stanislaw.gruszka@linux.intel.com, 
-	Jiri Pirko <jiri@resnulli.us>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v7 01/10] dt-bindings: net: dsa: realtek: add
+ RTL8367S-VB
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
+Content-Language: pl
+In-Reply-To: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26871 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-Sorry , missed adding Stanislaw and Jiri
+The RTL8367S-VB (chip ID 0x6642) is supported by the rtl8365mb driver
+with the changes that follow in this series. It is identified by its
+chip ID register, so it does not need a compatible string of its own.
+List it under realtek,rtl8365mb.
 
-Anil
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+---
+ Documentation/devicetree/bindings/net/dsa/realtek.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Mon, Nov 2, 2026 at 6:23=E2=80=AFPM Anil Kaushik
-<anilkaushikwireless@gmail.com> wrote:
->
-> On Mon, Nov 2, 2026 at 5:43=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrot=
-e:
-> >
-> > Hi!
-> >
-> > This is an automated message. This series looks like a fix, but its
-> > commit messages seem to be missing some information:
-> >
-> >  - Whether the issue was actually triggered, or is only theoretical
-> >    (e.g. found by code inspection). If it was triggered please include
-> >    the symptoms, like the stack trace or error messages.
-> >
-> > Please do not repost the series just to address the above. Instead,
-> > reply to this email with the missing information, so that reviewers
-> > can take it into account. If the series needs another revision for
-> > other reasons, please include the information in the commit messages
-> > then.
-> >
-> > The evaluation is done by an LLM so it may be wrong, if you think
-> > that is the case please reply and explain.
->
-> Found by Sashiko, not seen in production. I triggered the hang in a
-> VM, with a test-only msleep() to widen the window. It does not hang
-> with this patch.
->
-> Regards
-> Anil
+diff --git a/Documentation/devicetree/bindings/net/dsa/realtek.yaml b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
+index 473facd..ca775f6 100644
+--- a/Documentation/devicetree/bindings/net/dsa/realtek.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
+@@ -43,7 +43,7 @@ properties:
+       realtek,rtl8365mb:
+         Use with models RTL8363NB, RTL8363NB-VB, RTL8363SC, RTL8363SC-VB,
+         RTL8364NB, RTL8364NB-VB, RTL8365MB, RTL8366SC, RTL8367RB-VB, RTL8367S,
+-        RTL8367SB, RTL8370MB, RTL8310SR
++        RTL8367S-VB, RTL8367SB, RTL8370MB, RTL8310SR
+       realtek,rtl8366rb:
+         Use with models RTL8366RB, RTL8366S
+ 
+-- 
+2.53.0
+
