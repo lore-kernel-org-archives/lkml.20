@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623044;
-	b=eyZsLtm+clJoKrIRy0TrnsyzOEjyWpImrSNdSU/OH7G7IVPX0nalLltmRiZhuyB2x0TO
-	 Tr9lDIlDTuRhJ8QrXKw44SmTGdeNrELxhK2EVtvVEzFXx2hGRQxi/4Ap1FfPaaav+aNcp
-	 /ERxsTiv5Wd7zQgpVhxeWXjK9jr+kzSJYE0CzjY238BoZ+Vye9wK4lbEwFq+QSKIy8+2y
-	 kmnFcbvqSKuOZzvZno1h+4FJCfzekYv5F4+BH5WcraO+hr154K6OPBUh23vKEaaPOBHPy
-	 C44fo4OP0SuJVIyHNOKp4o7FzNz5BWy8IvgdHnYwoemlLbYXl5DYarbQSxehh/g/eqA==
+	t=1793623054;
+	b=l0zqCCOPnQRK+J8uUJN5ApgECJcf8DFUmfvuCVT1lMYkXhTP2T0xys7w4DdrDgIql8VV
+	 HZCQvDfrh5U+HHhRLpPbMnZnFBhbeZb3hfHpeqT3sR0eeWy3shMWVx0NN+9uMM65o4tCa
+	 DfnCYwfLvISsB0bJjgKdicnYXRWR3UUAnaMJABe5tSqRrfY8GZ8MDJNXNGY5OaXaMCz0t
+	 tHFvugfENCyGGnmS0zNG3TyxYym1uM+zDWk3bQtcq4AnlVYT4vVlp8edy+tNABt//hwnS
+	 SJgrxgNZaCncNdfilkAd57IccuNMQEyYHFU/lS0yPCQvG/a0GEP+WxTjma4W2lhJIRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623044;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623054;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=8yGgdG3MuTUgBN2IlwGn1nZkRcdu7c0DJVMNgsIQLTs=;
-	b=Jh6rmEIHGP2TlScMBnpgTdFrsVAeQ60Rqg6HSpykT8VYeFGbKtfe/JdFI3w1Bxzk5Io2
-	 v/9GplEwnbPUC/iIrptQ3rsZ9crE4UTy9jAhm0PLeAX9dVDPze0YuVUWGVM3JRPa6YZKO
-	 a1ZgW8Y45n3sAz6cySZKjxi8SkT4JHalLC4ncSy8cv8NDMjYVRjnIoXJH2zlfNKKgcqSl
-	 WBE9owMdI2Q4aYTq7Efw71WRMZZm6Qam8X+mLEPpntqXmhcFWGthPgFIHH70219O11GXA
-	 VVVdiiJ7/46MSFBHMNQKJstWxeSlR3/NZ/6I9fqgxNzCTRGaCJqpUXVVlfd74FchosQ==
+	bh=UJnsc6rPzhRrohHVm6N1G/brkkNL5aN56fn34HSgfWU=;
+	b=hQ4NJGweSiefJNV9Mw21aE4w0Z1Zv5n8Ra/eX7yEuLA8c7cxclIUZPZM9eYe24MojkII
+	 Z2UZW+buqA285ggL2ajsKY3UkegslaqKDeIaFO6aM9jxhMRR2uyyRlQS44HTuonzkea2E
+	 7AtTfYqfwmeI4dBpOYSYDGRKi/n6Q3DF6++Rq51uBrM/DAWffZHX+n3XeZ2ET6NA3IIaS
+	 JPKdciTraoer1tEDVw0FC7mGUBHh6X6qwwG+B/6Nde9MbVUdWBo138nzE/jWJhRlFtSBU
+	 fPg6Q+w3HErmIiDOWKvIt57sAZ9ScXjY0nMUYZ5E4AyjFU+/M71yGGnBMzKAGGWUURA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOoSOkIu;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="I+iB/xDh";
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD36606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CD36606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B9060A2608
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:37:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78B9060A2608
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GOoSOkIu
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1931ff67a29so5404674c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:37:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I+iB/xDh
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-353804b591eso5202834eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:37:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793623044; x=1794227844; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793623054; x=1794227854; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8yGgdG3MuTUgBN2IlwGn1nZkRcdu7c0DJVMNgsIQLTs=;
-        b=GOoSOkIuby+zJ+pcXZDwDkR/Nxf9MBeqs/4E1GhaH0/jXxzlb1TOan8oTVifidcaD4
-         20IQiOHxKTyNlO1vLS2jf4UCq0esA9+3smJJX824cnVNTgTVW6Z7riIFdCW6fq/44sTd
-         NRIqrG9j9aMuDD/rdYH1NvHifYY2Glsh7UmhK4s5vpqEK6WbEg9XXdLqiioiNeaFGAIJ
-         S6GgXgkSFha5wibG7ycUOTuZ0BwCxt07FTOwakhHFyJxzzmXaaZKF4k29n38IVTm+FnB
-         YkLT7u58R3zKGSCMFRDbGR3fX+LUWd2UHPMC6ESCvhHHQm527TrBDQPDGE5aOC0mXzCl
-         ysQg==
+        bh=UJnsc6rPzhRrohHVm6N1G/brkkNL5aN56fn34HSgfWU=;
+        b=I+iB/xDhOLEUFnfAxghqnoWsj2cnfBUPzJ4P/6rflkIGlsnJiibyRWCx5skLYgX2ai
+         0tCVXdwrHAVqMmbqTSs1YMv2aLQIBmPIzxAGvnlftxsTGBo6SXHDI+PZ3PgKW96D6YgX
+         Q/ZpsHH0SXYQd7gODeYqLgPcRH03uO/DA3G+ew7XpMshOGjQohxzjbBuQj6lUTyx/qYf
+         eSKUJ/Mh9VIxzIZb0SliQzlYzB1DhM9M1D/qLSHlCDc0nzc9vDgLc/EvpvDzxXKcSx01
+         I39ZhHIQQZISagWDZhnAPMAQ5FLTiSVIhuM6mbO+I+eZJK12ThlMlVyy6KQPKL/9cHU0
+         Q6bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793623044; x=1794227844;
+        d=1e100.net; s=20260707; t=1793623054; x=1794227854;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8yGgdG3MuTUgBN2IlwGn1nZkRcdu7c0DJVMNgsIQLTs=;
-        b=acKvKpEWh7aLVm+dTvehRTBFKog3pyGCzpE+SFz6rx+mgy9jKHl1kUOFqKlHALj2tA
-         rr+Y4vUfX2pXHCnqVM0KfJHwHs7+1aKuNnWGbJvPpDMaUVjv8BUNiYGwtEvSH/mCxq7O
-         9Ed6zTNmd8rbGUxTH/WO6nddZ99+XUJ2YgZKxFbXiE89W6DBHroNX6511Co68NQ3sWFg
-         Y4fuRz/JHt9mOM8sIbqgei/ndsqEtRbXVIl/806+smwF1fQf/SaYibpO/6t0yhYi6se0
-         +bECt0ZZAwujQkePc0cyi0RLH8fwScc9HYvoIe3BzN4s7jQ+5vCZ+sLPGd8Qzpa3nkFA
-         1CgA==
-X-Forwarded-Encrypted: i=1; AKwUvByOvQFOCxZtuXnlIVYGYZHOnfEsbEGVSduK12XN86ZUpVBXUu9GL/BFR/YEE/HAFnzErTCLy+s3nPhoYqU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICd19M6pP3+aWU9bWP62A4XNaBjiAO5CYaSW8tqDTAupC3iTPn
-	x5bFU0ALtczd4XFUnGRcEpP/WJDBTwoyiNvOzJGawLrkWJx+HORKzd+Q
-X-Gm-Gg: AYBFou39s7OVODXUaTXphUln6z1BDgsreedYLrQQK5nxO47EQWWF+dcK0mmndtaa55L
-	6J1nCqXctWL2ISiBv2kHFzC0UwU8vyuHZ+cXWdtrWFOUPhp8lmwbSIBWtAAizzJ5ptBP3ndFWVX
-	9ufQynsBT72aAvv5IVwzaCZxzk7RwU58QzeRaXEDLZLwOccmpGLCMo51qYySRZXd0WgQ9SujUN8
-	fS/Uc4pM14UEIozY12MtMte3acSzROfYKHwUdqsTOLXsX4TLAJut9iCcko1aY7O4c6rl7/+y4Lf
-	PH90mScEjH3jJ/5KyGnE0GJ159/gDSLWIbVemoRm9a1qVpcUyuRf2qJAS7CS2kqpb8jFvQStm7+
-	Pq0ceJlhCjaSgr4jJTCBaR7BzPmFQE28MWEeAsRJMtI1rhPM48/Bxt/pqFBt2QY8fWPt2MJqfsj
-	EehWB5l2n1cnvSuJrxwWq1BL7qB0aXppgQyDrBAT13MXSMjdY0ubYtfCbgzATFt99x041tys+Jj
-	TiGJL3hGc4Yu/Mac1qV/6cJw28STTlFdw9abPgsVmsxUJvpWAJqeNiTn2edWi0t/a/sMqjo8fhh
-	QAhgKuW1aRYsSd3LM8SeQhp8
-X-Received: by 2002:a05:693c:41da:10b0:36a:1cc2:45d5 with SMTP id 5a478bee46e88-36a423ca2e9mr15639313eec.26.1793623043663;
-        Mon, 02 Nov 2026 04:37:23 -0800 (PST)
+        bh=UJnsc6rPzhRrohHVm6N1G/brkkNL5aN56fn34HSgfWU=;
+        b=A7pJpTZ0rL71EpB1E9/RH5/lQFRZD9JxE/qwegc2h5Iy5PASyZtk0aLTJI5UJ1bS7c
+         IOVgpfgr+VDBmC78xVBPWIPyrw3fNQKATAohDlTl756hjDETOWJTNATuSKhXi9BfTYVo
+         ulkbA+GyL4ZvPGL32PuX60zGr3jNtlD9GuHeF39smHAfIcE5U54PbvWUE62DLy1P2AB/
+         Gyu3WkZ0xkiLrIlf2jFwHDgXYcipyAZ9It3hKrsvGF1Qoqsd5rMR2c42CQUQha631MAn
+         jLhaurPYiEeb4Y06sUEsGoi8WePq5uMulwDXTl1oJOkcPgHD4zVBGQ7sd3B5qVwYEDii
+         a8Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0TR8hfDS/nZtP3MzUhMQn5FP88LkphvNBEXAAYeVEGUeRUYQUQwW/i1H8X13JhF0EeijU8SszBrT0qE8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/GnrGeLhGBg6gmUkIqdmzSc5Kdfyc2I8z/4b1s/6HETkqjhGmC
+	QGrolxyKgHVuhOe/v8lBXA2cYkC52LMr7FHqlPhPKInvSSQEQw2UIPWp/9l+2Dn9z4E=
+X-Gm-Gg: AYBFou0lO19f3XnSIfvMENcWncS2Khf0fhc/86WmrlrdZyIRZCCaqWQVgVia2viystA
+	TlQzXc6gxMxnbUsBeiXIXXuOqn4DmLv2JJ+qOSqebH8yQkbEfr41k8glh669vxya1vxvT9dKHg5
+	c5EPLpWyTo26uwXq6cncbdPgpPjdEjExoEcRRdakk61w7TvqI7XKiNNuvkB4iTNrCCXrIS80A05
+	bFMNLE4W6MmBh1yEBt+lxr3+FGRI6SMfdYGcBl+hqbQcgRNs8uNlU0+6hVYWmCOZAFlfTkKdDgo
+	C2W9u09wbJeWuuuedWpTVQfPPVCTSniVAuABHahcvMZ37ifdcEufSEhtb+Npw4eUqiW1fxf5tfS
+	nStTftEGqsRnMoRQ7XakJQbfRi3ZSLHA5OJymN3iST1XVgW2ZUmUODXxmTOT4wNa3LFKb9Jey7u
+	nZB+jZxp9va1UDDHo3OR87E6T5CgzvWDre5tsE/dn85crQxFEvn7c2foypFpwfnAuN8Z2hogQhT
+	yrOYP5H7qaS8hqIquyvvLUrQmAtEB1EdmLepaGhwmwXYI/Y0ANpVRGMvWE24yvfw8tyeekexSV7
+	4Bgj/ZdFpvzW09t+hlMG9nf/
+X-Received: by 2002:a05:693c:83dc:10b0:365:d42a:f415 with SMTP id 5a478bee46e88-36a423454b2mr17231783eec.12.1793623053582;
+        Mon, 02 Nov 2026 04:37:33 -0800 (PST)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm36326095eec.6.2026.11.02.04.37.18
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm36326095eec.6.2026.11.02.04.37.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:37:23 -0800 (PST)
+        Mon, 02 Nov 2026 04:37:33 -0800 (PST)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Mon, 02 Nov 2026 07:37:03 -0500
-Subject: [PATCH bpf-next 3/5] bpf: Finalize the verifier log after the
- runtime is selected
+Date: Mon, 02 Nov 2026 07:37:05 -0500
+Subject: [PATCH bpf-next 5/5] selftests/bpf: Test log_true_size with an
+ error from blinding
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-bpf-blind-nops-fixes-v1-3-844300e42cdb@gmail.com>
+Message-Id: <20261102-bpf-blind-nops-fixes-v1-5-844300e42cdb@gmail.com>
 References: <20261102-bpf-blind-nops-fixes-v1-0-844300e42cdb@gmail.com>
 In-Reply-To: <20261102-bpf-blind-nops-fixes-v1-0-844300e42cdb@gmail.com>
 To: Alexei Starovoitov <ast@kernel.org>, 
@@ -115,56 +115,87 @@ Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
 X-Mailer: b4 0.13.0
 
-bpf_check() finalizes the log, which reports its size in log_true_size,
-and selects the runtime of the prog after that. For a prog of one
-function, selecting the runtime blinds the constants.
+A prog of one function gets its constants blinded when its runtime is
+selected, which can log an error.
 
-Blinding can log "insn %d cannot be patched due to 16-bit range". The
-message lands in the buffer, but log_true_size doesn't count it: with a
-stats-only log, log_true_size is 219 while the log takes 264 bytes. A
-caller that sizes the buffer from log_true_size loses the message.
+No test checks that log_true_size counts such an error.
 
-Finalize the log after __bpf_prog_select_runtime().
+Load a prog whose jump goes over 11000 constants with bpf_jit_harden=2.
+Blinding pushes the jump out of its 16-bit range, and the message must
+be in the log and in log_true_size.
 
-Fixes: d9ef13f72711 ("bpf: Pass bpf_verifier_env to JIT")
 Reported-by: Alexei Starovoitov <ast@kernel.org>
 Closes: https://lore.kernel.org/bpf/DMKHZS5B5CNO.186F6YH1T6YU4@gmail.com/
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- kernel/bpf/verifier.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ .../selftests/bpf/prog_tests/blinding_log.c        | 59 ++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 935b163f81e4b..974dc571eff05 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -24112,11 +24112,6 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
- 	print_verification_stats(env);
- 	env->prog->aux->verified_insns = env->insn_processed;
- 
--	/* preserve original error even if log finalization is successful */
--	err = bpf_log_attr_finalize(attr_log, &env->log);
--	if (err)
--		ret = err;
--
- 	if (ret)
- 		goto err_release_maps;
- 
-@@ -24167,6 +24162,14 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
- 	env->prog = __bpf_prog_select_runtime(env, env->prog, &ret);
- 
- err_release_maps:
-+	/*
-+	 * Finalize the log after the runtime is selected, which blinds the
-+	 * constants of a prog of one function and can log an error. Preserve
-+	 * the original error even if log finalization is successful.
-+	 */
-+	err = bpf_log_attr_finalize(attr_log, &env->log);
-+	if (err)
-+		ret = err;
- 	if (ret)
- 		release_insn_arrays(env);
- 	if (!env->prog->aux->used_maps)
+diff --git a/tools/testing/selftests/bpf/prog_tests/blinding_log.c b/tools/testing/selftests/bpf/prog_tests/blinding_log.c
+new file mode 100644
+index 0000000000000..658a8494dae5b
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/blinding_log.c
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: GPL-2.0
++/* The verifier log of a prog whose constants are blinded */
++
++#include <test_progs.h>
++#include <linux/filter.h>
++#include "sysctl_helpers.h"
++
++#define NR_CONSTS 11000
++#define LOG_SIZE 65536
++
++/*
++ * A prog of one function gets its constants blinded when its runtime is
++ * selected. Each 'r0 += 1' becomes 3 insns, which pushes the jump over them
++ * out of its 16-bit range. Serial, because it sets bpf_jit_harden.
++ */
++void serial_test_blinding_log(void)
++{
++	const char *harden = "/proc/sys/net/core/bpf_jit_harden";
++	LIBBPF_OPTS(bpf_prog_load_opts, opts);
++	struct bpf_insn *insns;
++	char old[16] = {}, *log;
++	int i, cnt = 0, fd;
++
++	if (!is_jit_enabled()) {
++		printf("%s:SKIP:JIT is disabled\n", __func__);
++		test__skip();
++		return;
++	}
++
++	insns = calloc(NR_CONSTS + 3, sizeof(*insns));
++	log = calloc(1, LOG_SIZE);
++	if (!ASSERT_OK_PTR(insns, "insns") || !ASSERT_OK_PTR(log, "log"))
++		goto out;
++
++	insns[cnt++] = BPF_EMIT_CALL(BPF_FUNC_get_prandom_u32);
++	insns[cnt++] = BPF_JMP_IMM(BPF_JEQ, BPF_REG_0, 0, NR_CONSTS);
++	for (i = 0; i < NR_CONSTS; i++)
++		insns[cnt++] = BPF_ALU64_IMM(BPF_ADD, BPF_REG_0, 1);
++	insns[cnt++] = BPF_EXIT_INSN();
++
++	opts.log_buf = log;
++	opts.log_size = LOG_SIZE;
++	/* log stats only: level 1 logs each insn, which wraps the buffer */
++	opts.log_level = 4;
++	if (sysctl_set_or_fail(harden, old, "2"))
++		goto out;
++	fd = bpf_prog_load(BPF_PROG_TYPE_SOCKET_FILTER, NULL, "GPL", insns, cnt, &opts);
++	sysctl_set_or_fail(harden, NULL, old);
++	/* don't mind whether the interpreter takes the prog or the load fails */
++	if (fd >= 0)
++		close(fd);
++
++	/* expect the message about the jump in the log and in log_true_size */
++	ASSERT_HAS_SUBSTR(log, "cannot be patched due to 16-bit range", "log");
++	ASSERT_EQ(opts.log_true_size, strlen(log) + 1, "log_true_size");
++out:
++	free(insns);
++	free(log);
++}
 
 -- 
 2.43.0
