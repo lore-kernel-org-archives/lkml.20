@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793629044;
-	b=YGoC+/vzleuDh8bUsxAzYnbSxffjOAH0eH0Wv2aoCv9aidBeNOS4Je/xVrwwu2LqufL1
-	 U5KKnCHjCT848e0tVE/iszFQSX3a2LvRl92PdeLDs/LidJaHH8btXcb97btHYVdjLRFuY
-	 GOPGIB+1RsJB4wUcMNC+hNHYBftpwv91z2IthbGWnM1xk/0HU0Gwk3oves4OnGpQBS8Kq
-	 WbIRfJIZk0EbiQ31NKvD0m76Cl+vZpqT2trhDE5SHPMbNiz2cnl+t1/6ZXflFq3r3S6Py
-	 NZBNn/EHQNxsxGlj17Q+oIkbXyJNK5NQDH/duddPENnrFMOAOCGwC22KJ+uIhFLshKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629044;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dwfl2AmuC+M4o/omt7wHLBOy1C+nCPazfhUwmnQKmYc=;
-	b=VLEZt11NDYDG58DfreEDeE2dd51/Z52Cw+f5FShX+nt80JaBl9VoYUKobu5S94aq2BWl
-	 3FluYt0tNpMfPlIw/Z66bCjyB4tk+axfqVxNKuvLT5kD7IaWQonyPvqUlronJZuk5DiZ9
-	 B9zO66zXddjzKpJBT07JK1p2LDNpcwios3lrPFVaDJwpJbWa8mXh4nQ41KbBjjis0/7fS
-	 3OhCYjjv/u7DhPLCvdmJPWnas7VqIohug1XhSqkeKecjq2uh5DnE8LQbFybhUiBteNKhJ
-	 7wSBf/qP1A0ksm1n+tYGMeLqhIlKGy0eYnuE7BV4o1dnkJWPST7a8M4BbS093Two3HQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pinc-software.de;
-	spf=pass smtp.mailfrom=pinc-software.de;
-	dkim=pass header.d=pinc-software.de header.i=@pinc-software.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=OyEldene;
-	dkim=pass header.d=pinc-software.de header.i=@pinc-software.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=m3X16Gfs;
-	arc=fail smtp.remote-ip=85.215.255.53
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793629062;
+	b=sMqgk6VWcyFM8AxR9Mk2BB0cqp88b0iG9LNR+NPUXRcPVSL4Sy6TnzPZe28NzF7fRDQC
+	 2BIWkr6xil/Ek1NioRC1e17fGxUaNyjI1IoTEBlZznubdnGAd2NfYWAzWg7fvS3TXkQZH
+	 gzmNjBJhTUIrcNimS/947ap7HUcUzfKVOLHaKtOKKzIrpNbQOYoTUpSKpQJUMbwMkSXQQ
+	 uv5CWykV5FFQO2hB40zwi/nr7UV0IczG4TZoQxN/xr+xUaVSQ8EFv6wcE4a2RwGaZygYv
+	 wwyQd8H3t0QnZO+T04SrWil7XSJ10+dtOEWAJchSs8fnlUkdUB2IxC8go8/mD6ai9FQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629062;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PQWcuimkt51bqENNt7X0xmz4uvJH/+F/iqbTS3hh2nU=;
+	b=tEseuXcx1SotYFHC0C+aJKYRfdBTF+fQIjWl43QImTyveFGY3m9ORMbxJhjZUl+cW7K+
+	 CWTy+0BqUUr78jZYEErJWolKeirqEJiQeoNuwfFSyIDgMCBADe+QwhrHpyu9n8vH/XEhA
+	 g4DZsVbxmVFE7Gkwot4aANZY2Nj3jWUlShidnTbw955uZusttU8CxUcDZUP7zxLLEaggw
+	 jVtxzAQhdcUqkW1cfAYVTHem4c6448vvNKNljRBZSCmp9h9frXhJniCKgDhy1Q3DL2jiZ
+	 vsLDfvAkNKIEeq953dCZndrYSsAnATYE3nexkvq0/I43xVt227fhMbqRaU27tr2R7nw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MB5g2YYf;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36D8606B5EB;
-	Mon,  2 Nov 2026 14:17:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C36D8606B5EB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinc-software.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinc-software.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D87606B5D5
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:17:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1D87606B5D5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pinc-software.de header.i=@pinc-software.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=OyEldene;
-	dkim=pass header.d=pinc-software.de header.i=@pinc-software.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=m3X16Gfs
-ARC-Seal: i=1; a=rsa-sha256; t=1793629034; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Oq5d7DnVZcAlDCPBSxEvy7O+PwUKsDIlU8aLQ+bG19MH4Pgmf+STzZn3V9jnyFV7DS
-    BdwVBZFbHVxHEVpI0dnwX30e+GrXm8pgGtLfD05TJU0aJJNjS2krmpxQ3MdTbS8NO0NV
-    iU1juTOelKP84/OmqLCuJOp1mI6a0c2lG7T65xeXuQuLEKNTgMLfkO/VXwMrlLaMB5BR
-    WSgUvO1tgBdQ9MFCihQ+mpyMkSAA8auTmoli6lRp51Ge97ekg2gWs1GLxVgisNl+37QS
-    E1dH0OKquyrtSLU9f7r39lRiMPVkLRlWuM/WQoaISUpFZF1EF/+QVk43FtqAFqcjiluc
-    dybA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793629034;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=dwfl2AmuC+M4o/omt7wHLBOy1C+nCPazfhUwmnQKmYc=;
-    b=m4co0dVdLeE/tboap1AG8MCn4cEKSEUbE747sdS0mDHetRdy5zp2slPk279btTeK+q
-    mzoG0cQbgST6jS37q1Q+b7IMlIMm7DDmr09xoiMDJOBc6FX1VGUSaOU4lScsUy3g5nli
-    6ycA9X36xyOd1yLuOgCknXehoq+DOZo0SVdvZhDal/aYH9S0FH9qjFw/+7YHlwT4Kz5h
-    tQXCSwcgdExGKMqXpMJYot+AeaaBcqqOVFY0iajpqgyfXKmM6so/Rb2XYCmJ6G9rGozh
-    8oCjXOYnjqyxD7iaccZCYVp4NNFdUYH8MVo54bvNt14jl5XLPKB4qoN3frFuc0LOWism
-    GXHg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793629034;
-    s=strato-dkim-0002; d=pinc-software.de;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=dwfl2AmuC+M4o/omt7wHLBOy1C+nCPazfhUwmnQKmYc=;
-    b=OyEldene8DNn5ngTS+E2J3ec6R3uX/5UuZdV9NIJ1OA6Diuy763yV5kgevlL6jxxks
-    2JBGL7VMPsjqqxSZQcXSzTHKtZvJ48KRMDEpoyIVjSRc7c+z9VfnySgvKkUEC38P6hn/
-    t6R5VY7PsfYeO+gkdishKr7+DXJ1+txzm0zIpDpHirR4D9OXKkr6Soon30IFTxh6C14m
-    OMDup7HSCWvfLnfAFd5AqTRkL4NdsEcDTf9DpcZeLqYN20KEwcIngYcZqgek1RaDbNph
-    jo1gnf3gLyw5WP0sFHRPOa7uRqDr+lm+383WohLteNQd2vj7BV1i6blAmWWeXBQcm/tb
-    D2FQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793629034;
-    s=strato-dkim-0003; d=pinc-software.de;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=dwfl2AmuC+M4o/omt7wHLBOy1C+nCPazfhUwmnQKmYc=;
-    b=m3X16Gfs+Bz8hlAWFn943tgPbaEmdJqOOsvObTnBh9V0XOdn3jansnB1LF/iEOktZ+
-    7hzF7eA9GCiQa8yNv7AA==
-X-RZG-AUTH: ":LXQBeUSIa/ZoedDIRs9YOPxY4/Y41LMYtYgA+S704E62CSg2BLG6dk+k8/0cpS1xrQjovw=="
-Received: from phoenix.fritz.box
-    by smtp.strato.de (RZmta 55.6.3 DYNA|AUTH)
-    with ESMTPSA id a2f6e42A2EHEALI
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 2 Nov 2026 15:17:14 +0100 (CET)
-From: =?UTF-8?q?Axel=20D=C3=B6rfler?= <axeld@pinc-software.de>
-To: Luis de Bethencourt <luisbg@kernel.org>,
-	Salah Triki <salah.triki@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] befs: Allow file sizes beyond 2GiB
-Date: Mon,  2 Nov 2026 15:17:12 +0100
-Message-ID: <20261102141714.306719-2-axeld@pinc-software.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102141714.306719-1-axeld@pinc-software.de>
-References: <20261102141714.306719-1-axeld@pinc-software.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MB5g2YYf
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36a1947498bso1561288eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:17:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793629061; x=1794233861; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PQWcuimkt51bqENNt7X0xmz4uvJH/+F/iqbTS3hh2nU=;
+        b=MB5g2YYfSrBi77VEYXi5srPkalEuUTgwV1Q/qpgAghOWntZTvQf7wQIZjhLlgXuQku
+         DOf67WcjSrGY1Lnm1L9WqRcHzOIMnrp00gRgRUwamjAgAOmfVEvBeC0nxU/FxaXTHDi6
+         E6T/E3jWEs+1Htu2R3DWuhJYSXfmmxsMNAU20amGHPhjCiNaxCh5MQnc+kdnpBXBY6FP
+         NqBvwHQBBsequFj0+QGEtxWtikuXLkiX1nruuV7tTlnvypv/lSzOZvzF8rn5d9/6W1Wp
+         sW/hLgKiMleDwGVeb02GwpAECEcJyg0JoA2IvJR6tBRmJ1EO5hAZKBSZTsq7lLDm2my4
+         r4+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793629061; x=1794233861;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PQWcuimkt51bqENNt7X0xmz4uvJH/+F/iqbTS3hh2nU=;
+        b=2P4PCsrhGRHakT9W1Rat3ysF9xGHWuJPXE/bkeIsVBWQ+rKUGC404i9jnGFdBbl+IV
+         eFM4mjW9Q6MEtpoQsUmE7xXebIr3l3XK9fxwrNLwNkdgi/yWqTLeSEu6g30QaB+Vxn3y
+         N7zBL2Iez/lmZ42bO+IkFvEKA5XX+qTbR/2NyGvvNXWCdmdSEFsooF5Bz+V2l4xRlWDR
+         QvUyAKhSXEJXqc9NG3qko3ANTofiXDD6HdkPfzVkmbixP6dh7TVwyKPyWkOGhRbIJIkF
+         mpLE2FMT1G37EoaoN6sGno/Tt5Uc1kEZuv71gFALYCN/433Hg1vG3bGYHGOMO6GCWAvs
+         YfBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzTY6EMnZ2o5VjVje+rceBdp0CIgJ2GJaxlQ1q929OsmPfL8boD6Ms7uvNVFFEBm6gGCSGoL4hKYc5wadQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9btc2IGYiw42QtJlGpZgLxvsfp9tzOCUMk8H3rXJTQgQpXkY2A
+	9bNrdkVS2Z3+KZ7Jyt3aDUur0P6P/Ci1FjtGZJIBcgnsERQkcaXomopo
+X-Gm-Gg: AYBFou0FiRWts1Ig9Or0UfHhi+SumrRO4l10mhwvcHz/dUzsOv52cQAOJR8SmM+9oAS
+	64KW/4tLs8+jdM8iteX/aN4Xp7R53oqwO5G5z6jBjD/j0f4b1ygW/RjSoEWOOvht4SN6+A3Ghl7
+	NH+lPvzNIGFMStgZSyXwh/uAcoBafByblLi8rcRvOD7CfS7Y28LvORkjJ1oiFthOFZmjuk4EC39
+	pCOD+D7F7aiEZxgiBZpBL9VW421lmUMgA0oCykelW/qNvqHQMxuOIi8PyF5glemwPiD4nGuQcEq
+	epCCi4BzW3PkmepmmMb84A7xB/6raAJq+X8ifPREiNa0uamV4zIT8X2NysBVze2bF9sV985DZu1
+	3qZRLnbINoDYTODJzzO1ZVyFgheVdHJn1abjA4vbYyB9qSFrz2p0tKiO90w6BlztJUmCCV/02Y4
+	rDyn/tUYlRQHcT7BTtNDw9UoR31ZI7PqZAERsPkWB4ngcKp0fo/2DETn3H1HnNjWg+WJYyG674e
+	ApJ638NIxDM9JjQ7C4QflZP7aY0lypbWPPTiU80E1/8u3WZvoCl6ZU99eJ6lRp+h2BwndakWy4c
+	7+Em8IRxZOxoXxpAwO8F6xrJ2XwF2dEnlIY1w6NzlxxaMKVd6lo=
+X-Received: by 2002:a05:7301:707:b0:36a:eee:bb41 with SMTP id 5a478bee46e88-36a422039b1mr15492683eec.1.1793629060862;
+        Mon, 02 Nov 2026 06:17:40 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.93])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428aed76sm39583527eec.9.2026.11.02.06.17.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 06:17:40 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: rosen@gmail.com,
+	cezary.rojewski@intel.com,
+	tim.bird@sony.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH] ALSA: pcm: Fix source frame count calculation
+Date: Mon,  2 Nov 2026 14:16:47 +0000
+Message-ID: <20261102141647.3133-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,35 +99,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This just enables LFS support in the VFS. The implementation already
-supports large files.
+Pass the updated frame count to the "src_frames()" callback.
 
-Signed-off-by: Axel Dörfler <axeld@pinc-software.de>
+When the next plugin handles fewer frames than requested, use the
+actual frame count instead of the original requested count.
+
+This ensures the correct number of source frames is calculated.
+
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
+ sound/core/oss/pcm_plugin.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Notes:
-    v2:
-    - Rebased onto v7.3; sb_set_blocksize() is now checked for failure, so
-      the assignment moved below the new error path.
-
- fs/befs/linuxvfs.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/fs/befs/linuxvfs.c b/fs/befs/linuxvfs.c
-index ee0cbae521b9..f715dd71a38c 100644
---- a/fs/befs/linuxvfs.c
-+++ b/fs/befs/linuxvfs.c
-@@ -862,6 +862,7 @@ befs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	/* Set real blocksize of fs */
- 	if (!sb_set_blocksize(sb, (ulong) befs_sb->block_size))
- 		goto unacquire_priv_sbp;
-+	sb->s_maxbytes = MAX_LFS_FILESIZE;
- 	sb->s_op = &befs_sops;
- 	sb->s_export_op = &befs_export_operations;
- 	sb->s_time_min = 0;
+diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
+index acf5ca663ba8..3de713779993 100644
+--- a/sound/core/oss/pcm_plugin.c
++++ b/sound/core/oss/pcm_plugin.c
+@@ -604,7 +604,7 @@ snd_pcm_sframes_t snd_pcm_plug_write_transfer(struct snd_pcm_substream *plug, st
+ 			if (err != frames1) {
+ 				frames = err;
+ 				if (plugin->src_frames) {
+-					frames = plugin->src_frames(plugin, frames1);
++					frames = plugin->src_frames(plugin, err);
+ 					if (frames <= 0)
+ 						return frames;
+ 				}
 -- 
-2.56.0
+2.55.0
 
