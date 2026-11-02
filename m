@@ -1,61 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657869;
-	b=se0vTNHXy6yMvRUv94RkECeJJJ83/P/lmRqc20oN3EKBix/AzU8/58P1XQ9xG2FADD+U
-	 6z7Eg41aNT329OtdweCCi4pW4M3m3MQ7XaKwT4/SFb/6gz96Ve1tnecVoaZOXl4qDWasi
-	 U5OtreNiEpojmaLHNqFS9CQ4ic2rNjTxc6OfVCh6Fq/6u/XJfHsUQljLvzCVCiKC9Li7a
-	 AJMQrqImHbL36HyFbjzvsVzbbPJ1feyrLHDmWmc8FVe+7gsIsR9IVCs5z6AywfOOhdadI
-	 P94Bc5qEXB/66fDupaITYAR+wr7hvpaixfWvcWgV/05VR1yXepUKQpH786OR/+rb1hg==
+	t=1793657871;
+	b=c6AJiwTRxRFkNEgITcdZNj8Jz3+AcJaZxeMXpVcKu8XoioY/qrpe+bCcjJ81UFSTPK98
+	 onsMOWepS5WirXnThE6d8t1iFZcfI967oDaNmc2oRKj6Bvo/alN13FuJaOwl0u3GYyNr7
+	 xFiayehweIsmvyms/cTUJVdEqcbPbPBZKpnWgCLm/yvkCzmMdOCNWht1ER6H5zTcEI3FL
+	 mPOFQysmLbXi29V0CPMkcX5H/jJSOWjScVZq4LEnpjR/ZvrD4ZPASq3zM8nypoldnYCVm
+	 iiU679qTZgmkftpgffuMDi3mRqvgbf34vNhY8vkApge5uuPG7fX3cBJW9dXc+h+UVAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657869;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1LoOI02nUgf322enYv05Hw1vZImTbwLOdnlR5QXFbCU=;
-	b=ZAQu8YviEYIXaLFIR/BiYRhCdMuq1Xims8jNVoYEaeCUMOQ9rhE2xVPFSxxXs2z8gWWV
-	 alzNE4Y3wQYrUzleq48HYP5QjN3hUbgKsluEW0UoCEanSpMOJp94avwfqBnqQHWM/NZx5
-	 nHmq+uy9M5M75TMJEEafBbpGfcUYBEnoExKbP/SmDS1J5SQ1e5P67U2aL9Yap2jupnZuD
-	 KJcCBRIAxIMzMIiZUnDkL54N2eiv4jxKrDC/U34lrNIKXLF9efkRFLhafUrZKXZT/1g6D
-	 IZtM8zIhUDokszGIT610ukp1KVlMtfBhKIWbe8aOjO39hOrt10fw560mKSMUppN/2Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657871;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=fN2eeG+zPzKpDfLyb8v4rr3ueZKYuXgrlC7Wm/EpsAI=;
+	b=tOxau692vND12XKELUo9POh3Jr7AehXtxpSkKYvZzacFEW8seR3WW0WQeBf2TB5ZA9oN
+	 9TdV4UZUmgel20ejxyw+O9Ovdng9R5qnF5YjsRmn1nOvUaxvGmILsXPRL42YUYCD0hbVc
+	 PDzMMipgQuSdPJgQzY5jx7gxFG1al0LyvIH04eJXdROQSx2KcCwBZ55aqZaL7kXb45gaN
+	 DkZA13EnZNId88kkeO7fnwDDyV570iOxCJGmfntogJfRui1IBbr9fFYR2rYeppzEN35oS
+	 lqFKWnN9jOjyN5Bc7hDgu1HHGidNIE8ftKmFeuowaGYcV3/J7d8pHYCE03pY+WFRD3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ObgOMNj5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k48znoj7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17729606A327;
-	Mon,  2 Nov 2026 22:17:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB360606A339;
+	Mon,  2 Nov 2026 22:17:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ObgOMNj5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D43001F00A16;
-	Mon,  2 Nov 2026 22:17:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k48znoj7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88FC91F00A16;
+	Mon,  2 Nov 2026 22:17:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793657868;
-	bh=1LoOI02nUgf322enYv05Hw1vZImTbwLOdnlR5QXFbCU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ObgOMNj5Lbd3V13//0LFm+utOm/JdVKk7AxgGFlxRn9SX1kIYeKyER2zPJe58+5XQ
-	 ViXIdVRafeXa46tlIjLul/LH+U6Ul5GI+w/XunHpEIo5vCsjwSPUA807unl2WMxoqU
-	 4l1HPGgjK/4Zyzs97BO/kAGr6KLrnOet/GT4vsZeIBsQT4EMFiEhRuChIuy//f3Mie
-	 X08I1Qu/SZc8e5znS4ck/mQSOyJTDXaZFANax1+bymxWpu6iGPWi+AeWQbABWOibSd
-	 iLtJg2zv7JVP31v0DmlEpG/z39iav5Jg8N9gs/+O/Y2G4h+EIa2kGCHzqFEEDBLb3X
-	 UA0tO/6O2ynZA==
-Date: Mon, 2 Nov 2026 22:17:44 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- cwweng@nuvoton.com
-Subject: Re: [PATCH v3 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Message-ID: <20261102221744.4bd13ae6@jic23-hlaptop>
-In-Reply-To: <81173139-a43c-48a4-97c7-0a82de158b3e@gmail.com>
-References: <20261030031501.130290-1-cwweng.linux@gmail.com>
-	<20261030031501.130290-3-cwweng.linux@gmail.com>
-	<20261101005312.1ec5e393@jic23-hlaptop>
-	<81173139-a43c-48a4-97c7-0a82de158b3e@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793657870;
+	bh=fN2eeG+zPzKpDfLyb8v4rr3ueZKYuXgrlC7Wm/EpsAI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=k48znoj7UTrSU05Zu4sJqDNcyMcW3R/uAuxE2lZRaV9mU5uMMrBqMHbsr7Kb8HAIX
+	 keTsKaxY+6SnakiXCUe5RVgo2mbQReXlBungVjzf9f0DJiRKM654FWyAX4hy6XPTiN
+	 5HVmLcYIeV39LJ4Wa16iEPPm+9NaGfgxCKA4Jd5KQGNIJ8HTXdM2UlliwMEaJiWJBp
+	 qx4rVylSQoiVZgApICnYztb0TaORncJbV1Agw9W323OaEq8OlQPDKlLsqHM+S+cTkn
+	 zA7zANmS4r+NLj6IR8xWOuhdK0/J8oPO6TYXmmL/MHnMXZMiXjbINVeTror+6fk9GX
+	 z3d6u9tNXktSA==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 3C9322413105;
+	Mon, 02 Nov 2026 22:17:48 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+In-Reply-To: <20261102142812.2743578-1-robh@kernel.org>
+References: <20261102142812.2743578-1-robh@kernel.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: mediatek: Fix MT8186 child node
+ names
+Message-Id: <179363993107.2092401.8362129164558129787.b4-ty@b4>
+Date: Mon, 02 Nov 2026 17:18:51 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,57 +69,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1135; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=fwgjm/VuQu6K+pEP1jSyFPLSORFoYuS0oYdG/YL+fb8=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJe8vC8rfj5uONiPPPX+1FqZmbbBQTKpTnjeBTurQtbM
+ amR9X99RykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACZSxMrI8E+sYafNl0Ov527Z
+ 03Cf3y4vvD99ko2rIpN04smACXaHvRn++/fOtXMNf2NwsXTXDv6/as9WdzfPXmxsNGff+wtL5Co
+ 3cgMA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Mon, 02 Nov 2026 08:28:11 -0600, Rob Herring (Arm) wrote:
+> ASoC: dt-bindings: mediatek: Fix MT8186 child node names
 
-> >   
-> 
-> Hi Jonathan,
-> 
-> Thank you for the detailed review.
-> 
-> I will address these comments in v4.
-Hi,
+Applied to
 
-A couple of process things.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-Most of this didn't need a reply at all.  When you agree with feedback
-and plan to modify the code, keep any description of that for
-the change log of v2.
+Thanks!
 
-Also, reply inline to individual comments. The reviewer has probably 
-forgotten most of the details of what they commented on and so
-has to do the tiresome step of reading their own reply and then correlating
-that with what you have at the end.  If you reply inline as I did during
-the review, the context they need is right there.  Keep to tight
-focused comments where you want further feedback or disagree with the
-review.
+[1/1] ASoC: dt-bindings: mediatek: Fix MT8186 child node names
+      https://git.kernel.org/broonie/sound/c/25a38dd4ff95
 
-...
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> 
-> Regarding the one-hot scan-mask handling, the MA35D1 hardware itself is
-> not limited to one sample module at a time. The EADC has one SAR
-> converter shared by multiple sample modules. Multiple sample modules can
-> be triggered together, after which the hardware priority arbitrator
-> performs their conversions sequentially.
-> 
-> The initial driver, however, currently uses only sample module 0 and
-> performs one voltage conversion for each buffered trigger. Therefore
-> the buffered interface exposed by this version of the driver supports
-> one active voltage channel per scan. I will make this limitation
-> explicit using the standard one-hot scan-mask validation callback and
-> use iio_for_each_active_channel() when selecting the active channel.
-> Support for using multiple sample modules for multi-channel buffered
-> scans can be added separately in the future.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-This part would have been helpful inline next to the comment it is addressing.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> 
-> Since the scan layout is therefore fixed to one u16 sample plus an
-> optional timestamp, I will replace IIO_DECLARE_BUFFER_WITH_TS() with a
-> fixed scan structure containing one u16 sample and an aligned timestamp.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Jonathan
+Thanks,
+Mark
 
