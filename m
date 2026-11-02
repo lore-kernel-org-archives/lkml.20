@@ -1,97 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627491;
-	b=KVWJslKSG2T7lRXfr5Qr1TyuVwgvPbMN2hFXH7rZwv6kU+M5Z4/iFTcsjMvu7QTX91Je
-	 x4bxY7zTq1CJHmco1HdL/JBGJN5goMBNviAZsSzBH0cISHDLe2PrWigYQ/7T3CeH7K28d
-	 ptSk4o2pKE/BYkxeYZRa37/tkyNDRN/QKW154GNWJmkNgc+TiewB4dIYNqT9plMZh5eRn
-	 ANDE0VmaLOnhOwwujuGHTgFe4/UaecHLofnlxjG4lxmZY6z9xEV+/FWOUKSNrpkqGl89X
-	 Idu7tIeywSNdjeTx+bLqtom6L11guEnFYm9ydseXq1F44D0G2/2Vtv9ODgtWv/nA+yQ==
+	t=1793627487;
+	b=CotzSS9IOP1LPX8j8lfDNjNHQQcroK3WnPwEochrhEW/d56uuqNgjusF2nyJN+oEx9I+
+	 cp0TgqROsh0ivUJ5io/aEGSzZnOCIx5foeu9NypUAz9F0FkriNA7lGbolrTBpbNSZFFDO
+	 z6+Ou0Rs4c2s5eR84zR62Vh+wv3OTO9UqTDPhZLa0YM5g/jV4mHEAVUzxloNv/hzrL8B6
+	 MaPpD9lQwq+uwEkJfzE+o3bZiB/UIVxKlbquDdtEgCVnRFusu+c6pK/FTEzrX239sgYBk
+	 CrQamr9DB7uUOhVqBQ1gP6sGTBwYBzh/LpL+NWbZT1sfiJ8XitCa/R8k+UBMRpJqv5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627491;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KkViRr1Qxpn9LLhb4kMwqtknFYRFzwLHGukxfnQUbrA=;
-	b=Kt+1/lzpumKq/tg0zAn4gazlQiYhQRKAy1/V+p0qFKtau28X+CkGe9D158CwrMJqCE95
-	 jC5KYs5/yBNvnC/oJXCEMWa7aCo90RZpoiq7D2m+pIp/Ou6D22NpmcDqGOlfC4CT9IWUZ
-	 U5VHj/ZNCqHk9XUJ+yFHy5KqVYjHrHZvKTPLhFhdT3Vee1+o7rubyTqhhz97LNnNf14Ky
-	 Y31r41ssbc0S2wc/q6B6hj+iSZ5GUJ9O5hVPpMVEX1vPROhGsMsb/Na0rtGFvCW/mPega
-	 bvHr+U13xdEAEiEmu4fHUdBQGc5eIQmUOyD6/sZ9oevNnEqFC2PXset6OeVclrODfMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627487;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=MIWFmMLW93k47fb5UBDsgzQjITQvV0q4tskATo6TpXM=;
+	b=wws7Omj9rVmUE6VTRhFktTAJChUqP2OYVmWvTrZ1o4R2XOaBy5knlERpDmkURHRkjddc
+	 5ZvZEgipG9wCImn4zNSwlNThR/AztKdD1rmrkR0N7rHZBtUrmn03dB5xX4LICEqmeeqWE
+	 jToY0nm/KGZzUodlzzBfq6fxcuUtdws4YGMkWfsTZCM4XEl3CV9izNzkCIziKWG8EdYWz
+	 IemR/JBEl6pr8R/6DcTeib+UD7if8LN9nS7RRY23u+bvtGuMyiSekpcjPixA5Xnh8P3bx
+	 44aHNUqYy3OeSwXXBRn/CeSwQHT1Y0mj6pGTuXsT6+qq5PvfTr7mLykpYeATe1KQ9hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jajE8V+p;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8y+yH8d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AAE60A6F46
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56AAE60A6F46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92B760A3808;
+	Mon,  2 Nov 2026 13:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jajE8V+p
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36a2551d7b5so5079526eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:51:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793627490; x=1794232290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KkViRr1Qxpn9LLhb4kMwqtknFYRFzwLHGukxfnQUbrA=;
-        b=jajE8V+puKWvRXqYysJKyK+KkvuPz7FISda/lccWgIr5rA5YT3YKiet0VXiU5NSjFI
-         iXJoS6SEiYqvPJ4iscz2fVcZulI9p1WNJM4KXGRlHuuQMB0k52hPHFHmnCSv6cmA/pa7
-         2fT1RgPdH3Npu/8nD6SQgYaj6xLEFcPUC4rih+d+UWZcj3cY+oU52nr2f4lsDHFDTk1c
-         smER58QfM/Q2jmWaqCZP39u9mcE22NmPc+4H2jMr7xVq32SZLA+JB6JpU8OQlIey/Q0x
-         14td8my62u5pHslTJ4d3kAVA6oz/+ABjysCA+ZVtuImqa2EO4hSW6EO/DuaVpSChQUna
-         guGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793627490; x=1794232290;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KkViRr1Qxpn9LLhb4kMwqtknFYRFzwLHGukxfnQUbrA=;
-        b=WismztUpSrhUzZzbBPfiuwBrElHmdevyh+xuhxWihl15qMJI13vJI20WHDgXWeCSJe
-         CFNsEJ7B3QotTbNCDMghhgNBDOwYhJiscZqKjdnwa8uzvIKrRJi867Kf/XF9AaETjwJ1
-         qLWEV85Q1ftCPOHiDFqVpierCMqJBLOYyKLMnjUT0Kpax0AyxuN35Cy47Qn5uLLwfEOu
-         BBXSx7kaWEFEK/o69MwJhfJlVyliMiZPY2tjwUSDFt1SagyTnMqREAFh3zLtx/07ecI9
-         elDXuTdKfbY1jHCucMC1BkW+SFZx6xbvQ7gL3PY+ZWKZuoYuGVFQlLLY6lguSzQ8fqqw
-         vE+w==
-X-Forwarded-Encrypted: i=1; AKwUvBz1X/f+qZ2GOId8+WT53J549qutG4+cXK3g6TppoPtWrMM9BWF3NBYBGv7y9mb+UlnJA/Ku8VzoX3AZPFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQ7ZHNbkEUQrOvRjhPI68BXNOmVh94IXFoTcbvaJHsvdmCMwa1
-	l6K5GuM7Gnw4uUl0fV3Iy4XnS/ljnr5ZsOT/nvYomnlqEMO3qCDjT0Yk
-X-Gm-Gg: AYBFou0UhfvD/+gZPWemEHetzZAxID/h382m2/doNIXHr0iulI7Q4HQdu4Wx8IvQRor
-	4MY7d6mPysNUyk7gE3FpFn0nue44mxxSb6pOFmdC4fGt//KI7V7GJKnTBga/1NipxATpDZz1o3X
-	fegTLCkVL/tX+ebTHrNdrBFesDrSMefSxv1OevkCmsnWLkW+k9tnLX110i1zZz41t6ofo0t5PLn
-	t3k1cScdWy0f+R6FAtv/q4qQdVqRehOnqSvLMI4Oizai1Je74BNzgP9ZEah/bF/UDidkhUFRZOH
-	yEg9671MJdUK+hWL9AaZIQ7HoCQCW6umBH+sTay0SSF58vazi1Twf4WkGEt+XG7wxANn8QLa73+
-	t7hQdRvT+KUEDB90Tp95RrWh2RBYzABRtUjooTQ1pK8Js3+J8t2jWBWvrAnFVn4D4hZNEg2w7mf
-	OwhQ2IitHoOK9ZTT+Vx3t36SCSNtSiAmlF1LgYxavQWyXV2AMSgCKgMNB0WBoHbE9+4D8qy+eJI
-	q00hTmar8iuNTfTVgqI0f+1NlzhYDbHjCvYY++v0B70oEbmDLYPX43QeukcB90fMa03YVlGN2AL
-	ctEcLdoZHZRK9w7FjvQBjshiLKnf1Xbrqlg5vpZ1z5xC/16C9yU=
-X-Received: by 2002:a05:7022:b889:b0:195:8fa1:b447 with SMTP id a92af1059eb24-1a9494d8f22mr18903679c88.12.1793627490224;
-        Mon, 02 Nov 2026 05:51:30 -0800 (PST)
-Received: from localhost.localdomain ([103.178.205.93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1845817csm33682841c88.5.2026.11.02.05.51.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:51:29 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: cezary.rojewski@intel.com,
-	phucduc.bui@gmail.com,
-	kees+treewide@kernel.org,
-	cassiogabrielcontato@gmail.com,
-	mstrozek@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH] ALSA: control: Clear user-provided numid before adding a control
-Date: Mon,  2 Nov 2026 13:50:34 +0000
-Message-ID: <20261102135034.2751-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8y+yH8d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EF181F00ADD;
+	Mon,  2 Nov 2026 13:51:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793627486;
+	bh=MIWFmMLW93k47fb5UBDsgzQjITQvV0q4tskATo6TpXM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=H8y+yH8defNywMcvhsMB/hwcaP7NYBmdXpEA/9l9pAbbKr/9bsDdtabon+kIqk9Fz
+	 TMjWxk+CvaJEVfiTH3+u73hppqS9YprvxEjlapO07UyDLmtyVnOXAz38iGdfvgLj+4
+	 +bYmaVcWkJxDjCr4xaOszdwbyEAol5rT9ptxa82KCc4DdethHqM8rA/ocPPHXV6/LE
+	 PX4IBUBG91aCIuOgBCWhQ85HnHMCTyfesZsYbJ5hp7gGLredy/OjL88196pvssfxhH
+	 w8gWegaS3ZaiZH4QAJsm9be7jrpxeZ8MApt4BQeLvRR/rV2V5uD5BNoof+slZXqehe
+	 A3C6rcrH0xn4Q==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id B92412344D03;
+	Mon, 02 Nov 2026 13:51:24 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261028104223.27007-1-phucduc.bui@gmail.com>
+References: <20261028104223.27007-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH 0/2] ASoC: img: Fix clock leaks on probe failure
+Message-Id: <179357863295.1716893.1397247055226897912.b4-ty@b4>
+Date: Mon, 02 Nov 2026 00:17:12 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,37 +64,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1428; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=nmMeTtgqt3y4v0aQ6rx2QODEWFAciEG7KgsUFXRGJrU=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeTI1p26NiF6lT+VIj1vnPr/NPZBj8X27ZJPtLcn/li
+ 7pvOo0mHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZhI8QpGhp6bW5eEFjl/M5wu
+ q35ebbbEFqH2J7477/PXOi8ti3pgvYGRYcKtDf7xP/YaKe6f42YwbV5H0YP8O/c2B0tIu/vPcBT
+ fwAAA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Clear the user-provided numid before checking for duplicate controls.
+On Wed, 28 Oct 2026 17:42:21 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: img: Fix clock leaks on probe failure
+> 
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> Hi all,
+> 
+> These patches fix clock leaks in the IMG I2S input and
+> SPDIF input drivers when probe fails.
+> 
+> [...]
 
-A non-existing numid can cause the duplicate control ID check to be
-skipped, allowing a control with the same name and index to be added.
+Applied to
 
-Since the kernel assigns the numid when adding a control,
-ignore the value provided by userspace.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- sound/core/control.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Thanks!
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 535ceba294ac..42f16d2d0e79 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1759,9 +1759,10 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
- 	if (strnlen(info->id.name, sizeof(info->id.name)) >= sizeof(info->id.name))
- 		return -EINVAL;
- 
-+	info->id.numid = 0;
-+
- 	/* Delete a control to replace them if needed. */
- 	if (replace) {
--		info->id.numid = 0;
- 		err = snd_ctl_remove_user_ctl(file, &info->id);
- 		if (err)
- 			return err;
--- 
-2.55.0
+[1/2] ASoC: img: img-i2s-in: Fix clock leak on probe failure
+      https://git.kernel.org/broonie/sound/c/6171024a3593
+[2/2] ASoC: img: img-spdif-in: Fix clock leak on probe failure
+      https://git.kernel.org/broonie/sound/c/28cb2aa75c34
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
