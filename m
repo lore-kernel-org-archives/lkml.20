@@ -1,94 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793661121;
-	b=GrImVn8RRKcn893jdv7gucLPBrDHq1Wx29qqTzJFp/yHpUa8O7py6PGhiVBKlKMMQiq+
-	 kJWZVfCME1SqMf/WAeP+fp3jtDnCTfUAMcFxbmT9RL2BE/AfZ3d7hVneTumC66PcF0dtS
-	 K4Cpe/sLfmVyEmR7BOAtwoNDXxfF9bM5Jvm5vn1o4c4OrPkPFyqr1yL3VHebYnKYd16NH
-	 oeWzv9bqnLwiDQUdGA+NKJhCxkOOlB7hOdhCzH7+m3hjeEfpPxWQKfCTKGaz9X8Boq/Xx
-	 vbuebE2Fa1roDnwO0A0lZhkxaMXf7w/rwkRsAZpk5i102SQLoeeHvEitJRUBmpDvyww==
+	t=1793661131;
+	b=YagGWDqqf0RxaKOfVphD5Eeso9GAY9+DO3k9VNqPVEjuPmjG4ltSDZexttRVYqWnWTrm
+	 MPq7TKxgfUDs7969U74s+pL9LxMAPBeniJ5H+gBloSKZ9PUtB8wlhOfYFH11pEC3btQmS
+	 vAYMbIssX971ULnHKBYr10iMtn+qPQF00D5SChI3/RIGz932mvT7IHA2qhRtEuHo86zYN
+	 vYW13JAjoUGEMr+cEL/Idd2dQcNGSnpiTQxu8nQmc0XGorreLTtULfdzsei6P9mc9gzrJ
+	 91BpqFDajKB80FT6MjxKo0Ht7QjDqMWjOyAMA26P+2UiwVMk7XhoZ+9G6WRZ10Rad+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793661121;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=EBzcLWZZbm28xGNzws1a2EKWf3kVoVN3oPjNMg6oWJs=;
-	b=MDy9UutEwljI35hUq0sF/tkCDkfVNKLBXSTSJgqX+ew8o9KMY8sWG1w6xiSaaV0kn6Ul
-	 WRR3rnR2lUwG1VXgoYeBuDod9k29Uky7HygBcz/bPuBKCgf2eeghYprpz+aPxYtRJ0rTn
-	 zbcwtUZ4R7dibSrUe6hs1Yjyq71AxMQJL/ZC+FuVb4/b5pf6TMjoGxQEeHba8hUYKZZH1
-	 KkyAEQh0I8QK3GBdGQIRjEwTGPtXhduvkJSWTBGtP1xAxfzyAmbsHy7wovPsaroCZQPkD
-	 hsTnc7Y7HpZoZwkSe1Kv0FBoU4cy0vJkWEYsfcTaBmFYhVvFjsX7nUm2fVyVIyu7Ovg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793661131;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=OY9FTv/AvctWLZDApCrQmUFwQcwrOLKxAT1EsTTIWrI=;
+	b=te4uCNOkH3Au5n+bnrKo0v0bsejUPCkA8K2FYdDi1wlLTTfMyI/jvxCnoarS3iueJ85F
+	 2sBR+MVlUeB0UOyuG4tBIKNaVVuORdwV/ZmyjsixfWwtZpEI++shCsIgrn34pjyV3eJsB
+	 QGTzLqKKwpPXNAYXo4n5LXvImBlXpZk2Cp9AGn40PE8a12qW3ttwCjcfuZyUO3Z5QBRAs
+	 vW20s7trl1AOMFMnlhDFjOwFfyoT0NKz5gAgc80NcF1bH/Xysno1bl7B/aSQl2zyKuziC
+	 z60SS3mKd8mzlYIMWQor6smmp1AEIV7paXniE6tiO+ObhPYQpCQNGq6ugJMXlWR4blA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dKx1GMQk;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=g6Zg+eeM;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92AC606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:12:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B92AC606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AB1606A324;
+	Mon,  2 Nov 2026 23:12:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33AB1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dKx1GMQk
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-369f33df08eso6957948eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:12:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793661120; x=1794265920; darn=vger.kernel.org;
-        h=content-type:mime-version:user-agent:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EBzcLWZZbm28xGNzws1a2EKWf3kVoVN3oPjNMg6oWJs=;
-        b=dKx1GMQka+i1MOP/Adf6/y+TirUPihCS072qQf18Ny8Lc+CqE6Xgg9lO4A8jk5gBmR
-         m8+vjJ7Ejf1AKzxW5qIKcSkUS1TGAQzmjnviAfdb3l9aiLZUv5dRfFdwAdFWz/U1hrBc
-         edZRdKMxUUoc15bhWBeoEIe2ANX63b6xNPfjEB7KHn1+3VFjH2NU6GYUFaXjBAIETTLz
-         MTI90hPNsvVnG2Lq6HfnGkThwz9UrJhJiFVqjpYIcwXqWurexkVRAYl16NVqunmORmSO
-         99oYf2BnoAU/APoZ2li+pMMH0zGFe3KE6Is1dV++bpyqRdpcbsjkz+8hpRPgwcJshDh3
-         NN6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793661120; x=1794265920;
-        h=content-type:mime-version:user-agent:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EBzcLWZZbm28xGNzws1a2EKWf3kVoVN3oPjNMg6oWJs=;
-        b=rqg4YsXY/HCN7VzYiBvjRawtcnPAB1jITxMpLIi+MOiZmZw0aF79sy9qrhD3w78SwA
-         Gv+azXKX6svSCbJRHuKap/ywoQIuDpTkT+NYOpwGkCjlrePw8uHdj/6hW8hMt7beuPIn
-         /nXtVbJB0mE/eTrlPHArHwbKIIbuPF+z/zYbZiei3h6lQVLy9LNCTM30bTpupMIXxYAD
-         dyIPPzNQnNbg38AAZ/AhioYg9OhRK7dqMDXIFM5ZkYOz/vyBRJJ2A8uW4E3FcQOFsgOL
-         3RHo4V+9/I4aT+vK3IVOEYdfX1vcPG/ADnV1rdHjrd9ljl8PjTlw9XBRl0XvRHpvvoJ9
-         hlfA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7l38Hzxhg6z1LH66AhE/E+hP4NKbo5e8xj4152rjpUO/yvHDJ5a7thlw1Nuaa/2UjHAbux92RGavr9vs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gJrNLN/lYKykS/dOjF317mMfkGVcMliqKfKRaUAKrtgL20Yd9
-	U9IHOxwfVikhmv/TMsGnk3Xr1gaG/289gIDGAiZVSUGB8LguzCI4/Vg2pxeZijVHZyDZAD8XWHk
-	lO8y55GHWioE=
-X-Gm-Gg: AYBFou0AueT8YCkAlN5GUD6uPuncD1hXbJ5r80C1tkOUkpJxsWPwDcP8rvcFk53Zl8b
-	jhSr2981qDyw5trjdRxsnAA6Y5Q173N7ZxWMLbzKEoEXyE6NRemGhAZhXQEiGGauTS7KbVAMXlb
-	DLLCH6dgk83qonB2vLR0OQucVXii3+/Xiv+pEO514+I871IYsRD4C4HHBjdmGThT0gXlTUNwIa8
-	7Cabu24UtSqyzGKt1d/8sbO5aFnwyX9kIUv/z93yP753VyjAjpxj+580W5oEr/HBSvqXrQsMP8a
-	7LUlLLOyumBtIljVXKz9IqdliAE9QVXDNKlmWHnqMCxI/vA0qjd4wqh/8L3ItEzXc5OWlgkA+H3
-	t0kQ4DePe28zTHzN26Sid8RLyma+kJEcj41v/X2plDRGHyq6DdqK3TguU1pnO98WaNXpoTHglAd
-	GvpT1eB4Z8WbOhiIomw41uAWWwBjaGmXdL98CONHUBVJ6jk1ghtaH8vlJDXgj3ARDbXH5pznm0o
-	678Os3g0sgJvlPmRrm6D4HOL4jeB5ocPAjYU+ZM9skP3+x9ZybpvEDfm7YfZ5ft5Cp/oiixLMxb
-	gdV6GYbyL3MLzir4IlOmsPHNLlb0gd+aUZwfRrA/duQwB4q8kTbkNO8JslR1
-X-Received: by 2002:a05:693c:895c:20b0:359:ef9:9be3 with SMTP id 5a478bee46e88-36a4236a466mr16854339eec.11.1793661118925;
-        Mon, 02 Nov 2026 15:11:58 -0800 (PST)
-Received: from bsegall27.localhost ([98.45.141.147])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36b13bd87b2sm594382eec.28.2026.11.02.15.11.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 15:11:58 -0800 (PST)
-From: Benjamin Segall <bsegall@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
- <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
- Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
- <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
- <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] perf: fix racy update of cpc->hrtimer_interval
-Date: Mon, 02 Nov 2026 15:11:56 -0800
-Message-ID: <xm26se1ihlqb.fsf@google.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=g6Zg+eeM
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3A4535E;
+	Tue,  3 Nov 2026 00:09:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793660991;
+	bh=vHySpEKtesQOMdSfDVj2G+Gyass7cQDAg/jsibHOdhI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=g6Zg+eeMIaXrp8XSyh8WuSS61ix/6hpHi7PuCqm/H+/70991ng/qWD4iw/2D2gERN
+	 IAX1kdED+CXE5FvldwjKICieRV1OVfBNe1kHlryUdOu0uBZZjtTsVgliqI6QFOtvx/
+	 lDYNbDON1hnXguKZUkSNbclYzYw91+KM9XPhyzRY=
+Date: Tue, 3 Nov 2026 01:12:06 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Igor Velkov <iav@iav.lv>
+Cc: Dafna Hirschfeld <dafna@fastmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: rkisp1: Depend on PM
+Message-ID: <20261102231206.GA3559911@killaraus.ideasonboard.com>
+References: <20261102-rkisp1-depends-on-pm-v1-1-35a26cb2bbce@iav.lv>
+ <20261102223316.GB3548113@killaraus.ideasonboard.com>
+ <20261103005500.rkisp1-pm-reply-1@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,79 +67,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103005500.rkisp1-pm-reply-1@iav.lv>
 
-Updates to cpc->hrtimer_interval can race with reads either in the
-hrtimer itself, or other calls to perf_mux_hrtimer_restart. This is not
-exactly expected to be a common config change, but it's easy enough to
-fix.
+On Tue, Nov 03, 2026 at 02:55:00AM +0200, Igor Velkov wrote:
+> On Mon, Nov 02, 2026, Laurent Pinchart wrote:
+> > > ARCH_ROCKCHIP and arm64 ARCH_MXC select PM,
+> >
+> > Why do we need this patch then ?
+> 
+> Only COMPILE_TEST builds reach PM=n, and there the driver still binds and
+> probe reads RKISP1_CIF_VI_ID with the clocks off.
 
-Since there's already an IPI to each cpu to restart the timer, and all
-reads are with irqs disabled, just move the update onto the target cpu.
+What does the driver bind to when running on a system that has PM=n ? On
+which platform can that happen ?
 
-Fixes: 62b856397927 ("perf: Add sysfs entry to adjust multiplexing interval per PMU")
-Signed-off-by: Ben Segall <bsegall@google.com>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/xm265wykhyrv.fsf%40google.com
----
- kernel/events/core.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+> Nicolas asked to close
+> the PM=n case per driver [1]; rkcif already depends on PM. If you'd rather
+> leave COMPILE_TEST-only configs alone, I'll drop it.
+> 
+> [1] https://lore.kernel.org/r/8aafdbbf04a0d939c6b4d7d5577d97bb58d1c439.camel@collabora.com
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 457d75ea71420..3415e4e3c26db 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -1330,20 +1330,25 @@ static int perf_mux_hrtimer_restart(struct perf_cpu_pmu_context *cpc)
- 	raw_spin_unlock_irqrestore(&cpc->hrtimer_lock, flags);
- 
- 	return 0;
- }
- 
--static int perf_mux_hrtimer_restart_ipi(void *arg)
--{
--	return perf_mux_hrtimer_restart(arg);
--}
--
- static __always_inline struct perf_cpu_pmu_context *this_cpc(struct pmu *pmu)
- {
- 	return *this_cpu_ptr(pmu->cpu_pmu_context);
- }
- 
-+static int perf_mux_hrtimer_interval_ipi(void *arg)
-+{
-+	struct pmu *pmu = arg;
-+	struct perf_cpu_pmu_context *cpc = this_cpc(pmu);
-+	int ms = pmu->hrtimer_interval_ms;
-+
-+	cpc->hrtimer_interval = ns_to_ktime(NSEC_PER_MSEC * ms);
-+	return perf_mux_hrtimer_restart(cpc);
-+}
-+
- void perf_pmu_disable(struct pmu *pmu)
- {
- 	int *count = &this_cpc(pmu)->pmu_disable_count;
- 	if (!(*count)++)
- 		pmu->pmu_disable(pmu);
-@@ -12763,17 +12768,12 @@ perf_event_mux_interval_ms_store(struct device *dev,
- 	mutex_lock(&mux_interval_mutex);
- 	pmu->hrtimer_interval_ms = timer;
- 
- 	/* update all cpuctx for this PMU */
- 	cpus_read_lock();
--	for_each_online_cpu(cpu) {
--		struct perf_cpu_pmu_context *cpc;
--		cpc = *per_cpu_ptr(pmu->cpu_pmu_context, cpu);
--		cpc->hrtimer_interval = ns_to_ktime(NSEC_PER_MSEC * timer);
--
--		cpu_function_call(cpu, perf_mux_hrtimer_restart_ipi, cpc);
--	}
-+	for_each_online_cpu(cpu)
-+		cpu_function_call(cpu, perf_mux_hrtimer_interval_ipi, pmu);
- 	cpus_read_unlock();
- 	mutex_unlock(&mux_interval_mutex);
- 
- 	return count;
- }
 -- 
-2.56.0.385.gac671c819a-goog
+Regards,
 
+Laurent Pinchart
