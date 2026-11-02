@@ -1,87 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622320;
-	b=vghc8L3E6FkltbVAt6fiqO0nu/hjUIwq70dsneD9BhHu5f3aftG2JAkV7ZMuo2WNAuSG
-	 wV23sRi/6B4H9dWt6XbqllRCKpPo3E0rgdz+fVIoi/ycvXuu2ijvhjD94P2fOd7h6iK4E
-	 wV5xIyu6FqHmDnTT4MNmSkfp67WfBRCAT/D1NkITgmSY0PKlRbbz4kAGXFD2Ck/QlY+6Q
-	 CF0oxy9T61m+8v6mglcFxfqp+KZm138WRTnNMQBLmBCX6/Rv9CmOR5bW7CdkcdxZhYEGY
-	 aOy3bu3DSOfmu3/CncZJ2OLCL44Ot31JuxN05uhji9vWpsqyRQrMxjg1LmJqDSMuvGQ==
+	t=1793622332;
+	b=1G2BYAB95dmg0D1dUSZ5FsuEz22yKhvUWJWC5Exde5bqRTyqy9U3ju1cNr9f7Y/qdHi3
+	 17oZcqd+bgq9Bzfozv3EB9M8tQ3XYuDV6nQ29GGNle93E22qSO0qZJnrO9mjHI89PxmN+
+	 ahMm1nj/uP7X5nS1lp1YPzBvP8jFBP7dnge2Bnc1bfennAqHo6tLzSRb7FQ8lJAgc/y90
+	 0wml1rmClBh7/BIfjj651mEPFQQDmq6myVddC6K8Ks5AKDpWKHp502t0w3GeAhjO3KiqO
+	 JxpoeOR7mEyNfxxkOf1FZaWmkPBXxhedy/socmqZFv8HducoAVLRYODylUwUreZLGOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622320;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622332;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=qnxaTAkpwcOidnWuLl/cJuwzJ/f4ZOoVnf34DWpLrVk=;
-	b=sd5A0zlHbJPJxwukOSo1pPyPtmp7/PycwSAdU/3nZGMo636pEHQRYkakMIydQ+Lyvi49
-	 HklTPu5FP/g2bqFU39CUaKhLUwAoe9Z+4+l4UOnAbUmI4y3rhbMBYoil4+UOz11zvkfDN
-	 B9+Hx32wRQHwfKRa/RIDcdDuNDiZ0Iplfa7g2nb+zvcyP64EHdoZat+4aUH0wG07mNW0k
-	 RtlaJfSK9KRvEmwUHrI1d8VEqlALryIKkrJOLyeVvoNyEZmeryaBLBiAmeMyrOx0dGuF4
-	 rVfAfagOwLNWCiSwtjFJTt0I5GghEgPdj5SW6c2JNOd6GgZwcUKgTyg5tfTyECNp8cw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=l+OOSIpi3LwKea2AwltHwR3lhfsf+u1HzeM7nFR6cqc=;
+	b=VIpwHq/5vUWowJt60gI2eDAxu9swrBIOgfZUOA0UoGWysN7aWnKF6Rrws6hgflAW48KO
+	 7uwpPL3gGetZClqBW9GlNPqnuB31nWIsgGnKG/2TbqRtV0xhyur4r34hRaZj86DvOAYjH
+	 mweP1iIAACetVgMmhFV70xhERRzoEmnAD+ezND8YVR0ZLfQEU/zgJqkdozEz9O8qbV6Bi
+	 h3ekuMZIKw7NJ6P1XnHI32V1KEFEU56JFhWGutePR6H4v4lU+/uJ7q+Rs2C8CWP50ehnc
+	 58PyoS1JT2aAjBKLvpjjoZiZZuw66CYF6BJ/byaNFbF7VL11vLDiT1rz4uZHYbOQ/eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=thegoodpenguin.co.uk;
-	spf=pass smtp.mailfrom=thegoodpenguin.co.uk;
-	dkim=pass header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hD0T4KxY;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PuCeI0jZ;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75272606D244
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:25:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75272606D244
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D942C606D246
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:25:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D942C606D246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hD0T4KxY
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso24302535e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:25:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=PuCeI0jZ
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso20300865e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:25:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20260707.gappssmtp.com; s=20260707; t=1793622318; x=1794227118; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qnxaTAkpwcOidnWuLl/cJuwzJ/f4ZOoVnf34DWpLrVk=;
-        b=hD0T4KxYPfXkyRuWEcYoEWKFD2kJqqOFy3vaCMKHs+/Mmgyyg2YIT/wT0cRBH5Pogd
-         DNvyxYnMhsqwh3h7Jlrus+o8qbSMB6aUaTi8hpbEl04p/sq4hSqsGOu6dRs1OaJBDBu7
-         vP9XKQCeaU8W1guGCHAL02MUuw3cokAq1O87Yov1EXFOro5IwaBGVo01sWATj6vvnrGu
-         fwuu+TBr0CQYVMu4zEXGlYSh4pFeMLFSKOwxL9rnY/0tXZqwWC2lNV7YgvomedHo1RNX
-         /0e0jKkZflb8FhTwupIf9PMnZUP4kRgdE4EKZWDKTsVQkaONogrib8L1+uTo2zkyewnJ
-         wXjQ==
+        d=suse.com; s=google; t=1793622330; x=1794227130; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=l+OOSIpi3LwKea2AwltHwR3lhfsf+u1HzeM7nFR6cqc=;
+        b=PuCeI0jZK0lQiDZt5w8ZHi0ppbv7HAFs5/Ugm9eIrzlz2iBz5H+IjJ7W8UjykMzbr2
+         debOurqyLky/eSck+BHDIQW5OML2S/KRdzyxejPlvbKSFOBfzZTCL7FrCwXbXTliZxsh
+         DoCQEQxq/WElopc7/Uh97bl4tLMKgI3pA/ew1gjRJLJ2FUfIBjeLwVmWr+l1eUts2gJO
+         /G6rvyiUrid0BSqZHfEbwnWoGJ5Q2zXmiwCUxejZbkMSGVYpFb2l2czFKf4EgmCQFxki
+         GDB5RpJpype+S9RFD++iVB8zl4IvxYTu/M9LQMaC+bMCnZkk4PsMZEtxhsTSiQ0G5jB8
+         LnaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793622318; x=1794227118;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=qnxaTAkpwcOidnWuLl/cJuwzJ/f4ZOoVnf34DWpLrVk=;
-        b=cA3QCtn3XeZJtG2IfHP6WBjtH/XYxE7PSsjdA84Qf3/ABALsiHIv+ShtC/pgRQZ7zj
-         P9+NY8nMwfKiT1rhCx2wDeOhuJIJT6shmwdAsbe7kF5L33DUwtTEqsm3/jelAXzxkZl7
-         UZMDILC7ZNX9mHAlnxmFQPwwADooaWZRWm8BaPIxUvn1ortpg5ttXxmvpPLuteu8b8Jp
-         Gk/KW3cpD9BKoLMpRckJxesLNeNAz4bu/A78wm0J1pUUrmfERQQt9fRN1Mr7j/Wz4Mzv
-         IeZwyr54SdZricAxWvBP1cM5bB951zpVmpywwchwk1+jC7zUpMoxEtixcf4vHE2eb3Mb
-         sELw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZMZKXZcSlpP7IFrnC5//jAxa3hpNtTNLA7S+CHqqD47I+CKeg9UNFpiHi/WLB/HV2Gz+7BxAD6zxOWz0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsAQHGcuAd+QsS54jiKL01S2K+x9tqOD0eS8XALY9sZvm6U/0Y
-	gVwP1KxzRNPqJmE0jSFq/0LY21zzD/gmIxdkE72GbHgWTgjGPyRXbkCnEfGuBxo3R4k=
-X-Gm-Gg: AYBFou3CSyM3icUwKjj3eXgq1X+oRShuwa/bki+aktvit+mTMbydzxjUAF9J2hk5FSi
-	Fd+VS+PpavlcHCnYaOYH4CYE9vuMjd9vsGvH0DPLgCqVWww6r4CggTDQilDQMCRL6p5/qUz5Dmt
-	RVQjLgaZZTPmRHWzeBWC9xbyzW+xieArEhKNJdy23TsvFozHxoVg3QEO2IrmTZ8EDHkrbNdKWyn
-	rwZ9WETiG2Eokig1mTqO1707g2FKuFZLO3imE4y7mtuHaodOedXZ65QnOQTCRig3ENmG3JQ9ceW
-	a9wK6Jx7i+Ax8xB0q35iCWUvOm+lbrQ1V0XmTzTWTDaw7eXPaXRgBayYVWTpT+j2TvZW4HrCUnc
-	U3rchLReudagbo46wAhE+RmMYZjwKT6DkHuznsQ8t2kPU8VyQ7DFT7JWi/72J3hMQzb5s8cLHej
-	/3fl5oFmJht8wFDf7axYs0CspCbTeC/b45PFvp6+UcBBNiQo3oE1JYnEVLyd5VimQGhVGIIv87B
-	dkpLYZOxnzYQXx6YiC0RoWU0va3EQ3JREl+rMWCRKFeKSW2CvqKPz8YA0yOUv5tgKKmzRBlIbW9
-	7Z928812HX8RlY38ISK7ZkXIysiTmSUWCY+EjLSPyvw1YQ==
-X-Received: by 2002:a05:600c:8b66:b0:4a3:5a91:5f61 with SMTP id 5b1f17b1804b1-4ac1793f8ddmr236704555e9.14.1793622317763;
-        Mon, 02 Nov 2026 04:25:17 -0800 (PST)
-Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:a898:4bb0:ad55:e439])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm346783795e9.12.2026.11.02.04.25.16
+        d=1e100.net; s=20260707; t=1793622330; x=1794227130;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l+OOSIpi3LwKea2AwltHwR3lhfsf+u1HzeM7nFR6cqc=;
+        b=Bssry1PuCpmHr17pa8VpLGXeNsGxOVK+8ZaYpMBEwkthJSLlV9zG8dVZHoS8mhvlxe
+         HCn/0lXDlpnlLujEkSrLd/1bzxHtRhs1DpNxFqjxH21Aaqcl1vnKP8ykMYNiZ9uhiZvj
+         bC75oBntoTJVpynaXluGc66LUMgq1IFOvdSU8poIjACiD4Ia/UhN5XCCqyFvNHGCoNsb
+         QBtWYm9DUJ6bdZN94XLwEJlMs6/hHsB1AAlVRZHwI7JO0pSfo5kIDh3BB666ZxIIpvxq
+         dSLUHHMlXtGhIs050OtYervxVrhmJVFRLFAzJjmPTJPorkRs5GYQCxCltvVJIwKA8gtK
+         yiKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzmEjVTmV3LTwYji+YxTuhyqkLmXC2neY6QGTjR+wFtCN5wDBcaMq0Se7433xhvetLHyHSs0zAu+GtGHe8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wmdK7hMRVgsKr7Vd7GfOOtt3c9qJQpvzGSnbFOKm1RPLVlydQ
+	iHfS1opWtWiXp1D/gda8sVwpQQaup0BxeICHHjo0Tu1hs8d6btxc9nDBUv3HEfSfwbc=
+X-Gm-Gg: AYBFou1JOd7idrEhG2ch/4ONU6Z8XSMgPCnd1GrvH6tYnJs0N4nw1fhEg/XHUCmdhvq
+	Tvzx7kZ6lzCHnHPXfLYERv+c7Lew/02/QtzGp65ZmAAQ9HWSfKwTU2w+eLgR3iG6hox7SUms1bX
+	aYGTp+BkMjsVoLld6phnPN4vmOJ2vFBb2wyzXr15Wp4MOXgwMoYgcDjX/KE3dwJ1eMiY4NxnWWI
+	Lim+1vGTDvNhj1nDLFjOwojoNGPNo9mWt+LygmK4aGmpHqdGzGTITjeKguP6QiYB0YtiCvzG44a
+	GrRNoXVxCNRFFr0ri4yJWOimuvzZ/XTt+JljxUvws9zIE8hZA1wYjw5aWcyFGLg+n1G4squw9G4
+	qfvw62IVOB9KQwKPBslKO3q+dUeUBPEYnehjZGGIZ3kqZ1qxiSWYIPKrUFCxKSSoh24R1yiNili
+	2+Z6gXCznbGmbEnOZo1whcnjiMTL5zfAqo0s40A2F5npW84iodpFRSxFkjdm4kfRcES1wlsdESP
+	pnayCwk3DDdtQL7PMTAs8uOjcJrwXOJ34y46AoHc5URzw44kJJbaCXO+kotpC6zx2VQ+GU4GDhh
+	UlWsIGTykIBwojFu9Oa5BgHCzRGu0EFsKPEugGOR84ZGjOWNT1Nd41gyrg1g
+X-Received: by 2002:a05:600c:3554:b0:4a1:f7f4:7cf2 with SMTP id 5b1f17b1804b1-4ac1737c474mr214634185e9.17.1793622330354;
+        Mon, 02 Nov 2026 04:25:30 -0800 (PST)
+Received: from localhost (109-81-32-81.rct.o2.cz. [109.81.32.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa820492cesm371193245e9.13.2026.11.02.04.25.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:25:17 -0800 (PST)
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Mon, 02 Nov 2026 12:25:14 +0000
-Subject: [PATCH] mfd: Use named initializers for acpi_device_id
+        Mon, 02 Nov 2026 04:25:29 -0800 (PST)
+Date: Mon, 2 Nov 2026 13:25:28 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Maxime Ripard <mripard@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>,
+	Michal Koutny <mkoutny@suse.com>,
+	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH v7 0/5] mm/page_counter: move stock from mem_cgroup to
+ page_counter
+Message-ID: <auiBOBfRIiup8Aob@tiehlicka>
+References: <at8XfoqWwe9HSL9y@tiehlicka>
+ <20261026155937.1235453-1-joshua.hahnjy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,330 +114,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-acpi-mfd-v1-1-d61029971be8@thegoodpenguin.co.uk>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqAIBCF4VeJWSeogVGvEi28jDVBF7QiCN89q
- +UH/zk3RAyEEdrihoAnRVqXDFEWYEe9DMjIZYPkUglecabtRmz2jmmlbeOEUrUwkPMtoKfru+r
- 63/EwE9r93UNKD5T+/9VsAAAA
-X-Change-ID: 20261030-acpi-mfd-a6ac9d16671b
-To: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Zha Qipeng <qipeng.zha@intel.com>, Qunqin Zhao <zhaoqunqin@loongson.cn>, 
- Thomas Richard <thomas.richard@bootlin.com>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- linux-crypto@vger.kernel.org, 
- Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793622316; l=12397;
- i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=1GEV7hhED3325gUvci85Sx4ni8Bu2o31ERMO8HWKgdg=;
- b=TfJYQo/tDyoJ4oEXab/+yXykW74+6dCOZLOexoiVY+aut/lFWDgbPgx2UZ3yEy2Q98u8N3K2g
- zPnoyn/64rvCTGQ9n6NjPvqV55EA0zPBd/LU/cF6gL4gUeQd6cch6CN
-X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
- pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026155937.1235453-1-joshua.hahnjy@gmail.com>
 
-Use a designated initializer for the acpi_device_id fields which makes the
-code more readable and consistent with how lists are initialized in the
-rest of the kernel code base. Also drop explicitly setting fields to 0
-where it is redundant.
+On Mon 26-10-26 08:59:37, Joshua Hahn wrote:
+> On Mon, 26 Oct 2026 10:03:58 +0100 Michal Hocko <mhocko@suse.com> wrote:
+> 
+> > [Sorry for coming to this really late]
+> 
+> Hi Michal, no worries at all : -) Thanks for taking a look!
+> 
+> > On Wed 21-10-26 15:55:09, Joshua Hahn wrote:
+> > > v6 --> v7
+> > > =========
+> > > - Preserve two cgroup v1 proprerties that previously followed implicitly
+> > >   from sharing a stock:
+> > >   - memory.usage_in_bytes <= memory.memsw.usage_in_bytes
+> > >   - Reclaim does not swap when memory and memsw have equal limits.
+> > > - Wordsmithing commit messages for 4/5 and 5/5 to document the
+> > >   cgroupv1 divergence (bounded) between memory and memsw caused by
+> > >   independent stock.
+> > > 
+> > > INTRODUCTION
+> > > ============
+> > > Memcg keeps a per-CPU stock of precharged pages so that small, frequent
+> > > allocations do not walk the page_counter hierarchy every time.
+> > > Today, the stock implementation is within memcontrol code, even though
+> > > the operation it caches is a page_counter charge. This makes it
+> > > difficult to add new page_counters to a memcg and preserve the fast
+> > > path behavior.
+> > > 
+> > > This matters for future work like my tiered memcg limits series [1]
+> > > which introduces multiple new page_counters to memcg. Without making
+> > > stock a page_counter-level property, it means that every memcg charge
+> > > now goes through multiple page_counter hierarchy walks, instead of
+> > > being able to cache these charges.
+> > > 
+> > > To make future page_counters scalable and performant, move stock from
+> > > mem_cgroup to page_counter so that each page_counter can opt into its
+> > > own per-CPU cache of pre-charged pages.
+> > 
+> > What does it mean that each counter can opt into its own per-cpu
+> > caching?
+> 
+> So right now for cgroupv2, there's kind of a 1-1 mapping between
+> page_counter and memcg. I say "kind of" because there still is a
+> page_counter for swap, but it takes a completely different charging
+> path (i.e. not try_charge_memcg).
+> 
+> This means that currently stocking charge for memcg is equivalent to
+> stocking charge for the memcg->memory page_counter.
 
-Unify the list terminator to have a single space between the brackets and
-no trailing comma.
+correct
 
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
----
-This series is converting lists that contain the acpi_device_id struct,
-which is defined in the include/linux/device-id/acpi.h to make use of named
-initializers (which they do not use currently). This work is part of the on
-going effort in the kernel associated with device-ids [1]
+> However, one of the series that I'm currently working on [1] adds new
+> page_counters to struct memcg to track the usage of memory
+> per-memcg, per-tier. The goal is to (1) track how much memory of a
+> cgroup lives on which tier, and (2) to limit the usage so that a single
+> cgroup doesn't use up all the fast tier memory alone, and shares it
+> fairly with all the other cgroups on the host.
 
-The plan is to convert acpi_device_id::driver_data to have an anonymous
-union, similarly to what was introduced for PCI and I2C device ID tables.
-The goal is to increase type-safety (most of the existing casts are gone),
-to improve readability and to make use intent a bit more clear:
+Right. I guess you have layed down your motivation quite well in your
+original cover letter.
 
-```
-union {
-	kernel_ulong_t driver_data;
-	const void *driver_data_ptr;
-}
-```
+> When adding a new per-tier page_counter to struct mem_cgroup that gets
+> charged for every memcg_charge, I cannot use the stock fastpath since
+> the stock does not distinguish where the memory resides. It would
+> essentialy boil down to this pattern:
+> 
+> try_charge_memcg
+>    \__ page_couner_try_charge(memcg->tier[0])
+>    \__ consume_stock()
+> 
+> Where every path still has to do a hierarchy charge to the tier it's
+> charging to, whereas this patch gets us:
+> 
+> try_charge_memcg
+>    \__ page_counter_try_charge(memcg->tier[0])
+>           \__ consume_stock(memcg->tier[0])
+>    \__ page_countertry_charge(memcg->memory)
+>           \__ consume_stock(memcg->memory)
+> 
+> So that we can avoid the hierarchy walk for most charges.
+> 
+> I'd be happy to submit a new cover letter which better explains this
+> idea!
 
-But for that to work all lists containing the structs need to use named
-initializers first to avoid triggering -Wmissing-braces. I already have
-patches that implement this and touching a lot of kernel subsystmes that
-use the acpi_device_id struct and that list keeps on growing. Therefore,
-I have decided to split the series per every subsystem into:
-- pre-clean-ups that convert the lists to use named initializers
-  (which is this series)
-- actual implementations that make some of the modules use the new
-  driver_data_ptr member
+I guess I still do not understand what you mean by opting-in to the
+caching. I believe you should focus less about what you plan to do and
+rather explain what _this_ patchset achieves and how it works.
+Also focus on describing why do we need to keep caches on all layers of
+the hierarchy.
 
-That way the task can be fragmented into manageable and independent chunks
-of work and makes this effort easier to review.
+> > > We get an added benefit of simplifying try_charge_memcg(), which now
+> > > has all the stock management handled transparently within the
+> > > page_counter layer.
+> > 
+> > This is quite a large change and I believe it will be really benefitial
+> > to have some high level design overview in the cover rather than trying to
+> > chase it in respective patches.
+> 
+> Sounds good with me. I can add the call traces above which should
+> explain my thought process a bit more. Hopefully the problem I am
+> trying to solve is evident there.
 
-[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
----
- drivers/mfd/axp20x-i2c.c              |  2 +-
- drivers/mfd/cs42l43-i2c.c             |  8 ++---
- drivers/mfd/intel-lpss-acpi.c         | 58 +++++++++++++++++------------------
- drivers/mfd/intel_pmc_bxt.c           |  2 +-
- drivers/mfd/intel_soc_pmic_bxtwc.c    |  2 +-
- drivers/mfd/intel_soc_pmic_chtdc_ti.c |  4 +--
- drivers/mfd/intel_soc_pmic_chtwc.c    |  2 +-
- drivers/mfd/intel_soc_pmic_crc.c      |  4 +--
- drivers/mfd/intel_soc_pmic_mrfld.c    |  4 +--
- drivers/mfd/kempld-core.c             |  6 ++--
- drivers/mfd/loongson-se.c             |  2 +-
- drivers/mfd/upboard-fpga.c            |  6 ++--
- 12 files changed, 50 insertions(+), 50 deletions(-)
+I believe I follow where you are heading. I am not sure this is the
+right path but that is a separate discussion. I would focus on whether
+moving cache to the counter makes sense on its own (without that future
+work) at this stage. Quite honestly I am still not convinced this move
+is the right thing but I would like to fully understand the mechanics
+first. Having discrepancies among different counters just sounds like a
+potential source of future problems.
 
-diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
-index 5c93136f977e..c5d0d35c7fb0 100644
---- a/drivers/mfd/axp20x-i2c.c
-+++ b/drivers/mfd/axp20x-i2c.c
-@@ -97,7 +97,7 @@ static const struct acpi_device_id axp20x_i2c_acpi_match[] = {
- 		.id = "INT33F4",
- 		.driver_data = AXP288_ID,
- 	},
--	{ },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, axp20x_i2c_acpi_match);
- #endif
-diff --git a/drivers/mfd/cs42l43-i2c.c b/drivers/mfd/cs42l43-i2c.c
-index 2f1862199618..89dca295cc57 100644
---- a/drivers/mfd/cs42l43-i2c.c
-+++ b/drivers/mfd/cs42l43-i2c.c
-@@ -73,10 +73,10 @@ MODULE_DEVICE_TABLE(of, cs42l43_of_match);
- 
- #if IS_ENABLED(CONFIG_ACPI)
- static const struct acpi_device_id cs42l43_acpi_match[] = {
--	{ "CSC4243", CS42L43_DEVID_VAL },
--	{ "CSC2A3B", CS42L43B_DEVID_VAL },
--	{ "CSC4244", CS42L43B_DEVID_VAL },
--	{}
-+	{ .id = "CSC4243", .driver_data = CS42L43_DEVID_VAL },
-+	{ .id = "CSC2A3B", .driver_data = CS42L43B_DEVID_VAL },
-+	{ .id = "CSC4244", .driver_data = CS42L43B_DEVID_VAL },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, cs42l43_acpi_match);
- #endif
-diff --git a/drivers/mfd/intel-lpss-acpi.c b/drivers/mfd/intel-lpss-acpi.c
-index 720adb0ee21f..2f46a85066bd 100644
---- a/drivers/mfd/intel-lpss-acpi.c
-+++ b/drivers/mfd/intel-lpss-acpi.c
-@@ -137,38 +137,38 @@ static const struct intel_lpss_platform_info cnl_i2c_info = {
- 
- static const struct acpi_device_id intel_lpss_acpi_ids[] = {
- 	/* SPT */
--	{ "INT3440", (kernel_ulong_t)&spt_info },
--	{ "INT3441", (kernel_ulong_t)&spt_info },
--	{ "INT3442", (kernel_ulong_t)&spt_i2c_info },
--	{ "INT3443", (kernel_ulong_t)&spt_i2c_info },
--	{ "INT3444", (kernel_ulong_t)&spt_i2c_info },
--	{ "INT3445", (kernel_ulong_t)&spt_i2c_info },
--	{ "INT3446", (kernel_ulong_t)&spt_i2c_info },
--	{ "INT3447", (kernel_ulong_t)&spt_i2c_info },
--	{ "INT3448", (kernel_ulong_t)&spt_uart_info },
--	{ "INT3449", (kernel_ulong_t)&spt_uart_info },
--	{ "INT344A", (kernel_ulong_t)&spt_uart_info },
-+	{ .id = "INT3440", .driver_data = (kernel_ulong_t)&spt_info },
-+	{ .id = "INT3441", .driver_data = (kernel_ulong_t)&spt_info },
-+	{ .id = "INT3442", .driver_data = (kernel_ulong_t)&spt_i2c_info },
-+	{ .id = "INT3443", .driver_data = (kernel_ulong_t)&spt_i2c_info },
-+	{ .id = "INT3444", .driver_data = (kernel_ulong_t)&spt_i2c_info },
-+	{ .id = "INT3445", .driver_data = (kernel_ulong_t)&spt_i2c_info },
-+	{ .id = "INT3446", .driver_data = (kernel_ulong_t)&spt_i2c_info },
-+	{ .id = "INT3447", .driver_data = (kernel_ulong_t)&spt_i2c_info },
-+	{ .id = "INT3448", .driver_data = (kernel_ulong_t)&spt_uart_info },
-+	{ .id = "INT3449", .driver_data = (kernel_ulong_t)&spt_uart_info },
-+	{ .id = "INT344A", .driver_data = (kernel_ulong_t)&spt_uart_info },
- 	/* CNL */
--	{ "INT34B0", (kernel_ulong_t)&cnl_info },
--	{ "INT34B1", (kernel_ulong_t)&cnl_info },
--	{ "INT34B2", (kernel_ulong_t)&cnl_i2c_info },
--	{ "INT34B3", (kernel_ulong_t)&cnl_i2c_info },
--	{ "INT34B4", (kernel_ulong_t)&cnl_i2c_info },
--	{ "INT34B5", (kernel_ulong_t)&cnl_i2c_info },
--	{ "INT34B6", (kernel_ulong_t)&cnl_i2c_info },
--	{ "INT34B7", (kernel_ulong_t)&cnl_i2c_info },
--	{ "INT34B8", (kernel_ulong_t)&spt_uart_info },
--	{ "INT34B9", (kernel_ulong_t)&spt_uart_info },
--	{ "INT34BA", (kernel_ulong_t)&spt_uart_info },
--	{ "INT34BC", (kernel_ulong_t)&cnl_info },
-+	{ .id = "INT34B0", .driver_data = (kernel_ulong_t)&cnl_info },
-+	{ .id = "INT34B1", .driver_data = (kernel_ulong_t)&cnl_info },
-+	{ .id = "INT34B2", .driver_data = (kernel_ulong_t)&cnl_i2c_info },
-+	{ .id = "INT34B3", .driver_data = (kernel_ulong_t)&cnl_i2c_info },
-+	{ .id = "INT34B4", .driver_data = (kernel_ulong_t)&cnl_i2c_info },
-+	{ .id = "INT34B5", .driver_data = (kernel_ulong_t)&cnl_i2c_info },
-+	{ .id = "INT34B6", .driver_data = (kernel_ulong_t)&cnl_i2c_info },
-+	{ .id = "INT34B7", .driver_data = (kernel_ulong_t)&cnl_i2c_info },
-+	{ .id = "INT34B8", .driver_data = (kernel_ulong_t)&spt_uart_info },
-+	{ .id = "INT34B9", .driver_data = (kernel_ulong_t)&spt_uart_info },
-+	{ .id = "INT34BA", .driver_data = (kernel_ulong_t)&spt_uart_info },
-+	{ .id = "INT34BC", .driver_data = (kernel_ulong_t)&cnl_info },
- 	/* BXT */
--	{ "80860AAC", (kernel_ulong_t)&bxt_i2c_info },
--	{ "80860ABC", (kernel_ulong_t)&bxt_info },
--	{ "80860AC2", (kernel_ulong_t)&bxt_info },
-+	{ .id = "80860AAC", .driver_data = (kernel_ulong_t)&bxt_i2c_info },
-+	{ .id = "80860ABC", .driver_data = (kernel_ulong_t)&bxt_info },
-+	{ .id = "80860AC2", .driver_data = (kernel_ulong_t)&bxt_info },
- 	/* APL */
--	{ "80865AAC", (kernel_ulong_t)&apl_i2c_info },
--	{ "80865ABC", (kernel_ulong_t)&bxt_info },
--	{ "80865AC2", (kernel_ulong_t)&bxt_info },
-+	{ .id = "80865AAC", .driver_data = (kernel_ulong_t)&apl_i2c_info },
-+	{ .id = "80865ABC", .driver_data = (kernel_ulong_t)&bxt_info },
-+	{ .id = "80865AC2", .driver_data = (kernel_ulong_t)&bxt_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, intel_lpss_acpi_ids);
-diff --git a/drivers/mfd/intel_pmc_bxt.c b/drivers/mfd/intel_pmc_bxt.c
-index e405d7513ca1..6a9ad1f135c7 100644
---- a/drivers/mfd/intel_pmc_bxt.c
-+++ b/drivers/mfd/intel_pmc_bxt.c
-@@ -414,7 +414,7 @@ static int intel_pmc_create_devices(struct intel_pmc_dev *pmc)
- }
- 
- static const struct acpi_device_id intel_pmc_acpi_ids[] = {
--	{ "INT34D2" },
-+	{ .id = "INT34D2" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, intel_pmc_acpi_ids);
-diff --git a/drivers/mfd/intel_soc_pmic_bxtwc.c b/drivers/mfd/intel_soc_pmic_bxtwc.c
-index 117517c171b5..08fedf3d3fee 100644
---- a/drivers/mfd/intel_soc_pmic_bxtwc.c
-+++ b/drivers/mfd/intel_soc_pmic_bxtwc.c
-@@ -606,7 +606,7 @@ static int bxtwc_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(bxtwc_pm_ops, bxtwc_suspend, bxtwc_resume);
- 
- static const struct acpi_device_id bxtwc_acpi_ids[] = {
--	{ "INT34D3", },
-+	{ .id = "INT34D3" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, bxtwc_acpi_ids);
-diff --git a/drivers/mfd/intel_soc_pmic_chtdc_ti.c b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
-index 6daf33e07ea0..49f4138961c8 100644
---- a/drivers/mfd/intel_soc_pmic_chtdc_ti.c
-+++ b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
-@@ -162,8 +162,8 @@ static int chtdc_ti_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(chtdc_ti_pm_ops, chtdc_ti_suspend, chtdc_ti_resume);
- 
- static const struct acpi_device_id chtdc_ti_acpi_ids[] = {
--	{ "INT33F5" },
--	{ },
-+	{ .id = "INT33F5" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, chtdc_ti_acpi_ids);
- 
-diff --git a/drivers/mfd/intel_soc_pmic_chtwc.c b/drivers/mfd/intel_soc_pmic_chtwc.c
-index aa71a7d83fcd..413d2fd4f86a 100644
---- a/drivers/mfd/intel_soc_pmic_chtwc.c
-+++ b/drivers/mfd/intel_soc_pmic_chtwc.c
-@@ -261,7 +261,7 @@ static const struct i2c_device_id cht_wc_i2c_id[] = {
- };
- 
- static const struct acpi_device_id cht_wc_acpi_ids[] = {
--	{ "INT34D3", },
-+	{ .id = "INT34D3" },
- 	{ }
- };
- 
-diff --git a/drivers/mfd/intel_soc_pmic_crc.c b/drivers/mfd/intel_soc_pmic_crc.c
-index 627a89334908..d39f73ae6773 100644
---- a/drivers/mfd/intel_soc_pmic_crc.c
-+++ b/drivers/mfd/intel_soc_pmic_crc.c
-@@ -252,8 +252,8 @@ static int crystal_cove_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(crystal_cove_pm_ops, crystal_cove_suspend, crystal_cove_resume);
- 
- static const struct acpi_device_id crystal_cove_acpi_match[] = {
--	{ "INT33FD" },
--	{ },
-+	{ .id = "INT33FD" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, crystal_cove_acpi_match);
- 
-diff --git a/drivers/mfd/intel_soc_pmic_mrfld.c b/drivers/mfd/intel_soc_pmic_mrfld.c
-index 77121775c1a3..531d8b8be44d 100644
---- a/drivers/mfd/intel_soc_pmic_mrfld.c
-+++ b/drivers/mfd/intel_soc_pmic_mrfld.c
-@@ -139,8 +139,8 @@ static int bcove_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id bcove_acpi_ids[] = {
--	{ "INTC100E" },
--	{}
-+	{ .id = "INTC100E" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, bcove_acpi_ids);
- 
-diff --git a/drivers/mfd/kempld-core.c b/drivers/mfd/kempld-core.c
-index 47062f876e5d..399f1c97320c 100644
---- a/drivers/mfd/kempld-core.c
-+++ b/drivers/mfd/kempld-core.c
-@@ -470,9 +470,9 @@ static void kempld_remove(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id kempld_acpi_table[] = {
--	{ "KEM0000", (kernel_ulong_t)&kempld_platform_data_generic },
--	{ "KEM0001", (kernel_ulong_t)&kempld_platform_data_generic },
--	{}
-+	{ .id = "KEM0000", .driver_data = (kernel_ulong_t)&kempld_platform_data_generic },
-+	{ .id = "KEM0001", .driver_data = (kernel_ulong_t)&kempld_platform_data_generic },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, kempld_acpi_table);
- 
-diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-index 3902ba377d69..49a95b8e4ca3 100644
---- a/drivers/mfd/loongson-se.c
-+++ b/drivers/mfd/loongson-se.c
-@@ -233,7 +233,7 @@ static int loongson_se_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id loongson_se_acpi_match[] = {
--	{ "LOON0011", 0 },
-+	{ .id = "LOON0011" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, loongson_se_acpi_match);
-diff --git a/drivers/mfd/upboard-fpga.c b/drivers/mfd/upboard-fpga.c
-index 9a9599dcb0a1..37c3c50aa6e4 100644
---- a/drivers/mfd/upboard-fpga.c
-+++ b/drivers/mfd/upboard-fpga.c
-@@ -300,9 +300,9 @@ static int upboard_fpga_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id upboard_fpga_acpi_match[] = {
--	{ "AANT0F01", (kernel_ulong_t)&upboard_up2_fpga_data },
--	{ "AANT0F04", (kernel_ulong_t)&upboard_up_fpga_data },
--	{}
-+	{ .id = "AANT0F01", .driver_data = (kernel_ulong_t)&upboard_up2_fpga_data },
-+	{ .id = "AANT0F04", .driver_data = (kernel_ulong_t)&upboard_up_fpga_data },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, upboard_fpga_acpi_match);
- 
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261030-acpi-mfd-a6ac9d16671b
-
-Best regards,
---  
-Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-
+-- 
+Michal Hocko
+SUSE Labs
