@@ -1,65 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603490;
-	b=sN3wFXJ6nu/1nNVDRMd5Yr78v2J9dbCjNIqZIQVsNgjO8im647hiqMdTSph99B0sbtP5
-	 FcN5oEv8IYqNDGHTTPldkr0fgyOwt6qnq6DEGQCL2FawvWij/siV2ackRHvfcKFRF4rc0
-	 0498gLnwvvQ5F7gXxFfY7WudIIq8EwFx+/zIw2oqybbvfrnfvTUJEVjuXzsf2wwg41pee
-	 8sLb3nr6E6bYaCrvxlNSa/ii/7fL0ARRVzT5ad/9pTAgbMRpMVXpQchj9tMTCLMaK8hYj
-	 HRfUm+CHf61RJuJnig7ao3Q/z8MPv0U448j3hJRU2BnCDflbJCltKoayPas2F6zhiQg==
+	t=1793603501;
+	b=2OnwrYXTOOZC0ZzEwxYNrUdCXLULC0FHnvJ6lPav4m/tr3o0zEtU5rz08X2G6DRMxwSS
+	 3qqxkmET5852m898Rmt426/uTAm/uVm23cCVyrIs4kZ1NQcCS944QEBD0BD2yORttlLkC
+	 BNM2NKHWEDHLZlIX/c3yFMe/URjRyx8HcPRx72tZueKvxCBpHbs8/OlWN3bmDVP1CnmCC
+	 la76tib9CDVJX+ZUN4aLq6/+HR9+VVhr1S77Zv7dYyO8XQw0rRfcW5BUuMyxiiAh3SPm7
+	 DgdV8Z41IxDzL6rPsP69rqGYtsBQTnOAK9gIIhMGzVWf2RghC5yc66Fx1MzuAYzpPaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603490;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603501;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZV0tab7VysaykfUEfxp751GYptchpJHxcMrTzqLLZ4o=;
-	b=KF7p8/g8/s5vFpwWA40B8D5hFt27A862BTmfVX7YLM6y3J/ZkiMb6Cg+WAFiUfNBK4GS
-	 ZHf6OhgonLDNn9rxv1N3KGeb+UdTaaulvIa7eoRGM97DFICNFTAPU8/SRGob96R2roZtu
-	 x+yepAgVv7smE1l13PnH2ebF+kg27CBDj6sMWEdTy70//tEQFOphjomMnh+9fSRAAFxze
-	 H9dRoCnP7bNGdw1+MHJXe/p5rbivX/zSZh/Z+yQFgHDi2szTIkTFgGj5wEKgL0uu/TYXI
-	 nsKkJ0hZ7dL1EGMDOFuhm3CWDc7ytfUjF7h2Gcj6/6KT7dJWofu7nP8aJgwiH3PQ3sQ==
+	bh=cjMrlf73d/dR/H5YIZ+t5tvJwic85OyZY/jSmLYQsrw=;
+	b=KZixl7AAf1VQkH8T1gBkc1U2a9yaVxKQUPAWtIv46ycik1Hww5qU3emGsEE/r347Rpt9
+	 EHV+HHzkzjhQxKirkP+LsTZ//LyXGlMoUqp001V3B3XPC8xerlujjQ6Ah8O8YJx6cvfwT
+	 gm1jmiSNtmXE+NUrURMKH3SycTcY4h7J9Kq8bPydYS7GQuzFUgPgkNlwmGYjxEwT3DHkg
+	 N0pccEFqHW5eH1j7JwuuCqDkJtHFw6c+ulqgl4PqCO+PbZqBc7GhRB7nCCXdYyRl0dAul
+	 mmeP+grlWwr7/yE3bH1OGP4OX8tvakmvWb4ObUctWVA4u46y0aLy1r53P4gZMAqgGvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elp9ahrs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hWzOTL7v;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C437606A326;
-	Mon,  2 Nov 2026 07:11:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B709606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B709606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elp9ahrs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED431F000C1;
-	Mon,  2 Nov 2026 07:11:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793603489;
-	bh=ZV0tab7VysaykfUEfxp751GYptchpJHxcMrTzqLLZ4o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=elp9ahrsIrEjpgWnlZp5Cp9aX93TOL93VsWU/VvpfbLp16hlzNeViKjMHY+5I0oP8
-	 T8pM9M83/RNIRfEdKbL7Pp7hv5K2/nfyFVZaZ8/YtKoig7DRlh+DvDyPxNMW7sZnTw
-	 p0eRKrV+4dx9Rq40iYUz2qjlMvr0fKGBdCKjHOUa3VgN4UG3enaFMCHxXqprXA1E0W
-	 gNXozluPXqrwRkqlI4s/e+PUswMl/ANR5m6Kn2pUXRb1l602YC3AqO2dXTWMsIWLrT
-	 +6VVyHr6lN1rF8VzXN8aQ0Z+pFhlXxuI4n62Gk71FNAb0mhVZhOQnh586U4rLdjwP8
-	 TCNEbto7lVE9A==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 3/3] docs: trace: Warn against using printk() in probe handlers
-Date: Mon,  2 Nov 2026 16:11:25 +0900
-Message-ID: <179360348516.115681.16358304979974648339.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179360345418.115681.193455787480210412.stgit@devnote2>
-References: <179360345418.115681.193455787480210412.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hWzOTL7v
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so1246669b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:11:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793603500; x=1794208300; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cjMrlf73d/dR/H5YIZ+t5tvJwic85OyZY/jSmLYQsrw=;
+        b=hWzOTL7vworSJYm4WD+vsFzEKX6ZeHfXWzTOPU0GloELBoLtRif46ODKrye77naSMt
+         DUujgg9udXIvhMynOvlSu37TWaGRSYZMaA9Zr7H6FK7gHaln+512j22VOgfztKadEyDj
+         3YSAaOuAFs1snDBj/1IQL5bQR3qx36kPvVm3PGUpzXAnenc2ppUvaaMSLo7StnDrVdSa
+         xkIVehYfmCAnpbA5yo9L/bTS5cQBc7QmZpEk4bh5l13sLqYi1va8T9vQ97N5heEqfQ5+
+         Zu0sPiZefFK+fV/2Io3noHM5mkeEWdLpOPANjghXUZjqFpiLpT2vk2FHjIpRgzM3rZa/
+         qPtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793603500; x=1794208300;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cjMrlf73d/dR/H5YIZ+t5tvJwic85OyZY/jSmLYQsrw=;
+        b=YirP1MJKwY1ywgeNFI5uy1izb1Vkmyc81WwPcfD7BJ5RLHuU7zj7mUbk/+A20j7+w+
+         e5TShg7J6gINzFfDblP305s90GqDe2/RGSAugVxEFk7t21YVQ0DuEe/VHp8VvnOKZOlr
+         PzitIfbG4yaoCQNlsu9l7AmtuMJKCb/KOoKgFv6ryY7fS3iNxuZW/ACmFz4zym/Yx/cQ
+         FBQN+083odOu5BjTDho3JWD9YFPR/T4oYS5s2tXssUSCn5jWlCpo0mNxSIpi1sPVj5ET
+         irGRIZYs/cPf07Vm/sHnma58F69AOmiiCf2HKwZ86wklZkemuo+QBL39NZ1/Osy81LYy
+         HG4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwbII3AOqymkjhnWwJ2COVwvr65YVCPStuv8lVRozuoWBaWTVJw8nx7IRSE9KFBKaLWIbvY4nMXhXS/WMc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKg6Fs0RYoAA+9+FI+CKvKqZYiQfPUSIseX7jtfeJZNHv6icsxc
+	mG1+a/j900BLwsr6sTCcsi3R6zh8EjPuv40cf11IOszHjpSg45gkcrKZ
+X-Gm-Gg: AYBFou2iZ/2Ilsb7jkxUdZ6pQ1LbDXI7q/NiX5ZQYVPaiCiTnpf5+NkLtegW98zmL0m
+	FY/EiTanBMjDZunt6qvYydwW4oXKvEBTsmkBiVssDC03J3eh1v+g7AB7jrIR79A/IusLPvbWkhb
+	ZMuUBAyShI/hcXjojAJ27mbnixV5zhZnZzPrqzVcFzGPEGYZmbdZylDc1dKK3OeST/hr1MllLAe
+	JdLbZSr4t2oBfmEtH5LA42sFLzkt4LzY4Fgzebge3tQePO+a3+iEZ3tLoamwQNceLlh1HUd9djW
+	MKIvQAsD7qPvwPi6xdPs8ynrsAgkRPnLArT3P6UwU0c3Kt2mkSwaGrBmwKx6Bje3vHhveF1Zot0
+	MsjLkoTXE4vHHfkVDY5QGsRXPMONfh2FUMiODBR3ZTwmep153vD9RaNc1oGE1i15jwRcUknmFC/
+	DqjVHCftWL8Iw4rTt/MTOll+mAbYBfhRPiVneFxwAkC96At9znBt45PJO9NhM4lsDPTWI+KNneg
+	deXgWqZWiCDoARGMea4dIoEsCje0O3amfXIo5MirDnOO6t1sjUS9ffa8CqUrlATovF4vPwSra+f
+	Ce3uH8pyGDuCnJTKeeEFXSc2tjUDoiyGExJynHuLlgJCw1gY1bni
+X-Received: by 2002:a05:6a00:3988:b0:8a0:582c:5c09 with SMTP id d2e1a72fcca58-8a8322ac827mr8145182b3a.25.1793603499839;
+        Sun, 01 Nov 2026 23:11:39 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8abab0c6c6esm1140566b3a.48.2026.11.01.23.11.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 23:11:39 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net 0/4] net: dsa: motorcomm: ACL fixup
+Date: Mon,  2 Nov 2026 15:11:12 +0800
+Message-ID: <20261102071119.3435180-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,71 +100,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Various ACL defects. Found by LLM and manually verified (on YT9215).
 
-Probe handlers (kprobes, kretprobes, and fprobes) execute in atomic or
-non-preemptible contexts. Because handlers do not run in NMI context
-(especially when jump-optimized or ftrace-based), calling printk()
-directly can attempt to synchronously acquire console driver locks or
-scheduler locks (via console_unlock()), risking a deadlock if the probed
-or interrupted context already holds those locks.
+David Yang (4):
+  net: dsa: motorcomm: Fix extack message on unsupported TC actions
+  net: dsa: motorcomm: Fix IPv4/IPv6 address key dispatch in flower
+  net: dsa: motorcomm: Stop at the first terminal flower action
+  net: dsa: motorcomm: Delete the ACL rule of the port being unbound
 
-Document this restriction in both kprobes.rst and fprobe.rst, and
-recommend using trace_printk() instead to safely log messages to the
-ftrace buffer.
+ drivers/net/dsa/motorcomm/tc.c | 87 ++++++++++++++++++----------------
+ 1 file changed, 45 insertions(+), 42 deletions(-)
 
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- Documentation/trace/fprobe.rst  |    5 +++++
- Documentation/trace/kprobes.rst |   11 +++++++++--
- 2 files changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/trace/fprobe.rst b/Documentation/trace/fprobe.rst
-index 46dd46a97c1f..72e0fd9e1808 100644
---- a/Documentation/trace/fprobe.rst
-+++ b/Documentation/trace/fprobe.rst
-@@ -101,6 +101,11 @@ handler.
- If the entry callback function returns !0, the corresponding exit callback
- will be cancelled.
- 
-+Since the callbacks run with preemption disabled under ftrace recursion
-+protection, calling printk() or pr_*() from these callbacks is not safe
-+and can cause deadlocks on console driver or scheduler locks. Use
-+trace_printk() instead to log debugging output.
-+
- @fp
-         This is the address of `fprobe` data structure related to this handler.
-         You can embed the `fprobe` to your data structure and get it by
-diff --git a/Documentation/trace/kprobes.rst b/Documentation/trace/kprobes.rst
-index 5e606730cec6..19c04a91a664 100644
---- a/Documentation/trace/kprobes.rst
-+++ b/Documentation/trace/kprobes.rst
-@@ -563,8 +563,8 @@ course, has no way to distinguish the deliberately injected faults
- from the accidental ones.  Don't drink and probe.
- 
- Kprobes makes no attempt to prevent probe handlers from stepping on
--each other -- e.g., probing printk() and then calling printk() from a
--probe handler.  If a probe handler hits a probe, that second probe's
-+each other -- e.g., probing trace_printk() and then calling trace_printk()
-+from a probe handler.  If a probe handler hits a probe, that second probe's
- handlers won't be run in that instance, and the kprobe.nmissed member
- of the second probe will be incremented.
- 
-@@ -579,6 +579,13 @@ which depends on the architecture and optimization state.  (e.g.,
- kretprobe handlers and optimized kprobe handlers run without interrupt
- disabled on x86/x86-64).  In any case, your handler should not yield
- the CPU (e.g., by attempting to acquire a semaphore, or waiting I/O).
-+Furthermore, probe handlers should avoid calling printk() or pr_*().
-+Because probe handlers execute in atomic/non-preemptible contexts without
-+being in NMI context (especially when jump-optimized or ftrace-based),
-+calling printk() may attempt to synchronously acquire console driver locks
-+or scheduler locks via console_unlock(), risking a deadlock if the probed
-+or interrupted context already holds those locks. Use trace_printk()
-+instead to safely output messages to the trace buffer.
- 
- Since a return probe is implemented by replacing the return
- address with the trampoline's address, stack backtraces and calls
+-- 
+2.53.0
 
