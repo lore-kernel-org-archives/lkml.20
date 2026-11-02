@@ -1,57 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633881;
-	b=I4EOjGVrykKmefc+VoXaVjX40IKS9mSNx/0AcDJ13ocIHXIER0fmX7p9ELGZBcttx8y9
-	 B1AruJl0FPmCsGWethJZAyp/3fp6WVa2acVCVqguE+HAZNYYSIE+vD76WJZihocLGuiZd
-	 aajJZfqy83LtKT9SHqyl/w84ruH/9cMUqc430tuDkYgx+aGDTZ7kMIoFX1u7WPtxOccQ0
-	 UVgBwISyP8VNHOqvxt1gWyOyylWLB+IkYsQCyOaNx/pEhF4HerHNbZkBPqXbNd+S6pR1/
-	 TMWZLlxErjtFMz+oz2mXdjrT6UbSGdWkye2NYvJ15cuQBLGygkjYHBv1nDxHQEfqw3Q==
+	t=1793633920;
+	b=WoJHB7RBgRFvsiOtNKrDCtpN173Pu5fV12qWNhW0vMR+V/MVJWujh0FKi1j9eVbH8ncA
+	 xzMIyE45k+xE0CamQ2XB0jrpdxikVez5TaM1ufERPCa71XZA2IzV+YsipapZSASmmTLVv
+	 nfbJe606m8+PzveSLvDn/svL/UqtFBlg6Uc1HfmdkNznX0L1Oxru/7rjcsf45Xxxl9Tth
+	 vAKPBpmYaAlcrHTI500s8cQvCXfjxEKt4gjUglHsgR9fRBe/ywunOQFaWBgJZBxFpptY/
+	 0TAKDXrqd0PKycxReNo4XqSDa9BEBSG07ffHtqxyIN/cyiTsw+v8FZaMqBgkuYJI5RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633881;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=z+MgUCfG+V3Anb7erI6rfwRs5z2tWPjnS6eSgen+Zus=;
-	b=ueLxnQVFNuej829EhpetqssjX/xbsL5dV03jUWyYIbAyTwi5Y2MGQ4kfBdeTS3L4yeis
-	 CKSb8RhtwRWd2fmfTTXywtvSFW8vhxnxoFfF20QF+EVKU7FmYjgULYkVp/c0BL5CC/lt/
-	 Dc0y4cIpCeConnuVLDUS3YOI1O6vWWqDcTfV/Gsv7tQWnjD711/dEWH0tmewCA9dkos7/
-	 T+M95Lwbqv+GkScBTVx3ql12LDHwSiMn8l2wvmqLbQdpHcRtrTA0THf7YTkioOkqHNX7n
-	 ZHk8lO1knK2X49TNsFi8e+JQMWahImr+18ZwdEs1IFvqMxHAW+BnnzAvG/Ne4V7DGtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633920;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Patchwork-Hint:Organization;
+	bh=nZjJXjeUpHOd3aZ53gpfx+lICFKWiYGKVClNpZUeU8Q=;
+	b=J32aJfGq13TwsEPXcA9nljA/RF69TfNw/wYImlG/aawpr0v4kID0k6K2wOUakr9kenVI
+	 bt6rbq7bjG++9uB0ZV7rPExLqdgUviYJrHLPrBD82WfC5epkER1dZvElCWsdyAO62biWw
+	 ThRZHFygwSEHbOnLuOEHRYKieOVj2arAlTUBhGhJWUL0pgVw0CAigzTOXlTReuKzmEDv/
+	 RrqBTsY4SyZEyLRYU3U8450PLDvSd7pHatm61CeQenAuP08/m6WYoPzVxfznSH/lEwiIz
+	 W9Q1uR6hff+nPx5Z2bOrXtGYKEz4xEHchTtjkMOJUATRr7eSTJJF4gIdRKd5EhGl7Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1H9ljGU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Xx1xLVxW;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775C1606BA7F;
-	Mon,  2 Nov 2026 15:38:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCAD606B1C8
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABCAD606B1C8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1H9ljGU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2483A1F00A1A;
-	Mon,  2 Nov 2026 15:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633881;
-	bh=z+MgUCfG+V3Anb7erI6rfwRs5z2tWPjnS6eSgen+Zus=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F1H9ljGUVASadIr5+7Ym9zRdT/V/czLIDX4/2uWxB9FZtwDQZ67p8KfWpgs2fc1uA
-	 4un8fUuEUxQPP5KYjV/e4cqrGf9Ppv6EitIT/zLprpTAQb64ZDulF+Q9EUfQ9WIzZL
-	 aA6vhbj85DBX1DdquyrEEOp8H2M9lmYHa6kpcP7u2igeE6YjWBuzuGzqi4x6v6CQmf
-	 H/6VTppz5j7PRUutHzYdBOHpLgZidYmnAaj2gV3O5pTxEDLLESmZA/UurAaG5oXAdv
-	 JQQ5ia8DOe3mZeFi9UbE3GESeNv3dcIC12jZ7MppLPfNj4tLcS1N0/i/JwxiT9UASz
-	 AXgkcf5xQxzrA==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Suhaas Joshi <suhaas@s-joshi.in>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v5 1/2] mm/damon/core: use only installed probe in damon_merge_two_regions()
-Date: Mon,  2 Nov 2026 07:37:51 -0800
-Message-ID: <20261102153753.97769-2-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102153753.97769-1-sj@kernel.org>
-References: <20261102153753.97769-1-sj@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Xx1xLVxW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793633920; x=1825169920;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=hTYZdetg0DVplDyNYLvgAVyDM9iUmyOuE+J0YYj/dX8=;
+  b=Xx1xLVxWCEszmXqoGpIvLAUZI9/r3tTSL13MSx394B564OY4zg0wFHfy
+   Bp3a5gIFNOGcT24bFcR8V0urQydenpneowTLVRMg0PAUqajvdZOYmymLU
+   70S8bnA+eNdQnrWFXIaZSHIgrrrvgo2PjCOmqGwGzxGSwRRRRKW1MFlhO
+   vJ3VtellEozHt9ElCBXoVopcwO0ORXbgo5RllMJnOrTp5tz0B0Jzqstu5
+   puFYuCMRxJUpBd01cuLK/B/HoP0HGYkF1ANKX91HRW8Ma7rnr7UFtZ7xN
+   Cvh9eFJwnoRtTUC01Wl9eoAqsEl/1CBvize8VAZXf0fqXNTW/dtk3hfex
+   Q==;
+X-CSE-ConnectionGUID: 1kTUdow0QOiGxd3ziAOctQ==
+X-CSE-MsgGUID: mJ0CWMUEQjiKNQF79su9Og==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2235191"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2235191"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 07:38:39 -0800
+X-CSE-ConnectionGUID: k6ktoBSPQW+rVY+t7HSheA==
+X-CSE-MsgGUID: 82Q0zRELTwesE46+ATslGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6249005"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 07:38:36 -0800
+Date: Mon, 2 Nov 2026 17:38:32 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hugo Sales <hugo@hsal.es>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+	airlied@gmail.com, simona@ffwll.ch, harry.wentland@amd.com,
+	amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/probe-helper: Sort and set crtcinfo before dropping
+ the modeset locks
+Message-ID: <auiuePf6RbhdV65A@intel.com>
+References: <20261031161952.660049-1-hugo@hsal.es>
+ <auh8pUx_kXUYSdZ8@intel.com>
+ <2112993263.278931.1793633202457@app.mailbox.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,117 +84,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2112993263.278931.1793633202457@app.mailbox.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-From: Suhaas Joshi <suhaas@s-joshi.in>
+On Mon, Nov 02, 2026 at 03:26:42PM +0000, Hugo Sales wrote:
+> On 11/02/2026 12:05 PM WET Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+> > On Sat, Oct 31, 2026 at 04:19:52PM +0000, Hugo Sales wrote:
+> > > amdgpu walks connector->modes from its atomic_check, in
+> >
+> > That is just wrong. connector->modes is protected by mode_config.mutex
+> 
+> You're right, I should have fixed the real issue rather than work around
+> it. Please drop this one
+> 
+> I'll try to fix it in amdgpu instead. atomic_check can't take
+> mode_config.mutex there, so amdgpu would pick the mode it needs while
+> probing and keep its own copy, like it already does for freesync_vid_base
 
-While merging 2 regions, we iterate over the entire probe_hits[] array,
-whose size is determined by the DAMON_MAX_PROBES macro. However, it is
-possible that we have fewer probes installed than DAMON_MAX_PROBES. In such
-cases, we end up making redundant iterations. Therefore, to remedy this,
-iterate over the list of installed probes instead of iterating over the
-entire array. For doing this, start accepting a struct damon_ctx in
-damon_merge_two_regions(), and update calling functions to pass this
-argument.
+Yeah, that should be doable.
 
-Update the damon_test_merge_two() test to use this new signature for
-damon_merge_two_regions() as well.
+> 
+> > And regardless of changing the locking rules or not, someone
+> > should probably sprinkle lockdep asserts to bunch of places
+> > where connector->modes is consulted. Perhaps even introduce
+> > custom list iterator macros that include the assert...
+> 
+> Makes sense. amdgpu would trip them today, so I'll look at that once
+> the amdgpu side is fixed
 
-Signed-off-by: Suhaas Joshi <suhaas@s-joshi.in>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c             | 15 ++++++++++-----
- mm/damon/tests/core-kunit.h | 20 ++++++++++++++++++--
- 2 files changed, 28 insertions(+), 7 deletions(-)
+Sounds good.
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 9d54899004026..36d60f3e1de62 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3549,20 +3549,25 @@ static void damon_verify_merge_two_regions(
- /*
-  * Merge two adjacent regions into one region
-  */
--static void damon_merge_two_regions(struct damon_target *t,
--		struct damon_region *l, struct damon_region *r)
-+static void damon_merge_two_regions(struct damon_ctx *ctx,
-+		struct damon_target *t, struct damon_region *l,
-+		struct damon_region *r)
- {
- 	unsigned long sz_l = damon_sz_region(l), sz_r = damon_sz_region(r);
- 	int i;
-+	struct damon_probe *p;
- 
- 	l->nr_accesses = (l->nr_accesses * sz_l + r->nr_accesses * sz_r) /
- 			(sz_l + sz_r);
- 	l->age = (l->age * sz_l + r->age * sz_r) / (sz_l + sz_r);
- 	l->ar.end = r->ar.end;
--	/* todo: do this for only installed probes */
--	for (i = 0; i < DAMON_MAX_PROBES; i++)
-+
-+	i = 0;
-+	damon_for_each_probe(p, ctx) {
- 		l->probe_hits[i] = (l->probe_hits[i] * sz_l + r->probe_hits[i]
- 				* sz_r) / (sz_l + sz_r);
-+		++i;
-+	}
- 	damon_verify_merge_two_regions(l, r);
- 	damon_destroy_region(r, t);
- }
-@@ -3615,7 +3620,7 @@ static void damon_merge_regions_of(struct damon_target *t, unsigned int thres,
- 			goto set_prev_continue;
- 		if (damon_sz_region(prev) + damon_sz_region(r) > sz_limit)
- 			goto set_prev_continue;
--		damon_merge_two_regions(t, prev, r);
-+		damon_merge_two_regions(ctx, t, prev, r);
- 		continue;
- set_prev_continue:
- 		prev = r;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 43e2f950f8ff4..ca10d450f7e23 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -182,6 +182,8 @@ static void damon_test_merge_two(struct kunit *test)
- {
- 	struct damon_target *t;
- 	struct damon_region *r, *r2, *r3;
-+	struct damon_probe *p;
-+	struct damon_ctx *ctx;
- 	int i;
- 
- 	t = damon_new_target();
-@@ -206,7 +208,21 @@ static void damon_test_merge_two(struct kunit *test)
- 	r2->age = 21;
- 	damon_add_region(r2, t);
- 
--	damon_merge_two_regions(t, r, r2);
-+	p = damon_new_probe();
-+	if (!p) {
-+		damon_free_target(t);
-+		kunit_skip(test, "probe alloc fail");
-+	}
-+	ctx = damon_new_ctx();
-+	if (!ctx) {
-+		damon_destroy_probe(p);
-+		damon_free_target(t);
-+		kunit_skip(test, "context alloc fail");
-+	}
-+	damon_add_probe(ctx, p);
-+	damon_add_target(ctx, t);
-+
-+	damon_merge_two_regions(ctx, t, r, r2);
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 300ul);
- 	KUNIT_EXPECT_EQ(test, r->nr_accesses, 16u);
-@@ -220,7 +236,7 @@ static void damon_test_merge_two(struct kunit *test)
- 	}
- 	KUNIT_EXPECT_EQ(test, i, 1);
- 
--	damon_free_target(t);
-+	damon_destroy_ctx(ctx);
- }
- 
- static struct damon_region *__nth_region_of(struct damon_target *t, int idx)
 -- 
-2.47.3
+Ville Syrjälä
+Intel
