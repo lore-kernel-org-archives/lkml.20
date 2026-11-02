@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605151;
-	b=dqsbgiOrMT3ilTZGluq5eNDYfF/HcJhRr0lYsIDQ0Iu9hAUR8oFUsXw2g83R+wKsm8yB
-	 CXh3wg/phFiYtxvmz4nofzxw6lc0IBMR+LM4qnkcUugX9IcBSQPv06KwcSDv+K1IxQh4J
-	 E3vmH42T1nzoeRWIdl4AKpyO53zdG3VdC7MvIGF3x09Lb4/rmX0x7wiJCj0yMjYUIZZ5J
-	 sA/29xIuqRgofriTNsbLTrH/RlaX7D+w9dzezGnI8I5wlHh07qjagDbSiCn0NNDpPnPaF
-	 j0BuXilshXa5nFGsAzb83YutLNF/M5Oy435F3TERBLJuuKoQUHd9Vh8PTM5Z5XLgoSQ==
+	t=1793605149;
+	b=l5OmfWRk0OOAr0aI1b04o0PookXvhDLuh3h2NIh1EDf79K750WZkPZKv1Q8Sqv419pRF
+	 WhD8SlfDPgzFJGWUt6ZMD07KCtbkLa9empnJb/wDF21N/zxbKevkreJHS8D/ZSzQREjng
+	 vYV484yjy7zU1QWkXQ9W8xSm3C4iX60TiaAc0LuBrJBnAQg+2XWiHDeOAAYlz1vVwRt70
+	 LxwHuZEDexzwOEdUQMONBhWjHaBJIrCROPLCbeVwUGq3naJnHgiyFc1+SrF/SpV1Lc9EN
+	 TLukX4iLVN/BvdtTVt+2nUiSCqAGugIw3RfGqvz7e+lWUk+EhwdPKVlJGk3h/P1EsYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605151;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605149;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=8G6DzkDFSwNiHiey9Xd0QWhXNtihceLENI2CRig4N+g=;
-	b=J8qqJyGx77rm4WMU+tB6UFGH6Q31iWi/HKRYChxgsFjgZunSS7zlwEyTw5CwLSeG/JIS
-	 zn00Y+ndAEum3OjwcVUDuVXoRL0GeI0YlYD06tm8JJ7vPVhwYgtGU2MQZUgXCFqq4njDA
-	 UrulrAOuk8n3M3Ba7u+YsHxd9Pou/qOxqqZfHHVsuQCGlh5uWLbDk2Hxhh4OXe+a1hDF/
-	 CulDOr3DpOEdAY7jjh12hAxz9kTQGx+oH2I2YQxu6Al0iIsqTw5DJgEOKcRnJjcx6+lqQ
-	 usYy6UvkKMjfcbYH4ramazoOSKQt/8UVcqe5hXQPgnf7cos/RDW9b7610Ocy+eI6awA==
+	bh=bqg6K2lpbXQdiQniD/zWD0T6n9rq5SsMV1RNbuW4SEk=;
+	b=5PHrbJPwo61jLt8C+cNUsJejJbT388WlSZruH9Fw4mL4CrukzR8kIdMG3+tjJbpqPFD+
+	 tHPryp6AJhGpAyAHMPVQa7SeIK9ljvs7pQCgEhcm+wXqijisjq5mqJizRm+c3JmjhCYkx
+	 PEcx9rmoFzliR7j4XuUDhlxNG7MgSc0kzTLzriwzMhGAw6OvEZMgYTydGC19eLPloA9BN
+	 NEgbHRq2BLTTYvKkK0z5tZfFk9OFyMqC1Dvkwi3R2dc5EBtoBgp0o88P+AZg2fBob2ESj
+	 sq7aHs+PfGS/owsJP/UyzI/B86E6psDLSd5ihsVecws55ad47NFYK4OWdn4hgPXerug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JmHMEJ+W;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oLvp2bEG;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1ADC60A260F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:39:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1ADC60A260F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C02606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:39:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28C02606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JmHMEJ+W
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oLvp2bEG
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8G
-	6DzkDFSwNiHiey9Xd0QWhXNtihceLENI2CRig4N+g=; b=JmHMEJ+W51UqMSaHe9
-	4OfvlQYCuVueqOBN95k7B3UaGuTreisrwlMCGVb2d42s7/MAdO1Ch16cx+TmGFBO
-	RBGju/O9yx3NR16jP7zn63vCoFf3j+dYkW/HpBw43/9uqIfdO9FWe84lVQ/nSqLB
-	kxbFoeD2ImxrLEqqb57rb747g=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bq
+	g6K2lpbXQdiQniD/zWD0T6n9rq5SsMV1RNbuW4SEk=; b=oLvp2bEGXNRHJ+09OO
+	XZ+woJBr+Sko4NZFs8cyouqCWIdl3ZASkYLVNZ/8TpeNNSz5MJVmmS8wBMC7Slsy
+	jAm0O1DJaGZ5mJ+BL12s8jVs4F0vsrvDaWMpE3WkvOJWu1B4+3lqwR892zoK0IQI
+	G79Yw7x8h5Q6K6sUY5pwrbhyk=
 Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nygJPuhqucJHEg--.56690S5;
-	Mon, 02 Nov 2026 15:38:51 +0800 (CST)
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nygJPuhqucJHEg--.56690S2;
+	Mon, 02 Nov 2026 15:38:49 +0800 (CST)
 From: Xuewen Wang <wangxuewen_ky@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: wangxuewen_ky@163.com,
 	ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v5 27/31] ntfs: report MFT writeback errors to fsnotify
-Date: Mon,  2 Nov 2026 15:35:28 +0800
-Message-Id: <20261102073532.98873-28-wangxuewen_ky@163.com>
+	Xuewen Wang <wangxuewen@kylinos.cn>
+Subject: [PATCH v5 24/31] ntfs: serialize and report export parent reconstruction errors
+Date: Mon,  2 Nov 2026 15:35:25 +0800
+Message-Id: <20261102073532.98873-25-wangxuewen_ky@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261102073532.98873-1-wangxuewen_ky@163.com>
 References: <20261102073532.98873-1-wangxuewen_ky@163.com>
@@ -66,196 +66,132 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3nygJPuhqucJHEg--.56690S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtFW8tFyDuFW5GrWDZr13Jwb_yoW7ZFW7pF
-	9xG393GrWkJr42qwn3tF4jya4Sy34xK3yUCrWxG3Wxuws5tr1jqa1UtrsagFyrKr93Gw4r
-	Jw4DKrZ8uF1UZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jIlksUUUUU=
-X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbCzQtmT2roPgsL1QAA3G
+X-CM-TRANSID:_____wD3nygJPuhqucJHEg--.56690S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr4DCw15XF1DAF18Wr1UAwb_yoWrCF4xpF
+	y3J3sxtrZ5JFW3urn3tF4UZ34Sk34fGFWUWrn3K3WSyw4qqrnF9F13tFyjvr1rtrWrJ3s0
+	qw4jga43C3yUXaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UfPEhUUUUU=
+X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC8ApmT2roPgrqWQAA3W
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-MFT write failures mark the volume without notifying error listeners.
-Report device failures from the existing BIO completion callback for
-both synchronous and asynchronous writes. Use blk_status_to_errno(),
-matching the error recorded in the address_space.
+Exportfs calls ntfs_get_parent() without the child inode lock. Hold the
+child's mrec_lock across FILE_NAME lookup and parent loading to stabilize
+corruption checks against rename and rmdir.
 
-Also report mirror and write-preparation failures. Use EFSCORRUPTED for
-invalid record geometry, mappings and MST preparation, preserving the
-errno through the affected error exits and mapping_set_error(). Keep
-ENOMEM redirty and retry behavior.
+Report an unused parent as EFSCORRUPTED only for a linked, non-deleting
+child. Report missing required or malformed FILE_NAME attributes, while
+continuing past malformed candidates as before. Release the lock before
+d_obtain_alias().
 
-Use the generic deferred reporter for completion-context notifications.
+Preserve ordinary stale-handle behavior. NTFS returns EFSCORRUPTED for a
+confirmed corrupt parent reference; generic open_by_handle_at() decoding
+still converts that error to ESTALE.
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
- fs/ntfs/mft.c | 54 ++++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 36 insertions(+), 18 deletions(-)
+ fs/ntfs/namei.c | 47 ++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 38 insertions(+), 9 deletions(-)
 
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index 7290feeb1803..f5092666b688 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -479,9 +479,11 @@ static void ntfs_mft_end_io(struct bio *bio)
- 		err = blk_status_to_errno(bio->bi_status);
- 	else
- 		err = ctx->error;
-+	/* Report device errors from both synchronous and asynchronous writes. */
-+	if (bio->bi_status)
-+		ntfs_report_file_metadata_error(ctx->mapping->host, err);
- 	if (err) {
- 		mapping_set_error(ctx->mapping, err);
--		NVolSetErrors(ctx->vol);
- 		ntfs_error(ctx->vol->sb, "I/O error while writing MFT: %d",
- 			   err);
- 	}
-@@ -542,29 +544,31 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
- 	u64 mirror_size;
- 	unsigned int mirror_ofs;
- 	u8 *src, *dst;
--	int err;
-+	int err = -EFSCORRUPTED;
- 
- 	if (unlikely(!vol->mftmirr_ino))
--		return -EIO;
-+		goto out_report;
- 
- 	mirror_size = (u64)vol->mftmirr_size * vol->mft_record_size;
- 	if (mirror_file_ofs >= mirror_size ||
- 	    unit->len > mirror_size - mirror_file_ofs)
--		return -EIO;
-+		goto out_report;
- 	if (unit->folio_ofs + unit->len > folio_size(source))
--		return -EIO;
-+		goto out_report;
- 
- 	mirror = read_mapping_folio(vol->mftmirr_ino->i_mapping,
- 				    mirror_file_ofs >> PAGE_SHIFT, NULL);
--	if (IS_ERR(mirror))
--		return PTR_ERR(mirror);
-+	if (IS_ERR(mirror)) {
-+		err = PTR_ERR(mirror);
-+		goto out_report;
-+	}
- 
- 	folio_lock(mirror);
- 	if (folio_test_writeback(mirror))
- 		folio_wait_writeback(mirror);
- 	mirror_ofs = mirror_file_ofs - folio_pos(mirror);
- 	if (mirror_ofs + unit->len > folio_size(mirror)) {
--		err = -EIO;
-+		err = -EFSCORRUPTED;
- 		goto out_unlock;
- 	}
- 
-@@ -596,6 +600,9 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
- out_unlock:
- 	folio_unlock(mirror);
- 	folio_put(mirror);
-+out_report:
-+	if (err)
-+		ntfs_report_metadata_error(vol, err);
- 	return err;
- }
- 
-@@ -627,10 +634,10 @@ static int ntfs_prepare_mft_record_io_units(struct ntfs_inode *ni,
- 	unsigned int i;
- 
- 	if (!nr_units || nr_units > ARRAY_SIZE(ni->mft_lcn))
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	for (i = 0; i < nr_units; i++)
- 		if (ni->mft_lcn[i] < 0)
--			return -EIO;
-+			return -EFSCORRUPTED;
- 
- 	cluster_ofs = ntfs_bytes_to_cluster_off(vol, record_byte);
- 	if (vol->mft_io_unit_size > vol->mft_record_size) {
-@@ -715,8 +722,10 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
- 		goto done;
- 
- 	err = ntfs_prepare_mft_record_io_units(ni, units);
--	if (err < 0)
-+	if (err < 0) {
-+		err = -EFSCORRUPTED;
- 		goto err_out;
-+	}
- 	nr_units = err;
- 
- 	kaddr = kmap_local_folio(folio, 0);
-@@ -727,6 +736,7 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
- 	err = pre_write_mst_fixup((struct ntfs_record *)fixup_m, vol->mft_record_size);
- 	if (err) {
- 		ntfs_error(vol->sb, "Failed to apply mst fixups!");
-+		err = -EFSCORRUPTED;
- 		goto unmap_err_out;
- 	}
- 
-@@ -813,8 +823,13 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
- 		mark_mft_record_dirty(ni);
- 		if (!sync)
- 			err = 0;
--	} else
--		NVolSetErrors(vol);
-+	} else {
-+		struct ntfs_inode *base_ni = ntfs_inode_base(ni);
-+
-+		mapping_set_error(folio->mapping, err);
-+		ntfs_report_file_metadata_error(VFS_I(base_ni),
-+						err);
-+	}
- 	return err;
- }
- 
-@@ -3180,7 +3195,7 @@ static int ntfs_map_mft_io_locked(struct ntfs_inode *ni, u64 folio_byte,
- 
- 	lockdep_assert_held(&ni->runlist.lock);
- 	if (!ni->runlist.rl)
--		return -EIO;
-+		return -EFSCORRUPTED;
- 
- 	vcn = ntfs_bytes_to_cluster(vol, file_ofs);
- 	/*
-@@ -3192,10 +3207,10 @@ static int ntfs_map_mft_io_locked(struct ntfs_inode *ni, u64 folio_byte,
- 	if (lcn == LCN_RL_NOT_MAPPED)
- 		return -EAGAIN;
- 	if (lcn < 0)
--		return -EIO;
-+		return -EFSCORRUPTED;
- 	if (ntfs_bytes_to_cluster_off(vol, file_ofs) + unit->len >
- 	    vol->cluster_size)
--		return -EIO;
-+		return -EFSCORRUPTED;
- 
- 	unit->sector = ntfs_bytes_to_bio_sector(
- 		NTFS_CLU_TO_B(vol, lcn) +
-@@ -3286,7 +3301,7 @@ static void ntfs_mft_write_error(struct ntfs_volume *vol,
- 				 struct address_space *mapping, int err)
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index 090eb33bf362..53edbd424b3a 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -1730,14 +1730,17 @@ const struct inode_operations ntfs_dir_inode_ops = {
+  * fs/exportfs/expfs.c::find_exported_dentry() which in turn is called from the
+  * default ->decode_fh() which is export_decode_fh() in the same file.
+  *
+- * Note: ntfs_get_parent() is called with @d_inode(child_dent)->i_mutex down.
++ * Serialize the file name lookup and parent load against rename and rmdir
++ * with the child's mrec_lock; exportfs does not hold the child's inode lock.
+  *
+  * Return the dentry of the parent directory on success or the error code on
+  * error (IS_ERR() is true).
+  */
+ static struct dentry *ntfs_get_parent(struct dentry *child_dent)
  {
- 	mapping_set_error(mapping, err);
--	NVolSetErrors(vol);
-+	ntfs_report_file_metadata_error(mapping->host, err);
- 	ntfs_error(vol->sb, "Error while writing MFT folio: %d", err);
++	int report_err = 0;
+ 	struct inode *vi = d_inode(child_dent);
++	struct inode *parent;
+ 	struct ntfs_inode *ni = NTFS_I(vi);
+ 	struct mft_record *mrec;
+ 	struct ntfs_attr_search_ctx *ctx;
+@@ -1747,15 +1750,20 @@ static struct dentry *ntfs_get_parent(struct dentry *child_dent)
+ 	int err;
+ 
+ 	ntfs_debug("Entering for inode 0x%llx.", ni->mft_no);
++	mutex_lock(&ni->mrec_lock);
+ 	/* Get the mft record of the inode belonging to the child dentry. */
+ 	mrec = map_mft_record(ni);
+-	if (IS_ERR(mrec))
+-		return ERR_CAST(mrec);
++	if (IS_ERR(mrec)) {
++		err = PTR_ERR(mrec);
++		goto unlock_err;
++	}
+ 	/* Find the first file name attribute in the mft record. */
+ 	ctx = ntfs_attr_get_search_ctx(ni, mrec);
+ 	if (IS_ERR(ctx)) {
+ 		unmap_mft_record(ni);
+-		return ERR_PTR(PTR_ERR(ctx));
++		err = PTR_ERR(ctx);
++		ctx = NULL;
++		goto unlock_err;
+ 	}
+ try_next:
+ 	err = ntfs_attr_lookup(AT_FILE_NAME, NULL, 0, CASE_SENSITIVE, 0, NULL,
+@@ -1763,27 +1771,48 @@ static struct dentry *ntfs_get_parent(struct dentry *child_dent)
+ 	if (unlikely(err)) {
+ 		ntfs_attr_put_search_ctx(ctx);
+ 		unmap_mft_record(ni);
+-		if (err == -ENOENT)
++		if (err == -ENOENT && vi->i_nlink) {
++			err = -EFSCORRUPTED;
++			report_err = -EFSCORRUPTED;
+ 			ntfs_error(vi->i_sb,
+ 				   "Inode 0x%llx does not have a file name attribute.  Run chkdsk.",
+ 				   ni->mft_no);
+-		return ERR_PTR(err);
++		}
++		goto unlock_err;
+ 	}
+ 	attr = ctx->attr;
+-	if (unlikely(attr->non_resident))
++	if (unlikely(attr->non_resident)) {
++		report_err = -EFSCORRUPTED;
+ 		goto try_next;
++	}
+ 	fn = (struct file_name_attr *)((u8 *)attr +
+ 			le16_to_cpu(attr->data.resident.value_offset));
+ 	if (unlikely((u8 *)fn + le32_to_cpu(attr->data.resident.value_length) >
+-	    (u8 *)attr + le32_to_cpu(attr->length)))
++	    (u8 *)attr + le32_to_cpu(attr->length))) {
++		report_err = -EFSCORRUPTED;
+ 		goto try_next;
++	}
+ 	/* Get the inode number of the parent directory. */
+ 	parent_ino = MREF_LE(fn->parent_directory);
+ 	/* Release the search context and the mft record of the child. */
+ 	ntfs_attr_put_search_ctx(ctx);
+ 	unmap_mft_record(ni);
+ 
+-	return d_obtain_alias(ntfs_iget(vi->i_sb, parent_ino));
++	parent = ntfs_iget(vi->i_sb, parent_ino);
++	if (IS_ERR(parent) && PTR_ERR(parent) == -ENOENT &&
++	    vi->i_nlink && !NInoBeingDeleted(ni)) {
++		report_err = -EFSCORRUPTED;
++		parent = ERR_PTR(-EFSCORRUPTED);
++	}
++	goto out;
++
++unlock_err:
++	parent = ERR_PTR(err);
++out:
++	if (report_err)
++		ntfs_report_file_metadata_error(vi, report_err);
++	mutex_unlock(&ni->mrec_lock);
++	return d_obtain_alias(parent);
  }
  
-@@ -3390,8 +3405,10 @@ static int ntfs_write_mft_block(struct folio *folio, struct writeback_control *w
- 	err = ntfs_prepare_mft_folio_units(ni, folio_byte, file_limit,
- 					   record_selected, units, &nr_units,
- 					   max_units, &defer);
--	if (err)
-+	if (err) {
-+		err = -EFSCORRUPTED;
- 		goto out_noio;
-+	}
- 	if (!nr_units) {
- 		if (defer)
- 			goto out_noio;
-@@ -3444,6 +3461,7 @@ static int ntfs_write_mft_block(struct folio *folio, struct writeback_control *w
- 						ctx->error = -EIO;
- 					redirty = true;
- 					err = -EIO;
-+					ntfs_mft_write_error(vol, mapping, err);
- 					break;
- 				}
- 			}
+ static struct inode *ntfs_nfs_get_inode(struct super_block *sb,
 
