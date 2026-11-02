@@ -1,107 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615768;
-	b=IqkhAeaKOgX74wWB7Sd2VJA4UyttSRpAK+x9+Z2IiRKpBbMEbP8Vn2h6bUzKg7dA/mBK
-	 A+0ThFf5GZ2OO/bmWw4mUo/2qfSHyMS0Juv5fVaxYtEdGcP54jKalktqjFfbntQLm3REK
-	 Wbn1E5oycku3kEQbxmcI89b28hhMwoeV0eq8yEMbcMw9FNkDuygmfr9lStAvjKqOaw4nT
-	 oEF9fm+I4fnBp6yQUfFe6GA+Cq2a2rS/LZlepPswAUnDKc+T+ZczbiFq2i59lC0hJPKXV
-	 8spJhycVxJh//RtAWBHPE0bmOBLi8HD/MUJRnMzi0JzSTouriM9Df0vv0qOsrouHt3w==
+	t=1793615787;
+	b=yJ4rfF+65zNWO9XXcTeAdGwCSJ2U9U2yMeiFD/3Xw9PqGrj3uxGX1zFAQ8Nsk7vCemE2
+	 GaduOffZkjO/TWIj6OCI6MTd3qqFidL4Tvk0FwET5OxhhQPEEN/ulzyH8Lmd6IT3FAiTn
+	 NAtL0k6YUDT537V3C8hIYh3RuPOECbrE7Ora0iRw6PeN4ghzojSq2kgC10Aa46SabVL4m
+	 CjS91aQ2VwKZj0QEwavHS5pOBxlExyIvtuWCjuc6J6MbCkqz0PXCgiTz47G6MnI3B0/z5
+	 aP38jRzdGAOqZ9G0pFolJg7jwgpWNC+bbQrzO5VyAMB9glIDDZQ5IvMCg8/bH+fdxRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615768;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=TRhzeJj1YK8/7h9dIIOem89RRPtC49dqxALnXhljlDo=;
-	b=lu5MjQsOXVvZkaGCU6MqqeXkNi24s3alBveGSKyooPmSQl7XQTP8b/WKpa+2YiA1+hSD
-	 PQyQu2HSmnAOpQNL61NBjm555rbqr/tSpUZ4UKsEKek4wFz74x7KdEXbFKG3YfqmrgkzN
-	 Rmb4SWvgZH5wkiXeSJumizEZOJk7uCynh7NhfkzvsO99w46jgnZTRDNQEjssDhoAaxo21
-	 fJVyOKu/WNZF5zFEwdUAztBOV9DYI66xW6BBwQPQ4mFG/5y33xGD6ixto3t/e6rvMk6VQ
-	 OKgpPiLf2QYbc6RNanLVDLh7ZIX/8pPMqFScPy0jsBD4Hizv60/GLhPc38/E2RE3IzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615787;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=j/h1nzyLwLos+57W9zu2/iGj9UgqL5dXrMfiNd2SNZU=;
+	b=W4SFF07KEWtNCvcihs0B8xIl5wPwOUQ1jLgWr4l1hdO/PTJbYRhhARpbRyOQbQPtm7Pq
+	 kFjMgCD2Ck6CRAKsj5unV8+Elf7B3rQOrPXtujgRtTjJWhpdbNYcge10s7C4YGkF2k4pT
+	 G1bnpc4rO/Fz1VG5TWyOkB2WbMG4HlqoH5xA6JljUNETCJtLvT4tWOCEKV6PjAjyR9C77
+	 gUY88hIbaI/15GdZevQvAa+N0ECTP3spcsg9e7bx4AAtsuQmRvkwepIDZ3xokC0HVIUay
+	 /gGImCjXtkwreC4Ww8uCbiryfBfbKR7cCVuLf9WXTVi0TH9XaXKBitYzHDQ5R3hG/IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=n4K1m0W4;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="cDqlMQ6/";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=n4K1m0W4;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="cDqlMQ6/";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dqRMo+cS;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VGVeLrOd;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBA6606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEBA6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E43606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2E43606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=n4K1m0W4;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cDqlMQ6/;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=n4K1m0W4;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cDqlMQ6/
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 154E121F64;
-	Mon,  2 Nov 2026 10:36:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793615766; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TRhzeJj1YK8/7h9dIIOem89RRPtC49dqxALnXhljlDo=;
-	b=n4K1m0W4gEt+08pZ/ke7ocpeaWfykHo95r7XJVroWkyjbiT4hlZ8tSZkZ2CW8G+0uB/pcD
-	Aso+EIUrHnHFdEysbLOTX6wVNdgNWeaoy4+l/tktODMKf5ksKAxcl7dTaQgfNTRiPn3agK
-	MpkvITq2jcJNlb4zq4Kk8RL96nTyZNQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793615766;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TRhzeJj1YK8/7h9dIIOem89RRPtC49dqxALnXhljlDo=;
-	b=cDqlMQ6/px5ct/Lw6LJDpmI34aSvq3eKoIaCh8tYokTGUyPVgmMIL91f/zDsWFcoQRneaN
-	BGawnmfF710E+uDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793615766; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TRhzeJj1YK8/7h9dIIOem89RRPtC49dqxALnXhljlDo=;
-	b=n4K1m0W4gEt+08pZ/ke7ocpeaWfykHo95r7XJVroWkyjbiT4hlZ8tSZkZ2CW8G+0uB/pcD
-	Aso+EIUrHnHFdEysbLOTX6wVNdgNWeaoy4+l/tktODMKf5ksKAxcl7dTaQgfNTRiPn3agK
-	MpkvITq2jcJNlb4zq4Kk8RL96nTyZNQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793615766;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TRhzeJj1YK8/7h9dIIOem89RRPtC49dqxALnXhljlDo=;
-	b=cDqlMQ6/px5ct/Lw6LJDpmI34aSvq3eKoIaCh8tYokTGUyPVgmMIL91f/zDsWFcoQRneaN
-	BGawnmfF710E+uDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 22684134B8;
-	Mon,  2 Nov 2026 10:36:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id p7mnOJRn6GrtOwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 02 Nov 2026 10:36:05 +0000
-Date: Mon, 2 Nov 2026 10:36:03 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com, 
-	Songsen Yang <yangsongsen@insta360.com>
-Subject: Re: [PATCH] mm/vma: read anon_vma carefully in validate_mm()
-Message-ID: <auhnfQg8aS30V70B@pedro-suse.tail5790ac.ts.net>
-References: <20261102-fix-validate_mm-v1-1-5c309614ef15@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dqRMo+cS;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VGVeLrOd
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AQEw3440401
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 10:36:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	j/h1nzyLwLos+57W9zu2/iGj9UgqL5dXrMfiNd2SNZU=; b=dqRMo+cSRMsreCgu
+	/jQKDuUdCRXiqAJDUQ2UirIhyyJWVFsvA8LlMNa0KNYMgtJLXUhwfWytP1BaGd47
+	M5DCeDHRqxfY4DfqHtDCYoVs8G2VZqnQrnKPufVksU+LUk56E+UEu5w0i2pHWkX5
+	uCf8jHzk8sQzqLnRVSL7E9DIMWZZHwJzQgP62+ucqxqvAAlx1G6YNWjFmZnqpwGQ
+	kH4nioi3AmWiJZiS6g6zR9Zi2Bo+5VtnQ8go/0y4XQ3OLCT5cgjYRPWF5LlODaGc
+	GcS+dPi1ZgNGVlykOAXqj39gd9Grf0G6H0CaCILsSF4IJv3jM3jz8h+PMH3opAfj
+	H5LW+w==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpg201wv5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:36:25 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-147be78cd56so6732981c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:36:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793615785; x=1794220585; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j/h1nzyLwLos+57W9zu2/iGj9UgqL5dXrMfiNd2SNZU=;
+        b=VGVeLrOd2GvAG844DHWOJb4z9Lof6lYEMcp71dRe6sOzmqbWZGfNW4GvU3btuJY/M9
+         /naAlIOkgwZkwUmFm1Bl8mbnTiiXhly5JFh+Td7fxMM9KYtmYADh2WQnF0D/Eo1lo0wK
+         OXVhYlaermIrag7qWKW0st1FxQFordHgWn73Xc46ImmY7GsL9TKN+cfpie/t6Ppqlcfh
+         phnvvITabs76yq/xAhizPkGumXteCO3wfV8TXfkxkD4q9ke8cfz5F6YyTUHutP6toHRV
+         GYaLMPBPZKxZi0pBrPiL+k9iUaIjbjK8N7FkGwp1xY37E7pn7RdSJ/t1QnMoIMrM0vQh
+         9BxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793615785; x=1794220585;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j/h1nzyLwLos+57W9zu2/iGj9UgqL5dXrMfiNd2SNZU=;
+        b=gG1vHqBSrUzBwQMHHx40KNJ5RJW3ErC6LaRevZCQDgxPap0I5TXNbdECuoF1/6TLwy
+         agNILN+drIVPOx5wUhRDfrndNX4/iVs96lgn++ECwa6e6WsBMd0FQkZu4T7mzAulpJ84
+         lTo2HLk3qyRLiPF717bSm2kogkaTfXGgKpLn2c3d/7SawP+VzFtrxACSNHkYTRXo5xc9
+         HfF+++iQRphYB49kxfToQTcMZIryswCqmc+uCaL3Es2a0f5xmqk0YOkvO+Bpl2tynMap
+         vCkLlxPNFeS1wt/Mmq/V2Egi7jx4NrJvLig6D12HEh9UQJK4Ucs2IYaFLOVjkMpLB2zD
+         c3+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxgW77/GK5EBV8Z8B/D/9+xn6Q3Bto3wg8Kf1VEHSa9HkRzCc9Snspm56zntFlGBgWkFPwCMXOH+ohX85s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/sJz1B9ppLesrO5JaogWZ0ijALPD1LLl3kC1udGR835Ot5ZEk
+	mDZpINI/razOJgQgfE4OOGK09RH8C9xH7xK+Q3Zexpgs4PabewD91kCyn4nxDzXdRhVBh1+4t6Y
+	ZFoQq/14UUAwL/dhDVcSLVuZHZLXudig9ockMEWWSVsFIDs4yd1QVFt2SFUXuyoXtfKo=
+X-Gm-Gg: AYBFou0OqfoNAe3hzFtBMgABujRatxXvKkjUXuCes9+D1bg+GPkX0mMAEjEGZ0Ov4q9
+	efG1k8kyxxOFhwI9ur3bipGcPPR6uLRj0fi1qyeH2nnwegh6hekU3ZPE5DHFYMVB7Z4EWASy4SZ
+	SzmjMNQ1J2RgM5KoG+xhtYlpgWE4ZYswCq+Elum+U+5w61ocYvft4wrowDo8TMs1rA9tG8eHAbM
+	/kv3VBCgLzwJ0w5jzEAt6rqJSpn2lA566jsN9iJxhwcUe4aXIxRch47ay/8ERX+yZ52qqm9yyoU
+	NAYKFTJf/RyFiCDcHf1hU/ACE9rQSGFkOy7+BQnrs6Y3pfoWnTi0LgonewULx0h/6eE7gpu4Vjn
+	N8YkJlLTlhsveahYRoZqRTEieXrMZE9OJtQ728G+DGsulNh3llvtqe1YHEGECplnGumCq8Hh2r6
+	VwV9JDnTn0PiD6
+X-Received: by 2002:a05:701b:4244:10b0:188:ed6d:ebc9 with SMTP id a92af1059eb24-1ac5e6f5225mr14728395c88.38.1793615784526;
+        Mon, 02 Nov 2026 02:36:24 -0800 (PST)
+X-Received: by 2002:a05:701b:4244:10b0:188:ed6d:ebc9 with SMTP id a92af1059eb24-1ac5e6f5225mr14728355c88.38.1793615783725;
+        Mon, 02 Nov 2026 02:36:23 -0800 (PST)
+Received: from [10.152.199.23] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4b08bsm38136990c88.16.2026.11.02.02.36.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 02:36:23 -0800 (PST)
+Message-ID: <98f13907-fe0a-4a8c-8ac9-3be40edcaff5@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 16:06:18 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,59 +114,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-fix-validate_mm-v1-1-5c309614ef15@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_RCPT(0.00)[10e72ea5747737bcd2ad];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[insta360.com:email,suse.de:email,imap1.dmz-prg2.suse.org:helo,appspotmail.com:email]
-X-Spam-Score: -11.80
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next 1/3] wifi: ath12k: allocate the AFC memory region
+ requested by firmware
+To: Goran Sustek <gsustek@gmail.com>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+References: <20261030220824.915760-1-gsustek@gmail.com>
+ <20261030220824.915760-2-gsustek@gmail.com>
+From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261030220824.915760-2-gsustek@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: nrJIj5l-v7yosINRrRjtiwRpfIIPM3rA
+X-Authority-Analysis: v=2.4 cv=fZY4WEQF c=1 sm=1 tr=0 ts=6ae867a9 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=pGLkceISAAAA:8 a=dEvXkhbO6Lc7JD6ITUUA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-ORIG-GUID: nrJIj5l-v7yosINRrRjtiwRpfIIPM3rA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX3RJ0tLahxOeQ
+ cUUn+nfz76/yLTRf+kkSlaUbW9heF5uNI15Utdh2nU5lE5+9nl/mgNRwVkNWSNv9fCd05z1cHyU
+ zKn1yL2m2e3K/bEnkbaSyUT/HCa68qNaWki42WGQY7AfuzZpdKkGRRzUrAyCh1k4QwpSvHOEeqi
+ mQNdO1m3BOmqVVTJuoFYLsRQW1zs2KiXikrz6fX8Lh5FMKCHddhJW9m6wS8X1Ar7Nmw5UlC4P5Y
+ bwgAz8I6xoPaN2NAWhIsWftHMrKGJnkNXdm73CGjAb9q+qzhvzuKhIVsrZ2S1nqi5qVRzCcZxMQ
+ dXP5pJDGX5iIiBHSfrwdrK23Lvz9BhYnHyQ0dCcIBRT/OyW4JBE9oI+GY/ddf5xJkUK95qzClRm
+ mWoxiFh23iB4sT1AI/J++vchFc2GrRGYVbgJRKTdfZBsvzDDcBOBRmc3bbRk4UsIqkytp1PXM4n
+ mpzqFQHfis35DWO8tTQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX6ofvqcQlHnIJ
+ FNlmtxqhyb5n/DQHkyh5rnD+j8S6o8RPRT+w8NCzIAoI5Wvwu0kL+a771PQThNh6RAh2URERgfg
+ 56cjo7oMFNkg7d+6uXgjxgb6ykATuaU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 impostorscore=0 adultscore=0 phishscore=0
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020042
 
-On Mon, Nov 02, 2026 at 10:25:20AM +0000, Lorenzo Stoakes (ARM) wrote:
-> Commit 38564710f443 ("mm: implement and use vma_has_anon_rmap(), silence
-> KCSAN") rather clumsily converted the read of vma->anon_vma into a
-> vma_has_anon_rmap() without accounting for the separation between
-> assignment of anon_vma and later use of it.
+On 10/31/2026 3:38 AM, Goran Sustek wrote:
+> QCN9274 firmware WLAN.WBE.1.6-01243 requests a target memory segment of
+> type 0xa at every boot. The driver does not know this type, so it logs
 > 
-> vma_has_anon_rmap() is intended as an optimistic check, so doesn't need to
-> protect against a torn read in vma->anon_vma. The caller is expected to
-> take care of this themselves if they then in fact access the field.
+>    ath12k_wifi7_pci 0000:06:00.0: memory type 10 not supported
 > 
-> validate_mm() does indeed then reference the field, so resolve the issue
-> via READ_ONCE(), and simplify the code by separating this into a new
-> function validate_mm_anon_rmap().
+> and answers the request with a NULL address but the requested size.
 > 
-> Finally, add a vma_assert_stabilised() to make it clear the required state
-> of the VMA.
+> Type 0xa is the AFC region: QMI_WLFW_AFC_MEM_V01 = 10 in Qualcomm's
+> wlan_firmware_service_v01.h. The firmware asks for 8 KiB, one 4 KiB
+> slot per radio, where the host places the answer of an Automated
+> Frequency Coordination server for 6 GHz Standard Power operation.
 > 
-> Fixes: 38564710f443 ("mm: implement and use vma_has_anon_rmap(), silence KCSAN")
-> Reported-by: syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/all/6ae78418.6552420f.2a0efc.005c.GAE@google.com/
-> Reported-by: Songsen Yang <yangsongsen@insta360.com>
-> Closes: https://lore.kernel.org/all/20261102074414.10902-1-yangsongsen@insta360.com/
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> The firmware's handler of the memory response records the reported
+> address and marks the region as provided whenever the size is
+> non-zero; it does not check for a zero address. With the current
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de> 
+In that case, shouldn't chunk->size be cleared when no memory is 
+allocated, or should the response only contain the chunks that were 
+actually allocated and assigned by host ? (see 
+ath12k_qmi_assign_target_mem_chunk() which updates ab->qmi.mem_seg_count)
+
+Allocating AFC_REGION_TYPE while AFC itself is not supported by the host 
+looks wrong to me.
+
+> NULL answer the firmware therefore holds a region at bus address 0.
+> This driver never enables AFC and no misbehaviour has been observed,
+> but the firmware state is wrong.
+> 
+> Name the type and allocate it like the other host regions, bounded to
+> two 4 KiB slots. This removes the warning and gives the firmware a
+> valid region. An oversized request keeps today's behaviour with a
+> warning.
+> 
+> Tested as part of the series.
+> 
+> Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+> Signed-off-by: Goran Sustek <gsustek@gmail.com>
+> ---
+>   drivers/net/wireless/ath/ath12k/qmi.c |   17 +++++++++++++++++
+>   drivers/net/wireless/ath/ath12k/qmi.h |    3 +++
+>   2 files changed, 20 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+> index 280e50a1f31d..0679e5d2d4fc 100644
+> --- a/drivers/net/wireless/ath/ath12k/qmi.c
+> +++ b/drivers/net/wireless/ath/ath12k/qmi.c
+> @@ -2707,6 +2707,23 @@ static int ath12k_qmi_alloc_target_mem_chunk(struct ath12k_base *ab)
+>   			if (ret)
+>   				goto err;
+>   			break;
+> +		case AFC_REGION_TYPE:
+> +			/* Firmware requests the AFC region at every boot, even
+> +			 * when the 6 GHz radio does not use Standard Power. It
+> +			 * treats a non-zero size as a provided region, so hand
+> +			 * it real memory instead of a NULL address.
+> +			 */
+> +			if (chunk->size > ATH12K_QMI_AFC_MEM_SIZE) {
+> +				ath12k_warn(ab, "AFC memory request of %u B exceeds %u B, not allocated\n",
+> +					    chunk->size, ATH12K_QMI_AFC_MEM_SIZE);
+> +				chunk->paddr = 0;
+> +				chunk->v.addr = NULL;
+> +				break;
+> +			}
+> +			ret = ath12k_qmi_alloc_chunk(ab, chunk);
+> +			if (ret)
+> +				goto err;
+> +			break;
+>   		case MLO_GLOBAL_MEM_REGION_TYPE:
+>   			mlo_size += chunk->size;
+>   			if (ag->mlo_mem.mlo_mem_size &&
+> diff --git a/drivers/net/wireless/ath/ath12k/qmi.h b/drivers/net/wireless/ath/ath12k/qmi.h
+> index 6da10f3cb597..c438ef6c7680 100644
+> --- a/drivers/net/wireless/ath/ath12k/qmi.h
+> +++ b/drivers/net/wireless/ath/ath12k/qmi.h
+> @@ -26,6 +26,8 @@
+>   #define ATH12K_QMI_BDF_EXT_STR_LENGTH		0x20
+>   #define ATH12K_QMI_WLFW_MAX_DEV_MEM_NUM_V01 4
+>   #define ATH12K_QMI_DEVMEM_CMEM_INDEX	0
+> +/* AFC region: one 4 KiB slot per radio, at most two radios */
+> +#define ATH12K_QMI_AFC_MEM_SIZE		(2 * 0x1000)
+>   
+>   #define QMI_WLFW_REQUEST_MEM_IND_V01		0x0035
+>   #define QMI_WLFW_FW_MEM_READY_IND_V01		0x0037
+> @@ -173,6 +175,7 @@ enum ath12k_qmi_target_mem {
+>   	CALDB_MEM_REGION_TYPE = 0x4,
+>   	MLO_GLOBAL_MEM_REGION_TYPE = 0x8,
+>   	PAGEABLE_MEM_REGION_TYPE = 0x9,
+> +	AFC_REGION_TYPE = 0xa,
+>   	LPASS_SHARED_V01_REGION_TYPE = 0xb,
+>   };
+>   
+> --
+> 2.47.0
+> 
+
 
 -- 
-Pedro
+Ramesh
