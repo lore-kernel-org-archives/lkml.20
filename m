@@ -1,62 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619127;
-	b=1kci5ogBmXdX3OU7pca6+TBoWiKEfFi2v9CZusm58sMNIV1Bgd7acN4MFtvTVRP0Cwy9
-	 XMAmBPIKKihNFyN2XfluPYfNsvufmMkxfEqM8WoxC5SayFZ1EISkKGfVWbL2Uzj3P+0lb
-	 ifKdmqqYlIK4MNrRIw9V3r8FFsEr+9rYKGxx7+0jfGGeM7RyHsndV99+sEto9nx9rYqFa
-	 sPZXcF5156xxs+Ku9SOVv6bLuODEJUbONfIHaPinqQLSW4vPVDSUOthhtXM1HwxAU32nV
-	 gVCuQeuvVVd1tb/Cd1e0AyfUreOltqVRfJ0qCDjKaLpQ9XKZrNgiPWvDg9wnZc9aEmw==
+	t=1793619161;
+	b=f+BpSNAc11tiKaIz8YJlSu+WXzhY2YSuYDkwJ7AvnS2YClVy/NuriXuF3R2+7euoxQXc
+	 VMC4NAY2K1Iq/PVr243yozLHryHwjSjzzEEqYbGOBCkyXWcEXjLt/ybLE7CaFZgkODoum
+	 OpLV2OpCYpfSxoHZaeMe0j9la/TPl93ZLaYFhr+hyfBoqxd9yJMBCyc7fBRhX+7sPHZbO
+	 2yWAhqCCUxm1hR44y9yY2vd/nrIeiXDceW5zBmlgh0OmpyAG7obfS0XihF6n6jrMnvA4b
+	 7qTbps7raWL5I5pdF9RrVxK5Yo/ilKFPK46Gsw7DRQu9vwGWKr3qwHSGbsD4bdGE85g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619127;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BnnMTjL+IBBOUZBpzoaEzP/pmGlIxPAFzPCd5/LDnRc=;
-	b=06jAGZttYn7jCEwJhZqzfkFszXveYDQmroZf2HuCOtqNbWzq0x8GWuluLM8qh6LJpmKw
-	 XlKl138oLCHSmjnQbIbISLP3iBKMlS2gHsCdqGADpQPwhNqAe+yq1CmH3yWkdnoEoEhFG
-	 42ZPqc2IYmICXkOBBUBwkHem/Uegu5Yst7MiZoZ68Shi9RAcuxoVCEEm+2vpV1xCdsdCe
-	 yCgwA3qVX4fAJ9RtvOaeslYsvV2o+eA8505Pe+Oe0N5V2pnoykzn4ypXQ0quhFv9IcGAQ
-	 jRm9c827AXyi9DNOtwqcfawy4LJXI954bG5sTcDoeR9lQLmJWoet26pdwdrn2rYIJfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619161;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=LjKk0srtI1K5SrmFvikHzgWRkQar4AFheDwlU5TRYH0=;
+	b=4QmmELh6afziqMp+E1YcVn4UnDkKGTWyvQFIXevXd1oBX9HJzzjUrZF4mkhBFaZ14PrS
+	 47RPhpeS9cZt9xdD0NW8GYalCzGHPyip7S9kHX7LCTktP1QTJvPlhvOhgSEWtnMs8TFip
+	 m6liScS91QIGFo4WL42xxXYh9TglncxvSgfNC2bgMxjWMFI7rrGD0FsIhMd60o2vLtIrr
+	 ZK7M7CzGzh3+i0rt0Ki079d0GJNVNNsj4uoekNF3LzlevC3dnv/QCQQgdAC29/HWe+JUU
+	 BTaNKkKEZeGSIktUUC19ya8SsXIVUiqq+c1faSf3BGFLFS8JZZasUYnH/HLys6RmXvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwbSMHdH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i+0a/UMX";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D70606A32D;
-	Mon,  2 Nov 2026 11:32:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1984606A324;
+	Mon,  2 Nov 2026 11:32:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwbSMHdH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4F01F00A17;
-	Mon,  2 Nov 2026 11:32:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+0a/UMX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0161F00A16;
+	Mon,  2 Nov 2026 11:32:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793619127;
-	bh=BnnMTjL+IBBOUZBpzoaEzP/pmGlIxPAFzPCd5/LDnRc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZwbSMHdHTG+UhCMQHTY5QNWWyVf3VpuNYFUpeBJecKBnXhuiyDWPUsSd5S7Cz0JM5
-	 T8eealXr0El5k8WZCaImP+M9Y8rCPsatmC0j0BN/De15no70xmW2wfQiEiBkc3lGC+
-	 KVScZoQgY7SHqMxvWthTACWQKuFFH+B7Nugw1doFgKM0xG9BxpHtzGzVX3nrajwpdi
-	 0D4PlsEO17T5rruQ9jSiyWc4b8AWOGJJhccn2d4AoAM8Z+N+jrT8g6om4RndxfzNrS
-	 HQcSkxi7da5vV4iroOCATvTTVZnoHqmvgzpcvPSV/Zx+dBSTsMdOngId6R6wBk8rK2
-	 9KPzpgQwLnutw==
-Date: Mon, 2 Nov 2026 12:32:03 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ishu Brar <patches@brar.si>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
-	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: display/msm: dsi-controller-main: Add
- SM7250
-Message-ID: <20261102-opalescent-pragmatic-wren-34d6bd@quoll>
-References: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
- <20261031-dpu-sm7250-v1-1-159f403ec405@brar.si>
+	s=k20260515; t=1793619160;
+	bh=LjKk0srtI1K5SrmFvikHzgWRkQar4AFheDwlU5TRYH0=;
+	h=From:To:Cc:Subject:Date;
+	b=i+0a/UMXoYM3PVHhucyzMzzQwN5OhYTrY9kOGxLdf31G/Otv/7EILmhaWX2mVRLHJ
+	 6L+0TWe/736ifb0aCyCn6M8zIoXjdi5kIwfGTebI2omWeLzGq8/bYyuEpTqkfXgOK8
+	 WBGBXodhRBk2FA4W4mhzhBwZ7wRrvRZ7SU75TVPgAVspFOxcGoo1BFnzArahpTvhe/
+	 zU+x/Js8J6gl5LTiS3bPf/3mj3s8rG8TEuj+sIKhiacTfQT+CGvFEEKgnVwk6bIAQO
+	 s7Sf/jJdqKBgzELa0P7vOVGr0vX1Eyw1LCKjXP7NstnnqFKvwTPUUCESviIQI5xOqD
+	 GRFcmM6oKm1QQ==
+From: Thorsten Blum <blum@kernel.org>
+To: Mark Brown <broonie@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH] regmap: Annotate regmap_access_table members with __counted_by_ptr()
+Date: Mon,  2 Nov 2026 12:30:20 +0100
+Message-ID: <20261102113019.265822-2-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,24 +60,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261031-dpu-sm7250-v1-1-159f403ec405@brar.si>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=929; i=blum@kernel.org; h=from:subject; bh=OIfpaBPGxZ9VM1pOT/Tf1iGmH2vnUYMGiWMla28rclE=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkvSnw2Tcyc/uc+h8zZ4r7Fj37sqJ/o+6ZY/4XvM31WI UGvvqNRHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjAR1y5Ghu51j7vENpQ85Hr7 yn4Sk/vdrW2xp6Z9DeG+3/ji+UvB5CpGhlcPorarxHzl/G85P/Jg4s4L7Xltyx2XzBNUbXx1smL RBUYA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 01:23:37PM +0530, Ishu Brar wrote:
-> The SM7250 DSI controller is the same 6.x hardware as the SM8250 one,
-> with the same six clocks, so add its compatible next to its SM7150 and
-> SM8250 siblings in both the compatible list and the six-clock if/then
-> block. No driver change is needed, the controller is matched through the
-> generic qcom,mdss-dsi-ctrl fallback.
-> 
-> Signed-off-by: Ishu Brar <patches@brar.si>
-> ---
->  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+Add __counted_by_ptr() to regmap_access_table::yes_ranges and
+regmap_access_table::no_ranges to improve access bounds checking via
+CONFIG_UBSAN_BOUNDS and CONFIG_FORTIFY_SOURCE.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ include/linux/regmap.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Best regards,
-Krzysztof
-
+diff --git a/include/linux/regmap.h b/include/linux/regmap.h
+index c8aebd148e08..a72f17ab6264 100644
+--- a/include/linux/regmap.h
++++ b/include/linux/regmap.h
+@@ -248,9 +248,9 @@ struct regmap_range {
+  * check function will return true. "no_ranges" are searched first.
+  */
+ struct regmap_access_table {
+-	const struct regmap_range *yes_ranges;
++	const struct regmap_range *yes_ranges __counted_by_ptr(n_yes_ranges);
+ 	unsigned int n_yes_ranges;
+-	const struct regmap_range *no_ranges;
++	const struct regmap_range *no_ranges __counted_by_ptr(n_no_ranges);
+ 	unsigned int n_no_ranges;
+ };
+ 
