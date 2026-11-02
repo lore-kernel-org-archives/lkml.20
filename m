@@ -1,90 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793649221;
-	b=5saqgY3y2ERFNj9X1PDQUDKexBkQdzuk7yqDCnTzOBSqD0rh0pdPDJ0hX9u6ybQLFaJ4
-	 oVO4e4Qh5FPcnQWvYdjkbPRyTOUTNJSKLGyDD9Nv1/nMvUpeUcAyzg8AW04QPu74cYjM/
-	 BIPqbMbXaU11Y2F/YFX+qSozmQ4sgdqoiSNr4m6f/DdDanpLH9a5b934IPz7tbJGXRMwv
-	 B/brgQuKawpBgkJD7xOzf1aQnfIrJ8eVR1+TRsffM9lg9YMrBG5znEc4yWFOOKhMzd3wx
-	 mZ0vFrBy5xaUxBmuaDWU3A3dDZ7F1rnH6BqG+gPxrF50Qhzs+9GH1uhkrIWa5hRvfWQ==
+	t=1793649263;
+	b=JdzmjwnpLj94tgO3lcCG872+C//5AKfa4nutqc5LDtkVEYQhTymbFKfuF5UrF8yvFznF
+	 1lITu0bGN2e6YlHlo1Qfn1RVk70kCmbRCAnzJgXbACwbJ/CShc/GKDGwfBrEtNyhs1S8F
+	 oiDxRUNMHw8lg/cVu0MBizYwXMWvhWPRJRC+xoXCd1I890bWqiRXKhTVBmc9mohPyJVgU
+	 aC/hK+LQStb78tk+j9Z5Xkh3YjXVgjkvNBcEMLLPmMH4Y1bWo+xBixzpIi0ZToSJ4D54V
+	 K4Gf1O8jN8UCEwPcgEXWEOT71X2j8xJPc0a09RbefrpHEZ/UrZpgzNa7Elm1k2FdYEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793649221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649263;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=6xc/z4mGViwNXCDInd4Dq6eMgtyQh/VWtUKTEtky+Fs=;
-	b=Ak00gk0oFEv2lU0Jzc1+bRLFE68NMTNXyL0X8udzNSR07ZVvPr3uIEjD/3Np8epvf2so
-	 uD5xQtuoayLO8JDAfD81fhDsh+5pGZTJFhHOyDMULDcJUxlfajO80VGPah29N/Uk+hAC+
-	 RZG0cIwvz48GZoLWC9/czXyUWFY+45948qm9Tn7ms/2Y2kTqTveCyE4ODZVzELGlJfNbT
-	 FrI3bMnqIkQwg4nMPPHlNBYPCTUX2qXdb4SiaR0RR4k5xkUtm7Ii/uIbJYg97WRdkv7DT
-	 6BlqpGJfXSrWw71G49ObLGuboAPFcS+wFLeqp2HCsx3XopRDcvFeJ0XlbyNDGKGzOmw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=PXm/uwD24jlxN0Wbjq3NylUh7A4E/RjzDePOTrROpJo=;
+	b=rlCQdllxiIZIzBGpxG4YaSQ96o81o25SsDJPO6U/9YZNXqE0bLwIekqUzFxa+I6jtU1c
+	 gJpvPlFhhmPIlfdx4FzsN/RbDv40jo87l24kTlTjn9vh72Sztrhj7GDY8pYrihrYSrmkp
+	 1C7RbPi4HmJFYH/JeT0pdvR5P99GnguaZCCYEyyGHyyJMD18CFP0fuRzH+Rs0X6YBfwpM
+	 vjQhIbcu6Sk6QOCUwpIGmx3ebA2VA6EENJVI+hBmIlmYonNLQKwyR31N5TbBJOuVW8PMU
+	 JHvBuOS0oB9SmDTBZ37U642UvR2UA/CTNG1mPe1hY4K1b9U8TyHsbMS8ZsTmTTODLCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CZG30O0e;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=HxMoerxs;
+	arc=none smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C35606EEBA
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:53:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65C35606EEBA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD34606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:54:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DD34606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CZG30O0e
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48c45111bebso1464505f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:53:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=HxMoerxs
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b0f59a5fdeso28036427b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:54:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793649219; x=1794254019; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6xc/z4mGViwNXCDInd4Dq6eMgtyQh/VWtUKTEtky+Fs=;
-        b=CZG30O0eHcF47HD6dmaY2YcHN9EgyPb001GjtcfZ205JKhcdOmziqN4UL9ap9Xl4xO
-         +gCMpO8Sp+aQAWjErgpSQvMRoDOmekLjOrqzm4Zras78P9UttQCpq+fZiNt9qQg9hNDs
-         kcvhcsXlVp6bBlaO3RHZOnBBzT2MuJ5wxHSIzrTLHQ+lkMfqTjQKitU2j1xjNmNTwo9O
-         C4EEhMEqBMaCZrbC403Gh8m82711y0quJpU9u5dJ34zFsyQIsUD78FMH88SCIPGgo99R
-         ilTtyLjE4GFbNtLcgwO4vuJZHUkl+7oZkCiEuTRt/tgZkugTfXOpwIifo6fESTaiKL8U
-         ye7Q==
+        d=cmpxchg.org; s=google; t=1793649261; x=1794254061; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PXm/uwD24jlxN0Wbjq3NylUh7A4E/RjzDePOTrROpJo=;
+        b=HxMoerxs9ftVA4frKuy98OSQ1rbANNYtqCuy6NAd6YMcBMI+HRmaU9GrksVobzn5MC
+         IuphsQQC89Rk96z0yUPY+xpQ6lsFl3iTsK3QgesKAw1/72nH9hOJaBhzE0JyD8IKXUj/
+         fEVAHsGI/Lxp3SjMbftTpWbsErjcQz2RWWWhfw6ejtzTJClr7FINCpLvPLNOf/L7unr3
+         mdj26xq5UHsX2N+v3KJtmnxuRX9g9Pjdle/r2/NEVttUYNDLj2vbm+VLczltKwwGckBD
+         a85EXBSTiIz2jyf1hHJY74c9NV0+z1DVCzcJWBZG2FtloTfNAN8Wos34izd5FHE8mriT
+         oYvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793649219; x=1794254019;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793649261; x=1794254061;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6xc/z4mGViwNXCDInd4Dq6eMgtyQh/VWtUKTEtky+Fs=;
-        b=cted/8XwCLvVflWjpqrI6nUx6AmwJr7t+WU8bSJD2w0tevwHDqOWr0GldR+gfb6V/d
-         FZk05x9JeFGPKv7yBszNinjQfJtGQuVWv5R8I5RzIYEqzqcWFYNTsW22yFHpfPotWACU
-         SpI0HzwnNRQ9AZZi4b2NwzhN8TMAuG1/+H4aOqk+ESGXjtDTVJmQjuUyzWmdkipeISZ9
-         1JPYbAVchJ/z2IJJdNmrEQsrsN4fQxrOGYkUefxyRpZQptxe8JOuQ6DQQWArIQSpwL1Z
-         VI+JRc2e6Hc+b4eQqqd1g+uBwe1VaX4J63jEoR+gmhNa1OLeQGqxIUvjri3lEZOhgKVz
-         wo8A==
-X-Forwarded-Encrypted: i=1; AKwUvBylpagZ04c12Clouqk7eGhcFnRpuQjrrlvsxNXaUHyFNna6+F/TCwvFhZKYdPvRNBJQppd8w2lFl0JSNJA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HKLKzmPEBVUu1ZDPsEOGRuPap5wvsnWyqreNAN2LLC6GFURCF
-	VI7uyuwK3YrjQvJzKpZkABQuhiS//2sP22ENADvBNYOyH4glwoo9mihpgz+YqtoH4+IlJOGqpzy
-	IknNJwMBwUw==
-X-Gm-Gg: AYBFou3vPBqdVY/5VzKllksdzhTprl41VGkbwDMaaTZ5oorNOdB2NaRvsS52Bih94zD
-	CICCfXd+KFDEl5KXAGsIatzrzQ9kdcI2v5rlImjJ9kzObpPcdz+2wrPZJY9yv9eYTmq4l7S0Cj5
-	qMIcpqcYkeEJ0NJJoZm8SCqvCMF4BeGBAkcANFNvPMMV82UsXP5r2nYFRCRPULhaeD+Qst21mGP
-	1q3mUB27s6i46SxgeBzoqQjJ8KX6ex4UpmMHJGEJowGjPOgQ/5Lo3ngVioGFOeY6QxjgZwi8LpF
-	KthaDWnDS0J3Yi4uzpZFtwxD5q80usJxMJAOhRWyU5T67pwX1GfOnDMdEBaJLLMOaJpQYscluf8
-	IFHTmJUjF92XYGr8AUlpamQMTHJsWDTLQzHmNKoGpzjXESmrpOoJ3+5vjdtR51w2J/5bW04mV0U
-	sFF0FTYHQ68G+Yy1G5cXkAzo9o/CVbbmO6z4fDNWp0lrpxz5wnbIEFv4eUuIm/HCJN8R1l/izQH
-	JKNqPC3YQDsAsaN3OkhSCvOxpJBu5/cgjLv1xXc6GJIExiU5VL5mhEMtYPXFEDBdnB135UoG4pc
-	NekmtL9LUXhNC//KOFFgaN/9lb9n92FSVEEadqQJXNkVcxhqEY8Xo2L9jtKrYjt4eeQNH23GvYI
-	hWwlNEZKYnXUEUW//YGIJKcyGmAo=
-X-Received: by 2002:a05:6000:260d:b0:487:1256:ab80 with SMTP id ffacd0b85a97d-48e6e521406mr25540676f8f.57.1793649218827;
-        Mon, 02 Nov 2026 11:53:38 -0800 (PST)
-Received: from z13-ek5.local ([151.40.161.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3cesm24039784f8f.7.2026.11.02.11.53.37
+        bh=PXm/uwD24jlxN0Wbjq3NylUh7A4E/RjzDePOTrROpJo=;
+        b=JRkGMpJd7xXmC/S3LKxyUD3FqYAsKcULOcG4kQNMx/zaOFxHCIzfZMaO2BTeRZhy/j
+         fUGxuFyPv/rQ5TUBSl7tZV4UrkefaShqfkwFm2u03Qa9WgA9enBmKqwkkIXC6ng3kz1M
+         1y9yhdDVJyqDfPCQhzq8agmriSr7pRaTXSOR0O2MkHSluLBEYyoNTEt8hHwMImMgaxsl
+         v96d6u6KTDd876g5+Erl9fRwQ0yU8NEefWN0FHMpESgQFU/IdbQeiTDfgCDLMglu4uA9
+         kFLDbXEBCKDHqSzpcd7FSTAqk26phKh6L3KE4mohXOPCEoDJ/dmxWKxG/OeH0hm9XUot
+         oazA==
+X-Forwarded-Encrypted: i=1; AKwUvBznUH68owX8lphRsFzWsXYNIXeklmUbWf+qZ5FMbXL7DbSi+7dEVBysN/BquCAuAy3WuscyWA5fQ/R/9dg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eztvcQ8Th4WRcZJSm/Mnjhpkd9cn7bsnBIesmnpOoontVvXRm
+	lHvJjFHL5zT756pj9mTDxGtzPHOBZQbGKw8ytt2yIgE4o4WipgA0D9Xd1OTwrnXNcLI=
+X-Gm-Gg: AYBFou0MgecWwin51zI15+QVzcw65uLJa61ikgJLVM6rxhTzmtq6dfb6P68NqwELn6X
+	oBy+uDv3x0qXqRTIJkkewvZZ96zkKQ2XPayn42K3m4rur7In34MmsXQqqNGirt+5Ldd+EQhudPb
+	04SGhaZQyRqPv0eXvs2qCqvDDogJFL2f0sOpkPa2yaba+ftUuNuc4XYIoNp348Xdz1HUhyFSOCR
+	cjO9v/+IszUW+BKifuemQ7vJa0HtQGbMv/vQzUdRNqQfZ9lUrwxH91Bb32mX8q9c7OSITtF3o8G
+	OMCwBXuJSelVHrSmAC8sU+H3vE7Lmj7Y+VWWFEkIYwNYKbzoTPvVhkdJOtNcyYwiM/B8NVoUmK0
+	cILVgjHmnCekC3bPli37pg8poVmqVSRpjZJgIS27bIpEHT/jzCQ2ge4s2DlTMlK2yVxnzR1wAHe
+	WZEEZfnrr8xf3G87VMQPQBUuHcWHdBCoD0uZ+MQa0q9PbsYvaA01JCMe+yDTQSeI258+cfyCW+r
+	5p4xZ2M4fr+0QYx0LmIvTPvAEiu5SaSHB5M+BpS4nh4aBfZ09+l0nzMPoWbINlFNo1bSCPV5uUu
+	BaKwHirRcD6cBDzhjT2DbuBZPtY=
+X-Received: by 2002:a05:690c:348a:b0:88f:df4:1c8e with SMTP id 00721157ae682-8b2b66c5d61mr71635247b3.22.1793649260825;
+        Mon, 02 Nov 2026 11:54:20 -0800 (PST)
+Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b7125371sm58207037b3.11.2026.11.02.11.54.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 11:53:38 -0800 (PST)
-From: Ettore Chimenti <ettore.chimenti@linaro.org>
-Date: Mon, 02 Nov 2026 20:52:54 +0100
-Subject: [PATCH v3 8/9] ARM: dts: omap: dm8168-evm: Correct SD card pinmux
+        Mon, 02 Nov 2026 11:54:20 -0800 (PST)
+Date: Mon, 2 Nov 2026 14:54:19 -0500
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Harry Yoo <harry@kernel.org>,
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>, Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Gregory Price <gourry@gourry.net>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 1/2] MAINTAINERS: add Johannes as the page allocator
+ co-maintainer
+Message-ID: <aujqa-dA7Xa5SsIa@cmpxchg.org>
+References: <20261101-maint-page_alloc-update-v1-0-27e8c246b13d@kernel.org>
+ <20261101-maint-page_alloc-update-v1-1-27e8c246b13d@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,79 +109,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-patch-ektor5-dm8168-dts-v3-8-9bd6d1d128f2@linaro.org>
-References: <20261102-patch-ektor5-dm8168-dts-v3-0-9bd6d1d128f2@linaro.org>
-In-Reply-To: <20261102-patch-ektor5-dm8168-dts-v3-0-9bd6d1d128f2@linaro.org>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Christopher Obbard <chris.obbard@oss.qualcomm.com>, 
- Andrew Goodbody <andrew.goodbody@linaro.org>, 
- Paul Walmsley <paul@pwsan.com>, Russell King <linux@armlinux.org.uk>, 
- Rouven Czerwinski <rouven.czerwinski@linaro.org>
-Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Ettore Chimenti <ettore.chimenti@linaro.org>, 
- Christopher Obbard <chris.obbard@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793649208; l=2155;
- i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
- bh=83Hmt2YYwsYCIfUczSaxPVDOXa1KO6SZNJLSBdpkV5o=;
- b=TLBdM1+sU+wTuaQpo94tDJqhnYNjg8MUQxSIk4PZnYVzOAOkVVw7lGekklx4Cq3Ehj9UD9D0n
- dl2n0uUP2tLBPCNhdpI91bIrVmPTfvcydc/9Amkd5hC+OuD442bSYeU
-X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
- pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101-maint-page_alloc-update-v1-1-27e8c246b13d@kernel.org>
 
-From: Andrew Goodbody <andrew.goodbody@linaro.org>
+On Sun, Nov 01, 2026 at 05:34:48PM +0100, Vlastimil Babka (SUSE) wrote:
+> Johannes is a long-time expert and reviewer for the page allocator and
+> has agreed to step up to a co-maintainer role, so do that. Thanks!
+> 
+> Additionally, page allocator is joining the MM transition, following the
+> MM core updates from David [1].
+> 
+> Patches will be collected in the mm/page_alloc git tree and integrated
+> via the mm/linux integration tree. To signify the change from Andrew's
+> mm tree, remove Andrew as M: - get_maintainers will continue CCing him
+> on most patches via the catch-all MM entry. David prefers not being
+> added for mail volume reasons.
+> 
+> [1] https://lore.kernel.org/all/20261030-maintainers-v1-7-97278f8a5f54@kernel.org/
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-The SD card lines use external pullups and so the internal pullups need
-to be disabled so that they do not cause contention on the lines.
-This bug was revealed by correcting the effective bit mask of
-the pinctrl device. Use the correct macro for DM8168.
+Thanks for your trust :)
 
-Also fix typo in comment SD_DAT2->SD_DAT3.
-
-Fixes: 86800ffe84055 ("ARM: dts: omap: dm816x: Correct pinctrl register")
-Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
-Reviewed-by: Christopher Obbard <christopher.obbard@linaro.org>
-Tested-by: Christopher Obbard <christopher.obbard@linaro.org>
-[ettore.chimenti@linaro.org: squashed after fixing DM816x macros ]
-Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
----
- arch/arm/boot/dts/ti/omap/dm8168-evm.dts | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm/boot/dts/ti/omap/dm8168-evm.dts b/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
-index 81450e15b889..a6d42766a496 100644
---- a/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
-+++ b/arch/arm/boot/dts/ti/omap/dm8168-evm.dts
-@@ -45,13 +45,13 @@ DM816X_IOPAD(0x0aac, MUX_MODE0)			/* SPI_D1 */
- 
- 	mmc_pins: mmc-pins {
- 		pinctrl-single,pins = <
--			DM816X_IOPAD(0x0a70, MUX_MODE0)			/* SD_POW */
--			DM816X_IOPAD(0x0a74, MUX_MODE0)			/* SD_CLK */
--			DM816X_IOPAD(0x0a78, MUX_MODE0)			/* SD_CMD */
--			DM816X_IOPAD(0x0a7C, MUX_MODE0)			/* SD_DAT0 */
--			DM816X_IOPAD(0x0a80, MUX_MODE0)			/* SD_DAT1 */
--			DM816X_IOPAD(0x0a84, MUX_MODE0)			/* SD_DAT2 */
--			DM816X_IOPAD(0x0a88, MUX_MODE0)			/* SD_DAT2 */
-+			DM816X_IOPAD(0x0a70, PULL_DIS | MUX_MODE0)	/* SD_POW */
-+			DM816X_IOPAD(0x0a74, PULL_DIS | MUX_MODE0)	/* SD_CLK */
-+			DM816X_IOPAD(0x0a78, PULL_DIS | MUX_MODE0)	/* SD_CMD */
-+			DM816X_IOPAD(0x0a7C, PULL_DIS | MUX_MODE0)	/* SD_DAT0 */
-+			DM816X_IOPAD(0x0a80, PULL_DIS | MUX_MODE0)	/* SD_DAT1 */
-+			DM816X_IOPAD(0x0a84, PULL_DIS | MUX_MODE0)	/* SD_DAT2 */
-+			DM816X_IOPAD(0x0a88, PULL_DIS | MUX_MODE0)	/* SD_DAT3 */
- 			DM816X_IOPAD(0x0a8c, MUX_MODE2)			/* GP1[7] */
- 			DM816X_IOPAD(0x0a90, MUX_MODE2)			/* GP1[8] */
- 		>;
-
--- 
-2.56.0
-
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
