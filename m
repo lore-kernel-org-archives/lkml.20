@@ -1,54 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793610004;
-	b=nFKaT+r07QlpxdiKYYaJKh11Hx1Id3/WITEHc1fyi3sH/i3OdDPqjcPGR//73S3WqFlz
-	 Oa+YOX7AMx06dyBxBvSMrWsK6LJwtMhEjkGdhS/voFoVpc35mmv3h+hwLUbMVdBCdVQZi
-	 U2KjS/yj88R/ThnvLY/YB6S55/BpRxYes1Kwaro46imoQRlicZ36aaH0aTi6dR/CVXsf/
-	 wPyItKXukKS7WZuLTPs7EN4BjI8Q5Ab/1SzzbOQVWg6tGh6HxFDZpM5yaWlC+kbfyif2X
-	 IuEvnGBHPoNRKbu572swJE0NuJg03lG2IKNvHJvwwgYVoOZPwv9EumouVo1p9c5Wp5A==
+	t=1793610010;
+	b=h96PKyHV+nISFsyN3z2Uia+zOmyqwjIrtWguW7WjJEtlFU+QKhAl/hKTtnIqpkTys7iU
+	 Ufc+WZbfS1x5/9Mr1eu+euKbUu9ojkMZctZiRuYpsLwLUOwXkoNFM/qLTJlmjgK8Hywds
+	 mD/zv7U/qh5Pp6VBpQEmIh4dHdSTYfKiewR/SlhGEPVolrDkE6Pvid2zyVAsuQg3kvA/0
+	 z8XyG8bvdmCW4mPPYz7A3c/Zu213IoCnK3Kx3sAgq3zP2RCHkqvy/hKllgqZIS1fQxKKd
+	 cul3CxUIQKYnYdDglFiWv6HTT85FQNJgZDPvfGH91pRMLsyLYG0Fw0rHhPrxqEDq75A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793610004;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=ysRbBTxQOaG2zUnsnZ1b7UARhQcGu3+4XgtIfISHXi8=;
-	b=nZxqqC6/PLamp78tfsCGh7Scfx7XqanOXhdtepso77IqqHiBh/mjyw9BoDPaYg+kfsTi
-	 sTEnBUlujkAICHXfQAuzU/6YqAK5k3zIbQgeSpwgzv7cyzimU6sCo1ex6yUwArlOXj+eR
-	 OZxE+zp2nQWxpwxy+DA48sIbUyjJHhIfU3kL08Zoj9qWDdtECqDkdYEFyjRPWX60VUwe4
-	 /QxX71By30RmPVuUubRHEupC0B7g0wP9Nl8l8FDE8fNVxj+1PjZA+ZChfDjQUZ4LPmPQ/
-	 B6GEzaeh99A4TsGUXRrH7SfNzrA3Sz50qjuIzB8qEgd4yCynx37/22Nr29niFk0gL2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793610010;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=57BiYOXdOi8uKNsKTxyABVWaUaY+V4fc2euaOk5k4KM=;
+	b=V6c3ofFhBx5D8oDVpb4xoNwhARrH0aHg7aQtkQx2WU2L2osZG7Mim2RKHHrQKBkbQXGU
+	 kJ+3kymGBpEI59tPBSBLPhExrFPu1/55Yarh4DISm+mr3PrnDpPabKGIzevqGFjPtr9Vg
+	 6abepta+MkJNZw2cByDc8iJDPxyGBsaae6PUyi8LRcuekcSFp+MWWNNItfIXuNmBHygaW
+	 ZfR1jk/36bso0s8bU7h0w5hB5U52sW0hMHPxSm0Z3AvpcDvN233kXskncxe7CN3WmVXVz
+	 kivgpe5b0uSPIaPeq/4MY5FQ4CafYhv0sbNjrhuamZHfYhvofW5HZKbllzt+UKnEx+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="FNY8/VdP";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6jA1WgW0;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="FNY8/VdP";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6jA1WgW0;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC085606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC085606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so4187662b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:00:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793610003; x=1794214803;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ysRbBTxQOaG2zUnsnZ1b7UARhQcGu3+4XgtIfISHXi8=;
-        b=GiQUZEhAy2Vi3adsbi81xhBMoq4H0UvrQ8XhU9lO/abpdlmRLOFd+Ewpe3HmVzwXUU
-         Z4Ppk+EKt71BQq57vbGzhRQjLxwC6qQN2NPiHQc6okdG8zpaJ93dIyxGHuBeLwi1P/Jx
-         v2l71iDu08RdH55UO64Y9I1FVsoJiUSs1eYikKxmf8Kr6sDi4clhpop4amthdf1cNhiT
-         PR3aivJfjPt3+WHuhtpWGAo1q1O34jh8tBREaSkBCkgzoPPeNI0Zg/iQ6wh+rDAGOoNp
-         b1X4bUoLypBFzCuxKA5H6pnMJkJ67Q5EazO2QxVbrk/9beOrI8iSLpMXYSpuwRQsKK9p
-         lsoQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCyb6JNfW9506RTSvQCQg2O3qUMDZHOvz89FXXHMjY+A/z1wQ9HBCNCjHBacuKlxZxHszy2iZbm1JXzkk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6FUqRRN0gMrMaw+fAAzdGW4mRRnfWQCUrmcb9/uWBkKOoYag0
-	Ga/ztxFwcEcxTPatPhL6PO/Fk+9cIskC55gbsicXrqVVh6vH0IecnL9vV7eY0gJDzq6EfYzShVe
-	QTt7rPFJdIuus4Bgy4G2wiMA7b7ZNSbl8iPVkE9qY7Q6DQpU3/3Qh7znSSso=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A79606A333;
+	Mon,  2 Nov 2026 09:00:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64A79606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FNY8/VdP;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6jA1WgW0;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FNY8/VdP;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6jA1WgW0
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 83876222B7;
+	Mon,  2 Nov 2026 09:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793610008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=57BiYOXdOi8uKNsKTxyABVWaUaY+V4fc2euaOk5k4KM=;
+	b=FNY8/VdPl6jRayA3Go7XyVATXkMA3YHP41BzvYg/FJwwaxGy5f4Dq3VuwclK/ChBYLMdY9
+	l5RGU78ABBIgdmNMH3eYq89TxnOc1eLN0x5GcEpf8lOTDDUKYvT5FTov4dU/8g57rwP1j7
+	E2ML55EWILvtlhTxNTIJbkhEjb3GAVk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793610008;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=57BiYOXdOi8uKNsKTxyABVWaUaY+V4fc2euaOk5k4KM=;
+	b=6jA1WgW0bl/+wJCuHWw5yj7yjLoHo8IlOZ9EVIliyrW3TgxcaS4XrsLIra0A5xIMJ6TNN9
+	49xzfuiyQW18rRCQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="FNY8/VdP";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=6jA1WgW0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793610008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=57BiYOXdOi8uKNsKTxyABVWaUaY+V4fc2euaOk5k4KM=;
+	b=FNY8/VdPl6jRayA3Go7XyVATXkMA3YHP41BzvYg/FJwwaxGy5f4Dq3VuwclK/ChBYLMdY9
+	l5RGU78ABBIgdmNMH3eYq89TxnOc1eLN0x5GcEpf8lOTDDUKYvT5FTov4dU/8g57rwP1j7
+	E2ML55EWILvtlhTxNTIJbkhEjb3GAVk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793610008;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=57BiYOXdOi8uKNsKTxyABVWaUaY+V4fc2euaOk5k4KM=;
+	b=6jA1WgW0bl/+wJCuHWw5yj7yjLoHo8IlOZ9EVIliyrW3TgxcaS4XrsLIra0A5xIMJ6TNN9
+	49xzfuiyQW18rRCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3CD0C134B8;
+	Mon,  2 Nov 2026 09:00:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id VQVFBRhR6GoHUwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 09:00:08 +0000
+Date: Mon, 02 Nov 2026 10:00:07 +0100
+Message-ID: <87cxsn4nhk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ingyu Jang <ingyujang25@korea.ac.kr>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] ALSA: ice1712: Make chip_init helpers return void
+In-Reply-To: <20261101172134.3451066-3-ingyujang25@korea.ac.kr>
+References: <20261101172134.3451066-1-ingyujang25@korea.ac.kr>
+	<20261101172134.3451066-3-ingyujang25@korea.ac.kr>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,36 +113,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3206:b0:522:1ac7:a573 with SMTP id
- 5614622812f47-5640dddbb38mr6565950b6e.43.1793610002907; Mon, 02 Nov 2026
- 01:00:02 -0800 (PST)
-Date: Mon, 02 Nov 2026 01:00:02 -0800
-In-Reply-To: <1793607695.6AE8480E.001.4jJ4Rg0D6Dz3CNh@fangwg01>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae85112.6552420f.2a0efc.080e.GAE@google.com>
-Subject: Re: [syzbot] [input?] [usb?] general protection fault in saitek_event
-From: syzbot <syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com>
-To: dlzhangak@isoftstone.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 83876222B7
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -12.51
 
-Hello,
+On Sun, 01 Nov 2026 18:21:31 +0100,
+Ingyu Jang wrote:
+> 
+> snd_ice1712_chip_init() and snd_vt1724_chip_init() always return 0, so
+> the error checks on their return values in the probe and resume paths
+> never trigger.
+> 
+> Change both functions to return void and remove the dead checks.
+> 
+> Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+This one doesn't apply any longer due to the recent change.
+Could you rebase and resubmit only this?  Others have been merged.
 
-Reported-by: syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com
-Tested-by: syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com
 
-Tested on:
+thanks,
 
-commit:         6628e7d4 Linux 7.4-rc1
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=10b7dc8d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=54057b894b08d3d4
-dashboard link: https://syzkaller.appspot.com/bug?extid=eba2b3201bd25a97cddf
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=130bc8a1580000
-
-Note: testing is done by a robot and is best-effort only.
+Takashi
