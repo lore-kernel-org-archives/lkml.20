@@ -1,73 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623300;
-	b=wOpnuJxCvhNXqpPFSYW+Nyr4blGompZR3rEuEPXB36AKsjT1cU6M8d0pIj4cfOyFmfhy
-	 zMnyEaOMKAEMBird0mqyaVcHH2ofZKevLxTm9vbIsLwbXCmx/pu3h11Q53KjZd92b6awp
-	 XGV5x0bE/7NnhJZCtIVPuDJeVYyT6DAEafkKv8cWN8WwEYUJkM5nfJAjDh26Xh1ePYm22
-	 uH1X1X9I3SSUGs1PE4r0XaGTMCr9V8g+QE+B/uIdd++zc9mg5noyd0StstcO/G0SlTpB8
-	 6SkiTQi9UQclNrOyHhcrbfyDVbn6IxYt002YkuKoCA1yWLCX2KmNK1lAQ27A65uXPuw==
+	t=1793623302;
+	b=QiWBZ0+0dxHUenCOEK+STqeANeNTxCrn5LwKmMchpF+km/XWwRYNm00gnczg4Fdn8v01
+	 aeQIzLGzi7cemvU+QFRwAByOD69HE8OXXlamTq8nz8lgZ+XaGUI6VMVrg17n8snIsJbww
+	 o9e8ptBUvw+J3MuYfGHg351PgPEuso8VMBE14lckOD1n0n2drhr4s1snWZKIF348Aebpr
+	 Yp2zT6JRI27XLvima5QDPi8AOKTQ+pnYNWt/jAUhvxp5eU5bGVGzYNtS85N08VjEoUrCI
+	 pIZ6UlwO8wIMUjdS4fJMlqnA31cgavVJkG93RjQJ8RKNMe/D9B0tDJvkgD7tDjOruIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623300;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=Dd5nwf+WLQtI9PxARSqJjgB4oXeHrnnLIPooje3BDgg=;
-	b=DFE5U8WORkJagbSJ397CqzppY8JqlfU8+r7UbDtyZT+7Myoz4+bNy/fgZWg75UcaLXZM
-	 7yVJvQYVGbEqWSzGbTaCCC7hwIyw3jFEbbFALxAeCuBdOtRBOGetul5GFW6UrbggKs8yR
-	 KKTls316l0cYcbTdKsY1sYsvg4EN55WLzreMNgB3XqLpNEhKIE+v7y1iRezvOturQldJL
-	 K2SJ+g9UISgcffkt8E5f0c17qIhZ9MN7RmAKRSHSMIth+uZ6Rmd2IXnzeK7JdokrHMtxt
-	 9/hMG+OzyOMCFdzZAT4MF3oefOKchlloRLDdmRHBRr48fQYax9skedLe7CENX/pgWKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623302;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=0K/kk/xg/UgjnFn0zbxERZn1yCSzXC1LhAPfI4G0AyM=;
+	b=uBaPEQVLuY3WTlbMw+ws3p90FCfYV/vYl1PfdRMTqK//FKkCoRs9pDQtTXvTWSe6pnbx
+	 loFBl0rKG1su05smU78cUqH/oKAXNglQzrtA0yp3e4DbeY3RS+MFsjhe4F603aq+Ubn3m
+	 /X53/7Mu03n9sPkM1dKVFxUxeev1K/2mgsLx9gCmqYWQ1cV8KXONn3Qht/stCmVrWr6lh
+	 ZOZFAR52ZCvjsrn9DYHl/vmgq70md4qglVGlCCYwAlf368TdDRTb2FU+XM6jvazKf8xJu
+	 J63WcgzDKWdX8fwcPFQ69EQLeyAwjoIPdl0TueXOtiOdz7yZTcBSHUpVfmoEiT5PSNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjzV+wIv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuYmJL98;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6880460A2604;
-	Mon,  2 Nov 2026 12:41:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E414360A260C;
+	Mon,  2 Nov 2026 12:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjzV+wIv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6041F00A16;
-	Mon,  2 Nov 2026 12:41:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cuYmJL98
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 772A41F00A1A;
+	Mon,  2 Nov 2026 12:41:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793623300;
-	bh=Dd5nwf+WLQtI9PxARSqJjgB4oXeHrnnLIPooje3BDgg=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=IjzV+wIvEHv/SJVOTwVIKMhF9jY8eRSiiLdIn9GoIw0Lx9sTce79yk9Ki8hHvlppW
-	 uqBwJlYi6z+YTYUZIKhoCSphNCxys27cWR0SwIG45cOFHKRoQkc1Iy/oV1ypvQ5Pfz
-	 TlI5NfhPVQW55TSNWQLcKFakfbh6aJW5/IslQM4uUMx8deJ5AxAfmeajmD7QY3gjXQ
-	 2vlj2s6ZmpLrpG1Pm0JMChw6yRUuRwvVaHlKoluKiFrhvuZDFxbf7ynn++sQvid9dI
-	 9g7Y6D+8nhgBI5kgQsKpmK+7MDeUH3joGD9mbH1Kx2iMzfMEjF5uXbqEmFshc09C1u
-	 yS0Z2Tkx4NmBg==
-Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
-	by mailfauth.ams.internal (Postfix) with ESMTP id B1AD8198003A;
-	Mon,  2 Nov 2026 07:41:37 -0500 (EST)
-Received: from ams-imap-01 ([10.64.2.21])
-  by ams-compute-01.internal (MEProxy); Mon, 02 Nov 2026 07:41:37 -0500
-X-ME-Sender: <xms:_4ToaiZ8HHVms7tpa0xBZjwHx_44tTL4ptSB4N1Es7ms-Xzn6FOHAg>
-    <xme:_4ToagPUQbeS-aQ3gOApEF2qU7yOluKZ2EXPX2SeyOFyz6_PeyJC3RKWPfX_K5p-5
-    _HfmPuiKA1djHStuX77KVPaImNr4MNK3JpOBgyLTC7SedlKQsOfNoCt>
-X-ME-Proxy-Cause: dmFkZTGTqkAMrk57b7OQbK3DyWWpE4qd0MYudCQojRNDu0ofdbsw7D7Lypr65o9/ITnRGW
-    wGchu5foRYFirymYS5BGpUR4SMi7Q8wVV/i9vsMg0vFtqjdBjCEw9IUcxLBe6DDvysnBOA
-    dlV8DiexUDrwkGk/nOAfAqwWqtg4kakKHCMHKRal/7ZIeZr2SO4gB02d0pEZ+410mX/5s/
-    5FZ/l/I6VJylIfdLBaOVZhZHZYqMtjXAQ1081Ba/5TwevPaT2Hv1xHbLGSDiXI2/Jp2yY2
-    QuQf7qJpeP2yDeu9ssGHgM6EFQhWY2rLGvP3DnOa/CJKCokBni+RaDs4exUEXvWriIeInq
-    UESJcAC7KwS1Rdioo1f8cwweEeZXVrVbWd26E6XCn0y4W7vCATC+JVxr5sUKFc+YernvL6
-    0lwBXCP/pBgWMBY/IlQsN2ROPCO4f1HYwjXbm1jmJztKtfhJKjNseq5MEK4JyT8c3e3SvO
-    122dmPbRIaQnFx+LJW4oNTgYRVESNP9F676Xj5xLvbfb7hyG5DSKVYsX62v5NpCOxG8sKi
-    gVG0z/O8toTjIUlUGQxIFN54x0fdyr8neL63wnb1JsFwV6PG76OX99fQPN5AB/VWmld3WH
-    KNaUZpUcwkFTiRI2+qsUTbdnj39WQIxMsy0jaIluIzoc795VuI4vtFs2Sh7A
-X-ME-Proxy: <xmx:AYXoauXYFCDTK1M1HpHIL0LGZ0l6qNs3D9YD4zWt062Tv9NbfG3dtw>
-    <xmx:AYXoag-WRD-hk_g9RG1f76UbzLReqmZ8q5MOa1jJ8uKLyLbCPg5vqw>
-    <xmx:AYXoaup_yWO1aPMlSuGMcQBXymVPBm07WbQesDx9SndJ8hEGaEccMw>
-    <xmx:AYXoajJS3cLBQ3K96f_ClR65C0_Lu5kRRcZ9K3IPby_pBiKSmp9qmw>
-    <xmx:AYXoahP2FosmScEzcgHVDhdzAKsnSvoi8pz5va2O6R2SxvI9OePu1aIG>
-Feedback-ID: i78584a88:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id A744DFA008F; Mon,  2 Nov 2026 07:41:35 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1793623301;
+	bh=0K/kk/xg/UgjnFn0zbxERZn1yCSzXC1LhAPfI4G0AyM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=cuYmJL98mGCdlR+b8kZHbs6IYQpM1ssGtPOIFt4UlYV3Ho8nu/80Q1PUxNJW3Pby1
+	 GcpY1my0QleTLD9qriqbgUqsBVseh2lFij+pBbtAYmDhYqa1HBuF5j4N2gDdiRFw1p
+	 kOA5o1JGwQSDQ8BAweitbCTiCov09gQ7kmRiljaloDorMEMAc3wlLW7jLiqvgwRP8m
+	 WqCci9edXT75mNlPNBVTJxImh5GErLwzYl0kAs/PNfaR6DSWlAlKe72JEnMplVrDBQ
+	 ItWFyrVgW/dNko8XjzJvOWhneL8WtVi/bcAxiqTCIWtzd8Z2txHtwBX1rQ97daGxD/
+	 3RFY/zP7lgMtw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id BBF9323103E8;
+	Mon, 02 Nov 2026 12:41:39 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ =?utf-8?q?Pawe=C5=82_Anikiel?= <pan@semihalf.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261029080143.12304-1-phucduc.bui@gmail.com>
+References: <20261029080143.12304-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH 0/3] ASoC: google: Fix bugs in Chameleon v3 I2S driver
+Message-Id: <179357819218.1716893.1856349760296131594.b4-ty@b4>
+Date: Mon, 02 Nov 2026 00:09:52 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,35 +65,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AxkkgEysBEHg
-Date: Mon, 02 Nov 2026 13:39:54 +0100
-From: "Danilo Krummrich" <dakr@kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>
-Cc: "John Hubbard" <jhubbard@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- nova-gpu@lists.linux.dev, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-Message-Id: <1dab8bfd-e907-4d12-a4fd-280baacbb534@app.fastmail.com>
-In-Reply-To: <20261102-cmdq_wait_msg_timeout-v2-1-50bc4534b659@nvidia.com>
-References: <20261102-cmdq_wait_msg_timeout-v2-1-50bc4534b659@nvidia.com>
-Subject: Re: [PATCH v2] gpu: nova-core: gsp: cmdq: reduce sleep delta in wait_for_msg
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1596; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=lb7FDhtSFoFBUS0CPcz1W2m9j5YeiDdYOI2/pp9DguM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetDL/N7ZPurD3drXoNrc35gzz1rMqXz7/y8xCzFHSd
+ PLlbMuEjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzEOoWRYYe648a3gn4iN67y
+ /l57VXJK1sPc5u0lr36L/Kq/maOVacjwz+Dtqtog1SKbfT/DWlayztjE9TCRZcu5jdrSLRKBrTO
+ Y2QA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Nov 2, 2026, at 1:30 PM, Alexandre Courbot wrote:
-> If a message is not immediately available on the queue, `wait_for_msg`
-> sleeps for 1 millisecond before checking again. This is 3 orders of
-> magnitude more than Nouveau (which sleeps for 1 microsecond) or OpenRM
-> (which does not sleep at all and busy-polls) and is way too much, as GSP
-> commands are expected to be processed much faster than that.
->
-> Reduce the sleep time to 1 microsecond. This effectively makes `fsleep`
-> busy-loop with a call to `cpu_relax` afterwards, keeping latency to a
-> minimum.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+On Thu, 29 Oct 2026 15:01:40 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: google: Fix bugs in Chameleon v3 I2S driver
+> 
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> Hi all,
+> 
+> This series fixes a frame size calculation bug, preserves IRQ error codes,
+> and removes a redundant error message in the Chameleon v3 I2S driver.
+> 
+> [...]
 
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+
+Thanks!
+
+[1/3] ASoC: google: Fix frame size calculation in pointer callback
+      https://git.kernel.org/broonie/sound/c/30a43746cdd3
+[2/3] ASoC: google: Propagate platform_get_irq() errors
+      https://git.kernel.org/broonie/sound/c/9e374e2aebd2
+[3/3] ASoC: google: Remove redundant error message
+      https://git.kernel.org/broonie/sound/c/3e67930a43b8
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
