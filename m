@@ -1,121 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793643405;
-	b=WpZG3E2bebjcM/xZu7o7ohxT04DzHNJ8uybXirhuzzQj2CkcQ97Yni2R9p3RFfbChSNU
-	 M2IJHU3fuYqDCXldmp5awdkF2L5vZZQsFzsZrCSum7zhJxA+zfm22EP1DR0VrkEDQGtwF
-	 EkB+9xuXfrHPo6gGxek2l8nBMoqhFovNy4MGHOTm+8ssXOaLOEofaFqiHN9JtCxzO4ZBm
-	 Ii5MRQdZRZchE3X760qHq5P1LskejJ8U1Bj8abK4WX1zoWCyPlwd96/1ppSxYQWzrV9FM
-	 0/zdoRgLeAl/lRPWCG0TPge2iaVXNsjtHb58GpALLwLi+0+/lvygf8O3DOO12mekwFg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643405;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
-	b=Cb8mFZSgOf34M1t3tKfK++k2IyC5yYsJOhdDoZUp1sxHo30DQskPZKHdjOuc+BBUniiM
-	 5hrBN9xnIkM7Mt5yLDzTK6mVk04RVaN37tgFbmzzqaaC4mkw2KfSsVLaAeW1ffEFr90QW
-	 o0pkv9BvwR5Z5LWs9YKMDMYhH1gRh5OqBLeos1MhpUMA3M5eaRKfVtx7eIwaubnRKMIcY
-	 6pzTfAqIf8b+8P06/z7F7uwCWOCQQCvg77Z23ddfNwhdxk5ahfZeIBjxMFOLzg3+bB0zM
-	 sIKa4KoHo4QBQnsliTBk8hfaIOVErufUmCY8593WSzQzGqOmcvLVIopAqSaz45qJQgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aCcvnadP;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RBtItvv9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793643511;
+	b=PC3q9xI2TbSkMm5Ao4ef2jlHGV34C0GLfJkgxg+132a83qQgamdJK3xBBQ8NawMV+CCH
+	 A2vNIdrc7Zy+Y1S46Xo1seGiqTIB67m4UeaWnXCqC1uPzKF/DucBbiMZL4/THeWyjZIF6
+	 BNQSvogHsAn87MIUIJraJoQDHiVXi97arn6t0n92sn041/6MOudc+DsVAyi48ErxKHPeB
+	 dGnDmD47UPmmqF3mo5CqcEJcLTgKco4mrfyPwyAM90IBAWgOo2k0hQXqRKiQ+EukEFMhs
+	 z1KqGWndsvfvKaH1iUBlUVTQ2smbLJvVI3w/5Hbh4xULRLlFDHAkEeRJBaB+MDgaRZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643511;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NHRs95xsQgjnwOuFrugRmWxAc9XLLQLwb+OYmfFck/4=;
+	b=wyefApz34yk0OUl1rzWG3VlHhly4bgSkKWVz5mqdumVftQfF0jIGvSgJ8PmWqBIOZFnu
+	 IiE1euknqv/Fg3f7G2pZZenp57+qVdc4ceFGWuzTMkaScpG4/gDaX/FyVcwt5z0gOroCI
+	 iy7pRiOuTnO3Lnu3mFA7D0DMi18oHgN8rpaxR3bFruq27YI/Gw7gxlNtmtkyaF/S8uxdy
+	 22tZR9Lb3A9ihGDiSHx3nkhSaiKAQNUnFGO4fLn55P3NrZkeaODf1m0f49nbzPlr15Aug
+	 TGFlExy8HG0Yuh3n4tsNMgqUB2YFcsKOlVIRbpftiiFwh1WdjN7VzZzim37KlxsrDUQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BNcbP4a3;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FC8606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3FC8606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4C9606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:18:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C4C9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aCcvnadP;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RBtItvv9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793643403;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
-	b=aCcvnadPYRygZFYXkYoYkvZM0ltqCwUvCJaK+J4DNxDtI2P4MgMSruBkMu3gHM4xsTxbxY
-	iCy6LVECpm74FRdJFeLFJC0SasC1s+tk8+cWqoK/OsaESGGmDWRdYHNyyPQf/qttg7Cxxj
-	RkFlx2KTj/ymJzVEGj8IJ+rD1TEP/B4=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-589-s3iVzJVNMvS3aGHnZeyzMA-1; Mon, 02 Nov 2026 13:16:40 -0500
-X-MC-Unique: s3iVzJVNMvS3aGHnZeyzMA-1
-X-Mimecast-MFC-AGG-ID: s3iVzJVNMvS3aGHnZeyzMA_1793643399
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48c46582442so2025572f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:16:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793643399; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RJeu3C4hdZ6H9Gpw/AEf6Ww35ktEq9P8nttRRFHR13V9r1+e+/0FELzPcNgDqPfUdL
-         nckJaa7WbAqe2N7aK+dx16QkbPD0Qz91ma+05O2q7ZLE++sT5aJYn7ppPzdu6Ziq90ht
-         HcXp40oLVfzeMJ73YvOm7tOyqNnZFJmY5tQiM2vGnIuYaiYcDuhbLTRYgTjIV4v0M0tQ
-         v6YX4DtqNw0lcnTV5V+8gpic6ALdeW51MEyxNHJkAXMhO8bl/F7VWqwbxUk5kiA++WNt
-         3tEXy/qJBhgpRtUmNizSHBdXxdGRo3ooA5HpDnWyh7nz2/Y3xxUyb2qkGIYJPW12rd7x
-         US9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
-        fh=Mvi51lcOIvwfheqTJUO/ppkDGZHCW79dmed89TbCnCw=;
-        b=C53GtT64WdY7IwSFWgi3AVTRelPOKbb1uibwFg6qrrmHqDjiiBna0d/rAoqeSSFky2
-         7KLVNgewG+Kgbs3eNnauI/xQr/OFCTjDC4Z1n1k730wVnRSJytG192olSZ3C/McrrDwA
-         GZKXdYh+O+1ESRFCyoLX4cpMeEkdhL5FZ8A+lu/aRn1PUGBdbSw9NylyY1xLh8GlixrB
-         kE+l+8+THjMtCgEftcR3hK+oyPiq0PAemMeOEx4UJJg2a5ECA5PiTtooGiQoDJWP2WkM
-         kAlVXXw+utPyn4rle/+pCOsUINTauV4iSCMsAfNxH4irBitTYNhAzUsi4Y5IuErtqGEm
-         5ANg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BNcbP4a3
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e0d1da913so2558656f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:18:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793643399; x=1794248199; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
-        b=RBtItvv9B31dT2u7K4qBo7ogPBqQBFRekOBj8c2AW1B8qU2YCNuRIjXmM1K8DsfXll
-         lJYoOB4vePKBeQNejFV0l//LOLpiI8BuhWCtMoABEyhiwWuGXY0KVfomlq8Miz1B6eg2
-         9DD7Sg08tmOMONPu9o17SRBvmkerPrUo+/j+Zo80Q5b8hekKMGtK/ioCm9nlT8ofQynJ
-         kpQz56YhxC8SQvzBrPbX/GTJfjWi35GOpmH/LwWJ4zJRFeLPGwk8z5jx8RNovaPSfTVa
-         pwyBqUhHgQoKyfpNGry1Mgf7F5y9xq4GVbLsQam4EsJ+/j5R+GuwHFGqt3vPcTofwCjV
-         PRIA==
+        d=gmail.com; s=20260707; t=1793643509; x=1794248309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NHRs95xsQgjnwOuFrugRmWxAc9XLLQLwb+OYmfFck/4=;
+        b=BNcbP4a3nURPwGReohMJlcBk7a+a/QqJYDJigkMRVyIu0fGjRRoEhJMwq/Id8ORSVy
+         cuB198sVread6+W+jQ5TzCWxhFtJyV+DI50GNK2tk2WzojkKwvynA2v+0Kby0Py3Hl7S
+         OXq1ci1nHxaX+emvJAan4BUEQOxPMv8xlLxdiT7dJRJ/awtbLOlGWv+i28diy5ePqwUn
+         pGPdpeiJkkLof9X+5xiIZR8LndVMPlD9VFWDVh/iC7cMWuSKWqtk2usG86ld7PrXMLkY
+         24CvM2zC3D4PvnYVmvaznI2ziS+kR8vehsO6akIBvV3pWM6OnY6bcYZErkjDgkZ5wRDN
+         wl6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793643399; x=1794248199;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vr76CxOCRE/GBSNADyNpvIHyisaI2BQrg6w5s2zNVBI=;
-        b=tTSB2iWstYAQXLR3V4z/mKuvPrRoy+G/IMKVVrfYFIk13CoG7j/rcs/PMHR0bzVnTR
-         Zuholg5HgBW2ct82OuCTx5G4Se2VvhpHNTarL08SEsbD+i7Io9JGlyatn844wyWaRo6x
-         F9nxP6F8mSTf3T6xWLtO38bWTXodjNDGBnHqvlhGnGo2letOMlY/m18TiusV9Ppkv/gF
-         auyqtAllzR+vbCSBUvoeK46hRzapzs5VcJqYKrzfIRPc/hR0S3mPTQJL1R4ADZcnVrlb
-         LG9gBqxfmsKm1GSJMqZYNX5JmIsegTCQfFd2F1wa9equ/KZOg3ASr3i6b/Iv9MskfaKG
-         +xjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxdz2PzmoysXglJHrSQZFuHlaRgELOci8sO0cVNWWu5NkSOrdO6Pe6kR5xXyrgidRT6flIxEXYCtok8rsg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aBVeUiRPvoy8UWsMEP0R5S1pZgQ/Ma+wYAYG5EFQ74K33JDag
-	n/HhaVI4o5f36r+X7FLMo+IQe0UbkaiVdyod5eKh0th5DFEOTMk49G5TJ8SLwnIw+4FWV97psOz
-	V3gsRICAcBY2f1t6dlsvm9U1w4NsmxJZWubqVH1rlhYD6Bh8SR1stng8x7vk+D35CgTOlzLrUe7
-	mtyR/iAfWWV65ZWzI2TI5JlSNADONuVal+JbuxneYq
-X-Gm-Gg: AYBFou022Sj8Ecxj99wzn1wwBkiofkaqFr/fLoXAe42m0FvKCX8pq/Lgo++PGnGdowp
-	JgVgV5ft2qe229lGP5ASq/Vpf7GrrEanDS0GIspNfF9s3iB2s+22vi4SKVZ3ncoMi/cnMJkb0Sm
-	Y99OLSMrynYFeUc1xAUG9zvnKzB0WK4JF/myJ5YYDuDoQgXFhwvKDuvpPvv+zOWS6MYJmUmH72e
-	HgCxsDuOeI/UWeNsKWr6IZ3jtdUutnZHFnq/aAbrscQa2mPaCS/sj5mrnlH
-X-Received: by 2002:adf:e003:0:10b0:48d:ffa3:714 with SMTP id ffacd0b85a97d-48e6e2f2964mr20349189f8f.19.1793643399474;
-        Mon, 02 Nov 2026 10:16:39 -0800 (PST)
-X-Received: by 2002:adf:e003:0:10b0:48d:ffa3:714 with SMTP id
- ffacd0b85a97d-48e6e2f2964mr20349156f8f.19.1793643399087; Mon, 02 Nov 2026
- 10:16:39 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793643509; x=1794248309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NHRs95xsQgjnwOuFrugRmWxAc9XLLQLwb+OYmfFck/4=;
+        b=nNhxo0t61YT0ixJ9DqTBuz5a9AIKnWiSkdx06QWWBtHUWG3y6mTuQoJ4JgxaNykyI2
+         B9GxQzRCP30VhUwAnRR3sJRA4T2WEGJVIB9vNLdVnBKwAWcOLY0sDgDKPHTNUiCbchJx
+         38QrqzUsasR4jK1plVJqt6ARHTJFYKlMGKhuSu6xZ9l0ZdFAaOTPc/l/priWqq0Y0OYI
+         hxzhfaZlv70C2suNWzmLfbQX7yOv8pGYai/curRR/KU3njLqluJxqBXeyRwIM46WfurZ
+         JUIZo/HiOkXmqwnZ9pjkNYAX7X22m0V/JyyrW5MLBS0YWKphkWXVhuHrrh3RJdlxwdjx
+         GdOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzyvtMGVwxzHOW8Tz3jxz0zQWU+2dbUfX8tYZ9bACKJkQwPv4YLJxko4fZwxLcB53nh+GT20CZ6WYa54nc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GDjLnbn1wjEoFYaqkkgDLG03w8iyNN/9318Xb9cK+AFKlG1hK
+	qyL5vJdxzItQYLjjeKzTR3IUgblFyQl49q6PEXH0ashPo3ryqYTWS/w=
+X-Gm-Gg: AYBFou2qY2Q+dl2SK+/S4oT5qL72fxv57mvoqDX3CjIHCzfxDkTOLGyr+qimO+/roOF
+	QVqWFKZCX+WKD9jYEFbvg6kwlXkBpebINq9Y0BhnMz2jYzWcuqEpBObQHpiWinOPSdNT1IZ4/zp
+	VMxdJPl/TrGLpsPWZAigN9UGGW2zBm6SPSOQv2Cw/2QHZuSo7HoNFG930bDmSahNGJvd6Tg+Z6i
+	8aZwnKTCxmKjBa49YBZyt6aqaaHMFlwCr2RUCzExXFRJJj9EnVZbKFhK236CAze394Sy2b/3AtU
+	mu9vixadt4PFkzV/tEMOZBz3/ruju3XdTLC48uHevVYwNOKh2TzMLGstvjUEKkid1WmGsJ6mPOi
+	VyziHNg3o70a4KJnCCE9CZwHP5z3zABVaT6Mu0hZtZ9c6eRLaQMvqzDAz4ipy9u3uOUjgYpdmAY
+	mdCH/dlRFT2qj1yAUtT89yeLDCgLI+xD8xT1bl6ZZdi/9wf9FA6Ehm6cnHfZErvoFsIzsld+s8s
+	FnYViad4EBpmWEe6ad38PPIJ3LCSaTbIea0KioTrWFl0h5178g9TsPGM1NOlGgtPjQCS2yTygys
+	VmCZowBcAx4=
+X-Received: by 2002:a5d:5e8c:0:b0:48e:5c9b:f12c with SMTP id ffacd0b85a97d-48e6e2d4c32mr27465476f8f.16.1793643509167;
+        Mon, 02 Nov 2026 10:18:29 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71baa1b3sm20326986f8f.56.2026.11.02.10.18.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 10:18:28 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Azael Avalos <coproscefalo@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] platform/x86: toshiba_acpi: validate ACPI object type in tci_raw()
+Date: Mon,  2 Nov 2026 18:18:27 +0000
+Message-ID: <20261102181827.1989460-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,48 +99,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <kuph5i8x2d0.fsf@vkuznets-thinkpadx1carbongen12.rmtcz.csb> <20261031090529.65240-1-amirmohammad.eftekhar@cispa.de>
-In-Reply-To: <20261031090529.65240-1-amirmohammad.eftekhar@cispa.de>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 2 Nov 2026 19:16:27 +0100
-X-Gm-Features: AclHuK_YXcxMZDa_2uVf-DOKYVLREH6PFG-uQQ0h0kF_GFc_0-Dn7EAhewjC8OI
-Message-ID: <CABgObfYZde9RhwbPkq95uy6pNdyPFS48k9HvzCdGPggQ6reHSQ@mail.gmail.com>
-Subject: Re: [PATCH v2] KVM: VMX: Add array_index_nospec() to evmcs_field_offset()
-To: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Cc: seanjc@google.com, vkuznets@redhat.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, amirmohammadeftekhar@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 10:05=E2=80=AFAM Amirmohammad Eftekhar
-<amirmohammad.eftekhar@cispa.de> wrote:
->
-> evmcs_field_offset() bounds-checks the guest-supplied field index against
-> nr_evmcs_1_fields and then indexes vmcs_field_to_evmcs_1[] without an
-> array_index_nospec() clamp, unlike its vmcs12 counterpart
-> get_vmcs12_field_offset().
->
-> A regular VMREAD instruction is allowed while an enlightened VMCS is acti=
-ve
-> since 6cbbaab60ff3 ("KVM: nVMX: Allow VMREAD when Enlightened VMCS is in
-> use"), and it reaches evmcs_field_offset() with a guest-supplied field
-> encoding. Because the index is not clamped, the guest may be able to
-> speculatively access past the bound check and read out of bounds of
-> vmcs_field_to_evmcs_1[] (Spectre v1). The leaked value is only the u16
-> 'offset', so the exposure is limited.
->
-> The other callers of evmcs_field_offset() are not under direct guest
-> control, but the array_index_nospec() clamp does not hurt them.
->
-> Clamp the index with array_index_nospec(), mirroring
-> get_vmcs12_field_offset().
->
-> Fixes: 6cbbaab60ff3 ("KVM: nVMX: Allow VMREAD when Enlightened VMCS is in=
- use")
-> Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-> ---
+tci_raw() calls acpi_evaluate_object() and uses the returned buffer as
+an ACPI_TYPE_PACKAGE without checking its type field. If the ACPI method
+returns a different object type, accessing package.count and
+package.elements interprets whatever data the union holds as a package
+descriptor.
 
-Queued, thanks.
+Add a type check before accessing the package fields. Return AE_TYPE
+when the result is not a package, when the package has more elements
+than TCI_WORDS, or when any element is not an ACPI_TYPE_INTEGER.
 
-Paolo
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/platform/x86/toshiba_acpi.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
+index a0b8060836d01..4ccc8f51c3a5b 100644
+--- a/drivers/platform/x86/toshiba_acpi.c
++++ b/drivers/platform/x86/toshiba_acpi.c
+@@ -342,9 +342,20 @@ static acpi_status tci_raw(struct toshiba_acpi_dev *dev,
+ 	status = acpi_evaluate_object(dev->acpi_dev->handle,
+ 				      (char *)dev->method_hci, &params,
+ 				      &results);
+-	if ((status == AE_OK) && (out_objs->package.count <= TCI_WORDS)) {
+-		for (i = 0; i < out_objs->package.count; ++i)
+-			out[i] = out_objs->package.elements[i].integer.value;
++	if (status == AE_OK) {
++		if (out_objs->type == ACPI_TYPE_PACKAGE &&
++		    out_objs->package.count <= TCI_WORDS) {
++			for (i = 0; i < out_objs->package.count; ++i) {
++				if (out_objs->package.elements[i].type !=
++				    ACPI_TYPE_INTEGER) {
++					status = AE_TYPE;
++					break;
++				}
++				out[i] = out_objs->package.elements[i].integer.value;
++			}
++		} else {
++			status = AE_TYPE;
++		}
+ 	}
+ 
+ 	return status;
+-- 
+2.47.3
 
