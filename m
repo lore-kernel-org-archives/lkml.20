@@ -1,60 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793663026;
-	b=2tKxbgxJgv3NUYqLXWjwsTvsa8sr+4j6uJfIBp7iS7TOmmoJYMz/S5jr5zs/SEYQeOJp
-	 HXGp6Hrdbe/SWz9Tv9OCcQlqmI3cohrWf1yhE5qdrWf07lpfED2tRWUusgKw0YL9SLmR+
-	 omXXhMa1mBwTlS1uF3YzlRCWofINmYm162XpPHHck6wAOj64GVU0mqK2iT5Bfg197v8dN
-	 U+zx0nomfbkoJIxewrzO48xPanFlRaEHzBBzql1FrrkFYwEqDRVltvy/gZe0BxmdA02Re
-	 5C6/r3RSzpvAmoVCcjrmlOrofeb1WpclEUbI7CO+vAnnL20asdXrI/rjsC1bnTEoNbQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793663026;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=4Q+auJPRcijjK3FmxhEyDyKRGdGiI29PIOAGVmK0B2w=;
-	b=cmp/It1Wc9gL/a2J+gVfl29tW74vxuBcGr8BGvELTeQcTL/7tFzYDVOywNHrL+e2qiRL
-	 xcPX36/fKflCpMPiXkP1xzycb7nKQ0GdzCEtQmGUpc9IsmV+JjUVTT1DoDSycnxdu8t0X
-	 7QfCzm3pt8j4HZHNpaJJw8KvH81GD/qAih3V65SvSDo8y7VutTt284Vkz8sw7dc1bOtb3
-	 8D/FU/JYI5gnAJVNv2Aj+iKB34gqCaTokR4dOq9s+i/tnNUOceyw20f0qMoHTluASeloB
-	 rnL7SsvYCShz4Qb5ntCZPJLRscl8HYl6AlsgztMCICG6uuSf4kVN2S769ywtI7vOFNg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFtiEuez;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793663072;
+	b=gdKlGlKeFAnIbyMqGYbvT+snr9axL7+SwnLPxJD6DIyu7OPasWzQNCZCVZKN4e78IHFF
+	 s8SfivCn82XbHAKIAdyGMgYM/KhJ6Kg1oYdalxK0Fcc1THKlRWU8F0mLidAkD+v4C3p6q
+	 GrR/+qil5IDo8QQpJYZ7ZU32is5LQFNTYAoRn+Gz+ar3jo5Rrx7KjJt/b6ZmrdAX6dz4N
+	 /atrwH+FFDd0JoLwgjiDRC8GjTB+gmFb0EEtahMwYnLYF0PH40kQqIzbX5KvlDTHjJv/R
+	 6I2J4VecVPGX4jSfEcMpoFGXp+YAKWIh2GbbeH4DdXwDtgO2flkH+vBWzyCEiZArmnA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793663072;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TNEeC5pua4/FbwyGVOQ8AWkGjsS+NBvpjdfyZDyp6tQ=;
+	b=gduo8YhsUKgl1BX8G1aVZL11z42ZaqwTYmXmvBNil9dtAxRCCVCYH5PrkbpXwdIyN/gf
+	 XlD0OryO252xa3kEM94jahI+bhp2/SUuCc+BQJQwF5/hqUGznRcD5XVYZzHaF2vBSv4MG
+	 vDwHG+oRgeHnex23BZfmqzmdggt7Y2+B0CBN2Ymi1tznow52WnJHmsDBx88NfOYykoqbK
+	 9WJtcZpxMdal+NtU7Pty0VEX+JFjDY778KP1eE8zDbZ4oZlEk0ip7k02JSOHlAlkltTZx
+	 Rv+Xko/dA8mt00AQhy+5CIbCc6H8gbrKaAYnoDPdlnayLO/fz8PhSnXB8Utva7uZT1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SrHuwxu0;
+	arc=fail smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E46606A330;
-	Mon,  2 Nov 2026 23:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A5A606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:44:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96A5A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFtiEuez
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3FF1F00A17;
-	Mon,  2 Nov 2026 23:43:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793663025;
-	bh=4Q+auJPRcijjK3FmxhEyDyKRGdGiI29PIOAGVmK0B2w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SFtiEuezJqws90yp2q8FCHJdJHK8rDKLYBpOGv1vlxYAqdkCmfVNJaqKU+NHPzJwt
-	 HkzeVvx1uyAl4rXgeo7Of1v7BuZRN8YFEzeFjbeAMWKUGHgWRsCUG9+vjXlzC/GD2d
-	 PjWpU6HcIlyJ5BU1guF+IPw8jpFkqos729+pwU7WmQYoSel2spEwjlZ7GvG1R984Fo
-	 GfyN7tnUh3tMeO7BN8rE10EiHJfnqBLqzLckU0+ymY6bnR7DMhdN64Q1lJxycusgyG
-	 gT0a4dVsVwqkAQnQ4LUy9hWPGFMfNrsyqCi8i29y2rnZPu2dwEOQMzJSber+oI+qyT
-	 Yx6yXWdgcE3+Q==
-Subject:
- Re: [PATCH net 2/5] nfc: nci: hci: consume the HCP response exactly once
-From: netdev-bot+sashiko@kernel.org
-To: joasantonio108@gmail.com
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, kipreyyy@gmail.com,
- sanghyun.park.cnu@gmail.com, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 23:43:44 +0000
-Message-ID: <179366302460.488856.3883849138274450813@kernel.org>
-In-Reply-To: <179331585573.30322.10620513309471785412@gmail.com>
-References: <179331585573.30322.10620513309471785412@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SrHuwxu0
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so1355a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:44:31 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793663070; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E6Gyc3IRRMHIDZ2foA7AVTg+lZGMO5yxmKXmWOD41uyMrI3yanOPad8tIb4guwhKXD
+         BaQHQitX+HvYXSRSdmuDwOv0/hQRSM5y+RjG3C2GNdQ4V53A6j+Biii8ArJY1yx5EGb5
+         8PcBPkPs1wicTSmr0i250i3OowUWB27t+wNR4ZKCYVx9oDYTiDlf/V3FuSHp/eaZaRNp
+         GrhciQntDL+s+i+WRCWZTOQM54z+teNY6DM4Kh6GRQuMPdfAI19mQf9NN11ddfxwsB1O
+         e9sizqcmmQ6uYWEunubkFYjnXfVUyypO1ikbScI+UQN3DWKXWGjIcB8U4XbVWL+TwvTl
+         a0vA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TNEeC5pua4/FbwyGVOQ8AWkGjsS+NBvpjdfyZDyp6tQ=;
+        fh=N8LisuuYddhwQYF1YZ6sBdvE3wNC75FDKOSde0k1YYI=;
+        b=OhRBUUXvNPHNbpS7qNzkSEMyByEp1LLAKaGJUpWa5A8WIMVtunx62HwSx+3LlcmXfY
+         +vIidS0JQtLJn/APLXoJxswS8nH2PAznpt+PszhTkzcGFFw+T720UfIKawc6p9i4bCTG
+         QwuJUsQLXEwoGnM/NTE4420cHjJAKnelngNQ0V2pdmD3PcBFJtWuEkj2p39pqVvCY0fR
+         Sf9Wyoa6H9YWOheeCV/r5BBpzNE+oUHjTgdGVMaRMizS+s0pGrCozVT6mnsnl0u7fd1l
+         5kvp3ZrF1m9YFh/kk/6CSexAVb//i9ucNAHnggFlePpa5k/fXSOCoUwpWazkz/xt8QBt
+         0LaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793663070; x=1794267870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TNEeC5pua4/FbwyGVOQ8AWkGjsS+NBvpjdfyZDyp6tQ=;
+        b=SrHuwxu0OA7hy5K2ovTqpGpNg9M0+WPa9AS7+NxROMiLDRIdOt8pLsRu5QLdPG/Ukx
+         QTKcgOwuxVjoZzNXkqXiT7AGfuRHR5QzK7zwPBK4AvMxePovZn8m7niD8sJ0ADnjDsJX
+         cJGlsuiIBkPXdqQqszZLUqr4Wo9Ni/tUk33C/WtGIcODvr0rlm8yaiiq3V25sxnBbUY4
+         2/gxg18rbzG+yGk9birQnzyCsfaJn4u/jzQVHF6vk7HxLTQqHMlXbZqMwgIXMjQF7FsV
+         w5xvuv6cu5s9Et1j3jLFSAPUzhkLCDEnOf+VdCSo95JEN7oEdVUwCZtxzgxG3OtpAUcV
+         Vz1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793663070; x=1794267870;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TNEeC5pua4/FbwyGVOQ8AWkGjsS+NBvpjdfyZDyp6tQ=;
+        b=Xkk32VwjR4s2wDQ1LAajzwE5yPppf8rC16ppVVXUcT6jin6HFQMLoVChzr+eS1T3y3
+         UTPZZDhFoh+XgS4nTqpX5lrbSdIFdeeWhhxbwB2L9bVPcrHi8meW99YY6J53CiLUUHaT
+         s27WKcj91+IGwFklA6eFvlSVLBffey9kNLQCDAZOPc8bsSanNrXf7kGtIzmSh8eFKpmY
+         Oax1vCoZvqXKLbXBhRKGk8yEjb4SK1V8UwExaqmM7gL/OoWzJYneN03pIuETaZqnp5ya
+         vKBCO9E2bdyMJnIYYQsy0GMBvpHemxnF+S1/A8ZTBvtQ7l6vjYFzDd2aJtmLWRUlXXNl
+         dUiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwtPHe4KBDWuU2UpNKCOGQ2e43RHWVNHTtvz1MR8cLaPBJrAYqkLaCPLj16qnfH5/9oZaCQR7N7a0xNMoA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XlnwknpB3CJoNl/AHOZKq462WdshueJ+4edTQegpboifiOPme
+	DzxxVd6IUjBrYZLAU0ZkJuLg+pHjYvcYbMDTvmh/5ryBHsZM3aZUrN/APrmq7OvC+1FykDVq9Zi
+	HaqsltNhaArggymuRqVBdgfKwhM6DYClV2xE/k94K
+X-Gm-Gg: AYBFou0zwfDyYV6KeUrx2WV1b0zJt6tZY2p0WbSRSIG2/paf809nsyFfDqAO2isplM4
+	O/SEDKnoQkv5+OBhzj/9CPciGyPkKVoPcBRwkIxiIi9HSMkcNv+03IzSMjk1q2AwJIVCK7e1Wzn
+	pKffX+8vV5X8vClTBUZCTQTUeJYEsJjFAae9G2fFlm/b/ml3OhFmNLIuJ24WhHK6csmLs8XY4rX
+	c5RW+Zo1H2VUj3mR3FARGNatu3j0e/Dvgp15MPOOZudb//RHXwOToYBjEOulfB6IL3X7d1GcFW1
+	RaKTls37ZKbap6K5GGQzVcvY2MuzeT1azY9WIHXleVYQky3ydkelUcy5yi7HEBVvHsdlaAql+dI
+	Av2Is6V6xw45E6DXpYOByEj6TJjBOLbimJUlYZFFwTfqiPi59Qs3UJyOIrQ==
+X-Received: by 2002:a05:6402:238e:b0:6b4:5f93:339c with SMTP id
+ 4fb4d7f45d1cf-6b539cdbffdmr17311a12.3.1793663069589; Mon, 02 Nov 2026
+ 15:44:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,165 +104,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20260827223755.143247-1-zide.chen@intel.com> <20260827223755.143247-12-zide.chen@intel.com>
+ <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
+ <auUQgRVFASkWtkoK@google.com> <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
+ <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
+ <6c9a13c9-e6c1-4540-a8ca-1f0e800f3571@intel.com> <CAO9r8zOWzr61pkkF01AvEp+YSOo6bA1N=L91RYiM=ETtK5+D9w@mail.gmail.com>
+ <69c428d7-239a-485e-9494-32b8aa82da05@intel.com> <CALMp9eRsR8xaUmQyVu5QmYx1cZ2qFGGk+31bMymhmN9_iaPuMg@mail.gmail.com>
+ <f7213eba-5b61-4514-a315-bce64823fad5@intel.com> <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
+In-Reply-To: <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Mon, 2 Nov 2026 15:44:17 -0800
+X-Gm-Features: AclHuK8P1m7t5vt3Bx8GjuqEUPevdnDGV0WRQiLnhUfpSiQOAaom_jdohRxq-k0
+Message-ID: <CALMp9eQPaGG+-wsfp541OTJAP2G0Pq9L2aDeRG0_MFHoa67x0w@mail.gmail.com>
+Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
+ GLOBAL_INUSE MSRs
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: "Chen, Zide" <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Mon, Nov 2, 2026 at 2:52=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrote=
+:
+>
+> On Mon, Nov 2, 2026 at 2:48=E2=80=AFPM Chen, Zide <zide.chen@intel.com> w=
+rote:
+> >
+> >
+> >
+> > On 11/2/2026 4:25 PM, Jim Mattson wrote:
+> > > On Mon, Nov 2, 2026 at 2:13=E2=80=AFPM Chen, Zide <zide.chen@intel.co=
+m> wrote:
+> > >>
+> > >>
+> > >> On 11/2/2026 3:36 PM, Yosry Ahmed wrote:
+> > >>>>>>> 1. GLOBAL_STATUS_TRACE_TOPAPMI_BIT can leak from the host into =
+the
+> > >>>>>>> guest. If a host PT PMI arrives while the guest context is load=
+ed, bit
+> > >>>>>>> 55 will be set for the guest, and the guest won't be able to cl=
+ear it if
+> > >>>>>>> OVF_CTRL is intercepted (it will #GP as it is reserved for the =
+guest).
+> > >>>>>>> Similarly, the value can't be restored through KVM_SET_MSRS.
+> > >>>>>> I think mediated vPMU assumes that no host PMIs can be generated=
+ while
+> > >>>>>> guest PMU state is loaded.
+> > >>>>>>
+> > >>>>>> If PT state can leak into the guest via bit 55, similar leakage =
+can also
+> > >>>>>> occur for other status bits, e.g. when the guest exposes fewer
+> > >>>>>> general-purpose or fixed counters than the host.
+> > >>>>>>
+> > >>>>>> The scenario where both host and guest can be active simultaneou=
+sly is
+> > >>>>>> handled by the perfmon_mask case, where intel_mediated_pmu_{load=
+,put}()
+> > >>>>>> filter guest-owned status bits.
+> > >>>>> Looking at the code:
+> > >>>>>
+> > >>>>> kvm_mediated_pmu_load() -> perf_load_guest_context() ->
+> > >>>>> perf_ctx_disable() will iterate PMUs with for_each_epc() and disa=
+ble
+> > >>>>> them, which skips PMUs without PERF_PMU_CAP_MEDIATED_VPMU.
+> > >>>>>
+> > >>>>> Same for kvm_mediated_pmu_load() -> perf_load_guest_context()
+> > >>>>> ->ctx_sched_out(), it also uses for_each_epc() to iterate PMUs an=
+d
+> > >>>>> schedule them out.
+> > >>>>>
+> > >>>>> pt_init() does not set PERF_PMU_CAP_MEDIATED_VPMU on pt_pmu.pmu.c=
+apabilities
+> > >>>>>
+> > >>>>> Please correct me if I am wrong.
+> > >>>> My apologies, this bug is indeed real because pt_pmu lacks the
+> > >>>> PERF_PMU_CAP_MEDIATED_VPMU capability.
+> > >>>>
+> > >>>> Adding this capability to pt_pmu seems intuitive, but unlike
+> > >>>>
+> > >>>>                        the core PMU (which merely toggles enable b=
+its),
+> > >>>> Intel PT is an AUX-based PMU. Stopping and restarting it on every =
+VM
+> > >>>> transition is heavier, and I'm not sure whether it could introduce=
+ a
+> > >>>> noticeable performance penalty.
+> > >>>>
+> > >>>> However, whether the solution is adding PERF_PMU_CAP_MEDIATED_VPMU=
+ or
+> > >>>> some other mechanism to enforce mutual exclusion between pt_pmu an=
+d
+> > >>>> mediated vPMU, we can address that in a separate patch.
+> > >>>>
+> > >>>> To immediately protect guest state and live migration in this seri=
+es,
+> > >>>> I'm thinking of adding the following defensive filter in
+> > >>>> intel_mediated_pmu_put():
+> > >>>>
+> > >>>> + /*
+> > >>>> +  * Scrub bits that are not virtualized for the guest to prevent
+> > >>>> +  * possible host state from leaking into guest state and breakin=
+g
+> > >>>> +  * live migration.
+> > >>>> +  */
+> > >>>> +  pmu->global_status &=3D ~pmu->global_status_rsvd;
+> > >>> This doesn't prevent the leakage, it just clears it on the guest->h=
+ost
+> > >>> switch. So it helps live migration but I am not sure if it's better=
+ or
+> > >>> worse if the guest sees the bit unexpectedly appear AND then
+> > >>> unexpectedly disappear.
+> > >> Right, as long as the GLOBAL_STATUS is passthru, the leak can't be
+> > >> prevented.
+> > >>> We can clear it when the MSR is read by userspace, which should fix
+> > >>> live migration, but the guest will still see the bit, and it will
+> > >>> still disappear unexpectedly but only during live migration.
+> > >>>
+> > >>> The guest still won't be able to clear it when OVF_CTRL is intercep=
+ted.
+> > >> GLOBAL_STATUS and OVF_CTRL share the same interception policy. If th=
+ey
+> > >> are passed through, the guest can see the bit and clear it; if both =
+are
+> > >> intercepted, then bit 55 can't leak to the guest.
+> > >>
+> > >> It's not perfect, but at least the guest won't observe bit 55 and th=
+en
+> > >> get an unexpected #GP when attempting to clear it.
+> > > I'm not sure what imperfect solution you are referring to, but Yosry'=
+s
+> > > proposal that the bit gets cleared on a guest->host switch is a
+> > > non-starter. MSR bits must not vanish unpredictably.
+>
+> I don't think I proposed this? :)
+>
+> >
+> > Agree, then maybe Yosry's suggestion is what we can do for now: filter
+> > out unsupported bits when the MSR is read by userspace.
+>
+> This I did propose, but I also noted that the MSR bit will still
+> vanish unpredictable, just on save/restore instead of guest->host
+> switch, which should be better.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] nci_hci_take_resp() is supposed to return -EPROTO "when the
-  request was completed without a response" and not "reuse whatever skb…
-- [Low] nci_hci_take_resp() detaches the response with a plain load
-  followed by a plain store (`rx_skb = conn_info->rx_skb;…
-
---
-
-nfc: nci: hci: consume the HCP response exactly once
-
-This patch adds nci_hci_take_resp(). The helper detaches the HCP response
-stored in conn_info->rx_skb, parses it, and either hands it to the caller
-or frees it. It returns -EPROTO when a request completes without a stored
-response. nci_hci_send_cmd(), nci_hci_set_param(), nci_hci_get_param() and
-now nci_hci_open_pipe() all use it, which closes the use-after-free and
-NULL dereference shown in the commit message.
-
-> diff --git a/net/nfc/nci/hci.c b/net/nfc/nci/hci.c
-> index c03e8a0bd3bd6..bdfe9eee6358c 100644
-> --- a/net/nfc/nci/hci.c
-> +++ b/net/nfc/nci/hci.c
-> @@ -107,6 +107,38 @@ static int nci_hci_result_to_errno(u8 result)
->  	}
->  }
->  
-> +/* Take the HCP response stored by nci_hci_resp_received().
-> + *
-> + * The response skb is detached from conn_info so that it is consumed
-> + * exactly once.  A request can also be completed without a response
-> + * being stored (an HCP command or event received while the request is
-> + * pending, or an unrelated NCI response), so a missing response is an
-> + * error rather than a reason to reuse whatever skb was stored last.
-> + */
-> +static int nci_hci_take_resp(struct nci_conn_info *conn_info,
-> +			     struct sk_buff **skb)
-> +{
-> +	const struct nci_hcp_message *message;
-> +	struct sk_buff *rx_skb;
-> +	int r;
-> +
-> +	rx_skb = conn_info->rx_skb;
-> +	conn_info->rx_skb = NULL;
-
-[Severity: Low]
-Can this read-and-clear race with nci_hci_resp_received()? Every caller
-runs nci_hci_take_resp() after nci_request() has dropped ndev->req_lock.
-The producer runs from rx_wq and shares no lock with this code.
-
-Suppose an HCI command is completed early by an HCP event or an OK-status
-NCI notification, and its real response comes in during this window:
-
-caller                                rx_wq
-nci_hci_take_resp()
-  rx_skb = conn_info->rx_skb; /* NULL */
-                                      nci_hci_resp_received()
-                                        conn_info->rx_skb = skb;
-  conn_info->rx_skb = NULL;
-
-The skb stored by rx_wq would be overwritten and leaked, and the call
-would return -EPROTO. These are also plain, unannotated concurrent
-accesses that KCSAN would report.
-
-Two consumers detaching the same skb doesn't look reachable in-tree. The
-nfc generic netlink family doesn't set parallel_ops, so genl_mutex
-serializes the callers.
-
-Would xchg(), or detaching under a lock shared with the producer, avoid
-the lost store?
-
-> +	if (!rx_skb)
-> +		return -EPROTO;
-
-[Severity: Medium]
-Can a request still get an earlier request's response here? The comment
-above says a missing response is an error rather than a reason to reuse
-whatever skb was stored last. However, the only check is for NULL.
-
-Several paths call nci_req_complete(ndev, NCI_STATUS_OK) whenever any
-request is pending:
-
-  nci_hci_hcp_message_rx() for HCP events and commands (run later from
-  msg_rx_work)
-  nci_rf_deactivate_ntf_packet(), nci_nfcee_discover_ntf_packet() and
-  nci_core_reset_ntf_packet() in ntf.c
-  the zero-status NCI response handlers in rsp.c
-
-If one of these completes HCI command R1 early, this correctly returns
--EPROTO. When R1's real response arrives afterwards,
-nci_hci_resp_received() still stores it unconditionally:
-
-net/nfc/nci/hci.c:nci_hci_resp_received() {
-	...
-	conn_info->rx_skb = skb;
-
-exit:
-	nci_req_complete(ndev, NCI_STATUS_OK);
-}
-
-That function doesn't check whether a request is pending or which pipe
-the response is for. It also doesn't free an skb that is already stored.
-The same thing happens when R1 hits NCI_DATA_TIMEOUT in __nci_request()
-and the NFCC answers late.
-
-None of nci_hci_send_cmd(), nci_hci_get_param(), nci_hci_set_param() or
-nci_hci_open_pipe() clears rx_skb before calling nci_request().
-
-For the next command R2, there seem to be two outcomes.
-
-If R2's own response arrives, it overwrites the orphan and the orphaned
-skb leaks. Could an NFCC that keeps sending late or unsolicited responses
-leak skbs without bound this way?
-
-If R2 is also completed early, nci_hci_take_resp() parses R1's HCP result
-code and hands R1's payload to R2's caller. R2's own response then becomes
-the next orphan, so the mismatch carries forward. Callers that would get
-the wrong payload include:
-
-  nci_hci_create_pipe(), which reads resp->pipe at offset 4 with no
-  length check, so a payload-less ANY_OPEN_PIPE response would be read
-  past its data
-  nci_hci_dev_session_init() (session identity)
-  st_nci_hci_load_session() (pipe list)
-  st_nci_control_se() (host list)
-  st_nci_se_get_atr() (ATR)
-
-The commit message says the helper returns -EPROTO "when the request was
-completed without a response". In this sequence the request succeeds with
-the previous request's response.
-
-Would it make sense to drop any stale rx_skb before sending, for example
-in the req callback under req_lock? Separately, nci_hci_resp_received()
-could store a response only while a request is pending, freeing any
-previous skb.
-
-> +
-> +	message = (struct nci_hcp_message *)rx_skb->data;
-> +	r = nci_hci_result_to_errno(NCI_HCP_MSG_GET_CMD(message->header));
-> +	skb_pull(rx_skb, NCI_HCI_HCP_MESSAGE_HEADER_LEN);
-> +
-> +	if (!r && skb)
-> +		*skb = rx_skb;
-> +	else
-> +		kfree_skb(rx_skb);
-> +
-> +	return r;
-> +}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179331585573.30322.4049957541187612575%40gmail.com
+I will reject any proposal that involves MSR bits vanishing unpredictably.
