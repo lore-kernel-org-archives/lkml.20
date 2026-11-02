@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613640;
-	b=Mpb7QRKZu7KGr5OpS5px3lc5RHSazGJNgc0w/JiXOxbQF77RLl35kqcGFdV6RYvS7PyB
-	 5/mKYkLgep5jUYZX7Uy+dmDNYqyos6VwY9b8/SpVWCfeG4yyy9kaRDxhjJyOmZILo2S4a
-	 2Bj4iA8kFUJqRLd0GQ3m5jxT/dSTZbIx6LgZVpwgDsx93W9aCxjzHhtTknR+NkhNVUA2r
-	 Y4Ix4XsiwleWX2GZCTbzrOpyBR9A4MqhdJUX8QtCd+KKeoK79tYmRhRi/O8LTUytG61w2
-	 u0ASeECCsKoJ5GDB0oHVPXsCjFg4v35wVOfmk2gba4QcE5TG0MPBQuGsmJhbc++dEKw==
+	t=1793613638;
+	b=3EG2ZwpKAerH4LonftJWdQ/hUtbCdyABdMvEnNy3K0Q/8ivaiZeLkhMb9kxt2ynQlb52
+	 lMW1A41OWrLDRr06KlgDynQBn/ifA1c6v47xZuvUKOx+gkPltP9wDgoglFlpfSSOUp2ZG
+	 BV6lOV+itCFFDgtag4LPaVBxnYN0ZNPZbYS1xZsJTlqFcczhXW4JGS0VZJF8iMyYG6fks
+	 wvekLTgxAElslvKHJU2G7i24x7QmoLaDco/VK/YWifDIi9vV+e9xg+pXi0Pv/GnLxttYJ
+	 O9VUyw8mL08rCno78ekixT3GFQ456PE6rcAk4Ib7rYskKf0L5B0Wsj2wVyhbCZVUzfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613640;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vM/UltC3mjiYHkIRq2InT6fJ2QKWGWxo5IzwL3zPAbQ=;
-	b=Mxk4bEHpalZBGSx+K/l7vAwHZTYLESDoYwDBjgAzWAKH/uLEjF0DLSNGFGwn9FTt6ycL
-	 c5hDdphvmUPD5/ELs54pMrJ/yix4StssGsWVECeHp2Wb5T2OJ+pL7i8wg8YIjmQ+hR+qA
-	 5V8jJb87KA/f+Hwz5VyTfPiO0FOKKGxV9GHGmT7yCBGIQxULHgePyTg8LM6uSus5+z8It
-	 SjMkmFSERXLDmkK+uCOa9Tzh2T0w2771tnt18hfd5xeI3QdZhG0sxAh+M7gGXJk6oBZcC
-	 5eq1GlduzWvjWpks3l2rdCkD1uNLzjh53yc6VuIsY3XOQRZH5A4X32fYWp56cGcl6WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613638;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=WEV4Jy0gjOxwx0ZmM7x/k5B9K0QDqGKgkipXc+rIPB4=;
+	b=kNcHsi4PTyVX+9J+oNrlVMPT5Oc77ky7gx1hjPTbERSlqhLSYChWbzxbvjBwGpQAxkoP
+	 W6Zvr3esOFEFAskXtDKLrs4rN2DD2HoWCAu3FTM5WbcMK8GJ37m0goeWjajSUfkyb095c
+	 lgf9OuFugjQpiL456jrWbiALeXvp0huqGHN34+z9PZOKS6M0eR1D/8V5N7Hrfl/2RhFNk
+	 AeHnJAlS2W/eKuQRZhdNyyBp8JXODfmy+OLn9eC1Ajy9pnTGc5HTmlXZ+wJcHKt4QBhxn
+	 Zm/d7221hNyot/dDyXO52v1QvhJOMPhtdgl3mq7WGQ+YSzUqQanbMkqC5dNhvnOQS5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OEbwZ6Wf;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDpYPL9a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE76606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:00:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAE76606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBD8606A324;
+	Mon,  2 Nov 2026 10:00:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OEbwZ6Wf
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so1723216a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:00:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793613639; x=1794218439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vM/UltC3mjiYHkIRq2InT6fJ2QKWGWxo5IzwL3zPAbQ=;
-        b=OEbwZ6WfYnx4BRWAPtRANX7r0R/S0dHZ5D+UbeaiWm1Z4OZbLHmYyDb2DBWoT7Y5Zm
-         CmHr6hGYlKBkhCYLEumiLboip6cb4p+WUeAzLLxyYT1DB3NHmOytZPrmol+Oxr30QTT3
-         wbYRvBMUwn56FK0+SX41PKkQ9VgqCYNa2oGdT72zZXRl8QD5I7uBHhN01t7d3Ci553DH
-         fzozQ6LuHIKdfOYBNX6IoKbSfABxmrBctTiMV2dSrZAmBE5qzeYrqyY3S01T7ZA/bIbG
-         oRS0wC0SzTGJzNsP+pf/xugzWLLvRIdOJvTo/gZkdaeqLsG+kTltwmsQyEF9CRBtXJcE
-         dyVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793613639; x=1794218439;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vM/UltC3mjiYHkIRq2InT6fJ2QKWGWxo5IzwL3zPAbQ=;
-        b=L+wCbwATQqxMZDgQJpPcmjqw8c++kNrt3Qc6FeQ/Sfuj9cuf9ZRvDejuUk3HLO7hS/
-         8ERguaHHiJmAMA+mTojL927wNM5styoiBbwX3pWc72kzyxxUCSIKq2whkcEUyxk7Wgl3
-         PhEI9qHyRQEkdyf+RyZZS8DoHN5KJx6TGVNPhYxI8JA7TF86OqUmIZVKgDmHt6kRFmSP
-         CXdkq3VKugS6WKdSuICw+oKrMx+wD+U0nzeg5BgdDJ5sRmyfR5OA5F/dYBR4WQJ7RT6/
-         PTVEgXHX1y0KI5wd0vrxkQ3uei89Ic2areg0s/Gx3Sq4iPKp1dqVf3cvEchLfvAR1IBS
-         UL/w==
-X-Forwarded-Encrypted: i=1; AKwUvBze8px0SsIlc4uuo0dUjkjHrtU7+X3ypL0rDIN8/XWiPVwz3nybNmlN6fcPplKlsM5g2E+kXlCGzQePy98=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+F2Ad6Z79y3//BZxrvuZltMoNi3ss5Opmk2nuhQMc2jAZH3twa
-	7jtr2lL83mYH5ZM00KEu2DUh/7/4DKf5r1O+AD4gyw92/UvwotQmWlcg
-X-Gm-Gg: AYBFou3FMLhFQyurVkVLy5L5Tpcr5D8dvzbIcr1OgDFPXTzO0CKbL8If/0QNkMCpkJb
-	ow8yjRBJKoGJ0ATt2cZ31k2aj8bk4JPpPPOZZOxXtrJ0S5axyHasu1xNYXf3O15stzvh5cWZPRJ
-	ZBMc+gbgAX94DTr+K63zK+kR4JYWt48uX1uH8Wb8BSsYPr5FslHg4s0lDKa0xcyzF6M1pDGk45h
-	/TYF1jDzReCZc5EKc2lpSPPJ8LEXz8xCMWW3LlMNANy8E/6No6oEz/Qbtv3974Q5JD35+v6ML2Q
-	BScxQXIZxOSMsaK8Z6aWJOugIK7d4Z41wN71kGS7IS+gWNL1UsqbaU1F8+8iQ/UZBsfjV/qrNI4
-	AxkZ8Px6zwDulHYKi9Uso70Je+df2w6lVKkgj5ItsoRRLCGyYMvPJQndif5b7rNOFvZppFVQjwN
-	XlvzRFAk8xPVHrNx/yr7bWGQ4WmjuSkjxCbgJpUmshz0Wb/h6XTEKofEAb0QNdbc4cz8iIGdrpx
-	aWUFtDGJOmQ/A+SmC+UQ1+Qq+MfFuUEgM+Sgg/COh/3z4lx+JifQfAKK1ALiwpDWQtoWBpiXGxm
-	WPeDPohKllCXFExeU1e6UrNThIZjduUtkihMm71K0IOgvNJUJVDCOeGGeruiAc3JUK/Zl/jU3zy
-	sNWFoKVwxz7y0f73/dYJugYeWHM34MyQLlY9qYC9ut9poXBaHY3y2KTS+X8HKqauFKw==
-X-Received: by 2002:a17:90b:4f84:b0:3ab:e588:c275 with SMTP id 98e67ed59e1d1-3ae897ccd23mr7150902a91.20.1793613639055;
-        Mon, 02 Nov 2026 02:00:39 -0800 (PST)
-Received: from localhost.localdomain ([14.160.25.72])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845ecaf5sm13592447a91.16.2026.11.02.02.00.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 02 Nov 2026 02:00:38 -0800 (PST)
-From: phucduc.bui@gmail.com
-To: wbg@kernel.org
-Cc: andriy.shevchenko@intel.com,
-	andy@kernel.org,
-	dlechner@baylibre.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	m32285159@gmail.com,
-	nuno.sa@analog.com,
-	sozdayvek@gmail.com
-Subject: Re: [PATCH v3] counter: ti-eqep: use devm for runtime PM to 
-Date: Mon,  2 Nov 2026 17:00:31 +0700
-Message-Id: <20261102100031.5573-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.37.1 (Apple Git-137.1)
-In-Reply-To: <20260802125903.1425262-1-wbg@kernel.org>
-References: <20260802125903.1425262-1-wbg@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDpYPL9a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12CE1F000C1;
+	Mon,  2 Nov 2026 10:00:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793613638;
+	bh=WEV4Jy0gjOxwx0ZmM7x/k5B9K0QDqGKgkipXc+rIPB4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fDpYPL9aaMjRW2yWZO+Hgiw1A7H3l86faym3DQ2EKvfWtDg6SPi16/uOPvad/PWZY
+	 qVF1014OpWsbWYFf2b++NtDMi+W3pMgR6nZiOyBTgmqzfrNl7ImHPMO6siZS4rHzOV
+	 7fmp7a7NG2jjIV4qnjO8b/nSJzceFmGF3cKpz9iGgbtwQuOknsbqfF7uIwtIC1ZbBz
+	 /PhUkAqImxjSi9+M1CoLrsQSOyIY0X5h13Tfz2qViqWuMaGhNcbEPsNYlQwEy9HjtZ
+	 enNmbZPNM7rCyQFT7MR+C8NzZglSEfSGsb5XELPK7Q1hjEO6weY0rdJGzUy4OB+FQH
+	 H+wTPBCoIplgQ==
+Message-ID: <8112d8ca-2234-490c-a4a2-c3b01adfbc88@kernel.org>
+Date: Mon, 2 Nov 2026 11:00:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,14 +51,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: PCI: Add linux,pci-domain-reuse property
+To: Cui Chao <cuichao1753@phytium.com.cn>, Will Deacon <will@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Wang Yinfeng <wangyinfeng@phytium.com.cn>, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
+ <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Stepan,
+On 02/11/2026 10:51, Cui Chao wrote:
+> Add a new optional boolean property 'linux,pci-domain-reuse' for PCI
+> host bridges.
+> 
+> By default, the 'linux,pci-domain' property must be unique across all
+> host bridges. This property allows a host bridge to explicitly opt-out
+> of this uniqueness check, permitting multiple host bridges to reuse the
+> same software domain number.
 
-William pointed me to this thread after I sent a similar patch. It
-looks like there has been no v4 since May. Are you still planning to
-send one? If not, I'm happy to pick it up, keeping you as the author,
-and address the comments from Andy and William.
+Why isn't this deducible from the compatibles?
 
 Best regards,
-Phuc
+Krzysztof
