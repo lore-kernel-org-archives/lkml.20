@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623392;
-	b=N7r2z5nx+glmn1KJl6EFl2nOg34eY1cJJO6SRDA2nwYRrECnx02uiCr1NdZg2VRohngJ
-	 eFFvD+csxkBr1ry8DZhFlS+RKWUzi6jNEHP133z/pqmRGGK5hYZg3L18kN0vJifvzlOY1
-	 2Wf1ToBcjGCo/iJjBSjYedYfyh4Ab7ZJe0rrugZ0rGmYzCCcdhqRUU0hnIUJvR3Trk+fn
-	 VewiGk0BHyXJLcsb2xK55HXsMn2IhWTg2rnjJTeC+cg4VSlVTYrPbzrgHgIqVyOca4Bvv
-	 2WrG59W7APAL7TT0nMWrA0Nz9TvQePomADKOqQCtwVBqGMBpInGAfokIGCY1IZA1ANw==
+	t=1793623385;
+	b=M0pio+fwadsGmtaZVmY2bXvc5VDZEOLQGEn9JM3955nokR+buayjhSDI8lwYFqlBcXj/
+	 pFkiR6dXjcapT8LwAjqpiUNmnbvLQNxxlC8YG5IrSG2vdG9cVgcvlcsaCsZIlG6KdPiVi
+	 gQhmMLlscJB7a4scdXld6ZoDZaCK9zN0pcG+Xu8+jtjcLX5onRXrQr/oRFEUPFrkH8Jnn
+	 H1nAX2v+Q2ru7dKTRXsTjO+39lADuL0r2f+nCMfomAO8UMbmvrlft/8MpvHNOe0X02SUw
+	 3HyrJQRFkceZBOWoZR6Q1XhtZi82jcZ99ItwZBkozalaycdseem0z3we1vcDENWtqCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623392;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623385;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=j26BXKveFLl9OUwlbLdiGVAV/fR5Q6DkHAlgTaWqqYU=;
-	b=M3alVrcuiKU6583JoWA7w6Tqal3vbNMkyUlfVBROo9SKNqNSfRZVACo4+FbwxEjDO3R2
-	 0dgOTl3GJZfyoRRTmLaX+1bGYSoPC3++QO8ryB5LBDrjPoTO0ghVBe0jXXNFuHVdH9w0q
-	 XXFzq6EfwYI8yFX91XuSo1CAeBUDTCxJkC6OOIjeqHJaIEtCG2nSDpRvI4xcLo+/kLQfr
-	 d1kDKgk4v+YRWfgJlm5BlsVgBeSjzXaH6jFVVq/T/y5KiUOno3cR2TTP7yHaie31np+hq
-	 iCbaK7ca0o52lxToVDed9MfZzwNq3RlSjlZ6w1hj76SOe2B/ciLHzxR4uBtjk8TZpoA==
+	bh=SkXyzh8uT2n1jzJIe19qHbcn5tH31EHYHMtwETTViV8=;
+	b=LoT3uLtpaCA+h07VNbFbl3jeNgItM6doJiyWIWJbanOpQK32RHc6PaTh3sdWUcMGu7LE
+	 PIKaqJ7e6Go77V9qJ7lzJuhkUMT2xyYsOAyzTFsAAa8fCNvLPxp4VX+oQ/6CdbdAi0Yp7
+	 Nnvc4BrMQTSOQKNazXvzjUJmcK6zTtQsforjYQUKOgJJu6Fp2ef117zYtpeRoqpxplIt5
+	 60/w9DnC5aeG7t5Awevl2/DRi8n+JKUeJtpSdd0+WuRxcca03z9eyeEk84SV+/d9RrvZ4
+	 zy2OlwFAUqI7pg/LSOpMrWTIBCr9Qrm6PXpHojeM/CAKTwFjongkd/BvaAbKPjHsu6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sau4qt9m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dygrx1KQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD5660A383C;
-	Mon,  2 Nov 2026 12:43:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8618C60A2628;
+	Mon,  2 Nov 2026 12:43:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sau4qt9m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02341F00A1F;
-	Mon,  2 Nov 2026 12:43:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dygrx1KQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10ABA1F00A16;
+	Mon,  2 Nov 2026 12:43:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793623392;
-	bh=j26BXKveFLl9OUwlbLdiGVAV/fR5Q6DkHAlgTaWqqYU=;
+	s=k20260515; t=1793623385;
+	bh=SkXyzh8uT2n1jzJIe19qHbcn5tH31EHYHMtwETTViV8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Sau4qt9mup8F5Bg7y+JjMfEQwueiNbEa/Vqtt7l8VOwrKRE1160H42Zjiky0XbMiu
-	 ezaw9Yg0nFb42KStTiB9NoSq9wVbeqyg6ir7mEKoaO0U9y3H+ENgAsGB3nKI0bPGwQ
-	 wXFGci5cki9tNxFMecV3EPm/r7Zc2P1ORZzmeEkEHkrn/ZMGfdCo+PCbl8uUCNi1lr
-	 jCJhnq/wr+RrEVC1nmf+lWY5m23mKTtkVWtlccPhERYwLIyg1XpwHEduii2/L2A0CY
-	 kXuN4Q3XHBp5yA718zQXkJRLogpJmvuqpYNLA/wjy3CSIlXCKz4w7B0HqPTcAqSQfa
-	 j3QkD0p481I5Q==
+	b=Dygrx1KQGHKITDdGJ6ho8goP6He7C298oqfMEJDT2hEHEdUoAMLdwtE0MJRUDRkrl
+	 oCIVEG+HH0iRMoNxe4KGYLjV6eWbNLYDPYjCQICYYwUmAeSJYVA2BBbNlyFQMh9uUc
+	 l98sE02TyvhejTuAkj5QCu251DsoDls4ZCkE+qx7ERrqTweQsl+diyMvTZxCXYbE3Z
+	 ikSKNqo9tCui5MzndA8MWQ9N2sBxMrWfbkcWIcl82HwRkvi+GQNEUSloc6PjgyJlFc
+	 /verUi14EBJppjTd0paUJKMuVtMlS/6Q30o0FpwZPz7+085AYAbj/djQd0XzetDVnt
+	 Ku/POgBGGRLqQ==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 4457C2310570;
-	Mon, 02 Nov 2026 12:43:10 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 5C3722310529;
+	Mon, 02 Nov 2026 12:43:03 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: linux-spi@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-kernel@vger.kernel.org
-In-Reply-To: <20261101200155.15740-1-rosenp@gmail.com>
-References: <20261101200155.15740-1-rosenp@gmail.com>
-Subject: Re: [PATCH] spi: acpi: only look up the IRQ of confirmed SPI
- devices
-Message-Id: <179358129853.1776482.1284866044623503919.b4-ty@b4>
-Date: Mon, 02 Nov 2026 01:01:38 +0000
+To: Hongjian Dai <daihongjian@kylinsec.com.cn>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ purna.mandal@microchip.com
+In-Reply-To: <F5276982A630220B+20261017075545.95854-1-daihongjian@kylinsec.com.cn>
+References: <F5276982A630220B+20261017075545.95854-1-daihongjian@kylinsec.com.cn>
+Subject: Re: [PATCH] spi: pic32-sqi: fail transfer when the BD ring is
+ exhausted
+Message-Id: <179357807106.1716893.15775820389064671168.b4-ty@b4>
+Date: Mon, 02 Nov 2026 00:07:51 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,17 +66,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1125; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ANQCXKl0QJBO8NOTx+xo3WxYg3bnHH/dk6hD6LjVXSg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetMZtbXyyjYErwlTg7sNbEkJWG97OPf9gS6rApYruc
- tEWfl6fjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzE8j/D/6o7Fb4Z095+vhl+
- y0XRJWfvI48du18v8fkVp7E7tC3p91qG/yWxIhuC1P6cTIhxODZVev0mVQ8T5yX2qrIfubMT13H
- ZMAMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1132; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=8D+Gi3HVmMsBqdAbOX6/jRrCsq3dejvg01M4u2eXuOE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetIbPakl1mM/yzf9e0JsZ1yv6Nh3v6D3nEa6nuLa0R
+ PPBinl3OkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRl3MZGda3COlZPNnCtiHj
+ 62R2PxM/y6enJh7PEf05YftBtiWWBycz/M+qOdj28/Kss/edPn/p++yYfjko0Ciua+OcJiftp9o
+ S3bwA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sun, 01 Nov 2026 12:01:55 -0800, Rosen Penev wrote:
-> spi: acpi: only look up the IRQ of confirmed SPI devices
+On Sat, 17 Oct 2026 15:55:45 +0800, Hongjian Dai wrote:
+> spi: pic32-sqi: fail transfer when the BD ring is exhausted
 
 Applied to
 
@@ -83,8 +84,8 @@ Applied to
 
 Thanks!
 
-[1/1] spi: acpi: only look up the IRQ of confirmed SPI devices
-      https://git.kernel.org/broonie/spi/c/2d0953ab69d3
+[1/1] spi: pic32-sqi: fail transfer when the BD ring is exhausted
+      https://git.kernel.org/broonie/spi/c/2066970324a1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
