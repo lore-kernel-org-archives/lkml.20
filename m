@@ -1,92 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793593840;
-	b=PK9TOyxf0OSVNlD97jw7wXOXP0AUM2YfW2if+HqVADbPdNLy1Yy7pu6/bVA2M2NlRlI/
-	 LfcAlpeLGrWRly9540SnCeLgyEuuNF8znl7gsUxl43CFV3MmCu4F5nbH5ukppWqDUMIIb
-	 N5I9YTdBVxE6CEcY550zVInDd8hGMLNynKDJIev/XQu0XLeAnpKjWbQSsa3Q87ZuEzdDH
-	 NVnODeuMGW9bbHHskLvQK5dTsB0l6vnSZ2WKzvcht9IyAk8aRRliWtM8oeLcRKKBMg3PV
-	 SU7jGYFF7IsRKVlaAL8+WlpvYTjVxgkwG5l7Dkqsw9G6ArOoSFlJpWacka4Tc4+mkBg==
+	t=1793593850;
+	b=3UEyRmtH516NtBxsJaMW7TyJg5UrVLBMIGd40i8aok8goOsTmdDYhxUnECsCU7/ZsWLX
+	 icU6GYbLRCF0p2kjckAbEGAuR8vOr3aKvCgBoCpKZ+dyepVW2rGIZAI9MBfAV9/aD5+F+
+	 OiMyWhVxQEziPgWCkU7Y77wZWp2yngtaaCucKps/JP5gCuBZki+ixDVJLm/Xq0k3autDl
+	 lXjyj4SFUbrLI6rtQTDGQj5DTWisygr6PbzjnSwHhooN3QrK8wKO8F7ijwIWe0GVBie1F
+	 oNgZxA2eIYCS5aYuw/BJIPFyL7nq2NbP28WtOB4rG6v8PIRRuZL1BrEh9DGKxUfDLdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793593840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793593850;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Date:Subject:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=SM0r8ms4T2f9rRzxWcFjRPw9JYF6rVkm4MIivyGl0G0=;
-	b=z5xv0tSE/mFzL8xffFrlIy+7Q4wV0Nh0phMBu5rBLG2j9elyAuEUAO0PGSwnl6vTx6/c
-	 ab/TAdsJvPMX+4lNegdnsY9N0L1gS4HL9npX3pHF7zcaZeeBpIEhsL5JnWrBZnzBbCN/I
-	 NwGFoZNdXPPyOYV+iNHco1GDdQTf6zaaTMjcb48x1F66Ij2l7x4Oq5qc0qik6XZdJvoUC
-	 PLQO7NFDMA8C7biKNWQ8n6EJZxEf+1nij/szK4EwWOFMrlkPGKyrxRGhUZIZz7VOB2WtO
-	 BzQnzbr/RJGkd/HrHmZpvlHXVssEnhFYWx46T3MakMmgoEhPP/BrPTC/73WyZeQ+s8Q==
+	bh=dn16KrRZCCLjU4kh4wrFSl2uI1lHcRx/JiLcVLvIn64=;
+	b=FBL8Rk4k+rKLwWQAxYEVVcEJ1H11nMgjUN7cq/BXqpdODKsBTksyZYzu12byqYddv9hP
+	 vT/rk2L0Pv/2GdUiFKZKCvz0AKHMCWtITEnOAvzdLVPUixHu9pqYi6wXGP4lWhLovk6ex
+	 t7FHnZPREEXXHMG3lXAlVU+WzQ7/YWDEHOuv/tWxyYTo/kgqC8h2pPl91HcXqDHB8LhxG
+	 ABnhRUL3bCLvaToCWG5eBqqI6zF4dm92xrW8Ku4x5FOJKQtgEzSh/Wx0PfJHBmkSX5iux
+	 OzpgCBayVKGqGyKNpZCkEkpZozrv/GR7f7uyHZV/WTtV7/aozMX1+6SRHKcHc4HQ8wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIElQ9Md;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ujqoiLao;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C103606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C103606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A3A606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:30:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A3A606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIElQ9Md
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso1522177a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:30:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ujqoiLao
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so886362a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:30:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793593840; x=1794198640; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793593850; x=1794198650; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id
          :subject:date:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SM0r8ms4T2f9rRzxWcFjRPw9JYF6rVkm4MIivyGl0G0=;
-        b=JIElQ9Mdf3Xne4fAH4Evj3qRE3bGQAskpcjIlU1BEBm3Y76ZOHqGZFy1j12sVIIxgl
-         0ZcE9NpHTLM/EoLyOfv/Em4zaq/YtSY1XsCPMyFNgn0Hi4tyc5OUSftr0WcefrmxgX13
-         2Vi9c8frsLSJ6ThHQw1m70/+jDzvQHswKOpVe34er7T3Vr9YJJsqTSDJ+p6xES6Pqg2R
-         TrKEQypQgpaN3oUch4lJnr+nlPSn+yURwqb/vLB7XKHgjj2J8zk9aAR+qRrWuWSMaJUp
-         B7HUB1rjDRuduC0sY0rTPaO65iaVuxYQIJa40Jb+i5gqxr37jTAswhpRsqxG3rmEOAji
-         24SA==
+        bh=dn16KrRZCCLjU4kh4wrFSl2uI1lHcRx/JiLcVLvIn64=;
+        b=ujqoiLaozFfzl2Z1ESHmNIIS7IDVmdP0Tv92AFmh0RHnNfUH05voJLQBo5EqsOJs3V
+         WL5AnZ+GQolsVtUgR+uvbDnRPz7Ra0O1TWP6vn8XEKCSo0ILHnxhGwvJwKATDTTA3oKZ
+         4wKtO4ktj0uXiHgR+IdCgRlUltJjphabO/3vgn8hnn7k9xca6d46rP7Xm71G8ibiDuI4
+         hjFBkvqLfrDqXDS4Y5j6GdH8/tF5Q1GoyNq100OiQbmrfFF1KL3QyGrweoL8Jnz8FTg6
+         8WJqehpaL+/Ex1EhELpVLVUIue/gLlcZmVFOJXucV3B/v7JiAV0osnEFpQm3mg1CaDEI
+         Sjmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793593840; x=1794198640;
+        d=1e100.net; s=20260707; t=1793593850; x=1794198650;
         h=content-transfer-encoding:content-type:mime-version:message-id
          :subject:date:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=SM0r8ms4T2f9rRzxWcFjRPw9JYF6rVkm4MIivyGl0G0=;
-        b=Nc/WujnstYCAAtuuMAFzeVRIhVLMGCPNshV6KDieB9rVhai1YxeY5tIQHVlG5JfzPe
-         LwhmXryQksfRMHiuPj+HIAxvhOCGcWXVsqkMaoJifCYhIpHA9CtsZAIYu5t3EYgmg6OU
-         pAQIqcC5iLJMPIRIpdrLsat1L1ZbnedCuyv3WQfcgo6vjoAOFQ4XpNa831mvvf3pcrnD
-         x6j8gu2viukGF8OiVrWjURMHZEJ8CFEvCInQUfeShRZnkpjLwVOUACCCso7mjC8KQYvd
-         RJwC1D6td1fRWye0EwCaPoPbkOnR85ZsNVxxvt5UI7FtHGuvpjcNpuq+hQCq/XOa84Ty
-         2ejA==
-X-Forwarded-Encrypted: i=1; AKwUvBxC6P92fetOs/ugSn4FOLQJh6Xr6xeFb5qmkHZFXuBJnXKxDa9EvzG0UyFUCix27JA2z7gpYU8dhL91ld4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SIxhtPeC1mJZAdeA8iqiYtYnn07m5LSHculbc/gm0+orXYucu
-	1lEVM2T3a3rP6I2ZTKKg8udNloWDsYx/F942g3xZonhqWhcjEqfQkzSIl72pzvIkFA==
-X-Gm-Gg: AYBFou29KQbZ4rUoRSRQMIINHs1OU5H/TMeGzrW16XkghJZvXSVLdJtwZPzSoQHg0bZ
-	WAKWdx9GlTp5a0u5dyTsepUecIG7oO08G3xTup6dZPTBwJDHCiOeQgXkn1psVFbKZa/3YhBWU8v
-	KhgBAQKH+P7qJ6AwMQJNRMyFqf+68rb/I7cI5BvxuUFPpHr8cZLxDxPzCgasmDnV6eaPknK9BlI
-	U9/2bKS9Ia9PHtvfALnktvpdfHw5IkLZuRgasK45lxFRMTJc2EWqTchSdfia67btxpShhC4yhHO
-	VZ68klEcWpV6gCQEYlfwzzKcvUkGaaQyq15GEsuUAjl9YAdy247HG+3Ki4jkfS5LSVvyWF92mYZ
-	p3phBGODVDpMzGyLJUit4qi2ZQyhuWXP7em1qAf/QGT9RaExCzocNB/XDoPHN4Z9BjIBCjCWXrL
-	xyDOPprs1HBHBI+vCz/NkA+gbodtZZ5T7ZWN6tIE0WFJJAHFqurprdfO6EfeM9AxnLc5fE145Vn
-	XYHq++Hb/TMRScv2L1JoV+WIn5mbwNPlWATHzL4dhw/HHA80PK1vqCUqwYCQ+TA+eaEGsoETvjx
-	pLQmak1+m6RWGdBsurIOg0JUjngT
-X-Received: by 2002:a17:90b:1d45:b0:3ac:a521:95c with SMTP id 98e67ed59e1d1-3ae897eb4c7mr7356236a91.58.1793593839407;
-        Sun, 01 Nov 2026 20:30:39 -0800 (PST)
+        bh=dn16KrRZCCLjU4kh4wrFSl2uI1lHcRx/JiLcVLvIn64=;
+        b=rAFv+pIZzBJQb4ExAbUPCm4QLnL5uO0rNCmSECn86KAcZtLXHURdK3ZoM9U8/8eSb5
+         1n9bWasmxpi06ipOjR/UmTJRMV8gv6AxRBMd6XaiWAfL6Wbqe/CYpuzAEm9qyci7jxvz
+         n9WK2SQk3a/2IazoDMLmxojsZAJqfvFz4/CYpeO1QHSUNVDlNp8cptjzsexLWYKbkC/M
+         p4M5mpfpjqvY6M5fR0CkleB0g6nod61q36A1G9JkZQPEayHgDVIKvwetkM7zq+LCUKyb
+         t73BDMzkp1oPt7cY8WOswGfOIPhGQmEI8X1ekg2cubgItBwO4eceSoRWD85EuI0a0BBE
+         Y5gw==
+X-Forwarded-Encrypted: i=1; AKwUvBwj/a0PKufj+m8iSr6v7/qWayaAECpQOpDwHjtkuNvPoqqDT4z5OrF8Q0C5s7uFasWQYdYTgRe+jYRTz+U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+oik3EH9wT6gufscECyrfsPRC9ZuJXzj8F8DaraHpi05EO7bKq
+	PkepPsZSajdw6RXFh/idn1J7yCrFcHFY2RXfQ/FMH6WoNPQofeLGELg=
+X-Gm-Gg: AYBFou0v8EaU0atx2ralDx41T7N5a98PH+j3/KIa4ODE92TD2T/R2ueKrObAXLKZmki
+	NPj6Sx9yTS22+JELjABp/Sos/nqib/0yjJNseux8Jbq/Rm7D2z+Q3HwDYXCTad6sRePQIqKi9Z8
+	2/rWdv8DFNxS8nli4T+aIRlh3O9AYU+LS017+r02yEXckEgpDaMqw5sC3+WGf394YYV36owumOG
+	jDtwEgabCXWVjahKJFdGxPfLWN+q7kDAQUc9V2KdHNeju8oZVPXFMB2VnF0Udg2AC+6E9xt/21k
+	rXoA2TvfSvtqF9kglo9ADMsHZecFhF7BKc/W52isCW3S9dd8l7oFmtuNyskaktnbmvIgU2eup51
+	rh4wTJa2H72IQ/5oH4TGOnUZEib1X5lezjlE/UOwy+4m0i3RtC1PBwuESWNBJ7fkUPSys5klOZt
+	4CW3JgMesXqCga40rAbdxNdfj2dDNUY6GN+nIt/n/042XA/o9ceEs2ZLsF+rJV44Qa1HL0OSyk5
+	8R7DDSa6TnZt+PDa6mVRWPxFS7wkU7Zy/Va/08oO6rXpMgyjlsSACoDhBrenhKBeRGo0VKUsK72
+	MOv2qfhzTxfAFssfxhLhhU8Gpw==
+X-Received: by 2002:a17:90b:580e:b0:3ac:9176:e837 with SMTP id 98e67ed59e1d1-3ae89835172mr6722846a91.50.1793593849296;
+        Sun, 01 Nov 2026 20:30:49 -0800 (PST)
 Received: from [127.0.1.1] ([185.220.238.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8fba61sm16419882a91.6.2026.11.01.20.30.37
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8441a6f0sm12221665a91.1.2026.11.01.20.30.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 20:30:39 -0800 (PST)
+        Sun, 01 Nov 2026 20:30:48 -0800 (PST)
 From: Wang Yibo <szwyb123@gmail.com>
 To: Dave Kleikamp <shaggy@kernel.org>
 Cc: jfs-discussion@lists.sourceforge.net,
  linux-kernel@vger.kernel.org,
  syzkaller-bugs@googlegroups.com,
- syzbot+cea4fad5485bc30243a9@syzkaller.appspotmail.com
-Date: Mon, 02 Nov 2026 12:29:34 +0800
-Subject: [PATCH] jfs: fix statfs racing with a read-write remount
-Message-ID: <20261102123500.34-1-szwyb123@gmail.com>
+ syzbot+b547ffac63b636628299@syzkaller.appspotmail.com,
+ syzbot+ce678add490179a73d5a@syzkaller.appspotmail.com,
+ syzbot+fc1d5d9a7ebabbc27458@syzkaller.appspotmail.com,
+ syzbot+23d1112901d0870bb3e7@syzkaller.appspotmail.com
+Date: Mon, 02 Nov 2026 12:30:00 +0800
+Subject: [PATCH v2] jfs: fix out-of-bounds write in add_missing_indices()
+Message-ID: <20261102123500.35-1-szwyb123@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,120 +102,101 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
 
-jfs_remount() rebuilds the in-memory inode and block maps when a
-read-only file system is remounted read-write, so that changes made by
-fsck while the volume was read-only are picked up.  The rebuild frees
-the old structures first and installs the new ones afterwards:
+add_missing_indices() walks the sorted entry table of a directory dtree
+page and rewrites entries whose index is out of range.  The loop
+iterates up to p->header.nextindex (a u8 read from disk, up to 255) and
+indexes p->slot[stbl[i]] with only a lower-bound check (stbl[i] < 0).
 
-	diUnmount()  -> kfree(imap); JFS_IP(imap)->i_imap = NULL
-	diMount()    -> ...;         JFS_IP(imap)->i_imap = imap
-	dbUnmount()  -> kfree(bmp);  JFS_SBI(sb)->bmap = NULL
-	dbMount()    -> ...;         JFS_SBI(sb)->bmap = bmp
+On a corrupted filesystem stbl[i] can be any byte value, so d->index
+can be written far beyond the end of the dtree page.  For the root
+directory this is worse: the dtree root lives inline in struct
+jfs_inode_info (320 bytes with only 9 slots), so the write lands inside
+the same slab object, corrupting arbitrary fields of the embedded
+struct inode including i_security.  KASAN cannot see it because the
+write stays within the jfs_inode_info allocation.
 
-jfs_statfs() reads both maps without taking any lock, so a statfs that
-runs while the rebuild is in progress observes the NULL - or a pointer
-to memory that has just been freed - and faults:
+This is reachable from getdents(2) on a corrupted JFS image and was
+observed as a GPF in bpf_inode_storage_free() reading the garbage
+i_security pointer on inode eviction.
 
-	BUG: KASAN: user-memory-access in jfs_statfs+0x20e/0x510
-	Read of size 4 at addr 00000000000050c0 by task syz-executor415/5092
-	...
-	 jfs_statfs fs/jfs/super.c:140
-	 __x64_sys_statfs
+Validate stbl[i] against the page's slot count: DTROOTMAXSLOT for the
+inline root page, and min(p->header.maxslot, DTPAGEMAXSLOT) for regular
+pages (maxslot itself comes from disk and cannot be trusted either).
 
-0x50c0 is offsetof(struct inomap, im_numinos) for the reporter's
-configuration, i.e. i_imap was NULL when statfs() ran.
+Three other open reports are the same bug rather than separate ones.
+Two of them die in smk_of_inode() on a crafted inode->i_security, with
+only the upper half of the pointer replaced by 0x0000000c:
 
-The inode map rebuild is already serialized by RDWRLOCK_IMAP, but that
-only orders the inode map users among themselves; statfs() is not one of
-them.  Take the same lock for reading in jfs_statfs() and keep the write
-side held across the block map rebuild too, so that both maps are at all
-times either the old or the new structures.  A failed rebuild can still
-leave the maps torn down, so return -EIO instead of dereferencing NULL
-in that case as well.
+	general protection fault in smack_inode_getattr
+	general protection fault in smack_inode_permission
+	general protection fault in smack_file_ioctl
 
-An earlier AI-generated RFC from syzbot proposed a different fix for
-the same remount window; it was never reviewed and it does not cover the
-report below.  It is linked only for context.
+That is a single 4-byte store at i_security + 4.  In struct
+jfs_inode_info the _dtroot union sits at offset 728, its slots are 32
+bytes with the index field at offset 28, and the embedded struct inode
+starts at 1048, so i_security is at 1104 and slot[11].index lands
+exactly on i_security + 4.  The value stored there is the directory's
+next_index, 12.  The only code that stores next_index through an
+unchecked slot index is this function.
 
-Reported-by: syzbot+cea4fad5485bc30243a9@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=cea4fad5485bc30243a9
-Link: https://lore.kernel.org/all/80218035-7c1f-4784-93d1-c34d9ccc252a@mail.kernel.org/
+Checked on a SMACK enabled build with the reproducer from the first
+report: without the patch it dies in smack_inode_permission() called
+from ksys_umount() with i_security = 0x0000000c27a22900, and with the
+patch the invalid entry is rejected with -EIO and the directory scan
+completes.
+
+Fixes: 5dff41a86377 ("jfs: fix array-index-out-of-bounds read in add_missing_indices")
+Reported-by: syzbot+b547ffac63b636628299@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b547ffac63b636628299
+Reported-by: syzbot+ce678add490179a73d5a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ce678add490179a73d5a
+Reported-by: syzbot+fc1d5d9a7ebabbc27458@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fc1d5d9a7ebabbc27458
+Reported-by: syzbot+23d1112901d0870bb3e7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=23d1112901d0870bb3e7
 Signed-off-by: Wang Yibo <szwyb123@gmail.com>
 ---
- fs/jfs/jfs_mount.c |  9 ++++++++-
- fs/jfs/super.c     | 17 ++++++++++++++++-
- 2 files changed, 24 insertions(+), 2 deletions(-)
+v2: add the Reported-by: lines and Closes: tags for the three
+    additional reports, describe in the message how they relate to the
+    first one, and add a Fixes: tag for the commit that introduced the
+    lower-bound-only check.  No change to the check itself.
 
-diff --git a/fs/jfs/jfs_mount.c b/fs/jfs/jfs_mount.c
-index dac822f15070..19099b888b53 100644
---- a/fs/jfs/jfs_mount.c
-+++ b/fs/jfs/jfs_mount.c
-@@ -235,6 +235,12 @@ int jfs_mount_rw(struct super_block *sb, int remount)
- 		truncate_inode_pages(sbi->ipimap->i_mapping, 0);
- 		truncate_inode_pages(sbi->ipbmap->i_mapping, 0);
+ fs/jfs/jfs_dtree.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/fs/jfs/jfs_dtree.c b/fs/jfs/jfs_dtree.c
+index 8ce6e4458cc2..119d03c410b8 100644
+--- a/fs/jfs/jfs_dtree.c
++++ b/fs/jfs/jfs_dtree.c
+@@ -2623,6 +2623,7 @@ static int add_missing_indices(struct inode *inode, s64 bn)
+ 	s8 *stbl;
+ 	tid_t tid;
+ 	struct tlock *tlck;
++	int maxslot;
  
-+		/*
-+		 * Rebuild both maps under the inode map lock so that
-+		 * statfs(), which reads them without any other means of
-+		 * synchronization, never observes the window where the
-+		 * old structures are torn down.
-+		 */
- 		IWRITE_LOCK(sbi->ipimap, RDWRLOCK_IMAP);
- 		diUnmount(sbi->ipimap, 1);
- 		if ((rc = diMount(sbi->ipimap))) {
-@@ -242,13 +248,14 @@ int jfs_mount_rw(struct super_block *sb, int remount)
- 			jfs_err("jfs_mount_rw: diMount failed!");
- 			return rc;
- 		}
--		IWRITE_UNLOCK(sbi->ipimap);
+ 	tid = txBegin(inode->i_sb, 0);
  
- 		dbUnmount(sbi->ipbmap, 1);
- 		if ((rc = dbMount(sbi->ipbmap))) {
-+			IWRITE_UNLOCK(sbi->ipimap);
- 			jfs_err("jfs_mount_rw: dbMount failed!");
- 			return rc;
- 		}
-+		IWRITE_UNLOCK(sbi->ipimap);
- 	}
+@@ -2636,6 +2637,11 @@ static int add_missing_indices(struct inode *inode, s64 bn)
  
- 	/*
-diff --git a/fs/jfs/super.c b/fs/jfs/super.c
-index 8180d83d33fe..7a8365fdf2b2 100644
---- a/fs/jfs/super.c
-+++ b/fs/jfs/super.c
-@@ -120,9 +120,23 @@ static int jfs_statfs(struct dentry *dentry, struct kstatfs *buf)
- {
- 	struct jfs_sb_info *sbi = JFS_SBI(dentry->d_sb);
- 	s64 maxinodes;
--	struct inomap *imap = JFS_IP(sbi->ipimap)->i_imap;
-+	struct inomap *imap;
+ 	ASSERT(p->header.flag & BT_LEAF);
  
- 	jfs_info("In jfs_statfs");
++	if (p->header.flag & BT_ROOT)
++		maxslot = DTROOTMAXSLOT;
++	else
++		maxslot = min_t(u8, p->header.maxslot, DTPAGEMAXSLOT);
 +
-+	/*
-+	 * A concurrent read-write remount tears down the in-memory inode
-+	 * and block maps before installing the freshly built ones, leaving
-+	 * them briefly NULL.  Exclude that window, and bail out if a failed
-+	 * remount left us without maps at all.
-+	 */
-+	IREAD_LOCK(sbi->ipimap, RDWRLOCK_IMAP);
-+	imap = JFS_IP(sbi->ipimap)->i_imap;
-+	if (!imap || !sbi->bmap) {
-+		IREAD_UNLOCK(sbi->ipimap);
-+		return -EIO;
-+	}
-+
- 	buf->f_type = JFS_SUPER_MAGIC;
- 	buf->f_bsize = sbi->bsize;
- 	buf->f_blocks = sbi->bmap->db_mapsize;
-@@ -150,6 +164,7 @@ static int jfs_statfs(struct dentry *dentry, struct kstatfs *buf)
- 				      sizeof(sbi->uuid)/2);
+ 	tlck = txLock(tid, inode, mp, tlckDTREE | tlckENTRY);
+ 	if (BT_IS_ROOT(mp))
+ 		tlck->type |= tlckBTROOT;
+@@ -2644,7 +2650,7 @@ static int add_missing_indices(struct inode *inode, s64 bn)
  
- 	buf->f_namelen = JFS_NAME_MAX;
-+	IREAD_UNLOCK(sbi->ipimap);
- 	return 0;
- }
- 
+ 	stbl = DT_GETSTBL(p);
+ 	for (i = 0; i < p->header.nextindex; i++) {
+-		if (stbl[i] < 0) {
++		if (stbl[i] < 0 || stbl[i] >= maxslot) {
+ 			jfs_err("jfs: add_missing_indices: Invalid stbl[%d] = %d for inode %ld, block = %lld",
+ 				i, stbl[i], (long)inode->i_ino, (long long)bn);
+ 			rc = -EIO;
 -- 
 2.25.1
 
