@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793661279;
-	b=EHMtSugoln09tVQ/mARz+xjkxqen4Q9SkrrnrHwmYwqUR62RqY3i7+k2/QPaHQk8asW3
-	 wZT51YYsTEa8jA2K8i8vMYhmwg4FFj0DAhOoGZzwZ9Y+NMbppFTKFIIXvARolllFWXDUh
-	 cSXX44Q2wF+k/9Ip4r/SuKhVhNTWhCz+qDVubf2uhTRHb8G3PKXPcWVP9PyvR/w+g1Hdv
-	 LZt1eSlCF6L4/W+fxIQb8KTwVwOc1thlgIPbC2L/p0khvU7YsxCi6pPMkDoauastXk5Uc
-	 YMxNw/fYXk8CMF1xMhZZQHoI2zCJ77nvZUIxK7vJwZUU6UvjOkt3HZBJnRmT3N2KVAQ==
+	t=1793661284;
+	b=fWq3OMEIrvuKg0lQeshM0ynJaE4h/IT6WXttYIFPGoKk1SFZqyGayZlwbk/iDFhLjQPA
+	 Ke2IwixSX33lsQbIchx8hMESdlm06ouOxECw3cPQxc0LY5XBN2i2fprVIv6Uz9v+v0+yF
+	 th2BptNuqbV0WL8sb2GFAAappKGVGUUPnl0qQ/7RDw3x8jRrjcst4ez4BwqQIcIRZ4P16
+	 oJxc5hk5knMtMGdN92Q2/PsM8PwkCWNAB8f0n8ezSlmTw8vE2TkDDOPR3nNvWY3pPUb1t
+	 PDcgKS+eCYiADsuij9NSWjF7JC6IODZRI8oZjnPT1aSQJzRbyMHososTM1u8T32NW9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793661279;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793661284;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
-	b=SFr+3AkLYnGO6VL6HmEFQoeg6p6EAO8Ny6bGglvJOO9SiIkQpzzOFoOqgkiodwz/YTy4
-	 fq5MDIRBXVKMubnvNT+SfCu3kSPlS3GkfhQy3BG7Phz5U4+A06PbaA1Z/Os4k6KIpdUW7
-	 t7IlINiMebl5XhNj/fKmLs/BnZvMGx3etOm4RP0euQPxQLxWgaOcHMN5wVaylCNGVozaQ
-	 FLjp9jX4OTqaa7FoGsEEYxUBsH7AHMe0lIA8gNplqgihZoiz9UfS9oG+0gps52Zl1HSNP
-	 b4GuZ9yoLSY3RlO//xnLG29o5Pg9Sf7skkp4zkAH6dRLk87OkapB8uRRHSr39gIQYJw==
+	bh=xGWk144TqWPWYAhvtpbLeTIfJgjLiqjAQeYBDnQ9hsE=;
+	b=pr8qVC6j6jZtmiEdC502FrfxEdRu4eJRtqNWjFg+b5B6rnvJCoGxA6WuYO/qQhV3Gv6g
+	 OwAOE23DY5WuBhqaQ0ElO9q5bTplzpwownTsZ9SE8sYOVUZ+M2+6v6FpX/PKvp37WNW9g
+	 91hZpsM3NnIlW5eT79yIHPcWx6SmG0QO7xPAU6eCHEpC8hPnqDPM3jTJLqLs6GswoGvxE
+	 eZMg9sybN0srLUBKw3ABp70RJNhlGa7Ce2ZiVkAIUihnOr98x8FdhVSEo8K8l9GZ2UwX9
+	 /lkbCxF9mp0UUzcbDV5QeZf4IKlh/+WwPExfpaRmxh9Wy2ipodfLtU8ejFmRdaINr1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zAbh+AKF;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dkx3oL4k;
+	arc=none smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1597A606D82F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1597A606D82F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676176082BD4
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:14:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 676176082BD4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zAbh+AKF
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6d290b10a35so1510525eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:14:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dkx3oL4k
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-705cb6cedd5so78308eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:14:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793661278; x=1794266078; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793661283; x=1794266083; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
-        b=zAbh+AKFnmrKyu3yPlpJFTyovgT0X36iWP1xt6340TDWsSmwQJQfezmHFkrbt1wDPC
-         99siFVB0N5xKyLIlR5dsryAQuDVnIUnIajfuT5VV1tWbyu/eiGC2prSWyo/Z5UDd2p5h
-         pij+0JsWXSB1Ksv/0jbZvaca/4zUCLoBvRQETgKQ0m84A4Fr/ayPsLf+tx5OKCRDuG+3
-         Mic/ANVZLEOhfTtQSU1FL0vdkAV00Rj5soDPKEt4yDizTQ2MU6yL2E0ar0dCssYnlljq
-         5nygHbLug0idpwvep2XFY18Kk+25Cf/rn7u9y/bDfLt/G/wGPWccQJQdhU1yNlfdDW/a
-         aFxw==
+        bh=xGWk144TqWPWYAhvtpbLeTIfJgjLiqjAQeYBDnQ9hsE=;
+        b=Dkx3oL4k5JnraMjI//7pIj4FRc/c/ni7jV1LCwcoRtcoT0D3CYRH3lgOrU0HZbGeSV
+         TUwNV/dlx6yNCa2snGfNBIg/I6d/YrxkXPTraijQ16qDcrjsJixEVV6rvAIUz9zxX1aO
+         QX6WtsbrngUCe/veWYgIJHoON/1MCv0zxYGRmzKlJExlNqqasniKQPoX/eSl1wLIX0u5
+         u+Vwttc6JKv7lHzer0LOBv5sDk9H7xuA89g4EhJpEqKTzAXMCvi6PQ0M6bK7K7j/A1z/
+         5VCFVJxh0ou8XS6GcIFKsqrGB3YnUd2299fZ/3oBpGwmrEHzAi0LlkwxBCkImVpmjyRD
+         ntYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793661278; x=1794266078;
+        d=1e100.net; s=20260707; t=1793661283; x=1794266083;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
-        b=NoICxqIXdLMjOAFRhIBCGJZBH4kfWvdQ49fG+Xkyd5rM22rukAD7RD8MtyHtLGoGTV
-         emvHtjgGF4qcL1NLjtrIX29E1ZGSA8FeMfRRYqntfIRZx412p0wbFX3SOA2Afvzhedl2
-         f113O63egQTSEYoW1sIS8d5bUNvIviviIJm26c1nFhGMtNA4dCggS3G7Ga22dq/FbjMx
-         jdUsn79ki8ORUgPC5/X72qP1kO+uXtzmxSsR3xX4aO+CzKNd7I/PQ97P8m+9W34xb1qy
-         TGEZhrbny1um0RHoXMLqjiNcNQZMbDhicb/cAYSB4i1V6Io089eIYtcv8dLlOuISBnxY
-         WiwA==
-X-Gm-Message-State: AFq9FYJyf8GHSZedpn5/sL+X1XtWxoocOcIGyylWKLh0gerpLh/hzMyp
-	yZhzmWegcppL3j1Mxd4YNCy91vwvcT/Evbpl4yOD+bXKKrwWJ7Q/9x6P
-X-Gm-Gg: AYBFou2YdQXsThOqKEhCPE6cNaw1zPkqQ1R1gGTtjOafy/5GAEnDVhpbWMnbyw0lsJk
-	9XdYWiViSR50yMtkN14AcJKwDXmxE7PmtYD+zY8xVl2NOcp7POBgDY3DxyPuBTC/COeP0xZxfPP
-	82qCBVPSc2RoHROoY/0//I2CxUUdkvUZCGMAKwmsOirm7j75aw3NN+zmLU88JsJs3elH3D5mYoo
-	hRX0iBSi0KAGh/Th9mW2mMJkfjwCxYI4RWj7PB/oeirMKTg9r1GA01F/zAeOciTxSJbElBDRr5Y
-	f+zgkFT0jdpD3ljjMCH7Di/RLt6YaKY5OdhwqePXbbBOP+ajdaqgVgqJQuVmNrw3Virq8mR4wVI
-	M0F0lXdFefvW/gyGsGsW/tdRtRhGUPJWTVsob9nbNSV6yRJ8sxwbFedZ2+mqILWil1MhR7aF4YY
-	y4DUVm3DEIkhh+mlPNRXPwGwWdjjEAvGPNi4x7JY2Bre+QOJsjY5dLmS/NRdi1J5NUUeDZxwxZf
-	cMh919UDs87J6/YeWwVfArVGuK36lDqnQvvD5oRcSMfLIb5gAXJUlhvDu6DYa8oWhZ/Y47cf/Vr
-	qfmnL23qA7DAVoCF3M9jZQldTP+Vo/0k4NJ9J7SIwM5PhAR+Pxy+BFZgUuJzk7brO/9ZyFe12cs
-	mJ7Lb5EDTJ0E1ViqG5Oo2Bpi8563l0K8uy/andt5MzjL2cCAHQirEVYvvti+NJSxADEk4izkBTs
-	lsdGqUssVevGrjGTagWap1vZonYF/EOVfn0oWGeYeUwYuhmLFi4zs=
-X-Received: by 2002:a05:6820:1621:b0:6b7:8396:f3cf with SMTP id 006d021491bc7-714f29e457fmr6317068eaf.49.1793661278004;
-        Mon, 02 Nov 2026 15:14:38 -0800 (PST)
+        bh=xGWk144TqWPWYAhvtpbLeTIfJgjLiqjAQeYBDnQ9hsE=;
+        b=CDW1993tz+OWR0C88iy4Ao1tgiyGhGCkogpWbWpuxVpaPExeKwrw1/CiVYAxVCWHhY
+         p/ISjQjbzfLaRrl5+hS7lbady96D55FOl2nH8N8o1XUXVRXC5PvvtLojgmHYAxRYD5I1
+         r2B+pqxXA+Yh9Ee8cPdNTRL5MjEMfMz7gqHoESJkAMl+rztWxfoLzAvnQnZOd937rksW
+         uW+sxQft8q+8KG1MFpfH1E53ov0cb+T+5IgtnrvYs1GQ46AUNFTqFjwlBpvpO4SE9imJ
+         DoQhBMBzwqUlw0tKFWLKEtTSWO7W30wOgxsIuWGrHdmerf/dGSppYjF9XetlCg1+GbCO
+         /hhA==
+X-Gm-Message-State: AFq9FYJis2qKlGOghWpQv3sO80TaWT6G/+iEzMTl62DwZdyYRmybycuE
+	cSKf3xO40lHXmPxWXqqQfdpVLbQhLLPa7kcFXzsnQjRPJ1Y+Vgbybbr+
+X-Gm-Gg: AYBFou2AuF7RO5N0F6UfT6Y5DvFiC26pFCGpfEmWcJEH4eizMFJpdsl1b5N/7gVWLGH
+	E0ejYu2ySuLy/Uw0nTxyjBinJRzWFeCjadz6EeSgK0y7RtcQLmnkdM2TVXZ1u7TEeL8S34Rsl18
+	bWehqHOwow00MvnSQwDvPH3jzcRxcu1XNC8oJoQUFPlX/naYaXWzjPLoucQ55nrzrvx0U+Hx30h
+	/VjWQLYFOt9u30roIg6HGg/DNDPLEA3I/O+ZIDByPsBqNVSureKIKZ0XawJL5Ha7tup0VmQHGfR
+	Smxz0g11xZr/jwcogfpD5XSo27nsHitkOBdVDiLcuUeXZyeSB8dFRriuFTwuGz9SgI0KDnLwZqk
+	cSfQFj5feJif1vZ/TBzfbmBk6lFGwd9yfEWqV3IMjJJHwGKVuCvjj1oTZOf1plDh2LDE5ubTyTI
+	86cfIhypIx4ZQpyxeIjT4WbxDYGELcJseZbXo6yXDnOLfEc0YAahA7dRC92+0jMMJFfyv15CYxz
+	KTeCoXhvLA/2oI8v8nSQzw0jp6LhhZTckem4sBUJEK4AmcKU+bZ9zZRDIVTpC0LJ4RBqVpXeJO+
+	Gow3/1YmdlFa86LR+QUBfnYoKlrqI3dZoAMudiEvs/P/NQWqEmZ3z4aOWiy6jslj5Kk+TxTmcJx
+	/qrsW27Rugv6R1D7zxxeTqgBkfiV1L6OJEufHEgY4mem5VdZT4o5lZHqqZAWb4mG5gdOdFSyupc
+	ZQ9iiXk62ekg0GmhHB8I3aJxDh+30yjKwhOpystv74YpFxZDmwYizse3ymez1Uzv5ka9CYLLzG
+X-Received: by 2002:a05:6820:571a:20b0:6f5:86e1:b020 with SMTP id 006d021491bc7-714f29fa61amr3266065eaf.26.1793661283331;
+        Mon, 02 Nov 2026 15:14:43 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2ce869asm10134463eaf.4.2026.11.02.15.14.36
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2ce869asm10134463eaf.4.2026.11.02.15.14.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 15:14:37 -0800 (PST)
+        Mon, 02 Nov 2026 15:14:42 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 02 Nov 2026 16:14:28 -0700
-Subject: [PATCH v9 1/8] serial: 8250_omap: separate locked TX DMA
- completion processing
+Date: Mon, 02 Nov 2026 16:14:31 -0700
+Subject: [PATCH v9 4/8] serial: 8250_omap: quiesce DMA IRQ handling before
+ shutdown
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-submit-serial-8250-dma-cancel-v1-v9-1-9159caade148@gmail.com>
+Message-Id: <20261102-submit-serial-8250-dma-cancel-v1-v9-4-9159caade148@gmail.com>
 References: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com>
 In-Reply-To: <20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -122,59 +122,73 @@ Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Separate the port-locked completion processing from the DMA callback
-wrapper. Keep the shutdown check and locking in the callback, and retain
-the existing FIFO accounting, delayed register restore and THRI handling
-in the helper.
+disable_irq_nosync() masks the UART interrupt without waiting for a
+running handler. That handler can have observed up->dma and continue
+using it while shutdown releases the DMA channels and clears the pointer.
+Synchronizing the IRQ later in serial core does not protect those accesses.
 
+Publish the DMA shutdown gate under the port lock before the final RX
+flush and interrupt masking. Have DMA IRQ handling check the same gate
+under the lock, so a queued interrupt cannot restart receive processing
+after the final flush.
+
+Drain the UART IRQ outside the port lock before releasing DMA state.
+The lock excludes competing RX processing during the flush, while
+disable_irq() also waits for a handler that observed up->dma before
+acquiring the lock.
+
+Fixes: fef4f600319e ("serial: 8250: omap: Fix life cycle issues for interrupt handlers")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/tty/serial/8250/8250_omap.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ drivers/tty/serial/8250/8250_omap.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
-index 4805b644ccb1..b6f108d34854 100644
+index 322403cec2de..fc1a83d6fa7c 100644
 --- a/drivers/tty/serial/8250/8250_omap.c
 +++ b/drivers/tty/serial/8250/8250_omap.c
-@@ -1080,18 +1080,13 @@ static int omap_8250_rx_dma(struct uart_8250_port *p)
+@@ -771,10 +771,6 @@ static void omap_8250_shutdown(struct uart_port *port)
+ 	guard(serial8250_rpm)(up);
  
- static int omap_8250_tx_dma(struct uart_8250_port *p);
+ 	flush_work(&priv->qos_work);
+-	if (up->dma) {
+-		guard(uart_port_lock_irq)(port);
+-		omap_8250_rx_dma_flush(up);
+-	}
  
--static void omap_8250_dma_tx_complete(void *param)
-+static void omap_8250_tx_dma_complete(struct uart_8250_port *p)
- {
--	struct uart_8250_port	*p = param;
- 	struct uart_8250_dma	*dma = p->dma;
- 	struct tty_port		*tport = &p->port.state->port;
- 	bool			en_thri = false;
- 	struct omap8250_priv	*priv = p->port.private_data;
+ 	serial_out(up, UART_OMAP_WER, 0);
+ 	if (priv->habit & UART_HAS_EFR2)
+@@ -782,13 +778,16 @@ static void omap_8250_shutdown(struct uart_port *port)
  
--	guard(uart_port_lock_irqsave)(&p->port);
--	if (dma->shutting_down)
--		return;
--
- 	dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
- 				UART_XMIT_SIZE, DMA_TO_DEVICE);
- 
-@@ -1123,6 +1118,18 @@ static void omap_8250_dma_tx_complete(void *param)
+ 	/* Synchronize UART_IER access against the console. */
+ 	scoped_guard(uart_port_lock_irq, port) {
+-		if (up->dma)
++		if (up->dma) {
+ 			up->dma->shutting_down = true;
++			omap_8250_rx_dma_flush(up);
++		}
+ 		up->ier = 0;
+ 		serial_out(up, UART_IER, 0);
  	}
- }
  
-+static void omap_8250_dma_tx_complete(void *param)
-+{
-+	struct uart_8250_port *p = param;
-+	struct uart_8250_dma *dma = p->dma;
+-	disable_irq_nosync(port->irq);
++	/* An in-flight handler may still be using up->dma. */
++	disable_irq(port->irq);
+ 
+ 	serial8250_release_dma(up);
+ 	up->dma = NULL;
+@@ -1330,6 +1329,11 @@ static int omap_8250_dma_handle_irq(struct uart_port *port)
+ 
+ 	uart_port_lock(port);
+ 
++	if (up->dma->shutting_down) {
++		uart_port_unlock(port);
++		return IRQ_HANDLED;
++	}
 +
-+	guard(uart_port_lock_irqsave)(&p->port);
-+
-+	if (dma->shutting_down)
-+		return;
-+	omap_8250_tx_dma_complete(p);
-+}
-+
- static int omap_8250_tx_dma(struct uart_8250_port *p)
- {
- 	struct uart_8250_dma		*dma = p->dma;
+ 	status = serial_port_in(port, UART_LSR);
+ 
+ 	if ((iir & 0x3f) != UART_IIR_THRI) {
 
 -- 
 2.53.0
