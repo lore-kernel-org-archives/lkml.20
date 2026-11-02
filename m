@@ -1,59 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638271;
-	b=xdO6ir+kdnRyc7X+HmARqZDDqQxqDft9lLRyxqqK0BtARXNyTzpS+BrhydyiR9NzSAkq
-	 Gj8dbOfas8yS1kJV5r5FseEtwhuVGvj9Up+8E2wVN6YPYLOPudrTi55AjctYR52moAtp6
-	 jPcC3Xr3DaZLDL5TCUh/t8Wbw8mOKo9mQ5m77NXMM4xhELIQ0ByOQ5tszZZwau9OeE29B
-	 DnBLX12XUwY2X5hUbqByzL3pVUSsr5miBUzaWVRQ/JoZtcoWVl6v00qoW3di6KfSctqAn
-	 S9SKmbK6IDTmmcfAt2RckDo1yUQxXNrYmyb/EdrE0w0a/hoKZET9LhDo1jH5673vOXg==
+	t=1793638274;
+	b=3Vyv+kKQEjY5JYLaztaJvUhIbpFHjvZaxeGe3FaZzX/5J64Q4RsopqlIsGU++g/xhkUb
+	 sgAAXKndhOS7vkk/2ke1EiloDMWDUB/8kfgJF7zpaMQxEqLWYzrOa8jVhofFj19JZJMoH
+	 TIhQbD9XEZeDdUKqOaBGj5R2kZwTL2RjfSOg1ekFIypFmw0s/KcIwjJQBYPgbN2thgtb1
+	 aqeCPIDb+E5jwIhk+pTOOmNmhPCO+pxya0cLDnbvVClwA0fX0odwjUhMnlhi5BQibxaxi
+	 Rz4DN+G40OhbxTBggxB12vTFz4tL2b7gCU9VfR68nan8sgNO5TB8qMwvroFdDUizleQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638271;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=CSFToAoiRs3HTdfqSHH4fqOUtpfy+qVr4BH+gjm2Dyc=;
-	b=yDm9+bZgs/gOVg7PpLI/ejfdvS/gELmHoskZEeWBzMoaz52h1h0MaTPMJSRvglhxhVJN
-	 Bt3oQhmwgmSJEvQpCY5Vnkny4wyAcLo0LuDvwRYi03sJzgRGZZty3rgi3Lq7QVArihmCE
-	 VpqNZLHN+aZYROhaQ+8srXmJ0wXiYs2weqTl3GAsGNKnCifUyrD5aktH0XXSc+CciUDBB
-	 VDEQa9v1ffgwmrrgQ8//6jNgmZyQEGArri59ayFN5Okrz9fbdPVdz+KtX91u/RG8/h+QQ
-	 to1RiWkX296t2aiI2/XEJ+bRwM9dznV+PFMG+Et9St4YwlcBKMVWDAwmHxbtXX9L9qA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638274;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=dSWvNA1kVkMo4dfNmhCC1F6Z/Nf1KQ1Twcadzs7yfCU=;
+	b=4RQvTrDp0aK9ZIlAhbiTxptdxY7Zvsmf9m++rZgU+sRiL7bt7ZjO45mJLulSrNGMQX6C
+	 +UnOYknxgnV49GDB57q9L5J0cVLqxx2KmnTx3tEfCs8drNoSgN6L1ZEdLznFVYJNzdwui
+	 Gztj2ftudZmeeQS+PPRQ7HJCzV0aNt2jnAn+X0xmSIa4eYL2zAoTZ7x/3IFZ490mvKy5m
+	 i23LGMJPawX/UvdprwhAF1RDCEYRoVn78nD9HuT3HnVWmznKdx9rGp7jLzH+KAZxdM5Xh
+	 gH9KAFLWt3Jphu9HdpU+J82KIHL/X1PQb2VDoRN6XEk8/hC5d+qn1PkFkOM/F0ThIRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qTpXUCsl;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CCC60771D2;
-	Mon,  2 Nov 2026 16:51:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99CCC60771D2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cxx5ojWU;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39D5560771F2
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:51:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39D5560771F2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qTpXUCsl
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5003B1A1407;
-	Mon,  2 Nov 2026 16:51:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BD2E603D7;
-	Mon,  2 Nov 2026 16:51:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4F24610328E6F;
-	Mon,  2 Nov 2026 17:51:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793638267; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=CSFToAoiRs3HTdfqSHH4fqOUtpfy+qVr4BH+gjm2Dyc=;
-	b=qTpXUCslW3JIfaokWoEfBMCLIQY6W1bfTqdS5eWttN7fgh8xdmmZBNx3RtkjSxxXpY1c9M
-	Usshxs+P0JDxE8rN7Ow4m/BuuB5rwR9T24AZMqyhY/8RXsULqebwNqZST7ZXbQeveOTDWF
-	s6KvyxWvP51/Cmvdt5f/uUo5uVeZjdghwthfziJIMuk9PPuo5uyxnXYJo8CoB3kUQNdu9R
-	7ShJk34/HCwDh2AczJ2QZ0glfGgpGoUOpA1y+DvdAP8f7hD5WqplUChjtEugVD1Yc+NyOH
-	AGZIwVwlvnmey4fW/vzQ9nimu1rh1MV9PFBScQBEB2t+Omq60U9XFqsEmZNnXA==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-Date: Mon, 02 Nov 2026 17:50:40 +0100
-Subject: [PATCH v2 3/4] MIPS: dts: eyeq5: add MSI controllers
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cxx5ojWU
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74AA616F3;
+	Mon,  2 Nov 2026 08:51:09 -0800 (PST)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD9803F59E;
+	Mon,  2 Nov 2026 08:51:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793638272; bh=1i1kgIOr37Qqefc5GDkhrJkMUL1IUNkCijO3tn0h/fE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cxx5ojWUJmN0/QsOVD6XkyIEgyf1+vOfzZmV/NvRuP/cL7SmHTNYkv+nVvyub120v
+	 eJ6U4jkkXmo5Q+qsw7VWlLSVVGVXp2/QH7OwV3QsSktO8p7NxCqtyQx//x4nRsASAU
+	 h4o8/T/e5Kq7b+TKG57FCX6tfpZkRXIWnzlErCQo=
+Message-ID: <7e209fb2-4bda-4207-9109-c67c8df41e05@arm.com>
+Date: Mon, 2 Nov 2026 16:51:05 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,72 +53,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] iommu: free dev->iommu when iommu_fwspec_init()
+ cannot allocate the fwspec
+To: Tal Zussman <tz2294@columbia.edu>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jean-Philippe Brucker <jpb@kernel.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261031-iommufd-folio-dirty-v1-0-2cef66d2d6d1@columbia.edu>
+ <20261031-iommufd-folio-dirty-v1-1-2cef66d2d6d1@columbia.edu>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261031-iommufd-folio-dirty-v1-1-2cef66d2d6d1@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-eyeq5_msi-v2-3-4aa3d3608064@bootlin.com>
-References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
-In-Reply-To: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-Add the two EyeQ5 MSI controllers. They use reserved-memory regions as
-their doorbell windows.
+On 31/10/2026 8:33 pm, Tal Zussman wrote:
+> iommu_fwspec_init() allocates dev->iommu with dev_iommu_get() and then
+> the fwspec. If the fwspec allocation fails it returns -ENOMEM but leaves
+> dev->iommu allocated, and it leaks.
+> 
+> kmemleak reports it when iommufd_fail_nth injects the allocation
+> failure:
+> 
+>    unreferenced object 0xffff88811c138b00 (size 192):
+>      comm "iommufd_fail_nt", pid 783
+>      backtrace:
+>        __kmalloc_cache_noprof
+>        dev_iommu_get
+>        iommu_fwspec_init
+>        iommu_mock_device_add
+>        iommufd_test
+>        iommufd_fops_ioctl
+> 
+> Free dev->iommu on failure if this call allocated it. iommu_init_device()
+> allocates it before calling into the driver and frees it on its own
+> error path, so leave it alone in that case.
+> 
+> Fixes: 72acd9df18f1 ("iommu: Move iommu_fwspec to struct dev_iommu")
 
-Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
----
- arch/mips/boot/dts/mobileye/eyeq5.dtsi | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+No, the bug is clearly the early return in 2a918911ed3d ("iommufd: 
+Register iommufd mock devices with fwspec"), so fix it there please. 
+iommu_fwspec_init() has always been designed to be called in conjunction 
+with iommu_probe_device() which handles cleanup appropriately. All of 
+this mock_device hackery not using the proper probe paths is enough of a 
+pain as it is...
 
-diff --git a/arch/mips/boot/dts/mobileye/eyeq5.dtsi b/arch/mips/boot/dts/mobileye/eyeq5.dtsi
-index cec5ad8752285..39549cef998ea 100644
---- a/arch/mips/boot/dts/mobileye/eyeq5.dtsi
-+++ b/arch/mips/boot/dts/mobileye/eyeq5.dtsi
-@@ -309,6 +309,34 @@ gpio1: gpio@1500000 {
- 			resets = <&olb 0 26>;
- 		};
- 
-+		msi0: msi-controller@5840000 {
-+			compatible = "mobileye,eyeq5-msi";
-+			reg =	<0x0 0x05840000 0x0 0x10>,
-+				<0x0 0x05840040 0x0 0x20>;
-+			label = "port0-msi";
-+			interrupt-parent = <&gic>;
-+			interrupt-controller;
-+			#interrupt-cells = <1>;
-+			msi-controller;
-+			#msi-cells = <0>;
-+			interrupts =  <GIC_SHARED 7 IRQ_TYPE_LEVEL_HIGH>;
-+			memory-region =	<&pci0_msi_reserved>;
-+		};
-+
-+		msi1: msi-controller@5840010 {
-+			compatible = "mobileye,eyeq5-msi";
-+			reg = <0x0 0x05840010 0x0 0x10>,
-+				<0x0 0x05840060 0x0 0x20>;
-+			label = "port1-msi";
-+			interrupt-parent = <&gic>;
-+			interrupt-controller;
-+			#interrupt-cells = <1>;
-+			msi-controller;
-+			#msi-cells = <0>;
-+			interrupts =  <GIC_SHARED 48 IRQ_TYPE_LEVEL_HIGH>;
-+			memory-region =	<&pci1_msi_reserved>;
-+		};
-+
- 		iocu-bus {
- 			compatible = "simple-bus";
- 			#address-cells = <2>;
+Thanks,
+Robin.
 
--- 
-2.53.0
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+>   drivers/iommu/iommu.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index cd1bca7ede9a..69be8819e05d 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -3074,6 +3074,7 @@ int iommu_fwspec_init(struct device *dev, struct fwnode_handle *iommu_fwnode)
+>   {
+>   	const struct iommu_device *iommu = iommu_from_fwnode(iommu_fwnode);
+>   	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+> +	bool new_iommu = !dev->iommu;
+>   
+>   	if (!iommu)
+>   		return driver_deferred_probe_check_state(dev);
+> @@ -3088,8 +3089,11 @@ int iommu_fwspec_init(struct device *dev, struct fwnode_handle *iommu_fwnode)
+>   
+>   	/* Preallocate for the overwhelmingly common case of 1 ID */
+>   	fwspec = kzalloc_flex(*fwspec, ids, 1);
+> -	if (!fwspec)
+> +	if (!fwspec) {
+> +		if (new_iommu)
+> +			dev_iommu_free(dev);
+>   		return -ENOMEM;
+> +	}
+>   
+>   	fwnode_handle_get(iommu_fwnode);
+>   	fwspec->iommu_fwnode = iommu_fwnode;
+> 
 
