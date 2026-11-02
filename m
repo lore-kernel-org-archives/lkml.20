@@ -1,116 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637404;
-	b=my2guvFauX4IjdIwJUH/VedjIZ6ALbdt22aAnZSCHlxjw9M4AwK32vHsNxAjLBmZszwG
-	 0O5j15y5vJh9jfPqzt4gKHWfcI5ttUyoyk0XPK1iTS6jrnph2390lFbAXQjgKQAi9LgAc
-	 qQHP0gzcJ5Zej01LnFcmjXT0UGQOouc4le3n8le6bGuSpONMNGf0pp3WhQJ3RgMwlKsqN
-	 zs8r+lcZUhiCAbyevFWqG3xKejuOqYbmd2G3n6AFSz9EOcmBMh4H/wEX/cJXOruQt0W1y
-	 bjHuVCg7JRmXfhujPOe0LSXl8im9y7anrz/eq9hBsPM+RkmvShErPxl29JNzSCOu1Wg==
+	t=1793637581;
+	b=P0tbJsl9oRb/DSaUoT86F6TTrcx4eId5aLw5P4vk0JBle+y43M+4ir0I78NBnUIJspxu
+	 2EWXZrgpWJ8BOWoJUimji/ttUAwkJzPW4kJ9KaZV7xifvbxKyHfrLgRZVNRdyfZT90sUY
+	 s3NNrBmBOUNg/iGiT45P0rdLQdW1wiWK6ZOmNlvo5IgQpAyYcWvRmP+rPe6/j+OoDnrGB
+	 9cL33OkoFp9UbLDCYRtbhY0DYf34t+Ca12W5cH1G3yvramKtOwaC5XAXuL/UCOgyQUO59
+	 1pOI4ueF2CSreeNXF+oj5RypGYcJlwE4K2j+K/h9mLFKHUfPkL0tjati2Zewf/G4RDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637404;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pmxkjQHYZxu5Fni0akKQ9coEAC1dNmzFGp5ph6xLMkQ=;
-	b=H/22ACJ7F2hXVlztxRtlnwzHEFY28+QyHZ7B3ZC0opFTKcKm0Ru8zmvwPjEGx4l+VCMc
-	 lXkQtZKHaDVACsgj0ci9FPkdWH1IM2fkBPaDa+420lcLJLgG/bTphURu01Vk7nJc6OhoY
-	 x6PHBUoesuPiz8ywalwlGtq0PkgjhbS8ug5to34vE0QBJ0WMs08L4FRsK6aOioogpVr7h
-	 6HhmTsd9q+x5ge+wbKdOO/SVOaxd2yU33SaVtMz6iODl+oqIP23i1WgsdrYKSUELmIfsW
-	 dnrSLR1+YaCZYsPh/kO13NjRRpgVSaf48Mxcfgm9STWD6R0APA/6doVfaCJ0uqiOjiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637581;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=2gusUduchRqEonlGBJHA8gtRcetBORHth6y/vTsWQmk=;
+	b=eig6qTS0G3DG/CSdnjvJjVzNDb7i7DSkC9xqDexue1bHCEV0ADi25ot5EdCWEtJPsjg+
+	 dY3BbC+GyuAS3TnxBeX8sXoiJ8bshByk0TTRy3dOH6a2pK/dvkKcnBJdIo90Lgr6+c0wX
+	 u6i3scXZ1fIsWtDf6PuVAHFq7RYrZrzPv4NbGc+p3kISnLDfT/dN4OLTrUP/CvaMveOg8
+	 LAjEKU1SdJfHHmoQzapT+Q0dXo3JzexI0DJftPkI2xk70x9gOPIJ4nGkHFC37e9mV6CrE
+	 oE+pWUbCADMua3+qu/iO2qgjS9FZ8Cw2VKg/pp1TrcXOjPCRa2ZsZlDyXPAjKLdGxLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BZ4LLZyL;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=SkhXKQa5;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="0s3/Q4F+";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=hiNQYyDT;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BD3606B0FF
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:36:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12BD3606B0FF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3AB606B0FF;
+	Mon,  2 Nov 2026 16:39:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE3AB606B0FF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BZ4LLZyL;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=SkhXKQa5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793637403;
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0s3/Q4F+;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=hiNQYyDT
+Date: Mon, 2 Nov 2026 17:39:37 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793637578;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pmxkjQHYZxu5Fni0akKQ9coEAC1dNmzFGp5ph6xLMkQ=;
-	b=BZ4LLZyL03mW+ZxZpmHsSI+nC0pthdPcU1SeFZZw1D8Gk6Z/uhOfBZ7lhLLmsvgC9yfGGe
-	3QZQlW084dRtWbl/Id6Xe9Hh3f8GaYxDcnUgby5jM2GfQ6cUU2c2Hl0WLWeDS4V0WMJOBa
-	GRJVPxst6s8Ob65sZC+eJa0ucDF8OqQ=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-92-j2c4L8LqOQWQlbuMtQSf6w-1; Mon, 02 Nov 2026 11:36:41 -0500
-X-MC-Unique: j2c4L8LqOQWQlbuMtQSf6w-1
-X-Mimecast-MFC-AGG-ID: j2c4L8LqOQWQlbuMtQSf6w_1793637401
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49febef74e3so28921775e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:36:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793637400; x=1794242200; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pmxkjQHYZxu5Fni0akKQ9coEAC1dNmzFGp5ph6xLMkQ=;
-        b=SkhXKQa5SrVShAKn/Xv6hGHLDu5z49IRxN9UH+UEyxQDYzhPyHv+4yqd+i1QKjR9CI
-         dXypMZVR6J39XWCA7XNQYnhCY9IkOfLnxhAQeP9/sG/HWj75x7hxJnEsvSy6PZXWNeqF
-         Mgd8/V5lEwLNyzq6hARzda7nYnOTrQJicA2IXSpfY1qB7z8rKX8uNoq3XxdnJuF3D8I1
-         jI0O/Nx764My0/vVN2G6+gaUk1zIg4zLbYYh854rtfMNfY2NFmQ0SffjxbpfDB5SOWcD
-         9O8NNwVpFA1Zaqp9nNGmsIkNEnpgVflMwS2pGFmoCdHyQKGdpHLThGzP08htEZ3gN8wk
-         leew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793637400; x=1794242200;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pmxkjQHYZxu5Fni0akKQ9coEAC1dNmzFGp5ph6xLMkQ=;
-        b=RjK7ySBgkk8urKYo348qdpy+VCatVHRbce3UPUAJ6OT9JzVmerVEVSV0TuQGoufLvt
-         B++18aEVIT+uzGpMmBDMEJfthVUDHgXs8jkxlPYxOxQ8mn1mYQNhffe7DiwiGV59RHnv
-         LBYNuHiz3+Dfaw6g2b5iPXCOOEuadzWJuU/R1gDEZ+ZyZBt1i+etGWdH7fYXraCTZD5S
-         XYDlITKBeerig4DSHv+vEWgvA0pjEeKoLnkENiWe2bqaM54VvN/5mrlpd2/3QG6QBtN0
-         nWIGPbEzODnP/vvgXx5TopBxr0n2sAg3SkAaFoOnicQH+ktf2Wk0LKNFZenxNGJNxe+v
-         v7Gg==
-X-Forwarded-Encrypted: i=1; AKwUvByurx0ArAZTCCospAowxIex7RQOuYe9U4fTXpdnQGboUFA3H5QCmD+9mpySjpT/W2vDWhpBT00ROp+REw4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7MhDQnXTHHrbngo5r9iMAn8IJ08+/Wz5xD5C2IPD7XwI//yw+
-	ZEDnIWxx5aSjrEsXTMpR6P4w3Du+PhIuR52EJjewVsttcqjJor1rquFJJYkNGQaNvVPJQOLkF5u
-	o5R+rWBQdPoKyRZQ5M/kjjf1m3RWfYb3qz2m14xUMl9RPVPhgGk3UpFhRMqeLdZXt1w==
-X-Gm-Gg: AYBFou3EiT9U8PROBgqYkoW2A2RoPPZ+QugZZoFFBsvBDQX4pKiI/oaJ0EYVvAwz2VY
-	oWElFED/3jVAysUIV6my3igsdMLDJPwiq5ocf9OGZkoHEuwfP9S6aeNg6dzdd3KA0+/4JTiaO+6
-	4Qj8EPNN5O4jeaSJDzd4xNMbKsvzvwZGZVb8IX6VMzjKhT6iNPd5k3AOohP9bNh8gCHZqrOKmpk
-	9tBwQWj+iNpkNoON+iL+C3+qpmQK3ji8ApZ1+4m29IIMB+197XQULjAWqOZCL7eyPQE76hTOqjt
-	jSXLEqkovkBn3A+mpvFcQlfwAZ4tbxNfZ7A5l3PIYbIA8NvrabBSU+V7S9JkOBdq2790wnIDkf4
-	l1QAqptDOMfNvfNzJ6pMiXaLnlGPDSi61Fd2vzZ2RdQ==
-X-Received: by 2002:a05:600d:6508:b0:4b0:b9ff:1e7c with SMTP id 5b1f17b1804b1-4b0b9ff2129mr79309965e9.15.1793637400513;
-        Mon, 02 Nov 2026 08:36:40 -0800 (PST)
-X-Received: by 2002:a05:600d:6508:b0:4b0:b9ff:1e7c with SMTP id 5b1f17b1804b1-4b0b9ff2129mr79309335e9.15.1793637399951;
-        Mon, 02 Nov 2026 08:36:39 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm455824455e9.3.2026.11.02.08.36.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:36:39 -0800 (PST)
-Date: Mon, 2 Nov 2026 11:36:36 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Yuho Choi <oss.patchbox@gmail.com>
-Cc: Dragos Tatulea <dtatulea@nvidia.com>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1 RESEND] vdpa/mlx5: Don't free QP buffers if destroying
- the QP fails
-Message-ID: <20261102113629-mutt-send-email-mst@kernel.org>
-References: <20261016035851.771496-1-oss.patchbox@gmail.com>
- <a7ed450b-5dce-4485-b4a0-9349e75e4c52@nvidia.com>
- <CAGG=RgB2NYmjugQrVOiKyfPF=_aU47CY_JXGmCLQ-kOe4Cxp0A@mail.gmail.com>
+	bh=2gusUduchRqEonlGBJHA8gtRcetBORHth6y/vTsWQmk=;
+	b=0s3/Q4F+bmgU8FT6zC8WHy3an8F4Zzml8l6oBU2Scq/CT750rvg0Ww/kxI0fPWWowHR9Ly
+	RRGLVL8oWbDb2diSzCkBBLI9lrtsOx+9ciw+PuwUWTB2F8+DAAaYEU0O68jRrH97umQPIT
+	7Vu616FBU5OXlb4RRf17B2w6av8b81kYVK3WE0P+pN5MGEhBUzH6npzhdFBLirmiTiunwB
+	az+GjST3TgtOTvzxmzLqM42oTBSPN0ceRjdHtrGI8IYHeAdBxw//J1Tx1nD59p93bi06fu
+	fAxrHaiCoC9trO44EcfH07f+/88DpoNIq5y4pR/HP8c/iYIw06/tAi4rIp/WjA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793637578;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2gusUduchRqEonlGBJHA8gtRcetBORHth6y/vTsWQmk=;
+	b=hiNQYyDToDuZRNHlVtQt7Kiktw4q/8q0KHGxux+W9oQifa3h+sel7quIS30vyx0BdEHqf6
+	Jj2SUVxm6OlcCQBg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Andi Kleen <ak@linux.intel.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH 1/6] irq_work: Re-raise pending irq_work after system
+ resume
+Message-ID: <20261102163937.KwllF-Pg@linutronix.de>
+References: <20261102074039.26983-1-adrian.hunter@intel.com>
+ <20261102074039.26983-2-adrian.hunter@intel.com>
+ <20261102090604.GR1779021@noisy.programming.kicks-ass.net>
+ <74511f6b-f5ff-498f-bf97-ebdc86c43d24@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,26 +95,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAGG=RgB2NYmjugQrVOiKyfPF=_aU47CY_JXGmCLQ-kOe4Cxp0A@mail.gmail.com>
+In-Reply-To: <74511f6b-f5ff-498f-bf97-ebdc86c43d24@intel.com>
 
-On Sun, Oct 18, 2026 at 10:56:31PM -0400, Yuho Choi wrote:
-> On Fri, 16 Oct 2026 at 12:01, Dragos Tatulea <dtatulea@nvidia.com> wrote:
-> > This commit message is long and hard to read. Could you make it
-> > shorter and more readable please?
-> >
-> > > Fixes: 1a86b377aa21 ("vdpa/mlx5: Add VDPA driver for supported mlx5 devices")
-> > > Cc: stable@vger.kernel.org
-> > Nothing against the change. But it does not deserve a fixes tag.
-> >
-> > > +             /* The QP still owns its buffers */
-> > >               mlx5_vdpa_warn(&ndev->mvdev, "destroy qp 0x%x\n", vqp->mqp.qpn);
-> > While here, could you improve the error message please?
-> > mlx5_vdpa_warn(..., "destroy %s qp 0x%x failed %s\n", vqp->fw ? "fw" : "sw");
+On 2026-11-02 12:54:22 [+0200], Adrian Hunter wrote:
 > 
-> Thanks for the review, Dragos. I'll send a v2 with a shorter commit
-> message, the improved warning, and without the Fixes and stable tags.
+> Yes CPUs remain online for suspend2idle, but currently the choice between
+> suspend2idle and "deep" (S3) suspend is a user space choice,
+> refer /sys/power/mem_sleep.  Many modern systems do not support S3
+> anymore, but it has not gone away.
+> 
+> > 
+> > Anyway, I'm torn; I would much rather make this trigger a WARN and have
+> 
+> AI now also identifies ftrace, BPF, GHES NMI, and #MC as possible causes,
+> not just perf.  I haven't tried to confirm any of those.
+> 
+> And, belatedly, AI is now saying an irq_work raised before lapic_resume()
+> might result in #GP if the APIC is left in xAPIC mode at resume.  Also
+> not confirmed.
 
-didn't get a v2
+Could we flush this before similarly to what happens during CPU-hotplug.
+The question is if this event can stay enqueued during suspend (and
+handled on resume) or should be taken care before entering suspend.
 
+Sebastian
