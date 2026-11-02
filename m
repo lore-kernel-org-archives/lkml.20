@@ -1,48 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793654992;
-	b=khELRIMcvbgCNNA707vUQfTPw4Zr6CMKjw+V8Is7759jYg4X1GQQThB7nMYlYjcFD7dn
-	 CiQTfiWdinT4VRD6idXnrwDTAVdomgo7+Q9B0y4kxIWh3BKExWyIR2KC5Q++aqinAhAJs
-	 I89Ht234N4txONQYbkoxMuFNsnlq40XMUaF2zZLiPwslx5RxlXBlpRgi9vsVdx2LXodyW
-	 cbfr5uuqw9KuKRTG/18B7CbCPWks8migvUTNPKmk72xhfl1eBLy7y3IJiHF6ydhOYwwb7
-	 tbhqEtMCUFcsWAg9x016NnrtmVZYxYt3zG2954TiP0xlbVUXIVIgpcniSgilFZgy4oA==
+	t=1793655015;
+	b=FZUG2YVhZ/Z3W5dIn1kkWR9M+a6gTrsVopgmxkpdgjGKZ4iMcsovM6FQ+7k7ntsSPsM8
+	 b+hFwzFOruAo5AsvVHL1X8njVZcLERf1ldaCWpn4TyI5XnjiSOaoyoFmT6hOITTFv0u96
+	 3sjZr70R68BqFXOTDCjHY8bjBsRW5mu75SfBWH9iUNvYBgWIXgRCRiM2IymMVmMNz+ciT
+	 h/x9PJBQVGhsqPKjpW7UA51JFt5SMtZR/LrWoEO06aRQRqiV3ucN+1bzAF5derdB+w96n
+	 LOBbYvnzafF24m45rJYTVCsjrWFMaO8CdeaYVC68RkO2TsVoOKxzMjwJ7Gcop7A6qtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793654992;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=X765b+SvDUY0hI4tKNjS4ZVBnhPOM9JahqRHMsNz42w=;
-	b=4c8Fzo9twMWz3Gad7mvHzPznsCF84es4w1uk+OA90+OlhfWncY6K9Zfd08C7M4XTT6+8
-	 l1TakDI0JrdzMB45Bvn9TyPf4+GzrLson/G+U7OWbQUf84Uaoa57XlPt4sqe/9732ebMJ
-	 /KI3KGQpdcLa9RWuM2MXKACitxzwlaiJlaJAPaJbgcSROW3ZZPFUKctn0AVZ++iZZcm3M
-	 SRwj/3p0wTCB/nZUqandVUptgY4zJHVDpj5MhqKXhFo1et9bay1lzvqjq7yvkLWO7zMZf
-	 ORodosY/PeMDNhkpErNRJgROQmSINIWMMjAHNAiFgW2VwhpcwTS8eoxw3/TapoBANBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655015;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=2q8aiyZNu7WsOVILgK8CuohQb1g9BJN+Pm1TJ57mfvo=;
+	b=4drRXkjNvRAmcKSAh8zHWBNbdU4uOImckhDyw2NNCnpMPoGS7xOMkWY2C6AyOVbIv0Ms
+	 byNWcwLQKIxOY8W1xChrhgWuW0TrCjc150dCmN6wrmouqQDqm9KPy6p/0emQeQfW7JGZS
+	 51ktubcyRmvtWHv/xqMiU8/JDxhG0ueonHd0LP1RE0lqZ5eA822DM1HUQehVy7t7puI8V
+	 U5HZHtpDvyzP07loxMOFDbdJtiCOh6sLmnrPWwuAcgoLGrJRZ/rDi+0ub9T74AxTwnTmX
+	 Sm4dCPoPKBqQL0sV5MvIlD+7NCalSh1z2BnYoqUwYaG6tb9QnvX5FeSstlxYh6i18AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyDq2pOl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DqzOhJhl;
+	arc=none smtp.remote-ip=209.85.222.226
+Received: from mail-qk1-f226.google.com (mail-qk1-f226.google.com [209.85.222.226])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BA2606D804;
-	Mon,  2 Nov 2026 21:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6B2606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:30:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B6B2606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyDq2pOl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EDEC1F00A17;
-	Mon,  2 Nov 2026 21:29:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793654992;
-	bh=X765b+SvDUY0hI4tKNjS4ZVBnhPOM9JahqRHMsNz42w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=UyDq2pOlHw5NcM2bA1Nmc9WumekGwGn0Zus7q1irqEKY3VH3Jh4bEutbKl9wLPZnn
-	 O5MB+4SBP0hmYT/3KJrCpD4trrft25RJGdQUqNU0tziTEjyBrviA7bkpKHtnIidvZA
-	 L+c+8oY1USunZ5N6NcGU8KA1WpCrDqdrV6LRCrgC+NWTF/xB5zToEQND8ni5d6qw8U
-	 riMy3QngAiZAZXCrw/LtXssvqv7YPu9K4HPG+q4u0wGnkr3CVV51eK+3cfa6FIfwmP
-	 4SDpliLhOwcwgZy5tukPNIDjsciMBrTlZvmCFHBxxCzCFUYWRdclW1etHJmqD7/bMC
-	 A3hRJrkEi6i5A==
-From: Vincent Mailhol <mailhol@kernel.org>
-Date: Mon, 02 Nov 2026 22:29:13 +0100
-Subject: [PATCH v3 6/7] block: add secondary DPS root partition type UUID
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DqzOhJhl
+Received: by mail-qk1-f226.google.com with SMTP id af79cd13be357-93f3c8958d5so427078485a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:30:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793655014; x=1794259814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2q8aiyZNu7WsOVILgK8CuohQb1g9BJN+Pm1TJ57mfvo=;
+        b=DqzOhJhlFMX7tm4xWPsNcgpICq4CZkoigy5owj9/Kj+tcuzmTo+M8XfPUu5xnx4K+N
+         XzRPaVpScaZGf4mCurK9fGnfXXm0S4EiZ5kDU5nt2nEZeBxN6n0gd7IFeuAx3yzoywIq
+         4NwzsZ9AUKmtDwmXFm3xXjme9dOm7rVmkKW5vpPdFDpOhUhm9kOBee3FzwB3du8CWmtX
+         r0yo9oeA4nWDAgdK2EK/etnDeiuVaCKPDYxTTTl9X3lc8WJVnL5bcAU1y9PXNgaVUJPl
+         KIQNCgPpLlqKu/5+uxgzMm1c5MNNZemSeHxnUzp94oGLCpOY2hXWpfwG3/dBfJCGhP9c
+         v8rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793655014; x=1794259814;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2q8aiyZNu7WsOVILgK8CuohQb1g9BJN+Pm1TJ57mfvo=;
+        b=nMHMJfm9VS0y7St9Ow/cNeemKI+0rpNnG2XX1IWp7PnH/aJjsQV9RMubNlQg2uydCY
+         c7s2yGRvL9VCcBmWqgDR2Ytt3nCiFZSMp1K0gI0JPDe/e5Wr+N5XUEGl5T+5qeWZ9Ftn
+         1BQ+Dp1UDDRGtAbTuK56z0m5U10EydgAZF8HioyauIIHdF3Aa8o4Bpgjh1ezNCXx604+
+         IcvvjXiYNu8e72NuwdXPOfB3RVF964o8wbGLFp5rj5Tg74iDW+ai/ZblcZArSSDqXJzG
+         z4W0cxq9V9HROy3HRvhws4RcE27bQDEFb9RqE4D+CMtd8w27CboVJqZV+0a5T6bId8wH
+         qWaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwv8zFogLi2yBJKE6J07Zk6IPctKwroztcRh0SgxmB3m29B0ugjhBwList5ajeDy8nz/iQ/tgSAKjbBSOU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZPageCaKNsaBbw3RPoBfDZVxQjgP1Y3gYMdqOilE9fnBebuAs
+	I09Wx6CK831eGee79I3HPk54NHz1FP/P0fRyb7mTs7ah2HJV1ZyGDoEvVqhPMfW5xrH6flQ9O6S
+	BwCMCrGo9Hdt80Byi2HzIdpc7l7YvpVp6P4L16fmEH7+slOyyxQ3F
+X-Gm-Gg: AYBFou2HbfyCUA7RpKvtHDGhyFgkXbRBwmtmVByPKwUkjwyWw5eMZK6PzSHsFHBJ9JR
+	uFyFbFiSN+oniryFjdCY5xzMf1p3s4IvHwPAkv1Q+5YwROpKzdrR1UaUjomeNdZpOYReOKaQGeQ
+	hQ88/0f9zh7CpfekJNlOCBAyJLhYLRk74GJeI2nEBTJh9uC7il7sv7x7TUVgiU/6ieJWGAXkvDb
+	0RRVXVJ671D5Ng+3bNsYphN9wmw46lLD+fLH/JUT42/CP0Fq8MYV/tv/LMaox8l7ZpF9+AtmYoI
+	qkSWnFnauDxpg4HRX4OGAj264nKGAHEGy7FMlg9TxF35GZHAB4G+28/aOKi7hB1CSudnhbF353E
+	MraXZrwars0tubI6CklQ=
+X-Received: by 2002:a05:620a:28c5:b0:940:ef15:1c99 with SMTP id af79cd13be357-94421735a1amr1949198485a.72.1793655013720;
+        Mon, 02 Nov 2026 13:30:13 -0800 (PST)
+Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-9442582a2cfsm96565385a.15.2026.11.02.13.30.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 13:30:13 -0800 (PST)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id A8B1540017;
+	Mon,  2 Nov 2026 14:30:12 -0700 (MST)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 9BECCDC0CB7; Mon,  2 Nov 2026 14:30:12 -0700 (MST)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	stable@vger.kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Aviad Yehezkel <aviadye@mellanox.com>,
+	Boris Pismenny <borisp@mellanox.com>,
+	Ilya Lesokhin <ilyal@mellanox.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v5 1/2] tls: only install push_pending_record for a TX context
+Date: Mon,  2 Nov 2026 14:30:06 -0700
+Message-ID: <20261102213011.4191020-1-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,86 +109,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-discoverable-root_partitions-v3-6-27f04b69b7ab@kernel.org>
-References: <20261102-discoverable-root_partitions-v3-0-27f04b69b7ab@kernel.org>
-In-Reply-To: <20261102-discoverable-root_partitions-v3-0-27f04b69b7ab@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>, Davidlohr Bueso <dave@stgolabs.net>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
-Cc: linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
- linux-efi@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- Dave Hansen <dave.hansen@intel.com>, 
- James Bottomley <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Matthew Wilcox <willy@infradead.org>, 
- Vincent Mailhol <mailhol@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2260; i=mailhol@kernel.org;
- h=from:subject:message-id; bh=Ryh3J+29qpq7BeFRKlKRoIlPVTXvgjw20ddqndSK8l8=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDFkvGTay+mcc/9rVbS21TDWiZNXTBb1GTeumZLNO/8Z6a
- +FvvTMdHRNZGMS4GCzFFFmWlXNyK3QUeocd+msJM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- Ahk6RgxcnAIw1S7bGBl6j7Es2yt6N2XKseNfM1J7ZJ7/qDI0lf3yI3NOz9Pyen0pRoaFRdH7Utm
- 2yn1lfzrxNPOcSP3OlS0r5k9bqeQ8w60p9ysPAA==
-X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+Content-Transfer-Encoding: 8bit
 
-Some 64-bit architectures can run 32-bit user space. For those
-configurations, also allow DPS root discovery to use the compatible
-32-bit root partition type UUID as a fallback.
+tls_set_sw_offload() assigns ctx->push_pending_record for both
+directions, but the hook is a TX-side dispatcher. On a socket whose TX
+side is HW offloaded, tls_set_device_offload() installs
+tls_device_push_pending_record(); any later TLS_RX setsockopt
+overwrites it with tls_sw_push_pending_record(), because
+tls_set_device_offload_rx() itself calls tls_set_sw_offload(sk, 0, NULL)
+for the software half of a successful HW RX offload, and so does the
+fallback when the RX offload is declined (NIC with TX-only offload,
+tls_dev_add() failure).
 
-Add a secondary root partition type UUID Kconfig symbol and include it
-in the DPS root lookup when it is defined.
+From then on tls_handle_open_record() (a TLS_SET_RECORD_TYPE cmsg after
+a MSG_MORE send, or the close path with a pending writer) runs
+tls_sw_push_pending_record() against priv_ctx_tx, which is a
+struct tls_offload_context_tx, not a struct tls_sw_context_tx, and
+reads open_rec from inside the offload context. On x86_64 without lock
+debugging that field overlays sg_tx_data[2].dma_address, which is never
+set, so the push is silently skipped and the data buffered by the
+MSG_MORE send is later sent under the cmsg's record type, e.g.
+application data in a handshake or alert record. Enabling
+CONFIG_DEBUG_SPINLOCK, CONFIG_DEBUG_LOCK_ALLOC and CONFIG_LOCKDEP, but
+not CONFIG_LOCK_STAT, in the tested x86_64 configuration moves open_rec
+over sg_tx_data[5].page_link. Once populated, its page pointer and
+scatterlist flags are interpreted as a tls_rec pointer and dereferenced
+while reading msg_plaintext.sg.size.
 
-Try the secondary UUID only when the native lookup returns -ENODEV.
+Only set the hook when initialising the TX side.
 
-The fallback reflects compatibility support built into the kernel. If
-32-bit execution is disabled, for example with ia32_emulation=0, the
-selected root's 32-bit init will fail to execute. Do not check
-ia32_enabled(): rejecting the fallback would instead leave no
-discoverable root partition, resulting in a kernel panic either way.
+Found by code review while developing TLS 1.3 HW offload rekey support.
 
-Suggested-by: Dave Hansen <dave.hansen@intel.com>
-Link: https://lore.kernel.org/r/03be57ae-0e41-4b8a-adc5-bdd85ccce951@intel.com
-Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+Tested with HW TLS TX and RX offload on Mellanox ConnectX-6 Dx (Crypto
+Enabled): after setting TLS_RX, send() "AAAA" with MSG_MORE, then
+sendmsg() "BBBB" with a TLS_SET_RECORD_TYPE cmsg for a handshake
+record. Without this patch the peer receives a single handshake record
+"AAAABBBB"; with it, an application data record "AAAA" followed by a
+handshake record "BBBB".
+
+Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
 ---
- block/Kconfig        | 7 +++++++
- block/early-lookup.c | 3 +++
- 2 files changed, 10 insertions(+)
+ net/tls/tls_sw.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/block/Kconfig b/block/Kconfig
-index 3b5d3ad42dde..f3a0730ffcde 100644
---- a/block/Kconfig
-+++ b/block/Kconfig
-@@ -222,6 +222,13 @@ config DPS_ROOT_PARTITION_TYPE_UUID
- 	default "4f68bce3-e8cd-4db1-96e7-fbcaf984b709" if X86_64
- 	default "44479540-f297-41b2-9af7-d131d5f0458a" if X86
+diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+index 771e02bff519..23eb94d9da6e 100644
+--- a/net/tls/tls_sw.c
++++ b/net/tls/tls_sw.c
+@@ -2594,7 +2594,8 @@ int tls_set_sw_offload(struct sock *sk, int tx,
+ 		}
+ 	}
  
-+config DPS_ROOT_PARTITION_TYPE_UUID_SECONDARY
-+	depends on DPS_ROOT_PARTITION_TYPE_UUID != "" && COMPAT
-+	string
-+	default "69dad710-2ce4-4e3c-b16c-21a1d49abed3" if ARM64
-+	default "60d5a7fe-8e7d-435c-b714-3dd8162144e1" if RISCV
-+	default "44479540-f297-41b2-9af7-d131d5f0458a" if X86_64 && IA32_EMULATION
-+
- config DPS_ROOT_AUTO_DISCOVERY
- 	def_bool DPS_ROOT_PARTITION_TYPE_UUID != ""
+-	ctx->push_pending_record = tls_sw_push_pending_record;
++	if (tx)
++		ctx->push_pending_record = tls_sw_push_pending_record;
  
-diff --git a/block/early-lookup.c b/block/early-lookup.c
-index c59d14889fee..2e7dace5efa3 100644
---- a/block/early-lookup.c
-+++ b/block/early-lookup.c
-@@ -340,6 +340,9 @@ int __init early_lookup_dps_root(dev_t *dev)
- {
- 	static const char root_type_uuids[][UUID_STRING_LEN + 1] __initconst = {
- 		CONFIG_DPS_ROOT_PARTITION_TYPE_UUID,
-+#ifdef CONFIG_DPS_ROOT_PARTITION_TYPE_UUID_SECONDARY
-+		CONFIG_DPS_ROOT_PARTITION_TYPE_UUID_SECONDARY,
-+#endif
- 	};
- 	static char esp_partuuid[UUID_STRING_LEN + 1] __initdata;
- 	int err;
-
+ 	/* setkey is the last operation that could fail during a
+ 	 * rekey. if it succeeds, we can start modifying the
 -- 
-2.56.0
+2.50.1
 
