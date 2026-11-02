@@ -1,91 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637581;
-	b=P0tbJsl9oRb/DSaUoT86F6TTrcx4eId5aLw5P4vk0JBle+y43M+4ir0I78NBnUIJspxu
-	 2EWXZrgpWJ8BOWoJUimji/ttUAwkJzPW4kJ9KaZV7xifvbxKyHfrLgRZVNRdyfZT90sUY
-	 s3NNrBmBOUNg/iGiT45P0rdLQdW1wiWK6ZOmNlvo5IgQpAyYcWvRmP+rPe6/j+OoDnrGB
-	 9cL33OkoFp9UbLDCYRtbhY0DYf34t+Ca12W5cH1G3yvramKtOwaC5XAXuL/UCOgyQUO59
-	 1pOI4ueF2CSreeNXF+oj5RypGYcJlwE4K2j+K/h9mLFKHUfPkL0tjati2Zewf/G4RDQ==
+	t=1793637616;
+	b=pCw4xXPN/802n+UwJuEFrZUL4aurW6guNDhv+6m9DzdI2INegysyAL5ChDttNVJNpJOF
+	 Rl89Qvf/SynZ6zxM3trI6h9M2E9yEDnpu9v2mo7S45egauOWbmS0S+S1hUpNltnoKmlCZ
+	 fvukOWA92u1xgoS5kRp1y4yhjOSlCdtqZ9xS1CAvHUKqiFl6YLszk6HNP4h2JSMSdI/jG
+	 Mpv5/qB0RoMaAq/kLliV86WxmX8JVWHdGu/oLSMuYXinbxpf2Q4DvHm7O7lZxpj3uGd7E
+	 k4M1p8+O63565vLjlTgHTe1/LTnKG0YE09kmJzfmvHsHbjz3c/V7JCO8XF8xzo68+vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637581;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637616;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=2gusUduchRqEonlGBJHA8gtRcetBORHth6y/vTsWQmk=;
-	b=eig6qTS0G3DG/CSdnjvJjVzNDb7i7DSkC9xqDexue1bHCEV0ADi25ot5EdCWEtJPsjg+
-	 dY3BbC+GyuAS3TnxBeX8sXoiJ8bshByk0TTRy3dOH6a2pK/dvkKcnBJdIo90Lgr6+c0wX
-	 u6i3scXZ1fIsWtDf6PuVAHFq7RYrZrzPv4NbGc+p3kISnLDfT/dN4OLTrUP/CvaMveOg8
-	 LAjEKU1SdJfHHmoQzapT+Q0dXo3JzexI0DJftPkI2xk70x9gOPIJ4nGkHFC37e9mV6CrE
-	 oE+pWUbCADMua3+qu/iO2qgjS9FZ8Cw2VKg/pp1TrcXOjPCRa2ZsZlDyXPAjKLdGxLA==
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DkHgal0b82z5KPvwqWkyhs8Es3XYDe2wNpBo8Z22Xe4=;
+	b=1hcj4mVjsyAEiws1s5AwT5Se/VL9AEjgqYweI0cTXAMoPB4Hw5wWd/NoJD1QNWplxzKj
+	 9Q9TIq+NyW01r/FiCUB1MtyxDQH2RJa/4ygmZey62Ude21iMauu3cWv65B1Ld1+jFOPmm
+	 TYlxD5yN7C2/hdq0/lJUqBBVBYuL9TqRu9ZRRZUUOaGya5TnE0cR0AcjqR+N+bQj9XWDK
+	 Lajdwrbv8cKJm2qbc6nYXd5FpUeSGmqiOH1GJhbPI2JhBlVlauGnCBlpGZSwrWna8CyWX
+	 OtUYTfiL7qmu3sJF/zpKoNUplAE87fNQ2ZhIB9degw6N61Rj0u6loAvl5kB0t0xY3Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="0s3/Q4F+";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=hiNQYyDT;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=U97dZExR;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3AB606B0FF;
-	Mon,  2 Nov 2026 16:39:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE3AB606B0FF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC14606B0FF;
+	Mon,  2 Nov 2026 16:40:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAC14606B0FF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0s3/Q4F+;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=hiNQYyDT
-Date: Mon, 2 Nov 2026 17:39:37 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793637578;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2gusUduchRqEonlGBJHA8gtRcetBORHth6y/vTsWQmk=;
-	b=0s3/Q4F+bmgU8FT6zC8WHy3an8F4Zzml8l6oBU2Scq/CT750rvg0Ww/kxI0fPWWowHR9Ly
-	RRGLVL8oWbDb2diSzCkBBLI9lrtsOx+9ciw+PuwUWTB2F8+DAAaYEU0O68jRrH97umQPIT
-	7Vu616FBU5OXlb4RRf17B2w6av8b81kYVK3WE0P+pN5MGEhBUzH6npzhdFBLirmiTiunwB
-	az+GjST3TgtOTvzxmzLqM42oTBSPN0ceRjdHtrGI8IYHeAdBxw//J1Tx1nD59p93bi06fu
-	fAxrHaiCoC9trO44EcfH07f+/88DpoNIq5y4pR/HP8c/iYIw06/tAi4rIp/WjA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793637578;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2gusUduchRqEonlGBJHA8gtRcetBORHth6y/vTsWQmk=;
-	b=hiNQYyDToDuZRNHlVtQt7Kiktw4q/8q0KHGxux+W9oQifa3h+sel7quIS30vyx0BdEHqf6
-	Jj2SUVxm6OlcCQBg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
-	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Andi Kleen <ak@linux.intel.com>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH 1/6] irq_work: Re-raise pending irq_work after system
- resume
-Message-ID: <20261102163937.KwllF-Pg@linutronix.de>
-References: <20261102074039.26983-1-adrian.hunter@intel.com>
- <20261102074039.26983-2-adrian.hunter@intel.com>
- <20261102090604.GR1779021@noisy.programming.kicks-ass.net>
- <74511f6b-f5ff-498f-bf97-ebdc86c43d24@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=U97dZExR
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=DkHgal0b82z5KPvwqWkyhs8Es3XYDe2wNpBo8Z22Xe4=; b=U9
+	7dZExRHAFKmBqkf/WS8CqhY7/DyHvZftUHM7ZMQ3dS66uwf2eHCczuYxWCs4Ki8HYbxr1XJWIY0QM
+	5QSuXzlOII6oweMasRVoDbbN+SyOtjuRRtgWS8PH/wpz2PZIw2vZ2g5uVyuXPwZWDEpgQ1QDxwydh
+	KsPh5JQkINZ9W4M=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xNv4o-00DpZV-Rd; Mon, 02 Nov 2026 17:40:06 +0100
+Date: Mon, 2 Nov 2026 17:40:06 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: dsa: motorcomm: Clear the MIB buffer on chip
+ reset
+Message-ID: <d45e15a6-3f15-48c8-bb6b-901a094ca990@lunn.ch>
+References: <20261102101125.3523835-1-mmyangfl@gmail.com>
+ <179361442917.3286.13140295265370118734@kernel.org>
+ <CAAXyoMO5qCcnMeqqHM1CC__FPMnArOadvmCtoAzYT2SDhSJDEQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,27 +71,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <74511f6b-f5ff-498f-bf97-ebdc86c43d24@intel.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAXyoMO5qCcnMeqqHM1CC__FPMnArOadvmCtoAzYT2SDhSJDEQ@mail.gmail.com>
 
-On 2026-11-02 12:54:22 [+0200], Adrian Hunter wrote:
+On Mon, Nov 02, 2026 at 06:20:52PM +0800, David Yang wrote:
+> On Mon, Nov 2, 2026 at 6:13 PM <netdev-bot+sinfo@kernel.org> wrote:
+> >
+> > Hi!
+> >
+> > This is an automated message. This series looks like a fix, but its
+> > commit messages seem to be missing some information:
+> >
+> >  - How the issue was discovered, e.g. hit in production, hit during
+> >    development, syzbot report, manual code inspection, LLM or static
+> >    analysis tool scan.
+> >
+> >  - Whether the issue was actually triggered, or is only theoretical
+> >    (e.g. found by code inspection). If it was triggered please include
+> >    the symptoms, like the stack trace or error messages.
+> >
+> > Please do not repost the series just to address the above. Instead,
+> > reply to this email with the missing information, so that reviewers
+> > can take it into account. If the series needs another revision for
+> > other reasons, please include the information in the commit messages
+> > then.
+> >
+> > The evaluation is done by an LLM so it may be wrong, if you think
+> > that is the case please reply and explain.
 > 
-> Yes CPUs remain online for suspend2idle, but currently the choice between
-> suspend2idle and "deep" (S3) suspend is a user space choice,
-> refer /sys/power/mem_sleep.  Many modern systems do not support S3
-> anymore, but it has not gone away.
-> 
-> > 
-> > Anyway, I'm torn; I would much rather make this trigger a WARN and have
-> 
-> AI now also identifies ftrace, BPF, GHES NMI, and #MC as possible causes,
-> not just perf.  I haven't tried to confirm any of those.
-> 
-> And, belatedly, AI is now saying an irq_work raised before lapic_resume()
-> might result in #GP if the APIC is left in xAPIC mode at resume.  Also
-> not confirmed.
+> Reported by sashiko
 
-Could we flush this before similarly to what happens during CPU-hotplug.
-The question is if this event can stay enqueued during suspend (and
-handled on resume) or should be taken care before entering suspend.
+What is also interesting is that i expect you have tested this on real
+hardware, unlike most of the patches we are getting at the moment. It
+is worth pointing that out, it might help get your patch merged
+faster.
 
-Sebastian
+	Andrew
