@@ -1,63 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629704;
-	b=HBXBtH5qQ9Kwh04K46kJw6ZBV6lH5fJ/+KtGvW+DnBnlZ9IIsf2hSAUJ8JfStWCKSFDM
-	 yU3q/J6KrkqYL4jaYAWhw/PiFAkAu1DNBWnAjQl0XpUciYJ98aVPaKma+VGI9tcYZsLX8
-	 sATOdiisFX6KyHYRVO4j8Ktbc9ixkw9BwmpjR/V0GeE+cJ5xXY3cq/IAG6Q1wNZqljw0a
-	 k6vVw6XRPUbSPM84qx1qDhJW0Ia1qPmE89M3nUd0/DnSg57IQA+TcWUeq5BmUXh8BxwWk
-	 DgNpuHlTz5qDaW3M3QJtwYuwNmnB04LRPEno1DTdCjaDUFeJp/XXe30iC/jHhgn2vdA==
+	t=1793629688;
+	b=5UWh76qRdeL05plImxGs/fM+KzvnQhpV0UMQ2XimTe93ABvnpbpwfywHX26SFox3DIwh
+	 XZ/sSSNc4ZPBoDngSi6B8CkNN91Zd2whVtSQej/5WfopI2bTBh5ag/2UGBaeoCnLAey0I
+	 rDcTlm1aJIZghZAJeSB3KlmwRTbzUS248p9FUzQxv39fxDQrPJymmwHVNZSb6atmQ/51a
+	 hLTDPpYgIyBZuVLbzRn5Ffyu13jLelRpXs82H1Leq3Xhx5MMdvBkRbXwl8n8glUd+qsXb
+	 obUpKkIOl23rnENFlnoUnYByai5T6a8aGDU2k/dEDUfYWbbwWZd5Bll+SxiWPqHOyuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629704;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=0pK5ommQQILhJiDusmehxqIo5bMBDGkmBkDJ10oCG08=;
-	b=jNg5Piw+t566sirLvTXuphbg1dElGzQFA931xSrTHJajlpdHBPur4Bqn58GxmOx/K9L/
-	 t10S/oRaaCV0WTBSuuY2Pl5hQqA03aC34W/JS80r9VoN7+3mVHXQs2uKlVBQelFiehWXa
-	 /d5+jTme+VqB+uBxWgXZn9GdIsROVnfQUIPNUHmEHvJ4sP9jgiuy0ixnU+kzplmNec4Tj
-	 Hxy9aXEwchtmK73zuBaCeoj5t0jBeRHX7KsiwLMW8tEC3Q/CH5IdiCjZcGiFvjywqBeST
-	 ufaZxUMfoU4Pwng4o0O7M7fTMYEjqe2hSZvMtcGbfxsdJpr6alLndW36nNVsEu0RMlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629688;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uXG5ng9UK2dketrcnTT7J+p4mT8docKS72kpHf0+r7A=;
+	b=klA8diu1bKQYndm1mZmUzn0Eeg18UbVfyY7Q5IpYZ60rD08c4a9HnZ43dFlIpRkP4RfR
+	 2BJzwbGRYSiHudB2R607mL+Bk+FCkWSxLNheZPG1fJ06uY/5BMitSiTmcAUnCdMFCEZXQ
+	 eqBST+naO82JZ5hHt52YOzFphOGecLI/jPheia/Oz/Qed4r9l6+63FJGdVGQzq+gO3gqr
+	 mvnyD0jAW/NFMlPRBGl+lkAXNWTXbp51G+fdEgQvzoxrDfAARmdj/q9di6BG37Ri7/BpH
+	 KASLniAmFgjZOSVGtMyhXMqCxPcW9jmHqmnHNulJXb3NMtVQ4j2jxEavuUAqbDyIHKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UWtE8HH7;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilReywkt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306566080A7B
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:28:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 306566080A7B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C51607F6F2;
+	Mon,  2 Nov 2026 14:28:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UWtE8HH7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=0pK5ommQQILhJiDusmehxqIo5bMBDGkmBkDJ10oCG08=; b=UWtE8HH7eZ6iSZazPdkqJkDkIg
-	cB50hz3vyI6tD7uicnv3+ep19TXlarSmv78cMQyCUgeL36Ii1DMKTXs4nngvBjtiVM6BvR8sZLCtQ
-	uAH4PQs52SdmZD2okGbWOfIL/e8M6j5VhquxwLPJfA+XhZYfbp6UEqO04ViMp0aMXk+AQpjaWmCPS
-	Up7Q+mHgFS0wH7IPIA80hewpdf/1jTUi9P/Yrrwj9IBWVo7Paq0T/8FIrWZv0FB4aEZ6GL7c9Y9lQ
-	lgFpQL/NzFBoVg3hcRsiVb9WbK9rFiUidm9S2C0CWDnaBDpgE0vl9Vq5NOni509ue6gqDNZ5N0sTq
-	APIDUVOA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xNt1H-006DcX-1R;
-	Mon, 02 Nov 2026 14:28:19 +0000
-Date: Mon, 2 Nov 2026 06:28:14 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, jpoimboe@kernel.org, 
-	keescook@chromium.org, hpa@zytor.com
-Subject: Re: [PATCH 1/6] x86_64/entry: Unconditionally use -fno-jump-table
-Message-ID: <auid5MjnGmbN4Iif@gmail.com>
-References: <20261102112549.714541309@infradead.org>
- <20261102114000.436794287@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ilReywkt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C661F00A1A;
+	Mon,  2 Nov 2026 14:28:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793629688;
+	bh=uXG5ng9UK2dketrcnTT7J+p4mT8docKS72kpHf0+r7A=;
+	h=From:To:Cc:Subject:Date;
+	b=ilReywktqKg7UxMpVX3VwvO+FxchoepfEWWl9xM3aIbIGYJTNC//IEhj52mE021e0
+	 u8JVf7Vm3gCL/vzJT7Jw7LzWoDnLjc2UwTc0o0wTIiGqDoivbNdKjGfKfSZ+hzG3ma
+	 rOsEb80QHYwOvBIfoqxStgdfQyuPUgcVB8TgoGGb2uDmPMWv0TruIPqA++KQfu+KeQ
+	 mSASEWsHE2DJphbsEFLqxCq8Mn4QKAzsFLonlyQ3AKTDBFJ7HKyuAdfObBlmY07KK0
+	 uBEeeGJoXGFY6uLOKOulXLEYpsnaH83vG+kwEU3mHl84605GwuYSgHyBtZaAw/6Qub
+	 V1IJawuhScecg==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: display: nvidia,tegra20-dc: Move 'rgb' node properties
+Date: Mon,  2 Nov 2026 08:28:01 -0600
+Message-ID: <20261102142802.2742565-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,23 +67,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102114000.436794287@infradead.org>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 12:25:50PM +0100, Peter Zijlstra wrote:
-> Currently we force -fno-jump-table for RETPOLINE=y || X86_KERNEL_IBT=y, which
-> means that it is effectively disabled for most everyone these days.
-> 
-> Simply unconditionally disable jump tables for x86_64 to take away the edge
-> case.
-> 
-> Doing so, allows removing the array_index_nospec() barrier in the syscall
-> dispatch since it cannot be an array index anymore.
-> 
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Properties are supposed to be defined in the main schema and not in
+conditional schemas. Move the properties for the 'rgb' node to the main
+schema.
 
-Thanks for the patchset.
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../display/tegra/nvidia,tegra20-dc.yaml      | 43 ++++++++++---------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-Tested-by: Breno Leitao <leitao@debian.org>
+diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
+index 69be95afd562..a42bf7ed37a2 100644
+--- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
++++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml
+@@ -77,8 +77,27 @@ properties:
+     description: A list of phandles of outputs that this display controller can drive.
+ 
+   rgb:
++    description: Each display controller node has a child node that represents the
++      RGB output associated with the controller.
+     type: object
+ 
++    properties:
++      nvidia,ddc-i2c-bus:
++        $ref: /schemas/types.yaml#/definitions/phandle
++        description: phandle of an I2C controller used for DDC EDID probing
++
++      nvidia,hpd-gpio:
++        description: specifies a GPIO used for hotplug detection
++        maxItems: 1
++
++      nvidia,edid:
++        $ref: /schemas/types.yaml#/definitions/uint8-array
++        description: supplies a binary EDID blob
++
++      nvidia,panel:
++        $ref: /schemas/types.yaml#/definitions/phandle
++        description: phandle of a display panel
++
+ allOf:
+   - if:
+       properties:
+@@ -105,27 +124,9 @@ allOf:
+             - const: winb-vfilter
+             - const: winc
+             - const: cursor
+-
+-        rgb:
+-          description: Each display controller node has a child node, named "rgb", that represents
+-            the RGB output associated with the controller.
+-          type: object
+-          properties:
+-            nvidia,ddc-i2c-bus:
+-              $ref: /schemas/types.yaml#/definitions/phandle
+-              description: phandle of an I2C controller used for DDC EDID probing
+-
+-            nvidia,hpd-gpio:
+-              description: specifies a GPIO used for hotplug detection
+-              maxItems: 1
+-
+-            nvidia,edid:
+-              $ref: /schemas/types.yaml#/definitions/uint8-array
+-              description: supplies a binary EDID blob
+-
+-            nvidia,panel:
+-              $ref: /schemas/types.yaml#/definitions/phandle
+-              description: phandle of a display panel
++    else:
++      properties:
++        rgb: false
+ 
+   - if:
+       properties:
+-- 
+2.53.0
+
