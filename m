@@ -1,86 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638546;
-	b=t+5EK5qwTlHZIsWwH/o9GWcuf2yDAIlT7ZtmFwiFWiH5hJriy1iMKpZZc0svYqjeY7ZZ
-	 sMHkVG+MzeavBGhkQtla/0ACEphbKrNvSfoBUwbn8pQYSbdSPyTfapfReo35dFGGdBpzP
-	 gY5wukb/3zxeGqpjwlTnR5ygWTJeaiyEiUK54Z77mt1ppy65dE+fLilpqvaovXNSyAc3N
-	 E0PHwIwvHu7dI3U7Yfswbim3LVdGHqMBr12PNTu690cB4CnJ4MK0pGXwAZ79FpUjpPs3R
-	 tYoQUGVuPmryR/08GgMAeqfwZbLe2chATPW6ywkj9BoSehQ5IzODev8q8Afyu6eCezA==
+	t=1793638598;
+	b=s2WSNtiiYeB6tvbuJIEqIcR/uR3nC+g0lkpW2SjNAr6+UUGpCo+zhmTA8huTTysPTBS8
+	 G9TolskSYGLcVIDZcAxGsxgMlje8X7YhQ/V5pQKkRXrtbYMcM67fSw/R0dlZJQh+Y3ros
+	 g79YsombsuNxotv/eA1Hz9kVdJ1xldGdiXYefuUSqu6sXNV/1OC2fY/qEYQjbKiRhfQB5
+	 qSzHqiFsdPgskDTtF2CKU0j7jB5mgXYW6G7nXWMDyJNhYANxZtcqCn+/Gu8l4QKWmj2kr
+	 yEI47nAEw8cMoxauIhoDvCWI6rwu8Wb7TJfELgsPxe2myor2z1FQRB2RXfGWHaAVQpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638546;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=4RDMzPQ3Kc7Ayt29cgTuAx8lVc5b4/aAlpi/xEsU6A0=;
-	b=lloqvva2DMaGE/ge7l2Ylm2MYNRbd3Jg3mndL/v18uH9QDhkThPQzpKO0+ejQ9B+0JTF
-	 8yabGAX3H+82JnFAEslyNJvQ3kKsoP5FzErWP+9p0066ESAObN4tzpJCUsaEuoUsjTssh
-	 5fzoNjsEQg9I01VsPhA8HC3nqqH4yUYStm7N3NlSkShSuKpzw70EK1givL0H6OOkzkVGY
-	 00vi0DRHO0gYep5qgNkr2YYnTsYjJ1UX6bmKQZsGqjwrfBPPBhQecros1yyJsW3e1oi6U
-	 CNPg/pNd1Fk9c2B7Y6n5xTh0Z9UGpsqvwux98CHsvYbhL2/U/NzQvIc8+4yN+JywPPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638598;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To;
+	bh=fwjIWZZN+Xku/wuznq5Djc9dY6oT6GSmRAkG+xrsrHw=;
+	b=4kdF2xmzG9FV7TmalothzKba2fUvaJn4UA18g0Jnjo2S6sZ1sAyOC712BDZ03DNhRzuQ
+	 Gku7xcyV2KWjM+6IFxDiXANpjks6l4IEb425UXjielkfhtHnARRIDb8D2AD5NMvl46EJO
+	 ykYw8PwG1cqke/ZGUQ4Scvquehx21eqE38Ob76Io6JFoUWrmI0he59wbNaed69k1f/ji9
+	 Fg+VqfZ0qU7q/m4meOrtMd/LnYtEXpGJ/TcR0IJJtaOMGlzlKcSQco4tgjo3T6ZHHf1Mj
+	 oPhS3uX3A9ZIVu1Y2aJPsrmznRRc7vFe1Ahfwn2SRh9Dh0lz6TklB9NWN149OAOFpJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U+WOEszz;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gQPBCdN0;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEA7606A582;
-	Mon,  2 Nov 2026 16:55:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAEA7606A582
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D13A606A580
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D13A606A580
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U+WOEszz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793638546; x=1825174546;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=JXScI8WmnZi2CPPJHPNar6v2gK+emYwKGOG37t5KugI=;
-  b=U+WOEszz5zTnfl4ZJ5L5ffryYjiQjn6Jywipg8ipMErcmLRdWfYN9GDd
-   6zY8vtznhDH3a5eA4PSR11Jk+FMMqAjTu7esl3nANC81e58Wq8po2uKIi
-   sQIljR+VNm/NmBB6Y6vJYgAbsFcVl8gSTklUKC0SqlVqWOErD6IMkQXfX
-   2P/fqEsp8+NgIsCE/OARKjaK+kQnYcXxCIDTtraD1O9r6RZWu+1FWnevg
-   Z1aYREU5+inWakoLg7jNXKyo+v1M6fPrtv3HHfnr+qmlWlIMdV1owLB0M
-   ErnmsCwIgrf7TjZ1liV2ZIQ63//y+aHfI6hCeT213joNlDWYGWgz3W327
-   A==;
-X-CSE-ConnectionGUID: VGRkpjS/Rbqk+L3ItVEH7A==
-X-CSE-MsgGUID: gT4S/WMeQLyrhdOGyWkRPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2216569"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2216569"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 08:55:45 -0800
-X-CSE-ConnectionGUID: vXUXCuyvRGCIBpejotJQKQ==
-X-CSE-MsgGUID: FmajquUeRGSIy4yc7nvAmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6145309"
-Received: from spandruv-desk2.jf.intel.com ([10.24.80.14])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 08:55:45 -0800
-Message-ID: <84d712c6aa3df7df8fdb6cb85b85d720bdab5840.camel@linux.intel.com>
-Subject: Re: [PATCH v2 09/17] iio: hid-sensors: Discard
- pm_runtime_put_autosuspend() return values
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Jonathan Cameron <jic23@kernel.org>, Brian Norris
- <briannorris@chromium.org>
-Cc: Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, "Rafael J. Wysocki"	
- <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- linux-pm@vger.kernel.org,  Andy Shevchenko	 <andy@kernel.org>, David
- Lechner <dlechner@baylibre.com>, 	linux-iio@vger.kernel.org, Andy
- Shevchenko <andriy.shevchenko@intel.com>, 	linux-kernel@vger.kernel.org,
- Jiri Kosina <jikos@kernel.org>
-Date: Mon, 02 Nov 2026 08:55:44 -0800
-In-Reply-To: <20261102015255.487bd1bd@jic23-hlaptop>
-References: <20261021235818.3059519-1-briannorris@chromium.org>
-		<20261021165858.v2.9.Idbac8a0f9ecdd345191130e256e8d881d991bfc7@changeid>
-	 <20261102015255.487bd1bd@jic23-hlaptop>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gQPBCdN0
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so2160149b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:56:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793638598; x=1794243398; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fwjIWZZN+Xku/wuznq5Djc9dY6oT6GSmRAkG+xrsrHw=;
+        b=gQPBCdN0ky7g6NTtQ3EStf4AoqYXYe0mvkYYWBdgWkEBAAYnEd9QMLgNWRc9w4B4U0
+         K3raciejRcckVb6b/RpzthiCzmLRJPgBw7TcktVk1pzWCQYoHoTFP6nE32OkMzCJ6vW/
+         40PmJnMenMr3LD94LFviVg89uX0p51VSaHPXIOA9k+T7X9D+DaMg7AbPXuBp6WJDlUxx
+         1YjjOmDZ9I6qjaONDe7tdvrT0hRKbXGDb+zzYzRXvjGX5swDjiMeMJULBwNkBlGdL7qi
+         BHpTjztF2qgxLxOz1bO1pctvkcD/mXDaRcY9CBbEl3Kc8iSMMjDo+q7At8EfFywjycZ7
+         PJgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793638598; x=1794243398;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fwjIWZZN+Xku/wuznq5Djc9dY6oT6GSmRAkG+xrsrHw=;
+        b=zBd9wsD42ASkFSiAoN1gzbpNULdMgGHojbPgkhXLZZvlFalrtIAVrPiWKrDLPL39I6
+         FyJjCw9uJgDeeGEuILnhG3XYCmE2Kkv0DtUUtWRyqIsRSBOAiGE9P8D5JVAfPgcRUgj2
+         vR1zWm/Uf9m1aiWeGiEg8cHmASqauym7V2OzYWeRNY06vfI++r0Ld89h5Eliu7unw+0v
+         zUzKheGQaG8r9HsJyHVyy7skW5kw1A7uNkO7/gbya41qAo6z/YO3YUckhXCJtvfiaDOo
+         eAe6A0XwuFy3AbGkQITMFSwJG6SHYDmPRwCMD5rU4T/fIJbQd5+yOsltNcpKDQpjLN8N
+         iSMg==
+X-Gm-Message-State: AFq9FYJxwp+NnwaQ0U49p5HoVnREvBECU549eZdIqsfuWyKrtMbuUhXc
+	ngIdWOX3zQ0H0wsicDgMv53MZHzIbKbwhb0u775CLAYg521MmZua0VuI
+X-Gm-Gg: AYBFou3hl8rq29V7dDBPa8Ie0C23xUF2+Cwdd+zLR2qUOl6MuTIXlZsWaO0w2qp30Cq
+	oFdUAQmFK0IWUnrFAMsw8Y6GwLWqW2Ityl8edFTuw4RRYnIXDYE5OSvbhwsG9GVe9tc47Xnv2EB
+	Peh0wBpm9HB+DyFkpHTGbHKXfBys3wZw+RfUN9NXta3FvyiWKSbOxq5VvuZWWBd1ImWQB6DmURd
+	Tf1viHmbeD0cQ1RGR343zJL/TtmbgQ5t1hmjRQ0fxxb6LmSud/I8ywdVYw1D8PL6Jt/FvpOotGh
+	MipxmUkCNbJrk6tlMd+W9XjM5IDLPxY0wCG0cunB7R3ir4qGrrhVyEhs5pGCGgWeWsqrGob554t
+	g3m6kLdB5gx7kzk5J/dsKfRNlubbCAvjtj3SHsJhyIsZC2NiqSXYMig7/Wy5Ad2VYMlNYi7BHXG
+	5PMmjVO93Mft6ogWWjF5QCjrgEbtBwm1ntim/zjQ9y+Gt8g1n4CF3cbHkAdjlb1G6mHCAlqTvY1
+	NRRROAuQZSEoxMBnTP1KpSj+AkmTGDuDNDnuf8u7OVgRrM447fPmmfc1jZjX80oFZ4O1Sg6S8+4
+	d9NDHCsa9J8hhcD9ov/uRKV/FRfZLerO66OKNu+qsHAczsPNOPoD5L8ZjDnq0suGtxIxVohuNz8
+	nXraP0O2I9GxPHmrr4v43jM/r2SXMMjqa41PQselW8WZrK9491kPUFXRR
+X-Received: by 2002:a05:6a21:b91:b0:3e2:ea7:618 with SMTP id adf61e73a8af0-3e928c5ffd7mr9018818637.18.1793638597595;
+        Mon, 02 Nov 2026 08:56:37 -0800 (PST)
+Received: from localhost ([153.61.198.248])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada6c2c28sm2229529b3a.43.2026.11.02.08.56.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 08:56:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,104 +87,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 Nov 2026 16:56:33 +0000
+Message-Id: <DMKVTEMTLA43.8R6RXYD1UMWN@gmail.com>
+Cc: <linux-kernel@vger.kernel.org>, <linux-next@vger.kernel.org>
+Subject: Re: Fixes tags need work in the bpf-next tree
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Mark Brown" <broonie@kernel.org>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Eduard Zingerman" <eddyz87@gmail.com>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "bpf" <bpf@vger.kernel.org>,
+ "Networking" <netdev@vger.kernel.org>
+X-Mailer: aerc 0.20.1-355-gf870624f6c37
+References: <auiZYnNYLEgcR6TT@sirena.org.uk>
+In-Reply-To: <auiZYnNYLEgcR6TT@sirena.org.uk>
 
-On Mon, 2026-11-02 at 01:52 +0000, Jonathan Cameron wrote:
-> On Wed, 21 Oct 2026 16:57:10 -0700
-> Brian Norris <briannorris@chromium.org> wrote:
->=20
-> > The hid-sensors driver propagates the return value of
-> > pm_runtime_put_autosuspend(), which is not particularly useful.
-> >=20
-> > Returning an error code from pm_runtime_put_autosuspend() merely
-> > means
-> > that it has not queued up a timer or work item to check whether or
-> > not
-> > the device can be suspended and there are many perfectly valid
-> > situations in which that can happen, like after writing "on" to the
-> > device's runtime PM "control" attribute in sysfs for one example.
-> >=20
-> > For this reason, modify this driver to simply discard the
-> > pm_runtime_put_autosuspend() return value.
-> >=20
-> > This will facilitate a planned change of the
-> > pm_runtime_put_autosuspend() return type to void in the future,
-> > similar
-> > to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put()
-> > return
-> > type to void").
-> >=20
-> > Signed-off-by: Brian Norris <briannorris@chromium.org>
-> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> +CC the various hid-sensors maintainers.
->=20
+On Mon Nov 2, 2026 at 2:08 PM UTC, Mark Brown wrote:
+> In commit
+>
+>   b73855c31c7be ("libbpf: Enforce program limit only for loaded programs"=
+)
+>
+> Fixes tag
+>
+>   Fixes: c9b2a0975c39 ("libbpf: Reject excessive program counts in genera=
+ted loaders")
 
-    Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+yeah. it's wrong, but it's too far behind to fix. We don't force push to ad=
+dress such mistakes.
 
-
-> Anyone remember why this does
-> pm_runtime_use_autosuspend(&st->pdev->dev);
-> in this code?
->=20
-> That is unusual...=C2=A0 My immediate instinct is to
-> get rid of it, but maybe there is something subtle
-> going on.
-
-When reading sensor via raw interface, you need to power-up, read and
-power-down (This is done via runtime PM). To avoid repeating this
-sequence of power up and power down for consecutive fast reads, auto
-suspend is used. If there are reads with in 3 seconds, the sensor will
-keep power up.
-
-Thanks,
-Srinivas
-
->=20
-> > ---
-> >=20
-> > Changes in v2:
-> > =C2=A0* Split iio patch into per-driver patches
-> >=20
-> > =C2=A0.../iio/common/hid-sensors/hid-sensor-trigger.c=C2=A0=C2=A0=C2=A0=
- | 14 +++++-----
-> > ----
-> > =C2=A01 file changed, 5 insertions(+), 9 deletions(-)
-> >=20
-> > diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-> > b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-> > index 60808e2430ca..d76a6d9f04f6 100644
-> > --- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-> > +++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-> > @@ -154,21 +154,17 @@ int hid_sensor_power_state(struct
-> > hid_sensor_common *st, bool state)
-> > =C2=A0{
-> > =C2=A0
-> > =C2=A0#ifdef CONFIG_PM
-> > -	int ret;
-> > -
-> > =C2=A0	if (atomic_add_unless(&st->runtime_pm_enable, 1, 1))
-> > =C2=A0		pm_runtime_enable(&st->pdev->dev);
-> > =C2=A0
-> > =C2=A0	if (state) {
-> > =C2=A0		atomic_inc(&st->user_requested_state);
-> > -		ret =3D pm_runtime_resume_and_get(&st->pdev->dev);
-> > -	} else {
-> > -		atomic_dec(&st->user_requested_state);
-> > -		pm_runtime_use_autosuspend(&st->pdev->dev);
-> > -		ret =3D pm_runtime_put_autosuspend(&st->pdev->dev);
-> > +		return pm_runtime_resume_and_get(&st->pdev->dev);
-> > =C2=A0	}
-> > -	if (ret < 0)
-> > -		return ret;
-> > +
-> > +	atomic_dec(&st->user_requested_state);
-> > +	pm_runtime_use_autosuspend(&st->pdev->dev);
-> This is odd enough to make me nervous even though the patch is
-> obviously a no-op change.
->=20
->=20
-> > +	pm_runtime_put_autosuspend(&st->pdev->dev);
-> > =C2=A0
-> > =C2=A0	return 0;
-> > =C2=A0#else
->=20
