@@ -1,88 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793600089;
-	b=hSDw7PBpHKdPaHd1hV5kTiPoiH0xh5iF6FboKXNcSkkC6JgZxz9NHNw8gn+qtZmTlnsr
-	 KUlsexlar2j3Fg7AkgpWUzG3E35Ub5GRa2es35f7np/qQiJdTm3CL7Cz2LQq6UZ5h8dUW
-	 Da3vKW93a85pZgn6K1wB80RHkPOBFvgpXMQVcdzFrh/Xgyj9cYzCx70Zpd1uzSycI7/zh
-	 CC9kYnvbStIB023I3lvjDaLeaLym3YetllnpDirnZNzvWRMkRstFXdQQrILDKIFBLYFYi
-	 fLbZktngJ86i2FX+uvZuu2b1KHJFepIgyzvZOcHjpBIr0qxUDN/Ccrgr2CGFjIxeyVg==
+	t=1793600086;
+	b=kQl6zpn/riXplMOoz1iWHlZRZV1YBdShHIOs+FPQI1t64euIYstsWXUgioos2f3MTExG
+	 t7iP9ou3R+jhbKMo1rgbpulAPoS99TWWObaXdWiGBWFiTm6383Hvrp11AwRbWeURz4D3U
+	 td7Kl/6LirlxjfebrOqKqizScaCqTlJofl9XK/K7Fe0uwWi1nZSjg4tQ5YKIudGDRsLIA
+	 puzmp7COE9ZOzqIqdfa5s+Ilor2BZA2mXLmoL09fkVc94I4WKViKH0ObEZlMxcG3pdb0+
+	 45vnE60LNe10nsPMFata3Sf7OK081WRWe3b1LRC7M9coE7ZEEfO2oU70O+/wR0wI4uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793600089;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600086;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=UYKyTKANHmNueSZX+Vts+dz5q7U+GTeUPWVYwIUP5po=;
-	b=0dLWDo3/x4WfaSPFk8PwjAvzo/PUT9KMqDt/1oueqJaVUCBuReZlccv5nLjCWxgrxi3o
-	 kcHbcnE/tjFboS6LOvVzxtHVxCsxcb/L8Xt4EbwGKEyMP9Edov3Jj6NXtb2Ga3KQgG57W
-	 YvRmOObvZPTrJ++PsBFA/9wI7XC05yHo2EGi25MMH8rQR2AcagxNzDKeh/M3JGw8bwtx2
-	 6ErWhUV5/k7DgkOPwr8+YooNWC2tj3wZb1AvzbrKVtglvhruAUUVtOb+LJs68MTjVMPEb
-	 PzkWqgt9iTPMjGDA3UO8v5FQNcheaur/o5x2zefvZz5fM1BweHw38v9DFXxs3Ez/FCw==
+	bh=yvkaHxUFeoQ+jmjBqSWlq1SPU8ga5OsgviDcj2uQ4Lk=;
+	b=yyMwMpnopNQn8ubIiK8AlWy4326lp15Ytz05YNV3Zs1pgq3amZGd7tGUlCDKQ+L4m1Rs
+	 u0dtSNRFvA0rlojgLDVZhNzXnzIxXg32xye7KuOnWQ2mncfL4JAamiij05gAdlDrZ8qbg
+	 7hDvD4sC4ymlth9P3NAs6IRkvu2meGpMSDAaJbO/vtbpS+LxZWTwAGTfC3dQI1RrHBV0o
+	 tNAw3r765/XUtVR1yaORCEcfRLKkgByp7ciuiXoqkDKPcmZitJ9likYCrJXJ3qZSVi1Kq
+	 emoDDn2pN5YASiS+08HFWAhJUwr+nhOKA8kEikm9jC07x9kzFmol3Y5K2DA8ZhaFN5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=juf1jwvj;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w7gpgW6a;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA79606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:14:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFA79606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6287606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:14:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6287606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=juf1jwvj
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1ae18eb9b69so1605753c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:14:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w7gpgW6a
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1931ff67a29so4701307c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:14:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793600088; x=1794204888; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793600085; x=1794204885; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UYKyTKANHmNueSZX+Vts+dz5q7U+GTeUPWVYwIUP5po=;
-        b=juf1jwvjuVQts4E14edw9EOV/a773u93dE6UuWrjI4untug/WsMRXIOyaLsm/mRv8e
-         NLomAgwC2EqEhqA+iknJ3B49Gd+ALaVoSTNYIOHEUiHTYQiYcKcONL9EtO7FDsx+2vrz
-         uJNjMkJj0fR38sN2imgIcIAimKqQ/lJzBivsq4a950Dq7HiYjGH8/Jvqkt9JKb7RtNNO
-         P142w2kGl8eWdSXLTxyASIXfNwquXzcpEr7kgn5x+F9Qg9F9MrQVY+J4l1SJVZRF5KpN
-         ONiwdnWHwKEuKm0+CfONacuYqkJhoO/9GFkocmokIaBYrWmUfEU8G3/RH39EfyaqvZSY
-         MafA==
+        bh=yvkaHxUFeoQ+jmjBqSWlq1SPU8ga5OsgviDcj2uQ4Lk=;
+        b=w7gpgW6aDjr0IWm8WsjcOalX038yrk9bud8zBeL6aTBgKEqXgdp6YvGWT5LMUlYWvB
+         5P74Vm/HyhjRD3zhlL/BlaB0hh4jUzBxXPUXuobvGEqomfed2coQ5rZp4a/QfBlASOcA
+         mYL4SY+sz1dUS9vCl6ogkGVwaqlENd+85sc0lgBtVu5FuczK2JoIChurmMQnKaNElOfk
+         iJpKX21UzZ9bwAynctwkTjBEpZeQNthSzciIz6kRQA2wMIN0FBrD5lfqG+uj0+iBI54r
+         egaEc3tsdUbB7gZp6ABysvAh/AaB16wIw1YoUisPHu6sjhDaemjyMAg8C41y/o+gY6Gs
+         3ahQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793600088; x=1794204888;
+        d=1e100.net; s=20260707; t=1793600085; x=1794204885;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UYKyTKANHmNueSZX+Vts+dz5q7U+GTeUPWVYwIUP5po=;
-        b=tvBC9OOWkdx1WlqU/Xso/uN/kXKPVlv0e8mZiNXT9z1ymqQ6aveXdHXKj/lWrzAAeh
-         hGa0cAIr6xeF1z1ZlKlBwmLbngj1T2oj4biZgOLGRmjk/vrv9MVkoWqFbLrV9AR7SsHE
-         nDYdZOC8T86aFh4puFS1igZDheAjvwsVQLnvEsrufPZC5zFQ9GT4rtBpZMce6Fzi2M7k
-         fq/CIjN2lG1AsRaX+F0rf8GYgTYyDmOTl8dpP/h7Q21emjLadiHJmtPqX+Sw9WuAEhhV
-         SvIDJY8eM+q7fgwIPE8TG0rtttCo+HhFN7t9yKto0NM6oFH9j+AAPqeHrWCnskeb6Rox
-         AIbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxizt5Xcx62Ebt/d/uGrZ/WHdbD4Svj2CcFtGLKm/25UJlNIM+PyRTzg0EyrcGqSsZvUzgVlbNrPuS/i/g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIyc5h4IOnS1KDXk6CZ+6PFRY9Wd3L3x+G1/Xv2jvjtptxYUzp
-	sQGhTwK4THTazF+oyNZhprkAJEcqOsqhzEnJHSXRr+UNouj6/oHj4zSd
-X-Gm-Gg: AYBFou3wrOZ1BYzTGtwjIAWLpHHkdKCL2Tklp9ykCugjD4XBonK5nLwSRZYf5lzZKSB
-	EyV4NmK0lwX1cZ53i1qVUk4P52YHRy8KUxdNmzRc9aWTmRHwmiH7ip9CK5DabR5rK06yASYNKkW
-	F0E2tt9kAzMOqMDmjZCnkzceeaBtQHVD7bymDRi8v4omC5P105yv/in7M6L7FMqtUi3Rv/4ErpY
-	NdZ9I9Pl+23QNE3Nd9p7ppAo+r0aMo2IAe60JwPpwXAYQLTSOBrKQHj5mLDd5W/gSbhwKGf3h0N
-	tQb+lruUlEVyRNZZ7QxgzODwFiiYDhlFeE8o5RGnqvK+H7Q6eIah9m7zFmjdc210EfosQo3uyAQ
-	8ZDRWZsPLqp0T+W7Wv4dN3KzL7nb9bXHl5/Ofkc4eEqJiNaKUapqTwT6KSAQGpmciRwbuq9a6VQ
-	/20Hq2aaWf/vz6VXCinZp5iczKEUswfwQc398J2as32GftkuLCuvyFYGTvA3wNGK4LvgPx23t9W
-	fQlChsTiLTmIvyRQW5xDhsrmtTwPEdPvqcT/P1shWHkF/Aa1ABusYroQ/gSfLhfEQzGYLAomDzq
-	orMx0r0Orp2j+aA9TU1K5/C/F5kmxAFQEseAG9tgn+0Hzr8=
-X-Received: by 2002:a05:7023:d09:b0:1a4:4194:fc04 with SMTP id a92af1059eb24-1ac5e320bd8mr13624659c88.28.1793600088113;
-        Sun, 01 Nov 2026 22:14:48 -0800 (PST)
+        bh=yvkaHxUFeoQ+jmjBqSWlq1SPU8ga5OsgviDcj2uQ4Lk=;
+        b=TnqiYccWFQ54h/8OrLKo7jZoj0oPXHQPofN7SIDEyF3xT2+SKdk2oBRAThm9VT2iF0
+         QdGqOJHDlxAMMFJCfUfeGeHqQdsEWTPSQia5GxB4JIpkqFtU5LvCoBqEKVeXljO4sEJG
+         ObZddOkdz1+tu0lso6Y6mhmc5dZVxdy9W8N0oFYGDGQJ9V93ZVZO+6FIhp4GOyRKRaU8
+         SlkGsiiuuONef5F/bLMdMSKjsv6bLihOQIuiu/0kQkYxxWAYVqW3j7NOCC9DoANUzYGw
+         2sYm70tVC2E9TM/GKBydodc6B+EBlKoqFyHoyNvjVOI/ES+KTLgkUoGmpdwsw6eNQu3w
+         8eSg==
+X-Forwarded-Encrypted: i=1; AKwUvBxX7LUqMyr7Wkyy5cpUnB/yWeQIwS7O41jQbN6jUgH4Yj5SBiN7KlOinGFxx9IBovVwjJTSv/q/cyLpow0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK42g5dSfoewc78TFSDHxIl7Ujkpa/UnefrD4WByUMqjdAjT+mO
+	7GcY4L2vzuRV+aydPzrVRspO2j5n16fwZhliqGCjx+t3yXm1Hwsn9lBv
+X-Gm-Gg: AYBFou2uqCSc9gfWeZYii9PAoAcmZI2O1F1wZyRIP468kvKIfXd4vZCXt7M14BDwUuX
+	0XWvUgg0kFJpWZ6o31ck371oYIFi6zPFjdPOl/L9slu6ZFq9lkTwNTjZ2aHNZI+e2v9sjNztBTq
+	VxVMPgQxMJCcZm2jUDPuVuHp985cxRQETQVNWVHJHpUx0GrHCRwE9bgtoV+uRw8ixv5aIlFqxqY
+	lMEbmzhJPVzvlGVZHm77hVrNlSj/pLtsSQRk2ET+dPGZCcEoB9rChm2myahjvJZzk7lSRPWN7LZ
+	AK0mc+hazduGYH71NyUiDfl7/jTMHphe8ZwYWaU5TDUxi9pMwIHyhoeyXVgohNSxQ+1gsmXhYYy
+	L1L3+N7jHlJLeFS9US4EBynVlZujpuz+ed3c/6FGvZimgWighNI1a9jFapsKfxjGxzlmSYx9co0
+	g9aFC+2EQgrWG/DPMC8IO4Jh55W6RyctR99wFt0Fs2hMmzTkaN0SKZENLV1sxFwo52svDqegto2
+	XnQHDD/X1Ary0cyTgih3/Bj+qUwCoMf/AohtexWu/QkY30GGsINJlRNbHmb3Q+Bmxw5gTq0eGWR
+	EvuW7eQAtqVPAWJ7JyhatUI01g==
+X-Received: by 2002:a05:701b:260c:b0:1ac:9ecb:acee with SMTP id a92af1059eb24-1ac9ecbb353mr11878942c88.39.1793600084805;
+        Sun, 01 Nov 2026 22:14:44 -0800 (PST)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm30288043c88.14.2026.11.01.22.14.45
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm30288043c88.14.2026.11.01.22.14.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 22:14:47 -0800 (PST)
+        Sun, 01 Nov 2026 22:14:44 -0800 (PST)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Mon, 02 Nov 2026 01:14:37 -0500
-Subject: [PATCH 2/2] block: set QUEUE_FLAG_NO_ELV_SWITCH under the read
- lock in del_gendisk()
+Date: Mon, 02 Nov 2026 01:14:36 -0500
+Subject: [PATCH 1/2] nvme: remove namespaces in parallel
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +93,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-bug-nvme-remove-ns-async-v1-2-61780fee111c@gmail.com>
+Message-Id: <20261102-bug-nvme-remove-ns-async-v1-1-61780fee111c@gmail.com>
 References: <20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com>
 In-Reply-To: <20261102-bug-nvme-remove-ns-async-v1-0-61780fee111c@gmail.com>
 To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
@@ -106,75 +105,74 @@ Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
  Stuart Hayes <stuart.w.hayes@gmail.com>, Qiliang Yuan <odys.yuan@gmail.com>
 X-Mailer: b4 0.13.0
 
-del_gendisk() takes the tag set's update_nr_hwq_lock for write to set
-QUEUE_FLAG_NO_ELV_SWITCH, then for read around __del_gendisk(). The
-write lock was there to wait for elevator switches from sysfs, which
-held the lock for read when the flag was added.
+nvme_remove_namespaces() removes the namespaces of a controller one
+after another. Each removal waits for RCU grace periods in
+del_gendisk() for the namespace and for its multipath head, about
+20 ms in all.
 
-When several disks of one tag set are deleted at once, as nvme does for
-the namespaces of a controller, each write lock waits for the other
-disks to get through __del_gendisk() under the read lock, and the
-deletions run one after another.
+Deleting a controller, such as disconnecting from a fabrics target,
+thus takes time proportional to its namespace count, over a second for
+64 namespaces. Scanning had the same problem until commit 4e893ca81170
+("nvme_core: scan namespaces asynchronously") made it add namespaces
+in parallel.
 
-Elevator switches from sysfs have taken update_nr_hwq_lock for write
-since commit 4ff58d6bc9dd4 ("block: serialize elevator changes for the
-same queue using a writer lock"), as updates of nr_hw_queues do. Set the
-flag under the read lock instead, which still waits for both and keeps
-them out.
+Remove the namespaces through an async domain the same way, and wait
+for all of them before returning.
 
-Disconnect time of an nvme controller that removes its namespaces in
-parallel, from a target on the same host, over tcp to 127.0.0.1 and
-over nvme-loop, with 4 I/O queues, median of 3 runs on each of two
+Disconnect time from a target on the same host, over tcp to 127.0.0.1
+and over nvme-loop, with 4 I/O queues, median of 3 runs on each of two
 boots per kernel:
 
   namespaces  transport  before              after
-           8  tcp          85 /   91 ms        51 /   47 ms
-          32  tcp         294 /  293 ms        75 /   70 ms
-          64  tcp         533 /  550 ms       115 /  124 ms
-          64  loop       1283 / 1200 ms       185 /  204 ms
+           8  tcp         170 /  171 ms        85 /   91 ms
+          32  tcp         628 /  628 ms       294 /  293 ms
+          64  tcp        1201 / 1308 ms       533 /  550 ms
+          64  loop       1988 / 1913 ms      1283 / 1200 ms
 
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- block/genhd.c | 17 +++++------------
- 1 file changed, 5 insertions(+), 12 deletions(-)
+ drivers/nvme/host/core.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/block/genhd.c b/block/genhd.c
-index 10ca8b4d6eea7..5afc60bf139e6 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -781,16 +781,6 @@ static void __del_gendisk(struct gendisk *disk)
- 		blk_unfreeze_release_lock(q);
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index a7a4d09644c13..18948c2ba218d 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -4716,6 +4716,11 @@ static void nvme_scan_work(struct work_struct *work)
+ #endif
  }
  
--static void disable_elv_switch(struct request_queue *q)
--{
--	struct blk_mq_tag_set *set = q->tag_set;
--	WARN_ON_ONCE(!queue_is_mq(q));
--
--	down_write(&set->update_nr_hwq_lock);
--	blk_queue_flag_set(QUEUE_FLAG_NO_ELV_SWITCH, q);
--	up_write(&set->update_nr_hwq_lock);
--}
--
- /**
-  * del_gendisk - remove the gendisk
-  * @disk: the struct gendisk to remove
-@@ -820,10 +810,13 @@ void del_gendisk(struct gendisk *disk)
- 	} else {
- 		set = disk->queue->tag_set;
++static void nvme_ns_remove_async(void *data, async_cookie_t cookie)
++{
++	nvme_ns_remove(data);
++}
++
+ /*
+  * This function iterates the namespace list unlocked to allow recovery from
+  * controller failure. It is up to the caller to ensure the namespace list is
+@@ -4725,6 +4730,7 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
+ {
+ 	struct nvme_ns *ns, *next;
+ 	LIST_HEAD(ns_list);
++	ASYNC_DOMAIN(domain);
  
--		disable_elv_switch(disk->queue);
--
- 		memflags = memalloc_noio_save();
- 		down_read(&set->update_nr_hwq_lock);
-+		/*
-+		 * Set the flag under the read lock, as elevator switches take
-+		 * update_nr_hwq_lock for write.
-+		 */
-+		blk_queue_flag_set(QUEUE_FLAG_NO_ELV_SWITCH, disk->queue);
- 		__del_gendisk(disk);
- 		up_read(&set->update_nr_hwq_lock);
- 		memalloc_noio_restore(memflags);
+ 	/*
+ 	 * make sure to requeue I/O to all namespaces as these
+@@ -4759,8 +4765,13 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
+ 	mutex_unlock(&ctrl->namespaces_lock);
+ 	synchronize_srcu(&ctrl->srcu);
+ 
++	/*
++	 * Remove the namespaces in parallel, as each removal waits for several
++	 * RCU grace periods.
++	 */
+ 	list_for_each_entry_safe(ns, next, &ns_list, list)
+-		nvme_ns_remove(ns);
++		async_schedule_domain(nvme_ns_remove_async, ns, &domain);
++	async_synchronize_full_domain(&domain);
+ }
+ EXPORT_SYMBOL_GPL(nvme_remove_namespaces);
+ 
 
 -- 
 2.43.0
