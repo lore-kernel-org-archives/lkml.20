@@ -1,88 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616768;
-	b=bO/0MxVd8km2psfvZFbAZJo5u7sdxPnGX7Qgp8EqJ9/W3RFUMpUYeOJtmwuJjLCyvnK7
-	 jLfTbwj8gad9iANuEEroJZU9N7ij9OEkSfKlRt6zYeYtPXxkUBWMG5mSNrj7FkbKqIcFJ
-	 qxia8cGboaUik/zRFyZ1iIcEoIB3JwalRNWUJEszteVUGCDjL6Ck/XUqhyWz4HBWLFH0Y
-	 aQr7xBH4XyabzgM/3a1d9Ipkv60fDQ8A6A7zc/5bp+mI0k4uKp1cVXAj0NFxyre8Afw9K
-	 dVNRHxAH01KKh09gdADDofMIhCEUlguDpRTVe0pMt+G32QK7zh0BOQiWqnTvAVQUQ5Q==
+	t=1793616776;
+	b=V5ybwqmNA162hLzR0WYp+ZWkQYJwh3bd7SREKI+7k49rXbKVa3FvA+yhP6Dq85Zc2daQ
+	 f83XP72sF1/sjW72kVIdL9CHESqFmhD3P5kDErt5+K6yBVI9M6ncse8BaUtc6gS2eWwB9
+	 dw6NMz53276/1XWqaBpWup3BuDAmSKVaEtZdfSHpB6WilLP+pTU9irAwRLMbOkv1hkApd
+	 xwwxx7ogVXiUYXvmnOiOlkbMfc+LsAJb1UPwOZ4zJF1GNQldi67/QzOU1r0moMtLt/Hr/
+	 BMpm84+f4W1jAt4Xn4cHnMq8q/XzwcTGWvCyfoXygTkbI3K3WFWAFvr2iATk7+e7AGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616768;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aCuf2/0TwlruUJtCBmDukdp2i6RsScdYK46g4uR5+0k=;
-	b=qw4dTLO6ZgZw8dN22BouCa/3nREAqMKJ52CGuzaavn+RZDERLahxcNXaxGwk28B3PSK0
-	 AesGoOX7S/sZCffbBTkGIFbJKbTo9gQ/WH4w1M2nGiOd0HJw72vaoRWsYEwPHzyFT4rAS
-	 Il87DIBKpuWY+pah4a18BGlUJZzlsKsQzBxsmTGxS2yR82+CPvH8c1ho2QotdNLZ9q2wB
-	 Ccexq6qO+9BONfaN26qaFkuBqogvmIrpWFy6rd03TBYsxZom3XSrFpPmX5s0LBGwb9y4V
-	 /YouLzppXa1/eiOM5MRxT4HvcY+3XnbN7e6wR9FI++opPh4M2MAKhVeOnSJIGlJxbgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616776;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=I7uCsh5ftkEjNGPZNb5ZypA6L2HoXpnCMZ01D5n2GJE=;
+	b=gmlsamHvMXSsqm6ZTqvvqz61f9P2Phx7rgIpuSzdFnU+qE5wyqhj4Yah0WAjHL3d3F8g
+	 6PVLPeYM22A16W09L94RYZz+9xkMyDlxq3XWHDGvIUOk1UI/vKGI9MCVAfgEFXFMtWxV5
+	 0zRDccoPBamI9p5ky9FCMQxAzG82KtUpaG3A+O5ToPWHJtEcGl6+A3Y634T7JTspMzpg1
+	 8Y/+lYlNhm/WBfwS6yExejbOK2nc8y5Ifcy0L/5psgkfzXQsZjtKJzVGQzg2HeqlYHNmC
+	 eWzV13GK8X/uNg4PTnQdsRXPV32QmpFaGfHwAikl2F3UsJVkwgNGJDesmo9d1WYcBVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ahKvGQaL;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=adh17Qym;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB928606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB928606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5BB606A337;
+	Mon,  2 Nov 2026 10:52:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A5BB606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ahKvGQaL
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so21270425e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:52:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793616766; x=1794221566; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aCuf2/0TwlruUJtCBmDukdp2i6RsScdYK46g4uR5+0k=;
-        b=ahKvGQaLhep8VQSyrCBqupdIr4zq4e+un2GbyZ4qyD2MJmMeM8b0ULI40LG05a1nPp
-         a83IHDs9C5WuYLafz70HqiFP5VZYaEmtUCXuyNmhIwumBDCtjvisnlgwYwrY1KW+Ew7F
-         GQTkCPM00Y54VRg8/mwK1r/wacU1cf91cpqOqFy3gKfL2oZBWBYfNr9m4KOP1TM9upTD
-         gI4PfE8Pv1XAtQRz72KQNxJWIlAtyxszvpwuSBsQVT69Btp4ESpLj0rCsutZO/xrhqRJ
-         mt8Vkjq80CaM20po7sHpU1XCPqhIv2EkTItHqOvAYjdg+4UXQJ/yaZN+mTIqEa2d/4g6
-         yRCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616766; x=1794221566;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aCuf2/0TwlruUJtCBmDukdp2i6RsScdYK46g4uR5+0k=;
-        b=WwOuxM7tdepFFWHRiANRhBS6Lfe7/I73xgTUyIsZ9QiQTYLBwM8PVX8ncMZyr2BTvl
-         4a+2XICfXi1nNqHeFxvWn2OWYNt0wHxmUh+zaBt6SzZv04t0MfDTw8cP3MUrXJSzWauN
-         vHUzktlQUbBMhxqeaByqUz37iAWWhLovLHW4ruh69caf8JqsnccI8ayd+b6Mwsm7dtLP
-         gijqCo8px3QKoM+EY0+Yv1loZPUJ/Q4Cci1PnRegNEHzv+pdBVUDaSvjAf4D/cPAFvh7
-         0ZmPfE02+rdo4nqAZEUlYv7ex0NRkEZE5NB3FjFdyAhoSdbCvld++I9RV1qLuZeuIB/w
-         wuKw==
-X-Forwarded-Encrypted: i=1; AKwUvBzmh2u8Amxb/bn8d/TbDaHNuEQsJXp0m97+TQ+ADujRC0uZIS1kSC1Dk2yzgHPwPjf0sHkTX8Lr6836u6g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKa26LZ1KZvQqCnrdCtQocTMDu0DfX0kfvG/YtQt7S2O8BZsqYS
-	1FhIc/IwYreZ23AfYvRBV2Rj1NSPMxbvaC/gCtXjdHEXgVg3ZiqxFopGCIfxmlBhqV8=
-X-Gm-Gg: AYBFou2Zk6k0+32wiEmbb0rmqNhUa5tkOlmMsECkRVnu93iYpkOnVKMn6J96NOZ0m8D
-	6A9uPGr0uDaW7XQ6oejzZmBIoEEvU1ysxcu5WJigdf4htLrF3+xtWSNAcluPFeg57tFiHeo4ork
-	8Kjj9V6/wdlOsacswZk6MzkCSI948ZyvlGF969hCe6WZI6xPIBC21VTwzAHJWXfhhbIxgqoHQdT
-	WStfZdiHtZrJjiEO3vISeOBVMZ3+pelMWmCGzm/7rvEXpKF83uL87Q0g88XZRKKkkX6xZO9E3EB
-	xnZhf7spmRqFR8G+YsX8ddHARyhikmq09l3VaZkVEYY5xa+eSHssiOvcUZAxUoqapG2t7IDbI2h
-	yjEbATpNOg+kzMfciUNTFBGS7+Z4TmIRr6Q5YQEuX+/Cz/LkMEk6YAliKv+1MVUOcqdZJrKvmsD
-	Rl/pil05lZ/C8DupOkdsNnmzLzquUsejVggSeKe8QGalMrJg9HiHQrMbLkf3J9gOsbXKvhgzV0L
-	w4o7YKVY8t7858omlB6c2DEKxaHlqcYVKPwFan23LAol1wC8qbkd5hg+I0iTn5AOXeuKaBD7uOx
-	AS/a1otr7TGVpOELHfUCA30R6E2AgDISuHEJby2Anu7bUWvhIWCAwA==
-X-Received: by 2002:a05:600c:a103:b0:4ae:63e9:36a9 with SMTP id 5b1f17b1804b1-4ae63e93a86mr89899655e9.14.1793616766051;
-        Mon, 02 Nov 2026 02:52:46 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab61d8b9f4sm309082755e9.12.2026.11.02.02.52.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 02:52:45 -0800 (PST)
-Message-ID: <71e154fe-0810-4292-a955-f0cbab2b7e96@linaro.org>
-Date: Mon, 2 Nov 2026 10:52:44 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=adh17Qym
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=I7
+	uCsh5ftkEjNGPZNb5ZypA6L2HoXpnCMZ01D5n2GJE=; b=adh17QymMSigTNJ6E3
+	0UayBt6iLYSvbiMOhE1lhRnm9PtLSXWo9hzY/uLvpvX2jG/e7HF81bXmSetjwXd7
+	cUPlYGunT/nKaiVLMTWaU5lstI5aBpavjxYIx+HJDs8rsnpatdLBvO62StIdXrCy
+	q1yQipr1RnODDY38XnnQ0q8gU=
+Received: from QD202103290168A.neusoft.internal (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wBHTpdWa+hqVQKEEA--.44730S4;
+	Mon, 02 Nov 2026 18:52:11 +0800 (CST)
+From: Jianing Li <m13940358460@163.com>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Iskren Chernev <me@iskren.info>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Matheus Castello <matheus@castello.eng.br>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jianing Li <m13940358460@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] power: supply: max17040: fail probe when requesting the alert IRQ fails
+Date: Mon,  2 Nov 2026 18:52:06 +0800
+Message-Id: <20261102105206.1587-3-m13940358460@163.com>
+X-Mailer: git-send-email 2.23.0.windows.1
+In-Reply-To: <20261102105206.1587-1-m13940358460@163.com>
+References: <20261102105206.1587-1-m13940358460@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,52 +68,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH][next] perf cs-etm: Fix spelling mistake "should't" ->
- "shouldn't"
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- John Garry <john.garry@linux.dev>, Will Deacon <will@kernel.org>,
- Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
- linux-perf-users@vger.kernel.org
-References: <20261028183137.537812-1-colin.i.king@gmail.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261028183137.537812-1-colin.i.king@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBHTpdWa+hqVQKEEA--.44730S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFW5WFyxury3Xry3Zw15twb_yoW8GrWxpa
+	95GF90kryUXrW8Ca4DJa1UAryrGayvvFyakrZ7C390va13AF4Dtas8KrW3KFWUKF95Zan2
+	qr4ft3Wru3ZxG3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUkku7UUUUU=
+X-CM-SenderInfo: jprtmkaqtvmkiwq6il2tof0z/xtbC4BvFAGroa1vqkwAA31
 
+MAX17048 and MAX17049 use the SOC alert interrupt instead of polling when
+an IRQ is provided. If max17040_enable_alert_irq() fails, the probe
+function currently clears client->irq and continues successfully.
 
+The suspend and resume callbacks then see no IRQ and try to operate on
+the polling work, which was never initialized for these variants.
 
-On 28/10/2026 18:31, Colin Ian King wrote:
-> There is a spelling mistake in a pr_err error message. Fix it.
-> 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->   tools/perf/util/cs-etm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-> index bdcf94813129..65bce2450549 100644
-> --- a/tools/perf/util/cs-etm.c
-> +++ b/tools/perf/util/cs-etm.c
-> @@ -434,7 +434,7 @@ static int cs_etm__map_unformatted_trace_ids(struct cs_etm_auxtrace *etm)
->   			continue;
->   
->   		if (!intlist__empty(etmq->traceid_list)) {
-> -			pr_err("CS_ETM: Unformatted queue should't have trace ID\n");
-> +			pr_err("CS_ETM: Unformatted queue shouldn't have trace ID\n");
->   			return -EINVAL;
->   		}
->   
+Return the IRQ setup error from probe so the device is not registered in
+this incomplete state. The devm cleanup handlers release the resources
+already acquired by probe.
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+Fixes: ee2d433cb473 ("power: supply: max17040: Support soc alert")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jianing Li <m13940358460@163.com>
+---
+ drivers/power/supply/max17040_battery.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/power/supply/max17040_battery.c b/drivers/power/supply/max17040_battery.c
+index f415876..6f97051 100644
+--- a/drivers/power/supply/max17040_battery.c
++++ b/drivers/power/supply/max17040_battery.c
+@@ -562,11 +562,9 @@ static int max17040_probe(struct i2c_client *client)
+ 
+ 	if (enable_irq) {
+ 		ret = max17040_enable_alert_irq(chip);
+-		if (ret) {
+-			client->irq = 0;
+-			dev_warn(&client->dev,
+-				 "Failed to get IRQ err %d\n", ret);
+-		}
++		if (ret)
++			return dev_err_probe(&client->dev, ret,
++					     "Failed to get IRQ\n");
+ 	}
+ 
+ 	return 0;
 
