@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632088;
-	b=Aj+pHub/s5x2frNb7XrBbw+DTbb4kgNimEoD+7hpJtH6JjBGqp7srPfpmowiySKaeo2b
-	 GfPZU+C8zh2sjoiCqNZw0CZQGuC138auXqFCHFzrd6dVKXjsA7TqB8OUeNrd32jFKtNjU
-	 HzjcoTdJcOZPgiIViVl1tmb7VyslGPgB2ASaGGM3+tMqlz1GXmB9LTF3i62lyaDeM8I1j
-	 gfEfsQC0WKQ2Jbvn2PYGwEiX/eN9eox1bKmjFj+T0W246HUG4E/G4FCruyZWkSIqjrLHb
-	 UpkN8+ha1INspItN0+jZWJMHJQBD3HleYkowrnuf4iYrktjLSYcueaCVgXaUQNaVJrA==
+	t=1793632089;
+	b=d0FSwJkrgGe8hxKDAcSItB2eHmtDrMkM+ibSf8lTVRJzOJRQMaMARj5KGv4XYTMeCYkh
+	 ZWsSdZbAOH75f6yyZMrIbdOgaq6ZYYRilIyU/Bx9TzNCAfAWDol9O0an0irJ91W54XbM2
+	 /u+0nC8TNCQuyWLlr84bn3tb8JFpg63uFDNuUstEt96UoTor4PqV5eWmcQRHlkEjTge2W
+	 FCr3Lyr8R7M3iK9PBkXvtyC/oUlVZTJj4fSPB2WnhAzUSEmbw4tJWQkXHHQ/6Pra7OIz/
+	 xaxmnlr/2DoKLs1Usqt+mMLdaoFasRXPRM1N6e4cNepk9mFEjXzwp2NN0Tvc5hIGnBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632089;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=c6vXo64FE51u/FRjXpJ4fxOm9pgZA8t7pGEdtQQpkrc=;
-	b=FyAd6w49gw6Kr4bqJ7+2n9QjWfeT9i14POuZ6pcLdHkmp2NQY7srNjEmABT3rSS144eD
-	 szznTUd4y5W4XTe7ll1ZkUwntymHauv1eEK3VcCakNtxs8MQG+6L8mLzeoHXxBET1T96s
-	 D5dGhE2/BW/AEOqg8zWLEwaBLjXzZ/sjBg9Y5PorzVmsKrrVoZuZ/8s+QsV2HyR1YUJ2l
-	 Hb4iuJ2r1f3KD0bmhkjvlhSCXxX1yvTcYY4EE9R3lRewwYT/UIPgNlykLwIkIUhGRzulC
-	 hJAuA3D7D9a5p6WwstHrKHhNIascCj4i7u875GXFpEeK2C1a2+J3PpX8wQU6xUWt/eA==
+	bh=EOIOo2WRViZfcB5LyNG3dNe7ZyXvt9pNDQFYal3R+A8=;
+	b=lZCcaJ078KSGqEp4ETxgsMgWPctV0Mo2BI9kPvMoqF83ZsK85CPNV4049/9Bf8Ntd7+u
+	 69iEPz6tNuVcMlNjXqXKAbDU2qwhrrgQJdfKpt9UyzuvU3dPk6E8m5o0PmuTC9TL4n8H0
+	 mH3dnw0vdjUBo08dPDUR6sZ6FHL2XdgfN2AUGF9gK8nOWXzWpESd6y5QpXibKlTPWeMT1
+	 RkXWubky2IzYjyXafiD71DkMO+vsRaWINXu1Y0ctPMYwNpkk4xRJabyXSpl3dUpKJbR7d
+	 PGXKaAMSNLanhZVvGkhxxh2bAriZkOaRqMJDFyKxosM4uJD6+9dXHXzWG6tHKvduq2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FKzpjaeK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZ3jzzXe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A7C60A0FF9;
-	Mon,  2 Nov 2026 15:08:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3BE60A1DB5;
+	Mon,  2 Nov 2026 15:08:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FKzpjaeK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599D11F00A25;
-	Mon,  2 Nov 2026 15:08:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZ3jzzXe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B10721F00A20;
+	Mon,  2 Nov 2026 15:08:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632087;
-	bh=c6vXo64FE51u/FRjXpJ4fxOm9pgZA8t7pGEdtQQpkrc=;
+	s=k20260515; t=1793632089;
+	bh=EOIOo2WRViZfcB5LyNG3dNe7ZyXvt9pNDQFYal3R+A8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FKzpjaeKxeWvrMo9fGM/PnSq0y0waTRF4nSaoUSYDv463BztBvjEVpSlC5+0COvjN
-	 X26BBza7Xv6XWxrBPglzRWkVzVzPJvCoHeXy3056YIhWrGQWrPbp2OLtEmO4vPx/SG
-	 7+g0AzMvI7cNlqVF/b6KqJ0pltCp527K6EerXOA2bhuIj9m6SIpi/ywzjcN595FUjO
-	 k2drc6SVXL7i8UG16cGyfpDc9Lh39ZF0gNIZ2VjEdlrh7mvPx3wIZ8c6z07Ozs/2gt
-	 pMubg37QrajgabkRLwZdsCeLBhk01x7VY3kNOVEVwOawnfeDk8HsKbgTLB8698U51P
-	 vwyw1wIhBumcA==
+	b=hZ3jzzXe4gx8n7MBZeCRakfm9HOlLvf9jFjlwFESg5Jm4sD/MhZAQt8kb5DlUnOK5
+	 DNbU47GQk7H9ZMFiNYeXo9J/oYvXNRctFi6Rpt8O14AS5hvsgGF+mRRfcWT1TumK9q
+	 cHUdHZfgyt1jRhTXCc6xTE0ZebWXnQsYzVTUfNWdcbuPKU3CoDrowWsFP4yG5Jj2iZ
+	 Vy6SgRoqAo1Hhj+CQXjfKfluEIBUOedbelAexoQjrqaDyCs8eBBdMDrsSN/49zhbd9
+	 wTo/4o+CT6VNTeqiaDES5LNSgGaJQKD2BmpAt6ItswXDb1fp5oHS1Ui3exVch7ZPlX
+	 OqkAAEfW8FnSw==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>,
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
 	SJ Park <sj@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
 	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org,
-	Aveline Noir <jm5905938@gmail.com>
-Subject: [PATCH 6/9] selftests/damon/sysfs.py: stop obsolete_target shells hanging the test
-Date: Mon,  2 Nov 2026 07:07:53 -0800
-Message-ID: <20261102150757.93058-7-sj@kernel.org>
+	linux-mm@kvack.org
+Subject: [PATCH 9/9] Docs/admin-guide/mm/damon/reclaim: document how to disable watermarks
+Date: Mon,  2 Nov 2026 07:07:56 -0800
+Message-ID: <20261102150757.93058-10-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261102150757.93058-1-sj@kernel.org>
 References: <20261102150757.93058-1-sj@kernel.org>
@@ -66,59 +67,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
 
-The obsolete_target test spawns three 'sh' processes as monitoring
-targets.  The processes inherit stdin from the test.  When the test is
-run via 'make run_tests' from an interactive terminal, the kselftest
-runner executes it under 'timeout', which puts it in a background
-process group.  The 'sh' processes then try to read the terminal, so
-the kernel sends SIGTTIN to the whole process group.  This stops the
-'sh' processes, and also the child the test has just forked to spawn
-the next 'sh', before it can run 'sh'.  The test then waits on that
-child forever, until the kselftest runner kills it after 45 seconds.
-The test passes when run directly.
+DAMON_RECLAIM runs its scheme only while the free memory rate is
+between `wmarks_low` and `wmarks_mid`.
 
-Fix this by passing stdin=subprocess.PIPE when spawning the processes.
-The processes then read from a pipe that never receives input, so they
-stay alive and idle as the test expects.
+But some users want to reclaim cold pages even while the system has
+plenty of free memory, and it is not obvious that the existing
+watermarks parameters can already do that. So Document the setup.
 
-Assisted-by: LLM
-Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Reviewed-by: SJ Park <sj@kernel.org>
-Tested-by: Aveline Noir <jm5905938@gmail.com>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
 Changes from v1
-- v1: https://lore.kernel.org/20261018020415.35567-1-jaeyeon.lee.dev@gmail.com
+- v1: https://lore.kernel.org/20261028023628.795637-1-ruanjinjie@huawei.com
 - Collect R-b: from SJ.
 - Rebase to latest mm-new.
 
- tools/testing/selftests/damon/sysfs.py | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ Documentation/admin-guide/mm/damon/reclaim.rst | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/tools/testing/selftests/damon/sysfs.py b/tools/testing/selftests/damon/sysfs.py
-index 66c826189320d..ce54fa21c09fe 100755
---- a/tools/testing/selftests/damon/sysfs.py
-+++ b/tools/testing/selftests/damon/sysfs.py
-@@ -390,12 +390,12 @@ def main():
-     kdamonds.stop()
+diff --git a/Documentation/admin-guide/mm/damon/reclaim.rst b/Documentation/admin-guide/mm/damon/reclaim.rst
+index ec7e3e32b4ac6..14f9b82b38ed9 100644
+--- a/Documentation/admin-guide/mm/damon/reclaim.rst
++++ b/Documentation/admin-guide/mm/damon/reclaim.rst
+@@ -193,6 +193,10 @@ DAMON_RECLAIM becomes inactive, so it does nothing but periodically checks the
+ watermarks.  In the case, the system falls back to the LRU-list based page
+ granularity reclamation logic.
  
-     # test obsolete_target.
--    proc1 = subprocess.Popen(['sh'], stdout=subprocess.PIPE,
--                             stderr=subprocess.PIPE)
--    proc2 = subprocess.Popen(['sh'], stdout=subprocess.PIPE,
--                             stderr=subprocess.PIPE)
--    proc3 = subprocess.Popen(['sh'], stdout=subprocess.PIPE,
--                             stderr=subprocess.PIPE)
-+    proc1 = subprocess.Popen(['sh'], stdin=subprocess.PIPE,
-+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-+    proc2 = subprocess.Popen(['sh'], stdin=subprocess.PIPE,
-+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-+    proc3 = subprocess.Popen(['sh'], stdin=subprocess.PIPE,
-+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-     kdamonds = _damon_sysfs.Kdamonds(
-             [_damon_sysfs.Kdamond(
-                 contexts=[_damon_sysfs.DamonCtx(
++To keep DAMON_RECLAIM always active regardless of the free memory rate, set
++``wmarks_high``, ``wmarks_mid`` and ``wmarks_low`` to ``1000``, ``1000`` and
++``0``, respectively.
++
+ sample_interval
+ ---------------
+ 
 -- 
 2.47.3
