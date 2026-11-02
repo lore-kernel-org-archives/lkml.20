@@ -1,95 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623684;
-	b=aeQAwxU2INmynxYUVO5o1e11W4NJWEMdKhm6OjBsfRJhIDlGAC+AzMZagKhw72s+deW8
-	 bbZB6TXXEl8JG3h3sgHCD09NCGYvaErEbgqn3lsV+zhBHOdCSxfH2uOQ8YhitXIMFjPyo
-	 mGhWtHVe2MuolvW0rbg1d+GhVV6nrgiR9qvQZ/tyeCcvapATHrTgg3bI2IIvimukWckG9
-	 l9MpPxNy4R9vBCwJu4GVED+JhMz3j853UFys19NCWX+wiCsluy7asUle43QBi/L53hr6d
-	 HI0En2OqfE+CxjZXbBvgXPSSkKyEtQiIAi0AducxfValMgevgRdjtO1IqUPHwnxwhHQ==
+	t=1793623689;
+	b=l0wbrFxh7ATssuvk3bHViJ8Ja3C8u4jomBRr+a+vIX3SoZXeli1F7Oy592aa89moPrpb
+	 OGCW8pYqvSVhdI/stHJKw24dpvdd9hJFtqlalxypuz5EjHPcblf7GhcysO1KzeqEmiDDM
+	 ezSte3hONbrDGS+Js/0si/rjQQiOxJeAq4nsn9uKCJANkqkLdFP0CYWWWfPXKNltKfrca
+	 AV/HPCyWLoRoMH2I9Rv3jAHG0KUNZbBvgWUT0Cv7uSRv5lKLSb0JfLHzxOk2b78C10aPd
+	 p8WAaHNrhjKDO0TAYKTEu+wxO6GluiCO/ETbbHeqT2n5X8Fe4rf1nEG20s+q3IXlAyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623684;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623689;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=UQh3Hhv6qjNy92jmqlHZeQDSexdAkfgjQwGaT5rQ7nk=;
-	b=mRFJyC+qBaNnkO5wyy+m6cyIO5Kg+eOxA1Y42gSmWliYZFf+8/qk459sV1CxniCDNj2V
-	 loNUUNL71zlEcGrnVLQSChK1GddNI2zQP/03JpL4kIJ1cSjVCcATIpSF1Y79kbznLEquz
-	 ctSrHekkd/hBo8SBQaJ88BRALznVRh4lSjZcYR4jsiQ/uNHiRKmutvx26PfQObHHrNSXd
-	 xFO5KVXzyQD1q/uVmxD5EVCdLPaFxrotCvukMbbH2xCcIK67mwfHvLm9xSYt8Xh6VTgSU
-	 0c/yNPbHb7ItPt/f99etABxwnXN15u7vu7TFsEPUQ16qQ/BEWRbUlv609kYErbQiCgg==
+	bh=W7XQ1lK2AkpuxOdKXFw0fuyYbrzIB2iq8ekUYi5fmdg=;
+	b=KYl+RG5q7kHuqww6mfjJKfH7k3tlaXfkd0LGKTOPLE/7Dp3O6xsIu+jL7I3FiuYNDDW4
+	 nbKZBvDVAFViLpmTqU2uA1zNq7haC8dSRMiYyUbJ2y52J3ibZEuV3lXyx4pJosnJJsqkS
+	 6ho6YNUogo8I8z51IbU9vS1uMg0scJdiKWk24Pn8HDT+tn4RR97mAG48meSDrJ+uItIln
+	 Pl66Uh5dGKhsFrODZ27UaFKJvcmk4R5l78nCOjJ9ZdiGXj4lqB+TvnZrvZMc2/rdbHdSt
+	 OTr2OxzUOfI5l68zos8fyV6Fc1xDdSe1BRzeLLOmkXglpMorwvFsDVRx4l5mYBomNrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=llkcERm3;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qTt9Xst1;
+	arc=none smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740F0606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 740F0606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFA460A2606
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:48:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CFA460A2606
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=llkcERm3
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so1434973b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:48:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qTt9Xst1
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cdaefe02d5dso1594512a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:48:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793623684; x=1794228484; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793623688; x=1794228488; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UQh3Hhv6qjNy92jmqlHZeQDSexdAkfgjQwGaT5rQ7nk=;
-        b=llkcERm3dY9S+MXVNxFUy6yIL5WHeYI2OEQd0kAGizxhHB5Zp+hfiHvATonAfBupC0
-         dxlrdTgAaKlcqgPcb0pfmgsLo/Wy45Gp5sXLvMANUXNILOXNXD9lGaxJV9nAA+ytouyE
-         W0NbnNAECzZqxpXysgc4TZB8qw3qSNfp0VXNxyirQyAGPoffSs5l0c79D5vA1R9WTrB/
-         rQhyjZvDVwJhzBC3l7cUqKavl8QvVs8rtkOvxMPHLo5DNp5zhM/XDJcqz3gGiw81WfK5
-         GhkcFNe7gE4xX5/4uHm9pw1L2V4rLARGb05Xap/3EFUlmC80QTcAuBVWtDzH1E67MPG5
-         1JxA==
+        bh=W7XQ1lK2AkpuxOdKXFw0fuyYbrzIB2iq8ekUYi5fmdg=;
+        b=qTt9Xst1C58chpctgKd3jl+TF9Fi6f5PMLz2RmIwzJ72YxjN7Jd0t4kKsHuNdgvhrX
+         Rraisq6v3aEMycbIHMs7sR4sw8V9Lh9gfm+JxmopydJ2WOcclwgP4Qzn+HtDPtWDk98U
+         iVMNCYGVRzc7CJT832B6HhEhAGbHXelXHhZBwpbH0nux96HLmOLz/7MJbzMHh5CQARxI
+         K0USDJu5+E14v3sAebM7OLFDj+7ejpQPkRbxo32UfhCHWvGPASO1NWAfs1X4CXSWZVfH
+         z+Xu3N3yjOJ6GhCGoYpxf690BpxGNI2NNf3PZBXAT6V4CVo4LW2O8BmoiQai42LMNJcI
+         tJTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793623684; x=1794228484;
+        d=1e100.net; s=20260707; t=1793623688; x=1794228488;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UQh3Hhv6qjNy92jmqlHZeQDSexdAkfgjQwGaT5rQ7nk=;
-        b=pZtg8wjQMTHI4cILFgr2+y1yA3x9FaAa6Nm4aGaoroIfadmlIjXPK8r4JM8D/uyRvT
-         nqj6VMnLSS+C6ZJJuNC/UJWCfcYhykvBA2wXSluRxsl6rilRyfE9+0VFkXw545EERRy7
-         sYLuJEl+KqHxMQOOG59FBZPe5qdJsw2rANUrdA0G0FQuJ1KoqL5ppOj8+IGRb6bRESzz
-         NWW3x5HAOi9Cg5sZJDPAgWdYE77zzgvsQCeSmv47ZfVCoHUh1XMs6xKZ+xHdWl8bbSuW
-         XOs2/zpUzCnErdIFa2UCyr9TsTNnsvJDtePLlNBfa824MCv9wKDkefo1AIG8XP/VtLm9
-         eK5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByBM/UEHFdtnIBivTDnvSRsj62X7ZAPTkSZ3lerGXdazcmKoMYRisysMsjwYIYc7Fg1u/4Ca1j1E55AlnU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CSC9RtC50xPULpmzfHmty83khUjnkhTHtALBV0fiPCDxgR5cs
-	zT8bh/L2FSeIPZJ2/w5apiHx86fTC4d/BMsc2UMNs396tV33f9caMgRZ
-X-Gm-Gg: AYBFou2LYxnX3MkFex0ecxy7SqDLXke13UfXn8HxtLoF7RC2hEsp7VwYCXUiMpgK+ef
-	rEvUJ8JOMTpaDbr11zSDzIrpGR7Az23/1rlpIibBgQJJ7tEevefkrAGEqxa6O1PtD5tRtJNFtcY
-	ItrBJM5X0MOSNb5oGrEH+smEu6tDxKi03TCL/6y7bZRvZlBaJOrZVFcRvyKFePA08Rrz7jW8N7f
-	KhoY0QQBXGmqK7lpBBs8RFT1+4lgTQUrq3hG0mF+hBQ7Ulj2PTsnQ0bi3AHtjziJGVR+mUv92KD
-	Voh5t2BsRbKm0zojLRLrmSpEOx7jcZAA5vhWW518IfhIuERXh+h/bsDNsyhkCwlTnLG+O7ssy2G
-	Q5i4Km8l1mUQZM8mBinJlpbduYHbhWWCWEK4UcUHz4fsMrSKv8/r2e/mdyWv70k53Ol558L6Qbs
-	tSo/eeJ59m+te6cbqdaU2xUiENQDd6QIWGugjj/SNz77iMoF9/KKizYh3P9INn40JMdEGJmkogd
-	yatkd6aXAsDx4b+VjXeGq3Cl5Rmd+rC3ySffushZ9/EKqClA7HKkVfYaKwNpsmHnffZG1tmCbrO
-	k4i3APUMQWeofXSR0ZYryLJmoI4R1WeJm8tR1l9RvS6dAgOEF6xAn+FDQ1mL9bNpdIqTMdC6KAY
-	sLKJrNor75Ea9YA==
-X-Received: by 2002:a05:6a00:1382:b0:8a0:31e5:8cc3 with SMTP id d2e1a72fcca58-8a8317dd858mr7535283b3a.10.1793623683085;
-        Mon, 02 Nov 2026 04:48:03 -0800 (PST)
+        bh=W7XQ1lK2AkpuxOdKXFw0fuyYbrzIB2iq8ekUYi5fmdg=;
+        b=ctOTTYrb0Yg1c2GU/+adUJiQsTMbQAGwnl8qbU/UZKmakX6nG+GEtghScKBUC1PZlU
+         PZZwhf+vODqP5lc8v0KMTvKhvT8tgGH5z2phhg2pUAOSkAMg6w7Ti3iYLKknaDetfKUC
+         wqGKdK94CBOBzw1wR4DkAUGmaaxP5RaZVw/Q3WsGO2DIDPJO0ZR27Xa6JNm/PXCDGhlS
+         M4CIJne388UjdJ1qIEyRqwQfl8kFrnGqLFBHF53Q12rIPBuG7/PMVWj9F1z9nOPLzht3
+         pqsjjVyicmuLl3R2IV75uTzA1UarX6Vr1oLLEKmS0LbIttwEoMt8khOv/OIxGdy/hZTq
+         zsqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZxsa/IRsA+OtJinhCY6a+3nQNbeW33HzZ6RBFJN/f9jwneRO3DbJ8zIxit7pSHbdTTlMuBvFSmJaJueI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw7/WVx3sZabFeWO7FAiijkU5lCwbxjtPpmMuH3mu3nGaQIG9g
+	Hinjo+LcXWVrCsHlvrH96zjWkRco4eqetslvElKs9AIEK8HgZpKKZsuF
+X-Gm-Gg: AYBFou3ccIYlI+z0vTynPhErbvV6XyFStpL9TUG1cqxanF/GTDAugslyaifpRZv+kPx
+	EmlPsE/ErptjV1kO7Yb8yE+8/nq4FKofSx+DFs2DohqrEhwj651DMy9IGTNTbQfO1OgFkWbBhIr
+	7kLs1TP2l56voYEJCwhA8+ncoyblHMonWwZIFxPrB/hMyOIJh7ZSYtz4b9srrKq8BX61vQOazzE
+	flZUYG5y6I403NNyr72XQChLFhZnyszSRucj1uC8WzDDf1Ea+h3UhtFf5FDkUeLDgd/8Ipy3vC2
+	7gxsvbb5enNGoX/yCszTQRUnUSgNjKq+/ytSaKMo3hEuco58j4OBRe0EOlEI5Js0JET3ln4KJON
+	lQ84DDj23Zd8mJsqUjssSbeD/JDlkHlNVoob6tjkMISZPhXymhFadmxvWXd+umK1nYWCIRLowmS
+	Ogq+Gf0gvcKo3W67SA05JL35i79SK0Pr4PNx61m3J34PKBVuLlf04UbtYP4XlPZEsQamxps1PGm
+	4s11GsPV/1s2ygxvWgnhWGXMV/qWAYOgUOcG43/zBoghQbzODku8cgBj/RNIdaRt9ujCS1GB+HL
+	Kt89o79QTZJs5+g/kj6HvydD0C9fmP2phVxp6hEvsljXzHsikGWEiMx4LGOMd/vkSVjZHkcv83N
+	FGQQiwjk60rbdXg==
+X-Received: by 2002:a05:6a21:3216:b0:3e2:ae03:b2a9 with SMTP id adf61e73a8af0-3e928e47543mr8810220637.70.1793623687301;
+        Mon, 02 Nov 2026 04:48:07 -0800 (PST)
 Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad77fda1asm1908357b3a.6.2026.11.02.04.47.58
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad77fda1asm1908357b3a.6.2026.11.02.04.48.03
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 02 Nov 2026 04:48:01 -0800 (PST)
+        Mon, 02 Nov 2026 04:48:06 -0800 (PST)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Marcel Holtmann <marcel@holtmann.org>,
 	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
 Cc: Johan Hedberg <johan.hedberg@intel.com>,
 	security@kernel.org,
 	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] Bluetooth: L2CAP: Only accept LE responses to outstanding requests
-Date: Mon,  2 Nov 2026 20:47:34 +0800
-Message-ID: <20261102124735.23199-2-enderaoelyther@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] Bluetooth: L2CAP: Clear request identifiers on incoming LE connections
+Date: Mon,  2 Nov 2026 20:47:35 +0800
+Message-ID: <20261102124735.23199-3-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102124735.23199-1-enderaoelyther@gmail.com>
 References: <20261102124735.23199-1-enderaoelyther@gmail.com>
@@ -104,32 +103,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The LE and ECRED response handlers match channels by identifier without
-checking whether they sent the request. An incoming channel stores the
-identifier chosen by the peer, so an unsolicited response can bypass
-deferred setup, delete an established channel, or leave an unaccepted
-socket and channel allocated after l2cap_chan_del().
+Incoming LE and ECRED channels retain the peer's request identifier
+after an immediate response. The deferred LE response also leaves the
+identifier set, unlike the deferred ECRED response.
 
-Extend the BR/EDR lookup from commit a518b9a9ef6e ("Bluetooth: L2CAP:
-Only accept connection responses to outstanding requests") to LE.
-Require the matching connect-request flag and add a reconfigure-request
-flag. Check reconfigure identifiers under the channel lock, since
-BT_RCVMTU can replace a request without the connection lock. Match all
-members of a rejected ECRED request, which share one identifier.
+A later ECRED request can reuse that identifier and include an unrelated
+channel in its shared-response handling. That walk matches on the
+identifier alone, so an LE channel is selected too. If the old channel is
+closing, the checks can refuse the new connection. The check at request
+receipt rejects it with L2CAP_CR_LE_INVALID_PARAMS; the check before a
+deferred response returns L2CAP_CR_LE_AUTHORIZATION.
 
-A reconfigure request can outlive close(). Complete it even in
-BT_DISCONN, and call the close callback after deletion to release an
-orphaned socket. Otherwise deletion cancels the timer and removes the
-channel before the disconnect response or the channel timeout can close
-it.
+Store the identifier only when deferring the response, and clear it
+after sending the deferred LE response. Keep deferred ECRED identifiers
+until the shared response is sent, since a partially accepted group
+still needs them.
 
 AI assistance was used.
 
-Fixes: f1496dee9cbd ("Bluetooth: Add initial code for LE L2CAP Connect Request")
-Fixes: 71fb419724fa ("Bluetooth: Fix handling of L2CAP Command Reject over LE")
+Fixes: 27e2d4c8d28b ("Bluetooth: Add basic LE L2CAP connect request receiving support")
 Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
-Cc: <stable@vger.kernel.org> # 5.7.x: a518b9a9ef6e: Bluetooth: L2CAP: Only accept connection responses to outstanding requests
-Cc: <stable@vger.kernel.org> # 5.7.x
 Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
 Built in patch order at W=1 with GCC 12.2 (x86_64 module, x86_64
@@ -142,196 +135,58 @@ diagnostic as the base; no cross-function database was used.
 Coccinelle 1.3's use_after_iter rule found nothing in the changed
 functions. All changed functions were processed; five unchanged parser
 gaps also occur in the base. Hardware validation has not been run.
-This diff does not apply to stable branches as is; adapted backports
-compiled at W=1 on the seven supported lines and, with patch 2's
-backport applied, linked as modules. Their behaviour was not tested.
 
-QEMU/vhci testing with patch 1 alone kept all 445 established channels
-alive. In 40-pair close-before runs, failed reconfigure responses and
-Command Rejects each reached 44 l2cap_sock_destruct calls with the fix
-and four base boot-noise calls; success reached 43 on both. A 1200-pair
-base run retained 1984 kB of gross Slab memory at listener close while
-the fixed arms released memory. Kmemleak reported nothing even on the
-leaking base, so it was not used for the leak verdict. A KCSAN kernel
-with both patches, built without KASAN, ran the same close-before
-workloads without data-race reports.
+The two-patch QEMU/vhci arm kept all 445 established channels alive.
+In runs where new ECRED requests reused the identifier of a closing LE
+channel, the base and patch 1 alone refused 18 of 18 at each site:
+with L2CAP_CR_LE_INVALID_PARAMS at receipt, or with
+L2CAP_CR_LE_AUTHORIZATION in the deferred response. With this patch,
+all 18 completed with L2CAP_CR_LE_SUCCESS at both sites. Two further
+requests per run were refused identically on every kernel and are not
+counted. Partially accepted groups were not tested.
 
-The stable request covers 5.7 and newer with the declared BR/EDR lookup
-prerequisite or an equivalent backport. Older LE-only trees need an
-adapted patch without ECRED hunks. The diff exceeds the stable guideline
-of 100 lines including context.
+A KCSAN kernel with both patches, built without KASAN, ran the patch 1
+close-before workloads without data-race reports.
 
- include/net/bluetooth/l2cap.h |  1 +
- net/bluetooth/l2cap_core.c    | 82 +++++++++++++++++------------------
- 2 files changed, 42 insertions(+), 41 deletions(-)
+ net/bluetooth/l2cap_core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
-index 54eddcdd341f..2a05bda8ab43 100644
---- a/include/net/bluetooth/l2cap.h
-+++ b/include/net/bluetooth/l2cap.h
-@@ -756,6 +756,7 @@ enum {
- 	FLAG_DEFER_SETUP,
- 	FLAG_LE_CONN_REQ_SENT,
- 	FLAG_ECRED_CONN_REQ_SENT,
-+	FLAG_ECRED_RECONF_REQ_SENT,
- 	FLAG_PENDING_SECURITY,
- 	FLAG_HOLD_HCI_CONN,
- 	FLAG_DEL,
 diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 4dd56e0074fd..a21b2d70ad8a 100644
+index a21b2d70ad8a..0b6eb082f3f7 100644
 --- a/net/bluetooth/l2cap_core.c
 +++ b/net/bluetooth/l2cap_core.c
-@@ -144,24 +144,12 @@ static struct l2cap_chan *l2cap_get_chan_by_dcid(struct l2cap_conn *conn,
- 	return c;
+@@ -3972,6 +3972,7 @@ void __l2cap_le_connect_rsp_defer(struct l2cap_chan *chan)
+ 
+ 	l2cap_send_cmd(conn, chan->ident, L2CAP_LE_CONN_RSP, sizeof(rsp),
+ 		       &rsp);
++	chan->ident = 0;
  }
  
--static struct l2cap_chan *__l2cap_get_chan_by_ident(struct l2cap_conn *conn,
--						    u8 ident)
--	__must_hold(&conn->lock)
--{
--	struct l2cap_chan *c;
--
--	list_for_each_entry(c, &conn->chan_l, list) {
--		if (c->ident == ident)
--			return c;
--	}
--	return NULL;
--}
--
- /* Our connection request has been sent and is still outstanding */
- static bool l2cap_chan_connect_pending(struct l2cap_chan *chan)
- {
- 	return chan->state == BT_CONNECT &&
--	       test_bit(CONF_CONNECT_PEND, &chan->conf_state);
-+	       (test_bit(CONF_CONNECT_PEND, &chan->conf_state) ||
-+		test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags));
- }
+ static void l2cap_ecred_list_defer(struct l2cap_chan *chan, void *data)
+@@ -5311,10 +5312,10 @@ static int l2cap_le_connect_req(struct l2cap_conn *conn,
  
- /* Other channels may hold the same ident for a response they still have
-@@ -174,7 +162,7 @@ static struct l2cap_chan *__l2cap_get_connect_chan_by_ident(struct l2cap_conn *c
- 	struct l2cap_chan *c;
+ 	__set_chan_timer(chan, chan->ops->get_sndtimeo(chan));
  
- 	list_for_each_entry(c, &conn->chan_l, list) {
--		if (c->ident == ident && l2cap_chan_connect_pending(c))
-+		if (l2cap_chan_connect_pending(c) && c->ident == ident)
- 			return c;
- 	}
- 	return NULL;
-@@ -5073,7 +5061,7 @@ static int l2cap_le_connect_rsp(struct l2cap_conn *conn,
- 	BT_DBG("dcid 0x%4.4x mtu %u mps %u credits %u result 0x%2.2x",
- 	       dcid, mtu, mps, credits, result);
+-	chan->ident = cmd->ident;
+ 	chan->mode = L2CAP_MODE_LE_FLOWCTL;
  
--	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
-+	chan = __l2cap_get_connect_chan_by_ident(conn, cmd->ident);
- 	if (!chan)
- 		return -EBADSLT;
+ 	if (test_bit(FLAG_DEFER_SETUP, &chan->flags)) {
++		chan->ident = cmd->ident;
+ 		l2cap_state_change(chan, BT_CONNECT2);
+ 		/* The following result value is actually not defined
+ 		 * for LE CoC but we use it to let the function know
+@@ -5550,10 +5551,10 @@ static inline int l2cap_ecred_conn_req(struct l2cap_conn *conn,
  
-@@ -5621,9 +5609,10 @@ static inline int l2cap_ecred_conn_rsp(struct l2cap_conn *conn,
- 		struct l2cap_chan *orig;
- 		u16 dcid;
+ 		__set_chan_timer(chan, chan->ops->get_sndtimeo(chan));
  
--		if (chan->ident != cmd->ident ||
-+		if (chan->state != BT_CONNECT ||
- 		    chan->mode != L2CAP_MODE_EXT_FLOWCTL ||
--		    chan->state == BT_CONNECTED)
-+		    !test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags) ||
-+		    chan->ident != cmd->ident)
- 			continue;
+-		chan->ident = cmd->ident;
+ 		chan->mode = L2CAP_MODE_EXT_FLOWCTL;
  
- 		l2cap_chan_hold(chan);
-@@ -5842,16 +5831,9 @@ static inline int l2cap_ecred_reconf_rsp(struct l2cap_conn *conn,
- 
- 	BT_DBG("result 0x%4.4x", result);
- 
--	if (!result) {
--		list_for_each_entry(chan, &conn->chan_l, list) {
--			if (chan->ident == cmd->ident)
--				chan->ident = 0;
--		}
--		return 0;
--	}
--
- 	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
--		if (chan->ident != cmd->ident)
-+		/* Reconfiguration updates ident with only chan->lock held. */
-+		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
- 			continue;
- 
- 		if (!l2cap_chan_hold_unless_zero(chan))
-@@ -5860,7 +5842,15 @@ static inline int l2cap_ecred_reconf_rsp(struct l2cap_conn *conn,
- 
- 		lockdep_assert_held(&chan->conn->lock);
- 
--		l2cap_chan_del(chan, ECONNRESET);
-+		if (chan->ident == cmd->ident &&
-+		    test_and_clear_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags)) {
-+			if (result) {
-+				l2cap_chan_del(chan, ECONNRESET);
-+				chan->ops->close(chan);
-+			} else {
-+				chan->ident = 0;
-+			}
-+		}
- 
- 		l2cap_chan_unlock(chan);
- 		l2cap_chan_put(chan);
-@@ -5875,26 +5865,35 @@ static inline int l2cap_le_command_rej(struct l2cap_conn *conn,
- 	__must_hold(&conn->lock)
- {
- 	struct l2cap_cmd_rej_unk *rej = (struct l2cap_cmd_rej_unk *) data;
--	struct l2cap_chan *chan;
-+	struct l2cap_chan *chan, *tmp;
- 
- 	if (cmd_len < sizeof(*rej))
- 		return -EPROTO;
- 
--	chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
--	if (!chan)
--		goto done;
-+	list_for_each_entry_safe(chan, tmp, &conn->chan_l, list) {
-+		/* Reconfiguration updates ident with only chan->lock held. */
-+		if (data_race(READ_ONCE(chan->ident)) != cmd->ident)
-+			continue;
- 
--	chan = l2cap_chan_hold_unless_zero(chan);
--	if (!chan)
--		goto done;
-+		if (!l2cap_chan_hold_unless_zero(chan))
-+			continue;
- 
--	l2cap_chan_lock(chan);
--	lockdep_assert_held(&chan->conn->lock);
--	l2cap_chan_del(chan, ECONNREFUSED);
--	l2cap_chan_unlock(chan);
--	l2cap_chan_put(chan);
-+		l2cap_chan_lock(chan);
-+		lockdep_assert_held(&chan->conn->lock);
-+
-+		if (chan->ident == cmd->ident &&
-+		    ((chan->state == BT_CONNECT &&
-+		      (test_bit(FLAG_LE_CONN_REQ_SENT, &chan->flags) ||
-+		       test_bit(FLAG_ECRED_CONN_REQ_SENT, &chan->flags))) ||
-+		     test_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags))) {
-+			l2cap_chan_del(chan, ECONNREFUSED);
-+			chan->ops->close(chan);
-+		}
-+
-+		l2cap_chan_unlock(chan);
-+		l2cap_chan_put(chan);
-+	}
- 
--done:
- 	return 0;
- }
- 
-@@ -7757,6 +7756,7 @@ static void l2cap_ecred_reconfigure(struct l2cap_chan *chan)
- 	pdu->scid[0] = cpu_to_le16(chan->scid);
- 
- 	chan->ident = l2cap_get_ident(conn);
-+	set_bit(FLAG_ECRED_RECONF_REQ_SENT, &chan->flags);
- 
- 	l2cap_send_cmd(conn, chan->ident, L2CAP_ECRED_RECONF_REQ,
- 		       struct_size(pdu, scid, 1), pdu);
+ 		if (test_bit(FLAG_DEFER_SETUP, &chan->flags)) {
++			chan->ident = cmd->ident;
+ 			l2cap_state_change(chan, BT_CONNECT2);
+ 			defer = true;
+ 			chan->ops->defer(chan);
 -- 
 2.56.0
 
