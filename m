@@ -1,79 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793655536;
-	b=i+PJB9nRvyigLlUEulfyAqglAYfqImhUL5bl8kINBeS5ZyZc9QUwsmsv5uSPZsD05ai6
-	 uYn4w7Gm/JY4t/N8LcLLacTBgFDPxLt+2+wyKYDTCxv+Aovm1zPnvrWFW1K+4jIJu1LtH
-	 zN5cE6Illm/bin7C/27ua8UXeIQLS1NW2Yi1IoJtdORoI7sIJVLQojfgcY95R8ap/gjbk
-	 L7+4AjgKUcgLdIGZHkAqsuTqYEjdfmrl6k2ti0haeB2EhtixNWM7JY3YgiTkav+uUgv4W
-	 7JM4HuzV1KjanJZtE6plIVzoeqoNA6o7bHZKEebaf+mMv74DeSXuydhDaQEIUrttQIQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655536;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sJMcAYcoUTWQFWujTsU8rKB0PJ6Mwry7U0/HNEkGZjg=;
-	b=dVlKTgeBoxLP0lQnybZnjB4BV8E2hRv78szSDMv549EOamiIOVFpKtnycYDICezWqWgm
-	 WnNkx865SKm3bthMOWF/YgAtJt2+31/xmy2U8qt3Z8bVSULHE15bDzQWQOg3tws/5Fwfh
-	 v9hJqKUtLvSCeAswhsCIh4suKoRRpBhJDSk2n5nQ/Flpn2YiKApcGFWLIEiCdlqjfx6Xo
-	 XWPsr9goU2AGF+XO/9uIqL9JFh3Bovk12q5+0TJCfiMlkTKCPWLfbFnmdv4wUwdsVwoJg
-	 BUoYmbNesBB4dpwg/EtSoDKQg/BTZvUnhBdIZxAWNJCQ89zMqVEMg2nFqhitzz48q+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSKMeMUT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793655566;
+	b=vdAzWx3cAYV51kJ1mgPKqPQJWlaf096F2qU5w+USM/uPNTmZYofSUnq5GeRIo6SXrGom
+	 PiWfkiy0lRaPv7WJzMBEDh8lPCLnTGc20XQ3Pn1AL6iIgVnfs1h+xpCu0whwviefkfwFL
+	 WDT6e4uIEYXWZtEuYytHhHKAjU/q5D7EmqzMbdqnSBbzUqBXlfbg/FbvJCfJlOegj4Tvt
+	 fJtLc4Msqitv2XAfI0dF8XXVSkoJ9Ty64TwHcA7CVZ4mymh5U88Ag2nIj0AOiTZ9wbWF2
+	 NYzdCgRyobY2kk0cR7O/gWAvBa/YbVlH4iRgFWaUNLZns6SYWjTy09tX190ELp9OLKw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655566;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4k4497sTbbDvYeqvxlbwbiiYz6zh1ROyOPLpxYM4Y3U=;
+	b=pZNamPQg51ZelI7I2GO17CzH1vNkb3uX0YYkdmG2kZU8tDBcuuMq7IbMt3WFIbjnt/Fy
+	 1rJ+1zFnyov8bW7S3M8g8jC/eT7CUXyNyfOEXhsqatUvKrxhyVLROagSJ/rHVhswIzNfO
+	 /ubTcpJDqQ801ly8aqxJSH9Pxb8GCiYNFyyubGg5d4zkdBBz+ZvyWgEDB9NChIx/U3KGd
+	 ab6CSGBv3qdqasGYvS49uswk413i8iVMeoruJLDAVkjjp++fugAe08p3R68Mp5sMRNZl0
+	 fXiAAcqaYEIp4tSTFT+GfGAAR+MuxzIY63cgOoX+60DaberRurDwMzFgzuATTNwiQKA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jouev5Qt;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C35606D814;
-	Mon,  2 Nov 2026 21:38:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31896606A335;
+	Mon,  2 Nov 2026 21:39:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSKMeMUT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793655535;
-	b=tYNmlrC+fS1+f5BL5lxZupZZcd/x1I+u5LxujZvy1fD6qrgvgM7WFsI+7pWES0J9Y3F3
-	 ezWxJbybEFxRy1CXl5FxS29LzQTAI90hA9X5yJRImF5EbgHgiiHfa1Dq6mTVS30Ydep0G
-	 EYuRnp0GjlxGNIB3vd9a3CIwPx1lyttpqOkkzAHoYrGo5jEa0GdRk2ps1djCXjTmcLGJR
-	 1sWO2cYvNf83l03tFH+EddwPLoyU6wQSuV7z2RYPsMMy5oO1heIcQGR9VnBu2D0NZkzl6
-	 +Bnv9SiiB0fvMv3Nvmb2jTQsVEVnBS/szMtOdKtW4qChjYqs7x4PdE7QTTsgfD5WJmA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793655535;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sJMcAYcoUTWQFWujTsU8rKB0PJ6Mwry7U0/HNEkGZjg=;
-	b=gNwGLJPSMIUyO4FSay2i3Lct2YPUP0660N83/Op3vEjNdBEUdRd3nZhud064IBghAiut
-	 OXDWrsNj7CDOwlnGk1360Ew5Wzsm+rVoFixYfuW3lzuVTYV4/7GMymjUCTYsnR1dEzE0B
-	 24IniuGRAter2q+GNB9J/5XDJ8VJ0bP0A8Z6BdfNNBJWE5itYaJ1kIJ3Hyl10/d/J0Gdi
-	 QBRc0ibtocbHdxgJWfQFMHCWm+fg8OP8ZbF4oh1PNEP/iPPFk73SC9anezcZR47/N9dON
-	 KeJANg9wfHCcopwfJv2x5NwqShuCu//+9tpJEwq+k/mNupq8Y+atZXIqd9/IbDGVcVg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A0CF21F00A20;
-	Mon,  2 Nov 2026 21:38:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jouev5Qt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FA5A1F00A16;
+	Mon,  2 Nov 2026 21:39:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793655535;
-	bh=sJMcAYcoUTWQFWujTsU8rKB0PJ6Mwry7U0/HNEkGZjg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BSKMeMUTvZflQ7aFkPYPvl6Oh5pg0jIB7MdVEw5/6BaW+AMUmECYA7KUbV/JTDK2v
-	 uX1/3HHAyU6+LIfL9XfFeZMtB0gyGU3lmXfBDtShdx1N7ZiznaZhiQYmvyGPNfAA+3
-	 LqKYY/Aivkbz2Xkk1sq0+LTC2oWeWAwPTSkZkHXaWWASOtKoqtI2+qAx97bq073Fox
-	 uHfZzL5vFWUh52YEdTRLAbAmJaGddnvOD7XMJ0wwCTNKolQufjwXckH1KaG5bNP2+s
-	 P/rSC83NAcveVvDJ03Dn2Y8e0llMBzG9NMLgD+Uz9V2HMcQtrN52Gsiy6H5MC3Wjtk
-	 JHnKFTBBZSroA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E423D466B6;
-	Mon,  2 Nov 2026 21:38:51 +0000 (UTC)
-From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
-Date: Mon, 02 Nov 2026 15:38:50 -0600
-Subject: [PATCH v17 10/13] scsi: ibmvfc: add interrupt routine for
- asynchronous sub CRQ
+	s=k20260515; t=1793655565;
+	bh=4k4497sTbbDvYeqvxlbwbiiYz6zh1ROyOPLpxYM4Y3U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Jouev5Qt+8GltlW45V5pTUQV7gF9lqCjSzgOdMtlplRDu8wkW1tS8zUxZkwrLfNoS
+	 Go7Xnm7RHkpOao988ciNLcvGMB+qTzrRvSAyDHr9HGiB26HoveciMqfozQeA/1FkgC
+	 dMXstNtWJirqYHBZE93b0O8LsKzBKM9XVaQA0k3yIbmMdKGp2xVmAzmwofgm3GJ8JZ
+	 fCzy01U7ZfgO9h7xH6sDPIqN6Mg4KhnFm7LG+Taef7bp80Piy+npF+2+SoXjuo4cwk
+	 9ezM+djl2yFupw3dIdMFU/nsKfQvTrP6uNmI8JlZOvatS8SgR7g1MLQ6lGmNTTbvMB
+	 AMxMIaS5/5sLA==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: devnull+kasong.tencent.com@kernel.org
+Cc: akpm@linux-foundation.org,
+	axelrasmussen@google.com,
+	baohua@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	cgroups@vger.kernel.org,
+	chenridong@xiaomi.com,
+	chrisl@kernel.org,
+	damon@lists.linux.dev,
+	david@kernel.org,
+	dev.jain@arm.com,
+	ehab.ababneh@intel.com,
+	gourry@gourry.net,
+	hannes@cmpxchg.org,
+	hughd@google.com,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	lance.yang@linux.dev,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	liuxiang.277@bytedance.com,
+	ljs@kernel.org,
+	mhocko@kernel.org,
+	muchun.song@linux.dev,
+	nico.pache@linux.dev,
+	nphamcs@gmail.com,
+	qi.zheng@linux.dev,
+	rientjes@google.com,
+	roman.gushchin@linux.dev,
+	ryan.roberts@arm.com,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	shikemeng@huaweicloud.com,
+	sj@kernel.org,
+	surenb@google.com,
+	tz2294@columbia.edu,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	vernon2gm@gmail.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	willy@infradead.org,
+	ying.huang@linux.alibaba.com,
+	youngjun.park@lge.com,
+	yuanchu@google.com,
+	yuzhao@google.com,
+	zhaozhengzhuo@uniontech.com,
+	ziy@nvidia.com
+Subject: [PATCH v4 01/17] mm/memcontrol: allow update of LRU statistic without holding LRU lock
+Date: Tue,  3 Nov 2026 05:39:15 +0800
+Message-Id: <20261102213915.57805-1-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261016-mglru-fg-v4-1-2106750c0bfa@tencent.com>
+References: <20261016-mglru-fg-v4-1-2106750c0bfa@tencent.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,183 +107,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-ibmvfc-fpin-support-v17-10-9ee5f195ac91@linux.ibm.com>
-References: <20261102-ibmvfc-fpin-support-v17-0-9ee5f195ac91@linux.ibm.com>
-In-Reply-To: <20261102-ibmvfc-fpin-support-v17-0-9ee5f195ac91@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, 
- Tyrel Datwyler <tyreld@linux.ibm.com>
-Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, Dave Marquardt <davemarq@linux.ibm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793655530; l=5369;
- i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
- bh=rzRLzI/0DVNhhsjrydAeA8hyA2ajK90jlhszpnL3xos=;
- b=E/5P1HqoZ3V9tvYvqD5EyMstXcAxwAb0XhIaRK1PE6k/X9kmXDL6FpYuVXNC+I/7/o4Ot/y3E
- bwWXEdT7McaBjFjJnObXysgTKuKPWHgCPfH6BAP9Mm2cqAspxNDwZSM
-X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
- pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
-X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
- auth_id=689
-X-Original-From: Dave Marquardt <davemarq@linux.ibm.com>
-Reply-To: davemarq@linux.ibm.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Dave Marquardt <davemarq@linux.ibm.com>
+On Fri, Oct 16, 2026 at 2:15 AM Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org> wrote:
+>
+> From: Kairui Song <kasong@tencent.com>
+>
+> To enable moving file pages in folio_mark_accessed directly and lazily
+> for MGLRU, allow updating the LRU statistic atomically without holding a
+> lock. It may cause temporary counter underflow, which should be fine as
+> we still follow final consistency of the counter, and it only serves as
+> a estimated metrics, a little inaccuracy has no visible effect.
 
-Add ibmvfc_interrupt_async_subq(), an IRQ handler dedicated to
-asynchronous sub-CRQ events from the adapter. The handler disables
-the sub-CRQ IRQ and then calls ibmvfc_drain_async_subq() to consume
-all pending entries before re-enabling interrupts.
+This might be a good idea. Updating the LRU size without
+holding lru_lock could open up possibilities for further
+optimizations.
 
-Add ibmvfc_next_async_scrq() to traverse the async sub-CRQ ring
-directly via msgs.async_scrq[], returning a typed
-struct ibmvfc_async_sub_crq * without the cast that would be needed
-when going through ibmvfc_next_scrq().
+Recently, I've been thinking about something in the aging
+path. For example, suppose a folio belongs to the root
+memcg and is heavily shared by some of its descendant
+memcgs, which also access it.
 
-ibmvfc_drain_async_subq() separates ring drain from event dispatch.
-With host_lock and q_lock both held, it loops over available entries
-via ibmvfc_next_async_scrq() and passes each one to
-ibmvfc_queue_async_subq_entry(). That helper allocates a
-struct ibmvfc_async_drain_entry node with kzalloc_obj(..., GFP_ATOMIC),
-copies the event into it, and appends it to a local doneq list.
-The node is zero-allocated because struct ibmvfc_async_crq_event is a
-union and the copied sub-CRQ is smaller than the main CRQ member; the
-remaining bytes are later copied wholesale into the FPIN work item. The
-valid bit is cleared and a write barrier issued regardless of whether
-the allocation succeeded. If the GFP_ATOMIC allocation fails, a
-ratelimited error is logged and that event is dropped; it is not
-retried. After draining the inner loop, both locks
-are still held while the sub-CRQ IRQ is re-enabled and one final
-ring check is performed to close the race between the last drain and
-IRQ re-enable; any newly arrived entry is collected the same way. Only
-after both locks are released does ibmvfc_drain_async_subq() walk doneq,
-re-taking host_lock around each ibmvfc_handle_async() call before
-freeing the node.
+Currently, aging in those descendant memcgs will simply
+skip this folio. Eventually, we'll have to rely on the
+rmap of the root memcg to determine whether the folio is
+hot or cold within the root memcg.
 
-Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
-Signed-off-by: Tyrel Datwyler <tyreld@linux.ibm.com>
----
- drivers/scsi/ibmvscsi/ibmvfc-core.c | 100 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 100 insertions(+)
+Since the shared folio may have a very large mapcount,
+walking its rmap could be quite expensive.
 
-diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index 7406e7182777..5dba084086d5 100644
---- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
-+++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -4456,6 +4456,106 @@ static struct ibmvfc_crq *ibmvfc_next_scrq(struct ibmvfc_queue *scrq)
- 	return crq;
- }
+So I've been thinking about this and put together some
+very PoC code. It doesn't really work; it's just meant to
+illustrate what I have in mind:
+
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 7ddef3b488b3..31b02478269b 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3618,7 +3618,7 @@ static struct folio *get_pfn_folio(unsigned long pfn, struct mem_cgroup *memcg,
+ 		return NULL;
  
-+static struct ibmvfc_async_sub_crq *ibmvfc_next_async_scrq(struct ibmvfc_queue *scrq)
-+{
-+	struct ibmvfc_async_sub_crq *crq;
-+
-+	crq = &scrq->msgs.async_scrq[scrq->cur];
-+	if (crq->valid & 0x80) {
-+		if (++scrq->cur == scrq->size)
-+			scrq->cur = 0;
-+		rmb();
-+	} else
-+		crq = NULL;
-+
-+	return crq;
-+}
-+
-+struct ibmvfc_async_drain_entry {
-+	struct ibmvfc_async_crq_event event;
-+	struct list_head list;
-+};
-+
-+/**
-+ * ibmvfc_queue_async_subq_entry - Copy an async sub-CRQ entry to a deferred list
-+ * @vhost:	ibmvfc host struct
-+ * @crq:	async sub-CRQ entry to consume
-+ * @doneq:	list on which to queue the copied event for later dispatch
-+ *
-+ * Copies @crq into a newly allocated ibmvfc_async_drain_entry and appends it
-+ * to @doneq. If the allocation fails, a ratelimited error is logged and the
-+ * event is dropped. In either case the entry is returned to the adapter by
-+ * clearing its valid bit.
-+ **/
-+static void ibmvfc_queue_async_subq_entry(struct ibmvfc_host *vhost,
-+					  struct ibmvfc_async_sub_crq *crq,
-+					  struct list_head *doneq)
-+{
-+	struct ibmvfc_async_drain_entry *entry;
-+
-+	entry = kzalloc_obj(*entry, GFP_ATOMIC);
-+	if (entry) {
-+		entry->event.type = IBMVFC_ASYNC_CRQ_SUB;
-+		entry->event.subq = *crq;
-+		list_add_tail(&entry->list, doneq);
-+	} else
-+		dev_err_ratelimited(vhost->dev,
-+				    "Couldn't allocate async drain entry\n");
-+	crq->valid = 0;
-+	wmb();	/* complete write */
-+}
-+
-+static void ibmvfc_drain_async_subq(struct ibmvfc_queue *scrq)
-+{
-+	struct ibmvfc_host *vhost = scrq->vhost;
-+	struct ibmvfc_async_drain_entry *entry, *temp;
-+	struct ibmvfc_async_sub_crq *crq;
-+	LIST_HEAD(doneq);
-+	unsigned long flags;
-+	int done = 0;
-+
-+	spin_lock_irqsave(&vhost->host->host_lock, flags);
-+	spin_lock(scrq->q_lock);
-+	while (!done) {
-+		while ((crq = ibmvfc_next_async_scrq(scrq)) != NULL)
-+			ibmvfc_queue_async_subq_entry(vhost, crq, &doneq);
-+
-+		ibmvfc_toggle_scrq_irq(scrq, 1);
-+		crq = ibmvfc_next_async_scrq(scrq);
-+		if (crq != NULL) {
-+			ibmvfc_toggle_scrq_irq(scrq, 0);
-+			ibmvfc_queue_async_subq_entry(vhost, crq, &doneq);
-+		} else
-+			done = 1;
-+	}
-+	spin_unlock(scrq->q_lock);
-+	spin_unlock_irqrestore(&vhost->host->host_lock, flags);
-+
-+	list_for_each_entry_safe(entry, temp, &doneq, list) {
-+		list_del(&entry->list);
-+		spin_lock_irqsave(&vhost->host->host_lock, flags);
-+		ibmvfc_handle_async(&entry->event, vhost);
-+		spin_unlock_irqrestore(&vhost->host->host_lock, flags);
-+		kfree(entry);
-+	}
-+}
-+
-+/**
-+ * ibmvfc_interrupt_async_subq - Handle an async event from the adapter
-+ * @irq:           interrupt request
-+ * @scrq_instance: async subq
-+ *
-+ **/
-+static irqreturn_t __maybe_unused ibmvfc_interrupt_async_subq(int irq, void *scrq_instance)
-+{
-+	struct ibmvfc_queue *scrq = (struct ibmvfc_queue *)scrq_instance;
-+
-+	ibmvfc_toggle_scrq_irq(scrq, 0);
-+	ibmvfc_drain_async_subq(scrq);
-+
-+	return IRQ_HANDLED;
-+}
-+
- static void ibmvfc_drain_sub_crq(struct ibmvfc_queue *scrq)
- {
- 	struct ibmvfc_crq *crq;
+ 	rcu_read_lock();
+-	if (folio_memcg(folio) != memcg)
++	if (!mem_cgroup_is_descendant(memcg, folio_memcg(folio)))
+ 		folio = NULL;
+ 	rcu_read_unlock();
+ 
+@@ -3723,7 +3723,7 @@ static bool walk_pte_range(pmd_t *pmd, unsigned long start, unsigned long end,
+ 			continue;
+ 
+ 		if (last != folio) {
+-			walk_update_folio(walk, args->vma, walk->lruvec, last, dirty);
++			walk_update_folio(walk, args->vma, folio_lruvec(last), last, dirty);
+ 
+ 			last = folio;
+ 			dirty = false;
+@@ -3736,7 +3736,7 @@ static bool walk_pte_range(pmd_t *pmd, unsigned long start, unsigned long end,
+ 		walk->mm_stats[MM_LEAF_YOUNG] += nr;
+ 	}
+ 
+-	walk_update_folio(walk, args->vma, walk->lruvec, last, dirty);
++	walk_update_folio(walk, args->vma, folio_lruvec(last), last, dirty);
+ 	last = NULL;
+ 
+ 	if (i < PTRS_PER_PTE && get_next_vma(PMD_MASK, PAGE_SIZE, args, &start, &end))
+@@ -3812,7 +3812,7 @@ static void walk_pmd_range_locked(pud_t *pud, unsigned long addr, struct vm_area
+ 			goto next;
+ 
+ 		if (last != folio) {
+-			walk_update_folio(walk, vma, walk->lruvec, last, dirty);
++			walk_update_folio(walk, vma, folio_lruvec(last), last, dirty);
+ 
+ 			last = folio;
+ 			dirty = false;
+@@ -3826,7 +3826,7 @@ static void walk_pmd_range_locked(pud_t *pud, unsigned long addr, struct vm_area
+ 		i = i > MIN_LRU_BATCH ? 0 : find_next_bit(bitmap, MIN_LRU_BATCH, i) + 1;
+ 	} while (i <= MIN_LRU_BATCH);
+ 
+-	walk_update_folio(walk, vma, walk->lruvec, last, dirty);
++	walk_update_folio(walk, vma, folio_lruvec(last), last, dirty);
+ 
+ 	lazy_mmu_mode_disable();
+ 	spin_unlock(ptl);
+@@ -4499,7 +4499,7 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
+ 			continue;
+ 
+ 		if (last != folio) {
+-			walk_update_folio(walk, vma, lruvec, last, dirty);
++			walk_update_folio(walk, vma, folio_lruvec(last), last, dirty);
+ 
+ 			last = folio;
+ 			dirty = false;
+@@ -4511,7 +4511,7 @@ bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
+ 		young += nr;
+ 	}
+ 
+-	walk_update_folio(walk, vma, lruvec, last, dirty);
++	walk_update_folio(walk, vma, folio_lruvec(last), last, dirty);
+ 
+ 	lazy_mmu_mode_disable();
+ 
 
--- 
-2.56.0
+We may want to explore this after mglru-fg. What are your
+thoughts on this?
+
+>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
+>  include/linux/mm_inline.h | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> index ab69b9930893..597f013c8e04 100644
+> --- a/include/linux/mm_inline.h
+> +++ b/include/linux/mm_inline.h
+> @@ -47,11 +47,10 @@ static __always_inline void __update_lru_size(struct lruvec *lruvec,
+>  {
+>         struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+>
+> -       lockdep_assert_held(&lruvec->lru_lock);
+>         WARN_ON_ONCE(nr_pages != (int)nr_pages);
+>
+>         mod_lruvec_state(lruvec, NR_LRU_BASE + lru, nr_pages);
+> -       __mod_zone_page_state(&pgdat->node_zones[zid],
+> +       mod_zone_page_state(&pgdat->node_zones[zid],
+>                                 NR_ZONE_LRU_BASE + lru, nr_pages);
+>  }
+>
+>
+> --
+> 2.56.0
+>
+>
+
+Best,
+Barry
 
 
