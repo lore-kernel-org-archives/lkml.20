@@ -1,123 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793654915;
-	b=VqaJo6QzR2bMpdM2IMv5xpWePHdKpFmi6dpAfWAJUzLkJ3uWqvlX0hJPK/bRCIGq17ds
-	 JmtCjpg7zLNYABqJHI0QUeKvxid/regquc8Ufv5SpsHwnzI89EGjI1TDYV0SA9fsFYGKx
-	 KDOY+evWNmQ56H2mlQMlSlMbnSwY86qlgOuaq9VSA5Ai0/Mf8uzi3fJ0U+cO3kseirrrL
-	 M8tbR/4IEOokrOj3SOypu0Fa+qt9W2u32/mBJpSnLyeJ8u7iY95LtZopQUyo9I7a8WnMQ
-	 5Z9JB5Q8UUtpyNoDdww39lazYFxjzA/SrCFHugOqbRYuBmjG8SsAH0joOJ5oGNk8dlA==
+	t=1793654938;
+	b=M26uvXufne4VVkum+0z8sGMh/4x4kUJTDySKscYhBMWDB2LuiiGn/yUPIFHhyGK4jfL3
+	 4s8lq525h9kZGaLYx/gihSGn85dEGZflK3Fn4fCQ8aMMTQAC3q/ZQTSUQ3b6FSTGkn5Vv
+	 7zVAzzMdQYwFxXJ2+QK4Imbiqzg43nkEXk94xmfYAYhV4yieCObb7/9t4+dCw2EcGlC2D
+	 skjPc2Fz4iE/KWncwAK1BWXDOV+JDF462p00oS8za+OfkEbGQfkcmcqFJf4JKwkS4EMoZ
+	 1LH0mIP8XwOt/q34BGm0hC0i5kEcb6EZOT7BkYT9Yg5bhvr+F74pdxNYgDEMnkcIBMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793654915;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=TGm7htG/ot06XVnjyNlWivSivtfZ8/BMdXWpNsPs7Uc=;
-	b=gxAVHidfphpAqvAld6K/jazL04pfrJmoJqfxv4nXT5u5Exj+90WjHxfgIeSJvaqXEZdL
-	 5A+b2OrGvTMO79MUp5ZJsLExyCPi44F5T+PmUpxvg7COU/+gnIk8zatknkHlokXZ+K38G
-	 EY5QbX2vMy1R6TmfYpMg8Z0LL2bZqwn0xhMli1v3JvuI19PeO8bLvXyHuyoYmiZS4uN19
-	 +yJOi/ZL/NxVee/8D5YRPAVXI7MaNNvIPmKk0Ps3mvvrAA8S5pLsqLGUxuk9DTNasNyak
-	 EkrWzm7ObbnPwSQCivO0bOK/mxBcLbuF/iiPPIS4SUDrfWkHhuLx9RYYW6RakJoiF7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793654938;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zcVggVYajR4k5NgQe9pbGY6+WDVxyFxQve/L9p1a8zk=;
+	b=iYI0eJpN1jZb5khhwqpptdhnkq85RTMBJBPqdGVeD8/Pdz+uDTyxrfpAMQLnuKfeuK5t
+	 PFn2dwr2kSAjqvFzrH6AF5WKosRd6arC390LLUIF20BENKeSiQ4cZkcBNBNh3Ur86U8bw
+	 ClKZ5IkQ3xioceQfFxwXtcNFvccyHlaWBMSOIgcs2aRrurhcj5hP8Clclbuq1SdiBFI9p
+	 aqpf1FizpZA/+8fKFbeFBAnqwG/2vevOVpt6fpfMYSKJZGk86Qm/zIAYqrbNAN4Zd+GXd
+	 p0hWEYjN/vnGffU9BN7aSVpfot5GcCdHeEr7lwU2R0lUotola/znkqfavyOGQHrIzlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b="QXwOH/vh";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=HH36+inY;
-	arc=none smtp.remote-ip=202.12.124.149
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=jQna+337;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62615606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:28:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62615606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C22606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:28:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C22606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=QXwOH/vh;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=HH36+inY
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id C33081D000F9
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:28:33 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Mon, 02 Nov 2026 16:28:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793654913;
-	 x=1793741313; bh=TGm7htG/ot06XVnjyNlWivSivtfZ8/BMdXWpNsPs7Uc=; b=
-	QXwOH/vhIXfDrZu1Qk0CXDGEmKgZr+WwAzEg+cvHEXzetsuX9JdR+BdqRSuKTid4
-	Vp6RJ6SHWh41j1555UWZWGqftlT6lmGsfqm5lVvaoBkehPj84W0LcqH8krim03Aw
-	2GRZ+hcPUrIpcBGVtNXW/1GTQWi685KoY8dLM62sJU8SidG0/lYc8zWS0Jqrpc4y
-	gVuThcfHE9YlGhBn02Y0aV24YDUilm0XuKpmNw4e1tIPOLyCxHBBzr7dr+P9Fqd8
-	+x1V4IvCdMvUf1EzrLbC1Gw+Q2OBvAqXzbN2n2pc44dreYCE0jE0IJ7J6FOG+nLq
-	oNCaOAnGF9vqkVwZQus+9Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793654913; x=
-	1793741313; bh=TGm7htG/ot06XVnjyNlWivSivtfZ8/BMdXWpNsPs7Uc=; b=H
-	H36+inYiqZpVrJhWM4r4Set9S7Y4ecVfD3KC9SBzFOeuIATeMgTNSZe1/VUhrhRl
-	l5oAehtsBMUbneRsAFWQm47S0abvQhhbVR6m1qf7RxL0GVEH8dnT5ob8FxsPQ0SU
-	A1ri3f89G13AGaonzDa2Bqt1vw4d6Fxn+JMJWfU1vRCfYz7SgIBnNQj33mc66Fez
-	C76AEZViI0DlkCzdPh3jrj7IFZeSRukAuky52tEx3sVuwUmFI57OGKjM5Bv2ASQ9
-	hgnLA4Xd5B4N1WuPj2ScXvw6UtUcNhvDgKg8gWvobCYh05lJ/RFOpyBINHP2ZZXO
-	sMBNwIjtrq7kDLXnAyyrA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793654913; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:IjqtPhlV5saB6KKwXG/jgQ2ABp8hREIh/yAMmsxyrYczszj
-	ZCkhwopQ90RksHsnho+KUL2/b/69/+FQCmcpzYukLs73+cmaQhwWAcDzE/gbAuyP
-	jLYBj2kdZ5cQ3sWa3Q0cZUrO3F3ybpvDiojdalY75NGUFk4dTPkQc7jBTYk0vygC
-	nY0kJG1TOtR1gZs938/JoXxNxe+2FW5gMtmTMBjmMxjob07hCo3U5jZIpvioGTIw
-	S3yp0KLQeWL8bqH6ixbk5dQbDpb89KXbfqO+CQL+5W4ISWNt7x1FOJteLurlZG5M
-	vWoBlPW3QoIQKTlnGcNeltpJXhpX6MDhWYNKMFw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:fQhjXTHMSCFYw82lY+M39SpFziaJ40laPfR8sjV9ybc=:VH8M0/nV+qAehY48+/GbRvb8YZKsrkDGqiOxbaCH9ik=;
-X-ME-Sender: <xms:gQDpaqYkap5dV1xYYNADSvp4Z3UNhjDNSABOhEieUdidqhs-O8e6TQ>
-    <xme:gQDpapa83m0I5gvdO46VDbmb2EfL0pDKK7nRpkDexLegaBgc9pMSD51r2y08buktn
-    p7p98c5EZWNpD_Y5ayuvr3J6e8akUsUSQi40hYcBL5RR-8WyRjotKI>
-X-ME-Received: <xmr:gQDpanJgUFbHZJ8g0bcdKSJFkZy7_6o0w5ber55-us4st-mwBFS4h3PiwmfKgg>
-X-ME-Proxy-Cause: dmFkZTFaV+nXhVHS6u0I3Y+aHKbNt6XALkJlLTBxMAabrrMdV5swgz6nfNQeankIE4dplL
-    LR6XkZiaMnvltcX+zyCbZ/oNz4dopBkT2ix67Uk6FdBOB1EDVE3SQDs07ZfrQFHhUR39py
-    /wwMJDDKnpXDxMZXp0dy73waqetBx4SKOPOAb62nCDyV1Zn4inenhvmC/Om9mledTlkx0t
-    Pgi1p/YXbomzjqB7spBwHngbXpEG+IREMkqFw+vUSN/b2InXRHhoNBRfl5FMed8HJoUA3j
-    gV44Ci8CfEA/YkPfxX7IAn/zkr3AYtuuCPiHktW6lw4uNnf1BUjZ1jyfJYqM7SAsQsbyjs
-    qwoybRBeAuUeNEZa9+VaF50ftTC+dNauZCIyfdb7vzugHnJPlujkhcaTEh4X5/RqimjiF+
-    yeFImqTOz3TW+4A2nODTuIn9Mc1+FJVMiGXaLrZMi3wBF/Qn9Or/bLOkYhoqSlDE+SvATS
-    VxjDAyej2l7uv8SlufK/+8m2D+4Bx8v1F5y2EVl+KtO+onRrOolmiOWL2I4aBeGIP8N/6u
-    OiW4Rog6UdRa2OWjoHKyYVHRZlSVYdhcFGDTEurTrRv21sxdXz/mviz3HtFe9HHzzUxXwW
-    MNjPbK/RU5mHR5WqWI5RoNABfq8lZ7NimBDHjX9Z62ovYDZytxpLNknzCigQ
-X-ME-Proxy: <xmx:gQDpattcq-4Rt1y3w2gdouMexBSCcf2rHzhABtxastocGZ7xefxZeg>
-    <xmx:gQDpajUgZZ-BBuAoKzbw77I_rPYeUCb2O2Kii7v3Tt9WwbVgqihphQ>
-    <xmx:gQDpaggKZ22ohq8vIE4znStmFqNNFrM8ie4cOYCmEvpWXAkUs3QZWw>
-    <xmx:gQDpajqlwtiOSwvhk4cddDc8QchfPxh1uPPf8TbugLJFaDd0t3mOFg>
-    <xmx:gQDpakRHb22PhEfHh9AJ4g4BbtSffoPZXELItrMuJd4EkIfK_QL8BMvg>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 16:28:32 -0500 (EST)
-Date: Mon, 2 Nov 2026 14:28:29 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: Kyle Zeng <kylebot@openai.com>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, Kevin Tian
- <kevin.tian@intel.com>, outbounddisclosures@openai.com, alex@shazbot.org,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>
-Subject: Re: [PATCH 1/2] vfio: Publish the container after all fallible
- initialization
-Message-ID: <20261102142829.3e2018c8@shazbot.org>
-In-Reply-To: <20261031042527.6418-1-kylebot@openai.com>
-References: <20261031042527.6418-1-kylebot@openai.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=jQna+337
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2804294f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:28:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1793654936; x=1794259736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zcVggVYajR4k5NgQe9pbGY6+WDVxyFxQve/L9p1a8zk=;
+        b=jQna+337bMMe9RWdhK+bBk9SHtnebcSA6MIr4g/+IWqcnZ26xsfr5zjSNXZRRbGnUG
+         b7cvrqeGeH1RIp+DEsiKYT2UMrntanyTsn2v4QlYTXhrS1m73j27RLv3sWC/gbT0F1hQ
+         QLvsYQn/IIW9XrJyEVTcSk3JGgum9c92Gc/0UnhJznRy7F+opoqHH3KnWoiMGUudoQ9W
+         thDCOpL1rwFkcxh8J0VEbXTXmk3GdVsdIYYOyda8XpJd6lGdUPaisc2pQh2ul5KKbeqJ
+         XjDof7GNXmNF4MyP99Gb5JPBykKwLay/iUZcC93lBePHTr+jEAF3dMtrmVmxPw046eil
+         Gzyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793654936; x=1794259736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zcVggVYajR4k5NgQe9pbGY6+WDVxyFxQve/L9p1a8zk=;
+        b=hH3qvNYbfPlmrKprZHNai9zSzEtO5fIyeVqfp3J7kD3Onp9mGJIIsoBhDQt2gPs7zI
+         mfpYwfsPhmQLiErsfWbvtZ7mgFCbgJ9AnP+QgsrqVMpSnqt8YJW0EOrMS7qPVMbGh+K2
+         LgY1rQNNc/qtohq37riVNWmqMbeXXFUyv8+YzDBwyY1kwaZgdz/K56/+YfpCMTLtvjVX
+         3aQae+u2q3b06bKGk269WfFMfs6wV4vMTWVRSOJSp21fknW8EMTjla/AGMlPw98SxYH5
+         3gSHHfxXAyvHaKzRphIqZu4RB8SvqAKxi+GhQIjv1jLSMwYmnEHEa03YeCRLewZP5bd0
+         ZZrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmKbbNKT73FJCqrxYjV3TPGbdFNXD4DB2pUag6QuMueVtOd2NxfrrRUWMJB31VxIkucrRloP9gle8Mcas=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/maVva0FnDZydZzG6eHFDRpunyWX4J1mhss3tv0zQTH7kb2KVR
+	iNFbvcKl7nfa5n+xgqb3sIJK9MTXpaKfLGR4m7fZrvejWjzJAv3AUIel
+X-Gm-Gg: AYBFou3pTpUyESuWWwtKOFYCkNa5a4t2Y8PN4yb2LJ1p/hGU1GHzp1iAIX6roeluxRt
+	+Qi9xih5i0dy2DZfju7/jWNmqydSQb0bHL3RmscZZx1oUsMbIbybKp8UpVWSMNbKhN+93fs9AJB
+	PTYtnu36lUI5EX/d6kviuoSd9/Z+4PPvUHE5Z5zJdO619nc0mmX7uK73VVGfwsm5x2lx/oW3k6E
+	1b4UuFz0gv1AspPDtDdw9timaPAw05nBmxPI2t3ftpQA/7UKjCRT5UOwH/W0FXeLjodrfiWDVYb
+	XkaczYdwgl47zZf3YoC0GlCTk8HdTmkoTv1lBK2+3kq/IYXoWfOlbE2Tp4dVYaMS8VPCrZ12X0h
+	iTX99qNm1gDo0U6aK9d9n5wVZvdVeE+UVACA5S2XxOfJd7L1Li6ibwzRZhnLGV+pJlf+awLswvv
+	BbZrZ+VtmDQT7rqkjns9gvk9/zAnH92mgHHVJZds5mQE9Q3TRDa3BCQkUNwWEetPmzsOIRNh2m9
+	x5vIQSeCJjjupSkrepRqg0p3pXVFatYD4fRsmFgDI2VcdnN1Ur5kys2flHgq0JF09Hd1IUSYmLH
+	NKDIU53aw6cUg5Rwd2FO5uL+7FP3mGga8pf4YxBacOPRBEnOUVdV7p6M/F4wQjrcaomeP78FCE9
+	knttKxOmNZpY0IgRLIaUH+PPPHB7LBxAuD3AOt5djr+EHsiBdnkJ/CKBQ
+X-Received: by 2002:a05:6000:2dc5:b0:48d:ef0e:b791 with SMTP id ffacd0b85a97d-48e6e52c720mr25066663f8f.54.1793654936073;
+        Mon, 02 Nov 2026 13:28:56 -0800 (PST)
+Received: from blackbox (dynamic-2a02-3100-b1d0-8200-f22f-74ff-fe21-0725.310.pool.telefonica.de. [2a02:3100:b1d0:8200:f22f:74ff:fe21:725])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e71b725a2sm20540521f8f.13.2026.11.02.13.28.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 13:28:55 -0800 (PST)
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+To: linux-amlogic@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	neil.armstrong@linaro.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Subject: [PATCH re-send] drm/meson: add support for higher bandwidth HDMI DTDs
+Date: Mon,  2 Nov 2026 22:28:43 +0100
+Message-ID: <20261102212843.1213021-1-martin.blumenstingl@googlemail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,178 +101,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 30 Oct 2026 21:25:26 -0700
-Kyle Zeng <kylebot@openai.com> wrote:
+There's a report from a user with a DELL U3415W monitor and a Khadas
+VIM3 stating that 3440x1440@50Hz works but 3440x1440@60Hz doesn't.
+edid-decode Detailed Timing Descriptor (DTD) extract of that mode:
+  DTD 1:  3440x1440   59.972616 Hz  43:18    88.819 kHz    319.750000 MHz
+               Hfront   80 Hsync  32 Hback   48 Hpol P
+               Vfront   28 Vsync  10 Vback    3 Vpol N
 
-> vfio_group_init() publishes /dev/vfio/vfio before vfio_init() has
-> finished. The optional no-IOMMU backend is also registered after the
-> misc device. A concurrent open can therefore obtain a container while
-> the module is still COMING, even if a later initialization step fails.
-> 
-> The failed-module-init path frees the module without waiting for these
-> open files. misc_deregister() prevents new opens, but does not revoke
-> existing files, leaving their vfio_fops and callbacks in freed module
-> memory. An unprivileged first-autoload race can trigger this by exhausting
-> the global task limit before the IRQFD workqueue creates its rescuer.
-> A subsequent VFIO_GET_API_VERSION ioctl reports:
-> 
->   BUG: KASAN: vmalloc-out-of-bounds in __se_sys_ioctl+0xaf/0x120
->   Read of size 8 at addr ffffffffc089df70 by task vfio_race/1484
-> 
-> Move container initialization out of vfio_group_init() and make it the
-> last fallible step in vfio_init(). Register the no-IOMMU backend before
-> the misc device, and unwind both resources in reverse order. Once an
-> open can reach vfio_fops, module initialization can no longer fail.
-> 
-> Fixes: cba3345cc494 ("vfio: VFIO core")
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> ---
->  drivers/vfio/container.c | 22 +++++++++++++---------
->  drivers/vfio/group.c     |  9 +--------
->  drivers/vfio/vfio_main.c |  8 ++++++++
->  3 files changed, 22 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/vfio/container.c b/drivers/vfio/container.c
-> index 003281dbf8bc..bd245e23a55d 100644
-> --- a/drivers/vfio/container.c
-> +++ b/drivers/vfio/container.c
-> @@ -577,29 +577,33 @@ int __init vfio_container_init(void)
->  	mutex_init(&vfio.iommu_drivers_lock);
->  	INIT_LIST_HEAD(&vfio.iommu_drivers_list);
->  
-> +	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU)) {
-> +		ret = vfio_register_iommu_driver(&vfio_noiommu_ops);
-> +		if (ret)
-> +			goto err_mutex;
-> +	}
-> +
->  	ret = misc_register(&vfio_dev);
->  	if (ret) {
->  		pr_err("vfio: misc device register failed\n");
-> -		return ret;
-> +		goto err_noiommu;
->  	}
->  
-> -	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU)) {
-> -		ret = vfio_register_iommu_driver(&vfio_noiommu_ops);
-> -		if (ret)
-> -			goto err_misc;
-> -	}
+Those high clock rates are currently not supported by the meson_vclk
+code as it limits the PLL OD (output divider) to a minimum of 2. The
+formula to calculate the clock internally is (ignoring fractional
+dividers):
+  319.750MHz * 10 * od = 24MHz * m
 
-This looks wrong to me, an error loading the vfio-noiommu IOMMU backend
-shouldn't cause the subsystem to fail.
+With od = 2 this results in m = 266, which is outside the supported
+range of the PLL on G12A SoCs (the driver limits m to 106..247).
+Using od = 2 results in m = 133, which is supported.
 
-I think this is fallout from a13b1e472b93 ("vfio: check
-vfio_register_iommu_driver() return value") that had no other
-justification for inducing this failure than the fact the registration
-function can return an error.
+Allow the driver to pick OD = 1 to gain support for modes such as
+3440x1440@60Hz.
 
-The error return is necessary for the module init use cases, not here.
+Link: https://forum.khadas.com/t/can-not-set-display-resolution-to-3440x1440-for-dell-monitor/26271/12
+Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+---
+Re-send of [0] which seems to have slipped through.
 
-Unwrapping that as an unchecked error avoids the re-ordering here and
-in vfio_container_cleanup() below, and this unnecessary unwind
-collateral.
 
-This should be a separate patch, and use the correct lists per the
-MAINTAINERS file (mising kvm@vger for vfio).
+[0] https://lore.kernel.org/linux-amlogic/20260109204836.790096-1-martin.blumenstingl@googlemail.com/
 
->  	return 0;
->  
-> -err_misc:
-> -	misc_deregister(&vfio_dev);
-> +err_noiommu:
-> +	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU))
-> +		vfio_unregister_iommu_driver(&vfio_noiommu_ops);
-> +err_mutex:
-> +	mutex_destroy(&vfio.iommu_drivers_lock);
->  	return ret;
->  }
->  
->  void vfio_container_cleanup(void)
->  {
-> +	misc_deregister(&vfio_dev);
->  	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU))
->  		vfio_unregister_iommu_driver(&vfio_noiommu_ops);
-> -	misc_deregister(&vfio_dev);
->  	mutex_destroy(&vfio.iommu_drivers_lock);
->  }
->  
-> diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
-> index b2299e5bc6df..dc8f8a38723f 100644
-> --- a/drivers/vfio/group.c
-> +++ b/drivers/vfio/group.c
-> @@ -898,14 +898,10 @@ int __init vfio_group_init(void)
->  	mutex_init(&vfio.group_lock);
->  	INIT_LIST_HEAD(&vfio.group_list);
->  
-> -	ret = vfio_container_init();
-> -	if (ret)
-> -		return ret;
-> -
->  	/* /dev/vfio/$GROUP */
->  	ret = class_register(&vfio_class);
->  	if (ret)
-> -		goto err_group_class;
-> +		return ret;
->  
->  	ret = alloc_chrdev_region(&vfio.group_devt, 0, MINORMASK + 1, "vfio");
->  	if (ret)
-> @@ -914,8 +910,6 @@ int __init vfio_group_init(void)
->  
->  err_alloc_chrdev:
->  	class_unregister(&vfio_class);
-> -err_group_class:
-> -	vfio_container_cleanup();
->  	return ret;
->  }
->  
-> @@ -925,5 +919,4 @@ void vfio_group_cleanup(void)
->  	ida_destroy(&vfio.group_ida);
->  	unregister_chrdev_region(vfio.group_devt, MINORMASK + 1);
->  	class_unregister(&vfio_class);
-> -	vfio_container_cleanup();
->  }
-> diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-> index 423ead48aafe..dfc48a9e0fe6 100644
-> --- a/drivers/vfio/vfio_main.c
-> +++ b/drivers/vfio/vfio_main.c
-> @@ -1852,10 +1852,17 @@ static int __init vfio_init(void)
->  	if (ret)
->  		goto err_alloc_dev_chrdev;
->  
-> +	/* Publish /dev/vfio/vfio only after all other fallible setup. */
-> +	ret = vfio_container_init();
-> +	if (ret)
-> +		goto err_container;
-> +
->  	vfio_debugfs_create_root();
->  	pr_info(DRIVER_DESC " version: " DRIVER_VERSION "\n");
->  	return 0;
->  
-> +err_container:
-> +	vfio_cdev_cleanup();
->  err_alloc_dev_chrdev:
->  	class_unregister(&vfio_device_class);
->  err_dev_class:
-> @@ -1868,6 +1875,7 @@ static int __init vfio_init(void)
->  static void __exit vfio_cleanup(void)
->  {
->  	vfio_debugfs_remove_root();
-> +	vfio_container_cleanup();
->  	ida_destroy(&vfio.device_ida);
->  	vfio_cdev_cleanup();
->  	class_unregister(&vfio_device_class);
-> 
-> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
 
-Jason additionally asked[1] whether the try_module_get() via misc_open()
--> fops_get() should be the real barrier, preventing open until the
-module has fully initialized.  That seems a valid question here as well.
-Thanks,
+ drivers/gpu/drm/meson/meson_vclk.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/meson/meson_vclk.c b/drivers/gpu/drm/meson/meson_vclk.c
+index dfe0c28a0f05..c0be0b7655bf 100644
+--- a/drivers/gpu/drm/meson/meson_vclk.c
++++ b/drivers/gpu/drm/meson/meson_vclk.c
+@@ -700,8 +700,8 @@ static bool meson_hdmi_pll_find_params(struct meson_drm *priv,
+ 				       unsigned int *frac,
+ 				       unsigned int *od)
+ {
+-	/* Cycle from /16 to /2 */
+-	for (*od = 16 ; *od > 1 ; *od >>= 1) {
++	/* Cycle from /16 to /1 */
++	for (*od = 16 ; *od > 0 ; *od >>= 1) {
+ 		*m = meson_hdmi_pll_get_m(priv, freq * *od);
+ 		if (!*m)
+ 			continue;
+@@ -750,7 +750,7 @@ static void meson_hdmi_pll_generic_set(struct meson_drm *priv,
+ 		/* OD2 goes to the PHY, and needs to be *10, so keep OD3=1 */
+ 		od3 = 1;
+ 		if (od < 4) {
+-			od1 = 2;
++			od1 = od;
+ 			od2 = 1;
+ 		} else {
+ 			od2 = od / 4;
+-- 
+2.56.0
 
-[1]https://lore.kernel.org/all/20261030120845.GA3889730@ziepe.ca/
