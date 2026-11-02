@@ -1,55 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621620;
-	b=WGR4n1CLjrWxvp8WRkWR+n2Zq4CoPbnzLeRvFiKHQm8z7L1o46NQUZMveObK8lMeaq9L
-	 QGWV0kHpRAt1/9pBfsfhDAHavPFDNy4Bh3df9/s4cIm9JNhVhHeMsViRB8TlepwQDDEv+
-	 TBTZtibv5wUsr4GT+u9TS4jlrdYmHnEBHn6sx/G/jOwaJzVhbqpIYjMiPi06vXFx/mx+K
-	 QtgAdPHeYnUw+V+oLGi2r5C3OA8cz9rblRZTnGR7VSxSuLqDF/dQljJhZA0H57qQRJFBF
-	 qODndp2vFPABx8IgimqpTqSPM+mbJwiZ45FCQE28UP7E7u74kCse+xdg4GSLF2eQSwg==
+	t=1793621637;
+	b=k7nLvHfI3MHcYd4dxeoWQa6wJ3Qkm8bYzbC2KmenANdjlwk0+Dmh/BraF096uZlHvXyC
+	 VqsFblv7cUBFlLSiHulesdoZHAWG08vOfhBIgB6wq32XBc10Av/D+9WvQa/wc6OYks/Im
+	 NiAeYt/4B1NuS6DBVucadl+ccboYz8XvMjjRh2WtLPYIw0+HZl5sEfEAiao3r4dU5v+gl
+	 S2R+x0VIM5OEQ4EBTDeIKxZc/2kAY5ljv5s3k4PYssPRytkcNJpXgYJ5aMtPpnVVBdtlf
+	 Qk92miuwX6Pq22P2WBUwCOxqqsEY4SqKQvEfbTivyZlapD1rrZ2yPtUCdX3wvy6M/1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621620;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=NWBSo6JiDET5m/Z7QDrfEi5ti+8jerlMRY0F8wuR4vs=;
-	b=ekYjLSjqaXXy64tCyJWVG2ArtakPHAVfBlWVPrrey62HCYeuOs8qlPDHl1diywbABUOx
-	 ijRkDjDwuieAM7B4cxSvajzmgRhsF33dSJVUYwm9VmLJwqZFT9KBYnj586m+fGDYD6OeK
-	 VQFcxVoVflBHZhtPIpGrur3H8nRuVRrA/GXPtUK5UblsDT2lQ/jZt2SH2aiOMoWLpN4K4
-	 vriTklXZbaPR3bNW2SiT3s8/vvhaacOtrE4e5VngCw7vt/HQ+dX1dNPZBkJGeyEk2WdkC
-	 jyYV5H5+2juMhkjhVK6hY0tm7uIpvU+cGUHaJJIWOYU3h8cy7L+Jn+9Fq0AAqf8B/fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621637;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	b=UekXbYyXX+GYYjXkUqBPLGCb2rDd8YMuDFEwtH4svxGs9eXijELXlYQxtIG3DUEHY1PY
+	 dPPT4kmv/e1pisUfwLIZBmz8ghGZXUTmksei2k70YxjOCIVkckB06eQIJ78m11fgDLa3h
+	 W0sROOhSN0sXsEqB0vSbivvYEvNsBMjdYUuR0qwlwNodM5puicJLTMDKuICLTQjIhb0dI
+	 vmr/ipDBlqvQFgfkrxTr3zFHzCArKnAND0xmkV79oh07b5NvOoFq1OvB2drN66yt5/TJO
+	 pmn9o20EXrhn2PrQN2ws7eLPh5jgDPPO17kcoXCMV6vrpzpjwhOlk2cxz5OAjoE5slg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ViWgjPLL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BAF606A324;
-	Mon,  2 Nov 2026 12:13:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37BAF606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJ9bN4lKnz8Xs71;
-	Mon, 02 Nov 2026 20:13:36 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl2.zte.com.cn with SMTP id 6A2CDWDP023757;
-	Mon, 2 Nov 2026 20:13:32 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Mon, 2 Nov 2026 20:13:35 +0800 (CST)
-X-Zmail-TransId: 2af96ae87e6ff91-9de04
-X-Mailer: Zmail v1.0
-Message-ID: <20261102201335478iPmq9rQKEkewCIq9T4RAb@zte.com.cn>
-In-Reply-To: <20261102195030814Aeehrb4WmExc085745ldN@zte.com.cn>
-References: 20261102195030814Aeehrb4WmExc085745ldN@zte.com.cn
-Date: Mon, 2 Nov 2026 20:13:35 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79BD606A329;
+	Mon,  2 Nov 2026 12:13:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ViWgjPLL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DC201F00A16;
+	Mon,  2 Nov 2026 12:13:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793621636;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ViWgjPLLaxPPt7HTHHiitkX7MD8rPKlprCO6qrxfqHVYOyw2G99Qld1fmE8AGHSof
+	 NbqpVrGFt9ULLpQPtPOvNyDa+zhCxv0wEbCxrHKbNi6GmPFjb2PeIJ6spZGkAbqdEF
+	 t3xM/HbRulgkb8JrwPxyKciyaoGRMDEt2l8AzhlSkVgsrMkcGdxtVerhlfkJ4rralr
+	 5wV0EYwbhA4c4n+oYiBsNZ8wIfppMabFS+tOhPavUQ5LupIXIIBcxDQwQtfbSDmcmU
+	 ZKqM23nd+R8kE8o9IzU6KKwgTysqT97AJM7MKlAjpsOKu3lVmLZ5Blt45HQp8UBfRK
+	 M+3itdilB21gg==
+From: netdev-bot+sinfo@kernel.org
+To: Anil Kaushik <anilkaushikwireless@gmail.com>
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Nicolas Dichtel <nicolas.dichtel@6wind.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] netlink: Do not call the unbind callback with the
+ table locked
+Date: Mon, 02 Nov 2026 12:13:55 +0000
+Message-ID: <179362163558.3286.5335895869912806815@kernel.org>
+In-Reply-To: <20261102120929.4077030-1-anilkaushikwireless@gmail.com>
+References: <20261102120929.4077030-1-anilkaushikwireless@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,69 +63,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvM10gdWJpZnM6IHhhdHRyOiBwcmVzZXJ2ZSB0aGUgZW5jcnlwdGlvbiBmbGFnIHdoZW4gY3JlYXRpb24gZmFpbHM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A2CDWDP023757
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Mon, 02 Nov 2026 20:13:36 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE87E70.001/4jJ9bN4lKnz8Xs71
+MIME-Version: 1.0
 
-create_xattr() clears UBIFS_CRYPT_FL in its error path regardless of
-whether this call set the flag.  The flag is also set for every inode
-that already carries an encryption context, so a failed setxattr() on
-such an inode clears it from the in-memory inode.  The next inode write
-then packs ui->flags without UBIFS_CRYPT_FL, and after the next mount
-the inode is no longer treated as encrypted although its names and data
-still are.  ubifs_jnl_update() can fail before anything is written, for
-example when its journal buffer cannot be allocated.
+Hi!
 
-Remember whether this call actually set the flag and only clear it in
-that case.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Fixes: d475a507457b ("ubifs: Add skeleton for fscrypto")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
-index 3b0e8a270f59..7f82ddb9e3f2 100644
---- a/fs/ubifs/xattr.c
-+++ b/fs/ubifs/xattr.c
-@@ -69,6 +69,7 @@ static int create_xattr(struct ubifs_info *c, struct inode *host,
- 			const struct fscrypt_name *nm, const void *value, int size)
- {
- 	int err, names_len;
-+	bool set_crypt = false;
- 	struct inode *inode;
- 	struct ubifs_inode *ui, *host_ui = ubifs_inode(host);
- 	struct ubifs_budget_req req = { .new_ino = 1, .new_dent = 1,
-@@ -133,8 +134,10 @@ static int create_xattr(struct ubifs_info *c, struct inode *host,
- 	 * To avoid multiple updates of the same inode in the same operation,
- 	 * let's do it here.
- 	 */
--	if (strcmp(fname_name(nm), UBIFS_XATTR_NAME_ENCRYPTION_CONTEXT) == 0)
-+	if (strcmp(fname_name(nm), UBIFS_XATTR_NAME_ENCRYPTION_CONTEXT) == 0) {
-+		set_crypt = !(host_ui->flags & UBIFS_CRYPT_FL);
- 		host_ui->flags |= UBIFS_CRYPT_FL;
-+	}
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
- 	err = ubifs_jnl_update(c, host, nm, inode, 0, 1, 0);
- 	if (err)
-@@ -152,7 +155,8 @@ static int create_xattr(struct ubifs_info *c, struct inode *host,
- 	host_ui->xattr_size -= CALC_DENT_SIZE(fname_len(nm));
- 	host_ui->xattr_size -= CALC_XATTR_BYTES(size);
- 	host_ui->xattr_names -= fname_len(nm);
--	host_ui->flags &= ~UBIFS_CRYPT_FL;
-+	if (set_crypt)
-+		host_ui->flags &= ~UBIFS_CRYPT_FL;
- 	mutex_unlock(&host_ui->ui_mutex);
- out_free:
- 	make_bad_inode(inode);
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
