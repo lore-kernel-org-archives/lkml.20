@@ -1,100 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793598035;
-	b=Yh5HtLkbOdNiq17u0Vk1S1b0a7ZjMESOW0ZTCJKe2YzfcakOjPuKXYLDFro5FIA4PaKR
-	 j9BkS2Aqnwj0+ae5AU2PkoxKlz2quKSlFyNNuzc4Yk0VoZ5GreT4rQk1ypSrvL+RiZUHN
-	 fLaubOVWgw/sgjyDsulfyKq5hhEO9L59BWYS9vDgbhx5TfC7jWn/czuDDtHp3znLc7k7r
-	 ypgjLBRVHennJ8msuM+y59UBlAJ9c+m71SKGiyfJw17ibwCuTpmoO+Ol4XiiIdspAxW7W
-	 /NZYR9PVmN3WRaSIv1CwLZ0fDd/vgr+I2xfRgsPmmpDmwXgsyJuKS0PnPSvDsqz4SGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793598035;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BpWhoecmVyd71CSvsgU+LM3fnFQdbxavgjylKIsZ6AU=;
-	b=WFEk6ZsRgIKfgGyBW32GqlEGrVeLirk/jjFqT1GUVHOW2ue+/4Bo6+C5iSp9aViJFrG/
-	 MJRMYK7tV55CJFy/3+HwZL5fvnprHsEI++nuvOYz0JuXtq5uGX1P/DL74f+5nMkJyG48V
-	 gy3xnEjFFeRpBCEMRDqBuMIN2WyfKIsC6ibLF29Dck/qix7v92sbaDG1ieSuC8gozA0ad
-	 Hwh8UNUopoqfEgQLx0VFXgguQ1lxyrJ1Vp6NX+Pg77S+G3YhBDOhtk0X/Tit2joFrAb9b
-	 YuJ7sTPxoQMTaZXyAGaXk6wMpFejwhlfm8V36gWR9c2zk50v6DnqLuu8rmEsYBXDksQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bzka4RC+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.35
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013035.outbound.protection.outlook.com [40.93.201.35])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A0F606A324;
-	Mon,  2 Nov 2026 05:40:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22A0F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793598075;
+	b=lAwA4kegoH+r5ilrONbk/2AAjHKV4hl7OuLFnyf9HqPbTgmORqJ1SNHqj6+VTJr8SOOa
+	 GE/M8nWxmYCB9e+FpJJCUi7BellrQA4mnCXYV5R6kacPqpMfYMrSrN/vMaXzXA0KlruHM
+	 RtMIv2bNyvg/080dMt1kwzQRgLam/5pomNCWvgbYqDGYLHu7Hmz0qvLgQKIyofAhZxVjp
+	 QyQFypQKPT9WPPNxKZegU7diM71OhDGSmUT53RTwXPCwG+YGM3LwPCCd5aEiXmeDzKWt1
+	 T/drMZl9jancSw1XpmHUgNeyiALxuPaK8x9GTspdvaMajOwTwE0RVyrmMCPbrDaA4bw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793598075;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=RMxeWhurdkzBOtmQMeOUGyk3DusCM1pMbWX4mqqfSic=;
+	b=ZcRpxt0QslqN9nEimYmf47ix9Gnnio/ThLhYm+G64wk3IjS2+ff42QWx3MQ1UwoxPNpN
+	 yIp/IArKAE1QXXCDpAjlkDad9NUtm3HKVo3fyYgqB7wZAY9TZbT4l32acpof8hkpr3xtO
+	 kgK4nfMoHfLKM/DFFYNCtRC4AtXq542jbEOiVdON1ldLPurLhZ4Iy2HCqDooPRqpu3fWT
+	 icVn+3nyOE9KtCz7rJAVGB5jRE9XT0G7nNXmuQ3DZuQQUXRNwFZS8ZvLlMkU2Th8Jivxm
+	 sLIFtJzCwGxVyU4gs1Tk6VQuJJSpQazhEeDkoZCx6h03XPT8veIOm9GJsmDGb+P2plw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=p6dbFqdC;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 96519606A324;
+	Mon,  2 Nov 2026 05:41:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96519606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bzka4RC+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aKkaCuK2sEz2QrSVgEyUsurjssay1j+/LlOdXAZfaa97bqsGXWuXg308nQ30jOxKs7EAkYTO/8Q6u/kf8IPSUQv+9lqWwDw7yUfVbJ1yTftG65JORDgVEyoqqAkAb+cRrDe9IDUX1m/2X+OKzy/7PhOwSCNEqXc3N1MLWAutBO23tNy+H545PvTxcCQL/Dvja/CGoIdLh6lzqpwEJcD+JHHFWmqyS+NCl4PyXQRoZPxm1w9rGx5Rf4elDAP4rOmLAfJ9DreOdrYYtulCJLpM+Rvk6YX/k9d9Sinzul1S3zgTrAsdCmkxSCI9NC2LVUzJgwUCkrTQ2Fmit8/cnNobCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BpWhoecmVyd71CSvsgU+LM3fnFQdbxavgjylKIsZ6AU=;
- b=ebJ32QX+IK1SgDd9hT2MTXJSy7Nt3yfJ82iy08suYUi1s9h2dTwJ5pepY0cke4HwLN7uAZ3FvBGEnrtdn27q/MpJd28hYUbTzZbVmUhCttGtTPKxB43a5pRF4D+LYdUzR1wlYBZ+SgBd9iHUm5Vh3Ov0KhoPUk2nE5z0k4KheBzsdvMrGtIVXpqQ/9a0NePeepJzz0eHNNwGsMApnCA5NZz789L2/TTjERCg7e5oC3SBWhD/gsKQ2Ui+6OjKZAmfVpJgt2osOrwxoBPGEOUfT9exRILgstMexl21vTkhLk1rAF4ykm2rJDT8slj+3l9gW3+GxdzlTDwP+lhWHjYs2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BpWhoecmVyd71CSvsgU+LM3fnFQdbxavgjylKIsZ6AU=;
- b=bzka4RC+MZaJnP30FnO/vDftVoCUaX8gOSJJrlR8tlpPFTKDMZm3SxWS/2rOD0vDnwTIyHi/iGptFSIu9vpkU8F8J3XbVfF6GFoCzEeyzjCcd2gLmB+VtOxLDbQTww2fqSeimnnys7YQ+6QQ+Cya+MuzmK6oaBHZRjcpycNS3HE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
- by DS7PR12MB6094.namprd12.prod.outlook.com (2603:10b6:8:9d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 2 Nov
- 2026 05:40:32 +0000
-Received: from CY5PR12MB6252.namprd12.prod.outlook.com
- ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
- ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 05:40:32 +0000
-Message-ID: <c97688fa-1212-46c2-ad58-5117632e01b2@amd.com>
-Date: Mon, 2 Nov 2026 11:12:49 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/16] ASoC: amd: acp: add PDM controller selection for
- ACP7.B/7.F SoundWire machine driver
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, yung-chuan.liao@linux.intel.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
- Mario.Limonciello@amd.com, Richard.Gong@amd.com, Poojitha.N@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
-References: <20261030094714.1123396-1-Vijendar.Mukunda@amd.com>
- <20261030094714.1123396-7-Vijendar.Mukunda@amd.com>
- <15653bef-65b0-486f-aecd-ad7618d99cbd@linux.dev>
-Content-Language: en-US
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <15653bef-65b0-486f-aecd-ad7618d99cbd@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=p6dbFqdC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=RMxeWhurdkzBOtmQMeOUG
+	yk3DusCM1pMbWX4mqqfSic=; b=p6dbFqdCvHDaFXjHlH9Wf9rN3BahsjIIMAlfV
+	NRuvMyQTMVrBK/qUonSKExLaIor5scDYd7WFNKtmZgHI1QmkLHIZR6RFSbbrvpnQ
+	xq/YYJPVuPJqRggZmC/uGXMGAWVl9KLSOlPnlJ5IzyleECjHatIvoexNYXjHZ/pO
+	rnqiYs=
+Received: from [127.0.1.1] (unknown [114.214.182.90])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnHTJmIuhq2Nt1AA--.389S2;
+	Mon, 02 Nov 2026 13:40:54 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] drm/msm/dsi: collect bonded command-path data into
+ per-SoC config
+Date: Mon, 02 Nov 2026 13:40:54 +0800
+Message-ID: <179359805420.413286.9245285367012895571@mail.ustc.edu.cn>
+In-Reply-To: <j5ixobskknatvusosmhgvvmnze4q67iyfwk6gsa3y5goovx4z4@mhumd2vsnfkm>
+References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+ <j5ixobskknatvusosmhgvvmnze4q67iyfwk6gsa3y5goovx4z4@mhumd2vsnfkm>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2P287CA0002.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:21b::10) To CY5PR12MB6252.namprd12.prod.outlook.com
- (2603:10b6:930:20::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,205 +66,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|DS7PR12MB6094:EE_
-X-MS-Office365-Filtering-Correlation-Id: b130c05a-bf7b-48af-42c9-08df38a3cf5e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|261026140227099003|22082099003|6133799003|18002099003|10067099003|261028144727099003|3023799007|56012099006|261021121427099003|11063799006|4143699003|261022105027099003|261021123027099003|261022075727099003|261009223027099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	o44Rfu2uHksagpW9DtT22mcGq1sdqOMKmMz3POJsEVsaugvYbFA3BA/fZeCoVaX0YR15lFcz+Guwp0CWNkxq3ZkzIulnk17GM/9hQnlHuRUAds5yocumQ8RsV/93+GAwlHQU9sUJbfRM6i2idGrctwCUMIOpOaZP9LGY0Wp4U+O3/Fi4avCHT+wC+WDc2H/3NrwmpUOIb5esCwunWrt50gKEoCeSHfY/w3m1F9+PfSarvMOr1GGeYoztjwvLYq1yqZ3UzMqMj6rZuDj0HJnI9meV1U/iJ2Qg9jTdcBqUvMuuWT2VQszwVEan8Q0WvSiMGJkXDElZegJ8J5uPFELcWRJ89u3XKqkZGuByZWwI5TYg57vhCxM0f+W0T+7pcCEYeA+XmpKoOA+Z7qRpLKpgD5Qm7eWLb1pID9p9JUNM4BAdfdL3XEUZ3A6SPaXs3oveuNd/JMGl6+g7d96SlbzK8p0PifPnJAW7aBQYspzE+xvZidzjx9RZ4+v4V5mCKpYqEhFHPcgKLLBCwzGc+tVXvKuJ44lSO/kKRf37GkDarj+hbNNDhi4+TCGutgS0lT/TUuuB6N8HzIfdpUPOynPDCPhFn+jnP99GcgvcruXUsCWDA54wJxAcp9dfiiIzP8E+FI8NsFHeqfR1ZGIbZAf+hxLixtVlgeObram2EZZ6i4g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(261026140227099003)(22082099003)(6133799003)(18002099003)(10067099003)(261028144727099003)(3023799007)(56012099006)(261021121427099003)(11063799006)(4143699003)(261022105027099003)(261021123027099003)(261022075727099003)(261009223027099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QjB2d0NoV1dWbXdLWXk1LzFOeDd1YTJsOCtNeWZUZWRnNGZmWkVhdFJaMzly?=
- =?utf-8?B?MDdkWjVOQmVkRGtwSlBCUHlSM1RQVkQvNEs2RzBGNHFvdVRJQS92dEM5TFcz?=
- =?utf-8?B?cGlDWSs3VHpGUERmVVZnQU11V3QweUVDOThJNm1JVFVvbXFBdStSd05BSkZL?=
- =?utf-8?B?S0o3UjRiTXVrRi84UmhTckdnZEVqNDc2Sm1pa1J1Q0RyOXl1dFJVUm5YaUNG?=
- =?utf-8?B?MkQ0N0NqcnNCdjNxOVJHczNnQ2JwamVRaHREWFlXNklDVWM4RWM4MW51R0xh?=
- =?utf-8?B?bzIrMmR4YVZoVDNjYkwzbzNxa3pWS2ZGa1pKYXBnK3AvY1JVVFhVTHhQYUVj?=
- =?utf-8?B?OGpJd0FvZktxQkY2VUx2YkFWUTF1Y3BhSEZkZUJ0NjVRQUNORUJRWGdVRXdE?=
- =?utf-8?B?YUJJNkVtb21lam81V0szZVRuejUwR2RNeFdTRXBYRFl0SERMRzhhckx4K0Vk?=
- =?utf-8?B?aFVCSHBIZS84ODJtK0h4bzZ4OGxiTGQyRGhaTkN4RFNVNUdlc0Q3NTZNUGxJ?=
- =?utf-8?B?aWJzM1ArQ1VaNmtoZDlEMEs2eldJdkp6VUtFZysyRlJUS3hZZTBwOFZxUVhP?=
- =?utf-8?B?TVlyV3hicU53TDZqclRzZUpQNmtkTjNNTHNGRXBqS3o4YjhMNEM4ejI2Umww?=
- =?utf-8?B?MjhMekVkRE5yZGJzK29vR1VJRXlqUlptaVphNHpacWFRSG43bmFGbmwxdWxZ?=
- =?utf-8?B?Y3dnNmdVZjZGOWt3Y1o2L3U3YU9GVG4rU2dMSXFDQnphUzg2SHNaWXRHbWVX?=
- =?utf-8?B?TURZV0Q2MXY4b2h1Vlp4QlZ4MWFxdlord0hRTFZrVjZNa1pPWFRyT2hDM05j?=
- =?utf-8?B?TlBpSGduTk1tbzMyZDJTZE5yektFTS84SGw2VHh4QktKVVIvakxYUDJJN2d6?=
- =?utf-8?B?ZXhCNU13ZU05YUJ3dm5hM1VvVWRWcGhNYTQvQnIzWlNvdlgwRC9ETVpRcEVl?=
- =?utf-8?B?S3UzeWlOd2V1Z0I5UjdGNEplTTZCU2w3dThZWHppSUZtYytQODdqakwyS1hl?=
- =?utf-8?B?a2ltcVhJSDM1YmtjbnczcFBZMEJFNmZ0aThjcEgvVzFJbHNiYm1XVlhST2to?=
- =?utf-8?B?aStxVkhkS0liVjVRTzZqQkZrdGxlUUY1TCtoNk16Z2xGcTBGY2hhbFVIdisv?=
- =?utf-8?B?UitscmI4N293TEdCNGk2Qm1MUEJFbm5xSk5Udms5aGNOaXFxNzRFempzdXAy?=
- =?utf-8?B?Tis4NkN1ZGJXTGNTKzRyaUM3QU9HV0lkbHVpK2tzaU9GS3M0Y0wwZnNZQ1FN?=
- =?utf-8?B?MVUxTksyQTlmNm5EU0NLMFRsNmFaMnk4UHpUZ2JXbTZuZStNQlFydXRhVlg3?=
- =?utf-8?B?ZTdKYk5heXN0TzUvQUN0OUdoWU1CMnJTNk9RaHZJMW9NQk9UK3BXWG41UXcy?=
- =?utf-8?B?L2RYL3g2anJWOHl1S3JHRDA1NmVodmxmbUZlTExraVBYM0QyR3E1WDNxaXVz?=
- =?utf-8?B?RSt2T2VQb1lnTS9wV3lVRGp4SEhrOTBrQ0dENzJrTTV6Tkp4OEhMU28rMzB2?=
- =?utf-8?B?dmFIVVJzN3piZGE4d0huNzV5N3ZpdFBJYjVsSHNvdmR0akxMeExVaXJoVnR6?=
- =?utf-8?B?MFVFR0V4djhkLzh0OUJ6Zyt3aTJyYlJzYlM2VnlqRVFEa0dEajIrTjhxcXRQ?=
- =?utf-8?B?dnFvaFgySDVHMXhZbGwzRlppVnpGdXdpNWdmR0NQMzhjdVdWQjVSZWFLNzR1?=
- =?utf-8?B?c2RCcmRIMExoYVhmWWFjRTV1UktBc25MY05aMEcrM1gwalRvdDFPMkxFUVRP?=
- =?utf-8?B?VHZ2dTUwTlFldW9HWEhlcmF5V29QanUvM2Z1QkJtVEdOSTBuR1duWE1ERmR1?=
- =?utf-8?B?ZGF4RGxaL0tTRHlMaC9UYlVFSE5hWWllbTU1WXo0aGR5K2VMVVVnSTJndVp6?=
- =?utf-8?B?RjE3TGllY05zaHZhWkhaa2lmaFhEQzZOUjVjUWJPTy8zVlNFdFBnYVJHRUhh?=
- =?utf-8?B?c1djWVV1elNBbVNaSzl2VE5EWUYrRVlqdW04NFNBbmhNTFdQekJBb0F1NmhC?=
- =?utf-8?B?TFBTTXVwVU5QWXJBY291QVZqUmhzMWFQRHN5NTYvUXJJQkk3T3Aya25hZ3l5?=
- =?utf-8?B?TUUxSDI2L0VaTHZRbDlSQ3FrM0orUktxZUFuZFQ1eGdrNXZBTW5lMUp2QXZ2?=
- =?utf-8?B?NUJ3UDhMb1diV0YzYWRVNGErMFpjenpodmMxZnJHWjNUd04yc2lIS25YSHFG?=
- =?utf-8?B?dWVuL010enJHZ3JyODducTkyNTVEQmkvNkNoUWFFYXZvR2k1eFUwREFpeGEr?=
- =?utf-8?B?RGlnWHZ2VEx4ZDZTVU96Mm90eFI3aGFYU3c1ZlMydUYrVUZFaGxpRE9OUUJ3?=
- =?utf-8?B?UmdpSU1SZDFjQW1qT201QUJNY3NKdVNPd2FtNE5KV2krcUpiem56dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b130c05a-bf7b-48af-42c9-08df38a3cf5e
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 05:40:32.3487
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZrjOhBJmEKiSzGyMrT88phH/bPR7mVUT6RCR85j3oDnkYHlRpdFxIFaYVVxwLhZ4HJ2n7lhIiE//vJk72es5BA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6094
+X-CM-TRANSID:3pYKCgCnHTJmIuhq2Nt1AA--.389S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtrWkuFW5ZrWktFW5Gw47CFg_yoW7GF17pF
+	ZrK345Ar4kGr1SvwnxA3Wj9343Zas3XrZ7tFn8Gw1UAwnxJr1xZr1Iqr1YgFy2grn5CFyj
+	qF4qgas8GF4kJaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xS
+	Y4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
+	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUg7
+	3vDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARESB2rnk1cDXgBFsU
 
-On 01/11/26 23:58, Pierre-Louis Bossart wrote:
-> On 10/30/26 10:45, Vijendar Mukunda wrote:
->> Add ASOC_SDW_ACP_DMIC1 quirk bit (BIT(6)) and pdm_sel field to
->> amd_mc_ctx to support per-controller DMIC DAI selection on ACP7.B/7.F
->> platforms.
->>
->> In mc_probe(), read the active PDM controller from mach->pdata
->> (populated via ACPI acp-audio-ep-port _DSD). When ACPI does not set
->> pdm_sel, derive it from the quirk bits after dmi_check_system() and
->> quirk_override are applied: ASOC_SDW_ACP_DMIC1 selects DMIC1;
->> ASOC_SDW_ACP_DMIC selects DMIC0. Since only one PDM controller is
->> active at a time, DMIC1 is checked first.
-> nit-pick: it'd be useful to explain the mapping between PDM controllers
-> and PDM microphones. Is this one controller:2mics?
+Hi Dmitry,
 
->
-> Also does anything prevent DMIC and DMIC1 from being active simultaneously?
-Yes, each PDM controller supports two microphones, i.e. a 2-channel
-DMIC configuration. PDM0 and PDM1 are alternative controllers, with
-the OEM/platform configuration determining which controller is used.
-Only one PDM controller is selected for a given platform, so DMIC and
-DMIC1 are not expected to be active simultaneously.
+before the technical part: this reply is drafted with an AI assistant and
+edited by me.  I am the author of the series; the content, the measurements
+and the decisions are mine.
 
-Will add a comment in the code to clarify this and post a supplemental
-patch.
->
->> In create_dmic_dailinks(), select the SOF CPU DAI name based on
->> pdm_sel: "acp-sof-dmic1" for ACP7X_PDM_DMIC1, "acp-sof-dmic0"
->> otherwise on ACP7.B/7.F; all other platforms use "acp-sof-dmic".
->>
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> ---
->>  sound/soc/amd/acp/acp-sdw-sof-mach.c   | 44 +++++++++++++++++++++++++-
->>  sound/soc/amd/acp/soc_amd_sdw_common.h |  3 ++
->>  2 files changed, 46 insertions(+), 1 deletion(-)
->>
->> diff --git a/sound/soc/amd/acp/acp-sdw-sof-mach.c b/sound/soc/amd/acp/acp-sdw-sof-mach.c
->> index 97b2e224492f..34a71f7a8c54 100644
->> --- a/sound/soc/amd/acp/acp-sdw-sof-mach.c
->> +++ b/sound/soc/amd/acp/acp-sdw-sof-mach.c
->> @@ -265,11 +265,31 @@ static int create_dmic_dailinks(struct snd_soc_card *card,
->>  				struct snd_soc_dai_link **dai_links, int *be_id, int no_pcm)
->>  {
->>  	struct device *dev = card->dev;
->> +	struct asoc_sdw_mc_private *ctx = snd_soc_card_get_drvdata(card);
->> +	struct amd_mc_ctx *amd_ctx = (struct amd_mc_ctx *)ctx->private;
->> +	const char *cpu_dai_name;
->>  	int ret;
->>  
->> +	/*
->> +	 * For ACP7.B/7.F platforms the PDM controller is selected from ACPI
->> +	 * acp-audio-ep-port and stored in amd_ctx->pdm_sel. Use the
->> +	 * matching SOF DAI name ("acp-sof-dmic0" or "acp-sof-dmic1").
->> +	 * All other platforms use the generic "acp-sof-dmic" DAI.
->> +	 */
->> +	switch (amd_ctx->acp_rev) {
->> +	case ACP7B_PCI_REV:
->> +	case ACP7F_PCI_REV:
->> +		cpu_dai_name = (amd_ctx->pdm_sel == ACP7X_PDM_DMIC1) ?
->> +				"acp-sof-dmic1" : "acp-sof-dmic0";
->> +		break;
->> +	default:
->> +		cpu_dai_name = "acp-sof-dmic";
->> +		break;
->> +	}
->> +
->>  	ret = asoc_sdw_init_simple_dai_link(dev, *dai_links, be_id, "acp-dmic-codec",
->>  					    0, 1, // DMIC only supports capture
->> -					    "acp-sof-dmic", platform_component->name,
->> +					    cpu_dai_name, platform_component->name,
->>  					    "dmic-codec", "dmic-hifi", no_pcm,
->>  					    asoc_sdw_dmic_init, NULL);
->>  	if (ret)
->> @@ -378,6 +398,7 @@ static int sof_card_dai_links_create(struct snd_soc_card *card)
->>  static int mc_probe(struct platform_device *pdev)
->>  {
->>  	struct snd_soc_acpi_mach *mach = dev_get_platdata(&pdev->dev);
->> +	struct amd_pdm_pdata *pdm_pdata;
->>  	struct snd_soc_card *card;
->>  	struct amd_mc_ctx *amd_ctx;
->>  	struct asoc_sdw_mc_private *ctx;
->> @@ -398,6 +419,10 @@ static int mc_probe(struct platform_device *pdev)
->>  		amd_ctx->max_sdw_links = ACP63_SDW_MAX_LINKS;
->>  		break;
->>  	}
->> +	if (mach->pdata) {
->> +		pdm_pdata = mach->pdata;
->> +		amd_ctx->pdm_sel = pdm_pdata->pdm_sel;
->> +	}
->>  	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
->>  	if (!ctx)
->>  		return -ENOMEM;
->> @@ -419,6 +444,23 @@ static int mc_probe(struct platform_device *pdev)
->>  		sof_sdw_quirk = quirk_override;
->>  	}
->>  
->> +	/*
->> +	 * If ACPI did not set pdm_sel (no acp-audio-ep-port in _DSD), derive
->> +	 * it from the quirk bits. ACPI takes priority: quirks are only
->> +	 * consulted when pdm_sel is still zero. PDM controller selection is
->> +	 * only meaningful on ACP7B/7F platforms.
->> +	 * ASOC_SDW_ACP_DMIC selects DMIC0 (default); ASOC_SDW_ACP_DMIC1
->> +	 * overrides to DMIC1.
->> +	 */
->> +	if (!amd_ctx->pdm_sel &&
->> +	    (amd_ctx->acp_rev == ACP7B_PCI_REV ||
->> +	     amd_ctx->acp_rev == ACP7F_PCI_REV)) {
->> +		if (sof_sdw_quirk & ASOC_SDW_ACP_DMIC1)
->> +			amd_ctx->pdm_sel = ACP7X_PDM_DMIC1;
->> +		else if (sof_sdw_quirk & ASOC_SDW_ACP_DMIC)
->> +			amd_ctx->pdm_sel = ACP7X_PDM_DMIC0;
->> +	}
->> +
->>  	log_quirks(&pdev->dev);
->>  
->>  	ctx->mc_quirk = sof_sdw_quirk;
->> diff --git a/sound/soc/amd/acp/soc_amd_sdw_common.h b/sound/soc/amd/acp/soc_amd_sdw_common.h
->> index c979adf4e978..07837a2cfa54 100644
->> --- a/sound/soc/amd/acp/soc_amd_sdw_common.h
->> +++ b/sound/soc/amd/acp/soc_amd_sdw_common.h
->> @@ -29,6 +29,7 @@
->>  #define SOC_JACK_JDSRC(quirk)		((quirk) & GENMASK(3, 0))
->>  #define ASOC_SDW_FOUR_SPK		BIT(4)
->>  #define ASOC_SDW_ACP_DMIC		BIT(5)
->> +#define ASOC_SDW_ACP_DMIC1		BIT(6)	/* select DMIC1 controller for ACP7.B/7.F */
->>  #define ASOC_SDW_CODEC_SPKR		BIT(15)
->>  
->>  #define AMD_SDW0	0
->> @@ -94,6 +95,8 @@
->>  struct amd_mc_ctx {
->>  	unsigned int acp_rev;
->>  	unsigned int max_sdw_links;
->> +	/* PDM controller selection, copied from amd_pdm_pdata at probe time */
->> +	unsigned int pdm_sel;
->>  };
->>  
->>  int get_acp63_cpu_pin_id(u32 sdw_link_id, int be_id, int *cpu_pin_id, struct device *dev);
+1) Why change it.  Upstream's bonded DSI is clock/PHY only: dsi.xml defines
+CMD_DMA_CTRL.BROADCAST_EN, dsi_host.c never sets it, so no path sends one
+command over both links -- which is what this panel needs (first DCS ff 20
+fails with -22, the DMA engine hangs; slave-first/master-last fixes it).
+This series is the data half of proposing that path; behaviour unchanged.
+[E1][E2][E3]
+
+2) 1/5.  Both style points accepted: v2 moves dsi_bonded_cmd_lock into
+msm_dsim_glb next to the flag (today DEFINE_MUTEX at dsi_manager.c:40, flag
+at :41) and reflows the comment to a leading "/*" on its own line.  On the
+base: 0f1fb1c9c1 is not public -- it is v7.3-rc7 plus one local squashed
+payload commit, so the definitions you miss do not exist upstream. [E4][E5]
+
+3) 2/5.  I have SM8750 values only, so I cannot claim they differ per
+platform; that is why they are data in a table, and if a second SoC turns
+out identical the entry collapses.  On every other SoC cfg->bonded is NULL
+and the old path is taken.  You are also right that SM8750 data must not
+hang off the sm8650 entry: both report DSI 6G v2.9, so v2 selects it per
+compatible. [E6]
+
+4) 4/5.  My commit message was wrong: IDs are not assigned by probe order
+and the master is not derived from it either, it comes from the DT.  The
+corrected paragraph is
+
+    drm/msm/dsi: take bonded DSI master cfg from per-SoC config
+
+    The bonded master link is selected by the device tree: dsi_mgr_parse_of()
+    sets msm_dsim_glb.master_dsi_link_id from "qcom,master-dsi", and the link
+    ids are the DSI host indices, not the probe order.  The DT stays the
+    authority for the role; the per-SoC entry only records which link this
+    board's panel sits on, so a bonded transfer issued from the non-master
+    link can be rejected with a warning instead of failing later as -EINVAL
+    during panel init.  On this board the recorded id equals the DT-selected
+    one, so behaviour is unchanged.
+
+So in v2 I will not take the master from the table: the DT keeps deciding it
+and the entry only backs the "caller must be the master link" check.  I will
+recut the series on top of current torvalds master, so it applies for you
+without the local payload, and resend it as a new series.  I am not sending
+patches in this thread.
+
+
+Evidence
+
+[E1] v7.3-rc7 (24a19b953e) as exported from this tree:
+     grep -n BROADCAST_EN drivers/gpu/drm/msm/registers/display/dsi.xml
+       -> 190:  <bitfield name="BROADCAST_EN" pos="31" type="boolean"/>
+     grep -c BROADCAST_EN drivers/gpu/drm/msm/dsi/dsi_host.c
+       -> 0
+
+[E2] Panel init on this board when the bonded command path is absent or
+     mis-ordered: reports/b5-step4-master-from-cfg-20261027.md:35-41
+       panel-novatek-nt36536 ae94000.dsi.0: sending dcs data ff 20 failed: -22
+       ... attempt 1/2/3 failed ... Failed to initialize panel: -22
+       msm_dsi ae96000.dsi: panel is not prepared; refusing video enable
+     same file, section 0: with the path in place the seven error counters
+     (command DMA timeout, vblank timeout, reset failure, panel not
+     prepared, ...) stay at 0 across 10 blank/wake cycles.
+
+[E3] Command DMA engine state with the two links armed independently:
+     patches/upstream/m6-b5-p4-rfc-20261027/RFC-SCOPE.md:12-15
+       STATUS0=0x20003, TRIG_DMA=0x1 (self-clearing never happens), panel
+       shows backlight only; symptom disappears after slave-first /
+       master-last ordering with the completion IRQ on the master alone.
+
+[E4] Lock and flag as sent (both file-scoped today):
+     linux/drivers/gpu/drm/msm/dsi/dsi_manager.c:40
+       static DEFINE_MUTEX(dsi_bonded_cmd_lock);
+     linux/drivers/gpu/drm/msm/dsi/dsi_manager.c:41
+       static bool dsi_bonded_cmd_failed;
+
+[E5] The base really is v7.3-rc7 + one squashed local commit:
+     git -C build/m3v2-7.3rc7 rev-parse 0f1fb1c9c1^   -> 24a19b953e (v7.3-rc7)
+     git -C build/m3v2-7.3rc7 show --stat 0f1fb1c9c1    -> 148 files changed,
+       15513 insertions(+), 700 deletions(-)
+     and the DSI part of it: dsi_host.c +578, dsi_manager.c +249, dsi.h +19.
+     Consequence measured earlier: on pristine v7.3-rc7 the series does not
+     apply (0/6; only 0002 is clean) -- reports/b5-preflight-20261029.md
+     section 1.2.  That is what v2 has to fix, not something I can talk away.
+
+[E6] The SM8750 bonded data is attached to the sm8650 entry in the sent
+     patch: patches/local/b5-resoc-20261027/0002-dsi-per-soc-bonded-cfg.patch:72
+       +   .bonded = &sm8750_dsi_bonded_cfg,
+     on sm8650_dsi_cfg; the only thing distinguishing the two SoCs is the
+     compatible (7 uses of "qcom,sm8750-dsi-ctrl" in dsi_host.c), since both
+     report DSI 6G v2.9.
+
+[E7] Master is a DT property on this board too:
+     linux/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts:1658
+       qcom,master-dsi;      (inside &mdss_dsi0, the node with the panel)
+     parsed at linux/drivers/gpu/drm/msm/dsi/dsi_manager.c:80-81.
+
+Thanks for the review.
+Qianhui Xu
 
