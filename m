@@ -1,81 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624519;
-	b=K2Qs+vE/rCR6obJ0MNgIeUTPBAYHyo48PSzJ4d6W/vKP9OL4RCmkppeRN/wQUqDX8gZP
-	 H93+ZPMif0UIcQHsuDAX/nZB3LAagmBNAe1Rjej4adBeNxQmI38MABYUYXrH3EIVvGxto
-	 VyHGE5tpfFyS32ouIAua6FEBwtOxknr325kAYr/FV5PsX8gy3Bf/XRyhPaOmJcEoIA8wF
-	 DRgQ0ZcaTNfubRtkwJqyNo5DsDKRgOqbJP2ZbXRGOw/U7AN+6XyusGah3HRpvxmaaW4DV
-	 bjigoigmdV0G9VYxJnMSy//YZ6HA9OUy9VlzoSMI3paQhS02BF7kBhVIn8cUWTi9PRw==
+	t=1793624535;
+	b=eZ6O8zKFpFVEvzPxWCK1IbG8/0iCGQe4xQr9UdlQyWN+yuUkyhbOcAhAa6SxCcJ8EIqE
+	 89yk4NlOpDHKP+CGq237hj4ggKHgqGHtqsc8nkUWALgjVF9h6J1Db5nI1mlLKqpkdC4mh
+	 H7wCfOzroLFlnmMSSKxIy4V2ZrfKpTWfLdXayotDwVggXQEQGdMgXbPXkFYzBfLjNmk8O
+	 CAUqWVHBK1G+vPV0RhaYBTkE/ycABanOi7DOFwZdEWCYX02bNeBi9SIjH8TfOlmbKa5Sb
+	 gfnDF8rMDEGkmyqPZ+bO3S5YvypsqZEGjkCyeXiEoVtI3Bnxv+oUfxKGW6i6MRTT9aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624519;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=2W2cWo3uXPAbaEwXMsjPtD62QlF6or4emsdQLJHxWK4=;
-	b=zEB0mBKT4IJ2aq0CskcCcie8EA9VSQdpfUCg92XpbWUGFfDnqgd0KglY/oZRWzGWKm49
-	 1R71BAvKalrM6hbTom96zbM+U79IthKq/EMsRO3KDjL85JzSbETRCVwpXAusig5ImrAUT
-	 EHVSJuptFwtdD4mcgZiYqodHngHQYnfFzNB6BFZH5jDhvSlcnPEdK/tdkIOHmViwXHUIi
-	 iEvKiCgyvxArCNEjfc5b+oCq2aukIeXZE93gg3ZR+lZO47nNqIi5hWPT6VgloEtF9LlNM
-	 6XC3XNXgvHMN1g+e5yatp0s6cNsLGRY7eXN/v9/IKe2rplyX1eCemUuRZwx1Ql/Yykw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624535;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=OCwjDl9SqaD1n0bx2YhNRBtWOo95W909nhaKEEF1fA8=;
+	b=rMLkFlrMLa0SAgPqvYdURqv7yvwYg0W8L5Khuf7x+oCGEaaIKvnF4jkH3kV5UiLB1eJB
+	 hDTQ4wElFDjg0kSoz5f1214XmU9zQ0xO/m1CmymyWJxeI/CKjPkca56jW8PVKHSc6uNkq
+	 DG2FkVgaTOXAJvTSIHezLAQTuPROxlZ/bXZQN9iMRr5S/2zbqOvO+B9Tb6PyzCB33bVOu
+	 ZUQif7DNR7AMD1CZQuaLoTE82XId6urNxnDByfiWqOLcbFT+WkcQ9NVY1GbHWv2YRxqdY
+	 3Ms+Ci1hSb/2ncSoitryI9I67WYQ++gLQJ75l7qMbFGd2cIqrU0r89rKDN5EX53yViw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=M9gGLV+3;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=D1PxL8YG;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA57606A33A;
-	Mon,  2 Nov 2026 13:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AA57606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC4A606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:02:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC4A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=M9gGLV+3
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29EDRp2429580;
-	Mon, 2 Nov 2026 13:01:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=2W2cWo
-	3uXPAbaEwXMsjPtD62QlF6or4emsdQLJHxWK4=; b=M9gGLV+34HWQCSjn2fnzix
-	0KtiZDZzU82i8e2XRZPalyfBRSJw1JRVCmVWRJSwul8a3Synz3COzl0qPzWnBHNY
-	BqB2pSIXWm2ZixA3jRU4sneHxlTv+m013HQ8rDrhUMnuW/rKoG/r/ColDtcoIR0H
-	/+9v9uIMbMMRVwWrov8B7Omer0JMLOiGTLP6FHIsk8qqr+nDvWf7d6jA4eBOUsRO
-	shL29zPvd0QdmJTvTV+Zap9LQMk14jPUO0MtVy5OeA4Av3ISyvg9nmYsSuOrfg5g
-	iy7FYyHHfpgLHp1Rme4KlxAe2PRUogssa90aKeuLzD+//N7205Xkbd7P5uq5Fj7g
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rhgpwv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 13:01:08 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29ZCfU730591;
-	Mon, 2 Nov 2026 13:01:07 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnu1vdwry-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 13:01:07 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2D13oM37749108
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 13:01:03 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 584BC2004B;
-	Mon,  2 Nov 2026 13:01:03 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5C43020040;
-	Mon,  2 Nov 2026 13:00:56 +0000 (GMT)
-Received: from [9.124.210.123] (unknown [9.124.210.123])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  2 Nov 2026 13:00:56 +0000 (GMT)
-Message-ID: <66ccd713-5571-4c1a-b59e-29adbc9852e3@linux.ibm.com>
-Date: Mon, 2 Nov 2026 18:30:55 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=D1PxL8YG
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso34417055e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:02:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793624533; x=1794229333; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OCwjDl9SqaD1n0bx2YhNRBtWOo95W909nhaKEEF1fA8=;
+        b=D1PxL8YG5RCXOH8prp9m34aQz8MQ/j8YwedjyV+nVtxKhR8STMaiem3Ce8rufyNYLP
+         pqDQXh9q6Jk10kCoLUwiTIfrCI9diRJyFY2H+OC+rEKSqN9LgI4JvmA9RZOAdjimnXdK
+         l/ndOOKuSJW4gJ4XSlxDLGWzHNw6QR2dkFMRnXO/mVDZQLH3XvKEjmakhphLlnc8qT7J
+         6Xx1/b5C1qWJWd5tO5q5AaiV7RTzMqTWcXC5RWAl1aavrAkdn/WqscQzTJyTxnNhsGVm
+         q0Zyv+yiUZKKWvThCO/BUv2ykopOiJj0SX+FkGAYdT7y6UKOPe9g+nivdKzzdhZOzWnO
+         UC1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793624533; x=1794229333;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OCwjDl9SqaD1n0bx2YhNRBtWOo95W909nhaKEEF1fA8=;
+        b=lLewL92g7amfwZ1LxfDRZTqg6RuSroMweE/DruN9sQjDOQ4v3zcfKIFfgAl2bFGiG8
+         F0bTzi+0KrSGV9cP5O0Ruy65JIPgpIO7Zoi45oVa8Cg23JcO3Nl3exv4Yo68AUo4qdqE
+         eFGOTNWCmQzMkKsvJgOfK2N8VTDRFSThcNKYFWRfamz69jaTJ9T4Mvg5C0H7u+Qc1vDP
+         jbuXa+kAwg92F6bdPas3HGlDWwyXxMAyZrx/IRIO8xfLc9dLaVV9CmmhJ0BAbFP2qNsV
+         PdeV3ST3Q+87b3pbGY+hP2Q8T8xR8fbGA1h2Ct76nB+xItNi/1Y9HPEvDS3Nj8AbBQwg
+         P9Fg==
+X-Forwarded-Encrypted: i=1; AKwUvBwj8bsjnBJmdWEJBsi0uBE2NwPzZgFYDYqmczoLgjLYS/R71JKuKMGv84u9aJnQypApLjdmHlixgwbHKuE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNz7UeWK91gQCekyTHiIkHS4+1WClniQ+cM1AHsFlIdpSgbbuo
+	gjZiC8akSHRHCYbkHDbAh1gteH7GH7Mysq5SZrypLoPdqtWRv5ZTycaCPTP/EVnDYYc=
+X-Gm-Gg: AYBFou3k9R3D5+jQOOcE5N4qtn9UfOoLy/vR3XIhoSx3GJ+/saRH8sDicpzKgutZPYh
+	F3huVyxbbqLGHsJMQW/C2vwnG9iaEHWmB/U6NfqsPfRRE7it0UltaZYrAC5vnlUxdOFdJ+y74Cz
+	Ww3ZVW782U5kU01CoLhLOUFrrpuaDsD5ZxukaOZl4cQxAwwL+fz6EEg/6d6pv94YDQFY0LVG6+l
+	9DzXmHeb6SHlWhQy+FRw83kGjtsuW5M03wuSBSGYOCC9+yrsN5/rlO5zGroifL4pkLiaEbKugIk
+	RBmp+w1xEFK3H4pYFUMZrfU+Ivw/TmR7t7cK/5ZhAbdmL0EJGnaivPGEe2jO2f2VA+W3/kQDpcx
+	TZqfctSu2IIif0sFo0lsGqTef1NKfyZ3GYD7pW/hprV+VHSjiGY10+im6dDWBba1uhlLwoyHXkh
+	yK+WFGr29NyBC/pCVVrifWNCPD3pE7k9iB9rpgMJVCMUUHsGuXdeLAgb7Q3Xq0hC9Zv0ADxhEm/
+	N23duwk6iAofErSQ1IUtqBk82dV0CiwwA+pfGBa3wLmsVyKzrJVmJ/SO1AnpAH/8SzIIt8Oy0bE
+	ASOHWZYLAvOnGAHJ8oHAy2NdENbpjsgtWHrr+HbFrvJOxP4seDn/3Ircv8IC42oPKD3i+DwPOys
+	pzCig
+X-Received: by 2002:a05:600c:c0d4:b0:4b1:2026:6b31 with SMTP id 5b1f17b1804b1-4b12026723bmr41745155e9.28.1793624532870;
+        Mon, 02 Nov 2026 05:02:12 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09cc3e9asm119273755e9.3.2026.11.02.05.02.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 05:02:12 -0800 (PST)
+Message-ID: <389b4336-395c-48ee-a2ed-5396fc8fe58a@linaro.org>
+Date: Mon, 2 Nov 2026 14:02:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,208 +94,210 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] sched: decouple PREFERRED_CPU from PARAVIRT in
- Kconfig.preempt
-To: Ilya Leoshkevich <iii@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mete Durlu <meted@linux.ibm.com>, Yury Norov <ynorov@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Yury Norov <yury.norov@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andrea Righi
- <arighi@nvidia.com>, Ben Segall <bsegall@google.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Heiko Carstens <hca@linux.ibm.com>, Johan Hovold <johan@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        K Prateek Nayak <kprateek.nayak@amd.com>, Mel Gorman <mgorman@suse.de>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Steven Rostedt
- <rostedt@goodmis.org>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Valentin Schneider <vschneid@redhat.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-s390@vger.kernel.org
-References: <20261101192203.6979-1-ynorov@nvidia.com>
- <20261101192203.6979-2-ynorov@nvidia.com>
- <388636ac-4521-4523-bb5b-b6bc71591ff6@linux.ibm.com>
- <20261102110026.GG1813469@noisy.programming.kicks-ass.net>
- <9273846b-d815-4c40-a7a0-960281515878@linux.ibm.com>
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <9273846b-d815-4c40-a7a0-960281515878@linux.ibm.com>
+From: neil.armstrong@linaro.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 3/5] drm/panel: feiyang-fy07024di26a30d: Use
+ mipi_dsi_*_multi() functions
+To: Hsieh Hung-En <hungen3108@gmail.com>, dianders@chromium.org,
+ jesszhan0024@gmail.com
+Cc: jagan@amarulasolutions.com, osama.abdelkader@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+References: <20261102043215.990351-1-hungen3108@gmail.com>
+ <20261102043215.990351-4-hungen3108@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261102043215.990351-4-hungen3108@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: qU77n7JZ2HH830HkwO0bh0WO8uhjgO_U
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX+boVVfYoh5pU
- uSy2Xet2uaIK8F8jcnLEz9KvVlwHt4/nzaouvwJwgK+WHXl9MM/bLSKTKPh6AwJ1fArqPd3qKmU
- UZsRhQNicnN5ZSdFrf1BXh7lG3tJgxQ=
-X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6ae88994 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=Ikd4Dj_1AAAA:8 a=P4Rk32GvQtOlVBIN6qsA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX3TPH1gWhup/2
- hNf5WzFq5tTCdMXFbS+JYJM1TtSbJvAD40Cpf1WxAWsgOKtIxGCVesiN3BGHnitOAbGab2koK9V
- 2Cn9CXcYYpVc2X9LVCsUb+TixybIHwpVXj84G9WQU4tKX0lVX4NkodW0UWzvIKsIYG047QJyOU1
- mGAGAQGJ+cuCeHETQ9HmDhArHR8Begyb8huoiWDDvIzTL9RJPI8V9RwKEmi3pG8uQVCWjJeocpg
- 7hD4hgF9q+JQHZnxHd5oMOw8jRH2REZT5Mr4Gs9Y3YvXlRcJzi7bO4bKupBflC3DERBx+u3QDH+
- belhz225nMoZu/cPv3s+z0Wg1+ItSKuMktPgB4kv0qWBy7FZQnnL7DVRnE90NfNl/Kaop+uiM4H
- 8NRCtVwDzfrK+yToXMExJHVUWyckrBrt0JNUCsKSsF4I18uksfBZxdd7kVOy4lW7UvbP4JqMyza
- gzE4YqaNRR4vxVeAH1Q==
-X-Proofpoint-GUID: 2gVp4-yn7BK2860rxFA_OE5c206VNWaf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
- priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020050
+Content-Transfer-Encoding: 7bit
 
-Hi.
-
-
-On 11/2/26 5:04 PM, Ilya Leoshkevich wrote:
+On 11/2/26 05:32, Hsieh Hung-En wrote:
+> Replace the deprecated MIPI DSI DCS helpers with their _multi variants,
+> as suggested in Documentation/gpu/todo.rst.
 > 
+> Replace the initialization command table and loop with seven direct
+> mipi_dsi_dcs_write_seq_multi() calls. Preserve the original command
+> order and values, using lowercase hexadecimal literals.
 > 
-> On 11/2/26 12:00, Peter Zijlstra wrote:
->> On Mon, Nov 02, 2026 at 11:16:30AM +0100, Ilya Leoshkevich wrote:
->>>
->>>
->>> On 11/1/26 20:21, Yury Norov wrote:
->>>> The IBM s390 doesn't enable PARAVIRT config for their hardware
->>>> virtualized Logical Partitions (LPAR). However, the steal time is
->>>> accounted for the LPARs, once the config VIRT_CPU_ACCOUNTING_NATIVE
->>>> is enabled.
->>>>
->>>> Preferred cpumask doesn't rely on any feature gated by PARAVIRT config,
->>>> and requires it to minimize the configuration space and runtime overhead,
->>>> with the lack of non-paravirt user. Now that s390 wants to adopt preferred
->>>> cpumask, there's no reason to keep it coupled to paravirt.
->>>>
->>>> Make PREFERRED_CPU a user-configurable option, even if paravirtualization
->>>> is not enabled, and drop PARAVIRT dependency on the steal governor.
->>>>
->>>> Keep the default module selection conditional on PARAVIRT so other SMP
->>>> configurations can opt in without enabling the governor by default.
->>>>
->>>> Link: https://lore.kernel.org/all/4605dad5-aab2-49e3-b919-bf9897181834@linux.ibm.com/
->>>> CC: Mete Durlu <meted@linux.ibm.com>
->>>> Signed-off-by: Yury Norov <ynorov@nvidia.com>
->>>> ---
->>>> Can be applied independently from the rest of the series.
->>>>
->>>>    drivers/virt/Kconfig   |  8 ++++++--
->>>>    kernel/Kconfig.preempt | 12 ++++++++++--
->>>>    2 files changed, 16 insertions(+), 4 deletions(-)
->>>
->>> This is really useful to us, since even though s390 is nominally
->>> paravirtualized, it does not technically benefit from defining
->>> CONFIG_PARAVIRT.
->>
->> And therefore removing PARAVIRT is the only possible solution?
->>
->>> Specifically, steal time accounting happens by
->>> computing a difference between wall time and CPU time, and not by
->>> explicitly querying the hypervisor.
->>
->> Nobody explicitly asks the hypervisor, that would be horrendously slow.
->>
->> Something trivial like this should do.
->>
->> ---
->>   arch/Kconfig                           | 9 +++++++++
->>   arch/powerpc/platforms/pseries/Kconfig | 1 +
->>   arch/s390/Kconfig                      | 1 +
->>   drivers/virt/Kconfig                   | 2 +-
->>   4 files changed, 12 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/Kconfig b/arch/Kconfig
->> index 1163736de1f9..8980054beb52 100644
->> --- a/arch/Kconfig
->> +++ b/arch/Kconfig
->> @@ -1080,6 +1080,15 @@ config HAVE_IRQ_TIME_ACCOUNTING
->>   config HAVE_PV_STEAL_CLOCK_GEN
->>       bool
->> +#
->> +#  Archs that can account CPUTIME_STEAL; normal route is through PARAVIRT which
->> +#  selects HAVE_PV_STEAL_CLOCK_GEN. Directly selected by s390 and PPC-LPAR
->> +#  which have their own thing and don't go through generic cputime accounting.
->> +#
->> +config HAVE_CPUTIME_STEAL
->> +    bool
->> +    default y if HAVE_PV_STEAL_CLOCK_GEN
->> +
-
-Can't PARAVIRT_TIME_ACCOUNTING be the kconfig we can rely upon.
-s390 can add it to the config (similar to HAVE_CPUTIME_STEAL)?
-
-I guess it is selected currently where the steal time reporting happens.
-
->>   config HAVE_MOVE_PUD
->>       bool
->>       help
->> diff --git a/arch/powerpc/platforms/pseries/Kconfig b/arch/powerpc/platforms/pseries/Kconfig
->> index 7d125e288f6e..3c49baf606d7 100644
->> --- a/arch/powerpc/platforms/pseries/Kconfig
->> +++ b/arch/powerpc/platforms/pseries/Kconfig
->> @@ -41,6 +41,7 @@ config PPC_SPLPAR
->>       depends on PPC_PSERIES
->>       select PARAVIRT_SPINLOCKS if PPC_QUEUED_SPINLOCKS
->>       select PARAVIRT_TIME_ACCOUNTING if VIRT_CPU_ACCOUNTING_GEN
->> +    select HAVE_CPUTIME_STEAL
->>       default y
->>       help
->>         Enabling this option will make the kernel run more efficiently
->> diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
->> index 7138d923d86f..03a884355218 100644
->> --- a/arch/s390/Kconfig
->> +++ b/arch/s390/Kconfig
->> @@ -291,6 +291,7 @@ config S390
->>       select USER_STACKTRACE_SUPPORT
->>       select VDSO_GETRANDOM
->>       select VIRT_CPU_ACCOUNTING
->> +    select HAVE_CPUTIME_STEAL
->>       select VMAP_STACK
->>       select ZONE_DMA
->>       # Note: keep the above list sorted alphabetically
->> diff --git a/drivers/virt/Kconfig b/drivers/virt/Kconfig
->> index eeb84e578ddf..a3721d34a55c 100644
->> --- a/drivers/virt/Kconfig
->> +++ b/drivers/virt/Kconfig
->> @@ -43,7 +43,7 @@ config FSL_HV_MANAGER
->>   config STEAL_GOVERNOR
->>       tristate "Dynamic vCPU management based on steal time"
->> -    depends on PARAVIRT && SMP
->> +    depends on SMP && HAVE_CPUTIME_STEAL
->>       select PREFERRED_CPU
->>       default m
->>       help
+> In prepare(), the first failed DCS write prevents subsequent transfers
+> and its error is propagated through the cleanup path added by the
+> preceding patch. The helpers also log command failures.
 > 
-> I can't comment on the PPC part, but for s390 this works fine with the
-> following addition:
+> In unprepare(), clear accum_err between commands so that ENTER_SLEEP_MODE
+> is still attempted if SET_DISPLAY_OFF fails, preserving the original
+> error handling behavior.
 > 
-> --- a/kernel/Kconfig.preempt
-> +++ b/kernel/Kconfig.preempt
-> @@ -197,4 +197,4 @@ config SCHED_CLASS_EXT
+> In disable(), ignore SET_DISPLAY_OFF errors to allow drm_panel_disable()
+> to clear panel->enabled, avoiding a stale enabled state after the panel
+> is powered off. This follows commit 00efe8a68565 ("drm/panel:
+> ronbo-rb070d30: Ignore DCS errors in disable()"). Command failures
+> remain logged by the helper.
 > 
->   config PREFERRED_CPU
->          bool
-> -       depends on SMP && PARAVIRT
-> +       depends on SMP && HAVE_CPUTIME_STEAL
+> Signed-off-by: Hsieh Hung-En <hungen3108@gmail.com>
+> ---
+> 
+> Notes:
+>      Changes in v2:
+>      - Replace the initialization command table with direct
+>        mipi_dsi_dcs_write_seq_multi() calls, as suggested by Doug.
+>      - Route initialization errors through the cleanup path added in 1/5.
+>      - Convert initialization command values to lowercase hex.
+>      - Drop the previous Reviewed-by tag due to the initialization rework.
+>      
+>      The seven initialization commands were checked against the original
+>      table; their order and values are unchanged.
+> 
+>   .../drm/panel/panel-feiyang-fy07024di26a30d.c | 68 +++++++++----------
+>   1 file changed, 33 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+> index bb4cc1ea2ece..fa304eb7453b 100644
+> --- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+> +++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+> @@ -13,8 +13,6 @@
+>   #include <linux/module.h>
+>   #include <linux/regulator/consumer.h>
+>   
+> -#define FEIYANG_INIT_CMD_LEN	2
+> -
+>   struct feiyang {
+>   	struct drm_panel	panel;
+>   	struct mipi_dsi_device	*dsi;
+> @@ -29,25 +27,21 @@ static inline struct feiyang *panel_to_feiyang(struct drm_panel *panel)
+>   	return container_of(panel, struct feiyang, panel);
+>   }
+>   
+> -struct feiyang_init_cmd {
+> -	u8 data[FEIYANG_INIT_CMD_LEN];
+> -};
+> -
+> -static const struct feiyang_init_cmd feiyang_init_cmds[] = {
+> -	{ .data = { 0x80, 0x58 } },
+> -	{ .data = { 0x81, 0x47 } },
+> -	{ .data = { 0x82, 0xD4 } },
+> -	{ .data = { 0x83, 0x88 } },
+> -	{ .data = { 0x84, 0xA9 } },
+> -	{ .data = { 0x85, 0xC3 } },
+> -	{ .data = { 0x86, 0x82 } },
+> -};
+> +static void feiyang_init(struct mipi_dsi_multi_context *dsi_ctx)
+> +{
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x58);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0x47);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0xd4);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x83, 0x88);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0xa9);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x85, 0xc3);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x86, 0x82);
+> +}
+>   
+>   static int feiyang_prepare(struct drm_panel *panel)
+>   {
+>   	struct feiyang *ctx = panel_to_feiyang(panel);
+> -	struct mipi_dsi_device *dsi = ctx->dsi;
+> -	unsigned int i;
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+>   	int ret;
+>   
+>   	ret = regulator_enable(ctx->dvdd);
+> @@ -77,15 +71,10 @@ static int feiyang_prepare(struct drm_panel *panel)
+>   	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
+>   	msleep(200);
+>   
+> -	for (i = 0; i < ARRAY_SIZE(feiyang_init_cmds); i++) {
+> -		const struct feiyang_init_cmd *cmd =
+> -						&feiyang_init_cmds[i];
+> -
+> -		ret = mipi_dsi_dcs_write_buffer(dsi, cmd->data,
+> -						FEIYANG_INIT_CMD_LEN);
+> -		if (ret < 0)
+> -			goto assert_reset;
+> -	}
+> +	feiyang_init(&dsi_ctx);
+> +	ret = dsi_ctx.accum_err;
+> +	if (ret < 0)
+> +		goto assert_reset;
+>   
+>   	return 0;
+>   
+> @@ -104,32 +93,41 @@ static int feiyang_prepare(struct drm_panel *panel)
+>   static int feiyang_enable(struct drm_panel *panel)
+>   {
+>   	struct feiyang *ctx = panel_to_feiyang(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+>   
+>   	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
+>   	msleep(200);
+>   
+> -	return mipi_dsi_dcs_set_display_on(ctx->dsi);
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +
+> +	return dsi_ctx.accum_err;
+>   }
+>   
+>   static int feiyang_disable(struct drm_panel *panel)
+>   {
+>   	struct feiyang *ctx = panel_to_feiyang(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+>   
+> -	return mipi_dsi_dcs_set_display_off(ctx->dsi);
+> +	/*
+> +	 * Returning an error would leave panel->enabled set, causing the
+> +	 * next enable to be skipped even after unprepare powers off the panel.
+> +	 * The helper above already logs any command failure.
+> +	 */
+> +	return 0;
+>   }
+>   
+>   static int feiyang_unprepare(struct drm_panel *panel)
+>   {
+>   	struct feiyang *ctx = panel_to_feiyang(panel);
+> -	int ret;
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+>   
+> -	ret = mipi_dsi_dcs_set_display_off(ctx->dsi);
+> -	if (ret < 0)
+> -		dev_err(panel->dev, "failed to set display off: %d\n", ret);
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+>   
+> -	ret = mipi_dsi_dcs_enter_sleep_mode(ctx->dsi);
+> -	if (ret < 0)
+> -		dev_err(panel->dev, "failed to enter sleep mode: %d\n", ret);
+> +	/* Attempt to enter sleep mode even if display off failed. */
+> +	dsi_ctx.accum_err = 0;
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+>   
+>   	/* T13 (backlight fall + video & logic signal fall) T13 >= 200ms */
+>   	msleep(200);
 
-PS: I haven't read the series yet.
-Will try to do so when it get little bit of time.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Thanks,
+Neil
