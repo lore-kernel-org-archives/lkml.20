@@ -1,49 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637794;
-	b=3hruwfaU7Y6xUpWUSstoUlzWrrdBLwhOOIWRadxT3iIyhGr8XwtRQfCrsRCsqoxCUWGv
-	 ZIDCIo5Xb9k/ChuzIH4zoJ0ytnYFQBw2cJr0HmyqTFZm8f4/CifZAc+o9ipG2IrRtAKke
-	 zUFJoors4CriUXwMEi3vz6dus8d4cd7NjIAeTkQbUXJASY09bt7/jFubt3Bm4/YO/MgXv
-	 FNNltRGnYZ+QJKQdJGzcEh5c3pSdhsXkgHX2c1V3KkWg2m3e7ObJfVBh/z4p+tG0KppaP
-	 +56ddIaNFfjuDysTph01pUVAIo0CRZTmhfmeI5Sq+4e1X4cciwMI2Pxr1cl4MdEGCrw==
+	t=1793637829;
+	b=yhPpAy3JAGs/qoOuhGFx7Y5XWDIFOUrz5gH77wBw/EN8daSrv4HrgGrhqgu/bKZdzLMs
+	 rRM2KcyxXTOJvWxZo1STyuhc6gweFOByzBc8z5yrgaiCdTBLi8fgnO8TnxUDmKzlUsBHN
+	 0mPQJApd26dg8tb+QZjmSKr8Vxc7MCqWm+vcn3XxeN/A2hyOb18V69uCWYwlb7qb73vUh
+	 wPGwZltGOvmbep89pXMkFzHzsxOuUcOtG5cacxUyG30yM852K98YfLEnTPhU3q4sZcNtF
+	 2U1yF+7l6m2eKCi5y/Ab2UltonLJmT9g05TK82jW3XDP6NreeG4fHqZ7z3BDROWUXQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637794;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=bVae4teEAY5lN0cAm+GuxPC0EcqQhfJZCICDDMYyghA=;
-	b=amsS+aWE9GTlALfl5IUTPSWbKzZfvic5NyWbbXDx/PyW/PoiUk3nOxLzqHbki4KRpe/w
-	 ZWd40/oJMBXVjTr6Jgp2VNFAiXAVyn1mAvLWL8cOWHOX9RtaYOmNj6nWXJUu9QgxG0tdc
-	 50M5/Yf3A5ICeiYrDNlQx6wJDWLpNcwOdTjsAC77u2rTste+ijdqc6LrDbXHUGJW9TyUH
-	 dUHmefVrYDeVuTzCior0tFcdQnamhaBNLiYEE3g3mMBVgUctUM7lPetmMiyHcRk29GY9D
-	 uX8Gd3bWZ5uhZwyqZk7YEfrLLM5XOFEE3snxPqqaEUcvxbFIuoe0Mmeeb43kfcDSdnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637829;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YKR7EhYSJfAtB2F1q2SE76iFC5+js2w0WFNuXZNhlIA=;
+	b=W1lF+kzlJ0QIXBs6dyyaTj7vjKtLk50gjIXGercgqKDpshlJ5AoO8PX9hI3NiGdHpLio
+	 /uc1Y326ATucPT2z6l6ZR2XeCzaDrej+p+AWjIWFDVQ17fmQ6OOMglmHEJ4c5jeaawMEv
+	 1hXlxbwiYxoOF55ENLXknEzimmGO6C2ONwQbCdjbOg4PCpJAxhypuNb6ziwpaEYlqMi1u
+	 RMjyhFmnc08i0ZTCl7U9qoQ1a1NRHf0G2UZGJJFCd0XSUnQXeS2AcJPXfXCwg2g7q+E4Y
+	 3iqKP9bEN7z+1sKNRvRAa1/uH8hDjz3nKiUEehEZKfJeS82zVgsnWlyYXe90kFY4JbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M6MyOZh1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=An3Xo0In;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BBB60A6C2D;
-	Mon,  2 Nov 2026 16:43:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0168606B1C9
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:43:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0168606B1C9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M6MyOZh1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B59C91F00A17;
-	Mon,  2 Nov 2026 16:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793637794;
-	bh=bVae4teEAY5lN0cAm+GuxPC0EcqQhfJZCICDDMYyghA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=M6MyOZh1S3t/uew7aipAfZgjPVGQKyQ8IyEVYW4v6XlHw46pPCHsOKib9oRApiOrz
-	 RxUSFrgWNaJ91waThvpkP8JL9q+3Soec7zEZLsO2sTY6TeiFAxUhv9x0IK2sdWayiO
-	 RbyhukXcvLUfQUIjuKtpFlcSCGGZRTDNo4Nx5YHTJmbBaFGCJAaxzZGe/4uzdp27J+
-	 zZkxVSt9H8GrCWze/mYHfmKWq2H5rERN6LnI2gJhjfPKd8aDXhGBcUl1jz1RSDAmRJ
-	 lrZ+BOZpOwTeyf0SXBs5K2alzGno4Ug8DDNJO2kknNcCTitbmgZC4EQnAekGfG/eq6
-	 a4mZWEF24QRUQ==
-From: Mark Brown <broonie@kernel.org>
-Date: Mon, 02 Nov 2026 16:37:47 +0000
-Subject: [PATCH v2 6/7] kunit: tool: Serialise output written from multiple
- threads
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=An3Xo0In
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso32727835e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:43:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793637827; x=1794242627; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YKR7EhYSJfAtB2F1q2SE76iFC5+js2w0WFNuXZNhlIA=;
+        b=An3Xo0Inbbs1zQVPQtC4k3aDYnOj2ML/JZBciVZmnb9RFDyA9O9280FogdBWeCich3
+         ojIrRAwb22E4TT2gLSbRMKfCmnbZJ1q0AubT0IzWqcORI80tZabtzPtP+5biP2Piw7+C
+         d7XnD2+kms1bx3I1SgxcWAE/b+Ro3KYN7zB52s/1R+OKEYCLGf3JxruFfbHifGmaj6y4
+         /Vyh9NYdqSBymYg5owis6TBhG4reA2Wc1awPl9HL8KIu67mCGkkA38coSTnnocIv8Mpj
+         oL1ZM0PwOyFauvN55TsOkQweKCusjmYrf/HsXdrArAM5k5L3kqBgslKb+CPpjPGjra5z
+         3wRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793637827; x=1794242627;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YKR7EhYSJfAtB2F1q2SE76iFC5+js2w0WFNuXZNhlIA=;
+        b=W9Lb4oTny0Ctk7SjkbCQkqV2oKMAKazF3iX61gloj9sGsPXF7McNfEULv1KdOL2jAZ
+         HiBnMiu+hhhzM96BGhdcoNoE2x+md4g+ALiotRvpnQrp5RQJcbEGJgORMqxB3kKnf/S4
+         2q8i7j2vZlQBRVBGoz8c1br/x4kL42mfHtTfOu0TE/HS4pBRbUorINp4TZ559W/cKAsA
+         At+5n6GAYUrFbvVS6u4ayVFF2TwL+mkc8y/718eDce5rtSJP1+NSa19LQyUK6OFDxBHm
+         zK+6liBjB7hMAs7yTuGMdq6UaMdMEQDr4DJP6LHZsRtf4ltLOAcjc0EytaqFibWRJgv1
+         JCGg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxPqSyU3hNTqMpJ8FxcMJGYtWH+RM5mG/7HMipzJaE4jfs5MrYJVKWDUI0VmP6oLNO2gIWj+63mLXM8vI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDFvC+u/ouLfv5iiC2mSt0ruF6H1t9GAGiDnAuDjZU6Zddu+3N
+	ZKvb7Imlva+/SKwU/pp3RzNPXsXrrhVPTPabtcc6rTrKiWlo1p4ZosdhDgyT6usMTLY=
+X-Gm-Gg: AYBFou0gdl3EYlpY/qISC7+DHaUpsGC3n7uvpxR9uN2J/vAVbxktby/SM3WS71oGKg9
+	8eW5rbDpcJBNEzYXTkXtQ6fQMPZacdmkoCZ7i/7zLyBWmlWfYlRds+Yk1kxzEc9GaGZLsnReV7b
+	CB4MBBgRJqFHj1QRFkKOOnvb2MLTqCnbgykhmqDIpFm37icfahf05qNIk6cuMKO7uw9wJJC1cpL
+	OzHvf1MbVZoEVgMdyES6ruqCW46wR2DRIR03W33eRvQDPr9NpG0ILBIWqIndoG2gouCoQ5clhT8
+	zCxPNGV1HlL7VZP0RwOEFUkr7rjOBXStAWBzc8fckiPB8SRADNZjDTbTcfbnkDXmK2h5rItnZlX
+	LEfnw5eO32S5gzzgM3pab3giVMd0XCU4nFsV0KLKntwO4XuOPr9mAB45yzXdZzFy/MnufEXGcxh
+	sO+/hp3oVmb08cxmP3JOFJ7M1pjQBDLQEHhF/wmJUbvml96iX9QDF+2ZRGToVIy4UcoUYWDL+00
+	EDENwY/+p6kvTz63COWZS1fp1WI6J2Mgw0fys3wohsiyyKxgINH/Fxp5wXKer7/LD68K6/yNjpp
+	p1KT6z7glfrOQyNfdgZK06KNsQFjeqMoxX8oSbL2sLS755s2on1scQ==
+X-Received: by 2002:a05:600c:1f93:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4ac17ffa050mr255111425e9.22.1793637826920;
+        Mon, 02 Nov 2026 08:43:46 -0800 (PST)
+Received: from jarvis.. (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e71bae0f4sm18537611f8f.58.2026.11.02.08.43.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 08:43:46 -0800 (PST)
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: rtx4060@gmail.com
+Cc: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	matthias.bgg@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 0/2] regulator: mt6363: Fix the regmap value width and the VSRAM LDO registers
+Date: Mon,  2 Nov 2026 16:43:45 +0000
+Message-ID: <20261102164345.523122-1-amergnat@baylibre.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261101164405.1743177-1-rtx4060@gmail.com>
+References: <20261101164405.1743177-1-rtx4060@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,166 +103,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-kunit-parallel-v2-6-8774b558d4b0@kernel.org>
-References: <20261102-kunit-parallel-v2-0-8774b558d4b0@kernel.org>
-In-Reply-To: <20261102-kunit-parallel-v2-0-8774b558d4b0@kernel.org>
-To: Brendan Higgins <brendan.higgins@linux.dev>, 
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Daniel Latypov <dlatypov@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Mark Brown <broonie@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5630; i=broonie@kernel.org;
- h=from:subject:message-id; bh=cXd+WW/FwqTOdRuY2BWdty+JQCn54Oy/6vpztjlwqdM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJe7O11N0l0mLT1oW70lH5L+cOSW42fdck8/7B21VRbm
- eu3F5UUd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiR1kY/grXOW97fzCOTSXo
- C+MTVfunJw7F1Ct7yel4TCpjfmukuoeR4cT6l4v9v37zPlAYVPbrmuLBqpitnXaydb4CG99rdrf
- kMgMA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Python's text streams are not thread safe. If two threads write to
-sys.stdout at the same time the stream's internal buffer can be
-corrupted, resulting in lost output and runs of NUL bytes or heap
-garbage being written in its place. This isn't an issue currently, but
-will be when we implement support for parallel test execution.
+Hi Gibeom,
 
-Add a lock to kunit_printer which Printer.print() takes around each
-write, and route the other prints that can run concurrently with the
-test results through the printer: the kernel start banners and timeout
-message in kunit_kernel, and the raw, JSON and JUnit output to stdout.
-Prints that only happen before any kernel is started, such as during
-configuration and build, are left alone.
+Thanks for looking into this driver!
 
-No change in output when a single kernel is run at a time.
+On Mon, Nov 02, 2026 at 01:44:02AM +0900, GIBEOM LEE (이기범) wrote:
+>  - 16 of the 33 checks of the model fail before and pass after. The 9 that
+>    still fail are about the VEMC voltage callbacks and the overcurrent
+>    handling, for which I have fixes that I would like to test first.
 
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- tools/testing/kunit/kunit.py         | 4 ++--
- tools/testing/kunit/kunit_junit.py   | 3 ++-
- tools/testing/kunit/kunit_kernel.py  | 7 ++++---
- tools/testing/kunit/kunit_printer.py | 9 ++++++++-
- 4 files changed, 16 insertions(+), 7 deletions(-)
+I happened to have a fix for the VEMC voltage callbacks as well, and I
+just posted it on top of my regmap patch:
+https://lore.kernel.org/all/20261102-rgp-67-mt6363-regulator-fixes-v1-2-420789a3113e@baylibre.com/
 
-diff --git a/tools/testing/kunit/kunit.py b/tools/testing/kunit/kunit.py
-index 971e70b0fb1a..0132687cdd43 100755
---- a/tools/testing/kunit/kunit.py
-+++ b/tools/testing/kunit/kunit.py
-@@ -272,7 +272,7 @@ def parse_tests(request: KunitParseRequest, metadata: kunit_json.Metadata, input
- 		elif request.raw_output == 'kunit':
- 			output = kunit_parser.extract_tap_lines(output)
- 		for line in output:
--			print(line.rstrip())
-+			stdout.print(line.rstrip())
- 		parse_time = time.time() - parse_start
- 		return KunitResult(KunitStatus.SUCCESS, parse_time), fake_test
- 
-@@ -302,7 +302,7 @@ def _write_test_results(request: KunitParseRequest, metadata: kunit_json.Metadat
- 					test=test,
- 					metadata=metadata)
- 		if request.json == 'stdout':
--			print(json_str)
-+			stdout.print(json_str)
- 		else:
- 			with open(request.json, 'w') as f:
- 				f.write(json_str)
-diff --git a/tools/testing/kunit/kunit_junit.py b/tools/testing/kunit/kunit_junit.py
-index 3622070358e7..a15c6061003f 100644
---- a/tools/testing/kunit/kunit_junit.py
-+++ b/tools/testing/kunit/kunit_junit.py
-@@ -6,6 +6,7 @@
- 
- from xml.sax.saxutils import quoteattr, XMLGenerator
- import xml.etree.ElementTree as ET
-+import kunit_printer
- from kunit_parser import Test, TestStatus
- from typing import Optional
- 
-@@ -51,7 +52,7 @@ def get_junit_result(test: Test) -> str:
- def print_junit_result(test: Test) -> None:
- 	root_element = get_test_suite(test, None)
- 	ET.indent(root_element)
--	ET.dump(root_element)
-+	kunit_printer.stdout.print(ET.tostring(root_element, encoding='unicode'))
- 
- # Write an entire XML file for the test structure starting at test
- def write_junit_result(test: Test, filename: str) -> None:
-diff --git a/tools/testing/kunit/kunit_kernel.py b/tools/testing/kunit/kunit_kernel.py
-index 1d3226f5a136..508bd62eaa40 100644
---- a/tools/testing/kunit/kunit_kernel.py
-+++ b/tools/testing/kunit/kunit_kernel.py
-@@ -21,6 +21,7 @@ from typing import Iterator, List, Optional, Tuple, Any
- from types import FrameType
- 
- import kunit_config
-+import kunit_printer
- import qemu_config
- 
- KCONFIG_PATH = '.config'
-@@ -132,7 +133,7 @@ class LinuxSourceTreeOperationsQemu(LinuxSourceTreeOperations):
- 				'-accel', 'tcg',
- 				'-serial', self._serial] + self._extra_qemu_params
- 		# Note: shlex.join() does what we want, but requires python 3.8+.
--		print('Running tests with:\n$', ' '.join(shlex.quote(arg) for arg in qemu_command))
-+		kunit_printer.stdout.print('Running tests with:\n$ ' + ' '.join(shlex.quote(arg) for arg in qemu_command))
- 		return subprocess.Popen(qemu_command,
- 					stdin=subprocess.PIPE,
- 					stdout=subprocess.PIPE,
-@@ -154,7 +155,7 @@ class LinuxSourceTreeOperationsUml(LinuxSourceTreeOperations):
- 		"""Runs the Linux UML binary. Must be named 'linux'."""
- 		linux_bin = os.path.join(build_dir, 'linux')
- 		params.extend(['mem=1G', 'console=tty', 'kunit_shutdown=halt'])
--		print('Running tests with:\n$', linux_bin, ' '.join(shlex.quote(arg) for arg in params))
-+		kunit_printer.stdout.print('Running tests with:\n$ ' + linux_bin + ' ' + ' '.join(shlex.quote(arg) for arg in params))
- 		return subprocess.Popen([linux_bin] + params,
- 					   stdin=subprocess.PIPE,
- 					   stdout=subprocess.PIPE,
-@@ -402,7 +403,7 @@ class LinuxSourceTree:
- 			try:
- 				process.wait(timeout=timeout)
- 			except Exception as e:
--				print(e)
-+				kunit_printer.stdout.print(str(e))
- 				process.terminate()
- 				process.wait()
- 		waiter = threading.Thread(target=_wait_proc)
-diff --git a/tools/testing/kunit/kunit_printer.py b/tools/testing/kunit/kunit_printer.py
-index ca119f61fe79..440aa7667ece 100644
---- a/tools/testing/kunit/kunit_printer.py
-+++ b/tools/testing/kunit/kunit_printer.py
-@@ -8,10 +8,16 @@
- 
- import datetime
- import sys
-+import threading
- import typing
- 
- _RESET = '\033[0;0m'
- 
-+# Python's text streams aren't thread safe: concurrent writes to
-+# sys.stdout from several threads can lose output or write garbage. All
-+# output from the tool should go through this lock.
-+print_lock = threading.Lock()
-+
- class Printer:
- 	"""Wraps a file object, providing utilities for coloring output, etc."""
- 
-@@ -25,7 +31,8 @@ class Printer:
- 
- 	def print(self, message: str) -> None:
- 		if self._print:
--			print(message, file=self._output)
-+			with print_lock:
-+				print(message, file=self._output)
- 
- 	def print_with_timestamp(self, message: str) -> None:
- 		ts = datetime.datetime.now().strftime('%H:%M:%S')
-
--- 
-2.47.3
-
+It fixes the range lookup of the getter and selects the trap 0 or trap 1
+registers at probe. Could you check it against the VEMC failures of your
+model? If it covers them, it may save you some work on your own fix. I
+have nothing for the overcurrent handling, so that part is all yours.
