@@ -1,111 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793647885;
-	b=oAGvVQG3K5L7CcMfra5i2AS/1JoexxWaLuUIoOmi2q+GFtcx8kM9nv/7nU3YEVtz/27V
-	 MLgUrQsr79Xfw3G07G2iLyRb/gVbvK/LF49+xdTte0agA39OxHGEuWYSlCKbIjCqdL5KC
-	 FNfjZeo9AduUplGJJQfpfeBExbOfrB7jw1DTJep8COybOIrxNlt3AHwXUVEaKBGEhQaub
-	 ak9g5ETaJJheuURc5Ri6JdB90NRil0VWFvAZwSbK0PV7ac035WjHPDUIlxV8JINMN9ZPg
-	 q3o0XlCF19i8Tf1R9At6ee3CypXRBbDTvYnc/1m/xhHNpM7f2aQovIaCOpeaNHSo5+g==
+	t=1793647920;
+	b=DjpwVmViMtqri6XlPC4ESwDfZBHsl7UVOTKE4pfdjKlG2e4SRVGv9EFUiyQBqvOGnPnV
+	 0xHDB21dEWY5qaBtHGbRQt0hPM7ZuVjBNiwSB8vDDGuUL0T46J0D7uS9hKen48cZRr4vt
+	 +8pm9OEspiyiGZ7gNpNLd/OsiftxkdG7IIcVdl77eB/O1T6GOVpdMh2VKpvCSgl5wYs8+
+	 coNKqny6uvMVwuvGIiMPwAAnUwAM51oIO16itC95eIhw0OfEmuuzArJRogx/EEBeSU2wZ
+	 HoxX/Xqr6cLGrTec8L+nKk2xn0nzK+PUoT4YKQeXHN93/q6130ldD0kXtWGUF74hivA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793647885;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OHQyuYjFQW3W/4xcSdN8/cZTkkVuQVsRMgUqWbu+rsk=;
-	b=1sxYjLsWlSH7DaHz6nFypeFyLQujkarkjMlqzSvRtJhoRUA9sCTxBHuGxnM839baZUdW
-	 JwR9/+pqfKPFo7ZMshqIRlgtH8w3e+kb1FcmZD5zSJBwber5xsDlWv09a93oK6+s5VFoU
-	 FbAItXcJYBH5xv5sVyh5MmSNhOZk2kBdJUYpQzPAcRUzfoRcsNnCMaVm07X3XNUS0mdqx
-	 kvBTKbf5dSYPdWS8u2xRT7T8LH3JpGSECVBvBRvCdnalhlfCB62DoSP7V2rQQd2OAh4/K
-	 S8WTj03CshJK7dq3h/o5VxPW99Q+K2TTCp6LQg0xknHXIPMwogkmLJoLUkS+j5mQVvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793647920;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=BLgevGX1q+auGESh9n3YDJNIkeEojVfypPgZIJKlG3k=;
+	b=RlEcH2/sjUq62SAX3Og414ZueZ1hMZg2KNP9r7kZ7ueY60Ak95LPx7kTHw++g9y6+Ryo
+	 1OKU/4rpRxSVKKHu2JJGNrowH1jNtsBbWBEG7ZTF+FWfkB11KuC4faRAjgKA5qNKU6xCZ
+	 RLBC4pW+VFLjm5b6I3R1z80YwcsU0Zd+IcnTzdkIZnaQkdPrCeAEzhSweLtItIbgr+ESS
+	 z1/S1Lgfc9DFQaYLLOll4rnX/kOY67QuFbgnjvU3ZOd5NrJ7xSRvDjQUL/zt9ZfTlwH7x
+	 pJgruRewoW8IXb6e79yMCQttP5XjB55NQh3z6l4Jzj7n3mNNSikxFko6G3gWRmYaEIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l73LkrQv;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=k+iERTue;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3279C606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:31:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3279C606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B4B606A326;
+	Mon,  2 Nov 2026 19:31:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62B4B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l73LkrQv
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so22110825e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:31:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793647883; x=1794252683; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OHQyuYjFQW3W/4xcSdN8/cZTkkVuQVsRMgUqWbu+rsk=;
-        b=l73LkrQvuZciKzRpKr1DfT+CyrRl3sJ4ez5tHIOziCKKoB/NIWjlFJVqceOemEeFiP
-         9SZFYkIhtEQg6AQWUQiCd4HhIzPr6VFPJ+5Vbr01oA7qHVtw0gzlRhch5jJkngznqgv8
-         Innt0EQ5E4l41nWAGtL3GUUDl0QU0hdckMOYKnucV/07iQswTt6jNpTLvLjxUQxSXrbh
-         zYXtDsW1Q2yBmCnUClnpBVLX9t4yeOpGJzwi2YkOZPxnRlK+4t/ju8kpdbOKLVbooiul
-         yi8Ys8kz8IYBi/UvG7xllQbO+R2I006wPSIzT6PGGxF8IEz4JS8+g+mktXlAP4+K8h3v
-         ldFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793647883; x=1794252683;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OHQyuYjFQW3W/4xcSdN8/cZTkkVuQVsRMgUqWbu+rsk=;
-        b=whYG19HN64PLM9XgISXg1dozX/FGffugmRlPePLmvJc8tHWWRJzy7aLvN5YYyFI8CZ
-         OpzoV8JB0fT0dnsOktaZsNOze31HNJMoqi09pKTOKMXiymJtwxVpUf5ST/9vmJNmD8Cj
-         v5sKZT1ndh5v0gkl2fSs6hyRMYU9RRaSDIDwiPDj58HZsnkQlnCKsKUNPCLpQNqEZrAp
-         +dSfWT3DcvymIRZN8ln6cMG046VIctcO49gZGKs2DBnhGlovW+d8vBGpEpwvXfow7J5P
-         LhTiZ5v2IGJO1UqlIC83HflbocMSdJ9e4Mb/LSr0U4wsZUbtJrKGzHP7xbaYaZVUYw4s
-         OOSg==
-X-Forwarded-Encrypted: i=1; AKwUvByFO9aPZZT5FMmNI6x3c0ouc+w+YMXVF4VBtYcl3+R20yQ/nd4fioJgkcTU/5WVYuiVIpOmn61qyq80Mpg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSVLET8jjp9saJEnW2rLz20nQvcjXPVFEqFtbrHelLXX6wAcAZ
-	DxEwRQTM0uyPf3pNJ7BJp6C2Q3HiuRxWGmB4FgpYEyszPocLn5CXEkOI
-X-Gm-Gg: AYBFou1KUpEpVYLxcxL6lvsx13xwk2UH1EsmuetKANznYLkUpi9N1TwX7OzP+ez41G1
-	HHiPNgAL0RXnj2YcLccs6HTtvLsI/mHN/JwDvqcBSGtW1DV0aqVanK+cBATTq2qNL8CxeXH+Jrg
-	gF3OBmCJ1d0BytEhsC5EVxriKxQ7eqa0HXAOcnAEkCdVhuXlwiAbL12eNnz0JjH9e7HNtHqXaSR
-	xlkltZNH+9mynqAQ3NIsgWou5SdZ7UxsyeIRavItMe3Wx5o1USPiZoNgM6R1jUX+EiqghWmxhUj
-	VFKFKLOU4919a8AFcRzf5SQeZd6eod2V0cBF3KQm0K3+0i/r4YleVYaBOWV3cZUZw0NaS7XxNyJ
-	afudRdr4GgwiSPJOk77JYcpP44QpJyjtnvUh2LALZEW8PaDlCIl1fOrFINHfS6rClhR0vLV8VG+
-	i36WoXdodjkNUSxnNSfxeu09xxiz0H7/Bc9nbsHdWrE200Uzkw7d91By/6cKX41DyVru9RL5clk
-	Nm6YWTD49kW4e9iIdomiQP3KLMgAmHftCCI56Wc3sIwAHSvOJrB0/WJP7eW/Z3cyNVcA/0wOFPA
-	SoxIxoQKvybUoGTaygVH4xc1NnDrDDS7Xbusm8CC0xKKepK1X3Cvv4BdVNdhXzcks/xLykV3EAj
-	Y3yDcrEVsHA==
-X-Received: by 2002:a05:600c:e555:10b0:4b2:61e5:b2f4 with SMTP id 5b1f17b1804b1-4b261e5b38bmr21493425e9.11.1793647883361;
-        Mon, 02 Nov 2026 11:31:23 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a5372d8bsm9940525e9.0.2026.11.02.11.31.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 11:31:22 -0800 (PST)
-Date: Mon, 2 Nov 2026 19:31:20 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Jonathan Corbet
- <corbet@lwn.net>, "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Joe
- Perches <joe@perches.com>, Shuah Khan <skhan@linuxfoundation.org>, Randy
- Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- users@kernel.org, Federico Vaga <federico.vaga@vaga.pv.it>, Akira Yokosawa
- <akiyks@gmail.com>, Carlos Bilbao <carlos.bilbao@kernel.org>, Avadhut Naik
- <avadhut.naik@amd.com>, Alex Shi <alexs@kernel.org>, Yanteng Si
- <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, Chen-Yu Yeh
- <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org, Petr Pavlu
- <petr.pavlu@suse.com>
-Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
-Message-ID: <20261102193120.4c88f066@pumpkin>
-In-Reply-To: <20261102-affable-undetectable-beluga-eded3e@meerkat>
-References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
-	<20261102093206.50b6c9ad@pumpkin>
-	<20261102-smiling-binturong-of-gaiety-f64c1f@meerkat>
-	<CAJZ5v0iOJ1r1OvYhV_KJSnHOJL+oVUrbOXizLk0kbGNiep7a6w@mail.gmail.com>
-	<87a4nrfgjm.fsf@trenco.lwn.net>
-	<20261102150535.6c5689f6@pumpkin>
-	<CAMuHMdXe1xxk2ZFJ=yr=7z1DUs3oRNfzHw1Ls1hftcGnmoNwrA@mail.gmail.com>
-	<20261102-affable-undetectable-beluga-eded3e@meerkat>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=k+iERTue
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id DEE7140E0299;
+	Mon,  2 Nov 2026 19:31:56 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id NnH_WaKQhgPd; Mon,  2 Nov 2026 19:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793647913; bh=BLgevGX1q+auGESh9n3YDJNIkeEojVfypPgZIJKlG3k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=k+iERTuezNChosvpE6Tro6AzfEppIDTaK9I7Bt0WkKZbzbFb2YIvHaTVoIgMOO+9w
+	 QM1pMwaKyYhiyWux4bc0GhyMHH/L8spM3SX3ROHELtPxuhK/b2A33V+fdhiBN5iLEp
+	 nNdpwkDk4INveJsG9lYLAz6kkzASl9yjp/TCwN6ny60FBRk++q3212SYg4VLn09C0o
+	 I4U5lKQjT9tUvgdrXKaalm1LtP6r+3rdMqccWwicytNaYTc3XDd9R/cxFwDaxXMUWj
+	 h5KkWk8UeWcEYI+vKfTG9FAqnYNx+TAhP+F+f9wjNL6997tynHAltVRXzAxnKMA6rP
+	 /XaRXx418trKRvodmziy7ImUc3ZQ8jg9fO5afgXegUZzGYk2S+KxpZZldoA73sSjrc
+	 tfXCnlN4A5RgXW1gtZsRD9OxvLOJmb7ivFHZuwvr1itR84KieEEtBMjKmaKnj+n2fM
+	 vHNMRC7M5h/jNdNADSGtw1HeX52uVXOzd/3jikQ0jE/nAwkA4dxVPXBzAJvImUXZY6
+	 fr51FZ3/Z0GWgkNgOZribEoNjgfiONNTAlcbwAB+59hTHmc6ZKqpFZrs6/h9SpfkSo
+	 3AwOCNIBgjsQCfgJSSNPY4v7wpiuPk7rDwX2Nkm7tXSYKxVoDNYXF082r8sxQUNATj
+	 8q6gjyfffkLU4Z+FsMivwCMY=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D634F40E016C;
+	Mon,  2 Nov 2026 19:31:19 +0000 (UTC)
+Date: Mon, 2 Nov 2026 11:31:16 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: "Kalra, Ashish" <ashish.kalra@amd.com>
+Cc: Tom Lendacky <thomas.lendacky@amd.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>, tglx@kernel.org,
+	mingo@redhat.com, dave.hansen@linux.intel.com, x86@kernel.org,
+	hpa@zytor.com, seanjc@google.com, peterz@infradead.org,
+	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
+	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
+	Tycho.Andersen@amd.com, Nathan.Fontenot@amd.com,
+	ackerleytng@google.com, jackyli@google.com, pgonda@google.com,
+	rientjes@google.com, jacobhxu@google.com, xin@zytor.com,
+	pawan.kumar.gupta@linux.intel.com, babu.moger@amd.com,
+	dyoung@redhat.com, nikunj@amd.com, darwi@linutronix.de,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	kvm@vger.kernel.org, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v4 1/2] x86/sev: Clear RMPOPT when segmented RMP is
+ disabled by firmware
+Message-ID: <20261102193116.GDaujlBJc3XjG3xzLj@fat_crate.local>
+References: <cover.1793216372.git.ashish.kalra@amd.com>
+ <56da047d63b22f03a7e709fc172a5543da894d67.1793216372.git.ashish.kalra@amd.com>
+ <20261102052841.GBaugfibOXxGorZKgq@fat_crate.local>
+ <69ed0d93-f96d-4baa-a587-fade5a0a3262@amd.com>
+ <414b2fc2-a55a-4b2d-ac70-4def101c4aee@amd.com>
+ <20261102144805.GCauiipTaEXcg6Lr59@fat_crate.local>
+ <d81f6807-26ac-49b9-a205-c89c394ec1d4@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,49 +97,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <d81f6807-26ac-49b9-a205-c89c394ec1d4@amd.com>
 
-On Mon, 2 Nov 2026 12:56:28 -0500
-Konstantin Ryabitsev <konstantin@linuxfoundation.org> wrote:
-
-> On Mon, Nov 02, 2026 at 05:24:51PM +0100, Geert Uytterhoeven wrote:
-> > > I certainly scan it.
-> > > It is also useful to have an archived local copy that can be searched.  
-> > 
-> > Indeed. Sorry to say that, but Gmail web interface search is still
-> > much more effective than lore web interface search.  
+On Mon, Nov 02, 2026 at 09:50:32AM -0600, Kalra, Ashish wrote:
+> The original patch returns false if segmented RMP is enabled but
+> probe_segmented_rmptable_info() fails, your version falls through to
+> probe_contiguous_rmptable_info() instead. 
 > 
-> Folks, I don't want this to turn into another thread of "me too" responses.
-> 
-> Yes, I know that some people still use it for a number of legitimate reasons
-> -- but these are few-and-far-between exceptions. I need this change because
-> the current status quo is NOT TENABLE. *Everyone's* quality of life is
-> affected because Gmail's throttling results in (looks) ~350,000 mails in the
-> queue, most of them waiting for Google to graciously allow us to talk to them.
+> I believe it makes sense to keep the return false there: on a
+> segmented RMP enabled platform the RMP is segmented, not contiguous, so the
+> contiguous probe shouldn't run.
 
-They are actually waiting for gmail to reject them so often they get deleted.
-If you try subscribing a gmail address to lkml it really doesn't work very well.
-Maybe you get 70% of the emails (hard to say) but they all arrive out of order
-and sometimes days late - makes a real mess of patch sets.
+That simplifies the code even more:
 
-More interesting would be not sending any patch emails (and replies to) to
-gmail addresses.
-That isn't as harsh as unsubscribing gmail addresses and still leaves the
-gmail addresses getting any 'admin' messages.
+bool snp_probe_rmptable_info(void)
+{
+        if (!cpu_feature_enabled(X86_FEATURE_SEGMENTED_RMP))
+                goto out;
 
-> 
-> So, we either unsubscribe all gmail addresses from LKML and prevent them from
-> resubscribing, or we do something less drastic and revert it to how it was
-> supposed to work in the first place -- only patches without a dedicated list
-> end up on LKML.
+        rdmsrq(MSR_AMD64_RMP_CFG, rmp_cfg);
+        if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED)
+                return probe_segmented_rmptable_info();
 
-Then those of us who want to see most emails (or use local filters) will have
-to subscribe to all the lists we can think of, and then handle the fact that
-we receive multiple copies of emails that get sent to multiple lists.
+out:
+        setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+        return probe_contiguous_rmptable_info();
+}
 
-David
+Along with the below, which should have happened too:
 
-> 
-> -K
+1. RMPOPT depends on SEV_SNP, ofc. This would make sure RMPOPT is cleared
+   everytime SNP is cleared, as it should be.
 
+2. snp_enable_rmpopt() needs to check SNP first, ofc, and then RMPOPT.
+
+diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
+index 99801e844b30..acbcec394ef1 100644
+--- a/arch/x86/kernel/cpu/cpuid-deps.c
++++ b/arch/x86/kernel/cpu/cpuid-deps.c
+@@ -93,6 +93,7 @@ static const struct cpuid_dep cpuid_deps[] = {
+ 	{ X86_FEATURE_SPEC_CTRL_SSBD,		X86_FEATURE_SPEC_CTRL },
+ 	{ X86_FEATURE_LASS,			X86_FEATURE_SMAP      },
+ 	{ X86_FEATURE_INVLPGB,			X86_FEATURE_PCID      },
++	{ X86_FEATURE_RMPOPT,			X86_FEATURE_SEV_SNP   },
+ 	{}
+ };
+ 
+diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+index ff6d17795054..a47b812b2ea3 100644
+--- a/arch/x86/virt/svm/sev.c
++++ b/arch/x86/virt/svm/sev.c
+@@ -669,10 +669,10 @@ void snp_enable_rmpopt(void)
+ 	u64 base;
+ 	int cpu;
+ 
+-	if (!cpu_feature_enabled(X86_FEATURE_RMPOPT))
++	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
+ 		return;
+ 
+-	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
++	if (!cpu_feature_enabled(X86_FEATURE_RMPOPT))
+ 		return;
+ 
+ 	if (!rmpopt_soft_init)
+
+---
+
+here's the full diff. Have a look pls and let me know what else I am missing:
+
+---
+
+diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
+index 99801e844b30..acbcec394ef1 100644
+--- a/arch/x86/kernel/cpu/cpuid-deps.c
++++ b/arch/x86/kernel/cpu/cpuid-deps.c
+@@ -93,6 +93,7 @@ static const struct cpuid_dep cpuid_deps[] = {
+ 	{ X86_FEATURE_SPEC_CTRL_SSBD,		X86_FEATURE_SPEC_CTRL },
+ 	{ X86_FEATURE_LASS,			X86_FEATURE_SMAP      },
+ 	{ X86_FEATURE_INVLPGB,			X86_FEATURE_PCID      },
++	{ X86_FEATURE_RMPOPT,			X86_FEATURE_SEV_SNP   },
+ 	{}
+ };
+ 
+diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+index bd70c4d0b774..a47b812b2ea3 100644
+--- a/arch/x86/virt/svm/sev.c
++++ b/arch/x86/virt/svm/sev.c
+@@ -669,10 +669,10 @@ void snp_enable_rmpopt(void)
+ 	u64 base;
+ 	int cpu;
+ 
+-	if (!cpu_feature_enabled(X86_FEATURE_RMPOPT))
++	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
+ 		return;
+ 
+-	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
++	if (!cpu_feature_enabled(X86_FEATURE_RMPOPT))
+ 		return;
+ 
+ 	if (!rmpopt_soft_init)
+@@ -817,20 +817,15 @@ static bool probe_segmented_rmptable_info(void)
+ 
+ bool snp_probe_rmptable_info(void)
+ {
+-	if (cpu_feature_enabled(X86_FEATURE_SEGMENTED_RMP)) {
+-		rdmsrq(MSR_AMD64_RMP_CFG, rmp_cfg);
+-
+-		if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED) {
+-			if (probe_segmented_rmptable_info())
+-				return true;
++	if (!cpu_feature_enabled(X86_FEATURE_SEGMENTED_RMP))
++		goto out;
+ 
+-			setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+-			return false;
+-		}
+-	} else {
+-		setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+-	}
++	rdmsrq(MSR_AMD64_RMP_CFG, rmp_cfg);
++	if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED)
++		return probe_segmented_rmptable_info();
+ 
++out:
++	setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
+ 	return probe_contiguous_rmptable_info();
+ }
+
+---
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
