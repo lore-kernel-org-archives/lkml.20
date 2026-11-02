@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612894;
-	b=FULZDp6A3kdM3AWirJ1njFGLz450llJG5yg8fm8GZ8+d2vEBIOS5ycAttnZvoowNcubM
-	 vap5TLT5MpvYMPYzFFLz7mCwELykDzOujbISJ9K6h/P9piL5t+TDM4HPlq2eOXszMjacF
-	 K5LMPTjDg/ghMoSK9LdY9TBbnxlU2YNsm7ElES92CGl/jeYgcn7T9lSDwgbB5GUyIevu6
-	 E7ilj06qGyFp/lxX08DQlPRPwNgv7O4izE0n0sUjYqQ7DiLIlVDjk9RBewC+gWmjRO678
-	 If7w3CAPzuwlimEAmR5p4UK+tlBiXmNw1f1juRjZRb/jihsPRN/AEgvqRDGtL0ytmZA==
+	t=1793612915;
+	b=wF7Rbrc8Xu7oUtIAmVdl/kePEE6irBkCZ23ujOBOfAj+n5mA2m9+o4PkXJqvG6ZsUprH
+	 Rr5lSy4L2E3q8iA+N0ro6hezFM7NwoTQZuSlUzG1SZ1wdF4IfnxJ7Ny+gBGZvNWn3OyCG
+	 7QNrVQ5BecK6V5L5RF69GS+hao+jLf++ojZ480q7rAVnMQQB7qG//0Qr7b3cZ++s6jSYN
+	 /+vd3fH1LBE//rR0GDjqAAJEOrv1b78TpC/OYLVBy3gqa62amroxT+Xmkifsj0Y66rQli
+	 0jBTL2sm1RIUXsR2AOW28HSy4umf3igE1XDoGP2w+VFIChHKSP3TxE5TdsDI6U0Mmxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612894;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=y99IFQU1Z/zGZnStXTf6TTTZ1kfP+dHEP9lO3wSWaEw=;
-	b=VnmcJTYHINdbTMeNO6idw8jLgPSgvucs45fMFiuD5hfuAM8g+E8VY7db0d0M9Wyv4F+N
-	 v1ZPSlWigRKLDi7cK6TYvtVEoOKi6/Vvj4AkZ2VGMoRr8Av/vbkVV6UeAb9PHjwBONxxg
-	 sXSMHAXSuSDR2jUOqCJyoahhMUH0+TQgOkjGWb4x5xnNo6m+QcA9rySJwsbEmkpiLvrUu
-	 KmgXdZeHbsjUNd3UAVPiIGtrbJoYWUOovY9GG8MA4jFC51aKqzHCXeXz41t2WmBzo/nQZ
-	 akKwIvQQuD1oyN4AUYNfgLQi0Bc75Rjbds2I+jjOlslLOb90bcCGX/1YVgwnCxrnIrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612915;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=XzXbFa9dhaHcA5InRfsQcpgxHEo38p/rPjsetoAUqnI=;
+	b=2IuZSEGJAi9b/QRg22G2c3scCcBvChuQpqjYVx/u/lzBmEJB3HGj9ct+201rodveWnbo
+	 gY1pPtgQ3c2BXQmmgzdAGmLj5i5kIEQ8yiy34q0qDTc3LLFk+eiQu7RlPGp23CDtyZOXx
+	 WJviJiTEmrr5+E4cAs3WFW545RGQZTV0uQtNzEy8XmePJr+6iT/Ta5Xf4fJ23mdWx+YDA
+	 QK2jT/BxCbq1So4Lp31kcSvgNdg55kFCX0xbSYe2aWJqA4EVyVC1tSQPts9LEavOgClOq
+	 tfeBCHROjcZo/TyLUZNWVVKcg787SfZNf4u7Ev4pVLPej90WcnlqpO8zXsrPv9wouwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CXIH8Kzk;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCE2606A327;
-	Mon,  2 Nov 2026 09:48:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCCE2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ynon53Hc;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6838C606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6838C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CXIH8Kzk
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AQmo3086616;
-	Mon, 2 Nov 2026 09:48:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=y99IFQU1Z/zGZnStXTf6TTTZ1kfP+dHEP9l
-	O3wSWaEw=; b=CXIH8KzkTO1VRrOHwyBIFcHrrPAixqmzWMcOUITuTuNeyyewWzn
-	VtAed7E5UyxIejohHkZ7T/qYY/BeR4r5hPa/evH/9jUXG0I1e7jdFHVcn7XfaoE3
-	jIU9zCeJyxUtx985ybJVZg+bINo/YwU2g+ztALIuuR6E5DM+RYv22zPIciCIJOp7
-	OOWTRhUHTe1YCSuv0nbSWCYfXkIn/45g9k8ZZgNziRtqA0Xd3GEdDZJUK5Il4Gvy
-	/oHTI74PYfMBPZMOwVRMk7MY9PpcNphF0fgnDoGoGVfAjk6593KxjXYGWLN9vwLc
-	8+1zb0v6t6Ra1rgko2mXbPLdejPzcHqATCw==
-Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka616eg-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 09:48:11 +0000 (GMT)
-Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29m8gx3436119;
-	Mon, 2 Nov 2026 09:48:08 GMT
-Received: from shuaz-gv.ap.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 6A29m8I43436112
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 09:48:08 +0000 (GMT)
-Received: by shuaz-gv.ap.qualcomm.com (Postfix, from userid 4467449)
-	id 8A282671; Mon,  2 Nov 2026 17:48:07 +0800 (CST)
-From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        chejiang@qti.qualcomm.com, quic_chezhou@quicinc.com,
-        wei.deng@oss.qualcomm.com, jinwang.li@oss.qualcomm.com,
-        mengshi.wu@oss.qualcomm.com, stable@vger.kernel.org,
-        Shuai Zhang <shuai.zhang@oss.qualcomm.com>,
-        Cheng Jiang <cheng.jiang@oss.qualcomm.com>
-Subject: [PATCH v1] power: sequencing: qcom-wcn: increase WCN7850 power-up delay
-Date: Mon,  2 Nov 2026 17:48:00 +0800
-Message-Id: <20261102094800.3225454-1-shuai.zhang@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ynon53Hc
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5E4CA1595;
+	Mon,  2 Nov 2026 01:48:30 -0800 (PST)
+Received: from [10.57.66.79] (unknown [10.57.66.79])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7E03B3F59E;
+	Mon,  2 Nov 2026 01:48:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793612913; bh=egNufJ8Fs17VQdSUqK9Yn8uet05avqZAAkBSvGK+45M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ynon53HcE64fp/Me7zZFgCGztnBBDUBW2GmC+Sf0pi8kPLH8QE/kKP57h0JRrEBB2
+	 1vC78ArVZuvu+b0nB3+ViqwkWzHLr+ImoxH8RD00O18DKfY/qipoYKFE9sbFOfdk/G
+	 cKmlmZZY59kGB9LXU/LSMpUJNexVZvouUd7nWaTs=
+Message-ID: <2458da32-5235-4dfb-a817-7557230b9885@arm.com>
+Date: Mon, 2 Nov 2026 09:48:30 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,79 +53,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: 6iWzyB_znUzkD8RYYlCAUl3ORHK0DJU1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX+D0J6sTAJ9hP
- km9cQ69FH6eGLxsWDKDT90Cg5YSwkXBFmSdTRRNVP5/erdydrQeHFAPSJDfzxoXhTXRJ8aRb2RC
- 5x0vFEgnewKIBdNBVvkaIreuEE4tx4Q=
-X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae85c5b cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=v_2pxYgQTzMkBfL8lxYA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX4o43CnkcceWv
- QqMvCtLaW+kqqk7ZGdJ/UNPnZxsmH/h2nDSuMfd3351YGW9rK9uugOrYxQMcwfmfuJnuF88LUsd
- 8YNYXC2GE779n4yiDBxMFCVvY1UfJ3uxTK5sjElglQUtN4OlwS6Ds9QhXKMWXJXdYLfRkl8voED
- 5GhsqNwE/OsNrEsm0MqQUhvf/k6HQ2gAXToW0pLYC6HxGwzyrEloIIzHXvAjqxFlPHntpCgd2X4
- zhpXMyeEt1exnoM0LkBEXhjCZNESws1+DN8i5lKPzHSMkGCmDuU7lI0jnVSx2lcESyLz4yWaKJd
- 5sVYYG9Bw8TMTi+NQ7m4nNRE+68y0ppc4kyy2COZPmbpKo/LQuritxWZXREofiSkXz1cyqC7Bvw
- Uo3gRUNV0sEhEOijA0NbawlxXlR0O5mkM67x3eh+Jk14/312fLhVvdicJPe0tw6gKd5WbxTI1Ln
- JMQStDfzFjkbRWzzeOQ==
-X-Proofpoint-GUID: 6iWzyB_znUzkD8RYYlCAUl3ORHK0DJU1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 clxscore=1011 bulkscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020038
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] KVM: arm64: Clear the VM's feature bitmap when
+ kvm_setup_vcpu() fails
+Content-Language: en-GB
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
+ Zenghui Yu <yuzenghui@huawei.com>, Will Deacon <will@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Jack Thomson <jackabt@amazon.com>,
+ Congkai Tan <congkai@amazon.com>, kvmarm@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261102075843.2556018-1-fuad.tabba@linux.dev>
+ <20261102075843.2556018-2-fuad.tabba@linux.dev>
+ <07d0afa8-1b9a-4991-a419-9840cf629d57@arm.com>
+ <CA+EHjTwNSxBa8-_0Q6zmgqW0RGyVhpUU3xnFg3-sqqmsdL4s8A@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTwNSxBa8-_0Q6zmgqW0RGyVhpUU3xnFg3-sqqmsdL4s8A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When the WCN7850 is powered up from the Bluetooth side first, i.e.
-BT_EN is asserted while WLAN_EN is still low, the chip starts from a
-cold state and is not ready to accept the first HCI command 50 ms after
-BT_EN goes high. The first command (0xfc00, read QCA version) is lost,
-hci_qca does not resend it and fails after the 2 s command timeout:
+On 02/11/2026 09:42, Fuad Tabba wrote:
+> Hi Suzuki,
+> 
+> On Mon, 02 Nov 2026 09:24:15 +0000, Suzuki K Poulose
+> <suzuki.poulose@arm.com> wrote:
+> [...]
+>>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> [...]
+>>> @@ -1856,8 +1856,13 @@ static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
+>>>           bitmap_copy(kvm->arch.vcpu_features, &features, KVM_VCPU_MAX_FEATURES);
+>>>
+>>>           ret = kvm_setup_vcpu(vcpu);
+>>> -        if (ret)
+>>> +        if (ret) {
+>>> +                /* Clear the bitmap if setup fails on the first vCPU to be initialized. */
+>>> +                if (!test_bit(KVM_ARCH_FLAG_VCPU_FEATURES_CONFIGURED, &kvm->arch.flags))
+>>
+>> Is this check necessary ? We go into kvm_setup_vcpu() only if the bit is
+>> cleared and we do this under the config_lock mutex. The flag is only set
+>> after we have finished the kvm_setup_vcpu() successfully, later down.
+> 
+> It is. An INIT on a second vCPU with the same features also calls
+> kvm_setup_vcpu(), with the flag already set, and
+> kvm_vcpu_init_nested() can return -ENOMEM there.
 
-  Bluetooth: hci0: Reading QCA version information failed (-110)
 
-When WLAN is powered first, 50 ms is sufficient, so the failure only
-shows up in the BT-first ordering. Measured on the affected board by
-which enable pin rose first:
+Sorry, my bad. I missed the second condition after the flag check
+in.
 
-  pwup_delay_ms   BT-first boots   with -110
-  50              9                9
-  75              23               0
-  100             21               0
-  300             20               0
+Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 
-Raise the power-up delay of WCN7850 to 100 ms. The delay is shared by
-the Bluetooth and WLAN targets, so WLAN power-up also waits 50 ms
-longer.
 
-Fixes: 2f1630f437df ("power: pwrseq: add a driver for the PMU module on the QCom WCN chipsets")
-Signed-off-by: Cheng Jiang <cheng.jiang@oss.qualcomm.com>
-Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
----
- drivers/power/sequencing/pwrseq-qcom-wcn.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/power/sequencing/pwrseq-qcom-wcn.c b/drivers/power/sequencing/pwrseq-qcom-wcn.c
-index 636dd7e63..05ee1785e 100644
---- a/drivers/power/sequencing/pwrseq-qcom-wcn.c
-+++ b/drivers/power/sequencing/pwrseq-qcom-wcn.c
-@@ -427,7 +427,7 @@ static const char *const pwrseq_wcn7850_vregs[] = {
- static const struct pwrseq_qcom_wcn_pdata pwrseq_wcn7850_of_data = {
- 	.vregs = pwrseq_wcn7850_vregs,
- 	.num_vregs = ARRAY_SIZE(pwrseq_wcn7850_vregs),
--	.pwup_delay_ms = 50,
-+	.pwup_delay_ms = 100,
- 	.targets = pwrseq_qcom_wcn_targets,
- };
- 
--- 
-2.34.1
+/me Where's coffee!
+
+> 
+> Thanks,
+> /fuad
 
