@@ -1,94 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793605133;
-	b=nGvkiKGTWXof1jMqnwB2MYKXV7HfLWkmj8g0XJcM/fKBmj97aXf8koDx2Ps2c/8B5c5Q
-	 Hv6DTZ4KDZKqWH/1YHvg2aQUSYAFEGkJPDN8VLsRgLJe15cJDsJ0/C87BahisDjj6DMiQ
-	 1OFVJWC5i4Z183pY3lclzmj0muqqSuIkhpYAA0SYGC6yf5RFfcqmIZOA9pyRkF5mkpQ34
-	 0GZoAtYcOfebHttlIlStiNpkvibc3QbQvB3oLkGQ0a1EAlgi2AfHoX3Gl0XFqndq4Ckee
-	 NzxRgN0AhGpe0W9pyd525cRVR+DT3GQ2+V5DXq8lBCEbcoWPnl9PJ0WBtIogE6dcnRA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605133;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=f6fwxTHOZBGRaM1Qv4quVRO6VZkQuqnxMy6a+ocbSSc=;
-	b=LuC4HhdPjOFMauGAiwXcNt8FtiUFkBQNU2bnnnlDInsi6j1Q57DrsbOCSUNWWr5O7BM7
-	 jr5Ied4InayIQD1bDtJD2v2Fi/nbV92Jz7ledZR8zUcNJK+ryBxOmPMD10NfJcuL7UBIf
-	 Cqz0WxL1HtvRKBSwEzK7TW8ysZKu+pYBaP3LigbdFnGDii+ElDtUXfMwh1AXbopBfLEK4
-	 0RCKahy7/GRG+VoXAdRuxSEy4QsMQTqUW8NuFXgik+c7FaAV23bT4XJ96RwHYJ90Jsv3p
-	 StrFZUQUNJE5tefPOcUqS1F3z3tj1kF1AiQ6VBe5D0vUND6i1jBvKyGIJetXKXCj2fQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vnR5YRSQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.5
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011005.outbound.protection.outlook.com [52.101.57.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793605148;
+	b=vtSw2Qk0z7eMbv7LrQZXjbWcznrhytcWfNAxtfLFhb79vEhFPkxOCgz3rfU0DEOvQJgG
+	 Lh4O7TImMUVcldKhRf7kqF1J1ANgmSbv7Sb6NFq4WPmpvawSfmyUMD4oYqWIvg8UV/ANB
+	 839t3XoNAVMGfZQ9PrNtJMrRtDjgemGtktYYJ33I2UtRMTuTD70q8OTzE/+N2yfMhaTFF
+	 meuBMgBt+8T6Yc71mGSBqFfL+zZ7FLBTkl6KvhENvnzZXY09Z/mZzUNL194xK4witr5bS
+	 CG4ZcZz34EHBuK8MrrDqSzkPlJwu8xhLwNLDE+/OZCuQt9Z1vBAbllewcXnQ0IsbG2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605148;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=3T+X5BXI5pCgitNNmrYk1gYo30O1e3wb5Q82zRUF+Ps=;
+	b=YqN1p1g42sLVF3oQ+JvM8jPIBoB4AwecM3r1skbYhEcJuUiuAO1GK5Cjd9WirjCq5/W4
+	 iNvNvKumHbq5DCf9/4zCgFEoSTiHawXmqIaEdxuu4OwfE6ZBFUE9eX0JL3tXSniHparPF
+	 OoZNG7KwHApum4I01YwLKJzV70opdTwO/8DiuRKsdN9IinIQLQJTbJItAaYxe6n/9Bdvl
+	 pBy5ModpjAOilxuG/ItgtsX+6TdtfuQJ9/V+j7Orx1p8gEJkRWqQYx0B9a0Z+XLzZpwmb
+	 Vc0CSXpL6bYC0ErkTdooWRDJ484F9M6cYhVlC8ElRLv6jFekf4QFTBowsKt4PxDcKFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ol8fTcnm;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B53606A324;
-	Mon,  2 Nov 2026 07:38:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62B53606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0249E606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:39:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0249E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=vnR5YRSQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s3WVs5c88jOI5dR9be8/hRvjoWRaWIVcNL1DymD6v9OS96oRDmBxjR7V/o/o2Hft9+WDiphyxiZeoRgRP7gh0zrnsCslQZ2Mfmx7+M02o2mwtb+Hp74oCZ1waWrEgGFYY1uxiwFBXk3DGB7FTwa2qEMOh7YPThRYIl2P0EMaVvynGbW/ywFcdyGHB60yAF7WFe0ZxDp/4B0iGz4eTZtzTt3A3znmUuSSzSElUaeaIYcObc4AwFUvV7LhvDSVGAGK9xWt6odqcl5afWyfWPTPucD1S0H5ie616saFL1NMwYdwfG6lOfMIH7iWlKDo+cK7TwOQw/uOBRoYA2oTQnIoJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f6fwxTHOZBGRaM1Qv4quVRO6VZkQuqnxMy6a+ocbSSc=;
- b=dPBtQKGw2GVEtdly/J191htoSfDxicrdqcOPq4zFgLNnxC02D/jnRkBF7Hm3lf2do2vGFthIsknNb6n22QEPM2jEWlVmoM48u5sH2+fBuyW1VmOFVue1ExWELVoF5d9cn8QRSQzurSrOIoylgOXz5TJMkj3M3XtYYyBlE5a/k5tful6MnjCJlRlFUi/mdI7OlZ/5ilyFdBJjdmlBZB3Kr9zXQLERl/zrzZTKHx4rBbvdJV/6gmXTxxQa0SxT/gzKgd5O5RfMktPcx5TXHcKZb7goG/dMdbDe60JI4w+CkhK6M7Tg7qzLD8upLuoE/rZ739NbKCaus2mdjn73z5tiOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f6fwxTHOZBGRaM1Qv4quVRO6VZkQuqnxMy6a+ocbSSc=;
- b=vnR5YRSQUKWYjbxXYHuxVgLIMVvQqiwh+Xcpre9O+jQuYc9DkTYcby/jHN5b4yeS3lLHHRyHeVtEV5XGcbWq7Z03H3USLEuQp3CuueIxIWuFruN4VjzDFVNtnwZtdQHYrrHNcabWsspI+Fi4LnfqF77Jq6bvqbuVPvmw0AzSz3s=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB999319.namprd12.prod.outlook.com
- (2603:10b6:510:40f::24) by DM4PR12MB6351.namprd12.prod.outlook.com
- (2603:10b6:8:a2::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 07:38:46 +0000
-Received: from PH8PR12MB999319.namprd12.prod.outlook.com
- ([fe80::582a:6d15:9b75:5235]) by PH8PR12MB999319.namprd12.prod.outlook.com
- ([fe80::582a:6d15:9b75:5235%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 07:38:45 +0000
-Message-ID: <fd6ff4c4-ace3-4e31-8477-d3e4e149490a@amd.com>
-Date: Mon, 2 Nov 2026 13:08:39 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: amd: fix SMBus block header and PEC handling in the
- RX path
-To: Paritosh Potukuchi <paritoshpotukuchi@gmail.com>, andi.shyti@kernel.org
-Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
- Paritosh Potukuchi <paritosh.potukuchi@amd.com>,
- Sanket Goswami <Sanket.Goswami@amd.com>
-References: <20260627153532.547719-1-paritosh.potukuchi@amd.com>
-Content-Language: en-US
-From: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-In-Reply-To: <20260627153532.547719-1-paritosh.potukuchi@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::12) To PH8PR12MB999319.namprd12.prod.outlook.com
- (2603:10b6:510:40f::24)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Ol8fTcnm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3T
+	+X5BXI5pCgitNNmrYk1gYo30O1e3wb5Q82zRUF+Ps=; b=Ol8fTcnm6V0I9Q/1Sz
+	kcjssG58KCgARUL/U66xgV/eKQNw87TffIBqgLjCkoDdip2JYxsO80NAPX7Kgv1D
+	1NhK1i/WeR7//hgEFe3bCVSQO/75+XMIEe4jdeQbA8m6QYcDBbn30uKpRvy98j1+
+	hbvHQlH0n3UyMbe88CzUTGvQQ=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3nygJPuhqucJHEg--.56690S3;
+	Mon, 02 Nov 2026 15:38:50 +0800 (CST)
+From: Xuewen Wang <wangxuewen_ky@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: wangxuewen_ky@163.com,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v5 25/31] ntfs: report MFT record validation and lifecycle errors
+Date: Mon,  2 Nov 2026 15:35:26 +0800
+Message-Id: <20261102073532.98873-26-wangxuewen_ky@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261102073532.98873-1-wangxuewen_ky@163.com>
+References: <20261102073532.98873-1-wangxuewen_ky@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,202 +65,251 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB999319:EE_|DM4PR12MB6351:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1f0eb1b-af32-449f-3744-08df38b45389
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|10067099003|56012099006|261009223027099003|261022105027099003|261021123027099003|261021121427099003|11063799006|5023799004|261028144727099003|261026121527099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	NNnrn+RwWyobo39P2v5t6Ng/DYkMJv6LShpmMBNm3VjpXXkz7pipcyyOS32OOm4btaSCilRdepH/wwEhLUdoafLfU17pF8b7OZouzJ2A0FdTWSRyYjPHRlDxjx60S0N/jsRDriQvb27gtOqBjrTh5XnDY83RrzoIjUJkZyUQtY8hkRhPu62VDsvQaple+oZaXY1QkU4rTel/WLu+et3LB/Me/q+VQmi2cxUaJSIw4YzEua4tZvsnhUtsf0gbJeIioaMp6KXdWfiCCg6P2I7y+jQQ1lWRH/GxSS1pOhLLnjPf/f1ydut7wtPPwDQO/qA8xAPrgKvUy1ncfpK8z7hGqfUpF5M3MrvLDeLK26wYY7AZMgplDbyMHnWGMETEl09TPZ1iv0HkW+hhmhoHWQzTGL31LQFGNc4+ibtFJ4elS7KPmWa+HLJhBfOJkrL3LsZHwcww+CYNv36PnvsVgB8YOA7L+W8OZnvA3nsNy1qiSccKiMsn1lsL6AIxsDxtTIAfytJQEedCtAyZh3i3m3DoxhRTECihgATZXIXZi6ccIYbJnzM4NnX6vNKQD0WbbYkpDE40/xH6mks2tUPsnBD3ZqPXkO7vu17QClGMcQAv0Q6uTjXNmoZ0APFTEes6yz4LbkgUIX/gyS4qQS2F21AMP1I2Ie5UpihJlSwUzS40QM4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB999319.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(261009223027099003)(261022105027099003)(261021123027099003)(261021121427099003)(11063799006)(5023799004)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Qm14SlpUdXlOa0NIdHJiOGQrQ2lOWWJHV2RxWTdVMk5GV1ZMTFpoTGRDRWV0?=
- =?utf-8?B?Q3I4VDROWWdnSyt3MS8wdS91MFdGaGd2b3RNMDZYdU9vZTgwYWhVUXNXUldB?=
- =?utf-8?B?SDJVUWxUSHl2Q2dVM2ZIQ1BUNHpZOXkvaW9tZ1drOWpWTUdUTnFTYWNxTW5I?=
- =?utf-8?B?ajVwODMvQlBUWVdESzBVbXdLZCs3RXlhUWhVUG5YZ3JXaEZ6RWw5TDNJNE9q?=
- =?utf-8?B?RlNZQzU4VUI5MFlEQVczM2JKS1hjVGxMZkJwUGZvZlFFNE5EYmlmMUx1ZlRR?=
- =?utf-8?B?Q2s3aSs0dGF0NjhLVWR6ZmFTU1JFenlRVGhDdmg5UEM2bk9QU1NlWWh5M3ky?=
- =?utf-8?B?RldOQVQ5Mll6Z0pMV21FS1FlZFNTR3ZWa0NuNmdjdXpWT3hFTGVOY0xlTHc3?=
- =?utf-8?B?OXFGZGMvZjFBbC9UVnpRd0U1eUlzeWFGNjdMbTY1N01YbW4ydkFybnBaQXc5?=
- =?utf-8?B?TXJNY2hzUmpQVVBmc0lySkZHYWRjdGFoTHpIRld5N1dGQVg0NzJJdzZyS015?=
- =?utf-8?B?cTVONUFvcTJOWkNhbkU0U0RJWkdRSkJzZGhWRlhYdWp0OFRUbzNZVnNlTEoy?=
- =?utf-8?B?c2tiN0RzeGE5VGxPRGNqbGljSDhwdFJRcGc4OWxaamNLSkVSWlV6TSsxMndn?=
- =?utf-8?B?azh6OVZRdUhZNlIzWE5yK3Axc2FkK0ZvclM4ZE8yN1FRV0gzcTVmSzdmSVZy?=
- =?utf-8?B?a1lNWnh3cnJrNWUyQjhEMjVObHlxUWNoRHJkQ2wvSUxQU1RDRG13REdBeERJ?=
- =?utf-8?B?NTZoYVFaTnlUNVAzZjFxZ3Z6R1BRaXJMdkVpcVgrN1I3ZkVUdk5FUzkvYlIw?=
- =?utf-8?B?Y0RuQzU2K0FMeU4xNE9VSWJYWGFHNG0xTFNuYVIwSEJKOWlhRFhDOEg5aEFO?=
- =?utf-8?B?emFtSHZqMzZxeUJFMDQwYWhRdTN1RWkvNmdpRGhpbTR1YVBPWHdONGJrUld6?=
- =?utf-8?B?bzcwajBFQ0x1ODhYck9PNDJ1RU5XNEk3SHFYQmlBOWwyZXJLNnZKeWdkYkwv?=
- =?utf-8?B?RWVxYUprc3lNVU5TczFTeWpYaUJ2M2c1eThoWXo5eE9ZdGo1dWxNajFkb2tk?=
- =?utf-8?B?c20xTU84Vk54Z2Vub3BWTWw1MThTN1lkUlBjN0NVSzZseC9FOWdoLzdzWWtL?=
- =?utf-8?B?c3VlMHdHdDZaRGlKOFE1VGptZmRWYVVwbmVCeVVvOUhCTm05MFpOMVhMc2I0?=
- =?utf-8?B?cDlOcy9qY2d5d2pLMHQ0SW92bTZYMHVKSFluQUNYQ1hFaU5PNEloWTJXT0I2?=
- =?utf-8?B?Z3lBdHNzT1dROEdlc2laSWt6bFBQL2p2aWRKaUl6QkJBL25HaytPTXJuelVD?=
- =?utf-8?B?N2dQeXlnNks1TEdFL2xPQjQwSlFaUFNWWU8wdEtqTENmaUpMUWRsdGpMbk04?=
- =?utf-8?B?U1FBS2N1QS9scyszeW9ITzlrUXIxY3d4V3NFc1I1a3AxYkUzNzFxMEk0ZXI0?=
- =?utf-8?B?RU5pV0FyVXFkTzdEZWVudWlvMUh2MzNFTWZWRzlwRmp0T05UVWRtN29wNTd4?=
- =?utf-8?B?RmlwZUsyL0RKeTEvNExSQ2hvZDdwT1JhR2JzMFJuaGpxSEtGMm00eUlraktW?=
- =?utf-8?B?Y2dBbHkwQWl5amlUUlpuaWhzUjI2V2c1UUp1a3ZPK2h0aG5rMXdRWE02SzlB?=
- =?utf-8?B?RW1HVDNjRmFoYks3MUxwMDE2RVFPMkd0WHVlcmlXUStWNm5lSFZoZWlRY2tL?=
- =?utf-8?B?UmcvNVpkSHNrWnFpNmdrL202SGhPTTh5WnFkNm1waWM2RGNXdzA3TjdJZHJS?=
- =?utf-8?B?RXd0WU00cjB1ZVZxT2xMMU96Z2NPWEtZVlNNUy9FV2NzZzlpbk1IR3JJRTlH?=
- =?utf-8?B?OGpZSEZlQkVKZUlyYnNyTzFhRGJYR3VkWGlML2w2dlg0Z3NGUWNvRE80VlNS?=
- =?utf-8?B?TmRlMWoyb1hEdTA2Y2NJUmJuWmlBYXlGNUZ1OHBEcHJEd05CVWRtdFE2UUI5?=
- =?utf-8?B?L1BKKzNjQVh2cTVGMFpTdTVQTU80OFUwUEk3VmtTenRJVjhLL09YOUZQWFFX?=
- =?utf-8?B?K1RkS282SWFJSW8rdzNlVGlCbGFxM3YySGpIWnU4N2JUVUhWVEdiZjEyOGlI?=
- =?utf-8?B?N1NXSy9ZaHQ1aVE1dm9YTzZyOFZ0VTEybE1qWFl1S1kyU1JrQnNoQWJraGxm?=
- =?utf-8?B?YXVkVHJwaVFVODNBL2tCakZ3REk0ZC8xaGZXWGNqT3JteElyaDZ2R2Vzb2Yv?=
- =?utf-8?B?c3BTS2FFZkFXcW1iUS9kQUJ4aWN5bkU1VWpSNnNuQzMvVjJFYXJ5Rzd1WHc3?=
- =?utf-8?B?eHZaa2VCVElUSDVJRWlNL2MvN3dOSVFRMzZUb3ljSExFemVFL2J0eHZBMGxS?=
- =?utf-8?Q?5NmHBDfWpxGn0lBgOX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1f0eb1b-af32-449f-3744-08df38b45389
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB999319.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:38:45.7811
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VWeiU+wfw9dCTuUbFcPeU9hli8bfRSAYWNIXTJt00YH6GhSQqpui2+ZzNfqPTRcO098VnVcCdNDpsjKYfSgxFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6351
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3nygJPuhqucJHEg--.56690S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW3WFWkCry7XFWxWF4rZw4fXwb_yoWfGFW8pF
+	nxA3srKrs7JrnFvrsrt3WYya4akas2gw4DWr97G3Wfuan5tw1jqa1DtFyv9FyrKrZ5Gwn7
+	J3Wqq3y3Za4UZwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UdfHbUUUUU=
+X-CM-SenderInfo: pzdqw5pxhzv0xbn1qiywtou0bp/xtbC8ApmT2roPgrqZgAA3p
 
-Hi Paritosh,
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-Apologies, I missed this. Comments below.
+MFT mapping, allocation and freeing can detect invalid records or
+failed cleanup without reporting them. Cover stale extent references,
+malformed reserved records and failures to restore allocation bits or
+record state.
 
-On 27-06-2026 21:05, Paritosh Potukuchi wrote:
-> [You don't often get email from paritoshpotukuchi@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Strip SMBus block header bytes from the received buffer before
-> forwarding the payload to the upper layers.
-> 
-> Handles the optional PEC Byte at the end of the received
-> payload.
+Use EFSCORRUPTED for corruption while retaining normal reserved-record
+ineligibility. Use ntfs_inode_base() for file attribution and volume
+reports when no usable file reference exists.
 
-Can you say a bit more about why this is needed? Which target backend
-are you using that wants only the payload?
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+---
+ fs/ntfs/mft.c | 70 +++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 43 insertions(+), 27 deletions(-)
 
-I don't think the bus driver is the right place for this. The target
-interface hands the raw bytes from the wire to the backend, and the
-backend decides what they mean. mctp-i2c, for example, expects to see
-the command code, byte count and PEC, and checks the PEC itself (see
-mctp_i2c_recv()). With this change every MCTP packet would get dropped
-there.
-
-> 
-> Signed-off-by: Paritosh Potukuchi <paritosh.potukuchi@amd.com>
-> ---
->  drivers/i2c/busses/i2c-amd-asf-plat.c | 34 +++++++++++++++++++++++++--
->  1 file changed, 32 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-amd-asf-plat.c b/drivers/i2c/busses/i2c-amd-asf-plat.c
-> index e1699da838c2..daf318ce3bbb 100644
-> --- a/drivers/i2c/busses/i2c-amd-asf-plat.c
-> +++ b/drivers/i2c/busses/i2c-amd-asf-plat.c
-> @@ -46,6 +46,8 @@
->  #define ASF_BLOCK_MAX_BYTES    72
->  #define ASF_ERROR_STATUS       GENMASK(3, 1)
-> 
-> +#define SMBUS_BLOCK_HEADER_SIZE 2
-
-Use a tab here so it lines up with the defines above.
-
-> +
->  struct amd_asf_dev {
->         struct i2c_adapter adap;
->         void __iomem *eoi_base;
-> @@ -61,7 +63,7 @@ static void amd_asf_process_target(struct work_struct *work)
->         unsigned short piix4_smba = dev->port_addr->start;
->         u8 data[ASF_BLOCK_MAX_BYTES];
->         u8 bank, reg, cmd;
-> -       u8 len = 0, idx, val;
-> +       u8 len = 0, idx, val, offset, data_len, payload_len, has_pec;
-
-That line is getting long. has_pec should be a bool, and offset is
-always SMBUS_BLOCK_HEADER_SIZE, so it doesn't need its own variable.
-
-> 
->         /* Read target status register */
->         reg = inb_p(ASFSLVSTA);
-> @@ -110,12 +112,40 @@ static void amd_asf_process_target(struct work_struct *work)
->         if (cmd & BIT(0))
->                 return;
-> 
-> +
-
-Extra blank line.
-
-> +       /*Below is the SMBus block header received on the wire:
-
-Missing space after "/*". Also, this describes the whole frame, not
-only the header.
-
-> +        *     Command       --  1 Byte
-> +        *     Data Length   --  1 Byte (number of data bytes)
-> +        *     Data          --  N Bytes
-> +        *     PEC           --  optional, 1 Byte
-> +        *
-> +        *     PEC, if present, is the final byte of the transfer
-> +        */
-> +
-> +       offset = SMBUS_BLOCK_HEADER_SIZE;
-> +       if (len < offset)
-> +               return;
-> +
-> +       payload_len = data[1];
-
-This assumes every write is an SMBus block write. Byte/word writes,
-or i2c-slave-eeprom (offset byte followed by data), don't have a
-length in data[1], so they'll fail the checks below and get dropped
-without any message.
-
-> +
-> +       if (payload_len > len - offset)
-> +               return;
-> +
-> +       if (len == offset + payload_len + 1)
-> +               has_pec = 1;
-> +       else if (len == offset + payload_len)
-> +               has_pec = 0;
-> +       else
-> +               return;
-
-PEC is only guessed from the length here, and it's never checked
-before it gets removed. Does the controller check it when
-ASF_PEC_SP is set? If not, a corrupted frame of the right length
-would be passed up as good data.
-
-These silent returns will also be hard to debug in the field. A
-dev_dbg() would help.
-
-> +
-> +       data_len = len - has_pec;
-
-data_len is really the end index, not a length. The name is a bit
-misleading.
-
-> +
->         /*
->          * Although i2c_slave_event() returns an appropriate error code, we
->          * don't check it here because we're operating in the workqueue context.
->          */
->         i2c_slave_event(dev->target, I2C_SLAVE_WRITE_REQUESTED, &val);
-> -       for (idx = 0; idx < len; idx++) {
-> +       for (idx = offset; idx < data_len; idx++) {
->                 val = data[idx];
->                 i2c_slave_event(dev->target, I2C_SLAVE_WRITE_RECEIVED, &val);
->         }
-
-If your backend only needs the payload, I'd strip the header and
-handle PEC in the backend and leave this loop as it is.
-
-Also, the subject line should start with "i2c: amd-asf:".
-
-Thanks,
-Shyam
+diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+index 9b14e69c9c6f..f494f283408b 100644
+--- a/fs/ntfs/mft.c
++++ b/fs/ntfs/mft.c
+@@ -26,7 +26,7 @@
+  * Make sure its general fields are safe, then examine all its
+  * attributes and apply generic checks to them.
+  *
+- * Returns 0 if the checks are successful. If not, return -EIO.
++ * Returns 0 if the checks are successful. If not, return -EFSCORRUPTED.
+  */
+ int ntfs_mft_record_check(const struct ntfs_volume *vol, struct mft_record *m,
+ 		u64 mft_no)
+@@ -88,7 +88,7 @@ int ntfs_mft_record_check(const struct ntfs_volume *vol, struct mft_record *m,
+ 	return 0;
+ 
+ err_out:
+-	return -EIO;
++	return -EFSCORRUPTED;
+ }
+ 
+ /*
+@@ -112,6 +112,7 @@ int ntfs_mft_record_check(const struct ntfs_volume *vol, struct mft_record *m,
+ static inline struct mft_record *map_mft_record_folio(struct ntfs_inode *ni)
+ {
+ 	loff_t i_size;
++	struct ntfs_inode *base_ni;
+ 	struct ntfs_volume *vol = ni->vol;
+ 	struct inode *mft_vi = vol->mft_ino;
+ 	struct folio *folio;
+@@ -169,8 +170,9 @@ static inline struct mft_record *map_mft_record_folio(struct ntfs_inode *ni)
+ 		folio_put(folio);
+ 		kfree(ni->mrec);
+ 		ni->mrec = NULL;
+-		folio = ERR_PTR(-EIO);
+-		NVolSetErrors(vol);
++		folio = ERR_PTR(-EFSCORRUPTED);
++		base_ni = ntfs_inode_base(ni);
++		ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
+ 	}
+ err_out:
+ 	ni->folio = NULL;
+@@ -313,7 +315,9 @@ struct mft_record *map_extent_mft_record(struct ntfs_inode *base_ni, u64 mref,
+ 			unmap_mft_record(ni);
+ 			ntfs_error(base_ni->vol->sb,
+ 					"Found stale extent mft reference! Corrupt filesystem. Run chkdsk.");
+-			return ERR_PTR(-EIO);
++			ntfs_report_file_metadata_error(VFS_I(base_ni),
++							-EFSCORRUPTED);
++			return ERR_PTR(-EFSCORRUPTED);
+ 		}
+ map_err_out:
+ 		ntfs_error(base_ni->vol->sb,
+@@ -344,8 +348,9 @@ struct mft_record *map_extent_mft_record(struct ntfs_inode *base_ni, u64 mref,
+ 	if (seq_no && (le16_to_cpu(m->sequence_number) != seq_no)) {
+ 		ntfs_error(base_ni->vol->sb,
+ 				"Found stale extent mft reference! Corrupt filesystem. Run chkdsk.");
++		ntfs_report_file_metadata_error(VFS_I(base_ni), -EFSCORRUPTED);
+ 		destroy_ni = true;
+-		m = ERR_PTR(-EIO);
++		m = ERR_PTR(-EFSCORRUPTED);
+ 		goto unm_nolock_err_out;
+ 	}
+ 
+@@ -1034,7 +1039,7 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 	if (post_read_mst_fixup((struct ntfs_record *)m, vol->mft_record_size))
+-		goto free_m;
++		goto corrupt;
+ 
+ 	if (!ntfs_is_mft_record(m->magic) ||
+ 	    !(m->flags & MFT_RECORD_IN_USE) || m->base_mft_record ||
+@@ -1045,7 +1050,7 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
+ 	bytes_in_use = le32_to_cpu(m->bytes_in_use);
+ 	if (attrs_offset > bytes_in_use || bytes_in_use > vol->mft_record_size ||
+ 	    bytes_in_use - attrs_offset < sizeof(a->type))
+-		goto out;
++		goto corrupt;
+ 
+ 	for (a = (struct attr_record *)((u8 *)m + attrs_offset);
+ 	     (u8 *)a + sizeof(a->type) <= (u8 *)m + bytes_in_use;) {
+@@ -1054,36 +1059,40 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
+ 		if (a->type == AT_END) {
+ 			if ((u8 *)a + sizeof(a->type) + sizeof(a->length) >
+ 			    (u8 *)m + bytes_in_use)
+-				break;
++				goto corrupt;
+ 			/* Also accept a record emptied by an earlier bootstrap. */
+ 			available = have_std ||
+ 				    (u8 *)a == (u8 *)m + attrs_offset;
+-			break;
++			goto out;
+ 		}
+ 		if (a->type == AT_FILE_NAME)
+-			break;
++			goto out;
+ 		len = le32_to_cpu(a->length);
+ 		if (len < offsetof(struct attr_record, data) ||
+ 		    (u8 *)a + len > (u8 *)m + bytes_in_use)
+-			break;
++			goto corrupt;
+ 		if (a->type == AT_STANDARD_INFORMATION) {
+ 			u32 value_len, value_ofs;
+ 
+ 			if (have_std || a->non_resident ||
+ 			    len < offsetof(struct attr_record,
+ 					   data.resident.reserved) + 1)
+-				break;
++				goto corrupt;
+ 			value_len = le32_to_cpu(a->data.resident.value_length);
+ 			value_ofs = le16_to_cpu(a->data.resident.value_offset);
+ 			if (value_ofs > len || value_len > len - value_ofs)
+-				break;
++				goto corrupt;
+ 			have_std = true;
+ 		}
+ 		a = (struct attr_record *)((u8 *)a + len);
+ 	}
++	/* No attribute terminator within the used part of the record. */
++	goto corrupt;
+ out:
+ 	kfree(m);
+ 	return available;
++corrupt:
++	ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ free_m:
+ 	kfree(m);
+ 	return false;
+@@ -2317,8 +2326,8 @@ static int ntfs_mft_record_format(const struct ntfs_volume *vol, const s64 mft_n
+  *
+  * On error, the volume will be left in a consistent state and no record will
+  * be allocated.  If rolling back a partial operation fails, we may leave some
+- * inconsistent metadata in which case we set NVolErrors() so the volume is
+- * left dirty when unmounted.
++ * inconsistent metadata in which case we report the error so the volume is
++ * left dirty when unmounted and userspace is notified.
+  *
+  * Note, this function cannot make use of most of the normal functions, like
+  * for example for attribute resizing, etc, because when the run list overflows
+@@ -2349,7 +2358,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
+ 	struct attr_record *a;
+ 	pgoff_t index;
+ 	unsigned int ofs;
+-	int err;
++	int err, rollback_err;
+ 	__le16 seq_no, usn;
+ 	bool record_formatted = false, from_reserve = false, tail_alloc = false;
+ 	bool reserve_created = false;
+@@ -2678,6 +2687,10 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
+ 			CASE_SENSITIVE, 0, NULL, 0, ctx);
+ 	if (unlikely(err)) {
+ 		ntfs_error(vol->sb, "Failed to find first attribute extent of mft data attribute.");
++		if (err == -ENOENT) {
++			err = -EFSCORRUPTED;
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
++		}
+ 		ntfs_attr_put_search_ctx(ctx);
+ 		unmap_mft_record(mft_ni);
+ 		goto undo_data_init;
+@@ -2754,7 +2767,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
+ 			folio_unlock(folio);
+ 			kunmap_local(m);
+ 			folio_put(folio);
+-			NVolSetErrors(vol);
++			ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+ 			goto search_free_rec;
+ 		}
+ 		/*
+@@ -2910,9 +2923,12 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
+ 	if (!base_ni || base_ni->mft_no != FILE_MFT)
+ 		down_write(&vol->mftbmp_lock);
+ undo_mftbmp_alloc_nolock:
+-	if (!forced_reserved_record && ntfs_bitmap_clear_bit(vol->mftbmp_ino, bit)) {
++	rollback_err = 0;
++	if (!forced_reserved_record)
++		rollback_err = ntfs_bitmap_clear_bit(vol->mftbmp_ino, bit);
++	if (rollback_err) {
+ 		ntfs_error(vol->sb, "Failed to clear bit in mft bitmap.%s", es);
+-		NVolSetErrors(vol);
++		ntfs_report_metadata_error(vol, rollback_err);
+ 	}
+ 	if ((from_reserve || reserve_created) &&
+ 	    vol->mft_record_reserve_pos == bit + 1)
+@@ -2949,7 +2965,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
+ int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
+ {
+ 	u64 mft_no;
+-	int err;
++	int err, rollback_err;
+ 	u16 seq_no;
+ 	__le16 old_seq_no;
+ 	__le64 old_base_mft_record;
+@@ -2965,14 +2981,11 @@ int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
+ 
+ 	ni_mrec = map_mft_record(ni);
+ 	if (IS_ERR(ni_mrec))
+-		return -EIO;
++		return PTR_ERR(ni_mrec);
+ 
+ 	/* Cache the mft reference for later. */
+ 	mft_no = ni->mft_no;
+-	if (likely(ni->nr_extents >= 0))
+-		base_ni = ni;
+-	else
+-		base_ni = ni->ext.base_ntfs_ino;
++	base_ni = ntfs_inode_base(ni);
+ 	keep_reserved = mft_no >= FILE_reserved12 &&
+ 			mft_no <= FILE_reserved15 &&
+ 			base_ni->mft_no == FILE_MFT;
+@@ -3043,8 +3056,11 @@ int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
+ 	memalloc_flags = memalloc_nofs_save();
+ 	if (base_ni->mft_no != FILE_MFT)
+ 		down_write(&vol->mftbmp_lock);
+-	if (ntfs_bitmap_set_bit(vol->mftbmp_ino, mft_no))
++	rollback_err = ntfs_bitmap_set_bit(vol->mftbmp_ino, mft_no);
++	if (rollback_err) {
+ 		ntfs_error(vol->sb, "ntfs_bitmap_set_bit failed in bitmap_rollback\n");
++		ntfs_report_metadata_error(vol, rollback_err);
++	}
+ 	if (base_ni->mft_no != FILE_MFT)
+ 		up_write(&vol->mftbmp_lock);
+ 	memalloc_nofs_restore(memalloc_flags);
 
