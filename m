@@ -1,117 +1,117 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793593165;
-	b=efsq45GTDh9S/+gb/bkGbNLIwthyAxDuo7twViXwOnV3Fc4+AC48po4KrDIH87d04n0b
-	 +F81k2bIFL2srykkBVWKH0Pm1XUtedqSuwgpvppYtE+NHyPUKcSBqKQ/o2He3D9KdBXv9
-	 SELkyvyq5ylc+YPaT6wxocK/ZITH66E9d8c2J1sQZZvD7+/xqH83LGn2B2ADFqofYsoH7
-	 DH4LE51YARYKAyceG8HQviJEr+YR4j2MAYViR3qeCxq5jhFjTa3UZoI8PQ3WgdQuXNjl+
-	 cqcrY9c+N2EOKIEu/0y/w1LXC6aSBUWek3bYzCWZSCvNdR5MJ5IpqojW2/nXweqk1cQ==
+	t=1793593168;
+	b=qrML0KgNaT4TnA4KHNkBJLjJFbRVFS3+v3b5FVz/JEbWw1y7oipdDa9vRuuW7TMYaNsU
+	 GpI1P1LS7DsF1tzGqXivmSBIXPS5vWdkFpxRFI17Msep/cq3E+FaxLj2Mf7eeNhO/5agA
+	 I7APMaiqguQiKN3xHzVApWKMpO24omXznLc6aLe4r2Baw9utt3vKanAjxSZH0OJX1BCUs
+	 CcYGYx5zZCrHfuDvi3cm05sMV+M2OXJjWf4QQnayW4Ha0si4rbx6E59jmlEth7gSMlqk3
+	 az5QDNxiDJZctOJhjgACMJcZ+51fdJdp0N6XtNXWRSaD/Wx2sUWWv/IjNX47yBYiaSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793593165;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793593168;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=4ZJ80wecbBxq60oEk8qDq4iPX/zE1zlAQta/IozJtn0=;
-	b=GpLESfh+iDe07Z40oDTS5P2i+WU5GujnyRxvBZknobjNQCDy0QNTktrDd2XtL9KmtqO4
-	 WbdakcLGOl+knbLtrzhF6dSkIyg6hIyTOveMwXI361b1Q8DroAOVSsPPRm/rpYtk95qwI
-	 rgT0xU7EHhGYOtub2gMiaeAjruhV5HCbOlNipxSGgOONUdRZt7SVXDcR7SH15AXwd57xh
-	 MdKv5p53oDEP51zGgGoukJkc12W9c3L9dBd4VtHBq1m4ypqld4HQqNB50a8nqFMAURt6j
-	 nLCbVB2ruP/E7PbVnf8SLzDbKTF7IbdTW6O2LlKqlDt72moFxRXEsF6Syglx0kPLMcA==
+	bh=mC7Gsu3Vc/6MW9/SCE4rWYySUwxsKQDflEa8p46k2Xk=;
+	b=OPdi4PBmBC0ZcKWEF5qrLzqs7UdCicx3LoLCZtCwsfhCVIe7aoyyAXW40WfVd42eFz2r
+	 +bHuXbdH/ls3/FjdFDP/xd2KNnOchU9SRNZhlbd4vaAtL43+h8xBg2snBxBcWUjIIP3gv
+	 AwRbEKRU4fbNbdJaO1PtutDl396woNmMfTb0pasmFMY3qnOXnbq4SzGIwUJPxlXy23E14
+	 iUqyZvtaVTnBOFjL/umHJoBs4CRkplQkEeqSD8BYTpBZ/4syybHAEhmxERvNTfb7jkqGn
+	 khoFJgdd9FJppxCtS1w6lTxZZ7sYl54ozoIItWBgkKS24KmQxFXTbVgg5iY/c0YpGqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sakamocchi.jp;
 	spf=pass smtp.mailfrom=sakamocchi.jp;
-	dkim=pass header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b="FLs/USST";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZWPqxRsF;
+	dkim=pass header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=XRUFLWNv;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=G8ZWYFZC;
 	arc=none smtp.remote-ip=202.12.124.146
 Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0742606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0742606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34C3606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:19:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D34C3606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=FLs/USST;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZWPqxRsF
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 2FE751D001F0
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:19:19 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.a=rsa-sha256 header.s=fm2 header.b=XRUFLWNv;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=G8ZWYFZC
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3A77C1D00209
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:19:27 -0500 (EST)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Sun, 01 Nov 2026 23:19:19 -0500
+  by phl-compute-08.internal (MEProxy); Sun, 01 Nov 2026 23:19:27 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1793593158; x=
-	1793679558; bh=4ZJ80wecbBxq60oEk8qDq4iPX/zE1zlAQta/IozJtn0=; b=F
-	Ls/USSTJJQMzXPpI3Zr3c+E3ZK7/Fa6uexIN1Z4pNJMAJ5KYdOwOfsP1RsMfN7ci
-	M1si3TLrxzhwqbb7RBQqktsltiEhCcAuOLwV+nv9iqS74kqsmoohMhA4qIAKGSfy
-	jPFcnl+HK05fFm4Uj89QtPAjl46+2JSCGPt9Hu/lr7CvhSzN7edTCTWzNegIUfmP
-	kZJolGenzJ3/d8xYdFsRnGTh4q4K28RaYUmjo/s4PFuPQM7oUZvf/teGr96nefux
-	tufb5NZWMsGkE04Srdw8lQely5q3SkcAYYnq3+QWVGaLxyS+iXHqV8cSfwrhk/fI
-	F8Yld0O59xg3J4/kKNKPw==
+	:reply-to:subject:subject:to:to; s=fm2; t=1793593166; x=
+	1793679566; bh=mC7Gsu3Vc/6MW9/SCE4rWYySUwxsKQDflEa8p46k2Xk=; b=X
+	RUFLWNvYGLd/LneodFOx+kl2bUvVfd3i8UnugF30xFuPfbVKXKODmSglcmaNc2IW
+	5oiXq5lv0a+4AVPCFfs/1Ck3ehU2hjj436qxbjSi4HERL1SsmkLF4MzCblGklh9f
+	JFFL4ZOyokOwR8P8nLnvAE4Sy6UpSYICRbMYAksJsfl18mxAXyp4twvwnUAASZxC
+	Xvrj+a2Qe4SM80LTtw0UGlzEDVixcIh5OhSbC9fcQKC1MUInfddJGIzi4zuLEM0A
+	7IwVkLBughSY4fA49JETKTavEQU1aJj4zheeZf5gO+9mAALo5DhnsLVEtmlYBEY3
+	t5q+aERe1D9jbcnVmDwRQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1793593158; x=1793679558; bh=4
-	ZJ80wecbBxq60oEk8qDq4iPX/zE1zlAQta/IozJtn0=; b=ZWPqxRsF322jIkVqT
-	RRDmVtUFxS8p2Lh4A/7tNV30vK7UzVm0UqmBFjHJ9lieIUWR2KLYYQuKjEP1OsEg
-	cg/eNbzBTh2huULdGFuKkOfrhVMWgx/bS7i6NrAkBMDNubPuU14zVvNJcSBKcsta
-	QPySAcNwztgnzOtiG0YBcXyEC1UG8scZhQy2Yfx8nk36ytFFBEhfiOhIY71TtAgd
-	HdKclx7Cv+kEpnLZHPSaqAxKQUCUkZBxf8QYbykJEaXTjFgqAS4jnwNyj+0u0pu5
-	6NIpB9/ya9ZQ35rwIGk6e81yrKPYBe06lY9t6JJCBQegAcCI/L6ocplYqFKcHDbg
-	4yH0Q==
+	:x-me-sender:x-sasl-enc; s=fm2; t=1793593166; x=1793679566; bh=m
+	C7Gsu3Vc/6MW9/SCE4rWYySUwxsKQDflEa8p46k2Xk=; b=G8ZWYFZCV9Z5yr4w/
+	1tVoAlZp41iC4Hg7so/BRe7tpK+DVNVYc+YBoubeco1SsM21FscPDPczRefEnjb4
+	oFsEK3Kv7iSvHBXbqpeF21Xbim5BorpcNKbdftgO6hY2mSIrXtxLAfddNcxoAupT
+	VO6dkKCU8Y13eUlle4FGqUC7R0Tnc45veA7O0LO5Pw0+7Kyrc8BMcvDSZFVyZHuA
+	gK1YkZ/JUTKgBOchAsitTuzamgpv3lajBxcgjG8Oxm5PrVNNQfBH8cqoLP9cE2PY
+	E9EI8qMhNzTvu5fOdHz+KcnoeYaHXN5qfTKQotpFlHYKDbtdR8jFfcWmPB51Ge4Z
+	W6GMQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793593158; d=sakamocchi.jp;
+DKIM2-Signature: i=1; m=1; t=1793593166; d=sakamocchi.jp;
 	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:i7cugg3RIhxLiq/XdKBgqcL2EBbtvuhXjMurVMv+pu0Yr44
-	xjF+Sjo3fF6Fszat4TZirin3Ni3Evltrjp2qjQpOCckjUcu/vm5cPz2y6TBHt405
-	VcIfb1iUdFVY1f61tcMOtSAnIB20TyHNADDEf8dW+0CEMLPPzO/AYaitn3ZsXyCq
-	1vY/a+Dm6N0tmqHBnzOfVX9OQirY5QXawhKoMfX//N/WOmZmGzdFa6P/getWOKgT
-	MtKn9BNCvI8X2n0WZ59mFie/A0wsiuOb/6oAQr0zQLayMHMnOd4eWhWfMi1Qu7Mk
-	4QNgmbG+uQteOgJe902i5aQewWyof0pA9cZOewQ==;
+	s=fm2:rsa-sha256:DgqTc/BfLCTQ95VeCrUn3Gt4WXap+Ryz8WB+JlTQ1qHo5jC
+	x8UwG9s4MBmE0DaOkbZr5g1kfuGUuBcDNW55c6XhUIEdHJbE7bGgVfhhzX3PKtMK
+	Q6T5906aaDnmBoVlRkpR7eSkoE7rCEvEXL0DMnxKnIBET7poRv7Uj1Na7Z83HONA
+	wAclS/JpBkE+nnnOTjHRBllZLbMf883O8dp9N1Ml9MD09M/BtAeW1g9Pg58UKM3T
+	ZPTihYsj/F6Yv4nMREXwpJFBNUtPSkf4bLpQLkruvhYz3/5MzlNsm7khesbbHI9B
+	EszRyS1wE9zp7objuLtqV776EU8S3WrS0Zv6ZPQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
 	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:joaxChaPW/Kp7phNjtFGh/FqyQjTAgGKqOiFCIT2NW4=:a5sbIlLKP3k0ed2XgkIlGE93zUA69C50kmzebp/nl54=;
-X-ME-Sender: <xms:Rg_oavUKjJKYo97zaQdd1cgNTZyYqaqnHvOzKbGG0enJZfVgg0IkMQ>
-    <xme:Rg_oaghGG7FWM8aZaNB17KxVC0p_sEwswfJNpg_k3wi3VpqP6fIopN-PguB8u7OJt
-    e3-HAPqkIRH9f6mVJlsWoUpCNtcrcwWZ3WEHQdS9xAEHzt-Vt7QT7a0>
-X-ME-Received: <xmr:Rg_oatXsfwaYJFUKjRoqyz86kfGQK3FyuFtnC7XjwVXlvRuuoxZyShFtt5WB5feq0wc-PKEBnDlDXBvfm3dMkrp37k0VbsXo21Y7ekEoJR5KEA>
+Message-Instance: m=1; h=sha256:5hgCIufw+haLa2OWS53Yhytwt/djCKfWHPu6DHOZA2g=:1l8IjlEcES1mGrGfeePbhR/zr7CDAYAaYPxrheQ5uD4=;
+X-ME-Sender: <xms:Tg_oagJt1GCb1m0GT1IezUsrManB1BFf7Fiq74IA6hkEqp3APn1Vsw>
+    <xme:Tg_oauF-FHam3hj-RSw9dtqcICeK_cXQVzRhNF21iJOL15abjdrLgt07-kXzQx6jP
+    MbG7CWhgXVKofBU06X8HQkKcil8IbVsmUkbm0dGE2Cn_KIO58boiagV>
+X-ME-Received: <xmr:Tg_oaoSp6q91L3PPyvIeoyyWlJz0nwCd7lyOTqtPBKuVwBE6H1-ObkaeIMqqlNkcZP9_cDmcKSCfzYcsgQo9FWeW3EkirYvXJELyB-Bw8XEqew>
 X-ME-Proxy-Cause: dmFkZTEotuZ1ARIQS2kTcKhurtDCyw9TiUsuDsemNcTAuLGe1PjpywOF6RgNOJbbxX9IfF
     qtGUTS0vQql/3jfllbj0ddYECicsswbB+iH1f2JGy0zqoUOwH4WXcgpPGYBas3CfZwiV3i
     R1nZFyGKX5JmOKYl2NiaTvlmf/yS4dMdHOCx8STgt/d09meN3uMrmo+2Z/lZ/klclLOKlZ
     oHUBOSVXiQJHA0LcBXH7gxWxU+p6oRskza7gsjs71k7qhWpngUD+3gTULtJ3IImLnlqz7Q
-    q7hz3NUu9qMJGiY5wXjZQTbswetdGR+PaTrNVkd7GTWMTxeD/XZj3VYl35qDeQqGC1m7Yf
-    2ydWGUT8vqZtjdoglyblMssPacrGxZYtbDE1nPL4wFyzuWH3L/fl5+HzZmahPNCeC9OP7p
-    LUQzJ5JBN8aRxV3OY/+vqywEvyZyf+nKeXkVpZzr6DyeAF/aWUJV7OAyOP8+u3opePMMtN
-    FxiL5/5MYeUTHoT+ikimswlH0lmnP7Erj2gnXD0mnFgO3HjBLFuAmNa+PPhQdul/mUGcoS
-    kIXvfra/LaZltQhs8EiNrZ1Du6wf4PDUKQL56cAJ4pNKr1N4ihoHLM5B0oR4KW2uQKDIXp
-    J3EhZT+9EwuAloE9tnbPdDjqpTZZhzBp1AuKIucWZuXUiHC2oMFCdA0RGBzw
-X-ME-Proxy: <xmx:Rg_oanPnL5nZ8DI5kNj0rPNpbLIs2BlWJUjDFHppEnFHZn5SU2fP4g>
-    <xmx:Rg_oapbVLA0Q8WJPeiqR5VpKNPcPaGmq8ZYoA_ZwZFaGCOCgZegAZg>
-    <xmx:Rg_oajq9wRIgpGJsnOoQVGDSPp1KYRoNvZi0KOrsVhHYqrjTpaR5ZQ>
-    <xmx:Rg_oalYxwrJv79k0ar53b-_UFsaxoAySfNkQ-2ockIr8bVmkcmoSXw>
-    <xmx:Rg_oao6nTBmjnelf2tGvvZxrVWejxjW47rZDKmzfBZcPTZQ_9oUIUQ2h>
+    q7hz3NUu9qMJGiY5wXjZQTbswetdGR+PaTrNVkd7GTWMTxeD/XZj3VYl35qDeQqGC1m7Gv
+    6U37+62HmK5XhYVW9K7SxUakwdDBwjS4UvOsrh+//84URc2oAUnEX16chBDZ4rX8kKsj37
+    7oRRLxEmJbPbYgfuLd14vTrR3MOos6y/fuqPUs7CrkU2/aeVHRH8ApQR1bxRlTxV9tasHv
+    GV8KR5uW6NAcPd6o4GxwgVSPQqNGZR9W0MLiSsnvHB0wK9v25yzv6pcxF0dCVKC+06oMPV
+    bQNCX/qsurEJey5zI2S5DR940AKR+p5QviWqkgiC1m1aYn8kVWmsyQ6fG2id4laZ635ZSa
+    AhqGLoBK1HapR0d+CjeIgS8wGoOGMyo+vKhASQfDZBlJVnp048J3I+UqpWxQ
+X-ME-Proxy: <xmx:Tg_oaqGwfhbhBD-hBN3bliGtDtDw0MU-l2Hwon189gduxfT-adNlOQ>
+    <xmx:Tg_oak-NorQxgb5aU9_yDC7CwfLm19fl0aISs26PLBn2FsQJkhdnpQ>
+    <xmx:Tg_oakIc0Wxffq2sOqvLf8HRloXE7ObX8wSu8SOW1mDCGbPXSDN9_g>
+    <xmx:Tg_oanZcwrFPKbRIwphI5qQgb5r9AKf81jaXQqpRN7267MmbTM65vg>
+    <xmx:Tg_oai8TSgiVmCKCSwcVlrTqHs9SX1NovbfOiLlE5uyOO4aQ6jPqZZtg>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 23:19:17 -0500 (EST)
+ 1 Nov 2026 23:19:25 -0500 (EST)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 1/9] firewire: core: add context analysis annotations for address handler
-Date: Mon,  2 Nov 2026 13:19:05 +0900
-Message-ID: <20261102041913.1187814-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH 6/9] firewire: cdev: add context analysis annotations for client shutdown flag and event list
+Date: Mon,  2 Nov 2026 13:19:10 +0900
+Message-ID: <20261102041913.1187814-7-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261102041913.1187814-1-o-takashi@sakamocchi.jp>
 References: <20261102041913.1187814-1-o-takashi@sakamocchi.jp>
@@ -126,62 +126,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The address handler list is protected by a spinlock when handlers are
-added to or removed from the list, while readers traverse the list within
-RCU read-side critical sections.
+The client structure contains a shutdown flag and an event list, both of
+which are accessed while holding a mutex.
 
-Use both the spinlock and RCU read-side lock annotations to describe the
-synchronization requirements for accessing the list. This allows
-compiler-based context analysis to verify that the list is accessed under
-the appropriate synchronization context.
+Add guard annotations to describe the synchronization requirements for
+accessing these members.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- drivers/firewire/core-transaction.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/firewire/core-cdev.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
-index 0ebe70a4d440..8d7e0f03aa6a 100644
---- a/drivers/firewire/core-transaction.c
-+++ b/drivers/firewire/core-transaction.c
-@@ -590,12 +590,18 @@ void fw_send_phy_config(struct fw_card *card,
- 	wait_for_completion_timeout(&phy_config_done, timeout);
- }
+diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
+index 927363d03846..da1c761f8b73 100644
+--- a/drivers/firewire/core-cdev.c
++++ b/drivers/firewire/core-cdev.c
+@@ -55,9 +55,9 @@ struct client {
+ 	struct fw_device *device;
  
-+static DEFINE_SPINLOCK(address_handler_list_lock);
-+static __guarded_by(RCU, &address_handler_list_lock) LIST_HEAD(address_handler_list);
+ 	struct mutex mutex;
+-	bool in_shutdown;
++	bool in_shutdown __guarded_by(mutex);
+ 	struct xarray resource_xa;
+-	struct list_head event_list;
++	struct list_head event_list __guarded_by(mutex);
+ 	wait_queue_head_t wait;
+ 	wait_queue_head_t tx_flush_wait;
+ 	u64 bus_reset_closure;
+@@ -317,7 +317,7 @@ static int fw_device_op_open(struct inode *inode, struct file *file)
+ 	client->device = device;
+ 	mutex_init(&client->mutex);
+ 	xa_init_flags(&client->resource_xa, XA_FLAGS_ALLOC1 | XA_FLAGS_LOCK_BH);
+-	INIT_LIST_HEAD(&client->event_list);
++	context_unsafe(INIT_LIST_HEAD(&client->event_list));
+ 	init_waitqueue_head(&client->wait);
+ 	init_waitqueue_head(&client->tx_flush_wait);
+ 	context_unsafe(INIT_LIST_HEAD(&client->phy_receiver_link));
+@@ -1971,8 +1971,10 @@ static int fw_device_op_release(struct inode *inode, struct file *file)
+ 	}
+ 	xa_destroy(&client->resource_xa);
+ 
+-	list_for_each_entry_safe(event, next_event, &client->event_list, link)
+-		kfree(event);
++	scoped_guard(mutex, &client->mutex) {
++		list_for_each_entry_safe(event, next_event, &client->event_list, link)
++			kfree(event);
++	}
+ 
+ 	client_put(client);
+ 
+@@ -1988,7 +1990,8 @@ static __poll_t fw_device_op_poll(struct file *file, poll_table * pt)
+ 
+ 	if (fw_device_is_shutdown(client->device))
+ 		mask |= EPOLLHUP | EPOLLERR;
+-	if (!list_empty(&client->event_list))
 +
- static struct fw_address_handler *lookup_overlapping_address_handler(
- 	struct list_head *list, unsigned long long offset, size_t length)
-+__must_hold(address_handler_list_lock)
- {
- 	struct fw_address_handler *handler;
++	if (context_unsafe(!list_empty(&client->event_list)))
+ 		mask |= EPOLLIN | EPOLLRDNORM;
  
--	list_for_each_entry_rcu(handler, list, link) {
-+	lockdep_assert_held(&address_handler_list_lock);
-+
-+	list_for_each_entry(handler, list, link) {
- 		if (handler->offset < offset + length &&
- 		    offset < handler->offset + handler->length)
- 			return handler;
-@@ -613,6 +619,7 @@ static bool is_enclosing_handler(struct fw_address_handler *handler,
- 
- static struct fw_address_handler *lookup_enclosing_address_handler(
- 	struct list_head *list, unsigned long long offset, size_t length)
-+__must_hold_shared(RCU)
- {
- 	struct fw_address_handler *handler;
- 
-@@ -624,9 +631,6 @@ static struct fw_address_handler *lookup_enclosing_address_handler(
- 	return NULL;
- }
- 
--static DEFINE_SPINLOCK(address_handler_list_lock);
--static LIST_HEAD(address_handler_list);
--
- /**
-  * var fw_high_memory_region - An address range for high memory.
-  *
+ 	return mask;
 -- 
 2.53.0
 
