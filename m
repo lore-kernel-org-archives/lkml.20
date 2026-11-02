@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636278;
-	b=qq+KbB8nv/Kg85/+HzNtsdodOU1Ai7X8lBbQutRehpfzTwEtl5WV8J40FpsWS/poa28Y
-	 mKTJoVMTf65WiRoNhRHUI3jor1iRd7Ov4ogDpPeNCz4RTgHHvKPGAYva4MF86rHgy6tTw
-	 lbNVvsvQI7C+lz2wE/JKYZDqAzdNsJYJj6fzloEcsL35mUYTZg/2GRyUP8WHsWtY4VXlu
-	 EPHaBE5WQsrZeQ8vdvlzOnnVwUbXK5XavD3aShBiDR4mdXEITqi5skjanl/2kJTHhAFj5
-	 66tU6OVbiuBHKh6VTl+E86Crda/Y8NyXEBNqZ2MkonaI48NUG14jjIbSxRy7wbW4+PQ==
+	t=1793636272;
+	b=kjnkFlnAuQpAlCRUKQ+lgGbjNAylRuWQn9W1qqm46zBuMOL2oZ+e4PGszM3QDETS/M/W
+	 s2soiR9ZfpZc+1ck0oHPt8O3ehjRDH+7KKdpGmNd7YUbXLcp3PLfgpGX7muLGSaHllWDS
+	 WUwLH///hIdRFT6e1bcKYosdGSXgpcqAk/JXrWkPzthCeHZCjgE0jkI24xEh0kDhR9dWZ
+	 J5m3lJZlihaWAHYNZcHf1P8mp6mC82548SQqRY4DnNZSPBn1l53NuP06+SFqfD6B+wCV8
+	 sXYNgL4FhlL/58B/o4HGyyRltCURVfuHeLbcPqWOz8l0EryWfUlI7Ae0Zla8ptP4CHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636272;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tSlhZlCS6U6DSS1pN1LYEAHztvmXI+pBSdiw2T3/jww=;
-	b=nTmEM94ZmvnSRNFiFUZVZn3ld1aE0+P/vnB0jjYrSa4xZwirZWpv6OmHe1Hqci34NVTr
-	 ykkx50MDwAqodHmXV4E3Gq/ioJdCDl1MLHzeKKIHZo1o6aAwJr380EoYFty/XGlkMgYSe
-	 42No0gbDWfpePEt6f7SEF7c38K6oqcUlyvuDu0PvMgJjwQy5pdRNhtY/kJZRSeTWcrY/f
-	 q158GjMHTxr2c3SBIIEmpK5HaGpF1VMeHu9khY8ovgBgbosG3qgFsp5FXbqwMibCt0MMj
-	 y7ZeMs0udsuIKY7wJvMNCW6hp3x8nkqxNb/3NjT0ycD4K7Pm7R0tdvZZTGNpjNMFXhQ==
+	bh=5ZG0aSxZtvp5HOLn4tluFrSC0UwwVprOmRcg6hA6TV8=;
+	b=mZaUgSzArMZdgJoptAIgWjO9c28WV+ym++DbPf1QZ9xhujB5JQTx0oQMDJwEIOxWG48i
+	 q+HrZrsNoOFCaQhlhxL9qkxgojYiQABTe4Cqei0SISdb/DP20ubDotIVwf5YvXuvTo6kv
+	 MTGqb34dCPQJEx+rSsUOsqR2V4UWZCPnKjhfZjBwM/lXmp42tOMEWB2NOYjWz2u0wI308
+	 R4532hoQU5hx655YBdOCSwFeZVUJfiFSWR1i+Cpx6Q3AFWFl5KFnZ0jjm/C1+g5qoNHRy
+	 KV0SaN+yzH8KxWjWdNWuV9z6hPIMohkd1oa8ABplSj0BfIpqrcwTypCVsQ2y7eJTf7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQULjrXj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CyZVfmlA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C729A6099952;
-	Mon,  2 Nov 2026 16:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9AC609620F;
+	Mon,  2 Nov 2026 16:17:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQULjrXj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070271F00A16;
-	Mon,  2 Nov 2026 16:17:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CyZVfmlA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A431F00A16;
+	Mon,  2 Nov 2026 16:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793636277;
-	bh=tSlhZlCS6U6DSS1pN1LYEAHztvmXI+pBSdiw2T3/jww=;
+	s=k20260515; t=1793636271;
+	bh=5ZG0aSxZtvp5HOLn4tluFrSC0UwwVprOmRcg6hA6TV8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CQULjrXjrjsOWi0iaCtq/TdLS6jX+M6bZUeB0z1jv8FrMpPnWiSnknJi9t24FCWl2
-	 ZTpS/c5oksveMDee5Otug5ADTMdsWPbfOvTNVv251kvmG259hBRTfAt2/Yt8MkCIdX
-	 0EyrmcWbDgGILQnX++ZyjkoQJd+Orlg7A3uZSb9O0rZy/rjMJYkdrKhaPz31hZpHHX
-	 j5sc2ySkUSWOFS0PfA/KZK+5iI7qzU+EQN0N5hw+ruT54+S1tF3CnIe2bZA10tYjRm
-	 fFqd7sbbH9z57tqEA7tVHhUlGbmJB3bcjEKIf0AiVJRl7eKhmvKry91vTyxAtAkiZC
-	 c/mtzxzoCSifQ==
+	b=CyZVfmlAmKL1QKOzunpK8/aVLCZXONsn825+MmVrMur140un8JrARd+vAoRjW2XNg
+	 HMYf0IvrfUXHdJzdCZ4A8D4HvxPdDUU3o2Hk4xi9WGM3ph/XLqnQPXo7VI4DfsQxkP
+	 6Kr4wB8HNYj+0ZOJSWl89sX4VQLA7VxoTHi/WE2batjTlbOEQwLhyH55wGhdTaYVAx
+	 VEYwE7Ic3d8cHWhlU+D77n2HXjgly9lMz3V3tPw2rWk8pr9ADORDvk4kb/8S1hQzlm
+	 uzdwHSZZ2Ifka3EwwJaKUl7pRgPjt2ZREMW3TuqAhrntp3zWPBYqUBOrYMW1ARmRRx
+	 Pjbv0wmkmJHNw==
 From: Tzung-Bi Shih <tzungbi@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"Rafael J. Wysocki" <rafael@kernel.org>,
@@ -53,10 +53,11 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
-	tzungbi@kernel.org
-Subject: [PATCH v15 4/4] reset: Leverage revocable for accessing struct reset_controller_dev
-Date: Tue,  3 Nov 2026 00:17:09 +0800
-Message-ID: <20261102161710.24076-5-tzungbi@kernel.org>
+	tzungbi@kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v15 2/4] revocable: Add KUnit test cases
+Date: Tue,  3 Nov 2026 00:17:07 +0800
+Message-ID: <20261102161710.24076-3-tzungbi@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261102161710.24076-1-tzungbi@kernel.org>
 References: <20261102161710.24076-1-tzungbi@kernel.org>
@@ -71,344 +72,752 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 78ebbff6d1a0 ("reset: handle removing supplier before consumers")
-protected the `rcdev` pointer in `struct reset_control` with SRCU so
-that the reset core can handle suppliers unbinding while consumers still
-hold reset control handles.
+Add KUnit test cases for the revocable API.
 
-Because `struct reset_control` handles can outlive `rcdev`, each of the
-N handles had to embed its own `srcu_struct` and call synchronize_srcu()
-on release, and reset_controller_unregister() had to call
-synchronize_srcu() N times in a loop.
+The test cases cover the following scenarios:
 
-Leverage dynamic revocable to allocate a single reference-counted
-`struct revocable` for `rcdev` shared across all N `struct reset_control`
-handles (1-to-N).  This reduces N `srcu_struct` instances per controller
-to 1, drops synchronize_srcu() from reset_control_put_internal(), and
-replaces the N synchronize_srcu() calls on unregistration with a single
-revocable_revoke().
+- Basic: Verifies that a consumer can successfully access the resource.
+- Revocation: Verifies that after the provider revokes the resource,
+  the consumer correctly receives a NULL pointer on a subsequent access.
+- Try Access Macro: Same as "Revocation" but uses the macro level
+  helpers.
+- Concurrent Access: Verifies multiple threads can access the resource.
 
+Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
-Applied after https://lore.kernel.org/all/20261102155840.20376-1-tzungbi@kernel.org
 ---
 Test:
 $ ./tools/testing/kunit/kunit.py run \
-        --kconfig_add CONFIG_RESET_CONTROLLER=y \
-        --kconfig_add CONFIG_RESET_KUNIT_TEST=y \
-        reset_test
+        --kconfig_add CONFIG_REVOCABLE_KUNIT_TEST=y \
+        revocable_test
 
 $ ./tools/testing/kunit/kunit.py run \
-        --kconfig_add CONFIG_RESET_CONTROLLER=y \
-        --kconfig_add CONFIG_RESET_KUNIT_TEST=y \
+        --kconfig_add CONFIG_REVOCABLE_KUNIT_TEST=y \
         --kconfig_add CONFIG_PROVE_LOCKING=y \
         --kconfig_add CONFIG_DEBUG_KERNEL=y \
+        --kconfig_add CONFIG_DEBUG_INFO=y \
+        --kconfig_add CONFIG_DEBUG_INFO_DWARF5=y \
         --kconfig_add CONFIG_KASAN=y \
+        --kconfig_add CONFIG_DETECT_HUNG_TASK=y \
+        --kconfig_add CONFIG_DEFAULT_HUNG_TASK_TIMEOUT="10" \
         --arch=x86_64 \
-        --raw_output=all \
-        reset_test
+        --make_options="C=1 W=1" \
+        revocable_test
 ---
 v15:
-- Rename:
-  - "rev" -> "revocable" in struct reset_controller_dev.
-  - "rev" -> "rcdev_revocable" in struct reset_control.
+- Clean up kthreads and revocable handles on error paths in concurrent
+  access tests.
 
-v14: https://lore.kernel.org/all/20261011121246.162759-6-tzungbi@kernel.org
-- New to the series.
+v14: https://lore.kernel.org/all/20261011121246.162759-3-tzungbi@kernel.org
+- Add Tested-by tag.
+- Change revocable API usages accordingly:
+  - revocable_deinit() -> revocable_destroy().
+  - revocable_handle_deinit() -> revocable_handle_destroy().
+  - Adjust expected refcounts as revocable_alloc() holds 1 initial
+    reference and revocable_revoke() no longer drops a reference.
+- Refactor embedded test cases and concurrent access setup to reduce
+  code duplication.
+- Replace msleep() with completion/polling in concurrent access tests.
+- Hold task_struct references with get_task_struct() and stop threads
+  with kthread_stop_put() to prevent Use-After-Free.
+
+v13: https://lore.kernel.org/all/20260912123529.7951-3-tzungbi@kernel.org
+- Explicitly indicate "dynamic" vs. "embedded" in test case names.
+- Embedded allocation
+  - Add tests and separate "stack" vs. "heap".
+  - Add tests on macros and concurrent access.
+
+v12: https://lore.kernel.org/all/20260908134223.13638-3-tzungbi@kernel.org
+- Rebase onto next-20260907.
+- Fix path in MAINTAINERS: "drivers/base/revocable_test.c" ->
+  "drivers/base/test/revocable-test.c".
+
+v11: https://lore.kernel.org/all/20260513091043.6766-3-tzungbi@kernel.org
+- Move the test to drivers/base/test/.
+- Add R-b tag.
+
+v10: https://lore.kernel.org/all/20260508105448.31799-3-tzungbi@kernel.org
+- Merge revocable_test_try_access_macro*() cases.
+- Change revocable API usages accordingly.
+
+v9: https://lore.kernel.org/all/20260427135841.96266-3-tzungbi@kernel.org
+- Add test cases for embedded resource provider.
+
+v8: https://lore.kernel.org/all/20260213092307.858908-3-tzungbi@kernel.org
+- Squash:
+  - c259cd7ea3c9 revocable: fix missing module license and description
+  - a243f7fb11fe revocable: Add KUnit test for provider lifetime races
+  - 988357628c2c revocable: Add KUnit test for concurrent access
+- Change accordingly due to its dependency "revocable: Revocable resource
+  management" changes.
+
+v7: https://lore.kernel.org/all/20260116080235.350305-3-tzungbi@kernel.org
+- "2025" -> "2026" in copyright.
+- Rename the test name "macro" -> "try_access_macro".
+
+v6: https://lore.kernel.org/all/20251106152330.11733-3-tzungbi@kernel.org
+- Rename REVOCABLE_TRY_ACCESS_WITH() -> REVOCABLE_TRY_ACCESS_SCOPED().
+- Add tests for new REVOCABLE_TRY_ACCESS_WITH().
+
+v5: https://lore.kernel.org/all/20251016054204.1523139-3-tzungbi@kernel.org
+- No changes.
+
+v4: https://lore.kernel.org/all/20250923075302.591026-3-tzungbi@kernel.org
+- REVOCABLE() -> REVOCABLE_TRY_ACCESS_WITH().
+- revocable_release() -> revocable_withdraw_access().
+
+v3: https://lore.kernel.org/all/20250912081718.3827390-3-tzungbi@kernel.org
+- No changes.
+
+v2: https://lore.kernel.org/all/20250820081645.847919-3-tzungbi@kernel.org
+- New in the series.
 ---
- drivers/reset/core.c             | 125 ++++++++++---------------------
- include/linux/reset-controller.h |   3 +
- 2 files changed, 42 insertions(+), 86 deletions(-)
+ MAINTAINERS                        |   1 +
+ drivers/base/test/Kconfig          |   5 +
+ drivers/base/test/Makefile         |   2 +
+ drivers/base/test/revocable-test.c | 598 +++++++++++++++++++++++++++++
+ 4 files changed, 606 insertions(+)
+ create mode 100644 drivers/base/test/revocable-test.c
 
-diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-index a36a4d6ff445..c699e7550cf5 100644
---- a/drivers/reset/core.c
-+++ b/drivers/reset/core.c
-@@ -24,8 +24,8 @@
- #include <linux/property.h>
- #include <linux/reset.h>
- #include <linux/reset-controller.h>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a69407a9fefa..ba15f942ee07 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23990,6 +23990,7 @@ S:	Maintained
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+ F:	Documentation/driver-api/driver-model/revocable.rst
+ F:	drivers/base/revocable.c
++F:	drivers/base/test/revocable-test.c
+ F:	include/linux/revocable.h
+ 
+ RFKILL
+diff --git a/drivers/base/test/Kconfig b/drivers/base/test/Kconfig
+index 1ecf0791241a..80353db68a4f 100644
+--- a/drivers/base/test/Kconfig
++++ b/drivers/base/test/Kconfig
+@@ -23,3 +23,8 @@ config DRIVER_SWNODE_KUNIT_TEST
+ 	tristate "KUnit Tests for software node fw_devlink links" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+ 	default KUNIT_ALL_TESTS
++
++config REVOCABLE_KUNIT_TEST
++	tristate "KUnit tests for revocable" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
+diff --git a/drivers/base/test/Makefile b/drivers/base/test/Makefile
+index 9ced7bbd569f..cb74d3fff1ae 100644
+--- a/drivers/base/test/Makefile
++++ b/drivers/base/test/Makefile
+@@ -8,3 +8,5 @@ obj-$(CONFIG_DRIVER_PE_KUNIT_TEST) += property-entry-test.o
+ CFLAGS_property-entry-test.o += $(DISABLE_STRUCTLEAK_PLUGIN)
+ 
+ obj-$(CONFIG_DRIVER_SWNODE_KUNIT_TEST) += swnode-devlink-test.o
++
++obj-$(CONFIG_REVOCABLE_KUNIT_TEST) += revocable-test.o
+diff --git a/drivers/base/test/revocable-test.c b/drivers/base/test/revocable-test.c
+new file mode 100644
+index 000000000000..e317f9ffdfd8
+--- /dev/null
++++ b/drivers/base/test/revocable-test.c
+@@ -0,0 +1,598 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright 2026 Google LLC
++ *
++ * KUnit tests for the revocable API.
++ *
++ * The test cases cover the following scenarios:
++ *
++ * - Basic: Verifies that a consumer can successfully access the resource.
++ *
++ * - Revocation: Verifies that after the provider revokes the resource,
++ *   the consumer correctly receives a NULL pointer on a subsequent access.
++ *
++ * - Try Access Macro: Same as "Revocation" but uses the macro level
++ *   helpers.
++ *
++ * - Concurrent Access: Verifies multiple threads can access the resource.
++ */
++
++#include <kunit/test.h>
++
++#include <linux/completion.h>
++#include <linux/iopoll.h>
++#include <linux/kthread.h>
++#include <linux/refcount.h>
 +#include <linux/revocable.h>
- #include <linux/slab.h>
--#include <linux/srcu.h>
- 
- static DEFINE_MUTEX(reset_list_mutex);
- static LIST_HEAD(reset_controller_list);
-@@ -37,9 +37,7 @@ static DEFINE_IDA(reset_gpio_ida);
- 
- /**
-  * struct reset_control - a reset control
-- * @rcdev: a pointer to the reset controller device
-- *         this reset control belongs to
-- * @srcu: protects the rcdev pointer from removal during consumer access
-+ * @rcdev_revocable: revocable handle for accessing the reset controller device
-  * @list: list entry for the rcdev's reset controller list
-  * @id: ID of the reset controller in the reset
-  *      controller device
-@@ -54,8 +52,7 @@ static DEFINE_IDA(reset_gpio_ida);
-  * @lock: serializes the internals of reset_control_acquire()
-  */
- struct reset_control {
--	struct reset_controller_dev __rcu *rcdev;
--	struct srcu_struct srcu;
-+	struct revocable *rcdev_revocable;
- 	struct list_head list;
- 	unsigned int id;
- 	struct kref refcnt;
-@@ -141,6 +138,10 @@ int reset_controller_register(struct reset_controller_dev *rcdev)
- 			return -EINVAL;
- 	}
- 
-+	rcdev->revocable = revocable_alloc(rcdev);
-+	if (!rcdev->revocable)
-+		return -ENOMEM;
++#include <linux/sched/task.h>
 +
- 	if (rcdev->of_xlate)
- 		rcdev->fwnode_reset_n_cells = rcdev->of_reset_n_cells;
- 
-@@ -160,14 +161,20 @@ int reset_controller_register(struct reset_controller_dev *rcdev)
- }
- EXPORT_SYMBOL_GPL(reset_controller_register);
- 
--static void reset_control_put_internal(struct reset_control *rstc);
--
- static void reset_controller_remove(struct reset_controller_dev *rcdev,
- 				    struct reset_control *rstc)
- {
- 	lockdep_assert_held(&rcdev->lock);
- 
--	list_del(&rstc->list);
-+	/*
-+	 * reset_control_put_internal() may observe a non-NULL rcdev before
-+	 * revocable_revoke() runs, and then wait on rcdev->lock while
-+	 * reset_controller_unregister() already detaches rstc.
-+	 */
-+	if (list_empty(&rstc->list))
-+		return;
-+	list_del_init(&rstc->list);
++static int get_refcount(struct revocable *rev)
++{
++	return refcount_read(&rev->kref.refcount);
++}
 +
- 	module_put(rcdev->owner);
- 	put_device(rcdev->dev);
- }
-@@ -179,38 +186,22 @@ static void reset_controller_remove(struct reset_controller_dev *rcdev,
- void reset_controller_unregister(struct reset_controller_dev *rcdev)
- {
- 	struct reset_control *rstc, *pos;
--	LIST_HEAD(reset_control_head);
- 
- 	scoped_guard(mutex, &reset_list_mutex)
- 		list_del(&rcdev->list);
- 
- 	scoped_guard(mutex, &rcdev->lock) {
--		/*
--		 * Numb but don't free the remaining reset control handles that are
--		 * still held by consumers.
--		 *
--		 * Hold a temporary reference on rstc before clearing rstc->rcdev:
--		 * once rstc->rcdev is NULL, a concurrent reset_control_put_internal()
--		 * will not acquire rcdev->lock and could otherwise free rstc.
--		 */
--		list_for_each_entry_safe(rstc, pos, &rcdev->reset_control_head, list) {
--			kref_get(&rstc->refcnt);
--			rcu_assign_pointer(rstc->rcdev, NULL);
-+		list_for_each_entry_safe(rstc, pos, &rcdev->reset_control_head, list)
- 			reset_controller_remove(rcdev, rstc);
--			list_add(&rstc->list, &reset_control_head);
--		}
- 	}
- 
- 	/*
--	 * Run synchronize_srcu() outside rcdev->lock to avoid a circular
-+	 * Run revocable_revoke() outside rcdev->lock to avoid a circular
- 	 * locking dependency with paths that acquire rcdev->lock inside
--	 * the rstc->srcu read-side critical section.
-+	 * the revocable read-side critical section.
- 	 */
--	list_for_each_entry_safe(rstc, pos, &reset_control_head, list) {
--		list_del(&rstc->list);
--		synchronize_srcu(&rstc->srcu);
--		reset_control_put_internal(rstc);
--	}
-+	revocable_revoke(rcdev->revocable);
-+	revocable_put(rcdev->revocable);
- 
- 	mutex_destroy(&rcdev->lock);
- }
-@@ -401,11 +392,7 @@ int reset_control_reset(struct reset_control *rstc)
- 	if (reset_control_is_array(rstc))
- 		return reset_control_array_reset(rstc_to_array(rstc));
- 
--	guard(srcu)(&rstc->srcu);
--
--	rcdev = srcu_dereference(rstc->rcdev, &rstc->srcu);
--	if (!rcdev)
--		return -ENODEV;
-+	revocable_try_access_or_return(rstc->rcdev_revocable, rcdev);
- 
- 	if (!rcdev->ops->reset)
- 		return -ENOTSUPP;
-@@ -522,11 +509,7 @@ int reset_control_assert(struct reset_control *rstc)
- 	if (reset_control_is_array(rstc))
- 		return reset_control_array_assert(rstc_to_array(rstc));
- 
--	guard(srcu)(&rstc->srcu);
--
--	rcdev = srcu_dereference(rstc->rcdev, &rstc->srcu);
--	if (!rcdev)
--		return -ENODEV;
-+	revocable_try_access_or_return(rstc->rcdev_revocable, rcdev);
- 
- 	if (rstc->shared) {
- 		if (WARN_ON(atomic_read(&rstc->triggered_count) != 0))
-@@ -618,11 +601,7 @@ int reset_control_deassert(struct reset_control *rstc)
- 	if (reset_control_is_array(rstc))
- 		return reset_control_array_deassert(rstc_to_array(rstc));
- 
--	guard(srcu)(&rstc->srcu);
--
--	rcdev = srcu_dereference(rstc->rcdev, &rstc->srcu);
--	if (!rcdev)
--		return -ENODEV;
-+	revocable_try_access_or_return(rstc->rcdev_revocable, rcdev);
- 
- 	if (rstc->shared) {
- 		if (WARN_ON(atomic_read(&rstc->triggered_count) != 0))
-@@ -698,11 +677,7 @@ int reset_control_status(struct reset_control *rstc)
- 	if (WARN_ON(IS_ERR(rstc)) || reset_control_is_array(rstc))
- 		return -EINVAL;
- 
--	guard(srcu)(&rstc->srcu);
--
--	rcdev = srcu_dereference(rstc->rcdev, &rstc->srcu);
--	if (!rcdev)
--		return -ENODEV;
-+	revocable_try_access_or_return(rstc->rcdev_revocable, rcdev);
- 
- 	if (rcdev->ops->status)
- 		return rcdev->ops->status(rcdev, rstc->id);
-@@ -750,11 +725,7 @@ int reset_control_acquire(struct reset_control *rstc)
- 	if (rstc->acquired)
- 		return 0;
- 
--	guard(srcu)(&rstc->srcu);
--
--	rcdev = srcu_dereference(rstc->rcdev, &rstc->srcu);
--	if (!rcdev)
--		return -ENODEV;
-+	revocable_try_access_or_return(rstc->rcdev_revocable, rcdev);
- 
- 	scoped_guard(mutex, &rcdev->lock) {
- 		list_for_each_entry(rc, &rcdev->reset_control_head, list) {
-@@ -850,7 +821,6 @@ __reset_control_get_internal(struct reset_controller_dev *rcdev,
- 	bool shared = flags & RESET_CONTROL_FLAGS_BIT_SHARED;
- 	bool acquired = flags & RESET_CONTROL_FLAGS_BIT_ACQUIRED;
- 	struct reset_control *rstc;
--	int ret;
- 
- 	lockdep_assert_held(&rcdev->lock);
- 
-@@ -881,19 +851,13 @@ __reset_control_get_internal(struct reset_controller_dev *rcdev,
- 	if (!rstc)
- 		return ERR_PTR(-ENOMEM);
- 
--	ret = init_srcu_struct(&rstc->srcu);
--	if (ret) {
--		kfree(rstc);
--		return ERR_PTR(ret);
--	}
--
- 	if (!try_module_get(rcdev->owner)) {
--		cleanup_srcu_struct(&rstc->srcu);
- 		kfree(rstc);
- 		return ERR_PTR(-ENODEV);
- 	}
- 
--	rcu_assign_pointer(rstc->rcdev, rcdev);
-+	revocable_get(rcdev->revocable);
-+	rstc->rcdev_revocable = rcdev->revocable;
- 	list_add(&rstc->list, &rcdev->reset_control_head);
- 	rstc->id = index;
- 	kref_init(&rstc->refcnt);
-@@ -909,17 +873,9 @@ static void __reset_control_release(struct kref *kref)
- {
- 	struct reset_control *rstc = container_of(kref, struct reset_control,
- 						  refcnt);
--	struct reset_controller_dev *rcdev;
--
--	lockdep_assert_held(&rstc->srcu);
--
--	rcdev = rcu_replace_pointer(rstc->rcdev, NULL, true);
--	if (rcdev) {
--		lockdep_assert_held(&rcdev->lock);
--		reset_controller_remove(rcdev, rstc);
--	}
- 
- 	mutex_destroy(&rstc->lock);
-+	revocable_put(rstc->rcdev_revocable);
- }
- 
- static void reset_control_put_internal(struct reset_control *rstc)
-@@ -930,22 +886,19 @@ static void reset_control_put_internal(struct reset_control *rstc)
- 	if (IS_ERR_OR_NULL(rstc))
- 		return;
- 
--	scoped_guard(srcu, &rstc->srcu) {
--		rcdev = srcu_dereference(rstc->rcdev, &rstc->srcu);
--		if (rcdev) {
--			guard(mutex)(&rcdev->lock);
--			ret = kref_put(&rstc->refcnt, __reset_control_release);
--		} else {
--			/* Already detached from rcdev. */
--			ret = kref_put(&rstc->refcnt, __reset_control_release);
--		}
-+	revocable_try_access_with(rstc->rcdev_revocable, rcdev);
-+	if (rcdev) {
-+		guard(mutex)(&rcdev->lock);
-+		ret = kref_put(&rstc->refcnt, __reset_control_release);
-+		if (ret)
-+			reset_controller_remove(rcdev, rstc);
-+	} else {
-+		/* Already detached from rcdev. */
-+		ret = kref_put(&rstc->refcnt, __reset_control_release);
- 	}
- 
--	if (ret) {
--		synchronize_srcu(&rstc->srcu);
--		cleanup_srcu_struct(&rstc->srcu);
-+	if (ret)
- 		kfree(rstc);
--	}
- }
- 
- static void reset_gpio_aux_device_release(struct device *dev)
-diff --git a/include/linux/reset-controller.h b/include/linux/reset-controller.h
-index 52a5a4e81f18..a5547a742cde 100644
---- a/include/linux/reset-controller.h
-+++ b/include/linux/reset-controller.h
-@@ -28,6 +28,7 @@ struct reset_control_ops {
- struct module;
- struct device_node;
- struct of_phandle_args;
-+struct revocable;
- 
- /**
-  * struct reset_controller_dev - reset controller entity that might
-@@ -48,6 +49,7 @@ struct of_phandle_args;
-  *                :c:func:`fwnode_reset_simple_xlate`
-  * @nr_resets: number of reset controls in this reset controller device
-  * @lock: protects the reset control list from concurrent access
-+ * @revocable: revocable provider handle for itself
-  */
- struct reset_controller_dev {
- 	const struct reset_control_ops *ops;
-@@ -65,6 +67,7 @@ struct reset_controller_dev {
- 			    const struct fwnode_reference_args *reset_spec);
- 	unsigned int nr_resets;
- 	struct mutex lock;
-+	struct revocable *revocable;
- };
- 
- #if IS_ENABLED(CONFIG_RESET_CONTROLLER)
++static void _revocable_embedded_test_basic(struct kunit *test,
++					   struct revocable *rev)
++{
++	struct revocable_handle rh;
++	void *real_res = (void *)0x12345678, *res;
++	int ret;
++
++	ret = revocable_init(rev, real_res);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_FALSE(test, rev->dynamic);
++
++	revocable_handle_init(rev, &rh);
++
++	res = revocable_try_access(&rh);
++	KUNIT_EXPECT_PTR_EQ(test, res, real_res);
++	revocable_withdraw_access(&rh);
++
++	revocable_handle_destroy(&rh);
++	revocable_revoke(rev);
++	revocable_destroy(rev);
++}
++
++static void revocable_embedded_test_basic_stack(struct kunit *test)
++{
++	struct revocable rev;
++
++	_revocable_embedded_test_basic(test, &rev);
++}
++
++static void revocable_embedded_test_basic_heap(struct kunit *test)
++{
++	struct revocable *rev;
++
++	rev = kunit_kzalloc(test, sizeof(*rev), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, rev);
++
++	_revocable_embedded_test_basic(test, rev);
++}
++
++static void revocable_dynamic_test_basic(struct kunit *test)
++{
++	struct revocable *rev;
++	struct revocable_handle rh;
++	void *real_res = (void *)0x12345678, *res;
++
++	rev = revocable_alloc(real_res);
++	KUNIT_ASSERT_NOT_NULL(test, rev);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++	KUNIT_EXPECT_TRUE(test, rev->dynamic);
++
++	revocable_handle_init(rev, &rh);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++
++	res = revocable_try_access(&rh);
++	KUNIT_EXPECT_PTR_EQ(test, res, real_res);
++	revocable_withdraw_access(&rh);
++
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++	revocable_handle_destroy(&rh);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++	revocable_revoke(rev);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++	revocable_put(rev);
++}
++
++static void _revocable_embedded_test_revocation(struct kunit *test,
++						struct revocable *rev)
++{
++	struct revocable_handle rh;
++	void *real_res = (void *)0x12345678, *res;
++	int ret;
++
++	ret = revocable_init(rev, real_res);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_FALSE(test, rev->dynamic);
++
++	revocable_handle_init(rev, &rh);
++
++	res = revocable_try_access(&rh);
++	KUNIT_EXPECT_PTR_EQ(test, res, real_res);
++	revocable_withdraw_access(&rh);
++
++	revocable_revoke(rev);
++
++	res = revocable_try_access(&rh);
++	KUNIT_EXPECT_PTR_EQ(test, res, NULL);
++	revocable_withdraw_access(&rh);
++
++	revocable_handle_destroy(&rh);
++	revocable_destroy(rev);
++}
++
++static void revocable_embedded_test_revocation_stack(struct kunit *test)
++{
++	struct revocable rev;
++
++	_revocable_embedded_test_revocation(test, &rev);
++}
++
++static void revocable_embedded_test_revocation_heap(struct kunit *test)
++{
++	struct revocable *rev;
++
++	rev = kunit_kzalloc(test, sizeof(*rev), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, rev);
++
++	_revocable_embedded_test_revocation(test, rev);
++}
++
++static void revocable_dynamic_test_revocation(struct kunit *test)
++{
++	struct revocable *rev;
++	struct revocable_handle rh;
++	void *real_res = (void *)0x12345678, *res;
++
++	rev = revocable_alloc(real_res);
++	KUNIT_ASSERT_NOT_NULL(test, rev);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++	KUNIT_EXPECT_TRUE(test, rev->dynamic);
++
++	revocable_handle_init(rev, &rh);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++
++	res = revocable_try_access(&rh);
++	KUNIT_EXPECT_PTR_EQ(test, res, real_res);
++	revocable_withdraw_access(&rh);
++
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++	revocable_revoke(rev);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++
++	res = revocable_try_access(&rh);
++	KUNIT_EXPECT_PTR_EQ(test, res, NULL);
++	revocable_withdraw_access(&rh);
++
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++	revocable_handle_destroy(&rh);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++	revocable_put(rev);
++}
++
++static int call_revocable_try_access_or_return_err(struct revocable *rev)
++{
++	void *res;
++
++	revocable_try_access_or_return_err(rev, res, -ENXIO);
++	return 0;
++}
++
++static int call_revocable_try_access_or_return(struct revocable *rev)
++{
++	void *res;
++
++	revocable_try_access_or_return(rev, res);
++	return 0;
++}
++
++static void call_revocable_try_access_or_return_void(struct kunit *test,
++						     struct revocable *rev)
++{
++	void *res;
++
++	revocable_try_access_or_return_void(rev, res);
++	KUNIT_FAIL(test, "unreachable");
++}
++
++static int call_revocable_try_access_or_return_err_scoped(struct revocable *rev)
++{
++	void *res;
++
++	revocable_try_access_or_return_err_scoped(rev, res, -ENXIO) {}
++	return 0;
++}
++
++static int call_revocable_try_access_or_return_scoped(struct revocable *rev)
++{
++	void *res;
++
++	revocable_try_access_or_return_scoped(rev, res) {}
++	return 0;
++}
++
++static void call_revocable_try_access_or_return_void_scoped(struct kunit *test,
++							    struct revocable *rev)
++{
++	void *res;
++
++	revocable_try_access_or_return_void_scoped(rev, res) {}
++	KUNIT_FAIL(test, "unreachable");
++}
++
++static void revocable_embedded_test_try_access_macro(struct kunit *test)
++{
++	struct revocable rev_on_stack, *rev = &rev_on_stack;
++	void *real_res = (void *)0x12345678, *res;
++	int ret;
++	bool accessed;
++
++	ret = revocable_init(rev, real_res);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_FALSE(test, rev->dynamic);
++
++	{
++		revocable_try_access_with(rev, res);
++		KUNIT_EXPECT_PTR_EQ(test, res, real_res);
++	}
++
++	accessed = false;
++	revocable_try_access_with_scoped(rev, res) {
++		KUNIT_EXPECT_PTR_EQ(test, res, real_res);
++		accessed = true;
++	}
++	KUNIT_EXPECT_TRUE(test, accessed);
++
++	revocable_revoke(rev);
++
++	{
++		revocable_try_access_with(rev, res);
++		KUNIT_EXPECT_PTR_EQ(test, res, NULL);
++	}
++
++	accessed = false;
++	revocable_try_access_with_scoped(rev, res) {
++		KUNIT_EXPECT_PTR_EQ(test, res, NULL);
++		accessed = true;
++	}
++	KUNIT_EXPECT_TRUE(test, accessed);
++
++	ret = call_revocable_try_access_or_return_err(rev);
++	KUNIT_EXPECT_EQ(test, ret, -ENXIO);
++
++	ret = call_revocable_try_access_or_return(rev);
++	KUNIT_EXPECT_EQ(test, ret, -ENODEV);
++
++	call_revocable_try_access_or_return_void(test, rev);
++
++	ret = call_revocable_try_access_or_return_err_scoped(rev);
++	KUNIT_EXPECT_EQ(test, ret, -ENXIO);
++
++	ret = call_revocable_try_access_or_return_scoped(rev);
++	KUNIT_EXPECT_EQ(test, ret, -ENODEV);
++
++	call_revocable_try_access_or_return_void_scoped(test, rev);
++
++	accessed = false;
++	revocable_try_access_or_skip_scoped(rev, res)
++		accessed = true;
++	KUNIT_EXPECT_FALSE(test, accessed);
++
++	revocable_destroy(rev);
++}
++
++static void revocable_dynamic_test_try_access_macro(struct kunit *test)
++{
++	struct revocable *rev;
++	void *real_res = (void *)0x12345678, *res;
++	int ret;
++	bool accessed;
++
++	rev = revocable_alloc(real_res);
++	KUNIT_ASSERT_NOT_NULL(test, rev);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++	KUNIT_EXPECT_TRUE(test, rev->dynamic);
++
++	{
++		revocable_try_access_with(rev, res);
++		KUNIT_EXPECT_PTR_EQ(test, res, real_res);
++		KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++	}
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++
++	accessed = false;
++	revocable_try_access_with_scoped(rev, res) {
++		KUNIT_EXPECT_PTR_EQ(test, res, real_res);
++		KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++		accessed = true;
++	}
++	KUNIT_EXPECT_TRUE(test, accessed);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++
++	revocable_revoke(rev);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++
++	{
++		revocable_try_access_with(rev, res);
++		KUNIT_EXPECT_PTR_EQ(test, res, NULL);
++		KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++	}
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++
++	accessed = false;
++	revocable_try_access_with_scoped(rev, res) {
++		KUNIT_EXPECT_PTR_EQ(test, res, NULL);
++		KUNIT_EXPECT_EQ(test, get_refcount(rev), 2);
++		accessed = true;
++	}
++	KUNIT_EXPECT_TRUE(test, accessed);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++
++	ret = call_revocable_try_access_or_return_err(rev);
++	KUNIT_EXPECT_EQ(test, ret, -ENXIO);
++
++	ret = call_revocable_try_access_or_return(rev);
++	KUNIT_EXPECT_EQ(test, ret, -ENODEV);
++
++	call_revocable_try_access_or_return_void(test, rev);
++
++	ret = call_revocable_try_access_or_return_err_scoped(rev);
++	KUNIT_EXPECT_EQ(test, ret, -ENXIO);
++
++	ret = call_revocable_try_access_or_return_scoped(rev);
++	KUNIT_EXPECT_EQ(test, ret, -ENODEV);
++
++	call_revocable_try_access_or_return_void_scoped(test, rev);
++
++	accessed = false;
++	revocable_try_access_or_skip_scoped(rev, res)
++		accessed = true;
++	KUNIT_EXPECT_FALSE(test, accessed);
++
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++	revocable_put(rev);
++}
++
++struct test_concurrent_access_context {
++	struct completion started, enter;
++	struct task_struct *thread;
++
++	union {
++		/* Used by test provider. */
++		struct revocable *rev;
++
++		/* Used by test consumer. */
++		struct {
++			struct kunit *test;
++			struct completion entered, exit;
++			struct revocable_handle rh;
++			void *expected_res;
++		};
++	};
++};
++
++static int test_concurrent_access_provider(void *data)
++{
++	struct test_concurrent_access_context *ctx = data;
++
++	complete(&ctx->started);
++
++	if (wait_for_completion_interruptible(&ctx->enter))
++		return 0;
++	revocable_revoke(ctx->rev);
++
++	return 0;
++}
++
++static int test_concurrent_access_consumer(void *data)
++{
++	struct test_concurrent_access_context *ctx = data;
++	void *res;
++
++	complete(&ctx->started);
++
++	if (wait_for_completion_interruptible(&ctx->enter))
++		return 0;
++	res = revocable_try_access(&ctx->rh);
++	KUNIT_EXPECT_PTR_EQ(ctx->test, res, ctx->expected_res);
++
++	complete(&ctx->entered);
++
++	wait_for_completion_interruptible(&ctx->exit);
++	revocable_withdraw_access(&ctx->rh);
++
++	return 0;
++}
++
++static struct test_concurrent_access_context *
++revocable_test_concurrent_access_prepare(struct kunit *test,
++					 struct revocable *rev, bool dynamic)
++{
++	struct test_concurrent_access_context *ctx;
++	int i, ret;
++
++	ctx = kunit_kmalloc_array(test, 3, sizeof(*ctx), GFP_KERNEL);
++	if (!ctx) {
++		if (dynamic)
++			revocable_put(rev);
++		else
++			revocable_destroy(rev);
++		KUNIT_ASSERT_NOT_NULL(test, ctx);
++	}
++
++	for (i = 0; i < 3; ++i) {
++		init_completion(&ctx[i].started);
++		init_completion(&ctx[i].enter);
++
++		if (i == 0) {
++			ctx[i].rev = rev;
++			ctx[i].thread = kthread_run(
++				test_concurrent_access_provider, ctx + i,
++				"provider%d", i);
++		} else {
++			ctx[i].test = test;
++			init_completion(&ctx[i].entered);
++			init_completion(&ctx[i].exit);
++			revocable_handle_init(rev, &ctx[i].rh);
++			if (dynamic)
++				KUNIT_EXPECT_EQ(test, get_refcount(rev), 1 + i);
++
++			ctx[i].thread = kthread_run(
++				test_concurrent_access_consumer, ctx + i,
++				"consumer%d", i);
++		}
++		if (IS_ERR(ctx[i].thread)) {
++			ret = PTR_ERR(ctx[i].thread);
++			if (i > 0)
++				revocable_handle_destroy(&ctx[i].rh);
++			while (i--) {
++				kthread_stop_put(ctx[i].thread);
++				if (i > 0)
++					revocable_handle_destroy(&ctx[i].rh);
++			}
++			if (dynamic)
++				revocable_put(rev);
++			else
++				revocable_destroy(rev);
++			KUNIT_ASSERT_EQ(test, ret, 0);
++		}
++		get_task_struct(ctx[i].thread);
++
++		wait_for_completion(&ctx[i].started);
++	}
++
++	return ctx;
++}
++
++static void revocable_embedded_test_concurrent_access(struct kunit *test)
++{
++	struct revocable rev_on_stack, *rev = &rev_on_stack;
++	void *real_res = (void *)0x12345678, *res;
++	struct test_concurrent_access_context *ctx;
++	int ret, i;
++
++	ret = revocable_init(rev, real_res);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_FALSE(test, rev->dynamic);
++
++	ctx = revocable_test_concurrent_access_prepare(test, rev, false);
++
++	ctx[1].expected_res = real_res;
++	/* consumer1 enters read-side critical section. */
++	complete(&ctx[1].enter);
++	wait_for_completion(&ctx[1].entered);
++
++	/* provider0 revokes the resource. */
++	complete(&ctx[0].enter);
++	ret = read_poll_timeout(rcu_access_pointer, res, !res, 1000, 100000,
++				false, rev->res);
++	if (ret) {
++		for (i = 2; i >= 0; --i) {
++			kthread_stop_put(ctx[i].thread);
++			if (i > 0)
++				revocable_handle_destroy(&ctx[i].rh);
++		}
++		revocable_destroy(rev);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++	}
++	/* provider0 can't exit.  It's waiting for the grace period. */
++
++	ctx[2].expected_res = NULL;
++	/* consumer2 enters read-side critical section. */
++	complete(&ctx[2].enter);
++	wait_for_completion(&ctx[2].entered);
++
++	/* consumer{1,2} exit read-side critical section. */
++	for (i = 1; i < 3; ++i) {
++		complete(&ctx[i].exit);
++		kthread_stop_put(ctx[i].thread);
++		revocable_handle_destroy(&ctx[i].rh);
++	}
++
++	/* provider0 exits as all readers exit their critical section. */
++	kthread_stop_put(ctx[0].thread);
++
++	revocable_destroy(rev);
++}
++
++static void revocable_dynamic_test_concurrent_access(struct kunit *test)
++{
++	struct revocable *rev;
++	void *real_res = (void *)0x12345678, *res;
++	struct test_concurrent_access_context *ctx;
++	int ret, i;
++
++	rev = revocable_alloc(real_res);
++	KUNIT_ASSERT_NOT_NULL(test, rev);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++	KUNIT_EXPECT_TRUE(test, rev->dynamic);
++
++	ctx = revocable_test_concurrent_access_prepare(test, rev, true);
++
++	ctx[1].expected_res = real_res;
++	/* consumer1 enters read-side critical section. */
++	complete(&ctx[1].enter);
++	wait_for_completion(&ctx[1].entered);
++
++	/* provider0 revokes the resource. */
++	complete(&ctx[0].enter);
++	ret = read_poll_timeout(rcu_access_pointer, res, !res, 1000, 100000,
++				false, rev->res);
++	if (ret) {
++		for (i = 2; i >= 0; --i) {
++			kthread_stop_put(ctx[i].thread);
++			if (i > 0)
++				revocable_handle_destroy(&ctx[i].rh);
++		}
++		revocable_put(rev);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++	}
++	/* provider0 can't exit.  It's waiting for the grace period. */
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 3);
++
++	ctx[2].expected_res = NULL;
++	/* consumer2 enters read-side critical section. */
++	complete(&ctx[2].enter);
++	wait_for_completion(&ctx[2].entered);
++
++	/* consumer{1,2} exit read-side critical section. */
++	for (i = 1; i < 3; ++i) {
++		complete(&ctx[i].exit);
++		kthread_stop_put(ctx[i].thread);
++		revocable_handle_destroy(&ctx[i].rh);
++	}
++
++	/* provider0 exits as all readers exit their critical section. */
++	kthread_stop_put(ctx[0].thread);
++	KUNIT_EXPECT_EQ(test, get_refcount(rev), 1);
++
++	/* Drop the provider reference. */
++	revocable_put(rev);
++}
++
++static struct kunit_case revocable_test_cases[] = {
++	KUNIT_CASE(revocable_embedded_test_basic_stack),
++	KUNIT_CASE(revocable_embedded_test_basic_heap),
++	KUNIT_CASE(revocable_dynamic_test_basic),
++	KUNIT_CASE(revocable_embedded_test_revocation_stack),
++	KUNIT_CASE(revocable_embedded_test_revocation_heap),
++	KUNIT_CASE(revocable_dynamic_test_revocation),
++	KUNIT_CASE(revocable_embedded_test_try_access_macro),
++	KUNIT_CASE(revocable_dynamic_test_try_access_macro),
++	KUNIT_CASE(revocable_embedded_test_concurrent_access),
++	KUNIT_CASE(revocable_dynamic_test_concurrent_access),
++	{}
++};
++
++static struct kunit_suite revocable_test_suite = {
++	.name = "revocable_test",
++	.test_cases = revocable_test_cases,
++};
++
++kunit_test_suite(revocable_test_suite);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Tzung-Bi Shih <tzungbi@kernel.org>");
++MODULE_DESCRIPTION("KUnit tests for the revocable API");
 -- 
 2.53.0
 
