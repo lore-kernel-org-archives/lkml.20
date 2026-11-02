@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635130;
-	b=XmYo21b00EcWx5Eqlk9mnCT8/Ue4s89ww+2mm6gu7cDlUh4li+fx8ofe/lhSSvhoX2x4
-	 CuCVTn4ReGLqKvORiB5pWhBE5LLuMjAB44J9WvKNkf1xiJ4nS0/HjqNhXL5+QT/lvtv04
-	 jOm27SuQtjvCdf0mHyKcSV6mVK7cnKsKi9SkhNgQ86CmGzqTIvzkyM7yxMrO8ZRb7F1/1
-	 hnVRR8/obPslrUNG3lTe0M2/W0KLhHJ0eQTo9KSNvpoeUVk6DG+oTqGXcsHUDvWb8Fkye
-	 XTBzQkg+x2tznJcYd0ebL4gs+fddQNUc4Bd11Q2a0nqHd2TNLkYMzxGFt8mHIooIlwA==
+	t=1793635119;
+	b=B5+tBNNES/8TtrFNzVl2AkXV4TGGYlEKHo8AsZDu0a1ERxcLKCsWiSzh6+d7oOKjetc/
+	 ewnBVjiz7Pu+h3Sb7oV+VDp0HpRjt+gGooo9xekoS858IiOvfTydsgI8j9DAwcm0RrHjk
+	 OLWNRtccTZfXwnNDkIVLmMjDoYxK2hoGBw3mr/TeT6FWrzbtBMHzb19767rBzFkNF1jMw
+	 pXTbgWgpdgi5WsHrCyTWIqCBMwbno/yFft4LeWf1LJNPB+nTO6LPhpxuNh4Pvq/OZFQ7p
+	 hdI4/srKNIQfWYCd+kSR8uWtiQgHhkiqnQfdWlEZPtqwVO/EYkhRaprT7wVT8v+D6Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635119;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ldogGG0L2r7e8E8bTIXHYR/XI5wbEyYJRYKnBDo3pKE=;
-	b=cdKsESQKHLZyehn7doljjcugfaqqnTmGJ8C3aRkbu84rnZLDQI9L6rEb/un5KQXkizN9
-	 4MZgLTZD2RX9zCh7YMdXXz9MS5Z001WiL24ZPwQY/xjGlnDnOzsytolepqyYiPS2UspT9
-	 A0aolsLxLHhWs56DL4DT1hVB6astpSSJA0x+WsyQ9oqRar6PobGaKBgD+cpCs2JxNCSV6
-	 S7giftyptT+EXQxRHT4UA1qKA5UzIXl6KSGnOchdzQ7qmpBMFpWftWb1PYCBBsSSJfVur
-	 rytaD/PnoF17TBE0lQ7oX9jPECc5+Li+W1XRCR8Tepo1rc8MPwEDzO1PI6/YTtybhkQ==
+	bh=5+sUQk+o1d/mIEpVQi06imOvdS1LrFveqd/a6VHMQv4=;
+	b=gsrq68iNycRqPR1FTGKfJAqkYwiou/5Nsq2Al+OQ812ik6AniOFk+H+L6+RSAoZH5fF2
+	 P/wa1+VruLW1tqBpKfkV/wZ88XfcsWmuReTn/KmKPmKG8DbZcQnDq9xZEqk7w6tLjdy76
+	 pkahkzg6CTHW18FpZ7OQmyNrOSfUuCm7dKffeY76sz9FTBlC70Sg4ti9CQtI4mFWodeM3
+	 x87OdlUeUVDemKssj94PvdsYUtYLZbCe9SOzhq7PUYlIU0M2u2mND/biF3h+GL6XS3zsU
+	 OXMCDosYYW1IgVqz5jgSawSZ7/qQeNHKf+8iT058pLv8TCDNBznz3bMf3sEQzjPpKEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ml45T0Ke;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CNzzRwTa;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5316360BA927
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:58:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5316360BA927
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6957260B994A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:58:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6957260B994A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ml45T0Ke
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ae1b34e0d2so2216335a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:58:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CNzzRwTa
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso1465765a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:58:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793635130; x=1794239930; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793635119; x=1794239919; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ldogGG0L2r7e8E8bTIXHYR/XI5wbEyYJRYKnBDo3pKE=;
-        b=Ml45T0Kefu+066yyNasDniLIxiqDfek1/nxcxm2q4L8QhwL8FMzgRM4zwKURFL1s0U
-         D7sIQug4/Xj6vti6htj+d0lh1m6/98EPuZKYKWpaB47T4xkiKvC9DCQe56feqJOnneLg
-         IyRzUV5V4TRKHS//oFpIdqrBkOYaqMTYPbJgb7mJObAb7UaeYkG+gRFj2VzJQAgxzcdq
-         sl8TI1LgJcQi75sTCD8JvU5Myy/UHpGW8QJ3No936ysg6u94tOf/MeXQ8KvcIHOFEqhC
-         HH5e8eWcMd1zxEUrf5BJE1u2AKqGnGRIPx98wxW49LES+s39CSRhv6P3RyTaW0yv+9x4
-         WbWQ==
+        bh=5+sUQk+o1d/mIEpVQi06imOvdS1LrFveqd/a6VHMQv4=;
+        b=CNzzRwTaUldx7czJ25oONpmluGlBBEjJugt9ypxZX/+zzfGFxLvQXzIvOsL8PPucIe
+         i14oUjDF77XZOCNqUQS0Dy98OiUtEt7ulzBA4/InpjH39vnyfWjxLjvWYzgMyibjhuQ7
+         86ePH0qhRnYgQI+SQB3tEYv1dMM6zNgRcejHKln1/llFmVcIfdF067ks0HJH6ZykLEdL
+         qIvKu6dsvR5N7uWeERbYT5HZ0H3aq3kFhUZ+hgLeliNO9wo8CIfQClvrjDB3kCAqRC52
+         SlMkb3dNQZ5C3QEWvKNxk7YV8pbvQzxbDssjHpUFTWnD/nhbgd9q1tdofoKS4cJ5nFQE
+         KiGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793635130; x=1794239930;
+        d=1e100.net; s=20260707; t=1793635119; x=1794239919;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ldogGG0L2r7e8E8bTIXHYR/XI5wbEyYJRYKnBDo3pKE=;
-        b=WNraVPhvg0y43R7ZG2kYYJk07CcT9eoKwqdcjNkVTl0hQ5hy02K03uj1xD3RXmIjiz
-         7SeOmn+zBNkdwr0ZGXSnFHrQ6jP3DkQiiOHZEWfPWj3CvvPf7KQqWVxgeODdC4Pxp6Hz
-         0IX6JCoC5+g1QlNFH9j1ZmmCFHyQq27aZTuN9HHoZLZ6L7LC0IGTYfFw/PUlE2fRbfb1
-         /YDuDwx1aBhbFBegILOT7O5O4dCPUg/6GVRcfI1pQIUuF+MrWOdgOeNdZt/d5oAHxQx8
-         32F/mnm8uzesY3LjmLfq4GMEyuCFiM+qBM/k40rWx6rPQUs5md4GkQHK81Ki6Byn3H2X
-         pW+w==
-X-Forwarded-Encrypted: i=1; AKwUvBwWK2k9uZCwVIXcVNB5pvAebNtvJVV/Z4YQ0Do6z2R4E1wu1R+nF2nIXY/UNH5AdnciVajXjRYvZFES5ks=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Z80bJ+kMfbW2zsA/9KrrM5DNbvoiiWtB+Ap/j1LhOAeYi3NKd
-	t321aluoQU+9jQIyK7dzOYZAW7MrvZSVErkctGWreNfS+JoFp9Tsrok2
-X-Gm-Gg: AYBFou15d+FM/6HmywlqjdY2QQndpvYVasKKgCThdyelCElcPZMc4XgjcRLkCZQNsRs
-	QKtMKdgq1XRjT/Cn0rCvtZ21yJxxUCSTbNXDh+M0lQnzJ6qMEHlH9Vm4atigF/4V/6enY1s9m5y
-	mZwgTR/aEiVT8aIN8K++NQgXGuY2nJAXCAcbkevN+36z54HyhqTC3kMCW/Cme9OQ/4IuIqx+tK4
-	ODPAT2fk5rUKZrV6krt7igzmvVf9AMFq5FPKji4cqEyn7nmZw20dLLukrrtt85Jo5Khyy514l4I
-	Ossogf9tNfcbdZ5QhGIoqS+qn0mgph2Oyyj84Ni1Mlh//79QAJeVYTjNSiH360FdGczmVz1Ku1l
-	28PTykM7XWRFgPDoxz0Oc2CTxp4q8KKIlW2RJXT1buyzTjW0I3QINYG109KeiKHdLiSbnkFP7qn
-	wCaa3asoMc5pbKy0ilHSnJt+1KofMWCgPB6QuW8ZYnp8vxQznfa+RzpOgHpSDQWGOrwrw8Vrtkm
-	fmlcQKlLHV+O0Hpzc9vhsVWEGk9Fj7xIt665rJ2ZY8sw5TKXKVci8PhP8o71s9NgHkdUod4Z0Eo
-	LwyGLeVBS5Qi6eq2iwGEuRzkjwm3zNVXOQJcAzqnkPe44M/bAu/Q
-X-Received: by 2002:a17:90b:2f0f:b0:3a7:9ec3:ea0e with SMTP id 98e67ed59e1d1-3ae8974a292mr6451704a91.22.1793635129672;
-        Mon, 02 Nov 2026 07:58:49 -0800 (PST)
+        bh=5+sUQk+o1d/mIEpVQi06imOvdS1LrFveqd/a6VHMQv4=;
+        b=XHvUxvKO5uh+7/01BfgrACyoa9tTpT6ZuTnNDSxo7MvUvqZQQcj+kOOElOQ78XL9SE
+         j4IeumegURJUKLTHKcaz2kYPA2m/l9jmVIlRmfKaEX4NnzNeUIWG9aGJ5Sdmat/LKw1N
+         Rmc7clUonOl2K7NPajWGb79B3pLTtM9TzXiJ/oIFzUnXwrQiDo4moK3cSpUlOaDHrutO
+         ZK5KHSPAZulcx1GVeAIfyuoRXcnmeX29m29Tbu4GU/qYz5KcRYorSSwLDJ5cGUU8o9cu
+         mPltcejvvqs2QmdOHLi8gHKXj7KhCQW9UvMdyJWA2SJVL9rbEtxg4VBt7hWNJj7i7Xct
+         uQ8g==
+X-Forwarded-Encrypted: i=1; AKwUvBykSggnbN93nDjWk9RH95O63pmjLcSaG6vaLaFoK3xVnnfvFahVhT5yOfZDJ47zmrqdICbEGJgUsyKmpJc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+uNBNen8KtOkt99FZYki9HrNYHIYnLRGC3xNvPyzHzrW1+aNng
+	ChDFopNqWfjutKwiSEVrkrPGHtQ+avJ2gPj82Rqw97syQxhi8Tuu9i8o
+X-Gm-Gg: AYBFou3SWBMC4S3I0EuJlPvlcwkSiSx6jHvIUMIduEvEgrEuHmsWECfd5cxaQ4Lqj1l
+	ZUu67Km5kcu2EjN9V8wqFlcJW2BwWSycpfC3SUhSNgZ928WoaBhdPVGpCcIyIPvMmKjTqifNxKA
+	9llizre99EFuKqOxbfFgItVLL/ZpsV+v1yVootbTcNMvocneISkAYmwtXvQThdzteS8WLkgdGrI
+	90N6Iafrb3qRlsWLMgURb/rvUZIH1/sdifJZHy0UKD9xyPFUd2siKwNdgY3f+1HmMQTI9fM3RJf
+	QLVnJifVQKVRXdY0yYxUG4tAT8JI8/Ifm6Ms0qZKImQSKwDgkBFua7pf8Vmb7DVYZtoLrKZtRTw
+	4IIvv69nB7MHkze7YnDjy1mi57vfad/uuDJeBg8UQXjusXB2laYwypTfiAn3lB+iJVGcP4tWz6k
+	xPWu0Vst/Xe2cATQ/6kVzghfpYlL4Gtr+/6K9VcgkT/lBvXdXoicJeEDPfQewNiasZv8oAiI4m4
+	UBlgpU7q8UI8OVbCHrXnpZMwBOzdIKjHLVFs10OG3jvfRbLevUaoDRsQCRMH48VPYXPhPrtVTxB
+	04Pp70QgltteRiFiGPK5pd0snURH69NiFnN/XozxwPOrPbNwBp9g
+X-Received: by 2002:a17:90b:17cd:b0:3ac:97bc:4c98 with SMTP id 98e67ed59e1d1-3ae8986e762mr7960402a91.64.1793635118775;
+        Mon, 02 Nov 2026 07:58:38 -0800 (PST)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:7680:28::4:396])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7d429fsm19183949a91.2.2026.11.02.07.58.46
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7d429fsm19183949a91.2.2026.11.02.07.58.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:58:49 -0800 (PST)
+        Mon, 02 Nov 2026 07:58:38 -0800 (PST)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -89,9 +89,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Simon Horman <horms@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 6/6] net: dsa: motorcomm: Add BR_PORT_LOCKED and BR_PORT_MAB support
-Date: Mon,  2 Nov 2026 23:56:38 +0800
-Message-ID: <20261102155641.3682626-7-mmyangfl@gmail.com>
+Subject: [PATCH net-next 3/6] net: dsa: motorcomm: Add BR_FLOOD and BR_MCAST_FLOOD support
+Date: Mon,  2 Nov 2026 23:56:35 +0800
+Message-ID: <20261102155641.3682626-4-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261102155641.3682626-1-mmyangfl@gmail.com>
 References: <20261102155641.3682626-1-mmyangfl@gmail.com>
@@ -106,274 +106,306 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Program the per-port learn register to implement BR_PORT_LOCKED and
-BR_PORT_MAB offload.
-
-Learn-suspended FDB entries (status pending) created by locked ports
-are never aged by the hardware. Add a delayed work to remove all pending
-entries if any locked port exists.
+Let the hardware flood the unknown unicast / multicast if all other
+ports in the bridge have BR_FLOOD / BR_MCAST_FLOOD enabled.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/dsa/motorcomm/chip.c | 161 ++++++++++++++++++++++++++++---
- drivers/net/dsa/motorcomm/chip.h |   9 ++
- 2 files changed, 158 insertions(+), 12 deletions(-)
+ drivers/net/dsa/motorcomm/chip.c | 173 ++++++++++++++++++++++++-------
+ drivers/net/dsa/motorcomm/chip.h |   4 +
+ 2 files changed, 138 insertions(+), 39 deletions(-)
 
 diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index 447736854870..43e001da634e 100644
+index fb993cc9607c..907f7a5b0687 100644
 --- a/drivers/net/dsa/motorcomm/chip.c
 +++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -822,6 +822,109 @@ yt921x_fdb_join(struct yt921x_priv *priv, const unsigned char *addr, u16 vid,
- 	return yt921x_fdb_add_index_in12(priv, index, ctrl1, ctrl2);
+@@ -1160,6 +1160,7 @@ yt921x_dsa_port_vlan_add(struct dsa_switch *ds, int port,
+ 
+ static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
+ {
++	struct yt921x_port *pp = &priv->ports[port];
+ 	u32 mask;
+ 	u32 ctrl;
+ 	int res;
+@@ -1190,6 +1191,17 @@ static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
+ 	if (res)
+ 		return res;
+ 
++	mask = BIT(port);
++	res = yt921x_reg_clear_bits(priv, YT921X_FILTER_UNK_UCAST, mask);
++	if (res)
++		return res;
++	res = yt921x_reg_clear_bits(priv, YT921X_FILTER_UNK_MCAST, mask);
++	if (res)
++		return res;
++
++	pp->flood = true;
++	pp->mcast_flood = true;
++
+ 	return 0;
  }
  
-+/* Learn-suspended entries are never aged by the hardware, clean them up before
-+ * the FDB fills up.
-+ */
-+static int yt921x_fdb_clean(struct yt921x_priv *priv)
+@@ -1225,6 +1237,20 @@ static int yt921x_isolate(struct yt921x_priv *priv, int port)
+ 	return 0;
+ }
+ 
++static u16 yt921x_port_dest(struct yt921x_priv *priv, int port)
 +{
-+	u8 status;
-+	u16 index;
-+	u32 ctrl;
-+	u32 val;
++	struct dsa_switch *ds = &priv->ds;
++	struct net_device *bdev;
++	struct dsa_port *dp;
++
++	dp = dsa_to_port(ds, port);
++	bdev = dsa_port_bridge_dev_get(dp);
++	if (!bdev)
++		return 0;
++
++	return dsa_bridge_ports(ds, bdev) | priv->cpu_ports_mask;
++}
++
+ /* Make sure to include the CPU port in ports_mask, or your bridge will
+  * not have it.
+  */
+@@ -1268,6 +1294,63 @@ static int yt921x_bridge(struct yt921x_priv *priv, u16 ports_mask)
+ 	return 0;
+ }
+ 
++static int
++yt921x_bridge_flood_set_type(struct yt921x_priv *priv, u16 ports_mask, int type)
++{
++	unsigned long targets_mask;
++	u16 flood_ports_xor;
++	u32 filter_ctrl;
++	u16 flood_mask;
++	u32 addr;
++	int port;
 +	int res;
 +
-+	ctrl = YT921X_FDB_OP_INDEX(0) | YT921X_FDB_OP_MODE_INDEX |
-+	       YT921X_FDB_OP_OP_GET_ONE | YT921X_FDB_OP_START;
-+	res = yt921x_reg_write(priv, YT921X_FDB_OP, ctrl);
-+	if (res)
-+		return res;
++	ports_mask &= ~priv->cpu_ports_mask;
 +
-+	res = yt921x_fdb_wait(priv, &val);
-+	if (res)
-+		return res;
++	flood_mask = 0;
++	targets_mask = ports_mask;
++	for_each_set_bit(port, &targets_mask, YT921X_PORT_NUM) {
++		struct yt921x_port *pp = &priv->ports[port];
 +
-+	status = YT921X_FDB_ENTRY_STATUS_INVALID;
-+	if (!(val & YT921X_FDB_RESULT_NOTFOUND)) {
-+		res = yt921x_reg_read(priv, YT921X_FDB_OUT1, &val);
-+		if (res)
-+			return res;
-+		status = FIELD_GET(YT921X_FDB_IO1_STATUS_M, val);
++		if (!type ? pp->flood : pp->mcast_flood)
++			flood_mask |= BIT(port);
 +	}
 +
-+	index = 0;
-+	while (1) {
-+		if (status == YT921X_FDB_ENTRY_STATUS_PENDING) {
-+			ctrl = YT921X_FDB_OP_INDEX(index) |
-+			       YT921X_FDB_OP_MODE_INDEX | YT921X_FDB_OP_OP_DEL |
-+			       YT921X_FDB_OP_START;
-+			res = yt921x_reg_write(priv, YT921X_FDB_OP, ctrl);
-+			if (res)
-+				return res;
++	flood_ports_xor = flood_mask ^ ports_mask;
++	filter_ctrl = 0;
++	targets_mask = ports_mask;
++	for_each_set_bit(port, &targets_mask, YT921X_PORT_NUM) {
++		if (!(flood_ports_xor & ~BIT(port)))
++			continue;
 +
-+			res = yt921x_fdb_wait(priv, &val);
-+			if (res)
-+				return res;
-+		}
++		filter_ctrl |= BIT(port);
++	}
 +
-+		/* Never call GET_NEXT with 4095, otherwise it will hang
-+		 * forever until a reset!
-+		 */
-+		if (index >= YT921X_FDB_NUM - 1)
-+			break;
++	addr = !type ? YT921X_FILTER_UNK_UCAST : YT921X_FILTER_UNK_MCAST;
++	res = yt921x_reg_update_bits(priv, addr, ports_mask, filter_ctrl);
++	if (res)
++		return res;
 +
-+		ctrl = YT921X_FDB_OP_INDEX(index) | YT921X_FDB_OP_MODE_INDEX |
-+		       YT921X_FDB_OP_NEXT_TYPE_UCAST |
-+		       YT921X_FDB_OP_OP_GET_NEXT | YT921X_FDB_OP_START;
-+		res = yt921x_reg_write(priv, YT921X_FDB_OP, ctrl);
++	/* ACT_UNK is TRAP everywhere but the CPU port, which DROPs; see
++	 * yt921x_chip_setup_dsa()
++	 */
++
++	return 0;
++}
++
++static int yt921x_bridge_flood_set(struct yt921x_priv *priv, u16 ports_mask)
++{
++	int res;
++
++	for (int type = 0; type < 2; type++) {
++		res = yt921x_bridge_flood_set_type(priv, ports_mask, type);
 +		if (res)
 +			return res;
-+
-+		res = yt921x_fdb_wait(priv, &val);
-+		if (res)
-+			return res;
-+		if (val & YT921X_FDB_RESULT_NOTFOUND)
-+			break;
-+		index = FIELD_GET(YT921X_FDB_RESULT_INDEX_M, val);
-+
-+		res = yt921x_reg_read(priv, YT921X_FDB_OUT1, &val);
-+		if (res)
-+			return res;
-+		status = FIELD_GET(YT921X_FDB_IO1_STATUS_M, val);
-+		if (status == YT921X_FDB_ENTRY_STATUS_INVALID)
-+			break;
 +	}
 +
 +	return 0;
 +}
 +
-+static void yt921x_fdb_clean_work(struct work_struct *work)
-+{
-+	struct yt921x_priv *priv = container_of_const(work, struct yt921x_priv,
-+						      fdb_clean.work);
-+	struct device *dev = to_device(priv);
-+	bool has_locked = false;
-+	int res;
+ static int yt921x_bridge_leave(struct yt921x_priv *priv, int port)
+ {
+ 	int res;
+@@ -1280,14 +1363,24 @@ static int yt921x_bridge_leave(struct yt921x_priv *priv, int port)
+ 	if (res)
+ 		return res;
+ 
++	/* By the time port_bridge_leave() is called, the port is already
++	 * unbridged, thus we cannot recompute flood flags for the affected
++	 * bridge. This leaves some sub-optimality, but the flood will still
++	 * be handled (by the CPU).
++	 */
 +
-+	mutex_lock(&priv->reg_lock);
-+
-+	res = yt921x_fdb_clean(priv);
-+
-+	for (int port = 0; port < YT921X_PORT_NUM; port++)
-+		if (priv->ports[port].locked) {
-+			has_locked = true;
-+			break;
-+		}
-+
-+	mutex_unlock(&priv->reg_lock);
-+
-+	if (res)
-+		dev_err(dev, "Failed to clean pending FDB entries: %i\n", res);
-+
-+	if (has_locked)
-+		schedule_delayed_work(&priv->fdb_clean,
-+				      priv->fdb_clean_interval);
-+}
-+
- static int
- yt921x_dsa_port_fdb_dump(struct dsa_switch *ds, int port,
- 			 dsa_fdb_dump_cb_t *cb, void *data)
-@@ -1412,6 +1515,30 @@ static int yt921x_bridge_join(struct yt921x_priv *priv, int port)
  	return 0;
  }
  
-+static int yt921x_port_learn_cfg(struct yt921x_priv *priv, int port)
-+{
-+	struct yt921x_port *pp = &priv->ports[port];
-+	u32 ctrl;
-+	u32 mask;
-+
-+	mask = YT921X_PORT_LEARN_MODE_M | YT921X_PORT_LEARN_DIS |
-+	       YT921X_PORT_LEARN_SUSPEND_DROP_EN |
-+	       YT921X_PORT_LEARN_SUSPEND_COPY_EN;
-+	if (pp->locked) {
-+		ctrl = YT921X_PORT_LEARN_MODE_CPU_CONTROL;
-+		if (pp->mab)
-+			ctrl |= YT921X_PORT_LEARN_SUSPEND_COPY_EN;
-+		else
-+			ctrl |= YT921X_PORT_LEARN_SUSPEND_DROP_EN;
-+	} else if (pp->learning) {
-+		ctrl = 0;
-+	} else {
-+		ctrl = YT921X_PORT_LEARN_DIS;
-+	}
-+	return yt921x_reg_update_bits(priv, YT921X_PORTn_LEARN(port), mask,
-+				      ctrl);
-+}
-+
- static int
- yt921x_bridge_flags(struct yt921x_priv *priv, int port,
- 		    struct switchdev_brport_flags flags)
-@@ -1420,17 +1547,23 @@ yt921x_bridge_flags(struct yt921x_priv *priv, int port,
- 	bool change_isolated;
- 	bool change_flood;
- 	u32 ports_mask;
--	u32 mask;
+-static int
+-yt921x_bridge_join(struct yt921x_priv *priv, int port, u16 ports_mask)
++static int yt921x_bridge_join(struct yt921x_priv *priv, int port)
+ {
++	u16 ports_mask;
  	int res;
  
--	if (flags.mask & BR_LEARNING) {
--		bool learning = flags.val & BR_LEARNING;
-+	if (flags.mask & (BR_LEARNING | BR_PORT_LOCKED | BR_PORT_MAB)) {
-+		if (flags.mask & BR_LEARNING)
-+			pp->learning = flags.val & BR_LEARNING;
-+		if (flags.mask & BR_PORT_LOCKED)
-+			pp->locked = flags.val & BR_PORT_LOCKED;
-+		if (flags.mask & BR_PORT_MAB)
-+			pp->mab = flags.val & BR_PORT_MAB;
- 
--		mask = YT921X_PORT_LEARN_DIS;
--		res = yt921x_reg_toggle_bits(priv, YT921X_PORTn_LEARN(port),
--					     mask, !learning);
-+		res = yt921x_port_learn_cfg(priv, port);
- 		if (res)
- 			return res;
++	ports_mask = yt921x_port_dest(priv, port);
++	if (!ports_mask)
++		return 0;
 +
-+		if ((flags.mask & BR_PORT_LOCKED) && pp->locked)
-+			schedule_delayed_work(&priv->fdb_clean,
-+					      priv->fdb_clean_interval);
- 	}
+ 	res = yt921x_userport_bridge(priv, port);
+ 	if (res)
+ 		return res;
+@@ -1296,6 +1389,10 @@ yt921x_bridge_join(struct yt921x_priv *priv, int port, u16 ports_mask)
+ 	if (res)
+ 		return res;
  
- 	/* BR_BCAST_FLOOD: we can filter bcast, but cannot trap them */
-@@ -1482,7 +1615,8 @@ yt921x_dsa_port_pre_bridge_flags(struct dsa_switch *ds, int port,
- 				 struct netlink_ext_ack *extack)
- {
- 	if (flags.mask & ~(BR_HAIRPIN_MODE | BR_LEARNING | BR_FLOOD |
--			   BR_MCAST_FLOOD | BR_ISOLATED))
-+			   BR_MCAST_FLOOD | BR_ISOLATED | BR_PORT_LOCKED |
-+			   BR_PORT_MAB))
- 		return -EINVAL;
++	res = yt921x_bridge_flood_set(priv, ports_mask);
++	if (res)
++		return res;
++
  	return 0;
  }
-@@ -1610,6 +1744,7 @@ yt921x_dsa_port_stp_state_set(struct dsa_switch *ds, int port, u8 state)
- 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 	struct device *dev = yt921x_priv_to_device(priv);
- 	struct dsa_port *dp = dsa_to_port(ds, port);
-+	struct yt921x_port *pp = &priv->ports[port];
- 	bool learning;
- 	u32 mask;
- 	u32 ctrl;
-@@ -1644,10 +1779,8 @@ yt921x_dsa_port_stp_state_set(struct dsa_switch *ds, int port, u8 state)
- 		if (res)
- 			break;
  
--		mask = YT921X_PORT_LEARN_DIS;
--		ctrl = !learning ? YT921X_PORT_LEARN_DIS : 0;
--		res = yt921x_reg_update_bits(priv, YT921X_PORTn_LEARN(port),
--					     mask, ctrl);
-+		pp->learning = learning;
-+		res = yt921x_port_learn_cfg(priv, port);
- 	} while (0);
+@@ -1304,7 +1401,9 @@ yt921x_bridge_flags(struct yt921x_priv *priv, int port,
+ 		    struct switchdev_brport_flags flags)
+ {
+ 	struct yt921x_port *pp = &priv->ports[port];
+-	bool do_flush;
++	bool change_isolated;
++	bool change_flood;
++	u32 ports_mask;
+ 	u32 mask;
+ 	int res;
+ 
+@@ -1318,36 +1417,44 @@ yt921x_bridge_flags(struct yt921x_priv *priv, int port,
+ 			return res;
+ 	}
+ 
+-	/* BR_FLOOD, BR_MCAST_FLOOD: see the comment where ACT_UNK_ACTn_TRAP
+-	 * is set
+-	 */
+-
+ 	/* BR_BCAST_FLOOD: we can filter bcast, but cannot trap them */
+ 
+-	do_flush = false;
++	change_isolated = false;
+ 	if (flags.mask & BR_HAIRPIN_MODE) {
+ 		pp->hairpin = flags.val & BR_HAIRPIN_MODE;
+-		do_flush = true;
++		change_isolated = true;
+ 	}
+ 	if (flags.mask & BR_ISOLATED) {
+ 		pp->isolated = flags.val & BR_ISOLATED;
+-		do_flush = true;
++		change_isolated = true;
+ 	}
+-	if (do_flush) {
+-		struct dsa_switch *ds = &priv->ds;
+-		struct dsa_port *dp = dsa_to_port(ds, port);
+-		struct net_device *bdev;
+ 
+-		bdev = dsa_port_bridge_dev_get(dp);
+-		if (bdev) {
+-			u32 ports_mask;
++	change_flood = false;
++	if (flags.mask & BR_FLOOD) {
++		pp->flood = flags.val & BR_FLOOD;
++		change_flood = true;
++	}
++	if (flags.mask & BR_MCAST_FLOOD) {
++		pp->mcast_flood = flags.val & BR_MCAST_FLOOD;
++		change_flood = true;
++	}
+ 
+-			ports_mask = dsa_bridge_ports(ds, bdev);
+-			ports_mask |= priv->cpu_ports_mask;
+-			res = yt921x_bridge(priv, ports_mask);
+-			if (res)
+-				return res;
+-		}
++	if (!change_isolated && !change_flood)
++		return 0;
++
++	ports_mask = yt921x_port_dest(priv, port);
++	if (!ports_mask)
++		return 0;
++
++	if (change_isolated) {
++		res = yt921x_bridge(priv, ports_mask);
++		if (res)
++			return res;
++	}
++	if (change_flood) {
++		res = yt921x_bridge_flood_set(priv, ports_mask);
++		if (res)
++			return res;
+ 	}
+ 
+ 	return 0;
+@@ -1408,17 +1515,13 @@ yt921x_dsa_port_bridge_join(struct dsa_switch *ds, int port,
+ 			    struct netlink_ext_ack *extack)
+ {
+ 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+-	u16 ports_mask;
+ 	int res;
+ 
+ 	if (dsa_is_cpu_port(ds, port))
+ 		return 0;
+ 
+-	ports_mask = dsa_bridge_ports(ds, bridge.dev);
+-	ports_mask |= priv->cpu_ports_mask;
+-
+ 	mutex_lock(&priv->reg_lock);
+-	res = yt921x_bridge_join(priv, port, ports_mask);
++	res = yt921x_bridge_join(priv, port);
  	mutex_unlock(&priv->reg_lock);
  
-@@ -2242,9 +2375,11 @@ static int yt921x_edata_read(struct yt921x_priv *priv, u8 addr, u8 *valp)
+ 	return res;
+@@ -2275,14 +2378,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
+ 	if (res)
+ 		return res;
  
- static void yt921x_dsa_teardown(struct dsa_switch *ds)
- {
--#if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
- 	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
- 
-+	cancel_delayed_work_sync(&priv->fdb_clean);
-+
-+#if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
- 	yt921x_leds_remove(priv);
- #endif
- }
-@@ -2723,6 +2858,8 @@ static int yt921x_mdio_probe(struct mdio_device *mdiodev)
- 	mdio->switchid = 0;
- 
- 	mutex_init(&priv->reg_lock);
-+	INIT_DELAYED_WORK(&priv->fdb_clean, yt921x_fdb_clean_work);
-+	priv->fdb_clean_interval = 61 * HZ;
- 
- 	priv->reg_ops = &yt921x_reg_ops_mdio;
- 	priv->reg_ctx = mdio;
+-	ctrl = GENMASK(10, 0) & ~priv->cpu_ports_mask;
+-	res = yt921x_reg_write(priv, YT921X_FILTER_UNK_UCAST, ctrl);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_write(priv, YT921X_FILTER_UNK_MCAST, ctrl);
+-	if (res)
+-		return res;
+-
+ 	/* YT921x does not support native DSA port bridging, so we use port
+ 	 * isolation to emulate it. However, be especially careful that port
+ 	 * isolation takes _after_ FDB lookups, i.e. if an FDB entry (from
+@@ -2291,9 +2386,9 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
+ 	 * the "bridged" ports, thus we need to trap and handle those packets by
+ 	 * software.
+ 	 *
+-	 * If there is no more than one bridge, we might be able to drop them
+-	 * directly given some conditions are met, but we trap them in all cases
+-	 * for now.
++	 * In some cases, we may offload the flood action to the hardware. This
++	 * is done by fixing UNK_ACT to TRAP, and toggling the FILTER_UNK on the
++	 * appropriate ports.
+ 	 */
+ 	ctrl = 0;
+ 	for (int i = 0; i < YT921X_PORT_NUM; i++)
 diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index 842fd8f83903..81d2e75fe207 100644
+index fc315f1d8f87..842fd8f83903 100644
 --- a/drivers/net/dsa/motorcomm/chip.h
 +++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -465,6 +465,12 @@ struct yt921x_port {
- 	bool flood:1;
- 	/* BR_MCAST_FLOOD */
- 	bool mcast_flood:1;
-+	/* BR_PORT_LOCKED */
-+	bool locked:1;
-+	/* BR_PORT_MAB */
-+	bool mab:1;
-+	/* BR_LEARNING */
-+	bool learning:1;
+@@ -461,6 +461,10 @@ struct yt921x_port {
+ 	bool hairpin:1;
+ 	/* BR_ISOLATED */
+ 	bool isolated:1;
++	/* BR_FLOOD */
++	bool flood:1;
++	/* BR_MCAST_FLOOD */
++	bool mcast_flood:1;
  
  	unsigned short acl_cnt;
  
-@@ -526,6 +532,9 @@ struct yt921x_priv {
- 	struct mii_bus *mbus_int;
- 	struct mii_bus *mbus_ext;
- 
-+	struct delayed_work fdb_clean;
-+	unsigned int fdb_clean_interval;
-+
- 	struct yt921x_port ports[YT921X_PORT_NUM];
- 
- 	u16 eee_ports_mask;
 -- 
 2.53.0
 
