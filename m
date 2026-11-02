@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629351;
-	b=5QKuOFdxjLB82IBxc7uGVO4nCo5FsqXmYDvLQxTMptXHWHEWdrLKjtKSNV3tDOxoXA0V
-	 CxLJkt3fTAfXDV7fNIsT3SeLVM2Ond8QCObgmHXGTP9QATnjqY7Uh20qq73OmiMIkz5gG
-	 b8OSc1+LOLJVAFZTEA+YKF+XY8QY5Ul29gMKEceOACPnOMyyGy2/DHGAnq3cfhEHyG8pm
-	 aMOTOxfiRzO85wNnoXoZ7CoZ3mbASvuqg2EHioIfRUK+nMtDvy5s0C5w+76IfC9Jk7jEB
-	 WU7E1z9XCFMbVO/wNNUs7TEtgU2pm9Xnr+danKXfBQaJ5v7JtL790gAoa5JmrBsGnLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629351;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=PBbW9vd5orssW5wPAFhy4fJ1NNWUPnjkdaOH9xfStLQ=;
-	b=StbTFIA2ExcFqHomnQ5PTxJ12uTpYEdMp3KG+5ux+3GgOTQcBFiW4TT81ijzMLDtaW77
-	 eFN3T4N4ODzlQ8gvemr4gh3IjmKubyfxf5j5vs0ciqtgo2D2aNMYFD0AqH6SBDkpW4MhC
-	 56X4N81O+O0G4WCvh6jnG+HjHya7Zw7rnzuQ92bIsBNDY466E1rGOMZhI+ttv6Ly8c+zU
-	 QbgDY6FRO+4MWgANbmpyK9qATaNQiTstEtfIofKK3Fdej462n22IKfs6r3ShjAQYCVBcO
-	 jnNa2Rib7bGMfgDr3aOsgy9aSlD6Ta0+W7gLRbDU6/k8T65NNYjAda8cxFfWFO9oKrw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nzlwkTf1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793629383;
+	b=hMVVB/YqEhdGzYhn0gYu9iNZzXT09VH88e5MAxEtAzPAGdwDvKJD5FZWNzgomlX70toz
+	 CHiQwuwMWlR8VQXNSzSkL2RkIPLkx60ppvUml5PpQ2REuZf4u2BXj0ccFNyN9X0RPGaYT
+	 QqQLLKzocBL7CdPQj+M5vxtOZl4UWfd0H0Dm0dyzmy4ryeQtwyMZpFStRgncnV4qWzDIS
+	 EHB44C7uaILgUPIWq+RoZGCaiWREF5pBrszpZSGGfOg66L9i3Yiub9a9t6oruYh2qert7
+	 koTVtpIw62dfcYIvWzLc0zEWe+4vOszZhEB+gChqJ6fIAAHDz8GcwLVu2BCc2g28qOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629383;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2eoSP0yEoTlChnuRvtczHJcCT/7hM/Jtun8ZUxsvjQg=;
+	b=SIr66R6xwQtaQ+wK9chLvWYpIeato8f2qeTjgZ3ZLkoa+eVfaINPsfzTV1oBl+DLmCjV
+	 ydHayWF47KvS0l+w0Iu0lL1db2ackDSze+jCIxpUayDvS15lXxQM6yh24tkrV9QEZ/2SD
+	 Z1e058rBy0h13IGoInaVtDOCrjahB66p4WX0AXIV7hQouxWcBqZfODSuK9cqMWPqNS7SD
+	 tIY5vbkeBkju/NrObaZIqNOZgW5TX8yCkwV+ScF9SxT6UENwQ6hfakzlX7JYeI9C/B1Ut
+	 hXUMsZrw4O910I4Yv06TY+JRBhfuD4z/gCblsk+Rvad24CViJczuONlXLo7AqWNbj+g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I5x7qIGW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C8C606A32E;
-	Mon,  2 Nov 2026 14:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C3560A2614
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C3560A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nzlwkTf1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D95AB1F00A16;
-	Mon,  2 Nov 2026 14:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793629351;
-	bh=PBbW9vd5orssW5wPAFhy4fJ1NNWUPnjkdaOH9xfStLQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=nzlwkTf15kz/wAHmBv8TBSldFi6uEzRKAH35yysNrDb/8c4TQ0GCZP0ASoI6HN4b+
-	 ehOxeihtKt2HTRVjPCKuuAHd7Yek+ODFrF9sc7qm/JijqtRdS5y2myAabKFf6nxaRY
-	 9Pas0GKbkNwOm8LlfgjzjeZcMkMcrZUeHJnggcdEQMEsZzosFpVfMgmLvRZKouwlv7
-	 JAi2ZqGrZot0jagbs1UODwU5a1zpC6WH70gNu4gGQL2YE+NPG7eToPVeRi3etVDvtY
-	 UcK5AZNwgPpnQ1ESM5OY+AU4XnwA5+oNTxzQWf3Lr2JUxoYKEPM809nyjile28GSz9
-	 DmBqBJEb70aSw==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 15:21:18 +0100
-Subject: [PATCH RFC 03/38] netfilter: xt_recent: don't remove the proc
- entries under a spinlock
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I5x7qIGW
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91c1f548f87so54428126d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:23:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793629382; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dLxjC0lR1wM73ge+v9MIhBv/BJlZeHOs44ZBbZvlaJl1mK6xO+W03DAaxpgMiG7lxA
+         uhfqowHw2gLuAZ6rcgL8PvZEXpLkdz1zDwrkCeVcXSAuao7BgYFO87mChS2LIdN0FZ95
+         IXI8q1rpuvY1z7/UaCxMYxVXRPd/ukkyomVVBMBG/GnOog4GOLgfO5vqnRytOOcUmh3z
+         AA9XdNlI1qGi/Cafi1p8EQrqAxjlBAVvFP1Dlshgn0AT/3VHQPTMKgP8gEqCiGlMwrLT
+         4ZosyQ7e1tOA0HxIAcbmkYfBB8je5zEkENgnlxpfpXSZO4ziAhnvmgZ2+pIxH7hBL4wy
+         bfIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2eoSP0yEoTlChnuRvtczHJcCT/7hM/Jtun8ZUxsvjQg=;
+        fh=Dsj1R8oZ/37xGKsF011n7xTUqBBq/qGEE3Q4zwNzdEY=;
+        b=qRZVleCZjJGtsD0/VuyX0lbTaHDVpSJBnYGK+1ell8OJwWM7zNgJ31jAT1YnDwL5Of
+         1MQS4B4WagrMD0SaGibQjcEY7Vjh+wb3vIMozFIzcMgrcfoMFdCO7euRXqvAl8GkOmFG
+         rqhsGIeFlfMOaHWBaAQdjcDlYkNhOBaQh/ZbPKkCzRrvbuLiy5PVDA3zxeSSqAYHV8yr
+         MNtEFROl6HIXQzPkDy/7YlE/tHqgouXpMz2uK++tnspqfY5pCfal+T8ngBLX6rvKdGBM
+         oN6TVZodph9L6GgQOE8j2vRCnPnVEKYk8+1tMNQJDOhSIwZZ2B63oXau48zR7scgFBbo
+         cM8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793629382; x=1794234182; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2eoSP0yEoTlChnuRvtczHJcCT/7hM/Jtun8ZUxsvjQg=;
+        b=I5x7qIGWTsAsfBWf71taDZbRlUUaYCG2iAGsyK7dWndyX8PF0VEktAOe3+XdQMCNnn
+         TBZ3rZmTyRKlBo8mXiaPVVz2takyoI4yGmsQNCJDi0waYa6MRwyO0xsSXwTVHPpcLHrQ
+         EuF+Z5O316PvlCsze993jBk6PNZ752f4/PHaiYLawgqLEUCIcOxRmSmWKtO1gycmyzBn
+         oWjstQPbA8hAo9iAh8ZoQFDFflZp+sobMnmGafMi45kKM8djdRbnhuTD1rltWlU7wajg
+         pBBV5sSGs1bGdhsHE0xQn6zYU3qRBgkrKAiAruouuTLmMJZud4rfXYd8JP4Af18wYrhP
+         Kh/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793629382; x=1794234182;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2eoSP0yEoTlChnuRvtczHJcCT/7hM/Jtun8ZUxsvjQg=;
+        b=oJsYSxsmhLd7QhmIRu2KCF82bFB7XU5dV/GFfJZW9ji1ZQiG2YICqejybDpnuUseFb
+         MObm6/dFSgpQlGLthYT0polNeMFwGl8QvECRqVuy00L+A2jmw+SMqAIvRo1Y2HA8iQHN
+         jd2xV6Xw87pn+8hOmQWBDihYKIIgZtgwAG7973fNlCVpyqndfFgDz6qpisbUQiuqVB+5
+         bY9NFPzkD0bl8LZ+LCgAEwJtux2G/a4vXJDFaZo1RZHvs6MQqkr2OWrq5te/W0eqi91l
+         ZOd98ErvqLhkkuIokm5Wre9zOhL+trQoc/7SHs3kEy0WQ3V/wrBqdyYSHe8+lSPBKSvZ
+         aJAg==
+X-Forwarded-Encrypted: i=1; AKwUvBxBLYj+z8HFoKWf2WHHMhFlzh6Dm4L4ukuWvX3GJ+6/6WKl9AB11hur78vS1XcGotFZ8/Wn7H5JxixR8X4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WeKJ9vqKzBPtc6nTfdreZn5UGNPkTwjWYv8fZ/zkb9YJ8yrR4
+	zeb5o3inxXYmmn7OHIztzVV0xfvLMArLLzdpexaiC4ZtokH2LWBkSJ5d1vzzaY4YOovTpn5Ig6X
+	8OP/ocXJkJnI+bFgx65bWwF7+WiPeyWM=
+X-Gm-Gg: AYBFou0VaWQvSyGDNYPpWXPeePbxoT9TrcOVYFZbUbbol+RCvPUyUYEh5Gi/c4I6OOQ
+	OkHSKXFZrUfDWK4JV5vcXJYyUDfDbLeiEmN3g80pMUGT0rIADODs85oGCG1fZsvew77FsgaqOjA
+	SlC0Fc+rRA/neuSYlAzvbKIpvAZJgACblg8A6EXdzroZsyZzESYLgBljb/y3ctR9Z1n6MHID6IS
+	/WxFFf5w1jRccM+RaYVlJZC4kA/n4CM6ahHpDWHAA+GQAHZNWG3QbuNCmWyPUVB5RW4sdiHiP8G
+	C13vizS9MYdyhHKRXO1tUEFLj8v3Gh6BgqrBRKHQgpL0vG5RbyxiEIyMpWgQ0VbqPgVPaFQMvX4
+	jW038j/4olGtdcNdSSjv/D+DqcI+udd1QeJyDdw==
+X-Received: by 2002:a05:6214:1252:b0:917:7d92:6486 with SMTP id
+ 6a1803df08f44-91ca4a0c511mr173181156d6.6.1793629381607; Mon, 02 Nov 2026
+ 06:23:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,118 +104,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-bugfixes-v1-3-59422ed3e465@kernel.org>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2627; i=brauner@kernel.org;
- h=from:subject:message-id; bh=boUkBs9MzJMgPbYDfsAEaTT4QAw3bhdvazLBbZuX36o=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJP1dtcCf06Gp9u3x217c+fnxNyHHy8FLGAsr+cWj
- t0U+GBRZEcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBFXBgZOrZozFPorf+h0Kmk
- 8bQ8/Jz+9tqixhUCbka+M1baPWjgZ/grk3zOPFaz+iTnzmKxIH+uEl0pWY3mLRIpLJ96Q+YuEGU
- BAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+References: <20260824184019.432703-1-max@enpas.org>
+In-Reply-To: <20260824184019.432703-1-max@enpas.org>
+From: Roderick Colenbrander <thunderbird2k@gmail.com>
+Date: Mon, 2 Nov 2026 06:22:50 -0800
+X-Gm-Features: AclHuK-al9_fk_gWf3tmNtTa80C7h_iFVOnR-naeSMTklj7rwoY_cjC4_EB5wQY
+Message-ID: <CAEc3jaD8W0CZ+V06c=S2V8oR+UwFVKd8KGbtNhzBm7Gv5XnM8w@mail.gmail.com>
+Subject: Re: [PATCH v1 RESEND] Input: joydev: Don't expose DualSense motion
+ sensors as jsX
+To: Max Staudt <max@enpas.org>
+Cc: Roderick Colenbrander <roderick.colenbrander@sony.com>, Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-recent_proc_net_exit() removes the proc entries of all tables with
-recent_lock held. remove_proc_entry() waits until nobody calls into the
-entry anymore, and reading one of them takes recent_lock in
-recent_seq_start() while procfs has the entry pinned. So when a reader
-gets there while the network namespace goes away, the exit path sleeps
-with a spinlock held and bh disabled, waiting for a reader that spins
-on that very lock:
+Hi Max,
 
-  BUG: sleeping function called from invalid context at kernel/sched/completion.c:116
-  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 12, name: kworker/u16:0
-  locks held by kworker/u16:0/12: 4, last CPU#2:
-   #2: (pernet_ops_rwsem){++++}-{4:4}, at: cleanup_net+0xbf/0x860
-   #3: (recent_lock){+...}-{3:3}, at: recent_net_exit+0x3d/0x170 [xt_recent]
-  Workqueue: netns cleanup_net
-  Call Trace:
-   wait_for_completion+0x8e/0x400
-   proc_entry_rundown+0x1ab/0x1f0
-   remove_proc_entry+0x1ab/0x530
-   recent_net_exit+0x9f/0x170 [xt_recent]
-   ops_undo_list+0x271/0x8d0
-   cleanup_net+0x3f3/0x860
-   process_one_work+0x946/0x1820
-  BUG: scheduling while atomic: kworker/u16:0/12/0x00000202
+This looks good to me. It was an oversight from when hid-playstation
+was added to not add the filter to joydev.
 
-  watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [rloop:252]
-  Call Trace:
-   _raw_spin_lock_bh+0x7a/0x80
-   recent_seq_start+0x86/0x1e0 [xt_recent]
-   seq_read_iter+0x26d/0x1230
-   seq_read+0x2a9/0x560
-   proc_reg_read+0x1c2/0x3c0
-   vfs_read+0x176/0xb40
-   __x64_sys_pread64+0x191/0x250
+Signed-off-by: roderick.colenbrander@sony.com
 
-Tables are added and removed with recent_mutex held and that's also
-what recent_mt_destroy() looks at ->xt_recent under. Nothing that runs
-with a proc entry pinned takes it. So take recent_mutex instead.
+Thanks,
+Roderick Colenbrander
 
-Fixes: 665e205c16c1 ("netfilter: xt_recent: fix namespace destroy path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- net/netfilter/xt_recent.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/net/netfilter/xt_recent.c b/net/netfilter/xt_recent.c
-index 55f1f2d89952..11acb9a50d4b 100644
---- a/net/netfilter/xt_recent.c
-+++ b/net/netfilter/xt_recent.c
-@@ -652,12 +652,12 @@ static void __net_exit recent_proc_net_exit(struct net *net)
- 	 * that the parent xt_recent proc entry is empty before trying to
- 	 * remove it.
- 	 */
--	spin_lock_bh(&recent_lock);
-+	mutex_lock(&recent_mutex);
- 	list_for_each_entry(t, &recent_net->tables, list)
- 	        remove_proc_entry(t->name, recent_net->xt_recent);
- 
- 	recent_net->xt_recent = NULL;
--	spin_unlock_bh(&recent_lock);
-+	mutex_unlock(&recent_mutex);
- 
- 	remove_proc_entry("xt_recent", net->proc_net);
- }
-
--- 
-2.53.0
-
+On Mon, Aug 24, 2026 at 11:43=E2=80=AFAM Max Staudt <max@enpas.org> wrote:
+>
+> Without this, DualSense (PS5) gamepads are allocated a second jsX
+> device for their gyroscope/accelerometer, confusing programs such as
+> /lib/udev/js-set-enum-leds which look at jsX device numbers to
+> determine the player number. Ideally, we should have only one jsX
+> device per gamepad.
+>
+> This follows the schema started by:
+>   commit 20ac95d52a28 ("Input: joydev - blacklist ds3/ds4/udraw motion se=
+nsors")
+>
+> Fixes: 402987c5d98a ("HID: playstation: add DualSense accelerometer and g=
+yroscope support.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Staudt <max@enpas.org>
+> ---
+>  drivers/input/joydev.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/input/joydev.c b/drivers/input/joydev.c
+> index 32459fd8a7c1..f49dd10782f0 100644
+> --- a/drivers/input/joydev.c
+> +++ b/drivers/input/joydev.c
+> @@ -753,6 +753,8 @@ static void joydev_cleanup(struct joydev *joydev)
+>  #define USB_DEVICE_ID_SONY_PS4_CONTROLLER              0x05c4
+>  #define USB_DEVICE_ID_SONY_PS4_CONTROLLER_2            0x09cc
+>  #define USB_DEVICE_ID_SONY_PS4_CONTROLLER_DONGLE       0x0ba0
+> +#define USB_DEVICE_ID_SONY_PS5_CONTROLLER              0x0ce6
+> +#define USB_DEVICE_ID_SONY_PS5_CONTROLLER_2            0x0df2
+>
+>  #define USB_VENDOR_ID_THQ                      0x20d6
+>  #define USB_DEVICE_ID_THQ_PS3_UDRAW                    0xcb17
+> @@ -793,6 +795,8 @@ static const struct input_device_id joydev_blacklist[=
+] =3D {
+>         ACCEL_DEV(USB_VENDOR_ID_SONY, USB_DEVICE_ID_SONY_PS4_CONTROLLER),
+>         ACCEL_DEV(USB_VENDOR_ID_SONY, USB_DEVICE_ID_SONY_PS4_CONTROLLER_2=
+),
+>         ACCEL_DEV(USB_VENDOR_ID_SONY, USB_DEVICE_ID_SONY_PS4_CONTROLLER_D=
+ONGLE),
+> +       ACCEL_DEV(USB_VENDOR_ID_SONY, USB_DEVICE_ID_SONY_PS5_CONTROLLER),
+> +       ACCEL_DEV(USB_VENDOR_ID_SONY, USB_DEVICE_ID_SONY_PS5_CONTROLLER_2=
+),
+>         ACCEL_DEV(USB_VENDOR_ID_THQ, USB_DEVICE_ID_THQ_PS3_UDRAW),
+>         ACCEL_DEV(USB_VENDOR_ID_NINTENDO, USB_DEVICE_ID_NINTENDO_PROCON),
+>         ACCEL_DEV(USB_VENDOR_ID_NINTENDO, USB_DEVICE_ID_NINTENDO_CHRGGRIP=
+),
+> --
+> 2.47.3
+>
+>
