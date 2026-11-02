@@ -1,77 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618837;
-	b=MxJUfsbSiuiBcKdCkrxK/EYLMEPQHdEg4CxSyYCiUC6r/RCBF4UKvxKg8soG4k2VUabn
-	 kzEpWoJdbmBC+L3fW3lHwugqwLr+S1Ud1CTSlGFvjtDUG4YlZdNF+n+UzXa7jE6L5DSfA
-	 rJnOFFCNi1YDzWLMDF5exQVW7uR9GaNlsU3Xz0S8obr3YE7AGHdQ2Y8LacJO16JepyQuM
-	 xu3mBp+h88mrZvXKTLf2PajDuWVd80zndWlaVSeYmR24tkGbjDgk8DhYxS+sehcXZplW9
-	 Rplf3UGLPUHvtn3ZckMw7bvGlQFi8Mse8wRF51XLeuM+25/4aHh+0htuOix7QyNQT/w==
+	t=1793618864;
+	b=G8mEcH1379a5UZo7Q+2s2G4j0hlp5KhWahrg9YCH8rNXm937QDlHFrZA/eZTZKakoQTg
+	 73YNprvrYrf98anB8cFnavk62li+QK7EiP9m2zNAWell+YK7fB3Aqpr3SJvWjPlqUMMDH
+	 6Pj6VX2h0ggAvjD5JQSRTsGOt2qLIqLe/ABtG5JoofRisrbDj4rENpLH6+j5BS7vkpk4p
+	 5+kP0qbJZz9s1SNRonRf9riKfGvvL42mE+NARJjbFHSS2kDCVO9U6ujGTlTaCpYKNJCy9
+	 JQhnKHNE5QgF58unUiq8S4bLLPCbYr+L3k3ZnfT1aoB3ljGj7mDeQ+Gg+szuC6hFwsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618837;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Cv9fYOoWwKUfXT2oTsRskBZMj58HrKtQLYQjDyrTVDs=;
-	b=BGDqZFaGqGWDnHIqF+DRIzpQv9U1ZQ+aGQVRgE7PBEwJWT/XxbemvIqBBeo7Cft9e0F7
-	 GpUoaGia2Mbul85ndYEUYhXo/vFYLIqsHfZ4vQowlTM/p5kboG/NsHH5VJVh9arvwSQpR
-	 a2TdDl4EpG3/zyU46mIn3vhvJwga8rmeXXiSRgNFIVd0UPWPAJF9ROMRC1fX8icJt/gGK
-	 2St1FM0x3Nwwx+YNioAOn1SfZkH6xSQu7cOeWWYR0UHExDRJ48HRw3q0Wtuzz4BRCD8B5
-	 mNhoWFrfwfnUV+Ap50B5wRVWfPEwfeZ286ksPA0dRAUrA9gRqBIJLNMqdUwFrOO20rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618864;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=TEl1DgfXUA5pWV0ULqPFDtP6OTn2CRZgvQuqRoLVd2k=;
+	b=1BiD+0YWOOWU+RSs0VdDELzIgBQuPu7HneK6AgXumBemwztUTiGOZYkQoUPE8hfve6or
+	 eKDzGhgvmYPiPj93yGefshkUvVil7VFab3jm1f7v9AQe1LxMCJGt5pHXP84bkZ7ZMVJhn
+	 MPpfyNY5/7dy8a4TfPopUxDh4nGezXwtPJeAvrlQCkeAXnYMuk1soEp4j6rEKIDpQ+Dw5
+	 sl38k+9GfogvELMJ5xOQuOdZV0Ewle3RqmunkSXHk9Tdhcr1pybEr8NkkWWG/hDZyzj0K
+	 lP1lEHBzxE2kfD0p0sc/0DjNMIZBhSurr87tBKre0WOTvEc/VYWjJ+wUfX5iaUd/1hQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FG1xp8AQ;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rbox.co;
+	spf=pass smtp.mailfrom=rbox.co;
+	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=UdlUnKwa;
+	arc=none smtp.remote-ip=185.226.149.38
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD4F606A326;
-	Mon,  2 Nov 2026 11:27:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBD4F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710DE606A324;
+	Mon,  2 Nov 2026 11:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 710DE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FG1xp8AQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793618836; x=1825154836;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/nB8lTnfYGUH3O33ofshGMBV5q9MN0RN/P6LQYfKSfI=;
-  b=FG1xp8AQtrZzYFYyaCc4K3ci4bOYYREX1ykIKHHDihKsve8pOjKLLNol
-   WRGTVAZBMU1cQkl37r6ETpn8J1l8osR4OEDbM3n403iESr1FrnVwP1UT5
-   SqTkclW+voaz0D+aghdl/8/+eR01zn8qNy3EHmVL+LDZH7Q3XKZRfjvgy
-   u5K7tC+BdxSLDJxTVbWEAc+QdYOyYpje6Kj8G3uxq/GipKGRnJzNuIa4M
-   9U6n/UsDT1YNl/pbwkPeBaJfAmBn+r2znQddNybRwwmU6T2eWbY9rAS7+
-   Ub0cC7qfOkoA4U3wj6GQdc5cvQd+bnIpwg9ahmWqlFAImLo8ZbApPkfF3
-   Q==;
-X-CSE-ConnectionGUID: JREeEFtNQ32CJbdxyBiucA==
-X-CSE-MsgGUID: fZJjNxdqR+mTVPe3fTrNcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2300765"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2300765"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 03:27:15 -0800
-X-CSE-ConnectionGUID: VaR2CX81R0aqrzwHP+dLBg==
-X-CSE-MsgGUID: jjHG8chRSjW08wU/EISiZw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6422228"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa008.fm.intel.com with ESMTP; 02 Nov 2026 03:27:14 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id A058A99; Mon, 02 Nov 2026 12:27:12 +0100 (CET)
-Date: Mon, 2 Nov 2026 12:27:12 +0100
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: designware: preserve invalid SMBus block count
-Message-ID: <20261102112712.GT158991@black.igk.intel.com>
-References: <20261031105412.16825-1-pocj8ur4in@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=UdlUnKwa
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1xNqCJ-00BSF1-5z; Mon, 02 Nov 2026 12:27:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
+	bh=TEl1DgfXUA5pWV0ULqPFDtP6OTn2CRZgvQuqRoLVd2k=; b=UdlUnKwa2wwdsv4p1NZcbSZeV7
+	t4UOZnJaFeNb1oOLIegteX+/dZrJeyljqcQ8j+DemSAkcNZ9NA6RWxLB1qHZwZpB51BTC6BQllue7
+	kUMdtmojCpnGTa7941e3k/nOmpzV90w9kZJo+S6M0WLvFJcPy3x0eW7Okn9UrI0Mho7XOqc1/gDPz
+	J7OgLEcen16fXD3G+0uHsUVhj/SkBoJl+XumCZkg+45U3u6GRIH5EaDajhTqxh8WHW1GAr4INWy4d
+	nUkOjpuLeOMmHg40TB5oRoTVszVeAuf/LQnMd7teaFJCfeGJI7wxfjhsnD0t6bOizG7rupdqMfw7W
+	shLj9clg==;
+Received: from [10.9.9.73] (helo=submission02.runbox)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1xNqC6-0001gG-1k; Mon, 02 Nov 2026 12:27:18 +0100
+Received: by submission02.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xNqC0-00BRqT-Uz;
+	Mon, 02 Nov 2026 12:27:13 +0100
+Message-ID: <44aa83c2-042b-4d4f-9f9c-f9be8b0fccc1@rbox.co>
+Date: Mon, 2 Nov 2026 12:27:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,63 +66,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261031105412.16825-1-pocj8ur4in@gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Michal Luczaj <mhal@rbox.co>
+Subject: Re: [PATCH net-next v4 4/7] vsock: add a netlink command to assign
+ the g2h device to a netns
+To: Bobby Eshleman <bobbyeshleman@meta.com>
+Cc: Stefano Garzarella <sgarzare@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>, Shuah Khan <shuah@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Donald Hunter
+ <donald.hunter@gmail.com>, Eric Dumazet <edumazet@kernel.org>,
+ virtualization@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, sargun@sargun.me,
+ jlinbox@meta.com
+References: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
+ <20261020-vsock-guest-ns-v4-4-047527cfccfc@meta.com>
+ <atjZZP2ebhXKzMxL@sgarzare-redhat>
+ <atld3+5LKmGxJ8+s@devvm29614.prn0.facebook.com>
+ <atnjOZjKUBagRVWq@sgarzare-redhat>
+ <d946003a-8bec-4e8b-89a3-05eeb96780cc@rbox.co>
+ <auT+YIawHSMPHbJI@devvm29614.prn0.facebook.com>
+ <5a411a67-f550-459d-be9b-5e8e51d3018c@rbox.co>
+Content-Language: pl-PL, en-GB
+In-Reply-To: <5a411a67-f550-459d-be9b-5e8e51d3018c@rbox.co>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 11/2/26 02:21, Michal Luczaj wrote:
+> On 10/30/26 21:30, Bobby Eshleman wrote:
+>>> virtio_vsock_reset_sock() and vhost_vsock_reset_orphans() are my pet
+>>> peeves: state switcheroo without taking lock_sock(). Which, again, races
+>>> vsock_connect().
+>>
+>> True, I don't love that either, but I feel the impact is at least
+>> constrained by the fact that it only happens when the module or device
+>> is already going away.
+> 
+> Doesn't it happen on suspend as well? Is so, with a poorly timed connect()
+> things can go south on resume.
 
-On Sat, Oct 31, 2026 at 07:54:12PM +0900, Baek Kyu, Kim wrote:
-> When a slave reports an invalid SMBus block count, i2c_dw_read() uses
-> one extra read to reach STOP. It currently replaces the received count
-> with 1 for scheduling and also stores 1 in the message buffer. A count
-> above 32 is therefore exposed as a valid one-byte response.
-> 
-> Keep the received byte in the buffer and limit only the count passed to
-> i2c_dw_recv_len(). This preserves the extra read for STOP while retaining
-> the invalid count for the caller to reject.
-> 
-> Fixes: 69f035c480d7 ("i2c: designware: Handle invalid SMBus block data response length value")
-> Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
-> ---
-> The DesignWare receive functions were exercised with stubbed register
-> input for block counts 1, 32, 33 and 255. Counts 33 and 255 became 1
-> before the change and remained unchanged after it; both versions
-> scheduled one extra read for an invalid count. No physical controller,
-> STOP signal, PEC result or end-to-end SMBus return was measured.
-> 
->  drivers/i2c/busses/i2c-designware-master.c | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
-> index 7e1d9a2e77332..f38ffc5b0a347 100644
-> --- a/drivers/i2c/busses/i2c-designware-master.c
-> +++ b/drivers/i2c/busses/i2c-designware-master.c
-> @@ -563,7 +563,7 @@ i2c_dw_read(struct dw_i2c_dev *dev)
->  		for (; len > 0 && rx_valid > 0; len--, rx_valid--) {
->  			regmap_read(dev->map, DW_IC_DATA_CMD, &tmp);
->  			tmp &= DW_IC_DATA_CMD_DAT;
-> -			/* Ensure length byte is a valid value */
-> +			/* Limit the extra read, but keep the raw count for i2c-core */
->  			if (flags & I2C_M_RECV_LEN) {
->  				/*
->  				 * if IC_EMPTYFIFO_HOLD_MASTER_EN is set, which cannot be
-> @@ -574,10 +574,8 @@ i2c_dw_read(struct dw_i2c_dev *dev)
->  				 * another byte with STOP bit set when the block data
->  				 * response length is invalid to complete the transaction.
->  				 */
-> -				if (!tmp || tmp > I2C_SMBUS_BLOCK_MAX)
-> -					tmp = 1;
-> -
-> -				len = i2c_dw_recv_len(dev, tmp);
-> +				len = i2c_dw_recv_len(dev,
-> +						  (!tmp || tmp > I2C_SMBUS_BLOCK_MAX) ? 1 : tmp);
+What I wrote doesn't really make sense, does it? vsock_connect() cannot
+freeze midway, so SS_UNCONNECTED (due to virtio_vsock_reset_sock() flipping
+state to TCP_CLOSE) can't be set. Sorry.
 
-I suggest using helper variable here. This is pretty hard to understand
-otherwise.
-
->  			}
->  			*buf++ = tmp;
->  			dev->rx_outstanding--;
-> -- 
-> 2.55.0
+But it is still the case for bind/unbind, right?
