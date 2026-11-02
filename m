@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635983;
-	b=rQLP3Ry8jWnuQGLAzT99ap8L9DD6KmBtHz6l+zIb/1KxkFdnAcKNWdb4TfUa/ilnOLSm
-	 a/bJUwfnytRE2+s5NCimoqDrRxppx8HCInZH2by2pArkncIu0eXyJGwHeClXgP5JNxRwk
-	 rl3L+NMqQ5plhC6/XCuEV+RHnSdTEfHJv39LNwHOmt0X+VhD9NvvXKBUg7to/z/Z8Lxc4
-	 SPE89Wdt1W89ncPn0dptK4z6tVdrHzsDRj+dS5yxlBOZA4XRRatDD0qjYXtyRFlQCMU0c
-	 D3vBza8Vmq5tIjXIs7lI9sHfLPnFfd9nme+N/Qpb+mRjI4XWrvunAKH3YQYCQkcnXuQ==
+	t=1793636013;
+	b=KKGygKLc59Dpn7JdZqzuIQWs6yBzr5jRo/Q+f7NvCdgam69NZdOs/7xHiNORJIJVIsUi
+	 i2vK1dIVKj6vwfV3kZpb5BoSA09E6JXI6HJ1BUCybMSCoqiinX9l9nC82y0Bprxp+cqdk
+	 dsw+oZUcVchnzrNTb8nS9uAYUJaOiUFUOSZwdNdBQI5Ct9yYKWyDCgdH9PnRUBitqimSV
+	 rY9bYcjkfFerKnwHKQ8BmLa0WmFnPgCeBV/xSUzM4AA4Px2dqoNeedI/SEZQD8ZiMPYvz
+	 9ssk09vju14/RsC2z6yXn9+EtEwqq8SZS3+/KIQmLywf+zkVG2s7C+EL9oheH9doHUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635983;
-	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=AkkqOJ23j/1w9aDcgkUObIGtTrhMiGUiSVpJap6HkIo=;
-	b=k4Kv6pPEHHy3ALLyrikU0uR6xTEUDWvBqR7gmju81QiTlTcnYgYCKEgNZPP4hRBrPH97
-	 xhj34WCOphiPvo4HaGOUEG5vkLsZtjn0nwGF4JrToZ0acWgpbEolS+Y5JYcc78qbY7KZh
-	 pSJWNYZldoedco+cPVAQWEi78SSTHt/egTe0lwUsRn6t8ayuquDIc5b8sE9cmtDxtiLQO
-	 UDUHpVFoRItUCEmOgmmIhJ23ooYBSAoaFpcQ3k6rTKUXFTEG6uExrtuQBbNhqnHTdXRQU
-	 VEUpvo7ajEiLwa17fK2tsC7aV96IXIC0PvjfLV58LshMqoXHBS6akjLrhXUQmtnlFpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636013;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=tML1kVcOElBtDXr8RFYC6frpU22PCs0LQ6gNDQnlN6k=;
+	b=vBYQ2t2dlyeQy7k2C2nlNS5u+Fu1cYwSqS7RB202vJ6y3Nn2R1AJBwUpLlrXwuzhI/iO
+	 mlkGp6xD+4PyuSVGchif945u2m7UudwonVpgfKUs83W/Trx1hNIGRHP4+BKSY6PA/E4Rl
+	 sQws03VzrvrqKKYaBNdXYaFuGqizV0o9hWySwc9EOh0BT1uqeUZ+/5eBlDilX+YNnXn94
+	 wzN3Ina9qCdnBCNVdgiZWFIkSfP6f1tGfx3K8BlEUPRk3Q0mI1SDK2h58MfzKpEiRdvuJ
+	 JM4dNhXnoZjx4l7zsgXlr3OrCrCRagMyxbcXrE520ktkhn0CU1DoTNDslq5vVpCDplA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lwn.net;
-	spf=pass smtp.mailfrom=lwn.net;
-	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=hLSFEKNp;
-	arc=none smtp.remote-ip=45.79.88.28
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P98WBhY/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB471606A90C;
-	Mon,  2 Nov 2026 16:13:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB471606A90C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D9660824CA;
+	Mon,  2 Nov 2026 16:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=hLSFEKNp
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net EC7A640430
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1793635982; bh=AkkqOJ23j/1w9aDcgkUObIGtTrhMiGUiSVpJap6HkIo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=hLSFEKNpfg/XZfeCCVabwTQY4KLKJZpZnQMd0k8s0ZmJXqkulDhzQsOZN1r3zsA/h
-	 BZjjkR3F/UmzE4Bl4RiJANXHV95ZYme5S8CgBOVhj6VUXJ18evdyi8aB1XiE9IMZIn
-	 3TXB2h2GpYVuV/05iNUnthJNjOIox8kINMUWHcEXnvjsc74cycEBTxf8ZcvwfWF3MU
-	 VD1guXy43nB978u4gj3/5tgHG8YljzYIBeXrMwp8hAFBUNsoOboggIg21W5T242RK3
-	 4e/sG9XhaA+2dDyGxshco46r9512ysh8V1aHE1J3hx18PKfmqPEARjSRIzBjmkDE00
-	 MK8wcjKlDBUFw==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id EC7A640430;
-	Mon,  2 Nov 2026 16:13:01 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Atanas Kunchev via B4 Relay
- <devnull+atanaskunchev.proton.me@kernel.org>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Kees
- Cook <kees@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Atanas Kunchev <atanaskunchev@proton.me>
-Subject: Re: [PATCH] binfmt_misc: fix typo in "auxiliary vector"
-In-Reply-To: <20261023-binfmt-typo-v1-1-459d4ae4c15f@proton.me>
-References: <20261023-binfmt-typo-v1-1-459d4ae4c15f@proton.me>
-Date: Mon, 02 Nov 2026 09:13:01 -0700
-Message-ID: <87y0bbciuq.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P98WBhY/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26961F00A1A;
+	Mon,  2 Nov 2026 16:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793636012;
+	bh=tML1kVcOElBtDXr8RFYC6frpU22PCs0LQ6gNDQnlN6k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P98WBhY/UfXXarRf7Uu8jEQP9lv5DK2KLHp7gY3TaAT4MeLeujKEHpunaSS6xAa5/
+	 0x1ECkjsr2a7BtFkwCrtw9Udyf8iDkCYpBV3TFtkVHfEXh2DOBX94BlPKU/H6Ya186
+	 D52soMhM9lnUC+YJjqtLmreRibst1dRtGQFn/XOQ05YbNbswSIELDhTSghEMD3Qfxo
+	 NKd3kZkekEjcDFXf5Zkg6Ma97u4lfawalH8u/jONQvFHSsLTJz1JkjrH3wQ/goD5k0
+	 jYf8G8MtqsrXdQBhmT3Oiwhn0QHQRnZZi76xn3JHWLqzGsZjn6iRi1fGDUIQWpck+M
+	 c5bMbAHgcqD+Q==
+From: Niklas Cassel <cassel@kernel.org>
+To: dlemoal@kernel.org,
+	linux-ide@vger.kernel.org,
+	shao.mingyin@zte.com.cn
+Cc: Niklas Cassel <cassel@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ata: pata_pxa: fix the inverted DMA completion timeout check
+Date: Mon,  2 Nov 2026 17:13:22 +0100
+Message-ID: <179363577159.1271393.15310421750488395575.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261031222002591vYvH6hQ_JbuZFeV5bccF1@zte.com.cn>
+References: <20261031222002591vYvH6hQ_JbuZFeV5bccF1@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,34 +61,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=842; i=cassel@kernel.org; h=from:subject:message-id; bh=XRWKvVZgwpi0qxlPRZ0KPumt4ZmwKs90jZrMAkH9220=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLJebFu8I+LHs1fzjViO/yo3PPH/3cEyfmV56+CJ0pun1 p104pi9rqOUhUGMi0FWTJHF94fL/uJu9ynHFe/YwMxhZQIZwsDFKQATMQtg+F88+ZnfrngB7+9s rJnLjf3qVz56WhSRKWr7Ilg9pGPPS1ZGhqvT1sU7312dZdel2NfhW9n35BffrtsKH6JfNGcl7P8 bwQwA
+X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
+Content-Transfer-Encoding: 8bit
 
-Atanas Kunchev via B4 Relay <devnull+atanaskunchev.proton.me@kernel.org>
-writes:
+On Sat, 31 Oct 2026 22:20:02 +0800, shao.mingyin@zte.com.cn wrote:
+> pxa_bmdma_stop() waits for the DMA completion that pxa_ata_dma_irq()
+> signals and reports a timeout when the wait fails.  The condition is
+> inverted: wait_for_completion_timeout() returns zero on timeout, but the
+> driver prints "Timeout waiting for DMA completion!" when the return value
+> is non-zero, that is when the DMA actually completed.  A real timeout is
+> silent.
+> 
+> [...]
 
-> From: Atanas Kunchev <atanaskunchev@proton.me>
->
-> Fix "auxilary" -> "auxiliary".
->
-> Signed-off-by: Atanas Kunchev <atanaskunchev@proton.me>
-> ---
-> Fix a spelling mistake in the binfmt_misc documentation.
-> ---
->  Documentation/admin-guide/binfmt-misc.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/Documentation/admin-guide/binfmt-misc.rst b/Documentation/admin-guide/binfmt-misc.rst
-> index 9e84b877d06d..e37668371453 100644
-> --- a/Documentation/admin-guide/binfmt-misc.rst
-> +++ b/Documentation/admin-guide/binfmt-misc.rst
-> @@ -73,7 +73,7 @@ Here is what the fields mean:
->  	    Legacy behavior of binfmt_misc is to pass the full path
->              of the binary to the interpreter as an argument. When this flag is
->              included, binfmt_misc will open the file for reading and pass its
-> -            descriptor into the auxilary vector with the key "AT_EXECFD", thus
-> +            descriptor into the auxiliary vector with the key "AT_EXECFD", thus
->              allowing the interpreter to execute non-readable binaries. This
+Since Linus prefers receiving untested AI patches during the merge window:
+https://lore.kernel.org/lkml/CAHk-=whOCnAwXz-FMRdQEDJQ+9b2YXh9M=GHgRay0o4cxSmPVg@mail.gmail.com/
 
-Applied, thanks.
 
-jon
+Applied to libata/linux.git (for-7.5), thanks!
+
+[1/1] ata: pata_pxa: fix the inverted DMA completion timeout check
+      https://git.kernel.org/libata/linux/c/aa99a446
+
+Kind regards,
+Niklas
