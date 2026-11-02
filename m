@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635674;
-	b=S3gqeTtMnr7lMF3h4sTsQo3FjjxauI+uUz47F8engcHijd6rT5TGfu72f65C/mPIW+S3
-	 alhLDG3s6kyj5Wx4nDPjI8ki/DJ9zEf1u7IKXrnGSQxylRAzro6K53j0vFpLZl+ASuiVc
-	 UtKQvoDBeEivya1cUaISnW7SNuKNDPqH2qcXHkL+yYjRAPKzus7IvyumtSyhJXvxH5msn
-	 GxmmoH/IYcEsjnQDpbjaVjQxO3E2q4MMY4jZDOao+KOByO/Xptk9fmkjNAro4MwFWESHt
-	 zXc5j68cV/0WdW3w8hPrM8LbxS8RnNTW/qG4F6QwfDWKJWIeZ5AS11SLrVMG9UNy0dg==
+	t=1793635758;
+	b=ZgP/UjzDgmUgGeKHUVRAQNVhdYN44eh2J1yBeNzSrHX78XQOm2rFwbTR6K44EL3j89pz
+	 UraKDHSLZwq1De67N53FvJArsn1mYw17uo87y6jsiOaAHQG3Uj2ignz+gt7hdLv7hfk9/
+	 +JlCnYM+2b+UHGj+MPxR7mizMzMajkA749qUsiKNuCHHdeLXPS2N/u8P4tVgAsNIZmHNz
+	 TPEPxriCNgkTFeiS6TxGymZsYHQCOSv0HcXlVMiKs/LRlWXo5NBVTNF9SnJrCQVkN95Bo
+	 UEGktEuWNul0k3D7XtvvksT2oTQzU3K9ajVILKbwUK+H+JILsdBx61jLrpMSicRWUbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635674;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635758;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=iKqppwJgaOXP6N2jFbbLAd1EvvxPKuXzSzDJiISCkR8=;
-	b=ytUV4gfJzWC9ui8BI8APIrXQd+s87cL4lGr9Q/vgDkiDXGsH/ErcBnt+t2dk+MwSXobH
-	 BRQmUNnfRJ2NyrqNeBXs0fldRkPoW4gt7ktek6h1dIGpXsWTgvhTNC4MgCn//8sLND23L
-	 XMqzcNrFNH0g1nYfxLQc6tw48bP9XOMy9fBeWkXQ1eb1U6xsl4xP/buk7BhvIbagjjCL9
-	 QITGE6scpww63nAV3lyoxrZeh8BfkNYCUzyuGxv1KCAaZvcPu2xD0rSjkfn1S24bPUVEB
-	 os/APma686C9cg1KC25WweZTx9cM0JOngjq/xkA0E0VNjnyPr0UBJQuNj37SjwPKlXg==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8OegtZIBdrxCNPYwuOWjLYx5fVAeu/sW3/BrFkWBbk4=;
+	b=wTjYHaeke0oT9BVlzyJU32/jsDzqMSlwheyWQx7VNtgm9PqvMqj3oRFbrJk4flYr+Hyl
+	 PeixqW/AJVvw1Y8Efc9xM3r0ol2tnpCGhpTi3Si5cg6cHd1T1/lK0G3QY2Lj1pgtY0JKu
+	 EVatW2cuwY+mt2ilnglPGJVOFfswqGV+LfVg5zXuXkLO1OYZhTsZkQRmhGxK3cf0RgZzg
+	 ujHNyWdYuY0a9pdCfK/3hxWDTrpwgLjMRukOErMuF1md02Bt3H0FbE4T3mgMKCv6QQ5ns
+	 NLZJYgG/nRm6c+MbYk1pd2laUKtVqQRKlRSkbVY+04DmVTbqfi7J5Je9VrtUapFGezQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jYiOTlAo;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KWukx82v;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5771860703B1
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5771860703B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C70606A909
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70C70606A909
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jYiOTlAo
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so20884475e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:07:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KWukx82v
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dee593f18so3081684f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:09:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793635672; x=1794240472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iKqppwJgaOXP6N2jFbbLAd1EvvxPKuXzSzDJiISCkR8=;
-        b=jYiOTlAoF2hnVEtjF8MBgfhR/gINhACtWDOCFdYcqPJcy9m7fmqPuGoBrVxReUexXn
-         nET1cThlc/1exOuNNUoNo3RRE+Sy7gjF5uIluYFFmAWd3W90c0R4mqKa+SSaiZKetJiG
-         W3Z6yg9Llgz/trkUfr71dSyXWgeBX6sDVLp9eDGjH8Z8DiClA7gOH78xiv6WfSzyaUaI
-         zDDd3RTfma7Ha5STlqLu8KHTdQY5rTsTV1L3YwcJsoBjn8LDi0Bp/hCE917Q4QJmuhOQ
-         PbjmlEZ+a9avnqHt55odxSv27y5KPOzJfyMAlCufuVgJEwpnR1bS4YuzBVQFx/Y8IBi3
-         4Sfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793635672; x=1794240472;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793635757; x=1794240557; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iKqppwJgaOXP6N2jFbbLAd1EvvxPKuXzSzDJiISCkR8=;
-        b=EqAXuUCiZFUapMiJD4i47BHHlWDFIVh0YZQmYrsbnDY069ne51v8AmhqRnNCvnz2ka
-         sORH+hH82wjb/Er4EzGpNhZEwR7yrx0HTMibXNad5XaZCdNai9nQyi8+VSK8H0n2S12K
-         u/rI+Vu1pI/h8M7P5kRLOqJeEMSzhYgVOQUYdf6T0pgwx97hABe/WtdVYpFlJw0SkKk3
-         QEveRH0iCoI7u6Q78DFeeQQZRY/Kh4pdQPPxYmVDqf21C3C6LQ+/zL3C14Pxx8RQjzDw
-         iYN2NXTEQRZLpPdf28o4r9FT9j48TdxEZDRoDBLsnjSGyUnZFVy0CGa0ReITZVH4uqQI
-         jZmg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfzQzs6Olp1nfC+/wyL85p4a4qmRGoyw2Ohbs8eT39P7RVphMKCa4q3lTwOH72HeTyvFsQZ2K5/0GEg9Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJXMa9VgkETy4nB4IJYQGnIfW1zQYqTOBOlEe+JNIFCFantcGN
-	Swdc8M1n4nFm19yayHyDAhxix1mftivsbfKMZSEijmRr2B7iY0XQvVq2Zhm/HfZEaVo=
-X-Gm-Gg: AYBFou3mpByizzgm/BI2OxcvCmWF2NqPFcf770ohjKZnIdJwKftoeqiyOFg/96l/Wpm
-	a94WoaheOMrK8dyk4Md3Ad8lH8Zab7xrIF5TBdFtpYTNyN2exhLHsheZr4geuH0IGXOOYPaka4f
-	YFfEo3QU2Yxal314Lt+NLCmO/Lhp6q36lfqnq3nRPC6GNDwxd3L3FVspPva6NjpDDW/cO2V5Xv9
-	JykqMh1kZDN+i4sHrg3cKp9Id1cJot8LPCgSxE4lAq3XGh6I1w2yXG6PBlCZVB7JgJ/zVpW3VMY
-	GSYm0eW6c9xusDR70//jG2Xu78iBwMII025HTPXDkC009EVP5A0E1Gvk8pmypnuN3VUm2gmD1LB
-	LLbNsINNq3X1Ho7+Mm9L7whpgmy7ynfqOqT4EjqaA8ZQ30WKN7jCKHO//TSV4+I2m9kykLtwo3m
-	a67MzssFGrc2Y6Bsjvr1ZFhousl9Z1v7Iv459lFWZ+ID9DO8n0yQgktW4+JVSXZS7QXfxjmNFfm
-	FiznKdohKNBc29aKZTX7iuJgoHcmjwaSloo2f5IEmv53OPelUs1u0Ktg4UW1EKVS2+cfC3/lDRO
-	p3bcGG3vNAnYQYbyK8WncGs9IxMLuY6sKF8/rF2tH+vHIsD63+xjmk0Dbaux/AghE4rdMtzNnw=
-	=
-X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id 5b1f17b1804b1-4ac1932bac0mr210839835e9.29.1793635671784;
-        Mon, 02 Nov 2026 08:07:51 -0800 (PST)
-Received: from jarvis.. (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm360429605e9.12.2026.11.02.08.07.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:07:51 -0800 (PST)
-From: amergnat@baylibre.com
-To: rtx4060@gmail.com
-Cc: broonie@kernel.org,
-	lgirdwood@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	matthias.bgg@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 1/2] regulator: mt6363: Use 8-bit regmap values
-Date: Mon,  2 Nov 2026 16:07:50 +0000
-Message-ID: <20261102160750.230679-1-amergnat@baylibre.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101164405.1743177-2-rtx4060@gmail.com>
-References: <20261101164405.1743177-2-rtx4060@gmail.com>
+        bh=8OegtZIBdrxCNPYwuOWjLYx5fVAeu/sW3/BrFkWBbk4=;
+        b=KWukx82vMuB2GAg44zNgZHzXQVMKAYknc3cIBwRMDdHq26u5ZGnj9ONzRjDMnVlVF+
+         A+U+zorwnZ+0f7Spwhx8xqJbBsHQWbWg/2OHXC5nnyx8IlUbKAOGYREh6LliqWirg01z
+         9b4VBKWQ9RfQpspkioMkSPDDCukIt7j5pVZtvu3gqOY7vppeLZs79uYRW65PSTjnHnUZ
+         fwEuPd4w/IsDNqq/dCD2vyuIZSfvlPeSZj8U8OZvx7TdNq+N4h9VMjc7zHSOKVLqClai
+         xQpNeCemMR2z+L4HJsLljbaTMIOrpNOWZQv09UvK3SmIsSAePTMsC26PEnrpBmj0hW0T
+         UPoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793635757; x=1794240557;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8OegtZIBdrxCNPYwuOWjLYx5fVAeu/sW3/BrFkWBbk4=;
+        b=Pzm0vbcgiEMC8FTrbtzgv2cckpKyv/0JTgjrunFVJJREUEPHC09Kp8KsnyWmI5sGrO
+         DKndEOQUqF/Gs2iS1xiMKqSqNh7TR5uESewh0v+vqPmwfwZY4e7XhGNXlsvvTiBYlM/w
+         7fwT5gMjy3nt+RpviwhLsngwOlXdbFb3sDqkNvNNuM1qMjfnAdCE6jrYUecs3SzpMDcB
+         rbfctoToKJoxbpc8q8rxE+i0bpl3pjkfLKDnTNUKr6VRdzAwPq6wghoCVs4RUixGLNEg
+         2uE/Yfv/SD0vRTtx/ifK6o4aKTEyjuFAxJn/y7U5kUrHHx+qIkU/pI7MvsAliSwwi+Ce
+         QNcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzM+/hrlZRXPxpHdOFrj7/+r4FC8G2DargbiXEijGhP8UMbLh5ofr72a70o0YQwsB2B/ZqwQYyYQ1AcdE4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xfOePKJvZPoR8obq8pcYAEEDlB+Rr94jjSaeBY5woJdySo4WZ
+	GG6WfTIktPWYL5eVSsJl39zsmctWPyRBX5eNNEtqmBQgElbzxsU0dz51
+X-Gm-Gg: AYBFou1Sgrzl3bYPI7c7B4EVmVYn0rpI9xbvIxVqttBn0npXS7HffheTqUNQxcKdVMX
+	uMKtp3WGtW53wCcPPFUl4VF6ITz36MhN6vkdyt8wdRRMPRRLISksETwgcViACbb5uLbpl2QEUaR
+	kouWv0Y4HUs+iM8GBtTbii+UsVHMJnfJdgnE8WMHwxlIl9GQGJiuutxpg2efPNM+oXT/JGqlAww
+	CcMSAc5sVYzuYkrPlyJdDPiQpY9Pb4kLBF7IjGZHk6WqsmSmcpmr7EYsVK8wOoEZXxYbko7V/c9
+	7e5wbVRMaS1l33DFYziyiX31edUlZ2Nh0Z0PE5mpy8ut3aXlqDr6yi2OF4FRl+WFOhVbuMSekXx
+	aH7vzm3lpf2ijhPotwRG7/aLnHF5F76tWAFqvIJeNwzz/wQxpmI/RMPUqwXsypGBLKw/pQKkKgF
+	rvQslzRmAZz27+HLJHTDqQBEHCwNW2uQFwVYmSpP5+i1hG7eM3kZIF1GNqWlrN4UiDie9+/hDwB
+	uj09/cc5ANxkb/fWgaaxiCHctBPvA0qviuMv0fcYsKLrPl+DuIHIySJBL2wpemzQFosv2WB3FRR
+	wwzldENnBFOKqK61j5znS5I=
+X-Received: by 2002:a05:6000:2288:b0:48a:f404:6960 with SMTP id ffacd0b85a97d-48e6e2e76a5mr23213517f8f.9.1793635756592;
+        Mon, 02 Nov 2026 08:09:16 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba2415sm21300844f8f.50.2026.11.02.08.09.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 08:09:15 -0800 (PST)
+Message-ID: <936b8e7c-37e4-42fc-8ec7-67280aa93333@gmail.com>
+Date: Mon, 2 Nov 2026 17:09:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,18 +92,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mm: Define the zapped-entry checks only with
+ CONFIG_DEBUG_VM
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
+ <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Peter Xu <peterx@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Andrew Donnellan <andrew+kernel@donnellan.id.au>,
+ Rohan McLure <rmclure@linux.ibm.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+References: <20261102144001.342837-1-kas@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261102144001.342837-1-kas@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 01:44:03AM +0900, GIBEOM LEE (이기범) wrote:
-> The registers of the MT6363 are 8 bits wide, but the regmap has 16-bit
-> values.
+On 11/2/26 3:39 PM, Kiryl Shutsemau (Meta) wrote:
+> Zapping a range calls arch_check_zapped_pte() for every batch of PTEs,
+> which is every page for small folios, and arch_check_zapped_pmd() or
+> arch_check_zapped_pud() for every huge leaf. On x86 these are out-of-line
+> functions whose only content is a VM_WARN_ON_ONCE(), so without
+> CONFIG_DEBUG_VM they are empty, but the call remains. With the SRSO "Safe
+> RET" mitigation the return of every such call mispredicts.
+> 
+> Declare and define the checks only with CONFIG_DEBUG_VM. Otherwise the
+> empty inlines from <linux/pgtable.h> apply, as on every other
+> architecture. They cannot be inlines in <asm/pgtable.h>: VM_SHADOW_STACK
+> is defined in <linux/mm.h> after it includes <linux/pgtable.h>.
+> 
+> In a KVM guest on Zen 4 with Safe RET, zapping 4K pages takes one branch
+> miss per page fewer. MADV_DONTNEED of 1 GiB gets 6% faster on anonymous
+> memory and 8% on shmem, munmap() 5%. THP is unchanged.
+> 
+> Fixes: e5136e876581 ("mm: Warn on shadow stack memory in wrong vma")
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+LGTM:
 
-I had the same fix ready before this series and have now posted it,
-together with a VEMC voltage fix:
-https://lore.kernel.org/all/20261102-rgp-67-mt6363-regulator-fixes-v1-1-420789a3113e@baylibre.com/
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-The only difference in behavior is the BUCK_TOP key, which mine stores
-as __le16: with 8-bit values, regmap_bulk_write() sends the u16 key byte
-by byte in memory order, so a big-endian kernel writes its high byte to
-the first key register.
+-- 
+cheers,
+jose a. p-a
