@@ -1,88 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793662971;
-	b=G1ERovV2SKwVuzEbnm1IC3/AyCw4tTlbpH8TeVI+Bts4Zj+VTPgpwICWXLSghDx/JTwS
-	 0a+puDX/7o0KPAgS0r1nhjin320BkzP2NS0LlqGuUG63qUWx62Ss/W1BR6nCgckldwSYk
-	 RBW3tKPh66yolb+YB18PiB3UCEk1dKn89+HL/hpO71QIVq5fH4ig9L6D/1w4B8Xgg5jB0
-	 E9DF/RJSNgmBs+VZTe8rUcOlhJN376BgqQFbR/eJsBmRrUCtK/W+/ZCtdfKlaXjT8THm8
-	 6WFULuQRdXdhfn6irRvQWfnohwbHgvT8SHpptMQ0WedS+kYH/+s2vWfqn0WuC247SpQ==
+	t=1793662962;
+	b=Uxl+QNOAifC4N6ftwaYBRCtdnKXvSIDfFWoVyOfl3VXJ4TuSPsDGNhlQxCqllzqWboz4
+	 xJ7xFoZIuv57t5HRx8CzH/oX2ni/+sProkZOGPvHao9uvR41jxW1flN64D6Pt/vO+YYgC
+	 Xs7p+d9kSzSVfqPRVFWAAUBd0n6eI3nzkI1byMPKx4haFAQd09HY8kvUigZxGtIgunjNm
+	 W518k9tO8UH2qPJ7JoesNNPRbCIFezFKO2e3lu/O6d+8L0Tf3QhmKceK+SNTLwm5VTClc
+	 WbPXeqfEAxOwFrj7qez3FcyrgsEsqpq6fcZG9ECZodVb0HjvAq48AACYyCbobquQOQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793662971;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JnQy500MsWrFun+T9a78f9QVRMeORY0a/XfwWvPhYUQ=;
-	b=LXYi7qJy/v0Vscfnh4sGcXBlcZ2IAAetCdJSxz9YLpFCC0iVkvE4wjWDQirpCbn6cWtX
-	 1JsN2EyaLM/OkHyYXv+tmvMS60UBLnF/fETwnQ+F357IxvukVlgIURti/oFQLAWHde+VZ
-	 FuybnjP3Amyd2JszYSTy8vjfdCt3hqReKUOnIw2WNcJBZz3d+XTgcE8G/HS+DOyT+YaIw
-	 xgnK3FPewYcL/H9Ecn/+sFtLH8QrN6IqP+3pyohCPwdYafoX99EKD26Oa2ex7j4jU3MJY
-	 DS5cWG1UYSOAbruLPZjsWhetRkJVaueIOOwERObA8fReIt/awX+ZlfS6U1l7FQk/3wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793662962;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=ozF3h4aUekaFNOe7DRyg0a3bh7Yt4mQLO1saPU6M4xE=;
+	b=PAinOwSs0khKB6QXwIdkAzgWC6q2SUxePEt9cCttMV5ratyYIuVpJdfEwZBwqgMyfOAB
+	 vc6r+YCZ9OkCQ1kzXPJzpzhld4k7ywOf91jOH3nBrkFxAipIldyUG3o/k1aYe4cMQyxta
+	 3Xd5qnYIorr0kTE2QiYm8VZGAmAUR1X0zzSDqcpIlTryEVmgWKGiJS7UED7kVOA2egPEl
+	 CzjlrM6N/2Yr5a+V5gKil8fM5ebASoq3g8j4sT7GiVkQsca9uPKOEGxVXw3J40yPSZ+TX
+	 BvFwLzdU3mUXHDHmak4ViRs2FomJ57eDgTpVaXQlNZiSwpCvYbgo/p1QJXEH/sXwRWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Nhk2wPqv;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=gWUj0o1K;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36F4606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:42:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F36F4606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42C7606A329;
+	Mon,  2 Nov 2026 23:42:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B42C7606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Nhk2wPqv
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso35809475e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:42:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793662969; x=1794267769; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JnQy500MsWrFun+T9a78f9QVRMeORY0a/XfwWvPhYUQ=;
-        b=Nhk2wPqvSQrkiK/roTjKBer5PwoOjEZcUOiCTWZQflUNI1lHbA/yywr5hMwC4geZRo
-         /nQsIvO5rfSDbIjA77jp/JC2zJbvv6gA7lT7iyi0UpvRFcKxu2zmc8pmeIOaa2Yuj2cc
-         OifvuTw2PdxQxtkAyBWPS8z91JdzqQXhQ9E1kMmGqpqvE/UFlD9QHFr4hv2uECHobPeZ
-         I1I7vvMTxiKtviazNZh/URE7e2Ybhu69FANtbZEcsLCykFcM1UZ/zQVXpJAjilti3kjA
-         jQaIARJ4CsBE0ndIX0ro9nlfcUzDy+jTbPh/k5WL0h8d6hMrU/QYdWarlce0ISAWWs+2
-         4T1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793662969; x=1794267769;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JnQy500MsWrFun+T9a78f9QVRMeORY0a/XfwWvPhYUQ=;
-        b=pfP0LKPjRbNPmIJU3W4ddxtdePnv0SRvEKQJ8VjSeGuELQf/L5Xg5afSMcP89btWDn
-         qQPo3fPAgqrkvH0SS2jPj1P1uvBwAoi1LPFKa0dY/NOdJk7RH0O+YqqZJabTmIAHmwJc
-         eH3foYVPCsLhUK43heJUX43f1rUM4CnMoO92pb5JurIZPjfYCHSy0cygWBvIeg/5nzGT
-         v/2HGoAPu9uwajtBiezTRIKDDfBDBLASFINo/xppT/DkSyTY8UOy1Z67BMtltmTITZ2r
-         QNV3Q1I/I3+U1N5HLTf2zCkc72+QP7lFyi34kSVejhIBxSrk77QIZ2Eu9Auhg8gesI21
-         1mTA==
-X-Forwarded-Encrypted: i=1; AKwUvBy5ouv92gTuE6U7Hhn+ncK+9/vSZbZZf65wrVDjxpHkpbSKr6aM7hRBuXjSzAirTPcheQzNGgzI+4yp2ak=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhVdyASOgeYVYcrPyqzi+4yaLf/tFn8wmD1HGJLdpbMxHcE9Gh
-	/Wk7BkpzD9AQCir0RbaI/fdDvSAeQm3J73RbGN8tBG8W1sGltClftMiEOYs8FCWt0DY=
-X-Gm-Gg: AYBFou2+t/fT9XIVVUZe+jGgrLAU2Kah6nNVxXU7AUbAshDxqkriKMbmWkx45J2vG+2
-	CaWDbWIvPZaoHpqzkcBsucIrPmg8ONXlkvBEXMQ8w2ieVUxNPuHlHuTUfCUAGTO8Gwj5E78H7Za
-	gjFS6HOfkbenPTqAlN9Kmj0pFJ1O0v+/qXyKrfPJLyfH7JClP8ENmFH83lCkYz6oO9l+JqxYshX
-	FWej94xionlvRyZhQm47WcAPIomQzLmKaj9Cuc0tkGH9ZnrWXmLcMvpqrR69/oN8lce5VV4pRmA
-	eP12ot0oI4lWWL+48fy1Ibeoptd7RvbVMKmubRDf+J7NA5f6aiRg8Nw8p92Dqa5VMPw+D80FUPV
-	oQ/Bz+b/dYR1z8kED06KgPXA54I/LIdfa2KZgZuk8OjcHamxZEyQDfuInWp9QB2oqrGWioqPUJu
-	HXutE0IUqRNW0gB1xSTM/WbcsxSSJvMws2J4sGAmcOTvKNyHa5PYdA8p7MPryfMeRExMdyEtHhH
-	sEliwbFcoxafh7EVBWvkssXbX6u6rtktYrw/oJtpMByovpQa1ZhdSUqbDhPg39iXYfpt6k5UX/z
-	gxP+1wkAKGAgitYOwIR7
-X-Received: by 2002:a05:600c:3b09:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4b14017c507mr86691865e9.20.1793662969331;
-        Mon, 02 Nov 2026 15:42:49 -0800 (PST)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm41517207eec.24.2026.11.02.15.42.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 15:42:48 -0800 (PST)
-Message-ID: <a12db355-d677-4656-9715-a537980e928a@suse.com>
-Date: Tue, 3 Nov 2026 10:12:42 +1030
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=gWUj0o1K
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3690BB1A;
+	Tue,  3 Nov 2026 00:40:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793662823;
+	bh=wAQ2GsgCD/YQbE45EYrTMRsnhVSS61FPzdNJs1TgxY4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gWUj0o1Kms6l1VLKnhTo6f94CoPkynqMsMINex1oVsbdXynf0+v1F0br2jDDty1aE
+	 xqjTIiVcZmsIirZnG7OlMKxcxxNTLaTgUIpgrhpH2lUXFDHoV/CXIEYtL+g2dAnKU8
+	 GWEebUM2t1mKqXLfiWaY1IMeF5eY7em2SfYV2bKE=
+Date: Tue, 3 Nov 2026 01:42:38 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Igor Velkov <iav@iav.lv>
+Cc: Dafna Hirschfeld <dafna@fastmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: rkisp1: Depend on PM
+Message-ID: <20261102234238.GD3559911@killaraus.ideasonboard.com>
+References: <20261102-rkisp1-depends-on-pm-v1-1-35a26cb2bbce@iav.lv>
+ <20261102223316.GB3548113@killaraus.ideasonboard.com>
+ <20261103005500.rkisp1-pm-reply-1@iav.lv>
+ <20261102231206.GA3559911@killaraus.ideasonboard.com>
+ <20261103-rkisp1-pm-reply-2@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,117 +69,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: do not check support for an invalid sectorsize
-To: Siddharth Mishra <smish149@asu.edu>, David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, Siddharth Mishra <brightprogrammer@asu.edu>,
- stable@vger.kernel.org
-References: <20261102233041.310900-1-smish149@asu.edu>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261102233041.310900-1-smish149@asu.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103-rkisp1-pm-reply-2@iav.lv>
 
+On Tue, Nov 03, 2026 at 01:25:45AM +0200, Igor Velkov wrote:
+> On Tue, Nov 03, 2026, Laurent Pinchart wrote:
+> > What does the driver bind to when running on a system that has PM=n ? On
+> > which platform can that happen ?
+> 
+> None that I can name: the nodes exist only on Rockchip and i.MX8 boards,
+> and those select PM. The patch came out of the rkvdec thread, where Nicolas
+> pointed out that with PM=n the first MMIO access can hang and asked to
+> check similar drivers [1]; rkisp1 and rga had the same pattern. If that
+> case is not worth guarding, I'll drop it.
 
+Given that it can't happen on any platform, I don't think the patch is
+needed.
 
-在 2026/11/3 10:00, Siddharth Mishra 写道:
-> From: Siddharth Mishra <brightprogrammer@asu.edu>
-> 
-> [BUG]
-> Mounting an image whose super block has an invalid sectorsize (for
-> example 4097) on a kernel with CONFIG_BTRFS_ASSERT=y triggers a BUG:
-> 
->    BTRFS error (device loop0): invalid sectorsize 4097
->    assertion failed: is_power_of_2(blocksize) &&
->    blocksize >= BTRFS_MIN_BLOCKSIZE && blocksize <= BTRFS_MAX_BLOCKSIZE,
->    in fs/btrfs/fs.c:137
->    kernel BUG at fs/btrfs/fs.c:137!
->    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->    RIP: 0010:btrfs_supported_blocksize.cold (fs/btrfs/fs.c:137)
->    Call Trace:
->     btrfs_validate_super (fs/btrfs/disk-io.c:2525)
->     open_ctree (fs/btrfs/disk-io.c:3507)
->     btrfs_get_tree.cold (fs/btrfs/super.c:2133)
->     vfs_get_tree (fs/super.c:1943)
->     fc_mount (fs/namespace.c:1282)
->     path_mount (fs/namespace.c:4337)
->     __x64_sys_mount (fs/namespace.c:4542)
-> 
-> [CAUSE]
-> btrfs_validate_super() rejects the sectorsize because it is not a power
-> of 2, but it does not stop there: it goes on to report all invalid
-> fields.  The next check passes the same sectorsize to
-> btrfs_supported_blocksize(), which requires a validated value and
-> asserts it since commit d728f2e5f8a0 ("btrfs: simplify support block
-> size check").
-> 
-> [FIX]
-> Only check whether a sectorsize is supported after it passed the
-> validity check.  An invalid sectorsize is still rejected with -EINVAL,
-> and the misleading second message "sectorsize 4097 not yet supported"
-> is no longer printed.
-> 
-> This bug was found by fuzzing. The cause was analysed and the fix was
-> written with the help of an AI tool. Tested on btrfs for-next
-> (d6f76ca0a70d) and on v7.4-rc1, with KASAN and CONFIG_BTRFS_ASSERT=y:
-> without the fix, mounting the image hits the BUG above; with the fix,
-> the mount fails with -EINVAL and only "invalid sectorsize 4097" is
-> printed.
-> A crafted image (22 KiB, xz) and a C reproducer are available on request.
-> 
-> Fixes: d728f2e5f8a0 ("btrfs: simplify support block size check")
-> Cc: stable@vger.kernel.org # 6.18+
-> Signed-off-by: Siddharth Mishra <brightprogrammer@asu.edu>
-> ---
->   fs/btrfs/disk-io.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
-> index 8e8fb942d..b348591f8 100644
-> --- a/fs/btrfs/disk-io.c
-> +++ b/fs/btrfs/disk-io.c
-> @@ -2520,9 +2520,7 @@ int btrfs_validate_super(const struct btrfs_fs_info *fs_info,
->   		     sectorsize > BTRFS_MAX_METADATA_BLOCKSIZE)) {
->   		btrfs_err(fs_info, "invalid sectorsize %u", sectorsize);
->   		ret = -EINVAL;
-> -	}
-> -
-> -	if (unlikely(!btrfs_supported_blocksize(sectorsize))) {
-> +	} else if (unlikely(!btrfs_supported_blocksize(sectorsize))) {
+> [1] https://lore.kernel.org/r/8aafdbbf04a0d939c6b4d7d5577d97bb58d1c439.camel@collabora.com
 
-If you want to change this, you should touch all callsites.
-Not only this one, but every unlikely() branch to return immediately.
+-- 
+Regards,
 
-I do not like the ad-hoc fix just be cause you can trigger an ASSERT().
->   		btrfs_err(fs_info,
->   			"sectorsize %u not yet supported for page size %lu",
->   			sectorsize, PAGE_SIZE);
-> 
-> base-commit: d6f76ca0a70d0c814731394a625ff0dc1feb390e
-
+Laurent Pinchart
