@@ -1,112 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.36
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793603132;
-	b=Sbp3xtOtfwM69WoBe1FXcCx5qfqCbt4BgN0TD2ax4X/oIBf/RjfqEpRYq9IB9hGfrXUe
-	 dnN5bthnxYDnKJxSso0EvoaR1WyJSFYS3J7DcEgns6idNdk61M2fRwrSM+6V74NMhfnz1
-	 b92Ekd+xZr9cqDq7rNWZGJIuHHAE+BcGS1m03KJvxtB4mQklGp0BPqvnRb7qDsbOHcfOx
-	 sq66YzCdiDn7VavryWpS6FJLMkcB4rSwz+x84arrc8DEPzyVmJ48pmfHz0Dk1ydYN9t85
-	 dreMmtSL3ON4/TH9oKbgLR9W9SVa4LCUG1XUUM9qGEZfbnW9gOrre2Z/am9OZ9MgfEg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603132;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sIH6uqdcxc56npraT4vZKiBi4Fr15Cmw4x0ME3mTqLA=;
-	b=R8Wl4hE0nY3ZCg+2Od0cinSyDTvDXkdFy49pjKpGwzQs8M5XqxSLZzAAHHiaS0AMsWWL
-	 Qp1mjGpPxCj6rFwA7deNS0Zca+m/pKTq1d6f5Fdfwli0dqtzfkV/ymLUVPGCkZgK1ji0l
-	 o6S2n1hGsHbwZvf1fvk7HtVMx15RtC0rEWd5BUZ4AZWpTIZ2TL/qp34K/rIccV2Ajv2i+
-	 e1qT+anDbwl5phYWiilMHIMiUKXAuaaoc4qKrxkCXHi5UafZV63hzbC0qPDnExiQJGo/R
-	 OEx5i0XjxZOlxlaAvPmgazEtHdn8mtuQRhCsvHfZGZjhBVeJLiHeGVnyfK2oJvwsKfw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rR3bB130;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.36
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010036.outbound.protection.outlook.com [52.101.201.36])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793603138;
+	b=gpEPMeKWwVFogo0kDQpGDqQUd+GupnQhk4g3/OvE1sUR+pyzwoFzElWNWV6Snez4wIFq
+	 uzWaXUaWV9AU06b7T4aK3r+QOr84ffscPVcIBYMnN+wx1NemoPHZ2xwlGtn5tR3RTFMeE
+	 At/HI2SaK2aZZGJN1NMfgit6Ak3imGAKOMaeZ7+qE716M/q6awvuVCl3RvhZL0i8e08J/
+	 AJzuvux77ycJk7kpTj1wGRCdG0ndCygJkvJufUf7mJflcTu6KILbfA18xESSQKFfNnuRe
+	 QZa/zxl3Mra+aHXgyNgW8L87A2xxj18X3tV1q8kSOY80HUwz9XJeZA8BYgRy149Lp4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603138;
+	h=DMARC-Filter:DKIM-Signature:To:Cc:Message-Id:From:Mime-Version:
+	 Content-Transfer-Encoding:Subject:X-Mailer:X-Lms-Return-Path:
+	 X-Original-From:Content-Type:Date;
+	bh=9pzLVpw5HDbiXA/WRKY+RZLeQwbQg9GRKfExmkQd1tQ=;
+	b=hretMv+WJmhIQZ/z42VfYFVrR6eIsuoP6b24pjU4+eSogQPE64aH5BeujRoL0tIDq5Hp
+	 eaYW74ahSpQGlBkfDuq2iktsHx3Tu5T6lVIKg2jKkLP7cg9lKlPU3Ph7KHjjPeEMO8nKU
+	 9EztzVm1RCqtKNTYJLrcjlGOSR9uL1v7/jVGF2dofYeGuQ88eQhKZvD4Rs0tGdml1HLlH
+	 +37aJfLGONJNpkU+HdECp/S0G4TEi5Hizw1iOIdusqsw5Zn7uPJAZI+uKSiXK0uDQBM1C
+	 vRng2CW2BuOwQHh9bhVzPHCYTwNmCf4BOGtBPY3vOHbw76esuWswAgxNQcEZAAEOCUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=O42HX3LR;
+	arc=none smtp.remote-ip=209.127.230.115
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F35560A260F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F35560A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43472606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:05:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43472606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rR3bB130
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hn05dkPH1xvjujpXa6LN2+bxjPD8Qx/N66H9/+luRif2EWBMMCw6ii0YMucJ/G/iJ0ndyXgLxN9684mAPV5DtQE63Y27ZOOBbaYkpf9FtBzzauhd2ZO07LNSasavCl5XMtYb7hO2hS0vs4Bok8zRQ0UixHdiRJw1i+0h5HcovyOHDW0B9Akh/SEL5MIOp9YPYa0wWOH3he3df5C0IQFCznNdzPR5VIGnsnjCXHpE61hayYxMCaRe1g+4cZKr6eGvPSH06F3mhgB+nILtFR+uUCKvWRJr0BzomoS1yf9f+IhuwDUqq/Q4L7dGiYIqWpdqCAw4EixcQvQtq1WT/dCKWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sIH6uqdcxc56npraT4vZKiBi4Fr15Cmw4x0ME3mTqLA=;
- b=g8KnZs2sxH0Q92xVnG9kOjb5OP5BGQC0jX15BIpjF3Vezhqi3w2xiqRndoy5FSgaut+GryKEh2Z7eN+SomKlsOqYOEVsX9iFcRjp6plwzCMZ+EGq3kcDg8pMswp7/xrZWuBfFrsJm4q2ZSOaw5mXUCx0hjea0KBoYHCgAwd5JA6syvjR6O0DMPp8c/gWXbYYmbq3oDp1JFyMNqpHp6r+WIefrnd5ryIgSYvlCfT4Nl3VBRFwA5lu91ToGFOuCyj5NnRg9aY6kHcRzfDNmp9PHrMIaR+/5Y57p8/DToFeaNEnaXroVHaqRMdWc4SA5PAjMNyumjkKxgqVAxAQ+obFXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=8bytes.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sIH6uqdcxc56npraT4vZKiBi4Fr15Cmw4x0ME3mTqLA=;
- b=rR3bB130NRKK87ohJk/wpfSOt3ehUqUnVBJM2X5j8mprpUTb1FQkDPI4Xb5r+j3fu2Ug9PV0MIct1viXwBR6u1MOqdRVBaAL+zsFeHmcVPqUFJhHkKdHf4IHg+BQA1Hm5gFeP6CyYLLhgHVs6gYzAFUqSpXgczOCLIz0vmp8zFny+XQixNPN/kIZNoOwzD6D8HxIOJUromZg6y6sh276hw6ag3dvo9NHR5gNng7pqEBKtj+hcNJWabp0tcoyogzi7K/tD/rTKWj4t/0j7Bibz/F45DB/dg1Pt13Lfot0n1HDMA7GmBYsLB20nkt7770UfK/hfg5pZq7WdqsfpfNvVg==
-Received: from DS1P223CA0028.NAMP223.PROD.OUTLOOK.COM (2603:10b6:8:44e::17) by
- SJ0PR12MB6687.namprd12.prod.outlook.com (2603:10b6:a03:47a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 07:05:27 +0000
-Received: from DS1PEPF00053450.namprd04.prod.outlook.com
- (2603:10b6:8:44e:cafe::87) by DS1P223CA0028.outlook.office365.com
- (2603:10b6:8:44e::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 07:05:26 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- DS1PEPF00053450.mail.protection.outlook.com (10.167.23.232) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 07:05:26 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sun, 1 Nov
- 2026 23:05:14 -0800
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 1 Nov 2026 23:05:14 -0800
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.9) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Sun, 1 Nov 2026 23:05:13 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: <joro@8bytes.org>, Lu Baolu <baolu.lu@linux.intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Yi Liu <yi.l.liu@intel.com>
-CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Jean-Philippe Brucker <jpb@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 3/5] iommu: Unpublish the old attach handle before the group replace callback
-Date: Sun, 1 Nov 2026 23:04:37 -0800
-Message-ID: <824fede620da3d8661d4e1b85e6e9911a13ee13a.1793602084.git.nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793602084.git.nicolinc@nvidia.com>
-References: <cover.1793602084.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=O42HX3LR
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793603130; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=9pzLVpw5HDbiXA/WRKY+RZLeQwbQg9GRKfExmkQd1tQ=;
+ b=O42HX3LRbXrpTw4xrPRDW2NJIX19XbA1c3+Fy1UQ1UC2Tywh8tzSJO8uHopkzT1MhHeUJP
+ SnbZPteTaDqnB7cPFa/fcGYOIaQcfR8RPwf2l2oQsipFBlSumX1G5S69fn6CbmIPsJHAYD
+ 9Q32T+AnOLMRzsnoJ5ycutCKqhvqkzSYQI0xOWS5W0BQ0yeDAuMWy1eBsdvuarLFHBwoha
+ KhYrI7+LCJV2/oIGSFvFKJ3XArzkurJLRInvjEoUyeSXmz7D09Ze5AG5bqlBGXNxAkPcLZ
+ dwZwP6Udjnbj6dRvL2OFpam3F5zaRkzUkB2T6crKXERoLbG1PKjuXVWdIsTNtQ==
+To: <akpm@linux-foundation.org>, <david@kernel.org>, <gourry@gourry.net>, 
+	<joshua.hahnjy@gmail.com>, <ljs@kernel.org>, <mhocko@suse.com>, 
+	<muchun.song@linux.dev>, <rakie.kim@sk.com>, <roman.gushchin@linux.dev>, 
+	<shakeel.butt@linux.dev>, <weixugc@google.com>, 
+	<ying.huang@linux.alibaba.com>, <ziy@nvidia.com>
+Cc: <cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	"Li Zhe" <lizhe.67@bytedance.com>
+Message-Id: <20261102070440.16262-1-lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,124 +61,245 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00053450:EE_|SJ0PR12MB6687:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7bb11595-6087-4db8-d9fe-08df38afac32
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|22082099003|18002099003|10067099003|56012099006|261009223027099003|261022105027099003|261021123027099003|261021121427099003|261021135927099003|261022075727099003|11063799006|261028144727099003|261026121527099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	Glsz5c4id1ZGL7kDOzJZgcYRS9Q7dvMH7qbxjXWgIhdxzYMwGxpKeLhYMWLXew3THg5n67WvZGV+Po63pqG1O8jUOmkRmvc95s5ToTJXjGbU4jmhw4KMZoxFAk7Qo5yng77x8s6nn5mbbtOBASSlbwfEYai7h/HmWNQrmlZe5O2KgqeB9cniHzJ9uI8IjRzGwmZo7X2v1MZbDASPd4hSckvs5CTjCKL+0PIgN3/yX1xXApUGPlXQeUvYHmXUf9219fsq9+0aGboGNMu01ct87kbZHNFRwVnyz859wLy9B8ZSNxJQWUqVBeBV+q2w1IRcOgREuJFVo19wMVp8TsLZgaq/Tg3cz9QW7CtQs8vwcL+BOmzjDVZ3P087ZGWy2VsdJD+J+XVCZYtVmGvRv4O9ks9U2yi16mNAJp5kTGNeuhBZlRq2BmqXSD2I9q+2ksyr7p7bN7I/Ncs5Te3YPRC5pQLmrUDVIZavFA6X+m5IfACZYFsEDFIiGaTsiSkOO3D7eZiMNfaX6O9Bg4GX/0QnX8F/Yp7G4ajeRVbTX93K8sdbmOwAMjqmXiytyFHFdPm8wF2z4Mkw4UrjFTHCdS3nBx35MIH2zm1bxc6kMRSYlXYrEHajPiIhlhWWoNJV5UwKk3IQvjJD5X1AQPrkdhoYq78p9znW53dpXzP2PTu145kqAcTFO9/s6G5mmdqUqvnDKV1E0NVwhblOBlNnedlQhw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(22082099003)(18002099003)(10067099003)(56012099006)(261009223027099003)(261022105027099003)(261021123027099003)(261021121427099003)(261021135927099003)(261022075727099003)(11063799006)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	t3hilyIp9HedCe5cNhH41ms4n+WUTPgq5UMuCZ+tuRUtDeI7nqqdqEiEyU8jKF3aWKigt2tVnkxs7pO55hbpPYzeGJ4i8FiDdF0/GBVe489eMo8sVVCKAGXabF8oRKiwu6eRDAJrBSc8M30/vTfU22SdClmrtXIQ1+Scm5a0lMubtwT06LjYQ2fgBu4hxp9Deo2KGm/mKAl83OkSWtMKvaXtRSTjzKueQ6PX/om9cFZ9ewbdn3FtIy5hcnT9y5d5jsN5lAjO1KlglMToGGBM6jC+fxbU3u0NTkzYftS+wDSbFx5RCJJm5txQ8VobEYzgrS04rgXzb54Bz22Y9csDV+WwZy+VURGsCwrBlChxg9BO6QE8rrE0BITwFB9S1uaPZ/QCSkWdSEgo8X7H+Dzn8fWmFMN2SSjoy+DqzPWKFC7fJomhQahIcnOXH3odAfYH
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:05:26.7822
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bb11595-6087-4db8-d9fe-08df38afac32
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00053450.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6687
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [RFC v2 0/1] mm: add source selector to memory.reclaim
+X-Mailer: git-send-email 2.45.2
+X-Lms-Return-Path: <lba+26ae83637+050ae0+vger.kernel.org+lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Date: Mon,  2 Nov 2026 15:04:39 +0800
 
-iommu_replace_group_handle() looks like it hides the detaching handle ahead
-of the driver callback. But in fact, xa_reserve() calls xa_cmpxchg(), which
-stores only when the current entry matches @old=NULL. For a replace, there
-must be an entry sitting there by definition (i.e. @old cannot be NULL), so
-the compare fails, XA_ZERO_ENTRY is never written, and the call decays into
-a plain read.
+memory.reclaim is a useful proactive reclaim interface for memcgs, but
+tiered memory makes "reclaim N bytes from this memcg" underspecified for
+userspace controllers that manage memory placement across tiers. The
+kernel reclaim path may demote some folios and evict others. Without a
+way to declare where reclaim pressure should be applied, userspace can
+only reclaim from the memcg as a whole and observe one aggregate progress
+value.
 
-Therefore, the old handle stays published during __iommu_group_set_domain()
-and only gets replaced after the call. This creates a window, during which
-an asynchronous fault path might hit UAF:
+There is prior history here [1]. The old nodes= proposal tried to let
+memory.reclaim scan selected NUMA nodes, but the discussion left several
+ABI questions unresolved:
 
-  core, holding group->mutex          fault path, no group->mutex
-  ==========================          ===========================
+- nodes= did not clearly say whether the mask was a source selector, a
+  reclaim domain, or a demotion-target constraint.
+- The implementation did not apply the mask to the whole reclaim path,
+  so demotion could allocate outside the mask. If userspace interpreted
+  the mask as a domain or target constraint, the ABI did not provide
+  that.
+- Selecting top-tier nodes could become an implicit way to request
+  demotion without uncharge. That would make userspace depend on a
+  particular reclaim policy and could make future policy changes hard.
+- The separate completion-accounting question remained: demotion can
+  count as reclaim progress even though memory.current is not reduced.
 
-  xa_reserve()                    ,-- old handle stays published
-    no-op, the slot is occupied   |
-  __iommu_group_set_domain()      |
-    driver attach/detach ops      |
-        iopf_queue_flush_dev()    |
-                                  |   iommu_attach_handle_get()
-                                  |     reads old_handle
-  xa_store(new entry)             `-- window closes
-  mutex_unlock()
-  kfree(old_handle)  [caller]
-                                  UAF: old_handle->domain->iopf_handler()
+This series takes a narrower approach. It adds a typed source= key which
+declares only the resident source to which the existing memory.reclaim
+path should apply pressure. It is not a demotion target selector, not a
+demotion-only goal, not an eviction-only goal, and not a change to the
+existing completion accounting. Leaving source unspecified preserves the
+existing memory.reclaim behavior.
 
-Replace the xa_reserve() with xa_store(XA_ZERO_ENTRY) to unpublish the old
-handle.
+In that sense, this series extends node-scoped reclaim pressure to the
+memcg memory.reclaim interface. The existing node memory_reclaim
+interface can apply pressure to a node, but it is not scoped to a
+particular memcg. This series lets userspace apply the same kind of
+source-scoped pressure to a cgroup's resident memory on selected nodes,
+while still using the normal memcg reclaim path.
 
-Fixes: 8519e689834a ("iommu: Extend domain attach group with handle support")
-Cc: stable@vger.kernel.org
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Yi Liu <yi.l.liu@intel.com>
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+The typed source= form also follows a direction that has recently been
+discussed for memory.reclaim. In the zswap proactive writeback series,
+the interface was changed from a one-off zswap_writeback_only key to
+source=zswap so that other reclaim sources could be selected in the
+future [2][3]. This series uses the same extensible key shape, but
+defines a different source class: resident NUMA nodes. source=zswap
+bypasses ordinary reclaim and performs zswap writeback; source=nodes:
+<nodelist> only constrains where the normal memcg reclaim path applies
+pressure.
+
+The main benefit of this series is to give userspace a steering knob for
+per-node memory placement control. A tiering controller can still build
+per-tier policy on top of it by translating a tier to its node list, for
+example from /sys/devices/virtual/memory_tiering/memory_tierN/nodelist.
+It can then apply reclaim pressure to the nodes that should be relieved.
+For example, it can apply pressure to top-tier nodes so that, under the
+existing tiering policy, cold folios can usually be demoted to lower
+tiers. Another controller may first reclaim from lower-tier nodes so that
+later top-tier reclaim has room for demotion. A controller can also
+reclaim from terminal-tier nodes when it needs actual charge reduction.
+
+The existing memory.reclaim interface cannot express this. It applies
+pressure to the memcg as a whole, so on a multi-tier system the kernel
+may make progress in a tier different from the one userspace is trying
+to control. That makes a userspace feedback loop for tier ratios
+ineffective: the controller can observe that a specific node or tier is
+over its desired resident footprint, but it cannot direct the next
+reclaim request to the corresponding source nodes.
+
+This version only adds source=nodes:<nodelist>, which is the basic
+source selector. More convenience selectors can be considered later, but
+the tier use case is already expressible by resolving a tier's current
+nodelist in userspace and passing that nodelist to
+source=nodes:<nodelist>. Starting with the node-based interface keeps the
+ABI smaller while preserving the source= namespace for future selectors.
+
+The remaining issues from the old discussion are intentionally left out
+of this series. If userspace needs to control demotion targets, that
+should be a separate target/demotion-policy ABI rather than folded into
+source=. If userspace needs a strict "bytes actually uncharged"
+completion mode, that should be discussed as a separate accounting or
+goal extension because it would change the observable meaning of
+memory.reclaim progress. This series only adds source selection for the
+existing reclaim policy.
+
+Testing:
+
+I ran a simple userspace feedback controller on a CXL test machine. The
+machine had nodes 0-2 as the DRAM tier and node 3 as the CXL tier. The
+basic matrix used node 0 as the DRAM source and node 3 as the CXL
+source for the target memcg, with fio and stress-ng as the load
+generators. The controller:
+
+- read anon/file bytes from memory.numa_stat by node;
+- aggregated them into DRAM and CXL resident bytes;
+- targeted a 1:1 DRAM:CXL resident ratio for the target memcg;
+- selected the side above 55%;
+- wrote memory.reclaim with source=nodes:<selected nodes>; and
+- slept for the configured control period before the next sample.
+
+The controller loop was approximately:
+
+while running:
+        stat = read_memory_numa_stat()
+        dram = resident_bytes(stat, dram_nodes)
+        cxl = resident_bytes(stat, cxl_nodes)
+        total = dram + cxl
+
+        if dram > total * 0.55:
+                source_nodes = dram_nodes
+                excess = dram - total / 2
+        else if cxl > total * 0.55:
+                source_nodes = cxl_nodes
+                excess = cxl - total / 2
+        else:
+                sleep(period)
+                continue
+
+        bytes = clamp(excess * gain, min_step, max_step)
+        write(memory.reclaim,
+              "$bytes source=nodes:<source_nodes>")
+        sleep(period)
+
+The requested reclaim size was proportional to the excess bytes, with
+per-workload min/max bounds. I tested 1G, 5G, 10G, 20G and 50G
+workloads with 1s, 2s, 5s and 10s control periods. A run was considered
+within target when max(abs(dram_ratio - 0.5), abs(cxl_ratio - 0.5)) was
+not greater than 5 percentage points.
+
+Basic feedback-controller matrix, final deviation from the 1:1 target:
+
+The 1s, 2s, 5s and 10s columns are controller periods.
+
+The file-cache-CXL-high case used fio under numactl to create about 25%
+DRAM and 75% CXL page cache. It reached within 5% by at most the
+eighth control cycle, and all 20 runs ended within 5%.
+
+size  1s     2s     5s     10s
+ 1G   3.96%  3.96%  4.45%  3.96%
+ 5G   2.65%  2.75%  2.65%  2.65%
+10G   2.65%  2.68%  2.65%  2.69%
+20G   2.65%  2.66%  2.66%  2.64%
+50G   4.31%  4.31%  4.31%  4.31%
+
+The anon-DRAM-high case used stress-ng under numactl to create
+anonymous memory on DRAM and used swappiness=max so that the normal
+reclaim path could demote or reclaim anonymous memory. It reached
+within 5% by at most the seventh control cycle, and all 20 runs ended
+within 5%.
+
+size  1s     2s     5s     10s
+ 1G   0.15%  0.02%  0.16%  0.02%
+ 5G   3.16%  3.13%  3.14%  3.13%
+10G   3.13%  3.13%  3.15%  3.12%
+20G   3.12%  3.13%  3.12%  3.12%
+50G   1.88%  1.88%  1.88%  1.88%
+
+For comparison, I also ran the same controller and workloads without
+the source=nodes selector. The controller still chose the side above the
+target and computed the same request size, but wrote plain
+memory.reclaim without a source constraint.
+
+case                  final <=5%  reached <=5%  worst deviation
+file-cache CXL high        1/20          1/20     50.00%
+anon DRAM high            20/20         20/20      5.00%
+
+This shows why the source selector matters for placement control. In
+the file-cache-CXL-high case, plain memory.reclaim could not reliably
+control the target ratio without source=nodes. In the anon-DRAM-high
+case, plain memory.reclaim worked well. This is likely because, in this
+setup, the whole-memcg reclaim walk reached DRAM nodes before CXL nodes,
+so it already applied pressure to the over-target DRAM side first for
+this workload.
+
+I also ran a disturbed case with external reclaim and demotion activity.
+The target memcg used stress-ng under numactl to create about 25% DRAM
+and 75% CXL anonymous memory. NUMA demotion and zswap were enabled, and
+watermark_scale_factor was raised to 3000 so background reclaim became
+visible in a short run. A ballast cgroup kept DRAM free memory low, and
+a separate CXL-heavy cgroup kept reclaim activity present on the CXL
+tier. The result below was measured on the target memcg.
+
+During the matrix, pgdemote_kswapd increased in 16/20 runs. The
+CXL-free-down/DRAM-free-up/pgdemote pattern appeared in 13/20 runs.
+Even with that external activity, the target memcg controller still
+drove its own DRAM:CXL resident ratio toward 1:1.
+
+Disturbed case, final deviation from the 1:1 target. The 1s, 2s, 5s and
+10s columns are controller periods:
+
+size  1s     2s     5s     10s
+ 1G   1.18%  1.11%  1.11%  1.42%
+ 5G   2.14%  2.06%  2.14%  2.14%
+10G   2.13%  2.10%  2.15%  2.11%
+20G   2.15%  2.23%  2.15%  2.43%
+50G   4.87%  4.87%  4.89%  4.87%
+
+All 20 disturbed runs reached within 5% by the third control cycle and
+ended within 5%. This does not make memory.reclaim a one-shot footprint
+guarantee, but it shows that source=nodes can act as a useful
+feedback-loop actuator.
+
+References:
+[1] https://lore.kernel.org/all/Y5bsmpCyeryu3Zz1@dhcp22.suse.cz/
+[2] https://lore.kernel.org/all/20260629112032.20423-1-jiahao.kernel@gmail.com/
+[3] https://lore.kernel.org/all/20260629112032.20423-5-jiahao.kernel@gmail.com/
+
+Li Zhe (1):
+  mm: add source selector to memory.reclaim
+
+ Documentation/admin-guide/cgroup-v2.rst |  9 +++++
+ mm/bpf_memcontrol.c                     |  3 +-
+ mm/internal.h                           |  3 +-
+ mm/memcontrol-v1.c                      |  6 ++-
+ mm/memcontrol.c                         | 11 ++++--
+ mm/vmscan.c                             | 49 +++++++++++++++++++++++--
+ 6 files changed, 70 insertions(+), 11 deletions(-)
+
 ---
- drivers/iommu/iommu.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+v1: https://lore.kernel.org/all/20261019141401.11927-1-lizhe.67@bytedance.com/
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index aa50a8f6ef6f2..0a199c1c3141e 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -3985,7 +3985,7 @@ int iommu_replace_group_handle(struct iommu_group *group,
- 			       struct iommu_domain *new_domain,
- 			       struct iommu_attach_handle *handle)
- {
--	void *curr, *entry;
-+	void *curr, *entry, *old;
- 	int ret;
- 
- 	if (!new_domain || !handle)
-@@ -3993,22 +3993,25 @@ int iommu_replace_group_handle(struct iommu_group *group,
- 
- 	mutex_lock(&group->mutex);
- 	entry = iommu_make_pasid_array_entry(new_domain, handle);
--	ret = xa_reserve(&group->pasid_array, IOMMU_NO_PASID, GFP_KERNEL);
--	if (ret)
-+	/*
-+	 * iommu_attach_handle_get() runs without the group mutex, so unpublish
-+	 * the old handle before the driver callback: a fault must not resolve
-+	 * to either domain while the switch is in progress. This reserves the
-+	 * slot too, so the store below cannot fail.
-+	 */
-+	old = xa_store(&group->pasid_array, IOMMU_NO_PASID, XA_ZERO_ENTRY,
-+		       GFP_KERNEL);
-+	if (xa_is_err(old)) {
-+		ret = xa_err(old);
- 		goto err_unlock;
-+	}
- 
- 	ret = __iommu_group_set_domain(group, new_domain);
- 	if (ret)
--		goto err_release;
-+		entry = old; /* Restore the old handle */
- 
- 	curr = xa_store(&group->pasid_array, IOMMU_NO_PASID, entry, GFP_KERNEL);
- 	WARN_ON(xa_is_err(curr));
--
--	mutex_unlock(&group->mutex);
--
--	return 0;
--err_release:
--	xa_release(&group->pasid_array, IOMMU_NO_PASID);
- err_unlock:
- 	mutex_unlock(&group->mutex);
- 	return ret;
+Changes since v1:
+- Reworded the cover letter and documentation to describe the interface
+  as applying reclaim pressure to a selected resident source.
+- Added the lower-tier use case where userspace reclaims from a lower
+  tier first so that later top-tier reclaim has room for demotion.
+- Dropped patch 2, the tier convenience selector, for now. Tier-aware
+  userspace can resolve a tier to a nodelist and use source=nodes.
+- Added references to the zswap proactive writeback discussion, which
+  also uses the typed source= form to keep memory.reclaim extensible.
+- Added CXL feedback-controller test results using fio and stress-ng
+  load generators, including a no-source baseline.
+
 -- 
-2.43.0
-
+2.20.1
