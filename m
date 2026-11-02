@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641537;
-	b=D7C0AVVKTbt/tqh90E2a6UQgrV0FC0lXSRdpmVslRPWbU3QVIroGztce2Orbeq7Kky0E
-	 9KE/e9MDWvMEmluOnf5xMubB0u8s5Hip6U+hARx/hiyLlkQ/B8ZYowC6WigW0BlgIH8Bs
-	 xD3H6/DU9KKQqhLpJxfx4Qagtq2CjYf7md4XRV9mqtbTUjWPkWPbtCcGrRIi+KzaAxwvG
-	 zLR1NMdn1Ww+crVDAlFXRhAmRcEWG6r2edwEVTg6kr1JIgX4oZEuzY+SchQWgnXx7mfqg
-	 uMeJsPk0mUxHjj+eTf9YeBEXVI1QSo6dd6zMPFH9O4WNWwmBBegIYsNF++g+DNuQ5AA==
+	t=1793641534;
+	b=dtr2zyxLK9vjH37kNshOkVbnwFd5aqoZOu4QzGheanTg1pZYBcN6Rlw7tVaHZiX+xIyH
+	 aULO/oW/lXTjQK1h3+vWDn82dDIZdwMrgSxrCbSjSqRSsaWDhv2bqlXgJEfr7zln3wQtN
+	 45yrGSmrHQD2hCndj5ftqzdc3xU1mvzEW9O98upaKkjUcIAhSA97TyZGlrn9tEyhvyd2V
+	 RTswiLK/OyNtv0AEuUkbkLtQpJStxq3Gam+7JMBPeK1pU/mK0a17X3tAjl0AYD4hg80ZF
+	 DDe/LMbfgkFj5hdUbQUqvtaVVLbwknMwR1m/cBDXVRLvPJA+O0pbJvIvBdOGbPdxeqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641534;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=ffmcrLPSQBc8LZq3N2iNF6jPSXHVkE7QzH/ZeXvH5Jk=;
-	b=E+LBvC58MX8E9DHMGxBZjrln+nO5D1r72p4zgYRsSOdgLH3jq1F9ABRP6/JMb0Bzku5a
-	 WbORDfL0dh+N7HBYPZUZYep1RQ2rickv2sm7D+bkz2F9CAyXx9C6iBI/jkPPi2cvWWuz8
-	 HEuBfncGmkiSeuRDYHRNr0ZRrobqSn346hlh/kFss73MwK8SYAVS7mforAHIohRpoET4F
-	 B9pphnlxoWb3v5CbeoAOMLWXm8fbOY1lNwHpn8lU4zfRR2zwuBpNL7NvnSpYsi1R63RsJ
-	 WKnxkww2iHKzTN/KEteIoJoi9atVpZVavU78OL4Eain0bl23M1JNqtCphYL0O6Nmi6A==
+	bh=ZRv5nzeO3KV+yI6X0QTSiqjcnuY3qk8Teo2EwEQCsYg=;
+	b=lCylRtR1gUUv6irQdjumoVIlR9aCdU0zJD+YzhZ1uC/A8yzzbwTJB//WZLQZgMIRtR9W
+	 eTxprTEZAaxvNMAu75UzriBixZhJ3AR5sN39Kx8JbpKPvkUiqK5oUoSkLNmFJfEMb0IIS
+	 4qEMr+zApqUDLsuZL+jXkj90+10aa9ArDI25lp7FKFWcBWSM/5mynKu9I8t+cDfgipDIv
+	 xDN4ePuCKDgL3+F2HeRQfu/z2aJ6rTM2hjG8MiCRlXyVXqaPZj6oUS0XiqtJtHRgmvJdf
+	 rUTi6h5muliKRg+GCF4+C7k11hWHD8bfyxRBG5u4xQoM9OBXI3IBtHm3crFb80LB4gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KOQps1KF;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OXdxNtcB;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA0B6072C79
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CA0B6072C79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285846074853
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 285846074853
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=KOQps1KF
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OXdxNtcB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641535;
+	s=mimecast20190719; t=1793641533;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ffmcrLPSQBc8LZq3N2iNF6jPSXHVkE7QzH/ZeXvH5Jk=;
-	b=KOQps1KFgPQdV/MZhmkHvxDs8B19QqdD5so1X0ZEC1A6ltbX5Iatf0ySVIF8VqjoURlJJ5
-	a0AcGqr/4o57q/rcsNCE7ZyqguoWU+k85Wutiun+Pm2F08ThZGNAxlkhMzQ78Vj5bTcitS
-	ZPrngke1aCrIOWgjZoauMXVZoQgK9Ds=
+	bh=ZRv5nzeO3KV+yI6X0QTSiqjcnuY3qk8Teo2EwEQCsYg=;
+	b=OXdxNtcBlvsKzdCHFF/cqeWlmB2HaIMkezUn6roP3Ukm1h+sUgCf7UEKbdh+1PthID4MM8
+	p+sjgGYChhmymMxkEIkDuiC1wIfmGbrWNa2zAUrIv7lbLQsxzmzOJKXr6KG9GLQzHN30SD
+	jFGyvYzddkUoWl5sF2lVq/phGnfgeUQ=
 Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-370-v8HilWD9MMuLLP6l3GG-0w-1; Mon,
- 02 Nov 2026 12:45:32 -0500
-X-MC-Unique: v8HilWD9MMuLLP6l3GG-0w-1
-X-Mimecast-MFC-AGG-ID: v8HilWD9MMuLLP6l3GG-0w_1793641531
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-638-wIQH-W5RP1-AQ3cRsMkyUg-1; Mon,
+ 02 Nov 2026 12:45:30 -0500
+X-MC-Unique: wIQH-W5RP1-AQ3cRsMkyUg-1
+X-Mimecast-MFC-AGG-ID: wIQH-W5RP1-AQ3cRsMkyUg_1793641529
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2B32D1956051;
-	Mon,  2 Nov 2026 17:45:31 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 47D181955E85;
+	Mon,  2 Nov 2026 17:45:29 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AD1431800347;
-	Mon,  2 Nov 2026 17:45:30 +0000 (UTC)
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C9D431800347;
+	Mon,  2 Nov 2026 17:45:28 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: [PATCH 43/45] KVM: x86: selftests: Introduce memory attributes PTE test
-Date: Mon,  2 Nov 2026 12:45:10 -0500
-Message-ID: <20261102174512.8903-27-pbonzini@redhat.com>
+Subject: [PATCH 40/45] KVM: let kvm_arch_post_set_memory_attributes drop mmu_lock
+Date: Mon,  2 Nov 2026 12:45:07 -0500
+Message-ID: <20261102174512.8903-24-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,299 +82,79 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Add more memory attributes tests to check that memory protection
-restricts accesses even when installed on a page that holds guest page
-table entries. Notably two cases are taken into account:
-- The page is made non-accesible. In such case the next access to a
-  virtual memory address translated by that paging structure should
-  fault.
-- The page is made read-only. In such case the next access to a virtual
-  memory address translated by that paging structure should either fault,
-  or succeed yet not perform any writes into the PTE (accessed and
-  dirty bits).
+Ensure that mmu_invalidate_in_progress is not cleared until
+kvm_arch_post_set_memory_attributes() returns.
 
-Co-developed-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
+kvm_arch_post_set_memory_attributes() runs with the MMU lock taken
+exclusively, so a concurrent page fault would be blocked anyway, and
+delaying the clearing makes it possible to use cond_resched() within
+kvm_arch_post_set_memory_attributes().
+
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Link: https://patch.msgid.link/20260918135030.171564-31-pbonzini@redhat.com
+Link: https://patch.msgid.link/20260918135030.171564-28-pbonzini@redhat.com
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- .../testing/selftests/kvm/memory_attributes.c |  39 ++++-
- .../selftests/kvm/x86/memory_attributes.c     | 144 +++++++++++++++++-
- 2 files changed, 177 insertions(+), 6 deletions(-)
+ virt/kvm/kvm_main.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/memory_attributes.c b/tools/testing/selftests/kvm/memory_attributes.c
-index 81ec59382f55..c5305b4f3dbe 100644
---- a/tools/testing/selftests/kvm/memory_attributes.c
-+++ b/tools/testing/selftests/kvm/memory_attributes.c
-@@ -25,11 +25,16 @@
- #define MMIO_GPA	0x700000000
- #define MMIO_GVA	MMIO_GPA
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 326bb8e144b7..2d5d45e4ee71 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2630,7 +2630,7 @@ static bool kvm_range_memory_attributes_need_sync(struct kvm *kvm,
+ 	return kvm_range_has_any_vm_memory_attributes(kvm, start, end, mask);
+ }
  
-+#define PT_WRITABLE_MASK	BIT_ULL(1)
-+#define PT_ACCESSED_MASK	BIT_ULL(5)
-+#define PTE_VADDR		0x1000000000
-+
- enum {
- 	TEST_OP_NOP,
- 	TEST_OP_READ,
- 	TEST_OP_WRITE,
- 	TEST_OP_EXEC,
-+	TEST_OP_INVPLG,
- 	TEST_OP_EXIT,
- };
- 
-@@ -38,6 +43,7 @@ const char *test_op_names[] =
- 	[TEST_OP_READ] = "Read",
- 	[TEST_OP_WRITE] = "Write",
- 	[TEST_OP_EXEC] = "Exec",
-+	[TEST_OP_INVPLG] = "Invplg",
- 	[TEST_OP_EXIT] = "Exit",
- };
- 
-@@ -45,6 +51,7 @@ struct test_data {
- 	uint8_t op;
- 	int stage;
- 	gva_t vaddr;
-+	uint64_t expected_val;
- 
- 	struct kvm_vcpu *vcpu;
- };
-@@ -54,7 +61,8 @@ static struct test_data *test_data;
- static uint64_t arch_controlled_read(gva_t addr);
- static void arch_controlled_write(gva_t addr, uint64_t val);
- static void arch_controlled_exec(gva_t addr);
--static void arch_write_return_insn(struct kvm_vm *vm, gpa_t vaddr);
-+static void arch_write_return_insn(struct kvm_vm *vm, gpa_t paddr);
-+static bool arch_test_op(struct test_data *test_data);
- 
- static void guest_code(void *data)
+-static __always_inline void kvm_handle_gfn_range(struct kvm *kvm,
++static __always_inline bool kvm_handle_gfn_range(struct kvm *kvm,
+ 						 struct kvm_mmu_notifier_range *range)
  {
-@@ -62,6 +70,7 @@ static void guest_code(void *data)
- 	int stage = 1;
+ 	struct kvm_gfn_range gfn_range;
+@@ -2680,6 +2680,8 @@ static __always_inline void kvm_handle_gfn_range(struct kvm *kvm,
  
- 	while (true) {
-+		uint64_t expected_val = READ_ONCE(test_data->expected_val);
- 		gva_t vaddr = READ_ONCE(test_data->vaddr);
+ 	if (found_memslot)
+ 		KVM_MMU_UNLOCK(kvm);
++
++	return found_memslot;
+ }
  
- 		switch(READ_ONCE(test_data->op)) {
-@@ -70,7 +79,7 @@ static void guest_code(void *data)
- 			GUEST_SYNC(stage++);
- 			break;
- 		case TEST_OP_WRITE:
--			arch_controlled_write(vaddr, 1);
-+			arch_controlled_write(vaddr, expected_val);
- 			GUEST_SYNC(stage++);
- 			break;
- 		case TEST_OP_EXEC:
-@@ -78,7 +87,10 @@ static void guest_code(void *data)
- 			GUEST_SYNC(stage++);
- 			break;
- 		default:
--			goto exit;
-+			if (!arch_test_op(test_data))
-+				goto exit;
-+			GUEST_SYNC(stage++);
-+			break;
- 		};
+ static bool kvm_pre_set_vm_memory_attributes(struct kvm *kvm,
+@@ -2717,10 +2719,11 @@ static int kvm_set_vm_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 		.end = end,
+ 		.arg.attributes = attributes,
+ 		.handler = kvm_arch_post_set_vm_memory_attributes,
+-		.on_lock = kvm_mmu_invalidate_end,
++		.on_lock = (void *)kvm_null_fn,
+ 		.may_block = true,
+ 	};
+ 	bool sync = false;
++	bool found_memslot;
+ 	unsigned long i;
+ 	void *entry;
+ 	int r = 0;
+@@ -2752,7 +2755,7 @@ static int kvm_set_vm_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 		cond_resched();
  	}
  
-@@ -109,6 +121,21 @@ static void vcpu_run_and_inc_stage(struct kvm_vcpu *vcpu)
- 	test_data->stage++;
- }
+-	kvm_handle_gfn_range(kvm, &pre_set_range);
++	found_memslot = kvm_handle_gfn_range(kvm, &pre_set_range);
  
-+static int test_page(struct kvm_vcpu *vcpu, int op, gva_t vaddr)
-+{
-+	int rc;
-+
-+	test_data->op = op;
-+	test_data->vaddr = vaddr;
-+
-+	rc = _vcpu_run(vcpu);
-+
-+	if (rc >= 0)
-+		test_data->stage++;
-+
-+	return rc < 0 ? -errno : rc;
-+}
-+
- static void test_page_restricted(struct kvm_vcpu *vcpu, int op,
- 				 gva_t vaddr, gpa_t fault_paddr,
- 				 uint64_t fault_reason)
-@@ -125,7 +152,8 @@ static void test_page_restricted(struct kvm_vcpu *vcpu, int op,
- 		    test_op_names[op], rc, errno);
- 	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_MEMORY_FAULT);
- 	TEST_ASSERT_EQ(vcpu->run->memory_fault.gpa, fault_paddr);
--	TEST_ASSERT_EQ(vcpu->run->memory_fault.flags, fault_reason);
-+	if (fault_reason)
-+		TEST_ASSERT_EQ(vcpu->run->memory_fault.flags, fault_reason);
- 	TEST_ASSERT_EQ(vcpu->run->memory_fault.size, vm->page_size);
- }
+ 	for (i = start; i < end; i++) {
+ 		r = xa_err(xa_store(&kvm->mem_attrs.array, i, entry,
+@@ -2765,7 +2768,12 @@ static int kvm_set_vm_mem_attributes(struct kvm *kvm, gfn_t start, gfn_t end,
+ 	smp_store_release(&kvm->mem_attrs.generation,
+ 			  kvm->mem_attrs.generation + 1);
  
-@@ -337,6 +365,9 @@ int main(int argc, char *argv[])
- 
- 	test_input_validation(vm);
- 	test_memory_access(vcpu, test_mem, size);
-+#ifdef __x86_64__
-+	arch_test_memory_access_pte(vcpu, test_mem);
-+#endif
- 	test_finalize(vcpu);
- 
- 	kvm_vm_free(vm);
-diff --git a/tools/testing/selftests/kvm/x86/memory_attributes.c b/tools/testing/selftests/kvm/x86/memory_attributes.c
-index 2e1148f5146d..12395feb6ac7 100644
---- a/tools/testing/selftests/kvm/x86/memory_attributes.c
-+++ b/tools/testing/selftests/kvm/x86/memory_attributes.c
-@@ -37,7 +37,147 @@ void arch_controlled_exec(gva_t addr)
- 		     : "memory", "rax");
- }
- 
--void arch_write_return_insn(struct kvm_vm *vm, gpa_t vaddr)
-+void arch_write_return_insn(struct kvm_vm *vm, gpa_t paddr)
- {
--	memset(addr_gpa2hva(vm, vaddr), 0xc3, 1);
-+	memset(addr_gpa2hva(vm, paddr), 0xc3, 1);
-+}
-+
-+bool arch_test_op(struct test_data *test_data)
-+{
-+	gva_t vaddr = READ_ONCE(test_data->vaddr);
-+
-+	switch(READ_ONCE(test_data->op)) {
-+	case TEST_OP_INVPLG:
-+		asm volatile("invlpg (%0)"
-+			     :: "b" (vaddr): "memory");
-+		return true;
-+	default:
-+		return false;
+-	kvm_handle_gfn_range(kvm, &post_set_range);
++	if (found_memslot) {
++		kvm_handle_gfn_range(kvm, &post_set_range);
++		KVM_MMU_LOCK(kvm);
++		kvm_mmu_invalidate_end(kvm);
++		KVM_MMU_UNLOCK(kvm);
 +	}
-+}
-+
-+/*
-+ * This test validates that, during a page walk, if the page a PTE is placed in
-+ * is read-only the accesss and dirty bits will not be written. Note There's a
-+ * slight variation in behaviour between TDP and non-TDP VMs:
-+ *  - With TDP enabled, KVM issues a fault exit upon observing the non-writable
-+ *  page.
-+ *  - With non-TDP, the access bit is not set, but the walk succeeds.
-+ *
-+ *  This is aligned with read-only memslots' behaviour.
-+ */
-+static void test_memory_access_pte_ro(struct kvm_vcpu *vcpu, gva_t vaddr)
-+{
-+	struct kvm_vm *vm = vcpu->vm;
-+	gpa_t paddr;
-+	u64 *pte;
-+	const u64 accessed_mask = PTE_ACCESSED_MASK(&vm->mmu);
-+
-+	pte = vm_get_pte(vm, vaddr);
-+	paddr = addr_hva2gpa(vm, pte) & GENMASK(61, vm->page_shift);
-+
-+	*pte &= ~accessed_mask;
-+	vm_set_memory_attributes(vm, paddr, vm->page_size, KVM_MEMORY_ATTRIBUTE_NW);
-+	if (test_page(vcpu, TEST_OP_READ, vaddr) < 0) {
-+		test_page_restricted(vcpu, TEST_OP_READ, vaddr, paddr,
-+				     /* write PTE's accessed bit */
-+				     KVM_MEMORY_EXIT_FLAG_WRITE);
-+
-+		vm_set_memory_attributes(vm, paddr, vm->page_size, 0);
-+		test_page_accessible(vcpu, TEST_OP_READ, vaddr);
-+		TEST_ASSERT_EQ(*pte & accessed_mask, accessed_mask);
-+
-+		/* Re-run the test, now vaddr is backed by an EPT. */
-+		*pte &= ~accessed_mask;
-+		vm_set_memory_attributes(vm, paddr, vm->page_size,
-+					 KVM_MEMORY_ATTRIBUTE_NW);
-+		test_page_restricted(vcpu, TEST_OP_READ, vaddr, paddr,
-+				     /* write PTE's accessed bit */
-+				     KVM_MEMORY_EXIT_FLAG_WRITE);
-+		vm_set_memory_attributes(vm, paddr, vm->page_size, 0);
-+		test_page_accessible(vcpu, TEST_OP_READ, vaddr);
-+	} else {
-+		TEST_ASSERT_EQ(*pte & accessed_mask, 0);
-+		vm_set_memory_attributes(vm, paddr, vm->page_size, 0);
-+	}
-+}
-+
-+/*
-+ * This test validates that, during a page walk, if the page a PTE is placed in
-+ * is maked as non-accesible, KVM issues a fault exit.
-+ */
-+static void test_memory_access_pte_nr(struct kvm_vcpu *vcpu, gva_t vaddr)
-+{
-+	struct kvm_vm *vm = vcpu->vm;
-+	gpa_t paddr;
-+	uint64_t *pte;
-+
-+	pte = vm_get_pte(vm, vaddr);
-+	paddr = addr_hva2gpa(vm, pte) & GENMASK(61, vm->page_shift);
-+
-+	vm_set_memory_attributes(vm, paddr, vm->page_size,
-+				 KVM_MEMORY_ATTRIBUTE_NO_ACCESS);
-+
-+	test_page_restricted(vcpu, TEST_OP_READ, vaddr, paddr, 0);
-+
-+	vm_set_memory_attributes(vm, paddr, vm->page_size, 0);
-+	test_page_accessible(vcpu, TEST_OP_READ, vaddr);
-+
-+	/* Re-run the test, now vaddr is backed by an SPTE. */
-+	vm_set_memory_attributes(vm, paddr, vm->page_size,
-+				 KVM_MEMORY_ATTRIBUTE_NO_ACCESS);
-+	test_page_restricted(vcpu, TEST_OP_READ, vaddr, paddr, 0);
-+	vm_set_memory_attributes(vm, paddr, vm->page_size, 0);
-+	test_page_accessible(vcpu, TEST_OP_READ, vaddr);
-+}
-+
-+static void test_memory_access_sync_spte(struct kvm_vcpu *vcpu, gva_t vaddr)
-+{
-+	struct kvm_vm *vm = vcpu->vm;
-+	gpa_t paddr = addr_gva2gpa(vm, vaddr);
-+	uint64_t *pte, old_pte, new_pte;
-+
-+	pte = vm_get_pte(vm, vaddr);
-+	gpa_t pte_paddr = addr_hva2gpa(vm, pte);
-+	gpa_t pte_page_paddr = pte_paddr & GENMASK(61, vm->page_shift);
-+	int pte_offset = pte_paddr - pte_page_paddr;
-+	virt_pg_map(vm, PTE_VADDR, pte_page_paddr);
-+	old_pte = *pte;
-+
-+	/* Set vmaddr as non-executable */
-+	vm_set_memory_attributes(vm, paddr, vm->page_size, KVM_MEMORY_ATTRIBUTE_NX);
-+
-+	/*
-+	 * Make sure SPTEs are populated as previous op might have destroyed
-+	 * them. We new have a non-executable SPTE.
-+	 */
-+	test_page_accessible(vcpu, TEST_OP_READ, vaddr);
-+
-+	/*
-+	 * Update PTE, make it non-writable and flush TLBs to make sure we go
-+	 * through the sync_spte path. This should update the SPTE and make it
-+	 * read-only.
-+	 */
-+	new_pte = (old_pte & ~PT_WRITABLE_MASK) | PT_ACCESSED_MASK;
-+	test_data->expected_val = new_pte;
-+	test_page_accessible(vcpu, TEST_OP_WRITE, PTE_VADDR + pte_offset);
-+	TEST_ASSERT_EQ(*pte, new_pte);
-+	test_page_accessible(vcpu, TEST_OP_INVPLG, vaddr);
-+
-+	/* The not executable attrs remain valid */
-+	arch_write_return_insn(vm, paddr);
-+	test_page_restricted(vcpu, TEST_OP_EXEC, vaddr, paddr,
-+			     KVM_MEMORY_EXIT_FLAG_EXEC);
-+
-+	/* Cleanup */
-+	*pte = old_pte;
-+	vm_set_memory_attributes(vm, paddr, vm->page_size, 0);
-+	test_page_accessible(vcpu, TEST_OP_EXEC, vaddr);
-+}
-+
-+static void arch_test_memory_access_pte(struct kvm_vcpu *vcpu, gva_t vaddr)
-+{
-+	test_memory_access_pte_nr(vcpu, vaddr);
-+	test_memory_access_pte_ro(vcpu, vaddr);
-+	test_memory_access_sync_spte(vcpu, vaddr);
- }
+ 
+ out_unlock:
+ 	mutex_unlock(&kvm->slots_lock);
 -- 
 2.52.0
 
