@@ -1,50 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619999;
-	b=05HzAlhVZWnA8mYw3+0pOw6mNdgahvaTdcS6IwkE9/7tHfcFA3Fe55JwJdocemfWu31/
-	 /phYKlYK/dMkwIN4axcFfkYpahgGI9Cwp77NHlVxPwBBu4BIc1xv3JbbG2lOpJRJjn5TC
-	 dDa/nd4caztP1AvDYnb2pdOjYiyFyXvXZxM3bRV+5qksp7F0mV6I+ttvCMlY1H3toEfPE
-	 VsMmh0Z/4suQqznRp4a6jVZuJ8PLOXBqczFZO7i9OrVxzK3fshq5n8jMUGTLliO3zkK7d
-	 oDlhW+mFIEIzcONQqc4TPDg5QsBSgIvo8s5Pql4wQVttdb4eDEVD/agz4h/Av+pW/Yg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619999;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=W+m3CHrmFQywLf6TePlg1mKGWwLKYliHCdWDTJ6aHQ8=;
-	b=W/7f6NHIqBAjueciLaMLJqI8qSxB3K89NaQhdmaE5WQrMXxZVsUSGNrQtBYYvH1TAk0O
-	 NMYVYJgVj1gu5u6/Xn7mSXdDDZFLWcgPq3Vx6JRrnMv2aEEOT6L/cZqZEv6nYdpZnGqtV
-	 MR/Vw94oG/aoXjZJa3hyK4AGRS7MmxKOc3XfuLVI+ifXzsB7ZmJeLatt9WcZ9PWasdTIy
-	 cvsRUcSK/h+gg3jIcIRj2j3f4FzcFNbxawvqfvSThiPRTizUuxF1tfI5AEUrbFs3vnEGO
-	 vgWcpOaUw6LSsP1ffwJc6fuWrsBHBanyIbGBgGyfA7+b/0dQzNjrzS+kQpfkf6xUlhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=sJNlNoob;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793620103;
+	b=0LBPoe8TCGJLwsI7zorPie0oIlCO60ggVwUTyBg323BoRAuNDkb8P3TIU8ke+b7KRzVQ
+	 I6sjPEvuTwgtkt3jxlDnhovFOOrCSv6fLfWgjMOWDa6Ape7CWahLOpW5wb5DBMB7wJB7Z
+	 JHaZSdVsJaUPcYyteK7zTS24J1mpaojCM1dfL27apiFuhhNrSP/n066fDN9zNLjsMIeTS
+	 fMj5k7xB5YlhvTROStLQD74YwLirliy0iViNn+jdUwAB7DXExDQa9TA5/D6ilULqBYK20
+	 pSbx26tFPH2xUHtAt8tNXJfvnQunqPbRijt2PbrQr5rnRdG9nWJac6jLjrtuJ0Lei6g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620103;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=rauZGBFXVvz8AaUGJr8FmAMzmIJEbnyJfkU8F/WFMhc=;
+	b=Ac09Oai6om1jkW2JGkO6Fu+K7vwM7xkqEGmVYgegp/Y9FuqIwUPdt5CAlb9Pq8OKhKcD
+	 vNiPjBb/doXzvX0ZwFFwmUjklyaKDwR1+2McOCDL/I47DBeAah1EUrGjRGul4EqPxgI+B
+	 GsLQAiTF+aXwTjwQS9+58bvjxX3soUTVqmBANccVo5PC+UOc6t7F9M4n15moZRhpd6LTj
+	 8C6hVilMC3zpw/BvxILFczuNhWOYXiU4driduKjHlVFJ5obgf8lRvtfFuSs9/4iPwUwMR
+	 foUTlGlAHzIf1cwt+WsnbXdQnCJ3RfTCnKGuIaXPgQgCOVH+Cmn40yR2Iho1j0P5eTw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=deHCt1kX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C6A606A326;
-	Mon,  2 Nov 2026 11:46:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C6A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D24606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D24606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=sJNlNoob
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 98CDEBE;
-	Mon,  2 Nov 2026 12:44:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793619859;
-	bh=Il2jawOtTACJ7zfhzEJQgLvlmZ3qfox3dZ+2zsbOxBM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sJNlNoobrLo/mTzbYvXpee1l13KmgrCl0cDspWwcvH3uWHndcG2AvJFi1Sx5O6oTN
-	 8gbZGXdzgKffXCiq5AMopa6ANUAK4qf+lAWBbRxIAzcU9YN5WiTcUr+mm8dtC3Knp2
-	 SFpekWuXXZNll1ziSKZdWc73Nb8GabUL71yCz6Uk=
-Message-ID: <15b7bfd9-8da4-4cd0-9f8b-634c03f46c5e@ideasonboard.com>
-Date: Mon, 2 Nov 2026 13:46:32 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=deHCt1kX
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-7037daaa820so984466eaf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:48:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793620102; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Pd8hFpR7Qp+xOxChYS2qw+FTsMvOGULx4bEiSqdAqRe8V+/cxb6T8nmxkXAg2CGGIk
+         lBjzNymJcJ/rFBPp1fiDjbvMqUCedAd/X3aemuj6I60xzVMtlWhw0FjxE8G/76ifU7GD
+         CmlrqzfpSWC361PBegbxteRY2mwa239/tdfF+A69EgEk+RUQM/ugnmwQTCexeoc8UXf0
+         4rpHnx7WxCUOmXVipQU2D2DHvTDkynoSXvtY5ppda3u22jrl8R5vbwtlHHLn6B8oQSc4
+         3scbRd5DpGIXEOaG7VxWuu4VHeDBAW1i3VmVQx/lSM8Sm26AzhYQewS/hKDqAp8n1qIv
+         jLxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=rauZGBFXVvz8AaUGJr8FmAMzmIJEbnyJfkU8F/WFMhc=;
+        fh=lZ3M+QX+hTckJC5faKykiHzcUcgH7PYD0lX5rr47VGg=;
+        b=YkAaWAtMV1CpSKCbcYpz7vJvfi14tSaThCKS7rcVfhDWvrM9f3l7w00f9LsMHCaxnd
+         gZjBD7kdMBm9RbVQOIymy7p+iJ3eDKhgeV+BEM3pR4aiJIxmWULvh6LA6l5J0gy8CQjh
+         RWlXs+W7aP+Ym1GTlC8sochxGfAG71xh/tm77Sen0Mu1/Cl7hu4EQoPL2M1Y8uv+JFoh
+         /5hgqVaZAsQiJ3k7p++JRrWmn0Ch/VIgr6qONl5AEnwt6bQrm+OcEK1wLqgv8sycPUJ0
+         0KNCB4ATfir02AM76FOzZFutU3WeLGs0auZGirXhdXRgqOFtFbnFtRKjw1nPa0A5ysOo
+         vnXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793620102; x=1794224902; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rauZGBFXVvz8AaUGJr8FmAMzmIJEbnyJfkU8F/WFMhc=;
+        b=deHCt1kXObf/4PvERbEkS0a1GZPsmvpFF3uCs3GZzUmr5pGcw9Z1Ls/yJHcNgI4vda
+         +DnXQtdzKGwWt8BjT6daHFQFhPWr6itZGXPkxKZg6HMZBJAuahL4tuusHk4BT6LtAeRG
+         RzZnF9uQCOWrAjqZnUaxzvQwfQ1w67SVe+giBaEoExJpeQ6gcLkm4aGDLV0Z0QPVwNH3
+         RSh19dBZp1fGxTPrA10YzZkEIqNXhkwava3+eNoFuE6FeZ85r70LQTLmAAWFroOsXnvf
+         Bt2dkGahlmFI83l9YX/vTuGXTuB+AZ6LWMZjrDEjdUyjd5AIo1TkjBSJgVLjrWvTiFWK
+         UOYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793620102; x=1794224902;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rauZGBFXVvz8AaUGJr8FmAMzmIJEbnyJfkU8F/WFMhc=;
+        b=cHS4IO5SiG5qQRv7HrkmpZGw+lnA5mzv1K+luEpus9SBbLdaxUis21wAP41/yHaAoY
+         pbC59wjqI48HJoORUjaCoRL8AEavDoFhZqzMwcclWluLf9Ay34Sr0MsuG3C46N55vScR
+         qbgl2kaqlyrRV2SmD+pFlq1wwB3nsQKDWfzxT76BYY6GJ0l8wdzHy0+ImlKsiYCMMx8f
+         1D2YAyCdmVeqfawWo2M7vskj3geI+VOyakQzRpc/PpQhw9L7kKdGu0/rjkZ/+W/0NYHh
+         udHOrANKeARDEWocubW/rMH5h+qK2a8SGgfA0FagsaGDb49BRwqRnwmZo2wD64YSlVIb
+         VewQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzusiarArp2WdsY7xFZmtlptzEbScDR72/8fKKX3bOUcEwbBDlbywneu01ZySgeualymvCaH5C+gFm3d5E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw8WXAgwoiXQS2Bf0G0echK8xQCQ+I6xdCx+EVE3LHvgI4Ad2h
+	gfCo9xKUP2SsGGeIwxHRLwhNNYW9Bou4yDBNPN9XlwzZILnniMP0iYsaVQHJweq8fyJZK+7h0pI
+	KTnhr6hbqvM1i5klz3ktfPrFENC8i7eE=
+X-Gm-Gg: AYBFou3YLVWoGadqY48HwIXkOoIpUEqnnXcz4WtxWA6auQxmgS8Qml5uRg9rn3rHILB
+	ne2/lI6lHVsVOSdV1OBdT5lo2UBx60Gbj4RttC6a1nETk7Tzfe5PFjdhTu1P9KR+2ZmuZ29oTd8
+	SxVpAWmDioE4fuB5g6od7rmKNrr9cY8PYI+rSG2pWV9gIX3vl/XwtRC49lBnAtv/VckNVHGQbX0
+	44MAZL+6Hc3t/t8LeOu0BFcMlq3wGwb+gfNot0SmtS18rbGZ7ihGuF/mstkktMjQ2Xzw3fSWz32
+	Gu0wwMoKtFzh5kdt6kksCgkSLtv27Cm7fO4I9pMNKD83xIq0LpaKyBoBGqrxX3oRp6uGeZzqgBV
+	bbOqn90jFW9VAYtfiLkDB0nbFjclljKtWArwqel09l8PfLXm8i1VIu8Ei9/AujjXS2m9QjUHwVL
+	TcTCf9rwJlee8cFlF4356tCmHH8rhzAOw0QW/+1Xr5sNNQC91aQA==
+X-Received: by 2002:a05:6820:1501:b0:6e0:1599:a4b with SMTP id
+ 006d021491bc7-714f29883fdmr5485309eaf.18.1793620102037; Mon, 02 Nov 2026
+ 03:48:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,67 +104,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 09/14] drm/tidss: oldi: Fix cleanup on a failed init
-To: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
- <20261029-beagley-ai-display-v4-9-dc7f2b532478@ideasonboard.com>
- <c12f6a9f-983d-4704-a90b-3453ce984a2c@linux.dev>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <c12f6a9f-983d-4704-a90b-3453ce984a2c@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com> <20261102-massive-busy-woodlouse-8d0bbb@quoll>
+In-Reply-To: <20261102-massive-busy-woodlouse-8d0bbb@quoll>
+From: Vidhu Sarwal <vidhu.linux@gmail.com>
+Date: Mon, 2 Nov 2026 17:18:10 +0530
+X-Gm-Features: AclHuK-Rix2X8fn5EwhAQXoIbuQmroe9ZGiZTVGN5aB_rSm7KEtS6EsFTTUOsQw
+Message-ID: <CAFqz8LJZQ+tw6wmLS-1FXvt6OxBESPEyz2-uK4D7B8X8epoKhg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+On Mon, Nov 02, 2026 at 11:47:56AM +0100, Krzysztof Kozlowski wrote:
+> What changed exactly? b4 diff fails, the patchset cannot be applied on
+> any known upstream revision I tried.
 
-On 01/11/2026 16:14, Aradhya Bhatia wrote:
-> Hi Tomi,
-> 
-> On 29/10/26 10:18, Tomi Valkeinen wrote:
->> tidss_oldi_init() registers a bridge for each OLDI TX in turn. If a later
->> OLDI TX fails, the bridges registered for the earlier ones are not
->> removed.
->>
->> Fix this by calling tidss_oldi_deinit() in the error path.
->>
->> Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->> ---
->>   drivers/gpu/drm/tidss/tidss_oldi.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
->> index 506507e83112..7344d86e1f13 100644
->> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
->> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
->> @@ -638,5 +638,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
->>   err_put_node:
->>   	of_node_put(child);
->>   	of_node_put(oldi_parent);
->> +	tidss_oldi_deinit(tidss);
->>   	return ret;
->>   }
->>
-> 
-> Since tidss_probe() (in tidss_drv.c) calls tidss_oldi_init(), it also
-> calls tidss_oldi_deinit() in its error exit path.
-Yes, but not if tidss_oldi_init() itself fails.
+I am really sorry for that, I didn't realise it was based on Jonathan's
+iio.git (testing branch) instead of linux-next. Patch 3 conflicts in the
+Makefile on next.
 
-If we have two OLDI TXes, and the loop in tidss_oldi_init() inits the 
-first one, then the second one's init fails, the code jumps to 
-err_put_node. If we don't call tidss_oldi_deinit() there, the first OLDI 
-TX will not be "deinited".
+In the binding, reg is now optional, there's a serial example, and the
+pin 5/6 descriptions cover UART too.
 
-  Tomi
+Happy to rebase on next and resend if that's easier.
 
+Thanks,
+Vidhu
