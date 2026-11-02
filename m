@@ -1,64 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613911;
-	b=aYgsjwpC8gzsJbwxboyKNP21Iyn8S/AKC8ab/j0cvWhlO3VKbfdOJKtaxzY0cP0ifcKd
-	 cm/4AsLwzv1UbFjH1vl7lLMHEA+y2TC2JoFOCCjH8YwwphLkl743WTfCLs6RUKrUT89m/
-	 /Vdeo0DfR09FiU7oFsmO7XpwOqX9fubykBDwh14I6Tvl86jdHINGLUhCE+Da0RIVSAkb6
-	 jKpHhpSg71/5EU44Gwz7Ee+NxBjTMhOEwgx2+sApYaJnmJypXz46wrigtQ5cF1fgCG+j+
-	 qukZWjZd4h1op/Nb9kUabPVqsFwKqjQfWMj/6u+4nMwIWp89gzvFqyQ1cyn9WS/7G5A==
+	t=1793613933;
+	b=ZHp1qe2GKlwHkDkc6Z+T+n48qIhs2jcm/3tXVAkAEikLjCNxrONXhg67qHSChgBnaLyp
+	 R1oF40+bKzD28MWRvrtxKEAJ5GJlobs31IcGZKMhNmYhWqDUD0cTaXFOOhQ5nQ+yMSmpR
+	 +tdr3ZWpEp16Z2LA/RZE4UPz7pVOaj2bLBmh2s8UJ8jHIN/qj7kMcxBEzEVKNnJYaGM08
+	 PmpPVMDa4k4M87F/uqyDJNfqcvb/CRT/A7kHs/4oP54MCjLvaDSflZf/vFNkUF8/U0sKc
+	 FkNG9C3qmvyi+Ok3F8z6QgcYBZDlnvu0NDkzH0QneYceEsx9GPW3dQAKyGvGTdci4Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613911;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GR7UashLX+13F5upKQIzi9GqHllM5K/s5VQnjcq4Ab4=;
-	b=B7NcH8BzUigqpkZWv0+TkE9y7uJhM7EzDm7kZPJxJAXLRCQRuzq5gIdXdwPN06xk/kgm
-	 bA0GZSmcBp5EAVHwJjSHuhJyiOgtWwMF2/sdAP26+XA8zl5SgjfMB0YBFARj03bnmO+NH
-	 E/t1QE/FE0yAW2Q/VyVct4QzH4AKDi1Tt+lUyNQh05SJBOaGk1NTxoiQzX8fojxVFQPvh
-	 KCFntk1ExBqgPTpdf9Yulds5Jqh5W8fMPtDpxeQcCvgZdwlZESMMxdAHXJJk5uMeCf6V5
-	 YkUTnaEBUf9ZZVuJCNXUjwqa8FikB/NKWMpDHbWkFScQeckNTg4Id7Q6VbOfo7kjBOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613933;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hraIj5eFlOlhzKylQQ8/efz7x5fIFgzaCgbnxap7ESQ=;
+	b=ivCtJx/JB0s6Qw4forF/5wSTbgEz/jprI4tUpkFZG5Uek1kCWfjbzkz9lrbeeZWBaCaG
+	 ISorg7zwvj3dTsPphabqwpJcKiD35jKGm6I1t72XcfqdTqLdOJbzRTUuyQsNiFqABB8vw
+	 O3/rzZffqrPN1DrU7us1CHt/Ij7VxYWEjBsV6TLRs5C4upMzLHsucjhiTssYguyYKCFpt
+	 qTiRNwlnzMOVKc8yshtPn/cAdi3AOUJeBO5X53Cx3ekd3eYHsHIVU5vIlhecaj6kP4KR2
+	 k/y5J59xwZzgiubYtqpoxZW6HSbbUGVjUd3MU9oN5JWmM7afZKWyUkjbQBaTkbZO+uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=CxCQ3sIA;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBC90606A326;
-	Mon,  2 Nov 2026 10:05:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBC90606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFJBS1+u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795E4606A326;
+	Mon,  2 Nov 2026 10:05:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=CxCQ3sIA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=CxCQ3sIA2c3HEr5WglJjgVc7ramAphQcCVjj7BifbvkUGUnF9mpP9txEKYW1IbJPtZ7U4KUXb1ow0
-	 R6Jeewz89vM7DdWT3ROyCWcUZST2bGwnUjj/XLRd4LpLIJfKhpcDYeyvl9pf8OwT+QzYhcmgH9NUjx
-	 r6UHXXJlHX40alp8=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ae8604911d-6508e;
-	Mon, 02 Nov 2026 18:04:58 +0800 (CST)
-X-RM-TRANSID:2ee16ae8604911d-6508e
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76ae860489aa-ce4bd;
-	Mon, 02 Nov 2026 18:04:58 +0800 (CST)
-X-RM-TRANSID:2ee76ae860489aa-ce4bd
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH] usb: r8a66597-hcd: Fix clock leak and unchecked clk_prepare_enable()
-Date: Mon,  2 Nov 2026 18:04:54 +0800
-Message-ID: <20261102100455.600-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFJBS1+u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285091F000C1;
+	Mon,  2 Nov 2026 10:05:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793613933;
+	bh=hraIj5eFlOlhzKylQQ8/efz7x5fIFgzaCgbnxap7ESQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mFJBS1+u1VM91TZWQ5lKgMiqtNJFvAKkHKz0EUpEUbIF5zNnl4OE9WgauZBV2fCCf
+	 Ih0/F6Fh1mQW+ieJ5r+rkXSxxW7BQPm1xSi/gc0C6YJ5/8Nguu1EVxoe3LhJQLumxt
+	 nEnC4PabPxa3vnaQAVnUEMT6u40t9aD0dA81GIEENYiE8P4lo9M8Ek04ecfo2QX++L
+	 QGwgXX1d90QBPfrdJvN8F9B0ZYFwFSYtPjO00Yn6V08xAgP8Yc3F2HsysHFR4AL62W
+	 Bg4tTmNc2Nlxdd5kFX5pAsg91vfpofRlH1nKXa9mf2kOGsIqfk7zPqZm9uN6NUHyR9
+	 hya0S08K57Zjw==
+Date: Mon, 2 Nov 2026 11:05:29 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>, 
+	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v3 1/5] dt-bindings: i2c: qcom,i2c-cci: Add Hawi
+ compatible
+Message-ID: <20261102-macaw-of-exotic-justice-8c11fe@quoll>
+References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
+ <20261030-hawi-maili-camss-v3-1-9742bca8cef2@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,46 +66,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030-hawi-maili-camss-v3-1-9742bca8cef2@oss.qualcomm.com>
 
-On on-chip configurations r8a66597_clock_enable() enables the clock
-with clk_prepare_enable() but ignores its return value, and if the
-subsequent register access times out the function returns -ENXIO
-without disabling the clock again. The caller r8a66597_probe() then
-only does a clk_put(), so the clock is left prepared and enabled.
+On Fri, Oct 30, 2026 at 06:13:01PM +0530, Nihal Kumar Gupta wrote:
+> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> 
+> Document the Camera Control Interface (CCI) compatible for the Qualcomm
+> Hawi platform. Like other recent platforms it requires two clocks, so
+> add it to the corresponding clocks constraint as well.
+> 
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/i2c/qcom,i2c-cci.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Check the return value of clk_prepare_enable() and disable the clock
-on the error path.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Fixes: 9b547a882e9f ("usb: r8a66597-hcd: Convert to clk_prepare/unprepare")
-Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
----
- drivers/usb/host/r8a66597-hcd.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/host/r8a66597-hcd.c b/drivers/usb/host/r8a66597-hcd.c
-index 0a26489a4..e3325df05 100644
---- a/drivers/usb/host/r8a66597-hcd.c
-+++ b/drivers/usb/host/r8a66597-hcd.c
-@@ -79,14 +79,18 @@ static int r8a66597_clock_enable(struct r8a66597 *r8a66597)
- {
- 	u16 tmp;
- 	int i = 0;
-+	int ret;
- 
- 	if (r8a66597->pdata->on_chip) {
--		clk_prepare_enable(r8a66597->clk);
-+		ret = clk_prepare_enable(r8a66597->clk);
-+		if (ret)
-+			return ret;
- 		do {
- 			r8a66597_write(r8a66597, SCKE, SYSCFG0);
- 			tmp = r8a66597_read(r8a66597, SYSCFG0);
- 			if (i++ > 1000) {
- 				printk(KERN_ERR "r8a66597: reg access fail.\n");
-+				clk_disable_unprepare(r8a66597->clk);
- 				return -ENXIO;
- 			}
- 		} while ((tmp & SCKE) != SCKE);
-
+Best regards,
+Krzysztof
 
