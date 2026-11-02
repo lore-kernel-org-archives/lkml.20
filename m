@@ -1,69 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793596309;
-	b=oMSEqqvWyJvA4R+CkdYoFl+jUbYIYM4BgcDl+oZdGSI02NqaFqHFtxJWP2TByNnOlNJc
-	 QYHdrB6o9uI1YwLEHlUPjS6y5zVqnuScfG5QpwbfnpGKldhPhQWdNN7PIjxBR/BQaLVoZ
-	 JEj4hkq2i5BeSLrzrH7qt1u5PPtC+gpzT/U/RWeBC4ypbm3YyOiO10+L+jRuBov7qJRLT
-	 h3k90+rA73+xCfidkwdq8mSL84VnVFvgAyEE0WHoi9FJ2QVb8jqHqkBxThCeKbs9dwvtv
-	 M3lz8zTRO8fEhrzDnFyHzPgDJD9WtuGBQqjqswgIrx3+mNWUgbb4Hpk+wlvf7P/HSrA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793596309;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=viwpEca7wJ9qzgawnffjQX4LAK42jrtmu3SV2jw4xK8=;
-	b=joJE3I9t6F+Vgde4mXjyQzJPhZsvswzyr2l8awB2sb/hNlJF15/dr1id9lDW/oP/V3rx
-	 HpJj6JI3xkt47MxNP4u7p5z79wJNVJ644nmRzbPmDlYQG2lfjOYxbQzAUQnZlFatVp0Ye
-	 4c6vQmrJvYbHkVAUyO4RNE9JfaFgukJSIKj3czxb0XTbrdH1AMf3WisPhh2X7HnrwbQGY
-	 AfFUaZTvdgT+RX5ynD0tk5HPWUlqDr79TVmMKjSOOqG0TCmT6UBtZ4OLe36o5z9GaG1uk
-	 aLIdSiKT92GHXgcxrpdQAIxIsJWmYxkOd0WjQPkOpkh+LHZkPQr4+bcqe32QFxUfQOQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793596451;
+	b=euLYqHWjANN8Lz5zl4T9Lnbb/vlI5Ez6rzaRFZLxw+qYraPO6FITdvo8uyHaPIrshxiz
+	 7kg5SkKAqNsErKtFcwQTrQacIUI55jJu6THBuYRulVcsbSaTo3T+5x/8kdab9UFOHE3Tw
+	 ++LrgYBdmonh9JLUmcW22dRa7ARXz8J4/wCiAwKqO3iW2I4gJjfnDytg8xG+TukFqj8Wp
+	 sFQXv2k+z+GyooA4srad6ezTMFL4AHpizKSgq3EFiaptl2aAqKXkZ/7/0GAuN/b5lf79e
+	 pa3vf9DI/GrtRcn6xIn9UlZAmR5pVOjjxo1H+sB9EDVF03J0Cs21lt1f22PvTQBcUzA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793596451;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=v8urwWaa4j6MLfo3l3z4XF2xgg1WktAvkm23PO6lNZY=;
+	b=LsGY3l35ZFCXqgG8vWgJR0XgDsLmnqv3LHr7MPFWt2lmDGuQjW+hzbmvPjuZ1rdYA+Wn
+	 BQhanXQEM9MuJ1zuIHwEA6aGAWM92QcP6h6lGFFMwGDHXierCFBgZROQFgSMweas6nd/c
+	 5xT7jN0oX5rCoyIPZRaX9FoEN3MWYppaMxPjfWHPkEPXmPzPRsgEaiEMO8/j8oEsVksfR
+	 JzerPxVSUgXa+gc33K3uUHv0WT/NBHBJE500Xiif9pw7dvnM/r5JXpgLIuaq477JM44tG
+	 yUKOArRAZPvbLoZ9CCVqI4HAh4zf4KzYksAfy9JhjTlzUItQrDSGp3v0eNDDmyaM3kA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzxiRlEY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E85606A326;
-	Mon,  2 Nov 2026 05:11:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2E85606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA669606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 05:14:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA669606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzxiRlEY
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-679a2b540f3so2106628d50.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 21:14:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793596449; cv=none;
+        d=google.com; s=arc-20260327;
+        b=V//HzOYplz3LdIioNZAR1bGvw+6U0Bofk6g15PVvZV+YmyR0jsVLUNZCLkqF+ImttJ
+         TrUaBu8c4OdPvhHg4cH4/Ok9EYv+9eFujjDwMTx3/F+EiMx1BcHTdS/14m9VKeAFNgkL
+         2mpccuHL3tEGbMSgx0zSoKa3u9HrUwdfAMh5T6pPrhOLyFiokcj6BJuiD6cPjvd6SxXt
+         sNxz5hywcQ2JD9B8ImsgxjzYDhvRW41aGBbVLyUdXcAvEDVt0TwEgNNzGlWNrjRNW0az
+         mGIDsUWnI666WnNLCM1lUOBjjwVY26TFVti3EiNhr8M14UzfhSyYJAYLD7/DQNGaEurK
+         qcSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=v8urwWaa4j6MLfo3l3z4XF2xgg1WktAvkm23PO6lNZY=;
+        fh=o+m+AfpenPw72bl4vA9/xpFZWk/GpJOtjHZR0KkJ2jU=;
+        b=MN2ANQW+pAm4Q1Yaxzs0SZ8W+2UmV8X6lvKvDgk3cAkL9c3+X9A2z1UQ4BavLc54zX
+         KoAuxzHbaMRi/nO1NzolaSRRIaRj4eRwJLcnCjsJsu0I0bvCcOApnjkvFjOxxTKahLm/
+         KIVgfnPYx+IfeMBBXrzqAoQJMTxCKb0X+xKIAw/DrOugUoR+R44QNcZAZu3EFHVFEJVN
+         0naG+g8lAWgy7KdFDVw6j6F2qh7UTO/Uy/j9nw/a4in4tS4nuJGiE+Psxc1Orsv1uE3u
+         cnnRqeoRdcSF3KcoVDT1vx/xtNCdjREWESUbc0WxajtnLowgksFKoo1YI1/AAlZg4m5p
+         4kug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793596296;
-	bh=viwpEca7wJ9qzgawnffjQX4LAK42jrtmu3SV2jw4xK8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NpzPDrs9qSp9ZUNMs72mjbHr/x9BQcZIv02tAgRVvUC5MWxaYjN43jnaaYxlYlxAM
-	 biyxEWLAbn2MwpXiC6pV3RddmpckKtbDaIrfWCcN4DR1dqqBiSGnQ6haMOrfXKB23j
-	 NN1Je965XQ/x/9qFhQG7kAx3ZZrPe/uOoaT4CzosWMNHOinh6DglYVR1LjHXVCH5bI
-	 IS6RwmWWQG+4C8PWJ78kuHp+mkGR5/wNnrXDkr+0CRgvmUlspK4RVKJhHJYeh8KNQx
-	 z4q8j52S2+fVBhljc77X2m4xHlzOU0N9R3Uc18H0j9/s3poEoxR3SaxX65IcoLmdJJ
-	 tnOsZChfo6Dug==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jJ0DS2Zjmz4wCh; Mon, 02 Nov 2026 16:11:36 +1100 (AEDT)
-Date: Mon, 2 Nov 2026 16:11:23 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Doug Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Brian Norris <briannorris@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	linux-kernel@vger.kernel.org, Julius Werner <jwerner@chromium.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>
-Subject: Re: [PATCH v2 06/10] libfdt: overlay: Update base /__local_fixups__
- on apply
-Message-ID: <augbYtWXhj5YfFOZ@gractus.seuss>
-References: <20261028215600.1713475-1-dianders@chromium.org>
- <20261028215600.1713475-7-dianders@chromium.org>
- <auR-OXOpim7dVTpH@gractus.seuss>
- <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
+        d=gmail.com; s=20260707; t=1793596449; x=1794201249; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v8urwWaa4j6MLfo3l3z4XF2xgg1WktAvkm23PO6lNZY=;
+        b=pzxiRlEYo/Ud2clGm92Z2Nc+nPMSTo5A2jvtHpEqc3cpTfPP/45gQBmYZvBjfwZrES
+         7xSCQRe+Fet+9w3qh6Ex8XRsZSJgLfxOKRppVXDobRX4J+o1qhJydRf67EkYzExP2Uok
+         ENjdP4oWITjCEGdcahatfIou+Zfw2DByx0xQmPLKJGvekvC9I0xg9/T6MV4kZARwL37h
+         ZTvR9O+fi1A//KgIKF59HOWBU+YIcXBRJHp6qacYZ50zcUR6diwPqH88gJVPSmko46VM
+         KXClWOTa74D4cnflESOCBfsRI2IXwDgPJruGK49ryiSvcf3rkcdhy/nXJwl6zx5h/jSJ
+         C3Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793596449; x=1794201249;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v8urwWaa4j6MLfo3l3z4XF2xgg1WktAvkm23PO6lNZY=;
+        b=Pu5VTPOOCoIe/yDxp6dXg/thecJTB0tZ1cHN9wPG3pjTvKnJpvMKdXUChh/dC/G9Ct
+         aTEi4Urj5SI9Vpn/tELbxatIlCE7VxuLHSgAG8Agxh0uI2yQSse81peGYRmo6L02CYHS
+         Bq8JlVwXgC/TDQq9b9wb+SitdfJaDFbzySkFmSE+CsWM/YA/fw5OtrAGfMDogADaiEwX
+         WyPZ13G9RUbXvf0AL8QiQkLXvjdC1wkEO8TyyMxeosnbECTJmNuWPgSofgz+vvYf8Odd
+         A8sEYQV8Lu2uVLZ7s4Hhf5PMW3zNPH0Q1K1q1G7MVGCYXmYBUa31fs9Q/6uZIXCQ/xym
+         BbUg==
+X-Forwarded-Encrypted: i=1; AKwUvBx6eId20SboYDYpijJNFTf5u+Mbi6aDGVAXTN4tYtejTPNL1UkGYip1Tto/y9q2nJexSV1xyHwdKuAaJKg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ak1GbygUnR12PRLoptXFBj/iTxjIlyAqkCvQX9j6bz8btCa4O
+	8PZ6CvkLSOsOk8a+bmp4gBhqe3cjH5nsudOW1fRpeq1O2oYuuwMyJrF6ZuciIthY0BODY46UiNG
+	Lm6Lmfove753DUji8eon7Uh34Aw4YaT8=
+X-Gm-Gg: AYBFou2QwT4BD+dfBTyHxepgwFd7uIHYk3Up2JBBXrpzpnDUYa6SMHh1GezrXP9PiRa
+	YuRjOW2IdJdzir0rlG85is5vJyr0jyx0YWAv6B8DhtZ1Uq/GGmtTZV8/bCCCPzVgPGt2m3jlaaC
+	HMI+qkhdQBD53vrsYQ58ZLsNu7dd31dv1hKuM2acLzNEx1ZHIS6vMxAp3HlEG194BosvY1gajOV
+	Fl9DY5Sx6+wD0uFvKcasEBcV1VZdsQmg3ZbNTHeiVI3lwsYzoaBZHX5JGsubYGPnfvpAd87qf/w
+	OQfTNbMyMvgzXJ9CP4KKbHJusl6wSkCmbr+kqj0160G6eX4VfPmREHsfIDWtSIU39Gw2J1abv4l
+	rS0Ny1ay350p9UOMo/CRCg+LEki3OtEcAF5PP
+X-Received: by 2002:a05:690e:dcb:b0:672:bb7e:c919 with SMTP id
+ 956f58d0204a3-67ba4c909d1mr4822552d50.2.1793596448567; Sun, 01 Nov 2026
+ 21:14:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,136 +104,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZDUkX/BKqX2zEUMG"
-Content-Disposition: inline
-In-Reply-To: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
-
---ZDUkX/BKqX2zEUMG
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai>
+In-Reply-To: <20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai>
+From: Shubhrajyoti Datta <shubhrajyoti.datta@gmail.com>
+Date: Mon, 2 Nov 2026 10:43:56 +0530
+X-Gm-Features: AclHuK9Mvr8Imus9GpDjhEHLlkYTTfWG_3Dm8Qn9Rw_Yjm6XgiZ4JHgA2iLl30A
+Message-ID: <CAKfKVtG4oCxJEvsQEDMxZSLbjSgzTxwMQ8Ky2Q9FtN3=6F+_rg@mail.gmail.com>
+Subject: Re: [PATCH] i2c: xiic: don't fail a read whose data is already in the
+ RX FIFO
+To: siddarth@nexthop.ai
+Cc: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 01, 2026 at 02:05:09PM -0800, Doug Anderson wrote:
-> Hi David,
->=20
-> On Fri, Oct 30, 2026 at 3:24=E2=80=AFAM David Gibson
-> <david@gibson.dropbear.id.au> wrote:
-> >
-> > On Wed, Oct 28, 2026 at 02:55:56PM -0700, Douglas Anderson wrote:
-> > > When `fdt_overlay_apply()` merges an overlay into a base device tree,=
- it
-> > > updates `/__symbols__` in the base tree if present, but previously le=
-ft
-> > > the base tree's `/__local_fixups__` node untouched.
-> > >
-> > > Add `overlay_local_fixups_update()` so that when the base tree contai=
-ns
-> > > a `/__local_fixups__` node, `fdt_overlay_apply()` updates it to refle=
-ct
-> > > the applied overlay:
-> > > - For each fragment in application order, any local fixup properties =
-in
-> > >   the base tree's `/__local_fixups__` that correspond to properties
-> > >   overwritten by that fragment are cleared first.
-> > > - Local phandle references from that fragment's subtree under the
-> > >   overlay's `/__local_fixups__/<fragment>/__overlay__` are merged into
-> > >   the corresponding target path under the base tree's
-> > >   `/__local_fixups__`.
-> > > - External phandle references for that fragment from the overlay's
-> > >   `/__fixups__` (which are now resolved to local phandles in the merg=
-ed
-> > >   base tree) are added in sorted order to the base tree's
-> > >   `/__local_fixups__`.
-> > > - Any subnodes under the base tree's `/__local_fixups__` that become
-> > >   empty after clearing overwritten properties are pruned.
-> > >
-> > > If the base tree does not have a `/__local_fixups__` node, nothing is
-> > > added.
-> >
-> > So, this turned out to be substantially more involved than I realised.
-> > I wonder if it might be better to make --strip-locals the default, and
-> > only add support for preserving the local fixups as a later extension.
->=20
-> In v3 I went ahead and addressed all of your and Simon's review comments =
-on
-> this patch (which also trimmed ~80 lines of C from `fdt_overlay.c`).
-
-Oh good :).
-
-> To address Simon's point about code size in constrained environments like
-> U-Boot SPL, I also gated `/__local_fixups__` handling in
-> `fdt_overlay_apply()` behind a 3-state compile-time
-> `FDT_OVERLAY_LOCAL_FIXUPS` option in `libfdt/libfdt_internal.h`:
->=20
-> - `0` (`FDT_OVERLAY_LOCAL_FIXUPS_IGNORE`): Leave `/__local_fixups__`
->   untouched. I made this the `#ifndef` fallback in `libfdt_internal.h` so
->   that embedded projects that vendor `libfdt` directly get zero code-size
->   increase and zero behavior change unless they opt in.
-> - `1` (`FDT_OVERLAY_LOCAL_FIXUPS_STRIP`): Delete `/__local_fixups__` from
->   the base DTB if present (~50 bytes of code), so a stale/half-working
->   `/__local_fixups__` node isn't left behind in the merged tree.
-> - `2` (`FDT_OVERLAY_LOCAL_FIXUPS_UPDATE`): Fully update `/__local_fixups_=
-_`
->   in the base DTB. This is enabled by default in `dtc`'s Meson
->   (`-Doverlay-local-fixups=3D2`) and Make (`OVERLAY_LOCAL_FIXUPS=3D2`) bu=
-ilds
->   for desktop tools and tests.
->=20
-> Even when `fdtfactor -S` is used, we actually do need `fdtoverlay` to
-> update `/__local_fixups__` for two reasons:
->=20
-> 1. **Kernel composite DTBs (`foo-dtbs :=3D base.dtb bar.dtbo`)**: In the
->    Linux kernel build (`scripts/Makefile.dtbs`), many upstream boards are
->    built as composite DTBs using `cmd_fdtoverlay` (`fdtoverlay -i base.dtb
->    -o foo.dtb bar.dtbo`) *before* `fdtfactor` runs on them. As Simon
->    pointed out on the kernel series [1], if `fdtoverlay` left
->    `/__local_fixups__` untouched (`IGNORE`), `foo.dtb` would still have
->    `base.dtb`'s `/__local_fixups__` node (missing all phandle references
->    from `bar.dtbo` and retaining stale offsets for any overwritten
->    properties), causing `fdtfactor` to silently miss or corrupt phandle
->    references when factoring `foo.dtb`. And if `fdtoverlay` stripped
->    `/__local_fixups__`, `foo.dtb` wouldn't have `/__local_fixups__` at all
->    and `fdtfactor` wouldn't be able to factor any composite DTB.
-
-Ah, right.
-
-> 2. **`fdtfactor` self-tests**: Since `fdtfactor` inputs are compiled with
->    `dtc -@ -L`, having `fdtoverlay` update `/__local_fixups__` lets the
->    test suite directly verify with `dtbs_equal_unordered` that recombining
->    `base.dtb` + `board.dtbo` produces an exact match for the original inp=
-ut
->    `.dtb` (including all phandle fixup metadata).
->=20
-> Let me know if you're happy with this approach (or if you'd prefer a
-> different `FDT_OVERLAY_LOCAL_FIXUPS` default)!
-
-I'll bear this in mind when I look at v3 and see what I think.
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---ZDUkX/BKqX2zEUMG
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmroG3QACgkQzQJF27ox
-2GfcVBAAlAx8A72SK9Taiid0lOE2BM3qn7A7WYaUWluSVuaqbjwlloG9YQJ2HsaW
-CR1hIYgDCEbXr/INzNDNkkcGYvMlLKE92fpvG+LvWOeFMgm/klZUEIjbMIaZSXoK
-4zlCYpyYP6UDAF3yf2BqM7txWaJG2GLp6uf3L5lsxSla/3A8N6OmkWDnxQIx8B0t
-UZQrc2V/HgdXctm8SR9Vux2zBwBAE/yQaYZ82817M92ac9gaJxoHfGxbXVqKXADC
-Vbcf8/OUNXv5e4WYEVCD5oWiZX3Buw6m+xqPqcyfT9YhfvouFpFkRsC0u9lJLSC1
-Ud64LQ0aKY1PSpilHEqgAoc3aA+wOVuL9kKdKOSKI8OcBNQVQbhO7zcnnqJfX66v
-iBy5qPwCvFvw94HisODc2h0xsXNj2U7oPF7C8Yzc/QB8k32oXePPOqxfXSTjTEyz
-goQviPU9GuwBfxGzrQpkSxePNVg5pS9q301ZH/ePvsYy+taOOhN4eiSWu3QDpjaW
-HYDcUdLCfGq9IfJZHI/RoNk18uRb6GIxivDGdtsUkZEyC0bDiNQ+tJxj8GJoETAp
-s9PTW8KdYNr73fh96ARzszFTkzDYLQUjDwsswBuOa9IMk1LJ+D6AS7QvxxlLZLbM
-mcV3TwRyIFGQLfhhbBBHKXu9Si7+QmzmEwiYbvanHktbFsiOFUw=
-=eKUp
------END PGP SIGNATURE-----
-
---ZDUkX/BKqX2zEUMG--
+On Tue, Oct 6, 2026 at 12:21=E2=80=AFAM Siddarth Chilukuri via B4 Relay
+<devnull+siddarth.nexthop.ai@kernel.org> wrote:
+>
+> From: Siddarth Chilukuri <siddarth@nexthop.ai>
+>
+> When the controller is the master receiver, TX_ERROR is set once the
+> core has NACKed the last byte ("transmit complete" in PG090). We have
+> seen xiic_process() run with TX_ERROR set but RX_FULL not yet set,
+> while the RX FIFO already holds all of the remaining bytes of the
+> message.
+>
+> xiic_process() treats TX_ERROR without RX_FULL as an error, so in this
+> case it reinitializes the core, the data in the FIFO is lost, and the
+> read returns -EIO even though it finished on the bus. The next read on
+> the same adapter can also return stale data without reporting an error.
+>
+> Fix this by checking the RX FIFO in the error path. If the message is
+> a read, there was no arbitration loss, and the FIFO has all of the
+> remaining bytes, handle it the same way as RX_FULL and complete the
+> message. Since IISR is toggle-on-write, only clear RX_FULL if it was
+> actually set.
+>
+> We found this on a system with several AXI IIC controllers in one PCIe
+> FPGA that share an interrupt. It only happens when at least two
+> controllers are busy at the same time. With 12 QSFP-DD modules being
+> read in parallel for 480 seconds, the failures went from 2083 -EIO and
+> 1158 reads with wrong data (out of 11.2M reads) to none.
+>
+> Fixes: e1d5b6598cdc ("i2c: Add support for Xilinx XPS IIC Bus Interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Siddarth Chilukuri <siddarth@nexthop.ai>
+> ---
+Reviewed-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
