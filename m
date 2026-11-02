@@ -1,98 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.202.87.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585075;
-	b=0d5vpZZCeGNsVubiNsp/EAOdOHSPqbUiE4gjfoof5T57MBq6i/6k56CZBgwQIpSds+vZ
-	 Cj6LSfH8aDbvbtF8NuDhVzbpmUTvMCkd/581mqPR166WRG2HfK52yMBqjCEpAlSCRavfr
-	 FQWToYesX8xCnAYZTAHmnt13Fb6t96qkzYmPa7PHFk8+h8WPMI2h7NjIyTMgfS4MIzgUf
-	 dOLhgzIqrMMwpuzGmAyh0F4OQMQxyr9YdOWNlgoBuAAdCgKydzNx50YgWhGKDEWCFeGMo
-	 PfKjx2KmQJGEtMJymv2l82U1IdEoZaBGeNviviP8I5RjA4lktusRUvtVMtrKEzzf+8w==
+	t=1793585083;
+	b=1brlZ17LD1cSopACwbsceSc6LR+JZmai96imZl9pTLvEb7vT8IUQyhSRdX76GlbEqBgT
+	 z6UgIDlDn+f0xfF4lqvG2K3UmF0bpi547SnfkoepGTeDuIpsbcnjavjmKDV0YTwLKF8dN
+	 nzB4qwAjbuZnuFWGnPBIYefpcaXwLKenzM9i0ttzeg1/Sq7RpNcxq2fHEHhnmcjMarlEP
+	 8vE52anG3jEYrj4tZhxypsrvWYYNntHW9oDdsjJ60T505MEC9Pt0V5Kp+yfXnoIsRM7LQ
+	 G4w0cnV1qTMPPO5PKRgATfKacJ9sgoBIpbl66UBnDo1DZAg4O+k8+VqORUOqduwx4Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585075;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:x-tm-snts-smtp:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
-	bh=x+uuUAbF9qdDvNA9GjFaKotM8VJvuGY6kRfl7/BOzKY=;
-	b=wRg2wy2SrCujNtFpkw8vMDyuxoUJwMWL9KFa7BqxSc/9h76DabNQcYl03WTGHF37Z5y3
-	 3uD7ikzM1/YCheuH+m+4pZxmwtJzAIgU2XGPLBvPyk9YjIqCjSgqkpCNTYHsuriA8rhpP
-	 st2FPpd2cZvbvPj7PzgYGLjDuE/7aSfAvPU62noDsxWJVluG6VF8r95RLqJ26TlERxwYh
-	 V3VxYQIgASBI41zt9YP1rCBlK46qdgWDoD2LOzdx5spoOfP2JqhmAZ1xl8G/5JzO+fb8P
-	 z1RIAqe3xljjxqNLjGTCMEFQYLkslKKLYz467PGkAxnJyQZsut5XgDeD0BCHnsjjzwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585083;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=4SoV6Ie/u/kLwdZ8E6uFvG3ADmBAEd2i0jYO5Qw9CmA=;
+	b=awRMJ7Td/ReDI+/CdVzAASttgLiLsuT1JAZibczalbMUsv1uMDAWwdLcwl244jO1eLy6
+	 EbNhqiSFe36MbfCzgfkppnRcFpdtozrBm4G9eP1NrkyT8lwgBWPkHKup2VU2D3Jv9Gkz0
+	 r4gXGRfkNP0b99hcd1pE1iBatKT5XHWfGNrjoIG04PGfAcfWUIqo52aovIDe3p6YiaXfz
+	 AIPdjsM9mBx9J+n+yffVgDANpRwQfd2pJTcLj8haDQJZIgdTrTGBIeWjG/jleFpAp5onJ
+	 Emd6uGrMMYqHIqIdbACBjC3bHzyre3zDjj3Fnl6tJpoesTbsboFFwUF92ZL1nJHIK/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ite.com.tw;
-	spf=pass smtp.mailfrom=ite.com.tw;
-	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=kP+bNpri;
-	arc=none smtp.remote-ip=210.202.87.179
-Received: from ironport.ite.com.tw (unknown [210.202.87.179])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="DZmQHim/";
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7810D606A324;
-	Mon,  2 Nov 2026 02:04:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7810D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA22606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:04:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EA22606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=kP+bNpri
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=x+uuUAbF9qdDvNA9GjFaKotM8VJvuGY6kRfl7/BOzKY=;
-  b=kP+bNprip+pknwKueroQ70hjaoIxtnz85nVypofuDpxFl4SfCIKbr3L2
-   As3vVimGxg8vxaHCYbnHtT3coheU3FDzduHvJOAUzVl8LB3+lt77Q/m95
-   G2VTg6pvIdNK8qWx/ozXb21Mw1CQ57q7OS+ECggY/OP4Hej9uzH+wchAq
-   y39S/kwjtqqRAyvN2w2YEpLJbHGBQy+qq3YOcpeuICI3VMFWoUfBq8bLE
-   hbNcJ5KkVC774cS+h/IajECWC/1a9XFY41HXlnkH69IVV2a4Km9nDihZ7
-   Y8nh13eTzzsmqU93eUGK1HnfERLLHy0NgybkKW9Gj6hzl+qBcqXsOfFbp
-   Q==;
-X-CSE-ConnectionGUID: 1kbrKPe1TIGxBPtHTx2Guw==
-X-CSE-MsgGUID: XOvGeJ4kQhyceyjz0y+bZA==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 02 Nov 2026 10:04:24 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 6A224M9J094652;
-	Mon, 2 Nov 2026 10:04:22 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 2 Nov 2026 10:04:20 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Mon, 2 Nov 2026 10:04:20 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <krzk@kernel.org>
-CC: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
-        <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
-        <jernej.skrabec@gmail.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
-        <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
-        <tzimmermann@suse.de>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <luca.ceresoli@bootlin.com>,
-        <Pet.Weng@ite.com.tw>, <Kenneth.Hung@ite.com.tw>,
-        <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <dmitry.baryshkov@oss.qualcomm.com>
-Subject: RE: [PATCH v5 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI
- DSI to HDMI bridge
-Thread-Topic: [PATCH v5 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI
- DSI to HDMI bridge
-Thread-Index: AQHdaFTsxo4HRmH1TUmF9BCuflkFHbcV46rQ//9+WYCABKlI8A==
-Date: Mon, 2 Nov 2026 02:04:20 +0000
-Message-ID: <6af49c44a6bb477f8038266d3621bfab@ite.com.tw>
-References: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
- <20261029-upstream-6162-v5-1-8369f9e5afe6@ite.com.tw>
- <20261030-jolly-mantis-from-betelgeuse-2f0db1@quoll>
- <436b4159ce1247c6ab3974f573ca6037@ite.com.tw>
- <182ebaf9-0e6c-413a-971a-396ee8cd6b5b@kernel.org>
-In-Reply-To: <182ebaf9-0e6c-413a-971a-396ee8cd6b5b@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: A427302722CA596491ABEBEA4F7B6B4BDBC9845A01224BF1445725501DBBB78A2002:8
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DZmQHim/
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793585080; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=4SoV6Ie/u/kLwdZ8E6uFvG3ADmBAEd2i0jYO5Qw9CmA=;
+	b=DZmQHim/6n+TYkGOHMYLoivvEAKnBkTjtoy/CTqEiBBcxFRxoi+RTEBqjLYyW2koLkwO7IASZvc8gPFR2tP1fMDqfTOu0KAhGOySx2Ito5xSne5ER+H4vLh38pBzqTN17kw8jn4ffWls6KgrMnWoMme9YbG1vuN5qXtoIB2CkzA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R381e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=61;SR=0;TI=SMTPD_---0XDraKLa_1793585074;
+Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDraKLa_1793585074 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 10:04:36 +0800
+Message-ID: <4a797511-2e56-468e-ab88-5ae855439144@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 10:04:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,25 +53,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 6A224M9J094652
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/7] MAINTAINERS: add Zi Yan as co-maintainer for MEMORY
+ MANAGEMENT - THP
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Byungchul Park <byungchul@sk.com>, Chengming Zhou
+ <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
+ David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>,
+ Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>,
+ Nick Piggin <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>,
+ Peter Xu <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>,
+ Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+ <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgS3J6eXN6dG9mDQoNCk9uIDMwLzEwLzIwMjYgMTE6NDksIEtyenlzenRvZiBLb3psb3dza2kg
-d3JvdGU6DQo+IE9uIDMwLzEwLzIwMjYgMTE6NDQsIEhlcm1lcy5XdUBpdGUuY29tLnR3IHdyb3Rl
-Og0KPj4gSSByYW4gY2hlY2twYXRjaC5wbCwgd2l0aCBhbmQgd2l0aG91dCAtLXN0cmljdCwgb24g
-Ym90aCBwYXRjaGVzLiBUaGUNCj4NCj4gSSBkb24ndCBiZWxpZXZlIGluIHN1Y2ggY2FzZSB0aGF0
-IHlvdSBydW4gb24gYW55IHZhbGlkIGtlcm5lbCB0cmVlLg0KPg0KPiBQbGVhc2UgZml4IHlvdXIg
-d29ya2Zsb3csIGJlY2F1c2UgaXQgc2VlbXMgeW91ICB3b3JrIG9uIHNvbWUgYW5jaWVudA0KPiB0
-cmVlIChkb24ndCwgaW5zdGVhZCB1c2UgbWFpbmxpbmUpIG9yIHdvcmsgb24gZm9yayBvZiBrZXJu
-ZWwgKGRvbid0LA0KPiBpbnN0ZWFkIHVzZSBtYWlubGluZSkuDQoNClNvcnJ5LCBteSBtaXN0YWtl
-Lg0KSSByYW4gY2hlY2twYXRjaC5wbCBmcm9tIHRoZSBkcm0tbWlzYyB0cmVlJ3MgZHJtLW1pc2Mt
-bmV4dCBicmFuY2gsIHdoaWNoIHRoZSBzZXJpZXMgaXMgYmFzZWQgb24uIA0KVGhhdCB0cmVlIGRv
-ZXMgbm90IGhhdmUgY29tbWl0IDFlMDM1Mjk3ZmZkYSAoImRvY3M6IHJlbW92ZSBBc3Npc3RlZC1i
-eSByZWZlcmVuY2VzIikgeWV0LCBzbyBpdHMgY2hlY2twYXRjaC5wbCBzdGlsbCBhY2NlcHRzIHRo
-ZSBBc3Npc3RlZC1ieSB0YWcuDQpXaXRoIGNoZWNrcGF0Y2gucGwgZnJvbSBtYWlubGluZSBJIGNh
-biBzZWUgdGhlIHdhcm5pbmdzIG5vdy4gSSB3aWxsIGRyb3AgdGhlIHRhZyBpbiB2NiBhbmQgY2hl
-Y2sgdGhlIHBhdGNoZXMgd2l0aCBjaGVja3BhdGNoLnBsIGZyb20gbWFpbmxpbmUgYmVmb3JlIHNl
-bmRpbmcuDQoNCk9uZSBxdWVzdGlvbiBzbyBJIGdldCB2NiByaWdodDogc2hvdWxkIEkga2VlcCBi
-YXNpbmcgdGhlIHNlcmllcyBvbiBkcm0tbWlzYy1uZXh0LCBzaW5jZSB0aGUgYnJpZGdlIHBhdGNo
-ZXMgZ28gdGhyb3VnaCBkcm0tbWlzYywgYW5kIG9ubHkNCnVzZSBtYWlubGluZSBmb3IgY2hlY2tw
-YXRjaC5wbCBhbmQgdGhlIG90aGVyIHRvb2xzPyBPciB3b3VsZCB5b3UgcHJlZmVyIHRoZSBzZXJp
-ZXMgdG8gYmUgYmFzZWQgb24gbWFpbmxpbmU/DQoNClRoYW5rcywNCkhlcm1lcw0K
+
+
+On 10/31/26 5:34 AM, David Hildenbrand (Arm) wrote:
+> Zi has been contributing to THP consistently and reliably over many
+> years and is considered one of our most valuable THP experts. As THP is
+> an especially active area lately, having a single dedicated THP maintainer
+> is not sustainable.
+> 
+> Fortunately, Zi volunteered to take on more responsibility by stepping
+> up as a THP co-maintainer. So let's do exactly that.
+> 
+> His placement in the MAINTAINERS entry is very convenient to perform
+> this change :)
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+
+Thanks for Zi's great work!
+Acked-by: Baolin Wang <baolin.wang@linux.alibaba.com>
