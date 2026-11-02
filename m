@@ -1,139 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.29
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793603817;
-	b=JwTVgLzNPPUh18Gjf2P5sxVmCswHpFDpEG/Y+3d/hqZ+IT8yf2Fn/idjK0RKwNa3EGhl
-	 2YtvIjBhtDBRmW3Gnw1gZ5vpSYzegw+8F+U7WKzAUjgy+uuGvHt/ols0ZrQQkk+4XM+54
-	 p03djozqFdBKhP7Ymy/i/ITKQsMmKx8NeYOjQKKNU1iQzTfzFrTDNZXpS4x4U8inLgcVx
-	 3Of62G8lajYeUKCWvxxMhmAmAx3zQBY0YF9FQwiyfmSawQkieGC2vai0ek/MAggN8gW0d
-	 7qLxRCqcFrK8QPhF9OUdba/DJgw74vhBZ6oul9RItE63DzmQ1d5Egqx99Msu7cEMoUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603817;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=L5ND1gKkQ2iqgI5hfsJbYsLZshs4fja5H3ptYfML2fc=;
-	b=c1hoxtlk4pPxPnPAsOsZaLuakZGnt21lr/3yljmxKgNNjxDcqvWqnfq/8CPSHJvDYT+O
-	 KsfEvn2dhD8WF0Ysa9cvbQwhEZFmkGwHc2KQDai5nSnZ7P8r0ABWxaCow+jYnZAZ20kYd
-	 Zj4lrkoycQ+pJ3/BY+G/3d4LFeZFxINyceSBZwsP30gCq1AUrqse4vJEVP3H1P37wowIL
-	 s45T9+Ux2o49QBNrq1N7/4gHDQ3Dv91vpDBwAcoiTteYCr9w2AfLY9HD55FMgMvf0lYXt
-	 RotLmaSTjlLTkakxthdgQq6qUtjJ0Qr1ByeGlZ2dtfWxc1pIPBqKlc8PTF1OO8x23CQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=r2QKWLDN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.29
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793603914;
+	b=qGQt+VZ7rUeaGJc//ffDq25AmJE1XuXTSNkpY3TsEb/seUkPi7VXMcjm9yHcZO7rPr0l
+	 0B3cwlYPCBUd8St5iHLGwK5G4/l6eKDY1PRoSuvADOXyE3oInmVYJaH7McZnw6A7GQvu4
+	 sw60TQpR5VgBRo93RvKe3V2VkrhY23LNWAPPv5VkjBL5EvSpLfYjB8z2Y+zLUKKE9RE/w
+	 /VI055zsQltTBi7SZnOivQKT/CM3Ww65yxEBJki3AMQhenbpYb1UoTgXVqbHOX2MUXIN5
+	 9mK+PZMtO5Bo1KDo5aQwnnc/Vqdce9jYXs6qzUIMWMla6zI/CtvMo9z2hMdLvNAFgBQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603914;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=AKYpB2+zrqXiyOQva5RgKPct/7/kmoifdAd8IOoSraE=;
+	b=rnAg95zMbFJbvyHVPLbGaTjbwAxG9UBCnjLAxD6BYwGS6A+7sV4JuZlTMESTmmrtQgG4
+	 z35DsKwF98ptFSRsoE/3/5SMPvLQHynJ8gMp6qc8E5COhiVBYsfLv9SDaDCck2X3F3KgM
+	 LUhdnnxJKnupiAbwbTCPscCsM4zxIIBNTOHql9rRwRqiQRoZ3vwAFQ+gRTOOiMIMQYONI
+	 tdIZWFaMRsniWw1cvf9PFEGcXZUJrE8siOTA/Ota/sw32LFjN2uK23/ruhRl7j/avpD+k
+	 ShPJM9bEpIL33PjgwcU+1OhYLT+WrjQOW9Dc4PslbhenJ2iPWPpYXp2aA+bm1SxW+rA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="fZdW/tZS";
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07F0606A329;
-	Mon,  2 Nov 2026 07:16:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A07F0606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E1D606A324;
+	Mon,  2 Nov 2026 07:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01E1D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=r2QKWLDN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=APuIER0dCxNZMFSLaQVvkBWpsbk/9duKIlGj7bItcyQQ3ev7H9D8FeumlM/NM5b/yZFOwpTnWX+jG6BqakNsdhHnrMxRGgGlSbjs5eqEQ0rBS650dZgUdt8IESwL1gDdIvzDTYbSd4ziSdaUIU0uulT9nSQ7iXeYf3pbaXcI0w/oMyxOBIPsXDGcB1SDZ52PzWnXuquLI1nU5forWzIZK+zd/hGnkq8l5fLtvJq4/JpU72XJYNsM2+VwDUP5/TYPzzRJ4BJ+jZi6ZVkgjlArtKMQPX593BrCQ607a6Lgxe9uWIAb69hNWBpchsFEfbKG/hT5Ai5RN7OlrD90soCDug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L5ND1gKkQ2iqgI5hfsJbYsLZshs4fja5H3ptYfML2fc=;
- b=y91x5Ui8P4IkG1lUaN+8H2k1PBefVgwvNmGlKJ4B1SkjwBBtBghZIDyn1nP+PQPKsE7XLzB1CSzTo/B5AstTpJbLw7k4XI4rxLOrlu9HDc4vFdCcOnJm+uiRDnTYmYwaaFbHgXiKzs+sh5m4ZI8IuJsjzNWDWxsRGExXdd1tP180Y7eUfYEngbmERttIaBA7fs92eqnrvZhMjKmA7D437LXYxXQquLSsUx9y1lYfZAsih4axCbgtbKR/JxgBu3Z3DyCwfMMAiy1UokFs7kqKxuARx2uQ4mUIQgda2VTguMKs0tlW/NK1eLM+xnJusd8a4xBi0ic9N55qS3nvAZM3Jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L5ND1gKkQ2iqgI5hfsJbYsLZshs4fja5H3ptYfML2fc=;
- b=r2QKWLDNRbfj6oanaEsvaAJ2zLrB26VsfIcyxdCCQ6UtcrYCgxm4qUPKyG7wUEqNwSMMirpyXXRyzR+WPD0LXQecm4KCikV9i/QJoNHjzZxcqR5e9QK0yNhQIdR6uSZ7nsvJhgPPmQe/TpaygmVwasOCmuf9ENhT3QTKIS7WRVY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
- by LV1PR12MB484207.namprd12.prod.outlook.com (2603:10b6:408:512::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 07:16:54 +0000
-Received: from LV5PR12MB9779.namprd12.prod.outlook.com
- ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
- ([fe80::8ac8:e862:8ae9:9287%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 07:16:54 +0000
-Message-ID: <b61a304e-8fc9-44c0-ae6d-2e60af7be1fe@amd.com>
-Date: Mon, 2 Nov 2026 08:16:45 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: xiic: don't fail a read whose data is already in the
- RX FIFO
-To: Shubhrajyoti Datta <shubhrajyoti.datta@gmail.com>, siddarth@nexthop.ai
-Cc: Andi Shyti <andi.shyti@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261005-i2c-xiic-rx-fifo-v1-1-0177ac5f72d7@nexthop.ai>
- <CAKfKVtG4oCxJEvsQEDMxZSLbjSgzTxwMQ8Ky2Q9FtN3=6F+_rg@mail.gmail.com>
-Content-Language: en-US
-From: Michal Simek <michal.simek@amd.com>
-Autocrypt: addr=michal.simek@amd.com; keydata=
- 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
- mpwx1d8=
-In-Reply-To: <CAKfKVtG4oCxJEvsQEDMxZSLbjSgzTxwMQ8Ky2Q9FtN3=6F+_rg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VIXP296CA0017.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:36c::13) To LV5PR12MB9779.namprd12.prod.outlook.com
- (2603:10b6:408:301::14)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fZdW/tZS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793603913; x=1825139913;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=KudH8oFsImGYL7mGO6FDNrAM7eIjgonP8sHENv5RJ7A=;
+  b=fZdW/tZSE4YOQKKt3qHrLrLSuiJ0R/lGg3tXDW8QrDb4yGmci+C6Jk2/
+   9n8m+Pn1L55v3wNwxd4l4e1vg0EyDB15z1bht4IhKxIvDTZvf8CFxTKGK
+   0dkXQuUXl+9x09w/3mN0xe4HxONWGISdyvYHaE9kOrNoHHL9zfjqLl8Md
+   zuq7Cofx2GxWG9bIZpfw2/imPHmNs9pdVOmzkEXOvZX80uAQNNkdxBC9u
+   3UgjmL1jRpkOdw9l298k1WA975eN/Iv7/elRtvVjoENXckFFn4N/Uo76K
+   QC/gVrcezh7Fkuz5pMMIdeun/CMah+fBY2c83JuQJ7OomqXksLoxC/sH6
+   w==;
+X-CSE-ConnectionGUID: HxjchbWsSZ2PBXxmYpIpTA==
+X-CSE-MsgGUID: ocBQx4SkR9eJYTzOEBJZfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2278284"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2278284"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:18:33 -0800
+X-CSE-ConnectionGUID: bvHAe9u6QVeycrZfagHV7g==
+X-CSE-MsgGUID: Wvv3PDsyQwOVjQMSyYeJdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="5873618"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:18:29 -0800
+Message-ID: <061b1963-7288-4f9f-97f7-54fab5b95ecd@intel.com>
+Date: Mon, 2 Nov 2026 15:18:26 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,108 +72,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|LV1PR12MB484207:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35813898-3404-40b1-e18b-08df38b145b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|4143699003|11063799006|56012099006|261028144727099003|261021121427099003|261026140227099003|261022075727099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	u2RBI0Az7fkhMJRTy+XK0Gm1eW1mkNuUc0YHdvCCohh3t9y+2M4kBHo81vKai8+t1NYO4yqE+P/DPyd2EG7/aW9kuyXy8ZiZZ0Yw89ws1li6bQCQrZb3IZVm4cscQ4qm9XvmEkbqrSo8sbMNsqYbvcRXid0rZfnBgZC4pcEsyCDljZETwA8fb5ptfPmmfT33I7F2rJdTfNOODvWGEsbwZ0Th5K72nXPkt38Ww2wTAn1/Mfq/McgrgV5rae6AqO50afqsotYP5t3UnzhIedrJTQbT0xfuPyhR+ICJA1lpKnODiAvXsTym1gSxmYdz5qW06nzIWSeafKBztx+g3670PeggxI2e3fzFKIhmmzgpsipGNeZdA3rhNGDJFj0ZCJf8kdMCOlTp1ndIMHHb36oD48CsNc5TO4OVuHZiS1nol+3qCADI8zJzGFlnhWDG2V7giefbWRTZPTXbAuju8NpO0nsRX8eK0B2E5sf93jOExl5OPEfnEq4V9NLLYgh9+BZqUiIMkqk0YFpB9wIkx9zxHub+7mx5JLPIQE9LUwuHmDtWhaAwIi3HtqJuGUksNAjyKCPBbqbmsE6905z35KuIeMxRyPeeIHaO+lNnKXJLRIs3TkShaYSgUzZUz4+68Q9G3tae7x0yQOVXPAi6h+dvQjxdFByQNaF7Hrn2mirCjkI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261028144727099003)(261021121427099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aWxmTzB6UGNCS3E1RXp3RWdzalhYb1Z4bEdPa1ZXT0R4NFJLMnc5RklBL1NB?=
- =?utf-8?B?elVjMHJTeElVREtHRHRBY2cyMXNURTcyT1RXQ0lZSWdpakZzdWRnZ0NQZ1VW?=
- =?utf-8?B?RVpnUmJQb0NENFVxeUpKcWtrSlo1UGduVDVUcDlvSjhYeTBHMEtQOFQ4QzJn?=
- =?utf-8?B?WU5EaEoxQ3VCTHdLRlRndURzUllFQUFUbDZOMXRFWFlibHpUZWhwVStoQTRq?=
- =?utf-8?B?U2o1UHdOZUhrL1gyOUZjenVvTEFQR0I0QkxaMjJoa0ZNS3k1Z2RPdHlYZk1v?=
- =?utf-8?B?SjErSE0rV2JmVkRRNEJiNUxWTDZSeFRmTWhWOXVIa05CQTV2YmsyVjFoOFRP?=
- =?utf-8?B?NUlMR08zeGl4YWRTejFlTGhrNXc1azhINWowbmpibTJsTG5MQW1NNjJZTXVB?=
- =?utf-8?B?UGRhckU4V0dtc1lkUUdXR0lDbjBRL3JTckxBVytYUUp4RFJHYThIZEc5aFIv?=
- =?utf-8?B?c3lXSWtWcjhLdjlwdXRBdTBvUXB3SnBPRmp3NXo5QWN5R25pSFlkS1RGNnhi?=
- =?utf-8?B?bWwxUWVpK1k5dnk5MU9xOURydUwrMEJBVEQ2Umhld3ZaKzI2SCtlK1IrY3hR?=
- =?utf-8?B?SzVJSXRFRmNjcUlwelFkb0FXdFFyUmpCWDVZNVdWa3RxWGRyTks3NHBSMVR5?=
- =?utf-8?B?T2o4bC9pdng4RDNhcWszK1FRWVdpVEpTZGFqMU5TdS9oRklhcVFJNm9PdE0w?=
- =?utf-8?B?RXNWZmk2Mnl5SExzODAvWS9ubU5ONmE2ME54MFAwemkzN2VQRVM4T2VvclJM?=
- =?utf-8?B?WWVoK0daQVBaMlJ0UDZRWXZHdWlyMTJxMGhXbktHZ1FGZnlOUnF2YmpwU3kz?=
- =?utf-8?B?a0MwSm5aZklsZy9IYkJFdk5LY1pudHY1eERXVU80dXd6VGUxZnN1NUdCQmhZ?=
- =?utf-8?B?dHUwN293UVVWS2x0QkpwU2NidDhoSDkwRjBtSUlFTStxWVpkeXZmeUhUZ3Vh?=
- =?utf-8?B?KzFmbXV1aGdmMkJ5TE00eDBtd092aXVmbjRTdWpxVzI2aTNKaGRndHg1eXl5?=
- =?utf-8?B?TllwRTM2QW9ZOUhqV0hSa0FpVUlaTlNZNTBiN0dYQXkrb1RYU0x6V3IzUEhm?=
- =?utf-8?B?bmx5V0ppNGc3dnpHdXlpM25tQjMrTlhHRU4rZHZjNWt3SGdDckIxbmtMK0pO?=
- =?utf-8?B?dmdnejRWbHlXK1MrbUJYemlRT0QwbS9CZWZNRU8xbFpuT1kxVmtrTWY0QkRy?=
- =?utf-8?B?R01NNDlJS0hMMHlua1Y3WFRxajdpclhQS3loNTZLVm0zUUhtbTdFV1pSOGJM?=
- =?utf-8?B?ZFJSSVhWeHpNVjYwd1RzNGk1Vk9Lc2Y3SmZaNDQ1enFhNTlNNVFGMlJ6bzJy?=
- =?utf-8?B?eWtXSHhzajdVamNuOXhnYUY4bGo5K2daR05tMXZBRTB6NDdlYXpVckZQcVQ2?=
- =?utf-8?B?aGVMLzJaVlVkK3NxK0E4clNaSXhqR0ZXb1d2d0Vqd1dBNEJLbTk5VE40SEtr?=
- =?utf-8?B?cklSMnZGaWJ3czZCWXZjSGEvaDJhWWFKMmY5dG1XcHBoYSs3bzJ6SmxML211?=
- =?utf-8?B?NFRlVDNBZStVT0VBTzVUcXY1bFhmakcvcUg1MVZRTXBKSldadzlPRGFUZlgx?=
- =?utf-8?B?RXhDMnFrNGtCb1RBdDlsZk81MFpCazFrbEpCZXAwODVhbGprOTlzclFYdndS?=
- =?utf-8?B?VHhwYXdjdWpDenc5VW0yN0daQVZTNGZMMGFIcVM0S1RQSGJOanVjWnF4VXlw?=
- =?utf-8?B?TVpOSFA1YTVjQUd4WnBHUXlrdnhJQ1Q1b2dPamNiNlcwcS9mZ0RKdVhCcDZh?=
- =?utf-8?B?akZxM2RrNy9BdzVSam5KZnpVVjltTDV2VkpKdSt2YzFBcmlWVFJIM0Vsd0JR?=
- =?utf-8?B?OEd0eExKUXYxSUtveHl4VmpzS3lib0FRTGdEVlROaGczaUtnc2hVSVB6bHY3?=
- =?utf-8?B?aERGQ0FVOW80S1FkdTBvd1NBSk5aYnR0MDVjZ0R3SnVzZDFEMXZXeDFjVGtw?=
- =?utf-8?B?QTJGZG5qN3AxRGVjaVU5b0V1T2RybzNqSVhJaEMyN2swRmNLbHlzeFRMbjIv?=
- =?utf-8?B?a1cvSnpvR243SlVuV3Y5cjUyR0xGYW9la0lzSXpVZjExMzdZOUdlZk9OaUdT?=
- =?utf-8?B?TXlxSnNFRFpTblJJdFRhbmhaSEpvRXJkdDk4UHZJMzEzQTZKTHIyQlhuZmR4?=
- =?utf-8?B?Q1FvRm5YQmg1ZkIrdWg0NCtGVWlRSHhrdFZVU2xuZkpWNHUvb1lGTjFiVUhG?=
- =?utf-8?B?QkNTRDFvZ2xtOEZmWmVRUVdBcnJzSlN2aW5jR05GeUNOZW9qTVNraXd5bXQx?=
- =?utf-8?B?K2R5Z3BhS2I5RElNSkU3Qk1NbjF3NlRLUzJGY0NZZlRlKzNiSWZabjhEZk1L?=
- =?utf-8?Q?H52HF5PLMAAyKBxhOr?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35813898-3404-40b1-e18b-08df38b145b3
-X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:16:54.1401
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9x0LtsJakbHzHnUGyqoTd9qowX3KLTjdNKEqs5sYAuUV3i9gA6OZAVbKgHavhyt5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB484207
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/virt/tdx: Do not print error message on
+ non-present feature
+To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, dave.hansen@linux.intel.com
+Cc: x86@kernel.org, "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ Nikolay Borisov <nik.borisov@suse.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Dan Williams <dan.j.williams@intel.com>, Chao Gao <chao.gao@intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org
+References: <27b6d824f7aee7078167944ce96d95676eee25cb.1793602266.git.jirislaby@kernel.org>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <27b6d824f7aee7078167944ce96d95676eee25cb.1793602266.git.jirislaby@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 11/2/2026 2:51 PM, Jiri Slaby (SUSE) wrote:
+> Before commit 165e77353831 below, the kernel did not print anything
+> during boot if X86_FEATURE_TDX_HOST_PLATFORM was not present, unless TDX
+> enablement was explicitly requested via a module parameter.
+> 
+> After the commit, when attempting to load TDX automatically, this is
+> emitted to the log:
+>   virt/tdx: TDX not supported by the host platform
+> 
+> It is emitted with the "error" level, hence it is disturbing. It is not
+> an error to run CPUs without the feature.
+> 
+> Drop this silent-boot-breaking error message for the automatic
+> initialization path.
+> 
+> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+> Fixes: 165e77353831 ("KVM: x86/tdx: Do VMXON and TDX-Module initialization during subsys init")
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+> Reviewed-by: Sean Christopherson <seanjc@google.com>
+> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
 
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
 
-On 11/2/26 06:13, Shubhrajyoti Datta wrote:
-> On Tue, Oct 6, 2026 at 12:21 AM Siddarth Chilukuri via B4 Relay
-> <devnull+siddarth.nexthop.ai@kernel.org> wrote:
->>
->> From: Siddarth Chilukuri <siddarth@nexthop.ai>
->>
->> When the controller is the master receiver, TX_ERROR is set once the
->> core has NACKed the last byte ("transmit complete" in PG090). We have
->> seen xiic_process() run with TX_ERROR set but RX_FULL not yet set,
->> while the RX FIFO already holds all of the remaining bytes of the
->> message.
->>
->> xiic_process() treats TX_ERROR without RX_FULL as an error, so in this
->> case it reinitializes the core, the data in the FIFO is lost, and the
->> read returns -EIO even though it finished on the bus. The next read on
->> the same adapter can also return stale data without reporting an error.
->>
->> Fix this by checking the RX FIFO in the error path. If the message is
->> a read, there was no arbitration loss, and the FIFO has all of the
->> remaining bytes, handle it the same way as RX_FULL and complete the
->> message. Since IISR is toggle-on-write, only clear RX_FULL if it was
->> actually set.
->>
->> We found this on a system with several AXI IIC controllers in one PCIe
->> FPGA that share an interrupt. It only happens when at least two
->> controllers are busy at the same time. With 12 QSFP-DD modules being
->> read in parallel for 480 seconds, the failures went from 2083 -EIO and
->> 1158 reads with wrong data (out of 11.2M reads) to none.
->>
->> Fixes: e1d5b6598cdc ("i2c: Add support for Xilinx XPS IIC Bus Interface")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Siddarth Chilukuri <siddarth@nexthop.ai>
->> ---
-> Reviewed-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+> Cc: Dan Williams <dan.j.williams@intel.com>
+> Cc: Chao Gao <chao.gao@intel.com>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> 
+> ---
+> 
+> [v3] add reviewed-by tags and resend
+> [v2] update the commit message.
+> 
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: x86@kernel.org
+> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-coco@lists.linux.dev
+> Cc: kvm@vger.kernel.org
+> ---
+>  arch/x86/virt/vmx/tdx/tdx.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+> index 680e5178a86f..d910a290ac50 100644
+> --- a/arch/x86/virt/vmx/tdx/tdx.c
+> +++ b/arch/x86/virt/vmx/tdx/tdx.c
+> @@ -1276,10 +1276,8 @@ static __init int tdx_enable(void)
+>  	enum cpuhp_state state;
+>  	int ret;
+>  
+> -	if (!cpu_feature_enabled(X86_FEATURE_TDX_HOST_PLATFORM)) {
+> -		pr_err("TDX not supported by the host platform\n");
+> +	if (!cpu_feature_enabled(X86_FEATURE_TDX_HOST_PLATFORM))
+>  		return -ENODEV;
+> -	}
+>  
+>  	if (!cpu_feature_enabled(X86_FEATURE_XSAVE)) {
+>  		pr_err("XSAVE is required for TDX\n");
 
-Acked-by: Michal Simek <michal.simek@amd.com>
-
-Thanks,
-Michal
