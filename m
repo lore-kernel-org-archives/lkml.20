@@ -1,90 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627093;
-	b=aT4PPoperfga+Q3RJB/3mc++hn/RGSk0XjWVeJ/Kg+6iOy6Z/VDyZg7jxMy5/rYFJWit
-	 jlsnzT/q7LR5rn7Q+Xtm+7IPTdZs3fVac0hLtYkPNTF3AObA7lEUPTBwQdDg61MFn/rkj
-	 E/pE+++tEGY0/r5H5iUc+rxUBGskPcpqzsJ/UtnIY0w5NPUp58PLtO3BYcM1bTpSaWH5h
-	 YMtfbtOa9dxKIJ9yXyrDyBeKnXwYelFuLHyZSxNf4/rsdFr2NIFhCqYzWnmRBEq3rsg6y
-	 wyKjXgk8sdony1Dgv8phWEqyP+d8kVXLHU9TbYD764Y0jx8zsGpQ4/q94tzNk4NuN8g==
+	t=1793627121;
+	b=Q3tLXkFmA1EXgJ9F4+JSEbFET8nH7GDiaqI1qyEgdeelfdMaGP3tHmNo4NDrAP6Enn2F
+	 +/O5OJI2HK/iGTK928qYNktYoE5U9dKkNnIMr0wwKMYmggNERYgZdjT/Gpbzpyfmr2+Cf
+	 ALPwM8OplMWXapdEAZGA4/3iY6Qf/WNEEJ1buQMQ798cyYkCmYE5gs/tTfdJVURH8BYhQ
+	 G8wv2erGFvbIYSt+T0PCk3DirEWtYgNCVHXOtGnN5N0ZM8ChacRqc15R+puAPmX3ZYDOh
+	 oQAWilrpQ44cK2eV7OBG3O7Ireo+M9tH0asoA5KC7v263HH2mDH36ebDg75YaJXX+sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627093;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=wwm6qbsytzzkGHZsfhcGJGTxS4KImsLSiizWaejTwbo=;
-	b=erXtBIYlMjfAjSte8ytq2e3t5LhFsGcqep1kSTQ95A6xf7fVYBqypQvWDOBP8SKlrFeg
-	 07Uq6LarMdu+thrlHLStJ/FsxsfCXBGThmm/DDyxQt4Hbv2oCPW7Ff6IRRzlAYZgJrPdM
-	 aye5EPheQL5HGfBUwYxpo8BJ5qcw1d46ORJX7yJCJ+C0pLMZLgakKKbF3ICVaRUOSj9KA
-	 qlx0QV81v3jpFNOavHHwrIE89IvN8izi3rnreh7poz07oPAyLkigc6RxFpkFLoAXlKTM7
-	 kn9c2HrsvHoS2TrTdz2DZNFifFXyk8dyBLb46dBJJrm7StyB0DDeU0OVly23WHaPa4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627121;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=Wut76wPja3rY5EWLAZxeKXN2J3+NXIjzQxTslbLv4o0=;
+	b=eJ1kjhCl/Q2vzKyRpj1VeEJp34gtDsWNf3fN/UHlwmj04eH+D+GAsijlrIE5LViLaC5A
+	 FNi68GALvFcEI2URf3NCzFjtBx2G5IvC7S/SqhJYq37vtoQaVvOSk4sGFwuyW9purGZCU
+	 d0axcgr09LWNDNgwBHxSTd6uLvI72RmlH6tq4elna8d4/VrVe/2DEu7E4MUU2UvHZ0I6M
+	 l97BxQuVtb+iIBzyUwfZif16EiJ7ZUBLUQJ2JH6O9qkdcwhYt9CnyUcjF2LB73kzNRZFh
+	 sjjNgw1qfvDhICTHF9Ua2w60ruyhtbKF7/x+NzWkL8oSRDWBZgIAtqlACh/fwG1DzYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=ySDrHNNG;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D28xE5KX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61694606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:44:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61694606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922E1606A324;
+	Mon,  2 Nov 2026 13:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=ySDrHNNG
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1643593f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:44:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1793627091; x=1794231891; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wwm6qbsytzzkGHZsfhcGJGTxS4KImsLSiizWaejTwbo=;
-        b=ySDrHNNGfa/gVugKJIu7Hz6xF7Ugln572O/DREbdJHglOvl/mfbwrkyNd9uWb3UdA6
-         qfMyUZX8/Q09TlAa5dlhFCpLcI/+wE9BFTG5VyfpboZgOQH5kiwGUnrKaG5KM/2Z1JsC
-         qwACbCSXOaPqgD7vKc5hPWWF2ftbxGZdUS9BQAkXL7Y2pyNo7ST08XTOJVJwaett4Y/n
-         haEhBegNGsUYri2qnrQvVy02g0KU0IJcrEgVr1EDpEwYKzKVBQlR5nf7vMDJaoK60Ydu
-         VGXTzneD7vvNRZ8MLmY75kpLlKRZv5UMtWGcewxxqT0L7IbVL14Zbsh8KI72Vsl+CbKQ
-         q+Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793627091; x=1794231891;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wwm6qbsytzzkGHZsfhcGJGTxS4KImsLSiizWaejTwbo=;
-        b=fDt8NGCDmZ107XcE5y1675NItCo2HH/Rxq+KbJj7MXQcuLAgdNNAqWtjX8WkbKK4Ow
-         cNpNNIYImzZK4IzsI7smydat6ZcshihuA60VVeiOkojgkbod1UGGTuEHbxZ4hk1HRH1N
-         bvVs1ZmTO5GbWo3c8gVWm7paIla8aNZn/9sMXDcBT8nZT5d1ESvk8t0GxXbX8NXqhks7
-         FDBtcfhXpTA2cdmYFcDdvHdeDYC+qiGUXYLcTIF8q8oN7aK8Hez1m/Lfea0Y9yf0zYqu
-         0bcI4z1s02CnQSsBZ5fMrUUUivIqlapetHMrhp52BBX0r+8JHrMEFzuX9NICTh99dHxx
-         X3Ew==
-X-Forwarded-Encrypted: i=1; AKwUvBzo+ujEYHuJeCtLOTfqtAfpgoi83VEPSgAmoGsmZQS9syGpbdkZeuAxcvD3Zi0nkEO5oCa6QkDxeS6pUMY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sJXM8S0M6qsMx0GbcMWpZyxKseLQ0lucI+4ka3DEP0WXC92Rs
-	wJkOig2U4CnyPh1JvDlophiWX31unckSUF8iO2uuowtQ26OyuujzzjbnF3KJ1gV/x+GiWdEUP2Q
-	s9vCsj6dJzQ==
-X-Gm-Gg: AYBFou3tJhx6WcpLY7g7vYcGj2msd8e7J9IEaeAT5daUtAVkdOLg8BBzKRlblXB0mC4
-	0JT5oRi7V69gpZdd7lAZFeqO9yyyeLUWEQ8WxAqN1nIoEv5BxsWN385JWTsoYHwD6uJHZspQ1cv
-	oJxm0hemO2TK5LTIH2FUiDOC1KhzsPJIqhZx1krt0VZ6fcdzuVKEbc2mZ9ywgAmvpZgu42GCcBn
-	zSO3VPq1z5qJb88uEmCldPKeC+2KcbCKIcn4hk6IHl6bQ/9HJcgdW6f3v2EBI0eN9gTnzrvviCE
-	sYfgXPAI+vKGVKvJDWr83Wsx7RJhfqFY+aylV6mHI08diq8Z5GctyKvoncCbyD6SxzwCkJCOqjn
-	g7bh1kJzZaqvVRSZhChde30aIR1tM36NC7Qve45UExDOr1cLU0WfBS+M1PBkmfvattqjFfvzOPc
-	8Y0zYUcgdC7ChvozkfZ0FXz4qSUMbOgSGrW8HTth0+x0aYHnATnIAdRwr0AzqOvQjfXfQIv5+pw
-	gWpfKtnxOR2qd5Z1ySJ00wHnQjultyi4sG3eHgQpnqVzTMzBW8V69HiVyCxljaAifPierioLxgl
-	fktl/yThnqJ8r9KDHTRqLldz+OxMJw/hZwd+iWD/Gka9a4dLkuPb13CrdNaPZxmCVcVK8txyhPc
-	QGSq2xl4p
-X-Received: by 2002:a05:6000:1785:b0:48d:f14a:9182 with SMTP id ffacd0b85a97d-48e6e2e7536mr24565799f8f.20.1793627090652;
-        Mon, 02 Nov 2026 05:44:50 -0800 (PST)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80eb1sm21458046f8f.34.2026.11.02.05.44.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:44:50 -0800 (PST)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 02 Nov 2026 17:44:38 +0400
-Subject: [PATCH] usb: typec: fusb302: Send PD messages longer than one
- SMBus block
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D28xE5KX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 747141F00A16;
+	Mon,  2 Nov 2026 13:45:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793627121;
+	bh=Wut76wPja3rY5EWLAZxeKXN2J3+NXIjzQxTslbLv4o0=;
+	h=From:Date:Subject:To:Cc;
+	b=D28xE5KXK4V631GRrikMLEzqr6bgOq/oNKxxAixwd0UE2KooYO6UC/KpL/fQs/DCj
+	 Cz4od4SKeRUkJy7isi8RWZjD+mMA/MHzLgdhHo325pqMzf0n40mizGt7MC1PCLGwt2
+	 eHkq6X5xLJxOODYhiRoP9n+nKxDIcIClsrqLKrzS7MV6f+z/ayUR/l0Ijf9jtmrDNo
+	 iOwq1lkRDifUCYdSmB6el+zwKXhioKlRKuKDvLDJTGRe2YwFiuJ4hYsmQIBDWdy0zx
+	 j6wznKjL/9KEAvG/gzg6f+TXxNffp5GpGnSyMlfwpnliY+oAq5o+b9lJYPDk/52o24
+	 nxb909qVYpZjA==
+From: Mario Limonciello <superm1@kernel.org>
+Date: Mon, 02 Nov 2026 07:45:12 -0600
+Subject: [PATCH] platform/x86/amd: send WBRF DSM payload as buffer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,94 +54,164 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-fusb302-long-tx-v1-1-0d2719488c3b@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVppwnhKmKBDkakpINIxN0Vq
- 5dv8f4LhAKTQJlcEOhg4cVHmDSBbmz8QIpdNKDGzBiNqt+ltXHnxQ9qO5VDpzNy2BQ2h/haA/V
- 8fsWq/i17O1G3vRm47wfaKhPqcwAAAA==
-X-Change-ID: 20261102-fusb302-long-tx-d2d06ed2a937
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
+Message-Id: <20261102-superm1-wbrf-v1-1-b58d8d85277c@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNL3eLSgtSiXEPd8qSiNN0USxMDU4NEIwsjQyMloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAXRmSS3AAAAA=
+X-Change-ID: 20261029-superm1-wbrf-d94050a28212
+To: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: Hans de Goede <hansg@kernel.org>, Ma Jun <Jun.Ma2@amd.com>, 
+ Evan Quan <quanliangl@hotmail.com>, platform-driver-x86@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mario Limonciello <superm1@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2823; i=alchark@flipper.net;
- h=from:subject:message-id; bh=Av9g8CIrddhOQAEZgePh6PHOdNGh8X1Rd13f1J40/s8=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWS9mHzmP+NMh3e6PVtfXxM4+9xoFc+N68LOeb6NKT3f1
- 7Myn3II6pjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
- DI10jHWMGLg4BWCqoyYw/PfljIzYNFfo169Yxhuyf41tbTeITNoUzp2dtmJ3plvJ4teMDKfd/aY
- c2Cb81vTi852v3tu+rns/T1DpTqm45yOuCZz6urwA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-The whole message, tokens included, goes to the FIFO in a single SMBus
-block write, which carries at most 32 bytes and silently drops the rest.
-A message with six or seven data objects needs up to 39, so it loses its
-closing tokens including TXON: the chip never sends it, the transmission
-times out, and the truncated bytes stay in the TX FIFO ahead of the next
-message. A Discover Identity ACK carrying a full set of sink-vdos is one
-such message, as is a Source_Capabilities with six or seven PDOs.
+Spec defines the WBRF record _DSM argument as a single buffer that packs
+the header and frequency ranges. The driver instead built a package of
+integers, so firmware on some systems abort \WBRF with AE_AML_OPERAND_TYPE
+when dereferencing Arg2[0].
 
-Write the message in chunks of at most one SMBus block. The FIFOS
-register has no address auto-increment and queues every byte written to
-it, so consecutive writes append to the 48-byte TX FIFO. TXON is the
-one token that is not queued but starts the transmitter as soon as it is
-written. It still comes last, so transmission begins only once the whole
-message is in the FIFO, as the datasheet recommends.
+Encode the payload into a little-endian buffer and hand it as the lone
+package element.
 
-Flush the TX FIFO if a write fails, so that a partial message cannot
-stay queued and go out together with the next one as a garbled frame.
-
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
+Fixes: 58e82a62669d ("platform/x86/amd: Add support for AMD ACPI based Wifi band RFI mitigation feature")
+Signed-off-by: Mario Limonciello <superm1@kernel.org>
 ---
- drivers/usb/typec/tcpm/fusb302.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/platform/x86/amd/wbrf.c | 75 +++++++++++++++++++++++------------------
+ 1 file changed, 43 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
-index 3319f6a2b0c9..e10b7a4b679f 100644
---- a/drivers/usb/typec/tcpm/fusb302.c
-+++ b/drivers/usb/typec/tcpm/fusb302.c
-@@ -967,6 +967,7 @@ static int fusb302_pd_send_message(struct fusb302_chip *chip,
- 	int ret = 0;
- 	u8 buf[40];
- 	u8 pos = 0;
-+	u8 i;
- 	int len;
+diff --git a/drivers/platform/x86/amd/wbrf.c b/drivers/platform/x86/amd/wbrf.c
+index 3281357185d1f..80088b755aa58 100644
+--- a/drivers/platform/x86/amd/wbrf.c
++++ b/drivers/platform/x86/amd/wbrf.c
+@@ -6,6 +6,8 @@
  
- 	/* SOP tokens */
-@@ -1001,9 +1002,23 @@ static int fusb302_pd_send_message(struct fusb302_chip *chip,
- 	/* start transmission */
- 	buf[pos++] = FUSB302_TKN_TXON;
+ #include <linux/acpi.h>
+ #include <linux/acpi_amd_wbrf.h>
++#include <asm/byteorder.h>
++#include <linux/slab.h>
  
--	ret = fusb302_i2c_block_write(chip, FUSB_REG_FIFOS, pos, buf);
--	if (ret < 0)
--		return ret;
-+	/*
-+	 * An SMBus block write carries at most I2C_SMBUS_BLOCK_MAX bytes, and
-+	 * a message with more than five data objects needs more. The FIFO
-+	 * register queues every byte written to it except TXON, which starts
-+	 * the transmitter instead. TXON comes last, so the message can go out
-+	 * in several writes.
-+	 */
-+	for (i = 0; i < pos; i += I2C_SMBUS_BLOCK_MAX) {
-+		ret = fusb302_i2c_block_write(chip, FUSB_REG_FIFOS,
-+					      min_t(u8, pos - i, I2C_SMBUS_BLOCK_MAX),
-+					      &buf[i]);
-+		if (ret < 0) {
-+			/* don't leave a partial message ahead of the next one */
-+			fusb302_pd_tx_flush(chip);
-+			return ret;
-+		}
-+	}
- 	fusb302_log(chip, "sending PD message header: %x", msg->header);
- 	fusb302_log(chip, "sending PD message len: %d", len);
+ /*
+  * Functions bit vector for WBRF method
+@@ -29,6 +31,17 @@ struct amd_wbrf_ranges_out {
+ 	struct freq_band_range	band_list[MAX_NUM_OF_WBRF_RANGES];
+ } __packed;
+ 
++struct wbrf_record_entry {
++	__le64		start;
++	__le64		end;
++} __packed;
++
++struct wbrf_record_payload {
++	__le32			num_of_ranges;
++	__le32			action;
++	struct wbrf_record_entry	ranges[];
++} __packed;
++
+ static const guid_t wifi_acpi_dsm_guid =
+ 	GUID_INIT(0x7b7656cf, 0xdc3d, 0x4c1c,
+ 		  0x83, 0xe9, 0x66, 0xe7, 0x21, 0xde, 0x30, 0x70);
+@@ -41,9 +54,11 @@ static BLOCKING_NOTIFIER_HEAD(wbrf_chain_head);
+ 
+ static int wbrf_record(struct acpi_device *adev, uint8_t action, struct wbrf_ranges_in_out *in)
+ {
++	struct wbrf_record_payload *payload __free(kfree) = NULL;
+ 	union acpi_object argv4;
++	union acpi_object args[1];
+ 	u32 num_of_ranges = 0;
+-	u32 num_of_elements;
++	size_t payload_len;
+ 	u32 arg_idx = 0;
+ 	int ret;
+ 	u32 i;
+@@ -64,45 +79,38 @@ static int wbrf_record(struct acpi_device *adev, uint8_t action, struct wbrf_ran
+ 	if (num_of_ranges != in->num_of_ranges)
+ 		return -EINVAL;
+ 
+-	/*
+-	 * Every input frequency band comes with two end points(start/end)
+-	 * and each is accounted as an element. Meanwhile the range count
+-	 * and action type are accounted as an element each.
+-	 * So, the total element count = 2 * num_of_ranges + 1 + 1.
+-	 */
+-	num_of_elements = 2 * num_of_ranges + 2;
+-
+-	union acpi_object *tmp __free(kfree) = kzalloc_objs(*tmp,
+-							    num_of_elements);
+-	if (!tmp)
++	payload_len = sizeof(*payload) + num_of_ranges * sizeof(payload->ranges[0]);
++	payload = kzalloc(payload_len, GFP_KERNEL);
++	if (!payload)
+ 		return -ENOMEM;
+ 
+-	argv4.package.type = ACPI_TYPE_PACKAGE;
+-	argv4.package.count = num_of_elements;
+-	argv4.package.elements = tmp;
+-
+-	/* save the number of ranges*/
+-	tmp[0].integer.type = ACPI_TYPE_INTEGER;
+-	tmp[0].integer.value = num_of_ranges;
+-
+-	/* save the action(WBRF_RECORD_ADD/REMOVE/RETRIEVE) */
+-	tmp[1].integer.type = ACPI_TYPE_INTEGER;
+-	tmp[1].integer.value = action;
++	payload->num_of_ranges = cpu_to_le32(num_of_ranges);
++	payload->action = cpu_to_le32(action);
+ 
+-	arg_idx = 2;
++	arg_idx = 0;
+ 	for (i = 0; i < ARRAY_SIZE(in->band_list); i++) {
+ 		if (!in->band_list[i].start || !in->band_list[i].end)
+ 			continue;
+ 
+-		tmp[arg_idx].integer.type = ACPI_TYPE_INTEGER;
+-		tmp[arg_idx++].integer.value = in->band_list[i].start;
+-		tmp[arg_idx].integer.type = ACPI_TYPE_INTEGER;
+-		tmp[arg_idx++].integer.value = in->band_list[i].end;
++		payload->ranges[arg_idx].start = cpu_to_le64(in->band_list[i].start);
++		payload->ranges[arg_idx].end = cpu_to_le64(in->band_list[i].end);
++		arg_idx++;
+ 	}
+ 
++	argv4.package.type = ACPI_TYPE_PACKAGE;
++	argv4.package.count = ARRAY_SIZE(args);
++	argv4.package.elements = args;
++
++	args[0].type = ACPI_TYPE_BUFFER;
++	args[0].buffer.length = payload_len;
++	args[0].buffer.pointer = (u8 *)payload;
++
+ 	union acpi_object *obj __free(kfree) =
+-		acpi_evaluate_dsm(adev->handle, &wifi_acpi_dsm_guid,
+-				  WBRF_REVISION, WBRF_RECORD, &argv4);
++		acpi_evaluate_dsm(adev->handle,
++				  &wifi_acpi_dsm_guid,
++				  WBRF_REVISION,
++				  WBRF_RECORD,
++				  &argv4);
+ 
+ 	if (!obj)
+ 		return -EINVAL;
+@@ -236,8 +244,11 @@ int amd_wbrf_retrieve_freq_band(struct device *dev, struct wbrf_ranges_in_out *o
+ 	param.string.length = 0;
+ 	param.string.pointer = NULL;
+ 
+-	obj = acpi_evaluate_dsm(adev->handle, &wifi_acpi_dsm_guid,
+-							WBRF_REVISION, WBRF_RETRIEVE, &param);
++	obj = acpi_evaluate_dsm(adev->handle,
++				&wifi_acpi_dsm_guid,
++				WBRF_REVISION,
++				WBRF_RETRIEVE,
++				&param);
+ 	if (!obj)
+ 		return -EINVAL;
  
 
 ---
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-change-id: 20261102-fusb302-long-tx-d2d06ed2a937
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261029-superm1-wbrf-d94050a28212
 
 Best regards,
 --  
-Alexey Charkov <alchark@flipper.net>
+Mario Limonciello <superm1@kernel.org>
 
