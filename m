@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609704;
-	b=dVzyLuazeX0jqpwCgt6PntNpCyfp96gToZBG+bqj+JcXecCVoAWC7U5oj95bTy7CqZSE
-	 T+EZLymVGwz2EgQUBY+cJvu2v3wCYaOLsKZNvo7dai8aFtVZQikw7yZNNY7PRx3ehvT9m
-	 oy0TBi3xuwJGZeCuzESwZ8i8Fbs8YPAWRL3+aaNcc010r50ABftv9k85YYfSo0/zmIaLJ
-	 if2daVMvxhF6XrIy0pn9Xhq7WeqxJZtpabJZDApqRW2XpRH6ngRLOE+DdVupz1OzRxu7V
-	 OsfluyUQQC5iDDkXafpg7/hOrinWPzPpsVk0aDGJvsBULfOVKrLhQiPiGjwQXn33Rnw==
+	t=1793609861;
+	b=pefHgv6KycbVQlwMonz9QCndn2TI5D34frXjnPt53abZEqr3oElpq2Bbxsz2Ts8LRZGh
+	 3LLAigW4mYzmW8REgFkEGAHZEI5QwADnaoiUIrL9cAbklPCBD3r92KE3TS+YPCbWY5F5e
+	 r9WUQ6uHOasQ+Ae4x8uRbZESETemPvgvSljjZO+p2MKarZxnLm4QEpwZLU5WmUswWo62a
+	 0JOfnk5JKg3K7npN1NCYJmTnVHMjhY0FPj982eYb57N1lWl5GoCx8Yq4ttbmiPYrelKlR
+	 sbOa+ZF1zdWfiYr5XyCoq/saH8BqI5bnclr3t8A4HN1/7pHN3nh0CVhp44tS9oLFqfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609704;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mle+NIlXkrafF5xGCK7Z3UNOEf1ykyCcklkT9REqyzw=;
-	b=ACZtlSPIyaSkbkmjhwfHX0wh7dgZrHnU9XCYwa4ApPbCaJ7UOio8Bb5R88U3eJJ4b56b
-	 NkW5g2JR/M5SZd+Qt8JHhk3BUWUucXDt2uMlBggdXMJx/eod6FkTo4U08wIQgf33I7YJi
-	 1LprgmTMnYEKSo3Zs0czdfZvG/UBseo6mxNGjkhKTjAHudThQ5HvWJvPLDWChs+OnplJm
-	 pnRE33Yw78fNZBTVNq5AjF6pA/dbo0yNHV6HS3x2jJ56rLyN4GZc+OJn74dKP9QXExN0l
-	 JadmlrUE4ex1y/Mq6n76YWB3azF6CUrX+C20iv74S5RoMXzH6s/4/jdObAmmO/U8JDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609861;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f1pPTgJrxY=;
+	b=mAB3q7JdigGG2rPc20SgjVmTI1r7ZLN+KyLkkMroTAU5U3/6DzoWyAH//IZOVsDciT/A
+	 6IlRLN3HPBAxolOOZHA7siaJOW4wUJwWSxrRqouOB+E7ewQD/f/74RuwNvjxWlm2mAXr0
+	 wMY8AlzPBXlt3NXCyQyJEAd+RfKphAokUENC9ELVu+39qEctP66rQ7LmJNZhue5pHsKzS
+	 aO9lxHI+q0WbhR44XUFUI2F/TXeNcIeroDhoifdYtHiNTKvFg0gF4s9gxOeluVBE9xZJO
+	 alN5YJ6RsBt7Nj+MjMvfViewGDOg7y1b9Dc3WY+iCE3zaDezM4KR9VrVNmkkD5K0J/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rbox.co;
-	spf=pass smtp.mailfrom=rbox.co;
-	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=URR8JRFC;
-	arc=none smtp.remote-ip=185.226.149.38
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3060606A324;
-	Mon,  2 Nov 2026 08:55:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3060606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=URR8JRFC
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1xNnoY-00B8nD-GC; Mon, 02 Nov 2026 09:54:50 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
-	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
-	bh=mle+NIlXkrafF5xGCK7Z3UNOEf1ykyCcklkT9REqyzw=; b=URR8JRFCVx/BTa6tC0SC34HbSi
-	FamZlQHtkoCy1nCYcKoVNV+U8CUckkPCfMsIkG4H6/tYWRZ/i/Vt+gD4JdNLXuVN1q7KTptrBttV8
-	XPT1WR0OUivtmZpFLmAmRNGOFLTDKz90/qZNhBF0T7lZgvCjbbrmuvP60Q8+1thu+gCBcAhBfeJyY
-	XADeYpwL+/Le8X5JGCPFc40Mh3iypww9yLXtGaSkxajQ/CDfCZgkH1+KfI8kkSSl4JHEietPkd/9m
-	bMIOQWO2aMDNOAShv+siilVLLUc1sbT/bAkoHazmVwq7dCPUnz8puMATGN5Q27XWX7ajBrZ0V+1qx
-	p5DLXuZg==;
-Received: from [10.9.9.73] (helo=submission02.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1xNnoM-0000bz-Do; Mon, 02 Nov 2026 09:54:38 +0100
-Received: by submission02.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xNno3-00B7Ye-Lf;
-	Mon, 02 Nov 2026 09:54:19 +0100
-Message-ID: <7c609c7f-1dc3-438a-b6b0-7e59ed62d1f6@rbox.co>
-Date: Mon, 2 Nov 2026 09:54:18 +0100
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED0D1606A33D;
+	Mon,  2 Nov 2026 08:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED0D1606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f
+	1pPTgJrxY=; b=2iK4pYuaYJy+wMyeo3b39vJoZY4ccIjt68b84fl+BlGRa7+GB8
+	+/NtxI8CoW0hA6fi0Idesc//54YIztTpoeGgG3E6SuPMwQRa4CItm+GVOT0wRd9/
+	JP8b3SVsPCgioTF+TysiCt75pY1zmoEQRtkkbP9Vx6MlA5LKLeLLCDOoM=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.55])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2Of90UOhqVtIYAQ--.48924S2;
+	Mon, 02 Nov 2026 16:57:25 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Helge Deller <deller@gmx.de>,
+	Steve Glendinning <steve.glendinning@shawell.net>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v2] fbdev: smscufx: keep the usb_device alive while ufx_data is in use
+Date: Mon,  2 Nov 2026 16:57:24 +0800
+Message-Id: <20261102085724.13456-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+References: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,51 +62,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Michal Luczaj <mhal@rbox.co>
-Subject: Re: [PATCH RFC v2 0/4] bpf, sockmap: Restrict iter-context sockmap
- updates to sockmap iterators
-To: Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Lorenz Bauer
- <lmb@cloudflare.com>, Eric Dumazet <edumazet@kernel.org>,
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>, Jakub Sitnicki
- <jakub@cloudflare.com>, Jiayuan Chen <jiayuan.chen@linux.dev>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>
-Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20261102-sockmap-update-limit-iter-v2-0-e96a63c43b39@rbox.co>
-Content-Language: pl-PL, en-GB
-In-Reply-To: <20261102-sockmap-update-limit-iter-v2-0-e96a63c43b39@rbox.co>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkD2Of90UOhqVtIYAQ--.48924S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGrW5uFWDuFyfWr1kWFyDWrg_yoW5ur18pF
+	W5Cay5GrWkJr4Y9a9rGr48uFyFqw13Aa4UCr9Fkr15uFn8C3y3JryqyryIg3Z3JFWkAw47
+	Aa45X3yj9a9ru3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17Mc
+	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU5_Ks5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdSL8QABs5
 
-On 11/2/26 02:15, Michal Luczaj wrote:
-> Follow-up to Sashiko's report [1] and the decision to restrict which
-> iterator may perform sockmap updates [2].
-> 
-> Short series: remove about-to-be-stale test, restrict updates, add a
-> negative test. Related bonus: mark bpf_iter__sockmap::sk as PTR_TRUSTED.
-> 
-> [1]: https://msgid.link/20260626205814.BAC3C1F000E9@smtp.kernel.org
-> [2]: https://msgid.link/87echn2fhd.fsf@cloudflare.com
+ufx_usb_probe() stores the usb_device pointer in dev->udev without
+taking a reference, and ufx_usb_disconnect() does not wait for in-flight
+control transfers.  A mode set or blank request that runs while the
+device is being unplugged - through ufx_ops_set_par() or ufx_ops_blank()
+on an open /dev/fbN file - keeps issuing synchronous control messages for
+the whole ufx_set_vid_mode() sequence, including two msleep(1) delays in
+ufx_config_pix_clk().  Once the disconnect callback returns, the USB core
+may release the usb_device, and the next ufx_reg_write()/ufx_reg_read()
+dereferences dev->udev through __create_pipe():
 
-Apologies, I forgot to strip the RFC prefix (which I set thinking bpf-next
-is closed).
+  general protection fault, probably for non-canonical address
+  0xdffffc0000000006: 0000 [#1] SMP
+  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
+  RIP: __create_pipe include/linux/usb.h:2031
+  Call Trace:
+   ufx_set_vid_mode
+   ufx_ops_set_par
+   fb_set_var
+   fb_set_var_from_user
+   store_rotate
 
-Sashikos reviews just as pointed out by Alexei: bpf_sock_destroy(). I left
-out the tracing_iter_filter() change since I was not confident I understood
-the reasoning behind it.
+Take a reference to the usb_device in ufx_usb_probe() and drop it in
+ufx_free(), so dev->udev and dev->gdev stay valid until the last
+ufx_data user is gone.  The control transfers then fail with -ENODEV
+instead of dereferencing freed memory.
 
-thanks,
-Michal
+Also return early from ufx_set_vid_mode() while the device is inactive,
+matching the other transmit paths.  That check alone is not enough,
+because it is not serialized against ufx_usb_disconnect() and the
+transfer sequence continues after it; it only avoids a long series of
+failing transfers.
+
+Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
+Cc: stable@vger.kernel.org
+---
+Changes in v2:
+ - Hold a reference to the usb_device and drop it in ufx_free() so
+   dev->udev stays valid for the whole transfer sequence; the
+   usb_active check alone only covers the entry (review feedback).
+ drivers/video/fbdev/smscufx.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 5704f60e1741..eac303adb69a 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -661,8 +661,12 @@ static int ufx_set_vid_mode(struct ufx_data *dev, struct fb_var_screeninfo *var)
+ 	u32 temp;
+ 	u16 h_total, h_active, h_blank_start, h_blank_end, h_sync_start, h_sync_end;
+ 	u16 v_total, v_active, v_blank_start, v_blank_end, v_sync_start, v_sync_end;
++	int status;
++
++	if (!atomic_read(&dev->usb_active))
++		return -ENODEV;
+ 
+-	int status = ufx_reg_write(dev, 0x8028, 0);
++	status = ufx_reg_write(dev, 0x8028, 0);
+ 	check_warn_return(status, "ufx_set_vid_mode error disabling RGB pad");
+ 
+ 	status = ufx_reg_write(dev, 0x8024, 0);
+@@ -1064,6 +1068,7 @@ static void ufx_free(struct kref *kref)
+ {
+ 	struct ufx_data *dev = container_of(kref, struct ufx_data, kref);
+ 
++	usb_put_dev(dev->udev);
+ 	kfree(dev);
+ }
+ 
+@@ -1606,6 +1611,8 @@ static int ufx_usb_probe(struct usb_interface *interface,
+ 
+ 	dev->udev = usbdev;
+ 	dev->gdev = &usbdev->dev; /* our generic struct device * */
++	/* keep the device alive until the last ufx_data user is gone */
++	usb_get_dev(usbdev);
+ 	usb_set_intfdata(interface, dev);
+ 
+ 	dev_dbg(dev->gdev, "%s %s - serial #%s\n",
+-- 
+2.34.1
 
