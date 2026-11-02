@@ -1,100 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793659940;
-	b=Kw+TbXPw0+gDH/KnSmGbaJWnn3jXMskG0/1VYdDAt8IQLDt2wsK5QMucxPqZgo5hPkuv
-	 Jp/qZhylJOySyLQGyp5Joj2Rx/1fjDH+gZuG6z79DpyTJkCtZZM58eAZPmV1xRz1XoAkz
-	 4AYQDQeptEs/k8Rxmy7jv4WY5OmDkrlYXrWlWbJ2z4aeo/EFaOrZJtMv8CqgoRkTJnqPZ
-	 M1qCfq6E+RZrxr3bB3fzhvtvdw01JQJb3j9SFH1AYYQt2qP5X9aZ4GbXL5NMM9jguPGyl
-	 FP23IpNX6CVmJzORGiQuHANcl31zGLNk1yBYGBZ5aeNkTRwBoLI4JoD9OQEaMH+sXwA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793659940;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=yGaVQZD0KZYDPqiDkr26iRqLwAumk7gYrARBO9XOcpA=;
-	b=CURkF1TU3fYqvsSEiMj4L89J1KuHqB5Kh5uiO1POLqnNzcLsQ+gKd2KDVejfy0vt/z7Y
-	 6tIYROrew3F7u7fQZ7KbDoJVH45HQ7HS093mOtkQvYrFp4CCAEmjgilqiqwKBFq0GlmYM
-	 H+poG2DUBvhTot00jCPi5+6TDwEy4jEJezFi4yjTFkbsCPR2n9+FI45qHttOTLTQKpMN9
-	 nZZ1hf1fRb0MWO4DWnDDTJS6zrknvHsx2CRCakNcTXxLrO6B24Z9Jpo005i8SBvp79fBD
-	 XBE8OSZEJ2t50n0U2fizkxfaqzq7GOwnf45JIp59fwidTjogZYaq33ewsrC5s8r+RzQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nagashi.ma;
-	spf=pass smtp.mailfrom=nagashi.ma;
-	dkim=pass header.d=nagashi.ma header.i=@nagashi.ma header.a=rsa-sha256 header.s=ggle-ngsma header.b=YTuAzXZp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793659960;
+	b=ml0DfntLdgK2gYyUbBMuuhJb+KG/43J8D5zZcH9ChjTsCGBwYxzFLJyXOXO3k7wuWG7+
+	 Xrby1CgiHausHIspe3AK4RNdU2gib6hyuOMB4LZX8BhKdjrQ8C3w54XV17Fo5M2dZr6K4
+	 iRBvg3R4o8R6OMGOFWwhgQff0ZOiJ1IRE0XAM8k+OHQ2fb3lql14ovxPBv6ZNAFqJe7ph
+	 iE9h/51zpdzjnIutXR10SOtuH4Wf4a0dpxvBNRobskSHC0jR+tW1zbM4ynpTkf5D18EW2
+	 GxNZgOWg9z2jVjWroIb9tFJf53klFynOyCRWTqrq/EKhmUtst1dwtIpquBDDVqqbgfA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793659960;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=nKse35nd1WP6PHAiGDT6fv0Q5aPFDQ02t1Mzv5nA8B8=;
+	b=ZsbqnjfH+ZYVdAo6gs486vR6fV8tGgs/3SB0bx8GNG3txKvcmx1mWczLYuHOqiJ9XBAr
+	 fHWj63ZpP/vBdOrViF/kHjG4qW+12MR36T0WEJj29FZA6SoorIIiPXkTO5ZKUW4RL2X6E
+	 OAUYjc8F8jOwXQ/9+EiTcf8Y1/Z0c2tx91Ff7nMeJ7M0LkchPDnBFZyoCSyXeUGouGksS
+	 KF41F+jCrIYXLfMQcH7Wrv4QwoWmodDgwI4KxY6Hwu8l7De8/pZvJJ7kP/DZWyqtlX5Yl
+	 RkbI3zMG4xYNkz6y4OskNC+tyYxZ3FGSRfS9oDj/9+ZtjZxjdcQSrcPbZleTs73TO7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X6xNMz5F;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BE7606A337
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8BE7606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nagashi.ma
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nagashi.ma
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D0D606A327;
+	Mon,  2 Nov 2026 22:52:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87D0D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nagashi.ma header.i=@nagashi.ma header.a=rsa-sha256 header.s=ggle-ngsma header.b=YTuAzXZp
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c450ab1483cso593841466b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:52:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793659938; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CVtElCyb/+hAVc8DX+1mkfjvVOtejpRJP4econFgq6Y3u1Wu7PH0bgRC+KQrdtvTnz
-         5UA+OP1VGzY7oHz5nUocxYJ3IiBv99Ie5tkCiqhwrgID5jDot3qL65C7JLzor65iEczY
-         ohGaP67jqWFRwsUKiD7tzcmsKgnH+c9tFaTN9BB8n72VST9ML77jZA9kKw1dumOb7LHV
-         PfCkd4AdwYpBWklqShOPjbUlXuNgYQJ4avV3ScKwtEr9ckfrBB8hrccWGS7Aoc/VF2VS
-         RqXo3o4CG5t0s5siDyRHZBx0BdyHrYknKgkRZ+sAKG2Z5gekuBq3XRUU9BxxfNHwBAmH
-         ukjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yGaVQZD0KZYDPqiDkr26iRqLwAumk7gYrARBO9XOcpA=;
-        fh=b1JQI2sR66x/1+DQMM6gAzcN1sOk3EmSkBuM7XAvYyc=;
-        b=j7RMv5hXNySPFiwGG2j1InhxJmqUT1VW2tKYCdFrc6uKFEWwiYt9JFqNeebf9HIxd9
-         MTJQNhwybBrDMMI3Ci70fBTIUlPIyuN6bJgalUtM4V0wU+o9EMrFgG/me3PHRGMMZPZz
-         i+X9yH1SdatgVvVBEVml774YWGuxU5UaL79Q95GgI18yEjZ1GUHFDMK/2+ZcLKmt81H3
-         AfUKT53XQWjxBzm4OBpBW1e+tBWmNS3biQfsFyqEDhLMyPCdHAwkiAf5Ql865hoAACF+
-         oT0MabFPWzFbUyuFV7eW7ePTB3aYE+wqtU8p6ND7jZWjx1JSiwV+QCslhQZ5xjMKm14H
-         Gfdw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nagashi.ma; s=ggle-ngsma; t=1793659938; x=1794264738; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yGaVQZD0KZYDPqiDkr26iRqLwAumk7gYrARBO9XOcpA=;
-        b=YTuAzXZpkWWcS1KHI/jAs78YtXsCquut5lPpUS+otiXL7qWoETNt9KqWXjrON+h2pF
-         ntsF0O0ut6+LSxuEGzNlJyGmW306hyxUr/Xi6cMvIir3TnIHQZg9S+nBVqOQls7EDLkk
-         ZU4we3zk0/xd2ipIvCArfl7wHYAuITLuKoh9plqDX1eW2ZFMQHNqO2Ksp1AhhhQUvArF
-         Jm+cJPts7gBJezehc2FaaQgv+ibqQBJ60+Yf4Mz+HvSDNtRCDWpy4dt7KajSVR+/qyXc
-         /UfD9BmRP3KYZuiqdZtGR6qMo8PxBNjeqBFND23ujL8gsoQRwL7T8Oqnpis4P/QlyavA
-         qeOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793659938; x=1794264738;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yGaVQZD0KZYDPqiDkr26iRqLwAumk7gYrARBO9XOcpA=;
-        b=vzLnLbSRm2wtyI0J3TqVR6RPDB8MS6LjsWRj5DyNTFdlHEmwT/4710pGyvf8f0VaJC
-         pSQ05A75WjIlo7IQZoiOkHDnNQ93kyeepIt8Y31gGHJf5X43PJjhqcwophG+AfNn350n
-         jKCaKLGh38crgDvtxU0m7kvJBNdyDLaDsm8ORcYibFko+woIkmdG3cp9HX09m24c2Z9H
-         +b+RD23lYMwyG/H7uL3V1EWR/I1V1SexwR+K7w2QbcrS4zR3lyahoB9dTt3toucinP9d
-         xdFopvAlhAWQ+gG2FZHabnmvZn6Itl9AUjC7f9/Un3kbhBZby1h03xVrLrlhdeWFR+qT
-         fswA==
-X-Forwarded-Encrypted: i=1; AKwUvBzytWdD8ophsBHa09QZn6zUGa81OrmMEm3+4KHfMWhyvPdQTOyVGcR2TWW9wZZe7Uu511ozN8o+hTQAAjI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9pcy28QdrZ+RYq6/W26k9OgzxE9tCD44w86h6el16aXHzpa8c
-	7TV97RDnebo1f9Kxzpy6Ts3dfRa/VyM5i/NLxs2yyo5FNAHM99CfuatuaI6IxxNzBZLktyXcObj
-	FfzovbrCrX9YoM1BfjZoppxbaFwz1zJUZrp3kB8uW
-X-Gm-Gg: AYBFou0dEAikgTDA/vzWAhbjnthbWV7SDEuQcmZc/l5VR8ZBq6zQbrjJFOWT6Z+3Mf5
-	QJjr5BjZbMf481ES+164xMCKbOdWrKjeT2mLm81mItnusADbpoc3QV4Iq7I5LS1A2TOwSht1tl+
-	M3KJuWDWi9lcSiCGDRIDIdOANG88VDqxH6F0hx23T37a02CLR38Rh/oKmxrl2RS5kh9NdU4/fhd
-	PV57YdRVrlH7kb3e57ufZuSol7ASmJ0mVq+mF6stm8eIeboSSDO5Imiwxq21QdOtltdGrVNEqE3
-	5XaLvxnxySoOn6taRsZNfyXJEZeGF+q/hHHo57/3J6tJFrbpo0Zg0r8ilXDjbrcLWsamICZB76a
-	0gJoMVnr//LH01AKBHhNS4CR6j6D9ohUTyVzKMKlEWo0WGdG4RDVEICkOiVjjixoHkh0leBG5tM
-	cuiF9lxgocB/S2vMdL8omg9xRCx1n1O2YaRkkJ8j1OOWdiupiloCRUPQ==
-X-Received: by 2002:a17:907:960e:b0:c31:9a1c:de76 with SMTP id
- a640c23a62f3a-c4ca7a4d998mr941316566b.14.1793659938062; Mon, 02 Nov 2026
- 14:52:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X6xNMz5F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793659960; x=1825195960;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=wcflalAqgbhBYxWyh48Kq+AQPOEFlkHdE6EvbeKdyPU=;
+  b=X6xNMz5F1GPAkB/PKW3iR0z9yIuVqy3eMSLJHw++7NRAHY/HXKEzMSzn
+   nRYFViWzZ0dpKRJ5vtM+u2VYeUqi2pkv13BqqhsjEbdj6Sk4KOtJQLort
+   fzlsyVSLmkgKMJkhk8LQd3kyrZhRH/fzvjwFqwOhZcp1ZJ7tyAKXEE5Ii
+   y183BxfbBJZvekYQFsRw8tigrcCTClCP5vTyAd9crugfuzplal7AUnsNw
+   HnOrJ7toXetruGDiUf3ITZHdckURI6mZg0uDQR3pf5EqL4zu0x+UQc898
+   t73NLCF7kXOzHKQbPphV122mPMv3IzPTt52ermi6SVpZDqms1wlxFLHD2
+   Q==;
+X-CSE-ConnectionGUID: GndpmTz/RI2vHrMaIL5c8g==
+X-CSE-MsgGUID: Z4ZxoDDCSLKz2iMHJ4Yuow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2258131"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2258131"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 14:52:39 -0800
+X-CSE-ConnectionGUID: 83BaAKjJQfy3CPHIdp20cw==
+X-CSE-MsgGUID: MpWxz/k+SWC/PYrIpynw+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6360466"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.109.177])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 14:52:38 -0800
+From: Vishal Verma <vishal.l.verma@intel.com>
+Date: Mon, 02 Nov 2026 15:51:59 -0700
+Subject: [PATCH v5 2/2] x86/early_printk: Add earlyprintk=tdx to drive the
+ UART with TDVMCALLs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,59 +75,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016-ath10k-series-v1-send-v1-0-c847697b3558@nagashi.ma>
- <20261016-ath10k-series-v1-send-v1-1-c847697b3558@nagashi.ma> <CAFEp6-2xY_gM=FRUp3R30TZ-NgT=-eYnyz_BPE0vxEenv+202w@mail.gmail.com>
-In-Reply-To: <CAFEp6-2xY_gM=FRUp3R30TZ-NgT=-eYnyz_BPE0vxEenv+202w@mail.gmail.com>
-From: "Nagashima, Shunsuke" <shunsuke@nagashi.ma>
-Date: Tue, 3 Nov 2026 07:51:51 +0900
-X-Gm-Features: AclHuK-sLaEQW8IrNvFSowd7lBj_NX50xJF9W8-RPIjopaVz_mLHu4yEVmc3eEg
-Message-ID: <CACB3TCKq--tdL6j+uGR_dxGdy-gHxQhY8p0h6xxqi_4Fd3VEOQ@mail.gmail.com>
-Subject: Re: [PATCH ath-next 1/3] wifi: ath10k: set the PMF peer flag on WCN3990
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Jeff Johnson <jjohnson@kernel.org>, linux-wireless@vger.kernel.org, 
-	ath10k@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	David Heidelberg <david@ixit.cz>, Fabricio Akio <fabricioakio@gmail.com>, 
-	Aleksei Kharlamov <aleksei.kharlamov@gmx.de>, "Conn O'Griofa" <connogriofa@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-b4-tdx_earlyprintk_tdcalls-v5-2-b01bc95d44ff@intel.com>
+References: <20261102-b4-tdx_earlyprintk_tdcalls-v5-0-b01bc95d44ff@intel.com>
+In-Reply-To: <20261102-b4-tdx_earlyprintk_tdcalls-v5-0-b01bc95d44ff@intel.com>
+To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+ kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Vishal Verma <vishal.l.verma@intel.com>, 
+ Nikolay Borisov <nik.borisov@suse.com>
+X-Mailer: b4 0.17-dev-e5168
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6362;
+ i=vishal.l.verma@intel.com; h=from:subject:message-id;
+ bh=wcflalAqgbhBYxWyh48Kq+AQPOEFlkHdE6EvbeKdyPU=;
+ b=owGbwMvMwCXGf25diOft7jLG02pJDFkvRXQt3i71edFkKZfSkLd+wkHthDlu967vtVn2vsppy
+ usmTZ2ZHaUsDGJcDLJiiix/93xkPCa3PZ8nMMERZg4rE8gQBi5OAZjIjw0M/x28XzFMnqkhXbAz
+ 4GJH19wvbqul8vmEbxyp95s3bxXTAmtGhv+rM3fGrjrCNCnk0LWy1QbWXawal2qdE4TMPyx847K
+ nhBsA
+X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
+ fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
 
-Hi Loic,
+A TDX guest cannot execute port I/O instructions directly, but
+earlyprintk's serial console still issues plain inb()/outb() and lets
+each one fault into the #VE handler to be emulated as a TDVMCALL.
 
-On Mon, Nov 2, 2026 at 12:56 PM Loic Poulain wrote:
-> So why not updating firmware-5.bin file instead?
->
-> There is a tool available here:
-> https://github.com/qca/qca-swiss-army-knife.git
+While that works, it is a roundabout way to get a character out.
+early_serial_putc() polls the LSR, and then writes a byte, but since the
+TDX guest can't directly do port I/O, a #VE exception is raised. The #VE
+handler must call TDG.VP.VEINFO.GET to find out what faulted, and then
+it can issue the TDVMCALL that does the actual work.
 
-Thank you for the suggestion and for the pointer to ath10k-fwencoder.
+This makes #VE a functional mechanism for doing I/O, which is not
+desirable, is unnecessarily complicated and fragile, and results in
+twice the number of calls into the TDX module.
 
-I had tried that first. On my comma four, a local firmware-5.bin with
-the mfp-support bit set gave the same result as this patch: the
-protected Deauth carried a live PN, and the next association was not
-rejected. It is also the file I used for the overnight PMF runs in the
-notes of patch 3.
+Instead, add an earlyprintk=tdx option, which can issue the TDVMCALLs
+directly. Add a pair of tdx_serial_in() and tdx_serial_out() accessors
+and set them up in this case.
 
-I went for a driver change instead for two reasons:
+Note that the output does not appear any earlier - "earlyprintk=" is an
+early_param(), so the console is still registered from
+parse_early_param(). This only changes how the bytes leave the guest
+once it is up.
 
- - I was not sure whether it was fine to change a firmware file that
-   Qualcomm provides.
- - Other devices seemed to have the same problem. No WCN3990
-   firmware-5.bin in linux-firmware sets the bit, including the newest
-   one (shikra), and Aleksei (WCN3988) and Conn (QCA9377) reported the
-   same issue in this thread.
+Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+---
+ Documentation/admin-guide/kernel-parameters.txt |  8 +++++++
+ arch/x86/include/asm/tdx.h                      |  4 ++++
+ arch/x86/coco/tdx/tdx.c                         | 29 +++++++++++++++++++++++++
+ arch/x86/kernel/early_printk.c                  | 20 +++++++++++++++++
+ 4 files changed, 61 insertions(+)
 
-So I'll drop this patch and send a firmware-5.bin update to
-linux-firmware instead. Patches 2 and 3 do not depend on this one.
-Should the update change the shared WCN3990/hw1.0/firmware-5.bin, or
-add a file for one board?
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd94..da5aa688294cc 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -1547,6 +1547,7 @@ Kernel parameters
+ 			earlyprintk=serial[,ttySn[,baudrate]]
+ 			earlyprintk=serial[,0x...[,baudrate]]
+ 			earlyprintk=ttySn[,baudrate]
++			earlyprintk=tdx
+ 			earlyprintk=dbgp[debugController#]
+ 			earlyprintk=mmio32,membase[,{nocfg|baudrate}]
+ 			earlyprintk=pciserial[,force],bus:device.function[,{nocfg|baudrate}]
+@@ -1560,6 +1561,13 @@ Kernel parameters
+ 			Use "nocfg" to skip UART configuration, assume
+ 			BIOS/firmware has configured UART correctly.
+ 
++			On x86, "tdx" is a fixed COM1 console, and takes no
++			options. In a TDX guest the port is driven with
++			TDVMCALLs rather than port I/O instructions, avoiding
++			the #VE exception that would otherwise be taken to
++			emulate every access. Outside a TDX guest it falls back
++			to port I/O, behaving like "earlyprintk=serial".
++
+ 			Append ",keep" to not disable it when the real console
+ 			takes over.
+ 
+diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+index 1fcfaed515fec..c6f6a60fbbac4 100644
+--- a/arch/x86/include/asm/tdx.h
++++ b/arch/x86/include/asm/tdx.h
+@@ -98,6 +98,10 @@ static inline bool tdx_early_handle_ve(struct pt_regs *regs) { return false; }
+ 
+ #endif /* CONFIG_INTEL_TDX_GUEST */
+ 
++/* Only referenced when X86_FEATURE_TDX_GUEST is enabled, no stubs needed */
++__noendbr unsigned int tdx_serial_in(unsigned long addr, int offset);
++__noendbr void tdx_serial_out(unsigned long addr, int offset, int value);
++
+ #if defined(CONFIG_KVM_GUEST) && defined(CONFIG_INTEL_TDX_GUEST)
+ long tdx_kvm_hypercall(unsigned int nr, unsigned long p1, unsigned long p2,
+ 		       unsigned long p3, unsigned long p4);
+diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+index 9531490c9c246..74d4e479964dd 100644
+--- a/arch/x86/coco/tdx/tdx.c
++++ b/arch/x86/coco/tdx/tdx.c
+@@ -211,6 +211,35 @@ int tdx_get_max_quote_size(u64 *max_quote_size)
+ }
+ EXPORT_SYMBOL_FOR_MODULES(tdx_get_max_quote_size, "tdx-guest");
+ 
++/*
++ * early_printk accessors for a TDX guest. Ask the VMM to do the port I/O with
++ * TDG.VP.VMCALL<Instruction.IO> instead of executing IN/OUT and having the
++ * resulting #VE emulate it.
++ */
++__noendbr unsigned int tdx_serial_in(unsigned long addr, int offset)
++{
++	struct tdx_module_args args = {
++		.r10 = TDX_HYPERCALL_STANDARD,
++		.r11 = hcall_func(EXIT_REASON_IO_INSTRUCTION),
++		.r12 = 1,
++		.r13 = TDVMCALL_PORT_READ,
++		.r14 = addr + offset,
++	};
++
++	if (__tdx_hypercall(&args))
++		return 0xFF;
++
++	return args.r11;
++}
++ANNOTATE_NOENDBR_SYM(tdx_serial_in);
++
++__noendbr void tdx_serial_out(unsigned long addr, int offset, int value)
++{
++	_tdx_hypercall(hcall_func(EXIT_REASON_IO_INSTRUCTION), 1,
++		       TDVMCALL_PORT_WRITE, addr + offset, value);
++}
++ANNOTATE_NOENDBR_SYM(tdx_serial_out);
++
+ /*
+  * The kernel cannot handle #VEs when accessing normal kernel memory. Ensure
+  * that no #VE will be delivered for accesses to TD-private memory.
+diff --git a/arch/x86/kernel/early_printk.c b/arch/x86/kernel/early_printk.c
+index cba75306e5b62..04dadcd73b857 100644
+--- a/arch/x86/kernel/early_printk.c
++++ b/arch/x86/kernel/early_printk.c
+@@ -21,6 +21,7 @@
+ #include <linux/usb/xhci-dbgp.h>
+ #include <asm/pci_x86.h>
+ #include <linux/static_call.h>
++#include <asm/tdx.h>
+ 
+ /* Simple VGA output */
+ #define VGABASE		(__ISA_IO_base + 0xb8000)
+@@ -196,6 +197,20 @@ static __init void early_serial_init(char *s)
+ 	early_serial_hw_init(divisor);
+ }
+ 
++/*
++ * Use early_serial_base (COM1) and same default baud rate as
++ * "earlyprintk=serial"
++ */
++static __init void early_serial_tdx_init(void)
++{
++	if (cpu_feature_enabled(X86_FEATURE_TDX_GUEST)) {
++		static_call_update(serial_in, tdx_serial_in);
++		static_call_update(serial_out, tdx_serial_out);
++	}
++
++	early_serial_hw_init(115200 / DEFAULT_BAUD);
++}
++
+ static __noendbr void mem32_serial_out(unsigned long addr, int offset, int value)
+ {
+ 	u32 __iomem *vaddr = (u32 __iomem *)addr;
+@@ -414,6 +429,11 @@ static int __init setup_early_printk(char *buf)
+ 			early_serial_init(buf + 4);
+ 			early_console_register(&early_serial_console, keep);
+ 		}
++		if (!strncmp(buf, "tdx", 3)) {
++			early_serial_tdx_init();
++			early_console_register(&early_serial_console, keep);
++			break;
++		}
+ #ifdef CONFIG_PCI
+ 		if (!strncmp(buf, "pciserial", 9)) {
+ 			buf += 9; /* Keep from match the above "pciserial" */
 
-Aleksei, Conn: a firmware file update only helps devices that load that
-file. If you have time, could you make the same change to the
-firmware-N.bin your device loads, test it, and send it to
-linux-firmware?
+-- 
+2.56.0
 
-I worked through this with Claude (AI). English is hard for me, so AI
-helped write the English. I ran all the device tests myself on my comma
-four.
-
-Thanks,
-Shunsuke Nagashima <shunsuke@nagashi.ma>
