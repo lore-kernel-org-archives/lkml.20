@@ -1,66 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793648568;
-	b=mnLoG9E7Jgo77TeokjvFxKL58bZjpRtIpmeiM/y1nHIgVIeJSjvUyvzNE62JFlGc40H2
-	 ohmXMlzW9udSdgCntMtOTS7akuflaKSPsafJUjmvzmfTEln18ZyVFGT5z0FQgsjs2XZ+a
-	 aTo5RIOVfPCnQI6gr0ROcVjouwDWIlJWVgm+hdYQy9JJ12EKV2datctGy5hLtsC+II45i
-	 5EG8wIImpzuU2VBPyZA+5BmjyJUqjnBXDbgaM/qeGGsmjnbrH4zZK7cs/aWsGR5LpxlM2
-	 DZ8Sqga3VUXTwkey0Oshs6Vp1K+jek58RA2glJSsbJ2e4g+AcxFrPXNOizyJM6DHV6Q==
+	t=1793648631;
+	b=Ix+VkO7MuEt7XKyykhfJcWDHzHoQ34GZV7OCmXYztEl9C/ybsx52ik/nFCSYSaaoxsEh
+	 4QiHsSZtD6xqsJNiUKmNAcXODn8rz0D6o16sgHCo83mj0cg6N0OxQi+OehJb7aflO4OgB
+	 bPya6ZM9MQNfGuQjySUW5RhEegxiPqvrlCOQmt7OK5q/DgY0BXeSGsRgBmMf8qCQbnn2x
+	 ZZlmjDYeeExXG/1eaUZwanw0Ey7xYppWNCIBKs2qf8uSn7HbkeWAuHkTJLP98oGdsG0H5
+	 b6y/xrc4oPpcRMV60uoj4OUQW0u4o1dQ1G7esME01d2kNCVK8ud61LoIHz+/UmJiiKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793648568;
-	h=Received:DKIM-Signature:Date:From:To:List-Id:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793648631;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xYM2w+R+s64GsgyYN0vH9vlqjZhy326IFMYWXn8QM+c=;
-	b=kUUa4H2oU1CHb+sRFNqK6oyEWQjEngFVn4KP86RH3h4nfhb4UAix/ozCGtr0KU1V/K/o
-	 RglCQvMVPuhCd2htC5LCqS8JVnPKHmLIcxzLtODM6EAFen54WzqzGFOZmfMi7a2deM3P2
-	 ezaWtBvxVoJGv4hhCGjC1Cq+spVrC9MlR6dY05e7TouIgj2Ry2Dpf7Hr+51N0zUzot6z0
-	 OWqOVK3cvr3AWIMK0Wh+lICaYrsqW8TQdN7hS2ZhEtcjiX+RM+Aj0ngwlPH4XzDTA1IsK
-	 j8AYYAAKetkW8Fc6b5NVovTiU+69F2S36X6toBgfyo2UWKOHmMql9C58fJPxL0U/ZGg==
+	bh=bNXMc6Fqp3PDxjL/dRqblzNk3YcAk9DQxRLdcWrTbog=;
+	b=ab8g4Gwzac5EQSgR55HPHMWQ+kHY7g5PC/Q8K5/I6/6T7YPrnUAPbl7ZtcBIiQUb35Jo
+	 v4CYjJaoDJ6Jj3TciHZh/XFPY3gaVbaJqfpxytQhwTUbbTVX7+6oPdej0hSSV73/78Gve
+	 HqmKRotrqM+DCVX1xTmW1tzPwnBejbThvAp4te3lGzI1I4WW5Z40bbbwqYRaWRXENcJkz
+	 IBPTScMJWwLo4TDjLJ5SkHv6Z6jDyUxcN0oXmBGb3u2dwxIIUFWilpTWW+ZGGeP2msgb5
+	 7/lbAArh15rkIc7sboDLENCqC5zs7hKC7Hq3FKMCPa+MxbCfH7O23vIkulHqoKFOU+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqGnCmL9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNu0g4i1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAD9606A327;
-	Mon,  2 Nov 2026 19:42:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A89606A327;
+	Mon,  2 Nov 2026 19:43:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UqGnCmL9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642A71F00A16;
-	Mon,  2 Nov 2026 19:42:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNu0g4i1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC8F1F00A16;
+	Mon,  2 Nov 2026 19:43:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793648567;
-	bh=xYM2w+R+s64GsgyYN0vH9vlqjZhy326IFMYWXn8QM+c=;
-	h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To;
-	b=UqGnCmL91cb8o0RZa9AlcojqHd3NUoVze7hhFa8SslvzoohKM0vCByoWxY2tq2oSJ
-	 GBQ67ti/d4c7M6n/qCanFt6OgwcYM+NdcWM5eXrGKgdaeknPu9pU+e09+e6yrR3mdO
-	 mHEeyc4z7p94vZCMydTjR5bh4LZdctFYDKpySRLtsULm5Pf06LmbQcF4bkwCVJoOdI
-	 mHj6ycFAWqkwDKa6nB6lnbx8ITyvsRDcAKLBTsyc4NqiN+2puCQBCjkSA/a5NiaKu9
-	 LgsE8qcf3vMfZlydP6I7j58hmywN0qWeUQe1mpdE66XxAdD/Bau9Wc/fpYQ1y6nlK3
-	 QQHDPQbO+/kxQ==
-Date: Mon, 2 Nov 2026 19:42:42 +0000
+	s=k20260515; t=1793648630;
+	bh=bNXMc6Fqp3PDxjL/dRqblzNk3YcAk9DQxRLdcWrTbog=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hNu0g4i14OLJCP3bifErYOhzW0NxuOhO1LFKwxBqnlctLn49ps/UMYD5U3l1eXnzv
+	 Y5bRkfu+5B9i4wyBWeYYq7mU32DQlxlRc3UHOhrAgPnGukF6f73X894GUXOCU6EC+2
+	 LgXy8g6Ho6elBM2HtqPHCeIWVISQYXn7tFdTlD0JlkPzpGdV4c+UiMgPHYlaoKpTXw
+	 3TjIFE7Uj97v6Oybknj3DK0vLed6wrMRcDeALXsvOkme2DKlJa7qvoHGhCeeUPvFtr
+	 /hhIAqqcq+tO2Z+1oxJvGx5ivVcIqWA257941QkxehNOqhVQL78CtbAvaLRCm/tRpw
+	 19CCFP1aR+Xyg==
+Date: Mon, 2 Nov 2026 19:43:45 +0000
 From: Conor Dooley <conor@kernel.org>
-To: "ukleinek@kernel.org" <ukleinek@kernel.org>
-Cc: Hal Feng <hal.feng@starfivetech.com>,
-	"patchwork-bot+linux-riscv@kernel.org" <patchwork-bot+linux-riscv@kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"emil.renner.berthing@canonical.com" <emil.renner.berthing@canonical.com>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>,
-	"pjw@kernel.org" <pjw@kernel.org>,
-	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
-	"linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
-Message-ID: <20261102-tidal-quintet-3867b525d891@spud>
-References: <20260810030714.48100-1-hal.feng@starfivetech.com>
- <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
- <NT0PR01MB11026FD52BC4266EFFEACBD5E66A2@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
- <auheO4sRs4P36jgw@monoceros>
+To: gaohan@iscas.ac.cn
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Han Gao <rabenda.cn@gmail.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH 1/2] dt-bindings: timer: add the FU740 CLINT
+Message-ID: <20261102-battery-patience-0c6d810c33be@spud>
+References: <20261101-b4-sifive-fu740-clint-v1-0-b4821199a733@iscas.ac.cn>
+ <20261101-b4-sifive-fu740-clint-v1-1-b4821199a733@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,79 +67,26 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CrMnFs07IEUOttHU"
+	protocol="application/pgp-signature"; boundary="RC9Cs/46Lsy1/De1"
 Content-Disposition: inline
-In-Reply-To: <auheO4sRs4P36jgw@monoceros>
+In-Reply-To: <20261101-b4-sifive-fu740-clint-v1-1-b4821199a733@iscas.ac.cn>
 
---CrMnFs07IEUOttHU
+--RC9Cs/46Lsy1/De1
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 10:57:10AM +0100, ukleinek@kernel.org wrote:
-> Hello,
->=20
-> On Mon, Nov 02, 2026 at 02:11:46AM +0000, Hal Feng wrote:
-> > > On 26.11.2 06:17, patchwork-bot+linux-riscv wrote:
-> > > This series was applied to riscv/linux.git (fixes) by Conor Dooley
-> > > <conor.dooley@microchip.com>:
-> > >=20
-> > > On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
-> > > > Add OpenCores PTC PWM driver which is used in StarFive
-> > > > JH7100/JH7110/JHB100 SoC.
-> > > >
-> > > > I will maintain this pwm module in place of William.
-> > > >
-> > > > Changes since v21:
-> > > > - Allow non-zero duty cycles shorter than one clock tick to round d=
-own to
-> > > >   zero.
-> > > > - Drop the .free() callback to preserve the PWM hardware state after
-> > > >   pwm_put().
-> > > > - Update the comment.
-> > > >
-> > > > [...]
-> > >=20
-> > > Here is the summary with links:
-> > >   - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update compatibles,
-> > > examples and maintainers
-> > >     (no matching commit)
-> > >   - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
-> > >     https://git.kernel.org/riscv/c/2186ec5f59c2
-> > >   - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
-> > >     (no matching commit)
-> > >=20
-> > > You are awesome, thank you!
-> > > --
-> > > Deet-doot-dot, I am a bot.
-> > > https://korg.docs.kernel.org/patchwork/pwbot.html
-> >=20
-> > Has this patch series been applied? I've sent out the updated v23 patch=
- series, but
-> > Krzysztof pointed out the Tested-by tag should not be added in the dt-b=
-indings patch.
-> > Should I send a v24 to drop the Tested-by tag tag, or should I make the=
- changes on top
-> > of v22 if it has already been applied?
->=20
-> The way I read it, only patch 2/3 "riscv: dts: starfive: Correct pwm
-> nodes" was applied.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Yeah. And the mail is a quirk of me not removing the thread from the
-linux-riscv patchwork and pw-bot autoresponding when the series was
-"applied" by me to that tree when Paul fast-forwarded it.
-There should have been a b4-ty email from me a while ago saying that I
-had applied the dts patch.
-
---CrMnFs07IEUOttHU
+--RC9Cs/46Lsy1/De1
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujnsgAKCRB4tDGHoIJi
-0vGgAP9gqJ8aLAjZxjxqcBKs8ePNSulSrB7JgAx+3rNCP7DK4AEA7fKaU0A4JXOu
-VrSrRZ/T+DWcsS8PHwzW9l9w/VPFPgE=
-=n+9e
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujn8QAKCRB4tDGHoIJi
+0hLLAP9M24vz8ap4cClkIgkJN4frJuXgVA8Fg5ec95KS4e33/wEApywaPJCZO3Q+
+UjQJhFVsS1X96YEbVNVFD1l9MsCfIAA=
+=712p
 -----END PGP SIGNATURE-----
 
---CrMnFs07IEUOttHU--
+--RC9Cs/46Lsy1/De1--
