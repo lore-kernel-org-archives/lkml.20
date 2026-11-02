@@ -1,68 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793599535;
-	b=UJhPaGmgWL561T+j0y3k9loIYykwEFRCythTR6bOifz3VF/1KuZcjTdQG+wO1aAmoaYb
-	 ne2fUJvVzyL20Utqs5bsSU817JZebUPG9yVrBTgX79dpqPxO7iale8bs+3DBEs0HmTGsH
-	 M02Up1wY82lbzPCNjJjLV2FPYpHgGWpgwpYdBaArDyVcx+sfKyLfALIOdJd/g6lDOkOz/
-	 Sq5q+vkw1k7/sKLckBKmEyU4QyHEmH8aS3Mt5wIv6aLYFa7HjgUFbvw2sxRYGddnzohRi
-	 dqovMNmHYwB0UIuKqadYEda7CSdpTQyBC3W8ErLqAOv6jGvpRqh/9SvXz9ZreS1vbSA==
+	t=1793599561;
+	b=EB2SI4nL25J1Jaq9gjzSSDtcvHKPpqFtX/la/ZLXIJ6IJ3UnVDrvHPMQyZt2TEBVa+1f
+	 Frgn66NAfKOS3lbkk7xGGNTM2s/ng1r1ZgTvkYbHeuwtTZd7pO6z8HFctYAU3UmG6nscm
+	 OhDcd18f+YIjrd/5tBv9Gh41Bhg0+d6T4Z7T+mGxVKLSDmsjpVBz6m/UG2/5Pa5ipm6D4
+	 uKYG5Xeuiw2DpqOk3szwwDR3e0kekc8JxEYm3dejwMOujC1c8hqk0//fTQ3mfMFEjbnTB
+	 Nm/kCRE1/q3OPAwR+8e1fNIFdI49QzEJxI12lrUCJxtd9zkfd1OlHODxpDYmKKbFfBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599535;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mgwDIJQ/ktrXjjgHAdGpDY1TKNJstY8opiF0EE1X4JA=;
-	b=e0XCY1vUCxKyuuHUQbXXeSFxWt5I98RSuI5ny/y+fG9jsmSbbnDN1nc49S+zGAD4T39y
-	 y8IHY4oFwZqt1aEktZRFsiZgis+oB9YSehDU2v1794LphjhJYan5SQugs8NsMnpuuw4vH
-	 zLDQf83iWwWzu1ruLLNYcnnw/su6lh27NQ1rVFlIoS5buxaQxyI4sPEunzjLvEC6bqhQs
-	 XXKgKT6fNJb1AMJwEYPCyFwXn/gxSK8k3LWCuIWYySbB5yJKW+ZaMVLoTi+aifzw7n8c/
-	 MhlKMJKiz1TWgwLW+bwTLUKx/LVBBg5UuW0TXbQTlOCr0PbcmAHCyNpc53nFuGWi3sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793599561;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+yuFDhrhf3kM/PO/AnTTpZJjMtV5tAkK8200L66uGl8=;
+	b=v5EN2x6WEf+UYvN7cEJuaekRjncCduhnmV4iifybDgQCoxUtJA6eI3OTc6oW2vOINXeg
+	 GA/44kZ2t71bMU/WivgAos30LprHS+2nbuevgCUJ2OIupz9tvlBINc1mLTFq63P8H32w5
+	 jkHfHrzSPMMmbdxqe+OegR3WiEIJtQ47WBfrWU1nhfx2ye3syBH/U8dghZW/9QQJcne3g
+	 2R8/O6xAN+/k9UrebxHATCpc5+JcgrhSNgTW8gZKz9lOlBo/xLoj2egJxXaEzvUg65bh9
+	 Icl23fvauM2X0kAwWaBHkkYsHTu4nLGD/D4sOWxHtDdL3raN+UHd2fbfsNW/F6bt/Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cC+8RBs3;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mnLeKo3J;
+	arc=none smtp.remote-ip=91.218.175.84
+Received: from mta0.migadu.com (out-84.mta0.migadu.com [91.218.175.84])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A39606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:05:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4A39606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2E0606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:05:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB2E0606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cC+8RBs3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793599534; x=1825135534;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=IakynqKDqunCjQwdJaPLOPZZRbiJFiyMHsV1OvcG494=;
-  b=cC+8RBs3KqtnXvUyU40Gfcn92x4oXuEz6yVSn2Y8a74Zk6DGHhzVe2SE
-   NPkcCsoGTNnswi51hXT4CNDIVVmsMuIgBTZBfx19Qpi4y7+pkui+1dFU0
-   ENAQcjGTk/FOntvVPngDXbD/RIEP8FPWgqQ6U65Zm3QfDD4YhOoqxBj/g
-   WGgOwrleD2xusY8tZYp4JIkneETQVF0sFL45OwmhkCHMMNNIOYZhxWbkm
-   ST7X5Hr9Tr1h825Tb+qPQhTuHXciSe9p6WQ/hO7IavCy/9lzeSKfg/jNv
-   ML6qVFf7Bh10bAEyLwmZcIRls90MyMaV01mLCGnw3MJKoZy6AVgBYs+Ps
-   Q==;
-X-CSE-ConnectionGUID: hBWwi03zQq6PmI9Rk8VZyQ==
-X-CSE-MsgGUID: fkAaPHwiR0u3BdqS61HmBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2286403"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2286403"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 22:05:34 -0800
-X-CSE-ConnectionGUID: F1GKqG5BToaKrcApC0GGAg==
-X-CSE-MsgGUID: H788A8/aQBme86noa/pRrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6124642"
-Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 22:05:30 -0800
-Message-ID: <e6624f1a-b6dd-4229-a26c-4b0501357b75@linux.intel.com>
-Date: Mon, 2 Nov 2026 14:05:26 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mnLeKo3J
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ex0bR+wqY48y7Ys0l1lS/C4xyqfg/lqStx93s8K9wXI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793599557; v=1; x=1794204357;
+ b=mnLeKo3JIlrjZ0v8csYIXQvs0MqjNYBAaha6FI+GsXgzsTBscKhu47xfdxei1GstkYX55TtU
+ s7+ijDrBsSQikbWr4RhQIABec//XfnZQfXcLKbZqgwK2XEUTDJ36HqPkKEIRh6O+ifRMQgl5bW3
+ ABiUUGhU4PsBaXEJa27dL80Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 85932c5ab249e449;
+	Mon, 02 Nov 2026 06:05:56 +0000
+X-Mizu-Trace-ID: 85932c5ab249e449
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	ljs@kernel.org,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	kees@kernel.org,
+	peterz@infradead.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hughd@google.com,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	willy@infradead.org,
+	jack@suse.cz,
+	ziy@nvidia.com,
+	lance.yang@linux.dev,
+	riel@surriel.com,
+	harry@kernel.org,
+	apopple@nvidia.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	matthew.brost@intel.com,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	minchan@kernel.org,
+	muchun.song@linux.dev,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	chrisl@kernel.org,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com,
+	youngjun.park@lge.com,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	jgg@ziepe.ca,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	mason@kernel.org,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com
+Subject: Re: [PATCH v3 17/47] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
+Date: Mon,  2 Nov 2026 14:05:47 +0800
+Message-ID: <20261102060547.39942-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261031-fixes_core-v3-17-d6437171ecc3@kernel.org>
+References: <20261031-fixes_core-v3-17-d6437171ecc3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,135 +130,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, joro@8bytes.org,
- Jason Gunthorpe <jgg@nvidia.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
- Jean-Philippe Brucker <jpb@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 3/4] iommu: Unpublish the old attach handle before the
- group replace callback
-To: Nicolin Chen <nicolinc@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
-References: <cover.1790718296.git.nicolinc@nvidia.com>
- <73ebe081ed668c214628fffc546b9744b662afb6.1790718296.git.nicolinc@nvidia.com>
- <5751040a-e180-4d29-851d-3ccab96878a3@linux.intel.com>
- <5512edd1-3c52-4e8a-a38f-3a5f1457cdaf@intel.com>
- <auglmP/oFZNhnja/@nvidia.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <auglmP/oFZNhnja/@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 11/2/2026 1:54 PM, Nicolin Chen wrote:
-> On Mon, Nov 02, 2026 at 11:30:02AM +0800, Yi Liu wrote:
->> On 11/1/26 13:53, Baolu Lu wrote:
->>> This doesn't fix the same-domain replace issue, which can still result
->>> in a use-after-free bug. I agree that this needs a separate lifetime
->>> mechanism as stated in the cover letter. But is it possible to prevent
->>> the same-domain replace case from going through this interface?
->> fwiw, iommufd already guards this at the device-replace layer
->> (iommufd_device_do_replace() short-circuits when hwpt == old_hwpt) [1],
->> so IOMMUFD callers can't currently trigger this. But that's a caller-side
->> convention, not something
->> iommu_replace_group_handle()/iommu_replace_device_pasid() enforce themselves
->> - so it's still
->> reachable if a future/other caller doesn't do the same check. Worth
->> deciding whether to push the guard down into the core API, or document
->> it as a caller contract.
-> I can add a fifth patch. Please see if it looks good to you.
-> 
-> Subject: [PATCH] iommu: Reject a same-domain replace in the attach handle APIs
-> 
-> Both iommu_replace_group_handle() and iommu_replace_device_pasid() skip the
-> driver callback when the new domain is the one currently attached. In that
-> case, nothing flushes the pending faults that may still be holding the old
-> handle. Then, the caller frees the old handle once the replace returns, so
-> such a fault would hit a use-after-free.
-> 
-> No caller does this today, since iommufd_device_do_replace() returns early
-> when the new hwpt is the old one. However, it is only a caller convention,
-> which neither API enforces.
-> 
-> Reject a same-domain replace in both APIs with a WARN_ON, and document it
-> in their kernel-docs.
-> 
-> Suggested-by: Lu Baolu<baolu.lu@linux.intel.com>
-> Signed-off-by: Nicolin Chen<nicolinc@nvidia.com>
-> ---
->   drivers/iommu/iommu.c | 34 +++++++++++++++++++++++++++-------
->   1 file changed, 27 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-> index 3fea48d3538ad..a9bc4ca5dbb4e 100644
-> --- a/drivers/iommu/iommu.c
-> +++ b/drivers/iommu/iommu.c
-> @@ -3716,6 +3716,10 @@ EXPORT_SYMBOL_GPL(iommu_attach_device_pasid);
->    * Caller should always provide a new handle to avoid race with the paths
->    * that have lockless reference to handle if it intends to pass a valid handle.
->    *
-> + * The @domain must not be the domain currently attached to the @pasid. Such a
-> + * same-domain replace would skip the driver callback flushing pending faults.
-> + * Then, those faults could use the old handle after the caller frees it.
-> + *
->    * Return 0 on success, or an error.
->    */
->   int iommu_replace_device_pasid(struct iommu_domain *domain,
-> @@ -3785,15 +3789,17 @@ int iommu_replace_device_pasid(struct iommu_domain *domain,
->   	}
->   
->   	curr_domain = pasid_array_entry_to_domain(curr);
-> -	ret = 0;
-> -
-> -	if (curr_domain != domain) {
-> -		ret = __iommu_set_group_pasid(domain, group,
-> -					      pasid, curr_domain);
-> -		if (ret)
-> -			entry = curr; /* restore the old handle */
-> +	/* Same as iommu_replace_group_handle(), reject a same-domain replace */
-> +	if (WARN_ON(curr_domain == domain)) {
-> +		entry = curr; /* restore the old handle */
-> +		ret = -EINVAL;
-> +		goto out_store;
->   	}
->   
-> +	ret = __iommu_set_group_pasid(domain, group, pasid, curr_domain);
-> +	if (ret)
-> +		entry = curr; /* restore the old handle */
-> +
->   out_store:
->   	/*
->   	 * The xa_store() above reserved the memory, and the group->mutex
-> @@ -3985,6 +3991,10 @@ EXPORT_SYMBOL_NS_GPL(iommu_detach_group_handle, "IOMMUFD_INTERNAL");
->    *
->    * Caller should always provide a new handle to avoid race with the paths
->    * that have lockless reference to handle.
-> + *
-> + * The @new_domain must not be the domain currently attached to the group. Such
-> + * a same-domain replace would skip the driver callback flushing pending faults.
-> + * Then, those faults could use the old handle after the caller frees it.
->    */
->   int iommu_replace_group_handle(struct iommu_group *group,
->   			       struct iommu_domain *new_domain,
-> @@ -3997,6 +4007,16 @@ int iommu_replace_group_handle(struct iommu_group *group,
->   		return -EINVAL;
->   
->   	mutex_lock(&group->mutex);
-> +	/*
-> +	 * A same-domain replace would skip the driver callback flushing pending
-> +	 * faults. Then, those faults could use the old handle after the caller
-> +	 * frees it.
-> +	 */
-> +	if (WARN_ON(group->domain == new_domain)) {
-> +		ret = -EINVAL;
-> +		goto err_unlock;
-> +	}
-> +
->   	entry = iommu_make_pasid_array_entry(new_domain, handle);
->   	/*
->   	 * iommu_attach_handle_get() runs without the group mutex, so unpublish
 
-I am fine with this change.
+On Sat, Oct 31, 2026 at 10:39:46AM +0100, David Hildenbrand (Arm) wrote:
+>From: Chris Mason <mason@kernel.org>
+>
+>try_collapse_pte_mapped_thp() clears PTEs without transferring their dirty
+>bits to the folio. A shmem read fault can map a clean folio writable, so
+>a later store only dirties the PTE. Losing that dirty bit allows reclaim
+>to discard modified data.
+>
+>The assumption that regular files are read-only is also obsolete since
+>commit 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse
+>for writable files"). In any case, transferring PTE dirty bits to the folio
+>when removing mappings (and while the folio is still mapped) is the right
+>thing to do.
+>
+>Use get_and_clear_ptes() to collect the dirty bits and mark the folio
+>dirty before unmapping it. Update the comment.
+>
+>This was reproduced with shmem using MADV_COLLAPSE followed by
+>MADV_PAGEOUT.
+>
+>Fix generated by an LLM and sent by Chris Mason in private.
+>
+>Fixes: 27e1f8273113 ("khugepaged: enable collapse pmd for pte-mapped THP")
+>Fixes: 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Chris Mason <mason@kernel.org>
+>[ david: adjust comment; simplify description; cover file-thp as well ]
+>Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+>Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+>Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
+> mm/khugepaged.c | 5 +++--
+> 1 file changed, 3 insertions(+), 2 deletions(-)
+>
+>diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>index 34ebb37c862c0..ce794d9760a87 100644
+>--- a/mm/khugepaged.c
+>+++ b/mm/khugepaged.c
+>@@ -1995,9 +1995,10 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+> 		/*
+> 		 * Must clear entry, or a racing truncate may re-remove it.
+> 		 * TLB flush can be left until pmdp_collapse_flush() does it.
+>-		 * PTE dirty? Shmem page is already dirty; file is read-only.
+> 		 */
+>-		clear_ptes(mm, addr, pte, nr_batch_ptes);
+>+		ptent = get_and_clear_ptes(mm, addr, pte, nr_batch_ptes);
 
-Thanks,
-baolu
+I went through get_and_clear_ptes() as well. It merges dirty bits across
+the batch, so we're covered even when the first PTE is clean and a later
+one is dirty.
+
+LGTM!
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+>+		if (pte_dirty(ptent))
+>+			folio_mark_dirty(folio);
+> 		folio_remove_rmap_ptes(folio, page, nr_batch_ptes, vma);
+> 		nr_mapped_ptes += nr_batch_ptes;
+> 	}
+>
+>-- 
+>2.43.0
+>
+>
