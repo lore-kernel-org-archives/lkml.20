@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641529;
-	b=ZnB324mONUjrULCVzva49tb1TghXNyWYseNG9xeoNQ+jgTt0l+rnZMGRXuas7MRsa+wE
-	 2VXtnBK79QUzujbrXKQROwqI1AHBZwYwTdsmnmui2wfnc2Hm329HmJDJ18Vz2ulOB5r04
-	 tkRxoCZMY/z4+SrAvCIoS6Ba9jiWEATXglZpz1Ow0CVUS//ZpyV/t687IEe4wII7J/m7G
-	 l6mbTRWNjppbwftDotTV3ljQes7mz1Skgl2J+l+hKs2jEIzkFlw+3+Cq4/aLJZGeXDdcW
-	 JuNlJarTSYqkGR2thvyYcZBZ4cVrbWgap5utASoaVIyVN4kh3IRuNGzD35N2RbyqHEA==
+	t=1793641520;
+	b=lQikGO6BBLpmiHLoOkh5D5VHEe6W/I3G+0hx71r/nzCRviJ0AldZexhnW4iXQVoFPdsF
+	 LElgNuLwvfYkBgsJT5NkSIQnb4tkqCtbXzvj95veW59POjwuQ4Rh6bRHFa2NiJZQIlLW1
+	 +1eALCOh3Qda3TSbkJsuTyjJ+TgUvYtU7hN7f8p83ciSApvJjVcwpKybgfFOGCF79XamZ
+	 BB9kpubTWar8G76lAFpz4vh/b4dgTD2h7CBYS17c7Ipo7UXwyUnlR+38PbEMeeXRjxV6r
+	 Jzak1JD4ETPLJZBYh4fgmbp21WfXryGQEVPL2KYarrGNiUHHvNEKnP6FopIGYY8W68w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641529;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641520;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=UeLjFIfQ/Fub/E94KkiAYMUwzM6W8KKuUeT8uPryoIE=;
-	b=LSlDHHAzLsmWgEpcbb1kvUP/CRY2sR8ZeXXRRv+4h88dJkLjjinIQyhJeUKgLxHrglbq
-	 DqAhotmBpDfYdQ+5kB/I4MeRdJFh1nuZ6CShUG2NyJDmmGYkZ9Y9mEH2sWC8OtyoiY0nC
-	 mjMY9TCwplkZOeJUhMosW1A9BkF/RS1ChKXxvWUzIQDHIFRzg/6C5fZzFnE3N6kAtCYnv
-	 B+qWrswHgRtfnjxpYFjY+d7+oiIA3KiKRMhmbwcGlaLYps+4JR/JCxQajy1wRKFmb7jx8
-	 vh3KaITNGJfi9SXFmTbY8r7xMfpunFDPeU8j8E4dfwv7Pf460uU3rdrp4Xm4JhrX36w==
+	bh=FYhHSLxeTFvAmi4fll8DRpQ9fKphXXLZ5ute33mwd7k=;
+	b=FsVSH06ULIAGoKvLnTSGMhsYstXv5+en2T2C/bl+TrDOX4eaVR7bp0dOrf0dHged514u
+	 ALObHd8ZpF48utclwNiTlIF936VUuI+sa/qgwqM4PPRwTeBXPiDPSTDcxNI4Noe0TMMP9
+	 QnsKddFixhsfaFQ/zG+cFuCJ6G1JUVVBS4vzMsYDVLWY+RUXO9/EhenqBbxLACZoL7EYI
+	 iLGqsbwCAjrb1ooY934wPgMXew82Ksb6NDrQbsxKRniIehd602L0XBREuqxdxnPd4qBfv
+	 NLQhixz966vUCjro8pvBFCMdVf7LxSJMJdU2yDxJ5G1kI/JxFvpZyGCK5XLMxRVOWkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JsINgPqZ;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Zcw9kM7E;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AC260A263A
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49AC260A263A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DF4606E00D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91DF4606E00D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JsINgPqZ
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Zcw9kM7E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641528;
+	s=mimecast20190719; t=1793641518;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UeLjFIfQ/Fub/E94KkiAYMUwzM6W8KKuUeT8uPryoIE=;
-	b=JsINgPqZzdhwFNa14mrAT2Cc3dJ1Cr6B13Q/g0scCoeIs8aHGXKcDkBzWejm0iMlLtrGWl
-	7t+heFPchDXiuX5ZEaembdf2vnhTuiVnmNGWXoI7kKgvHMt7gtP7eWY/k3Jo8PSlNp04WA
-	tU2JgJKdgEqTR2ROu+Vwbx0KNyM48bQ=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+	bh=FYhHSLxeTFvAmi4fll8DRpQ9fKphXXLZ5ute33mwd7k=;
+	b=Zcw9kM7ExKHxvW5BYsr+SnSIxH3UyPBr9Enj8p3QAQ8sMGzLUSLvmAkZF2xE1EGQKTLXWQ
+	wGn8AMx0KhCvlncKsYyAws6+XDqm+m1q1VjT7tRQbbFV5uxfLVoyJqq5CUaRJqqQJP+gaQ
+	o6qdVfsyjh9C0enV9XhXtDev57LEy20=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-528-oD3rhcuyPsGQ9k0TsLzR-Q-1; Mon,
- 02 Nov 2026 12:45:25 -0500
-X-MC-Unique: oD3rhcuyPsGQ9k0TsLzR-Q-1
-X-Mimecast-MFC-AGG-ID: oD3rhcuyPsGQ9k0TsLzR-Q_1793641523
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-201-3tp-u8AfNVey4uRV42bT0A-1; Mon,
+ 02 Nov 2026 12:45:17 -0500
+X-MC-Unique: 3tp-u8AfNVey4uRV42bT0A-1
+X-Mimecast-MFC-AGG-ID: 3tp-u8AfNVey4uRV42bT0A_1793641516
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 24A12195605A;
-	Mon,  2 Nov 2026 17:45:23 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 591FB195606A;
+	Mon,  2 Nov 2026 17:45:16 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A64E47E1;
-	Mon,  2 Nov 2026 17:45:22 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D09391956087;
+	Mon,  2 Nov 2026 17:45:15 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: [PATCH 31/45] KVM: x86: "Handle" failed decode when skipping instructions
-Date: Mon,  2 Nov 2026 12:44:58 -0500
-Message-ID: <20261102174512.8903-15-pbonzini@redhat.com>
+Subject: [PATCH 21/45] KVM: Take memory protections into account for __kvm_vcpu_map
+Date: Mon,  2 Nov 2026 12:44:48 -0500
+Message-ID: <20261102174512.8903-5-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,103 +80,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-When calling into the emulator to skip an instruction, the caller has
-already performed the side effects of the instruction and cannot
-propagate -EFAULT.  Mark the VM dead.
+Take into account memory attributes when establishing a long term map
+through kvm_vcpu_map()/kvm_vcpu_map_readonly().
+
+Unlike the gfn-to-pfn cache, changes to the attributes will not be
+propagated, so that it will be possible to place a nested VMCS, VMCB,
+or APIC access page on a non-readable/writable page.  This will be
+fixed separately by using a gfn-to-pfn cache for nested virtualization
+data structures, in the meanwhile apply a stopgap fix.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Link: https://patch.msgid.link/20260918135030.171564-18-pbonzini@redhat.com
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/svm/svm.c |  9 +++++++--
- arch/x86/kvm/vmx/vmx.c | 10 +++++++---
- arch/x86/kvm/x86.c     |  4 ++--
- 3 files changed, 16 insertions(+), 7 deletions(-)
+ virt/kvm/kvm_main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 205d8783aa13..2601f8359137 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -304,6 +304,7 @@ static int __svm_skip_emulated_instruction(struct kvm_vcpu *vcpu,
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 	unsigned long old_rflags;
-+	int r;
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index de54f52f2158..c7b8d1bcf893 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -3302,6 +3302,11 @@ int __kvm_vcpu_map(struct kvm_vcpu *vcpu, gfn_t gfn, struct kvm_host_map *map,
+ 	if (WARN_ON_ONCE(map->hva))
+ 		kvm_vcpu_unmap(vcpu, map);
  
- 	/*
- 	 * SEV-ES does not expose the next RIP. The RIP update is controlled by
-@@ -321,7 +322,10 @@ static int __svm_skip_emulated_instruction(struct kvm_vcpu *vcpu,
- 		if (unlikely(!commit_side_effects))
- 			old_rflags = svm->vmcb->save.rflags;
- 
--		if (!kvm_emulate_instruction(vcpu, emul_type))
-+		r = kvm_emulate_instruction(vcpu, emul_type);
-+		if (r < 0)
-+			kvm_vm_dead(vcpu->kvm);
-+		if (r <= 0)
- 			return 0;
- 
- 		if (unlikely(!commit_side_effects))
-@@ -2128,7 +2132,8 @@ static int icebp_interception(struct kvm_vcpu *vcpu)
- 	 * instead of after it (and SVM doesn't provide enough information for
- 	 * KVM to detect and manually advance the pre-#DB RIP).
- 	 */
--	svm_skip_emulated_instruction(vcpu);
-+	if (!svm_skip_emulated_instruction(vcpu))
-+		return 0;
- 	kvm_queue_exception(vcpu, DB_VECTOR);
- 	return 1;
- }
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 80dfb3c6268b..27cb0d64fb5c 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -1809,6 +1809,7 @@ static int skip_emulated_instruction(struct kvm_vcpu *vcpu)
- 	union vmx_exit_reason exit_reason = vt_get_exit_reason(vcpu);
- 	unsigned long rip, orig_rip;
- 	u32 instr_len;
-+	int r;
- 
- 	/*
- 	 * Using VMCS.VM_EXIT_INSTRUCTION_LEN on EPT misconfig depends on
-@@ -1857,7 +1858,10 @@ static int skip_emulated_instruction(struct kvm_vcpu *vcpu)
- #endif
- 		kvm_rip_write(vcpu, rip);
- 	} else {
--		if (!kvm_emulate_instruction(vcpu, EMULTYPE_SKIP))
-+		r = kvm_emulate_instruction(vcpu, EMULTYPE_SKIP);
-+		if (r < 0)
-+			kvm_vm_dead(vcpu->kvm);
-+		if (r <= 0)
- 			return 0;
- 	}
- 
-@@ -5538,8 +5542,8 @@ static int handle_exception_nmi(struct kvm_vcpu *vcpu)
- 			 * higher priority.  Note, skipping ICEBP still clears
- 			 * STI and MOVSS blocking.
- 			 */
--			if (is_icebp(intr_info))
--				WARN_ON(!skip_emulated_instruction(vcpu));
-+			if (is_icebp(intr_info) && !skip_emulated_instruction(vcpu))
-+				return 0;
- 
- 			kvm_queue_exception_p(vcpu, DB_VECTOR, dr6);
- 			return 1;
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 5f7f87ff4d17..5818101d1d8a 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -6235,8 +6235,8 @@ int kvm_skip_emulated_instruction(struct kvm_vcpu *vcpu)
- 	int r;
- 
- 	r = kvm_x86_call(skip_emulated_instruction)(vcpu);
--	if (unlikely(!r))
--		return 0;
-+	if (unlikely(r <= 0))
-+		return r;
- 
- 	kvm_pmu_instruction_retired(vcpu);
- 
++	if (!kvm_mem_attributes_may_read_gfn(vcpu->kvm, gfn))
++		return -EFAULT;
++	if (writable && !kvm_mem_attributes_may_write_gfn(vcpu->kvm, gfn))
++		return -EFAULT;
++
+ 	map->pinned_page = NULL;
+ 	map->page = NULL;
+ 	map->hva = NULL;
 -- 
 2.52.0
 
