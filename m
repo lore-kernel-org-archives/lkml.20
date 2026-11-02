@@ -1,120 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793652793;
-	b=dCXbRpf3Ik5Lre/RYU8TJ1B7G3n83EDrS1jF9g4sEjO6ke6uveGPgeOuqGuoLGyog/12
-	 DU+UXPrD0HjZJRPO+4hQKCZB1NT9ct/hj1nIoeB8/lTxGY2wadlbv0DIXcB44zNAzgJEy
-	 wNjhTleZj6g4Zp9CZeADhdsdAg7Q7lziTX8a8FUw1ex7IDaoxGyb98y9O+1HCU3iImf3z
-	 rA7YIYG8S1qY8jpFFSRJPWsZe+aOdkLQqlyedISgL0CQDarEZYcAIAzLHLWTjitpHrVn0
-	 xbNAKnxIDmA7l0LXNWu2OU9vIrdg/sFQ+nMXATMghVN6qSm1jalh3gf0J8KoW09eiGQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793652793;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=117yBiLwKENKL+3PiWG/U5OMCVmGd5cgD5S+cpkVimE=;
-	b=BNPG+Q6MOY+90Ppcb/xwONFEhaeeG5s9KzZ1NneqLlKaQpsoOfSyT37eym1tuSd/BYI5
-	 xXZxyIe2klm5cnCuTXxBfD4GmrC4C7XyyzaNwS5jFYSpF0rhraaaIopRtJLynGoy+dx/M
-	 HiKsUeDIOwy88ysPJp1WVEfmfpMDKk1/VZ6+oOPkT17a7NF8EfJtG/xpoC5aIV2dIwd6q
-	 lJS+SVRqmzLwnJSmucqqaM/pN/m+f+2ZVK6zhnmCvQoSbFFOk5PwMwMh2/b58AJnTXBqi
-	 OYzcPunE1zkp2KqlNVV5T2PyptFc7PJagvAaOORcRQxRYlx9Qp4/oiPpGr8bQTMLxpg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JrjqNRqP;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ILbC3qNV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793652797;
+	b=O8f64iSsRhgr+cUA7f67MHUpuw6Z9QxvKw9OrXfETIESG+RZmV6ZP+3zGP16Vobyugeh
+	 +VMmskOCvhGaNAYLrUfOmq2+p8fNzXcTL4K7M8jhEJevJnVMSTnvIkVo/zlsF5l5qZvMX
+	 hiCCf3fpWiYJ9zDgmoWUgH4aBaavCn/lLkeziyv2XRSobWA94m1VLP6MYdECHKbKgJXDX
+	 zwEtiR7cjRiwsdigrjdtS37u6ANt22Z6Yd/kxzrkBdvkiWM0/UEWnb4L1g1ZYkrJythOL
+	 VFzct6fUVUeSjxu1Th0k49qLR4ZUQ0Ep4LZ6EUADEWadQCUgUHG5EnefeBUSQITtPzQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793652797;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=e2uq0IAsarHDTLXqFZ/CFLC17YQu7mmJAfgLDCf/Xbw=;
+	b=Dmp7/SkgVaxMq9B9M2NSsk1LjqVHRXD/YO/I975zIrDMCQKoqHovaxSzg88eJP6Hpaqz
+	 RiScK0SrXOOgZVh52tDcMDm38sg5YiAGMzb49sBhPcQ+PboKTS69x8Ei692uLhwMgdeJp
+	 S+Zq+tO2A5Xc0288dbIg7mFovaQZeVUnkj7slBDg9I3Sp+jg/riXtxNjQUESManjC6Gsy
+	 nm8M+yNFHx4tDq1EzPycFY7AzlOaRR8ud1wCWc50CMcmAd+94Go2GGt8B+g23ni9nnRm5
+	 1VbGd9SZ6kKtEzaIPpRKZ13htY2sQygabG180bc49TAo2etcuifIw1618rX/lazL5Bg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qy4/nMyO";
+	arc=none smtp.remote-ip=209.85.221.177
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21111606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:53:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21111606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B750A606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:53:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B750A606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JrjqNRqP;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ILbC3qNV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793652792;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=117yBiLwKENKL+3PiWG/U5OMCVmGd5cgD5S+cpkVimE=;
-	b=JrjqNRqP10lz+xwTaT1N5hOMraQMewbNcL6ZPtYs/6qBeMDZq5lyggz1hz5TUE2wvCqKwM
-	IXQbQRbVn/7mLpXXty1C0A86MwLFP717upzSrzHF5Nt1PiF43MqFrw00/Vf94oFs2+EMGE
-	o+EsfhfOm9/h5ijPwHR98WSryq3gxtk=
-Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
- [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-376-dZSgH_1SNWOFqSLT3dVAJg-1; Mon, 02 Nov 2026 15:53:09 -0500
-X-MC-Unique: dZSgH_1SNWOFqSLT3dVAJg-1
-X-Mimecast-MFC-AGG-ID: dZSgH_1SNWOFqSLT3dVAJg_1793652788
-Received: by mail-lj1-f198.google.com with SMTP id 38308e7fff4ca-3ab3061668eso242241fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:53:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793652788; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pqRMUW0C1abNZbfaBXcyGQmOu7jXktjz1MHfu3h2zrAShnky+xftojIaFyvfU7Ml+d
-         LkJpeON82NQ6pwmlTECUyLt39TnIDpc6KTr6nvlMdoskkD5PgIspk7A7q2fZgs+w3K6I
-         0/HYzFSrg+6dkE8aCwywwzmeROOT1ElqVL6DGlpbkY8pEC/59YYYzqfKsFyQPbVF+NR/
-         uryE0pKuZgrZ/MotatpR80QlRCvXSad7Wu856jYXnGlG+MkkU0/jPm7EYTXav2E2PFLN
-         lXFnhKcmB5dIZIMbm7NHLTl6IsC4k4+L0P5uvrrzTxfH7MDLTwh1+H/Yqes+K7VkAdK0
-         IWWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=117yBiLwKENKL+3PiWG/U5OMCVmGd5cgD5S+cpkVimE=;
-        fh=J97K8ISqPPaRU0IWuCnle4X73D5UHv5WFXuSMnsU3wI=;
-        b=BvIZoO2FKmzwiXj7sK5lOQhoXugzLzHHF/i7yiN11W6b7IjY4Z69GC9kNclVMSBzPB
-         ag+0ACC60AdgoRoCoMXXCiOFwnLNmTqxfcfsEgN/ZQu7+xbQx8xqa2AXOdEv/JIfpvV6
-         c9sOKZqZlhvRlBISInJWeiz6lgKg7167Uii8lK2nac55Ll1vUB5IjgimJBhfTUKW6RD+
-         YndITPeRCd/iyP8xne75Hgr+UgZQ3KOEDvYZAE88FLWDuzsqHzZDCXyIaFu8h0Bl5j/n
-         Nqqt/NXe41djFKvqvmHg7pN0OhY26vBEzrliqRJBfDilOMbIPj33pxZerczq3V3yQ7Pt
-         7xsg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qy4/nMyO
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eac01ff101so1271787e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:53:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793652788; x=1794257588; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=117yBiLwKENKL+3PiWG/U5OMCVmGd5cgD5S+cpkVimE=;
-        b=ILbC3qNVxcxSfLLqiEMczm2K9EWJDHjQ3jtHiRo8lvs7xOcCBk9KViZKbMYNn3rDyD
-         1nRBZKRZevJudcNGThw44x8q3rGE46+/V3Lp15cYzXfiXGQHqy3zvhO0o48B5BncA5Or
-         KbQ3kcHqkQQMolwwbUP9ub3434QutGVu8nmoCGzc2PCEhLmjOocqh+8d4XwIGdidYoBZ
-         1xLTej5dBNXaVOsg0H9ykUYcbsfyfY1xRAFquEOh1DF007rqhduAsvbJpJIrCtz2kQKk
-         jbQ0GJtS49pjk16tDcdcdHiHPoCzeSh4Rpt4Z21PkzyRrg6RuTlgqDQLYpdpsCCp4Dam
-         yDGQ==
+        d=gmail.com; s=20260707; t=1793652796; x=1794257596; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=e2uq0IAsarHDTLXqFZ/CFLC17YQu7mmJAfgLDCf/Xbw=;
+        b=qy4/nMyOD2tvlZ+lCMFZXzwX1bR7Z92mNyX9ed8vsHjy7D8YOFf4wJCD3irRABXwuv
+         tRnRQ3a07FzomD3HdEtcyU9aC01aB3cnxpkSjm5itPFUZkohG6yNZnbuaiU/rJpHVsMH
+         m2t0ECWmneskImGe5GHRozAhoak3QNDdWYS7K/0BH7eYUz4VPR6UEAoO8o2zPh30ifYY
+         O3TPOYxgDVLaHuCN1vNAVUUFoLoi7/h+/28kcDEzunmUFPeTaQQkx4nx7Jk+zhfor3Ql
+         EnO+FXOs+ry3iOjWASHJ0AssEdooqmV81e5NQPjjQ5WLjSZ7mnqlG90WrETa5W7j05BE
+         86/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793652788; x=1794257588;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793652796; x=1794257596;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=117yBiLwKENKL+3PiWG/U5OMCVmGd5cgD5S+cpkVimE=;
-        b=2WmEA9SLfjPgIcd4EBPR8LLzT2nRi3fR2i/0oxMjxOGOhqSnrz3NEJsbdt3Md0Pmpe
-         SG8IX74rKoU9J5eYWi/ZOeRnVGfSXbbJeVQgvBNSkpcIA3cgYaj006DIYUxhGXYaLq0l
-         2CVxIbwZz2CUacEngxZKrL4fdUHiUbv9etAvLbIdzTefGMNM3Wo+rasygrLhB/Zfyd6f
-         kKtqI1RG+xHeYj1Tq3UljLjOK/eZ/8ggpz1DEt7oiDtJz0WWfDoXB9aqRD70GO4RmgxN
-         mv4nHBGCFZbO/tvfvVfyQful6KYZGzv1eQgRBkdGA0U75aHQOb6N9MfGE0ZcFt6nqcWf
-         eWHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz5skWlWuzpGZcLUX36AB6NolB59kMATAFm5FB+/wi3RhYkJZqL56XcTLmDsEzEQ2fIhipIM7sH7stiFeo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z92qfUzmQucuaqQuj8xCUE/oWPEF+1G2/ax30hXbCX2vfsI7PyN
-	TuCfjGropZN3OveXrtZvsv4zRQdEWxAS+1o9f5VxiME+YfI2rdwkyMateAsvg7KR8xkh5OTIqoC
-	EkGu8gOeOg7ShsfktR46YkVb/2uPuyIedKDmdV506h/EdjiCFt2+24S5s0ga5Utj0v6e2sSqzBf
-	nMTynJX7AeuxSBxCiRDVjn2rxR79372isr/Fs/vRUl
-X-Gm-Gg: AYBFou03U58d/DcUF7cq7Gxj9y5Zh+UnsAj5VmdKD2P4nP9nv5FD+PvKA6yibTuuPbh
-	hr2ymLMeYTCL+wL8cFxnAObpEZoj5b/5ytQTzmidwuhwTGuoc0sYRET1P1sDOnaVX2YDDEFih3W
-	lIei6xd4h622EwPhJse4/Y9ulXx7cyoARSYuCrjz8udug/5qwk52X4JJVo
-X-Received: by 2002:a05:651c:a14e:b0:3ac:4b79:573b with SMTP id 38308e7fff4ca-3acb7aa83b1mr20499061fa.13.1793652788247;
-        Mon, 02 Nov 2026 12:53:08 -0800 (PST)
-X-Received: by 2002:a05:651c:a14e:b0:3ac:4b79:573b with SMTP id
- 38308e7fff4ca-3acb7aa83b1mr20499011fa.13.1793652787872; Mon, 02 Nov 2026
- 12:53:07 -0800 (PST)
+        bh=e2uq0IAsarHDTLXqFZ/CFLC17YQu7mmJAfgLDCf/Xbw=;
+        b=VLuTCnumB3oXhL1j4PX9V3PMdydHjZX9vj6A6i80W/gTe/IhZYDTcIuZm81thh4D8B
+         /dH6zGGtpKhFiO9fjph0RqU8ysLLr0hLxoCpQHk3+Q4pr9+wWKD3aIdf7lVQsiW/vWDZ
+         VRhDJpKpfeC68gkuxOabLFXfaUxC6qSX0AR3bjgZ730fQi7xCmBBAmpqzDuWRYEDxyEc
+         5yiWxqmfZ75o+6ny+mLXUb/5+SgGNXpETo9+eJBqmv36D/XR4LzbFR9bwoXHb93cSkxP
+         /yckdEkwQw2GuWkalBRAbN3uBZNHAhYRm3enkzlAeywFibkq4e6ziyNtYtjIEkC/xTZ8
+         wmVg==
+X-Forwarded-Encrypted: i=1; AKwUvBy0yljtwTaDhFluLJTUzdY4kfUv/zU9rE+Ix0/U0OiUZQt8UT+8yfO1MxEIquuk2n1KytuW8QorE0qYJSA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HVIrI/IgT+NlsCrbX7baFklTv6F0iFbPSU7H9PI6pYcNGFi5l
+	1JuriDNQLOs2eW+q1u9anucWijAqPawWSdHwCxKtYekRD/0TQKU1cuQ=
+X-Gm-Gg: AYBFou3RIMBJngyQU5TXz3HyNFAEFkUqhB2WaOdhspBpoMtTQOSrIgb66AuBMSROFu2
+	vQTpZcERntZV2LIZD8tblL+uxeRY6I7/RSOliPtdlcLO3aFg3LpPfxCQpMGMH+rRCmcNoZ5/jqO
+	XBkbOxQpGh6lBq3mCdiVlAB2uBMxnHe8slUJpwzcNeh7wVWFtcvuEf+cnfRgjyxbeo7nCjDq36O
+	dHKznEvpBSUjTL8xPYRcHz7ExS5u0LodS80D/g140r2HH0Dz5ZshqRLTF/qa8Rq6QU61T9uk1wp
+	mxW00W2WpWBmD5eTv7uXrF1yvXczKUjfttxnyg4pgV8TzgGhF75wyFMVqli3Oaxu/4z/hWs2Yud
+	RI25LvzPOOT0TqEzYN31UTaMDuCTnVku/A5p7x+hhnSWWAlf5ITZL5/bRJ6jLOlVVw4UpkO39Le
+	PyiK2XmHI0TwKkL57rM00OFPOYC7bryyw7rxrGv9/DeBI3vKAfz45ONpbbYFlTKOycYmYX/Zl2V
+	i6IbJtyxchKdCJdjb7BmpH+RlIJ7Q2Ju65IAYheFBLWLOm5PJmLZQoT58dKAwqOmr4lWEFRJTCC
+	o6tJGM81sMk7u72PbcDiXvAtWav7JifzBWWEcfdEXKarhBUmjCoVpEKuBRE1WBC/sA==
+X-Received: by 2002:a05:6122:d2a:b0:5ea:d14a:ef8f with SMTP id 71dfb90a1353d-5ec6870c5d1mr4724163e0c.4.1793652795618;
+        Mon, 02 Nov 2026 12:53:15 -0800 (PST)
+Received: from localhost ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69caeccdsm10740493e0c.16.2026.11.02.12.53.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 12:53:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,64 +87,149 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261027223847.652884-1-irogers@google.com> <20261027223847.652884-6-irogers@google.com>
-In-Reply-To: <20261027223847.652884-6-irogers@google.com>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Mon, 2 Nov 2026 15:52:55 -0500
-X-Gm-Features: AclHuK8pGzNf4aGPekLa6NQcs521xOugw8djA3E8ZMCjZ7yn89XzG5j_wIaQNFk
-Message-ID: <CAK-6q+j-MS_5St04YFU11LG_Cjf1jOuS3q33qk_iK=7TE-iuBg@mail.gmail.com>
-Subject: Re: [PATCH v2 5/9] dlm: Free dlm_ls in kobject release callback
-To: Ian Rogers <irogers@google.com>
-Cc: Kees Cook <kees@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Zhihao Cheng <chengzhihao1@huawei.com>, Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, 
-	Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev, llvm@lists.linux.dev, 
-	linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, David Teigland <teigland@redhat.com>, 
-	Greg Kroah-Hartman <gregkh@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 Nov 2026 17:53:05 -0300
+Message-Id: <DML0UIHJNE2R.3JDG4HTEN6U0S@gmail.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Benno Lossin" <lossin@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Brendan Higgins"
+ <brendan.higgins@linux.dev>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Danilo Krummrich" <dakr@kernel.org>,
+ "David Gow" <david@davidgow.net>, "Gary Guo" <gary@garyguo.net>, "Miguel
+ Ojeda" <ojeda@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Burak Emir" <burak.emir@gmail.com>, "Rae Moar"
+ <raemoar63@gmail.com>, "Tamir Duberstein" <tamird@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Yury Norov" <yury.norov@gmail.com>,
+ <kunit-dev@googlegroups.com>, <linux-kernel@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 1/3] rust: kunit: add #[should_panic] support
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
+X-Mailer: aerc 0.20.0
+References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
+ <20261029-rust_kunit_v6_send-v2-1-5ce551efc48e@gmail.com>
+ <DMKTARY7GF4B.27HUM6XMDTQNV@gmail.com>
+ <CANiq72n3YfMpWndR06B0s1Mj_PjAR8MJ+0nP4XXPkaFh3zX7pA@mail.gmail.com>
+In-Reply-To: <CANiq72n3YfMpWndR06B0s1Mj_PjAR8MJ+0nP4XXPkaFh3zX7pA@mail.gmail.com>
 
-Hi,
-
-On Tue, Oct 27, 2026 at 6:39=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
-te:
+On Mon Nov 2, 2026 at 12:51 PM -03, Miguel Ojeda wrote:
+> On Mon, Nov 2, 2026 at 3:58=E2=80=AFPM Nicol=C3=A1s Antinori
+> <nico.antinori.7@gmail.com> wrote:
+>>
+>> To solve this I created a new config "RUST_KUNIT_SHOULD_PANIC_ATTRIBUTE"
+>> that depends on !UML && !PANIC_ON_OOPS && BUG. If the test is annotated
+>> with `#[should_panic]` and CONFIG_RUST_KUNIT_SHOULD_PANIC_ATTRIBUTE=3Dn,
+>> the test won't run and won't show up in the summary.
 >
-> struct dlm_ls embeds a struct kobject (ls_kobj), but dlm_ktype lacked a
-> .release callback and dlm freed the lockspace structure directly via
-> kfree(ls). With CONFIG_DEBUG_KOBJECT_RELEASE=3Dy, freeing ls before the
-> delayed kobject release runs causes a use-after-free, and unloading the
-> module while the delayed release is pending results in an instruction
-> page fault.
+> I was wondering if we needed the flexibility, i.e. if we could just
+> simply disable them when the conditions are not satisfied, but I guess
+> given `CONFIG_KUNIT_FAULT_TEST`'s existing description, it may make
+> sense to have a new Kconfig symbol=20
+
+I first thought of disabling `#[should_panic]` tests by directly
+checking the conditions in the macro code. I ended up creating a new
+config because I thought it would be cleaner codewise, if a new
+constraint arises in the future, we just have to add it to the=20
+`depends on` clause instead of modifying the macro code.
+
+> -- do the ones added here look
+> similar in the kernel log to those fault ones?
+
+Yes! they are pretty similar, for `KUNIT_FAULT_TEST`:
+
+KTAP version 1
+1..1
+    KTAP version 1
+    # Subtest: kunit_fault
+    # module: kunit_test
+    1..1
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+#PF: supervisor write access in kernel mode
+#PF: error_code(0x0002) - not-present page
+PGD 0 P4D 0
+Oops: Oops: 0002 [#1] SMP NOPTI
+CPU: 0 UID: 0 PID: 30 Comm: kunit_try_catch Tainted: G                 N   =
+7.3.0-18137-ga2943ba718b4-dirty #357 PREEMPT(lazy)
+Tainted: [N]=3DTEST
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 0.1 11/11/2019
+
+... <Registers and stack trace> ...
+
+note: kunit_try_catch[30] exited with irqs disabled
+    # kunit_test_fault_null_dereference: try faulted: last line seen lib/ku=
+nit/kunit-test.c:100
+    ok 1 kunit_test_fault_null_dereference
+ok 1 kunit_fault
+
+For `RUST_KUNIT_TESTS` (left only one that panics to shrink the log, but
+they are all pretty much the same):
+
+KTAP version 1
+1..1
+    KTAP version 1
+    # Subtest: rust_kernel_kunit
+    # speed: normal
+    1..1
+rust_kernel: panicked at ../rust/kernel/kunit.rs:399:9:
+This test should panic and pass
+------------[ cut here ]------------
+kernel BUG at rust/helpers/bug.c:7!
+Oops: invalid opcode: 0000 [#1] SMP NOPTI
+CPU: 0 UID: 0 PID: 29 Comm: kunit_try_catch Tainted: G                 N   =
+7.3.0-18137-ga2943ba718b4-dirty #357 PREEMPT(lazy)
+Tainted: [N]=3DTEST
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 0.1 11/11/2019
+
+... <Registers and stack trace> ...
+
+    # rust_test_kunit_panic_in_kunit_test.speed: normal
+    ok 1 rust_test_kunit_panic_in_kunit_test
+ok 1 rust_kernel_kunit
+
+The only one that is different in `RUST_KUNIT_TESTS` is:
+
+#[test]
+#[should_panic]
+fn rust_test_assert_false_success_with_should_panic() {
+    assert!(false)
+}
+
+That logs:
+
+KTAP version 1
+1..1
+    KTAP version 1
+    # Subtest: rust_kernel_kunit
+    # speed: normal
+    1..1
+    # rust_test_assert_false_success_with_should_panic.speed: normal
+    ok 1 rust_test_assert_false_success_with_should_panic
+ok 1 rust_kernel_kunit
+
+Because a BUG() is never called, the failed assertion is catched in the
+`kunit_assert!` macro and, if the test should panic, the KUnit thread is
+aborted without throwing a failed asssertion.
+
 >
-> Add a completion ls_kobj_done and dlm_ls_release() to complete it when
-> the last kobject reference is dropped, waiting for it in free_lockspace()
-> before kfree(ls) and in the new_lockspace() error path before module_put(=
-).
-> Also delete the kobject via kobject_del() before stopping dlm_recoverd
-> to close the window where concurrent sysfs writes could wake the stopped
-> recovery task.
+> (And I was wondering because, in general, adding Kconfig symbols has a
+> price: users may get confused etc.).
+
+On top of the reasons I gave above, I tried to follow the same as
+`CONFIG_RUST_BUG_KUNIT_TEST` or `CONFIG_KUNIT_FAULT_TEST` are doing, but
+in this case in particular, the config is not for enabling a test suite
+but for enabling a feature that can affect multiple suites (in this
+patch series the ones behind `CONFIG_RUST_KUNIT_TESTS` and
+`CONFIG_RUST_BITMAP_KUNIT_TESTS`).
+
+If this is prone to causing confusion, I think I am going to check the
+contraints direclty in the code.=20
+
+Thank you for the feedback!
+
 >
-> Fixes: 3514faca19a6 ("kobject: remove struct kobj_type from struct kset")
-> Signed-off-by: Ian Rogers <irogers@google.com>
-
-A somewhat "big change" for just a debug functionality. Althrough I
-agree we shout call "kobject_del()" early to avoid additional sysfs
-changes during removal.
-
-Acked-by: Alexander Aring <aahringo@redhat.com>
-
-Thanks.
-
-- Alex
+> Cheers,
+> Miguel
 
