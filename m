@@ -1,69 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638487;
-	b=rX7sn5lRL+deJhMLJZ/7otH0B4obZriqGEUW8gAG+OIx4xhYWHi1SUlOp3lmnfVMMcFS
-	 oONqLi/Trzti+Vs/zcAI1eRPTLRtzeRAzzTL7yhbwIC4UkDIxRfxbmVwhJU9JqzbA1jR3
-	 cpX3ZA4LV4YRnvulBEqZAsm9QwVaxbEtt+gIXuQiTUdp4Il292K5cUcJzdEaXnJdRy2be
-	 6SKLJiZOGrFtY+U4s1VahPzCUqh4wPH9yldwPc2cj19ggd9+oOsHPOnYNol4OpIIC8M7w
-	 Z0vCHsXbkOnTQ1fnEBVkOIK5zyr7xgbrf5WsZo0i12jtMqbdBMvX0PNqNn6e+pcamww==
+	t=1793638488;
+	b=OBvrChWGZwnDJI5QXe1rQSKV9kryNLQctYkYQrdVmML2/UwHqkcOFkjrhSvTgJG1LAFN
+	 ZeszCyTmwWmSUFuIHzE7MGA0R827xHP7d+XvAOV0W6UhabCnbCbAs1taqpWCbCmhGe1aM
+	 x2qqep/FB1nbNThw827oDkEBjSTnDoAMMvTN8pmgD0jhUuPcsipdd9inOpABjbxdSQDbA
+	 Bo0lbWp0fk7cKieAUEknY1BhVl4d4KYDL2ymYgwm/hnvhWG+FdZxbFz7RHLcuTrw94L/z
+	 mqfX4m55khRQ88F4sKNH1Hlea8tjLfzJgQRVcF9maZ9iXggrqT2psXmVgenzARQt6uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638487;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bylAnhzRKk+oY7TjttZCTS4qJlXA0vQgiLrrZihE+M8=;
-	b=W8X7R05xIMsdgWF8sewYA+AmU+ea9L+qQcCYy9lOuQssQolXjvJQWAlayjGK+nrjMlzt
-	 e/wRnJCLO2peEFSJYuzK4xrvlq8QzKDNMTLuM5o4v357w/aSWi89qrsmHDelhuy+BUtyr
-	 Y9wnNSVQNXtUqMjVuPbGzqWKtWWMjA+GixKDXYHsSgi3KNYzO6eESEfT+OenYrmzpYWfY
-	 Pa7/1l0T8FTAVbaPOsAMNA0rOWGIeavuFmf9sPclwPQ3z/Aplay6lF2RzURf9V+WR/No0
-	 GAWrgWj0+BilWLuNRdwDf5DeqN+CwP8zbngppvWOuMhRT1LrUoLAj/yi9v3YHo8oscA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638488;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=AMToe4M6xj+oOLMHUEEuNxq8X9/DeFihUNzOBRE+7x4=;
+	b=PRDOObB3geHHv3hOehuoH2uZFEXO186ccKdCDCrDkSB7CU6pp10j9N7288SUKr47Ca3o
+	 2Pf88mQ636IsKP1iVWPX3bmwDk5VCJfRkN2auHXZGndD4QKPDuuYUN3qeLtIRBnpd0527
+	 +EewV3DyXrEAGPIxjT0B09phFptLuE/NdeseuF3jeRY3WyHbX1bsHAAeXOVtsS9w0D5LR
+	 hnVekAktOLYha4XP+H3RlODG3eZ2kcwNwrzFiaBdkUdkuaT0eaJJbs21VAKqxoYUokquK
+	 Zc6d4Pk27Zn3/JtRb7bXTaph79VPLtZizoYjlosMTL+aSAaunwSIrtoJCO4bLhqR3DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NEOoWnEg;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA6506093D49;
-	Mon,  2 Nov 2026 16:54:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA6506093D49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nVmccpj4;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED146093D4C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:54:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ED146093D4C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NEOoWnEg
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 22D7E2659;
-	Mon,  2 Nov 2026 08:54:43 -0800 (PST)
-Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4B5F33F59E;
-	Mon,  2 Nov 2026 08:54:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793638486; bh=HmbbqTV9MwGz3CuQNcHgWpUqagEY1pBDXMq+5aNIOq4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=NEOoWnEg3oyv9l1BVYwa7B9lyu3SzmOFz8zvR3VasAsy+HZAlXnu+EhMzKiUmd7r4
-	 xUfsmiWMyRLmNVh6aNT2zxWFYQzE7dNxO2S3SdTzEGa0aY7mBzuSGeQB9nmKYTjSLa
-	 Nj39q4v457H6Vz/4NWiKo8oCV8fVn8mdOoFJCp1k=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Salman Nabi <salman.nabi@arm.com>,
-	Vedashree Vidwans <vvidwans@nvidia.com>,
-	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-	Nirmoy Das <nirmoyd@nvidia.com>,
-	vsethi@nvidia.com,
-	Varun Wadekar <vwadekar@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nVmccpj4
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso1824573f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:54:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793638486; x=1794243286; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AMToe4M6xj+oOLMHUEEuNxq8X9/DeFihUNzOBRE+7x4=;
+        b=nVmccpj4SwWww+LpY5359yLY9fmG3UMUL1aDjZ7l+sMqOlexCINdRebqtPRlncEcL6
+         G+EvsbHi3LgOiOVesgAX3DU++JwnvKaAl+muzPTu5AyWEVx5EcAbhNXesXzOKdbaXE0d
+         pFAGL6n3ZGXvOQcwQxoa2BpyEaUrI4ovhaQc/aIyXBm/Sebi+jsJEjVkA6a1zNovbpun
+         soK9bTUc6QRBeqcNY0YQ4TxD5YoYVhsGREjd6FEDTydoeyRGPbJgJBkvwd2P9PcUrXGI
+         rPXVXBfXP63SRxX/VXEO6x04qZ54+dNOJ04Cr1HMDVs8bVwIm9ZsfsNu9n6nhhX8EJnk
+         nTJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793638486; x=1794243286;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AMToe4M6xj+oOLMHUEEuNxq8X9/DeFihUNzOBRE+7x4=;
+        b=Fdm+d+r/sDuf07l6E0DbyipOnlYNd6J203GUmIZaaZrdoC9LRYpMN2dypiIROCKBQH
+         kdQCivNiJ7YcTtmlI57yzBGulIVhoTnS3lemghzPjObGdas9bCrNKY52B2IWEca4fP0p
+         2wmsWEk7OfpNATzr1xIZ0cYZDVLAtwPxLj0UFFJdCQj4Sb2tie6aZp99/tAzbSkuL1zA
+         93Tzdfe0V1UqeEuqlZZzKeAE6c0RAASjkEP/eFhF6AvUiPNhwu23RHHhA3dOJGt08gKb
+         h9+gt/seimdpm6SIxlmT+Fl0/V8zF9vbPm6bquNgIOp/ThXNAdVEgp1hXxJgBRvcCgXP
+         nCrA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7wWZ/EHeoKgfldnVhFJXZfmiGwpY/kXFY10PUjMsxrC8ugJr5vW5uGAsU1sCFEi/pin2iPrtBTdl2EeI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PDn79zScG3kgp1MIdJQkex3jSGf2pwPxDa9bMANRAJiNr5XLJ
+	3fNJKI2kGSwOwWJKFhSaGBUD6GE/z9g5ANhYrrIlYSyyTKbSHMDgFw0j0fnC1hufV/syWI6bGsi
+	jwtoD
+X-Gm-Gg: AYBFou0/YohG+fiWe1+Ovjv7HdCIZRTp263B0xKIPEC56srfjNgxUtky6LkZX4WyZXT
+	rLsFmHCQ6KhOiFOC4dJKCBP4qd0C83NQh15sMl7YF5dyJm2y1hEcCM7WeBkGCx2X7/rBkxQEhXC
+	/BxkzYTjzcXn77CrKZr6H5xzq/BkNiF6TKMM7oU27lUrom6qZ2rFl+YuYrrqS+6EZo71cqOs64J
+	q1a02WB2TYBiWc/tUvXZBG2z7f1E0Lx6eNWDc+pKFhM40nVTE4Z9+FCsVgFDI4zks7rNRrG6ZIv
+	KepptNwdf95Xp0Ib8RZYzDI/GXNzTYlpIfNwJwcWQiKh5nfBBHTRVhC73pnCG8iP/bAnaMGjWp4
+	xd4F+CBbXhjp12SSXXLCV9N8l1AvaYEEeAir1cQaECwWPsLHAOl6XxlATwFaLd9KFbb0ghJoeMw
+	qgu2wHSDLtLUanB4daFOQfxXJbtOSHY1Ea6kcDKieH3UUTW5BIvrERWcUr5UHVkFiVY46ZHPXpG
+	UQoUwzMZpoZNaWZkX4gBNQFBZKt1focFZA+yoUK4iuBgDCaZQQ+ALuQo6ogL4ZqoJ9X9yBM6j//
+	HKgyZMAQ5Z01JDMwzVMS9LKzS0eE02PHoVWvDsh7BtUnLdTENj9n
+X-Received: by 2002:adf:e00b:0:10b0:48e:48de:ab3f with SMTP id ffacd0b85a97d-48e6e503730mr16502593f8f.52.1793638485953;
+        Mon, 02 Nov 2026 08:54:45 -0800 (PST)
+Received: from jarvis.. (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e71b723cdsm21550275f8f.12.2026.11.02.08.54.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 08:54:45 -0800 (PST)
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: rtx4060@gmail.com
+Cc: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	matthias.bgg@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v5 RESEND 5/6] firmware: smccc: lfa: Register DT interrupt
-Date: Mon,  2 Nov 2026 17:54:19 +0100
-Message-ID: <20261102165421.3651202-6-andre.przywara@arm.com>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 2/2] regulator: mt6363: Fix the registers of the VSRAM CPU and APU LDOs
+Date: Mon,  2 Nov 2026 16:54:44 +0000
+Message-ID: <20261102165444.588240-1-amergnat@baylibre.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102165421.3651202-1-andre.przywara@arm.com>
-References: <20261102165421.3651202-1-andre.przywara@arm.com>
+In-Reply-To: <20261101164405.1743177-3-rtx4060@gmail.com>
+References: <20261101164405.1743177-3-rtx4060@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,94 +104,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The Arm Live Firmware Activation spec describes an asynchronous
-notification mechanism, where the platform can notify the host OS about
-newly pending image updates.
-In the absence of the ACPI notification mechanism also a simple
-devicetree node can describe an interrupt.
+On Mon, Nov 02, 2026 at 01:44:04AM +0900, GIBEOM LEE (이기범) wrote:
+> VSRAM_CPUB, VSRAM_CPUM, VSRAM_CPUL and VSRAM_APU have a register of their
+> own for the enable (bit 0) and low power (bit 1) bits, which the header
+> defines as MT6363_RG_LDO_VSRAM_*_ADDR.
 
-Add code to find the respective DT node and register the specified
-interrupt, to trigger the activation if needed.
+I tested this patch on a board with an MT6363. Without it, vsram-cpum
+reads as enabled while its own enable bit is clear, because the driver
+reads the VS1 bit. With it, the four LDOs report their own enable bit,
+and vsram-cpum, which the board DT keeps always on, is now enabled at
+boot. With always-on dropped for a test, enabling and disabling
+vsram-cpum from a test consumer only changes its own enable bit, and VS1
+stays on. I did not test the low power mode, nor disabling the other
+three LDOs: on my board they supply SoC I/O and analog rails.
 
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
----
- drivers/firmware/smccc/lfa_fw.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
-index 65f28ffc9d108..3ff368dca9497 100644
---- a/drivers/firmware/smccc/lfa_fw.c
-+++ b/drivers/firmware/smccc/lfa_fw.c
-@@ -46,6 +46,8 @@
- #include <linux/list.h>
- #include <linux/module.h>
- #include <linux/nmi.h>
-+#include <linux/of.h>
-+#include <linux/of_irq.h>
- #include <linux/psci.h>
- #include <linux/rwsem.h>
- #include <linux/stop_machine.h>
-@@ -182,6 +184,7 @@ static struct kset *lfa_kset;
- static struct workqueue_struct *fw_comps_update_wq;
- static struct work_struct fw_comps_update_work;
- static struct attribute *component_default_attrs[LFA_ATTR_NR_IMAGES + 1];
-+static unsigned int lfa_irq;
- 
- /*
-  * A successful component activation might change the number of available
-@@ -913,6 +916,31 @@ static void lfa_remove_acpi(struct device *dev)
- }
- #endif
- 
-+static irqreturn_t lfa_irq_handler_thread(int irq, void *dev_id)
-+{
-+	activate_pending_components();
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int lfa_register_dt(struct device *dev)
-+{
-+	struct device_node *np;
-+
-+	np = of_find_compatible_node(NULL, NULL, "arm,lfa");
-+	if (!np)
-+		return -ENODEV;
-+
-+	lfa_irq = irq_of_parse_and_map(np, 0);
-+	of_node_put(np);
-+	if (!lfa_irq)
-+		return -ENODEV;
-+
-+	return devm_request_threaded_irq(dev, lfa_irq, NULL,
-+					 lfa_irq_handler_thread, IRQF_COND_ONESHOT,
-+					 NULL, NULL);
-+}
-+
- static bool lfa_smccc_has_all_functions(void)
- {
- 	struct arm_smccc_1_2_regs regs = { 0 }, res;
-@@ -980,6 +1008,10 @@ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
- 		err = lfa_register_acpi(&sdev->dev);
- 		if (!err)
- 			pr_info("registered LFA ACPI notification\n");
-+	} else {
-+		err = lfa_register_dt(&sdev->dev);
-+		if (!err)
-+			pr_info("registered LFA DT notification interrupt\n");
- 	}
- 
- 	/*
-@@ -999,6 +1031,7 @@ static void lfa_smccc_remove(struct arm_smccc_device *sdev)
- {
- 	if (!acpi_disabled)
- 		lfa_remove_acpi(&sdev->dev);
-+	devm_free_irq(&sdev->dev, lfa_irq, NULL);
- 	clean_fw_components_tree();
- 	flush_workqueue(fw_comps_update_wq);
- 	destroy_workqueue(fw_comps_update_wq);
--- 
-2.43.0
-
+Tested-by: Alexandre Mergnat <amergnat@baylibre.com>
