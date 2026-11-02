@@ -1,73 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605716;
-	b=JET6WWxU6rDYomU3/bTRCgT7rVxYNe7wScb59ygu0fHSc5CYNs1uuhnZWObRHmeaWa3e
-	 fJa6E81YWzceSRg5tH8iRYhNJr1C1Syf3sAhn1IYVez2malBuW5ElpMXjgYdGzjEJwdqD
-	 gw3eKhbCshe/N90iMZdRf5KOCbr8aGvyUkduSSc5k8vj5iBOJSE/HEk/l8UyJcqIvA8tW
-	 IMM/eSZOZkW70+tllR74BefMTdx0xHyO5RVAXmO3+rMsQAHQRtWWlvWqyYpbsuEGr2+c1
-	 T0piAuDw8nOThWSPdnJC94V47fvYArQjBUeYeCoJI57EgHSgx0qR/egsAXyI6GzqgIg==
+	t=1793605756;
+	b=shd79D3Hg4MaGMg0kWK8ZhKZ8hE9iHA/u4V9Y0yW5amwlSrg5kaPyVNShLct8CFy9Blk
+	 CF3+stIpC9HsySy3Dy9FZblir1Z+E6Od9RUHZx86FTUlRJP02hcwjuEBCeKmvnnVh1Hlk
+	 i6zUY6xENB3kZSaH5pwDiIOZZa7Elt4UR5kx2sq9Wrvj8qOBBZzMRANueE+1SWuxtfzh1
+	 dTrTX9Vj9baUmxnXB5tOxTddPWwx1RRekk2PUxVwuNNSWzy6zoTh97C3WVtwNMUkNpB4i
+	 5PMEI3k9r8Cx9vXpwg2akINoucAlP/+nX74XtPAt1NAAAzDiCeA85XBsIGkRhVn25ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605716;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nVQ8uQ8EBtB66FVkdkeahhd5McyzCUW6GqWt7KinKNs=;
-	b=Sg/WBaHlCsPEHvtXfLmJ+U3Ku469wfO+03y2DZzD4CtjAeRR9SCU3/MpCzgaN3EO6SKJ
-	 e9Ur2kQcrO/2CmwccKnZQBB+bLtIlbTT7EAIiiCoAPj+hNTt352/XGNZMDIKH7q3R3Z1x
-	 wKXrRyKSVhhoxIX+BwlL1y7ytXzxUyInsM9pRMYjy2Q6gJpUuE2PA+v+3+GXc1oBoKYD2
-	 IZBlMeKZY06tLYSl1bTnfMND5Pt9bxgz+kQTc0pEqfEzMY3AE3a9xKsYACc74mEUtZbFa
-	 YCm3xsWArv5LAc3jt/msxok3k8KsCyyAsI5yWbqBIwwCSnzRusd/D0Q8zgPeQGH4Hog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605756;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=9E0zGD2ODat2SvttteActsyR0xXKqRS4RgBIccVpIig=;
+	b=xD1eIzIYKz5a5IURNXrnlTTQiaHHKPxgrAZUKi//WtypZbGfeHv2Aj8+4PQMMnYv968Q
+	 ONJUkuiFrzNOwNsd5otVGQYl4N8CW8o30ImjGZ4NhjwR0pfP8EXXMt41jFYCEwIYIYW0j
+	 nFG3p3Wt2SyC0UVob2TuVn0H2QYzrpnAV5i/0nrHo4bYv+VMgswkNU78UPEXc6YX2rO9J
+	 UpQi/x8OuyqWeJqrx5fAjEfRHdX5Y1h4uxvmIempf3m6w+aiIWy9/eFKIxCKIomKqZHxG
+	 A/7DzGsdagf6rfJsIUgUFE4IRMTPZeLYA2SWbRvRID0seLFgns7EogwzUj+rM1Pqd9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pklyxlag;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Y2WNM8XS;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79251606A326;
-	Mon,  2 Nov 2026 07:48:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D6D606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D6D606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pklyxlag
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619C51F00A17;
-	Mon,  2 Nov 2026 07:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793605715;
-	bh=nVQ8uQ8EBtB66FVkdkeahhd5McyzCUW6GqWt7KinKNs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PklyxlagO6tQm2cVGswU8nU4eOuTBHos/OweD9u3f/ca41Lm4iCyJbL9U0qxRikrv
-	 yWIzLO0cmC0d3VFz7QKkFx/ZpZyze+NuakSCqqTiQncEkJzAYycdkwXah3+Ak6jbLn
-	 ydjJSC/rhs+gzXiXIlcAT2zsnnqDq5A6KF54Bzm1Yjt5j7Z3I4Gh0vwikrkrcafJ+m
-	 vGIV+APXdN+V5kbITNlGnC2StM2e37BY/UJ1Hv3oC2jCUQJgnIr3tsubFPEdwx9kYi
-	 THAeVc7SUobHqUdx9NYyAUxKfaMB31YgcEPaxZxODLGkzafDxC82RdKtEwT8Sw3lzs
-	 B8rW6g7YgU4Og==
-Date: Mon, 2 Nov 2026 08:48:31 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Rajendra Nayak <quic_rjendra@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
-	linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v7 07/11] dt-bindings: display: msm: dsi-controller-main:
- Add MSM8952 compatible
-Message-ID: <20261102-blazing-tortoise-of-vitality-6f92cf@quoll>
-References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
- <20261030-msm8952-initial-support-v7-7-ad748ace375d@mainlining.org>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Y2WNM8XS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793605754;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9E0zGD2ODat2SvttteActsyR0xXKqRS4RgBIccVpIig=;
+	b=Y2WNM8XSRiHDKY0jXgNNSRAraYz56kqs/Jgeucn4DJ8N2E/QC2uGBrmn2FdxMQQXWW3jWP
+	day4E7LqpngUYbz5Eq45HmfKDqFhowzrJFuO+PnWPzp/t3fHZkNZWhQFbNVdgj3zmKX1rG
+	x02aMfS5jFjaq7sM0tpyHkCV6eRLuxw=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-468-rafnIFLNMu2yIqXetp5ebg-1; Mon,
+ 02 Nov 2026 02:49:11 -0500
+X-MC-Unique: rafnIFLNMu2yIqXetp5ebg-1
+X-Mimecast-MFC-AGG-ID: rafnIFLNMu2yIqXetp5ebg_1793605749
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9C42019560B8;
+	Mon,  2 Nov 2026 07:49:08 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5BF2E300019F;
+	Mon,  2 Nov 2026 07:49:03 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jgg@ziepe.ca
+Cc: alex@shazbot.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	bhelgaas@google.com,
+	jjohnson@kernel.org,
+	johannes@sipsolutions.net,
+	jtornosm@redhat.com,
+	kevin.tian@intel.com,
+	kvm@vger.kernel.org,
+	kwilczynski@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	lpieralisi@kernel.org,
+	mani@kernel.org,
+	pbonzini@redhat.com,
+	robh@kernel.org,
+	seanjc@google.com,
+	vkuznets@redhat.com
+Subject: Re: [PATCH v3 5/8] ath11k: use KVM MSI domain for VM passthrough
+Date: Mon,  2 Nov 2026 08:49:02 +0100
+Message-ID: <20261102074902.27907-1-jtornosm@redhat.com>
+In-Reply-To: <20261029170044.GR1685504@ziepe.ca>
+References: <20261029170044.GR1685504@ziepe.ca>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,20 +95,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030-msm8952-initial-support-v7-7-ad748ace375d@mainlining.org>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Fri, Oct 30, 2026 at 12:02:38AM +0300, Muzaffer Kadir wrote:
-> Document the DSI Controller found on the MSM8952.
-> 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> ---
->  Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+> This connection should be done through ACPI somehow, and I think
+> Thomas would expect this to be modeled on the platform msi domain,
+> just ported to PCI instead of this.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Thank you for the suggestion. I will explore the ACPI-based
+discovery approach and study the platform MSI domain model for
+the next version.
 
-Best regards,
-Krzysztof
+Best regards
+Jose Ignacio
 
