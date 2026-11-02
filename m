@@ -1,97 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.25
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793648870;
-	b=Z++dXPKwM1DSA0x2ofMozU3Jg7xG1b/YGZArR4QmZB3Vz+QJXU5gP39JviHdZrBVsW4R
-	 ayg61atpYFikclTYP1VnltdZhQsNW1RUMkxBax5A8Q9cX2nKArqcv8LKd8xG/DYq4LeeK
-	 CbtOf1WLDhM+entnmplT2DOxb5Wg9xTSVpTogbcnsytw/QVvritwjmAGrIZwESaECf6H+
-	 VD99NKb56lj8/HGHNjzYRATSWcJuC6M9B42+hkO8gKLH2HmelEFI6o2Tpf7J5XvFhZngj
-	 6Cy/BhKZpg5ss1bdr/krPMK239YKI1cHkNbiWWQaVZEzUh8PUmxCoXisGBvIuUv7vmg==
+	t=1793648965;
+	b=HKl6VMDrAF9tgwjjliBNUkGBu+6F3ffyUybGIeaWzz3tPSyIbmY7SmUOxqRdBxs0qcu2
+	 FTjoTprcA7w9XxVovyd0AKtVCH2gaq2q+6+iWymExGU0VTUZuDgps6QZveti7U45Ear50
+	 UGJO9qjby+IM/ZoKL8mClLtn12gwocixWuME007PO+Zx93ztMyRk/HCHIgKdIFryrKQjM
+	 sWJZipRi3QBvkxb3213modNELCTqhVE1i7s25PmfU105C0jxaMffzAJCtR7Obhx1KlQ5f
+	 8Zev45DoF6hmGPGHM73WE0cW/zFyiCxsoW4rInrr0Lww0HnEfmL+uFdUJnAyjDFKnLw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793648870;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KZr+ZeJeQq18LbFLKjAVYkiS/zLj5hFPJLz76m6XFyg=;
-	b=3igjrYIWeKgubJDpLeg7hQtdS1Lfq468fQKusFHHIlfA0u4QxhQpIptyIduo3xeUUhxu
-	 r5x1pBn57QD7YtDNm+L/qbyoMyUQwtPqYmUA3cKis2+rJHitAtz/Bp4cILw3S4QxcdDwB
-	 SWh0XlGOSuiUhQYf5x83cHAoUGmTiG6LhIHGJepCapDmepQYvNVWsrGdp/A8N36uMKdgy
-	 IeGTakoMR3qktErGh5wVLnEAUmMsOXv3MSzyLgzzq4WSaqjK6z5CgWuQY9l01S+CRgvU/
-	 LDTBExvkYmnwk+2HFYGnpJeCpV/LjehbzhFrNRODrrKRMwi6+cB91VroPFvTG+penIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793648965;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
+	b=mQNdMDeQW7ymvP8zW9VBL9PoLxnz/KS6I0dX5b5NJnnfirGm9VHHC8HUuhNK5dAZGGi/
+	 6J7H+VyEb0zuAS+R+CHq0Vd5YNnaZTlcqDq+VEKkygU3x+GlXF1wpj2O4DvyJt3yETspl
+	 CDhjwOVypyvW7U1B9pBDxM5l/BxqiI6xPIJ+tgoZMMDx1eyZeHFzddm+4f68guyOAPzqB
+	 csxYJOD2+aOHUBpx1G862bM1W/ZIH7aQJEZq385KJQMRPbcquG7+wzV4IhVvh9rSo7t16
+	 XlfwvExob2HoyxGyRkU88GO9vLqMuieMvKBQARCJl25zEBRTK5kZ+Rp2Co5ANzCz6Fg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=seBb3lAy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.25
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010025.outbound.protection.outlook.com [52.101.69.25])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QaM5xXg6;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GZPN26rX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E9B606D802;
-	Mon,  2 Nov 2026 19:47:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72E9B606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43423606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:49:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43423606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=seBb3lAy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k0K3/uppPz8PtcP5GiHCIkc3m0sdmjLmJBZAf1mN9ioimjDAm5pM6TfJaFUZDdhr3pgJ5SBdaIG2sF/sXBv6UFJ/d4MEb6Klq06tRYX6xFe+qm1Z9KiSQWZ827bM/rNIckJjkl6kJ5wUNvPGQZX3RScfq6LIl8wDF1masOh7X4nkCBWeVIWEIOeTTCx1FkbqloK7vuziHasyqKlgjOJYi4A4Z6cZl1w/0uT/G4uEeIDVuPnfMe5i60FphQb33EdtGKegs2SC1w3Jjm+J90SY6BsTtyIdFcIZSHEF6f5Fdv8K0BEj23pQ/EP0rEnz/wf3cv3vsx1FTh5+dZuczaWzjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KZr+ZeJeQq18LbFLKjAVYkiS/zLj5hFPJLz76m6XFyg=;
- b=GFgApMCucgz39ojHZM/XiPLbvKURBjo7OfoFzWcHOcLbyKp60P3Wg0CBrULhuhgYNfRTxjO7ZHEfPWs126SLQ0r5h5akR+jyLlkYwcGlxlEnGvCX6lZFFl6sF6Qe5w5nISP2YkhEihud/114o23GVTK4Bzh1+Hwj56chLVXazY28W5gGU+RhzOJzAhtOLplsJd/CJVwPrqId75LW+IsnnvkzWWzuuPhTBFMyffFSkTchKbbBAFyvCHeI5CwQDQstgF0IF8nMbgV9ptNs7t1upzeCaK8gv5vDTJgvQpU6Oyubr988YkmquDCWKOCa3EG6c7UvEkszbV7VXKrdkNrleQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KZr+ZeJeQq18LbFLKjAVYkiS/zLj5hFPJLz76m6XFyg=;
- b=seBb3lAyDl7pfs+Ta6//N06jQYimVUkZwSg015YPGkF4ouivjaS0J3dqMB+Xoyldsub9/lJgjLIypjLX1M+VRZ+f3AST01oaR0vbBRHDrL2QO2yq12ilsOizLv42bBSjA74BG+paFPZFeV4hX0x3bplA27FajczGiEM0pollF5eGrR1ln3XunthTsEu67YS6ZtOCr4XFygyUi7ZYb8vLNArgoAGvbv9e2x3orNzVsk88+plNpZVkURRELKng3PJT4lgEm2x45BAGNR3iW5BVot2hlRiGF51yt42aq6I32XiJAgstpdV3mMJ0bDBqnOwUAx1gS0dlUtjbqSbPTuFDug==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DB9PR04MB9282.eurprd04.prod.outlook.com (2603:10a6:10:36e::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 19:47:45 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 19:47:45 +0000
-From: Frank.Li@oss.nxp.com
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	vkoul@kernel.org
-Subject: [PATCH v2 3/3] media: pxa_camera: use cookie returned by dmaengine_submit() for logging
-Date: Mon,  2 Nov 2026 14:46:50 -0500
-Message-ID: <20261102194700.4076807-3-Frank.Li@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102194700.4076807-1-Frank.Li@oss.nxp.com>
-References: <20261102194700.4076807-1-Frank.Li@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: DM6PR03CA0094.namprd03.prod.outlook.com
- (2603:10b6:5:333::27) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QaM5xXg6;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GZPN26rX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793648963;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
+	b=QaM5xXg6PmvuF2z/E6SOZAr0JcwXklTlOkwDEPt6dfgCn3qGyGo9aPbJMG1lDfX2ymvybP
+	VXwQWYJx4WIVRWq9ir8SoTGJaIV2tNNPkKRPLIBIPGvDEqbTnjxKEwVrXizJ3OF4BZxqVD
+	Wo78Af1CFCXX93dwiPj1Uh4pLM1KJfQ=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-74-y1IBDDO-PZuVXCodyTfKtw-1; Mon, 02 Nov 2026 14:49:22 -0500
+X-MC-Unique: y1IBDDO-PZuVXCodyTfKtw-1
+X-Mimecast-MFC-AGG-ID: y1IBDDO-PZuVXCodyTfKtw_1793648957
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3acd4c7120eso4411591fa.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:49:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793648957; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F16j5Po/OlO1sglt+nT+FLorYKvfEGCvBdzX9yeKW+lmKigKf1JHZ5T1ndOFzY4rrr
+         gJwgiQZh/A+6i4JrtI3H+nq+sYiGZJ2ZAwSxzqsjDv3BTB08GNmPpAmdIYDTQuojdjv1
+         p2p+WUks9ZXSNkvein0UaDYi+aSrFo7Q/QLcEghUzxz1Q/ss5+YryW3pI/dQsV9DgyMo
+         56YGYCj+bogCKtjX4y78vnnZYYwC1LCvyrKNBgWNhJuENXuAPladDL1fawlgLQBjGJWB
+         dAHFcU4zUO15NQZdLLs0OkmCRQmrTUg0uKsqTWFWzYItCRZg93kU0avimkbe57oSPo4y
+         /bxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
+        fh=E2PkJi+YL0Dd7QnmoKiRMBB9VNxkP5ehkUL3Jf5tp34=;
+        b=fp4VFy30MgUM4Fr+CRBKq0qdQ8eFw555QvlDIhXVKP/tT34iSSh9A2TC3gzXPPbe33
+         vXAiYCbL17293QOC+Vgbp8xSDYMjO51d3P6vIKvl/9Xg8KSdQy297ZT1lqPM6+4wfiv1
+         xQgEi+VOQ9mPG7X2L+J9CYVnQ46s1yM1uTFlXaSXR/313I/0Q0GLztWJ9ZdttvMYXu8K
+         oT88JrN3JG/Ilza/mZpl5o/5YzG4WV9KyNKvtQNETc98n1QxubayGkMWDLHOrIE10MUN
+         6bmMk0ICKghLEKgGumSI9DqWPrYtJ0P+hFkOJs5j6yCirQzJI2MlSKrWkYi9QOS1SOk1
+         bwYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793648957; x=1794253757; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
+        b=GZPN26rXTz648Sbx7W2NREvzZidWMGu/9zzzgP6NsavF63+B7pRst7xS4Fnv9KOl44
+         DhZMUc4xAzmMwZj8CCl2Jcfl5gVYuXzXdEJsMbgbogVi74gWGWx6uSeg3iHAlV9AuosU
+         bKfNrWDKSfyaYZdeclnUzak4XyypB774QqE2bJNMD157EeQCYVIJuP+miOsBk6y6uw/C
+         deKBvWK1W68FtjRpekltm5PgEZdkUooFhAQrt4IiQOLLDaJeLMd0SVc3Zw+Ib/6jteqx
+         b06J3pWcov/ZPjUWmXQ1+Vly5mG/MNo7ITk0TKpqQtAMogKJbt7N2+F/Ol1LPp30Ri31
+         Unxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793648957; x=1794253757;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WWVCxwNmclKBiA1HWgH44SVxokhuUVv65U9BSPMB8hM=;
+        b=D8chMF8PoNkDC+jcUQl3rVpsubVuF/gnsdiI+9bB/Ls+hh623Q18flz2u5LmmL0IWT
+         wj2d/AUHzjfm9rbulrtm9CdXX4HNcb9UawK3HzbcqZ1sFrJ+EWJ0MQosy+AaaDqzoJAp
+         cQ0kjOloOtuSWk56LqPMbFXGeeDfTQeaTWKcenku2WVvl8ls9jVX4OFqGZBKp8i0Ds0v
+         Tk5Ve+3FMIFvm2sWA40fNvldbA40K7WjsDsT3qM72qeYRaJox5Mh3RkN077fPIQGc6NQ
+         LYBWV4D/RV2oxPLiyBxvyOLxvkGGsI0H2Cpvmi/nfDf0fqvpAa8pTlNzxna+6PAkruIo
+         W8EA==
+X-Forwarded-Encrypted: i=1; AKwUvBztWzxg+sUwB7m/sjnvpIaDLNdg97RhLJ4mCUPokhOJ7fJTdpTrYD3g1ISolPnNNiS/k+8+ajpUG1xraQk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TCyIwmvA+ikYNdQIGdn0SQrxsojDE5SZQ1LO3qOCf4mGea3qN
+	DjkguX2ij8/Eg5oYc/E1GRD2WMTWlyVMrFY2/xYt8kewBnv1YM3jV7cZLvPYe9uxPI1HjOmGucC
+	3RgZ8yO0Wn6kYF6X5gVVqfV+DvS5sxD6HzrtnAwe/TnolCp3uC7s13H7Gj0IZQkSRQBQCrUfPOD
+	0kP29Rtlbyd8MPh1qQwUXs/K4DnIbZMy6uIV2AY72Z
+X-Gm-Gg: AYBFou03jtWfgQufR3CCrdE+ndxrSwm0PqdQ765310YZIfGHSWLoUcSQFpzjXXypAIJ
+	cu7nN6Bipucbn1CQK2dfx9VaRPFIOurJTZmscR9Hkb65Cbfr9ZOG7ljZgulHQVGNIVMDJYROUEV
+	6hKiInxpCI0NXVlTDv6rctIyghtgTjvYUt9dgFFxh+xcbp2iK9Mnx+z7EO
+X-Received: by 2002:a2e:a551:0:b0:3ac:8ce3:c477 with SMTP id 38308e7fff4ca-3acb7b30453mr24991641fa.21.1793648957442;
+        Mon, 02 Nov 2026 11:49:17 -0800 (PST)
+X-Received: by 2002:a2e:a551:0:b0:3ac:8ce3:c477 with SMTP id
+ 38308e7fff4ca-3acb7b30453mr24991601fa.21.1793648957032; Mon, 02 Nov 2026
+ 11:49:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,90 +124,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB9282:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58211753-6dfd-4c30-1c14-08df391a2a2a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261026140227099003|261028144727099003|11063799006|10067099003|56012099006|22082099003|261102123227099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ugg/DePAm57So4IHPwvNPUgnUmXR+VYgYyCIagvhN8js8Plaj6d4f2Qb36qcSTvEeeiQ48x/2FdUjUcniq413hklcqLXD/yTcQttLwpL6cJtxpH58Mwz/sCbMIk8gmt01nZTZcBYUG5DNlwK/FAnkJzOv6bQ7KKYrhUVuf+6WCYx9sf6FEVfYog/E8P7Yj+VTZYwNMi4K0ox0OTPuLUG4u5VIQAcP3XbPeL6lghQYBj74g/LOrUlZfkHuYe40yqoUKIXovuOPu4CuX7MCljJ7CyhKDWN3yRzzIZ2slvb9dCDjOLXObCDZQpSTMS7VwwVXki+p9rrQR4ZZBNc1Fb3c8TE7QwXF5qA5W6Kf5wrKlZqBKGOLhDzjRcIs56s36Zz3TwjgzndnIZQQNfog99TQMpExNtUkrwMlk4dvt7ig9WUqt5YIkiMm3lQ8b4Ws19Oxfcr6EdwQVCCFn0VBxyMoqXxFZoLhFOTlL7hw+W+o0VBjn9cQr6dL6ET1DhdZBH1HvzvcOwnLl3u+iCrtZuc/FrlPQb9jOQ3ysabzg1RBkd2dlpARwoBsVD1zdQMvWbh3l7qAvr7UF2zuvbcfOldo+M77zZ5oIL/3jVMdVoB3OCr8R2WXa9qoFih2vfL2SGn10LRLDF4eCsMgjnilJ3J2X8z5D7kXaEyuTvNmIge/po=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(11063799006)(10067099003)(56012099006)(22082099003)(261102123227099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?N/26+RlKUvil7tAozXbbsvHVjaSifWVDPbAzNb8GKhT/DiYhQnCPpqa8Vr2s?=
- =?us-ascii?Q?y35vz27wjjnjnlOF5WI574mDaPjwUw7MZeX1GBIkUDjn6trzoAWogcEH72gS?=
- =?us-ascii?Q?8nzU2Mj6DAI6PIeG7iVexNEVJsoQa2euRCnME6D3n4ZVBtxKqcE8WR4RQE6X?=
- =?us-ascii?Q?oacfUOUDs8BWZFOA6jJANzGaztXopfSCPcFzXVoBPM/tAb+c3V5f3jSKzGnZ?=
- =?us-ascii?Q?BHQUSx/SPQqMmDw0s9Xvzs4Bbpm2eIS8YFVm/4Z3yll7ZLWklhqTiS684rHN?=
- =?us-ascii?Q?YevQ1j1AoMmBUHn0aZWA4e2iWD/mzOUk/DGiiQzFenSzmr+znqoLMCdR8Rpv?=
- =?us-ascii?Q?PVMscc19KA+ZYbApbXnSnWuvrnyBWJ6WEyfN4dtqqrygJsWjh6YU1st/2tLz?=
- =?us-ascii?Q?PlgEa74ocGDzui0G4mLM91E28BnMrv1XJr1YSqx9F98MJeHyO5GyO62ipdW7?=
- =?us-ascii?Q?IFtHpg2WOTQ4LcJyqfwgYNrfr9QKQfWaBP8Q6bCC8vLeAjMtUfqRgD1oDYcv?=
- =?us-ascii?Q?WHPxWK4K7oz1ehdrrhrpJuWAmownwjnFgpaj3jSFnee5WSaSu3e9XVN8QSL4?=
- =?us-ascii?Q?b6tKCdoevkiYhhh+jqVUt7ByaZ7aK2pxzTxBGb7G43wxMcOWB3RIrtIN0C1z?=
- =?us-ascii?Q?IDHvDvMEeDKUcOfw3kmFG1nJPPG46fBLWDDnetk4zCEOB9+a2Go2heT4Mhfb?=
- =?us-ascii?Q?W6GYWFCT3EktXxMDf8G20hAsqMTmgBzeBe6VEXReSO0Aez6tiLS1lpPi4F/P?=
- =?us-ascii?Q?wyBKJQpREGqCcQYiufGZeJSvFz0cdy9ysHpMu9KQC8GpkgmYvszOnp/QeaZH?=
- =?us-ascii?Q?DxQRakh5mXatJinp6dXx8Bxt21VbGNC1ObzVf6G7rQfLm0nXdnH7EAMCtA6m?=
- =?us-ascii?Q?BFL25yNfs2t8eJl9MOSqhdW+U22e+mboUBeuSoQ65JsKDQCmcPx7FFK6grgA?=
- =?us-ascii?Q?32+t7gEzlK/y3zQYeL9ytaC/QUtHGbu/FnJ5zs/9GcCYte1PLV/eDUTZv4zD?=
- =?us-ascii?Q?J2KzLKBY6WUK2K2R5F2xvXJqb1D/LssD7f0CHG+hc2GMSxbuY2prfx3Z/5Pk?=
- =?us-ascii?Q?e1Ofdurye3F9Dn6pgqDk+YNjCxW4NBxBycqgBcc9jTso7PwbDptyq7HpIqiA?=
- =?us-ascii?Q?8hXZo5JmtjeSAlhm6yxmOeFIF6yDmbLFV4YS2a/GVlUWRxM8bgapRL2s1+C1?=
- =?us-ascii?Q?MenF09MH4R4rmWr4tY1r81ZkGHsVVNEqG7dWccfvTSaLRGJvSA5tsNEYgP3E?=
- =?us-ascii?Q?lxtpZ3AO88cZeQKwtVxC45JvyjePCIMHWUacDLw1xCTBhs2e81vqVpLgEuF7?=
- =?us-ascii?Q?gRHpukJnPyBA8P5uKN+1AzKg23GtfHetNsbMtK4TrnB+x7BFJ3BJ2g9jvX2d?=
- =?us-ascii?Q?VgYFa58qTMXk28KOL2+pk/SEsn3nsw690G3IB8EeEX8qMZ0mRbJ6LBdaSMQI?=
- =?us-ascii?Q?mIVwHnCGjyI+yUf+vCteL1woJSCTNjNFnVzy8yE1EVhAk1qeiM4XDRSXyZqR?=
- =?us-ascii?Q?EUbCAchdNM3IxTZQ1whlSWYw6r2Vtdn5J5TOncmAqhNr+OnrgYezmWgGtczi?=
- =?us-ascii?Q?476MMGn6yRQXXxcBwH9xlsTW/8Q8VhxtRu+ZKfGXvChQzXRUbHZevto7bPvL?=
- =?us-ascii?Q?U0Ho/NO7Y4pEwHIiH9eGL3CcMWflEvaYDWNJ2ZRaHYfOTTneH+ccFFA70nUy?=
- =?us-ascii?Q?Jm5N2g0Z45UZrvIDiMXYWMsIxOyN78v/NODXovFswuidAhJbogcpbWCYaDoi?=
- =?us-ascii?Q?cI94D7Q4XzFy/Z9jMpl54DTjBM1HlQrOlfiBpA5Dj3rahD/yzBub?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58211753-6dfd-4c30-1c14-08df391a2a2a
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 19:47:45.0949
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xo/YgZHmd7hVA/ngtMSEDeHsZusq5PGxzs7TJlQSpVSBUIjzT6+WPSlpUy191nE665VcYEUNtuloMxbl1MFGtN2p80bAdLj1nisAFa+6ivK3BdXR2yxVdkvAna+/hfa1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9282
+References: <20261019151627.3324886-1-ameer.hamza@truenas.com>
+In-Reply-To: <20261019151627.3324886-1-ameer.hamza@truenas.com>
+From: Alexander Aring <aahringo@redhat.com>
+Date: Mon, 2 Nov 2026 14:49:04 -0500
+X-Gm-Features: AclHuK9ZeucLYL1DScuSSaHH7_rMZLYot-5hfyfC4xJE5FYtmB70sxRvxJe_mfg
+Message-ID: <CAK-6q+j64=mSzuufOaSGjsC2aSwhb0hs9MKxxaAhbwugdztHZw@mail.gmail.com>
+Subject: Re: [PATCH] dlm: don't set RSB_MASTER_UNCERTAIN on rsb with no master
+To: Ameer Hamza <ameer.hamza@truenas.com>
+Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	caleb.stjohn@truenas.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
+Hi,
 
-The debug print in pxa_dma_add_tail_buf() was logging buf->descs[i]->cookie
-instead of buf->cookie[i].
+On Mon, Oct 19, 2026 at 11:17=E2=80=AFAM Ameer Hamza <ameer.hamza@truenas.c=
+om> wrote:
+>
+> When a local request reuses an inactive rsb, find_rsb_dir() sets
+> RSB_MASTER_UNCERTAIN if res_master_nodeid is not our nodeid. This also
+> matches an rsb that never got a master (res_master_nodeid 0, res_nodeid
+> -1). set_master() then trusts the "cached" master, copies res_nodeid -1
+> into lkb_nodeid and skips the lookup, and _request_lock() hits the
+> DLM_ASSERT(r->res_nodeid >=3D 0) in is_remote():
+>
+>   rsb: nodeid -1 master 0 dir 1 flags 200 first 1 rlc 0 name pr
+>   Kernel panic - not syncing: DLM:  Record message above and reboot.
+>   Call Trace:
+>    _request_lock.cold+0x3e/0x3e [dlm]
+>    request_lock+0xcc/0x110 [dlm]
+>    dlm_user_request+0x110/0x340 [dlm]
+>    device_write+0x605/0x6d0 [dlm]
+>
+> Such an rsb is left behind when a request is cancelled while its lookup
+> is still outstanding and the lockspace then recovers, e.g. because the
+> dir node died: dlm_recover_waiters_post() completes the cancelled lkb
+> instead of resending it, so no master is ever set. Once the rsb is
+> inactive, the next request for the name revives it and crashes as
+> above. If we became the dir node in that recovery, deactivate_rsb()
+> even keeps the rsb as a dir record, so it does not age out.
+>
+> Before commit c04fecb4d9f7 ("dlm: use rsbtbl as resource directory")
+> the flag was only set when res_nodeid was > 0. Restore that and set the
+> flag only when a master is actually cached, so that set_master() does a
+> normal lookup (or becomes the master itself as dir node) for an rsb
+> that has none. res_first_lkid is still cleared, as the cancelled lkb
+> leaves a stale id behind.
+>
+> Fixes: c04fecb4d9f7 ("dlm: use rsbtbl as resource directory")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Ameer Hamza <ameer.hamza@truenas.com>
+> ---
+> Reproduced with two nodes: pause the dir node for a name, request the
+> name, cancel the request once the lookup is out, remove the paused node,
+> request the name again. The second request asserts without this patch
+> and is granted with it, also when the dir node moves to a third live
+> node.
+>
 
-dmaengine_submit() returns the cookie and it is stored in buf->cookie[i],
-so use that value in the dev_dbg() call to accurately reflect the submitted
-cookie.
+question:
 
-Prepare to make struct dma_async_tx_descriptor private to the DMA engine.
+how do you "pause" anything in DLM?
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- drivers/media/platform/intel/pxa_camera.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>  fs/dlm/lock.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+> index c715e171bab7..2323c7709aa1 100644
+> --- a/fs/dlm/lock.c
+> +++ b/fs/dlm/lock.c
+> @@ -826,8 +826,12 @@ static int find_rsb_dir(struct dlm_ls *ls, const voi=
+d *name, int len,
+>
+>         if (from_local && (r->res_master_nodeid !=3D our_nodeid)) {
+>                 /* Because we have held no locks on this rsb,
+> -                  res_master_nodeid could have become stale. */
+> -               rsb_set_flag(r, RSB_MASTER_UNCERTAIN);
+> +                * res_master_nodeid could have become stale.  If no mast=
+er
+> +                * was ever set, there is nothing to confirm and set_mast=
+er()
+> +                * must resolve it as for a new rsb.
+> +                */
+> +               if (r->res_master_nodeid)
+> +                       rsb_set_flag(r, RSB_MASTER_UNCERTAIN);
+>                 r->res_first_lkid =3D 0;
+>         }
 
-diff --git a/drivers/media/platform/intel/pxa_camera.c b/drivers/media/platform/intel/pxa_camera.c
-index c9d57e4245181..d41cca2b2d8c2 100644
---- a/drivers/media/platform/intel/pxa_camera.c
-+++ b/drivers/media/platform/intel/pxa_camera.c
-@@ -903,7 +903,7 @@ static void pxa_dma_add_tail_buf(struct pxa_camera_dev *pcdev,
- 		buf->cookie[i] = dmaengine_submit(buf->descs[i]);
- 		dev_dbg(pcdev_to_dev(pcdev),
- 			"%s (channel=%d) : submit vb=%p cookie=%d\n",
--			__func__, i, buf, buf->descs[i]->cookie);
-+			__func__, i, buf, buf->cookie[i]);
- 	}
- }
- 
--- 
-2.43.0
+I tried this patch and no significant failure occurred, although your
+case is difficult to hit with a normal workload. So I will ack this
+patch...
+
+Acked-by: Alexander Aring <aahringo@redhat.com>
+
+This reminds me that there are too many places that determine the
+master or when the master isn't set, instead of having one central
+place. I tried to improve this situation, but the changes seemed too
+extensive to be accepted upstream. [0]
+
+- Alex
+
+[0] https://lore.kernel.org/gfs2/20240423195559.1527187-9-aahringo@redhat.c=
+om/
 
