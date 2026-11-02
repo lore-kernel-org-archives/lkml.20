@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793641247;
-	b=J9r3vKc3pjfJFI+vS3JqCIYGi2BYv2TtJggR41f8NL0bs8+de76PuwxspbBKwAm9Ewp8
-	 53mzAE+A7ylNxSc531APlG4Ocx2B1+VD0ykin1/sGZ3HTbzuvSsw61mJuHifhfprJRc9y
-	 hEQbcflvtWKCHgyn5jfcvMmgdYaN15kMiht488De562/kJvcYw4PmEINbgsj8YLDaF39j
-	 SAqe/CEtsIU2JZnTcuM9hRz/LJ/1u4zWS7iB41gWFg8cT/hSacUG8+/gAAMmKsLy6GqZG
-	 Lr694wvFGkvuBpiBCx/AlCpcdQiRrGId49+udH/MpfqmN+EsxKyZ86Fv7zXKukB0Siw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641247;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=TlWIVwA/UXKyoa6jSw1HPI+XreVDEaVcyeg+VBHTtLE=;
-	b=e+ybGW+mHOnpnVWeOKMaZ53tUDuCw5BO/82nZuWwXiwEddmE+C17HY0GUWpTKPJb/AST
-	 5H2IKxiyRwetN/sQ8Mf/Ky4hHQZVpopj/3OwkfVLQwzLAFXkHbmcR8fZVjiZrruusfxTs
-	 3PXM646ejTL47GyNtL2ZLpWO96xd1Gye9LCaWYJWVRChzzehARbFaXCUwfvET8ncFTE3M
-	 dsHzbfe/DdQLBPhrVxiySkVYsEDFS/JEAxVXTI8uEYvrPhycE1c+gkMKVT2iDwKoHEWNa
-	 PXcnC7CVZBd4pydWxmVD+w0dwPCSpCkLYT5n4b5ZLia+jsqGX0M0kqHGTtyOlPOtRZQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XXFUDEQU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.45
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.27.248.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793641273;
+	b=pzsm1r060Km0jjBHLzh4bPDms/BWykenBsUqEr6fYlUSWp40SqtuWix8dQ1NO6RAw3qZ
+	 x84tNFVv6m+0lqPXwM2ndRxjLcBpTzJCtEpLWrJFdk/0c2h1UCXrUDwfxB4NtqSvWkNbq
+	 5un/h5G3jiC95FElBpFe2W4O1MvYSBm3iBbbba156m53NuzAhUkP2q68GuoctaVRE12C6
+	 9luwGcV6X1W4Os27V4Xe2PLZi2k/lSd4GiTUiw5X2yrTcih/8sv1F57fYH6vPvAtZIqlx
+	 TwyuH5BYQ8YkXcRMi1nl1tqDPd6wYn/VjiCBR6AbqB2ZTy/7jdXAy9TaEFZh563wCOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641273;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-PPP-Vhost:
+	 X-Virus-Scanned:X-Virus-Status;
+	bh=kkOH7iuJae2q55d0aoiLBhkj/PtC9AgD5/0vO+Wsnl8=;
+	b=pj0CohseBGdlobSv4STMwZgomeYfYjl0GY8B8K7OlRVIPxTU8Dg4dbd4Bxhw95hkqTbN
+	 1GVAJYghT9fdR+GnpdIpeeXR4co3sNzrJn08ROCko+88PDOTvcyKiPORZhIYRKdzd7m+D
+	 l//SY5DqyMDrIuF0Pr9PC3Nd9/jVfwG/yXipWeNd6dNUzoszj/g7EjueLRxQiALxfyvbl
+	 SW8NPY9xt8Im9xGOWYe+jqAm1PaI9FnniS3K32XlJ7JN1efYBgowDaQ88kmyve1Nt7xWY
+	 btoEHGyOTo3W3MqN2tcuMw/q1nglkdYspr4MN8bk/GlajmHy+Qe1VdZY9bWwwdC1IGw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=antheas.dev;
+	spf=pass smtp.mailfrom=antheas.dev;
+	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=LAMccuq8;
+	arc=none smtp.remote-ip=37.27.248.198
+Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C98D606AEB3
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:40:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C98D606AEB3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57EC1606B0CA;
+	Mon,  2 Nov 2026 17:41:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57EC1606B0CA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XXFUDEQU
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-7cc91ddf447so1184289137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:40:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793641246; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CdRTvhc6Vn2b/iw7mzI5mhTB+A3wGgmlKwAVXTop2LfKQdFCI4Ycahn/okcSxUYD9V
-         lCn9LS59QuWIzA+8nmfXF/r+z7q8v7I1zRbevbykomgx2PovS9bwc+BqxsMJFZyyszoB
-         8uWOEaWFBOlypJuUdeluP7mFwSr+YArIdc7PztApG1KFUVLedt5c3xa0Rpah+1iQg1i3
-         5XkFj9QPiHQoD9xbiYzZ7vJNQP6XafplCoKBAhx83BYMd2Tz09QdmHaT5wgL99vdZ+wo
-         4+6ZIKqltCl1GO+VoRW2dtfQ6usXYk+eG0ohLl5hRUFigpfhDWtBRXk8J6Cgu8KBPQNX
-         y85g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=TlWIVwA/UXKyoa6jSw1HPI+XreVDEaVcyeg+VBHTtLE=;
-        fh=dbg0ah4rDSrFGsqSUTgiSNShBE9Yvaijs+qckzYEo+o=;
-        b=QT8XybYwnImD+QZkWk+403J1mJtcRZ/vgZ8Qb7FhpLnzTW+0kuzYZeDImrV7cIcxAs
-         rG7KSdPFnVsviFjMwA1ktF6Qwkfj6U39CoAJhbeKoYmKSX1Sw239wfhmPg7DIbYvmQGo
-         12ihdjbNVS9YQz74cXciOARL1JE8W676gMXEgHUcntA3k0CBo7JIauPLjcRN/Ec7IqKG
-         BBZZLD284jaElb8zdhWCI5gNlUICmAM6pyv+sJYsML2FeXFDeNh2p7K1JktlwQrQmOhG
-         poznEK3EoxUVhFQk1S+vKgqNzd2GKgUgs6NuubLR27o0PKOQovK1LbsAc2QjW5iEjHaN
-         1ayw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793641246; x=1794246046; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TlWIVwA/UXKyoa6jSw1HPI+XreVDEaVcyeg+VBHTtLE=;
-        b=XXFUDEQUt/RMwmcuNPfKQeIT1xPpcppGrlw5ABGLmtU7yZAJ6n902Ihf0F9RqyoXGQ
-         w5eXCYiY/h4klsDQOLtleFyi9PYc6hcxhB4hQlh7tOmhsWfuuyZw+nswEinQ26obyRnW
-         7+qQskOy9D8z+w1Kd/RBd58h7ZIlpS2gqO5InM7u23y6TzzOK2YmqVtTCNLL0xUcvxL0
-         tOjn0gXV2Qipm97u81+wczAuVYIszmor5UqnbJ1QuoqPCV8Pg4fjPeNWbenBLcvnWeik
-         6mH90Wo+WohV6CURPrdk1l+EWP8YfAOsyuAqWQ0CsVcpFu40p5AcD10OTDMAv9K2TE0r
-         nYNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793641246; x=1794246046;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TlWIVwA/UXKyoa6jSw1HPI+XreVDEaVcyeg+VBHTtLE=;
-        b=YyCmuAx8a6KSq2fYkCl+Rw4cRVt5rms/w2QPD3fyEDjbaiu+VJivm2JzYCvqlJalhf
-         C6fTaOFrnfwiDIrHqCOtiBqrrwqi8JKVDKSAh+j/sPeyY6nSXvrvrG7QBr74zgbznrTo
-         VXi8IWase+74A2DpH9ZWrvGD/oTviUJWOsf4iAZ5rcRRUdY0Bm501pT0S7nzmiyER/pF
-         iJ6Ygg51ZPxB7SNsLtQg0dCV8FqI5fBGdjlHulYPAM8VDyuJlTWAmagvzjzi/K+W3/P4
-         3KpQTIHseMX2ljq6Wa7fCyi1HAAnkZqWqXFvkUvKTdFtjUxnOn9fRCAPqL08FpWZFIkf
-         Ur0w==
-X-Forwarded-Encrypted: i=1; AKwUvBzrG/RtPfQxmH37rDOkF1aDQLR+epHBml5lN6rIIbW44JXY0qZwF6+TOoh0Lsv1J7GFS2cH2Rvur5bTIZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91R8QQTOfnMXQg94C32C2xM/TNvv35SWEJA1QKQMGNP+ce9zhr
-	ujYTsVuY/MVwev5U4ePcUOOkZzvPVYqThAZAX8UOArFoY8u/MJPuPTq+SewGtDFCy3FluxNyenN
-	KATr6PzkrwZU8F8P0u9ETxc6PO5+KS4w=
-X-Gm-Gg: AYBFou1Vu2ci4sU2c5bNU0ALmbPeWrxsANkXd3eXHZJ9USHzfg+Lgq/3qIBEfuJ8OQj
-	lfpUlIrwCSVcBq+4QsaMhs8CdFExbLCvfePTj5aHtvB5vsFvPMJGtXuAteijLgP51VRORZSYgbP
-	WFonh3A5z1F6fs+d2nKCvlOqIxt+EDST914Xjf0mL4UGogh6ikRpo8DNBT5KZY67fPGcbY9NihR
-	YtIxnbAbcxdlV/JD1Ilgv76AwdlyUftzUZRiwJBkMBHZTapEXp4pOBojR5Z2Sx0GHRMx5b8lqTn
-	LwX9NgQ5wjHsJy+OIBkWzeKMXO0RGrI2mWxPVi6uVHVe8p4GeZ7WatIEc1XxNlaMiGtwo3nIteH
-	v9Ung8gljeUnwsydFN/SMOfBFcQDimho6GBCe8YqZH4e43mPRWMO8cjUAsqSGEuXXzQx3FUWJXM
-	RTyQeryOM=
-X-Received: by 2002:a05:6102:6cc:b0:7b5:7cd5:2a1b with SMTP id
- ada2fe7eead31-7d072634fbamr3742461137.10.1793641245530; Mon, 02 Nov 2026
- 09:40:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=LAMccuq8
+Received: from relay10 (localhost.localdomain [127.0.0.1])
+	by relay10.grserver.gr (Proxmox) with ESMTP id 6201D43F7F;
+	Mon,  2 Nov 2026 19:41:05 +0200 (EET)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay10.grserver.gr (Proxmox) with ESMTPS id 6159441D13;
+	Mon,  2 Nov 2026 19:41:04 +0200 (EET)
+Received: from localhost.localdomain (unknown [IPv6:2a05:f6c5:43c3:0:addf:9aff:bff3:4b66])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 87A191FD956;
+	Mon,  2 Nov 2026 19:41:02 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1793641263;
+	bh=kkOH7iuJae2q55d0aoiLBhkj/PtC9AgD5/0vO+Wsnl8=; h=From:To:Subject;
+	b=LAMccuq83FMMzeSRh44evNrezHV3hIrxwxM6ZKsopEPCPio7nAGJeVehOdYfg++8a
+	 9Tb7R850AeJ+i4Y6eF0SNmwZShGhDiaJOtGkH1GlBLoWgCGThFcZX0ieUAq7K4LxqB
+	 +ObV+D0Kvs9lrUVK2X7cnMV80Xh1t0GslET5+F06U2k8nFybIjB4lkk4ZuNQC3+imB
+	 epHHGF/IDtkoIDwqbZxVKteq7+9X0Iy012F1gU5HxAKWdbIMBK3WMweeBtCMiKh79C
+	 np+9wIz1y7PuXX9lXC9AKSF1B5kULEZEQ4YW7tfmtWn6b4tcTV5KQ6vooVPh49MQvd
+	 b1eM0h3MqQ3OQ==
+Authentication-Results: linux3247.grserver.gr;
+	spf=pass (sender IP is 2a05:f6c5:43c3:0:addf:9aff:bff3:4b66) smtp.mailfrom=lkml@antheas.dev smtp.helo=localhost.localdomain
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+From: Antheas Kapenekakis <lkml@antheas.dev>
+To: tiwai@suse.com
+Cc: Shenghao Ding <shenghao-ding@ti.com>,
+	perex@perex.cz,
+	baojun.xu@ti.com,
+	kevin-lu@ti.com,
+	sen@ti.com,
+	matthew.schwartz@linux.dev,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Antheas Kapenekakis <lkml@antheas.dev>
+Subject: [PATCH v2] ALSA: hda/tas2781: Prevent throwing away custom
+ calibration addresses
+Date: Mon,  2 Nov 2026 18:40:52 +0100
+Message-ID: <20261102174052.1216670-1-lkml@antheas.dev>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,69 +83,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <aui3TJqadHUv-4RW@tiehlicka> <20261102163014.237806-1-joshua.hahnjy@gmail.com>
- <aujCcqKKyio7oZ0x@tiehlicka>
-In-Reply-To: <aujCcqKKyio7oZ0x@tiehlicka>
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-Date: Mon, 2 Nov 2026 12:40:33 -0500
-X-Gm-Features: AclHuK8Kcc-o5KfW3KwHQal0BbNJdxHPlCZpE8gC1XELnC_g5cw3VrvhXhvc0MA
-Message-ID: <CAN+CAwOwRJUDXHj0RMr4p2+sdA1V9bX-OgOH1PpER+u_cB2fAg@mail.gmail.com>
-Subject: Re: [PATCH v7 0/5] mm/page_counter: move stock from mem_cgroup to page_counter
-To: Michal Hocko <mhocko@suse.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
-	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, Michal Koutny <mkoutny@suse.com>, 
-	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: 
+ <179364126331.221749.8026019414900587865@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-> > > > Personally I am a big fan of how try_charge_memcg looks after this
-> > > > series, what do you think?
-> > > >
-> > > > > Quite honestly I am still not convinced this move
-> > > > > is the right thing but I would like to fully understand the mechanics
-> > > > > first. Having discrepancies among different counters just sounds like a
-> > > > > potential source of future problems.
-> > > >
-> > > > I hope that I can present a good argument for why this is not as
-> > > > concern as it may seem initially.
-> > > >
-> > > > My first point is that the memory usage counters were always fuzzy, as
-> > > > specified in the memcg v1 documentation too:
-> > > >
-> > > > usage_in_bytes ... doesn't show 'exact' value of memory (and swap)
-> > > > usage, it's a fuzz value for efficient access.
-> > > >
-> > > > Secondly, the raw value of the usage is actually always accurate. It is
-> > > > just the stock portion that overcharge the memory at times, making it
-> > > > seem like there is a discrepancy. Flushing the memcg stock immediately
-> > > > bring the counters to their real values (like what happens right now).
-> > > >
-> > > > Finally, this is a change that is only limited to cgroup v1 users.
-> > >
-> > > Right but is there any actual point in adding caching for memsw charges
-> > > now? If you have a way to opt-in to caching then you can simply disabled
-> > > that for memsw counter altogether. Fewer problems to deal with, explain
-> > > etc...
-> >
-> > I think the problem actually still exists, unfortunately. In fact I
-> > think the issue becomes bigger if you remove stocking for memsw.
->
-> Yes, you are right. We do actually cache memsw through the charging path
-> which charges both mem and memsw with the batch.
+The V2 UEFI spec for per-device calibration data in TAS allows for
+manufacturers to specify up to five custom calibration register
+addresses and values to optimize per-device in factory.
 
-Thanks, Michal! So it seems like we are in alignment on everything
-except the cgroup v1 implications for fuzziness. FWIW I think nothing
-really changes from the userspace POV. memsw and memory usage has
-always been fuzzy due to stocking, so all this series does is to
-change "why" and "when" the stocking becomes fuzzy.
+A basic description of the spec is found in a comment in function
+tas2781_apply_calib(). However, currently, for the condition of
+p->dspbin_typ != TASDEV_BASIC, if custom calibration addresses have been
+provided by the manufacturer, they are ignored and the ones listed in
+firmware are used.
 
-What do you think about this? The other alternative would be to remove
-stocking for cgroup v1 users completely. But I am not sure that is a
-good solution either. For the record, I tried making the stock tied
-together so that they refill together, but that was a nightmare in
-terms of added complexity.
+In case the manufacturer chose to change different registers other than
+the default ones (r0, invr0, r0_low, pow, tlimit), this causes the
+UEFI calibration data to scratch different registers and cause the
+firmware to misbehave. This is true in the Xbox ROG Ally X, for one of
+the firmwares, where it pops and has audio dropouts after the
+calibration data is applied.
+
+Therefore, add a new bool to indicate that UEFI supplied custom
+calibration addresses, and if so, use them regardless of dspbin_typ.
+
+Closes: https://lore.kernel.org/all/179122346529.6.9250312386131579603.1671009695@8alias.com/
+Co-developed-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
+---
+Different laptop this time. This bug was valid, just not present on the
+Xbox Ally X. assembledev is not a real name, so assembledev if you want
+a reported by provide a legal name and email address. You may test this
+patch and add Tested-by: real-name <real-email> or omit it.
+
+Technically the V1:
+https://lore.kernel.org/all/20260107093134.583873-1-lkml@antheas.dev/
+
+No functionality change, just the commit message.
+---
+ sound/hda/codecs/side-codecs/tas2781_hda.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sound/hda/codecs/side-codecs/tas2781_hda.c b/sound/hda/codecs/side-codecs/tas2781_hda.c
+index e0da299df780..70e5118a17a1 100644
+--- a/sound/hda/codecs/side-codecs/tas2781_hda.c
++++ b/sound/hda/codecs/side-codecs/tas2781_hda.c
+@@ -64,6 +64,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 		TASDEVICE_REG(0, 0x18, 0x7c),
+ 	};
+ 	unsigned int crc, oft, node_num;
++	bool custom_addr = false;
+ 	unsigned char *buf;
+ 	int i, j, k, l;
+ 
+@@ -104,6 +105,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 		for (j = 0, k = 0; j < node_num; j++) {
+ 			oft = j * 6 + 3;
+ 			if (tmp_val[oft] == TASDEV_UEFI_CALI_REG_ADDR_FLG) {
++				custom_addr = true;
+ 				for (i = 0; i < TASDEV_CALIB_N; i++) {
+ 					buf = &data[(oft + i + 1) * 4];
+ 					cali_reg[i] = TASDEVICE_REG(buf[1],
+@@ -163,7 +165,7 @@ static void tas2781_apply_calib(struct tasdevice_priv *p)
+ 		}
+ 	}
+ 
+-	if (p->dspbin_typ == TASDEV_BASIC) {
++	if (custom_addr || p->dspbin_typ == TASDEV_BASIC) {
+ 		r->r0_reg = cali_reg[0];
+ 		r->invr0_reg = cali_reg[1];
+ 		r->r0_low_reg = cali_reg[2];
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0
+
+
