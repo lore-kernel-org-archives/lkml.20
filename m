@@ -1,49 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633384;
-	b=IG30ULW5UX/jKR94oTW7/pK7bBsrx25VWntAfNQ3Ma3Y28QNejaV9+ZhlrF4YMCc32Or
-	 5cx5eQD7Ia6WHNPdtdQ9imvvKAhktDnF9xOqEV+4OMYpmbJVLxRSGquWmCvFxSDI4L4zq
-	 F+0MuN38mt5KLZjkDzsnrUmu/tz6hDk6hYl1mPkgcnNOwtzq2RBQ2qaUeTDJUxGlcstw4
-	 /2ZxKa4/Rz0fECamnnusNBLFF7tEmteVF2oW3JPz2I71S8y8aujTjeDDh3OUnccT5ORlN
-	 Qf3eVExfYeKvxHBFI5DAcz+bNumMMoPelEWLxj1uNwUYhJ4Z/7TU1R8ABiuTBbb5vyw==
+	t=1793633390;
+	b=sba5fW94b6zVXWy30ioxgAUvLyPgGN+WUV9N7SbOysaVIKb2Y2tXhSxzMY+Rqekspg58
+	 vkIZs89Y0DYHmO/CamKWzuoMeZEBVAat8sy9yO2l80OuaN8Qmh/iE0CggXazvFAUfx4hm
+	 DMT1NEvBOmpp89fQH4J6gNg5bENfq/X2UI5dK0/+hUEK6MwMGEb1Nv4++e6sDEHSd1jPr
+	 ezRoObRaCDMYbxLZwV3E3ai0bqIgjYuH3Ebo+rxY206dlU7QzXgS9n4EwDlMNQKwOFQHY
+	 YaXPfbuixM+dsCSzhcV+rEGqHUSjXfS5Lltojc7vqFLp5s6tLW03acReTs6pnI7SgUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633384;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=AmPg73ZsTa4hWS3OOTC3awBO6zvZml45J7NYZXMvC60=;
-	b=5tUOLSMNujfwi2f0OTXtyHt9medIBpBk+sVG9wLwioq6fgYXV6F4R04r0gxTbcchIxFk
-	 4YrU+YoEsd/9vhoKuC3FpT5u61ZybjQVWyDLmF7pWQt/RtAEcFP1jU+ocurbO3itWZAkE
-	 mdNaru4ampcU5pgCQHHUzjrG74NPLCUPsp8+o7l+fArYev/Y2EKeakJ2hcfA6XWYmXXAr
-	 5uL0RGQBxizoNZMVZx/BQDTuSy5HIh+KYKFX1yBeu/nDpWNb80iEklBDwi5mnE3as44es
-	 ewEmjMmDLZ92AHYwZK5qNjwuBM56iXWZea9a6F7DknjUjDysZ/GfWYsXTjxrA3sCU5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633390;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AfMnsvVTtJkxmfxbs2Yxgr4hKJCAmoy0tOEQOe4nWZ0=;
+	b=yTfdgtFd6iSA5JLFqD+FdKUGqnb7xc81W+WPjfWki1BRSmmdIGcg/0EmB32rdLuahRbk
+	 KWk9SzPh19IR911N6StupkcPAtDz961OnVHif9O+R8K6rseSOX0aFZn/tZO7CQDGutzRh
+	 fEs2SMAHfiq+tP0mC4HGM313gPBfHvS/E7V0l+dpFpISwOLHL7ViHJIfFkmmTGY8psDw+
+	 y1JNiXFGO16IdzX1/Fu7I9I35ub3xsrJGa4zmuPatYhZI2POLDEe4fkIBDJaHbzDorsh1
+	 KsgtITKJuVhK2cqJ9D41X83auKbLoPSPy62saIAURo85eXKlOw40lhFfh5jnA6IJfcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCTZ0HLl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eBu3G+7A;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64D6608556B;
-	Mon,  2 Nov 2026 15:29:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6160260865D7
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:29:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6160260865D7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCTZ0HLl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABFE1F00A16;
-	Mon,  2 Nov 2026 15:29:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633383;
-	bh=AmPg73ZsTa4hWS3OOTC3awBO6zvZml45J7NYZXMvC60=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=iCTZ0HLlYWpNnx3lzizxK8JbxxzlOIlnwN0PzIz6UY8TyRpRaYR72Sb+82Fin1P19
-	 Uq89Sc4uR18wsPrD2qwZSSQbzB+QEEeZcU53jf0zSz5eUKXBjmK4CUBUbNj4BpKSiH
-	 g1PfN1jUZKiW6zZ8IInfRG7plrh6BEL3vcjVxlzZSt4sfyNEOX+5HxH2pnDkByJ3iH
-	 zi3R2HChW+GDD79p3OJETo/fMAQjBeGqh0tgmAviJY9oTgndZHpyisDmAZcnyucmRF
-	 uqCOqicTKRLLVz6FAZmLIgCKbKzLivVkwBn/DT+cTH5rQKoiFnoIZfwVSbluahwRKT
-	 gCOgTGaDF9XdA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:37 +0100
-Subject: [PATCH RFC 27/27] selftests/proc: check that unloading configs
- doesn't wait for a reader
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eBu3G+7A
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c49c32650adso401210966b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:29:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793633389; x=1794238189; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AfMnsvVTtJkxmfxbs2Yxgr4hKJCAmoy0tOEQOe4nWZ0=;
+        b=eBu3G+7Akvd7S5AmxMjgRwbGGdaOYmvss883RtWON7poOSslYNAYnjLsmkiIM2l8PH
+         0dbDdV8Gma/D/wO93QPARhoO+UU/5YGy3quG2VLJPbv/w8ekBOawD/spCsrocvs2aZWU
+         7iTioHmJ0h9mOKxJ5CkiJGoX/sR3DHwXXk1xiKe7c/2AN6qk9h+ltisuJXEC6UveCFIV
+         qSMJbPN13YzJQ7nmdTg/e8YQPAv0g1Ig/JWQ8fA6QaGw9XzFS/7zH6hDgavEFkF2eu5c
+         y1EyA2uKOFujmaUMBDkBgf+2Sl3VxhaHKdNKBAkH71qbOM5ATJyZkf9gRyRU7sdWfpuT
+         lwRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793633389; x=1794238189;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AfMnsvVTtJkxmfxbs2Yxgr4hKJCAmoy0tOEQOe4nWZ0=;
+        b=tJFaRKlANXNim0UzHPPyB46CNPe1l7A1ztMufeZ6hGu3zQGumSXxYKArZKhrLFmQ3F
+         xKBijnoqtsHMpdfOKeNjzE3cssUZj30AKcsnLWrYfcx4FuKFyX6/ig1ihgJFUkUdLQj1
+         GaKfyBOtZc2KN7q41XZa7+j+TImmok6R+hBpSx7gna3Jx8AZW1dgqtdTonuC19twS48A
+         5l+YkSYJfP8DR6JUbe69+z1oOpBx9g/WgtnEcNy6iIDxnOHpXpbU4i2B9v6eaGHkxId+
+         e3G86gXQnIdG0QsMajerZ8wh0z6IufZE3yvWyciPB4Hg+xunEtSU0Tb06E4jt3JWU59z
+         veog==
+X-Forwarded-Encrypted: i=1; AKwUvBzr1BWn12+a2mOMXAJ6Jx4cR3lQ/KDol8Lns1lRu9YR9w3I3huWUbG9uKzeuwiTVI/rFMxoj2VWjxXUsbo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wb9LHQq4XgyjzjWOlq9VLf6n9vWqisgsohTQJZ0mJLQ+osg7p
+	COOgE+L4S2Fw0tfJGOVUnlrS09POpkBYG22zU3YtC9B99Tz9NlxfqDkw
+X-Gm-Gg: AYBFou1QP8ugEGAzssHUwr1q8gtmT7bXq6o/0QEUBC9I6OY45clWRAxdwWPBnWRbxbI
+	hCX1I3aHv4H4uL5IRa/qPC+JdsQ93wvTQUemGsUZwhPBnir1jb55ZfcwEjialYUzrG/qdrEZLzO
+	rYJ9IpITVnjcNoa6Nz2SMmnxuwc7Zz0KCmm/pn2iTVMy8PrtU5m3RbPLzoz7AXG/Xx7g0tq88xq
+	W4akmNrW1eT0tFyQHKOMqWO3RuHdFzms5Z9dcovAAUz7M4yo6WgyeTqqgvXlriiZWoQ+zlI5k1C
+	CKgcaof7Ax7azjCKKgk+9qIpT78FKHk8eYSaFxpgFxOykNFMGiN/R65tOwKz49xYcAgA5xr9if9
+	2Y3hOcMGYrywjOmIg32U7pdFu0A7wcO0ioqVLkVvdvd+ioRjghxNNZEpx0HxTAHK6F7adCm/TQH
+	G0uUVhS/jxnj60PDpN0vL9XAdFmDyjkIcR2qoKGXTZQBB3fwtcWl/ylBt5pjLFN4bKpMkR6VREE
+	G9f5J5dFl1RJXpkcayGm/rRF+WeM6abmQ136T+OmfMckKg95tLJmUF5cxYVvLTblXHmHKx66rAM
+	1jr/T7qSTDpdPOj5a6xZrqc/D0CkuOoe9U/vxVmUBPGakcKKx4XSq3wRDpQmkftISLQJIiBtIIQ
+	=
+X-Received: by 2002:a17:906:7314:b0:c40:5de7:33d3 with SMTP id a640c23a62f3a-c4ca7b450f4mr799928466b.35.1793633388489;
+        Mon, 02 Nov 2026 07:29:48 -0800 (PST)
+Received: from andreayoga.wind3.hub ([31.189.68.219])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b725a2sm19381692f8f.13.2026.11.02.07.29.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:29:47 -0800 (PST)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: kpsingh@kernel.org,
+	matt@bobrowski.net,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	sdf@fomichev.me,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf] bpf, lsm: Fix cgroup shim selection for socket hooks
+Date: Mon,  2 Nov 2026 16:29:12 +0100
+Message-ID: <20261102152913.366237-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,276 +109,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-fs-v1-27-d09a996317b3@kernel.org>
-References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6916; i=brauner@kernel.org;
- h=from:subject:message-id; bh=oFCHsIIvTBz60E+Ak0mDBpMOymOH24bqy12BEzEjHtQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG5s9+n5iyVpzR1+S1Yv2LQn7sbvgAOy518pHj6k/
- 3vVix0NlzpKWRjEuBhkxRRZHNpNwuWW81RsNsrUgJnDygQyhIGLUwAmcjSIkeHy7QVrGFL87r7Z
- tTqn+l/utQKPCLlWdkbG2laOBQomEjcZGVq/pl+KCxWY775aK+r5+1f3Oh3yl/oJunu1PFcu1PK
- OYQQA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-Read /proc/config.gz into a buffer whose first page is backed by
-userfaultfd and unload configs.ko while procfs copies what was read to
-userspace:
+bpf_lsm_find_cgroup_shim() picks the shim that runs a BPF_LSM_CGROUP
+program from the first argument of the attached hook. It compares
+args[0].type, the BTF id of the argument's pointer type, against
+btf_sock_ids[], which holds the struct ids of struct socket and struct
+sock. A pointer id is never equal to a struct id, so neither branch is
+taken and every cgroup LSM program runs through
+__cgroup_bpf_run_lsm_current().
 
-- removing the entry doesn't wait for the reader
+Socket and sock hooks therefore run against task_dfl_cgroup(current)
+instead of the socket's cgroup. When a socket is used from a cgroup other
+than the one that created it, the caller's cgroup policy is applied instead
+of the socket's, and __cgroup_bpf_run_lsm_socket() and
+__cgroup_bpf_run_lsm_sock() are dead code.
 
-- the reader still gets the page that was read before the removal, and
-  nothing more
+Resolve the argument's pointee with btf_type_resolve_ptr() and compare that
+id against btf_sock_ids[].
 
-- and the next read fails with -EIO
+This makes __cgroup_bpf_run_lsm_socket() reachable for calls it cannot
+handle: ip_cmsg_recv_security() passes a NULL socket to
+socket_getpeersec_dgram, and sock_create_lite() calls socket_post_create
+before sock->sk is set. Fall back to __cgroup_bpf_run_lsm_current() in
+those cases instead of dereferencing sock->sk.
 
-The test loads configs.ko if it isn't there, skips if configs is built
-in or can't be unloaded, and loads it again afterwards. It needs
-CONFIG_IKCONFIG=m. kselftest-merge keeps the =y that other fragments
-ask for, so it skips there.
+__cgroup_bpf_run_lsm_sock() needs no such fallback. sk_alloc_security and
+sk_free_security run while the sk has no cgroup and stay on
+bpf_lsm_current_hooks; every other hook whose first argument is a struct
+sock is called with a non-NULL sk whose cgroup is already set.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Existing BPF_LSM_CGROUP users will see a behavior change. Socket and sock
+hooks now run the programs attached to the socket's cgroup, as described
+in commit 69fd337a975c ("bpf: per-cgroup lsm flavor"). Hooks that can run
+in softirq, such as socket_sock_rcv_skb, inet_conn_request and
+sk_getsecid, no longer depend on which task was interrupted.
+
+The bug was found with the help of an LLM.
+
+Fixes: 69fd337a975c ("bpf: per-cgroup lsm flavor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- tools/testing/selftests/proc/.gitignore            |   1 +
- tools/testing/selftests/proc/Makefile              |   1 +
- tools/testing/selftests/proc/config                |   4 +
- .../proc/proc-remove-slow-config-reader.c          | 157 +++++++++++++++++++++
- 4 files changed, 163 insertions(+)
+This changes behavior for existing BPF_LSM_CGROUP users: since
+69fd337a975c, socket and sock hooks have run the programs of the current
+task's cgroup, and with this patch they run those of the socket's cgroup,
+as that commit intended. I'm sending it to bpf with Cc: stable because a
+socket used from another cgroup is currently checked against that cgroup's
+policy instead of its own. Happy to retarget bpf-next and drop the stable
+Cc if you prefer.
 
-diff --git a/tools/testing/selftests/proc/.gitignore b/tools/testing/selftests/proc/.gitignore
-index 51969f81afc5..ed3f28652bb7 100644
---- a/tools/testing/selftests/proc/.gitignore
-+++ b/tools/testing/selftests/proc/.gitignore
-@@ -25,6 +25,7 @@
- /proc-remove-slow-reader
- /proc-remove-slow-readlink
- /proc-remove-slow-writer
-+/proc-remove-slow-config-reader
- /read
- /self
- /setns-dcache
-diff --git a/tools/testing/selftests/proc/Makefile b/tools/testing/selftests/proc/Makefile
-index aecec6b93173..adbb4b1e9e9e 100644
---- a/tools/testing/selftests/proc/Makefile
-+++ b/tools/testing/selftests/proc/Makefile
-@@ -36,5 +36,6 @@ TEST_GEN_PROGS += proc-remove-slow-sysctl
- TEST_GEN_PROGS += proc-remove-slow-reader
- TEST_GEN_PROGS += proc-remove-slow-readlink
- TEST_GEN_PROGS += proc-remove-slow-writer
-+TEST_GEN_PROGS += proc-remove-slow-config-reader
+ kernel/bpf/bpf_lsm.c | 8 ++++++--
+ kernel/bpf/cgroup.c  | 7 ++++++-
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
+index f58dce888ff4a..9547d4f351103 100644
+--- a/kernel/bpf/bpf_lsm.c
++++ b/kernel/bpf/bpf_lsm.c
+@@ -95,6 +95,7 @@ void bpf_lsm_find_cgroup_shim(const struct bpf_prog *prog,
+ 			     bpf_func_t *bpf_func)
+ {
+ 	const struct btf_param *args __maybe_unused;
++	u32 type_id __maybe_unused = 0;
  
- include ../lib.mk
-diff --git a/tools/testing/selftests/proc/config b/tools/testing/selftests/proc/config
-index c7c61a2d7927..8f672a8b49a8 100644
---- a/tools/testing/selftests/proc/config
-+++ b/tools/testing/selftests/proc/config
-@@ -8,3 +8,7 @@ CONFIG_SND_DUMMY=m
- CONFIG_SCSI=y
- CONFIG_SCSI_PROC_FS=y
- CONFIG_SCSI_DEBUG=m
-+CONFIG_MODULES=y
-+CONFIG_MODULE_UNLOAD=y
-+CONFIG_IKCONFIG=m
-+CONFIG_IKCONFIG_PROC=y
-diff --git a/tools/testing/selftests/proc/proc-remove-slow-config-reader.c b/tools/testing/selftests/proc/proc-remove-slow-config-reader.c
-new file mode 100644
-index 000000000000..5f7bcb27b315
---- /dev/null
-+++ b/tools/testing/selftests/proc/proc-remove-slow-config-reader.c
-@@ -0,0 +1,157 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * A read that faults while procfs copies it to userspace must not hold up
-+ * removal of the /proc entry. Unloading configs.ko removes /proc/config.gz,
-+ * which isn't a seq_file.
-+ */
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <linux/userfaultfd.h>
-+#include <poll.h>
-+#include <pthread.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
+ 	if (btf_type_vlen(prog->aux->attach_func_proto) < 1 ||
+ 	    btf_id_set_contains(&bpf_lsm_current_hooks,
+@@ -106,9 +107,12 @@ void bpf_lsm_find_cgroup_shim(const struct bpf_prog *prog,
+ #ifdef CONFIG_NET
+ 	args = btf_params(prog->aux->attach_func_proto);
+ 
+-	if (args[0].type == btf_sock_ids[BTF_SOCK_TYPE_SOCKET])
++	/* args[0] is a pointer; match the struct it points to. */
++	btf_type_resolve_ptr(prog->aux->attach_btf, args[0].type, &type_id);
 +
-+#include "../kselftest_harness.h"
-+
-+#define CONFIG_PATH	"/proc/config.gz"
-+#define CONFIG_MODULE	"/sys/module/configs"
-+#define READ_PAGES	2
-+#define TIMEOUT_MS	5000
-+
-+struct reader {
-+	int fd;
-+	char *buf;
-+	size_t len;
-+	ssize_t ret;
-+};
-+
-+struct unloader {
-+	int done;
-+	int ret;
-+};
-+
-+static void *read_thread(void *arg)
-+{
-+	struct reader *r = arg;
-+
-+	r->ret = read(r->fd, r->buf, r->len);
-+	return NULL;
-+}
-+
-+static void *unload_thread(void *arg)
-+{
-+	struct unloader *u = arg;
-+	ssize_t ret;
-+
-+	u->ret = syscall(__NR_delete_module, "configs", O_NONBLOCK) ? -errno : 0;
-+	ret = write(u->done, "x", 1);
-+	return (void *)ret;
-+}
-+
-+FIXTURE(configs) {
-+	bool loaded;
-+};
-+
-+FIXTURE_SETUP(configs)
-+{
-+	self->loaded = false;
-+	if (access(CONFIG_PATH, R_OK) && system("modprobe -q configs"))
-+		SKIP(return, "no " CONFIG_PATH);
-+	if (access(CONFIG_PATH, R_OK))
-+		SKIP(return, CONFIG_PATH ": %s", strerror(errno));
-+	if (access(CONFIG_MODULE, F_OK))
-+		SKIP(return, "configs isn't a module");
-+	self->loaded = true;
-+}
-+
-+FIXTURE_TEARDOWN(configs)
-+{
-+	/* an ASSERT may have fired with the module unloaded */
-+	if (self->loaded && access(CONFIG_PATH, F_OK) &&
-+	    system("modprobe -q configs"))
-+		TH_LOG("couldn't load configs again");
-+}
-+
-+TEST_F(configs, remove_while_reader_faults)
-+{
-+	struct uffdio_api api = { .api = UFFD_API };
-+	struct uffdio_register reg = {};
-+	struct uffdio_zeropage zero = {};
-+	long psz = sysconf(_SC_PAGESIZE);
-+	struct unloader u = {};
-+	struct reader r = {};
-+	struct uffd_msg msg;
-+	struct pollfd pfd;
-+	pthread_t rt, ut;
-+	int uffd, done[2];
-+	char *buf, *ref;
-+	ssize_t ref_len;
-+
-+	r.fd = open(CONFIG_PATH, O_RDONLY | O_CLOEXEC);
-+	ASSERT_GE(r.fd, 0);
-+
-+	/* what the first page of a read looks like */
-+	ref = malloc(psz);
-+	ASSERT_NE(ref, NULL);
-+	ref_len = pread(r.fd, ref, psz, 0);
-+	ASSERT_GT(ref_len, 0);
-+
-+	uffd = syscall(__NR_userfaultfd, O_CLOEXEC | O_NONBLOCK);
-+	if (uffd < 0)
-+		SKIP(return, "userfaultfd: %s", strerror(errno));
-+	ASSERT_EQ(ioctl(uffd, UFFDIO_API, &api), 0);
-+
-+	/* Only the first page of the buffer goes through userfaultfd. */
-+	buf = mmap(NULL, READ_PAGES * psz, PROT_READ | PROT_WRITE,
-+		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	ASSERT_NE(buf, MAP_FAILED);
-+	reg.range.start = (unsigned long)buf;
-+	reg.range.len = psz;
-+	reg.mode = UFFDIO_REGISTER_MODE_MISSING;
-+	ASSERT_EQ(ioctl(uffd, UFFDIO_REGISTER, &reg), 0);
-+
-+	r.buf = buf;
-+	r.len = READ_PAGES * psz;
-+	ASSERT_EQ(pthread_create(&rt, NULL, read_thread, &r), 0);
-+
-+	/* The reader now sleeps in the copy to userspace. */
-+	pfd = (struct pollfd){ .fd = uffd, .events = POLLIN };
-+	ASSERT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1);
-+	ASSERT_EQ(read(uffd, &msg, sizeof(msg)), sizeof(msg));
-+	ASSERT_EQ(msg.event, UFFD_EVENT_PAGEFAULT);
-+
-+	/* Unloading configs.ko removes the file that is being read. */
-+	ASSERT_EQ(pipe2(done, O_CLOEXEC), 0);
-+	u.done = done[1];
-+	ASSERT_EQ(pthread_create(&ut, NULL, unload_thread, &u), 0);
-+	pfd = (struct pollfd){ .fd = done[0], .events = POLLIN };
-+	EXPECT_EQ(poll(&pfd, 1, TIMEOUT_MS), 1) {
-+		TH_LOG("removing " CONFIG_PATH " waited for the reader");
-+	}
-+
-+	zero.range.start = (unsigned long)buf;
-+	zero.range.len = psz;
-+	ASSERT_EQ(ioctl(uffd, UFFDIO_ZEROPAGE, &zero), 0);
-+	ASSERT_EQ(pthread_join(rt, NULL), 0);
-+	ASSERT_EQ(pthread_join(ut, NULL), 0);
-+	if (u.ret)
-+		SKIP(return, "unloading configs: %s", strerror(-u.ret));
-+
-+	/*
-+	 * The page that was read before the removal still arrives and the
-+	 * next piece isn't filled anymore, then nothing.
-+	 */
-+	EXPECT_EQ(r.ret, ref_len);
-+	EXPECT_EQ(memcmp(buf, ref, ref_len), 0);
-+	EXPECT_EQ(read(r.fd, buf, psz), -1);
-+	EXPECT_EQ(errno, EIO);
-+	free(ref);
-+}
-+
-+TEST_HARNESS_MAIN
-
++	if (type_id == btf_sock_ids[BTF_SOCK_TYPE_SOCKET])
+ 		*bpf_func = __cgroup_bpf_run_lsm_socket;
+-	else if (args[0].type == btf_sock_ids[BTF_SOCK_TYPE_SOCK])
++	else if (type_id == btf_sock_ids[BTF_SOCK_TYPE_SOCK])
+ 		*bpf_func = __cgroup_bpf_run_lsm_sock;
+ 	else
+ #endif
+diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
+index 57a785241d42f..9100d1c4f35ff 100644
+--- a/kernel/bpf/cgroup.c
++++ b/kernel/bpf/cgroup.c
+@@ -171,15 +171,20 @@ unsigned int __cgroup_bpf_run_lsm_socket(const void *ctx,
+ 	const struct bpf_prog *shim_prog;
+ 	struct socket *sock;
+ 	struct cgroup *cgrp;
++	struct sock *sk;
+ 	int ret = 0;
+ 	u64 *args;
+ 
+ 	args = (u64 *)ctx;
+ 	sock = (void *)(unsigned long)args[0];
++	sk = sock ? sock->sk : NULL;
++	/* NULL from ip_cmsg_recv_security(), no sk yet in sock_create_lite() */
++	if (unlikely(!sk))
++		return __cgroup_bpf_run_lsm_current(ctx, insn);
+ 	/*shim_prog = container_of(insn, struct bpf_prog, insnsi);*/
+ 	shim_prog = (const struct bpf_prog *)((void *)insn - offsetof(struct bpf_prog, insnsi));
+ 
+-	cgrp = sock_cgroup_ptr(&sock->sk->sk_cgrp_data);
++	cgrp = sock_cgroup_ptr(&sk->sk_cgrp_data);
+ 	if (likely(cgrp))
+ 		ret = bpf_prog_run_array_cg(&cgrp->bpf,
+ 					    shim_prog->aux->cgroup_atype,
 -- 
 2.53.0
 
