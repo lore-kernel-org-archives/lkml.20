@@ -1,99 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603308;
-	b=LW2IYfpUtbP5EXKBGl7QulkfEWAo+8wDcJwlePtbFUttLeVobTHsiQ2WGOtEGKqGzpNb
-	 enP8ZB8ZCPlhdJ3BOGIUiSCW6A2mgQv/AWun3a6J1HleXX/Ev+y1xSqbhf9r89yXmzUXC
-	 UHy5u70OoWrwHjH5O3xfd/2/gT0JSu7p8r7WuoCSxNsnDX7OncQ30L54UE0xfdzVRg4Gm
-	 2FFBmI8YmvZz1IcgJ818Sonc7wFIQ1b45fLGAAeAyX1f+nOwWbnnb9teN0eT8xEM9t6Zk
-	 WUsq2QkW5qWeMkWKm/Wu3iTeuV2GOLRYv9TjLXpTf+MyjumhfITsn8+CdLwIX2YY7+g==
+	t=1793603378;
+	b=LXBnoW5cWRMxzHpFtAV0wg2CWWCJxW7gtSJ/yHawCI0/a+gIYyK0IFKsXLfxqWAIdIu7
+	 PSnLQntwGvuqTeWuQON0JSQzYEAkK0rUXwXPPy74BVsXm8PE5etIsIA8Z6wmTaRuHq+sd
+	 sDro9RasKEuWf0xiKwrrvrgniqT8clEO/r4PNoH0DEkbbkuYbMcmjLEEtZkh5Rswokdwc
+	 ZLjNqrq6CdDxET+Sy8ufV4ydWk7Cd2mRYmvZ2vVkp00DNKXfG/zC/Dl2NMZDSs96spgqu
+	 1U8FIxj2/96wq3NU9xaANPp4HRzWKo9TkwDzG4oW2I7h87N8bhY0YNHoXGHq7Jo4w9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603308;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=zrcWP2a8X1n8k3Py9mOPaYb/7kRAzdx/GI1swepp1Ew=;
-	b=joZYKRdBEOgeFQazofY8oPw9B3egbYEL5g6Fwx76f6tC3U8n9gJF+xVppjOIoRT73Gp5
-	 FwAstfc2PrAwJsQQZvLMOeMa5ByFQV4ArRrxja4RLEZKWTW43f1FqP3cRWjDu74mQXsyi
-	 GRw3cm9t+7xJ+yf+W8mOpOna7F2muM8UCcqZjQ1+TtJ3uj3AgvTH0KuZYAsMxSIA3n80K
-	 tlps7q9fsq/O886VWbUhlLCF4+rUh17TM/S9Cw7PLhNbicNfwecAHRwkEKN4EMOWld2mu
-	 ARzuC5+PoNL0WTdJ29vR3iS+cC5oxZGdr3iCtcgdZIuj5dib/h6iQ/VsqJAN4H9Vi2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603378;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info;
+	bh=N1sCnUJZes2nWUPirOY9b0XhMayPBpKTCwjYpoDAMUg=;
+	b=HP3ySN3j6BmHdp5o0t3YzMAfdEK6AZB72InO5C4zJAxHv6RmMyakNVefZXzDRvkNcwFr
+	 /srMysi5LEPcQ4G9AtQ3viItMFz0W7hG4jd/g6CK2ltXEO5CTMzlNy2iI5DXaUyPNf0kF
+	 e09TSS4C8ojcCC8Vs+FH8wlwAFav1MhMrdbk4wgmMhbKWZ+gFfz1qVrVR+9ToBVHpYyWO
+	 g0ZYL4hRR86HknikW+DdMdZDx2b6tt4RUCW30GwxEb95g28dpAqfBbYpz4X7HMinRoptA
+	 aHHvckn72OdXmW9y1059h5qG/cc0P6T72k9evbMhe/jHgZng1m/vq+FXPTWyzkjXxrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=U2Yo3rKP;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=ChTSqXoO;
+	arc=none smtp.remote-ip=185.132.180.163
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F16606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:08:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F16606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D84606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D84606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=U2Yo3rKP
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e9f6a16afcso63835ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:08:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793603307; x=1794208107; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zrcWP2a8X1n8k3Py9mOPaYb/7kRAzdx/GI1swepp1Ew=;
-        b=U2Yo3rKPnQzXKeMCikld3FP1BamaCBYqlH/U+8nwQJoF8vmIWGUiklJJREDHGCTz6J
-         zvSOdftczq1M4eBo3BrVuseaj+ClqinGHa5dYEr7jm2ugPeRPyHoW5rZOt8MyBfYaHhU
-         mvknNo3SQw4Ae40W+vezpcZ4+4X6NCq9USjKLAxWAPrX1jhea9oQtknVF0gUrM8CFOOw
-         wxzQuXNx2A8VGD0CbpkJGuNsAiDqSqkisjoUzxbpjbb1CcaspfrQCANuE/J1DSFbnk1Q
-         0+T7QGVJT8CsxrkqEizciJj2+C3LOIu78Syy0C9ceVBB3SY3dSwsInXDnBYeo6Zmy4T8
-         AxyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793603307; x=1794208107;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zrcWP2a8X1n8k3Py9mOPaYb/7kRAzdx/GI1swepp1Ew=;
-        b=Xx+8FCsHh6W938ZOJRxQXFhrVioMQ0Hl/t4TruPeIvATvPCo/snK3ojmpYtwDaL3SM
-         eGD6+HFhzL+tadzZ3ZC1zCB2BBwzaN07KHMO7w6SJd0bF9qiZxE3L/xKKOhwIdn7NvGg
-         XRJBo7hsZyMwmNMgb0pfwkcoWsqfMqB5jVfK6bJyWQfRRCUrOU8LrnfeOyySydg4rZP6
-         tGegs4AEgm/QtZpFTmbFLb6LK7dEhJ7ywxXHn+8ptQU/wbIQURYTWIsO+LuorszGVKSk
-         wKAQOlgyuwNqCgBKHV7q7UZ6l8/Kqu3XVw1ovQqCOqQ089mN8wJJWm/eSLUGNR3GcTmj
-         z4sg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmGs81NePcHRIXXiomzAGNJTMmE24zJe3O9qezm5IQ7ChFqweJShJuhFtkQD/QPKTewSevkRrpcXFdlgo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2S6iRBj5TFc+4otRvEe4t12Iz5gDroBpWIAzZFl4SK1j057ux
-	k5WRbdcFvsDbWGvGOFVAvjhs1pL3AIOSNv+6/uJl+jGouGY+0PXKDnQl+OCTeVurxA==
-X-Gm-Gg: AYBFou3F9r0oRYWJRGdXFnbm/bPZa7tklxehu/3kCK03WWpA2HMeYlfeSTU7gUAvOWK
-	pv8JKBXojFUGerC9zzVFlkxNap8ZZiZ4OVXDEWux9TCAAZgnlJDy059o8X7iOJhjd0LxqFkidqv
-	/ceJNX+Jc8FuO+jtzMPGB+rBzbwhrPEyXLyd6/WGzYkSQEyKbDQUzGtJ20F95f3NpKSpFf83OQb
-	pFKB56X0FOtzDMQuSjbw8iY6AMmTfFTMWnHrWxYC9txlp09diKEXoE3yojAUbIEUZvvwv+h+8o3
-	r/mY4v2RX77DJFiEvICYPDl3ZoRkYLvnqN0IyTmOPqGn7FmJ1/mknPpD4jH23gki+0WRvYM5tt5
-	R4ia7nWUGGtQJt+BlaJtuF22vSiStqqIXeW690o531d7tsshRa+BXgHyXGBAgDnT5QC4xQEOpDB
-	IaK92jZRDqfo+LLrahyjEatPKGFyVvzDaD/Vgyk7k4HBmwPEZUPYh+MwpG+AUwK7kI5RN+xdu4M
-	Zzt+4d+MuWSdDlNnHldnu9TfqE1IMxfQYBkZ88QmvSxPU0QfLmdBx6WGIgBq449DKjYHojChsoK
-	J/pgIKc6sr4WVKZDbSgN5EdcV0NCz1gF81UQP/SihAIWDTZSpTTl6R8AlbpcaSVpGg==
-X-Received: by 2002:a17:902:dad1:b0:2d5:c090:3810 with SMTP id d9443c01a7336-2eb1b6c6ae5mr17165485ad.2.1793603306869;
-        Sun, 01 Nov 2026 23:08:26 -0800 (PST)
-Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb38e9633fsm23648075ad.0.2026.11.01.23.08.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 23:08:25 -0800 (PST)
-Date: Mon, 2 Nov 2026 07:08:18 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Chuck Lever <cel@kernel.org>
-Cc: linux-nfs@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-pci@vger.kernel.org,
-	linux-rdma@vger.kernel.org, Shivaji Kant <shivajikant@google.com>,
-	Tom Talpey <tom@talpey.com>, Leon Romanovsky <leon@kernel.org>,
-	Unnati Sachan <unnatisachan@google.com>
-Subject: Re: [RFC PATCH v1 0/8] nfs: PCI P2PDMA for O_DIRECT over RDMA
-Message-ID: <aug24hqstLnpzfOW@google.com>
-References: <20261006233248.705086-1-praan@google.com>
- <4af1c065-538a-45eb-ad56-6517c29dd126@slotpi15m67>
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=ChTSqXoO
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A26GB1s3838432;
+	Mon, 2 Nov 2026 07:09:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=N
+	1sCnUJZes2nWUPirOY9b0XhMayPBpKTCwjYpoDAMUg=; b=ChTSqXoO9Osj2KF3r
+	K049uasMDAfFj29UCq5guzQKid19UK0xhFxVD3BOf5h12Nvm3N4AbCKZwRpJdoBC
+	oKEs/NAnGRHoeUsnpV09T0LaSrAJDzAl6RwVANDZZ8YvRxOvVcbPTqk4zelZfAwC
+	/y5rqIU3U5MVm77TBtQQxATaUbgaqMqS4MGwARMk8CxBmxu1jwtdWFYz35VwUO8x
+	O/n4sVaumA3mBVFKhRiadl/uYz63+c47xKnRFl7PJ40ZIzWkSunHohgl2dNw569l
+	KWl5hJBzEmDJi8eo30XISM8BZ+j/RPmkjkXV3bm/fH6xgO11hlRIf4lsrDEhgXVZ
+	Oirvw==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hn99whb6b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 07:09:06 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.5.26) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 2 Nov
+ 2026 07:09:05 +0000
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Mon, 2 Nov 2026 09:08:35 +0200
+Subject: [PATCH v5 3/4] drm/imagination: Improve some logging in error
+ paths
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,183 +70,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4af1c065-538a-45eb-ad56-6517c29dd126@slotpi15m67>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261102-b4-simplify-mips-pte-defs-v5-3-d5bcf7d95a1a@imgtec.com>
+References: <20261102-b4-simplify-mips-pte-defs-v5-0-d5bcf7d95a1a@imgtec.com>
+In-Reply-To: <20261102-b4-simplify-mips-pte-defs-v5-0-d5bcf7d95a1a@imgtec.com>
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Paul Walmsley <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>
+CC: <linux-kernel@vger.kernel.org>, <imagination@lists.freedesktop.org>,
+        <dri-devel@lists.freedesktop.org>,
+        Alexandru Dadu
+	<alexandru.dadu@imgtec.com>,
+        Matt Coster <opensource@mtcoster.net>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793603340; l=2557;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=RojfA0ofXUa2gTm6g8B+3070zBumv7LmENgITU3pSG8=;
+ b=auf0G4jjl9wdAjB5pAGTdP/WQasdY8Ri/ZdxdC6LWPX7A6s86n7HBn5kCK5YDIZIrUSJ7T/U3
+ +nYcIRAHMkiCdOaauMMp8WwajmuwVxAtfx4QFy7/55x7QxQBnf6mGe3
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAyOCBTYWx0ZWRfXwolAwhoJcWKQ
+ yfXgR5czRZOLQs4pDHwcpZmAUWGD9YhZ90QheVr2XJQwYtUFD2XLB5xII62xSZgfWEJDa7BZyEJ
+ evObZr2vsXDXNwuaw1NaMoYisqGag1PEiRwEpsKv7mRBDUeOIm4C28DDJ9olyXjVta1tIMZg6Jg
+ MzCkjLDmvlK/h1tsSsV2mXmZlB6jvhX3+2tUXG1hw0KZaG7ohgSn/Nz+4t1Vo4KaZz7ccJk5vJ3
+ WiGmiukhVckxEsXSc0VucFbCyJoYd1GDvEX/qOHE8pc6XOAip7Dm56vnCkJFtv04Xe07syfTHq1
+ 3BgE7Rj6X+hZCkXybEqZVj9GaDwi3GUG10tL4UvgyTxxeMxpPsH7bVFKPUmN3KyGoZIErANus3K
+ 0OtwhfrpgsEir6iOu2T05uPdvO3Um+yRoyr95jUMI5d9ObACnHgk6jTSc2FIsf/2IWmBBioexqh
+ ADuLWzc7zIbXncUI12w==
+X-Proofpoint-ORIG-GUID: jCKCnIvSDJMRo4gdCkMVIKkA0oEvdPKx
+X-Proofpoint-GUID: jCKCnIvSDJMRo4gdCkMVIKkA0oEvdPKx
+X-Authority-Analysis: v=2.4 cv=BZlNQbt2 c=1 sm=1 tr=0 ts=6ae83712 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=h_3jC4m0AyQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=CNbiELROydHnTOGMemMA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAyOCBTYWx0ZWRfX9lK8q/hTrAff
+ pgdEV0U5aaI5og8pYeAfOlJIiwUOhi2Qfz8EgAnZrcqZAzsHY8LLM/a2hLhLyvTY+Boo4RTERZe
+ /jox52LzZ5zi52+87R/zjSqLIPGCALA=
 
-On Wed, Oct 07, 2026 at 05:20:50PM -0400, Chuck Lever wrote:
-> On 10/6/26 7:32 PM, Pranjal Shrivastava wrote:
-> > Enable NFS O_DIRECT to and from PCI peer-to-peer DMA (P2PDMA) memory
-> > on RDMA mounts. This replaces the initial RFC [1] and builds on the
-> > Direct I/O modernization series [2].
->
-> Hi Praan,
->
-> Good to see this moving.
+From: Matt Coster <matt.coster@imgtec.com>
 
-Hi Chuck,
+Add error messages for attempts to map an already mapped firmware
+object, unmap an already unmapped firmware object, and provide too few
+DMA address slots for the firmware page table.
 
-Thanks a lot for the detailed review!
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
+---
+ drivers/gpu/drm/imagination/pvr_fw.c      | 6 ++++--
+ drivers/gpu/drm/imagination/pvr_vm_mips.c | 7 ++++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
-> > 6. pNFS: excluded for now. Route P2PDMA I/O through the MDS, or let
-> >    each layout driver opt in?
-> >
-> > Known issue: the pNFS check happens at extraction. If a mount gains
-> > pNFS afterwards (e.g. after migration), a rescheduled WRITE could
-> > reach a layout driver. I plan to decide once per O_DIRECT call and
-> > force the MDS path when P2PDMA pages are allowed.
->
-> I think we need to have a path to supporting DS I/O with P2PDMA.
->
-> The deployment sites that want P2PDMA O_DIRECT are the same sites
-> running flexfiles, and flexfiles with a co-located DS is where
-> LOCALIO actually offers quite a benefit. So for question 6 I'd say:
-> layout driver opt-in, flexfiles first, and the flexfiles LOCALIO
-> path is part of that.
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index c6c77b152342..4f2b5c4df600 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1165,8 +1165,9 @@ pvr_fw_object_fw_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj, u
+ 	spin_lock(&fw_dev->fw_mm_lock);
+ 
+ 	if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
+-		err = -EINVAL;
+-		goto err_unlock;
++		spin_unlock(&fw_dev->fw_mm_lock);
++		drm_err(from_pvr_device(pvr_dev), "FW object is already mapped!\n");
++		return -EINVAL;
+ 	}
+ 
+ 	if (!dev_addr) {
+@@ -1232,6 +1233,7 @@ pvr_fw_object_fw_unmap(struct pvr_fw_object *fw_obj)
+ 
+ 	if (!drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
+ 		spin_unlock(&fw_dev->fw_mm_lock);
++		drm_err(from_pvr_device(pvr_dev), "FW object is already unmapped!\n");
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_vm_mips.c b/drivers/gpu/drm/imagination/pvr_vm_mips.c
+index 726f900d3582..b74386032e6a 100644
+--- a/drivers/gpu/drm/imagination/pvr_vm_mips.c
++++ b/drivers/gpu/drm/imagination/pvr_vm_mips.c
+@@ -11,6 +11,7 @@
+ #include "pvr_vm_mips.h"
+ 
+ #include <drm/drm_managed.h>
++#include <drm/drm_print.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/err.h>
+ #include <linux/slab.h>
+@@ -278,8 +279,12 @@ pvr_vm_get_pt_phys_addrs(struct pvr_device *pvr_dev, u64 *phys_addrs, int max_nu
+ 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
+ 	struct pvr_vm_mips_data *vm_data = fw_dev->processor_data.mips_data.vm_data;
+ 
+-	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs)
++	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs) {
++		drm_err(from_pvr_device(pvr_dev),
++			"Minimum %zu pages required for FW PT, but only %d DMA address slots were provided\n",
++			ARRAY_SIZE(vm_data->pt_pages), max_num_addrs);
+ 		return -EINVAL;
++	}
+ 
+ 	for (u32 page_nr = 0; page_nr < max_num_addrs; page_nr++) {
+ 		/* Firmware expects 4k pages, but host page size might be different. */
 
-Makes sense. Layout driver opt-in it is, with flexfiles first.
+-- 
+2.43.0
 
-> Although it is fine for a prototype, forcing the MDS path will
-> always be the slow path. Can v1 be designed so the follow-on is
-> additive? As posted it might not be. The P2PDMA refusals sit in
-> the MDS-only pgio path and at page extraction, and the decision is
-> made once and never revisited where the RPC is built.
->
->  - The krb5i/krb5p refusal is in nfs_pgio_prepare(). Flexfiles and
->    filelayout install their own rpc_call_prepare, so a DS RPC never
->    sees it and gets as far as call_encode, where gss_wrap() encrypts
->    device memory in place before xprtrdma has a chance to refuse.
->
->  - ff_layout_read_pagelist() and ff_layout_write_pagelist() open an
->    nfsd_file through ff_local_open_fh() without going through
->    nfs_local_p2pdma_check().
->
-> If the auth refusal lives in the RPC client (any XDRBUF_P2PDMA
-> buffer under an RPCAUTH_AUTH_DATATOUCH flavor) and the rest lives
-> in the transport, then every RPC gets checked no matter who built
-> it, and enabling flexfiles later is a small series on top instead
-> of reworking already-merged code.
-
-Agreed, the checks shouldn't depend on who builds the RPC. For v2,
-I plan to:
-
- - Move the krb5i/krb5p refusal into rpcauth_wrap_req_encode(), right
-   after the encoder tags the buffer and before gss_wrap_req_integ()
-   and gss_wrap_req_priv() touch the pages. Both of them currently
-   turn an encoder failure into -EMSGSIZE / -EIO, so they'd pass the
-   error up instead. The check in nfs_pgio_prepare() goes away.
-
- - Make the LOCALIO decision in nfs_initiate_pgio(), which is where
-   both the generic pgio path and flexfiles hand a header over to
-   nfs_local_doio(). That covers ff_local_open_fh() as well.
-
- - Add a layout driver flag for P2PDMA, with no driver setting it in
-   this series, and decide once per O_DIRECT call. A layout driver
-   that hasn't opted in gets the MDS path, which also closes the
-   migration race. Flexfiles, including its LOCALIO path, would then
-   be a small series on top.
-
-> > 1. Layering: "RDMA transport, !pNFS" is only a hint, and each RPC
-> >    re-checks its transport. Should the transport advertise P2PDMA
-> >    capability up front instead? That would also allow LOCALIO on
-> >    TCP mounts, which this series refuses.
->
-> Yes, please. LOCALIO never goes near the NIC, so a TCP mount has
-> no reason to be refused. Advertise the capability and keep the
-> per-RPC check as the backstop; that covers both cases.
-
-Ack. I'll add a transport capability that xprtrdma advertises. NFS
-uses it as the extraction hint, and xprt_request_transmit() refuses
-a tagged request on a transport without it, which also replaces the
-three xs_* guards you pointed out below. The per-RPC device check in
-xprtrdma stays as the backstop.
-
-With LOCALIO out of v2 (below), a TCP mount still refuses P2PDMA
-pages for now, but the capability leaves room for LOCALIO to opt in
-later.
-
-> > 5. LOCALIO: the check uses sb->s_bdev, which misses multi-device
-> >    filesystems. Is there a better way to ask whether a file can do
-> >    P2PDMA? Should misaligned I/O fall back to an RPC instead of
-> >    failing with -EINVAL?
->
-> s_bdev turns out to be the smaller part of this. I went looking
-> for ways LOCALIO could still CPU-touch the payload after the
-> checks pass, and found these:
-
-[...]
-
-> I don't see a clean fix for 1 or 2. The VFS does not have a "DIO
-> or fail" knob, and a filesystem's data path isn't visible from the
-> block queue. Perhaps for v1, drop LOCALIO for P2PDMA pages and
-> bring it back under a filesystem allowlist when the flexfiles
-> work needs it.
-
-Thanks for digging into this. I missed the -ENOTBLK fallback and the
-btrfs checksums, and you're right that the cover letter overclaims
-there.
-
-Agreed, v2 won't use LOCALIO for P2PDMA pages; they go out as a
-regular RPC instead. FWIW, the XFS dma-buf direct I/O RFC [1] hits
-the same fallbacks and refuses them explicitly for dma-buf iterators,
-so that may turn out to be a cleaner way back for LOCALIO than an
-allowlist for P2PDMA pages.
-
-> On alignment: yes, fall back to an RPC. Decide inside
-> nfs_local_p2pdma_check() from offset, count and
-> bdev_logical_block_size(), and return NULL when it doesn't line up.
-> The RDMA path has no alignment requirement, so returning -EINVAL
-> here makes LOCALIO strictly worse than not having it. That change
-> also lets you delete the two duplicated error exits.
-
-Makes sense. I'll do that when LOCALIO comes back, along with the
-short write restart you pointed out below.
-
-> Nits:
->
-> 8/8 doesn't build with CONFIG_NFS_V4=n. nfs_direct_extract_pages()
-> calls pnfs_enabled_sb(), which is only defined inside the
-> IS_ENABLED(CONFIG_NFS_V4) block in fs/nfs/pnfs.h, and the #else
-> branch has no stub.
-
-Oops, thanks. Will fix.
-
-> In rpcrdma_marshal_req(), a P2PDMA WRITE is forced to
-> rpcrdma_readch without checking that head and tail fit the inline
-> send threshold. The READ side checks rpcrdma_nonpayload_inline();
-> the WRITE side should too, or fall back to a Position Zero Read
-> chunk, or return -EREMOTEIO. From code audit.
-
-Agreed. I'll check head and tail against the inline send threshold
-and return -EREMOTEIO when they don't fit, same as the READ side.
-The non-payload part of an NFS WRITE is small, so a Position Zero
-Read chunk doesn't seem worth it for now.
-
-> On a server returning READ data inline despite the Write chunk:
-> you're right that RFC 8166 section 4.3.2.2 requires the responder
-> to use the offered chunk, so failing the RPC is correct. It does
-> surface as a per-RPC "RPC call returned error 121" printk from
-> call_status(), though. A tracepoint and a quiet error path would
-> be better.
-
-Ack. I'll add a tracepoint in rpcrdma_decode_msg() and keep
--EREMOTEIO quiet in call_status().
-
-> A short LOCALIO write restarts via nfs_local_pgio_restart() with
-> offset and count advanced, and the residual can then fail the
-> alignment check with -EINVAL after most of the bytes have landed.
-
-Good catch. This goes away with LOCALIO in v2, and I'll keep it in
-mind for when it comes back.
-
-> The same three-line P2PDMA guard appears in xs_local, xs_udp and
-> xs_tcp send_request. One check in xprt_request_transmit() keyed on
-> a transport flag would cover the socket transports and anything
-> that comes later.
-
-Ack, that's covered by the capability above.
-
-Thanks,
-Praan
-
-[1] https://lore.kernel.org/all/20261016091919.971295-1-anuj1072538@gmail.com/
