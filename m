@@ -1,113 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.208.142.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609631;
-	b=ef1yOwpDTYVYMYbyB1ktXclCmFU3vzO4I2bvAWGyJMzuEk77jLwtzmRQR8Zk7ft1B+6B
-	 T/LRo+EYeGQdAQPTpHJ0yExEDG6mR8GzzDQcrBz9ocyDs7NwmO6SU0ZaQsXKrsHAVeCkh
-	 rKGG28WAUKIK3a+4R1Hj1yiZOqAOSqHyo4KNI4Gq6sNOQpfJFfk5TpIpQftKMl/92LIi6
-	 YI/kkOXnrvOvPhT/yAOjqt6KdJS7cPufA20f+Emm0SnfM8EX2zzQpLtlzDww02rLKH+1B
-	 abQIPFdAnW+LcPT6xIs4xYBTz7VpNMR9PxUPFtQ0G9ixtXx17w9enMMONitIGs6CwHw==
+	t=1793609643;
+	b=IWKBMD1tv1G965tJAZpgdBAR8ZATNpiGfVoAHaOB/3nw3hw8X1Gtp4ozGJlcC/qdFBiH
+	 JpIHK5Ca+eFuD4BV4VFe62q6OFq3rBjplizzX3KWyLeg+V2CjGUFSLWbDa8wdw3shnq+7
+	 5+8pPzDyMlUfcjQjKDBMInp4y5DxTGPTgETARtGVVwOXXg8H/ry3xROOCGWBUxQ2qciy6
+	 DxP2hI8E+nV9iV3A4VbisEY7CyoGiozeUwihB8EXzgFSSgtu+glqgJKTNFdMrL4r7jiK6
+	 GH03tHM0tToCIdvBM1ndTk9WhXQzIoRawpAopZWNPq9PRNSgW2BEgzEBSmNsi5TzY1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609631;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
-	b=i04+Bv5DMqs1+yyW3KWu4lKSRvyn44UJjWMGAE5VX+dWde2TLRChQt9vKrFJCr2hVL77
-	 J84f609t6Bu14VHPki9/jb7waLtbt3z2NkLMig1jcmk5ymaZLVQtca590H1dip5UtrX35
-	 t+HB8to7C1XfPN/dVJPVYZZeKxNoOjD6Y0023bZQ40r28uiVaoujx9HO7wJitzoBRlMzw
-	 50qXWAS1KfvReoiC1s8XtKJ3W6xVs3JcImi7JZBYsWAZ39BVI8CvgcgDWxowYcygFRpKO
-	 SswjhK0ch4xPzsy8QwUC1cihOpQHybtpA6qLc7kBxoMj04TW7Y7TRe1fu/pXXWVX3Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609643;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dyRe6cqepbH4BcsD+uq9N3zywhn9zMc3JHjIGWA0DU0=;
+	b=YPB092JCk8C37sdterQnY0dga5UrDWrEp058d0RBIJeCr2wuSzxgN0LoMyzFuv4SL4Pv
+	 6uDgxC6EgY4O8mG9Rq8qiyiKCi0c07ksTY5vbalL//+vw3z73Reb/YoCSpYAQUQKduo12
+	 uqNmvwl+3IbjGrPS4eqDnF9gAFJSOaSTgkG9v5UBoDbjLH6BPC/oSBOuSA+OBBmOF+pRq
+	 UcTNqzhdF0+JbGM7BmgYHmYsiZy6APoPzIizd1IN2pnRbDWTtEQoJdQFevK1kh9ZhShvV
+	 gdYpjrBYCRExtqx6nPviCf++9kiN8gTI2b1cTrnjzBoQspdohT1ePFGUoWTzsJJoWrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UcPPE8QJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BzsyZ33W;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UcPPE8QJ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BzsyZ33W;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=kernelriot.com;
+	spf=pass smtp.mailfrom=kernelriot.com;
+	dkim=pass header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=0RkAH+tp;
+	arc=none smtp.remote-ip=74.208.142.49
+Received: from mail.kernelriot.com (mail.kernelriot.com [74.208.142.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF52606A332;
-	Mon,  2 Nov 2026 08:53:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDF52606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643C6606A326;
+	Mon,  2 Nov 2026 08:54:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 643C6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernelriot.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelriot.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UcPPE8QJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BzsyZ33W;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UcPPE8QJ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BzsyZ33W
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 718791F7CE;
-	Mon,  2 Nov 2026 08:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793609629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
-	b=UcPPE8QJ8lG8ZGClFH9L+PfqufKn0HrKewSGAe8xQCk9x843/7U2MZoIi5ZUCuL9aJElqt
-	Vwn10Znha/v6c3Kf1TtaxdSSuDFDm6SW9anEv7AKeBFLp+XSEuZ2wZkUttB3K1FxMYSgp5
-	xwVqv7Pm5/H5NK6Ko4JBi2QtFjWaIoQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793609629;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
-	b=BzsyZ33WIy9qY2wAsoT6BKk68KjFGVmUplF+ut/pbfR0+6tS4HArNJFn6G8FoR/9RPqmh8
-	qKtZePvgnrNKLrAA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=UcPPE8QJ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BzsyZ33W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793609629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
-	b=UcPPE8QJ8lG8ZGClFH9L+PfqufKn0HrKewSGAe8xQCk9x843/7U2MZoIi5ZUCuL9aJElqt
-	Vwn10Znha/v6c3Kf1TtaxdSSuDFDm6SW9anEv7AKeBFLp+XSEuZ2wZkUttB3K1FxMYSgp5
-	xwVqv7Pm5/H5NK6Ko4JBi2QtFjWaIoQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793609629;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
-	b=BzsyZ33WIy9qY2wAsoT6BKk68KjFGVmUplF+ut/pbfR0+6tS4HArNJFn6G8FoR/9RPqmh8
-	qKtZePvgnrNKLrAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 197AE134B8;
-	Mon,  2 Nov 2026 08:53:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id tjHCOJxP6GpDTAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 08:53:49 +0000
-Date: Mon, 02 Nov 2026 09:53:48 +0100
-Message-ID: <87ik2f4ns3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Ivan Orlov <ivan.orlov0322@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernelriot.com header.i=@kernelriot.com header.a=rsa-sha256 header.s=kr2026 header.b=0RkAH+tp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernelriot.com;
+	s=kr2026; t=1793609642;
+	bh=dyRe6cqepbH4BcsD+uq9N3zywhn9zMc3JHjIGWA0DU0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:From;
+	b=0RkAH+tpk7+TZYfWtxox4JK5uKvPDOp9pMo7DdjLQgqRgwbhm7LoxVdURc1Ub4a77
+	 byyAEWm3Xopg/G0njAmcgh8TI1gK4IfpGy1sEeB+T3Bvq2Oc6AyNBGk3lz7U74eU+r
+	 yEsFzazmpjpKbkV3PjH7FXdyCWwrIRtZVodZa0Q2CHxighPM+Uc1WZstH19LmM4Q7A
+	 84gxd+L7t17IQuxvTX4tMQklTtdXxEn1mJwpdXR29Uh2i88h9VFlZqVkuGQioZuG3y
+	 d2zaPvzQ5RmOjbbMwxEIFPipaIbOICLAdGQmSfilBjp0Vtq+iJxvUkyPK3Ie+/oxUz
+	 oVf73D2YvAEQg==
+Received: by mail.kernelriot.com (Postfix, from userid 995)
+	id 521EC819B6; Mon,  2 Nov 2026 08:54:02 +0000 (UTC)
+From: Magnus Leatti <magnusleatti@kernelriot.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Nicolai Buchwitz <nb@tipi-net.de>,
+	Yao Zi <me@ziyao.cc>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] selftests: ALSA: pcmtest: Test error injection and pause
-In-Reply-To: <cover.1792660433.git.sammiee5311@gmail.com>
-References: <cover.1792660433.git.sammiee5311@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: Re: [PATCH net] net: stmmac: dwmac-motorcomm: mask the MISC interrupt
+Date: Mon,  2 Nov 2026 05:53:03 -0300
+Message-ID: <20261102085303.5391-1-magnusleatti@kernelriot.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20d4a3c3-99fa-4659-8d5d-eb5eefcf6545@bootlin.com>
+References: <20261102080938.2955-1-magnusleatti@kernelriot.com> <20d4a3c3-99fa-4659-8d5d-eb5eefcf6545@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,68 +76,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 718791F7CE
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-11.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,gmail.com,kernel.org,perex.cz,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
-X-Spam-Score: -11.01
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 22 Oct 2026 13:12:41 +0200,
-HyeongJun An wrote:
-> 
-> The pcmtest driver can return errors from its PCM callbacks and
-> supports pause, but the selftest covers neither. This series adds tests
-> for both.
-> 
-> Patch 1 moves the capture data check into a helper, so patch 3 can
-> reuse it. Patch 2 tests each inject_*_err parameter. Patch 3 tests
-> pausing a capture stream.
-> 
-> Tested on x86_64 with the sound/for-next driver, built for a 6.17 host.
-> All 10 tests pass in three runs. To check that the pause test catches
-> real bugs, I loaded two broken drivers. One keeps running on PAUSE_PUSH.
-> The other restarts the data on PAUSE_RELEASE. Only capture_pause fails
-> on each.
-> 
-> HyeongJun An (3):
->   selftests: ALSA: pcmtest: Move the capture data check into a helper
->   selftests: ALSA: pcmtest: Test errors from the PCM callbacks
->   selftests: ALSA: pcmtest: Test pausing a capture stream
+On 11/2/26 09:22, Maxime Chevallier wrote:
+> Can you test this, sent a few days ago ? I also saw that storm, but it didn't
+> seem to be motorcomm specific :
 
-Applied to for-next branch now.  Thanks.
+Thanks, I missed it. It fixes the hang here with MISC left unmasked,
+so masking is not needed. I replied with a Tested-by on your thread.
 
+Please drop this patch.
 
-Takashi
+For context, I ran into the hang while benchmarking the glue for a few
+patches I plan to send once net-next opens, among them Wake-on-LAN from
+S5, which does not work on this board today.
