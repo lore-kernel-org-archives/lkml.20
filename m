@@ -1,56 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793651754;
-	b=EdxtSwcpDh/9gSBqWb63B6FHxcB4EIvmbaFewV4hPShKrR1EvuTBJFWhf2KUMP6DKzC1
-	 ClQR7stOgOxf8qU8wo6qbGomLanqksIMM5SdQtApIwIkRNJ1PUvJg2r4KHt0XTNN1Dx2j
-	 lZ5oG4s0G+CgNMthNDbzwOEU9Lk83DUIClYGFyBBOpYd+qswxMfg8rk0jGBkc4IqYMX6e
-	 AkkkGTkv3DRzPkCABMoxCBJgE0u97rzng8Wgj3FG63dTzkrnOaN7Zn5MrJ5x8opjK6IPS
-	 DcFiI21jIdERtOLlY4iX6lIrth7a6We8+C1EBeAHAJTx1FnRqC6MYErGxuu6qirUZUg==
+	t=1793651799;
+	b=V0NNm9bsRnI7RA56snsHIYpmmcu5+nmzfKDga5nZkvEv6JOf9MfXl85YKYX4NTxApVJ1
+	 qcpWp0FXQGfVLFlhIwndH/JXLZSRqtvg+0upTxWHKt59XkT7W4V/R6gwzaRSJqPcrgT7E
+	 NmLl4wI/2cYp9N/IovODEDiQewEmhYZ7/FeB5SiY2wU70SnrAS1u2QCLcjUNBeZS0M0Va
+	 D5crQn4naMcQEU56CyKaPRfcOC4mpQDYi9ioEMBPwSe0ifCJ9okKEnI5rToBTDW2fznYX
+	 vFmdVVJVbYMvgoOfLJ2dMqG2zsF3cQxrlmp+0QXCtVFO6o4cFGBrdEFVhsycODv2S3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793651754;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dvVO2rNpJvTNuu02lcc9yj9nd8ebw6GqxP0aGvMJCMc=;
-	b=o3kuTa8j8IxvNIyTCV9o/vyMYclA6uGD0UVAnF1Cg+HE+C1tjapu8nzxvinDa+UeDhYA
-	 m2eCJWbgJ0ljhnzAZvqDtButlo7dNR/IHxHqjLDH5w7dfIXWLX0mHxm5KBakU73aNi0T7
-	 E4dwQT31H4heB5zKP0zmCoSQaZvjnQXhWhYLoPS6k9iQXlr0QiwdFpYf3DHHzj24xAW9g
-	 xV+6o1BlGpAdoos2CEJYC2AL1lBXWc6Ssi+gGiTEcFWOUY/QaNmF1NJ74HvVuleqxEnN7
-	 zu/qb4aMh0cHyaHj+TcRDSPUSc8C+ewUqdTSIAc/PVEoXyzpS4uP/FqeFXDiotUYZXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651799;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=bHWKaERtAi0KZdxKYF+OUpJ8/Bldo0rEve4gnihr47s=;
+	b=ie0A8HerIn/O6Ntn8HzStpY1Sny4B/TRUOoV7O41yN51er4H+Sht9mR63cuOv0gsVXDM
+	 uPVjhLqsC6cxjkQ+OdjYlDlXFu0jVMUHw+MVGVZ3C1wG8zh+WAWcVQm3Ss6bCXE6yePx2
+	 DGC1Jtb5AxfxvDrhXY7GpYndJltaFq60cYp5JYwMJ3aDUhNRKgiAmfcS7nxtI8qK12wEA
+	 zZ+n3mrO2RRa1Xo7v/AOTGOslsAwwJchnwV8LUBs6yzol9UOzZg1byZ0flCE0aOXYYA+l
+	 Zj3/O7AWI12t3vO4+93abSvkCXRMTBwesTBK+B+s7rRNQM/LLJ5CrypwE9aR/7tLhpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdfZspls;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=jannau.net;
+	spf=pass smtp.mailfrom=jannau.net;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=os8Ll2R1;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=h5DOnkEO;
+	arc=none smtp.remote-ip=103.168.172.149
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE45C606A326;
-	Mon,  2 Nov 2026 20:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C761606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:36:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C761606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdfZspls
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA13A1F00A16;
-	Mon,  2 Nov 2026 20:35:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793651753;
-	bh=dvVO2rNpJvTNuu02lcc9yj9nd8ebw6GqxP0aGvMJCMc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hdfZsplsPzWIBETGNzE+dm1RLl33QZCz1ghJ6tDoX7zt6yOYKwwO6E9RAvfbxsSHE
-	 WgHS42fPuH3ls3qLWGbiYhXVPGx3zFtkd0DdnqaMjLSVGg5uqgb4I38CfM3t4kGiN1
-	 ipKt36zcPi8DRGOaXVA0CikoClsoDEeVs/C1CUpdK4TsmxhEVs5rl3HSdMxiTcRjQu
-	 xoIVKpJ85AvU4gxWydUL8y+6v2fb3LY1aCnSS0kCma/8XO/1AXANoHowGID4qXsC4f
-	 t6FOKOH8zBc+T9vWJyLMN4agBmP2MDGSJnwtk7ADmjzdm4nQNIUPkFM19OQvelfs+D
-	 mp7nOinjfSjag==
-Date: Mon, 2 Nov 2026 20:35:48 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: sergiu.cuciurean@analog.com, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, ukleinek@kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
-Message-ID: <20261102-pursuant-collide-4246c955efef@spud>
-References: <20261030-scientist-puzzle-ab2c668b6e27@spud>
- <20261102081110.63080-1-Nicolae-daniel.Deaconescu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=os8Ll2R1;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=h5DOnkEO
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id 8E0D3EC066E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:36:32 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Mon, 02 Nov 2026 15:36:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793651792; x=1793738192; bh=bHWKaERtAi
+	0KZdxKYF+OUpJ8/Bldo0rEve4gnihr47s=; b=os8Ll2R1WPClwOD0418Dt38jFf
+	xcyFj2bptWy4byXoq4AY6B/CcBISHNZiyWIturlDvoJ09xkoNEg2qzwzl9OHBBaa
+	5qK1ZW5xL6zs9ORjsif8rZ1NDoObRfiM5N6nsN+i5mf5n+ITr90/bLvZYYaMMJPZ
+	XUlN3l7w/yhmYxETSXdgy5iLDZOP3EpRXlfn7POds446JcFH38EzK3tJXd2CTXte
+	vGSe+MiDG9FC4BIBnlPGD3lG6ZHXBO4PbmHGGvQjMpXAXu7fcoyK2zofZJfxOhDZ
+	Gb60OfELKosf7XJbWMVdgu4+cRVqrXknMwDBYzUuN3zi8GAUukhFHWr1xRRg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793651792; x=1793738192; bh=bHWKaERtAi0KZdxKYF+OUpJ8/Bldo0rEve4
+	gnihr47s=; b=h5DOnkEOCKYPpn8pOV3NDM24QIRjPjvfwfNZBcIjtFl6qOI8tnw
+	p0XQPddjwMGtunEdga8+8W6QS/5K6+Igp7s05d9OyB0rIhw6r/55GrHyjL7Q82Xg
+	QoM2rJ1QbGxwPgYJQEQZnypB3jXYDjNaafZwtxdrw6MKeMRKofojpHF78T0mHkYE
+	W8Fnl79gt4Ravugo8lVNonsSuXKTFccA1WZv5lE8Gya31J6Ik6me1Tkb555vt+sI
+	TwNYo1jzBe1g6jO1jQgkI1E/gEbjaQIoSADEQNo3uZ81+22Qd85+Q/WVqqnaooTl
+	UbEv2gAgk+375xiJOzfqdWcAqcMJNxK8qMA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=jannau.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793651792; d=jannau.net;
+	mf=PGpAamFubmF1Lm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:l1FTDAXaTTUruvCPUqPlgWinqF2HtJNvyjEjjJCp5t3pOjk
+	mkbDmMv+cYRpnQvhn6Kq4eTEWmAIfFK6lHdMoy1e43Sd3i4hnBC1lyWFDihsH6NX
+	dUsi3nBKHZ2XE6Mu1TBGijojuZHVj5OvzH2YxI2r1IvorYZBeQdO5GflQOWAjRfN
+	Xa+0lNqWnOG5ym352sqxEnCo8jG4lhOr9mwIlWq83eAX9ofVJS/mL3igGyIGcUVX
+	NuKVcygHQZUWdqWlNQY7T3uwaaRA0ZdupwHnd3Ulv0Ig75FydeATdQ590owkmeXj
+	CjhswtzbkWYufwrcTE5XJP3HK5Txw8xwX3087Uw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:GBByxwy6Y+7EBiXGCpW7rPEigVJIy5KDT7P2syj2s1A=:4ImU0nTE+hMJVvzGDTYVbJNhPQLEnCoRx0cWZ3ikQVo=;
+X-ME-Sender: <xms:UPToaoSb8wznKirn8BunyCD-NadKuT-bcKgO-GF_R_sW3qCh-oQXNg>
+    <xme:UPToahuOZoBdehcXISuXK8qY8EfhzqCR7_0F_dRCIXeG07vHlwUQPvzcdwMP0xkNW
+    uB00NFtvhn2yL8rmOIzxz20-O4c-g8Dp798BXHCmGzepSHge6lo0MFD>
+X-ME-Received: <xmr:UPToar9fHP0tPduyopTdi2nQzMbwTyGmakbFWKMkZR63HxGXwlcUhUFCed4PZl627ZjWEy4h6ODjv3eOOl1PKW5idhKa_uXiJ1I>
+X-ME-Proxy-Cause: dmFkZTETqbBZgMr8LASuCzYXMcQ1n8Wz2x7AzJAiO29JCpVXDRhjMr32l3uAMprjAEUqtK
+    GKYpo725RJvnQo1g6HAzrgJoMl+ceaIzsdelMfjqBm6W9AbrHj0EqQvCvQZtCmV8DGu1Ic
+    wT9Ob1vXJ9se9or8imCctZAu3TIyPKAv1hchNzuVZ8H2F9HxRi4svI8/C6zcjdKxNe2D7f
+    BT4WL4uDP0e8knk+un4CjXroDmw9BMcw+HDIynjDn51t/KMf9I9qSwfD6pwAdWgRblocbR
+    eKLxC55g3/MswkFakXzkeL6eZidN1byrvqSpPcFyjhb2V9vmbTiMptZJj7WuFAfFT1NNLK
+    JsMMYWOPeVGz1SfipOX8tyjTXIX+DAXqYCDB7E+X8u/YQ33FwmKhsVEUtd2fPr43hExoWp
+    nocn/pCjnefnH74kE7KZWr0Wg7ThfDaFqxf6uogXpwZd9Zndx3cb1F9CiALQyxIUCuQNDb
+    yKfvJX3QyJCSeo1FVCC9rIGqkbrRs6UcNKDi2YppI49p+bryibWnGwiP2un8RNH6tZPZd/
+    fhD71sfaP5deMPDg4hdhLIsH6lKd++q9mySxHPRYo6J8OHdbZNsZi7OUqKE+xI8aybLw5s
+    BjquyB9jKg4FOxgOqBfIjmbUMMPbVQ1Tb0+J6rKb7zDbCBH49CJvc9oSkhFA
+X-ME-Proxy: <xmx:UPToaiY31EthMldCqYfhCbMfBvCGXhK_ZJvvCrvyJWXNDtZ4gafN6A>
+    <xmx:UPToavpRr8pnbKDu2l1Wf5raDtPDKQ6HOaaxvIR9i2FZQw7h4xvmzw>
+    <xmx:UPToaiYf7cu4mN96YPI5KFpwABvuEgcnsy-3fqXIRD4c5Dfm-5uaXg>
+    <xmx:UPToaq6GmdMGKl-5Oq4HvFVcRPng1vcmRvyNS35l76g-k2-15r2Y0g>
+    <xmx:UPToapZATw_31BIiYUwOqHJYz8wPwpdWkfwBKorGsPVHSrHiC8PW5BV->
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 2 Nov 2026 15:36:31 -0500 (EST)
+Date: Mon, 2 Nov 2026 21:36:29 +0100
+From: Janne Grunau <j@jannau.net>
+To: michael.reeves077@gmail.com
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
+	"Franky Lin (Zhenhui)" <frankyl@broadcom.com>,
+	Mathy Vanhoef <vanhoefm@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com, asahi@lists.linux.dev,
+	Hector Martin <marcan@marcan.st>,
+	Daniel Berlin <dberlin@dberlin.org>, linux-kernel@vger.kernel.org,
+	Hante Meuleman <meuleman@broadcom.com>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 13/13] wifi: brcmfmac: Add BCM4388 support
+Message-ID: <20261102203629.GA770347@robin.jannau.net>
+References: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
+ <20260925-brcm4388-submit-v1-13-b5cbc2cde2fb@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,199 +132,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RY2oGnwwwn5GkflT"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261102081110.63080-1-Nicolae-daniel.Deaconescu@analog.com>
+In-Reply-To: <20260925-brcm4388-submit-v1-13-b5cbc2cde2fb@gmail.com>
 
---RY2oGnwwwn5GkflT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, Sep 25, 2026 at 11:43:48PM +1000, Michael Reeves via B4 Relay wrote:
+> From: Hector Martin <marcan@marcan.st>
+> 
+> Add BCM4388 firmware mappings, RAM base and OTP handling, and increase
+> the RX posting and completion ring capacities to 2048 items.
+> 
+> On BCM4388, DMA_FROM_DEVICE mappings for posted receive buffers cause
+> DART read-permission faults followed by firmware DMA failure. Map these
+> buffers with DMA_BIDIRECTIONAL to allow device reads as well as writes.
 
-On Mon, Nov 02, 2026 at 10:11:10AM +0200, Nicolae-Daniel Deaconescu wrote:
-> On Fri, 30 Oct 2026 20:50:11 +0000, Conor Dooley wrote:
-> > On Fri, Oct 30, 2026 at 02:02:05PM +0200, Nicolae-Daniel Deaconescu wro=
-te:
-> > > On Tue, Oct 27, 2026 at 18:28:34 +0000, Conor Dooley wrote:
-> > > > Why are we getting new devices with linear vendor prefixes?
-> > >
-> > > I'll fix this in v2. The binding file will be adi,ltc2387.yaml.
-> > > The -x4 compatibles will also be dropped, because they described
-> > > four devices sharing one AXI ADC.
-> >
-> > Please retain more context than this, it's not enough to just have what
-> > you're replying to. I see so many patches that I will have completely
-> > forgotten what you're doing by the time I get to the next day.
->=20
-> My bad, I'll keep more relevant info in my responses from now on.
->=20
-> > > > Hmm, ltc2387-16 does not appear to have these signals?
-> > > > Well, it has "cnv" but "cnv" has "sample clock" as the input name s=
-o is
-> > > > the clocks property above and pwm-clock can be used if the provider=
- is a
-> > > > pwm?
-> > >
-> > > The LTC2387-16 datasheet has these pins: CNV+/CNV- (pins 27/28), which
-> > > is the conversion-start input; CLK+/CLK- (pins 23/24), which is an
-> > > externally applied clock that shifts out the result; and DCO+/DCO-,
-> > > the echoed clock. There is no clk_gate pin.
-> >
-> > Then there should not be a clk_gate pwm for this device.
-> >
-> > > The part needs a burst of 8 CLK pulses per conversion in one-lane mode
-> > > (4 in two-lane), starting t_FIRSTCLK =3D 65 ns after CNV and ending
-> > > within t_LASTCLK =3D 49 ns of the next CNV. So the CLK input cannot r=
-un
-> > > freely: the clk_gate PWM gates the host clock into that burst. [...]
-> > > The clocks property is the reference clock the PWM generator runs
-> > > from, and the driver needs its rate to compute the waveforms.
-> >
-> > Then you've got a "layering" violation of some kind here. If this clock
-> > is consumed by the PWM generator, it should be an input to the pwm
-> > generator not this adc.
->=20
-> It IS an input to the PWM generator, The ADC node references the same
-> clock only because the driver has to know its rate to compute the CNV
-> and CLK waveforms in clock cycles. adi,ad7625.yaml does the same.
+Not only on BCM4388. See commit 7ed5dce55fa8 ("wifi: brcmfmac: map msgbuf
+RX packet IDs bidirectional") [1] only in wireless/main, doesn't seem to
+made it into next yet. BCM4378 and BCM4387 do need the RX msgbufs mapped
+as bidirectional as well.
 
-Then modify the PWM API to get the information that you need, you should
-not be constructing fake relationships in your devicetree to work around
-limitations of some subsystem's interface. If you need the information
-=66rom a PWM provider for what the minimum period or duty cycle step it can
-provide is so that you can use the waveform API correctly, then add that.
-I took a quick look at the code you've added and it looks like it'd just
-fall over as soon as someone used a PWM provider with a mandatory
-divider?
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git/commit/?id=7ed5dce55fa8393972b1bf2bf5af1c818c5e7dc2 [1]
 
-Trevor got lucky that I didn't ask these questions about the ad7625, you
-did not.
+> Keep the existing mapping direction for other chips.
+> 
+> Signed-off-by: Hector Martin <marcan@marcan.st>
+> Co-developed-by: Michael Reeves <michael.reeves077@gmail.com>
+> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
+> ---
+>  drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c      |  1 +
+>  drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c    |  8 +++++---
+>  drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.h    |  4 ++--
+>  drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c      | 12 +++++++++++-
+>  .../net/wireless/broadcom/brcm80211/include/brcm_hw_ids.h    |  2 ++
+>  5 files changed, 21 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c
+> index 253ab45c33..411188010f 100644
+> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c
+> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c
+> @@ -751,6 +751,7 @@ static u32 brcmf_chip_tcm_rambase(struct brcmf_chip_priv *ci)
+>  	case BRCM_CC_4366_CHIP_ID:
+>  	case BRCM_CC_43664_CHIP_ID:
+>  	case BRCM_CC_43666_CHIP_ID:
+> +	case BRCM_CC_4388_CHIP_ID:
+>  		return 0x200000;
+>  	case BRCM_CC_4355_CHIP_ID:
+>  	case BRCM_CC_4359_CHIP_ID:
+> diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+> index 8e5c697e7f..5ad46d7ec6 100644
+> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/netdevice.h>
+>  #include <linux/etherdevice.h>
+>  
+> +#include <brcm_hw_ids.h>
+>  #include <brcmu_utils.h>
+>  #include <brcmu_wifi.h>
+>  
+> @@ -51,7 +52,7 @@
+>  #define MSGBUF_TYPE_D2H_MAILBOX_DATA		0x24
+>  
+>  #define NR_TX_PKTIDS				2048
+> -#define NR_RX_PKTIDS				1024
+> +#define NR_RX_PKTIDS				2048
+>  
+>  #define BRCMF_IOCTL_REQ_PKTID			0xFFFE
+>  
+> @@ -330,7 +331,6 @@ brcmf_msgbuf_init_pktids(u32 nr_array_entries,
+>  	return pktids;
+>  }
+>  
+> -
 
-> > The second pwm should then just be called "clk", because that's the
-> > input(s) that it represents.
->=20
-> I'll rename it to "clk" in v2 and reword the pwms description. ad7625
-> uses the name clk_gate for the same signal.
->=20
-> > I want to see what the dts you have for a complete setup of this device
-> > looks like, including the backend and pwm generator.
->=20
-> This is an ADAQ23878 on a Zedboard, two-lane, with the AXI ADC backend,
-> the DMA it uses, and the AXI PWM generator. The 120 MHz ext_clk is what
-> the HDL provides to the PWM generator. Supplies are fixed regulators here;
-> VS- is 0 V.
->=20
-> / {
-> 	vdd_5v: regulator-vdd-5v {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vdd-5v";
-> 		regulator-min-microvolt =3D <5000000>;
-> 		regulator-max-microvolt =3D <5000000>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	vio_2v5: regulator-vio-2v5 {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vio-2v5";
-> 		regulator-min-microvolt =3D <2500000>;
-> 		regulator-max-microvolt =3D <2500000>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	vs_p: regulator-vs-p {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vs-p";
-> 		regulator-min-microvolt =3D <5000000>;
-> 		regulator-max-microvolt =3D <5000000>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	vs_n: regulator-vs-n {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vs-n";
-> 		regulator-min-microvolt =3D <0>;
-> 		regulator-max-microvolt =3D <0>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	vref: regulator-vref {
-> 		compatible =3D "regulator-fixed";
-> 		regulator-name =3D "vref-4v096";
-> 		regulator-min-microvolt =3D <4096000>;
-> 		regulator-max-microvolt =3D <4096000>;
-> 		regulator-always-on;
-> 	};
->=20
-> 	clocks {
-> 		ext_clk: clock@0 {
-> 			#clock-cells =3D <0>;
-> 			compatible =3D "fixed-clock";
-> 			clock-frequency =3D <120000000>;
-> 		};
-> 	};
-> };
->=20
-> &fpga_axi {
-> 	rx_dma: dma-controller@44a30000 {
-> 		compatible =3D "adi,axi-dmac-1.00.a";
-> 		reg =3D <0x44a30000 0x1000>;
-> 		#dma-cells =3D <1>;
-> 		interrupts =3D <0 57 IRQ_TYPE_LEVEL_HIGH>;
-> 		clocks =3D <&clkc 15>;
-> 	};
->=20
-> 	axi_adc: adc@44a00000 {
-> 		compatible =3D "adi,axi-adc-10.0.a";
-> 		reg =3D <0x44a00000 0x10000>;
-> 		dmas =3D <&rx_dma 0>;
-> 		dma-names =3D "rx";
-> 		clocks =3D <&clkc 15>;
-> 		#io-backend-cells =3D <0>;
-> 	};
->=20
-> 	axi_pwm_gen: pwm@44a60000 {
-> 		compatible =3D "adi,axi-pwmgen-2.00.a";
-> 		reg =3D <0x44a60000 0x1000>;
-> 		#pwm-cells =3D <3>;
-> 		clocks =3D <&clkc 15>, <&ext_clk>;
-> 		clock-names =3D "axi", "ext";
-> 	};
->=20
-> 	adc@0 {
-> 		compatible =3D "adi,adaq23878";
-> 		clocks =3D <&ext_clk>;
-> 		io-backends =3D <&axi_adc>;
-> 		pwms =3D <&axi_pwm_gen 0 0 0>, <&axi_pwm_gen 1 0 0>;
-> 		pwm-names =3D "cnv", "clk";
-> 		vdd-supply =3D <&vdd_5v>;
-> 		vio-supply =3D <&vio_2v5>;
-> 		vref-supply =3D <&vref>;
-> 		vs-n-supply =3D <&vs_n>;
-> 		vs-p-supply =3D <&vs_p>;
->=20
-> 		adi,gain-milli =3D /bits/ 16 <870>;
-> 		adi,use-two-lanes;
-> 	};
-> };
->=20
-> One more thing, on the cover letter Andy asked whether this should be
-> done in an existing driver with per-compatible chip data instead.
+nit: cosmetic change
 
-Dunno, don't care. How the drivers are written has nothing to with me :)
+>  static int
+>  brcmf_msgbuf_alloc_pktid(struct device *dev,
+>  			 struct brcmf_msgbuf_pktids *pktids,
+> @@ -1695,8 +1695,10 @@ int brcmf_proto_msgbuf_attach(struct brcmf_pub *drvr)
+>  						     DMA_TO_DEVICE);
+>  	if (!msgbuf->tx_pktids)
+>  		goto fail;
+> +	/* BCM4388 firmware also reads from posted RX buffers. */
+>  	msgbuf->rx_pktids = brcmf_msgbuf_init_pktids(NR_RX_PKTIDS,
+> -						     DMA_FROM_DEVICE);
+> +			drvr->bus_if->chip == BRCM_CC_4388_CHIP_ID ?
+> +			DMA_BIDIRECTIONAL : DMA_FROM_DEVICE);
 
-Cheers,
-Conor.
+This conflicts with the linked change. Best to drop this hunk and rely
+on the linked change.
 
---RY2oGnwwwn5GkflT
-Content-Type: application/pgp-signature; name=signature.asc
+[...]
 
------BEGIN PGP SIGNATURE-----
+> --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+> +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+> @@ -2459,7 +2468,7 @@ static int brcmf_pcie_read_otp(struct brcmf_pciedev_info *devinfo)
+>  
+>  static bool brcmf_pcie_request_fw_signature(struct brcmf_pciedev_info *devinfo)
+>  {
+> -	return false;
+> +	return devinfo->ci->chip == BRCM_CC_4388_CHIP_ID;
+>  }
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauj0JAAKCRB4tDGHoIJi
-0luKAQCR7NOOLzEZxK+88wBVi3I3guik+ZdYa1djbktQp85UlQEAqPRERobzPurB
-BYQdqJLzZj8eUCOik998InmtwzMqbgs=
-=kvR3
------END PGP SIGNATURE-----
+nit: this is hard to extend.
 
---RY2oGnwwwn5GkflT--
+```
+        switch (devinfo->ci->chip) {
+	case BRCM_CC_4388_CHIP_ID:
+	        return true;
+	default:
+	        return false;
+	}
+```
+would be easier to extend and is in my opinion easier to read
+
+Janne
