@@ -1,55 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635386;
-	b=yP8CcFoT99g6ekLR9HIhWhymBfJwO4J+IVaqyEmw44xI824aCgB++8YcaxglxYDtThq8
-	 ougI8tIhhuPIfbMAFPezseXA2t2yghToc2UBN5SCJDeDom3h4HWiUNYFXDV7df2Sa3gTo
-	 ZLCkSYJw3fIWwEgSU3LwKnM8INthgjPv3lFhv5QiHOiU/V++bi1+6G+/M3sp/tDdcls7b
-	 IqbehYUVLMJo5jnBck1EtFdFdtrA40Nq/9m2p8AI/1heQMOC86IYJ3F+sW129uXswvF6e
-	 C5b/LsVVFk76NP2EyjmO2+Fufrs+7kfpc99KyKGWgwtkDUIuPBI6a8O0+LCmtc/E70A==
+	t=1793635404;
+	b=HvyT83mR9BLuCU6QwvjdDBjhDalrTtTZvTPBOHbxjPChKy+izXGRCLEuXBZcBP5nETha
+	 sZEY6H3TohKmLLhy+DAJNM2wG7XFyBL13wNe1jNfJRxBRmYVRJsFOYNBs4kDw08BOiCkh
+	 s70aIIPw6U+ydUDiQjTpOLYRovQLCrhzrM4gBGXll7kp/hT2cEcPMhDUyf4dvVBBVAi1T
+	 2B6MK1SBG5IcJIe+Gbz7xWK/cx4rdNtBXdzt1f90m3FF2XZTFh1dYsqRoYBGFuZuvVRoV
+	 jQYu0TUf2si4/9VleteL9Yhw5oAe5Qg7q0rlk1fPaBxmQgkoKvmK4y8aoaYbhXXvMdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635386;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635404;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bZtDBjzgkv5xQcYlp5Yum+2Qy7bTJw3wf4TUeP34ezY=;
-	b=KQSuJkLGehYsIMHXv5OSbdnpr04IP1QX4tMWuw68PR1Tc79hF+OQk6snFJrUinYCSDgv
-	 HHG8oS2O3YiJKfM3aEwL3bSR/JLlWCLc2tcwWQOvJXMWmBHoFwGqeMtSMrPueTemw1wWY
-	 0683U2lq0+VdMNA9N5G9R/nH9AG8RS7XQsw++tLWKlEguOCQwwQU8OIyNjlGur2Bh1BsW
-	 Z7QJBATu6XXgrUbEd63KUKiu2BCNUJtlbU4M39Sb+4zN34oDr2Jkw8mXelqNJ6+k6eSIV
-	 dVW0Gly3Y0cLOAsDfG3s2xZddfrE9z5WZmR0a/9nCY7e0hEpF8EzwMx5Hm5EUpLKGBg==
+	 Subject:To:Cc:Content-Type;
+	bh=3vbLOX9hUXZuFkvJUQUq81vQYgMMNAerq8+/A9OKKiU=;
+	b=O9LDUazEJ48xP+oZGur6hXBM+KsCR6DeYmLNW9OXdNLT3Q9UC0qf6YrUB/2fOrzxTHf9
+	 KwcO081n2QFPMzUZeyFL8hkAzYDPC34b0PsJg6dKWOokRgFs3nZ6dJhp3ruTRkxL2HpXx
+	 swTBgXTIMHPpYJiRsHchP0kO5w9K1Kc5bXVUwf5O82up59xeVsHYdZvh/LAvctg+aom1a
+	 Kj5zqC4G1GclE7L5qbX9R0SguSUDT+ZatjlUVaFse6ZTZO6OvsjtWC1AyxJb+HmUt8uhr
+	 5lIfUwf//gExugsVP10uUwH2iYv7nWQZgPrAoR7zOnMVcrSUTI8EOKAECP0x4AhnJcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNRl1L5s;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8DE606A5A3
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNRl1L5s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392B41F00A18
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793635386;
-	bh=bZtDBjzgkv5xQcYlp5Yum+2Qy7bTJw3wf4TUeP34ezY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KNRl1L5s6/wEyvvsLuFpJ6plEXwOmrCadaiQnku6A1vaHVWQtMmYscsY9m4HRFLoK
-	 eS7l2l/rzSvw7FCzbD+wftk5ezxRbLYqX1a/7EFKjsl1CClVhwnY9KF7jv0Qcyh2n6
-	 vtulGe8hNAvgiXu6HVmquT9II9muR5M2r1GJpFWEDTdW/aEPK/OgvuTgwsbQbv0+v5
-	 cucbeCjXYXFaA6zy9XHdqmZNiDyCKvZC4+Di0z+5y0fm6+rhR3iAyEpb28STEOFgLn
-	 WkLSK37mZNco1WUUF9HNi0uLmrYzZGbJKpyuIrnnFDZJ+cJHq29ZHfSw4z2auSsRdN
-	 3HiDujdROvHSQ==
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-9828fee1b4bso828161241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:03:06 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwofTj7n/HNUuqXPPeo5du1w6MVN7vZviABqcGK9BGU3gJMe+O1TjZxs8X/3fJBcsWRAD6YVtJF5HCNtQk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rc0cOmiZqumu4jzRtJKFZVNPe/FCus0Sox/6qd9wKVKEAThT4
-	kqLzWtnGvBGdIi11CJPmSH9WQmynWCH344WZf+vxRz1vxZToa9JYeKN5m58F0SrTdsZR1rDr8Rl
-	SvQJVZZNb/LslJVLgqO1l9SsPS6/KOkc=
-X-Received: by 2002:a05:6122:c88:b0:5ea:d03c:f0e9 with SMTP id
- 71dfb90a1353d-5ec68944736mr4322887e0c.12.1793635385467; Mon, 02 Nov 2026
- 08:03:05 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23DA606C555
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:03:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A23DA606C555
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c169ae1cb26so673112166b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:03:24 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793635403; x=1794240203;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3vbLOX9hUXZuFkvJUQUq81vQYgMMNAerq8+/A9OKKiU=;
+        b=FqPhyXjMRhAW+URu2Kktup6+xFBbEcF+d3MXLbOnbDHY1KMOzIfxFzThUd89WVH6pP
+         +iLe0rC2yLbXoVLM4DCzyqQR1ErrmwzZ93VLDEPb9nkdT9JFyfJyDfd5F4LQMoCLCIuZ
+         bSefvvo+47nVVzm49hLsxBUosBtSAQDKt4FFhR8jXW1ZCNQZufYaAsiCnYaOR25zJRmQ
+         PchlW4xeh6MIeafI645J6pLpaHYg57Ttiw6qzoEz48Z1sQgUsZjzaZbUt4JF+dqsRfGN
+         eTeaSiJFYyXTdhMsqaWw/X9vVwWRQLFTojN91sS4E/aDMvReAgz+BJMmsIUx8t+9covb
+         6fig==
+X-Forwarded-Encrypted: i=1; AKwUvByOTtotHBxBTKUpTS41A1me2BtxlELR7qHEW2XtKVPvi/Fm7XfcR4fGquZiP/+zRxKiZF9QPhs6Gc3byd8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnragiqFTFvpvg8njiGnhx1A6vE9sTut0zYOKgiNQAiyXUrAWK
+	8zqNNbWDG4ngZqR2hzwveGe6xmsdWu9ZrszgphLPF3BCKjBbbzZx3EQWSnjom1mLARE=
+X-Gm-Gg: AYBFou2YlGxU4qSVVInGqaDRpdDcNyl7NdWluNmfJqPLho88awnJE+Ga1yoTNKsjIfR
+	C9uvCI8xyTMFCxsxg+RA0NMQ9kjeh65NqFVq12TZ6VmP+4eUO9yPUyE49r/p3YFjiYxu2MVSEOZ
+	2MQ8H5Xs3CrMm7ckDmAkAT5gvIzgr3QDDv5j8nsRbH4NBcGI5Ijl+ijpWgC2QTou2rgELaxluSM
+	3g917FIzWmaeR1fTFN4cuexKhpWdc3EASPbW8Cdrre7Oi+zVIFifG0+7VZarZ8Mgpz0Hs7pYnJI
+	O+jXekOmNFlF/br5TlQoOiZtnowaLAd8+4y4rrxKlEWdF4Axy1+E7COvQO5ryhJ2URok1PF9FPX
+	XWGXIkJ7gTe7KwW9d+do5oD+bWyGP8uPNHQZWrNrGgFgzf7z1AWyGuDqR9iPjloEqGZfIzEVl2C
+	9aXHZ/KEjziCeqGSvOAiUuq0XbHq3yv4hg7MmghNJlFCQgrWfzHoArwpfeeZgTBt9UpYFq52uwo
+	+u477PxHpdYagM0255b1R1cZB4PbH0Jo+HrbyRTj8YA/Bmg1fnweYe5a4Ral19YNkUPAmTCkMLX
+	Uc2CN/6wKaqytJz9fHTP4QXYcZP1/4eEwjMSGG52AOSn4rOsAU5kLgVGzBaWy3K42Q==
+X-Received: by 2002:a17:906:eec1:b0:c31:5918:86d1 with SMTP id a640c23a62f3a-c4ca7a6a5c2mr891514066b.10.1793635402900;
+        Mon, 02 Nov 2026 08:03:22 -0800 (PST)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com. [209.85.208.43])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cec15a904sm3873766b.70.2026.11.02.08.03.21
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 08:03:21 -0800 (PST)
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso7521812a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:03:21 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBztiy4h7S03R5UKVT9uBLamYFi4na2Us0lGwqFVx/6ygHmK9Jo8jS552n3eGgPPwFm7uW+vLLmVw4n1VVs=@vger.kernel.org
+X-Received: by 2002:a05:6402:234a:b0:6b1:a67b:d378 with SMTP id
+ 4fb4d7f45d1cf-6b4d6d83607mr7493394a12.17.1793635401030; Mon, 02 Nov 2026
+ 08:03:21 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,84 +80,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
- <20261030-b4-btrfs-data-integrity-v1-2-f4d4196731e6@toxicpanda.com>
-In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-2-f4d4196731e6@toxicpanda.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Mon, 2 Nov 2026 16:02:28 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H69Ci=+6xdadWanzMNFwKJXzCzQwgBP2AZNz-GjVkSmKQ@mail.gmail.com>
-X-Gm-Features: AclHuK9hJ6ZkQF9NbDoC3yqIUdGKzYNetSEDAGDD0vFFCJQvSJFv8xogAO1abdg
-Message-ID: <CAL3q7H69Ci=+6xdadWanzMNFwKJXzCzQwgBP2AZNz-GjVkSmKQ@mail.gmail.com>
-Subject: Re: [PATCH 2/5] btrfs: clear dirty blocks after a delalloc failure
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
-	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
-	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261029-tm-ssgrlpcsrc-2083-v5-clk-duty-fixes-v1-0-47f23de6bdb1@bp.renesas.com>
+ <20261029-tm-ssgrlpcsrc-2083-v5-clk-duty-fixes-v1-1-47f23de6bdb1@bp.renesas.com>
+In-Reply-To: <20261029-tm-ssgrlpcsrc-2083-v5-clk-duty-fixes-v1-1-47f23de6bdb1@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 2 Nov 2026 17:03:07 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVv8JW2fdZ80qw+TUBjG3Rt7o3wKvbbm+T9vQCzd_mMYw@mail.gmail.com>
+X-Gm-Features: AclHuK9e8kCdmujm3UbBsCP_C2y2QUNK5imSGIGpgUeiTEwk-YufKAJHK9WyYf0
+Message-ID: <CAMuHMdVv8JW2fdZ80qw+TUBjG3Rt7o3wKvbbm+T9vQCzd_mMYw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] clk: renesas: rzv2h: Forward PLLDSI mux rate requests
+ to the parent
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	biju.das.jz@bp.renesas.com, tomm.merciai@gmail.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 2:38=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
-wrote:
+On Thu, 29 Oct 2026 at 15:26, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> The PLLDSI mux determines rates itself, and on the LVDS path it reads the
+> PLL instance from a parent that is not the PLL, addressing the per instance
+> parameters past their end.
 >
-> If writepage_delalloc() runs the first delalloc ranges of a folio and
-> then btrfs_run_delalloc_range() fails, the blocks that already got an
-> ordered extent are finished with an error through
-> btrfs_mark_ordered_io_finished(), but their dirty bits are left set. The
-> next writeback then submits blocks whose ordered extent is gone, or is
-> about to be completed a second time.
+> Forward both inputs to clk_mux_ops.determine_rate() and let the parents
+> carry the request up to the PLL. The parent encodes the output type and is
+> selected through .set_duty_cycle(), hence CLK_SET_RATE_NO_REPARENT.
 >
-> Fix by clearing the dirty bits and cycling the writeback state for those
-> blocks, as submit_write_sector() does for a block it fails to submit.
+> The mux wrapper is left unused, so register a plain struct clk_mux.
 >
-> Fixes: 72dad8e377af ("btrfs: fix double accounting race when btrfs_run_de=
-lalloc_range() failed")
-> CC: stable@vger.kernel.org # 6.14+
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Fixes: 3afccee4a3b8 ("clk: renesas: rzv2h: Add PLLDSI clk mux support")
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-clk for v7.5.
 
-Looks good, thanks.
+Gr{oetje,eeting}s,
 
-> ---
->  fs/btrfs/extent_io.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
-> index 5ff630630490..3283835ccb5e 100644
-> --- a/fs/btrfs/extent_io.c
-> +++ b/fs/btrfs/extent_io.c
-> @@ -1746,6 +1746,16 @@ static noinline_for_stack int writepage_delalloc(s=
-truct btrfs_inode *inode,
->                         u64 start =3D page_start + (start_bit << fs_info-=
->sectorsize_bits);
->                         u32 len =3D (end_bit - start_bit) << fs_info->sec=
-torsize_bits;
->
-> +                       /*
-> +                        * The blocks are not going to be submitted, so t=
-hey
-> +                        * must not stay dirty. Otherwise they are writte=
-n back
-> +                        * later without an ordered extent, or worse, wit=
-h this
-> +                        * one if it is still around, and invalidating th=
-e folio
-> +                        * would account for them again.
-> +                        */
-> +                       btrfs_folio_clear_dirty(fs_info, folio, start, le=
-n);
-> +                       btrfs_folio_set_writeback(fs_info, folio, start, =
-len);
-> +                       btrfs_folio_clear_writeback(fs_info, folio, start=
-, len);
->                         btrfs_mark_ordered_io_finished(inode, start, len,=
- false);
->                 }
->                 return ret;
->
-> --
-> 2.55.0
->
->
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
