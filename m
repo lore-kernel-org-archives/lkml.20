@@ -1,103 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605270;
-	b=zVaQPyolfijxer8oKyhjxbpXFytpwLEa/JCL/nzrT+1uv3zjmjrdGEFueubo2PKvDLCK
-	 Q7hstCU1+ypf1MLK92ZanlcmICGJE8zw58nPqXCz/f8PrFyggw2fmdOoX/qiXeXVV8Rz4
-	 IpoP7/osAphCMP4puY/f+EUfqbItQUmtMIwwdyHx9kdov6WdD+BWwKcwnLVGUEOyWoa98
-	 h8Gselo+j6cOKidxkRwxveT8tT5HgcXS20dvwK5jE+8F1z7vdQvGdAgiHZfbTAgQawznG
-	 1X3fXtDd6ri/7eOrgWNYBvbAVetVoulhurGe0GjeSiGkBiA7T3sDTS4tPSAcQVeggjg==
+	t=1793605266;
+	b=T9iVGmLQQqK7EVsVkE2QGYsSbu2Q39XS0grk2Q2CGq45dIbzIg6MVqwluH50ltghBSqC
+	 Wz00sDEY/zQYTGOKhl9wx1kRxJAyGCk6fAtGhAW+6Do/nh9PrUX0pSXXCFPLNE0jz0OPY
+	 amc940Skw6OJ8f6ud/rYZU802HuMvdP+jlkBXHtye+cEbEb06A+Pr9v4F7LhLGAZZUInI
+	 wfqAgnPjkcQJMe8d8CqCst6W+MRqXvdMKxfvvSa2uxVZWgNyBhUOTHPDk3sVtDtQKulrA
+	 scH9QuHuBPzzUylBSRwgTiexeOK4YtPJ2FLuEX7GtJUnYv1czuFzDmUEp4trHrQU2kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605270;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Organization:Content-Transfer-Encoding;
-	bh=RWvaWe3fQrnhnNXMlm0+MG4DLsCk6PnMuuEdTBN2qog=;
-	b=xzSK8P0DR9QcfL+gtEvAomXZ40DuUCKSaMrZ4DR33qy+0DvgWX2IL5T0k58f4VyYi/mr
-	 LGyBbIC/nSSZmfAr7rvS7njDqvBkTxMQhWBj/WhpjaVNjh4aZ0KLooDq4YDDdc3sL7/BC
-	 VuFals44dkZvaRfvn8Ej8W6lMmJjyGhd9jkYvWSlILd4Q/FP1q/MAOgWEv6C6WRfF6pWf
-	 Nzx2qV6J8aLB4oDLJX+AABJ+/LReyC+St6fgMtvU4qIB9SeBZxNa/OqmjIs04PftCkB0+
-	 rfqPahVuIzzXXNytM4x7O30dIE/bUB5nbg6U0cYawz9NAdNBa+yz9yYGeWhCRa442yQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605266;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:References:From:Cc:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=OfgCQoL8h0OQGIBTyFTsKwgv2S5WkrlkH70wsc4VUwU=;
+	b=bZSl20XMlfl8cKPUjZSciBoRaoyHac4EuSTJpHzs7vW4tVdLXjVc6ivKCNTBqJrw8pL4
+	 jzQkp+gD2P/gnCImx3X+HDDkPU/Kk1/EClBNErTkTkrKmnqCXNcLeRvT0QuaSAqmQuaB2
+	 CMDN351SQN8JPrKoM8s4JZIsuRWhRtobcNCroTezcz4au3LxL9KtIAQw9GGMPCPOFxuNZ
+	 DHaKKnJKhsPMtU67FeAJc6jcWCrtgMs60sn0OFqVYlcokXF5KOJsZtkmjRVSjKwQyWT3N
+	 +s0lG7nApp+1HiI+15c+k97n4R1DLniDtEc8lqkHWfOqpv2ba8CYDOqqafO1dNQf17A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XNvniGJt;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qAaai3dX;
+	arc=none smtp.remote-ip=95.215.58.84
+Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE850606A334;
-	Mon,  2 Nov 2026 07:41:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE850606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBFF60A2614
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:41:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DBFF60A2614
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XNvniGJt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793605269; x=1825141269;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=XKwZHaphQF9yKywgOabuA7G4fnw+cforMEHdkv1ePGk=;
-  b=XNvniGJtHwP8qYr7NRSHiS7YwLpuH8xWfF+anEHVo//j7AAYS8o2zUDw
-   JYLo5Nnc29rh29z/+RLoZPY96wGxqKTDYxyWPdVyvqHGDyji/zOwkVRrq
-   hE1ZQuPg5iax59zlTV4ESQQvEOa1S2n2ExJvBxU6fg64AfO4E7g4H54tV
-   0e5hxem8hGH0m3qTGPTSFe888E99bN3vOAZlQjjYl25BfllZdWY8u0/E3
-   3bqDjac3AUXqf2MKlgP3T+0CM7m9bSD5svWvMAJK2PEpssOuMxKrpgHsH
-   IaxEZAQLQRBZ3oGLyAx6zcGxHA8yBcpNzeYcPnUFqocQtKjE0FTaYlIdC
-   w==;
-X-CSE-ConnectionGUID: pYrgcJjQQMC5a0r0hkAleQ==
-X-CSE-MsgGUID: mC+GqT0fQC2wD2anHJQoeg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2300122"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2300122"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:41:08 -0800
-X-CSE-ConnectionGUID: Z+8U3Z8bQSKdMhOR7kiW2g==
-X-CSE-MsgGUID: OuZp5KUtSYuIkXvr+8V3GQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6182222"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO ahunter6-desk) ([10.245.244.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 23:41:01 -0800
-From: Adrian Hunter <adrian.hunter@intel.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
-	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Andi Kleen <ak@linux.intel.com>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: [PATCH 2/6] perf/x86/intel/pt: Stop tracing if VMXON has not yet happened
-Date: Mon,  2 Nov 2026 09:40:35 +0200
-Message-ID: <20261102074039.26983-3-adrian.hunter@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102074039.26983-1-adrian.hunter@intel.com>
-References: <20261102074039.26983-1-adrian.hunter@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qAaai3dX
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DZgmR+w0hXnF42goaWJ6bzq/W2wIthHLUmetG/gcZXQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793605263; v=1; x=1794210063;
+ b=qAaai3dXugNnqaMvqljDfgxrhRbkO6zBMQKdUyeMI+BjMtNlDl6iZwO2qWGjq3U3+neTyY64
+ 7QN6YcjyoCXCr0LRSrSRWW5ps5Y/B83buL4GUvOfjLEq53CpvYUx5Zc6Ugl2dOFrhSsojAf9U7u
+ EBqRJWAfCGWageqdx7owJBSk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ef704eb15b54ecc3;
+	Mon, 02 Nov 2026 07:41:03 +0000
+X-Mizu-Trace-ID: ef704eb15b54ecc3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d6ba5426-fbee-49da-b18b-1419fd84fa0f@linux.dev>
+Date: Mon, 2 Nov 2026 15:40:56 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,128 +58,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 - 4, Domiciled in Helsinki
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] tcp: initialize send sequence numbers before
+ deferring TFO
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+References: <20261102035943.9700-1-qingfang.deng@linux.dev>
+ <bfbc4b3c-fe19-4070-97b4-4ff8ded06011@linux.dev>
+From: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Yuchung Cheng <ycheng@google.com>, Wei Wang <weiwan@google.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <bfbc4b3c-fe19-4070-97b4-4ff8ded06011@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Broadwell, which does not support Intel PT in VMX operation
-(IA32_VMX_MISC[14] = 0), VMXON clears IA32_RTIT_CTL.TraceEn and any
-subsequent write to IA32_RTIT_CTL causes #GP.
+On 2026/11/2 14:11, Jiayuan Chen wrote:
+> On 11/2/26 11:59 AM, Qingfang Deng wrote:
+>> TCP_FASTOPEN_CONNECT can return from connect() before tcp_connect_init()
+>> when a cached cookie or cookieless Fast Open allows deferring the SYN.
+>> At this point write_seq contains the initial sequence number, while
+>> snd_una and snd_nxt have not been initialized to that sequence number.
+>>
+>> Consequently, inet_diag and /proc/net/tcp{,6} report the initial
+>> sequence number as the send queue length despite no SYN or payload being
+>> queued.
+>>
+>> Initialize snd_una and snd_nxt to write_seq before marking the
+>> connection as deferred. Both sequence-based queue lengths then remain
+>> zero until the first write starts the connection and runs
+>> tcp_connect_init().
+>
+> This patch looks good to me. But idiag_wqueue can still go negative
+> on the normal connect path, since the socket is already hashed and
+> diag does not take the socket lock. We always set write_seq first,
+> then init snd_una later:
+>
+>    tcp_v4_connect
+>      WRITE_ONCE(tp->write_seq, st.seq)
+>      tcp_connect
+>        tcp_connect_init
+>          WRITE_ONCE(tp->snd_una, tp->write_seq)
+>
+> Can you try this instead?
+>
+>    r->idiag_wqueue = READ_ONCE(sk->sk_wmem_queued) ?
+>                      READ_ONCE(tp->write_seq) - READ_ONCE(tp->snd_una) : 0;
 
-To avoid that, intel_pt_handle_vmx() sets pt->vmx_on so that
-pt_config_start() and pt_config_stop() skip writes to
-IA32_RTIT_CTL while VMX is active.
+This does not guarantee the load order on a weakly-ordered CPU. LLM 
+suggests using this load-acquire/store-release sequence:
 
-However, pt->vmx_on is set before VMXON executes. An NMI in the window
-between setting pt->vmx_on and executing VMXON can then observe
-vmx_on == true while tracing is still enabled.
+r->idiag_wqueue = smp_load_acquire(&sk->sk_wmem_queued) ? 
+READ_ONCE(tp->write_seq) - READ_ONCE(tp->snd_una) : 0;
 
-In that case pt_config_stop() skips the write that would clear TraceEn,
-leaving tracing active. This can subsequently cause:
+Then in tcp_connect_queue_skb(), replace sk_wmem_queued_add() 
+with smp_store_release():
 
-  - intel_pt_interrupt() to reprogram PT output registers while
-    TraceEn is set, resulting in #GP, or
-  - cpu_emergency_stop_pt() to leave tracing active during kdump,
-    allowing tracing to continue into the capture kernel.
+/* Paired with smp_load_acquire() in tcp_diag_get_info(). */
+smp_store_release(&sk->sk_wmem_queued, sk->sk_wmem_queued + skb->truesize);
 
-If pt->vmx_on is set, read IA32_RTIT_CTL and still clear TraceEn when
-it remains enabled.  Writing IA32_RTIT_CTL is valid until VMXON
-executes, while after VMXON TraceEn is guaranteed clear and cannot be
-re-enabled.  Consequently no write is attempted while VMX is active.
-
-Example (on a Broadwell):
-
-    Instrument x86_vmx_enable_virtualization_cpu() to enlarge the
-    window e.g.
-
-	 	intel_pt_handle_vmx(1);
-
-	+	for (int j = 0; j < 6; j ++) {
-	+		int cpu = smp_processor_id();
-	+
-	+		pr_info("VMX: cpu %d: spinning %d\n", cpu, j);
-	+		for (int i = 0; i < 10000; i++)
-	+			cpu_relax();
-	+	}
-
-	 	r = x86_virt_cpu_vmxon();
-
-    Start Intel PT tracing on a CPU:
-
-	perf record -e intel_pt//k -C 1 &
-
-    Load KVM:
-
-	modprobe kvm_intel
-
-    Observe kernel messages.  Without the fix, there is an unchecked
-    MSR access:
-
-	VMX: cpu 1: spinning 0
-	VMX: cpu 1: spinning 1
-	VMX: cpu 1: spinning 2
-	VMX: cpu 1: spinning 3
-	unchecked MSR access error: WRMSR to 0x571 ...
-	Call Trace:
-	 <NMI>
-	 intel_pt_interrupt+0x190/0x490
-	 handle_pmi_common+0x6fc/0xc10
-	 intel_pmu_handle_irq+0x1c9/0x5e0
-	 perf_event_nmi_handler+0x62/0x90
-	 nmi_handle.part.0+0xbd/0x270
-	 default_do_nmi+0x3c/0x120
-	 exc_nmi+0xe3/0x110
-	 <TASK>
-	 x86_vmx_enable_virtualization_cpu+0x88/0xd0
-	 x86_virt_get_ref+0x3f/0x80
-	 kvm_arch_enable_virtualization_cpu+0x1c4/0x820 [kvm]
-	 kvm_online_cpu+0x31/0x50 [kvm]
-	 cpuhp_invoke_callback+0x25c/0xf90
-	 cpuhp_thread_fun+0x298/0x7e0
-	 smpboot_thread_fn+0x28c/0x6d0
-	 kthread+0x2cb/0x3a0
-	 ret_from_fork+0x5ff/0x7f0
-
-Fixes: 1c5ac21a0e9b ("perf/x86/intel/pt: Don't die on VMXON")
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Cc: stable@vger.kernel.org
----
- arch/x86/events/intel/pt.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/events/intel/pt.c b/arch/x86/events/intel/pt.c
-index 49349afee611..36bf039668d7 100644
---- a/arch/x86/events/intel/pt.c
-+++ b/arch/x86/events/intel/pt.c
-@@ -567,6 +567,15 @@ static void pt_config(struct perf_event *event)
- 	pt_config_enable(event);
- }
- 
-+static bool pt_trace_enabled(void)
-+{
-+	u64 ctl;
-+
-+	rdmsrq(MSR_IA32_RTIT_CTL, ctl);
-+
-+	return ctl & RTIT_CTL_TRACEEN;
-+}
-+
- static void pt_config_stop(struct perf_event *event)
- {
- 	struct pt *pt = this_cpu_ptr(&pt_ctx);
-@@ -577,7 +586,12 @@ static void pt_config_stop(struct perf_event *event)
- 		return;
- 
- 	ctl &= ~RTIT_CTL_TRACEEN;
--	if (!READ_ONCE(pt->vmx_on))
-+	/*
-+	 * vmx_on is set before VMXON, so tracing may not have stopped yet.
-+	 * RTIT_CTL can be written until VMXON, and after VMXON TraceEn is
-+	 * clear, so still write RTIT_CTL if TraceEn is set.
-+	 */
-+	if (!READ_ONCE(pt->vmx_on) || pt_trace_enabled())
- 		wrmsrq(MSR_IA32_RTIT_CTL, ctl);
- 
- 	WRITE_ONCE(event->hw.aux_config, ctl);
--- 
-2.53.0
+What do you think?
 
