@@ -1,68 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793661972;
-	b=VKta+FVQeLWrog7zpTPTcFw8NQvyY6JRlcvrezPglwFYhWsCQT9ejS0nqu70zXuczLhk
-	 IzvcW2d/JbkBhB6IhJNnxKZ6UJd5+EpzZW/3KbcnigugXASF3r0htClPuvQUw3aveQ4SR
-	 r/e8e/bmqX0lpbv/35mGTmpJ7vgyxBC8YOabkMOXqa4Vpw6BbfA/BvX6VIR64+2NBRoYT
-	 QmdmYvw6vyPREeo8QZGVzB2gRvYU40hgMGJT/gGcNPVnW4vpW+pucxXxQuwHDS4s3rQOb
-	 yolBZ+ZLNPN3EC0Ly69IGBWQ6Ul0UNCsVDowtNozlF9Ab2d3/vdmu3QMmdA6JTCB4aA==
+	t=1793662114;
+	b=EREtBOYFGyUtKmyInU9BbriHuzm3rygWRCxKfkgN87WDeCR+TjXPjsxOBAvNL0Z8+7hF
+	 TlLQHV25cK1H05JbV8haZa7qYLHdmuzb2WJvHIb3QKcjTiaD/hBn+Wzt687aunHJDNKy7
+	 +o3bA+JQLdbd5UUBoAv84bMF4ucmhB+1fP40CaQ7mpMMS+BDuSxSbc4pBzUbsK1/ufil6
+	 enuTHFhMK1x7EIC/8X7l4WC3XVaGqnRQn4g8dvFsSeZg9JwCrZf5sVwvgT4ZRCCcFMLNx
+	 dWmml4bC+Ud+Qzu40a0oFOPzy66nl0TH6FsaDodlnYiIBAFisIhYPF/T7DBdGPHB6xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793661972;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=W6JHpSmxxXi4wrtj47YYY3ABNffhQA0kAKjpuUyzWMk=;
-	b=Lzbn8zlOt7r4loxTCT2Ui4jEYGiVprKEGxb0N2H0tNqgGJ9y7muoJFlxWJ2Gb9IUDjhY
-	 o4+dH/xOGSuxUioktNsmEC3p8l0namVBoypEoRjSvLcTfN4nmHIqgIu/Wb3zXsVzdoG1Y
-	 v4Vmpi+dZipbXG5GuwP5ClOukzL31LDJS0ll51NiS0u6Z0C9SLPlKqSROX/AjfXkhon9o
-	 vwDNz9n7iilws4WM1MPYsc7CP6gkW56wHWdKDCdude9uL6o4ejL7IJAFgGzRmu1Tl/CKl
-	 jhvKG1N5TIr9MON3CmJkWnNTNHrP1l6hMfUf8N6OGP1M7BytSXwwuJm1dFIgblCckmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793662114;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=NFDgu4DExLhs20v6oy1q4m4dO2KHvAHANtMtfp55qcc=;
+	b=1Q2gjVs0bHavD1UlRocfElfIkhHiwJq2/+QmHWlo9FBCt7h+GVb8M6lYAnxJTocLZhzo
+	 sVlOZhzafrp8yrwk1kqiVVea/gItKfcgrujXCvvIZbqv0ygwCb6AoUS19tbZ5PGZ2jomb
+	 tuvtiaITFTnvDSl+zn6V02bgCnava6UH6ZTSNQBtzUiRDRGMAO7GO4NcI30qKfPb7q1vW
+	 UOOCvjYQjfRTANpwL6Lu2h3b4GbcoBRm3Pmn9S5BL2S2xwnkJpyftDM8mz9B9GV4cFxCb
+	 3hb05hP4OjnYT/m1MrGSXyFaB5tI35wdIvSXjQF/y4EEgQrlkIn0uwHYc/LXbcZPY8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UDrUqwDh;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n6hyg2cM;
+	arc=none smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CE6606A330;
-	Mon,  2 Nov 2026 23:26:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6CE6606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB02606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:28:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAB02606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UDrUqwDh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793661971; x=1825197971;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=di2LeUKhy5cTvKnuGF32Eef9G54E0Zhn+genGk97NTo=;
-  b=UDrUqwDhRwGMSi9TWUZ8t0MryNZ0Kek4NQpKA4b+OBobwW2HxdweaPeR
-   ULbr6coovXNoDI/YDywALoq0UgZeeTDn7xbiRBazR4nmxmu3wUDSFGVdg
-   HaVYybyw+9dhuaweMrEMOu2i1e53yaYDAgFax86YM2ZjLsyRlsIi9R9Lv
-   DxuEzHFPRSdhN6KepC//pvltPRTaV1LZZZky1Y1z6oYkKXlcRDLzP8IAJ
-   5FCEsxQU1fq+sf1Pf7OmwgrUFfCJalxIhtgycW2FJuM4xFYrmi1gJ3DWR
-   PMUS7TPhvlxyDrAJ+Un74oqeX6WO6wRgG3ZKIHiGKH8HlwXsIfEX0L4D3
-   g==;
-X-CSE-ConnectionGUID: 6/vr/grcTySDgyQIvEdKzg==
-X-CSE-MsgGUID: Ap0okXiQQ8eq+OGEaPNouw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2261195"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2261195"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 15:26:11 -0800
-X-CSE-ConnectionGUID: iBTOuXN2SZidv0DJJwKzvg==
-X-CSE-MsgGUID: 0k4Ax+ttSNWLuaIQDIrdQQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6255708"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 15:26:10 -0800
-Message-ID: <6d84ab57-a702-4ac0-9e29-579449b3d826@intel.com>
-Date: Mon, 2 Nov 2026 17:26:08 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n6hyg2cM
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-847ac7ccd85so2375202a34.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:28:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793662113; x=1794266913; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NFDgu4DExLhs20v6oy1q4m4dO2KHvAHANtMtfp55qcc=;
+        b=n6hyg2cM6dE/+Mwu5MpNWIa/MBf/+n2pTEYL8KGmfMWaIlKHV/KwP32yA9F60IKxRH
+         HUzdpLpOmROUUt2pZ7XH6EuMWYENp6X5NePYGVSIIxRURZeBgXn+wA7j3wR/HhYLUVq0
+         sLX4f9svAKoUB/sT/gDKoBVTmDdsuVsgtjvunbr0hTobE1M9jPy3NgJyiitSPjC1DL4s
+         aYfYj2oV1NRir27X+X365Hp+lB23Efc3ZnYq5OG08dIiCW1x787FW3lHok67Uyu5c57r
+         NcThPMSlLnn6YrHJx4dASmW6sS6Dgvn0GeRIbi9zSZwsF66JoKAYXlld17Sy0pYAWcqf
+         sGuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793662113; x=1794266913;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=NFDgu4DExLhs20v6oy1q4m4dO2KHvAHANtMtfp55qcc=;
+        b=cMnTNQv1t5FA6aEkckCqQ5jnsSkbnchwsg12r3d3qTLW+9h6Gq7Dk+X/UQyA3i+5Av
+         Jq4meU6Tkxs1Lpcf/7qtsIF6vaQBl56CncSioUO158M6n8wO2ve5EvdRa/KE9qShuYNZ
+         GSpJjtJ2cSoegnf/l/Va5lEfo5MGlP8rk1s8MOGVlqW1y5z4rBoZMWXvHfGb0dZ9Wbc0
+         2N2IQOZWcfVsmfZZ8HggId2Ic7NsHvRQcU8E0uaqBxq7Q0U0Pqu+X4AKuJxRkWaA3IjD
+         38p4VLYhKnQQWm+Oil7kNlgXtAHyk5WongXFy+EuF9yOSlE6S4kPB1fRMwrjdUaWX1AC
+         7SiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEJvFqU3HAEdboV1aAiK7UaAAEYpgMhYypJu7uYdVoHrajiquLKmN8e2IzBSRENMgB1npYSSIeJofTNGY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJWlDIv8yQ71RpitqzYLnPp3u9t2QWMXHW91Op1kwz+hrqNndQ
+	u+sXwa7KJHSbatYcmWB0+xdgZXmw3fvDivqLfQErvSU97z0RqOZT2NTAk5VFu6mX
+X-Gm-Gg: AYBFou305iIlE47Zr3b9k6B0jPHzf0qnBlptPBXuJx8dTzmxdtXeugObq9Iy3CVO33K
+	6yriSaalxKqppvQ2bJaruky8DbrJITvdaI0fohGYfCrC4cpBAFnZhIRZ7LH/gWB4sm+DBqBbQlp
+	BPCKjQBjxJNUjlHIoX51zzQgqq+p677cXBVqGXbxNvYnvOz9JZpS1t5cg1XqLPs+O/36kSCSmzX
+	JRH76CjYhtZl68xTdBYbcvwt/8I0nk8vXj5Vkr0VPKKJ2OSwoe56erUNCuqJsb3dyyzlKJhT/0K
+	z0kegZTtqAbinhFG9UJYqCd53fYQIVFh3XO/sZU3Z96GTKeXE29bCc+PFpbuEHYXT49PXY3LGUA
+	ezBO2VRYapwNCXke01Ft/sS6bZ7fk2bvsWR+Jl/W5OeUUew2YZJrp5g4/j40aA0mbkO4uM/CqOM
+	+iQTZwZTj29EfgY0XbwATEm9g5cmFEftM7JccQG/izf6ahCO+n/9kTDywa59D6DN+0OTIve/Mcd
+	+fnooFBw7jUkwCJ8nN4p+tMnzQMXs21wvPSttiohTDvAxUwwnurq8qW2x9lGxCIN4d6aYdMmLRd
+	UZofi//ulOPQNVd10koKMEM4Lkwpc7ul40C1CVMO7gc+3JI09mnfmMbg8hJv8zXDyAXQiXE+6oc
+	OfhI1KWYPvJL82EuKX1by25sNCyIf3haAA1Jkh66wwFh8pfh8KL2wu6wdBvrunPiEV6yWnn9u6V
+	EjDMUPG5jZoRFnss+bGH4LZ+rpa7hANx4p0TCviBYWExCjTIEtKS22
+X-Received: by 2002:a05:6830:43a9:b0:834:b015:ae9e with SMTP id 46e09a7af769-85d363be996mr9041682a34.12.1793662112803;
+        Mon, 02 Nov 2026 15:28:32 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d355295fbsm10550383a34.25.2026.11.02.15.28.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 15:28:32 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 02 Nov 2026 16:28:28 -0700
+Subject: [PATCH net-next v2] net: phy: acx00: report receive statistics
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,152 +92,312 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Jim Mattson <jmattson@google.com>, Sean Christopherson
- <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-12-zide.chen@intel.com>
- <CALMp9eRvQ+iQdw_dWPLqZCrO7zpLut+O27pb-EPNa33hkegaBw@mail.gmail.com>
- <auUQgRVFASkWtkoK@google.com>
- <3276824d-f6a0-455a-bf0c-703fc6d52cf1@intel.com>
- <CAO9r8zMxQnRLKGrW69rX7703AatWMp6KOXMObL9baHRPs4dW8A@mail.gmail.com>
- <6c9a13c9-e6c1-4540-a8ca-1f0e800f3571@intel.com>
- <CAO9r8zOWzr61pkkF01AvEp+YSOo6bA1N=L91RYiM=ETtK5+D9w@mail.gmail.com>
- <69c428d7-239a-485e-9494-32b8aa82da05@intel.com>
- <CALMp9eRsR8xaUmQyVu5QmYx1cZ2qFGGk+31bMymhmN9_iaPuMg@mail.gmail.com>
- <f7213eba-5b61-4514-a315-bce64823fad5@intel.com>
- <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <CAO9r8zM4eWD538L3osqSVoB0VHnjgRREtv2k419a1Vvuq+Q9rw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-submit-acx00-phy-stats-v1-v2-1-3c8a664407c1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OQQ6CMBBFr0Jm7WiBCsSV9zAs2jLSGimkrQRCu
+ LsFdWsym5n/5+Ut4MkZ8nBJFnA0Gm96G5fskIDSwraEpok7ZCwrUpZx9C/ZmYBCTYzhoGf0QQS
+ PY4pNlVf3suScUwXxf3B0N9POvoGlgJamAPUniZgHqbCht64UnlA6YZXeTr/2qRPGbrk2PvRu3
+ jXHdCd+jc5/jOJErbzhRUq8aCS7thH4PKq+g3pd1zciM+CV/gAAAA==
+X-Change-ID: 20261024-submit-acx00-phy-stats-v1-d838f77444e8
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
+Expose receive frame and byte totals through the generic PHY statistics
+interface as rx_packets and rx_bytes, alongside CRC errors in rx_errors.
+Report the hardware totals directly: the packet and byte counters include
+errored frames as well as successfully received traffic.
 
+Collect the free-running 32-bit counters through phylib's
+update_stats callback and accumulate wrap-safe deltas in 64-bit totals.
+Read the high half on either side of the low half and retry until both
+high-half reads agree.
 
-On 11/2/2026 4:51 PM, Yosry Ahmed wrote:
-> On Mon, Nov 2, 2026 at 2:48 PM Chen, Zide <zide.chen@intel.com> wrote:
->>
->>
->>
->> On 11/2/2026 4:25 PM, Jim Mattson wrote:
->>> On Mon, Nov 2, 2026 at 2:13 PM Chen, Zide <zide.chen@intel.com> wrote:
->>>>
->>>>
->>>> On 11/2/2026 3:36 PM, Yosry Ahmed wrote:
->>>>>>>>> 1. GLOBAL_STATUS_TRACE_TOPAPMI_BIT can leak from the host into the
->>>>>>>>> guest. If a host PT PMI arrives while the guest context is loaded, bit
->>>>>>>>> 55 will be set for the guest, and the guest won't be able to clear it if
->>>>>>>>> OVF_CTRL is intercepted (it will #GP as it is reserved for the guest).
->>>>>>>>> Similarly, the value can't be restored through KVM_SET_MSRS.
->>>>>>>> I think mediated vPMU assumes that no host PMIs can be generated while
->>>>>>>> guest PMU state is loaded.
->>>>>>>>
->>>>>>>> If PT state can leak into the guest via bit 55, similar leakage can also
->>>>>>>> occur for other status bits, e.g. when the guest exposes fewer
->>>>>>>> general-purpose or fixed counters than the host.
->>>>>>>>
->>>>>>>> The scenario where both host and guest can be active simultaneously is
->>>>>>>> handled by the perfmon_mask case, where intel_mediated_pmu_{load,put}()
->>>>>>>> filter guest-owned status bits.
->>>>>>> Looking at the code:
->>>>>>>
->>>>>>> kvm_mediated_pmu_load() -> perf_load_guest_context() ->
->>>>>>> perf_ctx_disable() will iterate PMUs with for_each_epc() and disable
->>>>>>> them, which skips PMUs without PERF_PMU_CAP_MEDIATED_VPMU.
->>>>>>>
->>>>>>> Same for kvm_mediated_pmu_load() -> perf_load_guest_context()
->>>>>>> ->ctx_sched_out(), it also uses for_each_epc() to iterate PMUs and
->>>>>>> schedule them out.
->>>>>>>
->>>>>>> pt_init() does not set PERF_PMU_CAP_MEDIATED_VPMU on pt_pmu.pmu.capabilities
->>>>>>>
->>>>>>> Please correct me if I am wrong.
->>>>>> My apologies, this bug is indeed real because pt_pmu lacks the
->>>>>> PERF_PMU_CAP_MEDIATED_VPMU capability.
->>>>>>
->>>>>> Adding this capability to pt_pmu seems intuitive, but unlike
->>>>>>
->>>>>>                        the core PMU (which merely toggles enable bits),
->>>>>> Intel PT is an AUX-based PMU. Stopping and restarting it on every VM
->>>>>> transition is heavier, and I'm not sure whether it could introduce a
->>>>>> noticeable performance penalty.
->>>>>>
->>>>>> However, whether the solution is adding PERF_PMU_CAP_MEDIATED_VPMU or
->>>>>> some other mechanism to enforce mutual exclusion between pt_pmu and
->>>>>> mediated vPMU, we can address that in a separate patch.
->>>>>>
->>>>>> To immediately protect guest state and live migration in this series,
->>>>>> I'm thinking of adding the following defensive filter in
->>>>>> intel_mediated_pmu_put():
->>>>>>
->>>>>> + /*
->>>>>> +  * Scrub bits that are not virtualized for the guest to prevent
->>>>>> +  * possible host state from leaking into guest state and breaking
->>>>>> +  * live migration.
->>>>>> +  */
->>>>>> +  pmu->global_status &= ~pmu->global_status_rsvd;
->>>>> This doesn't prevent the leakage, it just clears it on the guest->host
->>>>> switch. So it helps live migration but I am not sure if it's better or
->>>>> worse if the guest sees the bit unexpectedly appear AND then
->>>>> unexpectedly disappear.
->>>> Right, as long as the GLOBAL_STATUS is passthru, the leak can't be
->>>> prevented.
->>>>> We can clear it when the MSR is read by userspace, which should fix
->>>>> live migration, but the guest will still see the bit, and it will
->>>>> still disappear unexpectedly but only during live migration.
->>>>>
->>>>> The guest still won't be able to clear it when OVF_CTRL is intercepted.
->>>> GLOBAL_STATUS and OVF_CTRL share the same interception policy. If they
->>>> are passed through, the guest can see the bit and clear it; if both are
->>>> intercepted, then bit 55 can't leak to the guest.
->>>>
->>>> It's not perfect, but at least the guest won't observe bit 55 and then
->>>> get an unexpected #GP when attempting to clear it.
->>> I'm not sure what imperfect solution you are referring to, but Yosry's
->>> proposal that the bit gets cleared on a guest->host switch is a
->>> non-starter. MSR bits must not vanish unpredictably.
-> 
-> I don't think I proposed this? :)
-> 
->>
->> Agree, then maybe Yosry's suggestion is what we can do for now: filter
->> out unsupported bits when the MSR is read by userspace.
-> 
-> This I did propose, but I also noted that the MSR bit will still
-> vanish unpredictable, just on save/restore instead of guest->host
-> switch, which should be better.
+Hardware testing confirmed that the receive-byte counter wraps at
+4,000,000,000, while the receive-packet and CRC-error counters wrap at
+2^32. Use the corresponding modulus for each counter so rollover does
+not inflate the software totals.
 
-Yes.
->>
->> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
->> index 38c7a4fa1007..3849b3f5234a 100644
->> --- a/arch/x86/kvm/pmu.c
->> +++ b/arch/x86/kvm/pmu.c
->> @@ -862,6 +862,8 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct
->> msr_data *msr_info)
->>         switch (msr) {
->>         case MSR_CORE_PERF_GLOBAL_STATUS:
->>         case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS:
->> +               if (msr_info->host_initiated)
->> +                       pmu->global_status &= ~pmu->global_status_rsvd;
->>
->> The underlying issue still requires proper mutual exclusion between
->> Intel PT and mediated vPMU, which I think can be addressed separately.
-> 
-> Or maybe handle the host PT while the guest is running? Not sure if
-> that would be correct.
+Serialize collection and reporting with the package-state mutex so reads
+cannot race reset or power-off, and the totals are safe on 32-bit systems.
+Commit a sample only after all counter reads and page restoration succeed.
+The reporting callback returns cached totals without accessing MDIO.
 
-Since KVM switches APIC LVTPC in guest context, it seems difficult to
-correctly handle host PT PMIs while the guest is running.
+Take a best-effort final snapshot before soft reset and suspend. Invalidate
+the hardware baseline before reset or power-off, including failed power-off
+attempts, and establish a fresh baseline after configuration. Preserve the
+software totals across these transitions and retain the live baseline when
+resume reconfigures an already active PHY. A failed initial snapshot can be
+retried by the periodic collector without preventing initialization.
 
-I guess Intel PT virtualization could be re-enabled sooner or later, and
-addressing the exclusion issue would be a must at that point anyway.
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v2:
+- Rebase onto current net-next and repost after the merge window.
+- No functional changes.
+- Link to v1: https://patch.msgid.link/20261025-submit-acx00-phy-stats-v1-v1-1-d3d461e46db0@gmail.com
+
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/net/phy/xpowers/acx00.c | 157 +++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 154 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/phy/xpowers/acx00.c b/drivers/net/phy/xpowers/acx00.c
+index d19ba6d8069a..1375784d2837 100644
+--- a/drivers/net/phy/xpowers/acx00.c
++++ b/drivers/net/phy/xpowers/acx00.c
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/device.h>
++#include <linux/ethtool.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/nvmem-consumer.h>
+@@ -31,6 +32,7 @@
+ #define ACX00_PAGE_2				2
+ #define ACX00_PAGE_6				6
+ #define ACX00_PAGE_8				8
++#define ACX00_PAGE_9				9
+ 
+ #define ACX00_PAGE0_GLOBAL_CONFIG_REG		0x13
+ #define ACX00_PAGE0_XMII_RX_CLOCK_INVERT	BIT(12)
+@@ -76,6 +78,29 @@
+ 	(ACX00_PAGE8_AUTO_CAL_TX_LEVEL_ADJUST_BYPASS | \
+ 	 ACX00_PAGE8_AUTO_CAL_LOW_CAL_OPAQUE_BITS)
+ 
++#define ACX00_PAGE9_RX_BYTES_HIGH_REG		0x19
++#define ACX00_PAGE9_RX_PACKETS_HIGH_REG		0x1b
++#define ACX00_PAGE9_RX_CRC_ERRORS_HIGH_REG	0x1d
++
++/*
++ * Hardware testing confirmed that the receive byte counter wraps at
++ * 4,000,000,000 rather than 2^32.
++ */
++#define ACX00_RX_BYTES_WRAP			4000000000ULL
++
++enum acx00_ephy_stat {
++	ACX00_STAT_RX_BYTES,
++	ACX00_STAT_RX_PACKETS,
++	ACX00_STAT_RX_CRC_ERRORS,
++	ACX00_NUM_STATS,
++};
++
++static const u8 acx00_ephy_stat_regs[ACX00_NUM_STATS] = {
++	[ACX00_STAT_RX_BYTES] = ACX00_PAGE9_RX_BYTES_HIGH_REG,
++	[ACX00_STAT_RX_PACKETS] = ACX00_PAGE9_RX_PACKETS_HIGH_REG,
++	[ACX00_STAT_RX_CRC_ERRORS] = ACX00_PAGE9_RX_CRC_ERRORS_HIGH_REG,
++};
++
+ /*
+  * Another integration of this exact-ID PHY documents its digital vendor
+  * register map, which also matches the observed ACx00 reset values. The ACx00
+@@ -86,11 +111,15 @@
+ struct acx00_ephy_priv {
+ 	struct phy_device *phydev;
+ 	struct acx00_ephy_control *control;
+-	/* Serializes package state and multi-register power sequences. */
++	/* Serializes package state, power sequences and statistics. */
+ 	struct mutex state_lock;
+ 	bool is_ac300;
+ 	bool use_low_calibration_tuning;
+ 	bool xmii_rx_clock_inverted;
++	bool stats_active;
++	bool stats_valid;
++	u32 stats_last[ACX00_NUM_STATS];
++	u64 stats[ACX00_NUM_STATS];
+ };
+ 
+ static int acx00_ephy_read_page(struct phy_device *phydev)
+@@ -110,6 +139,105 @@ static int acx00_ephy_write_page(struct phy_device *phydev, int page)
+ 			   FIELD_PREP(ACX00_PAGE_SELECT_MASK, page));
+ }
+ 
++static int acx00_ephy_read_counter(struct phy_device *phydev, u8 reg, u32 *count)
++{
++	int high, low, check;
++
++	/* The free-running counter can carry while its two halves are read. */
++	do {
++		high = __phy_read(phydev, reg);
++		if (high < 0)
++			return high;
++		low = __phy_read(phydev, reg + 1);
++		if (low < 0)
++			return low;
++		check = __phy_read(phydev, reg);
++		if (check < 0)
++			return check;
++	} while (high != check);
++
++	*count = (u32)high << 16 | low;
++	return 0;
++}
++
++static int __acx00_ephy_update_stats(struct phy_device *phydev)
++{
++	struct acx00_ephy_priv *priv = phydev->priv;
++	u32 counts[ACX00_NUM_STATS];
++	int oldpage;
++	int ret;
++	int i;
++
++	lockdep_assert_held(&priv->state_lock);
++
++	if (!priv->stats_active)
++		return 0;
++
++	oldpage = phy_select_page(phydev, ACX00_PAGE_9);
++	if (oldpage < 0)
++		return phy_restore_page(phydev, oldpage, oldpage);
++
++	for (i = 0; i < ACX00_NUM_STATS; i++) {
++		ret = acx00_ephy_read_counter(phydev, acx00_ephy_stat_regs[i],
++					      &counts[i]);
++		if (ret)
++			break;
++	}
++	ret = phy_restore_page(phydev, oldpage, ret);
++	if (ret)
++		return ret;
++
++	for (i = 0; i < ACX00_NUM_STATS; i++) {
++		u64 count = counts[i];
++
++		if (priv->stats_valid) {
++			if (count < priv->stats_last[i])
++				count += i == ACX00_STAT_RX_BYTES ?
++					ACX00_RX_BYTES_WRAP : BIT_ULL(32);
++			priv->stats[i] += count - priv->stats_last[i];
++		}
++		priv->stats_last[i] = counts[i];
++	}
++	priv->stats_valid = true;
++
++	return 0;
++}
++
++static int acx00_ephy_update_stats(struct phy_device *phydev)
++{
++	struct acx00_ephy_priv *priv = phydev->priv;
++	int ret;
++
++	mutex_lock(&priv->state_lock);
++	ret = __acx00_ephy_update_stats(phydev);
++	mutex_unlock(&priv->state_lock);
++
++	return ret;
++}
++
++static void acx00_ephy_get_phy_stats(struct phy_device *phydev,
++				     struct ethtool_eth_phy_stats *eth_stats,
++				     struct ethtool_phy_stats *stats)
++{
++	struct acx00_ephy_priv *priv = phydev->priv;
++
++	mutex_lock(&priv->state_lock);
++	stats->rx_packets = priv->stats[ACX00_STAT_RX_PACKETS];
++	stats->rx_bytes = priv->stats[ACX00_STAT_RX_BYTES];
++	stats->rx_errors = priv->stats[ACX00_STAT_RX_CRC_ERRORS];
++	mutex_unlock(&priv->state_lock);
++}
++
++static void acx00_ephy_snapshot_stats(struct phy_device *phydev)
++{
++	int ret;
++
++	/* Statistics collection must not prevent reset or power management. */
++	ret = __acx00_ephy_update_stats(phydev);
++	if (ret)
++		phydev_dbg(phydev, "failed to snapshot statistics: %pe\n", ERR_PTR(ret));
++}
++
+ static int acx00_ephy_control_power_on(struct acx00_ephy_priv *priv)
+ {
+ 	lockdep_assert_held(&priv->state_lock);
+@@ -122,6 +250,10 @@ static int acx00_ephy_control_power_off(struct acx00_ephy_priv *priv)
+ {
+ 	lockdep_assert_held(&priv->state_lock);
+ 
++	/* Even a failed power-off can have reset the hardware counter. */
++	priv->stats_active = false;
++	priv->stats_valid = false;
++
+ 	return priv->control->power_off(priv->control);
+ }
+ 
+@@ -350,6 +482,10 @@ static int acx00_ephy_soft_reset(struct phy_device *phydev)
+ 
+ 	mutex_lock(&priv->state_lock);
+ 
++	acx00_ephy_snapshot_stats(phydev);
++	priv->stats_active = false;
++	priv->stats_valid = false;
++
+ 	ret = acx00_ephy_set_interface(phydev);
+ 	if (ret)
+ 		goto out_power_off;
+@@ -475,10 +611,21 @@ static int __acx00_ephy_config_init(struct phy_device *phydev)
+ 
+ 	/* Restore the standard EEE policy retained by phylib across resets. */
+ 	ret = genphy_c45_an_config_eee_aneg(phydev);
+-	if (ret <= 0)
++	if (ret < 0)
+ 		return ret;
++	if (ret > 0) {
++		ret = genphy_restart_aneg(phydev);
++		if (ret)
++			return ret;
++	}
+ 
+-	return genphy_restart_aneg(phydev);
++	if (!priv->stats_active) {
++		/* Establish a new baseline after reset, retaining the software total. */
++		priv->stats_active = true;
++		acx00_ephy_snapshot_stats(phydev);
++	}
++
++	return 0;
+ }
+ 
+ static int acx00_ephy_config_init(struct phy_device *phydev)
+@@ -550,6 +697,8 @@ static int acx00_ephy_suspend(struct phy_device *phydev)
+ 	mutex_lock(&phydev->lock);
+ 	mutex_lock(&priv->state_lock);
+ 
++	acx00_ephy_snapshot_stats(phydev);
++
+ 	ret = genphy_suspend(phydev);
+ 	if (ret)
+ 		goto out_unlock;
+@@ -616,6 +765,8 @@ static struct phy_driver acx00_ephy_driver[] = {
+ 		.soft_reset = acx00_ephy_soft_reset,
+ 		.config_init = acx00_ephy_config_init,
+ 		.disable_autonomous_eee = acx00_ephy_disable_autonomous_eee,
++		.get_phy_stats = acx00_ephy_get_phy_stats,
++		.update_stats = acx00_ephy_update_stats,
+ 		.suspend = acx00_ephy_suspend,
+ 		.resume = acx00_ephy_resume,
+ 	},
+
+---
+base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
+change-id: 20261024-submit-acx00-phy-stats-v1-d838f77444e8
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
