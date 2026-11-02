@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793579733;
-	b=vI+AuxkodaLMG+M5aQGf36Sltm5An6eIrJ1Y9gXW3o7ZwzwyScRFuKTmcJVz/0nIIL4K
-	 GnJX2aRkUwqd+Yevi+byrnJ4jOMouHG6YqwYqQgKIWXSJ5DZTLhC3gjgkF+umbLuk7tHo
-	 /wnDU3jrMVtv/S01uDsbJNkP3FAqupv+4H9YuwwSMG2Lh03jyUONbLvgId2uv7iwkVLyX
-	 Thcm2mwFUj+rhFvT0WsV3biXNk8Qe1/bhlEc4K0nI3MLmSdF2za8RiPG9IXmKqfuG2tHK
-	 y9Tg2/cH0/LsBCbdsT/cyruGKpPNqfybbg9O+fUfhOo9luav910Qgjp9XXv758nKKEg==
+	t=1793579788;
+	b=KpuD82tRCsEMOCYtoIHlTMiUs8BH4U71fJAs9pvDKUX4nt8gvmuGp65HyHCYHHZ4/9VX
+	 aYHnDPbFsHZLn6Z1hIqUTXSl7y664o2J1kp7Mgn1G8CCaCwRPPc/biUix/rs9erxQkUZH
+	 WeGoG+wBvPu8vds4ozxa4NZpqcR4Vnx2Usb1Wg/ZedEf8cgWmbudCQbIb2YH98W8hBRQx
+	 c3REe6HcH9VOMRWbM467uNNkXD+C7CQ3gMSjoGqLHnQz8WwpsdalVDxlejNYRJ1aTX0B0
+	 fWm9wQ1973Fv5KVOBbqLmHw207FYXDeUBkONVHd1Nz71hsZOyWMQnmLB41HMfRvfTyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793579733;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793579788;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=xBBiHeCR7jKFbqPuSWsbgd3Hit459uvXqE4qXlk5ksw=;
-	b=moYMvufQrfap6nF8HNAMBJFwp4qS6Q354ol2yP5Z2Rgq/cjGJcv/y8O+DMXB1/7zmzF0
-	 5HlodQbYbIPQUrix9gStZzA3BzXtUkGtRDm5v31P9xZ4j83ghJgGKY4ZpkSmJzVgd3PKq
-	 BoqyeEC9gKUpCQKiR4lbc/8kwROvbPIJHlVye3Mole7xD75Kw/6bhd1eYHJ8j8SQ2B/2S
-	 1gjjxVBIl0M7KZwx2PJnAKDK94APndjH0jHWvPWXdP3wl0rtpvziNAg8hVczuhpqPB9Rs
-	 phNFONskFyG9VyQq01KT/+XPVvU1XoUGKNRhycagTILYEsph8tH5nnZJJh3XHopxmTw==
+	bh=d5I/3o3ZMDmTHhqki/RL15OKEhwf2lx/PeEsYN29HFM=;
+	b=2NQEs75u58o2d03m1sNztmCd7Ty4MtvBMJ7m8ajHgnYTDBeFaEtZ+ZAc3RWjrYqVURgj
+	 1OJeHdC7tOVDQvQ1H095SAwPnNCkRksah5OU7qMmt1ts8AaYgtQwht9Wi1QciEMIC1DvD
+	 4GbpllT7DmVw+MC72cKAkuHstNu6qQ0s8nt5Dz794vQ5/ubk7y9VHwsrSjUKQGm7Uk4FV
+	 PzYmwKxV69Q49Q1fBYG0Ti0s6HuRSw56qasF1l0kw7JKCmM5oXhfInxWrmM9MyDUzQC2U
+	 yWA5yCmgQcg4y7w4+TQzhHZKnv5VL+zWHNb9YVeeHc9wQBsxJZXF20fx3ZXjpeLzvGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tztyUsvQ;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mCsT9VkB;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB70F606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 00:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB70F606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D35606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 00:36:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96D35606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tztyUsvQ
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so25366805e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 16:35:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mCsT9VkB
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a208d93758so25960585e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 16:36:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793579731; x=1794184531; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793579786; x=1794184586; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xBBiHeCR7jKFbqPuSWsbgd3Hit459uvXqE4qXlk5ksw=;
-        b=tztyUsvQqzw91ufCZy/XX9YBS7YHGm3vlKyqWf9JLOvw7LUzkq37qxlRKlt+kmnt8o
-         7g88Ylxuj242OtdWw61WHoAu4IdvP953K8x8IeGvj0KU4lKDvqODWRc2vu2mXhrNNI5j
-         V+drM2Kji1mZ6dakw+Go0QeNNLkzifHDfjUn2zQn2iWVr+qeiETnBpoBtgUw7yJRstVn
-         6I/8WyrUQLbBomgSREb04EfZrHMFKMOW6GFEcnP9FpgNfvmcAe7b+V5K/mZaFJyd6F4e
-         NBg/g1op75hgaD5ReGlqXgmLnrEumhi1EFGLAoLE5Ew5qxievXTOuHWXDgM98OcQL4T7
-         VFcA==
+        bh=d5I/3o3ZMDmTHhqki/RL15OKEhwf2lx/PeEsYN29HFM=;
+        b=mCsT9VkBi31Q/07PhFPnoQyS8sTl+vy7CHR/3/MgntufJMCCERNwr2dA08BepuRIJn
+         Jo8Iqd/a8TGougUUFsKMEXkjZXNUEVi/67EPw6/9OitQWRIkM8c4c+IC4ahoWroHNc9J
+         kf7vSNvWX2ZCdoFGTDKRswi8fLboxdbzWtm4vNggw0JoaVP/oI8i3v0tKBe5ddxFz6Y4
+         zGwOujyrTbdDJKwGbNhALIzvSyn6sKOcqLrxA27A+zTZqNC/IL0BCTEQfegmqrrdy9u3
+         Oa107eopoqYAhcQ+o1zziZOFkdqknyP9K5/3WeBmMdvC0yq0PdDLlc3JXuKPHOoiQ9eq
+         H1vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793579731; x=1794184531;
+        d=1e100.net; s=20260707; t=1793579786; x=1794184586;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xBBiHeCR7jKFbqPuSWsbgd3Hit459uvXqE4qXlk5ksw=;
-        b=FIILddzNxmMv4Xl0ETn7HoEWPy1gRgg33pk9vZOyQlegSiWi/xGYHweFRf6u4H1j26
-         dNnY7mI8Jw1lZ9H8neAlCPvymCQ8EKXdVWYF/EYw2dH81mkjoFTjldYiAeuZmio/09P/
-         SU7qyRt5NBHv8BjgX5WBcesUVvtMjdgIBHJjmMWdd4RN6jT7whX5ULuBskzAMzzDvO9n
-         Rzpde8Tt/WEkTTJkgJQwWaR4aASrd/SqhHyPwyaqcqHlNeh+3r91R+7iLvn6rc28KhJ0
-         J2w4gYfbceOu851AI2nConl0HwGkQ6jXKzvaAueHtv2jTpPwXUxt0w8QXgG6bTJ+KRdQ
-         D1Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBzaY+LmNkAKRDSubXcY1vqNm2fNxGFXXplpxqfxp5uKDS8TGZkM9m4q9Uvfr9ZjtGozRKl7vgaLYLbnmaI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8l31IfHlXbcFmnoyQc4M+afPg8S6Ha3xrYBumi/8X6aiIh2kY7
-	ZMvptjTphXW/1wOhHLGdYUj6Oc/5oLnSzZ0+4sy47Sw17qAooOZKSrVlN92AhOM=
-X-Gm-Gg: AYBFou1UrnMIvGv6Y4gZLWmxLWto98Ub48Mz7crXWFLb97RGJpvsNGcY6xSI18Yhs0O
-	zpVQAtmsF9tmyoJqxXfnaNO1LlGVZ/p9oOHquxHAuUa0hktnNUid+ODXbbP95k3tL71qrcn5X2/
-	Nx/Bmiiq8xM2ZoF7VUTOS8qlmdFEE7x09ffNo43LDrP93la+HCIKEvtqvKThEo5El9ZGj6+fulu
-	svNiKJaseWIso9PlsPx6YBFspZgF6xt2fev6FZNdDXW2zh65uEhluYxC+fpTMuykmmeLeR+sdKK
-	bywt0b91eiKmZFnAoDl71w9SakgnmnkP2xAwvSlufsJSnUUwqqjJibTlJFLOoz1QXnlCohus4EU
-	eNMQdsfHh2iy01KfgHdspYtVXn4kNu2GzZ5ApdnHfppFNXNn5ztAZ3gMA2OP9to0CmdqdKk1ktS
-	hesWDi/mrKgORkFvD0AwOs3hBlxAiVRVNwOomYH6UgkhPH2NS6k0z3v2pm1RgjFp0jPL+2Pw5Qe
-	b8qhCcxfW9Z2U8bGpUJcdQlQbH4ZicHd5/FfB6s5sae+NxULxg1wFheSjHcObDo02il1nwr9cGK
-	IycUTmc9iBRYz5LH2Zl/Lebke7faYTD7govx4p2mYiWx/QKiKYLyk15z4oQ=
-X-Received: by 2002:a05:6000:2311:b0:48a:f320:dba0 with SMTP id ffacd0b85a97d-48e6e4ffa7bmr19379378f8f.45.1793579731393;
-        Sun, 01 Nov 2026 16:35:31 -0800 (PST)
+        bh=d5I/3o3ZMDmTHhqki/RL15OKEhwf2lx/PeEsYN29HFM=;
+        b=N13rLc4R6R7dz+HwEj4Ki+My0PlAjvdkQ8BUOLDjINaf6e9/m3B4uk11NU9PzhcJva
+         urSJwaMGajpjZve2AY4DmvbhmDgImpHZvG4sPQNJkzsur4kCANkBfoc3OOrgZOHnSWg3
+         SepbDr5/aOVea7R6lTsq9x3GAv4W8fA6ibIPWFw8yxxzD1J1gKJW9uF5BOb7csYyxzEf
+         tSAyX1p4/fbJCuRyfDLNd2QNlypyN2MayEI4b2sKsjqBadUZ8zV4dunZKP8fz3plS+Uf
+         3LoPQtKF7RnOWjoJySNPign3enczCTkx2IcHZDLCymz6F5iZeRLUvFfjKHpLOEsYrXDG
+         BBjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxtApxBEiIW1y8SPqcAaULblbAhXxfIQ4RWoO7yaqVVV+Xm3lxWx3b/98RXgNUiJJJFOa0LuyL/3BcWsI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhPSHvKRut59aK88nJZN5nqQicpyM/TFB3VXXxTN/uOvprufzj
+	wTl9pvbKkl3YoFCZ2G0xt740v/MUaoTAYwp7QQvfpQNBTZVZHQBtLpxcmi/ZLx0=
+X-Gm-Gg: AYBFou08QPVdpZvxAp2VcfA8F7FjW9rL+5P1xM9OchIkZD6nKDglPH0XTA0GsNlyiG7
+	jBJcsjYvYttTyd8KWllK1bxaX0n28UpnM+WCsvmIkMslZ4WAfGjuK2J/satMIabsEYrBSkVEwnx
+	iVD2obAiIbrM27/j7TftkdQhEmmOQD+2LZVoQngvHONB8CtCqGOkGj45LBpzbwoTfIIHSda4Qkb
+	Jar4bBppgVQkUuth6JsspQpvMBWlyEfRMJUwzspnRmDuQ6Nj05l1dQUBZZVSwqmofK2Yzgkhu9q
+	yHpwjGGzh477PjqasoMqot1SI+jgHMeUdQe1hnTYETcH9pRb+l2v/t/Xr/0w3Ns6BDWAycBbQXg
+	RvTvI3CWvQGQdXXeyoVAdKDQtUNPyfmCHkbCar1r9eTP70yWc6Kimzodnl5dIwLpbImSeSQ+gf3
+	zBPzfNb0ltvvavvlTnw2VOJjlu9Ck3L+J7qxthF6b8p6tIoVwsefj5OPl/S0FIxAU9f+bZaVQN+
+	wxp7kSD4o1icq1vhdNRUKPMD79HTkKzj5TJbaNZ2HFvxWRz6tpIHHA+VTCCf0PeBtS8+0BW1xQS
+	7PhR/xRi6O8TGxnt09VurAqW02OlEIG0qp3u
+X-Received: by 2002:a05:600c:5397:b0:4a4:4d57:8462 with SMTP id 5b1f17b1804b1-4ac18b7e65bmr197850895e9.24.1793579785959;
+        Sun, 01 Nov 2026 16:36:25 -0800 (PST)
 Received: from sasha-User.lan ([185.159.163.49])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a4csm16571688f8f.23.2026.11.01.16.35.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d2950sm302007805e9.8.2026.11.01.16.36.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 16:35:29 -0800 (PST)
+        Sun, 01 Nov 2026 16:36:25 -0800 (PST)
 From: Asdlerto Korry <korryasdlerto@gmail.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Pengyu Luo <mitltlatltl@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-usb@vger.kernel.org,
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Bart Van Assche <bvanassche@acm.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Bean Huo <beanhuo@micron.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	Can Guo <can.guo@oss.qualcomm.com>,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Asdlerto Korry <korryasdlerto@gmail.com>
-Subject: [PATCH] usb: typec: ucsi: Fix printing of a fwnode with %pOFn
-Date: Mon,  2 Nov 2026 02:35:08 +0200
-Message-Id: <20261102003508.341309-1-korryasdlerto@gmail.com>
+Subject: [RFC PATCH] scsi: ufs: core: Allow error recovery before the device W-LUN exists
+Date: Mon,  2 Nov 2026 02:36:07 +0200
+Message-Id: <20261102003607.341651-1-korryasdlerto@gmail.com>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,50 +103,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ucsi_glink and ucsi_huawei_gaokun walk the connector nodes with
-device_for_each_child_node(), which yields a struct fwnode_handle, but
-print it with %pOFn, which expects a struct device_node. vsprintf then
-treats the fwnode_handle as a device_node and calls fwnode_get_name()
-on a pointer into the middle of it, so the "missing reg property" error
-path oopses instead of printing the message (seen with the same code in
-pmic_glink_altmode on a Samsung Galaxy M52 5G).
+ufshcd_err_handling_should_stop() returns true while hba->ufs_device_wlun
+is NULL, i.e. until the first probe has added the device W-LUN. If the
+link fails during that first probe (for example NOP OUT failing after
+link startup), the error handler therefore never resets the host or the
+link: it only marks the state operational and returns, and the probe
+keeps failing until it gives up.
 
-Use %pfwP, the specifier for the name of a fwnode.
+On a Samsung Galaxy M52 5G (SM7325) the first link startup regularly
+ends in PA errors (LINERESET). With the W-LUN check removed, the error
+handler performs a real host reset and restore and the device comes up;
+without it, it never does.
 
-Fixes: c6165ed2f425 ("usb: ucsi: glink: use the connector orientation GPIO to provide switch events")
-Fixes: 00327d7f2c8c ("usb: typec: ucsi: add Huawei Matebook E Go ucsi driver")
+Removing the check exposes three places that dereference
+hba->ufs_device_wlun unconditionally on this path:
+ufshcd_rpm_get_sync()/ufshcd_rpm_put(), ufshcd_err_handling_prepare()
+and ufshcd_recover_pm_error(). Skip the W-LUN runtime PM handling there
+when the W-LUN does not exist yet; there is nothing to resume and no
+regular SCSI I/O before it is added.
+
+Note: the error handler then calls ufshcd_verify_dev_init() through
+ufshcd_reset_and_restore() while the tag set is quiesced. This needs the
+pseudo SCSI device queue to be unquiesced in ufshcd_err_handling_prepare()
+(as done upstream), otherwise blk_execute_rq() waits forever.
+
 Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
 ---
- drivers/usb/typec/ucsi/ucsi_glink.c         | 2 +-
- drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/ufs/core/ufshcd-priv.h |  4 ++++
+ drivers/ufs/core/ufshcd.c      | 13 +++++++++----
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_glink.c b/drivers/usb/typec/ucsi/ucsi_glink.c
-index 1db0c88d817e..4b4905624d61 100644
---- a/drivers/usb/typec/ucsi/ucsi_glink.c
-+++ b/drivers/usb/typec/ucsi/ucsi_glink.c
-@@ -433,7 +433,7 @@ static int pmic_glink_ucsi_probe(struct auxiliary_device *adev,
+diff --git a/drivers/ufs/core/ufshcd-priv.h b/drivers/ufs/core/ufshcd-priv.h
+index e55c2a02c1f5..2cb0d542d114 100644
+--- a/drivers/ufs/core/ufshcd-priv.h
++++ b/drivers/ufs/core/ufshcd-priv.h
+@@ -385,6 +385,8 @@ static inline int ufshcd_update_ee_usr_mask(struct ufs_hba *hba,
  
- 		ret = fwnode_property_read_u32(fwnode, "reg", &port);
- 		if (ret < 0) {
--			dev_err(dev, "missing reg property of %pOFn\n", fwnode);
-+			dev_err(dev, "missing reg property of %pfwP\n", fwnode);
- 			return ret;
- 		}
+ static inline int ufshcd_rpm_get_sync(struct ufs_hba *hba)
+ {
++	if (!hba->ufs_device_wlun)
++		return 0;
+ 	return pm_runtime_get_sync(&hba->ufs_device_wlun->sdev_gendev);
+ }
  
-diff --git a/drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c b/drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c
-index 57b37fca150c..fc74c205181e 100644
---- a/drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c
-+++ b/drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c
-@@ -430,7 +430,7 @@ static int gaokun_ucsi_ports_init(struct gaokun_ucsi *uec)
- 	device_for_each_child_node(dev, fwnode) {
- 		ret = fwnode_property_read_u32(fwnode, "reg", &port);
- 		if (ret < 0) {
--			dev_err(dev, "missing reg property of %pOFn\n", fwnode);
-+			dev_err(dev, "missing reg property of %pfwP\n", fwnode);
- 			fwnode_handle_put(fwnode);
- 			return ret;
- 		}
+@@ -410,6 +412,8 @@ static inline int ufshcd_rpm_resume(struct ufs_hba *hba)
+ 
+ static inline void ufshcd_rpm_put(struct ufs_hba *hba)
+ {
++	if (!hba->ufs_device_wlun)
++		return;
+ 	pm_runtime_put(&hba->ufs_device_wlun->sdev_gendev);
+ }
+ 
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index fd52deb72d21..9767fbc7b870 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -6876,8 +6876,9 @@ static void ufshcd_err_handling_prepare(struct ufs_hba *hba)
+ 	 */
+ 	pm_runtime_get_sync(hba->dev);
+ 	ufshcd_rpm_get_sync(hba);
+-	if (pm_runtime_status_suspended(&hba->ufs_device_wlun->sdev_gendev) ||
+-	    hba->is_sys_suspended) {
++	if (hba->ufs_device_wlun &&
++	    (pm_runtime_status_suspended(&hba->ufs_device_wlun->sdev_gendev) ||
++	     hba->is_sys_suspended)) {
+ 		enum ufs_pm_op pm_op;
+ 
+ 		/*
+@@ -6926,7 +6927,6 @@ static void ufshcd_err_handling_unprepare(struct ufs_hba *hba)
+ static inline bool ufshcd_err_handling_should_stop(struct ufs_hba *hba)
+ {
+ 	return (!hba->is_powered || hba->shutting_down ||
+-		!hba->ufs_device_wlun ||
+ 		hba->ufshcd_state == UFSHCD_STATE_ERROR ||
+ 		(!(hba->saved_err || hba->saved_uic_err || hba->force_reset ||
+ 		   ufshcd_is_link_broken(hba))));
+@@ -6935,12 +6935,17 @@ static inline bool ufshcd_err_handling_should_stop(struct ufs_hba *hba)
+ #ifdef CONFIG_PM
+ static void ufshcd_recover_pm_error(struct ufs_hba *hba)
+ {
+-	struct scsi_target *starget = hba->ufs_device_wlun->sdev_target;
++	struct scsi_target *starget;
+ 	struct Scsi_Host *shost = hba->host;
+ 	struct scsi_device *sdev;
+ 	struct request_queue *q;
+ 	bool resume_sdev_queues = false;
+ 
++	/* Nothing to recover before the device W-LUN has been added */
++	if (!hba->ufs_device_wlun)
++		return;
++	starget = hba->ufs_device_wlun->sdev_target;
++
+ 	hba->is_sys_suspended = false;
+ 
+ 	/*
 -- 
 2.25.1
 
