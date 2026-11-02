@@ -1,48 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634353;
-	b=gQ8LGziBAOcrJ3BXh1jjzN14fwgTTcCD8s5i/wlAv7OBLXKg+QaMYCOPj8eUdXnbnSQ3
-	 xDggOOgBv348p7Plny1F0DOtLlFwAt0J1i2Kb8YwHwgfBzsIZMeqHPeOyQn81mRm89awN
-	 nXoF3XEpKufpmG3/Hh85hnfAjPDURiDOyshq1AvMWzsG0baMmgR1o1MlB9RR0kDhYl3SK
-	 +2qgxLyiaVPC+vjrUjsuvaDGcexJEaZVouDJNSjgONJWUl/0R15MHKOMis0mokUHg23UM
-	 tCTDtlXq2skiWGjPc5GjRfJbbnlUvmgCjBGBd/Zrqjewz8tZZ7ijfJn4r5OeHLSe2Dw==
+	t=1793634409;
+	b=y3jSv9bFWvQdDdElJalhaxQngkL2xvyIjR7EE27U/Dmw7knlZ8GMN3iG3IAEfyPtErzq
+	 q1H/Sw/jKnpHPKxWx/kTF0ZJ92/EBQqSSzij+X+Q6qodc4NmGd76mOU4oaJsH8dN3dhXz
+	 IyxtYsLNZoJKMxGomIVTcaGPvXFnFtBPyr2QfH595hpJ6WOXFM84NibNFrs8uYIw5miZG
+	 Ag7X1IbbKFYRFUi+RehnlQcTnwm6D7ofbUbqHYHE3ji7d6nWoFfzF/D6o8pqD6y0TRcZu
+	 aY3pCgtYnAZ0CifCjmd8bRVgAdycM75BGNmK5em/BTF5TcT9530i8q7bpwjgI/iQMtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634353;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=0lUl5CQLJCBCailzea4Gh1ucvNlPOHHb/3kbxfLuQp8=;
-	b=i4ktPIU8EPlg/BzEvTkYzouzE/Ss0C2gKEbuqZhoQEHmnJLbkHwSWMT+MBjDQWb+vsao
-	 25sR9uYJ+GNJa27rQON9MLRXC540oMauZmgqDVys58hPXsgh/s/HJAUHe7v50KvWsMrd3
-	 yeE9xrhqqZPW09hSmNmxf8QUcHZS62w8VlgldL84807I+cC/8q9sVJsVSyXfikz0cBxB2
-	 x6eudqhhs4ZBJvDKf16cIkTEwi8Iogdr8xBTP1FhjxU/nETYFbE/aRny9nPSjCgqxbH6J
-	 Sg/w2em7V4Yovkq8mqy3HhZYCxxmIBN70z6+Ap8HS5B8+KyCLLbIITXVoe/NMTGrCiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634409;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=T18TAp5F6jRaMrl/nS/24uUBMXl4uu1RdHaAtztL58U=;
+	b=lWqbPN+M9bcvfLc1dNgN+Q8LaFWS9AksPauDKBfUR+Wb2NKr3n19TYH2YMiumWezO0sy
+	 r8FrzTuo/VUGwTGlxuru3AMnzpoPCqaOiE8oi+JqVSKhMCZSsuHlH5kmFpVuB9MaAK9u1
+	 1NTWCeIGbEc8TD3tb51lWVRcRze6g23QQx24yqUCZEyRbf7MRiDNLgdBbvV41Oq7KJRZa
+	 MlM2LO5vz77gg85NL73HkheyHj+Ei+N0pYwkYKlTOIsXVYhyIocC2a6Bo+ztSIqv0Pwdb
+	 MHy8o1Q189oEca07+goX3ZH2Exn7ul3F4r5xTJM73PBQgJ+uD4qbG6gS07cqt1z+Mqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e5kX/l46";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="O/uWwWQ4";
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37265606D80C;
-	Mon,  2 Nov 2026 15:45:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA00606B1D9
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:46:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBA00606B1D9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5kX/l46
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9CC1F00A16;
-	Mon,  2 Nov 2026 15:45:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793634352;
-	bh=0lUl5CQLJCBCailzea4Gh1ucvNlPOHHb/3kbxfLuQp8=;
-	h=From:Date:Subject:To:Cc;
-	b=e5kX/l4629FTVp7kFn7vqYpPy8tHTjApI5m0IaEjxo09lOhZNTrWcNCELQbtNG5Cz
-	 lFxVKz73rpJYbGWPtqI8rJZj8xEoSCv6f3BbftJbT0j4DvM2G6betYAW1dSBLikNWP
-	 ablWKowlnddHVu1dgZE4V6dzrAhJHb62RXZbj+Z6xTT87oCkKuBNyPHYHar65u0oKm
-	 awYQ5GEiOsLfIO6YI4dWWFSDfDcsQEkUXUEK0h8XVz/QBR0OgEGWmVHOY33Gqh6Z60
-	 DHFqch2I+p9Jv+kv1tf0TfomBhBkoKydBW6sGi1SRZAtV/KC5q3LcR4yHMgqQOxzye
-	 9p7dodg8e0Jpw==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Mon, 02 Nov 2026 16:45:48 +0100
-Subject: [PATCH v2] irqchip/qcom-pdc: Handle ESPIs in qcom,pdc-ranges
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O/uWwWQ4
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso1767540f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:46:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793634407; x=1794239207; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T18TAp5F6jRaMrl/nS/24uUBMXl4uu1RdHaAtztL58U=;
+        b=O/uWwWQ4MaClpIQA8a5Kzs9fakE50sx51ScnrYLyjmppMn6eoVPzm4I7PPHPVY89Wv
+         I9Nv9CWMLl6PjBLS4VgnLUEMOf4tH361pV0DP86PZfVPJAwM0B+ZrhVV8gxGKPZcQsn2
+         WGMKrxmz4ycRpcT2d51/EsvImEjyRct2l3Loo0y2Qheb5gV1nlPXMOHE6XCqUbirVoOY
+         x+8AKQiZr7fdpUnsqFFxD3AJnG6CNVx6pdOjEKcSaKFuQzFYu05hD2DaM95QkLFX6sJW
+         28GoIIrvb/wBJM7PQD81HltjxeZj32CywBZKY6QXvJOwZLwoHSzQB/NvgVWFHT+EKTAL
+         kwwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793634407; x=1794239207;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T18TAp5F6jRaMrl/nS/24uUBMXl4uu1RdHaAtztL58U=;
+        b=aSAFi6pqZMHRurDgtaeKc8MTCJ8ruAMflMg24YcMxw5WuclURaYIFVfEu514OzK+cm
+         TzVEXFJZAo+0UoWF1/HrA/BTiAEcOl/iqkbAXv3o8U6xCH+B1wje6RI/VbAnzcKnsg8h
+         7KwtFbTKwNTQRU6cP+f33iHQytJ5ivjYjzAAG5xxlxQSZXS8z3QcMd8zoy9gfQNtR26W
+         /aZXECalh95stG2E5X9PzxVZrtpcymVIZGC/WbO3wF1ViZCW1UrbK0QazAn2BYip+OXP
+         ZfpDqkAZjKxW8mzOAGAIFT57MIg4DiCZSwUwqFs/zaBPcMCVdKo6KjYgHU/PtSJBnGM/
+         1s9A==
+X-Forwarded-Encrypted: i=1; AKwUvBzkAsHmWc625Y0MY5xpg99AQeWnkpZx6SQ6cMsDPk8zhrRYYu0PvUA1rKRVkfi9Jgf1/R2u5laLnAx2hBI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CSdc+fdkIS4DRqJJzY8QGpAR6tktULIW8Dbms1Da3XgVRQ/Cc
+	6HnGBKtNjlyR8d0qq861kTTptOrj6xl473pVIsXYWbQUC/lFTZ5fGvkZeDTUCRYjdpQ+TWn7
+X-Gm-Gg: AYBFou2afoi7R2QF8kJIwo014BEP/fXlBK0+4khTXi8og2Y7wXg/KiZJGVQ6Go5KUdj
+	vT4WLqT2F9oBCzvuMyCHUyafMe0Nl+WKWGo48hLLBw3cRPuUHMBA405uZwgOMLMrireV70aRUh5
+	xCkYLFJ5Opnh62rwLogHkzOEqanAoJYzevFwPo1uq6WH0wgRNx4e5wlpbXJmhO08XWMSuPvlXZs
+	BIT36emSnvpMvMzXtiEvRw12Hqx71ngfY8XWU2L/S6AnNwLx0lBK7kyi4Vrbn8MoFbu341p+n5u
+	mseAp/Xl5BGzQGNbEfv/Tulv+UKhqMRrXD2gjDZArn/xZec5AOt87JUgLI/5EibHARv2F7oqdmk
+	nwWhR/Q93/MaU1+WgIOdpvf3jfWPciAkTNFekZJgfl0Yw3coi0PHroY9Q3ScerRv7c+KkhK1s85
+	liNLKAem8KQ8ePYbL1W9Dz6QoVlsrZfdHN+ii2XtHjCJmoy68Mt4IUnF/GXPFafh/uXpDxM5G88
+	v2trDG/CFoA7feFuGRlnoNZ/Uc4JmmIMTqZf5axMwK7XInlyfVHHwUl7SJFaBTPvPigpv8j2Ctg
+	V8zsKi7ieQRctoJp6UECRELPcq2k4sOz8uKvCH1R32mHaigiWDz/yPLiIkCGlMFIj2ccOBaE9U3
+	pJEY7yei2fE4lniUJkBJsW39hrN/q6s7Nkm56YQ5AIeCt9UXqqedeZN3MqmXeB0HA3w==
+X-Received: by 2002:a05:6000:2207:b0:48d:f0e4:27a4 with SMTP id ffacd0b85a97d-48e6e30406fmr21363979f8f.24.1793634407055;
+        Mon, 02 Nov 2026 07:46:47 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e7a1d9d71sm14974051f8f.48.2026.11.02.07.46.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:46:46 -0800 (PST)
+Date: Mon, 2 Nov 2026 18:46:43 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Kurmapu Sai Devansh Prasad <btech10487.26@bitmesra.ac.in>
+Cc: johan@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: fix string termination in firmware
+ sample
+Message-ID: <auiwY5ReM-rqeG2I@stanley.mountain>
+References: <CAPwSj7XvbTR3qtSev-xEtZeewwvSWFXPhK5F12VGzSiQoNudNg@mail.gmail.com>
+ <auihq9nm86d6D3MW@stanley.mountain>
+ <CAPwSj7W3HxLeMLHCdjEOQ2pr39tSKD1_VyHwMpq-MshTpaiP2g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,93 +101,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-topic-pdc_map_espi-v2-1-64431c8f8ac3@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBREr2L+2pK2FCSuvIchpLRVvhFa+4FoC
- He34N7NJC+ZmbcAuYiO4HxYILoZCf2QQB4PYDo93B1Dmxgkl6XgUrLRBzQsWNP0OjSOAjKVW5V
- zbm1VlJCGIbobvvfTa/1jmtqHM+P2tDU6pNHHz26dxdb7K5gFE+xkVCW0kq02xcUTZa9JP43v+
- ywF1Ou6fgH+pGSDzQAAAA==
-X-Change-ID: 20261022-topic-pdc_map_espi-43d4300dd856
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Stephen Boyd <swboyd@chromium.org>, Marc Zyngier <maz@kernel.org>, 
- Lina Iyer <ilina@codeaurora.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793634350; l=2384;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=pWIIJfUJjWTfXyMQFjC9odAbSUyZBlAoX0S+RKTLCZo=;
- b=HdFgORl59I+IEyxeCUQ1TSlkHiaXQt0F4PC5szI6YmyZIJlSXKuqof87Q1IcDVdKPpyaqZDu5
- rcMP8nAh75XD+qjA5EY5o3QwTyz0n7UNCl3WL/ORWyPWEJYbZpgrm79
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPwSj7W3HxLeMLHCdjEOQ2pr39tSKD1_VyHwMpq-MshTpaiP2g@mail.gmail.com>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Mon, Nov 02, 2026 at 08:49:58PM +0530, Kurmapu Sai Devansh Prasad wrote:
+> ---
+> Hello  Dan, thanks for the advice. I've attached the patch this time to avoid the Gmail formatting issues.
+>  I also removed the extra commentary from the commit message.
 
-The qcom,pdc-ranges property maps GIC interrupts to PDC output pins.
-That data is then subsequently used by irq_domain to resolve into the
-interrupt parent (which again, is always GIC).
+This is userspace code so the original is fine.
 
-The code that handles this hardcodes parent_fwspec.param[0] = 0
-(GIC_SPI). Make that conditional to prevent this warning at boot:
+Also you can't send patches as attachments.  There is a whole process
+to sending v2 patches.
+https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
 
-GICv3: SPI 4115 out of range (use ESPI?)
 
-Fixes: 81ef8bf88065 ("irqchip/qcom-pdc: Add irqdomain for wakeup capable GPIOs")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
-Changes in v2:
-- Drop the arm-specific header, replace with an 4096 literal
-- Link to v1: https://patch.msgid.link/20261022-topic-pdc_map_espi-v1-1-7c481a42bac5@oss.qualcomm.com
-
-To: Thomas Gleixner <tglx@kernel.org>
-To: Radu Rendec <radu@rendec.net>
-To: Stephen Boyd <swboyd@chromium.org>
-To: Lina Iyer <ilina@codeaurora.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/irqchip/qcom-pdc.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
-index 29025a212ece..6c2a2d13629c 100644
---- a/drivers/irqchip/qcom-pdc.c
-+++ b/drivers/irqchip/qcom-pdc.c
-@@ -21,6 +21,7 @@
- #include <linux/slab.h>
- #include <linux/types.h>
- #include <linux/firmware/qcom/qcom_scm.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
- 
- #define PDC_MAX_IRQS			256
- #define IRQ_ENABLE_BANK_MAX		BITS_TO_BYTES(PDC_MAX_IRQS)
-@@ -597,8 +598,14 @@ static int qcom_pdc_alloc(struct irq_domain *domain, unsigned int virq,
- 
- 	parent_fwspec.fwnode      = domain->parent->fwnode;
- 	parent_fwspec.param_count = 3;
--	parent_fwspec.param[0]    = 0;
--	parent_fwspec.param[1]    = pin_to_hwirq(region, hwirq);
-+	/* GIC ESPIs start at 4096 */
-+	if (pin_to_hwirq(region, hwirq) >= 4096) {
-+		parent_fwspec.param[0] = GIC_ESPI;
-+		parent_fwspec.param[1] = pin_to_hwirq(region, hwirq) - 4096;
-+	} else {
-+		parent_fwspec.param[0] = GIC_SPI;
-+		parent_fwspec.param[1] = pin_to_hwirq(region, hwirq);
-+	}
- 	parent_fwspec.param[2]    = type;
- 
- 	return irq_domain_alloc_irqs_parent(domain, virq, nr_irqs, &parent_fwspec);
-
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-change-id: 20261022-topic-pdc_map_espi-43d4300dd856
-
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+regards,
+dan carpenter
 
