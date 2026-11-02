@@ -1,111 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615441;
-	b=g1HYl1u//yI0OF6fwry9nBZBizGJoVop/XNWiNAeJMLomRCZO7P5N8nnhxEthc4nzL8C
-	 YSWdeSM42FoEHb85+Y8DDuj1sobiH2Jhujh/7K2mARDmWgcx9EYiz93hLSUpr9lM/6opw
-	 4Ga6pQwb2DAzG1nCEF+G3I0v9fzksuc9RiQCD0eRSsXFhAW0qYGa3kAfSUkiVKEDg9+k/
-	 g1caWl7tVKeK9ctPRsAj1b+kLsFz7e/UXt0+vuv5lcfwqgU4FZjaHUgwmb7SCmHSSVfBt
-	 qv7P7kuC5cUVQSXBUpFCB/cp/OmyPc7dQWO+EbiLh/61fAbuiWgz3Ap5NkcTC2eNl1w==
+	t=1793615462;
+	b=AWkFjqsFWkZI0hc/QhKdNmrvJsTyh77+0x5xAdCWSOCQYjiHXrfkRmbA4kHFXQT2iuXO
+	 76NKFLaTgesMqI33tS3kEmPksNN50tWfCe5jb4+wAH7gBIu5yhxOuNTXsB5cJ3vuL8IPE
+	 B7GVKlrZA1cJuBBtzGv9OAWDvh/XViEeeR52h1Ul8PCTgUpyzFTaJw74GCt/bjuKU8hIw
+	 tCQ2YfvC1ycdiM745JZZKGitfp/Q2dpyjHPCjUeCCL2EtBiY5lLMK1eEpTYwnEqNLF9eJ
+	 O+41HrPivIqxUOJoLexSrF+onTKn7mPxWvab5ARKcm2YTBed+VrrLEjBc+4YPUErNNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615441;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=NzHFCCrQzGLsKI8/KQW7VhRBUvifYGel9dhS3AdJCd8=;
-	b=oqyXh17nZghIFcy6yG3XkbUsRicxZ7SKCkXKiaefn8Emmj1VCiEd0a85RSgHKYEpN5A9
-	 UGmRT6kJsgu/iWLeAtBgOz6ZJP6EAzQ4nozYcJbBNyiJEIFheRxWHCJC3chYnUnqDq2tx
-	 OiLmB7Qw87GlXrR+1APmak+A5Sfp5rG2OirERQt7YAnlUW2HNAHDyP60HUsa1WwwDdeTo
-	 xcizo7Le/eglhJON9qwknWZyF8alcfM8ChqTCiaLQXyLklRzTV0UHpLMInN90yuvVW9B8
-	 QQbUg+nPO/g2FnmE2bMemMTrZsls4EU59hJetQngbznw4tFacX/yUHMrEhoz0hfI4zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615462;
+	h=DMARC-Filter:DKIM-Signature:Subject:Mime-Version:References:X-Mailer:
+	 Content-Type:To:Content-Transfer-Encoding:X-Original-From:Date:
+	 In-Reply-To:Cc:From:Message-Id:X-Lms-Return-Path;
+	bh=awjYNd491nH1SZjZGjhroF+c3sVhiRJKmezrWXmeqDU=;
+	b=x7GZeYyryvoNEuN/L3qys4Fbf/XleAvElkICxY7tRa06HQDawdJc8uZdi8lIbKWoJx3q
+	 LXoeDNBHtVsFiojO/R2XpdBUV8L6KOqIg0LZm0At9igBMQu1YEC3gahhOL+lHN7yktMvf
+	 msEA4a3DV0yBAhbr5KxZeKaDrZ36T0RI+yZkH2BKTyf+8Z8QwGyFM0gg3Uf4xKVknuUZQ
+	 hjSUrJJxj367X7f3bC+oy5/5UmBRBbp36F2uiW5z3Xawo1fri7SxUKsSNEP4imJXT+TKV
+	 RhSfv1e8aOxjfChuX0rMqCjg44xqQ0Kw+X6BUQC4s8nOXh1Xb3AAlEsaQkbE5Wc3FqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=T6Y9zr5j;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MoJb6hjJ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=SHXoMg5J;
+	arc=none smtp.remote-ip=209.127.230.114
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3112606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:30:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3112606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96ECD606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96ECD606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=T6Y9zr5j;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MoJb6hjJ
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29B1al4015003
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 10:30:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NzHFCCrQzGLsKI8/KQW7VhRBUvifYGel9dhS3AdJCd8=; b=T6Y9zr5jzNmeahze
-	Vk3VgX6HlfKPD0egTiQ+7G23C+ONdR5ejKOm4byHnPcPcdpaUIRJ5spqS2+kLqtk
-	ieYaf4jOa2l/80Zb2YrBFIPoqRVwWTbi98LM9843sBEzbA3ElA4jMZHpcr74dxa5
-	6PIyfMjTzQp5sNLUDJ1JHFvCYMehZbvVBRToC36VwFDUsncz4WvGSQEGhaERLzq2
-	AJ3QiwSCGHblV11dK5oewoUoD6L2sSDz7x54aLg+AJX1pvj/p064Ey1l2qsWeR1Q
-	xf+xeuVJc3N8AhZvl+D1tai07PnwLQW5Zn10hOwem3m4UTUxzrUK798omWAPwfj7
-	w6syfg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7b6pk7c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:30:38 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f1440e081so48631885a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:30:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793615438; x=1794220238; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NzHFCCrQzGLsKI8/KQW7VhRBUvifYGel9dhS3AdJCd8=;
-        b=MoJb6hjJb/P2CuFjZBHaCnGVWRS5KQM0Q8W+M24orFuLGymLnL6Ts0k4CgXIEjQ/vu
-         yfVnc/liWIiQSFwTYAjsMVWnJpCfadCw39Y2jE3g0b4Mstp+Vyt2syWM1AMmYu4z5TCE
-         XZlV4FnD6ET6g4vuFWcISNHfrcx2snmuteJhro7fwWfA40LTTVrOFrS+L/VwWFb/XZGS
-         xXRJ2LEB3tkieFaMUh+zU6VSGbgr8H02pDCTrslRHvLsYTtJLCYmltTT+4vRFYf1Bxie
-         TZ80gT1Xczx9qEZqnm/MNa9ViCYYlbk+USzVMbVoLehLx5c16rfPw2LVeS17aJiefJhx
-         l+Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793615438; x=1794220238;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NzHFCCrQzGLsKI8/KQW7VhRBUvifYGel9dhS3AdJCd8=;
-        b=kUj6knLXC8UzBVEu64qIhQqw0ULpp5ItTGQXovg6tbv6FD5rkhunRfdWoThTrzIxLu
-         FGOFWyPOsnBbC6iiNdhHoHZdwUw3idhGwjjRFXyWdLZjfm0fGW4ZKJN5DedHE/Eb5B+f
-         /OwDk1BSbKvI5M3S/ALWLC72rqzuo8WhvD2Dib8cfThML8/DdDVqGydI1p6YcVv2rOz1
-         1sS6A6qcaZ5xCDIJGpTV/+KnADar2ob3o5+KDVO8tV2snYKwFOMlI61hNpkIK95xtaKT
-         X3ihhel+Xwv8PiHI9p5omZyi8nUfDdC6V3h734jTCcZCBXd9RxkKDhVftVJlgs9pMBgF
-         9rKg==
-X-Forwarded-Encrypted: i=1; AKwUvByi3LA4UGlrH8FFZU/Oxlmyi7stCsneF/Ry+tmUZk4RG2fmIN3jd0QAVoeiIOXzI8el6bYbQojnAXUbRLQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPfuyJP1WPUxA8IsVSHtgUVsoXW1JMcvrax/ITjtC8aNcVrd9T
-	KGqq6AonH3D+jCNA4Js6TFE2ezwahoUfVVSWOD86yN35YsCBTjLndLkQ3Blwkd6S70k9RFBkByR
-	IrLhH8wWVd5EQOWokeDQPJRgR4krkpMU8cOJMaxnETJh7QdoDKyPRZ6sZf8yVo0yF38s=
-X-Gm-Gg: AYBFou2+dkzQsceUsO0re6A3K3+xRANxxK/PuK1YyIXnwbVdYwhScxtzHNnLW6juaeU
-	fii8LxgpJ3+cXIjlGmItKHXvZC40MX+n9pXZ4CFwfO7B3foNnRTlRdtMb2ShRXP1MRj5MpALUqu
-	cre7A3s2/G2xEWnsLC85jFejJqdNSgIBYKcIPl1IncmjJe0b96QB1JZO3uS8B7XfaZe0+c5Jd9K
-	4iTfI0u3dXoAvX2ZxfVj6nNKevNjgzc9ZdUbbT3mtmvGHUveGfJvuJNqJCiCv5SZ6YlTuhphhj/
-	frwTkKV7zWPCmMUsdBrhu1BJbuJzUOs8n8U0WhTuFwLQNhn7bY6SV2AysYaS7VbgPagjnujerzn
-	oYtp3RGV8zDHJztGVTzRfQEMibwIXq9ERFaTflZNztY+utB/sosMfYAQTSvd9U5lD2e6VqnM=
-X-Received: by 2002:a05:620a:85c:b0:93f:977:5d9 with SMTP id af79cd13be357-94421404364mr1648768485a.0.1793615438268;
-        Mon, 02 Nov 2026 02:30:38 -0800 (PST)
-X-Received: by 2002:a05:620a:85c:b0:93f:977:5d9 with SMTP id af79cd13be357-94421404364mr1648765585a.0.1793615437867;
-        Mon, 02 Nov 2026 02:30:37 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc174c0sm366006266b.8.2026.11.02.02.30.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 02:30:37 -0800 (PST)
-Message-ID: <dd0d1941-485d-4eff-9fc0-6dc900d198d9@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 11:30:34 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=SHXoMg5J
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793615455; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=awjYNd491nH1SZjZGjhroF+c3sVhiRJKmezrWXmeqDU=;
+ b=SHXoMg5JmYJVL2B3vBi7DfxqiI24E2xCmfK351tzVTCj2uAA+Z4wEyWzVZ19GpdRjokIPe
+ 2xquba6yzOld9Tob3Cc9jAJTQx5UnSLcF1R5u8gNHWAN94RgKjaL2TNK2Zheqm9TBkx+kq
+ y0AxwPcO7cvwXSUE9v0BuJ4E7jGzNrMlF6JEbDPX7eyD4Z1ilnXarbvQLttG1anh5fmzF9
+ +9LtmxxMcjEKGuBluaLOC8pvg8wLFhXpESHqeeF2CdJflqruYNeaJBhjfJLpyHA+KaDtjG
+ gt7+huNBI6UW7E3oLIzCsX/KOexxaLy6mxxdLFlTg2Cso5mQa76lotTpLHLoXQ==
+Subject: [PATCH v4 2/2] selftests/x86/amx: Test dynamic fpstate cleanup across exec()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,67 +52,338 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/19] drm/msm/a8xx: Stop getting GMEM_PROTECT from
- nonctx list
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Jie Zhang <jie.zhang@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20261030211928.45761-1-robin.clark@oss.qualcomm.com>
- <20261030211928.45761-8-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261030211928.45761-8-robin.clark@oss.qualcomm.com>
+Mime-Version: 1.0
+References: <cover.1793604327.git.weiguixiong@bytedance.com>
+X-Mailer: git-send-email 2.55.0
 Content-Type: text/plain; charset=UTF-8
+To: <x86@kernel.org>
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: SMhBjllcbX78HzgfcRy72ZKbU_ScstXp
-X-Authority-Analysis: v=2.4 cv=QuvLTlyd c=1 sm=1 tr=0 ts=6ae8664e cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=9tEP0OE30YQ_IqY-BwIA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: SMhBjllcbX78HzgfcRy72ZKbU_ScstXp
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX31voER0MyE2D
- 4bNZuDE49U3BtP2hp3PJXuxjLnlEX0mZw31zBZgvOr8YZb0CeaF2ZaKuyifGnXT+WdqRi3VSAyl
- aODrlxU88znu5cOwkJutyQ8WKSrKBo0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX9aGnbNJ2lWcv
- h3c7MzQCbhleLS4Jo7bpkZogMhmWmkMQQir6pU5iftFAHHlfgmZlwO6J0a8cMsSx4gtO//upskO
- rQQa9eiza+HIurD1q2Ld4U2XJFpi07GbT24QHURhzqExTQO3zv6WX+QsRJMS4udaZ3yObAhr6BO
- e+YgwELDQNVZ2G+e5b66ZfSSIVAVxEzqz22yTK535pLFrM0O3tRsCVRrp4zd63ZMqXPlgH+18Vd
- xdkd+QYTMTwiq1+o3FK23OEr8f0ldzjonVUen5cMTOPDlcC5/9tlMILmVlIYdxRpNtoYAxrJk4x
- vOj0EllDY18X8Y2pJ0nXjpVA/AEPMLnKqEG1Tifybm7MXGvSS9ZqMatL/eTPE3Vz3itKSqnuRuI
- tb9F5AdjdT0LNybrWKQPIT/Xa2OQvpB3iavEqQ+DQ3Wd0SsVtteJRtoJVO3Wf2uf04l/6gXYgRL
- wendgfP5JIoNyNdR51w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020041
+X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
+Date: Mon,  2 Nov 2026 18:30:38 +0800
+In-Reply-To: <cover.1793604327.git.weiguixiong@bytedance.com>
+Cc: "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>, 
+	"Borislav Petkov" <bp@alien8.de>, 
+	"Dave Hansen" <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, 
+	"Chang S . Bae" <chang.seok.bae@intel.com>, 
+	"Shuah Khan" <shuah@kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-kselftest@vger.kernel.org>
+From: "Guixiong Wei" <weiguixiong@bytedance.com>
+Message-Id: <4f21cadf18325a5829a27a8cd7107240e8e92c7a.1793604327.git.weiguixiong@bytedance.com>
+X-Lms-Return-Path: <lba+26ae8665d+679002+vger.kernel.org+weiguixiong@bytedance.com>
 
-On 10/30/26 10:18 PM, Rob Clark wrote:
-> We can just simplify things and calculate the value, instead of manually
-> adding it to the nonctx list.
-> 
-> Tested-by: Alexander Koskovich <akoskovich@pm.me> # Milos (Nothing Phone 3a)
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
+Add a regression test for dynamic fpstate leaks across exec(). Repeatedly
+fork a child, load XTILEDATA to allocate dynamic state, and exec the test
+binary. Snapshot the start addresses of matching /proc/vmallocinfo entries
+before and after the loop; addresses present only in the "after" snapshot
+count as new allocations that outlived their task.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Before the first exec(), verify that the child's allocation is visible.
+Skip the check if vmallocinfo is inaccessible, if a matching entry's
+address is hidden by kptr_restrict, or if the allocation cannot be
+observed; address-set diff cannot distinguish allocations in those cases.
 
-Konrad
+The test assumes no concurrent workload creates matching allocations.
+A set difference equal to the iteration count indicates a leak; an empty
+difference indicates success. Report other counts as inconclusive.
+
+Assisted-by: LLM
+Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
+---
+ tools/testing/selftests/x86/amx.c | 251 +++++++++++++++++++++++++++++-
+ 1 file changed, 249 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/x86/amx.c b/tools/testing/selftests/x86/amx.c
+index 40769c16de1bb..ea35d5332dc3f 100644
+--- a/tools/testing/selftests/x86/amx.c
++++ b/tools/testing/selftests/x86/amx.c
+@@ -5,6 +5,7 @@
+ #include <errno.h>
+ #include <setjmp.h>
+ #include <stdio.h>
++#include <stdlib.h>
+ #include <string.h>
+ #include <stdbool.h>
+ #include <unistd.h>
+@@ -30,6 +31,9 @@
+ #define XFEATURE_MASK_XTILEDATA	(1 << XFEATURE_XTILEDATA)
+ #define XFEATURE_MASK_XTILE	(XFEATURE_MASK_XTILECFG | XFEATURE_MASK_XTILEDATA)
+ 
++#define EXEC_TEST_ARG		"--exec-test-child"
++#define EXEC_TEST_ITERS		10
++
+ struct xstate_info xtiledata;
+ 
+ /* The helpers for managing XSAVE buffer and tile states: */
+@@ -478,11 +482,253 @@ static void test_fork(void)
+ 	_exit(0);
+ }
+ 
+-int main(void)
++/*
++ * Snapshot start addresses of /proc/vmallocinfo entries whose caller
++ * matches a dynamic fpstate allocation. Returns false if the file is
++ * not readable (default mode 0400), or if a matching entry's address
++ * cannot be used (kptr_restrict hides the address, or parsing fails);
++ * in those cases the caller cannot distinguish allocations and must
++ * SKIP rather than report a potentially false PASS.
++ */
++struct fpstate_snapshot {
++	unsigned long *addrs;
++	size_t len, cap;
++};
++
++static int cmp_ulong(const void *a, const void *b)
++{
++	unsigned long x = *(const unsigned long *)a, y = *(const unsigned long *)b;
++
++	return (x > y) - (x < y);
++}
++
++static bool snapshot_fpstates(struct fpstate_snapshot *s)
++{
++	char *line = NULL;
++	size_t line_size = 0;
++	bool ok = true;
++	FILE *fp;
++
++	s->addrs = NULL;
++	s->len = 0;
++	s->cap = 0;
++
++	fp = fopen("/proc/vmallocinfo", "r");
++	if (!fp) {
++		if (errno == EACCES || errno == EPERM || errno == ENOENT)
++			return false;
++		fatal_error("fopen /proc/vmallocinfo");
++	}
++
++	while (getline(&line, &line_size, fp) >= 0) {
++		unsigned long addr;
++
++		/*
++		 * fpstate_realloc() is static and may or may not be inlined
++		 * into __xfd_enable_feature() depending on build options;
++		 * match either caller to stay compiler-independent.
++		 */
++		if (!strstr(line, "__xfd_enable_feature") &&
++		    !strstr(line, "fpstate_realloc"))
++			continue;
++		/*
++		 * vmallocinfo prints the start address with %pK. If
++		 * kptr_restrict hides it (address shown as 0) or the
++		 * format is unexpected, address-set diff loses the
++		 * ability to distinguish allocations. Bail out so the
++		 * caller SKIPs instead of silently masking a leak.
++		 */
++		if (sscanf(line, "0x%lx", &addr) != 1 || !addr) {
++			ok = false;
++			break;
++		}
++		if (s->len == s->cap) {
++			unsigned long *tmp;
++
++			s->cap = s->cap ? s->cap * 2 : 64;
++			tmp = realloc(s->addrs, s->cap * sizeof(*s->addrs));
++			if (!tmp)
++				fatal_error("realloc snapshot");
++			s->addrs = tmp;
++		}
++		s->addrs[s->len++] = addr;
++	}
++
++	if (ferror(fp))
++		fatal_error("read /proc/vmallocinfo");
++
++	free(line);
++	fclose(fp);
++	if (!ok) {
++		free(s->addrs);
++		s->addrs = NULL;
++		s->len = 0;
++		s->cap = 0;
++		return false;
++	}
++	qsort(s->addrs, s->len, sizeof(*s->addrs), cmp_ulong);
++	return true;
++}
++
++static int count_new(const struct fpstate_snapshot *before,
++		     const struct fpstate_snapshot *after)
++{
++	int n = 0;
++	size_t i;
++
++	for (i = 0; i < after->len; i++)
++		if (!bsearch(&after->addrs[i], before->addrs, before->len,
++			     sizeof(*before->addrs), cmp_ulong))
++			n++;
++	return n;
++}
++
++static int exec_test_fails;
++
++static void check_exec_child_status(int status)
++{
++	if (WIFEXITED(status) && !WEXITSTATUS(status))
++		return;
++	if (WIFSIGNALED(status))
++		errx(1, "[FAIL]\texec test child killed by signal %d",
++		     WTERMSIG(status));
++	errx(1, "[FAIL]\texec test child exited with status %d",
++	     WEXITSTATUS(status));
++}
++
++/*
++ * Fork a child that loads tiledata and blocks on a pipe before exec().
++ * The parent samples /proc/vmallocinfo while the child is still suspended
++ * and verifies that the dynamic fpstate allocation is observable. Without
++ * that visibility the test cannot distinguish "released" from "never
++ * observed", so it reports SKIP instead of a potentially false PASS.
++ */
++static bool observe_dynamic_fpstate(const struct fpstate_snapshot *before)
++{
++	struct fpstate_snapshot mid;
++	int ready_pipe[2], go_pipe[2];
++	pid_t child;
++	int status;
++	bool observable;
++	char c = 0;
++
++	if (pipe(ready_pipe) || pipe(go_pipe))
++		fatal_error("pipe");
++
++	child = fork();
++	if (child < 0)
++		fatal_error("fork");
++	if (!child) {
++		close(ready_pipe[0]);
++		close(go_pipe[1]);
++		if (!load_rand_tiledata(stashed_xsave))
++			fatal_error("failed to load tiledata");
++		if (write(ready_pipe[1], &c, 1) != 1)
++			fatal_error("write ready");
++		if (read(go_pipe[0], &c, 1) != 1)
++			fatal_error("read go");
++		close(ready_pipe[1]);
++		close(go_pipe[0]);
++		execl("/proc/self/exe", "amx", EXEC_TEST_ARG, NULL);
++		fatal_error("exec");
++	}
++
++	close(ready_pipe[1]);
++	close(go_pipe[0]);
++
++	if (read(ready_pipe[0], &c, 1) != 1)
++		fatal_error("read ready");
++
++	observable = snapshot_fpstates(&mid) && count_new(before, &mid) > 0;
++	free(mid.addrs);
++
++	if (write(go_pipe[1], &c, 1) != 1)
++		fatal_error("write go");
++
++	close(ready_pipe[0]);
++	close(go_pipe[1]);
++
++	if (waitpid(child, &status, 0) != child)
++		fatal_error("waitpid");
++	check_exec_child_status(status);
++
++	return observable;
++}
++
++static void test_exec(void)
++{
++	struct fpstate_snapshot before, after;
++	int new_count, i;
++
++	printf("[RUN]\tCheck dynamic fpstate cleanup across exec().\n");
++
++	if (!snapshot_fpstates(&before)) {
++		printf("[SKIP]\tvmallocinfo inaccessible or addresses hidden by kptr_restrict.\n");
++		return;
++	}
++
++	if (!observe_dynamic_fpstate(&before)) {
++		free(before.addrs);
++		printf("[SKIP]\tCannot observe dynamic fpstate allocations via vmallocinfo.\n");
++		return;
++	}
++	free(before.addrs);
++
++	if (!snapshot_fpstates(&before))
++		fatal_error("snapshot before");
++
++	for (i = 0; i < EXEC_TEST_ITERS; i++) {
++		pid_t child;
++		int status;
++
++		child = fork();
++		if (child < 0)
++			fatal_error("fork");
++		if (!child) {
++			if (!load_rand_tiledata(stashed_xsave))
++				fatal_error("failed to load tiledata");
++			execl("/proc/self/exe", "amx", EXEC_TEST_ARG, NULL);
++			fatal_error("exec");
++		}
++
++		if (waitpid(child, &status, 0) != child)
++			fatal_error("waitpid");
++		check_exec_child_status(status);
++	}
++
++	if (!snapshot_fpstates(&after)) {
++		free(before.addrs);
++		printf("[SKIP]\tvmallocinfo inaccessible or addresses hidden by kptr_restrict.\n");
++		return;
++	}
++	new_count = count_new(&before, &after);
++	free(before.addrs);
++	free(after.addrs);
++
++	if (!new_count) {
++		printf("[OK]\tDynamic fpstate allocations were freed across exec().\n");
++		return;
++	}
++
++	if (new_count == EXEC_TEST_ITERS) {
++		printf("[FAIL]\texec() leaked %d dynamic fpstate allocations\n",
++		       new_count);
++		exec_test_fails++;
++		return;
++	}
++
++	printf("[SKIP]\tUnexpected new allocation count %d; result inconclusive.\n",
++	       new_count);
++}
++
++int main(int argc, char **argv)
+ {
+ 	unsigned long features;
+ 	long rc;
+ 
++	if (argc == 2 && !strcmp(argv[1], EXEC_TEST_ARG))
++		return 0;
++
+ 	rc = syscall(SYS_arch_prctl, ARCH_GET_XCOMP_SUPP, &features);
+ 	if (rc || (features & XFEATURE_MASK_XTILE) != XFEATURE_MASK_XTILE) {
+ 		ksft_print_msg("no AMX support\n");
+@@ -504,6 +750,7 @@ int main(void)
+ 	req_xtiledata_perm();
+ 
+ 	test_fork();
++	test_exec();
+ 
+ 	/*
+ 	 * Perform generic xstate tests for context switching, ptrace,
+@@ -514,5 +761,5 @@ int main(void)
+ 	clearhandler(SIGILL);
+ 	free_stashed_xsave();
+ 
+-	return 0;
++	return exec_test_fails ? 1 : 0;
+ }
+-- 
+2.55.0
