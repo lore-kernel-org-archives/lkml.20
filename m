@@ -1,100 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634444;
-	b=wJwIG7f79yOmZGqG70QYftX00sSficv3FNfpG8ftCJ2Flf+uzLg4Hg3JdYhDEI3KORIa
-	 diCY/rj9k6m+RrUhvWmV7xnusgE8F7fTb6KQwmSHyWmYFr21XZHUWKkaX4Xvg8oCw4Wu/
-	 TAK+BhgZlO0s929l+xwleTXOvf7JemCwTvvkCPJx/YJ1hxWiaKBLPRznPCfEVhDS1l7GO
-	 IGbsdOvgxvWtBeuiw7+YVvzsMKdLVyZnf1ukCmI+CQJ5jkFCotUA2LercJA9iHenvRLNJ
-	 WUilzYoLdCARIG+GAzvPt+/x6Rcv4Hd9j5P5CjRGMB/iKg7UozRD1UsPGd7jGvfC+Qw==
+	t=1793634459;
+	b=al+CZnaMbPsYTMLNkpfVl+fu5Q7It3V2kLbXPyseDG/R+Y5aIOgS3k2zxZfgAM4G7Qxi
+	 P3qGN+yeE14LA3k3S1BQvUcFwQ8+7bEshVMXCX1nPHwkuzJqL+uvU1xmoG5TCe8gMHBNk
+	 8ui6HCXwuXbnvvjVTw1gQj3HMFBhB7Q8NwjM22YszBJGXr2TIOb9dGfiNKBinixM4YU/w
+	 UbCxvDU8v2p5ITEf6rXYSzLvclN85tzhsxgm2H6sVGvrxsx/E2M3z3ArqAr2NYa/B+xrJ
+	 ZAV0RpzkQVXcLKYvLc0oXsfdIWP3vHYwvLNbj35zF1Z+DCsyYlGzElnz/cvSeoQKu1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634444;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=+aPQ/bEuRJE66ZkZ1N1K788ZV0S5XvqiSxNz34MixTk=;
-	b=wA14V/1bXe9mkjQ3Qo5HGuQoJP4wYE/6a48xnD4XmevEb+b8uDUWs3q+onQ3dXq78gvs
-	 r/N5WCpbXMUYcm8M1LOOjZutf/oh75m3idDg4bUHGKJxsi2dCgeV1FKQYwvihXFh4CyOP
-	 nwdVm8D5aWp2cRdLIn4VE/67wSyG0TwVKpuahRpeDA+ItjIg3mvuNCkoq9WT5eCKh7ZDc
-	 ex4n3vmXRjKN/qXMXwQL1dmLYSw0ZBR8lv9NaaN2ziwimp/Xb9jAWFfJhHo5mzLzRvij6
-	 cYkngtqifWFwsQ2t00vZEE9mAetIS/eQrrx3AmC6kWKw1vySmTV5F3hLqQtadAShq3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634459;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6oNFMWCWOpStfYAnMdrje9lXGqu4L1IBJ8dC+bnvLWI=;
+	b=YgkODLw6UzK28YMJNK1nc/xNe+tPUKekseLQUaNkBqsThoJwc1/7J2+spbjazbC07nvQ
+	 XrAkLAOxFTkfJaoC8Q3gYfsDtgf3XZNl/5F4/M/3KOVs4IT7KhxMJZ47JrJqOGZD9+RH+
+	 cnAVMd8XteYhjz7bk1p8TEB7A4Xaigjpkl7gciEvYZg7dx+7sar0+6NQ/3OVeGrNsBeqQ
+	 kk/Gy6AV4H2BhKSzQx3pCfTeqC8RHeeNL35wpXg40FasnZlmerICWbLP5L6cHXQWey7Fb
+	 7++/LRDky+cov8QO+c48jfUpA2hSLHD5Z/tcOH6fx6uxJavPPfBIx78LLLLdAYLvrPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KyJSxg6+;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Iw8RDlD8;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MObWBwTp;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3424D606D82F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:47:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3424D606D82F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8B8607467A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F8B8607467A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KyJSxg6+
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4af520023fdso9192085e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:47:23 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Iw8RDlD8;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MObWBwTp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793634458;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6oNFMWCWOpStfYAnMdrje9lXGqu4L1IBJ8dC+bnvLWI=;
+	b=Iw8RDlD89ocGpI+AWDRUUv1nfPxnS2+ljNRRYL36vdQDsTtB1v7bmuPGsCvW/7KD2z+TMl
+	98bxLST/osBVknshIZY/Rldx4Z68ZJuL2KBBlsIFlmRc6Edco0QnMCb7HP85G6/WkT6An0
+	gOODbuMYBN2TfXiJ/9IzvXDt+GCKsXY=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-343-FqdCXoVqMvukZVqIQCSMIA-1; Mon, 02 Nov 2026 10:47:36 -0500
+X-MC-Unique: FqdCXoVqMvukZVqIQCSMIA-1
+X-Mimecast-MFC-AGG-ID: FqdCXoVqMvukZVqIQCSMIA_1793634456
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48c430f0f01so2808172f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:47:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793634442; x=1794239242; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+aPQ/bEuRJE66ZkZ1N1K788ZV0S5XvqiSxNz34MixTk=;
-        b=KyJSxg6+cbZeUYpZ1/gu0QLgAa2b3SpCqji3t1b/mopJFdnDcTnb1cqFHQF4PGpHhg
-         BVh/zR6a4PIafIc6QIF5RlOw0ds/EwPMEzTJ9goJoIi7JKlC1AcS645tgjVgaysNY2Tp
-         lJS3ab1iDpYmHbWPFytwWSAkcNHI320RJ2ixf7N5IC6uu06gNH/DY01Hj263wJWO3SkE
-         Ic3F5gQJMppZpjroWxN2nNtaZgnOtqTe0lgSAGyc3zec+OqH+1l95o4n21iUCrD34zBL
-         uBgM5+UuvJdECA/7Esbv4r1nzG1tmmZPdeM5ERfExpFjdzXvrO9Ltm/hU2TFzH76tDl4
-         RnaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793634442; x=1794239242;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1793634455; x=1794239255; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+aPQ/bEuRJE66ZkZ1N1K788ZV0S5XvqiSxNz34MixTk=;
-        b=oXonvGJcFnxOX1IMce2qM12ZMOFX/VqO5WmllesvcKTHQWEwIQ/KwejdYoMlw9wgj2
-         5K5EkhEC+qA/K65HKeVB+ZlsBOKHqG9nfYDtsko0oXsvOQ72epShx4AMikRxjAq8PC43
-         auB4KHOB812M0RDPMY5PJKR7yk0bDugJoOm4x7cyD+e5Qp1WnRRNkU9fVe7uUrWQ6EJz
-         RPb2VmiZMTfaVcmWeoG1frojUZ1iDT5/X37eYPabLmgbf98b71bfaiDHEUh+DPg8a/zk
-         eqymIDG9QRur266BJ/QQplWOmKcFlIhAz8S55/MsxguOjh1umjdBx5hyRR5V68jXUzf5
-         1VNg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2udgrDWGeuCyAxG4bcxKoFzdSKKZx203Saox8nLSNiplZ8hE4kJcSCQQnldaXPo9UESPuVY5D18gJgyw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8YEybukQlj81bdRTztNAHE0poXCfyZCWtKUjl+/8x2PcDeFaR
-	4lpOp9lClMSm6ZvbumZoK8PJiEt41q2WNzFyAg+kVcbP0pvRqbZPKHaZ
-X-Gm-Gg: AYBFou3AcYERI0TmFch3apHUzMe2dEgr+XiohFjek6xcVvXUnVjirjxwIaqPWQNaZvw
-	E0wjFDCMKnhUX4hIKNcLiKVV675KLYaHDfPrP/rLkVB4zjc7x3EUhTvs7v9VMx4QJxfDJ0T4H3Q
-	FcozYQyiRRLv9yU5oFyZJj7u3qxrpzoxpv+CMUAVX0U6kAH5MnAS1aPUXrYuJo9RV5Yc9m7+VKV
-	2puOkq+gqiXWjKdQBTQQw/GWwmosXcvq4f+4pgDzZBXR1SgxNKb0KsMecoKlodlaKkfNLIFE9e3
-	s3ZfQAfC6L2Zr7/4ZrjWknmIuj0fAX169WzZElesEizU+UrwKehqwywColnkiC2ddM5uBXNm1PQ
-	lHlWg4NqMZE0nAxHrqqmwJsnLeCIlOxWz/eGY1AyYjlTk/yYOjZHWdulDRmT3rOwGgUvk5DJR1d
-	ickj+daZZwfCShGrQ6NZDzqnhWMVw7zAiqjgJtZUl2JkEhcgHOuWoN8frcnD0IPbYTrKHTAOEXQ
-	PEpmC+3nyM9OLaj/ALqbkZ3Uv9g7ILDpDNYtsm3Nq9paqvriFqi4fSgFURz219Q+BlxYtI/rgZe
-	yX08Y3b0HONaO19dYBvJKNHEuHz7cQXiDiGiTR2s8+TAMZsSmJHgc+HbYlOtOD1yzB7NaigMbvP
-	g
-X-Received: by 2002:a05:600c:c08c:b0:4a2:1a:a115 with SMTP id 5b1f17b1804b1-4ac1209f120mr204038965e9.0.1793634442375;
-        Mon, 02 Nov 2026 07:47:22 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm359259525e9.12.2026.11.02.07.47.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:47:21 -0800 (PST)
-Date: Mon, 2 Nov 2026 18:47:17 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>, Hui Su <sh_def@163.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched: Fix cpuset_mutex double unlock in
- __sched_setscheduler()
-Message-ID: <auimbkttN-iPGtwZ@scheduler.schedules>
-References: <20261102134606.242743-1-parri.andrea@gmail.com>
+        bh=6oNFMWCWOpStfYAnMdrje9lXGqu4L1IBJ8dC+bnvLWI=;
+        b=MObWBwTp7Ynx9mSoZY34Ox3eRHXp0E0x31JMykZiBE48CSh7yK5JH6PQZTI9jcVcGL
+         eEqvsf7RCagBPs9zpoNDOd22ITM+rvCxhncV0bZfPCsMRAXTSzknjZKifZkS2LjwBngA
+         UisfB2TMA/YECFubsCCtT0f2LpPmp3GbXdKvqu7+ZXOINkhfmFCvOmr81/edJAZSMJXd
+         SjvgZumnlts7GKATp5qog+auts1Ap9sOhi6v1DhDqtOr8Q4xTBErYC/Yg2FzRtd/PBfq
+         L0SykiO4BMPZtHb2edr62lux0jpyOFzxuPlHYJW9KsnhPqbiVF2ZwOXS5ACtwfWgxIYC
+         6LAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793634455; x=1794239255;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6oNFMWCWOpStfYAnMdrje9lXGqu4L1IBJ8dC+bnvLWI=;
+        b=I/lv5d6pPCHXBuF/Si3aPGva0zVSM3xmfirUJ0rF3Cfz7xmALS3nN3Xv6HWwTj/9Px
+         oy+cHWTlqO78u12Dve7ychEULVBatIqdrAsa5vduKB/5sl+Cc6GFvmnjzxLImDuaaAlg
+         JvGgkWStab+rC5272FfkD+/ThPzTBzIVs4P2aK+XNUyXxEGbEU+ju1MJCnNk73pbJ6jy
+         l0oqOt0lgg1wPHRdiEgwK7aSDJqju7J46eNz9XZXMDNro34JY40bWtGRTfVrnnPJjVwh
+         Vn+h8d9RoLf496S2IC0mqm2/fMHS9Ef/DHY9CuPieYZ+0OKN5vMi3ES78m6+Y00NvElC
+         i2+w==
+X-Forwarded-Encrypted: i=1; AKwUvBx+U+lFcbYoKXNJKNIH8ZNO/5QykKXHmagEesGi0HZZ1YhSjgqZUq/b0LwWJ3kn1c1PeIPyrW1+vp4+z0I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lCnAm+W6ZJpiSrkEmnL0sgkOkHdXcJgAh7HkFTbg1G1av6tQa
+	wLpKId/CkS0F8iqFnuu9ALQvD83effkKqFPw/IwIL3DOxKDMXbKuf4DQpkzu4U245OvAiI3LsqK
+	4LgutYVq4gtX7zWrvhSHV0uDOx8RpCh/T9VIUPK4XL8a7y9OsBCIsMoL3uOhAQSnAjA==
+X-Gm-Gg: AYBFou3s+RifHnID+bwlmOUShG8aL5PtO/by+XInswN/2j/30mpyp990EEARh6V+Ygu
+	NbK4/EnjiC0BFVb3X2mVw1gD8g0qz+hHRYbCke4UWSnrG130HZK0L+WrZGv4zP+7O4RWEciItUf
+	3EQQWSEu078vMg6TQbwM7QPD08YUlrI+RBj84nrKAJzLAuA0Kmcs3yjji/xJQsIqDPMRZ3InDKd
+	LQTZuSoYdZPunirsPBtJRvTZmivKh7j2rktqc/5kvcLthps1d6IdTlc/5TG4ukCzZ0Mcz8dTI9Z
+	WBIp1rYdQzr1MtlQDyau3vCasX0nVOzQXjqzCZ4vB7L1WOdCqPSiXzI6l3hLD5tn18F2RuJtJUP
+	cJ8jXHequ49fcei01uj+f+UtWmxiTci4S0Ma3mb8iB3zzVaPob0Y7En8Ghneo4hjJ3+tTWgzfRg
+	luk2X0wLqMBHmE3ZP6BDgF3Y8ioLsDabCOQ9q3c8yhZNM=
+X-Received: by 2002:a05:6000:4559:b0:48d:ff71:dd97 with SMTP id ffacd0b85a97d-48e6e2bdd94mr16293257f8f.7.1793634455634;
+        Mon, 02 Nov 2026 07:47:35 -0800 (PST)
+X-Received: by 2002:a05:6000:4559:b0:48d:ff71:dd97 with SMTP id ffacd0b85a97d-48e6e2bdd94mr16293220f8f.7.1793634455206;
+        Mon, 02 Nov 2026 07:47:35 -0800 (PST)
+Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a4csm20493214f8f.23.2026.11.02.07.47.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 07:47:34 -0800 (PST)
+Message-ID: <15433a8b-5e5d-44dd-a12f-f2074857c1ad@redhat.com>
+Date: Mon, 2 Nov 2026 16:47:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,52 +112,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261102134606.242743-1-parri.andrea@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] net: dsa: clear the conduit RX queue on receive
+To: John Macias <dencity7@gmail.com>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ linux-kernel@vger.kernel.org
+References: <CA+KzPspNN14ZEyxisGrOSpgfTqajJfZTXG_iHBRMYd2su1dRKQ@mail.gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <CA+KzPspNN14ZEyxisGrOSpgfTqajJfZTXG_iHBRMYd2su1dRKQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 02:46:05PM +0100, Andrea Parri wrote:
-:
-> A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
-> unlocks cpuset_mutex twice if the task's policy changes concurrently:
+On 10/28/26 03:51, John Macias wrote:
+> diff --git a/net/dsa/tag.c b/net/dsa/tag.c
+> index 6a5aa7fc3..e53dc3f3c 100644
+> --- a/net/dsa/tag.c
+> +++ b/net/dsa/tag.c
+> @@ -95,6 +95,13 @@ static int dsa_switch_rcv(struct sk_buff *skb,
+> struct net_device *dev,
 
-Uh-oh.
+The diff is damaged. Please fix your setup and re-submit.
 
->  kernel/sched/syscalls.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-> index 45a127deeadd9..2af550f92ac65 100644
-> --- a/kernel/sched/syscalls.c
-> +++ b/kernel/sched/syscalls.c
-> @@ -640,8 +640,10 @@ int __sched_setscheduler(struct task_struct *p,
->  	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
->  		policy = oldpolicy = -1;
->  		task_rq_unlock(rq, p, &rf);
-> -		if (cpuset_locked)
-> +		if (cpuset_locked) {
->  			cpuset_unlock();
-> +			cpuset_locked = false;
-> +		}
->  		goto recheck;
->  	}
->  
-> -- 
-> 2.53.0
-> 
-
-So the issue is that when tasks policy changes before we come to this
-check, we don't clear cpuset_locked while calling cpuset_unlock().
-
-In the other calls of cpuset_unlock() this is not a problem since we
-just return and don't use the local cpuset_locked. But on this one we
-do. And if we don't retake the lock it just stays true. Even if we
-didn't claimed the lock. And that causes bad, bad, bad, bad problems.
-
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-
-
-Thanks,
-
-Kayra
+/P
 
