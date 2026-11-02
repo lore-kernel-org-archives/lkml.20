@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793660164;
-	b=TFIWP4pZVjVG7IFDMykyn8GTU0awdlR0MN/UJWrpoUEuXkjswD+VJm3ff4XhWfCen1Mp
-	 r+noY/VtGrJ5w0AsHkm7I26e025uJpLWiAFawkseic+0PFHjWES4kRC/zUhpPp+6SEhcF
-	 LST8bIvf6Dn9rewGP+rzLFMVMDoL4QRhKaBOYylGmr4gpkTCkMaK93mPJuyxs8IROp0a9
-	 7Lj4gffEx7K2nSUZGP7lV0EtUHygzp6f+ux1+uD6HGc3QO4Jv94vYQQsoS3agerh1gHCo
-	 Se5kw1W11NDOkVSMLz8vHvq9qq5RCH8Vu4ARZdvRuQ1yT5eawBThug/uizTx6f8kRgg==
+	t=1793660180;
+	b=2tmaqN5brnA46t1jFRd1fD3yfGI4IiE4rDkKmJhwwM3lrsyi0uuagE8W1eDQpxYkDat/
+	 uB+rlX4syo/ZpmFgzQvARzZ2OrsIbmTRTBtvp/vHk3RzHTE7K7jseLC59vSzLsniZY3nD
+	 8pscud6B/wZBxY4+d4gd9OfE6GT3ayFkWqGAguyLk0HCJwp4BZb0gR0lTIxtX1Swvw56Q
+	 vADt+L9rvhEPgpj92d+X68/uK8odXIQAnRAjhImSO/4SI/m+WTDMkv0aHJfndVGi1pHuk
+	 C3+7G7cIhLVTRUvVsPSUnYu1L2in8jFM8Q5+uMMAr4ArtnqxN5KOJI6+EKkHHjQ8imA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793660164;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Tjywhpg4haa7M6XUPEdo07mUb7ffrhUZvgkBemX0i2U=;
-	b=jP4gIJ2Yz2gq2NJR6D0XiNtgG5b2GRJvFPHHXpYJuS2lBhLoKb+ZPQJZ/OqRJr1ufj/o
-	 hekqkCzWFDqUKtzIfTyJBB1PqpNq20X5WeSpc24uzQA096fITvA6ydnLve78nqRjwMTGJ
-	 049hZAOZiP4wOTCFvx3uV+6+ZS+D3HyFuJ0hetbMFutqvca3scSt8m5iCpPXYJAvgNNli
-	 +/uXQnQ+axzvWKRbvisNtAvffzfLHBdJnoOqUi6tICqKPkB47xWkryxlU2eCV8vWqjumN
-	 pIWQfdrDMkgzq9BlgUY24ng3NcduEqO0CI/FeML2W3cD5cZd6wpsLs6UYLd7x9feg0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793660180;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=cFYQ0d2h0844nhQw4x0ZMieOCXHXgxHX+w5eXcpQbAM=;
+	b=KoKT5HFrpPJn4sc3beRbF3weCLYMdK+PuWMTbC8m1y/6EryUh7B7uU+J63CsxGWNr48S
+	 M5KLpkNSS+ubV4AmfXRKiFg+7cBqWZfOLhTh3wK9njwzMjiOknGV1eUjBkIySaa/b9psm
+	 DahqtMnnebxBzaVDhfgQDcdyWIbYifoNVZaBw3LxsflhYz3WvkrfdunDfxjPCzau2osI6
+	 DwV61krvJnkUZw6WY+Zs/2f69CIpudehGwvVGXXFcsbVMlC4jpkYa1BpUQPeJq34/raA/
+	 xGvfZTFl7RT3Sci13ZwqWLTG/5LHCMdoxPyH8SFxZsxG/lRIwlm1YP5QQDV2k3XWqzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=yW+qkEsl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwlS+ODd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB829606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:56:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A09606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:56:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=yW+qkEsl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E259B1F00A16;
-	Mon,  2 Nov 2026 22:56:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793660163;
-	bh=Tjywhpg4haa7M6XUPEdo07mUb7ffrhUZvgkBemX0i2U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=yW+qkEslEALOo0D43uyXiR43/P08AtDgKt4P6xisCXzYiAWwHoC2m40quCecPKQ2M
-	 SLJ+/sQFebV9fTCt3ibRoVZe4VcOa8KDZL71wttYVQ3k02xY+gGYz0bCoxw9ryvF/z
-	 CNqy25uXiZjYlUdwcHh4kSKHgBfNayQHOKnZesWU=
-Date: Mon, 2 Nov 2026 14:56:02 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Barry Song <baohua@kernel.org>
-Cc: Siddharth Chintamaneni <sidchintamaneni@gmail.com>, hannes@cmpxchg.org,
- david@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, ljs@kernel.org, kasong@tencent.com,
- axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
- baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, yuzhao@google.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, apais@microsoft.com,
- rlmenge@gmail.com, Hardik Garg <hargar@linux.microsoft.com>
-Subject: Re: [PATCH v2 1/2] mm: multi-gen LRU: use mem_cgroup_lruvec() in
- get_lruvec()
-Message-Id: <20261102145602.44f2836b6aef7d8e2cd14562@linux-foundation.org>
-In-Reply-To: <CAGsJ_4zVpHAGM=Sz8J+5PFv3H54CyVdpcp6cpVK+rQ5f82Q1EQ@mail.gmail.com>
-References: <20261026202313.63122-1-sidchintamaneni@gmail.com>
-	<20261026202313.63122-2-sidchintamaneni@gmail.com>
-	<CAGsJ_4zVpHAGM=Sz8J+5PFv3H54CyVdpcp6cpVK+rQ5f82Q1EQ@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwlS+ODd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363A91F00A20
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:56:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793660180;
+	bh=cFYQ0d2h0844nhQw4x0ZMieOCXHXgxHX+w5eXcpQbAM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BwlS+ODdUdt0siIbyOLdnHsFImrxeLmqStw9m/xBBplYc9zMvwzEbcN/gAQUkTsWu
+	 SmuQLkKbhgoe0nVXDEE7k8qzUUXhaSTUIkYRliC34SFtT7UMCHlqwt+p4BWUIqebsl
+	 vQV4TPC4H2hBww1lm8aWqF4y328VCJnUBu1ZlvrwPZTZDxJOYzejW2ZaOELjFdXFSB
+	 X+jVTemvcF8j0tJajy/CK+MZ3zC89zWIH8igB3jShGDM25mYp/iDL1gcac/NovwW3O
+	 VANVCLdDy8AddHhabBrjNTT2ngCKjbLs/4fgjEsnVdQzMdJKl5hMkUR3WMkrRVVkI2
+	 VkmMi0STm7RwQ==
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93f2049ea7aso263167585a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:56:20 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBy4+eJtIXPvmnrooVIJCqlAQ4Hqp91vpG2Z4twtOnbEuFV9pfPI2yxj1sCxaOuS4Fc7WTgL3lwJIJtscfM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGDSPZughhWQvJhh7r0RhitEjh+xcr4vwBs5WAoNBqBjIpKwzP
+	iHk0+4ISwOHN+HtWOo3kjls766JIiySsPcpkIVqHg8mzcOvpr/hVH6nrjhYjtIycHq8c8W+uoSu
+	dVb30iKbbPLjzhrI5wFBiGXmgXgDDk14=
+X-Received: by 2002:a05:620a:2556:b0:93a:2150:ec06 with SMTP id
+ af79cd13be357-944217430a2mr1904131085a.31.1793660179584; Mon, 02 Nov 2026
+ 14:56:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,145 +58,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+References: <20261026202313.63122-1-sidchintamaneni@gmail.com> <20261026202313.63122-3-sidchintamaneni@gmail.com>
+In-Reply-To: <20261026202313.63122-3-sidchintamaneni@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 3 Nov 2026 06:56:07 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zGmtvOApjFH_-V9z_zNWWQnrBX9q0_iWtbqzENCetfgw@mail.gmail.com>
+X-Gm-Features: AclHuK9iKml0mqB9U10W06jkrcvQ3DU6aATh74iQjCSlMOo7Q2XN81V-z79dfX4
+Message-ID: <CAGsJ_4zGmtvOApjFH_-V9z_zNWWQnrBX9q0_iWtbqzENCetfgw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: remove get_lruvec()
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
+	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	apais@microsoft.com, rlmenge@gmail.com, 
+	Hardik Garg <hargar@linux.microsoft.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 3 Nov 2026 06:51:19 +0800 Barry Song <baohua@kernel.org> wrote:
+On Tue, Oct 27, 2026 at 4:23=E2=80=AFAM Siddharth Chintamaneni
+<sidchintamaneni@gmail.com> wrote:
+>
+> get_lruvec() was originally introduced in commit ec1c86b25f4b ("mm:
+> multi-gen LRU: groundwork") to guard against NULL NODE_DATA(nid) on
+> uninitialized NUMA nodes (`return pgdat ? &pgdat->__lruvec : NULL;`).
+> After commit 09f49dca570a ("mm: handle uninitialized numa nodes
+> gracefully") and commit 931b6a8b36a2 ("mm: multi-gen LRU: remove NULL
+> checks on NODE_DATA()"), that NULL check was removed, leaving
+> get_lruvec() as a thin wrapper around mem_cgroup_lruvec().
+>
+> Remove get_lruvec() and call mem_cgroup_lruvec() directly at all call
+> sites.
+>
+> Suggested-by: Barry Song <baohua@kernel.org>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+> ---
 
-> On Tue, Oct 27, 2026 at 4:23 AM Siddharth Chintamaneni
-> <sidchintamaneni@gmail.com> wrote:
-> >
-> > Andrew Morton noted that get_lruvec() has the same pattern as
-> > lru_gen_shrink_node(): when memcg is disabled on the command line
-> > (cgroup_disable=memory), it returns &pgdat->__lruvec directly instead of
-> > going through mem_cgroup_lruvec(), which initializes lruvec->pgdat.
-> >
-> > In practice all callers of get_lruvec() run after kswapd_init() has
-> > already initialized pgdat->__lruvec.pgdat on every N_MEMORY node, so
-> > this is not a runtime bug. Have get_lruvec() delegate to
-> > mem_cgroup_lruvec() directly.
-> 
-> Somehow, I feel this changelog is a bit weird. The earlier
-> description doesn't really justify the final sentence:
-> "Have get_lruvec() delegate to mem_cgroup_lruvec() directly."
-> 
-> Can we change it to the below?
-> 
-> The patch was initially developed to address a possible NULL
-> reference [1].
-> 
-> Andrew Morton reported that get_lruvec() has the same problem as
-> lru_gen_shrink_node(): when memcg is disabled on the command line
-> (cgroup_disable=memory), it returns &pgdat->__lruvec directly and so
-> bypasses the initialization of lruvec->pgdat. The MGLRU debugfs
-> interface calls get_lruvec(), then dereferences the pgdat pointer in
-> lru_gen_seq_show() and other paths, so these can hit the same NULL
-> dereference.
-> 
-> In practice, we found that this cannot happen, as all callers of
-> get_lruvec() run after kswapd_init() has initialized
-> pgdat->__lruvec.pgdat on every N_MEMORY node. Therefore, this
-> is not a runtime bug.
-> 
-> However, it would still be good to clean up get_lruvec() by
-> removing the MGLRU-specific code and having it delegate
-> directly to mem_cgroup_lruvec().
-> 
-> [1] https://lore.kernel.org/linux-mm/20261017050928.128582-2-sidchintamaneni@gmail.com/
+It's great to see the MGLRU-specific get_lruvec() gone. Thanks!
+Hopefully, we can get rid of more MGLRU-specific code,
+such as get_swappiness().
 
-Thanks, I locally made that change.
-
-
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Subject: mm: multi-gen LRU: use mem_cgroup_lruvec() in get_lruvec()
-Date: Mon, 26 Oct 2026 20:23:12 +0000
-
-Patch series "mm: multi-gen LRU: replace get_lruvec() with
-mem_cgroup_lruvec()", v2.
-
-This series cleans up MGLRU's get_lruvec() helper in mm/vmscan.c.
-
-Patch 1 updates get_lruvec() to delegate to mem_cgroup_lruvec() rather
-than returning &pgdat->__lruvec directly when memcg is disabled on the
-kernel command line.
-
-Patch 2 removes get_lruvec() completely and replaces all 15 call sites
-with mem_cgroup_lruvec().
-
-
-This patch (of 2):
-
-The patch was initially developed to address a possible NULL reference
-[1].
-
-Andrew Morton reported that get_lruvec() has the same problem as
-lru_gen_shrink_node(): when memcg is disabled on the command line
-(cgroup_disable=memory), it returns &pgdat->__lruvec directly and so
-bypasses the initialization of lruvec->pgdat.  The MGLRU debugfs interface
-calls get_lruvec(), then dereferences the pgdat pointer in
-lru_gen_seq_show() and other paths, so these can hit the same NULL
-dereference.
-
-In practice, we found that this cannot happen, as all callers of
-get_lruvec() run after kswapd_init() has initialized pgdat->__lruvec.pgdat
-on every N_MEMORY node.  Therefore, this is not a runtime bug.
-
-However, it would still be good to clean up get_lruvec() by removing the
-MGLRU-specific code and having it delegate directly to
-mem_cgroup_lruvec().
-
-Link: https://lore.kernel.org/20261026202313.63122-1-sidchintamaneni@gmail.com
-Link: https://lore.kernel.org/20261026202313.63122-2-sidchintamaneni@gmail.com
-Link: https://lore.kernel.org/linux-mm/20261017050928.128582-2-sidchintamaneni@gmail.com/ [1]
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Reviewed-by: Barry Song <baohua@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: <apais@microsoft.com>
-Cc: <rlmenge@gmail.com>
----
-
- mm/vmscan.c |   15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
-
---- a/mm/vmscan.c~mm-multi-gen-lru-use-mem_cgroup_lruvec-in-get_lruvec
-+++ a/mm/vmscan.c
-@@ -2866,20 +2866,9 @@ static struct lruvec *get_lruvec(struct
- {
- 	struct pglist_data *pgdat = NODE_DATA(nid);
- 
--#ifdef CONFIG_MEMCG
--	if (memcg) {
--		struct lruvec *lruvec = &memcg->nodeinfo[nid]->lruvec;
-+	VM_WARN_ON_ONCE(!memcg && !mem_cgroup_disabled());
- 
--		/* see the comment in mem_cgroup_lruvec() */
--		if (!lruvec->pgdat)
--			lruvec->pgdat = pgdat;
--
--		return lruvec;
--	}
--#endif
--	VM_WARN_ON_ONCE(!mem_cgroup_disabled());
--
--	return &pgdat->__lruvec;
-+	return mem_cgroup_lruvec(memcg, pgdat);
- }
- 
- static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc)
-_
-
