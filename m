@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641528;
-	b=PvxDJnnaPvC5/u1V522OyHgL2o+Hn7BWWZp9GfOtN2J//LH7Y9s32CA2YdgcHGIjFYuX
-	 7SaD/mamfgrd+0yB/093wqWMSnNIyuZIQKEl7yCjRb5fceROFy55zNr5TpCvjoqhwwKlB
-	 c2kLKtAwQyeSSb8r34Y6NEAY5NnqSPWfFF57jdPGvbFBuRuaaVTMIaYsmTKYrnx1HC8no
-	 bmfUmqw4r3Fb6soJ9SWA20kAzHzaZsF1xqUjLlbF66oQY7GNPPC8WORtwuwt0wfM8IqHo
-	 g0dBdfiERkz4v24vi7ioNeUxfORA68f6MbprVf2uGX0EJA2Chnxyk4kaAPanECAurGg==
+	t=1793641541;
+	b=i4pXyhXPct6+B8yQqqGaRvjlvrYGYK+NSKwC+fVqqo3SY1lTEE8O+8W6KC0XcBRYKd3G
+	 AHDYIHfKyvxwEdwkNC1h+/GYnXPiyFMvksK6RuUjgC7qDGxjyah8uUY9xJ0X92ZUu6VZe
+	 7vGlXOUzuHsNheSBqFuxls6wqXxUEo9GngzqOon1CnU8KaRq9rLYJv/Y38wlxKrwrFGM0
+	 o3qjYi18CCxyy3+M1RhjbqP9+rDyFq6stGDFe8fnmp6movfY32MDzQiFLn/FtAihEhgff
+	 ooiCNwqvGQX8C4D9FubiAWi6pbiyB5qSX/W1OiX+zsGnR+csDo4PFQnWhe/5405YwZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641541;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=PYwT8C8YBZBl9jtyu1J67hJllZibYxUPZTWxJc2Safw=;
-	b=ggcFenpkLjesaIAvQGigMdSfhvUpN7jCWuxJow1eIMjmtbyvx/TZKSo1leZJh/HDzwB4
-	 vNe8QlL714qjdBRdy2jGftA6ARjnw4S3s1IGKKxUIx0PCYFIBFoTqllGyPTeoI8uc7ZLV
-	 DQIj/6ixKgiZGmUR8/F2yb1ke9I7w5c6Sv5qHXxXq4ImW4h/9cuyv/2DQGS1UfIYcYNw3
-	 ox36Zhma70GWUbV00sDkog7XFcFMQzJSJC3Ev4s9YX4Ry3wMPeOdiaxX8gqPIf6nNOd+2
-	 Ph854j/wMMRwa+HG+XMGKA6wuuVjlwcKgBYXeNfySLswpGTwxnq/s0zKPaLl23MvWBA==
+	bh=ablAo5YIIqHuiUUC3hode5eZZ+Mpi40SR0IQ+7UmtLk=;
+	b=rB1qrmPyWqVC5kAucx0I/mwDTknz8Usy9OpPs5NJY6wMkqFtWvndgEki3PvyKEdMc75C
+	 B4gjOanzS9CnyGBj6DwlF0d4vGfVDfKJjbzygZc0umIfIiWbUHgN7wHnMvinZXW48TEn7
+	 oJ01FYzG7DuAlT7xRG18DmvOoQ6s0ErevkibUgbTewBVV/SqNBAaQ6Ngdwz9J9vlkfuLK
+	 yRQGovj/wkEX+or5SKbIBiilUY08DIG6mRBUVny+rTyA0W4xyto6Gyqp1XyctsUwj+ySK
+	 ercwWZyQqHniqJTUU0YnaGLgpe9xj2QAsJTY22QlsqGlqnRUpdgiHZ0d8UWJmaWYp3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DXzhGS6M;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g1jrYat1;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E787B60A5BC4
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E787B60A5BC4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C47E607E527
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C47E607E527
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DXzhGS6M
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g1jrYat1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641527;
+	s=mimecast20190719; t=1793641539;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=PYwT8C8YBZBl9jtyu1J67hJllZibYxUPZTWxJc2Safw=;
-	b=DXzhGS6MlzUfEPNRh7iylntAbvAbneJRKlnHohDc8T0LDQoXVIJzdPcc37E528QezjVX1V
-	DZx48vfVfWyGUKonUO1pL5grd78N1W1ak7/qOzH1dvPtf7NypKQDgG6KQNnDRjlYm0REe1
-	oFx9Yw/eOGAonpJ0RxJBmrjytlSeXWk=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=ablAo5YIIqHuiUUC3hode5eZZ+Mpi40SR0IQ+7UmtLk=;
+	b=g1jrYat1j5AIiddw3WOF4rImE5c5LEe0RhKs+Ws30QQaqIg2V427VbzFF0/p940xef22na
+	379Vn27W4mCcbyuPzkxE2s3D6v4//abK8/1gkJl3xsSJHioxnrtZR8sTMolvhmnvZsbKgB
+	pIjtqoqenjQ2RpkToex3ayHobRBwD9s=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-633-pBdrkj1hOIKS-YLizBpQGg-1; Mon,
- 02 Nov 2026 12:45:22 -0500
-X-MC-Unique: pBdrkj1hOIKS-YLizBpQGg-1
-X-Mimecast-MFC-AGG-ID: pBdrkj1hOIKS-YLizBpQGg_1793641522
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-63-qy_Vmfo4NzedVa1KjRcFxA-1; Mon,
+ 02 Nov 2026 12:45:28 -0500
+X-MC-Unique: qy_Vmfo4NzedVa1KjRcFxA-1
+X-Mimecast-MFC-AGG-ID: qy_Vmfo4NzedVa1KjRcFxA_1793641527
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DA4D0195606D;
-	Mon,  2 Nov 2026 17:45:21 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5976A1800147;
+	Mon,  2 Nov 2026 17:45:27 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 68356433;
-	Mon,  2 Nov 2026 17:45:21 +0000 (UTC)
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DB6D2180057F;
+	Mon,  2 Nov 2026 17:45:26 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: [PATCH 29/45] KVM: x86/emulate: change return value of emulator_io_permitted to int
-Date: Mon,  2 Nov 2026 12:44:56 -0500
-Message-ID: <20261102174512.8903-13-pbonzini@redhat.com>
+Subject: [PATCH 37/45] KVM: x86/mmu: Issue memory fault exit if walk failed due to memory attribute
+Date: Mon,  2 Nov 2026 12:45:04 -0500
+Message-ID: <20261102174512.8903-21-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,121 +80,236 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Allow emulator_io_permitted to distinguish memory attribute faults
-from disallowed I/O ports.
+During execution, page table entries are subject to memory protection
+simply because their GPA is obtained with an EPT walk.  During emulation,
+the checks need to be done by hand and result in an -EFAULT userspace
+exit.
 
+However, if a guest PTE is read-only, do not go all the way out to
+userspace and just stomp out the write.  This is consistent with the way
+KVM handles read-only memory slots during emulation, though admittedly
+inconsistent with everything else: NPT for example always wants nested
+page table entries for the guest page tables to be writable, and will
+fault.
+
+Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Link: https://patch.msgid.link/20260918135030.171564-27-pbonzini@redhat.com
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/emulate.c | 50 +++++++++++++++++++++++++-----------------
- 1 file changed, 30 insertions(+), 20 deletions(-)
+ arch/x86/include/asm/kvm_host.h |  2 +-
+ arch/x86/kvm/mmu/mmu.c          |  6 +++--
+ arch/x86/kvm/mmu/paging_tmpl.h  | 40 ++++++++++++++++++++++++++-------
+ arch/x86/kvm/regs.h             |  6 +++++
+ arch/x86/kvm/svm/nested.c       | 16 ++++++-------
+ arch/x86/kvm/vmx/nested.c       |  2 +-
+ 6 files changed, 52 insertions(+), 20 deletions(-)
 
-diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
-index 711794592c2c..8464816349b5 100644
---- a/arch/x86/kvm/emulate.c
-+++ b/arch/x86/kvm/emulate.c
-@@ -2526,8 +2526,8 @@ static bool emulator_bad_iopl(struct x86_emulate_ctxt *ctxt)
- #define VMWARE_PORT_VMPORT	(0x5658)
- #define VMWARE_PORT_VMRPC	(0x5659)
- 
--static bool emulator_io_port_access_allowed(struct x86_emulate_ctxt *ctxt,
--					    u16 port, u16 len)
-+static int emulator_io_port_access_allowed(struct x86_emulate_ctxt *ctxt,
-+					   u16 port, u16 len)
- {
- 	const struct x86_emulate_ops *ops = ctxt->ops;
- 	struct desc_struct tr_seg;
-@@ -2543,43 +2543,47 @@ static bool emulator_io_port_access_allowed(struct x86_emulate_ctxt *ctxt,
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 7fbcf60e56cf..e33ca5ea59bd 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -486,7 +486,7 @@ struct kvm_page_fault;
+  */
+ struct kvm_pagewalk {
+ 	unsigned long (*get_guest_pgd)(struct kvm_vcpu *vcpu);
+-	u64 (*get_pdptr)(struct kvm_vcpu *vcpu, int index);
++	int (*get_pdptr)(struct kvm_vcpu *vcpu, int index, u64 *pdptr);
+ 	void (*inject_page_fault)(struct kvm_vcpu *vcpu,
+ 				  struct x86_exception *fault,
+ 				  bool from_hardware);
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 9567c109306b..c08168595732 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -4204,7 +4204,9 @@ static int mmu_alloc_shadow_roots(struct kvm_vcpu *vcpu)
  	 */
- 	if (enable_vmware_backdoor &&
- 	    ((port == VMWARE_PORT_VMPORT) || (port == VMWARE_PORT_VMRPC)))
--		return true;
-+		return 0;
+ 	if (w->cpu_role.base.level == PT32E_ROOT_LEVEL) {
+ 		for (i = 0; i < 4; ++i) {
+-			pdptrs[i] = w->get_pdptr(vcpu, i);
++			r = w->get_pdptr(vcpu, i, &pdptrs[i]);
++			if (r)
++				return r;
+ 			if (!(pdptrs[i] & PT_PRESENT_MASK))
+ 				continue;
  
- 	ops->get_segment(ctxt, &tr, &tr_seg, &base3, VCPU_SREG_TR);
- 	if (!tr_seg.p)
--		return false;
-+		return -EACCES;
- 	if (desc_limit_scaled(&tr_seg) < 103)
--		return false;
-+		return -EACCES;
- 	base = get_desc_base(&tr_seg);
- #ifdef CONFIG_X86_64
- 	base |= ((u64)base3) << 32;
- #endif
- 	r = ops->read_std(ctxt, base + 102, &io_bitmap_ptr, 2, NULL, true);
- 	if (r != X86EMUL_CONTINUE)
--		return false;
-+		return -EACCES;
- 	if (io_bitmap_ptr + port/8 > desc_limit_scaled(&tr_seg))
--		return false;
-+		return -EACCES;
- 	r = ops->read_std(ctxt, base + io_bitmap_ptr + port/8, &perm, 2, NULL, true);
- 	if (r != X86EMUL_CONTINUE)
--		return false;
-+		return -EACCES;
- 	if ((perm >> bit_idx) & mask)
--		return false;
--	return true;
-+		return -EACCES;
-+	return 0;
- }
+@@ -6211,7 +6213,7 @@ static void init_kvm_page_walk(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
  
--static bool emulator_io_permitted(struct x86_emulate_ctxt *ctxt,
--				  u16 port, u16 len)
-+static int emulator_io_permitted(struct x86_emulate_ctxt *ctxt,
-+				 u16 port, u16 len)
- {
--	if (ctxt->perm_ok)
--		return true;
-+	int r;
+ 	w->cpu_role.as_u64   = cpu_role.as_u64;
+ 	w->inject_page_fault = kvm_inject_page_fault;
+-	w->get_pdptr         = kvm_pdptr_read;
++	w->get_pdptr         = kvm_pdptr_get;
+ 	w->get_guest_pgd     = get_guest_cr3;
  
--	if (emulator_bad_iopl(ctxt))
--		if (!emulator_io_port_access_allowed(ctxt, port, len))
--			return false;
-+	if (ctxt->perm_ok)
-+		return 0;
+ 	if (!is_cr0_pg(w))
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index a76ec22ce3f2..ddab65e5689d 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -89,6 +89,7 @@ struct guest_walker {
+ 	unsigned int pt_access[PT_MAX_FULL_LEVELS];
+ 	unsigned int pte_access;
+ 	gfn_t gfn;
++	int error;
+ 	struct x86_exception fault;
+ };
+ 
+@@ -342,6 +343,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 
+ 	trace_kvm_mmu_pagetable_walk(addr, access);
+ retry_walk:
++	walker->error = 0;
+ 	walker->level = w->cpu_role.base.level;
+ 	pte           = kvm_mmu_get_guest_pgd(vcpu, w);
+ 	have_ad       = PT_HAVE_ACCESSED_DIRTY(w);
+@@ -349,7 +351,9 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ #if PTTYPE == 64
+ 	walk_nx_mask = 1ULL << PT64_NX_SHIFT;
+ 	if (walker->level == PT32E_ROOT_LEVEL) {
+-		pte = w->get_pdptr(vcpu, (addr >> 30) & 3);
++		walker->error = w->get_pdptr(vcpu, (addr >> 30) & 3, &pte);
++		if (walker->error)
++			goto error;
+ 		trace_kvm_mmu_paging_element(pte, walker->level);
+ 		if (!FNAME(is_present_gpte)(w, pte))
+ 			goto error;
+@@ -398,9 +402,11 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 		walker->table_gfn[walker->level - 1] = table_gfn;
+ 		walker->pte_gpa[walker->level - 1] = pte_gpa;
+ 
+-		kvm_translate_gpa(vcpu, w, gfn_to_gpa(table_gfn),
+-				  nested_access | PFERR_GUEST_PAGE_MASK,
+-				  &real_gpa, &walker->fault, 0);
++		walker->error = kvm_translate_gpa(vcpu, w, gfn_to_gpa(table_gfn),
++						  nested_access | PFERR_GUEST_PAGE_MASK,
++						  &real_gpa, &walker->fault, 0);
++		if (walker->error)
++			return 0;
+ 
+ 		if (unlikely(real_gpa == INVALID_GPA))
+ 			return 0;
+@@ -414,6 +420,16 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 		if (unlikely(kvm_is_error_hva(host_addr)))
+ 			goto error;
+ 
++		if (!kvm_mem_attributes_may_read_gfn(vcpu->kvm, gpa_to_gfn(real_gpa))) {
++			walker->error = -EFAULT;
++			kvm_prepare_memory_fault_exit(vcpu, real_gpa & PAGE_MASK,
++						      PAGE_SIZE, false, false, false);
++			goto error;
++		}
 +
-+	if (emulator_bad_iopl(ctxt)) {
-+		r = emulator_io_port_access_allowed(ctxt, port, len);
-+		if (r)
-+			return r;
++		if (!kvm_mem_attributes_may_write_gfn(vcpu->kvm, gpa_to_gfn(real_gpa)))
++			walker->pte_writable[walker->level - 1] = false;
++
+ 		ptep_user = (pt_element_t __user *)((void *)host_addr + offset);
+ 		if (unlikely(get_user(pte, ptep_user)))
+ 			goto error;
+@@ -458,9 +474,11 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 		gfn += pse36_gfn_delta(pte);
+ #endif
+ 
+-	kvm_translate_gpa(vcpu, w, gfn_to_gpa(gfn),
+-			  access | PFERR_GUEST_FINAL_MASK, &real_gpa,
+-			  &walker->fault, walker->pte_access);
++	walker->error = kvm_translate_gpa(vcpu, w, gfn_to_gpa(gfn),
++					  access | PFERR_GUEST_FINAL_MASK, &real_gpa,
++					  &walker->fault, walker->pte_access);
++	if (walker->error)
++		return 0;
+ 	if (real_gpa == INVALID_GPA)
+ 		return 0;
+ 
+@@ -823,6 +841,9 @@ static int FNAME(page_fault)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault
+ 	 * The page is not mapped by the guest.  Let the guest handle it.
+ 	 */
+ 	if (!r) {
++		if (walker.error)
++			return walker.error;
++
+ 		if (!fault->prefetch)
+ 			__kvm_inject_emulated_page_fault(vcpu, &walker.fault, true);
+ 
+@@ -920,8 +941,11 @@ static int FNAME(gva_to_gpa)(struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
+ 	if (r) {
+ 		*gpa = gfn_to_gpa(walker.gfn);
+ 		*gpa |= addr & ~PAGE_MASK;
+-	} else if (exception)
++	} else if (walker.error) {
++		return walker.error;
++	} else if (exception) {
+ 		*exception = walker.fault;
 +	}
  
- 	ctxt->perm_ok = true;
- 
--	return true;
-+	return 0;
+ 	return 0;
+ }
+diff --git a/arch/x86/kvm/regs.h b/arch/x86/kvm/regs.h
+index 97c17b120a57..31f4d3f6ea42 100644
+--- a/arch/x86/kvm/regs.h
++++ b/arch/x86/kvm/regs.h
+@@ -319,6 +319,12 @@ static inline u64 kvm_pdptr_read(struct kvm_vcpu *vcpu, int index)
+ 	return vcpu->arch.pdptrs[index];
  }
  
- static void string_registers_quirk(struct x86_emulate_ctxt *ctxt)
-@@ -3931,8 +3935,11 @@ static int check_rdpmc(struct x86_emulate_ctxt *ctxt)
- 
- static int check_perm_in(struct x86_emulate_ctxt *ctxt)
- {
-+	int r;
++static inline int kvm_pdptr_get(struct kvm_vcpu *vcpu, int index, u64 *pdptr)
++{
++	*pdptr = kvm_pdptr_read(vcpu, index);
++	return 0;
++}
 +
- 	ctxt->dst.bytes = min(ctxt->dst.bytes, 4u);
--	if (!emulator_io_permitted(ctxt, ctxt->src.val, ctxt->dst.bytes))
-+	r = emulator_io_permitted(ctxt, ctxt->src.val, ctxt->dst.bytes);
-+	if (r)
- 		return emulate_gp(ctxt, 0);
- 
- 	return X86EMUL_CONTINUE;
-@@ -3940,8 +3947,11 @@ static int check_perm_in(struct x86_emulate_ctxt *ctxt)
- 
- static int check_perm_out(struct x86_emulate_ctxt *ctxt)
+ static inline void kvm_pdptr_write(struct kvm_vcpu *vcpu, int index, u64 value)
  {
-+	int r;
-+
- 	ctxt->src.bytes = min(ctxt->src.bytes, 4u);
--	if (!emulator_io_permitted(ctxt, ctxt->dst.val, ctxt->src.bytes))
-+	r = emulator_io_permitted(ctxt, ctxt->dst.val, ctxt->src.bytes);
-+	if (r)
- 		return emulate_gp(ctxt, 0);
+ 	vcpu->arch.pdptrs[index] = value;
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index a512e0e8dd93..4d76e8880d99 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -71,22 +71,22 @@ static void nested_svm_inject_npf_exit(struct kvm_vcpu *vcpu,
+ 	nested_svm_vmexit(svm);
+ }
  
- 	return X86EMUL_CONTINUE;
+-static u64 nested_svm_get_tdp_pdptr(struct kvm_vcpu *vcpu, int index)
++static int nested_svm_get_tdp_pdptr(struct kvm_vcpu *vcpu, int index, u64 *pdptr)
+ {
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+ 	u64 cr3 = svm->nested.ctl.nested_cr3;
+-	u64 pdpte;
+-	int ret;
++	int r;
+ 
+ 	/*
+ 	 * Note, nCR3 is "assumed" to be 32-byte aligned, i.e. the CPU ignores
+ 	 * nCR3[4:0] when loading PDPTEs from memory.
+ 	 */
+-	ret = kvm_vcpu_read_guest_page(vcpu, gpa_to_gfn(cr3), &pdpte,
+-				       (cr3 & GENMASK(11, 5)) + index * 8, 8);
+-	if (ret)
+-		return 0;
+-	return pdpte;
++	r = kvm_vcpu_read_guest_page(vcpu, gpa_to_gfn(cr3), pdptr,
++				     (cr3 & GENMASK(11, 5)) + index * 8, 8);
++	if (r == -EFAULT)
++		kvm_prepare_memory_fault_exit(vcpu, cr3 & PAGE_MASK, PAGE_SIZE,
++					      false, false, false);
++	return r;
+ }
+ 
+ static unsigned long nested_svm_get_tdp_cr3(struct kvm_vcpu *vcpu)
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 8c110f3d9cc3..2ac4a366ace4 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -520,7 +520,7 @@ static void nested_ept_init_mmu_context(struct kvm_vcpu *vcpu)
+ 	vcpu->arch.mmu = &vcpu->arch.guest_mmu;
+ 	nested_ept_new_eptp(vcpu);
+ 	vcpu->arch.ngpa_walk.get_guest_pgd     = nested_ept_get_eptp;
+-	vcpu->arch.ngpa_walk.get_pdptr       = kvm_pdptr_read;
++	vcpu->arch.ngpa_walk.get_pdptr       = kvm_pdptr_get;
+ 
+ 	vcpu->arch.ngpa_walk.inject_page_fault = nested_ept_inject_page_fault;
+ }
 -- 
 2.52.0
 
