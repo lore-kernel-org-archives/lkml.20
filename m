@@ -1,79 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793638683;
-	b=ZsZLi7cCXTpvyNk3EiO0qdArZjW2H5mEDSxHsxQoJNQJsjwZA9FN8cbc3BKEbBub0P+2
-	 q3SoZ5ltEYzS5MxmMXn0YtkIaD4P05j1c+5Q5JtAdEpYrw1oQFS1WfS+5X/r8cFBfCdSN
-	 9VJR67cB/ihhp/Iikzohcg9TCKX9ZyExAAkPwtLLH7OE6MTGQlVc1F+/0GQMUQMVDdr65
-	 2kgjaklqPOAenCvOI9kukqnkomtwt2Pkn57ft3rK/RkZTpzFV2/004/VsF3rw++bubXGo
-	 P2e/h1G7bBTMiRbsYtIo2/MkY78bmSwtb/3Gnr9DVXOcxIzxY9bWUtxnPh50WFU34qA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638683;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=uVX73gO7gFQhloWMIYOoqiQKKQO2xMkfvr/BhwT4HUc=;
-	b=oAV3FftU1ymtR2V9qujyNVGUMxaGIobrNff1ttHibXb3R/9g0t4yptJm51kh/wRr176p
-	 2hCF7/8yvkewsmp35MTUXDGCc9XZyV6Wl/N4td5Asdw0D8EQWUPmVsqXtE0c/uz849A41
-	 HWMRkJ8dDzlcrFNWfszaer/evS4x87/Zy3bTWx3RKg8lF4NN1DELu2+ljk9syurNFThLa
-	 8j0c9y+SLUAJkrJ+Nnn6TQMGxaxfFQuEbh7D09Df17eg9dLylG2RsCui3aXpBhsgpoU9X
-	 AcJ4d7gZxfMlulTy4DyT/0LdmgGQ7HjLZSac9LmQSTy4WEIwr5YY8hlXe4xgdl3HkTw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dCx9djlj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A6D606A33B;
-	Mon,  2 Nov 2026 16:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dCx9djlj
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793638682;
-	b=EzxuHdjsoS3rcoeJpM8hdsF3pw9NIcNYNZNAp6QcFf9gadV8KzudXWxIrysVizp0LOFV
-	 RwrEmEkEtUWKOOb7KMiB/L01aBBsyInLysvuhAThNrlu5M+RSbXJ/pfORxRXcPGe3G0HO
-	 JF3jO1dQD1yCUmA/ikTna1ZfiVHNqxDxRDMZRqw96Yv5Q13uH+PCy5GEfy7IwdEhgXN2J
-	 VTsymJY9Ft6exOZWvrK0NidNY99nLezOH70IgAE8JlKjIMCNXMKzKczxZ7zX2hwzw1cY8
-	 dpQss8vyLHD2jcJeNDNzKzigKRq7ojoj+fnyy+zHEBDIMekm6QgvdLv0iQ7GZA8BvTQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793638682;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=uVX73gO7gFQhloWMIYOoqiQKKQO2xMkfvr/BhwT4HUc=;
-	b=KfL96fHUjDjq5nL6jBk1l2TLf/Za8Lp8D/CTpOkpnjO7TfVqnmwlkS/oQij3/i3XPJcU
-	 gjf1B76rw/5gVXjElM7y8HAHtDZ6xRcWoa+SN+lIIshMoZL1as1OuLgw1zIX8GSKww65U
-	 xK3hsZ8SQaVn7qbroovaXlvZ4GBLPXlqh2qwhJjpOsOhzns1Di1TRAsX8GCZF9QcPqHTr
-	 N04bAJxziLYJXZLP6GpZNS9pYPdgf16KD33IsneW8WrMMuqcUN9VepFQ4+MVXFVs1CDzH
-	 fAv4RIXb1XxcRpwci1E2+CKXFJPunIlZ0A0C4KCWNxnLsy1VA7ry8caFgXshgJmw6mQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793638700;
+	b=CvaJJovKo9sAgyGwJA51VDS3pOpMybPn96PJpKadIKpj6/zr67FvYraXJDJNIFGGIRS1
+	 VBvOCGAhr9oxCQyynDj7vUPtXbbNkWJSJH0I5hZR5W+mpYwyaYHQpgET1vtQG545WKtxn
+	 gGI3Mc518OeqbqW5NdUWSXLvx6SDy0KCy0R95U2MOtmGks59gBsnzCfnajwUjNmLucFjR
+	 2wN+5sd3vM/QBXTIVJC9Cb28vHTlPAiyURZ6xwo92e+Za6YDkrUcYBx/a3UIo4N2kxIRD
+	 F39f6rIfHs5KqsiRjrlqCRNZ4nfQfuwpbIa6KMT1t8G/vvxVNbvBo+NlPN5DumZq9Sw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638700;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:CC:Date:Message-ID:In-Reply-To:
+	 References:User-Agent:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=KIqsitZcMi7h2QQHA4zZ281+QxpG2+lZy3zu6UwkhTg=;
+	b=S1qlJ+wUok7uxwx0B66Crf51tTGWUooTec4UX1w4qmskRzW9eiZsfYk5xFeuM9n/3h7p
+	 vFFAmoacTwg++ziutpECiirjQB3lealES5H2k3vxhks3t13sQ93mPEo4iy3Qd8Cubxuse
+	 +XNYOkdmQ6KVuj4kmcQV5tksBkt9KO3jHkpWSovVhawjysQyAugE25qhBJYOUZgOSLy2o
+	 gOVokeRa2VMpN4nQZtRHlZ7TgMP0kG3g0uah4znS1nTtlrSxuZwYADQlOVr6q5jzYDLTJ
+	 2W/Soe1twhe8TzXA3HeIVhrXTYmKatTzHaobSO+eLd3s2gNhyHSIYrWIxa5ruMutegA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hdcZWG8g;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 20C9E1F00A1E;
-	Mon,  2 Nov 2026 16:58:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793638682;
-	bh=uVX73gO7gFQhloWMIYOoqiQKKQO2xMkfvr/BhwT4HUc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=dCx9djljNAmx90W0MMNrsD1WLDBJr5j9/iOdyARzKzb/qrnWoMFyAhkjrrXcV7oVh
-	 eA6x2i5mhdkJZxbCaz6ky3dINjSnf2tW9099qJ93JUf80plnZBNkQOnicIZKeVAVQA
-	 WsJgWZ87bURobdvGJwa+grottraNlJOJP+ND0bS0mW3RH1eN6DKSrHp9wuH0Fp32+G
-	 xBmhoi7GtsULX2gBkAcFepq4oMo3GWwaoSu/n5WL9dFi0YaGSSgPKqSyIQLxCSKlSo
-	 oUPHn+9foYDAsdhOglcHayY3yV7gJ5hOGW2mTkfd5Je/T3R5brCR1K9g0Eqi69Sl9+
-	 0dIpYH2oDTMuQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8764346584;
-	Mon,  2 Nov 2026 16:58:01 +0000 (UTC)
-From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 11:57:58 -0500
-Subject: [PATCH net-next v4 1/5] tls: add HKDF-Expand-Label for the TLS 1.3
- key schedule
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87722606EE8F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:58:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87722606EE8F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=hdcZWG8g
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ad787e0593so1538072a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:58:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793638699; x=1794243499;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :user-agent:references:in-reply-to:message-id:date:cc:to:from
+         :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KIqsitZcMi7h2QQHA4zZ281+QxpG2+lZy3zu6UwkhTg=;
+        b=0m0Ajl8Y6cuXlmBDxmBy/Rl1n+zMkEzKyvJuTR++ZkxENc0jJKnun7nwKd/kspaaWy
+         HKWF2ZOphCwjzLf6G0B/kDqtKHoGF4waMZxLi/p/nTfwoFFUvmP8wwdQheDAwx87qBDy
+         KcH/PmfQDquIylsmRXlR2S8zJ6aSvxFj903zf/bO5Luqk1fvQlJ7UeAtLn0X8l9WSieV
+         rV4Bnchlxn+2jMPNWa2iIQaC+j1679BR0trJ9pkBKj8ZI/4O9QzBz7Y2A3Nh0mtqE7SY
+         aGDVv+U+IbdjHF0eGSxzo7DLIr4XH16imYKoOqHApinFNx3DdAd40grwcTdR4s/9/zVb
+         Hq5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxpXZB7x0P0LcpUblNyP6TP0dClDR0NPNgUUhbW6fyX6F8GPmCCi2HZwxlGaoqhvaiROFTMon/XQthFSuE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8GjOli+8xRxxK5SOJzQBlNT7ZT3HXfJG93OnBg7Yor7NFRzZpL
+	tEtqGIPcKPDSWhqNhJCzMq4IOZtxOmBN6WMJWDrvbJebahkBCod18z+f1hQUVHWfx+yqBoY/mAl
+	J1SqaCdykX7q5wYgQ8IdrRr7474RF8htro7n50wTXnBt/68wl2p8RPDnJaQmHM1xNmXw/qL/O7t
+	s4ZQkMgvVCEsw70yfwbFhDbBQHRmd8aWlRVF2HGbiWNsBmiPe7zaCv2LxCX2NIt1kz+BtAuvcHV
+	wHunf9j/PufV1jWd9dqdT9XXg==
+X-Gm-Gg: AYBFou027NvRTymN1Vmu6qkGmVzoKpry/9/yhpdD8rw8Q7IlEOAnzhO6WjwhgfEogin
+	x+a7EQKBh2k4FTy417/XaqJ9eLF6k7nl+1KLFTjxHk63ClqeatcQzKIShyKZ9aOOpmWtPLUxLJM
+	Y+gjgkz45twR9XM2IetL22b+OKiXM5n+FBGXaKUAxXoiebTadFRQPI6gg5Dz6q2t7P2z9IKeeTT
+	8RT56ZCIz3q4IX9UYDpA4p2/mOaX6j5F3PJzuwc9lAHEiSATso+ujpkMpJAlrCAM2vW1LIGjeDE
+	dJLy7YWdLBvegA+G6IDVh7aYhK5oPLUa0/pSID9CSRdGqXp6SiU/mgZTRistWS931evy5CYmhUG
+	U5vMevKWvq23s2pdP7QUW43xivKSno1lFFKrgIcK7SE8Czew+8YiXHvOQOOKMB5XE6qpl/FYjuW
+	XcJpmfwxR+z/4c5e49b6+gRfOsVhHemS1yK3b3vUA=
+X-Received: by 2002:a17:90b:5243:b0:3ad:3e8:12 with SMTP id 98e67ed59e1d1-3ae89806353mr7571089a91.48.1793638698785;
+        Mon, 02 Nov 2026 08:58:18 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae6e84adc9sm10164648a91.5.2026.11.02.08.58.18
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 02 Nov 2026 08:58:18 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8468290b866so4589852a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:58:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793638697; x=1794243497; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :user-agent:references:in-reply-to:message-id:date:cc:to:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KIqsitZcMi7h2QQHA4zZ281+QxpG2+lZy3zu6UwkhTg=;
+        b=hdcZWG8gMbeB5TX0YsX6HZFukc+i7ihXfyZHSmZH3/RxNQNVKw64zlS9owFM8qFicM
+         A03Lfv/TWoUpsXa+Ha/dfo4/fDXNLYlZ+KYXcSsh9GcLPiMXj7ba0WLRnD1CgKpaGk81
+         ShBtIjONXTBgYLFiOJ3JvdWFzCXvRcEhXg4qk=
+X-Forwarded-Encrypted: i=1; AKwUvBwS92ruvMkA51ALHC2bluI02VjUzJOxVfGkEthf2mopurULXO4/apjJkJPdS6xbpvckh7K77Fj4riHnre8=@vger.kernel.org
+X-Received: by 2002:a05:6830:2e04:b0:84b:c230:c2c1 with SMTP id 46e09a7af769-85d36400d05mr10579863a34.18.1793638697445;
+        Mon, 02 Nov 2026 08:58:17 -0800 (PST)
+X-Received: by 2002:a05:6830:2e04:b0:84b:c230:c2c1 with SMTP id 46e09a7af769-85d36400d05mr10579847a34.18.1793638696985;
+        Mon, 02 Nov 2026 08:58:16 -0800 (PST)
+Received: from [192.168.178.59] (f215227.upc-f.chello.nl. [80.56.215.227])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354985cdsm9955316a34.10.2026.11.02.08.58.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 08:58:16 -0800 (PST)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Neal Gompa <neal@gompa.dev>, <michael.reeves077@gmail.com>
+CC: "Pieter-Paul Giesberts" <pieterpg@broadcom.com>, "Franky Lin (Zhenhui)" <frankyl@broadcom.com>, Mathy Vanhoef <vanhoefm@gmail.com>, Kalle Valo <kvalo@kernel.org>, Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, <linux-wireless@vger.kernel.org>, <brcm80211@lists.linux.dev>, <brcm80211-dev-list.pdl@broadcom.com>, <asahi@lists.linux.dev>, Hector Martin <marcan@marcan.st>, Daniel Berlin <dberlin@dberlin.org>, Janne Grunau <j@jannau.net>, <linux-kernel@vger.kernel.org>, Hante Meuleman <meuleman@broadcom.com>, <linux-hardening@vger.kernel.org>
+Date: Mon, 02 Nov 2026 17:58:11 +0100
+Message-ID: <1a19d3270b8.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com>
+In-Reply-To: <CAEg-Je918POdPr-=6Dzpdkx_i+Hv4wxv5-8A3MUDEqC8SA59NA@mail.gmail.com>
+References: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
+ <CAEg-Je918POdPr-=6Dzpdkx_i+Hv4wxv5-8A3MUDEqC8SA59NA@mail.gmail.com>
+User-Agent: AquaMail/2.8.1 (build: 200801029)
+Subject: Re: [PATCH 00/13] wifi: brcmfmac: Add BCM4388 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,185 +112,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-keyupdate-rfc-v4-1-f17419972b9f@gmail.com>
-References: <20261102-keyupdate-rfc-v4-0-f17419972b9f@gmail.com>
-In-Reply-To: <20261102-keyupdate-rfc-v4-0-f17419972b9f@gmail.com>
-To: John Fastabend <john.fastabend@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Hannes Reinecke <hare@kernel.org>, Chuck Lever <cel@kernel.org>, 
- kernel-tls-handshake@lists.linux.dev, linux-nvme@lists.infradead.org, 
- Alistair Francis <alistair.francis@wdc.com>, 
- Martin Belanger <martin.belanger@dell.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793638681; l=5290;
- i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
- bh=+HVN+hsVM6laHO9OtOrNgvVABa+RZytT1JdrHWnjAlM=;
- b=xQGurdKFCOo0Kfaf+xJbOeZihmWCTkG4krBZycXvbfMyAUHm4oFwE3BYxQmBm9n/J4Nk9cvkz
- gIKBDevS2joCk/m2rt7ASOJi4p1DN6l4lGjBzcSHS+oSon1ziFiTD3Z
-X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
- pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
-X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
- with auth_id=1176
-X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
-Reply-To: martin.nvme.dev@gmail.com
+Content-Type: text/plain; format=flowed; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Martin Belanger <martin.belanger@dell.com>
+Op 2 november 2026 01:43:07 schreef Neal Gompa <neal@gompa.dev>:
 
-A TLS 1.3 KeyUpdate derives the next traffic secret, key and IV with
-HKDF-Expand-Label (RFC 9846, section 7.2). Add the helper for the
-kernel to do this itself.
+> On Fri, Sep 25, 2026 at 9:49 AM Michael Reeves via B4 Relay
+> <devnull+michael.reeves077.gmail.com@kernel.org> wrote:
+>>
+>> The Broadcom BCM4388 chipset requires new PCIe initialization and
+>> firmware interfaces. Add support for these interfaces to brcmfmac to
+>> enable basic station operation.
+>>
+>> This series adds:
+>> - Signed firmware loading and mailbox transport
+>> - Fixes for chip identification and firmware capability matching
+>> - Versioned scan and join requests, and extended PMK payloads
+>> - Updated event mask handling
+>>
+>> These changes include work by Hector Martin and Daniel Berlin from Asahi
+>> Linux, refactored where needed for upstream inclusion.
+>>
+>> The series provides basic station support only. 6 GHz support is planned
+>> for a follow-up patchset after this lands. The driver retains legacy
+>> interfaces for older firmware.
+>>
+>> Tested on an Apple M3 MacBook Air (J613):
+>> - Device boot and network scanning
+>> - 5 GHz WPA2-PSK association and DHCP
+>> - Bidirectional TCP traffic
+>>
+>> Testing required separate Apple PCIe and devicetree patches, as well as
+>> Janne Grunau's port-authorization fix [1].
+>>
+>> [1] 
+>> https://lore.kernel.org/linux-wireless/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net/
+>>
+>> ---
+>> Daniel Berlin (1):
+>> wifi: brcmfmac: Support versioned scan parameter layouts
+>>
+>> Hector Martin (6):
+>> wifi: brcmfmac: Support newer PCIe core startup and interrupts
+>> wifi: brcmfmac: Negotiate PCIe mailbox transport with firmware
+>> wifi: brcmfmac: Load signed PCIe firmware images
+>> wifi: brcmfmac: Accept newer BSS information versions
+>> wifi: brcmfmac: Support versioned join requests
+>> wifi: brcmfmac: Add BCM4388 support
+>>
+>> Michael Reeves (6):
+>> wifi: brcmfmac: pcie: Report the detected chip ID to the bus
+>> wifi: brcmfmac: Match complete firmware capability names
+>> wifi: brcmfmac: Fall back to RSSI-only default join preferences
+>> wifi: brcmfmac: Use event_msgs_ext for event masks
+>> wifi: brcmfmac: Handle larger firmware band lists
+>> wifi: brcmfmac: Handle extended PMK command payloads
+>>
+>> .../wireless/broadcom/brcm80211/brcmfmac/Makefile  |   1 +
+>> .../net/wireless/broadcom/brcm80211/brcmfmac/bus.h |   9 +
+>> .../broadcom/brcm80211/brcmfmac/cfg80211.c         | 368 +++++++-------
+>> .../wireless/broadcom/brcm80211/brcmfmac/chip.c    |  36 +-
+>> .../wireless/broadcom/brcm80211/brcmfmac/common.c  |  27 +-
+>> .../wireless/broadcom/brcm80211/brcmfmac/core.c    |   5 +-
+>> .../wireless/broadcom/brcm80211/brcmfmac/core.h    |  18 +
+>> .../wireless/broadcom/brcm80211/brcmfmac/feature.c | 124 ++++-
+>> .../wireless/broadcom/brcm80211/brcmfmac/feature.h |   2 +
+>> .../wireless/broadcom/brcm80211/brcmfmac/fweh.c    | 130 ++++-
+>> .../wireless/broadcom/brcm80211/brcmfmac/fweh.h    |   1 +
+>> .../broadcom/brcm80211/brcmfmac/fwil_types.h       | 141 +++++-
+>> .../wireless/broadcom/brcm80211/brcmfmac/msgbuf.c  |  65 ++-
+>> .../wireless/broadcom/brcm80211/brcmfmac/msgbuf.h  |   9 +-
+>> .../wireless/broadcom/brcm80211/brcmfmac/pcie.c    | 560 +++++++++++++++++----
+>> .../broadcom/brcm80211/brcmfmac/scan_param.c       | 416 +++++++++++++++
+>> .../broadcom/brcm80211/brcmfmac/scan_param.h       |  13 +
+>> .../broadcom/brcm80211/include/brcm_hw_ids.h       |   2 +
+>> .../broadcom/brcm80211/include/chipcommon.h        |   5 +
+>> 19 files changed, 1593 insertions(+), 339 deletions(-)
+>> ---
+>> base-commit: 42a9fb3382fc2573e92f41d203b095d9a372cfc9
+>> change-id: 20260925-brcm4388-submit-5cb8d3e6d6a5
+>
+> Works for me and looks good.
 
-Only the part of the key schedule after the handshake is needed. The
-input is a traffic secret, which is already a pseudorandom key, so
-HKDF-Extract is not needed. Each output is at most Hash.length bytes,
-so each derivation is a single HMAC with the library SHA-256 or SHA-384
-functions.
+So what does "Works for me" mean here. Did you verify it is working on some 
+hardware you have? If so, please share the info.
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Martin Belanger <martin.belanger@dell.com>
----
- net/tls/Kconfig    |  2 ++
- net/tls/Makefile   |  2 +-
- net/tls/tls.h      |  2 ++
- net/tls/tls_hkdf.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 87 insertions(+), 1 deletion(-)
-
-diff --git a/net/tls/Kconfig b/net/tls/Kconfig
-index 4f4d5973a28f..6183ebe954ee 100644
---- a/net/tls/Kconfig
-+++ b/net/tls/Kconfig
-@@ -8,6 +8,8 @@ config TLS
- 	select CRYPTO
- 	select CRYPTO_AES
- 	select CRYPTO_GCM
-+	select CRYPTO_LIB_SHA256
-+	select CRYPTO_LIB_SHA512
- 	select NET_SOCK_MSG
- 	default n
- 	help
-diff --git a/net/tls/Makefile b/net/tls/Makefile
-index 4c7d296081ee..6edcf1271b75 100644
---- a/net/tls/Makefile
-+++ b/net/tls/Makefile
-@@ -7,6 +7,6 @@ CFLAGS_trace.o := -I$(src)
- 
- obj-$(CONFIG_TLS) += tls.o
- 
--tls-y := tls_main.o tls_sw.o tls_proc.o trace.o tls_strp.o
-+tls-y := tls_main.o tls_sw.o tls_proc.o trace.o tls_strp.o tls_hkdf.o
- 
- tls-$(CONFIG_TLS_DEVICE) += tls_device.o tls_device_fallback.o
-diff --git a/net/tls/tls.h b/net/tls/tls.h
-index 60a37bdaaa25..b2061f6bf065 100644
---- a/net/tls/tls.h
-+++ b/net/tls/tls.h
-@@ -147,6 +147,8 @@ void tls_strp_abort_strp(struct tls_strparser *strp, int err);
- int init_prot_info(struct tls_prot_info *prot,
- 		   const struct tls_crypto_info *crypto_info,
- 		   const struct tls_cipher_desc *cipher_desc);
-+int tls_hkdf_expand_label(const u8 *secret, size_t secret_len,
-+			  const char *label, u8 *out, size_t out_len);
- int tls_set_sw_offload(struct sock *sk, int tx,
- 		       struct tls_crypto_info *new_crypto_info);
- void tls_update_rx_zc_capable(struct tls_context *tls_ctx);
-diff --git a/net/tls/tls_hkdf.c b/net/tls/tls_hkdf.c
-new file mode 100644
-index 000000000000..49e33146ac7e
---- /dev/null
-+++ b/net/tls/tls_hkdf.c
-@@ -0,0 +1,82 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright (c) 2026 Dell Technologies Inc. or its subsidiaries.
-+ *
-+ * TLS 1.3 HKDF-Expand-Label, RFC 9846 section 7.1.
-+ *
-+ * TLS 1.3 derives all of its secrets and keys with HKDF (RFC 5869). The
-+ * TLS handshake runs in user space and gives the kernel one application
-+ * traffic secret for each direction. For a KeyUpdate, the kernel derives
-+ * the next traffic secret from the current one (section 7.2), and the
-+ * new key and IV from the next traffic secret (section 7.3). Both steps
-+ * use only HKDF-Expand-Label, so this file implements only that
-+ * function, not the full key schedule of the handshake.
-+ *
-+ * The input is always a traffic secret. It is already a random key of
-+ * the hash length, so HKDF-Extract is not needed. No output is longer
-+ * than the hash, so HKDF-Expand is a single HMAC.
-+ */
-+
-+#include <crypto/sha2.h>
-+#include <linux/errno.h>
-+#include <linux/string.h>
-+#include <linux/unaligned.h>
-+
-+#include "tls.h"
-+
-+#define TLS_HKDF_LABEL_PREFIX		"tls13 "
-+#define TLS_HKDF_LABEL_PREFIX_LEN	(sizeof(TLS_HKDF_LABEL_PREFIX) - 1)
-+#define TLS_HKDF_LABEL_MAX		32
-+
-+/**
-+ * tls_hkdf_expand_label - HKDF-Expand-Label with an empty context
-+ * @secret: the secret
-+ * @secret_len: length of @secret, which selects the hash: SHA-256 for
-+ *	SHA256_DIGEST_SIZE, SHA-384 for SHA384_DIGEST_SIZE
-+ * @label: the label, without the "tls13 " prefix
-+ * @out: output buffer
-+ * @out_len: number of bytes to derive, at most @secret_len
-+ *
-+ * Return: 0 on success, -EINVAL if a length is not valid.
-+ */
-+int tls_hkdf_expand_label(const u8 *secret, size_t secret_len,
-+			  const char *label, u8 *out, size_t out_len)
-+{
-+	u8 info[2 + 1 + TLS_HKDF_LABEL_PREFIX_LEN + TLS_HKDF_LABEL_MAX + 1 + 1];
-+	size_t label_len = strlen(label);
-+	u8 tmp[SHA384_DIGEST_SIZE];
-+	size_t pos = 0;
-+
-+	if (secret_len != SHA256_DIGEST_SIZE &&
-+	    secret_len != SHA384_DIGEST_SIZE)
-+		return -EINVAL;
-+	if (!out_len || out_len > secret_len || label_len > TLS_HKDF_LABEL_MAX)
-+		return -EINVAL;
-+
-+	/* struct {
-+	 *	uint16 length;
-+	 *	opaque label<7..255>;
-+	 *	opaque context<0..255>;
-+	 * } HkdfLabel;
-+	 *
-+	 * followed by the HKDF-Expand counter for the first output block.
-+	 */
-+	put_unaligned_be16(out_len, info);
-+	pos += 2;
-+	info[pos++] = TLS_HKDF_LABEL_PREFIX_LEN + label_len;
-+	memcpy(info + pos, TLS_HKDF_LABEL_PREFIX, TLS_HKDF_LABEL_PREFIX_LEN);
-+	pos += TLS_HKDF_LABEL_PREFIX_LEN;
-+	memcpy(info + pos, label, label_len);
-+	pos += label_len;
-+	info[pos++] = 0;	/* empty context */
-+	info[pos++] = 1;	/* counter */
-+
-+	if (secret_len == SHA256_DIGEST_SIZE)
-+		hmac_sha256_usingrawkey(secret, secret_len, info, pos, tmp);
-+	else
-+		hmac_sha384_usingrawkey(secret, secret_len, info, pos, tmp);
-+
-+	memcpy(out, tmp, out_len);
-+	memzero_explicit(tmp, sizeof(tmp));
-+
-+	return 0;
-+}
-
--- 
-2.53.0
+Regards,
+Arend
 
 
