@@ -1,100 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793640114;
-	b=L4aOrvkw7wy7qVWupWJOj2+ZH7NuOEKOOlVQbJSKV8hKYtAMD6Z/5MgYLxgzw4hGkZIp
-	 O78T8xUh15VRGQvG3sAy6X5OGAqsZWapQmmDZko6SJ42m5E6O0CtbXbB8+gPuEL3+Hn/W
-	 rDNajs4vmKNJ9tOs88jdc6+X7oEwFhfemZK6o3t6ASg2TsSzD1oPPTr/A+9ttnbKOLtmK
-	 wRZABoG8rnuSznnzFvnOkO3BXy6wObSxj380HYgryRYSdF8HnhrcBvE9DuBoZb5tYqAQ1
-	 K5x/UHq6mPYUZRPW17l9fT8Kkijivtkdi7UN7EBeXzSB1797wimgzliwkZ/aSNAACBA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793640114;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Pufnyo/dEDOXN1GFROHvouFby0UdETgJWNBykJQU2Hc=;
-	b=LwdNkCmdhORDnhYpgT5t1kl/U+H0uVs7+a+VKOPltUpRX4MyF5/3zG8f4ffUPdXijQdd
-	 GoDQvbaOnp5ebKDz6VZu2EntS0QO2sW8MtkJ2rsZbhO32sQ+ZjPlzQR1h/bK4Aof+p6L0
-	 xnL3l8XE7Qh2SW3jArpuDnjKetPC1G06/zwxn413cqjrdBnKYVRhdbjpXNgB0Veori8Yq
-	 9W95FSQyCsJxeFtcu481ifekDuybjVDOZBqfu+ri0WvJZVNbDNMvjzgNZrwN01avb42VC
-	 yUi4ymqGW6i4Nm/54iI8LIoenvho8iBQ+JJ3veoTzZhwoIcsHEB1k0nnBACJa7ttnOg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KACIx996;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793640141;
+	b=JghXyoZ/1FMaHh7kpapm/2Cz7ODpVhCQElPIEI90bx3tRz/IFeVFHMzW0Zym4EIE9Bra
+	 kj2Hec860i1hNFAqeP+NGLoVpEz0DAYA+4Jr6L09+LBCL1GCBtxWTNpWap8w0JSj56Q29
+	 Uq9AIWvZ1ihwTrwIITIPh9QexxA8nrtpOokovY63zDZ/Y1A48FQkiAUUzc420bSBDVLPQ
+	 Isf1oVk5FlhbTbtFqmogIWDNM53ASE4AAiaarEW9VJGZB2jbO1fYBDK90maAt1xGexZaI
+	 3Ba4gp9idmGbNX5nhT2TY8wooUc2daFDl1vy0By7KDpbPaO5r41mCnZU4TSlSOQs6cw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793640141;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=hDso38Lo6BucfYQi/WKDSXYlCRCkhjHvbZZQPjbIWjU=;
+	b=ju58iSc0LvyTWQbEoSJhHJYBX747hovO4v8pILXX3rZoPQRLwzreudDpb5z3XaYY/7/L
+	 4VMzDW6J9KKM0LLMtODt0cfdja5TxhoabcssMMpBg4+N4xXbWzXxHqSxQ+uQRP1qC7CQK
+	 f7qklTdVzAb1yRPhuiJ3CLNOStae1ecyf6a6ubQ4QmvQWMPeVPcsv1hHN71YLQUmwRYPc
+	 Ou7FETNydspXeLKI03t/boLj1z5HQ5nevNJTVpx6amo25rEjlSQhgo4+hCt1K86cI5djk
+	 sn3ipNfJiJ5YYYAGGUHvOJCb1ZhvoNyu4YSQaLkvffDwhCoyTElORie6pSTsnTzAKVA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=l3r8EZp1;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7B5606BA52
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7B5606BA52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B67606BA52;
+	Mon,  2 Nov 2026 17:22:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98B67606BA52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KACIx996
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-533202fe429so566981cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:21:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793640108; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bMoOxjJrwopPke2e6QskCnc6O74OXB6+qYlUaYLUBd2E6e/2cyg4saRxCLmM9Lxy/e
-         A9l7LBgsOs2iEhHXhIrJiULRJuI/ea8quwhn30k0F5e7TEI7G/Hxy+XFwQA6cLyXSQNC
-         XOt25vSAzgWDLFwgSpNdq2CN2b61eHEpMbPrKL/zeH04g2+WqFPPoPXwQMYCBXP0tw7Q
-         R91AOJqWXW0BvP4jbarhRDlcOYkmOGipNKGsNKU0t88EklZXLLgaLv/pADwYekMF3pZ4
-         vFCdL3wSTO643d1f5PcIi5UrX+HuFo7IAunMZjSaOgiq8/EFgywJhkFI35SN1kUJjcow
-         RPQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Pufnyo/dEDOXN1GFROHvouFby0UdETgJWNBykJQU2Hc=;
-        fh=2d8aY9E8kheDNSmyU12Ya4v5P12w3O3H35Uf7RV1tEE=;
-        b=KV+ac4u/HKWZB38XmP8R51i5JHNA/YCOIHzycc4RYKdrEhW2Dg1bOGpymQJq4SxnjA
-         3XIRn1cMWcE0k7/IM2XbBTIKnkJwEabCqFWfW7OudtqVChPCr1N2EAO7ghXiD6o4U2co
-         bdAad/Uf8eakJTrWf3N9ncdbry9+AD3oOW368vqWVBBDxY4lQGspkrwRHXGSQ7nKp3k6
-         DTRT3FAuwnIVCxbZ59LBF3huDA88zTEGCRU39LiAJY5eZ54pYmbRKJFQ3V6BkoOPkcY+
-         9x0OuZtpKcMnXprCiVn4XqPAhKQT5w6ISIPw/tSApcQdw7i4pVWsK6u10EU7lCOPQT0j
-         G7IQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793640108; x=1794244908; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pufnyo/dEDOXN1GFROHvouFby0UdETgJWNBykJQU2Hc=;
-        b=KACIx9963F7+4FOg5xffkZ8NHTpNRv1DH18778aING8dHlF7JmravQUnFuOQrCOGtA
-         ansdFCifjPZdeWuiwqOwpUhKyXG4vO8suKigpWw/jXjtxhzX5LEAREdeUKufJKQhgdQ8
-         RvF0jQh8zu2V1euX9OMU1FwyeZ3dmtUfsixesLgRkN48nBLrnw8kRmAt3oxtmhTSrMF9
-         BG5uPRpNO9wA6YT60v13yXT2UvwtdE8NxO815H3KN5tM/cEscAjd8pD+fGC1BTAHHJ9R
-         aeOnfJ4Tbog0ybixpVaiPVqofTYisoxsTrBwnwD5pXXkLuXVSvJEcpLlHhu5xuu522pf
-         l0LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793640108; x=1794244908;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pufnyo/dEDOXN1GFROHvouFby0UdETgJWNBykJQU2Hc=;
-        b=ZdnvB3mC2dTDDMEjuPN9QObn6jD84vIkSJiapYx/m5/8bRxwayS/LalyW75lAZ4TkY
-         1c1nxCh8ElsqWMhlETQKk5ZobqcOIV85ko48uK/vPF0OeXjzDVjOuv/2n6mu3PeRPM7R
-         dQht6S8osbOhnD5u6BRAPonEMxNQuB9RNVfqbPrUxix0L7LFkF/9ZTh+BnDlxSW2IB89
-         lMZwPouvUTTqrZCdoSS59BuhtOhUxXBy35RMeZbMsDjon9WXt8H5zIfnUPpt4r4LzWSy
-         5RrZSB5t5MPfJxvK6wDpU6is3letWEZrH/exbZ0PcjJeDp8HWqeXJO7J/tEMl4k7386h
-         In/g==
-X-Forwarded-Encrypted: i=1; AKwUvByB5pA06ugb96Enva8WEsGUFDk4nTKI2E9xYYD2+1eC9ztRtiqps+YlRx4XXhg9bUE7dRg0UvDWkOpXT14=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8z3tVW896QIa4zqheLp4jVgfFBwHnSYoyuiHx+NvfrruPQP+ul
-	Bu2Sa/ZEmTCDlzKRjDT5f1CztJObVYpje2TEKUYny2eBTCRUpM48sjOLnOtwBAo9rRF7YZ0r+0E
-	+7SBpeOgNsYW4wrTJNJZ7akVVQtZUqVQUu0z518Iz
-X-Gm-Gg: AYBFou0pxdTFwBI6/sO3w15R6WlkoJU6qKpzXPx4TSGBfsWM8+BpYsYKcSesC0eblMO
-	TWP0nUi2oW24IhJdg6BW1UUFxr0v182qyE42IoNn4qgqde3vdY0KXhVBCsU8uqrhKVdFAKC/q8l
-	sbapo3LpAW1LEV8CQOO+W5+T5CD9pgupOku+diMXhLE+fuCWTeEthM5+/mEiuprkGnvIPidaAAF
-	zKhm5Ik33JEvDxodi90z1FuKERQxB33STECg5RXQQHY8g9QzfXucpTWlMLgOm4cKwU/zWec3E7Y
-	QAWyde5BcogGAODAOoOXHJYQq/wnnBIoyxYIOPhCwRdsso/7K1YMSgVFml8JfyS1cQOvZV/9yZh
-	G83hqCOTM9ItMrlL6Aaec64SgDNmp08oHuXo6
-X-Received: by 2002:a05:622a:c01:b0:536:78de:775f with SMTP id
- d75a77b69052e-5414eed1434mr90915071cf.15.1793640107803; Mon, 02 Nov 2026
- 09:21:47 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=l3r8EZp1
+Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id 0F66E1A01A1;
+	Mon,  2 Nov 2026 17:22:19 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf15.hostedemail.com (Postfix) with ESMTPA id 0EEF21A;
+	Mon,  2 Nov 2026 17:22:16 +0000 (UTC)
+Date: Mon, 2 Nov 2026 12:22:15 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Xiang Mei
+ <xmei5@asu.edu>
+Subject: Re: [PATCH v3] ftrace: Complete subops teardown on shutdown failure
+Message-ID: <20261102111707.484df6f5@gandalf.local.home>
+In-Reply-To: <20261031175213.704021-1-bestswngs@gmail.com>
+References: <20261031175213.704021-1-bestswngs@gmail.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,43 +61,332 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101154503.3203036-1-surenb@google.com> <20261101110100.90796bf33ef50307a7698dca@linux-foundation.org>
- <CAJuCfpGmPLBRhHa_dmyP10QzyRyvcWMYDLU0+J9t-RCLBsTaWA@mail.gmail.com>
- <20261102080103.6e3f602364747ac6adb13f5c@linux-foundation.org>
- <CAJuCfpGmHWiu0Hmob-PgnvWAMn=CD0-xgiyGztP+P=OFrwwfTw@mail.gmail.com>
- <CAJuCfpGwZqGkOm25=BWAh2QgA8Y00OUmwxsDU+_qOsVsc+KHhg@mail.gmail.com> <20261102090125.58a2e80d1669c681c33ed20b@linux-foundation.org>
-In-Reply-To: <20261102090125.58a2e80d1669c681c33ed20b@linux-foundation.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Mon, 2 Nov 2026 09:21:35 -0800
-X-Gm-Features: AclHuK-DjqV142Ud10paqFStz21PGZUYRyNelFGZhjzHwoB2M_64kIh8h-R_AJQ
-Message-ID: <CAJuCfpGvLt+QDw+n0QnZmBqryMrX+SRZJUTqFhVNR-EXpXBRpg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
- tearing tests
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: david@kernel.org, ljs@kernel.org, jannh@google.com, liam@infradead.org, 
-	willy@infradead.org, paulmck@kernel.org, pfalcato@suse.de, 
-	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
-	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout03
+X-Rspamd-Queue-Id: 0EEF21A
+X-Stat-Signature: 6us6zc4xqhyfrbsbmtpgp36jpowasxze
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19B/jQdySa7H6oYtXfs6XggTV84APC5CfA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=hDso38Lo6BucfYQi/WKDSXYlCRCkhjHvbZZQPjbIWjU=; b=l3r8EZp15VGz0B+EBzA4KkLIJEv9ZnGsgR18Hya3MX5c+CnI0G/3KDQMWWRFiiG1+qJEunBjjq4kU/4/b5I4bdxUduKLvBDCyO/o4ZTdxSDAR04S9RpU6WSOysjImgK3em0JxRGvtO1tlUipa2lVgBiKCVUorzZzw3/w2fm9V5c=
+X-HE-Tag: 1793640136-409405
+X-HE-Meta: U2FsdGVkX1/BX7i1uokAGBDczCBHFjkFoapCL+fxaJiUtIo2gt2S5MdJA3a7Ax9WkRxxoTaK6GNcj4pHn4LMcHTy/NBiISz6GANBb3cUalEm+BhwtDDxLEfIY+t2YMK7lBGniOT+2+86xEMyVk0trSn7TjBJDeXhNQKdzjdfSiTXRBkhjAWWCBE5jqR7kv7vPJJHmG7NQSjxgJqBbc47NP4YiNgT9Sa1qEm6FkOvdKNYqAztE1spmlwZvTmnRwRTdFIT/IRSvovCbNUdHq7gUppyJybL7umAUnT2vf1+4UOEqoXwMwpskZBqyzCPitoUc2UieyL56C+gtZaswryrRHgNqo7D4dtAcvFEazJxVIXhKCEXgGFgOGoa4sy8/RCx3Iw4AAW0Byg=
 
-On Mon, Nov 2, 2026 at 9:01=E2=80=AFAM Andrew Morton <akpm@linux-foundation=
-.org> wrote:
->
-> On Mon, 2 Nov 2026 08:15:47 -0800 Suren Baghdasaryan <surenb@google.com> =
-wrote:
->
-> > > Ah, I see now why handling READ_IMPLIES_EXEC is needed. Then your
-> > > complete fix looks fine. Perhaps we should mention this pre-ARMv6 CPU
-> > > detail in the changelog of your fix to explain why READ_IMPLIES_EXEC
-> > > is important here?
-> >
-> > I guess I have to ask whether you want to post your fix as a followup
-> > to mine or if I should fold them into one patch and post a v3. What's
-> > your preference?
->
-> yes, please just prepare a v3.  I don't think bot will be offended.
+On Sat, 31 Oct 2026 10:52:13 -0700
+Weiming Shi <bestswngs@gmail.com> wrote:
 
-Ok, I'll wait a day for others to take a look and will post v3.
-Thanks!
+> ftrace_shutdown_subops() unlinks a subop before rebuilding the manager
+> hashes, but leaves it enabled and managed when rebuilding or updating
+> fails. unregister_ftrace_graph() cannot recover from that partial
+> teardown, and a later registration can corrupt the empty manager state.
+> 
+> Always detach and clear the subop once shutdown begins. Keep conservative
+> manager hashes behind per-subop filtering when an update fails, and disable
+> direct graph dispatch until those hashes are exact again. If the last
+> manager cannot be shut down, disable ftrace and normalize its list, flags,
+> count, and hashes before the caller releases the graph operation.
+
+What exactly is the above saying? It looks like pure AI output (non human
+readable). AKA, AI slop!
+
+Is it fixing something when a subop is unregistered but fails? Where
+exactly is the failure? What failed? Have an example of what happened?
+
+Direct calls is mentioned once, but there seems to be a bit of changes for
+that too. Some of it looks like it should be a separate patch.
+
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 0ae6b8ce200d ("ftrace: Fix accounting of subop hashes")
+> Reported-by: Xiang Mei <xmei5@asu.edu>
+> Assisted-by: OpenAI Codex <noreply@openai.com>
+> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> ---
+>  kernel/trace/fgraph.c          | 35 +++++++++++++++++----
+>  kernel/trace/ftrace.c          | 57 +++++++++++++++++++++-------------
+>  kernel/trace/ftrace_internal.h |  3 ++
+>  3 files changed, 68 insertions(+), 27 deletions(-)
+> 
+> diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
+> index ed455b535..1a8e092ec 100644
+> --- a/kernel/trace/fgraph.c
+> +++ b/kernel/trace/fgraph.c
+> @@ -1306,7 +1306,7 @@ static void ftrace_graph_enable_direct(bool enable_branch, struct fgraph_ops *go
+>  
+>  	static_call_update(fgraph_func, func);
+>  	static_call_update(fgraph_retfunc, retfunc);
+> -	if (enable_branch)
+> +	if (enable_branch && !static_key_enabled(&fgraph_do_direct.key))
+>  		static_branch_enable(&fgraph_do_direct);
+
+Ug that is horrible. If anything static_branch_enable() should handle this.
+Or we have to have another type of accounting.
+
+
+>  }
+>  
+> @@ -1315,13 +1315,27 @@ static void ftrace_graph_disable_direct(bool disable_branch)
+>  	if (FGRAPH_NO_DIRECT)
+>  		return;
+>  
+> -	if (disable_branch)
+> +	if (disable_branch && static_key_enabled(&fgraph_do_direct.key))
+>  		static_branch_disable(&fgraph_do_direct);
+
+Same.
+
+>  	static_call_update(fgraph_func, ftrace_graph_entry_stub);
+>  	static_call_update(fgraph_retfunc, ftrace_graph_ret_stub);
+>  	fgraph_direct_gops = &fgraph_stub;
+>  }
+>  
+> +void fgraph_update_direct_func(struct ftrace_ops *ops, bool enable)
+
+What is this for? It requires a kerneldoc as it is not a static function.
+
+It also looks unrelated to the partial shutdown. Is his needed as a
+separate patch?
+
+> +{
+> +	struct fgraph_ops *gops;
+> +
+> +	if (ftrace_graph_active != 1 || !(ops->flags & FTRACE_OPS_FL_GRAPH))
+> +		return;
+> +
+> +	gops = container_of(ops, struct fgraph_ops, ops);
+> +	if (enable)
+> +		ftrace_graph_enable_direct(true, gops);
+> +	else
+> +		ftrace_graph_disable_direct(true);
+> +}
+> +
+>  /* The cpu_boot init_task->ret_stack will never be freed */
+>  static int fgraph_cpu_init(unsigned int cpu)
+>  {
+> @@ -1406,16 +1420,24 @@ int register_ftrace_graph(struct fgraph_ops *gops)
+>  	gops->ops.flags |= FTRACE_OPS_FL_GRAPH;
+>  
+>  	ret = ftrace_startup_subops(&graph_ops, &gops->ops, command);
+> -	if (!ret)
+> +	if (!ret) {
+>  		fgraph_array[i] = gops;
+> +		if (ftrace_graph_active == 1)
+> +			ftrace_graph_enable_direct(true, gops);
+> +	}
+>  
+>  error:
+>  	if (ret) {
+>  		ftrace_graph_active--;
+> +		gops->ops.flags &= ~FTRACE_OPS_FL_GRAPH;
+
+Hmm, clearing the flag looks like a separate bug that should be fixed in
+its own patch.
+
+
+>  		gops->saved_func = NULL;
+>  		fgraph_lru_release_index(i);
+> -		if (!ftrace_graph_active)
+> +		if (ftrace_graph_active == 1) {
+> +			ftrace_graph_enable_direct(true, NULL);
+> +		} else if (!ftrace_graph_active) {
+> +			ftrace_graph_disable_direct(false);
+>  			unregister_pm_notifier(&ftrace_suspend_notifier);
+> +		}
+
+Nit, but I would have the above opposite. That is, don't make the current
+if statement the else, unless there's a good reason to. Because it makes
+reviewing harder.
+
+		if (!ftrace_graph_active) {
+			ftrace_graph_disable_direct(false);
+ 			unregister_pm_notifier(&ftrace_suspend_notifier);
+		} else if (ftrace_graph_active == 1) {
+			ftrace_graph_enable_direct(true, NULL);
+		}
+
+
+>  	}
+>  	return ret;
+>  }
+> @@ -1423,6 +1445,7 @@ int register_ftrace_graph(struct fgraph_ops *gops)
+>  void unregister_ftrace_graph(struct fgraph_ops *gops)
+>  {
+>  	int command = 0;
+> +	int ret;
+>  
+>  	if (WARN_ONCE(!(gops->ops.flags & FTRACE_OPS_FL_GRAPH),
+>  		      "function graph ops unregistered without registering"))
+> @@ -1447,9 +1470,9 @@ void unregister_ftrace_graph(struct fgraph_ops *gops)
+>  	if (!ftrace_graph_active)
+>  		command = FTRACE_STOP_FUNC_RET;
+>  
+> -	ftrace_shutdown_subops(&graph_ops, &gops->ops, command);
+> +	ret = ftrace_shutdown_subops(&graph_ops, &gops->ops, command);
+>  
+> -	if (ftrace_graph_active == 1)
+> +	if (ftrace_graph_active == 1 && !ret)
+>  		ftrace_graph_enable_direct(true, NULL);
+>  	else if (!ftrace_graph_active)
+>  		ftrace_graph_disable_direct(false);
+> diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+> index 673a54fdf..831f04de6 100644
+> --- a/kernel/trace/ftrace.c
+> +++ b/kernel/trace/ftrace.c
+> @@ -3667,6 +3667,8 @@ static int rebuild_hashes(struct ftrace_hash **filter_hash, struct ftrace_hash *
+>  	bool first = true;
+>  	int ret;
+>  
+> +	*filter_hash = EMPTY_HASH;
+> +	*notrace_hash = EMPTY_HASH;
+>  	temp_hash.filter_hash = EMPTY_HASH;
+>  	temp_hash.notrace_hash = EMPTY_HASH;
+>  
+> @@ -3708,7 +3710,13 @@ static int rebuild_hashes(struct ftrace_hash **filter_hash, struct ftrace_hash *
+>   * will not affect functions that are being traced by other subops that
+>   * still exist in @ops.
+>   *
+> - * If the last subops is removed from @ops, then @ops is shutdown normally.
+> + * Once removal starts, @subops is detached even if rebuilding the manager
+> + * hashes fails. The old manager hashes are conservative in that case and the
+> + * remaining subops continue to filter callbacks. If the last-manager shutdown
+> + * fails, ftrace is disabled before the manager state is discarded.
+> + *
+> + * Return: 0 on success or a negative error code if the manager could not be
+> + * updated or shut down.
+>   */
+>  int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_ops *subops, int command)
+>  {
+> @@ -3716,9 +3724,6 @@ int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_ops *subops, in
+>  	struct ftrace_hash *notrace_hash = EMPTY_HASH;
+>  	int ret;
+>  
+> -	if (unlikely(ftrace_disabled))
+> -		return -ENODEV;
+
+Wait! Why this???
+
+> -
+>  	if (WARN_ON_ONCE(!(subops->flags & FTRACE_OPS_FL_ENABLED)))
+>  		return -EINVAL;
+>  
+> @@ -3727,36 +3732,45 @@ int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_ops *subops, in
+>  	if (list_empty(&ops->subop_list)) {
+>  		/* Last one, just disable the current ops */
+>  
+> -		ret = ftrace_shutdown(ops, command);
+> +		if (unlikely(ftrace_disabled))
+> +			ret = -ENODEV;
+> +		else
+> +			ret = ftrace_shutdown(ops, command);
+
+Ug no!
+
+>  		if (ret < 0) {
+> -			list_add(&subops->list, &ops->subop_list);
+> -			return ret;
+> +			bool enabled = ops->flags & FTRACE_OPS_FL_ENABLED;
+> +
+> +			FTRACE_WARN_ON_ONCE(!ftrace_disabled);
+> +			remove_ftrace_ops(&ftrace_ops_list, ops);
+> +			if (enabled && ftrace_start_up > 0)
+> +				ftrace_start_up--;
+> +			ops->flags &= ~(FTRACE_OPS_FL_ENABLED |
+> +					FTRACE_OPS_FL_ADDING |
+> +					FTRACE_OPS_FL_REMOVING);
+> +			ops->func = ops->saved_func;
+
+Please explain the above.
+
+>  		}
+>  
+> -		subops->flags &= ~FTRACE_OPS_FL_ENABLED;
+> -
+>  		free_ftrace_hash(ops->func_hash->filter_hash);
+>  		free_ftrace_hash(ops->func_hash->notrace_hash);
+>  		ops->func_hash->filter_hash = EMPTY_HASH;
+>  		ops->func_hash->notrace_hash = EMPTY_HASH;
+> -		subops->flags &= ~(FTRACE_OPS_FL_ENABLED | FTRACE_OPS_FL_SUBOP);
+> -		subops->managed = NULL;
+> +		goto out;
+> +	}
+>  
+> -		return 0;
+> +	if (unlikely(ftrace_disabled)) {
+> +		ret = -ENODEV;
+> +		goto out;
+>  	}
+>  
+>  	/* Rebuild the hashes without subops */
+>  	ret = rebuild_hashes(&filter_hash, &notrace_hash, ops);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto out;
+>  
+>  	ret = ftrace_update_ops(ops, filter_hash, notrace_hash);
+> -	if (ret < 0) {
+> -		list_add(&subops->list, &ops->subop_list);
+> -	} else {
+> -		subops->flags &= ~(FTRACE_OPS_FL_ENABLED | FTRACE_OPS_FL_SUBOP);
+> -		subops->managed = NULL;
+> -	}
+> +
+> +out:
+> +	subops->flags &= ~(FTRACE_OPS_FL_ENABLED | FTRACE_OPS_FL_SUBOP);
+> +	subops->managed = NULL;
+
+
+The above is doing a lot without really explaining why.
+
+-- Steve
+
+>  	free_ftrace_hash(filter_hash);
+>  	free_ftrace_hash(notrace_hash);
+>  	return ret;
+> @@ -3767,8 +3781,8 @@ static int ftrace_hash_move_and_update_subops(struct ftrace_ops *subops,
+>  					      struct ftrace_hash *hash)
+>  {
+>  	struct ftrace_ops *ops = subops->managed;
+> -	struct ftrace_hash *notrace_hash;
+> -	struct ftrace_hash *filter_hash;
+> +	struct ftrace_hash *notrace_hash = EMPTY_HASH;
+> +	struct ftrace_hash *filter_hash = EMPTY_HASH;
+>  	struct ftrace_hash *save_hash;
+>  	struct ftrace_hash *new_hash;
+>  	int ret;
+> @@ -3800,6 +3814,7 @@ static int ftrace_hash_move_and_update_subops(struct ftrace_ops *subops,
+>  	} else {
+>  		free_ftrace_hash_rcu(save_hash);
+>  	}
+> +	fgraph_update_direct_func(subops, !ret);
+>  	return ret;
+>  }
+>  
+> diff --git a/kernel/trace/ftrace_internal.h b/kernel/trace/ftrace_internal.h
+> index 3235470e6..3d5934b1c 100644
+> --- a/kernel/trace/ftrace_internal.h
+> +++ b/kernel/trace/ftrace_internal.h
+> @@ -16,6 +16,7 @@ int ftrace_startup(struct ftrace_ops *ops, int command);
+>  int ftrace_shutdown(struct ftrace_ops *ops, int command);
+>  int ftrace_ops_test(struct ftrace_ops *ops, unsigned long ip, void *regs);
+>  int ftrace_startup_subops(struct ftrace_ops *ops, struct ftrace_ops *subops, int command);
+> +/* Once started, shutdown always detaches @subops, even when it returns an error. */
+>  int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_ops *subops, int command);
+>  
+>  #else /* !CONFIG_DYNAMIC_FTRACE */
+> @@ -52,6 +53,7 @@ static inline int ftrace_shutdown_subops(struct ftrace_ops *ops, struct ftrace_o
+>  
+>  #ifdef CONFIG_FUNCTION_GRAPH_TRACER
+>  extern int ftrace_graph_active;
+> +void fgraph_update_direct_func(struct ftrace_ops *ops, bool enable);
+>  # ifdef CONFIG_DYNAMIC_FTRACE
+>  extern void fgraph_update_pid_func(void);
+>  # else
+> @@ -59,6 +61,7 @@ static inline void fgraph_update_pid_func(void) {}
+>  # endif
+>  #else /* !CONFIG_FUNCTION_GRAPH_TRACER */
+>  # define ftrace_graph_active 0
+> +static inline void fgraph_update_direct_func(struct ftrace_ops *ops, bool enable) {}
+>  static inline void fgraph_update_pid_func(void) {}
+>  #endif /* CONFIG_FUNCTION_GRAPH_TRACER */
+>  
+
