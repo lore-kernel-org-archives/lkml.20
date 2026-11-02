@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793584914;
-	b=jIUgfGrgDWHwYMD8tdxkB2FPI7kB2Z4sSuIjmzl9ne+jg6mXTpMtbmiRvULAjr5fY7lO
-	 kxCd3YSj0FXLGuXZp6UCZE9cu0P/NP+VwzbAmWmaaxibQJB1IQVcBmPNSp6mmbtYSWEAD
-	 PimqkVVcZ/0oMP8SXY+HMfs35nwP0sji/jRtU7ZrUm8lshSZADoFc5MqpUCjufze9pBkl
-	 Yqi3LjdhfYGp8lwByEDC/4+3/bXUrttYxozL4Vqo2efHe5+h8tCC+bptHMZ9IIhAdyewS
-	 iGCwTCQ/hBn3srUngp5eVwurhA8nZzABH02RcMxKs5GwZuO3nqSy/gxy3vlD5G4TntQ==
+	t=1793585004;
+	b=xL4loPITYNQMD5hKoBbC5Qh0ZwnLUOgrhZfDxllD0El2U4Jj3MJVV7s33Ldeh4igwRS6
+	 pGols3wb2Z1lNWmZANY/ZyHk/fTIYy6b5hI1NRXETBo/aTGNSBV+0NhZy2LY2rL0lLh5w
+	 AsFvYEFR0BNrPRuwdkX8jkt7gmRwCjk5eOdgCbHJPcXepDI+i80mSWh08SlptuiZLk5qF
+	 s9x+f5dONUpcZAszOya6Ks5km2VuYuZolU/eG7GubSAzd2e1XtqkXsXtcCoNHzKwNI5Rp
+	 LsDF8xIC7asx87V+e84/URph9PfEbi1YyPTtih/sXh2qYWlyeJOKmBvrC5VI6RwwJqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793584914;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=jhak0MmZxZsDBp8302xnXT/xyZGUloAlWeCi+dxqbB8=;
-	b=F/O7623lQx8yJILFsXluFjhEkK/9XeOdvcJ2I0NylCjP/jlBEuUFZ7YmniCj3PjHXaSv
-	 OvlCmfB1FsYigXleLT4oIEbdkyKgCb1tDMw0aNJu0OIwbHPeIb3edX1VGH8dRIhdgFelH
-	 EFmdR564gVcmthz3lCOrVYg8N/n4LI869Q1KAdv8Tu8ukkX+GR4q2NvXwg4XuhBNDmrEY
-	 YOaLD2yMCOhQiNCcrJz53bkA2feohv2yGGlwqGobkdug/9FqmsjBffgAh/LCgtBoG17VR
-	 EY5uTyAaquYwMr2hwESfwPH2c+VuOQoxa0vTRCDk2a0b64MW9xVuyx9lbOMGrlMQ2IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585004;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=vbjAxX9Qy4b76rdgzSkrR0jEbOkdVtxQvCiJUr1ahQL/3vpFAMJ8ecDePhoH9t0yGj0T
+	 fpNKw6VB+rcO0Qzc6AiAHlYQkfbSbGv+uBRFfQyMsnQ6CY6CnuIFErVKkrqyX6m4t1MYk
+	 9wsY6LkfEIDiqIG3IC1uTXj+mOx4mOBa9uCO/xabaqG1gUTV2sTG7Qd1+wnzNiG3ewd5Z
+	 +8SVgP3h1z7sFvHAQw8n5Xqc5ZQ1iFzLTEeVgog7Ei3R2FKZJ86YXycBNBr8KkUz6ETZs
+	 HBE1UxMkvEHwPEhBgKjQJKdtdKBhazZh7SgqMvVB7RuavvqoCVl3Gzu36FJS1yfhsVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=rO6gKMeM;
-	arc=none smtp.remote-ip=115.124.30.97
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmGzi9JC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C3A606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07C3A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AB6606A324;
+	Mon,  2 Nov 2026 02:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=rO6gKMeM
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793584904; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=jhak0MmZxZsDBp8302xnXT/xyZGUloAlWeCi+dxqbB8=;
-	b=rO6gKMeMrTZMb72HrTN0I12UxeuhCF7ftdo1+u0KGkYM163ga8M4KYzdJEGS7Oy9+a/isEOmB7YwbuoOsOKV5p4SKPKzy2cMtkl+0mZG2USkhWhE6DxI5jnO+PEE3oLjeSuhtYGqaSeNPhNahfl4AVWBfCgF7AR/u1SgagJGvkg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=61;SR=0;TI=SMTPD_---0XDrTDBs_1793584898;
-Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDrTDBs_1793584898 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 02 Nov 2026 10:01:40 +0800
-Message-ID: <1b7b47aa-8523-4029-971f-ec59b667c7f9@linux.alibaba.com>
-Date: Mon, 2 Nov 2026 10:01:37 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmGzi9JC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CCB01F000C1;
+	Mon,  2 Nov 2026 02:03:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793585003;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cmGzi9JC/l4trm2uERbpxDwTgJLepMnRLAb6LXkBISWCA5NvhMadbML4XHYhgiypg
+	 N//7uLYm4hQsu+QWZFzwulEP7erDMoV3nrgtEnyufSWIC3vtMk9DvHephD6ztFhFwH
+	 AlMVx3eG0obmBkehNfrOWLtvYauQioeeTGvVcMb248Phq4bKGQ3H9azaPaj1HOKBBe
+	 IDDXf1/x6jqiqD11Chtvkfalt8xtmNkyQkxuIk9O70aJhpJcV2eTDWCNBmYmytFmyA
+	 /KpyNxsdGODW7dO5sYkg2xkyvRUqGT+IPg2O/Vg+GJw/XEWeEisI+J6Cd3b0sXtFO4
+	 e7pvRhErYCixg==
+From: netdev-bot+sinfo@kernel.org
+To: bo cao <treebacker@foxmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, dsahern@kernel.org, edumazet@kernel.org, idosch@nvidia.com,
+ horms@kernel.org, willemdebruijn.kernel@gmail.com, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4] ipv6: fix dead half of the MTU guard in
+ __ip6_append_data()
+Date: Mon, 02 Nov 2026 02:03:22 +0000
+Message-ID: <179358500215.3286.12801503551646664009@kernel.org>
+In-Reply-To: <tencent_0A4B784EEB3D358B09B43AA2B2F13AE44505@qq.com>
+References: <tencent_0A4B784EEB3D358B09B43AA2B2F13AE44505@qq.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,74 +64,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Alistair Popple <apopple@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Byungchul Park <byungchul@sk.com>, Chengming Zhou
- <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
- David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>,
- Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>,
- Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>,
- Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>,
- Nick Piggin <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>,
- Peter Xu <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>,
- Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
- Uladzislau Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
- Xu Xin <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>,
- Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
- <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Hi!
 
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-On 10/31/26 5:34 AM, David Hildenbrand (Arm) wrote:
-> I am not really the best shmem/tmpfs/memfd expert around, but it should
-> be good enough to judge when something is ready to be picked up, to then
-> pick it up. I'll have to heavily rely on Hugh and Baolin on judgment
-> for the more involved and more controversial bits.
-> 
-> Rename "TMPFS (SHMEM FILESYSTEM)" to "MEMORY MANAGEMENT - SHARED MEMORY
-> (SHMEM/TMPFS/MEMFD)" and move it accordingly. Add myself as a MAINTAINER
-> so people know whom to CC.
-> 
-> Add mm/core.git as the target git tree. Once shmem becomes a high volume
-> component we can dedicate it a separate tree and have dedicated people
-> pick it up.
-> 
-> While at it, add some more shmem/tmpfs/memfd related files+directories
-> we missed so far.
-> 
-> There is also "kernel/pid_sysctl.h", which includes some of the pid
-> namespaced sysctl vm.memfd_noexec. But that's really more of a proc/
-> namespace thingy, so it's not a good fit here.
-> 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Thanks.
-Acked-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
