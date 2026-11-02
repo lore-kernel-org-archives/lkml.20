@@ -1,79 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793624637;
-	b=Ramxf+AiTFAE9MRhHLYYJijMhkXzWDQs62bFA+WXVz+Qy5397rvO+BfjOzbEmqezshEg
-	 QkR6y9j2wkPEPTQFPFctMK4XohPK/hHmS4VNSH42/qnleelz+G2z7WCtAgAVc8NGmu7Vo
-	 Zx6Pv6Np0JMZc6w2jOaNZJRqj/Q7bmdeYMeVwihMDqtdA8Rsnl2mUroHQTxLbTUTYW4JU
-	 +fuPeFLIbitQyxVOhsABDtO/DCQDnHx21V6GfNqcOvV+2A5itPHMUr5NEnDflkFmSPdGj
-	 R+ZacA0PoeacouBnkLui3NYbGG7I5urc6jrU5tqwphemLRU+t0Tlg3w6Vp7DLZZ0ktQ==
+	t=1793624649;
+	b=Yhr6OVvAvlhsrj+7tggC88u8PTnr4WT0IRpFNjPRGpbLK6o4J46kWaSABWeM4VcieEqh
+	 WEACWJXnfno/B4rJa/CyG+mizqvG6Qg/oWYxZEULgSOoq/gnJpzBMHZxP3sDB8v3Lu/RH
+	 5LniyeI1eQTjmi4whUyqBOHqh59oQiR8OP7Lemuce2UpXe6zGuT/fFwLd5sw+v5AATWaM
+	 zSokIKrpyvayBoXUWN2b0gqHlJgpHkm5ctzDpPVVlcXv6AbR7cCN1A0vF4e02X6gsBccg
+	 hUlYI3+wSEo2cBHhi1ImKmC5xvwqQmGQkfJ2rd2M726xzdU4m70EZEzujTr2vTvMdYw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624637;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gXkbMf8DM0d4yvmmrUjI+zueCqEc0hq6YJ+3++B1KPQ=;
-	b=c1g3GzJNuAHZ58e9AJFwUlsJwdjGT/T1KHRLn6rraucHmiZe6Q3mG5stgHaMr1plZ/Zn
-	 ixf3oZJDf5CuI/sBjz+wPGl3FujMLgqg62MPTxJT1qOWCU6J8LVd3xBPLqtkUgQF/nEuQ
-	 uLsg1dto3T7cV9zTZIwRtgtGQ77V0jvPtv9vcIrN/i5jjrtDqr4gGUY/qzc/hXpbvKjS/
-	 3+58l4Dg3kvSeOTWd3yYPnwQwnDK96V9DRhk2IF191EgH1D/gEeIKz/Pjx5dpsjIwTQzU
-	 wsCH5ksdpq9VJDNXuye2lEFadyYjFnlxCsJL6OmMxeZC/hT70i4OXuPvfboFXHOOBzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624649;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=eM3DKNSJ9197KhMSUbAI+R8YewD6b8ZZFJPcktleL5s=;
+	b=r9mpFeN+PC9JDTfuHwSIQoUImsDYCS5VCeby4G/kOV7jnyfS2WG+Lu7Pot+1nLkNImwd
+	 UiI//vQ9ORpJDCmHEjop1lYJ2mh7ym3EyVNJrI63yf0nMBkzs2UiAnVaEYm02wtGQquUf
+	 oEGgRIm1MV3r2Vd4ExCRaTXv5lmwcFVQIcUUU/eB+yk5CdaCy27qMtV9paGkjLmTtcH8Y
+	 YL8EMO7IpmGJvInLd+XEct6lUXD7sFzlOwVof3FEtXIwom4vyQ3uZSgS/5iz3hP3vV+g5
+	 ivg4paQiIll4kyArbaD4+B/8QsF2ESW59rxvGqKpFmVGvd87GoqIduKR265G8bo+Jsw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMTrcZLa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lEAiFJzb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.20
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011020.outbound.protection.outlook.com [52.101.65.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8800E606A32C;
-	Mon,  2 Nov 2026 13:03:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F5460A2624;
+	Mon,  2 Nov 2026 13:04:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81F5460A2624
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMTrcZLa
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793624637;
-	b=Apk0F0l0z+Age4lGkpc5dfN+nye073H5lX7We+tbrmg8MlaIUFR6TC0CSfvrYlKMEHlE
-	 CyXTOOpR8Yt06QzTrbxPxo2l+e2rl82d5UQsTpjBfVueEpwfibIKmFkUygU1zpR1sTXST
-	 iyfDRE533PXac5O5PSCC03JYy8Xo6XvubuxN9NNKc0+EhSmf/Nqs9WscqxMOZJ1GUqWaP
-	 yzU9zcP+HDtDry0DG6lhf0oNVHITYM587tgH7urh0aHb/zoK0TviqcJIvprRcGmq6xu7a
-	 7nTfun2bnhzDVO5oGPOBq1/f2wYRfVRqz8dLl/pC5JKDJU6Hh0MU8sONR2ki9RkuLTA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793624637;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=gXkbMf8DM0d4yvmmrUjI+zueCqEc0hq6YJ+3++B1KPQ=;
-	b=w11gawSgTHIpF9BnayxDICeTmn7bYnZGFONigLzMC43B9/Xq88Xyfxes0I7VAXYVYmBD
-	 gMhkGlQPApXLSJukQOJsUIUYc1lZUI0iHOlK8L/B6ei5XFpCKLrViAROCHg2vJ+Qq/0+c
-	 9w+Nu7itsuoZJ0KpTr7eysQof1p9d+NIGzb7tBFbDPn5FaokCPc9Kr4q4VoCXWFPoPHNj
-	 s1lSTBifAU9sC0IADpjeHp6pnrpY4uT5aC1xgRvlCgI46x5tBiVmHeV5+Anav9JtbH8PH
-	 Ljsniv7iESZUyEH6cqUkyds2EpKp4J5Jth02u9Jt6gKE5fcyQzXzTpfsWW3OpHxGEaA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8737D1F00A16;
-	Mon,  2 Nov 2026 13:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793624637;
-	bh=gXkbMf8DM0d4yvmmrUjI+zueCqEc0hq6YJ+3++B1KPQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=KMTrcZLa4EeOwDolpCOhtcMcHP5jE5HJhdIPmS6cnZyPV8Milyuags4BU/g9SAWkk
-	 P8E2iZWKuSA7v26xrtPm7D8wkBSiAxGfWQBV9HMHROFr+g5ZIUU7C8lXh3PVfqJMxm
-	 lC9UIzkQ8DA5IGsSUWWUyDjncjxFLVas4xYS1w0PMJtoxWYhel15jJD9WOzyk1mkAC
-	 a4KdzQByr6WnzSXQ3xx5iauSebUUxG2kKqgZjSq2Jc6F4TKylgMC+t8vCdfJaJz9W7
-	 wqh+gvQ4BFfxcBMvUlW59DVc8fTknRTISzDCwrUQvN40xW23mKxaKyriNMAydYrcQ3
-	 040YnrD9KgGnw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D66F746519;
-	Mon,  2 Nov 2026 13:03:55 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 13:03:56 +0000
-Subject: [PATCH v4] hugetlbfs: move hugetlbfs_free_inode tracepoint to
- ->destroy_inode()
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lEAiFJzb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yW9sfKLebmyflz5DZ06ZsgNZMmtlKJrG9t4XGrN05K7HBkx/P/i8PYN4Cj9+qoQIj7sS+HENdvCdTOCaHH76UzVdEIPPZlMrKruVOxydYA0uNI3UyA8tfrED8yGsqyBFMZNJnnlmEVJsYGW14LPguqZiT+r1LZBHrvDywlXTi8YJxLZFWMuSLcndwTOimVdKtaHjG2gxLfrkQQ8k7bGzPgkklYTs2R1qGDIDLDKHq0EUYwOwn1suS3kYU0HsD8pOjaeHgsNIDW0H/9BDN5ft93+GEYeh8WS68ys7iqxtqWaSjl949p2AikjM8qPa0pITo1wlc5dAEcHYHs+WL/9yFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eM3DKNSJ9197KhMSUbAI+R8YewD6b8ZZFJPcktleL5s=;
+ b=rr2SFcpFXCnrsYAyFghFxx1+zz6TwVmm9skoN3DDW/IdnwbOGG0fymBdStYROTCaLq5686fsbqQfcjAw7wDO5GdYWEUZiGRGUaHReyq46SIXUNIM1W4BvrmVPdX7uyl1BSU2INev/+RjYDbQqYMCzW6gKIYGQuuzNjacjqwAVqFrquYOFIDNtXhAtCFV/44LQW6RkLAtJQahz0Cs4jYSaMlTZB/d9YcM9nGJzaWyc5J7mJf+IM+Ay7xxn8rIu5NXuJoefM64/NSAB/dJnT5bhxxQCAQQA7s17TAJ9WKFmVT/DfmwTiXDrAGJ/O8vQI03XWd5PYGN4kJyw+NUBYsmOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eM3DKNSJ9197KhMSUbAI+R8YewD6b8ZZFJPcktleL5s=;
+ b=lEAiFJzbozsffkr2aGEjQNR721Eow0++/lOJ5OYcljnvCcoNc1FhrcmU1P+ypklNYvT6odAb6K8nDo94cOG73oknIVolnhBz0LBNBkvB3pV5ctNblCqoZZl84aAGYngnGaMFySlW+rLGGv5i7bIeUd+rMn/h+1JXE/ysj5lKrm1rswwtFVTPf2YsmyzusFcduw/ZhU85O/munR3bcK/rNEafVZJE0cPND/bDwXtPf6hAGkjeUKlmWFDxqiLf7N7nAV541fHcS8K0ly5Pncyizi9P8xmirf2897QcjLrxsF/3nALWa5FQ8WBXE/VeRy9WKNky48+kcX7M/CE6dV95FQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by MARPR04MB626191.eurprd04.prod.outlook.com (2603:10a6:250:201::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 13:04:05 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 13:04:05 +0000
+Date: Mon, 2 Nov 2026 21:08:54 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stefan Agner <stefan@agner.ch>,
+	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bartosz Golaszewski <brgl@bgdev.pl>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH 01/11] dt-bindings: gpio: vf610: fix clock requirements
+ per SoC
+Message-ID: <auiLZh+aBGRPivtT@shlinux89>
+References: <20261029-gpio-vf610-fixes-v1-0-45b484b4c434@nxp.com>
+ <20261029-gpio-vf610-fixes-v1-1-45b484b4c434@nxp.com>
+ <20261102-curious-economic-grouse-ccfd6b@quoll>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-curious-economic-grouse-ccfd6b@quoll>
+X-ClientProxiedBy: SI2P153CA0011.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::14) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,146 +109,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-b4-hugetlbfs-trace-v4-1-72371825bb5e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADuK6GoC/33Nyw7CIBCF4VdpWIuZKfSiK9/DuAA6tCS9GKhE0
- /Tdpd3owrj8TzLfLCyQdxTYOVuYp+iCm8YU8pAx06mxJe6a1CyHvEQQyLXk3aOludc28NkrQ1x
- I1ELUSheVZunw7sm6545eb6k7F+bJv/YfEbf1LxeRI5dk6gZyJcCYSzso1x/NNLCNi+JDIPwmR
- CKgQF1haeUJ7Dexrusbr4LkXfcAAAA=
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
- Hongbo Li <lihongbo22@huawei.com>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Joas Antonio dos Santos <joasantonio108@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793624635; l=4611;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=KamqvAmHDg6o0N+fTVEMDXuwIqsclHfnbjLf5BnFAeI=;
- b=6KI19Vg+bAxiED0JqPw6cBQwYlbwj43osrwBDrFjsM/YfY07REwyxhqBR4n5b2oqe015nw9Cy
- T6PsmCPy7HUCpwFtBSgbCWDiiT3HPmtT6UUve/QpoSglPtcB7gNcinv
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|MARPR04MB626191:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae70083b-fdf1-4cf1-abbb-08df38e1c601
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|19092799006|18002099003|22082099003|56012099006|261021121427099003|4143699003|11063799006|10067099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	qTJ/KAGwT/b/BgNJmEfH+AoWB4vVJKWtxdGe1IT6MxQDOKVepA5l3vkVmRVp1g+34bLXvOAslvJox1gFsNC7maKP7UQw28N++/5uDSedOqmmmPLMIHKTVd0BYwmeAQ5vgPLmCvLU2JrbCckL9dUzN9pNE6pOKNnwdr8Zh9DEDBplVTrWolPtDD2Ch+bA/drUcMNljJeOgNRZl8q6bRKdX/keGpb2K77aQXs2y4hFevBz+9ZJ+YAaLhCaGzfD78QtfAL019g4boo5gzvQw2GrkL3gHS/muSacXK+Uduue9IB2bok95oheeubmnW5dIPgNHBy+MHzFwAy0jzUUmoxGY3mZG9unKe7vosPN3D9mo97w8M24xgT51O5C63TY7IuVFV5bowzCnHSc324Eq5tQCIU+Vbwt3M2r+deOyXnWj4uJWXz3rOPxZuICg+CjjqIRbpI727wAy1oHmmvjP4RPJ2kK5/4PQiL+sNoN7yeNtm+377CJMML5c9rhJz39LmaxU0tFyseEZnGgW8KgXyeKwUhYpRG0gQ0CU4uCNcvLIDkHxuxsQR+eVduN14C26SaaFI3xbuS2jgP4nJvD7TFr9L9HbAN5amoTlzVl6uBNkRgzth2fep8PQDJcdRRfI5U0AvK7lpIdYLayBOyQyR8nHqER2WOZy7ZJ/b3GsM9dp90=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(19092799006)(18002099003)(22082099003)(56012099006)(261021121427099003)(4143699003)(11063799006)(10067099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rp0xObV0r4q7jF2F20SPX5IViXzBqhn9eFDCgh/TJnd+GhsTeDxwQFsDpcZC?=
+ =?us-ascii?Q?jDjFIYPV4FjbJEmC8+duLgWpR3rFPpH+a430kUBD7SfucKDw+aruBi0M7JWO?=
+ =?us-ascii?Q?J8flRE3l8SB1L9EtJWUpvZE5tAHbLyiwdalwenrJlClQJWOweEF+B8g3nnAQ?=
+ =?us-ascii?Q?RyN9SEbbHHfP/Da03UZ2cM52MfXGu0Pom8RCjKeNMn37aQRxzPJ6xj0kktnT?=
+ =?us-ascii?Q?wq3kNQNVgvmHeHLuGPv+72p317XjksORGvWFz/FTb0FLjY23QFEAdoBwzfiU?=
+ =?us-ascii?Q?EYGhTgPQ9T46I3m942uqDF7QkQmxTUtyx3wRqJykE4f/0KIsYnVsiTx/oJCZ?=
+ =?us-ascii?Q?mcsU85G10k2Y48zH4g5cPYfq9by5WU3S3rvwEHIwM8XCZRt1kERi2XCzZGPU?=
+ =?us-ascii?Q?GyYvC9rqBkKB2EVQU2Qs9v/WSse9FKA/IAeIWfqj/trPNTR71OY+K8lgD+ny?=
+ =?us-ascii?Q?Wv5RcwCr1yFJJTvTanEzM2iJbNJAU5tvVo7F22AgVdyOOIPGGQbxqfvpO12X?=
+ =?us-ascii?Q?PqPSWfJkHVBrZsLONnBH0wcuqpemGr3DnMXIL40HrX3uPfALnsisr7mDQARg?=
+ =?us-ascii?Q?OhkBQSj96jrpu+Mf5KDZBMHkl2S/bdVw//OV9xKQyrShkuGRZzjcmmPhBCRk?=
+ =?us-ascii?Q?oQ2s0IT02pJBdAAHIuhNOYBP65y+05AjK2Qekje3llkiTXMk5o6xruLWOMkS?=
+ =?us-ascii?Q?c/nWJwIKuqAM8xMgsudL3tGsklJ4FV2mRItwMHx3jCUjyLCyFUZrFaJvl0PZ?=
+ =?us-ascii?Q?HjRFWe7ijnEfJIr8jmUNomge4G/D0i/PbgGRgSVH2FOpbZvhJmAb28RzX8Mg?=
+ =?us-ascii?Q?qIvV3RDjWIH04eMdpLwb2oSd1HqCL8hLJDNVN3+oag0KN7WGXu6QHIjkFAht?=
+ =?us-ascii?Q?uaXXl/yvObhJ0U7pzMQCiI43fOcLI+ENkp3FzJYsQMWRGKJ1mPjoYQIP3arL?=
+ =?us-ascii?Q?/YCiS3ln2P9J3RZaFLOyzU/u0xHqoy1dd5Rn8HNVYm00/LZwkDCFL+CMs35w?=
+ =?us-ascii?Q?rmlKjdojs6JUxtcr3NpmtUSnb+4xrpnev1/S3tL8RiqPIOfed09FdUeP4NA2?=
+ =?us-ascii?Q?9rTQHm+9GpfbeELhyqHHtnfDhFCSIgeYPirol7nxBkyg3+R5SFHhSLJeUAtZ?=
+ =?us-ascii?Q?c3y4tLtORnPWhVfZGDQXukMfd5ec4NA/C2uRXfEwA87AKMbGzWp57nncJLln?=
+ =?us-ascii?Q?UG4Sryg9eyCAK7tK2z3vdytVz21krGYKl5llZsphkgAVXWKBobYdZdeEWwPM?=
+ =?us-ascii?Q?CiUIcueUe7L7WWCviaMDike4kOM2IhpbOEtzvDb85XFkSRJGLKRHAX9++PSN?=
+ =?us-ascii?Q?X6P3Enojz8oIU2PZwsIJSYbFlIXT3AfNd3bAZdiHcL4p2inEqwv3TkPMIbu8?=
+ =?us-ascii?Q?TcX7rhuCg8KB+NPIXZZzHyCbAu/sNcmptjE4VXarPrCNpusuYswKRjbTaoJn?=
+ =?us-ascii?Q?aZ11Sbv7ZNx3ebDs/Wf9pOTCmIOkV0IudoJsOgnin/R1mhjKlUArdMSFgLl7?=
+ =?us-ascii?Q?JWld4uvu3fr6lJ87KHEA5Jv4ULCg0SLxLqWQXTRFKtKC2yXhMV4qSMIu4kv/?=
+ =?us-ascii?Q?Lb11oXCoRVc9VJnWe1Z1gL0wLH1BUC5efD6hzMjw9Twcp7u9Yo1OrLLheGiS?=
+ =?us-ascii?Q?+G6lGcnzbjNg70+5wqgn0F7VLHJTnfTQG6CgtsvUoCyyE6Su9LlGfQB1SsDi?=
+ =?us-ascii?Q?2gibX4SdNZkf5VPDmk5HiOpxM1Z3P46VGJ89SUDUUwAYBnFbsNnzISoal9l3?=
+ =?us-ascii?Q?2QjoAKLCt0JFHKfy+nRCh67iXZUvARQ3ZDiC8UeBnPm+ceir7Aem?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae70083b-fdf1-4cf1-abbb-08df38e1c601
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 13:04:05.3434
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VEHGixzHKjD844EAucaQWfB9AgzPRxGjqMSKd+RB1HToSKryDq8DMI8p0SAOm5C4D63twFOeua2qbSB8Ppa7HidDXc7oX0uhfkKnmKobGRnStfrOwb3XjdxbzyozzaMa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MARPR04MB626191
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+On Mon, Nov 02, 2026 at 12:05:47PM +0100, Krzysztof Kozlowski wrote:
+>On Thu, Oct 29, 2026 at 09:42:25PM +0800, Peng Fan (OSS) wrote:
+>> From: Peng Fan <peng.fan@nxp.com>
+>> 
+>> The i.MX7ULP GPIO controller needs both the GPIO and PORT clocks,
+>> while the i.MX8ULP and its derivatives (i.MX93/94/95/952) only have
+>> a single "gpio" clock. The vf610 controller has no gateable clocks,
+>
+>VF610
+>
+>> so keep clocks optional there.
+>
+>You mention VF610, but I do not see corresponding change in the binding.
 
-hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
-hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
-runs from an RCU callback (destroy_inode() queues i_callback() with
-call_rcu()), and Documentation/filesystems/porting.rst says that this
-callback "is *NOT* ordered wrt superblock destruction; as the matter of
-fact, the superblock and all associated structures might be already
-gone".  put_super() frees the superblock with call_rcu() followed by a
-workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
-hit this with the event enabled:
+Since this patch touches several SoCs, so I just pick vf610(leave it in
+subject) from the file name gpio-vf610.yaml.
 
-  BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
-  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
-   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
-   i_callback+0x46/0x80 fs/inode.c:317
-   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
-   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
-  Allocated by task 6134:
-   alloc_super fs/super.c:326 [inline]
-   sget_fc+0x1ba/0x1f60 fs/super.c:874
-   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
-  Freed by task 855:
-   kfree+0x22b/0x6d0 mm/slub.c:6923
-   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
-
-Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
-calls ->destroy_inode() synchronously, before it queues the RCU
-callback, while the superblock is still alive; hugetlbfs_destroy_inode()
-already dereferences inode->i_sb there.  ->free_inode() is left with
-only the kmem_cache_free().
-
-Since the event no longer fires from ->free_inode(), rename it to
-hugetlbfs_destroy_inode so that its name matches where it is emitted,
-as suggested by David and Muchun.
-
-Found by syzbot; analysed and tested with the syzbot C reproducer on an
-arm64 KASAN kernel.
-
-Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
-Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
-Suggested-by: David Hildenbrand <david@kernel.org>
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Cc: stable@vger.kernel.org
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-Changes in v4:
-- Drop the comment in hugetlbfs_destroy_inode(), the new event name
-  makes it clear where it fires (Muchun).
-- Add Muchun's Reviewed-by.
-
-Andrew, this replaces
-hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode.patch in
-mm-hotfixes-unstable; the only code change from v3 is the removed
-comment.
-
-Changes in v3:
-- Rename the tracepoint to hugetlbfs_destroy_inode in the same patch, so
-  its name matches where it now fires (David, Muchun).
-
-Tested with the syzbot C reproducer on an arm64 KASAN kernel with the
-renamed event enabled: no splat in 3 of 3 boots, and
-hugetlbfs_destroy_inode events are recorded.
-
-Tool-use note: the analysis and testing were done with help from an
-LLM-based assistant; I reviewed the change and ran the tests myself.
-
-v3: https://lore.kernel.org/all/20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com/
----
- fs/hugetlbfs/inode.c             | 2 +-
- include/trace/events/hugetlbfs.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 01c4d6f44ebe..f0be8edb3517 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1179,12 +1179,12 @@ static struct inode *hugetlbfs_alloc_inode(struct super_block *sb)
- 
- static void hugetlbfs_free_inode(struct inode *inode)
- {
--	trace_hugetlbfs_free_inode(inode);
- 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
- }
- 
- static void hugetlbfs_destroy_inode(struct inode *inode)
- {
-+	trace_hugetlbfs_destroy_inode(inode);
- 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
- }
- 
-diff --git a/include/trace/events/hugetlbfs.h b/include/trace/events/hugetlbfs.h
-index 8ba72c1d4f4d..a7932e0db0f8 100644
---- a/include/trace/events/hugetlbfs.h
-+++ b/include/trace/events/hugetlbfs.h
-@@ -72,7 +72,7 @@ DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_evict_inode,
- 	TP_ARGS(inode)
- );
- 
--DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_free_inode,
-+DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_destroy_inode,
- 
- 	TP_PROTO(struct inode *inode),
- 
-
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261031-b4-hugetlbfs-trace-341b338ab57b
-
-Best regards,
--- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
-
+Thanks
+Peng
+>
+>Best regards,
+>Krzysztof
+>
+>
+>
