@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641880;
-	b=2DiMajiBoRk+HEqkKWyo810M27Ooo5FXroaSyNJq1C60178TyIuxUMwdTQdcJY2XfFjb
-	 ray58h3n0Ggrzn0vmPSyRljxUeLkpVJ7F0uQzH1dOd4/mhCc/E2+hj8uSPakrg1GlvKzr
-	 3skWGyV21SNFLrM9tLO5FuRusiqV5wI7h81O7Byg9ztFcxQEyLHwexJpqmXEoR188kIHH
-	 mGfRegoglhO32GDE9Mbplw2Iw6IfLEC07D/xWhTb/vPdxqjOCK1B6CvxFgrBKBC35dZzx
-	 33OjvX/GwsjgZvozxiOexZ7MBXc8PE/sGUa8p3ZhNmszX1mIizijAyJerMq9n4iPxFQ==
+	t=1793641902;
+	b=XY7FXofsA6YPcPdbSMOLLoTxA38aJxFL1YXRxEewfzx/JqJwLxsmo1OAJ9cJt50t+yEY
+	 BdfpTdHXe8+hfd0p04dqRauD2zO1dtlpB8vdseu1gbDvZj0UTXMRqIO7E7ZSmZzDEjKF8
+	 IunvpbYSl9QhHcXJZF3s39Rcyfnn03JUKPk5DnwB+/tMwNifTlpaU7tfpVaY/m4bQrSY3
+	 NQtPOdpPRRdpSKWvHjfTQ+cejNrwSA2bd9LQffDDFfKPhNUczx2Z6jrwuK1k38ZchEeoX
+	 wnXYM4euUHmfQkkfCVPpb3PVHLgOG5jpce+ZAd0aXePwipt3UpOa1fr/OH5nu09GQaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641880;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=choUeHLrZ0l70fGRma7inaLcbb9ci6361nxZE/8bH7k=;
-	b=ygpgYm/meErvpFEd1GerpN2bPDxo/XkQUK+8c4wqyIqM9HpCxQBTqhxB2DiPlnlXi7X3
-	 mBLWVJOQcbq59jm7HiaEEh537OWy3yfBNr1nk7slTOuFNRjoLQ3mjONzX7i/vmUybJQno
-	 i65m4r1xtH9hiC7Ud9IYK6Lsmy7c8THX1h2yzG3DXSQonBJZSaVXOzT/poKMkX6dxoC/z
-	 b/CGujj4ZVYh6AbQoWJY29oFryArniayvFML/lExmgifoJEzZ/eEkNKLqiupAIg7AadHo
-	 boejZhBZY8+y9QDfj0KRkMLYgTuZJ7/yU7ELIrfWhy2Vv7vVd9+PAB9jQxoLIIP347Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641902;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1UTj7D8U8+hxOmWus5onNXedkTK0UKM+sEpe8PoDcXs=;
+	b=jlusGHUZcz7DPc1d9jAWrttXUNxp9OFvoPEb7EFso2DWZs9vbTafZQ7O5rFesARMFjdH
+	 kZp0yfWDX9Uzwt2ls9NXBjiGkIkKxCjyZk6J/OhEBu41J3u9nsKVNKXId4J7NxupteAvc
+	 73O54nJneDxSzBeQGolGBhq94USo74ghH8uqcqrBv0v352+HwVq5YoE70Pu8AbQGX3odS
+	 du+sjC16ja+l1cJ1HVCpvj/1rNhPgL1YbiJXJhRKNzt3orF8cJctxscPtsGST5N9fL+ji
+	 nsKdFUYUzqm1DGWxhIV4aZiEls2iuUXur3Jc07ipt0eV9mDlKsfHpWC8+mIEvFXNJOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FSrcA6BS;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="HdZ0g5/K";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=hqPVBVye;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB59606AE9F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:51:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBB59606AE9F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F18F606AE9F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:51:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F18F606AE9F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FSrcA6BS;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HdZ0g5/K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641878;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=choUeHLrZ0l70fGRma7inaLcbb9ci6361nxZE/8bH7k=;
-	b=FSrcA6BSJBBMFZarTIuACtm1o1C5BxNbndvbbPJ0/LK08KOgtmMA6JvIdX7I4qgufMn5xZ
-	NyFTEmrwGOs6KYgQTBaBIlQZzatqMOCSayMeI3R0fdrrZm1zJ79ZBAEmWKT7j28h2RFBrY
-	eQDarwBv39rviHPGvBEkTyejJoWAAME=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-661-BsNoOCl7MO6GBH4hPvDd4g-1; Mon, 02 Nov 2026 12:51:17 -0500
-X-MC-Unique: BsNoOCl7MO6GBH4hPvDd4g-1
-X-Mimecast-MFC-AGG-ID: BsNoOCl7MO6GBH4hPvDd4g_1793641876
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48c430f0f01so2903090f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:51:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=hqPVBVye
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so21606005e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:51:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793641876; x=1794246676; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1793641899; x=1794246699; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=choUeHLrZ0l70fGRma7inaLcbb9ci6361nxZE/8bH7k=;
-        b=HdZ0g5/KCUHzPwXu67P9GZCo+tctmaEcvlIMv1uDHhgDzYtmt4MS/CJEwmnaiesbgy
-         xAO7mxIBj9u8j6ZnSn/WbyjAYlmMlbxe6Qh7G5TWt22K8pSv6C7VEchWWp31Dq+ItQtq
-         CKDwNhh0Y+ygFQAa7JMaRSgEfum6lNrhGTAhgU0X+fAPJBLSiJGhYfhLhmPLnx6cChw9
-         6xXXIKzbYor3gcPWTenNyiJv2zdXTiThUWaFtnH0Hsn/D1hjlfOZH2oDVmESHEIFSbNS
-         3whqRMSeyr6soWXPCQ+3TPxnM2GvjhgUVMCgpb8Dg7/ojUhLCbgUbxhIEE6AjDLSRaH6
-         3lFA==
+        bh=1UTj7D8U8+hxOmWus5onNXedkTK0UKM+sEpe8PoDcXs=;
+        b=hqPVBVyeqcglbHKcEb1sJBqvh+MKf32nBKhsUOi9Ua7qjPAX3tJ+tqADzcPut8FFh8
+         X1bRUoD+eEFrQKl/X43FairBw7U5XO20F0BsPJrkaYsSxVeJfnj51Ow6UukY45G/eFCf
+         Zt1uFXpkhil08pRRWUYwEwxGwG7amPjPiCER02O7aQl+MYZwdAgkGtzt96CFrcJXvBpk
+         uuAiPjyszHDhp61/j6LeQcEAW/EQpqQamJdq/whie/RoAkbodBT83fBAqDPg6S5+Vnih
+         VWdF0b2uukGg3hH2GspRDeXPSgdJvVnQVyBvykfGj05b3OjgutR2M1wvBYnoaWm6E2D4
+         Aliw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793641876; x=1794246676;
+        d=1e100.net; s=20260707; t=1793641899; x=1794246699;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=choUeHLrZ0l70fGRma7inaLcbb9ci6361nxZE/8bH7k=;
-        b=pqabRTrI/deuntdt1cQcksdRQTD0NJ3PoZN3cc1IM6dbmd/ZyHPzJBcbqtawYDbD6Y
-         7wmoOVRIaJnkK7ZVuWdlqWFsaHBVCU9Kps1Uy326bomaR0Sl+hBZdtdqrkRF6+moNATs
-         Od2XtZQgQPzF5c5vumWE7reKUEgDhJt2NEqQ5fheL4KvdcTYpxCyU5roAWknZ5PY4MV4
-         0fIQuyxgnmRmcivq5KEbf2chcLGcZqsBuqNUN9gEITqEKZJ22Mefrc5pbNAHcAYLgPFM
-         Mvg7p+vOhwG09Yuuj2Uis/FF4RS5yFBTJrUjqTLK4Mqqr2gmhX6KhOmo0ntyvOembIsx
-         Rcqg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5I9qjvsjTIKLCIDYi58fK1ceYIdWlxRshVLSlfrvp3XjgEmD4MA3AHFor8KytlEeAwse5FlW4g1OBjb8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SojKFDN8pRNMRAO76uTr4jhfdcptlDEcqFIse9y8gh5HVkwJu
-	VsZgPyZN6GKvrLUSo3ypqR6g6Udak688nn05QoWOtMzDL9/JMaZfKrSBHpYDIYcasR0RMbhWort
-	AMgdODIh+6Wi4QAVQIXP6EwC5oS8AaaXTrsYkEMNHdNKlwdAr6lzwLGvBjD42Unvj/Q==
-X-Gm-Gg: AYBFou1bCpWjgaW/oCoHyf9YrCxHcRCx/rlpNjzR8CcKgz1UDrUnHHSuduGI9wE2Rqb
-	S/8OzBcE2F+AhFp0+LDT2C7QcWTaepOkdCklu0Litqm/Zth84gtkNA5kWHN/G9a41EZlO50qsBD
-	9QpQVtVVEGKIikfnDw/OCNFCQvEHpR9QfSkw+l2Qv7yh2yin3cZgFWLGSEWSGLIhLlWXv3WMmlq
-	HIIHTTgrqmMXMcgXz51HySw1kH7OyltO6G5zeVs77dKBe6DUP7iFuQevm6qr2pzX/HA27IdNigI
-	HDQeMFJGXVktBdCxmL/dnW8/OTA7kUV8qcJaWC3sVR6tvn986pSgXyTEJ/AvLg0SCWQkueGlUpx
-	mr67XW+ZPccSlSvUARJdbicFvfjvq0Q3UoQfa3RHfdQ==
-X-Received: by 2002:a05:6000:47ca:b0:48c:8126:a260 with SMTP id ffacd0b85a97d-48e6e2bcd18mr15610205f8f.6.1793641876103;
-        Mon, 02 Nov 2026 09:51:16 -0800 (PST)
-X-Received: by 2002:a05:6000:47ca:b0:48c:8126:a260 with SMTP id ffacd0b85a97d-48e6e2bcd18mr15610171f8f.6.1793641875584;
-        Mon, 02 Nov 2026 09:51:15 -0800 (PST)
-Received: from redhat.com ([2a0d:6fc0:1506:fd00:9e19:9994:44b1:e6f2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e86a06078sm4860064f8f.54.2026.11.02.09.51.14
+        bh=1UTj7D8U8+hxOmWus5onNXedkTK0UKM+sEpe8PoDcXs=;
+        b=j/ODkHt6IG7B9s0SKwIxzJgqRri9XnpnsqFiaNLy/S7SJPp4VxgS4bXX6gN1pVLQK2
+         R5hAUZJ0NjRe9O4MAXKMN+6F53eroy5+5Vv01/rnE8icf0yuRTZ7RfIeBXSX2HkOBWb1
+         E0Hm3tvBxwqml+VTZNwllSdUhubxrt2LP+q2BAO5PbOXHQsYdILPy1vRCiym++Z/1uuT
+         BrrUOSlGZUdTNYEF3GLqgsM82YwI2zAWqN0Oj/An10KzIA/zIufXI9cKwFzXyTJJacm0
+         6E/9FcRhtG0WANb2VJx2l+IfrpGe0ZBfO+vw4arhMyHKSbn/85ohIpjTOxkhgdElLn2A
+         Qm7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxrK7LbQcBwqNySipIxf0fw8bmsCo8uo3pINw5uOfOT/BJfe6II2vB/WLWORAiTc15TZfHn0sWVwziGlX8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+Ghkjk3IcPmPNDrUpcaR4KEIVyWUkh7Gft2Q2B1tsJWVMu8lh
+	TdtovFiRU6pOArMtIWgCtI7BMGb3oCQHiQhnPwipMAv7amIHKAJHehowwd0/ajLzsFw=
+X-Gm-Gg: AYBFou3a+oCQusr1z6V/I0daRg8Vo2/YHbv+JBJo8dUMUgsBu+z3o4YBbNPdxfE15P3
+	Vaqi6hYegSXeknVK6mCrmCYEyTt3P87hwZ/0Yytg6eCVH3TmK0ZXEMXY+f02jWPtX/9CnDZafhm
+	HH9Bix8Uvw0APYXdrpMNO69PGkkfd7m/RjTGT4TqkRtY+sqTeslGMDI5+JUEgG1OLFlaIha+gKY
+	IgHRjpqgAFAc0G5p92A5l4KuVWhy6XzrbzJePzLHRAQacDUIg43dKwpcAr4xQhfJNCcav1OoScH
+	l4/Nz+t/N2lMnrRq1JUUS4kIR/aM9vfXCuZKbd80K9x3oDKJPfM16dg2NuEIBXzoVpEjnB5ITNX
+	D6MJ+TQrHt+z27ODqGTDqNFB1NSI9LsS8PIp3WC87lffCGt3htUtkRFE+6eVPZWBSP9OOWS1euE
+	YuHlabYAG9xUXu8CNDRNxkxyKFkZxC6+OB3HDJbYwzR1z7L7Ba4QKCuoDItNtugWnwKCs0PAz8i
+	NfveXfdxi+XGgFV+lpWel1MKB9TJqlEKEfg75VMcE8+CkXC38gm7HlDzZNK0JcrtVes6r/YcDyd
+	AP83kyTdHNS6fDNy9ESKswHCx0HEGsk2PB+FG3P+N6FjpRFYsvLF5WIFBjlsMW4s2xJ3Rwjk+bA
+	xr+BM78YUmqDisbg=
+X-Received: by 2002:a05:600c:1c0f:b0:4a1:ac66:6059 with SMTP id 5b1f17b1804b1-4ac19233381mr245619445e9.26.1793641899045;
+        Mon, 02 Nov 2026 09:51:39 -0800 (PST)
+Received: from localhost (p200300f65f19a904293c83a06545501e.dip0.t-ipconnect.de. [2003:f6:5f19:a904:293c:83a0:6545:501e])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e71b9eaeesm21154811f8f.49.2026.11.02.09.51.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:51:14 -0800 (PST)
-Date: Mon, 2 Nov 2026 12:51:12 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-Cc: eperezma@redhat.com, jasowangio@gmail.com, xuanzhuo@linux.alibaba.com,
-	graf@amazon.com, linux-kernel@vger.kernel.org, trivial@kernel.org
-Subject: Re: [PATCH] virtio_ring: Initialize id field in packed indirect
- descriptors
-Message-ID: <20261102124927-mutt-send-email-mst@kernel.org>
-References: <20261029072511.851-1-zhangjiao2@cmss.chinamobile.com>
+        Mon, 02 Nov 2026 09:51:38 -0800 (PST)
+Date: Mon, 2 Nov 2026 18:51:37 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, bpf@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next] bpf: Use "new" URL to show if net-next is open
+Message-ID: <aujNf7TVDcwMYeLC@monoceros>
+References: <20261102111509.357269-2-u.kleine-koenig@baylibre.com>
+ <DMKVOUX2GDZN.2Y8MKLR367NU8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,67 +104,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rzmmr7d67z34n3v7"
 Content-Disposition: inline
-In-Reply-To: <20261029072511.851-1-zhangjiao2@cmss.chinamobile.com>
-
-On Thu, Oct 29, 2026 at 03:25:10PM +0800, zhangjiao2 wrote:
-> From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
-> 
-> The virtqueue_add_indirect_packed() function fills an indirect
-> descriptor table with addr, len, and flags for each entry, but does
-> not initialize the id field of struct vring_packed_desc. The table is
-> allocated via kmalloc() (not kzalloc) and then DMA-mapped with
-> DMA_TO_DEVICE, making the uninitialized 2-byte id field of each
-> descriptor readable by the device.
-> 
-> This leaks kernel heap memory to the device for every packed indirect
-> descriptor entry. A malicious or compromised device could extract heap
-> contents by reading the id fields from the DMA-mapped indirect
-> descriptor tables. This affects all virtio devices that use packed
-> virtqueues with indirect descriptors, which is the common configuration
-> for modern virtio devices.
-> 
-> Fix this by explicitly initializing desc[i].id to zero in the
-> descriptor filling loop. The id field is unused in indirect descriptor
-> table entries per the virtio specification (only the head descriptor in
-> the main ring uses id for buffer identification), so setting it to zero
-> is semantically correct.
-> 
-> This matches the split ring path where all four fields of struct
-> vring_desc (addr, len, flags, next) are explicitly written in
-> virtqueue_add_desc_split().
-> 
-> Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
-
-This is defnitely not trivial material.
-Pls report to the proper list in the future.
-
-> ---
->  drivers/virtio/virtio_ring.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
-> index 5c169fbb418a..42883b01fab0 100644
-> --- a/drivers/virtio/virtio_ring.c
-> +++ b/drivers/virtio/virtio_ring.c
-> @@ -1571,6 +1571,11 @@ static int virtqueue_add_indirect_packed(struct vring_virtqueue *vq,
->  						0 : VRING_DESC_F_WRITE);
->  			desc[i].addr = cpu_to_le64(addr);
->  			desc[i].len = cpu_to_le32(len);
-> +			/* The id field is unused in indirect descriptors but
-> +			 * must be initialized to prevent leaking kernel heap
-> +			 * memory to the device through the DMA-mapped table.
-> +			 */
+In-Reply-To: <DMKVOUX2GDZN.2Y8MKLR367NU8@gmail.com>
 
 
+--rzmmr7d67z34n3v7
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH bpf-next] bpf: Use "new" URL to show if net-next is open
+MIME-Version: 1.0
 
-> +			desc[i].id = 0;
->  
->  			if (unlikely(vq->use_map_api)) {
->  				extra[i].addr = premapped ? DMA_MAPPING_ERROR : addr;
-> -- 
-> 2.33.0
-> 
-> 
+Hello,
 
+On Mon, Nov 02, 2026 at 04:50:37PM +0000, Alexei Starovoitov wrote:
+> On Mon, Nov 02, 2026 at 03:15 AM Uwe Kleine-K=F6nig <u.kleine-koenig@bayl=
+ibre.com> wrote:
+> >  For non-subscribers to kernel mailing lists, there is also a status
+> >  page run by David S. Miller on net-next that provides guidance:
+> >
+> > -  http://vger.kernel.org/~davem/net-next.html
+> > +  https://netdev.bots.linux.dev/net-next.html
+>=20
+> The link is not the only stale part. The whole paragraph is wrong.
+> We apply patches during the merge window too.
+>=20
+> diff --git a/Documentation/bpf/bpf_devel_QA.rst b/Documentation/bpf/bpf_d=
+evel_QA.rst
+> index 4729efd..f6b9533 100644
+> --- a/Documentation/bpf/bpf_devel_QA.rst
+> +++ b/Documentation/bpf/bpf_devel_QA.rst
+> @@ -231,19 +231,9 @@ load or urgency.
+>=20
+>  Q: Are patches applied to bpf-next when the merge window is open?
+>  -----------------------------------------------------------------
+> -A: For the time when the merge window is open, bpf-next will not be
+> -processed. This is roughly analogous to net-next patch processing,
+> -so feel free to read up on the netdev docs at
+> -Documentation/process/maintainer-netdev.rst about further details.
+> -
+> -During those two weeks of merge window, we might ask you to resend
+> -your patch series once bpf-next is open again. Once Linus released
+> -a ``v*-rc1`` after the merge window, we continue processing of bpf-next.
+> -
+> -For non-subscribers to kernel mailing lists, there is also a status
+> -page run by David S. Miller on net-next that provides guidance:
+> -
+> -  http://vger.kernel.org/~davem/net-next.html
+> +A: Yes.
+
+Even better. Do you care to get this change in then?
+
+Best regards
+Uwe
+
+--rzmmr7d67z34n3v7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrozaYACgkQj4D7WH0S
+/k7W1wf+JQLcRbGrPXFvyGP1EZsRgK9324kSWU2Dh/RKoKN9FOlcL96jqZziPjF5
+syGXM8YlngzCcmImpq+2qARXjs7pO3Jrh7omKGHQEo2yjxC2XnMNpGK9fdz3i6zC
+BfE8234a0mFNL3SUDwGeDxTCxmbJ1C8xiT78fbxe7fp0jwPjX2dFt0f/FRSOeeoR
+uOQLavO+AKRpxiTiG2wuXjkDN/sx55ZKJTOncUWSgORfWcrFpim8R1EShjodADRN
+R9vcG/RSZjmwHpFYgmtsqP9w2c+3yG/RiKfRpiX08sxOwpDxfl4NybXQE4dVg82F
+B9VXlziJD8NyUXDQ5aM2FPOSQZY2bQ==
+=EFpF
+-----END PGP SIGNATURE-----
+
+--rzmmr7d67z34n3v7--
