@@ -1,121 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793615330;
-	b=z4znbG6BwPzxDk8fM1kBoMGjDAXif2nqZ58+oBuS+nTHwufxpMcCs2eEW2/X7UFW/Jrm
-	 ITjQmwOUZ7QUPwn+FEbJgdTV49jDYWHwC296IDDaL3UNPP0LchZ/buJ6jso5OlnwnqD0y
-	 nGGz6+iw+B3lrOjvCKgEgOEXXUBy3hdQgpOXDO1pQzNUoP1Ceke9IQfBPohwBiRCkbAsX
-	 77QUQXoAT2ZfXcAym9elD+Gmuq3+7kmVJZJoBVi6kwmrh3WyZnAMj82J8OljXTKJZWVX9
-	 C5ShFP9qy9Lm/rmGPIqhiapyJvWlO9Jd/Wf56msedkDwq5GOa4yh32Lv3bNGEUfx+Cw==
+	b=u+yA2/TVwEkK3EwhZpnjKU4KbHNuWAmPzCCS18jM421jj5ZWHK7CFfgwn2TZlbxXMQxh
+	 U6hTnEHzEU69fbPCbf+IFNs5ijLGAm6N5HFDMsuZzwAGoyo1HhY3wbjZ7kPc0w8I6nMsk
+	 N5uKVLkd/Ds4M/fHk20gHJCEMhMzwqCDNCfmXOxk2QiO1BTNC3TFiXLIwywIltpAK8nwB
+	 j/SNO7kLjocQWEhg22BryrStipQBj4vYzk1R0jgYIgS5hn3iIPcXUfFsA+RrMkp35XFik
+	 7UgYpQPmAVR575xYRVeDIkRckr1bsfk0nEK2DM4BvwAGrvwnoxo5f4bfWvU0doxCMUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793615330;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=GWPR9dxJ+6mYEfqzZ0xvkf12jtHOjAmnZXogzpguUXQ=;
-	b=H8YRprbHxgdFM9AmnAm2SE2fLk9Stx2XRMEBcWLnyi3TgiZBLCKyxLOod1/p2uGwF4jf
-	 PGIdOz9i+kEL4khcN4W/pjBfyaglbIjd+//T2NOVNQ+4/fvkbVw5rH90Dbs9Q6BsJI6dd
-	 TJ3sV/tGN8bVO5TyMYJoTnqPLSuIKc2BwnIrz0EqDyTgym92GGqrPsdkxNrYzXh/rCOjB
-	 N8BE7suOx5tgLQMEhCmIdzZ8m//ftp5fQH1kDn74mNZ/VH+dA+dt/+5inu2B/irPU1Zj7
-	 0TOfkrhCJYRyfi2I9XWBr1BesWRo2gjLYdhQB3pBr338S+F0N7U9MSWSkbjuDXluV7Q==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=5c9GGJQCyHYTreDhZ6jSPC2ZxTcipGENaXeUlkAYdb8=;
+	b=b8YYgMOlHzYU9NcgFbGSXUXLj0i4quoNjIIEni5f6mMLoPpUCG/X64X1Ql170AMwPJIj
+	 lS9G7Nc+Kuc23w70LLO3tKUa8u7MFCpJ/ciCqiX/TeyzBU68dzJpJiV8Lyu7XmpDB6qqM
+	 0ObsWTP4aeAEo1/UUFBSYGwhrJQj0yeiq3hfXyEXWQjHImj4LQz1c/s0rvOxtVohuf8mT
+	 nun8ZwA/Th78ucXsVBjDlKcfCc/9PkXJXCjEOq5Ztfcx3UGm8a6AKGSjmAOG1V6EYNpPj
+	 2f55ZYcf8x49px8EzPQaSlLo65ao+2KP6QdzOqHJ0/Cq5iezlLBOJqMT46gM0lgZiVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A0npo413;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UmPs3zLw;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="dJQxg/2I";
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8364B606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:28:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8364B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B136606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:28:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B136606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=A0npo413;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UmPs3zLw
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29B15p4015039
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 10:28:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=GWPR9dxJ+6mYEfqzZ0xvkf12
-	jtHOjAmnZXogzpguUXQ=; b=A0npo413P0imsetLspBjs262CH8BXVYjcjpv4jk3
-	Dg8z3cG02zDKBgSC/kTP1WukPF9rJwzzVP5q0lGoGHPV1qit9zluSZkg3IhlVqSk
-	DM+qrXx9XX418xuZsaGUxf1tvpB+E+jDoVL/2AdOeWjwentbj+xRJtajk/jdFZBD
-	Es/FJwn7cdJf0SlOR7xuqrtUNuX/T9FM+6deYmjK6VyQCBi7MHzyPprP5UZVUp8K
-	FINF5rjZ300Xy+O20HgvCDAcoWhtZpf/VguhYL6yEGJO+zUsvkCxw0w11MPXyNhe
-	dr5AAHvPbJBRlL2iK46bOVFw/ylMjxaWHYHCjOilN8O4Hg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7b6pk1e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:28:48 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c84af45c8so59042336d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:28:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dJQxg/2I
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso2523525f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:28:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793615328; x=1794220128; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1793615328; x=1794220128; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=GWPR9dxJ+6mYEfqzZ0xvkf12jtHOjAmnZXogzpguUXQ=;
-        b=UmPs3zLwAdyfGNhUx7St/0HCGCdeo9HV1T9c9qZcX791SCUGLuJBhj9iey9Egr2Tvp
-         OThVrDAdJhcEpwf/0etF7lHGeQWuMmOaBoelnzT4uyPxwHbxXoAsX3n3H5pMDE2KbfDZ
-         5wmGmIfq21q9CzKPmCmJvDcSpEnn6jNaZjE7rDankhFxbC3X/QXoYPiTJYKmq6P7zIu+
-         V9lAAC3vIjDP5nSKuffd2hSaqTTLKOy1Hig3fG2ksLLbcsVLlTAqlASyFB8VVBseRvjO
-         bY3hGs4h1Eh93rqhBMzb+XddeOwzE9kuNIEjpuZA1bF27eZWDtwINuQZlNwQiAdzBx1q
-         Mngg==
+        bh=5c9GGJQCyHYTreDhZ6jSPC2ZxTcipGENaXeUlkAYdb8=;
+        b=dJQxg/2IMU5xYc4vSv+8l/5Kxyv6+nYsGU6Wrprs1+66EZExrr1tHOka2y9DewbtsE
+         pcPYdg3sqntL7socy1LIWWrnn5pgfqdzcKLX4hggQLmKGAUeVIemACNiDmyQhJagTLVQ
+         fzmodSwuYsKlCEcDQU1EtBzQQVgewHfl9kgc+OHvYb/HELLcc6Dnq9byRs8jqQrv5E3g
+         PT+iIKNgDYA/y9W0+YmxttkpVJfPpZFgb131qUfPm/4W2ttesQNsYJYKCzl2yQikwI+E
+         nv4vp4SxyuX3bCp+yQIQVc2gb4X4okqpRADZ99zfSxS5se5JARGIiPCZbw7FfivyL5w3
+         7UEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793615328; x=1794220128;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GWPR9dxJ+6mYEfqzZ0xvkf12jtHOjAmnZXogzpguUXQ=;
-        b=fmHJmZh3BwifjKjOX6v+pKgHh9W5jq5ITvUWH72+DaNEoTcvhxo4Xxwcmlpb/8C4me
-         hSTPl2Y1roTKt/if0FLgo+eF0l9jYeT/zvRigrBtONnA+drcxeBnN5EYzoMbZJbU2Zh8
-         SGEekQWGD3tC/WUmgpAVnJVcDii9L9+ncpQ1zSgZRmYAjFrQbgep4V0z9bbFGi8WDd7z
-         87geXVheXNvPhHZrgN0H1XWhIZoEFdXlM1ZYNMqePmEHaRDnn6EeXaryLMQgiFGMZWwb
-         kee6hC6di5nmMR85naFK8QDKANfVtYCAnOZbatNkDIHXhV5RWVvYY2XvhPmkjqtw2AvK
-         eh8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxdJIPvFuRboiqQdxmQ4hYWFBNDEFK5oEOY3Lqm1+CDy51X/S7DxsKpq/3TjLYJUJgASGS+AHu5pKTbvBI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGvK/iFhbx70gJTxhqS0yX32sCI8GRnhCzfCOoVbyHEo6szvMO
-	F/zmIlMhnfn8uUoF0hSgYmPYVQc7nXJozN6476cZMfcg/fujA7kV154OF/gJO6oI9FBHuOuiu/m
-	VdXC/xDKugbyh4y6vg2bz1FnkRYvCsBz8ZHxc+2BDrJ/1mYd1SzZLycVDUlVLbGdxTCA=
-X-Gm-Gg: AYBFou26CGkKnRWL3jhawl+Yl3CjrbtoKFo1LBWCuwkLL5l3OJV/IsZJTvXjdn3rqci
-	7ueooW4XsRQFSj8t7/f/RnYhKWZPPgQCOYaywt/xfOqqYkhqj3fuxdl60v64LoG1qz+Zje0NeC3
-	lCA28Jz5HEsARlfvolp2ySfs7cYVg8XHf3nHLDlXXa8D0SzaVpz+xjh/jH84iwu4NxpV4o/PG75
-	hMsQrZu3H5ymoJ4XEKo0/NRMUlOop1oZ9cuGkBSzk1eQNoo+SevVQ0hGiLnD92p6Bxk82CSlN4s
-	Ra6xBV5Byo9A/LCYC8ok0HjqXsxN9fkIiP5VBnBKsIfrDDMZgmuUniZUVzFK+JcXa4zTQNfqm41
-	DD6khv8fUQSIqZdUoLfStEMgDF9xksf95mKrx/1uShTwL7Wo/X1npl1pMrKAekfzsyy2nb+PT8V
-	5Ywa4HDsFYNAGbWVRUivGqvhd9eZendaJlDzars7OLCJ+UoAvaiBl0nYKn/Eyl
-X-Received: by 2002:a05:620a:2984:b0:93f:2e7e:c818 with SMTP id af79cd13be357-94421799c57mr1645331185a.59.1793615327688;
-        Mon, 02 Nov 2026 02:28:47 -0800 (PST)
-X-Received: by 2002:a05:620a:2984:b0:93f:2e7e:c818 with SMTP id af79cd13be357-94421799c57mr1645329685a.59.1793615327296;
-        Mon, 02 Nov 2026 02:28:47 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe072194csm1649332e87.15.2026.11.02.02.28.42
+        bh=5c9GGJQCyHYTreDhZ6jSPC2ZxTcipGENaXeUlkAYdb8=;
+        b=zEsKpspAK0Tk1CCeDxB09qT70Zb/j0huk9iBaLn1OzIO9B24A0M72EEJDi7sjltRRo
+         CVOaSKBETpxcqiYKt0l94S6NnqE7+Zl/Vdh4lue0jgjjufF8AYHjARu7zOH2HuHT853W
+         UQ4yAQ8CSAsl97ctkrwS6caoCfQ16a+A/VFjz7Q0lqpMKqImo8JUD//cq+ULcrVgtKLD
+         nvXGFwFxxAWtI0QbkXa3rdWUhNpoFn1gUzMTpqhw67mtekYkbJGps5WDgf8kl/YZUCnQ
+         piWA0dOKRuyd4fjXFZONC6LlRW2v1Il6/GUTUGZCaheQtL+zjK3BHkW6eQWLNMjdrdXY
+         W7Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBwMHYNoGVx0ISY/+/nR9y5WHHc6sY3LDdDr8ydEYCa6ZP7siMHTkJ/KgDpy2BF3X+IqUOXGpxF7mi7BhhU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bYOeqzh4MpfndsA1eZA+WsJepwlCsBsoQdoeQ4yqhIMg7opYk
+	Kn+he3e/gehhX85c+7uyxo0v0qft/LYZbko4kgrYi9AY0cCv9FSevLcdG9e5dpBL5GY=
+X-Gm-Gg: AYBFou0bqDPREs3IaRe3SSHKFg3ipGp6grCyodWKNM1uQyp+X2fQwik9VypJYbbN6K7
+	sjmw1RUhQQrEn9rVruzLWJjHFsOGEi052w/0kxWkcJw1mhDGD1Lotryeh2TbQutdJtSqeBtQ7Ii
+	6ucDhlyLmixJFQSnVwSlaOioSaMNtiSq23KWIZCR6EDhLczbxuP5reMsjEO2p5v7uMWZm0P6WlE
+	ZBMzqvQMhrKOPNXPq/fXUW+KjmmJhPIqLqdeNBIsx1vBzcQDT3xiyxKzHaflYh5Ig7fpE47odIE
+	wVuOdXoQdQv0tltZErlxuY6/NwjnBBHWBsukwlF60I6+NpvzXK3W5dRbFVsSupdZy3BK5rHfxOc
+	ACKHkTdF/th7FuEtMxDUrAlI65REAoiZjK9WqsbMKLyX8b69GH4GarJsi51GfVR98mOkcyKMawV
+	1xlu91BNMkHB/SkBGTx0SXm9LggaY/hxLtWdVmosEKoUEkwh7h8OStjhbc6Y6gAnxLFEYOEm9Tu
+	F7PdDvrKB45Q20U/omCyEv6x16dvDXMJ5wwxYcqSMjA3wuOzXHtQlJaU668RUBuxuXD207JKfrM
+	fPvfqGZavIwS/HFb4kk=
+X-Received: by 2002:a5d:5f85:0:b0:487:21be:dcc6 with SMTP id ffacd0b85a97d-48e6e5008a9mr21203224f8f.21.1793615328524;
+        Mon, 02 Nov 2026 02:28:48 -0800 (PST)
+Received: from pathway ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80ecbsm19687731f8f.35.2026.11.02.02.28.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:28:42 -0800 (PST)
-Date: Mon, 2 Nov 2026 12:28:40 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org, Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] drm/msm/gem: Disallow nr_bos for VM_BIND contexts
-Message-ID: <pa5mluujqthv2ajikpoejheure4vswtbsu5jry52ek6k3myikr@heh6mx6y2gnt>
-References: <20261101174911.25184-1-robin.clark@oss.qualcomm.com>
- <20261101174911.25184-3-robin.clark@oss.qualcomm.com>
+        Mon, 02 Nov 2026 02:28:48 -0800 (PST)
+Date: Mon, 2 Nov 2026 11:28:45 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: John Ogness <john.ogness@linutronix.de>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Rio <rioo.tsukatsukii@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
+Message-ID: <auhl3cdwrHt4Vw7U@pathway>
+References: <aqqU3I7d9lMAjSvy@pathway.suse.cz>
+ <87bj8kkfwk.fsf@jogness.linutronix.de>
+ <auHNz09oyGFJPTKg@gmail.com>
+ <8733tphow9.fsf@jogness.linutronix.de>
+ <auI40MZlSYO0oAAS@gmail.com>
+ <87a4nwyiaw.fsf@jogness.linutronix.de>
+ <auMmQjcy1A6E0eUm@gmail.com>
+ <874ie4y5mw.fsf@jogness.linutronix.de>
+ <auNaD8LELWok3LOF@pathway>
+ <auTaBZlNbpm3jgvb@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,48 +111,204 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261101174911.25184-3-robin.clark@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: Y6OJw6lAMqma2alKjOlCnAG-zmEjUIUR
-X-Authority-Analysis: v=2.4 cv=QuvLTlyd c=1 sm=1 tr=0 ts=6ae865e0 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=Mlro_P0Azzi2O7fenn4A:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: Y6OJw6lAMqma2alKjOlCnAG-zmEjUIUR
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX6m7+d4B5kufC
- 7/RzHgDtv7eAflGjbwO+PGgx9YotEsJXoUGyJMmcEqJ+xcnB6GRGjykwMP+xxfARqnv1+eHLvvd
- dQbLskGlw4/6LqmZwniL4w9VYyL5Hgw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX7NzqpZgs/2yJ
- 7Pjr0e3FmTWObnqYlSf+NLxb/U19OpWwUqnnkKfNY2Yh0K6zLZrQIqfuzzvtRQC98gL4EU8FuJg
- VFm8Qd9Hh6tW8UnaHjauSRePhj719RyTPBsicCrRxRbRdmkFUSeuW4TcIw8KBlTqB5QY/WGQAqs
- s/5th5HGzEgnCkPj9NdzQdd945qTWm3luO1oBM5giv/qc/a6/avcZN0zv/DQ4W5os0U52AkBRof
- yFmYC38S0GNK0hH4bhMi4ae8WiouVGoB3Y2UEIAdM/pNYak46MmK4O5r6IhvpynGlNzKA+TOv0E
- Jr4KwxxCF80mBfrj+6+Yz1Y/6jBuFdivHm3tAl+suBmFea1ZZG3dBxYKxsJYAANH7yFQc24WRyL
- 6kOWX2CNJi9RlyCXrZOB1VY75eyvHlKzFZU5y6OmumGCs/QMSJbZYz6EBduE7e9YfwQWY/4RRu8
- CRSAh2ZdNgQfe8BELKw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020041
+In-Reply-To: <auTaBZlNbpm3jgvb@gmail.com>
 
-On Sun, Nov 01, 2026 at 09:49:10AM -0800, Rob Clark wrote:
-> If using VM_BIND, it is invalid to attach BOs to a GEM_SUBMIT ioctl.
-> Only the VM_BIND ioctl should be used for binding objects.
+On Fri 2026-10-30 10:56:35, Breno Leitao wrote:
+> On Thu, Oct 29, 2026 at 03:37:03PM +0100, Petr Mladek wrote:
+> > Another question is where to call it. I guess the it should be called
+> > in two code paths:
+> > 
+> >    + __crash_kexec() likely after stopping other CPUs
+> > 
+> >     + console_flush_on_panic() after flushing safe nbcon consoles
+> > 	the safe way
 > 
-> Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/msm_gem_submit.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+> What about something like:
 > 
+> 
+> commit de57403441b601af01d92bc03bf0625338d39c80
+> Author: Breno Leitao <leitao@debian.org>
+> Date:   Fri Oct 30 10:08:01 2026 -0700
+> 
+>     panic: flush unsafe consoles before reboot and kdump
+>     
+>     netconsole registers with CON_NBCON_ATOMIC_UNSAFE since commit
+>     7eab73b18630 ("netconsole: convert to NBCON console infrastructure"), so
+>     its write_atomic() only runs from nbcon_atomic_flush_unsafe(). vpanic()
+>     calls that right before its final busy loop, after emergency_restart()
+>     and after __crash_kexec().
+>     
+>     A panic that reboots (panic_timeout != 0) or boots a crash kernel
+>     therefore never reaches the netconsole target. Neither does an oops that
+>     goes to kdump through crash_kexec(), which skips vpanic() entirely.
+>     Before the conversion, netconsole was a legacy console, flushed by
+>     console_flush_on_panic() ahead of the reboot.
+>     
+>     Add nbcon_atomic_unsafe_only_flush(), which flushes only the
+>     CON_NBCON_ATOMIC_UNSAFE consoles and allows unsafe takeovers on them.
+>     Call it on the panic CPU once the other CPUs are stopped, leaving the
+>     consoles with a safe write_atomic() alone.
+>     
+>     In vpanic() it runs after the safe flush, when
+>     panic_other_cpus_shutdown() has stopped the other CPUs. In
+>     __crash_kexec() it runs after crash_smp_send_stop() and before
+>     machine_crash_shutdown(), the order panic() already uses with
+>     crash_kexec_post_notifiers.
+>     
+>     The call does not go into console_flush_on_panic(), because kgdb_panic()
+>     calls that before the other CPUs are stopped. It does not go after
+>     machine_crash_shutdown() either: on TDX guests tdx_kexec_finish() zaps
+>     the shared PTEs there, and netconsole on a virtio NIC would touch that
+>     memory.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+This is the 1st time I hear about it. Does it mean that netconsole
+should not be called after this point, please?
 
+I wonder how this worked before the netconsole was converted to
+the NBCON API. I guess that it "worked" because there was neither
+printk() nor any explicit console flush after this point.
 
--- 
-With best wishes
-Dmitry
+>     A write_atomic() that hangs now keeps the machine from rebooting or from
+>     reaching the crash kernel.
+>     
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -140,6 +140,13 @@ void __noclone __crash_kexec(struct pt_regs *regs)
+>  
+>  			crash_setup_regs(&fixed_regs, regs);
+>  			crash_save_vmcoreinfo();
+> +			/*
+> +			 * Flush the unsafe consoles with the other CPUs
+> +			 * stopped, before machine_crash_shutdown() tears
+> +			 * down what they may need.
+> +			 */
+> +			crash_smp_send_stop();
+
+AFAIK, the crashdump currently shows all CPUs online. And
+the backtrace shows whatever they were doing last.
+
+Stopping the CPUs earlier would change the existing behavior.
+And we would need to discuss this with crashdump maintainers.
+
+Well, I know that stopping other CPUs makes it more safe.
+But is it strictly necessary? We did not stop the CPUs
+when the netconsole was handled by the legacy loop.
+
+> +			nbcon_atomic_unsafe_only_flush();
+>  			machine_crash_shutdown(&fixed_regs);
+>  			crash_cma_clear_pending_dma();
+>  			machine_kexec(kexec_crash_image);
+> diff --git a/kernel/panic.c b/kernel/panic.c
+> index 91e48d33b7dbbd..e14b1b60828130 100644
+> --- a/kernel/panic.c
+> +++ b/kernel/panic.c
+> @@ -723,6 +723,9 @@ void vpanic(const char *fmt, va_list args)
+>  		panic_console_replay)
+>  		console_flush_on_panic(CONSOLE_REPLAY_ALL);
+>  
+> +	/* The other CPUs are stopped, flush the unsafe consoles too.
+> h /tmp/puf_post.sh kerneltest001.31.atn1 6791 atn1a &); (sh
+> /tmp/puf_post.sh kerneltest005.19.atn2 6792 atn2a &)
+
+The last two lines are some mess ;-)
+
+> /
+> +	nbcon_atomic_unsafe_only_flush();
+
+This might be too early. Anyway, it is before printing the line:
+
+		pr_emerg("Rebooting in %d seconds..\n", panic_timeout);
+
+I have a crazy idea and do this:
+
+--- a/kernel/printk/nbcon.c
++++ b/kernel/printk/nbcon.c
+@@ -1688,7 +1688,20 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
+  */
+ void nbcon_atomic_flush_pending(void)
+ {
+-	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
++	u64 stop_seq = prb_next_reserve_seq(prb);
++
++	__nbcon_atomic_flush_pending(stop_seq, false);
++
++	/*
++	 * This is a compromise. Otherwise, NBCON consoles would never
++	 * have a chance to show messages in the panic paths where
++	 * the unsafe flush is not explicitely called.
++	 */
++	if (panic_on_this_cpu() && oops_in_progress) {
++		panic_nbcon_allow_unsafe_takeover = true;
++		__nbcon_atomic_flush_pending(stop_seq, true);
++		panic_nbcon_allow_unsafe_takeover = false;
++	}
+ }
+
+It would allow to flush the messages directly by printk().
+
+I know that it would be a step back in the reliability. But showing
+the messages looks more important to me than a reliable reboot.
+And we could make it configurable when needed.
+
+Also we could add more checks. For example, do the unsafe flush only
+when "num_online_cpus == 1" or so.
+
+> +
+>  	if (!panic_blink)
+>  		panic_blink = no_blink;
+>  
+> diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+> index 5f8afaca886650..a43143eca1a015 100644
+> --- a/kernel/printk/nbcon.c
+> +++ b/kernel/printk/nbcon.c
+> @@ -1653,8 +1653,9 @@ static void nbcon_atomic_flush_pending_con(struct console *con, u64 stop_seq)
+>   * __nbcon_atomic_flush_pending - Flush all nbcon consoles using their
+>   *					write_atomic() callback
+>   * @stop_seq:			Flush up until this record
+> + * @unsafe_only:		Flush only the CON_NBCON_ATOMIC_UNSAFE consoles
+>   */
+> -static void __nbcon_atomic_flush_pending(u64 stop_seq)
+> +static void __nbcon_atomic_flush_pending(u64 stop_seq, bool unsafe_only)
+>  {
+>  	struct console *con;
+>  	int cookie;
+> @@ -1666,6 +1667,9 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
+>  		if (!(flags & CON_NBCON))
+>  			continue;
+>  
+> +		if (unsafe_only && !(flags & CON_NBCON_ATOMIC_UNSAFE))
+> +			continue;
+> +
+>  		if (!console_is_usable(con, flags, true))
+>  			continue;
+>  
+
+This looks good to me.
+
+> @@ -1701,7 +1705,21 @@ void nbcon_atomic_flush_pending(void)
+>  void nbcon_atomic_flush_unsafe(void)
+>  {
+>  	panic_nbcon_allow_unsafe_takeover = true;
+> -	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
+> +	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb), false);
+> +	panic_nbcon_allow_unsafe_takeover = false;
+> +}
+> +
+> +/**
+> + * nbcon_atomic_unsafe_only_flush - Flush only the CON_NBCON_ATOMIC_UNSAFE
+> + *	consoles, allowing unsafe hostile takeovers
+> + *
+> + * Like nbcon_atomic_flush_unsafe(), but consoles with a safe write_atomic()
+> + * are left alone. Meant for the panic CPU once the other CPUs are stopped.
+> + */
+> +void nbcon_atomic_unsafe_only_flush(void)
+> +{
+> +	panic_nbcon_allow_unsafe_takeover = true;
+> +	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb), true);
+>  	panic_nbcon_allow_unsafe_takeover = false;
+>  }
+
+Also the name nbcon_atomic_unsafe_only_flush() sounds good to me.
+
+Best Regards,
+Petr
