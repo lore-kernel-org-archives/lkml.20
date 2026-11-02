@@ -1,48 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631897;
-	b=AwmmcGiCCMW+lDaBOIu5X4dCdEp+z2f/oMCDJvOR69jyNfwP0lqD8uI0Nd6kehmO59R7
-	 4h4A3lXVr4zrxgl5hWk6pXe8m0HzM4yVwLBDj64t1jReLJfQO4cYJuaGQoz9OFGy1bJAT
-	 vvCf0OIa0gh0Rj+eYZ8p/lemadgYafGGKwdl3pVThqwg+VpeLW7XccSQZxd83Kf9j2zSV
-	 wzvHZdtXzcjQKND8P8iBYvh/4ifhJ7OLc8kd8U11reC90yA4dzY2JO3vy5rjp9GfaS/Dc
-	 zz9uvaDNFVam7sGZvQ4o16QPVAtksd3qK7aLXz7n3nRxth/qjmfF7EmC9LqFjROzyxw==
+	t=1793631880;
+	b=cP7sVV+daDODS+3DLnVR34OEcPIAbK/PdM6o0iFjf5qf9W2m9wRKU12ovIGCgmu9uCjD
+	 9KOIHprOXNiAgWZZn/muPJWKrXvyWIjatEnpzMwQvGRNoqivmBiZw67I242rMJKf37h1L
+	 mwOXd72JyrzPiLVEr/bJMBO2/incbjwZioY+1ublRcuzN/4WxmeoAWo/W0bO5edviIMG6
+	 FL0oQ6eyhX+dVmVDVovH3RQHxV5rjw2d0hfDrSzRSuRTMZ71k0BWgAAXRvfFnEa//QgNp
+	 A4c8a+hdnZ+PI0f2UtYiRn+VRPOdZ19TCxwQwTNcVQ/Xx/JTk3cb+1gv/f7W239800w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631897;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=7nrFZB8SEXLZU/mzbmWvrr/UMB/DFOM38jlkmOKcofA=;
-	b=K6nhL6hiMCFs20Ijd2HPTYDalBmlFoIY8jX/olI9f18n9cOvqv3VuYEvTBOfIStB5s15
-	 OU3LyqhW422yVov/rM8xEkZL1P9nWaQHDh8VLTEEXiH5BhSkWAdzr1uYwGP3IQA+yTiz5
-	 6GAz4qC9ISjJBIMbgVROQ/lmGI6HctlNQqV5DPHA88U+Ghm473GBv1apzCb097Z7xCAuU
-	 UGaRbzs7WKglYLk8CPHulWxyS37U703qVSf8JIbu9xfw5VPCNXpoLkBRnI/ZEKPqp5fgy
-	 6viGwqsgHixfYE53sLA88ZRluGswIf5Q4yevaXWbnJDlnshhDirnAaFyok+ufvsS92g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631880;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
+	b=NbCpGhq5IWsZ6JehzqC92v1bIOb/x4+GnUtE23I5f7Trn6gPgmkvWVTqQWxC9eXNioq5
+	 n+GNjtGaTpDyj/Kpew24eFqYYZWwpu+hOFQcA2Nns12tPC5hZAsjadzhSBsfFTdaySK9P
+	 qyyMhZwgUyQtnIm0UhmPEMxxyZNdrmqKivKJTmmjHcj9yWCeEjgWMds2FDRHsTMIqGDOW
+	 o5n43rz9KPhPaAS5LvTECXe3qFlQiUrtFTf7wiDH2fdeKWz5FX21bSbPB/T2MHLRu/oNI
+	 gZNGfd9MgaJBxZj0mTfXBRNsrHVcccsIH9b9jn6AW6OR2mZpHp3C97My7TVBCvPML9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PWJB1/iB";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ym0V8ERo;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+O1trQrU;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r5HEpL+J;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UPM1v8oD;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC9D609CDAF;
-	Mon,  2 Nov 2026 15:04:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30E66085088;
+	Mon,  2 Nov 2026 15:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E30E66085088
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWJB1/iB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C841D1F00A16;
-	Mon,  2 Nov 2026 15:04:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793631896;
-	bh=7nrFZB8SEXLZU/mzbmWvrr/UMB/DFOM38jlkmOKcofA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PWJB1/iBfhOBGJhYFAN08DibMR52AbswEVevpOPJlFFd/6YKCBFk0rjdPQlcIsJCu
-	 M7wETxh7POrPS2R+Bxe8GmEN+ztbrfn17IFousp5Q45SpUKBKeMwCZa4HLCkdaAMTL
-	 nGuwpeu7tYiAoCalRJnwkfTozxEROSln5Zntfv5jW4jL6w1IaglXpEtlA1N+4XsaUQ
-	 ixKM+Nu24AeZWPtukuV1DIGkbYg3XlqbEgIkFveiguvX3I5APXV8ea+vTsUzrvxLhH
-	 oQKy6vg2GUEAk0BT3S3W863rpi7gQfQhWY1o71BBu5E6HzUMTMlRLe2ZVsoDsvf6bw
-	 X9nFDARzygnDg==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:01:37 +0100
-Subject: [PATCH RFC 10/22] sparc: led: let procfs copy in writes
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ym0V8ERo;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+O1trQrU;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=r5HEpL+J;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UPM1v8oD
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E93311F7FB;
+	Mon,  2 Nov 2026 15:04:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793631878; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
+	b=Ym0V8ERo2TdfCQMjUEy9xrS7WpPPUaaAdSm9ninyrN+n8B586btwkIjKPcCA929cPTP0lb
+	pO+dIGxtP04a9zPiFkaLxhDlV/7RYKZoEG4iBLyCcVfgYU3XpFNGVfbZwAx8Gqip5RlH1z
+	/6X2BJmjJjiDpBEjuzjmUAJ6JG2J8fs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793631878;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
+	b=+O1trQrUxomczyPFDSMFWH25Edfmdc+7LPO2ZXENNC6ihIuz17PMY30TYFbkaLBQ9fTwVv
+	CFPXUHzqfmZ1lrDg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=r5HEpL+J;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UPM1v8oD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793631877; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
+	b=r5HEpL+J9KnvodNqUWGZDJ1OPJVPVmptlF7NJ8er0/r9AV+po1B9Of1b0kY3neIb1NTVLp
+	UMY1NDQHbLscQosV7J/ILpqkQ93R0j7isWzVJxuPC6xxPFzSnZOp6queKpoVxxYluKPbUP
+	2NoENqPWZg5hz7wviLN4SAcU3TKuRP8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793631877;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q8sdb5D0GbMU6BQu/a0AaTK3g6BiqqeOgE4WIs6sYWQ=;
+	b=UPM1v8oDLoFr/x0U1TspMjjhgMs0LrSL3/jv4StxTUBckQb/Sr9J7SzCftXRaxU21Gbhlg
+	x1u7cUdo4cRzN+Aw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 86CE8134B8;
+	Mon,  2 Nov 2026 15:04:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Jr/VFYWm6GouYAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 15:04:37 +0000
+Date: Mon, 02 Nov 2026 16:04:37 +0100
+Message-ID: <87pkwn8ebe.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Cc: tiwai@suse.de,
+	cezary.rojewski@intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	rosenp@gmail.com,
+	tim.bird@sony.com,
+	tiwai@suse.com
+Subject: Re: [PATCH] ALSA: pcm: Fix source frame count calculation
+In-Reply-To: <20261102144736.3679-1-sreekuttan2156239@gmail.com>
+References: <87wlqv8ftw.wl-tiwai@suse.de>
+	<20261102144736.3679-1-sreekuttan2156239@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,96 +117,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-arch-v1-10-c9492ab08480@kernel.org>
-References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
-In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: E93311F7FB
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,intel.com,vger.kernel.org,perex.cz,gmail.com,sony.com,suse.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.51
 
-Implement ->proc_write_buf() so procfs copies in what is written to
-/proc/led before it pins the entry, and parse the command from that
-copy. Writes larger than PAGE_SIZE - 1 bytes fail with -EINVAL now.
+On Mon, 02 Nov 2026 15:47:36 +0100,
+Sreeraj S Kurup wrote:
+> 
+> You're right. I checked the callback implementation, and 
+> "snd_pcm_plugin_client_channels()" always returns the input 
+> frame count. All plugins created through "snd_pcm_plugin_build()" 
+> use this callback.
+> 
+> So the condition "err != frames1" is not reached in the normal path. 
+> My patch is unnecessary. Sorry for the noise.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- arch/sparc/kernel/led.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+Well, the logic you described looks still correct, so it's better to
+correct the code even if it's only hypothetical.
 
-diff --git a/arch/sparc/kernel/led.c b/arch/sparc/kernel/led.c
-index 12400bb59ab8..01449b056cdd 100644
---- a/arch/sparc/kernel/led.c
-+++ b/arch/sparc/kernel/led.c
-@@ -60,17 +60,12 @@ static int led_proc_show(struct seq_file *m, void *v)
- 	return 0;
- }
- 
--static ssize_t led_proc_write(struct file *file, const char __user *buffer,
-+static ssize_t led_proc_write(struct file *file, char *buf,
- 			      size_t count, loff_t *ppos)
- {
--	char *buf = NULL;
--
- 	if (count > LED_MAX_LENGTH)
- 		count = LED_MAX_LENGTH;
--
--	buf = memdup_user_nul(buffer, count);
--	if (IS_ERR(buf))
--		return PTR_ERR(buf);
-+	buf[count] = '\0';
- 
- 	/* work around \n when echo'ing into proc */
- 	if (count > 0 && buf[count - 1] == '\n')
-@@ -95,14 +90,12 @@ static ssize_t led_proc_write(struct file *file, const char __user *buffer,
- 		auxio_set_led(AUXIO_LED_OFF);
- 	}
- 
--	kfree(buf);
--
- 	return count;
- }
- 
- static const struct proc_ops led_proc_ops = {
- 	.proc_show	= led_proc_show,
--	.proc_write	= led_proc_write,
-+	.proc_write_buf	= led_proc_write,
- };
- #endif
- 
+So I applied your patch now with a bit more explanation.
 
--- 
-2.53.0
 
+thanks,
+
+Takashi
