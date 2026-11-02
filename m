@@ -1,38 +1,39 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613129;
-	b=jtHRH5itGuzfi6DFK3/Ssktznvbk8TTI4wGFrh8kLONmH0IdVZdk6F9g+qQV7iwwxnOT
-	 2MKZM4WklowWQe9JMcno0Y92rnddw4/tTFnJokhYy8K2EfD1ofXSxObSL6uEy/atqwacH
-	 l9qzD/U5Ems8/ZOE1Njculb4tRuT0Q5nQSCkBrS53pPliITJ/ntRof7A6hZ5KpTqfhUbG
-	 D9qtvZ9P/34POh9ETZvp26t5ghqsgSNI793GfrrblG/f7w/HB4kNNDiwqpFkQ/XQamb6O
-	 iVLLqCZXS420gINCiHeyi/ynbI8jULgxN84VPNz0cn1x74Sf7TZwXkYXX/PTRffCevA==
+	t=1793613124;
+	b=kJA/PvPJRHbM5wXYpnNFIFCgE1PCMnVpgNKnYyviNgwCBMTxdFamiN88MfsKh07q9Lzi
+	 fSLzjb+AWBb6E3TDRmezl4EFMJAongIPMEs3u/j2+/p+/3OidUWLqLPJ4CqO3EMK69nT+
+	 nVWAJvXcNSbzMvL1GaK+FrZubgoFQwiUNVjHejwbaBCCchd79BkI7cmd3KVv8ee6a9UBi
+	 UphQxvnDOAzzNFkqSACqIlTMyxTB/O+Wi/6zYWR04LWAI9yfOnsBcRYkC1mtSEInwYmvf
+	 BgJTee83amySe4DNeaJGHwP9DFwf14+8gWruw+IePebgls4heP+CXyB2MXIijLdbblQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613129;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613124;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=piXRLkxe/MMr3aw8+5GCp8kCJ3Al4TCZfqVsOYAL3vM=;
-	b=Zil7Jnd9t+k4/1AaT2fIMEhTOeeqsIMu8ulfQW8K/Eq59HcHHLmgkaaQr4JqW8M2VnXN
-	 2TgiSIa+Wg1npTSAepMIvx1ugPcUjzwe9xLw96VkIuNkaS4WdslrGcBsvBAXgUbU9/UDj
-	 j7cnoSMxjd/16XFLhVoOQOpGSegkJhGu7VCpoCJSyHPfm8YMj/yJ342UAJFwlUQAOfHdX
-	 5xiKa6EkS9dQ1xgKnjjKuG2kuVnPjESwZ6ZROS2+KSxVUUdf5URuXMFL/hRYSWYlKJfff
-	 Fv1ISK4v7cACR/h+XUG4mc14Kkk2/uI2+J7dQCAVMKeiCH4wE9u/725xgVFD/XBAYsQ==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=gJnNMMnwMUzcu7RpJAfAtm5ftRwCHKJNH4erz+wHv/0=;
+	b=BKfrLXpdEir1a1Ot1PQFh8yuzbJHpdbsfp1heyLXUfDZ4moPbUOe1/bXGKxc9PBK+XFZ
+	 zaGNeaJlPq+EFxNjJCMGLR79PtLP2NZpnMSAZye4Myv5+gN7dZPF/m9yIw7ZPSAKv8P2P
+	 tUrY6+Sx1LPKE3FUAbBcaA/XYrJ6w2z+2ejX7rjJzJ3Mp1ILZIN2l87F8A/kvcIejMUdV
+	 9Fnw7O3cwYB79e85dyudTi24U0ZSTED4A55/92JfFtRUev48IwnMIDE5ThOYwWhWJeNmR
+	 asfuYgmFk56Tpv14HxNc4Dy+mxUwGrHMihcPqm6pp9V0rYdbmTZxvVywGE2IW1xuAGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=phytium.com.cn;
 	spf=pass smtp.mailfrom=phytium.com.cn;
 	arc=none smtp.remote-ip=162.243.164.118
 Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 70853606A32C;
-	Mon,  2 Nov 2026 09:52:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70853606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76B29606A326;
+	Mon,  2 Nov 2026 09:52:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76B29606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
 Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
-	by hzbj-icmmx-6 (Coremail) with UTF8SMTP id AQAAfwBHT1tBXehqO0XYAQ--.19815S2;
-	Mon, 02 Nov 2026 17:52:01 +0800 (CST)
+	by hzbj-icmmx-7 (Coremail) with UTF8SMTP id AQAAfwCHj58+XehqBjA_BQ--.426S2;
+	Mon, 02 Nov 2026 17:51:58 +0800 (CST)
 Received: from localhost.localdomain (unknown [218.76.62.144])
-	by mail (Coremail) with SMTP id AQAAf8DwSHU3XehqVDv0AA--.22683S2;
-	Mon, 02 Nov 2026 17:51:51 +0800 (CST)
+	by mail (Coremail) with SMTP id AQAAf8DwSHU3XehqVDv0AA--.22683S3;
+	Mon, 02 Nov 2026 17:51:55 +0800 (CST)
 From: Cui Chao <cuichao1753@phytium.com.cn>
 To: Will Deacon <will@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -47,10 +48,12 @@ Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/2] Allow reusing PCI domain numbers in DT
-Date: Mon,  2 Nov 2026 17:51:48 +0800
-Message-Id: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
+Subject: [PATCH 1/2] dt-bindings: PCI: Add linux,pci-domain-reuse property
+Date: Mon,  2 Nov 2026 17:51:49 +0800
+Message-Id: <20261102095150.2370959-2-cuichao1753@phytium.com.cn>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
+References: <20261102095150.2370959-1-cuichao1753@phytium.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,39 +64,56 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAf8DwSHU3XehqVDv0AA--.22683S2
-X-CM-SenderInfo: pfxlux1drrlkut6sx5pwlxzhxfrphubq/1tbiAQAHAGrnk0kE5QAAsw
-Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=cuichao175
+X-CM-TRANSID:AQAAf8DwSHU3XehqVDv0AA--.22683S3
+X-CM-SenderInfo: pfxlux1drrlkut6sx5pwlxzhxfrphubq/1tbiAQAHAGrnk0kE5QABsx
+Authentication-Results: hzbj-icmmx-7; spf=neutral smtp.mail=cuichao175
 	3@phytium.com.cn;
-X-Coremail-Antispam: 1Uk129KBjvdXoWrtrW8Zw17Wr1DCFW3ZFyrJFb_yoWDtFc_uF
-	97ZryDWayUAF1Fqa4fJr1SqFy8uw4DJr1jyFZ0qF1qg345ur1ay395WrnxZ3WxJr47Zry3
-	Cr93Cwn7u3ya9jkaLaAFLSUrUUUU1b8apTn2vfkv8UJUUUU8wcxFpf9Il3svdxBIdaVrnU
-	Uv73VFW2AGmfu7jjvjm3AaLaJ3UjIYCTnIWjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRUUUUU
-	UUUU=
+X-Coremail-Antispam: 1Uk129KBjvJXoW7Zw18XFWfKw4rKF13Ww1xKrg_yoW8Ar43pa
+	9a9ryUXF4kXF17A3yYv3WjvF15WrykJF48Gw42kwnrKFs5ta9Yqr9a9r1jgFyUCF48ZFW5
+	AFZxGa4rGr48XFUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
+	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
+	UUUUU
 
-This series allows multiple PCIe host bridges to reuse the same software
-domain number in Device Tree (DT), provided their resources are disjoint.
+Add a new optional boolean property 'linux,pci-domain-reuse' for PCI
+host bridges.
 
-In mainstream GPU P2P functionality, whether the GPUs participating in
-P2P belong to the same PCIe domain is one of the decision criteria. In
-the existing DT path, a uniqueness constraint is imposed on the PCI
-domains of multiple PCIe nodes, which prevents devices under different
-PCIe RCs from reusing the same software domain number.
+By default, the 'linux,pci-domain' property must be unique across all
+host bridges. This property allows a host bridge to explicitly opt-out
+of this uniqueness check, permitting multiple host bridges to reuse the
+same software domain number.
 
-It should be noted that equality of PCI domains at the software level
-is not equivalent to the final P2P decision. The ACPI path directly
-returns '_SEG' and does not perform a similar uniqueness check, as
-'_SEG' is a purely software concept and allows multiple RCs to use the
-same value.
+Host bridges reusing the same domain number must have disjoint ECAM,
+bus-range, memory, and IO windows so that (domain, bus) tuples remain
+globally unique.
 
-Cui Chao (2):
-  dt-bindings: PCI: Add linux,pci-domain-reuse property
-  PCI: Allow reusing PCI domain numbers in DT
+Co-developed-by: Wang Yinfeng <wangyinfeng@phytium.com.cn>
+Signed-off-by: Wang Yinfeng <wangyinfeng@phytium.com.cn>
+Signed-off-by: Cui Chao <cuichao1753@phytium.com.cn>
+---
+ .../devicetree/bindings/pci/host-generic-pci.yaml      | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
- .../devicetree/bindings/pci/host-generic-pci.yaml  | 10 ++++++++++
- drivers/pci/pci.c                                  | 14 ++++++++++++--
- 2 files changed, 22 insertions(+), 2 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/pci/host-generic-pci.yaml b/Documentation/devicetree/bindings/pci/host-generic-pci.yaml
+index 420d551e9af9..1b439e2f38af 100644
+--- a/Documentation/devicetree/bindings/pci/host-generic-pci.yaml
++++ b/Documentation/devicetree/bindings/pci/host-generic-pci.yaml
+@@ -114,6 +114,16 @@ properties:
+       Requests with Address Type (AT).
+     type: boolean
+ 
++  linux,pci-domain-reuse:
++    description:
++      Boolean indicating that this host bridge is allowed to reuse the same
++      "linux,pci-domain" value as another host bridge on the platform. Host
++      bridges reusing the same domain must have disjoint ECAM, bus-range,
++      memory, and IO windows so that (domain, bus) tuples remain globally
++      unique. A duplicate domain on a host bridge without this property
++      remains an error.
++    type: boolean
++
+ required:
+   - compatible
+   - reg
 -- 
 2.33.0
 
