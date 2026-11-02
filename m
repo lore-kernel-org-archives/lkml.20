@@ -1,88 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793646034;
-	b=WaNDjdZ1BZX72DF244sekho0XSlMprNIre0vUvKDuniVrMeclxGqPIdPgX3S0BlBwGLL
-	 Ajmjj7y4wBtOFJ/qrm5V1yzVhs2bzuX/gmyozYadf8Dj5mc6pRBW8iSG3FbXuqAV+bctu
-	 9/vQoFgmeGp7ZbWnAtDYti1S8YKW1NFa0wYU5fUVX5u0MZiVPqyGwGl2BwfXtC0TuMos/
-	 O0IGKD8tpLRBpwkRRlhSzdt2zIdur2M6bAgdg3rPPDKsguS9baYiDwyyKNrLxRZ77JiCF
-	 9DCwrx3p20a3dueStXhXy4bOR2yM7KYJjoKiEVZhcLFvhkpEXajMxbiN6qROcsHLuOQ==
+	b=R8Oy+52qxrACS/5iUCM9SEC5UKbPx5Gq+syimlBqBlHO+/wlB6rEDUImPooQDjaF9AhM
+	 M3HSY1a2Q6KbLiRpNb3Rh/IHpkpO1MIFlmkZUoa8WiG7ty75OSlWeu9C4WSXfbBnSTgxe
+	 8030rJEKzJBAJdDNRCyJhSpfgKkTLaAlarlqwQNnWz0xWalmc1pbptptg2YP1BmcCwK/C
+	 m00FrEm/bajBgO95swmGtcADVDag/pwmEVO9pI9f3/WsE7jFCMctGm4Lqh5dJ+3t5SECR
+	 M/c87yr/OyYERJTD9NzMu13Vd9znLI7S9sSPqT3l2nj/XGbZAXXnmt5RNwGlygs63mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793646034;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=IpJrp3N4n3cXTcMWGiDBwAKw8MhlspUrUrRVTsA/62c=;
-	b=Yhlaiz2hc80VL39J+XUvosaA/33jAcXTB2raJoL1IbY4h9bdaC0+zZcjGXeN5nKkyU8f
-	 G3B0iz/WWXolqj/Rnutx56G+vMh9TnvxULCMzzrU2Xg6STFLHx4g5pW9Jpol/ZU+iFm0o
-	 EmXI9hEz1VBvCcQjjdKtkr7fUhe0bfLb6sSzBb37dEmyHZ3audPDKSZKRanXTPo7YrbBq
-	 5CxsYWMqtoMv9stcwvIlaoUK+A3Ui2vRT6wPMcCstoGXpuRTofi1Q/h91MDDWtXjGZYcW
-	 NQ/kHWmwRKzF4qkHY3ff3NgHArLocar7YwNc5X2JvKfkbfcgtkka4EU7bVrVktH7f+Q==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=F6H2yfL9HCI54AnjG5fFp4KvZiYwlVgCCRFJCHr/W4w=;
+	b=EA8QUs3T61rVgfrOgw/fTze6gI/G7l4s+KVx2z+H4Z3IQl+1pB8TjSO+eqGyrwZnVIsX
+	 Z0m2VKNJ+33dgrf0liqXx9wC2xmBHRQArH9hOOKdF8iFyuFQY0KHdUlsSE3u+wBKZsANd
+	 yJWOTdeearOD9p/JAsil5nQpaQA1q1cvyfdzU+LYj16KZ5fwTNBaFj9vqy9xtCwrwRdhp
+	 0KfvVxQL0y0Ywzvdc95WKe8yBJb0Z1GPzyQvZmgXkaCoRXUcwZ3tmdlzHbtQ5luEL/cyR
+	 aMXo2NyFYcIKCeCh+fGCJhmGoydIPwYgiP+6WDufrUKIudgznX5YFYABmdFDqRbCpEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AT8Tz8je;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="QzAO+G4/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IKGZUWBd;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A0C606A33A;
-	Mon,  2 Nov 2026 19:00:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A0C606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A679B606D802
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:00:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A679B606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AT8Tz8je
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793646024;
-	bh=7+cVgQKAwNDl4tvndFXaFuD+9S20VGeyFcozWWAl4/8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=AT8Tz8je60MbshoZd0M6PPDwIC3OIL0QoKhsTdkYU2mblDuoMqkdO0UsSzymVYs8y
-	 vYRRgg5hAHEsF/59SuSizZ36ZvQUWgxMHJ3i5I0h+3Ap10TIISaCnmfMEMomDGyHXI
-	 rnFVEYOb9LudeS/0jtN0yJ4A75F3HOlZntZ/OGiIEVVjU+yzUxUhV7CN7GKlQYlX8Q
-	 WIId5QEu02g9zzP0DAwyf+9hNXguNJSTGknY6jqP74PzHJgAr/F0ZsR1St3ayDiM75
-	 6ox6d1XwXDs5VcRkrfYXCl4GhpNtvgdMth4gaQq2w+hOohg3AEGz6/MmN5DzP7XkpH
-	 ap4moRcGUxzaA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 31C8617E038E;
-	Mon, 02 Nov 2026 20:00:22 +0100 (CET)
-Message-ID: <dd7046d1ca454fa53b51d0cd122f96ad05c7a2c2.camel@collabora.com>
-Subject: Re: [PATCH 05/10] staging: media: cedrus: mpeg2: derive the field
- order of field pictures
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
- <paulk@sys-base.io>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 14:00:20 -0500
-In-Reply-To: <20261102170303.1973892-6-jernej.skrabec@gmail.com>
-References: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
-	 <20261102170303.1973892-6-jernej.skrabec@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-WApOxz+sTMoS9JafJBm/"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QzAO+G4/;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IKGZUWBd
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2HP8hH366243
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 19:00:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=F6H2yfL9HCI
+	54AnjG5fFp4KvZiYwlVgCCRFJCHr/W4w=; b=QzAO+G4/5jBP6PJnzqPoOSD7AoG
+	yxS2rHeSt4rH4pKRL7LHQ5uXBPObws+fmXeK8WEwCmKxDhDDjfhKBU3dGbm0FHh5
+	ByK5DGthnJ7OWW+suhEh0u3ANYmEWkEdzE9PHASb+ceQW4DziUne2ywsb5DL18Oe
+	shcGR0Y+I7iYMSo3de9BLCzWhtH0de3Kubb6QJDGrGVgiJF8A1CYcVCLutAhy8RE
+	iwDz6wUufAawN096+P1fXie8kPA9gxHttWT4wqwalzFk94yzFuazSSkOcggYGZgt
+	GpP7cCewfVrZ9nJiekv7RV8RFsB4jNQ2xEisdzHpsZB7mDHyAc7Ahw+2Oew==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpss5hwfn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 19:00:21 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-88c768886a6so1873376b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:00:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793646021; x=1794250821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F6H2yfL9HCI54AnjG5fFp4KvZiYwlVgCCRFJCHr/W4w=;
+        b=IKGZUWBdqYvR1efDqX6AgYEyfwcR6tDoJf9Wgx7Y2W0OdwGZCYQ4k4GC65R/UJvBiY
+         yBF8Kgzk41TRCi6h4Ph+++0X+SdjXoceEH+QwapDRR8MaSDRvl6IXapwFJjv2botFNi7
+         ELsxHev8QDIKulJSfvDGJzp/ir5bGnat0Q/9RXgP3Wdz/7XbeCuBKgfyA4v5pamUn41y
+         sa4VugJTM98ZSTEIER5HuPqbg/sbrGjn7QR8uOclFcadEBG9Dh/bqAMxmV1+WejhvMW9
+         rJTD5yXSfzX5vBO/kNaltHwKuy9m8/F9lRxG+EYCAVCnfw4aUs2oSX/VEPA9UdrxawYr
+         f0/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793646021; x=1794250821;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F6H2yfL9HCI54AnjG5fFp4KvZiYwlVgCCRFJCHr/W4w=;
+        b=KAuPl1cIAc9C46KOmp+qBA+DYkmQUme4DO7uTiqMnQCuTxptN+xt1J7enZr0omJ/6R
+         7oSkt24AKLsA1yfGlovWIP7VrZ/2yIFXcV/+C8i/ojAufVDXdCqt3afNk0OnozH0yVf7
+         2Tc57x3JdcGwQldmjkf6pXB0JV5wXLNc5Ae+2CWPn/UXuIUlPH+Q4A+tgzTCfO8XZ+oU
+         8wDBlzuP0l+mrL9cW6JhYud47inhV8xdY452/Aw4c45m1ohrBQ2Arbv+sB3esDU3vG2S
+         v1MbZhmeU6N1cT64I8ANTBMuO82Hs8gPBg9/yh+najqGwCFFWhEDPWLniezLJ1QLhS5t
+         BHow==
+X-Forwarded-Encrypted: i=1; AKwUvBzcGdtw4/tupvsR4MfXND58NIq5Kd5W0Xr1GGx0bZVL1XkMb+r7stTrvbQQtfLg+oNzkCgOkdxbWr0JkKQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fZvY1yiMk4+OHxBV+yljjJpaCuc810INuENh8yBQQpNjkbDwV
+	mReBqf9UUzl1/sPCeT9cRtl1TX6iwtEuBa0pyjZ/hSHWftCxBIfPItRqtZE9/SNvXjn8KN4mlTE
+	/NZ2QhSubVLgHEZqTt8PWL4BAQg+0XFC4eseWSFg7rRxb1X4nM4aCNsJouwTEb18d990=
+X-Gm-Gg: AYBFou2lE+e8FtsSgWUJaL/EI17Nb+63Q11wabVaDa/xgepb3e92pC8c3v3jZc1LSP5
+	skGx/mP0KLrIqSE/2gwrbvIAmIZIk8OO/kynHLv4RXSLX6VAwJSyEBux5YbRLGpknHxVPBFomx/
+	R4kTrrdBKIqhhlnam7JHl+fuHDi4paBD2Zs0dKvpMRoZxRL714ljQLfdM7OulN8zVTjbdeJokNp
+	ZkiFQND7bQ2RWxFjnqPGoxBymSjfuUKpHEtlPEKrxj3a5gXUDUqVyTbiqbixAGNLFC5hEV0nolZ
+	zQCpdcmswJGbqVME7qnxMPJIC2cyPB9xKsuinXG7Sf8AhWsPNr1nRoi1Lnem+85yp5/k1GzRjPY
+	vTf2vEOtJ+ll0IkXF9l82ahvyh0nW5conH8BOXviX3Ujupr5aaxDnpD9S9WbTVkoVFqpVRY+g4X
+	qq9MFaSxEK8SrwkmgYp7BCCuQ=
+X-Received: by 2002:a05:6a00:4c1c:b0:89e:43ee:654d with SMTP id d2e1a72fcca58-8a9ba703936mr8590806b3a.5.1793646020771;
+        Mon, 02 Nov 2026 11:00:20 -0800 (PST)
+X-Received: by 2002:a05:6a00:4c1c:b0:89e:43ee:654d with SMTP id d2e1a72fcca58-8a9ba703936mr8590770b3a.5.1793646020264;
+        Mon, 02 Nov 2026 11:00:20 -0800 (PST)
+Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada9ae39esm2379711b3a.52.2026.11.02.11.00.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 11:00:19 -0800 (PST)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+        Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2 3/4] drm/msm/debugfs: Use cleanup.h for gpu state dump
+Date: Mon,  2 Nov 2026 11:00:06 -0800
+Message-ID: <20261102190010.720443-4-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
+References: <20261102190010.720443-1-robin.clark@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,151 +127,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=VORIDNPX c=1 sm=1 tr=0 ts=6ae8ddc5 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=isCY8TonHXl0-fnU9HAA:9 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-ORIG-GUID: 6ifX-TNN6Cp62skoXvYbv2WlUxoQ-Gs8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA3NSBTYWx0ZWRfX8JJv+fvYhxuE
+ KUymyIgG6O5VTlQyulixjx3Yrw3aLa+SXxOORebuL3TH5b2AG/yRP/pUUvIMp6yZmQf9rKTUPdj
+ nfMHJfnaqbvwiNq58BQKZkCfYy/KYdzFynVoL/+I/+7mQGWO2yNglAJ4GE0X2Bxp5ZWyCle7jnH
+ sNURKr5Xy7oN+Ge1uYaFylXFeWgGWpvWka7O63N7j2wqJIjKDn1j/CxM+JDzca4olQx+8r8USOn
+ JbeWmkcXuj9FEb6YcLpfHiYiYfvWN0bLBf5zUNum3JENEyAvUZFM4ORJzKZJVnCqDZ71BgN++5H
+ IoulXR4sWsBgRyKvjPISGo9Y1VFkZmtoKHRMDUj27XelxynL7rXrBvo9CrlPXTzNW/ap6DaS+gF
+ C98UsNpzrz9acxTVgoXFQcdlq1+fxW2HqIJqmm9yDOK0m8+PApG2s2DmkiXfAJ58xAlRs/rSyv7
+ KJW5xBNpov/fnM2b67A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA3NSBTYWx0ZWRfXzvY4xWqCP/zp
+ ebvoWfvCpyh2njEMPI4ujBiGqhEJ4FSczLRRogKtTE3eaJMT09oc+oWImYT6eg1kfMWMCR1G1kQ
+ PRtgy7MEhh6CIJMptTdoiA3s7NyD+8Y=
+X-Proofpoint-GUID: 6ifX-TNN6Cp62skoXvYbv2WlUxoQ-Gs8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_05,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ phishscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020075
 
+We need to move the gpu lock around a bit for the next patch.  Use
+scoped_guard/etc so we don't have to make the error path handling more
+complicated.
 
---=-WApOxz+sTMoS9JafJBm/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/msm_debugfs.c | 31 ++++++++++++-------------------
+ 1 file changed, 12 insertions(+), 19 deletions(-)
 
-Le lundi 02 novembre 2026 =C3=A0 18:02 +0100, Jernej Skrabec a =C3=A9crit=
-=C2=A0:
-> The hardware uses the top field first bit of the picture header to tell
-> the first field of a frame from the second one. However,
-> top_field_first is always 0 in field pictures, so userspace passes
-> V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST cleared, and the second field of
-> every top field first pair is predicted from the wrong reference.
->=20
-> Detect the second field in the driver instead: it has the opposite
-> parity of the previous field and is decoded into the same capture
-> buffer. This works with unmodified userspace.
->=20
-> Fixes: 50e761516f2b ("media: platform: Add Cedrus VPU decoder driver")
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+diff --git a/drivers/gpu/drm/msm/msm_debugfs.c b/drivers/gpu/drm/msm/msm_debugfs.c
+index f12701e286ec..aa59b28a3392 100644
+--- a/drivers/gpu/drm/msm/msm_debugfs.c
++++ b/drivers/gpu/drm/msm/msm_debugfs.c
+@@ -70,43 +70,36 @@ static int msm_gpu_open(struct inode *inode, struct file *file)
+ 	struct drm_device *dev = inode->i_private;
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_gpu *gpu = priv->gpu;
+-	struct msm_gpu_show_priv *show_priv;
+ 	int ret;
+ 
+ 	if (!gpu || !gpu->funcs->gpu_state_get)
+ 		return -ENODEV;
+ 
+-	show_priv = kmalloc_obj(*show_priv);
++	struct msm_gpu_show_priv *show_priv __free(kfree)
++		= kmalloc_obj(*show_priv);
+ 	if (!show_priv)
+ 		return -ENOMEM;
+ 
+-	ret = mutex_lock_interruptible(&gpu->lock);
+-	if (ret)
+-		goto free_priv;
+-
+-	pm_runtime_get_sync(&gpu->pdev->dev);
+-	msm_gpu_hw_init(gpu);
+-	show_priv->state = gpu->funcs->gpu_state_get(gpu);
+-	pm_runtime_put_sync(&gpu->pdev->dev);
+-
+-	mutex_unlock(&gpu->lock);
++	scoped_guard (pm_runtime_active, &gpu->pdev->dev) {
++		scoped_cond_guard (mutex_intr, return -EINTR, &gpu->lock) {
++			msm_gpu_hw_init(gpu);
++			show_priv->state = gpu->funcs->gpu_state_get(gpu);
++		}
++	}
+ 
+ 	if (IS_ERR(show_priv->state)) {
+-		ret = PTR_ERR(show_priv->state);
+-		goto free_priv;
++		return PTR_ERR(show_priv->state);
+ 	}
+ 
+ 	show_priv->dev = dev;
+ 
+ 	ret = single_open(file, msm_gpu_show, show_priv);
+ 	if (ret)
+-		goto free_priv;
++		return ret;
+ 
+-	return 0;
++	retain_and_null_ptr(show_priv);
+ 
+-free_priv:
+-	kfree(show_priv);
+-	return ret;
++	return 0;
+ }
+ 
+ static const struct file_operations msm_gpu_fops = {
+-- 
+2.56.0
 
-Its quite likely other MPEG-2 decoder are affected. Would have been nice to=
- pass
-the picture structure explicitly in the decode params in the first place. N=
-ot
-your fault.
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> ---
->  drivers/staging/media/sunxi/cedrus/cedrus.h   |  5 +++
->  .../staging/media/sunxi/cedrus/cedrus_mpeg2.c | 32 +++++++++++++++++--
->  2 files changed, 35 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.h b/drivers/stagin=
-g/media/sunxi/cedrus/cedrus.h
-> index 54f867949fba..a523b56a9b8c 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus.h
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.h
-> @@ -144,6 +144,11 @@ struct cedrus_ctx {
->  			void		*entry_points_buf;
->  			dma_addr_t	entry_points_buf_addr;
->  		} h265;
-> +		struct {
-> +			bool		pair_pending;
-> +			unsigned int	pair_dst;
-> +			u8		pair_structure;
-> +		} mpeg2;
->  		struct {
->  			unsigned int	last_frame_p_type;
->  			unsigned int	last_filter_type;
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c b/drivers/=
-staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> index ca66a3c6b830..4c8accee5389 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> @@ -58,7 +58,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, s=
-truct cedrus_run *run)
->  	struct vb2_queue *vq;
->  	const u8 *matrix;
->  	unsigned int i;
-> -	bool field;
-> +	bool field, tff;
->  	u32 reg;
-> =20
->  	seq =3D run->mpeg2.sequence;
-> @@ -87,6 +87,26 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, =
-struct cedrus_run *run)
->  		cedrus_write(dev, VE_DEC_MPEG_IQMINPUT, reg);
->  	}
-> =20
-> +	/*
-> +	 * top_field_first is always 0 in field pictures, but the hardware
-> +	 * uses this bit to tell the first field of a frame from the second.
-> +	 * A field is the second one when it has the opposite parity of the
-> +	 * previous field and is decoded into the same capture buffer.
-> +	 */
-> +	if (pic->picture_structure =3D=3D V4L2_MPEG2_PIC_FRAME) {
-> +		tff =3D !!(pic->flags & V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST);
-> +		ctx->codec.mpeg2.pair_pending =3D false;
-> +	} else {
-> +		bool second =3D ctx->codec.mpeg2.pair_pending &&
-> +			      ctx->codec.mpeg2.pair_structure !=3D pic->picture_structure &&
-> +			      ctx->codec.mpeg2.pair_dst =3D=3D run->dst->vb2_buf.index;
-> +
-> +		tff =3D (pic->picture_structure =3D=3D V4L2_MPEG2_PIC_TOP_FIELD) !=3D =
-second;
-> +		ctx->codec.mpeg2.pair_pending =3D !second;
-> +		ctx->codec.mpeg2.pair_structure =3D pic->picture_structure;
-> +		ctx->codec.mpeg2.pair_dst =3D run->dst->vb2_buf.index;
-> +	}
-> +
->  	/* Set MPEG picture header. */
-> =20
->  	reg =3D VE_DEC_MPEG_MP12HDR_SLICE_TYPE(pic->picture_coding_type);
-> @@ -96,7 +116,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, =
-struct cedrus_run *run)
->  	reg |=3D VE_DEC_MPEG_MP12HDR_F_CODE(1, 1, pic->f_code[1][1]);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_INTRA_DC_PRECISION(pic->intra_dc_precision=
-);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_INTRA_PICTURE_STRUCTURE(pic->picture_struc=
-ture);
-> -	reg |=3D VE_DEC_MPEG_MP12HDR_TOP_FIELD_FIRST(pic->flags & V4L2_MPEG2_PI=
-C_FLAG_TOP_FIELD_FIRST);
-> +	reg |=3D VE_DEC_MPEG_MP12HDR_TOP_FIELD_FIRST(tff);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_FRAME_PRED_FRAME_DCT(pic->flags & V4L2_MPE=
-G2_PIC_FLAG_FRAME_PRED_DCT);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_CONCEALMENT_MOTION_VECTORS(pic->flags & V4=
-L2_MPEG2_PIC_FLAG_CONCEALMENT_MV);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_Q_SCALE_TYPE(pic->flags & V4L2_MPEG2_PIC_F=
-LAG_Q_SCALE_TYPE);
-> @@ -186,6 +206,13 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx=
-, struct cedrus_run *run)
->  	return 0;
->  }
-> =20
-> +static int cedrus_mpeg2_start(struct cedrus_ctx *ctx)
-> +{
-> +	memset(&ctx->codec.mpeg2, 0, sizeof(ctx->codec.mpeg2));
-> +
-> +	return 0;
-> +}
-> +
->  static void cedrus_mpeg2_trigger(struct cedrus_ctx *ctx)
->  {
->  	struct cedrus_dev *dev =3D ctx->dev;
-> @@ -203,5 +230,6 @@ struct cedrus_dec_ops cedrus_dec_ops_mpeg2 =3D {
->  	.irq_disable	=3D cedrus_mpeg2_irq_disable,
->  	.irq_status	=3D cedrus_mpeg2_irq_status,
->  	.setup		=3D cedrus_mpeg2_setup,
-> +	.start		=3D cedrus_mpeg2_start,
->  	.trigger	=3D cedrus_mpeg2_trigger,
->  };
-
---=-WApOxz+sTMoS9JafJBm/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujdxAAKCRDZQZRRKWBy
-9FEyAQC8/q6Nd1DoHPrJt6RmqNj59GInV2qqqrnhS3ndvJGV7gEAs9tcUUCE4igf
-xOK38RK8vM8z6QMV9E8zb/YjVh7zLAs=
-=xRX+
------END PGP SIGNATURE-----
-
---=-WApOxz+sTMoS9JafJBm/--
