@@ -1,77 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623737;
-	b=QEP1eq51zzq2Ko5EBWrFke0kDg7oygY/vV50CbU7EDIqLrTUfCDsAsy5BGyfJWtRFma2
-	 FTfnxrqHcJpGEvTxhvVdNaOQvVSEZtwnSkhojSCh2MqjZcDyC+g06CFedgwf1Oax9LDJQ
-	 HG4vVrmyXP0P5IoDfei1ATyCJmSYKhxs9wYunBlQFfEhGumJSmfMyv+ld5hSVBQItHf1V
-	 X/zd6lxmcBIXSmGUjZ7w1AcfK+DpCIF1stcv8AuTNhfrAZ9heWE8zwNO9DqfjhR5CDXgI
-	 5RnWPOfkwM24UD2F7v0dgKleILyNiN8zvAWpYePaXMAqvePlq9mrQToGlx+AghYpDvQ==
+	t=1793623748;
+	b=uiZ41XOqCZzkyk2j2FGl/5QbhvLSxwn6Fw8x2l5VrFDG80YH3+1ONsGqvF5aCe0BcEgo
+	 9ZDX1yDD7FMv/UuGVlhEw/Ydvhr/Hsu0wpfo9tzPnjaudACQ7M6odlTpzp28R8HQKJNTk
+	 CjMEkQ9b8+FZLWxQipxVhq0nmMVuCJUw9RMYO4hzl1lKK+kj6O5z+6OvU51Qdokgp6rik
+	 8NtxLcwugDCULYwq6Up0vOZaXNvmz42MlPkrd47ujLQpZc8c1NIWm8UiutzojrEPbivRu
+	 NR59ZrxQdOG5N/fmFaz9NXRBCNFz+d1qxMDK1DnOhzHD5g20V/FRuKAcDbDyTfVnMDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623737;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=IgnFBSs4gU/9OiVWohQgrsqEzzqGnaK11LfxQ+b/54A=;
-	b=vEu0yunreRPt58d3p7lf35gQwkYs6j/6QMPZdbyoDSFSwbLuK61B0/wJIr4o3D77e9bG
-	 gWtFnoYZUfIxeQ3YvibiACIGTfBztJsFGAW9JYE9aWhps91zLg8NcTVTu2eHHX9HPhZoF
-	 fnY3enKqgrLxLK2cODm4MfNYnoPOLvhhTjMvbDoXVpI9k8G47jeMVBwEc7bNzTDHnum1i
-	 uMpNjgXA+iom7qy4bgjSvABNAy+0QhYpyPu6Y453G5TlZ+WY/Ge1VOY6MfHKBTiwIENXB
-	 pRSqVUh6kIp2AYpBPsWHb+8Bu40z0oidq0bolelEikyHgBPP6ZZqTaeSvpTg+q6tPHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623748;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=yJLZmPBZv+CycFtwzr5pSIbvk5UEpxdi0CgzoRsWvzw=;
+	b=J8ok98ZaPhKokNQCoqNHKq11/Zv4KqDfG70elZDyzlmt+o597S4SQ2yXvd3Mhwd0Kf2T
+	 yHAW2VfhA84iqPfKRAkJ+CWG0ZYYNrWWAdXkJmvu0/VhUhTkRCb1UkaWJ9IME3QRXfsAy
+	 n2U6k3cV/iamEusUIXSZlBjtTr1ydpTdqhXM9zR2fQ83hb+w2AqZWLB2tWqvg8Un6h8Gp
+	 VQ5dIOuUSJdRy0F+BTdAsRlLNZUgpM55UPPxT9+ZP/aq1yB/ix8Tkm1S94HdwjImEdCH2
+	 7F3eFXj6wj70bG1HJLYWevDkX/RrSj0EzFV9unW6NGwyKD6MA4uQu1pQ2zZKR7euA/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y58dpbKh;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMPJjA4n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD367606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:48:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD367606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AC960A3828
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y58dpbKh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793623736; x=1825159736;
-  h=date:from:to:cc:subject:message-id;
-  bh=718d8Norezs3ZysX252UJaxohIlGAU+FbYcANbSaDuQ=;
-  b=Y58dpbKh8hzKxbnh8ZXl+I3FAKRRW+j5DKX9VO4OmpDckdeVqQfeewPv
-   4juKAIJolafYLFE+jxO5w1BAHHzWnqDGSntOZ8ryxTZHw0GbRrGDbtytt
-   OnghUVVv39x7mBj+HZrLmmlofHmP5voIxCo0rMJlNyRPhNP9Ez0BFfamy
-   AKRTCNnK8noORoMWA2L5Hm8mYEnw3Ij1ILMxL23Quk/Kq3NncqR6Gv0JJ
-   DwcoyXbfH42nqZ61Is10ONyT+vgvdpG8BvMLzcAoqa8LEeOXnZArKpAeX
-   nhxZNB53hKixTsJfV/U03ldXwwcD3Su6IvAEisfYiBLwoO7EFtp9auFxl
-   A==;
-X-CSE-ConnectionGUID: sukoxDbXQpelVYp7IHflRA==
-X-CSE-MsgGUID: gkiMMM0uTrinPgVCTtwkHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2323887"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2323887"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 04:48:55 -0800
-X-CSE-ConnectionGUID: 8hTd09PJQwuo/KyWCui7Fw==
-X-CSE-MsgGUID: zYOIAzfoS26z8fTn0d0Zew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6432378"
-Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
-  by fmviesa009.fm.intel.com with ESMTP; 02 Nov 2026 04:48:53 -0800
-Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNrT0-000000008Yv-1eop;
-	Mon, 02 Nov 2026 12:48:50 +0000
-Date: Mon, 02 Nov 2026 13:48:41 +0100
-From: kernel test robot <lkp@intel.com>
-To: Icenowy Zheng <uwu@icenowy.me>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: drivers/gpu/drm/verisilicon/vs_bridge.c:325:9-16: WARNING:
- ERR_CAST can be used with bridge
-Message-ID: <202611021314.XBaxacvs-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MMPJjA4n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3C4F1F00A16;
+	Mon,  2 Nov 2026 12:49:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793623747;
+	bh=yJLZmPBZv+CycFtwzr5pSIbvk5UEpxdi0CgzoRsWvzw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MMPJjA4na183XXSB/egQ9V5ON4+8CaoBH9DPVdEWUHbIAMBb04H9NjYoh9ROfyUbn
+	 3pxOf7dLjNDEHak6Ud5YERJgeEe5E9Qf6D6/drb9lpM+YqWN0nPKhpZ81h1/DSCxrM
+	 kyCVvJO4dp130ffKnTQDY6VKVTmASgwZw535cMSHQltvaTEMqXeclFU1VczrKrOf8r
+	 pOrZd/Ui6t37y6G/6TmpRitEfUg9mNGuxA4kTijCkQgBYqQDYhBSFfksoo7ufUVBfQ
+	 65L5YXuwcPAK9CLNF2gIJx2KZmh4+OAevQcAA5Mnd1bLaKSdC158CDdWNrITIDb2Rj
+	 ojzlCG5UIafdw==
+Message-ID: <54e20549-ca49-4d86-90fd-9f5e483d362d@kernel.org>
+Date: Mon, 2 Nov 2026 13:49:02 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,66 +50,176 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/ksm: avoid unsafe anon rmap dereference in KSM merge
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Rik van Riel <riel@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Zhao Gongyi <zhaogongyi@bytedance.com>
+References: <20261102-ksm-anon-rmap-fix-v1-1-68962acfb59b@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261102-ksm-anon-rmap-fix-v1-1-68962acfb59b@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-commit: dbf21777caa8b8c88c12f7f036b01208fec0d55a drm: verisilicon: add a driver for Verisilicon display controllers
-date:   9 months ago
-config: loongarch-randconfig-r2111-20261102 (https://download.01.org/0day-ci/archive/20261102/202611021314.XBaxacvs-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 3e5b45eed6c3ec25f4f1cc81ce0be10106a8f31f)
+On 11/2/26 13:32, Lorenzo Stoakes (ARM) wrote:
+> When KSM examines candidate VMAs in scan_get_next_rmap_item(), it
+> accumulates (mm, address) pairs in ksm_rmap_item objects, assigning them
+> via get_next_rmap_item(), pinning folios via a page walk in
+> ksm_next_page_pmd_entry().
+> 
+> Throughout this operation, scan_get_next_rmap_item() holds mmap read lock,
+> which it drops afterwards.
+> 
+> After the mmap lock is dropped the VMAs might be freed and remapped where
+> the VMA belonging to the folio was previously mapped.
+> 
+> mremap()'s ability to change where anon folios are mapped is dealt with by
+> KSM by essentially avoiding the problem - prep_move_vma() unshares KSM
+> folios, and the scanning logic is tolerant of concurrent remaps, discarding
+> stale ksm_rmap_item objects and allocating new ones at the new address.
+> 
+> This doesn't account for a new VMA being mapped over an old one where a
+> folio was previously mapped, so KSM accounts for this by checking things at
+> the page table level.
+> 
+> However, once an anon_vma's reference count reaches zero, it is freed, but
+> nothing clears folio->mapping, which is where the KSM pin interacts badly
+> with the current KSM implementation.
+> 
+> page_address_in_vma() is consistently used to look up the folio's address,
+> but page_address_in_vma() explicitly states:
+> 
+> "It is the caller's responsibility to check the page is actually within the
+> VMA."
+> 
+> And KSM violates this, as it cannot know this to be true. This results in
+> this function performing a use-after-free:
+> 
+> 		struct anon_vma *anon_vma = folio_anon_vma(folio);
+> 
+> 		...
+> 
+> 		if (!vma_has_anon_rmap(vma) || !anon_vma ||
+> 		    vma->anon_vma->root != anon_vma->root)
+> 			return -EFAULT;
+> 
+> As anon_vma->root is dereferenced when anon_vma can already have been
+> freed.
+> 
+> This is currently benign in practice, as anon_vma's are slab-allocated
+> objects so this will always be within the direct mapping and arbitrary
+> memory will be treated as if it were a pointer to be compared.
+> 
+> This either results in an -EFAULT or a spurious match, which will be
+> rejected at the page table level.
+> 
+> However we mustn't UAF even if it's harmless, and KASAN rightly flags this.
+> 
+> It turns out we don't even need to use page_address_in_vma() as we already
+> know the folio's address, it simply needs to be passed through.
+> 
+> This change therefore updates KSM to do this, sidestepping the issue
+> altogether.
+> 
+> Explicitly check for KSM folios in try_to_merge_one_page(), which are
+> already merged, and by definition never have an anon_vma.
+> 
+> This was previously handled implicitly by page_address_in_vma() as
+> folio_anon_vma() returns NULL for those.
+> 
+> In many cases cmp_and_merge_page() will reject these, but it's possible for
+> KSM folios to fall into the unstable tree there, so eliminate that
+> possibility by checking for that early.
+> 
+> This maintains existing behaviour.
+> 
+> The bug was introduced by commit 21d0d443cdc1 ("rmap: resurrect
+> page_address_in_vma anon_vma check") which first dereferenced
+> folio->mapping unsafely, but commit b8c8ba73c68b ("slub: Introduce
+> CONFIG_SLUB_RCU_DEBUG") made it visible with CONFIG_SLUB_RCU_DEBUG enabled.
+> 
+> Fixes: 21d0d443cdc1 ("rmap: resurrect page_address_in_vma anon_vma check")
+> Reported-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+> Closes: https://lore.kernel.org/all/20261031182256.40205-1-zhaogongyi@bytedance.com/
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+> David - this seems benign in practice, so I'm not sure whether a backport
+> is required here.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon display controllers")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611021314.XBaxacvs-lkp@intel.com/
+Ok, thanks. Is there a similar problem as with the other anon_vma->root issue
+where a false positive match could be problematic?
 
-cocci warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/verisilicon/vs_bridge.c:325:9-16: WARNING: ERR_CAST can be used with bridge
---
->> drivers/gpu/drm/verisilicon/vs_crtc.c:175:9-16: WARNING: ERR_CAST can be used with primary
+I suspect not.
 
-vim +325 drivers/gpu/drm/verisilicon/vs_bridge.c
+In that case I would pick this for the next merge window after a couple of days.
 
-   288	
-   289	struct vs_bridge *vs_bridge_init(struct drm_device *drm_dev,
-   290					 struct vs_crtc *crtc)
-   291	{
-   292		unsigned int output = crtc->id;
-   293		struct vs_bridge *bridge;
-   294		struct drm_bridge *next;
-   295		enum vs_bridge_output_interface intf;
-   296		const struct drm_bridge_funcs *bridge_funcs;
-   297		int ret, enctype;
-   298	
-   299		intf = vs_bridge_detect_output_interface(drm_dev->dev->of_node,
-   300							 output);
-   301		if (intf == -ENODEV) {
-   302			drm_dbg(drm_dev, "Skipping output %u\n", output);
-   303			return NULL;
-   304		}
-   305	
-   306		next = devm_drm_of_get_bridge(drm_dev->dev, drm_dev->dev->of_node,
-   307					      output, intf);
-   308		if (IS_ERR(next)) {
-   309			ret = PTR_ERR(next);
-   310			if (ret != -EPROBE_DEFER)
-   311				drm_err(drm_dev,
-   312					"Cannot get downstream bridge of output %u\n",
-   313					output);
-   314			return ERR_PTR(ret);
-   315		}
-   316	
-   317		if (intf == VSDC_OUTPUT_INTERFACE_DPI)
-   318			bridge_funcs = &vs_dpi_bridge_funcs;
-   319		else
-   320			bridge_funcs = &vs_dp_bridge_funcs;
-   321	
-   322		bridge = devm_drm_bridge_alloc(drm_dev->dev, struct vs_bridge, base,
-   323					       bridge_funcs);
-   324		if (IS_ERR(bridge))
- > 325			return ERR_PTR(PTR_ERR(bridge));
+[...]
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>  {
+>  	struct folio *folio = page_folio(page);
+>  	pte_t orig_pte = __pte(0);
+> @@ -1515,7 +1507,7 @@ static int try_to_merge_one_page(struct vm_area_struct *vma,
+>  	if (page == kpage)			/* ksm page forked */
+>  		return 0;
+>  
+> -	if (!folio_test_anon(folio))
+> +	if (!folio_test_anon(folio) || folio_test_ksm(folio))
+>  		goto out;
+Okay, that makes sense. We don't have to check under the folio lock as KSM
+doesn't merge concurrently.
+
+Do we want to assert in write_protect_page() that we are not getting called with
+a KSM folio, similar to what we do with large folios in there?
+
+-- 
+Cheers,
+
+David
