@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619633;
-	b=xgpw3gJrP0QXa+jnlf24Sqa+JJvieWvKIr8vYU6+vXmqcbqM9+DwC1FJCgWY/mqQzXjX
-	 lxRfe9zhD31RT5fjI6VHvD+IEZIEoL24prulWx3ui7ixrrA8+eRMUtuM9tIqIqbVYX5Mv
-	 vMvUEI4HxMkAfHyR0cZAGoUoAAFwHeAbAOuyixt0Eu7fjpIYUvHZONQiB/vj1MVAzDzs3
-	 Y7Ak3CfLrKZdllw3azt4VZqSorw/Taf7UkrNfRLZn3ZLQrQdUaIDOamGgP1fquYwVs/uS
-	 Ph5Wq96RqZ+H3EON0XWxmWGPCbuQYZw4uAhH2BInuTL/heV5KnZ5nGYv2BwAexzu7jg==
+	t=1793619628;
+	b=5msYWeJJFQrm7mRbYZXLRaDhscdJshWAPfSd1n9I8WGi0LtvsV+mIDmnHEDp5RyMfBT8
+	 2qfts81WlK6hsUe13oklXUw3/UO5jZ0GEUv5A/kBt4LlkM3+vfzkcBHYkFfqM4/YNuuco
+	 Bkb8ZbGVpMMFxjukJVld3WzHL+edVy+CDY1dZ1l+NahBrryLCqyCs8e6bx1T4QeUcCclx
+	 ZkJHCDr8jb0lw6PrCDnR/MNG6+350SdLFLI4rPg4n3Jd+B3NjapxdMbMQiyRJgw9Kr46v
+	 Az9LrOWBwF2/dqbb1m3NPlxNRe15UDq7SXO0qBGvH1QGeF5SvsjDPP3Ioz2pn8Nq6sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619633;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619628;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:User-Agent:
-	 Date:From:To:Cc:Subject;
-	bh=mH4Cba3MrCM+fKYM1a6EB5vLcCxZP0ArJcgu8m4LCPc=;
-	b=F8hbV6d+EJJ9Sp4r7/8X+EZCGQRKW3I3P+AMSfXN1yTFApmJSSHDOVOOoZWCMOvJfTBY
-	 QKp249XkLrHI7SY3GhUzcAtxr0mrpB1S2uOiJzQQnLtz5bfLPhJy3wL++mdo3cwleFEc5
-	 RC7y50STwZsmDxbAmcvbaQdg3JzAMSe5OdVl7a/+F7cSm6JQErlIIS+CyU2fzIqhId4tW
-	 QWi5p9smNsfeFenIdyGYJh6Yqj/u8MNviRHpl3iPIdntumR3etQAGCtnbNv7wOu4qmV+F
-	 UUaH8CtJkSlcBChAZW6ePIvQIATBvklzBFzhsoplxig+RJGh38IjEmHWCgPIGu52Anw==
+	 Date:From:To:Cc:Subject:References:MIME-Version:Content-Type;
+	bh=nnI+HtVvJqAE6HJJf0gTc9OpPe4dBoQOZPr4axzErbo=;
+	b=A47ZIKUc1bJZ170ZSuu/Nhwk2qIobokJFdi76PgqZaTmqGD4DOOJbpgPTf2GyB2qnlA/
+	 XyDRqdth4f8/615Wsfi1EaWQ4KKhSoE+0eOt2jY5hD2w0tAVTXQxhqHheabg/8ZUKZZlw
+	 9j/KEmph2GkwU9lPCVyGLrfYUNC1QS50+vM/MP/FBUE39tZ7NbZwJZqho+R1sZjgGf1Ze
+	 8PkBdX9AC8G2Y65kKgnfBf33nfdurI0pRFrjGX+X3k+WZVu7NGpwjuqjBLmKsMj6PH6SE
+	 3Jwwr9jeV9pSKoXCYldJsUiWuKqaVs/alktBBUDlHqQKShRC/PTb9L7vznY5QGsy7dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=f7xJ0iqh;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=F7cQpqgZ;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D18606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:40:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3D18606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EB7606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:40:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3EB7606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=f7xJ0iqh
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=F7cQpqgZ
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Subject:Cc:To:From:Date:Message-ID:
-	Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=mH4Cba3MrCM+fKYM1a6EB5vLcCxZP0ArJcgu8m4LCPc=; b=f7xJ0iqhjXXHKmXojOAG8ykmFC
-	j6RsEn1TQp2YLPBAXv/p1PsrO793rGOczZ8vYGgjoTOfG8egYRwmM1LMOy65wm65sURHVHxaT4URx
-	dLXNZ4TRQthZ8V2d2wZvUQpwmJURSfqnfp8VKumy16lkYUJl1Qa1zDyqAxbUSin7YlbJc2p1SFyx5
-	9tp2tVb7jluessiF+rDF01ShNCoj0Km6YwDp11kv+hha8rdQqIVDPb/gKdAuZwjaoUF5dD12y7f45
-	lacD2l61YYwTgM38eo1jgwssI54tkf3N6JgBAEUWY/3caT6+E4n5LVE+hw9QMf5XHebHp38DcxgIM
-	SbhnLTQA==;
+	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
+	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
+	Content-ID:Content-Description:In-Reply-To;
+	bh=nnI+HtVvJqAE6HJJf0gTc9OpPe4dBoQOZPr4axzErbo=; b=F7cQpqgZLdHYI7vh8BXhvrLop4
+	IXG+wE0HUApS/gyTsc2YLV8pnkM3bdvVUcb3l3DOCLhmLADfV05JEbkcdR/KjCm337Cw/oxHFj3eV
+	RrD1Lh5U7QLf5Mdadg6r1Mc1LHDGlf+Elykgtf4akNDN4xaqvQ1EgPUTCGAQnHECUJeT/hEhCtDnz
+	UMDfDSKKXa+ErQktvjbJjC4ZRULnRXUVQrtn1Rq7NCjTMPpAMMnENvmWY6gZld8sDLyfNdTxlfFrz
+	j02ZC8v4XAdeF8aimF635DoqiHGA4K9Uuxraw1f1/rdb3hxvFnv+dSZbjus5ukjnIPd9PMMi1w3Kn
+	dQlObIdA==;
 Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNqOn-00000002SDw-2Xhi;
-	Mon, 02 Nov 2026 11:40:30 +0000
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xNqOn-00000002K7X-1uLm;
+	Mon, 02 Nov 2026 11:40:25 +0000
 Received: by noisy.programming.kicks-ass.net (Postfix, from userid 0)
-	id 6FC8C300322; Mon, 02 Nov 2026 12:40:24 +0100 (CET)
-Message-ID: <20261102112549.714541309@infradead.org>
+	id 757503014C0; Mon, 02 Nov 2026 12:40:24 +0100 (CET)
+Message-ID: <20261102114000.436794287@infradead.org>
 User-Agent: quilt/0.68
-Date: Mon, 02 Nov 2026 12:25:49 +0100
+Date: Mon, 02 Nov 2026 12:25:50 +0100
 From: Peter Zijlstra <peterz@infradead.org>
 To: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -59,7 +59,8 @@ Cc: linux-kernel@vger.kernel.org,
  leitao@debian.org,
  keescook@chromium.org,
  hpa@zytor.com
-Subject: [PATCH 0/6] x86: Harden syscall dispatch
+Subject: [PATCH 1/6] x86_64/entry: Unconditionally use -fno-jump-table
+References: <20261102112549.714541309@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,55 +69,120 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 
-Hi!
+Currently we force -fno-jump-table for RETPOLINE=y || X86_KERNEL_IBT=y, which
+means that it is effectively disabled for most everyone these days.
 
-These few patches harden the syscall dispatch by making -fno-jump-table
-unconditional for x86_64 and then having all SYSCALL*() macros mark the actual
-syscall entry points with __noendbr.
+Simply unconditionally disable jump tables for x86_64 to take away the edge
+case.
 
-Notably, we already have -fno-jump-table for KERNEL_IBT || RETPOLINE, which
-means effectively everybody already has this. However, making this
-unconditional has the nice side effect that the compilers must never generate
-array accesses and it is safe to remove array_index_nospec().
+Doing so, allows removing the array_index_nospec() barrier in the syscall
+dispatch since it cannot be an array index anymore.
 
-Additionally, since dispatch is now forced to be a binary decision tree with
-direct (tail) calls, there are no valid indirect calls to any of the syscall
-functions and they can be marked __noendbr.
-
-This means anything trying to use the sys_call_table[] will fail (on hardware
-sporting IBT).
-
-All this makes the normal system call hijack a lot more difficult.
-
-Patches also at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/peterz/queue.git x86/syscall
-
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- arch/x86/Kconfig                       |  4 +---
- arch/x86/Makefile                      | 27 +++++++---------------
- arch/x86/entry/calling.h               |  1 -
- arch/x86/entry/common.c                |  2 +-
- arch/x86/entry/entry_64.S              |  2 +-
- arch/x86/entry/entry_64_compat.S       |  6 ++---
- arch/x86/entry/entry_fred.c            |  6 ++---
- arch/x86/entry/syscall_32.c            | 20 ++++++++++-------
- arch/x86/entry/syscall_64.c            | 24 +++++++++++++-------
- arch/x86/include/asm/entry-common.h    |  2 +-
- arch/x86/include/asm/fred.h            |  6 ++---
- arch/x86/include/asm/syscall.h         | 10 ++++-----
- arch/x86/include/asm/syscall_wrapper.h | 23 ++++++++++---------
- arch/x86/lib/clear_page_64.S           |  1 -
- arch/x86/lib/copy_user_64.S            |  1 -
- arch/x86/lib/copy_user_uncached_64.S   |  1 -
- arch/x86/lib/getuser.S                 |  4 ----
- arch/x86/lib/hweight.S                 |  3 ---
- arch/x86/lib/putuser.S                 |  4 ----
- include/linux/annotate.h               |  1 +
- include/linux/instrumentation.h        | 17 ++++++++++++++
- include/linux/objtool_types.h          |  1 +
- tools/include/linux/objtool_types.h    |  1 +
- tools/objtool/check.c                  | 41 ++++++++++++++++++++++++++--------
- 24 files changed, 118 insertions(+), 90 deletions(-)
+ arch/x86/Kconfig            |    4 +---
+ arch/x86/Makefile           |   27 ++++++++-------------------
+ arch/x86/entry/syscall_32.c |    2 ++
+ arch/x86/entry/syscall_64.c |    2 --
+ 4 files changed, 11 insertions(+), 24 deletions(-)
+
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -2366,10 +2366,8 @@ config CC_OPT_INDIRECT_BRANCH_CS_PREFIX
+ config CC_OPT_CF_PROTECTION_NONE
+ 	def_string "$(cc-option-str,-fcf-protection=none)"
+ 
+-# with jump tables off: the compilers use NOTRACK for them, which kernel IBT
+-# does not allow
+ config CC_OPT_CF_PROTECTION_BRANCH
+-	def_string "$(cc-option-str,-fcf-protection=branch -fno-jump-tables)"
++	def_string "$(cc-option-str,-fcf-protection=branch)"
+ 
+ config CC_OPT_FALIGN_JUMPS
+ 	def_string "$(cc-option-str,-falign-jumps=1)"
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -90,17 +90,8 @@ CC_FLAGS_FPU += -mhard-float
+ endif
+ 
+ ifeq ($(CONFIG_X86_KERNEL_IBT),y)
+-#
+-# Kernel IBT has S_CET.NOTRACK_EN=0, as such the compilers must not generate
+-# NOTRACK prefixes. Current generation compilers unconditionally employ NOTRACK
+-# for jump-tables, as such, disable jump-tables for now.
+-#
+-# (jump-tables are implicitly disabled by RETPOLINE)
+-#
+-#   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104816
+-#
+ KBUILD_CFLAGS += $(CONFIG_CC_OPT_CF_PROTECTION_BRANCH)
+-KBUILD_RUSTFLAGS += -Zcf-protection=branch $(if $(call rustc-min-version,109300),-Cjump-tables=n,-Zno-jump-tables)
++KBUILD_RUSTFLAGS += -Zcf-protection=branch
+ else
+ KBUILD_CFLAGS += $(CONFIG_CC_OPT_CF_PROTECTION_NONE)
+ endif
+@@ -178,6 +169,13 @@ endif
+         KBUILD_RUSTFLAGS += -Ccode-model=kernel
+ 
+         percpu_seg := gs
++
++	# Due to retpolines and cf-protection=branch's implicit NOTRACK usage
++	# for jump-tables, blanked disable jump-tables for all x86_64 builds to
++	# get a consistent behaviour across configurations. This allows
++	# removing some array_index_nospec() usage.
++	KBUILD_CFLAGS += -fno-jump-tables
++	KBUILD_RUSTFLAGS += $(if $(call rustc-min-version,109300),-Cjump-tables=n,-Zno-jump-tables)
+ endif
+ 
+ ifeq ($(CONFIG_STACKPROTECTOR),y)
+@@ -214,15 +212,6 @@ KBUILD_CFLAGS += -fno-asynchronous-unwin
+ ifdef CONFIG_MITIGATION_RETPOLINE
+   KBUILD_CFLAGS += $(RETPOLINE_CFLAGS)
+   KBUILD_RUSTFLAGS += $(RETPOLINE_RUSTFLAGS)
+-  # Additionally, avoid generating expensive indirect jumps which
+-  # are subject to retpolines for small number of switch cases.
+-  # LLVM turns off jump table generation by default when under
+-  # retpoline builds, however, gcc does not for x86. This has
+-  # only been fixed starting from gcc stable version 8.4.0 and
+-  # onwards, but not for older ones. See gcc bug #86952.
+-  ifndef CONFIG_CC_IS_CLANG
+-    KBUILD_CFLAGS += -fno-jump-tables
+-  endif
+ endif
+ 
+ ifdef CONFIG_MITIGATION_SLS
+--- a/arch/x86/entry/syscall_32.c
++++ b/arch/x86/entry/syscall_32.c
+@@ -75,7 +75,9 @@ early_param("ia32_emulation", ia32_emula
+ static __always_inline void do_syscall_32_irqs_on(struct pt_regs *regs, unsigned long nr)
+ {
+ 	if (likely(nr < IA32_NR_syscalls)) {
++#ifdef CONFIG_X86_32
+ 		nr = array_index_nospec(nr, IA32_NR_syscalls);
++#endif
+ 		regs->ax = ia32_sys_call(regs, (unsigned int)nr);
+ 	}
+ }
+--- a/arch/x86/entry/syscall_64.c
++++ b/arch/x86/entry/syscall_64.c
+@@ -57,7 +57,6 @@ static noinline long x32_sys_call(const
+ static __always_inline bool do_syscall_x64(struct pt_regs *regs, unsigned long nr)
+ {
+ 	if (likely(nr < NR_syscalls)) {
+-		nr = array_index_nospec(nr, NR_syscalls);
+ 		regs->ax = x64_sys_call(regs, (unsigned int)nr);
+ 		return true;
+ 	}
+@@ -70,7 +69,6 @@ static __always_inline void do_syscall_x
+ 	nr -= __X32_SYSCALL_BIT;
+ 
+ 	if (IS_ENABLED(CONFIG_X86_X32_ABI) && likely(nr < X32_NR_syscalls)) {
+-		nr = array_index_nospec(nr, X32_NR_syscalls);
+ 		regs->ax = x32_sys_call(regs, (unsigned int)nr);
+ 	}
+ }
+
 
