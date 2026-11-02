@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607110;
-	b=YQ9a1N5IUnbvm3aSJcuA9Gr9K1acSdEDA6eZprQlTeZpHVLSFIhoJ2Vlq8Qp+aePJOV2
-	 +Qkh05yTiTLyNqJjG/PwzWb0x6TlyJPc+0EQtUQ+UyUaqOet+m/3zKuyKw4Q9SRNFpw6t
-	 17Ytgu9qu8no0qiHFiBZVfPiamcDuML0asMtqjEm6dMMmQkVadVVQVU22sjiZrIznaRlB
-	 Elh5N+bXfKNYxZQO0X6+XknM22cdQWpD8DVglytpg/+LhMEf9yVvwUWDNsImSbnN8xoKH
-	 u3pZEm8gI9tXDo1xZdCn/KwXhOr8ppbrfeCPVaRFXYi36nQOrvv2CEKDuihzc+Cj4Gg==
+	t=1793607113;
+	b=R3FOURsxYGAi67IxpuvgO/kFNRGpiOuuIciha1oS8pGySGzF5qfZ3UGw1Vhqy5hxq7uF
+	 RJ58IAq7ronXdTDzD74YzdlFceaBQg+5XNDh4gk4xzko1tKY+LSM1vaU4hRZe8BkWv87M
+	 Kd0FmyjWmEi8/QKWE9q02VwAq/fVWtkW+b0efDbIG/stJOzyrMEhU/gayURZZaL+VcpNy
+	 vhTB8/iCnksRQm+Mi/gdRtsqw0xfWLvbvbfbAi+Bh5Ukm6wNMtB1lmPZX+lYOcVEg1D5l
+	 AyvEH6zQJCk3Kerc3FpdBbrnRht8viKm1WYNboN6bnNvwfNo8aBPmrTVbD9VT2a5hPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607110;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607113;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=FAyyYwHdR5Ch5uO/F1MiXirGDsn56GrI3GAO8iDRceA=;
-	b=2xfnJxnP+vo4w5ij2ttd3xx78r3oA5Sun5bdMJ+iywvIUyZLOJWUGYd2+OMzOCcLhlc0
-	 BhJxKPgx+8amZRJnmP63XpLsYKm+3dBhxzZSxWIR2M7pG7KgyHoXDEZT2opRlr4Ze99LE
-	 jom1c1RTPFj++n7kNjcjIxEPRoEO3Fx1Q5fXgo+uWooD/kirWFNEuDAI3IynqSPipo/kp
-	 Q2K5OQj1W5nTTl1lTWIn8n5L9znkwyTjn/dP3TM7ZMWD3prAs7bYQrhl7aPS6mLKXying
-	 HftZuouDvXlUoMNAkXDk2tWrfQCuDCWalbTHEEgudm+o4Ek6/VIsob7Zj0ob6geOnsQ==
+	bh=Skgy5VZxk2gILLHcPLrF17iQzssiYgUtpst1TmBVQUQ=;
+	b=HWUgznRkTUOQ8AYvPbjRfa2UhKibD0MakKrkwP187CyN61ZK+udiZLcoFYw6xMIfYr/n
+	 uYO5zSa8CxGNfjigLE/xedUsPephHawVfgqxeSjtcjkRsoMgIG7XXPNZVKTU5TltxAil4
+	 AQn3SOXH2lUL8mzdLSGyZvbMSuVKur0caaPr+DW7wskgZoBMLq9uHj7M0UEPVMN8XX8X+
+	 9KX777H5xkpwOcxywO0XePCeO9uLsnfvtXcZzY8N5NJ4QwNzAaVgCcK7UPvECQWYNzCOG
+	 QFFwsRIKP66/lxHeCLWDhhZ5kihvJO3/WggBOj8bA0AMqP7DrfSl77Rd7vvGjsiT8dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YStxYhS2;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ADxFO8XK;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A29606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:11:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14A29606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C39E606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:11:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C39E606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YStxYhS2
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so24399525e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:11:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ADxFO8XK
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so9868135e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:11:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793607108; x=1794211908; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793607111; x=1794211911; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FAyyYwHdR5Ch5uO/F1MiXirGDsn56GrI3GAO8iDRceA=;
-        b=YStxYhS2u0SmwT7c0BAO3eh23j05Vsv0xbEu/kN1OVblWYq9Lj6EC9f+W+RuyafvaW
-         jDYRmFK2XFgD850Vh2O9J+HJ1uWuVgITD3z0D7S8Xb74iG8k+jScmYN5ap8X/oV4xYkP
-         XK++OAjpueHON5AlXSh70ofRtiil9xZF8dligA3Z0P9KitQ0n76P61ugapBc7RCOoMew
-         3j6+fLkm4kqdrmrKGWOZKw6+KAsTP+FQW+hzLea/S0/2GhUKWYxfkCWdDL0TzNzQqme6
-         7epabvsLqV01UUxAJeQ3ZRCXuPUiXynx11JzazCmGNOOlTL0ZSxpQ8mC64M9YF/BjEyc
-         pfdA==
+        bh=Skgy5VZxk2gILLHcPLrF17iQzssiYgUtpst1TmBVQUQ=;
+        b=ADxFO8XKZwuBPWXh4fy0M9tOg8XzXE4D8ydzy9OPgrmVlLRcjWrilUzQSO3D2T19QJ
+         fg5uiBO+J7SBj8AuT7rH3CocD/NJ5KTypblXMyec2iyS7DGMP1wyFIVtek3EhmT6BMQi
+         S0v34GYeGl7TXQUFhUPwRvshuLBtczh0Fpp5ZHA/OuhIR/BClpsOUODDUJC1yQ8gkL/7
+         VNrezhA6bjmIX44+t5X/Eq756lITZN4j1WLm/+Hleb7A1s7Icc53AG0VuF9kOSJtqBRj
+         BHVI8f5oJ0BkJs0QYLezEwik1KIMHqEW5EbCanRlCuzq+V8cy+V29uxRSo8u4bGpH2kF
+         EHpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793607108; x=1794211908;
+        d=1e100.net; s=20260707; t=1793607111; x=1794211911;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FAyyYwHdR5Ch5uO/F1MiXirGDsn56GrI3GAO8iDRceA=;
-        b=aBgbjqGOea4sTph+Pih/fV6NHuT0NgiasG+ipxm15H6LdtxRzWdflC4cRUGnv4GJpw
-         snKBUWDtQWxq8z7xxnkU6XOtB0Ex0PKGTxc9te/DrE7mTQKK5cnPtMXIwhR3eW/cuP8O
-         yQx7/pc9ItITGtuhODnYC3C1bVsnXL4MmNXgeXM1di6fDMT2S5jhyG/te+4VpSUHefNO
-         5l5zSGRy7rDhIUeldKfpTzTRZFqPXeF5E/chv+7dQ86yWSLXbLNdWDU7HEBkZ3UxdkL2
-         ifIl95mLCkkKdeTTApzgg+41l+y2ToVw1DK0++HVNumaKcDYLQcWr2a91nxbMNvp46T5
-         4Wfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzun/N5dflgqeVNDikCobDYHxgfPPSUc6RwAekC0MsbNCYhaE9j3RwOeUsXVioQ2ODh4Z/NQrwBfXwoXpY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLzbkzjmThtzJtR/YR7zB7QxXtlYeF+QukgFxW7SEhwkuv8240
-	j9ww38v45WzKmS2968ERlRpjSPAGqjT8UNeLOkVwAIAP2jhnHjF+iw2T
-X-Gm-Gg: AYBFou0SzRpMh3XnV2aiTsvnZ+NwfIT0BxnwLsl9ID3d6fNKnvuTPwo/x4YcCTVu9Z1
-	nFbacVccOU/x/fa3rECAg3LuyJq0AFNHWgKsrHqOe0RO07sjLDzJNEQGd4MwYxYCUJ8WB33grW/
-	5+fhv7msoxvZX1Gz/7219Ws/NUbiB78d9BiJKuaktHuzuIHn2u1PIQoPFI4BPOxLLe+ZmUMaf4S
-	DfhtCarI74m1A98L/yXOIe3PjuRTQaq/gkaD8446dP2ZEHghr4LhiJy5iafkXvi3L0rgy0l8RUm
-	U9gigii9jEhaDCNL5rh/jxqHLsITgnUpZ86EZgAMH9szh+I4mVb6d0aMU3IgO6lqVHUM8FBCZIX
-	NGRRsN0yp/WMvFIagGIUDES4WoFeSfI9M4x+yl/1hNFXhNLANx3Kz3/ZchqoorYtCPSY2+PEmET
-	MDihtr3Zwzb+j3jMEtyB2DnpKu9h2PLymsU2SeT5UmMmAsTxl7xqlML78uWkizFBZdTtbt4fKTe
-	rR/7TPGst1wnXKgh8+1dMrfO5i2XaoZNXqP5lUFwlhgfzgvNK9MKE6C7AmGhXO47ZVcW3nOiAiR
-	qLmDn/WmHlxWcA==
-X-Received: by 2002:a05:600c:a00b:b0:4a2:180b:3153 with SMTP id 5b1f17b1804b1-4ac185bcc7dmr226206975e9.14.1793607108359;
-        Mon, 02 Nov 2026 00:11:48 -0800 (PST)
+        bh=Skgy5VZxk2gILLHcPLrF17iQzssiYgUtpst1TmBVQUQ=;
+        b=aaj/BQzEZaFd7iOugS5OaWXil55FzXqyk0L5+8NQpfm11W/GgiTfEMMW9M9tLn/K3v
+         Zd2jNEtkqDnfItkk6ydndYF1gJV907mo6nl9n4x97FmxN1rtW2kx3GbmKMnckh1C4xI7
+         p1I1DQbZEicWquV7REtM6E6y5uVuVCV4UKrQZ/EuqJiB2WsebeE04Jb3dropwbkkLMC6
+         olEH74WkHsmtPKye/aHCjGurunmqpAefo8EP91vyYDHHhshvdmGq9zp/kH/U6RkcQDWi
+         iaq1OsUhxKeBHgu+E2yupHVUFyBdfVvgw/DY2R+CG4NToZRPMQk2sWfAaZIoZcLwH3YQ
+         3WhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByp54fWcWdp0m8N9ncVaRf/h0Sa48BqTbGNbyGFRFsxBi0K+RpPk8/aCM3B3AhXrJ1JorvpwOAa5TFAx7Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9RrnCw/i6wC3rIhzBzSYKe5aXv9yATPTXCqHgHBHemtWtReHZ
+	KKX0lMPMjJxP+Ddvy40WvdYwxWGMm4/fjzzSqG+l6w5Vg6UDSRzyIgst
+X-Gm-Gg: AYBFou0CB88bvnCOE8TzBYINFaOF1sdcIDrjzXC9rSLod7w4f5GEebDTNAOscVP9oWr
+	gMTT442rBAgneZ9UjcguEaIKWHRmJIOabzxZhfdWu+nj0+e7jaO37RRitszrw22W9aTKqsgv9KC
+	11RneFDsjOPMqLdoa6ThewD7BbQLCkI6pSGSADBhnbz+ifARQksQ0yB0f1j5uk/2ERVDNIU/Squ
+	8vxYcN6Z4hPXqNPqbAbQuDFQ/E0bRh0FehTU7W6MJCfSYS0hm9asQIfV9LX/s/O/TT4OgeP/8jE
+	x946oowwZAlS/omkH4uYD98Zuq4rBdgznGIYW4/EEXJvfNgNcTpASRSUppF36DsOu77uoZDhXcZ
+	YTAUufGDqVzw7dqReNuDHIO5lAj0ufxEwLuTrHoBcmWJNaHGOMBl7/eeWmQEsrIBdp0bFJh7e/t
+	Z+Cl02JFkOhuPlyI6ZOW+VdN0Ymws5hNdkv7st8S07K2egfxfcJQRGPaGJrvkwrwGsyyPUWjIgi
+	7bQ0s1ZpUkLtcYaW7tBp0LkH3NLHeKDmiSP6EGVjUVP4Pq9cURM7YKcJB/NgTD1WZdT/F4IA63+
+	9qvF2kbhQv3hmQ==
+X-Received: by 2002:a05:600c:46d1:b0:4a1:df52:3e36 with SMTP id 5b1f17b1804b1-4ac17b2cdc2mr215325315e9.27.1793607111269;
+        Mon, 02 Nov 2026 00:11:51 -0800 (PST)
 Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm333331005e9.14.2026.11.02.00.11.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm333331005e9.14.2026.11.02.00.11.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 00:11:47 -0800 (PST)
+        Mon, 02 Nov 2026 00:11:50 -0800 (PST)
 From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Mike Rapoport <rppt@kernel.org>,
@@ -94,11 +94,10 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>,
 	linux-kselftest@vger.kernel.org,
 	Muchun Song <muchun.song@linux.dev>,
 	Oscar Salvador <osalvador@suse.de>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] mm/userfaultfd: recheck WP registration in the hugetlb UFFDIO_COPY retry
-Date: Mon,  2 Nov 2026 09:11:30 +0100
-Message-ID: <20261102081140.201987-2-azpijr@gmail.com>
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH v2 2/2] selftests/mm: add a uffd test for re-registering during UFFDIO_COPY
+Date: Mon,  2 Nov 2026 09:11:31 +0100
+Message-ID: <20261102081140.201987-3-azpijr@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102081140.201987-1-azpijr@gmail.com>
 References: <20261102081140.201987-1-azpijr@gmail.com>
@@ -113,45 +112,144 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mfill_atomic_hugetlb() drops its locks to copy the source page with page
-faults enabled and then looks the VMA up again. The retry doesn't check
-that the VMA is still registered for WP, so if the range is re-registered
-without WP in that window, a UFFDIO_COPY_MODE_WP copy installs a uffd-wp
-PTE in a VMA without VM_UFFD_WP.
+Re-register the destination without WP while a UFFDIO_COPY_MODE_WP copy
+waits for its source page, then check that the copy fails with -EINVAL
+and leaves no uffd-wp bit behind. This covers all memory types.
 
-Recheck VM_UFFD_WP for UFFDIO_COPY_MODE_WP copies after looking the VMA
-up again, and fail with -EINVAL if it is gone.
-
-Fixes: 6041c6917903 ("mm/hugetlb: take care of UFFDIO_COPY_MODE_WP")
-Cc: stable@vger.kernel.org
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 ---
 Changes in v2:
-- drop the leftover sentence and the non-hugetlb reference from the
-  commit message
-- add Mike's Reviewed-by
+- "all memory types" in the commit message
+- rename copy to result
 
-v1: https://lore.kernel.org/20261029221129.89068-2-azpijr@gmail.com
+v1: https://lore.kernel.org/20261029221129.89068-3-azpijr@gmail.com
 
- mm/userfaultfd.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/testing/selftests/mm/uffd-unit-tests.c | 105 +++++++++++++++++++
+ 1 file changed, 105 insertions(+)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index f33ccedfecd2..6321bb82c1ef 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -810,6 +810,10 @@ static __always_inline ssize_t mfill_atomic_hugetlb(
- 		if (vma_hpagesize != vma_kernel_pagesize(dst_vma))
- 			goto out_unlock_vma;
+diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
+index 2a97ba1d6feb..cc22b4cde621 100644
+--- a/tools/testing/selftests/mm/uffd-unit-tests.c
++++ b/tools/testing/selftests/mm/uffd-unit-tests.c
+@@ -375,6 +375,104 @@ static void uffd_wp_unpopulated_test(uffd_global_test_opts_t *gopts, uffd_test_a
+ 	uffd_test_pass();
+ }
  
-+		/* The range may have been re-registered without WP meanwhile. */
-+		if ((flags & MFILL_ATOMIC_WP) && !(dst_vma->vm_flags & VM_UFFD_WP))
-+			goto out_unlock_vma;
++struct wp_copy_args {
++	uffd_global_test_opts_t *gopts;
++	char *src;
++	__s64 result;
++};
 +
- 		/*
- 		 * If memory mappings are changing because of non-cooperative
- 		 * operation (e.g. mremap) running in parallel, bail out and
++static void *wp_copy_thread(void *data)
++{
++	struct wp_copy_args *args = data;
++	struct uffdio_copy copy = {
++		.dst = (unsigned long)args->gopts->area_dst,
++		.src = (unsigned long)args->src,
++		.len = args->gopts->page_size,
++		.mode = UFFDIO_COPY_MODE_WP,
++	};
++
++	ioctl(args->gopts->uffd, UFFDIO_COPY, &copy);
++	args->result = copy.copy;
++
++	return NULL;
++}
++
++/*
++ * UFFDIO_COPY drops its locks to fault in the source page.  Re-register the
++ * destination without WP while it waits there: the MODE_WP copy must then
++ * fail instead of leaving a uffd-wp bit in a VMA that no longer has WP.
++ */
++static void uffd_wp_copy_reregister_test(uffd_global_test_opts_t *gopts,
++					 uffd_test_args_t *args)
++{
++	struct uffdio_api api = { .api = UFFD_API };
++	struct wp_copy_args copy_args = { .gopts = gopts };
++	unsigned long len = gopts->page_size;
++	struct uffdio_zeropage zeropage;
++	struct uffd_msg msg;
++	struct pollfd pfd;
++	pthread_t thread;
++	uint64_t value;
++	int pagemap_fd;
++	int src_uffd;
++
++	/* The source fault comes from the kernel, so no UFFD_USER_MODE_ONLY */
++	src_uffd = uffd_open(O_CLOEXEC);
++	if (src_uffd < 0) {
++		uffd_test_skip("cannot open a kernel-mode userfaultfd");
++		return;
++	}
++	if (ioctl(src_uffd, UFFDIO_API, &api))
++		err("UFFDIO_API failed");
++
++	copy_args.src = mmap(NULL, len, PROT_READ | PROT_WRITE,
++			     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (copy_args.src == MAP_FAILED)
++		err("mmap() failed");
++
++	if (uffd_register(src_uffd, copy_args.src, len, true, false, false))
++		err("register src failed");
++	if (uffd_register(gopts->uffd, gopts->area_dst, len, true, true, false))
++		err("register dst failed");
++
++	if (pthread_create(&thread, NULL, wp_copy_thread, &copy_args))
++		err("pthread_create() failed");
++
++	/* Wait until UFFDIO_COPY blocks on the source page */
++	pfd = (struct pollfd){ .fd = src_uffd, .events = POLLIN };
++	if (poll(&pfd, 1, 10000) != 1)
++		err("no fault on the source page");
++	if (read(src_uffd, &msg, sizeof(msg)) != sizeof(msg))
++		err("read() failed");
++
++	if (uffd_unregister(gopts->uffd, gopts->area_dst, len))
++		err("unregister dst failed");
++	if (uffd_register(gopts->uffd, gopts->area_dst, len, true, false, false))
++		err("re-register dst failed");
++
++	zeropage.range.start = (unsigned long)copy_args.src;
++	zeropage.range.len = len;
++	zeropage.mode = 0;
++	if (ioctl(src_uffd, UFFDIO_ZEROPAGE, &zeropage))
++		err("UFFDIO_ZEROPAGE failed");
++
++	if (pthread_join(thread, NULL))
++		err("pthread_join() failed");
++
++	if (copy_args.result != -EINVAL)
++		err("UFFDIO_COPY returned %lld, expected %d",
++		    (long long)copy_args.result, -EINVAL);
++
++	pagemap_fd = pagemap_open();
++	value = pagemap_get_entry(pagemap_fd, gopts->area_dst);
++	pagemap_check_wp(value, false);
++	close(pagemap_fd);
++
++	munmap(copy_args.src, len);
++	close(src_uffd);
++	uffd_test_pass();
++}
++
+ static void uffd_wp_fork_test_common(uffd_global_test_opts_t *gopts, uffd_test_args_t *args,
+ 				     bool with_event)
+ {
+@@ -2403,6 +2501,13 @@ uffd_test_case_t uffd_tests[] = {
+ 		.uffd_feature_required =
+ 		UFFD_FEATURE_PAGEFAULT_FLAG_WP | UFFD_FEATURE_WP_UNPOPULATED,
+ 	},
++	{
++		.name = "wp-copy-reregister",
++		.uffd_fn = uffd_wp_copy_reregister_test,
++		.mem_targets = MEM_ALL,
++		.uffd_feature_required = UFFD_FEATURE_PAGEFAULT_FLAG_WP |
++		UFFD_FEATURE_WP_HUGETLBFS_SHMEM,
++	},
+ 	{
+ 		.name = "minor",
+ 		.uffd_fn = uffd_minor_test,
 -- 
 2.56.0
 
