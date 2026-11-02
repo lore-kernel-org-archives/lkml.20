@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.34
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793642687;
-	b=fH2I/zLIpu6qt8G78uT4gel2eVxmw+/hnApYdJOZZBqTLk+Q6yYtzZ26k8dqxf4wEk9d
-	 Lg8QF6F0XghiOwUd2ASZEL13+/Id6zzqABhH+H5oa0gMmPCfh+p14N57zMibpLJm8BMq8
-	 kqDWJWDjQbiZ491s//rWRxitqJ41buw/GeUrzUSO3tkCDUxhtHEyijtxVaqe6Mda9n9tX
-	 W4Uu5fkUWJZrstiTWo5zem4pOFprTqQ7+cEHJFkTkHxVMbts4qwtsyRSY8mFPDUJeSZh1
-	 2y7HM7wU/+JMuGp0usQ+u8czLxcUN5aiHpRoaf7VYxrgfEmDl6HBvGbHPv6Oaoq/i6A==
+	t=1793642741;
+	b=hWm7lmTa1Da2pkN5EBhtVty3hFYzHyV5g101tIvjX1fwWvOh5NEsYZl1QQgrkBCRlKGn
+	 7f1w2sdG4Nmqw7Z06gpmzY9z2wH2SqmmMsvQcNztENlmJmf4oI7l9STtBcCfiFAeAdyzn
+	 p9x5IlXkgngZofyTM5/ygVyayDDqofGiLFHC+D65sY/HZ2UmnOjCiSrLW8FL6x6P599Bz
+	 U3WU3lhIh8t/Owqwjn1sxIwEAfumkXLsUFew6Rp5mbwXtBVTk/8ZB6Dg7etWjWppTfsB6
+	 HrEnG8biEjkcFmAyTMg5mOD0duzZlZ7fWDr43z0OYyCpSMXGepD7B1j6/twQEDtL95w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642687;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=uwfGYqnkijvtIMMlgewN6ixrvzlJO7kkmINW8GjUNYA=;
-	b=33x1FYHfccm9ZOL3Ibwayu/UYuwrWxwgosisuK6tZIUxt1QKBzKuAY7xTkS6HwJWNCCH
-	 7h/ZX/abfSe6Wt6DdGtu8o693GgZ2JP+O41sR/yevLSjNk8cyVctrEY1LyKXP71Rt8gqy
-	 y6nFUPUVwIGiu88crd10S2q3M2Arostnb/QWVNe/5KwwF3uk5jmE864Zq/7vc1dY014+/
-	 vZ/2A4khfjSDr5fuac62LPydWon5GAv6OOPkC5ErspqTzklb2jeQrgLxb6ZyJeJ996AO6
-	 vsgHJMyRAXfjAGyrRGkeqed6Q3FB1V781yfK5CMSvJt+yKaitj8yIlqn1GxWS0B8LNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793642741;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+GllYd+7C84J1wvCKUhTS+5FI7nZxQxUhK7SGVJUPs8=;
+	b=MYsf4IRmgjLkjsx/rrVieAvxIaRanpuMf8eAnuwnsFyX4Lnb2OBlpmT1yLs/xJ+gXOMH
+	 QwJmDW74lgYR2wbYzgnRj0fWND2Zz4s6Jn0i/tLq5y6F4rolGCaBTGSU1mHwCFn01643e
+	 RGGKRmoBQUZKLka9NBoyaM25r9E4u/ckA87I1XpIOpPMVt8Mcbs5zXS2IfqqX/G0UqnAr
+	 BQL0lDlWpr5tr/edKC5T95zCYFLjyu6unOFnow4+2Fq6BdfXu/RscbYu2dEWo0cVtxbW9
+	 +Qp8Oevkn+NlNsVsblvQvO+grImNEPl0kuxeb8zWPyJrAu1mtS3kuIIbB522JOR84yg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nRGEOouJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.34
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010034.outbound.protection.outlook.com [52.101.56.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=SlXLL06H;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB4A606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:04:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFB4A606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D0B606A5B8
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:05:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D0B606A5B8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=nRGEOouJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TSPf8CwJ14b+bfJVDS+yswC1B6E4O0wQHUwC9mdzxly9lEZU8saUfS+5LPWGcgHLXLuEWWvQXBuxBZDz7Dc302HL+QgOCLMjkYnKONhM+Yl61bpudqIKvlgduc/8ATV46SsJAgJrcnrw4V5SsMuNnWMFO+plIZgCWJggSifSJIDrfcJcjWLeknPq1AUmjQ9Ds95iI1U0vJofD4PTi7Q3fi3J52v/9EFPuO7ztxpe43z/oxm/izWoMIzr8GWseUAy4jmjNQiJku2iIH5sg/PDIf+3Q/CyuvBSJGsoHTuDp1PUqakdrM8geNtpnCc1Xjcr06ne6pdo17tIYDicvPeCsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uwfGYqnkijvtIMMlgewN6ixrvzlJO7kkmINW8GjUNYA=;
- b=GoCR3pL1bk1qrGp8HgPXw7tOvFOtEDu7xzyp+kaGWQ9xMDCHLAHPa8xtW/d+P0vJeOL+Jua2G7v8IjSOeiYlx9tE0Ac9x8fxQIDVcOR2iKuMronOpbkdQz70im/h2XyHM59VI/tRFHIzrJ1Ao5ewHoUmwHt1vDazBuvEGETh5zYUFzXy2a/HCAiI5hX78SeWILhMn/7EeTxCv+Cg2GE4uu77UCTpYU1kLIjA/adLjyPzO+CVvwsaIQlIO1FvNHbBV/aMgzr1GH5GDCm2l1TgAaPLjfPPFiujPM7DitHckUfpGW9tveEqHKvsUdX429zA72LJSo4RqOv10JTet1MfHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uwfGYqnkijvtIMMlgewN6ixrvzlJO7kkmINW8GjUNYA=;
- b=nRGEOouJ+K8Hxe/SqYJgYtjUWm/cBe2n3MFHfSXEfZFbWma8Giw9yifRNXR9oNVUBSmpPCrSb004SZ+D0QIk6yDnaMjxELwNDlRV3rKTW1r9V6y46EFHkS8qo/uh1WVBgNfkgF9Eck7LXZsv/0RZfCjNx9Yrdpw6/kSl9sJVCcc=
-Received: from CYZPR10CA0015.namprd10.prod.outlook.com (2603:10b6:930:8a::27)
- by BL1PR12MB5972.namprd12.prod.outlook.com (2603:10b6:208:39b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 18:04:43 +0000
-Received: from PH2PEPF00048913.namprd05.prod.outlook.com
- (2603:10b6:930:8a:cafe::33) by CYZPR10CA0015.outlook.office365.com
- (2603:10b6:930:8a::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 18:04:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- PH2PEPF00048913.mail.protection.outlook.com (10.167.243.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 18:04:41 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 12:04:40 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 12:04:40 -0600
-Received: from [192.168.19.2] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 2 Nov 2026 12:04:38 -0600
-Message-ID: <979f3d53-d4b8-411f-bc66-cf487ff76d42@amd.com>
-Date: Mon, 2 Nov 2026 12:18:02 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=SlXLL06H
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4ceb15dfd7so44097666b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:05:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793642734; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i5s3CyCab7/7j/v0ZzXSHDek96SlLtiU+DZilXbSWa3uzGvA30gOk9ld22Y64mnxUU
+         keUkxCeTddYnJee1nMILV4L9y/xsFJ9YfXj7knnkNz06iliCmwt+s64rLhUBrhA7pCue
+         EjNW3ZEB+9Op9uBe9VyEBvjf+BcMhJ4y+Zq0HZn5fXMm1xw748FwqbT5uR90v9nOTssU
+         7Tv/yboqKZJevRMN4eCYFbr+7m1t+nvB9au4NKTPtfsQFoxw3nwwnix+u59q72+GkyRW
+         qPa20eE2ZUktwX3kAg72OZMJzECLVcuxGY8kcxgEEqlT6NTlHw1oPSb3sSEdZXiXbWYm
+         4qRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+GllYd+7C84J1wvCKUhTS+5FI7nZxQxUhK7SGVJUPs8=;
+        fh=TXyTaK71Y0Kyl01F4m8zlzcfEmCuTHjr4vYdrqEBD2Q=;
+        b=cEon5qDWiZpF5ZTCfM2NO/IKiqsMdHIfWto+THmwUrIYUHO7V8/28/w/xozmS6WzZM
+         MHD1PL4iZFIUj30cJFA2ILEYRUK3a9eoNOd5458OUM7MFrzT2itSTxqeTuc8SGSm2Dsc
+         BPscEwuT/Oxj8pZuFhJ805ehf7giXXd+7xgspn2iJextmZjJZGI+MIswFf52dmnIVhPL
+         DWmS/vEM8My98VWdXHrnfuNMJz/G4BbXSI59TbyYS4YlLXEN8pkuf18xvtfRXiM2dgQQ
+         yYGd1XJ1Jn6K6ViDlH6NNnOW3zY24GIURlP22MQiz0ep3LFYrTZ7SHw1/I+DkrrEBaPm
+         nSYw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1793642734; x=1794247534; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+GllYd+7C84J1wvCKUhTS+5FI7nZxQxUhK7SGVJUPs8=;
+        b=SlXLL06HMdi8BGyw666hcl5KRHcJivsV9lCQixaZLuTBQmaUykjBYcoxx/6uBP8tBA
+         mDeKQDvIGREZWFJSAxYNFyHU3uBskL3mhSA7R6oUdbCwtfdsxrB8govh/RaEnWeOif/8
+         lKVidAv6antuKycIfCWRpRr3qpPLvRMGDFKwxIuqnCXybJfQuTHLQMN7OXtevGlpACgg
+         EUvbaxYfDuF6iCQOsi0kJnbGG0d3OzV+mzIaxeK7qgFAgo+aRqMN0jMyKWV8vKl2Hk63
+         kY8Q9CPujTEou9Fhr5Hj5KWym22LrcdhJi26SgZ64982ge9dvZrfH2dIkO9NZVubacuh
+         J0bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793642734; x=1794247534;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+GllYd+7C84J1wvCKUhTS+5FI7nZxQxUhK7SGVJUPs8=;
+        b=ieVQGpuOCO//PGiN7Lg/nWbEPbfBjx3xckBGjoXFhzTN/YbZA03q4QJQIvYjlJ+teD
+         GC7U7RtGqUFAzu0RjgggdCZEhol32aFXe+iCRhH2qAXuSxSSdGFJ/782tfzDOzgQBF2p
+         gE6l/v4jwGmtpR8SG8WhQ5KLw2wIN/BIEGQZfTAM0/rHHR2e9W4W4wG6oKV+xLWngNeG
+         DcsxCafnJN1yD0KDxq2J/tnd9rWSmE7rn0Q7KMfWvpgYorLpX/bBdUGeaxLzroPU3w6P
+         nDqIOE4UVuOf0E6okIoE0urGkxzkzAhooxAuK3wmnULcDJsylHYDPXXAm9hH2csy8SC+
+         egqA==
+X-Forwarded-Encrypted: i=1; AKwUvByZO2Jdnr8dhIByYOBgBiOe+GfpORNpJM4FwHsi8CfINhnnlJunT7gEdPIfIgQhh29CyuUKY8pSG4PlPzM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3XSgHNHIBLoRl2AYMg4zWKgwUdsBzfwfhNlzPvFtJshyzsZXr
+	hY0hBfRzJ6fYRrKg0hNWNN9DkdSZYg2QTkqZE39ccp1Gew6gKO6W7ddYZbVBiS4oB2X3qT3mmjT
+	gYmjIZDL7wt8O/mPqfpixINUfKOf6B4io9TcOtC1aBg==
+X-Gm-Gg: AYBFou1oftwr7Qxfeg0+//nxaQzUK7Wg942zw2CqW8RYyRO1vB3cbgpSjJLocl5reAs
+	jAeG5jTp/IQdvrxmowU/fqfv+f+ZOWFCJkocnbg9reeXlOgiwvIjLO9XHLiSgJakAxUKGR1uu7I
+	Y49Hbh5idygixlIa/uivXlplrXSkbLxaboLG7KognhgPxvYAXF49H99fzZdMydQJVZKsI1OUd4w
+	aIkcA58Y4vhfAUjqdwHTHVrUlke+/5/sYtTxTM+XeLJOl03s0m0XCTiiRT+3kijmZIJqRiXkFuO
+	Ap/pc/0j9rWqJgmgQJ7OmQ2fEJ9RhML9QEeX/gV84jjPn6vhEPekj0P/Bxm8sSkam19IWKE/d6E
+	dICBiuCFg06sZmn1q5J1EL03i4wpPaAaBk2MJx9upTMbcflK5p0ra3te5+3jY8RJgAoo=
+X-Received: by 2002:a17:907:97c7:b0:c2b:f3d5:2090 with SMTP id
+ a640c23a62f3a-c4ca7a672e6mr908823366b.27.1793642733627; Mon, 02 Nov 2026
+ 10:05:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,99 +104,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/paravirt: Add ioremap_verify_range hook and implement
- it for Xen PV
-To: Borislav Petkov <bp@alien8.de>
-CC: Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, "Broadcom internal kernel
- review list" <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
-	<hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
-	<peterz@infradead.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, "Yazen
- Ghannam" <yazen.ghannam@amd.com>, Mario Limonciello
-	<mario.limonciello@amd.com>, Sean Christopherson <seanjc@google.com>, "Ingo
- Molnar" <mingo@kernel.org>, <virtualization@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <xen-devel@lists.xenproject.org>
-References: <20261031003309.3751-1-jason.andryuk@amd.com>
- <20261031032009.GIauVeaXTMNHgjYEiM@fat_crate.local>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20261031032009.GIauVeaXTMNHgjYEiM@fat_crate.local>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH2PEPF00048913:EE_|BL1PR12MB5972:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90bf250a-0a4f-403b-f025-08df390bc477
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|23010399003|10067099003|18002099003|22082099003|261102123227099003|56012099006|5023799004|11063799006|4143699003|261026140227099003|261021121427099003|261022105027099003|261026121527099003|261028144727099003|261009223027099003|260925022911599003|260925021911599003|260925021311599003;
-X-Microsoft-Antispam-Message-Info:
-	RD1kxsIcRfhcYM4FXVdxenVuKh9rUWHBiUWDx8roZtgLgqJe4YWyYsmYrCz4hwwB+HRDqyR9lY//PZKsy6eaY0lUfWlvjrtfmFL050FvzfIBSjUE073T9iuiuZJc9c5hcXYnCG9pkHXpVOkPPLsXKqzuAGw6VkSO7A3LDZHsFcRwcy3ePFbImC8LPOnLXlytA3FprcTXkr2zmbeMlS1MDPj0yipRdYDuj05xzVU3gBkLoaWw3WOhQHCoaiv9lczQU2lizR9yFPmU3Zesa3y8Y6+JpjHMmrbpc/xBi6ZlLMmJNw0I+y1tW46mKFfhTGMi5vFNnn8WmL3adcictDVaym1bhp9auyiUKISAecdF9/0z378VZkFXWK5KuPSz02/19TtjIpTCGsyQ861bN2f8OmSoqML/iO32sSJBhaWVmgt9KzvFgATlsCIHvP/v88FUm1Z2aLrYNctb5+DMaq0ZbEjxYSxVfiaoSX+16ZfFbtj9v5vUTr3fcxWe0+WXYs6hdA/1F1492jAiR4HrsoAKhFw/bHQnGs+wAGrs20X+chvUrViaCvxWvNKDa8uSuwHmOfOdboI/tmbWifUUF8oU0ujc8I0gzpU4GBDoISknk9LeIIRJEWsvW+2X5DE9Uzl8AZy4BMKGTiDDaV7RplJcUg00VeaLL9/6XP8T39l2YxO08M6cfB1ZfCrPezjgRB3kLPXQyHE3n8BjraygXCbvIg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(261102123227099003)(56012099006)(5023799004)(11063799006)(4143699003)(261026140227099003)(261021121427099003)(261022105027099003)(261026121527099003)(261028144727099003)(261009223027099003)(260925022911599003)(260925021911599003)(260925021311599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	2/ZH8JOZyC4lsCegZ+e3gHVdOZdlPYNgdPxcEDCOc2ppYPuPHlf/cz5vpeItYr2MTcQvi0jsOzZ70KJKX99CdvXPXD9VM2C5DMmBksqLfLsrkKPqcJf8MXeUcH/byagjWILOHoAMt6uyNhn9luwNYS5fKgfLEfFhOVbZ9buML1GhLBOKNpZy/OYqS3IwvUolGbWglGHp06rC818FiUevzOFDLg0kNlFHvnZYa0q9oLJuXIwF0MPH45mbcrQ3uuXG2fGHmnhhQ6nUpdGzLTtSPAJuvG5k7/Y/lxpfc1FMVhJrJdTLluyfKRhZ0ZcDQvCAFKt2L7wojUekqof9qQBZq+IWVfhb0LUcO8dmtcgYrsE9S4TW4mfCcxJmDoXg0QAceg6MA4Ty4EWNOyGy9D/Sce0x35PfkBj+oIul+W5hbzaV7NVMLiEgUvvKBDb1SJib
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 18:04:41.2402
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90bf250a-0a4f-403b-f025-08df390bc477
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH2PEPF00048913.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5972
+References: <20260824184159.240821-1-max.kellermann@ionos.com>
+ <20260824184159.240821-8-max.kellermann@ionos.com> <CAOi1vP9nBoxBD9VTmMm5KnWj4zp0mdeXxTkzLR5tdBrmKrQ73w@mail.gmail.com>
+In-Reply-To: <CAOi1vP9nBoxBD9VTmMm5KnWj4zp0mdeXxTkzLR5tdBrmKrQ73w@mail.gmail.com>
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Mon, 2 Nov 2026 19:05:22 +0100
+X-Gm-Features: AclHuK_5nzajoV3_feYrYc2C6tm7ff2fX0xCsItzaAOSpfM1GHNpLYSclkLwZHo
+Message-ID: <CAKPOu+9C5rWF4mn6t660C5YxrcGHWvTFFEMkHeXWba0L4Ca=Rg@mail.gmail.com>
+Subject: Re: [PATCH v5 07/11] fs/ceph: remove i_truncate_mutex, use
+ i_fragtree_mutex for both
+To: Ilya Dryomov <idryomov@gmail.com>
+Cc: amarkuze@redhat.com, xiubo.li@clyso.com, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-30 23:20, Borislav Petkov wrote:
-> On Fri, Oct 30, 2026 at 08:33:08PM -0400, Jason Andryuk wrote:
->> Xen PV guests update page tables via hypercalls, and Xen refuses to let a
->> domain map machine frames it does not own, such as chipset MMIO in a domU.
->> The set_pte() paths ignore the hypercall result, so ioremap() returns a
->> mapping whose PTEs are not present.  Accessing the virtual address then
->> faults.  This was seen in print_s5_reset_status_mmio() on Xen PV domUs
->> on AMD Zen hosts.  The machine address is not accessible by the domU and
->> faults on access.
->>
->> Add a pv_mmu_ops hook, ioremap_verify_range, which __ioremap_caller()
->> calls after ioremap_page_range().  It defaults to returning success.
->> Xen PV implements it by walking the range with lookup_address() and
->> failing if any entry is not present, making ioremap() return NULL.
->>
->> This also affects a Xen PV dom0: an ioremap() of a range containing any
->> page Xen refuses to map (e.g. MMIO Xen reserves for itself) now fails as
->> a whole, rather than succeeding and faulting only when the refused page
->> is accessed.  Pages Xen forces read-only are still mapped present and
->> are unaffected.
->>
->> Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
-> 
-> That patch is an innocent bystander, if anything - nothing it can do about Xen
-> being weird about not mapping host physical addresses not owned by the domain.
+On Mon, Nov 2, 2026 at 6:35=E2=80=AFPM Ilya Dryomov <idryomov@gmail.com> wr=
+ote:
+> Only 8 bytes?  struct mutex has got to be at least two if not three
+> times larger than that.
 
-Well, the point of Fixes is to link the two seemingly unrelated changes 
-together.  This change only exists because of the other one.
+You're right, it's 32 bytes indeed.
 
-> And TBH, all that gymnastics just to prevent this from running on Xen, is not
-> something that makes me all happy and so on.
-> 
-> What is more, we try to get rid of PV ops, not add more.
-> 
-> I'm sorry if I've misled you with my comment on the previous thread - I didn't
-> think someone would even act on it.
+This simple patch set saves ~ 3 GB RAM on each of our servers. Much
+more memory savings would be possible with some effort.
 
-Surprise!  :)
+--=20
+Max Kellermann
+Principal Architect
+Hosting Technology
 
-> And I know Sean doesn't like X86_FEATURE_HYPERVISOR but sorry, nothing beats
-> a oneliner at the beginning of print_s5_reset_status_mmio() vs this overkill.
-Sure, I agree and would have gone with the simpler approach.  It's just 
-that the previous discussion looked like it was headed to the PV ops 
-approach.  I'll rework with the simpler approach.
-
-Regards,
-Jason
+cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
+General information about the company can be found here:
+https://www.cm4all.com/impressum
+A member of the IONOS Group
