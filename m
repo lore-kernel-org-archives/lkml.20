@@ -1,107 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612393;
-	b=1YvddYP+35ISDgFyCb+qquI2STTeT1sCxnoD5XZJmdFmk7Ncc0QyKAMZmHoU5IjHo3Wj
-	 cxJM2Wezljwi5TQrP1IDEOG+gLdLX0GT0H84O3FV/L/oqeXreCu5l2jrcCaL04PN5XmDc
-	 KHakYqg/w1Qh9xCNk9cTPLeC8HKC6mLWp/kvnaaZfn+TWofxv1O4kmZLGe9xRItZnfv1j
-	 kqHgQG9+zxNsrmFQPN7ejAzqzpUoKDD5Srl3kwtNODM5M6+jgrdTxuJt9f0TeyPANzq+r
-	 n9DOPLs/z6QsuhgzDP9Wi6Z6RkVUeZ8vmoG8Ypa6Ai+f2vYh0r35jb88H6bcaojClqQ==
+	t=1793612395;
+	b=SBuy8MqpS1DkTqxr1mjbsfPz7H3yeaEVO5XGpOxNmiHbDaPIXw2uRsg9oAF5BKWphNCa
+	 sxGnlYKHgK+FVC7Igl2yIXqvffSn9+7V6d0XuCoh99LXo90jNlRCBoRQ1rX7kcaN/lXBM
+	 WRrzsjqWEuvnLSsi2/ELeVWjB2yIGqawsinphWPQ0CPpDi0FNfzVB0kCYEr+/KGH8Cf/K
+	 z3VmAkCZYbeUL7mV5T6Hei/zOmaMV/iC2v/yjXGtq4JpOmVG6oDFyn6OMhcVJTHf4iwsk
+	 y+MNSB8BHs0oDaw3Lb1IRwjjNN2RqLZiOccBhep90aRuKyC1p1bjq8aWTnLgebEYJZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612393;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PLIU3Qu9j6PfSIppGNHBU0Z6z1EAix93GaiiwcWHaPE=;
-	b=DvmTrhvJspqAPAvNC0HuTTPDBodX3IMOHUBerchZk85rQB0X7FdpaG1wO5RmnWqEHi4j
-	 jwxOsEDdxxeitSMriqizWqFBa38VQYl8yFJFU6hIkgxlm/IXlj0J2GsWigN31bgcyXtxy
-	 BvCrLWr2Letsb3ENGb0b7FaJCBJE7vSMLZo4msp4/9jiJ0Az76fM56KWDDCn1IXRbCqCw
-	 EKsS0QfzR0Cy0/dTSrkDl0RvERW/mLjfehwDwbgbPPAW692q6sSgcOAG0ma4se9thWZEY
-	 Ro43oIfJ2emYGPgusihbCN8yaphW+0ONbrPhwPLui9K2OmH3LuxRcwAV3a2G7v3Hzvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612395;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=DhqedRR4az/uxbrOAZjla/ffplx4oLVvfwX9vhPDhZc=;
+	b=wkP51P7r+CzfyvVerJSmEglkBCBB3NpE6sJx9yJGlo/EAgvQnxfvbbv5UWZYb5Sz7QYB
+	 +w+kyywhwhMM7HHbOGmoQHDaIKau53RGsYDgh0jMnjWLF9bl5D1VPCmIR20CdYTQbyryo
+	 jPxnuKyvwuzrt7TPHaWSI7QhhFYkXnQTJHNcAdijnsh3XtM5ecmYCnmGM1eANUXoWrx8v
+	 4sWCZOlNY+O1Ab7IMxjwz8tCHBXyplqgBa45nMotekUWeaeZ7HPGucX4DWtGJEc14d7ek
+	 gpEg57RFRZE3WMazjfvpLciGTPkELkJpcsenHMa5zIVKwIdjKLt/uUsZeq5Fw8GUpaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhwU60fm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G3bF4bGu;
+	arc=none smtp.remote-ip=95.215.58.250
+Received: from mta1.migadu.com (out-250.mta1.migadu.com [95.215.58.250])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2FF606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:39:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA17606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:39:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEA17606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhwU60fm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04BB01F00A18;
-	Mon,  2 Nov 2026 09:39:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793612392;
-	bh=PLIU3Qu9j6PfSIppGNHBU0Z6z1EAix93GaiiwcWHaPE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jhwU60fm6fJVgEYkwuCzyPxEDNRQQGiAixg/pLIYjY8AL33HmJ7+OQGR4Wd3/KMpq
-	 3O7hH195Bd8WClmdYf1jyN+iVw17AaaZWAxLnd4bYyTKWx0Jb/vm3pmMM6FU/OFf3F
-	 833MDqsDSlJLwAUjmv3yOB1XoJ/PKdHiF6DmoRUVgn5+sxht2hDflpDR0pdQXPdHe7
-	 8dGgXJVTw8c8tWVRzN7kuzVQiM5jBA6LGfyJhdtvZ6AhJjp+TII9roTSDp/mjxA10B
-	 fJ006XuuCkc5y9xCFx8EW2SNwJUhRQhT1vRj8oaZqoxWqNcGqCJ+ogZumAxQaBBhzW
-	 1Jf18NRB7qdpg==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 753DB1980050;
-	Mon,  2 Nov 2026 04:39:47 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Mon, 02 Nov 2026 04:39:49 -0500
-X-ME-Sender: <xms:YlroalOqjZNmffZ2WIq--wzDYJXVV4DToOOVgYy88Dgnvqc-f4yB7g>
-    <xme:YlroapDOjAD6C8UmOBPP1DEyIsfLIaPVBdBwh7fYuAl4Lqjkoeoe6ynsNthK70WEA
-    38qWwpCeZwclESVM8uK0VXxhhk2x-aaWF6Zp6W35FLPZsxdUfpJm8yG>
-X-ME-Received: <xmr:YlroanMo0UAOMRDEEOSK4ubth7gCzDx0e2KwE0n-L3o_9VHGzPEw0dNdoWI>
-X-ME-Proxy-Cause: dmFkZTFfNoVB8J0rx8nifPYd+qKRtp29PWkX9KZuHko+Ts55CioRbwnpVaVqPEFOtlMN9x
-    wKYJGJgcxHY5I+jrutGMiNMby48Epfbz6j2xX8eAirJpB5JeNqfWCxIPC6qwvUtfdJGfXV
-    rvRFRlQxssUsal99hVwi4glDwqlAFKJuQJiIL4KNdRZWsT0U712UtRewOVYBILBwiEkoH0
-    UxnfKzJQEdnVBX8f3mna3wmC8GfiPL9QqklMzJJJk7OcjdSosgl5Jv/a0CRg6SmFxhaiZa
-    ki3MzSXjhqRHWEjrsB2Ebo81ttm8ytuejLqyFyFWV08rQTTh3C274vAQrAiI7m1/lnwQJh
-    TqDLeqswtxIR7uQw5T6BxtWmb9F/b2y7M6/JaTgkSPf/NO+1SeJMjqFFsvcKwV6Aum+u4k
-    P/B3p/p0J3Rre/oGL2cPYKoKClsm87VqpxhINUg4SpIA/VeeQZ5x8oqrhEL0qN5DpFJmCO
-    cAV4KXVApEnaknCfySe4lLwKrw3V9L0gkSLOo11QIWFbi4xQ6SeqeQBTkiHqyHOiGnme1R
-    7eiBxpumn7dlI9cm/aCpG6HI06pJjm4NGuXC+NhCyP+F/LUEaHZMyt//v+gGQ02gzubtM1
-    UfDnTRqoLdi8H2pDpBGqUeI0k+rbERfAyRKkCK4EdFlm6nebwYdinPWv2MZw
-X-ME-Proxy: <xmx:YlroavbQQ9rquIuClf1Ms6h50CCyCJCP3Mz7wfBnTn9EwjYzjLS3Sg>
-    <xmx:YlroamO4tfGP922Z5ABZPZLu2npgA8pRJ1bOT6Tu5GovNujPH-WcZA>
-    <xmx:YlroatUMkW2YwyrFSeUOoWGDx0qf7t5cYKM_FG_Ac5_NXxrYP4Jfrw>
-    <xmx:Ylroavcsaq0CnmcmF0slybVfYBQuryJSxCHRDrv-he2LY9h_6ryIZQ>
-    <xmx:Y1roauhArdEyxPpR02lZuNk-s-6ryO81VB52QqN4z56w8_4MewkJ4m-t>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 04:39:46 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Harry Yoo <harry@kernel.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH v2 1/3] mm: page_alloc: add a watermark check that knows the migratetype
-Date: Mon,  2 Nov 2026 09:39:34 +0000
-Message-ID: <20261102093939.3340540-2-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261102093939.3340540-1-kas@kernel.org>
-References: <20261102093939.3340540-1-kas@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G3bF4bGu
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Dbw8940zR/jUhNkJIS8yVdfOTSwknMqwdcPr0t/bPyo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793612391; v=1; x=1794217191;
+ b=G3bF4bGu4W9LBDqYe4s4H9hNVR1cDTt/ve6HR6rx05Llf5dGvNIhCFXBILYmT1AYyWh09Gtr
+ RQ82GKxDxfDYRkxdIGa5qACVxCgy2PqOVjaSSmZGoCP4hDyOZBrbvrDBXAuB+Dkij5VMMe42PUy
+ V/HK/HiDXasr6ZeQe/SqLxmc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f81ad78c3eac48bc;
+	Mon, 02 Nov 2026 09:39:51 +0000
+X-Mizu-Trace-ID: f81ad78c3eac48bc
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: arm64: Add support for self-hosted debug in protected guests
+Date: Mon,  2 Nov 2026 09:39:50 +0000
+Message-ID: <20261102093950.2922035-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,201 +78,474 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The high-order check in __zone_watermark_ok() accepts a free page of any
-migratetype.  Under ALLOC_NOFRAGMENT, a request below pageblock_order can
-only take a page of its own migratetype or claim a whole free block, so
-the check can pass when the allocation cannot succeed.
+pKVM hides DebugVer from protected guests and makes their debug
+registers RAZ/WI or UNDEFINED, so they don't have breakpoints,
+watchpoints or single-step. For a non-protected guest, the host sets the
+owner of the debug registers at vcpu load, from the guest's MDSCR_EL1
+and OS Lock, and EL2 copies the owner and the registers in at each
+entry. However, the host can't see a protected guest's registers.
 
-Telling those apart needs the request's migratetype, but not every check
-wants them told apart.  A check whether an allocation can be served now
-has to count only the pages it can take.
+Set the owner at EL2 for a protected vCPU instead, by the rules the host
+uses for a non-protected guest, but keep MDCR_EL2.TDA set when the guest
+is the owner. A trap handler returns to the guest without going back
+through the world switch, so a handler that changes the owner switches
+the debug registers itself. The PSCI CPU_ON reset runs after the vcpu
+load, so it sets the owner again.
 
-A check whether there is enough free memory counts every migratetype:
-kswapd and kcompactd balancing a zone, order-0 thresholds, the
-slowpath's forecast whether reclaim and compaction can still make
-progress.  Reclaim and compaction work across migratetypes to free whole
-pageblocks.
+Advertise DebugVer, capped at V8P8 as for a non-protected guest, and the
+breakpoint, watchpoint and context-aware breakpoint counts. The other
+debug registers that took an UNDEF behave as they do for a non-protected
+guest that doesn't own its debug registers.
 
-Move the body of __zone_watermark_ok() into __zone_watermark_ok_mt(),
-which takes the migratetype as well, and make __zone_watermark_ok() a
-wrapper around it for the second kind of check.  These use the new
-function:
-
-  - the allocator fast path, zone_watermark_fast();
-  - its recheck after node reclaim in get_page_from_freelist();
-  - compaction's up-front check, compaction_suit_allocation_order().
-
-Declare both in mm/internal.h: nothing outside mm uses them.
-
-Nothing reads the migratetype yet: no functional change.
-
-Tested-by: Dev Jain <dev.jain@arm.com>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- include/linux/mmzone.h |  3 ---
- mm/compaction.c        | 11 ++++++-----
- mm/internal.h          |  7 +++++++
- mm/page_alloc.c        | 37 ++++++++++++++++++++++++++++---------
- 4 files changed, 41 insertions(+), 17 deletions(-)
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index ecd1ebd49756..4d9347a399fa 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -1637,9 +1637,6 @@ static inline unsigned long pgdat_end_pfn(pg_data_t *pgdat)
- #include <linux/memory_hotplug.h>
+Notes:
+    Commit 3a81a814437d ("KVM: arm64: Expose self-hosted debug regs as
+    RAZ/WI for protected guests") made these registers RAZ/WI and left
+    debug support for later.
+    
+    Tested by running the breakpoint_test_arm64 kselftest in a protected
+    guest under kvmtool. It passes on hVHE and nVHE hosts under QEMU,
+    and on hVHE again after offlining and onlining the guest CPU it runs
+    on. That test has no single-step case, so I checked single-step with
+    the pkvm_exceptions test from my pKVM selftests series, coming soon.
+    
+    Based on Linux 7.4-rc1 (6628e7d4c6b25).
+
+ Documentation/virt/kvm/arm/pkvm.rst    |   7 +-
+ arch/arm64/include/asm/kvm_hyp.h       |   1 +
+ arch/arm64/kvm/arm.c                   |   1 +
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h |   1 +
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c     |   2 +
+ arch/arm64/kvm/hyp/nvhe/pkvm.c         |   8 +-
+ arch/arm64/kvm/hyp/nvhe/sys_regs.c     | 253 +++++++++++++++++++++++--
+ 7 files changed, 248 insertions(+), 25 deletions(-)
+
+diff --git a/Documentation/virt/kvm/arm/pkvm.rst b/Documentation/virt/kvm/arm/pkvm.rst
+index b75bb8ad6f26d..b8c8c94cba534 100644
+--- a/Documentation/virt/kvm/arm/pkvm.rst
++++ b/Documentation/virt/kvm/arm/pkvm.rst
+@@ -241,10 +241,9 @@ Other interface differences
+ Debug
+ -----
  
- void build_all_zonelists(pg_data_t *pgdat);
--bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
--			 int highest_zoneidx, unsigned int alloc_flags,
--			 long free_pages);
- bool zone_watermark_ok(struct zone *z, unsigned int order,
- 		unsigned long mark, int highest_zoneidx,
- 		unsigned int alloc_flags);
-diff --git a/mm/compaction.c b/mm/compaction.c
-index f1b2060eb201..6c553d0e90f8 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -2520,7 +2520,7 @@ bool compaction_zonelist_suitable(struct alloc_context *ac, int order,
- static enum compact_result
- compaction_suit_allocation_order(struct zone *zone, unsigned int order,
- 				 int highest_zoneidx, unsigned int alloc_flags,
--				 bool async, bool kcompactd)
-+				 int migratetype, bool async, bool kcompactd)
- {
- 	unsigned long free_pages;
- 	unsigned long watermark;
-@@ -2531,8 +2531,8 @@ compaction_suit_allocation_order(struct zone *zone, unsigned int order,
- 		free_pages = zone_page_state(zone, NR_FREE_PAGES);
+-Hardware-assisted debugging is not available to protected guests.
+-``MDSCR_EL1``, ``OSLAR_EL1``, ``OSLSR_EL1``, ``OSDLR_EL1``, and breakpoint
+-and watchpoint 0 are RAZ/WI; any other debug register access takes an
+-undefined instruction exception.
++A protected guest can use self-hosted debug (breakpoints, watchpoints and
++single-step) as a non-protected guest can. ``KVM_SET_GUEST_DEBUG`` returns
++``-EPERM`` for a protected VM.
  
- 	watermark = wmark_pages(zone, alloc_flags & ALLOC_WMARK_MASK);
--	if (__zone_watermark_ok(zone, order, watermark, highest_zoneidx,
--				alloc_flags, free_pages))
-+	if (__zone_watermark_ok_mt(zone, order, watermark, highest_zoneidx,
-+				   alloc_flags, free_pages, migratetype))
- 		return COMPACT_SUCCESS;
+ Resources
+ =========
+diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
+index b0e42be3d9eef..9a785a341090e 100644
+--- a/arch/arm64/include/asm/kvm_hyp.h
++++ b/arch/arm64/include/asm/kvm_hyp.h
+@@ -151,6 +151,7 @@ extern u64 kvm_nvhe_sym(id_aa64mmfr0_el1_sys_val);
+ extern u64 kvm_nvhe_sym(id_aa64mmfr1_el1_sys_val);
+ extern u64 kvm_nvhe_sym(id_aa64mmfr2_el1_sys_val);
+ extern u64 kvm_nvhe_sym(id_aa64smfr0_el1_sys_val);
++extern u64 kvm_nvhe_sym(id_aa64dfr0_el1_sys_val);
  
- 	/*
-@@ -2588,6 +2588,7 @@ compact_zone(struct compact_control *cc, struct capture_control *capc)
- 		ret = compaction_suit_allocation_order(cc->zone, cc->order,
- 						       cc->highest_zoneidx,
- 						       cc->alloc_flags,
-+						       cc->migratetype,
- 						       cc->mode == MIGRATE_ASYNC,
- 						       !cc->direct_compaction);
- 		if (ret != COMPACT_CONTINUE)
-@@ -3073,7 +3074,7 @@ static bool kcompactd_node_suitable(pg_data_t *pgdat)
- 		ret = compaction_suit_allocation_order(zone,
- 				pgdat->kcompactd_max_order,
- 				highest_zoneidx, alloc_flags,
--				false, true);
-+				MIGRATE_MOVABLE, false, true);
- 		if (ret == COMPACT_CONTINUE)
- 			return true;
+ extern unsigned long kvm_nvhe_sym(__icache_flags);
+ extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 157bf4b812020..ec90a580e82a4 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -2834,6 +2834,7 @@ static void kvm_hyp_init_symbols(void)
+ 	kvm_nvhe_sym(id_aa64mmfr1_el1_sys_val) = read_sanitised_ftr_reg(SYS_ID_AA64MMFR1_EL1);
+ 	kvm_nvhe_sym(id_aa64mmfr2_el1_sys_val) = read_sanitised_ftr_reg(SYS_ID_AA64MMFR2_EL1);
+ 	kvm_nvhe_sym(id_aa64smfr0_el1_sys_val) = read_sanitised_ftr_reg(SYS_ID_AA64SMFR0_EL1);
++	kvm_nvhe_sym(id_aa64dfr0_el1_sys_val) = read_sanitised_ftr_reg(SYS_ID_AA64DFR0_EL1);
+ 	kvm_nvhe_sym(__icache_flags) = __icache_flags;
+ 	kvm_nvhe_sym(kvm_arm_vmid_bits) = kvm_arm_vmid_bits;
+ 
+diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+index 0261b2bc681f7..993d54ce44408 100644
+--- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
++++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+@@ -130,6 +130,7 @@ void put_pkvm_hyp_vm(struct pkvm_hyp_vm *hyp_vm);
+ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code);
+ bool kvm_handle_pvm_sysreg(struct kvm_vcpu *vcpu, u64 *exit_code);
+ bool kvm_handle_pvm_restricted(struct kvm_vcpu *vcpu, u64 *exit_code);
++void kvm_load_pvm_debug(struct kvm_vcpu *vcpu);
+ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu);
+ void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu);
+ int kvm_check_pvm_sysreg_table(void);
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index 179d7c8277b88..9958ca6d7b0a2 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -837,6 +837,8 @@ DEFINE_KVM_HOST_HCALL(void, __pkvm_vcpu_load,
+ 		hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_EL2_TWE | HCR_EL2_TWI);
+ 		hyp_vcpu->vcpu.arch.hcr_el2 |= hcr_el2 & (HCR_EL2_TWE | HCR_EL2_TWI);
+ 
++		kvm_load_pvm_debug(&hyp_vcpu->vcpu);
++
+ 		/* HPMN == 0 is reserved without FEAT_HPMN0. */
+ 		if (pmuv3_implemented(SYS_FIELD_GET(ID_AA64DFR0_EL1, PMUVer, dfr0)))
+ 			u64p_replace_bits(&hyp_vcpu->vcpu.arch.mdcr_el2,
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index fc0475f0877d1..1d484da274c0e 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -123,8 +123,11 @@ static void pvm_init_traps_mdcr(struct kvm_vcpu *vcpu)
+ 		val &= ~(MDCR_EL2_HPME | MDCR_EL2_MTPME);
  	}
-@@ -3116,7 +3117,7 @@ static void kcompactd_do_work(pg_data_t *pgdat)
  
- 		ret = compaction_suit_allocation_order(zone,
- 				cc.order, zoneid, cc.alloc_flags,
--				false, true);
-+				MIGRATE_MOVABLE, false, true);
- 		if (ret != COMPACT_CONTINUE)
- 			continue;
+-	if (!kvm_has_feat(kvm, ID_AA64DFR0_EL1, DebugVer, IMP))
+-		val |= MDCR_EL2_TDRA | MDCR_EL2_TDA;
++	/*
++	 * Keep TDA set even when the guest owns debug: it also traps the DCC
++	 * and the claim tags, which the world switch doesn't switch.
++	 */
++	val |= MDCR_EL2_TDRA | MDCR_EL2_TDA;
  
-diff --git a/mm/internal.h b/mm/internal.h
-index 566cbd2dce48..8e58e2db5e09 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -726,6 +726,13 @@ extern int min_free_kbytes;
- extern int defrag_mode;
+ 	if (!kvm_has_feat(kvm, ID_AA64DFR0_EL1, DoubleLock, IMP))
+ 		val |= MDCR_EL2_TDOSA;
+@@ -1245,6 +1248,7 @@ int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
  
- void setup_per_zone_wmarks(void);
-+bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
-+			 int highest_zoneidx, unsigned int alloc_flags,
-+			 long free_pages);
-+bool __zone_watermark_ok_mt(struct zone *z, unsigned int order,
-+			    unsigned long mark, int highest_zoneidx,
-+			    unsigned int alloc_flags, long free_pages,
-+			    int migratetype);
- void calculate_min_free_kbytes(void);
- int __meminit init_per_zone_wmark_min(void);
+ 	kvm_reset_vcpu_core(&hyp_vcpu->vcpu);
+ 	kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
++	kvm_load_pvm_debug(&hyp_vcpu->vcpu);
  
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index a8cac5e01066..7730660bdd09 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -3587,9 +3587,10 @@ static inline long __zone_watermark_unusable_free(struct zone *z,
-  * one free page of a suitable size. Checking now avoids taking the zone lock
-  * to check in the allocation paths if no pages are free.
-  */
--bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
--			 int highest_zoneidx, unsigned int alloc_flags,
--			 long free_pages)
-+bool __zone_watermark_ok_mt(struct zone *z, unsigned int order,
-+			    unsigned long mark, int highest_zoneidx,
-+			    unsigned int alloc_flags, long free_pages,
-+			    int migratetype)
- {
- 	long min = mark;
- 	int o;
-@@ -3665,6 +3666,21 @@ bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
+ 	/* Must be done after resetting sys registers. */
+ 	kvm_reset_vcpu_psci(&hyp_vcpu->vcpu, reset_state);
+diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+index 32e82653ebf7e..e7148254ec5b8 100644
+--- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
++++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+@@ -10,6 +10,8 @@
+ #include <asm/kvm_mmu.h>
+ 
+ #include <hyp/adjust_pc.h>
++#include <hyp/debug-sr.h>
++#include <hyp/sysreg-sr.h>
+ 
+ #include <nvhe/pkvm.h>
+ 
+@@ -28,6 +30,7 @@ u64 id_aa64mmfr0_el1_sys_val;
+ u64 id_aa64mmfr1_el1_sys_val;
+ u64 id_aa64mmfr2_el1_sys_val;
+ u64 id_aa64smfr0_el1_sys_val;
++u64 id_aa64dfr0_el1_sys_val;
+ 
+ struct pvm_ftr_bits {
+ 	bool		sign;
+@@ -55,6 +58,13 @@ struct pvm_ftr_bits {
+ #define MAX_FEAT_ENUM(id, fld, max)						\
+ 	__MAX_FEAT_FUNC(id, fld, max, NULL, false)
+ 
++#define MAX_FEAT_PASSTHRU(id, fld)						\
++	{									\
++		.shift = id##_##fld##_SHIFT,					\
++		.width = id##_##fld##_WIDTH,					\
++		.max_val = GENMASK(id##_##fld##_WIDTH - 1, 0),			\
++	}
++
+ #define FEAT_END {	.width = 0,	}
+ 
+ static bool vm_has_ptrauth(const struct kvm *kvm)
+@@ -175,17 +185,18 @@ static const struct pvm_ftr_bits pvmid_aa64isar2[] = {
+ 	FEAT_END
+ };
+ 
+-/*
+- * None of the features in ID_AA64DFR0_EL1 nor ID_AA64MMFR4_EL1 are supported.
+- * However, both have Not-Implemented values that are non-zero. Define them
+- * so they can be used when getting the value of these registers.
+- */
+-#define ID_AA64DFR0_EL1_NONZERO_NI					\
+-(									\
+-	SYS_FIELD_PREP_ENUM(ID_AA64DFR0_EL1, DoubleLock, NI)	|	\
+-	SYS_FIELD_PREP_ENUM(ID_AA64DFR0_EL1, MTPMU, NI)			\
+-)
++/* DoubleLock and MTPMU are hidden, but their Not-Implemented values are non-zero. */
++static const struct pvm_ftr_bits pvmid_aa64dfr0[] = {
++	MAX_FEAT(ID_AA64DFR0_EL1, DebugVer, V8P8),
++	MAX_FEAT_PASSTHRU(ID_AA64DFR0_EL1, BRPs),
++	MAX_FEAT_PASSTHRU(ID_AA64DFR0_EL1, WRPs),
++	MAX_FEAT_PASSTHRU(ID_AA64DFR0_EL1, CTX_CMPs),
++	MAX_FEAT(ID_AA64DFR0_EL1, DoubleLock, NI),
++	MAX_FEAT(ID_AA64DFR0_EL1, MTPMU, NI),
++	FEAT_END
++};
+ 
++/* ID_AA64MMFR4_EL1 is hidden, but its Not-Implemented value is non-zero. */
+ #define ID_AA64MMFR4_EL1_NONZERO_NI					\
+ 	SYS_FIELD_PREP_ENUM(ID_AA64MMFR4_EL1, E2H0, NI)
+ 
+@@ -245,7 +256,7 @@ static u64 pvm_calc_id_reg(const struct kvm_vcpu *vcpu, u32 id)
+ 	case SYS_ID_AA64MMFR2_EL1:
+ 		return get_restricted_features(vcpu, id_aa64mmfr2_el1_sys_val, pvmid_aa64mmfr2);
+ 	case SYS_ID_AA64DFR0_EL1:
+-		return ID_AA64DFR0_EL1_NONZERO_NI;
++		return get_restricted_features(vcpu, id_aa64dfr0_el1_sys_val, pvmid_aa64dfr0);
+ 	case SYS_ID_AA64MMFR4_EL1:
+ 		return ID_AA64MMFR4_EL1_NONZERO_NI;
+ 	default:
+@@ -372,6 +383,179 @@ static bool pvm_idst_access(struct kvm_vcpu *vcpu,
  	return false;
  }
  
-+/*
-+ * For checks that are not about serving one allocation now: kswapd and
-+ * kcompactd balancing a zone, order-0 thresholds, forecasts whether
-+ * reclaim and compaction can still make progress.  They count free pages
-+ * of every migratetype: reclaim and compaction work across migratetypes
-+ * to free whole pageblocks.
-+ */
-+bool __zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
-+			 int highest_zoneidx, unsigned int alloc_flags,
-+			 long free_pages)
++static void pvm_set_external_mdscr(struct kvm_vcpu *vcpu, u64 mdscr)
 +{
-+	return __zone_watermark_ok_mt(z, order, mark, highest_zoneidx,
-+				      alloc_flags, free_pages, MIGRATE_MOVABLE);
++	vcpu->arch.external_mdscr_el1 = mdscr & ~(MDSCR_EL1_SS | MDSCR_EL1_MDE | MDSCR_EL1_KDE);
 +}
 +
- bool zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
- 		      int highest_zoneidx, unsigned int alloc_flags)
- {
-@@ -3697,8 +3713,8 @@ static inline bool zone_watermark_fast(struct zone *z, unsigned int order,
- 			return true;
++/* KVM_SET_GUEST_DEBUG fails for a protected vCPU, so only the OS Lock makes it HOST_OWNED. */
++static int pvm_debug_owner(struct kvm_vcpu *vcpu, u64 mdscr)
++{
++	if (kvm_vcpu_os_lock_enabled(vcpu))
++		return VCPU_DEBUG_HOST_OWNED;
++
++	if (mdscr & (MDSCR_EL1_KDE | MDSCR_EL1_MDE))
++		return VCPU_DEBUG_GUEST_OWNED;
++
++	return VCPU_DEBUG_FREE;
++}
++
++/* Trap handlers run after entry has loaded the debug state. */
++static void pvm_debug_switch_owner(struct kvm_vcpu *vcpu, int new)
++{
++	*ctxt_mdscr_el1(&vcpu->arch.ctxt) = read_sysreg(mdscr_el1);
++
++	__debug_switch_to_host_common(vcpu);
++	vcpu->arch.debug_owner = new;
++	__debug_switch_to_guest_common(vcpu);
++
++	write_sysreg(*ctxt_mdscr_el1(&vcpu->arch.ctxt), mdscr_el1);
++}
++
++static void pvm_debug_set_guest_ownership(struct kvm_vcpu *vcpu)
++{
++	if (kvm_debug_regs_in_use(vcpu))
++		return;
++
++	pvm_debug_switch_owner(vcpu, VCPU_DEBUG_GUEST_OWNED);
++}
++
++/* Runs before the world switch, which loads the debug state that debug_owner selects. */
++void kvm_load_pvm_debug(struct kvm_vcpu *vcpu)
++{
++	u64 mdscr = __vcpu_sys_reg(vcpu, MDSCR_EL1);
++
++	vcpu->arch.debug_owner = pvm_debug_owner(vcpu, mdscr);
++
++	if (kvm_host_owns_debug_regs(vcpu))
++		pvm_set_external_mdscr(vcpu, mdscr);
++}
++
++static bool pvm_trap_dbg_wb_reg(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
++				const struct sys_reg_desc *r)
++{
++	struct kvm_guest_debug_arch *dbg = &vcpu->arch.vcpu_debug_state;
++	u64 *reg;
++
++	switch (r->Op2) {
++	case 0b100:
++		reg = &dbg->dbg_bvr[r->CRm];
++		break;
++	case 0b101:
++		reg = &dbg->dbg_bcr[r->CRm];
++		break;
++	case 0b110:
++		reg = &dbg->dbg_wvr[r->CRm];
++		break;
++	default:
++		reg = &dbg->dbg_wcr[r->CRm];
++	}
++
++	if (p->is_write)
++		*reg = p->regval;
++	else
++		p->regval = *reg;
++
++	/* Guest-owned registers are live: __debug_switch_to_host() overwrites memory with them. */
++	if (p->is_write && kvm_guest_owns_debug_regs(vcpu))
++		__debug_restore_state(dbg, &vcpu->arch.ctxt);
++
++	pvm_debug_set_guest_ownership(vcpu);
++	return true;
++}
++
++/* Outside HOST_OWNED, use the live register: __sysreg_save_state_nvhe() overwrites memory. */
++static u64 pvm_read_mdscr(struct kvm_vcpu *vcpu)
++{
++	if (kvm_host_owns_debug_regs(vcpu))
++		return __vcpu_sys_reg(vcpu, MDSCR_EL1);
++
++	return read_sysreg(mdscr_el1);
++}
++
++static bool pvm_trap_mdscr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
++			   const struct sys_reg_desc *r)
++{
++	if (!p->is_write) {
++		p->regval = pvm_read_mdscr(vcpu);
++	} else if (kvm_host_owns_debug_regs(vcpu)) {
++		__vcpu_assign_sys_reg(vcpu, MDSCR_EL1, p->regval);
++		pvm_set_external_mdscr(vcpu, p->regval);
++		write_sysreg(vcpu->arch.external_mdscr_el1, mdscr_el1);
++	} else {
++		write_sysreg(p->regval, mdscr_el1);
++	}
++
++	pvm_debug_set_guest_ownership(vcpu);
++	return true;
++}
++
++/* __debug_restore_state() loads MDCCINT_EL1 from memory, so keep memory current. */
++static bool pvm_trap_mdccint(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
++			     const struct sys_reg_desc *r)
++{
++	if (p->is_write) {
++		__vcpu_assign_sys_reg(vcpu, MDCCINT_EL1, p->regval);
++		if (kvm_debug_regs_in_use(vcpu))
++			write_sysreg(p->regval, mdccint_el1);
++	} else {
++		p->regval = __vcpu_sys_reg(vcpu, MDCCINT_EL1);
++	}
++
++	pvm_debug_set_guest_ownership(vcpu);
++	return true;
++}
++
++static bool pvm_trap_oslar(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
++			   const struct sys_reg_desc *r)
++{
++	int new_owner;
++	u64 mdscr;
++
++	if (!p->is_write) {
++		inject_undef64(vcpu);
++		return false;
++	}
++
++	mdscr = pvm_read_mdscr(vcpu);
++
++	if (p->regval & OSLAR_EL1_OSLK)
++		__vcpu_rmw_sys_reg(vcpu, OSLSR_EL1, |=, OSLSR_EL1_OSLK);
++	else
++		__vcpu_rmw_sys_reg(vcpu, OSLSR_EL1, &=, ~OSLSR_EL1_OSLK);
++
++	new_owner = pvm_debug_owner(vcpu, mdscr);
++	if (new_owner == VCPU_DEBUG_HOST_OWNED)
++		pvm_set_external_mdscr(vcpu, mdscr);
++
++	if (new_owner != vcpu->arch.debug_owner)
++		pvm_debug_switch_owner(vcpu, new_owner);
++
++	return true;
++}
++
++static bool pvm_trap_oslsr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
++			   const struct sys_reg_desc *r)
++{
++	if (p->is_write) {
++		inject_undef64(vcpu);
++		return false;
++	}
++
++	p->regval = __vcpu_sys_reg(vcpu, OSLSR_EL1);
++	return true;
++}
++
++/* As the host's trap_dbgauthstatus_el1(). */
++static bool pvm_trap_dbgauthstatus(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
++				   const struct sys_reg_desc *r)
++{
++	if (!p->is_write)
++		p->regval = read_sysreg(dbgauthstatus_el1);
++
++	return true;
++}
++
+ /* Mark the specified system register as an AArch32 feature id register. */
+ #define AARCH32(REG) { SYS_DESC(REG), .access = pvm_access_id_aarch32 }
+ 
+@@ -391,6 +575,12 @@ static bool pvm_idst_access(struct kvm_vcpu *vcpu,
+ /* Mark the specified system register as Read-As-Zero/Write-Ignored */
+ #define RAZ_WI(REG) { SYS_DESC(REG), .access = pvm_access_raz_wi }
+ 
++#define DBG_WB(n)							\
++	{ SYS_DESC(SYS_DBGBVRn_EL1(n)), .access = pvm_trap_dbg_wb_reg },	\
++	{ SYS_DESC(SYS_DBGBCRn_EL1(n)), .access = pvm_trap_dbg_wb_reg },	\
++	{ SYS_DESC(SYS_DBGWVRn_EL1(n)), .access = pvm_trap_dbg_wb_reg },	\
++	{ SYS_DESC(SYS_DBGWCRn_EL1(n)), .access = pvm_trap_dbg_wb_reg }
++
+ /* Mark the specified system register as not being handled in hyp. */
+ #define HOST_HANDLED(REG) { SYS_DESC(REG), .access = NULL }
+ 
+@@ -404,15 +594,36 @@ static bool pvm_idst_access(struct kvm_vcpu *vcpu,
+ static const struct sys_reg_desc pvm_sys_reg_descs[] = {
+ 	/* Cache maintenance by set/way operations are restricted. */
+ 
+-	/* Debug and Trace Registers are restricted. */
+-	RAZ_WI(SYS_DBGBVRn_EL1(0)),
+-	RAZ_WI(SYS_DBGBCRn_EL1(0)),
+-	RAZ_WI(SYS_DBGWVRn_EL1(0)),
+-	RAZ_WI(SYS_DBGWCRn_EL1(0)),
+-	RAZ_WI(SYS_MDSCR_EL1),
+-	RAZ_WI(SYS_OSLAR_EL1),
+-	RAZ_WI(SYS_OSLSR_EL1),
++	/* Debug registers */
++	DBG_WB(0),
++	DBG_WB(1),
++	{ SYS_DESC(SYS_MDCCINT_EL1), .access = pvm_trap_mdccint },
++	{ SYS_DESC(SYS_MDSCR_EL1), .access = pvm_trap_mdscr },
++	DBG_WB(2),
++	DBG_WB(3),
++	DBG_WB(4),
++	DBG_WB(5),
++	DBG_WB(6),
++	DBG_WB(7),
++	DBG_WB(8),
++	DBG_WB(9),
++	DBG_WB(10),
++	DBG_WB(11),
++	DBG_WB(12),
++	DBG_WB(13),
++	DBG_WB(14),
++	DBG_WB(15),
++	RAZ_WI(SYS_MDRAR_EL1),
++	{ SYS_DESC(SYS_OSLAR_EL1), .access = pvm_trap_oslar },
++	{ SYS_DESC(SYS_OSLSR_EL1), .access = pvm_trap_oslsr },
+ 	RAZ_WI(SYS_OSDLR_EL1),
++	RAZ_WI(SYS_DBGPRCR_EL1),
++	RAZ_WI(SYS_DBGCLAIMSET_EL1),
++	RAZ_WI(SYS_DBGCLAIMCLR_EL1),
++	{ SYS_DESC(SYS_DBGAUTHSTATUS_EL1), .access = pvm_trap_dbgauthstatus },
++	RAZ_WI(SYS_MDCCSR_EL0),
++	RAZ_WI(SYS_DBGDTR_EL0),
++	RAZ_WI(SYS_DBGDTRTX_EL0),
+ 
+ 	/* Group 1 ID registers */
+ 	HOST_HANDLED(SYS_REVIDR_EL1),
+@@ -559,6 +770,8 @@ static const struct sys_reg_desc_reset pvm_sys_reg_reset_vals[] = {
+ 	RESET_UNKNOWN(TPIDR_EL1),
+ 	RESET_ZERO(CNTKCTL_EL1),
+ 	RESET_UNKNOWN(PAR_EL1),
++	RESET_ZERO(MDCCINT_EL1),
++	RESET_VAL(OSLSR_EL1, OSLSR_EL1_OSLM_IMPLEMENTED),
+ 	RESET_ZERO(DISR_EL1),
+ 	RESET_ZERO(CPACR_EL1),
+ 	RESET_VAL(CONTEXTIDR_EL1, 0x00000000dbadc0deULL),
+@@ -586,6 +799,8 @@ void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu)
+ 
+ 		r->reset(vcpu, r);
  	}
++
++	memset(&vcpu->arch.vcpu_debug_state, 0, sizeof(vcpu->arch.vcpu_debug_state));
+ }
  
--	if (__zone_watermark_ok(z, order, mark, highest_zoneidx, alloc_flags,
--					free_pages))
-+	if (__zone_watermark_ok_mt(z, order, mark, highest_zoneidx, alloc_flags,
-+				   free_pages, gfp_migratetype(gfp_mask)))
- 		return true;
- 
- 	/*
-@@ -3710,8 +3726,9 @@ static inline bool zone_watermark_fast(struct zone *z, unsigned int order,
- 	if (unlikely(!order && (alloc_flags & ALLOC_MIN_RESERVE) && z->watermark_boost
- 		&& ((alloc_flags & ALLOC_WMARK_MASK) == WMARK_MIN))) {
- 		mark = z->_watermark[WMARK_MIN];
--		return __zone_watermark_ok(z, order, mark, highest_zoneidx,
--					alloc_flags, free_pages);
-+		return __zone_watermark_ok_mt(z, order, mark, highest_zoneidx,
-+					      alloc_flags, free_pages,
-+					      gfp_migratetype(gfp_mask));
- 	}
- 
- 	return false;
-@@ -3923,8 +3940,10 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 				continue;
- 
- 			/* did we reclaim enough */
--			if (!zone_watermark_ok(zone, order, mark,
--					       ac->highest_zoneidx, alloc_flags))
-+			if (!__zone_watermark_ok_mt(zone, order, mark,
-+					ac->highest_zoneidx, alloc_flags,
-+					zone_page_state(zone, NR_FREE_PAGES),
-+					gfp_migratetype(gfp_mask)))
- 				continue;
- 		}
- 
+ /*
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.54.0
+2.47.3
 
