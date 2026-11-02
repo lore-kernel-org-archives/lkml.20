@@ -1,106 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607113;
-	b=R3FOURsxYGAi67IxpuvgO/kFNRGpiOuuIciha1oS8pGySGzF5qfZ3UGw1Vhqy5hxq7uF
-	 RJ58IAq7ronXdTDzD74YzdlFceaBQg+5XNDh4gk4xzko1tKY+LSM1vaU4hRZe8BkWv87M
-	 Kd0FmyjWmEi8/QKWE9q02VwAq/fVWtkW+b0efDbIG/stJOzyrMEhU/gayURZZaL+VcpNy
-	 vhTB8/iCnksRQm+Mi/gdRtsqw0xfWLvbvbfbAi+Bh5Ukm6wNMtB1lmPZX+lYOcVEg1D5l
-	 AyvEH6zQJCk3Kerc3FpdBbrnRht8viKm1WYNboN6bnNvwfNo8aBPmrTVbD9VT2a5hPQ==
+	t=1793607140;
+	b=fa+FGMVkxJ6G4QKT8H1W7gxBtFf5om9viCTJx/JIoVV3NaZX7BoSa5QknEinrl+s8kFg
+	 51A5SStF1ZiOKSSMMpu0MX7ktu7+o6eUvW9UEQS+jpnRcW1dLa2zAo77nZsmnRRwyN6d9
+	 48gFktoPxsFHfPgfOyyDd9RS6Buqk0+aKEToQ8iFLCsIUlAdOpin4YfbrsBIsnT+ARROL
+	 1peXGPstHy9HFhDQIKj+A6ZLEhNhqEAVwh2gyUz4bHF4/NhEN5rI0dSSpoHLJHMHOwmAl
+	 zx6zdzE8Z20R/E8nOmiBHhV9Y2z9C81CkqIJZ8tmxjMVMSkYoEq2QKcCGHEkDfINtVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607113;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Skgy5VZxk2gILLHcPLrF17iQzssiYgUtpst1TmBVQUQ=;
-	b=HWUgznRkTUOQ8AYvPbjRfa2UhKibD0MakKrkwP187CyN61ZK+udiZLcoFYw6xMIfYr/n
-	 uYO5zSa8CxGNfjigLE/xedUsPephHawVfgqxeSjtcjkRsoMgIG7XXPNZVKTU5TltxAil4
-	 AQn3SOXH2lUL8mzdLSGyZvbMSuVKur0caaPr+DW7wskgZoBMLq9uHj7M0UEPVMN8XX8X+
-	 9KX777H5xkpwOcxywO0XePCeO9uLsnfvtXcZzY8N5NJ4QwNzAaVgCcK7UPvECQWYNzCOG
-	 QFFwsRIKP66/lxHeCLWDhhZ5kihvJO3/WggBOj8bA0AMqP7DrfSl77Rd7vvGjsiT8dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607140;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9vidyt/DEjPOdulG26wicwETsX/k8RXmswJN0sUtW9k=;
+	b=EHN7NVl781mmZ57DZ4hnTpxC4M9WWA7Eht6Pp7emwfBuVn34Sxm6Jefm+vvMRsI+onE9
+	 mPYO9SL5/w+nDuNupT7SKHUSQpuzFQsnNqvcdK34CKdqOtKilZSyDDxZJ+ltLY7uzi/Vh
+	 uGgUJniMEPFozklcfFWS/kBlLofs1XcxHxhG8obn3JpoRBBb07RpvfVoDIDUBoNdy2ZvS
+	 J6CTQWv4VEoGNNR5eyTrjIue5gwSF6wVMMf64U91fblEz08sBei9cewbDdZaa4s/yeuaV
+	 6b0Hg1SoDekiIQRX2iUpPLJFvapTYVzWLs9e1cOrDGhij/rRLjXV60XL2TUAsWB5vaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ADxFO8XK;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuEfXXb4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C39E606A332
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C39E606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3EE4606A329;
+	Mon,  2 Nov 2026 08:12:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ADxFO8XK
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so9868135e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:11:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793607111; x=1794211911; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Skgy5VZxk2gILLHcPLrF17iQzssiYgUtpst1TmBVQUQ=;
-        b=ADxFO8XKZwuBPWXh4fy0M9tOg8XzXE4D8ydzy9OPgrmVlLRcjWrilUzQSO3D2T19QJ
-         fg5uiBO+J7SBj8AuT7rH3CocD/NJ5KTypblXMyec2iyS7DGMP1wyFIVtek3EhmT6BMQi
-         S0v34GYeGl7TXQUFhUPwRvshuLBtczh0Fpp5ZHA/OuhIR/BClpsOUODDUJC1yQ8gkL/7
-         VNrezhA6bjmIX44+t5X/Eq756lITZN4j1WLm/+Hleb7A1s7Icc53AG0VuF9kOSJtqBRj
-         BHVI8f5oJ0BkJs0QYLezEwik1KIMHqEW5EbCanRlCuzq+V8cy+V29uxRSo8u4bGpH2kF
-         EHpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793607111; x=1794211911;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Skgy5VZxk2gILLHcPLrF17iQzssiYgUtpst1TmBVQUQ=;
-        b=aaj/BQzEZaFd7iOugS5OaWXil55FzXqyk0L5+8NQpfm11W/GgiTfEMMW9M9tLn/K3v
-         Zd2jNEtkqDnfItkk6ydndYF1gJV907mo6nl9n4x97FmxN1rtW2kx3GbmKMnckh1C4xI7
-         p1I1DQbZEicWquV7REtM6E6y5uVuVCV4UKrQZ/EuqJiB2WsebeE04Jb3dropwbkkLMC6
-         olEH74WkHsmtPKye/aHCjGurunmqpAefo8EP91vyYDHHhshvdmGq9zp/kH/U6RkcQDWi
-         iaq1OsUhxKeBHgu+E2yupHVUFyBdfVvgw/DY2R+CG4NToZRPMQk2sWfAaZIoZcLwH3YQ
-         3WhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByp54fWcWdp0m8N9ncVaRf/h0Sa48BqTbGNbyGFRFsxBi0K+RpPk8/aCM3B3AhXrJ1JorvpwOAa5TFAx7Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9RrnCw/i6wC3rIhzBzSYKe5aXv9yATPTXCqHgHBHemtWtReHZ
-	KKX0lMPMjJxP+Ddvy40WvdYwxWGMm4/fjzzSqG+l6w5Vg6UDSRzyIgst
-X-Gm-Gg: AYBFou0CB88bvnCOE8TzBYINFaOF1sdcIDrjzXC9rSLod7w4f5GEebDTNAOscVP9oWr
-	gMTT442rBAgneZ9UjcguEaIKWHRmJIOabzxZhfdWu+nj0+e7jaO37RRitszrw22W9aTKqsgv9KC
-	11RneFDsjOPMqLdoa6ThewD7BbQLCkI6pSGSADBhnbz+ifARQksQ0yB0f1j5uk/2ERVDNIU/Squ
-	8vxYcN6Z4hPXqNPqbAbQuDFQ/E0bRh0FehTU7W6MJCfSYS0hm9asQIfV9LX/s/O/TT4OgeP/8jE
-	x946oowwZAlS/omkH4uYD98Zuq4rBdgznGIYW4/EEXJvfNgNcTpASRSUppF36DsOu77uoZDhXcZ
-	YTAUufGDqVzw7dqReNuDHIO5lAj0ufxEwLuTrHoBcmWJNaHGOMBl7/eeWmQEsrIBdp0bFJh7e/t
-	Z+Cl02JFkOhuPlyI6ZOW+VdN0Ymws5hNdkv7st8S07K2egfxfcJQRGPaGJrvkwrwGsyyPUWjIgi
-	7bQ0s1ZpUkLtcYaW7tBp0LkH3NLHeKDmiSP6EGVjUVP4Pq9cURM7YKcJB/NgTD1WZdT/F4IA63+
-	9qvF2kbhQv3hmQ==
-X-Received: by 2002:a05:600c:46d1:b0:4a1:df52:3e36 with SMTP id 5b1f17b1804b1-4ac17b2cdc2mr215325315e9.27.1793607111269;
-        Mon, 02 Nov 2026 00:11:51 -0800 (PST)
-Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm333331005e9.14.2026.11.02.00.11.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 00:11:50 -0800 (PST)
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Peter Xu <peterx@redhat.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH v2 2/2] selftests/mm: add a uffd test for re-registering during UFFDIO_COPY
-Date: Mon,  2 Nov 2026 09:11:31 +0100
-Message-ID: <20261102081140.201987-3-azpijr@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102081140.201987-1-azpijr@gmail.com>
-References: <20261102081140.201987-1-azpijr@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuEfXXb4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0151F000C1;
+	Mon,  2 Nov 2026 08:12:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793607139;
+	bh=9vidyt/DEjPOdulG26wicwETsX/k8RXmswJN0sUtW9k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EuEfXXb4ryG5S8XuwapfFS3BWNPGAvnU4Rnxk3tuSUcAWtSYjsVXBgg/TkqV86FOx
+	 Kgy6hqpCcYufdmTUJcbI1eJpGNf2n24Src2NwcDnGmb5mqLoutRDFDtwiEWVhEOtpr
+	 FQq/lvrAiAIHI0M2wHzcnRDbLKP6vyRXvGmhVsQO14y42x/IjdgS/IIYoiHbMACVE6
+	 zVhpTGE0PSJTwxxnTHPtK5jPTU9hRDY+RxYvkENnqh3Z0TWnp/PgyS+8ULQJCZolW/
+	 7jpGyDs9/HAXCKemVosav7H/82hUPPDRNw3tOXoyWZaFLfNJ91vY1MgZLejUlxb2WO
+	 mlq8afN3Hkh/A==
+Date: Mon, 2 Nov 2026 09:12:16 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, robin.murphy@arm.com, devicetree@vger.kernel.org, 
+	Frank.Li@kernel.org, cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/5] dmaengine: arm-dma350: Add slave support and Sky1
+ integration
+Message-ID: <20261102-ambitious-kraken-of-triumph-c9da44@quoll>
+References: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,146 +59,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261023093017.3248454-1-Jelly.Jia@cixtech.com>
 
-Re-register the destination without WP while a UFFDIO_COPY_MODE_WP copy
-waits for its source page, then check that the copy fails with -EINVAL
-and leaves no uffd-wp bit behind. This covers all memory types.
+On Fri, Oct 23, 2026 at 05:30:12PM +0800, Jelly Jia wrote:
+> Hello,
+> 
+> This series adds scatter-gather and cyclic slave transfer support to the
+> Arm DMA-350 driver, then describes the clock, reset and DMA address view
+> of the CIX Sky1 FCH integration.
+> 
+> Patch 1 fixes the source-trigger bit. Patch 2 adds peripheral transfers
+> with descriptor-owned resource mappings, coherent linked commands and
+> hardware-based residue reporting. Patches 3 and 4 document and handle
+> optional integration clocks and resets. Patch 5 describes the FCH DMA
+> address windows and adds its bus clock.
+> 
+> The controller nodes use arm,dma-350 in this revision. The driver changes
+> use standard integration resources and introduce no CIX-specific register
+> programming. The companion AUDSS interrupt-path series builds on this
+> one and manages the AUDSS interrupt gates in the CRU driver.
 
-Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
----
-Changes in v2:
-- "all memory types" in the commit message
-- rename copy to result
+Patches have five unaddressed reports from Sashiko. Dropping from DT
+patchwork as I expect new version.
 
-v1: https://lore.kernel.org/20261029221129.89068-3-azpijr@gmail.com
-
- tools/testing/selftests/mm/uffd-unit-tests.c | 105 +++++++++++++++++++
- 1 file changed, 105 insertions(+)
-
-diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
-index 2a97ba1d6feb..cc22b4cde621 100644
---- a/tools/testing/selftests/mm/uffd-unit-tests.c
-+++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-@@ -375,6 +375,104 @@ static void uffd_wp_unpopulated_test(uffd_global_test_opts_t *gopts, uffd_test_a
- 	uffd_test_pass();
- }
- 
-+struct wp_copy_args {
-+	uffd_global_test_opts_t *gopts;
-+	char *src;
-+	__s64 result;
-+};
-+
-+static void *wp_copy_thread(void *data)
-+{
-+	struct wp_copy_args *args = data;
-+	struct uffdio_copy copy = {
-+		.dst = (unsigned long)args->gopts->area_dst,
-+		.src = (unsigned long)args->src,
-+		.len = args->gopts->page_size,
-+		.mode = UFFDIO_COPY_MODE_WP,
-+	};
-+
-+	ioctl(args->gopts->uffd, UFFDIO_COPY, &copy);
-+	args->result = copy.copy;
-+
-+	return NULL;
-+}
-+
-+/*
-+ * UFFDIO_COPY drops its locks to fault in the source page.  Re-register the
-+ * destination without WP while it waits there: the MODE_WP copy must then
-+ * fail instead of leaving a uffd-wp bit in a VMA that no longer has WP.
-+ */
-+static void uffd_wp_copy_reregister_test(uffd_global_test_opts_t *gopts,
-+					 uffd_test_args_t *args)
-+{
-+	struct uffdio_api api = { .api = UFFD_API };
-+	struct wp_copy_args copy_args = { .gopts = gopts };
-+	unsigned long len = gopts->page_size;
-+	struct uffdio_zeropage zeropage;
-+	struct uffd_msg msg;
-+	struct pollfd pfd;
-+	pthread_t thread;
-+	uint64_t value;
-+	int pagemap_fd;
-+	int src_uffd;
-+
-+	/* The source fault comes from the kernel, so no UFFD_USER_MODE_ONLY */
-+	src_uffd = uffd_open(O_CLOEXEC);
-+	if (src_uffd < 0) {
-+		uffd_test_skip("cannot open a kernel-mode userfaultfd");
-+		return;
-+	}
-+	if (ioctl(src_uffd, UFFDIO_API, &api))
-+		err("UFFDIO_API failed");
-+
-+	copy_args.src = mmap(NULL, len, PROT_READ | PROT_WRITE,
-+			     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (copy_args.src == MAP_FAILED)
-+		err("mmap() failed");
-+
-+	if (uffd_register(src_uffd, copy_args.src, len, true, false, false))
-+		err("register src failed");
-+	if (uffd_register(gopts->uffd, gopts->area_dst, len, true, true, false))
-+		err("register dst failed");
-+
-+	if (pthread_create(&thread, NULL, wp_copy_thread, &copy_args))
-+		err("pthread_create() failed");
-+
-+	/* Wait until UFFDIO_COPY blocks on the source page */
-+	pfd = (struct pollfd){ .fd = src_uffd, .events = POLLIN };
-+	if (poll(&pfd, 1, 10000) != 1)
-+		err("no fault on the source page");
-+	if (read(src_uffd, &msg, sizeof(msg)) != sizeof(msg))
-+		err("read() failed");
-+
-+	if (uffd_unregister(gopts->uffd, gopts->area_dst, len))
-+		err("unregister dst failed");
-+	if (uffd_register(gopts->uffd, gopts->area_dst, len, true, false, false))
-+		err("re-register dst failed");
-+
-+	zeropage.range.start = (unsigned long)copy_args.src;
-+	zeropage.range.len = len;
-+	zeropage.mode = 0;
-+	if (ioctl(src_uffd, UFFDIO_ZEROPAGE, &zeropage))
-+		err("UFFDIO_ZEROPAGE failed");
-+
-+	if (pthread_join(thread, NULL))
-+		err("pthread_join() failed");
-+
-+	if (copy_args.result != -EINVAL)
-+		err("UFFDIO_COPY returned %lld, expected %d",
-+		    (long long)copy_args.result, -EINVAL);
-+
-+	pagemap_fd = pagemap_open();
-+	value = pagemap_get_entry(pagemap_fd, gopts->area_dst);
-+	pagemap_check_wp(value, false);
-+	close(pagemap_fd);
-+
-+	munmap(copy_args.src, len);
-+	close(src_uffd);
-+	uffd_test_pass();
-+}
-+
- static void uffd_wp_fork_test_common(uffd_global_test_opts_t *gopts, uffd_test_args_t *args,
- 				     bool with_event)
- {
-@@ -2403,6 +2501,13 @@ uffd_test_case_t uffd_tests[] = {
- 		.uffd_feature_required =
- 		UFFD_FEATURE_PAGEFAULT_FLAG_WP | UFFD_FEATURE_WP_UNPOPULATED,
- 	},
-+	{
-+		.name = "wp-copy-reregister",
-+		.uffd_fn = uffd_wp_copy_reregister_test,
-+		.mem_targets = MEM_ALL,
-+		.uffd_feature_required = UFFD_FEATURE_PAGEFAULT_FLAG_WP |
-+		UFFD_FEATURE_WP_HUGETLBFS_SHMEM,
-+	},
- 	{
- 		.name = "minor",
- 		.uffd_fn = uffd_minor_test,
--- 
-2.56.0
+Best regards,
+Krzysztof
 
