@@ -1,59 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634312;
-	b=lcAt7WVUXGdy5ISu4AnHc0Lhf6MPR60qv021ZzHuiNwmjAtMKaOljX0YwnINt1Clp31M
-	 tQGwWmeMWvXUPiwFqX0GvGV2kg043UKBx8VfRtfjzif7kp1JZMxfwecApEQq/qUBygg/h
-	 w7iaSDqYlUE+56P9uBFkDi+nUvswB/78Bb2PMpg/wiCT/oVenponZ2cNANZ4vt7TWr56y
-	 jJU7BGPUu5lf+GV00q3a8WnJowSa6i5txLPohJLTORSpt8XVMNtz6B6gJgw5v/AleydKR
-	 xt6GnbtxVT1MWleUAYgHiLy5P2YFX6snCXvKM089jxaZT3DrMlP2yiiFOKYXqbQGwkw==
+	t=1793634353;
+	b=gQ8LGziBAOcrJ3BXh1jjzN14fwgTTcCD8s5i/wlAv7OBLXKg+QaMYCOPj8eUdXnbnSQ3
+	 xDggOOgBv348p7Plny1F0DOtLlFwAt0J1i2Kb8YwHwgfBzsIZMeqHPeOyQn81mRm89awN
+	 nXoF3XEpKufpmG3/Hh85hnfAjPDURiDOyshq1AvMWzsG0baMmgR1o1MlB9RR0kDhYl3SK
+	 +2qgxLyiaVPC+vjrUjsuvaDGcexJEaZVouDJNSjgONJWUl/0R15MHKOMis0mokUHg23UM
+	 tCTDtlXq2skiWGjPc5GjRfJbbnlUvmgCjBGBd/Zrqjewz8tZZ7ijfJn4r5OeHLSe2Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634312;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ct6oiKobvIrnIb3iAckehooF4cqkI6Sy4Yhkd14zx4o=;
-	b=5JQBwX/AH4StonRwHxnoD6u+ZpQ3h9xBFNG2wJR4CV/cLtVb1VXc6Lo8AannLdBReIsr
-	 M8y30hjJunRfdFLk/zQZ93CV1suxz7q3DN1l30sQD8saYYoxTJX5pNF1jhEgdcSVu88X0
-	 uavK9ApjH++bX+B7U3+jbahw1tTG9fli6p35GPI6/PitMPgEH5uwSunkFEhirf81VzR/t
-	 pYmnxd2dTb95YWHyRoPRPxGIZKQDRU1ZlRoXp1Q1QWHvcdHc4n8Q6u+AcTKorZIsTRzk6
-	 ypEDsWovJV5cgHA3w+mRCrn0rkFystwMt0+Zi/RiMorGM1TFJXe+tlI2UqS05ro6kAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634353;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=0lUl5CQLJCBCailzea4Gh1ucvNlPOHHb/3kbxfLuQp8=;
+	b=i4ktPIU8EPlg/BzEvTkYzouzE/Ss0C2gKEbuqZhoQEHmnJLbkHwSWMT+MBjDQWb+vsao
+	 25sR9uYJ+GNJa27rQON9MLRXC540oMauZmgqDVys58hPXsgh/s/HJAUHe7v50KvWsMrd3
+	 yeE9xrhqqZPW09hSmNmxf8QUcHZS62w8VlgldL84807I+cC/8q9sVJsVSyXfikz0cBxB2
+	 x6eudqhhs4ZBJvDKf16cIkTEwi8Iogdr8xBTP1FhjxU/nETYFbE/aRny9nPSjCgqxbH6J
+	 Sg/w2em7V4Yovkq8mqy3HhZYCxxmIBN70z6+Ap8HS5B8+KyCLLbIITXVoe/NMTGrCiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BnL/RawA";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e5kX/l46";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA16A606DE84;
-	Mon,  2 Nov 2026 15:45:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37265606D80C;
+	Mon,  2 Nov 2026 15:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BnL/RawA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8287D1F00A18;
-	Mon,  2 Nov 2026 15:45:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5kX/l46
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9CC1F00A16;
+	Mon,  2 Nov 2026 15:45:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793634311;
-	bh=ct6oiKobvIrnIb3iAckehooF4cqkI6Sy4Yhkd14zx4o=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BnL/RawA8PVd3wZPNOUOQ9pfnn6+Fw5OvGN2ySvL30gL26xhlxvMqcRKb1fR7Xu7D
-	 jXr9gBAbPx5EGfNcASBPl2PDQ/2dLRRGq72OTBDKdUD5hiQtjT2pchHwXtaM225sxr
-	 6B0ohf0eQpwT4y67Owg9rak6JWAkY5y3PSoDeHtWXvDd88nsM2y9Q3ehrNsRggqxcL
-	 OijBSIzw9//OS5r1P+NIerTAZ6KC8iEXX2jt+zundY27cOYym15o5i94m52uzNkDOI
-	 STOWFUEBQ6BMsjXua/ux0jd1wBPOzJZGPsqsW0X2W9aySKKpP/K/XLTJ7MQ551CZpe
-	 RFTibNI0IAKSg==
-Subject: Re: [PATCH net v2] tipc: defer local Nagle backlog receive processing
-From: netdev-bot+sashiko@kernel.org
-To: immersa.bartosz.chronowski@gmail.com
-Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 15:45:10 +0000
-Message-ID: <179363431004.3131.12434594335457652597@kernel.org>
-In-Reply-To: <657t6njsrgnpnfs2mc2lv776442fhv5zsosg3vxya5vqrtpag7@nq3uxt6ymw7s>
-References: <657t6njsrgnpnfs2mc2lv776442fhv5zsosg3vxya5vqrtpag7@nq3uxt6ymw7s>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793634352;
+	bh=0lUl5CQLJCBCailzea4Gh1ucvNlPOHHb/3kbxfLuQp8=;
+	h=From:Date:Subject:To:Cc;
+	b=e5kX/l4629FTVp7kFn7vqYpPy8tHTjApI5m0IaEjxo09lOhZNTrWcNCELQbtNG5Cz
+	 lFxVKz73rpJYbGWPtqI8rJZj8xEoSCv6f3BbftJbT0j4DvM2G6betYAW1dSBLikNWP
+	 ablWKowlnddHVu1dgZE4V6dzrAhJHb62RXZbj+Z6xTT87oCkKuBNyPHYHar65u0oKm
+	 awYQ5GEiOsLfIO6YI4dWWFSDfDcsQEkUXUEK0h8XVz/QBR0OgEGWmVHOY33Gqh6Z60
+	 DHFqch2I+p9Jv+kv1tf0TfomBhBkoKydBW6sGi1SRZAtV/KC5q3LcR4yHMgqQOxzye
+	 9p7dodg8e0Jpw==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Mon, 02 Nov 2026 16:45:48 +0100
+Subject: [PATCH v2] irqchip/qcom-pdc: Handle ESPIs in qcom,pdc-ranges
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,235 +52,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-topic-pdc_map_espi-v2-1-64431c8f8ac3@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBREr2L+2pK2FCSuvIchpLRVvhFa+4FoC
+ He34N7NJC+ZmbcAuYiO4HxYILoZCf2QQB4PYDo93B1Dmxgkl6XgUrLRBzQsWNP0OjSOAjKVW5V
+ zbm1VlJCGIbobvvfTa/1jmtqHM+P2tDU6pNHHz26dxdb7K5gFE+xkVCW0kq02xcUTZa9JP43v+
+ ywF1Ou6fgH+pGSDzQAAAA==
+X-Change-ID: 20261022-topic-pdc_map_espi-43d4300dd856
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Stephen Boyd <swboyd@chromium.org>, Marc Zyngier <maz@kernel.org>, 
+ Lina Iyer <ilina@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793634350; l=2384;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=pWIIJfUJjWTfXyMQFjC9odAbSUyZBlAoX0S+RKTLCZo=;
+ b=HdFgORl59I+IEyxeCUQ1TSlkHiaXQt0F4PC5szI6YmyZIJlSXKuqof87Q1IcDVdKPpyaqZDu5
+ rcMP8nAh75XD+qjA5EY5o3QwTyz0n7UNCl3WL/ORWyPWEJYbZpgrm79
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 3
+The qcom,pdc-ranges property maps GIC interrupts to PDC output pins.
+That data is then subsequently used by irq_domain to resolve into the
+interrupt parent (which again, is always GIC).
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The code that handles this hardcodes parent_fwspec.param[0] = 0
+(GIC_SPI). Make that conditional to prevent this warning at boot:
 
-- [High] The fix is incomplete.
-- [Low] The deferral condition is broader than the subject and the in-
-  code comment ('A local Nagle backlog may loop back...') say.
-- [Low] Before this patch, an unowned socket handled CONN_MANAGER
-  messages directly in tipc_sk_filter_rcv() -> tipc_sk_proto_rcv(), with…
-- [Low] The new work handler tipc_sk_backlog_work()
-  (net/tipc/socket.c:2435-2444) ends with sock_put(sk), which can drop…
+GICv3: SPI 4115 out of range (use ESPI?)
 
---
+Fixes: 81ef8bf88065 ("irqchip/qcom-pdc: Add irqdomain for wakeup capable GPIOs")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v2:
+- Drop the arm-specific header, replace with an 4096 literal
+- Link to v1: https://patch.msgid.link/20261022-topic-pdc_map_espi-v1-1-7c481a42bac5@oss.qualcomm.com
 
-tipc: defer local Nagle backlog receive processing
+To: Thomas Gleixner <tglx@kernel.org>
+To: Radu Rendec <radu@rendec.net>
+To: Stephen Boyd <swboyd@chromium.org>
+To: Lina Iyer <ilina@codeaurora.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/irqchip/qcom-pdc.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-This patch targets a soft lockup that happens when a TIPC stream receives
-a packet, pushes queued Nagle data to a local peer while sk_lock.slock is
-held, and the looped-back delivery then spins in tipc_sk_rcv(). When an
-unowned socket has queued output for a local peer, tipc_sk_enqueue() now
-puts the incoming packet on sk_backlog. It then schedules a work item that
-drains the backlog through lock_sock()/release_sock().
+diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
+index 29025a212ece..6c2a2d13629c 100644
+--- a/drivers/irqchip/qcom-pdc.c
++++ b/drivers/irqchip/qcom-pdc.c
+@@ -21,6 +21,7 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/firmware/qcom/qcom_scm.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
+ 
+ #define PDC_MAX_IRQS			256
+ #define IRQ_ENABLE_BANK_MAX		BITS_TO_BYTES(PDC_MAX_IRQS)
+@@ -597,8 +598,14 @@ static int qcom_pdc_alloc(struct irq_domain *domain, unsigned int virq,
+ 
+ 	parent_fwspec.fwnode      = domain->parent->fwnode;
+ 	parent_fwspec.param_count = 3;
+-	parent_fwspec.param[0]    = 0;
+-	parent_fwspec.param[1]    = pin_to_hwirq(region, hwirq);
++	/* GIC ESPIs start at 4096 */
++	if (pin_to_hwirq(region, hwirq) >= 4096) {
++		parent_fwspec.param[0] = GIC_ESPI;
++		parent_fwspec.param[1] = pin_to_hwirq(region, hwirq) - 4096;
++	} else {
++		parent_fwspec.param[0] = GIC_SPI;
++		parent_fwspec.param[1] = pin_to_hwirq(region, hwirq);
++	}
+ 	parent_fwspec.param[2]    = type;
+ 
+ 	return irq_domain_alloc_irqs_parent(domain, virq, nr_irqs, &parent_fwspec);
 
-Link: https://lore.kernel.org/r/GV1P189MB1988F6301FA670CA9818F7FCC6DB2@GV1P189MB1988.EURP189.PROD.OUTLOOK.COM
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261022-topic-pdc_map_espi-43d4300dd856
 
-> diff --git a/net/tipc/socket.c b/net/tipc/socket.c
-> index 65cc0c4964b31..b03dd4a3d3ea2 100644
-> --- a/net/tipc/socket.c
-> +++ b/net/tipc/socket.c
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-[ ... ]
-
-> @@ -2428,6 +2432,17 @@ static int tipc_sk_backlog_rcv(struct sock *sk, struct sk_buff *skb)
->  	return 0;
->  }
->  
-> +static void tipc_sk_backlog_work(struct work_struct *work)
-> +{
-> +	struct tipc_sock *tsk = container_of(work, struct tipc_sock,
-> +					     backlog_work);
-> +	struct sock *sk = &tsk->sk;
-> +
-> +	lock_sock(sk);
-> +	release_sock(sk);
-> +	sock_put(sk);
-> +}
-
-[Severity: Low]
-Can this sock_put() drop the last socket reference while the kworker is
-still running TIPC module text?
-
-If tipc_release() and tipc_sk_callback() have already dropped their
-references, the final put goes:
-
-tipc_sk_backlog_work()
-  sock_put()
-    sk_free()
-      __sk_free()
-        __sk_destruct()
-          sk_prot_free()
-            module_put(prot->owner)
-
-Nothing in net/tipc flushes or cancels backlog_work. The only
-cancel_work_sync() in TIPC is for tn->work. If tipc is removed with rmmod
-at the same moment, could the module text be freed before
-tipc_sk_backlog_work() returns?
-
-A pending work item holds a socket reference, and so a module reference.
-The window is only the tail after the final put. It needs root to unload
-the module, and sk_free() is often emitted as a tail call. The existing
-tipc_sk_timeout() also ends with a trailing sock_put() in the same way.
-
-> +
->  /**
->   * tipc_sk_enqueue - extract all buffers with destination 'dport' from
->   *                   inputq and try adding them to socket or backlog queue
-> @@ -2445,18 +2460,30 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
-
-[ ... ]
-
-> +		/*
-> +		 * A local Nagle backlog may loop back into this socket while its
-> +		 * spinlock is held.  Queue the triggering input for processing under
-> +		 * socket ownership, which keeps a concurrent sender from overtaking
-> +		 * the already queued output.
-> +		 */
-> +		owned = sock_owned_by_user(sk);
-> +		local_backlog = !owned && !skb_queue_empty(&sk->sk_write_queue) &&
-> +				in_own_node(sock_net(sk),
-> +					    tsk_peer_node(tipc_sk(sk)));
-
-[Severity: High]
-Does the in_own_node() check cover every case where tipc_node_xmit()
-delivers back into the receive path synchronously?
-
-When the peer node is in another network namespace on the same host,
-n->peer_net is set. In that case tipc_node_xmit() hands the list to
-tipc_lxc_xmit(), which calls tipc_sk_rcv(peer_net, list) inline:
-
-net/tipc/node.c:tipc_node_xmit() {
-    ...
-	if (node_up && peer_net && check_net(peer_net)) {
-		/* xmit inner linux container */
-		tipc_lxc_xmit(peer_net, list);
-    ...
-}
-
-For that kind of peer, in_own_node() is false and local_backlog is false.
-tipc_sk_filter_rcv() still runs with sk_lock.slock held. In
-TIPC_ESTABLISHED this call chain looks possible:
-
-tipc_sk_rcv(net1)                     /* takes socket A's slock */
-  tipc_sk_enqueue()
-    tipc_sk_filter_rcv()
-      tipc_sk_filter_connect()
-        tipc_sk_push_backlog()
-          tipc_node_xmit()
-            tipc_lxc_xmit()
-              tipc_sk_rcv(net2)       /* peer socket B */
-                B sends its Nagle ACK via tipc_node_distr_xmit(),
-                or pushes its own non-empty write queue
-                  tipc_lxc_xmit()
-                    tipc_sk_rcv(net1) /* socket A again */
-
-In the inner tipc_sk_rcv() the trylock fails, because an outer frame on
-the same CPU holds A's slock:
-
-	if (likely(spin_trylock_bh(&sk->sk_lock.slock))) {
-		tipc_sk_enqueue(inputq, sk, dport, &xmitq);
-		spin_unlock_bh(&sk->sk_lock.slock);
-	}
-	...
-	continue;
-
-Wouldn't this retry forever with BH disabled, inside the rcu_read_lock()
-taken in tipc_node_xmit()?
-
-Nagle is active for these peers, because tipc_node_get_mtu() returns
-MAX_MSG_SIZE for peer_net connections. A two-CPU ABBA variant also looks
-possible: each CPU holds one socket's slock and spins on the other's.
-
-The setup is two namespaces linked by a bearer such as veth/UDP.
-TIPC_NL_BEARER_ENABLE uses GENL_UNS_ADMIN_PERM, so an unprivileged user
-with user namespaces could set this up.
-
-Would the guard need to cover peer_net delivery as well, so that the
-lockup described in the commit message cannot happen through the
-cross-netns path?
-
-[Severity: Low]
-This condition doesn't check Nagle or the socket state. Is the deferral
-meant to apply during connection setup too?
-
-__tipc_sendmsg() clones the SYN onto sk_write_queue and sets the phdr
-destnode to the target node:
-
-	if (unlikely(syn && !tipc_msg_skb_clone(&pkts, &sk->sk_write_queue))) {
-
-The clone stays on the queue until tipc_sk_finish_conn() purges it. That
-only happens after the SYN-ACK has been processed.
-
-During a blocking connect (sk_wait_event() drops ownership), or after a
-non-blocking connect, the SYN-ACK reaches tipc_sk_enqueue() unowned. The
-write queue is non-empty and destnode is local, so local_backlog is true.
-The SYN-ACK then goes through sk_backlog and a work item on
-system_percpu_wq.
-
-This also covers SOCK_SEQPACKET, which never uses Nagle because
-tsk_set_nagle() returns early for anything other than SOCK_STREAM. The
-TIPC_CONNECTING case of tipc_sk_filter_connect() never calls
-tipc_sk_push_backlog(), so it cannot cause the recursion.
-
-Would checking for sk_state == TIPC_ESTABLISHED match the intent in the
-comment and the commit message better? The commit message does not
-mention the extra kworker round trip on every local connect.
-
-> +		if (!owned && !local_backlog) {
->  			tipc_sk_filter_rcv(sk, skb, xmitq);
->  			continue;
->  		}
-> @@ -2467,6 +2494,7 @@ static void tipc_sk_enqueue(struct sk_buff_head *inputq, struct sock *sk,
->  			atomic_set(dcnt, 0);
->  		lim = rcvbuf_limit(sk, skb) + atomic_read(dcnt);
->  		if (likely(!sk_add_backlog(sk, skb, lim))) {
-> +			deferred |= !owned;
->  			trace_tipc_sk_overlimit1(sk, skb, TIPC_DUMP_SK_BKLGQ,
->  						 "bklg & rcvq >90% allocated!");
->  			continue;
-
-[Severity: Low]
-Before this patch, an unowned socket handled CONN_MANAGER messages
-directly through tipc_sk_filter_rcv()->tipc_sk_proto_rcv(), with no
-receive buffer limit.
-
-When local_backlog is true, those messages now go through
-sk_add_backlog(). If the limit is exceeded they are rejected later in
-tipc_sk_enqueue():
-
-		/* Overload => reject message back to sender */
-		...
-		if (tipc_msg_reverse(onode, &skb, TIPC_ERR_OVERLOAD)) {
-
-On the peer, tipc_sk_conn_proto_rcv() treats any errcode as fatal:
-
-	if (unlikely(msg_errcode(hdr))) {
-		tipc_set_sk_state(sk, TIPC_DISCONNECTING);
-		tipc_node_remove_conn(sock_net(sk), tsk_peer_node(tsk),
-				      tsk_peer_port(tsk));
-
-Could a CONN_ACK or CONN_PROBE rejected here abort the connection?
-
-The limit for CONN_ACK is sk_rcvbuf << TIPC_SYSTEM_IMPORTANCE. For
-CONN_PROBE it is sk_rcvbuf when TIPC_BLOCK_FLOWCTL is set. Hitting these
-needs a very small SO_RCVBUF, or receive queue plus backlog above
-sk_rcvbuf, which flow control normally prevents.
-
-The owned-socket path already behaves this way. The patch widens the
-window to every unowned period in which output is queued for a local
-peer.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/657t6njsrgnpnfs2mc2lv776442fhv5zsosg3vxya5vqrtpag7%40nq3uxt6ymw7s
