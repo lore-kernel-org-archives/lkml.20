@@ -1,64 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793650336;
-	b=2rf0Ws0jGdUqz2KTNj1XK+C4pH0XW1T3Mr7tqLYAtOd+VWere0ZR5l5yN5+y4FDVYfV3
-	 LUdjrAXLMMp53lPFys6F74zsu8TJ5cClGOQMyQJvfeSs4kWzaphohtJOfq60sF6B1H1Xf
-	 PF8HLF8sXox9lnxv2YPqFhWn1o1SrLvaLXTzzBf9fF9RaduMficgLKl528rvXT9fKMWn5
-	 uVBEGi8zdjVxfGFcWRvCaE84w+b6ySzmAfrGXpr0Ok9B7cY5krsyPwLL8mwGX/WgLc6z9
-	 InjZPznUMCla42uyCp3joUrqXsTHK9o4IIXHKlfVqJKQSdrYYB2upwMwO9khPGg0p7A==
+	t=1793650395;
+	b=a+1CD/mJIymwEK2XhJ3DgP9eTEqS/F6/hclflX3wokV2Km9PabWU7fxyObFVN8D1QUAm
+	 VQ8YZLLhzs3Itp9frrR/+tej4BUdEKra8dV1nCiW+8efuJb8mYfCLXV1Jxv3Gn+v8tO2a
+	 vXCCoZm5FFeaa5oWXMtlSvj0PnAbL+kRhA82vowLBzcZtXMhzIIjDB5q+SHiST+PYUgLG
+	 YsmTrNns1vjWHwJiQhCE9ZuFDGDPa1Q4pG0l+VD32ORv3gKeKbRQAbTHE+S/2eMVPL6vI
+	 YkyWHMS943bFlgWwhGphXwKOHc184GSG/UvuhQWPbNBCEqlQgvXf8urtmu2EtuhsRXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793650336;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=35huFANGVg4RT6AeDQ1nJ0dNPSmmlMv3374wgFMWx8c=;
-	b=ET99jebaSlO066lphUJtuAP7jhOhGT/EEZlR9tGG8kjH5qDM9guAi73BkshJ/EipPRUs
-	 kXSqsMFifAfu6fkyAzGQY05dMwtpIYuFW+VkAvk1hJ8M9UHvSPOSCQMoqldm8krJNlqzh
-	 Wy6r/H9lLztq4IU2fhzbXGXfuXYtmqrIBnrvsuipY/PqqIzuL5MyFw/ja5F6U0/pTvIJB
-	 7IQRbrBIadrWjWRLrJD9dz9pN9q62EDNMDCKzqgDu2ZJyNXvgGuD/RtodJBWceEe8gMVC
-	 3jJxx79WZtNhrZAnRAtiNbEoki0K7txYh7MjZCnxf1LvrzwmW2Lk30+OxvxsZZov0BQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793650395;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=L2gEpleCd13p+gM0N/gkP9xykl7jsD9jHrOnDwV/TOQ=;
+	b=fbrps37wWImJ/4pGQCwbCgrU7FIt7wuflGRlvA3p+W0EVkFowHj0kPmFYqUFUCG3xvK3
+	 ynnpyiQxRaP5WndWPnG2aChw0xibOMU4OVQXc0+WRi8n68IKJ1lW/h7D9cRQd7MD8SBC3
+	 xCJrWuEnPlLzww7EaUkz+5ulrJ8/NJnThN27rUV1GTyzxXpQbOdpUvHFT/53DAJxZe+iF
+	 g72b70Dw/FBBbRjBghEMZbB4r4bIvEchcQ0uNyN1G2ILKew8PK5O0P604dWjFnKk71Axu
+	 obb1uAjEWH0k2PFEvZ8swajh0COiiNM04MzV5/XGBEgk29zxJCfXc3PdkufDNTj0wpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kl9uytlD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MmSV0NDv;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA8A606A329;
-	Mon,  2 Nov 2026 20:12:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96EE606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:13:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A96EE606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kl9uytlD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24EBB1F00A16;
-	Mon,  2 Nov 2026 20:12:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793650336;
-	bh=35huFANGVg4RT6AeDQ1nJ0dNPSmmlMv3374wgFMWx8c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Kl9uytlDZhW8RhoEg4o+yb1fuh9I16AOtEhcs5v+o3fRyWsFug/1MJAuB7eFLYSPu
-	 xGQeX0f8yxkntDGREQf22bSfGNbUAG8kPJWikr7/Qxg214f5D+gcnpD5tBEQ2K1K6W
-	 f9AnvygYFwfYc6Ot7SQ2CQPrvCFs5yaaYMEJmCJEk0hzEzuMbjvbMh6QHytDyn7G8L
-	 mOmjnglfLCLEJHVbDm7EEHg+0zfsJr8ajNywum/+LM4fIMIqN9wkt/tuDk6oFDsxwG
-	 eUL4XlwEYyRhiHYfRkl7JyDbDjehnrtiXwOE+FfRqQgWrFog3vdEB00mJwuPdx90kR
-	 QmFhWtIek7hug==
-Subject:
- Re: [PATCH net] octeontx2-pf: fix XDP frames freed as skbs on interface down
-From: netdev-bot+sashiko@kernel.org
-To: nb@tipi-net.de
-Cc: sgoutham@marvell.com, gakula@marvell.com, rkannoth@marvell.com,
- sbhatta@marvell.com, bbhushan2@marvell.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, sumang@marvell.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Date: Mon, 02 Nov 2026 20:12:14 +0000
-Message-ID: <179365033465.3131.17188664588787330051@kernel.org>
-In-Reply-To:
- <20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504@tipi-net.de>
-References:
- <20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504@tipi-net.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MmSV0NDv
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a208d93758so36579695e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:13:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793650393; x=1794255193; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L2gEpleCd13p+gM0N/gkP9xykl7jsD9jHrOnDwV/TOQ=;
+        b=MmSV0NDvusZz1hnlGyvqH9FGRNZmkYXSSPUBGZ9aWE8hBkP1gA1S84f28JHu3Q+fx4
+         BbxJzw8iFTkIWHedRtb5zP/sMHHyw0rS0m4/9xpAzCKQlbrJU+XJ1RFjP7Pts+malEhH
+         GfC/iGJ/b/NZWaY2nrOZr64AQPXUy6yb/miV725si3g2Zq4p5UTTGejXX8aJEhQ6RoBQ
+         FSNl2DzJ4Zp09b7qEHkWTHLcvUVjibmtc/3OucJfYU12u5xUQ7Ms27ql10t70oIiJyLP
+         v63o0HjQGe1M1EHsuyGHqtieBL+2hLHmv/9iqzRhPj/INNxY24a+ckyrqtbOiBuROVuR
+         znRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793650393; x=1794255193;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L2gEpleCd13p+gM0N/gkP9xykl7jsD9jHrOnDwV/TOQ=;
+        b=bvo6ryNXDJs6PRPj68EYJ9OG8rw7CwY9y8c45omkHpXcTuXPuhSg6WnaNDBdFS+y/I
+         RFqgbXvfNZZ1z4JBpuQFGnu3TfDywKfkc8UZaiHsJtT5AdmDRmu7nY/5o4QGxpck9Lul
+         MbwgIlJngC2idh2LqXfhBMyH72iZaqyyvLpEyFvWupY6IdgTds7FV4VtisMOB6UBLBv5
+         U9DIRVy1pt+knjx8d8jzdtxIsKZ0n38MHdS3ZduFmCs+Jdhn5vOY5f+VHg9ieL+pi9F3
+         aHTyKIajT6UaG24cF9Z+SCAGBLHt8Gcf8kQcCrdf3zG9p+ZEvDWSZxWcB0ZoBj4f2UO8
+         K2SA==
+X-Forwarded-Encrypted: i=1; AKwUvBzsAMISzhF33VNbw8wMG1Mm+90799mx4d/oiOXO34rnfUkDQTPUGqCNTdBTLo+Xj4E+iW4q7zJNW4ACWzM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLR8G62s/y8NUVjjgyBOJMMkZ2bvkdsXhfLlIKSQESNuowB87fF
+	t1iRu+15LSiai/0rTIlf3KUIIc+ZtYaDA1r0aJ+FmDaUoRLTjEveeqUXhveD9X+g0rI=
+X-Gm-Gg: AYBFou1haBxpV+sr3nm4w4X/Zo7dL19x4DWf2yjCiH0IGv5+ff7nklsABBf1yqsSCq2
+	gKZJK3OHnB3mfnaMMpIPEiWyUJCMa2HXOPOMJ+ygpFRI/Y8ybMcd/CP5z91dx241cTMfKU+8DaY
+	NYJideH8Y0f+lzdBzaR3gw3getUJ1jmJJLrbFwqv5tkHxC4O/6FCB0lR9Vsxp+JH+Dg0ABkmeIC
+	TGHcM4rqrtaorc5HYTOshqyXKdj9YamzkFl4JvEHBY0oJx7t9GA5s/iChuXQnIfeNRdEanFRBWW
+	562XKDSD9g1fIKfP+WHA7SuRzHcAqeMDlDQCtduEOvGugrHBNqGYIpZNDrZqvTtzNvLdgixf8DM
+	QE06mYMl000M63z+vljpMnPO7eMhlFAUp/WnCAQ0p2mXdsS7h/kXJh2J0gyJDZ7FRG9XZPqUh6h
+	3ckVlDJ5L6DtLlptSPNaMGEc+j7uM/4ZfuUuprCM0aiZgiPvW4xcUiSUANvZ2xg1vNlVzebn9qx
+	xD3ZYYutX2JWdSfzPFzByXjugdT22OCCs4nZuomPlNkhqcSPwUzeJF+WNvwiKohz+gRV6rNyhJJ
+	e6XbqYxoDYaNcGWSude1K3QQCLDsqQXrsJKk8JZH0rhhxw8WikFtGNmbI5As
+X-Received: by 2002:a05:600c:840e:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4ac17d168b1mr286479175e9.11.1793650393215;
+        Mon, 02 Nov 2026 12:13:13 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6412:7406:ded:3229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a82cf248sm13969155e9.2.2026.11.02.12.13.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 02 Nov 2026 12:13:12 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v4 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+Date: Mon,  2 Nov 2026 21:11:54 +0100
+Message-ID: <20261102201155.10948-2-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261102201155.10948-1-olivier@mgcrea.io>
+References: <20261102201155.10948-1-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,269 +109,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 (3) · Medium: 2 (1) · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The new CQ_XDP branch in otx2_cleanup_tx_cqes()
-  (otx2_txrx.c:1352-1355) sends XDP CQEs to…
-- [Medium] octeontx2-pf: missing xsk_tx_completed() call in
-  otx2_cleanup_tx_cqes()
-
-Pre-existing issues:
-- [High] Nothing fences otx2_xdp_xmit() (ndo_xdp_xmit) off from XDP SQ
-  teardown on the 'XDP program is replaced' path the commit message…
-- [High] otx2_stop() calls only napi_synchronize() for each CINT
-  (otx2_pf.c:2267) before otx2_free_hw_resources() (line 2277).
-- [High] In AF_XDP zero-copy mode, otx2_xdp_rcv_pkt_handler()
-  (otx2_txrx.c:1520-1527) runs the BPF program on xsk_buff and does…
-- [Medium] otx2_free_pending_sqe() (otx2_txrx.c:1408) only walks `sq_idx
-  < pfvf->hw.tx_queues`.
-
---
-
-octeontx2-pf: fix XDP frames freed as skbs on interface down
-
-With this patch, otx2_cleanup_tx_cqes() passes CQEs from XDP completion
-queues to otx2_xdp_snd_pkt_handler() instead of treating sg->skb as an
-sk_buff. Before this, pending xdp_frames on XDP queues were freed with
-dev_kfree_skb_any() on ifdown or XDP program replacement, which corrupted
-page pool memory.
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-> index 90af9b9044aa0..e3b07e5335fb8 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
-> @@ -1332,6 +1332,7 @@ void otx2_cleanup_tx_cqes(struct otx2_nic *pfvf, struct otx2_cq_queue *cq)
->  	struct nix_cqe_tx_s *cqe;
->  	struct netdev_queue *txq;
->  	int processed_cqe = 0;
-> +	int xsk_frames = 0;
->  	struct sg_list *sg;
->  	int qidx;
->  
-> @@ -1348,6 +1349,10 @@ void otx2_cleanup_tx_cqes(struct otx2_nic *pfvf, struct otx2_cq_queue *cq)
->  
->  		if (!cqe)
->  			continue;
-> +		if (cq->cq_type == CQ_XDP) {
-> +			otx2_xdp_snd_pkt_handler(pfvf, sq, cqe, &xsk_frames);
-> +			continue;
-> +		}
-
-[Severity: Medium]
-The new CQ_XDP branch fills in xsk_frames, but is it ever used after
-the loop?
-
-For entries flagged OTX2_AF_XDP_FRAME, otx2_xdp_snd_pkt_handler() only
-bumps the counter and returns. It leaves it to the caller to publish
-the completions. On the NAPI path, otx2_tx_napi_handler() hands the
-count to otx2_zc_submit_pkts(), which calls xsk_tx_completed().
-
-otx2_cleanup_tx_cqes() never reads xsk_frames and never calls
-xsk_tx_completed(). It still rings NIX_LF_CQ_OP_DOOR for those CQEs,
-so the hardware considers them consumed.
-
-When otx2_zc_napi_handler() queued these frames,
-xsk_tx_peek_release_desc_batch() had already consumed the TX ring
-descriptors and reserved completion ring entries for them. Consider
-an AF_XDP zero-copy socket that is transmitting while the interface
-goes down or the XDP program is replaced:
-
-otx2_xdp_setup()->otx2_stop()->otx2_free_hw_resources()->
-    otx2_cleanup_tx_cqes()
-
-Do the completions reaped here then never reach the XSK completion
-ring? If so, userspace would never get those UMEM frames back. The
-reserved completion ring slots would also stay reserved across the
-down/up cycle.
-
-sq->xsk_pool is still attached at this point. It is only cleared in
-otx2_xsk_pool_disable(). Would calling
-xsk_tx_completed(sq->xsk_pool, xsk_frames) after the loop, when
-sq->xsk_pool is set and xsk_frames is non-zero, be the right fix?
-otx2_zc_submit_pkts() itself doesn't fit here, since it also submits
-new TX descriptors.
-
-[Severity: Medium]
-Should xsk_frames be reported back to the XSK pool after this loop?
-
-For AF_XDP zero-copy entries, otx2_xdp_snd_pkt_handler() only counts
-them:
-
-	if (sg->flags & OTX2_AF_XDP_FRAME) {
-		(*xsk_frames)++;
-		return;
-	}
-
-In the NAPI path, otx2_tx_napi_handler() passes the count to
-otx2_zc_submit_pkts(), which does:
-
-	if (*xsk_frames)
-		xsk_tx_completed(xsk_pool, *xsk_frames);
-
-otx2_cleanup_tx_cqes() fills xsk_frames but never reads it. It then rings
-NIX_LF_CQ_OP_DOOR for those CQEs anyway.
-
-Take an AF_XDP ZC socket that is transmitting while the interface goes
-down or the XDP program is swapped:
-
-otx2_xdp_setup()->otx2_stop()->otx2_free_hw_resources()->
-    otx2_cleanup_tx_cqes()
-
-Do the completed descriptors then never reach the xsk completion ring? If
-so, userspace never gets those UMEM frames back. The completion ring slots
-reserved by xsk_tx_peek_release_desc_batch() would also stay reserved
-across down/up cycles.
-
-sq->xsk_pool is still attached at this point. It is only cleared in
-otx2_xsk_pool_disable(). Would adding something like this after the loop
-work?
-
-	if (sq->xsk_pool && xsk_frames)
-		xsk_tx_completed(sq->xsk_pool, xsk_frames);
-
-otx2_zc_submit_pkts() itself does not fit here, because it also submits
-new TX packets.
-
-[Severity: Medium]
-This is a pre-existing issue, but it is on the same XDP teardown path.
-otx2_free_pending_sqe() only walks the regular TX SQs:
-
-	for (sq_idx = 0; sq_idx < pfvf->hw.tx_queues; sq_idx++) {
-
-So nothing checks the XDP SQs for SQEs the NIC never completed.
-otx2_sqb_flush() does not wait for the queue to drain. It sleeps once per
-non-empty SQ:
-
-	if (sqe_head != sqe_tail)
-		usleep_range(50, 60);
-
-XDP SQEs with no CQE can therefore still be there after
-otx2_txschq_stop(), for example under PFC pause or link loss.
-
-Is the xdp_frame in sg->skb ever returned for those entries? For
-OTX2_XDP_REDIRECT entries, is the DMA_TO_DEVICE mapping created in
-otx2_xdp_xmit_tx() ever unmapped before otx2_free_sq_res() frees sq->sg?
-
-Widening the loop would not work as-is, because it uses
-dev_kfree_skb_any(). The XDP SQs need an XDP-aware release.
-
-[Severity: High]
-This isn't a bug introduced by this patch. The commit message mentions
-"when the XDP program is replaced". On that path, is ndo_xdp_xmit kept
-away from the XDP SQ teardown?
-
-otx2_xdp_setup() calls otx2_stop() directly and swaps the program only
-afterwards:
-
-	if (if_up)
-		otx2_stop(pf->netdev);
-
-	old_prog = xchg(&pf->xdp_prog, prog);
-
-So during teardown netif_running() is still true and pf->xdp_prog is still
-set. Those are the only two things otx2_xdp_xmit() checks:
-
-	if (!netif_running(netdev))
-		return -ENETDOWN;
-
-	qidx += pf->hw.tx_queues;
-	sq = pf->xdp_prog ? &pf->qset.sq[qidx] : NULL;
-
-There is no OTX2_FLAG_INTF_DOWN check and no lock.
-otx2_xdp_sq_append_pkt() also writes sq->sqe_base and sq->sg[] without
-locking.
-
-Suppose another device redirects into this one through a devmap
-(xdp_do_flush()->bq_xmit_all()->ndo_xdp_xmit()) while otx2_stop() runs:
-
-otx2_free_hw_resources()
-    otx2_cleanup_tx_cqes()
-    otx2_free_sq_res()      /* kfree(sq->sg), qmem_free(sq->sqe) */
-otx2_free_queue_mem()       /* kfree(qset->sq); qset->sq = NULL */
-
-Can the redirect path then write into freed sq->sg or SQE memory, or
-dereference the NULL qset->sq?
-
-otx2_stop() only synchronizes this device's IRQs and NAPIs, and there is
-no synchronize_net(). Frames appended during teardown would also leak
-their xdp_frame and DMA mapping.
-
-[Severity: High]
-This is a pre-existing issue, but can NAPI run at the same time as this
-cleanup loop? otx2_stop() does:
-
-	cq_poll = &qset->napi[qidx];
-	napi_synchronize(&cq_poll->napi);
-	...
-	otx2_free_hw_resources(pf);
-	otx2_free_cints(pf, pf->hw.cint_cnt);
-	otx2_disable_napi(pf);
-
-napi_synchronize() only waits for a poll that is already running. The
-NAPI is still enabled, so socket or AF_XDP busy polling (napi_busy_loop())
-can claim it again. It then processes the same XDP CQ:
-
-otx2_napi_handler()
-    otx2_tx_napi_handler()
-        otx2_xdp_snd_pkt_handler()
-
-This loop and the NAPI path both update cq->cq_head and cq->pend_cqe
-without a lock. Could both pick up the same CQE and call
-xdp_return_frame() twice on the same sg->skb? Or could one call
-xdp_return_frame(NULL) after the other has cleared it?
-
-There is a second window later in otx2_free_hw_resources():
-otx2_free_cq_res() frees the CQE memory while busy poll can still run the
-handler.
-
-The same race existed before this patch for both the skb and XDP CQs.
-
-[Severity: High]
-This isn't a bug introduced by this patch. However, the new branch adds
-another consumer of sg->skb values that may be bogus in AF_XDP zero-copy
-mode.
-
-In otx2_xdp_rcv_pkt_handler(), the ZC branch jumps past the
-initialization of the local xdp_buff:
-
-	if (pool->xsk_pool) {
-		xsk_buff = pool->xdp[--cq->rbpool->xdp_top];
-		...
-		act = bpf_prog_run_xdp(prog, xsk_buff);
-		goto handle_xdp_verdict;
-	}
-
-The XDP_TX case then uses &xdp rather than xsk_buff:
-
-	case XDP_TX:
-		...
-		xdpf = xdp_convert_buff_to_frame(&xdp);
-		return otx2_xdp_sq_append_pkt(pfvf, xdpf,
-
-xdp_convert_buff_to_frame() reads xdp->rxq->mem.type and writes the frame
-header at xdp->data_hard_start.
-
-Doesn't this dereference uninitialized stack data on every XDP_TX verdict
-in ZC mode?
-
-The resulting pointer is stored in sq->sg[].skb with OTX2_XDP_TX. Both the
-NAPI completion path and the new CQ_XDP branch later pass it to
-xdp_return_frame().
-
-The XDP_PASS case has a similar problem in ZC mode:
-
-	case XDP_PASS:
-		*metasize = xdp.data - xdp.data_meta;
-
+Content-Transfer-Encoding: 8bit
+
+The X1600's SAR ADC has four auxiliary channels and none of the
+touchscreen or battery engines of the JZ47xx ADCs in ingenic,adc.yaml,
+so it gets a binding of its own.
+
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+---
+ .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 53 +++++++++++++++++++
+ MAINTAINERS                                   |  5 ++
+ 2 files changed, 58 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+
+diff --git a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+new file mode 100644
+index 000000000000..f6356ea97980
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+@@ -0,0 +1,53 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ingenic X1600 ADC
++
++maintainers:
++  - Olivier Louvignes <olivier@mgcrea.io>
++
++description:
++  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input channels
++  measured against a 3.3 V reference.
++
++properties:
++  compatible:
++    const: ingenic,x1600-adc
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  '#io-channel-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - interrupts
++  - '#io-channel-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    adc@10070000 {
++        compatible = "ingenic,x1600-adc";
++        reg = <0x10070000 0x30>;
++
++        clocks = <&cgu 28>;
++
++        interrupt-parent = <&intc>;
++        interrupts = <11>;
++
++        #io-channel-cells = <1>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ecc22d1149d1..fd4bb5c6bf16 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12925,6 +12925,11 @@ F:	include/linux/mfd/ingenic-tcu.h
+ F:	sound/soc/codecs/jz47*
+ F:	sound/soc/jz4740/
+ 
++INGENIC X1600 ADC DRIVER
++M:	Olivier Louvignes <olivier@mgcrea.io>
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
++
+ INJOINIC IP5xxx POWER BANK IC DRIVER
+ M:	Samuel Holland <samuel@sholland.org>
+ S:	Maintained
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030-nb-otx2-xdp-cqe-cleanup-net-v1-1-710635c0f504%40tipi-net.de
+2.54.0
+
