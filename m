@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614721;
-	b=a3HJhPfphVZqp3c8WRNeXJ46UYDYnkAn1FuKLtJ5LDiZzq60vh0RCGWt3HUOYYhsWEIz
-	 mSRF71QGLKZUVED6q8Z+DN0qSqdZgUBS620DfxHxl+9c5l0AR8r+MDaup1xKU6TZerKa6
-	 yAVCc8Q4LlxRXMW8cfQoDx+PP03QZNSfiVKDhufVTPxNUCSskqm5LrN/GqIiCiJ/1ZiSv
-	 SXs4HESL1Qk41dxiWJUoJ22n/FhrAWufdgIz9AsgrB7ZfA4/LQpknjM0hN6i2wIG93O2N
-	 cC0k0awNXk8AMi222fr0ZVfghQkfmxwcZOTKSa1I/yAK9qGW7HpwsPmTL5Ov66jp1eQ==
+	t=1793614727;
+	b=w+36tvTiwqVSXVBcVmAn21EgK0LKKPIx91DnBde8R4XRk8PvFy+RbCH1BF5QOnAU3cGG
+	 1jhUbfGUkC2MTDqGaaktPenAP+zuQaHJfK2bTOpt7/yA3m/4H1oQG7qE5kx9Grv05W30J
+	 15AmqACEtRT2N6FXDw9kDsdOTBVfsthT+tCVvnYppi2NnB8afYihqbo01bz5MLtQ2M1UN
+	 aO5+QwWIuxJTFAc3rN5qEphX2fbtym5VkjOGGxDjsuVAZ7RNagvqbfNPBKukqsduAJhO0
+	 tECLsjgglKt0voXC9QATuTwyhk7Kdj7FkEODfMk5qPZ2nuv1nMiIqtFFnqqk/Y3mFGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614721;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614727;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer;
-	bh=AhUm2tRgdmS7ZkPk5TUVWoc0pWoU9lL6iWD8QKMf5pM=;
-	b=b1dKqUb9q4WeKTSMSgYhlyXitBVEkXPET6M1Aq56fWBv8BxhJ5zvrQFvN3HH2ceOBes5
-	 eY/d6Tk0DYunWgaac0o4DAoHaAcX3Wtsk8IjMXV2KPV99blfJad3wLXOS9yNldHzSk0Uo
-	 oc1cKRC9ERQaelwIKsAwJl8d0SzDl0aGtrKmx8Qx8R5i7UfNmlfISlVqaUAuqYPGYi6hj
-	 B8MDh000mFH4NAy3otS1oDwJdPANKy1ngTwHzzqJWGu89KQ6SRXTIceN/uFNVHQFWvuLI
-	 bxsPoP0NYtg7APawkZVNe/8wpE361REAtqVsIyE2B5EOs73D7bstx+Edzzo7kj+NAbw==
+	bh=c3eJZ//o+zBRx3n+KRLGGi0fci9Wz/AyVLE2s2T174o=;
+	b=q7y49i0PkxRARTYB3ghIJsZjFqYWf1QJJR2M6MnlfY/7dA7CQZpQMqmrxWxjY4R9z1XU
+	 jnmHauDakGiJyguQGs8EIwe4JgZiHYrMPuvoChS6TK/9+mwJuV7o7gyj5CRjxuQskIG2b
+	 Vdj+he+BKqr1cqVDIuQ/isEjWVIN3oN6mMflEXWHF1LBzH0XOuJdCeHei61tLmEc4yqEk
+	 4NFcYjIOHmkGf/KV1kon3Jmwfe5Zc4/zqozs1EePOsNuIjOhByctg2DVN3jnjRYrQjkAo
+	 VVqus9sMjF3lzMb8viRpP0aPjzhE13s5FyzEK5DKt7K5KhbjlM7YBRdUvDcsyRYgPZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=am21LAGB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gyInaQOF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4351C60A2605
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:18:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B64E60A2608
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:18:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=am21LAGB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D58A1F0093A;
-	Mon,  2 Nov 2026 10:18:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gyInaQOF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF8E1F00A02;
+	Mon,  2 Nov 2026 10:18:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793614721;
-	bh=AhUm2tRgdmS7ZkPk5TUVWoc0pWoU9lL6iWD8QKMf5pM=;
+	s=k20260515; t=1793614727;
+	bh=c3eJZ//o+zBRx3n+KRLGGi0fci9Wz/AyVLE2s2T174o=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=am21LAGB5HRWVCWqnzuh7hVK0cQAmPz5dPPwvgfhJ+LNbm+kmxRyM1nrj/cayH9pa
-	 +vBfMVhno74jeDQKsFDXNcDIX/mWNPW0ULJhZ3UT/nV9eRGvwiLU6N8TCrnduf2PzC
-	 GHln9Gza4A/xSHIsThHNfW6ipW6QFJfmNmKkSGXackF3ObYvHk6/jF4o6kMNOwyMbA
-	 WTFCeY47F81AXa6ao0VEHuHrXSjPDofVuTVlW1pP4MXLZ1bB4T2cxxszl6o5ac2WRJ
-	 /vZPTNvDdZt+lm62aBQ5j60rt8gFmGvc5yTCeVGK9FwKeJgtcH+fxQIyGmNHfDh8wE
-	 D/3oLIPaZNWCA==
+	b=gyInaQOFfRk2e8yXMRdWTkcW2xNGEoKXhOZcYvM6/2GQKtqSZVoEsnj5gIUQfcCzK
+	 p0Bk+llE7u7gMGjxOI5l5DDOSt/dAy9KEyLCodoVh+7CWYZhCIoozanNq8HBEhBnv2
+	 1frGVJq2z1DHseRGJ/5WlY2pnzlZQ2jGY8lyEi5NPWt23IX6BEtdIcEPhPBaTt4dj8
+	 S/+PYEzRrZpZJvIOc+7blXSJ+XZ43xJv17EUpOZ89UuW4+hKhNiiTpsup1AxsWqe1f
+	 zJE2aWk+JidwXS/3ApvchfmM5gClDmwQDXIyHA5iVM0MCCNJZlm2NGsw057Ag/zcKW
+	 AGSk5Ll3O/xvA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,8 +51,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 02/12] mm: hugetlb_vmemmap: unify
- VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
+Subject: Re: [PATCH v2 04/12] mm: hugetlb_vmemmap: generalize vmemmap page
+ allocation
 From: Mike Rapoport <rppt@kernel.org>
 To: Muchun Song <songmuchun@bytedance.com>
 Cc: Oscar Salvador <osalvador@suse.de>, 
@@ -61,75 +61,80 @@ Cc: Oscar Salvador <osalvador@suse.de>,
  James Houghton <jthoughton@google.com>, 
  David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
  linux-mm@kvack.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261102032525.3597743-3-songmuchun@bytedance.com>
+In-Reply-To: <20261102032525.3597743-5-songmuchun@bytedance.com>
 References: <20261102032525.3597743-1-songmuchun@bytedance.com>
- <20261102032525.3597743-3-songmuchun@bytedance.com>
+ <20261102032525.3597743-5-songmuchun@bytedance.com>
 Date: Mon, 02 Nov 2026 12:18:31 +0200
-Message-Id: <179361471103.1337633.14353990207430443405.b4-review@b4>
+Message-Id: <179361471104.1337633.3959715900505206111.b4-review@b4>
 X-Mailer: b4 0.16.1-dev
 
 Hi Muchun,
 
-> VMEMMAP_SPLIT_NO_TLB_FLUSH and VMEMMAP_REMAP_NO_TLB_FLUSH do not
-> describe fully independent choices. A split-only walk can defer the
-> PMD-split flush to a later global flush, and a remap-only walk can
-> defer the final remap flush. However, when a PMD split is followed
-> by PTE remapping, the split flush must happen before the PTEs are
-> changed, because stale large-page translations must not overlap with
-> new small-page translations that map different physical pages.
+> Vmemmap page allocation is currently tied to restoring a virtual range
+> and assumes an empty destination list.  These constraints prevent it from
+> being reused when pages are requested independently of a vmemmap range or
+> appended to an existing list.
 > 
-> Replace the two flags with a single VMEMMAP_DEFER_TLB_FLUSH flag. The
-> new name reflects that only safely batchable flushes are deferred. Keep
-> split-only walks able to defer the flush, but force the split flush
-> whenever a remap_pte callback is present. Callers that batch HVO work
-> can still defer the final remap flush and issue their own global flush.
-> 
-> Current callers keep the same flushing behavior.
+> Generalize the allocator and give it an all-or-nothing list contract so
+> the restore and optimization paths can share the same allocation policy.
+> This also allows HVO head-page allocation to fail gracefully under memory
+> pressure without triggering the OOM killer.
 > 
 > Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 > Reviewed-by: Lance Yang <lance.yang@linux.dev>
 > Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
 > ---
 > v2:
-> - Rename the unified flag to VMEMMAP_DEFER_TLB_FLUSH and update its
->   comment (suggested by Qi Zheng)
-> - Update the commit message for the new flag name
 > - Collect Reviewed-by from Lance Yang and Qi Zheng
 > ---
->  mm/hugetlb_vmemmap.c | 23 +++++++++++++----------
->  1 file changed, 13 insertions(+), 10 deletions(-)
+>  mm/hugetlb_vmemmap.c | 39 ++++++++++++++++++---------------------
+>  1 file changed, 18 insertions(+), 21 deletions(-)
 >
 > diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index 4b73d6ec8dcea..63e899cfaac3a 100644
+> index 0e5b2b182d1bf..4b20a8efc0678 100644
 > --- a/mm/hugetlb_vmemmap.c
 > +++ b/mm/hugetlb_vmemmap.c
-> @@ -42,10 +42,8 @@ struct vmemmap_remap_walk {
->  	struct list_head	*vmemmap_pages;
+> @@ -334,28 +334,26 @@ static int vmemmap_remap_free(unsigned long start, unsigned long end,
+>  	return ret;
+>  }
 >  
->  
-> -/* Skip the TLB flush when we split the PMD */
-> -#define VMEMMAP_SPLIT_NO_TLB_FLUSH	BIT(0)
-> -/* Skip the TLB flush when we remap the PTE */
-> -#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(1)
-> +/* Defer safely batchable TLB flushes to the caller. */
-> +#define VMEMMAP_DEFER_TLB_FLUSH	BIT(0)
->  	unsigned long		flags;
->  };
->  
-> @@ -85,7 +83,12 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, unsigned long start,
->  		/* Make pte visible before pmd. See comment in pmd_install(). */
->  		smp_wmb();
->  		pmd_populate_kernel(&init_mm, pmd, pgtable);
-> -		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
-> +		/*
-> +		 * Modern MMUs allow overlapping TLB entries with different mapping
-> +		 * granularities only if they map the same physical address. So
-> +		 * remapping must not proceed without first flushing the TLB.
+> -static int alloc_vmemmap_page_list(unsigned long start, unsigned long end,
+> -				   struct list_head *list)
+> +static int alloc_vmemmap_page_list(struct list_head *head, unsigned int nr_pages,
+> +				   int nid)
 
-Are we certain that *all* modern MMUs for *all* architecures that 
-support hugetlb are fine with skipping TLB flush after a split?
+Please indent with two tabs, like David likes :)
+Applies throughout the series.
 
-AFAIU, x86::set_memory always flushes TLBs after a large leaf is split.
+>  {
+> -	gfp_t gfp_mask = GFP_KERNEL | __GFP_RETRY_MAYFAIL;
+> -	unsigned long nr_pages = (end - start) >> PAGE_SHIFT;
+> -	int nid = page_to_nid((struct page *)start);
+> -	struct page *page, *next;
+> -	int i;
+> +	LIST_HEAD(local);
+
+Can we use a better name here please? E.g new_pages?
+
+>  
+> -	for (i = 0; i < nr_pages; i++) {
+> -		page = alloc_pages_node(nid, gfp_mask, 0);
+> -		if (!page)
+> -			goto out;
+> -		list_add(&page->lru, list);
+> +	for (unsigned int i = 0; i < nr_pages; i++) {
+> +		struct page *page;
+> +
+> +		page = alloc_pages_node(nid, GFP_KERNEL | __GFP_RETRY_MAYFAIL, 0);
+> +		if (!page) {
+
+I think goto err_do_cleanup is cleaner than ad-hok cleanups
+
+> +			memmap_pages_add(i);
+
+This is confusing. Updating counters only to use
+free_vmemmap_page_list() seems worse choice than walking the list and
+__free_page().
 
 -- 
 Sincerely yours,
