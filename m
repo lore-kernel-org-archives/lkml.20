@@ -1,86 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793598962;
-	b=YavxbU5EMo1ezAd4Cj3l8VBm4jRbc+w+2nJCDUqF7BApcpVMNppvjcDvKpAzBb++nwsq
-	 mvjJxwP7e/4xrt1U4luzeAZYrYzB9eSNnlMGKmP8krumpu8sW/DU548stjQNUX5rz9hrh
-	 fbadN7rbs9zW7nyU+zDORh6K6ryHrOFAFteAvE7i2W5XPny9JwF6c103OlRFwIO514rIe
-	 zE0Jl0+00iYELKUbxHgJAISJuIRKFeCYEuJQiJtwMJzkZeDX+brt6LfAElaL3bsVKw292
-	 ITomeniGyHb+1veNHQtPWWQeSRrDwWRicjVQ4tfzaCM0WMaMZNWIYL2fCAkh37M/wVQ==
+	t=1793598971;
+	b=klGqV/5wVlShOELQZAblrzN4XKsMoW0GT2hLxPVLBVboaXKH7CD3QgaFGdXfmHvt29ra
+	 CVMtD/4ed2suaUrnpLEcA5wWtbVcn0IrxyTVt+wtsCsWXERmUocNkIv2Q8HVcAP6uF6uK
+	 NJhQekk9aCx99b+cyxlNHPW3VTwvzs4n359K2g1vTchfkW0X3FWcTfP1Jx0TXTxvQIEIB
+	 Qk8TdOCyZ0JufW66pkBoag7EZJhPvBDrmCaoieC0vQqAZGpC6RSBLSqj+ZrdG4KCoNRln
+	 Hs0In/PGKUkrXnQu/z4n5ese9ej99PlBFtt0ZQ5Os1Zsve2wSkAIx4vam3v7VgOFB2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793598962;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=galmyEn4LbKSLuawhs4ZGQeiueItg3W/HcKq5KP6Bgs=;
-	b=vzkMZdVvmgQyjU5YcZ01n0KmtEVBlLrTtZxF/afaprf07O57UsshoN1T6bqH2ts4/O8T
-	 8W/ZYio3AKMohrNDA0hYdgrNeMaUEiwYpugTCmrsR+q2YWnGSIPwD9Rnh2SGhncQCskjA
-	 srrm+R+RgmsBCnYDpRHJwnzUhavayJH7fB7tiHBOrYyplbILYR9neHQ/3dmi3gIWsTXXr
-	 i+VO1Uxq6+j9mP5hGNo5sWhjGLU15L6acyRnoypPfAWoetXc3Gz0Y63n5b57j3nu5cGNy
-	 royho+hP6GnIcuF3apjkTT+ddD4DzsQ7RalOC7qu6KgBGmp14uYqsTF+3A6oWypWcYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793598971;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=r+LdBIHCx3xFpmmXmfjQ7dIttrGlXH189zCxedD97ds=;
+	b=KD/mWJzndQ9T27ewHE4CEfqDXXu1WhkHfjk6fjxxp99W1Gij14Tutw6bowjIZ+sb5O+9
+	 jBoem2xt1RvRP1+zr6BxovKCsKTEPtAmpQZNUQfRA+zMrJ7Lv57Lnkwl596reYVWbhYPm
+	 gpT5ZAVdC0ueDON4NefI2D7kzUuNMWtrRP6g2LGUS9cOqIUwJH1tgAE9WYHShIUEEENJo
+	 fN6ktcy3/OfQwkWR8ug8v3vPJl90h/j5C2wyBJ/WsR8K5dQIwxAnebMhX3Cwq0n1b2BZu
+	 ypcGQjLg60kek+YMhEBoZAEGXhp0n7kcfRk6byvo2fGBKoL2wQrnmtsCrh2jOVI96gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=joEgN+t6;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=UMGOGZ8x;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCA3606A326;
-	Mon,  2 Nov 2026 05:56:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BCA3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD250606A32D;
+	Mon,  2 Nov 2026 05:56:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD250606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=joEgN+t6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1793598959;
-	bh=galmyEn4LbKSLuawhs4ZGQeiueItg3W/HcKq5KP6Bgs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=joEgN+t6NvoovW7oKCyZDr2eqdix+/duqp4PMFPCW3+RRwMNBkk04YEGTrQqXFBfa
-	 tCJu2UBAyLCb6xV2/OxjkIAgqYEwt8p4FKq7NIXZ8waf1xyRvl97ugJ8Az60PQtVde
-	 NvMCCJ2xvX1Y80yfKQIMFQPgliXk6vJBrQiVp8GlhsxUBGqyqXyFYipUEdra2x9jW6
-	 7tbTiIxaXd9V6tZX11NmuzG84SPnnozNpGRH4UM+InMJfNnB/aLnlIf/7VxlhdH9xn
-	 720JtOYjZ6d7n7DjPBBG7Dva9h3DRuPJgRgoxCI6V889anGcx67nbuYl1n0zXg5WFV
-	 FmmJo+qfQ9KKA==
-Received: from [192.168.72.161] (210-10-213-150.per.static-ipl.aapt.com.au [210.10.213.150])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 6A55B648DC;
-	Mon,  2 Nov 2026 13:55:57 +0800 (AWST)
-Message-ID: <06e25064f8a5455c12b47033a1a62b94100e7590.camel@codeconstruct.com.au>
-Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
-From: Jeremy Kerr <jk@codeconstruct.com.au>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>, Donald Shannon	
- <donalds@nvidia.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Linus Walleij	
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Lee Jones	
- <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Andi Shyti	
- <andi.shyti@kernel.org>, Mark Brown <broonie@kernel.org>, Jiri Slaby	
- <jirislaby@kernel.org>, Corey Minyard <corey@minyard.net>, "Rafael J.
- Wysocki"	 <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>,  Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
- <ilpo.jarvinen@linux.intel.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>,  Hans de Goede <hansg@kernel.org>, Lixu
- Zhang <lixu.zhang@intel.com>, Danilo Krummrich <dakr@kernel.org>,  Johan
- Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>, Quan Nguyen
- <quan@os.amperecomputing.com>,  Andrew Jeffery
- <andrew@codeconstruct.com.au>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-gpio@vger.kernel.org,
- linux-leds@vger.kernel.org, 	linux-i2c@vger.kernel.org,
- linux-spi@vger.kernel.org, 	linux-serial@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, 	linux-acpi@vger.kernel.org,
- linux-doc@vger.kernel.org, 	driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, Bart Van Assche	 <bvanassche@google.com>
-Date: Mon, 02 Nov 2026 13:55:56 +0800
-In-Reply-To: <2026103015-stained-shudder-1582@gregkh>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
-	 <2026101310-scuttle-unison-d4c3@gregkh>
-	 <c569c912141e9da7530121b8b2fc81527e0518a4.camel@codeconstruct.com.au>
-	 <f3f305a0f3195948bd25ca7eea4348113f998ee2.camel@codeconstruct.com.au>
-	 <2026103015-stained-shudder-1582@gregkh>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=UMGOGZ8x
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1793598969;
+	bh=OTJpLPCmzjTmOMJFVx8CmZ3zTYbaVKxIVqjlCu9jqoY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=UMGOGZ8xezOlEO2UP5GToUiRshdD2dkWlNAm7Lyo5tfUArAUx1P28NpTnjNPKWmXs
+	 UszUzJxy57ASoRl1A3gwW0m+GTK+Us/sPjkGvytYghm4POP1K7dEP5LoJ5bvP1fGvZ
+	 OS0g1sF3gEt8NDcUtNzb0/YzRCwqU3SpwMKCf8nc=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Mon, 02 Nov 2026 03:14:16 +0000
+Subject: [PATCH 1/3] tools/build: Deduplicate the descend commands
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,38 +52,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261102-kbuild-descend-spam-v1-1-caff4f840cb7@weissschuh.net>
+References: <20261102-kbuild-descend-spam-v1-0-caff4f840cb7@weissschuh.net>
+In-Reply-To: <20261102-kbuild-descend-spam-v1-0-caff4f840cb7@weissschuh.net>
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793589258; l=1455;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=OTJpLPCmzjTmOMJFVx8CmZ3zTYbaVKxIVqjlCu9jqoY=;
+ b=eeu8I6/uK2WaoO6ZRqTctDWHR0UC2uqdSy86G8eLFZqOIH1nGtH4N5OtbuzKgs9CbSmdHV5tl
+ A71INdIE4i5BCXRBdt9a+kuuXf85wny34HwuIl8hWIShCe6c141SCW7
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-Hi Greg,
+The verbose and non-verbose variants of the descend command are nearly
+identical. Only the 'echo DESCEND' is different.
 
-> I haven't read all of OBMF, as obviously that isn't what is being
-> proposed here, I was just complaining about the madness of attempting to
-> create a device tree representation for a single USB device that wanted
-> to be carved up into different virtual devices because no one decided to
-> learn from history.
->=20
-> I have other objections about OBMF-ICP, but that's not what this thread
-> is about, sorry.=C2=A0 Please propose your own patch series for that and =
-I'll
-> be glad to criticize it there.
+Simplify the variable definitions to be more similar to the other QUIET
+commands.
 
-OK, fair enough - I'll defer this for an OBMF-ICP submission, rather
-than piling it on to this LSTP thread.
-=20
-> > With OBMF-ICP's super-minimal core protocol, and the use-case
-> > appropriate channels, seems like a suitable approach to me.
-> >=20
-> > The USB-IF has a class ID allocated for OBMF-ICP interface descriptors,
-> > with the intention that we have multiple vendor implementations of the
-> > common protocol; we would like Linux to be one of those.
->=20
-> It's always fun to make a new spec and protocol,
+This will also simplify some other changes down the line.
 
-We seem to have different definitions of "fun" :D
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ tools/scripts/Makefile.include | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-Thanks for the discussion so far, I'll follow up again when we have a
-series to propose. That shouldn't be too long.
+diff --git a/tools/scripts/Makefile.include b/tools/scripts/Makefile.include
+index 378387f62960..db989830bbac 100644
+--- a/tools/scripts/Makefile.include
++++ b/tools/scripts/Makefile.include
+@@ -206,7 +206,7 @@ export quiet Q
+ # Call by doing: $(call descend,directory[,target])
+ #
+ descend = \
+-	+mkdir -p $(OUTPUT)$(1) && \
++	+$(QUIET_DESCEND)mkdir -p $(OUTPUT)$(1) && \
+ 	$(MAKE) $(COMMAND_O) subdir=$(if $(subdir),$(subdir)/$(1),$(1)) $(PRINT_DIR) -C $(1) $(2)
+ 
+ QUIET_SUBDIR0  = +$(MAKE) $(COMMAND_O) -C # space to separate -C and subdir
+@@ -229,10 +229,7 @@ ifneq ($(silent),1)
+ 	QUIET_BISON    = @echo '  BISON   '$@;
+ 	QUIET_GENSKEL  = @echo '  GENSKEL '$@;
+ 
+-	descend = \
+-		+@echo	       '  DESCEND '$(1); \
+-		mkdir -p $(OUTPUT)$(1) && \
+-		$(MAKE) $(COMMAND_O) subdir=$(if $(subdir),$(subdir)/$(1),$(1)) $(PRINT_DIR) -C $(1) $(2)
++	QUIET_DESCEND  = @echo '  DESCEND '$(1);
+ 
+ 	QUIET_CLEAN    = @printf '  CLEAN   %s\n' $1;
+ 	QUIET_INSTALL  = @printf '  INSTALL %s\n' $1;
 
-Cheers,
+-- 
+2.56.0
 
-
-Jeremy
