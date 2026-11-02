@@ -1,99 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.190.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630422;
-	b=QwARy1L0RioFXi+U0a2s+MVOW1/MGDtX8Czn95OlsA54mATExBLlrCcbO5f92yXgQK5N
-	 0uYL2wwjTrICieKaEyUjbeaK1pOOjau6KkmkyH9fKQ5zJCmDYDeNNevYa8cHBgLYogTU6
-	 BhXos5ZdgNGXZaWV19jA2jX+syJC1OOiiI5PL2NbUXLu3Iy3h7HnHGbpBKfSsQQveUaG5
-	 DBtl+Ab7h4Bnk+ZzoRwNQlLIJ2J1XnAoQF7TGnPQQ9nquIGqCdV06Qx95sa47qZPlO/jy
-	 xReNVzTiAgX/BbWOMmqqNgV3vsaRRGssMTdNuKQpW6hUgLuMpGc+kQFor4DkEYBlAGw==
+	t=1793630463;
+	b=ROvm0f+cyEeqzhO2WsEkNDsBXa1Tc5TmczWIO2fncOJcQPTKUjusz+j/kxixhdycW/n/
+	 gJx8G29ZZBMDgLIMERDqMAoS7U6NIcyzXq3sFhbArrFjtO2sY38SfTgvhLAoRhGQOorgm
+	 lREFJ6b9NuXDAGygrP2ASZY6jqUvzo+Bjn0vvIuQoQuWlx1aXUSoPfgY5Nn/XzI7Y9oFD
+	 FnfaQYJG/Pucvijmw3AWMtiNrOLz2q/8p0lyA/FJwvS6EaoQ77W+TsefwHVTTgbTKLFIq
+	 ZePaxWzbJq4C3bFYOD1HNXlGplo8uy70bVJ9mR+KLQl5DWSdBDE4RaytYfnEZd4a4Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630422;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=UizaT5WEzB9VreQHfjKZbh6TJBmKHW201cFNMemllhA=;
-	b=RhdgF9rFwuZlQV1Jf/BvtfWOwEuOLIgKbChGR9FarArZSyzIo5UUx6/UKZSric5i9BYg
-	 I6cDbLxRecQlfBmucgRjSYV3DCti6w2ivqjVOLziKhBqUy2LtQIK/IoPdJ3/bHdwjBqXQ
-	 zbMt9tfukh3Tl7nOF496fWVRH9YOjWvPCOVG5N3cxbjitcB7hm8SYqojRgTLFVoLjDkrg
-	 Gx/hPvPk3pmx2xl4PDmY6TuofIXAMlYrYILPLahZob5RvREufDGyVJEG7XAJSy0j8a+fK
-	 7gaESq4rTVQG5+d1F/W8ES6BQ7trB6VU0BRY50FBB9VABKr4n+lUpAMOk9YJlaPI4rQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630463;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=Du8xU6dABh8hXy0wU5c55NgOX6RcmGqexkWz1A8S7FM=;
+	b=fcjYooqA6SAreNimZusdY/SS92s5IjUOgRwussihn6WulfaLY7+csA4eLmgjG8Ekwms5
+	 Say4BTRq/XB6wP2oE/3mQXK1l4T/w8xjCYkkjfUvhMVescUpauhBDbtXuBbaH18Je4V3D
+	 O2aT7zYgRveqjCgfgkTXZblUWtr5bluCVJ/0iU+h06leHEcfjQ2AKkDV53hkMtBXT/Jzi
+	 J01NjAbrSBWyrzKTsR29c+RjnpRQl0yHDUh5eIhyR2LsftNAhKh8XwQtaBvEhHCCf/TTa
+	 fJ2MeyDdGOX3KJelFQGdRriqbOfm7rBVgVsb5nK6y4jwUa/D+SQY2R73CVOM4DPQcZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="iG/109Er";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ajmdbWaW;
+	arc=none smtp.remote-ip=66.163.190.146
+Received: from sonic315-20.consmr.mail.ne1.yahoo.com (sonic315-20.consmr.mail.ne1.yahoo.com [66.163.190.146])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926B5607BDD1
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:40:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 926B5607BDD1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D18D606F200
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:41:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D18D606F200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iG/109Er
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so27719175e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:40:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793630421; x=1794235221; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UizaT5WEzB9VreQHfjKZbh6TJBmKHW201cFNMemllhA=;
-        b=iG/109ErfUTVi8jDP0vrFWZo7Psujzqil5wyhqf4iemzyOnEJStEOLQgkWk+A1jU7t
-         S88ig/9rVLMeCO7qATemzGG94r6g2rL/zyVlvaVQj+dMjVwVOIfbxr6gDYw9zZXq+4lj
-         09Z5o24dQlGjOs/Sdj19rrM0lwQ3p1+jO/JUR1SuBXmoq5rplV3V+swZJM87e19ffWY3
-         bOivyO5/4YBYN+851VXw4TkQ7ILGTLxM+KlTSY22gVBXR6BNJ1I+IvyYabNWXupjq9Hv
-         GtWvKd+GajmwnnT6glO69nlaBJzzwh7tSrpqiCyRCWejIcrvAHecP4PbsKtrNlAIMLMP
-         H1WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793630421; x=1794235221;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UizaT5WEzB9VreQHfjKZbh6TJBmKHW201cFNMemllhA=;
-        b=EBFzNo7qYuhXYqEYAZEHD8a7NcA6SNy7c/xkqTML95x1g/cn0chiyCznsQZSx5FLB2
-         OCnTlNxpLq2esy3rndPny4j6upBVgd/GiOvLxySvBd2+2z8DPHJcX1ffwL5NHS7b8gPh
-         FP0woirPhtNvGq5tviZIqz4uo9Auxj7MkMJFmfqul0EPf5NNfEoghYuGqQVdyXbYZeFx
-         ZsHiLYaPivNJhak7CYCiXi5VcOe96k7Y+YGPn1mrsHayXcLhkBcUrfpSxh4Q6yuplJ+z
-         15wBdWGXW7opz1w0OF5fRpw2iu08B9wT34swLkRuiEVXRAij683yXSaRkNLqg1RaJ91h
-         HJDA==
-X-Forwarded-Encrypted: i=1; AKwUvBwpChNwSPUdqxIpfSJGdS4IzJPIbsnyI3QxokfghTqiwjWQbZLou35qPYGGYMet9O8bgsq256H/kDIlvcA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsxkxd7mXs3dVBL2FngkQEWiAYGV3q95I5ozduwoTcD3SJCGH4
-	Yjomz3ni9pKhz2GhCrXo25FjQ2U4CDXRarX/OaKBVO7akelYHIkLYeqN
-X-Gm-Gg: AYBFou3Ukz4DXT9Jz7gizaOKAtmlGQ06IZfoXsa/+f/8JNTqNESyQsEK0Ju8LI8Uy7M
-	AMfMOAKWyv2u2KyoJVcUM+axs03z2BuvmFhtDXUPvYfL8x7V/kEEpvxJ68/JapXvhFp1CJvL2Kx
-	AOX54acFmZW6jQKllLFuFSBRWVEuO8a0yVxB5+O3xahUw2Mz/ZiELpdG6xVx/r6eDUc1CJlIIbA
-	s0IPoL7btMDLN9Uciir3d3E3alswXlRyA9+u0t+NR0woY2+Coca/8+IMmRto7Cbs3YW9Z+C7lBj
-	bSiNaGdAeY+hwQp2EkkuRpV5FitljuWF/tPjRJCfDT2JugB3QkcrwrahfLKQfh8aiM7+FcU4AqN
-	9LNuHra1AhWADlRpL4o7RKCZtZOVtqYF0q5s/bTRLRZWqqgWxsk3d6P26DnqjKWGWZwcV3td3OE
-	WeC5FjBTczGN5r2net80uHUAkN3p4pMcD4BFw9vPgn1AlVbXs2Nfhj0WvmQEFkf0pe62jY8AMx8
-	7JuQpkg4pZXgRmlUG9Z6O8gO9iKRaY40GhyJLrVZ8cTcSpygsGkQKm2dXLw2xO2VxZQcnYvCIIw
-	h1Hv/U9KNVVpaVUdI9dYy/ubc3DcAjtiQUqpnF+uwbCqJVY12sQ3+LgExaaimOuujKTPddaFXqK
-	q6X5By2NuZSkcIB7z8aJ2wHBLKp8DKslxR6q2jk3C/6QXpkbNpUf6GTXR/YGEHcVjPwkhVKks2d
-	ZTMtIRyXdljH0=
-X-Received: by 2002:a05:600c:8116:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4ac17e10724mr239559645e9.16.1793630420527;
-        Mon, 02 Nov 2026 06:40:20 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b289f7sm278034655e9.5.2026.11.02.06.40.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:40:20 -0800 (PST)
-Date: Mon, 2 Nov 2026 17:40:16 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Adhyansh Verma <adhyanshverma2010@gmail.com>
-Cc: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: audio: add newline to sysfs_emit() in
- show functions
-Message-ID: <auig0PAuoPinb0Kl@stanley.mountain>
-References: <20261102140438.103135-1-adhyanshverma2010@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=ajmdbWaW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793630461; bh=Du8xU6dABh8hXy0wU5c55NgOX6RcmGqexkWz1A8S7FM=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=ajmdbWaWaQa0BuoI5CrtU55H1YDwJk+SCCocHbdnoN2OPCQJUnN5TCTcPZJLo0Y8fNIjabDYLhkNg5/1UU4zP73A5x3d78S8tKiq5kL9M1j5pVs1ba9HaispOrVn09Mh0kkQGyw9zlKHBuLXbc4qxP8juvrwnPXvBMCQnxBU1ZeEzarZN69Bbg1iUn4uoG+OGnunCTspbzqq+JtCw96SQx9NxzvD1YM8CORB5p4/GR4+IgNNhUo8FLA5e7tHa4OFgNWUfNpDX1gLI5BahdkqMoPsC29IxhhUE37+OXW1JfVbIb9Zu0BWZNMzecGXgwyqINC0yfcCYlVYbU+RyV9MNQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793630461; bh=livqoE7if8Ff7z+hCbNp42k7VnHrJ5q/qbZF4I4xIGU=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=Y6jLzgHOFfJXa8LntjnAC2Xb6+zwYDbt+1ldx6cg1QKImNn4oztm21o2cNrZYJZOvbD0/84IiJuUx4/0uryME3hVnsgcsKqfveASv/V5/Ox3PUcuzdMS6uRfi18HEByOz/4iQYRNwC165YeqfwJEbS12MBL1GjgWRgKMFsRZgMZac+u9Dv0gnbK+9g8FCIGSoASWmXvpiec5tsSqsvlTfdTNkFZnatO1UFzk60fJgopeJ4D25IJm1kuYhhlEA1c4aaKJ8GP5KZb9ivWTYswBszMZ7iZrRQurlPfeX49dxLigLhTQq2wXrMqql0A8bhTzGTLPLLygecQ9BinJZ2tYUQ==
+X-YMail-OSG: 2V49DGkVM1kuNMmXm7CgJYmmczh1NhBGzP.RmkIz.PQ4Px6n5IzBO382P3AG72V
+ t4jIvOoFPK.kro1R9kIWo3hk9flBAPYjJHBxz9nQHuQxDQ3qhp37VsKWBWDfGyUlKEbC.ZYhqAjj
+ Wf80Ox6c2FXLUe_OLM_3efrjGWoEflFipMJM4vst9RNKAvccImhLA1IKFA8JMeeyPzab8pIATyXF
+ 7L0BdYX824mRqVOG5QsVuQOCFtaOKClj36ILC4UR2Lr_phbC.D6xZfkrw3KeKtRTcFfKWoxvLhiB
+ pUn1KBkz286r3yT7_QzVYetctFHFU.ZG8tJ7aQl1WRv_1fJg.JM.0yKaIyeGqyXS8UqRU52FKEK9
+ nMz053w4yCpYjIZdbOgkZTLO4ftA3Yq1_WaY5zs7Y2ZXbs0atVwzMAY.72IKYwX911ZeS2N9UgeZ
+ Qw4aAkTPS4jZ_yPsZHJhXDAck9storl7Apg_VstfkCZeuNmgYcZ4fChFZnbmqyFF2nx3pqnCKeDj
+ yp_r8dQT0BxqzfVV1x_MfgpwlBD5lpzM2kK8ciZRvTgPuyzvj3.OY7UGWEAQR_l7catzSYbUKL_7
+ 8vkEFpweNwAEm3WJnI0gDW91w29hIebl.j8683aWd3Z39r3yIwJFfkHcYiWU74KIDl19hEvH7hBG
+ Z73KCmQgwu2eKJkTdYBXhymcL8mnsgwefjq1_s_qzqbxRNGkqCqj_g9xEdDxsNiSO5xp31katuom
+ iCgCQA8uWkWEvitXL9dCfOkNSCwyjOXfr0Fjxw8b3CrgV1YSCkpxUthYY3.ltYBDsSg0JRwuy_qt
+ pwF4P9vrIwavnnofWKxu7k.Z_uUMYykqL9C1NcvKU.rYbiZBgGKw7xV3DgRzqRm7xuyQUpN4mAVB
+ UjQyy0ZCkNqzvtZlVG3AUYbzXJ3t4rhoqzl94Nh60Bpm847Z0lwX_UPvIQdW.vnrJrVO.Pd99liC
+ VHdkMSzdBB3ckIhkOYOBWiCDfBsbF1FoB1V7eDgiErjFAbQoBSbxi0w70j.qPmqQGWKMso0zVzu6
+ n.5.xWFwKrDwFLfkMQDXF9mkQQiUimnyZKM7h_6xhYs2Ht1o6TkTXyWB.9bVDpS2ieQjsI9SGiFS
+ QDzeTPLfhmpxpl5r2yE1XvPLGxfFLMcPPA82_2jr6pbTINLS8R2a6j_uC7b_s9AG3NE3LqaKocCl
+ TI0ADVDsyM.UHDaztNJn8UnQL.mR8o796roLp_augEL2LJh6s223u50M8Mjlg3wIw0Z3Ni3ZEAZP
+ UHglv4P4kUwPDqMxi8jbQ60DSj1P.HSpu8cXimmBCynrN.zsY3qIGYAZ9l2BaixQNJyyT47M6b48
+ Cgbbpu2e_5OqXPe9wolIv7yvzNhgudz2bmRa7A0ry95Ok5TID5_Tmv0qWoxyvFXGWGWqMd1vnM4M
+ TrYDpWNvuuA0uC9R1MQZomDe.yCFSojhbFdlu0hUYxPzDw2a5uwl5uTbbNEB0T9KeZ0DDCfiIS4u
+ LfIGIXVgxomx_TExuCVbryncUU237Lg_KVaVEX_12KY_e0vVNvUufn3q7t6NXCh0zI5smW.ymk9i
+ 77EiYmyUnaETojZBCXAKQE9dhRq2ADV_x40QaE7LQ2YaIJFmgbW8GNK7fnLsoYXA8EtZORLHaMXM
+ gt94sZbzKcpZb148fU28iYtb0lNhaE6B9DNSO5ZBIaGLxjM76TiPtKv00cYUJO3T.AXuCdaA27Yn
+ oXI3rN9QgsOJkJplzfTB20vzbqRmx.8P3kbdL8pZebvENhqo5.YJ3Roja7m0ntG6ejJghAwM2ZTz
+ XRzS3vcQYVLYX.fnHn_G7bg3zobCIovGiMH9fq6xp96QE701yZZe3dXEJtF56bGTML_JrLJCBv9U
+ viCByZXIALIQH.zwmxAdyYnhiZ2A0aq4Jz.gPeJqzChsRhWwdENUsRaeB4MyT8QHSFU7qsdYDshl
+ Zy_wFyPvj1G3SJO_FSaXEL39xzTWUf0AEVYoso17DoqzMmxWcqAu2MbqtNIqOjJkPAFCcLz5FL9j
+ fZcxoxBbBClxyikMO9CGKfc4FZxFHK1_Pt35fKp2JtNwD2L3oePTQyFWBhum97GhzQ8pG5CgAPA5
+ 6OaP3OU6YHOWhslaj5ISfLtiTFpc5wA3NFMBRZjrG34ilbNnGJ9ODfYoQhkTsks.ibXgmx38dnMg
+ o8qnvYMfmmUd2eVXGp6u85_uv5UEo6BfYMyWra1SpnjnEUhScYeWL3GIpGwp992cEJhoNTY6sI0j
+ VjQnst0hyVhquC2tCGzD0LJfHy9OSiR0nKcNe__Cgwg0UNQOccxTiRI6CUDrpxXyeK5nsY_qRS6D
+ HPQ28cZYTym0FlYWO1LTjMQ0cjwnLoneCT7ajkWrDGA--
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 9dbb2bc6-a25c-4bf3-b770-9b946c80460e
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic315.consmr.mail.ne1.yahoo.com with HTTP; Mon, 2 Nov 2026 14:41:01 +0000
+Received: by hermes--production-ir2-5dd9bf4598-c2rmk (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID a3bf5a534ae30d4b3c7bc20def6fe78a;
+          Mon, 02 Nov 2026 14:40:55 +0000 (UTC)
+Message-ID: <1ccb6acc-0809-4abe-8443-576f6727a6d5@yahoo.com>
+Date: Mon, 2 Nov 2026 15:40:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,30 +84,279 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102140438.103135-1-adhyanshverma2010@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v7 05/10] net: dsa: realtek: rtl8365mb: set and get
+ vlan 4k for family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
+Content-Language: pl
+In-Reply-To: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26871 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Mon, Nov 02, 2026 at 07:34:38PM +0530, Adhyansh Verma wrote:
-> Per Documentation/filesystems/sysfs.rst and kernel conventions, sysfs
-> show functions should terminate formatted attribute outputs with a
-> newline character.
-> 
-> Commit 14c91651df34 ("staging: greybus: audio: Use sysfs_emit in show
-> functions") converted sprintf() to sysfs_emit(), but left out the
-> trailing newlines. As a result, reading these attributes in userspace
-> outputs values without a line break and checkpatch warns that
-> sysfs_emit() formats should include a terminating newline.
-> 
-> Add the terminating newline to each sysfs_emit() format string in
-> audio_manager_module.c show callbacks.
-> 
-> Fixes: 14c91651df34 ("staging: greybus: audio: Use sysfs_emit in show functions")
-> Signed-off-by: Adhyansh Verma <adhyanshverma2010@gmail.com>
-> ---
+The hardware structure of 4K VLAN table entries has changed between
+silicon families. Family D's CVLAN entry is two 16-bit words rather
+than three: there is no third word extending member/untag past bit 7,
+and no priority/meter fields at all. The FID field is restricted to a
+narrower 2-bit width. The chip itself supports both IVL and SVL.
+IVL_EN (bit 3) follows vlan4k->ivl_en, as on family C; the only caller,
+rtl8365mb_vlan_4k_port_set(), always requests IVL. SVLAN_CHK_IVL_SVL
+(bit 2) is left at 0, as in the vendor RTL8367D CVLAN API, which sets
+it only from the SVLAN member API; this driver has no SVLAN support.
+vlan4k->ivl_en is read back from IVL_EN.
 
-Check the archives (lore.kernel.org) for why we aren't merging this.
+Reusing the three-word family C layout unconditionally means the third
+word is read from and written back to the register that holds it on
+family C, but does not exist as a distinct table word on family D's
+die; whatever data happens to be there gets folded into member/untag
+bits [10:8] on read, and re-written on every read-modify-write cycle
+in rtl8365mb_vlan_4k_port_set(). Give family D its own two-word
+pack/unpack instead.
 
-regards,
-dan carpenter
+The two-word layout matches the vendor switch API for this chip
+family, which writes only 0x0510/0x0511 for a CVLAN entry.
+
+The family D paths are not reachable until the RTL8367S-VB chip table
+entry is added in the last patch of the series.
+
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+---
+ drivers/net/dsa/realtek/rtl8365mb_vlan.c | 161 ++++++++++++++++-------
+ 1 file changed, 111 insertions(+), 50 deletions(-)
+
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_vlan.c b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+index 8d49ffa..36f0d2a 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
+@@ -48,12 +48,16 @@
+ 
+ #include "rtl8365mb_vlan.h"
+ #include "rtl8365mb_table.h"
++#include "rtl8365mb.h"
+ #include <linux/if_bridge.h>
+ #include <linux/lockdep.h>
+ #include <linux/regmap.h>
+ 
+-/* CVLAN (i.e. VLAN4k) table entry layout, u16[3] */
++/* CVLAN (i.e. VLAN4k) table entry layout: u16[3] on family C, u16[2] on
++ * family D
++ */
+ #define RTL8365MB_CVLAN_ENTRY_SIZE			3 /* 48-bits */
++#define RTL8365MB_D_CVLAN_ENTRY_SIZE			2 /* 32-bits */
+ #define RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK		GENMASK(7, 0)
+ #define   RTL8365MB_CVLAN_MBR_LO_MASK			GENMASK(7, 0)
+ #define RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK		GENMASK(15, 8)
+@@ -65,6 +69,9 @@
+ #define RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK		GENMASK(13, 9)
+ #define   RTL8365MB_CVLAN_METERIDX_LO_MASK		GENMASK(4, 0)
+ #define RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK		GENMASK(14, 14)
++/* Family D CVLAN entry, word 1 (family D has no word 2) */
++#define RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK		GENMASK(3, 3)
++#define RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK		GENMASK(1, 0)
+ /* extends RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK */
+ #define RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK		GENMASK(2, 0)
+ #define   RTL8365MB_CVLAN_MBR_HI_MASK			GENMASK(10, 8)
+@@ -185,13 +192,16 @@ struct rtl8365mb_vlanmc {
+ static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
+ 				  struct rtl8365mb_vlan4k *vlan4k)
+ {
++	bool is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
++	size_t entry_size = is_d ? RTL8365MB_D_CVLAN_ENTRY_SIZE :
++				   RTL8365MB_CVLAN_ENTRY_SIZE;
+ 	u16 data[RTL8365MB_CVLAN_ENTRY_SIZE];
+ 	int val;
+ 	int ret;
+ 
+ 	ret = rtl8365mb_table_query(priv, RTL8365MB_TABLE_CVLAN,
+ 				    RTL8365MB_TABLE_OP_READ, &vid, 0, 0,
+-				    data, ARRAY_SIZE(data));
++				    data, entry_size);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -199,33 +209,61 @@ static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
+ 	memset(vlan4k, 0, sizeof(*vlan4k));
+ 	vlan4k->vid = vid;
+ 
++	/* member/untag: d0[7:0]/d0[15:8] on both families. Family C
++	 * extends these into data[2] bits [2:0]/[5:3] for its 9th-11th
++	 * ports; family D's die has only 8 ports and no third table
++	 * word, so data[2] does not exist there and must not be read.
++	 */
+ 	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D0_MBR_MASK, data[0]);
+ 	vlan4k->member = FIELD_PREP(RTL8365MB_CVLAN_MBR_LO_MASK, val);
+-	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, data[2]);
+-	vlan4k->member |= FIELD_PREP(RTL8365MB_CVLAN_MBR_HI_MASK, val);
++	if (!is_d) {
++		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, data[2]);
++		vlan4k->member |= FIELD_PREP(RTL8365MB_CVLAN_MBR_HI_MASK, val);
++	}
+ 
+ 	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK, data[0]);
+ 	vlan4k->untag = FIELD_PREP(RTL8365MB_CVLAN_UNTAG_LO_MASK, val);
+-	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK, data[2]);
+-	vlan4k->untag |= FIELD_PREP(RTL8365MB_CVLAN_UNTAG_HI_MASK, val);
+-
+-	vlan4k->fid = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, data[1]);
+-	vlan4k->priority_en =
+-		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK, data[1]);
+-	vlan4k->priority =
+-		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK, data[1]);
+-	vlan4k->policing_en =
+-		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK, data[1]);
+-
+-	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK, data[1]);
+-	val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
+-	vlan4k->meteridx = val;
+-	val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK, data[2]);
+-	val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
+-	vlan4k->meteridx |= val;
+-
+-	vlan4k->ivl_en =
+-		FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK, data[1]);
++	if (!is_d) {
++		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK,
++				data[2]);
++		vlan4k->untag |= FIELD_PREP(RTL8365MB_CVLAN_UNTAG_HI_MASK, val);
++	}
++
++	if (is_d) {
++		vlan4k->fid = FIELD_GET(RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK,
++					data[1]);
++		/* Family D has no priority/meter fields in this entry -
++		 * left zeroed by the memset() above.
++		 */
++		vlan4k->ivl_en =
++			FIELD_GET(RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK,
++				  data[1]);
++	} else {
++		vlan4k->fid = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK,
++					data[1]);
++		vlan4k->priority_en =
++			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
++				  data[1]);
++		vlan4k->priority =
++			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
++				  data[1]);
++		vlan4k->policing_en =
++			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
++				  data[1]);
++
++		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK,
++				data[1]);
++		val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
++		vlan4k->meteridx = val;
++		val = FIELD_GET(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK,
++				data[2]);
++		val = FIELD_PREP(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
++		vlan4k->meteridx |= val;
++
++		vlan4k->ivl_en =
++			FIELD_GET(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
++				  data[1]);
++	}
+ 
+ 	return 0;
+ }
+@@ -233,6 +271,9 @@ static int rtl8365mb_vlan_4k_read(struct realtek_priv *priv, u16 vid,
+ static int rtl8365mb_vlan_4k_write(struct realtek_priv *priv,
+ 				   const struct rtl8365mb_vlan4k *vlan4k)
+ {
++	bool is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
++	size_t entry_size = is_d ? RTL8365MB_D_CVLAN_ENTRY_SIZE :
++				   RTL8365MB_CVLAN_ENTRY_SIZE;
+ 	u16 data[RTL8365MB_CVLAN_ENTRY_SIZE] = { 0 };
+ 	u16 vid;
+ 	int val;
+@@ -244,36 +285,56 @@ static int rtl8365mb_vlan_4k_write(struct realtek_priv *priv,
+ 	val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_LO_MASK, vlan4k->untag);
+ 	data[0] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D0_UNTAG_MASK, val);
+ 
+-	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, vlan4k->fid);
+-	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
+-			      vlan4k->priority_en);
+-	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
+-			      vlan4k->priority);
+-	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
+-			      vlan4k->policing_en);
+-
+-	/* FIELD_* does not play nice with struct bitfield. */
+-	val = vlan4k->meteridx;
+-	val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
+-	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK, val);
+-
+-	data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
+-			      vlan4k->ivl_en);
+-
+-	val = FIELD_GET(RTL8365MB_CVLAN_MBR_HI_MASK, vlan4k->member);
+-	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK, val);
+-
+-	val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_HI_MASK, vlan4k->untag);
+-	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK, val);
+-
+-	val = vlan4k->meteridx;
+-	val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
+-	data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK, val);
++	if (is_d) {
++		/* IVL_EN follows the caller, as on family C. The vendor CVLAN
++		 * API leaves SVLAN_CHK_IVL_SVL at 0, and this driver has no
++		 * SVLAN support.
++		 */
++		data[1] |= FIELD_PREP(RTL8365MB_D_CVLAN_ENTRY_D1_IVL_EN_MASK,
++				      vlan4k->ivl_en);
++		data[1] |= FIELD_PREP(RTL8365MB_D_CVLAN_ENTRY_D1_FID_MASK,
++				      vlan4k->fid);
++		/* No priority/meter/member-untag-extension fields exist in
++		 * family D's 2-word entry - data[1] and data[0] above are
++		 * the whole entry, and data[2] is not part of it at all.
++		 */
++	} else {
++		val = vlan4k->fid;
++		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_FID_MASK, val);
++		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPEN_MASK,
++				      vlan4k->priority_en);
++		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_VBPRI_MASK,
++				      vlan4k->priority);
++		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_ENVLANPOL_MASK,
++				      vlan4k->policing_en);
++
++		/* FIELD_* does not play nice with struct bitfield. */
++		val = vlan4k->meteridx;
++		val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_LO_MASK, val);
++		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_METERIDX_MASK,
++				      val);
++
++		data[1] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D1_IVL_SVL_MASK,
++				      vlan4k->ivl_en);
++
++		val = FIELD_GET(RTL8365MB_CVLAN_MBR_HI_MASK, vlan4k->member);
++		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_MBR_EXT_MASK,
++				      val);
++
++		val = FIELD_GET(RTL8365MB_CVLAN_UNTAG_HI_MASK, vlan4k->untag);
++		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_UNTAG_EXT_MASK,
++				      val);
++
++		val = vlan4k->meteridx;
++		val = FIELD_GET(RTL8365MB_CVLAN_METERIDX_HI_MASK, val);
++		data[2] |= FIELD_PREP(RTL8365MB_CVLAN_ENTRY_D2_METERIDX_EXT_MASK,
++				      val);
++	}
+ 
+ 	vid = vlan4k->vid;
+ 	return rtl8365mb_table_query(priv, RTL8365MB_TABLE_CVLAN,
+ 				     RTL8365MB_TABLE_OP_WRITE, &vid, 0, 0,
+-				     data, ARRAY_SIZE(data));
++				     data, entry_size);
+ }
+ 
+ static int
+-- 
+2.53.0
 
