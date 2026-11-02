@@ -1,120 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793651908;
-	b=v13Hg+YIj7uVlWiuYUNChS6ul5IjQGbQo+WT/GzDGoDYqUy6vVxbV7JN4n/PTgy0yUdL
-	 6Qpfqte+8hgDHIR8J5ramZGtEQEnAPOGgLh1Js/fGbOL473nC3KGbtTVht8Lnq16eaO3L
-	 HP3Ai8JkBuD5w5CcfiXz7sbLVfwFSPfqc2ZmUvBpm1bywbphKKMZDQOCV23zJd6/6ldo1
-	 /ND+OvLkmBDs0RrNfCnH0I652wdWREWxtfq86Cu5tZtmImACP8BNuac0zDDflfPZhpjy4
-	 qm/nW9x/mH7jKgJ7kKoZIOA0/CD27j95mDd97+bkSZVrwDNNeORMQjazZE95TBv1UhA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793651908;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
-	b=y2fe8f5qddsiEgKr4yTrKVOwup8ATd5WCQhOIjTDQlDHh1u8KkINmcQbK9SivM44gtlN
-	 mlvop+IAfvlek4rolrQy4ugvWpEon333it9rggvroy9eRtFZHw64zwNkE8StVq9FuJhfR
-	 Y5k70LWE4XmMNTHfqeHL1udh3NeOLWvLCn9hb++nQK5vBM/Q0lH96dFVm2h2CQSUQh+Lk
-	 rTmzZcoKnImCxExZe/Ntm1LG+x7xMXUaX36sJmGMk7SEoYoMVodB2EuDvx8ch0RS4w88d
-	 OxjMuw0ISTKBqOLvjHNo/1LnHqpmAbKPnFAMdFpYKDcInIS4Nqu5ho9Agd/1D+EnRJA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Orpr6pRh;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=l+l7dAy7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793651917;
+	b=04gQlFsdDS/GfmAw5D6HAgB+bbzkylfqz6Mxet5AzK1lZf/oGnEknY5FKcnhvNN+tHWL
+	 Oo6ofnDLK1JGd8PUSPRq5ej/NPae5vGTYF72meyIwiSsAluSW3tj9VlXApZ9ik5bPC666
+	 EhQfXmG22wbRqeXUWD5TZZQnwDFbsZ0/dd0pUJXtV/CJqfkmfO11pZYplu+qqmr8mfWdZ
+	 HNcOkmPiF1QdzHbYH0joE1htcsrYAGuh1TrCBVJ52JDXbhG2LMqkXb6umh+RjdRpKEaqz
+	 RCGDK7zdgbVXSHzEEP/+cjCKQ2Vuny3Cs5q/lpJrVGY8reN5acHe66809aFTcUwqkMg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651917;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=onegsaRrEGUYSzsonlLe9pt0lNSYzMi4Rer4fCtT5Hk=;
+	b=vPKSi0qOUNEV5lO1RUUurznmpFrchktKU4RGRnYLDurXCc5GK4BwFj2qb2ZXdVEwBrsc
+	 SligMNztq2h4/o8Tv0j6AmP/JCI3McOBTASjSxsmHKn1AyHlRXkgl2mFIoX7YvoKfeepg
+	 nfPokqreH93N0G7Lw1b4gdzE0n7D8WiIvgMpI/VtfhjjhE8+B8NTgeQl/kXz03LRWEAfB
+	 qBWRjxC1oHn/iJxI8T8asqJaA7zzCuOr/FArQSnS7D/Ir5zIZnErbd6MB5EAPw5912IDB
+	 rcVtpnVpc/YKlDIOSihH+/rhK44KCiQ6AzeHKBHbqGUHoMU2RFNVPFCvKPa73fMttXg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZdN5F/zm";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9B2606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC9B2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5EA606A330;
+	Mon,  2 Nov 2026 20:38:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Orpr6pRh;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=l+l7dAy7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793651906;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
-	b=Orpr6pRhK7kcku8CgLLWMo81N3po0RwlklhFgckAvLDLoVABTMUka0hfkJmHGfS/DNPgXg
-	mKU98D9+PVq2/RteVQyCnVRrK3Bo2an0F9PcheUoNWs7uxt5le3l3D36nUXo2Xe3+SEoUi
-	qva6xBhQhIu/s3lA5TbGTa76Arrqmpc=
-Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
- [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-226-pyP7Q6ZbNGG5L19avof4DA-1; Mon, 02 Nov 2026 15:38:25 -0500
-X-MC-Unique: pyP7Q6ZbNGG5L19avof4DA-1
-X-Mimecast-MFC-AGG-ID: pyP7Q6ZbNGG5L19avof4DA_1793651904
-Received: by mail-lj1-f198.google.com with SMTP id 38308e7fff4ca-3ab2f8ce13dso164331fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:38:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793651904; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Mcq2l4E6Dy0Ne5m7+kpEyPuaFPZEZ2kfPTCY/NfEIStuShrS9ts4v05GPW5dXmSkgP
-         GJftJus/nCZ5jmhqs3AkM0Xlw1nDNX8V6Wdk08GoO4ELkkDAwcc/+KWZk/VTFFRwyH61
-         JUiuVBwwFH0ewVJQLw4fruo8A1AS//1bqzuW4/4l/ALm9kFFTlNKZnQIQws2OtbS1q7s
-         cvYaH0ovB6jh4eQNLyLuJSylT1yWejUnGorOq4BY2zll0/oXzHKr4gjByfa7V8P6mXTU
-         TGTU4Wtotz4Ek7oMMEDpg4Kgq+6lwiEjWs9b2d8kiwmPIUeRCtRc6Rg6qglyM2b47ZiU
-         dN0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
-        fh=LieLvDdkwxsIxdU73Vtj04o4vDZ7F2t2T9LtAbuqz+s=;
-        b=BryNTt60Mx9LleupEbGkINlONnpWEBHUBTSid/BfNwkC5RCbkb1u+hF9rNGDdmPBRO
-         LhXfYe23iEw3Ll0cKi9nKHEYPOsD5tijeR1IyYRK6Aq8ioGZUHQPIW0savg9jWX1ppCB
-         Na2LWs/39HCkIQYa0Vj3BBjObwu9R9vAiDiZmqPo+r5rEWe4z6G79hVdt1CPfGIxECwO
-         9mqSIbcngcBf33reJwA6WU6fKL3OzUCbqCTPEK1aMLrisN8wCfqaiVF9bl+px5noCdqe
-         jaBGA/W6bz7uRCLEw9GGJkEAP+BdF78crkTkTQH/AOtK4Byg7d+7xF2fme/EjJYdJdl1
-         X1KA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793651904; x=1794256704; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
-        b=l+l7dAy7uv754pj4BX34aMOCrnvnA0+OA3F7KwfsPkoZFRDlYEvHOYzikikmS+fK3M
-         lmZsyY2ffNeKYxEPEVpTDxR5PXligoRW9Wn3INOWzVTw8ESjZirwpv28ZCYzI9X05xIr
-         2+qD3Oo8TJe05RR5x/0VsyF9pXwyxSRavXN09FFLQ+yzOkw6KhbDM/UksPfi98wfhal3
-         eI2UTcc0wd5RI4FtECyIqi5WDyFeFi2If/h4QVWZgMF5GzFlr2cFHGus87+54vSd0XEs
-         Cuz/9Rs2oyvs0XMQ38RSZRf8GNQ+BSW3x++/HCzsL4MLc96vtGaxk5D73zwBCNiAsxhM
-         4e0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793651904; x=1794256704;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DDP21sO6dH3L6F1rpSILTUYDUuHIujf8RdZUCMtfKH4=;
-        b=K5IgeF8AG4tv7lh2Rqlsd9xrC4YAOBCw+Lubzl6i7zN08I7DnJeSztFxQ9KinD0htj
-         44WmXJMPEpFobsMnyx2u+eR6PIOhKVGMvTrd0HwLNSF5OpSetmFqXkpvboBN5O9nCpQN
-         s7nUr4IR7FPO2chvJGURuuEnXfsnVeMhM8FL6egHTwGeJQ8Cil1hQSmECemWsstE/7Dh
-         mT0m5bQkUE0IwvCIfnweLeF1kdu0d9wwmbnrkZKnOgk8NOb0HyXmlY0k1lK5V6bJguuc
-         0fHbqPR7o2yoHz6ivsTj7vkVHBszd/hIxm9yHOJSdHhqljFAFZlEGdBwBUCaLzO9wexo
-         oL7Q==
-X-Forwarded-Encrypted: i=1; AKwUvByOFHWxInTZesGGSdjjpBWB9X7MVMOUZnHyji/O1JiYdI/xTEwW7x2XJ8zRcjP1yht55I2TuJosFCIDZ5U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8R6nvi6rLQFH6rt9zQiWjDxMlIj6Ndn3oMBYf+G7vZGyrkgrKB
-	4fDVJg0ACyVRD1aGwII8ny5WembOjHv0N5RMFWCdNfZ/VzyDkY1odhyBFXJ0iXTbWqpni9R2C8Z
-	rt4RLj4aex5WtPpzXcVDU0mDpIi8OXUN5OFcFKIkpEmfKOPGcYywmpRjsCFp5ru0EDw2xefz0Vj
-	kiSJR6vdR3RjnFJj9kEI/Np35K2epOzHdGoaPCwmuO
-X-Gm-Gg: AYBFou22TJ7afMqp0ktQH4sh53Sqn0E+toHaaVD7BVLZbsOLu2QDYd8KahddPHHo8+e
-	DtCzrBWWS/RVuF78crUlGdPZKMJ41La5wy85i0Xj+m7r/DSwpV6TaGzX8jVL8F4uWK7xJxUdFXq
-	nIicC8kvYCp/DGjJgX5qb7wDHMmKtCx2ar0N1UisXgZh5mRIMa2rjQI1ZS
-X-Received: by 2002:a05:651c:553:b0:3a6:5c8f:857 with SMTP id 38308e7fff4ca-3aca57a559cmr30300101fa.8.1793651904091;
-        Mon, 02 Nov 2026 12:38:24 -0800 (PST)
-X-Received: by 2002:a05:651c:553:b0:3a6:5c8f:857 with SMTP id
- 38308e7fff4ca-3aca57a559cmr30300041fa.8.1793651903708; Mon, 02 Nov 2026
- 12:38:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZdN5F/zm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94C8A1F00A1B;
+	Mon,  2 Nov 2026 20:38:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793651916;
+	bh=onegsaRrEGUYSzsonlLe9pt0lNSYzMi4Rer4fCtT5Hk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=ZdN5F/zmT4mUwRmCv/YJebbq/ZERBQ72B0g1VJ6BZDf6KzvK9utl9OekpfWBuok2w
+	 zMRDnemKWyWtkZksW61PczgjHIUJKNLW9D+0zwQSxuXawnvlZpttRSyvKTO4HgEQmq
+	 O3P7kwqfGAoVWM/5gqyRizsE3Pc3fnuOPZXmbCjjgFb43wIVRsNcfkVm9GPc6g9cz+
+	 2e56J0hAlz/4ImFtKyaLTwZ1IBq+DgSaP8Tu8ynQXXtTGtzBpTRnY3hBCePvJOAOM1
+	 U2muOEL/bLpcjC9OC3SRwiO41tQo5M80Z45w8CXevvX+wnzRGQaGptvbuzwQteq3Eq
+	 7prc4VL2mnMjg==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Mon, 02 Nov 2026 15:38:10 -0500
+Subject: [PATCH 2/2] nfsd: Honor delegated timestamps when change and size
+ match
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,38 +53,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019151627.3324886-1-ameer.hamza@truenas.com>
- <CAK-6q+j64=mSzuufOaSGjsC2aSwhb0hs9MKxxaAhbwugdztHZw@mail.gmail.com> <aujr6x9t2gXbXfFw@hamza-PC>
-In-Reply-To: <aujr6x9t2gXbXfFw@hamza-PC>
-From: Alexander Aring <aahringo@redhat.com>
-Date: Mon, 2 Nov 2026 15:38:12 -0500
-X-Gm-Features: AclHuK8EBIgCcOEpy9zoAe7u3ZQc5iU2X8Ha2AYq5mu6ejtrrJMK1XULaVzy1LI
-Message-ID: <CAK-6q+jBNKN=oSCmm+i011FdhPS+42BZc0iUfbqGiLDBc0Py5A@mail.gmail.com>
-Subject: Re: [PATCH] dlm: don't set RSB_MASTER_UNCERTAIN on rsb with no master
-To: Ameer Hamza <ameer.hamza@truenas.com>
-Cc: David Teigland <teigland@redhat.com>, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	caleb.stjohn@truenas.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-deleg-cb-getattr-times-v1-2-ca0326d88623@kernel.org>
+References: <20261102-deleg-cb-getattr-times-v1-0-ca0326d88623@kernel.org>
+In-Reply-To: <20261102-deleg-cb-getattr-times-v1-0-ca0326d88623@kernel.org>
+To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2775; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=nc9COnIhB+A0quOumFWCa8sEV5bNcg18ILthQa0pBzU=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq6PTJUAX+HjMkHsSJLL+hO40LbPjiAJAvvEAVc
+ aaVe6rYwuGJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauj0yQAKCRAADmhBGVaC
+ Feu8EACGy76heDATh0plCwnLSQZkD3UcJTWA/mC7XZlp/oiuCTbHtKHrtuLQcsVZCYkJkGjcFIi
+ ZjwRwxpuR73hDubHuXiPfl1r/pQ7tZUztjJa//kqPD/zjr7nl8mV8oaBPxSe72j6F3oVl32P409
+ zhSoLY00l3cWDrI0BdVRsEeFdngvnacr0UjAmXhPzA5mf1yaCKFvQ4Ob7IQe1YgcnYpHkoxsPtb
+ Bw8Zc1IMvwBFNYDg+yuskzcpATz/Zd1cW57iV4GR4M3OOEQg5JV55VsWT4j0K7buLOGOaP+riOc
+ gDK/KE5AVyPkbyDDx2pxxo+ceQG6aZzJE4pFxsQqul2VnAF3r0jfDBcPLy8TosnTUoT1jrl0xPx
+ 3AHqJrFAPv43GLT4WyGeTp+jQEQQjQB+ciPnitWkWReiP8hm8x6cn+lPolRhZ+wcpRP7pA6flmE
+ a2ddofn7cDt2sucaU5XXCR90MQe3RqTRiSaCvGwz3I/JzsqJNgTNzFFaMq3yA8kNqaV9kVSkBd9
+ zSe/oWujIQxJr3UlsWBanjrrC6gt6Pl/XXC/xrGEBVza95hSxsbDhqOIQbrIS+mpyvEH5b3Lw4O
+ zsiQ1zqmUgBFv1X69MsjpVlUgIu37ii1QFmr/Vje9KPL7oKj94vP3NL9Q71ry3puwoPUWi2YHb9
+ 80QFcRS4pZir7+g==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-Hi,
+nfsd4_deleg_getattr_conflict() applies time_deleg_access and
+time_deleg_modify from a CB_GETATTR reply only when the reply's change
+attribute or size differs from the server's. RFC 9754 section 5 makes
+the holder of a timestamp delegation the authority for atime and mtime,
+and puts no such condition on accepting them.
 
-On Mon, Nov 2, 2026 at 3:03=E2=80=AFPM Ameer Hamza <ameer.hamza@truenas.com=
-> wrote:
->
-> On Mon, Nov 02, 2026 at 02:49:04PM -0500, Alexander Aring wrote:
-> > question:
-> >
-> > how do you "pause" anything in DLM?
->
-> The nodes are VMs, so I freeze the dir node from the QEMU monitor. It
-> stays a member but never answers the lookup, and after the cancel I
-> evict it through configfs. That is what happens on our HA systems when
-> the peer reboots without leaving the lockspace and a pending request
-> gets cancelled before the peer is evicted.
+Because the delegation's file has FMODE_NOCMTIME, the holder's WRITEs
+change neither mtime nor the change attribute on the server. After a
+flushed WRITE, the CB_GETATTR reply matches on change and size, the
+holder's mtime is dropped, and other clients see new data with the
+pre-WRITE mtime. Since commit 304d81a2fbf2 ("nfsd: fix file change
+detection in CB_GETATTR") compares against the current file size, this
+also hits flushed extending WRITEs. Holder reads lose the atime the
+same way.
 
-Still, do you just randomly freeze it, or do you busy/poll wait on
-specific struct field changes?
+- For timestamp delegations, always vet and apply the CB_GETATTR
+  times.
+- If that advances mtime, mark the file modified so that GETATTR
+  reports a new change attribute (RFC 9754: the change time is derived
+  from the modify time). An atime-only update must not advance the
+  change time, so leave the file unmodified in that case.
 
-- Alex
+Fixes: 6ae30d6eb26b ("nfsd: add support for delegated timestamps")
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ fs/nfsd/nfs4state.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index cd70d86f4bc6..418b3ee37c68 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -10751,6 +10751,13 @@ static int cb_getattr_update_times(struct dentry *dentry, struct nfs4_delegation
+ 	inode_lock(inode);
+ 	ret = notify_change(&nop_mnt_idmap, dentry, &attrs, NULL);
+ 	inode_unlock(inode);
++
++	/*
++	 * FMODE_NOCMTIME kept the holder's WRITEs from bumping the change
++	 * attribute; a newer delegated mtime is the only evidence of them.
++	 */
++	if (!ret && (attrs.ia_valid & ATTR_MTIME))
++		ncf->ncf_file_modified = true;
+ 	return ret;
+ }
+ 
+@@ -10836,7 +10843,11 @@ nfsd4_deleg_getattr_conflict(struct svc_rqst *rqstp, struct dentry *dentry,
+ 		else if (i_size_read(inode) != ncf->ncf_cb_fsize)
+ 			ncf->ncf_file_modified = true;
+ 	}
+-	if (ncf->ncf_file_modified) {
++	/*
++	 * The holder of a timestamp delegation is the authority for atime
++	 * and mtime (RFC 9754, section 5), even if change and size match.
++	 */
++	if (ncf->ncf_file_modified || deleg_attrs_deleg(dp->dl_type)) {
+ 		int err;
+ 
+ 		/*
+@@ -10849,6 +10860,8 @@ nfsd4_deleg_getattr_conflict(struct svc_rqst *rqstp, struct dentry *dentry,
+ 			status = nfserrno(err);
+ 			goto out_status;
+ 		}
++	}
++	if (ncf->ncf_file_modified) {
+ 		ncf->ncf_cur_fsize = ncf->ncf_cb_fsize;
+ 		*pdp = dp;
+ 		return nfs_ok;
+
+-- 
+2.56.0
 
