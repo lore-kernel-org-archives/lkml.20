@@ -1,78 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793649985;
-	b=CZFJfU0n674gohcJRBgr0giz0eyMB6ubwgMswA60kvswlVODTYnvUVk1M/vKKBoiCRgQ
-	 kDg7NVK8y9OCk30vVEk95FbZuU3DeE87SRR0Khq+TWMl0+oCHKR0AvVhUGKdelsVxNUMU
-	 CzICQpNmQHegP8RXDYFXutKk+BBmqA2kC4Tk6gsp8AguXiM0Xgegn72Sa1qvnuak7+c7Y
-	 6zE5s/YSNNfpCY8oEejGwt9oX8HF6CyaB0s7xVveiNp3qdrfsq8+asK/4y22wYhWB8QQ9
-	 73h7tG42fKKDPIWzc1/Gmwc4d9ZDtlMDqSjk2iu0va8AvATOZCFnufcJRkSvKEVnXlQ==
+	t=1793649990;
+	b=tusTaWGOBtRYaiRc5RYYUTUES3LMR4drYYCzHoT71hJjrQj7Ux0YCkLqfEWs9Fp24It3
+	 7410TwrUYcrnQmOMZcfWxXxIUWLWuVSoQjUkuhmk0sUG+wwhHRq6RasL4gqJYBhPp8a6p
+	 0M3Al4jjxHZBSMBy99llC9tzj7G6w9ERUyVH78Wwnd+hEyOiM32DUdtFI8LFT6ubCSlVn
+	 J7T/7LRa8kB2amFCYbxFiGYbXieilzPZv+iPPW+rbFwywxJKe8IqaIMWHMBurMING/pwF
+	 2sPJYB3FUsbxo6C+ptmg6hfda8g1t+L2qIylNTKxM0G7fER+isw7FUuVAnAbKGsG6xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793649985;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Scanned-By;
-	bh=loLXagEnBUuSSHP3j0cjXB3Ekg44KHkg/qF2k3+NA5M=;
-	b=1azolLp2D/3KydggKv0h9uLFriykT+aETqGXy22OKQnwCvasQLhPyBGPlurlGykJoM0K
-	 9y70+38K8AK4fA/gQMxL7iJ+DY3Fiov204CX7nbt0Jn68nilHvXU4LUUKX+6o8u/KvSWx
-	 enewZVHd8Wuo+4rnAn4bTFbLs3ThgChNxmiBI6nqpGMQzp/6X0kaZU818mU5Mn3Um6bUJ
-	 RqFYkCdhVAGHxDWTwXU+v2qXDJQ7gfqgxcAmC4y5S9szs5k+UvOI4WOUUUKgr0OTyamKL
-	 A5EXbS/UiiRrQhRi0ACK24RaTOQqXItiW5u2MAxxK6ljQVHbBDObXz/zZyv8MGWKWsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793649990;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=zNXiOAtCffaAA2fqTojb2+8iN0aPYzLlWRJ/9iKFuRk=;
+	b=xKfumUHaMnLSQ8X0qSwz8qLwFxvELHOI/XtvGaAS0GkNgisqedpewcSe64+2RmLbX+kR
+	 7KP02SLAe24ojqyAA2fGh/8cR7oyiaiJKBdJkZHDZmRhfkyMowsHbZltZxDn7ZpNavU5B
+	 Z68/fD9OMgG15YFtJKkpvdSNeMll+XMxW6+LkZ9xXtuKojs7vCwRATICps2wT7jtMaFpq
+	 0kFuEk/s+hO1anUesMyXdY4HEu9ma+1vDYlsgCjh0FWcITS4LzzVGHqLgKTWCwHf9vAvh
+	 PrI/fs6j1HOpO5EEEHJAsaXwpAV1hbqZ3eMEp5QeoRFUw9Da+Vh9bgmSW4quRCyHvMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aF0BlVXh;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h2tEebi8;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A13606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:06:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79A13606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD80606D81F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:06:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CD80606D81F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aF0BlVXh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793649983;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=loLXagEnBUuSSHP3j0cjXB3Ekg44KHkg/qF2k3+NA5M=;
-	b=aF0BlVXhsXDIlE6E0V3MccHhPSf3S2WNmhOHWv7Vd9fCGVutQtWmxQXRS2cNO8Y0wrRhU9
-	7UJZOR1EJAQaBIKJc3/uwUVuZ7mhMaMec77iisjfr5wVfthG59TdOwtuELfE5QXXMlFrcb
-	S3SkH3vMfPQIRd1PYFTCpgmGZj374Tc=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-240-wSa3VeRJNwqtusXtcS2FQw-1; Mon,
- 02 Nov 2026 15:06:18 -0500
-X-MC-Unique: wSa3VeRJNwqtusXtcS2FQw-1
-X-Mimecast-MFC-AGG-ID: wSa3VeRJNwqtusXtcS2FQw_1793649977
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F1F311956055;
-	Mon,  2 Nov 2026 20:06:16 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4F6BF1955F43;
-	Mon,  2 Nov 2026 20:06:16 +0000 (UTC)
-Date: Mon, 2 Nov 2026 15:06:15 -0500
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Hannes Reinecke <hare@suse.de>, mst@redhat.com, jasowangio@gmail.com,
-	mkp@kernel.org, James.Bottomley@hansenpartnership.com,
-	pbonzini@redhat.com, eperezma@redhat.com,
-	virtualization@lists.linux.dev, linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org,
-	kwolf@redhat.com
-Subject: Re: [PATCH v2] scsi: virtio_scsi: implement eh_host_reset_handler
-Message-ID: <20261102200615.GC1738758@shajnocz.csb>
-References: <20260911164417.33860-1-ngocthang2710.1999@gmail.com>
- <28865bba-ac60-4c6e-aec8-64b1fcdb1c8f@suse.de>
- <20260914133144.15509-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h2tEebi8
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0592d4539so4747366b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:06:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793649989; x=1794254789; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zNXiOAtCffaAA2fqTojb2+8iN0aPYzLlWRJ/9iKFuRk=;
+        b=h2tEebi8FlhlcvgSGF+Nw/ZVewUA2y/5u0vJabVq7OkTIT3HMeELFE9IJdjSJCWHqL
+         8bWvBIE0icLkBRS1dkuUxeXd1ZFPvyWKOg6SU/fCfEfSN8xoRfs0ZdDoJgDJAcmoORYb
+         D+/OipMtTEeuyPRDjNy0D/5E7e/AyZgXuJZe7EzaVIVbWExIlJT/53qyXQRgz1c4R5c9
+         KmFQ3sBY1LHQtnO0XDwp+JDuHwsknqQJaINYhagN8WR0EnTUr4rf892ZcnTKhFPeXHRt
+         L9CSrjI7+nJNEWqPvrNd5ft3ixghCVbw3jpqySsZo/K5nB5WyCmh6DYeyyMtMwii5Rj8
+         Retg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793649989; x=1794254789;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zNXiOAtCffaAA2fqTojb2+8iN0aPYzLlWRJ/9iKFuRk=;
+        b=DSDQTtT2OjuGFitrLtO4+2vp3VGiiqaDanQgF7LT6lM2TQKY83YWT8nSsjzbg5q9EM
+         WGNJ5iw7DEMHCc47gvdYQNv2MV7y6mts4FeK+xnldXA5fiDr8j7lZGPZGAhp5FIVezUl
+         jpVQpTyeCQe+OQBhIrgjZihpHbL+ZRt3p1hzr3+XQmPnU1KMD0c1JyvUPWoXd/Wke9tk
+         AOq1Osxj5K+/mkudtY+E0mLNJJcXTUa93JTQ4xIm03j73gTaEBfGIqdQiGTqqOf//021
+         rFqdJu6CtYUl9bnYYcMY5uqBzfvkiFCRXv3lWHa1Z5pCAVVTz7YlDmEUelS+lyvVLCsl
+         cNDQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHLeQC8hn0+Ve65L1jWo5Ic57yUzoCU5bBWjQFewsR8kgwN0tPBN5Pd//zjA91Tpp/bF5pBfJKqo3Y+m4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9D/W0U0LsSKCJV+/dleZSFyKvPlVWmZyK5Q5yPWruxZtbC/9ee
+	DNWdU+JLiDTpsT4HzR0AkOtibaW0yksx/JgIz0TCSJ0nn2JYWeDIZJ4LkgHEhc38eqsRmTx1oc3
+	D9x9Uq/ZawxLVcA==
+X-Received: from pffl1-n2.prod.google.com ([2002:a05:6a00:c341:20b0:8a1:d11:a833])
+ (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:71c7:b0:89f:6989:cb9c with SMTP id d2e1a72fcca58-8acb218bb8cmr3588221b3a.13.1793649988443;
+ Mon, 02 Nov 2026 12:06:28 -0800 (PST)
+Date: Mon,  2 Nov 2026 20:06:24 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,126 +75,165 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914133144.15509-1-ngocthang2710.1999@gmail.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261102200624.1570562-1-skhawaja@google.com>
+Subject: [PATCH v2] vfio: selftests: Remove libuuid dependency
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>
+Cc: Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Samiullah Khawaja <skhawaja@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 14, 2026 at 08:31:44PM +0700, Nguyen Ngoc Thang wrote:
-> Once virtscsi_eh_timed_out() lets SCSI EH run on an unresponsive host,
-> abort and device reset both fail the same way (same dead ctrl vq), and
-> since virtio_scsi implements neither target nor bus reset, EH falls
-> through to scsi_eh_offline_sdevs(), which frees the stuck commands' DMA
-> buffers without any guarantee the device has actually stopped touching
-> them. If bus mastering (or whatever broke the transport) comes back
-> later, the device can still write into memory the kernel has already
-> reused.
-> 
-> Add a real eh_host_reset_handler instead. virtio_reset_device() is the
-> guarantee scsi_eh_offline_sdevs() was missing: once it returns, the
-> device will not touch guest memory again, so it is safe to hand
-> outstanding commands' buffers back. Reuse virtscsi_remove_vqs() +
-> virtscsi_init() -- the exact sequence already used across
-> suspend/resume -- to tear the virtqueues down and rebuild them.
-> 
-> Verified with a QEMU virtio-scsi repro (PCI_COMMAND_MASTER cleared
-> mid-write): EH now runs abort -> device reset -> host reset -> abort ->
-> device reset -> host reset -> offline, then dd's stuck fsync returns
-> EIO and D-state drains to 0, in ~244s total. No task remains
-> uninterruptibly blocked.
+Libvfio depends on an external dependency libuuid for parsing vf_tokens.
+Building it in cross compilation environments gives the following error,
 
-By the way, there is a known limitation in the QEMU virtio-scsi
-implementation where some reset-related operations are implemented
-synchronously (can block vCPUs and QEMU activity while waiting for I/O
-to drain in some situations) instead of asynchronously. Recently there
-has been work in QEMU to make VIRTIO device reset asynchronous, for
-example, but it needs to be implemented on a per-device basis and
-virtio-scsi hasn't taken advantage of it yet.
+ ld: cannot find -luuid: No such file or directory
 
-Please let me know if you'd like to discuss or contribute. It's
-something that is on my radar but not until 2027.
+It also complicates building with glibc alternatives like musl, see
+https://lore.kernel.org/kvm/c2f7e904-2646-4b01-864d-d185221c7f56@gmail.com/
 
-> 
-> Suggested-by: Hannes Reinecke <hare@suse.de>
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
-> v1 -> v2: implemented eh_host_reset_handler as suggested by Hannes
-> Reinecke in review of the original RFC, instead of relying solely on
-> the EH loop falling through to offline.
-> ---
->  drivers/scsi/virtio_scsi.c | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
-> diff --git a/drivers/scsi/virtio_scsi.c b/drivers/scsi/virtio_scsi.c
-> index b4f20c487718..9698f4f91cc6 100644
-> --- a/drivers/scsi/virtio_scsi.c
-> +++ b/drivers/scsi/virtio_scsi.c
-> @@ -833,6 +833,8 @@ static enum scsi_timeout_action virtscsi_eh_timed_out(struct scsi_cmnd *scmnd)
->  	return SCSI_EH_NOT_HANDLED;
->  }
->  
-> +static int virtscsi_host_reset(struct scsi_cmnd *sc);
-> +
->  static const struct scsi_host_template virtscsi_host_template = {
->  	.module = THIS_MODULE,
->  	.name = "Virtio SCSI HBA",
-> @@ -846,6 +848,7 @@ static const struct scsi_host_template virtscsi_host_template = {
->  	.eh_abort_handler = virtscsi_abort,
->  	.eh_device_reset_handler = virtscsi_device_reset,
->  	.eh_timed_out = virtscsi_eh_timed_out,
-> +	.eh_host_reset_handler = virtscsi_host_reset,
->  	.sdev_init = virtscsi_device_alloc,
->  
->  	.dma_boundary = UINT_MAX,
-> @@ -947,6 +950,27 @@ static int virtscsi_init(struct virtio_device *vdev,
->  	return err;
->  }
->  
-> +/*
-> + * No bus/target reset in virtio-scsi, so EH lands here after device
+As it is only used for parsing vf_tokens, remove the dependency by
+adding a minimal uuid_t and uuid_parse() to libvfio.
 
-The choice to use the VIRTIO device reset in virtscsi_host_reset() looks
-good to me, but I would like clarification on this comment. virtio-scsi
-does have I_T_NEXUS_RESET and I believe this is the modern equivalent to
-the pre-SCSI-6 TARGET RESET. Is it really the case that virtio-scsi
-doesn't have target reset? And do you want to go ahead and implement
-.eh_target_reset_handler() using I_T_NEXUS_RESET?
+Tested by running vfio_pci_sriov_uapi_test selftest.
 
-> + * reset also times out. A virtio reset guarantees the device won't
-> + * touch guest memory again, so stuck commands can be freed safely.
-> + * Same teardown/rebuild already used for suspend/resume.
-> + */
-> +static int virtscsi_host_reset(struct scsi_cmnd *sc)
-> +{
-> +	struct virtio_scsi *vscsi = shost_priv(sc->device->host);
-> +	struct virtio_device *vdev = vscsi->vdev;
-> +
-> +	scmd_printk(KERN_INFO, sc, "host reset\n");
-> +
-> +	virtscsi_remove_vqs(vdev);
+Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+---
+v2:
+- Move the parser to lib/uuid.c and lib/include/libvfio/uuid.h (David)
+- Drop the vfio_ prefixes and add a uuid_t (David)
+- Mention musl in the commit message (David)
 
-This is synchronous and may take a long time. I noticed that some SCSI
-drivers have a timeout that returns FAILED when the low-level host reset
-operation takes too long. This can be done here too but would require
-adding a timeout to virtio_reset_device() (i.e. see the virtio-pci
-implementation that loops until the device register indicates reset is
-complete).
+v1: https://lore.kernel.org/all/20260925013110.3447626-1-skhawaja@google.com/
+---
+ .../selftests/vfio/lib/include/libvfio.h      |  1 +
+ .../selftests/vfio/lib/include/libvfio/uuid.h | 11 +++++
+ tools/testing/selftests/vfio/lib/libvfio.mk   |  3 +-
+ tools/testing/selftests/vfio/lib/uuid.c       | 47 +++++++++++++++++++
+ .../selftests/vfio/lib/vfio_pci_device.c      |  2 -
+ 5 files changed, 60 insertions(+), 4 deletions(-)
+ create mode 100644 tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
+ create mode 100644 tools/testing/selftests/vfio/lib/uuid.c
 
-> +	if (virtscsi_init(vdev, vscsi))
-> +		return FAILED;
-> +
-> +	virtio_device_ready(vdev);
+diff --git a/tools/testing/selftests/vfio/lib/include/libvfio.h b/tools/testing/selftests/vfio/lib/include/libvfio.h
+index 07862b470777..e9d513c3a08e 100644
+--- a/tools/testing/selftests/vfio/lib/include/libvfio.h
++++ b/tools/testing/selftests/vfio/lib/include/libvfio.h
+@@ -6,6 +6,7 @@
+ #include <libvfio/iommu.h>
+ #include <libvfio/iova_allocator.h>
+ #include <libvfio/sysfs.h>
++#include <libvfio/uuid.h>
+ #include <libvfio/vfio_pci_device.h>
+ #include <libvfio/vfio_pci_driver.h>
+ 
+diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h b/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
+new file mode 100644
+index 000000000000..52406f3409b7
+--- /dev/null
++++ b/tools/testing/selftests/vfio/lib/include/libvfio/uuid.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H
++#define SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H
++
++#define UUID_SIZE	16
++
++typedef unsigned char uuid_t[UUID_SIZE];
++
++int uuid_parse(const char *in, uuid_t uu);
++
++#endif /* SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_UUID_H */
+diff --git a/tools/testing/selftests/vfio/lib/libvfio.mk b/tools/testing/selftests/vfio/lib/libvfio.mk
+index eff95828719e..d1d1b2b05af1 100644
+--- a/tools/testing/selftests/vfio/lib/libvfio.mk
++++ b/tools/testing/selftests/vfio/lib/libvfio.mk
+@@ -7,6 +7,7 @@ LIBVFIO_C := iommu.c
+ LIBVFIO_C += iova_allocator.c
+ LIBVFIO_C += libvfio.c
+ LIBVFIO_C += sysfs.c
++LIBVFIO_C += uuid.c
+ LIBVFIO_C += vfio_pci_device.c
+ LIBVFIO_C += vfio_pci_driver.c
+ 
+@@ -30,8 +31,6 @@ $(LIBVFIO_O_DIRS):
+ 
+ CFLAGS += -I$(LIBVFIO_SRCDIR)/include
+ 
+-LDLIBS += -luuid
+-
+ $(LIBVFIO_O): $(LIBVFIO_OUTPUT)/%.o : $(LIBVFIO_SRCDIR)/%.c | $(LIBVFIO_O_DIRS)
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c $< -o $@
+ 
+diff --git a/tools/testing/selftests/vfio/lib/uuid.c b/tools/testing/selftests/vfio/lib/uuid.c
+new file mode 100644
+index 000000000000..378904d9340a
+--- /dev/null
++++ b/tools/testing/selftests/vfio/lib/uuid.c
+@@ -0,0 +1,47 @@
++// SPDX-License-Identifier: GPL-2.0-only
++#include <string.h>
++
++#include <libvfio.h>
++
++/*
++ * Minimal replacement for libuuid's uuid_parse(). libuuid is part of
++ * util-linux and is routinely absent from cross-compilation sysroots, which
++ * makes the vfio selftests unbuildable for non-native architectures.
++ */
++#define UUID_STRING_LEN	36
++
++static int hexval(char c)
++{
++	if (c >= '0' && c <= '9')
++		return c - '0';
++	if (c >= 'a' && c <= 'f')
++		return c - 'a' + 10;
++	if (c >= 'A' && c <= 'F')
++		return c - 'A' + 10;
++	return -1;
++}
++
++int uuid_parse(const char *in, uuid_t uu)
++{
++	const char *p = in;
++	int i, hi, lo;
++
++	if (strlen(in) != UUID_STRING_LEN)
++		return -1;
++
++	for (i = 0; i < UUID_SIZE; i++) {
++		if (i == 4 || i == 6 || i == 8 || i == 10) {
++			if (*p++ != '-')
++				return -1;
++		}
++
++		hi = hexval(*p++);
++		lo = hexval(*p++);
++		if (hi < 0 || lo < 0)
++			return -1;
++
++		uu[i] = (hi << 4) | lo;
++	}
++
++	return 0;
++}
+diff --git a/tools/testing/selftests/vfio/lib/vfio_pci_device.c b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+index 4063a0e2b3df..4ae6ac1f8ed8 100644
+--- a/tools/testing/selftests/vfio/lib/vfio_pci_device.c
++++ b/tools/testing/selftests/vfio/lib/vfio_pci_device.c
+@@ -23,8 +23,6 @@
+ #include <linux/types.h>
+ #include <linux/vfio.h>
+ 
+-#include <uuid/uuid.h>
+-
+ #include "kselftest.h"
+ #include <libvfio.h>
+ 
 
-Missing virtscsi_kick_event_all() like in virtscsi_restore()?
-
-> +	return SUCCESS;
-> +}
-> +
->  static int virtscsi_probe(struct virtio_device *vdev)
->  {
->  	struct Scsi_Host *shost;
-> -- 
-> 2.43.0
-> 
+base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
+-- 
+2.56.0.385.gac671c819a-goog
 
