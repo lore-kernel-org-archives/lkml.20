@@ -1,83 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793589991;
-	b=FibNrPYhObXXzhTEzpQyntdvd6HFdTBavedknpjV7j292TlYmJ2FTaprdrDkoiRNRRgW
-	 Sok4MTOnPLeLFqTXhBrNZUTdjggPR9CRSnGgdX54PHJwuKC5ys5LajKoFYWiJQIsaBtat
-	 hobhTsY1oWbkcDJj1mYDNssMo31I2t1dLktuc1JMoFOyo9zXvPbFa73hY7P+diyIyy3K2
-	 eGPLhrGwnSWNZHqK/zbpkA5s7gM2bzTOYZx1mymZik9AihcmLUdj7alHf94qzR4ZD7gTt
-	 umBrz9cPEBhA0o7LHCI7T/rUiEphLJUWXiJk3GAElYTwkqM3DEX4Y99+ZXLGSfNPScA==
+	t=1793589994;
+	b=0AFbLrH5/rOrhJCTUA7Mwp/fG5WpkR0WLjBkRe8UMEVIbdViRfWrFLKdXzqutMxXW6Vx
+	 r0Q5n2HdibgUa98RGTV2oiYIgOdRXoNz54bIwOK4ahSG/GgbjwH0a1SLS4IB50Zb6G+UW
+	 I2ONC2wkE4uLux0qrbhdJwrkMPtmgJ8a8yCZeLrDwGLKfoCELFqXwavoj+qMS2dpA7jMY
+	 XPdf5146vdl382t0xBUKbHQabpNbVdc5BHPIFhKnzztXh3/wD72UZNUThj5n7CQDr718v
+	 WFRFW26jgwtMmZfIBd6fgldb7mz24QiBrPFrGFhT49iwiE6T3ADn5r5+0IDQHFpkqkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793589991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793589994;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=lTMXZFe5gyQw5mYi0ReIkJiMtVGiDJG8MERdlHxMBwM=;
-	b=vv1S/eh6tmpIbSrTZOEdjVl0b07AL+z0V19AfL6B9esIro2EdFic6MtHXZdbU+MsQZPm
-	 7Ezbk0t4lSigOL48dtmsEdEuIdc5nakNFgP3j6IIIPCsZRgUpRfcNf+iRHPS61Dda39Tf
-	 TNVjbraaQxOsSgMAtRr7aLpOZUBtuusJBiQeqxh1FQAMK5XmHVZFqxV57JafLkXV2+5OI
-	 Ge3q+KZGWrO/y7K0L3jOQFmkdVtRNCvjDJeq7cX2xpaX+J/1XrGd1zXMBviVH2HZev8Hl
-	 1nCMkZS0KSUecoMzIRuunFr96fzrMD1ej+EtIE6T0aPFVrLf29k9k6CFj5EMkrJbYQw==
+	bh=WBkp68rV0/lZxrO5waWBGU0MnUd67ZX+BTZGzOmvwqI=;
+	b=Zg/9+FwTPOFy/3cBnPDJwVbBhqa/sVDjLAx4Tx9UgN+YEmfzkWAZkaHQO96XMqUn5omm
+	 v7GF7qjYTs1sVbQa3BeAYsek2qOZrK4754wQ93Q1Y9XV/Rn3uXzFvAZ1x4AWkMdggK1UD
+	 2uW5Z/I2CjSr01IRwcMIhMX/nAXsR/N5FeOBkl/MicUNUW6O17Vl8TuXXhWy3OY1ug/Js
+	 RxBtvMORTJBbjTKYI9KsKpyndcbK1zbLlqjDWkUwH3+N3bh5K75gxi27YN1gCy0kzlN51
+	 WEZ0x4zs5GM29N/yf7Y5BvoibeuLwuIA/SJJotCFbK6TMJTyVDUcW/n2EihrOEoT+uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=LwPJIsDg;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=DGcl5aYs;
 	arc=none smtp.remote-ip=209.85.215.171
 Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EB6606A335
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:26:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90EB6606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299CD606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:26:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 299CD606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=LwPJIsDg
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso56518a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:26:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=DGcl5aYs
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc7e79c1eaaso839624a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:26:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1793589990; x=1794194790; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1793589994; x=1794194794; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lTMXZFe5gyQw5mYi0ReIkJiMtVGiDJG8MERdlHxMBwM=;
-        b=LwPJIsDg74jk70+cX9ly8s0NLIMcLgE8ePdpdtrzN2oF/qBvFALkp2jRSm/xjMOSlu
-         faEwMZOZ4J7L4DNOl81lSLZR98kVzt5+Z+55PLoYc/Mk+27cTf1F4lb6tkb7nrSpKzBQ
-         x9vNgi5/sl4HpKrpndpPp4fax8hoqHI2AJekzGNcodK2BgysmjsmIYpLx2Oi2N5Mb1vS
-         aHU6U2MmJGbSVg0f53tcRpXRDdsWC7srVAnkzkS00wfOSkKr3CqEWCbWAmegNK0k2Vli
-         P7Akh70dMLuIrl9pKY0tecyhpuHoW6uritW/k2evDKCWBNbig5+CY4jV2ozZ7JY5ruxn
-         tc0Q==
+        bh=WBkp68rV0/lZxrO5waWBGU0MnUd67ZX+BTZGzOmvwqI=;
+        b=DGcl5aYspDFSJTL7+vK9LhZgVrfro634c+1gDGkLb9ygw2+PLjTSp+QktI9mUVn/Vl
+         /+cyH+8513HBCJNfhen35F/S0MK/vqYwK0gG66wFGTls7YjNcARp0ju3GC7YHWGaECmP
+         RD20sIIpuzm7PubDl1EqycaQ2kcOn2fgjZTeCPvgqYu/18aZIjLBPsE1I26yQI8HAsN1
+         0aVIxPMUjIM3UxAWRpvCnbXyi2OOra8rD6bfgQxgTur4EAX1a2sJZW691C4V0zi9OrXA
+         EGsagdNySKPOejmmuntLCl+SvM7qEgl6Bvxc366sIeYK70x0Ki/HKy3YFtbFraHYlWZ6
+         s3ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793589990; x=1794194790;
+        d=1e100.net; s=20260707; t=1793589994; x=1794194794;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lTMXZFe5gyQw5mYi0ReIkJiMtVGiDJG8MERdlHxMBwM=;
-        b=UhCM6BxpwqmOdVq0p8dKcwE37gycrbLRLNeDodHKbuqfvg1jbIqeDlcQbrjO0KB7Wd
-         tImSixQwwUFYhHkGxLdC7LImUsqib1JbLEo4OtobDGO3qrKwuQv+JZLmtuTlHI08zOvL
-         bN6YLm5QNAzw00aKtAbUAigsETfhM6Z5O1eMQkWg2lUxMJ6OAQc7PNBNCWTm6q61FonH
-         slGFAA0VUVUnm9WXvJOxDAW8BtB8unnHa0CFBEr44fJh+XngHrTg34FWrxfYRZcLKyyQ
-         dp9auaN6wK7fFj0g+LQXDM1iprNhymJnuRbzAxYMoiI0+atKGAIk2TSAb008aFtwf94X
-         WNDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwD4PLD1ct586s2H39ktEhtT663VfObCo4IaU06POhm5pBFNFRsKHv1HzrYsDkftnyth3fHT211aqWVEjY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kqTEi+X79vCkShwsyeT7IEPmfo7BWG8ZtfSCh1LtNQmbliwgf
-	7CKLsJ9m7IilMR69B8yYmtRHCc2e5OZoPEMcd7TPaJuyCA00nWAKUNt5UVMhz4KP0R4=
-X-Gm-Gg: AYBFou11V2LKEOPtwu6DKb0Qh+52pHzDiIf3dxZko8mlw0JTi5VVMAY3e42w3LfVib5
-	CMUzSzqoESYJR1Z7ZhGCkbyo2JB33/Se4dreD+bN5lURhwEFom/BpvK0c1gcwLlOSYpCXhVeXCu
-	EWE5YA2rs6o69b6NdAqk6/J0ww/c/g895jNKbHAAVEZX+yjB4MGTFkF7YWzm3e643plwenGLVAs
-	xgDHHRnWNJKkOMq1T8Whw+qeJEJx1GK+oT1858PlqDk4YtjIWk7ML5f/vgTKhDtanmcOATTMtpB
-	jBhv+htC2D9luI7qJjYLW8dudOCHKfsqiIreNR78Bq8mK9+CUV79gnTBd8dQ53WjsNNwD9Afpks
-	IQohGiDViJ69sXune9A0P2qXGUy9IcLxOWo9aVONairSgNVmuiiQYqOo9XNzfUKSHXtaDLLCNTP
-	M3maqWMruePcktU1NPBefDfw3aqtUUEFJK+S5Jnfopmz0TXUrsjvbJSJIM7qkVJaxpUIL5US+rr
-	csD2gs8AVgOgZWqX9dEZBFfg/Lacq1wHsLynvFsVIqXzjjp849Snp3TDHjtXzOd93YBS7qC8bDw
-	BJ9M7YVxu07zv8g6Yqq7WODLpGnFoOOkXSkvV44JmserIXHmmw==
-X-Received: by 2002:a17:90a:ec8d:b0:3ac:b7b9:6484 with SMTP id 98e67ed59e1d1-3ae897ae130mr6776957a91.45.1793589989738;
-        Sun, 01 Nov 2026 19:26:29 -0800 (PST)
+        bh=WBkp68rV0/lZxrO5waWBGU0MnUd67ZX+BTZGzOmvwqI=;
+        b=KxWO/vyXZtEpsvE4N1uG3trmrlq6XAjuSlKqDlfxnjorQuVmGoXaJIfVk9/E9CLDf4
+         GJHamWDXdG8Lwco1GbIqCv3UuT1VvFcAPPgfyurbTXB9j83DNDorJsSYi01ZMtKN8nnX
+         uCu3iPi5dFujoHAxH6SIPlTCjepBwQysdtulENWyvjoyq4KyKQ41ca05497UY6USffNC
+         ZY5CK6WnNPolK2ov3px5pH2ESADO75b5FMLpIQto2vekdDllCnCk27Wn0octm4r84ATV
+         L3xqN/53pylPK0BTwhVlYkSu5JK7fNyngL8odNZPWyCp0Z2LdaeaDfEDkSd3ixYgE/oG
+         QQGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwKdZnbDz06DpYD5W+sLgDGUMuGNOoo4rWBUbgUqSrqb3QZ6g2+e5HEZgFExAuiaqsS3bkjeTA/9ecGV08=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wXWnUfdnltO0D4YwvcR/VddYkb2F/Q6ubk41pyUiocL4bKvm1
+	rnCseCQiB2koGh0nz8kpctxyAzZx0bzjG46q4myyP1WedXvofBT/zXtEd34MhnkM1zU=
+X-Gm-Gg: AYBFou2y9lFRZDyFS36sd1A0xNgZilOPIG/2AtW+hZXySwlaCmuK5d/kp3KtLuVeqSe
+	e8UyQs292LY3KXYP1dTAS/SLEQZA3J6+lWomeJ+xZcTJGBu67sSS+fx7Kv8qCJrGzeE21Vnkq4t
+	pvR2ADLkkDySmSCKPi4XmNRfkNWazpKiYCj7IrUpGUd4smynDc7ZVZiRflfKVNCTEb3GC2s3DtW
+	rRN8EL0gJBWnxgkwbvjn0If+2Kan26orUNgq/RX4jQrYtxj+RthuvxhlLPN/0UlPUg0WnzscLpD
+	2X8c4+I+AIkSX+g9rV6tzgsv0IpI2x4wjmrWxbnrJmHTRRYiBhTyBwuF9fbpg/N9j9GqMjsgbs1
+	pE6UYWUd0PTmympEuy06JKOX2tZvGo23OBptLnJ6OjyyqsF8WHAKbn3/IE3LrxGha8VKBgVuGw1
+	naf+5BpCxcDNUXu5eRCQ8pnUDTSsuhMWJAlYQcQXcK9UPG37/tVTI2jPtjThJI6+yd84xHURn5c
+	6aJUoQ27uR50b5uky1jDkk38TE5Fi2BjSqKJ+GcIlzrg2hyErdhtxh01Ff7SKg+8tSWUj0yjMWI
+	VacVPhqsX9qqXqn80QkYGztwqU1in4VK128dYLJIoS31h0uR2Y6K428KcBzm09whlF6eeC0=
+X-Received: by 2002:a17:90b:2891:b0:3ac:7c52:fb04 with SMTP id 98e67ed59e1d1-3ae897ab44emr6749741a91.44.1793589993498;
+        Sun, 01 Nov 2026 19:26:33 -0800 (PST)
 Received: from n232-176-004.byted.org ([36.110.163.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845984absm12303317a91.10.2026.11.01.19.26.26
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845984absm12303317a91.10.2026.11.01.19.26.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 19:26:29 -0800 (PST)
+        Sun, 01 Nov 2026 19:26:32 -0800 (PST)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Oscar Salvador <osalvador@suse.de>,
 	Andrew Morton <akpm@linux-foundation.org>,
@@ -90,9 +90,9 @@ Cc: Qi Zheng <qi.zheng@linux.dev>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v2 02/12] mm: hugetlb_vmemmap: unify VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
-Date: Mon,  2 Nov 2026 11:25:15 +0800
-Message-ID: <20261102032525.3597743-3-songmuchun@bytedance.com>
+Subject: [PATCH v2 03/12] mm: hugetlb_vmemmap: simplify vmemmap head page handling
+Date: Mon,  2 Nov 2026 11:25:16 +0800
+Message-ID: <20261102032525.3597743-4-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261102032525.3597743-1-songmuchun@bytedance.com>
 References: <20261102032525.3597743-1-songmuchun@bytedance.com>
@@ -107,111 +107,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-VMEMMAP_SPLIT_NO_TLB_FLUSH and VMEMMAP_REMAP_NO_TLB_FLUSH do not
-describe fully independent choices. A split-only walk can defer the
-PMD-split flush to a later global flush, and a remap-only walk can
-defer the final remap flush. However, when a PMD split is followed
-by PTE remapping, the split flush must happen before the PTEs are
-changed, because stale large-page translations must not overlap with
-new small-page translations that map different physical pages.
+The new head page is already tracked on the vmemmap page list before
+remapping starts.  Passing it separately gives the remap walker two
+ways to refer to the same page and unnecessarily complicates its
+interface.
 
-Replace the two flags with a single VMEMMAP_DEFER_TLB_FLUSH flag. The
-new name reflects that only safely batchable flushes are deferred. Keep
-split-only walks able to defer the flush, but force the split flush
-whenever a remap_pte callback is present. Callers that batch HVO work
-can still defer the final remap flush and issue their own global flush.
+Use the page list as the single handoff mechanism for the head page,
+removing the redundant state from the walker.
 
-Current callers keep the same flushing behavior.
+No functional change intended.
 
 Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
 ---
 v2:
-- Rename the unified flag to VMEMMAP_DEFER_TLB_FLUSH and update its
-  comment (suggested by Qi Zheng)
-- Update the commit message for the new flag name
+- Remove outdated head-page wording from vmemmap_remap_free() kernel-doc
+  (suggested by Lance Yang)
+- Document the vmemmap page list contract (suggested by Qi Zheng)
 - Collect Reviewed-by from Lance Yang and Qi Zheng
 ---
- mm/hugetlb_vmemmap.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ mm/hugetlb_vmemmap.c | 30 +++++++++++++-----------------
+ 1 file changed, 13 insertions(+), 17 deletions(-)
 
 diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 4b73d6ec8dce..63e899cfaac3 100644
+index 63e899cfaac3..0e5b2b182d1b 100644
 --- a/mm/hugetlb_vmemmap.c
 +++ b/mm/hugetlb_vmemmap.c
-@@ -42,10 +42,8 @@ struct vmemmap_remap_walk {
+@@ -25,10 +25,9 @@
+  *
+  * @remap_pte:		called for each lowest-level entry (PTE).
+  * @nr_walked:		the number of walked pte.
+- * @vmemmap_head:	the page to be installed as first in the vmemmap range
+  * @vmemmap_tail:	the page to be installed as non-first in the vmemmap range
+- * @vmemmap_pages:	the list head of the vmemmap pages that can be freed
+- *			or is mapped from.
++ * @vmemmap_pages:	list supplying replacement pages for the remap and
++ *			receiving displaced backing pages for the caller to free.
+  * @flags:		used to modify behavior in vmemmap page table walking
+  *			operations.
+  */
+@@ -37,7 +36,6 @@ struct vmemmap_remap_walk {
+ 					     struct vmemmap_remap_walk *walk);
+ 
+ 	unsigned long		nr_walked;
+-	struct page		*vmemmap_head;
+ 	struct page		*vmemmap_tail;
  	struct list_head	*vmemmap_pages;
  
+@@ -208,10 +206,13 @@ static void vmemmap_remap_pte(pte_t *pte, unsigned long addr,
+ 	pte_t entry;
  
--/* Skip the TLB flush when we split the PMD */
--#define VMEMMAP_SPLIT_NO_TLB_FLUSH	BIT(0)
--/* Skip the TLB flush when we remap the PTE */
--#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(1)
-+/* Defer safely batchable TLB flushes to the caller. */
-+#define VMEMMAP_DEFER_TLB_FLUSH	BIT(0)
- 	unsigned long		flags;
- };
+ 	/* Remapping the head page requires r/w */
+-	if (unlikely(walk->nr_walked == 0 && walk->vmemmap_head)) {
++	if (unlikely(walk->nr_walked == 0)) {
++		struct page *head;
++
+ 		VM_WARN_ON_ONCE(!PageHead((const struct page *)addr));
  
-@@ -85,7 +83,12 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, unsigned long start,
- 		/* Make pte visible before pmd. See comment in pmd_install(). */
+-		list_del(&walk->vmemmap_head->lru);
++		head = list_first_entry(walk->vmemmap_pages, struct page, lru);
++		list_del(&head->lru);
+ 
+ 		/*
+ 		 * Makes sure that preceding stores to the page contents from
+@@ -220,7 +221,7 @@ static void vmemmap_remap_pte(pte_t *pte, unsigned long addr,
+ 		 */
  		smp_wmb();
- 		pmd_populate_kernel(&init_mm, pmd, pgtable);
--		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
-+		/*
-+		 * Modern MMUs allow overlapping TLB entries with different mapping
-+		 * granularities only if they map the same physical address. So
-+		 * remapping must not proceed without first flushing the TLB.
-+		 */
-+		if (walk->remap_pte || !(walk->flags & VMEMMAP_DEFER_TLB_FLUSH))
- 			flush_tlb_kernel_range(start, start + PMD_SIZE);
+ 
+-		entry = mk_pte(walk->vmemmap_head, PAGE_KERNEL);
++		entry = mk_pte(head, PAGE_KERNEL);
  	} else {
- 		pte_free_kernel(&init_mm, pgtable);
-@@ -166,7 +169,7 @@ static int vmemmap_remap_range(unsigned long start, unsigned long end,
- 	if (ret)
- 		return ret;
+ 		VM_WARN_ON_ONCE(!PageTail((const struct page *)addr));
  
--	if (walk->remap_pte && !(walk->flags & VMEMMAP_REMAP_NO_TLB_FLUSH))
-+	if (walk->remap_pte && !(walk->flags & VMEMMAP_DEFER_TLB_FLUSH))
- 		flush_tlb_kernel_range(start, end);
+@@ -284,23 +285,20 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
+ }
  
- 	return 0;
-@@ -274,7 +277,7 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
- {
+ /**
+- * vmemmap_remap_free - remap the vmemmap virtual address range [@start, @end)
+- *			to use @vmemmap_head/tail, then free vmemmap which
+- *			the range are mapped to.
++ * vmemmap_remap_free - remap a vmemmap range and collect old backing pages
+  * @start:	start address of the vmemmap virtual address range that we want
+  *		to remap.
+  * @end:	end address of the vmemmap virtual address range that we want to
+  *		remap.
+- * @vmemmap_head: the page to be installed as first in the vmemmap range
+  * @vmemmap_tail: the page to be installed as non-first in the vmemmap range
+- * @vmemmap_pages: list to deposit vmemmap pages to be freed.  It is callers
+- *		responsibility to free pages.
++ * @vmemmap_pages: input/output list whose first entry supplies the new backing
++ *		page for @start; replaced backing pages are added to the list for
++ *		the caller to free.
+  * @flags:	modifications to vmemmap_remap_walk flags
+  *
+  * Return: %0 on success, negative error code otherwise.
+  */
+ static int vmemmap_remap_free(unsigned long start, unsigned long end,
+-			      struct page *vmemmap_head,
+ 			      struct page *vmemmap_tail,
+ 			      struct list_head *vmemmap_pages,
+ 			      unsigned long flags)
+@@ -308,7 +306,6 @@ static int vmemmap_remap_free(unsigned long start, unsigned long end,
+ 	int ret;
  	struct vmemmap_remap_walk walk = {
- 		.remap_pte	= NULL,
--		.flags		= VMEMMAP_SPLIT_NO_TLB_FLUSH,
-+		.flags		= VMEMMAP_DEFER_TLB_FLUSH,
- 	};
- 
- 	return vmemmap_remap_range(start, end, &walk);
-@@ -458,7 +461,7 @@ long hugetlb_vmemmap_restore_folios(const struct hstate *h,
- 	struct folio *folio, *t_folio;
- 	long restored = 0;
- 	long ret = 0;
--	unsigned long flags = VMEMMAP_REMAP_NO_TLB_FLUSH;
-+	unsigned long flags = VMEMMAP_DEFER_TLB_FLUSH;
- 
- 	list_for_each_entry_safe(folio, t_folio, folio_list, lru) {
- 		if (folio_test_hugetlb_vmemmap_optimized(folio)) {
-@@ -516,7 +519,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
- 
- 	/*
- 	 * Very Subtle
--	 * If VMEMMAP_REMAP_NO_TLB_FLUSH is set, TLB flushing is not performed
-+	 * If VMEMMAP_DEFER_TLB_FLUSH is set, TLB flushing is not performed
- 	 * immediately after remapping.  As a result, subsequent accesses
- 	 * and modifications to struct pages associated with the hugetlb
- 	 * page could be to the OLD struct pages.  Set the vmemmap optimized
-@@ -595,7 +598,7 @@ void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_l
- 	struct folio *folio;
- 	unsigned long nr_to_optimize = 0;
- 	LIST_HEAD(vmemmap_pages);
--	unsigned long flags = VMEMMAP_REMAP_NO_TLB_FLUSH;
-+	unsigned long flags = VMEMMAP_DEFER_TLB_FLUSH;
- 
- 	if (list_empty(folio_list))
- 		return;
+ 		.remap_pte	= vmemmap_remap_pte,
+-		.vmemmap_head	= vmemmap_head,
+ 		.vmemmap_tail	= vmemmap_tail,
+ 		.vmemmap_pages	= vmemmap_pages,
+ 		.flags		= flags,
+@@ -549,8 +546,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
+ 	 * they can be freed by the caller.
+ 	 */
+ 	ret = vmemmap_remap_free(vmemmap_start, vmemmap_end,
+-				 vmemmap_head, vmemmap_tail,
+-				 vmemmap_pages, flags);
++				 vmemmap_tail, vmemmap_pages, flags);
+ out:
+ 	if (ret)
+ 		folio_clear_hugetlb_vmemmap_optimized(folio);
 -- 
 2.54.0
 
