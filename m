@@ -1,86 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634881;
-	b=JzEcWYC6iJLl6e6mNrOS8kWtlq4NnoRt63eYpLzxItrDpyVO1InY14XEIEaDbG/HaWyt
-	 3tjp/nABHL8xSnFmPgBRB9tH70QO5uzb586X0zxitGmYVQMPBYPhX3wEKCFrTz9PEDXU/
-	 1LVRpbRaNhQHi12sS3ruMTmlVvybTUelK6g7V44civCXqBKyI76sYhq8Wedwzz+2C3cd+
-	 a7x10QzJ2GS89mPObbK6onevOLWxv2YjpOJIeXYED1W3f1Ezx62HjUNCwi5IukVNYlLxW
-	 S3sgWpwSt9RuAdLvkA5JRaGcCllVP36i69YZS4iCHQIULbqLVRvcyW+WZX+Q0qtQMmQ==
+	t=1793634889;
+	b=nj3rxpcZLii+YuY3v2JFtjWlKMBAEo2pivHllpzaZp9sWwSK5XBuxE+BC5GcEAv4zRcV
+	 jM5rx7NWMj4UrgUOOO+tD+15oO7SiLyWTzfS251nf+34Z20tjL5B+Ue8treOWDvBmOPKJ
+	 u8SuRmZxshN71fxA3zIpwsFeec54iMBFgDwZ15AdNz54di/67RiHBq63pfCDvW6Uc98ig
+	 fjfAR6ARih8gVnlRWq3yeFAPaOcB47OVC765h0lzfiT6Jjd9//kubrvLQlycQu2RbbRbr
+	 g1KYTLtjLipBG3+gXIltpYa9/gHSmOKv3WoUfSe/nzsOkC8+CdWA1ip40jc1mfq5Fiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634889;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=vn+1zZ+E+vaOD7UpEKJ9Trld0l/HcprwkYOwtqDxBhw=;
-	b=WjV5pV1oa07D0jZaYd6MZFxgyYgjI3dyMK0YdOA+rG+D+0eIk7wZG28DFBQDjfU73niv
-	 zA7CGxWCBuTl8xpLa8QyNl+ORv0TWNZtGfOm3OQhDPAyUhEs5Sexh5WLHl1HXWQEflOlN
-	 Gxol1SXJkPz5t9sNL+2KDzc8XOxdWBdDKiLx5xDMlpll2VWjrMXxRV22AY1oIawDSwOrn
-	 FZMV/XZVbotI+dl4o8+S1ELLilheSKdvcFGs/yP/W7oVZB5DfC8WBAudfvAGfU2YFdjpq
-	 d+7H/FINynI9Qc5IgWARo95+3y/4iFlPiKfanJo2CY4LSa6TPg+imlmmsLJA5dz2Fjg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yhNqEjK5OD5F9LH0oqPITMrFOIogMdQoBpXA7Ob2Y74=;
+	b=gbO56wcUxCYplAeSPb0THqXV77eDR2KsLPE8T6DWQs9Ja5R4ZQx+a9eGOe8pCOXEkkVS
+	 eI5vfBQHDSqRnb9TP85gsUgpeOr0oa64epb9+8FdY6rO3uM2B3O+v+N5dTWIvwoS8hEdV
+	 2m1bX4C5gR/MMpYXEPM6F2zZwfeB4UrNeOq+2N3TshP8E9yaGMbvV/xXOBhitHMULVOea
+	 aux5Xy1+pTem0hvl/YASq++X/2PlQj2aIHqFSnlqLm5bWxJdT9h+LrgCJhAvaxm3FLvSX
+	 +sFE455Fsm6hBrHFJfbe9s292v4ZV9kWopyLJhg1GP1nq/5VS298kNsd3rIIb9TcQVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BWMmXzkm;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i1wfB7H5;
+	arc=none smtp.remote-ip=209.85.217.53
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B48E607A89E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:54:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B48E607A89E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655C7607B477
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:54:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 655C7607B477
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BWMmXzkm
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e20edd106so2455215f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:54:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i1wfB7H5
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7c3b75caad1so2222102137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:54:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793634878; x=1794239678; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vn+1zZ+E+vaOD7UpEKJ9Trld0l/HcprwkYOwtqDxBhw=;
-        b=BWMmXzkmGLAyuAKGDeNwXSZSdNa9i2qcUcm7Wfror1xr5VLKrB72XOi/Rgh9gHLR4Z
-         x99aNPyvfe44OogDyVAcXXRPH0TDxX12JD36IY0ilc+2KXgcYhN7I6x4OKwhM2g4JLTV
-         4bWEGcQ3g/6Wzn6OyFqtSJMInvkluZKQf4Pu/YiGewi+KvRvzCzxtpr3GrtBZ7tz/YSw
-         411/HaO9pVlaeXzLqZXhdD+vczhuCVIgS1fFmwl0wm8h6nifeFhbdg9SqDnWmm50xY/E
-         mQlnvq+pkzXTquZAq4326+yrEkXYbUixrSA5Ho6naXe3nPt4KNsUNTsZ0T5eyH1SYhI2
-         x1uw==
+        d=gmail.com; s=20260707; t=1793634888; x=1794239688; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yhNqEjK5OD5F9LH0oqPITMrFOIogMdQoBpXA7Ob2Y74=;
+        b=i1wfB7H5dsXJook44yczyB9c17AS9A+4OHgVqD7j3AtgwfmIc3dPAYsjP+XhsgSlpX
+         d6NMckGjz7RJgJDBshDuQjKmePxG4YR8p77g9OE+FbyZAXWb2SN1oghg/Ia7uFUvDScg
+         mXcVFg5KF0n5ExVl6BqQYFOFEl+j9c2dNJhXtsBOpX/dbDeGU6DJIcq7/va8u4TQ0lbR
+         30/+7hHJd3+GUesJ6p7mBGzm0kN9xJDC/dFG8j1mbCtcMfjcMJ71cNY2veEfaDCvbt9Y
+         mXptRpEthIUAYjgICtc0dswYnH+zM9tita0D8XRSntVhEZtLW1mhBX7LnRrjHplqjnOn
+         W4gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793634878; x=1794239678;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793634888; x=1794239688;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vn+1zZ+E+vaOD7UpEKJ9Trld0l/HcprwkYOwtqDxBhw=;
-        b=mXd4RJd6wjnQG6TDqD+vLnuu+F7lQ+DelVymLRy87t/03pSwaqDZ/K7ljRmwZuF6tT
-         ObNe4UCqSXnyPwT8rvJVJvhw95vGlYYTXDVFxuaXc1oK9V6orKqwdSjJ6jXxfbOeK5Aw
-         f8Szt6ZotpzQyHS1jNXZXfKYAeKbnu3gP/v4+1M1KvnLiuoPCKC+wCa3d9CFhDuzqzBq
-         8igPx8yfYguxZ0YhwnXWW2tgMqqGpNsYobOPpEiI8PH+K3ksRjy/aKo6ygZ97fqjSdil
-         LushO4AhOq0n6hOV3wDtPuv1EZXfnj/tJ6TJH03ucHWEI2/YmnDRJOXt8GvBc4ePZS13
-         XLLw==
-X-Forwarded-Encrypted: i=1; AKwUvByDt5HbiJnugNDcl+9KrqmI426waoptBIKAU3b9n34gKSU7UhcL9tAl5O0r/gPkrt21EWPgQfztAQhOi+g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Pa8mU6W69w8PCvPrh8kFF55SaqDdTYQ3zTkS223k9ywZ5goFn
-	CJ97x+AGPqxhV9wPg9Ct7WXN/X1AyvjnEF8r+2RKRK7bFdVoCHYa5SUncBAX0XlRtXg=
-X-Gm-Gg: AYBFou0UXDbN5w8nmUAmJo2U5FiGQmhm69E6h5EEpjSM16iBun2dJfxNwCjxNISv7EL
-	yHEK7h5BKGoIo2uqTo6VJF4XhXvTZdqujvBmams2kD/UhLnXGzL9Xn9oBXpQ8nLhYcfN7yJqqYa
-	sGSUYdbxuPQwZcjzS3+Q+AXhm+ZcLgIXGE3pKDfVK3cw/ZjkbuRdlkuqLQenHgNGP/RsldBA1t0
-	yNSqNGohy8Smn2sUVGvcKwQ+mzIlZ8XvJv1Kk8yKKKXdBMHZT6Fbf90qpPacyx5imFOWAOr3rrL
-	vSwGQR14lSIZpIxr/+apfr42r8D8Cgu9sf8ezQWLABajG9xH+PQPeGESGyv5DhqrQrSjdIl7ZRD
-	K0eoEeHflRPX9uJrnTPAVS1I4gM95sK+KxgxM4Q7AoNfvDNwF/4HqOsXekTtOJkN2YrV5g1f0Ma
-	T5Aj9xauupAxbM/4pBZdCjeSXjkgG7bwKR2euvcPgYWAShNA6V61/4L13fwd7MZIPhOQm5GZLu8
-	GprtiCPxfmA/K4nXgIvSph4+Ya9tLd/tCKbbL8HpNHKpil9jDm1JnakMRUJXDUbeV9DzwcwLlvN
-	Fj26g8n1efM3UkRHu3OKW0RYMuBCBbuPGvcEz1Iqblt78WiQAlK62YJZGFI=
-X-Received: by 2002:a05:6000:4a0a:b0:48e:2448:ea23 with SMTP id ffacd0b85a97d-48e6e307864mr24148547f8f.55.1793634878411;
-        Mon, 02 Nov 2026 07:54:38 -0800 (PST)
-Received: from [192.168.0.167] ([64.43.42.35])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d511sm20298463f8f.8.2026.11.02.07.54.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 07:54:37 -0800 (PST)
-Message-ID: <0785069a-eea5-440a-a12b-3c01a02b579e@linaro.org>
-Date: Mon, 2 Nov 2026 15:54:36 +0000
+        bh=yhNqEjK5OD5F9LH0oqPITMrFOIogMdQoBpXA7Ob2Y74=;
+        b=m/2r5GIijtwX12KY9FqpMpTTXg1GnXrdEQaLeUBgAz+AkwtwO8QiKKcNWioU0bPj4T
+         WCwog3tlLZ8tf04JIxkfbbFS/An5bt6gUNrOe4n6VLGqvliemDeDYTVayK75RlGsBxVx
+         jqQOU7yphdd5WTSozwWQFhWRSOEJRTBCnlzV+kys8xfnVRd6a7Yw9Vsefvru09tDBe9W
+         m+wSH0foA04bVk3C9fgQmGYS7urwgROBzsFegbD2H4XrpFzn3haAor0Fuk486R78t+lV
+         b5kXP5ji4k7IFSjd+2r8dar3bul5Vvnc26rSMxuCsB2BmHVMRz1JBeY3uf14kVeaounv
+         tV8A==
+X-Forwarded-Encrypted: i=1; AKwUvBwRAf9FoOpmvb2+VrF+qKLSWvEy5m7184CDRBL3La7jnvnFFfLXE2db5GHYX3P9cXpwADjahVNl6eB6vbw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8bFZrBw2qPmW8zIAPxCIysgLXBHRurGvOKNWE3w0eDBoru9fSl
+	IMIFbZTm6kXJr8jMK9yiNy0SKCyqK+XdfS0CiLhM3BD29RlUFPAxYCTdzyZXXWQE
+X-Gm-Gg: AYBFou1hp7tyJYK2LjKmJyqNCHXoQEOLhnU2mXWLaceMSZPEHDVyYbQrGBXpMhRXUhe
+	UBYsFS9jfI/YN/3vb0KC/1wq2ZCshY2BYLUFMuXcWiHBd/MfgED+bUoRHAbStoXf9z0tsj3OiiC
+	w74dHxoXTb6z4RveUt+icFiNkrIPhj3JuJ/aLo++b/b7GFIiyCnPdawxM+MGzjgDzl+kozNx/Gy
+	w++jnfFzRSfSOsGlroBawCA90DMYGC7u6/HwqiZeFZkgBw8iqvHM7cKkGj6F/976ZToLUFrZe3b
+	Xw6Dff8fQHEqv4AuvnX6lqgFnGz8ClK41Axk07PZPKt43GJIExD0nqjIZCSJCCF/diGMvaHGEGT
+	UbHUb3zO7r33I9wYHKYjxyG9DgAEdi/5bJm0bDvTEf9USDj4IPXTI7Oe9I1mSATdhyW5VnxBFSM
+	/Ls75lR54PagQwaZyZLoJf/Sg2rqmQKEO/P3i9YKMA0D3bMatTMpB+JFufRIrjjiCSsZLHuYIsy
+	9iW9kcye2waqAGvH/efDD2oyfCbmK7NHZ+0MISXFUJf7TY6dHsedFhWCKffetwoe2SQzbcnmMJ8
+	Mxe3X2U3z7CyaDSzUii3DdmWI6qdCYENDqFkuO7EO9momGUIeuir6jIoRVZnzs/Cp5BlYF0P4FG
+	UCrTB3Cp2w/ibv5cnhag23Ng0RJJ9GS+1GGJPepIIbXQ=
+X-Received: by 2002:a05:6102:c4a:b0:7cc:828b:4216 with SMTP id ada2fe7eead31-7d072cf3169mr4449450137.29.1793634888361;
+        Mon, 02 Nov 2026 07:54:48 -0800 (PST)
+Received: from hp-omnibook (p4ff30cbc.dip0.t-ipconnect.de. [79.243.12.188])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d077393404sm10195755137.2.2026.11.02.07.54.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:54:45 -0800 (PST)
+From: Sergei Volkov <taranarmo@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: ilpo.jarvinen@linux.intel.com,
+	hansg@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergei Volkov <taranarmo@gmail.com>
+Subject: [PATCH] platform/x86: hp-wmi: Add OmniBook 7 14-fr0xxx to charge_behaviour quirks
+Date: Mon,  2 Nov 2026 15:34:38 +0100
+Message-ID: <20261102155409.3061761-1-taranarmo@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,48 +97,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/9] media: qcom: camss: Switch on frame_sync_en for
- x1e/x2e
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-References: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
- <20261102-v4l2-frame-sync-v2-8-25cbed7a772f@kernel.org>
- <c69d072b-ae69-4f87-aa82-d3cb4b1af82b@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <c69d072b-ae69-4f87-aa82-d3cb4b1af82b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02/11/2026 14:32, Konrad Dybcio wrote:
-> On 11/2/26 2:56 PM,bryan.odonoghue@linaro.org wrote:
->> From: Bryan O'Donoghue<bryan.odonoghue@linaro.org>
->>
->> Switch frame_sync_en to true to track and consume SOF/EOF data.
->>
->> Tested-by: Bryan O'Donoghue<bryan.odonoghue@linaro.org> # x1e CRD
->> Signed-off-by: Bryan O'Donoghue<bryan.odonoghue@linaro.org>
->> ---
-> Is there a reason why it's gated behind a feature flag? Will
-> exposing a SOF seq counter that's always zero (i.e. not
-> implemented, never bumped) have negative consequences on
-> userspace?
-> 
-> Conversely, what information (i.e. platform list) are you
-> lacking that would let us make this non-opt-in?
-> 
-> Konrad
+Extend the hp-wmi charge_behaviour quirk table with the HP OmniBook 7
+14-fr0xxx (board 8E3B). The machine exposes battery charge mode control
+through the same GBCO/SBCO WMI command 0x2b path as the Spectre 8C15/8C17
+boards: inhibit-charge stops charging on AC, force-discharge discharges
+on AC, and auto restores charging. As on other HP designs, the firmware
+retains the mode across reboot, which the existing setup seed already
+handles.
 
-Yes.
+The extension is only registered after a successful GBCO read at probe,
+so boards without the interface are unaffected by the new quirk.
 
-To be in-spece we should already be incrementing vb.sequence not on 
-every RX data-frame but on every MIPI_CSI2.SOF. You can't just return 
-zero as user-space wants to know about sequence numbers.
+Tested on HP OmniBook 7 14-fr0xxx (BIOS 94.19, board 8E3B):
+inhibit-charge stops charging on AC and auto restores charging, and a
+userspace 80 % hysteresis policy on top of charge_behaviour holds the
+battery between 75 % and 80 % while plugged in.
 
+Signed-off-by: Sergei Volkov <taranarmo@gmail.com>
 ---
-bod
+Based on git://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git for-next
+
+ drivers/platform/x86/hp/hp-wmi.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 52077833a..ea510696c 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -634,6 +634,13 @@ static const struct dmi_system_id hp_wmi_charge_control_quirks[] __initconst = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "8C15"),
+ 		},
+ 	},
++	{
++		/* HP OmniBook 7 14-fr0xxx */
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8E3B"),
++		},
++	},
+ 	{}
+ };
+ #endif
+-- 
+2.56.0
+
