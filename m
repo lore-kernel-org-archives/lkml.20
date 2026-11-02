@@ -1,70 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621420;
-	b=UDWUcD8ckNXnYTsqmTM+P5d5Jp2E4k8PDAF2NIj9WPQfsRni3KEtOCuRpHVWQ3MN4KBH
-	 k8W3+wjinqjXMdGdH6pWfzsM/JEyy/301w93Xiaye1DO5yLdGINAlhrrXfZWm0uzIdks0
-	 dyS+0qbP2S5UOgqOLC7SF0+kaLF9mVeqLHZ036qPNAoGkXdITvf40OkejDhiUTqlCBJ4b
-	 0ijvLAuSv+JjYZN5UC9b1wKn4gIRSVThItN4zBpJAWgFQQH1vtsn/i9d03RgsxWMTUbBr
-	 /E8qQS08m7km+dCfUaaPU7cc/hfV+4EuN9EdiPwPYS3HwOMTLn66wuebDVP6oV4vpIw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621420;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=3RaNVpitPtQwc0pZksDRL8hgfwXn6BMG3yrnetP97t0=;
-	b=gJN17I3rydr7NIiF+Ln6/iKTfF5fSbS5ELWQE5lM47ihvW+PFU4+C2Fk9DXdSqKYkTCo
-	 B2L2hFcxbq8f5P1/Sn2QCCSdVLk/FEciJeg31UIMVeiUPVAEm5raLheUs7/Us4nwpK+Gn
-	 MRLHuaxDKKdpy4JnDom9BRXhk+fk7eZsR4/0tnvnaDdS6pdSGYMCfFjtPwTr6lBvmgYnD
-	 cjxQteyZ1dmt4WnS7AjkfcwlsBwpCBgjS0XxxprYirpfl58HK94Jbgcxnl2Z0MM34iDvA
-	 QylVNL7y2Bbg73P8LBZYjo6kQOXzwcB/5jgkMsrP2oCzupwmFK46gGHZ7JAkICQzB7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VwC0qHuV;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4057360A2606;
-	Mon,  2 Nov 2026 12:10:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4057360A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793621415;
+	b=hK+m6aF/Y8aJdNcJMoFNoSTt+SxHIMBrCRATagkICRDTU7YJ97m+3vZqx2gJrETKWDhN
+	 1gfvmkdbQINGnXAElQoR0GdUjkWoiq39Ws2Qgd31xvU6oCrFCMRPEDl7X/rzRJndMKIZn
+	 EopQSOIDCngCzd1u07SbC+eBGjZmm6kOB5Hl2d0T04vHLWbcTF0NdaknxsOL172yTC8q9
+	 lmaVLC6u1dH5BW3IucpiVU5GSe2RXfk/8LwBk7fe3Va5L+UDkz0W50x1Wxw7ZbzQoc1+J
+	 i3kaOoAOg7ZJ6zgiKhoJ/787n7qMewIhUJ9h/EZZwYwNStfK3jOYRJU/7j6VHLXPK7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621415;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=YlDL+zociQT2RXKesvYziOtt+Wv7kiZKycH5Wc3WLZo=;
+	b=CwkMmIXVXhYhXQazq18ofJpP4DEBx1onkaVtOvfKNpqK6ffYcbUagGA5Wp6MuuNg7r+1
+	 jCOUTYzUMsu2EKBdR8il6OSem1Zt07GsIU6ekMU4imkSp/tDo1G9z+NAOcTKkQHNmM8Z/
+	 gGHTEBiKskEPIvVh3RLjg8ol8JEQ/3kZk3RkDE1ZCeZqkH0P3De1G1FpDnALddk1adNbL
+	 zZNw1omJ6mwnyG6fcpCKqIGCuJErHZML7nq5EPgj2MQ/u9G23XXi3k2LsDuwS+CMmA3KA
+	 n3Gk/rDL9zZLiHyCvh3vh4KUE5RMyjbyBMyOFt+UNuo2upUON2wlwCt9PTR2uVsuU2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SHRt8zxD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.58
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013058.outbound.protection.outlook.com [40.107.201.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D69B60A2609;
+	Mon,  2 Nov 2026 12:10:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D69B60A2609
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VwC0qHuV
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C92B1FC4;
-	Mon,  2 Nov 2026 04:10:15 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BF3B93F59E;
-	Mon,  2 Nov 2026 04:10:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793621418; bh=kH4wduj8rCU9JrOnkhZ6pZU1rzL9URyPOvDKS+QGHkc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VwC0qHuVb3TAXcufxcWHnvaPcBsK56AleG1Lpa9845YIDHNBw/EIEqriPowVEpX6T
-	 XzCrwXx+5Lq2A415gJAGOLEd3LcGoSbJ+SYR1pllJGhbw4g2lHxWt9S5lqQPCqoM2H
-	 GwNVzTOxVdnJu2vat6eT2F77+zNgSSZXSWQ3j3Bs=
-Date: Mon, 2 Nov 2026 12:10:14 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Dexuan Cui <DECUI@microsoft.com>
-Cc: Kameron Carr <kameroncarr@linux.microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"mhklinux@outlook.com" <mhklinux@outlook.com>,
-	"wei.liu@kernel.org" <wei.liu@kernel.org>,
-	"arnd@arndb.de" <arnd@arndb.de>,
-	"linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
-	"Mark.Rutland" <Mark.Rutland@arm.com>,
-	"sudeep.holla@kernel.org" <sudeep.holla@kernel.org>,
-	"thuth@redhat.com" <thuth@redhat.com>,
-	"will@kernel.org" <will@kernel.org>
-Subject: Re: [PATCH v6 1/6] arm64: rsi: Add RSI host call structure and
- helper function
-Message-ID: <auh9pgBvIDD1PjXr@arm.com>
-References: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
- <20261031001412.4150488-2-kameroncarr@linux.microsoft.com>
- <CH4PPF0966F22FCBBF24F0929E97AC69951BF6C2@CH4PPF0966F22FC.namprd21.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SHRt8zxD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hYTpwIaUboImYu4oa1x2Cpu6oM2Z8wR2vez5px07+br5rfgbnHTgPG2GjZhZj61x6Em8F6Vu497aWwRTLoFcZmLSkofFOZqpStiIH30+/1Lnuv2o6TxkoQygGY2bKw0guG30GjlYJbIFux2bmUZoRIovB9MZ5aeU5g99R+Z0DMaiJpG6m2ui9srP9zcF6PKYK4TSndZFJQ7XgZUNfMzDEHCT5xKmFFD8bUG+yy5DFZZSKBhSt1SZMrrE6wSI735YwvREfRK1JKingSBX0PtEv3Ef1SwmvjuSDlBzdrxfnQ24w9Sed3n4NAPsaVQ49nECD9BIkViAO42OzQIrNw9INQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YlDL+zociQT2RXKesvYziOtt+Wv7kiZKycH5Wc3WLZo=;
+ b=xeW68m2ySkEobM2EHnH73Ko9a11YuZjH3ifQFhQrI//1F5UVi0PdjDXA/buJYAHoe2MZBDPAu1WrYtu70ATd2tdW7eMP7czYFX29tAfxtfA6+Lxopu6jkFI42WvLT3GdeArKelFV2YFpqxQdVCIzgJv0v7fqgMLjle2R7Li9Nw+VENBJv1OsgGHGgG1IuNDcNuMeRHyGrqIRAOHQNFtBr+hb4V9PNPnMUApOMFqf6QjN4WEHB95p3EL5iAxHL69+zENryIFOcO3ckYP4PwVXCxpY27iub4CzFiZTp53qBFP3oLVNba/XhP2ubAmY30Ye5bcZQLXI616oCFJ2QjH7Eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YlDL+zociQT2RXKesvYziOtt+Wv7kiZKycH5Wc3WLZo=;
+ b=SHRt8zxDN+ilkA+oThK+eXU4yaHdKkir41ettW/Q58rDvDmctWScW5U/JNFkOA9p2twzLfGUu6GaeFAHKzvddM5cKaKz+9vzLxaq43FXoW7Y6dpFo8rAWrht1IMpClFUwOa9l8406nAS6DWIVxxNBxH6xvRATFlEovN8Pjzl0LiyDXKhMs7vXZUjwj+Q63Xqvx4OtiIWwn5ZzUOk67vrKKQRHfupTzyOzx4+8249TS99wXdLq4Plsi8zM94E7b4uH0q+fSxXzt/z5UwcHHlCBwWiKlue5LxMRYp/n59A7SPZLjY8QBhxguv+uD0D8L8UUzFSvR3Ym3SHMCDXRuK4Bw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH5PR12MB028906.namprd12.prod.outlook.com (2603:10b6:510:500::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 12:10:12 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 12:10:12 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Mon, 02 Nov 2026 21:09:54 +0900
+Subject: [PATCH v2 3/5] gpu: nova-core: gsp: cmdq: ring the GSP doorbell
+ from the queue memory
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-r000-cmdq-prep-v2-3-c2c2b69bdec0@nvidia.com>
+References: <20261102-r000-cmdq-prep-v2-0-c2c2b69bdec0@nvidia.com>
+In-Reply-To: <20261102-r000-cmdq-prep-v2-0-c2c2b69bdec0@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY4PR01CA0071.jpnprd01.prod.outlook.com
+ (2603:1096:405:370::6) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,42 +103,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CH4PPF0966F22FCBBF24F0929E97AC69951BF6C2@CH4PPF0966F22FC.namprd21.prod.outlook.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH5PR12MB028906:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27a5f65a-4d3c-4b48-57e9-08df38da3ee9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|10070799003|1800799024|10067099003|18002099003|22082099003|3023799007|56012099006|261021123027099003|11063799006|261021121427099003|261021135927099003|261022105027099003|261026121527099003|261026140227099003|261022115727099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	RdM8uO17NJc2XpJz3b/pzIqhAs9Qe5gpYk0FiaDA3ZOva7Mp6b7Rkf1y4svIyQy4TPCj5q8nBdDeJi9bqZVDmR3c81q000CZqp/JWhVHLef3Hx5d+7xr3JGCe30YRgwxlvD9L+mfjD7myFo42VFKWPjT8MrbHMRiAQleEQO153z/ZOtnJwtMsdjsN+2bgQlVIfFS1ctD1EXC8El2t4ImaJKi4ZnNQDrAxf2UQv19M6BTaTrP3J/xKJhoLFGeB8jVijg7Kcq4C4DxEvHY8BksKSujkIZDL0AQFxXKzgoa0609RXN5UH+vJrzCNVynaBIgYrzl7yYong5xtZx82ankb2eVyq1FNk6YBc5/jHLiF1HcHiU49u7btZdy+jgoUw7M12ZBYbbUBQrJYCyh2zXHqA4YfhiKOSNnBQS4Whl8L23zPr7X0aKuxq3O5m04K09HPFvU5xfP4nK42QraHxlrBafZD4m5zK8lk5UHgcV9rGrweXp+6mAzvF9byf0S8KoLzpAeXMdv23j9sPkxIvqS+6HdbgYnIuL0uvo/udvUGd1cGyMIpWS2mtHjADlSEdXbj2J8RPPZKDVO1b2TOSe6upGXTm1G4AEQYikvL3T1I7t1L3jWTBSzeyQyR31GczA24ZaJPu5uSZAImZ/zIrYCR919RKIR2WAJDji3eQc6pKU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(10070799003)(1800799024)(10067099003)(18002099003)(22082099003)(3023799007)(56012099006)(261021123027099003)(11063799006)(261021121427099003)(261021135927099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022115727099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UDVWZEVXbjRvZkZyUnBmaEpGbWRMTU56YnNkWTNJRFhKV3U1aFZ2ek9NNEZp?=
+ =?utf-8?B?TVZEa2x4Mitzb2RoMnE4MDZINHZ0dmwyanFMSlZVdDBtN2pOaGpKcXRqWjVT?=
+ =?utf-8?B?YjU4cXlZcE1uNC9BR2RMbi9kYmtRRFBJcWNFMFkzTU0yb3RDZ0IzSUNuOWtk?=
+ =?utf-8?B?Rithdkd1dnBRRVBtTFN4LzlwUDcwY3JPQW4vZ2ozMmhrbXkwZ2lEOUZoME0w?=
+ =?utf-8?B?a01ONnJ5QkFGK1dPRUdlVjluNUhmTVh1RTRZbVg1SXhjSHc1U1JZTE9ySnJa?=
+ =?utf-8?B?STBtTnIvb3U1RzBWMTVCSGZrclFjRjhGakxQOWxXTHhiOFJ2OFRrVUtwK0pI?=
+ =?utf-8?B?NG96VklWVGhUWkJkeXZRRmNKOTBJVlhqWE9FQ0tBTTJvN1FPV1pNQkFZc0J6?=
+ =?utf-8?B?WkMySmg1R25Gd1ZwZkYvMklvMFY4ZDZQSHFFcUNvbnk4TGFFRTJ6bzdvL3hj?=
+ =?utf-8?B?T0YvbWVnYXdVSTRLQzc3TUtOQ29vL1FzZUU1ZzMwZjRUMGhCOHZUa0RPUSs2?=
+ =?utf-8?B?M3hxL3dtTjg0QUlzQ0FhQVFHVXdQZEZGWW1xaHpuUzBaNVBCMDJlZElqRVp1?=
+ =?utf-8?B?REZMTWNwNjY0S2ZYYkhZOWJVMTloU3ViNEZUUlhvbFpKVlIxdEZzazV1bGR4?=
+ =?utf-8?B?a2hHREZNYXVWcmRPNzRDZldQMmcwN3VORlNDN0JjeXJPclJnWmwvbnFQOWRG?=
+ =?utf-8?B?aWhMekI4UWkwUm9JRkdBUFNSSFRIaXZhNHVXSDJNV1JKL0xyTGhGcFRaWkds?=
+ =?utf-8?B?UWRZWUcxZzlJRERJMkhMMFFLZEZXUDVtZkN2bm54OE9PaVFVRTA3S3hIbFRm?=
+ =?utf-8?B?VytkOVZnK0MwVFovVnRBUi9ZSmtRbHdoZXRsdmJIZ1NZS01TbVUvRXRudzFZ?=
+ =?utf-8?B?Q09lUUVjcjV0T3hoWDhhdlRVMGVyZUpOTG1ONC8yLzF0T1lyRUdoZy96UzRn?=
+ =?utf-8?B?TjBHU3N3QUw3eEdZQWdkU3VyTmxDQ1N0ekdRWm9adm5uVVUzbzNCZmNudkFu?=
+ =?utf-8?B?NFhIUzdGTmhiK293SG1VQ1F6WTFTem5XK0NEdVhJWXl3TERDZEpXSlMzNUl3?=
+ =?utf-8?B?SmlRREszUVBiRUdGUll3ZWZQL1JQc1VSbmcweUJuZWc5UjVMRmcyeWJkV24y?=
+ =?utf-8?B?aDFNdTJUYjhKL21ySFc3aTREc0thQ0Fsak9tbUxyQ3JadHVDdmg5aXY0YUlz?=
+ =?utf-8?B?V0pMdGF6Q0dMekZZUTBEWkU5NTI4dWFISXVBZ3pVMDFWMVpvUVNnc2N5UHNx?=
+ =?utf-8?B?dHIrUlRxcEJtM0p4Z0FZbUJ1blFkaFgxdnJrT1ZrT1ZxRFpBWGYxV0JTcGxG?=
+ =?utf-8?B?RHc1RGRINzV3dDhHOTVObnhqT0hBL05lM3dUdFVwWThJZS9EZWpBNGxGS2Fo?=
+ =?utf-8?B?RzBLY3k2MWkwZUcrbEFDdnZtV1FXa1R2cGc3OEt5S0xEaW1BNGxScmExZTU0?=
+ =?utf-8?B?WEVwaE5BZDlPbndKeTFjaGFuSFFDVUJWSmtTWFk3dEtOZFFreGlFMkE0cllN?=
+ =?utf-8?B?bENBN1RWZjd6NVBwNWd2dlIyUjNJb0FnVzU1cG1GVnMyM0ZhRFRpdkRPUFE2?=
+ =?utf-8?B?Vmdya1BPM0dYbU5KZ1d6Yy9pRWIzUEg4cCtvOEh1cGhTcy9YNEI0aEUyTzIw?=
+ =?utf-8?B?VXY4MnJnUFU4VFB5My9iYjVvSzFNVUFNbnlQVkRpQ3pydi95SFR0R0l2dzZ1?=
+ =?utf-8?B?aGFITVF5b2F5WHgxem1vMEM5SzhRZGhhaEROM2k5ckJ4TmEvUE8vT1Rzb2lj?=
+ =?utf-8?B?ZDQyZ1pOVFY5azdRbXIwYURSaUlNeHRlL1ZhOG5PMlpSSmlYaGloQkp5YWFv?=
+ =?utf-8?B?U3liTm5xOXpzVGVKbHUvWkZISkJKdGtYNDh0QzI3Uk94WFg0Mndvalh3aG9j?=
+ =?utf-8?B?bVpaVmxEUDRKalRUNkpkZ2dxVVZuTHF5NUNqNmx2bUtuMjF1NEVHVlkzWGdS?=
+ =?utf-8?B?RktkSlk0UjBtR2pHR2U2cUswZVVvcngrVnFKK1F0cVRCdzZ6UmVCcG1mdlI4?=
+ =?utf-8?B?R1ViZzBncXAyZC96citJdTRwbjA1WUczQThDZUVNa2tyNE5RbVNPODA2K1kz?=
+ =?utf-8?B?OWg3bGxudlRyM1d1bGNCOVEvRnN4REtFUkdJMmZXc2lnTUNkM2p1NE0yc0ZS?=
+ =?utf-8?B?eFNrNHdpVjhEQXhmREh2Q1kvK2d4TVF4SzVPRHlrSVhjQU1KQkV2cU9jR1BI?=
+ =?utf-8?B?UnN2bzB6WEpud1Q4YjFQUzNVNExHdUQ1TE00ZmdacjZuVENXU05kcWVzUkVG?=
+ =?utf-8?B?VFlLNWRzK3B0SXFrY1N2QThXc2dQMjJUcDNqNXFESEIyU0EwZGJ1c1d1L29O?=
+ =?utf-8?B?V3ZxME94aVRmT2pUc1FzYWkvMFdzZmhNYWMxdkFmYVgxS2UxbWhNTDNaRHFa?=
+ =?utf-8?Q?u8a9m951QWNk3Hsq/N+qOwS5mP3KeGz8GErGDQkn0/GOk?=
+X-MS-Exchange-AntiSpam-MessageData-1: kJ7AvanZRbyoDw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27a5f65a-4d3c-4b48-57e9-08df38da3ee9
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:10:12.0459
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7rM50VTYLRqQUX0q83r2zft4piz7zu/hC3E7hSHEMiZ6T1xsTUExwepWx8eNnWwT1RaH8tzg5Myy9jclM4xBWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR12MB028906
 
-On Sat, Oct 31, 2026 at 04:51:21AM +0000, Dexuan Cui wrote:
-> > From: Kameron Carr <kameroncarr@linux.microsoft.com>
-> > Sent: Friday, October 30, 2026 5:14 PM
-> > To: Dexuan Cui <DECUI@microsoft.com>; Haiyang Zhang
-> > <haiyangz@microsoft.com>; mhklinux@outlook.com; wei.liu@kernel.org
-> > Cc: arnd@arndb.de; catalin.marinas@arm.com; linux-arch@vger.kernel.org;
-> > linux-arm-kernel@lists.infradead.org; linux-hyperv@vger.kernel.org; linux-
-> > kernel@vger.kernel.org; lpieralisi@kernel.org; Mark.Rutland
-> > <Mark.Rutland@arm.com>; sudeep.holla@kernel.org; thuth@redhat.com;
-> > will@kernel.org
-> > Subject: [PATCH v6 1/6] arm64: rsi: Add RSI host call structure and helper
-> > function
-> > 
-> > Add struct rsi_host_call to arm-smccc-rsi.h, which represents the host
-> > call data structure used by the Realm Management Monitor (RMM) for the
-> > RSI_HOST_CALL interface. The structure contains a 16-bit immediate field
-> > and 31 general-purpose register values, aligned to 256 bytes as required
-> > by the CCA RMM specification.
-> > 
-> > Add rsi_host_call() static inline wrapper in arm-rsi-cmds.h that invokes
-> > SMC_RSI_HOST_CALL with the physical address of the host call structure.
-> > This will be used by Hyper-V guest code to route hypercalls through the
-> > RSI interface when running inside an Arm CCA Realm.
-> > 
-> > Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-> > Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
-> > ---
-> 
-> Catalin provided Reviewed-by to v5's patch #1, which is the same
-> as v6's patch #1:
-> https://lore.kernel.org/all/auPOxoaRbdOEHnv_@arm.com/
+From: John Hubbard <jhubbard@nvidia.com>
 
-Yes, my review still stands.
+A command reaches GSP-RM in two steps. The driver advances the command
+queue's write pointer, which publishes the command, and then writes
+NV_PGSP_QUEUE_HEAD, which interrupts the GSP so that it reads the queue.
+In msgq v0, the write pointer is in the queue's shared-memory header, so
+the two steps are two writes. In msgq v2, the write pointer is
+NV_PGSP_QUEUE_HEAD itself, so one register write does both.
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Nova-core split the two steps across two types. The queue memory type
+advanced the write pointer in shared memory, and the command queue type
+then rang the doorbell through a BAR0 mapping that it held for that one
+purpose.
+
+Move the BAR0 mapping into the queue memory type, and ring the doorbell
+at the end of the operation that advances the write pointer in order to
+prepare for the switch to msgq v2.
+
+No functional change intended.
+
+[ acourbot: slightly reword and trim commit message. ]
+
+Assisted-by: LLM
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+ drivers/gpu/nova-core/gsp/cmdq.rs | 52 +++++++++++++++++++--------------------
+ 1 file changed, 26 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 07b21a6f4504..90e26c4dcc28 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -157,11 +157,16 @@ unsafe impl FromBytes for GspMem {}
+ ///   pointer and the GSP read pointer. This region is returned by [`Self::driver_write_area`].
+ /// * The driver owns (i.e. can read from) the part of the GSP message queue between the CPU read
+ ///   pointer and the GSP write pointer. This region is returned by [`Self::driver_read_area`].
+-struct DmaGspMem<'a>(Coherent<'a, GspMem>);
++struct DmaGspMem<'a> {
++    /// The queues, mapped for the GSP.
++    mem: Coherent<'a, GspMem>,
++    /// MMIO mapping of PCI BAR0, for the doorbell register.
++    bar: Bar0<'a>,
++}
+ 
+ impl<'a> DmaGspMem<'a> {
+     /// Allocate a new instance and map it for `dev`.
+-    fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
++    fn new(dev: &'a device::Device<device::Bound>, bar: Bar0<'a>) -> Result<Self> {
+         const MSGQ_SIZE: u32 = cv!(size_of::<Msgq>());
+         const RX_HDR_OFF: u32 = cv!(mem::offset_of!(Msgq, rx));
+ 
+@@ -172,7 +177,7 @@ fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
+         let gsp_mem: Coherent<'_, _> = gsp_mem.into();
+         PteArray::init(io_project!(gsp_mem, .ptes), gsp_mem.dma_address())?;
+ 
+-        Ok(Self(gsp_mem))
++        Ok(Self { mem: gsp_mem, bar })
+     }
+ 
+     /// Returns the region of the CPU message queue that the driver is currently allowed to write
+@@ -185,7 +190,7 @@ fn new(dev: &'a device::Device<device::Bound>) -> Result<Self> {
+         let rx = self.gsp_read_ptr();
+ 
+         // Pointer to the first entry of the CPU message queue.
+-        let data = ptr::project!(mut self.0.as_mut_ptr(), .cpuq.msgq.data[build: 0]);
++        let data = ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.msgq.data[build: 0]);
+ 
+         let (tail_end, wrap_end) = if rx == 0 {
+             // The write area is non-wrapping, and stops at the second-to-last entry of the command
+@@ -247,7 +252,7 @@ fn driver_write_area_size(&self) -> usize {
+         let rx = self.cpu_read_ptr();
+ 
+         // Pointer to the first entry of the GSP message queue.
+-        let data = ptr::project!(self.0.as_ptr(), .gspq.msgq.data[build: 0]);
++        let data = ptr::project!(self.mem.as_ptr(), .gspq.msgq.data[build: 0]);
+ 
+         let (tail_end, wrap_end) = if rx <= tx {
+             // Read area is non-wrapping and stops right before `tx`.
+@@ -331,7 +336,7 @@ fn allocate_command(&mut self, size: usize, timeout: Delta) -> Result<GspCommand
+     //
+     // - The returned value is within `0..MSGQ_NUM_PAGES`.
+     fn gsp_write_ptr(&self) -> u32 {
+-        let ptr = MsgqTxHeader::write_ptr(io_project!(self.0, .gspq.tx)) % MSGQ_NUM_PAGES;
++        let ptr = MsgqTxHeader::write_ptr(io_project!(self.mem, .gspq.tx)) % MSGQ_NUM_PAGES;
+ 
+         // ORDERING: LOAD->LOAD ordering needed to order `gsp_write_ptr` read before data read.
+         dma_mb(Read);
+@@ -345,7 +350,7 @@ fn gsp_write_ptr(&self) -> u32 {
+     //
+     // - The returned value is within `0..MSGQ_NUM_PAGES`.
+     fn gsp_read_ptr(&self) -> u32 {
+-        let ptr = MsgqRxHeader::read_ptr(io_project!(self.0, .gspq.rx)) % MSGQ_NUM_PAGES;
++        let ptr = MsgqRxHeader::read_ptr(io_project!(self.mem, .gspq.rx)) % MSGQ_NUM_PAGES;
+ 
+         // ORDERING: LOAD->STORE ordering needed to order `gsp_read_ptr` read before data write.
+         dma_mb(Full);
+@@ -359,7 +364,7 @@ fn gsp_read_ptr(&self) -> u32 {
+     //
+     // - The returned value is within `0..MSGQ_NUM_PAGES`.
+     fn cpu_read_ptr(&self) -> u32 {
+-        MsgqRxHeader::read_ptr(io_project!(self.0, .cpuq.rx)) % MSGQ_NUM_PAGES
++        MsgqRxHeader::read_ptr(io_project!(self.mem, .cpuq.rx)) % MSGQ_NUM_PAGES
+     }
+ 
+     // Informs the GSP that it can send `elem_count` new pages into the message queue.
+@@ -367,7 +372,7 @@ fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
+         // ORDERING: LOAD->STORE ordering needed to order `cpu_read_ptr` write after data read.
+         dma_mb(Full);
+ 
+-        let rx = io_project!(self.0, .cpuq.rx);
++        let rx = io_project!(self.mem, .cpuq.rx);
+         let rptr = MsgqRxHeader::read_ptr(rx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
+         MsgqRxHeader::set_read_ptr(rx, rptr)
+     }
+@@ -378,17 +383,24 @@ fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
+     //
+     // - The returned value is within `0..MSGQ_NUM_PAGES`.
+     fn cpu_write_ptr(&self) -> u32 {
+-        MsgqTxHeader::write_ptr(io_project!(self.0, .cpuq.tx)) % MSGQ_NUM_PAGES
++        MsgqTxHeader::write_ptr(io_project!(self.mem, .cpuq.tx)) % MSGQ_NUM_PAGES
+     }
+ 
+-    // Informs the GSP that it can process `elem_count` new pages from the command queue.
++    // Publishes `elem_count` more pages of the command queue to the GSP and rings the doorbell.
+     fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
+         // ORDERING: STORE->STORE ordering needed to order `cpu_write_ptr` write after data write.
+         dma_mb(Write);
+ 
+-        let tx = io_project!(self.0, .cpuq.tx);
++        let tx = io_project!(self.mem, .cpuq.tx);
+         let wptr = MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
+         MsgqTxHeader::set_write_ptr(tx, wptr);
++
++        // A write to the head register interrupts the GSP. The pointer itself is in the
++        // shared-memory header, so the value written does not matter.
++        self.bar.write(
++            Array::at(0),
++            regs::NV_PGSP_QUEUE_HEAD::zeroed().with_address(0u32),
++        );
+     }
+ }
+ 
+@@ -468,13 +480,12 @@ pub(crate) fn new(
+         bar: Bar0<'cmdq>,
+     ) -> impl PinInit<Self, Error> + 'cmdq {
+         pin_init_scope(move || {
+-            let gsp_mem = DmaGspMem::new(dev)?;
++            let gsp_mem = DmaGspMem::new(dev, bar)?;
+ 
+             Ok(try_pin_init!(Self {
+-                dma_addr: gsp_mem.0.dma_address(),
++                dma_addr: gsp_mem.mem.dma_address(),
+                 inner <- new_mutex!(CmdqInner {
+                     dev,
+-                    bar,
+                     gsp_mem,
+                     seq: 0,
+                 }),
+@@ -495,14 +506,6 @@ fn calculate_checksum<T: Iterator<Item = u8>>(it: T) -> u32 {
+         ((sum64 >> 32) as u32) ^ (sum64 as u32)
+     }
+ 
+-    /// Notifies the GSP that we have updated the command queue pointers.
+-    fn notify_gsp(bar: Bar0<'_>) {
+-        bar.write(
+-            Array::at(0),
+-            regs::NV_PGSP_QUEUE_HEAD::zeroed().with_address(0u32),
+-        );
+-    }
+-
+     /// Logs and consumes every message the GSP has already posted, and returns without waiting for
+     /// more.
+     ///
+@@ -522,8 +525,6 @@ pub(crate) fn drain(&self) -> Result {
+ struct CmdqInner<'a> {
+     /// Device this command queue belongs to.
+     dev: &'a device::Device,
+-    /// MMIO mapping of PCI BAR0, for writing the GSP doorbell.
+-    bar: Bar0<'a>,
+     /// Current command sequence number.
+     seq: u32,
+     /// Memory area shared with the GSP for communicating commands and messages.
+@@ -571,7 +572,6 @@ fn send_command_element<E: CommandElement>(&mut self, command: E) -> Result {
+         let elem_count = dst.header.element_count();
+         self.seq += 1;
+         self.gsp_mem.advance_cpu_write_ptr(elem_count);
+-        Cmdq::notify_gsp(self.bar);
+ 
+         Ok(())
+     }
+
+-- 
+2.56.0
+
