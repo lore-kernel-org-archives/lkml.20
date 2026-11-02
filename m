@@ -1,201 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793659113;
-	b=ZLcAiukSI3yHxZyQz4itemRNO7S6aPexMidr3hgxZp35434wBuizP8iWhjvux9R8tpFz
-	 iwCVL3iK4fWomNPSbFXDfFZ8Jgyzwy5bKSeHi5Je+gFMjXKPakb7gt9Y+k8l9QG9J/8t7
-	 +RCthNNqS3ZQFb+qeyTAfhBIzmSs9D8oNjPg9Z3hFuEcRYPGKynSSqzpWqaV59nuDK73m
-	 8NlHc/QtpSRg+atv8xYPaBi7jk8IvM1GO+ohNmF5KRa9CFDGvw1CLHCq+PM+DLOpzp5DS
-	 n8AeSgYzIDGX92w/ZmVVFMog5erUWDMYu7J/BLIyIsFXzW4JYbXEKcZWpiqEDoxWDDw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793659113;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=FPVulPPpAGsrVZxIhylBCVJbV/iI8kX9bISwQF6bXTA=;
-	b=ktYIkwZMVJEuMjqNOUvJ0nccYg8kticljrGsTJK5KDbT4KDtsoPkHMucKZNYESwO9tpD
-	 PQkQTt9llBTdVZeoFM8UYAfqHgF4Bw8UcPp/duz5gWAisYhewVOK0Ee1hJa4jC+2NkHf/
-	 58dTwI1wPI2j4z5F7WiLSWLKJI5nZ1rKUEyA4fE4P6a8VUHIMUdMMDSB4Sulxr8/OBYro
-	 5YKZa+CDSVakoxhwgTnA+cYsWov9vm8xAFvtkTQB8XzMelE6xXGGG28Cb7HB9/2pYMQQi
-	 5kDff56Kyer8v/7I1nqQXK4alFzqkaKgyhoDfCujc9AXHPM7JAseVoIVKYI16tDhwTA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TZ1HKcjd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793659109;
+	b=bu8VkJX9afn/XehNuQCBS2CSTZRoOd1POo+/AJggzCh7ZEdK9Z6cVVp/ReDHR7014RI9
+	 XNvOGJapFDJ4Rj5P2VzxN68SznK1Io8AvVucPAyniEOOIn0J8MPl9vhjdKgG8bQkXbus2
+	 r2f66knUOM3FYvVPke88d1ZQW3g3WGcl4ktsAAerkXhO3NAHF3vhzoLrH+3CfmNq94DaB
+	 mUBhYlwumnu1F+qhg2RUW7d+GeNCthXBmlw9FLHSigCO7togWenvKWcyd91JdLYVaNimC
+	 nQ8Dicx5u+qNJWe1Ely4dLn4uQXaTcDQvErRcstmH1nCF0cY8z5KWHxVFrFJThlG1Og==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793659109;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=n2if1RTPZbo5SFsEjRB4Jy0O0oymGB/SO+FAdZRGXuk=;
+	b=cWcDzr4lHQiiiej+ZssNZcfnu2usq1tfDQfb4d8vU+Rj9IoqLRWKNQRXMNcxX1dhVP1O
+	 2Zi+6r0ykTSix6da4MvqJndodCO52w2av9TCh4DEnb7zehFAB7G6gmvGqr5RqzqwttyOB
+	 TpsNoeIVVE7ZQ59it7KKgabYrX7uKA94QWn8RU1YQ2aNrX8ZFyP0Y0YFmSBu5rgvmgriX
+	 o88yrWoPUYjERPV8Si3FSJcE2j+crRwAs81AJbuV9AgCvQrhxs3GYXSmQdtc7WtIxBvXR
+	 EXGOxv/AqfMXN5qecQRFkRKMa4EZDQg/dvFePz55dJuYJSZPNsiV7R/ZAWkM6uUo6jA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZF7XJvAA;
+	arc=none smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01996606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:38:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01996606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D517A606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 22:38:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D517A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TZ1HKcjd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793659112; x=1825195112;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=FPVulPPpAGsrVZxIhylBCVJbV/iI8kX9bISwQF6bXTA=;
-  b=TZ1HKcjdE68BI2MInT49OwNMIKI5zheOWSnKpOiBsDjjnCEY+tKW48p9
-   YaV68eJ/T1Tbpd1uEL8WfUYd2c0JVfjZg4cZ09T0IWnqWPsLLTHykL65A
-   veAHYQaEwnLkahbSBXG0Fwbdo9EkaP+rVBuQuSxCUuasmtGfVqyv/8lGt
-   oLTekQgOiO7S87+PClfXlCJylGvPRkx4age+Q18nBTmDL2FeqR+DcVN3p
-   6OUkGOIcf4QD6Rv4uyp912Uu8YQYr2SQwtOM/STK4DfxMqNu2Wh6gryCb
-   jK9Il6F/PKZzo68zGn7Jj8PXI+NRymXOp80kA2AicZpDCS5sjs2x3Jx1G
-   w==;
-X-CSE-ConnectionGUID: gP9h0HjbShCgvjsNfzH2Iw==
-X-CSE-MsgGUID: NhJEo4mSRHCZUQZ7Tve9nA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2379948"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2379948"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 14:38:31 -0800
-X-CSE-ConnectionGUID: LO0CNqKRQM6/h0ynIOJ6wg==
-X-CSE-MsgGUID: kwHTzLWHShOAidaetZN2tg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6357795"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 14:38:31 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 14:38:30 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 14:38:30 -0800
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.56) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 14:38:29 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tcO8YvFVlwtANTKHp9uaN/9YdAfyB54yD57KUtnq4+d3tAF9YwxsjkqyT9vGj68s2dtRNFfMFAFubb5JHyrBRUz1i1gNHYFow59LkKXXh5C7XEUVwSBdWvwDOR4eAT7rpbZxvX3XbWloya5XXzd3Ns/H3yrCEcjwNsodgDbYtYk50gpvkVTBZFSq3fLdLF+rOkNKgS/18ufG7G8ozBavDcrOH/wlAkZ0o8IO018jBxFHzP9ymbT2m4YlgshTr9a77yH50BzUtbSMGZwW7cs/aXUi1otBjlCFPWzKYnu5Ry4pHSa3FcSSxt/rwkZjQEdj1+iyYe562PC58iNYmCDiXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FPVulPPpAGsrVZxIhylBCVJbV/iI8kX9bISwQF6bXTA=;
- b=IuzUMZ82LUmx1iPYdLxA+xDedGah6rP/k60wTYQRreuOTG0ak5nTYfld+XNlIjvbkvYKiSFZPU/eD/SVRJWxyTI1a4SfTvTltkWRaE6QBy4u8ZWv/vQYs0u5j+ur+zlfzHnEJgJfF1rCHg/ZPcy2zscWUZwLCDNFRS+3mwB4xeYr252Lemp6pAJ99nIwVU8RHc0C1oCWRPpHj33kaV8j+wtaHERNf1BxdkvQ1crJftD9+f3aTesaKF1HHOTbioEItg7TSDPsr2O8vUjYk20TAwnuF17JyDAfQ7YIlu5x95j5M4bTjJy3i/JVaJT1mzcaEQspYCrpzY/a93IEU5YZNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB634048.namprd11.prod.outlook.com
- (2603:10b6:208:549::23) by CY5PR11MB6511.namprd11.prod.outlook.com
- (2603:10b6:930:41::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Mon, 2 Nov
- 2026 22:38:27 +0000
-Received: from IA3PR11MB634048.namprd11.prod.outlook.com
- ([fe80::760f:f0a4:7417:6e57]) by IA3PR11MB634048.namprd11.prod.outlook.com
- ([fe80::760f:f0a4:7417:6e57%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 22:38:27 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
-	"x86@kernel.org" <x86@kernel.org>
-CC: "Hansen, Dave" <dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>, "seanjc@google.com"
-	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, "Peng, Chao
- P" <chao.p.peng@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>,
-	"jgg@nvidia.com" <jgg@nvidia.com>, "aneesh.kumar@kernel.org"
-	<aneesh.kumar@kernel.org>, "Tian, Kevin" <kevin.tian@intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "bp@alien8.de" <bp@alien8.de>,
-	"Gao, Chao" <chao.gao@intel.com>, "aik@amd.com" <aik@amd.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH 10/15] virt: tdx-guest: Set up and accept private MMIO
- ranges
-Thread-Topic: [RFC PATCH 10/15] virt: tdx-guest: Set up and accept private
- MMIO ranges
-Thread-Index: AQHdS9rOiS8lYl8h5USZJ7PbdHTlXLcPfC2AgAUDyoCABx4TAA==
-Date: Mon, 2 Nov 2026 22:38:27 +0000
-Message-ID: <a3ee7e7be28462bff75383f0ca3af1cb8275d125.camel@intel.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
-	 <20260924041032.1096569-11-zhenzhong.duan@intel.com>
-	 <328109e1-2848-42a4-891d-7c7c5b40fed7@intel.com>
-	 <IA3PR11MB9136CAD09013FD9A79EB06ED926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
-In-Reply-To: <IA3PR11MB9136CAD09013FD9A79EB06ED926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB634048:EE_|CY5PR11MB6511:EE_
-x-ms-office365-filtering-correlation-id: 7c63b438-0e16-4f96-d923-08df3932035d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|261102123227099003|38070700021|261021121427099003|11063799006|261022105027099003|4143699003|56012099006|261028144727099003|261022075727099003|261026140227099003|261026121527099003|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: 7+z/Qe4yQLUUFNtOgNYKE0p2cHzwq93hZ2XsZqRkriqAAf3zQFaChPAlb9DsNTIb8ouJeDQt2ilIuuJlgeDllr2F+rwulNwnqatjgmfHoxlGwVB4wLGshgs2Q3ERq7LuYURAn0zBVvG7vuezw01wB+nP08vxEh2lxRI587oMbbVCnmH3dx+ZNPJ4SmaqMO1ZyX6wl8WHkHXpwbmsZFQuU3w8Go0EvuqFKMhrNAzUEv1SJOylJ3suAKPnbYXu7dME4UsFN2NWWGM/8ok3aMP11Wxnnses/RpED06Llx0rAM8HFWJfTokvUdcBToRrafQVHnbeFGDafYMBGudZq7Mm0aeGh06BZfDaD9OEGI3ORV1zrbH4LYayxLEEH7yXzHnSZQ2JTb9KN47VJCMgOvqE82c9GtkfSseNMI+cXNjLZx88EIdqY/BkGn31bxXSw3t/18mwBHHRb8MupTWhRNNEsKJne/Uep4bGZuUpdAMQFnK51KGgCvzIlz31gXn5m+bM+Mri0Ewkth8DN04gSqDSy1A+RhjYy9KOrw2PApC4e92hfPhQwg5LUATelh+VD2zrgMb0bMDovBPozjqKNFfP2gP0vzzDv4GR8kYimJD2hMBv6xxKdgbagmz+0yRWnZ2H42toZ83JdMbH0BhwAGjyfCtg2+Yp1mAda33X0uIZ9C9CML0c/PV5x/ETCA3pqsXBsdKbKd2pEL2yL+nr/9ol9SFVgQoO+j/pRmGB4Y6aTSc=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB634048.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(261102123227099003)(38070700021)(261021121427099003)(11063799006)(261022105027099003)(4143699003)(56012099006)(261028144727099003)(261022075727099003)(261026140227099003)(261026121527099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UmVHUFV4NFIzak9ra01MSFZyOUNZQisrNVF6UDRtdDRJYUdOc0lsaXdaY3VE?=
- =?utf-8?B?VWZmUVgvTjlZRWlrQVNZeTN4cW54U1JSbUxjNHYxaEFrWVljRzgrUGZrV2p6?=
- =?utf-8?B?WGIzc0FtTUtRN2dLd3h1QmVuQkhoYkFDU0xPeTNraWZnL0IrUkZMdWM5TmJ0?=
- =?utf-8?B?WHZvcWpvbE1XSDVWOHQxcStNdWtOeHEyaWJCREdWd3FYRDNFaVdpQnJNWm00?=
- =?utf-8?B?akF6dDhCK1o2K1F5NThlVklVdDBWcjkvRmlaU1VDb0hMNWhkNm0xTWpIZVBP?=
- =?utf-8?B?RGs3ZHZGM0laWE5VcEdHWXBEVVNFWlA1TEloMDNLZzdaYXp2OHRvMXVQWE5N?=
- =?utf-8?B?ZVA4cUViT3lvVjk1cVE0Z21UbmJxZnJhTGVzdnU3dnZZbXQrVi8rL2c4S3Bo?=
- =?utf-8?B?bk9GcVdDaG9hak9KRit4dFlDT2J0ZWNTWEpHWmNOUHc4dFFPeWhXT2VqdTJs?=
- =?utf-8?B?am12WGwrY0JvVkpHOGxwRkJJUjJxTFp1dVhQa29PSmIxblRBc3B1UGhaMUUw?=
- =?utf-8?B?dFNSeWdJc3NJa0JyYU1EZ0J5V1hZRXJ6MDIyRnVqblVKc0Fyd2dSeDJaSmU2?=
- =?utf-8?B?WHgra0hJWWY1bUxuME1kb01iNStmUDRSNXkwZE1laVBtbkI5ZTRXRW10c1FJ?=
- =?utf-8?B?UU9kdExsVG5yOEhxZzlIb0x2NTRPNXpsU0grbjNwSDVkc2kyWkdiWXNYSTh4?=
- =?utf-8?B?ZFkzdlpsV1p3dVpBYkFWOW9zN1QwWlhKOVc3TmtyZXlYUzNkbjBjT0Y5TXZC?=
- =?utf-8?B?dFNhOGtaOWwxTVdCS1htVzJpYmtzRnNESmEyM2t5YityM0MyT0lkVVlIN0FN?=
- =?utf-8?B?RTdPYnpTQjkwVFZ1NDJxSlczM3lPcE5DblZuWm5FRVQrREE3OFlmRHgzRmg1?=
- =?utf-8?B?bjJDRmVBalJQVXNjbDI3TjVWZnlmeGRqSXJua1JCVWdQNkM2eUxpbkp2d0lW?=
- =?utf-8?B?bHdtUk9jSjBHSEtRbThRWVNaa1VOVThuWEFKZUJBY0ozNksxUjhmc1NtaGU1?=
- =?utf-8?B?eVE0VDJjcUJqWm1uOEd4MkRpZmFxZStOeTFncDEvNUhKNGlvYXU3RkZDYjdK?=
- =?utf-8?B?R2ZQQm90TW5FbUlib1ZUOEJWNEtxeTh2MHpuK0pOWmkxNVhpMzdUZlNSOGhX?=
- =?utf-8?B?ZzR2c01MRnhUbWF1eHJ1bDNJMU9SVExoVDhRNTVDelJKOVZBUHRneVpBVUZn?=
- =?utf-8?B?ZnQ3b0hPN1lNVHY4VUpLdHlleHFKbmZUVS9QaG8yRTRYVHNBMitXSkwxZDlR?=
- =?utf-8?B?dnJEQmJHdjZvdUg1bXJFcUplN05PcFlWN29xK2RyalVMTWFqZGQ4cXp2eE5y?=
- =?utf-8?B?VDFwSkNuVlNnd1R4L3pIY0NtWXQ0VFpUN1dSYzNiUjVROXFJTzRPVFVSVUpi?=
- =?utf-8?B?UlVKRW9zQ2srSmcvcUhDMERnd2RWYWdJVjFMUXR2amNXeXFTMzFWUS8vWmlP?=
- =?utf-8?B?NTNNRUdaY0QxY29QMTZqNld3VW83dWpVc21pakNsL2s3eXNHdHhRVEU1WjJn?=
- =?utf-8?B?WGhEbFJ6bllwSFkrNzA2RW5HM1VoSlpTVEN5OVpOci9kNG9Qd2ZYYnYxQVpF?=
- =?utf-8?B?TmxDZnZtVHlmWVVjSnBqOVZwL1VHTi9ZMTNVRCtrWnpzM3NhbXU5NUllMWFJ?=
- =?utf-8?B?MlEwbENDT2d3Sk1EcUdOL3B5ZkFsZUozcXVLTzJsdXpZYWFOUUhZb1l6V1cz?=
- =?utf-8?B?bSswazVpcGw2cHhLKzdmcC85NXYyVGsycEpPQVo5ZXNzWi9KbzVvaUpoM0ZT?=
- =?utf-8?B?NUw0OEFwRE4yK0RBdHJrNkh0YUhLK04xTVVEU0s3QktYcEdtMysrdkZ2akxx?=
- =?utf-8?B?eTJ2cFFBY3k5eDM1WXRyTVN0SG5oakJ3QVlKdUV6aWhDRjA5QXVNdmJGbExH?=
- =?utf-8?B?QkVDcVJWa01YcTBKMUhlRWhiaUJLNk9VWjY3UldBQkZwT2VoRTBzcy9TL2tv?=
- =?utf-8?B?ZlJvZVl3eGJaTURuTzc2bDNVMlYxd1hLZFAwUlc2Y0ZxU2xVUGVEVks4NVp6?=
- =?utf-8?B?SnF3SXVITGtpc3I1bW9OYTdJTTd4cTZHb1BjLzU0SCtTVEpqRHRKOEcvcTIr?=
- =?utf-8?B?VWlMVHJONzlzZitEaC8xVkN2SGNNM2toV3dPM2t1c1VqMUEzZ1I1bnc3Y0h6?=
- =?utf-8?B?dzNydWljNHVtSDBsK0c2dFpvN1owS1FtblhjcHJHY2RRUjRBL3lNeHljZ3hl?=
- =?utf-8?B?Vnl4SEo1MFozcjcxNk5CNHMxc1NkcDRITldleTB3a3NXZ1JORFlxelhWRVgy?=
- =?utf-8?B?YUhJckgzZnpWMWJ5TUdKSXJvbzZTYi9xNW1SOENxUkRDZXZVL0dobTE2Z0ZZ?=
- =?utf-8?B?ZFVpa0FETWdRNjgrcEwxOHMwY24wTGlaRmNyN1k1S1BYMWFJYytkK09MVUdK?=
- =?utf-8?Q?BYEt/VKVF1Pu2WkA=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <255D834FAA1B984DA701282CE80B877C@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ZF7XJvAA
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso4852963a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:38:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793659107; x=1794263907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n2if1RTPZbo5SFsEjRB4Jy0O0oymGB/SO+FAdZRGXuk=;
+        b=ZF7XJvAAN1By1v8q6/i4QqYYyehamd86T4othD66Ytzo8E2ThRZNnihSEqh47rDl6k
+         vK1kdnIU5+MM8cTAnou2t4PMul8Bl/ubSweS/WCM25Et0xcpWJjiwE8URt80eq+E59jz
+         nUsY46pO+97Mb0zz6nxMFSi6elvcfQ/T8Z+GQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793659107; x=1794263907;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n2if1RTPZbo5SFsEjRB4Jy0O0oymGB/SO+FAdZRGXuk=;
+        b=QDhwlO+Ayltd/9MP4P8fiEFwaCz5IBIP6ITm5t99J+IfvtltoRDlbt09uPJFF0Y2HJ
+         oD1SifKX88qY+js6ldMNPjQ9nK5PWp1DDPqA6qe3LXUZcAKILJ6+7/J6TYPFS9WV2nqd
+         lZLn10vvmf9JMoA3UJk8QfVnjU4Sa8j5jwfaKYZSeeHoCJbcO0sbpD6w4eKmeR/DgmXS
+         0GFgvuvuS7yYuhM9M+mnHA3TqeUaNWfaRxwdGgNV+TTacSimq+fifvugud8B6m/Np1wm
+         3ki/HQXUZexdxxiYXUv2LLCYYlgAFYqG452IqzUAZj8+q0SKBTUZZYN0qKMLPLMQtg4D
+         LbAg==
+X-Forwarded-Encrypted: i=1; AKwUvBz3qbUX4eA+S4+SeUlKF4Rgomc6R+JRV6tH9SEibO9yZi4lep/BQbPheZJ+ZxcmXCgK8qmEcmm7YaSat38=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95J4S8/DS4AwRjO4+fsUzqnU3Q+SnURl77jkSqzS4tLZxnq3il
+	WCIkjnkl1QJ/730qoKBSN16eji0SakYfBuq4q9EhHgD5uyl9i5msPKqTsC2vGstbgF4wbCk5SeY
+	fR2/1ow==
+X-Gm-Gg: AYBFou23EkItFw4hxf7WGviS3OJuEgTgaikVjTMXwNUbrMI5fhzj5jFL9VDHqUr6WN/
+	47LcWu4+HqL3BpFmXSoUGulL3fEcNT+jg9wx95Cx0oRnnr/DX5/LfMASweKIRbkCrg4un7R3qTp
+	rJZu1fNoyCVP/8Akap7rB7v/rOiGb1YZhShLyqS5FrjSFlHeeLyDyEUmBfbwWzCQk52RuJAiAPt
+	bMVAmKROg6tV9+b+NTZABwIfkE/91aXIw6Iwt8pAJP/WAD/NnMo7LPe2RDiPT2smqKtBuewjbxn
+	Ks1IJPGnKNop6FLXYuYCZ8mLCmKz775zlAFfeID2KWyRzxbTM7RqQVgnl04RmyP/kmKOXrNPJdj
+	sm1ZNCDnAi7PVW0PMeVoCESvkbHwfaykIqepWQxw2xof0ueW5zjplbzj3AhvmX/aMtloUUEjTI0
+	F2XAnxVYry6HKeZhNKd7h/GE7O5u6leiUlwLvs/iIrrQn1cVHlB7lzBkb0TJIGzoy6BRQZ4aVba
+	qWn/3G20emHrjDXpEqQR+j5lSEGiUteuhUCGTCnpebA1aAiVXJBuAegY7GSnWT00u9fsWxd0CP9
+	OzChey9tsNwImdAjf0wPjQ/eDRMKpWWcTQKHvy/Eh0TXyguSQh6S6VK4hOn45RFHlxQ=
+X-Received: by 2002:a05:6402:e09:b0:6b5:114d:cf36 with SMTP id 4fb4d7f45d1cf-6b5114dd219mr3247157a12.0.1793659107270;
+        Mon, 02 Nov 2026 14:38:27 -0800 (PST)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com. [209.85.221.44])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9eeb26sm3588664a12.9.2026.11.02.14.38.24
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 14:38:26 -0800 (PST)
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso2465600f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:38:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBw80sELq+6aN8BWhjslAfI1Aq4/M1zBgK/pPd3FBmKqtM/emy/kFmN9EEXGoYCUTOqt1/36q04QnhfYnxI=@vger.kernel.org
+X-Received: by 2002:a05:6000:46c3:b0:48e:f47:273c with SMTP id
+ ffacd0b85a97d-48e6e2bcd97mr17576125f8f.8.1793659103258; Mon, 02 Nov 2026
+ 14:38:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -205,36 +94,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Jvz/qAjsGJF5YjHqE0TKw+aZLpks2PTsOlsJ+gQWN351/HnSxpNCRAhKVboAvAUq/MKgwTnhfL1httGf44jy4n13Lw31LSeL58tLmsmp3gp4djIhbYMPBWFpRswa9wvW2QPH0yOwyDCI58cRWZaruS2Nrk7kRGG33JcMm1frShN4j2Wey5lvkAj9jtHoQ5sJlaXecetBu/Bpn/E66Co2rXjADV6OXidIQf+gslnXUnuGIptjxDuBrEwJ6ph+T5PlLADEe+PirJPEftM0BlhguU4dJwe7V4BQc9FXuQHjJoUXwqLlYgcKmAMORucGaU6uhe6Z6lKA6yTjJ6ukcjX7CA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB634048.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c63b438-0e16-4f96-d923-08df3932035d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 22:38:27.7031
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: M8py5noeLW7R3QiCF6ov/0NlnBn/NiNxMv2j30CXQlbD7qUMc6w8E9Z8Cnm2xmYUob6XQMFMzD+2H+f+NGMRd7FO68ua8KNM9KJ6XZvjoek=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6511
-X-OriginatorOrg: intel.com
+References: <20261026-sp11-bl-upstream-1-v2-1-efc84396adf1@gmail.com>
+ <CAD=FV=U2sZaobJMHCimqB5Kw0fZ_-7=9tHAxT-KrSP8uQiY-vw@mail.gmail.com> <49e9a6d2-8665-4e78-ac17-da5a55abf065@linaro.org>
+In-Reply-To: <49e9a6d2-8665-4e78-ac17-da5a55abf065@linaro.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 2 Nov 2026 14:38:11 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WiOkG2_4w8iarx40FOhmJOY_pRQOW+6jOW29nea6y-wg@mail.gmail.com>
+X-Gm-Features: AclHuK9QTI8PVDWnzL2eO8ikSkqp3uUAySr3iNnFFlAceBchakK_x41BCxCieLM
+Message-ID: <CAD=FV=WiOkG2_4w8iarx40FOhmJOY_pRQOW+6jOW29nea6y-wg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/panel-edp: disable the backlight at probe
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: jimmie.lin@gmail.com, Maxime Ripard <mripard@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Dale Whinham <daleyo@gmail.com>, 
+	linux-arm-msm@vger.kernel.org, aarch64-laptops@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-T24gVGh1LCAyMDI2LTEwLTI5IGF0IDA5OjU2ICswMDAwLCBEdWFuLCBaaGVuemhvbmcgd3JvdGU6
-DQo+IEFmdGVyIHRoaW5raW5nIGFib3V0IHRoaXMgZnVydGhlciwgYSBzZWNvbmQgLnJ1bigpIGF0
-dGVtcHQgY2Fubm90IHJlY292ZXINCj4gZnJvbSBwYXJ0aWFsIE1NSU8gYWNjZXB0YW5jZSB3aXRo
-IHRoZSBjdXJyZW50IGltcGxlbWVudGF0aW9uLiBJdCBzdGFydHMNCj4gYWNjZXB0aW5nIHJhbmdl
-cyBmcm9tIHRoZSBiZWdpbm5pbmcsIHNvIGl0IHdpbGwgZW5jb3VudGVyIGEgcmUtYWNjZXB0YW5j
-ZQ0KPiBlcnJvciBvbiB0aGUgZmlyc3QgcmFuZ2Ugc3VjY2Vzc2Z1bGx5IGFjY2VwdGVkIGJ5IHRo
-ZSBwcmV2aW91cyBhdHRlbXB0LA0KPiBiZWZvcmUgcmVhY2hpbmcgdGhlIHJhbmdlIHRoYXQgb3Jp
-Z2luYWxseSBmYWlsZWQuDQoNCkhvdyBkb2VzIE1NSU8gYWNjZXB0YW5jZSBmYWlsPyBXaG9zZSBm
-YXVsdCBpcyBpdD8NCg0KPiANCj4gV2hlbiAucnVuKCkgZmFpbHMsIHRoZSBkZXZpY2UgaXMgbm90
-IGFjY2VwdGVkIGZvciBkcml2ZXIgYXR0YWNobWVudCwgc28NCj4gdGhlcmUgc2hvdWxkIGJlIG5v
-IGRyaXZlciBNTUlPIGFjY2Vzc2VzLiBUaGVyZWZvcmUsIHJlbW92aW5nIHRoZQ0KPiBndWVzdC1z
-aWRlIE1NSU8gcmVzb3VyY2UgZW50cmllcyBhbmQgZnJlZWluZyB0aGUgZGVzY3JpcHRvcnMgaW4N
-Cj4gdGR4X3RkaV9tbWlvX3RlYXJkb3duKCkgc2hvdWxkIGJlIHNhZmUuIEhvd2V2ZXIsIHRoaXMg
-Y2xlYW51cCBkb2VzIG5vdA0KPiB1bmRvIHRoZSBNTUlPIGFjY2VwdGFuY2UgYWxyZWFkeSBwZXJm
-b3JtZWQgYnkgdGhlIFREWCBtb2R1bGUuDQo+IA0KPiBUaGVyZSBpcyBubyBUREcuTU1JTy5VTkFD
-Q0VQVCBBQkkgdG8gcm9sbCBiYWNrIHRob3NlIHN1Y2Nlc3NmdWwNCj4gYWNjZXB0YW5jZXMuIFJl
-Y292ZXJ5IHRoZXJlZm9yZSByZXF1aXJlcyB1bmxvY2tpbmcgdGhlIGRldmljZSB0aHJvdWdoDQo+
-IHRoZSBVTkJJTkQgaHlwZXJjYWxsLCB3aGljaCBhc2tzIHRoZSBob3N0IHRvIHRlYXIgZG93biB0
-aGUgYXNzb2NpYXRlZA0KPiBNTUlPIG1hcHBpbmdzLCBiZWZvcmUgbG9ja2luZyBhbmQgYWNjZXB0
-aW5nIHRoZSBkZXZpY2UgYWdhaW4uDQoNCg==
+Hi,
+
+On Mon, Nov 2, 2026 at 5:15=E2=80=AFAM Neil Armstrong <neil.armstrong@linar=
+o.org> wrote:
+>
+> On 10/30/26 02:40, Doug Anderson wrote:
+> > Hi,
+> >
+> > On Mon, Oct 26, 2026 at 6:14=E2=80=AFPM Haipeng Lin via B4 Relay
+> > <devnull+jimmie.lin.gmail.com@kernel.org> wrote:
+> >>
+> >> From: Haipeng Lin <jimmie.lin@gmail.com>
+> >>
+> >> pwm-backlight can preserve the enabled state left by firmware to
+> >> support a seamless display handoff. However, panel-edp does not suppor=
+t
+> >> such a handoff. When probing a generic eDP panel, it powers the panel
+> >> on to read its EDID. If display pipeline binding takes longer than the
+> >> runtime-PM autosuspend delay, the panel is then powered off while the
+> >> backlight remains enabled.
+>
+> So we don't support handoff _now_ but we may certainly support it someday=
+.
+
+Yup, that's fair.
+
+
+> >> On the Surface Pro 11 LCD (LGD0779), leaving BL_EN high across this
+> >> power cycle appears to leave the backlight controller in an incorrect
+> >> state: brightness is pinned near maximum with a greatly reduced
+> >> dimming range. Subsequent brightness changes update the PWM duty, but
+> >> do not restore it to normal. Cycling the backlight off and on at
+> >> unchanged brightness restores the full range.
+> >>
+> >> The first drm_panel_enable() does not recover from this because
+> >> pwm-backlight still considers itself enabled and leaves BL_EN high.
+> >>
+> >> Disable the backlight at probe, after acquiring it and before enabling
+> >> runtime PM. This clears the firmware's enabled state so the DRM panel
+> >> core turns the backlight on after panel power and video are ready at
+> >> the first modeset.
+> >>
+> >> This also turns off the firmware display at probe on systems where it
+> >> previously remained lit until the first modeset.
+> >>
+> >> Verified on the Surface Pro 11 LCD by delaying display pipeline bind
+> >> past the autosuspend timeout. BL_EN now drops at probe, before panel
+> >> runtime autosuspend, and brightness control works at the first modeset=
+.
+> >>
+> >> Fixes: 5540cf8f3e8d ("drm/panel-edp: Implement generic "edp-panel"s pr=
+obed by EDID")
+> >> Link: https://github.com/dwhinham/archiso-aarch64-sp11/issues/41
+> >> Suggested-by: Douglas Anderson <dianders@chromium.org>
+> >> Assisted-by: LLM
+> >> Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
+> >> ---
+> >> Can reproduce on an installed system on Surface Pro 11 LCD (X1P-64-100=
+,
+> >> LGD0779 LCD) by booting with modprobe.blacklist=3Dphy_qcom_qmp_combo t=
+hen
+> >> loading that module manually after ~20s. This delays DPU component bin=
+d
+> >> past the panel's runtime autosuspend timeout.
+> >>
+> >> A/B tested against the same v7.2 tree:
+> >>
+> >> - Unpatched: panel VDD off 3.5s..20.5s while BL_EN stays high.
+> >> After the first modeset brightness is pinned near max brightness with
+> >> a "collapsed" dimming range. sysfs brightness writes still reprogram
+> >> the PMIC LPG. One bl_power off/on cycle at unchanged brightness
+> >> restores the full range.
+> >>
+> >> - Patched v2: patch provides the same full brightness range on boot
+> >> (stalled or not) as the v1 patch. BL_EN drops at panel-edp probe,
+> >> ~1s before VDD cut, rises ~0.5s after panel power at the first modeset=
+.
+> >>
+> >> Tracing and functional testing on the SP11 shows unchanged sequencing
+> >> for fast boots (without artificial delay), DPMS off/on, and system
+> >> suspend/resume.
+> >>
+> >> Panels with shared/always-on supplies and no panel enable GPIO
+> >> may continue displaying the firmware framebuffer during the
+> >> runtime suspend before first modeset. With this change panel-edp
+> >> disables the backlight obtained through the backlight phandle at probe=
+.
+> >> The DRM panel core enables the backlight again at the first modeset.
+> >> I have not tested this configuration.
+> >>
+> >> Testing on other panel-edp systems particularly with pwm-backlight,
+> >> would be appreciated.
+> >> ---
+> >> Changes in v2:
+> >> - Disables the backlight once at probe instead of
+> >>    in panel_edp_suspend() following Doug Anderson's suggestion.
+> >> - Only disable the backlight obtained through the backlight phandle.
+> >>    The driver's AUX backlight setup is untouched.
+> >> - Link to v1: https://lore.kernel.org/r/20261024-sp11-bl-upstream-1-v1=
+-1-d39bfaf9afbc@gmail.com
+> >> ---
+> >>   drivers/gpu/drm/panel/panel-edp.c | 11 +++++++++++
+> >>   1 file changed, 11 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel=
+/panel-edp.c
+> >> index 94bc54c3833a..d019f4165674 100644
+> >> --- a/drivers/gpu/drm/panel/panel-edp.c
+> >> +++ b/drivers/gpu/drm/panel/panel-edp.c
+> >> @@ -21,6 +21,7 @@
+> >>    * DEALINGS IN THE SOFTWARE.
+> >>    */
+> >>
+> >> +#include <linux/backlight.h>
+> >>   #include <linux/debugfs.h>
+> >>   #include <linux/delay.h>
+> >>   #include <linux/gpio/consumer.h>
+> >> @@ -918,6 +919,16 @@ static int panel_edp_probe(struct device *dev, co=
+nst struct panel_desc *desc,
+> >>          if (err)
+> >>                  return err;
+> >>
+> >> +       /*
+> >> +        * Backlight drivers may preserve the state left by firmware,
+> >> +        * but panel-edp does not support seamless handoff.
+> >> +        * Runtime PM may power off the panel before the first modeset=
+,
+> >> +        * leaving the backlight on.
+> >> +        * Disable it here so the DRM panel core enables it in the cor=
+rect
+> >> +        * order at the first modeset.
+> >> +        */
+> >> +       backlight_disable(panel->base.backlight);
+> >
+> > While still feeling a little ugly, I can't think of anything better to
+> > do in this case. Thus I'd say:
+> >
+> > Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> >
+> > I'd prefer to get a second opinion from someone else in the DRM
+> > community to make sure I'm not missing something, though. Neil,
+> > Maxime, or Linus W maybe?
+>
+> I lack some knowledge, but when the display pipeline is probed
+> who's in charge of disabling the backlight when suspending ?
+
+I'm afraid I don't understand this question.
+
+
+> Why don't we handle the backlight state in the PM ops ?
+
+That was what Haipeng proposed in v1. ...but it felt wrong to me. The
+core panel code is supposed to manage the backlight and it handles
+this in most cases. The only problem needing a fix was at bootup.
+
+-Doug
