@@ -1,63 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643873;
-	b=miSHPkPrFAicFJZ/0zzrCnqK8alUB1C3lZpbh3yvEzIlGuOO9PUvg8VML2RKVqP8dOZi
-	 UEO2nR4Sxt8Lf3aDqw3t0godxkcj5bGNy/di4LHbl8V/JJ0D2IKLGoa5ZLExtvtGvfHOc
-	 q1dN//WnIP5tiReZ8HV6jhKbXwlPnyfk8TYAEyj0js2ktQNgIdXPfqek5VYJ97Uz1GkKG
-	 P+8InHdFur4StNoKBlXZ3oquQojdW7+gZNGerNOwW+hLH6GjJLqZ/1nTFX0mHfGn5WlFE
-	 /Vj9pkTt5Jp1nM8nXql3mlBF77W3jP51FRc+dXEcYkhpQaqxk7LIV//VPQzaW79eXRw==
+	t=1793643911;
+	b=w1//otnf45h9Cp7k6SuhBIm1ZkZr8DxTRvWltkAz828X4g6eZvTTKAuudUKK7watkVsi
+	 2MMpGQgvTpHYaosSVpOAe9dqsUEpjg0D/EwwQIOLeg3180kDD1ZHp5pvbindoBDDXc/B8
+	 gd+NtxuoZMOA3ArIHkxrfhVdBhef+OdlRJdbrTUtsMGeKosh2Bp0DhGLJRO5x4q/yh760
+	 dT6JK5DO34ht76iFMElJ4jz+yxN6y3H2LtDCJszN/5ZxnR1/pL/naftIIRTKHO95Mwgc8
+	 AhzW9zHAKBdMD+gvcaha6Ogjz3miJNOlt5uf3ScZBUL95/dDWWbSQlCtapE2z8RkLkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643873;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=zQOgtK1Q5lTQF+oypvJ7p+u9t+1NRbd2bvqvbKtTwZE=;
-	b=wXQoN7MIWOJxZFiSOVjiMRm2eYNPuYDQBS01WJRbDz91pmIgiD0DG78Ze7K2MiHHPx9G
-	 fS6zk/vR23vCrHngPsSxV/VcXpxFKjZLc8oVN/0j2P7Q8I8fOMaCCJi02EzN0VjGSmLux
-	 XPmWoSvIGi17gcrFAPyOPFnL+wfGTrPjoZh20ecV6D32q4hawG3RckB37IqHAGhgYoSOn
-	 9pFzUlg3Pot+k0iiDmprv5ABkK8cvnWcDAQdTC3gt17bUHZP342On9SzZHJ6Nkdj56tma
-	 9S+M0IYagCxXa6Zx1DxhPIS8r3JvN5yqfx7/EuaoHlS96RDLT+z/iACzNnxZAzINNhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643911;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Z41mKtHOm7Mi5CS6B12EWoUXhaoVqMrutmZJokfP2gM=;
+	b=kUbu9Fwt+KToTV0JSQdQJJpZs2aqIp+jfxdgHK6jTBw7MxpS6t9l8cmTi9NVryDFHrRu
+	 vh5J3bUX5Ph+ofxrlBIYRGidxYHeqdgAm9BdTvik3+jijQeclfZ308ilKdXG3mPQWum3J
+	 GZuGzIXV/DeuI8DYi7QIVmGFqKMIe2zcY4pRcot8T966sYFP74/hf4U7hcyhHXwUFpXEz
+	 Kkey7bpWpkJhaT1GJiWwYVDrRI0cjjSiVE54m0F0eL8/du77bjholzyWYcnIl+B/vKSfR
+	 5TwmJQ+dCTSdd3MFGHtbrFM/+YHmKlSxbeMZ0uP6SMgQuWp894dKM0hhbcJv88SkDWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FcR8HmKy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wRJX0RF8;
+	arc=none smtp.remote-ip=74.125.229.6
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85C2606A335;
-	Mon,  2 Nov 2026 18:24:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697E6606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:25:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 697E6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FcR8HmKy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9E71F00A17;
-	Mon,  2 Nov 2026 18:24:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793643872;
-	bh=zQOgtK1Q5lTQF+oypvJ7p+u9t+1NRbd2bvqvbKtTwZE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FcR8HmKyW5M9r2g8b+TyIka8JtcnwI6Ta5We5GcbLoVeEjHI9K09qtC4RUyeKXIGe
-	 gnex4ESxaxMsK98oVrjJMmNtO2VuITBQ3fRq0MwBW681FylmJ5SiRCjV665kUfDMYf
-	 rHE+O//SQ4SqFYJXRjUkMloVC2fvYfmUekkzbF3AEubHIVsGl/HzA/w+ehUJd8htdS
-	 V4jEPc3emYrbWZXdWN87BPXW3A0aaB6nsk7LQG0pd8Shb8YgDz3H5B0eUxVse1IlOl
-	 U6oNPq990Uy1nLNRj8olUK5gwY3LQW8/LqXaesEJbiWTreG4REZ0qADhW0u6FktkHO
-	 gqPnLaZDnBbSA==
-Subject: Re: [PATCH net v8 2/4] net/smc: bound the receive length to the RMB
-From: netdev-bot+sashiko@kernel.org
-To: hexlabsecurity@proton.me
-Cc: sidraya@linux.ibm.com, kuba@kernel.org, mjambigi@linux.ibm.com,
- pabeni@redhat.com, alibuda@linux.alibaba.com, davem@davemloft.net,
- dust.li@linux.alibaba.com, edumazet@kernel.org,
- guangguan.wang@linux.alibaba.com, ubraun@linux.ibm.com, raspl@linux.ibm.com,
- linux-s390@vger.kernel.org, guwen@linux.alibaba.com,
- linux-kernel@vger.kernel.org, hidayath@linux.ibm.com, horms@kernel.org,
- wenjia@linux.ibm.com, tonylu@linux.alibaba.com, linux-rdma@vger.kernel.org,
- netdev@vger.kernel.org
-Date: Mon, 02 Nov 2026 18:24:30 +0000
-Message-ID: <179364387064.3131.5492897013975868107@kernel.org>
-In-Reply-To: <20261029-b4-disp-33001ace-v8-2-f9bb96e17827@proton.me>
-References: <20261029-b4-disp-33001ace-v8-2-f9bb96e17827@proton.me>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wRJX0RF8
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3537f63c9e6so1350490eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:25:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793643909; x=1794248709; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z41mKtHOm7Mi5CS6B12EWoUXhaoVqMrutmZJokfP2gM=;
+        b=wRJX0RF8HzOJ5vHpbUCAKfZVjV3IC026OA9dQPQiz8FmPUdyqsaFHt8LcpZ43ExlRJ
+         V131kcsJQSQmh60QT+FT7u391++5YsW/YO1DbR+WV8QL6E8eYBo3gGcPwCrAgWVG5rBl
+         xPlLnxQ9m5+fvTxjr/g4bwZc0JGUnpU3natXbNrqN3XDX/Q6L7zzd4F6iGzyKrsPQItj
+         Xqx1Ed0Gcr6oSkwDipSu2F2AE2yVj9CdZEI/GzDD2emXcMnfxaEAOEUnQ52JLAyxCcTe
+         vMadz6FaT/RD/UTS6WJ220Qt5fRzD49ZSypC9hgqQxdy3e/lboRbOgyp1bUDlnQ3/dgj
+         PATA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793643909; x=1794248709;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z41mKtHOm7Mi5CS6B12EWoUXhaoVqMrutmZJokfP2gM=;
+        b=z5xpAY8qas5pUJQaxHvU3THYuSXN/LcAGtnHZy6IEJpK8cnF/qEKcJyNIOvJcL9uND
+         fG1OT1BBuX1HJer8QsWHw99SUJyAu5olqJ4/s5DDRxXs+njwGrTTzMSlgP2xUFhuLmR5
+         7FssoHw0kX8jJEunyNl2q7bmyhry5GgsjTFpadau1/fQrpKIFCB9aDyOC9beyUxQZqOw
+         jUbNkxkzr/XOj1EYb2d7fKnAHgTAgl/JeExdp6Q/gq+lbS9owa3IuhgX3geg+wkBVcaA
+         55gE+Tz7T15YwOZ6l4AasXOkOQx3XGg2j2ZkIh8bZXQOir5C/Ptxup2A5tWCeR6TVosu
+         Udfg==
+X-Forwarded-Encrypted: i=1; AKwUvBxoMFlRDmQ1TiwbdGqZFbODWkxKcE9nLs8BbrcHq0i92p83IOZhHksvqclfXS34YQChTkv/Pf8H6BTnSVs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKHqWD7Q8ssPqPjhuCufN330loDzuclmmhD1Kz5+7kbp9/U8Zq
+	GS3zDy4m5HnNcuM5/lzvF0Am4hDOIfrc8pmlhJvPEYgZ5TEOaT2k55er
+X-Gm-Gg: AYBFou2O7jZ90ELCSIQDSstZIqZkrfvtHccHL1UsCdCGY9xC+Dc6nCnAMqJNn3FJnan
+	B0Mb2/EQbslz8bXU20XGBTn0+x5j6wZr2NJ8gdUQi3e7vFj4a4Ctsgh6wx39oVyipWSORyQjEe3
+	KDEmhPPVg2zhn5m3rXzPMBhrrrGXiM/d5rJPTGPTYkeiMqp2c2Xlh49+7TZov65U4EOA7jhyho5
+	onBA23IR8RFNBi0IYhiPHgwmf+1jd69rd1uHB1WMkxK+annD9FAHsYjtXYxWHhkNSDFHRC5fDoj
+	cca9l4hXqW+GekUArpj3U3T+QB0GRvUpOIwyZOwFBb1Cf/EHKzIj/HgVzLlwCJUr0IPdpC2JLJa
+	bk9BFznJ2DlpKr5qWDED7y886WR3N+Y7NyuHWCwqZLO78+8ARNX56ogXtb26Yt+IptX178awh+L
+	RI66LDH752fKnpPG8TuwdZne+WgsUayZbpSofjLVl/7+41mCgDN9ep+GC1qEaxv5KSn6FwcqIYE
+	d0WA3NyBUFSdMf+/1Fja0dLD9nK3V8gaAaij+ThRZrtaoXYIhTQSKmNCG7xq8jVjcJOksO6sfjR
+	RBAqSW9PfbPM5u81O5vWGx0=
+X-Received: by 2002:a05:7022:ef12:b0:14d:ef19:246f with SMTP id a92af1059eb24-1ac5f36d5cbmr18049891c88.45.1793643909092;
+        Mon, 02 Nov 2026 10:25:09 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:42::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854da78sm46557054c88.6.2026.11.02.10.25.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 10:25:08 -0800 (PST)
+Date: Mon, 2 Nov 2026 10:25:04 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Rongzheng Wang <testwrzwrz@gmail.com>
+Cc: netdev@vger.kernel.org, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Jason Xing <kerneljasonxing@gmail.com>, Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 2/2] selftests/bpf: cover AF_XDP multi-buffer TX
+ software checksum
+Message-ID: <aujU8-MBZ9LrhFMd@devvm16445.scu0.facebook.com>
+References: <20261030023248.78802-1-testwrzwrz@gmail.com>
+ <20261030023248.78802-3-testwrzwrz@gmail.com>
+ <auT51NbSPvKJwgiD@devvm16445.scu0.facebook.com>
+ <20261031013143.42509-1-testwrzwrz@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,249 +102,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261031013143.42509-1-testwrzwrz@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 10/31, Rongzheng Wang wrote:
+> > Any reason you're not reading the real value from
+> > /proc/sys/net/core/max_skb_frags ?
+> 
+> The test wants to exercise the maximum supported number of frames, but also
+> needs to run on every build. CONFIG_MAX_SKB_FRAGS ranges from 17 to 45, so
+> using the minimum (17, i.e. 18 frames) gives the largest bound that works
+> everywhere. af_xdp.rst documents the same limit:
+> 
+>   "For copy mode, the maximum supported number of frames in a packet is
+>    equal to CONFIG_MAX_SKB_FRAGS + 1."
+> 
+> xsk checks MAX_SKB_FRAGS directly (net/xdp/xsk.c), not
+> net.core.max_skb_frags. I also set net.core.max_skb_frags=4 and ran
+> xdp_metadata; it still passes, which confirms xsk does not consume that
+> sysctl. Reading it in this test would not tell us the xsk limit, and would
+> only reduce coverage if it is lowered.
+> 
+> CONFIG_MAX_SKB_FRAGS is compile-time and has no userspace interface, so 18
+> frames is the portable upper bound. That is why I used 17.
 
-Critical: 0 · High: 1 (2) · Medium: 0 · Low: 1
+Sure, people can set max_skb_frags to < CONFIG_MAX_SKB_FRAGS, but I
+don't think we are gonna do it on our runners. So for the purpose of
+this test we can essentially assume CONFIG_MAX_SKB_FRAGS ==
+max_skb_frags.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I'm just trying to understand whether on the builds that have
+CONFIG_MAX_SKB_FRAGS > 17 we want to exercise all CONFIG_MAX_SKB_FRAGS
+or we are ok wit just 17.. But we probably aren't going to bump
+CONFIG_MAX_SKB_FRAGS on upstream kernels anytime soon..
 
-- [High] The patch says that reordering splice_pending in
-  smc_rx_pipe_buf_release() means 'no reader counts them twice', which…
-- [Low] The new conn->rmb_len field exists so it can be read without the
-  socket lock: the patch's comment in smc_rx_data_available() says the…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it is a
-  reachable local DoS.
-- [High] This problem wasn't introduced by this patch, but it is a real
-  accounting bug.
-
---
-
-net/smc: bound the receive length to the RMB
-
-This commit clamps smc_rx_data_available() to what fits in the RMB behind
-the spliced and peeked bytes, never returning a negative count. poll(),
-SIOCINQ and the deferred accept now use this helper too. It also caches the
-RMB length in conn->rmb_len for unlocked waiters, and moves the
-splice_pending decrement in smc_rx_pipe_buf_release() ahead of the consumer
-cursor update.
-
-> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-> index d10244af5bd29..d492c77161283 100644
-> --- a/net/smc/af_smc.c
-> +++ b/net/smc/af_smc.c
-
-[ ... ]
-
-> @@ -2939,7 +2939,7 @@ __poll_t smc_poll(struct file *file, struct socket *sock,
->  						mask |= EPOLLOUT | EPOLLWRNORM;
->  				}
->  			}
-> -			if (atomic_read(&smc->conn.bytes_to_rcv))
-> +			if (smc_rx_data_available(&smc->conn, 0))
->  				mask |= EPOLLIN | EPOLLRDNORM;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can smc_rx_recvmsg() loop
-forever while splice_pending is non-zero?
-
-When data is available and an earlier splice() is still pending, the top of
-the loop jumps straight to copy:
-
-		if (smc_rx_recvmsg_data_available(smc, peeked_bytes))
-			goto copy;
-
-That skips the !timeo, signal_pending() and sk_err checks. At copy, msg &&
-splbytes is true:
-
-		if (!readable || (msg && splbytes)) {
-			if (splbytes)
-				func = smc_rx_data_available_and_no_splice_pend;
-			else
-				func = smc_rx_data_available;
-			smc_rx_wait(smc, &timeo, peeked_bytes, func);
-			continue;
-		}
-
-smc_rx_data_available_and_no_splice_pend() stays false until the pipe
-buffers are released. The return value of smc_rx_wait() is ignored.
-
-With MSG_DONTWAIT, recv() never returns -EAGAIN; each pass sleeps about a
-jiffy and loops again. With a signal pending, including SIGKILL,
-wait_woken() returns at once and the task busy-loops. The only ways out are
-splice_pending draining or conn->killed. If the same process holds the pipe,
-the pipe buffers would never be released.
-
-smc_poll() now reports EPOLLIN from smc_rx_data_available(conn, 0). That
-helper uses splice_pending only to cap the length, but recvmsg() refuses to
-copy anything while splice_pending is non-zero. While a splice is pending,
-does the commit message's claim that these paths "all see the same length"
-hold?
-
->  			if (sk->sk_shutdown & RCV_SHUTDOWN)
->  				mask |= EPOLLIN | EPOLLRDNORM | EPOLLRDHUP;
-
-[ ... ]
-
-> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-> index 6021322253e93..fe6e4a2f7935a 100644
-> --- a/net/smc/smc_core.c
-> +++ b/net/smc/smc_core.c
-> @@ -2505,6 +2505,7 @@ static int __smc_buf_create(struct smc_sock *smc, bool is_smcd, bool is_rmb)
->  
->  	if (is_rmb) {
->  		conn->rmb_desc = buf_desc;
-> +		conn->rmb_len = buf_desc->len;
-
-[Severity: Low]
-The new comment in smc_rx_data_available() says conn->rmb_len is read
-without the socket lock:
-
-	 * INT_MIN, avail - peeked wraps. This also runs unlocked, possibly
-	 * after rmb_desc was freed, hence rmb_len.
-	 */
-	avail = min(avail, conn->rmb_len - atomic_read(&conn->splice_pending));
-
-Should this store and that load use WRITE_ONCE() and READ_ONCE()?
-
-For example, during a non-blocking connect,
-smc_connect_work()->__smc_connect()->smc_buf_create()->__smc_buf_create()
-writes rmb_len under lock_sock(). At the same time, smc_poll() on the
-SMC_INIT socket reads it without the lock. The first unlocked evaluation of
-the condition in sk_wait_event() has the same pattern.
-
-KCSAN would report this as a data race. There is no functional effect today,
-since bytes_to_rcv is 0 at that point.
-
->  		conn->rmbe_size_comp = bufsize_comp;
->  		smc->sk.sk_rcvbuf = bufsize * 2;
->  		atomic_set(&conn->bytes_to_rcv, 0);
-
-> diff --git a/net/smc/smc_rx.c b/net/smc/smc_rx.c
-> index 197fddc6271f0..85654d9f321b0 100644
-> --- a/net/smc/smc_rx.c
-> +++ b/net/smc/smc_rx.c
-> @@ -118,15 +118,20 @@ static void smc_rx_pipe_buf_release(struct pipe_inode_info *pipe,
->  	struct smc_connection *conn = &priv->smc->conn;
->  	struct smc_sock *smc = priv->smc;
->  	struct sock *sk = &smc->sk;
-> +	bool drained;
->  
->  	lock_sock(sk);
->  	if (conn->freed) {
->  		release_sock(sk);
->  		goto out;
->  	}
-> +	/* drop the released bytes from splice_pending before cons moves
-> +	 * past them, so no reader counts them twice
-> +	 */
-> +	drained = atomic_sub_and_test(priv->len, &conn->splice_pending);
-
-[Severity: High]
-The commit message says this reorder means "no reader counts them twice".
-Is there still a path where spliced bytes are counted twice?
-
-In smc_rx_recvmsg(), a copy that wraps past the end of the RMB is done in two
-chunks. If the first chunk succeeds and the second fails, the error path
-jumps over the bytes_to_rcv and consumer cursor update:
-
-				if (rc < 0) {
-					if (!read_done)
-						read_done = -EFAULT;
-					goto out;
-				}
-
-read_done already includes the first chunk. For splice, smc_rx_splice() has
-already added that chunk to splice_pending:
-
-	bytes = splice_to_pipe(pipe, &spd);
-	if (bytes > 0)
-		atomic_add(bytes, &smc->conn.splice_pending);
-
-Those bytes are then counted in both bytes_to_rcv and splice_pending. The
-second chunk can fail with -EAGAIN from splice_to_pipe() when the pipe has
-only one free slot. It can also fail with -ENOMEM or -EPIPE.
-
-On the next splice(), the start offset is cons + splice_pending, which skips
-the first chunk. The readable count still includes it:
-
-	avail = min(avail, conn->rmb_len - atomic_read(&conn->splice_pending));
-
-Would that splice() return stale ring contents from beyond the producer
-cursor?
-
-When those pipe buffers are released, cons would move past prod, and
-smc_tx_consumer_update() would send that cursor to the peer. bytes_to_rcv
-would also stay inflated for good.
-
-In the recvmsg path, a fault in memcpy_to_msg() on the second chunk returns
-the first chunk to userspace without consuming it. Would the next recv()
-deliver those bytes again?
-
-The new clamp keeps the read inside the RMB, so this corrupts the stream
-rather than memory. But it looks like the same double count that the commit
-message says is fixed.
-
->  	smc_rx_update_cons(smc, priv->len);
->  	release_sock(sk);
-> -	if (atomic_sub_and_test(priv->len, &conn->splice_pending))
-> +	if (drained)
->  		smc_rx_wake_up(sk);
->  out:
->  	kfree(priv);
-> @@ -506,7 +511,7 @@ int smc_rx_recvmsg(struct smc_sock *smc, struct msghdr *msg,
->  			/* increased in recv tasklet smc_cdc_msg_rcv() */
->  			smp_mb__before_atomic();
->  			atomic_sub(copylen, &conn->bytes_to_rcv);
-
-[Severity: High]
-This is a pre-existing issue, but is a short successful splice counted here
-as if the whole chunk went through?
-
-For SMC-R with a virtually contiguous RMB, smc_rx_splice() works out the
-number of pipe entries from the page offset:
-
-	nr_pages = !lgr->is_smcd && smc->conn.rmb_desc->is_vm ?
-		   PAGE_ALIGN(len + offset) / PAGE_SIZE : 1;
-
-do_splice_read() limits len by the free slot count but ignores the source
-page offset:
-
-	p_space = pipe->max_usage - pipe_buf_usage(pipe);
-	len = min_t(size_t, len, p_space << PAGE_SHIFT);
-
-Take an empty 16 slot pipe, len = 65536 and an unaligned offset o.
-smc_rx_splice() builds 17 entries and splice_to_pipe() returns 65536 - o.
-smc_rx_splice() adds that short count to splice_pending.
-
-smc_rx_recvmsg() only checks rc < 0, and then counts the full chunk:
-
-			read_remaining -= chunk_len;
-			read_done += chunk_len;
-
-It also subtracts the full copylen from bytes_to_rcv here.
-
-Would splice() then report o more bytes than reached the pipe, and leave
-bytes_to_rcv o bytes below the real unread amount?
-
-The pipe release only moves cons forward by what was actually queued, so the
-deficit would add up. That could lose trailing data at EOF, or stall the
-connection once the deficit gets close to the RMB size.
-
-> -			/* guarantee 0 <= bytes_to_rcv <= rmb_desc->len */
-> +			/* can be out of range, see smc_rx_data_available() */
->  			smp_mb__after_atomic();
->  			if (msg && smc_rx_update_consumer(smc, cons, copylen))
->  				goto out;
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029-b4-disp-33001ace-v8-0-f9bb96e17827%40proton.me
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
