@@ -1,64 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607718;
-	b=2uqXVRKDNgMlyKMBeskJq9jEduJVj6T7hCOQG/uH7Nl0TNXs/LNEwjINgcXag8G1kH+q
-	 hOTGJhGTqQNoetUFOqyfpTDZAM6LFc7bUGAqt7BFoKwSzq8QuoPtNeCAAQOhhwR23x2ZO
-	 0WJggV76YWLpQez/9ZZ0QbqSthhe4ApqCnKcj/9SwWoz8hrywYMcUTUi7J7BKA29jeJcB
-	 +EW8pYnfGqi6FljnYaXyanUTcCrslvGAFLAG0I1uX3A1YuAHzRgONYiQpwDQQ85KqET65
-	 CWR3WxHdD0xhSENzACPYbFBOX8/2iny8OoMhDncW9cbXQ9sWuZBJlJ9qEZrB0E9+W+Q==
+	t=1793607776;
+	b=yDPkM9X/LaDByLZNg/FOkcgwGgcvKog4GXVjXSvbBhH1IH4ws2OBPo/qSPaP8a5hXxWj
+	 HS6XYX1ZzGLuSuyCbKFmwvYv8QXFppdSW5f9kIpRUk50/0Tp+wHO5ndgeJv3l8SEiXkwH
+	 mS/uhYbyM7g68+RvK5B5LKSzeXKfW1D6Zvjxg7hocaPiEEd0LZcdpQ/xWaUlwedhTeOos
+	 wmik6CvTBlegTsu5NWdHdUtyYJyFjFE+y9fu2xg/cZs9UPFYTZcr/dH3coC71U2P6NDMp
+	 GQGnp8Q6ocq7f9/xsxe35QOZIG68znIWLAGmLLdS4BBLTjjryqjzn3KPW3gbKxMCwjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607718;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=pSBrr3W6vsQ8Ghatr4Uc3i27nNZbHbK6ravDLl8PYtw=;
-	b=kDeLze3yFuLfikxVZ9vfsrrWHmtbrrOw3YcVmgQqWobjvtI2uq8w/wvZxwJdHFxIxHtm
-	 /UiQTvmt+F5RGJub52JGU7w9J84cRezb1/XmHXLvG2UBjz3wTG24iKEnRgPLKb9b61ubW
-	 mgkw27jdRpAH1OUiz1ru810tz/FEdtR+wj5/uZ0k8R0c0CG1z2XbiNx+AB4Pl5h/ifhOT
-	 BiAOxD/SBrODLo5tfDdP/DNdQ4S52jTcsQqj3e+58RUzUJQsPrA73nZ+BCB6sjb4viACf
-	 WdztqCBTZz+aSqY6n42Pn5WXv/aifeNUZM8w+hN+xz+8EujeSmmzWnqXza8U1C3TMGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607776;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=5FOz0TiH9w3NcIetfR+dP6aB6d9nyP+PHblRoSTH/oo=;
+	b=zafs/xodPD2vqlN2vWdjeSKqbBo6uj2IDzNkH5w8IPOWzhmSCr/f4Z03sf1Y2a9GP4sq
+	 V/jWqDIxRWlcOvc8/03uueXs4CuZV5+PICNqkeVhp+wvfAsvCpyyieYY0IhWOuU4t2mts
+	 KuYPLUVUmBXXHzryvNeB4hKUKbgGQzCK4yJvFxoUhYE6J1NhHqI2py8ApuPbRIYc8GXW6
+	 fNZPkcGkMq3E0mO+AM+Ea++wfzEL17amJ6TYIiIc8vW9GMlHFaU3qISnCMb8jZVy+6oIJ
+	 4acDkW57fI318UL1XvEnFLTgs1Ddzq2+G2CY/9qOhMF8DmdGa6s1Qnfz61xcVmWhcHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBwU1J4C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 69CB6606A333;
-	Mon,  2 Nov 2026 08:21:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HBwU1J4C
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7BA071F000C1;
-	Mon,  2 Nov 2026 08:21:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793607718;
-	bh=pSBrr3W6vsQ8Ghatr4Uc3i27nNZbHbK6ravDLl8PYtw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HBwU1J4CaRUQMbgZL0NugqUMlG83pEO6VfV0qXArpxAYxOl8AUaqM80zI4N5rGpQ+
-	 lTwfAnVerZgW/FqCY40R733ruXA9Y57c2o7jz1U99WQ/VhRrdSR9h/ZFHV8DrAgvTV
-	 etNY8aU359ZhZjDn0FeR+UF5fYnXEv6SdSImtyN/btuWfdamzDJhJ4u2Mpevrfh6Kb
-	 l10CnvVzo5y+WRxxpJ1VTTIGHqvP/DkEWX9ND/zpZzNRcwJvSP2/noUGZVhZuXzpN+
-	 NozZgfKQpBG1c/Jcbb2rWsYbPXkPQ7Fn9AYhVfnXwLP2DewtgL1LVTB9LMds0aCJ//
-	 LuQ3gHxnS3SGQ==
-Date: Mon, 2 Nov 2026 07:53:27 +0100
-From: Nicolas Schier <nsc@kernel.org>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: Speed up KConfig - fix hashtable confusion
-Message-ID: <augzZ-iDU-WA7rZw@levanger>
-Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
-	Julian Braha <julianbraha@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-References: <CAHk-=wi_GuySe0L-uCAM2+nScCLYGBp5BLi6UUPR1gALmNM_3w@mail.gmail.com>
- <9c21c5f5-355e-4520-b48e-acd355c7fc6d@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC818606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:22:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC818606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-547ae874949so4262931b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:22:55 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793607775; x=1794212575;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5FOz0TiH9w3NcIetfR+dP6aB6d9nyP+PHblRoSTH/oo=;
+        b=LcwagrcO0dxB41sV7kMQgF6ISBdRjy011VwqT2gzfTFejZm9+jAFKYcF9h2MQiLe/D
+         FWmpnEhNXgDdIDH0yic29tvTdGJcG8b9xaa3lnuskNrJwjcMSC5IKpZkCDOi5EX0nWlv
+         sxnCoowWaYBhGxLXSLnJqfvCnMQDxcjrevIYMcoUH9waEwwSBHf/AYCGITsaqTDEZdS5
+         33SiIPW404dQUVMDHQUKSy9Fii161Ty3pQ8T1nEChiS+0L2OVUx8A29jcOHtHyded4Hv
+         5uh75s7ZZK4ItsoxgjTdw695+OnLkWoU8/Jeb2+Lfui2QODSkRlqHh1yurOUKzIeKaOc
+         6mfQ==
+X-Gm-Message-State: AFq9FYIc26lyN4bBaNDmQdt3IATxHkYIgZj3uLGGJ29CWcUn2o1CjInR
+	T19eMaIzC6Rm+WM06prEcV0ZUkBgipuVx5QSlLUoVDLCgfmCUuQonwXpQQiUi8R36wQ4Zv4UfN+
+	W86ewhXB/53GKbkCAuL1+Ie6KJWbC4nr97byRWcd2ZaEg8RV95SCidDTniT4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,106 +57,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="O/lgowdIW52wEdIz"
-Content-Disposition: inline
-In-Reply-To: <9c21c5f5-355e-4520-b48e-acd355c7fc6d@gmail.com>
+X-Received: by 2002:a05:6808:1989:b0:4e7:d180:7719 with SMTP id
+ 5614622812f47-5640dfbd63bmr5515188b6e.42.1793607774821; Mon, 02 Nov 2026
+ 00:22:54 -0800 (PST)
+Date: Mon, 02 Nov 2026 00:22:54 -0800
+In-Reply-To: <6ad08fa3.a150a118.27e199.006c.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae8485e.6552420f.2a0efc.0681.GAE@google.com>
+Subject: Forwarded: [PATCH] HID: saitek: prevent NULL pointer dereference in saitek_event()
+From: syzbot <syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
---O/lgowdIW52wEdIz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+***
 
-On Sun, Nov 01, 2026 at 11:44:39PM +0000, Julian Braha wrote:
-> On 11/1/26 20:08, Linus Torvalds wrote:
-> > So the Kconfig 'expr_lookup()' function is criminally slow and takes
-> > over 10% of the time of "make oldconfig".
->=20
-> My own pet peeve is the occasional slowdowns in menuconfig search...
-> >=20
-> > The reason is that it's called just a lot, but it *really* doesn't
-> > help that the scripting versions of the hashtable functions has not
-> > understood the subtler issues of the hashing code that it took from
-> > the kernel side, and in the process got things very very wrong.
-> >=20
-> > The "hash_32()" function is a perfectly fine hashing function - there
-> > are better ones around, but it's fast and "good enough". But when you
-> > use it, you need to understand that it puts the significant bits in
-> > the *high* bits of the result.
-> >=20
-> > The kernel uses a model where you give it the number of bits you want,
-> > and it will pick out those high bits, which makes it all work right.
-> >=20
-> > But the simplified hashtable code for the host code didn't use those
-> > high bits of the key. It just did
-> >=20
-> >     (key) % HASH_SIZE(table)
-> >=20
-> > to pick the hash table entry, and that's basically pessimal. When
-> > hashing an address that typically has the low bits clear, the low bits
-> > of "hash_32()" will *also* be clear. So the hash table ended up being
-> > mostly empty! So even though the hash table was sized appropriately,
-> > it wasn't being very efficient. And while making the hash table larger
-> > mostly hides the problem, it's the wrong solution, because the cache
-> > footprint gets worse.
-> >=20
-> > Teach "hash_head()" to use the high bits of the key. Because the users
-> > don't pass in the number of bits they want, this is pretty hacky:
-> >=20
-> >     #define HASH_KEY(key,size) \
-> >         (unsigned int)((unsigned int)(key)/(0x100000000ull/(size)))
-> >=20
-> > but at least this improves on things.
->=20
-> It would be a bigger change but IMO the host-side implementation should
-> not differ much from the kernel's -- like the rest of the data
-> structures in scripts/include/. In other words I'd prefer to revert some
-> of the "simplifications" that caused this and adjust the callers
-> accordingly.
->=20
-> Nathan or Nicolas, do you feel differently? This is also used by some
-> other tooling outside Kconfig. If not then I'll send out my version.
->=20
+Subject: [PATCH] HID: saitek: prevent NULL pointer dereference in saitek_event()
+Author: dlzhangak@isoftstone.com
 
-I have no strong opinion on that, yet.  But probably it's better to take
-a working speed-up fix now and think about the long-term maintenance
-stuff later on.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-[...]
-> > Somebody needs to double-check this. I don't love my HASH_KEY() macro,
-> > but it should work for power-of-2 sizes. And as far as I can tell, all
-> > the hash tables are powers of two.
-> >=20
-> > Comments?
-
-Thanks for spotting!  Patch looks good to me and the use of the hash
-table significantly better distributed.
-
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
-
-Kind regards,
-Nicolas
-
-
---O/lgowdIW52wEdIz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEh0E3p4c3JKeBvsLGB1IKcBYmEmkFAmroM2cACgkQB1IKcBYm
-EmneNBAAyJir/4UIBI6f1U8zm5isTcfVvFy5Cafw5rrchTka5eVSqMIwnpM0lHb2
-KC6+MNS45sd84pEmBzy360+7/Bkt+fRPeBLO+hVVAkBTE9Vi1fLuZNStjOLvX93I
-BOAVct461dtR2+WFDvv6fs4JHYJUo/5Tyfg0EaDphB6syu39Un+HiYH8ZWXV6QxG
-3DNPwIfbB3JZmDTMP/AfBZnHP3PsErvf/Or1tWwoW33Db7MLOD4K9q4bk9VnMe/k
-5hSfnbhIgn3HNPDrO8AVfR8eTKT3ntc/LbpGI+9g/tC1ybdqA0n1yMKRiLlIHHlI
-Ydxn4lZqsUf0IJ/wrRWxNs/YcxOkb3ldbQhdXehBu7N1JT6KgBo1KCAl7+5KFJ1w
-33ANDIaGjsZO9jaDtbGqQiTCFR8VqYB/Mui9jdIa3xZB7EkV899AmEWmCzDaY0k3
-pmGDspbOwJ/LRHpRx+JCrcvtvbqBr9jUXxlprB4XZHH33HmlDpfPCbH0LOz/M/VC
-mZ0kM0MmcDe7baDUnIlxhJdWXiEqkLQDwBhSJIKwh7hEdAuf87UhJ9fFu1nUFsqf
-cFjVapRybs052e7i2AG22p8HotJoi2vMOqQpl9WFuLwU1zXwWO1vACui7Ja9rcpI
-nttymQSmnZwKoIF5ruW5r1nYKdfSy0pRFn7IH0M1eDbHDDmlqow=
-=ugZf
------END PGP SIGNATURE-----
-
---O/lgowdIW52wEdIz--
+diff --git a/drivers/hid/hid-saitek.c b/drivers/hid/hid-saitek.c
+index 6fe7c087c594..7e1160a24230 100644
+--- a/drivers/hid/hid-saitek.c
++++ b/drivers/hid/hid-saitek.c
+@@ -151,7 +151,12 @@ static int saitek_event(struct hid_device *hdev, struct hid_field *field,
+ 		struct hid_usage *usage, __s32 value)
+ {
+ 	struct saitek_sc *ssc = hid_get_drvdata(hdev);
+-	struct input_dev *input = field->hidinput->input;
++	struct input_dev *input;
++
++	if (!(hdev->claimed & HID_CLAIMED_INPUT) || !field->hidinput)
++		return 0;
++
++	input = field->hidinput->input;
+ 
+ 	if (usage->type == EV_KEY && value &&
+ 			(((ssc->quirks & SAITEK_RELEASE_MODE_RAT7) &&
