@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793582859;
-	b=X7O4RTtQYWHlSx9pVT4cjD7VmwUBvsVv2ntDAbG5YhIiWcWq8UegPerWMQISp+f0dQKS
-	 lV0aXQvedilFsmHKIQ5hkxXcSkiDdXFhs+wu7cZCqZp3E0VWYjbKh0qCQYwCdvfToasoe
-	 397Q06mDFCWYxxt2rJ7IkvoLKBngEHTh7ev1ZolDyYaLU5UhCOayaj77uHcYjuzlPqqOA
-	 +pCo9OUYRfvuznSNKRULHUxeEkhH+0KuGZkHEbcw8M+Sa/0NthODijell2BbG5daEx1QP
-	 bx9QnoPEZLgfzRsNV3Tr9Fd8SIEoNJ4CTFTEBCXulL2tB55uaNBDzwmvzn9ccGBoStA==
+	t=1793582897;
+	b=4LVySFsupYcEBmq65sPJcUzJK9OgUF0iSCWslsNf0FWa8ELctTNCBcsjWmADIRLQBMio
+	 qr/O7UmwByLGrSCdSH5l6ZgjiQI9vSCcl27v0AYluTFzPiaq8dQHNcsr2KjdXlsgQMAtv
+	 SZXO17NUajN1Pv8qfNcNegJt5KO5BIb2kz5VwrXp+AIPs3jWzDEXXyBrIFjySSgfpFN3i
+	 WZNcc5iA7/w93a2+wkrADvao0uSA3MPgXOlmlyCYPVVq9uI/724YEks5aaLuHDi+vm/VW
+	 gDhucYwNvG8h6qoAvY392yupxK3LdLioIheltp2+G/98YiYUXJ01sSHmiFW07cj6bIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793582859;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UfRldmRYmdOXB066OSHlxeXaxLqp09q3SNbqpbUYr6E=;
-	b=JluMyMmajjHlC42db5VLVmi2ght6Y4hwG7BH44iIZF0EeUfFupaHdaRkTDMENgktjV8v
-	 1XES4zPSRzL1BrHXYHB8LOLxrLkKr73/CeOi4sqDKdpTwLVs5q6wfHAwOL5ym1bQMCtDt
-	 dLyuCx2rc2Hjd53W2yABnb6TKYUwFs3YfN2xzDciJTs84fy2m4anBrObxRU8joyrWn6si
-	 TvfFoTubhXVDaGCMNtA4q15ZWFv36ax2kF66mvf51MgjKca+6bs7NQoOPyvuDWXDTgaqQ
-	 Wvovz17OaDre3RqyOxjKeNHV7/8zutYinelCi/vlg4zADpWpGvSbJmP4TSYX6WTQeFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793582897;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rzoLRGpbA1YnRSHf730F0SGoltNl9naGbkAysUDHcXM=;
+	b=KSPwfUEhSpz+l7Br9fjutpaJZiI4QftsR7pG7lm4zsP3Xs7vx5pUzffdnvTTDtysqnHR
+	 WK8Iuh3hOLQzRv6RGnOomhKw+hz9VSlLD7QaPGQOGlPEJF75++BklQjQ7B/+d5vjx4Ki9
+	 GttYI4AjFAsSU15EEyHsiG/2tcx/IrCYVeSqB9z+/ByT6VF1JTxnq39mcnSNfOw3XLmtJ
+	 m80F5apnavofMfzi3k1I3wKNjJtkky721n8UNVxNdq1yDHWEKZE9DlXOKLJLkBsLnPSdR
+	 yIBUefjSuiOrtKU8igpkYu1wM5ClxXMcho8CMSTTmUmXk508z7NZQzdPxv4DDdOCFKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0p68AVd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DJ2NkJ6N;
+	arc=none smtp.remote-ip=91.218.175.55
+Received: from mta0.migadu.com (out-55.mta0.migadu.com [91.218.175.55])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5B6606A324;
-	Mon,  2 Nov 2026 01:27:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5766606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:28:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5766606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D0p68AVd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 233981F00919;
-	Mon,  2 Nov 2026 01:27:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793582859;
-	bh=UfRldmRYmdOXB066OSHlxeXaxLqp09q3SNbqpbUYr6E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=D0p68AVdlqZHXbsjr56QtNk+BdkIR47WcT1nfpC2a0XNCVRXnWZVgYSLzVT7IpHfL
-	 pqwCPlvBDxJK8BShX1tg7dzDgfA5I3JTjrvyWa7DRKFqDww8nSCGTy+lu1Zp/s5foH
-	 eWXIONLFfOLY6xaruIhxMBeHKvJL0Cya428kSP3e6k1h3suDy2WspNx1TY6oQZonhz
-	 tWQyJFwYiM2vRPTjfMS/tAnfUMty3Y6E87udbkcrZVKZwNkp8kgcSCQcNvFxc0lsQv
-	 u1xVEQCs14mJGLp/94Y+fx6lrGntHACR8oaLyqDZko5gxFQ5EHAn7IBdpSG/df+cJN
-	 w9qREWdTKqJsg==
-Date: Mon, 2 Nov 2026 01:27:33 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- linux-pm@vger.kernel.org, Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 13/17] iio: light: apds9960: Discard
- pm_runtime_put_autosuspend() return values
-Message-ID: <20261102012733.435bdc94@jic23-hlaptop>
-In-Reply-To: <20261021165858.v2.13.Ic0c3be7c36a602e32c04628d5ae5692556742fa8@changeid>
-References: <20261021235818.3059519-1-briannorris@chromium.org>
-	<20261021165858.v2.13.Ic0c3be7c36a602e32c04628d5ae5692556742fa8@changeid>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DJ2NkJ6N
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=csedd/GblkcolFtqfu+Niv7QfYyLxrzwGS2iiAkK03Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793582894; v=1; x=1794187694;
+ b=DJ2NkJ6NPdca1qRjRCIGzdehAckNz7v4+vDIZ8OfJurHcdspC4eBN+MdskrcZChpdj98DrCg
+ ezsjtUAwlDfRRC70u5mkuFoLOCIceJT+fAASVIlQ8D5iG76LiY2UPhESBlBmFCkkWeWIApd0ajS
+ RY97AYDipen5JBqZamAggtYI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 768c53e075c1f637;
+	Mon, 02 Nov 2026 01:28:14 +0000
+X-Mizu-Trace-ID: 768c53e075c1f637
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d1da9c1d-5ecf-4ae3-bedf-f73906758ec8@linux.dev>
+Date: Mon, 2 Nov 2026 09:28:07 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,174 +58,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] cgroup/cpuset: Fix incorrect CPU accounting with
+ parent's effective_xcpus expansion
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261030190701.78308-1-longman@redhat.com>
+ <20261030190701.78308-2-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261030190701.78308-2-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 21 Oct 2026 16:57:14 -0700
-Brian Norris <briannorris@chromium.org> wrote:
 
-> This driver propagates the return value of pm_runtime_put_autosuspend(),
-> which is not particularly useful.
+
+在 2026/10/31 03:06, Waiman Long 写道:
+> Commit ec0254b9eb49 ("cgroup/cpuset: Release invalid isolated CPUs with
+> a shrunk root partition parent") fixes incorrect isolated_cpus accounting
+> when contraction of a parent's effective_xcpus can cause a child partition
+> to lose isolated CPUs. Expansion of parent's effective_cpus can also allow
+> a child partition to gain more effective_xcpus. However, the current code
+> doesn't handle this case correctly leading to incorrect effective_cpus
+> and isolated_cpus accounting. Fix that by looking for this possible
+> expansion of effective_xcpus and perform the proper accounting action.
 > 
-> Returning an error code from pm_runtime_put_autosuspend() merely means
-> that it has not queued up a timer or work item to check whether or not
-> the device can be suspended and there are many perfectly valid
-> situations in which that can happen, like after writing "on" to the
-> device's runtime PM "control" attribute in sysfs for one example.
+> New test cases are added to test this effective_xcpus expansion scenarios.
 > 
-> For this reason, modify this driver to simply discard the
-> pm_runtime_put_autosuspend() return value. Inline the "off" helper, as
-> it's trivial now, and rename to apds9960_power_on().
-> 
-> This will facilitate a planned change of the
-> pm_runtime_put_autosuspend() return type to void in the future, similar
-> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void").
-> 
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-
-I took a look at this one and the current code is a complete mess.
-
-I'm going to apply what you have here as a step in the right direction
-simply because I can't see a quick path to fixing it properly.
-
-If anyone wants a fun project then unwinding the mess in here would
-be a good place to start.
-
-Anyhow, applied this one.
-
-thanks,
-
-Jonathan
-
+> Reported-by: Guopeng Zhang <guopeng.zhang@linux.dev>
+> Link: https://lore.kernel.org/lkml/20261027123837.100909-1-guopeng.zhang@linux.dev
+> Signed-off-by: Waiman Long <longman@redhat.com>
 > ---
-> I'm not sure if apds9960_write_event_config()'s existing logic is
-> correct, but I don't want to mess with it.
+>  kernel/cgroup/cpuset.c                            | 12 ++++++++++++
+>  tools/testing/selftests/cgroup/test_cpuset_prs.sh | 15 +++++++++++++++
+>  2 files changed, 27 insertions(+)
 > 
-> Changes in v2:
->  * Split iio patch into per-driver patches
->  * Inline the put() helper
-> 
->  drivers/iio/light/apds9960.c | 48 ++++++++++++++----------------------
->  1 file changed, 18 insertions(+), 30 deletions(-)
-> 
-> diff --git a/drivers/iio/light/apds9960.c b/drivers/iio/light/apds9960.c
-> index afe520de60e2..0e084ffba1a6 100644
-> --- a/drivers/iio/light/apds9960.c
-> +++ b/drivers/iio/light/apds9960.c
-> @@ -476,38 +476,23 @@ static int apds9960_set_als_gain(struct apds9960_data *data, int val)
->  	return ret;
->  }
->  
-> -#ifdef CONFIG_PM
-> -static int apds9960_set_power_state(struct apds9960_data *data, bool on)
-> +static void apds9960_power_on(struct apds9960_data *data)
->  {
->  	struct device *dev = &data->client->dev;
-> -	int ret = 0;
-> +	int suspended;
->  
->  	mutex_lock(&data->lock);
->  
-> -	if (on) {
-> -		int suspended;
-> -
-> -		suspended = pm_runtime_suspended(dev);
-> -		ret = pm_runtime_get_sync(dev);
-> +	suspended = pm_runtime_suspended(dev);
-> +	pm_runtime_get_sync(dev);
->  
-> -		/* Allow one integration cycle before allowing a reading */
-> -		if (suspended)
-> -			usleep_range(data->als_adc_int_us,
-> -				     APDS9960_MAX_INT_TIME_IN_US);
-> -	} else {
-> -		ret = pm_runtime_put_autosuspend(dev);
-> -	}
-> +	/* Allow one integration cycle before allowing a reading */
-> +	if (suspended)
-> +		usleep_range(data->als_adc_int_us,
-> +			     APDS9960_MAX_INT_TIME_IN_US);
->  
->  	mutex_unlock(&data->lock);
-> -
-> -	return ret;
->  }
-> -#else
-> -static int apds9960_set_power_state(struct apds9960_data *data, bool on)
-> -{
-> -	return 0;
-> -}
-> -#endif
->  
->  static int apds9960_read_raw(struct iio_dev *indio_dev,
->  			     struct iio_chan_spec const *chan,
-> @@ -522,7 +507,7 @@ static int apds9960_read_raw(struct iio_dev *indio_dev,
->  
->  	switch (mask) {
->  	case IIO_CHAN_INFO_RAW:
-> -		apds9960_set_power_state(data, true);
-> +		apds9960_power_on(data);
->  		switch (chan->type) {
->  		case IIO_PROXIMITY:
->  			ret = regmap_read(data->regmap, chan->address, val);
-> @@ -540,7 +525,7 @@ static int apds9960_read_raw(struct iio_dev *indio_dev,
->  		default:
->  			ret = -EINVAL;
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 3219f927c35e..39c81a0a8ab9 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2097,6 +2097,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  							     parent->effective_xcpus);
+>  			if (!cpumask_empty(tmp->addmask))
+>  				isolated_cpus_release(cs, tmp->addmask);
+> +			/* Expansion of parent's effective_xcpus is handled below */
 >  		}
-> -		apds9960_set_power_state(data, false);
-> +		pm_runtime_put_autosuspend(&data->client->dev);
->  		break;
->  	case IIO_CHAN_INFO_INT_TIME:
->  		/* RGB + ALS sensors only have integration time */
-> @@ -767,7 +752,6 @@ static int apds9960_write_event_config(struct iio_dev *indio_dev,
->  		if (ret)
->  			return ret;
->  		data->pxs_int = state;
-> -		apds9960_set_power_state(data, state);
->  		break;
->  	case IIO_INTENSITY:
->  		if (data->als_int == state)
-> @@ -777,12 +761,16 @@ static int apds9960_write_event_config(struct iio_dev *indio_dev,
->  		if (ret)
->  			return ret;
->  		data->als_int = state;
-> -		apds9960_set_power_state(data, state);
->  		break;
->  	default:
->  		return -EINVAL;
->  	}
+>  		if (nocpu) {
+>  			part_error = PERR_NOCPUS;
+> @@ -2106,11 +2107,22 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  						     parent->effective_xcpus);
+>  		} else if ((parent_prs == PRS_ISOLATED) &&
+>  			   ((old_prs == PRS_ROOT) || (old_prs == -PRS_ROOT))) {
+> +			/* Parent partition state changed to PRS_ISOLATED */
+>  			part_error = PERR_ISOPARENT;
+>  			if (old_prs == PRS_ROOT) {
+>  				cpumask_copy(tmp->addmask, cs->effective_xcpus);
+>  				adding = true;
+>  			}
+> +		} else if (is_partition_valid(cs) &&
+> +			   !cpumask_equal(tmp->delmask, cs->effective_xcpus)) {
+> +			/*
+> +			 * If there is an expansion of parent's effective_xcpus,
+> +			 * we may take more xcpus from parent. The parent's
+> +			 * effective_cpus should still have active CPUs or nocpu
+> +			 * should have been set.
+> +			 */
+> +			deleting = cpumask_andnot(tmp->delmask, tmp->delmask,
+> +						  cs->effective_xcpus);
+>  		} else if (is_partition_invalid(cs)) {
+>  			struct cgroup_subsys_state *css;
+>  			struct cpuset *child;
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 83ef6c781af3..844efdf029cd 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -531,6 +531,21 @@ TEST_MATRIX=(
+>  	" C1-4:P1 C3-4:P2   .      .    T:C4-6   .      .      .     0 A1:5-6|A2:4 A1:P1|A2:P2 4"
+>  	" C1-4:P1 C1-2:P2   .      .    T:C4-6   .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
 >  
-> +	if (state)
-> +		apds9960_power_on(data);
-> +	else
-> +		pm_runtime_put_autosuspend(&data->client->dev);
+> +	# The extra CPUs gained by a child partition when its parent expands the
+> +	# exclusive CPUs have to be taken away from the parent.
+> +	" C2-6:X2-5:P1 CX3-6:P1 \
+> +	                    .      .    X2-6     .      .      .     0 A1:2|A2:3-6|XA2:3-6 A1:P1|A2:P1 ."
+> +	" C2-6:X2-5:P1 CX3-6:P2 \
+> +	                    .      .    X2-6     .      .      .     0 A1:2|A2:3-6|XA2:3-6 A1:P1|A2:P2 3-6"
 > +
->  	return 0;
->  }
->  
-> @@ -1078,7 +1066,7 @@ static int apds9960_probe(struct i2c_client *client)
->  	pm_runtime_set_autosuspend_delay(&client->dev, 5000);
->  	pm_runtime_use_autosuspend(&client->dev);
->  
-> -	apds9960_set_power_state(data, true);
-> +	apds9960_power_on(data);
->  
->  	ret = apds9960_regfield_init(data);
->  	if (ret)
-> @@ -1105,12 +1093,12 @@ static int apds9960_probe(struct i2c_client *client)
->  	if (ret)
->  		goto error_power_down;
->  
-> -	apds9960_set_power_state(data, false);
-> +	pm_runtime_put_autosuspend(&client->dev);
->  
->  	return 0;
->  
->  error_power_down:
-> -	apds9960_set_power_state(data, false);
-> +	pm_runtime_put_autosuspend(&client->dev);
->  
->  	return ret;
->  }
+> +	# Both expansion and contraction of parent's effective_xcpus will be
+> +	# correctly handled in child partition and the child can be invalidated
+> +	# if a populated parent could lose all its effective_cpus.
+> +	" C2-6:X2-5:P1 CX3,5-6:P2 \
+> +	                    .      .    X4-6     .      .      .     0 A1:4|A2:5-6|XA2:5-6 A1:P1|A2:P2 5-6"
+> +	" C2-6:X2-5:P1 CX3-6:P2 \
+> +	                    .      .   T:X4-6    .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
+> +
+>  	#
+>  	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
+>  	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
 
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Tested-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+
+Thanks,
+Guopeng
