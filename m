@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793640979;
-	b=1AiPCDb9r1nZ62EdfzMmIqY6NxPZdQz7cJR4NvhNQK9TR8zM3rPXX0K/LDpIZh26EftT
-	 LqgMuNClR99ROQF+UssmpkQd0UwwcbL9KvApUE6/uohHHUFM/e/6ie14AhGuelcyAkIXA
-	 S1rbGLkL50/9HjXjg8hkCDe7/EqTkBKPokweVOfCKYde5SbPezAtvu9H0gV8A2gadjom0
-	 w+AgNS7dAEGGNjdbxyLWDiZniz/rRt1WX1ZLuJw46F9Q9L29jrUVy/PPYet2BmTgPPwLs
-	 FKQ8Zm6Bugu4MYQXwo9G5KXt3DbV53CYC2kK4uJxVPBVbgj4Ltx64lEH0S/kEoytEsg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793640979;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793641053;
+	b=WLqJlQoIJOKJyHpczYc+Z2emttbopklPVgUhSh9QshOMi1WW6HZksAoN328gn/cpQlPJ
+	 ZkgMOjbVaOdourcfbUby4X1da91087rUyzlw+2CcGy5FtmMcRKMokbnc0vhjoJcjpKqaB
+	 og3wEPp8TrnFVnlbQZZLfAgqUzFpYP4OJcxCjAOszLkk6ISxg6fltPyPZe/ybYlIvkvjD
+	 iWSLvM1r0tt0aip4mmiNz5597oXfIEfbQouosgAVWc5NUnwFHNu0GxuJmsKrq0z2CnF45
+	 x2LoEJHhoN4kBcJ0m8ct/dSImZyZ8uSGei44i70QNS7zprXsXkiNc9kaAQ0YW+xSjdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641053;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ElUJWOdoo11axaVjJS7g+O8dXrqVocWR0XYxanpNOCM=;
-	b=ZjCUndZgV/Lnq7M8RmorxumrlqDGc/tJdbd2kh0TW3aYyylKejFPX0BJ8kHT/BbU5KDI
-	 hFiezQVjpRMIKM1xzFkOt2OSiZPCxn7B/GAA7cOyOYvqlMxJ96kR0AakIANx4wB8Ie4+e
-	 gPGRnFbIqT7xF1kLbDLrGPNhnMtXTAx5L7xUeN+5dJ/DXpytiZO7N3Tp2U4n3+VQmjBA1
-	 97DsoQhUZ1QvE54TTvG/YOt3/DmcJbAWOYugS9eKpadxzad1SXuLlfNV7l0apkxNmiOZ+
-	 cto0KmMRehgDgRtNweFcuXrfNsVqsx84U82fXdDXfMw0ogJUxgN1mne1VIrjBxutJVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=gPugNcmP49mQSZZGbdfraCdWpP8WlOkdDnudq9ocJd8=;
+	b=DbFOtDlpvEgm5jcwbBzGn69eYRfV3ixqLQY5PHgT3cbqk4HLMr1gb+RYvdGi5aZqoQhZ
+	 gu5AaD5TjbeqWJvgxHrCw+eCWmm6gj10/eAA65QGXIrwQrk6B1Ug+ZEWirb9DlZ22oG+Z
+	 0IiHui0gLo6fEUubUIpoQWDYEoGMM9VUWyjHLA30VNiH9I3EczrNp/GVoVS+Gv0lCpbZj
+	 9MTpqCGYZZ+q+10JTSOWK9pz+0nVC+yYmKaPMVDk1zGg7CHJ/tDphNjaVsLTJQBWIfVjM
+	 RxgHU0nyuFtl2LSuYvjxIapmYbFBHx/F2likrQzGyNb5u/6CMtykkrpxNvxjr1ZLqDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yzKch8es;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DJ8n+ZTD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.69
+Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2E0606A5A3
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:36:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC2E0606A5A3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337FE606AB94
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:37:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 337FE606AB94
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yzKch8es
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ccca948203aso1221249a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:36:18 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DJ8n+ZTD
+Received: by mail-lr2-f5.google.com with SMTP id 38308e7fff4ca-3ab2ac79b69so25123501fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:37:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793641051; cv=none;
+        d=google.com; s=arc-20260327;
+        b=J4PtTUWYs6yi9NryodSmFj3XWjmihRRF0hDzFVYxO5aTVFhlMkUX0D6g4f/8PpkTGP
+         E9iDogUFJRlKbkgCXq4F05nTle8OclIbtFO8QtW2tXbzUw6t03hS05v9Fdwj+ZEGiFxS
+         2lE1679h3e5nV+cGIEZmvjNmh/C0e4iLktVU+XT4uoCFJ87oxDWX3jbm6anvGc8g4RxF
+         UfpNqpGYqK0GueQ4ZTN4aLHsltEtJbzT3v8iplfs3Gsb3FouYoXh3kvRyS9wWMLp97P7
+         7kNTcn5n19Ns3kcoBpxeLYtLKycLGdkCmEpDo+cJZR13MRsPJZQhSmG85Df88aeHcs8f
+         vI+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gPugNcmP49mQSZZGbdfraCdWpP8WlOkdDnudq9ocJd8=;
+        fh=qkOFi2RuqRrwGK6XD3oSpk3TeZpYIpXjoFsYP5eq/KM=;
+        b=VwLmKvtzorbe3eODRl5xMG5tZfZ35VOVPccyrBBXiNh1bliOAiIvvEsk1+fy6lbN+C
+         DH4knVwjei3M3BXblBn/tIRL6UYJkgx+SNFHP4hI5pPjnKNz88jD3RKboeJmwOJs9U/9
+         qqn7oul9D3l4IMKTYY259EHMnXsceAppZueDRudjU7Eg3BnxlnzRPp+GS7zUU2fOveDw
+         rQAD6Vpdsp+KCWbjBTTQRaaVYL0gYwz3UyYuQo8PeHf63Y6LLD/QfWUmIvPv3tsQ0I/W
+         gZngSb7xvyzbW7KgjvrOc5ObsHNMeHYWQIKpzPwlJZWAJE/YaLEj2bqgY4qCPnqveHB6
+         2KgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793640978; x=1794245778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ElUJWOdoo11axaVjJS7g+O8dXrqVocWR0XYxanpNOCM=;
-        b=yzKch8esjQrEKcQH3riAxIKTubwAXtuBXQ97tW7DzgL1hPoMhkQAtm6Y73K0Q1w4vY
-         dsdxc1zMKGFC2G0Y9ZVpNLsi7IVSB0YXDlsKPMXF7AOEAnk2g+N7wBS8jfdWCAQXzbQC
-         6QxrVW9Hy1uOjOrxHtXFN2wG5+cpH7YY2uh20LhKP0mPTwYj7rKPFDOBAjJmIfB3KHHw
-         eSp5xfyqeem0WBpEvdHEKXWBkVzTXCplcstPRNXjKlGUTePvi+N3bRq/pdoCOfBUY+yx
-         ern1LxJ5vKnTbk21x+H2jHLeSpv1DzMH84/LQjb+vcJJjesGh3ciX9hn33fT8Gu+uCBd
-         Pl8g==
+        d=gmail.com; s=20260707; t=1793641051; x=1794245851; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gPugNcmP49mQSZZGbdfraCdWpP8WlOkdDnudq9ocJd8=;
+        b=DJ8n+ZTDiKHQYQRkmB3Z65u8ghSkw9esMOABCYibHf0RhLKfDbhByE9XuUtTSisYl4
+         VptH9p7Btoasf4Q/+82y3cGB0DLOrH12Ro40kyE6Ygp9Ua0RN+iZw9e1U/THV4B//6Re
+         2qnO3t/v/bVu4LaLvsjuLvuBX7Qe0OCc7Ag0H+b6zlSr6Hy3h0mPbLixg5wlSYpqxj9K
+         vyG2LgGcgxmggnfiJYjCGfhWqfWhZxc64gx70xpQ8ByStsKAroQg9LELKBvqc0kVheU9
+         vxo4gjPxV1HL39RlDNQ2Q1Jfw9eLfHrlkVNsnQSpHhhv/nlVED+Hr6cjCjAeMo1NMx+B
+         1Suw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793640978; x=1794245778;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ElUJWOdoo11axaVjJS7g+O8dXrqVocWR0XYxanpNOCM=;
-        b=LGE9ZsZ2ot9790c5a+tZ/n4sjDHvvLXpW/rkzbaSLB8i8/ogqZUwebdHFms5cO+L++
-         32nuoybNf3DPV1MoGk6IKax9Yxy/xTvhdtwatR3o2IAY5VAzNixAurGTqBvXKpQjpnyd
-         dH0CStT5bpqKU6ICJXJqxTZH+BD4qC7mD+IQ3PFL1bjT0lloh/eXQZoEJoHKGpc+7mAO
-         9PRTXzbwz4U9xvuun+iA0cm1GZIAeJHXacL0fZ3ZxviKn59YN53aSc3Qkb2Y4Q5xhse8
-         WjG4ZVVE8I6OG3nneJOZtdOHfsIPo05WfhEetc3qpam0lMFXv1fQEZl8fz8HTD/DDB/C
-         fXuQ==
-X-Forwarded-Encrypted: i=1; AKwUvByl+B2/vv/KOHOxRpM8RO5ehBeZ/LPcUJ2S2JzLJKbYoj9UJHJF5tWfIgWR5/Z1N+tmDxfowjr/3Tk5NWQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Flx6OqDMLC1UyS0cZgKYwoY79HhGPf2n6+8u1QJAE8ulhi6/S
-	pF+H2oFdV/bqXWstJ33ky0VpfkIIYixSN15JjStZ8uIlrbERWKXyC587
-X-Gm-Gg: AYBFou1Y7ZLqJuSGswATuPoZtz8/HClQ/y42vhL2mUdsinFbo3JR5EL3Y93ERWjeLAe
-	fdIN3/sge6qS3lxvKs8Z/BdWQLWthT4xT4gQthwPJyBNqpGhOY6MLd6iv83GNWtEY6utNf6POMh
-	muu2lt2wvKHW+xhdA06M635833sGQMB/rwZJpzJo5Fu/C4EZwVpTXZFef/YIvA91vJPYItvpkB/
-	Lj8TvdTdRsDKu9ZhZ2bVMRT/I8+xl1ndYZl8icJJxwjdp7Difg07aYoyQXbvliSmIN8Sti1+X0h
-	8KSudbfw8XOOvfieuIl5wh6OF7U99dnQmYJkvLezUbjaGTVUTvfrcm6b7CQlfUC5QadRDfmEwYc
-	xLHIFMMjYMyRI4o/hwSzqaRbrYtpGzZQN50J3WR94Yf2XVegI5M3Ay25QHGrCQYPAvkqKbGV36n
-	aO8Z9ewuWYDnFSDNrBFrmT8/M5e9uPpx0yXwz5cW20XkHRHErx/t9IbOfrnbZjKA2cj6DlCgnDG
-	QchY8ZcBZ2/Q9NjgONz6xAD6q91WQbcga3hsDSJ5AmKv7laKYIQB8vYDyV44TexOh2ZCya0g5Oj
-	s8f9uz57RyE4zwRslledI0mAbz2FTvjVJsPmiM+kMExB9pmaR92dlkOSnWdg+Eo3Uw==
-X-Received: by 2002:a17:90b:3e89:b0:3a7:9045:fe29 with SMTP id 98e67ed59e1d1-3ae895362e9mr9184522a91.4.1793640978092;
-        Mon, 02 Nov 2026 09:36:18 -0800 (PST)
-Received: from localhost.localdomain ([61.255.248.240])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c666cdcsm142858a91.11.2026.11.02.09.36.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:36:17 -0800 (PST)
-From: Song jeonghak <thdwjdgkr123@gmail.com>
-To: David Woodhouse <dwmw2@infradead.org>,
-	Richard Weinberger <richard@nod.at>
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Song jeonghak <thdwjdgkr123@gmail.com>,
-	syzbot+250fde257a3eebba4426@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] jffs2: keep alloc_sem held when a write retry cannot reserve space
-Date: Tue,  3 Nov 2026 02:33:42 +0900
-Message-ID: <20261102173342.314251-1-thdwjdgkr123@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793641051; x=1794245851;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gPugNcmP49mQSZZGbdfraCdWpP8WlOkdDnudq9ocJd8=;
+        b=ps+m62U0WmvO4wymG7AmsIq+IoDt/uOHo8ubr8m0JTLR+ZUC5ZEWyMkypr+b12GOmd
+         HxAeUnb+JopdBPbibuZBJaiSCmG+dQa4S9eM5acO9jzOcsVKr5qIuz6qnjDUXXZUCtYH
+         0T8jwyIkST/wfkDs5sdy9kJj3cZk7/jhG276HGLZbK/ovvajYDpWeuvcDJTV9YdW4SZH
+         xJZtpRouj/uebHR2XTKzGJeloq+VaWoThQkObjOiqZSwOl5naOt0H6ls5v/7qZ7TI+VH
+         Y0yx+u0cjI8smo6WunNOqfeSVzV32Xg6ly5pq5bCOLXYm5YssEEhm+ht7XidFSMKRUHp
+         VGHg==
+X-Forwarded-Encrypted: i=1; AKwUvByaYR/uQsz0LvwLdpGgAP8Mdgryql5lsOgOAePdRaBQuekjSc4NAreUy0HMbb1wr600CzJlJtQi4uAWy44=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aR82W5dNBe8A3mifARuqtsfGhe+vNhE1O4PS5ugxXgpvNGZwQ
+	Z+k1OeEEEWazjxUZB/obOGFElNGuJKbES1VyiVYqduwDM52FTYMjeBFMLlprqSaciZZqMsvxcz6
+	cG3DberxRcXddNOZm5yidl22Iz5VqJI8=
+X-Gm-Gg: AYBFou0YL+DK10bu9xNvNTvTfy/acd6c38s96pjJaM3XcukXwTTzeT/eZh02zuIWfcj
+	c8FNdBJ+8V2yjZH8nQgO3t6hHziX6cBnW/eLCTx5Y5SySOEbtm4owaSreJPbMhhbVCXHXIsxKVj
+	S9QuQqOQ4smHqgxUpnVnQE53ooY6bmHfMWtMuOsEK+HPlt2UKvWapb5bOxNTUWs22ODApLtaR5G
+	bm+l2/j8I02rDh4gyqoEn2epiELrLLwC0PzAcuZhBBubyWknK2goWiRqtMDVMQh1pSGh9CvdrqZ
+	jMpvEtriQsvTIp9V15asuTXKk3fPLfI0ZWXPZmePkj4kSEsp8Mwfes1M7axNUm3HrigVEBOoY9a
+	IVociYpun5lsk9IXzicBW60MVURxZP7rdk2ZykTs=
+X-Received: by 2002:a2e:bc1d:0:b0:3a7:69bd:80ad with SMTP id
+ 38308e7fff4ca-3acb7a65e35mr29613041fa.6.1793641051096; Mon, 02 Nov 2026
+ 09:37:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,100 +103,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAO-4RZ2EzuShr1dNEQt+CEjqan8SSyD=-E9g6RW1oocah+chcQ@mail.gmail.com>
+ <aud4isATIt0JOOL_@kernel.org> <1c0d3129-e1f7-40b0-81f5-9cf4c481aabb@linux.ibm.com>
+In-Reply-To: <1c0d3129-e1f7-40b0-81f5-9cf4c481aabb@linux.ibm.com>
+From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Date: Tue, 3 Nov 2026 01:37:18 +0800
+X-Gm-Features: AclHuK85iwJWc6Di1ZBloZBYG-JauYSsIyiam9_waOqwD0KPEMX3vawm0p6o8Pc
+Message-ID: <CAO-4RZ1zzJBVLSZFcngr+9BUOwOP65Saa6q8dS8xyLo0xQNo9g@mail.gmail.com>
+Subject: Re: [BUG] tpm: prolonged stall in vtpm_proxy_fops_release() on Linux 7.3
+To: Stefan Berger <stefanb@linux.ibm.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>, peterhuewe@gmx.de, Jason Gunthorpe <jgg@ziepe.ca>, 
+	linux-integrity@vger.kernel.org, syzkaller@googlegroups.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-When writing a node fails, jffs2_write_dnode() and jffs2_write_dirent()
-retry once in a newly reserved area (jffs2_write_dnode() does not retry
-for ALLOC_NORETRY). For allocation modes other than ALLOC_GC they first
-drop f->sem and complete the current reservation, which releases
-c->alloc_sem, and then call jffs2_reserve_space() again.
+Hi Stefan,
 
-jffs2_reserve_space() returns with alloc_sem held only on success. If
-the new reservation fails, both functions return an error without
-holding alloc_sem. Their callers expect alloc_sem to still be held on
-error and call jffs2_complete_reservation(), so alloc_sem is released
-twice. syzbot reported:
+To make the reproduction evidence easier to inspect, the repository
+(https://github.com/Zheng-zheng-codes/vtpm-proxy-release-hang-repro)
+contains five positive reproductions in total:
 
-  WARNING: bad unlock balance detected!
-  syz-executor317/5670 is trying to release lock (&c->alloc_sem) at:
-  jffs2_do_create+0x1ae/0xe00 fs/jffs2/write.c:474
-  but there are no more locks to release!
+- Four replays of the 50-program single-file reproducer (one automated
+  and three manual).
+- One separate two-step reproduction (a 49-program state-construction
+  run, with the hang occurring when its executor exits).
 
-As mutex_unlock() does not refuse an unlock from a task that does not
-own the mutex, the second unlock can also release alloc_sem while
-another task holds it. This follows from reading the code and was not
-observed in testing.
+The serial logs show the hung-task reports, with the release path
+blocked in flush_work(). The accompanying sysrq-t dumps provide
+snapshots of the tpm-vtpm workqueue. The first captures the full
+running chip-register work stack, the blocked release, and the
+workqueue backlog. The other dumps also show the blocked release and
+the in-flight work/backlog state, although the full worker stack is
+not available in those captures.
 
-Take alloc_sem again when the retry reservation fails, before f->sem is
-taken again, so that the lock order documented in fs/jffs2/README.Locking
-(alloc_sem before f->sem) is kept. jffs2_do_unlink() already takes
-alloc_sem without a reservation in the same way. If the reservation was
-interrupted by a signal, this waits for alloc_sem uninterruptibly, as
-jffs2_reserve_space() itself does when it first takes it.
+The files are:
 
-Tested with the syzbot reproducer on mtdram: the warning is gone while
-the failing path is still reached. The jffs2_write_dirent() path was
-checked by code review only.
+Serial logs (5 positive reproductions):
 
-Claude (Anthropic) was used to help with the root cause analysis, the
-reproduction setup and drafting this changelog. The fix in
-jffs2_write_dnode() was written by the submitter; the assistant adjusted
-its comment and coding style and applied the same change to
-jffs2_write_dirent().
+  logs/serial-7.3-auto-repro.log    -- automated replay
+  logs/serial-7.3-manual-repro.log  -- manual replay 1
+  logs/serial-verify3.log           -- manual replay 2
+  logs/serial-verify4.log           -- manual replay 3 (with
+                                       syz-execprog stdout in
+                                       logs/execprog-verify4.out)
+  logs/serial-twostep.log           -- two-step replay (with
+                                       syz-execprog stdout in
+                                       logs/execprog-twostep-step1.out)
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+250fde257a3eebba4426@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=250fde257a3eebba4426
-Cc: stable@vger.kernel.org
-Signed-off-by: Song jeonghak <thdwjdgkr123@gmail.com>
----
-Testing details: next-20261023 with lockdep, 128 KiB mtdram with 4 KiB
-erase blocks. The warning was reported in 6 of 7 runs before the change
-(the cause of the one miss was not identified) and in 0 of 3 runs after
-it; in all three runs after the change the failed write and the -ENOSPC
-from creat() are still seen and no other lockdep report appears. A basic
-test on an empty mtdram device (mkdir, create, 20 KiB write, rename,
-symlink, unlink, remount, filling the device to ENOSPC, remount) passes
-before and after. Not tested on NAND flash.
+Sysrq-t task dumps (4):
 
-Two pending patches, "jffs2: Fix a lock leak in jffs2_flash_writev()"
-and "jffs2: fix wbuf_sem leak on summary failure in
-jffs2_flash_writev()", handle a failure of jffs2_sum_add_kvec() inside
-the write-buffer path in wbuf.c. This patch is independent of them: it
-fixes the retry path in write.c, reached after any failed write whose
-retry reservation then fails.
+  logs/vtpm-sysrq-t-all-tasks.txt   -- replay 1: full kworker stack,
+                                       blocked release, and backlog
+  logs/dmesg-sysrq-verify3.txt      -- replay 2: backlog and blocked
+                                       release
+  logs/dmesg-sysrq-verify4.txt      -- replay 3: backlog and blocked
+                                       release
+  logs/dmesg-sysrq-twostep.txt      -- two-step replay: in-flight work,
+                                       backlog, and blocked release
 
- fs/jffs2/write.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Campaign instances:
 
-diff --git a/fs/jffs2/write.c b/fs/jffs2/write.c
-index cda9a361368e..0ac3220e7b05 100644
---- a/fs/jffs2/write.c
-+++ b/fs/jffs2/write.c
-@@ -147,6 +147,13 @@ struct jffs2_full_dnode *jffs2_write_dnode(struct jffs2_sb_info *c, struct jffs2
- 
- 				ret = jffs2_reserve_space(c, sizeof(*ri) + datalen, &dummy,
- 							  alloc_mode, JFFS2_SUMMARY_INODE_SIZE);
-+				/*
-+				 * jffs2_reserve_space() drops alloc_sem on failure,
-+				 * but our callers call jffs2_complete_reservation()
-+				 * on error. Take it back, before f->sem.
-+				 */
-+				if (ret)
-+					mutex_lock(&c->alloc_sem);
- 				mutex_lock(&f->sem);
- 			}
- 
-@@ -299,6 +306,9 @@ struct jffs2_full_dirent *jffs2_write_dirent(struct jffs2_sb_info *c, struct jff
- 
- 				ret = jffs2_reserve_space(c, sizeof(*rd) + namelen, &dummy,
- 							  alloc_mode, JFFS2_SUMMARY_DIRENT_SIZE(namelen));
-+				/* See the comment in jffs2_write_dnode(). */
-+				if (ret)
-+					mutex_lock(&c->alloc_sem);
- 				mutex_lock(&f->sem);
- 			}
- 
--- 
-2.43.0
+  logs/report-7.3-*.txt
+  logs/log-7.3-*.txt
 
+Answering your questions in order:
+
+> Four runs out of four?
+
+Yes. Those four were the negative controls, not the positive
+reproductions. The sequence was run four times on four freshly booted
+bare VMs, and no hang was recorded in any of them:
+
+  logs/serial-7.3-bare-no-trigger-1..4.log
+
+> Does this mean that the 'scratch/pmem/NUMA layout' is required to
+> reproduce the hang?
+
+That was not established by the original comparison. The bare-VM runs
+differed from the positive runs in two variables at once: the kernel
+command line and the QEMU device layout. Therefore, the original
+comparison could not isolate the effect of either factor.
+
+To investigate this, I ran a controlled 2x2 test matrix using the same
+50-program sequence, the same kernel, hung_task_panic=0, and a fresh VM
+for each run.
+
+The results were:
+
+  Full command line + full layout    4/4 hangs (one automated and
+                                     three manual replays)
+  Full command line + bare layout    0/2
+  Minimal command line + full layout 0/2
+  Minimal command line + bare layout 0/4
+
+In this test matrix, the hang was reproduced only when both the full
+kernel command line and the full device layout were used together.
+Neither one alone was sufficient to reproduce it in the tested runs.
+
+The 4/4 result counts the four 50-program single-file reproductions
+and does not include the separate two-step reproduction.
+
+My current hypothesis is that the combination affects guest execution
+timing. Possible contributors include page_owner overhead,
+initialization of the additional devices, and NUMA-related I/O. This
+may increase the likelihood that chip-register work is still running
+or queued when the closing task reaches flush_work(). However, the
+exact mechanism has not yet been established.
+
+The logs and per-run kernel command lines are available in the
+repository under logs/controlled/ and cmdline/.
+
+> What is 'device layout'?
+
+By device layout, I mean the virtual hardware configuration and
+topology presented to the guest by QEMU.
+
+The full layout includes, in addition to the root IDE disk:
+
+  - 8 scratch virtio disks (2 x 16 GiB and 6 x 12 GiB, created with
+    `qemu-img create -f qcow2 ...` by the QEMU wrapper for each VM;
+    the wrapper excerpt, the sizes and a `qemu-img info` output are in
+    cmdline/qemu-wrapper-scratch-create.txt);
+  - 1 additional virtio disk used as a write log;
+  - 2 NVDIMM/pmem devices (1 GiB memory-backend files each);
+  - 2 NUMA nodes (2 vCPUs and 3 GiB of memory per node).
+
+The bare layout has only the root IDE disk as a block device, with no
+additional virtio disks or NVDIMM/pmem devices, and a single NUMA node.
+
+The repository contains a captured QEMU invocation for the standard
+run (cmdline/cmdline-7.3.txt, with hung_task_panic=1), the kernel
+command line used for live retesting
+(cmdline/cmdline-7.3-retest.txt, with hung_task_panic=0), and
+sanitized QEMU argument templates for the full and bare layouts:
+
+  cmdline/qemu-args-full-layout.txt
+  cmdline/qemu-args-bare-layout.txt
+
+The controlled retest uses hung_task_panic=0; the per-configuration
+command lines are also available in cmdline/.
+
+I hope this clarifies the reproduction conditions and the distinction
+between the kernel command line and the QEMU device layout.
+
+Best regards,
+Zheng Zheng
