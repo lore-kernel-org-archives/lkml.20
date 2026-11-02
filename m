@@ -1,85 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793606754;
-	b=Im8HK/jly3tdvbehl8sWbvLr3J2dRfmV19D2rBwlFR9PWlCXDdnsEJb9kYiv5mLxoZ8x
-	 wvMXT2tXHWx7/t1cAV/l+LYfwWCFGJkM0EWMH6bf2fE+suHZCfRUdTi8Z5pFyJDIXGTXG
-	 JC3VaZmVj3Uo6ckrC4zWi2rrUWLwwjRPmqZo392xw0IxmeMcafAbxvgDLakWWu4t3GCSl
-	 6BZsitxvq2y1XmDge1b336dAG6wjkjUKaUm4NOdJGURsqZD5tRMgB2u7KHf1FYxf7/koG
-	 ZOPYAIK93rXhXKH+GkzDJnB2Df1QGv38e05OcVM3f7XaLdk3MQX+abkiFvcPsiQeMmA==
+	b=Qo2jXkvUR3VwR38Ti/vklrtgEGnVvUNgHcvSiuZBG/1Ku5zqVXRUgi3kNalvp/WwDQsM
+	 oRm2HCuncMjDTAJT3Db6syHCtTod8NAuSn+DzyxPN6KoVuwyhgXRuAFJziDxFfnMe9xL6
+	 Q6OaRJ8j66/7434+bC8rfTjWCxIydYM4nicrgXTPPDgQH8CNV0US2INtEiLDi3xN3XGhO
+	 f110PZvpwTVTxXcJ1KeEBsdBnaZsnMSD0uNXfilOG2Y87ASKdBB6EswOUGzgNsNbZ0do3
+	 c26eaAwKtINzq/liTYav3iGHF0DtGJTioyoFR3CHEk3+tvtwSwpGppHhS/FpolqBsJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793606754;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Subject:From:To:Cc:X-Mailer:References:In-Reply-To;
-	bh=GX1t9pMXs769JkYcNPsWNbN+V/MYmi7Av1eem4JHDLU=;
-	b=RQVKQ6vODpNtYy2SNPgoXRyQ8VLQFY5U9z2YNRqq5Q14laGMR8+/pff1kfRI9aXHH1Ft
-	 4wFmKdJl7d5PUxcixsb09MtZmD5BkETjZuJR0KiI50m/GrcGPpWzmzL0lK6EEUx0/KXFO
-	 F4O8ShmfrR/wx0aFfc9QLRcQeW7MaC5Dr/bzkhBHx2NbmF7RXExjYoQkvuG33cxUtDWMK
-	 LwwgqpN+zIimZ5uPeH8uV6Ixt8V2Q3528K0lPrYeKDSPk9I5UKo17NcBcLTLHPjJSScZa
-	 9xRtsSuIJK/qhFDVQw7eUAIRcGcZZni6AQ5x6fVkH3JhgK/pdlk1mcfblbb16TGszCA==
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=DtwsatCPLKsCoVZYHI1d8zrdN2X3Ni/Ad7zKOiieJFI=;
+	b=UxsEeQB8z4zYfNgw5M3R1kGvCQLuFw8XVcuenRKSof8/Xy+7cHWJ9D50/qj/VG1yb7FS
+	 QoWDWM1Ib4wfmoNFxYUZV7uFr6GC3pAP1nv76VQKjqZmeC61mnFNwNmGk2qggXo7LrmBk
+	 uf7UBTbSAT1vqSlaBIU6Tw4YERH6MaBiDGtlPUgB5UUdnlrYTPrpUtscfqCcoTwydbpzK
+	 Nj4xQyRCKl0kE89fkadmYC5r2JDO5uLCPGEsWP36IWhUyOfwh8P5+JbYuMriaYG0bzumh
+	 CWlHLEQdJxWPGULdsE5k84N7ONZUuMeKcRcbWR26CI4tvnAsuIs4rMRqgIbuAtE2mnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=etsalapatis.com;
-	spf=pass smtp.mailfrom=etsalapatis.com;
-	dkim=pass header.d=etsalapatis.com header.i=@etsalapatis.com header.a=rsa-sha256 header.s=google header.b=AtHMd82K;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ffvHWdjz;
+	arc=none smtp.remote-ip=203.205.221.173
+Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com [203.205.221.173])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8F9606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:05:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC8F9606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A107606A32F;
+	Mon,  2 Nov 2026 08:05:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A107606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=etsalapatis.com header.i=@etsalapatis.com header.a=rsa-sha256 header.s=google header.b=AtHMd82K
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so2100080a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:05:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis.com; s=google; t=1793606753; x=1794211553; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GX1t9pMXs769JkYcNPsWNbN+V/MYmi7Av1eem4JHDLU=;
-        b=AtHMd82KQtTlxZKQvyocgi/7KzwrbxwY6eHIW+a5RTeXBq6IeIl7tv62TdvAZUHdQZ
-         3jJDbdV+7D6/2x2Ih7VXjOgsSTP4ePWEO/AN+6bb10THadEWzXQIimRdTV6Npyv7/V0F
-         1o2aj6OuU35EnmDLUhqgTKx/iBwgU6NyzTsvCx+myZ+w2+9T3KuVTDZT4yn1+yQHyaCg
-         rviyfPVnppkn7Q3bsudVcdnJGbmVvg4u7MwEB3JuCGul5MyBd6w05eK+SQpLZ9BSnfRJ
-         FrNawPIAoZLb0cXePjXnH/wMmjGnT+lr3xiAjkhc3pRx0yaE7VIsLo2Y37LHnJyHC39D
-         dJWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793606753; x=1794211553;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GX1t9pMXs769JkYcNPsWNbN+V/MYmi7Av1eem4JHDLU=;
-        b=icArZyDTYoOuOPAx22kaWi0iUPREVGLmiQC+WcTZMIOKYEFnZWaFCDuwWNIGBKOPoS
-         XHX73Hcj2nfjyIy/YZ/FobSNs/bYtwF6RVWeo9n1NwShbKzIeJWrZCRZnLrge5XzUF1d
-         sYfJLtYGgOb/Q0uWGuGSH7n6KJyijfx1PPcQGTJJEJwivmliWpm+k8oIoCpCplo5kMLI
-         JJGaI0QnERMymPMI/LQWN0u2SkL4mk2aQwrwvS35JBoHWbu9uMojerGhmQVviyAxgiWk
-         Po3qLH2aC41GIy5MqU4wzCjoWhFAfa3lFgRQB2MjKy2fPGpSKaNfW2yJvhCwqiHIrn5l
-         s3lw==
-X-Forwarded-Encrypted: i=1; AKwUvBwt8yeWVEPtaCR0fd12iGHrTmExGxdAdkj1z1Llmncetmf9Qac4BRlzrJtu21ZbcMRnRuTxdTrbHkvc5F0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KBZocjglYx6s10qwKfxzXKhhbNqwex5dPsTrFj7Z3j1wnrW0P
-	/CXtTCT7dLXB5yCalkhtCMT7QrERBoxpy9vqOxIIgfH0fUsmOHhTe8weP2WvLe5iTDs=
-X-Gm-Gg: AYBFou28mxAK6qchXr7Bw3jXC+5twASI9VgQHEoqjnt15+3yhOryMzwozvhySnM1CX9
-	kOJSMV8PSODO2KJ0um286VugqeLGbG7NFB94E/joK5Asb4lD5rau+aOGU8USyIhmVrrVWUMhz5K
-	FqkbKgNgg9n79H1sJvxyGEGNuLbSOF8oBqQUi0PWnagD6m6TgdbzmO5BTFKp5gGHEqgp2EiiDsi
-	2aXv9mrXPw3aH0agI0EUNaplv90LHHvG+G5F9mZhacmqFmr/BBlj0aC0HOPB7+3yNyomDapG1L9
-	cQ1ZHgOFEGWgGzMlcislEPTAemamnF0eGbF9Gp+xnRRz6t/A7lH+Ydkj0/4fvJGZbMebI1035AH
-	uXF6P/m9oZAAc4J2RW/mwHLZHjl0d20o9lv9Mg3JBc20ZBOe99Co+UyXrQ4jS4AhaDESTSqnErT
-	K+zdMKnZz9X2BPaCxoCpReYKm+YgvTdbkGf0AN5exzRDWPgF/NRY15fsiZjfeC57GIZ8+7DsSae
-	zlSmkuLbh4exkdLogQAuNboB5f04TD9Y6395rat1PuhsLriG5JD2PU0O9Anu6eCwb+cu8OC1Mq4
-	WU8+y7U8MixIw/RkdGOOisx8AFXqFAL30kxHQz5YJ2v+BVj3yUnnWJ4ORrURYixjhOVZuD5lD4X
-	awT4=
-X-Received: by 2002:a17:90b:448c:b0:3ac:a7ee:6766 with SMTP id 98e67ed59e1d1-3ae8980ed36mr7796437a91.36.1793606752945;
-        Mon, 02 Nov 2026 00:05:52 -0800 (PST)
-Received: from localhost (107-190-31-93.cpe.teksavvy.com. [107.190.31.93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85f662basm6501183a91.1.2026.11.02.00.05.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 00:05:52 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ffvHWdjz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793606745; bh=DtwsatCPLKsCoVZYHI1d8zrdN2X3Ni/Ad7zKOiieJFI=;
+	h=From:To:Cc:Subject:Date;
+	b=ffvHWdjzZ3fycMPJRy0hxAI4WRuP2tKh81mB0lkaCi7Fjmvfe7rpQgWRzRO3unzXI
+	 mtwqgKaon2qR3ffM9+U3wywWhGuzu9cakpwejvNYmN9gWfEemZ+FsrxknG4POceD9t
+	 IRjQNIRBX/IIKXXM9rMPlCu5NxFvvT0+z96e76A0=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 16A838C7; Mon, 02 Nov 2026 16:05:42 +0800
+X-QQ-mid: xmsmtpt1793606742tqdo72d4m
+Message-ID: <tencent_BB08960D79E0261B5C1EB1E589787734E907@qq.com>
+X-QQ-XMAILINFO: MllZffuBkEb5gdDMGD5ishy48tSBJhTo/zjvt2SavbjZ31QFyvExS8/+qgOwTG
+	 My7uoP65pcyebXkDY/t/NExtkCCilOGBCmvDvqbRMxhvCvF0OPDyErUxtXkseonTAjy74bRs4rEC
+	 Dp5n+qabBOEZiku4AafP/EG0rtYbz34aRbBrQisgnJuSvvFlvogB8V+3mB7ugRaIXYbre4SJkZZb
+	 JpMhQwDuviu51WEo5mdguNno+latYKIh2pZLQvpXKuw5gFEOBj3Xd04tEI/gil1aNz0K142B3pel
+	 yuRGs00dsE+W0fbchanvlHzqBH3wBUjkBHgd600iNBQ2KMXvUiUZpguQlRsasV/2iM4ET+GMCwHQ
+	 xLDljeIzzyflqtMGs6fniQKt58LbCftMtaHufcFKr3P14zTlwnnne374SOOaTp0r2Yrv893MptYU
+	 kDUg2cZyzR66K4A70n9iNpERDr6vcsrO0yhXSpvQzSD8hQmkbSH2fgjfwhu3POzu/2Po95fUzvEc
+	 JJs8Kul3EUz4NSBPUX7a/yLRnuCCNzY4hAl01Xg9dvG/HdXk7rw9gC8jM7eSm/nfH3rfs/01lI3V
+	 GpX8Yzyec4ZIRs7n7xIvl/f/Sal6+JWNn/21VeD6dVMM6OaCBWmVFfmAAtbCqLKiLnQSpUAfbGXH
+	 nPGMqxKTQd1MC1A8rp0IzbnATuSpoKuw3C7bN1Zxmyo3ujTlmqep4DgoDe8xQWnYqnnEnBxpGP1g
+	 L/fqZRa6RVFzKhkVkVnP1Un1313V/FFoyLLhfGtl2wBYDCwFiIG7gB0KfpmnTJCXlD4t4Upqmjuk
+	 UyW0B5iS1b5jnVHzmLtlpbvoezu4xghMkKpJi6Us8meCEUCRmTOCph5q+MrPO3oWlRSvPqqFIoV3
+	 C0qEdpw3b2e8aJoz1nDGsGslZByDnE6K5TaGSps1pMzzWZyuW+DiBhj/wNwE1OMlXfmybN/T7Xhp
+	 0vKRA8zswMYhaRbDEZlBNbA32HV5nbfLX7jJLfKDPHP6Hx07azEHOJiUcqLYQ+SamKNb5aqPPqAU
+	 SoqqhRvSKP92xO8tg3N5TObp1Kz7rrU5IcdFbycqCtrcu8GfV6mpBDiysHBxnEQdwoNVg/LXMbgf
+	 Q/wdKMrCBYWkSZIxwCLxZccwmgQg==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Shuai Liu <847807867@qq.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+675af112519ca34f5502@syzkaller.appspotmail.com,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH] io_uring/sqpoll: don't set IO_SQ_THREAD_SHOULD_STOP on thread exit
+Date: Mon,  2 Nov 2026 16:05:42 +0800
+X-OQ-MSGID: <20261102080542.214144-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,623 +78,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Nov 2026 08:05:51 +0000
-Message-Id: <DMKKJ2IWG6RV.2ZCAR6J19F5XF@etsalapatis.com>
-Subject: Re: [PATCH bpf-next 2/3] selftests/bpf: libarena: Cache the
- rbtree's leftmost node and count
-From: "Emil Tsalapatis" <emil@etsalapatis.com>
-To: "Changwoo Min" <changwoo@igalia.com>, "Alexei Starovoitov"
- <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
- Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Shuah Khan"
- <shuah@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>
-Cc: "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>,
- "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
- "Ihor Solodrai" <ihor.solodrai@linux.dev>, <david.dai@linux.dev>, "Gavin
- Guo" <gavinguo@igalia.com>, <bpf@vger.kernel.org>,
- <sched-ext@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kernel-dev@igalia.com>
-X-Mailer: aerc 0.21.0
-References: <20261028060046.549097-1-changwoo@igalia.com>
- <20261028060046.549097-3-changwoo@igalia.com>
-In-Reply-To: <20261028060046.549097-3-changwoo@igalia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed Oct 28, 2026 at 6:00 AM UTC, Changwoo Min wrote:
-> A run queue built on the tree needs lockless peeks at its head and
-> length, like scx_bpf_dsq_peek() and scx_bpf_dsq_nr_queued() for
-> sched_ext DSQs.
->
-> Keep the leftmost node and the node count in struct rbtree. An insert
-> changes the head only when it links left of it, and removing the head
-> hands it to its in-order successor. rb_least() and rb_pop() use the
-> cached head. rb_first(), rb_first_key() and rb_nr_nodes() read them
-> without the lock. The head pointer, published with release ordering,
-> decides emptiness, and the key is read through it. Both fields sit on
-> their own cache line.
->
-> Add rb_init() for a tree embedded in another object, such as a queue
-> that keeps its lock next to the tree, and rb_fini() to empty it, since
-> rb_destroy() also frees the tree's memory.
->
-> Add selftests for the head and count across inserts, removals and
-> updates, and for an embedded tree.
->
-> Signed-off-by: Changwoo Min <changwoo@igalia.com>
-> ---
->  .../bpf/libarena/include/libarena/rbtree.h    |  53 +++++
->  .../bpf/libarena/selftests/test_rbtree.bpf.c  | 209 ++++++++++++++++++
->  .../selftests/bpf/libarena/src/rbtree.bpf.c   | 122 ++++++++--
->  3 files changed, 365 insertions(+), 19 deletions(-)
->
-> diff --git a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree=
-.h b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-> index 00e63b12d82e..a8dd8c2e7596 100644
-> --- a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-> +++ b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-> @@ -4,6 +4,9 @@
-> =20
->  #define RB_MAXLVL_PRINT (16)
-> =20
-> +/* Cache line size assumed for keeping the lockless fields apart. */
-> +#define RB_CACHELINE_SIZE (64)
-> +
->  struct rbnode;
-> =20
->  struct rbnode {
-> @@ -56,14 +59,34 @@ enum rbtree_insert_mode {
->  };
-> =20
->  struct rbtree {
-> +	/* Writer fields, on a cache line of their own. */
->  	struct rbnode __arena *root;
->  	enum rbtree_alloc alloc;
->  	enum rbtree_insert_mode insert;
-> +
-> +	/*
-> +	 * The leftmost node and the node count on their own cache line.
-> +	 * The writer keeps them current, and readers may read them without
-> +	 * the writer's lock (see rb_first() and friends).
-> +	 */
-> +	struct {
-> +		struct rbnode __arena *first;
-> +		uint64_t nr;
-> +	} __attribute__((aligned(RB_CACHELINE_SIZE)));
->  };
-> =20
->  #ifdef __BPF__
->  struct rbtree __arena *rb_create(enum rbtree_alloc alloc, enum rbtree_in=
-sert_mode insert);
-> =20
-> +/*
-> + * Initialize and finalize a tree embedded in another arena object.
-> + * rb_fini() frees the nodes of an RB_ALLOC tree and fails with -EBUSY o=
-n a
-> + * non-empty RB_NOALLOC tree. It leaves the tree's memory to its owner.
-> + */
-> +int rb_init(struct rbtree __arena *rbtree, enum rbtree_alloc alloc,
-> +	    enum rbtree_insert_mode insert);
-> +int rb_fini(struct rbtree __arena *rbtree);
+io_sq_thread_stop() carries a WARN_ON_ONCE() asserting that
+IO_SQ_THREAD_SHOULD_STOP isn't set yet, i.e. that stopping the SQPOLL
+thread is never attempted twice. Since commit 22d9db9fd64a
+("io_uring/sqpoll: don't attach to a thread that is canceling"), the
+SQPOLL thread itself sets that bit on its way out, so that
+io_sq_offload_create() won't attach a new ring to a thread that is
+canceling.
 
-Unless we are constantly creating/destroying trees, I don't think this is n=
-ecessary
-- allocations are in the 100ns range. Is there a reason to require being ab=
-le to embed
-the tree into other data structures?
+When the thread exits on a fatal signal, the bit is thus set before the
+ring teardown gets to io_sq_thread_stop(), which now triggers the
+warning on every such exit:
 
-> +
->  int rb_destroy(struct rbtree __arena *rbtree);
->  int rb_insert(struct rbtree __arena *rbtree, u64 key, u64 value);
->  int rb_remove(struct rbtree __arena *rbtree, u64 key);
-> @@ -80,4 +103,34 @@ void rb_node_free(struct rbnode __arena *rbnode);
-> =20
->  int rb_integrity_check(struct rbtree __arena *rbtree);
-> =20
-> +/*
-> + * Lockless reads of the head and the node count. They need not be calle=
-d
-> + * under the writer's lock, so they are advisory: the tree may change be=
-fore
-> + * the caller acts on the result. The node rb_first() returns may have
-> + * left the tree, or been freed in an RB_ALLOC tree, by the time the
-> + * caller reads it. The count is a separate read and need not agree
-> + * with the head.
-> + */
+  WARNING: io_uring/sqpoll.c:88 at io_sq_thread_stop
+  Workqueue: iou_exit io_ring_exit_work
+  Call Trace:
+   io_put_sq_data
+   io_sq_thread_finish
+   io_ring_ctx_free
+   io_ring_exit_work
 
-Can we somehow communicate in the function name that it has nonstandard sem=
-antics?
-Also sorry if we've discussed this before, but what is the exact use of get=
-ting
-the node address back speculatively if we cannot guarantee the validity of =
-the
-pointer at all? Doesn't rb_first_key cover the case where we locklessly pee=
-k
-the key?
+Introduce a separate IO_SQ_THREAD_EXITING bit for the thread marking
+itself as on its way out, and check it in io_sq_offload_create() along
+with IO_SQ_THREAD_SHOULD_STOP. IO_SQ_THREAD_SHOULD_STOP regains its
+original meaning, "a stop has been requested", and the WARN_ON_ONCE()
+holds again.
 
-> +static __always_inline struct rbnode __arena *rb_first(struct rbtree __a=
-rena *rbtree)
-> +{
-> +	return READ_ONCE(rbtree->first);
-> +}
-> +
-> +/* -ENOENT if the tree is empty, 0 with the leftmost key in @key otherwi=
-se. */
-> +static __always_inline int rb_first_key(struct rbtree __arena *rbtree, u=
-64 *key)
-> +{
-> +	struct rbnode __arena *first =3D READ_ONCE(rbtree->first);
-> +
-> +	if (!first)
-> +		return -ENOENT;
-> +
-> +	*key =3D READ_ONCE(first->key);
-> +	return 0;
-> +}
-> +
-> +static __always_inline u64 rb_nr_nodes(struct rbtree __arena *rbtree)
-> +{
-> +	return READ_ONCE(rbtree->nr);
-> +}
-> +
->  #endif /* __BPF__ */
-> diff --git a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.b=
-pf.c b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-> index 1e2a0fac1e4f..57c4395c046a 100644
-> --- a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-> +++ b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-> @@ -285,6 +285,215 @@ __weak int test_rbtree_duplicate_fifo(void)
->  	return rb_destroy(rbtree);
->  }
-> =20
-> +/*
-> + * Check the lockless head and count against a walk to the leftmost node=
-,
-> + * which does not use the cached head.
-> + */
-> +__weak int rbtree_check_first(struct rbtree __arena *rbtree, u64 nr)
-> +{
-> +	struct rbnode __arena *least =3D rbtree->root;
-> +	u64 key;
-> +
-> +	while (least && least->left && can_loop)
-> +		least =3D least->left;
-> +
-> +	if (rb_first(rbtree) !=3D least)
-> +		return 1;
-> +
-> +	if (rb_nr_nodes(rbtree) !=3D nr)
-> +		return 2;
-> +
-> +	if (!least)
-> +		return rb_first_key(rbtree, &key) =3D=3D -ENOENT ? 0 : 3;
-> +
-> +	if (rb_first_key(rbtree, &key) || key !=3D least->key)
-> +		return 4;
-> +
-> +	return 0;
-> +}
-> +
-> +#define FIRST_NR_NODES	64
-> +
-> +static struct rbnode __arena *first_nodes[FIRST_NR_NODES];
-> +
-> +SEC("syscall")
-> +__weak int test_rbtree_first(void)
-> +{
-> +	struct rbtree __arena *rbtree;
-> +	struct rbnode __arena *node;
-> +	u64 seed =3D 12345, nr =3D 0;
-> +	int ret, i;
-> +
-> +	rbtree =3D rb_create(RB_NOALLOC, RB_DUPLICATE);
-> +	if (!rbtree)
-> +		return 1;
-> +
-> +	ret =3D rbtree_check_first(rbtree, 0);
-> +	if (ret)
-> +		return 10 + ret;
-> +
-> +	/* Pseudo-random keys with repeats, so the head moves and gets ties. */
-> +	for (i =3D 0; i < FIRST_NR_NODES && can_loop; i++) {
-> +		seed =3D seed * 6364136223846793005ULL + 1442695040888963407ULL;
-> +		node =3D rb_node_alloc((seed >> 33) % 32, i);
-> +		if (!node)
-> +			return 2;
-> +
-> +		first_nodes[i] =3D node;
-> +
-> +		ret =3D rb_insert_node(rbtree, node);
-> +		if (ret)
-> +			return 3;
-> +
-> +		ret =3D rbtree_check_first(rbtree, ++nr);
-> +		if (ret)
-> +			return 20 + ret;
-> +	}
-> +
-> +	/* Remove every other node in insertion order, head or not. */
-> +	for (i =3D 0; i < FIRST_NR_NODES && can_loop; i +=3D 2) {
-> +		ret =3D rb_remove_node(rbtree, first_nodes[i]);
-> +		if (ret)
-> +			return 4;
-> +
-> +		rb_node_free(first_nodes[i]);
-> +
-> +		ret =3D rbtree_check_first(rbtree, --nr);
-> +		if (ret)
-> +			return 30 + ret;
-> +	}
-> +
-> +	/* Remove the head of the remaining half, emptying the tree. */
-> +	for (i =3D 0; i < FIRST_NR_NODES / 2 && can_loop; i++) {
-> +		node =3D rb_first(rbtree);
-> +		if (!node)
-> +			return 5;
-> +
-> +		ret =3D rb_remove_node(rbtree, node);
-> +		if (ret)
-> +			return 6;
-> +
-> +		rb_node_free(node);
-> +
-> +		ret =3D rbtree_check_first(rbtree, --nr);
-> +		if (ret)
-> +			return 40 + ret;
-> +	}
-> +
-> +	return rb_destroy(rbtree);
-> +}
-> +
-> +SEC("syscall")
-> +__weak int test_rbtree_first_update(void)
-> +{
-> +	struct rbtree __arena *rbtree;
-> +	struct rbnode __arena *node;
-> +	int ret;
-> +
-> +	rbtree =3D rb_create(RB_ALLOC, RB_UPDATE);
-> +	if (!rbtree)
-> +		return 1;
-> +
-> +	if (rb_insert(rbtree, 5, 1))
-> +		return 2;
-> +
-> +	if (rb_insert(rbtree, 5, 2))
-> +		return 3;
-> +
-> +	node =3D rb_first(rbtree);
-> +	if (!node || node->key !=3D 5 || node->value !=3D 2)
-> +		return 4;
-> +
-> +	ret =3D rbtree_check_first(rbtree, 1);
-> +	if (ret)
-> +		return 10 + ret;
-> +
-> +	if (rb_insert(rbtree, 3, 3))
-> +		return 5;
-> +
-> +	ret =3D rbtree_check_first(rbtree, 2);
-> +	if (ret)
-> +		return 20 + ret;
-> +
-> +	if (rb_remove(rbtree, 3) || rb_remove(rbtree, 5))
-> +		return 6;
-> +
-> +	ret =3D rbtree_check_first(rbtree, 0);
-> +	if (ret)
-> +		return 30 + ret;
-> +
-> +	return rb_destroy(rbtree);
-> +}
-> +
-> +struct rb_embed {
-> +	u64 pad;
-> +	struct rbtree tree;
-> +};
-> +
-> +SEC("syscall")
-> +__weak int test_rbtree_embedded(void)
-> +{
-> +	struct rb_embed __arena *embed;
-> +	struct rbtree __arena *rbtree;
-> +	struct rbnode __arena *node;
-> +	int ret, i;
-> +
-> +	embed =3D arena_malloc(sizeof(*embed));
-> +	if (!embed)
-> +		return 1;
-> +
-> +	rbtree =3D &embed->tree;
-> +
-> +	/* Poison the fields rb_init() must set. */
-> +	WRITE_ONCE(rbtree->root, (struct rbnode __arena *)~0ULL);
-> +	WRITE_ONCE(rbtree->first, (struct rbnode __arena *)~0ULL);
-> +	WRITE_ONCE(rbtree->nr, ~0ULL);
-> +
-> +	if (rb_init(rbtree, RB_NOALLOC, RB_DUPLICATE))
-> +		return 2;
-> +
-> +	ret =3D rbtree_check_first(rbtree, 0);
-> +	if (ret)
-> +		return 10 + ret;
-> +
-> +	for (i =3D 0; i < 4 && can_loop; i++) {
-> +		node =3D rb_node_alloc(4 - i, i);
-> +		if (!node)
-> +			return 3;
-> +
-> +		if (rb_insert_node(rbtree, node))
-> +			return 4;
-> +
-> +		ret =3D rbtree_check_first(rbtree, i + 1);
-> +		if (ret)
-> +			return 20 + ret;
-> +	}
-> +
-> +	if (rb_fini(rbtree) !=3D -EBUSY)
-> +		return 7;
-> +
-> +	for (i =3D 0; i < 4 && can_loop; i++) {
-> +		node =3D rb_first(rbtree);
-> +		if (!node || node->key !=3D i + 1)
-> +			return 5;
-> +
-> +		if (rb_remove_node(rbtree, node))
-> +			return 6;
-> +
-> +		rb_node_free(node);
-> +
-> +		ret =3D rbtree_check_first(rbtree, 3 - i);
-> +		if (ret)
-> +			return 30 + ret;
-> +	}
-> +
-> +	if (rb_fini(rbtree))
-> +		return 8;
-> +
-> +	arena_free(embed);
-> +	return 0;
-> +}
-> +
->  static inline int
->  clean_up_noalloc_tree(struct rbtree __arena *rbtree)
->  {
-> diff --git a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c b/tool=
-s/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-> index e6c9430f734b..2622c78302af 100644
-> --- a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-> +++ b/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-> @@ -15,14 +15,12 @@ static int rbnode_replace(struct rbtree __arena *rbtr=
-ee,
->  			  struct rbnode __arena *existing,
->  			  struct rbnode __arena *replacement);
-> =20
-> -struct rbtree __arena *rb_create(enum rbtree_alloc alloc,
-> -				 enum rbtree_insert_mode insert)
-> +__weak
-> +int rb_init(struct rbtree __arena *rbtree, enum rbtree_alloc alloc,
-> +	    enum rbtree_insert_mode insert)
->  {
-> -	struct rbtree __arena *rbtree;
-> -
-> -	rbtree =3D arena_malloc(sizeof(*rbtree));
->  	if (unlikely(!rbtree))
-> -		return NULL;
-> +		return -EINVAL;
-> =20
->  	/*
->  	 * RB_UPDATE overwrites existing values in the nodes, but RB_NOALLOC
-> @@ -32,19 +30,51 @@ struct rbtree __arena *rb_create(enum rbtree_alloc al=
-loc,
->  	 */
->  	if (alloc =3D=3D RB_NOALLOC && insert =3D=3D RB_UPDATE) {
->  		arena_stderr("WARNING: Cannot combine RB_NOALLOC and RB_UPDATE");
-> +		return -EINVAL;
-> +	}
-> +
-> +	WRITE_ONCE(rbtree->root, NULL);
-> +	WRITE_ONCE(rbtree->alloc, alloc);
-> +	WRITE_ONCE(rbtree->insert, insert);
-> +	WRITE_ONCE(rbtree->first, NULL);
-> +	WRITE_ONCE(rbtree->nr, 0);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * arena_malloc() aligns a block to its power-of-two size, so the tree's
-> + * lockless fields get a cache line of their own.
-> + */
-> +struct rbtree __arena *rb_create(enum rbtree_alloc alloc,
-> +				 enum rbtree_insert_mode insert)
-> +{
-> +	struct rbtree __arena *rbtree;
-> +
-> +	rbtree =3D arena_malloc(sizeof(*rbtree));
-> +	if (unlikely(!rbtree))
-> +		return NULL;
-> +
-> +	if (rb_init(rbtree, alloc, insert)) {
->  		arena_free(rbtree);
->  		return NULL;
->  	}
-> =20
-> -	rbtree->alloc =3D alloc;
-> -	rbtree->insert =3D insert;
-> -	rbtree->root =3D NULL;
-> -
->  	return rbtree;
->  }
-> =20
-> +static __always_inline void rb_set_first(struct rbtree __arena *rbtree,
-> +					 struct rbnode __arena *node)
-> +{
-> +	/*
-> +	 * Publish the new leftmost node with release ordering, so a lockless
-> +	 * reader that sees it also sees the node's fields.
-> +	 */
-> +	smp_store_release(&rbtree->first, node);
-> +}
-> +
->  __weak
-> -int rb_destroy(struct rbtree __arena *rbtree)
-> +int rb_fini(struct rbtree __arena *rbtree)
->  {
->  	int ret =3D 0;
-> =20
-> @@ -63,11 +93,11 @@ int rb_destroy(struct rbtree __arena *rbtree)
->  		 * the now freed nodes. Throw an error instead.
->  		 */
->  		if (rbtree->root) {
-> -			arena_stderr("WARNING: Destroying RB_NOALLOC tree with > 0 nodes");
-> +			arena_stderr("WARNING: Finalizing RB_NOALLOC tree with > 0 nodes");
->  			return -EBUSY;
->  		}
-> =20
-> -		goto out;
-> +		return 0;
->  	}
-> =20
->  	while (rbtree->root && can_loop) {
-> @@ -76,11 +106,22 @@ int rb_destroy(struct rbtree __arena *rbtree)
->  			break;
->  	}
-> =20
-> -out:
-> -	arena_free(rbtree);
->  	return ret;
->  }
-> =20
-> +__weak
-> +int rb_destroy(struct rbtree __arena *rbtree)
-> +{
-> +	int ret;
-> +
-> +	ret =3D rb_fini(rbtree);
-> +	if (ret)
-> +		return ret;
-> +
-> +	arena_free(rbtree);
-> +	return 0;
-> +}
-> +
->  static inline int rbnode_dir(struct rbnode __arena *node)
->  {
->  	/* Arbitrarily choose a direction for the root. */
-> @@ -255,6 +296,8 @@ int rb_node_insert(struct rbtree __arena *rbtree,
-> =20
->  	if (!parent) {
->  		rbtree->root =3D node;
-> +		rb_set_first(rbtree, node);
-> +		WRITE_ONCE(rbtree->nr, 1);
->  		return 0;
->  	}
-> =20
-> @@ -273,6 +316,10 @@ int rb_node_insert(struct rbtree __arena *rbtree,
->  			if (ret)
->  				return ret;
-> =20
-> +			/* Same key and place, so only the head's identity changes. */
-> +			if (rbtree->first =3D=3D parent)
-> +				rb_set_first(rbtree, node);
-> +
->  			if (rbtree->alloc =3D=3D RB_ALLOC)
->  				rb_node_free(parent);
-> =20
-> @@ -290,6 +337,14 @@ int rb_node_insert(struct rbtree __arena *rbtree,
->  	else
->  		parent->right =3D node;
-> =20
-> +	/*
-> +	 * The node is the new head only if it went left of the old one. The
-> +	 * rotations below never change which node is leftmost.
-> +	 */
-> +	if (parent =3D=3D rbtree->first && parent->left =3D=3D node)
-> +		rb_set_first(rbtree, node);
-> +	WRITE_ONCE(rbtree->nr, rbtree->nr + 1);
-> +
->  	while (can_loop) {
->  		parent =3D node->parent;
->  		if (!parent)
-> @@ -410,7 +465,7 @@ __weak int rb_least(struct rbtree __arena *rbtree, u6=
-4 *key, u64 *value)
->  	if (!rbtree->root)
->  		return -ENOENT;
-> =20
-> -	least =3D rbnode_least(rbtree->root);
-> +	least =3D rbtree->first;
->  	if (key)
->  		*key =3D least->key;
->  	if (value)
-> @@ -578,8 +633,8 @@ static inline bool rbnode_has_red_children(struct rbn=
-ode __arena *node)
->  }
-> =20
->  static
-> -int rb_node_remove(struct rbtree __arena *rbtree,
-> -		   struct rbnode __arena *node)
-> +int rbnode_remove(struct rbtree __arena *rbtree,
-> +		  struct rbnode __arena *node)
->  {
->  	struct rbnode __arena *parent, *sibling, *close_nephew, *distant_nephew=
-;
->  	bool free =3D (rbtree->alloc =3D=3D RB_ALLOC);
-> @@ -765,6 +820,35 @@ int rb_node_remove(struct rbtree __arena *rbtree,
->  	return 0;
->  }
-> =20
-> +/*
-> + * Remove @node and keep the head and the node count current. The head h=
-as no
-> + * left child, so if it is the node going away, its successor is the lef=
-tmost
-> + * node of its right subtree, or else its parent. Take it before the tre=
-e
-> + * changes; the removal and its fixups preserve the in-order sequence.
-> + */
-> +static __always_inline
+Reproduced with an SQPOLL ring and an immediate fatal signal: the
+warning fires on v7.3.0+ (22d9db9fd64a present) and is gone with this
+change.
 
-We don't need the __always_inline for static functions, they are there to h=
-elp
-with verifier limits but upstream libarena tracks bpf-next which can verify
-pretty much anything. I'll re-add those as needed when importing to Github
-in the compat branch.
+Reported-by: syzbot+675af112519ca34f5502@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=675af112519ca34f5502
+Fixes: 22d9db9fd64a ("io_uring/sqpoll: don't attach to a thread that is canceling")
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+ io_uring/sqpoll.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-> +int rb_node_remove(struct rbtree __arena *rbtree,
-> +		   struct rbnode __arena *node)
-> +{
-> +	struct rbnode __arena *next =3D NULL;
-> +	bool was_first;
-> +	int ret;
-> +
-> +	was_first =3D node =3D=3D rbtree->first;
-> +	if (was_first)
-> +		next =3D node->right ? rbnode_least(node->right) : node->parent;
-> +
-> +	ret =3D rbnode_remove(rbtree, node);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (was_first)
-> +		rb_set_first(rbtree, next);
-> +	WRITE_ONCE(rbtree->nr, rbtree->nr - 1);
-> +
-> +	return 0;
-> +}
-> +
->  __weak
->  int rb_remove_node(struct rbtree __arena *rbtree,
->  		   struct rbnode __arena *node)
-> @@ -813,7 +897,7 @@ int rb_pop(struct rbtree __arena *rbtree, u64 *key, u=
-64 *value)
->  	if (rbtree->alloc !=3D RB_ALLOC)
->  		return -EINVAL;
-> =20
-> -	node =3D rbnode_least(rbtree->root);
-> +	node =3D rbtree->first;
->  	if (unlikely(!node))
->  		return -ENOENT;
-> =20
+diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
+index c833e776320d..bbfb1a6e6668 100644
+--- a/io_uring/sqpoll.c
++++ b/io_uring/sqpoll.c
+@@ -29,6 +29,7 @@
+ enum {
+ 	IO_SQ_THREAD_SHOULD_STOP = 0,
+ 	IO_SQ_THREAD_SHOULD_PARK,
++	IO_SQ_THREAD_EXITING,
+ };
+ 
+ void io_sq_thread_unpark(struct io_sq_data *sqd)
+@@ -436,9 +437,12 @@ static int io_sq_thread(void *data)
+ 	/*
+ 	 * Cancelation drops sqd->lock while it waits, and a ring could attach
+ 	 * to a thread that is on its way out. A fatal signal doesn't set the
+-	 * bit, so set it here for io_sq_offload_create() to see.
++	 * stop bit, so mark the thread as exiting here for
++	 * io_sq_offload_create() to see. IO_SQ_THREAD_SHOULD_STOP is left
++	 * alone, as it means a stop has been requested via
++	 * io_sq_thread_stop().
+ 	 */
+-	set_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state);
++	set_bit(IO_SQ_THREAD_EXITING, &sqd->state);
+ 	io_uring_cancel_generic(true, sqd);
+ 	rcu_assign_pointer(sqd->thread, NULL);
+ 	put_task_struct(current);
+@@ -510,7 +514,8 @@ __cold int io_sq_offload_create(struct io_ring_ctx *ctx,
+ 		/* don't attach to a dying SQPOLL thread, would be racy */
+ 		ret = 0;
+ 		if (attached && (!sqd->thread ||
+-		    test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)))
++		    test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state) ||
++		    test_bit(IO_SQ_THREAD_EXITING, &sqd->state)))
+ 			ret = -ENXIO;
+ 		io_sq_thread_unpark(sqd);
+ 
+-- 
+2.43.0
 
