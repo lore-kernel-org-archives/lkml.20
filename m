@@ -1,108 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608686;
-	b=aCWChljK/AsnhkHUTNS5IKtDuKWN3aXqHdaY1I/KT5Xx+YcoEnc7ek+tL/m5A7hgYJ8F
-	 xxU/Zb/MUXhB2W9F1ITAL1y/T9mgoT3Z6RVCSnDU2vNs109e8zLsHoEW4OzviKQVHAzii
-	 SDn6YIAXZREsH15Lj9GaeE9N8zPNyJSNraKfB+iNxjfqw1oEv+deOihDwO5RZwyL2PfRV
-	 Xv/ZsfzWS9ras6po8ba6Hkx3214C/EEdEbl+bd5L6mTcCQuB7MmqJdY8vzx//yberrdJI
-	 NCge0TUD4GZxGTiQaZBh33O9qkjKKkQ/cwIlgj8++TSdEswfD8TKDHQqymB57dgAmQA==
+	t=1793608725;
+	b=WZIzaa94pVtP1oVWsQv3npLf7WmFlnOwkkfVlSMx8YxJG3a4kfeTqf/MD/xqonb99wFE
+	 MKg0aKr6Q+5zKClgnw3CP64PnER9GiRT1P5l/j/lNI/RVjjeqSJbbPZVyalM9FfpRG9l9
+	 sdxFkbHQU1PNiiZ9Ehkal1OxbyTwo1h6QLsrZtRdc1fa/hpfeq/TCFcO1cY8QbXW0/nX0
+	 W7wbNbqpOSeUqo4C9kk9T7RCXccUdXQiQFABGRw28poha/EWT4ScodXFOZGNwCpDK6dpq
+	 d57GTgRaHmEkURN3c2WxfD3/6oAKCUBRzYpe6Nayt17jWk4W5Z27WU79Ky/fempgr+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608686;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608725;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8d0vDitzezDWa7J6bkNN1sM4Lg1Dh0lgOVgctT1VpEs=;
-	b=DbpzITiIfEp2kQItz/iD8UY09I+GurT4YZYIiixusHHCs4glTdOZE9Vkh2bK76otJ58T
-	 v9BpqfljBTBveRV6mYd/r0XzlVwKxbjCQuttcP1Pna70mMT3IiHQz/lRhGENFRcAl995G
-	 AnISJJHMty91u+e035A58JuODxqr1dAv76hX4l6OyLMIdzS10/4TCkMoGZ9dORxGo9B/I
-	 Lfo2z447feZ2J+fuGB7Ofs0x6xsT9TkYsHdg7ym/phSd+BkqRVoPjctxHcU5qivJ2Va6W
-	 fGFr6+ntzsjRWD7nuFZkUTlN4+nAW2YaCU56GGg2omZKcjtivz0Oy+SzONH17YC9C4g==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ALAVVcLX8MYIjdcNV1urspiVK2AVDCX+KdL/tArgC58=;
+	b=JhlBa0lFX9VvHjl+/srVVuf2TIowhuBTDE1srQrghfzYnXvzY1qKE3txreOSxR5bl+ZN
+	 GPByclt9yxAeBaq7PLLq5Om1RgUmPaHp7t32edj5pu4jmyfjtqe62qerSnqd42mBKYytQ
+	 2yb+CZFgLtsJ3CdmgFhoymZq03J25p0sTL1MdUnkk03+EOjCJknqQemOIQg/dayDy+fHe
+	 mS4uziw7sI9/O4ucA7YGabO7lto5DoVIMhBf/VLfeFVOE435xMGgdBVlF6K5GJzlhg+t5
+	 E5ZI8jwjyYNYYu6SsL1a1OBy4msf8YTpTupcobtbzWIHXIDKXq2INk1wMu+DtrcfiEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZrsJKdvD;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=SHebu6ho;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5570F606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:38:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5570F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB9C606A338
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CB9C606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZrsJKdvD
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdadf7e248aso925990a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:38:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=SHebu6ho
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3550c917fd3so3776766eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:38:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793608686; x=1794213486; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8d0vDitzezDWa7J6bkNN1sM4Lg1Dh0lgOVgctT1VpEs=;
-        b=ZrsJKdvDf3wSjGkdXQOysAvdloIM9KYRnDXm+0wOiWS0uikOgM1KqCpoJEYqwbxZk+
-         xkqunbMOpYJB64pTmQJymcXkuHxOg6jSGWrE6dIrZSmUDVT3rYmaUIMiZy7/i9QqAWRy
-         hEL2Z5u/HKyG2GRuzE/AQD1mOn+XtY0599THDMTh8a/nrWwpHVVQimI7IMrlxxUGHv65
-         hry+t4HYRYGPjHBZDeue/d+i1FnjE+i9e2LNGjSrrAdPDbAVeazDGEYSe5zX2FR8AxFv
-         M13C4q77GkhZiXGkcyv8FoMDHMjW6TsrqGp3zWEDJOGqzl3mdGc5Xc0GCaIAoQXXsOVJ
-         hbkg==
+        d=linaro.org; s=google; t=1793608723; x=1794213523; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ALAVVcLX8MYIjdcNV1urspiVK2AVDCX+KdL/tArgC58=;
+        b=SHebu6hoU+l6S24ourZc1qdv7upLIrnVe/F/sF7kE+UblHKNd8Dm/yvtFnW1hxuHTi
+         gkw12/YBHBBewxvMXAWAh5T57tcX2TfCCYzWue2IQlOPBJe0Aj7QuQHN2XE3ee6zQRN3
+         nyoh52cV9jS7cPnJ/v1lhuG9mUEzcFDkAnXcvylHwFk6RdHaQZsISxX1WL3BznoFlSKg
+         7uCk+RyfT7QJPp4Obj4rRpgXZBnT1AuPHcSzJQ54vhYuMbyX839IxZ3FIeHhUDzgaAgh
+         aAiHgxRZNonuaeqyPKPsG+MH8rmjWm8UepvCNfch2WZMzK4OofLaDFis8D4k4cwJWvoo
+         7DFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793608686; x=1794213486;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8d0vDitzezDWa7J6bkNN1sM4Lg1Dh0lgOVgctT1VpEs=;
-        b=UrQKmu0nNLoxzE21tzJbRHXisqGUAREk9mA/3MW31QROX0hcbtUNj8zWnrFBiyf61J
-         42ULB7yeL3Fk6P0KBqCD31vdrunCFtu4fquRgIdpjU2QZq/mWnIlGeO6Bvsjv+LiHxgV
-         ivSMkQvK7OH79HVzEiH43xAm0ZfaPNbI0R2L3D4DQAKwA8ofmTQl5iyT4owjPU3DAwk7
-         psOMyPQxsfktaLrhr2pTpiXVAWqhV+wIL/9g/FOxuOfEzfxCXt0kRvncy768ceFyKrDK
-         OJCac/PfhWEQChJBhDYK5poMDrJvnOEf2bbTIknphaMJzD8Mnhx/Q5LgR1416ZCZC7qC
-         2tWg==
-X-Forwarded-Encrypted: i=1; AKwUvBxPDbDwzgPhoSDKn5u+HJvcNO9Qf2UXjY6mZBJIoOlZonFEOOVnEhbgvZZvytOWS0JHmfiKrpcpHyKnuxU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sGLlp7hZzy9pdakB4vbi2VyVgxqFvKFvjIWZSKrqxl00rlFzm
-	LCXZPk2oMm2g+VwvNVSYPxMU3PZavbGyJqGGieTNk1dtvxXROc4byxzm
-X-Gm-Gg: AYBFou0rGALsHkPRnnMuT9Ra/NQ+egYt+lB8X9gpnlpBbeJv+Fo51B6ycaEbb5G5foF
-	DE0LvO2jCT32eW/RyuA9smlvtSpoolVYlNNPa/inSa3PuxtrSJOfcIwr0dwdbC1D/EV5DM7SFKc
-	Hk3hGKcF1Xhc7Fv23sbD3JT74orsmflSTSuDkSz4mn6NEHbf25Qwz/4SZq6DXRdBsRSVKImJ0dA
-	gPTyXFlZ0QlNrE2ZEqrpKByZfovxbzXYJ5oloQ4CEqhWUIaBaQEOCJjshXrAGiXup5IHzsJB7le
-	BtMR8oag9aHvem9clwV1MO81qIl4kC9SA50R7aP5WAtz91tTNdkLpPN1kTVULXR11pmu/4tlqEL
-	rfyolZj8dfPOaR35X/zLvkUzkGV0ZfAyExm4LBbzBgzvmzuqsGYlkZm/Rr0kd5iesfu5TLkY/fS
-	Z/fFKtU5R7dUKrfkeJ3kdyx5K5pM4L6crUkExrO35uBifY7lWHEMRl1P9EDZTEeL0/DE5L13IpZ
-	VFmcO4FI6qI2Y/DCqoOnTZpd1TZ/U/mK+VpMHeDEN8dKB5W8LzYU7nqGqMnKhDpisLErgO+C8bq
-	q9h3f4AHZUTmdRy4fikYlBO2a6a8+guBJPVR2O0CfnhkdOZWWP1kySk57N32zLHTmCtMjThL94C
-	kcSMY7OBqSg1uA1utlphPml0/+VvFaDngAnCq8s+RndL2wElAIX/o8VnpLQRBRUG9UgKZYXiHcY
-	fEpgtePe+0Ah7rlg==
-X-Received: by 2002:a17:90b:5648:b0:3ad:93b4:718f with SMTP id 98e67ed59e1d1-3ae89879b52mr8145082a91.65.1793608685557;
-        Mon, 02 Nov 2026 00:38:05 -0800 (PST)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85f3e087sm7861463a91.1.2026.11.02.00.38.01
+        d=1e100.net; s=20260707; t=1793608723; x=1794213523;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ALAVVcLX8MYIjdcNV1urspiVK2AVDCX+KdL/tArgC58=;
+        b=f/xQJlSIYLzJwmlV0Tipl2tb0p05KjiPfkOzUHPwmpbphpMT6zStfqZ0OqOwfquHcb
+         Mh5HeGSIJWVlRemjBDB/Ra98TK65OMAQdau0ixwjI9P8BubQLaZ2y6hYdMIJzi+kLPTg
+         8Rf0RoyxWEz82OqR8OhLqb/WHnMHbElE1Q80fvF87XLXR4HlQ3t6P19/qvOTcQIAJ9aV
+         qmBFOp8P7NSv5AWpDzD0QL5hapjlVIxDtvBVwRTG6hv917x7q+sK56/Ab54aPAqvf5yp
+         17d4luar5F3t38/okiupYaM6Yx7cbv50gfp4t3nWtGuKbqdEQaNJzcB6w12GAwmtFg1t
+         32Fw==
+X-Forwarded-Encrypted: i=1; AKwUvByj8WrGuQY84nbNtgTkSmfZfMez7D30yIlN3+EtRVwcNzVgZ6XRTdjbZ6mP0v8xuuEABfxr3j0Hw6gE+u4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8h9LBWCI/pDPzKcN8x7rjSpcFb8YIgSENe8Y89e6pXGFk7r9z4
+	bojL3RaeXLTFxfhH2olCquw4CKV+ZuQMqtfrBXbouKeXTmFNx8owRVjv4OJv8S0CICc=
+X-Gm-Gg: AYBFou0qzQHoVbv0d25P1WeHFLnF2GqtzzYiA87X6W78Z3Nrjtp7yHisTCHu1hjwjAr
+	wTxHkpNNxEV/Je5QoAcUXbpBnqqbR5+g383moZRn2F5J1Gf9/MVs91hpjb2OayyJ25FaEKYvBA1
+	MpkWwpwF3fP0/S4sXo8h3JJwkwXUwfaIsHNiSYNCNmVYjoetyfeUjfCV4Wz9a247kGkpa2b1/0+
+	o/do/1wd6ZNopMk8kkrIOFfphGHvJKjZ8HUE8Xxww8IeZzmYtFggGm6ega3DVXXcJiHNs1k1fsl
+	rIvjgX92byl5C/QiFo3vRYGDLWDr5XOfM11oK0/7L44Yvg6SBGBlRkGZtrH+EdImH17a7hhISko
+	f6KOtb5w/cnhf/XLdAdhhAPPJ+U8ULSwHCqsOi9zkIpimeobjDRfF3xEYv/OPuCCdlO9jXOghR0
+	5k+vJNjZGh4X5oKkiyHxwozytgoW3R91T3nC5uTwmV7kTbuMcCoTS2YRFZKRUsGYOmh7ucTe/kg
+	73vZ28RzOpfI/mwvzaaXDyKqWLRrZFZMmQ4bF1fExK18JB1znTdQoWxd6c0uADOI14GdU44piCk
+	zBCEQ+2mY/TEcNGAY466AS/BEZN3trc=
+X-Received: by 2002:a05:7300:e9c5:10b0:367:3d68:8480 with SMTP id 5a478bee46e88-36a4206d82emr15498311eec.0.1793608722988;
+        Mon, 02 Nov 2026 00:38:42 -0800 (PST)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm37714488eec.3.2026.11.02.00.38.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 00:38:05 -0800 (PST)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Wei-Lin Chang <weilin.chang@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	workflows@vger.kernel.org
-Subject: Re: [PATCH v2] Documentation/process: Add a maintainer entry profile for KVM/arm64
-Date: Mon,  2 Nov 2026 16:37:59 +0800
-Message-ID: <20261102083759.1561867-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <6urqt376s23fcyr5pchfrrowvjoo6acg5xt4ujkft7gww6sagj@jxz5rqihtkja>
-References: <20261030083351.3040604-1-matthias.goergens@gmail.com> <6urqt376s23fcyr5pchfrrowvjoo6acg5xt4ujkft7gww6sagj@jxz5rqihtkja>
+        Mon, 02 Nov 2026 00:38:42 -0800 (PST)
+Date: Mon, 2 Nov 2026 14:08:39 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Jie Zhan <zhanjie9@hisilicon.com>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Oleg Keri <okerixx@gmail.com>
+Subject: Re: [PATCH v3 2/2] cpufreq: fix policy max not returning to
+ non-boost freq on boost disable
+Message-ID: <auhMD2-5FD4BqImG@vireshk-B250M-D3H>
+References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
+ <20260929-schedutil-boost-frequency-handling-v3-2-68de169498c7@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,19 +107,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929-schedutil-boost-frequency-handling-v3-2-68de169498c7@oss.qualcomm.com>
 
-On Sat, 31 Oct 2026 21:03:17 +0000, Wei-Lin Chang wrote:
->> +Minor problems are often fixed up by the maintainers when applying; if they
->> +say "no need to resend", don't.
->
-> The second half of this is a little silly :P
-> What about just:
->
-> Minor problems are often fixed up by the maintainers when applying; ask
-> if you are unsure whether to resend.
+Hi,
 
-Agreed, that reads better.  I'll use your wording in v3.
+On 29-09-26, 17:08, Ananthu C V wrote:
+> Commit 538b0188da46 ("cpufreq: ACPI: Set cpuinfo.max_freq directly if
+> max boost is known") introduced a guard for cpuinfo max updates to only
+> increase, to preserve driver-set values above the freq table maximum.
+> Later commit db80ad776cd2 ("cpufreq: Remove driver default policy->min/max
+> init") dropped the 'policy->max = max_freq' assignment from
+> cpufreq_frequency_table_cpuinfo, leaving that one-way-guard to be the only
+> path for cpuinfo max and consequently policy max to be updated, causing
+> both values to be stuck at boost frequency even when boost is disabled.
+> 
+> Unconditionally track the highest non-boost frequency (max_base_freq)
+> in the freq table. If boost frequencies are available, use the highest
+> frequency from the table/max_base_freq instead of cpuinfo->max_freq to
+> control boost values, so the value can decrease again when boost is
+> disabled.
 
-Thanks,
-Matthias
+If this is a fix, it should be submitted separately so we can get this merged
+independently.
+
+> Fixes: db80ad776cd2 ("cpufreq: Remove driver default policy->min/max init")
+
+I am not able to understand the current problem though. I see from the sequence
+of events mentioned in your cover-letter that scaling_max_freq doesn't return
+back, but why ?
+
+And does a simple revert of the above commit (just freq_table.c) fixes it ?
+
+> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+> ---
+>  drivers/cpufreq/cpufreq.c    | 16 +++++++++++++++-
+>  drivers/cpufreq/freq_table.c |  9 ++++++++-
+>  include/linux/cpufreq.h      |  3 +++
+>  3 files changed, 26 insertions(+), 2 deletions(-)
+
+-- 
+viresh
