@@ -1,99 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793591298;
-	b=QcqSv91lmRFcAGkzArlhrCBF/2imY/5UGorB4EAOr5pTc4G787Ocla2dQf7Jsk/k0oWA
-	 p0JBTYdMKFJgMm4DMxjJZjYgJQoWpWBD8qXdrcrETq0PD3ZiQNQVBlYwfuFPGflgFXWO0
-	 9+SKntekIEnUhPGzi8nOPLCAE4uBShFmYzkLwo2DhNNB/3pRO/5Ir2DSIuePuvrZ/VTSg
-	 xgkCBrB9U10S7zHX1s3m6O3TwpAeBGNslqqt1t/FOl5ZtUyN186FytkgVTpE9BFEMZzTB
-	 6oPYJb2DofqkMZvq1rfDxNtpMkCujncATTbJSTMYWWu238hFnsxXKNUlUug2pqxhA8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793591298;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=B3x9s/6EVM4gCHk/aCUx2i0TPJIArf9E/dcZEMYK5gY=;
-	b=f8McbKJxYyT4QMGu92pRssK+qI1ZN191EQbhgAoE1CGxA2TPyf+xDkUnKFubu/iC3bnU
-	 44niTLkwaUFtiS0rfnZy6dLIwjG7SLfcfocvLX8U5QQnL5NHS0T/MJEgJb/0KdFM+LOov
-	 pUMBivtCyhfpKB5rUYFb/7nXwIdVkGZ0to/6N2uMAlnsR0nlCAHdBizytWDYKVxQH2JNB
-	 IenjvfGlc6/TCMv/t5nkGDZpFVPswGx1K0NpXRRjW3UPfuGpXA5ITL14PPw+f+i72vbyN
-	 O0hW2Lxna3qKPS9HsaBOd/9VWGyQiIyJbPwwN1/zWWgRBvMFlETx4sVWm3sK1LZqXiw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XbxRaqhj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.53
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793591554;
+	b=E09TPEfHaAmQmg4ZifugMCwEIbQ1RDbDUBeOImIVfmKCnEy9nKxoJp0w8MuKtHZiWsQ7
+	 QELFtODJnpVxJRgEnRbj0dnDAl+nE+Gyotfr+kww+Hny3aa9UzFcwC3NdyGbNl9nySz4B
+	 E6HJvhtWeaQPGOD9JsTbjfQTPCMoCJy78WboUGNqz+XimLfgDYWWII2/HEwyfYszMJcEL
+	 szbiIGt/NxSyC/M5qOKjuv9NGqE0OSK+6t0e7sCCxd7q904OKd1d0RdVNSsC4vgRkHfff
+	 FrW1WXqLScxiTfZyKppHbnmvSE/Zca4UkKjCpQ1LudKG78Q/KUnsO9r+Wx3XygmXpuA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793591554;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UsyOruPU/4uzHcmKvCXiECAPVPbvFO7B0tp+W3CdJrI=;
+	b=v9Eo0pEypBTt+sYV/RqDvG71QtehyaoAEW8EwL0AZKouM4sQ+yAzn5dTjOPfMzsCSDtc
+	 +Zp11JaNvy6IW2gJSWmvMEis/eRjTKa7DWpSWYrM3DF5hJM4fYsnmlAN1+Knr8GkGhzBR
+	 8Cfd14iyiHURedOCQmbMkcYAb3ZKvlpKHP4JkVYPrS8uZcHr+TKWqR+6uocpy9bi5G25q
+	 YZA41HV2Lb0YNoEL00h1SFpavgkm5+I3N3fueJsL+txUGKWtFmNxm51urAHG2R6V3AxTS
+	 rWVu4cCHNKE9CIc4BTT2z+CbmRcCzwwBeowSXjk3s67xmtzAvlq/rCWf9sweuex4c8A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=YuLJD6aa;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912C5606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 912C5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4CE606A324;
+	Mon,  2 Nov 2026 03:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB4CE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XbxRaqhj
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-483c607ccb4so1513805fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:48:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793591296; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B9IJYvVdIjqX+u8nR/4y+oVW4h2WOxUk/+FGaDGgI032G49Y/ed5gLMEdovnOupVJT
-         HPF6V9bV3h4W1+CrctzPSYUPmfOFuQsCTwSnjMke0y7LKwxFm1AtLQ3qayDmJXXXVdei
-         rhHnQYm6/Q0dDWgw2q+Ad34uAhp+i6cMn96FPZuhflQVabrI5XX1rVbTFjLwl0umBKQb
-         zKijBga7RzlVqm83ZoTzc1CHh6LNXKqrK7UaXjVhUTMuXVuGehLNL3yBP1A8iCQz6TV3
-         VKBFV+qK0PqscKeYdEwLD+uoSxFPglVfJBNXHc65/QbWHDUsfBESaVTmzyGO7VuCUdla
-         yS8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=B3x9s/6EVM4gCHk/aCUx2i0TPJIArf9E/dcZEMYK5gY=;
-        fh=aYTXngXZ1x8l/NcPseUE615eGjjrr8FvuIWDPer6O4g=;
-        b=lhv3uYkznD4gSSKqAhF7880eFUa/yzw/kOAPbulm/x2vPc8nBTi8eKA3vZEfs/YrRL
-         ZHPXvKoOlY+UQdpkk9kVMZzbgqgUGKtuetwOEdMrlrKMqMEeEl8mLr14a8BrhgReWwf7
-         5z4DZoZwMRM9bE16yaY7+eNYh0+uU6g6jJRDY9feFArqRiLlfszStAWSIKkNOa3oYZhU
-         vi6CqyvVAOQOxyuKUoWCFstsZZVw/h/RCnPaByEnujwvHKvBVnf5CfjG+l+aFAhMu+Ne
-         w5IVaLeUHPe+B1Ke/E5QKLvfAGBKvLFJffw9uVtKeSCug94DmrQAAXE5ee57pX7IdqfK
-         U5zw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793591296; x=1794196096; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B3x9s/6EVM4gCHk/aCUx2i0TPJIArf9E/dcZEMYK5gY=;
-        b=XbxRaqhjyZPHnOLuz5IQAsGQ+QJEaAtAtE2tosO0JsxtYHFMXdSbskTPTa2qs5KvVE
-         A3oMTr7NhR+XCiF7dmDRysULfqadzeSJHsf+zX/2uXZzukkXQdIh6wVRqyZBm4HtoZTs
-         CJKfKnSieqd3f9DXjs6c82ojjhoAAjktIG3HF85VMUp52J9yE55YPDiUD8hjjm4/RR2R
-         CP4BjMCD91nc5IHstkI9q5cgjqpfkOIi29Iy/ULND20RydHgtxfXcOtWs6xmRYo0/bR4
-         oCwKjFP8uBZDTN9NwneamumR4kIdzkYtXlAVYB0Cv2jL55PI+mxy53MCP9sgl7laYGB8
-         7Fyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793591296; x=1794196096;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=B3x9s/6EVM4gCHk/aCUx2i0TPJIArf9E/dcZEMYK5gY=;
-        b=H3oVYUAESLAfNtlIqL2mDbf274R/U3sHSrKJn4gQRQSMsGsi2JBTA9niZyUUMnc8SB
-         xdMfv7HGlzXE0ASDQonZ2/Mj8I0totenu/F2vuxZ5/JM0DT5xZE2HUmdCuFl7kjYX6Sr
-         UN87gDepAR79A9WstJ4yLCJ4MfIxqyCd2IOzpkelxQ10sSXZxgMc/HjGND6CN0OicMIV
-         xLBs4oduUeaI9bbV5CKrlH72eYGf747/653AFSKbi8oYfOVaimu/i42x9TLeeMyXlZDk
-         kLFg0rYlI41TFBTCKE0TDdOmRg7cCyE94AkJQ1iagreGiCpN0KDldpaLJDXSi93/J0Uy
-         549Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwgCigcKPNIf0pd0GNnbcFBNdDVX9PrXnb2RM/c8kdkCiPsTJ0BdJXxou61RAlmJAdT9v6qlZf4AL43mO4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0o8gbLjPLXjEfSrDV/+nldoPerDAEwkco9krbWJuQGpDcrI4+
-	erQsGCYc8mo3T93VMGp87YVppkHIbRWETxkdjW0coVyIefbj3azcnaJZz5USyxu5c1XUZqqJxM4
-	YXmd7lAAeuL4djOHyxuZvKJ95N0SAK10=
-X-Gm-Gg: AYBFou3V3PXa8he1LGD7oN047b+WuYKML9fVDj7OTmck/1uZEWSCLv5MLh+irVMUJSu
-	bqdEza+yeWO3oVU7rmi5kaFOI82uKMg5EbECRkkZDxGtanb8F6ejTaTsTGAHTfjkqrhI74DZap1
-	XVhcwxlRpUmt3ginuIKo0kEwVv4rPAc/AGGycRSmRmxdEsqZin8g+2rla5so+RRa4LYwV5KL4HP
-	1LNa8LFt+9au0wR7ZqS7cTBpnmVQqHlpBEPjN7OCWv4Y1FJMZ3f76Kj1FpR4BCl0knWn4wWmq7g
-	dcPaLlWtRkk20K4uRK9I9Y/peHn6IkbYC9oSA8BOpptA5vz5vXqTYVCTf0ShwUdlRYlp/y3Sloz
-	+rYoifM0EGVp+JpumwrLfy7BunhYR4ZF26VBAAs0nveen9qJ29qnLM0lnGO/TbheVqkueEz4=
-X-Received: by 2002:a05:6870:bacd:b0:4a8:5c86:20bd with SMTP id
- 586e51a60fabf-4a90764ca98mr5961924fac.14.1793591296222; Sun, 01 Nov 2026
- 19:48:16 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=YuLJD6aa
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793591543; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=UsyOruPU/4uzHcmKvCXiECAPVPbvFO7B0tp+W3CdJrI=;
+	b=YuLJD6aaRbBiLnm3A58MYJlJirznc7UZkbvfmHSz8ZsaGLWCBdLt1bvaMeXvpxnAJwWKWTrl9K4jcZncte9Va/POuK6mPuOFOV0nA/f1nMLb9JI2mb08eNgpTZMLFPskdgZiJCtoO1qW1xSjbuFotKYhbFU+wU6a5QVKUiYn5zI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R791e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=65;SR=0;TI=SMTPD_---0XDsjDyn_1793591534;
+Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDsjDyn_1793591534 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 11:52:15 +0800
+Message-ID: <b684dbff-6f38-4d44-9709-1e9303e2158c@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 11:52:13 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,44 +53,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102033244.9330-1-hjf3108@gmail.com> <7065bd99615f46c59171e0fe1672f3a1@realtek.com>
-In-Reply-To: <7065bd99615f46c59171e0fe1672f3a1@realtek.com>
-From: Jie Feng <hjf3108@gmail.com>
-Date: Mon, 2 Nov 2026 11:47:39 +0800
-X-Gm-Features: AclHuK_ILmnjasIrqA0E37vh7pe4UmdcP9K-PuCscZr5IG3089kvsOO8-3MExPw
-Message-ID: <CABOQOSWhp2E1ZiiO8OVzbetH0267m5qA2aoTeOwYaP8s6C+ANQ@mail.gmail.com>
-Subject: Re: [PATCH rtw-next v4] wifi: rtw88: usb: don't report the
- aggregation buffer as a frame
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, Luka Gejak <luka.gejak@linux.dev>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Hans Ulli Kroll <linux@ulli-kroll.de>, 
-	Kalle Valo <kvalo@kernel.org>, neo_jou <neo_jou@realtek.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/47] mm/shmem: make shmem_file() check the file's
+ inode
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-3-d6437171ecc3@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261031-fixes_core-v3-3-d6437171ecc3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2 Nov 2026 at 11:36, Ping-Ke Shih <pkshih@realtek.com> wrote:
->
-> Ho Jie Feng <hjf3108@gmail.com> wrote:
-> > When rtw_usb_tx_agg_skb() has more than one frame queued, it copies them
-> > into a new buffer. That buffer was also handed to mac80211, as one
-> > additional TX completion.
-> >
-> > Report TX status only for the original frames, and free the aggregate
-> > buffer without passing it to mac80211.
-> >
-> > In the case the ieee80211_purge_tx_queue is called, the frame is
-> > passed to ieee80211_report_used_skb. Since it fulfills none of the
-> > conditions within the function, the frame is freed as normal without
-> > a TX status in that case too
->
-> Miss a period. I'll add it while getting merged.
-Thanks, will be more careful about this.
 
-> >
-> > Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
-> > Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
-> > Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
->
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
->
->
+
+On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
+> shmem_file() only checks if file->f_mapping is a shmem mapping. This
+> mapping can belong to another file, however, as with a Coda file backed
+> by a tmpfs container after mmap().
+> 
+> So it does not guarantee that the file inode is an actual shmem inode.
+> 
+> Seal handling and memfd preservation use this check before accessing
+> shmem inode state, so they can access an inode of the wrong type.
+> 
+> Let's make shmem_file() check the inode's file operations instead, to
+> identify shmem inodes reliably. This will identify regular shmem inodes,
+> including memfds and ordinary tmpfs files, independently of wrapper file
+> operations.
+> 
+> Use shmem_mapping() in collapse_file() instead to not change the behavior
+> of collapse_file(): it operates on the page cache and uses mapping->host
+> for shmem inode operations. Focusing on the file does not seem relevant.
+> 
+> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Suggested-by: Pratyush Yadav <pratyush@kernel.org>
+> Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+
+Make sense to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
