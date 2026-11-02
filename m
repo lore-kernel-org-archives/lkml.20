@@ -1,52 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618586;
-	b=IMDL7KcZUeIuJVzKb3NcOhapNLPXFzqQSeLziiVnybo/u32V6bCWFhmkz/NtWNwO8PZo
-	 GmwnF52MuEawlP5c/+HOHG3UY7+E3uun9v2pELL9xvF8RtHBDl476up0wMnlenUK51sDw
-	 KGw7uQqGZHy1c/NLxi7iO22KKadoodLpoCdTMSX5Y7wjpquICJnA9WLunRAzDYLLGygUp
-	 RNmZJ0xqxiGy8rers2q4LrOooQtAq/YL3QalyI98JWwDYwhmLN4gaplIhHBTUueihD17w
-	 FG5yVFwiTIHQ0Gt1z8oMgCq0WBGDcDnmMXXHDp/wZxTEGNEml5ZHEdp7BqikHG5PORw==
+	t=1793618588;
+	b=GhNU8dZSgkYNfxl68mfjiylsyaRJvteh7RZrTNjM0pS1YmYmfUBOaGFQpI3wCWozyWkn
+	 lRGv52JCMX7fcnEZNgbTftURG+SlAORpdc2IzRnaaXMKcM4P0IMqIWN87tJc8wSh6WBRO
+	 XVVGp9xbjlOlvlS9KJq14PnCb5MxVlNOFZ5lbztsObDtne5vKflZghavE/gbrHfiQ7buP
+	 M8X9cd9TaLItpr1bn7/bTu0nC7RN+7//UP1tPK9zAVERWMtQ8+gC8SE6zNXz9tH88CSEM
+	 bM8wfLxiSstR3xeeki1PlFYBef/FjW+Z5HlBzOjKL99HvvIoFHUjLmRe7/vkb+SCnvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618586;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=eb9H+uxRvArRVVJKhsUr+93SDYJ1x6sKU3xCIma4RUU=;
-	b=NxKv8G3mowGWKlulq7Y2QBdurfqU8/+DcXQhtr0tV4HARYUseUE6BzRM1qc0lBpvCh9C
-	 IV1HRvg6TIVx0OXM5q8q4ADHhYasTMIKmLANFgg1Rx+kS3LVYaIIPGL6qsboBK6N4xkWz
-	 664kBVx2JMK9Ir4MANmV90iE7tflR5f/Vj1v0M7SqnPYKcEYEGp0qDrL/B+G8GHIHtVc7
-	 zLru5/xz6LutaFpAxBP5gbY1gLggYtxlib05m6FBo8eigMcygWxEqJ6N1AZmq3gTf1mS8
-	 sJtEOSNGQatXM012WjIkyc07K0134ZADyCR9g3QJt4peWJqVNOQwMdgs3z3DIWk4uAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618588;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=MLwsV9NgSX1cUZ+sDk8sdbw+D/bmCKl1tXgdytSXAeg=;
+	b=DMe7evsX1zdn/g37RpmIGB9psRmV7xP738iOmD+6lFIwdhC4/CeOLHJ5CM1ZMmK0NTdI
+	 F/nw5IZaPp6ZtOBE8fc05ULwXthME/tAyXdAgu4Q9KKZMkAIjM64PCkZIdrJEaL1/9+zI
+	 fzbEKkvQ/tcMPzusEGT7DesWbpHSUGt7ovnFu/haJ/ohdF1hjfL39om/ild6kiSDiotDC
+	 ygDKEK3jwe1hzN8rDDUQoTVkACzKSqa1uLuCWT7Oe2B1NRxbtWG40CEzw+kXLppPXGnX2
+	 jpw7ye9RO7C2OuxHbj3oVzE1EOEtFr9fSzOAPjjerlAI7FLmhnxWsbezIBAd24DITAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=S6G8eANt;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8AC6606A32F;
-	Mon,  2 Nov 2026 11:23:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8AC6606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVbzE52v;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E276606B3A0
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:23:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E276606B3A0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=S6G8eANt
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2EBDA1691;
-	Mon,  2 Nov 2026 03:23:02 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 254863F632;
-	Mon,  2 Nov 2026 03:22:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793618585; bh=zghhBXP63HUkMVsnVTW1BBI8m5GQHzJyarBmwmrVkLw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=S6G8eANtslFyveBpwPLZwAJIlHGPtPzLOZkPNUbQZrbf/e83nfgLtEhyRdEl+CKWq
-	 qbwPr2yNqC5ubwdh6TO7JSUkTYZQmq68VurvEE5YHy1zupilBrGF0jDnFDGjxNIWLR
-	 ZIyYkP1apZziEAVLn/pciEqxsStbIpEa7Hh9LprE=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Mon, 02 Nov 2026 11:21:27 +0000
-Subject: [PATCH RESEND v2 14/21] x86: mm: use pgtable_level enum in
- effective_prot_pXd()
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVbzE52v
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c46bd7a7345so580896866b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:23:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793618586; x=1794223386; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MLwsV9NgSX1cUZ+sDk8sdbw+D/bmCKl1tXgdytSXAeg=;
+        b=gVbzE52vZSXVkg90qyn9/dRBZgyInVdeABnqiccT1tk6JfbWd1QC1WlKCA/UO2f0b2
+         6ABREc8Zq1m8inodhEwUy4DvIyYstmWcoD/zFQRI/kqfm2f3AszLqUvRXJ2Re0+p8AqO
+         M+5VKV8gz6FJnAkW29WMUwaQiK4gJ1ptzSSVZjQQtAjoPRB/9haKuAx5Pggm7M7PSAiR
+         4paE5e74uVAyuWlzdN1Ihz95StexUF+kWMEW411MdjeiX23qDu+Ghx4aCxaa80YUZgfC
+         erLtXqVnk5TNRVOmkn8PMsO9TqmnSnvyuXDcIG+U83mkgSM+RxHvdXX2M1IXl9PT+2QO
+         T17Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793618586; x=1794223386;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MLwsV9NgSX1cUZ+sDk8sdbw+D/bmCKl1tXgdytSXAeg=;
+        b=qxcSKljcI65ELKU2jgo3a7EeksiMrmMCvhKhbDMBjELtSXYiGJWaj2sVhkQ8Nfd0/E
+         AcI7DeqVCT/D/dGk4tBtPY7o4nQa5zoQzTzi348Nr02/zlM8r/yVKcDWs8BecaTMWk+6
+         zccN9Oj4Os32nU3j5rdQpvLCCDlfTTAJDc2iKpaWm503Ntt7E3OhTGDXSlcVRSZpiaxw
+         JIKmPQuYTZ6HjiuiJiue3eelUm8SVJL1rE6Oqz4Vr9IMmOw04XSwLPcbVqB0/qUGdfSd
+         m7PQ+4Ic0I1DVVyZR0wxcMUx14cninvHKns7ef1c4Qk73GBvaxgmaXdC3HKCscWFFTfz
+         E7uQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMmGbrQvckRaXMWQI4ckjf/70eZRM91yIT8h9dsdJ9NKk7Y23r13TkSTEHPRDbNshfpyQYxuUGeg3coTU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/o0UJMhYvWzIQNz+xjVSyewkEG6k/ymalg4oHpO06+Pm9RmJx
+	R9fyjb4ULzvpaacGLPvOqySZUAUXF6gtbmjtYqc0Y+5u5f81gzhYq4XBcgooqg==
+X-Gm-Gg: AYBFou3V8J68Xy0KSK+UHim/EyTH5+ey4ocZEfskE9lWzYu6gUHQIZ7/jmvBoEYava8
+	uJnFTWYra7PDKz16uGiXfQRKJYeLec7vTNTAkzhpse+Pb2wLaoLq9/zXiw/hIDjHd3bNDLRRonu
+	2e5rplm0NgEZkC2Z+fVUze+b5P7oNWEb/o90HBKKPKSn4ORvglJQgnKm/lGKH9ToBgDV6Fz5W4N
+	YMxLI2tpcJodzG3wdMlRt3CnRMiUmBUHddB07jwZkT5SZvTYke/k6hk+HxkgsPzgVxPZKxGygpO
+	LDbwEj0e3aNTuvw21rMDD2Xe2VOVTorYSOXZZmbyTjKliJwsW4JEp5cFNBgmV4EKfICXN67gJ03
+	/rYGbudajB8XmhgElTLflSCiZ2Rtd8wuEVMGXStlmVdn3RPurcLM2oshTc1DmSiG7YEHQGNKqiW
+	qpV/qWG58bjdF9d+IzUxhKmjfMdz4buchS03c2zFCyCWtSDaICZ+ZseLYlnVlG7W9kXb2lRIbjP
+	PsieO9W5E+H85167w+I+xfL4FzOORO9JCCLPw5QjWmbMXQAcVDN1msW6mXf7cFwYxlZys5RN/3i
+	uSK8e/zQSqlCq9+qNLyNs58bvJq8a00xxQOhR6P8ZHcwRVI6h7gSLJ9XAqkvvQ==
+X-Received: by 2002:a17:907:9410:b0:c2d:c6e7:9e9a with SMTP id a640c23a62f3a-c4ca7a6aa13mr804002966b.11.1793618585792;
+        Mon, 02 Nov 2026 03:23:05 -0800 (PST)
+Received: from [192.168.1.89] (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe4a5f5sm377975966b.50.2026.11.02.03.23.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 03:23:05 -0800 (PST)
+Message-ID: <24af6daf-dbf3-5c47-beb7-077c4473ea7e@outbound.gmail.com>
+Date: Mon, 2 Nov 2026 12:23:02 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,126 +90,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+From: Eli Billauer <eli.billauer@gmail.com>
+Subject: Re: [PATCH] char: xillybus: use stream_open for stream semantics
+To: mdshahid03@gmail.com
+Cc: arnd@arndb.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org
+References: <20261031083610.87160-1-mdshahid03@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20261031083610.87160-1-mdshahid03@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-dummy_ptxp3-v2-14-78840b2ec73c@arm.com>
-References: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
-In-Reply-To: <20261102-dummy_ptxp3-v2-0-78840b2ec73c@arm.com>
-To: Russell King <linux@armlinux.org.uk>, 
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
- Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>, 
- Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>, 
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonas Bonn <jonas@southpole.se>, 
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
- Stafford Horne <shorne@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-openrisc@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2497; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=zghhBXP63HUkMVsnVTW1BBI8m5GQHzJyarBmwmrVkLw=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq6HI1tf/eYu583XiESkJqcFh0Ln97GwifsA4yJ
- 5hjudYl5LCJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCauhyNQAKCRBt1cPRWsUx
- M7CXC/9fvtgv/f2rLKFCQe85Z/Wsksb1TC8gpZAQmESeMsNOLwhQJwTmCgEHPluLgWZmholGaYO
- PnqbceUGyr1pcmOkepbh9WeQhL4X2VSfrEtz0/h20WYKiCUi6DjQ3COgz2a7ktLMFI97hvziCdm
- bvP/6V7nAGdhgaX5vVjhY3R9ZwFtaoK1vBgC48ycNo9pXyZAfuFvBcRGqEYuq6LOBAI/hFZIZcH
- xqCDdDYjQPSZH2av9CiYtQwZF5ykGASC3RunuGlgf5r27ykbJeWBfHvdzeoW2F3QkYqyH2l0vU0
- Z0S7et8IybfbSLMVGkurx+pcnIm7053a78ucdXh1zT6HrolfrzEBXSYNJluRMeCZjjAIH2AV5sC
- t8UzGaK5BaQLzP07023I0MrQcTZipUNmqyxr6TiuRmJaiSFAezEea6wC8bi5Jlni2CUujgPL+pY
- 1hdZrIDSt+PFoWQZaFdmoxibu5GmrsqgFCoMZphc2Vn0XSC70lJ+vtovtimon2aZhoE9g=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-Instead of using hard-coded integers in effective_prot_pXd(), use the
-page-table level enum so that architecture code does not need to know
-the numeric value of each page-table level, while also providing type
-safety.
+Hello Mohammad,
 
-This also prepares for using generic MM helpers, mm_first_pgtable_level()
-which use symbolic names for page-table levels rather than integers.
+On 31/10/2026 9:36, mdshahid03@gmail.com wrote:
+> Use stream_open() to mark these channels as streams and
+> disable unnecessary file position handling,
 
-There should be no functional change.
+The difference between stream_open() and nonseekable_open() is that the 
+former sets FMODE_STREAM and clears FMODE_ATOMIC_POS. I made a quick 
+test run, and FMODE_ATOMIC_POS isn't set in either case. As 
+FMODE_ATOMIC_POS is clear, no lock is taken while updating fpos either way.
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- arch/x86/mm/dump_pagetables.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+So in effect, the only difference is that FMODE_STREAM is set. Frankly 
+speaking, I'm not sure in what way this matters, if at all.
 
-diff --git a/arch/x86/mm/dump_pagetables.c b/arch/x86/mm/dump_pagetables.c
-index 2afa7a23340e9..a18a61e732c3d 100644
---- a/arch/x86/mm/dump_pagetables.c
-+++ b/arch/x86/mm/dump_pagetables.c
-@@ -248,13 +248,13 @@ static void note_wx(struct pg_state *st, unsigned long addr)
- 		  (void *)st->start_address);
- }
- 
--static void effective_prot(struct ptdump_state *pt_st, int level, u64 val)
-+static void effective_prot(struct ptdump_state *pt_st, enum pgtable_level level, u64 val)
- {
- 	struct pg_state *st = container_of(pt_st, struct pg_state, ptdump);
- 	pgprotval_t prot = val & PTE_FLAGS_MASK;
- 	pgprotval_t effective;
- 
--	if (level > 0) {
-+	if (level > PGTABLE_LEVEL_PGD) {
- 		pgprotval_t higher_prot = st->prot_levels[level - 1];
- 
- 		effective = (higher_prot & prot & (_PAGE_USER | _PAGE_RW)) |
-@@ -268,27 +268,27 @@ static void effective_prot(struct ptdump_state *pt_st, int level, u64 val)
- 
- static void effective_prot_pte(struct ptdump_state *st, pte_t pte)
- {
--	effective_prot(st, 4, pte_val(pte));
-+	effective_prot(st, PGTABLE_LEVEL_PTE, pte_val(pte));
- }
- 
- static void effective_prot_pmd(struct ptdump_state *st, pmd_t pmd)
- {
--	effective_prot(st, 3, pmd_val(pmd));
-+	effective_prot(st, PGTABLE_LEVEL_PMD, pmd_val(pmd));
- }
- 
- static void effective_prot_pud(struct ptdump_state *st, pud_t pud)
- {
--	effective_prot(st, 2, pud_val(pud));
-+	effective_prot(st, PGTABLE_LEVEL_PUD, pud_val(pud));
- }
- 
- static void effective_prot_p4d(struct ptdump_state *st, p4d_t p4d)
- {
--	effective_prot(st, 1, p4d_val(p4d));
-+	effective_prot(st, PGTABLE_LEVEL_P4D, p4d_val(p4d));
- }
- 
- static void effective_prot_pgd(struct ptdump_state *st, pgd_t pgd)
- {
--	effective_prot(st, 0, pgd_val(pgd));
-+	effective_prot(st, PGTABLE_LEVEL_PGD, pgd_val(pgd));
- }
- 
- 
+> allowing read
+> and write operations to run concurrently.
 
--- 
-2.43.0
+I checked that with hardware. There's no problem running read() and 
+write() concurrently even before this patch. And I don't see why there 
+would be a problem.
 
+It seems like FMODE_STREAM was supposed to replace FMODE_ATOMIC_POS 
+somewhere back in 2019 with Linus' commit 0be0ee71816b ("vfs: properly 
+and reliably lock f_pos in fdget_pos()"). That is where he urged the 
+move towards stream_open(). But then he reverted it with commit 
+2be7d348fe92 soon afterwards.
+
+All in all, I don't know what to say about this. Calling stream_open() 
+does sound more correct, and nothing broke with this patch. But I'm 
+generally unhappy fiddling with code unless it fixes something.
+
+Regards,
+    Eli
