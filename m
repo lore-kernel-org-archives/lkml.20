@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.33
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793628251;
-	b=3vUiqeYIHpQszgvOwvtQbPPs90bfEqBgi1uZarwE4G0By/tX5peRQ33wu870xEMxPbpm
-	 ck2uVDEPXqM4AmvnS3UjkNT1mqVPceBwLzNiPZTvApTUkQ17XT2DBlr+oUquLLaPRBlA3
-	 XJjpcBqgzJSkS5t7UpYX0nFWVlO9I37OR2aMBF+o7nIDmcJErqI6w1uO4LCnARq2EUtXx
-	 nVblKgVtq7+e6I597yhkRcQGnsc/d3DnCXZTP8HiS+cPrsk3jBe5R9SOJ5u1QuDc2crOu
-	 qWg0egjI8IujQbm3hXpEW5+1ZvjbaUlumsi0WU2XFKTX4XsASa71VM6sFPtxUILx2aQ==
+	t=1793628267;
+	b=0Z8a6hm4DRtkX3r/RPoHoa6uEhKVEjiF7GiMk0WsQzmOD2qdmRpMX0RE50PzmGZOaCbQ
+	 3JrbQww9rYwfdh9hCAWJ9NX6vmeNkaDQUQliGI8qrg2cHdNI1Es+OToa2uMx2p9ua8OXt
+	 3aHceRl9iwkOhppK3T3R7tgLLiXwAg90iAD+vl8ZMn+A2rgoS0eIyHz/2WobX+Ja+1NKb
+	 0ALNFwOpUamp5lhe33dJIukFY4hhlFWRI38tyjcywdbWIvgql0vaiKNP0oecvvrXwukWZ
+	 1VtFNah4jVJl22lrkGm+RRDdwiS1dtD9068ZI1a2xfDhhz4ZFjDYMSjwttjWtojKIjw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628251;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628267;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -25,54 +25,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=30Mhw5T6VIPLQBBT1IEg9GEUyNV4IXCWhE6JWrimVcQ=;
-	b=GNFeJoAXWxErBZnXjBPrBBkw/96HXQZiiE+nkRIJ1bwJd2vz7zlL3BxQ0DsQllfT3ewM
-	 XQdpYWttKQlE9U0DL/HXTRNewEE/ftx4VS85M12GA4lJn0L1HcmuY0oa/HyBhCKQ6NbJT
-	 HocAxMgJP0dwm8Wo9d/ewNkAaG9mN0OgFANTbC9hid7VhDlb0p47adsiFhBEpRbuq68aj
-	 pj6cK1M5VXQmqn7el2yrM31WvFHJwSsqtyxbdOoUA+APOaDyXtvV7zBPkyMxtiuBt54yN
-	 lY5dC55ma9ShHavpxtsgNuBeozMhO//MQz3qxhMqe444sYZw6ahhQEOXx7KHJ5hI+iQ==
+	bh=/r1uW/a74FvcOICqrXzq/n1hwfH5RjGbHO7AAzwsJgI=;
+	b=CzmH+4SX7aoF6vNAgRBMD0CK/nKFgLZ5AEiCpCBFcyQiQP+jqt6IontWb14DvKWCBvgz
+	 oJNl7/MCp7vTJX+Ku4JSaqey19njpBjY/cGivmvX3bzr1ryLfjH27RRM14bixpO3FopcN
+	 +s5Ah06bw3GWOIDUlXVXmqNU2EVWWWoedgMsa+y5A7hHTOw5oLYaqGSP2HZgJ4iK9vBSc
+	 7Yt8IoLKndssbYc8wsK6zR8Xiyhk8BqDwFBnnJMd59spkbJrZ3qaMC+EbOwk7Fp+l8109
+	 Cfaw82s8qQU1kp2vPu1F8dnfoVssMSktZ0UX0TOdlZ52S6vW5PdDXbhew7a5s3AEPOQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.nxp.com;
 	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="HTXyCA/A";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.33
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011033.outbound.protection.outlook.com [40.107.130.33])
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jGnXLmy8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.49
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013049.outbound.protection.outlook.com [40.107.159.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F720606A324;
-	Mon,  2 Nov 2026 14:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F720606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B15560A260F;
+	Mon,  2 Nov 2026 14:04:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B15560A260F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=HTXyCA/A
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jGnXLmy8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cPcd2sLG4V2CjAHOoShag0+jVz9brvH+eLXB2uY289t+8pOd8pNlne0b/HjkMF6DvHpVISLoEzMxJWSa8epEHko5CDa9gwkTle+XqZhs7ezEJshioITABPnYtWJpfDwMiP7futCNEv+GAUxD28gvymDD6EIKlXDGn8r1bxbyBA4Q9zAZkkFnInbkOFBBkQ/56GM0bc+gByNUkVLrO/vXZBcWYnHYi+wz2PUVqLiBXlKn14gkhhC9YSDOrwn0/4zs0fJMjQaBImqmvRuMeEe49gOg5YzAdZJzUjCh87YheqWQC7jgp9ECX9g4Q5byvtH+G04H6j5xyUjnsoiy3a0aRQ==
+ b=ytvyVyJs9189EX5otqngj24ygz6Lsvmfc7rGwQ/JK/7bxMbLsbwr+PEFx5f07lLvNxF5j0SUUKNlma0gYSrT612N8hfopJupC4cUWMYcpd2aANV1uD5YN3CimaMzU74mUwKSWoYNFpq3Q9e8js3Vrl+Wrhvo45Nqg8p5CEkB4EkkCpJIWYV3jQxOkPy14OXAakiuQGGV9JHU6+ynFA5B95fnEITTqZo8ixYsiZAp1BCGzPAWyD8MNEW79+hbfxcc70yd4LDufJX2KRayvremjFj1sPNbDIKVpgsYYfz3EQeP+csB6NAxyVFFmQIstHrN4qMqzaenh4D8pdpqcXTkJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=30Mhw5T6VIPLQBBT1IEg9GEUyNV4IXCWhE6JWrimVcQ=;
- b=szGatx1CmzQ1AMVAdpR56U1F7Uv3p4QLiqE2PSJb3XFiWgzsQFLcpgvgfi9VToo+qNlndUNPNTMY3ZoeCJphxEFeLl/Ws0Gnn/vyAMFRlp1cJt39x2238ADHTbM+ndst113P9RWE2WK+jiqaBDp/DqDXNK8WCWTqGAf0ikHhANaoxoDtymb10/qPIrPobcbx4L76Rom33pI7pbSK0TiiZGMYNAq9d88ioTlTIdPYnSYXlDpeMEaS/C8EQeyzZ0vW0jyYo7JdaY3HZyZusSWTFi1FkitF0fArc5KH0didd24jjcwPWFQktDPKOqTbiF76ibAmzobEWcKPnpd5uVKzdw==
+ bh=/r1uW/a74FvcOICqrXzq/n1hwfH5RjGbHO7AAzwsJgI=;
+ b=WM5lVES+JUGZOhaQZi+nf1n0l4g5Y7p48usmNyGg5wWCng3TZzDHa8EOF675C8uLs5jDhxyQPsJrKgc3Nq/U6328Khsx6cJk4QpQog9ndK4FghVGgoXObu8tjaQ65/Y2efEJkkJKZ/8Gy/w/qf+OeBnwLmbzsIVbKbb407/a1sLwXeQ1Zaz/ecdhJd1K3f4RrDcXSIYoiaq8NQgGM7paELh4WvjkO3VQFagV7kLq3x0f5s/MKFz5D3YDKQaE1t5uKWilNHw3MSOslJ6fJGhzeqEZY7xTYM72ODI7ImWSKulQVK/tKtcD0HQltHk+M+w7RYyhInpJuHsY3TJJSuKweg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=30Mhw5T6VIPLQBBT1IEg9GEUyNV4IXCWhE6JWrimVcQ=;
- b=HTXyCA/AsQc30L7OxU/yVxSMGAzQSAOelNt83JEMVscb7wQ3e4XqvBDkBS1uhYQiJid1ev43g5M6QadD7D9ZTIgsM+fw8srzx+gHeXQjUSusKm5J4QkCzzL+ReJv2LBY7/wJzQlnJUah2xDxmn3vWxgAAtSIVXximL3iy71/zZG2kL6IIN0JLUx1zSH15wWcrB7wzzfAXufIs+hJljruHI9WLy3mgMKbn+Kgo07JIoKSn9hGNy6ISimcC7y3ChWSCe9aHEB3LimsLPtcgCZtgYvxzt6qKxqcsso1I4bER6NqU+Gr/gShjKLsPa3kisYR3YcYgpa1C2lsL1SUufSApg==
+ bh=/r1uW/a74FvcOICqrXzq/n1hwfH5RjGbHO7AAzwsJgI=;
+ b=jGnXLmy8SGMgJ2Li73wzdN0UwSnx7vZYl8Gi3ZBBoZRrOLFEKb7q9/pK7mbx37TsGsIca1qiawj/gwaQqIxI4g0vpVIfaxiNXcaFhXe898dfVa1OgduG0rlRcqmHf//4E0Dkk3XSCB4sgPShjq43Hzb+QrZFrFmg9gsZsxbsRYHBTJ5BzgnkSvs62FwnKO2yb+dTbeTIoR0UkxsGQqZz6ohoRWRpOlwJ5iQMQTM32jzugw4GaiD4vBDkd5n0vZ2xcLarNFLM46gjHguIE/idlpyZIPXERmLBlKwBI2YPbsI1jLBShog7ExnfhirlaFSBpH3poXCUHQZML/j7uqCyDQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
  (2603:10a6:102:4ab::13) by AMBPR04MB12565.eurprd04.prod.outlook.com
  (2603:10a6:20b:778::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 14:04:08 +0000
+ 2026 14:04:22 +0000
 Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
  ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
  ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 14:04:08 +0000
+ 14:04:22 +0000
 From: marouene.boubakri@oss.nxp.com
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -90,16 +90,16 @@ Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Marouene Boubakri <marouene.boubakri@oss.nxp.com>
-Subject: [PATCH 5/8] dt-bindings: riscv: add OpenHW Group CVA6 APU boards
-Date: Mon,  2 Nov 2026 15:17:24 +0100
-Message-Id: <20261102141727.640769-6-marouene.boubakri@oss.nxp.com>
+Subject: [PATCH 7/8] riscv: dts: openhwgroup: add CVA6 APU on Digilent Genesys 2
+Date: Mon,  2 Nov 2026 15:17:26 +0100
+Message-Id: <20261102141727.640769-8-marouene.boubakri@oss.nxp.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
 References: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PH1PEPF00013301.namprd07.prod.outlook.com
- (2603:10b6:518:1::f) To PA3PR04MB11203.eurprd04.prod.outlook.com
+X-ClientProxiedBy: PH7PR10CA0015.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::17) To PA3PR04MB11203.eurprd04.prod.outlook.com
  (2603:10a6:102:4ab::13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -112,109 +112,344 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|AMBPR04MB12565:EE_
-X-MS-Office365-Filtering-Correlation-Id: babfda37-50c2-46b8-04d8-08df38ea297a
+X-MS-Office365-Filtering-Correlation-Id: 20d53ad5-70de-42bd-fc0a-08df38ea31dd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|19092799006|261021121427099003|260925021311599003|260925021911599003|260925022911599003|11063799006|56012099006|261009223027099003|261028144727099003|261022075727099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|19092799006|261021121427099003|260925021311599003|260925021911599003|260925022911599003|11063799006|56012099006|261021123027099003|261009223027099003|261028144727099003|261022075727099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	tAac3noDdZOUUhfzK1amEv0/jVjhg8RVAG7Z59drPRhDxycMn0jTXTpygVIbwnD27C4NGMOAn4ZUoWixE6S7WjOs/EoOr1wcBWwyfCdELjQGmxg491z7cEwp9KJOozq85psuiOVWGTj9qHHW5glVr4+HSXuhefOFXc437pVLSEqbi4iwht5u4VbtmetlNuAtDaO45CTTr8IUdvL14EiPfjzy1UqCFsDAqgtARS6jDbJKXw6lur50VUySgzsf9ifhYh46ouwr8iFE3p+6CvPxjo75Y1yRGtXGab4AaaoMjI3RTxhrxqfyg9s3z78cDpf5LrHIW0iUaoexjoDfrTHG5IshW7Dgk+nmMpHMNXYeSXVJJgaw3goKlBOb9vpPBQwMOMkIM/dqKK3Gi20I8xswERWvRihwylYg3GXiPr7HPZm+R//jfWGvjrVbhkc4A+FT2vQtyL4rQdofJhk3oyTIiNHAIyVgzZY+Uarw0wWNZvknH+AZBIrC67T0uzl5zdofMizbqx+S4KEtWZ48KJ7jjGN3zlIbaT8d8s20mShysfNkrBz+jT9ZNLwynP+pNO/HMDwMddj9MqddtI8MTpaSWGROvSvjSZKGuKXY8Lc8Zez7uZEd1B2QTRNzsQoFGOgy
+	hfl9EmUshsDhPzJqQeMfxf6iE4WKsnrwRrypccNbu/n+OAup4a9JmvL3FTObcfs7lL5so8FSyqorZVXN82xQ168xZXrOXNFYB3VU04lmfAroUMzVeqjAOuNCVAZ4PdWnsuQk0UJ5pEyL9F1YYdbIGNI65YNkewTosB7I9GsSOGeAlJIbfy7yELTB4NH2Omf5fL/e/Q+mUMay7lfq2+ZahnllRCeETmvtcFV8vY3pNq8X6Zm9kOp1Gg2xfYtvGibr9u7Ms8v1wn1uycKjyguA/SbiPEPuMaO15yc/hbdmcWPgfTdXK6SpcHNrgzbmlPwH3FSejMyiYsk/gOtmfmP3ZTeZ0yj0C1yMC4PpYX+A7H9VBKZR+YfK69Pl2fQD3ojJalk5tu1ku6inAFc0wXqUPWeAmKedIzWfrXlOLPsyEWjIRRta8y5sJ8RtsR38/1fcgjcvioYniloO9pjRYu7x412GpkXPNFIki9OiISk8S6Ey4C0V/qFoi6BmPwyNDSJN372j3RChdIr2facmllG4j/zn3GDMto+roIdVrlriLdJycqpjpr9b58c0z99HSLaz0lZYM5ibsHUGbXhZfmHU6/nCyl4sHS/yzM5+y5l0hywhqxXKOCB2KFtYi6BVlZWL
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(19092799006)(261021121427099003)(260925021311599003)(260925021911599003)(260925022911599003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261022075727099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(19092799006)(261021121427099003)(260925021311599003)(260925021911599003)(260925022911599003)(11063799006)(56012099006)(261021123027099003)(261009223027099003)(261028144727099003)(261022075727099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9Gw/mzGsoHqZeDdXZS+Eb5OMlJm0MaFxCsvDCR7xa5biqm4jskfWVDrBw4j+?=
- =?us-ascii?Q?3Ak9yI/Sr/0zjtItJuomXqGHuY7MbiEBF6n++Qup1jFHqt7aRmuzUCBKdHm1?=
- =?us-ascii?Q?44nGhcvMrG2z1K5vCvEoa/aL6X8XqybBAFG8JS4ygDIkUFlb8gFK3OROQoFk?=
- =?us-ascii?Q?ctE23K6+4vGlrMwW5F69lq0Z9/g5HZZNRrx8Unhi7zEV/1olSYJxt6w8eLsb?=
- =?us-ascii?Q?sUBkGyaB9F2Pzwvud1pOrqqZJxTgBLceU5ecLIwjOOegL3XsIisik87CKTj9?=
- =?us-ascii?Q?0X5b2/YcQBMDzSCiBM3OVEPA09aEV7LylOmysOy2B3vmeCKJ/KDyZ3HM1wN1?=
- =?us-ascii?Q?OT5ayMurQsJDG3YiOAiSwAV5jHqMPq90ZeyyYdT8+xLLQWaizO7Lpr2HaUeR?=
- =?us-ascii?Q?d5Z3QKcgmnTLTMggMZiW6A/4yoC9OiRmoSCb+5ROHSwWbQ+9zSCwowK5TRVx?=
- =?us-ascii?Q?rCXrel4ar09EMbB+Yi6Zb+RoENSLG5f8muLwHD2no7D2EZORaGelYS8wqjll?=
- =?us-ascii?Q?v+KMxIpf1xl7kr1djaM9cB/5OcQKKyLo3WgmWBCnCv/hiEcez6RZ2/PQLbdP?=
- =?us-ascii?Q?0Y4ZudRFpVKwDpStkeIxKgeG/9XYB8nQx9vKgyy3N4UzoHd7hSUWpMpk0zVU?=
- =?us-ascii?Q?OfKHi9eE8o4yEmoBCxCWGpPiB5fpdgvggeyx92ZpzrqShXlZOZnn/7ZDo0gC?=
- =?us-ascii?Q?zkPAzirZy1MiMIx3imKTMTpqQn2cziAnehp2kHZ04CPLmzDdb2vhs5N67Us2?=
- =?us-ascii?Q?BVerBBjf+ha7AXUor5cwxRYssYngRP0U7belIjROxv95QUVcjX3OWsem3PZT?=
- =?us-ascii?Q?bblL9vWB2thJqidH9aswEtBUyyXjprwuH39zAAHY0+a6nzvEw0eR5YxrR0CR?=
- =?us-ascii?Q?V11UoUFRrbfIRoQk/EY7lZ+euNeS+UaA/khgasTA0MQDbxomS2FJ3bdGeEuj?=
- =?us-ascii?Q?RABy6cUwLlIBa1PR4DkgO8EPU+u/4BgOjT6oLe5J9STPtTFemAQCsl6EZ7iZ?=
- =?us-ascii?Q?T7Gj6MJcBd3f/JN7TuYb5fPGNcyg1GdYLbkFLtmt7CzLNiwkyZwG7GSNV3RE?=
- =?us-ascii?Q?GDIfAeFm5CEYz6AZ+c9ehUzkMUIWgMHGs86JuM4LVkNg6UCYo2xPNqyWB6cX?=
- =?us-ascii?Q?qESXNLhgTjv3izuJpYo91bSwygthwEEuTumCnsaaVw+/9PMrtlXmQ/GQPo8N?=
- =?us-ascii?Q?cqTwVmCmI7eS52PcG/eXAGTK2QYnOW0/WLDPXnIYcv+81NwkTFY5/6VEabZU?=
- =?us-ascii?Q?fYTKChSf1E8UqKp5cTQDBgo17TPENyg96h23kUSgNJeIHGh4s5ZhhZrwvqrt?=
- =?us-ascii?Q?6vNMGAPKCLKVnagP2L2Bm8MJmHRCYGIfceQBEXnhPoipT7hFBM/Nj1gn2sOl?=
- =?us-ascii?Q?5j66C6saxWuSG+n5lnj5utwGvnQizP0kMVAyH4KZJe82N68i4iVpqG2sKedZ?=
- =?us-ascii?Q?Fv07wBWnmgCFffr/oJDQkDccAVwcf1OyfFPr7Ta9DdL0HF43Os4xed0M/4qh?=
- =?us-ascii?Q?2/pUKyzcn7LJmlfBqiIWCgcncKc6G/eI7e9NnqeieUZTf65dKE0zCIkgLHuY?=
- =?us-ascii?Q?TtOR2tzAJr2kDy7V9btmyeg3lPjhboT5EueZ14ATQnxZsAwbiJks1SzNb5OB?=
- =?us-ascii?Q?o8QiJpcl9Tb7r6tLMtw+RGEmr7eJBKjqAnEcVTv3vVoBkVxbx13aiKj3OTKN?=
- =?us-ascii?Q?64pa6q/hPrNB71ZFxpgR5fLKZpKn46N38BEdXgo/89T2K0AjsslCwxtpcyCD?=
- =?us-ascii?Q?AnF830NvcHPmMOibQYReMkayP5JeGgnovcEvOtkxTPTjSBIflNsT4Ay8RZRZ?=
-X-MS-Exchange-AntiSpam-MessageData-1: Kfb/oQ0eSzcexg==
+	=?us-ascii?Q?qUK0y4QM/YkvzvKKBU7JJRcZO8QFRTiDxcZ+T5J6lTusWLfVQDeyPdnuyiDT?=
+ =?us-ascii?Q?7qUBaOGrttWxRDDltSN3hYx+1fENoDu18aXPSn/O/DVT/hYHwMmW18Wtg5Zw?=
+ =?us-ascii?Q?6fuRumV+CaIq8xUiHij3So4V/TWOY6X8wECgMzOTf0X5QKsrnjVlujDwWkSD?=
+ =?us-ascii?Q?fdQnWaqnyZH8eZvfKLj/srZ1x46/KbikNyjRuqJFAR+7/NADPPSk8h32cBAm?=
+ =?us-ascii?Q?bLo9Dd0sQi+djr8rQgi4u7BOIPb/dcYo5oieREaAXnnUrzXfAP19eyC0/VJc?=
+ =?us-ascii?Q?SjsZMWXJu/qUfRh25FqfUXu5wRjZlkWQO/WCBfN9i8rjd0Y096ghMvvVdk0v?=
+ =?us-ascii?Q?48kRNRXBt5mko4AzxSjcgcuuF7EeMGpJEBb9sh1vuN4FIJ9hSXjD+P/MAe3e?=
+ =?us-ascii?Q?cDEZxC/k0/iUVHAMPfoOk10yiRuPziIi3BO7fwFTHpZyIX5mtX84jrV9FbAQ?=
+ =?us-ascii?Q?fRKZtd96lUVAaRikp/R82h+lEpKtVluJoBaDXXczVEAI2vkoY0RKA2HL+Gos?=
+ =?us-ascii?Q?Lw06QVhgjTomA8XiB/7l2apyIMBZ9DzwJMkZfHgl4HSRxJLZxRlZT76798+H?=
+ =?us-ascii?Q?vchsQu6SaMaGVCMCSPUVPhQfYLx1nctKvqRpjqh98r08ZgBkjO9cnhUS8UMU?=
+ =?us-ascii?Q?t/2NwtyyU4RABtlZkgMg6Vteb1KCLCL+9fGAPzsrjOYTOJbCyomCKjBSYw3k?=
+ =?us-ascii?Q?23Ik+XaU+4NNRrgy4+jvypmmM+/wJjg5cGnDGWlFXm28pgDoQku8g3f+B8va?=
+ =?us-ascii?Q?hBEPOIREeEGW7eJPfsTl+DfuV9hXzFKThMo4dSG9QZnYXy43vf0+zJU+5NGq?=
+ =?us-ascii?Q?O4Cqx3bOXWJYmlCmGLvydC9B4YuNM7j+9+bBLVw/bzNEkcjdBL1mILnHFldd?=
+ =?us-ascii?Q?2Lysha5oEmHMq+yseaR0450kGKIaK0z6cUOWs9i2QH8vmsDfjr6akiSQC5GA?=
+ =?us-ascii?Q?1zpvAJ80TOjTgOD7yVQIL+qerAZCoXivcLhbnA5iOKo1CGAQhTIrGjZXB7O2?=
+ =?us-ascii?Q?dE5wCPabO7fnbLzrSAb+PXbdtZnQHQ03zrpW0s3rZouCiMl8+pseuwvCPCjg?=
+ =?us-ascii?Q?42P5YqPs956F323vO/jDuWKmQp10PLKwjEJ5aYmGErS5zLWJBgTx3UGGz1rX?=
+ =?us-ascii?Q?MO4NXs8USnEyatn7tdYDPMVUiQpFp7dvkW9BGwOkC0SXjbWRhp6xUgxUP5Nd?=
+ =?us-ascii?Q?ZgOYYZ8WDCt1efHELfQef4CuE6rAYgy2tck+J8ZrnGtx8QxM1xKiZCJvZ5vL?=
+ =?us-ascii?Q?j+3K6YAd4n01wL6G87rpUfDrE2kaBwsHFc39uSEQA2M0vBv1Vrrf+xSvcu83?=
+ =?us-ascii?Q?xIAgk4mY7PMi8KAOkronz8UyrJV99Kh8T6k8EuvOzCTDiWoClRwB2ogstn1o?=
+ =?us-ascii?Q?O2n0Y1OCbYRg+gUD9/JcQ9iNL/8TL06mr8BvYi9QfE7Vp45gRRR1b2FRucv7?=
+ =?us-ascii?Q?+8CLjD0qWoQdGGeK2/VVpL6q8wdcIvJNfLTdqWmap7EFao0hhYHD0RX7+1ex?=
+ =?us-ascii?Q?rYpU957MwI9THAkiDM0EhRqntGj0IX372LKxmg7lzusU8kFszCmphof0LPQK?=
+ =?us-ascii?Q?S72ixgrL1aeI7vM4Bt1lmpOk+CBO4AlPSGMXCpxMyW9Q0C6hgkkNwJBj0mKa?=
+ =?us-ascii?Q?ImmAFMStSpuC9qStL0P8eUBe5Aft6u3EtYzXOx9/Mlg9cZfn9Ro/p4wQwd0G?=
+ =?us-ascii?Q?ourRK8cfNyFgiWG7v6i8b0AC5DkOdT831qtRAlmpNMbiXv7SZmJJ8UgOEIYe?=
+ =?us-ascii?Q?rfEsYkkUyUBd9LY+t5AQqU38vsu5vb/yT58cLkyGB8u4tG7WdWOq7bpMUoGX?=
+X-MS-Exchange-AntiSpam-MessageData-1: RapGprt6rryWWw==
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: babfda37-50c2-46b8-04d8-08df38ea297a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20d53ad5-70de-42bd-fc0a-08df38ea31dd
 X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 14:04:08.1522
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 14:04:22.1503
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BfLeJymIsLBUAtaDfcplT24nNQF9DWV6EIuaibtiB24snnSLHZbWZminbq/JVaSOUo10VsAdB2lw1ZwJOwabKsd4CjJcdV5hfUNK9bgklUnUQMZCE/kThfrvijttJdbXOox7UbeJsqPX/zEUe4fEeQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Lxt9SA7MZhaRpcfXO/A3ePufjSMCcxu/FJBeRw9+tQ/P8TgqIIQJ9+ERQTU8nIvBQUMQrwUy/SynMEYtIyz1xmYXChDQA44y6r5QgVvI+8Yk0ms5Y2tRlVkLkr3mbnNxRn2kQXVmkpK/l7SxNCnjBg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB12565
 
 From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 
 The CVA6 APU is the FPGA SoC built around the OpenHW Group CVA6 core in
-the CVA6 repository (corev_apu/fpga). Add the board compatible strings
-for its Digilent Genesys 2 builds with the 32-bit (cv32a6) and the
-64-bit (cv64a6) configurations of the core.
+the CVA6 repository (corev_apu/fpga, release v5.3.0). It targets the
+Digilent Genesys 2 board and provides a CLINT, a PLIC, a 16550 UART, a
+Xilinx SPI controller connected to the SD card slot and a Xilinx GPIO
+block driving the LEDs.
+
+Describe the SoC in cva6-genesys2.dtsi, shared by the two configurations
+of the core that the FPGA platform builds, and add a board device tree
+for each of them:
+
+  - cv64a6: rv64imafdc with the B, Zcb, Zicond and Zkn extensions,
+    Sv39, 1 GiB of DDR3
+  - cv32a6: rv32ima, Sv32, 128 MiB of DDR3
+
+The ISA extensions follow the core configurations of CVA6 v5.3.0
+(core/include/cv64a6_imafdc_sv39_config_pkg.sv and
+cv32a6_ima_sv32_fpga_config_pkg.sv).
+
+The platform also has a lowRISC Ethernet controller and a PULP APB
+timer. They are left out until bindings exist for them.
 
 Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 ---
- .../bindings/riscv/openhwgroup.yaml           | 30 +++++++++++++++++++
- 1 file changed, 30 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/riscv/openhwgroup.yaml
+ MAINTAINERS                                   |   7 +
+ arch/riscv/boot/dts/Makefile                  |   1 +
+ arch/riscv/boot/dts/openhwgroup/Makefile      |   2 +
+ .../boot/dts/openhwgroup/cv32a6-genesys2.dts  |  29 ++++
+ .../boot/dts/openhwgroup/cv64a6-genesys2.dts  |  31 +++++
+ .../boot/dts/openhwgroup/cva6-genesys2.dtsi   | 131 ++++++++++++++++++
+ 6 files changed, 201 insertions(+)
+ create mode 100644 arch/riscv/boot/dts/openhwgroup/Makefile
+ create mode 100644 arch/riscv/boot/dts/openhwgroup/cv32a6-genesys2.dts
+ create mode 100644 arch/riscv/boot/dts/openhwgroup/cv64a6-genesys2.dts
+ create mode 100644 arch/riscv/boot/dts/openhwgroup/cva6-genesys2.dtsi
 
-diff --git a/Documentation/devicetree/bindings/riscv/openhwgroup.yaml b/Documentation/devicetree/bindings/riscv/openhwgroup.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 782389bd5c..17865074a2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23566,6 +23566,13 @@ T:	git https://git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/
+ F:	arch/riscv/boot/dts/canaan/
+ F:	arch/riscv/boot/dts/sifive/
+ 
++RISC-V OPENHW GROUP SoC SUPPORT
++M:	Marouene Boubakri <marouene.boubakri@oss.nxp.com>
++L:	linux-riscv@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/riscv/openhwgroup.yaml
++F:	arch/riscv/boot/dts/openhwgroup/
++
+ RISC-V PMU DRIVERS
+ M:	Atish Patra <atish.patra@linux.dev>
+ R:	Anup Patel <anup@brainfault.org>
+diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
+index 69d8751fb1..305a93ad6f 100644
+--- a/arch/riscv/boot/dts/Makefile
++++ b/arch/riscv/boot/dts/Makefile
+@@ -5,6 +5,7 @@ subdir-y += anlogic
+ subdir-y += canaan
+ subdir-y += eswin
+ subdir-y += microchip
++subdir-y += openhwgroup
+ subdir-y += renesas
+ subdir-y += sifive
+ subdir-y += sophgo
+diff --git a/arch/riscv/boot/dts/openhwgroup/Makefile b/arch/riscv/boot/dts/openhwgroup/Makefile
 new file mode 100644
-index 0000000000..3bca66cad5
+index 0000000000..a75a5863b7
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/riscv/openhwgroup.yaml
-@@ -0,0 +1,30 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/riscv/openhwgroup.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/arch/riscv/boot/dts/openhwgroup/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0
++dtb-$(CONFIG_ARCH_OPENHWGROUP) += cv32a6-genesys2.dtb cv64a6-genesys2.dtb
+diff --git a/arch/riscv/boot/dts/openhwgroup/cv32a6-genesys2.dts b/arch/riscv/boot/dts/openhwgroup/cv32a6-genesys2.dts
+new file mode 100644
+index 0000000000..83d0286171
+--- /dev/null
++++ b/arch/riscv/boot/dts/openhwgroup/cv32a6-genesys2.dts
+@@ -0,0 +1,29 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++/*
++ * Copyright 2026 NXP
++ *
++ * OpenHW Group CVA6 APU, 32-bit core (cv32a6), on the Digilent Genesys 2.
++ */
 +
-+title: OpenHW Group SoC-based boards
++/dts-v1/;
 +
-+maintainers:
-+  - Marouene Boubakri <marouene.boubakri@oss.nxp.com>
++#include "cva6-genesys2.dtsi"
 +
-+description:
-+  OpenHW Group SoC-based boards. The CVA6 APU is the FPGA SoC built around
-+  the CVA6 core in the CVA6 repository (corev_apu/fpga).
++/ {
++	model = "OpenHW Group CVA6 cv32a6 on Digilent Genesys 2";
++	compatible = "openhwgroup,cv32a6-genesys2", "openhwgroup,cva6-apu";
 +
-+properties:
-+  $nodename:
-+    const: '/'
-+  compatible:
-+    oneOf:
-+      - description: CVA6 APU on the Digilent Genesys 2 board
-+        items:
-+          - enum:
-+              - openhwgroup,cv32a6-genesys2
-+              - openhwgroup,cv64a6-genesys2
-+          - const: openhwgroup,cva6-apu
++	memory@80000000 {
++		device_type = "memory";
++		/* 128 MiB of DDR3, as configured for this core by the FPGA build */
++		reg = <0x0 0x80000000 0x0 0x8000000>;
++	};
++};
 +
-+additionalProperties: true
++&cpu0 {
++	compatible = "openhwgroup,cv32a6", "riscv";
++	riscv,isa-base = "rv32i";
++	riscv,isa-extensions = "i", "m", "a", "zicntr", "zicsr", "zifencei",
++			       "zihpm";
++	mmu-type = "riscv,sv32";
++};
+diff --git a/arch/riscv/boot/dts/openhwgroup/cv64a6-genesys2.dts b/arch/riscv/boot/dts/openhwgroup/cv64a6-genesys2.dts
+new file mode 100644
+index 0000000000..8fe653b35c
+--- /dev/null
++++ b/arch/riscv/boot/dts/openhwgroup/cv64a6-genesys2.dts
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++/*
++ * Copyright 2026 NXP
++ *
++ * OpenHW Group CVA6 APU, 64-bit core (cv64a6), on the Digilent Genesys 2.
++ */
 +
-+...
++/dts-v1/;
++
++#include "cva6-genesys2.dtsi"
++
++/ {
++	model = "OpenHW Group CVA6 cv64a6 on Digilent Genesys 2";
++	compatible = "openhwgroup,cv64a6-genesys2", "openhwgroup,cva6-apu";
++
++	memory@80000000 {
++		device_type = "memory";
++		/* 1 GiB of DDR3, as configured for this core by the FPGA build */
++		reg = <0x0 0x80000000 0x0 0x40000000>;
++	};
++};
++
++&cpu0 {
++	compatible = "openhwgroup,cv64a6", "riscv";
++	riscv,isa-base = "rv64i";
++	riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "zba",
++			       "zbb", "zbc", "zbkb", "zbkc", "zbkx", "zbs",
++			       "zca", "zcb", "zcd", "zicntr", "zicond", "zicsr",
++			       "zifencei", "zihpm", "zknd", "zkne", "zknh";
++	mmu-type = "riscv,sv39";
++};
+diff --git a/arch/riscv/boot/dts/openhwgroup/cva6-genesys2.dtsi b/arch/riscv/boot/dts/openhwgroup/cva6-genesys2.dtsi
+new file mode 100644
+index 0000000000..95978274a7
+--- /dev/null
++++ b/arch/riscv/boot/dts/openhwgroup/cva6-genesys2.dtsi
+@@ -0,0 +1,131 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++/*
++ * Copyright 2026 NXP
++ *
++ * OpenHW Group CVA6 APU on the Digilent Genesys 2 FPGA board.
++ *
++ * The SoC description is shared between the 32-bit (cv32a6) and the
++ * 64-bit (cv64a6) configurations of the CVA6 core. The core specific
++ * properties and the memory size are set in the board .dts files.
++ */
++
++/ {
++	#address-cells = <2>;
++	#size-cells = <2>;
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		/* The CLINT mtime counter runs at half the core clock */
++		timebase-frequency = <25000000>;
++
++		cpu0: cpu@0 {
++			device_type = "cpu";
++			reg = <0>;
++			clock-frequency = <50000000>;
++			tlb-split;
++
++			cpu0_intc: interrupt-controller {
++				#interrupt-cells = <1>;
++				interrupt-controller;
++				compatible = "riscv,cpu-intc";
++			};
++		};
++	};
++
++	/* Peripheral clock, the same as the core clock */
++	clk50: clock-50mhz {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <50000000>;
++		clock-output-names = "clk50";
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led-0 {
++			gpios = <&gpio0 1 0>;
++			linux,default-trigger = "heartbeat";
++		};
++	};
++
++	soc {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		compatible = "simple-bus";
++		ranges;
++
++		clint: clint@2000000 {
++			compatible = "openhwgroup,cva6-clint", "sifive,clint0";
++			reg = <0x0 0x2000000 0x0 0xc0000>;
++			interrupts-extended = <&cpu0_intc 3>, <&cpu0_intc 7>;
++		};
++
++		plic: interrupt-controller@c000000 {
++			compatible = "openhwgroup,cva6-plic", "sifive,plic-1.0.0";
++			reg = <0x0 0xc000000 0x0 0x4000000>;
++			#address-cells = <0>;
++			#interrupt-cells = <1>;
++			interrupt-controller;
++			interrupts-extended = <&cpu0_intc 11>, <&cpu0_intc 9>;
++			riscv,ndev = <30>;
++		};
++
++		uart0: serial@10000000 {
++			compatible = "ns16550a";
++			reg = <0x0 0x10000000 0x0 0x1000>;
++			clock-frequency = <50000000>;
++			interrupt-parent = <&plic>;
++			interrupts = <1>;
++			/* Registers are 32-bit wide and 32-bit aligned */
++			reg-shift = <2>;
++			reg-io-width = <4>;
++		};
++
++		spi0: spi@20000000 {
++			compatible = "xlnx,xps-spi-2.00.a";
++			reg = <0x0 0x20000000 0x0 0x1000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			interrupt-parent = <&plic>;
++			interrupts = <2>;
++			xlnx,num-ss-bits = <1>;
++			xlnx,num-transfer-bits = <8>;
++
++			mmc@0 {
++				compatible = "mmc-spi-slot";
++				reg = <0>;
++				spi-max-frequency = <12500000>;
++				voltage-ranges = <3300 3300>;
++				disable-wp;
++			};
++		};
++
++		gpio0: gpio@40000000 {
++			compatible = "xlnx,xps-gpio-1.00.a";
++			reg = <0x0 0x40000000 0x0 0x10000>;
++			clocks = <&clk50>;
++			#gpio-cells = <2>;
++			gpio-controller;
++			xlnx,all-inputs = <0>;
++			xlnx,all-inputs-2 = <0>;
++			xlnx,dout-default = <0>;
++			xlnx,dout-default-2 = <0>;
++			xlnx,gpio-width = <8>;
++			xlnx,gpio2-width = <8>;
++			xlnx,interrupt-present = <0>;
++			xlnx,is-dual = <1>;
++			xlnx,tri-default = <0xffffffff>;
++			xlnx,tri-default-2 = <0xffffffff>;
++		};
++	};
++};
 -- 
 2.43.0
 
