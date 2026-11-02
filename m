@@ -1,104 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793654720;
-	b=knUonThFycKB1u3w/jeKrcR117cxfrTo0jFvV2MJi+jGTckex2SMaDDcrwJGWikC+Q+x
-	 goKeQGuy7f2p3GIbC0IRdX2UOFxAVXALtmV8XCgjtX8IqHnMiudoqHPtFsv0eP9kO7RmX
-	 E6D+NJJZc/bTlp9XPHNswvp4NeRWV7er5grQBb41ghOrQSwImrN5AydvEv133xyqtE8Aq
-	 aK9XX1VWsYFW1njPfvf3s8U80ZP1DwmvgAQg0s/6Gp81JFpE9NG/cnHFilrPaaaDX8+IY
-	 ufCSUP/eTXp+PY4nwGXrBq8UHJghi/z9hSJIY32WggQ1qujNT1sD1Ml++lsCdZcdDDw==
+	t=1793654733;
+	b=Sw6ZEeJcSrnzF5WQo2z3OI2Bum/QWUZodc0mtEuzu3iSzgq6eUbEfOhzCiI93FUs7qbv
+	 S/C5yi/q6vtI7ToNj2xPOio/RJ9U1LP/Hx9of++kmNFDYJUSINeiYd5clA0C7QVPCgsVC
+	 oosZTholhxDvE28Hweki8Dlj4C4EzP93uLY9XvrWTQTTTHmxCsNqy7Z4GzzHj2ghXjAB+
+	 ZTN4RVMg3dvfOiZxfmHUMzgqseq+ZljoDrO4dgxwf5XuYpYNbcgXaRShcC/PMDB20/StQ
+	 fqYmzhYKeKdnckNb7FEWpsv8reN612cnHv5j0jw6aKtRK3+YbAQtuI1ClMTZiidtQPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793654720;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=h4Pf0yuMbG7VmbL6qh5TPaycUsxMKNE4IhWYVqEHmlg=;
-	b=jOOzmzc4+f20MLjV58Nf08jZtHQaJxU5dFtAGaEPhx1qOHj6x9aFoYhNLw2xON/yTPAa
-	 0C1vwmhLsFJxTAIOWf+4ygG62zlJrGV+jBS0KKKWqAmRY/5GJA0XEtusCdsP4OD3pLPnS
-	 5fjZeUZhb33IpVObzf6PmfrQNg3HW/fAI0abY7g9ga7LcROTo5cl0HrLhK+WnUvLOfDVL
-	 uOXl3o4mtBqJD9Vvtsvp3P5RTVcy39SuS6+0ONSzLv4xBXmRb0kckB5Sh90z7eRSpaSXr
-	 OeW1o2JKgUqXxsbBiBSagbBVzR1BzfAnJfjVwTAXWHvqYmt/esxWTgjC2T1DKCNFalA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793654733;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Dyy/30Sdte4Ve02aKSe0PVid2WxXxrenmHRYm4WhPxs=;
+	b=guJBL9cESvtaFAmafPLJqtkS/QVCMY3sGDxUHN8Y/EHXSD3j030S5lYv68luAolAN7H4
+	 BvXTKD9q7o6TzV0tXS3aqzf8niwbZoFHq7JoV/7djE8Y0Ki2IDAAl1MAWCJcpdRpPdDtN
+	 sn6Iq0c/ltaR9TPaqCgJ12lpkKUYMHjcgEyv7OX4mCNfHTGRReASsjLkHwf+hGGjWwPMK
+	 FANB7mAhPGpXIjG6z3+/awKgrEiJyPl1cjcFbjO1noMNl5usCFqRR77MlbYoJouGyTqE3
+	 ja7yIV0P4SpgWaHkcq/HR/SUTEXPrYnCJUUY7PWKyinRf9VhMd35+tE75ifrmCKwbbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TfsHWPJ1;
-	arc=none smtp.remote-ip=74.125.229.136
-Received: from mail-dl2-f8.google.com (mail-dl2-f8.google.com [74.125.229.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+xOe4S1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC5A606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:25:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEC5A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00507606A324;
+	Mon,  2 Nov 2026 21:25:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TfsHWPJ1
-Received: by mail-dl2-f8.google.com with SMTP id a92af1059eb24-1379d236149so1383815c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:25:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793654719; x=1794259519; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h4Pf0yuMbG7VmbL6qh5TPaycUsxMKNE4IhWYVqEHmlg=;
-        b=TfsHWPJ1n68z8xUUlj2uRPFXLeIhHK13XYNQ1S2qUKwSsUQ4aSJYSFehqgo+FwK1kV
-         qf+0VLvKWBqNqbM0feaXatX/jVAM0C/YicvoOlJ6UqRHkB2uLjinMaiJK2GMzJm1LWu1
-         iuCNRt/8AdAJFf+vDRDysHLhEMGfZKMyJJ83y8CXlJzCvgEs6AXuhWXb4JF7Eemj7GTA
-         WotZucqDedMBpThanrOi8haFUlbUlWyUnvwrXNg9GykDngCmwm7IG9D2X+0X4JJQz1me
-         aGqAUrb2V2WGP0lk4M1SDxsnZTTqE/hhXXIZktMHiEowexUBqG6xJxRQHDgINMlgUmYP
-         BEAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793654719; x=1794259519;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h4Pf0yuMbG7VmbL6qh5TPaycUsxMKNE4IhWYVqEHmlg=;
-        b=cxB68i3ANp1CaTQMWBip6JrOgE9hJ9n3Loo5Ftw+2rJiHgmjQC5ZK3vgOlmYhxaQuM
-         1YKRj3AABamcjR8gKl6ICQ7gqUGeHegpVDsG2gWRQBEdmCtksC431ftWODwlkPaQqYy8
-         tkFiYZsRwZus7NPGyiEPPYxVz+2ZNoZVI27Zow8bjy/wrDmiSCTvBdAYWEsDomzA37/U
-         hzMpoiU/VXU6DkONRCJJTixeW5HJJfdjQV5if1w/Lvkv7gxTpMi9WzQtb/yO6taOxlG2
-         ZwBsz7gmu+FxmolUyEDwiCie4qUcL+Sd650R6Yv4aBi9SS7TrjiaQWiJMKonsCPuG5hh
-         NL0w==
-X-Forwarded-Encrypted: i=1; AKwUvByWyQZOLkA4yWm9Dh+GlAhWq1v90Od1TtINYQpWbbvrKSa3RkcEN4GPXdNSJEb12TuHCe50mBePkne67LY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQUhB/3jRsuUrN/2VHFgDPl1kvQEvHLx1PHkELYYmYQmp3zSW5
-	UZv9MI2msDta7410QxAFotRgvxSr5TCEiYvd2uyqRKizwkZIRwK7YXaz
-X-Gm-Gg: AYBFou0pwV9RuoeRnM6YOLDwKKWiilEcqYmnj2NA084OXrQPz+cTGiJXuh9C0tlp07x
-	uHqQWde1IPutiercMZ8lhiPztTcFcFuKfpOrP4vH3iDjso6cygYqQlXhA7T5HkyZzr+aeV/eLP8
-	P5eCh65A7GKwkeTxNFgcVpB3iNvckoiqPyCHKrjtOiPZCvZlTp/hthKHBK8RjHk3Rqk8KD+8ZDh
-	2RsXnaBzZFHdYB/2fOFPNpP7rpCFgsvUJmbTi2bfa0nwCqtE4GieUEdwGR5YJ2DTyM6S2TUsfh4
-	f0LGs1hZ9bsCXHdcYpRury7kQ1Uk+tIbYZcF9nH0Gb8Do+C10dxGLghV9GnEyptx17BI2HVoql4
-	bvMqmUHZf/n0ess0kdFd0nb4w634bdnfxzM/zm0pXrQsf2Ule8ufiULEv5I450Riw4viPNgKZct
-	Va3ZM4Lk6ReykJH+Qg35obN4V2P1MomiY/L6rdm/VfVktIGTJBWZGcC6h+FHyPFedpfPK/J9e0n
-	LqzvTo8kdWzXKastmuL47BdOaAxOvrvUvD1sC3fVniEzCuxeP8Prj89DGQcDfgf9snFYs/dU9M1
-	y+vCG9YXg9+FqVbiUkLvfKbXz0E=
-X-Received: by 2002:a05:7022:3f04:b0:19f:527d:96da with SMTP id a92af1059eb24-1ac5da7b145mr16079436c88.33.1793654718619;
-        Mon, 02 Nov 2026 13:25:18 -0800 (PST)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428fa380sm37195851eec.12.2026.11.02.13.25.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 13:25:17 -0800 (PST)
-From: Coia Prant <coiaprant@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Jiawen Wu <jiawenwu@trustnetic.com>,
-	Mengyuan Lou <mengyuanlou@net-swift.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Fabio Baltieri <fabio.baltieri@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH net v3 0/2] net: phy: fix PHY interface mask initialization and XPCS usage
-Date: Tue,  3 Nov 2026 05:25:04 +0800
-Message-ID: <20261102212506.3348537-1-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+xOe4S1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0FB1F00A16;
+	Mon,  2 Nov 2026 21:25:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793654732;
+	bh=Dyy/30Sdte4Ve02aKSe0PVid2WxXxrenmHRYm4WhPxs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=X+xOe4S1AsAERmo19WXI2Dq0vsaonKu3bG5wI/cDeYtfUt0aHsxckUzUeSDuY81t1
+	 1PFQCNlgKgaVyK9b1Kr/eLhL/wO1NzjJh9zlmdI7qqDxgZRdZbMCse2akcbhXtejnK
+	 OXhq/wdSLOtym2MpTi0hsLUYBowpqEH8uXydiD2gKktxi8GkJDId8MxW/9iobD/rVh
+	 fYI/H0RoZRZwQInFNcflHNCT5NjZilztbB3YNCTnrYYpu1PXewcUKptO7X6ehNWZY3
+	 GOqpwFScoId3ldJ7YAIOMwMxge9tjPl0AGkWWzehNM05Az1gkk8oYEyx1KPuDqIAyx
+	 Id6XCG5zkMp2Q==
+Message-ID: <sashiko-outbox-194195@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] clocksource/drivers/nxp-stm: Increase min_delta
+ to 20us for PREEMPT_RT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Enric Balletbo i Serra" <eballetb@redhat.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261102-nxp-stm-fixes-v2-3-8ca2706f30ef@redhat.com>
+References: <20261102-nxp-stm-fixes-v2-0-8ca2706f30ef@redhat.com>
+ <20261102-nxp-stm-fixes-v2-3-8ca2706f30ef@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 21:25:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,51 +60,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Changes since v2:
-- Patch 1 (new): move DECLARE_PHY_INTERFACE_MASK_ZERO to core and fix
-  the array size calculation.
-- Patch 2: advertise 1000BASE-X, SGMII and QSGMII instead of only SGMII.
-  Intersect the platform mask with the core mask using
-  phy_interface_and().
-- Add Fixes tag for the XPCS patch.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] clocksource/drivers/nxp-stm: overshoot check precedes channel en=
+able
+--
 
-===
+commit 1283cc4078852e277605e923b00287b73e75d175
+Author: Enric Balletbo i Serra <eballetb@redhat.com>
 
-This series fixes issues related to the handling of the PHY interface mask
-(supported_interfaces) at the core level and in the XPCS driver.
+clocksource/drivers/nxp-stm: Increase min_delta to 20us for PREEMPT_RT
 
-Patch 1 fixes a hack in the txgbe driver. The local
-DECLARE_PHY_INTERFACE_MASK_ZERO() macro incorrectly used
-PHY_INTERFACE_MODE_MAX as the array length. Move it to
-include/linux/phy.h and base it on DECLARE_PHY_INTERFACE_MASK() so the
-bitmap is correctly sized while still being initialized to zero.
+This commit increases the clockevent min_delta from 2us to 20us in
+nxp_stm_clockevent_starting_cpu() to prevent 32-second timer wraparound
+lockups under heavy bus contention on PREEMPT_RT kernels.
 
-Patch 2 makes the XPCS supported_interfaces mask authoritative. The
-generic compat table advertises modes that a specific integration may
-not support. The Rockchip glue now builds a platform mask (1000BASE-X,
-SGMII, QSGMII) and intersects it with the inherited core mask. In
-addition, xpcs_find_compat() now checks supported_interfaces before
-looking up the compat table, ensuring the core respects the narrowed
-mask.
+> diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/ti=
+mer-nxp-stm.c
+> index ed7662a4e2bc4..a1a0e23d33426 100644
+> --- a/drivers/clocksource/timer-nxp-stm.c
+> +++ b/drivers/clocksource/timer-nxp-stm.c
+> @@ -335,14 +335,18 @@ static int nxp_stm_clockevent_starting_cpu(unsigned=
+ int cpu)
+>  	/*
+>  	 * The timings measurement show reading the counter register
+>  	 * and writing to the comparator register takes as a maximum
+> -	 * value 1100 ns at 133MHz rate frequency. The timer must be
+> -	 * set above this value and to be secure we set the minimum
+> -	 * value equal to 2000ns, so 2us.
+> +	 * value 1100 ns at 133MHz rate frequency. However, under heavy
+> +	 * bus contention on PREEMPT_RT, 2us is too tight and can allow
+> +	 * the counter to pass the match value before the channel-enable
+> +	 * write takes effect, leading to 32s wraparounds.
+>  	 *
+> -	 * minimum ticks =3D (rate / MICRO) * 2
+> +	 * Increase to 20us to guarantee the comparator channel is fully
+> +	 * enabled before the match value is reached.
+> +	 *
+> +	 * minimum ticks =3D (rate / MICRO) * 20
+>  	 */
+>  	clockevents_config_and_register(&stm_timer->ced, stm_timer->rate,
+> -					(stm_timer->rate / MICRO) * 2, 0x7FFFFFFFU);
+> +					(stm_timer->rate / MICRO) * 20, 0x7FFFFFFFU);
 
-Note: checkpatch.pl reports "Macros with complex values should be
-enclosed in parentheses" for the new macro in Patch 1. This is a known
-false positive for declarative macros that expand to variable
-declarations; wrapping it would break compilation.
----
-Coia Prant (2):
-  net: phy: move DECLARE_PHY_INTERFACE_MASK_ZERO to core
-  net: pcs: xpcs: make supported_interfaces authoritative
+[Severity: Medium]
+As reported by Sashiko on v1 [1], does increasing min_delta to 20us in
+nxp_stm_clockevent_starting_cpu() actually guarantee that the comparator
+channel is enabled before the match value is reached?
 
- drivers/net/ethernet/wangxun/txgbe/txgbe_type.h |  3 ---
- drivers/net/pcs/pcs-xpcs-rk.c                   | 10 ++++++++++
- drivers/net/pcs/pcs-xpcs.c                      |  3 +++
- include/linux/phy.h                             |  3 +++
- 4 files changed, 16 insertions(+), 3 deletions(-)
+Looking at drivers/clocksource/timer-nxp-stm.c:
 
--- 
-2.47.3
+static int nxp_stm_clockevent_set_next_event(unsigned long delta, struct cl=
+ock_event_device *ced)
+{
+	struct stm_timer *stm_timer =3D ced_to_stm(ced);
+	u32 val, now;
 
+	nxp_stm_clockevent_disable(stm_timer);
+
+	stm_timer->delta =3D delta;
+
+	val =3D nxp_stm_clockevent_read_counter(stm_timer) + delta;
+
+	writel(val, STM_CMP0(stm_timer->base));
+	...
+	now =3D nxp_stm_clockevent_read_counter(stm_timer);
+	if ((int)(val - now) <=3D 0)
+		return -ETIME;
+
+	nxp_stm_clockevent_enable(stm_timer);
+
+	return 0;
+}
+
+nxp_stm_clockevent_disable() clears STM_CCR_CEN in STM_CCR0, and the
+hardware only generates a match event when STM_CNT equals STM_CMP0 while
+STM_CCR0[CEN] is enabled. Because nxp_stm_clockevent_enable() is called
+after reading now and checking (int)(val - now) <=3D 0, the latency of writ=
+ing
+STM_CCR_CEN to STM_CCR0 is not covered by the -ETIME overshoot check.
+
+For any programmed delta (20us or larger), if bus contention, an NMI, or
+hypervisor/firmware delay between the two counter reads leaves val - now as
+a small positive number of ticks, the overshoot check passes while the
+channel is still disabled, and STM_CNT can pass val before the subsequent
+nxp_stm_clockevent_enable() write takes effect in hardware.
+
+Should nxp_stm_clockevent_set_next_event() enable the comparator channel
+before reading now for the overshoot check (and call
+nxp_stm_clockevent_disable() if (int)(val - now) <=3D 0 before returning
+-ETIME) so the counter read is ordered after the STM_CCR0 write on the bus?
+
+[1] https://lore.kernel.org/r/20261026-nxp-stm-fixes-v1-3-20a64a4ea454@redh=
+at.com
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261102-nxp-stm-fi=
+xes-v2-0-8ca2706f30ef@redhat.com?part=3D3
