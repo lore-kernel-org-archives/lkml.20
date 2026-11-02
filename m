@@ -1,67 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630796;
-	b=uto+9flxdLCLFJzHsmPrtYeYYdomjVMXqJYYSxwx7h2X504Q1GZQh8MOPjUo8oSi/O//
-	 pXt7qrb7fAuYherkoaQhhXvgZZetsW0vb3uFKKbpkau4FcipPrKNr67daybmS+Avn0rx0
-	 NqkOsa7MGBcleFP1imevHTN/wlQ7ZOwjCWVmj1gPrNnwWhPFsZ8s7GIhfNVgKleu4o9we
-	 oiGgovryjclmIHYNKOFidzF5meSjzWIUZI7KRg7NSgCV1tmO3Hj8zwVPC5cIGf4/YwcaW
-	 pyN152r9fX+g8owo9vDkDZg+HZqNUwZmX77NZ3aap8hzkP86I47c6/bV49Z+8bM+naA==
+	t=1793630819;
+	b=J2oQuxFwsfu+jcv+CmXesaU7czWGMLuToLwvGlAGUJyzz5zZCV/ZS3evu6MpuMExsOaM
+	 45vbFobRQPAJEkSJTVPDV9XAWnrOn+pQ5D4nELt34YpOmn/kufZBjYHeYmPpN0YixLRAk
+	 SewE+wPHm5bwX8aYpIjBaWhk135I7kJQ8BBSA3+TQRHl6Anvc+murzM/Lh1abgM6TjBMi
+	 8/oZCyLlTjq7P8BBOT7A4L6gVVHxhuXCBcp9ys9BwB/t/rYPzHJlpR+4nM6rkirtAb6pM
+	 b6tjOABegfbPdtliMkADHcF0VvnESYUQHm0Fo/cg7zwDy2uOSvaggY+buVNZFKRsvhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630796;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CF7ShlzIhzwBW+s3yeojdJySM8gPCUgFHqUvtGr8dsI=;
-	b=FiR9OXSNZdqtOs6IcL/LMYUn2l7/91DrRM/Sd0EdX0RPjMXxGqbG4VXLQyWWFShWef7g
-	 p/vTPskXbgwi5IabO38RmROP2UfiTuNXpMeLT/5Dxgf5SAerC4BZO22ZIxinOM+BJWc1K
-	 4qMFd5d0sjEW2o2kX8DwUlR8UpMLJvelnfSIkjSAGQtLh6eXSuiY24IpXdkS7KuFmFSyY
-	 aWtY4Jn3q1/wjoflVvMrMv58w71Bix2CUdxRT+B/6QhPyh6m3wPVuX9MAQfmh3VkcCdiE
-	 uw7XY8sc6yZAcSF94ndTSa+xeQuIvVi+mJjB8VyGc6+d+yG/IQ85fGaZUy7tWzfWCww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630819;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=+xsu/Vh3JnhGiqW5PyBf4LPX+4h8S0dUQq2MPKZycvM=;
+	b=AOgruCM+dwTHwnpgRoLjvUDSHJMhOOsSB8tzRu1YH+wOZ4T2HLO3aKPZlTZ8RI6SnVPk
+	 YOT4pzqKlRckq/0HcjjGViuY2u5c6FHWIUX9De2DeYylO7OZDJMqok0Q9kQVW1498XD+K
+	 79OAyvMn5MLFoLscPUCIWM+LlCJSTqbZi7So055nEO1NI+oPNB5DUpYLAnXKaaFd0Plto
+	 D2+0W/Z7PbFj51UrJaeV5I7M2X75UcDM/mIWnMYjvhJ0O1iAD09urBc/P3xGdbv3FR21O
+	 dNnSpO53uW69z77VriFDnez8VkKIX/Ln4oiPoHcGtbEZLkXxBk3+2mQZR1ppEj5kKnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqJySAjz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CCA6070C8F;
-	Mon,  2 Nov 2026 14:46:36 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gDekP4SP;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8645C6070DA4
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:46:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8645C6070DA4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqJySAjz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1361F00A17;
-	Mon,  2 Nov 2026 14:46:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793630796;
-	bh=CF7ShlzIhzwBW+s3yeojdJySM8gPCUgFHqUvtGr8dsI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TqJySAjzHxs1XsxoE6HX68+Lx9kxA0VsODxNDkN2aNx1ie4S+lOd/IUDbpnsK3xcJ
-	 BuZEeEKcNnFOBhAO/zxqRTc0Q5PyIGNVV2bdypcqOq4Ff68Dr4tvz6MfmRNvlR2s3u
-	 JTZQsnzeiLG6nWB1YqcjozpXGkG6f3FUkT+YqwfZ7pf3SaAxPOUYIkdJNzKDus9vD+
-	 XEzTQ+oe3vQI217NaRmyTT9O9eFjA0IMO+EwS70ITn4fVk6szbaVdNDXfVxiP190yL
-	 cYgwVNApXVOov1zQwkQvlYCneKUEh4r1eB6RloWpF4/aEkO3/yN7dGOvumW3npSz6k
-	 oICrkeRJi708A==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	stable@vger.kernel.org,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	SJ Park <sj@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH mm-hotfixes-unstable 2/3] mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
-Date: Mon,  2 Nov 2026 06:46:25 -0800
-Message-ID: <20261102144627.88843-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102144627.88843-1-sj@kernel.org>
-References: <20261102144627.88843-1-sj@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=gDekP4SP
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A73BF1576;
+	Mon,  2 Nov 2026 06:46:54 -0800 (PST)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 564B13F59E;
+	Mon,  2 Nov 2026 06:46:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793630817; bh=Rb6oK4WuZf1PEMfClwa9NCD+3U/D8ezKArVIkPqmTZw=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=gDekP4SP/0FBvvg0C5bKc/psaf3voROQ9YPm47ytg8dLEVV2ZSk/3pHL34vZ0zk/w
+	 ktwXgfSHI2FLBGI+u9Sg1MW3Twx/sYNi7HFP84IF+8X9TD/kwD1R6Tx7YaRYWtqjfb
+	 oJg+iCmhv/orFSJrtTHZ4hQhz5SvQVPUdNL85Yh0=
+Message-ID: <3a637631-c8ec-4e26-a03c-5ac80d16fab3@arm.com>
+Date: Mon, 2 Nov 2026 14:46:54 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,71 +53,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/resctrl: Fix CLOSID propagation when reparenting
+ monitor groups
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, peternewman@google.com, bp@alien8.de, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261031101052.1692230-1-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261031101052.1692230-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+Hi Jinjie,
 
-damon_sysfs_test_add_targets() creates its monitoring context with
-damon_new_ctx(), which leaves ctx->ops zero-initialized.  Since
-DAMON_OPS_VADDR is zero, damon_target_has_pid() returns true for the
-context, and damon_sysfs_add_targets() therefore calls
-damon_set_target_pid() for each target it adds.  That function grabs a
-reference to the target's struct pid via find_get_pid().
+On 31/10/2026 10:10, Jinjie Ruan wrote:
+> Renaming a monitor group to move it below a different control group
+> changes the CLOSID of every task in that monitor group. mongrp_reparent()
+> updates rdtgrp->mon.parent and rdtgrp->closid before calling
+> rdt_move_group_tasks() to propagate the new CLOSID to the tasks.
+> 
+> rdt_move_group_tasks() uses its first argument to identify the tasks to
+> move. For a monitor group this is is_rmid_match(), which on MPAM compares
+> both the PARTID and the PMG of the task with the parent control group's
+> CLOSID and the monitor group's RMID. After rdtgrp->mon.parent and
+> rdtgrp->closid have been updated, the match uses the new CLOSID, so no
+> task in the monitor group matches and none is moved. The tasks keep the
+> old PARTID and continue to use the old control group's allocation.
 
-The test then tears the context down with damon_destroy_ctx(), which
-releases such a reference from ctx->ops.cleanup_target().  For the vaddr
-operations set that callback is damon_va_cleanup_target(), and it is the
-only place where the reference is put.  The test never selects an
-operations set, though, so cleanup_target is NULL and both references --
-one for each of the two damon_sysfs_add_targets() calls -- are leaked on
-every run of the test.  Running the test with CONFIG_DEBUG_KMEMLEAK
-enabled reports the leaked struct pid objects as unreferenced.
+Ah, that's pretty broken.
 
-Fix this by selecting the vaddr operations set for the context before
-adding the targets, mirroring what the sysfs interface does.
-damon_select_ops() fails if the vaddr operations set is not registered,
-in which case the test cannot exercise the pid handling and skips
-itself.
+I was previously under the impression that moving monitor groups on MPAM systems was not permitted
+as the monitor bandwidth counters are required to be always running and so would glitch when moved.
+Peter Newman posted a patch in 2024 which added this restriction [1] but it didn't reach upstream.
+As, the moving of monitor groups is already broken for MPAM systems I think it would be ok to forbid
+them.
 
-Fixes: b8ee5575f763 ("mm/damon/sysfs-test: add a unit test for damon_sysfs_set_targets()")
-Cc: <stable@vger.kernel.org> # 6.7.x
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>
-Signed-off-by: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from v1
-- v1: https://lore.kernel.org/20261029075609.35661-1-xiaoleiwangxiaolei@gmail.com
-- Add Cc: stable@.
-- Collect R-b: from SJ.
-- Rebase to latest mm-new.
+[1] https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
 
- mm/damon/tests/sysfs-kunit.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Thanks,
 
-diff --git a/mm/damon/tests/sysfs-kunit.h b/mm/damon/tests/sysfs-kunit.h
-index 138a4b8d14e73..16373ba751dbc 100644
---- a/mm/damon/tests/sysfs-kunit.h
-+++ b/mm/damon/tests/sysfs-kunit.h
-@@ -79,6 +79,15 @@ static void damon_sysfs_test_add_targets(struct kunit *test)
- 		kunit_skip(test, "ctx alloc fail");
- 	}
- 
-+	if (damon_select_ops(ctx, DAMON_OPS_VADDR)) {
-+		damon_destroy_ctx(ctx);
-+		kfree(sysfs_targets->targets_arr);
-+		kfree(sysfs_targets);
-+		kfree(sysfs_target->regions);
-+		kfree(sysfs_target);
-+		kunit_skip(test, "vaddr ops not registered");
-+	}
-+
- 	damon_sysfs_add_targets(ctx, sysfs_targets);
- 	KUNIT_EXPECT_EQ(test, 1u, nr_damon_targets(ctx));
- 
--- 
-2.47.3
+Ben
+
+> 
+> x86 matches on the RMID alone, so it is unaffected. Now only arm64 mpam
+> affected.
+> 
+> Save the monitor group state before it is modified and use the saved state
+> as the source of the task move. The updated group remains the destination,
+> so matching tasks are moved to the new CLOSID and RMID.
+> 
+> Fixes: 8da2b938eb7e ("x86/resctrl: Implement rename op for mon groups")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: stable@vger.kernel.org # 7.1.x
+> ---
+>  fs/resctrl/rdtgroup.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index 57ab090072c2..33b23b59a6de 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -4322,6 +4322,7 @@ static void mongrp_reparent(struct rdtgroup *rdtgrp,
+>  			    cpumask_var_t cpus)
+>  {
+>  	struct rdtgroup *prdtgrp = rdtgrp->mon.parent;
+> +	struct rdtgroup old_rdtgrp = *rdtgrp;
+>  
+>  	WARN_ON(rdtgrp->type != RDTMON_GROUP);
+>  	WARN_ON(new_prdtgrp->type != RDTCTRL_GROUP);
+> @@ -4338,7 +4339,7 @@ static void mongrp_reparent(struct rdtgroup *rdtgrp,
+>  	rdtgrp->closid = new_prdtgrp->closid;
+>  
+>  	/* Propagate updated closid to all tasks in this group. */
+> -	rdt_move_group_tasks(rdtgrp, rdtgrp, cpus);
+> +	rdt_move_group_tasks(&old_rdtgrp, rdtgrp, cpus);
+>  
+>  	update_closid_rmid(cpus, NULL);
+>  }
+
