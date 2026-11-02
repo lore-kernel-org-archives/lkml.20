@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.16.66.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.107.87.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793650982;
-	b=0wHf4E/VSY5tWmL3ebsZsEk//nsAYXI7JjLgmhZlWW/KYQn8LsJHgYGzdthNzZVq6PTH
-	 JookEGo0PsxYc4TW93rG2TSKWtvwIS6zuEn//2EIXxEDHuDE8x/D0eGmJ35haciIpwIgH
-	 67XRPGjnWeEbXrxAUKhbwtDQUR6D9HxqEFolHg3TwZ9wMIGV8AWxKbZY3iKGvGmn90Zsr
-	 VeMVxvYTVxef9xpDMHtq4JAnN9E50Wee1A5r54Gtgj9HaewOB1JRJDa2fj2QeKHh5tFAm
-	 bqQRP2cAypSyBtVffYRC27XOWvUf3KsCn87RwBIL/dpYw6qYFEk57JsAxUegfceeTCQ==
+	t=1793651005;
+	b=CmBQaJbtM1QVc4YCPZCC6LLRWhyiiSvzwIg65n/FheLFxeEK3Z3EaqQ99nNhX1Wl8GK3
+	 WwcE8X9ID1UnFCR+SYD0LgLSieJ+zfg+AWeoGV40LtilyeUo38ty3iWKCN3ki7rZ5xCis
+	 BAtD53JihY9ohCAgM4IkcD5KxWYHlfMd9R0ex5EhHumdrDvsDboB6nJXvpW7umIhiCx9r
+	 MWfrgLQfWCufQYAqGYwciyrXbCrd6Ldxpcgi/ieB6lCcHOCw0p8XE6dEfRnROp+QD6nMM
+	 rgY7fTPeADwzp8x3Hlmy8dLAVURPfCP/gTLCAFNSforJlh0fyhGbI35HiA3Tz/yHLLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793650982;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Infomaniak-Routing;
-	bh=Gx4a5PtxLdTskMqbqHdRE6WcTaLjJR+RWT06hGvA3x4=;
-	b=Mqo18nySYN4gTpviZUJ+0s24052kb+ArcUZm3Au1KeWFIRqBnN4NxkbMMMqrDPeScyo8
-	 brouroGfj7zNCa5De/denuVezgN5QPnUIOck0vWxnwmMkSvgs+ix6HsUqVruBKTO4o0yQ
-	 Q8AnTzO7S07P8SWAAKzmeoFQ0cro5ACwgyGqCNEatgYfaAt0GjS9r7PSjLPftqND49BKj
-	 +xL4Oxeh3SGjIYupSF0Iw89I13WO+S8/A+4x6fcvX9pzCLP+4DBJqE8tFMXjnS0uEXqN2
-	 UVK818r3plLRSJZSocysos52971Kb3XokfcfxOWC7m6oTsDdv9zAZ3ZngoWF1ABL20A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793651005;
+	h=DMARC-Filter:Received:Received:Received:Received:DKIM-Filter:
+	 DKIM-Signature:X-Virus-Scanned:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AK84/ve9NI+NDVm/3eQZFY5P2V549NgkAhrck6GVFMI=;
+	b=SJloA9X9M2XVDEDtRSWqSBFJDehDNvGc7gZs1lu3UHoWpwQap6IZIjhmWahjRQXe59ZE
+	 Rnxduhz9Nn2KMmdMfXYWIOYBLCQ/zDN/2/t7D8d3dW3YNAcj0NQbPevuABAf20ZDuDyw4
+	 5TCyD7CSYF3u6d3hWnrKXcct/udGS3uWKXmPE4QGcnjgPmhWaZo7pqE15yUNEP4A8FEXI
+	 t0pG96JFTd/CrBncKZ54slQtzcamF+4mg0KlW4oXb2QBsLxlgq9xe6pDoPLxcUxLcYgdw
+	 UFPPBdv627ufcGyaFh32Ib+4g2Lv3OyvCBY1T6HkuWHwouY0DxCdHnhEXdjaPysuA4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=0leil.net;
-	spf=pass smtp.mailfrom=0leil.net;
-	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=l1IxLRPC;
-	arc=none smtp.remote-ip=84.16.66.173
-Received: from smtp-42ad.mail.infomaniak.ch (smtp-42ad.mail.infomaniak.ch [84.16.66.173])
+	dmarc=pass header.from=tngtech.com;
+	spf=pass smtp.mailfrom=tngtech.com;
+	dkim=pass header.d=tngtech.com header.i=@tngtech.com header.a=rsa-sha256 header.s=B14491C6-869D-11EB-BB6C-8DD33D883B31 header.b=byn0IQBp;
+	arc=none smtp.remote-ip=34.107.87.41
+Received: from mailout.tng.vnc.biz (mailout.tng.vnc.biz [34.107.87.41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DD4606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:23:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37DD4606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4087A606A32F;
+	Mon,  2 Nov 2026 20:23:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4087A606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tngtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tngtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=l1IxLRPC
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJNRx0yw5zm9d;
-	Mon,  2 Nov 2026 21:22:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1793650972;
-	bh=Gx4a5PtxLdTskMqbqHdRE6WcTaLjJR+RWT06hGvA3x4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=l1IxLRPC1tRvaf0Tmzj/t236kJyMBy8xSGm66UigBSImAQXRDIbyliNNfwCHvlXQe
-	 h0h2RA5b7L8sAaEteNbe1MeUMP5Id64lJUzDiSCVz/z7A3tz7uoj7dDq70Osf3FgVO
-	 gMLBzx/BH4EaLQsFbjz40gKtxlQjS3pfr11yqdbO6BjuqYHzaRBemC6DH8y7C8AOKR
-	 Od9k+WpA2H44+yjgTHWMGAHMjAvSeluFEVFfciENimowbLZO7ZLPsFI6v+vg/zek6H
-	 MH0kkS+iYVNqtyLuHA4RFXYE9k/UHBcYU/wW6JdG4Itf1S18KHlagHi3rEigW1asAA
-	 HoecJfIkQb5sQ==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJNRw0t20zqRZ;
-	Mon,  2 Nov 2026 21:22:52 +0100 (CET)
-From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Mon, 02 Nov 2026 21:22:43 +0100
-Subject: [PATCH v2 2/3] media: rockchip: rkcif: add support for GREY and
- Y10 formats
+	dkim=pass (2048-bit key, unprotected) header.d=tngtech.com header.i=@tngtech.com header.a=rsa-sha256 header.s=B14491C6-869D-11EB-BB6C-8DD33D883B31 header.b=byn0IQBp
+Received: from zmproxy.tng.vnc.biz (zmproxy.tng.vnc.biz [172.16.1.23])
+	by mailout.tng.vnc.biz (Postfix) with ESMTPS id 80C164035A;
+	Mon,  2 Nov 2026 21:23:17 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTP id 5D3C61FBD34;
+	Mon,  2 Nov 2026 21:23:17 +0100 (CET)
+Received: from zmproxy.tng.vnc.biz ([127.0.0.1])
+ by localhost (zmproxy.tng.vnc.biz [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id OhhSAqbmkdbI; Mon,  2 Nov 2026 21:23:16 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTP id 85D321FBD07;
+	Mon,  2 Nov 2026 21:23:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 zmproxy.tng.vnc.biz 85D321FBD07
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tngtech.com;
+	s=B14491C6-869D-11EB-BB6C-8DD33D883B31; t=1793650996;
+	bh=AK84/ve9NI+NDVm/3eQZFY5P2V549NgkAhrck6GVFMI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=byn0IQBpzZgTFM8yDR68C4XiEexpops9oGdJu452GZ3WODZuTELBttqmWIkUcbb+E
+	 Z7CNS6tsYe0nvhYdKUIlJiWex+H3nvvspRDxH8S6j+dfyuOeRtgvj3ZUq+9WFnFD+4
+	 94EIVvFZNcWd1jLaJvrjLM0IXeK3+dHJ8VWEG+8rwGDEzsGnLh6LcxGrhYXWNMROPz
+	 zK6V2KGSl3Otab39Q8NMmyO4Fcaa3c/rK91GMpyzlcLo6knNBFHUKd/xlav/6tV+Z+
+	 gf8z9Pu/HtUnKuCl/QTf0/rPz+qyq6NVHwPvwg1ILN45cqU4Wk+O0kK9FCdUOw4GN9
+	 tC0gE9m0lvnOA==
+X-Virus-Scanned: amavis at zmproxy.tng.vnc.biz
+Received: from zmproxy.tng.vnc.biz ([127.0.0.1])
+ by localhost (zmproxy.tng.vnc.biz [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id xsh-nkXDu4Rq; Mon,  2 Nov 2026 21:23:16 +0100 (CET)
+Received: from luis-Precision-5480.. (ipservice-092-209-236-032.092.209.pools.vodafone-ip.de [92.209.236.32])
+	by zmproxy.tng.vnc.biz (Postfix) with ESMTPSA id 2A41E1FBD03;
+	Mon,  2 Nov 2026 21:23:16 +0100 (CET)
+From: Luis Augenstein <luis.augenstein@tngtech.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	gregkh@linuxfoundation.org,
+	kstewart@linuxfoundation.org,
+	maximilian.huber@tngtech.com,
+	Luis Augenstein <luis.augenstein@tngtech.com>
+Subject: [PATCH v4 4/7] kbuild: record cmd-prereqs in .cmd files
+Date: Mon,  2 Nov 2026 21:22:57 +0100
+Message-ID: <20261102202308.3209536-5-luis.augenstein@tngtech.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102202308.3209536-1-luis.augenstein@tngtech.com>
+References: <20261102202308.3209536-1-luis.augenstein@tngtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,77 +89,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-v4l-y8-y10-csi-vicap-v2-2-0a4149d96dae@cherry.de>
-References: <20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de>
-In-Reply-To: <20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Mehdi Djait <mehdi.djait@linux.intel.com>, 
- Michael Riesch <michael.riesch@collabora.com>, 
- Heiko Stuebner <heiko@sntech.de>, Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Quentin Schulz <quentin.schulz@cherry.de>
-X-Mailer: b4 0.17-dev
-X-Infomaniak-Routing: alpha
+Content-Transfer-Encoding: quoted-printable
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+Record $(cmd-prereqs), i.e. $(real-prereqs) with the deps_*
+dependencies filtered out, in a new .cmd file metadata field:
 
-The OV9282 camera sensor driver can output in those two formats, but the
-VICAP didn't advertise support for them yet.
+    make_prereqs_<target> :=3D <prerequisites>
 
-Suggested-by: Michael Riesch <michael.riesch@collabora.com>
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+On an incremental build, deps_<target> holds the dependencies
+recorded from the depfile of the previous build. Those are filtered
+out from $(real-prereqs), even if they no longer appear in the
+current depfile. fixdep additionally filters the dependencies
+collected from the current depfile, so that they are not recorded in
+both deps_<target> and make_prereqs_<target>. This keeps the field
+consistent between clean and incremental builds.
+
+Link: https://lore.kernel.org/r/a01233b9-23a2-4666-91ed-f1cf030dcb9f@tngt=
+ech.com
+Assisted-by: LLM
+Co-developed-by: Maximilian Huber <maximilian.huber@tngtech.com>
+Signed-off-by: Maximilian Huber <maximilian.huber@tngtech.com>
+Signed-off-by: Luis Augenstein <luis.augenstein@tngtech.com>
 ---
- .../platform/rockchip/rkcif/rkcif-capture-mipi.c   | 26 ++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ scripts/Kbuild.include | 10 ++++++--
+ scripts/basic/fixdep.c | 54 +++++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 56 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-index 53e62d0597648..4e172366f258c 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-@@ -95,6 +95,26 @@ static const struct rkcif_output_fmt mipi_out_fmts[] = {
- 			.type = RKCIF_MIPI_TYPE_RAW8,
- 		},
- 	},
-+	{
-+		.fourcc = V4L2_PIX_FMT_GREY,
-+		.mbus_code = MEDIA_BUS_FMT_Y8_1X8,
-+		.depth = 8,
-+		.cplanes = 1,
-+		.mipi = {
-+			.dt = MIPI_CSI2_DT_RAW8,
-+			.type = RKCIF_MIPI_TYPE_RAW8,
-+		},
-+	},
-+	{
-+		.fourcc = V4L2_PIX_FMT_Y10,
-+		.mbus_code = MEDIA_BUS_FMT_Y10_1X10,
-+		.depth = 10,
-+		.cplanes = 1,
-+		.mipi = {
-+			.dt = MIPI_CSI2_DT_RAW10,
-+			.type = RKCIF_MIPI_TYPE_RAW10,
-+		},
-+	},
- 	/* RGB formats */
- 	{
- 		.fourcc = V4L2_PIX_FMT_RGB24,
-@@ -341,6 +361,12 @@ static const struct rkcif_input_fmt mipi_in_fmts[] = {
- 	{
- 		.mbus_code = MEDIA_BUS_FMT_VYUY8_1X16,
- 	},
-+	{
-+		.mbus_code = MEDIA_BUS_FMT_Y8_1X8,
-+	},
-+	{
-+		.mbus_code = MEDIA_BUS_FMT_Y10_1X10,
-+	},
- 	/* RGB formats */
- 	{
- 		.mbus_code = MEDIA_BUS_FMT_RGB888_1X24,
-
--- 
-2.56.0
+diff --git a/scripts/Kbuild.include b/scripts/Kbuild.include
+index 8c311b997e2..7790519f92f 100644
+--- a/scripts/Kbuild.include
++++ b/scripts/Kbuild.include
+@@ -181,6 +181,9 @@ endif
+ # (needed for the shell)
+ make-cmd =3D $(call escsq,$(subst $(pound),$$(pound),$(subst $$,$$$$,$(c=
+md_$(1)))))
+=20
++# prerequisites to record in .cmd files, excluding those covered in deps=
+_*
++cmd-prereqs =3D $(call escsq,$(filter-out $(deps_$@), $(real-prereqs)))
++
+ # Find any prerequisites that are newer than target or that do not exist=
+.
+ # PHONY targets skipped in both cases.
+ # If there is no prerequisite other than phony targets, $(newer-prereqs)=
+ becomes
+@@ -198,14 +201,17 @@ if_changed =3D $(if $(if-changed-cond),$(cmd_and_sa=
+vecmd),@:)
+=20
+ cmd_and_savecmd =3D                                                     =
+       \
+ 	$(cmd);                                                              \
+-	printf '%s\n' 'savedcmd_$@ :=3D $(make-cmd)' > $(dot-target).cmd
++	printf '%s\n'                                                        \
++		'savedcmd_$@ :=3D $(make-cmd)' ''                              \
++		'make_prereqs_$@ :=3D $(cmd-prereqs)' > $(dot-target).cmd
+=20
+ # Execute the command and also postprocess generated .d dependencies fil=
+e.
+ if_changed_dep =3D $(if $(if-changed-cond),$(cmd_and_fixdep),@:)
+=20
+ cmd_and_fixdep =3D                                                      =
+       \
+ 	$(cmd);                                                              \
+-	$(objtree)/scripts/basic/fixdep $(depfile) $@ '$(make-cmd)' > $(dot-tar=
+get).cmd;\
++	$(objtree)/scripts/basic/fixdep $(depfile) $@ '$(make-cmd)'          \
++		'$(cmd-prereqs)' > $(dot-target).cmd;                        \
+ 	rm -f $(depfile)
+=20
+ # Usage: $(call if_changed_rule,foo)
+diff --git a/scripts/basic/fixdep.c b/scripts/basic/fixdep.c
+index f514ef606ec..005c1c3df49 100644
+--- a/scripts/basic/fixdep.c
++++ b/scripts/basic/fixdep.c
+@@ -62,15 +62,17 @@
+  *
+  * It is invoked as
+  *
+- *   fixdep <depfile> <target> <cmdline>
++ *   fixdep <depfile> <target> <cmdline> <prereqs>
+  *
+  * and will read the dependency file <depfile>
+  *
+  * The transformed dependency snipped is written to stdout.
+  *
+- * It first generates a line
++ * It first generates the lines
+  *
+- *   savedcmd_<target> =3D <cmdline>
++ *   savedcmd_<target> :=3D <cmdline>
++ *
++ *   make_prereqs_<target> :=3D <prereqs_without_deps>
+  *
+  * and then basically copies the .<target>.d file to stdout, in the
+  * process filtering out the dependency on autoconf.h and adding
+@@ -103,7 +105,7 @@
+=20
+ static void usage(void)
+ {
+-	fprintf(stderr, "Usage: fixdep <depfile> <target> <cmdline>\n");
++	fprintf(stderr, "Usage: fixdep <depfile> <target> <cmdline> <prereqs>\n=
+");
+ 	exit(1);
+ }
+=20
+@@ -478,23 +480,63 @@ static void print_dep_file(const char *target, cons=
+t struct dep_info *info)
+ 	printf("$(deps_%s):\n", target);
+ }
+=20
++/*
++ * Print make_prereqs_<target> from prereqs, excluding the deps listed
++ * in info.
++ */
++static void print_make_prereqs(const char *target, const char *prereqs,
++			       const struct dep_info *info)
++{
++	struct item *seen_prereqs_hashtab[HASHSZ] =3D {};
++	const struct dep_item *dep;
++	const char *p =3D prereqs;
++
++	for (dep =3D info->deps; dep; dep =3D dep->next)
++		in_hashtable(dep->name, strlen(dep->name),
++			     seen_prereqs_hashtab);
++
++	printf("make_prereqs_%s :=3D", target);
++
++	while (*p) {
++		const char *start;
++		int len;
++
++		while (*p =3D=3D ' ' || *p =3D=3D '\t')
++			p++;
++		if (!*p)
++			break;
++
++		start =3D p;
++		while (*p && *p !=3D ' ' && *p !=3D '\t')
++			p++;
++		len =3D p - start;
++
++		if (!in_hashtable(start, len, seen_prereqs_hashtab))
++			printf(" %.*s", len, start);
++	}
++
++	printf("\n\n");
++}
++
+ int main(int argc, char *argv[])
+ {
+-	const char *depfile, *target, *cmdline;
++	const char *depfile, *target, *cmdline, *prereqs;
+ 	struct dep_info info;
+ 	void *buf;
+=20
+-	if (argc !=3D 4)
++	if (argc !=3D 5)
+ 		usage();
+=20
+ 	depfile =3D argv[1];
+ 	target =3D argv[2];
+ 	cmdline =3D argv[3];
++	prereqs =3D argv[4];
+=20
+ 	buf =3D read_file(depfile);
+ 	info =3D parse_dep_file(buf);
+=20
+ 	printf("savedcmd_%s :=3D %s\n\n", target, cmdline);
++	print_make_prereqs(target, prereqs, &info);
+ 	print_dep_file(target, &info);
+=20
+ 	free_dep_info(&info);
+--=20
+2.43.0
 
