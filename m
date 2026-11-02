@@ -1,65 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.8.165.127
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637616;
-	b=pCw4xXPN/802n+UwJuEFrZUL4aurW6guNDhv+6m9DzdI2INegysyAL5ChDttNVJNpJOF
-	 Rl89Qvf/SynZ6zxM3trI6h9M2E9yEDnpu9v2mo7S45egauOWbmS0S+S1hUpNltnoKmlCZ
-	 fvukOWA92u1xgoS5kRp1y4yhjOSlCdtqZ9xS1CAvHUKqiFl6YLszk6HNP4h2JSMSdI/jG
-	 Mpv5/qB0RoMaAq/kLliV86WxmX8JVWHdGu/oLSMuYXinbxpf2Q4DvHm7O7lZxpj3uGd7E
-	 k4M1p8+O63565vLjlTgHTe1/LTnKG0YE09kmJzfmvHsHbjz3c/V7JCO8XF8xzo68+vQ==
+	t=1793637629;
+	b=fHK2ggdS8OkNhNRXWyI20523aMdDVPQPqHTv14oc7LG00Rw++ZzN/95UODR4eGc/+UP8
+	 2X0M1KZF5LCzbpCfbigevyaCklzLVW63UimMcM/fyNDVVeU6bwSF45d7W395MpQZevp5D
+	 382UZ0TIVNd+ext0E7luMioBITETcwjAevUJcNZUcsRcEohXfcEqRhD+D1j0E4W8NqjjJ
+	 AKhnxphvRCVHb2jdQo4AHvMMf1jawG2pbcvE5uNXSH6et9BcF+lrfk7WCR9E0V/KkHlGq
+	 I5YG3f/wTU3HYCZofOdYGNOpqjDx9RcrWFLKuntwfMSnqdsBxjsaeJdeK8eXlDlwe1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637616;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=DkHgal0b82z5KPvwqWkyhs8Es3XYDe2wNpBo8Z22Xe4=;
-	b=1hcj4mVjsyAEiws1s5AwT5Se/VL9AEjgqYweI0cTXAMoPB4Hw5wWd/NoJD1QNWplxzKj
-	 9Q9TIq+NyW01r/FiCUB1MtyxDQH2RJa/4ygmZey62Ude21iMauu3cWv65B1Ld1+jFOPmm
-	 TYlxD5yN7C2/hdq0/lJUqBBVBYuL9TqRu9ZRRZUUOaGya5TnE0cR0AcjqR+N+bQj9XWDK
-	 Lajdwrbv8cKJm2qbc6nYXd5FpUeSGmqiOH1GJhbPI2JhBlVlauGnCBlpGZSwrWna8CyWX
-	 OtUYTfiL7qmu3sJF/zpKoNUplAE87fNQ2ZhIB9degw6N61Rj0u6loAvl5kB0t0xY3Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637629;
+	h=DMARC-Filter:Content-Type:DKIM-Signature:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To;
+	bh=+8z6SUsF1e/REU3gcCFgmzFmcfdajlFQZ+TsooPdb2w=;
+	b=kJESWctg0c4syhEjyYGFNOlLVuJl1s/IZY7iwuGiRU9t5Z8YiRns4z3UibsqGZZMUcj+
+	 kmdWOpWi1WRnjzLOlyrllzqE/WPmO0uJfaVJqu2QApyp4yt7Kv+zzk9dLhD2o3IzToFkF
+	 /k1bCZ3Tws249/JhnlZno6oIVR8chAiZKj+zDwaGsTo3YKAon8Rla1h52myEb2KMZgEg5
+	 lyJXeMv9ECtF00FzP0FpDPA4u9H0xM1Jq9IPDecxACnNvu19QCYjUMUCeKUSkB0QDboqb
+	 yw2+4BKDJFjbxnvuN7HZDgkIpwT9cDs4tx706aieQ9ZaEFg4Ezm/Yd0ng7+NFJXx8oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=U97dZExR;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=cutebit.org;
+	spf=pass smtp.mailfrom=cutebit.org;
+	dkim=pass header.d=cutebit.org header.i=@cutebit.org header.a=rsa-sha256 header.s=mail header.b=m8cVUxk9;
+	arc=none smtp.remote-ip=185.8.165.127
+Received: from hutie.ust.cz (hutie.ust.cz [185.8.165.127])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC14606B0FF;
-	Mon,  2 Nov 2026 16:40:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAC14606B0FF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB7460A1DAA;
+	Mon,  2 Nov 2026 16:40:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CB7460A1DAA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cutebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cutebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=U97dZExR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=DkHgal0b82z5KPvwqWkyhs8Es3XYDe2wNpBo8Z22Xe4=; b=U9
-	7dZExRHAFKmBqkf/WS8CqhY7/DyHvZftUHM7ZMQ3dS66uwf2eHCczuYxWCs4Ki8HYbxr1XJWIY0QM
-	5QSuXzlOII6oweMasRVoDbbN+SyOtjuRRtgWS8PH/wpz2PZIw2vZ2g5uVyuXPwZWDEpgQ1QDxwydh
-	KsPh5JQkINZ9W4M=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xNv4o-00DpZV-Rd; Mon, 02 Nov 2026 17:40:06 +0100
-Date: Mon, 2 Nov 2026 17:40:06 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: dsa: motorcomm: Clear the MIB buffer on chip
- reset
-Message-ID: <d45e15a6-3f15-48c8-bb6b-901a094ca990@lunn.ch>
-References: <20261102101125.3523835-1-mmyangfl@gmail.com>
- <179361442917.3286.13140295265370118734@kernel.org>
- <CAAXyoMO5qCcnMeqqHM1CC__FPMnArOadvmCtoAzYT2SDhSJDEQ@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cutebit.org header.i=@cutebit.org header.a=rsa-sha256 header.s=mail header.b=m8cVUxk9
+Content-Type: text/plain;
+	charset=utf-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
+	t=1793637619;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+8z6SUsF1e/REU3gcCFgmzFmcfdajlFQZ+TsooPdb2w=;
+	b=m8cVUxk9LKNEPr3m/MR7d88NgB2/WgdRjvRmOB9r9o9ddnqU2g/Jc5PeRP+X+92RTHuEC0
+	76ZngKKW8wXzobtKVmm0T+I94y/qsJuLY6033Nhy0cTHOxX0Xo81VfGCLYN4Je2dql/u3Q
+	GW+69BEZsO9PmYrV6widckXt7OdWRxI=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,42 +53,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAXyoMO5qCcnMeqqHM1CC__FPMnArOadvmCtoAzYT2SDhSJDEQ@mail.gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH] dmaengine: apple-admac: Fix position one period ahead at
+ period boundary
+From: =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>
+In-Reply-To: <03f2dae1-453b-42ce-a3fa-e444906bb1bc@gmail.com>
+Date: Mon, 2 Nov 2026 17:40:09 +0100
+Cc: Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>,
+ Sven Peter <sven@kernel.org>,
+ Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>,
+ asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ dmaengine@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <774174DF-C530-4BA5-93D5-879D3D4E27D9@cutebit.org>
+References: <20261029105908.22809-1-sn125164@gmail.com>
+ <E5478149-FA00-4A41-8CAC-7E8CF8578473@cutebit.org>
+ <80246e46-8b9b-4cc8-b3a0-b07f9e5aaf8f@gmail.com>
+ <03f2dae1-453b-42ce-a3fa-e444906bb1bc@gmail.com>
+To: Jacob Procee <sn125164@gmail.com>
 
-On Mon, Nov 02, 2026 at 06:20:52PM +0800, David Yang wrote:
-> On Mon, Nov 2, 2026 at 6:13 PM <netdev-bot+sinfo@kernel.org> wrote:
-> >
-> > Hi!
-> >
-> > This is an automated message. This series looks like a fix, but its
-> > commit messages seem to be missing some information:
-> >
-> >  - How the issue was discovered, e.g. hit in production, hit during
-> >    development, syzbot report, manual code inspection, LLM or static
-> >    analysis tool scan.
-> >
-> >  - Whether the issue was actually triggered, or is only theoretical
-> >    (e.g. found by code inspection). If it was triggered please include
-> >    the symptoms, like the stack trace or error messages.
-> >
-> > Please do not repost the series just to address the above. Instead,
-> > reply to this email with the missing information, so that reviewers
-> > can take it into account. If the series needs another revision for
-> > other reasons, please include the information in the commit messages
-> > then.
-> >
-> > The evaluation is done by an LLM so it may be wrong, if you think
-> > that is the case please reply and explain.
-> 
-> Reported by sashiko
 
-What is also interesting is that i expect you have tested this on real
-hardware, unlike most of the patches we are getting at the moment. It
-is worth pointing that out, it might help get your patch merged
-faster.
+> On 2. 11. 2026, at 10:45, Jacob Procee <sn125164@gmail.com> wrote:
+>=20
+> On 10/30/26 08:35, Jacob Procee wrote:
+>> Thanks for the ack and the extra background info. I would love to =
+take a
+>> look at a race-free version of admac_cyclic_read_residue() as a =
+separate
+>> follow-up patch; v2 of this fix follows shortly.
+> Hello Martin,
+>=20
+> I looked into this using REG_DESC_RING. It only contains descriptors
+> that the hardware hasn't fetched yet, and its read slot is effectively
+> the hardware's fetch pointer.
+>=20
+> Unfortunately, it isn't updated atomically with the residue reload
+> either. Across 1.49 M reads, I hit 126 period boundaries. In 4 cases,
+> DESC_RING still showed the old state even though the residue had =
+already
+> reloaded. In another case, DESC_RING had advanced while the residue =
+was
+> still 0 and no report had been posted. So I don't see a way to get a
+> consistent, retry-free read from these registers.
+>=20
+> One could make the retry check more comprehensive by using three
+> counters: outstanding =3D queued + playing + reported, with playing =
+being
+> 1 unless the residue is 0. This would also catch the reverse ordering,
+> where the report is posted after the descriptor is loaded, which the =
+v2
+> check doesn't cover.
+>=20
+> However, I left the debug module running overnight (10.65 h, with =
+music
+> playing through the speakers), and never observed that reverse =
+ordering.
+> There were no XRuns or backward steps. The speaker channel had 96.6 M
+> reads and 15,483 boundary hits; the second channel had 29.3 M reads =
+and
+> 86 hits.
+>=20
+> All 1,498 snapshots that failed the three-counter check were explained
+> by read skew: 822 where DESC_RING was read before the fetch while the
+> residue was already full, and 676 where it was read after the fetch
+> while the residue was still 0. The positions returned to ALSA never
+> stepped backwards.
+>=20
+> Given that the more complicated check would only handle a case I =
+haven't
+> observed, I'd prefer to stick with the simpler v2 retry.
+>=20
+> Unless you know something about the hardware ordering that these =
+traces
+> wouldn't show, I'd prefer to stick with the simpler v2 retry.
+>=20
+> Kind regards,
+> Jacob
 
-	Andrew
+Hi Jacob,
+
+I don=E2=80=99t think it=E2=80=99s worth doing the more complicated =
+check either. Your v2 patch looks to be good enough given the available =
+information. Perhaps there=E2=80=99s a way to do the residue read race =
+free by involving additional features of the block incl. registers the =
+driver currently ignores but until someone discovers it I support going =
+with your patch.
+
+Best regards,
+Martin
+
