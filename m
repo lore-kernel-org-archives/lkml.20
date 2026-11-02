@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617042;
-	b=tE3ZVUjCfWXJm9pwJgxKHVgRAfBroNBSsi8xzh+nQel2rOdJuRdLXkGjq28FjU0Vj1ie
-	 hgEHhCyFQ6cIM+zWDKmK5AjzjqjBbN69tameT4DTTLr6WMstEVNiNai7+IYtofa037lwk
-	 BFxxhZNioIKrrsI/YLw1mYs3/Il5TyVm5y6GR7rQ5BxVeLuKYgbSudy/OOnjfeaYZMgRu
-	 AaMGiLaPm/tQaRTQ53CU4/g3SLZYs1e4C/7U6A1KzcqBymA/187vyyzKBk3RsysPnYoAQ
-	 /LfrxEfxPp5E+izSQKXLLWHxjdWtjQbrQRM+zvr521/843oWHNtS0ZdciBjoWWANp5w==
+	t=1793617047;
+	b=AO9HdLpH/tgDO34HbcLsmSbHFkUEY+J1oh2BHWjCPhytgmpXA+qfUhZ7p7jwEF0c8Kqm
+	 BPWvWpV2o4zIrugJPXVKWHihUoPYkaGfBd0+FzymHmGDV3VGagSI90U2jiVHvi+v/M1Dq
+	 smMea9XqAhmC+L0KZeMofsCr+cTf17VCIRAUEJrLdSKumoLSr1gNpH9ad0rJ9KCTBOfzE
+	 FobcQ672Q523EhMJjNzndNErvMtkm7m6Rg3OGUO77VUu0roIx15gClFnXjGAtqUF/HOO5
+	 rvl9FSK0s7B8NCkLNbW1ERFD0x/wiiE9YgE6/ndhqWtr8iuEoMVP+Grdevt0fv/dFPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617042;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617047;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Aa0YS/IQUjNBJsPU0/wJHEsRFIdEerQLiIg1zgEc56U=;
-	b=1oR1PDxzEdKbIlyYlH0m0DYSdYD3U5EtM+9rUMTJylTPoWbpQ7d4arBPnR7DBwv561DW
-	 7ddSNU5zU2PNWaHPaun/dYaBqZIAc2jEk31NKS+BohbGf0QaNf9OhY6JkcI+rYqOaCSr6
-	 bMKAAaHftx9zlP68an0ioCsxlu7WJKHCWvD5p8k3nCDdSV9fPGCZygWQxvR59H+IeCuk8
-	 g7JyTVXuOLXtiVWsk55oBcWle2GGEKgi8mDdobhLYid69fdOMuQIXWsX19Q9fRuJGPY2V
-	 Nqkswtn46yQ1GzvQhw7loqcu0nj+ljZUoXWOFiEHuNVqAPUQi8sQdMUC7g4nKmS9w1g==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MEFT/ALM9DZEMfY5C0sSExRjEKJeRSawG9RBT+Nn+N0=;
+	b=bNa/D6mPj5dYrHSHhZ3xkO6pSRAnbClRd1KG1WuycNIsR45QhB+fu8waaiGhR6k3iguv
+	 MFFiIIiCuSir2gps71kT/FEo92Hzp8A3ZOxteQokg0ukjfU9dgZucZYMylgHAm7/Cv+0P
+	 N/iILuPQXkVm+fv+y1FG4K18no1FE21CW5enLS86x618UNpB3hFSN5jiB80+F/wAtG6C6
+	 HyA54IQ+RM/YZI8Evumu00NaV0dv6qcyRiGnACp25w9eq1f75MHCV28apjuHFWf6bhb2t
+	 Ihovsv6VI6rl9X8bQFQKzaMhFhf4GPsH+LWlsPZeTVQgssdRlo/bzjpdY9FLdM7cQIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.com;
 	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=OZfi+NFE;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GjvqH4h9;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62775606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:57:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62775606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596D360A263A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:57:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 596D360A263A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=OZfi+NFE
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so18399395e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:57:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GjvqH4h9
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so36860905e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:57:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793617040; x=1794221840; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Aa0YS/IQUjNBJsPU0/wJHEsRFIdEerQLiIg1zgEc56U=;
-        b=OZfi+NFEoqTTtCNTXjvDvQrFGnXj+9roklJuDGOywKU2iAs4WcKWgE1X7m7+Rupel6
-         ze1o0i8qyhVYg1r+H+aWzjxK0BL6oUcC5E65Qe63GMxqpM7/SUoaaSvYywGF36LTQip0
-         i2R/lrXH5/naR9jpGWQGgoqXNhzSFgWZ34HphBqi6eDa42hofT2tba8tghxeOpMtgjoy
-         tYBpTmXVFAlrK77cfUyFPvrYsE4nJ4HQzouQoMq3iXK+IbAZq4OW+sj6OJPke8l6r+yn
-         aHbqI82pybsVYXVvWvp9H1Tn4M2nVoBN1edpYreapn/E0JJCtrEeGqKao7/DaaWDQCr2
-         Qs4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793617040; x=1794221840;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=suse.com; s=google; t=1793617046; x=1794221846; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Aa0YS/IQUjNBJsPU0/wJHEsRFIdEerQLiIg1zgEc56U=;
-        b=XSBMsWKza+uv3vos9nl4z2U6CKZ2QGjfv/WmJfau4V3c8i4nOyfPpQg6uh52aaDz7g
-         d6hDl7CMT0L1wrErehjHrTHg7vIgf5Zlsi+TjbfUXRFdKo0KRTlT8TTnlN3PGQJ8NXPW
-         4ZnByEc5t/AWWHuesj2It8JhM/DII0knzb5Hn6iWbn2+eDll7ucB7B6ArLXgixcq/oyk
-         3ntB3WIrjepzUZBkDIl8yxSafWxrkoA7TatRmw8IJWrT/KJXyRBXU1UIVWU7AFL5zJEs
-         RKkiXgj+eHBEG6cQf44RERkdDt82ZZlELsc20MJorqDciTt+PQKpgJVnh3Qo20xbKKwF
-         bs8A==
-X-Gm-Message-State: AFq9FYKFWWG0NKAOrBOHXAwhcfMXmDo6ZoMoFxy6RjTTNaFUP/SHWilU
-	74UvjJZzlM9iiN7KBJ6XNTec+Hzh/vCUKeuP94UP1zFtuSU8/FFtUx1kQNTHZUGNUFSQFJwHElP
-	cL5KCVmM=
-X-Gm-Gg: AYBFou3wSdjvcKV5uYWd4CB+uvFMRzCkh5U1LS8CJG+WQgStDzDuBHcKn/iA9oQ0pEN
-	I4fC3QmgRqhvlb374bTXs6W9JZVDFA0mfnQoIpfZdvyKHsx1r+Si6LaluqftSfgaZ0BuP5pLeBr
-	z19goy583XmnhO+TRVMCtMaK8mpjuncY5roKHuRPBt6cJB2meCqhikGvl4bc8+YJwuKeTYVtcyZ
-	Jtm0H340civeNOu13b4Vs+nfd8C5AGwQ6LmHPNFv/GjwEJ4Xm1hBmGTuuXyxGIhUILj754sJvdA
-	3220bUFrXWHjGnDRqS0nVy/kwP0Llc77+tNvrUbXw1agjubc1GflMsp7snPooLmSGkyqGXGGFu/
-	d8ij+5NePDpXmrLRGB2I7G+S9sSKOQMhGGBqf6M8ql5MOGO2zKl20k3svOkJI4tzMvQlujfJ6GW
-	vacXzdIsnDe80EWDxZDeQfGlrBMauQXcfQH24jV1a/KdMkT7kuvTqsZWBpBCpUr1nVxWww4utbF
-	FLwi5/nkmEXiIySUSc4K9ETN7qVh3/kxxv4AmRcmxAlmGOL+s7LKzofLvxh98LYrMj2PrxY6T8a
-	1w+Q+c4cd8BvCNDuFiNrBKDHWEfbXtI8/mb+NGuisKBUqRAC5pVt
-X-Received: by 2002:a05:600c:8b55:b0:4a1:ddca:8b66 with SMTP id 5b1f17b1804b1-4ac19234a06mr214806565e9.31.1793617039764;
-        Mon, 02 Nov 2026 02:57:19 -0800 (PST)
+        bh=MEFT/ALM9DZEMfY5C0sSExRjEKJeRSawG9RBT+Nn+N0=;
+        b=GjvqH4h9aGhgAoSu7Hb2JUpF6QSASqEQeq+hwqNF8rAdi4B1RGuYmTBOGlZaFM5lbb
+         eZFlEKQ/Qc1bcKDNlP2XZ4KuWSH1kJJNmz3SJ0QbRgZ07MSeI9XX5vBeaxXV654ohujB
+         B9C+DZ7RmSPqHVbWhoLWUJfcNThQnV/zCNq83jMLQXrhcI7+HmBeTuJ2onsCu/EvcfzV
+         ZCdvzy1/n2iXENo9S7ydG3iGzMFSm0hC+p0++qyHZpXvYtvzLHYZ700+VMdttyQzDYFg
+         KEflxHKonheMJhbqaiaAdaWrnEwK1hTdkgPSMJpfrvB7VV4kR6/6SIyh87R8AQPyFQFE
+         ceYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793617046; x=1794221846;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MEFT/ALM9DZEMfY5C0sSExRjEKJeRSawG9RBT+Nn+N0=;
+        b=OYXYsQuywObraNjVy50HKUqtZ/0ivbqeIPB2YD+gdCASWzuqZFuZgseH5t/Hi5Ifre
+         bKuO9qLhN1zacPwhJPznoXxzv4IZea4yjMattVPczRtTYP9fLZG4aE3gxD9iaK8sOqCr
+         ljAUL8B4kiQ2kZ4yYa+f0X7PTC0s3gd0d6dBlm7tyhU80M1NseWfqSRjx47b6/c2Jax8
+         6KfcpSWX8WkqMgkp6U0OwnVlBk9GSQLFjZCH/I0+ZjmEff4CGrx03JiIMzh6iXiZbQs6
+         UnItwU5mvrqEYcUtOMYi2XfolRxcfCNMIjoJ1TCoY3kY0rrGTBQEqhTrilj15hxIq5kN
+         H26Q==
+X-Gm-Message-State: AFq9FYKHLt+NmJYm7s+xcUFEY3szmcdkvMJ/uc+tGAAzp8KOyftyxVD3
+	VIp2Y8Ww48P0ONL1KJVEGrtGlxA8sTzvX27e4G4thxwOh1bdJgsLh9WoXy96cIw21uwKIzmw5dZ
+	Et24dKBo=
+X-Gm-Gg: AYBFou1MRQpg+NeVoLpvOE9P27CduZ7t5vODP9LnrRzWm3BxKbVfAgry/M0FO3WWAgt
+	79fEpXt/S7+JQ3Zd7H2T2dpAStTUrzem76jUbGVSvaWNclpDyLy067tFCSR/07OCzQGmAOnlvmN
+	7Jqxwdb8dCkOibGCm+eGXpWCj0D/TsNJCzmm5TRO/0vJUynrQ+pfulrnPdYlxHh4JEsx7rpqrdu
+	TDKt/0Bm/vrg5Ml1GSmu5e2eBYG43Uk+AZD+3xPab9vi0WPMH8HfOvgGxNv+/TJfk805UTeaudo
+	RVzDlNW3sLNZsU/tihZnAucWveFQfi9j8+xfPGG+2rfhIM7RdQQMww/yA7NlTf8Q5vanPR+5+qY
+	hd8THwQWYX1MdXlACRQzTM4LvkCRqr069gQ9sZLWBWkzglYewnOZbjOmA777vJbVWioLrqrwW+F
+	sC70WV+AzT+xcVwxp3AoXqff+dpfz0CH88rHB3Sa8BwfC6f4uxHts6Pc55TJoOBt9T9L3SnFd1O
+	hMGt0qy7gG86gYiaUZp1wk21qLDiTRM0ZP+l5KN5MzQkFskhQkozk9JHyqVRKGs/LNkl18r40dR
+	t70VR4ljZnxbvL0SjLQRFzbGJGwNsT433/IZqx3c3fJ5C+5gj1Bl
+X-Received: by 2002:a05:600c:8b01:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4ac16fa4f73mr235301845e9.8.1793617045755;
+        Mon, 02 Nov 2026 02:57:25 -0800 (PST)
 Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm363171175e9.1.2026.11.02.02.57.18
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm363171175e9.1.2026.11.02.02.57.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:57:19 -0800 (PST)
+        Mon, 02 Nov 2026 02:57:25 -0800 (PST)
 From: Marco Crivellari <marco.crivellari@suse.com>
 To: linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org
@@ -92,25 +93,14 @@ Cc: Tejun Heo <tj@kernel.org>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Haren Myneni <haren@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Mika Westerberg <westeri@kernel.org>,
-	Mingming Cao <mmc@linux.ibm.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Nick Child <nnac123@linux.ibm.com>,
 	Petko Manolov <petkan@nucleusys.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	Rick Lindsley <ricklind@linux.ibm.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>
-Subject: [PATCH net-next v5 0/6] net: Move system_long_wq to system_dfl_long_wq
-Date: Mon,  2 Nov 2026 11:56:50 +0100
-Message-ID: <20261102105703.111844-1-marco.crivellari@suse.com>
+	linux-usb@vger.kernel.org
+Subject: [PATCH net-next v5 5/6] net: usb: pegasus: Move long delayed work on system_dfl_long_wq
+Date: Mon,  2 Nov 2026 11:56:55 +0100
+Message-ID: <20261102105703.111844-6-marco.crivellari@suse.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102105703.111844-1-marco.crivellari@suse.com>
+References: <20261102105703.111844-1-marco.crivellari@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,100 +113,70 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello,
+Currently the code enqueues the carrier_check delayed work using
+queue_delayed_work(), on system_long_wq. This workqueue should be used
+when long works are expected and it is a per-cpu workqueue.
 
-Currently the code uses the per-cpu workqueue system_long_wq to schedule
-long running works.
+queue_delayed_work() ends up calling __queue_delayed_work(), which, since
+the work is always queued with CARRIER_CHECK_DELAY, sets a global timer
+that could fire anywhere, enqueuing the work where the timer fired.
 
 Unbound works could benefit from scheduler task placement, to optimize
-performance and power consumption. Another good reason to have this unbound,
-is the "queue_delayed_work()" function, used to enqueue the work item.
-More details on this will follow in the next section.
+performance and power consumption. Long work shouldn't stick to a single
+CPU.
 
-Recently, a new unbound workqueue specific for long running work has been
-added:
+Recently, a new unbound workqueue specific for long running work has
+been added:
 
-    c116737e972e ("workqueue: Add system_dfl_long_wq for long unbound works")
+    c116737e972e ("workqueue: Add system_dfl_long_wq for long unbound works")
 
-~~~ Details about queue_delayed_work ~~~
+Since carrier_check doesn't rely on per-cpu variables, there is no
+obvious reason that justify the use of a per-cpu workqueue. So change
+system_long_wq with system_dfl_long_wq so that the work may benefit from
+scheduler task placement.
 
-system_long_wq is a per-cpu workqueue and it is used as a parameter of
-queue_delayed_work(). This function schedule an item that it will later
-be enqueued (once the timer will fire). __queue_delayed_work() does the job
-receiving as "cpu" WORK_CPU_UNBOUND:
-
-    if (housekeeping_enabled(HK_TYPE_TIMER)) {
-    //      [....]
-    } else {
-            if (likely(cpu == WORK_CPU_UNBOUND))
-                    add_timer_global(timer);
-            else
-                    add_timer_on(timer, cpu);
-    }
-
-The timer is global, so can fire everywhere, and the work item will be
-enqueued where the timer fired.
-
-Since the workqueue work doesn't rely on per-cpu variables, there is no
-obvious reason that justify the use of a per-cpu workqueue. So change the
-workqueue with the new system_dfl_long_wq, so that the used workqueue is
-now unbound and can benefit from scheduler task placement.
-
-Thanks!
-
+Cc: Petko Manolov <petkan@nucleusys.com>
+Cc: linux-usb@vger.kernel.org
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
-Changes in v5:
-- rebase on v7.4-rc1
+ drivers/net/usb/pegasus.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-- add Ack by Mingming Cao on Patch 1
-
-- fix commit log in patches "ibmvnic" and "net: thunderbolt"
-
-- addressed workqueue change related to "icssg_prueth_sr1.c" where
-  queue_work() used system_long_wq.
-
-Lnk to v4: https://lore.kernel.org/all/20261012095452.135828-1-marco.crivellari@suse.com/
-
-Changes in v4:
-- rebased on v7.3-rc7
-
-- added review-by Sebastian on 5/6
-
-Link to v3: https://lore.kernel.org/all/20260720100902.155605-1-marco.crivellari@suse.com/
-
-Changes in v3:
-- rebased on v7.2-rc4
-
-- added "net: ti: icssg-prueth: Move long delayed work on system_dfl_long_wq"
-
-- changed also the workqueue in ibmvnic_reset().
-
-Link to v2: https://lore.kernel.org/all/20260706134033.244295-1-marco.crivellari@suse.com/
-
-Changes in v2:
-- rebased on v7.2-rc2
-
-- dropped the RFC prefix, kept Ack and review tags
-
-Link to v1: https://lore.kernel.org/all/20260511092846.120141-1-marco.crivellari@suse.com/
-
-Marco Crivellari (6):
-  ibmvnic: Change system_long_wq with system_dfl_long_wq
-  net: ti: icssg-stats: Move long delayed work on system_dfl_long_wq
-  net: ti: icssg-prueth: Move long delayed work on system_dfl_long_wq
-  net: thunderbolt: Move long delayed work on system_dfl_long_wq
-  net: usb: pegasus: Move long delayed work on system_dfl_long_wq
-  net: usb: r8152: Move long delayed work on system_dfl_long_wq
-
- drivers/net/ethernet/ibm/ibmvnic.c               | 6 +++---
- drivers/net/ethernet/ti/icssg/icssg_prueth.c     | 2 +-
- drivers/net/ethernet/ti/icssg/icssg_prueth_sr1.c | 2 +-
- drivers/net/ethernet/ti/icssg/icssg_stats.c      | 2 +-
- drivers/net/thunderbolt/main.c                   | 7 ++++---
- drivers/net/usb/pegasus.c                        | 9 +++++----
- drivers/net/usb/r8152.c                          | 7 ++++---
- 7 files changed, 19 insertions(+), 16 deletions(-)
-
+diff --git a/drivers/net/usb/pegasus.c b/drivers/net/usb/pegasus.c
+index 68e4b6658dd2..a4ecfec290b6 100644
+--- a/drivers/net/usb/pegasus.c
++++ b/drivers/net/usb/pegasus.c
+@@ -1126,8 +1126,9 @@ static void check_carrier(struct work_struct *work)
+ 	pegasus_t *pegasus = container_of(work, pegasus_t, carrier_check.work);
+ 	set_carrier(pegasus->net);
+ 	if (!(pegasus->flags & PEGASUS_UNPLUG)) {
+-		queue_delayed_work(system_long_wq, &pegasus->carrier_check,
+-			CARRIER_CHECK_DELAY);
++		queue_delayed_work(system_dfl_long_wq,
++				   &pegasus->carrier_check,
++				   CARRIER_CHECK_DELAY);
+ 	}
+ }
+ 
+@@ -1231,7 +1232,7 @@ static int pegasus_probe(struct usb_interface *intf,
+ 	res = register_netdev(net);
+ 	if (res)
+ 		goto out3;
+-	queue_delayed_work(system_long_wq, &pegasus->carrier_check,
++	queue_delayed_work(system_dfl_long_wq, &pegasus->carrier_check,
+ 			   CARRIER_CHECK_DELAY);
+ 	dev_info(&intf->dev, "%s, %s, %pM\n", net->name,
+ 		 info ? info->name : "(unknown)", net->dev_addr);
+@@ -1296,7 +1297,7 @@ static int pegasus_resume(struct usb_interface *intf)
+ 		pegasus->intr_urb->actual_length = 0;
+ 		intr_callback(pegasus->intr_urb);
+ 	}
+-	queue_delayed_work(system_long_wq, &pegasus->carrier_check,
++	queue_delayed_work(system_dfl_long_wq, &pegasus->carrier_check,
+ 				CARRIER_CHECK_DELAY);
+ 	return 0;
+ }
 -- 
 2.56.0
 
