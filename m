@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633843;
-	b=1DO79sqq9HRbRguA1N7FhWRyAogHfZASgEoBbQuH+mrWzqEGG4D6uTXCZj7pwoVpOxDl
-	 fBLNhy+D+ZpE3cZIiJIhnim8ml3XPZqK0L3AgSIpQXlSjPkOJSnHOg5pkwK19oLYIaBVJ
-	 1FVQBwPPfmWs8a/ApywOBWv/2OYpeMsY3sCRf/9SXD8Y4n5TyjIx9sgZ3YW8zzCc0taUv
-	 SqJGxibbNYL0uYzkzFeNqsPbrw45tRGLtxr+w6QMA69YZVqxO91Q2mRRHJnysTkTDinsR
-	 qoSzNR/xfdK80LmQvTm6zGD79KgJrqV7MrsqohwgjKsZfjsQr/b9ehmv/czRxwkWOnA==
+	t=1793633838;
+	b=nnR6X8QFbREtylBxGubq1WM/f9vrp9ELk62Zo1KPrVRu7x1yV5JM8BpBerRJYjgF8RYK
+	 ysqj9U0j2gthzY3hJ9inPoYp8thkSw8T/OTLW/BL6mBTp5b1mhQlsGlF62cyV7/pscPIG
+	 ItbH7mbpkHS/0/7f0SHCLfXgyl19D6TlA0mBHEW2p0sY6vAPvhnzwmjvP4qqZJqlPg5jo
+	 MOiddPiEJr7BemCBUO4KMMCTOp8A1IB93N6hezbCDj9Dd4sonUuGRQUOeWcOUu4hypC3E
+	 I4pVcV+1mxKnzrosdnVmaAjSfdWST/miPHdS4O+IgKD3TIiPBzN7OcBXSeTXLy88Q0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633843;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633838;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=3Pjs45S57+QYe3zCfvXOSLki7qU0AqGmneDsSzoE048=;
-	b=q8JWorIfT0EcMp3gM9sHbCABEbEH/drAtoPhJlpYNV582LRnxnjxYhcnc/XzNQJnqcgX
-	 f32iG9Swo8JT5KUw4dEQh/sNLK+yEplTTsscD8UUuu4yEuLnoAh1pI98Y0bkH+ygR3KpK
-	 YdHE+qFJVvopRO4s6nWk1siqBOz8MhY1wp/WQP3o6huNGU69Aqp3oKOdMMMr2u8W7Ettl
-	 w8JA3dTVMmI9hYHv7Ud8iveScrcqQgl0xmeI9uL/cRs0GtjJxMoWk0DB5wYKet5yxKQf1
-	 UMMR4RHSkXbQwpexMKYfVMpgAay18VfhdcjnVrXU0ytSPxnlpoCFm+E+MU0kcsnMKLQ==
+	bh=ym/wrmWFSlmP/Qd42BcsAsFY9ji592OmGMgA89zOpEo=;
+	b=DUdy/KtFoCQcCtcAT+pmFUpkPQMw1mPnxXJ0rTOugclGpGiD69i/p1cXXmyVVzZjgK0T
+	 iEBKPPISvVXFdIRSe0WUlayby1iTNgBsL5blcL4mXi3T6CNL369RkdOd6u+SPogbkQh5T
+	 de10gk3erNpjMcTFNGkulzB39idd7QjxTrx9xGBGJtZ8dcE4qZ+LyRDZFJ5Wpyj/QvESH
+	 JrAFNTADRNwWgeA512egA98NUrxgWnntFsjf0+Bx2Ln1qCVVZPEgNrzXmVZ3Z2MeLzlgj
+	 SBlZohq7/XZ+mEdvyCbstUU2l9P9ldazLfPNojwiNL/4S7PSum+C6YjX66sN5eP47JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FAaVSdjU;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OOoLULKt;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0D360EC3C1
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C0D360EC3C1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F8E60E6E4A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64F8E60E6E4A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FAaVSdjU
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a01ea9e318so4077042b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OOoLULKt
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3aed1b64104so738987a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793633843; x=1794238643; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793633833; x=1794238633; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3Pjs45S57+QYe3zCfvXOSLki7qU0AqGmneDsSzoE048=;
-        b=FAaVSdjUd0cfsq/b7VcuT8axjNOEN+7MFV5Y7WJXuTArFkLs3yupDaLWDBxj8/DVa1
-         1ynAmNmwqx7A6A0XhZcNV3Z44L7Dmdn+befI7wSwfczoF1hPYM1uVVhoCydWn2EVB6S0
-         WwOZEen3E31komCspSB+f1pW3ChpZkrgywL8NV2ZEF9jcWhGQ604kE3IqfCOv9bx2+9p
-         5rbSlddU+X+JaDalXYFIsBYbtosEkvx5d6b4zsxj/vqjRS2OvPWCfmkhIFeVHl69Otz2
-         G0uNGDNenv9aH4Gc6d8kf7Lwl/HPUDx6Bp+CXXygBvDr8OIwTrPFjfoUy7KhjVoOKmWu
-         mGkg==
+        bh=ym/wrmWFSlmP/Qd42BcsAsFY9ji592OmGMgA89zOpEo=;
+        b=OOoLULKtlquOo1hW/AmHaG5FsQeivEQrZb86orM8Uwr5rOr6omi+/3iadCq7mNqOO1
+         XljI7RfadAnR5LvZE8sdlhGrGm7ovH1YZchOD+n2oEdVDwI1s4iPidqSm7AnqLNneX1J
+         +19jmKdtOW/0IT9T+eUJSqR4B1jrAI1gc0IPi7/hiW+AFxh7LkF8GjPdKXH6YhhCWNtV
+         Z/lr5wNh2KLIgibplLjpCnHFotSkYKRjnxsu3uTadvcsHqt+h9j1nYYXy0V8Ayodtieh
+         GBaa8eAzMECdepVHl0ZN+7QCof8/aDsVoHEN/NF7jgv/oIWJ/c4wL25TQC+PNWSJZLhV
+         bCbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793633843; x=1794238643;
+        d=1e100.net; s=20260707; t=1793633833; x=1794238633;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3Pjs45S57+QYe3zCfvXOSLki7qU0AqGmneDsSzoE048=;
-        b=044YnRWxmD2K++IfNxGdDyOc37DZwLCseXFdV8g0Cl+R3pCg6IG7Fuq6T6ooDXBFS4
-         x/YQWyO2A8r8ETTfZr+P71ungrG9JHrOp6Pj88rsyHZUvPbiOOKxXzidiKYuhWfwRyFO
-         NuFeTbkDsrrxarUHFhWagORliFO6Jf132JdccvYAkVLrbe16uew5O/rhyNhP6Typ4jvW
-         6AZ47U6TssPGpxqx32zpCTQREKidIltjsqDJWW9P9EcT5OyaTd3THq8vZs+rvWu6jwIV
-         S3lphqAhQYQnNSTgQ4uJrBgHVmuX28MmiSzjt7UxKQgOj08nAQSpcZbvTLG7o/pRCnth
-         WNPw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7L7ZO9pyKjMcaIoiC5nnUvbZYfOCNGOCpAWS1AWCp7N9Jb8LCw+c/FagIyCZVHNHZBDHfPOBXr2ynXmI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDDcIPKCs4nA/HX9LpD2GBxfhM7PFZK/nvC/KVmdOO2+oqnaqs
-	HAi+6l4GCBFcgfzDc3YVw4bpLzuLbK4sHnfLNN7hlCXMWbxutUhrH2yIaxI62N12TElMD0kLpnr
-	7debEy14oqw==
-X-Received: from pgia4.prod.google.com ([2002:a63:e404:0:b0:cc7:865b:2dc5])
- (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:4cc1:b0:3e2:778e:3cdd
- with SMTP id adf61e73a8af0-3e9289abb68mr8817317637.37.1793633842371; Mon, 02
- Nov 2026 07:37:22 -0800 (PST)
-Date: Mon,  2 Nov 2026 07:36:50 -0800
+        bh=ym/wrmWFSlmP/Qd42BcsAsFY9ji592OmGMgA89zOpEo=;
+        b=M4pN8myxuW731PlCW++S5ioIOD5l75Q+qpYfJn2w0D+JNZM+iI5OV9yU26dGkXAM4u
+         jdPuUx1MBcgFNnBq1XXVUuFVZ6GawCVX9xOzQVzyNJ4AsBEjECMxOgAqz3aNU1NhBxf5
+         /7OybcTyXxMXtkt2AzJii7zHNPTYtG2b8d279XHtoP7VrLPP+XbI1a98BYYjc4h2S8YP
+         GTXun7p9CXjDroNMac3h89hFC4LaqflDggYpCBh5hdff4rvLUe3ck1B/9VKxjIIQeFAX
+         /RSvfRKQZmaN6LkrC6pal6wC6ybmxCWDEDAnUB6W81ZY0Cp1XmaGIEIfUzhLqEqHdmHu
+         hb7g==
+X-Forwarded-Encrypted: i=1; AKwUvBziTk2UNlcH0oo2Ms1dZgONwO71JKkmdWX/lHl3B8VyDiAQ5B/WRHr+2PMSGvbORUDk/DS7b/vOlJIrW1Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/S+WNSbxj+ip26JDhw7rPKWRE+44S6OE9CV8wJBZ9dd7FQL7mi
+	J55qFzamjrh1tDxc6DMhGlSS2CiBs9w2YrWghXrHbfO5mEPCOcx1PxHdd9aZQSv9GQ0/ZEGSGBl
+	84/Oi4a2m3g==
+X-Received: from plhb8.prod.google.com ([2002:a17:903:2288:b0:2e9:84f0:65ba])
+ (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3b47:b0:3ac:9f00:3bc7
+ with SMTP id 98e67ed59e1d1-3ae8980dccamr9246672a91.33.1793633832641; Mon, 02
+ Nov 2026 07:37:12 -0800 (PST)
+Date: Mon,  2 Nov 2026 07:36:41 -0800
 In-Reply-To: <20261102153656.1431701-1-vipinsh@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261102153656.1431701-1-vipinsh@google.com>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261102153656.1431701-22-vipinsh@google.com>
-Subject: [PATCH v6 21/27] vfio: selftests: Add helpers to map DMA memory at
- IOVA == PA in noiommu mode
+Message-ID: <20261102153656.1431701-13-vipinsh@google.com>
+Subject: [PATCH v6 12/27] vfio: Enforce preserved devices are retrieved via LIVEUPDATE_SESSION_RETRIEVE_FD
 From: Vipin Sharma <vipinsh@google.com>
 To: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org, 
@@ -103,141 +102,118 @@ Cc: ajayachandra@nvidia.com, alex@shazbot.org, amastro@fb.com,
 	yanjun.zhu@linux.dev, yi.l.liu@intel.com
 Content-Type: text/plain; charset="UTF-8"
 
-Selftest drivers program the IOVA returned by to_iova() into the device.
-Because a device in noiommu mode uses those addresses directly as
-physical addresses, DMA buffers must be mapped at IOVA == PA so that
-to_iova() returns the buffer's physical address without changing the
-drivers.
+From: David Matlack <dmatlack@google.com>
 
-Add __iommu_noiommu_get_pa() to wrap IOMMU_IOAS_NOIOMMU_GET_PA and
-iommu_map_identity() to map a physically contiguous buffer at IOVA == PA
-by first pinning it at a scratch IOVA (BIT_ULL(52), above the 52-bit
-output address space of the noiommu page table), querying its physical
-address and contiguity, mapping it at IOVA == PA, and then unmapping the
-scratch range while keeping the pages pinned.
+Enforce that files for incoming (preserved by previous kernel) VFIO
+devices are retrieved via LIVEUPDATE_SESSION_RETRIEVE_FD rather than by
+opening the corresponding VFIO character device or via
+VFIO_GROUP_GET_DEVICE_FD.
 
+Both of these methods would result in VFIO initializing the device
+without access to the preserved state of the device passed by the
+previous kernel.
+
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Signed-off-by: David Matlack <dmatlack@google.com>
+Co-developed-by: Vipin Sharma <vipinsh@google.com>
 Signed-off-by: Vipin Sharma <vipinsh@google.com>
 ---
- .../vfio/lib/include/libvfio/iommu.h          | 26 ++++++++
- tools/testing/selftests/vfio/lib/iommu.c      | 61 +++++++++++++++++++
- 2 files changed, 87 insertions(+)
+ drivers/vfio/device_cdev.c             |  8 ++++++++
+ drivers/vfio/group.c                   |  9 +++++++++
+ drivers/vfio/pci/vfio_pci_liveupdate.c |  6 ++++++
+ drivers/vfio/vfio.h                    | 18 ++++++++++++++++++
+ 4 files changed, 41 insertions(+)
 
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h b/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
-index e652b8caf5bb..d449813f9bc4 100644
---- a/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
-@@ -65,6 +65,32 @@ static inline void iommu_unmap_all(struct iommu *iommu)
- int __iommu_hva2iova(struct iommu *iommu, void *vaddr, iova_t *iova);
- iova_t iommu_hva2iova(struct iommu *iommu, void *vaddr);
+diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
+index 38e691eceab5..f0018eae3c4d 100644
+--- a/drivers/vfio/device_cdev.c
++++ b/drivers/vfio/device_cdev.c
+@@ -58,6 +58,14 @@ static int vfio_device_cdev_open(struct vfio_device *device, struct file **filep
+ 		}
  
-+/*
-+ * Look up the physical address @iova maps to in the noiommu IOAS of @iommu
-+ * (IOMMU_IOAS_NOIOMMU_GET_PA, requires CAP_SYS_RAWIO). On success, *@length is
-+ * the number of physically contiguous bytes from *@pa, at most @max_length.
-+ */
-+int __iommu_noiommu_get_pa(struct iommu *iommu, iova_t iova, u64 max_length,
-+			   u64 *pa, u64 *length);
-+
-+/*
-+ * Map @region->size bytes at @region->vaddr at IOVA == PA, and set
-+ * @region->iova to that PA. Devices in noiommu mode use the addresses that
-+ * drivers program into them, i.e. to_iova(), as physical addresses, which such
-+ * a mapping makes right.
-+ *
-+ * The buffer must be physically contiguous (e.g. a hugepage or a THP), and a
-+ * noiommu device must be attached to @iommu already. The memory stays pinned,
-+ * and so at the same physical address, until iommu_unmap(@region), which must
-+ * not be called before the device stopped accessing it.
-+ */
-+int __iommu_map_identity(struct iommu *iommu, struct dma_region *region);
-+
-+static inline void iommu_map_identity(struct iommu *iommu, struct dma_region *region)
-+{
-+	VFIO_ASSERT_EQ(__iommu_map_identity(iommu, region), 0);
-+}
-+
- struct iommu_iova_range *iommu_iova_ranges(struct iommu *iommu, u32 *nranges);
+ 		*filep = file;
++	} else if (vfio_liveupdate_incoming_is_preserved(device)) {
++		/*
++		 * Since it is live update preserved device, it must be
++		 * retrieved via LIVEUPDATE_SESSION_RETRIEVE_FD instead of
++		 * opening /dev/vfio/devices/vfioX.
++		 */
++		ret = -EBUSY;
++		goto err_free_device_file;
+ 	}
  
- #define MODE_VFIO_TYPE1_IOMMU "vfio_type1_iommu"
-diff --git a/tools/testing/selftests/vfio/lib/iommu.c b/tools/testing/selftests/vfio/lib/iommu.c
-index 0df49646d016..46e9635cbfc5 100644
---- a/tools/testing/selftests/vfio/lib/iommu.c
-+++ b/tools/testing/selftests/vfio/lib/iommu.c
-@@ -11,6 +11,7 @@
- #include <sys/ioctl.h>
- #include <sys/mman.h>
+ 	file->private_data = df;
+diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
+index b2299e5bc6df..62b4eaabc829 100644
+--- a/drivers/vfio/group.c
++++ b/drivers/vfio/group.c
+@@ -316,6 +316,15 @@ static int vfio_group_ioctl_get_device_fd(struct vfio_group *group,
+ 	if (IS_ERR(device))
+ 		return PTR_ERR(device);
  
-+#include <linux/bits.h>
- #include <linux/limits.h>
- #include <linux/mman.h>
- #include <linux/types.h>
-@@ -244,6 +245,66 @@ int __iommu_unmap_all(struct iommu *iommu, u64 *unmapped)
- 	return 0;
- }
- 
-+/*
-+ * The noiommu IOAS page table translates to physical addresses of at most 52
-+ * bits (drivers/iommu/iommufd/hwpt_noiommu.c), so a mapping at or above this
-+ * IOVA never overlaps one at IOVA == PA.
-+ */
-+#define NOIOMMU_SCRATCH_IOVA	BIT_ULL(52)
-+
-+int __iommu_noiommu_get_pa(struct iommu *iommu, iova_t iova, u64 max_length,
-+			   u64 *pa, u64 *length)
-+{
-+	struct iommu_ioas_noiommu_get_pa args = {
-+		.size = sizeof(args),
-+		.ioas_id = iommu->ioas_id,
-+		.iova = iova,
-+		.length = max_length,
-+	};
-+
-+	if (!iommu->iommufd || !iommu->mode->noiommu)
-+		return -EOPNOTSUPP;
-+
-+	if (ioctl(iommu->iommufd, IOMMU_IOAS_NOIOMMU_GET_PA, &args))
-+		return -errno;
-+
-+	*pa = args.out_phys;
-+	*length = args.length;
-+	return 0;
-+}
-+
-+int __iommu_map_identity(struct iommu *iommu, struct dma_region *region)
-+{
-+	struct dma_region scratch = {
-+		.vaddr = region->vaddr,
-+		.iova = NOIOMMU_SCRATCH_IOVA,
-+		.size = region->size,
-+	};
-+	u64 pa, length;
-+	int ret;
-+
-+	/* Pin the buffer with a scratch mapping to look up its physical address. */
-+	ret = __iommu_map(iommu, &scratch);
-+	if (ret)
-+		return ret;
-+
-+	ret = __iommu_noiommu_get_pa(iommu, scratch.iova, scratch.size, &pa, &length);
-+	if (!ret && length != region->size)
-+		ret = -EINVAL;	/* Not physically contiguous. */
-+
 +	/*
-+	 * Map it at IOVA == PA before dropping the scratch mapping, so that it
-+	 * stays pinned, and hence at the same physical address, throughout.
++	 * This device was preserved across a Live Update. Accessing it via
++	 * VFIO_GROUP_GET_DEVICE_FD is not allowed.
 +	 */
-+	if (!ret) {
-+		region->iova = pa;
-+		ret = __iommu_map(iommu, region);
++	if (vfio_liveupdate_incoming_is_preserved(device)) {
++		vfio_device_put_registration(device);
++		return -EBUSY;
 +	}
 +
-+	VFIO_ASSERT_EQ(__iommu_unmap(iommu, &scratch, NULL), 0);
-+	return ret;
-+}
+ 	fd = FD_ADD(O_CLOEXEC, vfio_device_open_file(device));
+ 	if (fd < 0)
+ 		vfio_device_put_registration(device);
+diff --git a/drivers/vfio/pci/vfio_pci_liveupdate.c b/drivers/vfio/pci/vfio_pci_liveupdate.c
+index f13c757b4567..64810010f983 100644
+--- a/drivers/vfio/pci/vfio_pci_liveupdate.c
++++ b/drivers/vfio/pci/vfio_pci_liveupdate.c
+@@ -43,6 +43,12 @@
+  *   ...
+  *   ioctl(session_fd, LIVEUPDATE_SESSION_FINISH, ...);
+  *
++ * .. note::
++ *    After kexec, if a device was preserved by the previous kernel, attempting
++ *    to open a new file for the device via its character device
++ *    (``/dev/vfio/devices/X``) or via ``VFIO_GROUP_GET_DEVICE_FD`` will fail
++ *    with ``-EBUSY``.
++ *
+  * Restrictions
+  * ============
+  *
+diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
+index 12557d45dfee..e6ca4c3fda06 100644
+--- a/drivers/vfio/vfio.h
++++ b/drivers/vfio/vfio.h
+@@ -11,6 +11,7 @@
+ #include <linux/cdev.h>
+ #include <linux/module.h>
+ #include <linux/vfio.h>
++#include <linux/pci.h>
+ 
+ struct iommufd_ctx;
+ struct iommu_group;
+@@ -446,4 +447,21 @@ static inline void vfio_device_debugfs_init(struct vfio_device *vdev) { }
+ static inline void vfio_device_debugfs_exit(struct vfio_device *vdev) { }
+ #endif /* CONFIG_VFIO_DEBUGFS */
+ 
++#ifdef CONFIG_VFIO_PCI_LIVEUPDATE
++static inline bool vfio_liveupdate_incoming_is_preserved(struct vfio_device *device)
++{
++	struct device *d = device->dev;
 +
- static struct vfio_info_cap_header *next_cap_hdr(void *buf, u32 bufsz,
- 						 u32 *cap_offset)
- {
++	if (dev_is_pci(d))
++		return pci_liveupdate_is_incoming(to_pci_dev(d));
++
++	return false;
++}
++#else
++static inline bool vfio_liveupdate_incoming_is_preserved(struct vfio_device *device)
++{
++	return false;
++}
++#endif /* CONFIG_VFIO_PCI_LIVEUPDATE */
++
+ #endif
 -- 
 2.56.0.317.g454f8302e1-goog
 
