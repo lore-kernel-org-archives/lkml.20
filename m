@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603083;
-	b=0SOBLpfRfIe9528OhSIfKMQrTAeg6AfLV+6aT7ZreLVpJ5lBsatYN6XjaCu8412k22il
-	 r9JNDEMksZwHskCNhPyF7aCTSKJ+VjXNcDZtih2lh/7r2w0gAND6GlQUd/d4ibvrCiWQV
-	 WUj/fjRSseoCnKGO6BxEcTbdYR7YW51XhljO8lqZ2poQJ/CoSi8/j9ViFYonO5b2PXYmO
-	 M4VQIlJWy89QBUDGyzaD3o7JPHyRENcrz/P77M5qWqTjep+Y4QJlIjzaV9Dawe1F+77Ur
-	 OiiV/onCQz4AGV3cmGG0+ZiXhtQ6GTz70QiPHDC5M64Y20tUAG3++i3LtUNWKpW4xiQ==
+	t=1793603111;
+	b=apoib/hIe5LzOHCmmi8QVLbYLRWj4iTOVgqzUcHiVZuGsLyPXqx2Si0rhHoHmKMsjzY8
+	 NsQW33KLAfgeGodsvO1c6sDBvoJC3fS+/ALw/3W6sI+x8N0aNShc672eZGKWb47j+R4wL
+	 6B/iFNBTzZ+B9+HSVcBtGE9CDKTEdmExgEoql06O25HlzSW8L/z7uw9tPpNZ/tPOM/5nl
+	 YfzpGCi9zIXl/WeNSuA0GLnMQytSM1RRn9I2mH0wHX+mJSrzQipI7WR84NCaQhxZ/bojN
+	 l+jgVTcohLq9q4R1cWBy182EjoZ0UUH0NkDjyqoRoI7UZVhwxyoVDz9Dl/jLBy2S6gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603111;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=VU9BXhR7VAByKc6pd+oKrjGan0whFepMAX42Ew0W3wU=;
-	b=qLCpKRAFtGBXsVYOQpUR4/WDtze1wb3DvFgoLW8/uAZEKV8ZXhlDTMPE9b/mB1yIdO7+
-	 Wq60zt11n/CTzSNGj1TXRWS+HgslZQdCtvhPN9dKgUiPN5ZaXWk3EjzvdfaLzDSdp7g0J
-	 XWSL8Zy9JMoudLLd0vitp1Tgi+jMOb7hfE2YOzFQMJ0nHlQ2W9vZBS9Y2Sdt7eG0bbVd1
-	 Fpa4npKZoAXkx9vfTn3jTGXQC047XeOCuoF0w5hhVsc3vS22Ff1TsFDyL6HFcjDSrbwxW
-	 FOyu83SvuuI7tLTCM789GhGkebAEGmn5zcWJPem1B5bxEA4ui/9RrtVzfa975RvhIvw==
+	bh=FSmWgF3F9i597Fg0G7qCJvBl7yQ+wuMZQiBb9pEKCjs=;
+	b=ty8xjTLnMxwESpIIHA81vVcrxmhqGx0HnRsoIQyDDTGOhv4EZB0RA0L6hE9JOA7ThKPP
+	 +Vu2VevcLSMq4mbcsXOsKylEDuvKovQ68j8UzWJM3Ijy7SeRJ7PNA14tM4uGslvqFvm4p
+	 VmhwMi8fYqTCriUQHLvuQOCoPBRnTmXr2M7YnMT6mNLInlFNY9LxnbZGXPbFcdBOhUFrI
+	 YggC+z0L7yMYTOhrmvu9yvRf4dS8Dg0A7tz0sQVx4+Q/Ifole210w9xc4+aE0tU6VClrc
+	 4oFO7HcBR68qkSM7DEbGvicVB/uydzJkOkogQA+690ASetwesW99StyIamcx6pPNjtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hq+Nu9RU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqcR4Kny;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0442D606A331;
-	Mon,  2 Nov 2026 07:04:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68F7606A324;
+	Mon,  2 Nov 2026 07:05:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hq+Nu9RU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600A11F00A20;
-	Mon,  2 Nov 2026 07:04:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqcR4Kny
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F0F1F00A16;
+	Mon,  2 Nov 2026 07:05:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793603082;
-	bh=VU9BXhR7VAByKc6pd+oKrjGan0whFepMAX42Ew0W3wU=;
+	s=k20260515; t=1793603110;
+	bh=FSmWgF3F9i597Fg0G7qCJvBl7yQ+wuMZQiBb9pEKCjs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hq+Nu9RUys5ne52FWmDVRuqBrbLemnEHMqRBuGLtmLxD4mjV+TgEY1+gNI4Vyepv9
-	 O6G1NneFk5+encnKy9qGMapN345cgeNzibUy8oUTOi+oiGxtg9+XNB7iu/iW5tfjPb
-	 5I95wxCutFZlVJad0ewMWPuepXA24KPTmMXVmP2NVq0M1AuBfp9IJrqFjMT2MiiYcl
-	 XTb2FHwBN2rZduICmsSpNUUQCiMqfwqEJgChtEmzfmmYG7v6ZR80HQ8bWARVnxVK6B
-	 xWjSNwHIW0CMYaU9Jq/l1rfbz2VaQaa18K7uDKhZffklg1haAJEFnDhINk7wudOSXa
-	 0Ps8dnYfqnPoQ==
-Message-ID: <6cecea78-658a-4278-b5c9-228a827583e0@kernel.org>
-Date: Mon, 2 Nov 2026 08:04:35 +0100
+	b=lqcR4Kny5iX8JcPb9MaK/+e5qU16wc0V9aQ8umf//dgChsznD0lmN1+bJQX7uH2wD
+	 u2TxOORahaKnw5CYrgRnGxW0Y3ZBk7wpH1O1I3bKXY9aBX+Xj/+BOF3+vyS9j2DXLE
+	 CzUIhXo+o2IuBA32okMOmCA4ol3+MztDA0cMYGUjCjtuuR+2gtGdl58FRfTPzsEaA2
+	 s0JPOi4I7mAujrwtDS0NseAsLLnnIm1q7ypiwEukHIsUCOZf6WTCY0oVgoSfAssNba
+	 Jj/5LWnhVlBJvuw0Ilvuym/A23dMzVKbYZ3yUThdHWqWWiOaC0D1k2uHJN1v9bCWT1
+	 y29zW0pIES5Rw==
+Message-ID: <ada2ca7d-8759-4e30-b945-f8d0ca05b74f@kernel.org>
+Date: Mon, 2 Nov 2026 08:05:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,18 +52,22 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: soc: ti: Document the
- ti,tda54-mcu-scm-conf binding
-To: Moteen Shah <m-shah@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, nm@ti.com,
- ssantosh@kernel.org, u-kumar1@ti.com, gehariprasath@ti.com, vigneshr@ti.com,
- afd@ti.com, a-limaye@ti.com, y-abhilashchandra@ti.com, johan@kernel.org,
- kees@kernel.org, jm@ti.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261027083700.1964371-1-m-shah@ti.com>
- <20261027083700.1964371-2-m-shah@ti.com>
- <20261028-inventive-screeching-bettong-9f4240@quoll>
- <b53d0986-33fd-43d3-a03f-2bbb39dda42a@ti.com>
+Subject: Re: [PATCH v3 5/6] dt-bindings: arm: qcom: add SA8255p Ride board
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+ Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+ <20261031131042.1200862-6-shengchao.guo@oss.qualcomm.com>
+ <e5b53ac2-87f4-45cd-9667-91cbb45fbcb0@kernel.org>
+ <auf2FHHbto8lAf47@QCOM-aGQu4IUr3Y>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -109,41 +113,29 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <b53d0986-33fd-43d3-a03f-2bbb39dda42a@ti.com>
+In-Reply-To: <auf2FHHbto8lAf47@QCOM-aGQu4IUr3Y>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02/11/2026 06:20, Moteen Shah wrote:
->>> +  ti,proxy-id:
->>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>> +    minimum: 0
->>> +    maximum: 7
->>> +    description:
->>> +      Proxy region (0-7) through which this node's clients access
->>> +      claimable registers and their fault status registers.
->> I don't get the need of this property. You have a one, specific device, so
->> why the proxy id would vary per board?
+On 02/11/2026 03:31, Shawn Guo wrote:
+> On Sun, Nov 01, 2026 at 09:28:41PM +0100, Krzysztof Kozlowski wrote:
+>> On 31/10/2026 14:10, Shawn Guo wrote:
+>>> From: Nikunj Kela <quic_nkela@quicinc.com>
+>>>
+>>> Document the SA8255p SoC and its reference board: sa8255p-ride.
+>>>
+>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>> Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
+>>> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+>>> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>>> Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 >>
->> It also looks like re-implementing access controllers.
->>
->> Best regards,
->> Krzysztof
+>> Drop. Binding cannot be tested other than build process.
 > 
-> 
-> Thanks for the review, Krzysztof. I’ll drop the redundant “binding” from 
-> the subject.
-> 
-> ti,proxy-id is not intended to vary by board. It selects the proxy 
+> Ok, will do. I thought dt_binding_check could be part of the test.
 
-Then it is implied by compatible, no?
-
-> window used by this Linux instance. One use case we need to support is 
-> running two VMs with different proxy IDs, with each VM’s DT describing 
-> the proxy it uses.
-> The driver reads the ID from DT and performs register accesses through 
-> that proxy; it does not allocate proxy IDs or decide which VM uses which 
-> one.
-And if not, my statement still feels applicable.
+Since when running build commands is testing? I commented on this way
+too many times already...
 
 Best regards,
 Krzysztof
