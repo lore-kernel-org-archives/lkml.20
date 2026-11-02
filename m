@@ -1,105 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616095;
-	b=ZU9Q/Vj/KJCs0AnXVpxjoB+Pdd7f+yWCuYrKCK1vtZvdO6mP7u0nm4Ja6BWQih246rTW
-	 XM7D4s/1EAzxqyy8gk2vr3Fad1Vg2LrCvLdorBrPZdJMN/8+p0HUIOnYQAnujxlM9qUrw
-	 TJuov3e3XY82h+ns0ckHw6SulQWipHF/7pr7pUtgeHLBqzIVoD/cqlwMtXsrv6V8H4XYr
-	 TTJrm005TdbbWQOhRAuT/FqUGTEWKtN7Tw2Q2xsFOPTuyanehXuRC9dMl1sOMvsvis94U
-	 YRdk+ZAyhwJOuQRywXDYQL6xRzh2za4JEVbPksZBfkexAOzypjj+olHC5xnQVzH3ong==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616095;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=w4LlOPP020au30EZIDHlk1alCgqnzjFeQiEleoj/jqY=;
-	b=0221/TR+1+ZmcpgyAZyiuMo39N6I1g2dOvCHDkvlsbg6aZ0gCth7faBxZ7IOgOVGMNRy
-	 aomxgPcySK4/w2wJMC+wKD589jYQ28Izh5uYK8Ul52YNcr8J86M5MJBKIX7/6E/Al/aX8
-	 YyNwW5Nxse2Gkh2ai68UpLmXQyt2UYdTRKNZkFHbG6IKZwdR5fbSZSl6DxULeoMygdZdG
-	 vjw8/OnZwq3W27VgFDA8mxGXJKBUT/6HluSTqZJ5xw75AuyRqKouf9D5p4MnGFzKpHPWT
-	 E1JA4bPyXNSL2OMYFlp+ARaXLW5jtFY/mLqqDUKi75vrUSkEb1TGR3iK1ai0UfGapCA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HDmiOFg9;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793616087;
+	b=Alb6EvN6pLJATK8rKn630IhTwolhs6/gYXXJxaAVJ0NVHBqwqOje1eTUpbxp6JO6z4Uc
+	 UxCvZAH5tBm0QwtKDTTizZ7iJD7q3KrFnoyOrIlH+QhZu4Z0kUnGeNdfOmfdsxAovfAEm
+	 Ru3GlLLTN1p3Z6LyoenlPjxNbHRulugvqtvs1gkPWpsA1OGZkhMXrJWuvuOgYQ3QP8J0G
+	 E3JpeVMjfDsJoow88clJr4sUkjHy44jhvQH8+ohQoTFzNjOI54RElp865wqJThqeO77nO
+	 5pX/3xnBiDMIDTjnAk/NwHA0/Gv2F976hzyfJs6kj/CJhO2iId6OPmWb1+Nk+kddWEw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616087;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Icm9vlB9VBwc5KmZGmZO6LJr4qVCaHV/r9LarR0zxD4=;
+	b=SL68A9w/KLZrfscwN6/8tkF3Vm1yIJOOI+KJW508d8EvFMsZEPDX0XBy9uf4qpvX/tmX
+	 w57Np7zpobrl2d8OMhT2OA5Qhrz0NflxGqTmZNNmEwOiBxhoacV5n8MAWfxsrhcsE60LQ
+	 JbVhFtuMLy9N5tC8+908O3/JXtxQq4uD42RgYX+HjMHaeoh9NatLsU9RRMHCXvX+cj6dg
+	 Q7YnXb/AVG18lacWIeFbVR8DrKLPn+PJwICAZYnCOEKdDub5j6TcCArQs4D9Aw14Zirrx
+	 KNsOA/F5erUZg8reert8HkD9L/atGH7S5ZZU93YMru73YrBUvOwTXj/YEBXQz8gkYMQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JP47EwKR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF9E60A260B;
+	Mon,  2 Nov 2026 10:41:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JP47EwKR
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793616087;
+	b=g5J5UfJpBXlR1a9BfHBdOJ5+NvRvOEEr7sIfO30j2Vql8CkDfdMUSjBNUOFWRb2yvp1X
+	 L/pUTgdGe7ef/UaS9RkoUlHlSTXyQ/pT0Sao3K/M6Ra81fO7FIRXj9J/M2OABaxgC3MpU
+	 xNnunhOtCR3vXmGpGGyR+mi3EeNXzNs7sGly1COQnJ5Gifq22QoAPt3GMwUCIhxAlJD4D
+	 A5oxejT0o+4YpUTzlIJcNMJvMddIXlvnqaeHRgr/+9UVFCgB4TyuC76GIhiwkehS44xue
+	 3ocp6d2/UHCKFbhrz8qdNGX1r1vOkWH9o6MsDKCUPQE/QQIhH5gE+6Khs44QLD+afXQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793616087;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Icm9vlB9VBwc5KmZGmZO6LJr4qVCaHV/r9LarR0zxD4=;
+	b=c1aXJGiTUaDTb6cMU7u7CPBpJCZTgcEGWDp1/ePWKHysWaatHX0c4OJ65RvfrpGGzh71
+	 Eev827FYUpzbRlTGhOvyHU2x3Q2MW9cGJwXhprRBi8FKnCmPfG6trKlAjS5kMukrrgej8
+	 vVDLiseaCLUZWBqEasUZYSn4REWDUA88UBrRLWwuPpQkiZAqrOFFbOeGw415A4ssSgWkf
+	 eRsv2Lb60htA4746X7dW/CE3xH7vFGyQ68DMgY1XxyyIt8hRuUkc3ONhQoJJQPGlRiQ7F
+	 803UFfUW2B0Xlt1/THU6NUAg2Y22/CLWrwRzXYTuWkm/p2CVnRx7saTFL+OABQdPkmg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB4B60A3807
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:41:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AB4B60A3807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HDmiOFg9
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e9eb579c0eso14324835ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:41:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793616095; x=1794220895; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w4LlOPP020au30EZIDHlk1alCgqnzjFeQiEleoj/jqY=;
-        b=HDmiOFg9LmWC1qeIeOmdtC0BdN5SaLCKolsBcI4ZZdNKTGn0LHthir7vWVd1xjBdol
-         o7pODJQWwOqFNCJKbr5oTsGtSkAhzdjOhsiKKq8KZsiudWLjYot3nJ1iGFMuVOti6Vm+
-         AolaRGT33An/VO1zqH7BFHx2RleU5szmO3vL1BFJ2dSpmOzf7QrQ4pLH2Gu/BgmKyzGJ
-         XHrykPkhekEYSgCv5VVgO2W9u2fhCbD/rslgsXGoyVOiNxw2QHj6cYCezWEy2KEwdZCX
-         Rkg5iHHTT8Xfhmbps7DNrcTeAZd/Ap4dhBcGCrS3R0pMmg0c4Y+ZJqt7E48lLOv3dsbA
-         pqmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616095; x=1794220895;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w4LlOPP020au30EZIDHlk1alCgqnzjFeQiEleoj/jqY=;
-        b=GkrCua/LQkTblcLF3kpsAlRlUfHdPn2/bTnkiGctQLqCgWrRcnTxCwW7AECpcq1TXl
-         EJ//64B16xkfp/Ft/oRfTOpJ1vfynxtRyrfp51JA9239sLL0bNzdn55bTopwRnq1hDgH
-         q/2GoQN+Tt5OjJLf7YfKXTgM/KX3PdmTGRJYKQn2fqX6/zv1u7BE9fiBTjxuvkuihiBt
-         bWFaAMzDPmVZdeIh7ttuxGkB8V+FCqOh+HDkEjRK1Y4YlsLUsTdlSKAHaWh73pcKp90/
-         GWAxu3cDaSvBFWaLig5dIAXyEHbkHSU4b7aXYa8WrMYQ8CaKhT43q3BIshx0vL/8yTDd
-         qJ+A==
-X-Forwarded-Encrypted: i=1; AKwUvByvaSCpCvDKuPtI6jhXfodai/ikRvu6MMiCNv2yvRMmaZEYsjdvnPW8TNPFAMf3qD2USNKdLGw2D2ER4wU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gUwxKDZJ0xq/REIF+NummUUY4KPlUKfntQY7eVyptikXS1Sa7
-	mZ/4C+b6S0dHJ1J4jAta6ASMF5ahInccpMNmG6OT72xjQcMmELVtE4ZYjwMJImGw
-X-Gm-Gg: AYBFou2x7P5E4IXdBzg3d8ScDXapZUlh8oZXQrEM0I4spoJVlOYEIc7iF3ejaVHGjom
-	XtDrq4UCGeLfEH91VHT1ef2cUwEG0j+nVy/TrEerxrs8QF61mjvN4SQX03SaILraIvq7WOrpCK3
-	jBiYqhtAYFZEy8LJnDrY/2+ZMt/uUaY8XorPB01GqxDmiKSPzrs4BP2Ev7Z4dbqLSHcxE8QdGxC
-	GqHA/bAjNwNLPGvusnqpqgk8S+oKEGEnisTn45n+ZS1BUMMAqjxDhjztUKw/YT2WDTe36mCCI3z
-	d4QKPS+5oVT0mhvMCvrZr3xHv5/QRNv8GLu0AfRzQkroBY29jnVp3hTieH3doVo0Nk7hkbcoa8y
-	aE2RKd4Sc/N8+a2/IMftYREHwAxghtOALBPtZMAvCfJnvWByV5SroPHolmg+F74un8NkZKjTR3f
-	N9y8KSmAcXSEBfIuQYlfZ/eg5fXH5z+u76yF0zy/YKZnnRvZebMWMtgR7pVt0eHR7iFJADRzv8C
-	TJxH8mlVY5kHw0/B19tSjRiRkIDAxuhzAb8cOlc+AeVipAXnErVAI5Pb5RRHx+WBIyz0KqGJisQ
-	/hCaj+Qua/C6jcVbv/OjRtK9i5rNZjZyTxgJfdliCeJ2jv82KI1H
-X-Received: by 2002:a17:903:3bd0:b0:2e9:f354:e97f with SMTP id d9443c01a7336-2eb36482f5cmr79668765ad.60.1793616094571;
-        Mon, 02 Nov 2026 02:41:34 -0800 (PST)
-Received: from umang-Inspiron-3501 ([2401:4900:1f3a:7c59:eeec:de7d:b077:9b9f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3925ff38sm25195465ad.36.2026.11.02.02.41.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:41:34 -0800 (PST)
-From: Umang Pokhriyal <umangpokhriyall@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	Peter Xu <peterx@redhat.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Umang Pokhriyal <umangpokhriyall@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] userfaultfd: validate the whole range before changing write protection
-Date: Mon,  2 Nov 2026 16:06:20 +0530
-Message-ID: <20261102103621.156928-2-umangpokhriyall@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102103621.156928-1-umangpokhriyall@gmail.com>
-References: <20261102103621.156928-1-umangpokhriyall@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 31A2F1F0093A;
+	Mon,  2 Nov 2026 10:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793616087;
+	bh=Icm9vlB9VBwc5KmZGmZO6LJr4qVCaHV/r9LarR0zxD4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=JP47EwKRzugxKDU+FNexV058CMAkL1vG0psxhQJQ3ej9dLoIdYulzxW7mDF4WfGGd
+	 h74vdJ+iRbz6MBj9A0ezzr4A90CgFGRr9QNVmA0Q0XzH/IEdqljpweg5EXsZni++Pg
+	 AcMndmMNFpFo18Y4rEd4AdeF5FURh5IUwZtkiW6k0clcNcVtq0A+Lxfjiwg6+JZKWW
+	 JUsnN5TyPglZdNuGwifbw3s5qKiesMQh2yBjUXxiwcwPfq0l1QVhpslHeHsexziNFm
+	 5+gi9GRC22LlgrxuF+s2j+S4W9cBCcljGnxjsiNX0zVjWe5zn4+iOrN6ukEkxKb69T
+	 izQKGwRpCamtg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B0A0146488;
+	Mon,  2 Nov 2026 10:41:23 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Date: Mon, 02 Nov 2026 07:41:01 -0300
+Subject: [PATCH v5 3/7] lib: kstrtox: allow a negative scale in
+ kstrto[u]dec64()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,69 +83,291 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-e-notation-v5-3-d399e544a982@analog.com>
+References: <20261102-e-notation-v5-0-d399e544a982@analog.com>
+In-Reply-To: <20261102-e-notation-v5-0-d399e544a982@analog.com>
+To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793616082; l=9933;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=gU6FFHzsi95evjpRrC3OIda+HW9p3s69XQML2wB5mxM=;
+ b=O+CIYYzgwXmADjhHCIuuNCPDc5l4bqSobfkRRLaT9PXkPGX+Bqn2gd8RA2vfelWompOiZ+dhU
+ qnZnllSLFBIDNBpNxCDI3oVpdbmyNGhGvQDVT9/TNuTL7cxcGEqearX
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
+Content-Transfer-Encoding: 7bit
 
-mwriteprotect_range() checks each VMA as it walks the range.  When a later
-VMA is not registered for write protection, or is a hugetlb VMA the range
-is not aligned to, the call fails after the earlier VMAs were already
-changed.  When unprotecting, userfaultfd_writeprotect() then skips
-wake_userfault(), so threads blocked on those pages are not woken although
-the pages are writable again.
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-An unprivileged process can trigger this with a range that spans an
-unregistered VMA.  It hasn't been seen in practice; it was found while
-reviewing the userfaultfd range ioctls with an LLM.
+With E notation support, the scale is added to the exponent, and a
+negative effective exponent already drops integer digits with rounding
+to nearest, ties to even. A negative scale could be handled the same
+way, but the scale is declared unsigned int.
 
-Validate the whole range first, as mrwprotect_range() already does.
+Change the scale parameter of kstrtoudec64() and kstrtodec64() to int
+and describe a negative scale in the kernel-doc. For example, a scale of
+-2 with input "12355" results in 124. This lets callers parse a value
+into a coarser unit than the input, such as Hz into kHz, without a
+separate division and rounding step.
 
-Fixes: a1b92a3f1498 ("mm/userfaultfd: support WP on multiple VMAs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
+Behavior doesn't change for any existing caller, since they all pass a
+non-negative scale.
+
+Add dedicated test macros for kstrto[u]dec64() with a signed scale
+field, as the generic ones carry an unsigned base, and add test cases
+for negative scales: dropped integer digits with ties to even, results
+at the type limits, rounding past them, and exponents that overflow when
+added to the scale.
+
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 ---
- mm/userfaultfd.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ include/linux/kstrtox.h |   4 +-
+ lib/kstrtox.c           |  20 +++++-----
+ lib/test-kstrtox.c      | 101 ++++++++++++++++++++++++++++++++++++++++++++----
+ 3 files changed, 106 insertions(+), 19 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 87da92526..b8a9d9574 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -1105,21 +1105,31 @@ static int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
- 	if (atomic_read(&ctx->mmap_changing))
- 		goto out_unlock;
+diff --git a/include/linux/kstrtox.h b/include/linux/kstrtox.h
+index b41b9736886f..e2d5870c979b 100644
+--- a/include/linux/kstrtox.h
++++ b/include/linux/kstrtox.h
+@@ -97,8 +97,8 @@ int __must_check kstrtou8(const char *s, unsigned int base, u8 *res);
+ int __must_check kstrtos8(const char *s, unsigned int base, s8 *res);
+ int __must_check kstrtobool(const char *s, bool *res);
  
-+	/*
-+	 * Validate every spanned VMA before changing any of them, so an
-+	 * invalid range is rejected without changing part of it.
-+	 */
- 	err = -ENOENT;
- 	for_each_vma_range(vmi, dst_vma, end) {
--
- 		if (!userfaultfd_wp(dst_vma)) {
- 			err = -ENOENT;
--			break;
-+			goto out_unlock;
- 		}
+-int __must_check kstrtoudec64(const char *s, unsigned int scale, u64 *res);
+-int __must_check kstrtodec64(const char *s, unsigned int scale, s64 *res);
++int __must_check kstrtoudec64(const char *s, int scale, u64 *res);
++int __must_check kstrtodec64(const char *s, int scale, s64 *res);
  
- 		if (vma_is_hugetlb(dst_vma)) {
--			err = -EINVAL;
- 			page_mask = vma_kernel_pagesize(dst_vma) - 1;
--			if ((start & page_mask) || (len & page_mask))
--				break;
-+			if ((start & page_mask) || (len & page_mask)) {
-+				err = -EINVAL;
-+				goto out_unlock;
-+			}
- 		}
-+		err = 0;
+ int __must_check kstrtoull_from_user(const char __user *s, size_t count, unsigned int base, unsigned long long *res);
+ int __must_check kstrtoll_from_user(const char __user *s, size_t count, unsigned int base, long long *res);
+diff --git a/lib/kstrtox.c b/lib/kstrtox.c
+index 192f2067cad1..ab4822c24627 100644
+--- a/lib/kstrtox.c
++++ b/lib/kstrtox.c
+@@ -424,7 +424,7 @@ static u64 round_half_even(const char *p, const char *end, u64 res)
+ 	return res & 1;
+ }
+ 
+-static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
++static int _kstrtoudec64(const char *s, int scale, u64 *res)
+ {
+ 	const char *s_int, *s_frac, *s_end, *s_round;
+ 	int len_int, len_frac;
+@@ -500,18 +500,19 @@ static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
+  * @s: The start of the string. The string must be null-terminated, and may also
+  *  include a single newline before its terminating null. The first character
+  *  may also be a plus sign, but not a minus sign.
+- * @scale: The number of digits to the right of the decimal point.
++ * @scale: The number of digits to the right of the decimal point. A negative
++ *  scale drops digits to the left of the decimal point instead.
+  * @res: Where to write the result of the conversion on success.
+  *
+- * For example, a scale of 3 with input "123.45" results in 123450. Note that
+- * trailing zeros in the fractional part input to match the scale are not
+- * required. Also, digits beyond the specified scale are rounded to nearest,
+- * ties to even.
++ * For example, a scale of 3 with input "123.45" results in 123450, and a
++ * scale of -2 with input "12355" results in 124. Note that trailing zeros in
++ * the fractional part input to match the scale are not required. Also, digits
++ * beyond the specified scale are rounded to nearest, ties to even.
+  *
+  * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
+  */
+ noinline
+-int kstrtoudec64(const char *s, unsigned int scale, u64 *res)
++int kstrtoudec64(const char *s, int scale, u64 *res)
+ {
+ 	if (s[0] == '+')
+ 		s++;
+@@ -524,7 +525,8 @@ EXPORT_SYMBOL(kstrtoudec64);
+  * @s: The start of the string. The string must be null-terminated, and may also
+  *  include a single newline before its terminating null. The first character
+  *  may also be a plus sign or a minus sign.
+- * @scale: The number of digits to the right of the decimal point.
++ * @scale: The number of digits to the right of the decimal point. A negative
++ *  scale drops digits to the left of the decimal point instead.
+  * @res: Where to write the result of the conversion on success.
+  *
+  * For example, a scale of 4 with input "-3.141592" results in -31416. Note
+@@ -535,7 +537,7 @@ EXPORT_SYMBOL(kstrtoudec64);
+  * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
+  */
+ noinline
+-int kstrtodec64(const char *s, unsigned int scale, s64 *res)
++int kstrtodec64(const char *s, int scale, s64 *res)
+ {
+ 	u64 tmp;
+ 	int rv;
+diff --git a/lib/test-kstrtox.c b/lib/test-kstrtox.c
+index 1f176b232085..8ba0f23bb8ef 100644
+--- a/lib/test-kstrtox.c
++++ b/lib/test-kstrtox.c
+@@ -709,9 +709,66 @@ static void __init test_kstrtos8_fail(void)
+ 	TEST_FAIL(kstrtos8, s8, "%hhd", test_s8_fail);
+ }
+ 
++struct test_dec_fail {
++	const char *str;
++	int scale;
++};
++
++#define DEFINE_TEST_DEC_FAIL(test)	\
++	const struct test_dec_fail test[] __initconst
++
++#define DECLARE_TEST_DEC_OK(type, test_type)	\
++	struct test_type {			\
++		const char *str;		\
++		int scale;			\
++		type expected_res;		\
 +	}
-+	if (err)
-+		goto out_unlock;
++
++#define TEST_DEC_FAIL(fn, type, fmt, test)				\
++{									\
++	unsigned int i;							\
++									\
++	for_each_test(i, test) {					\
++		const struct test_dec_fail *t = &test[i];		\
++		type tmp;						\
++		int rv;							\
++									\
++		tmp = 0;						\
++		rv = fn(t->str, t->scale, &tmp);			\
++		if (rv >= 0) {						\
++			WARN(1, "str '%s', scale %d, expected -E, got %d/" fmt "\n",	\
++				t->str, t->scale, rv, tmp);		\
++			continue;					\
++		}							\
++	}								\
++}
++
++#define TEST_DEC_OK(fn, type, fmt, test)				\
++{									\
++	unsigned int i;							\
++									\
++	for_each_test(i, test) {					\
++		const typeof(test[0]) *t = &test[i];			\
++		type res;						\
++		int rv;							\
++									\
++		rv = fn(t->str, t->scale, &res);			\
++		if (rv != 0) {						\
++			WARN(1, "str '%s', scale %d, expected 0/" fmt ", got %d\n",	\
++				t->str, t->scale, t->expected_res, rv);	\
++			continue;					\
++		}							\
++		if (res != t->expected_res) {				\
++			WARN(1, "str '%s', scale %d, expected " fmt ", got " fmt "\n",	\
++				t->str, t->scale, t->expected_res, res);	\
++			continue;					\
++		}							\
++	}								\
++}
++
+ static void __init test_kstrtoudec64_ok(void)
+ {
+-	DECLARE_TEST_OK(u64, struct test_udec64);
++	DECLARE_TEST_DEC_OK(u64, test_udec64);
+ 	static DEFINE_TEST_OK(struct test_udec64, test_udec64_ok) = {
+ 		/* basic: integer.fraction, exact digits */
+ 		{"0.0",			1,	0},
+@@ -781,13 +838,25 @@ static void __init test_kstrtoudec64_ok(void)
+ 		/* rounding with many excess digits */
+ 		{"0.00000000000000000000000000000000423",	34,	42},
+ 		{"1.99999999999999999999999999999999999",	3,	2000},
++		/* negative scale: drops integer digits */
++		{"12345",		-2,	123ULL},
++		{"12355",		-2,	124ULL},
++		{"1250",		-2,	12ULL},
++		{"1350",		-2,	14ULL},
++		{"123.45",		-3,	0ULL},
++		{"500",			-3,	0ULL},
++		{"500.1",		-3,	1ULL},
++		{"999",			-3,	1ULL},
++		{"999",			-4,	0ULL},
++		{"2.7e10",		-9,	27ULL},
++		{"18446744073709551615000",	-3,	ULLONG_MAX},
+ 	};
+-	TEST_OK(kstrtoudec64, u64, "%llu", test_udec64_ok);
++	TEST_DEC_OK(kstrtoudec64, u64, "%llu", test_udec64_ok);
+ }
  
-+	vma_iter_set(&vmi, start);
-+	for_each_vma_range(vmi, dst_vma, end) {
- 		_start = max(dst_vma->vm_start, start);
- 		_end = min(dst_vma->vm_end, end);
+ static void __init test_kstrtoudec64_fail(void)
+ {
+-	static DEFINE_TEST_FAIL(test_udec64_fail) = {
++	static DEFINE_TEST_DEC_FAIL(test_udec64_fail) = {
+ 		/* empty / whitespace */
+ 		{"",		3},
+ 		{"\n",		3},
+@@ -814,13 +883,17 @@ static void __init test_kstrtoudec64_fail(void)
+ 		{"0.2",				20},
+ 		{"0.18446744073709551616",	20},
+ 		{"1",				20},
++		/* negative scale: rounds up past the limit */
++		{"18446744073709551615500",	-3},
++		/* negative scale: exponent overflows when added to it */
++		{"1e-2147483648",		-1},
+ 	};
+-	TEST_FAIL(kstrtoudec64, u64, "%llu", test_udec64_fail);
++	TEST_DEC_FAIL(kstrtoudec64, u64, "%llu", test_udec64_fail);
+ }
  
+ static void __init test_kstrtodec64_ok(void)
+ {
+-	DECLARE_TEST_OK(s64, struct test_dec64);
++	DECLARE_TEST_DEC_OK(s64, test_dec64);
+ 	static DEFINE_TEST_OK(struct test_dec64, test_dec64_ok) = {
+ 		/* basic positive */
+ 		{"0.0",			1,	0},
+@@ -873,13 +946,20 @@ static void __init test_kstrtodec64_ok(void)
+ 		{"-0.00000000000000000001",	20,	-1},
+ 		{"0.009223372036854775807",	21,	LLONG_MAX},
+ 		{"-0.009223372036854775808",	21,	LLONG_MIN},
++		/* negative scale: drops integer digits */
++		{"-12345",		-2,	-123LL},
++		{"-12355",		-2,	-124LL},
++		{"-1250",		-2,	-12LL},
++		{"-1350",		-2,	-14LL},
++		{"-999",		-4,	0LL},
++		{"-9223372036854775808000",	-3,	LLONG_MIN},
+ 	};
+-	TEST_OK(kstrtodec64, s64, "%lld", test_dec64_ok);
++	TEST_DEC_OK(kstrtodec64, s64, "%lld", test_dec64_ok);
+ }
+ 
+ static void __init test_kstrtodec64_fail(void)
+ {
+-	static DEFINE_TEST_FAIL(test_dec64_fail) = {
++	static DEFINE_TEST_DEC_FAIL(test_dec64_fail) = {
+ 		/* empty / whitespace */
+ 		{"",		3},
+ 		{"\n",		3},
+@@ -903,8 +983,13 @@ static void __init test_kstrtodec64_fail(void)
+ 		{"-0.1",			20},
+ 		{"0.09223372036854775808",	20},
+ 		{"-0.09223372036854775809",	20},
++		/* negative scale: rounds up past the limit */
++		{"9223372036854775807500",	-3},
++		{"-9223372036854775808501",	-3},
++		/* negative scale: exponent overflows when added to it */
++		{"-1e-2147483648",		-1},
+ 	};
+-	TEST_FAIL(kstrtodec64, s64, "%lld", test_dec64_fail);
++	TEST_DEC_FAIL(kstrtodec64, s64, "%lld", test_dec64_fail);
+ }
+ 
+ static int __init test_kstrtox_init(void)
+
 -- 
-2.53.0
+2.43.0
+
 
