@@ -1,73 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626066;
-	b=C+k7stmEtKkfUV3mr8yY8iYWW+3JCYZVAbN3ryaOjgOK8xh9y+aehVrI1xknpHK/5oq+
-	 TU48bNf7SDC2aWKEuLwY9ERdUJqiAdF4ge9uK6CyiItL9ejYh4Mnwg8PsVKNQ3KY9f7ve
-	 WSesGU6vmwJ+PlX6q5y8SomX7sUwPmy6zfwduaP9MzEja5KGUvJYoDKpAxY6x+EYNbBDk
-	 ijbY491ObFqvycTc1cyVvmQl6MkweRPpRkuMUK8PHk6sLp2RtOvqPPe1vO1qvpIEHRb+z
-	 Q4vnOSM7plsduFBxHsavl4bZjcty3I9QX40Y6e4ItwUaimFuiwCk7aq3MCCACrOPUTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626066;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=wvVWiiunAwa2weGP20yLht4itak0c9V8lfTyHiaTBJ8=;
-	b=tVEjvRJTZzfuJqeg0lxjt5KterDAUJt2w5gyudGETtjyXwf4EFKt/AFp1SG+z+qS/vyF
-	 QUXGyvHlt5DOgKulqgSxBmyAVKcI6T62tOWaOCbpgkNIU46Fg2sSXPKOHCspYh6eC0ryY
-	 G2ehdLMWGJOIxbPGMs6BWc8lrpd5F5d+yeYP7ThmUwnRjocRWy4xl4++rWyVt9Exgpad7
-	 /1XMVjsxjfAXZIYgSB6Dl527pNREMVcA1zPNzE6bUGdl49mSA/3OyJYGenWY3fYTRyBfM
-	 UHYVm1K6KaV4B5qAthCSW+9qz78OOJEfkNDVaRGM1S4hrYY0ZSB1xFSwkqhCXCwKjQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=p94X7Tnl;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793626060;
+	b=AwbzeBj4wfT//qD1HtqdgkBh//5wH0/p1Dwpc/xewiFWMfDrPsAYG780DRRyPbe1lY9/
+	 /IX9S93qU6ak0PqDgM4Lk3gju5VHiXAf3aVV3GkENoNW8lpL/bYzWmmHNNJZLxtLBJybE
+	 5jKBdGGJcbx3+dyUU49CFJptna2xel074EJ5T04I4FqDM15NSFufA9HMbw4fDqvyJ8QzE
+	 +68u2eRqGzGsjC41uGvD2SIr9jURZ3aDJcyNlodsGqQwzj0+wWMKlJ+zRNSEH9V8MvahT
+	 aQz9U+ee9jk+iGZwU4RhDxVsxYjqsB5XNe8+ev1gsihaGV3rW3mA+mOys0KOGuD4+oA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626060;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wL4VRNyM0lAnChGus4Zdcft5lYA8VOMZZskgcWXOMZ4=;
+	b=VtezBwmQFSu95GNxaa/SlHjpIWnrFumTPDbz1VoSmap+JpUL4j4gLn0WurwoTnzHaJz3
+	 GfSW/7BRe/hs7tr+ZoWtKzsEr7dBj4lwOmih4wwdPCmsel8BO8PFw3ik+HXSLbCVkE8Sg
+	 gyqzwUv7krnCi9MDAQnDbGCLxjAuyPyrDVlLZbSDWHGHsn48VSGMl18mpxiy80KRHIfFR
+	 TPyYlKEpFGWQfKYM/HHPsP3YYWqXqq4++bbzM8rGGUSclvuLTbaMBYBigKqlRgO46kvcV
+	 gRuCC2Y+9ovhH6iDtVj3rPb0KlbXvk+IQCmjHFPwoR6/YAO2ml80Mr9h2XXxOm0Yxuw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DN1JNVuT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.41
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012041.outbound.protection.outlook.com [40.93.195.41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4D4606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:27:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E4D4606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5869606A326;
+	Mon,  2 Nov 2026 13:27:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5869606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=p94X7Tnl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=wvVWiiunAwa2weGP20yLht4itak0c9V8lfTyHiaTBJ8=; b=p94X7Tnl+/UNJoFI/irOcpnXUv
-	XbXt3BPmzMQTwjE61hJB1H6SpXhxRN8xemQfuTkdE24QxeisrH7HOtaPPS3j5TmE9rAM071rKdPLc
-	4gxZCQhonWrqEgD/8i3bbQpYq6gRonqT0USXqGPdbpOBsGa2R95igs4i0PrM9FE9xt0Q891qcx9fN
-	j3Z67sYvMlgkUnJ9dULmC+92TbwMlfD5fvOMz6K9FVkIoUW3gZls2Y1BSiK0u2f8jhmbPFNSXDzV7
-	KW0xDNXKZOZKJfWRJwKmp7O7zisRtVnC7e+z29kNlNQUhuE+HgZEPzKK7YOeV7aXKOojVRw+4APXu
-	G+BShaDQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xNs4X-006Bhv-0d;
-	Mon, 02 Nov 2026 13:27:37 +0000
-Date: Mon, 2 Nov 2026 05:27:32 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Rio <rioo.tsukatsukii@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
-Message-ID: <auiO_x_Am8ZmZcmw@gmail.com>
-References: <87bj8kkfwk.fsf@jogness.linutronix.de>
- <auHNz09oyGFJPTKg@gmail.com>
- <8733tphow9.fsf@jogness.linutronix.de>
- <auI40MZlSYO0oAAS@gmail.com>
- <87a4nwyiaw.fsf@jogness.linutronix.de>
- <auMmQjcy1A6E0eUm@gmail.com>
- <874ie4y5mw.fsf@jogness.linutronix.de>
- <auNaD8LELWok3LOF@pathway>
- <auTaBZlNbpm3jgvb@gmail.com>
- <auhl3cdwrHt4Vw7U@pathway>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DN1JNVuT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cntpda02lpwBuwHvJLYDFRmpl4rDBuqizLHFPOYxeY9gP12BHTnqcFStaxDpGKDTeZnLTi3urBN5P/AkGI0wwwK0CVJKHBD4U66Ps7EDGkHyXjXEPfc9OX7v+qc6XY0OoDyFs97TaktAIKxSJ1GqiPnxu1gLO+60SjY/HYATpsSjJpRndV/o5FaTqbW0qhbEA68vAnxG1/GP0GfeYbbf6mKL8I7JqRmJ/KYA03jEnUjkNsNzUEYqeS23EooavzabtIHVtzNX90fdGO4CWLQNu2EDdhrLrQ3jL5NTHcoMEyJYq1ILk82vf5ZQQ7fw7UdNwdzGyFLL+3HveLslVyM5YQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wL4VRNyM0lAnChGus4Zdcft5lYA8VOMZZskgcWXOMZ4=;
+ b=MKcH4PFm36vrNDHyBX6e45drC/9SznFw7ODMBzXwporlnkvg59ZnCy4+jdt0ky4HoaIH8QbkQjEuSpKeQPQRVHc24IWn2vM6j+7GNvTiLYzaUx7KIOjgePbPSCYZvdokAtwF9nNjR9NAeJikoAbiMwQjcl4BsVByyze5pGaWZby9aV4Fqe07Gv0EmrSnDF7F6vjk/5aujouKSQtNzNeYmE2RU11u9cC6OBP4w2n4A/UBKYqpVSuJjnucqgyr2kRs5WkJ8JFp/3Ml8hxjTqvWHdTX5RnyA2aVoTQKxnJO5E2gzzXoKa096ZseBnNbSqnMBNC7oI2HrbkGgtUyGktWuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wL4VRNyM0lAnChGus4Zdcft5lYA8VOMZZskgcWXOMZ4=;
+ b=DN1JNVuTJ3H1JfPbHZN7cpehAeSQhK+greC+vniSEn3n6gPU8r9NxVBvqlTvKcMYNncAL3tQG7bEcRyZDJm3MpnZvFSAI+YKtM5pmgaThcc+F3iZ5o4aiiPTAMialWsydzl+/I2Lrt09pPuAorF7Ph3uVVylV1ShWLvsSRlnsBWRjvkrEjAuL/NoDC09ZP/urAqo4Ecl5oUJ1OqWqgVbqtv6tJYoct8IIjgqPJqh8nGUJvCHh7Lyhc9l42+A+vpVP3GuzHGlPPapSmUmSpyXNIXukyh3+tJp/OiCV9fZ/ij+b6croQL9Xwbs2U3no4WMJtmbTci2QgXSocMAak+9cw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ BL4PR12MB9481.namprd12.prod.outlook.com (2603:10b6:208:591::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.12; Mon, 2 Nov 2026 13:27:32 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 13:27:32 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 02 Nov 2026 22:27:28 +0900
+Message-Id: <DMKRDBNW6KIO.OT0T0M6JFRDY@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 4/5] gpu: nova-core: gsp: cmdq: compute the queue
+ regions from a count and a slot
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261102-r000-cmdq-prep-v2-0-c2c2b69bdec0@nvidia.com>
+ <20261102-r000-cmdq-prep-v2-4-c2c2b69bdec0@nvidia.com>
+In-Reply-To: <20261102-r000-cmdq-prep-v2-4-c2c2b69bdec0@nvidia.com>
+X-ClientProxiedBy: TYCP301CA0069.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7d::9) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,121 +104,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auhl3cdwrHt4Vw7U@pathway>
-X-Debian-User: leitao
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BL4PR12MB9481:EE_
+X-MS-Office365-Filtering-Correlation-Id: 555b17c5-f84d-4a3c-a731-08df38e50ceb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|376014|366016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|56012099006|4143699003|11063799006|261021121427099003|261022105027099003|261026121527099003|261026140227099003|261009223027099003|261028144727099003|261021135927099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	qHAyADeVYwQJw22/+3H9lgk/AL4/c2R2U2E61Us5FE1mIYS/Htj8lLzzHG2q6/tl+Lxi7PnVQj6OvkTvOrtN/D4dQ2pSbRVGmdwSibb/9y9VYVnqagOpFpWOHBARcUXgStw/ZC6XYRwX7e9awboILFGwhLBxLhXXA6J6kLucQgYNnj/aehiYWIYZNxw4gOjjDaIjvsEx6wJtyhTVvcW12+s60stVfEJ4Spf/a4CWS6e1tqnUig6uVjhQDp3LfezVhx9dzQJERCsCa18+5HXc7WlyBk9t4ZAektO9Ffe7/U/Tv/Sr4FBZT3RNeSAytw51CTItWvUgsZ5A6QYowEyBKSOJ1rhUU1HJdrWfsiAuCUF3l1ZYc88RlHb8UxwqXmFfZ8o3rL/0ZQ8Yoh5wyIAGf3npIMIY/QYILdIO8aX9/OE3hcRq/N/HO5fBo9Pt8N9BnMIBhDCGT35RxUOudt5HiDfhln0SMjAJ7Ei/yuHypgdlsAQeqXVOQySe2FTjP+hPNTMgNlL/goEvB9IXEsjsvlIu5QYLeFtxctupIFYIBGhew315yA1ksFIMt7pozkqsqZeiZ/wpoPfit8upgrWxU4zNjoY2PdJSDRY9HdLrj1WYPM03kjjCOTYtafmGU+2v8YpgwH+bngWRuHliqZQ6bAotwHNXkHCclsLRebvyf7E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(261009223027099003)(261028144727099003)(261021135927099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SG0wYVowZWxNRmhxd1lWVnhDRUV5dHhRRHprMnNDcjUvaExZcmVPeXRnWnly?=
+ =?utf-8?B?ZVNORC9ud1c0UkRVSUx0c2lCS3g0aHZRZVhMNFR0K002cXRweC9PendPRkhX?=
+ =?utf-8?B?eWxXZUN5NWVIdmhyMnhEdkFjeHcvM2syQmw5V01ZN3FaUVpwcEpZbkt0WmM5?=
+ =?utf-8?B?YjFhZnNnb1BNSSs4djNUWXNVQ01mNnk0cFhKcFYzcktPOTlkcTlISG80dFpD?=
+ =?utf-8?B?TmxWWXFCa3laVlNsMlQydGpveU9pOWl5RkNkQlRrL1UyaUVqdWNLSGVhclRU?=
+ =?utf-8?B?MHVscXF4NXE0OTl6NVhvYS9ObGhVSVo1TVgxUnBqOFBPRzhZeTNDdjJ0Rlg4?=
+ =?utf-8?B?UFMzZDdBcXFkYWhBRDZ2dHNaMHJmcFBieDRTQXRleW1HKzNrQ2p6THFDK0tH?=
+ =?utf-8?B?cnBwcjFTaEdDZk41amEvWHZCZlUyd3FoWkpNQkhMYVpBY1M5bjlraE1VOFVG?=
+ =?utf-8?B?RkZwT1ZkaVA0YzFCOE9YdTJyWDdMU0MveWFaREFkbkp2MnU1QlVzMTYxdzB5?=
+ =?utf-8?B?OTRBTnAxeTE5MFEzd1p0RHJIdDlvRnV4cFZYZFczUmFHb054dTJCd0FDL0lE?=
+ =?utf-8?B?T3p5WXpXTDdpZnl3OTRzbllzYUx6NmM3Qkd3TUxhcE1VekprNldidENrK2Yz?=
+ =?utf-8?B?c0lqUTRPeXZkbUFLckpIM0VkTW1xOTlhOERCM05aMzBsZUlNUEkxWmFrdHFP?=
+ =?utf-8?B?S0NOMHBFZHJaU0hIelBXbkJSR0lNdFRqQUpka1d6ZDM1RElhaWtLT3NoVk9S?=
+ =?utf-8?B?QkpHdFg2UDFDY3ZraWJEMW5WTENOdzJ5TzdqMTE3QzZSd2JRdXMrb05aK2Nw?=
+ =?utf-8?B?ZWQvRjh4RkZtNVpndHNaM1JWSVBPR0xVUEIzQStYTHlnRCs5RDNVOEJWMXBO?=
+ =?utf-8?B?K1NtUXdIR2FtcGtiZUpkTXQ3cW8zZzk1Mno2TkJDUWpRak5CTTMrcTBMakRF?=
+ =?utf-8?B?UVI2MnZvZytUQTlOc0JMeVB4bmc3REV6Mno4Z2QxcGt5K01BcWYvSGE4ZHZs?=
+ =?utf-8?B?R0hUcnRKYjRDR2IyVGdET2tzWG93NFpVNWdPbmdmQ0UzaWhrd2pYdFNqMkQy?=
+ =?utf-8?B?T0Jla2RTZ0d0WWlFbmlaVC8xa0VDUFJYMjlXb25LS2RaakR6VmQ3eEEzWWxF?=
+ =?utf-8?B?c3RsREYxd0hnSytUczVvaDR5QlJ3RU92Q0trMzVlZTRZRTR1dWpXbldIcXZZ?=
+ =?utf-8?B?cTRrSWs4S0NNcFlPb1VvelJla1RzVlBhWHE5SU1TakhyMTNjajdzQnU3Wmp0?=
+ =?utf-8?B?NXN4dVJuRXNEcG5pZ0xpWTNSTXhPZnZDa1duTzFhOEtBZS9tTmNLVVNuNGY3?=
+ =?utf-8?B?RWRFb1VmUXB5NEZOUlRsS2NKVFNLNlRnMkRSdUl3TVkwWnd0aStzOXk1b29t?=
+ =?utf-8?B?YWllcm1rN0lKRnByTWV4L3k5MHBFbEdZV1VWeGJSUG12YkgyRkZNbERZRFpj?=
+ =?utf-8?B?NFAxV0RRK0VCK1hoWVBwTndGTVc2WnJTSkt6cDNWVWJicUJ4T0VsaHVjV1Fw?=
+ =?utf-8?B?YWQ2NFdyby9NVUNzNisvNVRGL24vN3o1YllvLy9Bemk1NlgwcDRDZHpYOU92?=
+ =?utf-8?B?WjVoWUdvN1BOOHBIY0Znd0NwcUt3S3JoWHRDc282OHZad0FhREV3VlVJQ0Vo?=
+ =?utf-8?B?NnRjMFRPTld3QjU1dldka2Q3UDJNZUNXOGJMcm1BVFJQeFdEN1diTEtWRnZY?=
+ =?utf-8?B?ZXZrbTF3NGZzdy85WlVaSDE0anNIT0labDRvNHBFNXN1WWhHdXUzUEVtbzB1?=
+ =?utf-8?B?aHRPNjhlK3pjS0JWUy91VTcwVERNcERZcVVnVEsyLyt2b2Mzc1N6WGdLYThM?=
+ =?utf-8?B?Tjh0K1hUUVlvTTBNVzZQdDQxVzIzbTI0SjVQWEkwVFp2dXMrR216K0FIUVZO?=
+ =?utf-8?B?ZTg1YXArL2NneXlma3l3UkZneE5SZy9GNTNQUzlaMzRIb0lIREVib0F2UkNS?=
+ =?utf-8?B?YlpNTTg0WEx3Vy8wVkZDbGdFVjVEL1VXSC8yZkV0MWU5SU9lOEJKL0RWeXpj?=
+ =?utf-8?B?c3c3Mzc1eUlxcDdYWTRlNllmK1pKQjRsbWdEY1FXWGhUb0lpZUg5OWl3TjZx?=
+ =?utf-8?B?cC9jVDdHWVl0RG1LQWd1a2tTUUtpVHNFTDE0Y1k2cDQ3WnNDM0d6TmJTZFo2?=
+ =?utf-8?B?azcvcjNpQkpBRTFtTXBnME9kcFpUVHR3NjRvQzBwWGJOL05EOVBsTzBuQVQw?=
+ =?utf-8?B?bWx4Z0JTcm1tblova00yeUtnc3lGVndiTWZyRUIrNTYzdVFrRFRBQ3gyUUw1?=
+ =?utf-8?B?bWhOeHNOdTVUeUllejFLU3ErZkxHTzE2L3dYV3FENndDTWJaOGplYWVnUzFm?=
+ =?utf-8?B?aUpIaFVFOHpuMy8zZkZlTWYrYUtHenl6RUNvdStKRlVYRzA0K1NvZkF5WWIz?=
+ =?utf-8?Q?4BSDF30VKVtkA6iU4buGBncUY8966+MMcEu1stL6jtlh/?=
+X-MS-Exchange-AntiSpam-MessageData-1: UtU/eG4dDb4VfA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 555b17c5-f84d-4a3c-a731-08df38e50ceb
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 13:27:32.6585
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wnDOoLJ5ilRxdb+JSKO3hBHYJXterYI+kr4XMA4S4BpKiK5teKVIN0/SoybU0ixyDj2OAHX9P0IEMH805KlXhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9481
 
-On Mon, Nov 02, 2026 at 11:28:45AM +0100, Petr Mladek wrote:
-> >     The call does not go into console_flush_on_panic(), because kgdb_panic()
-> >     calls that before the other CPUs are stopped. It does not go after
-> >     machine_crash_shutdown() either: on TDX guests tdx_kexec_finish() zaps
-> >     the shared PTEs there, and netconsole on a virtio NIC would touch that
-> >     memory.
-> 
-> This is the 1st time I hear about it. Does it mean that netconsole
-> should not be called after this point, please?
-> 
-> I wonder how this worked before the netconsole was converted to
-> the NBCON API. I guess that it "worked" because there was neither
-> printk() nor any explicit console flush after this point.
+On Mon Nov 2, 2026 at 9:09 PM JST, Alexandre Courbot wrote:
+> From: John Hubbard <jhubbard@nvidia.com>
+>
+> `driver_write_area` and `driver_read_area` both branch on the relative
+> position of the read and write pointers to decide where the two slices
+> they return end. This works for msgq v0, where the pointers are indices
+> into the ring, but msgq v2 (used by the r000 firmware) keeps them in
+> BAR0 registers as free-running counters, so the branches and their
+> SAFETY arguments would have to be rewritten for it.
+>
+> Instead, compute the number of slots available to the driver and the
+> slot they start at, and derive the slices from that. The slot counts
+> come from one helper per queue, which are the only two places msgq v2
+> will need to touch.
+>
+> Use I/O projections to limit the amount of unsafe code to the bare
+> minimum.
+>
+> No functional change intended.
+>
+> Assisted-by: LLM
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 130 +++++++++++++++++---------------=
+------
+>  1 file changed, 58 insertions(+), 72 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index 90e26c4dcc28..33cb9174c1e6 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -19,8 +19,8 @@
+>          Io, //
+>      },
+>      new_mutex,
+> +    num::casts::FromSafeCast,
+>      prelude::*,
+> -    ptr,
+>      sync::{
+>          barrier::{
+>              dma_mb,
+> @@ -186,60 +186,58 @@ fn new(dev: &'a device::Device<device::Bound>, bar:=
+ Bar0<'a>) -> Result<Self> {
+>      /// As the message queue is a circular buffer, the region may be dis=
+contiguous in memory. In
+>      /// that case the second slice will have a non-zero length.
+>      fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut=
+ [[u8; GSP_PAGE_SIZE]]) {
+> -        let tx =3D self.cpu_write_ptr();
+> -        let rx =3D self.gsp_read_ptr();
+> +        let avail =3D usize::from_safe_cast(self.cpuq_free_slots());
+> +        let w_slot =3D usize::from_safe_cast(self.cpu_write_ptr());
+> =20
+> -        // Pointer to the first entry of the CPU message queue.
+> -        let data =3D ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.msgq=
+.data[build: 0]);
+> +        // `w_slot` is below `MSGQ_NUM_PAGES` per the invariant of `cpu_=
+write_ptr`, so the
+> +        // subtraction cannot underflow.
+> +        let before_wrap =3D avail.min(cv!(MSGQ_NUM_PAGES =3D> usize) - w=
+_slot);
+> +        // Per the line above, `before_wrap` is less or equal to `avail`=
+ so the subtraction cannot
+> +        // underflow.
+> +        let after_wrap =3D avail - before_wrap;
+> =20
+> -        let (tail_end, wrap_end) =3D if rx =3D=3D 0 {
+> -            // The write area is non-wrapping, and stops at the second-t=
+o-last entry of the command
+> -            // queue (to leave the last one empty).
+> -            (MSGQ_NUM_PAGES - 1, 0)
+> -        } else if rx <=3D tx {
+> -            // The write area wraps and continues until `rx - 1`.
+> -            (MSGQ_NUM_PAGES, rx - 1)
+> -        } else {
+> -            // The write area doesn't wrap and stops at `rx - 1`.
+> -            (rx - 1, 0)
+> -        };
+> +        // PANIC: `w_slot + before_wrap` is at most `MSGQ_NUM_PAGES` by =
+construction of
+> +        // `before_wrap`.
+> +        let after =3D io_project!(self.mem, .cpuq.msgq.data[panic: w_slo=
+t..w_slot + before_wrap]);
+> +        // PANIC: `after_wrap` is at most `avail`, which is below `MSGQ_=
+NUM_PAGES`.
+> +        let before =3D io_project!(self.mem, .cpuq.msgq.data[panic: ..af=
+ter_wrap]);
 
-Maybe. Kgdb is being removed so, maybe we don't need it:
+It looks like compared to v1, this kept the `after` and `before` names I
+suggested but changed the indices (e.g. in_after =3D> before_wrap). It
+means that "before" and "after" are being used in two different ways in
+this function ("after wrapping" and "after write pointer"). What about
+picking one usage for the entire function? Either is fine imo. Same for
+the other spot (read side).
 
-https://lore.kernel.org/all/20261028122124.GJ2668804@noisy.programming.kicks-ass.net/
+With that changed:
 
-> 
-> >     A write_atomic() that hangs now keeps the machine from rebooting or from
-> >     reaching the crash kernel.
-> >     
-> > --- a/kernel/crash_core.c
-> > +++ b/kernel/crash_core.c
-> > @@ -140,6 +140,13 @@ void __noclone __crash_kexec(struct pt_regs *regs)
-> >  
-> >  			crash_setup_regs(&fixed_regs, regs);
-> >  			crash_save_vmcoreinfo();
-> > +			/*
-> > +			 * Flush the unsafe consoles with the other CPUs
-> > +			 * stopped, before machine_crash_shutdown() tears
-> > +			 * down what they may need.
-> > +			 */
-> > +			crash_smp_send_stop();
-> 
-> AFAIK, the crashdump currently shows all CPUs online. And
-> the backtrace shows whatever they were doing last.
-> 
-> Stopping the CPUs earlier would change the existing behavior.
-> And we would need to discuss this with crashdump maintainers.
-> 
-> Well, I know that stopping other CPUs makes it more safe.
-> But is it strictly necessary? We did not stop the CPUs
-> when the netconsole was handled by the legacy loop.
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 
-That is fair, I will keep the old/legacy behavior now.
 
-> > +			nbcon_atomic_unsafe_only_flush();
-> >  			machine_crash_shutdown(&fixed_regs);
-> >  			crash_cma_clear_pending_dma();
-> >  			machine_kexec(kexec_crash_image);
-> > diff --git a/kernel/panic.c b/kernel/panic.c
-> > index 91e48d33b7dbbd..e14b1b60828130 100644
-> > --- a/kernel/panic.c
-> > +++ b/kernel/panic.c
-> > @@ -723,6 +723,9 @@ void vpanic(const char *fmt, va_list args)
-> >  		panic_console_replay)
-> >  		console_flush_on_panic(CONSOLE_REPLAY_ALL);
-> >  
-> > +	/* The other CPUs are stopped, flush the unsafe consoles too.
-> > h /tmp/puf_post.sh kerneltest001.31.atn1 6791 atn1a &); (sh
-> > /tmp/puf_post.sh kerneltest005.19.atn2 6792 atn2a &)
-> 
-> The last two lines are some mess ;-)
-
-Damn, sorry, These are my testing hosts I was using to test this patch.
-
-> 
-> > /
-> > +	nbcon_atomic_unsafe_only_flush();
-> 
-> This might be too early. Anyway, it is before printing the line:
-> 
-> 		pr_emerg("Rebooting in %d seconds..\n", panic_timeout);
-> 
-> I have a crazy idea and do this:
-> 
-> --- a/kernel/printk/nbcon.c
-> +++ b/kernel/printk/nbcon.c
-> @@ -1688,7 +1688,20 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
->   */
->  void nbcon_atomic_flush_pending(void)
->  {
-> -	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
-> +	u64 stop_seq = prb_next_reserve_seq(prb);
-> +
-> +	__nbcon_atomic_flush_pending(stop_seq, false);
-> +
-> +	/*
-> +	 * This is a compromise. Otherwise, NBCON consoles would never
-> +	 * have a chance to show messages in the panic paths where
-> +	 * the unsafe flush is not explicitely called.
-> +	 */
-> +	if (panic_on_this_cpu() && oops_in_progress) {
-> +		panic_nbcon_allow_unsafe_takeover = true;
-> +		__nbcon_atomic_flush_pending(stop_seq, true);
-> +		panic_nbcon_allow_unsafe_takeover = false;
-> +	}
->  }
-> 
-> It would allow to flush the messages directly by printk().
-> 
-> I know that it would be a step back in the reliability. But showing
-> the messages looks more important to me than a reliable reboot.
-
-100% agreed. At Meta, we check if kdump is working or not based on these
-massages. Given kdump cannot work due to 100 of different issues, this
-line is more important than kdump by all changes.
-
-Let me play with your crazy idea and see how it goes.
-
-Thanks for helping here,
---breno
