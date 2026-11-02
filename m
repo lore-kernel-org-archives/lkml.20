@@ -1,50 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639607;
-	b=RqRsmLpDJylq6dYqSVfF4DLHs30x7lvH98LKTj4R7CuR6cIzlQalyag/WBc7ip/W4W5x
-	 qffMFmXSJUuBPyaH88HY/eliWEnYtC5vS8Sn8lLkzm5Hj3MA5U9ODwY3PveFl1Aa4utPx
-	 IAJUYtXu48UU4+9zfv3A203k4+BRxyNvG1v23btFWqiW0Z3P/W8f4/m6NU2ODbiAERWl6
-	 /W92W2HJZHpZsK1MTluPhYsazhoW3rsB0B2zRKVfYYy6SHRJbq5SNaXSj+X8QPjiScRAR
-	 /U2S1JoK71TTRCQxPld4Pw9NmOGAqBWApMiX4WeyPj6Nit0Wj+fYUX9HDDNKmKzkwSw==
+	t=1793639696;
+	b=NHW0v2zUDnzDOG6qD14iP8z7HkqD7mtWfCXRKxVg7T5vDvr2Lfwl4Ln9eVBQ2HbN+OMb
+	 VAlLfCuq2TK1JNh8jxdlBZP51gCvplz7KgdABvtP+DDWi/VddZzL0XYToFhbfkWPH8uFA
+	 FAthV9DiEa4G9kIOLzBx4IVKT1hoCu7kejtd/y+BSnYly+E07XuFDAMWP94BzuSy+Jf3f
+	 P1WFMGvi4dpVkuvCNwgP6Rpy7gF0YjakfBQyGjEsJfCpEiVvzv1vlL4X2mZfBtpSSI3hm
+	 JHrl7E3AtinkKo+fbewTcv240Yer4jywko5nt5GogIGWyhbw26paCRrAAN1I1BO5EeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639607;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=KJT9fyG/SzvgQ470QBdEmeTGHLcloiA8ra5GuK/54FY=;
-	b=L7HSiU7EVUq0KjqP+k/edqWt6V4BT8VxifLEftw7FK9yxWFABlIG8nvtJmzh3eiZMJ32
-	 hqwJzU3OEvbpfcuUB+Ps7ooa02Qu8GRFCeneAWb6ko2ep3ZKA5TAGyXBGHCL6tPUz47R8
-	 rXPHhUXA8NATl5sxIYkCIXySDHuwZdl1hYdQsZECe6HKHNQ0OOfouxN7sbaKuapQfQ97S
-	 /ob9V2uUBfCyXxymB4v5unoGaQ8Pg53nPmCQ81b+QhNcIyJCCoijZc+tYjfZIMnjbvyig
-	 CiF75d67Rr2Q/7lHb/xGYUZCZsn8euw8g5vM6z7WX1ww1xFVvQbMSKxtGXoMsT8rnWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793639696;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=VfgSp3cgsfqtOO3clcrfty+qD2Zy4jlWdWJ9kVouLvk=;
+	b=A/Y8itGT+wPJZQWFMLOOOcAwncQiAaZ+hg6fQJ5FJrjTZ+eK3L0a6wnekLC8onlhetze
+	 zr4rEGWFQaOy3a63Fj8U20ojXxRg+9GFPd0Ls6/ucqAmD/flzLV9hruMmUZd6nwyReOcI
+	 onF2s8/AJPTUnE8twCFtClpz9gd0cqc66IucaFzh7U8sjGXT+7dxw8QZxv7zjuM2Eq7Ty
+	 iXySoIdDceNQNFbwi09nj+cIA93rmVFnypwYAA5RlACaTHmETG3Jhcqn7bnF0U0EvV3QT
+	 CzLksQdzW+OjZLOygLE6/pPviiGaKpSRa9LhQ3QLQnRsYCh7eJMl2mQoiuTzsQW6ilQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PbN/5aQ4";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=neXz4T74;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19032606A91E;
-	Mon,  2 Nov 2026 17:13:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD568606AB87;
+	Mon,  2 Nov 2026 17:14:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD568606AB87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbN/5aQ4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8401F00A17;
-	Mon,  2 Nov 2026 17:13:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793639606;
-	bh=KJT9fyG/SzvgQ470QBdEmeTGHLcloiA8ra5GuK/54FY=;
-	h=Date:From:To:Cc:Subject;
-	b=PbN/5aQ4qkOtHnnnb1vajyfoWXmsSSPYK9Sc0hjCdo7gmUc3Xxcr4tRQKIaeONapI
-	 mGROUq8Bt7B710XUY9h3AIl7JHTbDzdOCy6S/IKQTUA3WHhfs+F8kM0Pvm2jR/HIyh
-	 0aSRd5/ZykhhkJwIG2TgP0nuh/hZEGkuPbLQ/7jAD7dFzebONZ0bjrx5o5vyjNdnuc
-	 n5RMTLv/42E1rC1Yy3tKyYRoI8zJa4R7xovcYn5zq7llGh8qMGbIVI6wFrj++tq7If
-	 cJ6raylSlHUY0Dns1KbUapwPvWB/Ba7SB9zq/YBGm25hx5pEiYWq5+tcga395g7G/n
-	 U+s3Ts8UDkj/w==
-Date: Mon, 2 Nov 2026 17:13:23 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Nov 2
-Message-ID: <aujEs6JVOY-8LIbv@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=neXz4T74
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793639695; x=1825175695;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nqQzviCw5HLUlkzPdxIrNo2VwlVDrJt0aA/SRwJ9iM0=;
+  b=neXz4T74KxmIE582rk9cxiAfniaxgwSeYPS2lWldPNXH+p1gN+jkRN11
+   oeDMhMHhGYqFNWhjmcGz7WWGcQv3gobuka3i4QxVm7YUPxDdmQUKnVw5k
+   8rgLQVZNA4HiNVAZ6n/5qK+ga0CIbQMypwc64gh9qyUz/8dIAIqRT2D6N
+   3mG8+nMTHNR8LFGxKuzUH21PRHpkYGOIMBlQG3hZQXk/j3O9Mj/Pt/MSH
+   8dAPNXboaUq5yCbnp1V8U/E8iQ9vA2qIGwhCBXFr+9nznmFnArdHX1MfZ
+   TIi07miO3GTVNlkch95xuRnGHN1fkze7vLg6BTq9GD/92+lZWPvfWoufE
+   A==;
+X-CSE-ConnectionGUID: qDbPvk8FTUatX8LC9KPPYw==
+X-CSE-MsgGUID: FHM28KRgSNi7LsuMtfelEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2225038"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2225038"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:14:54 -0800
+X-CSE-ConnectionGUID: TEisa5mfRCas7EY00UyDFA==
+X-CSE-MsgGUID: K8D+DgofRzKhGujlSLaQqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6055091"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 02 Nov 2026 09:14:52 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xNvcP-00000000hYa-2VbF;
+	Mon, 02 Nov 2026 17:14:49 +0000
+Date: Tue, 3 Nov 2026 01:14:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Baorui.Liu" <baorliu@amd.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	acpica-devel@lists.linuxfoundation.org,
+	kernel test robot <lkp@intel.com>, "Baorui . Liu" <baorliu@amd.com>
+Subject: Re: [PATCH v6] ACPI: button: Report wakeup key only for power button
+ wakeups
+Message-ID: <202611030112.cVsBZFFE-lkp@intel.com>
+References: <20261102091049.856-1-baorliu@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,73 +86,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DI3hDjmhmF84cWpP"
-Content-Disposition: inline
-
-
---DI3hDjmhmF84cWpP
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261102091049.856-1-baorliu@amd.com>
 
-Hi all,
+Hi Baorui.Liu,
 
-Changes since 20261030:
+kernel test robot noticed the following build errors:
 
-The staging tree acquired a conflict with the mm-fixes tree.
+[auto build test ERROR on rafael-pm/linux-next]
+[also build test ERROR on rafael-pm/bleeding-edge linus/master v7.3 next-20261030]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The drm-intel tree acquired multiple conflicts with the drm-intel-fixes tree.
+url:    https://github.com/intel-lab-lkp/linux/commits/Baorui-Liu/ACPI-button-Report-wakeup-key-only-for-power-button-wakeups/20261102-171049
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git linux-next
+patch link:    https://lore.kernel.org/r/20261102091049.856-1-baorliu%40amd.com
+patch subject: [PATCH v6] ACPI: button: Report wakeup key only for power button wakeups
+config: parisc64-defconfig (https://download.01.org/0day-ci/archive/20261103/202611030112.cVsBZFFE-lkp@intel.com/config)
+compiler: hppa64-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611030112.cVsBZFFE-lkp@intel.com/reproduce)
 
-The turbostat tree acquired a conflict with the origin tree, I did not
-merge the tree due to the extensive conflicts.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611030112.cVsBZFFE-lkp@intel.com/
 
-Non-merge commits (relative to Linus' tree): 1906
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/nouveau/nouveau_connector.c:27:
+>> include/acpi/button.h:28:15: error: unknown type name 'bool'
+      28 | static inline bool acpi_sleep_pwr_btn_wakeup_pending(void)
+         |               ^~~~
+   include/acpi/button.h:1:1: note: 'bool' is defined in header '<stdbool.h>'; this is probably fixable by adding '#include <stdbool.h>'
+     +++ |+#include <stdbool.h>
+       1 | /* SPDX-License-Identifier: GPL-2.0 */
+   include/acpi/button.h: In function 'acpi_sleep_pwr_btn_wakeup_pending':
+>> include/acpi/button.h:30:16: error: 'false' undeclared (first use in this function)
+      30 |         return false;
+         |                ^~~~~
+   include/acpi/button.h:30:16: note: 'false' is defined in header '<stdbool.h>'; this is probably fixable by adding '#include <stdbool.h>'
+   include/acpi/button.h:30:16: note: each undeclared identifier is reported only once for each function it appears in
 
 
-----------------------------------------------------------------------------
+vim +/bool +28 include/acpi/button.h
 
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
+    17	
+    18	/*
+    19	 * Set in acpi_suspend_enter() when the fixed power-button status bit is
+    20	 * observed (IRQ-disabled context). Consumed by the button driver on resume
+    21	 * so KEY_WAKEUP can be reported without calling into the button driver from
+    22	 * that early path. Implemented in sleep.c (built-in); safe when
+    23	 * CONFIG_ACPI_BUTTON=m.
+    24	 */
+    25	#ifdef CONFIG_ACPI_SYSTEM_POWER_STATES_SUPPORT
+    26	bool acpi_sleep_pwr_btn_wakeup_pending(void);
+    27	#else
+  > 28	static inline bool acpi_sleep_pwr_btn_wakeup_pending(void)
+    29	{
+  > 30		return false;
+    31	}
+    32	#endif
+    33	
 
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 435 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---DI3hDjmhmF84cWpP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmroxLIACgkQJNaLcl1U
-h9AQ5gf/d7KMBbGzYD3iViK6rEcH+c+TqQyo1LKPhJ6cLjGoMqPDiHmr9o8a2k30
-0eSIetjDyymPo4ecr/cjp1ehMSz10Nc3vvDep2wNQStIxQeq6p6ova1a8Hw+El1C
-BEbUv+35z5V3PvL9626TEKUpRLu7r8entLbXqYND9z0NPGQSzWD2CXfBGpsdAH2I
-8HovecN13YErxbiWXNa+bqJNCmvQV+UEfELT+ciA+6H+QEE7yE8ft3Txp4flzrCe
-YUtLvCOiwprHwMS3Fuo69JeobWljaDYAxP34KEV0QqI2tZPTbtfjSiaxGUkr+CHc
-nQtNSFDkYBxzuCUf1fZEeqTYs3e9FQ==
-=3Hcd
------END PGP SIGNATURE-----
-
---DI3hDjmhmF84cWpP--
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
