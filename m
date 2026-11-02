@@ -1,36 +1,36 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.214.250.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619731;
-	b=sqk1Wgv/yLCbL7XpJxW22W6mO7Ej2oNCfUyySm9jwR7vZDc6XrS5+j/hMLbBdAnubEkN
-	 0EUts1yMP0GdvnuxxqWqtSOvJe0ndp7brBaprA2gal6QkEkaQr6mJcjXmb+6p/KGu/oSC
-	 6g4gwqntX5Bdw2yj1Tpk7Nhfh1AnSlXN4tcp3l+oi8xGLvRQ6TaaZJJbaQYX4Hhpa7tfw
-	 BZMC0lbqHyUvn3N7U7656KbWO0SeIKoXaql4xdNYcUILMEWqKDhjos1c6506z4QCMwMMO
-	 DD66U5RC0RQFB6pM1EEJ8eTsHY91hkXNT7/lsBEe/dCH3JJZZKz0AZXMe9YTrbnRTHg==
+	t=1793619732;
+	b=pdcgLwHw85zdGnhXleM6SEB+JHR1Fbv+T2f2VCMQhjP/DImkduYLPZ7MbZ8T3n2xi7sy
+	 APCoI7Xjy6xT7czYQcyZFeMeZ9o/fLchuNBR4blrj1f8/ogD4KkI5hK930iIIsLaRlD1r
+	 VKD7X38jd7s2shX2qfMEGi6ERCs6C8gXrGoSunK9KA3zORCNFmh6zoWFVolhAOzj0EF6o
+	 qJ4RvyIDeh+HzXKSgCwxFKJMhoAvqU0JEp8+vwR01TRn/FmXmBdVuXFJ0dD/e29PO2q8Y
+	 +0QCPXVgYNd6I54Yc41OzuMClu7oizC8w4oomqMPSPQViEatU+Nk/ZQdCOKi20Cq2BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619731;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619732;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XfqbgcmUIK+2Zk7EPOWKeSkE+vUNrYIyxGFj5yeMr7U=;
-	b=IyR89s0s9zM57uWE5laYEWS4MFR4aJsU8glnro+oTcFE86gxr4TWi3NerdUYxh1EojTT
-	 2p0CVylBZ4/QG2fBD4K3bRR+rUsa34BuQ5IfU3FELFWGSKCwj1uJINB3k7MXzrXHVfYMA
-	 OmVolaXJDEl88TJ9iEX7vt3WZXPxe5dNIPeVvhsxSDEPIkE/j+wdJkdgd4wz7cz5ATXFM
-	 fssfhrw+aRkEqzMPhFkSc6gtGFeTabpxPbM4UF8qx+xbzdq+VLzVmhTt8vanPSLb51vDX
-	 PnzMGmPPQhmuhGMGSSfhPlb1qBE/3nqWpvy2Z+cKDsurcMZa4cAB3hAoZ9wOvKHvl7Q==
+	bh=GLgctw023HMDHXfcFmH1R9I5/mqAyWuaPPQ93qcP8dg=;
+	b=L3qs8O1lqQbKZYDQhGQMMJNM4SCvZzqezt37XjfD8xw02E/J1N2ILUVTxpEnsFsfYhGT
+	 rnYNzR98NDAYAwgToZZ8KHHFbe00hyrCA83bcT1S48E4fIpQf7TvvLqmEA/f8yNfSPYJL
+	 WDInejSycs937RAUtkP38IehccW4lqjnh8mppiQr2rC6TUQMZ6/QximX+af0ReElX8dZa
+	 aH5eI+o9l/f6p2vxAlFQKvpMrNm6lDGsLk2nFtZIYy7VPsEm6Haydpw4Ptf9nkHm3MhPC
+	 l9rfM0BNCgfzSrgObq9ER6SexD/cuAOT+gCZbZAIOuoBbkMG7OoHQSJB/fY3To3GbQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=8bytes.org;
 	spf=pass smtp.mailfrom=8bytes.org;
 	arc=none smtp.remote-ip=85.214.250.239
 Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7FC6606A333;
-	Mon,  2 Nov 2026 11:42:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7FC6606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67A3C60A262A;
+	Mon,  2 Nov 2026 11:42:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67A3C60A262A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
 Received: from io.fritz.box (p200300f6af404a0027ad06761c59e6b3.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:27ad:676:1c59:e6b3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 357BE243AD2;
+	by mail.8bytes.org (Postfix) with ESMTPSA id AD869243AD8;
 	Mon,  2 Nov 2026 12:42:04 +0100 (CET)
 From: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
 To: Paolo Bonzini <pbonzini@redhat.com>,
@@ -48,9 +48,9 @@ Cc: Michael Roth <michael.roth@amd.com>,
 	linux-kselftest@vger.kernel.org,
 	coconut-svsm@lists.linux.dev,
 	joro@8bytes.org
-Subject: [PATCH v3 2/8] KVM: SVM: Implement GET_AP_APIC_IDS NAE event
-Date: Mon,  2 Nov 2026 12:41:31 +0100
-Message-ID: <20261102114137.1198982-3-joro@8bytes.org>
+Subject: [PATCH v3 5/8] KVM: SEV: Allow VMSA pages in SNP launch updates
+Date: Mon,  2 Nov 2026 12:41:34 +0100
+Message-ID: <20261102114137.1198982-6-joro@8bytes.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261102114137.1198982-1-joro@8bytes.org>
 References: <20261102114137.1198982-1-joro@8bytes.org>
@@ -67,151 +67,89 @@ Content-Transfer-Encoding: 8bit
 
 From: Joerg Roedel <joerg.roedel@amd.com>
 
-Advertise and handle the GHCB APIC ID list feature so that SNP guests can
-discover the vCPUs for which they need to create VMSAs without relying on
-INIT-SIPI.
+Pass the firmware VMSA page type through KVM_SEV_SNP_LAUNCH_UPDATE.
+Only accept VMSA pages when userspace has enabled
+KVM_CAP_SNP_DIRECT_VMSA.
+Require each request to describe exactly one 4-KiB VMSA page.  Allow
+repeated requests and keep VMSA creation independent of association with a
+vCPU.
 
-Return the required page count for undersized buffers.  For sufficiently
-large requests, validate the GPA range and use KVM's SRCU-protected guest
-write path to copy an exact snapshot of the online vCPU APIC IDs.
+The VMSA's VMPL and SEV features define its execution context.  They must
+agree with KVM's VM-wide configuration.  Before passing a VMSA to firmware,
+require VMPL 0.  Require sev_features to exactly match the VM's configured
+VMSA features.  Treat the remaining contents as guest-owned data.
 
 Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
 ---
- arch/x86/include/asm/sev-common.h |  1 +
- arch/x86/include/uapi/asm/svm.h   |  1 +
- arch/x86/kvm/svm/sev.c            | 67 ++++++++++++++++++++++++++++++-
- 3 files changed, 67 insertions(+), 2 deletions(-)
+ arch/x86/include/uapi/asm/kvm.h |  1 +
+ arch/x86/kvm/svm/sev.c          | 20 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+)
 
-diff --git a/arch/x86/include/asm/sev-common.h b/arch/x86/include/asm/sev-common.h
-index 01a6e4dbe423..c041f85dfd5c 100644
---- a/arch/x86/include/asm/sev-common.h
-+++ b/arch/x86/include/asm/sev-common.h
-@@ -136,6 +136,7 @@ enum psc_op {
- 
- #define GHCB_HV_FT_SNP			BIT_ULL(0)
- #define GHCB_HV_FT_SNP_AP_CREATION	BIT_ULL(1)
-+#define GHCB_HV_FT_APIC_ID_LIST		BIT_ULL(4)
- #define GHCB_HV_FT_SNP_MULTI_VMPL	BIT_ULL(5)
- 
- /*
-diff --git a/arch/x86/include/uapi/asm/svm.h b/arch/x86/include/uapi/asm/svm.h
-index e80676185092..c9c85891971a 100644
---- a/arch/x86/include/uapi/asm/svm.h
-+++ b/arch/x86/include/uapi/asm/svm.h
-@@ -118,6 +118,7 @@
- #define SVM_VMGEXIT_AP_CREATE_ON_INIT		0
- #define SVM_VMGEXIT_AP_CREATE			1
- #define SVM_VMGEXIT_AP_DESTROY			2
-+#define SVM_VMGEXIT_GET_APIC_IDS		0x80000017ull
- #define SVM_VMGEXIT_SNP_RUN_VMPL		0x80000018ull
- #define SVM_VMGEXIT_SAVIC			0x8000001aull
- #define SVM_VMGEXIT_SAVIC_REGISTER_GPA		0
+diff --git a/arch/x86/include/uapi/asm/kvm.h b/arch/x86/include/uapi/asm/kvm.h
+index 00ce265391e1..f3c389d3c70e 100644
+--- a/arch/x86/include/uapi/asm/kvm.h
++++ b/arch/x86/include/uapi/asm/kvm.h
+@@ -885,6 +885,7 @@ struct kvm_sev_snp_launch_start {
+ /* Kept in sync with firmware values for simplicity. */
+ #define KVM_SEV_PAGE_TYPE_INVALID		0x0
+ #define KVM_SEV_SNP_PAGE_TYPE_NORMAL		0x1
++#define KVM_SEV_SNP_PAGE_TYPE_VMSA		0x2
+ #define KVM_SEV_SNP_PAGE_TYPE_ZERO		0x3
+ #define KVM_SEV_SNP_PAGE_TYPE_UNMEASURED	0x4
+ #define KVM_SEV_SNP_PAGE_TYPE_SECRETS		0x5
 diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index b90c5f14c1ac..f690edaf8b69 100644
+index 09e1c2da546d..4c659c063be2 100644
 --- a/arch/x86/kvm/svm/sev.c
 +++ b/arch/x86/kvm/svm/sev.c
-@@ -40,7 +40,9 @@
- #define GHCB_VERSION_MAX	2ULL
- #define GHCB_VERSION_MIN	1ULL
+@@ -2365,6 +2365,7 @@ struct sev_gmem_populate_args {
+ 	__u8 type;
+ 	int sev_fd;
+ 	int fw_error;
++	bool vmsa_invalid;
+ };
  
--#define GHCB_HV_FT_SUPPORTED	(GHCB_HV_FT_SNP | GHCB_HV_FT_SNP_AP_CREATION)
-+#define GHCB_HV_FT_SUPPORTED	(GHCB_HV_FT_SNP | \
-+				 GHCB_HV_FT_SNP_AP_CREATION | \
-+				 GHCB_HV_FT_APIC_ID_LIST)
+ static int sev_gmem_post_populate(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
+@@ -2395,6 +2396,19 @@ static int sev_gmem_post_populate(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
+ 		kunmap_local(src_vaddr);
+ 	}
  
- /*
-  * The GHCB spec essentially states that all non-zero error codes other than
-@@ -3517,7 +3519,8 @@ static bool sev_es_are_required_ghcb_fields_valid(struct vcpu_svm *svm)
- 	case SVM_VMGEXIT_AP_CREATION:
- 		return kvm_ghcb_rax_is_valid(svm) ||
- 		       lower_32_bits(control->exit_info_1) == SVM_VMGEXIT_AP_DESTROY;
--		break;
-+	case SVM_VMGEXIT_GET_APIC_IDS:
-+		return kvm_ghcb_rax_is_valid(svm);
- 	case SVM_VMGEXIT_MMIO_READ:
- 	case SVM_VMGEXIT_MMIO_WRITE:
- 	case SVM_VMGEXIT_PSC:
-@@ -4235,6 +4238,63 @@ static int sev_snp_ap_creation(struct vcpu_svm *svm)
- 	return 0;
- }
- 
-+struct sev_apic_id_desc {
-+	u32 num_entries;
-+	u32 apic_ids[];
-+};
++	if (sev_populate_args->type == KVM_SEV_SNP_PAGE_TYPE_VMSA) {
++		struct sev_es_save_area *vmsa = kmap_local_pfn(pfn);
 +
-+static int sev_snp_get_apic_ids(struct vcpu_svm *svm)
-+{
-+	struct kvm_vcpu *vcpu = &svm->vcpu;
-+	struct kvm *kvm = vcpu->kvm;
-+	struct sev_apic_id_desc *desc;
-+	unsigned int nr_vcpus, size;
-+	unsigned int i;
-+	gpa_t gpa, end_gpa;
-+	u64 pages;
++		if (vmsa->vmpl || vmsa->sev_features != sev->vmsa_features) {
++			sev_populate_args->vmsa_invalid = true;
++			ret = -EINVAL;
++		}
 +
-+	nr_vcpus = atomic_read(&kvm->online_vcpus);
-+	size = sizeof(*desc) + (nr_vcpus * sizeof(desc->apic_ids[0]));
-+
-+	pages = vcpu->arch.regs[VCPU_REGS_RAX];
-+	if (pages < PFN_UP(size)) {
-+		vcpu->arch.regs[VCPU_REGS_RAX] = PFN_UP(size);
-+		return 1;
++		kunmap_local(vmsa);
++		if (ret)
++			goto out;
 +	}
 +
-+	gpa = svm->vmcb->control.exit_info_1;
-+	if (!PAGE_ALIGNED(gpa) ||
-+	    check_add_overflow(gpa, size - 1, &end_gpa) ||
-+	    !page_address_valid(vcpu, gpa) ||
-+	    !page_address_valid(vcpu, end_gpa & PAGE_MASK))
-+		goto invalid_buffer;
+ 	ret = rmp_make_private(pfn, gfn << PAGE_SHIFT, PG_LEVEL_4K,
+ 			       sev_get_asid(kvm), true);
+ 	if (ret)
+@@ -2458,7 +2472,10 @@ static int snp_launch_update(struct kvm *kvm, struct kvm_sev_cmd *argp)
+ 		 params.gfn_start, params.len, params.type, params.flags, params.uaddr);
+ 
+ 	if (!params.len || !PAGE_ALIGNED(params.len) || params.flags ||
++	    (params.type == KVM_SEV_SNP_PAGE_TYPE_VMSA &&
++	     (!sev->snp_direct_vmsa || params.len != PAGE_SIZE)) ||
+ 	    (params.type != KVM_SEV_SNP_PAGE_TYPE_NORMAL &&
++	     params.type != KVM_SEV_SNP_PAGE_TYPE_VMSA &&
+ 	     params.type != KVM_SEV_SNP_PAGE_TYPE_ZERO &&
+ 	     params.type != KVM_SEV_SNP_PAGE_TYPE_UNMEASURED &&
+ 	     params.type != KVM_SEV_SNP_PAGE_TYPE_SECRETS &&
+@@ -2507,6 +2524,9 @@ static int snp_launch_update(struct kvm *kvm, struct kvm_sev_cmd *argp)
+ 				  params.type == KVM_SEV_SNP_PAGE_TYPE_CPUID,
+ 				  sev_gmem_post_populate, &sev_populate_args);
+ 	if (count < 0) {
++		if (sev_populate_args.vmsa_invalid)
++			return -EINVAL;
 +
-+	desc = kvzalloc(size, GFP_KERNEL_ACCOUNT);
-+	if (!desc)
-+		return -ENOMEM;
-+
-+	desc->num_entries = nr_vcpus;
-+	for (i = 0; i < nr_vcpus; i++) {
-+		struct kvm_vcpu *listed_vcpu = kvm_get_vcpu(kvm, i);
-+
-+		if (WARN_ON_ONCE(!listed_vcpu))
-+			goto invalid_buffer_free;
-+		desc->apic_ids[i] = listed_vcpu->vcpu_id;
-+	}
-+
-+	if (kvm_write_guest(kvm, gpa, desc, size))
-+		goto invalid_buffer_free;
-+
-+	kvfree(desc);
-+	return 1;
-+
-+invalid_buffer_free:
-+	kvfree(desc);
-+invalid_buffer:
-+	svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+	return 1;
-+}
-+
- static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_gpa)
- {
- 	struct sev_data_snp_guest_request data = {0};
-@@ -4539,6 +4599,7 @@ static bool is_snp_only_vmgexit(u64 exit_code)
- {
- 	switch (exit_code) {
- 	case SVM_VMGEXIT_AP_CREATION:
-+	case SVM_VMGEXIT_GET_APIC_IDS:
- 	case SVM_VMGEXIT_GUEST_REQUEST:
- 	case SVM_VMGEXIT_EXT_GUEST_REQUEST:
- 	case SVM_VMGEXIT_PSC:
-@@ -4710,6 +4771,8 @@ int sev_handle_vmgexit(struct kvm_vcpu *vcpu)
- 		if (sev_snp_ap_creation(svm))
- 			svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
- 		return 1;
-+	case SVM_VMGEXIT_GET_APIC_IDS:
-+		return sev_snp_get_apic_ids(svm);
- 	case SVM_VMGEXIT_GUEST_REQUEST:
- 	case SVM_VMGEXIT_EXT_GUEST_REQUEST:
- 		if (!PAGE_ALIGNED(control->exit_info_1) ||
+ 		argp->error = sev_populate_args.fw_error;
+ 		pr_debug("%s: kvm_gmem_populate failed, ret %ld (fw_error %d)\n",
+ 			 __func__, count, argp->error);
 -- 
 2.53.0
 
