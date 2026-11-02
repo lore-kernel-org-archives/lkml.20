@@ -1,70 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612209;
-	b=Xh604nMWBcZY8WvYPfoxfz61sY5GfyzjQMaFD+opFT+spXqqJz0Jm045Hv2aEGup3UI/
-	 w1sh2JoOlt2ilPyrfvDr1N/Tiit1ImCINFA1Ggt3W7nIeEhY2tcIPdCaIVi+6qmVx0FeH
-	 ay2x+kfJ7R/ntqCgzkwixHM6sksk41soChd1r0GFT9fBbcq+v1+asVoqj//bIX6Hh34rK
-	 2z8MooKr6YKRVhTDaKtbs4N5PDkRH53JWSZ8U5u3Z6u98AemfwhWz+i8be4hnnd2SHONa
-	 1gz2hghHcYr4ZnWWymmgFdECrKWssS349oUhoxwCaWGR9fvofyKKURQyrFkP28eRIzw==
+	t=1793612300;
+	b=yMbrWTl0IOK0PyA0vzLUJ3sMOUZcFKEcco9FRffs5P9D1VJzg85nV19zbUQJpo/e6/JU
+	 RisyNmsinfWUohVQe3b7wE/Swhloh76IbaZp2DjVImwebK8iL3w50HUtUy1v5rVLsbmV5
+	 UeMkx7Uxjus7nvIvBESqH1OxMxYVKc0zMyaGCswA6QNmUsKRBLwdTDIV/EM9qL8Z+psjK
+	 W/KjznfMtST4HLnhb3/ZnASsRJ2eEN9Es6KzvO1cLeWj6DFQP5MWWhGHmNFMCb9Mp3Q3J
+	 VfbmKXxU6V6FUValSJpzQS3iSwkCabGIm6wb6YQFMSEIDkTGwzRmGULPh5vGEBrt4Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612209;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 User-Agent:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=R662JnnZXAv+1ADEOp/XUIUO/2DvMXkgRXTUkhoS1mo=;
-	b=hbJsTk9ogRYm448h2R7cOfqDnJLgpdIg8fd6yvUm2bKvfNBw+aXA9tnUI0UTAT9X1q3G
-	 ebDBOpOjyVf6/YrXzo7FdOYI1cpAw7kd83QN3d4L5SCKlsKqycAXvh3YaxFw7ds9AelRW
-	 wgDHVZPyuoBP7lVRGS1P2UrS4DeimVhuGSh0BMMXWURCaxY9plVBcvdJFQYEjd9PNctts
-	 R+1yYIXssV91UdrhrErqUe5eDwIEz0cudJMJAdDgbSzL63oFr7vAyauwDp3RZwb0xXOTi
-	 +vJ+FBmjZrubqCbuJogY2ZpUAnd6b59hv17PAaWOLOjTT9jYiq2k1l3ICw24jsuC0bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612300;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=asMl3Kt7eCrFylH1rfiopYNpKGjNZaueRUw6jmEOQ2U=;
+	b=r7DgS7toqCtoA7uDksUT3+4xZOZQKfRILrcwgMKoV8onHsJXab5F27eoO1OEj0FkREpg
+	 5mh0c27adnnUMFTPm0MbvJjVj2hr9ITSLgSDTwmT2o/wcWBvoPHp8QlZcOx4o2/zwFjpW
+	 Xtd50dVMejlot+xk6F3LYFYRbGS8HSHpHsnLLl9rgEr21zBCnCTrWgPL7eyd28bUMk/b3
+	 oK7TixYGigEeUHjNqdetSwTJLVg3VQjMoOe8U4dxIrqVsiAZqPNFaq90T/eTm73ZK03hF
+	 GyoCJHk8KBPm8iZGBg91BQZx5Z/uUwBZgRbSJEFigbEjeuyeWSm4fS5A2gIqeR1mPfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EgMh2Y12;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A109E606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:36:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A109E606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id E7839C8F44B;
-	Mon,  2 Nov 2026 09:37:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DD3E960750;
-	Mon,  2 Nov 2026 09:36:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 87A5A10329134;
-	Mon,  2 Nov 2026 10:36:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793612202; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=R662JnnZXAv+1ADEOp/XUIUO/2DvMXkgRXTUkhoS1mo=;
-	b=ENSWRpj/pGztgPota4D/jbkoJd49rS9LxSmaJdiO6AJbVkCmy85VNFuglYm7CF6xQga0dY
-	yuU4gkNhkSkv32sAd6EUl4kyutT58hLQxDE39jJVqgdLYxYQU+scUvyTWvqSMrs8CbiC6p
-	JQKhDHaGxFdtVCh3ymHQPmqXBheTc2VjxFtJXnAbkaJ6enJJdYj3BOSLcc+6x+b9901lqB
-	T37DOu2OLMjVLP/HSpBD4XaPCt1TbjJLeo1kI9iY0Bm0z5OSTU/nevYC2FOZ3pGy94KyXM
-	gERyuUElRPNTwKqSe6YXgpTlTMLR0dz9vLgSbnYEXk9kli8+aHRbmFdgzTQcuw==
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-Cc: andi.shyti@kernel.org,
-	dumitru.ceclan@analog.com,
-	sakari.ailus@linux.intel.com,
-	luca.ceresoli@bootlin.com,
-	andriy.shevchenko@linux.intel.com,
-	gonglinkai@kylinos.cn,
-	rosenp@gmail.com,
-	stable@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3D1606A326;
+	Mon,  2 Nov 2026 09:38:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EgMh2Y12
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4022D1F000C1;
+	Mon,  2 Nov 2026 09:38:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793612299;
+	bh=asMl3Kt7eCrFylH1rfiopYNpKGjNZaueRUw6jmEOQ2U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EgMh2Y12vSaPgCSeH1L15Ub1VLcsD0vbTkSPC4HWu21j8YkpnudS0mUiO4yCJ5cbC
+	 AJIJSuwoXiD+yxqOWbMD7EwUvXUeRf4KvqA3/l7q+clrIVXWZ2jvbxgP+g4nS6uNe1
+	 gohAC6YrQsd8yFN6FQ3iX450k3AfibuA97JPdQwKqyj1Z4Kn+CQlBj1Osljt2pfsdJ
+	 uw/LOu/uSc5gTt0nsDN6ryvw0/csx3DlC9pF0BftZ2rDO4S8uupD28QohM7HDy3xFh
+	 pzPC8EWD3LiA4CIasOTlYN7Q2QQMNdb7CM6DsQd701LlhZOrjgF+C3q4czIBzPursK
+	 ARleo71nDIMYA==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	trivial@kernel.org,
-	Romain Gantois <romain.gantois@bootlin.com>
-Subject: Re: [PATCH] i2c: atr: fix race condition caused by static local variable in i2c_atr_map_msgs()
-Date: Mon,  2 Nov 2026 10:36:24 +0100
-Message-ID: <20261102093624.17510-1-romain.gantois@bootlin.com>
-In-Reply-To: <20261029070818.639-1-zhangjiao2@cmss.chinamobile.com>
-References: <20261029070818.639-1-zhangjiao2@cmss.chinamobile.com>
+	Lee Jones <lee@kernel.org>
+Subject: Re: [PATCH v2 23/53] MIPS: SGI-IP27: xbow_probe(): recognize KLTYPE_PBRICK_XBOW
+Date: Mon,  2 Nov 2026 10:37:01 +0100
+Message-ID: <20261102093702.29721-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <atyEgXoWLanAHb5V@alpha.franken.de>
+References: <cover.1791890466.git.kaloz@kernel.org> <052c08ad27b1b882b27b3ced51f56194ed670637.1791890466.git.kaloz@kernel.org> <atyEgXoWLanAHb5V@alpha.franken.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,29 +59,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: koshi/0.3.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 29 Oct 2026 09:25:26 +0100, "Luca Ceresoli" <luca.ceresoli@bootlin.com> wrote:
-> Was this potential bug observed on real hardware? I'm a bit surprised
-> nobody noticed before.
-> 
-> Also, if it's a bugfix, it should have a Fixes: tag and possibly Cc:
-> stable.
-> 
-> Code-wise it looks OK. Not sure a bug can really happen but I don't see any
-> reason this variable should be static: it is always set before being read
-> by this function.
-> 
+On Sat, Oct 24, 2026 at 12:12:17PM +0200, Thomas Bogendoerfer wrote:
+> On Tue, Oct 13, 2026 at 03:16:43PM +0200, Imre Kaloz wrote:
+> >  	brd = find_lboard((lboard_t *)KL_CONFIG_INFO(nasid), KLTYPE_MIDPLANE8);
+>
+> use
+>
+> 	brd = find_lboard_class(KL_CONFIG_INFO(nasid), KLCLASS_MIDPLANE);
+>
+> instead, which looks for all midplane types.
 
-Thanks for the Cc Luca. I agree with the need to add a Fixes: tag and
-Cc: for stable.
+Indeed, KLTYPE_PBRICK_XBOW is a KLCLASS_MIDPLANE type too, so that
+covers the IP35 case without the fallback. Will do in v3.
 
-Apart from this, the change looks valid to me, as there is really no
-reason for this variable to be declared as static.
+I'll hold v3 until you have had a chance to go through the rest of
+the series.
 
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+Thanks,
+Imre
