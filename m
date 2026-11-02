@@ -1,53 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793607776;
-	b=yDPkM9X/LaDByLZNg/FOkcgwGgcvKog4GXVjXSvbBhH1IH4ws2OBPo/qSPaP8a5hXxWj
-	 HS6XYX1ZzGLuSuyCbKFmwvYv8QXFppdSW5f9kIpRUk50/0Tp+wHO5ndgeJv3l8SEiXkwH
-	 mS/uhYbyM7g68+RvK5B5LKSzeXKfW1D6Zvjxg7hocaPiEEd0LZcdpQ/xWaUlwedhTeOos
-	 wmik6CvTBlegTsu5NWdHdUtyYJyFjFE+y9fu2xg/cZs9UPFYTZcr/dH3coC71U2P6NDMp
-	 GQGnp8Q6ocq7f9/xsxe35QOZIG68znIWLAGmLLdS4BBLTjjryqjzn3KPW3gbKxMCwjA==
+	t=1793607787;
+	b=wIKfkyRowQvca3/RUwbuIiRoJGoj4e0lwFeWthA61HivqCEnFJbi1W3hwOQsNze0IF/w
+	 pHF5s2CZnG1VY7BX8ZSFWO3jRmmEMSUc7IcfN/kkdNx8iVUaMproV0y3fF4DslFXPTwnC
+	 dWlJ/SBvuGQzSKe+QdvC+1pQSTxnqYdCEIXtB+f/jwHbeeQVVTFczKu/3D2UqC/I7+m9X
+	 2ev5VqycUidMn+d5VD2lB8TrTa+st0PT+pFtxkD4u/qgy5OR9oAfKEZKEJfdjaH5ipGcu
+	 +h8bDURnk31b9+VzLr/GJWJArtteP2EejAgt/OHTqbS7A81qrR6wNfbxlFMN/qboquA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793607776;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=5FOz0TiH9w3NcIetfR+dP6aB6d9nyP+PHblRoSTH/oo=;
-	b=zafs/xodPD2vqlN2vWdjeSKqbBo6uj2IDzNkH5w8IPOWzhmSCr/f4Z03sf1Y2a9GP4sq
-	 V/jWqDIxRWlcOvc8/03uueXs4CuZV5+PICNqkeVhp+wvfAsvCpyyieYY0IhWOuU4t2mts
-	 KuYPLUVUmBXXHzryvNeB4hKUKbgGQzCK4yJvFxoUhYE6J1NhHqI2py8ApuPbRIYc8GXW6
-	 fNZPkcGkMq3E0mO+AM+Ea++wfzEL17amJ6TYIiIc8vW9GMlHFaU3qISnCMb8jZVy+6oIJ
-	 4acDkW57fI318UL1XvEnFLTgs1Ddzq2+G2CY/9qOhMF8DmdGa6s1Qnfz61xcVmWhcHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793607787;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=kaKlAjkcc4R8jkpGOd7sZb4iaQO79DTZVsVAMxaaeHo=;
+	b=vBHm4wMxqGJqAC3CScsOciXAk4b8XWLMfBcpif9Nvz53a2ItXgNcuqkibWtdQGX6hnia
+	 8AGoQOXvL7ZDPfEWeuRMA4k0zqSVgfRr6cJX2BjkWeO7uSrvgZuk2bWjOWSfVrRy1m5Xp
+	 6HSz8nHZpdkU0SXn6jpdINtEG9l5q3X3F838kwTYkpCTvEUSoYgRBtV3oxzZA4Wjzbd4X
+	 ytKcn6Ug9li/yyQO/uEUuN6eiOD0q9JHSgja8DwbJMFgUdkMXkOMTrduh249pX52i7X62
+	 SC26TepfNE1viN2bhGC8XhdpIOTQIHbJacu/dCdxhErMTrU90ryShgF7EUJjJGNLq4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ThPIICXA;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC818606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:22:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC818606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-547ae874949so4262931b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 00:22:55 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793607775; x=1794212575;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5FOz0TiH9w3NcIetfR+dP6aB6d9nyP+PHblRoSTH/oo=;
-        b=LcwagrcO0dxB41sV7kMQgF6ISBdRjy011VwqT2gzfTFejZm9+jAFKYcF9h2MQiLe/D
-         FWmpnEhNXgDdIDH0yic29tvTdGJcG8b9xaa3lnuskNrJwjcMSC5IKpZkCDOi5EX0nWlv
-         sxnCoowWaYBhGxLXSLnJqfvCnMQDxcjrevIYMcoUH9waEwwSBHf/AYCGITsaqTDEZdS5
-         33SiIPW404dQUVMDHQUKSy9Fii161Ty3pQ8T1nEChiS+0L2OVUx8A29jcOHtHyded4Hv
-         5uh75s7ZZK4ItsoxgjTdw695+OnLkWoU8/Jeb2+Lfui2QODSkRlqHh1yurOUKzIeKaOc
-         6mfQ==
-X-Gm-Message-State: AFq9FYIc26lyN4bBaNDmQdt3IATxHkYIgZj3uLGGJ29CWcUn2o1CjInR
-	T19eMaIzC6Rm+WM06prEcV0ZUkBgipuVx5QSlLUoVDLCgfmCUuQonwXpQQiUi8R36wQ4Zv4UfN+
-	W86ewhXB/53GKbkCAuL1+Ie6KJWbC4nr97byRWcd2ZaEg8RV95SCidDTniT4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4FFA606A324;
+	Mon,  2 Nov 2026 08:23:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FFA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ThPIICXA
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 04286C8F446;
+	Mon,  2 Nov 2026 08:24:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E738960750;
+	Mon,  2 Nov 2026 08:22:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B721B103290E8;
+	Mon,  2 Nov 2026 09:22:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793607774; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=kaKlAjkcc4R8jkpGOd7sZb4iaQO79DTZVsVAMxaaeHo=;
+	b=ThPIICXArd8S5NyDuuRcKMV0Lsi9+AnvaGdvpt3by5ofB9et56fu3HDKIV6caTM/GJVfNW
+	da8nsHRruxuewWrXN2tP81B+0b/ZoQnsEDgIfZNDhZyxwTS1WTES2j+dPD4m1/+AscmLiR
+	ZoM58yz6YOjsz+A16VqzrvX1M+JrNQLpmFQUjfVkppU7i5kfrUVZjg8nZFPRc1C74ooZDQ
+	K1JfYDRvxod1V2fuVkpfum9JRa95D1jQ4nxFJc35aLtuJcZKX9e9B9EfYemo+rxjf/utWW
+	NUmUNJwLZawSHR8aq01ldEsn3TGdHGvHXXA3U9uXpIpKjOBFr+dHv6G3LQzOZg==
+Message-ID: <20d4a3c3-99fa-4659-8d5d-eb5eefcf6545@bootlin.com>
+Date: Mon, 2 Nov 2026 09:22:45 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,44 +62,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1989:b0:4e7:d180:7719 with SMTP id
- 5614622812f47-5640dfbd63bmr5515188b6e.42.1793607774821; Mon, 02 Nov 2026
- 00:22:54 -0800 (PST)
-Date: Mon, 02 Nov 2026 00:22:54 -0800
-In-Reply-To: <6ad08fa3.a150a118.27e199.006c.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae8485e.6552420f.2a0efc.0681.GAE@google.com>
-Subject: Forwarded: [PATCH] HID: saitek: prevent NULL pointer dereference in saitek_event()
-From: syzbot <syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: stmmac: dwmac-motorcomm: mask the MISC interrupt
+To: Magnus Leatti <magnusleatti@kernelriot.com>, Yao Zi <me@ziyao.cc>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261102080938.2955-1-magnusleatti@kernelriot.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261102080938.2955-1-magnusleatti@kernelriot.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Hi Magnus,
 
-***
+On 11/2/26 09:09, Magnus Leatti wrote:
+> motorcomm_init() writes 0 to MGMT_INT_CTRL0, which unmasks the MISC
+> interrupt. MISC arrives on MSI-X vector 5, which stmmac requests as its
+> MAC interrupt, and nothing in stmmac clears it. The vendor driver masks
+> it.
+> 
+> Since commit 1b9707e6f1a9 ("net: stmmac: enable RPS and RBU interrupts"),
+> heavy RX load sets MISC and it never clears again, even though every
+> status register I could find reads zero. Vector 5 then fires about 120k
+> times per second and the machine stops responding until the TX watchdog
+> resets the adapter, or does not recover at all. A 64-byte UDP flood
+> from another host is enough:
+> 
+>   iperf3 -c <host> -u -b 0 -l 64 -R -P 4 -t 10
+> 
+> Mask MISC, as the vendor driver does. I could not find anything else
+> that depends on it here: EEE is not supported, and Wake-on-LAN uses PME.
+> 
+> Tested on one YT6801 board with net at cb284914e749. Without this
+> patch the flood above hangs the board within a second. With it, no MAC
+> interrupt fires under that flood or heavier ones, including after link,
+> ring, MTU and speed changes and a module reload, and throughput is
+> unchanged. Suspend could not be tested. The register values were read
+> with a debug build of stmmac.
+> 
+> Fixes: 02ff155ea281 ("net: stmmac: Add glue driver for Motorcomm YT6801 ethernet controller")
+> Signed-off-by: Magnus Leatti <magnusleatti@kernelriot.com>
 
-Subject: [PATCH] HID: saitek: prevent NULL pointer dereference in saitek_event()
-Author: dlzhangak@isoftstone.com
+Can you test this, sent a few days ago ? I also saw that storm, but it didn't
+seem to be motorcomm specific :
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+https://lore.kernel.org/r/20261030102251.208929-1-maxime.chevallier@bootlin.com
 
-diff --git a/drivers/hid/hid-saitek.c b/drivers/hid/hid-saitek.c
-index 6fe7c087c594..7e1160a24230 100644
---- a/drivers/hid/hid-saitek.c
-+++ b/drivers/hid/hid-saitek.c
-@@ -151,7 +151,12 @@ static int saitek_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
- {
- 	struct saitek_sc *ssc = hid_get_drvdata(hdev);
--	struct input_dev *input = field->hidinput->input;
-+	struct input_dev *input;
-+
-+	if (!(hdev->claimed & HID_CLAIMED_INPUT) || !field->hidinput)
-+		return 0;
-+
-+	input = field->hidinput->input;
- 
- 	if (usage->type == EV_KEY && value &&
- 			(((ssc->quirks & SAITEK_RELEASE_MODE_RAT7) &&
+It should address the issue, doesn't require masking MISC entirely,
+and isn't motorcomm specific (this storm will happen on all dwmac4 multi-MSI
+glues).
+
+
+> ---
+> Russell, d3265c19b35d ("net: stmmac: xgmac2: disable RBUE in default RX
+> interrupt mask") describes a similar storm on xgmac2. Should dwmac4 do
+> the same? I have only tested the glue change.
+
+The above patch should handle these too on dwmac4 :)
+
+Thanks,
+
+Maxime
+
