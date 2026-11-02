@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793583213;
-	b=eYt/RlsMTx4gpgdDTTZrOpIJZ/vETpTBUSvQRH6hdlQ3qvRCsPYrzV2SdC+IUBeOkad+
-	 /KfnrreToBQD5tZcQSFA/zUDGqEaoYCf3sN1YuCNcEhBKUX8N8kkHTbK/NxOjLJ/C63Fs
-	 S74gwR8WlgWg8U8kvy18PIhGMQW8+KqfCnjma8usfsWLV5rAehYLAJ3+ONQ/naZu7cnh1
-	 onBjSaPhXLv+Pe6gAUMNsw1Ri4eLmuQZx3N87yQrDeeX392tSjL406+TQrGC/QVGMdJQX
-	 27MTH9EyxMm9s8MFocRhzUZ3OO52XTkPVY5ap582nQavFANtwUQ14CgO8pCcE5o6flg==
+	t=1793583270;
+	b=IN8IrSZ3SepAuUT6zCTez/zd2pUN4o5i867MU/DXaoboNtmnCIf92fizW/93uviqMnoz
+	 n9PN3f1jL9iUkxXQzAhQrOZlvQ9dWhfXz2bHvEXzLmR1sBlG3p1y9vPhWEuKF+UP+3UKb
+	 T5sQKWLPIBwIzQUbTM1KOnk1C/XTcc5vDDpHuUG53G0n7ggAXZnF7CqbO/JzUbEney65g
+	 uL+v00T+bk9GlrLE8MiqDDTnNute4IjXEvIvCPjacGkS0aahwBauv0dQCSyZcZGPvgalW
+	 ZW4lgoVzjgaOojtzjmdxTqqRl5tn5ZCPMuobF0CTedeXLsNkWH1isVw0SeMCfJjEiTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793583213;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DD7e/JxRhvDqK9KBWWD4cYeG0X206k1aVuUHYXZNbr0=;
-	b=bDezf5cQjVJb7BEIgcobJsTmjakLxQjXJAIwvg/FnKhiCUBgCp9HxCBRLF/V8MSyi7Of
-	 eqB8uKz+bogw3PoKwGZb+a2LJ2v2yqC/iCe5JnVTOu2z0X6M41eZtMlHSHVEBeigZ+gxZ
-	 RwouGS9PdCTyoKhEc9jFeIoizsetSqNi/kbIVcAhAgQ/hI0KZGk3OwMX3z3r6U+sJIDzk
-	 unPcIs+U0ZOnwa6ZCjlBZN6oewd2bHDUDpXgL3SVnvimahsFk47Rs/Qd0V5rsfIHHMeLI
-	 81EsrQ/PYXB0NYVCTum8S/LLbEUyFXcqUFkVQOJtEI2DlNpU1B0HhANmYVxw3pKkzkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793583270;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DMbdpKsPHWH/BwqYOKc1EJMdIZ5fFnDiu2ukpAHKdUs=;
+	b=kopuiv39CmYwDGS3S3A3RDK4onvp+yv/Zg2OdsOk7YG5TNIpnygdSMeBUYu3prT5oG8j
+	 9WZ17jkr76v97uE7m9WCxdRfwseITvc5gsZc3vl3+7ZTUlVJt/ZbTb/wx8Wj28WDMPpPI
+	 63hgGwjLbRE2Xo31jnlztFnuMjRqqBBxrse3RwSDD4ptrmFQSZQMGnZ6QA/J5C5vGpEnA
+	 XzdoPN6YhxNpQAzNjq8FEeSZ/2ENPAt8VGZPeXuAw+aCcl91MZDL7uxUuEg0MrojyBH9S
+	 uRuS+Amk6Jm6+5AMFpSvOUjIJVD/gEWcfFD0LJuDTzQ6UA1bKXeZQdhAhkZzlRiIG4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZsuQFTpr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="he/ubJEF";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9368F606A324;
-	Mon,  2 Nov 2026 01:33:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290F7606A324;
+	Mon,  2 Nov 2026 01:34:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZsuQFTpr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F881F000C1;
-	Mon,  2 Nov 2026 01:33:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=he/ubJEF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819141F000C1;
+	Mon,  2 Nov 2026 01:34:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793583213;
-	bh=DD7e/JxRhvDqK9KBWWD4cYeG0X206k1aVuUHYXZNbr0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZsuQFTprsmQmccjEwXFpEmdTTB/24M7SZDHu8julEBTYVyAAmlI7P6UdnJBes57Tr
-	 tZRD9NYEqKwt264f5bD5E0UADSV8Ux848kFjhxvsPW88/JQn6zF0nm93iXzNDtrt44
-	 /F4+wsSsM+QniFdjETp0XfpxQK57dfOL9Gk2Pqf+y0TqUdUsjg0a0mWKCzuIC+atKD
-	 1ayx3v1n3l2jW9UoFr8VK+IlyG4UmmpOLUx6tQ/h6dJ7iAKSLq/mCcWWMEGiUV9hlp
-	 m0NDz27ch7NipzXePI+/xV7TbrrScv8oi9qnk62SezfXIWm2Fpf4yzfHixhlMHQq4J
-	 sTCf1VhUCS5HQ==
-From: Sasha Levin <sashal@kernel.org>
-To: Shuah Khan <shuah@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests: lib.mk: define LINK.c, COMPILE.S and LINK.S when make has none
-Date: Sun,  1 Nov 2026 20:33:31 -0500
-Message-ID: <20261102013331.2136774-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261011223358.2327625-6-sashal@kernel.org>
-References: <20261011223358.2327625-6-sashal@kernel.org>
+	s=k20260515; t=1793583269;
+	bh=DMbdpKsPHWH/BwqYOKc1EJMdIZ5fFnDiu2ukpAHKdUs=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=he/ubJEFkpHMEvld/1emBTae55d++wHB68zn3kFvlZ4A/xoTpXDXcIk8shOjkb9LN
+	 vAChI33IgvBoJHP3iJf6Zw4tlumzCLR1/E7MAMrQ2WrMRyAiv8x3EpyA3W8J843yqu
+	 fzQZDEWkWZNFexPvS3LwJdyBwaquVwniIlq84qgA125woGwUM10nUbXEjUkScbfa3R
+	 vpPqU2CRdfTK0SJUUctrDNSiAzMf5WU8AVm3CqfrS4PvAyulN8CfMpLkjk/ze6lxMn
+	 6Yxhjljabyo1P+K4toOm6/TWC6db/U69dOdru5U5iVuMTLRO1r5cbFfoLOGyJJGyVi
+	 J2F2ZfbtK5YcQ==
+Message-ID: <513d4f4f-dd02-46b3-87c5-f95e9ff47a41@kernel.org>
+Date: Mon, 2 Nov 2026 09:34:25 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,29 +51,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, lihongbo22@huawei.com, sandeen@redhat.com,
+ linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ zhanxusheng@xiaomi.com,
+ syzbot+e818dd42ada3b583bed1@syzkaller.appspotmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] f2fs: fix use-after-free of quota file names on
+ failed remount
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, jaegeuk@kernel.org
+References: <20261030072423.197883-1-zhanxusheng1024@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261030072423.197883-1-zhanxusheng1024@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 11, 2026 at 06:33:34PM -0400, Sasha Levin wrote:
->The kernel build runs make with -rR, which removes make's built-in rules
->and variables. tools/testing/selftests/Makefile copes by clearing
->MAKEFLAGS for its sub-makes, and lib.mk defines LINK.c, COMPILE.S and
->LINK.S again, but only when building_out_of_srctree is set. A selftest
->directory built directly by a make that inherited -R gets neither, so
->LINK.c is empty and the generic rule tries to execute the source file:
->
->  make[4]: acct_syscall.c: No such file or directory
+On 10/30/26 15:24, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> f2fs_show_options() prints the journalled quota file names without any
+> lock that excludes remount, and a failed remount frees the current names
+> before restoring the old ones.  Reading /proc/mounts at that moment is a
+> use-after-free.
+> 
+> Read the names under rcu_read_lock() and free them only after a grace
+> period.
+> 
+> Fixes: 4b2414d04e99 ("f2fs: support journalled quota")
+> Reported-by: syzbot+e818dd42ada3b583bed1@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=e818dd42ada3b583bed1
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Hi Shuah,
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-Ping on this one. It still applies to v7.4-rc1.
-
-The tools_build series [1] depends on it: without it, 70 of the 74
-selftests the series builds fail this way. Could you pick it up for
-7.5, or ack it so it can go through kbuild with the next version of the
-series?
-
-[1] https://lore.kernel.org/r/20261016143143.3613501-1-sashal@kernel.org
-
--- 
 Thanks,
-Sasha
