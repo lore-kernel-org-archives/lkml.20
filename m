@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638232;
-	b=2FIGIY39v/I8vDhlFfO2qDI8i+ZGb+BKURGUnLyLbCj6lEHD7SWucx/jpw4xO8tIU4qT
-	 N5p1h1z9sLZ8vum2kA/71ljg5PfU9B3ZbvxG458YBT/6dOAq5CvtCeIbExRmZ/Mgbzwke
-	 PuagOB3V9SgwlwWrQ8Ub8jC//EFdR878WSIXsy0NJWZhLSsn3kSJGlDzvB9D23PYNeBdk
-	 XO/f3A2Z1C2aN58J3hZsCeue5pdFZrpcluoo7+BBmfMsRP4LWnm+RjlhzJvk2nKdS0KHY
-	 J0FX3U6KwQ4frbB9IvcBNNi5sqp1whVVY34n8b1U/5X5VIoYP2q0UR+ALBj9QyQr7Fg==
+	t=1793638230;
+	b=A9jhI5xPPbu7fO93K+Bz2j85NGraJLHAcMGPbW1nIS68UmdiC1kCwVFZswkFXpBz7ikz
+	 +wgPlFmUdh/IunbvtmDA1/zY6zA5V4JdH0Gn4He6VPT+J6RE89FODNofxYyKx/f5TDblN
+	 mZLv5c30yvFoyiWeL4VGp/PxdP65d6Wo9/Tgpj2PJ2St6xzJnq2sun3n26nthXhLFaN3y
+	 c2mtA8thJJt4JoZT067ttugbcQvuhlUC8PWzdxCUuKNsL6m3P3Un8fZyDyMSvkgChV8Af
+	 MVrNbKyVDkJdQdgv3f6aF0B/maLTGWKtX3yCdya4ZvtDLL4EcFtCLvpqenIZmObBvsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638232;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638230;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=K8BYvSAD0vaRsrXFQzKVgQ9ORTXgw762XXjLlecX85Y=;
-	b=KGrBhrOW4dWZr5N55m8kz0xTmn3x9JA2xTrcimm6Df4SuRD1RzrtCDsdWuPh6UyW9WaT
-	 mUShSQZOsp//C6lQhpeBq+YdDVqYRZCe6QaMYYm8I7rpikRGO3MA48qVbieczrvGIPquV
-	 hB5zSUcvuxIT/ZESQWSCSikcfvh/Yat0cjlP7NB6vDDxEWTRc+DnAtg7ThdAtUxFOfblV
-	 M7ZQD8efpHPkuwiYQH24wZdqJ5CY9wDXbG0ZnF6w6q+xTeIW+EHQDPD/HqmtQGorPFVfL
-	 liLdFTD7kIo2D5tmifPHq3BEjTXOteFixZE41d/+qFKlKtPjoBjyG1t8TpTIKXTha2w==
+	bh=KTg+Lt8n8cyfd+bzP669ss9gAVOsDYk15W0k0texwBs=;
+	b=E8awdID005CnlLLFLEfI7y3Gs40C/TJkuerp30uU2gfFxW3R8sVA3ESJgVUSaPPkkitf
+	 92e8D3YusJ7sUdr39QjAqlVLvby005w4bGdR9cY/Mu7Th7Y2YcPvgY4Dj33OSQic/zmYy
+	 DFmWsaXa7dwRyFi2rz9sJY9VM5WoSwoGNLxeRaZ2jm86xIPuMwsxiGJBk7xsrMwxU1xUc
+	 qzwx2Bu2BW6NwdiSXsukIeaHlF/pfsKhKKNfNUzO7Sya9f+5pKqnKNFN0991+WSUtnFIA
+	 JW2Ni0R+y39ne+0B/toRCZXba8qXeWbS6htbmX296BmaxZOD1XxZ+5Wo2SwQ39OeF0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rHfQ1jyI;
-	arc=none smtp.remote-ip=74.125.231.131
-Received: from mail-oo2-f3.google.com (mail-oo2-f3.google.com [74.125.231.131])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c0v6Qu6l;
+	arc=none smtp.remote-ip=74.125.231.130
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03866074669
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:50:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D03866074669
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AED06074647
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:50:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AED06074647
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rHfQ1jyI
-Received: by mail-oo2-f3.google.com with SMTP id 46e09a7af769-8459f7bc7c0so252494a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:50:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c0v6Qu6l
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-84abe8ecec8so1367026a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:50:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793638231; x=1794243031; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793638229; x=1794243029; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K8BYvSAD0vaRsrXFQzKVgQ9ORTXgw762XXjLlecX85Y=;
-        b=rHfQ1jyI8vgeZsIJ8/crxP6sQGfOrqxThPsEAA/+kbRZwUIEBpVbtv0fgCcZRIF23D
-         jawXtmxCraOCtUMOjgKF2+S9Ww0FRiTIgABHxilJk8/hfn/bzcoHiYI0KZHSPccxiW1I
-         1/agQFhLFa1IMgaD9Szej8Q3tnpjCpN8FCN8tOVSKSnxBziMSactzZwu7lizWLGztw7C
-         DLip1LNDcM8jd8J2A0nS64qm7jIGRLOTEvSlRagL8a/hh/ywh/oAVXto359VwJJBwv5y
-         Ik9/Ifb/YIaU/OECBjMSkLi69Zsj7Tf81u12NAT+xnj0Y+qS/2TsgMNydiWc0Ps5ACLr
-         V1HQ==
+        bh=KTg+Lt8n8cyfd+bzP669ss9gAVOsDYk15W0k0texwBs=;
+        b=c0v6Qu6lGqB/NueLXwCJ0MbujVdcNa7sv9DyU6myuKFeILKR0PllAb1Sq8tx/QGgA+
+         NfzxVnnoiyT5gmxc7CfnMxcRZR2u99gOm4l2mYFJFeqYNSQGiWexUrEDEz8OGEdkpXEq
+         ZoKErvxvBrvSxkn7YsEsokpzcg+042WJRx5YAGJQrWn6bV+KvOgC4EVVfOPUiNUYc6Bn
+         LukM0cKT66JMYkHQAqA9257BWRnPtp7rbFFfCjFLYmLDVNf/OvNV+iWIk1yUEbFUzQ6G
+         DWK0oYFpNaRxMasT0Sevyqmmos593gnGO/7WPzOq44iH4+Mu/XlUFqRryRkhIdQ70iQo
+         R1mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793638231; x=1794243031;
+        d=1e100.net; s=20260707; t=1793638229; x=1794243029;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K8BYvSAD0vaRsrXFQzKVgQ9ORTXgw762XXjLlecX85Y=;
-        b=Brw7zYGsDBkYITiy6SPHnBvosyIH5Fp3BMTpBi4Si+RiKaTrMPJtK6lPC/f6ey2224
-         Cy7UL7KvPd3fnHMvUPFaYPibOJnUTDNIAm14C8YE1bis6x1QKny5B1YcTEwLMrOA1i1t
-         N9zgerJ8vBOf8x4nJdtvdmi1HSedU52ZsiKLLpXZ9paDNeNusLvny25ZtsWqCXRfvcH/
-         BjcSc1amBVVYsA+BWSOlFX5iuRQFZH2tkE4kvLV4v6ktOv4m6mJ+y8NyAqzf8KksjRxD
-         80UeoiDEvUo9gDsEX/GohnqL6myfqZ1djDamSScUam9xNhMpGqUwvUNInYzMIMaaDlQv
-         /RGg==
-X-Forwarded-Encrypted: i=1; AKwUvByyAHA+kFM2kD92GLpyOW7hBUQrBL+Xx1hydYQMMG1Gyhz2wNMXdbWUVw9xtH9unECZfg1malY1spuaRf0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJA7EWqkS7tB3B/lFW3CHaZ9KzF8N+QTAYTbBrdaS/JjIdnDTGt
-	kFqqMRdoQNpwZ9oYxCR8lCx4tTLbPp9P8fwkgoDVfhlc5hI5Q8tcTYQK
-X-Gm-Gg: AYBFou0T5i/Ctt5CYaESBaEvoCdF1o/OhzYeYhmVJ8ZaWPFpW1UDuPCsX3dtE/qz5Yi
-	Vok0pWcqL5fpA6tQLbeZWxfOhMnLbc0OJyxOb04+flcrZ6+L3lABPRrdMF/ZJaluE+MptKPXGqS
-	ziJxRUB+3O6e41MNxHy4lYby4rRpFOAELvYNHUs0mmXM1lmYaCxn0dOgk2Md6/Sfov/WKVtjB6Z
-	oLvgjraaOeFGZooTlcpZ4NIIjuw8u+DatuSRnJObvjxnB1mMqWFKjAJC7IjRsaLP+2CimCoffwr
-	Mg0d/QM0xZyBlgiYdriwvTTSHVE9yvH37Nf/nE4mOeNAR/lTwm6KiHKDF792juY6eB5MjyUcGMu
-	/YK0y2KXGneyXBq/Z+EKjuhorG0eJj5im702GOXb8AisU9aDzzH87Hgn6jv538NP7BATDIcQrI4
-	WcbFsZZNadiLnuEFSsS+XsNlkdfxrvK2tZAPXCQ9y9+zElK7rA7gxTvMLXXByc42j7Hyl0o+sRa
-	NgnCpkIb2+/vd8o6Wn80IeKxmGEnhmvHNmQO4c7DbqV7SrCKdiZ9Lk3mfKAiZBC/WVPoP7FRsPw
-	V+WuJPyZHxvANwKRsmrYHrb3Vq9GiynDW1FYkuwhn83e3PutBb/0TlhXS7FrLy09g5Sk3pK2dAP
-	m6c0dUp/ebd+zoDDrkJQ=
-X-Received: by 2002:a05:6830:3481:b0:844:a8bf:7dc7 with SMTP id 46e09a7af769-85d363fc570mr7336192a34.17.1793638230796;
-        Mon, 02 Nov 2026 08:50:30 -0800 (PST)
+        bh=KTg+Lt8n8cyfd+bzP669ss9gAVOsDYk15W0k0texwBs=;
+        b=sEjyd/mMqcIxiHzgowMjEKF3mIoBXuHtEeb5AR+0Lt81NdTCojySZGPcm1BWPQorZS
+         3906g9TyfBMW/ooHBBlca7m0QRrA2awDVpzLl4V3xFO3xnQ0xai3vKzJiOyDOTrQBynm
+         mVCZ9ZxgM/+AyKW+TyC5NyfMNhO9vRBR3OMtw6YQmfde01IBgUPuZN4P/BzaO1wo/+8y
+         9LlV0HYjISRHT1R1L4vH8PdBv0padNZLOJCjXInrL91R/dDLD1P8jpe8mBh1DDW/sjfh
+         tiCaZsxl4tpbY0VjMglUX4vlxU1CTS/0zP76iziGLxT1lgjmvpF3nyhh1+E0GV6BdWCI
+         JhUg==
+X-Forwarded-Encrypted: i=1; AKwUvBxhD5Pz0kmtsdebMlc/94QOPO+FBgFHn5sXtZ0TjaW96Ya52Id54q9PUxuQiR3eXGSHCGMm6/RanJ0wTRA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLusbzHzXB6QTvQ8AmRKvzvM0F8lj6VLzVF6SZZuJ65OE8PwEmj
+	+pN8IV58O7xJ2qh5H+7CKDS/U2KcsF+kmuFLZE1IfsOC7NhIoY6NK4Lo
+X-Gm-Gg: AYBFou2yUMP+KV/mefY8Q9Oe+IrZxLyNpx3KVV9f2bfNzbCexCV/fCCv4qYL72mlvgR
+	C71RorlnkfVcbmNxg42c1MxaWiwjpRv6v1XqfomfNFdum8M/Ity4VZbL8q9uNk5WxZSBRpuosHP
+	IZsZZpJQ3Vi8Q4EV1LN+UICFi5p7EzzgAzDuEneG0qgZdkyzNDOgEqVKN826pnAa27Afjl00gKE
+	L0SPG0TmKi2S8FWi367CqSsvpLhUawbPjVm+1mmh9PQFo/+WqS9UN6+AUnyfWpD3J8kyRtAzeRZ
+	9A/nDUZXL3mp9CkMVjhAgkYqyet1oj0Rn5mGPiSLQDXUgWjE3FisJPZYY4mCmro/3VTYq20Vlex
+	9SJ1Vk0bOGoIFzxhjcR4Tw7TUDhSOab3xCYZY1odT+Yj1Ic0grjUqPv6Z2Hl2GtOxcrTMKcF5+4
+	1LLChvSPEElVWqm3clbWnbcf52rlDA9FjcPUBKh36lxVbo+rdkg1LCgUBMdAQmox7J+BySKs3Ri
+	pfAM8pj9f+L726LEDsP1b6iesye7z6/Wvs+2VJwvabSZJCWm/o+3Ep0HnehAVrti/myiv8/Gef8
+	VI/j5rxao8Td30FNkDSCSMIF1jsQLYceSfU0IPuibzmcmQL3gxKkk/lK0QhAl17ZwNFdKqv0+5g
+	ovyYTvuMoHoUPx5M5m1Q=
+X-Received: by 2002:a05:6830:4487:b0:843:b6f8:de3f with SMTP id 46e09a7af769-85d365529d5mr7247305a34.18.1793638229426;
+        Mon, 02 Nov 2026 08:50:29 -0800 (PST)
 Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354985cdsm9936779a34.10.2026.11.02.08.50.29
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354985cdsm9936779a34.10.2026.11.02.08.50.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:50:30 -0800 (PST)
+        Mon, 02 Nov 2026 08:50:28 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Mon, 02 Nov 2026 10:50:22 -0600
-Subject: [PATCH v2 2/2] rtc: mt6397: provide the 32 kHz output as a clock
+Date: Mon, 02 Nov 2026 10:50:21 -0600
+Subject: [PATCH v2 1/2] dt-bindings: mfd: mediatek: mt6397: describe the
+ RTC's 32 kHz output
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-rbrue-suez-upstreaming-mt6397-rtc-32k-v2-2-19ca72815374@gmail.com>
+Message-Id: <20261102-rbrue-suez-upstreaming-mt6397-rtc-32k-v2-1-19ca72815374@gmail.com>
 References: <20261102-rbrue-suez-upstreaming-mt6397-rtc-32k-v2-0-19ca72815374@gmail.com>
 In-Reply-To: <20261102-rbrue-suez-upstreaming-mt6397-rtc-32k-v2-0-19ca72815374@gmail.com>
 To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
@@ -109,185 +110,52 @@ To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
 Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-rtc@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
+ linux-rtc@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793638226; l=4890;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793638226; l=1237;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=amIz4+OO8bg9BY0ErwfxlJTjkYD75qjrKdIIoLGCs4c=;
- b=SddfdcmGKWyuqGOE2/GxaWQqOQ1TXoTGs5VUhTToGfp3bnPWl7+Zrz5vLWEeXxPdlsr4dE61r
- fAJ9r7/SePRCBSg2vB3thim3kLRhLfoupjQ/1z8Xsr6XCNPG6w8yuKc
+ bh=3CyHV7hxEQyK84ACcArH+5qoJrY2fIpfuKy4fIAGdtU=;
+ b=0Wf1b+8NmB4OEOpczcJRUHMeGyBxsbhLHqpUCilWHGZgwVqtkqscNpMc02ashPTcWUbtr4lgH
+ WpE9hQMgNpfD6tqblyH80VYcqOYLALDE/Fh5XCg6akXUTVKecaowEVt
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-The RTC's 32 kHz output is gated by RTC_CON.F32KOB, which the vendor
-kernel clears before it powers the Wi-Fi/Bluetooth combo chip. Mainline
-never touches it, so on a board whose bootloader leaves it set, such a
-chip has no sleep clock and does not come up.
+The MT6397 RTC drives its 32 kHz clock out of the PMIC, where boards
+use it as the sleep clock of a Wi-Fi/Bluetooth combo chip. The output
+is off unless something turns it on.
 
-Register the output as a clock when the RTC node has #clock-cells, so
-the chip's power sequence can enable it.
+Let the RTC node provide it as a clock.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- drivers/rtc/rtc-mt6397.c       | 85 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/mfd/mt6397/rtc.h |  6 +++
- 2 files changed, 91 insertions(+)
+ Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/rtc/rtc-mt6397.c b/drivers/rtc/rtc-mt6397.c
-index d6e156516aa6..2849beddc79d 100644
---- a/drivers/rtc/rtc-mt6397.c
-+++ b/drivers/rtc/rtc-mt6397.c
-@@ -6,6 +6,7 @@
+diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+index 055625362951..3bfe1ad60d2d 100644
+--- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
++++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+@@ -84,6 +84,11 @@ properties:
  
- #include <linux/array_size.h>
- #include <linux/bitfield.h>
-+#include <linux/clk-provider.h>
- #include <linux/err.h>
- #include <linux/interrupt.h>
- #include <linux/mfd/mt6397/core.h>
-@@ -317,6 +318,84 @@ static int mtk_rtc_nvram_write(void *priv, unsigned int offset, void *val,
- 	return ret;
- }
+       start-year: true
  
-+#ifdef CONFIG_COMMON_CLK
-+static int mtk_rtc_clkout_set(struct clk_hw *hw, bool on)
-+{
-+	struct mt6397_rtc *rtc = container_of(hw, struct mt6397_rtc, clkout);
-+	int ret;
++      "#clock-cells":
++        description:
++          The 32 kHz clock the RTC drives out to other chips.
++        const: 0
 +
-+	mutex_lock(&rtc->lock);
-+	ret = regmap_update_bits(rtc->regmap, rtc->addr_base + rtc->data->con,
-+				 RTC_CON_F32KOB, on ? 0 : RTC_CON_F32KOB);
-+	if (!ret)
-+		ret = mtk_rtc_write_trigger(rtc);
-+	mutex_unlock(&rtc->lock);
-+
-+	return ret;
-+}
-+
-+static int mtk_rtc_clkout_prepare(struct clk_hw *hw)
-+{
-+	return mtk_rtc_clkout_set(hw, true);
-+}
-+
-+static void mtk_rtc_clkout_unprepare(struct clk_hw *hw)
-+{
-+	mtk_rtc_clkout_set(hw, false);
-+}
-+
-+static int mtk_rtc_clkout_is_prepared(struct clk_hw *hw)
-+{
-+	struct mt6397_rtc *rtc = container_of(hw, struct mt6397_rtc, clkout);
-+	u32 con;
-+
-+	if (regmap_read(rtc->regmap, rtc->addr_base + rtc->data->con, &con))
-+		return 0;
-+
-+	return !(con & RTC_CON_F32KOB);
-+}
-+
-+static unsigned long mtk_rtc_clkout_recalc_rate(struct clk_hw *hw,
-+						unsigned long parent_rate)
-+{
-+	return 32768;
-+}
-+
-+static const struct clk_ops mtk_rtc_clkout_ops = {
-+	.prepare = mtk_rtc_clkout_prepare,
-+	.unprepare = mtk_rtc_clkout_unprepare,
-+	.is_prepared = mtk_rtc_clkout_is_prepared,
-+	.recalc_rate = mtk_rtc_clkout_recalc_rate,
-+};
-+
-+/* The 32 kHz output the PMIC drives to other chips, such as a combo chip */
-+static int mtk_rtc_register_clkout(struct device *dev, struct mt6397_rtc *rtc)
-+{
-+	struct clk_init_data init = {
-+		.name = "mt6397-rtc-32k",
-+		.ops = &mtk_rtc_clkout_ops,
-+	};
-+	int ret;
-+
-+	if (!of_property_present(dev->of_node, "#clock-cells") || !rtc->data->con)
-+		return 0;
-+
-+	rtc->clkout.init = &init;
-+
-+	ret = devm_clk_hw_register(dev, &rtc->clkout);
-+	if (ret)
-+		return ret;
-+
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
-+					   &rtc->clkout);
-+}
-+#else
-+static int mtk_rtc_register_clkout(struct device *dev, struct mt6397_rtc *rtc)
-+{
-+	return 0;
-+}
-+#endif
-+
- static int mtk_rtc_probe(struct platform_device *pdev)
- {
- 	struct resource *res;
-@@ -380,6 +459,11 @@ static int mtk_rtc_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
+       nvmem-layout:
+         $ref: /schemas/nvmem/layouts/nvmem-layout.yaml
+         description:
+@@ -694,5 +699,6 @@ examples:
  
-+	ret = mtk_rtc_register_clkout(&pdev->dev, rtc);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "failed to register the 32k clock\n");
-+
- 	nvmem_cfg.priv = rtc;
- 
- 	return devm_rtc_nvmem_register(rtc->rtc_dev, &nvmem_cfg);
-@@ -416,6 +500,7 @@ static const struct mtk_rtc_data mt6358_rtc_data = {
- 
- static const struct mtk_rtc_data mt6397_rtc_data = {
- 	.wrtgr = RTC_WRTGR_MT6397,
-+	.con = RTC_CON_MT6397,
- };
- 
- static const struct of_device_id mt6397_rtc_of_match[] = {
-diff --git a/include/linux/mfd/mt6397/rtc.h b/include/linux/mfd/mt6397/rtc.h
-index f4da579ec638..a8130d726c59 100644
---- a/include/linux/mfd/mt6397/rtc.h
-+++ b/include/linux/mfd/mt6397/rtc.h
-@@ -9,6 +9,7 @@
- #ifndef _LINUX_MFD_MT6397_RTC_H_
- #define _LINUX_MFD_MT6397_RTC_H_
- 
-+#include <linux/clk-provider.h>
- #include <linux/jiffies.h>
- #include <linux/mutex.h>
- #include <linux/regmap.h>
-@@ -22,6 +23,9 @@
- #define RTC_WRTGR_MT6397       0x003c
- #define RTC_WRTGR_MT6323       RTC_WRTGR_MT6397
- 
-+#define RTC_CON_MT6397         0x003e
-+#define RTC_CON_F32KOB         BIT(5)
-+
- #define RTC_IRQ_STA            0x0002
- #define RTC_IRQ_STA_AL         BIT(0)
- #define RTC_IRQ_STA_LP         BIT(3)
-@@ -72,6 +76,7 @@
- 
- struct mtk_rtc_data {
- 	u32                     wrtgr;
-+	u32                     con;
- };
- 
- struct mt6397_rtc {
-@@ -83,6 +88,7 @@ struct mt6397_rtc {
- 	int                     irq;
- 	u32                     addr_base;
- 	const struct mtk_rtc_data *data;
-+	struct clk_hw           clkout;
- };
- 
- #endif /* _LINUX_MFD_MT6397_RTC_H_ */
+         rtc {
+             compatible = "mediatek,mt6397-rtc";
++            #clock-cells = <0>;
+         };
+     };
 
 -- 
 2.55.0
