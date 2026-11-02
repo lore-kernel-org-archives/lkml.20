@@ -1,63 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585651;
-	b=1TUirNVnYJVPfnDzRqWBR808M8ykJRkb1H00BPrvD9QtwFnEv6fzQRb+bzYlP18cs/16
-	 zkHw4erzsfKNuvJo9KdW9W4fKy9HCY7heUor5Gdcwkka7z0Q3BfjGRI53CMH+f9s63F/v
-	 B7+M2VQn0WO1B0YXSBFdLW6aF/UH+g+/zcdn/+wji9UGAf/IXHohjzXyvIruDzhKAvpHv
-	 WV3mX9hSG+9C8oW6ZNJVw9lSCRYN8W79WYl/3dg+Qwe9AVi749fzwx5MwMqKmFTcMDp/c
-	 flB251lipyHL3In8Pt0AQ7bsegtO92m4wH8dt9tzXs/IcfJCCUbVmhav08ArmIkUvdQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585651;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=GvRE35XJQ4xUZoV4JwRSxvCslV0vzaJg9Inl/F3vTbs=;
-	b=NuThb8E5RNY/m7Rg6fXFzCzyOdc2SssTwDblEOURSnIPWHmBHAs7Jy2mD7NKzoZ2blEf
-	 EwFHFVEB4tmvSRkOTE/p4Th5wVYiRgzbVF9HaiWAIuzH7STXlrUHnI+pfEqbiYHXUBHn8
-	 OfoS3Ke4xX1usUeZy64tTVfMvTzel8DERSpRsg7aYh4L44vNwqntAC6Wjj28RIVPz+OdU
-	 v4pj1ptAVvx/GNf0S/NPu5GygyKDS782ypHepnpmw1/mWjwxm5mduSjPZ1XhnzCShsR0T
-	 MAPosEy474i2qqFKEnfuixGoM8sOocCVncMwDC2z64cqWLNE4mGUsnhNyqMb/JWMMHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.94.104
-Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793585664;
+	b=c1eLKbjdlJqsPEbTO0h/tVJaE/clygNY35+HiKyfQjUK+fo4M70PtsEMns8qugLfpVeX
+	 K7qQAsm2b8V4dNENDPWJJ/YEcc4jQBFqBlUWjzNS+a5skFMSPkd2kVBvXS8r61b+EENmS
+	 WnaWb3LEXsvLWMnomYuhGNfWz9gGrnlfvZb2TTWXmjTnagNdBrChy4Pk/Lak5xBM5eXP3
+	 90gLItZm/gI19ae3Uc4SVCG9oDcGy8qGdv+wnRRtmPAhYkkOHApbc9SsEDBgn2kvDAeo4
+	 WOv/X2H7deeARDp4RNHiY0hKN3rTjN7UE2KdyCb1dooBbHc9JxF159Wmm9ZY6Ussj8g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=J7MH/48r4Ni/jzs6ijJK/lnj/9Uw/DovSxpncCh69tY=;
+	b=z3cmeLZGBGMUTDLcmvd02PiiZ+h1gU8LQzjNO8fu5w/LzkC5xMrvnpVR7c02dVaI7Ukn
+	 rRmzBCb6CadRRmebvB9M6uWGS0YgPiRFe/hnexO19Y0AR6qXFik883tyxHO8RL8ukH5jt
+	 pMktZN9Xcy1bwVxYWaGeyDC7/PiSsSFNBr2HRmQU9dkTt0LK+aU3p21MWJQM3Cp3YRoNN
+	 HDJaRLmQI4znSEUmW9oyHCRmGK/w7fKrmBadVL/eM4uT6wufQouMoxYdO/Y3wIqUKHIMA
+	 52Wdnn9TclrElVq7zVU4tHWJRgoi3dd1BGAe0Nk13+wv2psTS+6jUoHYlXBjFGnAATw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EIy0iLWW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8F5606F6CB;
-	Mon,  2 Nov 2026 02:14:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E8F5606F6CB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jHwHC6kb5z1rrK7;
-	Mon,  2 Nov 2026 10:13:43 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id A782040574;
-	Mon,  2 Nov 2026 10:14:06 +0800 (CST)
-Received: from huawei.com (unknown [10.67.174.45])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgAHDgHn8edqKVXXCg--.2851S2;
-	Mon, 02 Nov 2026 10:14:06 +0800 (CST)
-From: Tengda Wu <wutengda@huaweicloud.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v2] perf/core: Prevent duplicate sigtrap task work enqueue
-Date: Mon,  2 Nov 2026 02:13:55 +0000
-Message-Id: <20261102021355.650671-1-wutengda@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF4A606F6CB
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:14:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EF4A606F6CB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EIy0iLWW
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-48ed0b68895so1757965fac.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:14:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793585662; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EHMJgcbfK9GHGLWK+uRF+8gN+zM9ud9ERbP2CV6pMcHzpbXkH7wBQnHB3JG6Xx340T
+         JUrqs0pxOFn0u3Ho0P9CoFSDnwq98PbhnR56SXF3p2OHurbxqZHTRyx+l3p5p7OYT+eT
+         DojKQHbLNQgjZ13JChOb0Rw4jLzfIxZih1dnDJ8kAkyF+TRCqj1QQTbn0bQTG3RjW6ig
+         9o/3lxH0MEAuUkVvC6oB+o+7Ta2DKFT2IHCjv0pa2bTE73JsXAVVwqdCpDoUskREna1o
+         hdDv2h/S3jDT/t/TaAXN9dcDGqQqhLt5ZShuk4o05tCccX/ObGvATNjfABsXePc94Okl
+         W+VQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=J7MH/48r4Ni/jzs6ijJK/lnj/9Uw/DovSxpncCh69tY=;
+        fh=0IWzpFQp0Py258eGosOxV4qDI9i22mpQ9VOt2n6Aj9Y=;
+        b=By1BGtb3h4H8DTvkdbD8+d6RfmEzWg0ejBVBUoxXX+yN9d4q3bHNy2PkLhlAWD8hHj
+         7a8MoHFSQVJgf9504ourtlZ3kyFL0MESITfG/8L+8HMp++TVwBe9PxD2mB5DvVwukBDs
+         V0xHX23qF3UqPJZTcefp3vkViTfyKpe2oQLtihWLC31B4QhAZdaqPP19Jjxv3W0QWxWj
+         7jrarTWmgUiM+aXVboXVEUQxLhzwW4buVwO/pwauhRLovianqGOaDVfyFAN+HpifYR5j
+         rc9WNbANUsIkz9Ag65ubNAzTWFYjsMO6+P2Abh36Yzeho79jfxrGlRYBrqz6lKCVRejp
+         SIAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793585662; x=1794190462; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J7MH/48r4Ni/jzs6ijJK/lnj/9Uw/DovSxpncCh69tY=;
+        b=EIy0iLWWc/ueA+1nbLeuNzfCDQ1KKufPJKyskcFmycme1YFSiKbQ9aZWFz0yH2lRGA
+         DTbZ1DQ59/ZmHGnr+hKYuEfRowd6mA+Nm2jK3Lu1jdcpno7FHI0QUG6x4ZuMdq3JXxMy
+         V5NoCK5GugtC87aJJIgRW9la0lYmRFyt1JWTzklfq1g+tQ6HgC2RmTqIFQ0QJY59UiBY
+         hDXwqrS2WgnHyDn5uaaw0kY7HLK1C/zO3UfWR75cFaJkWLEAZ59ZBUSYqkcylXafgX7e
+         5XcJMB4YUmE9kXolmJpabu2PGjlVrdvNeclK02CP/fr9+sBGDAbnbNDGMmicL69Kvw27
+         Bd8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793585662; x=1794190462;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=J7MH/48r4Ni/jzs6ijJK/lnj/9Uw/DovSxpncCh69tY=;
+        b=z/k0Sy9+vXFgxgKXP9phWkIAE3kkOsXbw4F005mldNfzFujCl+/34tbPqYLS+gtSTa
+         XYNSbjmkhXTlVNpsEi9EnjOmLDMefSvoGR3JyAF+aZNnHEnIZZ7xDZ+bWqsmrgwfK1Hp
+         iHg0dAm1BCV5WSHNnJ3HjLMMCkDf9w/cO+RjnYGzBi2mln3cJ++pcplw/BnvRjZLC75w
+         8xbXKSrxBxCrwlo3mrnTdL5iI8AZbIuodsgXqp/7CwxyKo+ng/EM3YBHY0gHsyMq/VUo
+         LptcsLWqbCpcJyVrn3cjPddZB82iy7S1Kap8GQm8FQpAK9N8nhjs38OJhaPlOrnLAX20
+         AXjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyABmCLHgoDcIPajT7ZcUOUmwSMPZhgvLOBD49ib6heS24bGFCt5tgIbKVcNVtbepX2CtUMQrzXU/Bz3s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJefqYVGJm1KYHqXWM31o5pZtLNLLI6VELyqXtKTL1h89QaYixf
+	aQBOPa5xlKWNwfAhC+iFjMPNTYnpdZJAkjMlkyReDHRw1hwRBrKZOMAgnsbVbMWjFIV3x3p7raS
+	Ad0qwfBQQ8zWVAoFxZ38Dlw7CLQERTX4aWY/DtOaz8A==
+X-Gm-Gg: AYBFou1eQgZBqsLxEuOOYAaCKOgG8Vp37uawSkGkGEa1y7ggQ3Sd4OUs55BVR9aFXtf
+	iV1hmHYejlnTWukSvRCnE2JWRz64Jmu92e693+X0SCHRIbRtDIw7GRukAEbt3fPo3z4GusLKf5N
+	jO7yPUWOh+0rfzL0Lv6GkOtOJVCch8gEBDvwU5bbiuAbRs4eBOj6h2h2XuPZUAYmK0516uKVzLq
+	GWXV3dPvoMd0O0ksZhpSk7AwynhCgQgpB7BjQlfBt1y/qeymt/pK/qllWi9Ma8p98iRmf4ywT+u
+	jhOhs4yHPjXAjYGbGKc4DV6tWGLniz/3HOI1lUbkFKSkgZa6K6NUnVI9tlfmrI6CuUkQWjIm6j9
+	k1FP3yEUCG1yOkOaTeWtV1nHqjTzBuZYmR4n9lXwLeKpWAhkn3UF1z63Ptf5QjJh/wUSsFm0=
+X-Received: by 2002:a05:6870:899d:b0:4a7:6dc:af65 with SMTP id
+ 586e51a60fabf-4a90761c954mr5103199fac.10.1793585662487; Sun, 01 Nov 2026
+ 18:14:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,112 +103,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgAHDgHn8edqKVXXCg--.2851S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWr15JFy8AF48XF1fGrW5GFg_yoW5uF1kp3
-	y3trn8ta1UXrnFqryrtws7Ar18Ww40qan8CrWkCa4SvF4YvFyDXay7W3WYqFW5ArnrAa43
-	Zw4jkrW7u34UXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBS14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
-	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY1x0264kExVAvwVAq07x20xyl42xK82
-	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
-	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
-	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
-	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU8c_-DUUUU
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+References: <20261030165451.365591-1-hjf3108@gmail.com> <2d53d5420be945fc9bdfbea5542b61db@realtek.com>
+In-Reply-To: <2d53d5420be945fc9bdfbea5542b61db@realtek.com>
+From: Jie Feng <hjf3108@gmail.com>
+Date: Mon, 2 Nov 2026 10:13:46 +0800
+X-Gm-Features: AclHuK_MCrZszNRjWmbMr9BiDOUVzGyr9u-wzmxnrLzdDFuwUYkS6e5HNCVKkjk
+Message-ID: <CABOQOSWOqGEu7xHH1ap=MYqFd_oH7oAhQqCq6Ch622ipHdF5Nw@mail.gmail.com>
+Subject: Re: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the
+ aggregation buffer as a frame
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, Kalle Valo <kvalo@kernel.org>, 
+	neo_jou <neo_jou@realtek.com>, Hans Ulli Kroll <linux@ulli-kroll.de>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The sigtrap handling in __perf_event_overflow() checks
-event->pending_work before calling task_work_add(), but only sets
-pending_work after the task work has been queued.
+On Sun, 1 Nov 2026 at 11:44, Ping-Ke Shih <pkshih@realtek.com> wrote:
+>
+> Ho Jie Feng <hjf3108@gmail.com> wrote:
+> > When rtw_usb_tx_agg_skb() has more than one frame queued, it copies them
+> > into a new buffer. That buffer was also handed to mac80211, as one
+> > additional TX completion.
+> >
+> > Report TX status only for the original frames, and free the aggregate
+> > buffer without passing it to mac80211.
+>
+> The rtw_usb_write_port() might be failed and call ieee80211_purge_tx_queue()
+> to purge txcb->tx_ack_queue list. Should we check if the tail skb of
+> txcb->tx_ack_queue (or just check skb_head) is drv_frame=true?
+I traced ieee80211_purge_tx_queue to ieee80211_report_used_skb, and
+based on the code here:
+https://elixir.bootlin.com/linux/v7.3/source/net/mac80211/status.c#L759
 
-This leaves a window where an NMI can interrupt task_work_add()
-and re-enter __perf_event_overflow() for the same event. Since
-pending_work is still zero, the nested invocation can enqueue
-the same pending_task again.
+I don't think it fulfills any of the conditions, so drv_frame=true entries
+should just go through a normal skb free path.
 
-The re-entrant call path is:
+> > @@ -431,6 +436,9 @@ static bool rtw_usb_tx_agg_skb(struct rtw_usb *rtwusb, struct sk_buff_head *list
+> >                 goto queue;
+> >         }
+> >
+> > +       /* report TX status only for the original frames */
+> > +       rtw_usb_get_tx_data(skb_head)->drv_frame = true;
+>
+> If we can just check drv_frame by skb_head, just declare a local
+>    struct rtw_usb_tx_data *skb_head_tx_data.
+Is this still needed if ieee80211_purge_tx_queue works?
 
-  __perf_event_overflow()
-    task_work_add()
-      kasan_record_aux_stack()
-        <NMI>
-          __perf_event_overflow()
-            task_work_add()
-
-The nested invocation can enqueue pending_task before the
-outer invocation does. When the outer invocation resumes, it
-inserts the same task_work entry again, potentially creating
-a cycle in the task work list.
-
-This causes perf_pending_task() to be executed repeatedly
-and leads to unbalanced event reference counting.
-
-Use cmpxchg() to atomically claim pending_work before calling
-task_work_add(). This ensures that only one invocation can
-enqueue the pending_task, even when interrupted by an NMI.
-
-If task_work_add() fails, clear the pending_work claim so that
-a subsequent overflow can retry.
-
-Also use READ_ONCE() when checking pending_work in the
-exclude_kernel warning path to avoid an unsynchronized read.
-
-Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
----
-v2: Drop the redundant event->pending_work assignment. (Sashiko)
-v1: https://lore.kernel.org/all/20261031114520.642476-1-wutengda@huaweicloud.com/
-
- kernel/events/core.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
-
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 457d75ea7142..ee5c59158b89 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -10925,16 +10925,17 @@ static int __perf_event_overflow(struct perf_event *event,
- 
- 		notify_mode = in_nmi() ? TWA_NMI_CURRENT : TWA_RESUME;
- 
--		if (!event->pending_work &&
--		    !task_work_add(current, &event->pending_task, notify_mode)) {
--			event->pending_work = pending_id;
--			local_inc(&event->ctx->nr_no_switch_fast);
--			WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
--
--			event->pending_addr = 0;
--			if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
--				event->pending_addr = data->addr;
--
-+		if (cmpxchg(&event->pending_work, 0, pending_id) == 0) {
-+			if (!task_work_add(current, &event->pending_task, notify_mode)) {
-+				local_inc(&event->ctx->nr_no_switch_fast);
-+				WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
-+
-+				event->pending_addr = 0;
-+				if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
-+					event->pending_addr = data->addr;
-+			} else {
-+				cmpxchg(&event->pending_work, pending_id, 0);
-+			}
- 		} else if (event->attr.exclude_kernel && valid_sample) {
- 			/*
- 			 * Should not be able to return to user space without
-@@ -10948,7 +10949,7 @@ static int __perf_event_overflow(struct perf_event *event,
- 			 *     To approximate progress (with false negatives),
- 			 *     check 32-bit hash of the current IP.
- 			 */
--			WARN_ON_ONCE(event->pending_work != pending_id);
-+			WARN_ON_ONCE(READ_ONCE(event->pending_work) != pending_id);
- 		}
- 	}
- 
--- 
-2.34.1
-
+> > +
+> >         while (skb_iter) {
+> >                 unsigned long flags;
+> >
+>
+>
