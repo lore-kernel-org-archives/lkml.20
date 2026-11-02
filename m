@@ -1,70 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638743;
-	b=zwKUt9a19oT054c6K2jDdm0zHruKcYsQjrrFizmuQP2fHxEkMt3q+K1GlYBo0am0C7b6
-	 qm/7tTW34eYFqBQ6HCvUMXRv/Da/j49xIvVm1ftwKSJEw8NK5cmGBHvwF7o81e9xWO4d9
-	 EMuvb7z3indbI69ZXgq9vNdNzCcsgKjFMTcchEDBc8ckIYM73ymEA9QihnvyYosjc2Lri
-	 Edrh3ZT6FR2FmeitrQs6jg9i6Cp835Aj4cF6ScPuJAKV0BaqWdgJfNR0SMMQdtAgVwCju
-	 l+Ll9k9z9lWVzRZX5o1pJP9MMwRL9dWNvlhS1gyA1EACw2/Abf+k19L1WYIfhGxK/SQ==
+	t=1793638761;
+	b=Sw7R6g4RGHt6Vvn2YGOR9an8dGtXqM//EzlbOMH4pe5+Z1FqHpD5pf/w1YMu1fvC6OYd
+	 j7osDW3T5241Ib9el73xG+5NGL+BYw1xGBQL81Our3cNWfevqXtQzn/op5a0Ivcit+Yk3
+	 N3FTaJ/vGCRTffBHM95a+uQTTp85ztusMNuKnoZBuF4T+EmFJzDTu3ih0r6CHXJnGAkim
+	 oNvmqOa8L9mcHTUIktVy6dFdOHNAPvjOnMDA4FgS25LnBAwyllGM3p7ZG1IuiXtlfiE4W
+	 sAboukYPn6HFwrOMmfGglabbZstH21FfcGQO8u+d3AOuM00D/bj9OABT46I40WPQlfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638743;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0uwoivLJiAvzutQ7aY0JF+5vLwoMB9+Ywm79ON4BGsE=;
-	b=LtenXy9YjZI+KoLxuzwZGhVpvM+Bmh5vfxBzmmoyn6JU0CJU1+9H5YVn717NenFePwYR
-	 HEm23A4AYAIPe+jKib+7mt/sl/CPv/A5T9Xo7NLM11mAm4GdS4aoXJf6WL9n2QIVazU7i
-	 csw8yJw0erg4Ig438Z1CgeKtPtjMMRusqcodeK48xQ4VarQazK6ImzaYOtNo2S2+lHY2x
-	 5KFJfEipI8vWyTQGhZ4TXjOTkYElo9c+vn0jGlTJTEwl+tk+MVzv4luwp8DJN2xH5j+RU
-	 lAfn2xu4RxmqBaL41EfoC5PVQDVe5UQTTq416MbtRTFcfJ8DAcBm1nQzudLb99ITD0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638761;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+xlGaRU5eM9yXQHc3H7tgVi2dtTUfB0PXU0qiJAlpgs=;
+	b=TJFZkWlgBio+iIIytKSclYwJtfUtWBWMAOwReHD+3VlkuLzwALGEMswETGgLAJ4P34Rn
+	 RIxAS4exW+fzAW0wXglxbH+Ujs7k1yAhMSFQ9Lf+atd5wce/4ehBSDeyxUOASQus70pZG
+	 Iy8uAxQyaFdrmVCyUDgs4A/uVnPApTQZPEpxVZ1brA4cdQ1wbXEvb5uJtlPBpOMOiHXOf
+	 qLmupQ4mn0LZc7O/TGMn+4/k1NJ4EKUScA/SJu9paDqHff2dFkp64LNi3TZY+rQAwFXhA
+	 F5TNRhc4sM7bOSxz7YZD+9nuUycjlILvsUwn0XEXtWmYDe3lQrs6zNY2HhdcSWxIHMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bLoGyWGd;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=bRoNC8Us;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF57F607505B
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:59:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF57F607505B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68EB6075294;
+	Mon,  2 Nov 2026 16:59:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bLoGyWGd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793638741;
-	bh=CL8t3c6JLDGRR3T0QVgRjVlabSJH7qyJQ3Ydz55euyg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=bLoGyWGd5rx6L7H9iLz5O1gc9zmLZqtiSNZ9D4eZXoFydq10BOPzjlAdV695cDKNV
-	 YMtUccFIMB6MHKsja8kI2ISszG8miTcchRB3RrG/X9EVBIGEV5jxRKMvBp1uC2H2QE
-	 NMpSfaOQSf8UlUmk/BhITRogrby+JF7I00lia6DLMfkniAZuOLVrrwSezIhPaXqxU3
-	 mBEZiV8Bj3IJVn3bkT7NNzoxoBHjqtP+sC7MED3HnejtV5zE3eg5QuLxL8mNsYkKNu
-	 U8jJFwd+r1ihj/bzSZk39sWpK4sg2xKDkRY50TySvENmSgNNWOTk8AoryXU42JXjUG
-	 TlhnPGpicFtlw==
-Received: from fedora1.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9911817E0240;
-	Mon, 02 Nov 2026 17:59:00 +0100 (CET)
-Date: Mon, 2 Nov 2026 17:58:56 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Akash Goel
- <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>, Lukas
- Zapolskas <lukas.zapolskas@arm.com>, Florent Tomasin
- <florent.tomasin@arm.com>, Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
-Message-ID: <20261102175856.39e4b36d@fedora1.home>
-In-Reply-To: <20261030144805.667158-1-liviu.dudau@arm.com>
-References: <20261030144305.666845-1-liviu.dudau@arm.com>
-	<20261030144805.667158-1-liviu.dudau@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=bRoNC8Us
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF5291F0180D;
+	Mon,  2 Nov 2026 16:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793638760;
+	bh=+xlGaRU5eM9yXQHc3H7tgVi2dtTUfB0PXU0qiJAlpgs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bRoNC8UsSF4mw/TY+wJg4tWEzHfnwOxBlkLxFNDtvfaHVWciB+qbDgpI+J7zwyrfh
+	 gklRWmAak5o29LWoSA9WX5KD7g53/aHjXFaDRf3Dr+wsv54ddfRkuBl03teyoD7uVK
+	 07XYJmpDvmo5qra7VxGzDeaii86lQKT9hOHvMeIU=
+Date: Mon, 2 Nov 2026 08:59:16 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: "Carlos Bilbao (Lambda)" <carlos.bilbao@kernel.org>,
+ danielmaraboo@gmail.com, skhan@linuxfoundation.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Avadhut Naik
+ <avanaik92@gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: remove bouncing reviewer for Spanish
+ documentation
+Message-Id: <20261102085916.0d1043a3895ddfad9def7e5f@linux-foundation.org>
+In-Reply-To: <87fqxjdy63.fsf@trenco.lwn.net>
+References: <20261102022923.686974-1-carlos.bilbao@kernel.org>
+	<20261101184806.11850a34e2dcfae9c3f55af9@linux-foundation.org>
+	<87fqxjdy63.fsf@trenco.lwn.net>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,40 +60,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 30 Oct 2026 14:48:05 +0000
-Liviu Dudau <liviu.dudau@arm.com> wrote:
+On Mon, 02 Nov 2026 08:56:52 -0700 Jonathan Corbet <corbet@lwn.net> wrote:
 
-> We now have more people that can do reviews and contribute patches
-> to Panthor, so add their names to the list.
+> Andrew Morton <akpm@linux-foundation.org> writes:
 > 
-> Signed-off-by: Liviu Dudau <liviu.dudau@arm.com>
+> > On Sun,  1 Nov 2026 18:29:22 -0800 "Carlos Bilbao (Lambda)" <carlos.bilbao@kernel.org> wrote:
+> >
+> >> Remove Avadhut Naik as reviewer for Spanish documentation. Mail to
+> >> avadhut.naik@amd.com bounces with "address not found". Translator credits
+> >> in the .rst files are left intact as historical attribution.
+> >> 
+> >
+> > Thanks.
+> >
+> >> --- a/MAINTAINERS
+> >> +++ b/MAINTAINERS
+> >> @@ -24843,7 +24843,6 @@ F:	drivers/i2c/busses/i2c-k1.c
+> >>  
+> >>  SPANISH DOCUMENTATION
+> >>  M:	Carlos Bilbao <carlos.bilbao@kernel.org>
+> >> -R:	Avadhut Naik <avadhut.naik@amd.com>
+> >>  S:	Maintained
+> >>  F:	Documentation/translations/sp_SP/
+> >
+> > https://lore.kernel.org/all/20260316125324.396889-1-yazen.ghannam@amd.com/
+> >
+> > suggests a better patch.
+> 
+> I don't quite see how ...?
 
-Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
-
-> 
-> ---
-> v2: Forgot to add Chris Diamand to the list, fixed.
-> ---
->  MAINTAINERS | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 89ea35a35c680..ef92c462a8381 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -2321,6 +2321,10 @@ ARM MALI PANTHOR DRM DRIVER
->  M:	Boris Brezillon <boris.brezillon@collabora.com>
->  M:	Steven Price <steven.price@arm.com>
->  M:	Liviu Dudau <liviu.dudau@arm.com>
-> +R:	Akash Goel <akash.goel@arm.com>
-> +R:	Karunika Choo <karunika.choo@arm.com>
-> +R:	Lukas Zapolskas <lukas.zapolskas@arm.com>
-> +R:	Chris Diamand <chris.diamand@arm.com>
->  L:	dri-devel@lists.freedesktop.org
->  S:	Supported
->  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+Avadhut has a new email address @gmail.com.
 
