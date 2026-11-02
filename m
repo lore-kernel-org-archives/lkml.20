@@ -1,80 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628864;
-	b=pKpshdswkAvHfvyu56m11Ng4CEbGvFK0eTurzhrrXwPMKa59G1CpKh/vVZe/HJyrEUIQ
-	 UwCyGxHFRQ2HFseqnCrI2xowJzJcASE/qMDvKFsJwamFqKGXprubciPTgZv+wMYA2oj0F
-	 IcJ8DyKGJiwnNLbJdJTdKscaYTxUsZA07H01yfH8NVjQS9ZN13gnctbdu1rLL/KYKwBWa
-	 lmO23cnU2SA6+KRkyMBTBTQX+S4rEgX9oPj/zZiJBLjINB1NcPRdDxZWovy/DDpvnShvl
-	 XOwWF5FTVad67f29w8bFy9qRLDKZb01pMCDwJo9uo1DwtATUl0k4cK3BTRKBmvxWubw==
+	t=1793628876;
+	b=jenoJrGKDHp2PK0PvDHkVXV8t0CkvwsEe9z94nksg+n0cODJVVSF1f2rIC9PXnHckzRV
+	 vkEbuhETflFzW7LAv9c4F309YAex8xtL794usy+2Q5dBNJwdLLDWK8ceYN84XDw4wO/6J
+	 n4nndH1EZRpMkPE4OorVQ+tU9NTCDZTjdlCObtXbE6sM0XpiEwOiq24gaV7eO4bBxa/DI
+	 0y/dIy3vqBhWKU3VKZ/MCLEUnlTKWed8Mopt7RCsGh/fPmo67MBcTmHZYZpLlVqJhAJiY
+	 T9Fll1i2X3AyCo7lytuxRfDHoot0MmyzVgsBttqJ07oc/AUjulohdBGLpffFkdjqW2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628864;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628876;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=O9l6+4J6Q0JAqhCl13z5dKK4aG9ZFyHBKaMA7d29aaA=;
-	b=XXXn6qMPjAkqTuaR2+WARpFSNYFLgKjkrEFFxKN6rc7mVQUkUmW9eIF6l+QSmW1fWNdQ
-	 BWwVIRLqO1Z+5zerCJS+smdc6+MY8nuDKy3Rz8TBmTaasuzjxoBpcCrMpZglvqZQxqgZM
-	 5S3SM0MVBADChASpwte+aeGK4kAd2L9EHgII+9dLBgLFZPKQ/6Ai2lEGzXsRuoBwm9idT
-	 JMfSlBAO9HzcgJfw0ZqP6WXUFnTMEBUbO0MZGYJJqNFxl/Sfaqw5akK7ImOCxDzNXW2LF
-	 xdJQ5ZUPwt9MHlP9GpBRbT74Em/hFAaKIWBU4xCMl8O7SSbdWGaYGofhr3Yjg0mBwRg==
+	bh=JAxbuZ/nMtyVx3Id0dCrZWQ+X27krEZ94KZnYOzEcYM=;
+	b=F5FVRMp8p50lRvop2QV2kH+u3MDlAedMU/aPzkEN7VpBviMeUIqw/lY/fSmjoHg0lCps
+	 IL6fyGld6bYNiWB8w6ou27RcTAQGdneIZbXZsnElC62O6RnDo2QuP4t5xUcW/y+kT8C1T
+	 d9gmfPkfPXLXLgcNpZo7ny9CWzmW4V3Qrl3RIW7UXrB120QDjjudFSLx4VfG4dXFMqnKF
+	 +S6FYC8b1aSjsACdTJgGw7PaI54iInl1bbZne/vzwN5lmvaYbAwKciGC32SkHAwGrSRqS
+	 du4uqyh5dCUKRyIEW+OLDKtgvTeJEX039CaRLHzmkoRj9Y3y1ZrPrl1R9vqivH/btrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ihkfHa+L;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32FB0606A334;
-	Mon,  2 Nov 2026 14:14:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32FB0606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GfSE/mUD";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2FA606A9BF;
+	Mon,  2 Nov 2026 14:14:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ihkfHa+L
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E0E91691;
-	Mon,  2 Nov 2026 06:14:20 -0800 (PST)
-Received: from e122027.arm.com (unknown [10.57.58.9])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C848E3F59E;
-	Mon,  2 Nov 2026 06:14:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793628863; bh=vDEqOjWV7ICBwPmWvU+CuAGa9z+MEe1Eh70c6qnULq4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ihkfHa+Lf5iT8gcKObEx1DQ/iVmmotF8Tms2upU7MAkdUAQGTjRCYGgXU0JfO+JiF
-	 rt0o702pi4TC78wIFrTYRjLO+Bmm/RatfYYrEytc2szdp7pVQnwvp+UZ70oSKwhNer
-	 8a0UQtJJEX13PV39etg/0aGd0hkrFR6W61rLM9Uw=
-From: Steven Price <steven.price@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Oliver Upton <oliver.upton@linux.dev>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Christoffer Dall <christoffer.dall@arm.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-coco@lists.linux.dev,
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
-	Gavin Shan <gshan@redhat.com>,
-	Shanker Donthineni <sdonthineni@nvidia.com>,
-	Alper Gun <alpergun@google.com>,
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
-	Emi Kisanuki <fj0570is@fujitsu.com>,
-	Vishal Annapurve <vannapurve@google.com>,
-	WeiLin.Chang@arm.com,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Steven Price <steven.price@arm.com>
-Subject: [PATCH 11/11] KVM: arm64: CCA: Add Realm stage-2 MMU operations
-Date: Mon,  2 Nov 2026 14:13:02 +0000
-Message-ID: <20261102141304.126883-12-steven.price@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102141304.126883-1-steven.price@arm.com>
-References: <20261102141304.126883-1-steven.price@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GfSE/mUD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FCE51F00A18;
+	Mon,  2 Nov 2026 14:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793628876;
+	bh=JAxbuZ/nMtyVx3Id0dCrZWQ+X27krEZ94KZnYOzEcYM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GfSE/mUDP2LBawMieQFlGlmhnw3DgxebhTlO7jWmZCZMSiUJpaXld9q8wTIku9ubT
+	 EwMWjvNCL8gly4SGmWHYqkQGMFMv35XzqygOEoWn6ZqqmHm5RrlCbIoNjEPftjKMow
+	 1jqKuS1pDCOUuQ7YnI9Mpph/XYH4G/0jpb2X1YFPs/uC1vxiKTFq39KEigvxcgW17M
+	 s3Zid1deDMZ/dHkLa9Mqu1EhRltW8jkn6Unr/IMAG/ddJfZCOtmDWFkCrkhYm8OOlS
+	 QT3I0pBcjG78xw2Y0iqWGZCCm+oTCVp7i5x2v8TurTmb2Rsd/W09wdiXG3OCPN7vZu
+	 7w2Z4aUYwKW0A==
+From: Chuck Lever <cel@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>,
+	Haruka Kuze <harukak@zohomail.eu>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nfsd: don't access freed memory when cannot grant a write delegation
+Date: Mon,  2 Nov 2026 09:14:26 -0500
+Message-ID: <179362885856.3023377.13235486966347359157.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261101212135.1231222-1-harukak@zohomail.eu>
+References: <20261101212135.1231222-1-harukak@zohomail.eu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,96 +64,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
+On Mon, 02 Nov 2026 06:21:35 +0900, Haruka Kuze wrote:
+> nfs4_open_delegation() hashes the delegation before the call to
+> nfsd4_add_rdaccess_to_wrdeleg() and nfs4_delegation_stat(), both of which
+> can sleep, and it calls destroy_delegation() from the error path after
+> dropping the caller's reference.
+> 
+> Moreover, a DELEGRETURN from same client can unhash the delegation and
+> drop the hash reference in this window, so nfs4_put_stid() frees it and
+> destroy_delegation() then reads freed memory.
+> 
+> [...]
 
-Register the Realm stage-2 MMU operations now that the RMM mapping
-and unmapping helpers are available. Route unmapping through the
-RMM, and use the existing fault handler for Realm memory faults.
+Applied to nfsd-testing, thanks!
 
-The RMM handles TLB invalidation when stage-2 mappings change, so
-the host has no separate TLB flush to perform. Realm stage-2 does
-not support access flags, including for shared IPAs.
+[1/1] nfsd: don't access freed memory when cannot grant a write delegation
+      commit: 2d3259f652bb0f1d137ccabecac6763da05064ec
 
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-Signed-off-by: Steven Price <steven.price@arm.com>
----
- arch/arm64/kvm/mmu.c | 33 ++++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 20aedbe6ec07..bb33c07569e3 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -191,6 +191,12 @@ static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
- 	return 0;
- }
- 
-+static int realm_flush_remote_tlbs(struct kvm *kvm)
-+{
-+	/* Nothing to do here, RMM does the job */
-+	return 0;
-+}
-+
- /**
-  * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
-  * @kvm:	pointer to kvm structure.
-@@ -218,6 +224,13 @@ static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
- 	return 0;
- }
- 
-+static int realm_flush_remote_tlbs_range(struct kvm *kvm,
-+					 gfn_t gfn, u64 nr_pages)
-+{
-+	/* Nothing to do here, RMM does the job */
-+	return 0;
-+}
-+
- int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
- 				     gfn_t gfn, u64 nr_pages)
- {
-@@ -353,6 +366,15 @@ static void no_stage2_unmap_range(struct kvm_s2_mmu *mmu,
- {
- }
- 
-+static void realm_stage2_unmap_range(struct kvm_s2_mmu *mmu,
-+				     phys_addr_t start, u64 size, bool may_block,
-+				     enum kvm_gfn_range_filter filter)
-+{
-+	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-+
-+	kvm_realm_unmap_range_filter(kvm, start, size, may_block, filter);
-+}
-+
- /*
-  * Unmapping vs dcache management:
-  *
-@@ -3291,6 +3313,15 @@ static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
- 	.vm_mem_abort			= kvm_vm_mem_abort,
- };
- 
-+static const struct kvm_vm_s2_ops realm_vm_s2_ops = {
-+	.vm_flush_remote_tlbs		= realm_flush_remote_tlbs,
-+	.vm_flush_remote_tlbs_range	= realm_flush_remote_tlbs_range,
-+	.vm_age_gfn			= no_age_gfn,
-+	.vm_test_age_gfn		= no_age_gfn,
-+	.vm_stage2_unmap_range		= realm_stage2_unmap_range,
-+	.vm_mem_abort			= kvm_vm_mem_abort,
-+};
-+
- #define KVM_VM_S2_OPS(flavor, ops)		\
- 		[flavor] = &(ops)
- 
-@@ -3299,7 +3330,7 @@ static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
- 	KVM_VM_S2_OPS(VM_NVHE, kvm_default_vm_s2_ops),
- 	KVM_VM_S2_OPS(VM_PKVM, pkvm_vm_s2_ops),
- 	KVM_VM_S2_OPS(VM_PROTECTED_PKVM, protected_pkvm_vm_s2_ops),
--	[VM_REALM] = NULL,
-+	KVM_VM_S2_OPS(VM_REALM, realm_vm_s2_ops),
- };
- 
- static int kvm_vm_init_vm_s2_ops(struct kvm *kvm)
--- 
-2.43.0
+--
+Chuck Lever
 
