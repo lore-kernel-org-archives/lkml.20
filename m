@@ -1,47 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793601634;
-	b=2foBhd5PFCywhZe54cyKfjDCf6CRDYTuXdVk6zYDXkV15qoRutCW09IKr9//ysbeagmG
-	 mcpTaTgoq6HgsB2kr1LA+g7alghoe59OIqUSXMW1dDoviB+ZvyOgErxv/xrv9sZs/QN+K
-	 4B+YfTKW56iRIHe9Vk75L/cb58ODMh5JqKi5YA8qc0Zu56DSKr53MB+6VUic1ZPMCEWj2
-	 lzdRLlPlBckwQxqfmEFfwOnWq0028oV7wTr9Vy0UFmxukk6E385ZO++KZoM9Mxzqam977
-	 4iEbMZpEgccXQCRIz87VStkhyCsZJdYv7rF2MCDEc9XQSTN3CRLoMtClw0FkqbMpUcA==
+	t=1793601646;
+	b=hPFYYpQbC65rQWxsSn8v1ix3hLFbYXOqm/HpfwvqrKUuhhNFdi+KJdeMDe8r4UJPuAAS
+	 alaLn+Gli6r0MCfF4nVgcJ0COldrGl0Uq5rjjXJZjdGVHnuQvqKf9sqoZNttbA0wSP7Kj
+	 Dh+yK4l1qivw6OtkBAbBNwJNOuHc1+wwPJWwG8s9L1ml49w8tRy874WvrMBftQhu6m4zB
+	 B/K4A16YnHFV8GMwHQi7ko0vZ07pYhFRhIk3o56+itINgVIXVLuxny3UStcD9/hQHud90
+	 ju/fV/vnMq7XbltkdbvVcSXhhtM325KEs1tU5SviYLXYzIhDzln6g11CwpneEB+z99Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793601634;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PTr3vTYHZO8//WK5iKDPZ2R6+tlg46gozzv5GKa8yng=;
-	b=vbUOSyQOBrVpm6E9fLphyBdwl0pTq9J/t8dBe6GlKPEk1Yk+7/SlL9+0d1cKgfOOX6St
-	 By+C3FbkTvV44p5YRdV5uZGj50Duqv8Y3ea1cekaJl6VjvRQSePN1dMkjgsYDkctWtu1b
-	 GGjfjTK8xr0VCmCkgHxhbL+Uc57raIyBmIXcj1eGgS1bDvKeQAHuoGlqF+Sq1AeUAyIBm
-	 +ORpRW8utYCLVLDegWyTKTXkmnNriWDJ9lbugB32dZxh2KyLZ4b42CrhBKg0ZBScBb6WV
-	 2ny2EGXxKHm2baXuA4+sJs6PcmqQ24RZuBRjZHWulveqbInKhH7r9OsNy9TxRA9J2Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793601646;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=zX/OOJOMsice6nGvDy+yeA+vQDsuwQqSuMeNkiiRCZ4=;
+	b=t74WvGHSOK6I4MdPDtClvntRu1mqNnGUDsOwoOvFU/QexbGMqkOm1X3hfCfhTsQVfnPl
+	 DR4gPR+MiGCCeHdAhk/PfyNSww5c3y46exq8TSLkkXdE0+JZ77vS6m6hzCdtzTW5NnnXY
+	 p7vQkzwiF2LEsflDMcxO0HM/A5frK/j9Q+6LI8JVj3TOEReXRsSZXkB3s6HyZ1HXE4qlh
+	 O6Vun7H1+MZEXcBHB9wHF76aj19vZDjJW8FWpMZOvXK5ZS6od1sDViTHOIf3ACF6xYjBF
+	 IPSolWTapK0jD6L44y6L+Pk+SBRwKgLYjVuZBWQghySTUyHcEXiZg+6+fhRX1y9c+JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l70qFzab;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dlSUSMtY;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF69606A324;
-	Mon,  2 Nov 2026 06:40:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D8D606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:40:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19D8D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l70qFzab
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F30A1F000C1;
-	Mon,  2 Nov 2026 06:40:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793601634;
-	bh=PTr3vTYHZO8//WK5iKDPZ2R6+tlg46gozzv5GKa8yng=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=l70qFzab7Fnm3MNz4rNSkWb1PmnyKAaayewzifcEEBYaKwcea73ASJahioZNFlOtO
-	 32EdTN+XUKPJTd9RZ3utPt0JY1lsCkZaCEw5+dYhRpqq6lC+XsUtd0iQNvkM4QxAkX
-	 /+LXtMZL8MqVFi9Srb1AvYKJpQo3gsjaqDWeAGpW6F+3Mly4vdDxWZsHYFaPqctcCD
-	 M/pV/VwI9jtJL0Zo0tjzbttOX/7k1KpDLzp5NOdEp7jqncUDn8UuU8UXILwe45TuAq
-	 9FKdG0f39FWGU1SUmvtdkUA82/fQOHbAuWuIBWtWhGMD9LASKjEDYgPPq/qhiVbqsU
-	 9zR+lo9tZCHkg==
-Message-ID: <30db8554-8b79-4350-91d1-cc626abb8133@kernel.org>
-Date: Mon, 2 Nov 2026 07:40:28 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dlSUSMtY
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so2080706a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:40:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793601645; x=1794206445; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:date:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zX/OOJOMsice6nGvDy+yeA+vQDsuwQqSuMeNkiiRCZ4=;
+        b=dlSUSMtYQhiiFD+PIomzjDWkEnRxyVeP2Qzhm+hLE7AGCcrJkvxivQ8FfJXXaHEL2d
+         Iz/gY+HZ3aPRO8Ji+cpp0Odi3+eQxhEYgKMYS1kC5PZboZToKeTY1jcCksOr2kUB9oHi
+         7QysfTZo/30HK3ozndr/7nHW4FnwqsP5X+7Pry/C2ZIlQ8Cq+KtRG05HJ4uDw2n+FpdC
+         Ts14/EhkkSfubC4XiyXCq0yW2GW0RVgjyek0xjlHMT84jJMTFw6wRrHMZ7iSoLfx4VKU
+         Gc6lhdGm/hdiyzAb+OYDzZb2f0nFV9r8gKECpaYXPJF2RBZ06RMOyxWtuSjzKR5M00iG
+         m0EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793601645; x=1794206445;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:date:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zX/OOJOMsice6nGvDy+yeA+vQDsuwQqSuMeNkiiRCZ4=;
+        b=V7VVJauWVxHVWp0PuDN8FkrPk2KdD/T5MabAbjcSG/OCTbJohW9y8ahI8YDvwxmVlV
+         nCjyflmH3jp7fgcx3bw7BCBc6eGh6N5kg6NjbD6IJ5S1K57fGgvW2BN0ZkP5oY7lg4BF
+         6AB/4u6iJ3oiERj5zF6RL/0UD+uLbFcGtnYbmOnFbAG86TavXEZkAQaPRmflpS25EWRo
+         zFkaoQykUMglI+aTBHqjFoNPtHLdfWPiWzea9rDp1eR8ASjUeKCbsYnBI+82kjo2VYxK
+         CZfzXNx/mgQWTklsMP9DNDI3MKqKWfUjkJR5crpI2AM6wPd4/OAnEy+G3UrhWsSsYECS
+         a6TA==
+X-Forwarded-Encrypted: i=1; AKwUvBzGUSbK5zl8Y+v4oyBOmbtNIGk9WgTvAoV2oHqY9UYjXQ6bf08RuJEYFoKiN5RwGAnKi+oldi13HI4YtaM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++QG0g8vjJ4istwpR5/Y7j8Cp7Qs1EOkt46hCPLS78k0svFtlg
+	+8GxnKcbekzj5KkqCleg35R5WdLXmZVbVM2rjjuO13Qhn7lA8/YGwVo=
+X-Gm-Gg: AYBFou3LojF7PZqgAi9ZCZRHIsXzYB1bXqMg2lpflmCiXvzGxMivoXKkmjav211jdY2
+	t9+LKMeJvevqxhn9NtqQsGLKi4sTwCZA0spmntEE574eefRtZtZ13Vzo3feGVlYRQGcKixAFDG1
+	LRihbW3YzQyODNjNp3s0Rvm5NvWfD9S944hhRXvIhKZ0k2pApfKjKhlQ6v1zjwa8Vs5+RKkh9he
+	WWCElsnZS6B/a0X+gSQTp4ELRYCdG9shQyRlq75kEOF6VVSd2xDWgJ6I+I5+bkQx36ylv2YKYmF
+	HzbKQ6fdiqV1EL0BgFlaxBA56k3WUWJyFw2p+tk8n6/c/3G6IYqyrne6TCJJHh0zNfpNXBj2uJR
+	QkTvJ21NGl5O1ed/+kM+V3iyVMkIObHWhWZeIORW5Qw3s05yHItKfs5K+YD98I7OpMLrwsciNLE
+	bPPe6TutitpJrhryet3eWiab+gdM7SJBF3QLtzjCy7s4U3sXaHLkn3+Dp+SaFonI9bSqYaTGADN
+	Pdk1GLSHxihZ6IrqmsEjBJIEmeV9BaIp+97Bx5YFDp0bJ/6goiNYm93s0neZjRoe04fQGtDJyQM
+	7eJk/jkc5aTyQPUpdCkzvWO+Ug==
+X-Received: by 2002:a17:90b:33ce:b0:3ac:8897:7b92 with SMTP id 98e67ed59e1d1-3ae89866572mr7168986a91.57.1793601644988;
+        Sun, 01 Nov 2026 22:40:44 -0800 (PST)
+Received: from [127.0.1.1] ([185.220.238.36])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae87fc548fsm8008246a91.4.2026.11.01.22.40.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 22:40:44 -0800 (PST)
+From: Wang Yibo <szwyb123@gmail.com>
+To: Dave Kleikamp <shaggy@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com,
+ syzbot+b547ffac63b636628299@syzkaller.appspotmail.com,
+ syzbot+ce678add490179a73d5a@syzkaller.appspotmail.com,
+ syzbot+fc1d5d9a7ebabbc27458@syzkaller.appspotmail.com,
+ syzbot+23d1112901d0870bb3e7@syzkaller.appspotmail.com
+Date: Mon, 02 Nov 2026 14:40:01 +0800
+Subject: [PATCH v3] jfs: fix out-of-bounds write in add_missing_indices()
+Message-ID: <20261102144001.36-1-szwyb123@gmail.com>
+In-Reply-To: <20261102123500.35-1-szwyb123@gmail.com>
+References: <20261102123500.35-1-szwyb123@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +102,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] MAINTAINERS: move SLAB ALLOCATOR under MEMORY
- MANAGEMENT
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Gregory Price <gourry@gourry.net>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261101-maint-page_alloc-update-v1-0-27e8c246b13d@kernel.org>
- <20261101-maint-page_alloc-update-v1-2-27e8c246b13d@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261101-maint-page_alloc-update-v1-2-27e8c246b13d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-On 11/1/26 17:34, Vlastimil Babka (SUSE) wrote:
-> Following David's consolidation of several other MM subcomponents, do
-> the same for the slab allocator.
-> 
-> Rename the section to MEMORY MANAGEMENT - SLAB ALLOCATOR and move it to
-> remain in alphabetical order.
-> 
-> Remove Andrew as M: to signify he's not the primary person for picking
-> patches in this subcomponent. get_maintainers will continue CCing him on
-> most patches via the catch-all MM entry. David prefers not being added
-> for mail volume reasons.
-> 
-> Indicate the primary integration branch (slab/for-next) in the T: entry.
-> It will now be integrrated via the mm/linux integration tree.
-> 
-> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> ---
+add_missing_indices() walks the sorted entry table of a directory dtree
+page and rewrites entries whose index is out of range.  The loop
+iterates up to p->header.nextindex (a u8 read from disk, up to 255) and
+indexes p->slot[stbl[i]] with only a lower-bound check (stbl[i] < 0).
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+On a corrupted filesystem stbl[i] can be any byte value, so d->index
+can be written far beyond the end of the dtree page.  For the root
+directory this is worse: the dtree root lives inline in struct
+jfs_inode_info (320 bytes with only 9 slots), so the write lands inside
+the same slab object, corrupting arbitrary fields of the embedded
+struct inode including i_security.  KASAN cannot see it because the
+write stays within the jfs_inode_info allocation.
 
+This is reachable from getdents(2) on a corrupted JFS image and was
+observed as a GPF in bpf_inode_storage_free() reading the garbage
+i_security pointer on inode eviction.
+
+Validate stbl[i] against the page's slot count: DTROOTMAXSLOT for the
+inline root page, and min(p->header.maxslot, DTPAGEMAXSLOT) for regular
+pages (maxslot itself comes from disk and cannot be trusted either).
+
+Three other open reports are the same bug rather than separate ones.
+Two of them die in smk_of_inode() on a crafted inode->i_security, with
+only the upper half of the pointer replaced by 0x0000000c:
+
+	general protection fault in smack_inode_getattr
+	general protection fault in smack_inode_permission
+	general protection fault in smack_file_ioctl
+
+That is a single 4-byte store at i_security + 4.  In struct
+jfs_inode_info the _dtroot union sits at offset 728, its slots are 32
+bytes with the index field at offset 28, and the embedded struct inode
+starts at 1048, so i_security is at 1104 and slot[11].index lands
+exactly on i_security + 4.  The value stored there is the directory's
+next_index, 12.  The only code that stores next_index through an
+unchecked slot index is this function.
+
+Checked on a SMACK enabled build with the reproducer from the first
+report: without the patch it dies in smack_inode_permission() called
+from ksys_umount() with i_security = 0x0000000c27a22900, and with the
+patch the invalid entry is rejected with -EIO and the directory scan
+completes.
+
+Reported-by: syzbot+b547ffac63b636628299@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b547ffac63b636628299
+Reported-by: syzbot+ce678add490179a73d5a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ce678add490179a73d5a
+Reported-by: syzbot+fc1d5d9a7ebabbc27458@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fc1d5d9a7ebabbc27458
+Reported-by: syzbot+23d1112901d0870bb3e7@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=23d1112901d0870bb3e7
+Signed-off-by: Wang Yibo <szwyb123@gmail.com>
+---
+v3: drop the Fixes: tag; the out-of-bounds write predates the
+    commit it pointed at, so the reference was misleading.
+    No change to the code.
+
+ fs/jfs/jfs_dtree.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/fs/jfs/jfs_dtree.c b/fs/jfs/jfs_dtree.c
+index 8ce6e4458cc2..119d03c410b8 100644
+--- a/fs/jfs/jfs_dtree.c
++++ b/fs/jfs/jfs_dtree.c
+@@ -2623,6 +2623,7 @@ static int add_missing_indices(struct inode *inode, s64 bn)
+ 	s8 *stbl;
+ 	tid_t tid;
+ 	struct tlock *tlck;
++	int maxslot;
+ 
+ 	tid = txBegin(inode->i_sb, 0);
+ 
+@@ -2636,6 +2637,11 @@ static int add_missing_indices(struct inode *inode, s64 bn)
+ 
+ 	ASSERT(p->header.flag & BT_LEAF);
+ 
++	if (p->header.flag & BT_ROOT)
++		maxslot = DTROOTMAXSLOT;
++	else
++		maxslot = min_t(u8, p->header.maxslot, DTPAGEMAXSLOT);
++
+ 	tlck = txLock(tid, inode, mp, tlckDTREE | tlckENTRY);
+ 	if (BT_IS_ROOT(mp))
+ 		tlck->type |= tlckBTROOT;
+@@ -2644,7 +2650,7 @@ static int add_missing_indices(struct inode *inode, s64 bn)
+ 
+ 	stbl = DT_GETSTBL(p);
+ 	for (i = 0; i < p->header.nextindex; i++) {
+-		if (stbl[i] < 0) {
++		if (stbl[i] < 0 || stbl[i] >= maxslot) {
+ 			jfs_err("jfs: add_missing_indices: Invalid stbl[%d] = %d for inode %ld, block = %lld",
+ 				i, stbl[i], (long)inode->i_ino, (long long)bn);
+ 			rc = -EIO;
 -- 
-Cheers,
+2.25.1
 
-David
+
