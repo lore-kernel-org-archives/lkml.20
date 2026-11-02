@@ -1,112 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793650446;
-	b=3OYChTt6WEd06RT4L7lWNfCAj2fI1W/UkyHXuNycsWsBED4PqDysMLTh9zZlohk0+pIc
-	 eEIh74HM7KXD9l3UDeEjztw3bvgpSaZsGtf1cup6MyoGNneYUSGmPTg+ZZ8ex/ZjFgrbP
-	 OBdg6JbBJ3x+esSIN1fsQCLj/b9BhD1cxZEdh910zr+e9IzmtRGQ7kz3GHQuh3Tu/g8tw
-	 ni5c8UlPRkrgoUfs8AdziEOwPBweqBq7dGm9U2CiRCc9mZ7r+uILa6TDdBEIGew+RLmUI
-	 5mgV1i/qvcqr7zQVn3EaKjYOvj9g1W+v3eIeJCr/0CazNaaX6qfIywfaV7H73u7zYpA==
+	t=1793650484;
+	b=gjR10HE2HJL9MWztczaWItE0QJorEhWAXOTD3sV6hH0x68NQqUkRarA3rhhwHWqfaWjW
+	 V8iBWXPkDTO/F7vJbEyF1Rc6l9BNJ02rbKtfQ0ecG3jLxFsfgfGDELealJQOlGcAJ2ti6
+	 wW2qJbwxSVqPGqlCu7EoDCJaY+j5NJU/ITfvKQDVuUoDmEyL2Hqy/Mp8HaVqmSTtSzbAk
+	 dwkX7XaZEMsglRjXBEfbEeXrPUadThpBUyEQXfeY/mC8fjWrshBHP7sEu9EwdwmRiZFLF
+	 J0aOf78WS8Z8xIvYD/mdoxLDuVfpZgSEM9VGUMB24LPqzx3c1I7DCE5YcM8Kcw/UL3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793650446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793650484;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=SpB8+CQBXkjbs7fgG+qom3QzkI74HttnULs4D1eQfjE=;
-	b=Vja/nqWX4nR5ep8YFIuA4zSvQlpURHgsJeGnz/6VKHlsjnjYKh8232qg7hsw3Xvr3QeL
-	 KHfG1OcwSpF6NiylaSesZJm5AoRDsxx+/cHoSD7SgWVUeuCeJ3OMpaOuE0maOwfN+66g5
-	 tXihnWSlkBvJf4/WeMBFINoL2qYmk/QQF9PnGR1mBFr9BmSE/zHnL5aQGHmPtdY5BoVog
-	 XDnChkZr15/Lh0kbe54Px9uOuIWBKkL+SsWWAyPHJHivIpDv7jfNyhjmcZp1+Ia4URfeV
-	 1hF+ENEgtcQiUFeyjb6rAvrYXwRX+/m4sHmrfkMzuLgrD1wusS3kIxE4w7+SxPgSFqA==
+	bh=FrzZUUjmSb0UwFew5M9bmNoE5V/vsksNWSR2i1xT9hk=;
+	b=X5TuiIEmsfa2nx2dY4Ox3RjHG0njJhtU467sHdADNwLgW+pMtkdZipQFKbxFkpIT6BKN
+	 9W5U9ERwEk/S6KqNJQbkrODgisPpd8cgbcewZsN2P5GVNvG7swetAlwne8Oa+QTr88xbk
+	 fyxAoOPU7gH9a6hMYzVlH5qMtSBmxFgB0GmDW3jtgS6Ouz7fu4Gyju5oYuw+zvKhhcFIO
+	 klijF7M6GbxZ3csONtTGmP++YEaxAdiEXKYM2ZuQ96o+EDUmPGjIn1UNiinykNu0Y2lVq
+	 OWz7AZbTgUkfaYW0roYr9ldVoSQ15XTsocTUN2NyO8dU+p3XIlo8c9GxNQpJoorkZMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Xz/7OcJX";
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=l5kOQO+Y;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0D5606D804
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:14:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB0D5606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC33606A33D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:14:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC33606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xz/7OcJX
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e4831c028so3017005f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:14:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=l5kOQO+Y
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso34618805e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:14:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793650444; x=1794255244; darn=vger.kernel.org;
+        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793650482; x=1794255282; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SpB8+CQBXkjbs7fgG+qom3QzkI74HttnULs4D1eQfjE=;
-        b=Xz/7OcJXv3n4ZVkfvZLqVkQ49KduMxBQGkYn2pPkc5XmTFjdVb8jW68KmFqWHjVvhM
-         bVP7+zxxszE5Jq0hpZ1cfeHu3LKdYOZ5La/U72fIgb1837PvJpLSbJqiXlzjH/nVzADQ
-         ujlp2H7p2Flopqfz3PPnapZqcm1jCt4YlNEoSlls9F1sE40tm4RKcBFhKT8OPONcdcXg
-         wfQuyk1m+oMdQoANoIsa7IJ5noDwQu8YK/jV6dTzicRcC5vH2SyHGknIQcDa/AzihZiZ
-         zN/CnlEkM8hhgq1md5JRT4UXVhW66MsoNd+mTaWPmbOqNPxMTH3tXik7z6aOZ4RpC0yP
-         95BQ==
+        bh=FrzZUUjmSb0UwFew5M9bmNoE5V/vsksNWSR2i1xT9hk=;
+        b=l5kOQO+YOnKBZz48Qwd2VRKsuV4/XQF7EqT3eqlQmZLw7yWWeyY15huU2SimyFRMry
+         e4+pLwD9/yjQ3Q6qiBxKhAajejON2sMyH9Wsl1oi0Hu6P4N/TdTlXIu+iv+54eAdHrB1
+         AOk1ZiDw7zMt4aG4CNP426F2x5dbuTEn2wrodT/hmUgbsoCy7w0z6Qf2ZO5/p9r7YATY
+         1aEi5fIwADVhZyXjVyBbZUi2BrS4GVzh+uLAQLb7L/3CQYUfbhHkkKQKTWj+dLSM6C2f
+         8dIBFWqxk30FjWLTfz4ia8KVeDxiqdhJhuke7wdJnEykkkimUPBs7bOW0efNuSW0S9I4
+         RJzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793650444; x=1794255244;
+        d=1e100.net; s=20260707; t=1793650482; x=1794255282;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SpB8+CQBXkjbs7fgG+qom3QzkI74HttnULs4D1eQfjE=;
-        b=K3V3QCPuALsfRhhE+udPplR6pYACrW8bb1CB15S1yAU6n8sz3tgU3W+bmnVvCy3u4f
-         7s+35vBPHgB53YhlVLT+RrSppvYG50KsXmxh1m8xPsX7d7eu2zMDIgJABDFGZatPaUmi
-         hEjhO6zOikxHONPYrVEu0QKv38fAsnsQeCNjxsxL14IYNgGAd1WoSOk87n0Trd3g7q7t
-         U26NlClq1o0+ZNVh0nyuXyBWGfIeEoFSqcYI8GjNrEQRzx0CD7Sj9ftxGUm5G14xzdG9
-         vdKXBdw2/YtE6WlmcrpUAcJ7oQMHCfqlEa1IZ6ZMItlfxO0OpBd/+YwphD8s/EiLz479
-         nKUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtF5umvNekAY2tt0DMfQ6VqWDhaigLErXPerKdUe+MSCBlOjohFphBluHRTFoO3WqUCzvdiA3elllhWuI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+r4rOpiLP151l3Q9KgUtBMnDQtjJIbfbcsvrkyWzCl8/tMDD3
-	aOFSo73AM3VxGAci9VOaiLTfcIr2y9pj1N1NT01uhtEAlNYY19QaAWis
-X-Gm-Gg: AYBFou3sdNm3SAHLysIHhiYmpwt4CMCsLiuGEPnbSpamK8wCeURuSUqxA+0S9J0AhHM
-	rINL8G7LvXOKKxW8pHE0mKk9oWyl+pIGKvfY0XUkOjrwgw3V2nQfPZT8MEv6zcOPzclgPSpJ9sI
-	uO9dyxA/pjzTGBc1sHFRJUQQGFVicOtN4N7XOmXY2oidTyHAT1UuUglEUhQOQ+Y79oOUZziUlMv
-	8KACrvb1McEIFHIt78X6EFAocTqbb+gqegbtXZr3rEp2mGtK22/E/D6X250Y6zsw9ZMfLXwx5Bm
-	EnE4ldlXajDaAxi8GkVvIVEGY5jDjK1o8oSJwOSYMcw8WacHOCe9wsAsp2KCigscbQVVDJLi98B
-	/Q/7SANflLVhh5zrl457K3nj/RjaA5JQQgqmcxJRt6Uz9pocEuiaL2VqSAhGwYElTak1wgO+q2o
-	oNTowJblkcYcYJSYerRW3BnkJ8WlqVtwOWh3pQIs5NeHMhfQ5A147NZ842OyKUZv1YE+HKLHU2r
-	lMaKsEC6yh0+/bnwXIZaWKQGRufoX5YBHz3ChGwcsDhf9xeRmOlXP6UGXuO8hiWCWQJ0PQ2TELO
-	ZWb9CnqpIqlX003Fc/pE9X9mINDHloF/XW60zf6CxCVi/eygse6M0H57iTx6aovBXxWgniUs9TW
-	S
-X-Received: by 2002:a05:6000:4919:b0:48e:7b12:aca5 with SMTP id ffacd0b85a97d-48e7b21f3c1mr15888370f8f.46.1793650443909;
-        Mon, 02 Nov 2026 12:14:03 -0800 (PST)
-Received: from mtardy-friendly-lvh-runner.europe-west1-c.c.cilium-dev.internal ([2600:1900:4010:1a8::])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e71b8c6e9sm21471805f8f.43.2026.11.02.12.14.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 12:14:03 -0800 (PST)
-From: Mahe Tardy <mahe.tardy@gmail.com>
-To: bpf@vger.kernel.org
-Cc: Quentin Monnet <qmo@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Mahe Tardy <mahe.tardy@gmail.com>,
-	Tianyi Chen <hi@tychen.cc>,
-	Gyutae Bae <gyutae.bae@navercorp.com>,
-	Hui Su <sh_def@163.com>,
-	Josef Bacik <josef@toxicpanda.com>,
+        bh=FrzZUUjmSb0UwFew5M9bmNoE5V/vsksNWSR2i1xT9hk=;
+        b=FrMhwkhR3WLDoeThfIB40Z260wqsALEiu/ZDSL3KVWOcLdtZpDTJNcfX8rHe/tcIK/
+         MHtSYXNKHuWZAXLnvrXN45AxsBREQLA8G8NVIBX2UN6pSjohOgD68iMJa2BGrGOWDOBC
+         3ajjYBLnbdqH2QaVSBbiTii0GYSEdvZAzcDGpLlecpydo8UWmctezFRa6EuhsY6JH7fK
+         HJuXPE+LZBCLlf2Q0WTuBRLjKzIe+4SE+e/an7xVYR6llSXziOQHyEAkGZvrLqlIfrMI
+         /DHPOJVqOLeqKo4lNJcnri06qY3RiwqnyLBYNaOejIFF3nGY6nfHWapU2bjW6odwZIV7
+         ddjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoLdbE2YDVb5xAIvd086NnXgnYJ61K58P9zqLrNUJkRiDgbVSPQYIE+SyHbr/mYTkI6AZNpsjp9k6OO1I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0/AGha1cFQLM//kTBoHytb7PeassoSHVVeMtRAP5nbmVBkxVi
+	yUB7wbrVUQJCMuk7PLdPovGZzmg6Gtuer/rOJ8xZakzWVD79JbO9BcTHDLHdLTWPc80=
+X-Gm-Gg: AYBFou1fMHEY35PkV/wFpwPgvy4PJhRMSX4WC1Yokckwp17N9AMOZgsyROOvipTXlDz
+	FZDqAR6AE+S8FQM3p9MCvA5YOQNTSjTsnf0HgZg2n9R8q1HhjQLK0REKocS7/DeLxG1jDhdw4oj
+	bPq50n76v8IFyJ7vP8Yv0fNl6PVjJGjUNUc+E7V7VbhyHEA5pBUoSKDL8/hceEdDkrhOgde/n9s
+	FV+SRnL5YZgKxt7/v1RxWyMQrcV/2eHaIEbc2DqihAxfNJFozeMs1z58cNWLM9RxTHDIq0vD6tp
+	KIo15yHtmQdEgyOr7hQw16MRMe2Q2RzATtBJ1m+vBhXEFsFZHlq7xEblyobzlY+WFwaCQ6m8rKw
+	yfVeXkelmu6PgVcjnHqb2osMQ0Pr3o4GLEKvMNME35FeeCM5dxWfpI/evpRdIoFJibwQ9dPZlkE
+	qcSP4y+AmbqIuUDYXziUKY1LXito5bJQfZ2bz6nNpUxKcQj2C9tIQLda4L2NEeKMJJlyEIkt5NZ
+	jOixGE90C0L+kcq30hQYPF29ju0mE7w/9AFAxturgHNMkwJUtisVM4shWhvPGEY3OSXC6FHgKq4
+	8swYgFaSSytSujArFB37xD0s+RuDDDDfNR4CwXFMn4qiNaLDh+ZunhtC1Ivakq1M/m3f+/2zA6z
+	W+zC8EA==
+X-Received: by 2002:a05:600c:1d28:b0:4a2:1612:637a with SMTP id 5b1f17b1804b1-4ac1793fb6bmr309859715e9.16.1793650482499;
+        Mon, 02 Nov 2026 12:14:42 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:6412:7406:ded:3229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a8d60bc5sm9559305e9.8.2026.11.02.12.14.42
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 02 Nov 2026 12:14:42 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v3 2/5] libbpf: Track generated loader link FDs
-Date: Mon,  2 Nov 2026 20:13:53 +0000
-Message-ID: <20261102201356.5798-3-mahe.tardy@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102201356.5798-1-mahe.tardy@gmail.com>
-References: <20261102201356.5798-1-mahe.tardy@gmail.com>
+	Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v3 2/2] pwm: Add a driver for the Ingenic X1600 PWM controller
+Date: Mon,  2 Nov 2026 21:13:25 +0100
+Message-ID: <20261102201325.29507-3-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261102201325.29507-1-olivier@mgcrea.io>
+References: <20261102201325.29507-1-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,113 +108,376 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce gen_attach field to emit program attachment instructions in
-generated SYSCALL loaders.
+The X1600 has a PWM controller of its own, separate from the TCU timers
+that pwm-jz4740 drives on earlier Ingenic SoCs (X1600 programming manual,
+chapter 13): eight channels, each with a power-of-two clock divider and a
+waveform word holding the counts at the high and at the low level, the
+channel's initial level picking which comes first. So the duty offset is
+0 or period - duty, and since neither count may be zero, a duty cycle of 0
+or 100% switches the channel off with its idle level set accordingly.
 
-Generate failure cleanup that closes any created links before releasing
-programs and maps reusing emit_sys_close_blob(). Store the link fds in
-the data buffer similarly to map fds.
+The driver implements the waveform callbacks. A new word and initial
+level go through the update register, which loads them at the end of the
+running period, or when the channel starts; a load requested while one is
+pending replaces it, so nothing waits and the chip is atomic. The manual
+sets the divider before a channel is enabled, and on the R1 a divider
+written to a running channel takes effect at once, so changing it changes
+the length of the period then running.
 
-Append bpf_link_desc outputs after the program descriptors and copy the
-link FDs to the loader context on success.
+Tested on a HiBy R1, whose backlight is channel 0.
 
-Signed-off-by: Mahe Tardy <mahe.tardy@gmail.com>
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
 ---
- tools/lib/bpf/bpf_gen_internal.h |  2 ++
- tools/lib/bpf/gen_loader.c       | 17 ++++++++++++++++-
- tools/lib/bpf/libbpf.h           |  3 ++-
- tools/lib/bpf/skel_internal.h    |  4 ++++
- 4 files changed, 24 insertions(+), 2 deletions(-)
+v3: the changes are listed in the cover letter.
 
-diff --git a/tools/lib/bpf/bpf_gen_internal.h b/tools/lib/bpf/bpf_gen_internal.h
-index 206adf28793d..b601269abe45 100644
---- a/tools/lib/bpf/bpf_gen_internal.h
-+++ b/tools/lib/bpf/bpf_gen_internal.h
-@@ -39,6 +39,8 @@ struct bpf_gen {
- 	ssize_t cleanup_label;
- 	__u32 nr_progs;
- 	__u32 nr_maps;
-+	int link_fds;
-+	__u32 nr_link_slots;
- 	int log_level;
- 	int error;
- 	struct ksym_relo_desc *relos;
-diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
-index 555d4757a898..7f41b5a517fe 100644
---- a/tools/lib/bpf/gen_loader.c
-+++ b/tools/lib/bpf/gen_loader.c
-@@ -122,6 +122,10 @@ void bpf_gen__init(struct bpf_gen *gen, int log_level, int nr_progs, int nr_maps
- 	gen->log_level = log_level;
- 	gen->nr_obj_maps = nr_maps;
- 	gen->max_func_ptr_maps = max_func_ptr_maps;
-+	if (OPTS_GET(gen->opts, gen_attach, false)) {
-+		gen->link_fds = add_data(gen, NULL, nr_progs * sizeof(int));
-+		gen->nr_link_slots = nr_progs;
-+	}
- 	if (nr_maps + max_func_ptr_maps > MAX_USED_MAPS) {
- 		pr_warn("Total maps exceeds %d\n", MAX_USED_MAPS);
- 		gen->error = -E2BIG;
-@@ -150,10 +154,14 @@ void bpf_gen__init(struct bpf_gen *gen, int log_level, int nr_progs, int nr_maps
- 			      /* 6 insns for emit_sys_close_blob,
- 			       * 6 insns for debug_regs in emit_sys_close_blob
- 			       */
--			      nr_maps * (6 + (gen->log_level ? 6 : 0))));
-+			      (nr_maps + gen->nr_link_slots) *
-+			      (6 + (gen->log_level ? 6 : 0))));
+ MAINTAINERS                     |   1 +
+ drivers/pwm/Kconfig             |  11 ++
+ drivers/pwm/Makefile            |   1 +
+ drivers/pwm/pwm-ingenic-x1600.c | 289 ++++++++++++++++++++++++++++++++
+ 4 files changed, 302 insertions(+)
+ create mode 100644 drivers/pwm/pwm-ingenic-x1600.c
 
- 	/* remember the label where all error branches will jump to */
- 	gen->cleanup_label = gen->insn_cur - gen->insn_start;
-+	/* Detach any programs activated before a later operation failed. */
-+	for (i = 0; i < gen->nr_link_slots; i++)
-+		emit_sys_close_blob(gen, gen->link_fds + i * sizeof(int));
- 	/* emit cleanup code: close all temp FDs */
- 	for (i = 0; i < nr_progs_sz; i += 4) {
- 		emit(gen, BPF_LDX_MEM(BPF_W, BPF_REG_1, BPF_REG_10, -stack_sz + i));
-@@ -413,6 +421,13 @@ int bpf_gen__finish(struct bpf_gen *gen, int nr_progs, int nr_maps)
- 			      sizeof(struct bpf_map_desc) * i +
- 			      offsetof(struct bpf_map_desc, map_fd), 4,
- 			      blob_fd_array_off(gen, i));
-+	for (i = 0; i < gen->nr_link_slots; i++)
-+		move_blob2ctx(gen,
-+			      sizeof(struct bpf_loader_ctx) +
-+			      sizeof(struct bpf_map_desc) * gen->nr_maps +
-+			      sizeof(struct bpf_prog_desc) * gen->nr_link_slots +
-+			      sizeof(struct bpf_link_desc) * i, 4,
-+			      gen->link_fds + i * sizeof(int));
- 	emit(gen, BPF_MOV64_IMM(BPF_REG_0, 0));
- 	emit(gen, BPF_EXIT_INSN());
- 	if (!gen->error) {
-diff --git a/tools/lib/bpf/libbpf.h b/tools/lib/bpf/libbpf.h
-index 22204a544b23..a2ee239c114d 100644
---- a/tools/lib/bpf/libbpf.h
-+++ b/tools/lib/bpf/libbpf.h
-@@ -1990,9 +1990,10 @@ struct gen_loader_opts {
- 	__u32 data_sz;
- 	__u32 insns_sz;
- 	bool gen_hash;
-+	bool gen_attach;
- };
-
--#define gen_loader_opts__last_field gen_hash
-+#define gen_loader_opts__last_field gen_attach
- LIBBPF_API int bpf_object__gen_loader(struct bpf_object *obj,
- 				      struct gen_loader_opts *opts);
-
-diff --git a/tools/lib/bpf/skel_internal.h b/tools/lib/bpf/skel_internal.h
-index 9e16b8e8cb7c..cac7b1d2abfb 100644
---- a/tools/lib/bpf/skel_internal.h
-+++ b/tools/lib/bpf/skel_internal.h
-@@ -47,6 +47,10 @@ struct bpf_prog_desc {
- 	int prog_fd;
- };
-
-+struct bpf_link_desc {
-+	int link_fd;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c905aa13bcbc..c090512468a4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12882,6 +12882,7 @@ INGENIC X1600 PWM DRIVER
+ M:	Olivier Louvignes <olivier@mgcrea.io>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/pwm/ingenic,x1600-pwm.yaml
++F:	drivers/pwm/pwm-ingenic-x1600.c
+ 
+ INJOINIC IP5xxx POWER BANK IC DRIVER
+ M:	Samuel Holland <samuel@sholland.org>
+diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+index 729776086879..d3bf11b94c43 100644
+--- a/drivers/pwm/Kconfig
++++ b/drivers/pwm/Kconfig
+@@ -336,6 +336,17 @@ config PWM_IMX_TPM
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called pwm-imx-tpm.
+ 
++config PWM_INGENIC_X1600
++	tristate "Ingenic X1600 PWM support"
++	depends on MACH_INGENIC || COMPILE_TEST
++	depends on COMMON_CLK && OF && HAS_IOMEM
++	help
++	  Generic PWM framework driver for the PWM controller of the
++	  Ingenic X1600.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called pwm-ingenic-x1600.
++
+ config PWM_INTEL_LGM
+ 	tristate "Intel LGM PWM support"
+ 	depends on HAS_IOMEM
+diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+index 5630a521a7cf..4b1a1784692a 100644
+--- a/drivers/pwm/Makefile
++++ b/drivers/pwm/Makefile
+@@ -28,6 +28,7 @@ obj-$(CONFIG_PWM_IMG)		+= pwm-img.o
+ obj-$(CONFIG_PWM_IMX1)		+= pwm-imx1.o
+ obj-$(CONFIG_PWM_IMX27)		+= pwm-imx27.o
+ obj-$(CONFIG_PWM_IMX_TPM)	+= pwm-imx-tpm.o
++obj-$(CONFIG_PWM_INGENIC_X1600)	+= pwm-ingenic-x1600.o
+ obj-$(CONFIG_PWM_INTEL_LGM)	+= pwm-intel-lgm.o
+ obj-$(CONFIG_PWM_IPQ)		+= pwm-ipq.o
+ obj-$(CONFIG_PWM_IQS620A)	+= pwm-iqs620a.o
+diff --git a/drivers/pwm/pwm-ingenic-x1600.c b/drivers/pwm/pwm-ingenic-x1600.c
+new file mode 100644
+index 000000000000..1855e0cb1a56
+--- /dev/null
++++ b/drivers/pwm/pwm-ingenic-x1600.c
+@@ -0,0 +1,289 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * PWM controller of the Ingenic X1600
++ *
++ * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
++ *
++ * Eight channels, each with a power-of-two clock divider and a waveform word
++ * holding the counts at the high and at the low level; the channel's initial
++ * level picks which comes first (X1600 programming manual, chapter 13). Unlike
++ * the JZ47xx and X1000, whose PWMs are TCU timer channels (pwm-jz4740), the
++ * X1600 has this separate controller.
++ *
++ * Reference manual:
++ * https://github.com/Ingenic-community/datasheets/blob/main/X/X1600_PM_20220117.pdf
++ *
++ * Limitations:
++ * - The duty offset is 0 or period - duty (the high level last).
++ * - Neither count may be zero, so for a duty cycle of 0 or 100% the channel
++ *   is switched off, its output held low or high by its idle level.
++ * - A disabled channel finishes its period, then drives its idle level, low.
++ * - A new divider takes effect at once, so the period then running ends at
++ *   the new rate; the other settings take effect when that period ends.
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bitops.h>
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/err.h>
++#include <linux/io.h>
++#include <linux/math64.h>
++#include <linux/minmax.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/pwm.h>
++#include <linux/time.h>
++#include <linux/types.h>
++
++#define X1600_PWM_ENS			0x00	/* write 1: switch a channel on */
++#define X1600_PWM_ENC			0x04	/* write 1: switch a channel off */
++#define X1600_PWM_EN			0x08	/* the channels switched on */
++#define X1600_PWM_UPT			0x10	/* write 1: load the word at period end */
++#define X1600_PWM_BUSY			0x14	/* a load is pending */
++#define X1600_PWM_MS			0x20	/* 0: waveform word, 1: DMA */
++#define X1600_PWM_INL			0x24	/* a period's first level, taken at load */
++#define X1600_PWM_IDL			0x28	/* the level while off */
++#define X1600_PWM_CCFG(n)		(0x40 + 4 * (n))
++#define X1600_PWM_WCFG(n)		(0x80 + 4 * (n))
++
++#define X1600_PWM_CCFG_PRESCALE		GENMASK(3, 0)	/* divide by 2^PRESCALE */
++#define X1600_PWM_WCFG_HIGH		GENMASK(31, 16)
++#define X1600_PWM_WCFG_LOW		GENMASK(15, 0)
++
++#define X1600_PWM_NUM			8
++/* The period's count, so that each of HIGH and LOW fits too. */
++#define X1600_PWM_MAX_COUNT		FIELD_MAX(X1600_PWM_WCFG_LOW)
++/* PRESCALE is four bits wide, but its values from 8 up are reserved. */
++#define X1600_PWM_MAX_PRESCALE		7
++
++struct x1600_pwm {
++	void __iomem *base;
++	unsigned long rate;
 +};
 +
- enum {
- 	BPF_SKEL_KERNEL = (1ULL << 0),
- };
---
-2.43.0
++struct x1600_pwm_wfhw {
++	u32 wcfg;
++	u8 prescale;
++	bool enabled;
++	bool inl;
++	bool idl;
++};
++
++/* Counts of the undivided clock, which runs at most at NSEC_PER_SEC. */
++static u64 x1600_pwm_counts(u64 ns, unsigned long rate)
++{
++	return mul_u64_u64_div_u64(ns, rate, NSEC_PER_SEC);
++}
++
++/*
++ * counts is HIGH + LOW, at most 2 * 0xffff (17 bits), and prescale at most 15
++ * (the field's width), so (counts * NSEC_PER_SEC) << prescale stays below 2^62.
++ */
++static u64 x1600_pwm_ns(u64 counts, unsigned long rate, unsigned int prescale)
++{
++	return DIV64_U64_ROUND_UP((counts * NSEC_PER_SEC) << prescale, rate);
++}
++
++static int x1600_pwm_round_waveform_tohw(struct pwm_chip *chip, struct pwm_device *pwm,
++					 const struct pwm_waveform *wf, void *_wfhw)
++{
++	struct x1600_pwm *x = pwmchip_get_drvdata(chip);
++	struct x1600_pwm_wfhw *wfhw = _wfhw;
++	u64 period, high, offset;
++	unsigned int prescale;
++	int ret = 0;
++
++	*wfhw = (struct x1600_pwm_wfhw){ };
++	if (!wf->period_length_ns)
++		return 0;
++
++	/* The smallest divider that brings the period within the counter. */
++	period = x1600_pwm_counts(wf->period_length_ns, x->rate);
++	prescale = min(fls64(period / (X1600_PWM_MAX_COUNT + 1)),
++		       X1600_PWM_MAX_PRESCALE);
++	period = min(period >> prescale, X1600_PWM_MAX_COUNT);
++	if (period < 2) {
++		period = 2;
++		ret = 1;
++	}
++	high = min(x1600_pwm_counts(wf->duty_length_ns, x->rate) >> prescale, period);
++	offset = x1600_pwm_counts(wf->duty_offset_ns, x->rate) >> prescale;
++
++	wfhw->prescale = prescale;
++	wfhw->wcfg = FIELD_PREP(X1600_PWM_WCFG_HIGH, high) |
++		     FIELD_PREP(X1600_PWM_WCFG_LOW, period - high);
++	wfhw->enabled = high && high < period;
++	/* Low first only if the requested offset reaches period - duty. */
++	wfhw->inl = !wfhw->enabled || offset < period - high;
++	wfhw->idl = high == period;
++
++	return ret;
++}
++
++static int x1600_pwm_round_waveform_fromhw(struct pwm_chip *chip, struct pwm_device *pwm,
++					   const void *_wfhw, struct pwm_waveform *wf)
++{
++	struct x1600_pwm *x = pwmchip_get_drvdata(chip);
++	const struct x1600_pwm_wfhw *wfhw = _wfhw;
++	u32 high = FIELD_GET(X1600_PWM_WCFG_HIGH, wfhw->wcfg);
++	u32 low = FIELD_GET(X1600_PWM_WCFG_LOW, wfhw->wcfg);
++
++	*wf = (struct pwm_waveform){ };
++
++	/* Cleared counts: the channel was disabled, or never set up. */
++	if (!high && !low)
++		return 0;
++
++	wf->period_length_ns = x1600_pwm_ns(high + low, x->rate, wfhw->prescale);
++
++	/*
++	 * A channel that is off holds its idle level for as long as it is off:
++	 * a duty cycle of 0 or 100% over the period its counts give. INL plays
++	 * no part, it only sets the level a running period starts with.
++	 */
++	if (!wfhw->enabled) {
++		wf->duty_length_ns = wfhw->idl ? wf->period_length_ns : 0;
++		return 0;
++	}
++
++	wf->duty_length_ns = x1600_pwm_ns(high, x->rate, wfhw->prescale);
++	wf->duty_offset_ns = wfhw->inl ? 0 : x1600_pwm_ns(low, x->rate, wfhw->prescale);
++
++	return 0;
++}
++
++static int x1600_pwm_read_waveform(struct pwm_chip *chip, struct pwm_device *pwm,
++				   void *_wfhw)
++{
++	struct x1600_pwm *x = pwmchip_get_drvdata(chip);
++	struct x1600_pwm_wfhw *wfhw = _wfhw;
++	unsigned int ch = pwm->hwpwm;
++
++	wfhw->enabled = readl(x->base + X1600_PWM_EN) & BIT(ch);
++	wfhw->inl = readl(x->base + X1600_PWM_INL) & BIT(ch);
++	wfhw->idl = readl(x->base + X1600_PWM_IDL) & BIT(ch);
++	wfhw->prescale = FIELD_GET(X1600_PWM_CCFG_PRESCALE,
++				   readl(x->base + X1600_PWM_CCFG(ch)));
++	wfhw->wcfg = readl(x->base + X1600_PWM_WCFG(ch));
++
++	return 0;
++}
++
++static void x1600_pwm_set_bit(struct x1600_pwm *x, unsigned int reg,
++			      unsigned int ch, bool set)
++{
++	u32 val = readl(x->base + reg);
++
++	if (set)
++		val |= BIT(ch);
++	else
++		val &= ~BIT(ch);
++	writel(val, x->base + reg);
++}
++
++static int x1600_pwm_write_waveform(struct pwm_chip *chip, struct pwm_device *pwm,
++				    const void *_wfhw)
++{
++	struct x1600_pwm *x = pwmchip_get_drvdata(chip);
++	const struct x1600_pwm_wfhw *wfhw = _wfhw;
++	unsigned int ch = pwm->hwpwm;
++	bool enabled = readl(x->base + X1600_PWM_EN) & BIT(ch);
++
++	/* The idle level only shows once the channel is off. */
++	x1600_pwm_set_bit(x, X1600_PWM_IDL, ch, wfhw->idl);
++
++	/*
++	 * Switched off, the channel finishes its period, then holds its idle
++	 * level. The rest is written all the same, to be read back.
++	 */
++	if (enabled && !wfhw->enabled)
++		writel(BIT(ch), x->base + X1600_PWM_ENC);
++
++	/* The divider takes effect at once, even in the middle of a period. */
++	writel(FIELD_PREP(X1600_PWM_CCFG_PRESCALE, wfhw->prescale),
++	       x->base + X1600_PWM_CCFG(ch));
++
++	/*
++	 * The initial level and the word are loaded together, at the end of
++	 * the period running or when the channel starts. A load requested
++	 * while one is pending replaces it, so there is nothing to wait for.
++	 */
++	x1600_pwm_set_bit(x, X1600_PWM_INL, ch, wfhw->inl);
++	writel(wfhw->wcfg, x->base + X1600_PWM_WCFG(ch));
++	if (!wfhw->enabled)
++		return 0;
++	writel(BIT(ch), x->base + X1600_PWM_UPT);
++
++	/*
++	 * A channel just switched off still runs until its period ends, and
++	 * reads as off: switched on again, it takes the word loaded above.
++	 */
++	if (!enabled) {
++		x1600_pwm_set_bit(x, X1600_PWM_MS, ch, false);
++		writel(BIT(ch), x->base + X1600_PWM_ENS);
++	}
++
++	return 0;
++}
++
++static const struct pwm_ops x1600_pwm_ops = {
++	.sizeof_wfhw = sizeof(struct x1600_pwm_wfhw),
++	.round_waveform_tohw = x1600_pwm_round_waveform_tohw,
++	.round_waveform_fromhw = x1600_pwm_round_waveform_fromhw,
++	.read_waveform = x1600_pwm_read_waveform,
++	.write_waveform = x1600_pwm_write_waveform,
++};
++
++static int x1600_pwm_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct pwm_chip *chip;
++	struct x1600_pwm *x;
++	struct clk *clk;
++	int ret;
++
++	chip = devm_pwmchip_alloc(dev, X1600_PWM_NUM, sizeof(*x));
++	if (IS_ERR(chip))
++		return PTR_ERR(chip);
++	x = pwmchip_get_drvdata(chip);
++
++	x->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(x->base))
++		return PTR_ERR(x->base);
++
++	clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk), "Unable to get clock\n");
++
++	ret = devm_clk_rate_exclusive_get(dev, clk);
++	if (ret)
++		return dev_err_probe(dev, ret, "Unable to get exclusive rate\n");
++
++	x->rate = clk_get_rate(clk);
++	if (!x->rate || x->rate > NSEC_PER_SEC)
++		return dev_err_probe(dev, -EINVAL, "Invalid clock rate: %lu\n", x->rate);
++
++	chip->ops = &x1600_pwm_ops;
++	chip->atomic = true;
++	return devm_pwmchip_add(dev, chip);
++}
++
++static const struct of_device_id x1600_pwm_of_match[] = {
++	{ .compatible = "ingenic,x1600-pwm" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, x1600_pwm_of_match);
++
++static struct platform_driver x1600_pwm_driver = {
++	.driver = {
++		.name = "ingenic-x1600-pwm",
++		.of_match_table = x1600_pwm_of_match,
++	},
++	.probe = x1600_pwm_probe,
++};
++module_platform_driver(x1600_pwm_driver);
++
++MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
++MODULE_DESCRIPTION("Ingenic X1600 PWM driver");
++MODULE_LICENSE("GPL");
+-- 
+2.54.0
 
